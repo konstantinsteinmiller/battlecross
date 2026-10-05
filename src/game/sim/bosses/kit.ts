@@ -1,5 +1,5 @@
 import { ENEMY_BY_ID } from '../../data/enemies'
-import { isSolidAt } from '../grid'
+import { isSolidAt, nearestOpen } from '../grid'
 import { applyStatus, dealDamage, removeStatus } from '../combat'
 import { cellIndex, face, setGoal, stop, walk } from '../actors'
 import { hasStatus, newAction, type Sim } from '../world'
@@ -135,6 +135,14 @@ export const runCharge = (sim: Sim, u: Unit): void => {
 }
 
 const hitsBuf: Unit[] = []
+const out2: [number, number] = [0, 0]
+
+/** A body pushed into rock (carried on a charge) is put back on the nearest open ground. */
+const keepOut = (sim: Sim, c: Unit): void => {
+  if (!isSolidAt(sim.grid, c.x, c.z) || !nearestOpen(sim.grid, c.x, c.z, out2, 3)) return
+  c.x = out2[0]
+  c.z = out2[1]
+}
 
 /** One step of a run: carry, ram, or stop. Returns false once the run is over. */
 export const stepCharge = (sim: Sim, u: Unit, dt: number): boolean => {
@@ -176,6 +184,8 @@ export const stepCharge = (sim: Sim, u: Unit, dt: number): boolean => {
   if (c) {
     c.x = u.x + b.dx * (u.r + c.r * 0.8)
     c.z = u.z + b.dz * (u.r + c.r * 0.8)
+    // Never into the rock: pressed against it, on open ground.
+    keepOut(sim, c)
     c.facing = Math.atan2(-b.dx, -b.dz)
     c.action = null
   }
@@ -202,6 +212,7 @@ const ram = (sim: Sim, u: Unit, o: ChargeOpts, carried: Unit | undefined): void 
   if (carried && carried.alive) {
     // Pinned against the rock: the full blow, and held there.
     strikeFor(sim, u, carried, o.pinDmg)
+    keepOut(sim, carried)
     removeStatus(carried, 'stun')
     applyStatus(sim, carried, 'stun', o.pinStun, 1, u)
     // It backs off the wall to come again.

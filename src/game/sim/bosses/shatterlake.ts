@@ -1,4 +1,4 @@
-import { hasLineOfSight, isSolidAt } from '../grid'
+import { isSolidAt, sightPastWalls } from '../grid'
 import { addField, cellIndex, raiseWall } from '../actors'
 import { applyStatus, knockback } from '../combat'
 import type { Sim } from '../world'
@@ -121,7 +121,8 @@ const shatterlake: BossScript = {
   think(sim, u, tgt) {
     const b = u.boss!
     const d = Math.hypot(tgt.x - u.x, tgt.z - u.z)
-    const los = hasLineOfSight(sim.grid, u.x, u.z, tgt.x, tgt.z)
+    // He knows where you hide: his own ice does not keep him from charging at you.
+    const los = sightPastWalls(sim.grid, u.x, u.z, tgt.x, tgt.z)
     if (b.phase >= 2 && (b.cd.glacierNext ?? 0) <= 0 && (b.cd.glacierRun ?? 0) <= 0) {
       b.cd.glacierNext = 13
       move(sim, u, 'slam', 0.9, 0.6, tgt)
@@ -166,9 +167,11 @@ const shatterlake: BossScript = {
       for (const t of sim.inCircle(other(u), hx, hz, HAMMER_R, hitsBuf)) {
         strikeFor(sim, u, t, 1.9, 'frost')
         applyStatus(sim, t, 'slow', 2.5, 0.45, u)
-        knockback(t, hx, hz, 5)
+        // Thrown back, away from him.
+        knockback(t, u.x, u.z, 12)
       }
-      spikes(sim, hx, hz, a)
+      // The ice bursts up on his side of the blow: the one it hit is behind it.
+      spikes(sim, hx - Math.sin(a) * 1.7, hz - Math.cos(a) * 1.7, a)
     } else if (act.id === 'slam' && b.marks.includes('glacier')) {
       b.marks.splice(b.marks.indexOf('glacier'), 1)
       sim.emit({ t: 'fx', id: 'quake', x: u.x, z: u.z, r: 5, color: COLOR })
@@ -183,8 +186,8 @@ const shatterlake: BossScript = {
       for (let i = 0; i < 9; i++) {
         const ang = (i / 9) * Math.PI * 2 + sim.rng() * 0.5
         const r = 4 + sim.rng() * 7
-        const x = u.homeX + Math.sin(ang) * r
-        const z = u.homeZ + Math.cos(ang) * r
+        const x = u.x + Math.sin(ang) * r
+        const z = u.z + Math.cos(ang) * r
         if (isSolidAt(sim.grid, x, z)) continue
         addField(sim, { fx: 'frost', kind: 'web', src: u, x, z, r: 1.8 + sim.rng() * 0.8, dur: 40, every: 0.5, dmg: 0, type: 'frost', color: COLOR })
       }

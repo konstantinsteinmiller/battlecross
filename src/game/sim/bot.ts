@@ -4,7 +4,7 @@ import { SKILLS, SKILL_BY_ID, meetsSkill, type ClassId } from '../data/skills'
 import { ITEMS, noGear, type ItemSlot, type ZoneId } from '../data/items'
 import { ZONES, visitLevel } from '../data/zones'
 import { applyPlan, populateZone } from './director'
-import { castSkill, createHero, orderAttack, orderMove, rollHero, slotState, useManaPotion, usePotion } from './hero'
+import { ROLL_DIST, castSkill, createHero, orderAttack, orderMove, rollHero, slotState, useManaPotion, usePotion } from './hero'
 import { isSolidAt } from './grid'
 import type { Danger } from './types'
 import { chestLock, orderOpen } from './interact'
@@ -240,9 +240,24 @@ const dodge = (sim: Sim): boolean => {
     // A shadow that hunts: only once it has locked.
     if (d.tele.follow && sim.time - d.t0 < (d.tele.lock ?? 0)) continue
     if (!rollsFor(d.n) || !inDanger(d, u.x, u.z, u.r)) continue
-    let [rx, rz] = wayOut(d, u.x, u.z)
+    // Of the rolls that come out clear, the one that stays nearest its foe
+    // (a fight that only ever rolls away wanders off across the map).
+    const foe = h.order.kind === 'attack' ? sim.live(h.order.targetId) : undefined
+    let best: [number, number] | null = null
+    let bd = Infinity
+    for (let k = 0; k < 12; k++) {
+      const a = (k / 12) * Math.PI * 2
+      const rx = Math.sin(a)
+      const rz = Math.cos(a)
+      const x = u.x + rx * ROLL_DIST
+      const z = u.z + rz * ROLL_DIST
+      if (isSolidAt(sim.grid, u.x + rx * 2, u.z + rz * 2) || isSolidAt(sim.grid, x, z) || inDanger(d, x, z, u.r)) continue
+      const s = foe ? Math.abs(Math.hypot(foe.x - x, foe.z - z) - 3) : 0
+      if (s < bd) { bd = s; best = [rx, rz] }
+    }
+    let [rx, rz] = best ?? wayOut(d, u.x, u.z)
     // Rock that way: the other way.
-    if (isSolidAt(sim.grid, u.x + rx * 3, u.z + rz * 3)) { rx = -rx; rz = -rz }
+    if (!best && isSolidAt(sim.grid, u.x + rx * 3, u.z + rz * 3)) { rx = -rx; rz = -rz }
     return rollHero(sim, rx, rz)
   }
   return false

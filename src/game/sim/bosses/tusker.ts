@@ -14,7 +14,7 @@ import { bark, daze, exitField, move, other, warn, windCharge, type ChargeOpts }
  *             and pinned there, stunned 2 s. Missed: he rams the rock and
  *             stands dazed 3.5 s, hurt half again as much. The King on his
  *             back throws bombs (the def's barrage); at 75 % he blows his war
- *             horn and goblins come running.
+ *             horn and two goblins come running.
  *   50 %      the King leaps off (a shockwave where he lands); Tusker turns
  *             and runs off down the way in, gone.
  *   the King  on foot, a fresh health bar: three dashes along three lanes,
@@ -63,9 +63,9 @@ const tusker: BossScript = {
   land(sim, u, act) {
     if (act.id === 'enrage') {
       sim.emit({ t: 'fx', id: 'roar', x: u.x, z: u.z, r: 7, color: '#c9a24a' })
-      for (let i = 0; i < 3; i++) {
+      for (let i = 0; i < 2; i++) {
         const [x, z] = awayFromHero(sim, u.x, u.z, 4 + i)
-        const m = spawnEnemy(sim, i === 2 ? 'goblinSlinger' : 'goblin', x, z, u.group, u)
+        const m = spawnEnemy(sim, i === 1 ? 'goblinSlinger' : 'goblin', x, z, u.group, u)
         if (m) sim.emit({ t: 'fx', id: 'summon', x: m.x, z: m.z, color: '#c9a24a' })
       }
     }

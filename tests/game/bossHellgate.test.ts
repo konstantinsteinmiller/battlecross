@@ -6,7 +6,7 @@ import { stepSim } from '@/game/sim/step'
 import { generateArena } from '@/game/sim/zoneGen'
 import { applyPlan } from '@/game/sim/director'
 import { startAttrs } from '@/game/data/attributes'
-import { HELLGATE_TUNING } from '@/game/sim/bosses/hellgate'
+import { HELLGATE_TUNING, gateOf } from '@/game/sim/bosses/hellgate'
 import type { Unit } from '@/game/sim/types'
 
 /**
@@ -82,12 +82,14 @@ describe('Hellgate, the Arch-Demon (#74)', () => {
     expect(hp - h.hp).toBeGreaterThan(d.s.baseDmg * 1.5)
   })
 
-  it('at 55 % the gate of fire closes from the edge to six metres round its home, and imps come through', () => {
+  it('at 55 % the gate of fire closes from the edge to six metres round the fight, and imps come through', () => {
     const sim = arena()
     const d = demon(sim)
     d.hp = d.s.maxHp * 0.54
     step(sim, 1.5)
-    const ring = (): number[] => sim.fields.filter(f => f.active && f.kind === 'burnGround' && f.dur < 1.5).map(f => Math.hypot(f.x - d.homeX, f.z - d.homeZ))
+    const g = gateOf(d)!
+    expect(g).toBeDefined()
+    const ring = (): number[] => sim.fields.filter(f => f.active && f.kind === 'burnGround' && f.dur < 1.5).map(f => Math.hypot(f.x - g.x, f.z - g.z))
     const early = ring()
     expect(early.length).toBeGreaterThan(5)
     expect(Math.max(...early)).toBeGreaterThan(9)

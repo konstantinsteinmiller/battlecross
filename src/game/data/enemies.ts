@@ -169,7 +169,7 @@ export const ENEMIES: readonly EnemyDef[] = [
   // war boar; at half the boar's health he leaps off and fights on foot.
   D({
     id: 'tusker', rank: 'boss', rig: 'beast', look: 'boar', rider: 'goblinKing', scale: 1.55, r: 1.05, h: 2.2,
-    hp: 6, dmg: 1.1, armor: 2.4, speed: 3.3, style: 'melee', type: 'physical', range: 2.6, interval: 1.5, windup: 0.55, heavy: true,
+    hp: 7.5, dmg: 1, armor: 2.4, speed: 3.3, style: 'melee', type: 'physical', range: 2.6, interval: 1.5, windup: 0.55, heavy: true,
     aggro: 14, reward: 0.5, color: '#8a5a3a', script: 'tusker',
     abilities: [
       // The King throws his bombs from the saddle.
@@ -178,7 +178,7 @@ export const ENEMIES: readonly EnemyDef[] = [
   }),
   D({
     id: 'goblinKing', rank: 'boss', rig: 'humanoid', look: 'goblinKing', scale: 1.6, r: 0.85, h: 2.2,
-    hp: 5.5, dmg: 1.15, armor: 2.2, speed: 3.6, style: 'melee', type: 'physical', range: 2.7, interval: 1.4, windup: 0.45, heavy: true,
+    hp: 6.5, dmg: 1.15, armor: 2.2, speed: 3.6, style: 'melee', type: 'physical', range: 2.7, interval: 1.4, windup: 0.45, heavy: true,
     aggro: 20, reward: 1, color: '#58c23f', script: 'kingAfoot',
     abilities: [
       // The club spin.

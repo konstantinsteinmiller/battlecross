@@ -9,15 +9,20 @@
  * of the game shows:
  *
  *   ACT 1, the call      the hero walks out of Sunford down its main road;
- *                        the Goblin King, the Elder Treant, the siege of
- *                        Oakhaven
- *   ACT 2, the montage   one bar per place: the Ashen Crags, the Iron
- *                        Colossus, the Frost Jarl, the Naga Oracle, the
- *                        colosseum's waves, the Void Warden — then a boss
- *                        falls and the loot beams go up
+ *                        Tusker gores him into the rock, then the Goblin
+ *                        King leaps off and the boar runs; the Elder Treant,
+ *                        the siege of Oakhaven
+ *   ACT 2, the montage   a bar or two per place: the Ashen Crags, the Iron
+ *                        Colossus, the Frost Jarl's ice spikes and his charge
+ *                        shattering on one, the Naga Oracle, the colosseum's
+ *                        waves, the Void Warden — then a boss falls and the
+ *                        loot beams go up
  *   ACT 3, the climax    back in Sunford, round the well in the square,
- *                        then the Void Dragon, the Arch-Demon falls, the
- *                        chest, and the Void Lord waiting in the rift
+ *                        then the Void Dragon takes to the sky and strafes
+ *                        the field with fire (the hero rolling clear), the
+ *                        Arch-Demon's gate of fire closes, he dives three
+ *                        times and falls, the chest, and the Void Lord
+ *                        waiting in the rift
  *
  * Every fight is the game's own: the place is built as the game builds it, the
  * fight is STAGED (the hero put a few metres short of the pack, health bars set
@@ -53,24 +58,36 @@ const bossDown = () => {
  * frame). `preroll`: ms played off camera after the cut (the colosseum's
  * first waves walk in). `walk`: no fight, the hero walks this route (town
  * cells, `sim/town.ts`: the square is columns 14–24, rows 9–20, the fountain
- * at row 14, the main road runs down column 19 to the green and the gate). Built LAST
+ * at row 14, the main road runs down column 19 to the green and the gate).
+ * `cues`: at `at` ms into the shot, the scripted boss's health is set or a
+ * move readied (`boss`, the preview seam's), or the reference player's
+ * dodging turned down or up (`dodge`, 0..1) — each fight's big moment on
+ * the beat the music gives it. Built LAST
  * first, so the hero each place is built with is the hero who fights in it.
  */
 export const SHOTS = [
   { id: 'sunford', node: 'sunford', hero: { level: 30, cls: 'aegis' }, walk: [[17, 11], [17, 19], [19, 22], [19, 33]], beats: 8 },
-  { id: 'hollows', node: 'hollows', hero: { level: 5, cls: 'aegis' }, stage: { pack: 'finale', gap: 3.0, heroHp: 0.95, bossHp: 0.055, foeHp: 0.2 }, beats: 12 },
+  // Tusker's first charge carries the knight into the rock (he takes it); at half the King leaps off.
+  { id: 'hollows', node: 'hollows', hero: { level: 5, cls: 'aegis' }, stage: { pack: 'finale', gap: 6.5, heroHp: 0.95, bossHp: 0.6, foeHp: 0.2 }, beats: 16,
+    cues: [{ at: 0, dodge: 0 }, { at: 3800, dodge: 0.7 }, { at: 4400, boss: { hp: 0.49 } }] },
   { id: 'woods', node: 'woods', hero: { level: 8, cls: 'shadow' }, stage: { pack: 'finale', gap: 3.2, heroHp: 0.9, bossHp: 0.35, foeHp: 0.4 }, beats: 8 },
-  { id: 'outskirts', node: 'outskirts', hero: { level: 10, cls: 'sovereign' }, stage: { pack: 'finale', gap: 2.4, heroHp: 0.9, bossHp: 0.06, foeHp: 0.12 }, beats: 12 },
+  { id: 'outskirts', node: 'outskirts', hero: { level: 10, cls: 'sovereign' }, stage: { pack: 'finale', gap: 2.4, heroHp: 0.9, bossHp: 0.06, foeHp: 0.12 }, beats: 8 },
   { id: 'crags', node: 'crags', hero: { level: 13, cls: 'pyro' }, stage: { pack: 1, gap: 3.0, heroHp: 0.9, foeHp: 0.7 }, beats: 4 },
   { id: 'mines', node: 'mines', hero: { level: 15, cls: 'aether' }, stage: { pack: 'finale', gap: 4.2, heroHp: 0.9, bossHp: 0.6, foeHp: 0.6 }, beats: 4 },
-  { id: 'tundra', node: 'tundra', hero: { level: 19, cls: 'geo' }, stage: { pack: 'finale', gap: 3.8, heroHp: 0.9, bossHp: 0.6, foeHp: 0.6 }, beats: 4 },
+  // Hammerfall raises the ice where the hero stood; his charge shatters on it and he reels.
+  { id: 'tundra', node: 'tundra', hero: { level: 19, cls: 'geo' }, stage: { pack: 'finale', gap: 6.5, heroHp: 0.9, bossHp: 0.8, foeHp: 0.6 }, beats: 8,
+    cues: [{ at: 0, boss: { ready: ['hammer'], hold: ['charge'] } }, { at: 1600, boss: { ready: ['charge'], hold: ['hammer'] } }] },
   { id: 'temple', node: 'temple', hero: { level: 20, cls: 'chrono' }, stage: { pack: 'finale', gap: 3.6, heroHp: 0.9, bossHp: 0.6, foeHp: 0.6 }, beats: 4 },
   { id: 'arena', node: 'arena', hero: { level: 15, cls: 'sovereign' }, preroll: 4200, beats: 8 },
   { id: 'citadel', node: 'citadel', hero: { level: 23, cls: 'blood' }, stage: { pack: 'finale', gap: 3.6, heroHp: 0.9, bossHp: 0.6, foeHp: 0.6 }, beats: 4 },
-  { id: 'loot', node: 'tundra', hero: { level: 19, cls: 'pyro', bare: true }, stage: { pack: 'finale', gap: 3.0, heroHp: 0.9, bossHp: 0.05, foeHp: 0.05 }, beats: 12 },
+  { id: 'loot', node: 'tundra', hero: { level: 19, cls: 'pyro', bare: true }, stage: { pack: 'finale', gap: 3.0, heroHp: 0.9, bossHp: 0.05, foeHp: 0.05 }, beats: 8 },
   { id: 'square', node: 'sunford', hero: { level: 25, cls: 'sovereign' }, walk: [[16, 18], [16, 11], [22, 11], [22, 18], [16, 18]], beats: 8 },
-  { id: 'peak', node: 'peak', hero: { level: 25, cls: 'aegis' }, stage: { pack: 'finale', gap: 5.0, heroHp: 0.85, bossHp: 0.11 }, beats: 24 },
-  { id: 'fortress', node: 'fortress', hero: { level: 30, cls: 'pyro', bare: true }, stage: { pack: 'finale', gap: 4.0, heroHp: 0.75, bossHp: 0.16, foeHp: 0.2 }, beats: 32, hold: true },
+  // A breath, then it takes to the sky: strafing runs that leave the field burning.
+  { id: 'peak', node: 'peak', hero: { level: 25, cls: 'aegis' }, stage: { pack: 'finale', gap: 6.0, heroHp: 0.85, bossHp: 0.64 }, beats: 24,
+    cues: [{ at: 1200, boss: { hp: 0.59 } }] },
+  // The gate of fire closes in; the dive comes three times; the blade sticks and he falls.
+  { id: 'fortress', node: 'fortress', hero: { level: 30, cls: 'pyro', bare: true }, stage: { pack: 'finale', gap: 5.0, heroHp: 0.85, bossHp: 0.3, foeHp: 0.2 }, beats: 32, hold: true,
+    cues: [{ at: 3000, boss: { hp: 0.22 } }, { at: 10500, boss: { hp: 0.03 } }] },
   { id: 'rift', node: 'rift', hero: { level: 30, cls: 'shadow' }, stage: { pack: 'finale', gap: 6.5, heroHp: 1, bossHp: 1 }, beats: 16 }
 ]
 
@@ -83,7 +100,14 @@ const cellAt = ([i, j]) => [(i + 0.5) * 1.5, (j + 0.5) * 1.5]
 /** Put the hero on a shot's walk, or hand him back to the reference player. */
 const direct = (ctx, s) => s.walk
   ? ctx.evaluate((pts) => /** @type {any} */ (window).__preview.walk(pts), s.walk.map(cellAt))
-  : ctx.evaluate(() => /** @type {any} */ (window).__preview.bot(true))
+  : ctx.evaluate(() => { const p = /** @type {any} */ (window).__preview; p.dodge(0.7); p.bot(true) })
+
+/** A shot's cue, now. */
+const cue = (ctx, c) => ctx.evaluate((c) => {
+  const p = /** @type {any} */ (window).__preview
+  if (c.dodge !== undefined) p.dodge(c.dodge)
+  if (c.boss) p.boss(c.boss)
+}, c)
 
 /** Play the page clock off camera (the recorder's clock is armed in record()). */
 const preroll = (ctx, ms) => ctx.evaluate(async (ms) => {
@@ -158,6 +182,10 @@ export default {
       }
       if (SHOTS[i + 1]?.id === 'peak') events.push({ name: 'trailerRiser', ms: Math.round(clip0 + s.beats * BEAT - 3100), pan: 0, gain: 0.4, shot: s.id })
       end += s.beats * BEAT
+      for (const c of s.cues ?? []) {
+        if (c.at > 0) await t.until(clip0 + c.at)
+        await cue(ctx, c)
+      }
       if (s.hold) {
         const fell = await t.untilState(end - 2500, bossDown, `${s.id}: the boss falls`)
         await logState(ctx, fell ? `${s.id}: boss down` : `${s.id}: boss still up (stage lower)`)

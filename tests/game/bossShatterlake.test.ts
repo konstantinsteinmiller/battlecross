@@ -65,6 +65,7 @@ describe('Shatterlake, the Frost Jarl (#74)', () => {
     expect(sim.walls[0]!.fx).toBe('ice')
     expect(hp - h.hp).toBeGreaterThan(j.s.baseDmg)
     // The spikes stand, then melt away.
+    j.boss!.cd.hammer = 99
     step(sim, 9)
     expect(sim.walls.length).toBe(0)
   })
@@ -89,6 +90,26 @@ describe('Shatterlake, the Frost Jarl (#74)', () => {
     expect(isSolidAt(sim.grid, sx, sz)).toBe(false)
     step(sim, 2.4)
     expect(hasStatus(j, 'stun')).toBe(true)
+  })
+
+  it('hide behind the ice: the hammer throws the hero behind its spikes, and the charge after it shatters on them', () => {
+    const sim = arena()
+    const h = sim.hero.unit
+    const j = jarl(sim, ['hammer'], 7)
+    step(sim, 3, () => sim.walls.length > 0)
+    expect(sim.walls.length).toBe(1)
+    // The ice stands between them.
+    const cells = sim.walls[0]!.cells.length
+    expect(cells).toBeGreaterThan(2)
+    j.boss!.cd.hammer = 99
+    j.boss!.cd.charge = 0
+    j.boss!.next = 0
+    const hp = h.hp
+    step(sim, 4, () => j.boss!.mode === 'dazed')
+    expect(j.boss!.mode).toBe('dazed')
+    expect(h.hp).toBeGreaterThanOrEqual(hp)
+    step(sim, 0.1)
+    expect(sim.walls.length === 0 || sim.walls[0]!.cells.length < cells || sim.walls[0]!.dur <= sim.walls[0]!.t).toBe(true)
   })
 
   it('at half the ice breaks (slowing patches) and the glacier grinds across, catching a hero who stands still once', () => {

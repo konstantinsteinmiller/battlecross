@@ -3,7 +3,7 @@ import { addField } from '../actors'
 import { applyStatus, knockback } from '../combat'
 import { spawnEnemy } from '../spawn'
 import type { Sim } from '../world'
-import type { Unit } from '../types'
+import type { BossState, Unit } from '../types'
 import type { BossScript } from './index'
 import { bark, daze, laneLength, move, other, strikeFor, warn } from './kit'
 
@@ -41,6 +41,8 @@ const RING_N = 26
 
 const hitsBuf: Unit[] = []
 const COLOR = '#ff4a2a'
+/** Where the gate closes in on: where the fight stands when it opens. */
+const gates = new WeakMap<BossState, { x: number; z: number }>()
 
 /** Leap out of reach; the shadow follows `tgt` until it locks, then the crash. */
 const dive = (sim: Sim, u: Unit, tgt: Unit): void => {
@@ -77,7 +79,7 @@ const wave = (sim: Sim, u: Unit, a: number): void => {
         if (hit.has(t.id)) continue
         hit.add(t.id)
         strikeFor(sim, u, t, 1.7, 'fire')
-        knockback(t, x - dx, z - dz, 4)
+        knockback(t, x - dx, z - dz, 2.5)
       }
     })
   }
@@ -110,10 +112,11 @@ const pillars = (sim: Sim, u: Unit, tgt: Unit): void => {
 
 /** One beat of the closing gate: a ring of fire at its radius now. */
 const ringBeat = (sim: Sim, u: Unit, r: number): void => {
+  const c = gates.get(u.boss!) ?? { x: u.homeX, z: u.homeZ }
   for (let k = 0; k < RING_N; k++) {
     const ang = (k / RING_N) * Math.PI * 2
-    const x = u.homeX + Math.sin(ang) * r
-    const z = u.homeZ + Math.cos(ang) * r
+    const x = c.x + Math.sin(ang) * r
+    const z = c.z + Math.cos(ang) * r
     if (isSolidAt(sim.grid, x, z)) continue
     addField(sim, { fx: 'burning', kind: 'burnGround', src: u, x, z, r: 1.3, dur: RING_BEAT * 1.9, every: 0.5, dmg: u.s.baseDmg * 0.2, type: 'fire', v: u.s.baseDmg * 0.1, color: COLOR })
   }
@@ -174,7 +177,7 @@ const hellgate: BossScript = {
       sim.emit({ t: 'fx', id: 'slam', x, z, r: DIVE_R, color: COLOR })
       for (const t of sim.inCircle(other(u), x, z, DIVE_R, hitsBuf)) {
         strikeFor(sim, u, t, 2.2)
-        knockback(t, x, z, 6)
+        knockback(t, x, z, 3.5)
       }
       addField(sim, { fx: 'burning', kind: 'burnGround', src: u, x, z, r: 2, dur: 3, every: 0.5, dmg: u.s.baseDmg * 0.15, type: 'fire', v: u.s.baseDmg * 0.1, color: COLOR })
       // The blade sticks in the stone — unless more dives are coming.
@@ -190,10 +193,15 @@ const hellgate: BossScript = {
       bark(sim, u, 'archDemon', 'gate')
       b.cd.ring = 0
       b.cd.ringT = RING_CLOSE + RING_HOLD
+      // Round the fight, between the demon and the hero.
+      const h = sim.hero.unit
+      const gx = (u.x * 2 + h.x) / 3
+      const gz = (u.z * 2 + h.z) / 3
+      gates.set(b, { x: gx, z: gz })
       for (let i = 0; i < 2; i++) {
         const ang = sim.rng() * Math.PI * 2
-        const x = u.homeX + Math.sin(ang) * (RING_TO - 1.5)
-        const z = u.homeZ + Math.cos(ang) * (RING_TO - 1.5)
+        const x = gx + Math.sin(ang) * (RING_TO - 1.5)
+        const z = gz + Math.cos(ang) * (RING_TO - 1.5)
         if (isSolidAt(sim.grid, x, z)) continue
         const m = spawnEnemy(sim, 'imp', x, z, u.group, u)
         if (m) { m.awake = true; sim.emit({ t: 'fx', id: 'summon', x, z, color: COLOR }) }
@@ -241,4 +249,6 @@ const hellgate: BossScript = {
 }
 
 export const HELLGATE_SCRIPTS: Record<string, BossScript> = { hellgate }
+/** The gate's middle (tests, the view's needs): none until it opens. */
+export const gateOf = (u: Unit): { x: number; z: number } | undefined => (u.boss ? gates.get(u.boss) : undefined)
 export const HELLGATE_TUNING = { DIVE_T, DIVE_LOCK, DIVE_R, RING_FROM, RING_TO, RING_CLOSE, RING_HOLD }

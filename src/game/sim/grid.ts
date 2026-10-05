@@ -202,6 +202,10 @@ const lineClear = (g: Grid, ax: number, az: number, bx: number, bz: number, mask
 export const hasLineOfSight = (g: Grid, ax: number, az: number, bx: number, bz: number): boolean =>
   lineClear(g, ax, az, bx, bz, SIGHT_MASK)
 
+/** Would the line be clear but for the temporary walls (ice spikes, a barrier)? */
+export const sightPastWalls = (g: Grid, ax: number, az: number, bx: number, bz: number): boolean =>
+  lineClear(g, ax, az, bx, bz, SOLID_TERRAIN | SOLID_SEALED)
+
 /** Can a point WALK the straight line? (Water is in the way of feet.) */
 export const hasWalkLine = (g: Grid, ax: number, az: number, bx: number, bz: number): boolean =>
   lineClear(g, ax, az, bx, bz, WALK_MASK)
