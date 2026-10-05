@@ -50,8 +50,9 @@ export interface PreviewApi {
   /** Freeze / release the whole game (the same gate a menu or an ad uses). */
   hold(on: boolean): void
   held(): boolean
-  /** Make the hero a level-appropriate build of one class (nothing is saved). */
-  hero(o: { level: number; cls: ClassId; potions?: number }): void
+  /** Make the hero a level-appropriate build of one class (nothing is saved).
+   *  `bare`: he owns nothing beyond what he wears, so bosses and chests drop loot on camera. */
+  hero(o: { level: number; cls: ClassId; potions?: number; bare?: boolean }): void
   /** Build a place and keep it, without showing it. Returns its shot index. */
   build(node: NodeId): Promise<number>
   /** Hard cut to a prebuilt shot. */
@@ -95,7 +96,7 @@ export const installPreview = (): void => {
     },
     held: () => release !== null,
 
-    hero({ level, cls, potions }) {
+    hero({ level, cls, potions, bare }) {
       setSaveSandbox(true)
       const ref = referenceBuild({ level, cls })
       profile.level = level
@@ -104,7 +105,7 @@ export const installPreview = (): void => {
       profile.hero.learned = SKILLS.map(s => s.id)
       profile.hero.active = [0, 1, 2, 3, 4, 5].map(i => ref.skills[i] ?? '')
       profile.hero.passive = [0, 1, 2].map(i => ref.build.passives[i] ?? '')
-      profile.inv.items = ITEMS.map(i => i.id)
+      profile.inv.items = bare ? Object.values(ref.build.equipped).filter((id): id is string => !!id) : ITEMS.map(i => i.id)
       profile.inv.equipped = { ...ref.build.equipped }
       profile.inv.potions = Math.max(1, Math.min(5, potions ?? 3))
       // Every road open: a clip may be shot anywhere.
@@ -168,12 +169,15 @@ export const installPreview = (): void => {
       const u = sim.hero.unit
       let boss: PreviewState['boss'] = null
       let awake = 0
+      // The zone's FINALE boss first: a branch boss elsewhere (roadmap #70) is not the one a clip stages.
+      const finale = z.plan.packs.find(p => p.finale)?.boss ?? ''
       for (const e of sim.units) {
         if (e.team !== 1) continue
         if (e.alive && e.awake) awake++
         if (e.rank === 'boss' || e.rank === 'elite') {
           const b = { kind: e.kind, hp01: Math.max(0, e.hp) / e.s.maxHp, alive: e.alive }
-          if (!boss || e.rank === 'boss') boss = b
+          if (boss?.kind === finale) continue
+          if (!boss || e.kind === finale || e.rank === 'boss') boss = b
         }
       }
       return {

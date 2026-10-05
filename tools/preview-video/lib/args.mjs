@@ -214,8 +214,8 @@ export function parseArgs(argv, config) {
     throw new Error(`--capture must be one of ${CAPTURES.join(' | ')} (got "${capture}")`)
   }
 
-  // ── which formats ──
-  let selected = formats
+  // ── which formats ── (an `onDemand` format, like a 70 s trailer, only when named)
+  let selected = formats.filter((f) => !f.onDemand)
   if (flags.formats !== undefined) {
     const want = list(flags.formats)
     const ids = formats.map((f) => f.id)

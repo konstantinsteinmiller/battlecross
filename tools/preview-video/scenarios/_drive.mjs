@@ -113,8 +113,8 @@ export const boot = async (ctx, { save } = {}) => {
 // ─── Staging ─────────────────────────────────────────────────────────────────
 
 /** The hero as a level-appropriate build of one class (nothing is saved). */
-export const hero = (ctx, { level, cls, potions = 3 }) =>
-  ctx.evaluate((o) => { /** @type {any} */ (window).__preview.hero(o) }, { level, cls, potions })
+export const hero = (ctx, { level, cls, potions = 3, bare = false }) =>
+  ctx.evaluate((o) => { /** @type {any} */ (window).__preview.hero(o) }, { level, cls, potions, bare })
 
 /**
  * Prebuild a place and return its shot index. Building is real work (the

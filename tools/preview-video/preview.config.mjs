@@ -32,6 +32,8 @@
  * `--url-param feed=pure` hides them too: the world and nothing else, for a
  * spec that says "no UI of any kind".
  */
+import { TRAILER_MS } from './scenarios/cinematic-trailer.mjs'
+
 const PURE = process.argv.join(' ').includes('feed=pure')
 
 export default {
@@ -107,6 +109,18 @@ export default {
     // Poki's animated thumbnail: 1:1, "4 to 6 seconds", "50fps or higher",
     // muted, 100 MB. Keep the action centred — the camera follows the hero, so
     // it is. developers.poki.com/guide/your-game-page
+    // The cinematic trailer (roadmap #X1): `pnpm cinematic-trailer` records it
+    // and lays the score and the hero's lines under it. Only when named.
+    cinematic: {
+      onDemand: true,
+      durationMs: TRAILER_MS,
+      quality: ['lossless', 'high'],
+      orientations: {
+        landscape: { width: 1920, height: 1080, dpr: 2, isMobile: false, hasTouch: false }
+      },
+      scenarios: { success: 'cinematic-trailer' }
+    },
+
     poki: {
       durationMs: 5_000,
       fps: 60,
