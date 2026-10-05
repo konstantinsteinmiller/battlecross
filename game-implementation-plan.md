@@ -372,8 +372,10 @@ https://claude.ai/artifact/F4PGs8yrX78wpkt7yywkXA
 | D82 | Fight length | About a minute (60–90 s target): measured 51 / 70 / 86 / 69 s average over the eight classes (Hollows / Tundra / Peak / Fortress); `tests/game/bossFightLength.test.ts` | Report default |
 | D83 | Move names | None on screen | Report default |
 | D84 | Branch bosses, colosseum | Unchanged | Report default |
-| D85 | The old bosses | Mini-bosses half-way through other zones, elites far weaker, recoloured and reshaped: the Goblin Tyrant (Whispering Woods), the Frost Thane (Sunken Temple), the Void Drake (Citadel of the Void), the Pit Lord (Void Rift) | **Owner 2026-10-05** |
-| D86 | Boss lines | One short shouted line at each big beat of a fight, in a bubble over the boss and voiced (Chatterbox, English); a voice card for the Frost Jarl | Owner asked for the boss texts to be voiced |
+| D85 | The old bosses | Mini-bosses half-way through other zones, elites far weaker, recoloured and reshaped: the Goblin Tyrant (Whispering Woods), the Frost Thane (Sunken Temple), the Void Drake (Citadel of the Void), the Pit Lord (Void Rift) | **Owner 2026-10-05**; the zones confirmed 2026-10-06 |
+| D86 | Boss lines | One short shouted line at each big beat of a fight, in a bubble over the boss and voiced (Chatterbox, English); a voice card for the Frost Jarl | **Owner 2026-10-06**: keep them |
+| D87 | Hollows for a Blood-only hero at level 4 | Loses the Tusker fight (7 of 8 classes win); accepted | **Owner 2026-10-06** |
+| D88 | Necromancers | At most four raised skeletons alive each (was six of anything a summoner raises): an Aegis-only hero no longer stalls on them in the Dread Fortress | **Owner 2026-10-06** |
 
 ### Phases
 
@@ -392,9 +394,4 @@ https://claude.ai/artifact/F4PGs8yrX78wpkt7yywkXA
   wandering into a side pack, the Jarl not charging a hero behind his ice.
 - [x] **19.7 The trailer**, staged on each fight's big moment.
 
-### Deferred
-
-- **Hollows for a Blood-only hero at level 4**: loses (7 of 8 classes win).
-- **Dread Fortress for an Aegis-only hero**: never reaches the finale; a
-  necromancer pack keeps re-summoning skeletons (also with dodging off, so it
-  predates this work).
+- [x] **19.8 The owner's answers** (D86–D88): the skeleton cap.

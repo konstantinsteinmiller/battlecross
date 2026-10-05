@@ -202,10 +202,10 @@ export const resolveAbility = (sim: Sim, u: Unit, act: Action): void => {
     }
     case 'summon': {
       const n = a.count ?? 2
-      // A summoner keeps at most six of its own alive.
+      // A summoner keeps at most six of its own alive (or its ability's own cap).
       let mine = 0
       for (const m of sim.units) if (m.alive && m.ownerId === u.id) mine++
-      for (let i = 0; i < n && mine + i < 6; i++) {
+      for (let i = 0; i < n && mine + i < (a.max ?? 6); i++) {
         const ang = sim.rng() * Math.PI * 2
         const d = u.r + 1.2 + sim.rng() * 1.5
         const m = spawnEnemy(sim, a.spawn ?? 'goblin', u.x + Math.cos(ang) * d, u.z + Math.sin(ang) * d, u.group, u)

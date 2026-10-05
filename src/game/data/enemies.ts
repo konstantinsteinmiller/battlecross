@@ -58,6 +58,8 @@ export interface AbilityDef {
   count?: number
   /** Kind to summon. */
   spawn?: string
+  /** The most of its summons alive at once (default six). */
+  max?: number
   status?: { id: StatusId; dur: number; v: number; type?: DamageType }
   /** Only while health is at or below this fraction. */
   below?: number
@@ -334,7 +336,8 @@ export const ENEMIES: readonly EnemyDef[] = [
     hp: 1, dmg: 1.15, armor: 0.6, resist: 0.3, speed: 2.9, style: 'magic', type: 'shadow', range: 9.5, interval: 2, windup: 0.5,
     shotFx: 'shadow', aggro: 11, keep: 7, reward: 1.4, color: '#7d5fe0',
     abilities: [
-      { kind: 'summon', cd: 11, first: 2, range: 14, windup: 0.9, recover: 0.4, spawn: 'skeleton', count: 2 },
+      // Four raised dead at most (D88): a pack of them must not outpace a knight.
+      { kind: 'summon', cd: 11, first: 2, range: 14, windup: 0.9, recover: 0.4, spawn: 'skeleton', count: 2, max: 4 },
       { kind: 'smash', cd: 9, first: 6, range: 10, windup: 0.9, recover: 0.4, dmg: 1.4, r: 2.4, type: 'shadow', fx: 'curse', status: { id: 'weaken', dur: 4, v: 0.25 } }
     ]
   }),

@@ -86,7 +86,9 @@ export const SHOTS = [
   { id: 'peak', node: 'peak', hero: { level: 25, cls: 'aegis' }, stage: { pack: 'finale', gap: 6.0, heroHp: 0.85, bossHp: 0.64 }, beats: 24,
     cues: [{ at: 1200, boss: { hp: 0.59 } }] },
   // The gate of fire closes in; the dive comes three times; the blade sticks and he falls.
-  { id: 'fortress', node: 'fortress', hero: { level: 30, cls: 'pyro', bare: true }, stage: { pack: 'finale', gap: 5.0, heroHp: 0.85, bossHp: 0.3, foeHp: 0.2 }, beats: 32, hold: true,
+  // The hero starts on the far side of him: what he backs off into is open
+  // floor, not the tall rocks between the camera and the field's south edge.
+  { id: 'fortress', node: 'fortress', hero: { level: 30, cls: 'pyro', bare: true }, stage: { pack: 'finale', gap: -5.0, heroHp: 0.85, bossHp: 0.3, foeHp: 0.2 }, beats: 32, hold: true,
     cues: [{ at: 3000, boss: { hp: 0.22 } }, { at: 10500, boss: { hp: 0.03 } }] },
   { id: 'rift', node: 'rift', hero: { level: 30, cls: 'shadow' }, stage: { pack: 'finale', gap: 6.5, heroHp: 1, bossHp: 1 }, beats: 16 }
 ]
