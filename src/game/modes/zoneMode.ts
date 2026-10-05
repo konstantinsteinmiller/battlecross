@@ -17,7 +17,7 @@ import { castSkill, createHero, cycleTarget, orderAttack, orderMove, setStick, s
 import { stepSim } from '../sim/step'
 import { reviveHero } from '../sim/combat'
 import { generateArena, generateEncounter, generateTown, generateZone, type ZonePlan } from '../sim/zoneGen'
-import { Sim, findStatus } from '../sim/world'
+import { Sim } from '../sim/world'
 import type { SimEvent, Unit } from '../sim/types'
 import { updateCelFrame } from '../gfx/cel'
 import { BAR_RANK, HealthBars, Markers, makeBlobShadow, placeBlobShadow, type BarRank } from '../gfx/markers'
@@ -945,41 +945,11 @@ export class ZoneMode implements GameMode {
     tickHud(dt)
   }
 
-  /** Little tells for what a unit is under: sparks for a stun, flames for a burn. */
+  /** What every unit is under, shown on its body (`Vfx.statusTells`), and the hero's footfalls. */
   private statusFx(dt: number): void {
     const ps = this.vfx.particles
-    const rate = this.low ? 4 : 9
     for (const u of this.sim.units) {
-      if (!u.alive || !u.statuses.length) continue
-      for (const s of u.statuses) {
-        if (Math.random() > dt * rate) continue
-        const a = Math.random() * Math.PI * 2
-        const x = u.x + Math.cos(a) * u.r * 0.8
-        const z = u.z + Math.sin(a) * u.r * 0.8
-        switch (s.id) {
-          case 'burn': ps.emit({ x, y: 0.3 + Math.random() * u.h * 0.6, z, vy: 1.6 + Math.random(), color: Math.random() < 0.5 ? '#ffb02a' : '#ff5a1a', size: 0.34, sizeEnd: 0.04, life: 0.45 }); break
-          case 'poison': ps.emit({ x, y: 0.4 + Math.random() * u.h * 0.5, z, vy: 1 + Math.random(), color: '#8dff5a', size: 0.22, sizeEnd: 0.06, life: 0.6 }); break
-          case 'bleed': ps.emit({ x, y: u.h * 0.6, z, vy: -0.5, color: '#ff4a6a', size: 0.18, sizeEnd: 0.04, life: 0.4, gravity: 6 }); break
-          case 'stun':
-          case 'confuse': ps.emit({ x: u.x + Math.cos(this.time * 6) * 0.35, y: u.h + 0.25, z: u.z + Math.sin(this.time * 6) * 0.35, color: s.id === 'stun' ? '#ffe04a' : '#d28bff', size: 0.26, sizeEnd: 0.08, life: 0.3 }); break
-          case 'slow': ps.emit({ x, y: 0.15, z, vy: 0.4, color: '#9fdcff', size: 0.26, sizeEnd: 0.06, life: 0.5 }); break
-          case 'haste':
-          case 'accelerate': ps.emit({ x, y: 0.2 + Math.random() * 0.5, z, vx: -u.vx * 0.3, vz: -u.vz * 0.3, color: '#7fd8ff', size: 0.2, sizeEnd: 0.03, life: 0.35 }); break
-          case 'damageUp':
-          case 'enrage': ps.emit({ x, y: 0.2, z, vy: 2.2, color: s.id === 'enrage' ? '#ff4a3a' : '#ffb04a', size: 0.22, sizeEnd: 0.03, life: 0.5 }); break
-          case 'regen': ps.emit({ x, y: 0.2, z, vy: 1.8, color: '#7dff8a', size: 0.2, sizeEnd: 0.03, life: 0.6 }); break
-          case 'invulnerable':
-          case 'reflect': ps.emit({ x, y: 0.3 + Math.random() * u.h, z, color: '#fff2a8', size: 0.3, sizeEnd: 0.05, life: 0.3 }); break
-          case 'overheat': ps.emit({ x, y: u.h * 0.7, z, vy: 2.4, color: '#ff8a3a', size: 0.4, sizeEnd: 0.6, life: 0.5 }); break
-          case 'stealth': ps.emit({ x, y: 0.3 + Math.random() * u.h * 0.5, z, vy: 0.4, color: '#8a8fa8', size: 0.5, sizeEnd: 0.9, life: 0.5 }); break
-          // Held fast in ice: a glint off it now and then. Afraid: a bead of sweat flung off.
-          case 'frozen': ps.emit({ x, y: 0.2 + Math.random() * u.h, z, color: '#eaf8ff', size: 0.3, sizeEnd: 0.02, life: 0.35 }); break
-          case 'fear': ps.emit({ x, y: u.h * 0.9, z, vx: Math.cos(a) * 1.6, vy: 1.4, vz: Math.sin(a) * 1.6, color: '#9fdcff', size: 0.18, sizeEnd: 0.05, life: 0.4, gravity: 7 }); break
-          default: break
-        }
-      }
-      const sh = u.shield > 0 ? findStatus(u, 'invulnerable') === undefined : false
-      if (sh && Math.random() < dt * rate) ps.emit({ x: u.x + (Math.random() - 0.5) * u.r * 2, y: 0.3 + Math.random() * u.h, z: u.z + (Math.random() - 0.5) * u.r * 2, color: '#ffe9a8', size: 0.2, sizeEnd: 0.04, life: 0.3 })
+      if (u.alive && (u.statuses.length || u.shield > 0)) this.vfx.statusTells(u, dt)
     }
     // The hero's footfalls.
     const hero = this.sim.hero.unit

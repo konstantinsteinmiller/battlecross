@@ -187,8 +187,6 @@ export class Vfx {
   private low = sceneQuality() === 'low'
   /** Beats of an effect that come a moment after its first (smoke after the fire). */
   private queue: Array<{ at: number; fn: () => void }> = []
-  /** `syncProjectiles` ran this frame (it opens the heads; else `update` does). */
-  private synced = false
   private time = 0
 
   constructor(scene: Scene) {
@@ -597,6 +595,13 @@ export class Vfx {
     } else if (o.heavy) sp.emit({ x, y, z, color: col, size: 0.4 * k, sizeEnd: 1.5 * k, life: 0.16, shape: SHAPE.ring })
   }
 
+  /** A blade cutting the air: now and then a spark off its edge (fed by the swing, `combatFx.ts`). */
+  edge(x: number, y: number, z: number, color: string, heavy: boolean): void {
+    if (Math.random() > (heavy ? 0.55 : 0.3) * (this.low ? 0.5 : 1)) return
+    const a = Math.random() * Math.PI * 2
+    this.sprites.emit({ x, y, z, vx: Math.cos(a) * 2.5, vy: 1 + Math.random() * 2, vz: Math.sin(a) * 2.5, color: Math.random() < 0.5 ? '#ffffff' : color, size: 0.24, sizeEnd: 0.04, aspect: 0.35, align: true, life: 0.22, gravity: 6, shape: SHAPE.streak })
+  }
+
   /** A shot leaves a barrel (or a string): a star at the muzzle and a tongue the way it points. */
   muzzle(x: number, y: number, z: number, dx: number, dz: number, color: string, heavy = false): void {
     const sp = this.sprites
@@ -621,9 +626,15 @@ export class Vfx {
     }
   }
 
-  /** A skill begins: its colour gathers on the ground under the caster. */
+  /** A skill begins: its colour gathers on the ground under the caster, and light spirals in. */
   castStart(x: number, z: number, color: string, big = false): void {
     this.ring(x, z, big ? 2.2 : 1.5, 0.35, color, big ? 0.34 : 0.24, 0.07)
+    this.disc(x, z, big ? 1.8 : 1.2, color, big ? 0.4 : 0.28, 'flash')
+    for (let i = 0; i < this.n(big ? 8 : 5); i++) {
+      const a = (i / (big ? 8 : 5)) * Math.PI * 2
+      const r = big ? 1.4 : 1
+      this.sprites.emit({ x: x + Math.cos(a) * r, y: 0.5 + Math.random() * 0.8, z: z + Math.sin(a) * r, vx: -Math.cos(a) * r * 3 - Math.sin(a) * 2, vy: 0.6, vz: -Math.sin(a) * r * 3 + Math.cos(a) * 2, color: i % 2 ? '#ffffff' : color, size: 0.2, sizeEnd: 0.05, life: 0.32, drag: 1, shape: SHAPE.dot })
+    }
     const n = this.n(big ? 10 : 6)
     for (let i = 0; i < n; i++) {
       const a = (i / n) * Math.PI * 2
@@ -768,10 +779,11 @@ export class Vfx {
       const v = r * (1 + Math.random() * 1.4)
       sp.emit({ x, y: 0.2, z, vx: Math.cos(a) * v, vy: 4 + Math.random() * 4, vz: Math.sin(a) * v, color: '#6a5a48', size: 0.2 + Math.random() * 0.2, sizeEnd: 0.16, rot: Math.random() * 3, spin: 8, life: 0.7, gravity: 16, shape: SHAPE.shard, add: 0, hold: 0.7 })
     }
-    // Cracks running out over the ground.
+    // Cracks running out over the ground (a big slam has more of them, not bigger ones).
+    const cr = Math.min(1.8, r * 0.8)
     for (let k = 0; k < this.n(6); k++) {
       const a = (k / 6) * Math.PI * 2 + Math.random() * 0.5
-      sp.emit({ x: x + Math.cos(a) * r * 0.45, y: 0.06, z: z + Math.sin(a) * r * 0.45, dx: Math.cos(a), dy: 0, dz: Math.sin(a), color: '#4a3a2a', size: r * 0.95, sizeEnd: r, aspect: 0.5, life: 1, shape: SHAPE.bolt, add: 0, hold: 0.4 })
+      sp.emit({ x: x + Math.cos(a) * r * 0.45, y: 0.06, z: z + Math.sin(a) * r * 0.45, dx: Math.cos(a), dy: 0, dz: Math.sin(a), color: '#5a4a38', size: cr, sizeEnd: cr * 1.05, aspect: 0.4, life: 0.9, shape: SHAPE.bolt, add: 0, hold: 0.35 })
     }
     // A few sparks of its colour.
     const n = this.n(Math.round(6 + r * 2))
@@ -1075,11 +1087,10 @@ export class Vfx {
 
   /**
    * Mirror the sim's projectiles. Light is drawn as layered sprites (`flight`);
-   * only a lump of matter keeps a mesh. Call once a frame, BEFORE `update`.
+   * only a lump of matter keeps a mesh. Call once a frame, before `update`
+   * (whatever is stamped into the heads between two updates is drawn once).
    */
   syncProjectiles(list: Projectile[], alpha: number, dt: number): void {
-    this.heads.begin()
-    this.synced = true
     for (const [p, m] of this.shots) {
       if (p.active) continue
       m.visible = false
@@ -1222,6 +1233,97 @@ export class Vfx {
     }
   }
 
+  /**
+   * What a body is under, shown on the body (called once a frame per unit in
+   * view): flames licking up a burning one, bubbles off a poisoned one, stars
+   * circling a stunned head, ice round a frozen one, a shell of light round an
+   * invulnerable or shielded one, frost at the feet of a slowed one.
+   */
+  statusTells(u: Pick<Unit, 'x' | 'z' | 'r' | 'h' | 'vx' | 'vz' | 'statuses' | 'shield'>, dt: number): void {
+    const sp = this.sprites
+    const hd = this.heads
+    const t = this.time
+    const rate = this.low ? 0.5 : 1
+    const chance = (perSecond: number): boolean => Math.random() < dt * perSecond * rate
+    const around = (k = 0.8): [number, number] => { const a = Math.random() * Math.PI * 2; return [u.x + Math.cos(a) * u.r * k, u.z + Math.sin(a) * u.r * k] }
+    let shell = ''
+    for (const s of u.statuses) {
+      switch (s.id) {
+        case 'burn':
+          if (chance(24)) { const [x, z] = around(1.05); sp.emit({ x, y: 0.2 + Math.random() * u.h * 0.7, z, vx: (Math.random() - 0.5) * 0.4, vy: 1.8 + Math.random() * 1.4, vz: (Math.random() - 0.5) * 0.4, color: Math.random() < 0.5 ? '#ffd27a' : '#ff6a1a', size: 0.8, sizeEnd: 0.1, aspect: 0.45, align: true, stretch: 0.03, life: 0.42, drag: 1.4, shape: SHAPE.streak }) }
+          if (chance(3)) { const [x, z] = around(0.5); sp.emit({ x, y: u.h * 0.9, z, vy: 1, color: '#4a4440', size: 0.4, sizeEnd: 0.9, life: 0.8, shape: SHAPE.puff, add: 0, hold: 0.2 }) }
+          break
+        case 'poison':
+          if (chance(12)) { const [x, z] = around(1.1); sp.emit({ x, y: 0.4 + Math.random() * u.h * 0.5, z, vy: 0.7 + Math.random() * 0.6, color: '#8dff5a', size: 0.22 + Math.random() * 0.18, sizeEnd: 0.42, life: 0.7, shape: SHAPE.bubble, add: 0.6 }) }
+          if (chance(4)) { const [x, z] = around(0.6); sp.emit({ x, y: u.h * 0.6, z, vy: -0.4, color: '#5fbf3a', size: 0.16, sizeEnd: 0.08, aspect: 0.45, align: true, life: 0.5, gravity: 7, shape: SHAPE.streak, add: 0.4 }) }
+          break
+        case 'bleed':
+          if (chance(7)) { const [x, z] = around(0.6); sp.emit({ x, y: u.h * 0.6, z, vx: (Math.random() - 0.5), vy: 0.4, vz: (Math.random() - 0.5), color: '#ff4a6a', size: 0.18, sizeEnd: 0.08, aspect: 0.45, align: true, life: 0.45, gravity: 9, shape: SHAPE.streak, add: 0.3 }) }
+          break
+        case 'stun':
+        case 'confuse': {
+          // Stars (or swirls) circling the head: drawn every frame, never a puff.
+          const col = s.id === 'stun' ? '#ffe04a' : '#d28bff'
+          for (let i = 0; i < 3; i++) {
+            const a = t * 5 + (i / 3) * Math.PI * 2
+            hd.stamp({ x: u.x + Math.cos(a) * 0.45 * Math.max(0.8, u.r), y: u.h + 0.35 + Math.sin(a * 2) * 0.05, z: u.z + Math.sin(a) * 0.45 * Math.max(0.8, u.r), color: col, size: 0.46, rot: t * 4 + i, life: 1, shape: s.id === 'stun' ? SHAPE.star : SHAPE.ring })
+          }
+          break
+        }
+        case 'slow':
+          // Frost holding the feet: low crystals round them.
+          for (let i = 0; i < 3; i++) {
+            const a = (i / 3) * Math.PI * 2 + 1.2
+            hd.stamp({ x: u.x + Math.cos(a) * u.r * 1.1, y: 0.15, z: u.z + Math.sin(a) * u.r * 1.1, color: '#cfeeff', size: 0.45, rot: a, life: 1, shape: SHAPE.shard, add: 0.5 }, 0.8)
+          }
+          if (chance(6)) { const [x, z] = around(1); sp.emit({ x, y: 0.1, z, vy: 0.5, color: '#e8f8ff', size: 0.2, sizeEnd: 0.04, rot: Math.random() * 3, life: 0.6, shape: SHAPE.shard }) }
+          break
+        case 'frozen':
+          // Held in ice: crystals round it, a glint off them now and then.
+          for (let i = 0; i < 6; i++) {
+            const a = (i / 6) * Math.PI * 2 + 0.4
+            hd.stamp({ x: u.x + Math.cos(a) * u.r * 1.15, y: 0.3 + (i % 3) * u.h * 0.25, z: u.z + Math.sin(a) * u.r * 1.15, color: i % 2 ? '#e8f8ff' : '#9fd4ff', size: 0.85 + (i % 3) * 0.2, rot: a, life: 1, shape: SHAPE.shard, add: 0.45 }, 0.9)
+          }
+          if (chance(5)) sp.emit({ x: u.x + (Math.random() - 0.5) * u.r, y: 0.3 + Math.random() * u.h, z: u.z + (Math.random() - 0.5) * u.r, color: '#ffffff', size: 0.5, sizeEnd: 0.05, life: 0.25, shape: SHAPE.star, hold: 0.3 })
+          break
+        case 'fear':
+          if (chance(5)) { const a = Math.random() * Math.PI * 2; sp.emit({ x: u.x, y: u.h * 0.9, z: u.z, vx: Math.cos(a) * 1.6, vy: 1.4, vz: Math.sin(a) * 1.6, color: '#9fdcff', size: 0.18, sizeEnd: 0.06, aspect: 0.5, align: true, life: 0.4, gravity: 7, shape: SHAPE.streak }) }
+          break
+        case 'haste':
+        case 'accelerate':
+          if (chance(10)) { const [x, z] = around(0.8); sp.emit({ x, y: 0.3 + Math.random() * u.h * 0.6, z, vx: -u.vx * 0.6, vz: -u.vz * 0.6, color: Math.random() < 0.5 ? '#ffffff' : '#7fd8ff', size: 0.7, sizeEnd: 0.2, aspect: 0.08, align: true, life: 0.25, shape: SHAPE.streak }) }
+          break
+        case 'damageUp':
+        case 'enrage': {
+          const col = s.id === 'enrage' ? '#ff4a3a' : '#ffb04a'
+          if (chance(12)) { const [x, z] = around(0.8); sp.emit({ x, y: 0.1, z, vy: 2.4 + Math.random(), color: col, size: 0.55, sizeEnd: 0.1, aspect: 0.3, align: true, life: 0.45, shape: SHAPE.streak }) }
+          break
+        }
+        case 'regen':
+          if (chance(5)) { const [x, z] = around(0.8); sp.emit({ x, y: 0.2, z, vy: 1.4, color: '#7dff8a', size: 0.26, sizeEnd: 0.08, life: 0.7, shape: SHAPE.cross, hold: 0.4 }) }
+          break
+        case 'invulnerable':
+        case 'reflect':
+          shell = '#fff2a8'
+          break
+        case 'overheat':
+          if (chance(6)) sp.emit({ x: u.x, y: u.h * 0.8, z: u.z, vx: (Math.random() - 0.5), vy: 1.6, vz: (Math.random() - 0.5), color: '#d8d0c8', size: 0.4, sizeEnd: 1, life: 0.6, shape: SHAPE.puff, add: 0, hold: 0.2 })
+          break
+        case 'stealth':
+          if (chance(5)) { const [x, z] = around(0.6); sp.emit({ x, y: 0.3 + Math.random() * u.h * 0.5, z, vy: 0.4, color: '#5a5466', size: 0.5, sizeEnd: 1, life: 0.6, shape: SHAPE.puff, add: 0, hold: 0.2 }) }
+          break
+        default:
+          break
+      }
+    }
+    if (!shell && u.shield > 0) shell = '#ffe9a8'
+    if (shell) {
+      // A shell of light round the body, breathing.
+      const k = 1 + 0.05 * Math.sin(t * 5)
+      hd.stamp({ x: u.x, y: u.h * 0.55, z: u.z, color: shell, size: Math.max(u.h, u.r * 2.4) * 1.25 * k, life: 1, shape: SHAPE.bubble, add: 0.7 }, 0.45)
+    }
+  }
+
   /** A projectile of `kind` lands at (x, y, z): as its element, with a ring of light. */
   shotHit(kind: string, x: number, y: number, z: number, color?: string): void {
     const s = shotOf(kind)
@@ -1277,7 +1379,6 @@ export class Vfx {
   /** `simTime` is the sim's own clock: ground previews fill by it (see `telegraphs.ts`). */
   update(dt: number, simTime = 0): void {
     this.time += dt
-    if (!this.synced) this.heads.begin()
     if (this.queue.length) {
       const due = this.queue.filter(q => q.at <= this.time)
       if (due.length) {
@@ -1285,7 +1386,6 @@ export class Vfx {
         for (const q of due) q.fn()
       }
     }
-    this.synced = false
     for (const p of this.rings) {
       if (!p.active) continue
       p.t += dt
@@ -1360,7 +1460,9 @@ export class Vfx {
     this.trails.update(dt)
     this.teles.update(dt, simTime)
     this.loot.update(dt)
+    // Draw what was stamped since the last update, and start the next frame's list.
     this.heads.end()
+    this.heads.begin()
     this.impactsLeft = this.low ? 3 : 6
   }
 

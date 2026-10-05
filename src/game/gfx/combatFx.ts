@@ -60,6 +60,8 @@ export const trackUnit = (vfx: Vfx, v: RigView, u: Unit): void => {
   if (v.trail > 0.02 || v.trailWas) {
     vfx.trails.feed(key, v, false, v.trail, trailColor(v, u), v.trailHeavy)
     v.trailWas = v.trail > 0.02
+    // The fast part of a swing throws a spark off the edge.
+    if (v.trail > 0.5 && tipOf(v, false, _p)) vfx.edge(_p.x, _p.y - groundAt(_p.x, _p.z), _p.z, trailColor(v, u), v.trailHeavy)
   }
   if (v.trailOff > 0.02 || v.trailOffWas) {
     vfx.trails.feed(key + 1, v, true, v.trailOff, trailColor(v, u), v.trailHeavy)

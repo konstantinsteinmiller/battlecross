@@ -1,7 +1,7 @@
 import {
-  CircleGeometry, Color, Mesh, MeshBasicMaterial, PerspectiveCamera, Scene, SRGBColorSpace, WebGLRenderer
+  CapsuleGeometry, CircleGeometry, Color, Mesh, MeshBasicMaterial, PerspectiveCamera, Scene, SRGBColorSpace, WebGLRenderer
 } from 'three'
-import type { DamageType, Projectile, SimEvent } from '../sim/types'
+import type { DamageType, Projectile, SimEvent, StatusId, Unit } from '../sim/types'
 import { CAM_FOV, CAM_PITCH } from '../engine/camera'
 import { SHOT_KINDS, Vfx, type Blow, type ImpactOpts } from './vfx'
 
@@ -15,6 +15,7 @@ import { SHOT_KINDS, Vfx, type Blow, type ImpactOpts } from './vfx'
  *
  *   shots     every projectile kind, one lane each, flying left to right
  *   impacts   every damage type (and the three physical blows), landing in a grid
+ *   statuses  a row of stand-in bodies, each under one status, as the body shows it
  *   play      any sim `fx` event (a burst, a breath, a beam, a pillar …)
  *   pause / step   stop the clock and advance it by hand (screenshots)
  *   ground    grass, snow or night: an effect must read on all three
@@ -23,6 +24,8 @@ import { SHOT_KINDS, Vfx, type Blow, type ImpactOpts } from './vfx'
 export interface FxBench {
   shots(kinds?: string[]): void
   impacts(crit?: boolean): void
+  /** A row of stand-in bodies, each under one status (or a shield). */
+  statuses(ids?: Array<StatusId | 'shield'>): void
   play(e: Omit<Extract<SimEvent, { t: 'fx' }>, 't'>): void
   impact(o: Partial<ImpactOpts>): void
   death(big: number, color?: string): void
@@ -58,6 +61,9 @@ export const mountFxBench = (host: HTMLElement): FxBench => {
   const vfx = new Vfx(scene)
 
   let shots: Projectile[] = []
+  let bodies: Array<{ u: Unit; mesh: Mesh }> = []
+  const bodyGeo = new CapsuleGeometry(0.42, 0.7, 4, 12)
+  const bodyMat = new MeshBasicMaterial({ color: '#8a8478' })
   let lanes: { x0: number; x1: number } = { x0: -8, x1: 8 }
   let paused = false
   let raf = 0
@@ -89,6 +95,7 @@ export const mountFxBench = (host: HTMLElement): FxBench => {
       p.x += p.vx * dt
       if (p.x > lanes.x1) p.x = lanes.x0
     }
+    for (const b of bodies) vfx.statusTells(b.u, dt)
     vfx.syncProjectiles(shots, 0, dt)
     vfx.update(dt, 0)
     renderer.render(scene, camera)
@@ -104,6 +111,8 @@ export const mountFxBench = (host: HTMLElement): FxBench => {
 
   const clear = (): void => {
     shots = []
+    for (const b of bodies) scene.remove(b.mesh)
+    bodies = []
     vfx.clear()
   }
 
@@ -126,6 +135,20 @@ export const mountFxBench = (host: HTMLElement): FxBench => {
       // One at a time: the effects allow only a few full impacts a frame.
       all.forEach((o, i) => { bench.impact({ ...o, crit, x: -7.5 + (i % cols) * 3, z: -3 + Math.floor(i / cols) * 3 }); vfx.update(0, 0) })
       frame(0, 0, 20)
+    },
+    statuses(ids = ['burn', 'poison', 'bleed', 'stun', 'confuse', 'slow', 'frozen', 'fear', 'haste', 'enrage', 'regen', 'invulnerable', 'shield', 'stealth']) {
+      clear()
+      const cols = 7
+      bodies = ids.map((id, i) => {
+        const x = -9 + (i % cols) * 3
+        const z = -2 + Math.floor(i / cols) * 4
+        const u = { x, z, r: 0.45, h: 1.45, vx: -3, vz: 0, statuses: id === 'shield' ? [] : [{ id, t: 9, v: 1 }], shield: id === 'shield' ? 50 : 0 } as unknown as Unit
+        const mesh = new Mesh(bodyGeo, bodyMat)
+        mesh.position.set(x, 0.77, z)
+        scene.add(mesh)
+        return { u, mesh }
+      })
+      frame(0, 0, 22)
     },
     play(e) {
       vfx.play({ t: 'fx', ...e } as Extract<SimEvent, { t: 'fx' }>, () => 1.4)

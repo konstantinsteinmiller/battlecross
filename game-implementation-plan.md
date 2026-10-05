@@ -342,7 +342,7 @@ regular enemy scaled up; no boss looks different from its kin but for size.
   buffs, roars, summons and deaths rebuilt; every blow opens on an impact
   frame, slashes and stars carry an ink under the light so they read on snow.
   The effects bench. A test: every projectile the game fires has a look.
-- [ ] **18.2 Swings, casts, states on bodies.** Trails per weapon, the cast's
+- [x] **18.2 Swings, casts, states on bodies.** Trails per weapon, the cast's
   gathering, burning / frozen / poisoned / stunned shown on the body.
 - [ ] **18.3 Creatures.** Wolf family, spider, treant, golem, elemental, naga,
   wyvern, dragon rebuilt to the hero's standard (gradients, jointed limbs,
