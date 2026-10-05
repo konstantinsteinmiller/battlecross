@@ -37,6 +37,9 @@ export interface ZoneDef {
   finale: { leader: string; with: string[] }
   /** A side clearing with a secret chest. */
   secret?: boolean
+  /** An elite that leads the pack half-way along the road: an old boss's
+   *  fight, kept as a mini-boss (#74, D85). */
+  midBoss?: string
 }
 
 export const ZONES: Readonly<Record<ZoneId, ZoneDef>> = {
@@ -53,7 +56,8 @@ export const ZONES: Readonly<Record<ZoneId, ZoneDef>> = {
   woods: {
     id: 'woods', theme: 'forest', min: 6, max: 8, sections: 4, pack: [3, 4],
     kinds: [{ kind: 'spider', w: 4 }, { kind: 'treant', w: 2 }, { kind: 'wolf', w: 2 }, { kind: 'bandit', w: 2 }],
-    finale: { leader: 'elderTreant', with: ['spider', 'spider', 'treant'] }
+    finale: { leader: 'elderTreant', with: ['spider', 'spider', 'treant'] },
+    midBoss: 'goblinTyrant'
   },
   outskirts: {
     id: 'outskirts', theme: 'farm', min: 8, max: 10, sections: 4, pack: [3, 4],
@@ -78,12 +82,14 @@ export const ZONES: Readonly<Record<ZoneId, ZoneDef>> = {
   temple: {
     id: 'temple', theme: 'temple', min: 17, max: 20, sections: 4, pack: [3, 5],
     kinds: [{ kind: 'naga', w: 5 }, { kind: 'necromancer', w: 2 }, { kind: 'skeleton', w: 3 }, { kind: 'cultist', w: 1 }],
-    finale: { leader: 'nagaOracle', with: ['naga', 'naga'] }
+    finale: { leader: 'nagaOracle', with: ['naga', 'naga'] },
+    midBoss: 'frostThane'
   },
   citadel: {
     id: 'citadel', theme: 'void', min: 21, max: 23, sections: 5, pack: [3, 5],
     kinds: [{ kind: 'voidStalker', w: 4 }, { kind: 'highDemon', w: 3 }, { kind: 'cultist', w: 2 }, { kind: 'necromancer', w: 1 }],
-    finale: { leader: 'voidWarden', with: ['voidStalker', 'voidStalker', 'highDemon'] }
+    finale: { leader: 'voidWarden', with: ['voidStalker', 'voidStalker', 'highDemon'] },
+    midBoss: 'voidDrake'
   },
   peak: {
     id: 'peak', theme: 'peak', min: 24, max: 25, sections: 4, pack: [3, 4],
@@ -98,7 +104,8 @@ export const ZONES: Readonly<Record<ZoneId, ZoneDef>> = {
   rift: {
     id: 'rift', theme: 'rift', min: 30, max: 30, sections: 3, pack: [4, 6],
     kinds: [{ kind: 'voidling', w: 5 }, { kind: 'voidStalker', w: 3 }, { kind: 'doomKnight', w: 1 }, { kind: 'highDemon', w: 2 }],
-    finale: { leader: 'voidLord', with: [] }
+    finale: { leader: 'voidLord', with: [] },
+    midBoss: 'pitLord'
   }
 }
 

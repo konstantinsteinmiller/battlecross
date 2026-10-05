@@ -347,6 +347,12 @@ export const generateZone = (def: ZoneDef, seed: number, o: ZoneGenOpts = {}): Z
       size = 0
     } else if (o.tutorial && o.openingPack) size = o.openingPack
     let elites = 0
+    // Half-way along the road, an old boss leads the pack (D85).
+    if (def.midBoss && !o.tutorial && k === Math.ceil(n / 2)) {
+      kinds.push(def.midBoss)
+      elites = 1
+      size = Math.max(1, size - 1)
+    }
     for (let q = 0; q < size; q++) {
       let kind = weighted(rng, def.kinds)
       if (ENEMY_BY_ID[kind]?.rank === 'elite') {
