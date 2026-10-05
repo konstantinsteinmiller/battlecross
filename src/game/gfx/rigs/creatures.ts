@@ -512,7 +512,7 @@ export const buildNaga = (variant: NagaVariant): Rig => {
  * arm and finger bones over it, a claw at the wrist. `span` and `chord` in
  * metres; the root sits at the bone.
  */
-const wing = (b: RigBuilder, bone: string, s: -1 | 1, span: number, chord: number, skin: string, bones: string, claw: string): void => {
+const wing = (b: RigBuilder, bone: string, s: -1 | 1, span: number, chord: number, skin: string, bones: string, claw: string, o: { edge?: string; vein?: string } = {}): void => {
   const wrist: [number, number] = [0.5 * span, 0.12 * chord]
   const tips: [[number, number], [number, number], [number, number]] = [[1 * span, -0.08 * chord], [0.86 * span, -0.62 * chord], [0.5 * span, -0.92 * chord]]
   const outline: Array<[number, number]> = [
@@ -528,12 +528,19 @@ const wing = (b: RigBuilder, bone: string, s: -1 | 1, span: number, chord: numbe
   let zhi = -Infinity
   const p = mem.attributes.position!
   for (let i = 0; i < p.count; i++) { const z = p.getZ(i); if (z < zlo) zlo = z; if (z > zhi) zhi = z }
-  paintBy(mem, (_x, _y, z) => mixHex(tone(skin, 0.7), tone(skin, 1.2), (z - zlo) / Math.max(1e-5, zhi - zlo)))
+  paintBy(mem, (_x, _y, z) => mixHex(tone(skin, 0.7), o.edge ?? tone(skin, 1.2), ((z - zlo) / Math.max(1e-5, zhi - zlo)) ** 1.6))
   b.painted(bone, mem, { p: [0, 0.02, 0] })
   const arm = (a: V3, c: V3, r: number): void => { b.painted(bone, shade(between(rod(r, Math.hypot(c[0] - a[0], c[2] - a[2]), 5), a, c), bones, 0.8, 1.1), {}) }
   const w: V3 = [s * wrist[0], 0.03, wrist[1]]
   arm([0, 0.03, 0.1 * chord], w, 0.045 * span)
   for (const t of tips) arm(w, [s * t[0], 0.03, t[1]], 0.026 * span)
+  // Veins of light through the membrane (over it, so they read from above).
+  if (o.vein) {
+    for (let i = 0; i < tips.length - 1; i++) {
+      const m: V3 = [s * (tips[i]![0] + tips[i + 1]![0]) * 0.45, 0.045, (tips[i]![1] + tips[i + 1]![1]) * 0.45]
+      b.part(bone, between(rod(0.006 * span, 1, 4), w, m), o.vein, { glow: true, outline: false })
+    }
+  }
   b.part(bone, spike(0.035 * span, 0.14 * span, 5), claw, { p: [w[0], 0.08, w[2] + 0.03], r: [-0.4, 0, 0] })
 }
 
@@ -583,62 +590,116 @@ export const buildWyvern = (variant: WyvernVariant = 'wyvern'): Rig => {
   return b.build({ height: 1.9 })
 }
 
-export const buildDragon = (variant: 'void' | 'ally'): Rig => {
-  const hide = variant === 'void' ? '#5a2ac0' : '#8a5ae8'
-  const belly = variant === 'void' ? '#d8b8ff' : '#f0dcff'
-  const skin = variant === 'void' ? '#2a0f6a' : '#5a3ab0'
-  const horn = '#f4e8ff'
-  const glowHex = '#e0a8ff'
+type DragonVariant = 'void' | 'ally'
+
+const DRAGON: Record<DragonVariant, { hide: string; top: string; belly: string; skin: string; skinEdge: string; horn: string; hornBase: string; glow: string; mouth: string }> = {
+  // The Void Dragon: near-black violet, lit only where it means harm.
+  void: { hide: '#22113e', top: '#3e2474', belly: '#7a66a8', skin: '#1e0c3c', skinEdge: '#5a32a0', horn: '#efe6f8', hornBase: '#3a2a4a', glow: '#c87aff', mouth: '#2a0a24' },
+  ally: { hide: '#5a3aa8', top: '#8a6ae0', belly: '#e0d0f8', skin: '#3a2478', skinEdge: '#9a7ae8', horn: '#f8f0ff', hornBase: '#6a5a80', glow: '#e0a8ff', mouth: '#4a1a3a' }
+}
+
+/** A run of segments along `pts` (a horn, a curling spine), tapering from `r0` to `r1`, shaded `base` → `tip`. */
+const curl = (b: RigBuilder, bone: string, pts: V3[], r0: number, r1: number, base: string, tip: string): void => {
+  for (let i = 0; i < pts.length - 1; i++) {
+    const a = pts[i]!
+    const c = pts[i + 1]!
+    const ka = i / (pts.length - 1)
+    const kb = (i + 1) / (pts.length - 1)
+    const len = Math.hypot(c[0] - a[0], c[1] - a[1], c[2] - a[2])
+    const g = rcone(r0 + (r1 - r0) * ka, Math.max(0.006, r0 + (r1 - r0) * kb), len * 1.08, Math.min(0.012, r1 * 0.5 + 0.004), 7)
+    b.painted(bone, between(gradY(g, mixHex(base, tip, ka), mixHex(base, tip, kb)), a, c), {})
+  }
+}
+
+export const buildDragon = (variant: DragonVariant): Rig => {
+  const P = DRAGON[variant]
   const b = new RigBuilder()
   b.bone('root', null, [0, 0, 0])
   b.bone('body', 'root', [0, 0.78, 0])
   b.bone('neck', 'body', [0, 0.24, 0.5])
   b.bone('head', 'neck', [0, 0.36, 0.3])
+  b.bone('jaw', 'head', [0, -0.04, 0.1])
   b.bone('tail1', 'body', [0, 0, -0.56])
   b.bone('tail2', 'tail1', [0, 0, -0.56])
+  const hide = (g: BufferGeometry): BufferGeometry => coat(g, P.belly, P.hide, P.top)
+  // ── Wings: big, membrane dark with a lit leading edge, veins of light ──
   b.mirror((s, t) => {
-    b.bone('wing' + t, 'body', [s * 0.3, 0.34, -0.06])
-    wing(b, 'wing' + t, s, 1.5, 0.95, skin, hide, horn)
+    // Held up and swept back at rest: a dragon spreads, it does not hang its wings out flat.
+    b.bone('wing' + t, 'body', [s * 0.32, 0.36, -0.02], [0, s * 0.28, s * 0.42])
+    wing(b, 'wing' + t, s, 1.75, 1.05, P.skin, P.hide, P.horn, { edge: P.skinEdge, vein: P.glow })
   })
-  // Four legs: a heavy thigh, a shin, a foot of claws.
-  for (const [n, x, z] of [['legFL', -0.3, 0.34], ['legFR', 0.3, 0.34], ['legBL', -0.32, -0.36], ['legBR', 0.32, -0.36]] as const) {
-    b.bone(n, 'body', [x, -0.2, z])
-    const hind = n[3] === 'B'
-    b.painted(n, coat(ell(0.15, hind ? 0.22 : 0.18, 0.18, 9, 6), belly, hide, tone(hide, 0.8)), { p: [0, -0.05, 0] })
-    b.painted(n, shade(limb(0.1, 0.085, 0.28, 8, 2), hide, 0.7, 1.05), { p: [0, -0.2, hind ? -0.03 : 0.03], r: [hind ? -0.25 : 0.15, 0, 0] })
-    b.painted(n, shade(ell(0.14, 0.07, 0.19, 8, 5), hide, 0.55, 0.9), { p: [0, -0.5, 0.06] })
-    for (let k = -1; k <= 1; k++) b.part(n, spike(0.03, 0.12, 4), horn, { p: [k * 0.07, -0.52, 0.24], r: [1.65, k * 0.25, 0], outline: false })
-  }
-  // The body: a barrel, its belly in plates, a row of spines down the back.
-  const torso = ell(0.5, 0.46, 0.74, 14, 10)
-  const [lo, hi] = yRange(torso)
-  paintBy(torso, (_x, y, z) => {
+  // ── The body: a deep chest over the haunches, shoulders the wings grow from ──
+  const chest = ell(0.5, 0.5, 0.52, 14, 10)
+  const [lo, hi] = yRange(chest)
+  paintBy(chest, (_x, y, z) => {
     const k = (y - lo) / (hi - lo)
-    if (k < 0.32) return Math.abs(Math.sin(z * 14)) > 0.85 ? tone(belly, 0.8) : belly
-    return mixHex(hide, tone(hide, 0.65), clamp01((k - 0.32) / 0.68))
+    if (k < 0.34) return Math.abs(Math.sin(z * 16)) > 0.82 ? tone(P.belly, 0.72) : P.belly
+    return mixHex(P.hide, P.top, clamp01((k - 0.34) / 0.66))
   })
-  b.painted('body', torso, {})
-  for (let k = 0; k < 6; k++) b.part('body', spike(0.09 - Math.abs(k - 2) * 0.008, 0.34 - Math.abs(k - 2) * 0.04, 5), skin, { p: [0, 0.44, 0.5 - k * 0.22], r: [-0.45, 0, 0] })
-  b.part('body', sph(0.16, 10, 8), glowHex, { p: [0, -0.02, 0.66], glow: true, outline: false })
-  b.painted('neck', coat(cap(0.2, 0.36, 9, 3), belly, hide, tone(hide, 0.75)), { p: [0, 0.16, 0.12], r: [0.7, 0, 0] })
-  for (let k = 0; k < 3; k++) b.part('neck', spike(0.06, 0.22, 5), skin, { p: [0, 0.32 + k * 0.08, -0.06 + k * 0.1], r: [-0.8, 0, 0] })
-  // The head: a skull, a long snout, a jaw lined with teeth, a crown of horns.
-  b.painted('head', coat(sph(0.34, 14, 10), belly, hide, tone(hide, 0.7)), { p: [0, 0.08, 0.04] })
-  b.painted('head', coat(ell(0.24, 0.16, 0.32, 12, 7), belly, hide, tone(hide, 0.8)), { p: [0, 0, 0.42] })
-  b.painted('head', shade(ell(0.2, 0.08, 0.28, 10, 6), belly, 0.7, 0.95), { p: [0, -0.15, 0.38] })
-  b.part('head', lens(0.17, 0.025, 0.05, 10, 3), DARK, { p: [0, -0.08, 0.66], outline: false })
+  b.painted('body', chest, { p: [0, 0.06, 0.26] })
+  b.painted('body', hide(ell(0.42, 0.4, 0.48, 12, 9)), { p: [0, -0.02, -0.26] })
+  b.mirror((s) => { b.painted('body', hide(ell(0.22, 0.2, 0.26, 10, 7)), { p: [s * 0.3, 0.3, 0.04] }) })
+  // Cracks of light across the chest, the heart of it showing through.
+  b.part('body', sph(0.11, 8, 6), P.glow, { p: [0, -0.02, 0.74], glow: true, outline: false })
+  for (let k = 0; k < 5; k++) {
+    const a = -1.1 + k * 0.55
+    b.part('body', rod(0.014, 0.26, 4), P.glow, { p: [Math.sin(a) * 0.2, -0.04 + Math.cos(a) * 0.14, 0.7], r: [0.4, 0, a], glow: true, outline: false })
+  }
+  // Spines down the back, tall at the shoulders, each tipped with light.
+  for (let k = 0; k < 7; k++) {
+    const h = 0.36 - Math.abs(k - 2) * 0.045
+    b.painted('body', gradY(spike(0.085 - Math.abs(k - 2) * 0.006, h, 5), P.skin, P.glow), { p: [0, 0.46 - Math.max(0, k - 3) * 0.05, 0.5 - k * 0.17], r: [-0.55, 0, 0] })
+  }
+  // ── Four legs: heavy shoulders and thighs, digitigrade hind legs, claws ──
+  for (const [n, x, z] of [['legFL', -0.32, 0.36], ['legFR', 0.32, 0.36], ['legBL', -0.34, -0.34], ['legBR', 0.34, -0.34]] as const) {
+    b.bone(n, 'body', [x, -0.2, z])
+    const s = x < 0 ? -1 : 1
+    if (n[3] === 'F') {
+      b.painted(n, hide(ell(0.15, 0.24, 0.17, 9, 6)), { p: [s * 0.02, -0.04, 0] })
+      b.painted(n, shade(limb(0.1, 0.08, 0.3, 8, 2), P.hide, 0.7, 1.05), { p: [0, -0.22, 0.04], r: [0.15, 0, 0] })
+    } else {
+      b.painted(n, hide(ell(0.2, 0.28, 0.25, 9, 6)), { p: [s * 0.02, -0.02, 0] })
+      b.painted(n, shade(limb(0.1, 0.08, 0.24, 8, 2), P.hide, 0.7, 1.05), { p: [0, -0.2, -0.04], r: [-0.55, 0, 0] })
+      b.painted(n, shade(limb(0.075, 0.065, 0.2, 7, 2), P.hide, 0.65, 1), { p: [0, -0.39, -0.17], r: [0.5, 0, 0] })
+    }
+    b.painted(n, shade(ell(0.15, 0.07, 0.2, 8, 5), P.hide, 0.5, 0.85), { p: [0, -0.52, 0.07] })
+    for (let k = -1; k <= 1; k++) b.painted(n, gradY(spike(0.034, 0.14, 4), P.hornBase, P.horn), { p: [k * 0.075, -0.54, 0.25], r: [1.65, k * 0.25, 0], outline: false })
+  }
+  // ── The neck: three segments in an S, pale plates under, spines over ──
+  b.painted('neck', hide(ell(0.22, 0.22, 0.25, 10, 8)), { p: [0, 0.04, 0.02], r: [0.7, 0, 0] })
+  b.painted('neck', hide(ell(0.19, 0.19, 0.22, 10, 8)), { p: [0, 0.18, 0.14], r: [0.9, 0, 0] })
+  b.painted('neck', hide(ell(0.17, 0.17, 0.2, 10, 8)), { p: [0, 0.3, 0.24], r: [0.6, 0, 0] })
+  for (let k = 0; k < 3; k++) b.painted('neck', gradY(spike(0.06, 0.24 - k * 0.03, 5), P.skin, P.glow), { p: [0, 0.22 + k * 0.1, -0.08 + k * 0.12], r: [-0.85, 0, 0] })
+  // ── The head: a wedge of a skull, a long snout, brow ridges, horns that sweep back ──
+  b.painted('head', hide(ell(0.26, 0.22, 0.3, 12, 9)), { p: [0, 0.1, 0] })
+  b.painted('head', hide(ell(0.18, 0.13, 0.34, 12, 8)), { p: [0, 0.05, 0.34] })
+  b.painted('head', hide(ell(0.14, 0.1, 0.13, 10, 6)), { p: [0, 0.06, 0.6] })
+  b.part('head', ell(0.13, 0.03, 0.28, 8, 4), P.mouth, { p: [0, -0.04, 0.34], outline: false })
   b.mirror((s) => {
-    b.painted('head', shade(rcone(0.1, 0.015, 0.56, 0.012, 8), horn, 0.75, 1.05), { p: [s * 0.2, 0.4, -0.18], r: [-1, 0, -s * 0.3] })
-    b.painted('head', shade(rcone(0.06, 0.01, 0.3, 0.01, 7), horn, 0.75, 1.05), { p: [s * 0.3, 0.22, -0.12], r: [-0.9, 0, -s * 0.9] })
-    b.part('head', spike(0.05, 0.2, 5), skin, { p: [s * 0.3, 0.02, 0.18], r: [0.2, 0, s * 1.8] })
-    for (let k = 0; k < 3; k++) b.part('head', spike(0.02, 0.08, 4), BONE_WHITE, { p: [s * (0.06 + k * 0.05), -0.1, 0.62 - k * 0.07], r: [Math.PI, 0, 0], outline: false })
-    b.part('head', sph(0.035, 6, 5), DARK, { p: [s * 0.08, 0.08, 0.72], outline: false })
+    b.painted('head', shade(rbox(0.15, 0.07, 0.24, 0.5, 8, 6), P.hide, 0.7, 1.2), { p: [s * 0.13, 0.22, 0.12], r: [0.2, s * 0.2, s * 0.32] })
+    b.part('head', sph(0.03, 5, 4), DARK, { p: [s * 0.06, 0.12, 0.7], outline: false })
+    // The great horns: three segments curling back and up.
+    curl(b, 'head', [[s * 0.15, 0.24, -0.06], [s * 0.22, 0.42, -0.26], [s * 0.25, 0.5, -0.5], [s * 0.22, 0.46, -0.7]], 0.085, 0.012, P.hornBase, P.horn)
+    // A lesser horn below each, and a frill of spines at the cheek.
+    curl(b, 'head', [[s * 0.22, 0.1, -0.08], [s * 0.34, 0.14, -0.26], [s * 0.38, 0.12, -0.4]], 0.05, 0.01, P.hornBase, P.horn)
+    for (let k = 0; k < 3; k++) b.part('head', spike(0.04, 0.2 - k * 0.03, 4), P.skin, { p: [s * 0.24, 0.0 - k * 0.06, -0.02 - k * 0.04], r: [0.4, 0, s * (1.6 + k * 0.25)] })
+    // Teeth along the upper jaw.
+    for (let k = 0; k < 4; k++) b.part('head', spike(0.018, 0.07 - (k % 2) * 0.015, 4), BONE_WHITE, { p: [s * (0.11 - k * 0.01), -0.05, 0.3 + k * 0.1], r: [Math.PI, 0, 0], outline: false })
   })
-  glare(b, 'head', 0.16, 0.14, 0.3, 0.07, glowHex, { brow: tone(hide, 0.7), tilt: 0.38 })
-  b.painted('tail1', shade(rcone(0.3, 0.16, 0.62, 0.02, 9), hide, 0.7, 1.05), { p: [0, 0, -0.28], r: [-Math.PI / 2, 0, 0] })
-  b.painted('tail2', shade(rcone(0.17, 0.02, 0.72, 0.015, 8), hide, 0.7, 1.05), { p: [0, 0, -0.32], r: [-Math.PI / 2, 0, 0] })
-  for (let k = 0; k < 4; k++) b.part(k < 2 ? 'tail1' : 'tail2', spike(0.06, 0.2, 5), skin, { p: [0, (k < 2 ? 0.26 : 0.14) - (k % 2) * 0.04, -0.12 - (k % 2) * 0.3], r: [-0.6, 0, 0] })
-  b.part('tail2', plate([[0, 0.1], [0.22, -0.1], [0, -0.34], [-0.22, -0.1]], 0.035), skin, { p: [0, 0.04, -0.68] })
+  glare(b, 'head', 0.15, 0.17, 0.22, 0.06, P.glow, { brow: tone(P.hide, 0.8), tilt: 0.42 })
+  // ── The jaw: hinged, lined with teeth, dark inside ──
+  b.painted('jaw', shade(ell(0.15, 0.06, 0.34, 10, 6), P.belly, 0.7, 0.95), { p: [0, -0.05, 0.28] })
+  b.part('jaw', ell(0.12, 0.025, 0.28, 8, 4), P.mouth, { p: [0, -0.005, 0.28], outline: false })
+  b.mirror((s) => { for (let k = 0; k < 3; k++) b.part('jaw', spike(0.016, 0.06, 4), BONE_WHITE, { p: [s * (0.1 - k * 0.012), 0.01, 0.2 + k * 0.12], outline: false }) })
+  // ── The tail: long, plated under, spined, a blade of a spade at its end ──
+  b.painted('tail1', shade(rcone(0.3, 0.17, 0.64, 0.02, 10), P.hide, 0.62, 1.05), { p: [0, 0, -0.28], r: [-Math.PI / 2, 0, 0] })
+  b.painted('tail2', shade(rcone(0.18, 0.02, 0.84, 0.015, 9), P.hide, 0.62, 1.05), { p: [0, 0, -0.38], r: [-Math.PI / 2, 0, 0] })
+  for (let k = 0; k < 5; k++) {
+    const bone = k < 2 ? 'tail1' : 'tail2'
+    const z = k < 2 ? -0.12 - k * 0.3 : -0.1 - (k - 2) * 0.24
+    b.painted(bone, gradY(spike(0.065 - k * 0.008, 0.24 - k * 0.025, 5), P.skin, P.glow), { p: [0, (k < 2 ? 0.27 : 0.16) - (k % 2) * 0.03, z], r: [-0.6, 0, 0] })
+  }
+  b.painted('tail2', gradY(plate([[0, 0.1], [0.24, -0.08], [0.06, -0.2], [0, -0.42], [-0.06, -0.2], [-0.24, -0.08]], 0.035), P.skin, P.skinEdge), { p: [0, 0.04, -0.76] })
   return b.build({ height: 2.4 })
 }
 

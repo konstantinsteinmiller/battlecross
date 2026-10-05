@@ -53,7 +53,7 @@ export interface StripOpts {
 export interface Bench {
   grid(ids?: string[]): void
   /** Enemies (and minions) by id, at their own scale, as a fight builds them: creatures too. */
-  enemies(ids: string[], o?: { cols?: number; yaw?: number; attack?: boolean }): void
+  enemies(ids: string[], o?: { cols?: number; yaw?: number; attack?: boolean; view?: number }): void
   strip(o: StripOpts): void
   gear(): void
   live(o: StripOpts | null): void
@@ -300,7 +300,7 @@ export const mountBench = (host: HTMLElement): Bench => {
         scene.add(v.rig.root, shadow)
         actors.push({ v, u, x, z, shadow, act: null, t: Math.random(), own: null })
       })
-      cam = { x: 0, z: 0.2, w: cols * cell + 0.6, d: rows * cell + 0.8 }
+      cam = { x: 0, z: 0.2, w: o.view ?? cols * cell + 0.6, d: o.view ? o.view * 0.7 : rows * cell + 0.8 }
       if (!raf) raf = requestAnimationFrame(tick)
     },
 

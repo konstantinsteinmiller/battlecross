@@ -586,6 +586,10 @@ const beast = (v: RigView, u: Unit, time: number, speed: number): void => {
   pose(r, 'body', bodyX, 0, 0)
   nudge(r, 'body', 0, bodyY, bodyZ)
   pose(r, 'head', headX, 0, headZ)
+  // The jaw (where a rig has one): wide on the coil of a bite and snapped shut on it,
+  // held open through a breath or a roar, at rest just parted.
+  const jaw = breathing ? beat(b, 0.35, 0.62) : roar || slam ? beat(b, 0.55, 0.3) : b.on ? beat(b, 0.6, 0.02) : 0.05 + Math.sin(time * 1.1 + v.phase) * 0.025
+  pose(r, 'jaw', jaw, 0, 0)
   pose(r, 'tail', -0.3 + Math.sin(time * 5) * 0.1 - beat(b, 0.5, -0.3), Math.sin(time * 6 + v.phase) * 0.5 * (1 - b.hold), 0)
   // The dragon shares these bones for its neck, wings and second tail.
   pose(r, 'neck', -headX * 0.5 + Math.sin(time * 1.4) * 0.05 + (breathing ? beat(b, -0.4, 0.3) : 0), Math.sin(time * 0.9) * 0.08, 0)
