@@ -75,6 +75,9 @@ export interface Look {
   hero?: boolean
   /** The hair worn UNDER head gear (a helmet, a hat): its fringe and nape show. */
   style?: HairStyle
+  /** A foe's face (#74): brows drawn down over the inner corner, a scowl
+   *  over the eye, fangs, no blush. Set on every enemy as its rig is made. */
+  fierce?: boolean
   /** A girl's face (the girl hero, roadmap #71): lashes, finer arched brows,
    *  rosier lips and cheeks. Same head, same proportions. */
   fem?: boolean
@@ -768,13 +771,19 @@ export const buildHumanoid = (l: Look, detail?: Detail): Rig => {
         b.part('lids', lens(0.088, EYE_RY * 1.04, 0.044, 6, 4), lidCol, { p: [s * EYE_X, -EYE_RY, 0.012], r: [0, ry, 0], outline: false })
         // Its lash line (a bolder one on a girl's face).
         b.part('lids', lens(l.fem ? 0.09 : 0.084, l.fem ? 0.024 : 0.016, 0.02, 4, 2), DARK, { p: [s * EYE_X, -EYE_RY * 2 + 0.012, 0.03], r: [0, ry, 0], outline: false })
+        if (l.fierce) {
+          // The scowl: a heavy upper lid slanting down to the nose.
+          b.part('head', lens(0.094, EYE_RY * 0.5, 0.03, 6, 3), lidCol, { p: [s * EYE_X, EYE_Y + EYE_RY * 0.62, 0.272], r: [0, ry, s * 0.4], outline: false })
+        }
         if (l.fem) {
           // A lash flicking out at the outer corner, over the lid.
           b.part('head', spike(0.018, 0.075, 3), DARK, { p: [s * (EYE_X + 0.07), EYE_Y + EYE_RY * 0.72, 0.258], r: [0.2, ry, -s * 1.0], outline: false })
         }
       }
       // A girl's brows are finer and arched; a boy's thicker and straighter.
-      if (!skeletal) b.part('brow' + t, l.fem ? ell(0.064, 0.012, 0.018, 4, 3) : ell(0.062, 0.017, 0.02, 4, 3), browCol, { r: [0, ry, -s * (l.fem ? 0.2 : 0.12)], outline: false })
+      // A foe's are heavy and drawn down over the inner corner.
+      if (!skeletal && l.fierce) b.part('brow' + t, ell(0.072, 0.024, 0.026, 5, 3), browCol, { p: [0, -0.012, 0.004], r: [0, ry, s * 0.48], outline: false })
+      else if (!skeletal) b.part('brow' + t, l.fem ? ell(0.064, 0.012, 0.018, 4, 3) : ell(0.062, 0.017, 0.02, 4, 3), browCol, { r: [0, ry, -s * (l.fem ? 0.2 : 0.12)], outline: false })
     })
     if (skeletal) {
       // A row of teeth; the jaw drops when it shouts.
@@ -782,9 +791,12 @@ export const buildHumanoid = (l: Look, detail?: Detail): Rig => {
       b.part('mouth', rbox(0.2, 0.075, 0.07, 0.5, 6, 4), '#cfc8b4', { p: [0, -0.01, -0.02], outline: false })
       for (let i = -1; i <= 1; i++) b.part('mouth', rbox(0.012, 0.06, 0.02, 0.6, 4, 3), DARK, { p: [i * 0.05, 0, 0.018], outline: false })
     } else {
-      b.part('mouth', lens(0.046, 0.034, 0.016, 4, 3), l.fem ? '#8a2f40' : '#6a2a34', { outline: false })
+      b.part('mouth', lens(l.fierce ? 0.06 : 0.046, l.fierce ? 0.028 : 0.034, 0.016, 4, 3), l.fierce ? '#3a141c' : l.fem ? '#8a2f40' : '#6a2a34', { outline: false })
       b.part('head', lens(0.021, 0.018, 0.024, 4, 3), tone(skin, 0.86), { p: [0, CY - 0.095, 0.296], outline: false })
-      if (q > 0) {
+      if (l.fierce) {
+        // Fangs over the lip (on the head: the mouth's bone flattens what it carries when shut).
+        b.mirror((s) => { b.part('head', spike(0.011, 0.04, 3), '#f4ecd8', { p: [s * 0.032, CY - 0.152, 0.29], r: [Math.PI, 0, 0], outline: false }) })
+      } else if (q > 0) {
         const blush = mixHex(skin, '#ff6a7a', l.fem ? 0.4 : 0.3)
         b.mirror((s) => { b.part('head', lens(0.05, 0.028, 0.012, 4, 2), blush, { p: [s * 0.2, CY - 0.115, 0.215], r: [0, s * 0.8, 0], outline: false }) })
       }

@@ -161,22 +161,23 @@ const humanoid = (look: Look): Spec => ({
 /** How far a creature's jaws (or a fist with nothing in it) reach, for its trail. */
 const BITE_REACH: Partial<Record<Family, number>> = { beast: 0.55, spider: 0.4, wyvern: 0.6, dragon: 1.0 }
 
-const specFor = (rig: string, look: string): Spec => {
+/** The rig for an enemy (or minion) of `rig` and `look`. A foe's humanoid wears a foe's face (`fierce`). */
+const specFor = (rig: string, look: string, foe = false): Spec => {
   switch (rig) {
     case 'beast': {
-      const v = look === 'stalker' ? 'stalker' : 'wolf'
+      const v = look === 'stalker' ? 'stalker' : look === 'howler' ? 'howler' : 'wolf'
       return { key: 'beast:' + v, family: 'beast', build: () => buildBeast(v), float: 0, held: 'none', ghost: false }
     }
     case 'spider': {
-      const v = look === 'brood' ? 'brood' : 'spider'
+      const v = look === 'brood' ? 'brood' : look === 'mother' ? 'mother' : 'spider'
       return { key: 'spider:' + v, family: 'spider', build: () => buildSpider(v), float: 0, held: 'none', ghost: false }
     }
     case 'treant': {
-      const v = look === 'elder' ? 'elder' : 'treant'
+      const v = look === 'elder' ? 'elder' : look === 'thorn' ? 'thorn' : 'treant'
       return { key: 'treant:' + v, family: 'humanoid', build: () => buildTreant(v), float: 0, held: 'club', ghost: false }
     }
     case 'golem': {
-      const v = look === 'colossus' ? 'colossus' : 'iron'
+      const v = look === 'colossus' ? 'colossus' : look === 'cinder' ? 'cinder' : 'iron'
       return { key: 'golem:' + v, family: 'humanoid', build: () => buildGolem(v), float: 0, held: 'hammer', ghost: false }
     }
     case 'elemental': {
@@ -184,23 +185,27 @@ const specFor = (rig: string, look: string): Spec => {
       return { key: 'elem:' + v, family: 'humanoid', build: () => buildElemental(v), float: 0.22, held: 'wand', ghost: false }
     }
     case 'naga': {
-      const v = look === 'oracle' ? 'oracle' : 'naga'
+      const v = look === 'oracle' ? 'oracle' : look === 'serpent' ? 'serpent' : 'naga'
       return { key: 'naga:' + v, family: 'naga', build: () => buildNaga(v), float: 0, held: v === 'oracle' ? 'wand' : 'sword', ghost: false }
     }
-    case 'wyvern':
-      return { key: 'wyvern', family: 'wyvern', build: buildWyvern, float: 0.5, held: 'none', ghost: false }
+    case 'wyvern': {
+      const v = look === 'matriarch' ? 'matriarch' : 'wyvern'
+      return { key: 'wyvern:' + v, family: 'wyvern', build: () => buildWyvern(v), float: 0.5, held: 'none', ghost: false }
+    }
     case 'dragon': {
       const v = look === 'ally' ? 'ally' : 'void'
       return { key: 'dragon:' + v, family: 'dragon', build: () => buildDragon(v), float: 0, held: 'none', ghost: false }
     }
     case 'voidlord':
-      return { ...humanoid(VOID_LORD), float: 0.3 }
+      return { ...humanoid({ ...VOID_LORD, fierce: foe }), float: 0.3 }
     case 'turret': {
       const v = look === 'rocket' ? 'rocket' : 'gatling'
       return { key: 'turret:' + v, family: 'turret', build: () => buildTurret(v), float: 0, held: 'gun', ghost: false }
     }
-    default:
-      return humanoid(LOOKS[look] ?? LOOKS.bandit!)
+    default: {
+      const l = LOOKS[look] ?? LOOKS.bandit!
+      return humanoid(foe ? { ...l, fierce: true } : l)
+    }
   }
 }
 
@@ -218,7 +223,7 @@ export const makeRigView = (u: Unit, heroLook?: Look): RigView => {
   } else {
     const e = ENEMY_BY_ID[u.kind]
     const m = MINIONS[u.kind]
-    if (e) { spec = specFor(e.rig, e.look ?? e.id); scale = e.scale; color = e.color } else if (m) { spec = specFor(m.rig, m.look); scale = m.scale; color = m.color } else spec = humanoid(LOOKS.bandit!)
+    if (e) { spec = specFor(e.rig, e.look ?? e.id, true); scale = e.scale; color = e.color } else if (m) { spec = specFor(m.rig, m.look, u.team !== 0); scale = m.scale; color = m.color } else spec = humanoid(LOOKS.bandit!)
   }
   const rig = cloneRig(template(spec.key, spec.build))
   rig.root.scale.setScalar(scale)
@@ -317,7 +322,7 @@ export const prewarmKinds = (kinds: Iterable<string>): Array<() => void> => {
   for (const kind of kinds) {
     const e = ENEMY_BY_ID[kind]
     const m = MINIONS[kind]
-    const spec = e ? specFor(e.rig, e.look ?? e.id) : m ? specFor(m.rig, m.look) : LOOKS[kind] ? humanoid(LOOKS[kind]!) : null
+    const spec = e ? specFor(e.rig, e.look ?? e.id, true) : m ? specFor(m.rig, m.look, true) : LOOKS[kind] ? humanoid(LOOKS[kind]!) : null
     if (!spec || seen.has(spec.key)) continue
     seen.add(spec.key)
     jobs.push(() => { template(spec.key, spec.build) })

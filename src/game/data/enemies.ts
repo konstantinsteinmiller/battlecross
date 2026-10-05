@@ -449,7 +449,7 @@ export const ENEMIES: readonly EnemyDef[] = [
   // phase, a summons or a signature blow. `reward` keeps one worth about two
   // elites; `branch` keeps the finale's promised drops for the finale.
   D({
-    id: 'goblinWarchief', rank: 'boss', branch: true, rig: 'humanoid', look: 'goblin', scale: 1.55, r: 0.8, h: 2,
+    id: 'goblinWarchief', rank: 'boss', branch: true, rig: 'humanoid', look: 'goblinWarchief', scale: 1.55, r: 0.8, h: 2,
     hp: 4.2, dmg: 1.05, armor: 1.8, speed: 3.1, style: 'melee', type: 'physical', range: 2.5, interval: 1.45, windup: 0.46, heavy: true,
     aggro: 10, reward: 0.45, color: '#6fbf3f', phase2: 0.5,
     abilities: [
@@ -459,7 +459,7 @@ export const ENEMIES: readonly EnemyDef[] = [
     ]
   }),
   D({
-    id: 'thornfather', rank: 'boss', branch: true, rig: 'treant', look: 'treant', scale: 1.85, r: 1, h: 3,
+    id: 'thornfather', rank: 'boss', branch: true, rig: 'treant', look: 'thorn', scale: 1.85, r: 1, h: 3,
     hp: 5, dmg: 1.25, armor: 3, speed: 2.1, style: 'melee', type: 'physical', range: 2.9, interval: 1.9, windup: 0.6, heavy: true,
     aggro: 10, reward: 0.45, color: '#4f8f3a', phase2: 0.5,
     abilities: [
@@ -468,7 +468,7 @@ export const ENEMIES: readonly EnemyDef[] = [
     ]
   }),
   D({
-    id: 'broodMother', rank: 'boss', branch: true, rig: 'spider', look: 'brood', scale: 2, r: 1.1, h: 1.6,
+    id: 'broodMother', rank: 'boss', branch: true, rig: 'spider', look: 'mother', scale: 2, r: 1.1, h: 1.6,
     hp: 4.4, dmg: 1.15, armor: 1.6, speed: 3.5, style: 'melee', type: 'physical', range: 2.4, interval: 1.3, windup: 0.38,
     aggro: 11, reward: 0.45, color: '#a65fe6', phase2: 0.5,
     abilities: [
@@ -478,7 +478,7 @@ export const ENEMIES: readonly EnemyDef[] = [
     ]
   }),
   D({
-    id: 'banditBaron', rank: 'boss', branch: true, rig: 'humanoid', look: 'banditChief', scale: 1.45, r: 0.7, h: 2,
+    id: 'banditBaron', rank: 'boss', branch: true, rig: 'humanoid', look: 'banditBaron', scale: 1.45, r: 0.7, h: 2,
     hp: 4.8, dmg: 1.25, armor: 2.6, speed: 3.4, style: 'melee', type: 'physical', range: 2.4, interval: 1.35, windup: 0.42, heavy: true,
     aggro: 10, reward: 0.45, color: '#e0563a', phase2: 0.5,
     abilities: [
@@ -488,7 +488,7 @@ export const ENEMIES: readonly EnemyDef[] = [
     ]
   }),
   D({
-    id: 'cinderGolem', rank: 'boss', branch: true, rig: 'golem', look: 'iron', scale: 1.8, r: 1, h: 2.9,
+    id: 'cinderGolem', rank: 'boss', branch: true, rig: 'golem', look: 'cinder', scale: 1.8, r: 1, h: 2.9,
     hp: 5.2, dmg: 1.3, armor: 5, resist: 0.3, speed: 2.3, style: 'melee', type: 'fire', range: 2.6, interval: 1.9, windup: 0.6, heavy: true,
     aggro: 9, reward: 0.45, color: '#ff7a2a', phase2: 0.5,
     abilities: [
@@ -497,7 +497,7 @@ export const ENEMIES: readonly EnemyDef[] = [
     ]
   }),
   D({
-    id: 'frostHowler', rank: 'boss', branch: true, rig: 'beast', look: 'wolf', scale: 1.9, r: 0.9, h: 1.7,
+    id: 'frostHowler', rank: 'boss', branch: true, rig: 'beast', look: 'howler', scale: 1.9, r: 0.9, h: 1.7,
     hp: 4.4, dmg: 1.2, armor: 1.4, speed: 4.6, style: 'melee', type: 'frost', range: 2.2, interval: 1.1, windup: 0.3,
     aggro: 11, reward: 0.45, color: '#9fdcff', phase2: 0.5,
     abilities: [
@@ -507,7 +507,7 @@ export const ENEMIES: readonly EnemyDef[] = [
     ]
   }),
   D({
-    id: 'tideSerpent', rank: 'boss', branch: true, rig: 'naga', look: 'naga', scale: 1.6, r: 0.8, h: 2.4,
+    id: 'tideSerpent', rank: 'boss', branch: true, rig: 'naga', look: 'serpent', scale: 1.6, r: 0.8, h: 2.4,
     hp: 4.6, dmg: 1.2, armor: 1.6, resist: 0.3, speed: 3, style: 'magic', type: 'frost', range: 8.5, interval: 1.7, windup: 0.45,
     aggro: 11, keep: 5, reward: 0.45, color: '#3fd8c8', phase2: 0.5,
     abilities: [
@@ -516,7 +516,7 @@ export const ENEMIES: readonly EnemyDef[] = [
     ]
   }),
   D({
-    id: 'riftKnight', rank: 'boss', branch: true, rig: 'humanoid', look: 'doomKnight', scale: 1.6, r: 0.75, h: 2.3,
+    id: 'riftKnight', rank: 'boss', branch: true, rig: 'humanoid', look: 'riftKnight', scale: 1.6, r: 0.75, h: 2.3,
     hp: 5, dmg: 1.3, armor: 3, speed: 3.3, style: 'melee', type: 'shadow', range: 2.5, interval: 1.35, windup: 0.42, heavy: true,
     aggro: 10, reward: 0.45, color: '#b06aff', phase2: 0.5,
     abilities: [
@@ -526,7 +526,7 @@ export const ENEMIES: readonly EnemyDef[] = [
     ]
   }),
   D({
-    id: 'wyvernMatriarch', rank: 'boss', branch: true, rig: 'wyvern', look: 'wyvern', scale: 1.7, r: 1.05, h: 2.8,
+    id: 'wyvernMatriarch', rank: 'boss', branch: true, rig: 'wyvern', look: 'matriarch', scale: 1.7, r: 1.05, h: 2.8,
     hp: 4.8, dmg: 1.25, armor: 1.8, speed: 3.6, style: 'melee', type: 'physical', range: 2.6, interval: 1.4, windup: 0.4,
     aggro: 11, reward: 0.45, color: '#ff8a4a', phase2: 0.5,
     abilities: [

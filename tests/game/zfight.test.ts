@@ -224,6 +224,9 @@ describe('z-fighting: every static model', () => {
         const f = fights(trisOf(buildHumanoid(look, d).mesh.geometry, null, id, [], 'rig'), 0.003)
         if (f.length) bad.push(`${id} q${d}: ${f.join(' | ')}`)
       }
+      // And as a foe wears it (#74: the scowl, the brows, the fangs).
+      const ff = fights(trisOf(buildHumanoid({ ...look, fierce: true }, 1).mesh.geometry, null, id, [], 'rig'), 0.003)
+      if (ff.length) bad.push(`${id} fierce: ${ff.join(' | ')}`)
     }
     // Every creature variant the game can build (`CREATURE_BUILDS`): a new one is checked by being added there.
     for (const [id, b] of Object.entries(cr.CREATURE_BUILDS)) {

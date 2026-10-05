@@ -42,6 +42,10 @@ export const LOOKS: Readonly<Record<string, Look>> = {
   warden: L({ skin: '#6a4a9a', top: '#2a1c4a', bottom: '#1c1234', head: 'greathelm', hair: '#3a2a6a', outfit: 'plate', held: 'scythe', pauldrons: true, trim: '#a45cff', bulk: 1.16, cape: '#4a2a8a', eyeGlow: '#d28bff', metal: '#8a6ad0' }),
 
   // ── Tier 6 ──
+  // The branch bosses (#74): each a look of its own, not a regular foe scaled up.
+  goblinWarchief: L({ skin: '#4fa03a', top: '#5a3a24', bottom: '#3a2a1c', head: 'horns', hair: '#e8dcc0', ears: 'goblin', outfit: 'leather', held: 'axe', pauldrons: true, trim: '#c9a24a', bulk: 1.22, cape: '#8a2a1c', eye: '#ffd24a', metal: '#c9d3e4' }),
+  banditBaron: L({ skin: '#d9a47e', top: '#2a3a6a', bottom: '#2a2420', head: 'hat', hair: '#2a1c14', outfit: 'leather', held: 'sword', off: 'dagger', trim: '#ffd24a', bulk: 1.1, beard: '#2a1c14', cape: '#6a1a2a', pauldrons: true, headCol: '#1c1a24', headTrim: '#ffd24a', metal: '#e8eef8' }),
+  riftKnight: L({ skin: '#3a2466', top: '#1c1430', bottom: '#140c24', head: 'greathelm', hair: '#2a1a4a', outfit: 'plate', held: 'greatsword', off: 'none', pauldrons: true, trim: '#b06aff', bulk: 1.2, cape: '#3a1a6a', eyeGlow: '#e0a8ff', metal: '#5a4a8a', glow: '#b06aff' }),
   doomKnight: L({ skin: '#5a3038', top: '#2a1c24', bottom: '#1a1218', head: 'greathelm', hair: '#3a2028', outfit: 'plate', held: 'greatsword', off: 'none', pauldrons: true, trim: '#c0364a', bulk: 1.15, cape: '#7a1c28', eyeGlow: '#ff5a4a', metal: '#6a4048' }),
   imp: L({ skin: '#ff6a4a', top: '#8a2a1c', bottom: '#6a1c14', head: 'horns', hair: '#3a141c', outfit: 'bare', held: 'none', ears: 'pointy', eyeGlow: '#ffd84a', tail: '#d84a30', wings: '#a8301c' }),
   archDemon: L({ skin: '#c8283a', top: '#2a1018', bottom: '#1a0a10', head: 'horns', hair: '#1a0a10', outfit: 'plate', held: 'greatsword', pauldrons: true, trim: '#ffb04a', bulk: 1.3, eyeGlow: '#ffe07a', tail: '#a01c2c', wings: '#5a1020', cape: '#3a0a14', metal: '#ff7a3a' }),
@@ -170,5 +174,5 @@ export const lookKey = (l: Look): string =>
   [
     l.skin, l.hair, l.head, l.top, l.bottom, l.trim, l.outfit, l.held, l.off, l.metal, l.glow, l.ears, l.eyeGlow, l.cape,
     l.wings, l.tail, l.beard, l.pauldrons ? 1 : 0, l.bulk ?? 1, l.eye, l.cowl ? 1 : 0, l.hero ? 1 : 0, l.style, l.headCol,
-    l.headTrim, l.gloves, l.gloveTrim, l.boots, l.bootTrim, l.fem ? 1 : 0, l.ribbon
+    l.headTrim, l.gloves, l.gloveTrim, l.boots, l.bootTrim, l.fem ? 1 : 0, l.ribbon, l.fierce ? 1 : 0
   ].join('|')

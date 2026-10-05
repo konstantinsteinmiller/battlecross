@@ -347,7 +347,7 @@ regular enemy scaled up; no boss looks different from its kin but for size.
 - [x] **18.3 Creatures.** Wolf family, spider, treant, golem, elemental, naga,
   wyvern, dragon rebuilt to the hero's standard (gradients, jointed limbs,
   detail tiers), on the rig bench by enemy id; triangle budgets in the test.
-- [ ] **18.4 Faces of the enemy.** Monsters lose the doll face (no blush, a
+- [x] **18.4 Faces of the enemy.** Monsters lose the doll face (no blush, a
   menacing brow and eyes); every branch boss a look of its own.
 - [ ] **18.5 Boss presence.** A boss reads as one: rim light, emissive accents,
   an aura on the ground, size of silhouette.
