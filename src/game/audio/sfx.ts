@@ -11,7 +11,7 @@
  */
 export type SfxName =
   // Weapons
-  | 'swing' | 'swingHeavy' | 'shoot' | 'cast'
+  | 'swing' | 'swingDagger' | 'swingHeavy' | 'swingBlunt' | 'shoot' | 'shootBow' | 'cast'
   // Impacts
   | 'hit' | 'hitBlunt' | 'hitPierce' | 'hitHeavy' | 'crit' | 'block' | 'dodge' | 'hurt'
   // Elements and schools
@@ -26,7 +26,7 @@ export type SfxName =
   | 'denied' | 'uiClick' | 'uiOpen' | 'uiClose' | 'uiEquip' | 'uiBuy' | 'uiLearn' | 'uiPoint' | 'uiChoice' | 'mapMove'
 
 export const SFX_NAMES: readonly SfxName[] = [
-  'swing', 'swingHeavy', 'shoot', 'cast', 'hit', 'hitBlunt', 'hitPierce', 'hitHeavy', 'crit', 'block', 'dodge', 'hurt', 'fire', 'ice', 'holy',
+  'swing', 'swingDagger', 'swingHeavy', 'swingBlunt', 'shoot', 'shootBow', 'cast', 'hit', 'hitBlunt', 'hitPierce', 'hitHeavy', 'crit', 'block', 'dodge', 'hurt', 'fire', 'ice', 'holy',
   'shadow', 'poison', 'blood', 'quake', 'beam', 'explode', 'teleport', 'summon', 'heal', 'shieldUp', 'roar', 'telegraph',
   'overheat', 'alert', 'bossIntro', 'death', 'deathBig', 'coin', 'loot', 'lootRare', 'lootEpic', 'lootLegend', 'chest', 'levelUp', 'potion', 'denied', 'uiClick',
   'uiOpen', 'uiClose', 'uiEquip', 'uiBuy', 'uiLearn', 'uiPoint', 'uiChoice', 'mapMove'

@@ -107,6 +107,27 @@ const TRAUMA_LIGHT = 0.2
 const TRAUMA_HEAVY = 0.6
 /** The element a blow of a damage type carries, layered under its hit (#74). */
 const HIT_ELEMENT: Partial<Record<DamageType, SfxName>> = { fire: 'fire', frost: 'ice', shadow: 'shadow', holy: 'holy', poison: 'poison', acid: 'poison', blood: 'blood', beam: 'beam' }
+/** What a swing or a shot sounds like, by what is in the hand (#74): a sword cuts the air, a club pushes it. */
+const swingSound = (style: 'melee' | 'ranged' | 'magic', heavy: boolean, v: RigView | undefined): SfxName => {
+  if (style === 'magic') return 'cast'
+  const held = v?.held ?? 'none'
+  if (style === 'ranged') return held === 'bow' || held === 'sling' ? 'shootBow' : 'shoot'
+  if (v && v.family !== 'humanoid' && v.family !== 'naga') return v.family === 'dragon' || v.family === 'wyvern' || heavy ? 'swingBlunt' : 'swingDagger'
+  switch (held) {
+    case 'dagger': return 'swingDagger'
+    case 'greatsword':
+    case 'axe':
+    case 'scythe':
+      return 'swingHeavy'
+    case 'hammer':
+    case 'club':
+    case 'none':
+    case 'staff':
+    case 'cannon':
+      return 'swingBlunt'
+    default: return heavy ? 'swingHeavy' : 'swing'
+  }
+}
 /** Seconds the world plays on after the outcome, before the result screen. */
 const END_BEAT = { victory: 2.1, defeat: 1.8 }
 /** Seconds after the fall that Second wind is offered: the fall reads first. */
@@ -641,7 +662,7 @@ export class ZoneMode implements GameMode {
           pushHud({ t: 'word', x: e.x, y: e.h + 0.55, z: e.z, key: 'status.' + e.id, kind: 'status' })
           break
         case 'swing':
-          sfx(e.style === 'melee' ? (e.heavy ? 'swingHeavy' : 'swing') : e.style === 'magic' ? 'cast' : 'shoot', this.pan(sim.get(e.src)?.x ?? 0), e.src === hero.id ? 1 : 0.55)
+          sfx(swingSound(e.style, e.heavy, this.views.get(e.src)?.v), this.pan(sim.get(e.src)?.x ?? 0), e.src === hero.id ? 1 : 0.55)
           break
         case 'cast': {
           const def = SKILL_BY_ID[e.skill]

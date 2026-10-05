@@ -313,7 +313,7 @@ const crackle = (n: number, span: number, vol: number, pan: number, at = 0, hz =
 // Voice limiting: the same sound can only retrigger every `gap` seconds.
 const lastAt = new Map<string, number>()
 const GAP: Partial<Record<SfxName, number>> = {
-  swing: 0.05, swingHeavy: 0.08, shoot: 0.05, cast: 0.07, hit: 0.035, hitBlunt: 0.04, hitPierce: 0.035, hitHeavy: 0.06, crit: 0.06, hurt: 0.13,
+  swing: 0.05, swingDagger: 0.04, swingHeavy: 0.08, swingBlunt: 0.07, shoot: 0.05, shootBow: 0.06, cast: 0.07, hit: 0.035, hitBlunt: 0.04, hitPierce: 0.035, hitHeavy: 0.06, crit: 0.06, hurt: 0.13,
   block: 0.08, dodge: 0.1, coin: 0.05, explode: 0.07, fire: 0.1, ice: 0.1, poison: 0.12, shadow: 0.1, quake: 0.12,
   alert: 0.3, death: 0.05, telegraph: 0.25, uiClick: 0.03, summon: 0.1, heal: 0.15, teleport: 0.08
 }
@@ -323,7 +323,7 @@ const GAP: Partial<Record<SfxName, number>> = {
  * and level (±10 %) each time, so a fight is not one sample on repeat.
  */
 const VARY: ReadonlySet<SfxName> = new Set<SfxName>([
-  'swing', 'swingHeavy', 'shoot', 'cast', 'hit', 'hitBlunt', 'hitPierce', 'hitHeavy', 'crit', 'coin', 'explode', 'death', 'hurt', 'block', 'fire'
+  'swing', 'swingDagger', 'swingHeavy', 'swingBlunt', 'shoot', 'shootBow', 'cast', 'hit', 'hitBlunt', 'hitPierce', 'hitHeavy', 'crit', 'coin', 'explode', 'death', 'hurt', 'block', 'fire'
 ])
 
 /** The big stings: the music steps back under them (seconds). */
@@ -365,24 +365,52 @@ const D6 = 86
 
 const RECIPES: Record<SfxName, (pan: number, g: number) => void> = {
   // ── Weapons ──
-  // A blade through the air: a whoosh that travels across, a breath of steel in it.
+  // A sword through the air: a NARROW band of air swept high and fast (rising
+  // slowly, cut off sharply, as a blade passes the ear), the edge's own whistle
+  // over it, a breath of steel ringing at the start. Nothing low: a sword is
+  // thin, it does not push air, it cuts it.
   swing: (p, g) => {
-    space(0.08)
-    whoosh(500, 2600, 900, 0.22, 0.42 * g, p)
-    burst({ dur: 0.14, vol: 0.05 * g, type: 'highpass', f0: 6000, attack: 0.06, at: 0.03, pan: p })
+    space(0.1)
+    burst({ dur: 0.17, vol: 0.32 * g, type: 'bandpass', f0: 1700, fmid: 5600, fmidAt: 0.62, f1: 2600, q: 6.5, attack: 0.11, pan: p - 0.4, panTo: p + 0.4 })
+    burst({ dur: 0.15, vol: 0.12 * g, type: 'highpass', f0: 5200, f1: 8000, attack: 0.1, pan: p - 0.2, panTo: p + 0.3 })
+    tone({ wave: 'sine', f0: 2900, f1: 4300, dur: 0.15, vol: 0.022 * g, attack: 0.1, pan: p })
+    metal(3650, 0.28, 0.012 * g, p, 0.004)
   },
-  // A greatsword, an axe, a maul: deeper air, and the weight behind it.
+  // A dagger: quicker, higher, a flick.
+  swingDagger: (p, g) => {
+    space(0.06)
+    burst({ dur: 0.1, vol: 0.28 * g, type: 'bandpass', f0: 2800, fmid: 7600, fmidAt: 0.6, f1: 4200, q: 7, attack: 0.06, pan: p - 0.3, panTo: p + 0.3 })
+    tone({ wave: 'sine', f0: 4200, f1: 5800, dur: 0.09, vol: 0.016 * g, attack: 0.05, pan: p })
+  },
+  // A greatsword, an axe, a scythe: still a blade, but long and heavy: a lower,
+  // longer sweep, a deeper whistle, the steel ringing longer.
   swingHeavy: (p, g) => {
-    space(0.12)
-    whoosh(220, 1300, 380, 0.34, 0.3 * g, p, 0, 1.6)
-    tone({ wave: 'sine', f0: 95, f1: 55, dur: 0.3, vol: 0.16 * g, attack: 0.08, pan: p, dirt: true })
+    space(0.14)
+    burst({ dur: 0.3, vol: 0.34 * g, type: 'bandpass', f0: 700, fmid: 3000, fmidAt: 0.62, f1: 1100, q: 4.2, attack: 0.19, pan: p - 0.45, panTo: p + 0.45 })
+    burst({ dur: 0.26, vol: 0.08 * g, type: 'lowpass', f0: 220, f1: 140, attack: 0.16, pan: p })
+    tone({ wave: 'sine', f0: 1500, f1: 2300, dur: 0.26, vol: 0.02 * g, attack: 0.17, pan: p })
+    metal(2250, 0.45, 0.014 * g, p, 0.004)
   },
-  // A gun or a bowstring: the crack, the thump of it, the whiz of the shot leaving.
+  // A club, a hammer, a fist, a beast's swipe: no edge, all weight: a wide, low whoomp.
+  swingBlunt: (p, g) => {
+    space(0.12)
+    burst({ dur: 0.3, vol: 0.36 * g, type: 'bandpass', f0: 160, fmid: 620, fmidAt: 0.6, f1: 220, q: 1.3, attack: 0.18, pan: p - 0.3, panTo: p + 0.3 })
+    tone({ wave: 'sine', f0: 80, f1: 52, dur: 0.28, vol: 0.14 * g, attack: 0.16, pan: p, dirt: true })
+  },
+  // A gun: the crack, the thump of it, the whiz of the shot leaving.
   shoot: (p, g) => {
     space(0.16)
     crack(0.34 * g, p, 0, 2600, 0.012)
     tone({ wave: 'tri', f0: 520, f1: 120, dur: 0.09, vol: 0.22 * g, pan: p, dirt: true })
     burst({ dur: 0.16, vol: 0.12 * g, type: 'bandpass', f0: 4200, f1: 1400, q: 3, at: 0.01, pan: p, panTo: p * 0.3 })
+  },
+  // A bow (or a sling): the string let go (a plucked, dying twang) and the arrow hissing off.
+  shootBow: (p, g) => {
+    space(0.14)
+    tone({ wave: 'tri', f0: 196, f1: 180, dur: 0.22, vol: 0.18 * g, attack: 0.002, pan: p })
+    tone({ wave: 'sine', f0: 392, f1: 370, dur: 0.14, vol: 0.08 * g, attack: 0.002, pan: p })
+    burst({ dur: 0.03, vol: 0.18 * g, type: 'bandpass', f0: 2400, q: 1.5, pan: p })
+    burst({ dur: 0.2, vol: 0.14 * g, type: 'bandpass', f0: 5200, f1: 2600, q: 4, attack: 0.02, at: 0.015, pan: p, panTo: p * 0.2 })
   },
   // A spell leaving the hand: air drawn up into a shimmer, two voices beating against each other.
   cast: (p, g) => {
@@ -393,13 +421,16 @@ const RECIPES: Record<SfxName, (pan: number, g: number) => void> = {
     crackle(4, 0.25, 0.05 * g, p, 0.08, 6000)
   },
   // ── Impacts ──
-  // A blade lands: the snap, the slice, the weight of the body behind it, a glint of steel.
+  // A blade lands: a bright snap, the wet tearing of the cut, the chop of it
+  // into the body (mid, not low), a small push of weight, and now and then
+  // the clink of steel on mail.
   hit: (p, g) => {
     space(0.1)
-    crack(0.36 * g, p)
-    burst({ dur: 0.07, vol: 0.22 * g, type: 'bandpass', f0: 2800, f1: 1400, q: 1.2, pan: p })
-    boom(170, 70, 0.12, 0.3 * g, p)
-    metal(2300, 0.14, 0.03 * g, p, 0.004)
+    crack(0.34 * g, p, 0, 4200, 0.008)
+    burst({ dur: 0.1, vol: 0.26 * g, type: 'bandpass', f0: 4200, f1: 1700, q: 1.6, pan: p })
+    burst({ dur: 0.07, vol: 0.2 * g, type: 'bandpass', f0: 820, f1: 520, q: 2.4, at: 0.004, pan: p, dirt: true })
+    tone({ wave: 'sine', f0: 190, f1: 110, dur: 0.06, vol: 0.12 * g, pan: p })
+    if (Math.random() < 0.5) metal(2700 + Math.random() * 600, 0.16, 0.035 * g, p, 0.006)
   },
   // A club or a hammer: no edge to it, all thud.
   hitBlunt: (p, g) => {
@@ -415,21 +446,24 @@ const RECIPES: Record<SfxName, (pan: number, g: number) => void> = {
     burst({ dur: 0.06, vol: 0.16 * g, type: 'bandpass', f0: 4200, f1: 2200, q: 2, pan: p })
     tone({ wave: 'sine', f0: 320, f1: 120, dur: 0.07, vol: 0.2 * g, pan: p, dirt: true })
   },
-  // A heavy blow: a bigger snap, a sub that hits the chest, steel ringing, the air after.
+  // A heavy blow: a bigger snap and a deeper chop, the weight behind it, steel ringing, the air after.
   hitHeavy: (p, g) => {
     space(0.22)
-    crack(0.42 * g, p, 0, 1800, 0.024)
-    boom(110, 34, 0.34, 0.5 * g, p)
-    burst({ dur: 0.26, vol: 0.3 * g, type: 'lowpass', f0: 2400, f1: 160, pan: p, dirt: true })
-    metal(1500, 0.24, 0.05 * g, p, 0.005)
+    crack(0.42 * g, p, 0, 3200, 0.014)
+    burst({ dur: 0.18, vol: 0.42 * g, type: 'bandpass', f0: 4400, f1: 1500, q: 1.4, pan: p })
+    burst({ dur: 0.12, vol: 0.26 * g, type: 'bandpass', f0: 640, f1: 360, q: 2, at: 0.004, pan: p, dirt: true })
+    boom(120, 52, 0.18, 0.13 * g, p)
+    metal(1900, 0.3, 0.05 * g, p, 0.006)
   },
-  // A critical: the heavy blow with a bright clang over it, a shing of steel, and a drop under it.
+  // A critical: a blade's full stroke: the snap, a long tearing cut, the chop, a
+  // bright ringing clang over it, a shing of steel, and a drop under it all.
   crit: (p, g) => {
     space(0.3)
-    crack(0.46 * g, p, 0, 2000, 0.026)
-    boom(120, 30, 0.45, 0.55 * g, p)
-    burst({ dur: 0.3, vol: 0.32 * g, type: 'lowpass', f0: 3000, f1: 140, pan: p, dirt: true })
-    metal(2350, 0.55, 0.11 * g, p, 0.006, 1.3)
+    crack(0.46 * g, p, 0, 3600, 0.016)
+    burst({ dur: 0.24, vol: 0.44 * g, type: 'bandpass', f0: 5600, f1: 1600, q: 1.3, pan: p })
+    burst({ dur: 0.14, vol: 0.28 * g, type: 'bandpass', f0: 700, f1: 380, q: 2, at: 0.004, pan: p, dirt: true })
+    boom(110, 36, 0.3, 0.17 * g, p)
+    metal(2350, 0.55, 0.1 * g, p, 0.006, 1.3)
     burst({ dur: 0.32, vol: 0.09 * g, type: 'highpass', f0: 5200, f1: 9000, attack: 0.02, at: 0.02, pan: p })
   },
   // Steel on a shield: an anvil's clang and its ring.
