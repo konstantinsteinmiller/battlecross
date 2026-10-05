@@ -352,3 +352,49 @@ regular enemy scaled up; no boss looks different from its kin but for size.
 - [x] **18.5 Boss presence.** A boss reads as one: rim light, emissive accents,
   an aura on the ground, size of silhouette.
 - [x] **18.6 The trailer again** (`pnpm cinematic-trailer`).
+
+## 10. Scripted boss fights (#74 follow-up)
+
+The bosses read alike: a model that throws meteors or a cone at the hero. The
+owner asked for fights in the spirit of Battleheart Legacy and top-down ARPGs
+(the goblin on a war boar that charges, rams the wall and pins the hero, the
+King leaping off at half; a dragon that takes off and burns lanes of the
+field), the old bosses kept, the new fights in the next trailer, and the hero
+dodging now and then. Design report:
+https://claude.ai/artifact/F4PGs8yrX78wpkt7yywkXA
+
+| # | Decision | Default / answer | Source |
+| --- | --- | --- | --- |
+| D78 | Where the new fights go | The finales of the Hollows (Tusker and the Goblin King), Dragonspine Peak (Skyfire), the Dread Fortress (Hellgate) and Frostpeak Tundra (Shatterlake), under the old ids, so quests and portraits keep working | Report default |
+| D79 | Dodge roll | Every class: about 4 m in 0.32 s, untouchable 0.3 s, every 3.5 s; Space (the potion keeps Q) or a round button beside the skill bar; a tucked forward roll | Report default |
+| D80 | Reference player | Rolls out of about 7 in 10 foe warnings shortly before they land, the way that keeps it near its foe; balance re-checked | Report default |
+| D81 | The boar | A war-boar rig with the King riding it (parented to its saddle) | Report default |
+| D82 | Fight length | About a minute (60–90 s target): measured 51 / 70 / 86 / 69 s average over the eight classes (Hollows / Tundra / Peak / Fortress); `tests/game/bossFightLength.test.ts` | Report default |
+| D83 | Move names | None on screen | Report default |
+| D84 | Branch bosses, colosseum | Unchanged | Report default |
+| D85 | The old bosses | Mini-bosses half-way through other zones, elites far weaker, recoloured and reshaped: the Goblin Tyrant (Whispering Woods), the Frost Thane (Sunken Temple), the Void Drake (Citadel of the Void), the Pit Lord (Void Rift) | **Owner 2026-10-05** |
+| D86 | Boss lines | One short shouted line at each big beat of a fight, in a bubble over the boss and voiced (Chatterbox, English); a voice card for the Frost Jarl | Owner asked for the boss texts to be voiced |
+
+### Phases
+
+- [x] **19.1 The boss kit.** Scripted phases, lanes to the wall, the charge
+  (carry and pin, or ram the wall and stand dazed), leaving the field, out of
+  reach in the air; Tusker and the King, Skyfire.
+- [x] **19.2 Hellgate and Shatterlake.** The sword wave, hellfire pillars, the
+  dive whose shadow hunts and locks, the gate of fire, three dives; hammerfall
+  and its ice spikes, the shoulder charge that shatters on them, the ice
+  breaking, the rolling glacier. Warnings that track a unit; an ice wall shape.
+- [x] **19.3 Mini-bosses mid-way** (D85).
+- [x] **19.4 The dodge roll and the reference player's dodge** (D79, D80),
+  strings in all 39 locales.
+- [x] **19.5 Boss lines** (D86), voiced.
+- [x] **19.6 Balance and stalls** (D82): a hero carried into rock, a fight
+  wandering into a side pack, the Jarl not charging a hero behind his ice.
+- [x] **19.7 The trailer**, staged on each fight's big moment.
+
+### Deferred
+
+- **Hollows for a Blood-only hero at level 4**: loses (7 of 8 classes win).
+- **Dread Fortress for an Aegis-only hero**: never reaches the finale; a
+  necromancer pack keeps re-summoning skeletons (also with dodging off, so it
+  predates this work).
