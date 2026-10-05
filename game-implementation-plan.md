@@ -342,9 +342,9 @@ regular enemy scaled up; no boss looks different from its kin but for size.
   buffs, roars, summons and deaths rebuilt; every blow opens on an impact
   frame, slashes and stars carry an ink under the light so they read on snow.
   The effects bench. A test: every projectile the game fires has a look.
-- [x] **18.2 Swings, casts, states on bodies.** Trails per weapon, the cast's
+- [x] **18.2 Swings, casts, states on bodies.** Sparks off a swinging edge, the cast's
   gathering, burning / frozen / poisoned / stunned shown on the body.
-- [ ] **18.3 Creatures.** Wolf family, spider, treant, golem, elemental, naga,
+- [x] **18.3 Creatures.** Wolf family, spider, treant, golem, elemental, naga,
   wyvern, dragon rebuilt to the hero's standard (gradients, jointed limbs,
   detail tiers), on the rig bench by enemy id; triangle budgets in the test.
 - [ ] **18.4 Faces of the enemy.** Monsters lose the doll face (no blush, a

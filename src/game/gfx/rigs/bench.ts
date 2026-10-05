@@ -5,6 +5,7 @@ import { updateCelFrame } from '../cel'
 import { makeBlobShadow } from '../markers'
 import { Trails } from '../trails'
 import { EQUIP_SLOTS, type EquipSlot } from '../../data/items'
+import { ENEMY_BY_ID, MINIONS } from '../../data/enemies'
 import type { Action, Unit } from '../../sim/types'
 import { animate } from './anim'
 import { LOOKS, heroLook } from './looks'
@@ -23,6 +24,7 @@ import { makeRigView, type RigView } from './index'
  *           moments from the first frame of the wind-up to the recovery
  *   gear    the hero in every head / hand / foot layer
  *   live    one look, looping an action in real time
+ *   enemies enemies by id, at their own scale, as the fight builds them
  *
  * Also scriptable as `window.__bench` (screenshots in CI, art review).
  */
@@ -50,6 +52,8 @@ export interface StripOpts {
 
 export interface Bench {
   grid(ids?: string[]): void
+  /** Enemies (and minions) by id, at their own scale, as a fight builds them: creatures too. */
+  enemies(ids: string[], o?: { cols?: number; yaw?: number; attack?: boolean }): void
   strip(o: StripOpts): void
   gear(): void
   live(o: StripOpts | null): void
@@ -268,6 +272,35 @@ export const mountBench = (host: HTMLElement): Bench => {
         })
       })
       cam = { x: 0, z: 0.2, w: heads.length * 1.5 + 0.6, d: 4 * 1.9 + 1.2 }
+      if (!raf) raf = requestAnimationFrame(tick)
+    },
+
+    enemies(ids, o = {}) {
+      clear()
+      liveOpts = o.attack ? { look: '', action: 'attack', hitAt: 0.45, end: 1 } : null
+      const cols = Math.min(ids.length, o.cols ?? 6)
+      const sizeOf = (id: string): number => ENEMY_BY_ID[id]?.scale ?? MINIONS[id]?.scale ?? 1
+      const cell = Math.max(...ids.map(sizeOf)) * 2.1
+      const rows = Math.ceil(ids.length / cols)
+      ids.forEach((id, i) => {
+        const def = ENEMY_BY_ID[id]
+        const u = fakeUnit(actors.length + 1, { style: def?.style ?? 'melee', heavy: false, dual: false })
+        u.kind = id
+        u.rank = def?.rank ?? 'normal'
+        u.team = 1
+        const x = ((i % cols) - (cols - 1) / 2) * cell
+        const z = (Math.floor(i / cols) - (rows - 1) / 2) * cell
+        u.x = u.px = x
+        u.z = u.pz = z
+        u.facing = o.yaw ?? 0.45
+        const v = makeRigView(u)
+        v.yaw = o.yaw ?? 0.45
+        const shadow = makeBlobShadow(0.45 * sizeOf(id))
+        shadow.position.set(x, 0.02, z)
+        scene.add(v.rig.root, shadow)
+        actors.push({ v, u, x, z, shadow, act: null, t: Math.random(), own: null })
+      })
+      cam = { x: 0, z: 0.2, w: cols * cell + 0.6, d: rows * cell + 0.8 }
       if (!raf) raf = requestAnimationFrame(tick)
     },
 

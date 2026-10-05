@@ -766,12 +766,13 @@ export class Vfx {
     this.ring(x, z, r * 0.1, r * 0.7, '#ffffff', 0.26)
     this.disc(x, z, r, color, 0.25, 'flash')
     ps.flash(x, 0.4, z, '#ffffff', r * 0.9, 0.08)
-    // The cloud, rolling out from the edge of the blow.
+    // The cloud, rolling out from the edge of the blow (a wide slam: more puffs, not bigger ones).
+    const rc = Math.min(r, 2.4)
     const nd = this.n(Math.round(8 + r * 3))
     for (let k = 0; k < nd; k++) {
       const a = (k / nd) * Math.PI * 2 + Math.random() * 0.4
       const d = r * (0.3 + Math.random() * 0.3)
-      sp.emit({ x: x + Math.cos(a) * d, y: 0.25, z: z + Math.sin(a) * d, vx: Math.cos(a) * r * 2.2, vy: 0.5 + Math.random() * 0.7, vz: Math.sin(a) * r * 2.2, color: Math.random() < 0.5 ? '#d8cbb4' : '#b8a890', size: 0.6 + r * 0.2, sizeEnd: 1.4 + r * 0.4, life: 0.55 + Math.random() * 0.35, drag: 3.2, shape: SHAPE.puff, add: 0, hold: 0.1 })
+      sp.emit({ x: x + Math.cos(a) * d, y: 0.25, z: z + Math.sin(a) * d, vx: Math.cos(a) * r * 2.2, vy: 0.5 + Math.random() * 0.7, vz: Math.sin(a) * r * 2.2, color: Math.random() < 0.5 ? '#d8cbb4' : '#b8a890', size: 0.6 + rc * 0.2, sizeEnd: 1.2 + rc * 0.35, life: 0.5 + Math.random() * 0.3, drag: 3.2, shape: SHAPE.puff, add: 0, hold: 0.05 })
     }
     // Stones thrown up that fall back.
     for (let k = 0; k < this.n(Math.round(5 + r * 2)); k++) {

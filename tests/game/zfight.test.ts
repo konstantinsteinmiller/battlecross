@@ -225,13 +225,8 @@ describe('z-fighting: every static model', () => {
         if (f.length) bad.push(`${id} q${d}: ${f.join(' | ')}`)
       }
     }
-    const builds: Array<[string, () => { mesh: { geometry: import('three').BufferGeometry } }]> = [
-      ['wolf', () => cr.buildBeast('wolf')], ['stalker', () => cr.buildBeast('stalker')], ['spider', () => cr.buildSpider('spider')], ['brood', () => cr.buildSpider('brood')],
-      ['treant', () => cr.buildTreant('treant')], ['elder', () => cr.buildTreant('elder')], ['golem', () => cr.buildGolem('iron')], ['colossus', () => cr.buildGolem('colossus')],
-      ['fire', () => cr.buildElemental('fire')], ['emberLord', () => cr.buildElemental('emberLord')], ['void', () => cr.buildElemental('void')], ['naga', () => cr.buildNaga('naga')], ['oracle', () => cr.buildNaga('oracle')],
-      ['wyvern', () => cr.buildWyvern()], ['dragon', () => cr.buildDragon('void')], ['ally', () => cr.buildDragon('ally')], ['gatling', () => cr.buildTurret('gatling')], ['rocket', () => cr.buildTurret('rocket')]
-    ]
-    for (const [id, b] of builds) {
+    // Every creature variant the game can build (`CREATURE_BUILDS`): a new one is checked by being added there.
+    for (const [id, b] of Object.entries(cr.CREATURE_BUILDS)) {
       const f = fights(trisOf(b().mesh.geometry, null, id, [], 'rig'), 0.003)
       if (f.length) bad.push(`${id}: ${f.join(' | ')}`)
     }
