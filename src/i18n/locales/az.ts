@@ -2652,7 +2652,13 @@ export default {
     frostHowler: 'Şaxta Ulayanı',
     tideSerpent: 'Qabarma İlanı',
     riftKnight: 'Yarıq Cəngavəri',
-    wyvernMatriarch: 'Viverna Anası'
+    wyvernMatriarch: 'Viverna Anası',
+    tusker: 'Tusker, Döyüş Qabanı',
+    tuskerCameo: 'Tusker',
+    goblinTyrant: 'Qoblin Tiranı',
+    voidDrake: 'Heçlik Əjdəri',
+    pitLord: 'Uçurum Lordu',
+    frostThane: 'Şaxta Bəyi'
   },
   results: {
     victory: 'Qələbə!',

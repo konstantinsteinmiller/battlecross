@@ -1,6 +1,7 @@
 import { ENEMY_BY_ID, MINIONS } from '../data/enemies'
 import { hasLineOfSight } from './grid'
 import { abilityReady, startAbility } from './abilities'
+import { stepBoss } from './bosses'
 import { face, inAttackRange, setGoal, startAttack, stop, stride, walk } from './actors'
 import { isControlled, wakeGroup } from './combat'
 import { SIDE_AGGRO, SIDE_LEASH } from './interact'
@@ -64,6 +65,9 @@ export const stepEnemy = (sim: Sim, u: Unit, dt: number): void => {
   }
   for (let i = 0; i < u.cds.length; i++) if (u.cds[i]! > 0) u.cds[i]! -= dt
   if (u.aiT > 0) u.aiT -= dt
+  // A scripted boss (#74): its script runs its phases and its moves; when it
+  // lets the turn go, the generic fight below goes on with the def's abilities.
+  if (u.boss && stepBoss(sim, u, dt, pickTarget(sim, u))) return
   if (isControlled(u) || u.action) return
 
   // Bosses change gear at their phase line.

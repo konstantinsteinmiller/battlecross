@@ -1,6 +1,7 @@
 import { ENEMY_BY_ID, MINIONS } from '../data/enemies'
 import { SKILL_BY_ID } from '../data/skills'
 import { resolveAbility } from './abilities'
+import { SCRIPTED, landScripted } from './bosses'
 import { resolveAttack, separate, stepFields, stepProjectiles, stepWalls } from './actors'
 import { stepAlly, stepEnemy } from './ai'
 import { stepStatuses } from './combat'
@@ -40,7 +41,8 @@ const land = (sim: Sim, u: Unit): void => {
     if (def && fn) fn({ sim, h: sim.hero, u, def, target: sim.live(a.targetId) ?? null, x: a.x, z: a.z, a: a.a })
     return
   }
-  if (a.ability >= 0) resolveAbility(sim, u, a)
+  if (a.ability === SCRIPTED) landScripted(sim, u, a)
+  else if (a.ability >= 0) resolveAbility(sim, u, a)
 }
 
 export const stepSim = (sim: Sim, plan: ZonePlan, dt: number): void => {

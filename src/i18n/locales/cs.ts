@@ -2736,7 +2736,13 @@ export default {
     frostHowler: 'Mrazivý vyjec',
     tideSerpent: 'Přílivový had',
     riftKnight: 'Rytíř trhliny',
-    wyvernMatriarch: 'Matka wyvern'
+    wyvernMatriarch: 'Matka wyvern',
+    tusker: 'Tusker, válečný kanec',
+    tuskerCameo: 'Tusker',
+    goblinTyrant: 'Goblinský tyran',
+    voidDrake: 'Saň Prázdnoty',
+    pitLord: 'Pán Propasti',
+    frostThane: 'Mrazivý thán'
   },
   results: {
     victory: 'Vítězství!',

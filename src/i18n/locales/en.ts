@@ -1496,7 +1496,13 @@ export default {
     'frostHowler': 'Frost Howler',
     'tideSerpent': 'Tide Serpent',
     'riftKnight': 'Rift Knight',
-    'wyvernMatriarch': 'Wyvern Matriarch'
+    'wyvernMatriarch': 'Wyvern Matriarch',
+    'tusker': 'Tusker, the War Boar',
+    'tuskerCameo': 'Tusker',
+    'goblinTyrant': 'Goblin Tyrant',
+    'voidDrake': 'Void Drake',
+    'pitLord': 'Pit Lord',
+    'frostThane': 'Frost Thane'
   },
 
   // ─── End of a visit ───────────────────────────────────────────────────────

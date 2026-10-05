@@ -2742,7 +2742,13 @@ export default {
     frostHowler: 'Mrazni urlikač',
     tideSerpent: 'Plimna zmija',
     riftKnight: 'Vitez pukotine',
-    wyvernMatriarch: 'Matrijarhinja viverna'
+    wyvernMatriarch: 'Matrijarhinja viverna',
+    tusker: 'Tusker, ratni vepar',
+    tuskerCameo: 'Tusker',
+    goblinTyrant: 'Goblinski tiranin',
+    voidDrake: 'Aždaja Praznine',
+    pitLord: 'Gospodar Ponora',
+    frostThane: 'Ledeni tan'
   },
   results: {
     victory: 'Pobjeda!',

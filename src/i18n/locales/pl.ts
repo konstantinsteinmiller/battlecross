@@ -2733,7 +2733,13 @@ export default {
     frostHowler: 'Mroźny Wyjec',
     tideSerpent: 'Wąż Przypływu',
     riftKnight: 'Rycerz Szczeliny',
-    wyvernMatriarch: 'Matriarchini Wywern'
+    wyvernMatriarch: 'Matriarchini Wywern',
+    tusker: 'Tusker, bojowy dzik',
+    tuskerCameo: 'Tusker',
+    goblinTyrant: 'Goblin tyran',
+    voidDrake: 'Żmij Pustki',
+    pitLord: 'Władca Otchłani',
+    frostThane: 'Mroźny Wielmoża'
   },
   results: {
     victory: 'Zwycięstwo!',

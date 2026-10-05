@@ -2711,7 +2711,13 @@ export default {
     frostHowler: 'Sala gaudotājs',
     tideSerpent: 'Paisuma čūska',
     riftKnight: 'Plaisas bruņinieks',
-    wyvernMatriarch: 'Vivernu matriarhe'
+    wyvernMatriarch: 'Vivernu matriarhe',
+    tusker: 'Taskers, kara kuilis',
+    tuskerCameo: 'Taskers',
+    goblinTyrant: 'Goblinu tirāns',
+    voidDrake: 'Tukšuma pūķēns',
+    pitLord: 'Bezdibeņa pavēlnieks',
+    frostThane: 'Sala tans'
   },
   results: {
     victory: 'Uzvara!',

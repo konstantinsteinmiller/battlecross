@@ -42,6 +42,8 @@ export const LOOKS: Readonly<Record<string, Look>> = {
   warden: L({ skin: '#6a4a9a', top: '#2a1c4a', bottom: '#1c1234', head: 'greathelm', hair: '#3a2a6a', outfit: 'plate', held: 'scythe', pauldrons: true, trim: '#a45cff', bulk: 1.16, cape: '#4a2a8a', eyeGlow: '#d28bff', metal: '#8a6ad0' }),
 
   // ── Tier 6 ──
+  // The old bosses as mini-bosses (#74, D85): their kits, in colours and shapes of their own.
+  goblinTyrant: L({ skin: '#6f8f3a', top: '#3e3a48', bottom: '#2a2632', head: 'horns', hair: '#d8d0c0', ears: 'goblin', outfit: 'plate', held: 'hammer', trim: '#9a4ad0', bulk: 1.1, cape: '#4a1a6a', pauldrons: true, eye: '#ff6a3a', metal: '#8a8fa0' }),
   // The branch bosses (#74): each a look of its own, not a regular foe scaled up.
   goblinWarchief: L({ skin: '#4fa03a', top: '#5a3a24', bottom: '#3a2a1c', head: 'horns', hair: '#e8dcc0', ears: 'goblin', outfit: 'leather', held: 'axe', pauldrons: true, trim: '#c9a24a', bulk: 1.22, cape: '#8a2a1c', eye: '#ffd24a', metal: '#c9d3e4' }),
   banditBaron: L({ skin: '#d9a47e', top: '#2a3a6a', bottom: '#2a2420', head: 'hat', hair: '#2a1c14', outfit: 'leather', held: 'sword', off: 'dagger', trim: '#ffd24a', bulk: 1.1, beard: '#2a1c14', cape: '#6a1a2a', pauldrons: true, headCol: '#1c1a24', headTrim: '#ffd24a', metal: '#e8eef8' }),

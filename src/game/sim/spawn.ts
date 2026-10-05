@@ -1,6 +1,7 @@
 import { ENEMY_BY_ID, MINIONS, type EnemyDef } from '../data/enemies'
 import { enemyDmg, enemyHp, plainStats, scalePower } from './stats'
 import type { Unit } from './types'
+import { newBossState } from './bosses/kit'
 import type { Sim } from './world'
 
 /**
@@ -39,6 +40,8 @@ export const spawnEnemy = (sim: Sim, kind: string, x: number, z: number, group =
     facing: sim.rng() * Math.PI * 2
   })
   for (let i = 0; i < def.abilities.length; i++) u.cds[i] = def.abilities[i]!.first ?? def.abilities[i]!.cd * 0.5
+  // A scripted boss (#74) carries its script's state.
+  if (def.script) u.boss = newBossState(def.script)
   // Called in by something already fighting: it joins the fight at once.
   if (owner) {
     u.awake = true

@@ -3,7 +3,7 @@ import {
   nearestOpen, setTempSolid, smoothPath
 } from './grid'
 import { applyStatus, attackSpeedOf, dealDamage, heal, isControlled, moveSpeedOf } from './combat'
-import { angleTo, hasStatus, newAction, statusV, type Sim } from './world'
+import { angleTo, hasStatus, newAction, outOfReach, statusV, type Sim } from './world'
 import type { DamageType, Field, Projectile, StatusId, Team, Unit } from './types'
 
 /**
@@ -356,7 +356,7 @@ export const stepProjectiles = (sim: Sim, dt: number): void => {
       const us = sim.units
       for (let i = 0; i < us.length; i++) {
         const u = us[i]!
-        if (!u.alive || u.team !== other || u.rank === 'npc') continue
+        if (!u.alive || u.team !== other || u.rank === 'npc' || outOfReach(u)) continue
         if (hasStatus(u, 'stealth') && !p.targetId) continue
         const rr = u.r + p.r
         if ((u.x - p.x) * (u.x - p.x) + (u.z - p.z) * (u.z - p.z) > rr * rr) continue

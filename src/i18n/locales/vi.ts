@@ -2652,7 +2652,13 @@ export default {
     frostHowler: 'Sói Hú Băng Giá',
     tideSerpent: 'Mãng Xà Thủy Triều',
     riftKnight: 'Hiệp Sĩ Khe Nứt',
-    wyvernMatriarch: 'Mẹ Rồng Wyvern'
+    wyvernMatriarch: 'Mẹ Rồng Wyvern',
+    tusker: 'Tusker, Lợn Rừng Chiến Trận',
+    tuskerCameo: 'Tusker',
+    goblinTyrant: 'Bạo Chúa Goblin',
+    voidDrake: 'Tiểu Long Hư Không',
+    pitLord: 'Chúa Tể Vực Thẳm',
+    frostThane: 'Lãnh Chúa Băng Giá'
   },
   results: {
     victory: 'Chiến thắng!',

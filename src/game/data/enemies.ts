@@ -109,6 +109,10 @@ export interface EnemyDef {
   deathBlast?: { r: number; dmg: number; type: DamageType }
   /** Bosses turn to phase 2 at this health fraction. */
   phase2?: number
+  /** A scripted fight (#74, `sim/bosses`): the script runs its phases and signature moves. */
+  script?: string
+  /** A mount's rider (a look in `gfx/rigs/looks`), drawn in its saddle until it leaps off. */
+  rider?: string
   /** A branch boss (roadmap #70): guards the end of a side way. It shows a
    *  boss plate and wakes the boss music, but drops what a zone's mobs drop,
    *  never the finale's promised piece; its prize is the chest it guards. */
@@ -161,15 +165,45 @@ export const ENEMIES: readonly EnemyDef[] = [
       { kind: 'charge', cd: 11, first: 6, range: 9, min: 3.5, windup: 0.8, recover: 0.7, dmg: 1.9, r: 8, w: 0.9, status: { id: 'knockdown', dur: 0.8, v: 1 } }
     ]
   }),
+  // The Goblin King's fight (#74, `sim/bosses/tusker.ts`): first on Tusker, his
+  // war boar; at half the boar's health he leaps off and fights on foot.
   D({
-    id: 'goblinKing', rank: 'boss', rig: 'humanoid', look: 'goblinKing', scale: 1.7, r: 0.9, h: 2.3,
-    hp: 8.5, dmg: 1.1, armor: 2.2, speed: 2.9, style: 'melee', type: 'physical', range: 2.8, interval: 1.6, windup: 0.5, heavy: true,
-    aggro: 14, reward: 1, color: '#58c23f', phase2: 0.5,
+    id: 'tusker', rank: 'boss', rig: 'beast', look: 'boar', rider: 'goblinKing', scale: 1.55, r: 1.05, h: 2.2,
+    hp: 6, dmg: 1.1, armor: 2.4, speed: 3.3, style: 'melee', type: 'physical', range: 2.6, interval: 1.5, windup: 0.55, heavy: true,
+    aggro: 14, reward: 0.5, color: '#8a5a3a', script: 'tusker',
     abilities: [
-      { kind: 'slam', cd: 8, first: 3, range: 3.6, windup: 0.9, recover: 0.6, dmg: 1.9, r: 4, pose: 1, status: { id: 'knockdown', dur: 0.7, v: 1 } },
-      { kind: 'barrage', cd: 12, first: 7, range: 12, windup: 0.8, recover: 0.6, dmg: 1.3, r: 2, count: 4, fx: 'bomb', type: 'fire' },
-      { kind: 'summon', cd: 18, first: 10, range: 20, windup: 0.9, recover: 0.5, spawn: 'goblin', count: 3 },
+      // The King throws his bombs from the saddle.
+      { kind: 'barrage', cd: 9, first: 5, range: 13, windup: 0.8, recover: 0.5, dmg: 1.3, r: 2, count: 3, fx: 'bomb', type: 'fire' }
+    ]
+  }),
+  D({
+    id: 'goblinKing', rank: 'boss', rig: 'humanoid', look: 'goblinKing', scale: 1.6, r: 0.85, h: 2.2,
+    hp: 5.5, dmg: 1.15, armor: 2.2, speed: 3.6, style: 'melee', type: 'physical', range: 2.7, interval: 1.4, windup: 0.45, heavy: true,
+    aggro: 20, reward: 1, color: '#58c23f', script: 'kingAfoot',
+    abilities: [
+      // The club spin.
+      { kind: 'slam', cd: 7, first: 3, range: 3.4, windup: 0.85, recover: 0.6, dmg: 1.8, r: 3.8, pose: 1, status: { id: 'knockdown', dur: 0.7, v: 1 } },
+      // A ring of bombs round the hero.
+      { kind: 'barrage', cd: 11, first: 6, range: 12, windup: 0.8, recover: 0.6, dmg: 1.3, r: 1.8, count: 6, fx: 'bomb', type: 'fire' },
       { kind: 'enrage', cd: 30, first: 0, range: 20, windup: 0.8, recover: 0.3, phase: 2 }
+    ]
+  }),
+  D({
+    id: 'tuskerCameo', rank: 'elite', rig: 'beast', look: 'boar', scale: 1.55, r: 1.05, h: 2.2,
+    hp: 40, dmg: 1.1, armor: 3, speed: 3.3, style: 'melee', type: 'physical', range: 2.6, interval: 1.5, windup: 0.55, heavy: true,
+    aggro: 30, reward: 0, color: '#8a5a3a', script: 'tuskerCameo', abilities: []
+  }),
+  // The old Goblin King's fight, kept (#74, D85): a mini-boss mid-way through a
+  // later zone, an elite in a war-paint look of its own.
+  D({
+    id: 'goblinTyrant', rank: 'elite', rig: 'humanoid', look: 'goblinTyrant', scale: 1.35, r: 0.75, h: 1.9,
+    hp: 3.2, dmg: 1, armor: 2, speed: 2.9, style: 'melee', type: 'physical', range: 2.6, interval: 1.6, windup: 0.5, heavy: true,
+    aggro: 11, reward: 1.2, color: '#9a4ad0',
+    abilities: [
+      { kind: 'slam', cd: 9, first: 3, range: 3.4, windup: 0.9, recover: 0.6, dmg: 1.6, r: 3.6, pose: 1, status: { id: 'knockdown', dur: 0.6, v: 1 } },
+      { kind: 'barrage', cd: 13, first: 7, range: 12, windup: 0.8, recover: 0.6, dmg: 1.1, r: 1.8, count: 3, fx: 'bomb', type: 'fire' },
+      { kind: 'summon', cd: 20, first: 10, range: 20, windup: 0.9, recover: 0.5, spawn: 'goblin', count: 2 },
+      { kind: 'enrage', cd: 30, first: 8, range: 20, windup: 0.8, recover: 0.3, below: 0.5 }
     ]
   }),
 
@@ -365,16 +399,27 @@ export const ENEMIES: readonly EnemyDef[] = [
     ]
   }),
   D({
+    // Skyfire (#74, `sim/bosses/skyfire.ts`): a sweeping breath, a flight of strafing runs, a crash landing.
     id: 'voidDragon', rank: 'boss', rig: 'dragon', look: 'void', scale: 1.9, r: 1.6, h: 3.4,
-    hp: 13, dmg: 1.4, armor: 5, resist: 0.45, speed: 3.1, style: 'melee', type: 'physical', range: 4.2, interval: 1.7, windup: 0.5, heavy: true,
-    aggro: 18, reward: 1, color: '#9a4aff', phase2: 0.55,
+    hp: 14, dmg: 1.4, armor: 5, resist: 0.45, speed: 3.1, style: 'melee', type: 'physical', range: 4.2, interval: 1.7, windup: 0.5, heavy: true,
+    aggro: 18, reward: 1, color: '#9a4aff', script: 'skyfire',
     abilities: [
-      { kind: 'cone', cd: 7, first: 3, range: 8, windup: 1, recover: 0.6, dmg: 1.7, r: 9, w: 30, type: 'shadow', fx: 'breath', status: { id: 'burn', dur: 4, v: 0.22, type: 'shadow' } },
-      { kind: 'slam', cd: 9, first: 5, range: 5, windup: 0.9, recover: 0.6, dmg: 1.8, r: 6, status: { id: 'knockdown', dur: 0.9, v: 1 }, pose: 1 },
-      { kind: 'charge', cd: 12, first: 8, range: 14, min: 5, windup: 0.9, recover: 0.8, dmg: 2.1, r: 13, w: 2 },
-      { kind: 'barrage', cd: 8, first: 2, range: 16, windup: 0.8, recover: 0.5, dmg: 1.4, r: 2.6, count: 7, type: 'shadow', fx: 'meteor', phase: 2 },
-      { kind: 'summon', cd: 24, first: 6, range: 20, windup: 0.9, recover: 0.5, spawn: 'wyvern', count: 2, phase: 2 },
-      { kind: 'enrage', cd: 45, first: 0, range: 20, windup: 0.8, recover: 0.3, phase: 2 }
+      // The stomp.
+      { kind: 'slam', cd: 9, first: 5, range: 5, windup: 0.9, recover: 0.6, dmg: 1.8, r: 6, status: { id: 'knockdown', dur: 0.9, v: 1 }, pose: 1 }
+    ]
+  }),
+  // The old Void Dragon's fight, kept (#74, D85): a drake mid-way through a later zone, an elite.
+  D({
+    id: 'voidDrake', rank: 'elite', rig: 'dragon', look: 'drake', scale: 1.3, r: 1.15, h: 2.4,
+    hp: 3.8, dmg: 1.1, armor: 3.5, resist: 0.35, speed: 3.1, style: 'melee', type: 'physical', range: 3.4, interval: 1.7, windup: 0.5, heavy: true,
+    aggro: 12, reward: 1.2, color: '#3fd0c0',
+    abilities: [
+      { kind: 'cone', cd: 8, first: 3, range: 7, windup: 1, recover: 0.6, dmg: 1.5, r: 7, w: 30, type: 'shadow', fx: 'breath', status: { id: 'burn', dur: 3, v: 0.18, type: 'shadow' } },
+      { kind: 'slam', cd: 10, first: 5, range: 4, windup: 0.9, recover: 0.6, dmg: 1.5, r: 4.5, status: { id: 'knockdown', dur: 0.7, v: 1 }, pose: 1 },
+      { kind: 'charge', cd: 13, first: 8, range: 12, min: 5, windup: 0.9, recover: 0.8, dmg: 1.7, r: 10, w: 1.6 },
+      { kind: 'barrage', cd: 11, first: 4, range: 14, windup: 0.8, recover: 0.5, dmg: 1.1, r: 2.2, count: 4, type: 'shadow', fx: 'meteor', below: 0.5 },
+      { kind: 'summon', cd: 26, first: 8, range: 20, windup: 0.9, recover: 0.5, spawn: 'wyvern', count: 1, below: 0.5 },
+      { kind: 'enrage', cd: 45, first: 10, range: 20, windup: 0.8, recover: 0.3, below: 0.4 }
     ]
   }),
 

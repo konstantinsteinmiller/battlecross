@@ -2689,7 +2689,13 @@ export default {
     frostHowler: 'Uivador da Geada',
     tideSerpent: 'Serpente da Maré',
     riftKnight: 'Cavaleiro da Fenda',
-    wyvernMatriarch: 'Matriarca Serpe'
+    wyvernMatriarch: 'Matriarca Serpe',
+    tusker: 'Tusker, o Javali de Guerra',
+    tuskerCameo: 'Tusker',
+    goblinTyrant: 'Tirano Goblin',
+    voidDrake: 'Draco do Vazio',
+    pitLord: 'Senhor do Abismo',
+    frostThane: 'Thane do Gelo'
   },
   results: {
     victory: 'Vitória!',

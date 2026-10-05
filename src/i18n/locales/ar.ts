@@ -2907,7 +2907,13 @@ export default {
     frostHowler: 'عوّاء الصقيع',
     tideSerpent: 'ثعبان المد',
     riftKnight: 'فارس الصدع',
-    wyvernMatriarch: 'أم الوايفرن'
+    wyvernMatriarch: 'أم الوايفرن',
+    tusker: 'تاسكر، خنزير الحرب',
+    tuskerCameo: 'تاسكر',
+    goblinTyrant: 'طاغية الغوبلن',
+    voidDrake: 'تنين العدم الصغير',
+    pitLord: 'سيد الهاوية',
+    frostThane: 'نبيل الصقيع'
   },
   results: {
     victory: 'نصر!',

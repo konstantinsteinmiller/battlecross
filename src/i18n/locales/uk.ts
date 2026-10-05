@@ -2735,7 +2735,13 @@ export default {
     frostHowler: 'Морозний виючий',
     tideSerpent: 'Змій припливу',
     riftKnight: 'Лицар Розлому',
-    wyvernMatriarch: 'Матріарх виверн'
+    wyvernMatriarch: 'Матріарх виверн',
+    tusker: 'Таскер, бойовий вепр',
+    tuskerCameo: 'Таскер',
+    goblinTyrant: 'Гоблін-тиран',
+    voidDrake: 'Змій Порожнечі',
+    pitLord: 'Володар Безодні',
+    frostThane: 'Крижаний тан'
   },
   results: {
     victory: 'Перемога!',

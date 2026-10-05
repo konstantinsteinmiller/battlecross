@@ -48,7 +48,7 @@ export const ZONES: Readonly<Record<ZoneId, ZoneDef>> = {
   hollows: {
     id: 'hollows', theme: 'cave', min: 3, max: 5, sections: 4, pack: [3, 4],
     kinds: [{ kind: 'goblin', w: 5 }, { kind: 'goblinSlinger', w: 3 }, { kind: 'wolf', w: 2 }],
-    finale: { leader: 'goblinKing', with: ['goblin', 'goblin', 'goblinSlinger'] }
+    finale: { leader: 'tusker', with: ['goblin', 'goblinSlinger'] }
   },
   woods: {
     id: 'woods', theme: 'forest', min: 6, max: 8, sections: 4, pack: [3, 4],

@@ -1,7 +1,7 @@
 import { ENEMY_BY_ID, MINIONS } from '../../data/enemies'
 import { setCelRim } from '../cel'
 import { cloneRig, type Rig } from '../kit'
-import { buildBeast, buildDragon, buildElemental, buildGolem, buildNaga, buildSpider, buildTreant, buildTurret, buildWyvern } from './creatures'
+import { buildBeast, buildBoar, buildDragon, buildElemental, buildGolem, buildNaga, buildSpider, buildTreant, buildTurret, buildWyvern } from './creatures'
 import { clipSet, styleOf, type ClipSet } from './clips'
 import { buildHumanoid, WEAPON_EDGE, WEAPON_REACH, type Held, type Look, type OffHand } from './humanoid'
 import { LOOKS, lookKey } from './looks'
@@ -51,6 +51,8 @@ export interface RigView {
   gone: boolean
   /** Signature colour for its effects. */
   color: string
+  /** A mount's rider (#74), seated in its `saddle` bone until it leaps off (`anim.ts` poses it). */
+  rider?: Rig
 
   // ── The pose layer (humanoids) ──
   /** The core pose as last drawn, and the pose a crossfade started from. */
@@ -166,6 +168,7 @@ const BITE_REACH: Partial<Record<Family, number>> = { beast: 0.55, spider: 0.4, 
 const specFor = (rig: string, look: string, foe = false): Spec => {
   switch (rig) {
     case 'beast': {
+      if (look === 'boar') return { key: 'beast:boar', family: 'beast', build: buildBoar, float: 0, held: 'none', ghost: false }
       const v = look === 'stalker' ? 'stalker' : look === 'howler' ? 'howler' : 'wolf'
       return { key: 'beast:' + v, family: 'beast', build: () => buildBeast(v), float: 0, held: 'none', ghost: false }
     }
@@ -194,7 +197,7 @@ const specFor = (rig: string, look: string, foe = false): Spec => {
       return { key: 'wyvern:' + v, family: 'wyvern', build: () => buildWyvern(v), float: 0.5, held: 'none', ghost: false }
     }
     case 'dragon': {
-      const v = look === 'ally' ? 'ally' : 'void'
+      const v = look === 'ally' ? 'ally' : look === 'drake' ? 'drake' : 'void'
       return { key: 'dragon:' + v, family: 'dragon', build: () => buildDragon(v), float: 0, held: 'none', ghost: false }
     }
     case 'voidlord':
@@ -239,8 +242,19 @@ export const makeRigView = (u: Unit, heroLook?: Look): RigView => {
   pose.set(set.stance)
   const bite = BITE_REACH[spec.family]
   const mouth = rig.bones.mouth
+  // A mount carries its rider (#74): a foe's look, seated in the saddle.
+  const riderLook = u.rank !== 'hero' ? ENEMY_BY_ID[u.kind]?.rider : undefined
+  let rider: Rig | undefined
+  const saddle = rig.bones.saddle
+  if (riderLook && saddle) {
+    const look: Look = { ...(LOOKS[riderLook] ?? LOOKS.goblin!), fierce: true }
+    rider = cloneRig(template('rider:' + lookKey(look), () => buildHumanoid(look)))
+    rider.root.scale.setScalar(0.6)
+    saddle.add(rider.root)
+  }
   return {
     rig,
+    rider,
     family: spec.family,
     scale,
     float: spec.float,

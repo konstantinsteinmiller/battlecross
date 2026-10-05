@@ -2705,7 +2705,13 @@ export default {
     frostHowler: 'Ululatore del gelo',
     tideSerpent: 'Serpente delle maree',
     riftKnight: 'Cavaliere della Faglia',
-    wyvernMatriarch: 'Matriarca viverna'
+    wyvernMatriarch: 'Matriarca viverna',
+    tusker: 'Tusker, il Cinghiale da guerra',
+    tuskerCameo: 'Tusker',
+    goblinTyrant: 'Tiranno goblin',
+    voidDrake: 'Draco del Vuoto',
+    pitLord: 'Signore dell’Abisso',
+    frostThane: 'Thane del Gelo'
   },
   results: {
     victory: 'Vittoria!',

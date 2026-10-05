@@ -2712,7 +2712,13 @@ export default {
     frostHowler: 'Мразовит виещ',
     tideSerpent: 'Приливна змия',
     riftKnight: 'Рицар на разлома',
-    wyvernMatriarch: 'Матриарх на виверните'
+    wyvernMatriarch: 'Матриарх на виверните',
+    tusker: 'Тъскър, бойният глиган',
+    tuskerCameo: 'Тъскър',
+    goblinTyrant: 'Гоблински тиранин',
+    voidDrake: 'Змей на Пустотата',
+    pitLord: 'Господар на Бездната',
+    frostThane: 'Леден тан'
   },
   results: {
     victory: 'Победа!',

@@ -2652,7 +2652,13 @@ export default {
     frostHowler: 'Ayaz Uluyanı',
     tideSerpent: 'Gelgit Yılanı',
     riftKnight: 'Yarık Şövalyesi',
-    wyvernMatriarch: 'Wyvern Ana'
+    wyvernMatriarch: 'Wyvern Ana',
+    tusker: 'Tusker, Savaş Domuzu',
+    tuskerCameo: 'Tusker',
+    goblinTyrant: 'Goblin Zorbası',
+    voidDrake: 'Genç Hiçlik Ejderi',
+    pitLord: 'Uçurum Lordu',
+    frostThane: 'Ayaz Ağası'
   },
   results: {
     victory: 'Zafer!',

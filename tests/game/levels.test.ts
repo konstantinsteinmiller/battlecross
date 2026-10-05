@@ -175,7 +175,8 @@ describe('the plan: everything a visit holds can be walked to', () => {
         }
       }
     }
-    expect(h >>> 0).toBe(493031836)
+    // #74: the Hollows' finale is the Goblin King on Tusker now.
+    expect(h >>> 0).toBe(2827016778)
     expect(generateZone(ZONES.plains, 77).packs.map(p => p.kinds)).toEqual([
       ['goblinSlinger', 'goblin', 'goblin'], ['goblinSlinger', 'goblin'], ['banditChief', 'bandit', 'goblinSlinger']
     ])

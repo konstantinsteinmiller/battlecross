@@ -2652,7 +2652,13 @@ export default {
     frostHowler: '霜嚎獸',
     tideSerpent: '潮汐巨蛇',
     riftKnight: '裂隙騎士',
-    wyvernMatriarch: '雙足飛龍女王'
+    wyvernMatriarch: '雙足飛龍女王',
+    tusker: '獠牙，戰爭野豬',
+    tuskerCameo: '獠牙',
+    goblinTyrant: '哥布林暴君',
+    voidDrake: '虛空幼龍',
+    pitLord: '深淵領主',
+    frostThane: '冰霜族長'
   },
   results: {
     victory: '勝利！',

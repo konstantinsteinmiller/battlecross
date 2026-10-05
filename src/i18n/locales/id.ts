@@ -2652,7 +2652,13 @@ export default {
     frostHowler: 'Pelolong Beku',
     tideSerpent: 'Ular Pasang',
     riftKnight: 'Ksatria Celah',
-    wyvernMatriarch: 'Induk Wyvern'
+    wyvernMatriarch: 'Induk Wyvern',
+    tusker: 'Tusker, Babi Hutan Perang',
+    tuskerCameo: 'Tusker',
+    goblinTyrant: 'Tiran Goblin',
+    voidDrake: 'Drake Hampa',
+    pitLord: 'Penguasa Jurang',
+    frostThane: 'Bangsawan Es'
   },
   results: {
     victory: 'Menang!',

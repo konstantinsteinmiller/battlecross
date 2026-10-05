@@ -2694,7 +2694,13 @@ export default {
     frostHowler: 'Ουρλιαχτής του Παγετού',
     tideSerpent: 'Φίδι της Παλίρροιας',
     riftKnight: 'Ιππότης του Ρήγματος',
-    wyvernMatriarch: 'Μητριάρχης των Γουάιβερν'
+    wyvernMatriarch: 'Μητριάρχης των Γουάιβερν',
+    tusker: 'Τάσκερ, ο Πολεμικός Κάπρος',
+    tuskerCameo: 'Τάσκερ',
+    goblinTyrant: 'Τύραννος των Γκόμπλιν',
+    voidDrake: 'Δρακόφιδο του Κενού',
+    pitLord: 'Άρχοντας της Αβύσσου',
+    frostThane: 'Οπλαρχηγός του Παγετού'
   },
   results: {
     victory: 'Νίκη!',

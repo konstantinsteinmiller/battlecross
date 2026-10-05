@@ -2652,7 +2652,13 @@ export default {
     frostHowler: 'Аяз ұлығышы',
     tideSerpent: 'Толқын жыланы',
     riftKnight: 'Жарық рыцары',
-    wyvernMatriarch: 'Виверна анасы'
+    wyvernMatriarch: 'Виверна анасы',
+    tusker: 'Таскер, соғыс қабаны',
+    tuskerCameo: 'Таскер',
+    goblinTyrant: 'Гоблин тираны',
+    voidDrake: 'Бостық жас айдаһары',
+    pitLord: 'Тұңғиық әміршісі',
+    frostThane: 'Аяз бегі'
   },
   results: {
     victory: 'Жеңіс!',

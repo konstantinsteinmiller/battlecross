@@ -49,6 +49,7 @@ export interface HeroInit {
 export const createHero = (sim: Sim, o: HeroInit): HeroState => {
   const s = heroStats(o.build)
   const unit = sim.addUnit({ kind: 'hero', team: 0, rank: 'hero', level: o.build.level, x: o.x, z: o.z, r: 0.45, h: 1.45, s, facing: Math.PI })
+  sim.start = { x: o.x, z: o.z }
   const skills = [...o.skills]
   while (skills.length < 6) skills.push('')
   const h: HeroState = {

@@ -264,6 +264,8 @@ export class Sim {
   arenaMod: ArenaMod | '' = ''
   /** Where waves spawn (arena) and where the zone's exit / chest stands. */
   spawnPoints: Array<[number, number]> = []
+  /** Where the hero came in: the way a boss's mount leaves by (`sim/bosses`). */
+  start = { x: 0, z: 0 }
   ended: '' | 'victory' | 'defeat' = ''
   /** Seconds since the outcome was decided (the mode waits out a beat). */
   endedT = 0
@@ -413,7 +415,7 @@ export class Sim {
     let bd = maxDist * maxDist
     for (let i = 0; i < this.units.length; i++) {
       const u = this.units[i]!
-      if (!u.alive || u.team !== team || u.id === skipId || u.rank === 'npc') continue
+      if (!u.alive || u.team !== team || u.id === skipId || u.rank === 'npc' || outOfReach(u)) continue
       if (hasStatus(u, 'stealth')) continue
       const d = (u.x - x) * (u.x - x) + (u.z - z) * (u.z - z)
       if (d < bd) { bd = d; best = u }
@@ -426,7 +428,7 @@ export class Sim {
     out.length = 0
     for (let i = 0; i < this.units.length; i++) {
       const u = this.units[i]!
-      if (!u.alive || u.team !== team || u.rank === 'npc') continue
+      if (!u.alive || u.team !== team || u.rank === 'npc' || outOfReach(u)) continue
       const rr = r + u.r
       if ((u.x - x) * (u.x - x) + (u.z - z) * (u.z - z) <= rr * rr) out.push(u)
     }
@@ -441,7 +443,7 @@ export class Sim {
     const cos = Math.cos(half)
     for (let i = 0; i < this.units.length; i++) {
       const u = this.units[i]!
-      if (!u.alive || u.team !== team || u.rank === 'npc') continue
+      if (!u.alive || u.team !== team || u.rank === 'npc' || outOfReach(u)) continue
       const ux = u.x - x
       const uz = u.z - z
       const d = Math.hypot(ux, uz)
@@ -459,7 +461,7 @@ export class Sim {
     const dz = Math.cos(a)
     for (let i = 0; i < this.units.length; i++) {
       const u = this.units[i]!
-      if (!u.alive || u.team !== team || u.rank === 'npc') continue
+      if (!u.alive || u.team !== team || u.rank === 'npc' || outOfReach(u)) continue
       const ux = u.x - x
       const uz = u.z - z
       const along = ux * dx + uz * dz
@@ -478,7 +480,7 @@ export class Sim {
     for (let i = 0; i < this.units.length; i++) {
       const u = this.units[i]!
       if (!u.alive || (team !== -1 && u.team !== team)) continue
-      if (u.rank === 'hero') continue
+      if (u.rank === 'hero' || outOfReach(u)) continue
       const d = Math.hypot(u.x - x, u.z - z)
       if (d <= u.r + pad && d < bd) { bd = d; best = u }
     }
@@ -496,6 +498,12 @@ export class Sim {
 }
 
 // ─── Status helpers (read side; `combat.ts` owns the write side) ────────────
+
+/** How high (metres) a boss must be before nothing on the ground reaches it. */
+export const AIR_REACH = 1.2
+
+/** Out of everyone's reach: a boss in the air, or one that has left the field (`sim/bosses`). */
+export const outOfReach = (u: Unit): boolean => !!u.boss && (u.boss.alt > AIR_REACH || u.boss.mode === 'gone')
 
 export const findStatus = (u: Unit, id: StatusId): Status | undefined => {
   const st = u.statuses

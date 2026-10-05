@@ -2688,7 +2688,13 @@ export default {
     frostHowler: 'Ouveador da Xeada',
     tideSerpent: 'Serpe da Marea',
     riftKnight: 'Cabaleiro da Fenda',
-    wyvernMatriarch: 'Matriarca Guivre'
+    wyvernMatriarch: 'Matriarca Guivre',
+    tusker: 'Tusker, o Xabarín de Guerra',
+    tuskerCameo: 'Tusker',
+    goblinTyrant: 'Tirano Trasno',
+    voidDrake: 'Draco do Baleiro',
+    pitLord: 'Señor do Abismo',
+    frostThane: 'Thane do Xeo'
   },
   results: {
     victory: 'Vitoria!',

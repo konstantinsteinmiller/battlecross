@@ -706,8 +706,37 @@ const dragon = (v: RigView, u: Unit, time: number, speed: number): void => {
   let rootZ = 0
   let shake = 0
 
+  // ── Flight (Skyfire): the script holds it in the air ──
+  const fb = u.boss
+  const flying = !!fb && fb.alt > 0.15
+  if (flying) {
+    const sub = fb!.sub
+    const diving = sub === 'pass'
+    const landing = sub === 'land'
+    // A wingbeat: slow and deep climbing and hovering, a glide with the wings swept back on the dive.
+    const beat = Math.sin(time * (diving ? 3 : 6.2) + v.phase)
+    wingUp = diving ? 0.2 + beat * 0.08 : 0.55 + beat * 0.75
+    wingBack = diving ? 0.55 : landing ? -0.35 : -0.05
+    wingFlap = 0
+    // Legs drawn up under it; out for the landing.
+    frontHip = landing ? -0.2 : -0.9
+    frontKnee = landing ? 0.3 : 1.4
+    hindHip = landing ? 0.1 : 0.8
+    hindKnee = landing ? 0 : -0.5
+    // Nose up as it climbs, down into the dive, flared for the landing.
+    bodyX = sub === 'rise' || sub === 'climb' ? -0.3 : diving ? 0.22 : landing ? -0.38 : 0
+    bodyY = beat * 0.06
+    neckX = diving ? 0.35 : -0.15
+    neck2X = diving ? 0.2 : 0
+    headX = diving ? 0.35 : 0.1
+    // Breathing fire down the lane.
+    jaw = diving ? 0.75 : 0.12
+    tailX = diving ? -0.2 : 0.15
+    tailLift = 0
+  }
+
   // The gait: the body dips on every footfall (four a cycle) and rolls over the planted shoulder.
-  bodyY += -0.035 * amp * (0.5 + 0.5 * Math.cos(cyc * TAU * 4))
+  if (!flying) bodyY += -0.035 * amp * (0.5 + 0.5 * Math.cos(cyc * TAU * 4))
   bodyRoll += 0.045 * amp * Math.sin(cyc * TAU * 2)
   bodyX += 0.02 * amp * Math.sin(cyc * TAU * 4 + 0.6)
   // The head held steady against it: the neck takes the sway out.
@@ -716,7 +745,7 @@ const dragon = (v: RigView, u: Unit, time: number, speed: number): void => {
   wingBack += 0.3 * amp
   wingUp += 0.05 * amp * Math.sin(cyc * TAU * 4)
 
-  if (b.on) {
+  if (b.on && !flying) {
     if (bite) {
       // Draw back in an S, jaw wide; strike through; the body follows the head.
       neckX += beat(b, -0.42, 0.42)
@@ -825,7 +854,7 @@ const dragon = (v: RigView, u: Unit, time: number, speed: number): void => {
     if (c < 0) c += 1
     const swingK = c < 0.32 ? c / 0.32 : -1
     const lift = swingK >= 0 ? Math.sin(swingK * Math.PI) : 0
-    const A = 0.36 * amp
+    const A = flying ? 0 : 0.36 * amp
     // Swing: from back to front. Stance: the planted foot travels back under the body.
     const hip = swingK >= 0 ? A * (1 - 2 * (swingK * swingK * (3 - 2 * swingK))) : -A + 2 * A * ((c - 0.32) / 0.68)
     const knee = lift * 0.95 * amp
@@ -848,6 +877,41 @@ const dragon = (v: RigView, u: Unit, time: number, speed: number): void => {
   // The stomp lands: the whole body squashes into the ground.
   if (b.on && b.hit >= 1 && v.hopFrom < 1 && stomp) squash(v, 0.16)
   v.hopFrom = b.on ? Math.min(1, b.hit) : 0
+}
+
+// ─── A rider in the saddle (#74) ────────────────────────────────────────────
+
+/**
+ * The rider of a mount (the Goblin King on Tusker): seated astride, thighs
+ * forward and out round the beast, a hand on the reins, the club arm drawn
+ * back and thrown when the mount's action is a barrage (the King's bombs),
+ * leaning into a charge, rocking with the gait. Gone once it has leapt off.
+ */
+export const poseRider = (v: RigView, u: Unit, time: number): void => {
+  const r = v.rider
+  if (!r) return
+  const b = u.boss
+  const off = !u.alive || !!b && (b.marks.includes('dismounted') || b.mode === 'exit' || b.mode === 'gone')
+  r.root.visible = !off
+  if (off) return
+  const a = u.action
+  const throwing = a && a.id === 'barrage' ? clamp01(a.t / Math.max(0.05, a.hitAt)) : 0
+  const thrown = a && a.id === 'barrage' && a.t > a.hitAt ? clamp01((a.t - a.hitAt) / 0.25) : 0
+  const charging = b?.mode === 'charge' ? 1 : a?.id === 'charge' ? 0.5 : 0
+  const horn = a && a.id === 'enrage' ? clamp01(a.t / Math.max(0.05, a.hitAt)) : 0
+  const rock = Math.sin(time * 9 + v.phase) * (u.anim === 'walk' || charging ? 0.06 : 0.015)
+  pose(r, 'legL', -1.3, 0, 0.62)
+  pose(r, 'legR', -1.3, 0, -0.62)
+  pose(r, 'shinL', 1.25, 0, 0)
+  pose(r, 'shinR', 1.25, 0, 0)
+  pose(r, 'torso', 0.12 + rock + charging * 0.35 - horn * 0.3, 0, 0)
+  pose(r, 'head', -0.1 - charging * 0.2 - horn * 0.4, 0, 0)
+  // The reins.
+  pose(r, 'armL', -0.9 - charging * 0.3, 0, 0.25)
+  pose(r, 'foreL', -0.7, 0, 0)
+  // The club: raised, drawn back to throw, and thrown; held high to blow the horn.
+  pose(r, 'armR', -0.6 - throwing * 2 + thrown * 2.6 - horn * 1.8, 0, -0.25)
+  pose(r, 'foreR', -0.5 - throwing * 0.6, 0, 0)
 }
 
 const spider = (v: RigView, u: Unit, time: number, speed: number): void => {
@@ -960,8 +1024,10 @@ export const animate = (v: RigView, u: Unit, x: number, z: number, time: number,
       default:
         humanoid(v, u, time, dt, speed)
     }
+    if (v.rider) poseRider(v, u, time)
   } else if (!u.alive && !held) {
     v.trail = v.trailOff = 0
+    if (v.rider) v.rider.root.visible = false
     v.hopY = 0
     v.leapK = 0
     if (v.family === 'humanoid' || v.family === 'naga') limp(v, u)
@@ -975,6 +1041,8 @@ export const animate = (v: RigView, u: Unit, x: number, z: number, time: number,
   let y = v.float > 0 ? v.float + Math.sin(time * 2.4 + v.phase) * 0.07 : 0
   if (up) y += Math.sin(clamp01(1 - up.t / up.dur) * Math.PI) * 1.3
   y += (v.hopY + v.rootY) * v.scale
+  // A boss in the air (#74): its script's height, in metres.
+  if (u.boss && u.boss.alt > 0) y += u.boss.alt
   // A leap is drawn travelling: the sim moves the body at the landing.
   const a = u.action
   if (v.leapK > 0 && a && a.id === 'leap' && !a.done) {

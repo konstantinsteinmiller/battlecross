@@ -2652,7 +2652,13 @@ export default {
     frostHowler: 'Frosthyler',
     tideSerpent: 'Tidevannsslange',
     riftKnight: 'Riftridder',
-    wyvernMatriarch: 'Wyvernmatriark'
+    wyvernMatriarch: 'Wyvernmatriark',
+    tusker: 'Tusker, krigsgalten',
+    tuskerCameo: 'Tusker',
+    goblinTyrant: 'Goblintyrann',
+    voidDrake: 'Tomhetslindorm',
+    pitLord: 'Avgrunnsfyrste',
+    frostThane: 'Frosthøvding'
   },
   results: {
     victory: 'Seier!',

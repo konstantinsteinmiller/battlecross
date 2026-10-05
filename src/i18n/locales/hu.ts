@@ -2652,7 +2652,13 @@ export default {
     frostHowler: 'Fagyüvöltő',
     tideSerpent: 'Árapálykígyó',
     riftKnight: 'Hasadéklovag',
-    wyvernMatriarch: 'Sárkánygyík-anya'
+    wyvernMatriarch: 'Sárkánygyík-anya',
+    tusker: 'Agyar, a harci vadkan',
+    tuskerCameo: 'Agyar',
+    goblinTyrant: 'Goblin zsarnok',
+    voidDrake: 'Üresség-sárkányfióka',
+    pitLord: 'Mélységúr',
+    frostThane: 'Fagythán'
   },
   results: {
     victory: 'Győzelem!',

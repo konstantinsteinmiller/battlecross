@@ -165,6 +165,74 @@ export const buildBeast = (variant: BeastVariant): Rig => {
   return b.build({ height: 0.95 * big })
 }
 
+// ─── The war boar (Tusker, #74) ──────────────────────────────────────────────
+
+/**
+ * The Goblin King's war boar: a deep, humped body on short legs, a bristle
+ * ridge down the spine, a low head with a long snout and great curling tusks,
+ * red war barding with gold rivets on its flanks, and a saddle (`saddle` bone)
+ * the King sits in (`gfx/rigs/index.ts` seats the rider). Bone names are the
+ * wolf's, so the beast's gait and bite drive it.
+ */
+export const buildBoar = (): Rig => {
+  const hide = '#6e4a38'
+  const back = '#3e2a20'
+  const belly = '#a88068'
+  const snout = '#c88a7a'
+  const tusk = '#f4ecd8'
+  const cloth = '#8a2a1c'
+  const gold = '#d9a83a'
+  const leather = '#5a3a24'
+  const b = new RigBuilder()
+  b.bone('root', null, [0, 0, 0])
+  b.bone('body', 'root', [0, 0.5, 0])
+  b.bone('head', 'body', [0, 0.02, 0.52])
+  b.bone('tail', 'body', [0, 0.1, -0.5])
+  b.bone('saddle', 'body', [0, 0.42, -0.04])
+  // ── The body: a hump over the shoulders, sloping to the haunch ──
+  b.painted('body', coat(ell(0.36, 0.36, 0.42, 12, 9), belly, hide, back), { p: [0, 0.06, 0.16] })
+  b.painted('body', coat(ell(0.32, 0.31, 0.38, 12, 9), belly, hide, back), { p: [0, 0.0, -0.26] })
+  // The bristle ridge, tall over the hump.
+  for (let k = 0; k < 9; k++) {
+    const t = k / 8
+    b.part('body', spike(0.05, 0.22 - Math.abs(t - 0.3) * 0.16, 4), back, { p: [(k % 2 ? 0.03 : -0.03), 0.39 - t * 0.1, 0.42 - t * 0.78], r: [-0.5, 0, (k % 2 ? -0.2 : 0.2)] })
+  }
+  // War barding: a red cloth down each flank, a gold-studded hem.
+  b.mirror((s) => {
+    const cl = plate(([[0, 0.24], [0.3, 0.2], [0.34, -0.22], [0, -0.3]] as Array<[number, number]>).map(([x, y]) => [x, y] as [number, number]), 0.025)
+    b.painted('body', gradY(cl, tone(cloth, 0.7), tone(cloth, 1.15)), { p: [s * 0.34, 0.06, -0.02], r: [0, 0, s * (Math.PI / 2 - 0.12)] })
+    for (let k = 0; k < 4; k++) b.part('body', sph(0.025, 5, 4), gold, { p: [s * 0.37, -0.22, 0.2 - k * 0.15], outline: false })
+  })
+  // The saddle: a leather seat on a blanket, a horn at the front.
+  b.painted('saddle', shade(rbox(0.42, 0.1, 0.44, 0.4, 8, 6), leather, 0.7, 1.15), { p: [0, 0, 0] })
+  b.painted('saddle', shade(rbox(0.5, 0.04, 0.54, 0.3, 8, 4), cloth, 0.75, 1.1), { p: [0, -0.06, 0] })
+  b.part('saddle', rcone(0.04, 0.02, 0.14, 0.01, 6), gold, { p: [0, 0.1, 0.2] })
+  // ── Legs: short, thick, on dark hooves ──
+  for (const [n, x, z] of [['legFL', -0.2, 0.3], ['legFR', 0.2, 0.3], ['legBL', -0.2, -0.32], ['legBR', 0.2, -0.32]] as const) {
+    b.bone(n, 'body', [x, -0.18, z])
+    const hind = n[3] === 'B'
+    b.painted(n, coat(ell(0.12, hind ? 0.17 : 0.14, 0.14, 9, 6), belly, hide, back), { p: [0, -0.02, 0] })
+    b.painted(n, shade(limb(0.075, 0.06, 0.2, 7, 2), hide, 0.65, 1), { p: [0, -0.1, hind ? -0.02 : 0.02], r: [hind ? -0.2 : 0.1, 0, 0] })
+    b.painted(n, shade(rcone(0.07, 0.06, 0.07, 0.015, 7), '#2a1e1a', 0.7, 1.1), { p: [0, -0.3, 0.02] })
+  }
+  // ── The head: low and heavy, a long snout, tusks curling up ──
+  b.painted('head', coat(ell(0.25, 0.24, 0.27, 12, 9), belly, hide, back), { p: [0, 0.0, 0.05] })
+  b.painted('head', coat(rcone(0.17, 0.12, 0.3, 0.04, 10), belly, hide, back), { p: [0, -0.05, 0.3], r: [Math.PI / 2, 0, 0] })
+  b.part('head', rcyl(0.12, 0.05, 0.03, 10, 2), snout, { p: [0, -0.05, 0.46], r: [Math.PI / 2, 0, 0] })
+  b.mirror((s) => {
+    b.part('head', sph(0.03, 5, 4), '#3a1e1e', { p: [s * 0.045, -0.04, 0.48], outline: false })
+    // The tusks: out of the lower jaw, curling up and back.
+    curl(b, 'head', [[s * 0.1, -0.12, 0.36], [s * 0.2, -0.08, 0.44], [s * 0.25, 0.06, 0.42], [s * 0.22, 0.16, 0.34]], 0.045, 0.01, '#d8c8a8', tusk)
+    // Small ears, laid back.
+    b.painted('head', shade(rcone(0.08, 0.012, 0.18, 0.01, 6), back, 0.8, 1.1), { p: [s * 0.17, 0.2, -0.06], r: [-0.9, 0, -s * 0.5] })
+  })
+  glare(b, 'head', 0.12, 0.08, 0.19, 0.045, '#ff7a3a', { brow: back, tilt: 0.45 })
+  // A short tail with a tuft.
+  b.painted('tail', shade(limb(0.03, 0.02, 0.18, 5, 2), hide), { r: [2.4, 0, 0] })
+  b.part('tail', spike(0.05, 0.12, 4), back, { p: [0, 0.1, -0.12], r: [2.2, 0, 0] })
+  return b.build({ height: 1.1 })
+}
+
 // ─── Eight legs (six drawn): spider, brood spider, brood mother ──────────────
 
 type SpiderVariant = 'spider' | 'brood' | 'mother'
@@ -590,12 +658,13 @@ export const buildWyvern = (variant: WyvernVariant = 'wyvern'): Rig => {
   return b.build({ height: 1.9 })
 }
 
-type DragonVariant = 'void' | 'ally'
+type DragonVariant = 'void' | 'ally' | 'drake'
 
 const DRAGON: Record<DragonVariant, { hide: string; top: string; belly: string; skin: string; skinEdge: string; horn: string; hornBase: string; glow: string; mouth: string }> = {
   // The Void Dragon: near-black violet, lit only where it means harm.
   void: { hide: '#22113e', top: '#3e2474', belly: '#7a66a8', skin: '#1e0c3c', skinEdge: '#5a32a0', horn: '#efe6f8', hornBase: '#3a2a4a', glow: '#c87aff', mouth: '#2a0a24' },
-  ally: { hide: '#5a3aa8', top: '#8a6ae0', belly: '#e0d0f8', skin: '#3a2478', skinEdge: '#9a7ae8', horn: '#f8f0ff', hornBase: '#6a5a80', glow: '#e0a8ff', mouth: '#4a1a3a' }
+  ally: { hide: '#5a3aa8', top: '#8a6ae0', belly: '#e0d0f8', skin: '#3a2478', skinEdge: '#9a7ae8', horn: '#f8f0ff', hornBase: '#6a5a80', glow: '#e0a8ff', mouth: '#4a1a3a' },
+  drake: { hide: '#1e4a52', top: '#2f7a7a', belly: '#9ad0c0', skin: '#123a40', skinEdge: '#3fa0a0', horn: '#e0f0e8', hornBase: '#2a4a48', glow: '#5ff0e0', mouth: '#1a2a2a' }
 }
 
 /** A run of segments along `pts` (a horn, a curling spine), tapering from `r0` to `r1`, shaded `base` → `tip`. */
@@ -692,10 +761,16 @@ export const buildDragon = (variant: DragonVariant): Rig => {
   b.mirror((s) => {
     b.painted('head', shade(rbox(0.15, 0.07, 0.24, 0.5, 8, 6), P.hide, 0.7, 1.2), { p: [s * 0.13, 0.22, 0.12], r: [0.2, s * 0.2, s * 0.32] })
     b.part('head', sph(0.03, 5, 4), DARK, { p: [s * 0.06, 0.12, 0.7], outline: false })
-    // The great horns: three segments curling back and up.
-    curl(b, 'head', [[s * 0.15, 0.24, -0.06], [s * 0.22, 0.42, -0.26], [s * 0.25, 0.5, -0.5], [s * 0.22, 0.46, -0.7]], 0.085, 0.012, P.hornBase, P.horn)
-    // A lesser horn below each, and a frill of spines at the cheek.
-    curl(b, 'head', [[s * 0.22, 0.1, -0.08], [s * 0.34, 0.14, -0.26], [s * 0.38, 0.12, -0.4]], 0.05, 0.01, P.hornBase, P.horn)
+    if (variant === 'drake') {
+      // A drake's horns: two straight blades swept back, no crown.
+      curl(b, 'head', [[s * 0.14, 0.24, -0.06], [s * 0.2, 0.36, -0.3], [s * 0.22, 0.38, -0.52]], 0.065, 0.01, P.hornBase, P.horn)
+    } else {
+      // The great horns: three segments curling back and up.
+      curl(b, 'head', [[s * 0.15, 0.24, -0.06], [s * 0.22, 0.42, -0.26], [s * 0.25, 0.5, -0.5], [s * 0.22, 0.46, -0.7]], 0.085, 0.012, P.hornBase, P.horn)
+      // A lesser horn below each.
+      curl(b, 'head', [[s * 0.22, 0.1, -0.08], [s * 0.34, 0.14, -0.26], [s * 0.38, 0.12, -0.4]], 0.05, 0.01, P.hornBase, P.horn)
+    }
+    // A frill of spines at the cheek.
     for (let k = 0; k < 3; k++) b.part('head', spike(0.04, 0.2 - k * 0.03, 4), P.skin, { p: [s * 0.24, 0.0 - k * 0.06, -0.02 - k * 0.04], r: [0.4, 0, s * (1.6 + k * 0.25)] })
     // Teeth along the upper jaw.
     for (let k = 0; k < 4; k++) b.part('head', spike(0.018, 0.07 - (k % 2) * 0.015, 4), BONE_WHITE, { p: [s * (0.11 - k * 0.01), -0.05, 0.3 + k * 0.1], r: [Math.PI, 0, 0], outline: false })
@@ -757,6 +832,7 @@ export const CREATURE_BUILDS: Record<string, () => Rig> = {
   wolf: () => buildBeast('wolf'),
   stalker: () => buildBeast('stalker'),
   howler: () => buildBeast('howler'),
+  boar: buildBoar,
   spider: () => buildSpider('spider'),
   brood: () => buildSpider('brood'),
   mother: () => buildSpider('mother'),
@@ -775,6 +851,7 @@ export const CREATURE_BUILDS: Record<string, () => Rig> = {
   wyvern: () => buildWyvern('wyvern'),
   matriarch: () => buildWyvern('matriarch'),
   dragon: () => buildDragon('void'),
+  drake: () => buildDragon('drake'),
   ally: () => buildDragon('ally'),
   gatling: () => buildTurret('gatling'),
   rocket: () => buildTurret('rocket')

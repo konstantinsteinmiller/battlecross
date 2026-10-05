@@ -2660,7 +2660,13 @@ export default {
     frostHowler: 'Vorsthuiler',
     tideSerpent: 'Getijdenslang',
     riftKnight: 'Kloofridder',
-    wyvernMatriarch: 'Wyvernmatriarch'
+    wyvernMatriarch: 'Wyvernmatriarch',
+    tusker: 'Tusker, het Oorlogszwijn',
+    tuskerCameo: 'Tusker',
+    goblinTyrant: 'Goblin-tiran',
+    voidDrake: 'Leegtewurm',
+    pitLord: 'Afgrondheer',
+    frostThane: 'Vorsthoofdman'
   },
   results: {
     victory: 'Overwinning!',

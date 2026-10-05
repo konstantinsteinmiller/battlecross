@@ -2652,7 +2652,13 @@ export default {
     frostHowler: 'หมาป่าหอนน้ำแข็ง',
     tideSerpent: 'อสรพิษกระแสน้ำ',
     riftKnight: 'อัศวินรอยแยก',
-    wyvernMatriarch: 'ราชินีไวเวิร์น'
+    wyvernMatriarch: 'ราชินีไวเวิร์น',
+    tusker: 'ทัสเกอร์ หมูป่าศึก',
+    tuskerCameo: 'ทัสเกอร์',
+    goblinTyrant: 'ทรราชก๊อบลิน',
+    voidDrake: 'มังกรเยาว์แห่งความว่างเปล่า',
+    pitLord: 'เจ้าแห่งหุบเหว',
+    frostThane: 'ขุนนางน้ำแข็ง'
   },
   results: {
     victory: 'ชนะแล้ว!',

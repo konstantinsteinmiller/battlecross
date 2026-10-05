@@ -206,6 +206,52 @@ export interface Unit {
   icd: Record<string, number>
   /** An optional champion: an elite levels above the zone (its bar is framed). */
   champion?: boolean
+  /** A scripted boss's state (`sim/bosses`): its phase, the move it is in, its height. */
+  boss?: BossState
+}
+
+/**
+ * A scripted boss (#74): the fights that are more than a list of abilities.
+ * The script (`sim/bosses`) keeps it here; the view reads `mode` and `alt`.
+ */
+export interface BossState {
+  /** Script id (`BOSS_SCRIPTS`). */
+  script: string
+  /** 1, 2, 3 …: the phase it has reached. */
+  phase: number
+  /**
+   * What holds it outside an action:
+   *   ''        free (the script picks moves, or the generic AI fights)
+   *   'charge'  running down a lane until it hits someone or a wall
+   *   'dazed'   stunned after running into a wall (stars; takes more damage)
+   *   'air'     in the air (out of reach; flight passes, a landing)
+   *   'exit'    leaving the field through the way in, never to come back
+   *   'gone'    left: no body, no loot, not counted
+   */
+  mode: '' | 'charge' | 'dazed' | 'air' | 'exit' | 'gone'
+  /** Seconds in the current mode. */
+  modeT: number
+  /** A stage inside the mode (a flight: 'rise', 'move', 'warn', 'pass', 'climb', 'land'). */
+  sub: string
+  /** Where a stage is headed (a flight's next lane). */
+  goalX: number
+  goalZ: number
+  /** A run's direction (unit vector) and speed (m/s). */
+  dx: number
+  dz: number
+  speed: number
+  /** Metres a run may still go. */
+  left: number
+  /** Height above the ground, metres (> AIR_REACH: out of reach). */
+  alt: number
+  /** The unit carried along by a charge (0: none). */
+  carry: number
+  /** Seconds until the script's next special move. */
+  next: number
+  /** A counter the script keeps (passes left, waves, …). */
+  n: number
+  /** One-off marks (a phase's spectacle happened, a horn was blown). */
+  marks: string[]
 }
 
 // ─── Projectiles and ground fields ───────────────────────────────────────────
@@ -302,6 +348,9 @@ export interface Telegraph {
    *  loses the action it began with (a stun, a knockdown). View only. */
   src?: number
   wind?: number
+  /** A shadow that tracks this unit until `lock` seconds in, then stays (a dive's warning). View only. */
+  follow?: number
+  lock?: number
 }
 
 // ─── Events (sim → view) ─────────────────────────────────────────────────────

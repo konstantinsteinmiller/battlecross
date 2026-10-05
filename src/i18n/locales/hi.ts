@@ -2724,7 +2724,13 @@ export default {
     frostHowler: 'पाला हुंकार',
     tideSerpent: 'ज्वार सर्प',
     riftKnight: 'दरार योद्धा',
-    wyvernMatriarch: 'वाइवर्न कुलमाता'
+    wyvernMatriarch: 'वाइवर्न कुलमाता',
+    tusker: 'टस्कर, जंगी सूअर',
+    tuskerCameo: 'टस्कर',
+    goblinTyrant: 'गॉब्लिन तानाशाह',
+    voidDrake: 'शून्य ड्रेक',
+    pitLord: 'पाताल स्वामी',
+    frostThane: 'हिम सामंत'
   },
   results: {
     victory: 'जीत!',

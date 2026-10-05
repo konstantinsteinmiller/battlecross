@@ -2652,7 +2652,13 @@ export default {
     frostHowler: 'Frosthurlanto',
     tideSerpent: 'Tajdserpento',
     riftKnight: 'Fendkavaliro',
-    wyvernMatriarch: 'Viverna Matriarkino'
+    wyvernMatriarch: 'Viverna Matriarkino',
+    tusker: 'Dentegulo, la Milita Apro',
+    tuskerCameo: 'Dentegulo',
+    goblinTyrant: 'Kobolda Tirano',
+    voidDrake: 'Drakido de la Malpleno',
+    pitLord: 'Mastro de la Abismo',
+    frostThane: 'Frostnobelo'
   },
   results: {
     victory: 'Venko!',

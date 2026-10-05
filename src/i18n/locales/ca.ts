@@ -2684,7 +2684,13 @@ export default {
     frostHowler: 'Udolador del Gebre',
     tideSerpent: 'Serp de la Marea',
     riftKnight: 'Cavaller de l\'Escletxa',
-    wyvernMatriarch: 'Matriarca Guiverna'
+    wyvernMatriarch: 'Matriarca Guiverna',
+    tusker: 'Tusker, el Senglar de Guerra',
+    tuskerCameo: 'Tusker',
+    goblinTyrant: 'Tirà Gòblin',
+    voidDrake: 'Víbria del Buit',
+    pitLord: 'Senyor de l’Abisme',
+    frostThane: 'Thane del Gel'
   },
   results: {
     victory: 'Victòria!',

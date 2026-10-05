@@ -2698,7 +2698,13 @@ export default {
     frostHowler: 'Šalčio staugėjas',
     tideSerpent: 'Potvynio gyvatė',
     riftKnight: 'Plyšio riteris',
-    wyvernMatriarch: 'Viverų matriarchė'
+    wyvernMatriarch: 'Viverų matriarchė',
+    tusker: 'Tusker, karo šernas',
+    tuskerCameo: 'Tusker',
+    goblinTyrant: 'Goblinų tironas',
+    voidDrake: 'Tuštumos slibinas',
+    pitLord: 'Bedugnės valdovas',
+    frostThane: 'Šalčio tanas'
   },
   results: {
     victory: 'Pergalė!',

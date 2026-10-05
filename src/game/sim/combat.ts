@@ -7,7 +7,7 @@ import { BLESSING } from '../contracts'
 import { GLASS_DAMAGE } from '../arenaWeek'
 import { rewardBonus, armorMitigation } from './stats'
 import { HARD_CC, isPhysical, type DamageType, type Status, type StatusId, type Unit } from './types'
-import { atPeace, findStatus, hasStatus, statusV, type Sim } from './world'
+import { atPeace, findStatus, hasStatus, outOfReach, statusV, type Sim } from './world'
 
 /**
  * ─── Damage, healing, statuses, death ────────────────────────────────────────
@@ -204,6 +204,8 @@ export { wakeGroup }
  * actually removed.
  */
 export const dealDamage = (sim: Sim, src: Unit | null, tgt: Unit, base: number, o: HitOpts): number => {
+  // A boss in the air or gone from the field is out of reach of anything.
+  if (outOfReach(tgt)) return 0
   if (!tgt.alive || base <= 0) return 0
   // The colosseum's week (#10): Glass makes every blow harder; All fire turns
   // every enemy blow to fire.

@@ -357,6 +357,7 @@ export class ZoneMode implements GameMode {
     this.scene.remove(w.v.rig.root, w.shadow)
     this.town?.drop(id)
     w.v.rig.material.dispose()
+    w.v.rider?.material.dispose()
     this.views.delete(id)
   }
 
@@ -1040,7 +1041,7 @@ export class ZoneMode implements GameMode {
     // #70): the plate shows the nearest one that is up.
     let bossD = Infinity
     for (const e of sim.units) {
-      if (!e.alive || e.rank !== 'boss' || e.team !== 1 || !e.awake) continue
+      if (!e.alive || e.rank !== 'boss' || e.team !== 1 || !e.awake || e.boss?.mode === 'exit') continue
       const d = Math.hypot(e.x - u.x, e.z - u.z)
       if (d < bossD) { bossD = d; boss = e }
     }

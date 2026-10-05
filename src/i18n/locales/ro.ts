@@ -2686,7 +2686,13 @@ export default {
     frostHowler: 'Urlătorul Gerului',
     tideSerpent: 'Șarpele Mareei',
     riftKnight: 'Cavalerul Faliei',
-    wyvernMatriarch: 'Matriarha Wyvernilor'
+    wyvernMatriarch: 'Matriarha Wyvernilor',
+    tusker: 'Tusker, Mistrețul de Război',
+    tuskerCameo: 'Tusker',
+    goblinTyrant: 'Tiran Goblin',
+    voidDrake: 'Balaur al Vidului',
+    pitLord: 'Stăpân al Abisului',
+    frostThane: 'Thane al Gerului'
   },
   results: {
     victory: 'Victorie!',

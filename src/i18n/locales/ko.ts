@@ -2652,7 +2652,13 @@ export default {
     frostHowler: '서리 울부짖개',
     tideSerpent: '조수의 뱀',
     riftKnight: '균열의 기사',
-    wyvernMatriarch: '와이번 여왕'
+    wyvernMatriarch: '와이번 여왕',
+    tusker: '전투 멧돼지 터스커',
+    tuskerCameo: '터스커',
+    goblinTyrant: '고블린 폭군',
+    voidDrake: '공허 드레이크',
+    pitLord: '심연의 군주',
+    frostThane: '서리 영주'
   },
   results: {
     victory: '승리!',

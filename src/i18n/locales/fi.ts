@@ -2652,7 +2652,13 @@ export default {
     frostHowler: 'Pakkasulvoja',
     tideSerpent: 'Vuorovesikäärme',
     riftKnight: 'Repeämän ritari',
-    wyvernMatriarch: 'Lohikäärmeemo'
+    wyvernMatriarch: 'Lohikäärmeemo',
+    tusker: 'Tusker, sotakarju',
+    tuskerCameo: 'Tusker',
+    goblinTyrant: 'Hiisityranni',
+    voidDrake: 'Tyhjyyden draakki',
+    pitLord: 'Kuilun herra',
+    frostThane: 'Pakkaspäällikkö'
   },
   results: {
     victory: 'Voitto!',
