@@ -29,7 +29,8 @@ export default {
     potion: 'Can iksiri ({n} qalıb)',
     manaPotion: 'Mana iksiri ({n} qalıb)',
     groups: '{total} düşmən dəstəsindən {n} məğlub edildi',
-    wave: 'Dalğa {n} / {total}'
+    wave: 'Dalğa {n} / {total}',
+    roll: 'Yuvarlanma'
   },
   menu: {
     map: 'Dünya xəritəsi',
@@ -157,6 +158,10 @@ export default {
     exit: {
       touch: 'Xəritə düyməsinə toxun, şəhərdən çıx və növbəti macəraya get.',
       mouse: 'Xəritə düyməsinə klik et, şəhərdən çıx və növbəti macəraya get.'
+    },
+    roll: {
+      touch: 'Təhlükədən yayınmaq üçün yuvarlanma düyməsinə toxun. Yuvarlanarkən heç nə sənə zərər verə bilməz.',
+      mouse: 'Təhlükədən yayınmaq üçün yuvarlanma düyməsini bas. Yuvarlanarkən heç nə sənə zərər verə bilməz.'
     }
   },
   goal: {
@@ -2604,6 +2609,46 @@ export default {
           say: 'Onu özüm alacağam.'
         }
       }
+    },
+    bark: {
+      goblinKing: {
+        charge: {
+          '1': 'Onları əz, Tusker!'
+        },
+        horn: {
+          '1': 'Mənə, uşaqlar! Qoblinlər, mənə!'
+        },
+        dismount: {
+          '1': 'Hə, Tusker, qaç! Bunu özüm bitirərəm!'
+        },
+        return: {
+          '1': 'Tusker! Bir dəfə də!'
+        }
+      },
+      dragon: {
+        takeoff: {
+          '1': 'Kifayət. Qoy səma səni yandırsın.'
+        },
+        flight2: {
+          '1': 'Səninlə işim hələ bitməyib!'
+        }
+      },
+      archDemon: {
+        gate: {
+          '1': 'Qapı açıqdır. Heç kim çıxmır.'
+        },
+        dive: {
+          '1': 'Diz çök.'
+        }
+      },
+      frostJarl: {
+        hammer: {
+          '1': 'Dayan, balaca.'
+        },
+        iceBreak: {
+          '1': 'Göl səni udacaq!'
+        }
+      }
     }
   },
   enemy: {
@@ -2775,7 +2820,8 @@ export default {
       map: 'Dünya xəritəsi',
       character: 'Qəhrəman',
       inventory: 'Çanta',
-      skills: 'Bacarıqlar'
+      skills: 'Bacarıqlar',
+      roll: 'Yuvarlanma'
     },
     difficulties: {
       easy: 'Asan',

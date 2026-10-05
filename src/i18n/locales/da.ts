@@ -29,7 +29,8 @@ export default {
     potion: 'Livseliksir ({n} tilbage)',
     manaPotion: 'Manaeliksir ({n} tilbage)',
     groups: '{n} af {total} fjendegrupper besejret',
-    wave: 'Bølge {n} / {total}'
+    wave: 'Bølge {n} / {total}',
+    roll: 'Undvigerulle'
   },
   menu: {
     map: 'Verdenskort',
@@ -157,6 +158,10 @@ export default {
     exit: {
       touch: 'Tryk på kortknappen for at forlade byen og tage på næste eventyr.',
       mouse: 'Klik på kortknappen for at forlade byen og tage på næste eventyr.'
+    },
+    roll: {
+      touch: 'Tryk på rulleknappen for at undvige faren. Intet kan skade dig midt i rullet.',
+      mouse: 'Tryk på rulletasten for at undvige faren. Intet kan skade dig midt i rullet.'
     }
   },
   goal: {
@@ -2604,6 +2609,46 @@ export default {
           say: 'Jeg tager den selv.'
         }
       }
+    },
+    bark: {
+      goblinKing: {
+        charge: {
+          '1': 'Ride dem ned, Tusker!'
+        },
+        horn: {
+          '1': 'Til mig, drenge! Goblins, til mig!'
+        },
+        dismount: {
+          '1': 'Afsted, Tusker, løb! Jeg gør det færdigt selv!'
+        },
+        return: {
+          '1': 'Tusker! Én gang til!'
+        }
+      },
+      dragon: {
+        takeoff: {
+          '1': 'Nok. Lad himlen brænde dig.'
+        },
+        flight2: {
+          '1': 'Jeg er ikke færdig med dig!'
+        }
+      },
+      archDemon: {
+        gate: {
+          '1': 'Porten er åben. Ingen går.'
+        },
+        dive: {
+          '1': 'Knæl.'
+        }
+      },
+      frostJarl: {
+        hammer: {
+          '1': 'Stå stille, lille en.'
+        },
+        iceBreak: {
+          '1': 'Søen sluger dig!'
+        }
+      }
     }
   },
   enemy: {
@@ -2775,7 +2820,8 @@ export default {
       map: 'Verdenskort',
       character: 'Helt',
       inventory: 'Taske',
-      skills: 'Evner'
+      skills: 'Evner',
+      roll: 'Undvigerulle'
     },
     difficulties: {
       easy: 'Let',

@@ -1,4 +1,54 @@
 {
+  "en/dlg.bark.archDemon.dive.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-05",
+    "hash": "b7f60ea2f0"
+  },
+  "en/dlg.bark.archDemon.gate.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-05",
+    "hash": "351336d774"
+  },
+  "en/dlg.bark.dragon.flight2.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-05",
+    "hash": "1a62f2790e"
+  },
+  "en/dlg.bark.dragon.takeoff.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-05",
+    "hash": "64ff19100e"
+  },
+  "en/dlg.bark.frostJarl.hammer.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-05",
+    "hash": "6deaba40da"
+  },
+  "en/dlg.bark.frostJarl.iceBreak.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-05",
+    "hash": "f8e381442a"
+  },
+  "en/dlg.bark.goblinKing.charge.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-05",
+    "hash": "49a2389583"
+  },
+  "en/dlg.bark.goblinKing.dismount.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-05",
+    "hash": "c3ff85fe21"
+  },
+  "en/dlg.bark.goblinKing.horn.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-05",
+    "hash": "c93f5f9823"
+  },
+  "en/dlg.bark.goblinKing.return.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-05",
+    "hash": "c7ce2969d2"
+  },
   "en/dlg.blackMarket.again.1": {
     "engine": "chatterbox",
     "at": "2026-10-04",

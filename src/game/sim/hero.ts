@@ -1,7 +1,7 @@
 import { statPower } from '../data/attributes'
 import { HEAT_DECAY, SKILL_BY_ID, type SkillDef } from '../data/skills'
 import { MANA_POTION, POTION_HEAL } from '../data/loot'
-import { hasLineOfSight } from './grid'
+import { hasLineOfSight, moveCircle } from './grid'
 import { face, fire, inAttackRange, setGoal, setHeroOnHit, startAttack, stop, stride, walk } from './actors'
 import { applyStatus, cdrOf, cleanse, dealDamage, giveMana, heal, isControlled, attackSpeedOf } from './combat'
 import { FREE_AIM, addHeat } from './heroSkills'
@@ -67,6 +67,7 @@ export const createHero = (sim: Sim, o: HeroInit): HeroState => {
     manaPotions: Math.max(0, o.manaPotions ?? 0),
     manaPotionsMax: Math.max(o.manaPotions ?? 0, o.manaPotionsMax ?? o.potions),
     manaPotionCd: 0,
+    rollCd: 0,
     order: { kind: 'none', targetId: 0, x: o.x, z: o.z },
     queued: null,
     stickX: 0,
@@ -280,6 +281,45 @@ export const usePotion = (sim: Sim): boolean => {
   return true
 }
 
+// ─── The dodge roll (#74, D79) ───────────────────────────────────────────────
+
+/** Every class: about four metres in a third of a second, untouchable for
+ *  most of it, back every three and a half seconds. */
+export const ROLL_DIST = 4
+export const ROLL_T = 0.32
+export const ROLL_IFRAMES = 0.3
+export const ROLL_CD = 3.5
+const rollOut: [number, number] = [0, 0]
+
+/**
+ * Roll along (dx, dz) (world space; the way he faces when that is nothing).
+ * It throws whatever he was winding up away — getting out of the way comes first.
+ */
+export const rollHero = (sim: Sim, dx: number, dz: number): boolean => {
+  const h = sim.hero
+  const u = h.unit
+  if (!u.alive || h.rollCd > 0 || isControlled(u) || u.action?.id === 'roll' || sim.ended === 'defeat' || sim.leaving) {
+    sim.emit({ t: 'denied', why: 'cooldown' })
+    return false
+  }
+  let l = Math.hypot(dx, dz)
+  if (l < 0.2) { dx = Math.sin(u.facing); dz = Math.cos(u.facing); l = 1 }
+  dx /= l
+  dz /= l
+  if (h.opening >= 0) cancelOpen(sim)
+  h.queued = null
+  stop(u)
+  u.action = newAction(u, 'roll', 0.04, ROLL_T, 0, u.x + dx * ROLL_DIST, u.z + dz * ROLL_DIST)
+  u.facing = Math.atan2(dx, dz)
+  u.anim = 'cast'
+  u.animT = 0
+  u.animStyle = 3
+  applyStatus(sim, u, 'invulnerable', ROLL_IFRAMES, 1, u, { quiet: true })
+  h.rollCd = ROLL_CD
+  sim.emit({ t: 'fx', id: 'dash', x: u.x, z: u.z, x2: u.x + dx * ROLL_DIST, z2: u.z + dz * ROLL_DIST, color: '#e8f4ff' })
+  return true
+}
+
 /** Drink a mana potion from the stock: mana back, nothing cleansed. */
 export const useManaPotion = (sim: Sim): boolean => {
   const h = sim.hero
@@ -337,6 +377,7 @@ export const stepHero = (sim: Sim, dt: number): void => {
   for (let i = 0; i < h.cd.length; i++) if (h.cd[i]! > 0) h.cd[i] = Math.max(0, h.cd[i]! - dt)
   if (h.potionCd > 0) h.potionCd = Math.max(0, h.potionCd - dt)
   if (h.manaPotionCd > 0) h.manaPotionCd = Math.max(0, h.manaPotionCd - dt)
+  if (h.rollCd > 0) h.rollCd = Math.max(0, h.rollCd - dt)
   if (h.overheatT > 0) {
     h.overheatT -= dt
     if (h.overheatT <= 0) { h.overheatT = 0; h.heat = 0 }
@@ -357,6 +398,15 @@ export const stepHero = (sim: Sim, dt: number): void => {
 
   if (isControlled(u)) {
     u.anim = 'stun'
+    return
+  }
+  // Mid-roll: carried along its line, around whatever stands in the way.
+  if (u.action?.id === 'roll') {
+    const a = u.action
+    const sp = (ROLL_DIST / ROLL_T) * dt
+    moveCircle(sim.grid, u.x, u.z, Math.sin(a.a) * sp, Math.cos(a.a) * sp, u.r, rollOut)
+    u.x = rollOut[0]
+    u.z = rollOut[1]
     return
   }
   const stick = Math.hypot(h.stickX, h.stickZ)

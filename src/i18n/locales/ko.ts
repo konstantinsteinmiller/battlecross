@@ -29,7 +29,8 @@ export default {
     potion: '체력 물약 ({n}개 남음)',
     manaPotion: '마나 물약 ({n}개 남음)',
     groups: '적 무리 {n}/{total} 처치',
-    wave: '웨이브 {n} / {total}'
+    wave: '웨이브 {n} / {total}',
+    roll: '구르기'
   },
   menu: {
     map: '월드맵',
@@ -157,6 +158,10 @@ export default {
     exit: {
       touch: '지도 버튼을 탭하면 마을을 떠나 다음 모험을 시작해요.',
       mouse: '지도 버튼을 클릭하면 마을을 떠나 다음 모험을 시작해요.'
+    },
+    roll: {
+      touch: '구르기 버튼을 탭해서 위험에서 벗어나세요. 구르는 동안에는 아무것도 당신을 다치게 할 수 없어요.',
+      mouse: '구르기 키를 눌러서 위험에서 벗어나세요. 구르는 동안에는 아무것도 당신을 다치게 할 수 없어요.'
     }
   },
   goal: {
@@ -2604,6 +2609,46 @@ export default {
           say: '내가 직접 차지하겠다.'
         }
       }
+    },
+    bark: {
+      goblinKing: {
+        charge: {
+          '1': '짓밟아라, 터스커!'
+        },
+        horn: {
+          '1': '내게로 모여라, 고블린들아!'
+        },
+        dismount: {
+          '1': '가라, 터스커! 나머지는 내가 끝낸다!'
+        },
+        return: {
+          '1': '터스커! 한 번 더!'
+        }
+      },
+      dragon: {
+        takeoff: {
+          '1': '그만. 하늘이 너를 태우리라.'
+        },
+        flight2: {
+          '1': '아직 끝나지 않았다!'
+        }
+      },
+      archDemon: {
+        gate: {
+          '1': '문이 열렸다. 아무도 못 나간다.'
+        },
+        dive: {
+          '1': '무릎 꿇어라.'
+        }
+      },
+      frostJarl: {
+        hammer: {
+          '1': '가만히 있어라, 꼬마야.'
+        },
+        iceBreak: {
+          '1': '호수가 널 삼킬 것이다!'
+        }
+      }
     }
   },
   enemy: {
@@ -2775,7 +2820,8 @@ export default {
       map: '월드맵',
       character: '영웅',
       inventory: '가방',
-      skills: '스킬'
+      skills: '스킬',
+      roll: '구르기'
     },
     difficulties: {
       easy: '쉬움',

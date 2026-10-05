@@ -29,7 +29,8 @@ export default {
     potion: 'Potion de soin (reste : {n})',
     manaPotion: 'Potion de mana (reste : {n})',
     groups: '{n} groupes d’ennemis vaincus sur {total}',
-    wave: 'Vague {n} / {total}'
+    wave: 'Vague {n} / {total}',
+    roll: 'Roulade'
   },
   menu: {
     map: 'Carte du monde',
@@ -158,6 +159,10 @@ export default {
     exit: {
       touch: 'Touche le bouton carte pour quitter la ville et partir à l’aventure.',
       mouse: 'Clique sur le bouton carte pour quitter la ville et partir à l’aventure.'
+    },
+    roll: {
+      touch: 'Touche le bouton de roulade pour esquiver le danger. Rien ne peut te blesser pendant la roulade.',
+      mouse: 'Appuie sur la touche de roulade pour esquiver le danger. Rien ne peut te blesser pendant la roulade.'
     }
   },
   goal: {
@@ -2638,6 +2643,47 @@ export default {
           say: 'Je le prendrai moi-même.'
         }
       }
+    },
+    bark: {
+      goblinKing: {
+        charge: {
+          '1': 'Écrase-les, Tusker !'
+        },
+        horn: {
+          '1': 'À moi, les gars ! Gobelins, à moi !'
+        },
+        dismount: {
+          '1': 'Va, Tusker, cours ! Je finis ça moi-même !'
+        },
+        return: {
+          '1': 'Tusker ! Encore une fois !'
+        }
+      },
+      dragon: {
+        takeoff: {
+          '1': 'Assez. Que le ciel te brûle.'
+        },
+        flight2: {
+          '1': 'Je n’en ai pas fini avec toi !'
+        }
+      },
+      archDemon: {
+        gate: {
+          '1': 'La porte est ouverte. Personne ne sort.'
+        },
+        dive: {
+          '1': 'À genoux.'
+        }
+      },
+      frostJarl: {
+        hammer: {
+          '1': 'Ne bouge plus, petit.',
+          '1__f': 'Ne bouge plus, petite.'
+        },
+        iceBreak: {
+          '1': 'Le lac va t’engloutir !'
+        }
+      }
     }
   },
   enemy: {
@@ -2810,7 +2856,8 @@ export default {
       map: 'Carte du monde',
       character: 'Héros',
       inventory: 'Sac',
-      skills: 'Compétences'
+      skills: 'Compétences',
+      roll: 'Roulade'
     },
     difficulties: {
       easy: 'Facile',

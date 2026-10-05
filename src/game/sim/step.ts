@@ -54,6 +54,7 @@ export const stepSim = (sim: Sim, plan: ZonePlan, dt: number): void => {
     u.pz = u.z
   }
   sim.runTimers()
+  sim.stepDangers()
   if (!sim.ended || sim.ended === 'victory') stepHero(sim, dt)
   // Rested (#9): the double-XP pool drains with fight time, never in town.
   const h = sim.hero

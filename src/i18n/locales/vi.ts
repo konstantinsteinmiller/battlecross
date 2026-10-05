@@ -29,7 +29,8 @@ export default {
     potion: 'Bình máu (còn {n})',
     manaPotion: 'Bình mana (còn {n})',
     groups: 'Đã hạ {n} trên {total} nhóm địch',
-    wave: 'Đợt {n} / {total}'
+    wave: 'Đợt {n} / {total}',
+    roll: 'Lăn'
   },
   menu: {
     map: 'Bản đồ thế giới',
@@ -157,6 +158,10 @@ export default {
     exit: {
       touch: 'Chạm vào nút bản đồ để rời thị trấn và bắt đầu cuộc phiêu lưu tiếp theo.',
       mouse: 'Nhấp vào nút bản đồ để rời thị trấn và bắt đầu cuộc phiêu lưu tiếp theo.'
+    },
+    roll: {
+      touch: 'Chạm nút lăn để thoát khỏi nguy hiểm. Đang lăn thì không gì làm bạn bị thương được.',
+      mouse: 'Nhấn phím lăn để thoát khỏi nguy hiểm. Đang lăn thì không gì làm bạn bị thương được.'
     }
   },
   goal: {
@@ -2604,6 +2609,46 @@ export default {
           say: 'Tôi sẽ tự mình chiếm lấy.'
         }
       }
+    },
+    bark: {
+      goblinKing: {
+        charge: {
+          '1': 'Húc bọn chúng đi, Tusker!'
+        },
+        horn: {
+          '1': 'Về với ta, các huynh đệ! Lũ goblin, về với ta!'
+        },
+        dismount: {
+          '1': 'Chạy đi, Tusker! Ta tự lo vụ này!'
+        },
+        return: {
+          '1': 'Tusker! Thêm một lần nữa!'
+        }
+      },
+      dragon: {
+        takeoff: {
+          '1': 'Đủ rồi. Để bầu trời thiêu ngươi.'
+        },
+        flight2: {
+          '1': 'Ta chưa xong với ngươi đâu!'
+        }
+      },
+      archDemon: {
+        gate: {
+          '1': 'Cổng đã mở. Không ai được rời đi.'
+        },
+        dive: {
+          '1': 'Quỳ xuống.'
+        }
+      },
+      frostJarl: {
+        hammer: {
+          '1': 'Đứng yên đó, nhóc con.'
+        },
+        iceBreak: {
+          '1': 'Hồ băng sẽ nuốt chửng ngươi!'
+        }
+      }
     }
   },
   enemy: {
@@ -2775,7 +2820,8 @@ export default {
       map: 'Bản đồ thế giới',
       character: 'Anh hùng',
       inventory: 'Túi đồ',
-      skills: 'Kỹ năng'
+      skills: 'Kỹ năng',
+      roll: 'Lăn né'
     },
     difficulties: {
       easy: 'Dễ',

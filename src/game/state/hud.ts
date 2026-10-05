@@ -98,6 +98,8 @@ export const hudLive = {
   potionCdMax: 1,
   manaPotionCd: 0,
   manaPotionCdMax: 1,
+  rollCd: 0,
+  rollCdMax: 1,
   /** The hero on screen (surface px), for hints drawn around them. */
   heroX: 0,
   heroY: 0,
@@ -135,6 +137,15 @@ export type HudEvent =
   | { t: 'hurt'; strength: number }
 
 export const hudEvents: HudEvent[] = []
+
+/** A boss's shout at a beat of its fight (#74), for `BossBarkLayer` to say: the latest wins. */
+let bark: { unit: number; key: string } | null = null
+export const sayBark = (unit: number, key: string): void => { bark = { unit, key } }
+export const takeBark = (): { unit: number; key: string } | null => {
+  const b = bark
+  bark = null
+  return b
+}
 export const pushHud = (e: HudEvent): void => {
   if (hudEvents.length < 96) hudEvents.push(e)
 }

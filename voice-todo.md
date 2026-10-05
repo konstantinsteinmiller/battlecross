@@ -42,25 +42,26 @@ rewrites it, and a test fails when it is stale. Do not edit by hand.
 | trainerAether | 16 | 16 |
 | ironHealer | 12 | 12 |
 | trainerChrono | 19 | 19 |
-| goblinKing | 5 | 5 |
+| goblinKing | 9 | 9 |
 | warlord | 5 | 5 |
 | oracle | 5 | 5 |
-| dragon | 4 | 4 |
-| archDemon | 3 | 3 |
+| dragon | 6 | 6 |
+| archDemon | 5 | 5 |
 | smalltalkSunford | 13 | 13 |
 | townsfolk | 25 | 25 |
 | smalltalkOakhaven | 13 | 13 |
 | smalltalkIronhold | 9 | 9 |
 | smalltalkKids | 6 | 6 |
 | kidFriend | 4 | 4 |
+| frostJarl | 2 | 2 |
 | heroine | 121 | 121 |
-| **All** | **714** | **714** |
+| **All** | **724** | **724** |
 
 ## To do (0)
 
 Nothing: every line has its recording.
 
-## Every line (714)
+## Every line (724)
 
 | File | Who | Scene | English | EN |
 | --- | --- | --- | --- | --- |
@@ -639,6 +640,16 @@ Nothing: every line has its recording.
 | `dlg.smalltalkKids.frog.1` | Townsfolk (smalltalkKids) | smalltalkKids | There's a frog down by the well. | chatterbox |
 | `dlg.smalltalkKids.frog.2` | Townsfolk (kidFriend) | smalltalkKids | Can we keep it? | chatterbox |
 | `dlg.smalltalkKids.frog.3` | Townsfolk (smalltalkKids) | smalltalkKids | Mum said no more frogs. | chatterbox |
+| `dlg.bark.goblinKing.charge.1` | The Goblin King (goblinKing) | bark.goblinKing | Run them down, Tusker! | chatterbox |
+| `dlg.bark.goblinKing.horn.1` | The Goblin King (goblinKing) | bark.goblinKing | To me, lads! Goblins, to me! | chatterbox |
+| `dlg.bark.goblinKing.dismount.1` | The Goblin King (goblinKing) | bark.goblinKing | Go on, Tusker, run! I'll finish this myself! | chatterbox |
+| `dlg.bark.goblinKing.return.1` | The Goblin King (goblinKing) | bark.goblinKing | Tusker! One more time! | chatterbox |
+| `dlg.bark.dragon.takeoff.1` | The Void Dragon (dragon) | bark.dragon | Enough. Let the sky burn you. | chatterbox |
+| `dlg.bark.dragon.flight2.1` | The Void Dragon (dragon) | bark.dragon | I am not finished with you! | chatterbox |
+| `dlg.bark.archDemon.gate.1` | The Arch-Demon (archDemon) | bark.archDemon | The gate is open. No one leaves. | chatterbox |
+| `dlg.bark.archDemon.dive.1` | The Arch-Demon (archDemon) | bark.archDemon | Kneel. | chatterbox |
+| `dlg.bark.frostJarl.hammer.1` | The Frost Jarl (frostJarl) | bark.frostJarl | Stand still, little one. | chatterbox |
+| `dlg.bark.frostJarl.iceBreak.1` | The Frost Jarl (frostJarl) | bark.frostJarl | The lake will swallow you! | chatterbox |
 | `ending.order.text` | The hero, telling the story (hero) | ending | Banners of the Iron Order fly over the Dread Fortress. The roads are safe, the laws are many, and your name is carved above the gate. | chatterbox |
 | `ending.syndicate.text` | The hero, telling the story (hero) | ending | The Syndicate rules from the shadows of the fortress. Nothing in the realm is forbidden any more. It is only expensive. | chatterbox |
 | `ending.circle.text` | The hero, telling the story (hero) | ending | The Circle lights the fortress with captured void-fire. Wonders pour out of its gates, and no one asks what they cost. | chatterbox |

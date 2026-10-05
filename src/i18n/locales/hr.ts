@@ -29,7 +29,8 @@ export default {
     potion: 'Napitak zdravlja (preostalo: {n})',
     manaPotion: 'Napitak mane (preostalo: {n})',
     groups: 'Poražene skupine neprijatelja: {n} od {total}',
-    wave: 'Val {n} / {total}'
+    wave: 'Val {n} / {total}',
+    roll: 'Kotrljaj'
   },
   menu: {
     map: 'Karta svijeta',
@@ -160,6 +161,10 @@ export default {
     exit: {
       touch: 'Dodirni gumb karte da napustiš grad i kreneš u novu pustolovinu.',
       mouse: 'Klikni gumb karte da napustiš grad i kreneš u novu pustolovinu.'
+    },
+    roll: {
+      touch: 'Dodirni gumb za kotrljanje da izbjegneš opasnost. Ništa ti ne može nauditi usred kotrljanja.',
+      mouse: 'Pritisni tipku za kotrljanje da izbjegneš opasnost. Ništa ti ne može nauditi usred kotrljanja.'
     }
   },
   goal: {
@@ -2694,6 +2699,47 @@ export default {
           say__f: 'Uzet ću ga sama.'
         }
       }
+    },
+    bark: {
+      goblinKing: {
+        charge: {
+          '1': 'Pregazi ih, Tusker!'
+        },
+        horn: {
+          '1': 'Meni, momci! Goblini, meni!'
+        },
+        dismount: {
+          '1': 'Idi, Tusker, trči! Ja ću ovo završiti sam!'
+        },
+        return: {
+          '1': 'Tusker! Još jednom!'
+        }
+      },
+      dragon: {
+        takeoff: {
+          '1': 'Dosta. Neka te nebo spali.'
+        },
+        flight2: {
+          '1': 'Još nisam gotov s tobom!'
+        }
+      },
+      archDemon: {
+        gate: {
+          '1': 'Vrata su otvorena. Nitko ne odlazi.'
+        },
+        dive: {
+          '1': 'Na koljena.'
+        }
+      },
+      frostJarl: {
+        hammer: {
+          '1': 'Stoj mirno, mali.',
+          '1__f': 'Stoj mirno, mala.'
+        },
+        iceBreak: {
+          '1': 'Jezero će te progutati!'
+        }
+      }
     }
   },
   enemy: {
@@ -2865,7 +2911,8 @@ export default {
       map: 'Karta svijeta',
       character: 'Junak',
       inventory: 'Torba',
-      skills: 'Vještine'
+      skills: 'Vještine',
+      roll: 'Kotrljaj'
     },
     difficulties: {
       easy: 'Lako',

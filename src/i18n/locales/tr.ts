@@ -29,7 +29,8 @@ export default {
     potion: 'Can iksiri ({n} kaldı)',
     manaPotion: 'Mana iksiri ({n} kaldı)',
     groups: '{total} düşman grubundan {n} tanesi yenildi',
-    wave: 'Dalga {n} / {total}'
+    wave: 'Dalga {n} / {total}',
+    roll: 'Yuvarlan'
   },
   menu: {
     map: 'Dünya haritası',
@@ -157,6 +158,10 @@ export default {
     exit: {
       touch: 'Harita düğmesine dokun; kasabadan çık ve bir sonraki maceraya git.',
       mouse: 'Harita düğmesine tıkla; kasabadan çık ve bir sonraki maceraya git.'
+    },
+    roll: {
+      touch: 'Tehlikeden kaçmak için yuvarlanma düğmesine dokun. Yuvarlanırken hiçbir şey sana zarar veremez.',
+      mouse: 'Tehlikeden kaçmak için yuvarlanma tuşuna bas. Yuvarlanırken hiçbir şey sana zarar veremez.'
     }
   },
   goal: {
@@ -2604,6 +2609,46 @@ export default {
           say: 'Onu kendim alacağım.'
         }
       }
+    },
+    bark: {
+      goblinKing: {
+        charge: {
+          '1': 'Ez geç onları, Tusker!'
+        },
+        horn: {
+          '1': 'Bana gelin, çocuklar! Goblinler, bana!'
+        },
+        dismount: {
+          '1': 'Hadi Tusker, koş! Gerisini ben hallederim!'
+        },
+        return: {
+          '1': 'Tusker! Bir kez daha!'
+        }
+      },
+      dragon: {
+        takeoff: {
+          '1': 'Yeter. Bırak gökyüzü seni yaksın.'
+        },
+        flight2: {
+          '1': 'Seninle işim bitmedi!'
+        }
+      },
+      archDemon: {
+        gate: {
+          '1': 'Kapı açıldı. Kimse çıkamaz.'
+        },
+        dive: {
+          '1': 'Diz çök.'
+        }
+      },
+      frostJarl: {
+        hammer: {
+          '1': 'Kıpırdama, küçük.'
+        },
+        iceBreak: {
+          '1': 'Göl seni yutacak!'
+        }
+      }
     }
   },
   enemy: {
@@ -2775,7 +2820,8 @@ export default {
       map: 'Dünya haritası',
       character: 'Kahraman',
       inventory: 'Çanta',
-      skills: 'Yetenekler'
+      skills: 'Yetenekler',
+      roll: 'Yuvarlanma'
     },
     difficulties: {
       easy: 'Kolay',

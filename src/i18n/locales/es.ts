@@ -29,7 +29,8 @@ export default {
     potion: 'Poción de vida (quedan {n})',
     manaPotion: 'Poción de maná (quedan {n})',
     groups: '{n} de {total} grupos de enemigos derrotados',
-    wave: 'Oleada {n} / {total}'
+    wave: 'Oleada {n} / {total}',
+    roll: 'Voltereta'
   },
   menu: {
     map: 'Mapa del mundo',
@@ -158,6 +159,10 @@ export default {
     exit: {
       touch: 'Toca el botón del mapa para salir de la ciudad hacia tu próxima aventura.',
       mouse: 'Haz clic en el botón del mapa para salir de la ciudad hacia tu próxima aventura.'
+    },
+    roll: {
+      touch: 'Toca el botón de voltereta para esquivar el peligro. Nada puede hacerte daño en plena voltereta.',
+      mouse: 'Pulsa la tecla de voltereta para esquivar el peligro. Nada puede hacerte daño en plena voltereta.'
     }
   },
   goal: {
@@ -2635,6 +2640,47 @@ export default {
           say__f: 'Lo tomaré yo misma.'
         }
       }
+    },
+    bark: {
+      goblinKing: {
+        charge: {
+          '1': '¡Arrolla, Tusker!'
+        },
+        horn: {
+          '1': '¡A mí, muchachos! ¡Goblins, a mí!'
+        },
+        dismount: {
+          '1': '¡Vamos, Tusker, corre! ¡Yo acabaré esto solo!'
+        },
+        return: {
+          '1': '¡Tusker! ¡Una vez más!'
+        }
+      },
+      dragon: {
+        takeoff: {
+          '1': 'Basta. Que el cielo te abrase.'
+        },
+        flight2: {
+          '1': '¡Aún no he acabado contigo!'
+        }
+      },
+      archDemon: {
+        gate: {
+          '1': 'La puerta está abierta. Nadie sale.'
+        },
+        dive: {
+          '1': 'De rodillas.'
+        }
+      },
+      frostJarl: {
+        hammer: {
+          '1': 'Quieto, pequeño.',
+          '1__f': 'Quieta, pequeña.'
+        },
+        iceBreak: {
+          '1': '¡El lago te tragará!'
+        }
+      }
     }
   },
   enemy: {
@@ -2806,7 +2852,8 @@ export default {
       map: 'Mapa del mundo',
       character: 'Héroe',
       inventory: 'Bolsa',
-      skills: 'Habilidades'
+      skills: 'Habilidades',
+      roll: 'Voltereta de esquiva'
     },
     difficulties: {
       easy: 'Fácil',

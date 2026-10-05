@@ -29,7 +29,8 @@ export default {
     potion: 'Sanpocio (restas {n})',
     manaPotion: 'Manaopocio (restas {n})',
     groups: '{n} el {total} malamikaj grupoj venkitaj',
-    wave: 'Ondo {n} / {total}'
+    wave: 'Ondo {n} / {total}',
+    roll: 'Rulo'
   },
   menu: {
     map: 'Mondmapo',
@@ -157,6 +158,10 @@ export default {
     exit: {
       touch: 'Tuŝu la mapan butonon por forlasi la urbon kaj iri al la sekva aventuro.',
       mouse: 'Alklaku la mapan butonon por forlasi la urbon kaj iri al la sekva aventuro.'
+    },
+    roll: {
+      touch: 'Tuŝetu la rulbutonon por eviti danĝeron. Nenio povas vundi vin meze de la rulo.',
+      mouse: 'Premu la rulklavon por eviti danĝeron. Nenio povas vundi vin meze de la rulo.'
     }
   },
   goal: {
@@ -2604,6 +2609,46 @@ export default {
           say: 'Mi prenos ĝin mem.'
         }
       }
+    },
+    bark: {
+      goblinKing: {
+        charge: {
+          '1': 'Disbatu ilin, Dentegulo!'
+        },
+        horn: {
+          '1': 'Al mi, knaboj! Koboldoj, al mi!'
+        },
+        dismount: {
+          '1': 'Antaŭen, Dentegulo, kuru! Mi mem finos ĉi tion!'
+        },
+        return: {
+          '1': 'Dentegulo! Ankoraŭ unu fojon!'
+        }
+      },
+      dragon: {
+        takeoff: {
+          '1': 'Sufiĉe. Lasu la ĉielon bruligi vin.'
+        },
+        flight2: {
+          '1': 'Mi ankoraŭ ne finis kun vi!'
+        }
+      },
+      archDemon: {
+        gate: {
+          '1': 'La pordego estas malfermita. Neniu foriras.'
+        },
+        dive: {
+          '1': 'Genuiĝu.'
+        }
+      },
+      frostJarl: {
+        hammer: {
+          '1': 'Staru senmove, etulo.'
+        },
+        iceBreak: {
+          '1': 'La lago formanĝos vin!'
+        }
+      }
     }
   },
   enemy: {
@@ -2775,7 +2820,8 @@ export default {
       map: 'Mondmapo',
       character: 'Heroo',
       inventory: 'Sako',
-      skills: 'Kapabloj'
+      skills: 'Kapabloj',
+      roll: 'Evita rulo'
     },
     difficulties: {
       easy: 'Facila',

@@ -29,7 +29,8 @@ export default {
     potion: 'Poțiune de viață (rămase: {n})',
     manaPotion: 'Poțiune de mană (rămase: {n})',
     groups: '{n} din {total} grupuri de inamici învinse',
-    wave: 'Valul {n} / {total}'
+    wave: 'Valul {n} / {total}',
+    roll: 'Rostogolire'
   },
   menu: {
     map: 'Harta lumii',
@@ -157,6 +158,10 @@ export default {
     exit: {
       touch: 'Atinge butonul hărții ca să pleci din oraș spre următoarea aventură.',
       mouse: 'Dă clic pe butonul hărții ca să pleci din oraș spre următoarea aventură.'
+    },
+    roll: {
+      touch: 'Atinge butonul de rostogolire ca să scapi de pericol. Nimic nu te poate răni în timpul rostogolirii.',
+      mouse: 'Apasă tasta de rostogolire ca să scapi de pericol. Nimic nu te poate răni în timpul rostogolirii.'
     }
   },
   goal: {
@@ -2638,6 +2643,47 @@ export default {
           say__f: 'Îl iau eu însămi.'
         }
       }
+    },
+    bark: {
+      goblinKing: {
+        charge: {
+          '1': 'Strivește-i, Tusker!'
+        },
+        horn: {
+          '1': 'La mine, băieți! Goblini, la mine!'
+        },
+        dismount: {
+          '1': 'Fugi, Tusker! Termin eu asta singur!'
+        },
+        return: {
+          '1': 'Tusker! Încă o dată!'
+        }
+      },
+      dragon: {
+        takeoff: {
+          '1': 'Destul. Lasă cerul să te ardă.'
+        },
+        flight2: {
+          '1': 'Încă nu am terminat cu tine!'
+        }
+      },
+      archDemon: {
+        gate: {
+          '1': 'Poarta e deschisă. Nimeni nu pleacă.'
+        },
+        dive: {
+          '1': 'Îngenunchează.'
+        }
+      },
+      frostJarl: {
+        hammer: {
+          '1': 'Stai locului, micuțule.',
+          '1__f': 'Stai locului, micuțo.'
+        },
+        iceBreak: {
+          '1': 'Lacul te va înghiți!'
+        }
+      }
     }
   },
   enemy: {
@@ -2809,7 +2855,8 @@ export default {
       map: 'Harta lumii',
       character: 'Erou',
       inventory: 'Rucsac',
-      skills: 'Abilități'
+      skills: 'Abilități',
+      roll: 'Rostogolire'
     },
     difficulties: {
       easy: 'Ușor',

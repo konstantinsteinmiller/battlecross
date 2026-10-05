@@ -5,7 +5,7 @@ import { spawnEnemy } from '../spawn'
 import type { Sim } from '../world'
 import type { Unit } from '../types'
 import type { BossScript } from './index'
-import { daze, laneLength, move, other, strikeFor, warn } from './kit'
+import { bark, daze, laneLength, move, other, strikeFor, warn } from './kit'
 
 /**
  * ─── The Arch-Demon, Hellgate (Dread Fortress) ──────────────────────────────
@@ -187,6 +187,7 @@ const hellgate: BossScript = {
       // The gate opens: a roar, the ring of fire, two imps through it.
       move(sim, u, 'enrage', 1.2, 0.5, null)
       sim.emit({ t: 'fx', id: 'roar', x: u.x, z: u.z, r: 9, color: COLOR })
+      bark(sim, u, 'archDemon', 'gate')
       b.cd.ring = 0
       b.cd.ringT = RING_CLOSE + RING_HOLD
       for (let i = 0; i < 2; i++) {
@@ -201,6 +202,7 @@ const hellgate: BossScript = {
     if (phase === 3) {
       applyStatus(sim, u, 'enrage', 60, 0.3, u)
       sim.emit({ t: 'fx', id: 'roar', x: u.x, z: u.z, r: 9, color: COLOR })
+      bark(sim, u, 'archDemon', 'dive')
       b.cd.dive = 0
     }
   },

@@ -4,7 +4,7 @@ import { applyStatus, knockback } from '../combat'
 import { AIR_REACH, type Sim } from '../world'
 import type { Unit } from '../types'
 import type { BossScript } from './index'
-import { daze, laneLength, move, other, strikeFor, warn } from './kit'
+import { bark, daze, laneLength, move, other, strikeFor, warn } from './kit'
 
 /**
  * ─── The Void Dragon, Skyfire (Dragonspine Peak) ────────────────────────────
@@ -88,6 +88,7 @@ const skyfire: BossScript = {
     if (b.phase >= 3 && !b.marks.includes('flight2') && u.hp <= u.s.maxHp * 0.15) {
       b.marks.push('flight2')
       takeOff(sim, u, 2)
+      bark(sim, u, 'dragon', 'flight2')
       return true
     }
     if (b.next <= 0 && d < 10 && hasLineOfSight(sim.grid, u.x, u.z, tgt.x, tgt.z)) {
@@ -119,7 +120,7 @@ const skyfire: BossScript = {
     }
   },
   onPhase(sim, u, phase) {
-    if (phase === 2) takeOff(sim, u, 3)
+    if (phase === 2) { takeOff(sim, u, 3); bark(sim, u, 'dragon', 'takeoff') }
     if (phase === 3) {
       applyStatus(sim, u, 'enrage', 60, 0.3, u)
       sim.emit({ t: 'fx', id: 'roar', x: u.x, z: u.z, r: 8, color: '#c87aff' })

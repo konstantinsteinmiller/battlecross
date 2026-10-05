@@ -29,7 +29,8 @@ export default {
     potion: 'Jon iksiri ({n} ta qoldi)',
     manaPotion: 'Mana iksiri ({n} ta qoldi)',
     groups: '{total} ta dushman guruhidan {n} tasi yengildi',
-    wave: 'Toʻlqin {n} / {total}'
+    wave: 'Toʻlqin {n} / {total}',
+    roll: 'Dumalash'
   },
   menu: {
     map: 'Dunyo xaritasi',
@@ -157,6 +158,10 @@ export default {
     exit: {
       touch: 'Shahardan chiqib, keyingi sarguzashtga otlanish uchun xarita tugmasini cherting.',
       mouse: 'Shahardan chiqib, keyingi sarguzashtga otlanish uchun xarita tugmasini bosing.'
+    },
+    roll: {
+      touch: 'Xavfdan qochish uchun dumalash tugmasini bosing. Dumalayotganda hech narsa sizga zarar yetkaza olmaydi.',
+      mouse: 'Xavfdan qochish uchun dumalash tugmasini bosing. Dumalayotganda hech narsa sizga zarar yetkaza olmaydi.'
     }
   },
   goal: {
@@ -2604,6 +2609,46 @@ export default {
           say: 'Uni oʻzim olaman.'
         }
       }
+    },
+    bark: {
+      goblinKing: {
+        charge: {
+          '1': 'Ularni ezib tashla, Tusker!'
+        },
+        horn: {
+          '1': 'Yonimga, bolalar! Goblinlar, yonimga!'
+        },
+        dismount: {
+          '1': 'Chop, Tusker! Buni oʻzim tugataman!'
+        },
+        return: {
+          '1': 'Tusker! Yana bir bor!'
+        }
+      },
+      dragon: {
+        takeoff: {
+          '1': 'Yetar. Osmon seni kuydirsin.'
+        },
+        flight2: {
+          '1': 'Men hali sen bilan tugatmadim!'
+        }
+      },
+      archDemon: {
+        gate: {
+          '1': 'Darvoza ochiq. Hech kim chiqmaydi.'
+        },
+        dive: {
+          '1': 'Tiz choʻk.'
+        }
+      },
+      frostJarl: {
+        hammer: {
+          '1': 'Qimirlama, kichkina.'
+        },
+        iceBreak: {
+          '1': 'Koʻl seni yutadi!'
+        }
+      }
     }
   },
   enemy: {
@@ -2775,7 +2820,8 @@ export default {
       map: 'Dunyo xaritasi',
       character: 'Qahramon',
       inventory: 'Xalta',
-      skills: 'Koʻnikmalar'
+      skills: 'Koʻnikmalar',
+      roll: 'Dumalash'
     },
     difficulties: {
       easy: 'Oson',

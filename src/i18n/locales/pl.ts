@@ -29,7 +29,8 @@ export default {
     potion: 'Mikstura zdrowia (zostało: {n})',
     manaPotion: 'Mikstura many (zostało: {n})',
     groups: 'Pokonane grupy wrogów: {n} z {total}',
-    wave: 'Fala {n} / {total}'
+    wave: 'Fala {n} / {total}',
+    roll: 'Przewrót'
   },
   menu: {
     map: 'Mapa świata',
@@ -158,6 +159,10 @@ export default {
     exit: {
       touch: 'Dotknij przycisku mapy, aby opuścić miasto i ruszyć na kolejną przygodę.',
       mouse: 'Kliknij przycisk mapy, aby opuścić miasto i ruszyć na kolejną przygodę.'
+    },
+    roll: {
+      touch: 'Dotknij przycisku przewrotu, aby uciec przed niebezpieczeństwem. W trakcie przewrotu nic cię nie skrzywdzi.',
+      mouse: 'Naciśnij klawisz przewrotu, aby uciec przed niebezpieczeństwem. W trakcie przewrotu nic cię nie skrzywdzi.'
     }
   },
   goal: {
@@ -2685,6 +2690,47 @@ export default {
           say__f: 'Wezmę go sama.'
         }
       }
+    },
+    bark: {
+      goblinKing: {
+        charge: {
+          '1': 'Stratuj ich, Tusker!'
+        },
+        horn: {
+          '1': 'Do mnie, chłopcy! Gobliny, do mnie!'
+        },
+        dismount: {
+          '1': 'Biegnij, Tusker! Sam to dokończę!'
+        },
+        return: {
+          '1': 'Tusker! Jeszcze raz!'
+        }
+      },
+      dragon: {
+        takeoff: {
+          '1': 'Dość. Niech niebo cię spali.'
+        },
+        flight2: {
+          '1': 'Jeszcze z tobą nie skończyłem!'
+        }
+      },
+      archDemon: {
+        gate: {
+          '1': 'Brama jest otwarta. Nikt stąd nie wyjdzie.'
+        },
+        dive: {
+          '1': 'Klęknij.'
+        }
+      },
+      frostJarl: {
+        hammer: {
+          '1': 'Stój spokojnie, mały.',
+          '1__f': 'Stój spokojnie, mała.'
+        },
+        iceBreak: {
+          '1': 'Jezioro cię pochłonie!'
+        }
+      }
     }
   },
   enemy: {
@@ -2856,7 +2902,8 @@ export default {
       map: 'Mapa świata',
       character: 'Bohater',
       inventory: 'Torba',
-      skills: 'Umiejętności'
+      skills: 'Umiejętności',
+      roll: 'Przewrót'
     },
     difficulties: {
       easy: 'Łatwy',

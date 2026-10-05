@@ -40,7 +40,8 @@ export default {
     'potion': 'Health potion ({n} left)',
     'manaPotion': 'Mana potion ({n} left)',
     'groups': '{n} of {total} enemy groups defeated',
-    'wave': 'Wave {n} / {total}'
+    'wave': 'Wave {n} / {total}',
+    'roll': 'Dodge roll'
   },
   'menu': {
     'map': 'World map',
@@ -177,6 +178,10 @@ export default {
     'exit': {
       'touch': 'Tap the map button to leave town for your next adventure.',
       'mouse': 'Click the map button to leave town for your next adventure.'
+    },
+    'roll': {
+      'touch': 'Tap the roll button to dodge out of danger. Nothing can hurt you mid-roll.',
+      'mouse': 'Press the roll key to dodge out of danger. Nothing can hurt you mid-roll.'
     }
   },
 
@@ -1446,6 +1451,46 @@ export default {
           '2': 'Three factions discover they have a common enemy.'
         }
       }
+    },
+    'bark': {
+      'goblinKing': {
+        'charge': {
+          '1': 'Run them down, Tusker!'
+        },
+        'horn': {
+          '1': 'To me, lads! Goblins, to me!'
+        },
+        'dismount': {
+          '1': 'Go on, Tusker, run! I\'ll finish this myself!'
+        },
+        'return': {
+          '1': 'Tusker! One more time!'
+        }
+      },
+      'dragon': {
+        'takeoff': {
+          '1': 'Enough. Let the sky burn you.'
+        },
+        'flight2': {
+          '1': 'I am not finished with you!'
+        }
+      },
+      'archDemon': {
+        'gate': {
+          '1': 'The gate is open. No one leaves.'
+        },
+        'dive': {
+          '1': 'Kneel.'
+        }
+      },
+      'frostJarl': {
+        'hammer': {
+          '1': 'Stand still, little one.'
+        },
+        'iceBreak': {
+          '1': 'The lake will swallow you!'
+        }
+      }
     }
   },
 
@@ -1609,7 +1654,8 @@ export default {
       'map': 'World map',
       'character': 'Hero',
       'inventory': 'Bag',
-      'skills': 'Skills'
+      'skills': 'Skills',
+      'roll': 'Dodge roll'
     },
     'difficulties': {
       'easy': 'Easy',

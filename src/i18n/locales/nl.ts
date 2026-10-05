@@ -29,7 +29,8 @@ export default {
     potion: 'Levensdrank (nog {n})',
     manaPotion: 'Manadrank (nog {n})',
     groups: '{n} van {total} vijandelijke groepen verslagen',
-    wave: 'Golf {n} / {total}'
+    wave: 'Golf {n} / {total}',
+    roll: 'Ontwijrol'
   },
   menu: {
     map: 'Wereldkaart',
@@ -158,6 +159,10 @@ export default {
     exit: {
       touch: 'Tik op de kaartknop om de stad te verlaten voor je volgende avontuur.',
       mouse: 'Klik op de kaartknop om de stad te verlaten voor je volgende avontuur.'
+    },
+    roll: {
+      touch: 'Tik op de rolknop om gevaar te ontwijken. Tijdens de rol kan niets je raken.',
+      mouse: 'Druk op de roltoets om gevaar te ontwijken. Tijdens de rol kan niets je raken.'
     }
   },
   goal: {
@@ -2612,6 +2617,46 @@ export default {
           say: 'Ik neem hem zelf.'
         }
       }
+    },
+    bark: {
+      goblinKing: {
+        charge: {
+          '1': 'Verpletter ze, Tusker!'
+        },
+        horn: {
+          '1': 'Naar mij, jongens! Goblins, naar mij!'
+        },
+        dismount: {
+          '1': 'Ren, Tusker! Ik maak dit zelf af!'
+        },
+        return: {
+          '1': 'Tusker! Nog één keer!'
+        }
+      },
+      dragon: {
+        takeoff: {
+          '1': 'Genoeg. Laat de hemel je verbranden.'
+        },
+        flight2: {
+          '1': 'Ik ben nog niet klaar met je!'
+        }
+      },
+      archDemon: {
+        gate: {
+          '1': 'De poort staat open. Niemand gaat weg.'
+        },
+        dive: {
+          '1': 'Kniel.'
+        }
+      },
+      frostJarl: {
+        hammer: {
+          '1': 'Blijf staan, kleintje.'
+        },
+        iceBreak: {
+          '1': 'Het meer verslindt je!'
+        }
+      }
     }
   },
   enemy: {
@@ -2783,7 +2828,8 @@ export default {
       map: 'Wereldkaart',
       character: 'Held',
       inventory: 'Tas',
-      skills: 'Vaardigheden'
+      skills: 'Vaardigheden',
+      roll: 'Ontwijrol'
     },
     difficulties: {
       easy: 'Makkelijk',

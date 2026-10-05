@@ -4,7 +4,9 @@ import { SKILLS, SKILL_BY_ID, meetsSkill, type ClassId } from '../data/skills'
 import { ITEMS, noGear, type ItemSlot, type ZoneId } from '../data/items'
 import { ZONES, visitLevel } from '../data/zones'
 import { applyPlan, populateZone } from './director'
-import { castSkill, createHero, orderAttack, orderMove, slotState, useManaPotion, usePotion } from './hero'
+import { castSkill, createHero, orderAttack, orderMove, rollHero, slotState, useManaPotion, usePotion } from './hero'
+import { isSolidAt } from './grid'
+import type { Danger } from './types'
 import { chestLock, orderOpen } from './interact'
 import { zoneMastery, type Mastery } from './route'
 import { heroStats, sumBuild, type HeroBuild } from './stats'
@@ -147,6 +149,7 @@ export const botThink = (sim: Sim, explore = false): void => {
     return
   }
   if (u.hp < u.s.maxHp * 0.4) usePotion(sim)
+  if (dodge(sim)) return
   if (h.manaPotions > 0 && h.manaPotionCd <= 0 && u.mana < u.s.maxMana * 0.25) useManaPotion(sim)
   // The nearest enemy that is awake; if none, the next pack that still stands.
   let foe: (typeof sim.units)[number] | undefined
@@ -178,6 +181,71 @@ export const botThink = (sim: Sim, explore = false): void => {
     if (def.target === 'enemy' && def.range <= 3 && bd > 6) continue
     if (castSkill(sim, slot, null)) return
   }
+}
+
+// ─── Dodging (#74, D80) ──────────────────────────────────────────────────────
+
+/** Of the warnings it stands in, the share it rolls out of (a fair player, not a perfect one). */
+export const BOT_DODGE = 0.7
+/** How soon before a warning lands it rolls (it thinks five times a second). */
+const DODGE_LEAD = 0.55
+
+/** Does a warning cover a body of radius `pr` at (px, pz)? */
+export const inDanger = (d: Danger, px: number, pz: number, pr: number): boolean => {
+  const t = d.tele
+  const dx = px - d.x
+  const dz = pz - d.z
+  if (t.shape === 'circle') return Math.hypot(dx, dz) < t.r + pr
+  const sa = Math.sin(t.a)
+  const ca = Math.cos(t.a)
+  const along = dx * sa + dz * ca
+  const across = dx * ca - dz * sa
+  if (t.shape === 'line') return along > -pr && along < t.r + pr && Math.abs(across) < t.w + pr
+  if (Math.hypot(dx, dz) > t.r + pr) return false
+  let da = Math.atan2(dx, dz) - t.a
+  while (da > Math.PI) da -= Math.PI * 2
+  while (da < -Math.PI) da += Math.PI * 2
+  return Math.abs(da) < t.w + 0.12
+}
+
+/** The way out of a warning: off a lane or a narrow cone sideways, out of a circle or a wide cone. */
+const wayOut = (d: Danger, px: number, pz: number): [number, number] => {
+  const t = d.tele
+  const dx = px - d.x
+  const dz = pz - d.z
+  if (t.shape === 'circle' || (t.shape === 'cone' && t.w > 0.9)) {
+    const l = Math.hypot(dx, dz)
+    return l > 0.2 ? [dx / l, dz / l] : [Math.cos(t.a), -Math.sin(t.a)]
+  }
+  const across = dx * Math.cos(t.a) - dz * Math.sin(t.a)
+  const s = across >= 0 ? 1 : -1
+  return [Math.cos(t.a) * s, -Math.sin(t.a) * s]
+}
+
+/** A stable coin per warning: whether this one is rolled out of. */
+let dodgeShare = BOT_DODGE
+/** How often it rolls out (a clip that wants the hit taken sets 0 for a moment). */
+export const setBotDodge = (share: number): void => { dodgeShare = share }
+const rollsFor = (n: number): boolean => ((Math.imul(n, 2654435761) >>> 0) / 4294967296) < dodgeShare
+
+/** Roll out of a foe's warning about to land. True: it rolled. */
+const dodge = (sim: Sim): boolean => {
+  const h = sim.hero
+  const u = h.unit
+  if (h.rollCd > 0 || u.action?.id === 'roll') return false
+  for (const d of sim.dangers) {
+    if (d.tele.team === u.team) continue
+    const left = d.at - sim.time
+    if (left < 0 || left > DODGE_LEAD) continue
+    // A shadow that hunts: only once it has locked.
+    if (d.tele.follow && sim.time - d.t0 < (d.tele.lock ?? 0)) continue
+    if (!rollsFor(d.n) || !inDanger(d, u.x, u.z, u.r)) continue
+    let [rx, rz] = wayOut(d, u.x, u.z)
+    // Rock that way: the other way.
+    if (isSolidAt(sim.grid, u.x + rx * 3, u.z + rz * 3)) { rx = -rx; rz = -rz }
+    return rollHero(sim, rx, rz)
+  }
+  return false
 }
 
 /** The completionist's next errand: the nearest chest it may open, else the

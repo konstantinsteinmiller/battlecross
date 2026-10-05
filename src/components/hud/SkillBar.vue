@@ -1,5 +1,24 @@
 <template lang="pug">
   div.skill-bar(:class="{ 'is-mouse': hud.device === 'mouse', 'is-lite': lite }")
+    //- The dodge roll (every class): beside the bar, nearest the thumb's sweep.
+    button.roll(
+      type="button"
+      data-roll
+      :class="{ 'is-ready': rollReady }"
+      :aria-label="t('hud.roll')"
+      @pointerdown.prevent="onRoll"
+    )
+      FSocket.slot__socket(shape="round" tint="var(--bc-gold)" metal="steel" art="skill-frame-potion")
+        span.slot__face.roll__face
+          svg.roll__mark(viewBox="0 0 48 48" aria-hidden="true" focusable="false")
+            path(d="M24 7a17 17 0 1 1-15.6 10.2l-4.6-2 5.8-9.2 6.6 8.6-4.6-.4A11.6 11.6 0 1 0 24 12.4z")
+            path.roll__dash(d="M3 31h9M5 37h9M9 43h8")
+        template(#over)
+          span.slot__cd(ref="rollCd")
+          span.slot__num(ref="rollNum")
+        template(#badge)
+          KeyCap.slot__key(v-if="hud.device === 'mouse'" :code="rollCode")
+      span.slot__flash(aria-hidden="true")
     //- The six actives. Only filled slots are drawn; `data-skill-slot` keeps
     //- the real slot number for the coach and the keys.
     button.slot(
@@ -131,6 +150,7 @@ const filled = computed(() => {
 
 const keyCode = (slot: number): string => DEFAULT_BINDINGS[`skill${slot + 1}` as 'skill1'][0]!
 const potionCode = DEFAULT_BINDINGS.potion[0]!
+const rollCode = DEFAULT_BINDINGS.roll[0]!
 const manaPotionCode = DEFAULT_BINDINGS.manaPotion[0]!
 
 /** How far the liquid is pushed down its flask, in % of the window: a full
@@ -151,6 +171,10 @@ const potionCd = ref<HTMLElement | null>(null)
 const potionNum = ref<HTMLElement | null>(null)
 const manaCd = ref<HTMLElement | null>(null)
 const manaNum = ref<HTMLElement | null>(null)
+const rollCd = ref<HTMLElement | null>(null)
+const rollNum = ref<HTMLElement | null>(null)
+const rollReady = ref(true)
+let rollShown = -1
 let potionShown = -1
 let manaShown = -1
 type RefEl = Element | ComponentPublicInstance | null
@@ -191,6 +215,8 @@ onMounted(() => {
     }
     potionShown = paint(potionCd.value, potionNum.value, hudLive.potionCd, hudLive.potionCdMax, potionShown)
     manaShown = paint(manaCd.value, manaNum.value, hudLive.manaPotionCd, hudLive.manaPotionCdMax, manaShown)
+    rollShown = paint(rollCd.value, rollNum.value, hudLive.rollCd, hudLive.rollCdMax, rollShown)
+    if (rollReady.value !== hudLive.rollCd <= 0) rollReady.value = hudLive.rollCd <= 0
   })
 })
 onUnmounted(() => {
@@ -265,6 +291,10 @@ const onPotion = (e: PointerEvent): void => {
   device(e)
   input.potionQueued = true
 }
+const onRoll = (e: PointerEvent): void => {
+  device(e)
+  input.rollQueued = true
+}
 const onManaPotion = (e: PointerEvent): void => {
   device(e)
   input.manaPotionQueued = true
@@ -333,6 +363,60 @@ const onManaPotion = (e: PointerEvent): void => {
   transition: filter 140ms ease-out
 .is-ready .slot__face
   filter: none
+
+// ── The roll ─────────────────────────────────────────────────────────────────
+// Its own button, a size up, just left of the bar's bottom row.
+.skill-bar
+  position: relative
+.roll
+  position: absolute
+  right: calc(100% + var(--gap) * 1.6)
+  bottom: 0
+  width: calc(var(--btn) * 1.12)
+  height: calc(var(--btn) * 1.12)
+  padding: 0
+  border: 0
+  border-radius: 50%
+  background: none
+  cursor: pointer
+  pointer-events: auto
+  touch-action: none
+  -webkit-tap-highlight-color: transparent
+  user-select: none
+  -webkit-user-select: none
+  transition: transform var(--bc-t-release) var(--bc-ease-bounce)
+  +cel.focus-ring
+  &:active
+    transition-duration: var(--bc-t-press)
+    transform: scale(0.9)
+  .slot__num
+    font-size: calc(var(--btn) * 0.36)
+.roll__face
+  background: radial-gradient(circle at 50% 40%, color-mix(in srgb, var(--bc-gold) 55%, var(--bc-white)) 0, var(--bc-gold) 70%)
+.roll__mark
+  position: absolute
+  inset: 16%
+  width: 68%
+  height: 68%
+  path
+    fill: var(--bc-white)
+    stroke: var(--bc-ink)
+    stroke-width: 2.6
+    stroke-linejoin: round
+  .roll__dash
+    fill: none
+    stroke: var(--bc-white)
+    stroke-width: 3
+    stroke-linecap: round
+    paint-order: stroke
+.is-ready.roll .slot__face
+  filter: none
+.is-mouse .roll
+  position: relative
+  right: auto
+  order: -2
+  width: var(--btn)
+  height: var(--btn)
 
 // ── The flasks ───────────────────────────────────────────────────────────────
 .flask

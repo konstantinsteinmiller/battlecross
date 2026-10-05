@@ -4,7 +4,7 @@ import { spawnEnemy } from '../spawn'
 import type { Sim } from '../world'
 import type { Unit } from '../types'
 import type { BossScript } from './index'
-import { daze, exitField, move, other, warn, windCharge, type ChargeOpts } from './kit'
+import { bark, daze, exitField, move, other, warn, windCharge, type ChargeOpts } from './kit'
 
 /**
  * ─── The Goblin King on Tusker (Goldfield Hollows) ──────────────────────────
@@ -49,11 +49,13 @@ const tusker: BossScript = {
     if (!b.marks.includes('horn') && u.hp <= u.s.maxHp * 0.75) {
       b.marks.push('horn')
       move(sim, u, 'enrage', 0.9, 0.4, tgt)
+      bark(sim, u, 'goblinKing', 'horn')
       return true
     }
     if (b.next <= 0 && d >= 3.2 && hasLineOfSight(sim.grid, u.x, u.z, tgt.x, tgt.z)) {
       b.next = 7 + sim.rng() * 2.5
       windCharge(sim, u, tgt, 1.2, GORE)
+      bark(sim, u, 'goblinKing', 'charge')
       return true
     }
     return false
@@ -82,6 +84,7 @@ const tusker: BossScript = {
       sim.emit({ t: 'fx', id: 'slam', x, z, r: 3, color: '#58c23f' })
       for (const t of sim.inCircle(other(king), x, z, 3, [])) knockback(t, x, z, 6)
       sim.emit({ t: 'bossPhase', unit: king.id, phase: 1 })
+      bark(sim, king, 'goblinKing', 'dismount')
     }
     // Tusker turns and runs off.
     exitField(sim, u)
@@ -122,6 +125,7 @@ const kingAfoot: BossScript = {
       boar.awake = true
       boar.targetId = sim.hero.unit.id
       sim.emit({ t: 'fx', id: 'roar', x, z, r: 4, color: '#8a5a3a' })
+      bark(sim, u, 'goblinKing', 'return')
     }
   }
 }

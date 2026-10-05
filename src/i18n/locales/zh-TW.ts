@@ -29,7 +29,8 @@ export default {
     potion: '生命藥水（剩 {n} 瓶）',
     manaPotion: '魔力藥水（剩 {n} 瓶）',
     groups: '已擊敗 {n}/{total} 群敵人',
-    wave: '第 {n} / {total} 波'
+    wave: '第 {n} / {total} 波',
+    roll: '翻滾'
   },
   menu: {
     map: '世界地圖',
@@ -157,6 +158,10 @@ export default {
     exit: {
       touch: '點一下地圖按鈕，離開城鎮踏上下一段冒險。',
       mouse: '點一下地圖按鈕，離開城鎮踏上下一段冒險。'
+    },
+    roll: {
+      touch: '點一下翻滾按鈕，就能閃開危險。翻滾的時候，什麼都傷不到你。',
+      mouse: '按下翻滾鍵，就能閃開危險。翻滾的時候，什麼都傷不到你。'
     }
   },
   goal: {
@@ -2604,6 +2609,46 @@ export default {
           say: '我自己來拿。'
         }
       }
+    },
+    bark: {
+      goblinKing: {
+        charge: {
+          '1': '撞垮他們，獠牙！'
+        },
+        horn: {
+          '1': '兄弟們，到我這裡來！哥布林，到我這裡來！'
+        },
+        dismount: {
+          '1': '快跑，獠牙！剩下的我自己來！'
+        },
+        return: {
+          '1': '獠牙！再來一次！'
+        }
+      },
+      dragon: {
+        takeoff: {
+          '1': '夠了。讓天空燒了你。'
+        },
+        flight2: {
+          '1': '我還沒跟你算完！'
+        }
+      },
+      archDemon: {
+        gate: {
+          '1': '大門開了。誰也別想離開。'
+        },
+        dive: {
+          '1': '跪下。'
+        }
+      },
+      frostJarl: {
+        hammer: {
+          '1': '站著別動，小傢伙。'
+        },
+        iceBreak: {
+          '1': '湖水會把你吞掉！'
+        }
+      }
     }
   },
   enemy: {
@@ -2775,7 +2820,8 @@ export default {
       map: '世界地圖',
       character: '英雄',
       inventory: '背包',
-      skills: '技能'
+      skills: '技能',
+      roll: '翻滾'
     },
     difficulties: {
       easy: '簡單',

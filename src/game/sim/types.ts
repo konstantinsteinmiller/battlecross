@@ -332,6 +332,19 @@ export interface TempWall {
   fx: string
 }
 
+/** A warning still on the ground, as the sim keeps it for those who read it
+ *  (the reference player's dodge): where it lands and when. */
+export interface Danger {
+  tele: Telegraph
+  /** Where it is now (a shadow that follows a unit moves until it locks). */
+  x: number
+  z: number
+  /** Sim time it lands at, and was raised at; a running number to tell one from another. */
+  at: number
+  t0: number
+  n: number
+}
+
 /** A warning the view draws on the ground before an attack lands. */
 export interface Telegraph {
   shape: 'circle' | 'cone' | 'line'
@@ -391,6 +404,8 @@ export type SimEvent =
   | { t: 'groupDone'; done: number; total: number }
   | { t: 'wave'; n: number }
   | { t: 'bossPhase'; unit: number; phase: number }
+  /** A boss shouts a line at a beat of its fight (an i18n key = its recording). */
+  | { t: 'bark'; unit: number; key: string }
   | { t: 'overheat'; on: boolean }
   | { t: 'denied'; why: 'mana' | 'cooldown' | 'range' | 'target' | 'locked' | 'hp' }
   /** A potion is drunk: the health one, or (`mana`) a mana potion. */

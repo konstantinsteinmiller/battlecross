@@ -3,7 +3,7 @@ import { ZoneMode } from './modes/zoneMode'
 import { buildPlace, enterPlace, flow } from './flow'
 import { addHudTicker } from './state/hud'
 import { profile, setSaveSandbox } from './state/profile'
-import { botThink, referenceBuild } from './sim/bot'
+import { botThink, referenceBuild, setBotDodge } from './sim/bot'
 import { orderMove, usePotion } from './sim/hero'
 import { ENEMY_BY_ID } from './data/enemies'
 import { ITEMS } from './data/items'
@@ -62,6 +62,11 @@ export interface PreviewApi {
   stage(o: { pack?: 'finale' | number; gap?: number; heroHp?: number; bossHp?: number; foeHp?: number; potions?: number }): void
   /** Hand the hero to the reference player (or take him back). */
   bot(on: boolean): void
+  /** The scripted boss on the field (#74): set its health (a phase's line crossed
+   *  right now), and ready its named moves (`cd` timers to 0, the rest held). */
+  boss(o: { hp?: number; ready?: string[]; hold?: string[] }): boolean
+  /** How often the reference player rolls out of warnings (0..1; default 0.7). */
+  dodge(share: number): void
   /** Drink a potion now. */
   potion(): boolean
   /**
@@ -184,6 +189,19 @@ export const installPreview = (): void => {
       if (on) route = []
     },
 
+    boss({ hp, ready = [], hold = [] }) {
+      const z = zone()
+      if (!z) return false
+      const b = z.sim.units.find(e => e.alive && e.team === 1 && e.boss && e.boss.mode !== 'gone' && e.boss.mode !== 'exit')
+      if (!b || !b.boss) return false
+      if (hp !== undefined) b.hp = Math.max(1, b.s.maxHp * hp)
+      for (const k of ready) b.boss.cd[k] = 0
+      for (const k of hold) b.boss.cd[k] = 99
+      if (ready.length) { b.boss.next = 0; b.aiT = 0 }
+      return true
+    },
+    dodge: (share) => setBotDodge(share),
+
     potion: () => { const z = zone(); return z ? usePotion(z.sim) : false },
 
     walk(points) {
@@ -212,6 +230,8 @@ export const installPreview = (): void => {
       const finale = z.plan.packs.find(p => p.finale)?.boss ?? ''
       for (const e of sim.units) {
         if (e.team !== 1) continue
+        // A mount that ran off the field (#74) is no one's boss any more.
+        if (e.boss?.mode === 'gone') continue
         if (e.alive && e.awake) awake++
         if (e.rank === 'boss' || e.rank === 'elite') {
           const b = { kind: e.kind, hp01: Math.max(0, e.hp) / e.s.maxHp, alive: e.alive }

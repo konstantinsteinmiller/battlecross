@@ -29,7 +29,8 @@ export default {
     potion: 'Ramuan nyawa (sisa {n})',
     manaPotion: 'Ramuan mana (sisa {n})',
     groups: '{n} dari {total} kelompok musuh dikalahkan',
-    wave: 'Gelombang {n} / {total}'
+    wave: 'Gelombang {n} / {total}',
+    roll: 'Guling'
   },
   menu: {
     map: 'Peta dunia',
@@ -157,6 +158,10 @@ export default {
     exit: {
       touch: 'Ketuk tombol peta untuk meninggalkan kota menuju petualangan berikutnya.',
       mouse: 'Klik tombol peta untuk meninggalkan kota menuju petualangan berikutnya.'
+    },
+    roll: {
+      touch: 'Ketuk tombol guling untuk menghindari bahaya. Tidak ada yang bisa melukaimu saat berguling.',
+      mouse: 'Tekan tombol guling untuk menghindari bahaya. Tidak ada yang bisa melukaimu saat berguling.'
     }
   },
   goal: {
@@ -2604,6 +2609,46 @@ export default {
           say: 'Aku akan mengambilnya sendiri.'
         }
       }
+    },
+    bark: {
+      goblinKing: {
+        charge: {
+          '1': 'Terjang mereka, Tusker!'
+        },
+        horn: {
+          '1': 'Ke sini, anak-anak! Goblin, ke sini!'
+        },
+        dismount: {
+          '1': 'Lari, Tusker, lari! Aku akan menghabisinya sendiri!'
+        },
+        return: {
+          '1': 'Tusker! Sekali lagi!'
+        }
+      },
+      dragon: {
+        takeoff: {
+          '1': 'Cukup. Biarkan langit membakarmu.'
+        },
+        flight2: {
+          '1': 'Aku belum selesai denganmu!'
+        }
+      },
+      archDemon: {
+        gate: {
+          '1': 'Gerbangnya terbuka. Tak seorang pun pergi.'
+        },
+        dive: {
+          '1': 'Berlutut.'
+        }
+      },
+      frostJarl: {
+        hammer: {
+          '1': 'Diam di tempat, bocah.'
+        },
+        iceBreak: {
+          '1': 'Danau akan menelanmu!'
+        }
+      }
     }
   },
   enemy: {
@@ -2775,7 +2820,8 @@ export default {
       map: 'Peta dunia',
       character: 'Pahlawan',
       inventory: 'Tas',
-      skills: 'Skill'
+      skills: 'Skill',
+      roll: 'Guling'
     },
     difficulties: {
       easy: 'Mudah',

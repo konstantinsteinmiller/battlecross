@@ -29,7 +29,8 @@ export default {
     potion: 'Heiltrank (noch {n})',
     manaPotion: 'Manatrank (noch {n})',
     groups: '{n} von {total} Gegnergruppen besiegt',
-    wave: 'Welle {n} / {total}'
+    wave: 'Welle {n} / {total}',
+    roll: 'Ausweichrolle'
   },
   menu: {
     map: 'Weltkarte',
@@ -158,6 +159,10 @@ export default {
     exit: {
       touch: 'Tippe auf die Kartentaste, um die Stadt für dein nächstes Abenteuer zu verlassen.',
       mouse: 'Klicke auf die Kartentaste, um die Stadt für dein nächstes Abenteuer zu verlassen.'
+    },
+    roll: {
+      touch: 'Tippe auf die Rolltaste, um der Gefahr auszuweichen. Mitten in der Rolle kann dir nichts schaden.',
+      mouse: 'Drücke die Rolltaste, um der Gefahr auszuweichen. Mitten in der Rolle kann dir nichts schaden.'
     }
   },
   goal: {
@@ -2620,6 +2625,47 @@ export default {
           say: 'Ich nehme ihn selbst.'
         }
       }
+    },
+    bark: {
+      goblinKing: {
+        charge: {
+          '1': 'Überrenn sie, Tusker!'
+        },
+        horn: {
+          '1': 'Zu mir, Jungs! Goblins, zu mir!'
+        },
+        dismount: {
+          '1': 'Los, Tusker, lauf! Den Rest erledige ich selbst!'
+        },
+        return: {
+          '1': 'Tusker! Noch einmal!'
+        }
+      },
+      dragon: {
+        takeoff: {
+          '1': 'Genug. Soll der Himmel dich verbrennen.'
+        },
+        flight2: {
+          '1': 'Ich bin noch nicht fertig mit dir!'
+        }
+      },
+      archDemon: {
+        gate: {
+          '1': 'Das Tor ist offen. Keiner geht.'
+        },
+        dive: {
+          '1': 'Auf die Knie.'
+        }
+      },
+      frostJarl: {
+        hammer: {
+          '1': 'Halt still, Kleiner.',
+          '1__f': 'Halt still, Kleine.'
+        },
+        iceBreak: {
+          '1': 'Der See wird dich verschlingen!'
+        }
+      }
     }
   },
   enemy: {
@@ -2791,7 +2837,8 @@ export default {
       map: 'Weltkarte',
       character: 'Held',
       inventory: 'Tasche',
-      skills: 'Fähigkeiten'
+      skills: 'Fähigkeiten',
+      roll: 'Ausweichrolle'
     },
     difficulties: {
       easy: 'Leicht',

@@ -53,6 +53,7 @@ const groups = computed(() => {
       { id: 'target', glyph: tap, icon: 'sword' },
       { id: 'skill', glyph: key('skill1'), icon: 'bolt', tone: 'gold' },
       { id: 'aim', glyph: drag, icon: 'range', tone: 'gold' },
+      { id: 'roll', glyph: key('roll'), icon: 'boots', tone: 'gold' },
       { id: 'potion', glyph: key('potion'), icon: 'flask', tone: 'red' },
       { id: 'mana', glyph: key('manaPotion'), icon: 'flask', tone: 'blue' },
       { id: 'chest', glyph: tap, icon: 'chest', tone: 'gold' }

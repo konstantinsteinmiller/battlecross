@@ -29,7 +29,8 @@ export default {
     potion: 'Terveysjuoma ({n} jäljellä)',
     manaPotion: 'Manajuoma ({n} jäljellä)',
     groups: '{n} / {total} vihollisryhmää voitettu',
-    wave: 'Aalto {n} / {total}'
+    wave: 'Aalto {n} / {total}',
+    roll: 'Väistökieri'
   },
   menu: {
     map: 'Maailmankartta',
@@ -157,6 +158,10 @@ export default {
     exit: {
       touch: 'Napauta karttapainiketta lähteäksesi kaupungista seuraavalle seikkailulle.',
       mouse: 'Napsauta karttapainiketta lähteäksesi kaupungista seuraavalle seikkailulle.'
+    },
+    roll: {
+      touch: 'Napauta kieri-painiketta väistääksesi vaaraa. Mikään ei voi satuttaa sinua kierimisen aikana.',
+      mouse: 'Paina kierimisnäppäintä väistääksesi vaaraa. Mikään ei voi satuttaa sinua kierimisen aikana.'
     }
   },
   goal: {
@@ -2604,6 +2609,46 @@ export default {
           say: 'Otan sen itse.'
         }
       }
+    },
+    bark: {
+      goblinKing: {
+        charge: {
+          '1': 'Ajakaa ne yli, Tusker!'
+        },
+        horn: {
+          '1': 'Luokseni, pojat! Hiidet, luokseni!'
+        },
+        dismount: {
+          '1': 'Juokse, Tusker, juokse! Hoidan tämän itse!'
+        },
+        return: {
+          '1': 'Tusker! Vielä kerran!'
+        }
+      },
+      dragon: {
+        takeoff: {
+          '1': 'Riittää. Polttakoon taivas sinut.'
+        },
+        flight2: {
+          '1': 'En ole vielä valmis sinun kanssasi!'
+        }
+      },
+      archDemon: {
+        gate: {
+          '1': 'Portti on auki. Kukaan ei poistu.'
+        },
+        dive: {
+          '1': 'Polvistu.'
+        }
+      },
+      frostJarl: {
+        hammer: {
+          '1': 'Seiso paikallasi, pikkuinen.'
+        },
+        iceBreak: {
+          '1': 'Järvi nielaisee sinut!'
+        }
+      }
     }
   },
   enemy: {
@@ -2775,7 +2820,8 @@ export default {
       map: 'Maailmankartta',
       character: 'Sankari',
       inventory: 'Laukku',
-      skills: 'Kyvyt'
+      skills: 'Kyvyt',
+      roll: 'Väistökieri'
     },
     difficulties: {
       easy: 'Helppo',

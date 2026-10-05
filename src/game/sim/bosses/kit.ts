@@ -259,5 +259,15 @@ export const shatterWallAt = (sim: Sim, x: number, z: number): string => {
   return ''
 }
 
+/** Shout the line of a beat (`data/dialogs/bosses.ts`) — once a fight. */
+export const bark = (sim: Sim, u: Unit, boss: string, beat: string): void => {
+  const b = u.boss
+  if (b) {
+    if (b.marks.includes('bark:' + beat)) return
+    b.marks.push('bark:' + beat)
+  }
+  sim.emit({ t: 'bark', unit: u.id, key: `dlg.bark.${boss}.${beat}.1` })
+}
+
 /** Is it holding still as a mistake (the window to punish)? */
 export const isDazed = (u: Unit): boolean => u.boss?.mode === 'dazed' && hasStatus(u, 'stun')

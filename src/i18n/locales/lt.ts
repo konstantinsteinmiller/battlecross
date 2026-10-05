@@ -29,7 +29,8 @@ export default {
     potion: 'Gyvybės eliksyras (liko: {n})',
     manaPotion: 'Manos eliksyras (liko: {n})',
     groups: 'Įveikta priešų grupių: {n} iš {total}',
-    wave: 'Banga {n} / {total}'
+    wave: 'Banga {n} / {total}',
+    roll: 'Riedėjimas'
   },
   menu: {
     map: 'Žemėlapis',
@@ -157,6 +158,10 @@ export default {
     exit: {
       touch: 'Palieski žemėlapio mygtuką, kad išeitum iš miesto į kitą nuotykį.',
       mouse: 'Spustelėk žemėlapio mygtuką, kad išeitum iš miesto į kitą nuotykį.'
+    },
+    roll: {
+      touch: 'Bakstelėk riedėjimo mygtuką, kad išsisuktum iš pavojaus. Riedėjimo metu niekas negali tavęs sužeisti.',
+      mouse: 'Paspausk riedėjimo klavišą, kad išsisuktum iš pavojaus. Riedėjimo metu niekas negali tavęs sužeisti.'
     }
   },
   goal: {
@@ -2650,6 +2655,47 @@ export default {
           say__f: 'Pasiimsiu jį pati.'
         }
       }
+    },
+    bark: {
+      goblinKing: {
+        charge: {
+          '1': 'Sutrypk juos, Tusker!'
+        },
+        horn: {
+          '1': 'Pas mane, vyrai! Goblinai, pas mane!'
+        },
+        dismount: {
+          '1': 'Bėk, Tusker! Pats baigsiu šitą!'
+        },
+        return: {
+          '1': 'Tusker! Dar kartą!'
+        }
+      },
+      dragon: {
+        takeoff: {
+          '1': 'Gana. Tegul dangus tave sudegina.'
+        },
+        flight2: {
+          '1': 'Dar su tavimi nebaigiau!'
+        }
+      },
+      archDemon: {
+        gate: {
+          '1': 'Vartai atviri. Niekas neišeis.'
+        },
+        dive: {
+          '1': 'Klaupkis.'
+        }
+      },
+      frostJarl: {
+        hammer: {
+          '1': 'Stovėk ramiai, mažyli.',
+          '1__f': 'Stovėk ramiai, mažyle.'
+        },
+        iceBreak: {
+          '1': 'Ežeras tave praris!'
+        }
+      }
     }
   },
   enemy: {
@@ -2821,7 +2867,8 @@ export default {
       map: 'Pasaulio žemėlapis',
       character: 'Herojus',
       inventory: 'Krepšys',
-      skills: 'Įgūdžiai'
+      skills: 'Įgūdžiai',
+      roll: 'Riedėjimas'
     },
     difficulties: {
       easy: 'Lengvas',

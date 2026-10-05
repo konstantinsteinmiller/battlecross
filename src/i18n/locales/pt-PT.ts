@@ -29,7 +29,8 @@ export default {
     potion: 'Poção de vida (restam {n})',
     manaPotion: 'Poção de mana (restam {n})',
     groups: '{n} de {total} grupos de inimigos derrotados',
-    wave: 'Vaga {n} / {total}'
+    wave: 'Vaga {n} / {total}',
+    roll: 'Rolamento'
   },
   menu: {
     map: 'Mapa do mundo',
@@ -158,6 +159,10 @@ export default {
     exit: {
       touch: 'Toca no botão do mapa para sair da cidade rumo à próxima aventura.',
       mouse: 'Clica no botão do mapa para sair da cidade rumo à próxima aventura.'
+    },
+    roll: {
+      touch: 'Toca no botão de rolamento para escapares ao perigo. Nada te pode magoar durante o rolamento.',
+      mouse: 'Carrega na tecla de rolamento para escapares ao perigo. Nada te pode magoar durante o rolamento.'
     }
   },
   goal: {
@@ -2639,6 +2644,47 @@ export default {
           say: 'Fico eu com ele.'
         }
       }
+    },
+    bark: {
+      goblinKing: {
+        charge: {
+          '1': 'Esmaga-os, Tusker!'
+        },
+        horn: {
+          '1': 'Comigo, rapazes! Goblins, comigo!'
+        },
+        dismount: {
+          '1': 'Corre, Tusker! Eu acabo isto sozinho!'
+        },
+        return: {
+          '1': 'Tusker! Mais uma vez!'
+        }
+      },
+      dragon: {
+        takeoff: {
+          '1': 'Chega. Que o céu te queime.'
+        },
+        flight2: {
+          '1': 'Ainda não acabei contigo!'
+        }
+      },
+      archDemon: {
+        gate: {
+          '1': 'O portão está aberto. Ninguém sai.'
+        },
+        dive: {
+          '1': 'Ajoelha-te.'
+        }
+      },
+      frostJarl: {
+        hammer: {
+          '1': 'Fica quieto, pequeno.',
+          '1__f': 'Fica quieta, pequena.'
+        },
+        iceBreak: {
+          '1': 'O lago vai engolir-te!'
+        }
+      }
     }
   },
   enemy: {
@@ -2810,7 +2856,8 @@ export default {
       map: 'Mapa do mundo',
       character: 'Herói',
       inventory: 'Mochila',
-      skills: 'Habilidades'
+      skills: 'Habilidades',
+      roll: 'Rolamento'
     },
     difficulties: {
       easy: 'Fácil',

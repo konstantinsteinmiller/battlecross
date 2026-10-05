@@ -29,7 +29,8 @@ export default {
     potion: 'Lektvar zdraví (zbývá {n})',
     manaPotion: 'Lektvar many (zbývá {n})',
     groups: 'Poražené skupiny nepřátel: {n} z {total}',
-    wave: 'Vlna {n} / {total}'
+    wave: 'Vlna {n} / {total}',
+    roll: 'Kotoul'
   },
   menu: {
     map: 'Mapa světa',
@@ -160,6 +161,10 @@ export default {
     exit: {
       touch: 'Klepni na tlačítko mapy a opusť město za dalším dobrodružstvím.',
       mouse: 'Klikni na tlačítko mapy a opusť město za dalším dobrodružstvím.'
+    },
+    roll: {
+      touch: 'Klepni na tlačítko kotoulu a uhneš před nebezpečím. Během kotoulu ti nic neublíží.',
+      mouse: 'Stiskni klávesu kotoulu a uhneš před nebezpečím. Během kotoulu ti nic neublíží.'
     }
   },
   goal: {
@@ -2688,6 +2693,47 @@ export default {
           say__f: 'Vezmu si ho sama.'
         }
       }
+    },
+    bark: {
+      goblinKing: {
+        charge: {
+          '1': 'Rozdupej je, Tuskere!'
+        },
+        horn: {
+          '1': 'Ke mně, hoši! Goblini, ke mně!'
+        },
+        dismount: {
+          '1': 'Do toho, Tuskere, běž! Tohle dodělám sám!'
+        },
+        return: {
+          '1': 'Tuskere! Ještě jednou!'
+        }
+      },
+      dragon: {
+        takeoff: {
+          '1': 'Dost. Ať tě nebe spálí.'
+        },
+        flight2: {
+          '1': 'Ještě s tebou nekončím!'
+        }
+      },
+      archDemon: {
+        gate: {
+          '1': 'Brána je otevřená. Nikdo neodejde.'
+        },
+        dive: {
+          '1': 'Na kolena.'
+        }
+      },
+      frostJarl: {
+        hammer: {
+          '1': 'Stůj, malý.',
+          '1__f': 'Stůj, malá.'
+        },
+        iceBreak: {
+          '1': 'Jezero tě pohltí!'
+        }
+      }
     }
   },
   enemy: {
@@ -2859,7 +2905,8 @@ export default {
       map: 'Mapa světa',
       character: 'Hrdina',
       inventory: 'Batoh',
-      skills: 'Dovednosti'
+      skills: 'Dovednosti',
+      roll: 'Úhybný kotoul'
     },
     difficulties: {
       easy: 'Lehká',

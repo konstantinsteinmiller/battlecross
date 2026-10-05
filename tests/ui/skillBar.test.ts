@@ -9,7 +9,7 @@ import { nextTick } from 'vue'
 
 const input = vi.hoisted(() => ({
   touched: false, anyPressed: false, device: 'touch',
-  potionQueued: false, manaPotionQueued: false,
+  potionQueued: false, manaPotionQueued: false, rollQueued: false,
   skillTap: -1, aimSlot: -1, aimLive: false, aimX: 0, aimY: 0, aimDrop: -1, aimDropX: 0, aimDropY: 0
 }))
 vi.mock('@/game/boot', () => ({ input }))
@@ -103,8 +103,20 @@ describe('SkillBar', () => {
 
   it('keeps a cooldown layer and a number per button for the ticker to write', () => {
     const w = mount(SkillBar)
-    expect(w.findAll('.slot__cd')).toHaveLength(8)
-    expect(w.findAll('.slot__num')).toHaveLength(8)
+    // Six skills, two flasks, and the dodge roll (#74).
+    expect(w.findAll('.slot__cd')).toHaveLength(9)
+    expect(w.findAll('.slot__num')).toHaveLength(9)
+  })
+
+  it('has a dodge roll button for every hero: a tap queues the roll (#74, D79)', async () => {
+    const w = mount(SkillBar)
+    const b = w.find('[data-roll]')
+    expect(b.exists()).toBe(true)
+    expect(b.attributes('aria-label')).toBe('hud.roll')
+    expect(b.classes()).not.toContain('slot')
+    await b.trigger('pointerdown')
+    expect(input.rollQueued).toBe(true)
+    input.rollQueued = false
   })
 })
 

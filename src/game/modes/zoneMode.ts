@@ -38,9 +38,9 @@ import { UI_ART } from '../assets/overrides'
 import { StillCull } from '../gfx/cull'
 import { townCanTalk } from '../sim/town'
 import { townAddress, townGreet } from '../sim/townLife'
-import { POTION_CD, useManaPotion } from '../sim/hero'
+import { POTION_CD, ROLL_CD, rollHero, useManaPotion } from '../sim/hero'
 import { nearChest, orderOpen, pickChest } from '../sim/interact'
-import { hud, hudLive, pushHud, tickHud, type SkillSlotView, type TextKind } from '../state/hud'
+import { hud, hudLive, pushHud, sayBark, tickHud, type SkillSlotView, type TextKind } from '../state/hud'
 import { heroBuild, loadoutActive, markTip, profile } from '../state/profile'
 import { coach } from '../coach'
 import { emitCrumbs, peekOffset } from '../coach/nudgeFx'
@@ -541,6 +541,7 @@ export class ZoneMode implements GameMode {
     if (i.aimDrop >= 0 && this.cam.screenToGround(i.aimDropX, i.aimDropY, ground)) {
       if (castSkill(sim, i.aimDrop, { x: ground.x, z: ground.z })) { coach.use('skill'); coach.use('aim') }
     }
+    if (i.rollQueued) rollHero(sim, h.stickX, h.stickZ)
     if (i.potionQueued && usePotion(sim)) coach.use('potion')
     if (i.manaPotionQueued && useManaPotion(sim)) { coach.use('mana'); markRevealUsed('mana') }
     if (i.targetQueued) cycleTarget(sim)
@@ -745,6 +746,9 @@ export class ZoneMode implements GameMode {
         case 'wave':
           pushHud({ t: 'toast', key: 'toast.wave', params: { n: e.n } })
           sfx('alert')
+          break
+        case 'bark':
+          sayBark(e.unit, e.key)
           break
         case 'bossPhase': {
           const u = sim.get(e.unit)
@@ -968,6 +972,8 @@ export class ZoneMode implements GameMode {
     const h = sim.hero
     for (let s = 0; s < 6; s++) { hudLive.cd[s] = h.cd[s]!; hudLive.cdMax[s] = h.cdMax[s]! }
     hudLive.potionCd = h.potionCd
+    hudLive.rollCd = h.rollCd
+    hudLive.rollCdMax = ROLL_CD
     hudLive.manaPotionCd = h.manaPotionCd
     hudLive.manaPotionCdMax = POTION_CD
     tickHud(dt)

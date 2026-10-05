@@ -29,7 +29,8 @@ export default {
     potion: 'Poció de salut (en queden {n})',
     manaPotion: 'Poció de manà (en queden {n})',
     groups: '{n} de {total} grups enemics derrotats',
-    wave: 'Onada {n} / {total}'
+    wave: 'Onada {n} / {total}',
+    roll: 'Voltereta'
   },
   menu: {
     map: 'Mapa del món',
@@ -158,6 +159,10 @@ export default {
     exit: {
       touch: 'Toca el botó del mapa per sortir de la ciutat cap a la teva propera aventura.',
       mouse: 'Fes clic al botó del mapa per sortir de la ciutat cap a la teva propera aventura.'
+    },
+    roll: {
+      touch: 'Toca el botó de voltereta per esquivar el perill. Res no et pot fer mal enmig de la voltereta.',
+      mouse: 'Prem la tecla de voltereta per esquivar el perill. Res no et pot fer mal enmig de la voltereta.'
     }
   },
   goal: {
@@ -2636,6 +2641,47 @@ export default {
           say: 'Me’l quedo jo.'
         }
       }
+    },
+    bark: {
+      goblinKing: {
+        charge: {
+          '1': 'Atropella’ls, Tusker!'
+        },
+        horn: {
+          '1': 'A mi, nois! Gòblins, a mi!'
+        },
+        dismount: {
+          '1': 'Au, Tusker, corre! Jo acabaré això tot sol!'
+        },
+        return: {
+          '1': 'Tusker! Una vegada més!'
+        }
+      },
+      dragon: {
+        takeoff: {
+          '1': 'Prou. Que el cel et cremi.'
+        },
+        flight2: {
+          '1': 'Encara no he acabat amb tu!'
+        }
+      },
+      archDemon: {
+        gate: {
+          '1': 'La porta és oberta. Ningú no se’n va.'
+        },
+        dive: {
+          '1': 'Agenolla’t.'
+        }
+      },
+      frostJarl: {
+        hammer: {
+          '1': 'Para quiet, petit.',
+          '1__f': 'Para quieta, petita.'
+        },
+        iceBreak: {
+          '1': 'El llac t’empassarà!'
+        }
+      }
     }
   },
   enemy: {
@@ -2808,7 +2854,8 @@ export default {
       map: 'Mapa del món',
       character: 'Heroi',
       inventory: 'Bossa',
-      skills: 'Habilitats'
+      skills: 'Habilitats',
+      roll: 'Voltereta d’esquiva'
     },
     difficulties: {
       easy: 'Fàcil',

@@ -5,6 +5,8 @@
     NpcPins(v-if="flow.screen === 'town'")
     //- What two chatting townsfolk say as the hero passes them.
     OverheardLayer(v-if="flow.screen === 'town'")
+    //- What a boss shouts at the big beats of its fight.
+    BossBarkLayer(v-if="flow.screen === 'zone'")
     CoachLayer(v-if="(flow.screen === 'zone' || flow.screen === 'town') && !flow.modal && !flow.talk")
     //- The "Open" prompt on the chest in reach.
     ChestPrompt(v-if="flow.screen === 'zone'")
@@ -41,6 +43,7 @@ import { flow } from '@/game/flow'
 import { recallHere } from '@/game/coach/onboarding'
 import NpcPins from '@/components/dialog/NpcPins.vue'
 import OverheardLayer from '@/components/dialog/OverheardLayer.vue'
+import BossBarkLayer from './BossBarkLayer.vue'
 import HeroFrame from './HeroFrame.vue'
 import TopStatus from './TopStatus.vue'
 import HudMenu from './HudMenu.vue'

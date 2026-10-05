@@ -29,7 +29,8 @@ export default {
     potion: 'Poción de saúde (quedan {n})',
     manaPotion: 'Poción de maná (quedan {n})',
     groups: '{n} de {total} grupos inimigos derrotados',
-    wave: 'Vaga {n} / {total}'
+    wave: 'Vaga {n} / {total}',
+    roll: 'Rodar'
   },
   menu: {
     map: 'Mapa do mundo',
@@ -158,6 +159,10 @@ export default {
     exit: {
       touch: 'Toca o botón do mapa para saír da vila cara á túa seguinte aventura.',
       mouse: 'Fai clic no botón do mapa para saír da vila cara á túa seguinte aventura.'
+    },
+    roll: {
+      touch: 'Toca o botón de rodar para esquivar o perigo. Nada che pode facer dano mentres rodas.',
+      mouse: 'Preme a tecla de rodar para esquivar o perigo. Nada che pode facer dano mentres rodas.'
     }
   },
   goal: {
@@ -2640,6 +2645,47 @@ export default {
           say: 'Quedo eu con el.'
         }
       }
+    },
+    bark: {
+      goblinKing: {
+        charge: {
+          '1': 'Arrasádeos, Tusker!'
+        },
+        horn: {
+          '1': 'A min, rapaces! Trasnos, a min!'
+        },
+        dismount: {
+          '1': 'Vai, Tusker, corre! Isto acábocho eu só!'
+        },
+        return: {
+          '1': 'Tusker! Unha vez máis!'
+        }
+      },
+      dragon: {
+        takeoff: {
+          '1': 'Abonda. Que o ceo te queime.'
+        },
+        flight2: {
+          '1': 'Aínda non rematei contigo!'
+        }
+      },
+      archDemon: {
+        gate: {
+          '1': 'A porta está aberta. Ninguén sae.'
+        },
+        dive: {
+          '1': 'Axeónllate.'
+        }
+      },
+      frostJarl: {
+        hammer: {
+          '1': 'Quieto, pequeno.',
+          '1__f': 'Quieta, pequena.'
+        },
+        iceBreak: {
+          '1': 'O lago vai tragarte!'
+        }
+      }
     }
   },
   enemy: {
@@ -2811,7 +2857,8 @@ export default {
       map: 'Mapa do mundo',
       character: 'Heroe',
       inventory: 'Bolsa',
-      skills: 'Habilidades'
+      skills: 'Habilidades',
+      roll: 'Rodar'
     },
     difficulties: {
       easy: 'Fácil',

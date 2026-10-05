@@ -29,7 +29,8 @@ export default {
     potion: 'Veselības dzira (atlikušas: {n})',
     manaPotion: 'Manas dzira (atlikušas: {n})',
     groups: 'Sakautas ienaidnieku grupas: {n} no {total}',
-    wave: 'Vilnis {n} / {total}'
+    wave: 'Vilnis {n} / {total}',
+    roll: 'Ripošana'
   },
   menu: {
     map: 'Pasaules karte',
@@ -157,6 +158,10 @@ export default {
     exit: {
       touch: 'Pieskaries kartes pogai, lai pamestu pilsētu un dotos uz nākamo piedzīvojumu.',
       mouse: 'Noklikšķini uz kartes pogas, lai pamestu pilsētu un dotos uz nākamo piedzīvojumu.'
+    },
+    roll: {
+      touch: 'Pieskaries ripošanas pogai, lai izvairītos no briesmām. Ripošanas laikā nekas tevi nevar sāpināt.',
+      mouse: 'Nospied ripošanas taustiņu, lai izvairītos no briesmām. Ripošanas laikā nekas tevi nevar sāpināt.'
     }
   },
   goal: {
@@ -2663,6 +2668,47 @@ export default {
           say__f: 'Es to ņemšu pati.'
         }
       }
+    },
+    bark: {
+      goblinKing: {
+        charge: {
+          '1': 'Samini tos, Tasker!'
+        },
+        horn: {
+          '1': 'Pie manis, puiši! Goblini, pie manis!'
+        },
+        dismount: {
+          '1': 'Skrien, Tasker! Pats to pabeigšu!'
+        },
+        return: {
+          '1': 'Tasker! Vēl vienu reizi!'
+        }
+      },
+      dragon: {
+        takeoff: {
+          '1': 'Gana. Lai debesis tevi sadedzina.'
+        },
+        flight2: {
+          '1': 'Vēl ar tevi neesmu beidzis!'
+        }
+      },
+      archDemon: {
+        gate: {
+          '1': 'Vārti ir vaļā. Neviens neaiziet.'
+        },
+        dive: {
+          '1': 'Nometies ceļos.'
+        }
+      },
+      frostJarl: {
+        hammer: {
+          '1': 'Stāvi mierā, mazais.',
+          '1__f': 'Stāvi mierā, mazā.'
+        },
+        iceBreak: {
+          '1': 'Ezers tevi aprīs!'
+        }
+      }
     }
   },
   enemy: {
@@ -2835,7 +2881,8 @@ export default {
       map: 'Pasaules karte',
       character: 'Varonis',
       inventory: 'Soma',
-      skills: 'Prasmes'
+      skills: 'Prasmes',
+      roll: 'Ripošana'
     },
     difficulties: {
       easy: 'Viegls',

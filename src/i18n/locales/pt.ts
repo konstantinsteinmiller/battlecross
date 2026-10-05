@@ -29,7 +29,8 @@ export default {
     potion: 'Poção de vida (restam {n})',
     manaPotion: 'Poção de mana (restam {n})',
     groups: '{n} de {total} grupos de inimigos derrotados',
-    wave: 'Onda {n} / {total}'
+    wave: 'Onda {n} / {total}',
+    roll: 'Rolamento'
   },
   menu: {
     map: 'Mapa do mundo',
@@ -158,6 +159,10 @@ export default {
     exit: {
       touch: 'Toque no botão do mapa para sair da cidade rumo à próxima aventura.',
       mouse: 'Clique no botão do mapa para sair da cidade rumo à próxima aventura.'
+    },
+    roll: {
+      touch: 'Toque no botão de rolamento para escapar do perigo. Nada pode machucar você durante o rolamento.',
+      mouse: 'Pressione a tecla de rolamento para escapar do perigo. Nada pode machucar você durante o rolamento.'
     }
   },
   goal: {
@@ -2641,6 +2646,47 @@ export default {
           say__f: 'Eu mesma fico com ele.'
         }
       }
+    },
+    bark: {
+      goblinKing: {
+        charge: {
+          '1': 'Atropele eles, Tusker!'
+        },
+        horn: {
+          '1': 'Comigo, rapazes! Goblins, comigo!'
+        },
+        dismount: {
+          '1': 'Corra, Tusker! Eu termino isto sozinho!'
+        },
+        return: {
+          '1': 'Tusker! Mais uma vez!'
+        }
+      },
+      dragon: {
+        takeoff: {
+          '1': 'Chega. Que o céu queime você.'
+        },
+        flight2: {
+          '1': 'Ainda não terminei com você!'
+        }
+      },
+      archDemon: {
+        gate: {
+          '1': 'O portão está aberto. Ninguém sai.'
+        },
+        dive: {
+          '1': 'De joelhos.'
+        }
+      },
+      frostJarl: {
+        hammer: {
+          '1': 'Fique parado, pequeno.',
+          '1__f': 'Fique parada, pequena.'
+        },
+        iceBreak: {
+          '1': 'O lago vai engolir você!'
+        }
+      }
     }
   },
   enemy: {
@@ -2812,7 +2858,8 @@ export default {
       map: 'Mapa do mundo',
       character: 'Herói',
       inventory: 'Bolsa',
-      skills: 'Habilidades'
+      skills: 'Habilidades',
+      roll: 'Rolamento'
     },
     difficulties: {
       easy: 'Fácil',

@@ -4,7 +4,7 @@ import type { HeroBuild } from './stats'
 import type { ChestTier, LootKind } from '../data/loot'
 import type { BranchPlan, ChestRole } from './zoneFeatures'
 import type {
-  Action, Field, Projectile, SimEvent, Status, StatusId, Team, TempWall, Unit, UnitStats, Rank
+  Action, Danger, Field, Projectile, SimEvent, Status, StatusId, Team, TempWall, Unit, UnitStats, Rank
 } from './types'
 
 /**
@@ -63,6 +63,8 @@ export interface HeroState {
   manaPotions: number
   manaPotionsMax: number
   manaPotionCd: number
+  /** Seconds until the dodge roll is back. */
+  rollCd: number
   order: Order
   queued: QueuedCast | null
   /** The stick / keys this step, in world space (x right, z down-screen). */
@@ -233,6 +235,9 @@ export class Sim {
   fields: Field[] = []
   walls: TempWall[] = []
   events: SimEvent[] = []
+  /** The warnings on the ground now (kept from the `tele` events, gone once landed). */
+  dangers: Danger[] = []
+  private dangerN = 0
   hero!: HeroState
   /** The MAIN chain's packs. The last one's fall wins the visit. */
   groups: GroupState[] = []
@@ -290,6 +295,21 @@ export class Sim {
 
   emit(e: SimEvent): void {
     if (this.events.length < 400) this.events.push(e)
+    if (e.t === 'tele') {
+      // Those that have landed go; this one stays until it lands.
+      if (this.dangers.length > 24 || (this.dangers.length && this.dangers[0]!.at < this.time)) this.dangers = this.dangers.filter(d => d.at >= this.time)
+      this.dangers.push({ tele: e.tele, x: e.tele.x, z: e.tele.z, at: this.time + e.tele.dur, t0: this.time, n: ++this.dangerN })
+    }
+  }
+
+  /** A shadow that follows its unit does so until it locks. */
+  stepDangers(): void {
+    for (const d of this.dangers) {
+      const f = d.tele.follow
+      if (!f || this.time - d.t0 >= (d.tele.lock ?? 0)) continue
+      const u = this.byId.get(f)
+      if (u && u.alive) { d.x = u.x; d.z = u.z }
+    }
   }
 
   /** Run `fn` after `sec` seconds of SIM time (it stops with a pause or hit-stop). */

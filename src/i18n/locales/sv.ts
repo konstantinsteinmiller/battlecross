@@ -29,7 +29,8 @@ export default {
     potion: 'Hälsodryck ({n} kvar)',
     manaPotion: 'Manadryck ({n} kvar)',
     groups: '{n} av {total} fiendegrupper besegrade',
-    wave: 'Våg {n} / {total}'
+    wave: 'Våg {n} / {total}',
+    roll: 'Rulla'
   },
   menu: {
     map: 'Världskarta',
@@ -157,6 +158,10 @@ export default {
     exit: {
       touch: 'Tryck på kartknappen för att lämna staden och ge dig av på nästa äventyr.',
       mouse: 'Klicka på kartknappen för att lämna staden och ge dig av på nästa äventyr.'
+    },
+    roll: {
+      touch: 'Tryck på rullknappen för att ta dig ur fara. Inget kan skada dig medan du rullar.',
+      mouse: 'Tryck på rulltangenten för att ta dig ur fara. Inget kan skada dig medan du rullar.'
     }
   },
   goal: {
@@ -2604,6 +2609,46 @@ export default {
           say: 'Jag tar den själv.'
         }
       }
+    },
+    bark: {
+      goblinKing: {
+        charge: {
+          '1': 'Kör över dem, Tusker!'
+        },
+        horn: {
+          '1': 'Till mig, grabbar! Goblins, till mig!'
+        },
+        dismount: {
+          '1': 'Spring, Tusker! Jag klarar det här själv!'
+        },
+        return: {
+          '1': 'Tusker! En gång till!'
+        }
+      },
+      dragon: {
+        takeoff: {
+          '1': 'Nog nu. Låt himlen bränna dig.'
+        },
+        flight2: {
+          '1': 'Jag är inte klar med dig!'
+        }
+      },
+      archDemon: {
+        gate: {
+          '1': 'Porten är öppen. Ingen går härifrån.'
+        },
+        dive: {
+          '1': 'Knäböj.'
+        }
+      },
+      frostJarl: {
+        hammer: {
+          '1': 'Stå still, lilla vän.'
+        },
+        iceBreak: {
+          '1': 'Sjön sluter sig över dig!'
+        }
+      }
     }
   },
   enemy: {
@@ -2775,7 +2820,8 @@ export default {
       map: 'Världskarta',
       character: 'Hjälte',
       inventory: 'Väska',
-      skills: 'Färdigheter'
+      skills: 'Färdigheter',
+      roll: 'Rulla undan'
     },
     difficulties: {
       easy: 'Lätt',

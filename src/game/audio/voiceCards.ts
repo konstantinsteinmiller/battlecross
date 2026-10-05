@@ -331,6 +331,15 @@ export const CARDS: Readonly<Record<string, VoiceCard>> = {
     reference: "So. It ends. I didn't think it would be you. My throne won't stay empty. Whoever takes it commands the fortress and the rift. Choose carefully.",
     notes: 'Light demon FX (fx.mjs): a little lower, a faint octave below, a stone hall.'
   }),
+  // Only shouts mid-fight (#74): no conversation of his own.
+  frostJarl: card({
+    name: 'The Frost Jarl', gender: 'male', age: 'mid 50s', pitch: 'low', pace: 'measured',
+    timbre: 'big, booming, gravelly bass',
+    personality: 'A giant northern warlord who loves a fight and laughs at the cold.',
+    design: 'A man in his mid fifties with a big, booming, gravelly bass voice, a hearty northern chieftain, loud and proud but never cruel.',
+    reference: 'Ha! So you came all the way up the mountain for me. Good. The ice remembers every warrior who stood here. Stand still, little one, and let us see if it remembers you.',
+    notes: 'No FX: the bass carries it.'
+  }),
 
   // ── Overheard small talk ──
   smalltalkSunford: card({

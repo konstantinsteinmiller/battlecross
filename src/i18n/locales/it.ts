@@ -29,7 +29,8 @@ export default {
     potion: 'Pozione di cura (ne restano {n})',
     manaPotion: 'Pozione di mana (ne restano {n})',
     groups: '{n} gruppi di nemici sconfitti su {total}',
-    wave: 'Ondata {n} / {total}'
+    wave: 'Ondata {n} / {total}',
+    roll: 'Rotolata'
   },
   menu: {
     map: 'Mappa del mondo',
@@ -158,6 +159,10 @@ export default {
     exit: {
       touch: 'Tocca il pulsante mappa per lasciare la città e partire per la prossima avventura.',
       mouse: 'Clicca sul pulsante mappa per lasciare la città e partire per la prossima avventura.'
+    },
+    roll: {
+      touch: 'Tocca il pulsante di rotolata per schivare il pericolo. Niente può farti male durante la rotolata.',
+      mouse: 'Premi il tasto di rotolata per schivare il pericolo. Niente può farti male durante la rotolata.'
     }
   },
   goal: {
@@ -2657,6 +2662,47 @@ export default {
           say: 'Lo prenderò io.'
         }
       }
+    },
+    bark: {
+      goblinKing: {
+        charge: {
+          '1': 'Travolgeteli, Tusker!'
+        },
+        horn: {
+          '1': 'A me, ragazzi! Goblin, a me!'
+        },
+        dismount: {
+          '1': 'Vai, Tusker, corri! Questa la finisco io!'
+        },
+        return: {
+          '1': 'Tusker! Ancora una volta!'
+        }
+      },
+      dragon: {
+        takeoff: {
+          '1': 'Basta. Che il cielo ti bruci.'
+        },
+        flight2: {
+          '1': 'Non ho ancora finito con te!'
+        }
+      },
+      archDemon: {
+        gate: {
+          '1': 'Il cancello è aperto. Nessuno esce.'
+        },
+        dive: {
+          '1': 'In ginocchio.'
+        }
+      },
+      frostJarl: {
+        hammer: {
+          '1': 'Stai fermo, piccolo.',
+          '1__f': 'Stai ferma, piccola.'
+        },
+        iceBreak: {
+          '1': 'Il lago ti inghiottirà!'
+        }
+      }
     }
   },
   enemy: {
@@ -2828,7 +2874,8 @@ export default {
       map: 'Mappa del mondo',
       character: 'Eroe',
       inventory: 'Borsa',
-      skills: 'Abilità'
+      skills: 'Abilità',
+      roll: 'Rotolata'
     },
     difficulties: {
       easy: 'Facile',

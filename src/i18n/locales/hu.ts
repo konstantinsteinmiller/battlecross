@@ -29,7 +29,8 @@ export default {
     potion: 'Gyógyital (maradt: {n})',
     manaPotion: 'Manaital (maradt: {n})',
     groups: 'Legyőzött ellenséges csapatok: {n} / {total}',
-    wave: 'Hullám: {n} / {total}'
+    wave: 'Hullám: {n} / {total}',
+    roll: 'Gurulás'
   },
   menu: {
     map: 'Világtérkép',
@@ -157,6 +158,10 @@ export default {
     exit: {
       touch: 'Koppints a térkép gombra, hogy elhagyd a várost a következő kalandodra.',
       mouse: 'Kattints a térkép gombra, hogy elhagyd a várost a következő kalandodra.'
+    },
+    roll: {
+      touch: 'Koppints a gurulás gombra, hogy kitérj a veszély elől. Gurulás közben semmi sem árthat neked.',
+      mouse: 'Nyomd meg a gurulás billentyűt, hogy kitérj a veszély elől. Gurulás közben semmi sem árthat neked.'
     }
   },
   goal: {
@@ -2604,6 +2609,46 @@ export default {
           say: 'Magam veszem el.'
         }
       }
+    },
+    bark: {
+      goblinKing: {
+        charge: {
+          '1': 'Taposd el őket, Agyar!'
+        },
+        horn: {
+          '1': 'Hozzám, fiúk! Goblinok, hozzám!'
+        },
+        dismount: {
+          '1': 'Fuss, Agyar, fuss! Én végzek vele magam!'
+        },
+        return: {
+          '1': 'Agyar! Még egyszer!'
+        }
+      },
+      dragon: {
+        takeoff: {
+          '1': 'Elég. Égessen meg az ég.'
+        },
+        flight2: {
+          '1': 'Még nem végeztem veled!'
+        }
+      },
+      archDemon: {
+        gate: {
+          '1': 'A kapu nyitva. Senki sem távozik.'
+        },
+        dive: {
+          '1': 'Térdelj le.'
+        }
+      },
+      frostJarl: {
+        hammer: {
+          '1': 'Állj meg, kicsi.'
+        },
+        iceBreak: {
+          '1': 'A tó elnyel téged!'
+        }
+      }
     }
   },
   enemy: {
@@ -2775,7 +2820,8 @@ export default {
       map: 'Világtérkép',
       character: 'Hős',
       inventory: 'Táska',
-      skills: 'Képességek'
+      skills: 'Képességek',
+      roll: 'Gurulás'
     },
     difficulties: {
       easy: 'Könnyű',

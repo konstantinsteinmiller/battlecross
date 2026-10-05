@@ -4,7 +4,7 @@ import { applyStatus, knockback } from '../combat'
 import type { Sim } from '../world'
 import type { BossState, Unit } from '../types'
 import type { BossScript } from './index'
-import { laneLength, move, other, shatterWallAt, strikeFor, warn, windCharge, type ChargeOpts } from './kit'
+import { bark, laneLength, move, other, shatterWallAt, strikeFor, warn, windCharge, type ChargeOpts } from './kit'
 
 /**
  * ─── The Frost Jarl, Shatterlake (Frostpeak Tundra) ─────────────────────────
@@ -146,6 +146,7 @@ const shatterlake: BossScript = {
       b.goalX = tgt.x
       b.goalZ = tgt.z
       move(sim, u, 'leap', HAMMER_T, 0.5, tgt, sx, sz, 1)
+      bark(sim, u, 'frostJarl', 'hammer')
       warn(sim, u, { shape: 'circle', x: tgt.x, z: tgt.z, r: HAMMER_R, w: 0, a: 0, dur: HAMMER_T, wind: HAMMER_T })
       return true
     }
@@ -194,6 +195,7 @@ const shatterlake: BossScript = {
     if (phase !== 2) return
     const b = u.boss!
     move(sim, u, 'enrage', 1.1, 0.5, null)
+    bark(sim, u, 'frostJarl', 'iceBreak')
     sim.emit({ t: 'fx', id: 'roar', x: u.x, z: u.z, r: 9, color: COLOR })
     applyStatus(sim, u, 'enrage', 60, 0.2, u)
     b.cd.glacierNext = 3
