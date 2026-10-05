@@ -185,6 +185,8 @@ export class Vfx {
   private pillarGeo = new CylinderGeometry(1, 1, 1, 16, 1, true)
   private arcGeos = new Map<number, BufferGeometry>()
   private low = sceneQuality() === 'low'
+  /** The ground under each boss still standing, by unit id (`aura`). */
+  private auras = new Map<number, { mesh: Mesh; mat: MeshBasicMaterial; seen: boolean }>()
   /** Beats of an effect that come a moment after its first (smoke after the fire). */
   private queue: Array<{ at: number; fn: () => void }> = []
   private time = 0
@@ -1325,6 +1327,36 @@ export class Vfx {
     }
   }
 
+  /**
+   * A boss's presence on the ground (#74): a rim-lit field of its colour that
+   * breathes under it, and motes rising off it. Call every frame it stands;
+   * an aura not called for in a frame is put away.
+   */
+  aura(id: number, x: number, z: number, r: number, color: string, dt: number): void {
+    let a = this.auras.get(id)
+    if (!a) {
+      const mat = basic(true, true)
+      mat.map = fieldTexture()
+      const mesh = new Mesh(this.discGeo, mat)
+      mesh.renderOrder = 2
+      this.root.add(mesh)
+      a = { mesh, mat, seen: true }
+      this.auras.set(id, a)
+    }
+    a.seen = true
+    a.mat.color.set(color)
+    a.mat.opacity = 0.32 + 0.1 * Math.sin(this.time * 2.4 + id)
+    const k = r * (1 + 0.04 * Math.sin(this.time * 2.4 + id))
+    this.lay(a.mesh, x, z, k, 0.05)
+    a.mesh.scale.setScalar(k)
+    a.mesh.visible = true
+    if (Math.random() < dt * (this.low ? 4 : 9)) {
+      const ang = Math.random() * Math.PI * 2
+      const d = r * (0.55 + Math.random() * 0.4)
+      this.sprites.emit({ x: x + Math.cos(ang) * d, y: 0.1, z: z + Math.sin(ang) * d, vy: 1.2 + Math.random() * 1.4, color: Math.random() < 0.35 ? '#ffffff' : color, size: 0.2, sizeEnd: 0.04, life: 0.9 + Math.random() * 0.5, shape: SHAPE.dot, hold: 0.3 })
+    }
+  }
+
   /** A projectile of `kind` lands at (x, y, z): as its element, with a ring of light. */
   shotHit(kind: string, x: number, y: number, z: number, color?: string): void {
     const s = shotOf(kind)
@@ -1461,6 +1493,10 @@ export class Vfx {
     this.trails.update(dt)
     this.teles.update(dt, simTime)
     this.loot.update(dt)
+    // An aura not called for this frame: its boss has fallen or left the view.
+    for (const [id, a] of this.auras) {
+      if (!a.seen) { a.mesh.removeFromParent(); a.mat.dispose(); this.auras.delete(id) } else a.seen = false
+    }
     // Draw what was stamped since the last update, and start the next frame's list.
     this.heads.end()
     this.heads.begin()
@@ -1477,6 +1513,8 @@ export class Vfx {
     }
     for (const d of this.discs) if (d.fill) d.fill.visible = false
     this.queue = []
+    for (const a of this.auras.values()) { a.mesh.removeFromParent(); a.mat.dispose() }
+    this.auras.clear()
     for (const [, m] of this.shots) { m.visible = false; this.shotPool.push(m) }
     this.shots.clear()
     this.particles.clear()

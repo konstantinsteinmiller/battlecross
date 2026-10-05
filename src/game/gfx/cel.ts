@@ -109,6 +109,8 @@ uniform vec3 uFlash;
 uniform float uFlashK;
 uniform float uOpacity;
 uniform float uUnlit;
+uniform vec3 uRim;
+uniform float uRimK;
 #ifdef USE_CEL_MAP
 uniform sampler2D uMap;
 varying vec2 vCelUv;
@@ -126,6 +128,10 @@ void main() {
   // The ramp is a hard step; the 1.2 % shoulder only anti-aliases the edge.
   float lit = smoothstep(uThreshold - 0.012, uThreshold + 0.012, ndl);
   vec3 col = mix(base * uShadowTint, min(base * uLight, vec3(1.0)), lit) * uAmbient;
+  // A rim of light round the silhouette (a boss's presence, #74): a hard band
+  // where the surface turns away from the camera, cel like the rest.
+  float rim = 1.0 - max(0.0, normalize(vViewNormal).z);
+  col += uRim * uRimK * smoothstep(0.58, 0.62, rim);
   col = mix(col, base, uUnlit);
   col = mix(col, uFlash, uFlashK);
   gl_FragColor = vec4(col, uOpacity);
@@ -157,6 +163,8 @@ const makeCel = (o: CelOptions = {}): CelMaterial => {
         uFlashK: { value: 0 },
         uOpacity: { value: 1 },
         uUnlit: { value: 0 },
+        uRim: { value: new Color(0, 0, 0) },
+        uRimK: { value: 0 },
         uMap: { value: o.map ?? null }
       }
     ]),
@@ -256,6 +264,14 @@ export const setCelOpacity = (m: Material, opacity: number): void => {
 }
 
 /** Multiply the surface colour (petrified grey, frozen blue, a recolour). */
+/** A rim of light in `hex` round a rig's silhouette, `k` strong (0: none). */
+export const setCelRim = (m: Material, hex: string, k: number): void => {
+  const u = (m as ShaderMaterial).uniforms
+  if (!u?.uRimK) return
+  u.uRimK.value = k
+  ;(u.uRim!.value as Color).set(hex)
+}
+
 export const setCelTint = (m: Material, hex: string): void => {
   const u = (m as ShaderMaterial).uniforms
   if (u?.uTint) (u.uTint.value as Color).set(hex)

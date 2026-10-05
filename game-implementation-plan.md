@@ -349,6 +349,6 @@ regular enemy scaled up; no boss looks different from its kin but for size.
   detail tiers), on the rig bench by enemy id; triangle budgets in the test.
 - [x] **18.4 Faces of the enemy.** Monsters lose the doll face (no blush, a
   menacing brow and eyes); every branch boss a look of its own.
-- [ ] **18.5 Boss presence.** A boss reads as one: rim light, emissive accents,
+- [x] **18.5 Boss presence.** A boss reads as one: rim light, emissive accents,
   an aura on the ground, size of silhouette.
 - [ ] **18.6 The trailer again** (`pnpm cinematic-trailer`).

@@ -1,4 +1,5 @@
 import { ENEMY_BY_ID, MINIONS } from '../../data/enemies'
+import { setCelRim } from '../cel'
 import { cloneRig, type Rig } from '../kit'
 import { buildBeast, buildDragon, buildElemental, buildGolem, buildNaga, buildSpider, buildTreant, buildTurret, buildWyvern } from './creatures'
 import { clipSet, styleOf, type ClipSet } from './clips'
@@ -227,6 +228,9 @@ export const makeRigView = (u: Unit, heroLook?: Look): RigView => {
   }
   const rig = cloneRig(template(spec.key, spec.build))
   rig.root.scale.setScalar(scale)
+  // A boss (and, less, an elite) is lit round its edge in its own colour: it reads as the one that matters.
+  if (u.rank === 'boss') setCelRim(rig.material, color, 0.55)
+  else if (u.rank === 'elite') setCelRim(rig.material, color, 0.3)
   const off = spec.off ?? 'none'
   const set = clipSet(styleOf(spec.held, off, u.s.atkStyle), off === 'shield', u.s.dual > 0 || off === 'dagger' || off === 'gun')
   const posed = spec.family === 'humanoid' || spec.family === 'naga'

@@ -950,6 +950,8 @@ export class ZoneMode implements GameMode {
     const ps = this.vfx.particles
     for (const u of this.sim.units) {
       if (u.alive && (u.statuses.length || u.shield > 0)) this.vfx.statusTells(u, dt)
+      // A boss stands in its own light.
+      if (u.alive && u.rank === 'boss' && u.team === 1) this.vfx.aura(u.id, u.x, u.z, u.r * 2.6, ENEMY_BY_ID[u.kind]?.color ?? '#ff5a5a', dt)
     }
     // The hero's footfalls.
     const hero = this.sim.hero.unit
