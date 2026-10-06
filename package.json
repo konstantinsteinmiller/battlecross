@@ -58,7 +58,8 @@
     "icons": "node store-art/brand/logo-final.mjs && node scripts/render-icons.mjs",
     "qa:hydrate": "node scripts/hydrate-check.mjs",
     "qa:e2e": "node scripts/e2e-play.mjs",
-    "cinematic-trailer": "node tools/preview-video/cinematic-trailer.mjs"
+    "cinematic-trailer": "node tools/preview-video/cinematic-trailer.mjs",
+    "publish-trailer": "node tools/youtube/publish.mjs tools/youtube/trailer.json"
   },
   "dependencies": {
     "@playgama/bridge": "^2.2.0",

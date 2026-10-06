@@ -40,13 +40,14 @@ hunts you, and how the story ends.
 - Tap a skill to use it on your target. Drag a skill onto the field to aim
   it, and let go to cast.
 - Tap the potion to heal.
+- Tap the round roll button to dodge out of a red mark.
 
 **Keyboard and mouse**
 
 - Click the ground to walk there, or steer with W A S D or the arrow keys.
 - Click an enemy to attack it. Tab switches to the next target.
 - 1 to 6 use your skills. Drag a skill button onto the field to aim it.
-- Q or Space drinks a potion. E talks to the person next to you.
+- Space rolls out of danger. Q drinks a potion. E talks to the person next to you.
 - M opens the map, C the hero, K the skills, I the bag. Esc pauses.
 - F1 or ? shows the controls again, F2 mutes. Keys can be rebound in Options.
 
