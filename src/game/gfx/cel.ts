@@ -415,6 +415,15 @@ void main() {
 `
 
 const outlineCache = new Map<string, ShaderMaterial>()
+/** The scenery's outlines (instanced), switched off together by the effects ladder. */
+const sceneryOutlines = new Set<ShaderMaterial>()
+let sceneryOutlinesOn = true
+
+/** Draw the scenery's outlines (rocks, trees, props), or not (`engine/effectsLadder.ts`). */
+export const setSceneryOutlines = (on: boolean): void => {
+  sceneryOutlinesOn = on
+  for (const m of sceneryOutlines) m.visible = on
+}
 /** Outline material of a given nominal thickness. Cached per thickness (and
  *  per use: `instanced` for instanced meshes, see `celVCInst`). */
 export const outlineMat = (thickness = OUTLINE_WIDTH, color: Color = OUTLINE_COLOR, instanced = false): ShaderMaterial => {
@@ -436,7 +445,11 @@ export const outlineMat = (thickness = OUTLINE_WIDTH, color: Color = OUTLINE_COL
     fog: true
   })
   m.uniforms.uRefDepth = sharedRefDepth
-  if (instanced) seeThrough(m)
+  if (instanced) {
+    seeThrough(m)
+    sceneryOutlines.add(m)
+    m.visible = sceneryOutlinesOn
+  }
   outlineCache.set(key, m)
   return m
 }

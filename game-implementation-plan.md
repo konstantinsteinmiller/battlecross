@@ -376,6 +376,7 @@ https://claude.ai/artifact/F4PGs8yrX78wpkt7yywkXA
 | D86 | Boss lines | One short shouted line at each big beat of a fight, in a bubble over the boss and voiced (Chatterbox, English); a voice card for the Frost Jarl | **Owner 2026-10-06**: keep them |
 | D87 | Hollows for a Blood-only hero at level 4 | Loses the Tusker fight (7 of 8 classes win); accepted | **Owner 2026-10-06** |
 | D89 | Tall scenery in front of the hero | The instanced scenery (rocks, trees, props) and its outlines open a dithered see-through hole round the hero where they stand nearer the camera than the hero and above knee height (`SEE_THROUGH` in `gfx/cel.ts`); low stones and grass at the hero's feet stay | **Owner 2026-10-06** (question 42) |
+| D90 | Resolution | The canvas draws at the screen's own pixel ratio (the old 1.5–2× caps are gone, the hero preview's too); a device that cannot keep up gives up effects on a ladder instead: half the particles, then the scenery's outlines, then the motes (`engine/effectsLadder.ts`, `PERF-LEDGER.md` 2026-10-06) | **Owner 2026-10-06** (question 43) |
 | D88 | Necromancers | At most four raised skeletons alive each (was six of anything a summoner raises): an Aegis-only hero no longer stalls on them in the Dread Fortress | **Owner 2026-10-06** |
 
 ### Phases
@@ -398,3 +399,4 @@ https://claude.ai/artifact/F4PGs8yrX78wpkt7yywkXA
 - [x] **19.8 The owner's answers** (D86–D88): the skeleton cap.
 - [x] **19.9 See-through scenery** (D89).
 - [x] **19.10 The trailer on YouTube**: https://youtu.be/xZCQeQjo6ZM (`pnpm publish-trailer`).
+- [x] **19.11 The screen's own resolution, an effects ladder** (D90).

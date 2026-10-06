@@ -127,21 +127,6 @@ zone)?
 - **In effect:** every boss fight.
 - **Recommended:** keep.
 
-### 43. Phones draw the game below their screen's sharpness
-
-The renderer caps its pixel ratio for speed: 1.6× on touch screens, 1.5× on
-iPhones, 2× elsewhere, 1× on weak devices. A 3× phone therefore draws at
-about half its resolution in each direction and stretches it up (the
-sharpness probe: canvas ratio 0.67 at 390×844 @3×, "stretched up"). The
-house rule is never to draw below the screen's own ratio and to trim only
-supersampling above it. Lifting the cap costs up to 9× the pixels of 1× on
-a 3× phone.
-
-- **In effect:** capped (pre-dates the boss work).
-- **Recommended:** draw at the screen's ratio, and let the adaptive quality
-  ladder trim effects (shadows, particles, outlines) instead of resolution on
-  weak phones; measure on a mid-range phone first.
-
 ## Defaults taken in the playtest pass, overrule any
 
 The full table is in `game-implementation-plan.md` section 6.

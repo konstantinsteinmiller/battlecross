@@ -20,6 +20,7 @@ import { generateArena, generateEncounter, generateTown, generateZone, type Zone
 import { Sim } from '../sim/world'
 import type { DamageType, SimEvent, Unit } from '../sim/types'
 import { updateCelFrame, updateSeeThrough } from '../gfx/cel'
+import { fxLevel, stepEffectsLadder } from '../engine/effectsLadder'
 import { BAR_RANK, HealthBars, Markers, makeBlobShadow, placeBlobShadow, type BarRank } from '../gfx/markers'
 import { clearGround, groundAt, setGround } from '../gfx/ground'
 import type { HeightField } from '../sim/ground'
@@ -951,7 +952,7 @@ export class ZoneMode implements GameMode {
     this.vfx.update(fxDt, sim.time)
     this.walls.update(fxDt)
     this.props?.update(fxDt, hx, hz)
-    emitCrumbs(sim, this.vfx.particles, fxDt, this.low)
+    emitCrumbs(sim, this.vfx.particles, fxDt, this.low || fxLevel() >= 1)
     if (this.chestOpen > 0 && this.chest) {
       this.chestOpen = Math.min(1, this.chestOpen + dt * 2.2)
       const k = this.chestOpen
@@ -979,6 +980,7 @@ export class ZoneMode implements GameMode {
     hudLive.manaPotionCd = h.manaPotionCd
     hudLive.manaPotionCdMax = POTION_CD
     tickHud(dt)
+    stepEffectsLadder(dt)
   }
 
   /** What every unit is under, shown on its body (`Vfx.statusTells`), and the hero's footfalls. */
@@ -999,7 +1001,8 @@ export class ZoneMode implements GameMode {
 
   /** Motes in the air round the camera: fireflies, embers, snow. */
   private ambient(dt: number): void {
-    if (Math.random() > dt * (this.low ? 1.5 : 5)) return
+    // The effects ladder's last rung: no motes at all.
+    if (fxLevel() >= 3 || Math.random() > dt * (this.low || fxLevel() >= 1 ? 1.5 : 5)) return
     const t = this.cam.target
     const x = t.x + (Math.random() - 0.5) * 22
     const z = t.z + (Math.random() - 0.5) * 22

@@ -549,3 +549,51 @@ The CDN's protocol (HTTP/2 lets the critical images go in parallel; the
 preview server here is HTTP/1.1, six at a time), a real radio's latency
 spikes, how long a phone keeps decoded images of `Image` objects nobody draws
 (the warm set holds them), and the cost of the drip on a radio that sleeps.
+
+## 2026-10-06: the screen's own pixel ratio, an effects ladder instead (outstanding question 43)
+
+The renderer capped its pixel ratio (1× weak, 1.5× iPhone, 1.6× touch, 2×
+else), so a 3× phone drew at about half its resolution each way and stretched
+it up: the sharpness probe read canvas ratio 0.67 at 390 × 844 @3×. The house
+rule is never to draw below the screen's ratio. Lifted; a device that cannot
+keep up now gives up effects, not resolution (`engine/effectsLadder.ts`).
+
+Measured: the A/B on an emulated phone (390 × 844 @3×, touch, CPU throttled
+4×, HEADED Chrome on a private profile, `fxlevel=0` pinned in both arms), a
+staged Frostpeak finale, 6 s warm-up, 18 s recorded, A B A B A B
+(`perf=dpr-legacy` the baseline arm):
+
+| Arm | Canvas | Work p50 / p95 | Interval p50 / p95 |
+| --- | --- | --- | --- |
+| old caps (1.6×) | 624 × 1350 | 31.5 / 88.0 ms | 66.6 / 150.0 ms |
+| screen's ratio (3×) | 1170 × 2532 | 33.8 / 81.7 ms | 67.5 / 166.2 ms |
+
+Medians of three runs each; the runs spread more than the arms differ. Read:
+on this machine the frame is bound by the script under the 4× throttle, not
+by fill, so 3.5× the pixels cost nothing measurable here. A phone's GPU pays
+for fill where this desktop GPU does not: that is what the ladder answers.
+The losing arm and its flag are deleted (`?perf=dpr1` stays, for profiling).
+
+The ladder, rung by rung (an average frame over ~22 ms for 2 s steps down,
+under ~17.5 ms for 8 s steps up; a weak or budget device starts on rung 1;
+`?fxlevel=0..3` pins it):
+
+| Rung | Gives up |
+| --- | --- |
+| 1 | half the particles (bursts, sparks, crumbs, dust) |
+| 2 | + the scenery's outlines (one shared material: a second draw of every rock, tree and prop) |
+| 3 | + the motes in the air |
+
+Characters, loot, telegraphs and the field are never trimmed. The hero
+preview on the character screen also drew at 1.5× at most: it now draws at
+the screen's ratio too (a small canvas).
+
+Sharpness probe after: canvas ratio 1.00 at 390 × 844 @3× and at 1280 × 720 @1×.
+
+### What only a real phone can tell
+
+The fill cost of 3× on a mid-range phone's GPU, and whether the ladder's
+thresholds step down soon enough there (or too eagerly on a 120 Hz screen,
+whose frames are shorter, so it never trims there by mistake). Measure on a
+real mid-range Android before the first big portal release: `?perfprobe=1`
+and `window.__perf`, with and without `?fxlevel=3`.

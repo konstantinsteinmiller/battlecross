@@ -2,8 +2,7 @@ import {
   WebGLRenderer, SRGBColorSpace, NoToneMapping, PerspectiveCamera
 } from 'three'
 import { deviceClass } from '@/use/deviceProfile'
-import { perfFlag, IOS_LEGACY } from '@/use/perfVariants'
-import { isAppleTouch } from '@/use/deviceProfile'
+import { perfFlag } from '@/use/perfVariants'
 import { watchContextLoss } from './glContext'
 
 /**
@@ -18,16 +17,16 @@ import { watchContextLoss } from './glContext'
  */
 let renderer: WebGLRenderer | null = null
 
-/** Device-pixel-ratio cap. A 3× phone rendering at 3× fills 9× the pixels of
- *  1× for a picture that a cel-shaded, outlined style barely benefits from. */
-export const dprCap = (): number => {
-  if (perfFlag('dpr1')) return 1
-  const weak = deviceClass() === 'weak'
-  const coarse = typeof matchMedia === 'function' && matchMedia('(pointer: coarse)').matches
-  if (weak) return 1
-  if (!IOS_LEGACY && isAppleTouch()) return 1.5
-  return coarse ? 1.6 : 2
-}
+/**
+ * The canvas draws at the screen's OWN pixel ratio (outstanding question 43):
+ * drawn lower and stretched up, a 3× phone shows a soft picture. A device that
+ * cannot keep up gives up effects instead (`engine/effectsLadder.ts`), never
+ * resolution.
+ *
+ * The old caps (1× weak, 1.5× iPhone, 1.6× touch, 2× else) lost their A/B
+ * (`PERF-LEDGER.md`, 2026-10-06). `?perf=dpr1` draws at 1× for profiling.
+ */
+export const dprCap = (): number => (perfFlag('dpr1') ? 1 : Infinity)
 
 export const getRenderer = (): WebGLRenderer => {
   if (renderer) return renderer

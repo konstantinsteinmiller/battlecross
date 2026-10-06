@@ -4,6 +4,7 @@ import {
 } from 'three'
 import type { DamageType, Projectile, SimEvent, Telegraph, Unit } from '../sim/types'
 import { sceneQuality } from '../engine/quality'
+import { fxLevel } from '../engine/effectsLadder'
 import { Particles, SHAPE, Sprites, type Shape } from './particles'
 import { Telegraphs } from './telegraphs'
 import { fieldTexture, glowTexture, pillarTexture, ringTexture, softDisc } from './textures'
@@ -184,7 +185,10 @@ export class Vfx {
   private orbGeo = new SphereGeometry(1, 10, 8)
   private pillarGeo = new CylinderGeometry(1, 1, 1, 16, 1, true)
   private arcGeos = new Map<number, BufferGeometry>()
-  private low = sceneQuality() === 'low'
+  /** A budget device: smaller pools (fixed at boot). */
+  private lowPools = sceneQuality() === 'low'
+  /** Half the particles: a budget device, or the effects ladder stepped down (`engine/effectsLadder.ts`). */
+  private get low(): boolean { return this.lowPools || fxLevel() >= 1 }
   /** The ground under each boss still standing, by unit id (`aura`). */
   private auras = new Map<number, { mesh: Mesh; mat: MeshBasicMaterial; seen: boolean }>()
   /** Beats of an effect that come a moment after its first (smoke after the fire). */
@@ -192,15 +196,15 @@ export class Vfx {
   private time = 0
 
   constructor(scene: Scene) {
-    this.particles = new Particles(this.low ? 700 : 1500)
-    this.sprites = new Sprites(this.low ? 320 : 760)
-    this.heads = new Sprites(this.low ? 96 : 192)
+    this.particles = new Particles(this.lowPools ? 700 : 1500)
+    this.sprites = new Sprites(this.lowPools ? 320 : 760)
+    this.heads = new Sprites(this.lowPools ? 96 : 192)
     this.heads.mesh.renderOrder = 9
     this.root.add(this.particles.points, this.sprites.mesh, this.heads.mesh)
     scene.add(this.root)
-    this.trails = new Trails(scene, this.low)
+    this.trails = new Trails(scene, this.lowPools)
     this.teles = new Telegraphs(scene)
-    this.loot = new LootBeams(this.particles, this.sprites, this.low)
+    this.loot = new LootBeams(this.particles, this.sprites, this.lowPools)
     this.root.add(this.loot.root)
   }
 

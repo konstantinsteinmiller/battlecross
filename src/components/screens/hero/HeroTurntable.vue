@@ -113,7 +113,8 @@ const draw = (): void => {
   const w = Math.max(1, el.clientWidth)
   const h = Math.max(1, el.clientHeight)
   const c = renderer.domElement
-  const dpr = Math.min(1.5, window.devicePixelRatio || 1)
+  // The screen's own ratio: a small canvas, and soft at less (question 43).
+  const dpr = window.devicePixelRatio || 1
   if (c.width !== Math.round(w * dpr) || c.height !== Math.round(h * dpr)) {
     renderer.setPixelRatio(dpr)
     renderer.setSize(w, h, false)
