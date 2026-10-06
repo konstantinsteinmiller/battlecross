@@ -73,6 +73,59 @@ const browserEndpoint = async () => {
   throw new Error('no debuggable Brave/Chrome: switch on remote debugging (brave://inspect) and keep the browser open')
 }
 
+/** Is it on screen? Studio's custom-element hosts have no box of their own, so Playwright's
+ *  isVisible() calls an open upload dialog hidden: ask the page (offsetParent) instead. */
+const shown = (page, sel) => page.evaluate((s) => [...document.querySelectorAll(s)].some(e => e.offsetParent !== null), sel).catch(() => false)
+
+/** Wait (polling) until `sel` is on screen; false on timeout. */
+const until = async (page, sel, ms) => {
+  for (let t = 0; t < ms; t += 1000) { if (await shown(page, sel)) return true; await sleep(1000) }
+  return false
+}
+
+const PUBLISHED = 'ytcp-video-share-dialog, ytcp-uploads-still-processing-dialog'
+
+/** In the upload wizard: on to the last step, the visibility, Publish / Save; true once Studio confirms. */
+const finishWizard = async (page, c, log) => {
+  const d = page.locator('ytcp-uploads-dialog')
+  for (let i = 0; i < 4 && await shown(page, 'ytcp-uploads-dialog #next-button'); i++) {
+    await d.locator('#next-button').click().catch(() => {})
+    await sleep(1500)
+  }
+  await d.locator(`tp-yt-paper-radio-button[name="${VISIBILITY[c.visibility ?? 'public']}"]`).click()
+  await sleep(800)
+  await d.locator('#done-button').click()
+  const ok = await until(page, PUBLISHED, 120000)
+  if (ok) await page.locator('ytcp-video-share-dialog #close-button, ytcp-uploads-still-processing-dialog #close-button').filter({ visible: true }).first().click().catch(() => {})
+  else log('Studio did not confirm the publish (its dialog shows an error, or the checks are still running)')
+  return ok
+}
+
+/**
+ * A video Studio keeps as a DRAFT (the wizard stopped at "Done" with "An error occurred",
+ * or the run died there): its edit page has a draft banner and no visibility control.
+ * Save what the page holds, open the draft's wizard from the banner, finish it.
+ */
+const finishDraft = async (page, id, c, log) => {
+  await page.bringToFront()
+  if (!page.url().includes(`/video/${id}/edit`)) {
+    await page.goto(`https://studio.youtube.com/video/${id}/edit`)
+    await page.waitForSelector('#title-textarea #textbox', { timeout: 60000 })
+    await sleep(2000)
+  }
+  if (!(await shown(page, 'ytcp-uploads-dialog'))) {
+    const save = page.locator('ytcp-button#save').first()
+    if (await shown(page, 'ytcp-button#save') && (await save.getAttribute('disabled')) === null) { await save.click().catch(() => {}); await sleep(4000) }
+    // The draft banner's own action ("Edit draft" in any language).
+    await page.locator('ytcp-banner #action-1').first().click()
+    if (!(await until(page, 'ytcp-uploads-dialog', 20000))) throw new Error(`video ${id}: the draft's wizard did not open`)
+  }
+  return finishWizard(page, c, log)
+}
+
+/** Is the video on its edit page a draft (a banner with an action, no visibility control)? */
+const isDraft = async (page) => (await shown(page, 'ytcp-banner #action-1')) && !(await shown(page, 'ytcp-video-metadata-visibility'))
+
 /** Set a file input over raw CDP (Playwright's setter can time out on Studio). */
 const setFile = async (page, selector, file) => {
   const s = await page.context().newCDPSession(page)
@@ -143,7 +196,7 @@ const studioPage = async (browser) => {
 }
 
 /** Upload, fill, publish: the new video's id. */
-const upload = async (page, c, root, opts, log) => {
+const upload = async (page, c, root, opts, log, remember = () => {}) => {
   await page.bringToFront()
   await page.goto(`https://studio.youtube.com/channel/${c.channel}/videos/upload?d=ud`)
   await page.waitForSelector('input[type=file][name=Filedata]', { state: 'attached', timeout: 60000 })
@@ -155,12 +208,24 @@ const upload = async (page, c, root, opts, log) => {
   const link = await d.locator('a[href*="youtu.be/"], .video-url-fadeable a').first().getAttribute('href')
   const id = (link ?? '').split('/').pop()
   log(`uploading as ${id}`)
-  for (let i = 0; i < 3; i++) { await d.locator('#next-button').click(); await sleep(1500) }
-  await d.locator(`tp-yt-paper-radio-button[name="${VISIBILITY[c.visibility ?? 'public']}"]`).click()
-  if (opts.dryRun) { log('dry run: the dialog is left open, nothing published'); return id }
-  await d.locator('#done-button').click()
-  await page.locator('ytcp-video-share-dialog, ytcp-uploads-still-processing-dialog').filter({ visible: true }).first().waitFor({ timeout: 120000 })
-  await page.locator('ytcp-video-share-dialog #close-button, ytcp-uploads-still-processing-dialog #close-button').filter({ visible: true }).first().click().catch(() => {})
+  if (opts.dryRun) {
+    for (let i = 0; i < 3; i++) { await d.locator('#next-button').click(); await sleep(1500) }
+    await d.locator(`tp-yt-paper-radio-button[name="${VISIBILITY[c.visibility ?? 'public']}"]`).click()
+    log('dry run: the dialog is left open, nothing published')
+    return id
+  }
+  // Known before anything can fail: a re-run finishes THIS video instead of uploading again.
+  remember(id, false)
+  let ok = await finishWizard(page, c, log)
+  // "Done" pressed while Studio still checks the file fails with a bare "An error occurred" and
+  // leaves a draft: wait, then finish the draft from its edit page.
+  for (let i = 1; !ok && i <= 3; i++) {
+    log(`finishing the draft (attempt ${i})…`)
+    await sleep(30000 * i)
+    ok = await finishDraft(page, id, c, log).catch((e) => { log(String(e?.message ?? e).slice(0, 200)); return false })
+  }
+  if (!ok) throw new Error(`video ${id} is uploaded but still a draft: run again (it finishes the draft) or open https://studio.youtube.com/video/${id}/edit`)
+  remember(id, true)
   log(`published https://youtu.be/${id}`)
   return id
 }
@@ -182,9 +247,16 @@ const update = async (page, id, c, root, opts, log, fields = true) => {
   await sleep(2000)
   const editor = page.locator('ytcp-video-metadata-editor').first()
   if (fields) await fillDetails(page, editor, c, root, log)
+  if (!opts.dryRun && await isDraft(page)) {
+    log(`${id} is a draft: finishing it`)
+    if (!(await finishDraft(page, id, c, log))) throw new Error(`video ${id} is still a draft`)
+    log(`published https://youtu.be/${id}`)
+    return
+  }
   if (c.visibility) await setVisibility(page, c.visibility)
   if (opts.dryRun) { log('dry run: not saved'); return }
-  const save = page.locator('ytcp-button#save')
+  // `.first()`: with a draft's wizard open the page holds two of them (strict mode would throw).
+  const save = page.locator('ytcp-button#save').first()
   if (await save.getAttribute('disabled') === null) {
     await save.click()
     await page.waitForFunction(() => document.querySelector('ytcp-button#save')?.hasAttribute('disabled'), null, { timeout: 60000 })
@@ -203,12 +275,13 @@ export const run = async ({ browser, configPath, opts = {}, log = console.log })
   if (!existsSync(video)) throw new Error(`no video at ${video}`)
   const hash = sha256(video)
   const page = await studioPage(browser)
+  // The same file again (published, or left a draft by a failed run): the update path, which finishes a draft.
   const fresh = opts.new || !state.videoId || (!opts.metadataOnly && state.videoSha256 !== hash)
   if (fresh) {
     const old = state.videoId
-    const id = await upload(page, c, root, opts, log)
+    const remember = (id, published) => writeFileSync(stateFile, JSON.stringify({ videoId: id, videoSha256: hash, published, publishedAt: new Date().toISOString(), previous: [...(state.previous ?? []), ...(old ? [old] : [])] }, null, 2) + '\n')
+    const id = await upload(page, c, root, opts, log, remember)
     if (!opts.dryRun) {
-      writeFileSync(stateFile, JSON.stringify({ videoId: id, videoSha256: hash, publishedAt: new Date().toISOString(), previous: [...(state.previous ?? []), ...(old ? [old] : [])] }, null, 2) + '\n')
       const retire = c.retireOld ?? 'unlisted'
       if (old && old !== id && retire !== 'keep') {
         log(`the old cut ${old} → ${retire}`)
@@ -217,7 +290,7 @@ export const run = async ({ browser, configPath, opts = {}, log = console.log })
     }
   } else {
     await update(page, state.videoId, c, root, opts, log)
-    if (!opts.dryRun) writeFileSync(stateFile, JSON.stringify({ ...state, updatedAt: new Date().toISOString() }, null, 2) + '\n')
+    if (!opts.dryRun) writeFileSync(stateFile, JSON.stringify({ ...state, published: true, updatedAt: new Date().toISOString() }, null, 2) + '\n')
   }
 }
 
@@ -238,7 +311,8 @@ if (isMain) {
   try { pw = require('playwright-core') } catch { pw = require('playwright') }
   const endpoint = await browserEndpoint()
   console.log('connecting to the browser (allow the debugging connection if it asks)…')
-  const browser = await pw.chromium.connectOverCDP(endpoint, { timeout: 120000 })
+  // Brave asks the user to allow every new connection: give them time to click.
+  const browser = await pw.chromium.connectOverCDP(endpoint, { timeout: 180000 })
   // Leaves the user's browser open: only this connection goes.
   try {
     await run({ browser, configPath: isAbsolute(configPath) ? configPath : resolve(process.cwd(), configPath), opts })
