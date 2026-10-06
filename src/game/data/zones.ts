@@ -548,6 +548,28 @@ export const levelTier = (zone: ZoneDef, heroLevel: number): LevelTier => {
   return gap <= 0 ? 'match' : gap < 7 ? 'above' : gap < 10 ? 'high' : 'deadly'
 }
 
+/** The tiers in order (an enemy bar's badge carries the index, 1-based). */
+export const LEVEL_TIERS: readonly LevelTier[] = ['low', 'match', 'above', 'high', 'deadly']
+
+/** Each tier's badge: its ground and the number's colour (the map, the bars, the boss plate). */
+export const LEVEL_TIER_COLORS: Readonly<Record<LevelTier, { bg: string; ink: string }>> = {
+  low: { bg: '#b8f0a0', ink: '#1c3a14' },
+  match: { bg: '#54c84a', ink: '#ffffff' },
+  above: { bg: '#e07a1c', ink: '#fff4e0' },
+  high: { bg: '#e0352b', ink: '#ffffff' },
+  deadly: { bg: '#5a0d14', ink: '#ffd0c8' }
+}
+
+/**
+ * How ONE enemy's level sits against the hero's (its bar's badge, roadmap
+ * #77): well below (3+ under), his match (within a level or two), a little
+ * above, well above (7+), deadly (10+). The same bands as the map's.
+ */
+export const unitLevelTier = (level: number, heroLevel: number): LevelTier => {
+  const gap = level - heroLevel
+  return gap <= -3 ? 'low' : gap <= 1 ? 'match' : gap < 7 ? 'above' : gap < 10 ? 'high' : 'deadly'
+}
+
 /** Danger skulls: how far above the hero a zone's enemies start. */
 export const dangerOf = (zone: ZoneDef, heroLevel: number): 0 | 1 | 2 | 3 => {
   const gap = zone.min - heroLevel

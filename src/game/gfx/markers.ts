@@ -3,6 +3,7 @@ import {
   InstancedBufferGeometry, Mesh, MeshBasicMaterial, PlaneGeometry, ShaderMaterial, Vector2, Vector3, type Scene
 } from 'three'
 import { barGlyphs, softDisc } from './textures'
+import { LEVEL_TIERS, LEVEL_TIER_COLORS, type LevelTier } from '../data/zones'
 import { GROUND_GLSL, groundAt, groundSlopeAt, withGround } from './ground'
 
 /**
@@ -363,8 +364,9 @@ export const placeBlobShadow = (m: Mesh, x: number, z: number): void => {
 //
 // Inside: ticks at 25 / 50 / 75 %, a two-tone fill, the shield as a striped
 // segment, and a GHOST of the health just lost that lingers and then drains.
-// A badge on the left carries the level of anything framed, or a skull when
-// the enemy is well above the hero.
+// A round badge on the RIGHT end, a continuation of the bar, carries every
+// enemy's level on the colour of its tier against the hero's (roadmap #77,
+// `unitLevelTier`): the right wing of an elite or a boss grows out of it.
 //
 // Bars keep a minimum size on screen: on an upright phone the camera stands
 // far back, and a bar scaled with the world would be five pixels tall.
@@ -375,7 +377,7 @@ const BAR_H = 0.12
 const BAR_VERT = /* glsl */`
 attribute vec4 aBar;      // x, y, z of the anchor; w = fill 0..1
 attribute vec4 aLook;     // r, g, b; a = width in metres
-attribute vec4 aState;    // shield (share of max health), ghost 0..1, rank, badge (level, −1 skull, 0 none)
+attribute vec4 aState;    // shield (share of max health), ghost 0..1, rank, badge (tier × 100 + level; 0 none)
 uniform float uViewH;
 uniform float uMinPx;
 varying vec2 vP;
@@ -394,7 +396,7 @@ void main() {
   float s = max(1.0, uMinPx / (${BAR_H.toFixed(3)} * ppm)) * (aState.z > 3.5 && aState.z < 4.5 ? 1.5 : aState.z < 0.5 ? 0.8 : 1.0);
   float hw = aLook.a * 0.5 * s;
   // Room round the bar for its frame: wings and the badge at the sides, a crown above.
-  vec2 pad = vec2(0.27, 0.19) * s;
+  vec2 pad = vec2(0.42, 0.19) * s;
   vec2 half_ = vec2(hw, ${(BAR_H / 2).toFixed(3)} * s) + pad;
   vP = position.xy * half_ + vec2(0.0, 0.06 * s);
   vHw = hw;
@@ -403,6 +405,10 @@ void main() {
   gl_Position = projectionMatrix * mv;
 }
 `
+const glsl3 = (h: string): string => { const n = parseInt(h.slice(1), 16); return `vec3(${(((n >> 16) & 255) / 255).toFixed(3)}, ${(((n >> 8) & 255) / 255).toFixed(3)}, ${((n & 255) / 255).toFixed(3)})` }
+const TIER_BG = LEVEL_TIERS.map(t => glsl3(LEVEL_TIER_COLORS[t].bg)).join(', ')
+const TIER_INK = LEVEL_TIERS.map(t => glsl3(LEVEL_TIER_COLORS[t].ink)).join(', ')
+
 const BAR_FRAG = /* glsl */`
 uniform sampler2D uGlyphs;
 varying vec2 vP;
@@ -413,6 +419,9 @@ varying vec4 vState;
 varying vec3 vColor;
 
 const vec3 INK = vec3(0.07, 0.055, 0.12);
+// The level tiers' badge colours (LEVEL_TIER_COLORS): low, match, above, high, deadly.
+const vec3 TIER_BG[5] = vec3[5](${TIER_BG});
+const vec3 TIER_INK[5] = vec3[5](${TIER_INK});
 
 float box(vec2 p, vec2 b, float r) {
   vec2 q = abs(p) - b + r;
@@ -461,11 +470,16 @@ void main() {
   else if (rank > 4.5) metal = mix(vColor, vec3(1.0), 0.55);
   vec3 metalLo = metal * 0.72;
   float ax = abs(p.x);
+  // The badge's round end: the right wing roots behind it.
+  float badge = vState.w;
+  float br = 0.1 * s;
+  float bx = hw + br - 0.03 * s;
+  float wingOff = badge > 0.5 && p.x > 0.0 ? bx + br * 0.4 - hw : 0.0;
 
   // ── Behind the bar: wings (elite, boss), then the crest or the crown ──
   if ((rank > 1.5 && rank < 2.5) || (rank > 3.5 && rank < 4.5)) {
     float wl = (rank > 3.5 ? 0.2 : 0.14) * s;
-    vec2 q = vec2(ax - hw, p.y);
+    vec2 q = vec2(ax - hw - wingOff, p.y);
     float w1 = tri(q, vec2(-0.02 * s, -hh), vec2(-0.02 * s, hh * 2.4), vec2(wl, hh * 1.5));
     float w2 = tri(q, vec2(-0.02 * s, -hh * 1.2), vec2(wl * 0.75, hh * 0.3), vec2(-0.02 * s, hh * 0.9));
     lay(min(w1, w2), aa, p.y > hh * 0.7 ? metal : metalLo, col, a);
@@ -529,25 +543,26 @@ void main() {
     lay(abs(q.x) + abs(q.y) - 0.04 * s, aa, q.x + q.y > 0.0 ? vec3(1.0, 0.86, 0.4) : vec3(0.95, 0.55, 0.12), col, a);
   }
 
-  // ── The badge: a level, or a skull ──
-  float badge = vState.w;
-  if (abs(badge) > 0.5) {
-    float br = 0.085 * s;
-    vec2 c = vec2(-hw - br - 0.035 * s, 0.0);
-    vec2 q = p - c;
+  // ── The badge: the level, on its tier's colour, a round end to the bar ──
+  if (badge > 0.5) {
+    float tier = floor(badge / 100.0 + 0.001);
+    float n = floor(mod(badge, 100.0) + 0.5);
+    vec3 bg = TIER_BG[0]; vec3 ink = TIER_INK[0];
+    for (int i = 1; i < 5; i++) if (abs(tier - 1.0 - float(i)) < 0.5) { bg = TIER_BG[i]; ink = TIER_INK[i]; }
+    vec2 q = p - vec2(bx, 0.0);
     float d = length(q) - br;
-    lay(d, aa, badge < 0.0 ? vec3(0.45, 0.07, 0.12) : vec3(0.16, 0.13, 0.24), col, a);
-    float ring = abs(d + 0.012 * s) - 0.008 * s;
-    col = mix(col, badge < 0.0 ? vec3(1.0, 0.45, 0.4) : metal, 1.0 - smoothstep(-aa, aa, ring));
+    // The rank's metal round it (a deadly one rimmed in hot red), the tier inside.
+    lay(d, aa, tier > 4.5 ? vec3(1.0, 0.36, 0.3) : metal, col, a);
+    float inner2 = length(q) - br * 0.74;
+    col = mix(col, INK, 1.0 - smoothstep(-aa, aa, inner2 - 0.01 * s));
+    col = mix(col, q.y > 0.0 ? mix(bg, vec3(1.0), 0.18) : bg, 1.0 - smoothstep(-aa, aa, inner2));
     float g = 0.0;
-    if (badge < 0.0) g = glyph(q / (br * 1.5) + 0.5, 10.0);
-    else if (badge < 9.5) g = glyph(q / (br * 1.45) + 0.5, floor(badge + 0.5));
+    if (n < 9.5) g = glyph(q / (br * 1.32) + 0.5, n);
     else {
-      float n = floor(badge + 0.5);
-      vec2 uv = q / (br * 1.15) + vec2(0.5);
-      g = max(glyph(vec2(uv.x + 0.36, uv.y), floor(n / 10.0)), glyph(vec2(uv.x - 0.36, uv.y), mod(n, 10.0)));
+      vec2 uv = q / (br * 1.05) + vec2(0.5);
+      g = max(glyph(vec2(uv.x + 0.34, uv.y), floor(n / 10.0)), glyph(vec2(uv.x - 0.34, uv.y), mod(n, 10.0)));
     }
-    col = mix(col, vec3(1.0), g);
+    col = mix(col, ink, g);
   }
 
   if (a < 0.01) discard;
@@ -555,6 +570,9 @@ void main() {
   #include <colorspace_fragment>
 }
 `
+
+/** A bar's badge value: the tier (1-based, `LEVEL_TIERS`) × 100 + the level; 0 for none. */
+export const barBadge = (level: number, tier: LevelTier): number => (LEVEL_TIERS.indexOf(tier) + 1) * 100 + Math.max(0, Math.min(99, Math.round(level)))
 
 /** How a bar is framed (decision D42). */
 export const BAR_RANK = { minion: 0, normal: 1, elite: 2, champion: 3, boss: 4, ally: 5 } as const
@@ -626,7 +644,7 @@ export class HealthBars {
   /**
    * One unit's bar. `id` is the unit's (its damage ghost is remembered by
    * it); `shield` is a share of max health; `width` is in metres; `badge` is
-   * the level to show (0: none), or −1 for a skull.
+   * `barBadge(level, tier)` (0: none).
    */
   add(id: number, x: number, y: number, z: number, fill01: number, shield: number, color: string, width: number, rank: BarRank, badge: number): void {
     if (this.n >= this.cap) this.grow(this.cap * 2)

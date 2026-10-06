@@ -7,8 +7,9 @@ import { createSlicer, yieldToBrowser, type Slice } from '../engine/slicer'
 import { sceneQuality } from '../engine/quality'
 import { sfx, type SfxName } from '../audio/sfx'
 import { ENEMY_BY_ID, MINIONS } from '../data/enemies'
+import { BOSS_SCRIPTS } from '../sim/bosses'
 import { SKILL_BY_ID } from '../data/skills'
-import { ARENA_WAVES, OPENING, TOWNS, ZONES, type ThemeId, type TownId } from '../data/zones'
+import { ARENA_WAVES, OPENING, TOWNS, ZONES, unitLevelTier, type ThemeId, type TownId } from '../data/zones'
 import { ITEM_BY_ID, type ZoneId } from '../data/items'
 import { applyPlan, populateTown, populateZone, summonDragonAlly } from '../sim/director'
 import { arenaKinds, leaveLadder, leaveVisit } from '../sim/director'
@@ -21,7 +22,7 @@ import { Sim } from '../sim/world'
 import type { DamageType, SimEvent, Unit } from '../sim/types'
 import { updateCelFrame, updateSeeThrough } from '../gfx/cel'
 import { fxLevel, stepEffectsLadder } from '../engine/effectsLadder'
-import { BAR_RANK, HealthBars, Markers, makeBlobShadow, placeBlobShadow, type BarRank } from '../gfx/markers'
+import { BAR_RANK, HealthBars, Markers, barBadge, makeBlobShadow, placeBlobShadow, type BarRank } from '../gfx/markers'
 import { clearGround, groundAt, setGround } from '../gfx/ground'
 import type { HeightField } from '../sim/ground'
 import { blowOf, trackUnit } from '../gfx/combatFx'
@@ -911,8 +912,8 @@ export class ZoneMode implements GameMode {
         this.bars.add(
           id, w.v.x, groundAt(w.v.x, w.v.z) + u.h * w.v.scale / Math.max(0.5, w.v.scale) + 0.45 + w.v.float + (rank === BAR_RANK.boss ? 0.25 : 0), w.v.z,
           u.hp / u.s.maxHp, u.shield / u.s.maxHp, col, Math.min(1.5, 0.7 + u.r * 0.7), rank,
-          // A level on anything framed; a skull on anything well above him.
-          ours ? 0 : u.level >= sim.hero.level + 3 ? -1 : rank >= BAR_RANK.elite ? u.level : 0
+          // Every enemy's level, on its tier's colour against the hero's (#77).
+          ours ? 0 : barBadge(u.level, unitLevelTier(u.level, sim.hero.level))
         )
       }
     }
@@ -1045,6 +1046,7 @@ export class ZoneMode implements GameMode {
     const t = sim.live(h.order.targetId)
     hud.targetKey = t && t.team === 1 ? 'enemy.' + t.kind : ''
     hud.targetLevel = t?.level ?? 0
+    hud.targetTier = unitLevelTier(t?.level ?? 0, h.level)
     hud.targetHp01 = t ? t.hp / t.s.maxHp : 0
     hud.targetElite = t?.rank === 'elite'
     let boss: Unit | undefined
@@ -1058,6 +1060,11 @@ export class ZoneMode implements GameMode {
     }
     hud.bossKey = boss ? 'enemy.' + boss.kind : ''
     hud.bossHp01 = boss ? boss.hp / boss.s.maxHp : 0
+    hud.bossLevel = boss?.level ?? 0
+    hud.bossTier = unitLevelTier(boss?.level ?? 0, h.level)
+    // Where its fight changes: the script's phase lines, or an old boss's one.
+    const lines = !boss ? [] : boss.boss ? BOSS_SCRIPTS[boss.boss.script]?.phases ?? [] : ENEMY_BY_ID[boss.kind]?.phase2 ? [ENEMY_BY_ID[boss.kind]!.phase2!] : []
+    if (lines.join() !== hud.bossPhases.join()) hud.bossPhases = [...lines]
     // The boss theme plays for exactly as long as the boss plate shows.
     setBossMusic(boss !== undefined && !sim.ended)
     hud.groupsDone = sim.groupsDone

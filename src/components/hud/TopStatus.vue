@@ -5,7 +5,7 @@
       span.plate__name
         GameIcon.plate__skull(name="skull")
         span.plate__label {{ t(hud.bossKey) }}
-      FBar.plate__bar(:value="hud.bossHp01" tone="boss" frame="boss" :label="t(hud.bossKey)")
+      FBar.plate__bar(:value="hud.bossHp01" tone="boss" frame="boss" :label="`${t(hud.bossKey)} · ${t('hud.level', { n: hud.bossLevel })}`" :level="hud.bossLevel" :tier="hud.bossTier" :marks="hud.bossPhases")
     //- The next goal: under the boss's bar while it lives, else under the name.
     GoalTracker(v-if="hud.bossKey")
     template(v-else)
@@ -22,8 +22,8 @@
       GoalTracker
       div.plate(v-if="hud.targetKey" :class="{ 'plate--elite': hud.targetElite }")
         span.plate__name
-          span.plate__label {{ t(hud.targetKey) }} · {{ t('hud.level', { n: hud.targetLevel }) }}
-        FBar.plate__bar(:value="hud.targetHp01" tone="enemy" :frame="hud.targetElite ? 'elite' : 'plain'" :label="t(hud.targetKey)")
+          span.plate__label {{ t(hud.targetKey) }}
+        FBar.plate__bar(:value="hud.targetHp01" tone="enemy" :frame="hud.targetElite ? 'elite' : 'plain'" :label="`${t(hud.targetKey)} · ${t('hud.level', { n: hud.targetLevel })}`" :level="hud.targetLevel" :tier="hud.targetTier")
 </template>
 
 <script setup lang="ts">

@@ -66,7 +66,7 @@ describe('FBar', () => {
     expect(orn('xp')).toBe(0)
     expect(orn('hero')).toBe(2) // the heart cap and a finial
     expect(orn('mana')).toBe(2)
-    expect(orn('elite')).toBe(2) // two wings
+    expect(orn('elite')).toBe(4) // two wings, an amber gem at each end (#77)
     expect(orn('champion')).toBe(3) // a crest and two finials
     expect(orn('boss')).toBe(5) // two wings, two gems, the crown between its horns
     const boss = mount(FBar, { props: { value: 1, frame: 'boss' } })
@@ -74,6 +74,29 @@ describe('FBar', () => {
     expect(boss.findAll('.f-bar__gem')).toHaveLength(2)
     expect(boss.findAll('.f-bar__wing')).toHaveLength(2)
     expect(boss.classes()).toContain('f-bar--boss')
+  })
+
+  it('carries a level in a round badge at its right end, on the colour of its tier (#77)', () => {
+    const w = mount(FBar, { props: { value: 0.5, frame: 'elite', level: 23, tier: 'high' } })
+    expect(w.classes()).toContain('has-level')
+    const lv = w.find('[data-level]')
+    expect(lv.text()).toBe('23')
+    expect(lv.classes()).toContain('is-high')
+    expect((lv.element as HTMLElement).style.getPropertyValue('--lv-bg')).toBe('#e0352b')
+    // The badge is the right end's: no gem there; the left keeps its own.
+    expect(w.findAll('.f-bar__gem')).toHaveLength(1)
+    expect(w.find('.f-bar__gem.is-left').exists()).toBe(true)
+    // Not a level, no badge.
+    expect(mount(FBar, { props: { value: 0.5, frame: 'elite' } }).find('[data-level]').exists()).toBe(false)
+  })
+
+  it('a boss bar marks its phase lines instead of the quarters (#77)', () => {
+    const w = mount(FBar, { props: { value: 0.8, frame: 'boss', marks: [0.55, 0.25] } })
+    expect(w.find('.f-bar__ticks').exists()).toBe(false)
+    const marks = w.findAll('.f-bar__phases i').map(i => (i.element as HTMLElement).style.left)
+    expect(marks).toEqual(['55%', '25%'])
+    // No phases: the quarters, as every bar.
+    expect(mount(FBar, { props: { value: 0.8, frame: 'boss' } }).findAll('.f-bar__ticks i')).toHaveLength(3)
   })
 
   it('a painted frame replaces the drawn ornaments and the bezel', () => {

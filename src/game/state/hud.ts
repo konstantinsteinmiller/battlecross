@@ -1,3 +1,4 @@
+import type { LevelTier } from '../data/zones'
 import { shallowReactive } from 'vue'
 
 /**
@@ -59,11 +60,16 @@ export const hud = shallowReactive({
   /** The locked target: its name key, level, health and whether it is elite. */
   targetKey: '',
   targetLevel: 0,
+  /** How the target's level sits against the hero's (its badge's colour, #77). */
+  targetTier: 'match' as LevelTier,
   targetHp01: 0,
   targetElite: false,
-  /** Boss bar ('' = none). */
+  /** Boss bar ('' = none): its level, that level's tier, its phase lines (#77). */
   bossKey: '',
   bossHp01: 0,
+  bossLevel: 0,
+  bossTier: 'match' as LevelTier,
+  bossPhases: [] as number[],
   /** Zone progress: enemy groups cleared of the total, or the wave number. */
   zoneKey: '',
   zoneLevel: 0,
