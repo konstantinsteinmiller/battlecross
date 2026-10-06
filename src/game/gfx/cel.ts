@@ -1,5 +1,5 @@
 import {
-  Color, ShaderMaterial, BackSide, FrontSide, UniformsLib, UniformsUtils, Vector3, MeshBasicMaterial,
+  Color, ShaderMaterial, BackSide, FrontSide, UniformsLib, UniformsUtils, Vector3, Vector4, MeshBasicMaterial,
   type Camera, type Material, type Texture, type IUniform
 } from 'three'
 
@@ -47,6 +47,10 @@ const sharedThreshold: IUniform<number> = { value: CEL_THRESHOLD }
 const sharedAmbient: IUniform<Color> = { value: new Color(1, 1, 1) }
 /** View depth at which an outline is exactly its nominal width. */
 const sharedRefDepth: IUniform<number> = { value: 18 }
+/** The see-through hole round the hero: their spot on screen (NDC x, y), their
+ *  view depth, on; and its radius (NDC y), the screen's aspect, the knee height. */
+const sharedSee: IUniform<Vector4> = { value: new Vector4(0, 0, 0, 0) }
+const sharedSeeR: IUniform<Vector3> = { value: new Vector3(0.4, 1, 0) }
 
 const WORLD_LIGHT = new Vector3(0.4, 0.82, 0.42).normalize()
 const _v = new Vector3()
@@ -57,6 +61,26 @@ export const updateCelFrame = (camera: Camera, refDepth: number): void => {
   _v.copy(WORLD_LIGHT).transformDirection(camera.matrixWorldInverse)
   sharedLightDir.value.copy(_v)
   sharedRefDepth.value = Math.max(1, refDepth)
+}
+
+const _see = new Vector3()
+
+/**
+ * Per frame: where the hero is, for the scenery to open a see-through hole
+ * round them (`SEE_THROUGH`: instanced scenery and its outlines). `on`
+ * false closes it (a cut-scene, no hero).
+ */
+export const updateSeeThrough = (camera: Camera, x: number, y: number, z: number, on: boolean, aspect: number): void => {
+  const s = sharedSee.value
+  s.w = on ? 1 : 0
+  if (!on) return
+  _see.set(x, y + 0.9, z).applyMatrix4(camera.matrixWorldInverse)
+  s.z = -_see.z
+  _see.set(x, y + 0.9, z).project(camera)
+  s.x = _see.x
+  s.y = _see.y
+  sharedSeeR.value.y = aspect
+  sharedSeeR.value.z = y + 0.35
 }
 
 /** A zone's light: where it comes from and how it colours the world. */
@@ -78,6 +102,11 @@ varying vec3 vViewNormal;
 #ifdef USE_CEL_MAP
 varying vec2 vCelUv;
 #endif
+#ifdef SEE_THROUGH
+varying vec4 vSeeClip;
+varying float vSeeDepth;
+varying float vSeeY;
+#endif
 void main() {
   #include <color_vertex>
   #include <beginnormal_vertex>
@@ -91,6 +120,15 @@ void main() {
   #include <begin_vertex>
   #include <skinning_vertex>
   #include <project_vertex>
+  #ifdef SEE_THROUGH
+  vSeeClip = gl_Position;
+  vSeeDepth = -mvPosition.z;
+  vec4 seeW = vec4(transformed, 1.0);
+  #ifdef USE_INSTANCING
+  seeW = instanceMatrix * seeW;
+  #endif
+  vSeeY = (modelMatrix * seeW).y;
+  #endif
   #include <fog_vertex>
 }
 `
@@ -116,7 +154,25 @@ uniform sampler2D uMap;
 varying vec2 vCelUv;
 #endif
 varying vec3 vViewNormal;
+#ifdef SEE_THROUGH
+uniform vec4 uSee;
+uniform vec3 uSeeR;
+varying vec4 vSeeClip;
+varying float vSeeDepth;
+varying float vSeeY;
+float seeBayer2(vec2 a) { a = floor(a); return fract(a.x / 2.0 + a.y * a.y * 0.75); }
+float seeBayer4(vec2 a) { return seeBayer2(0.5 * a) * 0.25 + seeBayer2(a); }
+#endif
 void main() {
+  #ifdef SEE_THROUGH
+  // In front of the hero (nearer the camera), above their knees, round them on
+  // screen: an ordered dither takes most of it away (no sorting, no blending).
+  if (uSee.w > 0.5 && vSeeDepth < uSee.z - 0.8 && vSeeY > uSeeR.z) {
+    vec2 seeD = (vSeeClip.xy / vSeeClip.w - uSee.xy) * vec2(uSeeR.y, 1.0);
+    float seeK = 1.0 - smoothstep(uSeeR.x * 0.5, uSeeR.x, length(seeD));
+    if (seeK * 0.8 > seeBayer4(gl_FragCoord.xy)) discard;
+  }
+  #endif
   vec3 base = uTint;
   #ifdef USE_COLOR
   base *= vColor.rgb;
@@ -195,8 +251,16 @@ export const celVC = (): CelMaterial => (vcShared ??= makeCel())
 // times a frame in a zone (`PERF-LEDGER.md`). The instanced scenery and
 // props get their own (same shader, same program).
 let vcInstShared: CelMaterial | null = null
-/** `celVC` for instanced meshes. */
-export const celVCInst = (): CelMaterial => (vcInstShared ??= makeCel())
+/** `celVC` for instanced meshes: the scenery, so it opens round the hero (`SEE_THROUGH`). */
+export const celVCInst = (): CelMaterial => (vcInstShared ??= seeThrough(makeCel()))
+
+/** Let a material open its see-through hole round the hero. */
+const seeThrough = <T extends ShaderMaterial>(m: T): T => {
+  m.defines.SEE_THROUGH = ''
+  m.uniforms.uSee = sharedSee
+  m.uniforms.uSeeR = sharedSeeR
+  return m
+}
 
 const flatCache = new Map<string, CelMaterial>()
 /** Shared (cached) cel material of one flat colour. */
@@ -290,6 +354,11 @@ const OUTLINE_VERT = /* glsl */`
 #include <fog_pars_vertex>
 uniform float uThickness;
 uniform float uRefDepth;
+#ifdef SEE_THROUGH
+varying vec4 vSeeClip;
+varying float vSeeDepth;
+varying float vSeeY;
+#endif
 void main() {
   #include <skinbase_vertex>
   #include <beginnormal_vertex>
@@ -303,6 +372,15 @@ void main() {
   float celDepth = max(0.5, -(modelViewMatrix * celPos).z);
   transformed += normalize(objectNormal) * uThickness * celDepth / uRefDepth;
   #include <project_vertex>
+  #ifdef SEE_THROUGH
+  vSeeClip = gl_Position;
+  vSeeDepth = -mvPosition.z;
+  vec4 seeW = vec4(transformed, 1.0);
+  #ifdef USE_INSTANCING
+  seeW = instanceMatrix * seeW;
+  #endif
+  vSeeY = (modelMatrix * seeW).y;
+  #endif
   #include <fog_vertex>
 }
 `
@@ -311,7 +389,25 @@ const OUTLINE_FRAG = /* glsl */`
 #include <fog_pars_fragment>
 uniform vec3 uColor;
 uniform float uOpacity;
+#ifdef SEE_THROUGH
+uniform vec4 uSee;
+uniform vec3 uSeeR;
+varying vec4 vSeeClip;
+varying float vSeeDepth;
+varying float vSeeY;
+float seeBayer2(vec2 a) { a = floor(a); return fract(a.x / 2.0 + a.y * a.y * 0.75); }
+float seeBayer4(vec2 a) { return seeBayer2(0.5 * a) * 0.25 + seeBayer2(a); }
+#endif
 void main() {
+  #ifdef SEE_THROUGH
+  // In front of the hero (nearer the camera), above their knees, round them on
+  // screen: an ordered dither takes most of it away (no sorting, no blending).
+  if (uSee.w > 0.5 && vSeeDepth < uSee.z - 0.8 && vSeeY > uSeeR.z) {
+    vec2 seeD = (vSeeClip.xy / vSeeClip.w - uSee.xy) * vec2(uSeeR.y, 1.0);
+    float seeK = 1.0 - smoothstep(uSeeR.x * 0.55, uSeeR.x, length(seeD));
+    if (seeK * 0.85 > seeBayer4(gl_FragCoord.xy)) discard;
+  }
+  #endif
   gl_FragColor = vec4(uColor, uOpacity);
   #include <colorspace_fragment>
   #include <fog_fragment>
@@ -340,6 +436,7 @@ export const outlineMat = (thickness = OUTLINE_WIDTH, color: Color = OUTLINE_COL
     fog: true
   })
   m.uniforms.uRefDepth = sharedRefDepth
+  if (instanced) seeThrough(m)
   outlineCache.set(key, m)
   return m
 }

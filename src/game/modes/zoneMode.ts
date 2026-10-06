@@ -19,7 +19,7 @@ import { reviveHero } from '../sim/combat'
 import { generateArena, generateEncounter, generateTown, generateZone, type ZonePlan } from '../sim/zoneGen'
 import { Sim } from '../sim/world'
 import type { DamageType, SimEvent, Unit } from '../sim/types'
-import { updateCelFrame } from '../gfx/cel'
+import { updateCelFrame, updateSeeThrough } from '../gfx/cel'
 import { BAR_RANK, HealthBars, Markers, makeBlobShadow, placeBlobShadow, type BarRank } from '../gfx/markers'
 import { clearGround, groundAt, setGround } from '../gfx/ground'
 import type { HeightField } from '../sim/ground'
@@ -863,6 +863,8 @@ export class ZoneMode implements GameMode {
     this.cam.follow(hx + this.talkDx * tk + peek.x, hz + this.talkDz * tk + peek.z, hero.vx, hero.vz, dt, groundAt(hx, hz))
     this.cam.update(dt)
     updateCelFrame(this.camera, this.cam.refDepth)
+    // Scenery between the camera and the hero opens round them (a tall rock at a field's near edge).
+    updateSeeThrough(this.camera, hx, groundAt(hx, hz), hz, hero.alive, this.camera.aspect)
 
     // Things far outside the view are not posed or drawn: past the camera's
     // reach, or wholly outside the picture (a rig is not culled by three: its

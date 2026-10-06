@@ -375,6 +375,7 @@ https://claude.ai/artifact/F4PGs8yrX78wpkt7yywkXA
 | D85 | The old bosses | Mini-bosses half-way through other zones, elites far weaker, recoloured and reshaped: the Goblin Tyrant (Whispering Woods), the Frost Thane (Sunken Temple), the Void Drake (Citadel of the Void), the Pit Lord (Void Rift) | **Owner 2026-10-05**; the zones confirmed 2026-10-06 |
 | D86 | Boss lines | One short shouted line at each big beat of a fight, in a bubble over the boss and voiced (Chatterbox, English); a voice card for the Frost Jarl | **Owner 2026-10-06**: keep them |
 | D87 | Hollows for a Blood-only hero at level 4 | Loses the Tusker fight (7 of 8 classes win); accepted | **Owner 2026-10-06** |
+| D89 | Tall scenery in front of the hero | The instanced scenery (rocks, trees, props) and its outlines open a dithered see-through hole round the hero where they stand nearer the camera than the hero and above knee height (`SEE_THROUGH` in `gfx/cel.ts`); low stones and grass at the hero's feet stay | **Owner 2026-10-06** (question 42) |
 | D88 | Necromancers | At most four raised skeletons alive each (was six of anything a summoner raises): an Aegis-only hero no longer stalls on them in the Dread Fortress | **Owner 2026-10-06** |
 
 ### Phases
@@ -395,3 +396,5 @@ https://claude.ai/artifact/F4PGs8yrX78wpkt7yywkXA
 - [x] **19.7 The trailer**, staged on each fight's big moment.
 
 - [x] **19.8 The owner's answers** (D86–D88): the skeleton cap.
+- [x] **19.9 See-through scenery** (D89).
+- [x] **19.10 The trailer on YouTube**: https://youtu.be/xZCQeQjo6ZM (`pnpm publish-trailer`).

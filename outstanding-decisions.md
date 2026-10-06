@@ -127,17 +127,20 @@ zone)?
 - **In effect:** every boss fight.
 - **Recommended:** keep.
 
-### 42. Tall rocks hide the hero
+### 43. Phones draw the game below their screen's sharpness
 
-The camera looks at the field from the south. Near a field's south edge (the
-Dread Fortress's rocky rim is the worst), tall rocks stand between the camera
-and the hero and can hide them completely for a moment. The trailer now
-stages its Fortress fight away from that edge; in play it still happens. Fade
-the rocks between the camera and the hero to see-through, as the houses'
-fronts already do?
+The renderer caps its pixel ratio for speed: 1.6× on touch screens, 1.5× on
+iPhones, 2× elsewhere, 1× on weak devices. A 3× phone therefore draws at
+about half its resolution in each direction and stretches it up (the
+sharpness probe: canvas ratio 0.67 at 390×844 @3×, "stretched up"). The
+house rule is never to draw below the screen's own ratio and to trim only
+supersampling above it. Lifting the cap costs up to 9× the pixels of 1× on
+a 3× phone.
 
-- **In effect:** nothing fades.
-- **Recommended:** fade them.
+- **In effect:** capped (pre-dates the boss work).
+- **Recommended:** draw at the screen's ratio, and let the adaptive quality
+  ladder trim effects (shadows, particles, outlines) instead of resolution on
+  weak phones; measure on a mid-range phone first.
 
 ## Defaults taken in the playtest pass, overrule any
 
