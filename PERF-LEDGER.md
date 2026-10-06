@@ -594,6 +594,6 @@ Sharpness probe after: canvas ratio 1.00 at 390 × 844 @3× and at 1280 × 720 @
 
 The fill cost of 3× on a mid-range phone's GPU, and whether the ladder's
 thresholds step down soon enough there (or too eagerly on a 120 Hz screen,
-whose frames are shorter, so it never trims there by mistake). Measure on a
-real mid-range Android before the first big portal release: `?perfprobe=1`
-and `window.__perf`, with and without `?fxlevel=3`.
+whose frames are shorter, so it never trims there by mistake). The owner
+reads that from the Poki playtests rather than a hand-held phone test
+(2026-10-06).
