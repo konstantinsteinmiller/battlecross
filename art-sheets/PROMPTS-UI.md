@@ -188,6 +188,78 @@ BEFORE YOU CALL IT FINISHED, check:
 OUTPUT: one square image (1:1), 1024 x 1024 pixels or larger. If your tool has an aspect-ratio control, set it to 1:1. PNG. No labels, captions, numbers or watermarks.
 ```
 
+## Logo: the wordmark (the pick)  (single-logo-wordmark.png → images/logo/wordmark.webp)
+
+Attach, in this order: `art-sheets/painted/single-logo-title-d.jpg`, `art-sheets/painted/lettering-c.png`, then the reference named in the heading.
+
+```text
+WHAT COMES BACK IS ONE GAME LOGO ON A FLAT MAGENTA GROUND: the title of a cute fantasy action game for 10 to 15 year olds, painted as a cartoon wordmark.
+One square image holding the logo, at the size and in the spot the attached layout reference shows it.
+
+ATTACHED IMAGES — there are 3.
+· The FIRST is the chosen DESIGN: keep it — the shield, the sword, the glowing crescent staff, their colours and how they sit. Repaint it, cleaner and crisper; do not redesign it. The shield stays plain blue with its gold rim (no extra trim or pattern). The sword is ONE sword: one blade, ONE gold crossguard just above its handle, its handle and pommel at the lower left — never a second guard on the blade.
+· The SECOND is the chosen LETTERING, cut out on its own: replace the word in the first image with THIS word, copied exactly — its round, puffy, soft letter shapes, its smooth gradient from white at the top to light sky blue at the bottom, its glossy shine and its thick navy outline. The word in the first image (flatter letters with a hard blue band) is the WRONG lettering and must not survive. Any weapon bits showing between its letters are not part of it.
+· The LAST image is the LAYOUT reference: where the letters and the shapes behind them go, and how big. Wherever this text says "the reference", it means that last image. Its letters are set in a plain placeholder typeface — notation for WHICH letters go WHERE, never a typeface to copy.
+
+THE LETTERS — spell them exactly. This is the part that cannot be wrong.
+· The game is called BATTLECROSS: ONE word, eleven letters, B A T T L E C R O S S (two T after the A, two S at the end).
+· ONE line. No space anywhere in it, no line break, no gap that splits it into two words: it must never read as "Battle Cross".
+· Nothing else is written anywhere: no other word, letter, number, slogan, subtitle, trademark sign or signature.
+· Every letter is clearly that letter at a glance: no letter merged into a shape, hidden behind the swords, or turned into a picture.
+
+WHAT IT IS: the game's title across a shield, exactly the design of the first attached logo: a big blue heater shield with a gold rim (the game's badge), a heroic steel sword with a gold crossguard and an ornate glowing mage's staff (a gold crescent cradling a big glowing cyan crystal, sparkles around it) crossed in an X behind it, and the word BATTLECROSS on ONE line across the front of the shield, running out past both of its sides — lettered exactly like the word in the second attached logo.
+
+THE LETTERING — a hand-drawn cartoon title, the kind on the box of a top mobile game: fat, rounded and playful, white with a thick dark navy outline and a sky-blue shade on the lower half of every letter, a glossy highlight on top, with a little bounce (letters lean and sit slightly off the line, never stiff), heavy and readable. NOT a computer font, not thin, not serif, not a medieval blackletter.
+
+THE STAFF — a mage's staff worth looking at: ornate, glowing and magical (a big shining crystal, gold work, sparkles). A plain wooden stick or a monk's staff is the wrong answer.
+
+APPEAL — this is the face of the game on its splash, on store pages and on a thumbnail among forty others. Make it the most polished thing in the set: crisp, bold, bright and fun.
+
+PAINTED VOLUME — this is what the sheet is judged on.
+· Every shape is a chunky, solid, three-dimensional thing lit from the upper left: a LIT side and a SHADOW side that meet along a hard edge (two-tone cel shading), a thin rim light on the shadow side, and a few crisp white highlights.
+· Fire, light and energy are solid things too: a bright, almost white inner core, the accent colour around it, and a deeper shade of that colour at the rim, in hard steps.
+· A thick dark outline around every shape: the charcoal-violet line on a solid object, a DARK SHADE OF THE SHAPE'S OWN COLOUR on fire, light and energy.
+· A shape filled with ONE flat colour is the wrong answer. So is the look of an icon font, a sticker, a logo or a road sign. An earlier attempt came back as flat single-colour shapes with an outline, just like the reference, and it could not be used.
+· The silhouette is the reference's, unchanged. Put the volume INSIDE the outline; do not add parts around it.
+· The accent colour stays the dominant colour of every panel.
+
+STYLE — the same hand as every other picture in this game.
+· Chunky, rounded, toy-like forms. Simplify: few large shapes, no fine detail that vanishes at thumbnail size.
+· ONE dark outline around every shape, in deep charcoal-violet (about #0F0C19, never pure black), brush-pen weight: at its heaviest about 2.5% of the panel's shorter side. Hold the picture at thumbnail size; if the outline has thinned to a hairline it is several times too thin.
+· Cel shading in hard steps, no blending: a base tone, ONE shadow step (the base darkened by about a third and pushed toward blue-violet) and ONE lighter step. No airbrush, no smooth gradients, no photographic texture, no noise.
+· Bright, saturated candy colours (saturation 60-85%, brightness 75-100%). Nothing muddy, grey or desaturated.
+· One small, hard-edged white glint on anything metal, glass, gem or liquid.
+· Light and energy are painted as SOLID shapes: a white-hot core, the colour, a darker edge. Nothing is ever see-through, hazy or ghostly.
+· People are squat chibi: the head is nearly half the figure, large oval eyes with one white glint, tiny nose or none, mitten hands, no fingers.
+· AN OBJECT WITH NO FACE IS NOT AN EXCEPTION TO ANY OF THIS. A sword, a ring, a flask or a rock gets the same outline, the same two-step shading and the same glint as a character.
+· The attached reference is a flat stand-in. Follow its SHAPE, its SIZE in the panel and its POSITION; take nothing else from it — not its line weight, flat fills or lack of shading. Its plain shapes are notation, and a sheet that comes back as the same flat shapes neatly repainted is unusable.
+AVOID: three-quarter or perspective views, realism, pixel art, thin technical line, soft glow around a shape, drop shadows, text, numbers, frames, badges or cards behind the object.
+· Each object floats in its own panel at the size the reference shows. It does NOT fill its panel; do not invent anything for a panel that is blank in the reference — flat magenta and nothing else.
+
+SIZE AND PLACE — measure against the image, not against a guess.
+· In the reference the logo takes about 84% of the image's width and 63% of its height, centred, with a clear magenta margin on all four sides. Keep it there.
+· It must still read at 300 pixels wide, on a store tile: big letters, a bold outline, two or three big areas of colour.
+
+BACKGROUND — this matters more than the style.
+Fill every pixel that is not an object with solid, flat, pure magenta #FF00FF. Treat it as a green-screen: one flat chroma-key colour, edge to edge.
+· EXACTLY #FF00FF — red 255, green 0, blue 255. Not pink, not rose, not mauve, not a soft or tinted version of it. Only the true colour can be cut away cleanly.
+· NOT transparent. Transparency gets exported as a grey-and-white CHECKERBOARD and then baked into the artwork as though the squares were paint.
+· NOT white, cream, parchment, paper, or any tinted or textured ground.
+· Nothing sits on a card, panel, tile, badge, frame, ring or rectangle of any kind. The magenta must touch the outline of each object on every side.
+· No drop shadow onto the background, and no vignette.
+· No object contains magenta or hot pink.
+· The candy palette above is for the OBJECTS. The ground is not part of the painting: it stays a vivid, eye-hurting #FF00FF.
+
+KEEP ANY GLOW TIGHT. A halo, aura or bloom spreading out into the background is measured as part of the object when the return is fitted back onto the reference, so a wide aura comes back as a tiny object inside a huge smear. It also cannot be keyed: soft light over magenta turns pink rather than transparent. Any glow belongs inside the shape's own outline.
+
+BEFORE YOU CALL IT FINISHED, check:
+· Read the letters back, one by one: B-A-T-T-L-E-C-R-O-S-S, on one line with no gap. If any letter is missing, doubled, swapped or another letter, or the word is split in two, start again.
+· There is exactly one logo, and it does not reach the edge of the image.
+· Every pixel that is not the logo is flat, vivid #FF00FF.
+
+OUTPUT: one square image (1:1), 1024 x 1024 pixels or larger. If your tool has an aspect-ratio control, set it to 1:1. PNG. No labels, captions, numbers or watermarks.
+```
+
 ## UI: the world map terrain  (bg-ui-map.png → images/ui/map.webp)
 
 ```text

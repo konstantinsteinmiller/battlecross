@@ -53,5 +53,37 @@ export const MASCOT_POSE_SVG = [
   '</svg>'
 ].join('')
 
+// ─── The painted title (roadmap #76): candidates for the owner to pick ────
+//
+// Unlike the badge, these carry the LETTERS: the owner asked for a painted
+// logo with a cool toon wordmark. The game is called Battlecross — ONE word,
+// so every candidate sets it on one line. The reference sets every letter in
+// place (a plain heavy face, notation only) and the prompt spells it out; a
+// take that misspells is thrown away, never shipped. The owner liked the
+// white, navy-outlined, sky-blue-shaded letters of the first round's B; the
+// staff crossed with the sword is a glowing mage's staff, not a plain stick.
+
+const WORD = 'font-family="Arial Black, Arial, sans-serif" font-weight="900" text-anchor="middle" paint-order="stroke" stroke="#141a33" stroke-linejoin="round"'
+/** The title, one line, white letters (the colour is the prompt's). */
+const TITLE = (y: number, size: number, extra = ''): string => `<text x="100" y="${y}" font-size="${size}" fill="#ffffff" stroke-width="5" textLength="186" lengthAdjust="spacingAndGlyphs" ${WORD} ${extra}>BATTLECROSS</text>`
+/** A steel sword along (x1, y1) → (x2, y2), the hilt at the start. */
+const SWORD = (x1: number, y1: number, x2: number, y2: number): string =>
+  `<path d="M${x1} ${y1}L${x2} ${y2}" stroke="#141a33" stroke-width="11" stroke-linecap="round"/><path d="M${x1} ${y1}L${x2} ${y2}" stroke="#e6ebf5" stroke-width="6" stroke-linecap="round"/>`
+/** A mage's staff along (x1, y1) → (x2, y2), its glowing crystal head at the end. */
+const STAFF = (x1: number, y1: number, x2: number, y2: number): string =>
+  `<path d="M${x1} ${y1}L${x2} ${y2}" stroke="#141a33" stroke-width="10" stroke-linecap="round"/><path d="M${x1} ${y1}L${x2} ${y2}" stroke="#6a3a8a" stroke-width="5" stroke-linecap="round"/>` +
+  `<circle cx="${x2}" cy="${y2}" r="13" fill="#8ef0ff" stroke="#141a33" stroke-width="3"/><path d="M${x2 - 15} ${y2 + 6}q15 10 30 0" fill="none" stroke="#ffd24a" stroke-width="4" stroke-linecap="round"/>`
+
+/** D: the hero's shield — BATTLECROSS across the front of the game's blue shield, sword and staff crossed behind it. */
+export const LOGO_D_SVG = [
+  '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">',
+  SWORD(54, 160, 146, 40),
+  STAFF(150, 162, 52, 42),
+  '<path d="M100 44l44 14v34c0 30-18 50-44 62c-26-12-44-32-44-62V58z" fill="#3f7fd6" stroke="#141a33" stroke-width="4"/>',
+  '<path d="M100 54l34 11v27c0 23-13 39-34 49c-21-10-34-26-34-49V65z" fill="none" stroke="#ffd24a" stroke-width="3"/>',
+  TITLE(110, 30),
+  '</svg>'
+].join('')
+
 /** By the id the manifest names in a panel's `glyph`. */
-export const BRAND_REFS: Readonly<Record<string, string>> = { emblem: EMBLEM_SVG, mascot: MASCOT_POSE_SVG }
+export const BRAND_REFS: Readonly<Record<string, string>> = { emblem: EMBLEM_SVG, mascot: MASCOT_POSE_SVG, 'logo-d': LOGO_D_SVG }

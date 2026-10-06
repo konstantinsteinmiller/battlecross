@@ -10,17 +10,20 @@
  * stylesheet. `FLogoProgress.vue` draws the same two from `LOGO_ART`.
  *
  * Without the files nothing changes: the code-drawn lockup is the splash.
- * The BATTLE / CROSS letters are always the code-drawn ones.
+ * The painted WORDMARK (roadmap #76: the title, the shield, the sword and the
+ * staff in one painting) replaces the whole drawn lockup when it is there;
+ * the badge alone is not shown then, the mascot still is.
  *
  * Pure (strings in, string out), so the splash test can drive it.
  */
 
 /** The painted pieces, by file stem in `public/images/logo/`. */
-export const SPLASH_ART = ['emblem', 'mascot'] as const
+export const SPLASH_ART = ['emblem', 'mascot', 'wordmark'] as const
 export type SplashArt = (typeof SPLASH_ART)[number]
 
-/** Their intrinsic size: both are written square at 512 by the art pipeline. */
+/** Their intrinsic size: the badge and the mascot are written square at 512 by the art pipeline, the wordmark at 1024. */
 export const SPLASH_ART_PX = 512
+export const WORDMARK_PX = 1024
 
 /** The files of `public/images/logo/` that are splash art, by stem. */
 export const splashArtFiles = (files: readonly string[]): Partial<Record<SplashArt, string>> => {
@@ -40,12 +43,15 @@ export const splashArtFiles = (files: readonly string[]): Partial<Record<SplashA
  */
 export const injectSplashArt = (html: string, files: readonly string[], base = '/'): string => {
   const art = splashArtFiles(files)
-  if (!art.emblem && !art.mascot) return html
+  if (!art.emblem && !art.mascot && !art.wordmark) return html
+  // The painted wordmark is the whole logo: the badge alone is not needed.
+  if (art.wordmark) delete art.emblem
   const url = (f: string): string => `${base}images/logo/${f}`
   const preloads = (Object.values(art) as string[])
     .map(f => `<link rel="preload" as="image" href="${url(f)}" fetchpriority="high">`)
     .join('\n  ')
   const imgs = [
+    art.wordmark ? `<img class="s-wordmark" src="${url(art.wordmark)}" width="${WORDMARK_PX}" height="${WORDMARK_PX}" alt="" decoding="async" draggable="false">` : '',
     art.emblem ? `<img class="s-emblem" src="${url(art.emblem)}" width="${SPLASH_ART_PX}" height="${SPLASH_ART_PX}" alt="" decoding="async" draggable="false">` : '',
     art.mascot ? `<img class="s-mascot" src="${url(art.mascot)}" width="${SPLASH_ART_PX}" height="${SPLASH_ART_PX}" alt="" decoding="async" draggable="false">` : ''
   ].join('')
@@ -54,5 +60,5 @@ export const injectSplashArt = (html: string, files: readonly string[], base = '
   return html
     // Right after the charset, before the scripts and the big inline style.
     .replace('<meta charset="UTF-8">', `<meta charset="UTF-8">\n  ${preloads}`)
-    .replace(box, `<div class="s-logo${art.emblem ? ' has-art' : ''}" role="img" aria-label="Battlecross">${imgs}`)
+    .replace(box, `<div class="s-logo${art.wordmark ? ' has-wordmark' : art.emblem ? ' has-art' : ''}" role="img" aria-label="Battlecross">${imgs}`)
 }

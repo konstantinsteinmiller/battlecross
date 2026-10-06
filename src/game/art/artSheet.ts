@@ -88,8 +88,9 @@ export const ART_CATALOGUE: Readonly<Record<ArtKind, readonly string[]>> = {
   // Defined below with their sheets (`ICON_CELLS`); a getter, because the
   // cells are built after this table.
   get icons() { return ICON_CELLS.map(c => c.id) },
-  // The painted badge and the loader's mascot (roadmap #65).
-  logo: ['emblem', 'mascot']
+  // The painted badge and the loader's mascot (roadmap #65); the two painted
+  // title candidates (roadmap #76).
+  logo: ['emblem', 'mascot', 'wordmark']
 }
 
 /** Where a painted file goes, relative to `public/`. The name is the id. */
@@ -577,6 +578,19 @@ export const SINGLES: readonly ArtSet[] = [
     // Who he is: the painted portraits of the same hero.
     styleRefs: ['public/images/portraits/hero-tunic.webp', 'public/images/portraits/hero-leather.webp'],
     cells: [{ id: 'mascot', draw: 'svg', glyph: 'mascot', label: 'Mascot', target: artTarget('logo', 'mascot'), tint: '#3f7fd6', tintName: 'blue', blurb: 'the hero of the game, full figure, as a lovable squat chibi adventurer: short tousled brown hair, a big friendly confident grin, a blue tunic with a brown belt, brown boots and a red cape; one hand raises a steel sword with a gold crossguard high, the other waves at the viewer' }]
+  },
+  // ── The painted title (roadmap #76): candidates, the owner picks one ──
+  // These DO carry the letters (the owner asked for a painted wordmark); a
+  // take that misspells is discarded. Written at 1024: the covers set it large.
+  // Round two: Battlecross is ONE word, on one line; the white, navy-outlined,
+  // sky-blue-shaded lettering the owner liked; a glowing mage's staff.,
+  // The pick (owner, round two): D's design — the shield, the sword, the
+  // crescent staff — with C's lettering. Both paintings go along: D as the
+  // design to keep, C as the letters to copy (`titlePrompt` says which is which).
+  {
+    stem: 'single-logo-wordmark', title: 'Logo: the wordmark (the pick)', kind: 'logo', doc: 'PROMPTS-UI.md', cols: 1, rows: 1, maxEdge: 1024, exact: true, crop: 1, anchor: 'centre',
+    styleRefs: ['art-sheets/painted/single-logo-title-d.jpg', 'art-sheets/painted/lettering-c.png'],
+    cells: [{ id: 'wordmark', draw: 'svg', glyph: 'logo-d', label: 'Wordmark', target: artTarget('logo', 'wordmark'), tint: '#5fc8ff', tintName: 'sky blue', blurb: 'the game\'s title across a shield, exactly the design of the first attached logo: a big blue heater shield with a gold rim (the game\'s badge), a heroic steel sword with a gold crossguard and an ornate glowing mage\'s staff (a gold crescent cradling a big glowing cyan crystal, sparkles around it) crossed in an X behind it, and the word BATTLECROSS on ONE line across the front of the shield, running out past both of its sides — lettered exactly like the word in the second attached logo' }]
   }
 ]
 
@@ -1188,6 +1202,65 @@ const brandPrompt = (s: ArtSet, fits?: Fits): string => {
   ].join('\n')
 }
 
+/**
+ * The painted title (roadmap #76): a cartoon wordmark, the letters part of the
+ * painting. Spelling is the one thing that cannot be fixed afterwards, so it
+ * is spelled out letter by letter, and checked before anything ships.
+ */
+const titlePrompt = (s: ArtSet, fits?: Fits): string => {
+  const c = s.cells[0]
+  if (!c) throw new Error(`artSheet: ${s.stem} has no panel`)
+  const e = extent(s, fits)
+  return [
+    heading(s.title, s.stem, c.target),
+    '',
+    'WHAT COMES BACK IS ONE GAME LOGO ON A FLAT MAGENTA GROUND: the title of a cute fantasy action game for 10 to 15 year olds, painted as a cartoon wordmark.',
+    'One square image holding the logo, at the size and in the spot the attached layout reference shows it.',
+    '',
+    `ATTACHED IMAGES — there are ${(s.styleRefs?.length ?? 0) + 1}.`,
+    ...(c.id === 'wordmark'
+      ? [
+          '· The FIRST is the chosen DESIGN: keep it — the shield, the sword, the glowing crescent staff, their colours and how they sit. Repaint it, cleaner and crisper; do not redesign it. The shield stays plain blue with its gold rim (no extra trim or pattern). The sword is ONE sword: one blade, ONE gold crossguard just above its handle, its handle and pommel at the lower left — never a second guard on the blade.',
+          '· The SECOND is the chosen LETTERING, cut out on its own: replace the word in the first image with THIS word, copied exactly — its round, puffy, soft letter shapes, its smooth gradient from white at the top to light sky blue at the bottom, its glossy shine and its thick navy outline. The word in the first image (flatter letters with a hard blue band) is the WRONG lettering and must not survive. Any weapon bits showing between its letters are not part of it.'
+        ]
+      : [`· The first ${s.styleRefs?.length ?? 0} are finished paintings from this same game (its badge and its hero). Take the FINISH from them: the outline weight, the hard-edged cel shading, the bright saturated colour, the glossy highlights. They are not part of the logo: neither the badge nor the hero appears in it.`]),
+    '· The LAST image is the LAYOUT reference: where the letters and the shapes behind them go, and how big. Wherever this text says "the reference", it means that last image. Its letters are set in a plain placeholder typeface — notation for WHICH letters go WHERE, never a typeface to copy.',
+    '',
+    'THE LETTERS — spell them exactly. This is the part that cannot be wrong.',
+    '· The game is called BATTLECROSS: ONE word, eleven letters, B A T T L E C R O S S (two T after the A, two S at the end).',
+    '· ONE line. No space anywhere in it, no line break, no gap that splits it into two words: it must never read as "Battle Cross".',
+    '· Nothing else is written anywhere: no other word, letter, number, slogan, subtitle, trademark sign or signature.',
+    '· Every letter is clearly that letter at a glance: no letter merged into a shape, hidden behind the swords, or turned into a picture.',
+    '',
+    `WHAT IT IS: ${c.blurb}.`,
+    '',
+    'THE LETTERING — a hand-drawn cartoon title, the kind on the box of a top mobile game: fat, rounded and playful, white with a thick dark navy outline and a sky-blue shade on the lower half of every letter, a glossy highlight on top, with a little bounce (letters lean and sit slightly off the line, never stiff), heavy and readable. NOT a computer font, not thin, not serif, not a medieval blackletter.',
+    '',
+    'THE STAFF — a mage\'s staff worth looking at: ornate, glowing and magical (a big shining crystal, gold work, sparkles). A plain wooden stick or a monk\'s staff is the wrong answer.',
+    '',
+    'APPEAL — this is the face of the game on its splash, on store pages and on a thumbnail among forty others. Make it the most polished thing in the set: crisp, bold, bright and fun.',
+    '',
+    FINISH,
+    '',
+    STYLE_PART,
+    '',
+    'SIZE AND PLACE — measure against the image, not against a guess.',
+    `· In the reference the logo takes about ${pct(e.w)}% of the image's width and ${pct(e.h)}% of its height, centred, with a clear magenta margin on all four sides. Keep it there.`,
+    '· It must still read at 300 pixels wide, on a store tile: big letters, a bold outline, two or three big areas of colour.',
+    '',
+    BACKGROUND,
+    '',
+    GLOW,
+    '',
+    'BEFORE YOU CALL IT FINISHED, check:',
+    '· Read the letters back, one by one: B-A-T-T-L-E-C-R-O-S-S, on one line with no gap. If any letter is missing, doubled, swapped or another letter, or the word is split in two, start again.',
+    '· There is exactly one logo, and it does not reach the edge of the image.',
+    '· Every pixel that is not the logo is flat, vivid #FF00FF.',
+    '',
+    'OUTPUT: one square image (1:1), 1024 x 1024 pixels or larger. If your tool has an aspect-ratio control, set it to 1:1. PNG. No labels, captions, numbers or watermarks.'
+  ].join('\n')
+}
+
 const singlePrompt = (s: ArtSet, fits?: Fits): string => {
   const c = s.cells[0]
   if (!c) throw new Error(`artSheet: ${s.stem} has no panel`)
@@ -1412,7 +1485,7 @@ const setPrompt = (s: ArtSet, fits?: Fits): string =>
 /** One block per reference, in document order. `text` is `# heading`, a blank line, the prompt. */
 export const promptBlocks = (fits?: Fits): PromptBlock[] => [
   ...SETS.map(s => ({ doc: s.doc, stem: s.stem, title: s.title, text: setPrompt(s, fits), ...(s.styleRefs?.length ? { styleRefs: s.styleRefs } : {}) })),
-  ...SINGLES.map(s => ({ doc: s.doc, stem: s.stem, title: s.title, text: s.kind === 'logo' ? brandPrompt(s, fits) : singlePrompt(s, fits), ...(s.styleRefs?.length ? { styleRefs: s.styleRefs } : {}) })),
+  ...SINGLES.map(s => ({ doc: s.doc, stem: s.stem, title: s.title, text: s.kind === 'logo' ? (s.cells[0]?.id.startsWith('title-') || s.cells[0]?.id === 'wordmark' ? titlePrompt(s, fits) : brandPrompt(s, fits)) : singlePrompt(s, fits), ...(s.styleRefs?.length ? { styleRefs: s.styleRefs } : {}) })),
   ...SCENERY.map(a => ({ doc: a.doc, stem: a.stem, title: a.title, text: a.plate === 'map' ? mapPrompt(a) : a.plate === 'screen' ? screenPrompt(a) : groundPrompt(a) })),
   ...COVERS.map(a => ({ doc: a.doc, stem: a.stem, title: a.title, text: coverPrompt(a), styleRefs: a.styleRefs }))
 ]

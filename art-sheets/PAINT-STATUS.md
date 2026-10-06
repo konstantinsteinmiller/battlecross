@@ -4,7 +4,7 @@ A report, not a contract: it is a picture of `art-sheets/painted/` and the
 slicer's receipt at the moment it was written. Re-run `pnpm art:prompts`
 after painting or slicing anything.
 
-**35 sliced · 0 need a repaint · 0 painted, unreceipted · 0 outstanding**
+**36 sliced · 0 need a repaint · 0 painted, unreceipted · 0 outstanding**
 
 | | Sheet | Prompt block in | Reference | State |
 | --- | --- | --- | --- | --- |
@@ -38,6 +38,7 @@ after painting or slicing anything.
 | ✓ | **UI: the gold coin** | `PROMPTS-UI.md` | `single-ui-coin.png` (rev `f360573d2c98`) | sliced 2026-10-03 |
 | ✓ | **Logo: the badge (swords behind a shield)** | `PROMPTS-UI.md` | `single-logo-emblem.png` (rev `36585e1bbec8`) | sliced 2026-10-03 |
 | ✓ | **Logo: the mascot (the hero)** | `PROMPTS-UI.md` | `single-logo-mascot.png` (rev `4924603fb50a`) | sliced 2026-10-03 |
+| ✓ | **Logo: the wordmark (the pick)** | `PROMPTS-UI.md` | `single-logo-wordmark.png` (rev `3c04e7ce9c37`) | sliced 2026-10-06 |
 | ✓ | **UI: the world map terrain** | `PROMPTS-UI.md` | `bg-ui-map.png` (rev `876728296704`) | sliced 2026-10-03 |
 | ✓ | **UI: the trade table backdrop** | `PROMPTS-UI.md` | `bg-ui-trade.png` (rev `748f6cfd871f`) | sliced 2026-10-03 |
 | ✓ | **UI: the equipment backdrop** | `PROMPTS-UI.md` | `bg-ui-inventory.png` (rev `f58e29283d5b`) | sliced 2026-10-03 |

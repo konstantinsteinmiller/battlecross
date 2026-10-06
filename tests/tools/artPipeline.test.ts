@@ -215,9 +215,9 @@ describe('the manifest covers the game', () => {
     // Items, skills, portraits, the coin; the map, the ground and the three
     // screen backdrops; and every other icon (`ICON_SETS`).
     const icons = ICON_SETS.reduce((n, s) => n + s.cells.filter(c => c).length, 0)
-    // ... and the logo's badge and mascot.
+    // ... and the logo's badge and mascot, and the painted wordmark (#76).
     // The portraits: 22 speakers, the boy hero's four and the girl hero's four.
-    expect(seen.size).toBe(62 + 48 + 22 + 4 + 4 + 1 + 2 + 3 + icons + 2)
+    expect(seen.size).toBe(62 + 48 + 22 + 4 + 4 + 1 + 2 + 3 + icons + 2 + 1)
     // The catalogue `pnpm art:status` reports on is exactly what the sheets write.
     const catalogue = Object.entries(ART_CATALOGUE).flatMap(([kind, ids]) => ids.map(id => artTarget(kind as keyof typeof ART_CATALOGUE, id)))
     expect([...catalogue].sort()).toEqual([...seen].sort())
@@ -281,8 +281,8 @@ describe('the manifest covers the game', () => {
       }
       // Icons are drawn small (24 to 64 px): emblems and slots 128, the rest 96.
       const icon = s.id === 'sheet-icons-classes' || s.id === 'sheet-icons-misc' ? 128 : s.id.startsWith('sheet-icons-') ? 96 : null
-      // The logo's two are written at 512 whatever the default (`exact`).
-      const brand = s.id.startsWith('single-logo-') ? 512 : null
+      // The logo's badge and mascot are written at 512 whatever the default (`exact`), the painted titles at 1024 (#76).
+      const brand = s.id.startsWith('single-logo-title-') || s.id === 'single-logo-wordmark' ? 1024 : s.id.startsWith('single-logo-') ? 512 : null
       expect(s.maxEdge, s.id).toBe(brand ?? icon ?? (s.id.startsWith('sheet-portraits') ? 256 : s.id === 'single-ui-coin' ? 64 : 192))
       expect(!!s.exact, s.id).toBe(brand !== null)
     }
@@ -517,7 +517,7 @@ describe('what a prompt says', () => {
     for (const f of SKILL_FINISH_REFS) expect(manifestTargets().has(f.replace(/^public\//, '')), f).toBe(true)
     // Nothing else is sent with more than its own reference.
     // (The icon sheets borrow the same finish references; see their own test.)
-    for (const b of blocks) if (!b.stem.startsWith('sheet-skills-') && !b.stem.startsWith('sheet-icons-') && b.stem !== 'single-logo-mascot' && b.stem !== 'sheet-portraits-girl' && !b.stem.startsWith('cover-')) expect(b.styleRefs, b.stem).toBeUndefined()
+    for (const b of blocks) if (!b.stem.startsWith('sheet-skills-') && !b.stem.startsWith('sheet-icons-') && b.stem !== 'single-logo-mascot' && !b.stem.startsWith('single-logo-title-') && b.stem !== 'single-logo-wordmark' && b.stem !== 'sheet-portraits-girl' && !b.stem.startsWith('cover-')) expect(b.styleRefs, b.stem).toBeUndefined()
   })
 
   it('a sheet says its own grid, its blanks and its measured size', () => {

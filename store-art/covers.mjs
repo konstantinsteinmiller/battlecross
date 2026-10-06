@@ -73,9 +73,11 @@ const wordmarkSvg = () => {
 }
 
 let logoCache = null
-/** The horizontal store logo, as a transparent PNG about 1600 px wide. */
+/** The store logo, a transparent PNG: the painted wordmark (#76) when it exists, else badge + drawn letters. */
 const logoPng = async () => {
   if (logoCache) return logoCache
+  const painted = join(ROOT, 'public', 'images', 'logo', 'wordmark.webp')
+  if (existsSync(painted)) return (logoCache = await sharp(painted).trim().png().toBuffer())
   const H = 520
   const words = await sharp(Buffer.from(wordmarkSvg()), { density: 600 }).trim().png().toBuffer()
   const wm = await sharp(words).metadata()
@@ -98,7 +100,9 @@ const logoPng = async () => {
 const logoPlace = (scene, w, h, aspect) => {
   const landscape = w / h > 1.2
   const small = Math.min(w, h) <= 450
-  const width = Math.round(w * (landscape ? (small ? 0.44 : 0.36) : small ? 0.62 : 0.56))
+  // A near-square logo (the painted wordmark) is held to a share of the height instead.
+  const maxH = h * (landscape ? 0.46 : 0.42)
+  const width = Math.round(Math.min(w * (landscape ? (small ? 0.44 : 0.36) : small ? 0.62 : 0.56), maxH * aspect))
   const margin = Math.round(Math.min(w, h) * 0.045)
   const lh = Math.round(width / aspect)
   if (landscape) return { width, left: Math.max(margin, Math.round(scene.logo.x * w)), top: h - lh - margin }

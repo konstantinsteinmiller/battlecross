@@ -119,6 +119,26 @@
           display: none;
       }
 
+      /* The painted wordmark (#76) is the whole logo: the drawn lockup steps aside. */
+      .s-logo.has-wordmark svg {
+          visibility: hidden;
+      }
+
+      .s-wordmark {
+          position: absolute;
+          left: 0;
+          top: -7%;
+          width: 100%;
+          height: auto;
+          pointer-events: none;
+      }
+
+      .s-logo.has-wordmark .s-mascot {
+          right: -14%;
+          top: -30%;
+          width: 38%;
+      }
+
       .s-emblem, .s-mascot {
           position: absolute;
           display: block;
