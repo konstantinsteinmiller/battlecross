@@ -9,6 +9,7 @@ import { mulberry32, type Rng } from './rng'
 import { spawnEnemy } from './spawn'
 import { SIDE_GROUP, newAction, type ChestState, type GroupState, type LootDraw, type Sim } from './world'
 import type { ZonePlan } from './zoneGen'
+import { prizeOf } from '../gamble'
 
 /**
  * ─── Things to do besides fighting (roadmap #54–#56) ─────────────────────────
@@ -341,6 +342,12 @@ export const populateFeatures = (sim: Sim, plan: ZonePlan, zone: ZoneId, opened:
           draws.push({ kind: 'item', gold: 0, u: rng(), item: '' })
         }
       }
+    } else if (c.role === 'treasure') {
+      // The treasure map's chest (#89): a fat purse and an Epic not owned yet.
+      special = specialKey(zone, c.role)
+      draws = [{ kind: 'gold', gold: secretGold(sim.level) * 3, u: 0, item: '' }]
+      const prize = prizeOf(4, sim.owned, (sim.seed ^ LOOT_SALT) >>> 0)
+      if (prize) draws.push({ kind: 'item', gold: 0, u: 0, item: prize.id })
     } else draws = rollChest(loot.tables[c.tier], rng)
     sim.chests.push({
       id: c.id, x: c.x, z: c.z, sx: c.sx, sz: c.sz, tier, role: c.role, state: c.door >= 0 ? 'hidden' : 'closed',

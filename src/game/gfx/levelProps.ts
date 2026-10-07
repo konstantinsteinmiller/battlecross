@@ -19,7 +19,7 @@ import { LIQUIDS, WATER_Y, wetCell, type Theme } from './terrain'
 import { groundAt } from './ground'
 import type { Vfx } from './vfx'
 import { DummyProp } from './dummyProp'
-import { plantGeometry } from './plants'
+import { mapPieceGeometry, plantGeometry } from './plants'
 import { PLANT_BY_ID, isPlant, type PlantId } from '../data/plants'
 import { markStill, splitByTile } from './cull'
 import type { Slice } from '../engine/slicer'
@@ -120,7 +120,9 @@ const CHEST_RING: Record<ChestTier, string> = { wood: '#ffd84a', iron: '#9fdcff'
 
 interface HerbView {
   id: number
-  kind: PlantId
+  /** A herb, or a piece of the treasure map (#89, `piece` its id). */
+  kind: PlantId | 'piece'
+  piece?: string
   root: Group
   x: number
   z: number
@@ -818,6 +820,15 @@ export class LevelProps {
       const glow = new Mesh(g.glow, glowVC())
       glow.visible = false
       root.add(base, bo, glow, lid)
+      // The treasure map's chest (#89): half sunk in a heap of dug earth, an X
+      // painted beside it (two strokes at two heights: never one plane).
+      if (c.role === 'treasure') {
+        const dirt = this.treasureGeo()
+        root.add(new Mesh(dirt, celVC()))
+        const dl = new Mesh(dirt, outlineMat())
+        dl.renderOrder = -1
+        root.add(dl)
+      }
       const open = c.state === 'open'
       const view: ChestView = {
         id: c.id, tier: c.tier, root, lid, glow, open: open ? 1 : 0, aim: open ? 1 : 0, liftT: 0, popT: -1,
@@ -830,6 +841,22 @@ export class LevelProps {
   }
 
   private buildHerbs(): void {
+    // The treasure map's pieces (#89): a rolled scrap with a glowing seal.
+    this.sim.pieces.forEach((p, i) => {
+      const g = mapPieceGeometry()
+      const root = new Group()
+      root.position.set(p.x, groundAt(p.x, p.z), p.z)
+      root.rotation.y = (i * 2.399 + 0.6) % (Math.PI * 2)
+      root.scale.setScalar(HERB_SCALE)
+      const body = new Mesh(g.lit, celVC())
+      const line = new Mesh(g.lit, outlineMat())
+      line.renderOrder = -1
+      root.add(body, line)
+      if (g.glow) root.add(new Mesh(g.glow, glowVC()))
+      root.visible = !p.taken
+      this.root.add(root)
+      this.herbs.push({ id: -1 - i, kind: 'piece', piece: p.id, root, x: p.x, z: p.z, popT: -1, glint: 0.3 + i * 0.5, phase: i * 2.1 })
+    })
     for (const h of this.sim.herbs) {
       if (!isPlant(h.kind)) continue
       const g = plantGeometry(h.kind)
@@ -848,6 +875,21 @@ export class LevelProps {
     }
   }
 
+  private treasureGeoCache: BufferGeometry | null = null
+  /** The heap of earth round the buried chest, and its X (in the chest's space). */
+  private treasureGeo(): BufferGeometry {
+    if (this.treasureGeoCache) return this.treasureGeoCache
+    const g = merge([
+      xform(paint(sph(1, 14, 8), '#8a5f3a'), [0, 0.02, 0], [0, 0, 0], [0.95, 0.22, 0.8]),
+      xform(paint(sph(1, 10, 6), '#a8774a'), [0.55, 0.05, 0.35], [0, 0, 0], [0.32, 0.14, 0.26]),
+      xform(paint(sph(1, 10, 6), '#d8423a'), [0, 0.035, 1.05], [0, Math.PI / 4, 0], [0.5, 0.03, 0.09]),
+      xform(paint(sph(1, 10, 6), '#d8423a'), [0, 0.06, 1.05], [0, -Math.PI / 4, 0], [0.5, 0.03, 0.09])
+    ])
+    this.owned.push(g)
+    this.treasureGeoCache = g
+    return g
+  }
+
   /** Picked: it hops into the air in a puff of its colour, and is gone. */
   private onHerb(e: Extract<SimEvent, { t: 'herb' }>): void {
     const v = this.herbs.find(x => x.id === e.id)
@@ -861,6 +903,18 @@ export class LevelProps {
     sfx('uiEquip', this.pan(e.x))
   }
 
+  /** A map piece picked up: it flies to the hero in a golden swirl. */
+  private onPiece(e: Extract<SimEvent, { t: 'piece' }>): void {
+    const v = this.herbs.find(x => x.piece === e.id)
+    if (v) v.popT = 0
+    const col = '#ffd24a'
+    this.vfx.ring(e.x, e.z, 0.2, 1.8, col, 0.55)
+    this.vfx.particles.riseRing(e.x, 0.3, e.z, col, 0.6, this.low ? 8 : 16)
+    this.vfx.orb(e.x, 0.5, e.z, this.heroX, 1.0, this.heroZ, 0.2, col, '#ffffff', 0.45, 1.4)
+    pushHud({ t: 'toast', key: 'toast.piece', icon: 'scroll' })
+    sfx('uiLearn', this.pan(e.x))
+  }
+
   // ─── Events ────────────────────────────────────────────────────────────────
 
   private pan(x: number): number {
@@ -872,6 +926,7 @@ export class LevelProps {
     switch (e.t) {
       case 'chest': this.onChest(e); break
       case 'herb': this.onHerb(e); break
+      case 'piece': this.onPiece(e); break
       case 'pickup': {
         const what = e.what
         const color = what === 'mana' ? '#6ab8ff' : what === 'potion' ? '#ff6a7a' : '#7dff8a'

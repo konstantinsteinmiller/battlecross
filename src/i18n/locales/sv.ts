@@ -102,7 +102,8 @@ export default {
     levelUp: 'Nivå {level}! +3 attributpoäng',
     boss: '{boss} dyker upp',
     wave: 'Våg {n}',
-    herb: 'Plockade: {plant}'
+    herb: 'Plockade: {plant}',
+    piece: 'En bit av skattkartan!'
   },
   coach: {
     move: {
@@ -1137,6 +1138,14 @@ export default {
     },
     oakGambler: {
       name: 'Silkeslena Ren'
+    },
+    sbCollector: {
+      name: 'Alder Vane',
+      talk: 'Sällsynta saker, för sällsynta vänner. Rör ingenting med syltfingrar.'
+    },
+    sbFence: {
+      name: 'Mirela Thorne',
+      talk: 'Fina rustningar, inga frågor. Nåja, väldigt få frågor.'
     }
   },
   quest: {
@@ -1656,6 +1665,11 @@ export default {
       },
       bye: {
         '1': 'Kom tillbaka till oss helskinnad. Det är allt jag ber om.'
+      },
+      map: {
+        '1': 'Kapten Rooks karta! Han rev sönder den och gömde bitarna innan goblins fick tag i honom.',
+        '2': 'Hitta alla sex, så visar krysset vägen: någonstans i Askklipporna. Gräv där, så är guldet ditt.',
+        say: 'Jag har hittat en bit av en gammal karta.'
       }
     },
     sunfordHealer: {
@@ -3341,6 +3355,82 @@ export default {
       bye: {
         '1': 'Akta pungen där ute. Alla spelar inte ärligt.'
       }
+    },
+    sbCollector: {
+      hello: {
+        '1': 'Stäng dörren, det drar. Malarna är ute efter mina gobelänger.',
+        '2': 'Alder Vane. Vissa kallar mig Samlaren. Jag köper sällsynta saker och säljer dem till folk jag gillar.'
+      },
+      open: {
+        '1': 'Där är du ju! Kom in, kom in. Jag har dammat av något speciellt åt dig.'
+      },
+      again: {
+        '1': 'Du igen. Du har visst fortfarande inte gjort mig den där tjänsten.'
+      },
+      trade: {
+        '1': 'Skåpen är öppna. Bara det bästa, och jag minns varje pris.'
+      },
+      favor: {
+        '1': 'Inte till främlingar. Men gör mig en tjänst, så blir vi vänner.',
+        '2': 'Trädväsen i Viskande skogen vaktar månklockorna jag behöver. Besegra sex av dem och ge mig tre månklockor.',
+        say: 'Säljer du något?'
+      },
+      waiting: {
+        '1': 'Sex trädväsen, tre månklockor. Månklockorna plockar tyvärr inte sig själva.',
+        say: 'Angående den där tjänsten...'
+      },
+      favorDone: {
+        '1': 'Åh, de doftar fortfarande skog! Underbart.',
+        '2': 'Lovat är lovat. Mina skåp står öppna för dig, när du vill.',
+        say: 'Här är dina månklockor.'
+      },
+      who: {
+        '1': 'Jag har samlat sedan jag var sex. Först var det knappar. Nu är det svärd som surrar.'
+      },
+      shopBack: {
+        '1': 'Var rädd om den. Den är äldre än oss båda.'
+      },
+      bye: {
+        '1': 'Stäng dörren efter dig. Försiktigt, vaserna skramlar.'
+      }
+    },
+    sbFence: {
+      hello: {
+        '1': 'Du stirrar. Köp något eller sluta stå i ljuset för mig.',
+        '2': 'Mirela Thorne. Jag hittar saker som folk tappar bort. Sedan hittar jag nya ägare åt dem.'
+      },
+      open: {
+        '1': 'Ah, min favorithjälte. Jag har sparat det fina under tyget åt dig.'
+      },
+      again: {
+        '1': 'Tillbaka? Kom ihåg vad jag bad om. Sedan kan vi göra affärer.'
+      },
+      trade: {
+        '1': 'Rustningar från alla håll. Fråga inte varifrån. Allt är rent nu, jag lovar.'
+      },
+      favor: {
+        '1': 'Bra rustningar. För vänner. Och vänner gör varandra tjänster.',
+        '2': 'Banditer i Oakhavens utkanter rånar hela tiden mina leveranser. Besegra femton och fråga sedan krimskramsgrabben vem som skickar dem.',
+        say: 'Vad finns under tyget?'
+      },
+      waiting: {
+        '1': 'Femton banditer, sedan ett snack med krimskramsgrabben. Iväg med dig.',
+        say: 'Angående de där banditerna...'
+      },
+      favorDone: {
+        '1': 'Så det var skvallerbyttan hela tiden. Ha! Jag står i skuld till dig.',
+        '2': 'Lyft på tyget när du vill. Vänner får välja först.',
+        say: 'Banditerna är besegrade, och jag vet vem som skickade dem.'
+      },
+      who: {
+        '1': 'Jag växte upp på de här trapporna vid floden. Allt som flyter förbi hamnar hos mig förr eller senare.'
+      },
+      shopBack: {
+        '1': 'Bär den med stil. Och om någon frågar köpte du den i Ironhold.'
+      },
+      bye: {
+        '1': 'Akta din börs. Alla här är inte lika ärliga som jag.'
+      }
     }
   },
   enemy: {
@@ -3826,5 +3916,16 @@ export default {
   gamble: {
     prize: 'Pris: {item}!',
     prizeGold: 'Du har redan alla, så du får {n} guld i stället!'
+  },
+  errand: {
+    collectorFavor: {
+      title: 'Samlarens månklockor'
+    },
+    mirelaFavor: {
+      title: 'Mirelas försvunna leveranser'
+    },
+    treasureMap: {
+      title: 'Kapten Rooks skattkarta'
+    }
   }
 }

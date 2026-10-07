@@ -302,6 +302,9 @@ export interface NpcDef {
   quest?: string
   /** Gamblers (roadmap #91, #92): the game at their table. */
   game?: 'memory' | 'items'
+  /** A secret trader (roadmap #86): no sign and no shop until this world
+   *  flag is set (their errand handed in); a townsperson to talk to till then. */
+  secret?: string
   /** Shown only while every flag in `needs` is set and none in `not`. */
   needs?: string[]
   not?: string[]
@@ -478,6 +481,9 @@ export const TOWNS: Readonly<Record<TownId, TownDef>> = {
       { id: 'sbArmorer', role: 'shop', look: 'sbArmorer', at: [0.3, 0.48], place: 'porch', house: 'workshop', job: 'smith', stock: { slots: ['head', 'body', 'hands', 'feet', 'off'], tiers: [2, 3, 4] } },
       // The memory stand (#91): cards on a cloth, an hourglass, a showman.
       { id: 'sbGambler', role: 'gambler', look: 'sbGambler', at: [0.28, 0.36], place: 'street', job: 'merchant', game: 'memory' },
+      // The secret traders (#86, D108): no sign over them until their favour is done.
+      { id: 'sbCollector', role: 'shop', look: 'sbCollector', at: [0.62, 0.76], place: 'inside', house: 'townhouse', job: 'merchant', secret: 'collectorOpen', stock: { slots: ['main', 'off', 'trinket'], tiers: [3, 4] } },
+      { id: 'sbFence', role: 'shop', look: 'sbFence', at: [0.92, 0.84], place: 'street', job: 'fence', secret: 'mirelaOpen', stock: { slots: ['head', 'body', 'hands', 'feet'], tiers: [3, 4] } },
       // The alchemist (#87): brews the herbs the hero picks into elixirs.
       { id: 'sbAlchemist', role: 'alchemist', look: 'sbAlchemist', at: [0.9, 0.48], place: 'inside', house: 'townhouse', job: 'alchemist' },
       { id: 'sbWeapons', role: 'shop', look: 'sbWeapons', at: [0.75, 0.48], place: 'inside', house: 'townhouse', job: 'merchant', stock: { slots: ['main', 'off'], tiers: [2, 3, 4] } },

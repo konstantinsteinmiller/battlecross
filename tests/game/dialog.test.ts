@@ -31,7 +31,7 @@ interface Fake extends DialogHost {
 const fake = (over: Partial<Fake['w']> = {}): Fake => {
   const w: Fake['w'] = {
     level: 1, gold: 0, attrs: startAttrs(), flags: new Set(), rep: { order: 0, syndicate: 0, circle: 0 }, quests: {},
-    cleared: new Set(), said: new Set(), ...over
+    cleared: new Set(), said: new Set(), errands: {}, ...over
   }
   const log: string[] = []
   const offers: Record<string, Offer | null> = {}
@@ -51,7 +51,8 @@ const fake = (over: Partial<Fake['w']> = {}): Fake => {
     },
     open: (win: TalkWindow) => { log.push(`open:${win}`) },
     offer: id => offers[id] ?? null,
-    buy: (id) => { const o = offers[id]; if (!o || o.block) return false; w.gold -= o.price; log.push(`buy:${id}`); return true }
+    buy: (id) => { const o = offers[id]; if (!o || o.block) return false; w.gold -= o.price; log.push(`buy:${id}`); return true },
+    errand: (id, act) => { (w.errands as Record<string, string>)[id] = act === 'start' ? 'active' : 'done'; log.push(`errand:${id}:${act}`); return true }
   }
 }
 
@@ -375,6 +376,8 @@ const worldFor = (conv: string, ...conds: Array<Cond | undefined>): DialogWorld 
     for (const n of c.cleared ?? []) h.w.cleared.add(n)
     for (const k of c.said ?? []) h.w.said.add(k.includes('.') ? k : `${conv}.${k}`)
     if (c.met) h.w.said.add(conv)
+    // An errand where the condition wants it (the first of a list).
+    for (const id in c.errand) { const v = c.errand[id]!; (h.w.errands as Record<string, string>)[id] = typeof v === 'string' ? v : v[0]! }
     if (c.any?.length) apply(c.any[0])
   }
   for (const c of conds) apply(c)

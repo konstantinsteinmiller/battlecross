@@ -102,7 +102,8 @@ export default {
     levelUp: 'Niveau {level} ! +3 points d’attribut',
     boss: '{boss} apparaît',
     wave: 'Vague {n}',
-    herb: 'Cueilli : {plant}'
+    herb: 'Cueilli : {plant}',
+    piece: 'Un morceau de la carte au trésor !'
   },
   coach: {
     move: {
@@ -1138,6 +1139,14 @@ export default {
     },
     oakGambler: {
       name: 'Silky Ren'
+    },
+    sbCollector: {
+      name: 'Alder Vane',
+      talk: 'Des pièces rares, pour des amis rares. Ne touche à rien avec de la confiture sur les doigts.'
+    },
+    sbFence: {
+      name: 'Mirela Thorne',
+      talk: 'De belles armures, sans questions. Bon, très peu de questions.'
     }
   },
   quest: {
@@ -1666,6 +1675,11 @@ export default {
       },
       bye: {
         '1': 'Reviens-nous en un seul morceau. C’est tout ce que je demande.'
+      },
+      map: {
+        '1': 'La carte du capitaine Rook ! Il l’a déchirée et a caché les morceaux avant que les gobelins ne l’attrapent.',
+        '2': 'Trouve les six, et le X te montrera le chemin : quelque part dans les Rocs de Cendre. Creuse là-bas, et l’or est à toi.',
+        say: 'J’ai trouvé un morceau d’une vieille carte.'
       }
     },
     sunfordHealer: {
@@ -3376,6 +3390,82 @@ export default {
       bye: {
         '1': 'Surveille ta bourse dehors. Tout le monde ne joue pas franc jeu.'
       }
+    },
+    sbCollector: {
+      hello: {
+        '1': 'Ferme la porte, il y a un courant d’air. Les mites en veulent à mes tapisseries.',
+        '2': 'Alder Vane. Certains m’appellent le Collectionneur. J’achète des choses rares, et je les vends aux gens que j’aime bien.'
+      },
+      open: {
+        '1': 'Ah, te voilà ! Entre, entre. J’ai épousseté quelque chose de spécial pour toi.'
+      },
+      again: {
+        '1': 'Encore toi. Toujours pas rendu ce petit service, à ce que je vois.'
+      },
+      trade: {
+        '1': 'Les vitrines sont ouvertes. Que le meilleur, et je me souviens de chaque prix.'
+      },
+      favor: {
+        '1': 'Pas aux inconnus. Mais rends-moi un service, et nous serons amis.',
+        '2': 'Des tréants des Bois Murmurants gardent les cloches-de-lune dont j’ai besoin. Bats-en six et rapporte-moi trois cloches-de-lune.',
+        say: 'Tu vends quelque chose ?'
+      },
+      waiting: {
+        '1': 'Six tréants, trois cloches-de-lune. Les cloches-de-lune ne vont pas se cueillir toutes seules, hélas.',
+        say: 'À propos de ce service...'
+      },
+      favorDone: {
+        '1': 'Oh, elles sentent encore la forêt ! Merveilleux.',
+        '2': 'Marché conclu. Mes vitrines te sont ouvertes, quand tu veux.',
+        say: 'J’ai tes cloches-de-lune.'
+      },
+      who: {
+        '1': 'Je collectionne depuis mes six ans. D’abord des boutons. Maintenant, des épées qui bourdonnent.'
+      },
+      shopBack: {
+        '1': 'Prends soin de cette pièce. Elle est plus vieille que nous deux.'
+      },
+      bye: {
+        '1': 'Ferme la porte derrière toi. Doucement, les vases tremblent.'
+      }
+    },
+    sbFence: {
+      hello: {
+        '1': 'Tu me fixes. Achète quelque chose ou arrête de me cacher la lumière.',
+        '2': 'Mirela Thorne. Je trouve ce que les gens perdent. Puis je lui trouve un nouveau propriétaire.'
+      },
+      open: {
+        '1': 'Ah, te revoilà. J’ai gardé le meilleur pour toi, sous la toile.'
+      },
+      again: {
+        '1': 'De retour ? Souviens-toi de ce que je t’ai demandé. Ensuite, on parlera affaires.'
+      },
+      trade: {
+        '1': 'Des armures de partout. Ne demande pas d’où. Tout est propre maintenant, promis.'
+      },
+      favor: {
+        '1': 'De bonnes armures. Pour les amis. Et les amis se rendent service.',
+        '2': 'Des bandits des Abords d’Oakhaven pillent sans arrêt mes livraisons. Bats-en quinze, puis demande au gamin aux babioles qui les envoie.',
+        say: 'Qu’y a-t-il sous la toile ?'
+      },
+      waiting: {
+        '1': 'Quinze bandits, puis un mot avec le gamin aux babioles. Allez, file.',
+        say: 'À propos de ces bandits...'
+      },
+      favorDone: {
+        '1': 'Alors c’était cette pipelette depuis le début. Ha ! Je t’en dois une.',
+        '2': 'Soulève la toile quand tu veux. Les amis choisissent en premier.',
+        say: 'Les bandits sont battus, et je sais qui les envoyait.'
+      },
+      who: {
+        '1': 'J’ai grandi sur les marches du fleuve. Tout ce qui flotte finit chez moi, tôt ou tard.'
+      },
+      shopBack: {
+        '1': 'Porte ça fièrement. Et si on te demande, ça vient d’Ironhold.'
+      },
+      bye: {
+        '1': 'Surveille ta bourse. Tout le monde ici n’est pas aussi honnête que moi.'
+      }
     }
   },
   enemy: {
@@ -3866,5 +3956,16 @@ export default {
   gamble: {
     prize: 'Prix : {item} !',
     prizeGold: 'Tu les as déjà tous, alors tu reçois {n} pièces d’or à la place !'
+  },
+  errand: {
+    collectorFavor: {
+      title: 'Les cloches-de-lune du Collectionneur'
+    },
+    mirelaFavor: {
+      title: 'Les livraisons disparues de Mirela'
+    },
+    treasureMap: {
+      title: 'La carte au trésor du capitaine Rook'
+    }
   }
 }

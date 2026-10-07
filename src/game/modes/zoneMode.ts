@@ -87,6 +87,9 @@ export interface ZoneSetup {
   encounter?: string[][]
   /** The encounter is the caravan's road (#85): guard the cart to the end. */
   escort?: boolean
+  /** The treasure map (#89): its pieces lying here, and the X once it is whole. */
+  pieces?: string[]
+  treasure?: boolean
   /** The colosseum's weekly modifier (roadmap #10). */
   arenaMod?: ArenaMod
   flags: ReadonlySet<string>
@@ -252,6 +255,7 @@ export class ZoneMode implements GameMode {
           ? generateEncounter(setup.encounter, setup.seed, { escort: setup.escort })
           : generateZone(ZONES[setup.zone!], setup.seed, {
             tutorial: setup.tutorial, openingPack: setup.tutorial ? OPENING.pack : undefined, ambush: setup.ambush, extra: setup.extra,
+            pieces: setup.pieces, treasure: setup.treasure,
             // DEV: `?branches=0` plays the zone as one road (the perf A/B arm of roadmap #70).
             ...(import.meta.env.DEV && typeof location !== 'undefined' && new URLSearchParams(location.search).get('branches') === '0' ? { branches: false } : {})
           })

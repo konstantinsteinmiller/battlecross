@@ -20,6 +20,7 @@ import { FORGE_MAX, forgeCost } from '../data/forge'
 import { HERB_CAP, isPlant } from '../data/plants'
 import { ELIXIR_BY_ID, ELIXIR_CAP, ELIXIR_IDS, brewFee, isElixir, type ElixirId } from '../data/elixirs'
 import { BATTLE_MIN_ITEMS, BATTLE_ROW, MEMORY_ROW, battleFee, battleXp, prizeOf } from '../gamble'
+import { DUG_FLAG, MAP_PIECES, TREASURE_ERRAND, TREASURE_ZONE, isPiece, piecesIn } from '../data/treasure'
 import { ESCORT_PAY, TASK_XP, countTaskDeeds, postTasks, taskGold, type TaskDeeds, type TownTask } from '../townTasks'
 import { errandDef, type ErrandDef, type ErrandReward } from '../data/errands'
 import { countTalk, countVisit, errandState, handInCost, settle, type ErrandDeeds, type ErrandSave, type ErrandState, type ErrandWorld } from '../errands'
@@ -983,6 +984,32 @@ export const sellItem = (id: string): boolean => {
   saveProfile()
   return true
 }
+
+// ─── The treasure map (roadmap #89, D112) ────────────────────────────────────
+
+/** Pieces picked up on a visit, into the save. The first one starts the errand. */
+export const addPieces = (ids: readonly string[]): number => {
+  let added = 0
+  for (const id of ids) if (isPiece(id) && !profile.world.pieces.includes(id)) { profile.world.pieces.push(id); added++ }
+  if (added && !profile.quests.errands[TREASURE_ERRAND]) startErrand(TREASURE_ERRAND)
+  return added
+}
+
+/** The buried chest was dug up: the errand is done, by itself. */
+export const markTreasureDug = (): void => {
+  if (!profile.world.flags.includes(DUG_FLAG)) profile.world.flags.push(DUG_FLAG)
+  // The pieces step is behind it by now: the save moves on to the dig, done.
+  const save = profile.quests.errands[TREASURE_ERRAND]
+  const def = errandDef(TREASURE_ERRAND)
+  if (save && def) settle(def, save, errandWorld())
+  if (errandStateOf(TREASURE_ERRAND) === 'ready') completeErrand(TREASURE_ERRAND)
+}
+
+/** What a zone visit lays of the map: its pieces still lying, and the X once the map is whole. */
+export const treasureFor = (zone: string): { pieces: string[]; treasure: boolean } => ({
+  pieces: piecesIn(zone, profile.world.pieces),
+  treasure: zone === TREASURE_ZONE && profile.world.pieces.length >= MAP_PIECES.length && !profile.world.flags.includes(DUG_FLAG)
+})
 
 // ─── The gamblers (roadmap #91, #92, D110, D111, D113) ──────────────────────
 

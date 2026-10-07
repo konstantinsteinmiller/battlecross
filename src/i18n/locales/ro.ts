@@ -102,7 +102,8 @@ export default {
     levelUp: 'Nivelul {level}! +3 puncte de atribut',
     boss: 'Apare: {boss}',
     wave: 'Valul {n}',
-    herb: 'Ai cules: {plant}'
+    herb: 'Ai cules: {plant}',
+    piece: 'O bucată din harta comorii!'
   },
   coach: {
     move: {
@@ -1137,6 +1138,14 @@ export default {
     },
     oakGambler: {
       name: 'Silky Ren'
+    },
+    sbCollector: {
+      name: 'Alder Vane',
+      talk: 'Piese rare, pentru prieteni rari. Nu atinge nimic cu degetele pline de dulceață.'
+    },
+    sbFence: {
+      name: 'Mirela Thorne',
+      talk: 'Armuri fine, fără întrebări. Mă rog, foarte puține întrebări.'
     }
   },
   quest: {
@@ -1662,6 +1671,11 @@ export default {
       bye: {
         '1': 'Întoarce-te la noi întreg. Doar atât cer.',
         '1__f': 'Întoarce-te la noi întreagă. Doar atât cer.'
+      },
+      map: {
+        '1': 'Harta căpitanului Rook! A rupt-o și a ascuns bucățile înainte să-l prindă goblinii.',
+        '2': 'Găsește-le pe toate șase și X-ul îți arată drumul: undeva în Stâncile de Cenușă. Sapă acolo și aurul e al tău.',
+        say: 'Am găsit o bucată dintr-o hartă veche.'
       }
     },
     sunfordHealer: {
@@ -3376,6 +3390,82 @@ export default {
       bye: {
         '1': 'Ai grijă de pungă pe-afară. Nu toată lumea joacă cinstit.'
       }
+    },
+    sbCollector: {
+      hello: {
+        '1': 'Închide ușa, e curent. Moliile vor să-mi mănânce tapiseriile.',
+        '2': 'Alder Vane. Unii îmi spun Colecționarul. Cumpăr lucruri rare și le vând oamenilor care-mi plac.'
+      },
+      open: {
+        '1': 'Ia te uită cine a venit! Intră, intră. Am șters de praf ceva special pentru tine.'
+      },
+      again: {
+        '1': 'Iar tu. Văd că tot nu mi-ai făcut favoarea aceea.'
+      },
+      trade: {
+        '1': 'Vitrinele sunt deschise. Doar ce e mai bun, și țin minte fiecare preț.'
+      },
+      favor: {
+        '1': 'Nu străinilor. Dar fă-mi o favoare și o să fim prieteni.',
+        '2': 'Copacii umblători din Pădurea Șoaptelor păzesc clopoțeii-de-Lună de care am nevoie. Învinge șase dintre ei și adu-mi trei clopoței-de-Lună.',
+        say: 'Vinzi ceva?'
+      },
+      waiting: {
+        '1': 'Șase copaci umblători, trei clopoței-de-Lună. Din păcate, clopoțeii nu se culeg singuri.',
+        say: 'Despre favoarea aceea...'
+      },
+      favorDone: {
+        '1': 'Oh, încă miros a pădure! Minunat.',
+        '2': 'Înțelegerea e înțelegere. Vitrinele mele îți stau deschise oricând.',
+        say: 'Ți-am adus clopoțeii-de-Lună.'
+      },
+      who: {
+        '1': 'Colecționez de la șase ani. Întâi au fost nasturi. Acum sunt săbii care zumzăie.'
+      },
+      shopBack: {
+        '1': 'Poartă-te frumos cu piesa asta. E mai veche decât amândoi.'
+      },
+      bye: {
+        '1': 'Închide ușa în urma ta. Încet, vazele zăngăne.'
+      }
+    },
+    sbFence: {
+      hello: {
+        '1': 'Te holbezi. Ori cumperi ceva, ori nu-mi mai sta în lumină.',
+        '2': 'Mirela Thorne. Găsesc lucrurile pe care oamenii le pierd. Apoi le găsesc stăpâni noi.'
+      },
+      open: {
+        '1': 'A, iată-te. Ți-am păstrat lucrurile bune sub pânză.'
+      },
+      again: {
+        '1': 'Te-ai întors? Ține minte ce ți-am cerut. Apoi vorbim de afaceri.'
+      },
+      trade: {
+        '1': 'Armuri de peste tot. Nu întreba de unde. Acum sunt toate curate, promit.'
+      },
+      favor: {
+        '1': 'Armuri bune. Pentru prieteni. Iar prietenii se ajută între ei.',
+        '2': 'Bandiții din Împrejurimile Oakhaven îmi tot jefuiesc transporturile. Învinge cincisprezece, apoi întreabă-l pe puștiul cu mărunțișuri cine îi trimite.',
+        say: 'Ce e sub pânză?'
+      },
+      waiting: {
+        '1': 'Cincisprezece bandiți, apoi o vorbă cu puștiul cu mărunțișuri. Hai, la drum.',
+        say: 'Despre bandiții aceia...'
+      },
+      favorDone: {
+        '1': 'Deci bârfitorul era de vină de la bun început. Ha! Îți rămân datoare.',
+        '2': 'Ridică pânza oricând vrei. Prietenii aleg primii.',
+        say: 'Bandiții sunt învinși și știu cine îi trimitea.'
+      },
+      who: {
+        '1': 'Am crescut pe treptele astea de la râu. Tot ce plutește pe aici ajunge la mine, mai devreme sau mai târziu.'
+      },
+      shopBack: {
+        '1': 'Să-ți fie de folos. Și dacă te întreabă cineva, e cumpărat din Ironhold.'
+      },
+      bye: {
+        '1': 'Ai grijă la pungă. Nu toți de aici sunt cinstiți ca mine.'
+      }
     }
   },
   enemy: {
@@ -3865,5 +3955,16 @@ export default {
   gamble: {
     prize: 'Premiu: {item}!',
     prizeGold: 'Le ai deja pe toate, așa că primești {n} aur în schimb!'
+  },
+  errand: {
+    collectorFavor: {
+      title: 'Clopoțeii-de-Lună ai Colecționarului'
+    },
+    mirelaFavor: {
+      title: 'Transporturile pierdute ale Mirelei'
+    },
+    treasureMap: {
+      title: 'Harta comorii căpitanului Rook'
+    }
   }
 }

@@ -102,7 +102,8 @@ export default {
     levelUp: 'Level {level}! +3 poin atribut',
     boss: '{boss} muncul',
     wave: 'Gelombang {n}',
-    herb: 'Dipetik: {plant}'
+    herb: 'Dipetik: {plant}',
+    piece: 'Sepotong peta harta karun!'
   },
   coach: {
     move: {
@@ -1137,6 +1138,14 @@ export default {
     },
     oakGambler: {
       name: 'Silky Ren'
+    },
+    sbCollector: {
+      name: 'Alder Vane',
+      talk: 'Barang langka, untuk teman langka. Jangan sentuh apa pun dengan jari berselai.'
+    },
+    sbFence: {
+      name: 'Mirela Thorne',
+      talk: 'Zirah bagus, tanpa pertanyaan. Yah, sedikit sekali pertanyaan.'
     }
   },
   quest: {
@@ -1656,6 +1665,11 @@ export default {
       },
       bye: {
         '1': 'Kembalilah dengan selamat. Itu saja yang kuminta.'
+      },
+      map: {
+        '1': 'Peta Kapten Rook! Dia merobeknya dan menyembunyikan potongannya sebelum para goblin menangkapnya.',
+        '2': 'Temukan keenamnya, dan tanda X akan menunjukkan jalan: di suatu tempat di Tebing Abu. Galilah di sana, dan emasnya milikmu.',
+        say: 'Aku menemukan sepotong peta tua.'
       }
     },
     sunfordHealer: {
@@ -3341,6 +3355,82 @@ export default {
       bye: {
         '1': 'Jaga dompetmu di luar sana. Tidak semua orang main jujur.'
       }
+    },
+    sbCollector: {
+      hello: {
+        '1': 'Tutup pintunya, anginnya masuk. Ngengat-ngengat mengincar permadani dindingku.',
+        '2': 'Alder Vane. Ada yang memanggilku Sang Kolektor. Aku membeli barang langka, lalu menjualnya ke orang yang kusukai.'
+      },
+      open: {
+        '1': 'Temanku! Masuk, masuk. Sudah kubersihkan sesuatu yang istimewa untukmu.'
+      },
+      again: {
+        '1': 'Kamu lagi. Rupanya belum juga membantuku, ya.'
+      },
+      trade: {
+        '1': 'Lemarinya sudah terbuka. Hanya yang terbaik, dan aku ingat setiap harganya.'
+      },
+      favor: {
+        '1': 'Tidak untuk orang asing. Tapi bantu aku, dan kita jadi teman.',
+        '2': 'Manusia Pohon di Hutan Berbisik menjaga Lonceng Bulan yang kubutuhkan. Kalahkan enam, lalu bawakan aku tiga Lonceng Bulan.',
+        say: 'Ada yang dijual?'
+      },
+      waiting: {
+        '1': 'Enam Manusia Pohon, tiga Lonceng Bulan. Sayangnya, bunganya tidak bisa memetik dirinya sendiri.',
+        say: 'Soal bantuan itu...'
+      },
+      favorDone: {
+        '1': 'Oh, masih harum hutan! Luar biasa.',
+        '2': 'Janji tetap janji. Lemari-lemariku boleh kamu lihat kapan saja.',
+        say: 'Lonceng Bulannya sudah kubawa.'
+      },
+      who: {
+        '1': 'Aku mengoleksi sejak umur enam. Awalnya kancing. Sekarang pedang yang berdengung.'
+      },
+      shopBack: {
+        '1': 'Perlakukan dengan baik. Umurnya lebih tua dari kita berdua.'
+      },
+      bye: {
+        '1': 'Tutup pintunya waktu keluar. Pelan-pelan, vasnya bergetar.'
+      }
+    },
+    sbFence: {
+      hello: {
+        '1': 'Kenapa menatap terus? Beli sesuatu, atau jangan halangi cahayaku.',
+        '2': 'Mirela Thorne. Aku menemukan barang yang hilang. Lalu kucarikan pemilik baru.'
+      },
+      open: {
+        '1': 'Ah, pahlawan favoritku. Barang bagus sudah kusimpan di bawah kain untukmu.'
+      },
+      again: {
+        '1': 'Kembali lagi? Ingat permintaanku. Setelah itu baru kita bicara bisnis.'
+      },
+      trade: {
+        '1': 'Zirah dari mana-mana. Jangan tanya dari mana. Sekarang semuanya bersih, sumpah.'
+      },
+      favor: {
+        '1': 'Zirah bagus. Untuk teman. Dan teman saling membantu.',
+        '2': 'Bandit di Pinggiran Oakhaven terus merampok kirimanku. Kalahkan lima belas, lalu tanya bocah penjual jimat siapa yang mengirim mereka.',
+        say: 'Ada apa di bawah kain itu?'
+      },
+      waiting: {
+        '1': 'Lima belas bandit, lalu bicara dengan bocah penjual jimat. Sana, pergi.',
+        say: 'Soal bandit itu...'
+      },
+      favorDone: {
+        '1': 'Jadi ternyata si tukang gosip itu. Ha! Aku berutang padamu.',
+        '2': 'Angkat kainnya kapan saja. Teman boleh pilih duluan.',
+        say: 'Banditnya sudah kalah, dan aku tahu siapa pengirimnya.'
+      },
+      who: {
+        '1': 'Aku besar di tangga sungai ini. Semua yang hanyut lewat, cepat atau lambat sampai ke tanganku.'
+      },
+      shopBack: {
+        '1': 'Pakai baik-baik. Kalau ada yang tanya, bilang belinya di Ironhold.'
+      },
+      bye: {
+        '1': 'Jaga dompetmu. Tidak semua orang di sini sejujur aku.'
+      }
     }
   },
   enemy: {
@@ -3826,5 +3916,16 @@ export default {
   gamble: {
     prize: 'Hadiah: {item}!',
     prizeGold: 'Kamu sudah punya semuanya, jadi kamu dapat {n} emas sebagai gantinya!'
+  },
+  errand: {
+    collectorFavor: {
+      title: 'Lonceng Bulan Sang Kolektor'
+    },
+    mirelaFavor: {
+      title: 'Kiriman Mirela yang hilang'
+    },
+    treasureMap: {
+      title: 'Peta harta karun Kapten Rook'
+    }
   }
 }

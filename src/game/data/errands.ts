@@ -53,7 +53,27 @@ export interface ErrandDef {
 }
 
 /** Every errand the game has. Content phases add theirs (`errandDefs`). */
-export const ERRANDS: ErrandDef[] = []
+export const ERRANDS: ErrandDef[] = [
+  // The secret traders of Silverbridge (roadmap #86, D108): a favour each,
+  // and their better stock is open to the hero for good.
+  {
+    id: 'collectorFavor', giver: 'sbCollector',
+    steps: [{ kind: 'slay', enemy: 'treant', place: 'woods', n: 6 }, { kind: 'gather', plant: 'moonbell', n: 3 }],
+    reward: { gold: 250, xp: 0.3, flags: ['collectorOpen'] }
+  },
+  // The treasure map (roadmap #89): started by the first piece found; Elder
+  // Mara knows the old story. Handed in by itself when the chest is dug up.
+  {
+    id: 'treasureMap', giver: 'elderMara',
+    steps: [{ kind: 'pieces', n: 6 }, { kind: 'dig', place: 'crags', n: 1 }],
+    reward: { xp: 0.5 }
+  },
+  {
+    id: 'mirelaFavor', giver: 'sbFence',
+    steps: [{ kind: 'slay', enemy: 'bandit', place: 'outskirts', n: 15 }, { kind: 'talk', npc: 'sbJeweler', n: 1 }],
+    reward: { gold: 200, xp: 0.3, flags: ['mirelaOpen'] }
+  }
+]
 
 /** Add errands to the game (each content module calls it once). */
 export const errandDefs = (defs: readonly ErrandDef[]): void => {

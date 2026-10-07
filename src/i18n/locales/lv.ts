@@ -102,7 +102,8 @@ export default {
     levelUp: '{level}. līmenis! +3 īpašību punkti',
     boss: 'Parādās {boss}',
     wave: 'Vilnis {n}',
-    herb: 'Noplūkts: {plant}'
+    herb: 'Noplūkts: {plant}',
+    piece: 'Dārgumu kartes gabals!'
   },
   coach: {
     move: {
@@ -1137,6 +1138,14 @@ export default {
     },
     oakGambler: {
       name: 'Zīdainais Rens'
+    },
+    sbCollector: {
+      name: 'Alders Veins',
+      talk: 'Retas lietas – retiem draugiem. Neko neaiztiec ar ievārījumā notrieptiem pirkstiem.'
+    },
+    sbFence: {
+      name: 'Mirela Torna',
+      talk: 'Lieliskas bruņas, bez jautājumiem. Nu, ar pavisam nedaudz jautājumiem.'
     }
   },
   quest: {
@@ -1670,6 +1679,11 @@ export default {
       bye: {
         '1': 'Atgriezies pie mums vesels. Tas ir viss, ko lūdzu.',
         '1__f': 'Atgriezies pie mums vesela. Tas ir viss, ko lūdzu.'
+      },
+      map: {
+        '1': 'Kapteiņa Rūka karte! Viņš to saplēsa un paslēpa gabalus, pirms goblini viņu noķēra.',
+        '2': 'Atrodi visus sešus, un X parādīs ceļu: kaut kur Pelnu klintīs. Roc tur, un zelts būs tavs.',
+        say: 'Atradu vecas kartes gabalu.'
       }
     },
     sunfordHealer: {
@@ -3401,6 +3415,82 @@ export default {
       bye: {
         '1': 'Sargā savu maku. Ne visi spēlē godīgi.'
       }
+    },
+    sbCollector: {
+      hello: {
+        '1': 'Aizver durvis, velk. Kodes tīko pēc maniem gobelēniem.',
+        '2': 'Alders Veins. Daži mani sauc par Kolekcionāru. Es pērku retas lietas un pārdodu tās tiem, kas man patīk.'
+      },
+      open: {
+        '1': 'Ā, tas esi tu! Nāc iekšā, nāc. Es tev noslaucīju putekļus no kaut kā īpaša.'
+      },
+      again: {
+        '1': 'Atkal tu. Redzu, mans lūgums joprojām gaida.'
+      },
+      trade: {
+        '1': 'Vitrīnas ir vaļā. Tikai labākais, un es atceros katru cenu.'
+      },
+      favor: {
+        '1': 'Svešiniekiem ne. Bet izdari man pakalpojumu, un mēs būsim draugi.',
+        '2': 'Kokvīri Čukstošajā mežā sargā mēnespulkstenītes, kas man vajadzīgas. Uzvari sešus un atnes man trīs mēnespulkstenītes.',
+        say: 'Vai tu kaut ko pārdod?'
+      },
+      waiting: {
+        '1': 'Seši kokvīri, trīs mēnespulkstenītes. Diemžēl tās pašas sevi neplūks.',
+        say: 'Par to lūgumu...'
+      },
+      favorDone: {
+        '1': 'Ak, tās vēl smaržo pēc meža! Brīnišķīgi.',
+        '2': 'Norunāts ir norunāts. Manas vitrīnas tev ir vaļā jebkurā laikā.',
+        say: 'Atnesu tavas mēnespulkstenītes.'
+      },
+      who: {
+        '1': 'Es krāju kopš sešu gadu vecuma. Sākumā pogas. Tagad – zobenus, kas dūc.'
+      },
+      shopBack: {
+        '1': 'Izturies pret to saudzīgi. Tas ir vecāks par mums abiem.'
+      },
+      bye: {
+        '1': 'Aizver aiz sevis durvis. Uzmanīgi, vāzes šķind.'
+      }
+    },
+    sbFence: {
+      hello: {
+        '1': 'Tu blenz. Vai nu nopērc kaut ko, vai neaizsedz man gaismu.',
+        '2': 'Mirela Torna. Es atrodu to, ko cilvēki pazaudē. Pēc tam atrodu tam jaunus saimniekus.'
+      },
+      open: {
+        '1': 'Ā, re, kur tu esi! Labākās mantas noglabāju tev zem auduma.'
+      },
+      again: {
+        '1': 'Atkal te? Atceries, ko es lūdzu. Tad varēsim runāt par darīšanām.'
+      },
+      trade: {
+        '1': 'Bruņas no visurienes. Nejautā, no kurienes. Tagad tās visas ir tīras, goda vārds.'
+      },
+      favor: {
+        '1': 'Labas bruņas. Draugiem. Un draugi cits citam izdara pakalpojumus.',
+        '2': 'Laupītāji Oukheivenas pievārtē visu laiku aplaupa manas piegādes. Uzvari piecpadsmit, tad pajautā puikam ar nieciņiem, kas viņus sūtīja.',
+        say: 'Kas ir zem auduma?'
+      },
+      waiting: {
+        '1': 'Piecpadsmit laupītāji, tad saruna ar puiku ar nieciņiem. Uz priekšu.',
+        say: 'Par tiem laupītājiem...'
+      },
+      favorDone: {
+        '1': 'Tātad visu laiku tas bija tas pļāpa! Ha! Esmu tev parādā.',
+        '2': 'Cel audumu, kad vien gribi. Draugi izvēlas pirmie.',
+        say: 'Laupītāji ir uzvarēti, un es zinu, kas viņus sūtīja.'
+      },
+      who: {
+        '1': 'Es uzaugu uz šiem upes pakāpieniem. Viss, kas peld garām, agri vai vēlu nonāk pie manis.'
+      },
+      shopBack: {
+        '1': 'Valkā uz veselību. Un, ja kāds jautā, tās ir pirktas Aironholdā.'
+      },
+      bye: {
+        '1': 'Pieskati savu maku. Ne visi te ir tik godīgi kā es.'
+      }
     }
   },
   enemy: {
@@ -3891,5 +3981,16 @@ export default {
   gamble: {
     prize: 'Balva: {item}!',
     prizeGold: 'Tev jau ir visi, tāpēc tā vietā saņem {n} zelta!'
+  },
+  errand: {
+    collectorFavor: {
+      title: 'Kolekcionāra mēnespulkstenītes'
+    },
+    mirelaFavor: {
+      title: 'Mirelas pazudušās piegādes'
+    },
+    treasureMap: {
+      title: 'Kapteiņa Rūka dārgumu karte'
+    }
   }
 }

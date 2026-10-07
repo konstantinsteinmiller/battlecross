@@ -116,6 +116,7 @@ export default {
   'toast': {
     'item': 'Found: {item}',
     'herb': 'Picked: {plant}',
+    'piece': 'A piece of the treasure map!',
     'levelUp': 'Level {level}! +3 attribute points',
     'boss': '{boss} appears',
     'wave': 'Wave {n}'
@@ -760,6 +761,8 @@ export default {
     'sbHealer': { 'name': 'Friar Ansel' },
     'sbAlchemist': { 'name': 'Odile Fernwhistle' },
     'sbGambler': { 'name': 'Madame Pell' },
+    'sbCollector': { 'name': 'Alder Vane', 'talk': 'Rare pieces, for rare friends. Touch nothing with jam on your fingers.' },
+    'sbFence': { 'name': 'Mirela Thorne', 'talk': 'Fine armour, no questions. Well, very few questions.' },
     'sunfordGambler': { 'name': 'Dob Tumbler' },
     'oakGambler': { 'name': 'Silky Ren' },
     'sbArmorer': { 'name': 'Greta Ironvein', 'talk': 'Mountain steel, river prices. Knock on anything you like.' },
@@ -877,6 +880,38 @@ export default {
       'sleep': { 'say': 'Do you ever actually sleep?', '1': 'Not at night. Pupils from every class, all practising. Something always explodes.' },
       'healBack': { '1': 'Off you go. Next time, come for tea instead of bandages.' },
       'bye': { '1': 'Mind the steps. Half my patients only tripped on them.' }
+    },
+    'sbCollector': {
+      'hello': { '1': 'Shut the door, there\'s a draught. The moths are after my tapestries.', '2': 'Alder Vane. Some call me the Collector. I buy rare things, and sell them to people I like.' },
+      'open': { '1': 'My friend! Come in, come in. I\'ve dusted something special for you.' },
+      'again': { '1': 'You again. Still haven\'t done me that favour, I see.' },
+      'trade': { '1': 'The cabinets are open. Only the best, and I remember every price.' },
+      'favor': {
+        'say': 'Do you sell anything?',
+        '1': 'Not to strangers. But do me a favour and we\'ll be friends.',
+        '2': 'Treants in the Whispering Woods guard the moonbells I need. Beat six of them and bring me three moonbells.'
+      },
+      'waiting': { 'say': 'About that favour...', '1': 'Six treants, three moonbells. The moonbells won\'t pick themselves, sadly.' },
+      'favorDone': { 'say': 'I brought your moonbells.', '1': 'Oh, they still smell of the woods! Wonderful.', '2': 'A deal\'s a deal. My cabinets are yours to look through, any time.' },
+      'who': { '1': 'I\'ve collected since I was six. First it was buttons. Now it\'s swords that hum.' },
+      'shopBack': { '1': 'Treat that one kindly. It\'s older than both of us.' },
+      'bye': { '1': 'Close the door behind you. Gently, the vases rattle.' }
+    },
+    'sbFence': {
+      'hello': { '1': 'You\'re staring. Either buy something or stop blocking my light.', '2': 'Mirela Thorne. I find things people lose. Then I find them new owners.' },
+      'open': { '1': 'Ah, my favourite hero. I kept the good stuff under the cloth for you.' },
+      'again': { '1': 'Back? Remember what I asked. Then we can talk business.' },
+      'trade': { '1': 'Armour from all over. Don\'t ask where. It\'s all clean now, I promise.' },
+      'favor': {
+        'say': 'What\'s under the cloth?',
+        '1': 'Good armour. For friends. And friends do each other favours.',
+        '2': 'Bandits in the Oakhaven outskirts keep robbing my deliveries. Beat fifteen, then ask the trinket kid who sent them.'
+      },
+      'waiting': { 'say': 'About those bandits...', '1': 'Fifteen bandits, then a word with the trinket kid. Off you go.' },
+      'favorDone': { 'say': 'The bandits are beaten, and I know who sent them.', '1': 'So it was the gossip all along. Ha! I owe you one.', '2': 'Lift the cloth whenever you like. Friends get first pick.' },
+      'who': { '1': 'I grew up on these river steps. Everything that floats past ends up with me sooner or later.' },
+      'shopBack': { '1': 'Wear it well. And if anyone asks, you bought it in Ironhold.' },
+      'bye': { '1': 'Mind your purse. Not everyone here is as honest as me.' }
     },
     'sbGambler': {
       'hello': { '1': 'Step right up! Twelve cards, one hourglass, and a purse that could double!', '2': 'Madame Pell. I never forget a face. Let\'s see if you never forget a card.' },
@@ -1309,6 +1344,11 @@ export default {
       'bye': { '1': 'Take care of yourself!' }
     },
     'elderMara': {
+      'map': {
+        'say': 'I found a piece of an old map.',
+        '1': 'Captain Rook\'s map! He tore it up and hid the pieces before the goblins caught him.',
+        '2': 'Find all six and the X shows the way: somewhere in the Ashen Crags. Dig there, and the gold is yours.'
+      },
       'hello': { '1': 'So you\'re the one from the road. Come here, let me look at you.', '2': 'I\'m Mara. I\'ve looked after this town for... oh, forty years now.' },
       'slain': { '1': 'The Hollows are quiet. It was a hard thing you did, but we sleep because of it.' },
       'pact': { '1': 'Goblins selling things in my square. You talked them into that, didn\'t you?' },
@@ -2217,6 +2257,12 @@ export default {
     'lost': 'The caravan is lost…'
   },
   // ─── The journal (roadmap #85, #86, #89): errands and how far they are ────
+  // The errands' names in the Journal (roadmap #86).
+  'errand': {
+    'collectorFavor': { 'title': 'The Collector\'s moonbells' },
+    'mirelaFavor': { 'title': 'Mirela\'s missing deliveries' },
+    'treasureMap': { 'title': 'Captain Rook\'s treasure map' }
+  },
   'journal': {
     'errands': 'Errands',
     'empty': 'Nothing in your journal yet. People in town will ask for your help.',

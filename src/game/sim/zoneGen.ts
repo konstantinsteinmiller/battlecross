@@ -10,7 +10,7 @@ import {
 import { ZONE_RELIEF, type LiquidId } from '../data/zones'
 import { buildRelief, buildTownRelief } from './relief'
 import { layTown, type TownPlan } from './town'
-import { placeHerbs, type HerbPlan } from './herbs'
+import { placeHerbs, placePieces, placeTreasure, type HerbPlan, type PiecePlan } from './herbs'
 
 /**
  * ─── Zone layouts ────────────────────────────────────────────────────────────
@@ -127,6 +127,8 @@ export interface ZonePlan {
   dummy?: { x: number; z: number }
   /** Herbs growing in the wild this visit (roadmap #88), walked over to pick. */
   herbs?: HerbPlan[]
+  /** The treasure map's pieces lying here (roadmap #89). */
+  pieces?: PiecePlan[]
   /** An escort (roadmap #85): the caravan's road, x, z pairs from start to end. */
   caravan?: { path: number[] }
 }
@@ -257,6 +259,10 @@ export interface ZoneGenOpts {
   /** False: the zone as one road, without its branches or the rock they run
    *  through (the perf A/B arm of roadmap #70). */
   branches?: boolean
+  /** The treasure map's pieces still lying in this zone (roadmap #89). */
+  pieces?: readonly string[]
+  /** The map is whole: the buried chest is here under its X. */
+  treasure?: boolean
 }
 
 export const generateZone = (def: ZoneDef, seed: number, o: ZoneGenOpts = {}): ZonePlan => {
@@ -396,7 +402,15 @@ export const generateZone = (def: ZoneDef, seed: number, o: ZoneGenOpts = {}): Z
   const start = { x: clearings[0]!.x, z: clearings[0]!.z }
   // Herbs (#88), last and on their own stream: nothing above moves for them.
   // Not on the very first visit (one thing at a time) nor on a bare chain.
-  const herbs = o.tutorial || o.bare ? [] : placeHerbs({ seed, w: Wd, h, solid, sealed, trail, kind, start, chests: features.chests }, def.theme, def.min)
+  const spots = { seed, w: Wd, h, solid, sealed, trail, kind, start, chests: features.chests }
+  const herbs = o.tutorial || o.bare ? [] : placeHerbs(spots, def.theme, def.min)
+  // The treasure map (#89), after the herbs and on streams of their own too.
+  const pieces = o.tutorial || o.bare ? [] : placePieces(spots, o.pieces ?? [], herbs)
+  const end = clearings.find(c => c.role === 'finale') ?? clearings[clearings.length - 1]!
+  const x = o.treasure && !o.tutorial && !o.bare ? placeTreasure({ ...spots, end: { x: end.x, z: end.z } }, [...herbs, ...pieces]) : null
+  if (x) {
+    features.chests.push({ id: features.chests.length, x: x.x, z: x.z, tier: 'gold', role: 'treasure', sx: x.x, sz: x.z + 1.2, door: -1, guard: -1 })
+  }
   return {
     seed, w: Wd, h, solid, trail, kind, cave, sealed, side, height, clearings,
     start,
@@ -408,6 +422,7 @@ export const generateZone = (def: ZoneDef, seed: number, o: ZoneGenOpts = {}): Z
     npcs: [],
     gates: [],
     herbs,
+    pieces,
     // The first visit opens on a calm beat: a dummy to learn to fight on.
     ...(o.tutorial ? { dummy: placeDummy(solid, h, cs, features.chests, packs[0]!) } : {})
   }

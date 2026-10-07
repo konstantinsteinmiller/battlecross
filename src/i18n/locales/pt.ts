@@ -102,7 +102,8 @@ export default {
     levelUp: 'Nível {level}! +3 pontos de atributo',
     boss: 'Surge: {boss}',
     wave: 'Onda {n}',
-    herb: 'Colhido: {plant}'
+    herb: 'Colhido: {plant}',
+    piece: 'Um pedaço do mapa do tesouro!'
   },
   coach: {
     move: {
@@ -1138,6 +1139,14 @@ export default {
     },
     oakGambler: {
       name: 'Silky Ren'
+    },
+    sbCollector: {
+      name: 'Alder Vane',
+      talk: 'Peças raras, para amigos raros. Não toque em nada com os dedos sujos de geleia.'
+    },
+    sbFence: {
+      name: 'Mirela Thorne',
+      talk: 'Armaduras finas, sem perguntas. Bom, pouquíssimas perguntas.'
     }
   },
   quest: {
@@ -1665,6 +1674,11 @@ export default {
       bye: {
         '1': 'Volte para nós inteiro. É só o que peço.',
         '1__f': 'Volte para nós inteira. É só o que peço.'
+      },
+      map: {
+        '1': 'O mapa do Capitão Rook! Ele rasgou o mapa e escondeu os pedaços antes que os goblins o pegassem.',
+        '2': 'Encontre os seis e o X mostra o caminho: em algum lugar dos Penhascos de Cinza. Cave lá, e o ouro é seu.',
+        say: 'Encontrei um pedaço de um mapa antigo.'
       }
     },
     sunfordHealer: {
@@ -3379,6 +3393,82 @@ export default {
       bye: {
         '1': 'Cuidado com a bolsa lá fora. Nem todo mundo joga limpo.'
       }
+    },
+    sbCollector: {
+      hello: {
+        '1': 'Feche a porta, está ventando. As traças estão de olho nas minhas tapeçarias.',
+        '2': 'Alder Vane. Alguns me chamam de Colecionador. Compro coisas raras e vendo para quem eu gosto.'
+      },
+      open: {
+        '1': 'Aí está você! Entre, entre. Tirei o pó de algo especial para você.'
+      },
+      again: {
+        '1': 'Você de novo. Pelo jeito ainda não me fez aquele favor.'
+      },
+      trade: {
+        '1': 'As vitrines estão abertas. Só o melhor, e eu lembro de cada preço.'
+      },
+      favor: {
+        '1': 'Não para estranhos. Mas me faça um favor e seremos amigos.',
+        '2': 'Ents no Bosque Sussurrante guardam os sinos-lunares de que preciso. Derrote seis deles e me traga três sinos-lunares.',
+        say: 'Você vende alguma coisa?'
+      },
+      waiting: {
+        '1': 'Seis ents, três sinos-lunares. Infelizmente, os sinos-lunares não se colhem sozinhos.',
+        say: 'Sobre aquele favor...'
+      },
+      favorDone: {
+        '1': 'Ah, ainda têm cheiro de floresta! Maravilha.',
+        '2': 'Trato é trato. Minhas vitrines estão abertas para você, quando quiser.',
+        say: 'Trouxe seus sinos-lunares.'
+      },
+      who: {
+        '1': 'Coleciono desde os seis anos. Primeiro foram botões. Agora são espadas que zumbem.'
+      },
+      shopBack: {
+        '1': 'Cuide bem dessa peça. Ela é mais velha que nós dois.'
+      },
+      bye: {
+        '1': 'Feche a porta ao sair. Com cuidado, os vasos chacoalham.'
+      }
+    },
+    sbFence: {
+      hello: {
+        '1': 'Você está me encarando. Compre alguma coisa ou saia da minha luz.',
+        '2': 'Mirela Thorne. Eu acho o que as pessoas perdem. Depois, acho um novo dono para isso.'
+      },
+      open: {
+        '1': 'Ah, aí está você. Guardei as coisas boas debaixo do pano para você.'
+      },
+      again: {
+        '1': 'Voltou? Lembre do que eu pedi. Depois a gente fala de negócios.'
+      },
+      trade: {
+        '1': 'Armaduras de todo canto. Não pergunte de onde. Agora está tudo limpo, prometo.'
+      },
+      favor: {
+        '1': 'Armaduras boas. Para amigos. E amigos fazem favores uns aos outros.',
+        '2': 'Bandidos nos Arredores de Oakhaven vivem roubando minhas entregas. Derrote quinze e depois pergunte ao garoto das bugigangas quem os mandou.',
+        say: 'O que tem debaixo do pano?'
+      },
+      waiting: {
+        '1': 'Quinze bandidos, depois uma conversa com o garoto das bugigangas. Vai lá.',
+        say: 'Sobre aqueles bandidos...'
+      },
+      favorDone: {
+        '1': 'Então era o fofoqueiro o tempo todo. Rá! Te devo uma.',
+        '2': 'Levante o pano quando quiser. Amigos escolhem primeiro.',
+        say: 'Os bandidos foram derrotados, e sei quem os mandou.'
+      },
+      who: {
+        '1': 'Cresci nestes degraus do rio. Tudo o que flutua por aqui acaba comigo, cedo ou tarde.'
+      },
+      shopBack: {
+        '1': 'Use com orgulho. E se alguém perguntar, foi comprado em Ironhold.'
+      },
+      bye: {
+        '1': 'Cuidado com a bolsa. Nem todo mundo aqui é tão honesto quanto eu.'
+      }
     }
   },
   enemy: {
@@ -3868,5 +3958,16 @@ export default {
   gamble: {
     prize: 'Prêmio: {item}!',
     prizeGold: 'Você já tem todos, então ganha {n} de ouro no lugar!'
+  },
+  errand: {
+    collectorFavor: {
+      title: 'Os sinos-lunares do Colecionador'
+    },
+    mirelaFavor: {
+      title: 'As entregas sumidas de Mirela'
+    },
+    treasureMap: {
+      title: 'O mapa do tesouro do Capitão Rook'
+    }
   }
 }

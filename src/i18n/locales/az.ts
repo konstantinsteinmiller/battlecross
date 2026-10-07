@@ -102,7 +102,8 @@ export default {
     levelUp: 'Səviyyə {level}! +3 atribut xalı',
     boss: '{boss} peyda oldu',
     wave: 'Dalğa {n}',
-    herb: 'Dərildi: {plant}'
+    herb: 'Dərildi: {plant}',
+    piece: 'Xəzinə xəritəsinin bir parçası!'
   },
   coach: {
     move: {
@@ -1137,6 +1138,14 @@ export default {
     },
     oakGambler: {
       name: 'Silky Ren'
+    },
+    sbCollector: {
+      name: 'Alder Vane',
+      talk: 'Nadir əşyalar nadir dostlar üçündür. Mürəbbəli barmaqla heç nəyə toxunma.'
+    },
+    sbFence: {
+      name: 'Mirela Thorne',
+      talk: 'Gözəl zireh, sual yoxdur. Yaxşı, çox az sual.'
     }
   },
   quest: {
@@ -1656,6 +1665,11 @@ export default {
       },
       bye: {
         '1': 'Bizə sağ-salamat qayıt. İstədiyim təkcə budur.'
+      },
+      map: {
+        '1': 'Kapitan Rookun xəritəsi! Qoblinlər onu tutmazdan əvvəl xəritəni cırıb, parçalarını gizlədib.',
+        '2': 'Altısını da tap, X sənə yolu göstərəcək: Kül Qayalıqlarında bir yerdə. Orada qaz, qızıl sənindir.',
+        say: 'Köhnə bir xəritənin parçasını tapdım.'
       }
     },
     sunfordHealer: {
@@ -3341,6 +3355,82 @@ export default {
       bye: {
         '1': 'Bayırda kisənizə diqqət edin. Hamı düz oynamır.'
       }
+    },
+    sbCollector: {
+      hello: {
+        '1': 'Qapını ört, cərəyan var. Güvələr divar xalçalarıma göz dikib.',
+        '2': 'Alder Vane. Bəziləri məni Kolleksiyaçı çağırır. Nadir şeylər alıram və xoşuma gələn adamlara satıram.'
+      },
+      open: {
+        '1': 'Dostum! Gəl, içəri gəl. Sənin üçün xüsusi bir şeyin tozunu silmişəm.'
+      },
+      again: {
+        '1': 'Yenə sən. Görürəm ki, o xahişimi hələ yerinə yetirməmisən.'
+      },
+      trade: {
+        '1': 'Şkaflar açıqdır. Yalnız ən yaxşıları, hər qiyməti də yadımdadır.'
+      },
+      favor: {
+        '1': 'Yad adamlara yox. Amma mənim üçün bir iş gör, dost olaq.',
+        '2': 'Pıçıldayan Meşədəki ağacadamlar mənə lazım olan ayzəngləri qoruyur. Altısını məğlub et və mənə üç ayzəng gətir.',
+        say: 'Bir şey satırsan?'
+      },
+      waiting: {
+        '1': 'Altı ağacadam, üç ayzəng. Təəssüf ki, ayzənglər özləri özlərini dərməyəcək.',
+        say: 'O xahiş barədə...'
+      },
+      favorDone: {
+        '1': 'Oh, hələ də meşə qoxuyurlar! Əla.',
+        '2': 'Söz sözdür. Şkaflarıma istədiyin vaxt baxa bilərsən.',
+        say: 'Ayzəngləri gətirdim.'
+      },
+      who: {
+        '1': 'Altı yaşımdan kolleksiya yığıram. Əvvəl düymələr idi. İndi zümzümə edən qılınclardır.'
+      },
+      shopBack: {
+        '1': 'Ondan yaxşı muğayat ol. O, ikimizdən də yaşlıdır.'
+      },
+      bye: {
+        '1': 'Çıxanda qapını ört. Yavaşca, vazalar cingildəyir.'
+      }
+    },
+    sbFence: {
+      hello: {
+        '1': 'Niyə elə baxırsan? Ya bir şey al, ya da işığımı kəsmə.',
+        '2': 'Mirela Thorne. İnsanların itirdiyi şeyləri tapıram. Sonra onlara yeni sahib tapıram.'
+      },
+      open: {
+        '1': 'Ah, sevimli qəhrəmanım. Yaxşı malları sənin üçün örtünün altında saxlamışam.'
+      },
+      again: {
+        '1': 'Qayıtdın? Nə istədiyimi unutma. Sonra iş danışarıq.'
+      },
+      trade: {
+        '1': 'Hər yerdən zireh. Haradan olduğunu soruşma. İndi hamısı təmizdir, söz verirəm.'
+      },
+      favor: {
+        '1': 'Yaxşı zireh. Dostlar üçün. Dostlar da bir-birinə yaxşılıq edir.',
+        '2': 'Oakhaven ətrafındakı quldurlar mallarımı talamaqdan əl çəkmir. On beşini məğlub et, sonra tilsim satan uşaqdan soruş ki, onları kim göndərib.',
+        say: 'Örtünün altında nə var?'
+      },
+      waiting: {
+        '1': 'On beş quldur, sonra tilsim satan uşaqla bir söhbət. Haydı, yola düş.',
+        say: 'O quldurlar barədə...'
+      },
+      favorDone: {
+        '1': 'Demək, əvvəldən o boşboğaz imiş. Ha! Sənə borcluyam.',
+        '2': 'Örtünü nə vaxt istəsən qaldır. Dostlar birinci seçir.',
+        say: 'Quldurlar məğlub oldu, onları kimin göndərdiyini də bilirəm.'
+      },
+      who: {
+        '1': 'Bu çay pillələrində böyümüşəm. Axıb keçən hər şey gec-tez mənim əlimə düşür.'
+      },
+      shopBack: {
+        '1': 'Xeyrini gör. Kimsə soruşsa, Ironholddan aldığını de.'
+      },
+      bye: {
+        '1': 'Pul kisənə diqqət et. Burada hamı mənim kimi dürüst deyil.'
+      }
     }
   },
   enemy: {
@@ -3826,5 +3916,16 @@ export default {
   gamble: {
     prize: 'Mükafat: {item}!',
     prizeGold: 'Hamısı səndə var, ona görə əvəzində {n} qızıl alırsan!'
+  },
+  errand: {
+    collectorFavor: {
+      title: 'Kolleksiyaçının ayzəngləri'
+    },
+    mirelaFavor: {
+      title: 'Mirelanın itən malları'
+    },
+    treasureMap: {
+      title: 'Kapitan Rookun xəzinə xəritəsi'
+    }
   }
 }

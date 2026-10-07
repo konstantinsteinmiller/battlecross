@@ -102,7 +102,8 @@ export default {
     levelUp: 'Nivelo {level}! +3 atributaj poentoj',
     boss: 'Aperas: {boss}',
     wave: 'Ondo {n}',
-    herb: 'Plukita: {plant}'
+    herb: 'Plukita: {plant}',
+    piece: 'Peco de la trezormapo!'
   },
   coach: {
     move: {
@@ -1137,6 +1138,14 @@ export default {
     },
     oakGambler: {
       name: 'Silka Ren'
+    },
+    sbCollector: {
+      name: 'Alder Vane',
+      talk: 'Raraj aĵoj por raraj amikoj. Tuŝu nenion per konfitaĵaj fingroj.'
+    },
+    sbFence: {
+      name: 'Mirela Thorne',
+      talk: 'Bona kiraso, sen demandoj. Nu, kun tre malmultaj demandoj.'
     }
   },
   quest: {
@@ -1656,6 +1665,11 @@ export default {
       },
       bye: {
         '1': 'Revenu al ni sendifekta. Tion mi nur petas.'
+      },
+      map: {
+        '1': 'La mapo de kapitano Rook! Li disŝiris ĝin kaj kaŝis la pecojn, antaŭ ol la koboldoj kaptis lin.',
+        '2': 'Trovu ĉiujn ses, kaj la X montros al vi la vojon: ie en la Cindraj Rokegoj. Fosu tie, kaj la oro estos via.',
+        say: 'Mi trovis pecon de malnova mapo.'
       }
     },
     sunfordHealer: {
@@ -3341,6 +3355,82 @@ export default {
       bye: {
         '1': 'Gardu vian monujon tie ekstere. Ne ĉiuj ludas honeste.'
       }
+    },
+    sbCollector: {
+      hello: {
+        '1': 'Fermu la pordon, trablovas. La tineoj ĉasas miajn gobelenojn.',
+        '2': 'Alder Vane. Iuj nomas min la Kolektanto. Mi aĉetas rarajn aferojn kaj vendas ilin al homoj, kiujn mi ŝatas.'
+      },
+      open: {
+        '1': 'Mia amiko! Envenu, envenu. Mi senpolvigis ion specialan por vi.'
+      },
+      again: {
+        '1': 'Denove vi. Vi ankoraŭ ne faris al mi tiun komplezon, mi vidas.'
+      },
+      trade: {
+        '1': 'La vitrinoj estas malfermitaj. Nur la plej bonaj aĵoj, kaj mi memoras ĉiun prezon.'
+      },
+      favor: {
+        '1': 'Ne al fremduloj. Sed faru al mi komplezon, kaj ni estos amikoj.',
+        '2': 'Arbuloj en la Flustranta Arbaro gardas la lunkampanulojn, kiujn mi bezonas. Venku ses el ili kaj alportu al mi tri lunkampanulojn.',
+        say: 'Ĉu vi vendas ion?'
+      },
+      waiting: {
+        '1': 'Ses arbuloj, tri lunkampanuloj. Bedaŭrinde la lunkampanuloj ne plukos sin mem.',
+        say: 'Pri tiu komplezo...'
+      },
+      favorDone: {
+        '1': 'Ho, ili ankoraŭ odoras je arbaro! Mirinde.',
+        '2': 'Interkonsento estas interkonsento. Miaj vitrinoj estas malfermitaj al vi iam ajn.',
+        say: 'Mi alportis viajn lunkampanulojn.'
+      },
+      who: {
+        '1': 'Mi kolektas ekde mia sesa jaro. Unue butonojn. Nun zumantajn glavojn.'
+      },
+      shopBack: {
+        '1': 'Traktu ĝin afable. Ĝi estas pli maljuna ol ni ambaŭ.'
+      },
+      bye: {
+        '1': 'Fermu la pordon post vi. Milde, la vazoj tintas.'
+      }
+    },
+    sbFence: {
+      hello: {
+        '1': 'Vi gapas. Aŭ aĉetu ion, aŭ ĉesu stari en mia lumo.',
+        '2': 'Mirela Thorne. Mi trovas aferojn, kiujn homoj perdas. Poste mi trovas por ili novajn posedantojn.'
+      },
+      open: {
+        '1': 'Ha, mia plej ŝatata heroo. La bonajn aĵojn mi kaŝis por vi sub la tolo.'
+      },
+      again: {
+        '1': 'Denove? Memoru, kion mi petis. Poste ni povos paroli pri negocoj.'
+      },
+      trade: {
+        '1': 'Kirasoj el ĉie. Ne demandu de kie. Nun ĉiuj estas puraj, mi promesas.'
+      },
+      favor: {
+        '1': 'Bona kiraso. Por amikoj. Kaj amikoj faras komplezojn unu al la alia.',
+        '2': 'Banditoj en la Ĉirkaŭaĵo de Oakhaven senĉese prirabas miajn liveraĵojn. Venku dek kvin, poste demandu la knabon kun la bagateloj, kiu sendis ilin.',
+        say: 'Kio estas sub la tolo?'
+      },
+      waiting: {
+        '1': 'Dek kvin banditoj, poste interparolo kun la knabo kun la bagateloj. Iru do!',
+        say: 'Pri tiuj banditoj...'
+      },
+      favorDone: {
+        '1': 'Do ĉiam estis tiu klaĉulo! Ha! Mi ŝuldas al vi.',
+        '2': 'Levu la tolon kiam ajn vi volas. Amikoj elektas unuaj.',
+        say: 'La banditoj estas venkitaj, kaj mi scias, kiu sendis ilin.'
+      },
+      who: {
+        '1': 'Mi kreskis sur ĉi tiuj riveraj ŝtupoj. Ĉio, kio flosas preter, frue aŭ malfrue alvenas al mi.'
+      },
+      shopBack: {
+        '1': 'Portu ĝin bone. Kaj se iu demandos, vi aĉetis ĝin en Ironhold.'
+      },
+      bye: {
+        '1': 'Gardu vian monujon. Ne ĉiuj ĉi tie estas tiel honestaj kiel mi.'
+      }
     }
   },
   enemy: {
@@ -3826,5 +3916,16 @@ export default {
   gamble: {
     prize: 'Premio: {item}!',
     prizeGold: 'Vi jam havas ĉiujn, do vi ricevas anstataŭe {n} da oro!'
+  },
+  errand: {
+    collectorFavor: {
+      title: 'La lunkampanuloj de la Kolektanto'
+    },
+    mirelaFavor: {
+      title: 'La perditaj liveraĵoj de Mirela'
+    },
+    treasureMap: {
+      title: 'La trezormapo de kapitano Rook'
+    }
   }
 }

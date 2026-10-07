@@ -102,7 +102,8 @@ export default {
     levelUp: '{level}-daraja! +3 xususiyat ochkosi',
     boss: '{boss} paydo boʻldi',
     wave: 'Toʻlqin {n}',
-    herb: 'Terildi: {plant}'
+    herb: 'Terildi: {plant}',
+    piece: 'Xazina xaritasining bir boʻlagi!'
   },
   coach: {
     move: {
@@ -1137,6 +1138,14 @@ export default {
     },
     oakGambler: {
       name: 'Silky Ren'
+    },
+    sbCollector: {
+      name: 'Alder Vane',
+      talk: 'Noyob buyumlar — noyob doʻstlar uchun. Murabbo yuqi barmoq bilan hech narsaga tegma.'
+    },
+    sbFence: {
+      name: 'Mirela Thorne',
+      talk: 'Zoʻr zirh, savolsiz. Mayli, juda kam savol bilan.'
     }
   },
   quest: {
@@ -1656,6 +1665,11 @@ export default {
       },
       bye: {
         '1': 'Bizga sogʻ-salomat qayt. Soʻrayotganim shu xolos.'
+      },
+      map: {
+        '1': 'Kapitan Rookning xaritasi! Goblinlar uni tutib olishidan oldin u xaritani yirtib, boʻlaklarini yashirib qoʻygan.',
+        '2': 'Oltitasini ham top, X senga yoʻlni koʻrsatadi: Kul qoyalarining bir joyida. Oʻsha yerni qazi, oltin seniki boʻladi.',
+        say: 'Eski xaritaning bir boʻlagini topdim.'
       }
     },
     sunfordHealer: {
@@ -3341,6 +3355,82 @@ export default {
       bye: {
         '1': 'Tashqarida hamyoningizga ehtiyot boʻling. Hamma ham halol oʻynamaydi.'
       }
+    },
+    sbCollector: {
+      hello: {
+        '1': 'Eshikni yop, shamol kiryapti. Kuyalar devor gilamlarimga koʻz tikkan.',
+        '2': 'Alder Vane. Baʼzilar meni Kolleksioner deyishadi. Noyob narsalarni sotib olaman va faqat yoqqan odamlarimga sotaman.'
+      },
+      open: {
+        '1': 'Doʻstim! Kir, kiraver. Sen uchun alohida bir narsaning changini artib qoʻydim.'
+      },
+      again: {
+        '1': 'Yana senmi. Haligi iltimosimni hali bajarmabsan-da.'
+      },
+      trade: {
+        '1': 'Javonlar ochiq. Faqat eng zoʻrlari, har bir narxi esimda.'
+      },
+      favor: {
+        '1': 'Begonalarga sotmayman. Lekin bitta iltimosimni bajar, doʻst boʻlamiz.',
+        '2': 'Shivirlovchi oʻrmondagi daraxt odamlar menga kerakli oyqoʻngʻiroqlarni qoʻriqlaydi. Oltitasini yeng va menga uchta oyqoʻngʻiroq olib kel.',
+        say: 'Biror narsa sotasanmi?'
+      },
+      waiting: {
+        '1': 'Oltita daraxt odam, uchta oyqoʻngʻiroq. Afsuski, oyqoʻngʻiroqlar oʻzini oʻzi uzmaydi.',
+        say: 'Haligi iltimos haqida...'
+      },
+      favorDone: {
+        '1': 'Voy, hali ham oʻrmon hidi kelyapti! Ajoyib.',
+        '2': 'Vaʼda — vaʼda. Javonlarimni xohlagan paytingda koʻrishing mumkin.',
+        say: 'Oyqoʻngʻiroqlarni olib keldim.'
+      },
+      who: {
+        '1': 'Olti yoshimdan beri yigʻaman. Avval tugmalar edi. Endi gʻuvillaydigan qilichlar.'
+      },
+      shopBack: {
+        '1': 'Uni ehtiyot qil. U ikkalamizdan ham keksa.'
+      },
+      bye: {
+        '1': 'Chiqayotganda eshikni yop. Sekin, guldonlar shaqillaydi.'
+      }
+    },
+    sbFence: {
+      hello: {
+        '1': 'Nega tikilib qolding? Yo biror narsa ol, yo yorugʻimni toʻsma.',
+        '2': 'Mirela Thorne. Odamlar yoʻqotgan narsalarni topaman. Keyin ularga yangi egasini topaman.'
+      },
+      open: {
+        '1': 'Oh, sevimli qahramonim. Yaxshi mollarni sen uchun mato tagida saqlab qoʻydim.'
+      },
+      again: {
+        '1': 'Qaytdingmi? Nima soʻraganimni esla. Keyin savdo haqida gaplashamiz.'
+      },
+      trade: {
+        '1': 'Har yerdan kelgan zirh. Qayerdanligini soʻrama. Hozir hammasi toza, vaʼda beraman.'
+      },
+      favor: {
+        '1': 'Yaxshi zirh. Doʻstlar uchun. Doʻstlar esa bir-biriga yaxshilik qiladi.',
+        '2': 'Oakhaven atrofidagi qaroqchilar yuklarimni talayverishyapti. Oʻn beshtasini yeng, keyin tumor sotadigan boladan ularni kim yuborganini soʻra.',
+        say: 'Mato tagida nima bor?'
+      },
+      waiting: {
+        '1': 'Oʻn beshta qaroqchi, keyin tumor sotadigan bola bilan bir ogʻiz gap. Qani, yoʻlga tush.',
+        say: 'Haligi qaroqchilar haqida...'
+      },
+      favorDone: {
+        '1': 'Demak, boshidan oʻsha gapdon ekan-da. Ha! Sendan qarzdorman.',
+        '2': 'Matoni xohlagan payt koʻtar. Doʻstlar birinchi tanlaydi.',
+        say: 'Qaroqchilar yengildi, ularni kim yuborganini ham bilaman.'
+      },
+      who: {
+        '1': 'Shu daryo zinalarida oʻsganman. Oqib oʻtgan hamma narsa ertami-kechmi menga keladi.'
+      },
+      shopBack: {
+        '1': 'Maza qilib kiy. Kimdir soʻrasa, Ironholddan oldim de.'
+      },
+      bye: {
+        '1': 'Hamyoningga ehtiyot boʻl. Bu yerda hamma ham men kabi halol emas.'
+      }
     }
   },
   enemy: {
@@ -3826,5 +3916,16 @@ export default {
   gamble: {
     prize: 'Sovgʻa: {item}!',
     prizeGold: 'Ularning hammasi sizda bor, shuning uchun oʻrniga {n} oltin olasiz!'
+  },
+  errand: {
+    collectorFavor: {
+      title: 'Kolleksionerning oyqoʻngʻiroqlari'
+    },
+    mirelaFavor: {
+      title: 'Mirelaning yoʻqolgan yuklari'
+    },
+    treasureMap: {
+      title: 'Kapitan Rookning xazina xaritasi'
+    }
   }
 }

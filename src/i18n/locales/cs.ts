@@ -102,7 +102,8 @@ export default {
     levelUp: 'Úroveň {level}! +3 body atributů',
     boss: 'Přichází: {boss}',
     wave: 'Vlna {n}',
-    herb: 'Sebráno: {plant}'
+    herb: 'Sebráno: {plant}',
+    piece: 'Kus mapy pokladu!'
   },
   coach: {
     move: {
@@ -1141,6 +1142,14 @@ export default {
     },
     oakGambler: {
       name: 'Hedvábný Ren'
+    },
+    sbCollector: {
+      name: 'Alder Vane',
+      talk: 'Vzácné kousky pro vzácné přátele. Na nic nesahej prsty od marmelády.'
+    },
+    sbFence: {
+      name: 'Mirela Thorne',
+      talk: 'Pěkná zbroj, žádné otázky. No, jen pár otázek.'
     }
   },
   quest: {
@@ -1682,6 +1691,11 @@ export default {
       },
       bye: {
         '1': 'Vrať se k nám v jednom kuse. O nic víc nežádám.'
+      },
+      map: {
+        '1': 'Mapa kapitána Rooka! Roztrhal ji a kusy schoval, než ho goblini chytili.',
+        '2': 'Najdi všech šest a X ti ukáže cestu: někde v Popelavých útesech. Tam kopej a zlato je tvoje.',
+        say: 'Mám tu kus nějaké staré mapy.'
       }
     },
     sunfordHealer: {
@@ -3426,6 +3440,82 @@ export default {
       bye: {
         '1': 'Hlídej si měšec. Ne každý hraje poctivě.'
       }
+    },
+    sbCollector: {
+      hello: {
+        '1': 'Zavři dveře, táhne tu. Moli mi jdou po tapiseriích.',
+        '2': 'Alder Vane. Někdo mi říká Sběratel. Kupuju vzácné věci a prodávám je lidem, které mám rád.'
+      },
+      open: {
+        '1': 'Á, to jsi ty! Pojď dál, pojď dál. Oprášil jsem pro tebe něco výjimečného.'
+      },
+      again: {
+        '1': 'Zase ty. Vidím, že ta laskavost pořád čeká.'
+      },
+      trade: {
+        '1': 'Vitríny jsou otevřené. Jen to nejlepší a každou cenu si pamatuju.'
+      },
+      favor: {
+        '1': 'Cizím ne. Ale prokaž mi laskavost a budeme přátelé.',
+        '2': 'Stromovci v Šeptajícím hvozdu hlídají měsíční zvonky, které potřebuju. Poraz šest z nich a přines mi tři zvonky.',
+        say: 'Prodáváš něco?'
+      },
+      waiting: {
+        '1': 'Šest stromovců, tři měsíční zvonky. Zvonky se bohužel samy neutrhnou.',
+        say: 'Kvůli té laskavosti...'
+      },
+      favorDone: {
+        '1': 'Ó, ještě voní lesem! Nádhera.',
+        '2': 'Dohoda je dohoda. Moje vitríny jsou ti kdykoli otevřené.',
+        say: 'Tady jsou tvoje měsíční zvonky.'
+      },
+      who: {
+        '1': 'Sbírám od šesti let. Nejdřív knoflíky. Teď meče, které si broukají.'
+      },
+      shopBack: {
+        '1': 'Chovej se k němu hezky. Je starší než my dva.'
+      },
+      bye: {
+        '1': 'Zavři za sebou. Opatrně, vázy cinkají.'
+      }
+    },
+    sbFence: {
+      hello: {
+        '1': 'Civíš. Buď si něco kup, nebo mi necloň.',
+        '2': 'Mirela Thorne. Nacházím věci, které lidé ztratí. A pak jim najdu nové majitele.'
+      },
+      open: {
+        '1': 'Á, tady jsi! To nejlepší jsem pro tebe schovala pod plachtou.'
+      },
+      again: {
+        '1': 'Zase tady? Pamatuj, o co jsem tě prosila. Pak můžeme mluvit o obchodu.'
+      },
+      trade: {
+        '1': 'Zbroje odevšad. Neptej se odkud. Teď je všechno čisté, slibuju.'
+      },
+      favor: {
+        '1': 'Dobrá zbroj. Pro přátele. A přátelé si prokazují laskavosti.',
+        '2': 'Bandité na předpolí Oakhavenu mi pořád přepadají zásilky. Poraz jich patnáct a pak se zeptej kluka s cetkami, kdo je poslal.',
+        say: 'Co je pod plachtou?'
+      },
+      waiting: {
+        '1': 'Patnáct banditů, pak slovo s klukem s cetkami. Tak běž.',
+        say: 'Kvůli těm banditům...'
+      },
+      favorDone: {
+        '1': 'Takže to celou dobu byl ten žvanil! Ha! Mám u tebe dluh.',
+        '2': 'Nadzvedni plachtu, kdykoli chceš. Přátelé si vybírají první.',
+        say: 'Bandité jsou poraženi a vím, kdo je poslal.'
+      },
+      who: {
+        '1': 'Vyrostla jsem na těch schodech u řeky. Všechno, co plave kolem, dřív nebo později skončí u mě.'
+      },
+      shopBack: {
+        '1': 'Nos ji s parádou. A kdyby se někdo ptal, je z Ironholdu.'
+      },
+      bye: {
+        '1': 'Hlídej si měšec. Ne každý je tu tak poctivý jako já.'
+      }
     }
   },
   enemy: {
@@ -3916,5 +4006,16 @@ export default {
   gamble: {
     prize: 'Cena: {item}!',
     prizeGold: 'Všechno už máš, takže místo toho dostáváš {n} zl.!'
+  },
+  errand: {
+    collectorFavor: {
+      title: 'Sběratelovy měsíční zvonky'
+    },
+    mirelaFavor: {
+      title: 'Mireliny ztracené zásilky'
+    },
+    treasureMap: {
+      title: 'Mapa pokladu kapitána Rooka'
+    }
   }
 }

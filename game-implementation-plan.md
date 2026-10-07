@@ -545,8 +545,26 @@ attribute buff; items are fixed named ids owned once.
   Epic not owned. The gambler lays a quality step dearer every two rounds
   into the game and every win in the row. Both windows fit a phone on its
   side. A new `gambler` role with a coin pin; three new voiced people.
-- [ ] **22.4 Secret traders** (#86).
+- [x] **22.4 Secret traders** (#86). Two people in Silverbridge with no sign
+  and no shop pin (`NpcDef.secret`): Alder Vane, the Collector, in a house on
+  the south street (weapons, off-hands, trinkets) and Mirela Thorne, a fence
+  by the river steps (armour), both Rare and Epic. Each asks a favour, the
+  game's first errands: six treants in the woods and three moonbells; fifteen
+  outskirts bandits and a word with the trinket seller. Handed in, they pay
+  gold and experience and open the shop for good. The mayor's and the
+  trinket seller's hints point at them. The dev server no longer watches the
+  voice pipeline's work folder (it stalled while `voice:gen` ran).
 - [ ] **22.5–22.8 Secret classes** (#86).
-- [ ] **22.9 Treasure map** (#89).
+- [x] **22.9 Treasure map** (#89), done before 22.5–22.8 (independent and
+  small; the classes wait on question 51). Six pieces (Plains 1, Hollows 1,
+  Woods 2, Outskirts 2) lie in their zone, on a stream of their own after the
+  herbs (packs, chests and herbs unchanged: tested), until picked up by
+  walking over them: a rolled scrap with a ribbon and a glowing seal, a
+  golden swirl and a toast. The first piece starts the Journal errand
+  "Captain Rook's treasure map" (Elder Mara tells its story); with all six,
+  the Ashen Crags hold a chest half sunk in dug earth beside a red X, out
+  along the way but never in the boss's clearing. Opening it is the dig: a
+  purse three times a secret chest's and an Epic not owned yet; the errand
+  ends by itself.
 - [ ] **23 Voice, balance, end-to-end, performance** (#93).
 - [ ] **24 Icons, then the world map** (#94).

@@ -49,6 +49,46 @@ const sbHealer = conversation('sbHealer', {
   bye: [{ id: 'bye', mood: 'amused' }]
 })
 
+/** Alder Vane, the Collector: a dusty old man in a room full of curiosities; opens his cabinets to friends only (#86). */
+const sbCollector = conversation('sbCollector', {
+  name: 'npc.sbCollector.name', look: 'sbCollector', mood: 'amused',
+  greet: [
+    { id: 'hello', when: { met: false }, lines: 'nn' },
+    { id: 'open', when: { flags: ['collectorOpen'] } },
+    { id: 'again' }
+  ],
+  topics: [
+    trade({ when: { flags: ['collectorOpen'] } }),
+    // The favour (roadmap #86): asked, waited on, handed in.
+    { id: 'favor', lines: 'nn', when: { errand: { collectorFavor: 'none' } }, fx: [{ t: 'errand', id: 'collectorFavor', act: 'start' }] },
+    { id: 'waiting', once: false, when: { errand: { collectorFavor: 'active' } } },
+    { id: 'favorDone', lines: 'nn', when: { errand: { collectorFavor: 'ready' } }, fx: [{ t: 'errand', id: 'collectorFavor', act: 'complete' }], mood: 'warm' },
+    who()
+  ],
+  back: { shop: [{ id: 'shopBack' }] },
+  bye: [{ id: 'bye' }]
+})
+
+/** Mirela Thorne: a fence by the river steps, sharp as a pin and fair to those she trusts (#86). */
+const sbFence = conversation('sbFence', {
+  name: 'npc.sbFence.name', look: 'sbFence', mood: 'sly',
+  greet: [
+    { id: 'hello', when: { met: false }, lines: 'nn' },
+    { id: 'open', when: { flags: ['mirelaOpen'] } },
+    { id: 'again' }
+  ],
+  topics: [
+    trade({ when: { flags: ['mirelaOpen'] } }),
+    // The favour (roadmap #86): asked, waited on, handed in.
+    { id: 'favor', lines: 'nn', when: { errand: { mirelaFavor: 'none' } }, fx: [{ t: 'errand', id: 'mirelaFavor', act: 'start' }] },
+    { id: 'waiting', once: false, when: { errand: { mirelaFavor: 'active' } } },
+    { id: 'favorDone', lines: 'nn', when: { errand: { mirelaFavor: 'ready' } }, fx: [{ t: 'errand', id: 'mirelaFavor', act: 'complete' }], mood: 'warm' },
+    who()
+  ],
+  back: { shop: [{ id: 'shopBack' }] },
+  bye: [{ id: 'bye' }]
+})
+
 /** Madame Pell: the memory stand's showwoman, all sparkle and sand-glass (#91). */
 const sbGambler = conversation('sbGambler', {
   name: 'npc.sbGambler.name', look: 'sbGambler', mood: 'excited',
@@ -275,7 +315,7 @@ const sbMasterBlood = conversation('sbMasterBlood', {
 })
 
 export const SILVERBRIDGE_TALK: ConversationDef[] = [
-  mayorBrenna, sbHealer, sbAlchemist, sbGambler, sbArmorer, sbWeapons, sbJeweler,
+  mayorBrenna, sbHealer, sbAlchemist, sbGambler, sbCollector, sbFence, sbArmorer, sbWeapons, sbJeweler,
   sbMasterAegis, sbMasterPyro, sbMasterShadow, sbMasterSovereign, sbMasterGeo, sbMasterAether,
   sbMasterChrono, sbMasterBlood
 ]

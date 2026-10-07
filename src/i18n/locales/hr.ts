@@ -102,7 +102,8 @@ export default {
     levelUp: 'Razina {level}! +3 boda atributa',
     boss: 'Dolazi: {boss}',
     wave: 'Val {n}',
-    herb: 'Ubrano: {plant}'
+    herb: 'Ubrano: {plant}',
+    piece: 'Komad karte s blagom!'
   },
   coach: {
     move: {
@@ -1142,6 +1143,14 @@ export default {
     },
     oakGambler: {
       name: 'Svileni Ren'
+    },
+    sbCollector: {
+      name: 'Alder Vane',
+      talk: 'Rijetki komadi za rijetke prijatelje. Ništa ne diraj prstima umrljanim pekmezom.'
+    },
+    sbFence: {
+      name: 'Mirela Thorne',
+      talk: 'Dobar oklop, bez pitanja. Dobro, uz vrlo malo pitanja.'
     }
   },
   quest: {
@@ -1684,6 +1693,11 @@ export default {
       bye: {
         '1': 'Vrati nam se čitav. To je sve što tražim.',
         '1__f': 'Vrati nam se čitava. To je sve što tražim.'
+      },
+      map: {
+        '1': 'Karta kapetana Rooka! Poderao ju je i sakrio komade prije nego što su ga goblini uhvatili.',
+        '2': 'Pronađi svih šest i X će ti pokazati put: negdje u Pepeljastim liticama. Kopaj ondje i zlato je tvoje.',
+        say: 'Imam komad neke stare karte.'
       }
     },
     sunfordHealer: {
@@ -3432,6 +3446,82 @@ export default {
       bye: {
         '1': 'Čuvaj kesu vani. Ne igraju svi pošteno.'
       }
+    },
+    sbCollector: {
+      hello: {
+        '1': 'Zatvori vrata, propuh je. Moljci su navalili na moje tapiserije.',
+        '2': 'Alder Vane. Neki me zovu Kolekcionar. Kupujem rijetke stvari i prodajem ih ljudima koje volim.'
+      },
+      open: {
+        '1': 'A, to si ti! Uđi, uđi. Obrisao sam prašinu s nečeg posebnog za tebe.'
+      },
+      again: {
+        '1': 'Opet ti. Vidim da ta usluga još čeka.'
+      },
+      trade: {
+        '1': 'Vitrine su otvorene. Samo najbolje, a pamtim svaku cijenu.'
+      },
+      favor: {
+        '1': 'Ne strancima. Ali učini mi uslugu i bit ćemo prijatelji.',
+        '2': 'Drvodivi u Šaptavoj šumi čuvaju mjesečeva zvonca koja trebam. Pobijedi njih šest i donesi mi tri zvonca.',
+        say: 'Prodaješ li nešto?'
+      },
+      waiting: {
+        '1': 'Šest drvodiva, tri mjesečeva zvonca. Nažalost, zvonca se neće sama ubrati.',
+        say: 'Što se tiče te usluge...'
+      },
+      favorDone: {
+        '1': 'O, još mirišu na šumu! Divno.',
+        '2': 'Dogovor je dogovor. Moje su ti vitrine otvorene kad god želiš.',
+        say: 'Evo tvojih mjesečevih zvonaca.'
+      },
+      who: {
+        '1': 'Skupljam od šeste godine. Prvo su bili gumbi. Sada mačevi koji pjevuše.'
+      },
+      shopBack: {
+        '1': 'Pazi na njega. Stariji je i od tebe i od mene.'
+      },
+      bye: {
+        '1': 'Zatvori vrata za sobom. Nježno, vaze zveckaju.'
+      }
+    },
+    sbFence: {
+      hello: {
+        '1': 'Buljiš. Ili nešto kupi ili mi nemoj zaklanjati svjetlo.',
+        '2': 'Mirela Thorne. Nalazim stvari koje ljudi izgube. Onda im nađem nove vlasnike.'
+      },
+      open: {
+        '1': 'A, evo te! Najbolje stvari čuvala sam za tebe ispod platna.'
+      },
+      again: {
+        '1': 'Opet ovdje? Sjeti se što sam tražila. Onda možemo razgovarati o poslu.'
+      },
+      trade: {
+        '1': 'Oklopi sa svih strana. Ne pitaj odakle. Sad je sve čisto, obećavam.'
+      },
+      favor: {
+        '1': 'Dobar oklop. Za prijatelje. A prijatelji čine usluge jedni drugima.',
+        '2': 'Razbojnici u okolici Oakhavena stalno pljačkaju moje pošiljke. Pobijedi njih petnaest, a onda pitaj klinca sa sitnicama tko ih je poslao.',
+        say: 'Što je ispod platna?'
+      },
+      waiting: {
+        '1': 'Petnaest razbojnika, pa razgovor s klincem sa sitnicama. Hajde, kreni.',
+        say: 'Što se tiče tih razbojnika...'
+      },
+      favorDone: {
+        '1': 'Znači, cijelo vrijeme to je bio onaj brbljavac! Ha! Dugujem ti.',
+        '2': 'Podigni platno kad god želiš. Prijatelji prvi biraju.',
+        say: 'Razbojnici su pobijeđeni i znam tko ih je poslao.'
+      },
+      who: {
+        '1': 'Odrasla sam na ovim riječnim stubama. Sve što pluta pokraj, prije ili kasnije završi kod mene.'
+      },
+      shopBack: {
+        '1': 'Nosi ga sa zdravljem. A ako netko pita, kupljen je u Ironholdu.'
+      },
+      bye: {
+        '1': 'Čuvaj kesu. Nije svatko ovdje pošten kao ja.'
+      }
     }
   },
   enemy: {
@@ -3922,5 +4012,16 @@ export default {
   gamble: {
     prize: 'Nagrada: {item}!',
     prizeGold: 'Već imaš sve, pa umjesto toga dobivaš {n} zlata!'
+  },
+  errand: {
+    collectorFavor: {
+      title: 'Kolekcionarova mjesečeva zvonca'
+    },
+    mirelaFavor: {
+      title: 'Mireline nestale pošiljke'
+    },
+    treasureMap: {
+      title: 'Karta s blagom kapetana Rooka'
+    }
   }
 }

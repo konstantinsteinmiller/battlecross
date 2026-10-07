@@ -57,7 +57,7 @@ export const stepSim = (sim: Sim, plan: ZonePlan, dt: number): void => {
   sim.runTimers()
   sim.stepDangers()
   if (!sim.ended || sim.ended === 'victory') stepHero(sim, dt)
-  // What the hero walks over is his: herbs (#88).
+  // What the hero walks over is his: herbs (#88), map pieces (#89).
   stepPickups(sim)
   // Rested (#9): the double-XP pool drains with fight time, never in town.
   const h = sim.hero

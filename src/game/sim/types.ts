@@ -397,6 +397,7 @@ export type SimEvent =
   | { t: 'pickup'; what: 'potion' | 'heal' | 'mana'; x: number; z: number }
   /** A herb walked over and picked (roadmap #88). */
   | { t: 'herb'; id: number; kind: string; x: number; z: number }
+  | { t: 'piece'; id: string; x: number; z: number }
   /** The escort's caravan rolls, waits for the hero, holds, arrives or is lost (#85). */
   | { t: 'caravan'; phase: 'rolling' | 'waiting' | 'held' | 'arrived' | 'lost'; x: number; z: number }
   /** A pressure plate is stepped on: in its turn (`ok`), or out of turn (the

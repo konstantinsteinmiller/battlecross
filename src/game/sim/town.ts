@@ -297,7 +297,7 @@ export const jobOf = (n: NpcDef): TownJob => {
 const SIGN_OF = (n: NpcDef): SignKind => {
   if (n.role === 'healer') return 'healer'
   if (n.role === 'trainer') return 'class'
-  if (n.role !== 'shop' || !n.stock) return n.job === 'captain' ? 'guard' : ''
+  if (n.role !== 'shop' || !n.stock || n.secret) return n.job === 'captain' ? 'guard' : ''
   if (n.id === 'blackMarket') return 'black'
   const s = n.stock.slots
   if (s.every(x => x === 'trinket')) return 'trinkets'

@@ -102,7 +102,8 @@ export default {
     levelUp: 'Nivel {level}! +3 puntos de atributo',
     boss: 'Aparece: {boss}',
     wave: 'Vaga {n}',
-    herb: 'Collido: {plant}'
+    herb: 'Collido: {plant}',
+    piece: 'Un anaco do mapa do tesouro!'
   },
   coach: {
     move: {
@@ -1138,6 +1139,14 @@ export default {
     },
     oakGambler: {
       name: 'Silky Ren'
+    },
+    sbCollector: {
+      name: 'Alder Vane',
+      talk: 'Pezas raras, para amigos raros. Non toques nada cos dedos cheos de marmelada.'
+    },
+    sbFence: {
+      name: 'Mirela Thorne',
+      talk: 'Armaduras finas, sen preguntas. Ben, moi poucas preguntas.'
     }
   },
   quest: {
@@ -1666,6 +1675,11 @@ export default {
       bye: {
         '1': 'Volve enteiro. Só che pido iso.',
         '1__f': 'Volve enteira. Só che pido iso.'
+      },
+      map: {
+        '1': 'O mapa do capitán Rook! Rachouno e agochou os anacos antes de que os trasnos o atrapasen.',
+        '2': 'Atopa os seis e o X amosarache o camiño: nalgures nos Penedos de Cinza. Cava alí, e o ouro é teu.',
+        say: 'Atopei un anaco dun mapa vello.'
       }
     },
     sunfordHealer: {
@@ -3378,6 +3392,82 @@ export default {
       bye: {
         '1': 'Coida a bolsa aí fóra. Non todo o mundo xoga limpo.'
       }
+    },
+    sbCollector: {
+      hello: {
+        '1': 'Pecha a porta, que hai corrente. As traças andan detrás dos meus tapices.',
+        '2': 'Alder Vane. Hai quen me chama o Coleccionista. Merco cousas raras e véndollas á xente que me cae ben.'
+      },
+      open: {
+        '1': 'Xa estás aquí! Entra, entra. Limpei o po a algo especial para ti.'
+      },
+      again: {
+        '1': 'Ti outra vez. Vexo que aínda non me fixeches aquel favor.'
+      },
+      trade: {
+        '1': 'As vitrinas están abertas. Só o mellor, e lembro cada prezo.'
+      },
+      favor: {
+        '1': 'A descoñecidos, non. Pero faime un favor e seremos amigos.',
+        '2': 'Unhas árbores viventes do Bosque dos Murmurios gardan as campaíñas lunares que necesito. Vence a seis e tráeme tres campaíñas lunares.',
+        say: 'Vendes algo?'
+      },
+      waiting: {
+        '1': 'Seis árbores viventes, tres campaíñas lunares. As campaíñas non se collen soas, por desgraza.',
+        say: 'Sobre aquel favor...'
+      },
+      favorDone: {
+        '1': 'Oh, aínda cheiran a bosque! Marabilloso.',
+        '2': 'Un trato é un trato. As miñas vitrinas están abertas para ti, cando queiras.',
+        say: 'Trouxen as túas campaíñas lunares.'
+      },
+      who: {
+        '1': 'Colecciono desde os seis anos. Primeiro foron botóns. Agora son espadas que zumben.'
+      },
+      shopBack: {
+        '1': 'Trata ben esta peza. É máis vella ca nós dous.'
+      },
+      bye: {
+        '1': 'Pecha a porta ao saír. Con coidado, que os vasos abanean.'
+      }
+    },
+    sbFence: {
+      hello: {
+        '1': 'Estás a mirarme fixamente. Ou mercas algo ou apártaste da miña luz.',
+        '2': 'Mirela Thorne. Atopo o que a xente perde. Despois búscolle un novo dono.'
+      },
+      open: {
+        '1': 'Ah, xa estás aquí. Gardeiche o bo debaixo do pano.'
+      },
+      again: {
+        '1': 'Volviches? Lembra o que che pedín. Despois falamos de negocios.'
+      },
+      trade: {
+        '1': 'Armaduras de todas partes. Non preguntes de onde. Agora está todo limpo, prométocho.'
+      },
+      favor: {
+        '1': 'Boas armaduras. Para os amigos. E os amigos fanse favores.',
+        '2': 'Uns bandidos dos Arredores de Oakhaven non paran de roubarme os envíos. Vence a quince e despois pregúntalle ao rapaz das bagatelas quen os manda.',
+        say: 'Que hai debaixo do pano?'
+      },
+      waiting: {
+        '1': 'Quince bandidos e despois unhas palabras co rapaz das bagatelas. Veña, vai.',
+        say: 'Sobre eses bandidos...'
+      },
+      favorDone: {
+        '1': 'Así que era o lingoreteiro desde o principio. Ha! Quedo en débeda contigo.',
+        '2': 'Levanta o pano cando queiras. Os amigos escollen primeiro.',
+        say: 'Os bandidos están vencidos, e sei quen os mandaba.'
+      },
+      who: {
+        '1': 'Crieime nestas escaleiras do río. Todo o que flota acaba comigo, cedo ou tarde.'
+      },
+      shopBack: {
+        '1': 'Lúceo con orgullo. E se alguén pregunta, mercáchelo en Ironhold.'
+      },
+      bye: {
+        '1': 'Coida da bolsa. Aquí non todos son tan honrados coma min.'
+      }
     }
   },
   enemy: {
@@ -3867,5 +3957,16 @@ export default {
   gamble: {
     prize: 'Premio: {item}!',
     prizeGold: 'Xa os tes todos, así que recibes {n} de ouro no seu lugar!'
+  },
+  errand: {
+    collectorFavor: {
+      title: 'As campaíñas lunares do Coleccionista'
+    },
+    mirelaFavor: {
+      title: 'Os envíos perdidos de Mirela'
+    },
+    treasureMap: {
+      title: 'O mapa do tesouro do capitán Rook'
+    }
   }
 }

@@ -102,7 +102,8 @@ export default {
     levelUp: 'Cấp {level}! +3 điểm thuộc tính',
     boss: '{boss} xuất hiện',
     wave: 'Đợt {n}',
-    herb: 'Đã hái: {plant}'
+    herb: 'Đã hái: {plant}',
+    piece: 'Một mảnh bản đồ kho báu!'
   },
   coach: {
     move: {
@@ -1137,6 +1138,14 @@ export default {
     },
     oakGambler: {
       name: 'Silky Ren'
+    },
+    sbCollector: {
+      name: 'Alder Vane',
+      talk: 'Đồ hiếm, cho bạn hiếm. Tay dính mứt thì đừng chạm vào gì nhé.'
+    },
+    sbFence: {
+      name: 'Mirela Thorne',
+      talk: 'Giáp tốt, không hỏi han gì. À, hỏi rất ít thôi.'
     }
   },
   quest: {
@@ -1656,6 +1665,11 @@ export default {
       },
       bye: {
         '1': 'Hãy trở về lành lặn nhé. Bà chỉ xin có vậy.'
+      },
+      map: {
+        '1': 'Bản đồ của Đội trưởng Rook! Ông ấy xé nó ra và giấu các mảnh đi trước khi bị bọn goblin bắt.',
+        '2': 'Tìm đủ cả sáu mảnh, dấu X sẽ chỉ đường: đâu đó ở Vách Đá Tro Tàn. Đào ở đó, và vàng là của cháu.',
+        say: 'Cháu tìm được một mảnh của tấm bản đồ cũ.'
       }
     },
     sunfordHealer: {
@@ -3341,6 +3355,82 @@ export default {
       bye: {
         '1': 'Ra ngoài nhớ giữ túi tiền. Không phải ai cũng chơi đẹp đâu.'
       }
+    },
+    sbCollector: {
+      hello: {
+        '1': 'Đóng cửa lại, gió lùa đấy. Lũ bướm đêm đang nhắm vào mấy tấm thảm treo của ta.',
+        '2': 'Ta là Alder Vane. Có người gọi ta là Nhà Sưu Tầm. Ta mua đồ hiếm, và chỉ bán cho người ta quý.'
+      },
+      open: {
+        '1': 'Bạn của ta! Vào đi, vào đi. Ta đã phủi bụi một món đặc biệt cho cậu.'
+      },
+      again: {
+        '1': 'Lại là cậu. Ta thấy cậu vẫn chưa giúp ta việc đó.'
+      },
+      trade: {
+        '1': 'Tủ đã mở. Toàn đồ tốt nhất, và ta nhớ từng cái giá.'
+      },
+      favor: {
+        '1': 'Ta không bán cho người lạ. Nhưng giúp ta một việc, rồi ta sẽ là bạn.',
+        '2': 'Thụ nhân ở Rừng Thì Thầm canh giữ những bông Chuông Trăng ta cần. Hạ sáu tên, rồi mang cho ta ba bông Chuông Trăng.',
+        say: 'Ông có bán gì không?'
+      },
+      waiting: {
+        '1': 'Sáu thụ nhân, ba Chuông Trăng. Tiếc là hoa không tự hái mình được.',
+        say: 'Về việc ông nhờ...'
+      },
+      favorDone: {
+        '1': 'Ồ, vẫn còn thơm mùi rừng! Tuyệt quá.',
+        '2': 'Đã hứa là giữ lời. Tủ của ta, cậu cứ xem bất cứ lúc nào.',
+        say: 'Chuông Trăng của ông đây.'
+      },
+      who: {
+        '1': 'Ta sưu tầm từ năm sáu tuổi. Lúc đầu là cúc áo. Giờ là những thanh kiếm biết ngân.'
+      },
+      shopBack: {
+        '1': 'Nâng niu nó nhé. Nó còn già hơn cả hai ta.'
+      },
+      bye: {
+        '1': 'Ra thì đóng cửa giúp ta. Nhẹ thôi, mấy cái bình rung đấy.'
+      }
+    },
+    sbFence: {
+      hello: {
+        '1': 'Nhìn gì thế? Mua gì đi, hoặc đừng chắn ánh sáng của tôi.',
+        '2': 'Mirela Thorne. Tôi tìm những thứ người ta đánh mất. Rồi tìm cho chúng chủ mới.'
+      },
+      open: {
+        '1': 'À, anh hùng tôi quý nhất. Đồ tốt tôi để dưới tấm vải cho cậu rồi.'
+      },
+      again: {
+        '1': 'Lại đến à? Nhớ việc tôi nhờ đấy. Xong rồi hẵng bàn chuyện làm ăn.'
+      },
+      trade: {
+        '1': 'Giáp từ khắp nơi. Đừng hỏi từ đâu. Giờ thì sạch cả rồi, tôi hứa.'
+      },
+      favor: {
+        '1': 'Giáp tốt. Dành cho bạn bè. Mà bạn bè thì giúp nhau.',
+        '2': 'Bọn thổ phỉ ở Ngoại Ô Oakhaven cứ cướp hàng của tôi. Hạ mười lăm tên, rồi hỏi nhóc bán bùa xem ai sai chúng đến.',
+        say: 'Dưới tấm vải có gì thế?'
+      },
+      waiting: {
+        '1': 'Mười lăm tên thổ phỉ, rồi nói chuyện với nhóc bán bùa. Đi đi.',
+        say: 'Về bọn thổ phỉ...'
+      },
+      favorDone: {
+        '1': 'Hóa ra từ đầu là cái đứa lắm chuyện đó. Ha! Tôi nợ cậu một lần.',
+        '2': 'Cứ vén vải lên khi nào thích. Bạn bè được chọn trước.',
+        say: 'Thổ phỉ đã bị hạ, và tôi biết ai sai chúng.'
+      },
+      who: {
+        '1': 'Tôi lớn lên trên những bậc đá bến sông này. Thứ gì trôi qua, sớm muộn cũng về tay tôi.'
+      },
+      shopBack: {
+        '1': 'Mặc cho đẹp nhé. Ai hỏi thì bảo mua ở Ironhold.'
+      },
+      bye: {
+        '1': 'Giữ kỹ túi tiền. Không phải ai ở đây cũng thật thà như tôi đâu.'
+      }
     }
   },
   enemy: {
@@ -3826,5 +3916,16 @@ export default {
   gamble: {
     prize: 'Phần thưởng: {item}!',
     prizeGold: 'Bạn đã có đủ cả rồi, nên nhận {n} vàng thay thế!'
+  },
+  errand: {
+    collectorFavor: {
+      title: 'Chuông Trăng của Nhà Sưu Tầm'
+    },
+    mirelaFavor: {
+      title: 'Hàng thất lạc của Mirela'
+    },
+    treasureMap: {
+      title: 'Bản đồ kho báu của Đội trưởng Rook'
+    }
   }
 }

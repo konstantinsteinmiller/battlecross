@@ -903,7 +903,9 @@ export default defineConfig(({ mode, command }) => {
       watch: {
         // Written BY tools while a page is open: recorded clips, exported
         // reference sheets. Watching them reloads the page that is writing.
-        ignored: ['**/preview-videos/**', '**/art-sheets/**']
+        // The voice pipeline's work folder holds thousands of takes: watching
+        // it while `voice:gen` writes there stalled the dev server.
+        ignored: ['**/preview-videos/**', '**/art-sheets/**', '**/vo-src/**']
       }
     },
     define: {

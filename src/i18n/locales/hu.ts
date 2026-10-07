@@ -102,7 +102,8 @@ export default {
     levelUp: '{level}. szint! +3 tulajdonságpont',
     boss: 'Megjelent: {boss}',
     wave: '{n}. hullám',
-    herb: 'Leszedve: {plant}'
+    herb: 'Leszedve: {plant}',
+    piece: 'Egy darab a kincses térképből!'
   },
   coach: {
     move: {
@@ -1137,6 +1138,14 @@ export default {
     },
     oakGambler: {
       name: 'Selymes Ren'
+    },
+    sbCollector: {
+      name: 'Alder Vane',
+      talk: 'Ritka darabok ritka barátoknak. Lekváros ujjal semmihez ne nyúlj!'
+    },
+    sbFence: {
+      name: 'Mirela Thorne',
+      talk: 'Remek páncél, kérdések nélkül. Na jó, nagyon kevés kérdéssel.'
     }
   },
   quest: {
@@ -1656,6 +1665,11 @@ export default {
       },
       bye: {
         '1': 'Egy darabban gyere vissza hozzánk. Csak ennyit kérek.'
+      },
+      map: {
+        '1': 'Rook kapitány térképe! Széttépte, és elrejtette a darabokat, mielőtt a goblinok elkapták.',
+        '2': 'Keresd meg mind a hatot, és az X megmutatja az utat: valahol a Hamuszirteken. Áss ott, és az arany a tiéd.',
+        say: 'Találtam egy darabot egy régi térképből.'
       }
     },
     sunfordHealer: {
@@ -3341,6 +3355,82 @@ export default {
       bye: {
         '1': 'Vigyázz odakint az erszényedre. Nem mindenki játszik tisztességesen.'
       }
+    },
+    sbCollector: {
+      hello: {
+        '1': 'Csukd be az ajtót, huzat van. A molyok a faliszőnyegeimre fenik a fogukat.',
+        '2': 'Alder Vane. Van, aki Gyűjtőnek hív. Ritka dolgokat veszek, és azoknak adom el őket, akiket kedvelek.'
+      },
+      open: {
+        '1': 'Ó, hát te vagy az! Gyere be, gyere be. Leporoltam neked valami különlegeset.'
+      },
+      again: {
+        '1': 'Már megint te. Látom, a szívességet még mindig nem tetted meg.'
+      },
+      trade: {
+        '1': 'A vitrinek nyitva. Csak a legjobbak, és minden árra emlékszem.'
+      },
+      favor: {
+        '1': 'Idegeneknek nem. De tegyél nekem egy szívességet, és barátok leszünk.',
+        '2': 'A Suttogó-erdő élőfái őrzik a holdharangokat, amik kellenek. Győzz le hatot közülük, és hozz nekem három holdharangot.',
+        say: 'Árulsz valamit?'
+      },
+      waiting: {
+        '1': 'Hat élőfa, három holdharang. A holdharangok sajnos nem szedik le magukat.',
+        say: 'A szívességről...'
+      },
+      favorDone: {
+        '1': 'Ó, még most is erdőillatúak! Csodás.',
+        '2': 'Az alku az alku. A vitrinjeim bármikor nyitva állnak előtted.',
+        say: 'Elhoztam a holdharangjaidat.'
+      },
+      who: {
+        '1': 'Hatéves korom óta gyűjtök. Először gombokat. Most zümmögő kardokat.'
+      },
+      shopBack: {
+        '1': 'Bánj vele szépen. Idősebb mindkettőnknél.'
+      },
+      bye: {
+        '1': 'Csukd be magad után az ajtót. Finoman, a vázák csörömpölnek.'
+      }
+    },
+    sbFence: {
+      hello: {
+        '1': 'Bámulsz. Vagy vegyél valamit, vagy ne állj a fényembe.',
+        '2': 'Mirela Thorne. Megtalálom, amit az emberek elveszítenek. Aztán új gazdát találok neki.'
+      },
+      open: {
+        '1': 'Á, a kedvenc hősöm. A jó cuccot a ponyva alatt tartogattam neked.'
+      },
+      again: {
+        '1': 'Visszajöttél? Emlékezz, mit kértem. Utána beszélhetünk üzletről.'
+      },
+      trade: {
+        '1': 'Páncélok mindenhonnan. Ne kérdezd, honnan. Most már mind tiszta, ígérem.'
+      },
+      favor: {
+        '1': 'Jó páncél. Barátoknak. A barátok pedig szívességet tesznek egymásnak.',
+        '2': 'Oakhaven határában banditák rabolják ki folyton a szállítmányaimat. Győzz le tizenötöt, aztán kérdezd meg a csecsebecsés kölyköt, ki küldte őket.',
+        say: 'Mi van a ponyva alatt?'
+      },
+      waiting: {
+        '1': 'Tizenöt bandita, aztán egy szó a csecsebecsés kölyökkel. Indulás.',
+        say: 'Azokról a banditákról...'
+      },
+      favorDone: {
+        '1': 'Szóval végig a pletykafészek volt az! Ha! Jövök neked eggyel.',
+        '2': 'Hajtsd fel a ponyvát, amikor csak akarod. A barátok választanak először.',
+        say: 'A banditákat legyőztem, és tudom, ki küldte őket.'
+      },
+      who: {
+        '1': 'Ezeken a folyóparti lépcsőkön nőttem fel. Ami csak elúszik itt, előbb-utóbb nálam köt ki.'
+      },
+      shopBack: {
+        '1': 'Viseld egészséggel. És ha bárki kérdezi, Ironholdban vetted.'
+      },
+      bye: {
+        '1': 'Vigyázz az erszényedre. Itt nem mindenki olyan becsületes, mint én.'
+      }
     }
   },
   enemy: {
@@ -3826,5 +3916,16 @@ export default {
   gamble: {
     prize: 'Nyeremény: {item}!',
     prizeGold: 'Már mindegyik a tiéd, ezért helyette {n} aranyat kapsz!'
+  },
+  errand: {
+    collectorFavor: {
+      title: 'A Gyűjtő holdharangjai'
+    },
+    mirelaFavor: {
+      title: 'Mirela eltűnt szállítmányai'
+    },
+    treasureMap: {
+      title: 'Rook kapitány kincses térképe'
+    }
   }
 }

@@ -102,7 +102,8 @@ export default {
     levelUp: 'Level {level}! +3 Attributspunkte',
     boss: '{boss} erscheint',
     wave: 'Welle {n}',
-    herb: 'Gepflückt: {plant}'
+    herb: 'Gepflückt: {plant}',
+    piece: 'Ein Stück der Schatzkarte!'
   },
   coach: {
     move: {
@@ -1138,6 +1139,14 @@ export default {
     },
     oakGambler: {
       name: 'Silky Ren'
+    },
+    sbCollector: {
+      name: 'Alder Vane',
+      talk: 'Seltene Stücke für seltene Freunde. Nichts mit Marmeladenfingern anfassen.'
+    },
+    sbFence: {
+      name: 'Mirela Thorne',
+      talk: 'Feine Rüstungen, keine Fragen. Na ja, sehr wenige Fragen.'
     }
   },
   quest: {
@@ -1660,6 +1669,11 @@ export default {
       },
       bye: {
         '1': 'Komm heil zu uns zurück. Mehr verlange ich nicht.'
+      },
+      map: {
+        '1': 'Kapitän Rooks Karte! Er hat sie zerrissen und die Stücke versteckt, bevor die Goblins ihn geschnappt haben.',
+        '2': 'Finde alle sechs, dann zeigt dir das X den Weg: irgendwo in den Aschenklippen. Grab dort, und das Gold gehört dir.',
+        say: 'Ich habe ein Stück einer alten Karte gefunden.'
       }
     },
     sunfordHealer: {
@@ -3358,6 +3372,82 @@ export default {
       bye: {
         '1': 'Pass da draußen auf deinen Geldbeutel auf. Nicht jeder spielt fair.'
       }
+    },
+    sbCollector: {
+      hello: {
+        '1': 'Mach die Tür zu, es zieht. Die Motten sind hinter meinen Wandteppichen her.',
+        '2': 'Alder Vane. Manche nennen mich den Sammler. Ich kaufe seltene Dinge und verkaufe sie an Leute, die ich mag.'
+      },
+      open: {
+        '1': 'Da bist du ja! Komm rein, komm rein. Ich hab extra etwas Besonderes für dich abgestaubt.'
+      },
+      again: {
+        '1': 'Du schon wieder. Den Gefallen hast du mir wohl immer noch nicht getan.'
+      },
+      trade: {
+        '1': 'Die Vitrinen sind offen. Nur das Beste, und ich merke mir jeden Preis.'
+      },
+      favor: {
+        '1': 'Nicht an Fremde. Aber tu mir einen Gefallen, dann sind wir Freunde.',
+        '2': 'Treants im Flüsterwald bewachen die Mondglocken, die ich brauche. Besiege sechs davon und bring mir drei Mondglocken.',
+        say: 'Verkaufst du auch was?'
+      },
+      waiting: {
+        '1': 'Sechs Treants, drei Mondglocken. Die Mondglocken pflücken sich leider nicht von selbst.',
+        say: 'Wegen des Gefallens...'
+      },
+      favorDone: {
+        '1': 'Oh, sie duften noch nach Wald! Wunderbar.',
+        '2': 'Abgemacht ist abgemacht. Meine Vitrinen stehen dir jederzeit offen.',
+        say: 'Ich hab deine Mondglocken.'
+      },
+      who: {
+        '1': 'Ich sammle, seit ich sechs bin. Erst waren es Knöpfe. Jetzt sind es Schwerter, die summen.'
+      },
+      shopBack: {
+        '1': 'Sei nett zu dem Stück. Es ist älter als wir beide.'
+      },
+      bye: {
+        '1': 'Mach die Tür hinter dir zu. Sachte, die Vasen klappern.'
+      }
+    },
+    sbFence: {
+      hello: {
+        '1': 'Du starrst. Kauf was oder geh mir aus dem Licht.',
+        '2': 'Mirela Thorne. Ich finde Dinge, die Leute verlieren. Dann finde ich neue Besitzer dafür.'
+      },
+      open: {
+        '1': 'Ah, da bist du ja. Die guten Sachen hab ich für dich unter dem Tuch versteckt.'
+      },
+      again: {
+        '1': 'Zurück? Denk an meine Bitte. Dann reden wir übers Geschäft.'
+      },
+      trade: {
+        '1': 'Rüstungen von überall her. Frag nicht, woher. Jetzt ist alles sauber, versprochen.'
+      },
+      favor: {
+        '1': 'Gute Rüstungen. Für Freunde. Und Freunde tun einander Gefallen.',
+        '2': 'Banditen im Umland von Oakhaven überfallen ständig meine Lieferungen. Besiege fünfzehn und frag dann den Krimskrams-Jungen, wer sie geschickt hat.',
+        say: 'Was ist unter dem Tuch?'
+      },
+      waiting: {
+        '1': 'Fünfzehn Banditen, dann ein Wort mit dem Krimskrams-Jungen. Los, ab mit dir.',
+        say: 'Wegen der Banditen...'
+      },
+      favorDone: {
+        '1': 'Also steckte die ganze Zeit diese Plaudertasche dahinter. Ha! Ich schulde dir was.',
+        '2': 'Heb das Tuch, wann immer du willst. Freunde dürfen zuerst wählen.',
+        say: 'Die Banditen sind besiegt, und ich weiß, wer sie geschickt hat.'
+      },
+      who: {
+        '1': 'Ich bin auf diesen Flussstufen aufgewachsen. Alles, was vorbeitreibt, landet früher oder später bei mir.'
+      },
+      shopBack: {
+        '1': 'Trag es mit Stolz. Und falls jemand fragt: Du hast es in Ironhold gekauft.'
+      },
+      bye: {
+        '1': 'Pass auf deinen Geldbeutel auf. Nicht jeder hier ist so ehrlich wie ich.'
+      }
     }
   },
   enemy: {
@@ -3843,5 +3933,16 @@ export default {
   gamble: {
     prize: 'Preis: {item}!',
     prizeGold: 'Du hast schon alle, darum bekommst du stattdessen {n} Gold!'
+  },
+  errand: {
+    collectorFavor: {
+      title: 'Die Mondglocken des Sammlers'
+    },
+    mirelaFavor: {
+      title: 'Mirelas verschwundene Lieferungen'
+    },
+    treasureMap: {
+      title: 'Kapitän Rooks Schatzkarte'
+    }
   }
 }

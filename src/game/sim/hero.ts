@@ -94,7 +94,8 @@ export const createHero = (sim: Sim, o: HeroInit): HeroState => {
     xpInto: o.xpInto,
     rested: Math.max(0, o.rested ?? 0),
     killKinds: {},
-    herbs: {}
+    herbs: {},
+    pieces: []
   }
   h.elixirPick = o.elixirPick && (h.elixirs[o.elixirPick] ?? 0) > 0 ? o.elixirPick : nextElixir(h, '')
   sim.hero = h

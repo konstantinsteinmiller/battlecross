@@ -102,7 +102,8 @@ export default {
     levelUp: 'Level {level}! +3 attribuutpunten',
     boss: '{boss} verschijnt',
     wave: 'Golf {n}',
-    herb: 'Geplukt: {plant}'
+    herb: 'Geplukt: {plant}',
+    piece: 'Een stuk van de schatkaart!'
   },
   coach: {
     move: {
@@ -1138,6 +1139,14 @@ export default {
     },
     oakGambler: {
       name: 'Silky Ren'
+    },
+    sbCollector: {
+      name: 'Alder Vane',
+      talk: 'Zeldzame stukken, voor zeldzame vrienden. Niks aanraken met jamvingers.'
+    },
+    sbFence: {
+      name: 'Mirela Thorne',
+      talk: 'Mooie harnassen, geen vragen. Nou ja, heel weinig vragen.'
     }
   },
   quest: {
@@ -1658,6 +1667,11 @@ export default {
       },
       bye: {
         '1': 'Kom heelhuids bij ons terug. Meer vraag ik niet.'
+      },
+      map: {
+        '1': 'De kaart van kapitein Rook! Hij scheurde hem in stukken en verstopte ze voordat de goblins hem te pakken kregen.',
+        '2': 'Vind alle zes, en de X wijst de weg: ergens in de Askliffen. Graaf daar, en het goud is van jou.',
+        say: 'Ik heb een stuk van een oude kaart gevonden.'
       }
     },
     sunfordHealer: {
@@ -3349,6 +3363,82 @@ export default {
       bye: {
         '1': 'Let daarbuiten op je buidel. Niet iedereen speelt eerlijk.'
       }
+    },
+    sbCollector: {
+      hello: {
+        '1': 'Doe de deur dicht, het tocht. De motten zitten achter mijn wandtapijten aan.',
+        '2': 'Alder Vane. Sommigen noemen me de Verzamelaar. Ik koop zeldzame dingen en verkoop ze aan mensen die ik mag.'
+      },
+      open: {
+        '1': 'Daar ben je! Kom binnen, kom binnen. Ik heb iets bijzonders voor je afgestoft.'
+      },
+      again: {
+        '1': 'Jij weer. Je hebt me die gunst nog steeds niet bewezen, zie ik.'
+      },
+      trade: {
+        '1': 'De vitrines zijn open. Alleen het beste, en ik onthoud elke prijs.'
+      },
+      favor: {
+        '1': 'Niet aan vreemden. Maar bewijs me een gunst, dan worden we vrienden.',
+        '2': 'Boomreuzen in het Fluisterwoud bewaken de maanklokjes die ik nodig heb. Versla er zes en breng me drie maanklokjes.',
+        say: 'Verkoop je iets?'
+      },
+      waiting: {
+        '1': 'Zes boomreuzen, drie maanklokjes. De maanklokjes plukken zichzelf helaas niet.',
+        say: 'Over die gunst...'
+      },
+      favorDone: {
+        '1': 'O, ze ruiken nog naar het bos! Prachtig.',
+        '2': 'Afspraak is afspraak. Mijn vitrines staan altijd voor je open.',
+        say: 'Ik heb je maanklokjes.'
+      },
+      who: {
+        '1': 'Ik verzamel al sinds mijn zesde. Eerst knopen. Nu zwaarden die zoemen.'
+      },
+      shopBack: {
+        '1': 'Wees er zuinig op. Het is ouder dan wij allebei.'
+      },
+      bye: {
+        '1': 'Doe de deur achter je dicht. Zachtjes, de vazen rammelen.'
+      }
+    },
+    sbFence: {
+      hello: {
+        '1': 'Je staart. Koop iets of ga uit mijn licht.',
+        '2': 'Mirela Thorne. Ik vind dingen die mensen kwijtraken. Daarna vind ik er een nieuwe eigenaar voor.'
+      },
+      open: {
+        '1': 'Ah, daar ben je. Ik heb de goede spullen onder het doek voor je bewaard.'
+      },
+      again: {
+        '1': 'Terug? Denk aan wat ik je vroeg. Daarna praten we zaken.'
+      },
+      trade: {
+        '1': 'Harnassen van overal. Vraag niet waarvandaan. Alles is nu netjes, beloofd.'
+      },
+      favor: {
+        '1': 'Goede harnassen. Voor vrienden. En vrienden doen elkaar een gunst.',
+        '2': 'Bandieten aan de Rand van Oakhaven beroven steeds mijn leveringen. Versla er vijftien en vraag dan aan de snuisterijenjongen wie ze stuurt.',
+        say: 'Wat ligt er onder het doek?'
+      },
+      waiting: {
+        '1': 'Vijftien bandieten, dan een woordje met de snuisterijenjongen. Hup, op pad.',
+        say: 'Over die bandieten...'
+      },
+      favorDone: {
+        '1': 'Dus het was die kletskous al die tijd. Ha! Ik sta bij je in het krijt.',
+        '2': 'Til het doek op wanneer je wilt. Vrienden mogen eerst kiezen.',
+        say: 'De bandieten zijn verslagen, en ik weet wie ze stuurde.'
+      },
+      who: {
+        '1': 'Ik ben opgegroeid op deze trappen aan de rivier. Alles wat voorbijdrijft, belandt vroeg of laat bij mij.'
+      },
+      shopBack: {
+        '1': 'Draag het met trots. En als iemand het vraagt: je kocht het in Ironhold.'
+      },
+      bye: {
+        '1': 'Let op je beurs. Niet iedereen hier is zo eerlijk als ik.'
+      }
     }
   },
   enemy: {
@@ -3834,5 +3924,16 @@ export default {
   gamble: {
     prize: 'Prijs: {item}!',
     prizeGold: 'Je hebt ze al allemaal, dus je krijgt {n} goud in de plaats!'
+  },
+  errand: {
+    collectorFavor: {
+      title: 'De maanklokjes van de Verzamelaar'
+    },
+    mirelaFavor: {
+      title: 'Mirela’s verdwenen leveringen'
+    },
+    treasureMap: {
+      title: 'De schatkaart van kapitein Rook'
+    }
   }
 }

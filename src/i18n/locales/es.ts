@@ -102,7 +102,8 @@ export default {
     levelUp: '¡Nivel {level}! +3 puntos de atributo',
     boss: 'Aparece {boss}',
     wave: 'Oleada {n}',
-    herb: 'Recogido: {plant}'
+    herb: 'Recogido: {plant}',
+    piece: '¡Un trozo del mapa del tesoro!'
   },
   coach: {
     move: {
@@ -1138,6 +1139,14 @@ export default {
     },
     oakGambler: {
       name: 'Silky Ren'
+    },
+    sbCollector: {
+      name: 'Alder Vane',
+      talk: 'Piezas únicas, para amigos únicos. No toques nada con los dedos llenos de mermelada.'
+    },
+    sbFence: {
+      name: 'Mirela Thorne',
+      talk: 'Buenas armaduras, sin preguntas. Bueno, muy pocas preguntas.'
     }
   },
   quest: {
@@ -1664,6 +1673,11 @@ export default {
       },
       bye: {
         '1': 'Vuelve a nosotros de una pieza. Es todo lo que pido.'
+      },
+      map: {
+        '1': '¡El mapa del capitán Rook! Lo rompió y escondió los trozos antes de que los goblins lo atraparan.',
+        '2': 'Encuentra los seis y la X te mostrará el camino: en algún lugar de los Riscos Cenicientos. Cava allí y el oro será tuyo.',
+        say: 'He encontrado un trozo de un mapa antiguo.'
       }
     },
     sunfordHealer: {
@@ -3373,6 +3387,82 @@ export default {
       bye: {
         '1': 'Cuida tu bolsa ahí fuera. No todo el mundo juega limpio.'
       }
+    },
+    sbCollector: {
+      hello: {
+        '1': 'Cierra la puerta, que hay corriente. Las polillas van a por mis tapices.',
+        '2': 'Alder Vane. Algunos me llaman el Coleccionista. Compro cosas raras y se las vendo a la gente que me cae bien.'
+      },
+      open: {
+        '1': '¡Ah, ya estás aquí! Pasa, pasa. He desempolvado algo especial para ti.'
+      },
+      again: {
+        '1': 'Otra vez tú. Veo que aún no me has hecho ese favor.'
+      },
+      trade: {
+        '1': 'Las vitrinas están abiertas. Solo lo mejor, y recuerdo cada precio.'
+      },
+      favor: {
+        '1': 'A desconocidos, no. Pero hazme un favor y seremos amigos.',
+        '2': 'Unos ents del Bosque Susurrante protegen las campanillas lunares que necesito. Vence a seis y tráeme tres campanillas lunares.',
+        say: '¿Vendes algo?'
+      },
+      waiting: {
+        '1': 'Seis ents, tres campanillas lunares. Por desgracia, las campanillas no se recogen solas.',
+        say: 'Sobre ese favor...'
+      },
+      favorDone: {
+        '1': '¡Oh, aún huelen a bosque! Maravilloso.',
+        '2': 'Un trato es un trato. Mis vitrinas están abiertas para ti cuando quieras.',
+        say: 'Te traigo tus campanillas lunares.'
+      },
+      who: {
+        '1': 'Colecciono desde los seis años. Primero fueron botones. Ahora, espadas que zumban.'
+      },
+      shopBack: {
+        '1': 'Trata bien esa pieza. Es más antigua que nosotros dos.'
+      },
+      bye: {
+        '1': 'Cierra la puerta al salir. Con cuidado, que los jarrones tiemblan.'
+      }
+    },
+    sbFence: {
+      hello: {
+        '1': 'Me estás mirando fijamente. O compras algo o te apartas de mi luz.',
+        '2': 'Mirela Thorne. Encuentro lo que la gente pierde. Y luego le busco un nuevo dueño.'
+      },
+      open: {
+        '1': 'Ah, aquí estás. Te he guardado lo bueno debajo de la tela.'
+      },
+      again: {
+        '1': '¿Has vuelto? Recuerda lo que te pedí. Luego hablaremos de negocios.'
+      },
+      trade: {
+        '1': 'Armaduras de todas partes. No preguntes de dónde. Ahora está todo limpio, te lo prometo.'
+      },
+      favor: {
+        '1': 'Buenas armaduras. Para amigos. Y los amigos se hacen favores.',
+        '2': 'Unos bandidos de las Afueras de Oakhaven no paran de robar mis envíos. Vence a quince y luego pregúntale al chico de las baratijas quién los envía.',
+        say: '¿Qué hay debajo de la tela?'
+      },
+      waiting: {
+        '1': 'Quince bandidos y luego unas palabras con el chico de las baratijas. ¡En marcha!',
+        say: 'Sobre esos bandidos...'
+      },
+      favorDone: {
+        '1': 'Así que era cosa del chismoso desde el principio. ¡Ja! Te debo una.',
+        '2': 'Levanta la tela cuando quieras. Los amigos eligen primero.',
+        say: 'Los bandidos están vencidos, y sé quién los enviaba.'
+      },
+      who: {
+        '1': 'Crecí en estas escaleras del río. Todo lo que flota acaba en mis manos, tarde o temprano.'
+      },
+      shopBack: {
+        '1': 'Que te dure. Y si alguien pregunta, lo compraste en Ironhold.'
+      },
+      bye: {
+        '1': 'Cuida tu bolsa. Aquí no todos son tan honrados como yo.'
+      }
     }
   },
   enemy: {
@@ -3862,5 +3952,16 @@ export default {
   gamble: {
     prize: 'Premio: ¡{item}!',
     prizeGold: 'Ya los tienes todos, así que te llevas {n} de oro en su lugar.'
+  },
+  errand: {
+    collectorFavor: {
+      title: 'Las campanillas lunares del Coleccionista'
+    },
+    mirelaFavor: {
+      title: 'Los envíos perdidos de Mirela'
+    },
+    treasureMap: {
+      title: 'El mapa del tesoro del capitán Rook'
+    }
   }
 }

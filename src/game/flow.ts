@@ -14,7 +14,7 @@ import { abortTalk, beginTalk, talkResume, talkWaiting, type TalkStage } from '.
 import {
   clearNode, flagSet, gainItem, grantXp, hasFlag, isFreshProfile, isNodeOpen, isNodeReachable, lifetimeXp, profile, saveProfile
 } from './state/profile'
-import { addHerbs, setElixirs, countContracts, countErrands, countTasks, finishEscortTasks, markChestsOpened, recordArenaWaves, recordMastery, setManaPotions } from './state/profile'
+import { addHerbs, addPieces, markTreasureDug, treasureFor, setElixirs, countContracts, countErrands, countTasks, finishEscortTasks, markChestsOpened, recordArenaWaves, recordMastery, setManaPotions } from './state/profile'
 import { zoneMastery, type Mastery } from './sim/route'
 import { playJingle } from './audio/music'
 import { flushSaveNow } from '@/use/useSaveStatus'
@@ -174,6 +174,8 @@ const setupFor = (node: NodeId): ZoneSetup => {
     extra: node === 'mines' && hasFlag('coreSold') ? 1 : 0,
     // The dragon keeps its bargain where it matters.
     dragonAlly: hasFlag('dragonPact') && (node === 'fortress' || node === 'rift'),
+    // The treasure map (#89): the pieces still lying here, the X once it is whole.
+    ...treasureFor(node),
     flags
   }
 }
@@ -201,6 +203,8 @@ export interface VisitTally {
   killKinds?: Readonly<Record<string, number>>
   /** Herbs picked, by plant (#88). */
   herbs?: Readonly<Record<string, number>>
+  /** Treasure map pieces picked up (#89). */
+  pieces?: readonly string[]
   /** The elixirs as the visit leaves them (some drunk, #87), and the one carried. */
   elixirs?: Readonly<Record<string, number>>
   elixirPick?: string
@@ -534,7 +538,7 @@ export const finishVisit = async (outcome: 'victory' | 'defeat' | 'retreat'): Pr
   await bankVisit(outcome, node, {
     xp: h.xp, gold: h.gold, kills: h.kills, items: h.items, seconds: mode.sim.time, waves: mode.sim.wave.cleared,
     chests: mode.sim.chests.length ? { opened: h.chests, total: mode.sim.chests.length } : undefined,
-    special: mode.sim.specialOpened, rested: h.rested, killKinds: h.killKinds, herbs: h.herbs,
+    special: mode.sim.specialOpened, rested: h.rested, killKinds: h.killKinds, herbs: h.herbs, pieces: h.pieces,
     // The flasks went in only where they may be drunk (not in a "No potions"
     // week): elsewhere the stocks stay as they were.
     ...(mode.setup.arenaMod !== 'nopotions' ? { manaPotions: h.manaPotions, elixirs: h.elixirs, elixirPick: h.elixirPick } : {}),
@@ -566,6 +570,9 @@ export const bankVisit = async (outcome: 'victory' | 'defeat' | 'retreat', node:
   if (h.special?.length) markChestsOpened(h.special)
   // The herbs picked go into the pouch, whatever the visit's end.
   if (h.herbs) addHerbs(h.herbs)
+  // So do the map's pieces (#89); the buried chest dug up ends the errand.
+  if (h.pieces?.length) addPieces(h.pieces)
+  if (h.special?.some(k => k.endsWith(':treasure'))) markTreasureDug()
   // The caravan arrived (#85): the boards' escort tasks are done, to hand in.
   if (flow.encounter?.escort && outcome === 'victory') finishEscortTasks()
   const mastery = h.mastery && !encounter ? { ...h.mastery, ...recordMastery(node, h.mastery) } : undefined

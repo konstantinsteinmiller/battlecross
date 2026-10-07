@@ -79,7 +79,7 @@ export const populateZone = (sim: Sim, plan: ZonePlan, zone: ZoneId, owned: Iter
   // After the main chain and on streams of their own, so the fight's dice
   // fall exactly as they did before the zone had anything in it but packs.
   populateFeatures(sim, plan, zone, opened)
-  populateHerbs(sim, plan.herbs ?? [])
+  populateHerbs(sim, plan.herbs ?? [], plan.pieces ?? [])
   // An escort's caravan, at the start of its road (#85).
   if (plan.caravan) spawnCaravan(sim, plan.caravan.path)
 }

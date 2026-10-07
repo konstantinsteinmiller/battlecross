@@ -102,7 +102,8 @@ export default {
     levelUp: 'Poziom {level}! +3 punkty atrybutów',
     boss: 'Nadchodzi: {boss}',
     wave: 'Fala {n}',
-    herb: 'Zebrano: {plant}'
+    herb: 'Zebrano: {plant}',
+    piece: 'Kawałek mapy skarbów!'
   },
   coach: {
     move: {
@@ -1139,6 +1140,14 @@ export default {
     },
     oakGambler: {
       name: 'Jedwabny Ren'
+    },
+    sbCollector: {
+      name: 'Alder Vane',
+      talk: 'Rzadkie skarby dla rzadkich przyjaciół. Niczego nie dotykaj palcami od dżemu.'
+    },
+    sbFence: {
+      name: 'Mirela Thorne',
+      talk: 'Porządna zbroja, bez pytań. No, prawie bez pytań.'
     }
   },
   quest: {
@@ -1680,6 +1689,11 @@ export default {
       },
       bye: {
         '1': 'Wróć do nas w jednym kawałku. O nic więcej nie proszę.'
+      },
+      map: {
+        '1': 'Mapa kapitana Rooka! Podarł ją i ukrył kawałki, zanim gobliny go złapały.',
+        '2': 'Znajdź wszystkie sześć, a X wskaże ci drogę: gdzieś w Popielnych Turniach. Kop tam, a złoto będzie twoje.',
+        say: 'Mam kawałek jakiejś starej mapy.'
       }
     },
     sunfordHealer: {
@@ -3423,6 +3437,82 @@ export default {
       bye: {
         '1': 'Pilnuj sakiewki. Nie wszyscy grają uczciwie.'
       }
+    },
+    sbCollector: {
+      hello: {
+        '1': 'Zamknij drzwi, ciągnie. Mole czyhają na moje gobeliny.',
+        '2': 'Alder Vane. Niektórzy mówią na mnie Kolekcjoner. Kupuję rzadkie rzeczy i sprzedaję je tym, których lubię.'
+      },
+      open: {
+        '1': 'A, to ty! Wejdź, wejdź. Odkurzyłem dla ciebie coś wyjątkowego.'
+      },
+      again: {
+        '1': 'Znowu ty. Widzę, że moja przysługa wciąż czeka.'
+      },
+      trade: {
+        '1': 'Gabloty otwarte. Tylko to, co najlepsze, a każdą cenę pamiętam.'
+      },
+      favor: {
+        '1': 'Nie obcym. Ale wyświadcz mi przysługę, a zostaniemy przyjaciółmi.',
+        '2': 'Drzewce w Szepczącym Lesie strzegą księżycowych dzwonków, których potrzebuję. Pokonaj sześć z nich i przynieś mi trzy dzwonki.',
+        say: 'Sprzedajesz coś?'
+      },
+      waiting: {
+        '1': 'Sześć drzewców, trzy księżycowe dzwonki. Niestety, dzwonki same się nie zerwą.',
+        say: 'W sprawie tej przysługi...'
+      },
+      favorDone: {
+        '1': 'Och, wciąż pachną lasem! Cudownie.',
+        '2': 'Umowa to umowa. Moje gabloty stoją przed tobą otworem, kiedy tylko zechcesz.',
+        say: 'Mam twoje księżycowe dzwonki.'
+      },
+      who: {
+        '1': 'Zbieram od szóstego roku życia. Najpierw guziki. Teraz miecze, które nucą.'
+      },
+      shopBack: {
+        '1': 'Obchodź się z nim delikatnie. Jest starszy od nas obojga.'
+      },
+      bye: {
+        '1': 'Zamknij za sobą drzwi. Delikatnie, wazy brzęczą.'
+      }
+    },
+    sbFence: {
+      hello: {
+        '1': 'Gapisz się. Albo coś kup, albo nie zasłaniaj mi światła.',
+        '2': 'Mirela Thorne. Znajduję rzeczy, które ludzie gubią. A potem znajduję im nowych właścicieli.'
+      },
+      open: {
+        '1': 'A, jesteś! Najlepsze rzeczy schowałam dla ciebie pod płachtą.'
+      },
+      again: {
+        '1': 'Znowu tutaj? Pamiętaj, o co prosiłam. Potem pogadamy o interesach.'
+      },
+      trade: {
+        '1': 'Zbroje z całego świata. Nie pytaj skąd. Teraz wszystko jest czyste, słowo.'
+      },
+      favor: {
+        '1': 'Dobra zbroja. Dla przyjaciół. A przyjaciele wyświadczają sobie przysługi.',
+        '2': 'Bandyci na przedpolach Oakhaven ciągle rabują moje dostawy. Pokonaj piętnastu, a potem zapytaj chłopaka od błyskotek, kto ich nasłał.',
+        say: 'Co jest pod płachtą?'
+      },
+      waiting: {
+        '1': 'Piętnastu bandytów, potem słówko z chłopakiem od błyskotek. Ruszaj.',
+        say: 'W sprawie tych bandytów...'
+      },
+      favorDone: {
+        '1': 'Więc to jednak ten plotkarz! Ha! Jestem ci winna przysługę.',
+        '2': 'Zaglądaj pod płachtę, kiedy chcesz. Przyjaciele wybierają pierwsi.',
+        say: 'Bandyci pokonani, i wiem, kto ich nasłał.'
+      },
+      who: {
+        '1': 'Wychowałam się na tych schodach nad rzeką. Wszystko, co płynie z nurtem, prędzej czy później trafia do mnie.'
+      },
+      shopBack: {
+        '1': 'Noś ją z dumą. A jak ktoś zapyta, to z Ironhold.'
+      },
+      bye: {
+        '1': 'Pilnuj sakiewki. Nie każdy tu jest tak uczciwy jak ja.'
+      }
     }
   },
   enemy: {
@@ -3913,5 +4003,16 @@ export default {
   gamble: {
     prize: 'Nagroda: {item}!',
     prizeGold: 'Masz już wszystkie, więc zamiast tego dostajesz {n} szt. złota!'
+  },
+  errand: {
+    collectorFavor: {
+      title: 'Księżycowe dzwonki Kolekcjonera'
+    },
+    mirelaFavor: {
+      title: 'Zaginione dostawy Mireli'
+    },
+    treasureMap: {
+      title: 'Mapa skarbów kapitana Rooka'
+    }
   }
 }

@@ -3,7 +3,7 @@ import { createGrid, nearestOpen, type Grid } from './grid'
 import type { HeroBuild } from './stats'
 import type { ChestTier, LootKind } from '../data/loot'
 import type { BranchPlan, ChestRole } from './zoneFeatures'
-import type { HerbState } from './herbs'
+import type { HerbState, PieceState } from './herbs'
 import type { CaravanState } from './caravan'
 import type {
   Action, Danger, Field, Projectile, SimEvent, Status, StatusId, Team, TempWall, Unit, UnitStats, Rank
@@ -102,6 +102,8 @@ export interface HeroState {
   killKinds: Record<string, number>
   /** Herbs picked this visit, by plant (roadmap #88). */
   herbs: Record<string, number>
+  /** Treasure map pieces picked up this visit (roadmap #89). */
+  pieces: string[]
 }
 
 /** One encounter: a pack of enemies that wakes together. */
@@ -258,6 +260,8 @@ export class Sim {
   chests: ChestState[] = []
   /** Herbs lying in the wild this visit (`herbs.ts`). */
   herbs: HerbState[] = []
+  /** The treasure map's pieces lying in this zone (roadmap #89). */
+  pieces: PieceState[] = []
   /** The caravan of an escort (roadmap #85, `caravan.ts`); null: none. */
   caravan: CaravanState | null = null
   plates: PlateState[] = []

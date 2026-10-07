@@ -181,3 +181,23 @@ export const plantGeometry = (id: PlantId): PlantGeo => {
   if (!g) { g = BUILD[id](); cache.set(id, g) }
   return g
 }
+
+/**
+ * A piece of the treasure map (roadmap #89), lying where it was dropped: a
+ * rolled scrap of old paper tied with a red ribbon, a gold wax seal glowing on
+ * it. Closed, rounded parts only, like the herbs.
+ */
+let pieceGeo: PlantGeo | null = null
+export const mapPieceGeometry = (): PlantGeo => {
+  if (pieceGeo) return pieceGeo
+  const lit = [
+    // The roll, lying on its side, its ends a little darker with age.
+    P(rod(0.075, 0.46, 10), '#f2e2b8', [0, 0.08, 0], [0, 0, Math.PI / 2]),
+    P(ell(0.06, 0.08, 0.08, 10, 8), '#d9c08a', [0.22, 0.08, 0]),
+    P(ell(0.06, 0.08, 0.08, 10, 8), '#d9c08a', [-0.22, 0.08, 0]),
+    // The ribbon round its middle (a ring fatter than the roll).
+    P(rod(0.088, 0.06, 10), '#d8423a', [0, 0.08, 0], [0, 0, Math.PI / 2])
+  ]
+  pieceGeo = { lit: merge(lit), glow: P(sph(0.045, 10, 8), '#ffd24a', [0, 0.17, 0]) }
+  return pieceGeo
+}

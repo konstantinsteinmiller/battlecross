@@ -102,7 +102,8 @@ export default {
     levelUp: 'Nivell {level}! +3 punts d’atribut',
     boss: 'Apareix: {boss}',
     wave: 'Onada {n}',
-    herb: 'Collit: {plant}'
+    herb: 'Collit: {plant}',
+    piece: 'Un tros del mapa del tresor!'
   },
   coach: {
     move: {
@@ -1138,6 +1139,14 @@ export default {
     },
     oakGambler: {
       name: 'Silky Ren'
+    },
+    sbCollector: {
+      name: 'Alder Vane',
+      talk: 'Peces rares, per a amics rars. No toquis res amb els dits plens de melmelada.'
+    },
+    sbFence: {
+      name: 'Mirela Thorne',
+      talk: 'Armadures fines, sense preguntes. Bé, molt poques preguntes.'
     }
   },
   quest: {
@@ -1663,6 +1672,11 @@ export default {
       bye: {
         '1': 'Torna sencer. Només et demano això.',
         '1__f': 'Torna sencera. Només et demano això.'
+      },
+      map: {
+        '1': 'El mapa del capità Rook! El va estripar i va amagar els trossos abans que els gòblins l’atrapessin.',
+        '2': 'Troba’ls tots sis i la X t’indicarà el camí: en algun lloc dels Penyals de Cendra. Cava-hi, i l’or és teu.',
+        say: 'He trobat un tros d’un mapa antic.'
       }
     },
     sunfordHealer: {
@@ -3374,6 +3388,82 @@ export default {
       bye: {
         '1': 'Vigila la bossa, allà fora. No tothom juga net.'
       }
+    },
+    sbCollector: {
+      hello: {
+        '1': 'Tanca la porta, que hi ha corrent. Les arnes van darrere dels meus tapissos.',
+        '2': 'Alder Vane. N’hi ha que em diuen el Col·leccionista. Compro coses rares i les venc a la gent que m’agrada.'
+      },
+      open: {
+        '1': 'Ja ets aquí! Entra, entra. T’he espolsat una cosa especial.'
+      },
+      again: {
+        '1': 'Tu una altra vegada. Veig que encara no m’has fet aquell favor.'
+      },
+      trade: {
+        '1': 'Les vitrines són obertes. Només el millor, i recordo cada preu.'
+      },
+      favor: {
+        '1': 'A desconeguts, no. Però fes-me un favor i serem amics.',
+        '2': 'Uns arbres vivents del Bosc dels Murmuris guarden les campanetes lunars que necessito. Venç-ne sis i porta’m tres campanetes lunars.',
+        say: 'Vens alguna cosa?'
+      },
+      waiting: {
+        '1': 'Sis arbres vivents, tres campanetes lunars. Les campanetes no es colliran soles, quina llàstima.',
+        say: 'Pel que fa a aquell favor...'
+      },
+      favorDone: {
+        '1': 'Oh, encara fan olor de bosc! Meravellós.',
+        '2': 'Un tracte és un tracte. Les meves vitrines són obertes per a tu, quan vulguis.',
+        say: 'T’he portat les campanetes lunars.'
+      },
+      who: {
+        '1': 'Col·lecciono des dels sis anys. Primer eren botons. Ara són espases que brunzeixen.'
+      },
+      shopBack: {
+        '1': 'Tracta bé aquesta peça. És més vella que tots dos.'
+      },
+      bye: {
+        '1': 'Tanca la porta en sortir. Amb compte, que els gerros tremolen.'
+      }
+    },
+    sbFence: {
+      hello: {
+        '1': 'Em mires fixament. O compres alguna cosa o deixes de tapar-me la llum.',
+        '2': 'Mirela Thorne. Trobo el que la gent perd. Després li trobo un amo nou.'
+      },
+      open: {
+        '1': 'Ah, ja ets aquí. T’he guardat les coses bones sota la tela.'
+      },
+      again: {
+        '1': 'Ja tornes a ser aquí? Recorda el que et vaig demanar. Després parlarem de negocis.'
+      },
+      trade: {
+        '1': 'Armadures de tot arreu. No preguntis d’on. Ara tot és net, t’ho prometo.'
+      },
+      favor: {
+        '1': 'Bones armadures. Per als amics. I els amics es fan favors.',
+        '2': 'Uns bandits dels Afores d’Oakhaven em roben els enviaments sense parar. Venç-ne quinze i després pregunta al noi de les quincalles qui els envia.',
+        say: 'Què hi ha sota la tela?'
+      },
+      waiting: {
+        '1': 'Quinze bandits i després unes paraules amb el noi de les quincalles. Som-hi!',
+        say: 'Pel que fa a aquells bandits...'
+      },
+      favorDone: {
+        '1': 'Així que era el xafarder des del principi. Ha! Te’n dec una.',
+        '2': 'Aixeca la tela quan vulguis. Els amics trien primer.',
+        say: 'Els bandits estan vençuts, i sé qui els enviava.'
+      },
+      who: {
+        '1': 'Vaig créixer en aquestes escales del riu. Tot el que sura acaba a les meves mans, tard o d’hora.'
+      },
+      shopBack: {
+        '1': 'Llueix-ho amb orgull. I si algú pregunta, ho vas comprar a Ironhold.'
+      },
+      bye: {
+        '1': 'Vigila la bossa. Aquí no tothom és tan honest com jo.'
+      }
     }
   },
   enemy: {
@@ -3864,5 +3954,16 @@ export default {
   gamble: {
     prize: 'Premi: {item}!',
     prizeGold: 'Ja els tens tots, així que reps {n} d’or a canvi!'
+  },
+  errand: {
+    collectorFavor: {
+      title: 'Les campanetes lunars del Col·leccionista'
+    },
+    mirelaFavor: {
+      title: 'Els enviaments perduts de la Mirela'
+    },
+    treasureMap: {
+      title: 'El mapa del tresor del capità Rook'
+    }
   }
 }

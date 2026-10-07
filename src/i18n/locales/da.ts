@@ -102,7 +102,8 @@ export default {
     levelUp: 'Niveau {level}! +3 attributpoint',
     boss: '{boss} dukker op',
     wave: 'Bølge {n}',
-    herb: 'Plukket: {plant}'
+    herb: 'Plukket: {plant}',
+    piece: 'Et stykke af skattekortet!'
   },
   coach: {
     move: {
@@ -1137,6 +1138,14 @@ export default {
     },
     oakGambler: {
       name: 'Silkebløde Ren'
+    },
+    sbCollector: {
+      name: 'Alder Vane',
+      talk: 'Sjældne sager til sjældne venner. Rør ikke noget med syltetøjsfingre.'
+    },
+    sbFence: {
+      name: 'Mirela Thorne',
+      talk: 'Fine rustninger, ingen spørgsmål. Nå ja, meget få spørgsmål.'
     }
   },
   quest: {
@@ -1656,6 +1665,11 @@ export default {
       },
       bye: {
         '1': 'Kom tilbage til os i ét stykke. Det er alt, hvad jeg beder om.'
+      },
+      map: {
+        '1': 'Kaptajn Rooks kort! Han rev det i stykker og gemte stykkerne, før goblins fik fat i ham.',
+        '2': 'Find alle seks, så viser krydset vejen: et sted i Askeklipperne. Grav der, så er guldet dit.',
+        say: 'Jeg har fundet et stykke af et gammelt kort.'
       }
     },
     sunfordHealer: {
@@ -3341,6 +3355,82 @@ export default {
       bye: {
         '1': 'Pas på pungen derude. Ikke alle spiller fair.'
       }
+    },
+    sbCollector: {
+      hello: {
+        '1': 'Luk døren, det trækker. Møllene er ude efter mine gobeliner.',
+        '2': 'Alder Vane. Nogle kalder mig Samleren. Jeg køber sjældne ting og sælger dem til folk, jeg kan lide.'
+      },
+      open: {
+        '1': 'Der er du jo! Kom ind, kom ind. Jeg har støvet noget helt særligt af til dig.'
+      },
+      again: {
+        '1': 'Dig igen. Du har vist stadig ikke gjort mig den tjeneste.'
+      },
+      trade: {
+        '1': 'Skabene er åbne. Kun det bedste, og jeg husker hver eneste pris.'
+      },
+      favor: {
+        '1': 'Ikke til fremmede. Men gør mig en tjeneste, så bliver vi venner.',
+        '2': 'Trævæsner i Den Hviskende Skov vogter de måneklokker, jeg skal bruge. Besejr seks af dem, og bring mig tre måneklokker.',
+        say: 'Sælger du noget?'
+      },
+      waiting: {
+        '1': 'Seks trævæsner, tre måneklokker. Måneklokkerne plukker desværre ikke sig selv.',
+        say: 'Angående den tjeneste...'
+      },
+      favorDone: {
+        '1': 'Åh, de dufter stadig af skov! Vidunderligt.',
+        '2': 'En aftale er en aftale. Mine skabe står åbne for dig, når du vil.',
+        say: 'Her er dine måneklokker.'
+      },
+      who: {
+        '1': 'Jeg har samlet, siden jeg var seks. Først var det knapper. Nu er det sværd, der summer.'
+      },
+      shopBack: {
+        '1': 'Pas godt på den. Den er ældre end os begge to.'
+      },
+      bye: {
+        '1': 'Luk døren efter dig. Forsigtigt, vaserne klirrer.'
+      }
+    },
+    sbFence: {
+      hello: {
+        '1': 'Du stirrer. Køb noget, eller gå ud af mit lys.',
+        '2': 'Mirela Thorne. Jeg finder ting, folk mister. Så finder jeg nye ejere til dem.'
+      },
+      open: {
+        '1': 'Ah, min yndlingshelt. Jeg har gemt de gode sager under klædet til dig.'
+      },
+      again: {
+        '1': 'Tilbage? Husk, hvad jeg bad om. Så kan vi tale forretning.'
+      },
+      trade: {
+        '1': 'Rustninger fra alle vegne. Spørg ikke hvorfra. Det hele er rent nu, det lover jeg.'
+      },
+      favor: {
+        '1': 'God rustning. Til venner. Og venner gør hinanden tjenester.',
+        '2': 'Banditter i Oakhavens udkant bliver ved med at røve mine leverancer. Besejr femten, og spørg så nipsdrengen, hvem der sender dem.',
+        say: 'Hvad er der under klædet?'
+      },
+      waiting: {
+        '1': 'Femten banditter, så en snak med nipsdrengen. Af sted med dig.',
+        say: 'Angående de banditter...'
+      },
+      favorDone: {
+        '1': 'Så det var sladrehanken hele tiden. Ha! Jeg skylder dig en.',
+        '2': 'Løft klædet, når du vil. Venner får første valg.',
+        say: 'Banditterne er besejret, og jeg ved, hvem der sendte dem.'
+      },
+      who: {
+        '1': 'Jeg voksede op på trapperne ved floden. Alt, hvad der flyder forbi, ender hos mig før eller siden.'
+      },
+      shopBack: {
+        '1': 'Bær den med stil. Og hvis nogen spørger, købte du den i Ironhold.'
+      },
+      bye: {
+        '1': 'Pas på din pung. Ikke alle her er så ærlige som mig.'
+      }
     }
   },
   enemy: {
@@ -3826,5 +3916,16 @@ export default {
   gamble: {
     prize: 'Præmie: {item}!',
     prizeGold: 'Du har dem alle, så du får {n} guld i stedet!'
+  },
+  errand: {
+    collectorFavor: {
+      title: 'Samlerens måneklokker'
+    },
+    mirelaFavor: {
+      title: 'Mirelas forsvundne leverancer'
+    },
+    treasureMap: {
+      title: 'Kaptajn Rooks skattekort'
+    }
   }
 }

@@ -26,10 +26,22 @@ export interface HerbState extends HerbPlan {
   taken: boolean
 }
 
+/** A piece of the treasure map lying in the wild (roadmap #89). */
+export interface PiecePlan {
+  id: string
+  x: number
+  z: number
+}
+export interface PieceState extends PiecePlan {
+  taken: boolean
+}
+
 /** Walking this near picks one up (centre to centre). */
 export const PICK_REACH = 1.05
 
 const HERB_SALT = 0x6a09e667
+const PIECE_SALT = 0x3c6ef372
+const TREASURE_SALT = 0xa54ff53a
 
 /** The cells a hero can walk to from `start` (doors shut), as a mask. */
 export const walkableFrom = (w: number, h: number, solid: Uint8Array, sealed: Uint8Array, start: { x: number; z: number }): Uint8Array => {
@@ -126,16 +138,42 @@ export const placeHerbs = (p: SpotPlan & { seed: number }, theme: ThemeId, level
   })
 }
 
+/** The treasure map's pieces still lying in this zone: on a stream of their
+ *  own, off the herbs. */
+export const placePieces = (p: SpotPlan & { seed: number }, ids: readonly string[], herbs: ReadonlyArray<{ x: number; z: number }>): PiecePlan[] => {
+  if (!ids.length) return []
+  const rng = mulberry32((p.seed ^ PIECE_SALT) >>> 0)
+  return pickSpots(p, rng, ids.length, 9, herbs).map((s, i) => ({ id: ids[i]!, x: s.x, z: s.z }))
+}
+
+/** Where the treasure is buried: reachable ground well along the way, but
+ *  short of the end (the finale's clearing is a fight, not a dig). */
+export const placeTreasure = (p: SpotPlan & { seed: number; end: { x: number; z: number } }, avoid: ReadonlyArray<{ x: number; z: number }>): { x: number; z: number } | null => {
+  const rng = mulberry32((p.seed ^ TREASURE_SALT) >>> 0)
+  const spots = pickSpots(p, rng, 8, 4, [...avoid, p.end]).filter(s => Math.hypot(s.x - p.end.x, s.z - p.end.z) > 12)
+  if (!spots.length) return null
+  const far = (s: { x: number; z: number }): number => Math.hypot(s.x - p.start.x, s.z - p.start.z)
+  // The farthest of those: the X is out along the way, not by the gate.
+  return spots.reduce((a, b) => (far(b) > far(a) ? b : a))
+}
+
 /** Lay the visit's herbs in the sim. */
-export const populateHerbs = (sim: Sim, herbs: readonly HerbPlan[]): void => {
+export const populateHerbs = (sim: Sim, herbs: readonly HerbPlan[], pieces: readonly PiecePlan[] = []): void => {
   sim.herbs = herbs.map((h, id) => ({ ...h, id, taken: false }))
+  sim.pieces = pieces.map(p => ({ ...p, taken: false }))
 }
 
 /** The hero walks over one: it is his (this step's pick-ups). */
 export const stepPickups = (sim: Sim): void => {
   const h = sim.hero
-  if (!h || !sim.herbs.length || !h.unit.alive) return
+  if (!h || (!sim.herbs.length && !sim.pieces.length) || !h.unit.alive) return
   const u = h.unit
+  for (const p of sim.pieces) {
+    if (p.taken || Math.hypot(p.x - u.x, p.z - u.z) > PICK_REACH) continue
+    p.taken = true
+    h.pieces.push(p.id)
+    sim.emit({ t: 'piece', id: p.id, x: p.x, z: p.z })
+  }
   for (const p of sim.herbs) {
     if (p.taken || Math.hypot(p.x - u.x, p.z - u.z) > PICK_REACH) continue
     p.taken = true

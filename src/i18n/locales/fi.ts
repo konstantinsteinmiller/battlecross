@@ -102,7 +102,8 @@ export default {
     levelUp: 'Taso {level}! +3 ominaisuuspistettä',
     boss: '{boss} saapuu',
     wave: 'Aalto {n}',
-    herb: 'Poimittu: {plant}'
+    herb: 'Poimittu: {plant}',
+    piece: 'Pala aarrekarttaa!'
   },
   coach: {
     move: {
@@ -1137,6 +1138,14 @@ export default {
     },
     oakGambler: {
       name: 'Silkki-Ren'
+    },
+    sbCollector: {
+      name: 'Alder Vane',
+      talk: 'Harvinaisia aarteita harvinaisille ystäville. Älä koske mihinkään hillosormin.'
+    },
+    sbFence: {
+      name: 'Mirela Thorne',
+      talk: 'Hienoja haarniskoja, ei kysymyksiä. No, hyvin vähän kysymyksiä.'
     }
   },
   quest: {
@@ -1656,6 +1665,11 @@ export default {
       },
       bye: {
         '1': 'Tule takaisin meille ehjänä. Sitä vain pyydän.'
+      },
+      map: {
+        '1': 'Kapteeni Rookin kartta! Hän repi sen ja piilotti palat, ennen kuin hiidet saivat hänet kiinni.',
+        '2': 'Löydä kaikki kuusi, niin X näyttää tien: jonnekin Tuhkakallioille. Kaiva sieltä, niin kulta on sinun.',
+        say: 'Löysin palan vanhaa karttaa.'
       }
     },
     sunfordHealer: {
@@ -3341,6 +3355,82 @@ export default {
       bye: {
         '1': 'Varo kukkaroasi tuolla ulkona. Kaikki eivät pelaa reilusti.'
       }
+    },
+    sbCollector: {
+      hello: {
+        '1': 'Sulje ovi, täällä vetää. Koit himoitsevat seinävaatteitani.',
+        '2': 'Alder Vane. Jotkut kutsuvat minua Keräilijäksi. Ostan harvinaisia esineitä ja myyn niitä niille, joista pidän.'
+      },
+      open: {
+        '1': 'Ystäväni! Peremmälle, peremmälle. Pyyhin pölyt jostain erityisestä sinua varten.'
+      },
+      again: {
+        '1': 'Sinä taas. Et näköjään vieläkään ole tehnyt sitä palvelusta.'
+      },
+      trade: {
+        '1': 'Vitriinit ovat auki. Vain parasta, ja muistan jokaisen hinnan.'
+      },
+      favor: {
+        '1': 'En vieraille. Mutta tee minulle palvelus, niin meistä tulee ystävät.',
+        '2': 'Puuhenget Kuiskaavassa metsässä vartioivat kuunkelloja, joita tarvitsen. Voita kuusi niistä ja tuo minulle kolme kuunkelloa.',
+        say: 'Myytkö mitään?'
+      },
+      waiting: {
+        '1': 'Kuusi puuhenkeä, kolme kuunkelloa. Valitettavasti kuunkellot eivät poimi itseään.',
+        say: 'Siitä palveluksesta...'
+      },
+      favorDone: {
+        '1': 'Voi, ne tuoksuvat vielä metsältä! Ihanaa.',
+        '2': 'Sopimus on sopimus. Vitriinini ovat avoinna sinulle milloin vain.',
+        say: 'Toin kuunkellosi.'
+      },
+      who: {
+        '1': 'Olen kerännyt kuusivuotiaasta asti. Ensin nappeja. Nyt hyriseviä miekkoja.'
+      },
+      shopBack: {
+        '1': 'Kohtele sitä hellästi. Se on vanhempi kuin kumpikaan meistä.'
+      },
+      bye: {
+        '1': 'Sulje ovi perässäsi. Varovasti, maljakot kilisevät.'
+      }
+    },
+    sbFence: {
+      hello: {
+        '1': 'Tuijotat. Joko osta jotain tai siirry pois valoni edestä.',
+        '2': 'Mirela Thorne. Löydän tavaroita, joita ihmiset hukkaavat. Sitten löydän niille uudet omistajat.'
+      },
+      open: {
+        '1': 'Kas, lempisankarini. Pidin hyvät tavarat sinulle kankaan alla.'
+      },
+      again: {
+        '1': 'Takaisin? Muista, mitä pyysin. Sitten voidaan puhua bisneksiä.'
+      },
+      trade: {
+        '1': 'Haarniskoja joka puolelta. Älä kysy mistä. Nyt ne ovat kaikki puhtaita, lupaan.'
+      },
+      favor: {
+        '1': 'Hyviä haarniskoja. Ystäville. Ja ystävät tekevät toisilleen palveluksia.',
+        '2': 'Rosvot Oakhavenin laitamilla ryöstävät jatkuvasti toimituksiani. Voita viisitoista ja kysy sitten siltä rihkamapojalta, kuka heidät lähetti.',
+        say: 'Mitä kankaan alla on?'
+      },
+      waiting: {
+        '1': 'Viisitoista rosvoa, sitten sananen rihkamapojan kanssa. Menehän.',
+        say: 'Niistä rosvoista...'
+      },
+      favorDone: {
+        '1': 'Se juoruilija siis koko ajan! Hah! Olen sinulle velkaa.',
+        '2': 'Nosta kangasta milloin vain. Ystävät valitsevat ensin.',
+        say: 'Rosvot on voitettu, ja tiedän, kuka heidät lähetti.'
+      },
+      who: {
+        '1': 'Kasvoin näillä jokiportailla. Kaikki, mikä kelluu ohi, päätyy ennemmin tai myöhemmin minulle.'
+      },
+      shopBack: {
+        '1': 'Kanna sitä ylpeänä. Ja jos joku kysyy, ostit sen Ironholdista.'
+      },
+      bye: {
+        '1': 'Varo kukkaroasi. Kaikki täällä eivät ole yhtä rehellisiä kuin minä.'
+      }
     }
   },
   enemy: {
@@ -3826,5 +3916,16 @@ export default {
   gamble: {
     prize: 'Palkinto: {item}!',
     prizeGold: 'Sinulla on jo ne kaikki, joten saat sen sijaan {n} kultaa!'
+  },
+  errand: {
+    collectorFavor: {
+      title: 'Keräilijän kuunkellot'
+    },
+    mirelaFavor: {
+      title: 'Mirelan kadonneet toimitukset'
+    },
+    treasureMap: {
+      title: 'Kapteeni Rookin aarrekartta'
+    }
   }
 }

@@ -102,7 +102,8 @@ export default {
     levelUp: '{level} lygis! +3 savybių taškai',
     boss: 'Pasirodo: {boss}',
     wave: 'Banga {n}',
-    herb: 'Nuskinta: {plant}'
+    herb: 'Nuskinta: {plant}',
+    piece: 'Lobių žemėlapio gabalas!'
   },
   coach: {
     move: {
@@ -1137,6 +1138,14 @@ export default {
     },
     oakGambler: {
       name: 'Šilkinis Ren'
+    },
+    sbCollector: {
+      name: 'Alder Vane',
+      talk: 'Reti daiktai – retiems draugams. Nieko neliesk uogienėtais pirštais.'
+    },
+    sbFence: {
+      name: 'Mirela Thorne',
+      talk: 'Puikūs šarvai, jokių klausimų. Na, labai mažai klausimų.'
     }
   },
   quest: {
@@ -1667,6 +1676,11 @@ export default {
       bye: {
         '1': 'Grįžk pas mus sveikas. Tik to ir prašau.',
         '1__f': 'Grįžk pas mus sveika. Tik to ir prašau.'
+      },
+      map: {
+        '1': 'Kapitono Rooko žemėlapis! Jis jį suplėšė ir paslėpė gabalus, prieš goblinams jį sugaunant.',
+        '2': 'Surask visus šešis, ir X parodys kelią: kažkur Pelenų uolose. Kask ten, ir auksas tavo.',
+        say: 'Radau seno žemėlapio gabalą.'
       }
     },
     sunfordHealer: {
@@ -3388,6 +3402,82 @@ export default {
       bye: {
         '1': 'Saugok piniginę. Ne visi žaidžia sąžiningai.'
       }
+    },
+    sbCollector: {
+      hello: {
+        '1': 'Uždaryk duris, traukia skersvėjis. Kandys taikosi į mano gobelenus.',
+        '2': 'Alder Vane. Kai kas mane vadina Kolekcininku. Perku retus daiktus ir parduodu juos tiems, kas man patinka.'
+      },
+      open: {
+        '1': 'A, tai tu! Užeik, užeik. Nuvaliau dulkes nuo kai ko ypatingo tau.'
+      },
+      again: {
+        '1': 'Vėl tu. Matau, vis dar nepadarei man tos paslaugos.'
+      },
+      trade: {
+        '1': 'Spintos atvertos. Tik geriausi daiktai, ir aš prisimenu kiekvieną kainą.'
+      },
+      favor: {
+        '1': 'Ne nepažįstamiems. Bet padaryk man paslaugą, ir būsime draugai.',
+        '2': 'Medžmogiai Šnabždančiame miške saugo mėnulio varpelius, kurių man reikia. Įveik šešis ir atnešk man tris mėnulio varpelius.',
+        say: 'Ar ką nors parduodi?'
+      },
+      waiting: {
+        '1': 'Šeši medžmogiai, trys mėnulio varpeliai. Deja, varpeliai patys nenusiskins.',
+        say: 'Dėl tos paslaugos...'
+      },
+      favorDone: {
+        '1': 'O, jie dar kvepia mišku! Nuostabu.',
+        '2': 'Sutarta yra sutarta. Mano spintos tau atviros bet kada.',
+        say: 'Atnešiau tavo mėnulio varpelius.'
+      },
+      who: {
+        '1': 'Renku nuo šešerių metų. Iš pradžių sagas. Dabar – dūzgiančius kardus.'
+      },
+      shopBack: {
+        '1': 'Elkis su juo švelniai. Jis senesnis už mus abu.'
+      },
+      bye: {
+        '1': 'Uždaryk paskui save duris. Atsargiai, vazos barška.'
+      }
+    },
+    sbFence: {
+      hello: {
+        '1': 'Spoksai. Arba ką nors pirk, arba neužstok man šviesos.',
+        '2': 'Mirela Thorne. Randu tai, ką žmonės pameta. Paskui randu tam naujus šeimininkus.'
+      },
+      open: {
+        '1': 'A, štai ir tu! Geriausius daiktus paslėpiau tau po audeklu.'
+      },
+      again: {
+        '1': 'Vėl čia? Prisimink, ko prašiau. Tada pakalbėsim apie reikalus.'
+      },
+      trade: {
+        '1': 'Šarvai iš visur. Neklausk iš kur. Dabar jie visi švarūs, pažadu.'
+      },
+      favor: {
+        '1': 'Geri šarvai. Draugams. O draugai daro vieni kitiems paslaugas.',
+        '2': 'Banditai Oakhaveno prieigose vis apiplėšia mano siuntas. Įveik penkiolika, o tada paklausk vaikio su niekučiais, kas juos atsiuntė.',
+        say: 'Kas po audeklu?'
+      },
+      waiting: {
+        '1': 'Penkiolika banditų, paskui pokalbis su vaikiu su niekučiais. Pirmyn.',
+        say: 'Dėl tų banditų...'
+      },
+      favorDone: {
+        '1': 'Tai vis dėlto tas plepys! Cha! Esu tau skolinga.',
+        '2': 'Kelk audeklą kada tik nori. Draugai renkasi pirmieji.',
+        say: 'Banditai įveikti, ir aš žinau, kas juos atsiuntė.'
+      },
+      who: {
+        '1': 'Užaugau ant šių upės laiptų. Viskas, kas plaukia pro šalį, anksčiau ar vėliau atsiduria pas mane.'
+      },
+      shopBack: {
+        '1': 'Nešiok į sveikatą. O jei kas paklaus – pirkta Ironholde.'
+      },
+      bye: {
+        '1': 'Saugok piniginę. Ne visi čia tokie sąžiningi kaip aš.'
+      }
     }
   },
   enemy: {
@@ -3877,5 +3967,16 @@ export default {
   gamble: {
     prize: 'Prizas: {item}!',
     prizeGold: 'Jau turi juos visus, tad vietoj to gauni {n} aukso!'
+  },
+  errand: {
+    collectorFavor: {
+      title: 'Kolekcininko mėnulio varpeliai'
+    },
+    mirelaFavor: {
+      title: 'Dingusios Mirelos siuntos'
+    },
+    treasureMap: {
+      title: 'Kapitono Rooko lobių žemėlapis'
+    }
   }
 }

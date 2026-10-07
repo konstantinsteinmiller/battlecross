@@ -102,7 +102,8 @@ export default {
     levelUp: 'Nivå {level}! +3 attributtpoeng',
     boss: '{boss} dukker opp',
     wave: 'Bølge {n}',
-    herb: 'Plukket: {plant}'
+    herb: 'Plukket: {plant}',
+    piece: 'En bit av skattekartet!'
   },
   coach: {
     move: {
@@ -1137,6 +1138,14 @@ export default {
     },
     oakGambler: {
       name: 'Silkemyke Ren'
+    },
+    sbCollector: {
+      name: 'Alder Vane',
+      talk: 'Sjeldne saker til sjeldne venner. Ikke rør noe med syltetøyfingre.'
+    },
+    sbFence: {
+      name: 'Mirela Thorne',
+      talk: 'Fine rustninger, ingen spørsmål. Vel, veldig få spørsmål.'
     }
   },
   quest: {
@@ -1656,6 +1665,11 @@ export default {
       },
       bye: {
         '1': 'Kom tilbake til oss i ett stykke. Det er alt jeg ber om.'
+      },
+      map: {
+        '1': 'Kaptein Rooks kart! Han rev det i stykker og gjemte bitene før goblins fikk tak i ham.',
+        '2': 'Finn alle seks, så viser krysset veien: et sted i Askeklippene. Grav der, så er gullet ditt.',
+        say: 'Jeg har funnet en bit av et gammelt kart.'
       }
     },
     sunfordHealer: {
@@ -3341,6 +3355,82 @@ export default {
       bye: {
         '1': 'Pass på pungen der ute. Ikke alle spiller ærlig.'
       }
+    },
+    sbCollector: {
+      hello: {
+        '1': 'Lukk døra, det trekker. Møllen er ute etter veggteppene mine.',
+        '2': 'Alder Vane. Noen kaller meg Samleren. Jeg kjøper sjeldne ting og selger dem til folk jeg liker.'
+      },
+      open: {
+        '1': 'Der er du jo! Kom inn, kom inn. Jeg har støvet av noe helt spesielt til deg.'
+      },
+      again: {
+        '1': 'Du igjen. Du har visst fortsatt ikke gjort meg den tjenesten.'
+      },
+      trade: {
+        '1': 'Skapene er åpne. Bare det beste, og jeg husker hver eneste pris.'
+      },
+      favor: {
+        '1': 'Ikke til fremmede. Men gjør meg en tjeneste, så blir vi venner.',
+        '2': 'Trevetter i Den hviskende skogen vokter måneklokkene jeg trenger. Beseir seks av dem og gi meg tre måneklokker.',
+        say: 'Selger du noe?'
+      },
+      waiting: {
+        '1': 'Seks trevetter, tre måneklokker. Måneklokkene plukker dessverre ikke seg selv.',
+        say: 'Angående den tjenesten...'
+      },
+      favorDone: {
+        '1': 'Å, de lukter fortsatt skog! Herlig.',
+        '2': 'Avtale er avtale. Skapene mine står åpne for deg, når du vil.',
+        say: 'Her er måneklokkene dine.'
+      },
+      who: {
+        '1': 'Jeg har samlet siden jeg var seks. Først var det knapper. Nå er det sverd som summer.'
+      },
+      shopBack: {
+        '1': 'Vær snill med den. Den er eldre enn oss begge.'
+      },
+      bye: {
+        '1': 'Lukk døra etter deg. Forsiktig, vasene klirrer.'
+      }
+    },
+    sbFence: {
+      hello: {
+        '1': 'Du glor. Kjøp noe, eller gå ut av lyset mitt.',
+        '2': 'Mirela Thorne. Jeg finner ting folk mister. Så finner jeg nye eiere til dem.'
+      },
+      open: {
+        '1': 'Ah, favoritthelten min. Jeg har spart de fine sakene under duken til deg.'
+      },
+      again: {
+        '1': 'Tilbake? Husk hva jeg ba om. Så kan vi snakke forretninger.'
+      },
+      trade: {
+        '1': 'Rustninger fra hele verden. Ikke spør hvorfra. Alt er rent nå, jeg lover.'
+      },
+      favor: {
+        '1': 'Gode rustninger. For venner. Og venner gjør hverandre tjenester.',
+        '2': 'Banditter i Oakhavens utkant raner leveransene mine hele tiden. Beseir femten, og spør så nipsgutten hvem som sender dem.',
+        say: 'Hva er under duken?'
+      },
+      waiting: {
+        '1': 'Femten banditter, så en prat med nipsgutten. Av gårde med deg.',
+        say: 'Angående de bandittene...'
+      },
+      favorDone: {
+        '1': 'Så det var sladrehanken hele tiden. Ha! Jeg skylder deg en.',
+        '2': 'Løft duken når du vil. Venner får velge først.',
+        say: 'Bandittene er beseiret, og jeg vet hvem som sendte dem.'
+      },
+      who: {
+        '1': 'Jeg vokste opp på disse elvetrappene. Alt som flyter forbi, havner hos meg før eller siden.'
+      },
+      shopBack: {
+        '1': 'Bær den med stil. Og hvis noen spør, kjøpte du den i Ironhold.'
+      },
+      bye: {
+        '1': 'Pass på pungen. Ikke alle her er like ærlige som meg.'
+      }
     }
   },
   enemy: {
@@ -3826,5 +3916,16 @@ export default {
   gamble: {
     prize: 'Premie: {item}!',
     prizeGold: 'Du har alle sammen, så du får {n} gull i stedet!'
+  },
+  errand: {
+    collectorFavor: {
+      title: 'Samlerens måneklokker'
+    },
+    mirelaFavor: {
+      title: 'Mirelas forsvunne leveranser'
+    },
+    treasureMap: {
+      title: 'Kaptein Rooks skattekart'
+    }
   }
 }

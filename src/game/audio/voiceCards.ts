@@ -350,6 +350,22 @@ export const CARDS: Readonly<Record<string, VoiceCard>> = {
     reference: "Mind the cart! Sorry, everything on this bridge moves. I'm Mayor Brenna Quill. If it's lost, broken or late, it ends up on my desk, so let's keep things moving, shall we?",
     notes: ''
   }),
+  sbCollector: card({
+    name: 'Alder Vane', gender: 'male', age: 'about 75', pitch: 'mid-low', pace: 'slow',
+    timbre: 'dry, papery, fond old voice',
+    personality: 'The Collector: a fussy, kindly old man who loves rare things and the people who bring them.',
+    design: 'A man of about seventy-five with a dry, papery voice, fussy and precise but fond, like an old shopkeeper among his treasures.',
+    reference: "Shut the door, there's a draught. The moths are after my tapestries. Alder Vane. Some call me the Collector. I buy rare things, and sell them to people I like.",
+    notes: 'Not Elder Mara (warm village elder): Alder is drier and more particular.'
+  }),
+  sbFence: card({
+    name: 'Mirela Thorne', gender: 'female', age: 'early 30s', pitch: 'mid-low', pace: 'medium',
+    timbre: 'low, cool, amused alto',
+    personality: 'A river fence: cool, sharp, sardonic, loyal to her friends.',
+    design: 'A woman in her early thirties with a low, cool alto, dry and sardonic, with a hidden warmth.',
+    reference: "You're staring. Either buy something or stop blocking my light. Mirela Thorne. I find things people lose. Then I find them new owners.",
+    notes: 'Not Nyx Halloway (whispery shadow master): Mirela is plain-spoken and dry.'
+  }),
   sbGambler: card({
     name: 'Madame Pell', gender: 'female', age: 'about 50', pitch: 'mid', pace: 'brisk',
     timbre: 'big, theatrical, sparkling showwoman voice',

@@ -114,6 +114,8 @@ const elderMara = conversation('elderMara', {
     { id: 'again' }
   ],
   topics: [
+    // The treasure map (#89): she knows whose it was, and where it leads.
+    { id: 'map', lines: 'nn', when: { errand: { treasureMap: ['active', 'ready'] } }, icon: 'quest', mood: 'amused' },
     // The town's thanks for the plains road.
     { id: 'reward', lines: 'nn', when: { cleared: ['plains'] }, icon: 'gift', fx: [{ t: 'gold', n: 60 }] },
     // The Goblin King, told as an exchange; decided in the Hollows.

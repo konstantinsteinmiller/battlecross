@@ -104,6 +104,10 @@ export const LOOKS: Readonly<Record<string, Look>> = {
   // The alchemist: a moss-green apron over a lilac dress, a bun of red hair stuck with herbs, a bubbling flask.
   // The gamblers (#91, #92): a showwoman in purple and gold; a scruffy dice man in a
   // patched waistcoat; a sleek dealer in midnight blue with a jewelled cap.
+  // The secret traders (#86): a stooped old collector in a dusty plum coat with
+  // a monocle-bright orb; a river fence in a teal hood, a dagger at her belt.
+  sbCollector: L({ skin: '#e8c4a4', top: '#5a2a4a', bottom: '#3a2a2a', head: 'bald', outfit: 'robe', held: 'none', off: 'orb', trim: '#c9a24a', beard: '#d8d8d0', glow: '#ffe07a' }),
+  sbFence: L({ skin: '#d9a47e', top: '#1f5a5a', bottom: '#2a2a30', head: 'hood', hair: '#1f5a5a', outfit: 'leather', held: 'dagger', trim: '#c9a24a', cape: '#16303a' }),
   sbGambler: L({ skin: '#e8b890', top: '#7a2a8a', bottom: '#2a1c3a', head: 'hat', hair: '#1c1418', outfit: 'robe', held: 'none', off: 'orb', trim: '#ffd24a', cape: '#3a1c4a', glow: '#ffd24a' }),
   sunfordGambler: L({ skin: '#d9a47e', top: '#8a5f3a', bottom: '#4a3a2a', head: 'bandana', hair: '#5a3a24', outfit: 'tunic', held: 'none', off: 'tome', trim: '#e0a84a', beard: '#5a3a24' }),
   oakGambler: L({ skin: '#f0c8a8', top: '#1f2a5a', bottom: '#141a3a', head: 'leathercap', hair: '#c9a24a', headCol: '#2a1f4a', outfit: 'leather', held: 'none', off: 'orb', trim: '#c9a24a', glow: '#8fd8ff' }),

@@ -102,7 +102,8 @@ export default {
     levelUp: 'Seviye {level}! +3 nitelik puanı',
     boss: '{boss} ortaya çıktı',
     wave: 'Dalga {n}',
-    herb: 'Toplandı: {plant}'
+    herb: 'Toplandı: {plant}',
+    piece: 'Hazine haritasının bir parçası!'
   },
   coach: {
     move: {
@@ -1137,6 +1138,14 @@ export default {
     },
     oakGambler: {
       name: 'Silky Ren'
+    },
+    sbCollector: {
+      name: 'Alder Vane',
+      talk: 'Nadir parçalar, nadir dostlar için. Reçelli parmaklarla hiçbir şeye dokunma.'
+    },
+    sbFence: {
+      name: 'Mirela Thorne',
+      talk: 'Kaliteli zırh, soru sorulmaz. Yani, pek az soru.'
     }
   },
   quest: {
@@ -1656,6 +1665,11 @@ export default {
       },
       bye: {
         '1': 'Bize sağ salim dön. Tek istediğim bu.'
+      },
+      map: {
+        '1': 'Kaptan Rook\'un haritası! Goblinler onu yakalamadan önce haritayı yırtıp parçaları saklamış.',
+        '2': 'Altısını da bul, X sana yolu gösterecek: Kül Kayalıkları\'nda bir yerde. Orayı kaz, altın senin olsun.',
+        say: 'Eski bir haritanın parçasını buldum.'
       }
     },
     sunfordHealer: {
@@ -3341,6 +3355,82 @@ export default {
       bye: {
         '1': 'Dışarıda kesenize dikkat edin. Herkes dürüst oynamaz.'
       }
+    },
+    sbCollector: {
+      hello: {
+        '1': 'Kapıyı kapat, cereyan yapıyor. Güveler duvar halılarımın peşinde.',
+        '2': 'Alder Vane. Bazıları bana Koleksiyoncu der. Nadir şeyler alır, sevdiğim insanlara satarım.'
+      },
+      open: {
+        '1': 'Dostum! Gir, gir. Senin için özel bir şeyin tozunu aldım.'
+      },
+      again: {
+        '1': 'Yine sen. Görüyorum ki o iyiliği hâlâ yapmadın.'
+      },
+      trade: {
+        '1': 'Dolaplar açık. Sadece en iyisi, ve her fiyatı hatırlarım.'
+      },
+      favor: {
+        '1': 'Yabancılara değil. Ama bana bir iyilik yap, dost olalım.',
+        '2': 'Fısıldayan Orman\'daki ağaç adamlar ihtiyacım olan ayçanlarını koruyor. Altısını yen ve bana üç ayçanı getir.',
+        say: 'Bir şey satıyor musun?'
+      },
+      waiting: {
+        '1': 'Altı ağaç adam, üç ayçanı. Ne yazık ki ayçanları kendilerini toplamaz.',
+        say: 'Şu iyilik meselesi...'
+      },
+      favorDone: {
+        '1': 'Ah, hâlâ orman kokuyorlar! Harika.',
+        '2': 'Söz sözdür. Dolaplarım her zaman sana açık.',
+        say: 'Ayçanlarını getirdim.'
+      },
+      who: {
+        '1': 'Altı yaşımdan beri koleksiyon yaparım. Önce düğmeler. Şimdi vızıldayan kılıçlar.'
+      },
+      shopBack: {
+        '1': 'Ona iyi davran. İkimizden de yaşlı.'
+      },
+      bye: {
+        '1': 'Çıkarken kapıyı kapat. Yavaşça, vazolar tıngırdıyor.'
+      }
+    },
+    sbFence: {
+      hello: {
+        '1': 'Bakıp duruyorsun. Ya bir şey al ya da ışığımı kesme.',
+        '2': 'Mirela Thorne. İnsanların kaybettiği şeyleri bulurum. Sonra onlara yeni sahipler bulurum.'
+      },
+      open: {
+        '1': 'Ah, en sevdiğim kahraman. İyi malları senin için örtünün altında sakladım.'
+      },
+      again: {
+        '1': 'Döndün mü? Ne istediğimi unutma. Sonra iş konuşuruz.'
+      },
+      trade: {
+        '1': 'Her yerden zırhlar. Nereden diye sorma. Artık hepsi temiz, söz veriyorum.'
+      },
+      favor: {
+        '1': 'İyi zırh. Dostlar için. Dostlar da birbirine iyilik yapar.',
+        '2': 'Oakhaven Varoşları\'ndaki haydutlar teslimatlarımı soyup duruyor. On beşini yen, sonra takıcı çocuğa onları kimin gönderdiğini sor.',
+        say: 'Örtünün altında ne var?'
+      },
+      waiting: {
+        '1': 'On beş haydut, sonra takıcı çocukla bir konuşma. Hadi bakalım.',
+        say: 'Şu haydutlar meselesi...'
+      },
+      favorDone: {
+        '1': 'Demek başından beri o dedikoducuymuş! Ha! Sana bir borcum var.',
+        '2': 'Örtüyü istediğin zaman kaldır. İlk seçim dostların hakkı.',
+        say: 'Haydutlar yenildi ve onları kimin gönderdiğini biliyorum.'
+      },
+      who: {
+        '1': 'Bu nehir basamaklarında büyüdüm. Önümden akıp giden her şey er ya da geç bana gelir.'
+      },
+      shopBack: {
+        '1': 'Güle güle giy. Biri sorarsa, Ironhold\'dan aldın.'
+      },
+      bye: {
+        '1': 'Keseni kolla. Buradaki herkes benim kadar dürüst değil.'
+      }
     }
   },
   enemy: {
@@ -3826,5 +3916,16 @@ export default {
   gamble: {
     prize: 'Ödül: {item}!',
     prizeGold: 'Hepsine zaten sahipsin, bu yüzden yerine {n} altın alıyorsun!'
+  },
+  errand: {
+    collectorFavor: {
+      title: 'Koleksiyoncu\'nun ayçanları'
+    },
+    mirelaFavor: {
+      title: 'Mirela\'nın kayıp teslimatları'
+    },
+    treasureMap: {
+      title: 'Kaptan Rook\'un hazine haritası'
+    }
   }
 }

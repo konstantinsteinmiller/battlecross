@@ -47,6 +47,8 @@ export type ChestRole = 'finale' | 'secret' | 'puzzle' | 'champion' | 'guard' | 
   | 'bypass'
   /** Behind a branch boss, at the dead end of its way (roadmap #70). */
   | 'branch'
+  /** The treasure map's buried chest, under its X (roadmap #89). */
+  | 'treasure'
 
 export interface ChestPlan {
   id: number
