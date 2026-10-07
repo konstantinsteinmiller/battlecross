@@ -1526,7 +1526,6 @@ export default {
   bag: {
     equip: 'Felvesz',
     unequip: 'Levesz',
-    tooLow: '{n}. szint kell hozzá.',
     worn: 'Ez rajtad van. Vedd le az eladásához.',
     versus: 'Összehasonlítva: {item}',
     hint: 'Koppints egy tárgyra a megtekintéséhez. Koppints újra, vagy húzd egy helyre a felvételhez.',

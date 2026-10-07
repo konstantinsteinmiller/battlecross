@@ -1526,7 +1526,6 @@ export default {
   bag: {
     equip: 'Kuşan',
     unequip: 'Çıkar',
-    tooLow: 'Seviye {n} gerekir.',
     worn: 'Bunu giyiyorsun. Satmak için önce çıkar.',
     versus: '{item} ile karşılaştırma',
     hint: 'Bakmak için bir eşyaya dokun. Kuşanmak için tekrar dokun ya da bir yuvaya sürükle.',

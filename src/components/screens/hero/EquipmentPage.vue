@@ -13,7 +13,6 @@
           :against="against"
           :worn="!!wornSlot"
           :can-wear="canEquip(sel)"
-          :level="levelOf(sel)"
           :forge="forge"
           @equip="doEquip(sel)"
           @unequip="wornSlot && doUnequip(wornSlot)"
@@ -87,7 +86,6 @@
             :selected="sel === it.id"
             :worn="!!equippedIn(it.id)"
             :fresh="profile.inv.fresh.includes(it.id)"
-            :locked="profile.level < it.level"
             :better="!equippedIn(it.id) && isUpgrade(it.id, profile.inv.equipped, profile.hero.attrs, profile.inv.upgrades)"
             v-on="drag.handle({ id: it.id, from: 'bag' })"
             @click="tapCell(it.id)"
@@ -101,7 +99,6 @@
         :against="against"
         :worn="!!wornSlot"
         :can-wear="canEquip(sel)"
-        :level="levelOf(sel)"
         :forge="forge"
         @equip="doEquip(sel)"
         @unequip="wornSlot && doUnequip(wornSlot)"
@@ -193,14 +190,13 @@ const nextSort = (): void => { sort.value = SORTS[(SORTS.indexOf(sort.value) + 1
 // ── What is worn, and what the selection would do ────────────────────────────
 const worn = computed(() => profile.inv.equipped)
 const tierOf = (id: string): string => TIER_COLOR[ITEM_BY_ID[id]?.tier ?? 1] ?? ''
-const levelOf = (id: string): number => ITEM_BY_ID[id]?.level ?? 1
 const wornSlot = computed<EquipSlot | null>(() => (sel.value ? equippedIn(sel.value) : null))
 const against = computed(() => (sel.value && !wornSlot.value ? wornAgainst(sel.value) : null))
 
 /** The sockets the bag holds something better for (the green arrow). */
 const upSlots = computed<Set<EquipSlot>>(() => {
   const inv = profile.inv
-  return new Set(EQUIP_SLOTS.filter(s => slotHasUpgrade(s, inv.equipped, inv.items, profile.level, profile.hero.attrs, inv.upgrades)))
+  return new Set(EQUIP_SLOTS.filter(s => slotHasUpgrade(s, inv.equipped, inv.items, profile.hero.attrs, inv.upgrades)))
 })
 
 /** The sockets that would take the thing in hand (selected, or being dragged). */

@@ -1526,7 +1526,6 @@ export default {
   bag: {
     equip: '장착',
     unequip: '해제',
-    tooLow: '레벨 {n} 필요.',
     worn: '착용 중이다. 팔려면 먼저 벗자.',
     versus: '{item}와(과) 비교',
     hint: '아이템을 탭해 살펴보세요. 한 번 더 탭하거나 슬롯으로 드래그하면 착용해요.',

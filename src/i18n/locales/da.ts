@@ -1526,7 +1526,6 @@ export default {
   bag: {
     equip: 'Udrust',
     unequip: 'Tag af',
-    tooLow: 'Kræver niveau {n}.',
     worn: 'Du har den på. Tag den af for at sælge den.',
     versus: 'Sammenlignet med {item}',
     hint: 'Tryk på en ting for at se på den. Tryk igen, eller træk den hen på en plads, for at tage den på.',

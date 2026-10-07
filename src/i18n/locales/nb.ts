@@ -1526,7 +1526,6 @@ export default {
   bag: {
     equip: 'Utrust',
     unequip: 'Ta av',
-    tooLow: 'Krever nivå {n}.',
     worn: 'Du har denne på deg. Ta den av for å selge den.',
     versus: 'Sammenlignet med {item}',
     hint: 'Trykk på en gjenstand for å se på den. Trykk igjen, eller dra den til en plass, for å ta den på.',

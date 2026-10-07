@@ -1526,7 +1526,6 @@ export default {
   bag: {
     equip: 'Užsidėti',
     unequip: 'Nusiimti',
-    tooLow: 'Reikia {n} lygio.',
     worn: 'Tai dabar vilki. Nusiimk, kad parduotum.',
     versus: 'Palyginus su: {item}',
     hint: 'Palieski daiktą, kad apžiūrėtum. Palieski dar kartą arba nutempk į vietą, kad užsidėtum.',

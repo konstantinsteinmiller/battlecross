@@ -674,10 +674,9 @@ export const gainItem = (id: string): { added: boolean; gold: number } => {
   return { added: true, gold: 0 }
 }
 
-export const canEquip = (id: string): boolean => {
-  const it = ITEM_BY_ID[id]
-  return !!it && owns(id) && profile.level >= it.level
-}
+/** No level gate (#98): what the hero owns, he can wear; its stats and where
+ *  it is found decide whether he wants it. */
+export const canEquip = (id: string): boolean => !!ITEM_BY_ID[id] && owns(id)
 
 /** Does this item go in that slot? (A helmet is not worn on the feet.) */
 export const fitsSlot = (id: string, slot: EquipSlot): boolean => ITEM_BY_ID[id]?.slot === slotOf(slot)

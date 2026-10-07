@@ -1,7 +1,7 @@
 <template lang="pug">
   button.item-cell(
     type="button"
-    :class="{ 'is-sel': selected, 'is-worn': worn, 'is-locked': locked, 'is-dim': dim, 'has-tag': !!$slots.tag }"
+    :class="{ 'is-sel': selected, 'is-worn': worn, 'is-dim': dim, 'has-tag': !!$slots.tag }"
     :aria-label="t(`item.${id}.name`)"
     :aria-pressed="selected"
     :data-item="id"
@@ -11,10 +11,6 @@
     //- Worn right now: a green tick on the corner.
     span.item-cell__worn(v-if="worn" aria-hidden="true")
       GameIcon(name="check")
-    //- Above the hero's level: a padlock and the level it asks for.
-    span.item-cell__lock(v-if="locked" aria-hidden="true")
-      GameIcon(name="lock")
-      | {{ item ? item.level : '' }}
     //- Better than what is worn in its slot (`data/upgrade.ts`): a green arrow.
     span.item-cell__up(v-if="better" aria-hidden="true")
       GameIcon(name="up")
@@ -30,30 +26,25 @@
  * One item in a grid: the bag, a merchant's shelf, the buy-back row. It is a
  * button (a tap selects it) and the thing that is picked up in a drag; the
  * marks on its corners say what the hero should know before tapping it —
- * worn, new, above his level — and the `tag` slot carries a price.
+ * worn, new, better than what he wears — and the `tag` slot carries a price.
  */
-import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { ITEM_BY_ID } from '@/game/data/items'
 import ItemIcon from '@/components/art/ItemIcon.vue'
 import GameIcon from '@/components/icons/GameIcon.vue'
 
-const props = withDefaults(defineProps<{
+withDefaults(defineProps<{
   id: string
   selected?: boolean
   /** The hero wears it. */
   worn?: boolean
   /** Not yet looked at. */
   fresh?: boolean
-  /** Its level is above the hero's: he cannot wear it yet. */
-  locked?: boolean
   /** Greyed: already owned, sold out, not for this hero. */
   dim?: boolean
   /** Beats what the hero wears in its slot. */
   better?: boolean
-}>(), { selected: false, worn: false, fresh: false, locked: false, dim: false, better: false })
+}>(), { selected: false, worn: false, fresh: false, dim: false, better: false })
 const { t } = useI18n()
-const item = computed(() => ITEM_BY_ID[props.id])
 </script>
 
 <style scoped lang="sass">
@@ -81,7 +72,7 @@ const item = computed(() => ITEM_BY_ID[props.id])
 .is-sel .item-cell__icon
   +screen.chosen
 
-.item-cell__worn, .item-cell__lock, .cell__new, .item-cell__up
+.item-cell__worn, .cell__new, .item-cell__up
   position: absolute
   z-index: 1
   pointer-events: none
@@ -100,16 +91,6 @@ const item = computed(() => ITEM_BY_ID[props.id])
     display: block
     width: 100%
     height: 100%
-// Above the hero's level: a lock and the number, across the foot of the icon.
-.item-cell__lock
-  +screen.tag('red')
-  left: 50%
-  top: 0
-  translate: -50% -30%
-  padding-inline: 0.35em
-  font-size: clamp(0.56rem, 2.2vmin, 0.7rem)
-  :deep(svg)
-    width: 0.9em
     height: 0.9em
 // Better: a green arrow, bottom right.
 .item-cell__up

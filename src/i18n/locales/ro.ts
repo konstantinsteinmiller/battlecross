@@ -1526,7 +1526,6 @@ export default {
   bag: {
     equip: 'Echipează',
     unequip: 'Scoate',
-    tooLow: 'Necesită nivelul {n}.',
     worn: 'Porți asta. Dă-l jos ca să-l vinzi.',
     versus: 'Comparat cu {item}',
     hint: 'Atinge un obiect ca să-l privești. Atinge-l din nou, sau trage-l pe un loc, ca să-l porți.',

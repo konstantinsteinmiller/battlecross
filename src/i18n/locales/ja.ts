@@ -1526,7 +1526,6 @@ export default {
   bag: {
     equip: '装備',
     unequip: '外す',
-    tooLow: 'レベル{n}が必要。',
     worn: '身につけている。売るには外そう。',
     versus: '{item}と比較',
     hint: 'アイテムをタップして確認。もう一度タップするか、スロットへドラッグで装備。',

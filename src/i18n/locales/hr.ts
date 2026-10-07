@@ -1529,7 +1529,6 @@ export default {
   bag: {
     equip: 'Opremi',
     unequip: 'Skini',
-    tooLow: 'Potrebna razina {n}.',
     worn: 'Nosiš ovo. Skini da bi prodao.',
     worn__f: 'Nosiš ovo. Skini da bi prodala.',
     versus: 'U usporedbi s: {item}',

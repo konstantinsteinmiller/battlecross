@@ -1526,7 +1526,6 @@ export default {
   bag: {
     equip: '装备',
     unequip: '卸下',
-    tooLow: '需要 {n} 级。',
     worn: '你正穿着它。先脱下才能出售。',
     versus: '与{item}对比',
     hint: '点击物品查看。再点一次，或拖到栏位上，即可穿戴。',

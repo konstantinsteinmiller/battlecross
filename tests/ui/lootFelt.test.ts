@@ -76,14 +76,14 @@ describe('the result screen', () => {
     expect(row.querySelector('.loot__up')).toBeNull()
   })
 
-  it('cannot equip a find above the hero\'s level', async () => {
+  it('equips a find above the hero\'s level at once (#98)', async () => {
     p.profile.level = 1
     await showResults(['ironBroadsword'])
     const btn = $<HTMLButtonElement>('.loot__act button')!
-    expect(btn.disabled).toBe(true)
+    expect(btn.disabled).toBe(false)
     btn.click()
     await nextTick()
-    expect(p.profile.inv.equipped.main).toBe('rustedShortsword')
+    expect(p.profile.inv.equipped.main).toBe('ironBroadsword')
   })
 })
 

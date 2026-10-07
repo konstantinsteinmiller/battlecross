@@ -75,7 +75,7 @@
               | {{ t('results.equipped') }}
             FButton(
               v-else
-              :label="canEquip(it.id) ? t('bag.equip') : t('bag.tooLow', { n: levelOf(it.id) })"
+              :label="t('bag.equip')"
               type="success"
               size="sm"
               :is-disabled="!canEquip(it.id)"
@@ -116,7 +116,6 @@ const r = computed(() => flow.results)
 /** The ribbon says how it went before a word is read. */
 const tone = computed(() => (!r.value || r.value.outcome === 'victory' ? 'gold' : r.value.outcome === 'defeat' ? 'red' : 'blue'))
 
-const levelOf = (id: string): number => ITEM_BY_ID[id]?.level ?? 1
 /** Put a find on straight from the result: the same rule as the bag. */
 const wear = (id: string): void => { sfx(equipItem(id) ? 'uiEquip' : 'denied') }
 const takePurse = async (): Promise<void> => { if (await triplePurse()) { sfx('coin'); sfx('uiBuy') } }

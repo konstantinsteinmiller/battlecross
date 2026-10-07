@@ -119,17 +119,17 @@ describe('the paper-doll', () => {
     expect(p.profile.inv.equipped.main).toBeNull()
   })
 
-  it('a piece above the hero\'s level says so and cannot be worn', async () => {
+  it('a piece far above the hero\'s level can be worn at once (#98)', async () => {
     p.gainItem('dragonSmasher')
     await openBook('inventory')
     const cell = $('.bag__grid .cell[data-item="dragonSmasher"]')
-    expect(cell!.querySelector('.item-cell__lock')).toBeTruthy()
+    expect(cell!.querySelector('.item-cell__lock')).toBeNull()
     await click(cell)
-    expect($('.equip-card__note')!.textContent).toContain('bag.tooLow')
+    expect($('.equip-card__note')).toBeNull()
     const equip = $$('.bag__actions button').at(-1) as HTMLButtonElement
-    expect(equip.disabled).toBe(true)
-    await click(cell)
-    expect(p.profile.inv.equipped.main).toBe('rustedShortsword')
+    expect(equip.disabled).toBe(false)
+    await click(equip)
+    expect(p.profile.inv.equipped.main).toBe('dragonSmasher')
   })
 
   it('filters by kind of gear', async () => {

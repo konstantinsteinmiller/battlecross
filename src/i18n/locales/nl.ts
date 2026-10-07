@@ -1527,7 +1527,6 @@ export default {
   bag: {
     equip: 'Uitrusten',
     unequip: 'Afdoen',
-    tooLow: 'Vereist level {n}.',
     worn: 'Je draagt dit. Doe het af om het te verkopen.',
     versus: 'Vergeleken met {item}',
     hint: 'Tik op een voorwerp om het te bekijken. Tik nog eens, of sleep het naar een vak, om het aan te doen.',

@@ -1526,7 +1526,6 @@ export default {
   bag: {
     equip: 'Pakai',
     unequip: 'Lepas',
-    tooLow: 'Butuh level {n}.',
     worn: 'Kamu sedang memakai ini. Lepas dulu untuk menjualnya.',
     versus: 'Dibandingkan dengan {item}',
     hint: 'Ketuk barang untuk melihatnya. Ketuk lagi, atau seret ke slot, untuk memakainya.',

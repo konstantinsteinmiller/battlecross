@@ -758,7 +758,6 @@ export default {
   'bag': {
     'equip': 'Equip',
     'unequip': 'Take off',
-    'tooLow': 'Needs level {n}.',
     'worn': 'You are wearing this. Take it off to sell it.',
     'versus': 'Compared with {item}',
     'hint': 'Tap an item to look at it. Tap it again, or drag it onto a slot, to wear it.',

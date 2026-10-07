@@ -1529,7 +1529,6 @@ export default {
   bag: {
     equip: 'Nasadit',
     unequip: 'Sundat',
-    tooLow: 'Vyžaduje úroveň {n}.',
     worn: 'Máš to na sobě. Sundej to a půjde to prodat.',
     versus: 'Ve srovnání s: {item}',
     hint: 'Klepni na předmět a prohlédni si ho. Klepni znovu nebo ho přetáhni na pozici a nasadíš ho.',

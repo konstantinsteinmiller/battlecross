@@ -1526,7 +1526,6 @@ export default {
   bag: {
     equip: 'Trang bị',
     unequip: 'Tháo ra',
-    tooLow: 'Cần cấp {n}.',
     worn: 'Bạn đang mặc món này. Hãy tháo ra mới bán được.',
     versus: 'So với {item}',
     hint: 'Chạm vào món đồ để xem. Chạm lần nữa, hoặc kéo vào một ô, để mặc vào.',

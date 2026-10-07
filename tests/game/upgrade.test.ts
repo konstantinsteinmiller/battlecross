@@ -50,10 +50,10 @@ describe('isUpgrade: the one "better" rule', () => {
 
   it("a socket's arrow: only wearable, unworn bag pieces that beat it count", () => {
     const eq = { ...noGear(), main: 'rustedShortsword' }
-    expect(slotHasUpgrade('main', eq, ['ironBroadsword'], 6, STR_BUILD)).toBe(true)
-    expect(slotHasUpgrade('main', eq, ['ironBroadsword'], 5, STR_BUILD)).toBe(false)
-    expect(slotHasUpgrade('main', eq, ['rustedShortsword'], 30, STR_BUILD)).toBe(false)
-    expect(slotHasUpgrade('head', eq, ['ironBroadsword'], 30, STR_BUILD)).toBe(false)
-    expect(slotHasUpgrade('trinket2', eq, ['copperBand'], 30)).toBe(true)
+    // Any level wears it (#98), so a better piece always lights the arrow.
+    expect(slotHasUpgrade('main', eq, ['ironBroadsword'], STR_BUILD)).toBe(true)
+    expect(slotHasUpgrade('main', eq, ['rustedShortsword'], STR_BUILD)).toBe(false)
+    expect(slotHasUpgrade('head', eq, ['ironBroadsword'], STR_BUILD)).toBe(false)
+    expect(slotHasUpgrade('trinket2', eq, ['copperBand'])).toBe(true)
   })
 })

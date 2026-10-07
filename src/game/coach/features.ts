@@ -133,7 +133,7 @@ const cheapestWare = (c: FeatureCtx): string | null => {
   for (const id of c.dom.all('.ware:not(.is-owned)[data-item]', 'data-item')) {
     const it = ITEM_BY_ID[id]
     const k = buyCost(id)
-    if (!it || k > profile.gold || it.level > profile.level) continue
+    if (!it || k > profile.gold) continue
     if (k < cost) { cost = k; best = id }
   }
   return best

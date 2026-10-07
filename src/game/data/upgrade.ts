@@ -91,11 +91,11 @@ export const isUpgrade = (itemId: string, equipped: Equipped, attrs?: Readonly<A
 }
 
 /**
- * Does the bag hold something wearable that beats what is in `slot`? The
- * socket's arrow: only pieces the hero is high enough to put on count.
+ * Does the bag hold something that beats what is in `slot`? The socket's
+ * arrow. Any piece the hero owns can be worn (#98).
  */
 export const slotHasUpgrade = (
-  slot: EquipSlot, equipped: Equipped, bag: readonly string[], level: number, attrs?: Readonly<AttrBlock>, ups?: Ups
+  slot: EquipSlot, equipped: Equipped, bag: readonly string[], attrs?: Readonly<AttrBlock>, ups?: Ups
 ): boolean => {
   const want = slotOf(slot)
   const w = attrWeights(attrs)
@@ -103,7 +103,7 @@ export const slotHasUpgrade = (
   const curScore = cur && ITEM_BY_ID[cur] ? itemScore(ITEM_BY_ID[cur]!, w, lvlOf(ups, cur)) : -Infinity
   for (const id of bag) {
     const it = ITEM_BY_ID[id]
-    if (!it || it.slot !== want || it.level > level) continue
+    if (!it || it.slot !== want) continue
     if (EQUIP_SLOTS.some(s => equipped[s] === id)) continue
     if (itemScore(it, w, lvlOf(ups, id)) > curScore) return true
   }

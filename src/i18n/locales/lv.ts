@@ -1526,7 +1526,6 @@ export default {
   bag: {
     equip: 'Uzvilkt',
     unequip: 'Novilkt',
-    tooLow: 'Vajag {n}. līmeni.',
     worn: 'Tas ir uzvilkts. Novelc, lai to pārdotu.',
     versus: 'Salīdzinājumā ar: {item}',
     hint: 'Pieskaries priekšmetam, lai to apskatītu. Pieskaries vēlreiz vai velc uz vietu, lai uzvilktu.',

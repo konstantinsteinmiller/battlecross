@@ -1527,7 +1527,6 @@ export default {
   bag: {
     equip: 'Załóż',
     unequip: 'Zdejmij',
-    tooLow: 'Wymaga poziomu {n}.',
     worn: 'Masz to na sobie. Zdejmij, aby sprzedać.',
     versus: 'W porównaniu z: {item}',
     hint: 'Dotknij przedmiotu, aby mu się przyjrzeć. Dotknij ponownie lub przeciągnij na miejsce, aby go założyć.',

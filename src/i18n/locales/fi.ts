@@ -1526,7 +1526,6 @@ export default {
   bag: {
     equip: 'Varusta',
     unequip: 'Riisu',
-    tooLow: 'Vaatii tason {n}.',
     worn: 'Sinulla on tämä yllä. Riisu se myydäksesi sen.',
     versus: 'Verrattuna: {item}',
     hint: 'Napauta esinettä tarkastellaksesi sitä. Napauta uudelleen tai vedä se paikkaan pukeaksesi sen.',

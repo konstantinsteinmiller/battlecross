@@ -1527,7 +1527,6 @@ export default {
   bag: {
     equip: 'Anlegen',
     unequip: 'Ablegen',
-    tooLow: 'Benötigt Level {n}.',
     worn: 'Du trägst das gerade. Lege es ab, um es zu verkaufen.',
     versus: 'Im Vergleich zu {item}',
     hint: 'Tippe auf einen Gegenstand, um ihn anzusehen. Tippe erneut oder ziehe ihn auf einen Platz, um ihn anzulegen.',

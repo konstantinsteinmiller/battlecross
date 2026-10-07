@@ -5,7 +5,6 @@
     //- The card scrolls; what can be done with it stays in reach.
     div.equip-card__paper
       ItemCard(:id="id" :against="against" show-source)
-    p.equip-card__note(v-if="!worn && !canWear") {{ t('bag.tooLow', { n: level }) }}
     //- The smith (roadmap #90): a worn piece goes up a level, in a town.
     p.equip-card__note.is-forge(v-if="worn && forge && forge.level >= forgeMax") {{ t('forge.max', { n: forgeMax }) }}
     p.equip-card__note.is-forge(v-else-if="worn && forge && !forge.town") {{ t('forge.town') }}
@@ -45,10 +44,8 @@ defineProps<{
   against: string | null
   /** It is worn (the action takes it off). */
   worn: boolean
-  /** The hero's level allows it. */
+  /** The hero owns it, so he can put it on. */
   canWear: boolean
-  /** The level it asks for. */
-  level: number
   /** A worn piece's upgrade: its level, the next level's price, whether the
    *  hero is in a town and has the gold. */
   forge?: { level: number; cost: number; town: boolean; affordable: boolean } | null

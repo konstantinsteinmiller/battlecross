@@ -306,6 +306,8 @@ Focuses on altering battlegrounds, building stone walls/barriers, trapping enemi
 
 The equipment system scales across 6 distinct level tiers matching the world map areas.
 
+**No level requirement to wear gear (roadmap #98).** Any piece the hero owns can be put on at once; its stats, and where and for how much it can be had, decide whether he wants it. The "Item Level" column below places a piece in the curve (its price, its shop and drop zone); it gates nothing.
+
 ### 6.1 Equipment Categories & Slots
 Players feature **5 Equipment Slots**:
 1. **Main Hand:** Swords, Daggers, Staves, Firearms, Greatswords, Warhammers.
@@ -333,7 +335,7 @@ Players feature **5 Equipment Slots**:
 
 #### Weapons (Main Hand)
 
-| Item Name | Tier | Req Level | Primary Stats | Unique Passive Effect | Drop Location |
+| Item Name | Tier | Item Level | Primary Stats | Unique Passive Effect | Drop Location |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | **Rusted Shortsword** | T1 | Lv 1 | +4 STR, +2 DEX | None | Sunford Plains (Goblin Drop) |
 | **Apprentice Staff** | T1 | Lv 1 | +5 INT | $+5\%$ Spell Mana Discount | Sunford Plains (Chest) |
@@ -354,7 +356,7 @@ Players feature **5 Equipment Slots**:
 
 #### Off-Hand Items
 
-| Item Name | Tier | Req Level | Primary Stats | Unique Passive Effect | Drop Location |
+| Item Name | Tier | Item Level | Primary Stats | Unique Passive Effect | Drop Location |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | **Wooden Buckler** | T1 | Lv 1 | +3 END, +1 STR | $+5\%$ Block Chance | Sunford Plains |
 | **Tome of Novices** | T1 | Lv 2 | +4 INT | $+10$ Max Mana | Goblin Hollows |
@@ -369,7 +371,7 @@ Players feature **5 Equipment Slots**:
 
 #### Body Armor
 
-| Item Name | Tier | Req Level | Primary Stats | Armor Value | Drop Location |
+| Item Name | Tier | Item Level | Primary Stats | Armor Value | Drop Location |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | **Padded Tunic** | T1 | Lv 1 | +2 END | 8 Armor | Sunford Plains |
 | **Leather Doublet** | T1 | Lv 3 | +4 DEX, +2 SKL | 14 Armor | Goblin Hollows |
@@ -388,7 +390,7 @@ Players feature **5 Equipment Slots**:
 
 #### Trinkets & Rings
 
-| Item Name | Tier | Req Level | Primary Stats | Special Passive Effect | Drop Location |
+| Item Name | Tier | Item Level | Primary Stats | Special Passive Effect | Drop Location |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | **Copper Band** | T1 | Lv 2 | +3 STR or DEX | $+2\%$ Move Speed | Sunford Plains |
 | **Ring of Mending** | T2 | Lv 7 | +8 END | $+3$ Health Regen per second | Whispering Woods |

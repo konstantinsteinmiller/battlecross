@@ -1526,7 +1526,6 @@ export default {
   bag: {
     equip: 'Taqish',
     unequip: 'Yechish',
-    tooLow: '{n}-daraja kerak.',
     worn: 'Siz buni kiyib turibsiz. Sotish uchun avval yeching.',
     versus: '{item} bilan solishtirish',
     hint: 'Koʻrish uchun buyumga bosing. Kiyish uchun yana bosing yoki uyaga sudrang.',

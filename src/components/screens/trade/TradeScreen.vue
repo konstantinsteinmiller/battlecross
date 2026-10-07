@@ -34,7 +34,6 @@
                 :class="{ 'is-owned': owns(it.id) }"
                 :selected="isSel('goods', it.id)"
                 :dim="owns(it.id)"
-                :locked="!owns(it.id) && profile.level < it.level"
                 v-on="owns(it.id) ? {} : drag.handle({ id: it.id, from: 'goods' })"
                 @click="pick('goods', it.id)"
               )
@@ -50,7 +49,6 @@
               :class="{ 'is-owned': owns(it.id) }"
               :selected="isSel('goods', it.id)"
               :dim="owns(it.id)"
-              :locked="!owns(it.id) && profile.level < it.level"
               v-on="owns(it.id) ? {} : drag.handle({ id: it.id, from: 'goods' })"
               @click="pick('goods', it.id)"
             )
@@ -110,7 +108,6 @@
               :selected="isSel('bag', it.id)"
               :worn="!!equippedIn(it.id)"
               :fresh="profile.inv.fresh.includes(it.id)"
-              :locked="profile.level < it.level"
               v-on="drag.handle({ id: it.id, from: 'bag' })"
               @click="pick('bag', it.id)"
             )
@@ -223,12 +220,10 @@ const price = computed(() => {
 const changes = computed(() => {
   const p = sel.value
   const now = computeStats()
-  if (!p || wornSlot.value || !canEquipLater(p.id)) return statRows(now, now, KEY_STATS)
+  if (!p || wornSlot.value) return statRows(now, now, KEY_STATS)
   const slot = slotFor(p.id)
   return statRows(now, slot ? statsWith(slot, p.id) : now, KEY_STATS)
 })
-/** Owned or not, could the hero wear it at his level? */
-const canEquipLater = (id: string): boolean => profile.level >= (ITEM_BY_ID[id]?.level ?? 99)
 
 /** Can the deal on the table be struck? */
 const can = computed(() => {
@@ -248,11 +243,9 @@ const actLabel = computed(() => {
 const why = computed(() => {
   const p = sel.value
   if (!p) return ''
-  const it = ITEM_BY_ID[p.id]
   if (p.from === 'bag') return wornSlot.value ? t('bag.worn') : ''
   if (owns(p.id)) return ''
   if (profile.gold < price.value) return t('trainer.block.gold')
-  if (it && profile.level < it.level) return t('bag.tooLow', { n: it.level })
   return ''
 })
 

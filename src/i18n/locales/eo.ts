@@ -1526,7 +1526,6 @@ export default {
   bag: {
     equip: 'Surmeti',
     unequip: 'Demeti',
-    tooLow: 'Bezonas nivelon {n}.',
     worn: 'Vi portas ĉi tion. Demetu ĝin por vendi ĝin.',
     versus: 'Kompare kun {item}',
     hint: 'Tuŝu objekton por rigardi ĝin. Tuŝu ĝin denove, aŭ trenu ĝin sur lokon, por surmeti ĝin.',

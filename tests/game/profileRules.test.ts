@@ -131,12 +131,12 @@ describe('gear and shops (GDD §6)', () => {
     expect(p.profile.inv.items.filter(i => i === 'ironBroadsword')).toHaveLength(1)
   })
 
-  it('an item needs its level, goes in its own slot, and a new one is flagged until looked at', () => {
+  it('an owned item is worn at any level (#98), goes in its own slot, and a new one is flagged until looked at', () => {
+    expect(p.canEquip('ironBroadsword')).toBe(false)
     p.gainItem('ironBroadsword')
     expect(p.profile.inv.fresh).toContain('ironBroadsword')
-    expect(p.canEquip('ironBroadsword')).toBe(false)
-    expect(p.equipItem('ironBroadsword')).toBeNull()
-    p.profile.level = 6
+    expect(p.profile.level).toBeLessThan(6) // the sword is a level-6 piece
+    expect(p.canEquip('ironBroadsword')).toBe(true)
     expect(p.equipItem('ironBroadsword')).toBe('main')
     expect(p.profile.inv.equipped.main).toBe('ironBroadsword')
     expect(p.profile.inv.fresh).not.toContain('ironBroadsword')
@@ -196,11 +196,8 @@ describe('gear and shops (GDD §6)', () => {
     expect(p.equipItem('copperBand', 'trinket2')).toBe('trinket2')
   })
 
-  it('they need their level, are bought and sold like the rest, and a second copy is gold', () => {
+  it('they are worn at any level, bought and sold like the rest, and a second copy is gold', () => {
     p.gainItem('ironcladHelm')
-    expect(p.canEquip('ironcladHelm')).toBe(false)
-    expect(p.equipItem('ironcladHelm')).toBeNull()
-    p.profile.level = 12
     expect(p.equipItem('ironcladHelm')).toBe('head')
     expect(p.gainItem('ironcladHelm').gold).toBeGreaterThan(0)
     p.profile.gold = 100_000

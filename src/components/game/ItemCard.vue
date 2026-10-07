@@ -7,9 +7,7 @@
         span.item-card__name {{ t(`item.${id}.name`) }}
           span.item-card__plus(v-if="plus") +{{ plus }}
         span.item-card__sub
-          | {{ t(`slot.${item.slot}`) }} · {{ t(`tier.${item.tier}`) }} ·
-          |
-          span(:class="{ bad: profile.level < item.level }") {{ t('hud.level', { n: item.level }) }}
+          | {{ t(`slot.${item.slot}`) }} · {{ t(`tier.${item.tier}`) }}
     ul.item-card__lines
       li.item-card__weapon(v-if="item.weapon") {{ t(`weapon.${item.weapon.style}`, { attr: t(`attr.${item.weapon.scale}.short`) }) }}
       li(v-if="item.armor || armorDelta")
@@ -43,7 +41,7 @@ import { useI18n } from 'vue-i18n'
 import { ITEM_BY_ID, TIER_COLOR } from '@/game/data/items'
 import { forgedArmor, forgedMods } from '@/game/data/forge'
 import { ATTR_COLOR, type Attr } from '@/game/data/attributes'
-import { profile, upgradeLevel } from '@/game/state/profile'
+import { upgradeLevel } from '@/game/state/profile'
 import ItemIcon from '@/components/art/ItemIcon.vue'
 import { compareMods, signed, type ModCompare } from './modLines'
 
@@ -129,8 +127,6 @@ const attrColor = (id: string): string => ATTR_COLOR[id as Attr]
   color: var(--bc-paper-ink-soft)
   font-size: clamp(0.7rem, 2.9vmin, 0.88rem)
   line-height: 1.2
-.bad
-  color: var(--bc-red-lo)
 .item-card__lines
   margin: 0
   padding: 0

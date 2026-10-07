@@ -1527,7 +1527,6 @@ export default {
   bag: {
     equip: 'Equipa',
     unequip: 'Treu',
-    tooLow: 'Cal el nivell {n}.',
     worn: 'Ho portes posat. Treu-te’l per vendre’l.',
     versus: 'Comparat amb {item}',
     hint: 'Toca un objecte per mirar-lo. Torna a tocar-lo, o arrossega’l a una ranura, per posar-te’l.',

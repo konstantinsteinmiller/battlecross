@@ -1527,7 +1527,6 @@ export default {
   bag: {
     equip: 'Equipar',
     unequip: 'Quitar',
-    tooLow: 'Requiere nivel {n}.',
     worn: 'Llevas esto puesto. Quítatelo para venderlo.',
     versus: 'Comparado con {item}',
     hint: 'Toca un objeto para verlo. Tócalo otra vez, o arrástralo a una ranura, para equiparlo.',
