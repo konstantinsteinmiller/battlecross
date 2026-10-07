@@ -10,7 +10,8 @@ import { K_BLOCK, K_BRIDGE, K_CLIFF, K_FORD, K_GROUND, K_RAMP, K_WATER, riverRow
 import { groundAt } from './ground'
 import type { Slice } from '../engine/slicer'
 import { sceneQuality } from '../engine/quality'
-import { celVC, celVCInst, celVCMap, glowVC, glowVCInst, outlineMat, setCelMood } from './cel'
+import { EDGE_FOG_K, celVC, celVCInst, celVCMap, celVCMapEdge, clearEdgeFog, edgeFog, glowVC, glowVCInst, outlineMat, setCelMood, setEdgeFog } from './cel'
+import { EDGE_FROM, EDGE_MAX, EDGE_STRENGTH, EDGE_TO, edgeColour, edgeField, edgeTexture } from './edgeFog'
 import { cap, dome, ell, merge, paint, rbox, rcone, rcyl, rock, sph, xform } from './kit'
 import { groundDetail } from './textures'
 import { markStill, splitByTile } from './cull'
@@ -345,6 +346,10 @@ varying vec3 vViewN;
 varying vec3 vW;
 varying vec2 vUv2;
 varying float vRelief;
+#ifdef EDGE_FOG
+uniform vec4 uEdgeXf;
+varying vec2 vEdgeUv;
+#endif
 void main() {
   #include <color_vertex>
   vN = normal;
@@ -353,6 +358,9 @@ void main() {
   vRelief = aRelief;
   vec4 wp = modelMatrix * vec4(position, 1.0);
   vW = wp.xyz;
+  #ifdef EDGE_FOG
+  vEdgeUv = (wp.xz - uEdgeXf.xy) * uEdgeXf.zw;
+  #endif
   vec4 mvPosition = viewMatrix * wp;
   gl_Position = projectionMatrix * mvPosition;
   #include <fog_vertex>
@@ -375,6 +383,12 @@ varying vec3 vViewN;
 varying vec3 vW;
 varying vec2 vUv2;
 varying float vRelief;
+#ifdef EDGE_FOG
+uniform sampler2D uEdgeTex;
+uniform vec4 uEdgeK;
+uniform vec3 uEdgeCol;
+varying vec2 vEdgeUv;
+#endif
 void main() {
   vec3 base = vColor.rgb * texture2D(uMap, vUv2).rgb;
   float ndl = dot(normalize(vViewN), uLightDir) * 0.5 + 0.5;
@@ -387,7 +401,11 @@ void main() {
   float toSun = smoothstep(0.02, 0.3, face);
   float away = 1.0 - smoothstep(-0.3, -0.02, face);
   col *= 1.0 + vRelief * (0.12 * toSun - 0.14 * away) * smoothstep(0.0, 0.06, slope);
-  gl_FragColor = vec4(col * uAmbient, 1.0);
+  col *= uAmbient;
+  #ifdef EDGE_FOG
+  col = mix(col, uEdgeCol, ${EDGE_FOG_K});
+  #endif
+  gl_FragColor = vec4(col, 1.0);
   #include <colorspace_fragment>
   #include <fog_fragment>
 }
@@ -409,6 +427,7 @@ const groundMaterial = (map: Texture): ShaderMaterial => {
   })
   for (const k of ['uLightDir', 'uShadowTint', 'uAmbient', 'uLight', 'uThreshold'] as const) m.uniforms[k] = ref[k]!
   m.uniforms.uMap!.value = map
+  edgeFog(m)
   groundMat = m
   groundMatMap = map
   return m
@@ -497,6 +516,77 @@ const TILE = 15
 /** x, z, turn, scale, and (optionally) the height to stand at. */
 type Place = [number, number, number, number, number?]
 
+/** The flat, upward faces of a shape (a plinth's top, a slab): their heights,
+ *  and how far from its foot they reach. */
+const flatsOf = (shape: PropShape): { ys: number[]; r: number } => {
+  const ys = new Set<number>()
+  let r = 0
+  const a = new Vector3()
+  const b = new Vector3()
+  const c = new Vector3()
+  for (const g of shape.build().lit) {
+    const pos = g.attributes.position!
+    const index = g.index
+    const n = index ? index.count : pos.count
+    for (let t = 0; t + 2 < n; t += 3) {
+      const ia = index ? index.getX(t) : t
+      const ib = index ? index.getX(t + 1) : t + 1
+      const ic = index ? index.getX(t + 2) : t + 2
+      a.fromBufferAttribute(pos, ia)
+      b.fromBufferAttribute(pos, ib)
+      c.fromBufferAttribute(pos, ic)
+      _nrm.subVectors(b, a).cross(_p.subVectors(c, a))
+      const l = _nrm.length()
+      if (l < 1e-9 || _nrm.y / l < 0.97) continue
+      ys.add(Math.round(((a.y + b.y + c.y) / 3) * 1000) / 1000)
+      r = Math.max(r, Math.hypot(a.x, a.z), Math.hypot(b.x, b.z), Math.hypot(c.x, c.z))
+    }
+  }
+  return { ys: [...ys], r }
+}
+
+/** Two flat faces this near in height, overlapping, would fight for the same pixels. */
+const FLAT_GAP = 0.015
+
+/**
+ * No two pieces of scenery that overlap may hold a flat face at the same
+ * height (a column's plinth beside another's, both at 0.55 m: they tear in a
+ * shimmer). Where a pair comes within FLAT_GAP, the later one is lifted
+ * clear of it, a centimetre or two nobody sees (house rule: never z-fighting).
+ */
+const separateFlats = (groups: Array<[PropShape, Place[]]>): void => {
+  type Item = { x: number; z: number; r: number; hs: number[] }
+  const grid = new Map<string, Item[]>()
+  const key = (x: number, z: number): string => `${Math.floor(x / 2)},${Math.floor(z / 2)}`
+  for (const [shape, places] of groups) {
+    if (!places.length) continue
+    const f = flatsOf(shape)
+    if (!f.ys.length) continue
+    for (const p of places) {
+      const sc = p[3]
+      const r = f.r * sc
+      let y = p[4] ?? groundAt(p[0], p[1])
+      const near: Item[] = []
+      for (let dz = -1; dz <= 1; dz++) for (let dx = -1; dx <= 1; dx++) near.push(...(grid.get(key(p[0] + dx * 2, p[1] + dz * 2)) ?? []))
+      for (let tries = 0; tries < 6; tries++) {
+        let clash = false
+        for (const q of near) {
+          if (Math.hypot(q.x - p[0], q.z - p[1]) >= q.r + r) continue
+          for (const fy of f.ys) for (const h of q.hs) if (Math.abs(y + fy * sc - h) < FLAT_GAP) clash = true
+        }
+        if (!clash) break
+        y += FLAT_GAP * 1.2
+      }
+      if (y !== (p[4] ?? groundAt(p[0], p[1]))) p[4] = y
+      const it: Item = { x: p[0], z: p[1], r, hs: f.ys.map(fy => y + fy * sc) }
+      const k = key(p[0], p[1])
+      const list = grid.get(k)
+      if (list) list.push(it)
+      else grid.set(k, [it])
+    }
+  }
+}
+
 const instanced = (shape: PropShape, places: Place[], outline: boolean, root: Group, owned: BufferGeometry[]): void => {
   if (!places.length) return
   const tiles = new Map<number, Place[]>()
@@ -568,6 +658,34 @@ export const builtCells = (plan: Pick<ZonePlan, 'w' | 'h' | 'buildings'>): Uint8
  * Build a zone's scenery from its plan. Time-sliced (`slice`) so the loader
  * keeps painting while a large zone is assembled.
  */
+/**
+ * A side pocket is a small place: tall scenery on its near (down-screen) side
+ * would hide all of it from a camera that cannot look round a tree. The solid
+ * cells up to three rows in front of one carry low props only (the value: how
+ * many rows in front, 1..3; 0 = free to grow tall). Every chest is such a place
+ * too, wherever it stands (roadmap #79: a chest by a clearing's near wall sat
+ * behind three-metre stalagmites, unseen).
+ */
+export const lowRingOf = (plan: ZonePlan): { ring: Uint8Array; any: boolean } => {
+  const { w, h, solid } = plan
+  const ring = new Uint8Array(w * h)
+  let any = false
+  const hem = (i: number, j: number): void => {
+    any = true
+    for (let dj = 1; dj <= 3; dj++) for (let di = -1; di <= 1; di++) {
+      if (j + dj >= h || i + di < 0 || i + di >= w) continue
+      const k = (j + dj) * w + i + di
+      // The row count in front of the pocket: the first row is its edge.
+      if (solid[k] && (!ring[k] || ring[k]! > dj)) ring[k] = dj
+    }
+  }
+  for (let j = 2; j < h - 3; j++) {
+    for (let i = 2; i < w - 2; i++) if (plan.side[j * w + i]) hem(i, j)
+  }
+  for (const c of plan.chests) hem(Math.floor(c.x / CELL), Math.floor(c.z / CELL))
+  return { ring, any }
+}
+
 export const buildTerrain = async (plan: ZonePlan, themeId: ThemeId, scene: Scene, slice: Slice): Promise<Terrain> => {
   const theme = THEMES[themeId]
   const root = new Group()
@@ -594,22 +712,7 @@ export const buildTerrain = async (plan: ZonePlan, themeId: ThemeId, scene: Scen
       }
     }
   }
-  // A side pocket is a small place: tall scenery on its near (down-screen)
-  // side would hide all of it from a camera that cannot look round a tree.
-  // The solid cells up to three rows in front of one carry low props only.
-  const lowRing = new Uint8Array(w * h)
-  let anySide = false
-  for (let j = 2; j < h - 5; j++) {
-    for (let i = 2; i < w - 2; i++) {
-      if (!plan.side[j * w + i]) continue
-      anySide = true
-      for (let dj = 1; dj <= 3; dj++) for (let di = -1; di <= 1; di++) {
-        const k = (j + dj) * w + i + di
-        // The row count in front of the pocket: the first row is its edge.
-        if (solid[k] && (!lowRing[k] || lowRing[k]! > dj)) lowRing[k] = dj
-      }
-    }
-  }
+  const { ring: lowRing, any: anySide } = lowRingOf(plan)
   // Solid cells within two of a cave's floor carry cave rock, not the zone's own.
   const caveRing = new Uint8Array(w * h)
   if (plan.caves.length) {
@@ -627,10 +730,11 @@ export const buildTerrain = async (plan: ZonePlan, themeId: ThemeId, scene: Scen
   setCelMood({ ambient: theme.ambient, shadowTint: theme.shadow })
   scene.background = new Color(theme.sky)
 
-  // Distance from each cell to the nearest walkable one (0 = walkable), up to 4.
-  const near = new Uint8Array(w * h).fill(9)
+  // Distance from each cell to the nearest walkable one (0 = walkable), in
+  // rings, up to 11 (it once stopped at 4 and jumped to 9: a step a player saw).
+  const near = new Uint8Array(w * h).fill(12)
   for (let k = 0; k < w * h; k++) if (!solid[k]) near[k] = 0
-  for (let pass = 1; pass <= 4; pass++) {
+  for (let pass = 1; pass <= 11; pass++) {
     for (let j = 0; j < h; j++) {
       for (let i = 0; i < w; i++) {
         const k = j * w + i
@@ -647,6 +751,13 @@ export const buildTerrain = async (plan: ZonePlan, themeId: ThemeId, scene: Scen
       }
     }
   }
+  await slice()
+
+  // The haze past the walkable edge (roadmap #83): one soft field every
+  // surface out there reads, so ground, scenery and outlines sink together.
+  const field = edgeField((i, j) => !solid[j * w + i], w, h, LAND)
+  const fogTex = edgeTexture(field)
+  setEdgeFog(fogTex, field.x0, field.z0, field.nx * field.step, field.nz * field.step, EDGE_MAX, EDGE_FROM, EDGE_TO, EDGE_STRENGTH, edgeColour(theme.rim))
   await slice()
 
   // ── Ground: two vertices per cell edge, so the mottling has room to blend ──
@@ -881,20 +992,16 @@ export const buildTerrain = async (plan: ZonePlan, themeId: ThemeId, scene: Scen
     const fcol = new Float32Array(fw * fh * 3)
     const fuv = new Float32Array(fw * fh * 2)
     const fnor = new Float32Array(fw * fh * 3)
-    const cF = new Color(theme.rim).multiplyScalar(0.72)
     for (let j = 0; j < fh; j++) {
       for (let i = 0; i < fw; i++) {
         const ci = i - LAND
         const cj = j - LAND
         const x = ci * CELL
         const z = cj * CELL
-        // How deep into the unwalkable mass this corner is (cells past ring 3).
-        const ii = Math.max(0, Math.min(w - 1, ci))
-        const jj = Math.max(0, Math.min(h - 1, cj))
-        const out = Math.max(0, -ci, ci - w, -cj, cj - h)
-        const d = Math.min(9, near[jj * w + ii]!) + out
         const n = noise(x * 0.11, z * 0.11, plan.seed + 3)
-        c.copy(cR).lerp(cF, Math.max(0, Math.min(1, (d - 3) / 5)) * (0.45 + 0.55 * n))
+        // The rim's colour, mottled; the haze does the darkening (same as the
+        // detailed ground's, so the two meet without a line).
+        c.copy(cR).multiplyScalar(0.9 + 0.14 * n)
         const k = j * fw + i
         // Under water the sheet drops below the bed, so it never shows through;
         // under the detailed ground it keeps a hand's breadth below it (a
@@ -935,7 +1042,7 @@ export const buildTerrain = async (plan: ZonePlan, themeId: ThemeId, scene: Scen
     owned.push(far)
     for (const g of splitByTile(far, TILE * 4)) {
       if (g !== far) owned.push(g)
-      const farMesh = markStill(new Mesh(g, celVCMap(groundDetail())))
+      const farMesh = markStill(new Mesh(g, celVCMapEdge(groundDetail())))
       farMesh.renderOrder = -3
       root.add(farMesh)
     }
@@ -981,9 +1088,10 @@ export const buildTerrain = async (plan: ZonePlan, themeId: ThemeId, scene: Scen
       if (inside && plan.kind[k] === K_BLOCK) continue
       if (inside && caveRing[k]) {
         if (d === 2 && rng() < 0.4) continue
-        // Far side: a cave cell lies just down-screen of this one.
+        // Far side: a cave cell lies just down-screen of this one (never in
+        // front of a pocket or a chest: that rock stays low).
         let far = false
-        for (let dj = 1; dj <= 2 && !far; dj++) for (let di = -1; di <= 1; di++) if (plan.cave[(j + dj) * w + i + di]) { far = true; break }
+        if (!lowRing[k]) for (let dj = 1; dj <= 2 && !far; dj++) for (let di = -1; di <= 1; di++) if (plan.cave[(j + dj) * w + i + di]) { far = true; break }
         const shape = far ? (rng() < 0.82 ? 0 : 2) : rng() < 0.8 ? 1 : 2
         const s = caveShapes[shape]!
         cavePlaces[shape]!.push([(i + 0.5 + (rng() - 0.5) * 0.4) * CELL, (j + 0.5 + (rng() - 0.5) * 0.4) * CELL, rng() * Math.PI * 2, s.s[0] + rng() * (s.s[1] - s.s[0])])
@@ -1011,6 +1119,12 @@ export const buildTerrain = async (plan: ZonePlan, themeId: ThemeId, scene: Scen
       ])
     }
   }
+  separateFlats([
+    ...theme.border.map((s, n): [PropShape, Place[]] => [s, borderPlaces[n]!]),
+    ...theme.border.map((s, n): [PropShape, Place[]] => [s, wildPlaces[n]!]),
+    ...caveShapes.map((s, n): [PropShape, Place[]] => [s, cavePlaces[n]!]),
+    ...lowShapes.map((s, n): [PropShape, Place[]] => [s, lowPlaces[n]!])
+  ])
   for (let n = 0; n < theme.border.length; n++) {
     instanced(theme.border[n]!, borderPlaces[n]!, true, root, owned)
     instanced(theme.border[n]!, wildPlaces[n]!, false, root, owned)
@@ -1166,6 +1280,8 @@ export const buildTerrain = async (plan: ZonePlan, themeId: ThemeId, scene: Scen
       scene.remove(root)
       for (const g of owned) g.dispose()
       root.traverse((o) => { if ((o as InstancedMesh).isInstancedMesh) (o as InstancedMesh).dispose() })
+      clearEdgeFog(fogTex)
+      fogTex.dispose()
     }
   }
 }

@@ -52,6 +52,52 @@ const sharedRefDepth: IUniform<number> = { value: 18 }
 const sharedSee: IUniform<Vector4> = { value: new Vector4(0, 0, 0, 0) }
 const sharedSeeR: IUniform<Vector3> = { value: new Vector3(0.4, 1, 0) }
 
+/**
+ * The haze at the edge of the walkable world (roadmap #83). One soft field of
+ * how far each spot lies from where the hero can walk (`gfx/edgeFog.ts`),
+ * sampled by the ground, the land beyond, the scenery and the scenery's
+ * outlines alike: the playfield sinks into a dusk instead of ending on a line
+ * (two meshes shaded apart, a step in a capped distance, lit props on dark
+ * ground). Off (strength 0) where no zone has set one.
+ */
+const sharedEdgeTex: IUniform<Texture | null> = { value: null }
+/** The field's world corner (x, z) and 1 / its size in metres. */
+const sharedEdgeXf: IUniform<Vector4> = { value: new Vector4(0, 0, 1, 1) }
+/** Where the haze begins and is full (m past the walkable), its strength, the field's top value (m). */
+const sharedEdgeK: IUniform<Vector4> = { value: new Vector4(1, 9, 0, 24) }
+const sharedEdgeCol: IUniform<Color> = { value: new Color('#1b1626') }
+
+/** Lay the edge haze over the world (`tex`: the field; red 1 = `maxD` metres out). */
+export const setEdgeFog = (tex: Texture, x0: number, z0: number, sizeX: number, sizeZ: number, maxD: number, from: number, to: number, strength: number, hex: string): void => {
+  sharedEdgeTex.value = tex
+  sharedEdgeXf.value.set(x0, z0, 1 / sizeX, 1 / sizeZ)
+  sharedEdgeK.value.set(from, to, strength, maxD)
+  sharedEdgeCol.value.set(hex)
+}
+
+/** No haze (the zone is gone). */
+export const clearEdgeFog = (tex?: Texture): void => {
+  if (tex && sharedEdgeTex.value !== tex) return
+  sharedEdgeK.value.z = 0
+}
+
+/** The haze's numbers, for tests. */
+export const edgeFogState = (): { on: boolean; from: number; to: number; strength: number } =>
+  ({ on: sharedEdgeK.value.z > 0 && !!sharedEdgeTex.value, from: sharedEdgeK.value.x, to: sharedEdgeK.value.y, strength: sharedEdgeK.value.z })
+
+/** Let a material sink into the edge haze. */
+export const edgeFog = <T extends ShaderMaterial>(m: T): T => {
+  m.defines.EDGE_FOG = ''
+  m.uniforms.uEdgeTex = sharedEdgeTex
+  m.uniforms.uEdgeXf = sharedEdgeXf
+  m.uniforms.uEdgeK = sharedEdgeK
+  m.uniforms.uEdgeCol = sharedEdgeCol
+  return m
+}
+
+/** GLSL: how deep in the haze a fragment stands (0..strength). */
+export const EDGE_FOG_K = 'uEdgeK.z * smoothstep(uEdgeK.x, uEdgeK.y, texture2D(uEdgeTex, vEdgeUv).r * uEdgeK.w)'
+
 const WORLD_LIGHT = new Vector3(0.4, 0.82, 0.42).normalize()
 const _v = new Vector3()
 
@@ -107,6 +153,10 @@ varying vec4 vSeeClip;
 varying float vSeeDepth;
 varying float vSeeY;
 #endif
+#ifdef EDGE_FOG
+uniform vec4 uEdgeXf;
+varying vec2 vEdgeUv;
+#endif
 void main() {
   #include <color_vertex>
   #include <beginnormal_vertex>
@@ -120,6 +170,14 @@ void main() {
   #include <begin_vertex>
   #include <skinning_vertex>
   #include <project_vertex>
+  #ifdef EDGE_FOG
+  vec4 edgeW = vec4(transformed, 1.0);
+  #ifdef USE_INSTANCING
+  edgeW = instanceMatrix * edgeW;
+  #endif
+  edgeW = modelMatrix * edgeW;
+  vEdgeUv = (edgeW.xz - uEdgeXf.xy) * uEdgeXf.zw;
+  #endif
   #ifdef SEE_THROUGH
   vSeeClip = gl_Position;
   vSeeDepth = -mvPosition.z;
@@ -163,6 +221,12 @@ varying float vSeeY;
 float seeBayer2(vec2 a) { a = floor(a); return fract(a.x / 2.0 + a.y * a.y * 0.75); }
 float seeBayer4(vec2 a) { return seeBayer2(0.5 * a) * 0.25 + seeBayer2(a); }
 #endif
+#ifdef EDGE_FOG
+uniform sampler2D uEdgeTex;
+uniform vec4 uEdgeK;
+uniform vec3 uEdgeCol;
+varying vec2 vEdgeUv;
+#endif
 void main() {
   #ifdef SEE_THROUGH
   // In front of the hero (nearer the camera), above their knees, round them on
@@ -190,6 +254,9 @@ void main() {
   col += uRim * uRimK * smoothstep(0.58, 0.62, rim);
   col = mix(col, base, uUnlit);
   col = mix(col, uFlash, uFlashK);
+  #ifdef EDGE_FOG
+  col = mix(col, uEdgeCol, ${EDGE_FOG_K});
+  #endif
   gl_FragColor = vec4(col, uOpacity);
   #include <colorspace_fragment>
   #include <fog_fragment>
@@ -252,7 +319,7 @@ export const celVC = (): CelMaterial => (vcShared ??= makeCel())
 // props get their own (same shader, same program).
 let vcInstShared: CelMaterial | null = null
 /** `celVC` for instanced meshes: the scenery, so it opens round the hero (`SEE_THROUGH`). */
-export const celVCInst = (): CelMaterial => (vcInstShared ??= seeThrough(makeCel()))
+export const celVCInst = (): CelMaterial => (vcInstShared ??= edgeFog(seeThrough(makeCel())))
 
 /** Let a material open its see-through hole round the hero. */
 const seeThrough = <T extends ShaderMaterial>(m: T): T => {
@@ -279,6 +346,16 @@ export const celVCMap = (map: Texture): CelMaterial => {
   if (hit) return hit
   const m = makeCel({ map })
   mapCache.set(map, m)
+  return m
+}
+
+const mapEdgeCache = new Map<Texture, CelMaterial>()
+/** `celVCMap` that sinks into the edge haze (the land beyond the playfield). */
+export const celVCMapEdge = (map: Texture): CelMaterial => {
+  const hit = mapEdgeCache.get(map)
+  if (hit) return hit
+  const m = edgeFog(makeCel({ map }))
+  mapEdgeCache.set(map, m)
   return m
 }
 
@@ -359,6 +436,10 @@ varying vec4 vSeeClip;
 varying float vSeeDepth;
 varying float vSeeY;
 #endif
+#ifdef EDGE_FOG
+uniform vec4 uEdgeXf;
+varying vec2 vEdgeUv;
+#endif
 void main() {
   #include <skinbase_vertex>
   #include <beginnormal_vertex>
@@ -372,6 +453,14 @@ void main() {
   float celDepth = max(0.5, -(modelViewMatrix * celPos).z);
   transformed += normalize(objectNormal) * uThickness * celDepth / uRefDepth;
   #include <project_vertex>
+  #ifdef EDGE_FOG
+  vec4 edgeW = vec4(transformed, 1.0);
+  #ifdef USE_INSTANCING
+  edgeW = instanceMatrix * edgeW;
+  #endif
+  edgeW = modelMatrix * edgeW;
+  vEdgeUv = (edgeW.xz - uEdgeXf.xy) * uEdgeXf.zw;
+  #endif
   #ifdef SEE_THROUGH
   vSeeClip = gl_Position;
   vSeeDepth = -mvPosition.z;
@@ -389,6 +478,12 @@ const OUTLINE_FRAG = /* glsl */`
 #include <fog_pars_fragment>
 uniform vec3 uColor;
 uniform float uOpacity;
+#ifdef EDGE_FOG
+uniform sampler2D uEdgeTex;
+uniform vec4 uEdgeK;
+uniform vec3 uEdgeCol;
+varying vec2 vEdgeUv;
+#endif
 #ifdef SEE_THROUGH
 uniform vec4 uSee;
 uniform vec3 uSeeR;
@@ -408,7 +503,12 @@ void main() {
     if (seeK * 0.85 > seeBayer4(gl_FragCoord.xy)) discard;
   }
   #endif
-  gl_FragColor = vec4(uColor, uOpacity);
+  vec3 ink = uColor;
+  #ifdef EDGE_FOG
+  // The ink fades into the haze with what it outlines.
+  ink = mix(ink, uEdgeCol, ${EDGE_FOG_K});
+  #endif
+  gl_FragColor = vec4(ink, uOpacity);
   #include <colorspace_fragment>
   #include <fog_fragment>
 }
@@ -446,7 +546,7 @@ export const outlineMat = (thickness = OUTLINE_WIDTH, color: Color = OUTLINE_COL
   })
   m.uniforms.uRefDepth = sharedRefDepth
   if (instanced) {
-    seeThrough(m)
+    edgeFog(seeThrough(m))
     sceneryOutlines.add(m)
     m.visible = sceneryOutlinesOn
   }
