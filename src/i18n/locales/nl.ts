@@ -1129,6 +1129,15 @@ export default {
     },
     sbAlchemist: {
       name: 'Odile Varenfluit'
+    },
+    sbGambler: {
+      name: 'Madame Pell'
+    },
+    sunfordGambler: {
+      name: 'Dob Tumbler'
+    },
+    oakGambler: {
+      name: 'Silky Ren'
     }
   },
   quest: {
@@ -1368,7 +1377,8 @@ export default {
       who: 'Wie ben jij, als ik dat mag vragen?',
       rumor: 'Nog nieuws gehoord?',
       ready: 'Denk je dat ik klaar ben voor meer?',
-      brew: 'Kun je iets voor me brouwen?'
+      brew: 'Kun je iets voor me brouwen?',
+      play: 'Ik doe mee.'
     },
     sunfordSmith: {
       hello: {
@@ -3249,6 +3259,96 @@ export default {
       bye: {
         '1': 'Doei! Zie je een paarse bloem, pluk er dan twee. Eentje voor mij.'
       }
+    },
+    sbGambler: {
+      hello: {
+        '1': 'Kom dichterbij, kom dichterbij! Twaalf kaarten, één zandloper en een buidel die kan verdubbelen!',
+        '2': 'Madame Pell. Ik vergeet nooit een gezicht. Eens kijken of jij nooit een kaart vergeet.'
+      },
+      again: {
+        '1': 'Terug voor nog een ronde? Het zand wachtte al op je.'
+      },
+      play: {
+        '1': 'Munten op het kleed, ogen op de kaarten. Daar gaan we! Zandloper om!'
+      },
+      rules: {
+        '1': 'Draai twee kaarten om. Een paar blijft open liggen. Vind alle paren voordat het zand op is en ik betaal dubbel.',
+        '2': 'Win je weer, dan loopt de zandloper sneller. Win vijf keer op rij en ik geef je een legendarische prijs.',
+        say: 'Hoe werkt het?'
+      },
+      who: {
+        '1': 'Op mijn negende ben ik weggelopen met het rondreizende circus. Dat bleek een heel goede rekensom.'
+      },
+      prize: {
+        '1': 'Een dwerg, één keer. Sindsdien heeft niemand hem nog zien knipperen.',
+        say: 'Heeft iemand de prijs ooit gewonnen?'
+      },
+      playBack: {
+        '1': 'Winst of verlies, het was een mooi spel. Kom terug als je ogen uitgerust zijn.'
+      },
+      bye: {
+        '1': 'Hup, op pad! Onthoud waar je je voeten neerzet.'
+      }
+    },
+    sunfordGambler: {
+      hello: {
+        '1': 'Psst. Heb je rommel in je tas? Oude laarzen, kromme zwaarden? Ik speel je erom.',
+        '2': 'Dob Tumbler. Ik speel vooral voor de lol. En voor laarzen.'
+      },
+      again: {
+        '1': 'Jij weer! Heb je nog meer van die heerlijke rommel?'
+      },
+      play: {
+        '1': 'Inleg op tafel. Leg je spullen neer, de hoogste prijs pakt het punt.'
+      },
+      rules: {
+        '1': 'We leggen allebei een voorwerp neer. De duurste pakt het punt. Twee punten winnen het spel.',
+        '2': 'Wat je neerlegt is van mij, winst of verlies. Maar win drie spellen op rij en ik heb iets speciaals voor je.',
+        say: 'Wat zijn de regels?'
+      },
+      who: {
+        '1': 'Was vroeger marskramer. Blijkt dat mensen hun spullen liever verwedden dan verkopen.'
+      },
+      luck: {
+        '1': 'De hele tijd! Maar ik ga altijd naar huis met een nieuw paar laarzen.',
+        say: 'Verlies jij ooit?'
+      },
+      playBack: {
+        '1': 'Mooi spel! Jouw spullen staan straks prachtig op mijn plank.'
+      },
+      bye: {
+        '1': 'Breng meer rommel! Rommel is mijn favoriet.'
+      }
+    },
+    oakGambler: {
+      hello: {
+        '1': 'Een nieuw gezicht. Ga toch zitten, ik bijt niet. Mijn prijzen wel, een beetje.',
+        '2': 'Ze noemen me Silky Ren. Ik verzamel fijne dingen, één spel tegelijk.'
+      },
+      again: {
+        '1': 'Ah, fijn je weer te zien. Zullen we?'
+      },
+      play: {
+        '1': 'De inleg, alsjeblieft. Leg dan iets neer dat de moeite waard is.'
+      },
+      rules: {
+        '1': 'Elk één voorwerp, hooguit drie keer. Het fijnste stuk pakt het punt. Twee punten pakken het spel.',
+        '2': 'Je stukken blijven hoe dan ook bij mij. Win drie spellen op rij en je gaat weg met een echte schat.',
+        say: 'Hoe spelen we?'
+      },
+      who: {
+        '1': 'Een handelaar in zeldzame dingen. Ik vind ze, ik houd ze, en af en toe verlies ik er een.'
+      },
+      collection: {
+        '1': 'Ik sorteer ze op glans. De glimmendste gaan op de bovenste plank, naast mijn theekopjes.',
+        say: 'Wat doe je met al die spullen?'
+      },
+      playBack: {
+        '1': 'Verrukkelijk. Kom gerust terug als je tas zwaarder is.'
+      },
+      bye: {
+        '1': 'Let daarbuiten op je buidel. Niet iedereen speelt eerlijk.'
+      }
     }
   },
   enemy: {
@@ -3700,5 +3800,39 @@ export default {
       herbs: 'Niet genoeg kruiden. Pluk er meer in het wild.',
       gold: 'Niet genoeg goud.'
     }
+  },
+  memory: {
+    title: 'Het geheugenkraampje',
+    lead: 'Vind alle paren voordat het zand op is en win het dubbele van je inzet. Vijf keer op rij winnen levert een legendarische prijs op.',
+    bet: 'Inzet {n}',
+    row: 'Op rij gewonnen: {n} van {max}',
+    pairs: '{n} paren · {s} seconden',
+    won: 'Alle paren gevonden! Je wint {n} goud.',
+    lost: 'Het zand is op. De inzet is weg.',
+    again: 'Nog een keer',
+    noGold: 'Niet genoeg goud voor die inzet.',
+    card: 'Kaart {n}'
+  },
+  battle: {
+    title: 'Voorwerpenduel',
+    lead: 'Leg een voorwerp tegen dat van de gokker: de hoogste verkoopprijs pakt het punt, twee punten winnen. Je voorwerpen ben je hoe dan ook kwijt. Drie keer op rij winnen levert een epische prijs op.',
+    fee: 'Aanschuiven · {n}',
+    row: 'Op rij gewonnen: {n} van {max}',
+    needItems: 'Je hebt minstens {n} voorwerpen in je tas nodig die je niet draagt.',
+    noGold: 'Niet genoeg goud voor de inleg.',
+    theirs: 'De gokker legt',
+    pick: 'Kies een voorwerp',
+    lay: 'Leg het neer',
+    value: '{n} goud',
+    score: 'Jij {a} · {b} Gokker',
+    roundWon: 'Dat van jou is meer waard. Punt voor jou!',
+    roundLost: 'Dat andere is meer waard. Punt voor de gokker.',
+    won: 'Je wint het spel! +{n} XP',
+    lost: 'De gokker wint het spel.',
+    again: 'Nog een keer'
+  },
+  gamble: {
+    prize: 'Prijs: {item}!',
+    prizeGold: 'Je hebt ze al allemaal, dus je krijgt {n} goud in de plaats!'
   }
 }

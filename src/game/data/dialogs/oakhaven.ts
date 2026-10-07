@@ -1,6 +1,6 @@
 import { conversation } from '../../dialog/build'
 import type { ConversationDef } from '../../dialog/types'
-import { foe, friend, heal, mana, news, ready, rumor, trade, train, who } from './shared'
+import { foe, friend, heal, mana, news, play, ready, rumor, trade, train, who } from './shared'
 
 /**
  * Oakhaven: a walled trade town under siege. Defended, it prospers; betrayed,
@@ -219,7 +219,24 @@ const syndicateBoss = conversation('syndicateBoss', {
   bye: [{ id: 'bye' }]
 })
 
+/** Silky Ren: a dealer in fine things who never lays a cheap one twice (#92). */
+const oakGambler = conversation('oakGambler', {
+  name: 'npc.oakGambler.name', look: 'oakGambler', mood: 'sly',
+  greet: [
+    { id: 'hello', when: { met: false }, lines: 'nn' },
+    { id: 'again' }
+  ],
+  topics: [
+    play('itemBattle'),
+    { id: 'rules', lines: 'nn' },
+    who(),
+    { id: 'collection', mood: 'sly' }
+  ],
+  back: { itemBattle: [{ id: 'playBack' }] },
+  bye: [{ id: 'bye' }]
+})
+
 export const OAKHAVEN_TALK: ConversationDef[] = [
   captainHale, oakArmorer, oakMasterArmorer, oakWeapons, trainerShadow, trainerSovereign, oakHealer, blackMarket,
-  trainerBlood, syndicateBoss
+  trainerBlood, syndicateBoss, oakGambler
 ]

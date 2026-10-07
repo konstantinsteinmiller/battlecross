@@ -1129,6 +1129,15 @@ export default {
     },
     sbAlchemist: {
       name: 'Odile Fernwhistle'
+    },
+    sbGambler: {
+      name: 'Madame Pell'
+    },
+    sunfordGambler: {
+      name: 'Dob Tumbler'
+    },
+    oakGambler: {
+      name: 'Silky Ren'
     }
   },
   quest: {
@@ -1368,7 +1377,8 @@ export default {
       who: '¿Quién eres, si no te importa que pregunte?',
       rumor: '¿Has oído algo últimamente?',
       ready: '¿Crees que puedo aprender más?',
-      brew: '¿Puedes prepararme algo?'
+      brew: '¿Puedes prepararme algo?',
+      play: 'Reparte, que juego.'
     },
     sunfordSmith: {
       hello: {
@@ -3273,6 +3283,96 @@ export default {
       bye: {
         '1': '¡Hasta luego! Si ves una flor morada, recoge dos. Una para mí.'
       }
+    },
+    sbGambler: {
+      hello: {
+        '1': '¡Acércate, acércate! Doce cartas, un reloj de arena y una bolsa que podría duplicarse.',
+        '2': 'Madame Pell. Nunca olvido una cara. Veamos si tú nunca olvidas una carta.'
+      },
+      again: {
+        '1': '¿Vuelves a por otra ronda? La arena te estaba esperando.'
+      },
+      play: {
+        '1': 'Monedas sobre el paño, ojos en las cartas. ¿Empezamos? ¡Dale la vuelta al reloj!'
+      },
+      rules: {
+        '1': 'Gira dos cartas. Si son pareja, se quedan boca arriba. Encuentra todas las parejas antes de que se acabe la arena y te pago el doble.',
+        '2': 'Si vuelves a ganar, el reloj va más rápido. Gana cinco seguidas y te daré un premio legendario.',
+        say: '¿Cómo funciona?'
+      },
+      who: {
+        '1': 'Me escapé con el circo ambulante a los nueve años. Resultó ser un cálculo excelente.'
+      },
+      prize: {
+        '1': 'Un enano, una vez. Nadie le ha visto parpadear desde entonces.',
+        say: '¿Alguien ha ganado alguna vez el premio?'
+      },
+      playBack: {
+        '1': 'Ganes o pierdas, ha sido una buena partida. Vuelve cuando tengas los ojos descansados.'
+      },
+      bye: {
+        '1': '¡Hasta luego! Acuérdate de dónde pones los pies.'
+      }
+    },
+    sunfordGambler: {
+      hello: {
+        '1': 'Psst. ¿Llevas trastos en la bolsa? ¿Botas viejas, espadas torcidas? Te los juego.',
+        '2': 'Dob Tumbler. Juego por diversión, sobre todo. Y por botas.'
+      },
+      again: {
+        '1': '¡Otra vez tú! ¿Tienes más de esos trastos tan bonitos?'
+      },
+      play: {
+        '1': 'La tarifa sobre la mesa. Pon tus cosas, el precio más alto se lleva el punto.'
+      },
+      rules: {
+        '1': 'Cada uno pone un objeto. El más caro se lleva el punto. Dos puntos ganan la partida.',
+        '2': 'Lo que pongas es mío, ganes o pierdas. Pero si ganas tres partidas seguidas, tengo algo especial.',
+        say: '¿Cuáles son las reglas?'
+      },
+      who: {
+        '1': 'Antes era buhonero. Resulta que la gente prefiere apostar sus cosas a venderlas.'
+      },
+      luck: {
+        '1': '¡Todo el rato! Pero siempre vuelvo a casa con un par de botas nuevas.',
+        say: '¿Pierdes alguna vez?'
+      },
+      playBack: {
+        '1': '¡Buena partida! Tus cosas quedarán preciosas en mi estante.'
+      },
+      bye: {
+        '1': '¡Trae más trastos! Los trastos son lo que más me gusta.'
+      }
+    },
+    oakGambler: {
+      hello: {
+        '1': 'Una cara nueva. Siéntate, no muerdo. Mis precios sí, un poco.',
+        '2': 'Me llaman Silky Ren. Colecciono cosas finas, partida a partida.'
+      },
+      again: {
+        '1': 'Ah, qué gusto verte otra vez. ¿Jugamos?'
+      },
+      play: {
+        '1': 'La tarifa, por favor. Luego pon algo que merezca la pena.'
+      },
+      rules: {
+        '1': 'Un objeto cada uno, tres veces como mucho. La pieza más fina se lleva el punto. Dos puntos se llevan la partida.',
+        '2': 'Tus piezas se quedan conmigo pase lo que pase. Gana tres partidas seguidas y te irás con un tesoro de verdad.',
+        say: '¿Cómo se juega?'
+      },
+      who: {
+        '1': 'Un tratante de cosas raras. Las encuentro, me las quedo y, de vez en cuando, pierdo una.'
+      },
+      collection: {
+        '1': 'Lo ordeno por brillo. Lo más brillante va en el estante de arriba, junto a mis tazas de té.',
+        say: '¿Qué haces con todo eso?'
+      },
+      playBack: {
+        '1': 'Un placer. Vuelve cuando tu bolsa pese más.'
+      },
+      bye: {
+        '1': 'Cuida tu bolsa ahí fuera. No todo el mundo juega limpio.'
+      }
     }
   },
   enemy: {
@@ -3728,5 +3828,39 @@ export default {
       herbs: 'No tienes suficientes hierbas. Recoge más en la naturaleza.',
       gold: 'No tienes suficiente oro.'
     }
+  },
+  memory: {
+    title: 'El puesto de la memoria',
+    lead: 'Encuentra todas las parejas antes de que se acabe la arena y gana el doble de tu apuesta. Cinco victorias seguidas añaden un premio legendario.',
+    bet: 'Apostar {n}',
+    row: 'Victorias seguidas: {n} de {max}',
+    pairs: '{n} parejas · {s} segundos',
+    won: '¡Todas las parejas encontradas! Ganas {n} de oro.',
+    lost: 'Se acabó la arena. La apuesta se ha perdido.',
+    again: 'Jugar otra vez',
+    noGold: 'No tienes suficiente oro para esa apuesta.',
+    card: 'Carta {n}'
+  },
+  battle: {
+    title: 'Duelo de objetos',
+    lead: 'Pon un objeto contra el del apostador: el precio de venta más alto se lleva el punto, dos puntos ganan. Tus objetos se pierden pase lo que pase. Tres victorias seguidas añaden un premio épico.',
+    fee: 'Sentarse · {n}',
+    row: 'Victorias seguidas: {n} de {max}',
+    needItems: 'Necesitas al menos {n} objetos sin equipar en la bolsa.',
+    noGold: 'No tienes suficiente oro para la tarifa.',
+    theirs: 'El apostador pone',
+    pick: 'Elige un objeto',
+    lay: 'Ponerlo',
+    value: '{n} de oro',
+    score: 'Tú {a} · {b} Apostador',
+    roundWon: 'El tuyo vale más. ¡Punto para ti!',
+    roundLost: 'El otro vale más. Punto para el apostador.',
+    won: '¡Ganas la partida! +{n} XP',
+    lost: 'El apostador gana la partida.',
+    again: 'Jugar otra vez'
+  },
+  gamble: {
+    prize: 'Premio: ¡{item}!',
+    prizeGold: 'Ya los tienes todos, así que te llevas {n} de oro en su lugar.'
   }
 }

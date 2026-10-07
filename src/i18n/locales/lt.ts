@@ -1128,6 +1128,15 @@ export default {
     },
     sbAlchemist: {
       name: 'Odilė Papartšvilpė'
+    },
+    sbGambler: {
+      name: 'Madam Pell'
+    },
+    sunfordGambler: {
+      name: 'Dob Kūlvirstis'
+    },
+    oakGambler: {
+      name: 'Šilkinis Ren'
     }
   },
   quest: {
@@ -1368,7 +1377,8 @@ export default {
       rumor: 'Ar ką nors girdėjai?',
       ready: 'Ar manai, kad esu pasiruošęs daugiau?',
       ready__f: 'Ar manai, kad esu pasiruošusi daugiau?',
-      brew: 'Ar galėtum man ką nors išvirti?'
+      brew: 'Ar galėtum man ką nors išvirti?',
+      play: 'Dalink ir man.'
     },
     sunfordSmith: {
       hello: {
@@ -3288,6 +3298,96 @@ export default {
       bye: {
         '1': 'Iki! Jei pamatysi violetinę gėlę, nuskink dvi. Vieną man.'
       }
+    },
+    sbGambler: {
+      hello: {
+        '1': 'Prieik arčiau! Dvylika kortų, vienas smėlio laikrodis ir piniginė, kuri gali padvigubėti!',
+        '2': 'Madam Pell. Niekada nepamirštu veidų. Pažiūrėsim, ar tu nepamiršti kortų.'
+      },
+      again: {
+        '1': 'Dar vienas ratas? Smėlis tavęs jau laukia.'
+      },
+      play: {
+        '1': 'Monetos ant audeklo, akys į kortas. Pradedam? Apverčiu laikrodį!'
+      },
+      rules: {
+        '1': 'Atversk dvi kortas. Pora lieka atversta. Rask visas poras, kol neišbyrėjo smėlis, ir sumokėsiu dvigubai.',
+        '2': 'Laimėk vėl, ir laikrodis paspartės. Penkios pergalės iš eilės, ir įteiksiu tau legendinį prizą.',
+        say: 'Kaip tai veikia?'
+      },
+      who: {
+        '1': 'Devynerių pabėgau su keliaujančiu cirku. Paaiškėjo, kad ten puikiai skaičiuoja.'
+      },
+      prize: {
+        '1': 'Kartą vienas nykštukas. Nuo tada niekas nematė jo mirktelint.',
+        say: 'Ar kas nors kada laimėjo prizą?'
+      },
+      playBack: {
+        '1': 'Laimėjus ar pralaimėjus, žaidimas buvo geras. Sugrįžk, kai akys pailsės.'
+      },
+      bye: {
+        '1': 'Na, keliauk! Ir žiūrėk, kur statai kojas.'
+      }
+    },
+    sunfordGambler: {
+      hello: {
+        '1': 'Pst. Turi krepšyje kokio šlamšto? Senų batų, sulenktų kalavijų? Sužaisiu su tavim iš jų.',
+        '2': 'Dob Kūlvirstis. Žaidžiu daugiausia dėl smagumo. Ir dėl batų.'
+      },
+      again: {
+        '1': 'Vėl tu! Turi dar to nuostabaus šlamšto?'
+      },
+      play: {
+        '1': 'Mokestį ant stalo. Dėk daiktus, didesnė kaina laimi tašką.'
+      },
+      rules: {
+        '1': 'Kiekvienas padedam po daiktą. Brangesnis laimi tašką. Du taškai laimi partiją.',
+        '2': 'Ką padėsi, tas mano, laimėsi ar ne. Bet laimėk tris partijas iš eilės, ir turėsiu kai ką ypatingo.',
+        say: 'Kokios taisyklės?'
+      },
+      who: {
+        '1': 'Kadaise buvau keliaujantis prekiautojas. Paaiškėjo, kad žmonės mieliau stato savo daiktus, nei juos parduoda.'
+      },
+      luck: {
+        '1': 'Nuolat! Bet namo visada grįžtu su nauja batų pora.',
+        say: 'Ar tu kada pralaimi?'
+      },
+      playBack: {
+        '1': 'Geras žaidimas! Tavo daiktai puikiai atrodys mano lentynoje.'
+      },
+      bye: {
+        '1': 'Nešk daugiau šlamšto! Šlamštas mano mėgstamiausias.'
+      }
+    },
+    oakGambler: {
+      hello: {
+        '1': 'Naujas veidas. Prisėsk, aš nekandu. Mano kainos šiek tiek kanda.',
+        '2': 'Aš Šilkinis Ren. Renku dailius daiktus, partija po partijos.'
+      },
+      again: {
+        '1': 'A, vėl tu. Su tavim žaisti smagiausia. Pradedam?'
+      },
+      play: {
+        '1': 'Mokestį, prašau. Tada padėk ką nors, kas verta mano dėmesio.'
+      },
+      rules: {
+        '1': 'Po vieną daiktą, daugiausia tris kartus. Dailesnis daiktas laimi tašką. Du taškai laimi partiją.',
+        '2': 'Tavo daiktai bet kuriuo atveju lieka man. Laimėk tris partijas iš eilės, ir išeisi su tikru lobiu.',
+        say: 'Kaip žaidžiam?'
+      },
+      who: {
+        '1': 'Prekiauju retais daiktais. Juos randu, pasilieku, o kartais vieną pralošiu.'
+      },
+      collection: {
+        '1': 'Rūšiuoju pagal blizgesį. Blizgiausi keliauja į viršutinę lentyną, šalia mano arbatos puodelių.',
+        say: 'Ką darai su visu tuo?'
+      },
+      playBack: {
+        '1': 'Žavinga. Sugrįžk, kai krepšys bus sunkesnis.'
+      },
+      bye: {
+        '1': 'Saugok piniginę. Ne visi žaidžia sąžiningai.'
+      }
     }
   },
   enemy: {
@@ -3743,5 +3843,39 @@ export default {
       herbs: 'Neužtenka žolelių. Prisiskink daugiau laukinėse vietose.',
       gold: 'Neužtenka aukso.'
     }
+  },
+  memory: {
+    title: 'Atminties žaidimas',
+    lead: 'Rask visas poras, kol neišbyrėjo smėlis, ir laimėk dvigubą statymą. Penkios pergalės iš eilės prideda legendinį prizą.',
+    bet: 'Statyti {n}',
+    row: 'Pergalės iš eilės: {n} iš {max}',
+    pairs: 'Poros: {n} · {s} s',
+    won: 'Visos poros rastos! Laimi {n} aukso.',
+    lost: 'Smėlis išbyrėjo. Statymas prarastas.',
+    again: 'Žaisti dar',
+    noGold: 'Neužtenka aukso šiam statymui.',
+    card: 'Korta {n}'
+  },
+  battle: {
+    title: 'Daiktų mūšis',
+    lead: 'Padėk daiktą prieš varžovo daiktą: tašką gauna tas, kurio pardavimo kaina didesnė, du taškai laimi. Daiktų netenki bet kuriuo atveju. Trys pergalės iš eilės prideda epinį prizą.',
+    fee: 'Prisėsti · {n}',
+    row: 'Pergalės iš eilės: {n} iš {max}',
+    needItems: 'Krepšyje reikia bent {n} daiktų, kurių nevilki.',
+    noGold: 'Neužtenka aukso mokesčiui.',
+    theirs: 'Varžovas deda',
+    pick: 'Pasirink daiktą',
+    lay: 'Padėti',
+    value: '{n} aukso',
+    score: 'Tu {a} · {b} Varžovas',
+    roundWon: 'Tavo vertesnis. Taškas tau!',
+    roundLost: 'Varžovo vertesnis. Taškas jam.',
+    won: 'Partija tavo! +{n} PT',
+    lost: 'Partiją laimėjo varžovas.',
+    again: 'Žaisti dar'
+  },
+  gamble: {
+    prize: 'Prizas: {item}!',
+    prizeGold: 'Jau turi juos visus, tad vietoj to gauni {n} aukso!'
   }
 }

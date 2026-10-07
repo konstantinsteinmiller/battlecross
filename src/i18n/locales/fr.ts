@@ -1129,6 +1129,15 @@ export default {
     },
     sbAlchemist: {
       name: 'Odile Fernwhistle'
+    },
+    sbGambler: {
+      name: 'Madame Pell'
+    },
+    sunfordGambler: {
+      name: 'Dob Tumbler'
+    },
+    oakGambler: {
+      name: 'Silky Ren'
     }
   },
   quest: {
@@ -1368,7 +1377,8 @@ export default {
       who: 'Qui es-tu, si je peux me permettre ?',
       rumor: 'Des nouvelles, ces temps-ci ?',
       ready: 'Tu crois que je peux en apprendre plus ?',
-      brew: 'Tu peux me préparer quelque chose ?'
+      brew: 'Tu peux me préparer quelque chose ?',
+      play: 'J’en suis !'
     },
     sunfordSmith: {
       hello: {
@@ -3276,6 +3286,96 @@ export default {
       bye: {
         '1': 'À bientôt ! Si tu vois une fleur violette, cueilles-en deux. Une pour moi.'
       }
+    },
+    sbGambler: {
+      hello: {
+        '1': 'Approche, approche ! Douze cartes, un sablier et une bourse qui pourrait doubler !',
+        '2': 'Madame Pell. Je n’oublie jamais un visage. Voyons si toi, tu n’oublies jamais une carte.'
+      },
+      again: {
+        '1': 'De retour pour une autre manche ? Le sable t’attendait.'
+      },
+      play: {
+        '1': 'Les pièces sur le tapis, les yeux sur les cartes. On y va ? Je retourne le sablier !'
+      },
+      rules: {
+        '1': 'Retourne deux cartes. Une paire reste visible. Trouve toutes les paires avant la fin du sable et je paie le double.',
+        '2': 'Gagne encore et le sablier ira plus vite. Gagne cinq fois d’affilée et je te remets un prix légendaire.',
+        say: 'Comment ça marche ?'
+      },
+      who: {
+        '1': 'Je me suis enfuie avec le cirque ambulant à neuf ans. Ça s’est révélé un très bon calcul.'
+      },
+      prize: {
+        '1': 'Un nain, une fois. Personne ne l’a vu cligner des yeux depuis.',
+        say: 'Quelqu’un a déjà gagné le prix ?'
+      },
+      playBack: {
+        '1': 'Gagné ou perdu, c’était une belle partie. Reviens quand tes yeux seront reposés.'
+      },
+      bye: {
+        '1': 'File ! Et souviens-toi où tu mets les pieds.'
+      }
+    },
+    sunfordGambler: {
+      hello: {
+        '1': 'Psst. Tu as de la camelote dans ton sac ? De vieilles bottes, des épées tordues ? Je te les joue.',
+        '2': 'Dob Tumbler. Je joue surtout pour le plaisir. Et pour les bottes.'
+      },
+      again: {
+        '1': 'Encore toi ! Tu as encore de cette jolie camelote ?'
+      },
+      play: {
+        '1': 'Le tarif sur la table. Pose tes affaires, le prix le plus haut gagne le point.'
+      },
+      rules: {
+        '1': 'Chacun pose un objet. Le plus cher gagne le point. Deux points gagnent la partie.',
+        '2': 'Ce que tu poses est à moi, gagné ou perdu. Mais gagne trois parties d’affilée, et j’ai un truc spécial pour toi.',
+        say: 'C’est quoi, les règles ?'
+      },
+      who: {
+        '1': 'J’étais colporteur. En fait, les gens préfèrent parier leurs affaires plutôt que les vendre.'
+      },
+      luck: {
+        '1': 'Tout le temps ! Mais je rentre toujours avec une nouvelle paire de bottes.',
+        say: 'Il t’arrive de perdre ?'
+      },
+      playBack: {
+        '1': 'Belle partie ! Tes affaires seront superbes sur mon étagère.'
+      },
+      bye: {
+        '1': 'Rapporte de la camelote ! La camelote, c’est ce que je préfère.'
+      }
+    },
+    oakGambler: {
+      hello: {
+        '1': 'Une nouvelle tête. Assieds-toi donc, je ne mords pas. Mes prix, un peu.',
+        '2': 'On m’appelle Silky Ren. Je collectionne les belles choses, une partie à la fois.'
+      },
+      again: {
+        '1': 'Ah, te revoilà. On commence ?'
+      },
+      play: {
+        '1': 'Le tarif, s’il te plaît. Puis pose quelque chose qui en vaille la peine.'
+      },
+      rules: {
+        '1': 'Un objet chacun, trois fois au plus. La plus belle pièce gagne le point. Deux points gagnent la partie.',
+        '2': 'Tes pièces restent chez moi quoi qu’il arrive. Gagne trois parties de suite et tu repartiras avec un vrai trésor.',
+        say: 'Comment on joue ?'
+      },
+      who: {
+        '1': 'Un marchand de choses rares. Je les trouve, je les garde, et de temps en temps j’en perds une.'
+      },
+      collection: {
+        '1': 'Je les range par éclat. Les plus brillantes vont sur l’étagère du haut, à côté de mes tasses à thé.',
+        say: 'Que fais-tu de tout ça ?'
+      },
+      playBack: {
+        '1': 'Un vrai plaisir. Reviens donc quand ton sac sera plus lourd.'
+      },
+      bye: {
+        '1': 'Surveille ta bourse dehors. Tout le monde ne joue pas franc jeu.'
+      }
     }
   },
   enemy: {
@@ -3732,5 +3832,39 @@ export default {
       herbs: 'Pas assez d’herbes. Cueilles-en d’autres dans la nature.',
       gold: 'Pas assez d’or.'
     }
+  },
+  memory: {
+    title: 'Le stand de la mémoire',
+    lead: 'Trouve toutes les paires avant la fin du sable et gagne le double de ta mise. Cinq victoires d’affilée ajoutent un prix légendaire.',
+    bet: 'Miser {n}',
+    row: 'Victoires d’affilée : {n} sur {max}',
+    pairs: '{n} paires · {s} secondes',
+    won: 'Toutes les paires trouvées ! Tu gagnes {n} pièces d’or.',
+    lost: 'Le sable s’est écoulé. La mise est perdue.',
+    again: 'Rejouer',
+    noGold: 'Pas assez d’or pour cette mise.',
+    card: 'Carte {n}'
+  },
+  battle: {
+    title: 'Duel d’objets',
+    lead: 'Pose un objet contre celui du parieur : le prix de vente le plus haut gagne le point, deux points pour gagner. Tes objets sont perdus quoi qu’il arrive. Trois victoires d’affilée ajoutent un prix épique.',
+    fee: 'S’asseoir · {n}',
+    row: 'Victoires d’affilée : {n} sur {max}',
+    needItems: 'Il te faut au moins {n} objets non portés dans ton sac.',
+    noGold: 'Pas assez d’or pour le tarif.',
+    theirs: 'Le parieur pose',
+    pick: 'Choisis un objet à poser',
+    lay: 'Poser',
+    value: '{n} pièces d’or',
+    score: 'Toi {a} · {b} Parieur',
+    roundWon: 'Le tien vaut plus. Point pour toi !',
+    roundLost: 'L’autre vaut plus. Point pour le parieur.',
+    won: 'Tu gagnes la partie ! +{n} XP',
+    lost: 'Le parieur gagne la partie.',
+    again: 'Rejouer'
+  },
+  gamble: {
+    prize: 'Prix : {item} !',
+    prizeGold: 'Tu les as déjà tous, alors tu reçois {n} pièces d’or à la place !'
   }
 }

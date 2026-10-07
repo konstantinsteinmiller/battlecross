@@ -1129,6 +1129,15 @@ export default {
     },
     sbAlchemist: {
       name: 'Odile Asubío de Fento'
+    },
+    sbGambler: {
+      name: 'Madame Pell'
+    },
+    sunfordGambler: {
+      name: 'Dob Tumbler'
+    },
+    oakGambler: {
+      name: 'Silky Ren'
     }
   },
   quest: {
@@ -1369,7 +1378,8 @@ export default {
       rumor: 'Souboches algo ultimamente?',
       ready: 'Pensas que estou listo para máis?',
       ready__f: 'Pensas que estou lista para máis?',
-      brew: 'Podes prepararme algo?'
+      brew: 'Podes prepararme algo?',
+      play: 'Reparte, que xogo.'
     },
     sunfordSmith: {
       hello: {
@@ -3278,6 +3288,96 @@ export default {
       bye: {
         '1': 'Ata logo! Se ves unha flor morada, colle dúas. Unha para min.'
       }
+    },
+    sbGambler: {
+      hello: {
+        '1': 'Achégate, achégate! Doce cartas, un reloxo de area e unha bolsa que podería dobrarse!',
+        '2': 'Madame Pell. Nunca esquezo unha cara. A ver se ti nunca esqueces unha carta.'
+      },
+      again: {
+        '1': 'Volves por outra rolda? A area estábate esperando.'
+      },
+      play: {
+        '1': 'Moedas no pano, ollos nas cartas. Imos? Dálle a volta ao reloxo!'
+      },
+      rules: {
+        '1': 'Vira dúas cartas. Unha parella queda á vista. Atopa todas as parellas antes de que se acabe a area e págoche o dobre.',
+        '2': 'Se gañas outra vez, o reloxo vai máis rápido. Gaña cinco seguidas e dareiche un premio lendario.',
+        say: 'Como funciona?'
+      },
+      who: {
+        '1': 'Fuxín co circo ambulante aos nove anos. Resultou ser unha conta moi boa.'
+      },
+      prize: {
+        '1': 'Un anano, unha vez. Desde entón ninguén o viu pestanexar.',
+        say: 'Gañou alguén o premio algunha vez?'
+      },
+      playBack: {
+        '1': 'Gañes ou perdas, foi unha boa partida. Volve cando teñas os ollos descansados.'
+      },
+      bye: {
+        '1': 'Veña, vai! E lembra onde pos os pés.'
+      }
+    },
+    sunfordGambler: {
+      hello: {
+        '1': 'Psst. Levas trastes na bolsa? Botas vellas, espadas tortas? Xógochas.',
+        '2': 'Dob Tumbler. Xogo por diversión, sobre todo. E por botas.'
+      },
+      again: {
+        '1': 'Ti outra vez! Tes máis deses trastes tan bonitos?'
+      },
+      play: {
+        '1': 'A tarifa na mesa. Pon as túas cousas, o prezo máis alto lévase o punto.'
+      },
+      rules: {
+        '1': 'Cada un pon un obxecto. O máis caro lévase o punto. Dous puntos gañan a partida.',
+        '2': 'O que poñas é meu, gañes ou perdas. Pero se gañas tres partidas seguidas, teño algo especial.',
+        say: 'Cales son as regras?'
+      },
+      who: {
+        '1': 'Antes era quincalleiro. Resulta que a xente prefire apostar as súas cousas a vendelas.'
+      },
+      luck: {
+        '1': 'Sempre! Pero volvo á casa cun par de botas novas.',
+        say: 'Perdes algunha vez?'
+      },
+      playBack: {
+        '1': 'Boa partida! As túas cousas quedarán preciosas no meu andel.'
+      },
+      bye: {
+        '1': 'Trae máis trastes! Os trastes son o que máis me gusta.'
+      }
+    },
+    oakGambler: {
+      hello: {
+        '1': 'Unha cara nova. Senta, que non trabo. Os meus prezos si, un pouquiño.',
+        '2': 'Chámanme Silky Ren. Colecciono cousas finas, partida a partida.'
+      },
+      again: {
+        '1': 'Ah, que gusto verte outra vez. Xogamos?'
+      },
+      play: {
+        '1': 'A tarifa, por favor. Despois pon algo que pague a pena.'
+      },
+      rules: {
+        '1': 'Un obxecto cada un, tres veces como moito. A peza máis fina lévase o punto. Dous puntos levan a partida.',
+        '2': 'As túas pezas quedan comigo pase o que pase. Gaña tres partidas seguidas e marcharás cun tesouro de verdade.',
+        say: 'Como se xoga?'
+      },
+      who: {
+        '1': 'Un tratante de cousas raras. Atópoas, gárdoas e, de cando en vez, perdo unha.'
+      },
+      collection: {
+        '1': 'Ordénoo por brillo. O máis brillante vai no andel de arriba, xunto ás miñas cuncas de té.',
+        say: 'Que fas con todo iso?'
+      },
+      playBack: {
+        '1': 'Un pracer. Volve cando a túa bolsa pese máis.'
+      },
+      bye: {
+        '1': 'Coida a bolsa aí fóra. Non todo o mundo xoga limpo.'
+      }
     }
   },
   enemy: {
@@ -3733,5 +3833,39 @@ export default {
       herbs: 'Non tes herbas abondo. Colle máis na natureza.',
       gold: 'Non tes ouro abondo.'
     }
+  },
+  memory: {
+    title: 'O posto da memoria',
+    lead: 'Atopa todas as parellas antes de que se acabe a area e gaña o dobre da túa aposta. Cinco vitorias seguidas engaden un premio lendario.',
+    bet: 'Apostar {n}',
+    row: 'Vitorias seguidas: {n} de {max}',
+    pairs: '{n} parellas · {s} segundos',
+    won: 'Todas as parellas atopadas! Gañas {n} de ouro.',
+    lost: 'Acabouse a area. A aposta perdeuse.',
+    again: 'Xogar outra vez',
+    noGold: 'Non tes ouro abondo para esa aposta.',
+    card: 'Carta {n}'
+  },
+  battle: {
+    title: 'Duelo de obxectos',
+    lead: 'Pon un obxecto contra o do apostador: o prezo de venda máis alto lévase o punto, e dous puntos gañan. Os teus obxectos pérdense pase o que pase. Tres vitorias seguidas engaden un premio épico.',
+    fee: 'Sentar · {n}',
+    row: 'Vitorias seguidas: {n} de {max}',
+    needItems: 'Necesitas polo menos {n} obxectos sen poñer na bolsa.',
+    noGold: 'Non tes ouro abondo para a tarifa.',
+    theirs: 'O apostador pon',
+    pick: 'Escolle un obxecto',
+    lay: 'Poñelo',
+    value: '{n} de ouro',
+    score: 'Ti {a} · {b} Apostador',
+    roundWon: 'O teu vale máis. Punto para ti!',
+    roundLost: 'O outro vale máis. Punto para o apostador.',
+    won: 'Gañas a partida! +{n} XP',
+    lost: 'O apostador gaña a partida.',
+    again: 'Xogar outra vez'
+  },
+  gamble: {
+    prize: 'Premio: {item}!',
+    prizeGold: 'Xa os tes todos, así que recibes {n} de ouro no seu lugar!'
   }
 }

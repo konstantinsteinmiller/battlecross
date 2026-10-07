@@ -662,6 +662,41 @@ export default {
     'vigor': { 'name': 'Vigour Elixir', 'desc': 'Heals {n}% of your health every second for a minute' },
     'shadow': { 'name': 'Thirsting Draught', 'desc': 'Your hits heal you for {n}% of their damage for a minute' }
   },
+  // The gamblers' tables (#91, #92).
+  'memory': {
+    'title': 'The Memory Stand',
+    'lead': 'Find every pair before the sand runs out and win double your bet. Five wins in a row add a legendary prize.',
+    'bet': 'Bet {n}',
+    'row': 'Wins in a row: {n} of {max}',
+    'pairs': '{n} pairs · {s} seconds',
+    'won': 'Every pair found! You win {n} gold.',
+    'lost': 'The sand ran out. The bet is gone.',
+    'again': 'Play again',
+    'noGold': 'Not enough gold for that bet.',
+    'card': 'Card {n}'
+  },
+  'battle': {
+    'title': 'Item Battle',
+    'lead': 'Lay an item against the gambler\'s: the higher sale price takes the point, two points win. Your items are gone either way. Three wins in a row add an epic prize.',
+    'fee': 'Sit down · {n}',
+    'row': 'Wins in a row: {n} of {max}',
+    'needItems': 'You need at least {n} unworn items in your bag.',
+    'noGold': 'Not enough gold for the fee.',
+    'theirs': 'The gambler lays',
+    'pick': 'Pick an item to lay',
+    'lay': 'Lay it',
+    'value': '{n} gold',
+    'score': 'You {a} · {b} Gambler',
+    'roundWon': 'Yours is worth more. Point to you!',
+    'roundLost': 'Theirs is worth more. Point to the gambler.',
+    'won': 'You win the game! +{n} XP',
+    'lost': 'The gambler wins the game.',
+    'again': 'Play again'
+  },
+  'gamble': {
+    'prize': 'Prize: {item}!',
+    'prizeGold': 'You own them all, so you get {n} gold instead!'
+  },
   'alchemy': {
     'talk': 'Herbs in, elixirs out. Which one shall we brew?',
     'lead': 'Each elixir works for a minute in a fight. Drink it from your third flask. You can carry {n} of each.',
@@ -724,6 +759,9 @@ export default {
     'mayorBrenna': { 'name': 'Mayor Brenna Quill' },
     'sbHealer': { 'name': 'Friar Ansel' },
     'sbAlchemist': { 'name': 'Odile Fernwhistle' },
+    'sbGambler': { 'name': 'Madame Pell' },
+    'sunfordGambler': { 'name': 'Dob Tumbler' },
+    'oakGambler': { 'name': 'Silky Ren' },
     'sbArmorer': { 'name': 'Greta Ironvein', 'talk': 'Mountain steel, river prices. Knock on anything you like.' },
     'sbWeapons': { 'name': 'Corvin Ashby', 'talk': 'Ashby\'s Fine Blades. Every edge polished by hand. My hand.' },
     'sbJeweler': { 'name': 'Tam Marlow', 'talk': 'Rings, charms, lucky stones. All real. Well, nearly all.' },
@@ -839,6 +877,48 @@ export default {
       'sleep': { 'say': 'Do you ever actually sleep?', '1': 'Not at night. Pupils from every class, all practising. Something always explodes.' },
       'healBack': { '1': 'Off you go. Next time, come for tea instead of bandages.' },
       'bye': { '1': 'Mind the steps. Half my patients only tripped on them.' }
+    },
+    'sbGambler': {
+      'hello': { '1': 'Step right up! Twelve cards, one hourglass, and a purse that could double!', '2': 'Madame Pell. I never forget a face. Let\'s see if you never forget a card.' },
+      'again': { '1': 'Back for another round? The sand\'s been waiting for you.' },
+      'play': { '1': 'Coins on the cloth, eyes on the cards. Ready? Turn the glass!' },
+      'rules': {
+        'say': 'How does it work?',
+        '1': 'Turn two cards. A pair stays up. Find every pair before the sand runs out and I pay double.',
+        '2': 'Win again and the glass gets quicker. Win five in a row and I\'ll hand you a legendary prize.'
+      },
+      'who': { '1': 'I ran away with the travelling circus at nine. It turned out to be very good at maths.' },
+      'prize': { 'say': 'Has anyone ever won the prize?', '1': 'A dwarf, once. Nobody has seen him blink since.' },
+      'playBack': { '1': 'Win or lose, that was a good game. Come back when your eyes are rested.' },
+      'bye': { '1': 'Off you go! Remember where you put your feet.' }
+    },
+    'sunfordGambler': {
+      'hello': { '1': 'Psst. Got any junk in that bag? Old boots, bent swords? I\'ll play you for it.', '2': 'Dob Tumbler. I play for fun, mostly. And for boots.' },
+      'again': { '1': 'You again! Got any more of that lovely junk?' },
+      'play': { '1': 'Fee on the table. Lay your things down, highest price takes the point.' },
+      'rules': {
+        'say': 'What are the rules?',
+        '1': 'We each lay an item. The pricier one wins the point. Two points wins the game.',
+        '2': 'Whatever you lay is mine, win or lose. Win three games in a row, though, and I\'ve got something special.'
+      },
+      'who': { '1': 'Used to be a pedlar. Turns out people would rather bet their stuff than sell it.' },
+      'luck': { 'say': 'Do you ever lose?', '1': 'All the time! But I always go home with a new pair of boots.' },
+      'playBack': { '1': 'Good game! That stuff of yours will look lovely on my shelf.' },
+      'bye': { '1': 'Bring more junk! Junk is my favourite.' }
+    },
+    'oakGambler': {
+      'hello': { '1': 'A newcomer. Do sit down, I don\'t bite. My prices do, a little.', '2': 'They call me Silky Ren. I collect fine things, one game at a time.' },
+      'again': { '1': 'Ah, my favourite opponent. Shall we?' },
+      'play': { '1': 'The fee, please. Then lay something worth my while.' },
+      'rules': {
+        'say': 'How do we play?',
+        '1': 'One item each, three times at most. The finer piece takes the point. Two points take the game.',
+        '2': 'Your pieces stay with me either way. Win three games running and you\'ll leave with a real treasure.'
+      },
+      'who': { '1': 'A dealer in rare things. I find them, I keep them, and now and then I lose one.' },
+      'collection': { 'say': 'What do you do with it all?', '1': 'I sort it by shine. The shiniest go on the top shelf, next to my teacups.' },
+      'playBack': { '1': 'Delightful. Do come back when your bag is heavier.' },
+      'bye': { '1': 'Mind your purse out there. Not everyone plays fair.' }
     },
     'sbAlchemist': {
       'hello': { '1': 'Oh! Mind the jars. That one bites. Well, it nibbles.', '2': 'Odile Fernwhistle, alchemist. Bring me herbs and I\'ll bottle you a little courage.' },
@@ -1128,6 +1208,7 @@ export default {
       'train': 'Will you teach me?',
       'heal': 'Could you patch me up?',
       'brew': 'Could you brew me something?',
+      'play': 'Deal me in.',
       'mana': 'Do you have anything for mana?',
       'who': 'Who are you, if you don\'t mind me asking?',
       'rumor': 'Heard anything lately?',

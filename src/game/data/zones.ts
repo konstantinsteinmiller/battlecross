@@ -253,7 +253,7 @@ export const ZONE_BRANCHES: Readonly<Record<ZoneId, ZoneBranches>> = {
 
 export type TownId = 'sunford' | 'oakhaven' | 'ironhold' | 'silverbridge'
 
-export type NpcRole = 'shop' | 'trainer' | 'quest' | 'healer' | 'alchemist' | 'talk'
+export type NpcRole = 'shop' | 'trainer' | 'quest' | 'healer' | 'alchemist' | 'gambler' | 'talk'
 
 /**
  * Where a townsperson spends the day (roadmap #41, #42):
@@ -300,6 +300,8 @@ export interface NpcDef {
   stock?: { slots: ItemSlot[]; tiers: number[] }
   /** Quest givers: the quest id. */
   quest?: string
+  /** Gamblers (roadmap #91, #92): the game at their table. */
+  game?: 'memory' | 'items'
   /** Shown only while every flag in `needs` is set and none in `not`. */
   needs?: string[]
   not?: string[]
@@ -362,6 +364,8 @@ export const TOWNS: Readonly<Record<TownId, TownDef>> = {
       // The knight drills in his yard; the pyromancer keeps to her books.
       { id: 'trainerAegis', role: 'trainer', look: 'trainerAegis', at: [0.2, 0.15], place: 'yard', house: 'hall', cls: 'aegis' },
       { id: 'trainerPyro', role: 'trainer', look: 'trainerPyro', at: [0.8, 0.15], place: 'inside', house: 'hall', cls: 'pyro' },
+      // The item battle (#92): a table in the street, a deck of odds and ends.
+      { id: 'sunfordGambler', role: 'gambler', look: 'sunfordGambler', at: [0.72, 0.62], place: 'street', job: 'merchant', game: 'items' },
       { id: 'elderMara', role: 'quest', look: 'elder', at: [0.42, 0.36], place: 'street', job: 'elder', quest: 'goblinKing' },
       { id: 'sunfordHealer', role: 'healer', look: 'healer', at: [0.84, 0.48], place: 'inside', house: 'chapel' },
       // The pact's price and prize: goblins trading rarities in the square.
@@ -395,6 +399,8 @@ export const TOWNS: Readonly<Record<TownId, TownDef>> = {
       { id: 'oakWeapons', role: 'shop', look: 'peddler', at: [0.3, 0.48], place: 'inside', house: 'townhouse', job: 'merchant', stock: { slots: ['main'], tiers: [2, 3] }, not: ['oakhavenFallen'] },
       { id: 'trainerShadow', role: 'trainer', look: 'trainerShadow', at: [0.86, 0.48], place: 'inside', house: 'townhouse', cls: 'shadow' },
       { id: 'trainerSovereign', role: 'trainer', look: 'trainerSovereign', at: [0.5, 0.15], place: 'inside', house: 'hall', cls: 'sovereign', not: ['oakhavenFallen'] },
+      // The item battle (#92): he plays on whatever becomes of the town.
+      { id: 'oakGambler', role: 'gambler', look: 'oakGambler', at: [0.22, 0.64], place: 'street', job: 'merchant', game: 'items' },
       { id: 'oakHealer', role: 'healer', look: 'healer', at: [0.18, 0.15], place: 'inside', house: 'chapel', not: ['oakhavenFallen'] },
       // Betrayed: a ruin with a black market, and the alchemist it shelters in
       // what was the healer's chapel.
@@ -470,6 +476,8 @@ export const TOWNS: Readonly<Record<TownId, TownDef>> = {
       // Shops and the chapel either side of the square.
       { id: 'sbHealer', role: 'healer', look: 'sbHealer', at: [0.1, 0.48], place: 'inside', house: 'chapel' },
       { id: 'sbArmorer', role: 'shop', look: 'sbArmorer', at: [0.3, 0.48], place: 'porch', house: 'workshop', job: 'smith', stock: { slots: ['head', 'body', 'hands', 'feet', 'off'], tiers: [2, 3, 4] } },
+      // The memory stand (#91): cards on a cloth, an hourglass, a showman.
+      { id: 'sbGambler', role: 'gambler', look: 'sbGambler', at: [0.28, 0.36], place: 'street', job: 'merchant', game: 'memory' },
       // The alchemist (#87): brews the herbs the hero picks into elixirs.
       { id: 'sbAlchemist', role: 'alchemist', look: 'sbAlchemist', at: [0.9, 0.48], place: 'inside', house: 'townhouse', job: 'alchemist' },
       { id: 'sbWeapons', role: 'shop', look: 'sbWeapons', at: [0.75, 0.48], place: 'inside', house: 'townhouse', job: 'merchant', stock: { slots: ['main', 'off'], tiers: [2, 3, 4] } },

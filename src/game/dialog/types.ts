@@ -94,7 +94,7 @@ export interface BlockDef {
 }
 
 /** The windows a conversation hands over to (and comes back from). */
-export type TalkWindow = 'shop' | 'trainer' | 'healer' | 'alchemy'
+export type TalkWindow = 'shop' | 'trainer' | 'healer' | 'alchemy' | 'memory' | 'itemBattle'
 
 export type Effect =
   /** Remember something beyond the topic itself. */

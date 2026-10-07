@@ -1128,6 +1128,15 @@ export default {
     },
     sbAlchemist: {
       name: 'Odile Fernwhistle'
+    },
+    sbGambler: {
+      name: 'Madame Pell'
+    },
+    sunfordGambler: {
+      name: 'Dob Tumbler'
+    },
+    oakGambler: {
+      name: 'Silky Ren'
     }
   },
   quest: {
@@ -1367,7 +1376,8 @@ export default {
       who: 'Siapa kamu, kalau boleh tahu?',
       rumor: 'Ada kabar terbaru?',
       ready: 'Menurutmu aku sudah siap untuk yang lebih berat?',
-      brew: 'Bisa buatkan aku sesuatu?'
+      brew: 'Bisa buatkan aku sesuatu?',
+      play: 'Aku ikut.'
     },
     sunfordSmith: {
       hello: {
@@ -3241,6 +3251,96 @@ export default {
       bye: {
         '1': 'Dah! Kalau lihat bunga ungu, petik dua. Satu untukku.'
       }
+    },
+    sbGambler: {
+      hello: {
+        '1': 'Ayo, mari mendekat! Dua belas kartu, satu jam pasir, dan dompet yang bisa jadi dua kali lipat!',
+        '2': 'Madame Pell. Aku tak pernah lupa wajah. Mari kita lihat apa kamu tak pernah lupa kartu.'
+      },
+      again: {
+        '1': 'Kembali untuk satu ronde lagi? Pasirnya sudah menunggumu.'
+      },
+      play: {
+        '1': 'Koin di atas kain, mata di kartu. Siap? Balik jam pasirnya!'
+      },
+      rules: {
+        '1': 'Buka dua kartu. Yang berpasangan tetap terbuka. Temukan semua pasangan sebelum pasirnya habis, dan aku bayar dua kali lipat.',
+        '2': 'Menang lagi, jam pasirnya makin cepat. Menang lima kali beruntun, dan aku beri kamu hadiah legendaris.',
+        say: 'Cara mainnya bagaimana?'
+      },
+      who: {
+        '1': 'Umur sembilan aku kabur ikut sirkus keliling. Ternyata sirkus itu jago sekali berhitung.'
+      },
+      prize: {
+        '1': 'Seorang kurcaci, sekali. Sejak itu tak ada yang pernah melihatnya berkedip.',
+        say: 'Pernah ada yang menang hadiahnya?'
+      },
+      playBack: {
+        '1': 'Menang atau kalah, tadi permainan yang seru. Kembali lagi kalau matamu sudah istirahat.'
+      },
+      bye: {
+        '1': 'Sana, jalan! Ingat-ingat di mana kamu menaruh kakimu.'
+      }
+    },
+    sunfordGambler: {
+      hello: {
+        '1': 'Ssst. Ada barang rongsokan di tasmu? Sepatu bot tua, pedang bengkok? Ayo kita taruhkan.',
+        '2': 'Dob Tumbler. Aku main buat senang-senang, kebanyakan. Dan buat sepatu bot.'
+      },
+      again: {
+        '1': 'Kamu lagi! Masih punya rongsokan yang bagus itu?'
+      },
+      play: {
+        '1': 'Biayanya di meja. Taruh barangmu, harga tertinggi dapat poin.'
+      },
+      rules: {
+        '1': 'Kita masing-masing menaruh satu barang. Yang lebih mahal dapat poin. Dua poin menang.',
+        '2': 'Apa pun yang kamu taruh jadi milikku, menang atau kalah. Tapi kalau menang tiga kali beruntun, aku punya sesuatu yang istimewa.',
+        say: 'Apa aturannya?'
+      },
+      who: {
+        '1': 'Dulu aku pedagang keliling. Ternyata orang lebih suka mempertaruhkan barangnya daripada menjualnya.'
+      },
+      luck: {
+        '1': 'Sering sekali! Tapi aku selalu pulang membawa sepasang sepatu bot baru.',
+        say: 'Kamu pernah kalah?'
+      },
+      playBack: {
+        '1': 'Permainan bagus! Barang-barangmu pasti cantik di rakku.'
+      },
+      bye: {
+        '1': 'Bawa rongsokan lagi! Rongsokan itu kesukaanku.'
+      }
+    },
+    oakGambler: {
+      hello: {
+        '1': 'Pendatang baru. Silakan duduk, aku tidak menggigit. Hargaku yang menggigit, sedikit.',
+        '2': 'Orang memanggilku Silky Ren. Aku mengoleksi barang-barang indah, satu permainan demi satu.'
+      },
+      again: {
+        '1': 'Ah, lawan favoritku. Kita mulai?'
+      },
+      play: {
+        '1': 'Biayanya dulu, silakan. Lalu taruh sesuatu yang sepadan dengan waktuku.'
+      },
+      rules: {
+        '1': 'Satu barang masing-masing, paling banyak tiga kali. Barang yang lebih bagus dapat poin. Dua poin memenangkan permainan.',
+        '2': 'Barangmu tetap tinggal di sini, apa pun hasilnya. Menang tiga kali beruntun, dan kamu akan pulang membawa harta sungguhan.',
+        say: 'Bagaimana cara mainnya?'
+      },
+      who: {
+        '1': 'Pedagang barang langka. Aku menemukannya, menyimpannya, dan sesekali kalah satu.'
+      },
+      collection: {
+        '1': 'Kuurutkan dari kilaunya. Yang paling berkilau di rak paling atas, di sebelah cangkir tehku.',
+        say: 'Semua itu kamu apakan?'
+      },
+      playBack: {
+        '1': 'Menyenangkan. Datang lagi kalau tasmu sudah lebih berat.'
+      },
+      bye: {
+        '1': 'Jaga dompetmu di luar sana. Tidak semua orang main jujur.'
+      }
     }
   },
   enemy: {
@@ -3692,5 +3792,39 @@ export default {
       herbs: 'Herbal tidak cukup. Petik lagi di alam liar.',
       gold: 'Emas tidak cukup.'
     }
+  },
+  memory: {
+    title: 'Lapak Kartu Ingatan',
+    lead: 'Temukan semua pasangan sebelum pasirnya habis dan menangkan dua kali taruhanmu. Lima kemenangan beruntun memberi hadiah Legendaris.',
+    bet: 'Taruh {n}',
+    row: 'Menang beruntun: {n} dari {max}',
+    pairs: '{n} pasang · {s} detik',
+    won: 'Semua pasangan ketemu! Kamu menang {n} emas.',
+    lost: 'Pasirnya habis. Taruhannya hilang.',
+    again: 'Main lagi',
+    noGold: 'Emasmu tidak cukup untuk taruhan itu.',
+    card: 'Kartu {n}'
+  },
+  battle: {
+    title: 'Adu Barang',
+    lead: 'Adu barangmu dengan barang si penjudi: harga jual yang lebih tinggi dapat poin, dua poin menang. Barangmu tetap hilang, menang atau kalah. Tiga kemenangan beruntun memberi hadiah Epik.',
+    fee: 'Duduk · {n}',
+    row: 'Menang beruntun: {n} dari {max}',
+    needItems: 'Kamu butuh minimal {n} barang yang tidak dipakai di tas.',
+    noGold: 'Emasmu tidak cukup untuk biayanya.',
+    theirs: 'Si penjudi menaruh',
+    pick: 'Pilih barang untuk ditaruh',
+    lay: 'Taruh',
+    value: '{n} emas',
+    score: 'Kamu {a} · {b} Penjudi',
+    roundWon: 'Punyamu lebih mahal. Poin untukmu!',
+    roundLost: 'Punyanya lebih mahal. Poin untuk si penjudi.',
+    won: 'Kamu menang! +{n} XP',
+    lost: 'Si penjudi menang.',
+    again: 'Main lagi'
+  },
+  gamble: {
+    prize: 'Hadiah: {item}!',
+    prizeGold: 'Kamu sudah punya semuanya, jadi kamu dapat {n} emas sebagai gantinya!'
   }
 }

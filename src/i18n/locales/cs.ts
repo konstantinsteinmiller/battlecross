@@ -1132,6 +1132,15 @@ export default {
     },
     sbAlchemist: {
       name: 'Odile Kapradohvizd'
+    },
+    sbGambler: {
+      name: 'Madame Pell'
+    },
+    sunfordGambler: {
+      name: 'Dob Kotrmelec'
+    },
+    oakGambler: {
+      name: 'Hedvábný Ren'
     }
   },
   quest: {
@@ -1372,7 +1381,8 @@ export default {
       rumor: 'Slyšel jsi něco nového?',
       ready: 'Myslíš, že jsem připravený na víc?',
       ready__f: 'Myslíš, že jsem připravená na víc?',
-      brew: 'Uvaříš mi něco?'
+      brew: 'Uvaříš mi něco?',
+      play: 'Jdu do toho.'
     },
     sunfordSmith: {
       hello: {
@@ -3326,6 +3336,96 @@ export default {
       bye: {
         '1': 'Tak ahoj! Když uvidíš fialovou květinu, utrhni dvě. Jednu pro mě.'
       }
+    },
+    sbGambler: {
+      hello: {
+        '1': 'Jen pojď blíž! Dvanáct karet, jedny přesýpací hodiny a měšec, který se může zdvojnásobit!',
+        '2': 'Madame Pell. Nikdy nezapomenu tvář. Uvidíme, jestli ty nezapomeneš kartu.'
+      },
+      again: {
+        '1': 'Zpátky na další kolo? Písek už na tebe čeká.'
+      },
+      play: {
+        '1': 'Mince na sukno, oči na karty. Jdeme na to? Otáčím hodiny!'
+      },
+      rules: {
+        '1': 'Otoč dvě karty. Dvojice zůstane otočená. Najdi všechny dvojice, než se přesype písek, a zaplatím dvojnásob.',
+        '2': 'Vyhraj znovu a hodiny se zrychlí. Vyhraj pětkrát v řadě a dám ti legendární cenu.',
+        say: 'Jak to funguje?'
+      },
+      who: {
+        '1': 'V devíti jsem utekla s kočovným cirkusem. Ukázalo se, že tam umějí skvěle počítat.'
+      },
+      prize: {
+        '1': 'Jednou jeden trpaslík. Od té doby ho nikdo neviděl mrknout.',
+        say: 'Vyhrál už někdy někdo tu cenu?'
+      },
+      playBack: {
+        '1': 'Výhra nebo prohra, byla to dobrá hra. Vrať se, až si oči odpočinou.'
+      },
+      bye: {
+        '1': 'Tak běž! A dívej se pod nohy.'
+      }
+    },
+    sunfordGambler: {
+      hello: {
+        '1': 'Pst. Nemáš v batohu nějaké harampádí? Staré boty, ohnuté meče? Zahraju si s tebou o ně.',
+        '2': 'Dob Kotrmelec. Hraju hlavně pro zábavu. A pro boty.'
+      },
+      again: {
+        '1': 'Zase ty! Nemáš ještě něco z toho krásného harampádí?'
+      },
+      play: {
+        '1': 'Poplatek na stůl. Polož věci, vyšší cena bere bod.'
+      },
+      rules: {
+        '1': 'Každý položí předmět. Dražší vyhrává bod. Dva body vyhrávají hru.',
+        '2': 'Co položíš, je moje, ať vyhraješ, nebo prohraješ. Ale vyhraj tři hry v řadě a mám pro tebe něco zvláštního.',
+        say: 'Jaká jsou pravidla?'
+      },
+      who: {
+        '1': 'Býval jsem podomní obchodník. Ukázalo se, že lidi své věci radši vsadí, než prodají.'
+      },
+      luck: {
+        '1': 'Pořád! Ale domů vždycky jdu s novým párem bot.',
+        say: 'Prohráváš někdy?'
+      },
+      playBack: {
+        '1': 'Dobrá hra! Tvoje věci budou na mé polici vypadat nádherně.'
+      },
+      bye: {
+        '1': 'Přines další harampádí! Harampádí mám nejradši.'
+      }
+    },
+    oakGambler: {
+      hello: {
+        '1': 'Nová tvář. Jen se posaď, nekoušu. Moje ceny trochu koušou.',
+        '2': 'Říkají mi Hedvábný Ren. Sbírám krásné věci, jednu hru po druhé.'
+      },
+      again: {
+        '1': 'Á, zase ty. S tebou hraju nejraději. Začneme?'
+      },
+      play: {
+        '1': 'Poplatek, prosím. Pak polož něco, co stojí za to.'
+      },
+      rules: {
+        '1': 'Každý jeden předmět, nejvýš třikrát. Lepší kus bere bod. Dva body berou hru.',
+        '2': 'Tvoje kusy zůstanou u mě tak jako tak. Vyhraj tři hry v řadě a odejdeš se skutečným pokladem.',
+        say: 'Jak se hraje?'
+      },
+      who: {
+        '1': 'Obchoduju se vzácnostmi. Najdu je, nechám si je a sem tam o jednu přijdu.'
+      },
+      collection: {
+        '1': 'Třídím to podle lesku. Nejlesklejší věci jdou na horní polici, vedle mých šálků.',
+        say: 'Co s tím vším děláš?'
+      },
+      playBack: {
+        '1': 'Rozkošné. Vrať se, až budeš mít těžší batoh.'
+      },
+      bye: {
+        '1': 'Hlídej si měšec. Ne každý hraje poctivě.'
+      }
     }
   },
   enemy: {
@@ -3782,5 +3882,39 @@ export default {
       herbs: 'Nemáš dost bylin. Nasbírej další v divočině.',
       gold: 'Nemáš dost zlata.'
     }
+  },
+  memory: {
+    title: 'Pexeso',
+    lead: 'Najdi všechny dvojice, než se přesype písek, a vyhraješ dvojnásobek sázky. Pět výher v řadě přidá legendární cenu.',
+    bet: 'Vsadit {n}',
+    row: 'Výhry v řadě: {n} z {max}',
+    pairs: 'Dvojice: {n} · {s} s',
+    won: 'Všechny dvojice nalezeny! Vyhráváš {n} zl.',
+    lost: 'Písek se přesypal. Sázka propadla.',
+    again: 'Hrát znovu',
+    noGold: 'Na tuhle sázku nemáš dost zlata.',
+    card: 'Karta {n}'
+  },
+  battle: {
+    title: 'Souboj předmětů',
+    lead: 'Polož předmět proti soupeřovu: bod bere ten s vyšší prodejní cenou, dva body vyhrávají. O své předměty přijdeš tak jako tak. Tři výhry v řadě přidají epickou cenu.',
+    fee: 'Přisednout · {n}',
+    row: 'Výhry v řadě: {n} z {max}',
+    needItems: 'V batohu potřebuješ aspoň {n} předmětů, které nemáš na sobě.',
+    noGold: 'Na poplatek nemáš dost zlata.',
+    theirs: 'Soupeř pokládá',
+    pick: 'Vyber předmět',
+    lay: 'Položit',
+    value: '{n} zl.',
+    score: 'Ty {a} · {b} Soupeř',
+    roundWon: 'Tvůj má větší cenu. Bod pro tebe!',
+    roundLost: 'Soupeřův má větší cenu. Bod pro soupeře.',
+    won: 'Hra je tvoje! +{n} ZK',
+    lost: 'Hru vyhrál soupeř.',
+    again: 'Hrát znovu'
+  },
+  gamble: {
+    prize: 'Cena: {item}!',
+    prizeGold: 'Všechno už máš, takže místo toho dostáváš {n} zl.!'
   }
 }

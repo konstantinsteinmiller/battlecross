@@ -14,6 +14,7 @@ export const HERO = {
   train: 'dlg.hero.train',
   heal: 'dlg.hero.heal',
   brew: 'dlg.hero.brew',
+  play: 'dlg.hero.play',
   mana: 'dlg.hero.mana',
   who: 'dlg.hero.who',
   rumor: 'dlg.hero.rumor',
@@ -35,6 +36,10 @@ export const heal = (over: Partial<TopicSpec> = {}): TopicSpec =>
 /** "Could you brew me something?" → the answer, then the alchemist's table (#87). */
 export const brew = (over: Partial<TopicSpec> = {}): TopicSpec =>
   ({ id: 'brew', say: HERO.brew, once: false, icon: 'brew', fx: [{ t: 'open', window: 'alchemy' }], ...over })
+
+/** "Deal me in." → the answer, then the gambler's table (#91, #92). */
+export const play = (window: 'memory' | 'itemBattle', over: Partial<TopicSpec> = {}): TopicSpec =>
+  ({ id: 'play', say: HERO.play, once: false, icon: 'buy', fx: [{ t: 'open', window }], ...over })
 
 /** The offer a healer's mana potion is (`DialogHost.offer`). */
 export const MANA_OFFER = 'manaPotion'

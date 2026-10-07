@@ -15,6 +15,9 @@ export const SCREEN_CHUNKS = {
   teach: () => import('./trade/TeachScreen.vue'),
   healer: () => import('./trade/HealerScreen.vue'),
   alchemy: () => import('./trade/AlchemyScreen.vue'),
+  // The gamblers' tables (#91, #92).
+  memory: () => import('../modals/MemoryGame.vue'),
+  itemBattle: () => import('../modals/ItemBattle.vue'),
   // Not screens, but not on the first frame either: a conversation's layer
   // (towns and decisions) and the options window.
   dialog: () => import('../dialog/DialogLayer.vue'),

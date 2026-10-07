@@ -1128,6 +1128,15 @@ export default {
     },
     sbAlchemist: {
       name: 'Odile Saniaispilli'
+    },
+    sbGambler: {
+      name: 'Madame Pell'
+    },
+    sunfordGambler: {
+      name: 'Dob Kuperkeikka'
+    },
+    oakGambler: {
+      name: 'Silkki-Ren'
     }
   },
   quest: {
@@ -1367,7 +1376,8 @@ export default {
       who: 'Kuka sinä olet, jos saan kysyä?',
       rumor: 'Onko kuulunut jotain?',
       ready: 'Luuletko, että olen valmis enempään?',
-      brew: 'Voisitko keittää minulle jotain?'
+      brew: 'Voisitko keittää minulle jotain?',
+      play: 'Olen mukana.'
     },
     sunfordSmith: {
       hello: {
@@ -3241,6 +3251,96 @@ export default {
       bye: {
         '1': 'Heippa! Jos näet violetin kukan, poimi kaksi. Toinen minulle.'
       }
+    },
+    sbGambler: {
+      hello: {
+        '1': 'Astu lähemmäs! Kaksitoista korttia, yksi tiimalasi ja kukkaro, joka voi tuplaantua!',
+        '2': 'Madame Pell. En koskaan unohda kasvoja. Katsotaan, unohdatko sinä koskaan korttia.'
+      },
+      again: {
+        '1': 'Takaisin uudelle kierrokselle? Hiekka on odottanut sinua.'
+      },
+      play: {
+        '1': 'Kolikot liinalle, silmät kortteihin. Valmiina? Käännä lasi!'
+      },
+      rules: {
+        '1': 'Käännä kaksi korttia. Pari jää näkyviin. Löydä kaikki parit ennen kuin hiekka loppuu, niin maksan tuplasti.',
+        '2': 'Voita uudelleen, niin lasi nopeutuu. Voita viisi kertaa putkeen, niin annan sinulle legendaarisen palkinnon.',
+        say: 'Miten tämä toimii?'
+      },
+      who: {
+        '1': 'Karkasin kiertävän sirkuksen mukaan yhdeksänvuotiaana. Se osoittautui oikein hyväksi matematiikan kouluksi.'
+      },
+      prize: {
+        '1': 'Yksi kääpiö, kerran. Kukaan ei ole nähnyt hänen räpäyttävän silmiään sen jälkeen.',
+        say: 'Onko kukaan koskaan voittanut palkintoa?'
+      },
+      playBack: {
+        '1': 'Voitto tai tappio, se oli hyvä peli. Tule takaisin, kun silmäsi ovat levänneet.'
+      },
+      bye: {
+        '1': 'Menehän nyt! Muista, mihin astut.'
+      }
+    },
+    sunfordGambler: {
+      hello: {
+        '1': 'Psst. Onko laukussa romua? Vanhoja saappaita, vääntyneitä miekkoja? Pelaan niistä kanssasi.',
+        '2': 'Dob Kuperkeikka. Pelaan enimmäkseen huvikseni. Ja saappaista.'
+      },
+      again: {
+        '1': 'Sinä taas! Onko sinulla lisää sitä ihanaa romua?'
+      },
+      play: {
+        '1': 'Maksu pöytään. Pane tavarasi esiin, korkein hinta vie pisteen.'
+      },
+      rules: {
+        '1': 'Kumpikin panee yhden esineen. Kalliimpi voittaa pisteen. Kaksi pistettä voittaa pelin.',
+        '2': 'Minkä panet, on minun, voitit tai hävisit. Mutta voita kolme peliä putkeen, niin minulla on jotain erityistä.',
+        say: 'Mitkä ovat säännöt?'
+      },
+      who: {
+        '1': 'Olin ennen kulkukauppias. Kävi ilmi, että ihmiset mieluummin pelaavat tavaroillaan kuin myyvät ne.'
+      },
+      luck: {
+        '1': 'Koko ajan! Mutta lähden aina kotiin uudet saappaat jalassa.',
+        say: 'Häviätkö koskaan?'
+      },
+      playBack: {
+        '1': 'Hyvä peli! Tavarasi näyttävät ihanilta hyllylläni.'
+      },
+      bye: {
+        '1': 'Tuo lisää romua! Romu on lempiasiani.'
+      }
+    },
+    oakGambler: {
+      hello: {
+        '1': 'Tulokas. Istuhan alas, en pure. Hintani kyllä vähän puraisevat.',
+        '2': 'Minua kutsutaan Silkki-Reniksi. Keräilen hienoja asioita, peli kerrallaan.'
+      },
+      again: {
+        '1': 'Ah, lempivastustajani. Aloitetaanko?'
+      },
+      play: {
+        '1': 'Maksu, kiitos. Pane sitten jotain, mikä on vaivani arvoista.'
+      },
+      rules: {
+        '1': 'Yksi esine kumpikin, enintään kolme kertaa. Hienompi esine vie pisteen. Kaksi pistettä vie pelin.',
+        '2': 'Esineesi jäävät minulle joka tapauksessa. Voita kolme peliä putkeen, niin lähdet täältä oikean aarteen kanssa.',
+        say: 'Miten pelataan?'
+      },
+      who: {
+        '1': 'Harvinaisten tavaroiden kauppias. Löydän niitä, pidän ne, ja silloin tällöin häviän jonkin.'
+      },
+      collection: {
+        '1': 'Lajittelen ne kiillon mukaan. Kiiltävimmät pääsevät ylimmälle hyllylle teekuppieni viereen.',
+        say: 'Mitä teet kaikella tällä?'
+      },
+      playBack: {
+        '1': 'Ihastuttavaa. Tule toki takaisin, kun laukkusi on painavampi.'
+      },
+      bye: {
+        '1': 'Varo kukkaroasi tuolla ulkona. Kaikki eivät pelaa reilusti.'
+      }
     }
   },
   enemy: {
@@ -3692,5 +3792,39 @@ export default {
       herbs: 'Yrttejä ei ole tarpeeksi. Poimi lisää luonnosta.',
       gold: 'Kulta ei riitä.'
     }
+  },
+  memory: {
+    title: 'Muistikoju',
+    lead: 'Löydä kaikki parit ennen kuin hiekka loppuu, niin voitat panoksesi kaksinkertaisena. Viisi voittoa putkeen tuo legendaarisen palkinnon.',
+    bet: 'Panos {n}',
+    row: 'Voittoja putkeen: {n} / {max}',
+    pairs: '{n} paria · {s} sekuntia',
+    won: 'Kaikki parit löytyivät! Voitat {n} kultaa.',
+    lost: 'Hiekka loppui. Panos meni.',
+    again: 'Pelaa uudelleen',
+    noGold: 'Kulta ei riitä tuohon panokseen.',
+    card: 'Kortti {n}'
+  },
+  battle: {
+    title: 'Esineottelu',
+    lead: 'Pane esine pelurin esinettä vastaan: korkeampi myyntihinta vie pisteen, kaksi pistettä voittaa. Esineesi menevät joka tapauksessa. Kolme voittoa putkeen tuo eeppisen palkinnon.',
+    fee: 'Istu alas · {n}',
+    row: 'Voittoja putkeen: {n} / {max}',
+    needItems: 'Laukussasi pitää olla vähintään {n} esinettä, jotka eivät ole yllä.',
+    noGold: 'Kulta ei riitä maksuun.',
+    theirs: 'Peluri panee',
+    pick: 'Valitse pantava esine',
+    lay: 'Pane se',
+    value: '{n} kultaa',
+    score: 'Sinä {a} · {b} Peluri',
+    roundWon: 'Sinun on arvokkaampi. Piste sinulle!',
+    roundLost: 'Pelurin on arvokkaampi. Piste pelurille.',
+    won: 'Voitit pelin! +{n} XP',
+    lost: 'Peluri voitti pelin.',
+    again: 'Pelaa uudelleen'
+  },
+  gamble: {
+    prize: 'Palkinto: {item}!',
+    prizeGold: 'Sinulla on jo ne kaikki, joten saat sen sijaan {n} kultaa!'
   }
 }

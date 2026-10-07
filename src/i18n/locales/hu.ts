@@ -1128,6 +1128,15 @@ export default {
     },
     sbAlchemist: {
       name: 'Páfránysíp Odile'
+    },
+    sbGambler: {
+      name: 'Madame Pell'
+    },
+    sunfordGambler: {
+      name: 'Bukfenc Dob'
+    },
+    oakGambler: {
+      name: 'Selymes Ren'
     }
   },
   quest: {
@@ -1367,7 +1376,8 @@ export default {
       who: 'Ki vagy te, ha szabad kérdeznem?',
       rumor: 'Hallottál valamit mostanában?',
       ready: 'Szerinted készen állok többre?',
-      brew: 'Főznél nekem valamit?'
+      brew: 'Főznél nekem valamit?',
+      play: 'Beszállok.'
     },
     sunfordSmith: {
       hello: {
@@ -3241,6 +3251,96 @@ export default {
       bye: {
         '1': 'Szia! Ha lila virágot látsz, szedj kettőt. Az egyik az enyém.'
       }
+    },
+    sbGambler: {
+      hello: {
+        '1': 'Csak bátran, közelebb! Tizenkét kártya, egy homokóra és egy erszény, ami megduplázódhat!',
+        '2': 'Madame Pell vagyok. Sosem felejtek el egy arcot. Lássuk, te elfelejtesz-e egy kártyát.'
+      },
+      again: {
+        '1': 'Egy újabb kör? A homok már vár rád.'
+      },
+      play: {
+        '1': 'Érmék a posztóra, szemek a kártyákra. Kezdhetjük? Megfordítom az órát!'
+      },
+      rules: {
+        '1': 'Fordíts fel két kártyát. A pár fent marad. Találd meg az összes párt, mielőtt lepereg a homok, és duplán fizetek.',
+        '2': 'Ha újra nyersz, gyorsul az óra. Nyerj ötször sorban, és legendás nyereményt adok.',
+        say: 'Hogy működik?'
+      },
+      who: {
+        '1': 'Kilencévesen megszöktem a vándorcirkusszal. Kiderült, hogy ott nagyon jól számolnak.'
+      },
+      prize: {
+        '1': 'Egyszer egy törpe. Azóta senki sem látta pislogni.',
+        say: 'Megnyerte már valaki a nyereményt?'
+      },
+      playBack: {
+        '1': 'Nyerés vagy vesztés, jó játék volt. Gyere vissza, ha kipihented a szemed.'
+      },
+      bye: {
+        '1': 'Na, indulj! És figyelj, hová lépsz.'
+      }
+    },
+    sunfordGambler: {
+      hello: {
+        '1': 'Pszt. Van valami lim-lom a táskádban? Régi csizma, görbe kard? Játszom veled értük.',
+        '2': 'Bukfenc Dob vagyok. Főleg szórakozásból játszom. Meg csizmákért.'
+      },
+      again: {
+        '1': 'Már megint te! Van még abból a szép lim-lomból?'
+      },
+      play: {
+        '1': 'Díjat az asztalra. Tedd le a holmidat, a drágább viszi a pontot.'
+      },
+      rules: {
+        '1': 'Mindketten leteszünk egy tárgyat. A drágább viszi a pontot. Két pont nyeri a játszmát.',
+        '2': 'Amit leteszel, az az enyém, akár nyersz, akár vesztesz. De nyerj háromszor sorban, és van nálam valami különleges.',
+        say: 'Mik a szabályok?'
+      },
+      who: {
+        '1': 'Régen házaló voltam. Kiderült, hogy az emberek inkább felteszik a holmijukat, mint eladják.'
+      },
+      luck: {
+        '1': 'Folyton! De mindig új pár csizmával megyek haza.',
+        say: 'Te szoktál veszíteni?'
+      },
+      playBack: {
+        '1': 'Jó játék volt! A holmid gyönyörűen fog mutatni a polcomon.'
+      },
+      bye: {
+        '1': 'Hozz még lim-lomot! A lim-lom a kedvencem.'
+      }
+    },
+    oakGambler: {
+      hello: {
+        '1': 'Új arc. Ülj csak le, nem harapok. Az áraim egy kicsit igen.',
+        '2': 'Selymes Rennek hívnak. Szép holmikat gyűjtök, játszmáról játszmára.'
+      },
+      again: {
+        '1': 'Á, te vagy az. Veled játszom a legszívesebben. Kezdjük?'
+      },
+      play: {
+        '1': 'A díjat, kérlek. Aztán tégy le valamit, ami megéri.'
+      },
+      rules: {
+        '1': 'Egy-egy tárgy, legfeljebb háromszor. A finomabb darab viszi a pontot. Két pont viszi a játszmát.',
+        '2': 'A darabjaid mindenképp nálam maradnak. Nyerj háromszor sorban, és igazi kinccsel távozol.',
+        say: 'Hogy játsszunk?'
+      },
+      who: {
+        '1': 'Ritkaságokkal kereskedem. Megtalálom és megtartom őket, és néha elveszítek egyet.'
+      },
+      collection: {
+        '1': 'Csillogás szerint rendezem. A legfényesebbek a felső polcra kerülnek, a teáscsészéim mellé.',
+        say: 'Mit csinálsz ezzel a sok holmival?'
+      },
+      playBack: {
+        '1': 'Elragadó. Gyere vissza, ha nehezebb lesz a táskád.'
+      },
+      bye: {
+        '1': 'Vigyázz odakint az erszényedre. Nem mindenki játszik tisztességesen.'
+      }
     }
   },
   enemy: {
@@ -3692,5 +3792,39 @@ export default {
       herbs: 'Nincs elég füved. Szedj még a vadonban.',
       gold: 'Nincs elég aranyad.'
     }
+  },
+  memory: {
+    title: 'Párkereső',
+    lead: 'Találd meg az összes párt, mielőtt lepereg a homok, és a tét kétszeresét nyered. Öt győzelem sorban legendás nyereményt ad.',
+    bet: 'Tét: {n}',
+    row: 'Győzelmek sorban: {n}/{max}',
+    pairs: '{n} pár · {s} mp',
+    won: 'Minden pár megvan! Nyersz {n} aranyat.',
+    lost: 'Lepergett a homok. A tét elveszett.',
+    again: 'Még egy kör',
+    noGold: 'Nincs elég aranyad ehhez a téthez.',
+    card: '{n}. kártya'
+  },
+  battle: {
+    title: 'Tárgycsata',
+    lead: 'Tégy egy tárgyat az ellenfeléé mellé: a magasabb eladási ár viszi a pontot, két pont nyer. A tárgyaid így is, úgy is odavesznek. Három győzelem sorban epikus nyereményt ad.',
+    fee: 'Leülök · {n}',
+    row: 'Győzelmek sorban: {n}/{max}',
+    needItems: 'Legalább {n} nem viselt tárgy kell a táskádba.',
+    noGold: 'Nincs elég aranyad a díjra.',
+    theirs: 'Az ellenfél ezt teszi le',
+    pick: 'Válassz tárgyat',
+    lay: 'Leteszem',
+    value: '{n} arany',
+    score: 'Te {a} · {b} Ellenfél',
+    roundWon: 'A tiéd ér többet. Pont neked!',
+    roundLost: 'Az övé ér többet. Pont az ellenfélnek.',
+    won: 'Tiéd a játszma! +{n} TP',
+    lost: 'Az ellenfél nyerte a játszmát.',
+    again: 'Még egy kör'
+  },
+  gamble: {
+    prize: 'Nyeremény: {item}!',
+    prizeGold: 'Már mindegyik a tiéd, ezért helyette {n} aranyat kapsz!'
   }
 }

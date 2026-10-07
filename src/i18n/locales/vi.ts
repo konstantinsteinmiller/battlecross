@@ -1128,6 +1128,15 @@ export default {
     },
     sbAlchemist: {
       name: 'Odile Fernwhistle'
+    },
+    sbGambler: {
+      name: 'Madame Pell'
+    },
+    sunfordGambler: {
+      name: 'Dob Tumbler'
+    },
+    oakGambler: {
+      name: 'Silky Ren'
     }
   },
   quest: {
@@ -1367,7 +1376,8 @@ export default {
       who: 'Xin lỗi, bạn là ai vậy?',
       rumor: 'Dạo này có nghe tin gì không?',
       ready: 'Bạn nghĩ tôi sẵn sàng học thêm chưa?',
-      brew: 'Bạn nấu giúp tôi thứ gì được không?'
+      brew: 'Bạn nấu giúp tôi thứ gì được không?',
+      play: 'Cho tôi chơi với.'
     },
     sunfordSmith: {
       hello: {
@@ -3241,6 +3251,96 @@ export default {
       bye: {
         '1': 'Tạm biệt! Nếu thấy bông hoa tím, hái hai bông nhé. Một bông cho tôi.'
       }
+    },
+    sbGambler: {
+      hello: {
+        '1': 'Lại đây nào! Mười hai lá bài, một chiếc đồng hồ cát, và một túi tiền có thể nhân đôi!',
+        '2': 'Madame Pell đây. Ta chưa bao giờ quên một gương mặt. Để xem cậu có quên lá bài nào không.'
+      },
+      again: {
+        '1': 'Quay lại chơi thêm ván nữa à? Cát vẫn đang đợi cậu đấy.'
+      },
+      play: {
+        '1': 'Tiền lên khăn, mắt nhìn bài. Sẵn sàng chưa? Lật đồng hồ cát nào!'
+      },
+      rules: {
+        '1': 'Lật hai lá. Trùng cặp thì để ngửa. Tìm hết các cặp trước khi cát chảy hết, ta trả gấp đôi.',
+        '2': 'Thắng tiếp thì đồng hồ cát chảy nhanh hơn. Thắng năm ván liên tiếp, ta sẽ trao cậu một phần thưởng huyền thoại.',
+        say: 'Chơi thế nào vậy?'
+      },
+      who: {
+        '1': 'Năm chín tuổi ta bỏ nhà theo gánh xiếc rong. Hóa ra gánh xiếc ấy tính toán giỏi lắm.'
+      },
+      prize: {
+        '1': 'Một chú người lùn, một lần. Từ đó tới giờ chẳng ai thấy chú ấy chớp mắt nữa.',
+        say: 'Đã ai từng thắng phần thưởng chưa?'
+      },
+      playBack: {
+        '1': 'Thắng hay thua thì cũng là một ván hay. Cho mắt nghỉ ngơi rồi quay lại nhé.'
+      },
+      bye: {
+        '1': 'Đi đi nào! Nhớ kỹ mình đặt chân ở đâu đấy.'
+      }
+    },
+    sunfordGambler: {
+      hello: {
+        '1': 'Này. Trong túi có đồ đồng nát không? Ủng cũ, kiếm cong? Mình chơi một ván ăn mấy thứ đó nhé.',
+        '2': 'Dob Tumbler đây. Mình chơi cho vui là chính. Với lại vì mấy đôi ủng.'
+      },
+      again: {
+        '1': 'Lại là cậu! Còn mớ đồ đồng nát dễ thương ấy nữa không?'
+      },
+      play: {
+        '1': 'Phí để lên bàn. Đặt đồ xuống, món nào giá cao hơn được điểm.'
+      },
+      rules: {
+        '1': 'Mỗi người đặt một món. Món đắt hơn được điểm. Hai điểm là thắng ván.',
+        '2': 'Cậu đặt gì thì thành của mình, thắng hay thua cũng vậy. Nhưng thắng ba ván liên tiếp thì mình có món đặc biệt đấy.',
+        say: 'Luật chơi là gì?'
+      },
+      who: {
+        '1': 'Hồi trước mình bán rong. Hóa ra người ta thích đem đồ ra cược hơn là bán.'
+      },
+      luck: {
+        '1': 'Suốt ấy chứ! Nhưng lần nào về nhà mình cũng có thêm một đôi ủng mới.',
+        say: 'Có bao giờ thua không?'
+      },
+      playBack: {
+        '1': 'Ván hay đấy! Mấy món của cậu bày lên kệ của mình chắc đẹp lắm.'
+      },
+      bye: {
+        '1': 'Mang thêm đồ đồng nát nhé! Đồ đồng nát là thứ mình mê nhất.'
+      }
+    },
+    oakGambler: {
+      hello: {
+        '1': 'Một người mới. Mời ngồi, tôi không cắn đâu. Giá của tôi thì có cắn một chút.',
+        '2': 'Người ta gọi tôi là Silky Ren. Tôi sưu tầm đồ quý, mỗi ván một món.'
+      },
+      again: {
+        '1': 'À, đối thủ yêu thích của tôi. Ta bắt đầu nhé?'
+      },
+      play: {
+        '1': 'Xin phí trước. Rồi đặt thứ gì đó xứng đáng với thời gian của tôi.'
+      },
+      rules: {
+        '1': 'Mỗi bên một món, tối đa ba lần. Món tinh xảo hơn được điểm. Hai điểm là thắng ván.',
+        '2': 'Đồ của cậu dù sao cũng ở lại với tôi. Thắng ba ván liên tiếp, cậu sẽ mang về một báu vật thật sự.',
+        say: 'Chơi thế nào?'
+      },
+      who: {
+        '1': 'Tôi buôn đồ hiếm. Tôi tìm chúng, giữ chúng, và thỉnh thoảng thua mất một món.'
+      },
+      collection: {
+        '1': 'Tôi xếp theo độ lấp lánh. Món sáng nhất lên kệ trên cùng, cạnh mấy tách trà của tôi.',
+        say: 'Gom hết đống đồ đó để làm gì?'
+      },
+      playBack: {
+        '1': 'Thú vị thật. Khi nào túi nặng hơn thì ghé lại nhé.'
+      },
+      bye: {
+        '1': 'Ra ngoài nhớ giữ túi tiền. Không phải ai cũng chơi đẹp đâu.'
+      }
     }
   },
   enemy: {
@@ -3692,5 +3792,39 @@ export default {
       herbs: 'Không đủ thảo dược. Hãy hái thêm ngoài hoang dã.',
       gold: 'Không đủ vàng.'
     }
+  },
+  memory: {
+    title: 'Quầy Bài Trí Nhớ',
+    lead: 'Tìm hết các cặp trước khi cát chảy hết để thắng gấp đôi tiền cược. Thắng năm lần liên tiếp được thêm một phần thưởng Huyền thoại.',
+    bet: 'Cược {n}',
+    row: 'Thắng liên tiếp: {n}/{max}',
+    pairs: '{n} cặp · {s} giây',
+    won: 'Tìm đủ mọi cặp! Bạn thắng {n} vàng.',
+    lost: 'Cát đã chảy hết. Mất tiền cược rồi.',
+    again: 'Chơi lại',
+    noGold: 'Không đủ vàng để cược mức đó.',
+    card: 'Lá bài {n}'
+  },
+  battle: {
+    title: 'Đấu Vật Phẩm',
+    lead: 'Đặt một món đồ đấu với món của tay cờ bạc: món có giá bán cao hơn được điểm, hai điểm là thắng. Dù thắng hay thua, đồ đã đặt đều mất. Thắng ba lần liên tiếp được thêm một phần thưởng Sử thi.',
+    fee: 'Ngồi vào · {n}',
+    row: 'Thắng liên tiếp: {n}/{max}',
+    needItems: 'Bạn cần ít nhất {n} món chưa mặc trong túi.',
+    noGold: 'Không đủ vàng trả phí.',
+    theirs: 'Tay cờ bạc đặt',
+    pick: 'Chọn một món để đặt',
+    lay: 'Đặt món này',
+    value: '{n} vàng',
+    score: 'Bạn {a} · {b} Tay cờ bạc',
+    roundWon: 'Món của bạn đắt hơn. Bạn được điểm!',
+    roundLost: 'Món của họ đắt hơn. Tay cờ bạc được điểm.',
+    won: 'Bạn thắng ván này! +{n} XP',
+    lost: 'Tay cờ bạc thắng ván này.',
+    again: 'Chơi lại'
+  },
+  gamble: {
+    prize: 'Phần thưởng: {item}!',
+    prizeGold: 'Bạn đã có đủ cả rồi, nên nhận {n} vàng thay thế!'
   }
 }

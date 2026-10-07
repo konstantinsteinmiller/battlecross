@@ -350,6 +350,30 @@ export const CARDS: Readonly<Record<string, VoiceCard>> = {
     reference: "Mind the cart! Sorry, everything on this bridge moves. I'm Mayor Brenna Quill. If it's lost, broken or late, it ends up on my desk, so let's keep things moving, shall we?",
     notes: ''
   }),
+  sbGambler: card({
+    name: 'Madame Pell', gender: 'female', age: 'about 50', pitch: 'mid', pace: 'brisk',
+    timbre: 'big, theatrical, sparkling showwoman voice',
+    personality: 'The memory stand\'s showwoman: a former circus act, loud and glittering, warm under the patter, loves a winner.',
+    design: 'A woman of about fifty with a big, theatrical voice, like a fairground showwoman calling a crowd, sparkling and playful.',
+    reference: "Step right up! Twelve cards, one hourglass, and a purse that could double! Madame Pell never forgets a face. Let's see if you never forget a card.",
+    notes: 'Showy, never shouting: the patter is fast but clear.'
+  }),
+  sunfordGambler: card({
+    name: 'Dob Tumbler', gender: 'male', age: 'about 40', pitch: 'mid', pace: 'fast',
+    timbre: 'cheerful, scratchy country voice',
+    personality: 'A cheerful village gambler who plays for junk and laughs at his own losses.',
+    design: 'A man of about forty with a cheerful, slightly scratchy country voice, chatty and conspiratorial, always grinning.',
+    reference: "Psst. Got any junk in that bag? Old boots, bent swords? I'll play you for it. Dob Tumbler. I play for fun, mostly. And for boots.",
+    notes: 'Not Bram the smith (gruff, slow): Dob is quick and giggly.'
+  }),
+  oakGambler: card({
+    name: 'Silky Ren', gender: 'male', age: 'mid 30s', pitch: 'mid-low', pace: 'measured',
+    timbre: 'smooth, velvety, amused baritone',
+    personality: 'An elegant dealer in fine things: polite, smooth and quietly amused, collects shiny things and teacups.',
+    design: 'A man in his mid thirties with a smooth, velvety baritone, unhurried and amused, like a card dealer in a fine parlour.',
+    reference: "A newcomer. Do sit down, I don't bite. My prices do, a little. They call me Silky Ren. I collect fine things, one game at a time.",
+    notes: 'Not the Syndicate boss (cold threat): Ren is playful and charming.'
+  }),
   sbAlchemist: card({
     name: 'Odile Fernwhistle', gender: 'female', age: 'early 30s', pitch: 'mid-high', pace: 'fast',
     timbre: 'bright, bubbly, slightly breathless soprano',

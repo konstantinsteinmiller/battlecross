@@ -1128,6 +1128,15 @@ export default {
     },
     sbAlchemist: {
       name: 'Odile Bregnefløjte'
+    },
+    sbGambler: {
+      name: 'Madame Pell'
+    },
+    sunfordGambler: {
+      name: 'Dob Kolbøtte'
+    },
+    oakGambler: {
+      name: 'Silkebløde Ren'
     }
   },
   quest: {
@@ -1367,7 +1376,8 @@ export default {
       who: 'Hvem er du, hvis jeg må spørge?',
       rumor: 'Hørt noget nyt?',
       ready: 'Tror du, jeg er klar til mere?',
-      brew: 'Kan du brygge noget til mig?'
+      brew: 'Kan du brygge noget til mig?',
+      play: 'Jeg er med.'
     },
     sunfordSmith: {
       hello: {
@@ -3241,6 +3251,96 @@ export default {
       bye: {
         '1': 'Farvel så! Ser du en lilla blomst, så pluk to. En til mig.'
       }
+    },
+    sbGambler: {
+      hello: {
+        '1': 'Træd nærmere! Tolv kort, ét timeglas og en pung, der kan blive fordoblet!',
+        '2': 'Madame Pell. Jeg glemmer aldrig et ansigt. Lad os se, om du aldrig glemmer et kort.'
+      },
+      again: {
+        '1': 'Tilbage efter en runde mere? Sandet har ventet på dig.'
+      },
+      play: {
+        '1': 'Mønterne på dugen, øjnene på kortene. Klar? Vend glasset!'
+      },
+      rules: {
+        '1': 'Vend to kort. Et par bliver liggende. Find alle par, før sandet løber ud, så betaler jeg dobbelt.',
+        '2': 'Vind igen, så bliver glasset hurtigere. Vind fem i træk, så giver jeg dig en legendarisk præmie.',
+        say: 'Hvordan virker det?'
+      },
+      who: {
+        '1': 'Jeg stak af med et omrejsende cirkus, da jeg var ni. Det viste sig at være en rigtig god skole i regning.'
+      },
+      prize: {
+        '1': 'En dværg, én gang. Ingen har set ham blinke siden.',
+        say: 'Har nogen nogensinde vundet præmien?'
+      },
+      playBack: {
+        '1': 'Vind eller tab, det var et godt spil. Kom tilbage, når dine øjne har hvilet.'
+      },
+      bye: {
+        '1': 'Af sted med dig! Husk, hvor du sætter fødderne.'
+      }
+    },
+    sunfordGambler: {
+      hello: {
+        '1': 'Psst. Har du noget skrammel i tasken? Gamle støvler, bøjede sværd? Jeg spiller med dig om det.',
+        '2': 'Dob Kolbøtte. Jeg spiller mest for sjov. Og for støvler.'
+      },
+      again: {
+        '1': 'Dig igen! Har du mere af det dejlige skrammel?'
+      },
+      play: {
+        '1': 'Gebyret på bordet. Læg dine ting frem, højeste pris tager pointet.'
+      },
+      rules: {
+        '1': 'Vi lægger hver en ting. Den dyreste vinder pointet. To point vinder spillet.',
+        '2': 'Det, du lægger, er mit, uanset om du vinder eller taber. Men vind tre spil i træk, så har jeg noget særligt.',
+        say: 'Hvad er reglerne?'
+      },
+      who: {
+        '1': 'Var kræmmer engang. Det viste sig, at folk hellere vil spille om deres ting end sælge dem.'
+      },
+      luck: {
+        '1': 'Hele tiden! Men jeg går altid hjem med et par nye støvler.',
+        say: 'Taber du nogensinde?'
+      },
+      playBack: {
+        '1': 'Godt spil! Dine ting kommer til at se dejlige ud på min hylde.'
+      },
+      bye: {
+        '1': 'Kom med mere skrammel! Skrammel er det bedste, jeg ved.'
+      }
+    },
+    oakGambler: {
+      hello: {
+        '1': 'En nykommer. Sæt dig endelig, jeg bider ikke. Det gør mine priser, en smule.',
+        '2': 'De kalder mig Silkebløde Ren. Jeg samler fine ting, ét spil ad gangen.'
+      },
+      again: {
+        '1': 'Ah, min yndlingsmodstander. Skal vi?'
+      },
+      play: {
+        '1': 'Gebyret, tak. Læg så noget frem, der er min tid værd.'
+      },
+      rules: {
+        '1': 'Én ting hver, højst tre gange. Det fineste stykke tager pointet. To point tager spillet.',
+        '2': 'Dine ting bliver hos mig uanset hvad. Vind tre spil i træk, så går du herfra med en ægte skat.',
+        say: 'Hvordan spiller vi?'
+      },
+      who: {
+        '1': 'En handlende i sjældne ting. Jeg finder dem, jeg beholder dem, og nu og da taber jeg en.'
+      },
+      collection: {
+        '1': 'Jeg sorterer det efter glans. De mest skinnende kommer på øverste hylde ved siden af mine tekopper.',
+        say: 'Hvad gør du med det hele?'
+      },
+      playBack: {
+        '1': 'Henrivende. Kom endelig tilbage, når din taske er tungere.'
+      },
+      bye: {
+        '1': 'Pas på pungen derude. Ikke alle spiller fair.'
+      }
     }
   },
   enemy: {
@@ -3692,5 +3792,39 @@ export default {
       herbs: 'Ikke nok urter. Pluk flere ude i naturen.',
       gold: 'Ikke nok guld.'
     }
+  },
+  memory: {
+    title: 'Hukommelsesboden',
+    lead: 'Find alle par, før sandet løber ud, og vind din indsats dobbelt. Fem sejre i træk giver en legendarisk præmie.',
+    bet: 'Sats {n}',
+    row: 'Sejre i træk: {n} af {max}',
+    pairs: '{n} par · {s} sekunder',
+    won: 'Alle par fundet! Du vinder {n} guld.',
+    lost: 'Sandet løb ud. Indsatsen er væk.',
+    again: 'Spil igen',
+    noGold: 'Ikke nok guld til den indsats.',
+    card: 'Kort {n}'
+  },
+  battle: {
+    title: 'Tingduel',
+    lead: 'Læg en ting mod gamblerens: den højeste salgspris tager pointet, to point vinder. Dine ting er væk uanset hvad. Tre sejre i træk giver en episk præmie.',
+    fee: 'Sæt dig · {n}',
+    row: 'Sejre i træk: {n} af {max}',
+    needItems: 'Du skal have mindst {n} ting i tasken, som du ikke har på.',
+    noGold: 'Ikke nok guld til gebyret.',
+    theirs: 'Gambleren lægger',
+    pick: 'Vælg en ting at lægge',
+    lay: 'Læg den',
+    value: '{n} guld',
+    score: 'Du {a} · {b} Gambler',
+    roundWon: 'Din er mere værd. Point til dig!',
+    roundLost: 'Gamblerens er mere værd. Point til gambleren.',
+    won: 'Du vinder spillet! +{n} XP',
+    lost: 'Gambleren vinder spillet.',
+    again: 'Spil igen'
+  },
+  gamble: {
+    prize: 'Præmie: {item}!',
+    prizeGold: 'Du har dem alle, så du får {n} guld i stedet!'
   }
 }

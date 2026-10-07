@@ -1128,6 +1128,15 @@ export default {
     },
     sbAlchemist: {
       name: 'Odile Fernwhistle'
+    },
+    sbGambler: {
+      name: 'Madam Pell'
+    },
+    sunfordGambler: {
+      name: 'Dob Tumbler'
+    },
+    oakGambler: {
+      name: 'Silky Ren'
     }
   },
   quest: {
@@ -1367,7 +1376,8 @@ export default {
       who: 'Qarshi boʻlmasang, sen kimsan?',
       rumor: 'Yaqinda biror gap eshitdingmi?',
       ready: 'Sencha, men koʻprogʻiga tayyormanmi?',
-      brew: 'Menga biror narsa damlab bera olasanmi?'
+      brew: 'Menga biror narsa damlab bera olasanmi?',
+      play: 'Men ham oʻynayman.'
     },
     sunfordSmith: {
       hello: {
@@ -3241,6 +3251,96 @@ export default {
       bye: {
         '1': 'Xayr! Binafsha gul koʻrsang, ikkitasini ter. Bittasi menga.'
       }
+    },
+    sbGambler: {
+      hello: {
+        '1': 'Marhamat, yaqinroq keling! Oʻn ikkita karta, bitta qum soat va ikki baravar boʻlishi mumkin boʻlgan hamyon!',
+        '2': 'Madam Pell. Men hech qachon yuzni unutmayman. Koʻraylik-chi, sen ham hech qachon kartani unutmaysanmi.'
+      },
+      again: {
+        '1': 'Yana bir raundga qaytdingmi? Qum seni kutib turgandi.'
+      },
+      play: {
+        '1': 'Tangalar dasturxonga, koʻzlar kartalarga. Tayyormisan? Soatni agʻdar!'
+      },
+      rules: {
+        '1': 'Ikkita kartani och. Juft ochiq qoladi. Qum tugaguncha barcha juftlarni topsang, ikki baravar toʻlayman.',
+        '2': 'Yana yutsang, soat tezlashadi. Ketma-ket besh marta yutsang, senga afsonaviy sovgʻa beraman.',
+        say: 'Bu qanday ishlaydi?'
+      },
+      who: {
+        '1': 'Toʻqqiz yoshimda koʻchma sirk bilan qochib ketganman. Qarasam, u matematika uchun juda yaxshi maktab ekan.'
+      },
+      prize: {
+        '1': 'Bir mitti, bir marta. Oʻshandan beri hech kim uning koʻz pirpiratganini koʻrmagan.',
+        say: 'Sovgʻani hech kim yutganmi?'
+      },
+      playBack: {
+        '1': 'Yutsang ham, yutqazsang ham, yaxshi oʻyin boʻldi. Koʻzlaring dam olgach, yana kel.'
+      },
+      bye: {
+        '1': 'Qani, yoʻlingdan qolma! Oyogʻingni qayerga bosayotganingga ehtiyot boʻl.'
+      }
+    },
+    sunfordGambler: {
+      hello: {
+        '1': 'Pst. Xaltangda eski-tuski bormi? Eski etiklar, egilgan qilichlar? Shular uchun sen bilan oʻynayman.',
+        '2': 'Dob Tumbler. Koʻpincha koʻngilxushlik uchun oʻynayman. Yana etiklar uchun.'
+      },
+      again: {
+        '1': 'Yana senmi! Oʻsha ajoyib eski-tuskidan yana bormi?'
+      },
+      play: {
+        '1': 'Toʻlov stolga. Narsalaringni qoʻy, eng baland narx ochkoni oladi.'
+      },
+      rules: {
+        '1': 'Har birimiz bittadan buyum qoʻyamiz. Qimmatrogʻi ochkoni yutadi. Ikki ochko oʻyinni yutadi.',
+        '2': 'Nima qoʻysang, meniki boʻladi, yutsang ham, yutqazsang ham. Lekin ketma-ket uchta oʻyin yutsang, menda alohida bir narsa bor.',
+        say: 'Qoidalar qanaqa?'
+      },
+      who: {
+        '1': 'Avval attor edim. Qarasam, odamlar narsalarini sotgandan koʻra garovga qoʻyishni afzal koʻrar ekan.'
+      },
+      luck: {
+        '1': 'Doim! Lekin uyga har doim yangi bir juft etik bilan qaytaman.',
+        say: 'Sen ham yutqazasanmi?'
+      },
+      playBack: {
+        '1': 'Yaxshi oʻyin! Narsalaring tokchamda juda chiroyli turadi.'
+      },
+      bye: {
+        '1': 'Koʻproq eski-tuski olib kel! Eski-tuski eng yaxshi koʻrgan narsam.'
+      }
+    },
+    oakGambler: {
+      hello: {
+        '1': 'Yangi kelgan ekansiz. Marhamat, oʻtiring, men tishlamayman. Narxlarim esa sal tishlaydi.',
+        '2': 'Meni Silky Ren deb atashadi. Nozik narsalarni yigʻaman, har safar bitta oʻyin bilan.'
+      },
+      again: {
+        '1': 'Oh, sevimli raqibim. Boshlaymizmi?'
+      },
+      play: {
+        '1': 'Toʻlovni bering, iltimos. Keyin vaqtimga arziydigan biror narsa qoʻying.'
+      },
+      rules: {
+        '1': 'Har birimizdan bittadan buyum, koʻpi bilan uch marta. Nafisrogʻi ochkoni oladi. Ikki ochko oʻyinni oladi.',
+        '2': 'Buyumlaringiz baribir menda qoladi. Ketma-ket uchta oʻyin yutsangiz, bu yerdan haqiqiy xazina bilan ketasiz.',
+        say: 'Qanday oʻynaymiz?'
+      },
+      who: {
+        '1': 'Noyob narsalar savdogariman. Ularni topaman, saqlayman, vaqti-vaqti bilan bittasini yutqazib qoʻyaman.'
+      },
+      collection: {
+        '1': 'Yaltirashiga qarab saralayman. Eng yaltiroqlari yuqori tokchaga, choy piyolalarim yoniga boradi.',
+        say: 'Bularning hammasini nima qilasan?'
+      },
+      playBack: {
+        '1': 'Ajoyib. Xaltangiz ogʻirlashganda yana keling.'
+      },
+      bye: {
+        '1': 'Tashqarida hamyoningizga ehtiyot boʻling. Hamma ham halol oʻynamaydi.'
+      }
     }
   },
   enemy: {
@@ -3692,5 +3792,39 @@ export default {
       herbs: 'Giyoh yetarli emas. Tabiatdan koʻproq tering.',
       gold: 'Oltin yetarli emas.'
     }
+  },
+  memory: {
+    title: 'Xotira rastasi',
+    lead: 'Qum tugaguncha barcha juftlarni toping va garovingizning ikki baravarini yuting. Ketma-ket beshta gʻalaba afsonaviy sovgʻa qoʻshadi.',
+    bet: 'Garov {n}',
+    row: 'Ketma-ket gʻalaba: {n} / {max}',
+    pairs: '{n} juft · {s} soniya',
+    won: 'Barcha juftlar topildi! Siz {n} oltin yutdingiz.',
+    lost: 'Qum tugadi. Garov ketdi.',
+    again: 'Yana oʻynash',
+    noGold: 'Bu garov uchun oltin yetmaydi.',
+    card: 'Karta {n}'
+  },
+  battle: {
+    title: 'Buyumlar jangi',
+    lead: 'Qimorbozning buyumiga qarshi buyum qoʻying: sotish narxi balandrogʻi ochkoni oladi, ikki ochko gʻalaba keltiradi. Buyumlaringiz baribir ketadi. Ketma-ket uchta gʻalaba epik sovgʻa qoʻshadi.',
+    fee: 'Oʻtirish · {n}',
+    row: 'Ketma-ket gʻalaba: {n} / {max}',
+    needItems: 'Xaltangizda kiyilmagan kamida {n} ta buyum boʻlishi kerak.',
+    noGold: 'Toʻlov uchun oltin yetmaydi.',
+    theirs: 'Qimorboz qoʻyadi',
+    pick: 'Qoʻyish uchun buyum tanlang',
+    lay: 'Qoʻyish',
+    value: '{n} oltin',
+    score: 'Siz {a} · {b} Qimorboz',
+    roundWon: 'Sizniki qimmatroq. Ochko sizga!',
+    roundLost: 'Uniki qimmatroq. Ochko qimorbozga.',
+    won: 'Oʻyinni yutdingiz! +{n} XP',
+    lost: 'Oʻyinni qimorboz yutdi.',
+    again: 'Yana oʻynash'
+  },
+  gamble: {
+    prize: 'Sovgʻa: {item}!',
+    prizeGold: 'Ularning hammasi sizda bor, shuning uchun oʻrniga {n} oltin olasiz!'
   }
 }

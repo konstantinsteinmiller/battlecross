@@ -1128,6 +1128,15 @@ export default {
     },
     sbAlchemist: {
       name: 'Odile Ormbunksvissla'
+    },
+    sbGambler: {
+      name: 'Madame Pell'
+    },
+    sunfordGambler: {
+      name: 'Dob Kullerbytta'
+    },
+    oakGambler: {
+      name: 'Silkeslena Ren'
     }
   },
   quest: {
@@ -1367,7 +1376,8 @@ export default {
       who: 'Vem är du, om jag får fråga?',
       rumor: 'Hört något nytt?',
       ready: 'Tror du att jag är redo för mer?',
-      brew: 'Kan du brygga något åt mig?'
+      brew: 'Kan du brygga något åt mig?',
+      play: 'Jag är med.'
     },
     sunfordSmith: {
       hello: {
@@ -3241,6 +3251,96 @@ export default {
       bye: {
         '1': 'Hej då! Ser du en lila blomma, plocka två. En till mig.'
       }
+    },
+    sbGambler: {
+      hello: {
+        '1': 'Stig fram, stig fram! Tolv kort, ett timglas och en pung som kan dubblas!',
+        '2': 'Madame Pell. Jag glömmer aldrig ett ansikte. Få se om du aldrig glömmer ett kort.'
+      },
+      again: {
+        '1': 'Tillbaka för en runda till? Sanden har väntat på dig.'
+      },
+      play: {
+        '1': 'Mynten på duken, ögonen på korten. Redo? Vänd glaset!'
+      },
+      rules: {
+        '1': 'Vänd två kort. Ett par blir liggande uppvänt. Hitta alla par innan sanden runnit ut, så betalar jag dubbelt.',
+        '2': 'Vinn igen så går glaset fortare. Vinn fem i rad så ger jag dig ett legendariskt pris.',
+        say: 'Hur går det till?'
+      },
+      who: {
+        '1': 'Jag rymde med en kringresande cirkus när jag var nio. Det visade sig vara en riktigt bra skola i matte.'
+      },
+      prize: {
+        '1': 'En dvärg, en gång. Ingen har sett honom blinka sedan dess.',
+        say: 'Har någon någonsin vunnit priset?'
+      },
+      playBack: {
+        '1': 'Vinst eller förlust, det var ett bra spel. Kom tillbaka när ögonen har vilat.'
+      },
+      bye: {
+        '1': 'Iväg med dig! Kom ihåg var du sätter fötterna.'
+      }
+    },
+    sunfordGambler: {
+      hello: {
+        '1': 'Psst. Har du något skräp i väskan? Gamla stövlar, böjda svärd? Jag spelar med dig om det.',
+        '2': 'Dob Kullerbytta. Jag spelar mest för skojs skull. Och för stövlar.'
+      },
+      again: {
+        '1': 'Du igen! Har du mer av det där underbara skräpet?'
+      },
+      play: {
+        '1': 'Avgiften på bordet. Lägg fram dina saker, högst pris tar poängen.'
+      },
+      rules: {
+        '1': 'Vi lägger en sak var. Den dyraste vinner poängen. Två poäng vinner spelet.',
+        '2': 'Det du lägger blir mitt, vinst eller förlust. Men vinn tre spel i rad, så har jag något speciellt.',
+        say: 'Vilka är reglerna?'
+      },
+      who: {
+        '1': 'Var gårdfarihandlare förr. Det visade sig att folk hellre spelar om sina saker än säljer dem.'
+      },
+      luck: {
+        '1': 'Hela tiden! Men jag går alltid hem med ett par nya stövlar.',
+        say: 'Förlorar du någonsin?'
+      },
+      playBack: {
+        '1': 'Bra spelat! Dina grejer kommer att se fina ut på min hylla.'
+      },
+      bye: {
+        '1': 'Ta med mer skräp! Skräp är det bästa jag vet.'
+      }
+    },
+    oakGambler: {
+      hello: {
+        '1': 'En nykomling. Sätt dig, jag bits inte. Det gör mina priser, lite grann.',
+        '2': 'De kallar mig Silkeslena Ren. Jag samlar fina saker, ett spel i taget.'
+      },
+      again: {
+        '1': 'Ah, min favoritmotståndare. Ska vi?'
+      },
+      play: {
+        '1': 'Avgiften, tack. Lägg sedan fram något som är värt min tid.'
+      },
+      rules: {
+        '1': 'En sak var, högst tre gånger. Den finaste saken tar poängen. Två poäng tar spelet.',
+        '2': 'Dina saker stannar hos mig hur det än går. Vinn tre spel i rad, så går du härifrån med en riktig skatt.',
+        say: 'Hur spelar vi?'
+      },
+      who: {
+        '1': 'En handlare i sällsynta ting. Jag hittar dem, jag behåller dem, och då och då förlorar jag ett.'
+      },
+      collection: {
+        '1': 'Jag sorterar efter glans. De blankaste hamnar på översta hyllan, bredvid mina tekoppar.',
+        say: 'Vad gör du med allt?'
+      },
+      playBack: {
+        '1': 'Förtjusande. Kom gärna tillbaka när väskan är tyngre.'
+      },
+      bye: {
+        '1': 'Akta pungen där ute. Alla spelar inte ärligt.'
+      }
     }
   },
   enemy: {
@@ -3692,5 +3792,39 @@ export default {
       herbs: 'För lite örter. Plocka fler i det vilda.',
       gold: 'Inte tillräckligt med guld.'
     }
+  },
+  memory: {
+    title: 'Minnesståndet',
+    lead: 'Hitta alla par innan sanden runnit ut och vinn dubbla insatsen. Fem vinster i rad ger ett legendariskt pris.',
+    bet: 'Satsa {n}',
+    row: 'Vinster i rad: {n} av {max}',
+    pairs: '{n} par · {s} sekunder',
+    won: 'Alla par hittade! Du vinner {n} guld.',
+    lost: 'Sanden tog slut. Insatsen är borta.',
+    again: 'Spela igen',
+    noGold: 'Inte tillräckligt med guld för den insatsen.',
+    card: 'Kort {n}'
+  },
+  battle: {
+    title: 'Föremålsduell',
+    lead: 'Lägg en sak mot motspelarens: högst försäljningspris tar poängen, två poäng vinner. Dina saker försvinner hur det än går. Tre vinster i rad ger ett episkt pris.',
+    fee: 'Slå dig ner · {n}',
+    row: 'Vinster i rad: {n} av {max}',
+    needItems: 'Du behöver minst {n} saker i väskan som du inte har på dig.',
+    noGold: 'Inte tillräckligt med guld för avgiften.',
+    theirs: 'Motspelaren lägger',
+    pick: 'Välj en sak att lägga',
+    lay: 'Lägg den',
+    value: '{n} guld',
+    score: 'Du {a} · {b} Motspelaren',
+    roundWon: 'Din är värd mer. Poäng till dig!',
+    roundLost: 'Den andra är värd mer. Poäng till motspelaren.',
+    won: 'Du vinner spelet! +{n} XP',
+    lost: 'Motspelaren vinner spelet.',
+    again: 'Spela igen'
+  },
+  gamble: {
+    prize: 'Pris: {item}!',
+    prizeGold: 'Du har redan alla, så du får {n} guld i stället!'
   }
 }

@@ -1128,6 +1128,15 @@ export default {
     },
     sbAlchemist: {
       name: 'Odile Fluier-de-Ferigă'
+    },
+    sbGambler: {
+      name: 'Madame Pell'
+    },
+    sunfordGambler: {
+      name: 'Dob Tumbler'
+    },
+    oakGambler: {
+      name: 'Silky Ren'
     }
   },
   quest: {
@@ -1367,7 +1376,8 @@ export default {
       who: 'Cine ești, dacă pot întreba?',
       rumor: 'Ai auzit ceva în ultima vreme?',
       ready: 'Crezi că sunt gata pentru mai mult?',
-      brew: 'Mi-ai putea prepara ceva?'
+      brew: 'Mi-ai putea prepara ceva?',
+      play: 'Joc și eu.'
     },
     sunfordSmith: {
       hello: {
@@ -3276,6 +3286,96 @@ export default {
       bye: {
         '1': 'Pa! Dacă vezi o floare mov, culege două. Una pentru mine.'
       }
+    },
+    sbGambler: {
+      hello: {
+        '1': 'Apropie-te, apropie-te! Douăsprezece cărți, o clepsidră și o pungă care se poate dubla!',
+        '2': 'Madame Pell. Nu uit niciodată o față. Să vedem dacă tu nu uiți niciodată o carte.'
+      },
+      again: {
+        '1': 'Te-ai întors pentru încă o rundă? Nisipul te aștepta.'
+      },
+      play: {
+        '1': 'Monedele pe postav, ochii pe cărți. Începem? Întoarce clepsidra!'
+      },
+      rules: {
+        '1': 'Întoarce două cărți. O pereche rămâne la vedere. Găsește toate perechile până se scurge nisipul și îți plătesc dublu.',
+        '2': 'Dacă mai câștigi o dată, clepsidra merge mai repede. Câștigă de cinci ori la rând și îți dau un premiu legendar.',
+        say: 'Cum funcționează?'
+      },
+      who: {
+        '1': 'Am fugit cu circul ambulant la nouă ani. S-a dovedit a fi o socoteală foarte bună.'
+      },
+      prize: {
+        '1': 'Un pitic, o dată. De atunci nimeni nu l-a mai văzut clipind.',
+        say: 'A câștigat cineva vreodată premiul?'
+      },
+      playBack: {
+        '1': 'Fie că ai câștigat, fie că ai pierdut, a fost o partidă bună. Întoarce-te când ți se odihnesc ochii.'
+      },
+      bye: {
+        '1': 'Hai, du-te! Și ține minte unde pui picioarele.'
+      }
+    },
+    sunfordGambler: {
+      hello: {
+        '1': 'Pst. Ai ceva vechituri în geantă? Cizme vechi, săbii strâmbe? Le joc cu tine.',
+        '2': 'Dob Tumbler. Joc mai mult de distracție. Și pentru cizme.'
+      },
+      again: {
+        '1': 'Iar tu! Mai ai din vechiturile alea minunate?'
+      },
+      play: {
+        '1': 'Taxa pe masă. Pune-ți lucrurile jos, prețul cel mai mare ia punctul.'
+      },
+      rules: {
+        '1': 'Fiecare pune câte un obiect. Cel mai scump ia punctul. Două puncte câștigă partida.',
+        '2': 'Ce pui jos e al meu, fie că câștigi, fie că pierzi. Dar câștigă trei partide la rând și am ceva special pentru tine.',
+        say: 'Care sunt regulile?'
+      },
+      who: {
+        '1': 'Am fost negustor ambulant. Se pare că oamenii preferă să-și parieze lucrurile decât să le vândă.'
+      },
+      luck: {
+        '1': 'Tot timpul! Dar mereu plec acasă cu o pereche nouă de cizme.',
+        say: 'Tu pierzi vreodată?'
+      },
+      playBack: {
+        '1': 'Bună partidă! Lucrurile tale o să arate minunat pe raftul meu.'
+      },
+      bye: {
+        '1': 'Adu mai multe vechituri! Vechiturile sunt preferatele mele.'
+      }
+    },
+    oakGambler: {
+      hello: {
+        '1': 'O față nouă. Ia loc, nu mușc. Prețurile mele mușcă, puțin.',
+        '2': 'Mi se spune Silky Ren. Adun lucruri fine, câte o partidă pe rând.'
+      },
+      again: {
+        '1': 'Ah, ce plăcere să te revăd. Începem?'
+      },
+      play: {
+        '1': 'Taxa, te rog. Apoi pune ceva care să merite.'
+      },
+      rules: {
+        '1': 'Câte un obiect fiecare, de cel mult trei ori. Piesa mai fină ia punctul. Două puncte iau partida.',
+        '2': 'Piesele tale rămân la mine oricum. Câștigă trei partide la rând și pleci cu o adevărată comoară.',
+        say: 'Cum jucăm?'
+      },
+      who: {
+        '1': 'Un negustor de lucruri rare. Le găsesc, le păstrez și, din când în când, mai pierd câte unul.'
+      },
+      collection: {
+        '1': 'Le sortez după strălucire. Cele mai lucioase merg pe raftul de sus, lângă ceștile mele de ceai.',
+        say: 'Ce faci cu toate astea?'
+      },
+      playBack: {
+        '1': 'Încântător. Mai vino când ți-e geanta mai grea.'
+      },
+      bye: {
+        '1': 'Ai grijă de pungă pe-afară. Nu toată lumea joacă cinstit.'
+      }
     }
   },
   enemy: {
@@ -3731,5 +3831,39 @@ export default {
       herbs: 'Nu ai destule ierburi. Culege mai multe din sălbăticie.',
       gold: 'Nu ai destul aur.'
     }
+  },
+  memory: {
+    title: 'Taraba memoriei',
+    lead: 'Găsește toate perechile până se scurge nisipul și câștigi dublul mizei. Cinci victorii la rând aduc un premiu legendar.',
+    bet: 'Mizează {n}',
+    row: 'Victorii la rând: {n} din {max}',
+    pairs: '{n} perechi · {s} secunde',
+    won: 'Toate perechile găsite! Câștigi {n} aur.',
+    lost: 'Nisipul s-a scurs. Miza s-a dus.',
+    again: 'Mai joacă o dată',
+    noGold: 'Nu ai destul aur pentru miza asta.',
+    card: 'Carte {n}'
+  },
+  battle: {
+    title: 'Duelul obiectelor',
+    lead: 'Pune un obiect împotriva celui al jucătorului de noroc: prețul de vânzare mai mare ia punctul, două puncte câștigă. Obiectele tale se duc oricum. Trei victorii la rând aduc un premiu epic.',
+    fee: 'Stai jos · {n}',
+    row: 'Victorii la rând: {n} din {max}',
+    needItems: 'Ai nevoie de cel puțin {n} obiecte nepurtate în geantă.',
+    noGold: 'Nu ai destul aur pentru taxă.',
+    theirs: 'Adversarul pune',
+    pick: 'Alege un obiect',
+    lay: 'Pune-l',
+    value: '{n} aur',
+    score: 'Tu {a} · {b} Adversar',
+    roundWon: 'Al tău valorează mai mult. Punct pentru tine!',
+    roundLost: 'Celălalt valorează mai mult. Punct pentru adversar.',
+    won: 'Ai câștigat partida! +{n} XP',
+    lost: 'Adversarul a câștigat partida.',
+    again: 'Mai joacă o dată'
+  },
+  gamble: {
+    prize: 'Premiu: {item}!',
+    prizeGold: 'Le ai deja pe toate, așa că primești {n} aur în schimb!'
   }
 }

@@ -531,7 +531,20 @@ attribute buff; items are fixed named ids owned once.
   as they were (the mana stock was emptied there before). The health flask's
   cooldown dial now has its length. The status icons have a fourth sheet for
   the art pass.
-- [ ] **22.3 The gamblers** (#91, #92).
+- [x] **22.3 The gamblers** (#91, #92). Rules in `gamble.ts`, the purse and
+  the winning rows in the save (`meta.gamble`). Madame Pell's memory stand in
+  Silverbridge: three bets by level, 6–10 pairs against 70 → 34 s of sand
+  (a wrong pair turns back after 0.8 s); in time the bet comes back doubled,
+  the fifth win in a row adds a Legendary not owned (its sale price when all
+  are), leaving mid-round loses the bet. The item battle with Dob Tumbler
+  (Sunford) and Silky Ren (Oakhaven, whatever becomes of it): a fee of
+  10 + 2 × level and three unworn items; the gambler's piece shows its
+  picture and quality, its price once the hero's is laid; the dearer takes
+  the point (a tie goes to the house), two points the game; laid items are
+  gone either way; a won game pays a tenth of a level, the third in a row an
+  Epic not owned. The gambler lays a quality step dearer every two rounds
+  into the game and every win in the row. Both windows fit a phone on its
+  side. A new `gambler` role with a coin pin; three new voiced people.
 - [ ] **22.4 Secret traders** (#86).
 - [ ] **22.5–22.8 Secret classes** (#86).
 - [ ] **22.9 Treasure map** (#89).

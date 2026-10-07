@@ -1128,6 +1128,15 @@ export default {
     },
     sbAlchemist: {
       name: 'Odile Filikfajfilo'
+    },
+    sbGambler: {
+      name: 'Madamo Pell'
+    },
+    sunfordGambler: {
+      name: 'Dob Kapriolo'
+    },
+    oakGambler: {
+      name: 'Silka Ren'
     }
   },
   quest: {
@@ -1367,7 +1376,8 @@ export default {
       who: 'Kiu vi estas, se vi ne ĝenas, ke mi demandas?',
       rumor: 'Ĉu vi aŭdis ion lastatempe?',
       ready: 'Ĉu vi pensas, ke mi pretas por pli?',
-      brew: 'Ĉu vi povus prepari ion por mi?'
+      brew: 'Ĉu vi povus prepari ion por mi?',
+      play: 'Mi partoprenas.'
     },
     sunfordSmith: {
       hello: {
@@ -3241,6 +3251,96 @@ export default {
       bye: {
         '1': 'Ĝis! Se vi vidos purpuran floron, pluku du. Unu por mi.'
       }
+    },
+    sbGambler: {
+      hello: {
+        '1': 'Proksimiĝu, proksimiĝu! Dek du kartoj, unu sablohorloĝo kaj monujo, kiu povas duobliĝi!',
+        '2': 'Madamo Pell. Mi neniam forgesas vizaĝon. Ni vidu, ĉu vi neniam forgesas karton.'
+      },
+      again: {
+        '1': 'Ĉu vi revenis por plia rondo? La sablo jam atendis vin.'
+      },
+      play: {
+        '1': 'Monerojn sur la tukon, okulojn sur la kartojn. Preta? Turnu la horloĝon!'
+      },
+      rules: {
+        '1': 'Turnu du kartojn. Paro restas malkovrita. Trovu ĉiujn parojn antaŭ ol la sablo elfluos, kaj mi pagos duoble.',
+        '2': 'Venku denove, kaj la horloĝo rapidiĝas. Venku kvinfoje sinsekve, kaj mi donos al vi legendan premion.',
+        say: 'Kiel ĝi funkcias?'
+      },
+      who: {
+        '1': 'Naŭjara mi forkuris kun vojaĝanta cirko. Montriĝis, ke ĝi estas tre bona lernejo de matematiko.'
+      },
+      prize: {
+        '1': 'Nano, unufoje. Neniu vidis lin palpebrumi ekde tiam.',
+        say: 'Ĉu iu iam gajnis la premion?'
+      },
+      playBack: {
+        '1': 'Ĉu venko, ĉu malvenko, tio estis bona ludo. Revenu, kiam viaj okuloj estos ripozintaj.'
+      },
+      bye: {
+        '1': 'Ek, for kun vi! Memoru, kien vi metas la piedojn.'
+      }
+    },
+    sunfordGambler: {
+      hello: {
+        '1': 'Pst. Ĉu vi havas rubaĵojn en tiu sako? Malnovajn botojn, kurbiĝintajn glavojn? Mi ludos kontraŭ vi pro ili.',
+        '2': 'Dob Kapriolo. Mi ludas plejparte por amuzo. Kaj por botoj.'
+      },
+      again: {
+        '1': 'Denove vi! Ĉu vi havas pli da tiuj ĉarmaj rubaĵoj?'
+      },
+      play: {
+        '1': 'La kotizon sur la tablon. Metu viajn aĵojn, la plej alta prezo prenas la poenton.'
+      },
+      rules: {
+        '1': 'Ĉiu el ni metas unu objekton. La pli multekosta gajnas la poenton. Du poentoj gajnas la ludon.',
+        '2': 'Kion ajn vi metas, tio fariĝas mia, ĉu vi venkas, ĉu ne. Sed venku en tri ludoj sinsekve, kaj mi havas ion specialan.',
+        say: 'Kiuj estas la reguloj?'
+      },
+      who: {
+        '1': 'Iam mi estis kolportisto. Montriĝis, ke homoj prefere vetas siajn aĵojn ol vendas ilin.'
+      },
+      luck: {
+        '1': 'Ĉiam! Sed mi ĉiam iras hejmen kun nova paro da botoj.',
+        say: 'Ĉu vi iam malvenkas?'
+      },
+      playBack: {
+        '1': 'Bona ludo! Viaj aĵoj aspektos ĉarme sur mia breto.'
+      },
+      bye: {
+        '1': 'Alportu pli da rubaĵoj! Rubaĵoj estas miaj plej ŝatataj.'
+      }
+    },
+    oakGambler: {
+      hello: {
+        '1': 'Novulo. Bonvolu sidiĝi, mi ne mordas. Miaj prezoj ja mordas, iomete.',
+        '2': 'Oni nomas min Silka Ren. Mi kolektas belajn aĵojn, po unu ludo.'
+      },
+      again: {
+        '1': 'Ha, mia plej ŝatata kontraŭulo. Ĉu ni komencu?'
+      },
+      play: {
+        '1': 'La kotizon, mi petas. Poste metu ion, kio valoras mian tempon.'
+      },
+      rules: {
+        '1': 'Po unu objekto, maksimume trifoje. La pli bela peco prenas la poenton. Du poentoj prenas la ludon.',
+        '2': 'Viaj pecoj restas ĉe mi ĉiuokaze. Venku en tri ludoj sinsekve, kaj vi foriros kun vera trezoro.',
+        say: 'Kiel ni ludas?'
+      },
+      who: {
+        '1': 'Komercisto de raraj aĵoj. Mi trovas ilin, mi konservas ilin, kaj de tempo al tempo mi perdas unu.'
+      },
+      collection: {
+        '1': 'Mi ordigas ĝin laŭ brilo. La plej brilaj iras sur la supran breton, apud miaj tetasoj.',
+        say: 'Kion vi faras per ĉio ĉi?'
+      },
+      playBack: {
+        '1': 'Ravege. Bonvolu reveni, kiam via sako estos pli peza.'
+      },
+      bye: {
+        '1': 'Gardu vian monujon tie ekstere. Ne ĉiuj ludas honeste.'
+      }
     }
   },
   enemy: {
@@ -3692,5 +3792,39 @@ export default {
       herbs: 'Ne sufiĉe da herboj. Pluku pliajn en la sovaĝejo.',
       gold: 'Ne sufiĉe da oro.'
     }
+  },
+  memory: {
+    title: 'La Memorbudo',
+    lead: 'Trovu ĉiujn parojn antaŭ ol la sablo elfluos, kaj gajnu duoble vian veton. Kvin venkoj sinsekve aldonas legendan premion.',
+    bet: 'Veti {n}',
+    row: 'Venkoj sinsekve: {n} el {max}',
+    pairs: '{n} paroj · {s} sekundoj',
+    won: 'Ĉiuj paroj trovitaj! Vi gajnas {n} da oro.',
+    lost: 'La sablo elfluis. La veto estas perdita.',
+    again: 'Ludi denove',
+    noGold: 'Ne sufiĉas oro por tiu veto.',
+    card: 'Karto {n}'
+  },
+  battle: {
+    title: 'Objekta Batalo',
+    lead: 'Metu objekton kontraŭ tiun de la hazardludanto: la pli alta vendoprezo prenas la poenton, du poentoj venkas. Viaj objektoj perdiĝas ĉiuokaze. Tri venkoj sinsekve aldonas epikan premion.',
+    fee: 'Sidiĝi · {n}',
+    row: 'Venkoj sinsekve: {n} el {max}',
+    needItems: 'Vi bezonas almenaŭ {n} nesurmetitajn objektojn en via sako.',
+    noGold: 'Ne sufiĉas oro por la kotizo.',
+    theirs: 'La hazardludanto metas',
+    pick: 'Elektu objekton por meti',
+    lay: 'Meti ĝin',
+    value: '{n} da oro',
+    score: 'Vi {a} · {b} Hazardludanto',
+    roundWon: 'Via valoras pli. Poento al vi!',
+    roundLost: 'La alia valoras pli. Poento al la hazardludanto.',
+    won: 'Vi venkas en la ludo! +{n} SP',
+    lost: 'La hazardludanto venkas en la ludo.',
+    again: 'Ludi denove'
+  },
+  gamble: {
+    prize: 'Premio: {item}!',
+    prizeGold: 'Vi jam havas ĉiujn, do vi ricevas anstataŭe {n} da oro!'
   }
 }

@@ -1128,6 +1128,15 @@ export default {
     },
     sbAlchemist: {
       name: 'Odile Fernwhistle'
+    },
+    sbGambler: {
+      name: 'Madam Pell'
+    },
+    sunfordGambler: {
+      name: 'Dob Tumbler'
+    },
+    oakGambler: {
+      name: 'Silky Ren'
     }
   },
   quest: {
@@ -1367,7 +1376,8 @@ export default {
       who: 'Qəbahət olmasa, sən kimsən?',
       rumor: 'Son vaxtlar nəsə eşitmisən?',
       ready: 'Səncə daha çoxuna hazıram?',
-      brew: 'Mənə bir şey dəmləyərsən?'
+      brew: 'Mənə bir şey dəmləyərsən?',
+      play: 'Mən də varam.'
     },
     sunfordSmith: {
       hello: {
@@ -3241,6 +3251,96 @@ export default {
       bye: {
         '1': 'Hələlik! Bənövşəyi çiçək görsən, iki dənə dər. Biri mənim üçün.'
       }
+    },
+    sbGambler: {
+      hello: {
+        '1': 'Buyurun, yaxınlaşın! On iki kart, bir qum saatı və ikiqat arta biləcək bir kisə!',
+        '2': 'Madam Pell. Heç bir sifəti unutmuram. Görək sən heç bir kartı unutmursanmı.'
+      },
+      again: {
+        '1': 'Daha bir raund üçün qayıtdın? Qum səni gözləyirdi.'
+      },
+      play: {
+        '1': 'Pullar süfrəyə, gözlər kartlara. Hazırsan? Saatı çevir!'
+      },
+      rules: {
+        '1': 'İki kart çevir. Cüt açıq qalır. Qum bitməmiş bütün cütləri tapsan, iki qat ödəyirəm.',
+        '2': 'Yenə qazansan, saat sürətlənir. Ardıcıl beş dəfə qazansan, sənə əfsanəvi bir mükafat verəcəyəm.',
+        say: 'Bu necə işləyir?'
+      },
+      who: {
+        '1': 'Doqquz yaşımda səyyar sirklə qaçdım. Demə, riyaziyyat üçün əla məktəb imiş.'
+      },
+      prize: {
+        '1': 'Bir cırtdan, bir dəfə. O vaxtdan kimsə onun gözünü qırpdığını görməyib.',
+        say: 'Mükafatı heç qazanan olub?'
+      },
+      playBack: {
+        '1': 'Qazan, ya uduz, yaxşı oyun idi. Gözlərin dincələndə yenə gəl.'
+      },
+      bye: {
+        '1': 'Hə, yolun açıq olsun! Ayağını hara basdığına diqqət et.'
+      }
+    },
+    sunfordGambler: {
+      hello: {
+        '1': 'Pst. O çantada köhnə-külüş var? Köhnə çəkmələr, əyilmiş qılınclar? Onlar üçün səninlə oynayaram.',
+        '2': 'Dob Tumbler. Çox vaxt əyləncə üçün oynayıram. Bir də çəkmələr üçün.'
+      },
+      again: {
+        '1': 'Yenə sən! O gözəl köhnə-külüşdən daha var?'
+      },
+      play: {
+        '1': 'Ödəniş masaya. Əşyalarını qoy, ən yüksək qiymət xalı alır.'
+      },
+      rules: {
+        '1': 'Hərəmiz bir əşya qoyuruq. Bahalı olan xalı qazanır. İki xal oyunu qazandırır.',
+        '2': 'Nə qoysan, mənim olur, qazansan da, uduzsan da. Amma ardıcıl üç oyun qazansan, sənin üçün xüsusi bir şeyim var.',
+        say: 'Qaydalar nədir?'
+      },
+      who: {
+        '1': 'Əvvəllər alverçi idim. Demə, adamlar əşyalarını satmaqdansa mərcə qoymağı üstün tuturmuş.'
+      },
+      luck: {
+        '1': 'Həmişə! Amma evə həmişə təzə bir cüt çəkmə ilə qayıdıram.',
+        say: 'Heç uduzursan?'
+      },
+      playBack: {
+        '1': 'Yaxşı oyun idi! Sənin əşyaların rəfimdə çox gözəl görünəcək.'
+      },
+      bye: {
+        '1': 'Daha çox köhnə-külüş gətir! Köhnə-külüş ən sevdiyim şeydir.'
+      }
+    },
+    oakGambler: {
+      hello: {
+        '1': 'Yeni gələn. Buyurun, əyləşin, dişləmirəm. Qiymətlərim isə bir az dişləyir.',
+        '2': 'Mənə Silky Ren deyirlər. Gözəl şeylər toplayıram, hər dəfə bir oyunla.'
+      },
+      again: {
+        '1': 'Ah, sevimli rəqibim. Başlayaq?'
+      },
+      play: {
+        '1': 'Ödəniş, zəhmət olmasa. Sonra vaxtıma dəyən bir şey qoyun.'
+      },
+      rules: {
+        '1': 'Hərəyə bir əşya, ən çoxu üç dəfə. Daha gözəl parça xalı alır. İki xal oyunu alır.',
+        '2': 'Əşyalarınız hər halda məndə qalır. Ardıcıl üç oyun qazanın, buradan əsl xəzinə ilə gedərsiniz.',
+        say: 'Necə oynayırıq?'
+      },
+      who: {
+        '1': 'Nadir şeylərin taciriyəm. Onları tapıram, saxlayıram, arabir də birini uduzuram.'
+      },
+      collection: {
+        '1': 'Parıltısına görə düzürəm. Ən parlaqları üst rəfə, çay fincanlarımın yanına gedir.',
+        say: 'Bunların hamısı ilə nə edirsən?'
+      },
+      playBack: {
+        '1': 'Çox xoş idi. Çantanız ağırlaşanda yenə buyurun.'
+      },
+      bye: {
+        '1': 'Bayırda kisənizə diqqət edin. Hamı düz oynamır.'
+      }
     }
   },
   enemy: {
@@ -3692,5 +3792,39 @@ export default {
       herbs: 'Ot çatmır. Çöldə daha çox dər.',
       gold: 'Qızıl çatmır.'
     }
+  },
+  memory: {
+    title: 'Yaddaş Piştaxtası',
+    lead: 'Qum bitməmiş bütün cütləri tap və mərcinin iki qatını qazan. Ardıcıl beş qələbə əfsanəvi bir mükafat əlavə edir.',
+    bet: 'Mərc {n}',
+    row: 'Ardıcıl qələbə: {n} / {max}',
+    pairs: '{n} cüt · {s} saniyə',
+    won: 'Bütün cütlər tapıldı! {n} qızıl qazandın.',
+    lost: 'Qum bitdi. Mərc getdi.',
+    again: 'Yenidən oyna',
+    noGold: 'Bu mərc üçün qızılın çatmır.',
+    card: 'Kart {n}'
+  },
+  battle: {
+    title: 'Əşya Döyüşü',
+    lead: 'Qumarbazın əşyasına qarşı bir əşya qoy: satış qiyməti yüksək olan xalı alır, iki xal qələbə gətirir. Əşyaların hər halda gedir. Ardıcıl üç qələbə epik bir mükafat əlavə edir.',
+    fee: 'Otur · {n}',
+    row: 'Ardıcıl qələbə: {n} / {max}',
+    needItems: 'Çantanda geyinilməmiş ən azı {n} əşya olmalıdır.',
+    noGold: 'Ödəniş üçün qızılın çatmır.',
+    theirs: 'Qumarbaz qoyur',
+    pick: 'Qoymaq üçün əşya seç',
+    lay: 'Qoy',
+    value: '{n} qızıl',
+    score: 'Sən {a} · {b} Qumarbaz',
+    roundWon: 'Səninki daha qiymətlidir. Xal sənindir!',
+    roundLost: 'Onunku daha qiymətlidir. Xal qumarbazındır.',
+    won: 'Oyunu qazandın! +{n} TX',
+    lost: 'Oyunu qumarbaz qazandı.',
+    again: 'Yenidən oyna'
+  },
+  gamble: {
+    prize: 'Mükafat: {item}!',
+    prizeGold: 'Hamısı səndə var, ona görə əvəzində {n} qızıl alırsan!'
   }
 }

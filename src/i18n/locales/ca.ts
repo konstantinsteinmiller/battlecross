@@ -1129,6 +1129,15 @@ export default {
     },
     sbAlchemist: {
       name: 'Odile Xiulet de Falguera'
+    },
+    sbGambler: {
+      name: 'Madame Pell'
+    },
+    sunfordGambler: {
+      name: 'Dob Tumbler'
+    },
+    oakGambler: {
+      name: 'Silky Ren'
     }
   },
   quest: {
@@ -1368,7 +1377,8 @@ export default {
       who: 'Qui ets, si no et sap greu que ho pregunti?',
       rumor: 'Has sentit alguna cosa últimament?',
       ready: 'Creus que estic a punt per a més?',
-      brew: 'Em pots preparar alguna cosa?'
+      brew: 'Em pots preparar alguna cosa?',
+      play: 'Reparteix, que jugo.'
     },
     sunfordSmith: {
       hello: {
@@ -3274,6 +3284,96 @@ export default {
       bye: {
         '1': 'Adeu! Si veus una flor lila, cull-ne dues. Una per a mi.'
       }
+    },
+    sbGambler: {
+      hello: {
+        '1': 'Acosta’t, acosta’t! Dotze cartes, un rellotge de sorra i una bossa que es podria doblar!',
+        '2': 'Madame Pell. Mai no oblido una cara. A veure si tu mai no oblides una carta.'
+      },
+      again: {
+        '1': 'Tornes per una altra ronda? La sorra t’esperava.'
+      },
+      play: {
+        '1': 'Monedes sobre el drap, ulls a les cartes. Som-hi? Gira el rellotge!'
+      },
+      rules: {
+        '1': 'Gira dues cartes. Una parella es queda girada. Troba totes les parelles abans que s’acabi la sorra i et pago el doble.',
+        '2': 'Si tornes a guanyar, el rellotge va més de pressa. Guanya’n cinc seguides i et donaré un premi llegendari.',
+        say: 'Com funciona?'
+      },
+      who: {
+        '1': 'Als nou anys vaig fugir amb el circ ambulant. Va resultar un càlcul excel·lent.'
+      },
+      prize: {
+        '1': 'Un nan, una vegada. Des d’aleshores ningú no l’ha vist parpellejar.',
+        say: 'Algú ha guanyat mai el premi?'
+      },
+      playBack: {
+        '1': 'Guanyis o perdis, ha estat una bona partida. Torna quan tinguis els ulls descansats.'
+      },
+      bye: {
+        '1': 'Au, vés! I recorda on poses els peus.'
+      }
+    },
+    sunfordGambler: {
+      hello: {
+        '1': 'Pst. Portes andròmines a la bossa? Botes velles, espases tortes? Te les jugo.',
+        '2': 'Dob Tumbler. Jugo sobretot per diversió. I per botes.'
+      },
+      again: {
+        '1': 'Tu una altra vegada! Tens més d’aquestes andròmines tan boniques?'
+      },
+      play: {
+        '1': 'La tarifa sobre la taula. Posa les teves coses, el preu més alt s’emporta el punt.'
+      },
+      rules: {
+        '1': 'Cadascú posa un objecte. El més car s’emporta el punt. Dos punts guanyen la partida.',
+        '2': 'El que posis és meu, guanyis o perdis. Però si guanyes tres partides seguides, tinc una cosa especial.',
+        say: 'Quines són les regles?'
+      },
+      who: {
+        '1': 'Abans era marxant. Resulta que la gent prefereix apostar les seves coses que vendre-les.'
+      },
+      luck: {
+        '1': 'Sempre! Però sempre torno a casa amb un parell de botes noves.',
+        say: 'Perds mai?'
+      },
+      playBack: {
+        '1': 'Bona partida! Les teves coses quedaran precioses al meu prestatge.'
+      },
+      bye: {
+        '1': 'Porta més andròmines! Les andròmines són el que més m’agrada.'
+      }
+    },
+    oakGambler: {
+      hello: {
+        '1': 'Una cara nova. Seu, seu, que no mossego. Els meus preus sí, una mica.',
+        '2': 'Em diuen Silky Ren. Col·lecciono coses fines, partida a partida.'
+      },
+      again: {
+        '1': 'Ah, quin gust tornar-te a veure. Comencem?'
+      },
+      play: {
+        '1': 'La tarifa, si us plau. Després posa alguna cosa que valgui la pena.'
+      },
+      rules: {
+        '1': 'Un objecte cadascú, tres vegades com a màxim. La peça més fina s’emporta el punt. Dos punts s’emporten la partida.',
+        '2': 'Les teves peces es queden amb mi passi el que passi. Guanya tres partides seguides i te n’aniràs amb un tresor de debò.',
+        say: 'Com es juga?'
+      },
+      who: {
+        '1': 'Un comerciant de coses rares. Les trobo, me les quedo i, de tant en tant, en perdo una.'
+      },
+      collection: {
+        '1': 'Ho ordeno per lluentor. Les coses més lluents van al prestatge de dalt, al costat de les meves tasses de te.',
+        say: 'Què en fas, de tot això?'
+      },
+      playBack: {
+        '1': 'Un plaer. Torna quan la teva bossa pesi més.'
+      },
+      bye: {
+        '1': 'Vigila la bossa, allà fora. No tothom juga net.'
+      }
     }
   },
   enemy: {
@@ -3730,5 +3830,39 @@ export default {
       herbs: 'No tens prou herbes. Cull-ne més a la natura.',
       gold: 'No tens prou or.'
     }
+  },
+  memory: {
+    title: 'La parada de la memòria',
+    lead: 'Troba totes les parelles abans que s’acabi la sorra i guanya el doble de la teva aposta. Cinc victòries seguides hi afegeixen un premi llegendari.',
+    bet: 'Aposta {n}',
+    row: 'Victòries seguides: {n} de {max}',
+    pairs: '{n} parelles · {s} segons',
+    won: 'Totes les parelles trobades! Guanyes {n} d’or.',
+    lost: 'S’ha acabat la sorra. L’aposta s’ha perdut.',
+    again: 'Torna a jugar',
+    noGold: 'No tens prou or per a aquesta aposta.',
+    card: 'Carta {n}'
+  },
+  battle: {
+    title: 'Duel d’objectes',
+    lead: 'Posa un objecte contra el de l’apostador: el preu de venda més alt s’emporta el punt, i dos punts guanyen. Perds els teus objectes passi el que passi. Tres victòries seguides hi afegeixen un premi èpic.',
+    fee: 'Seure · {n}',
+    row: 'Victòries seguides: {n} de {max}',
+    needItems: 'Necessites com a mínim {n} objectes que no portis posats a la bossa.',
+    noGold: 'No tens prou or per a la tarifa.',
+    theirs: 'L’apostador posa',
+    pick: 'Tria un objecte',
+    lay: 'Posa’l',
+    value: '{n} d’or',
+    score: 'Tu {a} · {b} Apostador',
+    roundWon: 'El teu val més. Punt per a tu!',
+    roundLost: 'L’altre val més. Punt per a l’apostador.',
+    won: 'Guanyes la partida! +{n} XP',
+    lost: 'L’apostador guanya la partida.',
+    again: 'Torna a jugar'
+  },
+  gamble: {
+    prize: 'Premi: {item}!',
+    prizeGold: 'Ja els tens tots, així que reps {n} d’or a canvi!'
   }
 }

@@ -1,6 +1,6 @@
 import { conversation } from '../../dialog/build'
 import type { ConversationDef } from '../../dialog/types'
-import { brew, heal, mana, news, ready, rumor, trade, train, who } from './shared'
+import { brew, heal, mana, news, play, ready, rumor, trade, train, who } from './shared'
 
 /**
  * Silverbridge: a busy river trade town built on an old stone bridge. A master
@@ -47,6 +47,23 @@ const sbHealer = conversation('sbHealer', {
   ],
   back: { healer: [{ id: 'healBack' }] },
   bye: [{ id: 'bye', mood: 'amused' }]
+})
+
+/** Madame Pell: the memory stand's showwoman, all sparkle and sand-glass (#91). */
+const sbGambler = conversation('sbGambler', {
+  name: 'npc.sbGambler.name', look: 'sbGambler', mood: 'excited',
+  greet: [
+    { id: 'hello', when: { met: false }, lines: 'nn' },
+    { id: 'again' }
+  ],
+  topics: [
+    play('memory'),
+    { id: 'rules', lines: 'nn' },
+    who(),
+    { id: 'prize', mood: 'sly' }
+  ],
+  back: { memory: [{ id: 'playBack' }] },
+  bye: [{ id: 'bye' }]
 })
 
 /** Odile Fernwhistle: the alchemist (#87). Herbs in her hair, ink on her nose, delighted by everything that grows. */
@@ -258,7 +275,7 @@ const sbMasterBlood = conversation('sbMasterBlood', {
 })
 
 export const SILVERBRIDGE_TALK: ConversationDef[] = [
-  mayorBrenna, sbHealer, sbAlchemist, sbArmorer, sbWeapons, sbJeweler,
+  mayorBrenna, sbHealer, sbAlchemist, sbGambler, sbArmorer, sbWeapons, sbJeweler,
   sbMasterAegis, sbMasterPyro, sbMasterShadow, sbMasterSovereign, sbMasterGeo, sbMasterAether,
   sbMasterChrono, sbMasterBlood
 ]

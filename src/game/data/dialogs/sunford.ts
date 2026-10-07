@@ -1,6 +1,6 @@
 import { conversation } from '../../dialog/build'
 import type { ConversationDef } from '../../dialog/types'
-import { foe, friend, heal, mana, news, ready, rumor, trade, train, who } from './shared'
+import { foe, friend, heal, mana, news, play, ready, rumor, trade, train, who } from './shared'
 
 /**
  * Sunford: the farming town the hero comes home to. Its people talk about the
@@ -182,6 +182,23 @@ const goblinTrader = conversation('goblinTrader', {
   bye: [{ id: 'bye' }]
 })
 
+/** Dob Tumbler: plays for odds and ends, and for the fun of the bluff (#92). */
+const sunfordGambler = conversation('sunfordGambler', {
+  name: 'npc.sunfordGambler.name', look: 'sunfordGambler', mood: 'amused',
+  greet: [
+    { id: 'hello', when: { met: false }, lines: 'nn' },
+    { id: 'again' }
+  ],
+  topics: [
+    play('itemBattle'),
+    { id: 'rules', lines: 'nn' },
+    who(),
+    { id: 'luck', mood: 'sly' }
+  ],
+  back: { itemBattle: [{ id: 'playBack' }] },
+  bye: [{ id: 'bye' }]
+})
+
 export const SUNFORD_TALK: ConversationDef[] = [
-  sunfordSmith, sunfordPeddler, trainerAegis, trainerPyro, elderMara, sunfordHealer, goblinTrader
+  sunfordSmith, sunfordPeddler, trainerAegis, trainerPyro, elderMara, sunfordHealer, goblinTrader, sunfordGambler
 ]

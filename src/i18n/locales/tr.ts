@@ -1128,6 +1128,15 @@ export default {
     },
     sbAlchemist: {
       name: 'Odile Fernwhistle'
+    },
+    sbGambler: {
+      name: 'Madam Pell'
+    },
+    sunfordGambler: {
+      name: 'Dob Tumbler'
+    },
+    oakGambler: {
+      name: 'Silky Ren'
     }
   },
   quest: {
@@ -1367,7 +1376,8 @@ export default {
       who: 'Sakıncası yoksa, sen kimsin?',
       rumor: 'Son zamanlarda bir şey duydun mu?',
       ready: 'Sence daha fazlasına hazır mıyım?',
-      brew: 'Bana bir şey kaynatır mısın?'
+      brew: 'Bana bir şey kaynatır mısın?',
+      play: 'Ben de varım.'
     },
     sunfordSmith: {
       hello: {
@@ -3241,6 +3251,96 @@ export default {
       bye: {
         '1': 'Hoşça kal! Mor bir çiçek görürsen iki tane topla. Biri benim için.'
       }
+    },
+    sbGambler: {
+      hello: {
+        '1': 'Buyurun, yaklaşın! On iki kart, bir kum saati ve ikiye katlanabilecek bir kese!',
+        '2': 'Madam Pell. Hiçbir yüzü unutmam. Bakalım sen hiçbir kartı unutmayacak mısın.'
+      },
+      again: {
+        '1': 'Bir tur daha mı? Kum seni bekliyordu.'
+      },
+      play: {
+        '1': 'Paralar örtüye, gözler kartlara. Hazır mısın? Çevir saati!'
+      },
+      rules: {
+        '1': 'İki kart çevir. Eşleşen çift açık kalır. Kum bitmeden tüm çiftleri bulursan iki katını öderim.',
+        '2': 'Yine kazanırsan saat hızlanır. Üst üste beş kez kazanırsan sana efsanevi bir ödül veririm.',
+        say: 'Nasıl oynanıyor?'
+      },
+      who: {
+        '1': 'Dokuz yaşında gezici bir sirkle kaçtım. Meğer matematik için harika bir okulmuş.'
+      },
+      prize: {
+        '1': 'Bir cüce, bir kere. O günden beri kimse onun gözünü kırptığını görmedi.',
+        say: 'Ödülü hiç kazanan oldu mu?'
+      },
+      playBack: {
+        '1': 'Kazan ya da kaybet, güzel bir oyundu. Gözlerin dinlenince yine gel.'
+      },
+      bye: {
+        '1': 'Hadi bakalım! Ayağını nereye bastığına dikkat et.'
+      }
+    },
+    sunfordGambler: {
+      hello: {
+        '1': 'Pışt. O çantada hurda var mı? Eski çizmeler, eğri kılıçlar? Onlar için seninle oynarım.',
+        '2': 'Dob Tumbler. Çoğunlukla eğlencesine oynarım. Bir de çizmeler için.'
+      },
+      again: {
+        '1': 'Yine sen! O güzel hurdalardan başka var mı?'
+      },
+      play: {
+        '1': 'Ücret masaya. Eşyalarını koy, en yüksek fiyat puanı alır.'
+      },
+      rules: {
+        '1': 'İkimiz de birer eşya koyarız. Pahalı olan puanı alır. İki puan oyunu kazanır.',
+        '2': 'Ne koyarsan benim olur, kazan ya da kaybet. Ama üst üste üç oyun kazanırsan sana özel bir şeyim var.',
+        say: 'Kurallar ne?'
+      },
+      who: {
+        '1': 'Eskiden seyyar satıcıydım. Meğer insanlar eşyalarını satmaktansa ortaya koyup oynamayı seviyormuş.'
+      },
+      luck: {
+        '1': 'Hem de hep! Ama eve hep yeni bir çift çizmeyle dönerim.',
+        say: 'Hiç kaybediyor musun?'
+      },
+      playBack: {
+        '1': 'İyi oyundu! Senin eşyalar rafımda çok güzel duracak.'
+      },
+      bye: {
+        '1': 'Daha çok hurda getir! Hurda en sevdiğim şey.'
+      }
+    },
+    oakGambler: {
+      hello: {
+        '1': 'Yeni bir yüz. Buyurun oturun, ısırmam. Fiyatlarım biraz ısırır ama.',
+        '2': 'Bana Silky Ren derler. Güzel şeyler toplarım, her seferinde bir oyunla.'
+      },
+      again: {
+        '1': 'Ah, en sevdiğim rakibim. Başlayalım mı?'
+      },
+      play: {
+        '1': 'Ücret lütfen. Sonra zahmetime değecek bir şey koyun.'
+      },
+      rules: {
+        '1': 'Her birimiz birer eşya, en fazla üç kez. Daha güzel olan parça puanı alır. İki puan oyunu alır.',
+        '2': 'Eşyalarınız her durumda bende kalır. Üst üste üç oyun kazanın, buradan gerçek bir hazineyle ayrılırsınız.',
+        say: 'Nasıl oynuyoruz?'
+      },
+      who: {
+        '1': 'Nadir şeylerin tüccarıyım. Onları bulurum, saklarım ve arada bir birini kaybederim.'
+      },
+      collection: {
+        '1': 'Parlaklığına göre dizerim. En parlakları en üst rafa, çay fincanlarımın yanına gider.',
+        say: 'Bunların hepsini ne yapıyorsun?'
+      },
+      playBack: {
+        '1': 'Çok hoştu. Çantanız ağırlaşınca yine buyurun.'
+      },
+      bye: {
+        '1': 'Dışarıda kesenize dikkat edin. Herkes dürüst oynamaz.'
+      }
     }
   },
   enemy: {
@@ -3692,5 +3792,39 @@ export default {
       herbs: 'Yeterli ot yok. Doğada daha fazla topla.',
       gold: 'Yeterli altın yok.'
     }
+  },
+  memory: {
+    title: 'Hafıza Tezgâhı',
+    lead: 'Kum bitmeden tüm çiftleri bul, bahsinin iki katını kazan. Üst üste beş galibiyet efsanevi bir ödül ekler.',
+    bet: 'Bahis {n}',
+    row: 'Üst üste galibiyet: {n} / {max}',
+    pairs: '{n} çift · {s} saniye',
+    won: 'Tüm çiftler bulundu! {n} altın kazandın.',
+    lost: 'Kum bitti. Bahis gitti.',
+    again: 'Tekrar oyna',
+    noGold: 'Bu bahis için yeterli altının yok.',
+    card: 'Kart {n}'
+  },
+  battle: {
+    title: 'Eşya Düellosu',
+    lead: 'Kumarbazın eşyasına karşı bir eşya koy: satış fiyatı yüksek olan puanı alır, iki puan kazanır. Eşyaların her durumda gider. Üst üste üç galibiyet destansı bir ödül ekler.',
+    fee: 'Otur · {n}',
+    row: 'Üst üste galibiyet: {n} / {max}',
+    needItems: 'Çantanda kuşanılmamış en az {n} eşya olmalı.',
+    noGold: 'Ücret için yeterli altının yok.',
+    theirs: 'Kumarbaz koyuyor',
+    pick: 'Koymak için bir eşya seç',
+    lay: 'Koy',
+    value: '{n} altın',
+    score: 'Sen {a} · {b} Kumarbaz',
+    roundWon: 'Seninki daha değerli. Puan senin!',
+    roundLost: 'Onunki daha değerli. Puan kumarbazın.',
+    won: 'Oyunu kazandın! +{n} TP',
+    lost: 'Oyunu kumarbaz kazandı.',
+    again: 'Tekrar oyna'
+  },
+  gamble: {
+    prize: 'Ödül: {item}!',
+    prizeGold: 'Hepsine zaten sahipsin, bu yüzden yerine {n} altın alıyorsun!'
   }
 }

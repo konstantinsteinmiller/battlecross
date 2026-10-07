@@ -1129,6 +1129,15 @@ export default {
     },
     sbAlchemist: {
       name: 'Odile Fernwhistle'
+    },
+    sbGambler: {
+      name: 'Madame Pell'
+    },
+    sunfordGambler: {
+      name: 'Dob Tumbler'
+    },
+    oakGambler: {
+      name: 'Silky Ren'
     }
   },
   quest: {
@@ -1369,7 +1378,8 @@ export default {
       rumor: 'Ouviste alguma coisa ultimamente?',
       ready: 'Achas que estou pronto para mais?',
       ready__f: 'Achas que estou pronta para mais?',
-      brew: 'Podes preparar-me alguma coisa?'
+      brew: 'Podes preparar-me alguma coisa?',
+      play: 'Conta comigo.'
     },
     sunfordSmith: {
       hello: {
@@ -3277,6 +3287,96 @@ export default {
       bye: {
         '1': 'Adeus! Se vires uma flor roxa, apanha duas. Uma é para mim.'
       }
+    },
+    sbGambler: {
+      hello: {
+        '1': 'Chega-te cá, chega-te cá! Doze cartas, uma ampulheta e uma bolsa que pode dobrar!',
+        '2': 'Madame Pell. Nunca me esqueço de uma cara. Vamos ver se tu nunca te esqueces de uma carta.'
+      },
+      again: {
+        '1': 'De volta para mais uma ronda? A areia estava à tua espera.'
+      },
+      play: {
+        '1': 'Moedas no pano, olhos nas cartas. Vamos a isto? Vira a ampulheta!'
+      },
+      rules: {
+        '1': 'Vira duas cartas. Um par fica à vista. Encontra todos os pares antes de a areia acabar e eu pago a dobrar.',
+        '2': 'Ganha outra vez e a ampulheta fica mais rápida. Ganha cinco seguidas e dou-te um prémio lendário.',
+        say: 'Como é que funciona?'
+      },
+      who: {
+        '1': 'Fugi com o circo ambulante aos nove anos. Afinal, foi uma ótima conta.'
+      },
+      prize: {
+        '1': 'Um anão, uma vez. Desde então, nunca mais ninguém o viu pestanejar.',
+        say: 'Já alguém ganhou o prémio?'
+      },
+      playBack: {
+        '1': 'Ganhando ou perdendo, foi uma boa partida. Volta quando tiveres os olhos descansados.'
+      },
+      bye: {
+        '1': 'Vai lá! Lembra-te de onde pões os pés.'
+      }
+    },
+    sunfordGambler: {
+      hello: {
+        '1': 'Psst. Tens tralha nessa bolsa? Botas velhas, espadas tortas? Jogo-as contigo.',
+        '2': 'Dob Tumbler. Jogo sobretudo por diversão. E por botas.'
+      },
+      again: {
+        '1': 'Tu outra vez! Tens mais daquela tralha tão bonita?'
+      },
+      play: {
+        '1': 'A taxa na mesa. Põe as tuas coisas, o preço mais alto ganha o ponto.'
+      },
+      rules: {
+        '1': 'Cada um põe um item. O mais caro ganha o ponto. Dois pontos ganham a partida.',
+        '2': 'O que puseres é meu, ganhes ou percas. Mas ganha três partidas seguidas e tenho uma coisa especial.',
+        say: 'Quais são as regras?'
+      },
+      who: {
+        '1': 'Era vendedor ambulante. Afinal, as pessoas preferem apostar as coisas delas a vendê-las.'
+      },
+      luck: {
+        '1': 'Sempre! Mas volto sempre para casa com um par de botas novo.',
+        say: 'Alguma vez perdes?'
+      },
+      playBack: {
+        '1': 'Boa partida! As tuas coisas vão ficar lindas na minha prateleira.'
+      },
+      bye: {
+        '1': 'Traz mais tralha! Tralha é do que eu mais gosto.'
+      }
+    },
+    oakGambler: {
+      hello: {
+        '1': 'Uma cara nova. Senta-te, eu não mordo. Os meus preços mordem, um bocadinho.',
+        '2': 'Chamam-me Silky Ren. Coleciono coisas finas, uma partida de cada vez.'
+      },
+      again: {
+        '1': 'Ah, que bom ver-te outra vez. Vamos?'
+      },
+      play: {
+        '1': 'A taxa, por favor. Depois põe algo que valha a pena.'
+      },
+      rules: {
+        '1': 'Um item cada, no máximo três vezes. A peça mais fina ganha o ponto. Dois pontos ganham a partida.',
+        '2': 'As tuas peças ficam comigo de qualquer maneira. Ganha três partidas seguidas e sais daqui com um verdadeiro tesouro.',
+        say: 'Como é que se joga?'
+      },
+      who: {
+        '1': 'Um negociante de coisas raras. Encontro-as, guardo-as e, de vez em quando, perco uma.'
+      },
+      collection: {
+        '1': 'Arrumo tudo por brilho. As mais brilhantes vão para a prateleira de cima, ao lado das minhas chávenas de chá.',
+        say: 'O que fazes com isso tudo?'
+      },
+      playBack: {
+        '1': 'Que partida deliciosa. Volta quando a tua bolsa estiver mais pesada.'
+      },
+      bye: {
+        '1': 'Cuidado com a bolsa lá fora. Nem toda a gente joga limpo.'
+      }
     }
   },
   enemy: {
@@ -3732,5 +3832,39 @@ export default {
       herbs: 'Ervas insuficientes. Apanha mais na natureza.',
       gold: 'Ouro insuficiente.'
     }
+  },
+  memory: {
+    title: 'A Banca da Memória',
+    lead: 'Encontra todos os pares antes de a areia acabar e ganha o dobro da tua aposta. Cinco vitórias seguidas juntam um prémio lendário.',
+    bet: 'Apostar {n}',
+    row: 'Vitórias seguidas: {n} de {max}',
+    pairs: '{n} pares · {s} segundos',
+    won: 'Todos os pares encontrados! Ganhas {n} de ouro.',
+    lost: 'A areia acabou. A aposta foi-se.',
+    again: 'Jogar outra vez',
+    noGold: 'Ouro insuficiente para essa aposta.',
+    card: 'Carta {n}'
+  },
+  battle: {
+    title: 'Duelo de Itens',
+    lead: 'Põe um item contra o do apostador: o preço de venda mais alto ganha o ponto, dois pontos vencem. Os teus itens vão-se de qualquer maneira. Três vitórias seguidas juntam um prémio épico.',
+    fee: 'Sentar · {n}',
+    row: 'Vitórias seguidas: {n} de {max}',
+    needItems: 'Precisas de pelo menos {n} itens não equipados na bolsa.',
+    noGold: 'Ouro insuficiente para a taxa.',
+    theirs: 'O apostador põe',
+    pick: 'Escolhe um item',
+    lay: 'Pôr',
+    value: '{n} de ouro',
+    score: 'Tu {a} · {b} Apostador',
+    roundWon: 'O teu vale mais. Ponto para ti!',
+    roundLost: 'O outro vale mais. Ponto para o apostador.',
+    won: 'Ganhaste a partida! +{n} XP',
+    lost: 'O apostador ganhou a partida.',
+    again: 'Jogar outra vez'
+  },
+  gamble: {
+    prize: 'Prémio: {item}!',
+    prizeGold: 'Já os tens todos, por isso recebes {n} de ouro em vez disso!'
   }
 }

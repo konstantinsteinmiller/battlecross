@@ -1129,6 +1129,15 @@ export default {
     },
     sbAlchemist: {
       name: 'Odile Fernwhistle'
+    },
+    sbGambler: {
+      name: 'Madame Pell'
+    },
+    sunfordGambler: {
+      name: 'Dob Tumbler'
+    },
+    oakGambler: {
+      name: 'Silky Ren'
     }
   },
   quest: {
@@ -1368,7 +1377,8 @@ export default {
       who: 'Chi sei, se posso chiedere?',
       rumor: 'Hai sentito qualcosa di recente?',
       ready: 'Pensi che io possa imparare di più?',
-      brew: 'Puoi prepararmi qualcosa?'
+      brew: 'Puoi prepararmi qualcosa?',
+      play: 'Dai le carte, ci sto.'
     },
     sunfordSmith: {
       hello: {
@@ -3295,6 +3305,96 @@ export default {
       bye: {
         '1': 'Ciao ciao! Se vedi un fiore viola, cogline due. Uno per me.'
       }
+    },
+    sbGambler: {
+      hello: {
+        '1': 'Avvicinati, avvicinati! Dodici carte, una clessidra e una borsa che potrebbe raddoppiare!',
+        '2': 'Madame Pell. Non dimentico mai un volto. Vediamo se tu non dimentichi mai una carta.'
+      },
+      again: {
+        '1': 'Di nuovo qui per un altro giro? La sabbia ti stava aspettando.'
+      },
+      play: {
+        '1': 'Monete sul panno, occhi sulle carte. Si comincia? Giro la clessidra!'
+      },
+      rules: {
+        '1': 'Gira due carte. Una coppia resta scoperta. Trova tutte le coppie prima che finisca la sabbia e ti pago il doppio.',
+        '2': 'Se vinci ancora, la clessidra corre più veloce. Vinci cinque volte di fila e ti darò un premio leggendario.',
+        say: 'Come funziona?'
+      },
+      who: {
+        '1': 'A nove anni sono scappata con il circo itinerante. Si è rivelato un ottimo calcolo.'
+      },
+      prize: {
+        '1': 'Un nano, una volta. Da allora nessuno l’ha più visto sbattere le palpebre.',
+        say: 'Qualcuno ha mai vinto il premio?'
+      },
+      playBack: {
+        '1': 'Vittoria o sconfitta, è stata una bella partita. Torna quando avrai gli occhi riposati.'
+      },
+      bye: {
+        '1': 'Su, vai! E ricordati dove metti i piedi.'
+      }
+    },
+    sunfordGambler: {
+      hello: {
+        '1': 'Psst. Hai qualche cianfrusaglia nella borsa? Stivali vecchi, spade storte? Me la gioco con te.',
+        '2': 'Dob Tumbler. Gioco più che altro per divertimento. E per gli stivali.'
+      },
+      again: {
+        '1': 'Ancora tu! Hai altre di quelle belle cianfrusaglie?'
+      },
+      play: {
+        '1': 'La quota sul tavolo. Metti giù la tua roba, il prezzo più alto prende il punto.'
+      },
+      rules: {
+        '1': 'Ognuno mette un oggetto. Il più caro prende il punto. Due punti vincono la partita.',
+        '2': 'Quello che metti è mio, che tu vinca o perda. Ma se vinci tre partite di fila, ho qualcosa di speciale.',
+        say: 'Quali sono le regole?'
+      },
+      who: {
+        '1': 'Facevo il venditore ambulante. A quanto pare la gente preferisce scommettere la sua roba che venderla.'
+      },
+      luck: {
+        '1': 'Sempre! Ma torno a casa ogni volta con un paio di stivali nuovi.',
+        say: 'Perdi mai?'
+      },
+      playBack: {
+        '1': 'Bella partita! La tua roba starà benissimo sul mio scaffale.'
+      },
+      bye: {
+        '1': 'Porta altre cianfrusaglie! Sono la mia passione.'
+      }
+    },
+    oakGambler: {
+      hello: {
+        '1': 'Una faccia nuova. Siediti pure, non mordo. I miei prezzi sì, un pochino.',
+        '2': 'Mi chiamano Silky Ren. Colleziono cose raffinate, una partita alla volta.'
+      },
+      again: {
+        '1': 'Ah, che piacere rivederti. Cominciamo?'
+      },
+      play: {
+        '1': 'La quota, prego. Poi metti giù qualcosa che ne valga la pena.'
+      },
+      rules: {
+        '1': 'Un oggetto a testa, al massimo tre volte. Il pezzo più pregiato prende il punto. Due punti prendono la partita.',
+        '2': 'I tuoi pezzi restano a me comunque vada. Vinci tre partite di fila e te ne andrai con un vero tesoro.',
+        say: 'Come si gioca?'
+      },
+      who: {
+        '1': 'Un mercante di cose rare. Le trovo, le tengo e ogni tanto ne perdo una.'
+      },
+      collection: {
+        '1': 'La ordino per lucentezza. Le cose più lucenti vanno sullo scaffale più alto, accanto alle mie tazze da tè.',
+        say: 'Cosa ci fai con tutta questa roba?'
+      },
+      playBack: {
+        '1': 'Splendida partita. Torna pure quando la tua borsa sarà più pesante.'
+      },
+      bye: {
+        '1': 'Occhio alla borsa, là fuori. Non tutti giocano pulito.'
+      }
     }
   },
   enemy: {
@@ -3750,5 +3850,39 @@ export default {
       herbs: 'Erbe insufficienti. Raccoglile nelle terre selvagge.',
       gold: 'Oro insufficiente.'
     }
+  },
+  memory: {
+    title: 'Il banco della memoria',
+    lead: 'Trova tutte le coppie prima che finisca la sabbia e vinci il doppio della puntata. Cinque vittorie di fila aggiungono un premio leggendario.',
+    bet: 'Punta {n}',
+    row: 'Vittorie di fila: {n} su {max}',
+    pairs: '{n} coppie · {s} secondi',
+    won: 'Tutte le coppie trovate! Vinci {n} oro.',
+    lost: 'La sabbia è finita. La puntata è persa.',
+    again: 'Gioca ancora',
+    noGold: 'Oro insufficiente per questa puntata.',
+    card: 'Carta {n}'
+  },
+  battle: {
+    title: 'Sfida di oggetti',
+    lead: 'Metti un oggetto contro quello dello scommettitore: il prezzo di vendita più alto prende il punto, due punti vincono. I tuoi oggetti li perdi comunque. Tre vittorie di fila aggiungono un premio epico.',
+    fee: 'Siediti · {n}',
+    row: 'Vittorie di fila: {n} su {max}',
+    needItems: 'Ti servono almeno {n} oggetti non indossati nella borsa.',
+    noGold: 'Oro insufficiente per la quota.',
+    theirs: 'Lo scommettitore mette',
+    pick: 'Scegli un oggetto',
+    lay: 'Mettilo',
+    value: '{n} oro',
+    score: 'Tu {a} · {b} Scommettitore',
+    roundWon: 'Il tuo vale di più. Punto a te!',
+    roundLost: 'L’altro vale di più. Punto allo scommettitore.',
+    won: 'Vinci la partita! +{n} XP',
+    lost: 'Lo scommettitore vince la partita.',
+    again: 'Gioca ancora'
+  },
+  gamble: {
+    prize: 'Premio: {item}!',
+    prizeGold: 'Li hai già tutti, quindi ricevi {n} oro al loro posto!'
   }
 }

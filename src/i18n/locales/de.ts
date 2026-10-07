@@ -1129,6 +1129,15 @@ export default {
     },
     sbAlchemist: {
       name: 'Odile Fernwhistle'
+    },
+    sbGambler: {
+      name: 'Madame Pell'
+    },
+    sunfordGambler: {
+      name: 'Dob Tumbler'
+    },
+    oakGambler: {
+      name: 'Silky Ren'
     }
   },
   quest: {
@@ -1368,7 +1377,8 @@ export default {
       who: 'Wer bist du, wenn ich fragen darf?',
       rumor: 'Was gibt es Neues?',
       ready: 'Meinst du, ich bin bereit für mehr?',
-      brew: 'Kannst du mir was brauen?'
+      brew: 'Kannst du mir was brauen?',
+      play: 'Ich bin dabei.'
     },
     sunfordSmith: {
       hello: {
@@ -3258,6 +3268,96 @@ export default {
       bye: {
         '1': 'Tschüss! Wenn du eine lila Blume siehst, pflück zwei. Eine für mich.'
       }
+    },
+    sbGambler: {
+      hello: {
+        '1': 'Hereinspaziert! Zwölf Karten, eine Sanduhr und ein Geldbeutel, der sich verdoppeln kann!',
+        '2': 'Madame Pell. Ich vergesse nie ein Gesicht. Mal sehen, ob du nie eine Karte vergisst.'
+      },
+      again: {
+        '1': 'Zurück für noch eine Runde? Der Sand hat schon auf dich gewartet.'
+      },
+      play: {
+        '1': 'Münzen aufs Tuch, Augen auf die Karten. Bereit? Sanduhr umdrehen!'
+      },
+      rules: {
+        '1': 'Dreh zwei Karten um. Ein Paar bleibt offen. Findest du alle Paare, bevor der Sand durch ist, zahle ich doppelt.',
+        '2': 'Gewinnst du wieder, läuft die Sanduhr schneller. Fünf Siege in Folge, und ich überreiche dir einen legendären Preis.',
+        say: 'Wie funktioniert das?'
+      },
+      who: {
+        '1': 'Mit neun bin ich mit dem Wanderzirkus durchgebrannt. Die Rechnung ist voll aufgegangen.'
+      },
+      prize: {
+        '1': 'Ein Zwerg, einmal. Seitdem hat ihn niemand mehr blinzeln sehen.',
+        say: 'Hat schon mal jemand den Preis gewonnen?'
+      },
+      playBack: {
+        '1': 'Sieg oder Niederlage, das war ein gutes Spiel. Komm wieder, wenn deine Augen ausgeruht sind.'
+      },
+      bye: {
+        '1': 'Na los! Und merk dir, wo du deine Füße hinsetzt.'
+      }
+    },
+    sunfordGambler: {
+      hello: {
+        '1': 'Pssst. Hast du Plunder im Beutel? Alte Stiefel, verbogene Schwerter? Ich spiel mit dir drum.',
+        '2': 'Dob Tumbler. Ich spiele meistens zum Spaß. Und um Stiefel.'
+      },
+      again: {
+        '1': 'Du schon wieder! Hast du noch mehr von dem schönen Plunder?'
+      },
+      play: {
+        '1': 'Gebühr auf den Tisch. Leg deine Sachen hin, der höchste Preis holt den Punkt.'
+      },
+      rules: {
+        '1': 'Jeder legt einen Gegenstand hin. Der teurere holt den Punkt. Zwei Punkte gewinnen das Spiel.',
+        '2': 'Was du hinlegst, gehört mir, ob du gewinnst oder verlierst. Gewinnst du aber drei Spiele in Folge, hab ich was Besonderes für dich.',
+        say: 'Wie gehen die Regeln?'
+      },
+      who: {
+        '1': 'War mal Hausierer. Wie sich zeigt, wetten die Leute ihr Zeug lieber, als es zu verkaufen.'
+      },
+      luck: {
+        '1': 'Ständig! Aber ich gehe immer mit einem neuen Paar Stiefel nach Hause.',
+        say: 'Verlierst du auch mal?'
+      },
+      playBack: {
+        '1': 'Gutes Spiel! Dein Zeug wird sich prima in meinem Regal machen.'
+      },
+      bye: {
+        '1': 'Bring mehr Plunder! Plunder ist mein Lieblingszeug.'
+      }
+    },
+    oakGambler: {
+      hello: {
+        '1': 'Ein neues Gesicht. Setz dich doch, ich beiße nicht. Meine Preise schon, ein bisschen.',
+        '2': 'Man nennt mich Silky Ren. Ich sammle feine Dinge, ein Spiel nach dem anderen.'
+      },
+      again: {
+        '1': 'Ah, schön, dich wiederzusehen. Wollen wir?'
+      },
+      play: {
+        '1': 'Die Gebühr, bitte. Dann leg etwas hin, das sich für mich lohnt.'
+      },
+      rules: {
+        '1': 'Je ein Gegenstand, höchstens dreimal. Das feinere Stück holt den Punkt. Zwei Punkte holen das Spiel.',
+        '2': 'Deine Stücke bleiben so oder so bei mir. Gewinne drei Spiele hintereinander, und du gehst mit einem echten Schatz.',
+        say: 'Wie spielen wir?'
+      },
+      who: {
+        '1': 'Ein Händler für seltene Dinge. Ich finde sie, ich behalte sie, und ab und zu verliere ich eins.'
+      },
+      collection: {
+        '1': 'Ich sortiere es nach Glanz. Das Glänzendste kommt ins oberste Regal, neben meine Teetassen.',
+        say: 'Was machst du mit all dem Zeug?'
+      },
+      playBack: {
+        '1': 'Entzückend. Komm gern wieder, wenn dein Beutel schwerer ist.'
+      },
+      bye: {
+        '1': 'Pass da draußen auf deinen Geldbeutel auf. Nicht jeder spielt fair.'
+      }
     }
   },
   enemy: {
@@ -3709,5 +3809,39 @@ export default {
       herbs: 'Nicht genug Kräuter. Sammle mehr in der Wildnis.',
       gold: 'Nicht genug Gold.'
     }
+  },
+  memory: {
+    title: 'Der Gedächtnisstand',
+    lead: 'Finde alle Paare, bevor der Sand durchgelaufen ist, und gewinne das Doppelte deines Einsatzes. Fünf Siege in Folge bringen einen legendären Preis.',
+    bet: 'Einsatz {n}',
+    row: 'Siege in Folge: {n} von {max}',
+    pairs: '{n} Paare · {s} Sekunden',
+    won: 'Alle Paare gefunden! Du gewinnst {n} Gold.',
+    lost: 'Der Sand ist durch. Der Einsatz ist weg.',
+    again: 'Nochmal spielen',
+    noGold: 'Nicht genug Gold für diesen Einsatz.',
+    card: 'Karte {n}'
+  },
+  battle: {
+    title: 'Gegenstandsduell',
+    lead: 'Lege einen Gegenstand gegen den des Zockers: Der höhere Verkaufspreis holt den Punkt, zwei Punkte gewinnen. Deine Gegenstände sind so oder so weg. Drei Siege in Folge bringen einen epischen Preis.',
+    fee: 'Hinsetzen · {n}',
+    row: 'Siege in Folge: {n} von {max}',
+    needItems: 'Du brauchst mindestens {n} nicht angelegte Gegenstände im Beutel.',
+    noGold: 'Nicht genug Gold für die Gebühr.',
+    theirs: 'Der Zocker legt',
+    pick: 'Wähle einen Gegenstand',
+    lay: 'Hinlegen',
+    value: '{n} Gold',
+    score: 'Du {a} · {b} Zocker',
+    roundWon: 'Dein Stück ist mehr wert. Punkt für dich!',
+    roundLost: 'Das andere Stück ist mehr wert. Punkt für den Zocker.',
+    won: 'Du gewinnst das Spiel! +{n} EP',
+    lost: 'Der Zocker gewinnt das Spiel.',
+    again: 'Nochmal spielen'
+  },
+  gamble: {
+    prize: 'Preis: {item}!',
+    prizeGold: 'Du hast schon alle, darum bekommst du stattdessen {n} Gold!'
   }
 }

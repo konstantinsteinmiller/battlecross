@@ -1130,6 +1130,15 @@ export default {
     },
     sbAlchemist: {
       name: 'Odile Świstopaproć'
+    },
+    sbGambler: {
+      name: 'Madame Pell'
+    },
+    sunfordGambler: {
+      name: 'Dob Fikołek'
+    },
+    oakGambler: {
+      name: 'Jedwabny Ren'
     }
   },
   quest: {
@@ -1370,7 +1379,8 @@ export default {
       rumor: 'Słyszałeś coś ostatnio?',
       ready: 'Myślisz, że jestem gotowy na więcej?',
       ready__f: 'Myślisz, że jestem gotowa na więcej?',
-      brew: 'Uwarzysz mi coś?'
+      brew: 'Uwarzysz mi coś?',
+      play: 'Wchodzę w to.'
     },
     sunfordSmith: {
       hello: {
@@ -3323,6 +3333,96 @@ export default {
       bye: {
         '1': 'Pa! Jak zobaczysz fioletowy kwiat, zerwij dwa. Jeden dla mnie.'
       }
+    },
+    sbGambler: {
+      hello: {
+        '1': 'Podejdź bliżej! Dwanaście kart, jedna klepsydra i sakiewka, która może się podwoić!',
+        '2': 'Madame Pell. Nigdy nie zapominam twarzy. Zobaczmy, czy ty nie zapominasz kart.'
+      },
+      again: {
+        '1': 'Jeszcze jedna runda? Piasek już na ciebie czeka.'
+      },
+      play: {
+        '1': 'Monety na sukno, oczy na karty. Zaczynamy? Odwracam klepsydrę!'
+      },
+      rules: {
+        '1': 'Odkrywasz dwie karty. Para zostaje odkryta. Znajdź wszystkie pary, zanim przesypie się piasek, a zapłacę podwójnie.',
+        '2': 'Wygraj znowu, a klepsydra przyspieszy. Pięć wygranych z rzędu, a dam ci legendarną nagrodę.',
+        say: 'Jak to działa?'
+      },
+      who: {
+        '1': 'Jako dziewięciolatka uciekłam z wędrownym cyrkiem. Okazało się, że świetnie tam liczą.'
+      },
+      prize: {
+        '1': 'Raz pewien krasnolud. Od tamtej pory nikt nie widział, żeby mrugnął.',
+        say: 'Czy ktoś kiedyś wygrał nagrodę?'
+      },
+      playBack: {
+        '1': 'Wygrana czy przegrana, to była dobra gra. Wróć, gdy oczy odpoczną.'
+      },
+      bye: {
+        '1': 'No, zmykaj! I patrz pod nogi.'
+      }
+    },
+    sunfordGambler: {
+      hello: {
+        '1': 'Psst. Masz w torbie jakieś graty? Stare buty, krzywe miecze? Zagram z tobą o nie.',
+        '2': 'Dob Fikołek. Gram głównie dla zabawy. I dla butów.'
+      },
+      again: {
+        '1': 'Znowu ty! Masz jeszcze trochę tych cudnych gratów?'
+      },
+      play: {
+        '1': 'Opłata na stół. Kładź rzeczy, wyższa cena bierze punkt.'
+      },
+      rules: {
+        '1': 'Każdy kładzie przedmiot. Droższy zdobywa punkt. Dwa punkty wygrywają partię.',
+        '2': 'Co położysz, jest moje, wygrana czy przegrana. Ale wygraj trzy partie z rzędu, a mam dla ciebie coś specjalnego.',
+        say: 'Jakie są zasady?'
+      },
+      who: {
+        '1': 'Kiedyś byłem domokrążcą. Okazało się, że ludzie wolą swoje rzeczy obstawiać niż sprzedawać.'
+      },
+      luck: {
+        '1': 'Ciągle! Ale zawsze wracam do domu z nową parą butów.',
+        say: 'Przegrywasz czasem?'
+      },
+      playBack: {
+        '1': 'Dobra gra! Twoje rzeczy będą ślicznie wyglądać na mojej półce.'
+      },
+      bye: {
+        '1': 'Przynieś więcej gratów! Graty to moje ulubione.'
+      }
+    },
+    oakGambler: {
+      hello: {
+        '1': 'Nowa twarz. Siadaj, nie gryzę. Za to moje ceny trochę gryzą.',
+        '2': 'Mówią na mnie Jedwabny Ren. Zbieram piękne rzeczy, partia po partii.'
+      },
+      again: {
+        '1': 'Ach, znów ty. Z tobą gra mi się najlepiej. Zaczynamy?'
+      },
+      play: {
+        '1': 'Opłata, proszę. A potem połóż coś, co będzie warte mojej uwagi.'
+      },
+      rules: {
+        '1': 'Po jednym przedmiocie, najwyżej trzy razy. Lepsza rzecz bierze punkt. Dwa punkty biorą partię.',
+        '2': 'Twoje rzeczy i tak zostają u mnie. Wygraj trzy partie z rzędu, a odejdziesz z prawdziwym skarbem.',
+        say: 'Jak gramy?'
+      },
+      who: {
+        '1': 'Handluję rzadkościami. Znajduję je, zatrzymuję, a od czasu do czasu jedną przegrywam.'
+      },
+      collection: {
+        '1': 'Sortuję według blasku. Najbardziej błyszczące idą na górną półkę, obok moich filiżanek.',
+        say: 'Co robisz z tym wszystkim?'
+      },
+      playBack: {
+        '1': 'Uroczo. Wróć, gdy twoja torba będzie cięższa.'
+      },
+      bye: {
+        '1': 'Pilnuj sakiewki. Nie wszyscy grają uczciwie.'
+      }
     }
   },
   enemy: {
@@ -3779,5 +3879,39 @@ export default {
       herbs: 'Za mało ziół. Nazbieraj więcej w dziczy.',
       gold: 'Za mało złota.'
     }
+  },
+  memory: {
+    title: 'Gra w pary',
+    lead: 'Znajdź wszystkie pary, zanim przesypie się piasek, a wygrasz podwójną stawkę. Pięć wygranych z rzędu dodaje legendarną nagrodę.',
+    bet: 'Stawka {n}',
+    row: 'Wygrane z rzędu: {n} z {max}',
+    pairs: 'Pary: {n} · {s} s',
+    won: 'Wszystkie pary znalezione! Wygrywasz {n} szt. złota.',
+    lost: 'Piasek się przesypał. Stawka przepadła.',
+    again: 'Zagraj jeszcze raz',
+    noGold: 'Za mało złota na tę stawkę.',
+    card: 'Karta {n}'
+  },
+  battle: {
+    title: 'Bitwa przedmiotów',
+    lead: 'Połóż przedmiot przeciw przedmiotowi rywala: punkt zdobywa ten o wyższej cenie sprzedaży, dwa punkty wygrywają. Twoje przedmioty i tak przepadają. Trzy wygrane z rzędu dodają epicką nagrodę.',
+    fee: 'Siadam · {n}',
+    row: 'Wygrane z rzędu: {n} z {max}',
+    needItems: 'Potrzebujesz w torbie przedmiotów, których nie nosisz: co najmniej {n}.',
+    noGold: 'Za mało złota na opłatę.',
+    theirs: 'Rywal kładzie',
+    pick: 'Wybierz przedmiot',
+    lay: 'Połóż',
+    value: '{n} szt. złota',
+    score: 'Ty {a} · {b} Rywal',
+    roundWon: 'Twój jest więcej wart. Punkt dla ciebie!',
+    roundLost: 'Przedmiot rywala jest więcej wart. Punkt dla niego.',
+    won: 'Partia twoja! +{n} PD',
+    lost: 'Rywal wygrywa partię.',
+    again: 'Zagraj jeszcze raz'
+  },
+  gamble: {
+    prize: 'Nagroda: {item}!',
+    prizeGold: 'Masz już wszystkie, więc zamiast tego dostajesz {n} szt. złota!'
   }
 }

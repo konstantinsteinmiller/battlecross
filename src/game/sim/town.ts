@@ -279,6 +279,7 @@ export const jobOf = (n: NpcDef): TownJob => {
   if (n.job) return n.job
   if (n.role === 'healer') return 'healer'
   if (n.role === 'alchemist') return 'alchemist'
+  if (n.role === 'gambler') return 'merchant'
   if (n.role === 'trainer') {
     switch (n.cls) {
       case 'aegis': return 'knight'

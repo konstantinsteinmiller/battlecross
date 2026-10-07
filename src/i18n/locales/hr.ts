@@ -1133,6 +1133,15 @@ export default {
     },
     sbAlchemist: {
       name: 'Odile Papratozvižd'
+    },
+    sbGambler: {
+      name: 'Madame Pell'
+    },
+    sunfordGambler: {
+      name: 'Dob Kolutić'
+    },
+    oakGambler: {
+      name: 'Svileni Ren'
     }
   },
   quest: {
@@ -1373,7 +1382,8 @@ export default {
       rumor: 'Čuo si nešto u zadnje vrijeme?',
       ready: 'Misliš li da sam spreman za više?',
       ready__f: 'Misliš li da sam spremna za više?',
-      brew: 'Možeš li mi nešto skuhati?'
+      brew: 'Možeš li mi nešto skuhati?',
+      play: 'Dijeli i meni.'
     },
     sunfordSmith: {
       hello: {
@@ -3332,6 +3342,96 @@ export default {
       bye: {
         '1': 'Bok! Ako vidiš ljubičasti cvijet, uberi dva. Jedan za mene.'
       }
+    },
+    sbGambler: {
+      hello: {
+        '1': 'Priđi bliže! Dvanaest karata, jedan pješčani sat i kesa koja se može udvostručiti!',
+        '2': 'Madame Pell. Nikad ne zaboravljam lice. Da vidimo zaboravljaš li ti karte.'
+      },
+      again: {
+        '1': 'Još jedna runda? Pijesak te već čeka.'
+      },
+      play: {
+        '1': 'Novčići na stol, oči na karte. Krećemo? Okrećem sat!'
+      },
+      rules: {
+        '1': 'Okreni dvije karte. Par ostaje otvoren. Pronađi sve parove prije nego što iscuri pijesak i plaćam dvostruko.',
+        '2': 'Pobijedi opet i sat će biti brži. Pet pobjeda zaredom i dajem ti legendarnu nagradu.',
+        say: 'Kako to ide?'
+      },
+      who: {
+        '1': 'S devet sam pobjegla s putujućim cirkusom. Pokazalo se da tamo odlično računaju.'
+      },
+      prize: {
+        '1': 'Jednom jedan patuljak. Otad ga nitko nije vidio da trepne.',
+        say: 'Je li itko ikad osvojio nagradu?'
+      },
+      playBack: {
+        '1': 'Pobjeda ili poraz, bila je to dobra igra. Vrati se kad ti se oči odmore.'
+      },
+      bye: {
+        '1': 'Hajde, idi! I pazi kamo staješ.'
+      }
+    },
+    sunfordGambler: {
+      hello: {
+        '1': 'Pst. Imaš li krame u torbi? Stare čizme, savijene mačeve? Igrat ću s tobom za njih.',
+        '2': 'Dob Kolutić. Igram uglavnom iz zabave. I za čizme.'
+      },
+      again: {
+        '1': 'Opet ti! Imaš li još te divne krame?'
+      },
+      play: {
+        '1': 'Naknada na stol. Polaži stvari, viša cijena uzima bod.'
+      },
+      rules: {
+        '1': 'Svatko položi predmet. Skuplji osvaja bod. Dva boda osvajaju igru.',
+        '2': 'Što god položiš, ostaje meni, bila pobjeda ili poraz. Ali pobijedi u tri igre zaredom i imam nešto posebno.',
+        say: 'Koja su pravila?'
+      },
+      who: {
+        '1': 'Nekad sam bio torbar. Pokazalo se da ljudi radije klade svoje stvari nego da ih prodaju.'
+      },
+      luck: {
+        '1': 'Stalno! Ali kući uvijek odem s novim parom čizama.',
+        say: 'Gubiš li ikad?'
+      },
+      playBack: {
+        '1': 'Dobra igra! Tvoje stvari izgledat će divno na mojoj polici.'
+      },
+      bye: {
+        '1': 'Donesi još krame! Krama mi je najdraža.'
+      }
+    },
+    oakGambler: {
+      hello: {
+        '1': 'Novo lice. Sjedni, ne grizem. Moje cijene malo grizu.',
+        '2': 'Zovu me Svileni Ren. Skupljam fine stvari, igru po igru.'
+      },
+      again: {
+        '1': 'Ah, opet ti. S tobom mi je najdraže igrati. Hoćemo?'
+      },
+      play: {
+        '1': 'Naknadu, molim. Onda položi nešto vrijedno moje pažnje.'
+      },
+      rules: {
+        '1': 'Svatko po jedan predmet, najviše tri puta. Finiji komad uzima bod. Dva boda uzimaju igru.',
+        '2': 'Tvoji komadi ostaju kod mene u svakom slučaju. Pobijedi u tri igre zaredom i otići ćeš s pravim blagom.',
+        say: 'Kako se igra?'
+      },
+      who: {
+        '1': 'Trgujem rijetkostima. Pronalazim ih, čuvam i ponekad koju izgubim.'
+      },
+      collection: {
+        '1': 'Slažem ih po sjaju. Najsjajnije idu na gornju policu, pokraj mojih šalica.',
+        say: 'Što radiš sa svim tim?'
+      },
+      playBack: {
+        '1': 'Divno. Vrati se kad ti torba bude teža.'
+      },
+      bye: {
+        '1': 'Čuvaj kesu vani. Ne igraju svi pošteno.'
+      }
     }
   },
   enemy: {
@@ -3788,5 +3888,39 @@ export default {
       herbs: 'Nemaš dovoljno bilja. Uberi još u divljini.',
       gold: 'Nemaš dovoljno zlata.'
     }
+  },
+  memory: {
+    title: 'Igra pamćenja',
+    lead: 'Pronađi sve parove prije nego što iscuri pijesak i osvoji dvostruki ulog. Pet pobjeda zaredom donosi legendarnu nagradu.',
+    bet: 'Ulog {n}',
+    row: 'Pobjede zaredom: {n} od {max}',
+    pairs: 'Parovi: {n} · {s} s',
+    won: 'Svi parovi pronađeni! Osvajaš {n} zlata.',
+    lost: 'Pijesak je iscurio. Ulog je izgubljen.',
+    again: 'Igraj opet',
+    noGold: 'Nemaš dovoljno zlata za taj ulog.',
+    card: 'Karta {n}'
+  },
+  battle: {
+    title: 'Bitka predmeta',
+    lead: 'Položi predmet protiv protivnikova: bod uzima onaj s višom prodajnom cijenom, dva boda pobjeđuju. Predmete gubiš u svakom slučaju. Tri pobjede zaredom donose epsku nagradu.',
+    fee: 'Sjedni · {n}',
+    row: 'Pobjede zaredom: {n} od {max}',
+    needItems: 'U torbi trebaš barem {n} predmeta koje ne nosiš.',
+    noGold: 'Nemaš dovoljno zlata za naknadu.',
+    theirs: 'Protivnik polaže',
+    pick: 'Odaberi predmet',
+    lay: 'Položi',
+    value: '{n} zlata',
+    score: 'Ti {a} · {b} Protivnik',
+    roundWon: 'Tvoj vrijedi više. Bod za tebe!',
+    roundLost: 'Njegov vrijedi više. Bod za protivnika.',
+    won: 'Igra je tvoja! +{n} ISK',
+    lost: 'Protivnik osvaja igru.',
+    again: 'Igraj opet'
+  },
+  gamble: {
+    prize: 'Nagrada: {item}!',
+    prizeGold: 'Već imaš sve, pa umjesto toga dobivaš {n} zlata!'
   }
 }

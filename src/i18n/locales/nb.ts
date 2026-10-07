@@ -1128,6 +1128,15 @@ export default {
     },
     sbAlchemist: {
       name: 'Odile Bregnefløyte'
+    },
+    sbGambler: {
+      name: 'Madame Pell'
+    },
+    sunfordGambler: {
+      name: 'Dob Kollbøtte'
+    },
+    oakGambler: {
+      name: 'Silkemyke Ren'
     }
   },
   quest: {
@@ -1367,7 +1376,8 @@ export default {
       who: 'Hvem er du, hvis jeg får spørre?',
       rumor: 'Hørt noe nytt?',
       ready: 'Tror du jeg er klar for mer?',
-      brew: 'Kan du brygge noe til meg?'
+      brew: 'Kan du brygge noe til meg?',
+      play: 'Jeg er med.'
     },
     sunfordSmith: {
       hello: {
@@ -3241,6 +3251,96 @@ export default {
       bye: {
         '1': 'Ha det! Ser du en lilla blomst, så plukk to. Én til meg.'
       }
+    },
+    sbGambler: {
+      hello: {
+        '1': 'Kom nærmere! Tolv kort, ett timeglass og en pung som kan bli doblet!',
+        '2': 'Madame Pell. Jeg glemmer aldri et ansikt. La oss se om du aldri glemmer et kort.'
+      },
+      again: {
+        '1': 'Tilbake for en runde til? Sanden har ventet på deg.'
+      },
+      play: {
+        '1': 'Myntene på duken, øynene på kortene. Klar? Snu glasset!'
+      },
+      rules: {
+        '1': 'Snu to kort. Et par blir liggende oppe. Finn alle parene før sanden renner ut, så betaler jeg dobbelt.',
+        '2': 'Vinn igjen, så går glasset fortere. Vinn fem på rad, så gir jeg deg en legendarisk premie.',
+        say: 'Hvordan fungerer det?'
+      },
+      who: {
+        '1': 'Jeg rømte med et omreisende sirkus da jeg var ni. Det viste seg å være en veldig god skole i regning.'
+      },
+      prize: {
+        '1': 'En dverg, én gang. Ingen har sett ham blunke siden.',
+        say: 'Har noen noen gang vunnet premien?'
+      },
+      playBack: {
+        '1': 'Vinn eller tap, det var et godt spill. Kom tilbake når øynene dine er uthvilte.'
+      },
+      bye: {
+        '1': 'Av sted med deg! Husk hvor du setter føttene.'
+      }
+    },
+    sunfordGambler: {
+      hello: {
+        '1': 'Psst. Har du noe skrot i sekken? Gamle støvler, bøyde sverd? Jeg spiller med deg om det.',
+        '2': 'Dob Kollbøtte. Jeg spiller mest for moro skyld. Og for støvler.'
+      },
+      again: {
+        '1': 'Du igjen! Har du mer av det herlige skrotet?'
+      },
+      play: {
+        '1': 'Avgiften på bordet. Legg fram tingene dine, høyeste pris tar poenget.'
+      },
+      rules: {
+        '1': 'Vi legger én gjenstand hver. Den dyreste vinner poenget. To poeng vinner spillet.',
+        '2': 'Det du legger, blir mitt, vinn eller tap. Men vinn tre spill på rad, så har jeg noe spesielt.',
+        say: 'Hva er reglene?'
+      },
+      who: {
+        '1': 'Var kremmer før. Det viste seg at folk heller vil spille om tingene sine enn å selge dem.'
+      },
+      luck: {
+        '1': 'Hele tiden! Men jeg går alltid hjem med et par nye støvler.',
+        say: 'Taper du noen gang?'
+      },
+      playBack: {
+        '1': 'Godt spilt! Tingene dine kommer til å se nydelige ut på hylla mi.'
+      },
+      bye: {
+        '1': 'Ta med mer skrot! Skrot er det beste jeg vet.'
+      }
+    },
+    oakGambler: {
+      hello: {
+        '1': 'En nykommer. Sett deg, jeg biter ikke. Det gjør prisene mine, litt.',
+        '2': 'De kaller meg Silkemyke Ren. Jeg samler fine ting, ett spill av gangen.'
+      },
+      again: {
+        '1': 'Ah, min favorittmotstander. Skal vi?'
+      },
+      play: {
+        '1': 'Avgiften, takk. Legg så fram noe som er verdt tiden min.'
+      },
+      rules: {
+        '1': 'Én gjenstand hver, høyst tre ganger. Det fineste stykket tar poenget. To poeng tar spillet.',
+        '2': 'Tingene dine blir hos meg uansett. Vinn tre spill på rad, så går du herfra med en ekte skatt.',
+        say: 'Hvordan spiller vi?'
+      },
+      who: {
+        '1': 'En handelsmann i sjeldne ting. Jeg finner dem, jeg beholder dem, og nå og da taper jeg en.'
+      },
+      collection: {
+        '1': 'Jeg sorterer det etter glans. De blankeste havner på øverste hylle, ved siden av tekoppene mine.',
+        say: 'Hva gjør du med alt sammen?'
+      },
+      playBack: {
+        '1': 'Herlig. Kom gjerne tilbake når sekken din er tyngre.'
+      },
+      bye: {
+        '1': 'Pass på pungen der ute. Ikke alle spiller ærlig.'
+      }
     }
   },
   enemy: {
@@ -3692,5 +3792,39 @@ export default {
       herbs: 'Ikke nok urter. Plukk flere i villmarken.',
       gold: 'Ikke nok gull.'
     }
+  },
+  memory: {
+    title: 'Hukommelsesboden',
+    lead: 'Finn alle parene før sanden renner ut, og vinn dobbel innsats. Fem seire på rad gir en legendarisk premie.',
+    bet: 'Sats {n}',
+    row: 'Seire på rad: {n} av {max}',
+    pairs: '{n} par · {s} sekunder',
+    won: 'Alle par funnet! Du vinner {n} gull.',
+    lost: 'Sanden rant ut. Innsatsen er borte.',
+    again: 'Spill igjen',
+    noGold: 'Ikke nok gull til den innsatsen.',
+    card: 'Kort {n}'
+  },
+  battle: {
+    title: 'Gjenstandsduell',
+    lead: 'Legg en gjenstand mot gamblerens: høyeste salgspris tar poenget, to poeng vinner. Gjenstandene dine er borte uansett. Tre seire på rad gir en episk premie.',
+    fee: 'Sett deg · {n}',
+    row: 'Seire på rad: {n} av {max}',
+    needItems: 'Du trenger minst {n} gjenstander i sekken som du ikke har på deg.',
+    noGold: 'Ikke nok gull til avgiften.',
+    theirs: 'Gambleren legger',
+    pick: 'Velg en gjenstand å legge',
+    lay: 'Legg den',
+    value: '{n} gull',
+    score: 'Du {a} · {b} Gambler',
+    roundWon: 'Din er verdt mer. Poeng til deg!',
+    roundLost: 'Gamblerens er verdt mer. Poeng til gambleren.',
+    won: 'Du vinner spillet! +{n} XP',
+    lost: 'Gambleren vinner spillet.',
+    again: 'Spill igjen'
+  },
+  gamble: {
+    prize: 'Premie: {item}!',
+    prizeGold: 'Du har alle sammen, så du får {n} gull i stedet!'
   }
 }

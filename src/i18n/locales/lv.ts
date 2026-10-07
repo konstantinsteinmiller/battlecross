@@ -1128,6 +1128,15 @@ export default {
     },
     sbAlchemist: {
       name: 'Odile Papardsvilpe'
+    },
+    sbGambler: {
+      name: 'Madāma Pella'
+    },
+    sunfordGambler: {
+      name: 'Dobs Kūlenis'
+    },
+    oakGambler: {
+      name: 'Zīdainais Rens'
     }
   },
   quest: {
@@ -1368,7 +1377,8 @@ export default {
       rumor: 'Vai dzirdēji kaut ko jaunu?',
       ready: 'Vai tu domā, ka esmu gatavs vairākam?',
       ready__f: 'Vai tu domā, ka esmu gatava vairākam?',
-      brew: 'Vai varētu man kaut ko izvārīt?'
+      brew: 'Vai varētu man kaut ko izvārīt?',
+      play: 'Dali arī man.'
     },
     sunfordSmith: {
       hello: {
@@ -3301,6 +3311,96 @@ export default {
       bye: {
         '1': 'Atā! Ja ieraugi violetu ziedu, noplūc divus. Vienu man.'
       }
+    },
+    sbGambler: {
+      hello: {
+        '1': 'Nāc tuvāk! Divpadsmit kārtis, viens smilšu pulkstenis un maks, kas var divkāršoties!',
+        '2': 'Madāma Pella. Es nekad neaizmirstu seju. Paskatīsimies, vai tu neaizmirsti kārtis.'
+      },
+      again: {
+        '1': 'Atkal uz vēl vienu partiju? Smiltis tevi jau gaida.'
+      },
+      play: {
+        '1': 'Monētas uz auduma, acis uz kārtīm. Sākam? Apgriežu pulksteni!'
+      },
+      rules: {
+        '1': 'Apgriez divas kārtis. Pāris paliek atklāts. Atrodi visus pārus, pirms smiltis izbirst, un es maksāšu divkārt.',
+        '2': 'Uzvari vēlreiz, un pulkstenis kļūs ātrāks. Piecas uzvaras pēc kārtas, un es tev pasniegšu leģendāru balvu.',
+        say: 'Kā tas notiek?'
+      },
+      who: {
+        '1': 'Deviņu gadu vecumā aizbēgu ar ceļojošo cirku. Izrādījās, ka tur ļoti labi prot rēķināt.'
+      },
+      prize: {
+        '1': 'Reiz viens rūķis. Kopš tā laika neviens nav redzējis viņu mirkšķinām.',
+        say: 'Vai kāds kādreiz ir laimējis balvu?'
+      },
+      playBack: {
+        '1': 'Uzvara vai zaudējums, tā bija laba spēle. Nāc atpakaļ, kad acis būs atpūtušās.'
+      },
+      bye: {
+        '1': 'Nu, ej! Un skaties, kur liec kājas.'
+      }
+    },
+    sunfordGambler: {
+      hello: {
+        '1': 'Pst. Tev somā ir kādi grabaži? Veci zābaki, saliekti zobeni? Uzspēlēšu ar tevi uz tiem.',
+        '2': 'Dobs Kūlenis. Spēlēju galvenokārt prieka pēc. Un zābaku dēļ.'
+      },
+      again: {
+        '1': 'Atkal tu! Vai ir vēl tie jaukie grabaži?'
+      },
+      play: {
+        '1': 'Maksu uz galda. Liec mantas, augstākā cena ņem punktu.'
+      },
+      rules: {
+        '1': 'Katrs noliekam pa priekšmetam. Dārgākais iegūst punktu. Divi punkti uzvar spēlē.',
+        '2': 'Ko noliksi, tas ir mans, vai uzvari, vai zaudē. Bet uzvari trīs spēlēs pēc kārtas, un man būs kas īpašs.',
+        say: 'Kādi ir noteikumi?'
+      },
+      who: {
+        '1': 'Agrāk biju ceļojošs tirgotājs. Izrādījās, ka cilvēki labāk liek savas mantas uz spēles, nevis tās pārdod.'
+      },
+      luck: {
+        '1': 'Visu laiku! Bet mājās vienmēr eju ar jaunu zābaku pāri.',
+        say: 'Vai tu kādreiz zaudē?'
+      },
+      playBack: {
+        '1': 'Laba spēle! Tavas mantas izskatīsies brīnišķīgi manā plauktā.'
+      },
+      bye: {
+        '1': 'Nes vēl grabažus! Grabaži ir mani mīļākie.'
+      }
+    },
+    oakGambler: {
+      hello: {
+        '1': 'Jauna seja. Apsēdies, es nekožu. Manas cenas gan mazliet kož.',
+        '2': 'Mani sauc par Zīdaino Renu. Es vācu smalkas lietas, spēli pa spēlei.'
+      },
+      again: {
+        '1': 'Ā, atkal tu. Ar tevi spēlēt ir vispatīkamāk. Sāksim?'
+      },
+      play: {
+        '1': 'Maksu, lūdzu. Tad noliec kaut ko, kas ir manas uzmanības vērts.'
+      },
+      rules: {
+        '1': 'Pa vienam priekšmetam katram, ne vairāk kā trīs reizes. Smalkākā lieta ņem punktu. Divi punkti ņem spēli.',
+        '2': 'Tavas lietas jebkurā gadījumā paliek pie manis. Uzvari trīs spēlēs pēc kārtas, un aiziesi ar īstu dārgumu.',
+        say: 'Kā spēlējam?'
+      },
+      who: {
+        '1': 'Tirgojos ar retām lietām. Es tās atrodu, paturu un ik pa laikam kādu zaudēju.'
+      },
+      collection: {
+        '1': 'Šķiroju pēc spīduma. Spožākās lieku augšējā plauktā, blakus savām tējas tasītēm.',
+        say: 'Ko tu dari ar to visu?'
+      },
+      playBack: {
+        '1': 'Burvīgi. Nāc atpakaļ, kad soma būs smagāka.'
+      },
+      bye: {
+        '1': 'Sargā savu maku. Ne visi spēlē godīgi.'
+      }
     }
   },
   enemy: {
@@ -3757,5 +3857,39 @@ export default {
       herbs: 'Nepietiek zāļu. Saplūc vēl savvaļā.',
       gold: 'Nepietiek zelta.'
     }
+  },
+  memory: {
+    title: 'Atmiņas spēle',
+    lead: 'Atrodi visus pārus, pirms smiltis izbirst, un laimē divkāršu likmi. Piecas uzvaras pēc kārtas pievieno leģendāru balvu.',
+    bet: 'Likme {n}',
+    row: 'Uzvaras pēc kārtas: {n} no {max}',
+    pairs: 'Pāri: {n} · {s} s',
+    won: 'Visi pāri atrasti! Tu laimē {n} zelta.',
+    lost: 'Smiltis izbira. Likme zaudēta.',
+    again: 'Spēlēt vēlreiz',
+    noGold: 'Nepietiek zelta šai likmei.',
+    card: 'Kārts {n}'
+  },
+  battle: {
+    title: 'Priekšmetu kauja',
+    lead: 'Noliec priekšmetu pret pretinieka priekšmetu: punktu iegūst tas, kura pārdošanas cena ir augstāka, divi punkti uzvar. Savus priekšmetus tu zaudē jebkurā gadījumā. Trīs uzvaras pēc kārtas pievieno episku balvu.',
+    fee: 'Piesēsties · {n}',
+    row: 'Uzvaras pēc kārtas: {n} no {max}',
+    needItems: 'Somā vajag vismaz {n} priekšmetus, kas nav uzvilkti.',
+    noGold: 'Nepietiek zelta maksai.',
+    theirs: 'Pretinieks noliek',
+    pick: 'Izvēlies priekšmetu',
+    lay: 'Nolikt',
+    value: '{n} zelta',
+    score: 'Tu {a} · {b} Pretinieks',
+    roundWon: 'Tavējais ir vērtīgāks. Punkts tev!',
+    roundLost: 'Viņējais ir vērtīgāks. Punkts pretiniekam.',
+    won: 'Spēle ir tava! +{n} pieredze',
+    lost: 'Spēlē uzvar pretinieks.',
+    again: 'Spēlēt vēlreiz'
+  },
+  gamble: {
+    prize: 'Balva: {item}!',
+    prizeGold: 'Tev jau ir visi, tāpēc tā vietā saņem {n} zelta!'
   }
 }

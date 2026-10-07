@@ -16,7 +16,7 @@ rewrites it, and a test fails when it is stale. Do not edit by hand.
 
 | Voice | Lines | EN voiced |
 | --- | --- | --- |
-| hero | 148 | 121 |
+| hero | 155 | 145 |
 | sunfordSmith | 19 | 19 |
 | sunfordPeddler | 15 | 15 |
 | trainerAegis | 18 | 18 |
@@ -24,6 +24,7 @@ rewrites it, and a test fails when it is stale. Do not edit by hand.
 | elderMara | 25 | 25 |
 | sunfordHealer | 12 | 12 |
 | goblinTrader | 11 | 11 |
+| sunfordGambler | 10 | 0 |
 | captainHale | 18 | 18 |
 | oakArmorer | 20 | 20 |
 | oakWeapons | 10 | 10 |
@@ -33,6 +34,7 @@ rewrites it, and a test fails when it is stale. Do not edit by hand.
 | blackMarket | 11 | 11 |
 | trainerBlood | 16 | 16 |
 | syndicateBoss | 15 | 15 |
+| oakGambler | 10 | 0 |
 | forgemaster | 23 | 23 |
 | ironWeapons | 10 | 10 |
 | ironAetherWorks | 8 | 8 |
@@ -42,72 +44,66 @@ rewrites it, and a test fails when it is stale. Do not edit by hand.
 | trainerAether | 16 | 16 |
 | ironHealer | 12 | 12 |
 | trainerChrono | 19 | 19 |
-| mayorBrenna | 17 | 0 |
-| sbHealer | 10 | 0 |
+| mayorBrenna | 17 | 17 |
+| sbHealer | 10 | 10 |
 | sbAlchemist | 11 | 0 |
-| sbArmorer | 9 | 0 |
-| sbWeapons | 9 | 0 |
-| sbJeweler | 9 | 0 |
-| sbMasterAegis | 13 | 0 |
-| sbMasterPyro | 12 | 0 |
-| sbMasterShadow | 13 | 0 |
-| sbMasterSovereign | 12 | 0 |
-| sbMasterGeo | 13 | 0 |
-| sbMasterAether | 12 | 0 |
-| sbMasterChrono | 12 | 0 |
-| sbMasterBlood | 13 | 0 |
+| sbGambler | 10 | 0 |
+| sbArmorer | 9 | 9 |
+| sbWeapons | 9 | 9 |
+| sbJeweler | 9 | 9 |
+| sbMasterAegis | 13 | 13 |
+| sbMasterPyro | 12 | 12 |
+| sbMasterShadow | 13 | 13 |
+| sbMasterSovereign | 12 | 12 |
+| sbMasterGeo | 13 | 13 |
+| sbMasterAether | 12 | 12 |
+| sbMasterChrono | 12 | 11 |
+| sbMasterBlood | 13 | 13 |
 | goblinKing | 9 | 9 |
 | warlord | 5 | 5 |
 | oracle | 5 | 5 |
 | dragon | 6 | 6 |
 | archDemon | 5 | 5 |
 | smalltalkSunford | 13 | 13 |
-| townsfolk | 32 | 25 |
+| townsfolk | 32 | 32 |
 | smalltalkOakhaven | 13 | 13 |
 | smalltalkIronhold | 9 | 9 |
-| smalltalkSilverbridge | 10 | 0 |
+| smalltalkSilverbridge | 10 | 9 |
 | smalltalkKids | 6 | 6 |
 | kidFriend | 4 | 4 |
 | frostJarl | 2 | 2 |
-| heroine | 148 | 121 |
-| **All** | **960** | **724** |
+| heroine | 155 | 145 |
+| **All** | **1004** | **941** |
 
-## To do (236)
+## To do (63)
 
 | File | Who | Scene | English | EN |
 | --- | --- | --- | --- | --- |
-| `dlg.mayorBrenna.hello.1` | Mayor Brenna Quill (mayorBrenna) | mayorBrenna | Mind the cart! Sorry, everything on this bridge moves. Welcome to Silverbridge. | **missing** |
-| `dlg.mayorBrenna.hello.2` | Mayor Brenna Quill (mayorBrenna) | mayorBrenna | I'm Mayor Brenna Quill. If it's lost, broken or late, it ends up on my desk. | **missing** |
-| `dlg.mayorBrenna.ending.1` | Mayor Brenna Quill (mayorBrenna) | mayorBrenna | The whole river's talking about you. Trade's never been better. So, thank you. | **missing** |
-| `dlg.mayorBrenna.again.1` | Mayor Brenna Quill (mayorBrenna) | mayorBrenna | Back again? Good. Try not to block the carts. | **missing** |
-| `dlg.mayorBrenna.who.1` | Mayor Brenna Quill (mayorBrenna) | mayorBrenna | Mayor, nine years now. Before that I sold rope. Same job, really. Holding things together. | **missing** |
-| `dlg.mayorBrenna.who.2` | Mayor Brenna Quill (mayorBrenna) | mayorBrenna | The town votes every spring. So far, nobody else wants the desk. | **missing** |
-| `dlg.mayorBrenna.town.say` | The hero (hero) | mayorBrenna | Tell me about Silverbridge. | **missing** |
-| `dlg.mayorBrenna.town.1` | Mayor Brenna Quill (mayorBrenna) | mayorBrenna | The bridge came first. Then a market on it, then houses, then houses on top of those. | **missing** |
-| `dlg.mayorBrenna.town.2` | Mayor Brenna Quill (mayorBrenna) | mayorBrenna | Mind the fountains. Children fall in. So do grown-ups, on market day. | **missing** |
-| `dlg.mayorBrenna.masters.say` | The hero (hero) | mayorBrenna | Is there really a teacher for every class here? | **missing** |
-| `dlg.mayorBrenna.masters.1` | Mayor Brenna Quill (mayorBrenna) | mayorBrenna | Every single one. Shield, fire, shadow, stone. A master of each, all on one bridge. | **missing** |
-| `dlg.mayorBrenna.masters.2` | Mayor Brenna Quill (mayorBrenna) | mayorBrenna | Pupils come from all over. It's good for the inns. Less good for my windows. | **missing** |
-| `dlg.mayorBrenna.river.say` | The hero (hero) | mayorBrenna | What do people trade here? | **missing** |
-| `dlg.mayorBrenna.river.1` | Mayor Brenna Quill (mayorBrenna) | mayorBrenna | Whatever the river brings. Fish, silk, Ironhold steel, the odd crate of angry chickens. | **missing** |
-| `dlg.mayorBrenna.river.2` | Mayor Brenna Quill (mayorBrenna) | mayorBrenna | And not every trader in Silverbridge hangs out a sign. Keep your eyes open. | **missing** |
-| `dlg.mayorBrenna.rumor.crags.1` | Mayor Brenna Quill (mayorBrenna) | mayorBrenna | The boats from the north have stopped. Something's burning up in the Ashen Crags. | **missing** |
-| `dlg.mayorBrenna.rumor.mines.1` | Mayor Brenna Quill (mayorBrenna) | mayorBrenna | No Ironhold steel this month. The dwarves say something's gone wrong in their mines. | **missing** |
-| `dlg.mayorBrenna.rumor.tundra.1` | Mayor Brenna Quill (mayorBrenna) | mayorBrenna | The fur traders won't cross the tundra anymore. They say the giants are on the move. | **missing** |
-| `dlg.mayorBrenna.rumor.far.1` | Mayor Brenna Quill (mayorBrenna) | mayorBrenna | Traders only whisper about the far north now. Whatever's up there, it isn't buying. | **missing** |
-| `dlg.mayorBrenna.bye.1` | Mayor Brenna Quill (mayorBrenna) | mayorBrenna | Off you go. And if anyone asks, the bridge toll is very fair. | **missing** |
-| `dlg.sbHealer.hello.1` | Friar Ansel (sbHealer) | sbHealer | Mm? Oh, a patient. Sorry, I was resting my eyes. Healers do that. | **missing** |
-| `dlg.sbHealer.hello.2` | Friar Ansel (sbHealer) | sbHealer | Friar Ansel. Come in, sit down. The chair's comfier than it looks. | **missing** |
-| `dlg.sbHealer.again.1` | Friar Ansel (sbHealer) | sbHealer | Ah, you're back. And I'd only just sat down. | **missing** |
-| `dlg.sbHealer.heal.1` | Friar Ansel (sbHealer) | sbHealer | Lie back, close your eyes. Not for long, or I'll nod off too. There, flasks full. | **missing** |
-| `dlg.sbHealer.mana.1` | Friar Ansel (sbHealer) | sbHealer | Glowcap tonic. Good for the mind, bad for the breath. Sip it slowly. | **missing** |
-| `dlg.sbHealer.potions.say` | The hero (hero) | sbHealer | Any advice on potions? | **missing** |
-| `dlg.sbHealer.potions.1` | Friar Ansel (sbHealer) | sbHealer | Drink one before you're desperate. Heroes always wait too long. | **missing** |
-| `dlg.sbHealer.potions.2` | Friar Ansel (sbHealer) | sbHealer | If you want to carry more, I sell longer belts. Filling the flasks is free. | **missing** |
-| `dlg.sbHealer.sleep.say` | The hero (hero) | sbHealer | Do you ever actually sleep? | **missing** |
-| `dlg.sbHealer.sleep.1` | Friar Ansel (sbHealer) | sbHealer | Not at night. Pupils from every class, all practising. Something always explodes. | **missing** |
-| `dlg.sbHealer.healBack.1` | Friar Ansel (sbHealer) | sbHealer | Off you go. Next time, come for tea instead of bandages. | **missing** |
-| `dlg.sbHealer.bye.1` | Friar Ansel (sbHealer) | sbHealer | Mind the steps. Half my patients only tripped on them. | **missing** |
+| `dlg.sunfordGambler.hello.1` | Dob Tumbler (sunfordGambler) | sunfordGambler | Psst. Got any junk in that bag? Old boots, bent swords? I'll play you for it. | **missing** |
+| `dlg.sunfordGambler.hello.2` | Dob Tumbler (sunfordGambler) | sunfordGambler | Dob Tumbler. I play for fun, mostly. And for boots. | **missing** |
+| `dlg.sunfordGambler.again.1` | Dob Tumbler (sunfordGambler) | sunfordGambler | You again! Got any more of that lovely junk? | **missing** |
+| `dlg.hero.play` | The hero (hero) | hero | Deal me in. | **missing** |
+| `dlg.sunfordGambler.play.1` | Dob Tumbler (sunfordGambler) | sunfordGambler | Fee on the table. Lay your things down, highest price takes the point. | **missing** |
+| `dlg.sunfordGambler.rules.say` | The hero (hero) | sunfordGambler | What are the rules? | **missing** |
+| `dlg.sunfordGambler.rules.1` | Dob Tumbler (sunfordGambler) | sunfordGambler | We each lay an item. The pricier one wins the point. Two points wins the game. | **missing** |
+| `dlg.sunfordGambler.rules.2` | Dob Tumbler (sunfordGambler) | sunfordGambler | Whatever you lay is mine, win or lose. Win three games in a row, though, and I've got something special. | **missing** |
+| `dlg.sunfordGambler.who.1` | Dob Tumbler (sunfordGambler) | sunfordGambler | Used to be a pedlar. Turns out people would rather bet their stuff than sell it. | **missing** |
+| `dlg.sunfordGambler.luck.say` | The hero (hero) | sunfordGambler | Do you ever lose? | **missing** |
+| `dlg.sunfordGambler.luck.1` | Dob Tumbler (sunfordGambler) | sunfordGambler | All the time! But I always go home with a new pair of boots. | **missing** |
+| `dlg.sunfordGambler.playBack.1` | Dob Tumbler (sunfordGambler) | sunfordGambler | Good game! That stuff of yours will look lovely on my shelf. | **missing** |
+| `dlg.sunfordGambler.bye.1` | Dob Tumbler (sunfordGambler) | sunfordGambler | Bring more junk! Junk is my favourite. | **missing** |
+| `dlg.oakGambler.hello.1` | Silky Ren (oakGambler) | oakGambler | A newcomer. Do sit down, I don't bite. My prices do, a little. | **missing** |
+| `dlg.oakGambler.hello.2` | Silky Ren (oakGambler) | oakGambler | They call me Silky Ren. I collect fine things, one game at a time. | **missing** |
+| `dlg.oakGambler.again.1` | Silky Ren (oakGambler) | oakGambler | Ah, my favourite opponent. Shall we? | **missing** |
+| `dlg.oakGambler.play.1` | Silky Ren (oakGambler) | oakGambler | The fee, please. Then lay something worth my while. | **missing** |
+| `dlg.oakGambler.rules.say` | The hero (hero) | oakGambler | How do we play? | **missing** |
+| `dlg.oakGambler.rules.1` | Silky Ren (oakGambler) | oakGambler | One item each, three times at most. The finer piece takes the point. Two points take the game. | **missing** |
+| `dlg.oakGambler.rules.2` | Silky Ren (oakGambler) | oakGambler | Your pieces stay with me either way. Win three games running and you'll leave with a real treasure. | **missing** |
+| `dlg.oakGambler.who.1` | Silky Ren (oakGambler) | oakGambler | A dealer in rare things. I find them, I keep them, and now and then I lose one. | **missing** |
+| `dlg.oakGambler.collection.say` | The hero (hero) | oakGambler | What do you do with it all? | **missing** |
+| `dlg.oakGambler.collection.1` | Silky Ren (oakGambler) | oakGambler | I sort it by shine. The shiniest go on the top shelf, next to my teacups. | **missing** |
+| `dlg.oakGambler.playBack.1` | Silky Ren (oakGambler) | oakGambler | Delightful. Do come back when your bag is heavier. | **missing** |
+| `dlg.oakGambler.bye.1` | Silky Ren (oakGambler) | oakGambler | Mind your purse out there. Not everyone plays fair. | **missing** |
 | `dlg.sbAlchemist.hello.1` | Odile Fernwhistle (sbAlchemist) | sbAlchemist | Oh! Mind the jars. That one bites. Well, it nibbles. | **missing** |
 | `dlg.sbAlchemist.hello.2` | Odile Fernwhistle (sbAlchemist) | sbAlchemist | Odile Fernwhistle, alchemist. Bring me herbs and I'll bottle you a little courage. | **missing** |
 | `dlg.sbAlchemist.again.1` | Odile Fernwhistle (sbAlchemist) | sbAlchemist | You're back! Did you bring me anything green? | **missing** |
@@ -122,198 +118,32 @@ rewrites it, and a test fails when it is stale. Do not edit by hand.
 | `dlg.sbAlchemist.elixirs.2` | Odile Fernwhistle (sbAlchemist) | sbAlchemist | They sit in your third flask. Tap the little arrow to swap which one you drink. | **missing** |
 | `dlg.sbAlchemist.brewBack.1` | Odile Fernwhistle (sbAlchemist) | sbAlchemist | Careful with those, they're still warm. Come back when your pouch is full! | **missing** |
 | `dlg.sbAlchemist.bye.1` | Odile Fernwhistle (sbAlchemist) | sbAlchemist | Bye now! If you see a purple flower, pick two. One for me. | **missing** |
-| `dlg.sbArmorer.hello.1` | Greta Ironvein (sbArmorer) | sbArmorer | Ha! Look at that dent. I hope you got your money back for that armour. | **missing** |
-| `dlg.sbArmorer.hello.2` | Greta Ironvein (sbArmorer) | sbArmorer | Greta Ironvein. I make armour that comes home with its owner. Every time, so far. | **missing** |
-| `dlg.sbArmorer.again.1` | Greta Ironvein (sbArmorer) | sbArmorer | You again! Still in one piece. My favourite kind of customer. | **missing** |
-| `dlg.sbArmorer.trade.1` | Greta Ironvein (sbArmorer) | sbArmorer | Go on, knock on it. Hard as you like. | **missing** |
-| `dlg.sbArmorer.who.1` | Greta Ironvein (sbArmorer) | sbArmorer | Mountain family. I came downriver for the trade and stayed for the fish. | **missing** |
-| `dlg.sbArmorer.steel.say` | The hero (hero) | sbArmorer | What makes good armour? | **missing** |
-| `dlg.sbArmorer.steel.1` | Greta Ironvein (sbArmorer) | sbArmorer | It's not how thick it is. It's where it bends. Good armour bends where you do. | **missing** |
-| `dlg.sbArmorer.steel.2` | Greta Ironvein (sbArmorer) | sbArmorer | Heavy plate wants Strength, mind. Wear it without and you'll waddle like a duck. | **missing** |
-| `dlg.sbArmorer.shopBack.1` | Greta Ironvein (sbArmorer) | sbArmorer | Wear it well. Bring me the dents, I like a good story. | **missing** |
-| `dlg.sbArmorer.bye.1` | Greta Ironvein (sbArmorer) | sbArmorer | Off you go. Don't get hit anywhere I haven't covered. | **missing** |
-| `dlg.sbWeapons.hello.1` | Corvin Ashby (sbWeapons) | sbWeapons | Ah, a customer with taste. I can always tell. It's in the way you walk in. | **missing** |
-| `dlg.sbWeapons.hello.2` | Corvin Ashby (sbWeapons) | sbWeapons | Corvin Ashby, of Ashby's Fine Blades. Yes, that Ashby. You've heard of me, surely. | **missing** |
-| `dlg.sbWeapons.again.1` | Corvin Ashby (sbWeapons) | sbWeapons | Back already? They always come back to Corvin. | **missing** |
-| `dlg.sbWeapons.trade.1` | Corvin Ashby (sbWeapons) | sbWeapons | Every blade polished by hand. My hand, in fact. Mind the reflection. | **missing** |
-| `dlg.sbWeapons.who.1` | Corvin Ashby (sbWeapons) | sbWeapons | The finest blade seller on the river. Ask anyone. Or just read my sign. | **missing** |
-| `dlg.sbWeapons.blades.say` | The hero (hero) | sbWeapons | How do I pick a good weapon? | **missing** |
-| `dlg.sbWeapons.blades.1` | Corvin Ashby (sbWeapons) | sbWeapons | Pick one that suits you. Quick hands want a light blade, strong arms a heavy one. | **missing** |
-| `dlg.sbWeapons.blades.2` | Corvin Ashby (sbWeapons) | sbWeapons | And it should look good. Nobody runs from a hero with an ugly sword. | **missing** |
-| `dlg.sbWeapons.shopBack.1` | Corvin Ashby (sbWeapons) | sbWeapons | A fine choice. Not quite as fine as my hair, but close. | **missing** |
-| `dlg.sbWeapons.bye.1` | Corvin Ashby (sbWeapons) | sbWeapons | Do tell people where you bought it. | **missing** |
-| `dlg.sbJeweler.hello.1` | Tam Marlow (sbJeweler) | sbJeweler | Psst! Over here! Rings, charms, lucky stones. Best stall on the bridge. | **missing** |
-| `dlg.sbJeweler.hello.2` | Tam Marlow (sbJeweler) | sbJeweler | Name's Tam Marlow. I'm small, but my prices are smaller. | **missing** |
-| `dlg.sbJeweler.again.1` | Tam Marlow (sbJeweler) | sbJeweler | My favourite customer! Don't tell the others I said that. | **missing** |
-| `dlg.sbJeweler.trade.1` | Tam Marlow (sbJeweler) | sbJeweler | All real. Mostly. Fine, that one's glass, but it's very nice glass. | **missing** |
-| `dlg.sbJeweler.who.1` | Tam Marlow (sbJeweler) | sbJeweler | Grew up on this bridge. I know every crack, every cat and every shortcut. | **missing** |
-| `dlg.sbJeweler.gossip.say` | The hero (hero) | sbJeweler | Heard any good gossip? | **missing** |
-| `dlg.sbJeweler.gossip.1` | Tam Marlow (sbJeweler) | sbJeweler | Professor Sprocket blew his eyebrows off again. Third time this month. | **missing** |
-| `dlg.sbJeweler.gossip.2` | Tam Marlow (sbJeweler) | sbJeweler | And the mayor knows about traders who don't hang out a sign. I'm working on it. | **missing** |
-| `dlg.sbJeweler.shopBack.1` | Tam Marlow (sbJeweler) | sbJeweler | Pleasure doing business! Tell your friends. Not the guards. | **missing** |
-| `dlg.sbJeweler.bye.1` | Tam Marlow (sbJeweler) | sbJeweler | See you around! I'll be right here. Probably. | **missing** |
-| `dlg.sbMasterAegis.hello.1` | Dame Helga Stormshield (sbMasterAegis) | sbMasterAegis | Ha! Another young one. Chin up, shoulders back. Shields work better with a smile. | **missing** |
-| `dlg.sbMasterAegis.hello.2` | Dame Helga Stormshield (sbMasterAegis) | sbMasterAegis | Dame Helga Stormshield. I held this bridge once. Now I teach others to hold their ground. | **missing** |
-| `dlg.sbMasterAegis.again.1` | Dame Helga Stormshield (sbMasterAegis) | sbMasterAegis | There you are! Shield up? Good. Smiling? Even better. | **missing** |
-| `dlg.sbMasterAegis.train.1` | Dame Helga Stormshield (sbMasterAegis) | sbMasterAegis | Feet wide. Lean in. When I push, you don't move. Ready? Hup! | **missing** |
-| `dlg.sbMasterAegis.class.say` | The hero (hero) | sbMasterAegis | What does an Aegis Knight really do? | **missing** |
-| `dlg.sbMasterAegis.class.1` | Dame Helga Stormshield (sbMasterAegis) | sbMasterAegis | You stand in front, so the others don't have to. Best job there is. | **missing** |
-| `dlg.sbMasterAegis.class.2` | Dame Helga Stormshield (sbMasterAegis) | sbMasterAegis | Strength to lift the shield. Endurance to keep it up until supper. | **missing** |
-| `dlg.sbMasterAegis.ready.strong.1` | Dame Helga Stormshield (sbMasterAegis) | sbMasterAegis | You're a proper wall now, dear. Take any lesson you like. | **missing** |
-| `dlg.sbMasterAegis.ready.able.1` | Dame Helga Stormshield (sbMasterAegis) | sbMasterAegis | Steady legs! You're ready for the next one. | **missing** |
-| `dlg.sbMasterAegis.ready.weak.1` | Dame Helga Stormshield (sbMasterAegis) | sbMasterAegis | Not yet. One good push and you'd topple. More Strength and Endurance, please. | **missing** |
-| `dlg.sbMasterAegis.bridge.say` | The hero (hero) | sbMasterAegis | You held this bridge? | **missing** |
-| `dlg.sbMasterAegis.bridge.1` | Dame Helga Stormshield (sbMasterAegis) | sbMasterAegis | Forty years ago, against river pirates. Six of us, one gate, a very long night. | **missing** |
-| `dlg.sbMasterAegis.bridge.2` | Dame Helga Stormshield (sbMasterAegis) | sbMasterAegis | We didn't win by hitting hardest. We won by not moving. Remember that. | **missing** |
-| `dlg.sbMasterAegis.trainBack.1` | Dame Helga Stormshield (sbMasterAegis) | sbMasterAegis | Good work! Now eat something. Shields are heavy. | **missing** |
-| `dlg.sbMasterAegis.bye.1` | Dame Helga Stormshield (sbMasterAegis) | sbMasterAegis | Chin up out there! | **missing** |
-| `dlg.sbMasterPyro.hello.1` | Magister Ignatius Vale (sbMasterPyro) | sbMasterPyro | Do come in. Mind the notes, and please don't sneeze near the brazier. | **missing** |
-| `dlg.sbMasterPyro.hello.2` | Magister Ignatius Vale (sbMasterPyro) | sbMasterPyro | Magister Ignatius Vale. I teach fire on a bridge. Plenty of water about, you see. | **missing** |
-| `dlg.sbMasterPyro.again.1` | Magister Ignatius Vale (sbMasterPyro) | sbMasterPyro | Punctual. Excellent. We'll begin where we stopped. | **missing** |
-| `dlg.sbMasterPyro.train.1` | Magister Ignatius Vale (sbMasterPyro) | sbMasterPyro | Observe. A small flame, held still. Big flames are easy. Small ones take skill. | **missing** |
-| `dlg.sbMasterPyro.class.say` | The hero (hero) | sbMasterPyro | What does a pyromancer really do? | **missing** |
-| `dlg.sbMasterPyro.class.1` | Magister Ignatius Vale (sbMasterPyro) | sbMasterPyro | Anyone can start a fire. A pyromancer decides where it goes, and where it stops. | **missing** |
-| `dlg.sbMasterPyro.class.2` | Magister Ignatius Vale (sbMasterPyro) | sbMasterPyro | It all comes from Intelligence. Later, Skill helps, when the fire needs a steady hand. | **missing** |
-| `dlg.sbMasterPyro.ready.strong.1` | Magister Ignatius Vale (sbMasterPyro) | sbMasterPyro | Your control is excellent. I've very little left to correct. Choose freely. | **missing** |
-| `dlg.sbMasterPyro.ready.able.1` | Magister Ignatius Vale (sbMasterPyro) | sbMasterPyro | Adequate. More than adequate, actually. You may have the next lesson. | **missing** |
-| `dlg.sbMasterPyro.ready.weak.1` | Magister Ignatius Vale (sbMasterPyro) | sbMasterPyro | Not yet. Your flame wobbles. A sharper mind, please. More Intelligence. | **missing** |
-| `dlg.sbMasterPyro.sprocket.say` | The hero (hero) | sbMasterPyro | What do you think of Professor Sprocket? | **missing** |
-| `dlg.sbMasterPyro.sprocket.1` | Magister Ignatius Vale (sbMasterPyro) | sbMasterPyro | Brilliant man. Loud, careless and brilliant. I keep a bucket by his door. | **missing** |
-| `dlg.sbMasterPyro.trainBack.1` | Magister Ignatius Vale (sbMasterPyro) | sbMasterPyro | Practise near water. I insist. | **missing** |
-| `dlg.sbMasterPyro.bye.1` | Magister Ignatius Vale (sbMasterPyro) | sbMasterPyro | Good day. Do keep your sleeves rolled up. | **missing** |
-| `dlg.sbMasterShadow.hello.1` | Nyx Halloway (sbMasterShadow) | sbMasterShadow | Looking for me? I've been next to you since the fountain. You walked past me twice. | **missing** |
-| `dlg.sbMasterShadow.hello.2` | Nyx Halloway (sbMasterShadow) | sbMasterShadow | Nyx Halloway. The best place to hide is a crowd, and this is the busiest bridge there is. | **missing** |
-| `dlg.sbMasterShadow.again.1` | Nyx Halloway (sbMasterShadow) | sbMasterShadow | Hi again. I've been here a while. You noticed? No? Good. | **missing** |
-| `dlg.sbMasterShadow.train.1` | Nyx Halloway (sbMasterShadow) | sbMasterShadow | Lesson one: walk like you belong. Nobody looks twice at someone who belongs. | **missing** |
-| `dlg.sbMasterShadow.class.say` | The hero (hero) | sbMasterShadow | What makes a good Shadowblade? | **missing** |
-| `dlg.sbMasterShadow.class.1` | Nyx Halloway (sbMasterShadow) | sbMasterShadow | Never being where they're looking. Slip in, one quick strike, and blend back in. | **missing** |
-| `dlg.sbMasterShadow.class.2` | Nyx Halloway (sbMasterShadow) | sbMasterShadow | Dexterity for quick feet and hands. Skill, so the strike counts. | **missing** |
-| `dlg.sbMasterShadow.ready.strong.1` | Nyx Halloway (sbMasterShadow) | sbMasterShadow | You're properly sneaky now. Take what's left, you've earned it. | **missing** |
-| `dlg.sbMasterShadow.ready.able.1` | Nyx Halloway (sbMasterShadow) | sbMasterShadow | Light on your feet! You're ready for the next trick. | **missing** |
-| `dlg.sbMasterShadow.ready.weak.1` | Nyx Halloway (sbMasterShadow) | sbMasterShadow | Not yet. I can hear you coming from the fountain. More Dexterity. | **missing** |
-| `dlg.sbMasterShadow.past.say` | The hero (hero) | sbMasterShadow | How did you learn all this? | **missing** |
-| `dlg.sbMasterShadow.past.1` | Nyx Halloway (sbMasterShadow) | sbMasterShadow | I used to pick pockets on this very bridge. I was good at it, too. | **missing** |
-| `dlg.sbMasterShadow.past.2` | Nyx Halloway (sbMasterShadow) | sbMasterShadow | Then the mayor caught me and gave me a job, not a cell. Don't tell her I'm grateful. | **missing** |
-| `dlg.sbMasterShadow.trainBack.1` | Nyx Halloway (sbMasterShadow) | sbMasterShadow | Now go and practise. Try not to let me catch you. | **missing** |
-| `dlg.sbMasterShadow.bye.1` | Nyx Halloway (sbMasterShadow) | sbMasterShadow | See you. Well, you won't see me. | **missing** |
-| `dlg.sbMasterSovereign.hello.1` | Lord Percival Ashcombe (sbMasterSovereign) | sbMasterSovereign | Oh! Hello, hello. Do forgive me, I was chatting with my guards. Lovely listeners. | **missing** |
-| `dlg.sbMasterSovereign.hello.2` | Lord Percival Ashcombe (sbMasterSovereign) | sbMasterSovereign | Percival Ashcombe. I could teach in a castle, but you only learn to lead where people are. | **missing** |
-| `dlg.sbMasterSovereign.again.1` | Lord Percival Ashcombe (sbMasterSovereign) | sbMasterSovereign | My dear friend! Shall we carry on? Only if you'd like to, of course. | **missing** |
-| `dlg.sbMasterSovereign.train.1` | Lord Percival Ashcombe (sbMasterSovereign) | sbMasterSovereign | Right then. A good order is clear, kind, and only given once. Like so. | **missing** |
-| `dlg.sbMasterSovereign.class.say` | The hero (hero) | sbMasterSovereign | What is a Grand Sovereign? | **missing** |
-| `dlg.sbMasterSovereign.class.1` | Lord Percival Ashcombe (sbMasterSovereign) | sbMasterSovereign | A leader. Your guards come to your side and fight with you, not just for you. | **missing** |
-| `dlg.sbMasterSovereign.class.2` | Lord Percival Ashcombe (sbMasterSovereign) | sbMasterSovereign | Charisma is everything. People follow those they like. And who remember their names. | **missing** |
-| `dlg.sbMasterSovereign.ready.strong.1` | Lord Percival Ashcombe (sbMasterSovereign) | sbMasterSovereign | Splendid! People would follow you anywhere now. Take all the lessons. | **missing** |
-| `dlg.sbMasterSovereign.ready.able.1` | Lord Percival Ashcombe (sbMasterSovereign) | sbMasterSovereign | Your guards would listen to you. You're ready for the next lesson. | **missing** |
-| `dlg.sbMasterSovereign.ready.weak.1` | Lord Percival Ashcombe (sbMasterSovereign) | sbMasterSovereign | Not quite yet, I'm afraid. A little more Charisma, and they'll come. | **missing** |
-| `dlg.sbMasterSovereign.please.say` | The hero (hero) | sbMasterSovereign | Do you really say please to your guards? | **missing** |
-| `dlg.sbMasterSovereign.please.1` | Lord Percival Ashcombe (sbMasterSovereign) | sbMasterSovereign | Always. Shouting gets you obeyed. Please gets you loyalty, and loyalty lasts longer. | **missing** |
-| `dlg.sbMasterSovereign.trainBack.1` | Lord Percival Ashcombe (sbMasterSovereign) | sbMasterSovereign | Lovely work. Remember to thank them afterwards. | **missing** |
-| `dlg.sbMasterSovereign.bye.1` | Lord Percival Ashcombe (sbMasterSovereign) | sbMasterSovereign | Do take care, and give my regards to everyone. | **missing** |
-| `dlg.sbMasterGeo.hello.1` | Grandmother Tova Deeproot (sbMasterGeo) | sbMasterGeo | Mind the moss, dear, it's had a long week. Now, let's have a look at you. | **missing** |
-| `dlg.sbMasterGeo.hello.2` | Grandmother Tova Deeproot (sbMasterGeo) | sbMasterGeo | Grandmother Tova Deeproot. The river bed here is lovely stone, all the way down. | **missing** |
-| `dlg.sbMasterGeo.again.1` | Grandmother Tova Deeproot (sbMasterGeo) | sbMasterGeo | Back already? Sit, I've just made tea. Stone tea. It's mostly tea. | **missing** |
-| `dlg.sbMasterGeo.train.1` | Grandmother Tova Deeproot (sbMasterGeo) | sbMasterGeo | Hands flat on the ground. Not like that. Like you're patting a sleepy dog. | **missing** |
-| `dlg.sbMasterGeo.class.say` | The hero (hero) | sbMasterGeo | What does a Geomancer do? | **missing** |
-| `dlg.sbMasterGeo.class.1` | Grandmother Tova Deeproot (sbMasterGeo) | sbMasterGeo | We ask the ground for help. A wall when you need one, a spike when someone's rude. | **missing** |
-| `dlg.sbMasterGeo.class.2` | Grandmother Tova Deeproot (sbMasterGeo) | sbMasterGeo | Stone's like a garden. Strength to dig, Intelligence to know where to plant. | **missing** |
-| `dlg.sbMasterGeo.ready.strong.1` | Grandmother Tova Deeproot (sbMasterGeo) | sbMasterGeo | The ground likes you now. Learn whatever you please, dear. | **missing** |
-| `dlg.sbMasterGeo.ready.able.1` | Grandmother Tova Deeproot (sbMasterGeo) | sbMasterGeo | Good roots! You're ready for the next lesson. | **missing** |
-| `dlg.sbMasterGeo.ready.weak.1` | Grandmother Tova Deeproot (sbMasterGeo) | sbMasterGeo | Not yet, love. The stone won't budge for you. More Strength first. | **missing** |
-| `dlg.sbMasterGeo.garden.say` | The hero (hero) | sbMasterGeo | Is that a garden made of stone? | **missing** |
-| `dlg.sbMasterGeo.garden.1` | Grandmother Tova Deeproot (sbMasterGeo) | sbMasterGeo | Forty years of work. Every rock grown by hand. Well, by magic. Mostly by hand. | **missing** |
-| `dlg.sbMasterGeo.garden.2` | Grandmother Tova Deeproot (sbMasterGeo) | sbMasterGeo | Take a pebble on your way out. They make lovely doorstops. | **missing** |
-| `dlg.sbMasterGeo.trainBack.1` | Grandmother Tova Deeproot (sbMasterGeo) | sbMasterGeo | Lovely. Now go and dig something. Gently. | **missing** |
-| `dlg.sbMasterGeo.bye.1` | Grandmother Tova Deeproot (sbMasterGeo) | sbMasterGeo | Off you go. Wrap up warm, it's damp by the river. | **missing** |
-| `dlg.sbMasterAether.hello.1` | Professor Quint Sprocket (sbMasterAether) | sbMasterAether | Welcome, welcome! You're just in time for the demonstration. Cover your ears, please. | **missing** |
-| `dlg.sbMasterAether.hello.2` | Professor Quint Sprocket (sbMasterAether) | sbMasterAether | Professor Quint Sprocket. The river turns my wheels for free. Where else would I teach? | **missing** |
-| `dlg.sbMasterAether.again.1` | Professor Quint Sprocket (sbMasterAether) | sbMasterAether | Ah, my favourite pupil! Today's demonstration is extra loud. | **missing** |
-| `dlg.sbMasterAether.train.1` | Professor Quint Sprocket (sbMasterAether) | sbMasterAether | Observe the blackboard. Now forget the blackboard, and watch the machine. | **missing** |
-| `dlg.sbMasterAether.class.say` | The hero (hero) | sbMasterAether | What does an Aether-Tech actually do? | **missing** |
-| `dlg.sbMasterAether.class.1` | Professor Quint Sprocket (sbMasterAether) | sbMasterAether | We build our way out of trouble. A pistol, a turret, and a heat gauge to keep you honest. | **missing** |
-| `dlg.sbMasterAether.class.2` | Professor Quint Sprocket (sbMasterAether) | sbMasterAether | Skill for the aim, Intelligence for the clever bits. Ideally both. | **missing** |
-| `dlg.sbMasterAether.ready.strong.1` | Professor Quint Sprocket (sbMasterAether) | sbMasterAether | Marvellous! You could give my lectures. Please don't, though. Take the rest. | **missing** |
-| `dlg.sbMasterAether.ready.able.1` | Professor Quint Sprocket (sbMasterAether) | sbMasterAether | A steady hand! You're ready for the next machine. | **missing** |
-| `dlg.sbMasterAether.ready.weak.1` | Professor Quint Sprocket (sbMasterAether) | sbMasterAether | Not yet. Your aim drifts. More Skill, then we'll talk. | **missing** |
-| `dlg.sbMasterAether.eyebrows.say` | The hero (hero) | sbMasterAether | What happened to your eyebrows? | **missing** |
-| `dlg.sbMasterAether.eyebrows.1` | Professor Quint Sprocket (sbMasterAether) | sbMasterAether | A demonstration went slightly too well. They'll grow back. They always do. | **missing** |
-| `dlg.sbMasterAether.trainBack.1` | Professor Quint Sprocket (sbMasterAether) | sbMasterAether | Splendid. Now go and vent that heat. Outside, ideally. | **missing** |
-| `dlg.sbMasterAether.bye.1` | Professor Quint Sprocket (sbMasterAether) | sbMasterAether | Class dismissed! Do mind the steps. | **missing** |
-| `dlg.sbMasterChrono.hello.1` | Clockwarden Selwyn (sbMasterChrono) | sbMasterChrono | My old pupil, the Keeper of Hours, wrote that you'd come. At this very minute, in fact. | **missing** |
-| `dlg.sbMasterChrono.hello.2` | Clockwarden Selwyn (sbMasterChrono) | sbMasterChrono | Clockwarden Selwyn. I keep the bridge clock. A town this busy can't afford to be late. | **missing** |
+| `dlg.sbGambler.hello.1` | Madame Pell (sbGambler) | sbGambler | Step right up! Twelve cards, one hourglass, and a purse that could double! | **missing** |
+| `dlg.sbGambler.hello.2` | Madame Pell (sbGambler) | sbGambler | Madame Pell. I never forget a face. Let's see if you never forget a card. | **missing** |
+| `dlg.sbGambler.again.1` | Madame Pell (sbGambler) | sbGambler | Back for another round? The sand's been waiting for you. | **missing** |
+| `dlg.sbGambler.play.1` | Madame Pell (sbGambler) | sbGambler | Coins on the cloth, eyes on the cards. Ready? Turn the glass! | **missing** |
+| `dlg.sbGambler.rules.say` | The hero (hero) | sbGambler | How does it work? | **missing** |
+| `dlg.sbGambler.rules.1` | Madame Pell (sbGambler) | sbGambler | Turn two cards. A pair stays up. Find every pair before the sand runs out and I pay double. | **missing** |
+| `dlg.sbGambler.rules.2` | Madame Pell (sbGambler) | sbGambler | Win again and the glass gets quicker. Win five in a row and I'll hand you a legendary prize. | **missing** |
+| `dlg.sbGambler.who.1` | Madame Pell (sbGambler) | sbGambler | I ran away with the travelling circus at nine. It turned out to be very good at maths. | **missing** |
+| `dlg.sbGambler.prize.say` | The hero (hero) | sbGambler | Has anyone ever won the prize? | **missing** |
+| `dlg.sbGambler.prize.1` | Madame Pell (sbGambler) | sbGambler | A dwarf, once. Nobody has seen him blink since. | **missing** |
+| `dlg.sbGambler.playBack.1` | Madame Pell (sbGambler) | sbGambler | Win or lose, that was a good game. Come back when your eyes are rested. | **missing** |
+| `dlg.sbGambler.bye.1` | Madame Pell (sbGambler) | sbGambler | Off you go! Remember where you put your feet. | **missing** |
 | `dlg.sbMasterChrono.again.1` | Clockwarden Selwyn (sbMasterChrono) | sbMasterChrono | Seven minutes past. A good time to begin. | **missing** |
-| `dlg.sbMasterChrono.train.1` | Clockwarden Selwyn (sbMasterChrono) | sbMasterChrono | Count with me. One, two, and hold. Time stretches, if you hold it right. | **missing** |
-| `dlg.sbMasterChrono.class.say` | The hero (hero) | sbMasterChrono | What is a Chrono-Weaver? | **missing** |
-| `dlg.sbMasterChrono.class.1` | Clockwarden Selwyn (sbMasterChrono) | sbMasterChrono | We tidy up time. Slow a foe down, hurry a friend along, undo the odd mistake. | **missing** |
-| `dlg.sbMasterChrono.class.2` | Clockwarden Selwyn (sbMasterChrono) | sbMasterChrono | Intelligence to understand it. Skill to touch it without breaking anything. | **missing** |
-| `dlg.sbMasterChrono.ready.strong.1` | Clockwarden Selwyn (sbMasterChrono) | sbMasterChrono | Excellent timing. Take the rest of my lessons whenever it suits you. | **missing** |
-| `dlg.sbMasterChrono.ready.able.1` | Clockwarden Selwyn (sbMasterChrono) | sbMasterChrono | You're ready. The next lesson starts, oh, now. | **missing** |
-| `dlg.sbMasterChrono.ready.weak.1` | Clockwarden Selwyn (sbMasterChrono) | sbMasterChrono | Not yet. You're always a beat behind. More Intelligence, and more Skill. | **missing** |
-| `dlg.sbMasterChrono.keeper.say` | The hero (hero) | sbMasterChrono | How do you know the Keeper of Hours? | **missing** |
-| `dlg.sbMasterChrono.keeper.1` | Clockwarden Selwyn (sbMasterChrono) | sbMasterChrono | I taught him, years ago. A brilliant pupil. Always early or late, never on time. | **missing** |
-| `dlg.sbMasterChrono.trainBack.1` | Clockwarden Selwyn (sbMasterChrono) | sbMasterChrono | Practise every day. Same time each day, if you please. | **missing** |
-| `dlg.sbMasterChrono.bye.1` | Clockwarden Selwyn (sbMasterChrono) | sbMasterChrono | Off you go. Don't be late. | **missing** |
-| `dlg.sbMasterBlood.hello.1` | Vesper Crimsonleaf (sbMasterBlood) | sbMasterBlood | Doctor Sangrel wrote to me about you. He says you didn't faint. High praise, from him. | **missing** |
-| `dlg.sbMasterBlood.hello.2` | Vesper Crimsonleaf (sbMasterBlood) | sbMasterBlood | Vesper Crimsonleaf. Every herb in the world floats past this bridge. I'm spoiled here. | **missing** |
-| `dlg.sbMasterBlood.again.1` | Vesper Crimsonleaf (sbMasterBlood) | sbMasterBlood | Welcome back. You look lively today. I can always tell. | **missing** |
-| `dlg.sbMasterBlood.train.1` | Vesper Crimsonleaf (sbMasterBlood) | sbMasterBlood | Breathe in. Feel your strength? Now spend a little of it. Wisely. | **missing** |
-| `dlg.sbMasterBlood.class.say` | The hero (hero) | sbMasterBlood | What is a Blood Alchemist, really? | **missing** |
-| `dlg.sbMasterBlood.class.1` | Vesper Crimsonleaf (sbMasterBlood) | sbMasterBlood | We spend our own life force for power, then take it back from our foes. | **missing** |
-| `dlg.sbMasterBlood.class.2` | Vesper Crimsonleaf (sbMasterBlood) | sbMasterBlood | Endurance is your purse. Intelligence decides how well you spend it. | **missing** |
-| `dlg.sbMasterBlood.ready.strong.1` | Vesper Crimsonleaf (sbMasterBlood) | sbMasterBlood | Such vitality! You're ready for nearly everything I know. | **missing** |
-| `dlg.sbMasterBlood.ready.able.1` | Vesper Crimsonleaf (sbMasterBlood) | sbMasterBlood | Your essence runs strong. On to the next lesson. | **missing** |
-| `dlg.sbMasterBlood.ready.weak.1` | Vesper Crimsonleaf (sbMasterBlood) | sbMasterBlood | Not yet. You'd tire after one spell. Build up your Endurance first. | **missing** |
-| `dlg.sbMasterBlood.herbs.say` | The hero (hero) | sbMasterBlood | What are all these herbs for? | **missing** |
-| `dlg.sbMasterBlood.herbs.1` | Vesper Crimsonleaf (sbMasterBlood) | sbMasterBlood | Tonics, mostly. A little essence, a lot of mint. Mint makes everything better. | **missing** |
-| `dlg.sbMasterBlood.herbs.2` | Vesper Crimsonleaf (sbMasterBlood) | sbMasterBlood | If you find rare plants out there, do bring them by. I'd love a look. | **missing** |
-| `dlg.sbMasterBlood.trainBack.1` | Vesper Crimsonleaf (sbMasterBlood) | sbMasterBlood | Rest after practice. Essence comes back, but it likes a nap. | **missing** |
-| `dlg.sbMasterBlood.bye.1` | Vesper Crimsonleaf (sbMasterBlood) | sbMasterBlood | Look after yourself. Drink water. Eat something green. | **missing** |
-| `dlg.smalltalkSilverbridge.barges.1` | Townsfolk (smalltalkSilverbridge) | smalltalkSilverbridge | Three barges in from the coast this morning. | **missing** |
-| `dlg.smalltalkSilverbridge.barges.2` | Townsfolk (townsfolk) | smalltalkSilverbridge | Salt fish again? | **missing** |
-| `dlg.smalltalkSilverbridge.barges.3` | Townsfolk (smalltalkSilverbridge) | smalltalkSilverbridge | Silk, for once. Smell your fingers after, though. | **missing** |
-| `dlg.smalltalkSilverbridge.lesson.1` | Townsfolk (smalltalkSilverbridge) | smalltalkSilverbridge | How was your lesson? | **missing** |
-| `dlg.smalltalkSilverbridge.lesson.2` | Townsfolk (townsfolk) | smalltalkSilverbridge | I set my sleeve on fire. The master says that's progress. | **missing** |
-| `dlg.smalltalkSilverbridge.masters.1` | Townsfolk (smalltalkSilverbridge) | smalltalkSilverbridge | Every master in the land teaches on one street. | **missing** |
-| `dlg.smalltalkSilverbridge.masters.2` | Townsfolk (townsfolk) | smalltalkSilverbridge | And every one of them says theirs is the best class. | **missing** |
-| `dlg.smalltalkSilverbridge.masters.3` | Townsfolk (smalltalkSilverbridge) | smalltalkSilverbridge | They're all right, which is the annoying part. | **missing** |
-| `dlg.smalltalkSilverbridge.bridge.1` | Townsfolk (smalltalkSilverbridge) | smalltalkSilverbridge | They say the bridge is older than the town. | **missing** |
-| `dlg.smalltalkSilverbridge.bridge.2` | Townsfolk (townsfolk) | smalltalkSilverbridge | It certainly creaks like it. | **missing** |
-| `dlg.smalltalkSilverbridge.fish.1` | Townsfolk (smalltalkSilverbridge) | smalltalkSilverbridge | Caught anything? | **missing** |
-| `dlg.smalltalkSilverbridge.fish.2` | Townsfolk (townsfolk) | smalltalkSilverbridge | A boot. | **missing** |
-| `dlg.smalltalkSilverbridge.fish.3` | Townsfolk (smalltalkSilverbridge) | smalltalkSilverbridge | Well, that's half a pair. | **missing** |
-| `dlg.smalltalkSilverbridge.newMaster.1` | Townsfolk (smalltalkSilverbridge) | smalltalkSilverbridge | A new master moved in up the street. Talks about time a lot. | **missing** |
-| `dlg.smalltalkSilverbridge.newMaster.2` | Townsfolk (townsfolk) | smalltalkSilverbridge | Late for every lesson, I bet. | **missing** |
-| `dlg.smalltalkSilverbridge.siege.1` | Townsfolk (smalltalkSilverbridge) | smalltalkSilverbridge | Word from Oakhaven is bad. Bandits at the walls. | **missing** |
-| `dlg.smalltalkSilverbridge.siege.2` | Townsfolk (townsfolk) | smalltalkSilverbridge | Then the barges will come here instead. Poor souls. | **missing** |
-| `dlg.mayorBrenna.town.say__f` | The girl hero (heroine) | mayorBrenna | Tell me about Silverbridge. | **missing** |
-| `dlg.mayorBrenna.masters.say__f` | The girl hero (heroine) | mayorBrenna | Is there really a teacher for every class here? | **missing** |
-| `dlg.mayorBrenna.river.say__f` | The girl hero (heroine) | mayorBrenna | What do people trade here? | **missing** |
-| `dlg.sbHealer.potions.say__f` | The girl hero (heroine) | sbHealer | Any advice on potions? | **missing** |
-| `dlg.sbHealer.sleep.say__f` | The girl hero (heroine) | sbHealer | Do you ever actually sleep? | **missing** |
+| `dlg.smalltalkSilverbridge.newMaster.1` | Townsfolk (smalltalkSilverbridge) | smalltalkSilverbridge | A new master moved in up the street. Talks about time a lot. | **stale** |
+| `dlg.hero.play__f` | The girl hero (heroine) | hero | Deal me in. | **missing** |
+| `dlg.sunfordGambler.rules.say__f` | The girl hero (heroine) | sunfordGambler | What are the rules? | **missing** |
+| `dlg.sunfordGambler.luck.say__f` | The girl hero (heroine) | sunfordGambler | Do you ever lose? | **missing** |
+| `dlg.oakGambler.rules.say__f` | The girl hero (heroine) | oakGambler | How do we play? | **missing** |
+| `dlg.oakGambler.collection.say__f` | The girl hero (heroine) | oakGambler | What do you do with it all? | **missing** |
 | `dlg.hero.brew__f` | The girl hero (heroine) | hero | Could you brew me something? | **missing** |
 | `dlg.sbAlchemist.herbs.say__f` | The girl hero (heroine) | sbAlchemist | Where do I find herbs? | **missing** |
 | `dlg.sbAlchemist.elixirs.say__f` | The girl hero (heroine) | sbAlchemist | What do the elixirs do? | **missing** |
-| `dlg.sbArmorer.steel.say__f` | The girl hero (heroine) | sbArmorer | What makes good armour? | **missing** |
-| `dlg.sbWeapons.blades.say__f` | The girl hero (heroine) | sbWeapons | How do I pick a good weapon? | **missing** |
-| `dlg.sbJeweler.gossip.say__f` | The girl hero (heroine) | sbJeweler | Heard any good gossip? | **missing** |
-| `dlg.sbMasterAegis.class.say__f` | The girl hero (heroine) | sbMasterAegis | What does an Aegis Knight really do? | **missing** |
-| `dlg.sbMasterAegis.bridge.say__f` | The girl hero (heroine) | sbMasterAegis | You held this bridge? | **missing** |
-| `dlg.sbMasterPyro.class.say__f` | The girl hero (heroine) | sbMasterPyro | What does a pyromancer really do? | **missing** |
-| `dlg.sbMasterPyro.sprocket.say__f` | The girl hero (heroine) | sbMasterPyro | What do you think of Professor Sprocket? | **missing** |
-| `dlg.sbMasterShadow.class.say__f` | The girl hero (heroine) | sbMasterShadow | What makes a good Shadowblade? | **missing** |
-| `dlg.sbMasterShadow.past.say__f` | The girl hero (heroine) | sbMasterShadow | How did you learn all this? | **missing** |
-| `dlg.sbMasterSovereign.class.say__f` | The girl hero (heroine) | sbMasterSovereign | What is a Grand Sovereign? | **missing** |
-| `dlg.sbMasterSovereign.please.say__f` | The girl hero (heroine) | sbMasterSovereign | Do you really say please to your guards? | **missing** |
-| `dlg.sbMasterGeo.class.say__f` | The girl hero (heroine) | sbMasterGeo | What does a Geomancer do? | **missing** |
-| `dlg.sbMasterGeo.garden.say__f` | The girl hero (heroine) | sbMasterGeo | Is that a garden made of stone? | **missing** |
-| `dlg.sbMasterAether.class.say__f` | The girl hero (heroine) | sbMasterAether | What does an Aether-Tech actually do? | **missing** |
-| `dlg.sbMasterAether.eyebrows.say__f` | The girl hero (heroine) | sbMasterAether | What happened to your eyebrows? | **missing** |
-| `dlg.sbMasterChrono.class.say__f` | The girl hero (heroine) | sbMasterChrono | What is a Chrono-Weaver? | **missing** |
-| `dlg.sbMasterChrono.keeper.say__f` | The girl hero (heroine) | sbMasterChrono | How do you know the Keeper of Hours? | **missing** |
-| `dlg.sbMasterBlood.class.say__f` | The girl hero (heroine) | sbMasterBlood | What is a Blood Alchemist, really? | **missing** |
-| `dlg.sbMasterBlood.herbs.say__f` | The girl hero (heroine) | sbMasterBlood | What are all these herbs for? | **missing** |
+| `dlg.sbGambler.rules.say__f` | The girl hero (heroine) | sbGambler | How does it work? | **missing** |
+| `dlg.sbGambler.prize.say__f` | The girl hero (heroine) | sbGambler | Has anyone ever won the prize? | **missing** |
 
-## Every line (960)
+## Every line (1004)
 
 | File | Who | Scene | English | EN |
 | --- | --- | --- | --- | --- |
@@ -456,6 +286,19 @@ rewrites it, and a test fails when it is stale. Do not edit by hand.
 | `dlg.goblinTrader.rumor.deep.1` | Grik the Trader (goblinTrader) | goblinTrader | Something is waking in the deep places. Goblins feel it in the ground. | chatterbox |
 | `dlg.goblinTrader.shopBack.1` | Grik the Trader (goblinTrader) | goblinTrader | Thank you. Come again. | chatterbox |
 | `dlg.goblinTrader.bye.1` | Grik the Trader (goblinTrader) | goblinTrader | Go safely, friend. | chatterbox |
+| `dlg.sunfordGambler.hello.1` | Dob Tumbler (sunfordGambler) | sunfordGambler | Psst. Got any junk in that bag? Old boots, bent swords? I'll play you for it. | **missing** |
+| `dlg.sunfordGambler.hello.2` | Dob Tumbler (sunfordGambler) | sunfordGambler | Dob Tumbler. I play for fun, mostly. And for boots. | **missing** |
+| `dlg.sunfordGambler.again.1` | Dob Tumbler (sunfordGambler) | sunfordGambler | You again! Got any more of that lovely junk? | **missing** |
+| `dlg.hero.play` | The hero (hero) | hero | Deal me in. | **missing** |
+| `dlg.sunfordGambler.play.1` | Dob Tumbler (sunfordGambler) | sunfordGambler | Fee on the table. Lay your things down, highest price takes the point. | **missing** |
+| `dlg.sunfordGambler.rules.say` | The hero (hero) | sunfordGambler | What are the rules? | **missing** |
+| `dlg.sunfordGambler.rules.1` | Dob Tumbler (sunfordGambler) | sunfordGambler | We each lay an item. The pricier one wins the point. Two points wins the game. | **missing** |
+| `dlg.sunfordGambler.rules.2` | Dob Tumbler (sunfordGambler) | sunfordGambler | Whatever you lay is mine, win or lose. Win three games in a row, though, and I've got something special. | **missing** |
+| `dlg.sunfordGambler.who.1` | Dob Tumbler (sunfordGambler) | sunfordGambler | Used to be a pedlar. Turns out people would rather bet their stuff than sell it. | **missing** |
+| `dlg.sunfordGambler.luck.say` | The hero (hero) | sunfordGambler | Do you ever lose? | **missing** |
+| `dlg.sunfordGambler.luck.1` | Dob Tumbler (sunfordGambler) | sunfordGambler | All the time! But I always go home with a new pair of boots. | **missing** |
+| `dlg.sunfordGambler.playBack.1` | Dob Tumbler (sunfordGambler) | sunfordGambler | Good game! That stuff of yours will look lovely on my shelf. | **missing** |
+| `dlg.sunfordGambler.bye.1` | Dob Tumbler (sunfordGambler) | sunfordGambler | Bring more junk! Junk is my favourite. | **missing** |
 | `dlg.captainHale.hello.1` | Captain Hale (captainHale) | captainHale | Another sword. Good. We need every one we can get. | chatterbox |
 | `dlg.captainHale.hello.2` | Captain Hale (captainHale) | captainHale | Captain Hale. I command what's left of Oakhaven's watch. | chatterbox |
 | `dlg.captainHale.saved.1` | Captain Hale (captainHale) | captainHale | The gate held. Three hundred years, and one more. I owe you for that. | chatterbox |
@@ -605,6 +448,18 @@ rewrites it, and a test fails when it is stale. Do not edit by hand.
 | `dlg.syndicateBoss.rumor.sold.1` | Madam Ash (syndicateBoss) | syndicateBoss | The core arrived safely. You'd be amazed what it does to a lock. | chatterbox |
 | `dlg.syndicateBoss.rumor.north.1` | Madam Ash (syndicateBoss) | syndicateBoss | Everything worth having has moved north. So have we. | chatterbox |
 | `dlg.syndicateBoss.bye.1` | Madam Ash (syndicateBoss) | syndicateBoss | Don't be a stranger. We keep an eye on strangers. | chatterbox |
+| `dlg.oakGambler.hello.1` | Silky Ren (oakGambler) | oakGambler | A newcomer. Do sit down, I don't bite. My prices do, a little. | **missing** |
+| `dlg.oakGambler.hello.2` | Silky Ren (oakGambler) | oakGambler | They call me Silky Ren. I collect fine things, one game at a time. | **missing** |
+| `dlg.oakGambler.again.1` | Silky Ren (oakGambler) | oakGambler | Ah, my favourite opponent. Shall we? | **missing** |
+| `dlg.oakGambler.play.1` | Silky Ren (oakGambler) | oakGambler | The fee, please. Then lay something worth my while. | **missing** |
+| `dlg.oakGambler.rules.say` | The hero (hero) | oakGambler | How do we play? | **missing** |
+| `dlg.oakGambler.rules.1` | Silky Ren (oakGambler) | oakGambler | One item each, three times at most. The finer piece takes the point. Two points take the game. | **missing** |
+| `dlg.oakGambler.rules.2` | Silky Ren (oakGambler) | oakGambler | Your pieces stay with me either way. Win three games running and you'll leave with a real treasure. | **missing** |
+| `dlg.oakGambler.who.1` | Silky Ren (oakGambler) | oakGambler | A dealer in rare things. I find them, I keep them, and now and then I lose one. | **missing** |
+| `dlg.oakGambler.collection.say` | The hero (hero) | oakGambler | What do you do with it all? | **missing** |
+| `dlg.oakGambler.collection.1` | Silky Ren (oakGambler) | oakGambler | I sort it by shine. The shiniest go on the top shelf, next to my teacups. | **missing** |
+| `dlg.oakGambler.playBack.1` | Silky Ren (oakGambler) | oakGambler | Delightful. Do come back when your bag is heavier. | **missing** |
+| `dlg.oakGambler.bye.1` | Silky Ren (oakGambler) | oakGambler | Mind your purse out there. Not everyone plays fair. | **missing** |
 | `dlg.forgemaster.hello.1` | Forgemaster Dorn (forgemaster) | forgemaster | You came up through the mines. I can smell the dust on you. | chatterbox |
 | `dlg.forgemaster.hello.2` | Forgemaster Dorn (forgemaster) | forgemaster | Dorn. Forgemaster of Ironhold. And I've got a problem the size of a mountain. | chatterbox |
 | `dlg.forgemaster.destroyed.1` | Forgemaster Dorn (forgemaster) | forgemaster | The light's out and the golems are scrap. My miners sang last night. First time in a year. | chatterbox |
@@ -751,38 +606,38 @@ rewrites it, and a test fails when it is stale. Do not edit by hand.
 | `dlg.trainerChrono.oracle.waits.1` | The Keeper of Hours (trainerChrono) | trainerChrono | She sees every ending. It's a heavy thing to carry. Be kind to her. | chatterbox |
 | `dlg.trainerChrono.trainBack.1` | The Keeper of Hours (trainerChrono) | trainerChrono | It'll make sense later. It usually does. | chatterbox |
 | `dlg.trainerChrono.bye.1` | The Keeper of Hours (trainerChrono) | trainerChrono | Until we meet again. Or before. | chatterbox |
-| `dlg.mayorBrenna.hello.1` | Mayor Brenna Quill (mayorBrenna) | mayorBrenna | Mind the cart! Sorry, everything on this bridge moves. Welcome to Silverbridge. | **missing** |
-| `dlg.mayorBrenna.hello.2` | Mayor Brenna Quill (mayorBrenna) | mayorBrenna | I'm Mayor Brenna Quill. If it's lost, broken or late, it ends up on my desk. | **missing** |
-| `dlg.mayorBrenna.ending.1` | Mayor Brenna Quill (mayorBrenna) | mayorBrenna | The whole river's talking about you. Trade's never been better. So, thank you. | **missing** |
-| `dlg.mayorBrenna.again.1` | Mayor Brenna Quill (mayorBrenna) | mayorBrenna | Back again? Good. Try not to block the carts. | **missing** |
-| `dlg.mayorBrenna.who.1` | Mayor Brenna Quill (mayorBrenna) | mayorBrenna | Mayor, nine years now. Before that I sold rope. Same job, really. Holding things together. | **missing** |
-| `dlg.mayorBrenna.who.2` | Mayor Brenna Quill (mayorBrenna) | mayorBrenna | The town votes every spring. So far, nobody else wants the desk. | **missing** |
-| `dlg.mayorBrenna.town.say` | The hero (hero) | mayorBrenna | Tell me about Silverbridge. | **missing** |
-| `dlg.mayorBrenna.town.1` | Mayor Brenna Quill (mayorBrenna) | mayorBrenna | The bridge came first. Then a market on it, then houses, then houses on top of those. | **missing** |
-| `dlg.mayorBrenna.town.2` | Mayor Brenna Quill (mayorBrenna) | mayorBrenna | Mind the fountains. Children fall in. So do grown-ups, on market day. | **missing** |
-| `dlg.mayorBrenna.masters.say` | The hero (hero) | mayorBrenna | Is there really a teacher for every class here? | **missing** |
-| `dlg.mayorBrenna.masters.1` | Mayor Brenna Quill (mayorBrenna) | mayorBrenna | Every single one. Shield, fire, shadow, stone. A master of each, all on one bridge. | **missing** |
-| `dlg.mayorBrenna.masters.2` | Mayor Brenna Quill (mayorBrenna) | mayorBrenna | Pupils come from all over. It's good for the inns. Less good for my windows. | **missing** |
-| `dlg.mayorBrenna.river.say` | The hero (hero) | mayorBrenna | What do people trade here? | **missing** |
-| `dlg.mayorBrenna.river.1` | Mayor Brenna Quill (mayorBrenna) | mayorBrenna | Whatever the river brings. Fish, silk, Ironhold steel, the odd crate of angry chickens. | **missing** |
-| `dlg.mayorBrenna.river.2` | Mayor Brenna Quill (mayorBrenna) | mayorBrenna | And not every trader in Silverbridge hangs out a sign. Keep your eyes open. | **missing** |
-| `dlg.mayorBrenna.rumor.crags.1` | Mayor Brenna Quill (mayorBrenna) | mayorBrenna | The boats from the north have stopped. Something's burning up in the Ashen Crags. | **missing** |
-| `dlg.mayorBrenna.rumor.mines.1` | Mayor Brenna Quill (mayorBrenna) | mayorBrenna | No Ironhold steel this month. The dwarves say something's gone wrong in their mines. | **missing** |
-| `dlg.mayorBrenna.rumor.tundra.1` | Mayor Brenna Quill (mayorBrenna) | mayorBrenna | The fur traders won't cross the tundra anymore. They say the giants are on the move. | **missing** |
-| `dlg.mayorBrenna.rumor.far.1` | Mayor Brenna Quill (mayorBrenna) | mayorBrenna | Traders only whisper about the far north now. Whatever's up there, it isn't buying. | **missing** |
-| `dlg.mayorBrenna.bye.1` | Mayor Brenna Quill (mayorBrenna) | mayorBrenna | Off you go. And if anyone asks, the bridge toll is very fair. | **missing** |
-| `dlg.sbHealer.hello.1` | Friar Ansel (sbHealer) | sbHealer | Mm? Oh, a patient. Sorry, I was resting my eyes. Healers do that. | **missing** |
-| `dlg.sbHealer.hello.2` | Friar Ansel (sbHealer) | sbHealer | Friar Ansel. Come in, sit down. The chair's comfier than it looks. | **missing** |
-| `dlg.sbHealer.again.1` | Friar Ansel (sbHealer) | sbHealer | Ah, you're back. And I'd only just sat down. | **missing** |
-| `dlg.sbHealer.heal.1` | Friar Ansel (sbHealer) | sbHealer | Lie back, close your eyes. Not for long, or I'll nod off too. There, flasks full. | **missing** |
-| `dlg.sbHealer.mana.1` | Friar Ansel (sbHealer) | sbHealer | Glowcap tonic. Good for the mind, bad for the breath. Sip it slowly. | **missing** |
-| `dlg.sbHealer.potions.say` | The hero (hero) | sbHealer | Any advice on potions? | **missing** |
-| `dlg.sbHealer.potions.1` | Friar Ansel (sbHealer) | sbHealer | Drink one before you're desperate. Heroes always wait too long. | **missing** |
-| `dlg.sbHealer.potions.2` | Friar Ansel (sbHealer) | sbHealer | If you want to carry more, I sell longer belts. Filling the flasks is free. | **missing** |
-| `dlg.sbHealer.sleep.say` | The hero (hero) | sbHealer | Do you ever actually sleep? | **missing** |
-| `dlg.sbHealer.sleep.1` | Friar Ansel (sbHealer) | sbHealer | Not at night. Pupils from every class, all practising. Something always explodes. | **missing** |
-| `dlg.sbHealer.healBack.1` | Friar Ansel (sbHealer) | sbHealer | Off you go. Next time, come for tea instead of bandages. | **missing** |
-| `dlg.sbHealer.bye.1` | Friar Ansel (sbHealer) | sbHealer | Mind the steps. Half my patients only tripped on them. | **missing** |
+| `dlg.mayorBrenna.hello.1` | Mayor Brenna Quill (mayorBrenna) | mayorBrenna | Mind the cart! Sorry, everything on this bridge moves. Welcome to Silverbridge. | chatterbox |
+| `dlg.mayorBrenna.hello.2` | Mayor Brenna Quill (mayorBrenna) | mayorBrenna | I'm Mayor Brenna Quill. If it's lost, broken or late, it ends up on my desk. | chatterbox |
+| `dlg.mayorBrenna.ending.1` | Mayor Brenna Quill (mayorBrenna) | mayorBrenna | The whole river's talking about you. Trade's never been better. So, thank you. | chatterbox |
+| `dlg.mayorBrenna.again.1` | Mayor Brenna Quill (mayorBrenna) | mayorBrenna | Back again? Good. Try not to block the carts. | chatterbox |
+| `dlg.mayorBrenna.who.1` | Mayor Brenna Quill (mayorBrenna) | mayorBrenna | Mayor, nine years now. Before that I sold rope. Same job, really. Holding things together. | chatterbox |
+| `dlg.mayorBrenna.who.2` | Mayor Brenna Quill (mayorBrenna) | mayorBrenna | The town votes every spring. So far, nobody else wants the desk. | chatterbox |
+| `dlg.mayorBrenna.town.say` | The hero (hero) | mayorBrenna | Tell me about Silverbridge. | chatterbox |
+| `dlg.mayorBrenna.town.1` | Mayor Brenna Quill (mayorBrenna) | mayorBrenna | The bridge came first. Then a market on it, then houses, then houses on top of those. | chatterbox |
+| `dlg.mayorBrenna.town.2` | Mayor Brenna Quill (mayorBrenna) | mayorBrenna | Mind the fountains. Children fall in. So do grown-ups, on market day. | chatterbox |
+| `dlg.mayorBrenna.masters.say` | The hero (hero) | mayorBrenna | Is there really a teacher for every class here? | chatterbox |
+| `dlg.mayorBrenna.masters.1` | Mayor Brenna Quill (mayorBrenna) | mayorBrenna | Every single one. Shield, fire, shadow, stone. A master of each, all on one bridge. | chatterbox |
+| `dlg.mayorBrenna.masters.2` | Mayor Brenna Quill (mayorBrenna) | mayorBrenna | Pupils come from all over. It's good for the inns. Less good for my windows. | chatterbox |
+| `dlg.mayorBrenna.river.say` | The hero (hero) | mayorBrenna | What do people trade here? | chatterbox |
+| `dlg.mayorBrenna.river.1` | Mayor Brenna Quill (mayorBrenna) | mayorBrenna | Whatever the river brings. Fish, silk, Ironhold steel, the odd crate of angry chickens. | chatterbox |
+| `dlg.mayorBrenna.river.2` | Mayor Brenna Quill (mayorBrenna) | mayorBrenna | And not every trader in Silverbridge hangs out a sign. Keep your eyes open. | chatterbox |
+| `dlg.mayorBrenna.rumor.crags.1` | Mayor Brenna Quill (mayorBrenna) | mayorBrenna | The boats from the north have stopped. Something's burning up in the Ashen Crags. | chatterbox |
+| `dlg.mayorBrenna.rumor.mines.1` | Mayor Brenna Quill (mayorBrenna) | mayorBrenna | No Ironhold steel this month. The dwarves say something's gone wrong in their mines. | chatterbox |
+| `dlg.mayorBrenna.rumor.tundra.1` | Mayor Brenna Quill (mayorBrenna) | mayorBrenna | The fur traders won't cross the tundra anymore. They say the giants are on the move. | chatterbox |
+| `dlg.mayorBrenna.rumor.far.1` | Mayor Brenna Quill (mayorBrenna) | mayorBrenna | Traders only whisper about the far north now. Whatever's up there, it isn't buying. | chatterbox |
+| `dlg.mayorBrenna.bye.1` | Mayor Brenna Quill (mayorBrenna) | mayorBrenna | Off you go. And if anyone asks, the bridge toll is very fair. | chatterbox |
+| `dlg.sbHealer.hello.1` | Friar Ansel (sbHealer) | sbHealer | Mm? Oh, a patient. Sorry, I was resting my eyes. Healers do that. | chatterbox |
+| `dlg.sbHealer.hello.2` | Friar Ansel (sbHealer) | sbHealer | Friar Ansel. Come in, sit down. The chair's comfier than it looks. | chatterbox |
+| `dlg.sbHealer.again.1` | Friar Ansel (sbHealer) | sbHealer | Ah, you're back. And I'd only just sat down. | chatterbox |
+| `dlg.sbHealer.heal.1` | Friar Ansel (sbHealer) | sbHealer | Lie back, close your eyes. Not for long, or I'll nod off too. There, flasks full. | chatterbox |
+| `dlg.sbHealer.mana.1` | Friar Ansel (sbHealer) | sbHealer | Glowcap tonic. Good for the mind, bad for the breath. Sip it slowly. | chatterbox |
+| `dlg.sbHealer.potions.say` | The hero (hero) | sbHealer | Any advice on potions? | chatterbox |
+| `dlg.sbHealer.potions.1` | Friar Ansel (sbHealer) | sbHealer | Drink one before you're desperate. Heroes always wait too long. | chatterbox |
+| `dlg.sbHealer.potions.2` | Friar Ansel (sbHealer) | sbHealer | If you want to carry more, I sell longer belts. Filling the flasks is free. | chatterbox |
+| `dlg.sbHealer.sleep.say` | The hero (hero) | sbHealer | Do you ever actually sleep? | chatterbox |
+| `dlg.sbHealer.sleep.1` | Friar Ansel (sbHealer) | sbHealer | Not at night. Pupils from every class, all practising. Something always explodes. | chatterbox |
+| `dlg.sbHealer.healBack.1` | Friar Ansel (sbHealer) | sbHealer | Off you go. Next time, come for tea instead of bandages. | chatterbox |
+| `dlg.sbHealer.bye.1` | Friar Ansel (sbHealer) | sbHealer | Mind the steps. Half my patients only tripped on them. | chatterbox |
 | `dlg.sbAlchemist.hello.1` | Odile Fernwhistle (sbAlchemist) | sbAlchemist | Oh! Mind the jars. That one bites. Well, it nibbles. | **missing** |
 | `dlg.sbAlchemist.hello.2` | Odile Fernwhistle (sbAlchemist) | sbAlchemist | Odile Fernwhistle, alchemist. Bring me herbs and I'll bottle you a little courage. | **missing** |
 | `dlg.sbAlchemist.again.1` | Odile Fernwhistle (sbAlchemist) | sbAlchemist | You're back! Did you bring me anything green? | **missing** |
@@ -797,152 +652,164 @@ rewrites it, and a test fails when it is stale. Do not edit by hand.
 | `dlg.sbAlchemist.elixirs.2` | Odile Fernwhistle (sbAlchemist) | sbAlchemist | They sit in your third flask. Tap the little arrow to swap which one you drink. | **missing** |
 | `dlg.sbAlchemist.brewBack.1` | Odile Fernwhistle (sbAlchemist) | sbAlchemist | Careful with those, they're still warm. Come back when your pouch is full! | **missing** |
 | `dlg.sbAlchemist.bye.1` | Odile Fernwhistle (sbAlchemist) | sbAlchemist | Bye now! If you see a purple flower, pick two. One for me. | **missing** |
-| `dlg.sbArmorer.hello.1` | Greta Ironvein (sbArmorer) | sbArmorer | Ha! Look at that dent. I hope you got your money back for that armour. | **missing** |
-| `dlg.sbArmorer.hello.2` | Greta Ironvein (sbArmorer) | sbArmorer | Greta Ironvein. I make armour that comes home with its owner. Every time, so far. | **missing** |
-| `dlg.sbArmorer.again.1` | Greta Ironvein (sbArmorer) | sbArmorer | You again! Still in one piece. My favourite kind of customer. | **missing** |
-| `dlg.sbArmorer.trade.1` | Greta Ironvein (sbArmorer) | sbArmorer | Go on, knock on it. Hard as you like. | **missing** |
-| `dlg.sbArmorer.who.1` | Greta Ironvein (sbArmorer) | sbArmorer | Mountain family. I came downriver for the trade and stayed for the fish. | **missing** |
-| `dlg.sbArmorer.steel.say` | The hero (hero) | sbArmorer | What makes good armour? | **missing** |
-| `dlg.sbArmorer.steel.1` | Greta Ironvein (sbArmorer) | sbArmorer | It's not how thick it is. It's where it bends. Good armour bends where you do. | **missing** |
-| `dlg.sbArmorer.steel.2` | Greta Ironvein (sbArmorer) | sbArmorer | Heavy plate wants Strength, mind. Wear it without and you'll waddle like a duck. | **missing** |
-| `dlg.sbArmorer.shopBack.1` | Greta Ironvein (sbArmorer) | sbArmorer | Wear it well. Bring me the dents, I like a good story. | **missing** |
-| `dlg.sbArmorer.bye.1` | Greta Ironvein (sbArmorer) | sbArmorer | Off you go. Don't get hit anywhere I haven't covered. | **missing** |
-| `dlg.sbWeapons.hello.1` | Corvin Ashby (sbWeapons) | sbWeapons | Ah, a customer with taste. I can always tell. It's in the way you walk in. | **missing** |
-| `dlg.sbWeapons.hello.2` | Corvin Ashby (sbWeapons) | sbWeapons | Corvin Ashby, of Ashby's Fine Blades. Yes, that Ashby. You've heard of me, surely. | **missing** |
-| `dlg.sbWeapons.again.1` | Corvin Ashby (sbWeapons) | sbWeapons | Back already? They always come back to Corvin. | **missing** |
-| `dlg.sbWeapons.trade.1` | Corvin Ashby (sbWeapons) | sbWeapons | Every blade polished by hand. My hand, in fact. Mind the reflection. | **missing** |
-| `dlg.sbWeapons.who.1` | Corvin Ashby (sbWeapons) | sbWeapons | The finest blade seller on the river. Ask anyone. Or just read my sign. | **missing** |
-| `dlg.sbWeapons.blades.say` | The hero (hero) | sbWeapons | How do I pick a good weapon? | **missing** |
-| `dlg.sbWeapons.blades.1` | Corvin Ashby (sbWeapons) | sbWeapons | Pick one that suits you. Quick hands want a light blade, strong arms a heavy one. | **missing** |
-| `dlg.sbWeapons.blades.2` | Corvin Ashby (sbWeapons) | sbWeapons | And it should look good. Nobody runs from a hero with an ugly sword. | **missing** |
-| `dlg.sbWeapons.shopBack.1` | Corvin Ashby (sbWeapons) | sbWeapons | A fine choice. Not quite as fine as my hair, but close. | **missing** |
-| `dlg.sbWeapons.bye.1` | Corvin Ashby (sbWeapons) | sbWeapons | Do tell people where you bought it. | **missing** |
-| `dlg.sbJeweler.hello.1` | Tam Marlow (sbJeweler) | sbJeweler | Psst! Over here! Rings, charms, lucky stones. Best stall on the bridge. | **missing** |
-| `dlg.sbJeweler.hello.2` | Tam Marlow (sbJeweler) | sbJeweler | Name's Tam Marlow. I'm small, but my prices are smaller. | **missing** |
-| `dlg.sbJeweler.again.1` | Tam Marlow (sbJeweler) | sbJeweler | My favourite customer! Don't tell the others I said that. | **missing** |
-| `dlg.sbJeweler.trade.1` | Tam Marlow (sbJeweler) | sbJeweler | All real. Mostly. Fine, that one's glass, but it's very nice glass. | **missing** |
-| `dlg.sbJeweler.who.1` | Tam Marlow (sbJeweler) | sbJeweler | Grew up on this bridge. I know every crack, every cat and every shortcut. | **missing** |
-| `dlg.sbJeweler.gossip.say` | The hero (hero) | sbJeweler | Heard any good gossip? | **missing** |
-| `dlg.sbJeweler.gossip.1` | Tam Marlow (sbJeweler) | sbJeweler | Professor Sprocket blew his eyebrows off again. Third time this month. | **missing** |
-| `dlg.sbJeweler.gossip.2` | Tam Marlow (sbJeweler) | sbJeweler | And the mayor knows about traders who don't hang out a sign. I'm working on it. | **missing** |
-| `dlg.sbJeweler.shopBack.1` | Tam Marlow (sbJeweler) | sbJeweler | Pleasure doing business! Tell your friends. Not the guards. | **missing** |
-| `dlg.sbJeweler.bye.1` | Tam Marlow (sbJeweler) | sbJeweler | See you around! I'll be right here. Probably. | **missing** |
-| `dlg.sbMasterAegis.hello.1` | Dame Helga Stormshield (sbMasterAegis) | sbMasterAegis | Ha! Another young one. Chin up, shoulders back. Shields work better with a smile. | **missing** |
-| `dlg.sbMasterAegis.hello.2` | Dame Helga Stormshield (sbMasterAegis) | sbMasterAegis | Dame Helga Stormshield. I held this bridge once. Now I teach others to hold their ground. | **missing** |
-| `dlg.sbMasterAegis.again.1` | Dame Helga Stormshield (sbMasterAegis) | sbMasterAegis | There you are! Shield up? Good. Smiling? Even better. | **missing** |
-| `dlg.sbMasterAegis.train.1` | Dame Helga Stormshield (sbMasterAegis) | sbMasterAegis | Feet wide. Lean in. When I push, you don't move. Ready? Hup! | **missing** |
-| `dlg.sbMasterAegis.class.say` | The hero (hero) | sbMasterAegis | What does an Aegis Knight really do? | **missing** |
-| `dlg.sbMasterAegis.class.1` | Dame Helga Stormshield (sbMasterAegis) | sbMasterAegis | You stand in front, so the others don't have to. Best job there is. | **missing** |
-| `dlg.sbMasterAegis.class.2` | Dame Helga Stormshield (sbMasterAegis) | sbMasterAegis | Strength to lift the shield. Endurance to keep it up until supper. | **missing** |
-| `dlg.sbMasterAegis.ready.strong.1` | Dame Helga Stormshield (sbMasterAegis) | sbMasterAegis | You're a proper wall now, dear. Take any lesson you like. | **missing** |
-| `dlg.sbMasterAegis.ready.able.1` | Dame Helga Stormshield (sbMasterAegis) | sbMasterAegis | Steady legs! You're ready for the next one. | **missing** |
-| `dlg.sbMasterAegis.ready.weak.1` | Dame Helga Stormshield (sbMasterAegis) | sbMasterAegis | Not yet. One good push and you'd topple. More Strength and Endurance, please. | **missing** |
-| `dlg.sbMasterAegis.bridge.say` | The hero (hero) | sbMasterAegis | You held this bridge? | **missing** |
-| `dlg.sbMasterAegis.bridge.1` | Dame Helga Stormshield (sbMasterAegis) | sbMasterAegis | Forty years ago, against river pirates. Six of us, one gate, a very long night. | **missing** |
-| `dlg.sbMasterAegis.bridge.2` | Dame Helga Stormshield (sbMasterAegis) | sbMasterAegis | We didn't win by hitting hardest. We won by not moving. Remember that. | **missing** |
-| `dlg.sbMasterAegis.trainBack.1` | Dame Helga Stormshield (sbMasterAegis) | sbMasterAegis | Good work! Now eat something. Shields are heavy. | **missing** |
-| `dlg.sbMasterAegis.bye.1` | Dame Helga Stormshield (sbMasterAegis) | sbMasterAegis | Chin up out there! | **missing** |
-| `dlg.sbMasterPyro.hello.1` | Magister Ignatius Vale (sbMasterPyro) | sbMasterPyro | Do come in. Mind the notes, and please don't sneeze near the brazier. | **missing** |
-| `dlg.sbMasterPyro.hello.2` | Magister Ignatius Vale (sbMasterPyro) | sbMasterPyro | Magister Ignatius Vale. I teach fire on a bridge. Plenty of water about, you see. | **missing** |
-| `dlg.sbMasterPyro.again.1` | Magister Ignatius Vale (sbMasterPyro) | sbMasterPyro | Punctual. Excellent. We'll begin where we stopped. | **missing** |
-| `dlg.sbMasterPyro.train.1` | Magister Ignatius Vale (sbMasterPyro) | sbMasterPyro | Observe. A small flame, held still. Big flames are easy. Small ones take skill. | **missing** |
-| `dlg.sbMasterPyro.class.say` | The hero (hero) | sbMasterPyro | What does a pyromancer really do? | **missing** |
-| `dlg.sbMasterPyro.class.1` | Magister Ignatius Vale (sbMasterPyro) | sbMasterPyro | Anyone can start a fire. A pyromancer decides where it goes, and where it stops. | **missing** |
-| `dlg.sbMasterPyro.class.2` | Magister Ignatius Vale (sbMasterPyro) | sbMasterPyro | It all comes from Intelligence. Later, Skill helps, when the fire needs a steady hand. | **missing** |
-| `dlg.sbMasterPyro.ready.strong.1` | Magister Ignatius Vale (sbMasterPyro) | sbMasterPyro | Your control is excellent. I've very little left to correct. Choose freely. | **missing** |
-| `dlg.sbMasterPyro.ready.able.1` | Magister Ignatius Vale (sbMasterPyro) | sbMasterPyro | Adequate. More than adequate, actually. You may have the next lesson. | **missing** |
-| `dlg.sbMasterPyro.ready.weak.1` | Magister Ignatius Vale (sbMasterPyro) | sbMasterPyro | Not yet. Your flame wobbles. A sharper mind, please. More Intelligence. | **missing** |
-| `dlg.sbMasterPyro.sprocket.say` | The hero (hero) | sbMasterPyro | What do you think of Professor Sprocket? | **missing** |
-| `dlg.sbMasterPyro.sprocket.1` | Magister Ignatius Vale (sbMasterPyro) | sbMasterPyro | Brilliant man. Loud, careless and brilliant. I keep a bucket by his door. | **missing** |
-| `dlg.sbMasterPyro.trainBack.1` | Magister Ignatius Vale (sbMasterPyro) | sbMasterPyro | Practise near water. I insist. | **missing** |
-| `dlg.sbMasterPyro.bye.1` | Magister Ignatius Vale (sbMasterPyro) | sbMasterPyro | Good day. Do keep your sleeves rolled up. | **missing** |
-| `dlg.sbMasterShadow.hello.1` | Nyx Halloway (sbMasterShadow) | sbMasterShadow | Looking for me? I've been next to you since the fountain. You walked past me twice. | **missing** |
-| `dlg.sbMasterShadow.hello.2` | Nyx Halloway (sbMasterShadow) | sbMasterShadow | Nyx Halloway. The best place to hide is a crowd, and this is the busiest bridge there is. | **missing** |
-| `dlg.sbMasterShadow.again.1` | Nyx Halloway (sbMasterShadow) | sbMasterShadow | Hi again. I've been here a while. You noticed? No? Good. | **missing** |
-| `dlg.sbMasterShadow.train.1` | Nyx Halloway (sbMasterShadow) | sbMasterShadow | Lesson one: walk like you belong. Nobody looks twice at someone who belongs. | **missing** |
-| `dlg.sbMasterShadow.class.say` | The hero (hero) | sbMasterShadow | What makes a good Shadowblade? | **missing** |
-| `dlg.sbMasterShadow.class.1` | Nyx Halloway (sbMasterShadow) | sbMasterShadow | Never being where they're looking. Slip in, one quick strike, and blend back in. | **missing** |
-| `dlg.sbMasterShadow.class.2` | Nyx Halloway (sbMasterShadow) | sbMasterShadow | Dexterity for quick feet and hands. Skill, so the strike counts. | **missing** |
-| `dlg.sbMasterShadow.ready.strong.1` | Nyx Halloway (sbMasterShadow) | sbMasterShadow | You're properly sneaky now. Take what's left, you've earned it. | **missing** |
-| `dlg.sbMasterShadow.ready.able.1` | Nyx Halloway (sbMasterShadow) | sbMasterShadow | Light on your feet! You're ready for the next trick. | **missing** |
-| `dlg.sbMasterShadow.ready.weak.1` | Nyx Halloway (sbMasterShadow) | sbMasterShadow | Not yet. I can hear you coming from the fountain. More Dexterity. | **missing** |
-| `dlg.sbMasterShadow.past.say` | The hero (hero) | sbMasterShadow | How did you learn all this? | **missing** |
-| `dlg.sbMasterShadow.past.1` | Nyx Halloway (sbMasterShadow) | sbMasterShadow | I used to pick pockets on this very bridge. I was good at it, too. | **missing** |
-| `dlg.sbMasterShadow.past.2` | Nyx Halloway (sbMasterShadow) | sbMasterShadow | Then the mayor caught me and gave me a job, not a cell. Don't tell her I'm grateful. | **missing** |
-| `dlg.sbMasterShadow.trainBack.1` | Nyx Halloway (sbMasterShadow) | sbMasterShadow | Now go and practise. Try not to let me catch you. | **missing** |
-| `dlg.sbMasterShadow.bye.1` | Nyx Halloway (sbMasterShadow) | sbMasterShadow | See you. Well, you won't see me. | **missing** |
-| `dlg.sbMasterSovereign.hello.1` | Lord Percival Ashcombe (sbMasterSovereign) | sbMasterSovereign | Oh! Hello, hello. Do forgive me, I was chatting with my guards. Lovely listeners. | **missing** |
-| `dlg.sbMasterSovereign.hello.2` | Lord Percival Ashcombe (sbMasterSovereign) | sbMasterSovereign | Percival Ashcombe. I could teach in a castle, but you only learn to lead where people are. | **missing** |
-| `dlg.sbMasterSovereign.again.1` | Lord Percival Ashcombe (sbMasterSovereign) | sbMasterSovereign | My dear friend! Shall we carry on? Only if you'd like to, of course. | **missing** |
-| `dlg.sbMasterSovereign.train.1` | Lord Percival Ashcombe (sbMasterSovereign) | sbMasterSovereign | Right then. A good order is clear, kind, and only given once. Like so. | **missing** |
-| `dlg.sbMasterSovereign.class.say` | The hero (hero) | sbMasterSovereign | What is a Grand Sovereign? | **missing** |
-| `dlg.sbMasterSovereign.class.1` | Lord Percival Ashcombe (sbMasterSovereign) | sbMasterSovereign | A leader. Your guards come to your side and fight with you, not just for you. | **missing** |
-| `dlg.sbMasterSovereign.class.2` | Lord Percival Ashcombe (sbMasterSovereign) | sbMasterSovereign | Charisma is everything. People follow those they like. And who remember their names. | **missing** |
-| `dlg.sbMasterSovereign.ready.strong.1` | Lord Percival Ashcombe (sbMasterSovereign) | sbMasterSovereign | Splendid! People would follow you anywhere now. Take all the lessons. | **missing** |
-| `dlg.sbMasterSovereign.ready.able.1` | Lord Percival Ashcombe (sbMasterSovereign) | sbMasterSovereign | Your guards would listen to you. You're ready for the next lesson. | **missing** |
-| `dlg.sbMasterSovereign.ready.weak.1` | Lord Percival Ashcombe (sbMasterSovereign) | sbMasterSovereign | Not quite yet, I'm afraid. A little more Charisma, and they'll come. | **missing** |
-| `dlg.sbMasterSovereign.please.say` | The hero (hero) | sbMasterSovereign | Do you really say please to your guards? | **missing** |
-| `dlg.sbMasterSovereign.please.1` | Lord Percival Ashcombe (sbMasterSovereign) | sbMasterSovereign | Always. Shouting gets you obeyed. Please gets you loyalty, and loyalty lasts longer. | **missing** |
-| `dlg.sbMasterSovereign.trainBack.1` | Lord Percival Ashcombe (sbMasterSovereign) | sbMasterSovereign | Lovely work. Remember to thank them afterwards. | **missing** |
-| `dlg.sbMasterSovereign.bye.1` | Lord Percival Ashcombe (sbMasterSovereign) | sbMasterSovereign | Do take care, and give my regards to everyone. | **missing** |
-| `dlg.sbMasterGeo.hello.1` | Grandmother Tova Deeproot (sbMasterGeo) | sbMasterGeo | Mind the moss, dear, it's had a long week. Now, let's have a look at you. | **missing** |
-| `dlg.sbMasterGeo.hello.2` | Grandmother Tova Deeproot (sbMasterGeo) | sbMasterGeo | Grandmother Tova Deeproot. The river bed here is lovely stone, all the way down. | **missing** |
-| `dlg.sbMasterGeo.again.1` | Grandmother Tova Deeproot (sbMasterGeo) | sbMasterGeo | Back already? Sit, I've just made tea. Stone tea. It's mostly tea. | **missing** |
-| `dlg.sbMasterGeo.train.1` | Grandmother Tova Deeproot (sbMasterGeo) | sbMasterGeo | Hands flat on the ground. Not like that. Like you're patting a sleepy dog. | **missing** |
-| `dlg.sbMasterGeo.class.say` | The hero (hero) | sbMasterGeo | What does a Geomancer do? | **missing** |
-| `dlg.sbMasterGeo.class.1` | Grandmother Tova Deeproot (sbMasterGeo) | sbMasterGeo | We ask the ground for help. A wall when you need one, a spike when someone's rude. | **missing** |
-| `dlg.sbMasterGeo.class.2` | Grandmother Tova Deeproot (sbMasterGeo) | sbMasterGeo | Stone's like a garden. Strength to dig, Intelligence to know where to plant. | **missing** |
-| `dlg.sbMasterGeo.ready.strong.1` | Grandmother Tova Deeproot (sbMasterGeo) | sbMasterGeo | The ground likes you now. Learn whatever you please, dear. | **missing** |
-| `dlg.sbMasterGeo.ready.able.1` | Grandmother Tova Deeproot (sbMasterGeo) | sbMasterGeo | Good roots! You're ready for the next lesson. | **missing** |
-| `dlg.sbMasterGeo.ready.weak.1` | Grandmother Tova Deeproot (sbMasterGeo) | sbMasterGeo | Not yet, love. The stone won't budge for you. More Strength first. | **missing** |
-| `dlg.sbMasterGeo.garden.say` | The hero (hero) | sbMasterGeo | Is that a garden made of stone? | **missing** |
-| `dlg.sbMasterGeo.garden.1` | Grandmother Tova Deeproot (sbMasterGeo) | sbMasterGeo | Forty years of work. Every rock grown by hand. Well, by magic. Mostly by hand. | **missing** |
-| `dlg.sbMasterGeo.garden.2` | Grandmother Tova Deeproot (sbMasterGeo) | sbMasterGeo | Take a pebble on your way out. They make lovely doorstops. | **missing** |
-| `dlg.sbMasterGeo.trainBack.1` | Grandmother Tova Deeproot (sbMasterGeo) | sbMasterGeo | Lovely. Now go and dig something. Gently. | **missing** |
-| `dlg.sbMasterGeo.bye.1` | Grandmother Tova Deeproot (sbMasterGeo) | sbMasterGeo | Off you go. Wrap up warm, it's damp by the river. | **missing** |
-| `dlg.sbMasterAether.hello.1` | Professor Quint Sprocket (sbMasterAether) | sbMasterAether | Welcome, welcome! You're just in time for the demonstration. Cover your ears, please. | **missing** |
-| `dlg.sbMasterAether.hello.2` | Professor Quint Sprocket (sbMasterAether) | sbMasterAether | Professor Quint Sprocket. The river turns my wheels for free. Where else would I teach? | **missing** |
-| `dlg.sbMasterAether.again.1` | Professor Quint Sprocket (sbMasterAether) | sbMasterAether | Ah, my favourite pupil! Today's demonstration is extra loud. | **missing** |
-| `dlg.sbMasterAether.train.1` | Professor Quint Sprocket (sbMasterAether) | sbMasterAether | Observe the blackboard. Now forget the blackboard, and watch the machine. | **missing** |
-| `dlg.sbMasterAether.class.say` | The hero (hero) | sbMasterAether | What does an Aether-Tech actually do? | **missing** |
-| `dlg.sbMasterAether.class.1` | Professor Quint Sprocket (sbMasterAether) | sbMasterAether | We build our way out of trouble. A pistol, a turret, and a heat gauge to keep you honest. | **missing** |
-| `dlg.sbMasterAether.class.2` | Professor Quint Sprocket (sbMasterAether) | sbMasterAether | Skill for the aim, Intelligence for the clever bits. Ideally both. | **missing** |
-| `dlg.sbMasterAether.ready.strong.1` | Professor Quint Sprocket (sbMasterAether) | sbMasterAether | Marvellous! You could give my lectures. Please don't, though. Take the rest. | **missing** |
-| `dlg.sbMasterAether.ready.able.1` | Professor Quint Sprocket (sbMasterAether) | sbMasterAether | A steady hand! You're ready for the next machine. | **missing** |
-| `dlg.sbMasterAether.ready.weak.1` | Professor Quint Sprocket (sbMasterAether) | sbMasterAether | Not yet. Your aim drifts. More Skill, then we'll talk. | **missing** |
-| `dlg.sbMasterAether.eyebrows.say` | The hero (hero) | sbMasterAether | What happened to your eyebrows? | **missing** |
-| `dlg.sbMasterAether.eyebrows.1` | Professor Quint Sprocket (sbMasterAether) | sbMasterAether | A demonstration went slightly too well. They'll grow back. They always do. | **missing** |
-| `dlg.sbMasterAether.trainBack.1` | Professor Quint Sprocket (sbMasterAether) | sbMasterAether | Splendid. Now go and vent that heat. Outside, ideally. | **missing** |
-| `dlg.sbMasterAether.bye.1` | Professor Quint Sprocket (sbMasterAether) | sbMasterAether | Class dismissed! Do mind the steps. | **missing** |
-| `dlg.sbMasterChrono.hello.1` | Clockwarden Selwyn (sbMasterChrono) | sbMasterChrono | My old pupil, the Keeper of Hours, wrote that you'd come. At this very minute, in fact. | **missing** |
-| `dlg.sbMasterChrono.hello.2` | Clockwarden Selwyn (sbMasterChrono) | sbMasterChrono | Clockwarden Selwyn. I keep the bridge clock. A town this busy can't afford to be late. | **missing** |
+| `dlg.sbGambler.hello.1` | Madame Pell (sbGambler) | sbGambler | Step right up! Twelve cards, one hourglass, and a purse that could double! | **missing** |
+| `dlg.sbGambler.hello.2` | Madame Pell (sbGambler) | sbGambler | Madame Pell. I never forget a face. Let's see if you never forget a card. | **missing** |
+| `dlg.sbGambler.again.1` | Madame Pell (sbGambler) | sbGambler | Back for another round? The sand's been waiting for you. | **missing** |
+| `dlg.sbGambler.play.1` | Madame Pell (sbGambler) | sbGambler | Coins on the cloth, eyes on the cards. Ready? Turn the glass! | **missing** |
+| `dlg.sbGambler.rules.say` | The hero (hero) | sbGambler | How does it work? | **missing** |
+| `dlg.sbGambler.rules.1` | Madame Pell (sbGambler) | sbGambler | Turn two cards. A pair stays up. Find every pair before the sand runs out and I pay double. | **missing** |
+| `dlg.sbGambler.rules.2` | Madame Pell (sbGambler) | sbGambler | Win again and the glass gets quicker. Win five in a row and I'll hand you a legendary prize. | **missing** |
+| `dlg.sbGambler.who.1` | Madame Pell (sbGambler) | sbGambler | I ran away with the travelling circus at nine. It turned out to be very good at maths. | **missing** |
+| `dlg.sbGambler.prize.say` | The hero (hero) | sbGambler | Has anyone ever won the prize? | **missing** |
+| `dlg.sbGambler.prize.1` | Madame Pell (sbGambler) | sbGambler | A dwarf, once. Nobody has seen him blink since. | **missing** |
+| `dlg.sbGambler.playBack.1` | Madame Pell (sbGambler) | sbGambler | Win or lose, that was a good game. Come back when your eyes are rested. | **missing** |
+| `dlg.sbGambler.bye.1` | Madame Pell (sbGambler) | sbGambler | Off you go! Remember where you put your feet. | **missing** |
+| `dlg.sbArmorer.hello.1` | Greta Ironvein (sbArmorer) | sbArmorer | Ha! Look at that dent. I hope you got your money back for that armour. | chatterbox |
+| `dlg.sbArmorer.hello.2` | Greta Ironvein (sbArmorer) | sbArmorer | Greta Ironvein. I make armour that comes home with its owner. Every time, so far. | chatterbox |
+| `dlg.sbArmorer.again.1` | Greta Ironvein (sbArmorer) | sbArmorer | You again! Still in one piece. My favourite kind of customer. | chatterbox |
+| `dlg.sbArmorer.trade.1` | Greta Ironvein (sbArmorer) | sbArmorer | Go on, knock on it. Hard as you like. | chatterbox |
+| `dlg.sbArmorer.who.1` | Greta Ironvein (sbArmorer) | sbArmorer | Mountain family. I came downriver for the trade and stayed for the fish. | chatterbox |
+| `dlg.sbArmorer.steel.say` | The hero (hero) | sbArmorer | What makes good armour? | chatterbox |
+| `dlg.sbArmorer.steel.1` | Greta Ironvein (sbArmorer) | sbArmorer | It's not how thick it is. It's where it bends. Good armour bends where you do. | chatterbox |
+| `dlg.sbArmorer.steel.2` | Greta Ironvein (sbArmorer) | sbArmorer | Heavy plate wants Strength, mind. Wear it without and you'll waddle like a duck. | chatterbox |
+| `dlg.sbArmorer.shopBack.1` | Greta Ironvein (sbArmorer) | sbArmorer | Wear it well. Bring me the dents, I like a good story. | chatterbox |
+| `dlg.sbArmorer.bye.1` | Greta Ironvein (sbArmorer) | sbArmorer | Off you go. Don't get hit anywhere I haven't covered. | chatterbox |
+| `dlg.sbWeapons.hello.1` | Corvin Ashby (sbWeapons) | sbWeapons | Ah, a customer with taste. I can always tell. It's in the way you walk in. | chatterbox |
+| `dlg.sbWeapons.hello.2` | Corvin Ashby (sbWeapons) | sbWeapons | Corvin Ashby, of Ashby's Fine Blades. Yes, that Ashby. You've heard of me, surely. | chatterbox |
+| `dlg.sbWeapons.again.1` | Corvin Ashby (sbWeapons) | sbWeapons | Back already? They always come back to Corvin. | chatterbox |
+| `dlg.sbWeapons.trade.1` | Corvin Ashby (sbWeapons) | sbWeapons | Every blade polished by hand. My hand, in fact. Mind the reflection. | chatterbox |
+| `dlg.sbWeapons.who.1` | Corvin Ashby (sbWeapons) | sbWeapons | The finest blade seller on the river. Ask anyone. Or just read my sign. | chatterbox |
+| `dlg.sbWeapons.blades.say` | The hero (hero) | sbWeapons | How do I pick a good weapon? | chatterbox |
+| `dlg.sbWeapons.blades.1` | Corvin Ashby (sbWeapons) | sbWeapons | Pick one that suits you. Quick hands want a light blade, strong arms a heavy one. | chatterbox |
+| `dlg.sbWeapons.blades.2` | Corvin Ashby (sbWeapons) | sbWeapons | And it should look good. Nobody runs from a hero with an ugly sword. | chatterbox |
+| `dlg.sbWeapons.shopBack.1` | Corvin Ashby (sbWeapons) | sbWeapons | A fine choice. Not quite as fine as my hair, but close. | chatterbox |
+| `dlg.sbWeapons.bye.1` | Corvin Ashby (sbWeapons) | sbWeapons | Do tell people where you bought it. | chatterbox |
+| `dlg.sbJeweler.hello.1` | Tam Marlow (sbJeweler) | sbJeweler | Psst! Over here! Rings, charms, lucky stones. Best stall on the bridge. | chatterbox |
+| `dlg.sbJeweler.hello.2` | Tam Marlow (sbJeweler) | sbJeweler | Name's Tam Marlow. I'm small, but my prices are smaller. | chatterbox |
+| `dlg.sbJeweler.again.1` | Tam Marlow (sbJeweler) | sbJeweler | My favourite customer! Don't tell the others I said that. | chatterbox |
+| `dlg.sbJeweler.trade.1` | Tam Marlow (sbJeweler) | sbJeweler | All real. Mostly. Fine, that one's glass, but it's very nice glass. | chatterbox |
+| `dlg.sbJeweler.who.1` | Tam Marlow (sbJeweler) | sbJeweler | Grew up on this bridge. I know every crack, every cat and every shortcut. | chatterbox |
+| `dlg.sbJeweler.gossip.say` | The hero (hero) | sbJeweler | Heard any good gossip? | chatterbox |
+| `dlg.sbJeweler.gossip.1` | Tam Marlow (sbJeweler) | sbJeweler | Professor Sprocket blew his eyebrows off again. Third time this month. | chatterbox |
+| `dlg.sbJeweler.gossip.2` | Tam Marlow (sbJeweler) | sbJeweler | And the mayor knows about traders who don't hang out a sign. I'm working on it. | chatterbox |
+| `dlg.sbJeweler.shopBack.1` | Tam Marlow (sbJeweler) | sbJeweler | Pleasure doing business! Tell your friends. Not the guards. | chatterbox |
+| `dlg.sbJeweler.bye.1` | Tam Marlow (sbJeweler) | sbJeweler | See you around! I'll be right here. Probably. | chatterbox |
+| `dlg.sbMasterAegis.hello.1` | Dame Helga Stormshield (sbMasterAegis) | sbMasterAegis | Ha! Another young one. Chin up, shoulders back. Shields work better with a smile. | chatterbox |
+| `dlg.sbMasterAegis.hello.2` | Dame Helga Stormshield (sbMasterAegis) | sbMasterAegis | Dame Helga Stormshield. I held this bridge once. Now I teach others to hold their ground. | chatterbox |
+| `dlg.sbMasterAegis.again.1` | Dame Helga Stormshield (sbMasterAegis) | sbMasterAegis | There you are! Shield up? Good. Smiling? Even better. | chatterbox |
+| `dlg.sbMasterAegis.train.1` | Dame Helga Stormshield (sbMasterAegis) | sbMasterAegis | Feet wide. Lean in. When I push, you don't move. Ready? Hup! | chatterbox |
+| `dlg.sbMasterAegis.class.say` | The hero (hero) | sbMasterAegis | What does an Aegis Knight really do? | chatterbox |
+| `dlg.sbMasterAegis.class.1` | Dame Helga Stormshield (sbMasterAegis) | sbMasterAegis | You stand in front, so the others don't have to. Best job there is. | chatterbox |
+| `dlg.sbMasterAegis.class.2` | Dame Helga Stormshield (sbMasterAegis) | sbMasterAegis | Strength to lift the shield. Endurance to keep it up until supper. | chatterbox |
+| `dlg.sbMasterAegis.ready.strong.1` | Dame Helga Stormshield (sbMasterAegis) | sbMasterAegis | You're a proper wall now, dear. Take any lesson you like. | chatterbox |
+| `dlg.sbMasterAegis.ready.able.1` | Dame Helga Stormshield (sbMasterAegis) | sbMasterAegis | Steady legs! You're ready for the next one. | chatterbox |
+| `dlg.sbMasterAegis.ready.weak.1` | Dame Helga Stormshield (sbMasterAegis) | sbMasterAegis | Not yet. One good push and you'd topple. More Strength and Endurance, please. | chatterbox |
+| `dlg.sbMasterAegis.bridge.say` | The hero (hero) | sbMasterAegis | You held this bridge? | chatterbox |
+| `dlg.sbMasterAegis.bridge.1` | Dame Helga Stormshield (sbMasterAegis) | sbMasterAegis | Forty years ago, against river pirates. Six of us, one gate, a very long night. | chatterbox |
+| `dlg.sbMasterAegis.bridge.2` | Dame Helga Stormshield (sbMasterAegis) | sbMasterAegis | We didn't win by hitting hardest. We won by not moving. Remember that. | chatterbox |
+| `dlg.sbMasterAegis.trainBack.1` | Dame Helga Stormshield (sbMasterAegis) | sbMasterAegis | Good work! Now eat something. Shields are heavy. | chatterbox |
+| `dlg.sbMasterAegis.bye.1` | Dame Helga Stormshield (sbMasterAegis) | sbMasterAegis | Chin up out there! | chatterbox |
+| `dlg.sbMasterPyro.hello.1` | Magister Ignatius Vale (sbMasterPyro) | sbMasterPyro | Do come in. Mind the notes, and please don't sneeze near the brazier. | chatterbox |
+| `dlg.sbMasterPyro.hello.2` | Magister Ignatius Vale (sbMasterPyro) | sbMasterPyro | Magister Ignatius Vale. I teach fire on a bridge. Plenty of water about, you see. | chatterbox |
+| `dlg.sbMasterPyro.again.1` | Magister Ignatius Vale (sbMasterPyro) | sbMasterPyro | Punctual. Excellent. We'll begin where we stopped. | chatterbox |
+| `dlg.sbMasterPyro.train.1` | Magister Ignatius Vale (sbMasterPyro) | sbMasterPyro | Observe. A small flame, held still. Big flames are easy. Small ones take skill. | chatterbox |
+| `dlg.sbMasterPyro.class.say` | The hero (hero) | sbMasterPyro | What does a pyromancer really do? | chatterbox |
+| `dlg.sbMasterPyro.class.1` | Magister Ignatius Vale (sbMasterPyro) | sbMasterPyro | Anyone can start a fire. A pyromancer decides where it goes, and where it stops. | chatterbox |
+| `dlg.sbMasterPyro.class.2` | Magister Ignatius Vale (sbMasterPyro) | sbMasterPyro | It all comes from Intelligence. Later, Skill helps, when the fire needs a steady hand. | chatterbox |
+| `dlg.sbMasterPyro.ready.strong.1` | Magister Ignatius Vale (sbMasterPyro) | sbMasterPyro | Your control is excellent. I've very little left to correct. Choose freely. | chatterbox |
+| `dlg.sbMasterPyro.ready.able.1` | Magister Ignatius Vale (sbMasterPyro) | sbMasterPyro | Adequate. More than adequate, actually. You may have the next lesson. | chatterbox |
+| `dlg.sbMasterPyro.ready.weak.1` | Magister Ignatius Vale (sbMasterPyro) | sbMasterPyro | Not yet. Your flame wobbles. A sharper mind, please. More Intelligence. | chatterbox |
+| `dlg.sbMasterPyro.sprocket.say` | The hero (hero) | sbMasterPyro | What do you think of Professor Sprocket? | chatterbox |
+| `dlg.sbMasterPyro.sprocket.1` | Magister Ignatius Vale (sbMasterPyro) | sbMasterPyro | Brilliant man. Loud, careless and brilliant. I keep a bucket by his door. | chatterbox |
+| `dlg.sbMasterPyro.trainBack.1` | Magister Ignatius Vale (sbMasterPyro) | sbMasterPyro | Practise near water. I insist. | chatterbox |
+| `dlg.sbMasterPyro.bye.1` | Magister Ignatius Vale (sbMasterPyro) | sbMasterPyro | Good day. Do keep your sleeves rolled up. | chatterbox |
+| `dlg.sbMasterShadow.hello.1` | Nyx Halloway (sbMasterShadow) | sbMasterShadow | Looking for me? I've been next to you since the fountain. You walked past me twice. | chatterbox |
+| `dlg.sbMasterShadow.hello.2` | Nyx Halloway (sbMasterShadow) | sbMasterShadow | Nyx Halloway. The best place to hide is a crowd, and this is the busiest bridge there is. | chatterbox |
+| `dlg.sbMasterShadow.again.1` | Nyx Halloway (sbMasterShadow) | sbMasterShadow | Hi again. I've been here a while. You noticed? No? Good. | chatterbox |
+| `dlg.sbMasterShadow.train.1` | Nyx Halloway (sbMasterShadow) | sbMasterShadow | Lesson one: walk like you belong. Nobody looks twice at someone who belongs. | chatterbox |
+| `dlg.sbMasterShadow.class.say` | The hero (hero) | sbMasterShadow | What makes a good Shadowblade? | chatterbox |
+| `dlg.sbMasterShadow.class.1` | Nyx Halloway (sbMasterShadow) | sbMasterShadow | Never being where they're looking. Slip in, one quick strike, and blend back in. | chatterbox |
+| `dlg.sbMasterShadow.class.2` | Nyx Halloway (sbMasterShadow) | sbMasterShadow | Dexterity for quick feet and hands. Skill, so the strike counts. | chatterbox |
+| `dlg.sbMasterShadow.ready.strong.1` | Nyx Halloway (sbMasterShadow) | sbMasterShadow | You're properly sneaky now. Take what's left, you've earned it. | chatterbox |
+| `dlg.sbMasterShadow.ready.able.1` | Nyx Halloway (sbMasterShadow) | sbMasterShadow | Light on your feet! You're ready for the next trick. | chatterbox |
+| `dlg.sbMasterShadow.ready.weak.1` | Nyx Halloway (sbMasterShadow) | sbMasterShadow | Not yet. I can hear you coming from the fountain. More Dexterity. | chatterbox |
+| `dlg.sbMasterShadow.past.say` | The hero (hero) | sbMasterShadow | How did you learn all this? | chatterbox |
+| `dlg.sbMasterShadow.past.1` | Nyx Halloway (sbMasterShadow) | sbMasterShadow | I used to pick pockets on this very bridge. I was good at it, too. | chatterbox |
+| `dlg.sbMasterShadow.past.2` | Nyx Halloway (sbMasterShadow) | sbMasterShadow | Then the mayor caught me and gave me a job, not a cell. Don't tell her I'm grateful. | chatterbox |
+| `dlg.sbMasterShadow.trainBack.1` | Nyx Halloway (sbMasterShadow) | sbMasterShadow | Now go and practise. Try not to let me catch you. | chatterbox |
+| `dlg.sbMasterShadow.bye.1` | Nyx Halloway (sbMasterShadow) | sbMasterShadow | See you. Well, you won't see me. | chatterbox |
+| `dlg.sbMasterSovereign.hello.1` | Lord Percival Ashcombe (sbMasterSovereign) | sbMasterSovereign | Oh! Hello, hello. Do forgive me, I was chatting with my guards. Lovely listeners. | chatterbox |
+| `dlg.sbMasterSovereign.hello.2` | Lord Percival Ashcombe (sbMasterSovereign) | sbMasterSovereign | Percival Ashcombe. I could teach in a castle, but you only learn to lead where people are. | chatterbox |
+| `dlg.sbMasterSovereign.again.1` | Lord Percival Ashcombe (sbMasterSovereign) | sbMasterSovereign | My dear friend! Shall we carry on? Only if you'd like to, of course. | chatterbox |
+| `dlg.sbMasterSovereign.train.1` | Lord Percival Ashcombe (sbMasterSovereign) | sbMasterSovereign | Right then. A good order is clear, kind, and only given once. Like so. | chatterbox |
+| `dlg.sbMasterSovereign.class.say` | The hero (hero) | sbMasterSovereign | What is a Grand Sovereign? | chatterbox |
+| `dlg.sbMasterSovereign.class.1` | Lord Percival Ashcombe (sbMasterSovereign) | sbMasterSovereign | A leader. Your guards come to your side and fight with you, not just for you. | chatterbox |
+| `dlg.sbMasterSovereign.class.2` | Lord Percival Ashcombe (sbMasterSovereign) | sbMasterSovereign | Charisma is everything. People follow those they like. And who remember their names. | chatterbox |
+| `dlg.sbMasterSovereign.ready.strong.1` | Lord Percival Ashcombe (sbMasterSovereign) | sbMasterSovereign | Splendid! People would follow you anywhere now. Take all the lessons. | chatterbox |
+| `dlg.sbMasterSovereign.ready.able.1` | Lord Percival Ashcombe (sbMasterSovereign) | sbMasterSovereign | Your guards would listen to you. You're ready for the next lesson. | chatterbox |
+| `dlg.sbMasterSovereign.ready.weak.1` | Lord Percival Ashcombe (sbMasterSovereign) | sbMasterSovereign | Not quite yet, I'm afraid. A little more Charisma, and they'll come. | chatterbox |
+| `dlg.sbMasterSovereign.please.say` | The hero (hero) | sbMasterSovereign | Do you really say please to your guards? | chatterbox |
+| `dlg.sbMasterSovereign.please.1` | Lord Percival Ashcombe (sbMasterSovereign) | sbMasterSovereign | Always. Shouting gets you obeyed. Please gets you loyalty, and loyalty lasts longer. | chatterbox |
+| `dlg.sbMasterSovereign.trainBack.1` | Lord Percival Ashcombe (sbMasterSovereign) | sbMasterSovereign | Lovely work. Remember to thank them afterwards. | chatterbox |
+| `dlg.sbMasterSovereign.bye.1` | Lord Percival Ashcombe (sbMasterSovereign) | sbMasterSovereign | Do take care, and give my regards to everyone. | chatterbox |
+| `dlg.sbMasterGeo.hello.1` | Grandmother Tova Deeproot (sbMasterGeo) | sbMasterGeo | Mind the moss, dear, it's had a long week. Now, let's have a look at you. | chatterbox |
+| `dlg.sbMasterGeo.hello.2` | Grandmother Tova Deeproot (sbMasterGeo) | sbMasterGeo | Grandmother Tova Deeproot. The river bed here is lovely stone, all the way down. | chatterbox |
+| `dlg.sbMasterGeo.again.1` | Grandmother Tova Deeproot (sbMasterGeo) | sbMasterGeo | Back already? Sit, I've just made tea. Stone tea. It's mostly tea. | chatterbox |
+| `dlg.sbMasterGeo.train.1` | Grandmother Tova Deeproot (sbMasterGeo) | sbMasterGeo | Hands flat on the ground. Not like that. Like you're patting a sleepy dog. | chatterbox |
+| `dlg.sbMasterGeo.class.say` | The hero (hero) | sbMasterGeo | What does a Geomancer do? | chatterbox |
+| `dlg.sbMasterGeo.class.1` | Grandmother Tova Deeproot (sbMasterGeo) | sbMasterGeo | We ask the ground for help. A wall when you need one, a spike when someone's rude. | chatterbox |
+| `dlg.sbMasterGeo.class.2` | Grandmother Tova Deeproot (sbMasterGeo) | sbMasterGeo | Stone's like a garden. Strength to dig, Intelligence to know where to plant. | chatterbox |
+| `dlg.sbMasterGeo.ready.strong.1` | Grandmother Tova Deeproot (sbMasterGeo) | sbMasterGeo | The ground likes you now. Learn whatever you please, dear. | chatterbox |
+| `dlg.sbMasterGeo.ready.able.1` | Grandmother Tova Deeproot (sbMasterGeo) | sbMasterGeo | Good roots! You're ready for the next lesson. | chatterbox |
+| `dlg.sbMasterGeo.ready.weak.1` | Grandmother Tova Deeproot (sbMasterGeo) | sbMasterGeo | Not yet, love. The stone won't budge for you. More Strength first. | chatterbox |
+| `dlg.sbMasterGeo.garden.say` | The hero (hero) | sbMasterGeo | Is that a garden made of stone? | chatterbox |
+| `dlg.sbMasterGeo.garden.1` | Grandmother Tova Deeproot (sbMasterGeo) | sbMasterGeo | Forty years of work. Every rock grown by hand. Well, by magic. Mostly by hand. | chatterbox |
+| `dlg.sbMasterGeo.garden.2` | Grandmother Tova Deeproot (sbMasterGeo) | sbMasterGeo | Take a pebble on your way out. They make lovely doorstops. | chatterbox |
+| `dlg.sbMasterGeo.trainBack.1` | Grandmother Tova Deeproot (sbMasterGeo) | sbMasterGeo | Lovely. Now go and dig something. Gently. | chatterbox |
+| `dlg.sbMasterGeo.bye.1` | Grandmother Tova Deeproot (sbMasterGeo) | sbMasterGeo | Off you go. Wrap up warm, it's damp by the river. | chatterbox |
+| `dlg.sbMasterAether.hello.1` | Professor Quint Sprocket (sbMasterAether) | sbMasterAether | Welcome, welcome! You're just in time for the demonstration. Cover your ears, please. | chatterbox |
+| `dlg.sbMasterAether.hello.2` | Professor Quint Sprocket (sbMasterAether) | sbMasterAether | Professor Quint Sprocket. The river turns my wheels for free. Where else would I teach? | chatterbox |
+| `dlg.sbMasterAether.again.1` | Professor Quint Sprocket (sbMasterAether) | sbMasterAether | Ah, my favourite pupil! Today's demonstration is extra loud. | chatterbox |
+| `dlg.sbMasterAether.train.1` | Professor Quint Sprocket (sbMasterAether) | sbMasterAether | Observe the blackboard. Now forget the blackboard, and watch the machine. | chatterbox |
+| `dlg.sbMasterAether.class.say` | The hero (hero) | sbMasterAether | What does an Aether-Tech actually do? | chatterbox |
+| `dlg.sbMasterAether.class.1` | Professor Quint Sprocket (sbMasterAether) | sbMasterAether | We build our way out of trouble. A pistol, a turret, and a heat gauge to keep you honest. | chatterbox |
+| `dlg.sbMasterAether.class.2` | Professor Quint Sprocket (sbMasterAether) | sbMasterAether | Skill for the aim, Intelligence for the clever bits. Ideally both. | chatterbox |
+| `dlg.sbMasterAether.ready.strong.1` | Professor Quint Sprocket (sbMasterAether) | sbMasterAether | Marvellous! You could give my lectures. Please don't, though. Take the rest. | chatterbox |
+| `dlg.sbMasterAether.ready.able.1` | Professor Quint Sprocket (sbMasterAether) | sbMasterAether | A steady hand! You're ready for the next machine. | chatterbox |
+| `dlg.sbMasterAether.ready.weak.1` | Professor Quint Sprocket (sbMasterAether) | sbMasterAether | Not yet. Your aim drifts. More Skill, then we'll talk. | chatterbox |
+| `dlg.sbMasterAether.eyebrows.say` | The hero (hero) | sbMasterAether | What happened to your eyebrows? | chatterbox |
+| `dlg.sbMasterAether.eyebrows.1` | Professor Quint Sprocket (sbMasterAether) | sbMasterAether | A demonstration went slightly too well. They'll grow back. They always do. | chatterbox |
+| `dlg.sbMasterAether.trainBack.1` | Professor Quint Sprocket (sbMasterAether) | sbMasterAether | Splendid. Now go and vent that heat. Outside, ideally. | chatterbox |
+| `dlg.sbMasterAether.bye.1` | Professor Quint Sprocket (sbMasterAether) | sbMasterAether | Class dismissed! Do mind the steps. | chatterbox |
+| `dlg.sbMasterChrono.hello.1` | Clockwarden Selwyn (sbMasterChrono) | sbMasterChrono | My old pupil, the Keeper of Hours, wrote that you'd come. At this very minute, in fact. | chatterbox |
+| `dlg.sbMasterChrono.hello.2` | Clockwarden Selwyn (sbMasterChrono) | sbMasterChrono | Clockwarden Selwyn. I keep the bridge clock. A town this busy can't afford to be late. | chatterbox |
 | `dlg.sbMasterChrono.again.1` | Clockwarden Selwyn (sbMasterChrono) | sbMasterChrono | Seven minutes past. A good time to begin. | **missing** |
-| `dlg.sbMasterChrono.train.1` | Clockwarden Selwyn (sbMasterChrono) | sbMasterChrono | Count with me. One, two, and hold. Time stretches, if you hold it right. | **missing** |
-| `dlg.sbMasterChrono.class.say` | The hero (hero) | sbMasterChrono | What is a Chrono-Weaver? | **missing** |
-| `dlg.sbMasterChrono.class.1` | Clockwarden Selwyn (sbMasterChrono) | sbMasterChrono | We tidy up time. Slow a foe down, hurry a friend along, undo the odd mistake. | **missing** |
-| `dlg.sbMasterChrono.class.2` | Clockwarden Selwyn (sbMasterChrono) | sbMasterChrono | Intelligence to understand it. Skill to touch it without breaking anything. | **missing** |
-| `dlg.sbMasterChrono.ready.strong.1` | Clockwarden Selwyn (sbMasterChrono) | sbMasterChrono | Excellent timing. Take the rest of my lessons whenever it suits you. | **missing** |
-| `dlg.sbMasterChrono.ready.able.1` | Clockwarden Selwyn (sbMasterChrono) | sbMasterChrono | You're ready. The next lesson starts, oh, now. | **missing** |
-| `dlg.sbMasterChrono.ready.weak.1` | Clockwarden Selwyn (sbMasterChrono) | sbMasterChrono | Not yet. You're always a beat behind. More Intelligence, and more Skill. | **missing** |
-| `dlg.sbMasterChrono.keeper.say` | The hero (hero) | sbMasterChrono | How do you know the Keeper of Hours? | **missing** |
-| `dlg.sbMasterChrono.keeper.1` | Clockwarden Selwyn (sbMasterChrono) | sbMasterChrono | I taught him, years ago. A brilliant pupil. Always early or late, never on time. | **missing** |
-| `dlg.sbMasterChrono.trainBack.1` | Clockwarden Selwyn (sbMasterChrono) | sbMasterChrono | Practise every day. Same time each day, if you please. | **missing** |
-| `dlg.sbMasterChrono.bye.1` | Clockwarden Selwyn (sbMasterChrono) | sbMasterChrono | Off you go. Don't be late. | **missing** |
-| `dlg.sbMasterBlood.hello.1` | Vesper Crimsonleaf (sbMasterBlood) | sbMasterBlood | Doctor Sangrel wrote to me about you. He says you didn't faint. High praise, from him. | **missing** |
-| `dlg.sbMasterBlood.hello.2` | Vesper Crimsonleaf (sbMasterBlood) | sbMasterBlood | Vesper Crimsonleaf. Every herb in the world floats past this bridge. I'm spoiled here. | **missing** |
-| `dlg.sbMasterBlood.again.1` | Vesper Crimsonleaf (sbMasterBlood) | sbMasterBlood | Welcome back. You look lively today. I can always tell. | **missing** |
-| `dlg.sbMasterBlood.train.1` | Vesper Crimsonleaf (sbMasterBlood) | sbMasterBlood | Breathe in. Feel your strength? Now spend a little of it. Wisely. | **missing** |
-| `dlg.sbMasterBlood.class.say` | The hero (hero) | sbMasterBlood | What is a Blood Alchemist, really? | **missing** |
-| `dlg.sbMasterBlood.class.1` | Vesper Crimsonleaf (sbMasterBlood) | sbMasterBlood | We spend our own life force for power, then take it back from our foes. | **missing** |
-| `dlg.sbMasterBlood.class.2` | Vesper Crimsonleaf (sbMasterBlood) | sbMasterBlood | Endurance is your purse. Intelligence decides how well you spend it. | **missing** |
-| `dlg.sbMasterBlood.ready.strong.1` | Vesper Crimsonleaf (sbMasterBlood) | sbMasterBlood | Such vitality! You're ready for nearly everything I know. | **missing** |
-| `dlg.sbMasterBlood.ready.able.1` | Vesper Crimsonleaf (sbMasterBlood) | sbMasterBlood | Your essence runs strong. On to the next lesson. | **missing** |
-| `dlg.sbMasterBlood.ready.weak.1` | Vesper Crimsonleaf (sbMasterBlood) | sbMasterBlood | Not yet. You'd tire after one spell. Build up your Endurance first. | **missing** |
-| `dlg.sbMasterBlood.herbs.say` | The hero (hero) | sbMasterBlood | What are all these herbs for? | **missing** |
-| `dlg.sbMasterBlood.herbs.1` | Vesper Crimsonleaf (sbMasterBlood) | sbMasterBlood | Tonics, mostly. A little essence, a lot of mint. Mint makes everything better. | **missing** |
-| `dlg.sbMasterBlood.herbs.2` | Vesper Crimsonleaf (sbMasterBlood) | sbMasterBlood | If you find rare plants out there, do bring them by. I'd love a look. | **missing** |
-| `dlg.sbMasterBlood.trainBack.1` | Vesper Crimsonleaf (sbMasterBlood) | sbMasterBlood | Rest after practice. Essence comes back, but it likes a nap. | **missing** |
-| `dlg.sbMasterBlood.bye.1` | Vesper Crimsonleaf (sbMasterBlood) | sbMasterBlood | Look after yourself. Drink water. Eat something green. | **missing** |
+| `dlg.sbMasterChrono.train.1` | Clockwarden Selwyn (sbMasterChrono) | sbMasterChrono | Count with me. One, two, and hold. Time stretches, if you hold it right. | chatterbox |
+| `dlg.sbMasterChrono.class.say` | The hero (hero) | sbMasterChrono | What is a Chrono-Weaver? | chatterbox |
+| `dlg.sbMasterChrono.class.1` | Clockwarden Selwyn (sbMasterChrono) | sbMasterChrono | We tidy up time. Slow a foe down, hurry a friend along, undo the odd mistake. | chatterbox |
+| `dlg.sbMasterChrono.class.2` | Clockwarden Selwyn (sbMasterChrono) | sbMasterChrono | Intelligence to understand it. Skill to touch it without breaking anything. | chatterbox |
+| `dlg.sbMasterChrono.ready.strong.1` | Clockwarden Selwyn (sbMasterChrono) | sbMasterChrono | Excellent timing. Take the rest of my lessons whenever it suits you. | chatterbox |
+| `dlg.sbMasterChrono.ready.able.1` | Clockwarden Selwyn (sbMasterChrono) | sbMasterChrono | You're ready. The next lesson starts, oh, now. | chatterbox |
+| `dlg.sbMasterChrono.ready.weak.1` | Clockwarden Selwyn (sbMasterChrono) | sbMasterChrono | Not yet. You're always a beat behind. More Intelligence, and more Skill. | chatterbox |
+| `dlg.sbMasterChrono.keeper.say` | The hero (hero) | sbMasterChrono | How do you know the Keeper of Hours? | chatterbox |
+| `dlg.sbMasterChrono.keeper.1` | Clockwarden Selwyn (sbMasterChrono) | sbMasterChrono | I taught him, years ago. A brilliant pupil. Always early or late, never on time. | chatterbox |
+| `dlg.sbMasterChrono.trainBack.1` | Clockwarden Selwyn (sbMasterChrono) | sbMasterChrono | Practise every day. Same time each day, if you please. | chatterbox |
+| `dlg.sbMasterChrono.bye.1` | Clockwarden Selwyn (sbMasterChrono) | sbMasterChrono | Off you go. Don't be late. | chatterbox |
+| `dlg.sbMasterBlood.hello.1` | Vesper Crimsonleaf (sbMasterBlood) | sbMasterBlood | Doctor Sangrel wrote to me about you. He says you didn't faint. High praise, from him. | chatterbox |
+| `dlg.sbMasterBlood.hello.2` | Vesper Crimsonleaf (sbMasterBlood) | sbMasterBlood | Vesper Crimsonleaf. Every herb in the world floats past this bridge. I'm spoiled here. | chatterbox |
+| `dlg.sbMasterBlood.again.1` | Vesper Crimsonleaf (sbMasterBlood) | sbMasterBlood | Welcome back. You look lively today. I can always tell. | chatterbox |
+| `dlg.sbMasterBlood.train.1` | Vesper Crimsonleaf (sbMasterBlood) | sbMasterBlood | Breathe in. Feel your strength? Now spend a little of it. Wisely. | chatterbox |
+| `dlg.sbMasterBlood.class.say` | The hero (hero) | sbMasterBlood | What is a Blood Alchemist, really? | chatterbox |
+| `dlg.sbMasterBlood.class.1` | Vesper Crimsonleaf (sbMasterBlood) | sbMasterBlood | We spend our own life force for power, then take it back from our foes. | chatterbox |
+| `dlg.sbMasterBlood.class.2` | Vesper Crimsonleaf (sbMasterBlood) | sbMasterBlood | Endurance is your purse. Intelligence decides how well you spend it. | chatterbox |
+| `dlg.sbMasterBlood.ready.strong.1` | Vesper Crimsonleaf (sbMasterBlood) | sbMasterBlood | Such vitality! You're ready for nearly everything I know. | chatterbox |
+| `dlg.sbMasterBlood.ready.able.1` | Vesper Crimsonleaf (sbMasterBlood) | sbMasterBlood | Your essence runs strong. On to the next lesson. | chatterbox |
+| `dlg.sbMasterBlood.ready.weak.1` | Vesper Crimsonleaf (sbMasterBlood) | sbMasterBlood | Not yet. You'd tire after one spell. Build up your Endurance first. | chatterbox |
+| `dlg.sbMasterBlood.herbs.say` | The hero (hero) | sbMasterBlood | What are all these herbs for? | chatterbox |
+| `dlg.sbMasterBlood.herbs.1` | Vesper Crimsonleaf (sbMasterBlood) | sbMasterBlood | Tonics, mostly. A little essence, a lot of mint. Mint makes everything better. | chatterbox |
+| `dlg.sbMasterBlood.herbs.2` | Vesper Crimsonleaf (sbMasterBlood) | sbMasterBlood | If you find rare plants out there, do bring them by. I'd love a look. | chatterbox |
+| `dlg.sbMasterBlood.trainBack.1` | Vesper Crimsonleaf (sbMasterBlood) | sbMasterBlood | Rest after practice. Essence comes back, but it likes a nap. | chatterbox |
+| `dlg.sbMasterBlood.bye.1` | Vesper Crimsonleaf (sbMasterBlood) | sbMasterBlood | Look after yourself. Drink water. Eat something green. | chatterbox |
 | `dlg.quest.goblinKing.ask.1` | The Goblin King (goblinKing) | quest.goblinKing | Stop. Please. I yield. | chatterbox |
 | `dlg.quest.goblinKing.ask.2` | The Goblin King (goblinKing) | quest.goblinKing | My people raid because they are hungry. That is the truth. | chatterbox |
 | `dlg.quest.goblinKing.ask.3` | The Goblin King (goblinKing) | quest.goblinKing | Let us make a deal instead. Your kind and mine. | chatterbox |
@@ -1074,23 +941,23 @@ rewrites it, and a test fails when it is stale. Do not edit by hand.
 | `dlg.smalltalkIronhold.circle.2` | Townsfolk (townsfolk) | smalltalkIronhold | Better than your singing, at least. | chatterbox |
 | `dlg.smalltalkIronhold.cold.1` | Townsfolk (smalltalkIronhold) | smalltalkIronhold | Bitter cold this morning. | chatterbox |
 | `dlg.smalltalkIronhold.cold.2` | Townsfolk (townsfolk) | smalltalkIronhold | Come and stand by the forge, then. | chatterbox |
-| `dlg.smalltalkSilverbridge.barges.1` | Townsfolk (smalltalkSilverbridge) | smalltalkSilverbridge | Three barges in from the coast this morning. | **missing** |
-| `dlg.smalltalkSilverbridge.barges.2` | Townsfolk (townsfolk) | smalltalkSilverbridge | Salt fish again? | **missing** |
-| `dlg.smalltalkSilverbridge.barges.3` | Townsfolk (smalltalkSilverbridge) | smalltalkSilverbridge | Silk, for once. Smell your fingers after, though. | **missing** |
-| `dlg.smalltalkSilverbridge.lesson.1` | Townsfolk (smalltalkSilverbridge) | smalltalkSilverbridge | How was your lesson? | **missing** |
-| `dlg.smalltalkSilverbridge.lesson.2` | Townsfolk (townsfolk) | smalltalkSilverbridge | I set my sleeve on fire. The master says that's progress. | **missing** |
-| `dlg.smalltalkSilverbridge.masters.1` | Townsfolk (smalltalkSilverbridge) | smalltalkSilverbridge | Every master in the land teaches on one street. | **missing** |
-| `dlg.smalltalkSilverbridge.masters.2` | Townsfolk (townsfolk) | smalltalkSilverbridge | And every one of them says theirs is the best class. | **missing** |
-| `dlg.smalltalkSilverbridge.masters.3` | Townsfolk (smalltalkSilverbridge) | smalltalkSilverbridge | They're all right, which is the annoying part. | **missing** |
-| `dlg.smalltalkSilverbridge.bridge.1` | Townsfolk (smalltalkSilverbridge) | smalltalkSilverbridge | They say the bridge is older than the town. | **missing** |
-| `dlg.smalltalkSilverbridge.bridge.2` | Townsfolk (townsfolk) | smalltalkSilverbridge | It certainly creaks like it. | **missing** |
-| `dlg.smalltalkSilverbridge.fish.1` | Townsfolk (smalltalkSilverbridge) | smalltalkSilverbridge | Caught anything? | **missing** |
-| `dlg.smalltalkSilverbridge.fish.2` | Townsfolk (townsfolk) | smalltalkSilverbridge | A boot. | **missing** |
-| `dlg.smalltalkSilverbridge.fish.3` | Townsfolk (smalltalkSilverbridge) | smalltalkSilverbridge | Well, that's half a pair. | **missing** |
-| `dlg.smalltalkSilverbridge.newMaster.1` | Townsfolk (smalltalkSilverbridge) | smalltalkSilverbridge | A new master moved in up the street. Talks about time a lot. | **missing** |
-| `dlg.smalltalkSilverbridge.newMaster.2` | Townsfolk (townsfolk) | smalltalkSilverbridge | Late for every lesson, I bet. | **missing** |
-| `dlg.smalltalkSilverbridge.siege.1` | Townsfolk (smalltalkSilverbridge) | smalltalkSilverbridge | Word from Oakhaven is bad. Bandits at the walls. | **missing** |
-| `dlg.smalltalkSilverbridge.siege.2` | Townsfolk (townsfolk) | smalltalkSilverbridge | Then the barges will come here instead. Poor souls. | **missing** |
+| `dlg.smalltalkSilverbridge.barges.1` | Townsfolk (smalltalkSilverbridge) | smalltalkSilverbridge | Three barges in from the coast this morning. | chatterbox |
+| `dlg.smalltalkSilverbridge.barges.2` | Townsfolk (townsfolk) | smalltalkSilverbridge | Salt fish again? | chatterbox |
+| `dlg.smalltalkSilverbridge.barges.3` | Townsfolk (smalltalkSilverbridge) | smalltalkSilverbridge | Silk, for once. Smell your fingers after, though. | chatterbox |
+| `dlg.smalltalkSilverbridge.lesson.1` | Townsfolk (smalltalkSilverbridge) | smalltalkSilverbridge | How was your lesson? | chatterbox |
+| `dlg.smalltalkSilverbridge.lesson.2` | Townsfolk (townsfolk) | smalltalkSilverbridge | I set my sleeve on fire. The master says that's progress. | chatterbox |
+| `dlg.smalltalkSilverbridge.masters.1` | Townsfolk (smalltalkSilverbridge) | smalltalkSilverbridge | Every master in the land teaches on one street. | chatterbox |
+| `dlg.smalltalkSilverbridge.masters.2` | Townsfolk (townsfolk) | smalltalkSilverbridge | And every one of them says theirs is the best class. | chatterbox |
+| `dlg.smalltalkSilverbridge.masters.3` | Townsfolk (smalltalkSilverbridge) | smalltalkSilverbridge | They're all right, which is the annoying part. | chatterbox |
+| `dlg.smalltalkSilverbridge.bridge.1` | Townsfolk (smalltalkSilverbridge) | smalltalkSilverbridge | They say the bridge is older than the town. | chatterbox |
+| `dlg.smalltalkSilverbridge.bridge.2` | Townsfolk (townsfolk) | smalltalkSilverbridge | It certainly creaks like it. | chatterbox |
+| `dlg.smalltalkSilverbridge.fish.1` | Townsfolk (smalltalkSilverbridge) | smalltalkSilverbridge | Caught anything? | chatterbox |
+| `dlg.smalltalkSilverbridge.fish.2` | Townsfolk (townsfolk) | smalltalkSilverbridge | A boot. | chatterbox |
+| `dlg.smalltalkSilverbridge.fish.3` | Townsfolk (smalltalkSilverbridge) | smalltalkSilverbridge | Well, that's half a pair. | chatterbox |
+| `dlg.smalltalkSilverbridge.newMaster.1` | Townsfolk (smalltalkSilverbridge) | smalltalkSilverbridge | A new master moved in up the street. Talks about time a lot. | **stale** |
+| `dlg.smalltalkSilverbridge.newMaster.2` | Townsfolk (townsfolk) | smalltalkSilverbridge | Late for every lesson, I bet. | chatterbox |
+| `dlg.smalltalkSilverbridge.siege.1` | Townsfolk (smalltalkSilverbridge) | smalltalkSilverbridge | Word from Oakhaven is bad. Bandits at the walls. | chatterbox |
+| `dlg.smalltalkSilverbridge.siege.2` | Townsfolk (townsfolk) | smalltalkSilverbridge | Then the barges will come here instead. Poor souls. | chatterbox |
 | `dlg.smalltalkKids.tag.1` | Townsfolk (smalltalkKids) | smalltalkKids | Tag, you're it! | chatterbox |
 | `dlg.smalltalkKids.tag.2` | Townsfolk (kidFriend) | smalltalkKids | That's not fair, I wasn't ready! | chatterbox |
 | `dlg.smalltalkKids.dragon.1` | Townsfolk (smalltalkKids) | smalltalkKids | When I'm big I'm going to ride a dragon. | chatterbox |
@@ -1153,6 +1020,9 @@ rewrites it, and a test fails when it is stale. Do not edit by hand.
 | `dlg.sunfordHealer.potions.say__f` | The girl hero (heroine) | sunfordHealer | How do the potions work? | chatterbox |
 | `dlg.goblinTrader.king.say__f` | The girl hero (heroine) | goblinTrader | How is your king? | chatterbox |
 | `dlg.goblinTrader.town.say__f` | The girl hero (heroine) | goblinTrader | How do you like Sunford? | chatterbox |
+| `dlg.hero.play__f` | The girl hero (heroine) | hero | Deal me in. | **missing** |
+| `dlg.sunfordGambler.rules.say__f` | The girl hero (heroine) | sunfordGambler | What are the rules? | **missing** |
+| `dlg.sunfordGambler.luck.say__f` | The girl hero (heroine) | sunfordGambler | Do you ever lose? | **missing** |
 | `dlg.captainHale.quest.say__f` | The girl hero (heroine) | captainHale | How bad is it? | chatterbox |
 | `dlg.captainHale.quest.2__f` | The girl hero (heroine) | captainHale | Who's paying him? | chatterbox |
 | `dlg.captainHale.siege.say__f` | The girl hero (heroine) | captainHale | About the siege... | chatterbox |
@@ -1171,6 +1041,8 @@ rewrites it, and a test fails when it is stale. Do not edit by hand.
 | `dlg.syndicateBoss.cut.say__f` | The girl hero (heroine) | syndicateBoss | I was promised a share of Oakhaven. | chatterbox |
 | `dlg.syndicateBoss.syndicate.say__f` | The girl hero (heroine) | syndicateBoss | What does the Syndicate actually want? | chatterbox |
 | `dlg.syndicateBoss.order.say__f` | The girl hero (heroine) | syndicateBoss | The Iron Order is after me. | chatterbox |
+| `dlg.oakGambler.rules.say__f` | The girl hero (heroine) | oakGambler | How do we play? | **missing** |
+| `dlg.oakGambler.collection.say__f` | The girl hero (heroine) | oakGambler | What do you do with it all? | **missing** |
 | `dlg.forgemaster.quest.say__f` | The girl hero (heroine) | forgemaster | What happened down in the mines? | chatterbox |
 | `dlg.forgemaster.quest.2__f` | The girl hero (heroine) | forgemaster | And the golems? | chatterbox |
 | `dlg.forgemaster.core.say__f` | The girl hero (heroine) | forgemaster | About the core... | chatterbox |
@@ -1187,33 +1059,35 @@ rewrites it, and a test fails when it is stale. Do not edit by hand.
 | `dlg.exiledSovereign.oakhaven.say__f` | The girl hero (heroine) | exiledSovereign | About Oakhaven... | chatterbox |
 | `dlg.trainerChrono.class.say__f` | The girl hero (heroine) | trainerChrono | What is a Chrono-Weaver? | chatterbox |
 | `dlg.trainerChrono.oracle.say__f` | The girl hero (heroine) | trainerChrono | Tell me about the oracle. | chatterbox |
-| `dlg.mayorBrenna.town.say__f` | The girl hero (heroine) | mayorBrenna | Tell me about Silverbridge. | **missing** |
-| `dlg.mayorBrenna.masters.say__f` | The girl hero (heroine) | mayorBrenna | Is there really a teacher for every class here? | **missing** |
-| `dlg.mayorBrenna.river.say__f` | The girl hero (heroine) | mayorBrenna | What do people trade here? | **missing** |
-| `dlg.sbHealer.potions.say__f` | The girl hero (heroine) | sbHealer | Any advice on potions? | **missing** |
-| `dlg.sbHealer.sleep.say__f` | The girl hero (heroine) | sbHealer | Do you ever actually sleep? | **missing** |
+| `dlg.mayorBrenna.town.say__f` | The girl hero (heroine) | mayorBrenna | Tell me about Silverbridge. | chatterbox |
+| `dlg.mayorBrenna.masters.say__f` | The girl hero (heroine) | mayorBrenna | Is there really a teacher for every class here? | chatterbox |
+| `dlg.mayorBrenna.river.say__f` | The girl hero (heroine) | mayorBrenna | What do people trade here? | chatterbox |
+| `dlg.sbHealer.potions.say__f` | The girl hero (heroine) | sbHealer | Any advice on potions? | chatterbox |
+| `dlg.sbHealer.sleep.say__f` | The girl hero (heroine) | sbHealer | Do you ever actually sleep? | chatterbox |
 | `dlg.hero.brew__f` | The girl hero (heroine) | hero | Could you brew me something? | **missing** |
 | `dlg.sbAlchemist.herbs.say__f` | The girl hero (heroine) | sbAlchemist | Where do I find herbs? | **missing** |
 | `dlg.sbAlchemist.elixirs.say__f` | The girl hero (heroine) | sbAlchemist | What do the elixirs do? | **missing** |
-| `dlg.sbArmorer.steel.say__f` | The girl hero (heroine) | sbArmorer | What makes good armour? | **missing** |
-| `dlg.sbWeapons.blades.say__f` | The girl hero (heroine) | sbWeapons | How do I pick a good weapon? | **missing** |
-| `dlg.sbJeweler.gossip.say__f` | The girl hero (heroine) | sbJeweler | Heard any good gossip? | **missing** |
-| `dlg.sbMasterAegis.class.say__f` | The girl hero (heroine) | sbMasterAegis | What does an Aegis Knight really do? | **missing** |
-| `dlg.sbMasterAegis.bridge.say__f` | The girl hero (heroine) | sbMasterAegis | You held this bridge? | **missing** |
-| `dlg.sbMasterPyro.class.say__f` | The girl hero (heroine) | sbMasterPyro | What does a pyromancer really do? | **missing** |
-| `dlg.sbMasterPyro.sprocket.say__f` | The girl hero (heroine) | sbMasterPyro | What do you think of Professor Sprocket? | **missing** |
-| `dlg.sbMasterShadow.class.say__f` | The girl hero (heroine) | sbMasterShadow | What makes a good Shadowblade? | **missing** |
-| `dlg.sbMasterShadow.past.say__f` | The girl hero (heroine) | sbMasterShadow | How did you learn all this? | **missing** |
-| `dlg.sbMasterSovereign.class.say__f` | The girl hero (heroine) | sbMasterSovereign | What is a Grand Sovereign? | **missing** |
-| `dlg.sbMasterSovereign.please.say__f` | The girl hero (heroine) | sbMasterSovereign | Do you really say please to your guards? | **missing** |
-| `dlg.sbMasterGeo.class.say__f` | The girl hero (heroine) | sbMasterGeo | What does a Geomancer do? | **missing** |
-| `dlg.sbMasterGeo.garden.say__f` | The girl hero (heroine) | sbMasterGeo | Is that a garden made of stone? | **missing** |
-| `dlg.sbMasterAether.class.say__f` | The girl hero (heroine) | sbMasterAether | What does an Aether-Tech actually do? | **missing** |
-| `dlg.sbMasterAether.eyebrows.say__f` | The girl hero (heroine) | sbMasterAether | What happened to your eyebrows? | **missing** |
-| `dlg.sbMasterChrono.class.say__f` | The girl hero (heroine) | sbMasterChrono | What is a Chrono-Weaver? | **missing** |
-| `dlg.sbMasterChrono.keeper.say__f` | The girl hero (heroine) | sbMasterChrono | How do you know the Keeper of Hours? | **missing** |
-| `dlg.sbMasterBlood.class.say__f` | The girl hero (heroine) | sbMasterBlood | What is a Blood Alchemist, really? | **missing** |
-| `dlg.sbMasterBlood.herbs.say__f` | The girl hero (heroine) | sbMasterBlood | What are all these herbs for? | **missing** |
+| `dlg.sbGambler.rules.say__f` | The girl hero (heroine) | sbGambler | How does it work? | **missing** |
+| `dlg.sbGambler.prize.say__f` | The girl hero (heroine) | sbGambler | Has anyone ever won the prize? | **missing** |
+| `dlg.sbArmorer.steel.say__f` | The girl hero (heroine) | sbArmorer | What makes good armour? | chatterbox |
+| `dlg.sbWeapons.blades.say__f` | The girl hero (heroine) | sbWeapons | How do I pick a good weapon? | chatterbox |
+| `dlg.sbJeweler.gossip.say__f` | The girl hero (heroine) | sbJeweler | Heard any good gossip? | chatterbox |
+| `dlg.sbMasterAegis.class.say__f` | The girl hero (heroine) | sbMasterAegis | What does an Aegis Knight really do? | chatterbox |
+| `dlg.sbMasterAegis.bridge.say__f` | The girl hero (heroine) | sbMasterAegis | You held this bridge? | chatterbox |
+| `dlg.sbMasterPyro.class.say__f` | The girl hero (heroine) | sbMasterPyro | What does a pyromancer really do? | chatterbox |
+| `dlg.sbMasterPyro.sprocket.say__f` | The girl hero (heroine) | sbMasterPyro | What do you think of Professor Sprocket? | chatterbox |
+| `dlg.sbMasterShadow.class.say__f` | The girl hero (heroine) | sbMasterShadow | What makes a good Shadowblade? | chatterbox |
+| `dlg.sbMasterShadow.past.say__f` | The girl hero (heroine) | sbMasterShadow | How did you learn all this? | chatterbox |
+| `dlg.sbMasterSovereign.class.say__f` | The girl hero (heroine) | sbMasterSovereign | What is a Grand Sovereign? | chatterbox |
+| `dlg.sbMasterSovereign.please.say__f` | The girl hero (heroine) | sbMasterSovereign | Do you really say please to your guards? | chatterbox |
+| `dlg.sbMasterGeo.class.say__f` | The girl hero (heroine) | sbMasterGeo | What does a Geomancer do? | chatterbox |
+| `dlg.sbMasterGeo.garden.say__f` | The girl hero (heroine) | sbMasterGeo | Is that a garden made of stone? | chatterbox |
+| `dlg.sbMasterAether.class.say__f` | The girl hero (heroine) | sbMasterAether | What does an Aether-Tech actually do? | chatterbox |
+| `dlg.sbMasterAether.eyebrows.say__f` | The girl hero (heroine) | sbMasterAether | What happened to your eyebrows? | chatterbox |
+| `dlg.sbMasterChrono.class.say__f` | The girl hero (heroine) | sbMasterChrono | What is a Chrono-Weaver? | chatterbox |
+| `dlg.sbMasterChrono.keeper.say__f` | The girl hero (heroine) | sbMasterChrono | How do you know the Keeper of Hours? | chatterbox |
+| `dlg.sbMasterBlood.class.say__f` | The girl hero (heroine) | sbMasterBlood | What is a Blood Alchemist, really? | chatterbox |
+| `dlg.sbMasterBlood.herbs.say__f` | The girl hero (heroine) | sbMasterBlood | What are all these herbs for? | chatterbox |
 | `dlg.quest.goblinKing.slay.say__f` | The girl hero (heroine) | quest.goblinKing | No deals. Your raids end here. | chatterbox |
 | `dlg.quest.goblinKing.slay.1__f` | The girl hero, telling the story (heroine) | quest.goblinKing | The Goblin King falls, and the Hollows empty. | chatterbox |
 | `dlg.quest.goblinKing.slay.2__f` | The girl hero, telling the story (heroine) | quest.goblinKing | Sunford sleeps easier, and the Iron Order hears your name. | chatterbox |

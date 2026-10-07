@@ -19,6 +19,7 @@ import { EQUIP_SLOTS, ITEM_BY_ID, noGear, priceOf as itemPriceOf, sellValue, slo
 import { FORGE_MAX, forgeCost } from '../data/forge'
 import { HERB_CAP, isPlant } from '../data/plants'
 import { ELIXIR_BY_ID, ELIXIR_CAP, ELIXIR_IDS, brewFee, isElixir, type ElixirId } from '../data/elixirs'
+import { BATTLE_MIN_ITEMS, BATTLE_ROW, MEMORY_ROW, battleFee, battleXp, prizeOf } from '../gamble'
 import { ESCORT_PAY, TASK_XP, countTaskDeeds, postTasks, taskGold, type TaskDeeds, type TownTask } from '../townTasks'
 import { errandDef, type ErrandDef, type ErrandReward } from '../data/errands'
 import { countTalk, countVisit, errandState, handInCost, settle, type ErrandDeeds, type ErrandSave, type ErrandState, type ErrandWorld } from '../errands'
@@ -194,6 +195,9 @@ export interface MetaSave {
   rested: number
   /** The town boards' tasks of the day (roadmap #85), by town. */
   tasks: { day: string; towns: Partial<Record<TownId, TownTask[]>> }
+  /** The gamblers' winning rows (roadmap #91, #92): games won in a row at
+   *  the memory stand and at the item battle. */
+  gamble: { memory: number; battle: number }
 }
 
 /** What the last absence added to the rested pool, in seconds (0: nothing
@@ -257,7 +261,7 @@ const defaults = (): Profile => ({
   world: { cleared: [], flags: [], at: 'plains', pos: mapSpot('plains'), visits: {}, arenaBest: 0, chests: [], mastery: {}, said: [], pieces: [] },
   stats: { kills: 0, deaths: 0, runs: 0, playSeconds: 0, bestLevel: 1, xpEarned: 0 },
   tips: {},
-  meta: { shelf: { day: '', wares: {}, rolls: {}, used: 0 }, arena: { week: '', best: 0 }, contracts: { day: '', list: [] }, repGifts: [], presets: [null, null], lastSeen: 0, rested: 0, respecs: 0, tasks: { day: '', towns: {} } }
+  meta: { shelf: { day: '', wares: {}, rolls: {}, used: 0 }, arena: { week: '', best: 0 }, contracts: { day: '', list: [] }, repGifts: [], presets: [null, null], lastSeen: 0, rested: 0, respecs: 0, tasks: { day: '', towns: {} }, gamble: { memory: 0, battle: 0 } }
 })
 
 const num = (v: unknown, d: number): number => (typeof v === 'number' && Number.isFinite(v) ? v : typeof v === 'string' && Number.isFinite(Number(v)) ? Number(v) : d)
@@ -443,6 +447,12 @@ export const loadProfile = (): void => {
     if (ok.length) towns[town as TownId] = ok
   }
   meta.tasks = { day: typeof ts.day === 'string' ? ts.day : '', towns }
+  // A save from before the gamblers has no winning rows.
+  const gm = obj(meta.gamble, d.meta.gamble) as Record<string, unknown>
+  meta.gamble = {
+    memory: Math.max(0, Math.min(MEMORY_ROW - 1, Math.round(num(gm.memory, 0)))),
+    battle: Math.max(0, Math.min(BATTLE_ROW - 1, Math.round(num(gm.battle, 0))))
+  }
   // Rested (#9): the absence since the last save fills the pool. The new
   // last-seen is written by the next save; a reload before it reads the same
   // two numbers again and comes to the same pool.
@@ -972,6 +982,82 @@ export const sellItem = (id: string): boolean => {
   buyBack.push({ id, gold })
   saveProfile()
   return true
+}
+
+// ─── The gamblers (roadmap #91, #92, D110, D111, D113) ──────────────────────
+
+/** The bag's unworn items (what the item battle is played with). */
+export const unwornItems = (): string[] => profile.inv.items.filter(id => !equippedIn(id) && !!ITEM_BY_ID[id])
+
+/** A prize: an Epic or a Legendary not owned yet, into the bag (its sale price in gold when every one is owned). */
+const givePrize = (tier: 4 | 6): { item: string; gold: number } => {
+  const it = prizeOf(tier, new Set(profile.inv.items), Date.now() >>> 0)
+  if (it) { gainItem(it.id); return { item: it.id, gold: 0 } }
+  const gold = tier === 6 ? 2400 : 600
+  profile.gold += gold
+  return { item: '', gold }
+}
+
+/** The memory stand: the bet goes on the table. False: not the gold. */
+export const placeMemoryBet = (stake: number): boolean => {
+  if (stake <= 0 || profile.gold < stake) return false
+  profile.gold -= stake
+  saveProfile()
+  return true
+}
+
+/** The sand ran out, or every pair was found: the bet back doubled (and the
+ *  row's Legendary on its fifth win), or the row starts over. */
+export const settleMemory = (won: boolean, stake: number): { gold: number; prize: { item: string; gold: number } | null; row: number } => {
+  let prize: { item: string; gold: number } | null = null
+  let gold = 0
+  if (won) {
+    gold = stake * 2
+    profile.gold += gold
+    profile.meta.gamble.memory++
+    if (profile.meta.gamble.memory >= MEMORY_ROW) { prize = givePrize(6); profile.meta.gamble.memory = 0 }
+  } else profile.meta.gamble.memory = 0
+  saveProfile()
+  return { gold, prize, row: profile.meta.gamble.memory }
+}
+
+/** Why the item battle cannot start ('' when it can). */
+export const battleBlock = (): '' | 'items' | 'gold' => {
+  if (unwornItems().length < BATTLE_MIN_ITEMS) return 'items'
+  if (profile.gold < battleFee(profile.level)) return 'gold'
+  return ''
+}
+
+/** Sit down at the item battle: the fee. */
+export const startBattle = (): boolean => {
+  if (battleBlock()) return false
+  profile.gold -= battleFee(profile.level)
+  saveProfile()
+  return true
+}
+
+/** Lay an item: it is gone, won or lost. */
+export const layBattleItem = (id: string): boolean => {
+  if (!owns(id) || equippedIn(id)) return false
+  profile.inv.items.splice(profile.inv.items.indexOf(id), 1)
+  markSeen(id)
+  delete profile.inv.upgrades[id]
+  saveProfile()
+  return true
+}
+
+/** A game decided: a won one pays a little experience (and the row's Epic on its third win). */
+export const settleBattle = (won: boolean): { xp: number; prize: { item: string; gold: number } | null; row: number } => {
+  let prize: { item: string; gold: number } | null = null
+  let xp = 0
+  if (won) {
+    xp = battleXp(profile.level)
+    grantXp(xp)
+    profile.meta.gamble.battle++
+    if (profile.meta.gamble.battle >= BATTLE_ROW) { prize = givePrize(4); profile.meta.gamble.battle = 0 }
+  } else profile.meta.gamble.battle = 0
+  saveProfile()
+  return { xp, prize, row: profile.meta.gamble.battle }
 }
 
 // ─── Errands (roadmap #85, #86, #89, D101) ───────────────────────────────────

@@ -51,7 +51,7 @@ import { mapSpot, setMapPos } from './state/profile'
 
 export type Screen = 'boot' | 'zone' | 'town' | 'map'
 export type Modal =
-  | '' | 'results' | 'secondWind' | 'contracts' | 'pause' | 'character' | 'skills' | 'inventory' | 'journal' | 'shop' | 'trainer' | 'healer' | 'alchemy' | 'ending' | 'help'
+  | '' | 'results' | 'secondWind' | 'contracts' | 'pause' | 'character' | 'skills' | 'inventory' | 'journal' | 'shop' | 'trainer' | 'healer' | 'alchemy' | 'memory' | 'itemBattle' | 'ending' | 'help'
 /** A conversation in progress (`talk.ts`, drawn by `DialogLayer`): with a
  *  townsperson in the scene, with a trainer met on the map, or a quest's
  *  decision. It is not a window — the world keeps running under it — and it
@@ -748,7 +748,8 @@ const startTalk = (kind: Exclude<Talk, ''>, conv: ConversationDef, stage: TalkSt
 
 /** The window a townsperson's role opens (reached through their conversation). */
 const roleWindow = (npc: NpcDef): Modal =>
-  (npc.role === 'shop' ? 'shop' : npc.role === 'trainer' ? 'trainer' : npc.role === 'healer' ? 'healer' : npc.role === 'alchemist' ? 'alchemy' : '')
+  (npc.role === 'shop' ? 'shop' : npc.role === 'trainer' ? 'trainer' : npc.role === 'healer' ? 'healer' : npc.role === 'alchemist' ? 'alchemy'
+    : npc.role === 'gambler' ? (npc.game === 'memory' ? 'memory' : 'itemBattle') : '')
 
 /** The hero walked up to a townsperson (the scene calls this; so may a test). */
 /**

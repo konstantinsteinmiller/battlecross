@@ -4,6 +4,8 @@
   TeachScreen(v-else-if="flow.modal === 'trainer'")
   HealerScreen(v-else-if="flow.modal === 'healer'")
   AlchemyScreen(v-else-if="flow.modal === 'alchemy'")
+  MemoryGame(v-else-if="flow.modal === 'memory'")
+  ItemBattle(v-else-if="flow.modal === 'itemBattle'")
   ResultsModal(v-else-if="flow.modal === 'results'")
   SecondWindModal(v-else-if="flow.modal === 'secondWind'")
   ContractBoard(v-else-if="flow.modal === 'contracts'")
@@ -28,6 +30,8 @@ const TradeScreen = defineAsyncComponent(SCREEN_CHUNKS.trade)
 const TeachScreen = defineAsyncComponent(SCREEN_CHUNKS.teach)
 const HealerScreen = defineAsyncComponent(SCREEN_CHUNKS.healer)
 const AlchemyScreen = defineAsyncComponent(SCREEN_CHUNKS.alchemy)
+const MemoryGame = defineAsyncComponent(SCREEN_CHUNKS.memory)
+const ItemBattle = defineAsyncComponent(SCREEN_CHUNKS.itemBattle)
 import ResultsModal from './ResultsModal.vue'
 import SecondWindModal from './SecondWindModal.vue'
 import ContractBoard from './ContractBoard.vue'
