@@ -3660,7 +3660,9 @@ export default {
       skills: 'Abilità',
       roll: 'Rotolata',
       elixir: 'Bevi elisir',
-      elixirNext: 'Elisir successivo'
+      elixirNext: 'Elisir successivo',
+      skill7: 'Abilità 7',
+      skill8: 'Abilità 8'
     },
     difficulties: {
       easy: 'Facile',

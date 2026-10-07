@@ -3606,7 +3606,9 @@ export default {
       skills: 'Дағдылар',
       roll: 'Домалау',
       elixir: 'Эликсир ішу',
-      elixirNext: 'Келесі эликсир'
+      elixirNext: 'Келесі эликсир',
+      skill7: 'Дағды 7',
+      skill8: 'Дағды 8'
     },
     difficulties: {
       easy: 'Оңай',

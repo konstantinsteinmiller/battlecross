@@ -3606,7 +3606,9 @@ export default {
       skills: 'スキル',
       roll: 'ローリング',
       elixir: 'エリクサーを飲む',
-      elixirNext: '次のエリクサー'
+      elixirNext: '次のエリクサー',
+      skill7: 'スキル7',
+      skill8: 'スキル8'
     },
     difficulties: {
       easy: 'イージー',

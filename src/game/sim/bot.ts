@@ -1,6 +1,6 @@
 import { startAttrs, ATTRS, type Attr, type AttrBlock } from '../data/attributes'
 import { POINTS_PER_LEVEL } from '../data/attributes'
-import { SKILLS, SKILL_BY_ID, meetsSkill, type ClassId } from '../data/skills'
+import { ACTIVE_SLOTS, SKILLS, SKILL_BY_ID, meetsSkill, type ClassId } from '../data/skills'
 import { ITEMS, noGear, type ItemSlot, type ZoneId } from '../data/items'
 import { ZONES, visitLevel } from '../data/zones'
 import { applyPlan, populateZone } from './director'
@@ -168,7 +168,7 @@ export const botThink = (sim: Sim, explore = false): void => {
   }
   if (h.order.kind !== 'attack' || h.order.targetId !== foe.id) orderAttack(sim, foe.id)
   if (u.action && u.action.id !== 'attack') return
-  for (let slot = 0; slot < 6; slot++) {
+  for (let slot = 0; slot < ACTIVE_SLOTS; slot++) {
     const st = slotState(sim, slot)
     if (!st.ready || !st.def) continue
     const def = st.def

@@ -256,7 +256,7 @@ describe('classes and skills (GDD §5)', () => {
         expect(Object.keys(s.mods ?? {}).length, s.id).toBeGreaterThan(0)
       }
     }
-    expect([ACTIVE_SLOTS, PASSIVE_SLOTS]).toEqual([6, 3])
+    expect([ACTIVE_SLOTS, PASSIVE_SLOTS]).toEqual([8, 4])
   })
 
   it.each([

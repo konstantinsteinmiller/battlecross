@@ -3606,7 +3606,9 @@ export default {
       skills: 'Yetenekler',
       roll: 'Yuvarlanma',
       elixir: 'Eliksir iç',
-      elixirNext: 'Sonraki eliksir'
+      elixirNext: 'Sonraki eliksir',
+      skill7: 'Yetenek 7',
+      skill8: 'Yetenek 8'
     },
     difficulties: {
       easy: 'Kolay',

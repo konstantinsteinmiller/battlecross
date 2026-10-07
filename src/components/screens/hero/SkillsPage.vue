@@ -102,7 +102,7 @@
 /**
  * ─── The skills page (D40) ───────────────────────────────────────────────────
  *
- * The loadout is the centrepiece: six active sockets in the order of the
+ * The loadout is the centrepiece: eight active sockets in the order of the
  * battle bar and three round passive ones. Under it the codex: the eight
  * classes as emblems, each opening its six skills as a path — learned,
  * learnable (the hero meets its bars: the page says who teaches it and
@@ -305,14 +305,15 @@ const drag = useDrag<Held>({
   gap: clamp(0.3rem, 1.4vmin, 0.6rem)
   // Room for the gem on a socket's crown.
   padding-top: 0.3rem
+// Eight actives and four passives (roadmap #95): two rows of four each way.
 .loadout--active
-  grid-template-columns: repeat(3, var(--sock))
+  grid-template-columns: repeat(4, var(--sock))
 .loadout--passive
-  grid-template-columns: repeat(3, calc(var(--sock) * 0.92))
-// Wide enough for the battle bar's own row of six.
-@container (min-width: 19.5rem)
+  grid-template-columns: repeat(4, calc(var(--sock) * 0.92))
+// Wide enough for the battle bar's own row of eight.
+@container (min-width: 26rem)
   .loadout--active
-    grid-template-columns: repeat(6, minmax(0, var(--sock)))
+    grid-template-columns: repeat(8, minmax(0, var(--sock)))
 .slot
   +screen.bare-button
   width: 100%

@@ -3606,7 +3606,9 @@ export default {
       skills: 'Képességek',
       roll: 'Gurulás',
       elixir: 'Elixír megivása',
-      elixirNext: 'Következő elixír'
+      elixirNext: 'Következő elixír',
+      skill7: '7. képesség',
+      skill8: '8. képesség'
     },
     difficulties: {
       easy: 'Könnyű',

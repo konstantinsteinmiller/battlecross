@@ -1,5 +1,5 @@
 <template lang="pug">
-  div.skill-bar(:class="{ 'is-mouse': hud.device === 'mouse', 'is-lite': lite }")
+  div.skill-bar(:class="{ 'is-mouse': hud.device === 'mouse', 'is-lite': lite, 'is-wide': wide }")
     //- The dodge roll (every class): beside the bar, nearest the thumb's sweep.
     button.roll(
       type="button"
@@ -155,7 +155,7 @@
 import { computed, onMounted, onUnmounted, ref, type ComponentPublicInstance } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { addHudTicker, hud, hudLive } from '@/game/state/hud'
-import { SKILL_BY_ID, type SkillDef } from '@/game/data/skills'
+import { ACTIVE_SLOTS, SKILL_BY_ID, type SkillDef } from '@/game/data/skills'
 import { input } from '@/game/boot'
 import { touchFirst } from '@/game/engine/input'
 import { DEFAULT_BINDINGS } from '@/game/engine/keyBindings'
@@ -184,6 +184,10 @@ const filled = computed(() => {
   return out
 })
 
+/** More than nine buttons (eight skills and the flasks, #95): four across on
+ *  a touch screen, so the bar stays three rows high. */
+const wide = computed(() => filled.value.length + 1 + (revealed('mana') ? 1 : 0) + (hud.elixirKinds > 0 ? 1 : 0) > 9)
+
 const keyCode = (slot: number): string => DEFAULT_BINDINGS[`skill${slot + 1}` as 'skill1'][0]!
 const potionCode = DEFAULT_BINDINGS.potion[0]!
 const rollCode = DEFAULT_BINDINGS.roll[0]!
@@ -203,9 +207,9 @@ const elixirDef = computed(() => (isElixir(hud.elixir) ? ELIXIR_BY_ID[hud.elixir
 const elixirLevel = computed(() => level(hud.elixirs, ELIXIR_CAP))
 
 // ── Cooldown clocks (direct DOM) ─────────────────────────────────────────────
-const cdEls: Array<HTMLElement | null> = [null, null, null, null, null, null]
-const numEls: Array<HTMLElement | null> = [null, null, null, null, null, null]
-const shown: number[] = [-1, -1, -1, -1, -1, -1]
+const cdEls: Array<HTMLElement | null> = Array.from({ length: ACTIVE_SLOTS }, () => null)
+const numEls: Array<HTMLElement | null> = Array.from({ length: ACTIVE_SLOTS }, () => null)
+const shown: number[] = Array.from({ length: ACTIVE_SLOTS }, () => -1)
 const potionCd = ref<HTMLElement | null>(null)
 const potionNum = ref<HTMLElement | null>(null)
 const manaCd = ref<HTMLElement | null>(null)
@@ -252,7 +256,7 @@ const paint = (cd: HTMLElement | null, num: HTMLElement | null, left: number, ma
 let removeTicker: (() => void) | null = null
 onMounted(() => {
   removeTicker = addHudTicker(() => {
-    for (let s = 0; s < 6; s++) {
+    for (let s = 0; s < ACTIVE_SLOTS; s++) {
       if (cdEls[s]) shown[s] = paint(cdEls[s]!, numEls[s]!, hudLive.cd[s]!, hudLive.cdMax[s]!, shown[s]!)
     }
     potionShown = paint(potionCd.value, potionNum.value, hudLive.potionCd, hudLive.potionCdMax, potionShown)
@@ -366,6 +370,9 @@ const onElixirNext = (e: PointerEvent): void => {
   width: calc(var(--btn) * 3 + var(--gap) * 2)
   gap: var(--gap)
   pointer-events: none
+  &.is-wide
+    --btn: clamp(2.7rem, 13.5vmin, 4.6rem)
+    width: calc(var(--btn) * 4 + var(--gap) * 3)
   // Desktop: one row, read left to right like its keys — the belt first.
   &.is-mouse
     --btn: clamp(3.3rem, 7.6vmin, 4.8rem)

@@ -126,7 +126,7 @@ describe('booting from the state blob', () => {
     expect(profile.gold).toBe(0)
     expect(profile.hero.learned).toEqual(['shieldSlam'])
     // An unknown skill, and a passive in an active slot, leave the slot empty.
-    expect(profile.hero.active).toEqual(['', '', '', '', '', ''])
+    expect(profile.hero.active).toEqual(['', '', '', '', '', '', '', ''])
     expect(profile.hero.attrs.str).toBe(5)
     expect(profile.inv.items).toEqual(['rustedShortsword'])
     // Not owned, not known, or in the wrong slot: unequipped.

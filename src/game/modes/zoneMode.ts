@@ -8,7 +8,7 @@ import { sceneQuality } from '../engine/quality'
 import { sfx, type SfxName } from '../audio/sfx'
 import { ENEMY_BY_ID, MINIONS } from '../data/enemies'
 import { BOSS_SCRIPTS } from '../sim/bosses'
-import { SKILL_BY_ID } from '../data/skills'
+import { ACTIVE_SLOTS, SKILL_BY_ID } from '../data/skills'
 import { ARENA_WAVES, OPENING, TOWNS, ZONES, unitLevelTier, type ThemeId, type TownId } from '../data/zones'
 import { ITEM_BY_ID, type ZoneId } from '../data/items'
 import { applyPlan, populateTown, populateZone, summonDragonAlly } from '../sim/director'
@@ -1022,7 +1022,7 @@ export class ZoneMode implements GameMode {
       this.syncHud(false)
     }
     const h = sim.hero
-    for (let s = 0; s < 6; s++) { hudLive.cd[s] = h.cd[s]!; hudLive.cdMax[s] = h.cdMax[s]! }
+    for (let s = 0; s < ACTIVE_SLOTS; s++) { hudLive.cd[s] = h.cd[s]!; hudLive.cdMax[s] = h.cdMax[s]! }
     hudLive.potionCd = h.potionCd
     hudLive.potionCdMax = POTION_CD
     hudLive.elixirCd = h.elixirCd
@@ -1088,7 +1088,7 @@ export class ZoneMode implements GameMode {
     hud.elixirReady = h.elixirCd <= 0
     let changed = force
     const next: SkillSlotView[] = []
-    for (let s = 0; s < 6; s++) {
+    for (let s = 0; s < ACTIVE_SLOTS; s++) {
       const st = slotState(sim, s)
       const v: SkillSlotView = { id: h.skills[s] ?? '', ready: st.ready, noMana: st.noMana, locked: st.locked, active: false }
       const cur = hud.skills[s]

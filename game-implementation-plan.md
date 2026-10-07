@@ -571,5 +571,13 @@ attribute buff; items are fixed named ids owned once.
   at the trainer ("STR"), and spelled out on the skill's card ("Scales with
   Strength"). Done ahead of the classes (independent; the classes wait on
   question 51).
+- [x] **25.2 Eight and four slots** (#95). The bar holds eight actives (keys
+  1–8) and four passives; old saves load with the new slots empty. On a
+  touch screen the bar goes four across once it has more than nine buttons,
+  so it stays three rows high; the skills page lays the loadout in rows of
+  four (one row of eight where there is room).
+- [ ] **25.3–25.18 Classes** (#86, #95; question 51 answered: eight new
+  classes, every class 12 skills). Kits drafted by design agents
+  (`scratchpad/kits`), built a class at a time.
 - [ ] **23 Voice, balance, end-to-end, performance** (#93).
 - [ ] **24 Icons, then the world map** (#94).

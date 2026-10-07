@@ -1,5 +1,6 @@
 import type { LevelTier } from '../data/zones'
 import { shallowReactive } from 'vue'
+import { ACTIVE_SLOTS } from '../data/skills'
 
 /**
  * ─── The reactivity firewall ─────────────────────────────────────────────────
@@ -60,7 +61,7 @@ export const hud = shallowReactive({
   elixirKinds: 0,
   elixirReady: true,
   /** The six active slots. Replaced whole on a change. */
-  skills: [emptySlot(), emptySlot(), emptySlot(), emptySlot(), emptySlot(), emptySlot()] as SkillSlotView[],
+  skills: Array.from({ length: ACTIVE_SLOTS }, emptySlot) as SkillSlotView[],
   /** Status icons on the hero (ids, e.g. 'stun', 'burn', 'haste'). */
   statuses: [] as string[],
   /** The locked target: its name key, level, health and whether it is elite. */
@@ -106,8 +107,8 @@ export const hud = shallowReactive({
  */
 export const hudLive = {
   /** Cooldown left / total per active slot (seconds). */
-  cd: [0, 0, 0, 0, 0, 0],
-  cdMax: [1, 1, 1, 1, 1, 1],
+  cd: Array.from({ length: ACTIVE_SLOTS }, () => 0),
+  cdMax: Array.from({ length: ACTIVE_SLOTS }, () => 1),
   potionCd: 0,
   potionCdMax: 1,
   manaPotionCd: 0,

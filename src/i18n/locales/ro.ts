@@ -3641,7 +3641,9 @@ export default {
       skills: 'Abilități',
       roll: 'Rostogolire',
       elixir: 'Bea elixirul',
-      elixirNext: 'Elixirul următor'
+      elixirNext: 'Elixirul următor',
+      skill7: 'Abilitatea 7',
+      skill8: 'Abilitatea 8'
     },
     difficulties: {
       easy: 'Ușor',

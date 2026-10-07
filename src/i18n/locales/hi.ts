@@ -3681,7 +3681,9 @@ export default {
       skills: 'कौशल',
       roll: 'रोल',
       elixir: 'एलिक्सिर पिएँ',
-      elixirNext: 'अगला एलिक्सिर'
+      elixirNext: 'अगला एलिक्सिर',
+      skill7: 'कौशल 7',
+      skill8: 'कौशल 8'
     },
     difficulties: {
       easy: 'आसान',

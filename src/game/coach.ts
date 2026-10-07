@@ -1,5 +1,5 @@
 import { shallowReactive } from 'vue'
-import { SKILL_BY_ID } from './data/skills'
+import { ACTIVE_SLOTS, SKILL_BY_ID } from './data/skills'
 import { TOWNS } from './data/zones'
 import { hud, hudLive } from './state/hud'
 import { profile, saveProfile } from './state/profile'
@@ -284,7 +284,7 @@ class Coach {
       // The first ready skill; an aimed one teaches the drag.
       let slot = -1
       let aimSlot = -1
-      for (let s = 0; s < 6; s++) {
+      for (let s = 0; s < ACTIVE_SLOTS; s++) {
         if (!ready(s)) continue
         const def = SKILL_BY_ID[h.skills[s]!]
         if (!def) continue

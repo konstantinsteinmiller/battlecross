@@ -68,13 +68,16 @@ describe('trainers and the loadout (GDD §4.2)', () => {
     expect(p.profile.hero.learned).toHaveLength(8)
   })
 
-  it('a new skill drops into the first free slot of its kind; the seventh active waits', () => {
+  it('a new skill drops into the first free slot of its kind; the ninth active waits', () => {
     p.profile.gold = 100_000
-    for (const id of ['fireball', 'shadowstep', 'royalGuard', 'temporalStasis', 'sanguineFlask']) p.learnSkill(id)
-    expect(p.profile.hero.active).toEqual(['shieldSlam', 'fireball', 'shadowstep', 'royalGuard', 'temporalStasis', 'sanguineFlask'])
-    p.learnSkill('aetherPistol')
-    expect(p.profile.hero.active).not.toContain('aetherPistol')
-    expect(p.knows('aetherPistol')).toBe(true)
+    for (const id of ['fireball', 'shadowstep', 'royalGuard', 'temporalStasis', 'sanguineFlask', 'stoneSpike', 'aetherPistol']) p.learnSkill(id)
+    expect(p.profile.hero.active).toEqual(['shieldSlam', 'fireball', 'shadowstep', 'royalGuard', 'temporalStasis', 'sanguineFlask', 'stoneSpike', 'aetherPistol'])
+    // A ninth (there are eight first-level actives: a stronger hero learns one more).
+    p.profile.level = 30
+    p.profile.hero.attrs = { str: 40, dex: 40, int: 40, end: 40, skl: 40, cha: 40 }
+    p.learnSkill('radiantStrike')
+    expect(p.profile.hero.active).not.toContain('radiantStrike')
+    expect(p.knows('radiantStrike')).toBe(true)
   })
 
   it('slotting swaps instead of duplicating, and an active never goes in a passive slot', () => {

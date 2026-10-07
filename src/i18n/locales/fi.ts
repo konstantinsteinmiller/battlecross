@@ -3606,7 +3606,9 @@ export default {
       skills: 'Kyvyt',
       roll: 'Väistökieri',
       elixir: 'Juo eliksiiri',
-      elixirNext: 'Seuraava eliksiiri'
+      elixirNext: 'Seuraava eliksiiri',
+      skill7: 'Kyky 7',
+      skill8: 'Kyky 8'
     },
     difficulties: {
       easy: 'Helppo',

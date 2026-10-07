@@ -3688,7 +3688,9 @@ export default {
       skills: 'Umiejętności',
       roll: 'Przewrót',
       elixir: 'Wypij eliksir',
-      elixirNext: 'Następny eliksir'
+      elixirNext: 'Następny eliksir',
+      skill7: 'Umiejętność 7',
+      skill8: 'Umiejętność 8'
     },
     difficulties: {
       easy: 'Łatwy',

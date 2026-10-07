@@ -146,8 +146,8 @@ describe('the paper-doll', () => {
 describe('the skills page', () => {
   it('six active sockets in the battle bar\'s order and three passive ones', async () => {
     await openBook('skills')
-    expect($$('.loadout--active .slot')).toHaveLength(6)
-    expect($$('.loadout--passive .slot')).toHaveLength(3)
+    expect($$('.loadout--active .slot')).toHaveLength(8)
+    expect($$('.loadout--passive .slot')).toHaveLength(4)
     expect($$('.emblem')).toHaveLength(8)
     expect($$('.codex__path .node')).toHaveLength(6)
   })

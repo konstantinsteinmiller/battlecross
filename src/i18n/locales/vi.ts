@@ -3606,7 +3606,9 @@ export default {
       skills: 'Kỹ năng',
       roll: 'Lăn né',
       elixir: 'Uống linh dược',
-      elixirNext: 'Linh dược kế tiếp'
+      elixirNext: 'Linh dược kế tiếp',
+      skill7: 'Kỹ năng 7',
+      skill8: 'Kỹ năng 8'
     },
     difficulties: {
       easy: 'Dễ',

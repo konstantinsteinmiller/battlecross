@@ -3650,7 +3650,9 @@ export default {
       skills: 'Ικανότητες',
       roll: 'Κύλισμα αποφυγής',
       elixir: 'Πιες ελιξίριο',
-      elixirNext: 'Επόμενο ελιξίριο'
+      elixirNext: 'Επόμενο ελιξίριο',
+      skill7: 'Ικανότητα 7',
+      skill8: 'Ικανότητα 8'
     },
     difficulties: {
       easy: 'Εύκολο',

@@ -3868,7 +3868,9 @@ export default {
       skills: 'المهارات',
       roll: 'دحرجة المراوغة',
       elixir: 'اشرب الإكسير',
-      elixirNext: 'الإكسير التالي'
+      elixirNext: 'الإكسير التالي',
+      skill7: 'المهارة 7',
+      skill8: 'المهارة 8'
     },
     difficulties: {
       easy: 'سهل',

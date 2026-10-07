@@ -3697,7 +3697,9 @@ export default {
       skills: 'Vještine',
       roll: 'Kotrljaj',
       elixir: 'Popij eliksir',
-      elixirNext: 'Sljedeći eliksir'
+      elixirNext: 'Sljedeći eliksir',
+      skill7: 'Vještina 7',
+      skill8: 'Vještina 8'
     },
     difficulties: {
       easy: 'Lako',

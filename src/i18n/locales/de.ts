@@ -3623,7 +3623,9 @@ export default {
       skills: 'Fähigkeiten',
       roll: 'Ausweichrolle',
       elixir: 'Elixier trinken',
-      elixirNext: 'Nächstes Elixier'
+      elixirNext: 'Nächstes Elixier',
+      skill7: 'Fähigkeit 7',
+      skill8: 'Fähigkeit 8'
     },
     difficulties: {
       easy: 'Leicht',

@@ -2105,6 +2105,8 @@ export default {
       'skill4': 'Skill 4',
       'skill5': 'Skill 5',
       'skill6': 'Skill 6',
+      'skill7': 'Skill 7',
+      'skill8': 'Skill 8',
       'potion': 'Drink potion',
       'manaPotion': 'Drink mana potion',
       'elixir': 'Drink elixir',

@@ -172,8 +172,9 @@ export const SKILL_BY_ID: Readonly<Record<string, SkillDef>> = Object.fromEntrie
 
 export const skillsOf = (cls: ClassId): SkillDef[] => SKILLS.filter(s => s.cls === cls)
 
-export const ACTIVE_SLOTS = 6
-export const PASSIVE_SLOTS = 3
+/** The bar's slots (roadmap #95): eight actives, four passives. */
+export const ACTIVE_SLOTS = 8
+export const PASSIVE_SLOTS = 4
 
 /** Does a hero of this level and these attribute totals meet a skill's bars? */
 export const meetsSkill = (s: SkillDef, level: number, attrs: AttrBlock): boolean => {

@@ -3642,7 +3642,9 @@ export default {
       skills: 'Habilidades',
       roll: 'Rolamento',
       elixir: 'Beber elixir',
-      elixirNext: 'Próximo elixir'
+      elixirNext: 'Próximo elixir',
+      skill7: 'Habilidade 7',
+      skill8: 'Habilidade 8'
     },
     difficulties: {
       easy: 'Fácil',

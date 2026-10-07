@@ -163,7 +163,7 @@ const DRAG_TOUCH = 14
 const NOT_A_PRESS = new Set(['ShiftLeft', 'ShiftRight', 'ControlLeft', 'ControlRight', 'AltLeft', 'AltRight', 'MetaLeft', 'MetaRight', 'F1', 'F2'])
 
 const SKILL_ACTIONS: Partial<Record<Action, number>> = {
-  skill1: 0, skill2: 1, skill3: 2, skill4: 3, skill5: 4, skill6: 5
+  skill1: 0, skill2: 1, skill3: 2, skill4: 3, skill5: 4, skill6: 5, skill7: 6, skill8: 7
 }
 
 export const attachInput = (surface: HTMLElement, input: Input, opts: InputOptions = {}): (() => void) => {

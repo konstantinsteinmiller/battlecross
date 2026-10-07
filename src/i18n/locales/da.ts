@@ -3606,7 +3606,9 @@ export default {
       skills: 'Evner',
       roll: 'Undvigerulle',
       elixir: 'Drik eliksir',
-      elixirNext: 'Næste eliksir'
+      elixirNext: 'Næste eliksir',
+      skill7: 'Evne 7',
+      skill8: 'Evne 8'
     },
     difficulties: {
       easy: 'Let',

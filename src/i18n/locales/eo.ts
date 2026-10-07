@@ -3606,7 +3606,9 @@ export default {
       skills: 'Kapabloj',
       roll: 'Evita rulo',
       elixir: 'Trinki eliksiron',
-      elixirNext: 'Sekva eliksiro'
+      elixirNext: 'Sekva eliksiro',
+      skill7: 'Kapablo 7',
+      skill8: 'Kapablo 8'
     },
     difficulties: {
       easy: 'Facila',

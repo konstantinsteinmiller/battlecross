@@ -3691,7 +3691,9 @@ export default {
       skills: 'Dovednosti',
       roll: 'Úhybný kotoul',
       elixir: 'Vypít elixír',
-      elixirNext: 'Další elixír'
+      elixirNext: 'Další elixír',
+      skill7: 'Dovednost 7',
+      skill8: 'Dovednost 8'
     },
     difficulties: {
       easy: 'Lehká',

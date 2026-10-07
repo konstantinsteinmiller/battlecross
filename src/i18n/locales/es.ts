@@ -3638,7 +3638,9 @@ export default {
       skills: 'Habilidades',
       roll: 'Voltereta de esquiva',
       elixir: 'Beber elixir',
-      elixirNext: 'Siguiente elixir'
+      elixirNext: 'Siguiente elixir',
+      skill7: 'Habilidad 7',
+      skill8: 'Habilidad 8'
     },
     difficulties: {
       easy: 'Fácil',

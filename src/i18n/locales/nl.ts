@@ -3614,7 +3614,9 @@ export default {
       skills: 'Vaardigheden',
       roll: 'Ontwijrol',
       elixir: 'Elixer drinken',
-      elixirNext: 'Volgend elixer'
+      elixirNext: 'Volgend elixer',
+      skill7: 'Vaardigheid 7',
+      skill8: 'Vaardigheid 8'
     },
     difficulties: {
       easy: 'Makkelijk',

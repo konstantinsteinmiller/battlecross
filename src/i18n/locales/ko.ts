@@ -3606,7 +3606,9 @@ export default {
       skills: '스킬',
       roll: '구르기',
       elixir: '엘릭서 마시기',
-      elixirNext: '다음 엘릭서'
+      elixirNext: '다음 엘릭서',
+      skill7: '스킬 7',
+      skill8: '스킬 8'
     },
     difficulties: {
       easy: '쉬움',

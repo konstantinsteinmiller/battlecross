@@ -3606,7 +3606,9 @@ export default {
       skills: '技能',
       roll: '翻滚',
       elixir: '喝灵药',
-      elixirNext: '下一种灵药'
+      elixirNext: '下一种灵药',
+      skill7: '技能 7',
+      skill8: '技能 8'
     },
     difficulties: {
       easy: '简单',

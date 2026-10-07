@@ -3666,7 +3666,9 @@ export default {
       skills: 'Умения',
       roll: 'Претъркулване',
       elixir: 'Изпий еликсир',
-      elixirNext: 'Следващ еликсир'
+      elixirNext: 'Следващ еликсир',
+      skill7: 'Умение 7',
+      skill8: 'Умение 8'
     },
     difficulties: {
       easy: 'Лесна',

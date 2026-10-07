@@ -3606,7 +3606,9 @@ export default {
       skills: 'Ferdigheter',
       roll: 'Rulle',
       elixir: 'Drikk eliksir',
-      elixirNext: 'Neste eliksir'
+      elixirNext: 'Neste eliksir',
+      skill7: 'Ferdighet 7',
+      skill8: 'Ferdighet 8'
     },
     difficulties: {
       easy: 'Lett',

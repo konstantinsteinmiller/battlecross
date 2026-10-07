@@ -183,9 +183,10 @@ about 2500 px.
 classes (an Elementalist, a Soul Warden), 12 skills for every class and 8 + 4
 skill slots.
 
-- **In effect:** four more on top of the secret four of #86 (eight new
-  classes); the secret four stay bow, ice blade, holy and beasts.
-- **Recommended:** say if they are meant to be the same four.
+- **Answered (2026-10-07):** eight new classes: the secret four of #86
+  (bow, ice blade, holy, beasts) and #95's four (Elementalist, Soul Warden
+  and two more), every class (the eight existing ones too) with 12 skills,
+  8 active and 4 passive slots.
 
 Decision report for #78–#94: https://claude.ai/artifact/QkADooVg1f8ndUYurrpaYi
 

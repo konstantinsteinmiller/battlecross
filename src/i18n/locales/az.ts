@@ -3606,7 +3606,9 @@ export default {
       skills: 'Bacarıqlar',
       roll: 'Yuvarlanma',
       elixir: 'Eliksir iç',
-      elixirNext: 'Növbəti eliksir'
+      elixirNext: 'Növbəti eliksir',
+      skill7: 'Bacarıq 7',
+      skill8: 'Bacarıq 8'
     },
     difficulties: {
       easy: 'Asan',

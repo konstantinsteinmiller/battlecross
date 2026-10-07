@@ -3653,7 +3653,9 @@ export default {
       skills: 'Įgūdžiai',
       roll: 'Riedėjimas',
       elixir: 'Gerti nuovirą',
-      elixirNext: 'Kitas nuoviras'
+      elixirNext: 'Kitas nuoviras',
+      skill7: 'Įgūdis 7',
+      skill8: 'Įgūdis 8'
     },
     difficulties: {
       easy: 'Lengvas',

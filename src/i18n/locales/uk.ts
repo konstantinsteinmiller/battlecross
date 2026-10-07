@@ -3690,7 +3690,9 @@ export default {
       skills: 'Навички',
       roll: 'Перекат',
       elixir: 'Випити еліксир',
-      elixirNext: 'Наступний еліксир'
+      elixirNext: 'Наступний еліксир',
+      skill7: 'Навичка 7',
+      skill8: 'Навичка 8'
     },
     difficulties: {
       easy: 'Легка',

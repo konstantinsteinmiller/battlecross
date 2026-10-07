@@ -3642,7 +3642,9 @@ export default {
       skills: 'Compétences',
       roll: 'Roulade',
       elixir: 'Boire un élixir',
-      elixirNext: 'Élixir suivant'
+      elixirNext: 'Élixir suivant',
+      skill7: 'Compétence 7',
+      skill8: 'Compétence 8'
     },
     difficulties: {
       easy: 'Facile',

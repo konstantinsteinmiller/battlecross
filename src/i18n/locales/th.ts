@@ -3606,7 +3606,9 @@ export default {
       skills: 'สกิล',
       roll: 'กลิ้งหลบ',
       elixir: 'ดื่มยาวิเศษ',
-      elixirNext: 'ยาวิเศษถัดไป'
+      elixirNext: 'ยาวิเศษถัดไป',
+      skill7: 'สกิล 7',
+      skill8: 'สกิล 8'
     },
     difficulties: {
       easy: 'ง่าย',

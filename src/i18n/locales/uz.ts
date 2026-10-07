@@ -3606,7 +3606,9 @@ export default {
       skills: 'Koʻnikmalar',
       roll: 'Dumalash',
       elixir: 'Eliksir ichish',
-      elixirNext: 'Keyingi eliksir'
+      elixirNext: 'Keyingi eliksir',
+      skill7: 'Koʻnikma 7',
+      skill8: 'Koʻnikma 8'
     },
     difficulties: {
       easy: 'Oson',

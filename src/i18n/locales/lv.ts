@@ -3667,7 +3667,9 @@ export default {
       skills: 'Prasmes',
       roll: 'Ripošana',
       elixir: 'Dzert eliksīru',
-      elixirNext: 'Nākamais eliksīrs'
+      elixirNext: 'Nākamais eliksīrs',
+      skill7: 'Prasme 7',
+      skill8: 'Prasme 8'
     },
     difficulties: {
       easy: 'Viegls',

@@ -1,5 +1,5 @@
 import { statPower } from '../data/attributes'
-import { HEAT_DECAY, SKILL_BY_ID, type SkillDef } from '../data/skills'
+import { ACTIVE_SLOTS, HEAT_DECAY, SKILL_BY_ID, type SkillDef } from '../data/skills'
 import { MANA_POTION, POTION_HEAL } from '../data/loot'
 import { ELIXIRS, ELIXIR_BY_ID, ELIXIR_TIME, isElixir } from '../data/elixirs'
 import { hasLineOfSight, moveCircle } from './grid'
@@ -34,7 +34,7 @@ const AUTO_ENGAGE = 3.2
 
 export interface HeroInit {
   build: HeroBuild
-  /** The six active slots. */
+  /** The active slots (`ACTIVE_SLOTS`). */
   skills: string[]
   x: number
   z: number
@@ -55,13 +55,13 @@ export const createHero = (sim: Sim, o: HeroInit): HeroState => {
   const unit = sim.addUnit({ kind: 'hero', team: 0, rank: 'hero', level: o.build.level, x: o.x, z: o.z, r: 0.45, h: 1.45, s, facing: Math.PI })
   sim.start = { x: o.x, z: o.z }
   const skills = [...o.skills]
-  while (skills.length < 6) skills.push('')
+  while (skills.length < ACTIVE_SLOTS) skills.push('')
   const h: HeroState = {
     unit,
     build: o.build,
     skills,
-    cd: [0, 0, 0, 0, 0, 0],
-    cdMax: [1, 1, 1, 1, 1, 1],
+    cd: skills.map(() => 0),
+    cdMax: skills.map(() => 1),
     heat: 0,
     overheatT: 0,
     usesHeat: skills.some(id => SKILL_BY_ID[id]?.cls === 'aether'),

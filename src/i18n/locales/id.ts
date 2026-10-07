@@ -3606,7 +3606,9 @@ export default {
       skills: 'Skill',
       roll: 'Guling',
       elixir: 'Minum eliksir',
-      elixirNext: 'Eliksir berikutnya'
+      elixirNext: 'Eliksir berikutnya',
+      skill7: 'Skill 7',
+      skill8: 'Skill 8'
     },
     difficulties: {
       easy: 'Mudah',
