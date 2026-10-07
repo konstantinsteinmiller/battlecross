@@ -26,7 +26,7 @@ import type { FeatureId } from './state'
  */
 
 export type GoalId =
-  | 'dummy' | 'clear' | 'boss' | 'exit' | 'wave' | 'fight'
+  | 'dummy' | 'clear' | 'boss' | 'exit' | 'wave' | 'fight' | 'escort'
   | 'trainer' | 'learn' | 'points' | 'leave' | 'travel' | 'decide' | 'explore'
 
 export interface Goal {
@@ -58,6 +58,8 @@ export interface ZoneGoalState {
   dummy: boolean
   /** A random encounter met on the map: no place to clear, just this fight. */
   encounter?: boolean
+  /** The caravan's road (#85): the cart is the goal. */
+  escort?: boolean
   wave: number
   waves: number
 }
@@ -110,6 +112,7 @@ export const nextGoal = (c: GoalCtx): Goal | null => {
     if (z.ended) return null
     if (z.kind === 'arena') return { id: 'wave', n: Math.max(0, z.wave - 1), of: z.waves }
     if (z.dummy) return { id: 'dummy' }
+    if (z.escort) return { id: 'escort' }
     if (z.encounter) return { id: 'fight', n: z.done, of: z.total }
     // A branch's boss, met off the road: beating it is the goal while it fights.
     if (z.sideBoss) return { id: 'boss', foe: z.sideBoss }

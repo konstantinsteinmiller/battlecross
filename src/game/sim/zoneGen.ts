@@ -127,6 +127,8 @@ export interface ZonePlan {
   dummy?: { x: number; z: number }
   /** Herbs growing in the wild this visit (roadmap #88), walked over to pick. */
   herbs?: HerbPlan[]
+  /** An escort (roadmap #85): the caravan's road, x, z pairs from start to end. */
+  caravan?: { path: number[] }
 }
 
 /** The main chain's width (cells): the road wanders inside it. */
@@ -448,11 +450,12 @@ export const generateTown = (def: TownDef, flags: ReadonlySet<string>, seed: num
  * chests, no puzzles, no water: a quick fight, over in a minute. Seeded like
  * every other plan. `packs`: the enemies of each pack, the nearest first.
  */
-export const generateEncounter = (packs: ReadonlyArray<readonly string[]>, seed: number): ZonePlan => {
+export const generateEncounter = (packs: ReadonlyArray<readonly string[]>, seed: number, o: { escort?: boolean } = {}): ZonePlan => {
   const rng = mulberry32(seed)
   const w = 32
   const n = Math.max(1, packs.length)
-  const step = 10
+  // An escort's road is longer: the caravan needs room to roll between ambushes.
+  const step = o.escort ? 13 : 10
   const h = 15 + n * step
   const solid = new Uint8Array(w * h).fill(1)
   const trail = new Uint8Array(w * h)
@@ -469,7 +472,7 @@ export const generateEncounter = (packs: ReadonlyArray<readonly string[]>, seed:
   for (let k = 0; k < cs.length; k++) {
     const c = cs[k]!
     carveDisc(solid, w, h, c.i, c.j, c.r, rng)
-    if (k > 0) carveLine(solid, trail, w, h, cs[k - 1]!.i, cs[k - 1]!.j, c.i, c.j, 1.8)
+    if (k > 0) carveLine(solid, trail, w, h, cs[k - 1]!.i, cs[k - 1]!.j, c.i, c.j, o.escort ? 2.3 : 1.8)
   }
   // A boulder or two to fight round, off the trail.
   for (let k = 1; k < cs.length; k++) {
@@ -491,8 +494,12 @@ export const generateEncounter = (packs: ReadonlyArray<readonly string[]>, seed:
   for (let k = 1; k <= n; k++) {
     const c = clearings[k]!
     const kinds = [...(packs[k - 1] ?? [])]
-    plans.push({ x: c.x, z: c.z, r: c.r, kinds, finale: k === n, boss: '' })
+    // An escort's packs lie in wait beside the road, not on it.
+    const side = o.escort ? (k % 2 ? 1 : -1) * c.r * 0.45 : 0
+    plans.push({ x: c.x + side, z: c.z, r: c.r, kinds, finale: k === n, boss: '' })
   }
+  // The caravan's road: the start, then through each clearing to the far end.
+  const caravan = o.escort ? { path: clearings.flatMap(c => [c.x, c.z]) } : undefined
   return {
     seed, w, h, solid, trail, kind: new Uint8Array(w * h), cave: new Uint8Array(w * h), sealed: new Uint8Array(w * h),
     side: new Uint8Array(w * h),
@@ -505,7 +512,8 @@ export const generateEncounter = (packs: ReadonlyArray<readonly string[]>, seed:
     secret: null,
     buildings: [],
     npcs: [],
-    gates: []
+    gates: [],
+    ...(caravan ? { caravan } : {})
   }
 }
 

@@ -18,10 +18,11 @@ import { ACTIVE_SLOTS, PASSIVE_SLOTS, SKILL_BY_ID, meetsSkill, priceOf as skillP
 import { EQUIP_SLOTS, ITEM_BY_ID, noGear, priceOf as itemPriceOf, sellValue, slotOf, type EquipSlot } from '../data/items'
 import { FORGE_MAX, forgeCost } from '../data/forge'
 import { HERB_CAP, isPlant } from '../data/plants'
+import { ESCORT_PAY, TASK_XP, countTaskDeeds, postTasks, taskGold, type TaskDeeds, type TownTask } from '../townTasks'
 import { errandDef, type ErrandDef, type ErrandReward } from '../data/errands'
 import { countTalk, countVisit, errandState, handInCost, settle, type ErrandDeeds, type ErrandSave, type ErrandState, type ErrandWorld } from '../errands'
 import { FACTIONS, FRIEND_DISCOUNT, QUEST_BY_ID, REP_FRIEND, REP_MAX, REP_MIN, choiceOpen, type FactionId } from '../data/quests'
-import { MAP, NODE_BY_ID, ZONES, nodeOpen, nodeReachable, type NodeId } from '../data/zones'
+import { MAP, NODE_BY_ID, TOWNS, ZONES, nodeOpen, nodeReachable, type NodeId, type TownId } from '../data/zones'
 import { heroStats, shopDiscount, sumBuild, type HeroBuild } from '../sim/stats'
 import type { UnitStats } from '../sim/types'
 import { heroGenderOf, type HeroGender } from '../art/heroPortrait'
@@ -186,6 +187,8 @@ export interface MetaSave {
   lastSeen: number
   /** Seconds of double kill XP waiting (roadmap #9). */
   rested: number
+  /** The town boards' tasks of the day (roadmap #85), by town. */
+  tasks: { day: string; towns: Partial<Record<TownId, TownTask[]>> }
 }
 
 /** What the last absence added to the rested pool, in seconds (0: nothing
@@ -247,7 +250,7 @@ const defaults = (): Profile => ({
   world: { cleared: [], flags: [], at: 'plains', pos: mapSpot('plains'), visits: {}, arenaBest: 0, chests: [], mastery: {}, said: [], pieces: [] },
   stats: { kills: 0, deaths: 0, runs: 0, playSeconds: 0, bestLevel: 1, xpEarned: 0 },
   tips: {},
-  meta: { shelf: { day: '', wares: {}, rolls: {}, used: 0 }, arena: { week: '', best: 0 }, contracts: { day: '', list: [] }, repGifts: [], presets: [null, null], lastSeen: 0, rested: 0, respecs: 0 }
+  meta: { shelf: { day: '', wares: {}, rolls: {}, used: 0 }, arena: { week: '', best: 0 }, contracts: { day: '', list: [] }, repGifts: [], presets: [null, null], lastSeen: 0, rested: 0, respecs: 0, tasks: { day: '', towns: {} } }
 })
 
 const num = (v: unknown, d: number): number => (typeof v === 'number' && Number.isFinite(v) ? v : typeof v === 'string' && Number.isFinite(Number(v)) ? Number(v) : d)
@@ -414,6 +417,17 @@ export const loadProfile = (): void => {
     Number.isFinite((c as Contract).n) && Number.isFinite((c as Contract).have)) : []
   meta.contracts = list.length === FACTIONS.length && typeof cs.day === 'string' ? { day: cs.day, list } : { day: '', list: [] }
   meta.repGifts = strs(meta.repGifts).filter((f): f is FactionId => FACTIONS.includes(f as FactionId))
+  // The boards' tasks (#85): a day's lists as posted; anything malformed is
+  // dropped and that board posts afresh.
+  const ts = obj(meta.tasks, d.meta.tasks)
+  const towns: Partial<Record<TownId, TownTask[]>> = {}
+  for (const [town, l] of Object.entries(obj(ts.towns, {}))) {
+    if (!(town in TOWNS) || !Array.isArray(l)) continue
+    const ok = l.filter((t): t is TownTask => !!t && typeof t === 'object' && ['slay', 'gather', 'escort'].includes((t as TownTask).kind) &&
+      Number.isFinite((t as TownTask).n) && Number.isFinite((t as TownTask).have))
+    if (ok.length) towns[town as TownId] = ok
+  }
+  meta.tasks = { day: typeof ts.day === 'string' ? ts.day : '', towns }
   // Rested (#9): the absence since the last save fills the pool. The new
   // last-seen is written by the next save; a reload before it reads the same
   // two numbers again and comes to the same pool.
@@ -711,6 +725,57 @@ export const contractsToday = (): Contract[] => {
     saveProfile()
   }
   return profile.meta.contracts.list
+}
+
+// ─── The town boards' tasks (roadmap #85, D105) ─────────────────────────────
+
+/** A town's tasks today (posted the first time they are looked at). */
+export const tasksOf = (town: TownId): TownTask[] => {
+  const day = dayKey()
+  if (profile.meta.tasks.day !== day) profile.meta.tasks = { day, towns: {} }
+  if (!profile.meta.tasks.towns[town]) {
+    profile.meta.tasks.towns[town] = postTasks(town, day, reachableZones(), isNodeOpen('oakhaven'))
+    saveProfile()
+  }
+  // The reactive list (a screen showing it follows its counts).
+  return profile.meta.tasks.towns[town]!
+}
+
+/** How far a task is: counted, or (gathering) what the pouch holds. */
+export const taskHave = (t: TownTask): number => (t.kind === 'gather' ? Math.min(t.n, herbCount(t.plant)) : Math.min(t.n, t.have))
+export const taskReady = (t: TownTask): boolean => !t.done && taskHave(t) >= t.n
+/** Tasks ready to hand in at a town's board. */
+export const tasksReady = (town: TownId): number => tasksOf(town).filter(taskReady).length
+
+/** What a task pays now. */
+export const taskPay = (t: TownTask): { gold: number; xp: number } => {
+  const k = t.kind === 'escort' ? ESCORT_PAY : 1
+  return { gold: taskGold(profile.level) * k, xp: Math.round(xpToNext(Math.min(profile.level, MAX_LEVEL - 1)) * TASK_XP * k) }
+}
+
+/** Hand a finished task in at its board: the herbs go, the pay comes. */
+export const handInTask = (town: TownId, i: number): { gold: number; xp: number } | null => {
+  const t = tasksOf(town)[i]
+  if (!t || !taskReady(t)) return null
+  if (t.kind === 'gather' && !spendHerbs({ [t.plant]: t.n })) return null
+  const pay = taskPay(t)
+  t.done = true
+  profile.gold += pay.gold
+  grantXp(pay.xp)
+  saveProfile()
+  return pay
+}
+
+/** A visit's kills into every board's defeat tasks. */
+export const countTasks = (d: TaskDeeds): void => {
+  if (profile.meta.tasks.day !== dayKey()) return
+  for (const list of Object.values(profile.meta.tasks.towns)) if (list) countTaskDeeds(list, d)
+}
+
+/** The caravan arrived (#85): every board's escort task of the day is done. */
+export const finishEscortTasks = (): void => {
+  for (const list of Object.values(profile.meta.tasks.towns)) for (const t of list ?? []) if (t.kind === 'escort') t.have = t.n
+  saveProfile()
 }
 
 /** Count a visit into today's contracts (the visit's own save follows). */

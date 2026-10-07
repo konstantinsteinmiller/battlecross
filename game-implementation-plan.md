@@ -494,8 +494,18 @@ attribute buff; items are fixed named ids owned once.
   Conversations can ask where an errand stands and start or hand one in. The
   hero's book has a fourth page, the Journal (a scroll glyph), listing every
   open errand with its steps, counts and who to go back to.
-- [ ] **21.4 Boards and town tasks** (#85).
-- [ ] **21.5 The caravan** (#85).
+- [x] **21.4 Boards and town tasks** (#85). The notice board in every town
+  square is walked up to ("Read" prompt, E, or a tap on it) and opens the board
+  window: three tasks a day of that town (a hunt in its own region, herbs from
+  the pouch, and in Sunford and Oakhaven the caravan), handed in there for gold
+  and a fifth of a level's XP; the factions' contracts follow from the second
+  zone cleared on. Saved per town and day (`meta.tasks`).
+- [x] **21.5 The caravan** (#85). "Set out" starts a road visit in the
+  outskirts' land: a mule and a covered cart roll through three ambushes,
+  waiting for the hero and holding while a foe is near; its arrival wins (the
+  escort tasks are then ready to hand in, at double pay), its loss loses
+  without the defeat's gold. The goal chip reads "Guard the caravan" and the
+  edge disc points to the cart when it is out of view.
 - [ ] **22.1 Silverbridge** (#86).
 - [ ] **22.2 Alchemy** (#87).
 - [ ] **22.3 The gamblers** (#91, #92).

@@ -202,6 +202,7 @@ export default {
     'decide': 'Make your choice',
     'explore': 'Explore the realm',
     'fight': 'Win the fight',
+    'escort': 'Guard the caravan',
     'show': 'Show me the way: {goal}'
   },
 
@@ -1791,6 +1792,26 @@ export default {
     'upgrade': 'Upgrade ({n} gold)',
     'max': 'Fully upgraded: +{n}.',
     'town': 'Any town\'s smith can upgrade this.'
+  },
+  // ─── The town square's notice board (roadmap #85) ─────────────────────────
+  'board': {
+    'title': '{town} notice board',
+    'read': 'Read',
+    'lead': 'Today\'s tasks. Hand them in here when they are done.',
+    'kind': { 'slay': 'Hunt', 'gather': 'Herbs', 'escort': 'Caravan' },
+    'slay': 'Defeat {n} × {enemy} in {place}',
+    'gather': 'Bring {n} × {plant}',
+    'escort': 'Guard the caravan on the road to Oakhaven',
+    'xp': '+{n} XP',
+    'setOut': 'Set out',
+    'thanks': 'Done! The town thanks you.'
+  },
+  // ─── The caravan on the road (roadmap #85) ────────────────────────────────
+  'escort': {
+    'start': 'Guard the caravan to the end of the road!',
+    'waiting': 'The caravan waits for you.',
+    'arrived': 'The caravan made it!',
+    'lost': 'The caravan is lost…'
   },
   // ─── The journal (roadmap #85, #86, #89): errands and how far they are ────
   'journal': {

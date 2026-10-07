@@ -941,6 +941,23 @@ const spider = (v: RigView, u: Unit, time: number, speed: number): void => {
   v.trailHeavy = false
 }
 
+/** The caravan (#85): the mule nods as it walks, the wheels turn with the road. */
+const cart = (v: RigView, u: Unit, time: number): void => {
+  const r = v.rig
+  const going = u.anim === 'walk'
+  pose(r, 'head', going ? Math.sin(time * 6) * 0.12 : Math.sin(time * 0.9 + v.phase) * 0.05, 0, 0)
+  const turn = going ? time * 3.7 : 0
+  pose(r, 'wheelL', turn, 0, 0)
+  pose(r, 'wheelR', turn, 0, 0)
+  v.rootZ = 0
+  v.hopY = 0
+  v.leapK = 0
+  v.pitch = 0
+  v.roll = 0
+  v.trail = 0
+  v.trailOff = 0
+}
+
 const turret = (v: RigView, u: Unit, time: number): void => {
   const r = v.rig
   const b = beatsOf(u, 0.03)
@@ -1020,6 +1037,9 @@ export const animate = (v: RigView, u: Unit, x: number, z: number, time: number,
         break
       case 'turret':
         turret(v, u, time)
+        break
+      case 'cart':
+        cart(v, u, time)
         break
       default:
         humanoid(v, u, time, dt, speed)

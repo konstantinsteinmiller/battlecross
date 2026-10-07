@@ -14,7 +14,7 @@ import { abortTalk, beginTalk, talkResume, talkWaiting, type TalkStage } from '.
 import {
   clearNode, flagSet, gainItem, grantXp, hasFlag, isFreshProfile, isNodeOpen, isNodeReachable, lifetimeXp, profile, saveProfile
 } from './state/profile'
-import { addHerbs, countContracts, countErrands, markChestsOpened, recordArenaWaves, recordMastery, setManaPotions } from './state/profile'
+import { addHerbs, countContracts, countErrands, countTasks, finishEscortTasks, markChestsOpened, recordArenaWaves, recordMastery, setManaPotions } from './state/profile'
 import { zoneMastery, type Mastery } from './sim/route'
 import { playJingle } from './audio/music'
 import { flushSaveNow } from '@/use/useSaveStatus'
@@ -32,7 +32,9 @@ import { difficultyFactor } from '@/use/useUser'
 import { trackForTheme } from './audio/themes'
 import { PREVIEW_ON } from './previewFlags'
 import { classifyOnboarding } from './coach/reveal'
-import { chestReward, merchantTiers, type EncounterSpec } from './data/encounters'
+import { chestReward, escortPacks, merchantTiers, type EncounterSpec } from './data/encounters'
+import { dayKey } from './rareShelf'
+import { BOARD } from './townTasks'
 import { mapSpot, setMapPos } from './state/profile'
 
 /**
@@ -223,8 +225,22 @@ type NodeBuilder = (node: NodeId, onProgress: (p01: number) => void, encounter?:
 /** A random encounter's fight: the region's ground and enemies, at its level. */
 const encounterSetup = (e: EncounterSpec): ZoneSetup => ({
   kind: 'zone', zone: e.zone, theme: ZONES[e.zone].theme, seed: e.seed, level: e.level, difficulty: difficultyFactor(),
-  encounter: e.packs.map(p => [...p]), flags: flagSet()
+  encounter: e.packs.map(p => [...p]), flags: flagSet(), ...(e.escort ? { escort: true } : {})
 })
+
+/**
+ * Set out with the caravan (roadmap #85, D106): the road between Sunford and
+ * Oakhaven, in the outskirts' own land, three ambushes on the way. Asked for
+ * at a board whose escort task is still open today.
+ */
+export const setOutEscort = async (): Promise<void> => {
+  if (flow.loading) return
+  const day = dayKey()
+  const zone: ZoneId = 'outskirts'
+  const seed = hashSeed(`escort:${day}`, profile.stats.runs)
+  flow.modal = ''
+  await startEncounter({ kind: 'fight', zone, level: visitLevel(ZONES[zone], profile.level), seed, packs: escortPacks(zone, seed), escort: true })
+}
 
 const buildZone = async (node: NodeId, onProgress: (p01: number) => void, encounter?: EncounterSpec): Promise<ZoneMode> => {
   const setup = encounter ? encounterSetup(encounter) : setupFor(node)
@@ -543,9 +559,12 @@ export const bankVisit = async (outcome: 'victory' | 'defeat' | 'retreat', node:
   if (h.special?.length) markChestsOpened(h.special)
   // The herbs picked go into the pouch, whatever the visit's end.
   if (h.herbs) addHerbs(h.herbs)
+  // The caravan arrived (#85): the boards' escort tasks are done, to hand in.
+  if (flow.encounter?.escort && outcome === 'victory') finishEscortTasks()
   const mastery = h.mastery && !encounter ? { ...h.mastery, ...recordMastery(node, h.mastery) } : undefined
   profile.stats.kills += h.kills
-  // Errands taken count what the visit did (#85, #86, #89).
+  // The boards' defeat tasks (#85) and the errands taken count what the visit did.
+  countTasks({ zone: !encounter && node in ZONES ? node as ZoneId : '', kills: h.killKinds ?? {} })
   countErrands({ node: encounter ? '' : node, won: outcome === 'victory', kills: h.killKinds ?? {} })
   // The faction contracts count what the visit did (#15).
   countContracts({ zone: !encounter && node in ZONES ? node as ZoneId : '', won: outcome === 'victory', kills: h.killKinds ?? {}, chests: h.chests?.opened ?? 0 })
@@ -564,8 +583,9 @@ export const bankVisit = async (outcome: 'victory' | 'defeat' | 'retreat', node:
     for (const n of Object.keys(NODE_BY_ID)) if (!before.has(n) && isNodeOpen(n as NodeId)) unlocked.push(n as NodeId)
   } else if (outcome === 'defeat') {
     profile.stats.deaths++
-    // The colosseum is a ladder: falling is how a climb ends, not a loss (#10).
-    if (node !== 'arena') {
+    // The colosseum is a ladder: falling is how a climb ends, not a loss (#10);
+    // a caravan lost on the road costs the task, not the purse (#85).
+    if (node !== 'arena' && !flow.encounter?.escort) {
       goldLost = Math.floor(profile.gold * DEFEAT_GOLD_LOSS)
       profile.gold -= goldLost
     }
@@ -725,6 +745,8 @@ const roleWindow = (npc: NpcDef): Modal => (npc.role === 'shop' ? 'shop' : npc.r
 /** The hero walked up to a townsperson (the scene calls this; so may a test). */
 export const talkTo = (npcId: string): void => {
   if (flow.modal || flow.talk || flow.loading) return
+  // The town square's notice board (#85): its tasks and the factions' contracts.
+  if (npcId === BOARD) { flow.modal = 'contracts'; return }
   const npc = npcById(npcId)
   if (!npc) return
   flow.npc = npc

@@ -66,6 +66,7 @@ export const liveGoalCtx = (): GoalCtx => {
           bossAwake: !!hud.bossKey && hud.bossKey === 'enemy.' + bossOf(z.plan.packs.find(p => p.finale)?.kinds),
           sideBoss: hud.bossKey && hud.bossKey !== 'enemy.' + bossOf(z.plan.packs.find(p => p.finale)?.kinds) ? hud.bossKey.slice(6) : '',
           encounter: !!flow.encounter,
+          escort: !!flow.encounter?.escort,
           ended: z.sim.ended || '',
           dummy: dummyBeat(z.sim) === 'on',
           wave: hud.wave,
@@ -181,6 +182,8 @@ const nudgeCands = (): Array<NudgeCand & { sel: string; place: string }> => {
       if (!w.onScreen) add('edge:goal', 'edge')
       if (w.dist > 6) add('crumbs:goal', 'crumbs')
     }
+    // The caravan out of view (#85): the edge disc points to it.
+    if (g?.id === 'escort' && w.has && !w.onScreen) add('edge:goal', 'edge')
     if (w.chest && g?.id !== 'exit') add('peek:chest', 'peek')
   } else if (flow.screen === 'town') {
     if (g?.id === 'trainer' && w.has && w.npc) {

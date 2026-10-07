@@ -4,6 +4,7 @@ import type { HeroBuild } from './stats'
 import type { ChestTier, LootKind } from '../data/loot'
 import type { BranchPlan, ChestRole } from './zoneFeatures'
 import type { HerbState } from './herbs'
+import type { CaravanState } from './caravan'
 import type {
   Action, Danger, Field, Projectile, SimEvent, Status, StatusId, Team, TempWall, Unit, UnitStats, Rank
 } from './types'
@@ -252,6 +253,8 @@ export class Sim {
   chests: ChestState[] = []
   /** Herbs lying in the wild this visit (`herbs.ts`). */
   herbs: HerbState[] = []
+  /** The caravan of an escort (roadmap #85, `caravan.ts`); null: none. */
+  caravan: CaravanState | null = null
   plates: PlateState[] = []
   puzzle: PuzzleState | null = null
   doors: DoorState[] = []

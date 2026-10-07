@@ -824,6 +824,54 @@ export const buildTurret = (variant: 'gatling' | 'rocket'): Rig => {
 }
 
 /**
+ * The caravan of the road to Oakhaven (roadmap #85): a mule hitched to a
+ * covered cart, the goods stacked under its canvas. Facing +Z (the mule in
+ * front), about 2.6 m long; the unit's circle is its middle. Bones: `body`
+ * (the mule), `head` (it nods as it walks), `wheelL` / `wheelR` (they turn).
+ */
+export const buildCart = (): Rig => {
+  const coat = '#8a6a4e'
+  const wood = '#9a6a3a'
+  const canvas = '#d8c08a'
+  const b = new RigBuilder()
+  b.bone('root', null, [0, 0, 0])
+  b.bone('body', 'root', [0, 0.78, 0.55])
+  b.bone('head', 'body', [0, 0.22, 0.48])
+  b.bone('wheelL', 'root', [-0.66, 0.42, -0.62])
+  b.bone('wheelR', 'root', [0.66, 0.42, -0.62])
+  // The mule: a round barrel of a body, a long head with tall ears, four legs.
+  b.painted('body', shade(ell(0.3, 0.27, 0.52, 14, 10), coat), {})
+  b.part('body', ell(0.22, 0.13, 0.36, 10, 6), '#d8c4a6', { p: [0, -0.15, 0] })
+  b.painted('head', shade(ell(0.14, 0.17, 0.3, 12, 8), coat), { p: [0, 0.02, 0.16], r: [0.5, 0, 0] })
+  b.part('head', ell(0.11, 0.09, 0.09, 10, 6), '#d8c4a6', { p: [0, -0.1, 0.38] })
+  b.mirror((s) => {
+    b.part('head', ell(0.05, 0.16, 0.03, 8, 6), coat, { p: [s * 0.08, 0.2, 0.02], r: [-0.3, 0, s * 0.3] })
+    b.part('head', sph(0.025, 6, 4), DARK, { p: [s * 0.1, 0.06, 0.24] })
+    for (const z of [0.32, -0.32]) b.part('body', limb(0.07, 0.05, 0.62, 8, 2), tone(coat, 0.85), { p: [s * 0.17, -0.12, z] })
+    // The shafts from the cart to the harness.
+    b.part('root', rod(0.035, 1.25, 6), wood, { p: [s * 0.36, 0.72, -0.05], r: [Math.PI / 2, 0, 0] })
+  })
+  b.part('body', ell(0.06, 0.06, 0.2, 8, 5), '#5a3e28', { p: [0, 0.18, -0.02] })
+  b.part('body', limb(0.03, 0.02, 0.32, 6, 2), '#5a3e28', { p: [0, 0.05, -0.5], r: [-0.5, 0, 0] })
+  // The cart: a bed of planks, its goods, a canvas over hoops.
+  b.part('root', rbox(1.12, 0.32, 1.25, 0.25, 12, 8), wood, { p: [0, 0.72, -0.82] })
+  b.part('root', rbox(0.42, 0.34, 0.4, 0.3, 10, 8), '#c9a26a', { p: [-0.26, 1.02, -1.08] })
+  b.part('root', rcyl(0.2, 0.42, 0.06, 12, 2), '#7a4a2a', { p: [0.24, 1.06, -0.62] })
+  b.painted('root', shade(ell(0.6, 0.5, 0.7, 16, 10), canvas, 0.8, 1.08), { p: [0, 1.06, -0.9], s: [1, 0.85, 1] })
+  // The hoops under the canvas show through as dark bands: it reads as a wagon's top.
+  for (const z of [-1.38, -0.9, -0.42]) {
+    const k = 1 - Math.pow((z + 0.9) / 0.7, 2)
+    b.part('root', torus(0.6 * Math.sqrt(Math.max(0.05, k)) + 0.012, 0.035, 6, 20, Math.PI), '#6a4a2e', { p: [0, 1.06, z], s: [1, 0.85, 1] })
+  }
+  // Wheels: a rim, a hub.
+  for (const w of ['wheelL', 'wheelR'] as const) {
+    b.part(w, torus(0.36, 0.06, 8, 22), '#6a4a2e', { r: [0, Math.PI / 2, 0] })
+    b.part(w, rcyl(0.1, 0.14, 0.03, 10, 2), '#3e2c1e', { r: [0, 0, Math.PI / 2] })
+  }
+  return b.build({ height: 1.7 })
+}
+
+/**
  * Every creature rig the game can build, by a short name: what the tests
  * (coplanar faces, triangle budgets) and the benches walk, so a variant added
  * here is checked without anyone adding it to a list.
@@ -833,6 +881,7 @@ export const CREATURE_BUILDS: Record<string, () => Rig> = {
   stalker: () => buildBeast('stalker'),
   howler: () => buildBeast('howler'),
   boar: buildBoar,
+  cart: buildCart,
   spider: () => buildSpider('spider'),
   brood: () => buildSpider('brood'),
   mother: () => buildSpider('mother'),

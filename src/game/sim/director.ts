@@ -8,6 +8,7 @@ import { spawnTownPeople } from './townLife'
 import { fillGrid, type ZonePlan } from './zoneGen'
 import { SIDE_GROUP, type Sim } from './world'
 import { populateHerbs } from './herbs'
+import { spawnCaravan, stepCaravan } from './caravan'
 import { HASTE, SWARM_COUNT, SWARM_HP } from '../arenaWeek'
 
 /**
@@ -79,6 +80,8 @@ export const populateZone = (sim: Sim, plan: ZonePlan, zone: ZoneId, owned: Iter
   // fall exactly as they did before the zone had anything in it but packs.
   populateFeatures(sim, plan, zone, opened)
   populateHerbs(sim, plan.herbs ?? [])
+  // An escort's caravan, at the start of its road (#85).
+  if (plan.caravan) spawnCaravan(sim, plan.caravan.path)
 }
 
 /** Put a town's people on the map (they never fight). */
@@ -271,6 +274,13 @@ export const stepDirector = (sim: Sim, plan: ZonePlan, dt: number): void => {
     return
   }
   stepPlates(sim)
+  // An escort (#85): the caravan's arrival wins, its loss loses; its packs are
+  // only the ambushes on the way.
+  if (sim.caravan) {
+    const r = stepCaravan(sim, dt)
+    if (r === 'arrived') { win(sim, plan); return }
+    if (r === 'lost') { lose(sim); return }
+  }
   counts.length = sim.groups.length
   counts.fill(0)
   for (const u of sim.units) if (u.alive && u.team === 1 && u.group >= 0 && u.group < SIDE_GROUP) counts[u.group]!++
@@ -280,8 +290,15 @@ export const stepDirector = (sim: Sim, plan: ZonePlan, dt: number): void => {
     g.cleared = true
     sim.groupsDone++
     sim.emit({ t: 'groupDone', done: sim.groupsDone, total: sim.groups.length })
-    if (g.finale) win(sim, plan)
+    if (g.finale && !sim.caravan) win(sim, plan)
   }
+}
+
+/** The escort's caravan is lost: the visit is, too. */
+const lose = (sim: Sim): void => {
+  if (sim.ended) return
+  sim.ended = 'defeat'
+  sim.emit({ t: 'defeat' })
 }
 
 /** Is `kind` a boss (the HUD shows a boss bar for its pack)? */

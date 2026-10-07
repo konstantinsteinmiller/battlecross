@@ -1,7 +1,7 @@
 import { ENEMY_BY_ID, MINIONS } from '../../data/enemies'
 import { setCelRim } from '../cel'
 import { cloneRig, type Rig } from '../kit'
-import { buildBeast, buildBoar, buildDragon, buildElemental, buildGolem, buildNaga, buildSpider, buildTreant, buildTurret, buildWyvern } from './creatures'
+import { buildBeast, buildBoar, buildCart, buildDragon, buildElemental, buildGolem, buildNaga, buildSpider, buildTreant, buildTurret, buildWyvern } from './creatures'
 import { clipSet, styleOf, type ClipSet } from './clips'
 import { buildHumanoid, WEAPON_EDGE, WEAPON_REACH, type Held, type Look, type OffHand } from './humanoid'
 import { LOOKS, lookKey } from './looks'
@@ -19,7 +19,7 @@ import type { Action, Unit } from '../../sim/types'
  * two skeletons mid-fight.
  */
 
-export type Family = 'humanoid' | 'beast' | 'spider' | 'naga' | 'wyvern' | 'dragon' | 'turret'
+export type Family = 'humanoid' | 'beast' | 'spider' | 'naga' | 'wyvern' | 'dragon' | 'turret' | 'cart'
 
 export interface RigView {
   rig: Rig
@@ -224,6 +224,9 @@ export const makeRigView = (u: Unit, heroLook?: Look): RigView => {
     color = heroLook.glow ?? '#7ff4ff'
   } else if (u.rank === 'npc') {
     spec = humanoid(LOOKS[u.kind] ?? LOOKS.peddler!)
+  } else if (u.kind === 'caravan') {
+    // The escort's cart (#85).
+    spec = { key: 'cart', family: 'cart', build: buildCart, float: 0, held: 'none', ghost: false }
   } else {
     const e = ENEMY_BY_ID[u.kind]
     const m = MINIONS[u.kind]

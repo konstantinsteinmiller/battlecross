@@ -46,6 +46,7 @@ import { hud, hudLive, pushHud, sayBark, tickHud, type SkillSlotView, type TextK
 import { heroBuild, loadoutActive, markTip, profile } from '../state/profile'
 import { coach } from '../coach'
 import { emitCrumbs, findChest, finder, peekOffset } from '../coach/nudgeFx'
+import { BOARD, BOARD_REACH } from '../townTasks'
 import { isDummy, spawnDummy, stepDummy } from '../coach/dummy'
 import { markRevealUsed } from '../coach/reveal'
 import { PREVIEW_FEED } from '../previewFlags'
@@ -84,6 +85,8 @@ export interface ZoneSetup {
   dragonAlly?: boolean
   /** A random encounter met on the world map: its packs (`generateEncounter`). */
   encounter?: string[][]
+  /** The encounter is the caravan's road (#85): guard the cart to the end. */
+  escort?: boolean
   /** The colosseum's weekly modifier (roadmap #10). */
   arenaMod?: ArenaMod
   flags: ReadonlySet<string>
@@ -246,7 +249,7 @@ export class ZoneMode implements GameMode {
       : setup.kind === 'arena'
         ? generateArena(setup.seed)
         : setup.encounter
-          ? generateEncounter(setup.encounter, setup.seed)
+          ? generateEncounter(setup.encounter, setup.seed, { escort: setup.escort })
           : generateZone(ZONES[setup.zone!], setup.seed, {
             tutorial: setup.tutorial, openingPack: setup.tutorial ? OPENING.pack : undefined, ambush: setup.ambush, extra: setup.extra,
             // DEV: `?branches=0` plays the zone as one road (the perf A/B arm of roadmap #70).
@@ -275,6 +278,8 @@ export class ZoneMode implements GameMode {
     else if (setup.kind === 'town') populateTown(sim, plan, { lite: sceneQuality() === 'low', visit: profile.world.visits[setup.town!] ?? 0 })
     else sim.wave.rest = 1.6
     if (setup.dragonAlly) summonDragonAlly(sim)
+    // An escort (#85): what the visit is about, said once at the start.
+    if (setup.escort) pushHud({ t: 'toast', key: 'escort.start' })
     sim.events.length = 0
     onProgress(0.08)
     await slice()
@@ -493,11 +498,20 @@ export class ZoneMode implements GameMode {
 
     const pad = i.device === 'touch' ? 0.7 : 0.35
     for (const t of i.taps) {
+      this.boardWalk = false
       const u = this.unitAtScreen(t.x, t.y, pad)
       if (u && (u.team === 1 || u.rank === 'npc')) {
         orderAttack(sim, u.id)
         if (u.team === 1) { coach.use('target'); sfx('uiClick') }
       } else if (this.cam.screenToGround(t.x, t.y, ground)) {
+        // The notice board under the finger (#85): walk up to it and read it.
+        const board = this.boardSpot()
+        if (board && Math.hypot(ground.x - board.x, ground.z - board.z) < 1.6) {
+          orderMove(sim, board.ax, board.az)
+          this.boardWalk = true
+          sfx('uiClick')
+          continue
+        }
         // A chest under the finger is opened, not walked onto.
         if (!this.openAt(ground.x, ground.z, pad)) {
           orderMove(sim, ground.x, ground.z)
@@ -566,12 +580,26 @@ export class ZoneMode implements GameMode {
         if (d < bd) { bd = d; best = n }
       }
       if (best) orderAttack(sim, best.id)
+      else if (hud.interactBoard) this.cb.onInteract(BOARD)
       else {
         // No one to talk to: the chest in reach, if there is one.
         const c = nearChest(sim)
         if (c) orderOpen(sim, c.id)
       }
     }
+  }
+
+  /** The town square's notice board (#85): where it stands and where one reads it from. */
+  private boardAt: { x: number; z: number; ax: number; az: number } | null | undefined
+  /** The hero was sent to the board: it opens when he gets there. */
+  private boardWalk = false
+  boardSpot(): { x: number; z: number; ax: number; az: number } | null {
+    if (this.boardAt !== undefined) return this.boardAt
+    const t = this.plan.town
+    const b = t?.props.find(p => p.kind === 'board')
+    if (!t || !b) return (this.boardAt = null)
+    const spot = t.spots.find(s => s.kind === 'look' && s.prop === t.props.indexOf(b))
+    return (this.boardAt = { x: b.x, z: b.z, ax: spot?.ax ?? b.x, az: spot?.az ?? b.z + 1.2 })
   }
 
   /** Open the chest at a tapped ground point. The point under a finger on a
@@ -785,6 +813,12 @@ export class ZoneMode implements GameMode {
           break
         case 'defeat':
           this.cam.addTrauma(TRAUMA_HEAVY)
+          break
+        case 'caravan':
+          // The escort's word on its cart (#85): only the moments that matter.
+          if (e.phase === 'waiting') pushHud({ t: 'toast', key: 'escort.waiting' })
+          else if (e.phase === 'arrived') { pushHud({ t: 'toast', key: 'escort.arrived' }); sfx('levelUp') }
+          else if (e.phase === 'lost') { pushHud({ t: 'toast', key: 'escort.lost' }); this.vfx.death(e.x, e.z, 1.6, '#c8a070', 1.4); sfx('deathBig') }
           break
       }
     }
@@ -1091,6 +1125,10 @@ export class ZoneMode implements GameMode {
       }
     }
     hud.interactKey = near
+    // The notice board in the square (#85), when nobody nearer has the word.
+    const board = this.boardSpot()
+    hud.interactBoard = !near && !!board && Math.hypot(board.x - u.x, board.z - u.z) < BOARD_REACH
+    if (this.boardWalk && hud.interactBoard) { this.boardWalk = false; this.cb.onInteract(BOARD) }
     // The chest within reach, for the "Open" prompt.
     hud.interactChest = ((!sim.ended || (sim.ended === 'victory' && !sim.leaving)) && u.alive && this.props && nearChest(sim)?.tier) || ''
     // After the finale falls: the Leave button, whether the finale's chest is

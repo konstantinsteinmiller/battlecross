@@ -19,7 +19,7 @@ import { nextObjective, openBranches } from '../sim/route'
  * `nudgeWorld` (plain numbers, not reactive) for the layers and the pacing.
  */
 
-export interface Objective { x: number; z: number; kind: 'dummy' | 'pack' | 'boss' | 'trainer'; npc?: string }
+export interface Objective { x: number; z: number; kind: 'dummy' | 'pack' | 'boss' | 'trainer' | 'caravan'; npc?: string }
 
 const TEACHERS = new Map<string, ClassId | undefined>()
 for (const t of Object.values(TOWNS)) for (const n of t.npcs) if (n.role === 'trainer') TEACHERS.set(n.id, n.cls)
@@ -48,6 +48,11 @@ export const objectiveOf = (sim: Sim, goal: string): Objective | null => {
   if (goal === 'trainer') {
     const t = teacherNear(sim, u)
     return t ? { x: t.x, z: t.z, kind: 'trainer', npc: t.npc } : null
+  }
+  if (goal === 'escort') {
+    // The cart to guard (#85): where the edge arrow points when it is out of view.
+    const c = sim.caravan ? sim.live(sim.caravan.unit) : undefined
+    return c ? { x: c.x, z: c.z, kind: 'caravan' } : null
   }
   if (goal === 'clear' || goal === 'boss') {
     // The main road, pack by pack (`sim/route.ts`: never into a branch).

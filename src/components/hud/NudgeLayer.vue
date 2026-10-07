@@ -53,7 +53,7 @@ let findFade = 0
 const edgeIcon = computed<GameIconName>(() => {
   if (findingChest.value) return 'chest'
   const g = onboard.goal?.id
-  return g === 'boss' ? 'skull' : g === 'trainer' ? 'chat' : 'sword'
+  return g === 'boss' ? 'skull' : g === 'trainer' ? 'chat' : g === 'escort' ? 'shield' : 'sword'
 })
 
 // ── Marks on elements ────────────────────────────────────────────────────────

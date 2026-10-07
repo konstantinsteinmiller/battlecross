@@ -1,8 +1,26 @@
 <template lang="pug">
-  FModal(:model-value="true" :title="t('contract.title')" surface="parchment" tone="green" @update:model-value="closeModal")
+  FModal(:model-value="true" :title="town ? t('board.title', { town: t(`node.${town}.name`) }) : t('contract.title')" surface="parchment" tone="green" @update:model-value="closeModal")
     div.board(data-contracts)
-      p.board__lead {{ t('contract.lead') }}
-      ul.board__list
+      //- The town's own tasks (#85): posted every day, handed in at this board.
+      template(v-if="town")
+        p.board__lead {{ t('board.lead') }}
+        ul.board__list(data-tasks)
+          li.job.job--task(v-for="(k, i) in tasks" :key="i" :data-task="i" :class="{ 'is-done': k.done, 'is-ready': taskReady(k) }")
+            span.job__who {{ t(`board.kind.${k.kind}`) }}
+            span.job__what {{ taskWhat(k) }}
+            span.job__count {{ taskHave(k) }} / {{ k.n }}
+            span.job__pay
+              IconCoin.job__coin
+              | {{ fmt(taskPay(k).gold) }} · {{ t('board.xp', { n: fmt(taskPay(k).xp) }) }}
+            span.job__act
+              span.job__done(v-if="k.done") {{ t('contract.handed') }}
+              FButton(v-else-if="k.kind === 'escort' && !taskReady(k)" :label="t('board.setOut')" type="primary" size="sm" icon="forward" @click="setOut")
+              FButton(v-else :label="t('contract.handIn')" type="success" size="sm" :is-disabled="!taskReady(k)" @click="handInT(i)")
+      //- The factions' contracts (#15), from the second zone cleared on.
+      template(v-if="contractsOpen")
+        h4.board__cap(v-if="town") {{ t('contract.title') }}
+        p.board__lead {{ t('contract.lead') }}
+      ul.board__list(v-if="contractsOpen")
         li.job(v-for="(c, i) in list" :key="c.faction" :data-contract="i" :class="{ 'is-done': c.done, 'is-ready': !c.done && c.have >= c.n }" :style="{ '--tone': FACTION_COLOR[c.faction] }")
           span.job__who {{ t(`faction.${c.faction}`) }}
           span.job__what {{ what(c) }}
@@ -13,9 +31,9 @@
           span.job__act
             span.job__done(v-if="c.done") {{ t('contract.handed') }}
             FButton(v-else :label="t('contract.handIn')" type="success" size="sm" :is-disabled="c.have < c.n" @click="handIn(i)")
-      h4.board__cap {{ t('rep.title') }}
-      RepTrack
-      ul.board__rewards
+      h4.board__cap(v-if="contractsOpen") {{ t('rep.title') }}
+      RepTrack(v-if="contractsOpen")
+      ul.board__rewards(v-if="contractsOpen")
         li.reward(v-for="f in FACTIONS" :key="f" :style="{ '--tone': FACTION_COLOR[f] }")
           span.reward__who {{ t(`faction.${f}`) }}
           span.reward__gift
@@ -39,10 +57,12 @@ import FModal from '@/components/molecules/FModal.vue'
 import FButton from '@/components/atoms/FButton.vue'
 import IconCoin from '@/components/icons/IconCoin.vue'
 import RepTrack from '@/components/game/RepTrack.vue'
-import { closeModal } from '@/game/flow'
+import { closeModal, flow, setOutEscort } from '@/game/flow'
+import type { TownId } from '@/game/data/zones'
+import type { TownTask } from '@/game/townTasks'
 import { FACTIONS, FACTION_COLOR, type FactionId } from '@/game/data/quests'
 import { REP_BLESSING, REP_GIFT, contractGold, type Contract } from '@/game/contracts'
-import { blessings, claimGift, contractsToday, giftReady, handInContract, profile } from '@/game/state/profile'
+import { blessings, claimGift, contractsToday, giftReady, handInContract, handInTask, profile, taskHave, taskPay, taskReady, tasksOf } from '@/game/state/profile'
 import { sfx } from '@/game/audio/sfx'
 import { fmt } from '@/utils/format'
 
@@ -50,6 +70,34 @@ const { t } = useI18n()
 contractsToday()
 const list = computed(() => profile.meta.contracts.list)
 const note = ref('')
+
+/** The town whose board this is (none: opened from the map). */
+const town = computed<TownId | null>(() => (flow.screen === 'town' && flow.node ? flow.node as TownId : null))
+const tasks = computed<TownTask[]>(() => {
+  if (!town.value) return []
+  // Re-read when the pouch or the day's lists change.
+  void profile.inv.herbs
+  void profile.meta.tasks.towns
+  return tasksOf(town.value)
+})
+/** Contracts come with the second zone cleared (the first town visit stays about the trainer). */
+const contractsOpen = computed(() => profile.world.cleared.filter(n => n !== 'sunford').length >= 2)
+
+const taskWhat = (k: TownTask): string =>
+  k.kind === 'slay' ? t('board.slay', { n: k.n, enemy: t(`enemy.${k.enemy}`), place: t(`node.${k.zone}.name`) })
+    : k.kind === 'gather' ? t('board.gather', { n: k.n, plant: t(`plant.${k.plant}.name`) })
+      : t('board.escort')
+
+const handInT = (i: number): void => {
+  if (!town.value || !handInTask(town.value, i)) { sfx('denied'); return }
+  sfx('coin')
+  sfx('uiBuy')
+  note.value = t('board.thanks')
+}
+const setOut = (): void => {
+  sfx('uiOpen')
+  void setOutEscort()
+}
 
 const what = (c: Contract): string =>
   c.kind === 'slay' ? t('contract.slay', { enemy: t(`enemy.${c.enemy}`), place: t(`node.${c.zone}.name`) })
@@ -112,6 +160,9 @@ const gift = (f: FactionId): void => {
     box-shadow: 0 0 0 2px var(--bc-gold)
   &.is-done
     opacity: 0.6
+// The town's own tasks wear the board's gold.
+.job--task
+  --tone: var(--bc-gold)
 .job__who
   grid-area: who
   font-size: clamp(0.64rem, 2.6vmin, 0.82rem)

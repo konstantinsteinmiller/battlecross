@@ -10,6 +10,8 @@
     CoachLayer(v-if="(flow.screen === 'zone' || flow.screen === 'town') && !flow.modal && !flow.talk")
     //- The "Open" prompt on the chest in reach.
     ChestPrompt(v-if="flow.screen === 'zone'")
+    //- The "Read" prompt on the town square's notice board (#85).
+    BoardPrompt(v-if="flow.screen === 'town'")
     div.hud__top
       div.hud__tl
         HeroFrame
@@ -54,6 +56,7 @@ import TouchStick from './TouchStick.vue'
 import FloatLayer from './FloatLayer.vue'
 import CoachLayer from './CoachLayer.vue'
 import ChestPrompt from './ChestPrompt.vue'
+import BoardPrompt from './BoardPrompt.vue'
 import LeaveButton from './LeaveButton.vue'
 import MenuButtons from './MenuButtons.vue'
 

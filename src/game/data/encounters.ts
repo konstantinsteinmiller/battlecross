@@ -27,6 +27,8 @@ export interface EncounterSpec {
   seed: number
   /** A fight's packs, the nearest first (empty for a chest or a merchant). */
   packs: string[][]
+  /** The caravan on the road to Oakhaven (#85): guard it to the end. */
+  escort?: boolean
 }
 
 /** Whose land a place's surroundings are: a town's and the colosseum's
@@ -95,6 +97,17 @@ export const rollEncounter = (zone: ZoneId, heroLevel: number, seed: number): En
     packs.push([ZONE_FEATURES[zone].championKind])
   }
   return { kind, zone, level, seed, packs }
+}
+
+/** The ambushes on the caravan's road (#85): three packs of the region's own. */
+export const escortPacks = (zone: ZoneId, seed: number): string[][] => {
+  const rng = rngOf(seed)
+  const def = ZONES[zone]
+  const kinds = plainKinds(zone)
+  return [0, 1, 2].map(p => {
+    const size = Math.max(2, def.pack[0] - 1) + (p === 2 ? 1 : Math.floor(rng() * 2))
+    return Array.from({ length: size }, () => weighted(rng, kinds))
+  })
 }
 
 /** The region a spot on the map belongs to, by the place whose land it is. */
