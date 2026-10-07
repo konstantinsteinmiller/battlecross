@@ -36,7 +36,8 @@ export default {
     map: 'Dunyo xaritasi',
     character: 'Qahramon',
     skills: 'Koʻnikmalar',
-    inventory: 'Xalta'
+    inventory: 'Xalta',
+    journal: 'Kundalik'
   },
   combat: {
     dodge: 'Chap berdi',
@@ -179,7 +180,8 @@ export default {
     decide: 'Tanlovingizni qiling',
     explore: 'Oʻlkani kashf eting',
     fight: 'Jangda gʻalaba qozoning',
-    show: 'Yoʻlni koʻrsating: {goal}'
+    show: 'Yoʻlni koʻrsating: {goal}',
+    escort: 'Karvonni qoʻriqla'
   },
   node: {
     sunford: {
@@ -3019,5 +3021,47 @@ export default {
       name: 'Soyatikan',
       desc: 'Kamyob qora tikan. Kuchli va biroz yovuz.'
     }
+  },
+  journal: {
+    errands: 'Topshiriqlar',
+    empty: 'Kundaliging hozircha boʻsh. Shahar ahli sendan yordam soʻraydi.',
+    from: '{npc} uchun',
+    ready: 'Bajarildi! {npc} oldiga qayt.',
+    taken: 'Yangi topshiriq: {title}',
+    done: 'Topshiriq bajarildi: {title}',
+    step: {
+      slay: 'Yeng: {n} × {enemy}',
+      slayAt: 'Yeng: {n} × {enemy} ({place})',
+      slayAnyAt: '{n} ta dushmanni yeng ({place})',
+      clear: 'Tozala: {place}',
+      visit: 'Bor: {place}',
+      gather: 'Ter: {n} × {plant}',
+      bring: 'Olib kel: {item}',
+      pieces: 'Xazina xaritasining {n} ta boʻlagini top',
+      dig: 'Xazinani qazib ol: {place}',
+      talk: 'Gaplash: {npc}'
+    }
+  },
+  board: {
+    title: 'Eʼlonlar taxtasi: {town}',
+    read: 'Oʻqish',
+    lead: 'Bugungi topshiriqlar. Bajargach, shu yerga topshir.',
+    kind: {
+      slay: 'Ov',
+      gather: 'Giyohlar',
+      escort: 'Karvon'
+    },
+    slay: 'Yeng: {n} × {enemy} ({place})',
+    gather: 'Olib kel: {n} × {plant}',
+    escort: 'Oakhavenga boradigan yoʻlda karvonni qoʻriqla',
+    xp: '+{n} XP',
+    setOut: 'Yoʻlga chiqish',
+    thanks: 'Bajarildi! Shahar senga rahmat aytadi.'
+  },
+  escort: {
+    start: 'Karvonni yoʻl oxirigacha qoʻriqla!',
+    waiting: 'Karvon seni kutmoqda.',
+    arrived: 'Karvon yetib keldi!',
+    lost: 'Karvon halok boʻldi…'
   }
 }

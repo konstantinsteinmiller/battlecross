@@ -36,7 +36,8 @@ export default {
     map: 'Wereldkaart',
     character: 'Held',
     skills: 'Vaardigheden',
-    inventory: 'Tas'
+    inventory: 'Tas',
+    journal: 'Dagboek'
   },
   combat: {
     dodge: 'Ontweken',
@@ -180,7 +181,8 @@ export default {
     decide: 'Maak je keuze',
     explore: 'Verken het rijk',
     fight: 'Win het gevecht',
-    show: 'Wijs me de weg: {goal}'
+    show: 'Wijs me de weg: {goal}',
+    escort: 'Bewaak de karavaan'
   },
   node: {
     sunford: {
@@ -3027,5 +3029,47 @@ export default {
       name: 'Schaduwdoorn',
       desc: 'Een zeldzame donkere doorn. Sterk, en een beetje gemeen.'
     }
+  },
+  journal: {
+    errands: 'Klusjes',
+    empty: 'Nog niets in je dagboek. Mensen in de stad zullen je om hulp vragen.',
+    from: 'Voor {npc}',
+    ready: 'Klaar! Ga terug naar {npc}.',
+    taken: 'Nieuw klusje: {title}',
+    done: 'Klusje klaar: {title}',
+    step: {
+      slay: 'Versla {n} × {enemy}',
+      slayAt: 'Versla {n} × {enemy} in {place}',
+      slayAnyAt: 'Versla {n} vijanden in {place}',
+      clear: 'Zuiver {place}',
+      visit: 'Ga naar {place}',
+      gather: 'Verzamel {n} × {plant}',
+      bring: 'Breng {item}',
+      pieces: 'Vind {n} stukken van de schatkaart',
+      dig: 'Graaf naar de schat in {place}',
+      talk: 'Praat met {npc}'
+    }
+  },
+  board: {
+    title: 'Prikbord van {town}',
+    read: 'Lezen',
+    lead: 'De taken van vandaag. Lever ze hier in als ze klaar zijn.',
+    kind: {
+      slay: 'Jacht',
+      gather: 'Kruiden',
+      escort: 'Karavaan'
+    },
+    slay: 'Versla {n} × {enemy} in {place}',
+    gather: 'Breng {n} × {plant}',
+    escort: 'Bewaak de karavaan op weg naar Oakhaven',
+    xp: '+{n} XP',
+    setOut: 'Op pad',
+    thanks: 'Klaar! De stad bedankt je.'
+  },
+  escort: {
+    start: 'Bewaak de karavaan tot het einde van de weg!',
+    waiting: 'De karavaan wacht op je.',
+    arrived: 'De karavaan is aangekomen!',
+    lost: 'De karavaan is verloren…'
   }
 }

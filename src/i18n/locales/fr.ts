@@ -36,7 +36,8 @@ export default {
     map: 'Carte du monde',
     character: 'Héros',
     skills: 'Compétences',
-    inventory: 'Sac'
+    inventory: 'Sac',
+    journal: 'Journal'
   },
   combat: {
     dodge: 'Esquive',
@@ -180,7 +181,8 @@ export default {
     decide: 'Fais ton choix',
     explore: 'Explore le royaume',
     fight: 'Gagne le combat',
-    show: 'Montre-moi le chemin : {goal}'
+    show: 'Montre-moi le chemin : {goal}',
+    escort: 'Protège la caravane'
   },
   node: {
     sunford: {
@@ -3059,5 +3061,47 @@ export default {
       name: 'Épine d’ombre',
       desc: 'Une épine sombre et rare. Puissante, et un peu méchante.'
     }
+  },
+  journal: {
+    errands: 'Missions',
+    empty: 'Rien dans ton journal pour l’instant. Les gens en ville te demanderont de l’aide.',
+    from: 'Pour {npc}',
+    ready: 'Fini ! Retourne voir {npc}.',
+    taken: 'Nouvelle mission : {title}',
+    done: 'Mission accomplie : {title}',
+    step: {
+      slay: 'Vaincs {n} × {enemy}',
+      slayAt: 'Vaincs {n} × {enemy} — {place}',
+      slayAnyAt: 'Vaincs {n} ennemis — {place}',
+      clear: 'Nettoie {place}',
+      visit: 'Destination : {place}',
+      gather: 'Cueille {n} × {plant}',
+      bring: 'Apporte {item}',
+      pieces: 'Trouve {n} morceaux de la carte au trésor',
+      dig: 'Creuse pour trouver le trésor — {place}',
+      talk: 'Parle à {npc}'
+    }
+  },
+  board: {
+    title: 'Tableau d’affichage — {town}',
+    read: 'Lire',
+    lead: 'Les tâches du jour. Rends-les ici une fois terminées.',
+    kind: {
+      slay: 'Chasse',
+      gather: 'Herbes',
+      escort: 'Caravane'
+    },
+    slay: 'Vaincs {n} × {enemy} — {place}',
+    gather: 'Apporte {n} × {plant}',
+    escort: 'Protège la caravane sur la route d’Oakhaven',
+    xp: '+{n} XP',
+    setOut: 'En route',
+    thanks: 'Fini ! La ville te remercie.'
+  },
+  escort: {
+    start: 'Protège la caravane jusqu’au bout de la route !',
+    waiting: 'La caravane t’attend.',
+    arrived: 'La caravane est arrivée !',
+    lost: 'La caravane est perdue…'
   }
 }

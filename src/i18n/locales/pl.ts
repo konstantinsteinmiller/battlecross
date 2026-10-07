@@ -36,7 +36,8 @@ export default {
     map: 'Mapa świata',
     character: 'Bohater',
     skills: 'Umiejętności',
-    inventory: 'Torba'
+    inventory: 'Torba',
+    journal: 'Dziennik'
   },
   combat: {
     dodge: 'Unik',
@@ -180,7 +181,8 @@ export default {
     decide: 'Dokonaj wyboru',
     explore: 'Zwiedzaj królestwo',
     fight: 'Wygraj walkę',
-    show: 'Pokaż mi drogę: {goal}'
+    show: 'Pokaż mi drogę: {goal}',
+    escort: 'Pilnuj karawany'
   },
   node: {
     sunford: {
@@ -3106,5 +3108,47 @@ export default {
       name: 'Cieniocierń',
       desc: 'Rzadki ciemny cierń. Silny i trochę złośliwy.'
     }
+  },
+  journal: {
+    errands: 'Zlecenia',
+    empty: 'Twój dziennik jest jeszcze pusty. Mieszkańcy miasta poproszą cię o pomoc.',
+    from: 'Zleca: {npc}',
+    ready: 'Gotowe! {npc} czeka na ciebie.',
+    taken: 'Nowe zlecenie: {title}',
+    done: 'Zlecenie wykonane: {title}',
+    step: {
+      slay: 'Pokonaj {n} × {enemy}',
+      slayAt: 'Pokonaj {n} × {enemy} — {place}',
+      slayAnyAt: 'Pokonaj wrogów: {n} — {place}',
+      clear: 'Oczyść: {place}',
+      visit: 'Wyrusz do: {place}',
+      gather: 'Zbierz {n} × {plant}',
+      bring: 'Przynieś: {item}',
+      pieces: 'Znajdź kawałki mapy skarbów: {n}',
+      dig: 'Wykop skarb — {place}',
+      talk: 'Porozmawiaj: {npc}'
+    }
+  },
+  board: {
+    title: 'Tablica ogłoszeń: {town}',
+    read: 'Czytaj',
+    lead: 'Dzisiejsze zadania. Oddaj je tutaj, gdy je wykonasz.',
+    kind: {
+      slay: 'Polowanie',
+      gather: 'Zioła',
+      escort: 'Karawana'
+    },
+    slay: 'Pokonaj {n} × {enemy} — {place}',
+    gather: 'Przynieś {n} × {plant}',
+    escort: 'Pilnuj karawany w drodze do Oakhaven',
+    xp: '+{n} PD',
+    setOut: 'Wyrusz',
+    thanks: 'Gotowe! Miasto ci dziękuje.'
+  },
+  escort: {
+    start: 'Pilnuj karawany do końca drogi!',
+    waiting: 'Karawana na ciebie czeka.',
+    arrived: 'Karawana dotarła!',
+    lost: 'Karawana przepadła…'
   }
 }

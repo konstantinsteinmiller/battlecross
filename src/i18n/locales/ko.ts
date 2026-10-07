@@ -36,7 +36,8 @@ export default {
     map: '월드맵',
     character: '영웅',
     skills: '스킬',
-    inventory: '가방'
+    inventory: '가방',
+    journal: '일지'
   },
   combat: {
     dodge: '회피',
@@ -179,7 +180,8 @@ export default {
     decide: '선택하기',
     explore: '왕국 탐험하기',
     fight: '전투에서 승리하기',
-    show: '길 알려줘: {goal}'
+    show: '길 알려줘: {goal}',
+    escort: '상단을 지켜요'
   },
   node: {
     sunford: {
@@ -3019,5 +3021,47 @@ export default {
       name: '그림자가시',
       desc: '희귀한 검은 가시예요. 강하고, 조금 사악해요.'
     }
+  },
+  journal: {
+    errands: '부탁',
+    empty: '일지가 아직 비어 있어요. 마을 사람들이 도움을 청할 거예요.',
+    from: '의뢰인: {npc}',
+    ready: '완료! {npc}에게 돌아가요.',
+    taken: '새 부탁: {title}',
+    done: '부탁 완료: {title}',
+    step: {
+      slay: '{enemy} ×{n} 처치',
+      slayAt: '{place}에서 {enemy} ×{n} 처치',
+      slayAnyAt: '{place}에서 적 {n}명 처치',
+      clear: '{place} 소탕',
+      visit: '이동: {place}',
+      gather: '{plant} ×{n} 채집',
+      bring: '가져가기: {item}',
+      pieces: '보물 지도 조각 {n}개 찾기',
+      dig: '{place}에서 보물 파내기',
+      talk: '대화하기: {npc}'
+    }
+  },
+  board: {
+    title: '{town} 게시판',
+    read: '읽기',
+    lead: '오늘의 할 일이에요. 다 하면 여기에 제출해요.',
+    kind: {
+      slay: '사냥',
+      gather: '약초',
+      escort: '상단'
+    },
+    slay: '{place}에서 {enemy} ×{n} 처치',
+    gather: '{plant} ×{n} 가져오기',
+    escort: '오크헤이븐 가는 길에서 상단 지키기',
+    xp: '+{n} 경험치',
+    setOut: '출발',
+    thanks: '완료! 마을이 고마워해요.'
+  },
+  escort: {
+    start: '길 끝까지 상단을 지켜요!',
+    waiting: '상단이 기다리고 있어요.',
+    arrived: '상단이 무사히 도착했어요!',
+    lost: '상단을 잃었어요…'
   }
 }

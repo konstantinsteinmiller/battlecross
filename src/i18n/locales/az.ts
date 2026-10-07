@@ -36,7 +36,8 @@ export default {
     map: 'Dünya xəritəsi',
     character: 'Qəhrəman',
     skills: 'Bacarıqlar',
-    inventory: 'Çanta'
+    inventory: 'Çanta',
+    journal: 'Gündəlik'
   },
   combat: {
     dodge: 'Yayındı',
@@ -179,7 +180,8 @@ export default {
     decide: 'Seçimini et',
     explore: 'Diyarı kəşf et',
     fight: 'Döyüşü qazan',
-    show: 'Yolu göstər: {goal}'
+    show: 'Yolu göstər: {goal}',
+    escort: 'Karvanı qoru'
   },
   node: {
     sunford: {
@@ -3019,5 +3021,47 @@ export default {
       name: 'Kölgətikan',
       desc: 'Nadir tünd tikan. Güclü və bir az da şeytani.'
     }
+  },
+  journal: {
+    errands: 'Tapşırıqlar',
+    empty: 'Gündəliyin hələ boşdur. Şəhər əhli səndən kömək istəyəcək.',
+    from: '{npc} üçün',
+    ready: 'Hazırdır! {npc} yanına qayıt.',
+    taken: 'Yeni tapşırıq: {title}',
+    done: 'Tapşırıq bitdi: {title}',
+    step: {
+      slay: 'Məğlub et: {n} × {enemy}',
+      slayAt: 'Məğlub et: {n} × {enemy} ({place})',
+      slayAnyAt: '{n} düşməni məğlub et ({place})',
+      clear: 'Təmizlə: {place}',
+      visit: 'Get: {place}',
+      gather: 'Topla: {n} × {plant}',
+      bring: 'Gətir: {item}',
+      pieces: 'Xəzinə xəritəsinin {n} parçasını tap',
+      dig: 'Xəzinəni qaz: {place}',
+      talk: 'Danış: {npc}'
+    }
+  },
+  board: {
+    title: 'Elan lövhəsi: {town}',
+    read: 'Oxu',
+    lead: 'Bugünkü tapşırıqlar. Bitirəndə buraya təhvil ver.',
+    kind: {
+      slay: 'Ov',
+      gather: 'Otlar',
+      escort: 'Karvan'
+    },
+    slay: 'Məğlub et: {n} × {enemy} ({place})',
+    gather: 'Gətir: {n} × {plant}',
+    escort: 'Oakhaven yolunda karvanı qoru',
+    xp: '+{n} TX',
+    setOut: 'Yola çıx',
+    thanks: 'Hazırdır! Şəhər sənə təşəkkür edir.'
+  },
+  escort: {
+    start: 'Karvanı yolun sonuna qədər qoru!',
+    waiting: 'Karvan səni gözləyir.',
+    arrived: 'Karvan çatdı!',
+    lost: 'Karvan məhv oldu…'
   }
 }

@@ -36,7 +36,8 @@ export default {
     map: 'Mappa del mondo',
     character: 'Eroe',
     skills: 'Abilità',
-    inventory: 'Borsa'
+    inventory: 'Borsa',
+    journal: 'Diario'
   },
   combat: {
     dodge: 'Schivata',
@@ -180,7 +181,8 @@ export default {
     decide: 'Fai la tua scelta',
     explore: 'Esplora il regno',
     fight: 'Vinci lo scontro',
-    show: 'Mostrami la strada: {goal}'
+    show: 'Mostrami la strada: {goal}',
+    escort: 'Proteggi la carovana'
   },
   node: {
     sunford: {
@@ -3077,5 +3079,47 @@ export default {
       name: 'Spina d’ombra',
       desc: 'Una rara spina scura. Forte, e un po’ malvagia.'
     }
+  },
+  journal: {
+    errands: 'Commissioni',
+    empty: 'Il tuo diario è ancora vuoto. La gente in città ti chiederà aiuto.',
+    from: 'Per {npc}',
+    ready: 'Fatto! Torna da {npc}.',
+    taken: 'Nuova commissione: {title}',
+    done: 'Commissione completata: {title}',
+    step: {
+      slay: 'Sconfiggi {n} × {enemy}',
+      slayAt: 'Sconfiggi {n} × {enemy} in {place}',
+      slayAnyAt: 'Sconfiggi {n} nemici in {place}',
+      clear: 'Libera {place}',
+      visit: 'Vai a {place}',
+      gather: 'Raccogli {n} × {plant}',
+      bring: 'Porta {item}',
+      pieces: 'Trova {n} pezzi della mappa del tesoro',
+      dig: 'Scava in cerca del tesoro in {place}',
+      talk: 'Parla con {npc}'
+    }
+  },
+  board: {
+    title: 'Bacheca di {town}',
+    read: 'Leggi',
+    lead: 'I compiti di oggi. Consegnali qui quando li hai finiti.',
+    kind: {
+      slay: 'Caccia',
+      gather: 'Erbe',
+      escort: 'Carovana'
+    },
+    slay: 'Sconfiggi {n} × {enemy} in {place}',
+    gather: 'Porta {n} × {plant}',
+    escort: 'Proteggi la carovana sulla strada per Oakhaven',
+    xp: '+{n} XP',
+    setOut: 'Parti',
+    thanks: 'Fatto! La città ti ringrazia.'
+  },
+  escort: {
+    start: 'Proteggi la carovana fino alla fine della strada!',
+    waiting: 'La carovana ti aspetta.',
+    arrived: 'La carovana ce l’ha fatta!',
+    lost: 'La carovana è perduta…'
   }
 }

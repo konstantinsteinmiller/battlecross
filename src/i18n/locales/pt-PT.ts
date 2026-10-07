@@ -36,7 +36,8 @@ export default {
     map: 'Mapa do mundo',
     character: 'Herói',
     skills: 'Habilidades',
-    inventory: 'Mochila'
+    inventory: 'Mochila',
+    journal: 'Diário'
   },
   combat: {
     dodge: 'Esquiva',
@@ -180,7 +181,8 @@ export default {
     decide: 'Faz a tua escolha',
     explore: 'Explora o reino',
     fight: 'Vence o combate',
-    show: 'Mostra-me o caminho: {goal}'
+    show: 'Mostra-me o caminho: {goal}',
+    escort: 'Protege a caravana'
   },
   node: {
     sunford: {
@@ -3059,5 +3061,47 @@ export default {
       name: 'Espinho-sombrio',
       desc: 'Um espinho escuro e raro. Forte, e um pouco malvado.'
     }
+  },
+  journal: {
+    errands: 'Pedidos',
+    empty: 'O teu diário ainda está vazio. As pessoas da cidade vão pedir a tua ajuda.',
+    from: 'Para {npc}',
+    ready: 'Feito! Volta a falar com {npc}.',
+    taken: 'Novo pedido: {title}',
+    done: 'Pedido concluído: {title}',
+    step: {
+      slay: 'Derrota {n} × {enemy}',
+      slayAt: 'Derrota {n} × {enemy} em {place}',
+      slayAnyAt: 'Derrota {n} inimigos em {place}',
+      clear: 'Limpa {place}',
+      visit: 'Vai até {place}',
+      gather: 'Apanha {n} × {plant}',
+      bring: 'Leva {item}',
+      pieces: 'Encontra {n} pedaços do mapa do tesouro',
+      dig: 'Escava à procura do tesouro em {place}',
+      talk: 'Fala com {npc}'
+    }
+  },
+  board: {
+    title: 'Quadro de avisos de {town}',
+    read: 'Ler',
+    lead: 'As tarefas de hoje. Entrega-as aqui quando estiverem feitas.',
+    kind: {
+      slay: 'Caça',
+      gather: 'Ervas',
+      escort: 'Caravana'
+    },
+    slay: 'Derrota {n} × {enemy} em {place}',
+    gather: 'Traz {n} × {plant}',
+    escort: 'Protege a caravana na estrada para Oakhaven',
+    xp: '+{n} XP',
+    setOut: 'Partir',
+    thanks: 'Feito! A cidade agradece-te.'
+  },
+  escort: {
+    start: 'Protege a caravana até ao fim da estrada!',
+    waiting: 'A caravana está à tua espera.',
+    arrived: 'A caravana chegou!',
+    lost: 'A caravana perdeu-se…'
   }
 }

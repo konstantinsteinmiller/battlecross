@@ -36,7 +36,8 @@ export default {
     map: 'Verdenskort',
     character: 'Helt',
     skills: 'Evner',
-    inventory: 'Taske'
+    inventory: 'Taske',
+    journal: 'Dagbog'
   },
   combat: {
     dodge: 'Undveget',
@@ -179,7 +180,8 @@ export default {
     decide: 'Tag dit valg',
     explore: 'Udforsk riget',
     fight: 'Vind kampen',
-    show: 'Vis mig vej: {goal}'
+    show: 'Vis mig vej: {goal}',
+    escort: 'Bevogt karavanen'
   },
   node: {
     sunford: {
@@ -3019,5 +3021,47 @@ export default {
       name: 'Skyggetorn',
       desc: 'En sjælden mørk torn. Stærk, og lidt ond.'
     }
+  },
+  journal: {
+    errands: 'Ærinder',
+    empty: 'Intet i din dagbog endnu. Folk i byen vil bede dig om hjælp.',
+    from: 'For {npc}',
+    ready: 'Færdig! Gå tilbage til {npc}.',
+    taken: 'Nyt ærinde: {title}',
+    done: 'Ærinde klaret: {title}',
+    step: {
+      slay: 'Besejr {n} × {enemy}',
+      slayAt: 'Besejr {n} × {enemy} i {place}',
+      slayAnyAt: 'Besejr {n} fjender i {place}',
+      clear: 'Ryd {place}',
+      visit: 'Gå til {place}',
+      gather: 'Saml {n} × {plant}',
+      bring: 'Tag {item} med',
+      pieces: 'Find {n} stykker af skattekortet',
+      dig: 'Grav efter skatten i {place}',
+      talk: 'Tal med {npc}'
+    }
+  },
+  board: {
+    title: 'Opslagstavlen i {town}',
+    read: 'Læs',
+    lead: 'Dagens opgaver. Aflever dem her, når de er klaret.',
+    kind: {
+      slay: 'Jagt',
+      gather: 'Urter',
+      escort: 'Karavane'
+    },
+    slay: 'Besejr {n} × {enemy} i {place}',
+    gather: 'Bring {n} × {plant}',
+    escort: 'Bevogt karavanen på vejen til Oakhaven',
+    xp: '+{n} XP',
+    setOut: 'Tag af sted',
+    thanks: 'Færdig! Byen takker dig.'
+  },
+  escort: {
+    start: 'Bevogt karavanen til vejens ende!',
+    waiting: 'Karavanen venter på dig.',
+    arrived: 'Karavanen nåede frem!',
+    lost: 'Karavanen gik tabt…'
   }
 }

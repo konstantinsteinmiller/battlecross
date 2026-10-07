@@ -36,7 +36,8 @@ export default {
     map: 'Žemėlapis',
     character: 'Herojus',
     skills: 'Įgūdžiai',
-    inventory: 'Krepšys'
+    inventory: 'Krepšys',
+    journal: 'Dienoraštis'
   },
   combat: {
     dodge: 'Išsisukta',
@@ -179,7 +180,8 @@ export default {
     decide: 'Apsispręsk',
     explore: 'Tyrinėk karalystę',
     fight: 'Laimėk kovą',
-    show: 'Parodyk kelią: {goal}'
+    show: 'Parodyk kelią: {goal}',
+    escort: 'Saugok karavaną'
   },
   node: {
     sunford: {
@@ -3070,5 +3072,47 @@ export default {
       name: 'Šešėldyglis',
       desc: 'Retas tamsus dyglys. Stiprus ir truputį piktas.'
     }
+  },
+  journal: {
+    errands: 'Užduotys',
+    empty: 'Tavo dienoraštis kol kas tuščias. Miesto žmonės paprašys tavo pagalbos.',
+    from: 'Prašo: {npc}',
+    ready: 'Atlikta! {npc} tavęs laukia.',
+    taken: 'Nauja užduotis: {title}',
+    done: 'Užduotis atlikta: {title}',
+    step: {
+      slay: 'Nugalėk {n} × {enemy}',
+      slayAt: 'Nugalėk {n} × {enemy} — {place}',
+      slayAnyAt: 'Nugalėk priešus: {n} — {place}',
+      clear: 'Išvalyk: {place}',
+      visit: 'Keliauk: {place}',
+      gather: 'Surink {n} × {plant}',
+      bring: 'Atnešk: {item}',
+      pieces: 'Rask lobio žemėlapio dalis: {n}',
+      dig: 'Iškask lobį — {place}',
+      talk: 'Pasikalbėk: {npc}'
+    }
+  },
+  board: {
+    title: 'Skelbimų lenta: {town}',
+    read: 'Skaityti',
+    lead: 'Šiandienos užduotys. Atiduok jas čia, kai atliksi.',
+    kind: {
+      slay: 'Medžioklė',
+      gather: 'Žolelės',
+      escort: 'Karavanas'
+    },
+    slay: 'Nugalėk {n} × {enemy} — {place}',
+    gather: 'Atnešk {n} × {plant}',
+    escort: 'Saugok karavaną kelyje į Oakhaveną',
+    xp: '+{n} PT',
+    setOut: 'Į kelią',
+    thanks: 'Atlikta! Miestas tau dėkoja.'
+  },
+  escort: {
+    start: 'Saugok karavaną iki kelio galo!',
+    waiting: 'Karavanas tavęs laukia.',
+    arrived: 'Karavanas pasiekė tikslą!',
+    lost: 'Karavanas prarastas…'
   }
 }

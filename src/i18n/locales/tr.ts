@@ -36,7 +36,8 @@ export default {
     map: 'Dünya haritası',
     character: 'Kahraman',
     skills: 'Yetenekler',
-    inventory: 'Çanta'
+    inventory: 'Çanta',
+    journal: 'Günlük'
   },
   combat: {
     dodge: 'Kaçındı',
@@ -179,7 +180,8 @@ export default {
     decide: 'Seçimini yap',
     explore: 'Diyarı keşfet',
     fight: 'Dövüşü kazan',
-    show: 'Yolu göster: {goal}'
+    show: 'Yolu göster: {goal}',
+    escort: 'Kervanı koru'
   },
   node: {
     sunford: {
@@ -3019,5 +3021,47 @@ export default {
       name: 'Gölgediken',
       desc: 'Nadir, karanlık bir diken. Güçlü ve biraz da kötü.'
     }
+  },
+  journal: {
+    errands: 'Görevler',
+    empty: 'Günlüğün henüz boş. Kasabadakiler senden yardım isteyecek.',
+    from: '{npc} için',
+    ready: 'Tamam! {npc} yanına dön.',
+    taken: 'Yeni görev: {title}',
+    done: 'Görev tamam: {title}',
+    step: {
+      slay: 'Yen: {n} × {enemy}',
+      slayAt: 'Yen: {n} × {enemy} ({place})',
+      slayAnyAt: '{n} düşman yen ({place})',
+      clear: 'Temizle: {place}',
+      visit: 'Git: {place}',
+      gather: 'Topla: {n} × {plant}',
+      bring: 'Getir: {item}',
+      pieces: 'Hazine haritasının {n} parçasını bul',
+      dig: 'Hazineyi kaz: {place}',
+      talk: 'Konuş: {npc}'
+    }
+  },
+  board: {
+    title: 'İlan panosu: {town}',
+    read: 'Oku',
+    lead: 'Bugünün görevleri. Bitince buraya teslim et.',
+    kind: {
+      slay: 'Av',
+      gather: 'Otlar',
+      escort: 'Kervan'
+    },
+    slay: 'Yen: {n} × {enemy} ({place})',
+    gather: 'Getir: {n} × {plant}',
+    escort: 'Oakhaven yolunda kervanı koru',
+    xp: '+{n} TP',
+    setOut: 'Yola çık',
+    thanks: 'Tamam! Kasaba sana teşekkür ediyor.'
+  },
+  escort: {
+    start: 'Kervanı yolun sonuna kadar koru!',
+    waiting: 'Kervan seni bekliyor.',
+    arrived: 'Kervan ulaştı!',
+    lost: 'Kervan yok oldu…'
   }
 }

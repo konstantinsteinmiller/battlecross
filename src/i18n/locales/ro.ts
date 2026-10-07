@@ -36,7 +36,8 @@ export default {
     map: 'Harta lumii',
     character: 'Erou',
     skills: 'Abilități',
-    inventory: 'Rucsac'
+    inventory: 'Rucsac',
+    journal: 'Jurnal'
   },
   combat: {
     dodge: 'Eschivă',
@@ -179,7 +180,8 @@ export default {
     decide: 'Ia-ți decizia',
     explore: 'Explorează regatul',
     fight: 'Câștigă lupta',
-    show: 'Arată-mi drumul: {goal}'
+    show: 'Arată-mi drumul: {goal}',
+    escort: 'Păzește caravana'
   },
   node: {
     sunford: {
@@ -3058,5 +3060,47 @@ export default {
       name: 'Spin-de-Umbră',
       desc: 'Un spin rar și întunecat. Puternic și puțin răutăcios.'
     }
+  },
+  journal: {
+    errands: 'Sarcini',
+    empty: 'Jurnalul tău e încă gol. Oamenii din oraș îți vor cere ajutorul.',
+    from: 'Pentru {npc}',
+    ready: 'Gata! Întoarce-te la {npc}.',
+    taken: 'Sarcină nouă: {title}',
+    done: 'Sarcină îndeplinită: {title}',
+    step: {
+      slay: 'Învinge {n} × {enemy}',
+      slayAt: 'Învinge {n} × {enemy} în {place}',
+      slayAnyAt: 'Învinge inamici: {n} — {place}',
+      clear: 'Curăță {place}',
+      visit: 'Mergi la {place}',
+      gather: 'Culege {n} × {plant}',
+      bring: 'Adu {item}',
+      pieces: 'Găsește bucăți din harta comorii: {n}',
+      dig: 'Sapă după comoară în {place}',
+      talk: 'Vorbește cu {npc}'
+    }
+  },
+  board: {
+    title: 'Avizierul din {town}',
+    read: 'Citește',
+    lead: 'Sarcinile de azi. Predă-le aici când le termini.',
+    kind: {
+      slay: 'Vânătoare',
+      gather: 'Ierburi',
+      escort: 'Caravană'
+    },
+    slay: 'Învinge {n} × {enemy} în {place}',
+    gather: 'Adu {n} × {plant}',
+    escort: 'Păzește caravana pe drumul spre Oakhaven',
+    xp: '+{n} XP',
+    setOut: 'Pornește',
+    thanks: 'Gata! Orașul îți mulțumește.'
+  },
+  escort: {
+    start: 'Păzește caravana până la capătul drumului!',
+    waiting: 'Caravana te așteaptă.',
+    arrived: 'Caravana a ajuns!',
+    lost: 'Caravana s-a pierdut…'
   }
 }

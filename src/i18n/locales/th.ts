@@ -36,7 +36,8 @@ export default {
     map: 'แผนที่โลก',
     character: 'ฮีโร่',
     skills: 'สกิล',
-    inventory: 'กระเป๋า'
+    inventory: 'กระเป๋า',
+    journal: 'บันทึก'
   },
   combat: {
     dodge: 'หลบ',
@@ -179,7 +180,8 @@ export default {
     decide: 'ตัดสินใจเลือก',
     explore: 'สำรวจอาณาจักร',
     fight: 'ชนะการต่อสู้',
-    show: 'ช่วยบอกทาง: {goal}'
+    show: 'ช่วยบอกทาง: {goal}',
+    escort: 'คุ้มกันคาราวาน'
   },
   node: {
     sunford: {
@@ -3019,5 +3021,47 @@ export default {
       name: 'หนามเงา',
       desc: 'หนามสีดำหายาก แรง และร้ายนิดๆ'
     }
+  },
+  journal: {
+    errands: 'ภารกิจ',
+    empty: 'ยังไม่มีอะไรในบันทึกเลย ชาวเมืองจะมาขอให้คุณช่วย',
+    from: 'สำหรับ{npc}',
+    ready: 'เสร็จแล้ว! กลับไปหา{npc}',
+    taken: 'ภารกิจใหม่: {title}',
+    done: 'ภารกิจสำเร็จ: {title}',
+    step: {
+      slay: 'ปราบ {n} × {enemy}',
+      slayAt: 'ปราบ {n} × {enemy} ที่{place}',
+      slayAnyAt: 'ปราบศัตรู {n} ตัวที่{place}',
+      clear: 'กวาดล้าง{place}',
+      visit: 'ไปที่{place}',
+      gather: 'เก็บ {n} × {plant}',
+      bring: 'นำ{item}มาให้',
+      pieces: 'หาชิ้นส่วนแผนที่สมบัติ {n} ชิ้น',
+      dig: 'ขุดหาสมบัติที่{place}',
+      talk: 'คุยกับ{npc}'
+    }
+  },
+  board: {
+    title: 'กระดานประกาศ{town}',
+    read: 'อ่าน',
+    lead: 'งานของวันนี้ ทำเสร็จแล้วมาส่งที่นี่',
+    kind: {
+      slay: 'ล่า',
+      gather: 'สมุนไพร',
+      escort: 'คาราวาน'
+    },
+    slay: 'ปราบ {n} × {enemy} ที่{place}',
+    gather: 'นำ {n} × {plant} มาให้',
+    escort: 'คุ้มกันคาราวานบนเส้นทางสู่โอ๊คเฮเวน',
+    xp: '+{n} XP',
+    setOut: 'ออกเดินทาง',
+    thanks: 'เสร็จแล้ว! ชาวเมืองขอบคุณคุณ'
+  },
+  escort: {
+    start: 'คุ้มกันคาราวานไปจนสุดทาง!',
+    waiting: 'คาราวานรอคุณอยู่',
+    arrived: 'คาราวานมาถึงแล้ว!',
+    lost: 'เสียคาราวานไปแล้ว…'
   }
 }

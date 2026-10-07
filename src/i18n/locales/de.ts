@@ -36,7 +36,8 @@ export default {
     map: 'Weltkarte',
     character: 'Held',
     skills: 'Fähigkeiten',
-    inventory: 'Tasche'
+    inventory: 'Tasche',
+    journal: 'Tagebuch'
   },
   combat: {
     dodge: 'Ausgewichen',
@@ -180,7 +181,8 @@ export default {
     decide: 'Triff deine Wahl',
     explore: 'Erkunde die Welt',
     fight: 'Gewinne den Kampf',
-    show: 'Zeig mir den Weg: {goal}'
+    show: 'Zeig mir den Weg: {goal}',
+    escort: 'Bewache die Karawane'
   },
   node: {
     sunford: {
@@ -3036,5 +3038,47 @@ export default {
       name: 'Schattendorn',
       desc: 'Ein seltener dunkler Dorn. Stark und ein bisschen böse.'
     }
+  },
+  journal: {
+    errands: 'Aufgaben',
+    empty: 'Noch nichts in deinem Tagebuch. Die Leute in der Stadt werden dich um Hilfe bitten.',
+    from: 'Für {npc}',
+    ready: 'Geschafft! Geh zurück zu {npc}.',
+    taken: 'Neue Aufgabe: {title}',
+    done: 'Aufgabe erledigt: {title}',
+    step: {
+      slay: 'Besiege {n} × {enemy}',
+      slayAt: 'Besiege {n} × {enemy} in {place}',
+      slayAnyAt: 'Besiege {n} Gegner in {place}',
+      clear: 'Säubere {place}',
+      visit: 'Geh zu {place}',
+      gather: 'Sammle {n} × {plant}',
+      bring: 'Bring {item}',
+      pieces: 'Finde {n} Teile der Schatzkarte',
+      dig: 'Grab in {place} nach dem Schatz',
+      talk: 'Sprich mit {npc}'
+    }
+  },
+  board: {
+    title: 'Anschlagbrett von {town}',
+    read: 'Lesen',
+    lead: 'Die Aufgaben von heute. Gib sie hier ab, wenn sie erledigt sind.',
+    kind: {
+      slay: 'Jagd',
+      gather: 'Kräuter',
+      escort: 'Karawane'
+    },
+    slay: 'Besiege {n} × {enemy} in {place}',
+    gather: 'Bring {n} × {plant}',
+    escort: 'Bewache die Karawane auf dem Weg nach Oakhaven',
+    xp: '+{n} EP',
+    setOut: 'Aufbrechen',
+    thanks: 'Geschafft! Die Stadt dankt dir.'
+  },
+  escort: {
+    start: 'Bewache die Karawane bis zum Ende des Weges!',
+    waiting: 'Die Karawane wartet auf dich.',
+    arrived: 'Die Karawane hat es geschafft!',
+    lost: 'Die Karawane ist verloren…'
   }
 }

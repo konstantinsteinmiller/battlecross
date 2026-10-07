@@ -36,7 +36,8 @@ export default {
     map: 'ワールドマップ',
     character: 'ヒーロー',
     skills: 'スキル',
-    inventory: 'バッグ'
+    inventory: 'バッグ',
+    journal: '日誌'
   },
   combat: {
     dodge: '回避',
@@ -179,7 +180,8 @@ export default {
     decide: '決断しよう',
     explore: '王国を探索しよう',
     fight: '戦いに勝とう',
-    show: '道を教えて：{goal}'
+    show: '道を教えて：{goal}',
+    escort: '隊商を守ろう'
   },
   node: {
     sunford: {
@@ -3019,5 +3021,47 @@ export default {
       name: 'カゲイバラ',
       desc: 'めずらしい黒いトゲ。強いけれど、少しよこしま。'
     }
+  },
+  journal: {
+    errands: '依頼',
+    empty: '日誌はまだ空っぽ。町の人たちが助けを求めてくるよ。',
+    from: '{npc}の依頼',
+    ready: '達成！{npc}のところへ戻ろう。',
+    taken: '新しい依頼：{title}',
+    done: '依頼達成：{title}',
+    step: {
+      slay: '{enemy} ×{n}を倒す',
+      slayAt: '{place}で{enemy} ×{n}を倒す',
+      slayAnyAt: '{place}で敵を{n}体倒す',
+      clear: '{place}を制圧する',
+      visit: '{place}へ行く',
+      gather: '{plant} ×{n}を集める',
+      bring: '{item}を届ける',
+      pieces: '宝の地図のかけらを{n}枚見つける',
+      dig: '{place}で宝を掘り出す',
+      talk: '{npc}と話す'
+    }
+  },
+  board: {
+    title: '{town}の掲示板',
+    read: '読む',
+    lead: '今日の依頼。終わったらここで報告しよう。',
+    kind: {
+      slay: '討伐',
+      gather: '薬草',
+      escort: '隊商'
+    },
+    slay: '{place}で{enemy} ×{n}を倒す',
+    gather: '{plant} ×{n}を届ける',
+    escort: 'オークヘイヴンへの道で隊商を守る',
+    xp: '+{n} 経験値',
+    setOut: '出発',
+    thanks: '達成！町のみんなが感謝しているよ。'
+  },
+  escort: {
+    start: '道の終わりまで隊商を守り抜こう！',
+    waiting: '隊商が君を待っている。',
+    arrived: '隊商が無事に着いた！',
+    lost: '隊商がやられてしまった…'
   }
 }

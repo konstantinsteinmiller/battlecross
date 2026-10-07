@@ -36,7 +36,8 @@ export default {
     map: 'Mapa světa',
     character: 'Hrdina',
     skills: 'Dovednosti',
-    inventory: 'Batoh'
+    inventory: 'Batoh',
+    journal: 'Deník'
   },
   combat: {
     dodge: 'Úhyb',
@@ -182,7 +183,8 @@ export default {
     decide: 'Vyber si',
     explore: 'Prozkoumej říši',
     fight: 'Vyhraj souboj',
-    show: 'Ukaž mi cestu: {goal}'
+    show: 'Ukaž mi cestu: {goal}',
+    escort: 'Chraň karavanu'
   },
   node: {
     sunford: {
@@ -3109,5 +3111,47 @@ export default {
       name: 'Stínotrn',
       desc: 'Vzácný temný trn. Silný a trochu zlomyslný.'
     }
+  },
+  journal: {
+    errands: 'Úkoly',
+    empty: 'Tvůj deník je zatím prázdný. Lidé ve městě tě požádají o pomoc.',
+    from: 'Zadává: {npc}',
+    ready: 'Hotovo! {npc} na tebe čeká.',
+    taken: 'Nový úkol: {title}',
+    done: 'Úkol splněn: {title}',
+    step: {
+      slay: 'Poraz {n} × {enemy}',
+      slayAt: 'Poraz {n} × {enemy} — {place}',
+      slayAnyAt: 'Poraz nepřátele: {n} — {place}',
+      clear: 'Vyčisti: {place}',
+      visit: 'Vyraz do: {place}',
+      gather: 'Nasbírej {n} × {plant}',
+      bring: 'Přines: {item}',
+      pieces: 'Najdi kousky mapy pokladu: {n}',
+      dig: 'Vykopej poklad — {place}',
+      talk: 'Promluv si: {npc}'
+    }
+  },
+  board: {
+    title: 'Nástěnka: {town}',
+    read: 'Číst',
+    lead: 'Dnešní úkoly. Odevzdej je tady, až je splníš.',
+    kind: {
+      slay: 'Lov',
+      gather: 'Byliny',
+      escort: 'Karavana'
+    },
+    slay: 'Poraz {n} × {enemy} — {place}',
+    gather: 'Přines {n} × {plant}',
+    escort: 'Chraň karavanu na cestě do Oakhavenu',
+    xp: '+{n} ZK',
+    setOut: 'Vyrazit',
+    thanks: 'Hotovo! Město ti děkuje.'
+  },
+  escort: {
+    start: 'Chraň karavanu až na konec cesty!',
+    waiting: 'Karavana na tebe čeká.',
+    arrived: 'Karavana dorazila!',
+    lost: 'Karavana je ztracena…'
   }
 }

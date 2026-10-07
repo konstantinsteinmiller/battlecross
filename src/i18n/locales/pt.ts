@@ -36,7 +36,8 @@ export default {
     map: 'Mapa do mundo',
     character: 'Herói',
     skills: 'Habilidades',
-    inventory: 'Bolsa'
+    inventory: 'Bolsa',
+    journal: 'Diário'
   },
   combat: {
     dodge: 'Esquiva',
@@ -180,7 +181,8 @@ export default {
     decide: 'Faça sua escolha',
     explore: 'Explore o reino',
     fight: 'Vença a luta',
-    show: 'Mostre o caminho: {goal}'
+    show: 'Mostre o caminho: {goal}',
+    escort: 'Proteja a caravana'
   },
   node: {
     sunford: {
@@ -3061,5 +3063,47 @@ export default {
       name: 'Espinho-sombrio',
       desc: 'Um espinho escuro e raro. Forte, e um pouco malvado.'
     }
+  },
+  journal: {
+    errands: 'Pedidos',
+    empty: 'Seu diário ainda está vazio. O pessoal da cidade vai pedir sua ajuda.',
+    from: 'Para {npc}',
+    ready: 'Pronto! Volte até {npc}.',
+    taken: 'Novo pedido: {title}',
+    done: 'Pedido concluído: {title}',
+    step: {
+      slay: 'Derrote {n} × {enemy}',
+      slayAt: 'Derrote {n} × {enemy} em {place}',
+      slayAnyAt: 'Derrote {n} inimigos em {place}',
+      clear: 'Limpe {place}',
+      visit: 'Vá até {place}',
+      gather: 'Colete {n} × {plant}',
+      bring: 'Leve {item}',
+      pieces: 'Encontre {n} pedaços do mapa do tesouro',
+      dig: 'Cave atrás do tesouro em {place}',
+      talk: 'Fale com {npc}'
+    }
+  },
+  board: {
+    title: 'Mural de {town}',
+    read: 'Ler',
+    lead: 'As tarefas de hoje. Entregue aqui quando terminar.',
+    kind: {
+      slay: 'Caça',
+      gather: 'Ervas',
+      escort: 'Caravana'
+    },
+    slay: 'Derrote {n} × {enemy} em {place}',
+    gather: 'Traga {n} × {plant}',
+    escort: 'Proteja a caravana na estrada para Oakhaven',
+    xp: '+{n} XP',
+    setOut: 'Partir',
+    thanks: 'Pronto! A cidade agradece.'
+  },
+  escort: {
+    start: 'Proteja a caravana até o fim da estrada!',
+    waiting: 'A caravana está esperando você.',
+    arrived: 'A caravana chegou!',
+    lost: 'A caravana se perdeu…'
   }
 }

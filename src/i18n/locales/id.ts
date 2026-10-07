@@ -36,7 +36,8 @@ export default {
     map: 'Peta dunia',
     character: 'Pahlawan',
     skills: 'Skill',
-    inventory: 'Tas'
+    inventory: 'Tas',
+    journal: 'Jurnal'
   },
   combat: {
     dodge: 'Hindar',
@@ -179,7 +180,8 @@ export default {
     decide: 'Buat pilihanmu',
     explore: 'Jelajahi negeri',
     fight: 'Menangkan pertarungan',
-    show: 'Tunjukkan jalan: {goal}'
+    show: 'Tunjukkan jalan: {goal}',
+    escort: 'Kawal kafilah'
   },
   node: {
     sunford: {
@@ -3019,5 +3021,47 @@ export default {
       name: 'Duri Bayang',
       desc: 'Duri gelap yang langka. Kuat, dan sedikit jahat.'
     }
+  },
+  journal: {
+    errands: 'Permintaan',
+    empty: 'Jurnalmu masih kosong. Warga kota akan meminta bantuanmu.',
+    from: 'Untuk {npc}',
+    ready: 'Selesai! Kembali ke {npc}.',
+    taken: 'Permintaan baru: {title}',
+    done: 'Permintaan selesai: {title}',
+    step: {
+      slay: 'Kalahkan {n} × {enemy}',
+      slayAt: 'Kalahkan {n} × {enemy} di {place}',
+      slayAnyAt: 'Kalahkan {n} musuh di {place}',
+      clear: 'Bersihkan {place}',
+      visit: 'Pergi ke {place}',
+      gather: 'Kumpulkan {n} × {plant}',
+      bring: 'Bawakan {item}',
+      pieces: 'Temukan {n} potongan peta harta karun',
+      dig: 'Gali harta karun di {place}',
+      talk: 'Bicara dengan {npc}'
+    }
+  },
+  board: {
+    title: 'Papan pengumuman {town}',
+    read: 'Baca',
+    lead: 'Tugas hari ini. Serahkan di sini kalau sudah selesai.',
+    kind: {
+      slay: 'Berburu',
+      gather: 'Herbal',
+      escort: 'Kafilah'
+    },
+    slay: 'Kalahkan {n} × {enemy} di {place}',
+    gather: 'Bawakan {n} × {plant}',
+    escort: 'Kawal kafilah di jalan menuju Oakhaven',
+    xp: '+{n} XP',
+    setOut: 'Berangkat',
+    thanks: 'Selesai! Warga kota berterima kasih padamu.'
+  },
+  escort: {
+    start: 'Kawal kafilah sampai ujung jalan!',
+    waiting: 'Kafilah menunggumu.',
+    arrived: 'Kafilah berhasil sampai!',
+    lost: 'Kafilah hancur…'
   }
 }

@@ -36,7 +36,8 @@ export default {
     map: 'Mapa del món',
     character: 'Heroi',
     skills: 'Habilitats',
-    inventory: 'Bossa'
+    inventory: 'Bossa',
+    journal: 'Diari'
   },
   combat: {
     dodge: 'Esquiva',
@@ -180,7 +181,8 @@ export default {
     decide: 'Pren la teva decisió',
     explore: 'Explora el regne',
     fight: 'Guanya el combat',
-    show: 'Mostra’m el camí: {goal}'
+    show: 'Mostra’m el camí: {goal}',
+    escort: 'Protegeix la caravana'
   },
   node: {
     sunford: {
@@ -3057,5 +3059,47 @@ export default {
       name: 'Espina d’ombra',
       desc: 'Una espina fosca i rara. Forta, i una mica malvada.'
     }
+  },
+  journal: {
+    errands: 'Encàrrecs',
+    empty: 'El teu diari encara és buit. La gent del poble et demanarà ajuda.',
+    from: 'Per a {npc}',
+    ready: 'Fet! Torna amb {npc}.',
+    taken: 'Nou encàrrec: {title}',
+    done: 'Encàrrec fet: {title}',
+    step: {
+      slay: 'Derrota {n} × {enemy}',
+      slayAt: 'Derrota {n} × {enemy} a {place}',
+      slayAnyAt: 'Derrota {n} enemics a {place}',
+      clear: 'Neteja {place}',
+      visit: 'Ves a {place}',
+      gather: 'Recull {n} × {plant}',
+      bring: 'Porta {item}',
+      pieces: 'Troba {n} trossos del mapa del tresor',
+      dig: 'Cava a la recerca del tresor a {place}',
+      talk: 'Parla amb {npc}'
+    }
+  },
+  board: {
+    title: 'Tauler d’anuncis: {town}',
+    read: 'Llegir',
+    lead: 'Les tasques d’avui. Lliura-les aquí quan estiguin fetes.',
+    kind: {
+      slay: 'Caça',
+      gather: 'Herbes',
+      escort: 'Caravana'
+    },
+    slay: 'Derrota {n} × {enemy} a {place}',
+    gather: 'Porta {n} × {plant}',
+    escort: 'Protegeix la caravana pel camí d’Oakhaven',
+    xp: '+{n} XP',
+    setOut: 'En marxa',
+    thanks: 'Fet! El poble t’ho agraeix.'
+  },
+  escort: {
+    start: 'Protegeix la caravana fins al final del camí!',
+    waiting: 'La caravana t’espera.',
+    arrived: 'La caravana ha arribat!',
+    lost: 'La caravana s’ha perdut…'
   }
 }

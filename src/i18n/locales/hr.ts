@@ -36,7 +36,8 @@ export default {
     map: 'Karta svijeta',
     character: 'Junak',
     skills: 'Vještine',
-    inventory: 'Torba'
+    inventory: 'Torba',
+    journal: 'Dnevnik'
   },
   combat: {
     dodge: 'Izmak',
@@ -182,7 +183,8 @@ export default {
     decide: 'Odaberi',
     explore: 'Istraži kraljevstvo',
     fight: 'Pobijedi u borbi',
-    show: 'Pokaži mi put: {goal}'
+    show: 'Pokaži mi put: {goal}',
+    escort: 'Čuvaj karavanu'
   },
   node: {
     sunford: {
@@ -3115,5 +3117,47 @@ export default {
       name: 'Sjenotrn',
       desc: 'Rijedak tamni trn. Snažan i pomalo zloban.'
     }
+  },
+  journal: {
+    errands: 'Zadaci',
+    empty: 'Tvoj dnevnik je još prazan. Ljudi u gradu tražit će tvoju pomoć.',
+    from: 'Traži: {npc}',
+    ready: 'Gotovo! {npc} te čeka.',
+    taken: 'Novi zadatak: {title}',
+    done: 'Zadatak izvršen: {title}',
+    step: {
+      slay: 'Pobijedi {n} × {enemy}',
+      slayAt: 'Pobijedi {n} × {enemy} — {place}',
+      slayAnyAt: 'Pobijedi neprijatelje: {n} — {place}',
+      clear: 'Očisti: {place}',
+      visit: 'Kreni prema: {place}',
+      gather: 'Uberi {n} × {plant}',
+      bring: 'Donesi: {item}',
+      pieces: 'Pronađi dijelove karte s blagom: {n}',
+      dig: 'Iskopaj blago — {place}',
+      talk: 'Razgovaraj: {npc}'
+    }
+  },
+  board: {
+    title: 'Oglasna ploča: {town}',
+    read: 'Čitaj',
+    lead: 'Današnji zadaci. Predaj ih ovdje kad ih izvršiš.',
+    kind: {
+      slay: 'Lov',
+      gather: 'Bilje',
+      escort: 'Karavana'
+    },
+    slay: 'Pobijedi {n} × {enemy} — {place}',
+    gather: 'Donesi {n} × {plant}',
+    escort: 'Čuvaj karavanu na putu do Oakhavena',
+    xp: '+{n} ISK',
+    setOut: 'Kreni',
+    thanks: 'Gotovo! Grad ti zahvaljuje.'
+  },
+  escort: {
+    start: 'Čuvaj karavanu do kraja puta!',
+    waiting: 'Karavana te čeka.',
+    arrived: 'Karavana je stigla!',
+    lost: 'Karavana je izgubljena…'
   }
 }

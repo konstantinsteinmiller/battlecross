@@ -36,7 +36,8 @@ export default {
     map: 'Maailmankartta',
     character: 'Sankari',
     skills: 'Kyvyt',
-    inventory: 'Laukku'
+    inventory: 'Laukku',
+    journal: 'Päiväkirja'
   },
   combat: {
     dodge: 'Väistö',
@@ -179,7 +180,8 @@ export default {
     decide: 'Tee valintasi',
     explore: 'Tutki valtakuntaa',
     fight: 'Voita taistelu',
-    show: 'Näytä tie: {goal}'
+    show: 'Näytä tie: {goal}',
+    escort: 'Suojele karavaania'
   },
   node: {
     sunford: {
@@ -3019,5 +3021,47 @@ export default {
       name: 'Varjo-oka',
       desc: 'Harvinainen tumma oka. Vahva ja vähän ilkeä.'
     }
+  },
+  journal: {
+    errands: 'Tehtävät',
+    empty: 'Päiväkirjasi on vielä tyhjä. Kaupungin asukkaat pyytävät apuasi.',
+    from: 'Pyytäjä: {npc}',
+    ready: 'Valmis! {npc} odottaa sinua.',
+    taken: 'Uusi tehtävä: {title}',
+    done: 'Tehtävä tehty: {title}',
+    step: {
+      slay: 'Voita {n} × {enemy}',
+      slayAt: 'Voita {n} × {enemy} — {place}',
+      slayAnyAt: 'Voita vihollisia: {n} — {place}',
+      clear: 'Puhdista {place}',
+      visit: 'Suuntaa kohteeseen {place}',
+      gather: 'Kerää {n} × {plant}',
+      bring: 'Tuo: {item}',
+      pieces: 'Löydä aarrekartan palasia: {n}',
+      dig: 'Kaiva aarre esiin — {place}',
+      talk: 'Puhu: {npc}'
+    }
+  },
+  board: {
+    title: 'Ilmoitustaulu: {town}',
+    read: 'Lue',
+    lead: 'Päivän tehtävät. Palauta ne tänne, kun ne ovat valmiit.',
+    kind: {
+      slay: 'Metsästys',
+      gather: 'Yrtit',
+      escort: 'Karavaani'
+    },
+    slay: 'Voita {n} × {enemy} — {place}',
+    gather: 'Tuo {n} × {plant}',
+    escort: 'Suojele karavaania tiellä Oakhaveniin',
+    xp: '+{n} XP',
+    setOut: 'Lähde',
+    thanks: 'Valmista! Kaupunki kiittää sinua.'
+  },
+  escort: {
+    start: 'Suojele karavaania tien päähän asti!',
+    waiting: 'Karavaani odottaa sinua.',
+    arrived: 'Karavaani pääsi perille!',
+    lost: 'Karavaani menetettiin…'
   }
 }

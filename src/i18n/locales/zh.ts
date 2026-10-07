@@ -36,7 +36,8 @@ export default {
     map: '世界地图',
     character: '英雄',
     skills: '技能',
-    inventory: '背包'
+    inventory: '背包',
+    journal: '日志'
   },
   combat: {
     dodge: '闪避',
@@ -179,7 +180,8 @@ export default {
     decide: '做出你的选择',
     explore: '探索王国',
     fight: '赢下这场战斗',
-    show: '给我指路：{goal}'
+    show: '给我指路：{goal}',
+    escort: '护送商队'
   },
   node: {
     sunford: {
@@ -3019,5 +3021,47 @@ export default {
       name: '影棘',
       desc: '一种罕见的暗色荆棘。很强，还有点邪门。'
     }
+  },
+  journal: {
+    errands: '委托',
+    empty: '日志里还什么都没有。镇上的人会来请你帮忙。',
+    from: '委托人：{npc}',
+    ready: '完成！回去找{npc}。',
+    taken: '新委托：{title}',
+    done: '委托完成：{title}',
+    step: {
+      slay: '击败 {enemy} ×{n}',
+      slayAt: '在{place}击败 {enemy} ×{n}',
+      slayAnyAt: '在{place}击败 {n} 个敌人',
+      clear: '肃清{place}',
+      visit: '前往{place}',
+      gather: '采集 {plant} ×{n}',
+      bring: '带来{item}',
+      pieces: '找到 {n} 块藏宝图碎片',
+      dig: '在{place}挖出宝藏',
+      talk: '和{npc}交谈'
+    }
+  },
+  board: {
+    title: '{town}告示板',
+    read: '查看',
+    lead: '今日任务。完成后回这里交付。',
+    kind: {
+      slay: '狩猎',
+      gather: '草药',
+      escort: '商队'
+    },
+    slay: '在{place}击败 {enemy} ×{n}',
+    gather: '上交 {plant} ×{n}',
+    escort: '在通往奥克黑文的路上护卫商队',
+    xp: '+{n} 经验',
+    setOut: '出发',
+    thanks: '完成！全镇向你致谢。'
+  },
+  escort: {
+    start: '护送商队走到路的尽头！',
+    waiting: '商队在等你。',
+    arrived: '商队平安抵达！',
+    lost: '商队覆没了……'
   }
 }

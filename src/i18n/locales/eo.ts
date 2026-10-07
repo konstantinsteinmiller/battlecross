@@ -36,7 +36,8 @@ export default {
     map: 'Mondmapo',
     character: 'Heroo',
     skills: 'Kapabloj',
-    inventory: 'Sako'
+    inventory: 'Sako',
+    journal: 'Taglibro'
   },
   combat: {
     dodge: 'Evito',
@@ -179,7 +180,8 @@ export default {
     decide: 'Faru vian elekton',
     explore: 'Esploru la regnon',
     fight: 'Venku la batalon',
-    show: 'Montru al mi la vojon: {goal}'
+    show: 'Montru al mi la vojon: {goal}',
+    escort: 'Gardu la karavanon'
   },
   node: {
     sunford: {
@@ -3019,5 +3021,47 @@ export default {
       name: 'Ombrodorno',
       desc: 'Malofta malhela dorno. Forta, kaj iom malica.'
     }
+  },
+  journal: {
+    errands: 'Komisioj',
+    empty: 'Ankoraŭ nenio en via taglibro. Homoj en la urbo petos vian helpon.',
+    from: 'Por {npc}',
+    ready: 'Farite! Reiru al {npc}.',
+    taken: 'Nova komisio: {title}',
+    done: 'Komisio plenumita: {title}',
+    step: {
+      slay: 'Venku {n} × {enemy}',
+      slayAt: 'Venku {n} × {enemy} en {place}',
+      slayAnyAt: 'Venku {n} malamikojn en {place}',
+      clear: 'Purigu {place}',
+      visit: 'Iru al {place}',
+      gather: 'Kolektu {n} × {plant}',
+      bring: 'Alportu: {item}',
+      pieces: 'Trovu {n} pecojn de la trezormapo',
+      dig: 'Fosu por la trezoro en {place}',
+      talk: 'Parolu kun {npc}'
+    }
+  },
+  board: {
+    title: 'Afiŝtabulo de {town}',
+    read: 'Legi',
+    lead: 'La hodiaŭaj taskoj. Transdonu ilin ĉi tie, kiam ili estas plenumitaj.',
+    kind: {
+      slay: 'Ĉasado',
+      gather: 'Herboj',
+      escort: 'Karavano'
+    },
+    slay: 'Venku {n} × {enemy} en {place}',
+    gather: 'Alportu {n} × {plant}',
+    escort: 'Gardu la karavanon sur la vojo al Oakhaven',
+    xp: '+{n} SP',
+    setOut: 'Ekiri',
+    thanks: 'Farite! La urbo dankas vin.'
+  },
+  escort: {
+    start: 'Gardu la karavanon ĝis la fino de la vojo!',
+    waiting: 'La karavano atendas vin.',
+    arrived: 'La karavano sukcese alvenis!',
+    lost: 'La karavano perdiĝis…'
   }
 }

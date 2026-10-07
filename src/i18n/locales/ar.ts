@@ -36,7 +36,8 @@ export default {
     map: 'خريطة العالم',
     character: 'البطل',
     skills: 'المهارات',
-    inventory: 'الحقيبة'
+    inventory: 'الحقيبة',
+    journal: 'اليوميات'
   },
   combat: {
     dodge: 'مراوغة',
@@ -227,7 +228,8 @@ export default {
     explore__f: 'استكشفي المملكة',
     fight: 'اربح المعركة',
     fight__f: 'اربحي المعركة',
-    show: 'دلّني على الطريق: {goal}'
+    show: 'دلّني على الطريق: {goal}',
+    escort: 'احرس القافلة'
   },
   node: {
     sunford: {
@@ -3283,5 +3285,47 @@ export default {
       name: 'شوكة الظل',
       desc: 'شوكة داكنة نادرة. قوية، وفيها شيء من الشر.'
     }
+  },
+  journal: {
+    errands: 'المهام',
+    empty: 'يومياتك فارغة بعد. سيطلب أهل البلدة مساعدتك.',
+    from: 'من أجل {npc}',
+    ready: 'تم! عُد إلى {npc}.',
+    taken: 'مهمة جديدة: {title}',
+    done: 'أُنجزت المهمة: {title}',
+    step: {
+      slay: 'اهزم {n} × {enemy}',
+      slayAt: 'اهزم {n} × {enemy} في {place}',
+      slayAnyAt: 'اهزم {n} من الأعداء في {place}',
+      clear: 'طهّر {place}',
+      visit: 'اذهب إلى {place}',
+      gather: 'اجمع {n} × {plant}',
+      bring: 'أحضر {item}',
+      pieces: 'اعثر على {n} قطع من خريطة الكنز',
+      dig: 'احفر بحثاً عن الكنز في {place}',
+      talk: 'تحدّث إلى {npc}'
+    }
+  },
+  board: {
+    title: 'لوحة إعلانات {town}',
+    read: 'اقرأ',
+    lead: 'مهام اليوم. سلّمها هنا عندما تنتهي منها.',
+    kind: {
+      slay: 'صيد',
+      gather: 'أعشاب',
+      escort: 'قافلة'
+    },
+    slay: 'اهزم {n} × {enemy} في {place}',
+    gather: 'أحضر {n} × {plant}',
+    escort: 'احرس القافلة على الطريق إلى أوكهيفن',
+    xp: '+{n} خبرة',
+    setOut: 'انطلق',
+    thanks: 'تم! البلدة تشكرك.'
+  },
+  escort: {
+    start: 'احرس القافلة حتى نهاية الطريق!',
+    waiting: 'القافلة تنتظرك.',
+    arrived: 'وصلت القافلة!',
+    lost: 'ضاعت القافلة…'
   }
 }

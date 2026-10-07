@@ -36,7 +36,8 @@ export default {
     map: 'Világtérkép',
     character: 'Hős',
     skills: 'Képességek',
-    inventory: 'Táska'
+    inventory: 'Táska',
+    journal: 'Napló'
   },
   combat: {
     dodge: 'Kitérés',
@@ -179,7 +180,8 @@ export default {
     decide: 'Hozd meg a döntésed',
     explore: 'Fedezd fel a birodalmat',
     fight: 'Nyerd meg a harcot',
-    show: 'Mutasd az utat: {goal}'
+    show: 'Mutasd az utat: {goal}',
+    escort: 'Védd a karavánt'
   },
   node: {
     sunford: {
@@ -3019,5 +3021,47 @@ export default {
       name: 'Árnytüske',
       desc: 'Ritka, sötét tüske. Erős, és kicsit gonosz.'
     }
+  },
+  journal: {
+    errands: 'Megbízások',
+    empty: 'A naplód még üres. A városiak majd a segítségedet kérik.',
+    from: 'Megbízó: {npc}',
+    ready: 'Kész! {npc} vár rád.',
+    taken: 'Új megbízás: {title}',
+    done: 'Megbízás teljesítve: {title}',
+    step: {
+      slay: 'Győzd le: {n} × {enemy}',
+      slayAt: 'Győzd le: {n} × {enemy} — {place}',
+      slayAnyAt: 'Győzz le ellenségeket: {n} — {place}',
+      clear: 'Tisztítsd meg: {place}',
+      visit: 'Indulj: {place}',
+      gather: 'Gyűjts: {n} × {plant}',
+      bring: 'Hozd el: {item}',
+      pieces: 'Keresd meg a kincses térkép darabjait: {n}',
+      dig: 'Áss a kincsért — {place}',
+      talk: 'Beszélj vele: {npc}'
+    }
+  },
+  board: {
+    title: 'Hirdetőtábla: {town}',
+    read: 'Elolvas',
+    lead: 'A mai feladatok. Itt add le őket, ha kész vagy.',
+    kind: {
+      slay: 'Vadászat',
+      gather: 'Gyógyfüvek',
+      escort: 'Karaván'
+    },
+    slay: 'Győzd le: {n} × {enemy} — {place}',
+    gather: 'Hozz: {n} × {plant}',
+    escort: 'Védd a karavánt az Oakhavenbe vezető úton',
+    xp: '+{n} TP',
+    setOut: 'Indulás',
+    thanks: 'Kész! A város hálás neked.'
+  },
+  escort: {
+    start: 'Védd a karavánt az út végéig!',
+    waiting: 'A karaván rád vár.',
+    arrived: 'A karaván megérkezett!',
+    lost: 'A karaván elveszett…'
   }
 }

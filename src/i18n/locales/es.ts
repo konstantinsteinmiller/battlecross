@@ -36,7 +36,8 @@ export default {
     map: 'Mapa del mundo',
     character: 'Héroe',
     skills: 'Habilidades',
-    inventory: 'Bolsa'
+    inventory: 'Bolsa',
+    journal: 'Diario'
   },
   combat: {
     dodge: 'Esquiva',
@@ -180,7 +181,8 @@ export default {
     decide: 'Toma tu decisión',
     explore: 'Explora el reino',
     fight: 'Gana el combate',
-    show: 'Muéstrame el camino: {goal}'
+    show: 'Muéstrame el camino: {goal}',
+    escort: 'Protege la caravana'
   },
   node: {
     sunford: {
@@ -3055,5 +3057,47 @@ export default {
       name: 'Espina sombría',
       desc: 'Una espina oscura y rara. Fuerte, y un poco malvada.'
     }
+  },
+  journal: {
+    errands: 'Recados',
+    empty: 'Tu diario aún está vacío. La gente del pueblo te pedirá ayuda.',
+    from: 'Para {npc}',
+    ready: '¡Hecho! Vuelve con {npc}.',
+    taken: 'Nuevo recado: {title}',
+    done: 'Recado hecho: {title}',
+    step: {
+      slay: 'Derrota a {n} × {enemy}',
+      slayAt: 'Derrota a {n} × {enemy} en {place}',
+      slayAnyAt: 'Derrota a {n} enemigos en {place}',
+      clear: 'Despeja {place}',
+      visit: 'Ve a {place}',
+      gather: 'Recoge {n} × {plant}',
+      bring: 'Lleva {item}',
+      pieces: 'Encuentra {n} trozos del mapa del tesoro',
+      dig: 'Excava en busca del tesoro en {place}',
+      talk: 'Habla con {npc}'
+    }
+  },
+  board: {
+    title: 'Tablón de anuncios de {town}',
+    read: 'Leer',
+    lead: 'Las tareas de hoy. Entrégalas aquí cuando estén hechas.',
+    kind: {
+      slay: 'Caza',
+      gather: 'Hierbas',
+      escort: 'Caravana'
+    },
+    slay: 'Derrota a {n} × {enemy} en {place}',
+    gather: 'Trae {n} × {plant}',
+    escort: 'Protege la caravana en el camino a Oakhaven',
+    xp: '+{n} XP',
+    setOut: 'En marcha',
+    thanks: '¡Hecho! El pueblo te lo agradece.'
+  },
+  escort: {
+    start: '¡Protege la caravana hasta el final del camino!',
+    waiting: 'La caravana te espera.',
+    arrived: '¡La caravana ha llegado!',
+    lost: 'La caravana se ha perdido…'
   }
 }

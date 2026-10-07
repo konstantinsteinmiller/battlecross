@@ -36,7 +36,8 @@ export default {
     map: 'Pasaules karte',
     character: 'Varonis',
     skills: 'Prasmes',
-    inventory: 'Soma'
+    inventory: 'Soma',
+    journal: 'Dienasgrāmata'
   },
   combat: {
     dodge: 'Izvairās',
@@ -179,7 +180,8 @@ export default {
     decide: 'Izdari savu izvēli',
     explore: 'Izpēti valstību',
     fight: 'Uzvari cīņu',
-    show: 'Parādi ceļu: {goal}'
+    show: 'Parādi ceļu: {goal}',
+    escort: 'Sargā karavānu'
   },
   node: {
     sunford: {
@@ -3084,5 +3086,47 @@ export default {
       name: 'Ēnērkšķis',
       desc: 'Rets, tumšs ērkšķis. Spēcīgs un mazliet ļauns.'
     }
+  },
+  journal: {
+    errands: 'Uzdevumi',
+    empty: 'Tava dienasgrāmata vēl ir tukša. Pilsētas ļaudis lūgs tev palīdzību.',
+    from: 'Lūdz: {npc}',
+    ready: 'Gatavs! {npc} tevi gaida.',
+    taken: 'Jauns uzdevums: {title}',
+    done: 'Uzdevums izpildīts: {title}',
+    step: {
+      slay: 'Uzvari {n} × {enemy}',
+      slayAt: 'Uzvari {n} × {enemy} — {place}',
+      slayAnyAt: 'Uzvari ienaidniekus: {n} — {place}',
+      clear: 'Iztīri: {place}',
+      visit: 'Dodies uz: {place}',
+      gather: 'Salasi {n} × {plant}',
+      bring: 'Atnes: {item}',
+      pieces: 'Atrodi dārgumu kartes gabalus: {n}',
+      dig: 'Izroc dārgumu — {place}',
+      talk: 'Parunā: {npc}'
+    }
+  },
+  board: {
+    title: 'Ziņojumu dēlis: {town}',
+    read: 'Lasīt',
+    lead: 'Šodienas uzdevumi. Nodod tos šeit, kad tie būs izpildīti.',
+    kind: {
+      slay: 'Medības',
+      gather: 'Augi',
+      escort: 'Karavāna'
+    },
+    slay: 'Uzvari {n} × {enemy} — {place}',
+    gather: 'Atnes {n} × {plant}',
+    escort: 'Sargā karavānu ceļā uz Oukheivenu',
+    xp: '+{n} pieredze',
+    setOut: 'Doties ceļā',
+    thanks: 'Gatavs! Pilsēta tev pateicas.'
+  },
+  escort: {
+    start: 'Sargā karavānu līdz ceļa galam!',
+    waiting: 'Karavāna tevi gaida.',
+    arrived: 'Karavāna tika galā!',
+    lost: 'Karavāna ir zaudēta…'
   }
 }

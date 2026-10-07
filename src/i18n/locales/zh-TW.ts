@@ -36,7 +36,8 @@ export default {
     map: '世界地圖',
     character: '英雄',
     skills: '技能',
-    inventory: '背包'
+    inventory: '背包',
+    journal: '日誌'
   },
   combat: {
     dodge: '閃避',
@@ -179,7 +180,8 @@ export default {
     decide: '做出你的選擇',
     explore: '探索王國',
     fight: '贏下這場戰鬥',
-    show: '幫我指路：{goal}'
+    show: '幫我指路：{goal}',
+    escort: '護送商隊'
   },
   node: {
     sunford: {
@@ -3019,5 +3021,47 @@ export default {
       name: '影棘',
       desc: '一種罕見的暗色荊棘。很強，還有點邪門。'
     }
+  },
+  journal: {
+    errands: '委託',
+    empty: '日誌裡還什麼都沒有。鎮上的人會來請你幫忙。',
+    from: '委託人：{npc}',
+    ready: '完成！回去找{npc}。',
+    taken: '新委託：{title}',
+    done: '委託完成：{title}',
+    step: {
+      slay: '擊敗 {enemy} ×{n}',
+      slayAt: '在{place}擊敗 {enemy} ×{n}',
+      slayAnyAt: '在{place}擊敗 {n} 個敵人',
+      clear: '肅清{place}',
+      visit: '前往{place}',
+      gather: '採集 {plant} ×{n}',
+      bring: '帶來{item}',
+      pieces: '找到 {n} 塊藏寶圖碎片',
+      dig: '在{place}挖出寶藏',
+      talk: '和{npc}交談'
+    }
+  },
+  board: {
+    title: '{town}佈告欄',
+    read: '查看',
+    lead: '今日任務。完成後回這裡交付。',
+    kind: {
+      slay: '狩獵',
+      gather: '草藥',
+      escort: '商隊'
+    },
+    slay: '在{place}擊敗 {enemy} ×{n}',
+    gather: '上交 {plant} ×{n}',
+    escort: '在通往奧克赫文的路上護衛商隊',
+    xp: '+{n} 經驗',
+    setOut: '出發',
+    thanks: '完成！全鎮向你致謝。'
+  },
+  escort: {
+    start: '護送商隊走到路的盡頭！',
+    waiting: '商隊在等你。',
+    arrived: '商隊平安抵達！',
+    lost: '商隊覆沒了……'
   }
 }

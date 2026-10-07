@@ -36,7 +36,8 @@ export default {
     map: 'Карта мира',
     character: 'Герой',
     skills: 'Навыки',
-    inventory: 'Сумка'
+    inventory: 'Сумка',
+    journal: 'Журнал'
   },
   combat: {
     dodge: 'Уклонение',
@@ -180,7 +181,8 @@ export default {
     decide: 'Сделай выбор',
     explore: 'Исследуй королевство',
     fight: 'Выиграй бой',
-    show: 'Покажи путь: {goal}'
+    show: 'Покажи путь: {goal}',
+    escort: 'Охраняй караван'
   },
   node: {
     sunford: {
@@ -3108,5 +3110,47 @@ export default {
       name: 'Тенетёрн',
       desc: 'Редкий тёмный шип. Сильный и немного коварный.'
     }
+  },
+  journal: {
+    errands: 'Поручения',
+    empty: 'В журнале пока пусто. Жители города попросят тебя о помощи.',
+    from: 'Просит: {npc}',
+    ready: 'Готово! {npc} ждёт тебя.',
+    taken: 'Новое поручение: {title}',
+    done: 'Поручение выполнено: {title}',
+    step: {
+      slay: 'Победи {n} × {enemy}',
+      slayAt: 'Победи {n} × {enemy} — {place}',
+      slayAnyAt: 'Победи врагов: {n} — {place}',
+      clear: 'Зачисти: {place}',
+      visit: 'Отправляйся: {place}',
+      gather: 'Собери {n} × {plant}',
+      bring: 'Принеси: {item}',
+      pieces: 'Найди куски карты сокровищ: {n}',
+      dig: 'Выкопай клад — {place}',
+      talk: 'Поговори: {npc}'
+    }
+  },
+  board: {
+    title: 'Доска объявлений: {town}',
+    read: 'Читать',
+    lead: 'Задания на сегодня. Сдавай их здесь, когда выполнишь.',
+    kind: {
+      slay: 'Охота',
+      gather: 'Травы',
+      escort: 'Караван'
+    },
+    slay: 'Победи {n} × {enemy} — {place}',
+    gather: 'Принеси {n} × {plant}',
+    escort: 'Охраняй караван по дороге в Оукхейвен',
+    xp: '+{n} опыта',
+    setOut: 'В путь',
+    thanks: 'Готово! Город благодарит тебя.'
+  },
+  escort: {
+    start: 'Охраняй караван до конца дороги!',
+    waiting: 'Караван ждёт тебя.',
+    arrived: 'Караван добрался!',
+    lost: 'Караван потерян…'
   }
 }

@@ -36,7 +36,8 @@ export default {
     map: 'Världskarta',
     character: 'Hjälte',
     skills: 'Färdigheter',
-    inventory: 'Väska'
+    inventory: 'Väska',
+    journal: 'Dagbok'
   },
   combat: {
     dodge: 'Undvek',
@@ -179,7 +180,8 @@ export default {
     decide: 'Gör ditt val',
     explore: 'Utforska riket',
     fight: 'Vinn striden',
-    show: 'Visa mig vägen: {goal}'
+    show: 'Visa mig vägen: {goal}',
+    escort: 'Vakta karavanen'
   },
   node: {
     sunford: {
@@ -3019,5 +3021,47 @@ export default {
       name: 'Skuggtagg',
       desc: 'En sällsynt mörk tagg. Stark, och lite elak.'
     }
+  },
+  journal: {
+    errands: 'Ärenden',
+    empty: 'Inget i din dagbok än. Folk i staden kommer att be dig om hjälp.',
+    from: 'Åt {npc}',
+    ready: 'Klart! Gå tillbaka till {npc}.',
+    taken: 'Nytt ärende: {title}',
+    done: 'Ärende klart: {title}',
+    step: {
+      slay: 'Besegra {n} × {enemy}',
+      slayAt: 'Besegra {n} × {enemy} i {place}',
+      slayAnyAt: 'Besegra {n} fiender i {place}',
+      clear: 'Rensa {place}',
+      visit: 'Gå till {place}',
+      gather: 'Samla {n} × {plant}',
+      bring: 'Ta med {item}',
+      pieces: 'Hitta {n} delar av skattkartan',
+      dig: 'Gräv efter skatten i {place}',
+      talk: 'Prata med {npc}'
+    }
+  },
+  board: {
+    title: 'Anslagstavlan i {town}',
+    read: 'Läs',
+    lead: 'Dagens uppdrag. Lämna in dem här när de är klara.',
+    kind: {
+      slay: 'Jakt',
+      gather: 'Örter',
+      escort: 'Karavan'
+    },
+    slay: 'Besegra {n} × {enemy} i {place}',
+    gather: 'Ta hit {n} × {plant}',
+    escort: 'Vakta karavanen på vägen till Oakhaven',
+    xp: '+{n} XP',
+    setOut: 'Ge dig av',
+    thanks: 'Klart! Staden tackar dig.'
+  },
+  escort: {
+    start: 'Vakta karavanen till vägens slut!',
+    waiting: 'Karavanen väntar på dig.',
+    arrived: 'Karavanen kom fram!',
+    lost: 'Karavanen gick förlorad…'
   }
 }

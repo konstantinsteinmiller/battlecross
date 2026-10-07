@@ -36,7 +36,8 @@ export default {
     map: 'Bản đồ thế giới',
     character: 'Anh hùng',
     skills: 'Kỹ năng',
-    inventory: 'Túi đồ'
+    inventory: 'Túi đồ',
+    journal: 'Nhật ký'
   },
   combat: {
     dodge: 'Né',
@@ -179,7 +180,8 @@ export default {
     decide: 'Đưa ra lựa chọn',
     explore: 'Khám phá vương quốc',
     fight: 'Thắng trận chiến',
-    show: 'Chỉ đường: {goal}'
+    show: 'Chỉ đường: {goal}',
+    escort: 'Bảo vệ đoàn buôn'
   },
   node: {
     sunford: {
@@ -3019,5 +3021,47 @@ export default {
       name: 'Gai Bóng Tối',
       desc: 'Một chiếc gai sẫm màu hiếm. Mạnh, và hơi độc ác.'
     }
+  },
+  journal: {
+    errands: 'Việc nhờ',
+    empty: 'Nhật ký vẫn trống. Người trong thị trấn sẽ nhờ bạn giúp.',
+    from: 'Cho {npc}',
+    ready: 'Xong! Quay lại gặp {npc}.',
+    taken: 'Việc mới: {title}',
+    done: 'Đã xong việc: {title}',
+    step: {
+      slay: 'Hạ {n} × {enemy}',
+      slayAt: 'Hạ {n} × {enemy} ở {place}',
+      slayAnyAt: 'Hạ {n} kẻ địch ở {place}',
+      clear: 'Dọn sạch {place}',
+      visit: 'Đi đến {place}',
+      gather: 'Hái {n} × {plant}',
+      bring: 'Mang {item} đến',
+      pieces: 'Tìm {n} mảnh bản đồ kho báu',
+      dig: 'Đào kho báu ở {place}',
+      talk: 'Nói chuyện với {npc}'
+    }
+  },
+  board: {
+    title: 'Bảng tin {town}',
+    read: 'Đọc',
+    lead: 'Việc hôm nay. Làm xong thì nộp lại ở đây.',
+    kind: {
+      slay: 'Săn',
+      gather: 'Thảo dược',
+      escort: 'Đoàn buôn'
+    },
+    slay: 'Hạ {n} × {enemy} ở {place}',
+    gather: 'Mang {n} × {plant} đến',
+    escort: 'Bảo vệ đoàn buôn trên đường đến Oakhaven',
+    xp: '+{n} XP',
+    setOut: 'Lên đường',
+    thanks: 'Xong! Thị trấn cảm ơn bạn.'
+  },
+  escort: {
+    start: 'Bảo vệ đoàn buôn đến cuối đường!',
+    waiting: 'Đoàn buôn đang chờ bạn.',
+    arrived: 'Đoàn buôn đã đến nơi!',
+    lost: 'Mất đoàn buôn rồi…'
   }
 }

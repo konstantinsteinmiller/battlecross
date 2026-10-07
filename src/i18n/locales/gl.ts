@@ -36,7 +36,8 @@ export default {
     map: 'Mapa do mundo',
     character: 'Heroe',
     skills: 'Habilidades',
-    inventory: 'Bolsa'
+    inventory: 'Bolsa',
+    journal: 'Diario'
   },
   combat: {
     dodge: 'Esquiva',
@@ -180,7 +181,8 @@ export default {
     decide: 'Toma a túa decisión',
     explore: 'Explora o reino',
     fight: 'Gaña o combate',
-    show: 'Móstrame o camiño: {goal}'
+    show: 'Móstrame o camiño: {goal}',
+    escort: 'Protexe a caravana'
   },
   node: {
     sunford: {
@@ -3060,5 +3062,47 @@ export default {
       name: 'Espiña sombría',
       desc: 'Unha espiña escura e rara. Forte, e un pouco malvada.'
     }
+  },
+  journal: {
+    errands: 'Encargos',
+    empty: 'O teu diario aínda está baleiro. A xente da vila pedirache axuda.',
+    from: 'Para {npc}',
+    ready: 'Feito! Volve onda {npc}.',
+    taken: 'Novo encargo: {title}',
+    done: 'Encargo feito: {title}',
+    step: {
+      slay: 'Derrota a {n} × {enemy}',
+      slayAt: 'Derrota a {n} × {enemy} en {place}',
+      slayAnyAt: 'Derrota a {n} inimigos en {place}',
+      clear: 'Limpa {place}',
+      visit: 'Vai a {place}',
+      gather: 'Recolle {n} × {plant}',
+      bring: 'Leva {item}',
+      pieces: 'Atopa {n} anacos do mapa do tesouro',
+      dig: 'Cava en busca do tesouro en {place}',
+      talk: 'Fala con {npc}'
+    }
+  },
+  board: {
+    title: 'Taboleiro de anuncios de {town}',
+    read: 'Ler',
+    lead: 'As tarefas de hoxe. Entrégaas aquí cando estean feitas.',
+    kind: {
+      slay: 'Caza',
+      gather: 'Herbas',
+      escort: 'Caravana'
+    },
+    slay: 'Derrota a {n} × {enemy} en {place}',
+    gather: 'Trae {n} × {plant}',
+    escort: 'Protexe a caravana no camiño a Oakhaven',
+    xp: '+{n} XP',
+    setOut: 'En marcha',
+    thanks: 'Feito! A vila agradécecho.'
+  },
+  escort: {
+    start: 'Protexe a caravana ata o final do camiño!',
+    waiting: 'A caravana agárdate.',
+    arrived: 'A caravana chegou!',
+    lost: 'A caravana perdeuse…'
   }
 }

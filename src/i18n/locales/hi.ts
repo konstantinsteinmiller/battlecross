@@ -36,7 +36,8 @@ export default {
     map: 'दुनिया का नक्शा',
     character: 'नायक',
     skills: 'कौशल',
-    inventory: 'थैला'
+    inventory: 'थैला',
+    journal: 'डायरी'
   },
   combat: {
     dodge: 'चकमा',
@@ -179,7 +180,8 @@ export default {
     decide: 'अपना फ़ैसला चुनें',
     explore: 'राज्य को खोजें',
     fight: 'लड़ाई जीतें',
-    show: 'रास्ता दिखाएँ: {goal}'
+    show: 'रास्ता दिखाएँ: {goal}',
+    escort: 'क़ाफ़िले की रक्षा करो'
   },
   node: {
     sunford: {
@@ -3096,5 +3098,47 @@ export default {
       name: 'छायाकाँटा',
       desc: 'दुर्लभ काला काँटा। ताक़तवर, और थोड़ा शैतान।'
     }
+  },
+  journal: {
+    errands: 'काम',
+    empty: 'तुम्हारी डायरी में अभी कुछ नहीं है। शहर के लोग तुमसे मदद माँगेंगे।',
+    from: '{npc} के लिए',
+    ready: 'हो गया! {npc} के पास लौटो।',
+    taken: 'नया काम: {title}',
+    done: 'काम पूरा: {title}',
+    step: {
+      slay: '{n} × {enemy} हराएँ',
+      slayAt: '{place} में {n} × {enemy} हराएँ',
+      slayAnyAt: '{place} में {n} दुश्मन हराएँ',
+      clear: '{place} को साफ़ करें',
+      visit: '{place} जाएँ',
+      gather: '{n} × {plant} इकट्ठा करें',
+      bring: '{item} लाएँ',
+      pieces: 'ख़ज़ाने के नक्शे के {n} टुकड़े खोजें',
+      dig: '{place} में ख़ज़ाना खोदें',
+      talk: '{npc} से बात करें'
+    }
+  },
+  board: {
+    title: '{town} का सूचना-पट',
+    read: 'पढ़ें',
+    lead: 'आज के काम। पूरे होने पर यहीं जमा करो।',
+    kind: {
+      slay: 'शिकार',
+      gather: 'जड़ी-बूटियाँ',
+      escort: 'क़ाफ़िला'
+    },
+    slay: '{place} में {n} × {enemy} हराएँ',
+    gather: '{n} × {plant} लाएँ',
+    escort: 'ओकहेवन के रास्ते पर क़ाफ़िले की रक्षा करें',
+    xp: '+{n} XP',
+    setOut: 'निकलें',
+    thanks: 'हो गया! शहर तुम्हारा धन्यवाद करता है।'
+  },
+  escort: {
+    start: 'रास्ते के अंत तक क़ाफ़िले की रक्षा करो!',
+    waiting: 'क़ाफ़िला तुम्हारा इंतज़ार कर रहा है।',
+    arrived: 'क़ाफ़िला पहुँच गया!',
+    lost: 'क़ाफ़िला लुट गया…'
   }
 }
