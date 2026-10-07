@@ -431,6 +431,38 @@ export default {
     geo: {
       name: 'Penyihir Bumi',
       desc: 'Membangkitkan tembok dan duri, dan membelah tanah itu sendiri.'
+    },
+    windrunner: {
+      name: 'Pelari Angin',
+      desc: 'Sebuah busur dan angin di punggungmu. Tembak, melesat, dan jangan pernah diam.'
+    },
+    frostwarden: {
+      name: 'Penjaga Es',
+      desc: 'Bilah es dan hati yang dingin. Perlambat, bekukan, lalu hancurkan mereka.'
+    },
+    lightbringer: {
+      name: 'Pembawa Cahaya',
+      desc: 'Cahaya yang menyembuhkan kawan dan membutakan lawan. Berdirilah di dalamnya, tak ada yang bisa menghentikanmu.'
+    },
+    beastcaller: {
+      name: 'Pemanggil Binatang',
+      desc: 'Sekawanan serigala, beruang, dan elang bertarung di sisimu. Panggil mereka, perintah mereka.'
+    },
+    elementalist: {
+      name: 'Penyihir Elemen',
+      desc: 'Api, es, petir, dan batu. Campurkan, dan masing-masing memicu yang berikutnya.'
+    },
+    soulwarden: {
+      name: 'Penjaga Jiwa',
+      desc: 'Musuh yang kalah bangkit sebagai roh kawan, bertarung di sisimu, lalu pulang untuk beristirahat.'
+    },
+    ironmonk: {
+      name: 'Biksu Besi',
+      desc: 'Tangan kosong, kaki cepat. Tiap pukulan mengumpulkan chi; habiskan semuanya untuk satu pukulan dahsyat.'
+    },
+    bard: {
+      name: 'Pujangga',
+      desc: 'Lagu yang menyemangati pihakmu, dan nada yang menidurkan pihak lawan atau membuatnya saling serang.'
     }
   },
   skill: {
@@ -635,7 +667,199 @@ export default {
       name: 'Retakan Tektonik',
       desc: 'Belah arena: {dmg}% damage Kekuatan ke semua yang ada di dekatnya, dan puing yang memperlambat selama {dur} dtk.'
     },
-    scales: 'Meningkat dengan {attr}'
+    scales: 'Meningkat dengan {attr}',
+    shieldThrow: {
+      name: 'Lempar Perisai',
+      desc: 'Perisaimu memantul ke {bounces} musuh: masing-masing {dmg}% damage Kekuatan. Mereka memberi {weak}% lebih sedikit damage selama {dur} dtk.'
+    },
+    shieldShove: {
+      name: 'Dorong Perisai',
+      desc: 'Dorong semua yang ada di depanmu dengan {dmg}% damage Kekuatan. Mereka terpental dan berhenti dari apa yang sedang mereka lakukan.'
+    },
+    holyChains: {
+      name: 'Rantai Suci',
+      desc: 'Rantai cahaya menarik setiap musuh dalam {radius} m ke arahmu: {dmg}% damage Ketahanan dan perlambatan {slow}%.'
+    },
+    bulwark: {
+      name: 'Benteng Baja',
+      desc: '+{block}% Peluang Tangkis. Setiap tangkisan memberi {back} damage balik ke penyerang.'
+    },
+    retribution: {
+      name: 'Pembalasan',
+      desc: 'Selama {dur} dtk, musuh dalam {radius} m harus menyerangmu. Lalu cahaya memberi {dmg}% Kekuatan +{back}% dari damage yang kamu terima.'
+    },
+    unbreakable: {
+      name: 'Tak Terpatahkan',
+      desc: 'Saat nyawamu di bawah {hp}%, kamu menerima {reduce}% lebih sedikit damage.'
+    },
+    starFan: {
+      name: 'Kipas Bintang',
+      desc: 'Lempar {stars} bintang bayangan berbentuk kipas, masing-masing {dmg}% damage Ketangkasan.'
+    },
+    grapplingHook: {
+      name: 'Kait Tarik',
+      desc: 'Tarik target ke arahmu dengan {dmg}% damage Ketangkasan dan perlambat {slow}% selama {dur} dtk. Musuh besar menarikmu ke arah mereka.'
+    },
+    silentStrike: {
+      name: 'Serangan Senyap',
+      desc: 'Tikaman dari belakang memberi +{backstab}% damage, dan musuh menyadarimu {notice}% lebih lambat.'
+    },
+    shadowMark: {
+      name: 'Tanda Bayangan',
+      desc: 'Target menerima {vuln}% lebih banyak damage selama {dur} dtk, dan pukulanmu berikutnya ke siapa pun jadi kritis +{bonus}%.'
+    },
+    bladeRhythm: {
+      name: 'Irama Bilah',
+      desc: 'Serangan kritis memotong {cut} dtk dari semua cooldown. +{speed}% kecepatan serang.'
+    },
+    nightshadeMist: {
+      name: 'Kabut Beladona',
+      desc: 'Kabut racun selama {dur} dtk: hingga {dmg}% damage Ketangkasan. Musuh yang terjebak di dalamnya bingung selama {confuse} dtk.'
+    },
+    firecracker: {
+      name: 'Petasan',
+      desc: 'Tempelkan petasan pada target. Setelah {delay} dtk petasan meletus dengan {dmg}% damage Kecerdasan dan membakar semua yang ada di dekatnya.'
+    },
+    fanTheFlames: {
+      name: 'Kobarkan Api',
+      desc: 'Setiap efek bakar dalam {radius} m berkobar {pct}% lebih kuat dan mulai lagi. Musuh dalam {push} m terhempas.'
+    },
+    ringOfFire: {
+      name: 'Cincin Api',
+      desc: 'Cincin api muncul selama {dur} dtk: hingga {dmg}% damage Kecerdasan. Musuh di dalamnya melambat {slow}%.'
+    },
+    everflame: {
+      name: 'Api Abadi',
+      desc: 'Efek bakarmu {burn}% lebih kuat, dan sihirmu mendapat +{crit}% Peluang Kritis.'
+    },
+    wildfire: {
+      name: 'Api Liar',
+      desc: 'Saat musuh yang terbakar dikalahkan, apinya melompat ke setiap musuh dalam {radius} m selama {dur} dtk.'
+    },
+    phoenixFlight: {
+      name: 'Terbang Feniks',
+      desc: 'Terbang sebagai feniks dengan jejak api: {dmg}% damage Kecerdasan di tempatmu mendarat. Pulihkan {regen}% nyawa per detik selama {dur} dtk.'
+    },
+    callArchers: {
+      name: 'Panggil Pemanah',
+      desc: 'Panggil pemanah yang menembak dari belakangmu dengan {dmg}% damage Karisma. Maksimal {max} sekaligus.'
+    },
+    royalRally: {
+      name: 'Seruan Raja',
+      desc: 'Pengikutmu bergegas ke sisimu dan memulihkan {heal}% nyawa. Kalian semua mendapat +{def}% Pertahanan selama {dur} dtk.'
+    },
+    warMarshal: {
+      name: 'Panglima Perang',
+      desc: 'Pengikutmu memberi {dmg}% lebih banyak damage.'
+    },
+    royalDecree: {
+      name: 'Titah Raja',
+      desc: 'Musuh dalam {radius} m harus membungkuk: pingsan selama {stun} dtk, lalu menerima {vuln}% lebih banyak damage selama {dur} dtk.'
+    },
+    loyalHearts: {
+      name: 'Hati Setia',
+      desc: 'Saat salah satu pengikutmu tumbang, kamu pulih {heal}% nyawamu.'
+    },
+    summonChampion: {
+      name: 'Panggil Juara',
+      desc: 'Panggil juara negeri selama {dur} dtk: kesatria raksasa dengan {hp}% nyawamu, menyerang dengan {dmg}% Karisma.'
+    },
+    echoBolt: {
+      name: 'Panah Gema',
+      desc: 'Panah waktu dengan {dmg}% damage Kecerdasan. {delay} dtk kemudian panah itu mengenai lagi sebesar {echo}%.'
+    },
+    foresight: {
+      name: 'Firasat',
+      desc: 'Kamu melihat serangan datang sesaat lebih awal: +{dodge}% Hindar dan cooldown {cdr}% lebih singkat.'
+    },
+    timeBubble: {
+      name: 'Gelembung Waktu',
+      desc: 'Gelembung waktu lambat selama {dur} dtk: musuh di dalamnya bergerak {slow}% lebih lambat dan menerima {dmg}% damage Kecerdasan.'
+    },
+    timeLoop: {
+      name: 'Putaran Waktu',
+      desc: 'Setelah {dur} dtk target tertarik kembali ke posisi semula: {dmg}% damage Kecerdasan ditambah {echo}% dari nyawa yang hilang.'
+    },
+    frozenMoment: {
+      name: 'Detik Membeku',
+      desc: 'Seranganmu punya peluang {chance}% membekukan musuh dalam waktu selama {dur} dtk.'
+    },
+    timeStop: {
+      name: 'Henti Waktu',
+      desc: 'Hentikan waktu dalam {radius} m selama {dur} dtk. Saat waktu berjalan lagi, tiap musuh menerima {dmg}% damage Kecerdasan.'
+    },
+    essenceWard: {
+      name: 'Pelindung Esensi',
+      desc: 'Ubah {hp}% nyawamu menjadi pelindung bercahaya senilai {shield}% darinya, selama {dur} dtk.'
+    },
+    vitalReserve: {
+      name: 'Cadangan Nyawa',
+      desc: '+{hp}% nyawa maksimal, dan kamu memulihkan {regen} nyawa setiap detik.'
+    },
+    enfeeblingTonic: {
+      name: 'Tonik Pelemah',
+      desc: 'Lempar tonik: {dmg}% damage Kecerdasan di satu area. Musuh yang kena memberi {weak}% lebih sedikit damage selama {dur} dtk.'
+    },
+    homunculus: {
+      name: 'Homunkulus',
+      desc: 'Racik pembantu berbuih dari {hp}% nyawamu selama {dur} dtk. Meracik yang baru mengembalikan {back}% nyawa yang lama.'
+    },
+    adrenalCatalyst: {
+      name: 'Katalis Adrenalin',
+      desc: 'Makin rendah nyawamu, makin besar damage-mu: hingga +{dmg}% saat nyawa {low}% atau kurang.'
+    },
+    grandTransmutation: {
+      name: 'Transmutasi Agung',
+      desc: 'Ubah {pct}% nyawa musuh dalam {radius} m menjadi esensi. Kamu pulih {heal}% darinya.'
+    },
+    rocketJump: {
+      name: 'Lompatan Roket',
+      desc: 'Meluncur dan mendarat di tempat yang kamu bidik: {dmg}% damage Keahlian dalam {radius} m. Menambah {heat} panas.'
+    },
+    coolantLoop: {
+      name: 'Sirkuit Pendingin',
+      desc: 'Panas turun {cool}% lebih cepat, dan skill-mu menambah {cut}% lebih sedikit panas.'
+    },
+    shockGrenade: {
+      name: 'Granat Kejut',
+      desc: 'Lempar granat: {dmg}% damage Keahlian dan pingsan {stun} dtk dalam {radius} m. Menambah {heat} panas.'
+    },
+    precisionOptics: {
+      name: 'Teropong Presisi',
+      desc: '+{crit}% Peluang Kritis. Tembakanmu menembus {pierce} musuh tambahan.'
+    },
+    arcCoil: {
+      name: 'Kumparan Listrik',
+      desc: 'Petir mengenai target, lalu melompat ke {jumps} musuh lagi: masing-masing {dmg}% damage Keahlian. Menambah {heat} panas.'
+    },
+    thermalPlating: {
+      name: 'Pelat Tahan Panas',
+      desc: 'Saat panasmu {heat} atau lebih, kamu menerima {reduce}% lebih sedikit damage.'
+    },
+    boulderRoll: {
+      name: 'Gulingan Batu',
+      desc: 'Gulingkan batu besar ke depan: {dmg}% damage Kekuatan ke semua di jalurnya, membuat mereka terjatuh selama {down} dtk.'
+    },
+    bedrock: {
+      name: 'Batuan Dasar',
+      desc: 'Tak ada yang bisa mendorongmu mundur, menjatuhkanmu, atau melemparmu ke udara. +{hp}% nyawa maksimal.'
+    },
+    sinkhole: {
+      name: 'Lubang Amblas',
+      desc: 'Tanah amblas, menarik musuh masuk selama {dur} dtk, lalu runtuh: {dmg}% damage Kekuatan.'
+    },
+    mountainBreaker: {
+      name: 'Pemecah Gunung',
+      desc: '+{boss}% damage terhadap bos dan +{armor}% Zirah.'
+    },
+    geodeShell: {
+      name: 'Cangkang Geode',
+      desc: 'Cangkang kristal menyerap {shield}% nyawamu selama {dur} dtk, lalu pecah dengan hingga {dmg}% damage Kekuatan.'
+    },
+    crumble: {
+      name: 'Remuk',
+      desc: 'Kamu memberi {dmg}% lebih banyak damage ke musuh yang melambat, terjatuh, atau membatu.'
+    }
   },
   slot: {
     main: 'Tangan utama',

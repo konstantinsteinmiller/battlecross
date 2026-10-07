@@ -432,6 +432,38 @@ export default {
     geo: {
       name: 'Geomàntic',
       desc: 'Aixeca murs i pues, i trenca el mateix terra.'
+    },
+    windrunner: {
+      name: 'Corredor del Vent',
+      desc: 'Un arc i el vent a l’esquena. Dispara, corre i no t’aturis mai.'
+    },
+    frostwarden: {
+      name: 'Guardià del Gel',
+      desc: 'Una fulla de gel i un cor fred. Alenteix-los, congela’ls i després esmicola’ls.'
+    },
+    lightbringer: {
+      name: 'Portador de Llum',
+      desc: 'Llum que cura els amics i encega els enemics. Posa-t’hi i res no et podrà aturar.'
+    },
+    beastcaller: {
+      name: 'Domador de Bèsties',
+      desc: 'Una manada de llops, un ós i un falcó lluiten al teu costat. Crida’ls i dona’ls ordres.'
+    },
+    elementalist: {
+      name: 'Elementalista',
+      desc: 'Foc, gel, llamp i pedra. Combina’ls, i cadascun desencadena el següent.'
+    },
+    soulwarden: {
+      name: 'Guardià d’Ànimes',
+      desc: 'Els enemics vençuts s’alcen com a esperits amics, lluiten al teu costat i després tornen a casa a descansar.'
+    },
+    ironmonk: {
+      name: 'Monjo de Ferro',
+      desc: 'Mans nues, peus ràpids. Cada cop acumula chi; gasta’l tot en un sol cop poderós.'
+    },
+    bard: {
+      name: 'Bard',
+      desc: 'Cançons que animen el teu bàndol i melodies que adormen l’altre o el giren contra si mateix.'
     }
   },
   skill: {
@@ -636,7 +668,199 @@ export default {
       name: 'Ruptura Tectònica',
       desc: 'Esquinça el camp: {dmg}% de dany de Força a tot el que hi ha a prop, i runa que alenteix durant {dur}s.'
     },
-    scales: 'Escala amb {attr}'
+    scales: 'Escala amb {attr}',
+    shieldThrow: {
+      name: 'Llançament d’Escut',
+      desc: 'El teu escut rebota en {bounces} enemics: {dmg}% de dany de Força a cadascun. Fan un {weak}% menys de dany durant {dur}s.'
+    },
+    shieldShove: {
+      name: 'Empenta d’Escut',
+      desc: 'Empeny tot el que tens davant amb {dmg}% de dany de Força. Surten volant i deixen el que feien.'
+    },
+    holyChains: {
+      name: 'Cadenes Sagrades',
+      desc: 'Cadenes de llum estiren cap a tu cada enemic a {radius} m: {dmg}% de dany d’Aguant i un alentiment del {slow}%.'
+    },
+    bulwark: {
+      name: 'Baluard',
+      desc: '+{block}% de Probabilitat de Bloqueig. Cada bloqueig torna {back} de dany a l’atacant.'
+    },
+    retribution: {
+      name: 'Retribució',
+      desc: 'Durant {dur}s, els enemics a {radius} m t’han d’atacar. Després la llum fa {dmg}% de Força +{back}% dels cops rebuts.'
+    },
+    unbreakable: {
+      name: 'Inquebrantable',
+      desc: 'Per sota del {hp}% de salut, reps un {reduce}% menys de dany.'
+    },
+    starFan: {
+      name: 'Ventall d’Estrelles',
+      desc: 'Llança {stars} estrelles d’ombra en ventall, cadascuna amb {dmg}% de dany de Destresa.'
+    },
+    grapplingHook: {
+      name: 'Garfi',
+      desc: 'Estira l’objectiu cap a tu amb {dmg}% de dany de Destresa i alenteix-lo un {slow}% durant {dur}s. Els enemics grans t’estiren a tu.'
+    },
+    silentStrike: {
+      name: 'Cop Silenciós',
+      desc: 'Els cops per l’esquena fan +{backstab}% de dany, i els enemics et detecten un {notice}% més tard.'
+    },
+    shadowMark: {
+      name: 'Marca d’Ombra',
+      desc: 'L’objectiu rep un {vuln}% més de dany durant {dur}s, i el teu proper cop a qualsevol és crític amb +{bonus}%.'
+    },
+    bladeRhythm: {
+      name: 'Ritme de Fulles',
+      desc: 'Els cops crítics resten {cut}s a cada recàrrega. +{speed}% de velocitat d’atac.'
+    },
+    nightshadeMist: {
+      name: 'Boira de Belladona',
+      desc: 'Una boira verinosa durant {dur}s: fins a {dmg}% de dany de Destresa. Els enemics atrapats queden confosos {confuse}s.'
+    },
+    firecracker: {
+      name: 'Petard',
+      desc: 'Enganxa un petard a l’objectiu. Al cap de {delay}s esclata amb {dmg}% de dany d’Intel·ligència i crema tot el que hi ha a prop.'
+    },
+    fanTheFlames: {
+      name: 'Atia les Flames',
+      desc: 'Cada cremada a {radius} m s’aviva un {pct}% més i torna a començar. Els enemics a {push} m surten disparats.'
+    },
+    ringOfFire: {
+      name: 'Anell de Foc',
+      desc: 'Un anell de flames s’alça durant {dur}s: fins a {dmg}% de dany d’Intel·ligència. Els enemics de dins s’alenteixen un {slow}%.'
+    },
+    everflame: {
+      name: 'Flama Eterna',
+      desc: 'Les teves cremades són un {burn}% més fortes, i els teus encanteris guanyen +{crit}% de Probabilitat de Crític.'
+    },
+    wildfire: {
+      name: 'Incendi',
+      desc: 'Quan un enemic en flames és derrotat, el seu foc salta a cada enemic a {radius} m durant {dur}s.'
+    },
+    phoenixFlight: {
+      name: 'Vol del Fènix',
+      desc: 'Vola com un fènix amb un rastre de foc: {dmg}% de dany d’Intel·ligència on aterres. Et cures un {regen}% per segon durant {dur}s.'
+    },
+    callArchers: {
+      name: 'Crida Arquers',
+      desc: 'Invoca un arquer que dispara des de darrere teu amb {dmg}% de dany de Carisma. Fins a {max} alhora.'
+    },
+    royalRally: {
+      name: 'Crida Reial',
+      desc: 'Els teus sequaços corren al teu costat i recuperen un {heal}% de salut. Tu i ells guanyeu +{def}% de Defensa durant {dur}s.'
+    },
+    warMarshal: {
+      name: 'Mariscal de Guerra',
+      desc: 'Els teus sequaços fan un {dmg}% més de dany.'
+    },
+    royalDecree: {
+      name: 'Decret Reial',
+      desc: 'Els enemics a {radius} m s’han d’inclinar: atordits {stun}s, i després reben un {vuln}% més de dany durant {dur}s.'
+    },
+    loyalHearts: {
+      name: 'Cors Lleials',
+      desc: 'Quan cau un dels teus sequaços, et cures el {heal}% de la salut.'
+    },
+    summonChampion: {
+      name: 'Invoca el Campió',
+      desc: 'Crida el campió del regne durant {dur}s: un cavaller gegant amb el {hp}% de la teva salut, que colpeja amb {dmg}% de Carisma.'
+    },
+    echoBolt: {
+      name: 'Raig d’Eco',
+      desc: 'Un raig de temps amb {dmg}% de dany d’Intel·ligència. {delay}s després torna a colpejar amb un {echo}%.'
+    },
+    foresight: {
+      name: 'Presciència',
+      desc: 'Veus venir els cops un instant abans: +{dodge}% d’Esquiva i recàrregues un {cdr}% més curtes.'
+    },
+    timeBubble: {
+      name: 'Bombolla Temporal',
+      desc: 'Una bombolla de temps lent durant {dur}s: els enemics de dins es mouen un {slow}% més lent i reben {dmg}% de dany d’Intel·ligència.'
+    },
+    timeLoop: {
+      name: 'Bucle Temporal',
+      desc: 'Al cap de {dur}s l’objectiu torna de cop on era: {dmg}% de dany d’Intel·ligència més el {echo}% del que ha perdut.'
+    },
+    frozenMoment: {
+      name: 'Instant Congelat',
+      desc: 'Els teus atacs tenen un {chance}% de probabilitat de congelar l’enemic en el temps durant {dur}s.'
+    },
+    timeStop: {
+      name: 'Atura el Temps',
+      desc: 'Atura el temps a {radius} m durant {dur}s. Quan torna a córrer, cada enemic rep {dmg}% de dany d’Intel·ligència.'
+    },
+    essenceWard: {
+      name: 'Escut d’Essència',
+      desc: 'Converteix el {hp}% de la teva salut en un escut brillant que en val el {shield}%, durant {dur}s.'
+    },
+    vitalReserve: {
+      name: 'Reserva Vital',
+      desc: '+{hp}% de salut màxima, i recuperes {regen} de salut cada segon.'
+    },
+    enfeeblingTonic: {
+      name: 'Tònic Afeblidor',
+      desc: 'Llança un tònic: {dmg}% de dany d’Intel·ligència en una àrea. Els enemics tocats fan un {weak}% menys de dany durant {dur}s.'
+    },
+    homunculus: {
+      name: 'Homuncle',
+      desc: 'Prepara un ajudant bombollejant amb el {hp}% de la teva salut durant {dur}s. Preparar-ne un de nou et torna el {back}% de la seva vida.'
+    },
+    adrenalCatalyst: {
+      name: 'Catalitzador d’Adrenalina',
+      desc: 'Com menys salut tens, més dany fas: fins a +{dmg}% amb un {low}% de salut o menys.'
+    },
+    grandTransmutation: {
+      name: 'Gran Transmutació',
+      desc: 'Converteix el {pct}% de la vida dels enemics a {radius} m en essència. Et cures el {heal}% d’aquesta.'
+    },
+    rocketJump: {
+      name: 'Salt Coet',
+      desc: 'Enlaira’t i aterra on apuntes: {dmg}% de dany de Perícia a {radius} m. Genera {heat} de calor.'
+    },
+    coolantLoop: {
+      name: 'Circuit Refrigerant',
+      desc: 'La calor baixa un {cool}% més ràpid, i les teves habilitats en generen un {cut}% menys.'
+    },
+    shockGrenade: {
+      name: 'Granada de Xoc',
+      desc: 'Llança una granada: {dmg}% de dany de Perícia i atordiment de {stun}s a {radius} m. Genera {heat} de calor.'
+    },
+    precisionOptics: {
+      name: 'Òptica de Precisió',
+      desc: '+{crit}% de Probabilitat de Crític. Els teus trets travessen {pierce} enemic més.'
+    },
+    arcCoil: {
+      name: 'Bobina d’Arc',
+      desc: 'Un llamp toca l’objectiu i salta a {jumps} enemics més: {dmg}% de dany de Perícia a cadascun. Genera {heat} de calor.'
+    },
+    thermalPlating: {
+      name: 'Blindatge Tèrmic',
+      desc: 'Mentre la teva calor sigui de {heat} o més, reps un {reduce}% menys de dany.'
+    },
+    boulderRoll: {
+      name: 'Roca Rodolant',
+      desc: 'Fes rodolar una roca endavant: {dmg}% de dany de Força a tot el que troba, i els tomba {down}s.'
+    },
+    bedrock: {
+      name: 'Roca Mare',
+      desc: 'Res no et pot empènyer, tombar ni llançar enlaire. +{hp}% de salut màxima.'
+    },
+    sinkhole: {
+      name: 'Esvoranc',
+      desc: 'El terra s’enfonsa i hi arrossega els enemics durant {dur}s, i després s’ensorra: {dmg}% de dany de Força.'
+    },
+    mountainBreaker: {
+      name: 'Trencamuntanyes',
+      desc: '+{boss}% de dany contra caps finals i +{armor}% d’Armadura.'
+    },
+    geodeShell: {
+      name: 'Closca de Geoda',
+      desc: 'Una closca de cristall absorbeix el {shield}% de la teva salut durant {dur}s i després esclata amb fins a {dmg}% de dany de Força.'
+    },
+    crumble: {
+      name: 'Esmicolar',
+      desc: 'Fas un {dmg}% més de dany als enemics alentits, tombats o convertits en pedra.'
+    }
   },
   slot: {
     main: 'Mà principal',

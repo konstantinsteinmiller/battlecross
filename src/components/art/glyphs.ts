@@ -112,6 +112,12 @@ export const GLYPHS: Readonly<Record<string, string>> = {
   heart: P('M24 43C9 32 5 24 5 17a10 10 0 0 1 19-4 10 10 0 0 1 19 4c0 7-4 15-19 26z', 'a') + P('M24 13l-5 9 7 5-4 9', 'n'),
 
   // ── Aegis Knight ──
+  'skill.shieldThrow': G('translate(4 4) scale(0.8)', SHIELD('a')) + P('M2 40q6-8 12 0M10 46q6-8 12 0', 'n') + P('M36 6q6 6 0 12', 'n'),
+  'skill.shieldShove': G('translate(-6 0)', SHIELD('a')) + P('M32 12q8 12 0 24M38 8q10 16 0 32M44 4q12 20 0 40', 'n'),
+  'skill.holyChains': P('M6 8q10 4 12 14M42 8q-10 4-12 14M24 46v-12', 'n') + C(8, 8, 4, 'g') + C(40, 8, 4, 'g') + C(24, 44, 4, 'g') + G('translate(14 14) scale(0.42)', SHIELD('a')),
+  'skill.bulwark': SHIELD('a') + P('M40 30L28 22M28 22v8M28 22h8', 'n'),
+  'skill.retribution': SHIELD('a') + P('M2 10l10 6M2 20l10 4', 'n') + RAYS('g') + ARROW_R('g'),
+  'skill.unbreakable': SHIELD('m') + P('M24 5l-4 12 6 6-4 10', 'n') + G('translate(16 18) scale(0.33)', HEART('r')),
   'skill.shieldSlam': G('translate(-4 2) scale(0.9)', SHIELD('a')) + star(36, 14, 11, 4.6, 6, 'g'),
   'skill.aegisAura': C(24, 24, 20, 'b') + G('translate(6 6) scale(0.75)', SHIELD('a') + P('M24 13v22M15 21h18', 'n')),
   'skill.radiantStrike': RAYS('g') + G('translate(7.2 7.2) scale(0.7)', G('rotate(40 24 24)', SWORD('w'))),
@@ -120,6 +126,12 @@ export const GLYPHS: Readonly<Record<string, string>> = {
   'skill.holyBastion': P('M4 42a20 22 0 0 1 40 0z', 'b') + G('translate(9.6 12) scale(0.6)', TOWER('w')) + star(24, 9, 7, 3, 4, 'g', 0),
 
   // ── Shadowblade ──
+  'skill.starFan': star(12, 30, 9, 3.5, 4, 'm', 0) + star(24, 16, 9, 3.5, 4, 'm', 45) + star(36, 30, 9, 3.5, 4, 'm', 0),
+  'skill.grapplingHook': P('M24 4v22', 'n') + P('M24 26c-10 0-14-6-14-12M24 26c10 0 14-6 14-12M24 26v12', 'n') + P('M24 38c0 6 6 8 10 4', 'n') + C(24, 4, 3, 'a'),
+  'skill.silentStrike': G('translate(-4 0)', G('rotate(40 24 24)', DAGGER('m'))) + P('M32 32c4 2 8 2 12 0', 'n') + R(37, 24, 3, 12, 1.5, 'd'),
+  'skill.shadowMark': C(24, 24, 20, 'b') + C(24, 24, 12, 'n') + P('M24 2v8M24 38v8M2 24h8M38 24h8', 'n') + P('M28 16a8 8 0 1 0 0 16a10 10 0 0 1 0-16z', 'a'),
+  'skill.bladeRhythm': P('M24 5a19 19 0 1 1-17 11', 'n') + P('M1 12l6 10 9-6z', 'a') + G('rotate(40 24 24)', DAGGER('m')),
+  'skill.nightshadeMist': P('M8 36c-6 0-6-10 1-10 0-8 10-12 15-6 4-6 16-4 15 4 8 0 8 12 0 12z', 'b') + C(16, 14, 3, 'e') + C(28, 8, 2.5, 'e') + C(36, 16, 2, 'e') + P('M22 46l2-8 2 8z', 'a'),
   'skill.shadowstep': P('M4 14h14M2 24h14M4 34h14', 'n') + P('M20 6c12 0 22 8 24 18-2 10-12 18-24 18 8-4 12-10 12-18S28 10 20 6z', 'a'),
   'skill.lethality': G('translate(-5 5) scale(0.95)', G('rotate(40 24 24)', DAGGER('m'))) + star(35, 13, 11, 4.4, 4, 'r', 0),
   'skill.venomousBlade': G('translate(-6 -2)', G('rotate(40 24 24)', DAGGER('m'))) + G('translate(22 20) scale(0.5)', DROP('e')),
@@ -128,6 +140,12 @@ export const GLYPHS: Readonly<Record<string, string>> = {
   'skill.danceOfBlades': [0, 120, 240].map(a => G(`rotate(${a} 24 24)`, P('M24 3l5 7v10H19V10z', 'm'))).join('') + C(24, 24, 6.5, 'a'),
 
   // ── Arch-Pyromancer ──
+  'skill.firecracker': G('rotate(30 24 24)', R(18, 10, 12, 28, 4, 'r') + R(18, 18, 12, 4, 0, 'w')) + P('M34 8l4-4M36 12l6-2M30 6l0-5', 'n') + star(36, 7, 5, 2, 4, 'g', 0),
+  'skill.fanTheFlames': P('M24 44L6 22a24 24 0 0 1 36 0z', 'm') + P('M24 44L14 18M24 44V14M24 44l10-26', 'n') + G('translate(12 -6) scale(0.5)', FLAME('a')),
+  'skill.ringOfFire': C(24, 26, 16, 'n') + [0, 1, 2, 3, 4].map(k => G(`translate(${24 + Math.cos(k * 1.2566 - 1.5708) * 15 - 6} ${26 + Math.sin(k * 1.2566 - 1.5708) * 15 - 8}) scale(0.28)`, FLAME('a'))).join(''),
+  'skill.everflame': P('M24 24c-6-10-20-10-20 0s14 10 20 0 20-10 20 0-14 10-20 0', 'n') + G('translate(14 6) scale(0.42)', FLAME('a')),
+  'skill.wildfire': G('translate(10 12) scale(0.6)', FLAME('a')) + G('translate(2 2) scale(0.32)', FLAME('a')) + G('translate(30 4) scale(0.32)', FLAME('a')) + P('M18 18q-6-8-10-6M30 18q6-8 10-6', 'n'),
+  'skill.phoenixFlight': P('M24 30C14 14 4 14 2 18c8 2 14 8 22 12zM24 30c10-16 20-16 22-12-8 2-14 8-22 12z', 'a') + C(24, 24, 6, 'g') + G('translate(17 26) scale(0.35)', FLAME('r')),
   'skill.fireball': P('M3 40l13-9M6 30l8-4M14 44l7-9', 'n') + G('translate(10 -2) scale(0.78)', FLAME('a')),
   'skill.cauterize': FLAME('a') + R(21, 26, 6, 14, 1.5, 'w') + R(17, 30, 14, 6, 1.5, 'w'),
   'skill.flamePillar': P('M6 43h36', 'n') + P('M15 43c-3-8 2-12 2-18 0-5-2-8 0-13 3 3 4 5 5 9 1-6 1-12 3-18 4 6 8 11 8 19 0 4-2 6-1 10 2 4 2 8-1 11z', 'a') + P('M21 43c-1-5 3-8 3-13 3 4 5 8 3 13z', 'g'),
@@ -136,6 +154,12 @@ export const GLYPHS: Readonly<Record<string, string>> = {
   'skill.cataclysm': P('M44 3L27 12M46 15L33 21M34 2L23 9', 'n') + C(19, 29, 14, 'a') + C(14, 27, 3.4, 'd') + C(23, 35, 2.6, 'd') + C(24, 24, 2, 'd') + P('M6 44h30', 'n'),
 
   // ── Royal Sovereign ──
+  'skill.callArchers': P('M10 4c18 6 18 34 0 40', 'n') + P('M10 4v40', 'i') + ARROW_R('w') + G('translate(4 18) scale(0.3)', CROWN('g')),
+  'skill.royalRally': P('M6 18h10l20-12v36L16 30H6z', 'g') + C(40, 10, 3, 'a') + C(44, 24, 3, 'a') + C(40, 38, 3, 'a'),
+  'skill.warMarshal': G('rotate(40 24 24)', SWORD('m')) + G('rotate(-40 24 24)', R(22, 6, 4, 34, 2, 'a')) + G('translate(12 0) scale(0.5)', CROWN('g')),
+  'skill.royalDecree': R(8, 6, 32, 36, 4, 'w') + P('M14 14h20M14 20h20M14 26h14', 'n') + C(32, 36, 7, 'r'),
+  'skill.loyalHearts': HEART('r') + G('translate(12 -2) scale(0.5)', CROWN('g')),
+  'skill.summonChampion': HELM('g') + P('M10 12h28', 'n') + G('translate(12 -6) scale(0.5)', CROWN('g')),
   'skill.royalGuard': HELM('m') + P('M24 2c5 0 7 4 4 8h-8c-3-4-1-8 4-8z', 'a'),
   'skill.inspiringPresence': G('translate(0 6) scale(0.86)', CROWN('g')) + star(9, 9, 7, 2.8, 4, 'w', 0) + star(40, 8, 5.5, 2.2, 4, 'w', 0),
   'skill.commandFocus': TARGET() + P('M24 1v9M24 38v9M1 24h9M38 24h9', 'n'),
@@ -149,9 +173,21 @@ export const GLYPHS: Readonly<Record<string, string>> = {
   'skill.timeDistort': P('M7 24c0-12 10-18 18-17 9 1 16 8 16 17s-6 18-17 17C13 40 7 34 7 24z', 'w') + P('M24 13c-2 4 2 7 0 11l8 4', 'i') + P('M3 10c4-3 6 1 10-2M36 44c4-3 6 1 10-2', 'n'),
   'skill.paradoxShift': P('M5 16h26v-8l12 11-12 11v-8H5z', 'a') + G('rotate(180 24 30)', P('M5 22h26v-8l12 11-12 11v-8H5z', 'w')),
   'skill.entropy': C(24, 24, 21, 'a') + SPIRAL(),
+  'skill.echoBolt': G('translate(-9 5)', BOLT('b')) + G('translate(-4.5 2.5)', BOLT('b')) + BOLT('a'),
+  'skill.foresight': P('M3 24c6-9 13-13 21-13s15 4 21 13c-6 9-13 13-21 13S9 33 3 24z', 'w') + C(24, 24, 9, 'a') + P('M24 18v6l4 3', 'n'),
+  'skill.timeBubble': C(24, 24, 20, 'b') + P('M14 14a14 14 0 0 1 10-4', 'n') + G('translate(12 12) scale(0.5)', CLOCK('w')),
+  'skill.timeLoop': P('M24 5a19 19 0 1 1-17 11', 'n') + P('M1 12l6 10 9-6z', 'a') + C(24, 24, 6, 'a'),
+  'skill.frozenMoment': CLOCK('w') + star(37, 11, 10, 4, 6, 'u', 0),
+  'skill.timeStop': CLOCK('w') + R(15, 15, 6, 18, 2, 'a') + R(27, 15, 6, 18, 2, 'a'),
   'skill.chronoRewind': CLOCK('w') + P('M4 6v13h13', 'n') + P('M5 18A21 21 0 0 1 24 3', 'n'),
 
   // ── Blood Alchemist ──
+  'skill.essenceWard': FLASK('r') + G('translate(15 21) scale(0.38)', SHIELD('w')),
+  'skill.vitalReserve': HEART('r') + R(21, 14, 6, 16, 1.5, 'w') + R(16, 19, 16, 6, 1.5, 'w') + P('M38 2l7 8h-4v7h-6v-7h-4z', 'g'),
+  'skill.enfeeblingTonic': G('rotate(-18 24 28)', FLASK('e')) + P('M8 8c10-6 24-6 32 6', 'n') + P('M36 8l6 7 2-9z', 'a'),
+  'skill.homunculus': C(24, 28, 16, 'r') + C(18, 25, 4, 'w') + C(30, 25, 4, 'w') + C(18, 25, 1.8, 'd') + C(30, 25, 1.8, 'd') + P('M19 34q5 4 10 0', 'n') + R(19, 6, 10, 8, 2, 'b'),
+  'skill.adrenalCatalyst': HEART('r') + P('M6 22h36v-2H6z', 'n') + G('translate(14 12) scale(0.45)', BOLT('g')),
+  'skill.grandTransmutation': C(24, 24, 21, 'b') + P('M24 6l17 30H7z', 'n') + C(24, 24, 21, 'n') + DROP('w'),
   'skill.sanguineFlask': FLASK('r') + C(20, 34, 2, 'w') + C(27, 37, 1.5, 'w'),
   'skill.bloodTransmutation': G('translate(-8 0) scale(0.7)', DROP('r')) + G('translate(22 14) scale(0.7)', DROP('u')) + P('M19 12l8 4-8 4', 'n'),
   'skill.essenceHarvest': G('translate(7.2 8) scale(0.7)', DROP('r')) + P('M6 30A20 20 0 0 1 24 4M42 18A20 20 0 0 1 24 44', 'n') + P('M24 1l5 4-5 4zM24 47l-5-4 5-4z', 'w'),
@@ -160,6 +196,12 @@ export const GLYPHS: Readonly<Record<string, string>> = {
   'skill.philosophersCrucible': P('M6 20h36v6c0 11-7 18-18 18S6 37 6 26z', 'm') + P('M9 23h30c0 3-6 6-15 6S9 26 9 23z', 'r') + C(17, 12, 3.4, 'r') + C(29, 8, 2.6, 'r') + C(33, 15, 2, 'r') + P('M3 20h42', 'n'),
 
   // ── Aether-Tech ──
+  'skill.rocketJump': P('M14 6h12v18l10 6v8H14z', 'm') + G('translate(20 30) scale(0.55)', FLAME('a')) + P('M38 4l6 8h-4v8h-4v-8h-4z', 'g'),
+  'skill.coolantLoop': P('M24 4a20 20 0 1 1-18 12', 'n') + P('M1 10l6 10 9-6z', 'a') + star(24, 24, 11, 4, 6, 'u', 0),
+  'skill.shockGrenade': C(24, 28, 16, 'm') + R(20, 6, 8, 8, 2, 'd') + P('M16 26l6 2-4 4 8 2-3 6 9-9-6-1 4-4z', 'g'),
+  'skill.precisionOptics': C(24, 24, 18, 'b') + C(24, 24, 10, 'n') + P('M24 2v12M24 34v12M2 24h12M34 24h12', 'n') + ARROW_R('a'),
+  'skill.arcCoil': P('M16 44V20m16 24V20', 'n') + P('M14 22h20M14 30h20M14 38h20', 'm') + G('translate(4 -8) scale(0.8)', BOLT('g')),
+  'skill.thermalPlating': SHIELD('m') + R(20, 10, 8, 22, 4, 'w') + C(24, 34, 6, 'r') + R(21.5, 20, 5, 14, 2.5, 'r'),
   'skill.aetherPistol': GUN('m') + star(42, 8, 6, 2.4, 4, 'a', 0),
   'skill.deployTurret': P('M12 44l8-14h8l8 14z', 'k') + R(11, 14, 22, 16, 5, 'm') + R(30, 18, 15, 7, 2.5, 'a') + C(20, 22, 3.6, 'a'),
   'skill.ventHeat': R(4, 16, 13, 16, 3, 'm') + P('M17 18l27-12v36L17 30z', 'a') + P('M22 21l14-6M22 27l14 6M22 24h16', 'n'),
@@ -168,6 +210,12 @@ export const GLYPHS: Readonly<Record<string, string>> = {
   'skill.exoSuit': P('M9 14l15-9 15 9v16c0 8-7 13-15 14-8-1-15-6-15-14z', 'm') + P('M14 19h20l-3 8H17z', 'a') + P('M19 34h10M24 5v8', 'n'),
 
   // ── Geomancer ──
+  'skill.boulderRoll': C(28, 28, 16, 'a') + P('M22 20l6 6-4 6', 'n') + P('M2 18h8M2 26h6M2 34h8', 'n'),
+  'skill.bedrock': R(6, 22, 36, 22, 3, 'a') + P('M6 30h36M6 37h36', 'n') + P('M24 2v16m-6-5 6 6 6-6', 'n'),
+  'skill.sinkhole': C(24, 26, 20, 'd') + SPIRAL(),
+  'skill.mountainBreaker': P('M4 44L20 14l6 8 6-10 12 32z', 'a') + P('M26 22l-4 10 6 4-3 8', 'n') + C(32, 8, 6, 'w'),
+  'skill.geodeShell': P('M8 30c0-14 7-24 16-24s16 10 16 24c0 8-7 14-16 14S8 38 8 30z', 'a') + P('M14 32l5-14 5 12 5-14 5 16z', 'u'),
+  'skill.crumble': R(10, 6, 28, 20, 3, 'a') + P('M24 6l-3 9 5 4-2 7', 'n') + P('M10 34l7-2 2 7-7 2zM22 38l7-1 1 7-7 1zM33 32l6 1-1 6-6-1z', 'b'),
   'skill.stoneSpike': P('M4 43h40', 'n') + P('M24 3l9 40H15z', 'a') + P('M9 43l4-16 5 16zM31 43l5-12 4 12z', 'b') + P('M24 3l-2 22 5 6', 'n'),
   'skill.earthBarrier': WALL('a'),
   'skill.seismicShock': P('M3 30l10-2 4-12 6 20 5-26 5 18 4-6 8 2', 'n') + P('M4 44h40', 'n') + WAVE(10) + WAVE(18),

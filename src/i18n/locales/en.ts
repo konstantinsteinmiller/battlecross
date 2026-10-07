@@ -358,7 +358,15 @@ export default {
     'chrono': { 'name': 'Chrono-Weaver', 'desc': 'Stops enemies in time, speeds allies up, and undoes mistakes.' },
     'blood': { 'name': 'Blood Alchemist', 'desc': 'Pays in health for power, then drinks it back from the enemy.' },
     'aether': { 'name': 'Aether-Tech', 'desc': 'Guns, turrets and a heat gauge. Vent it before it locks you out.' },
-    'geo': { 'name': 'Geomancer', 'desc': 'Raises walls and spikes, and breaks the ground itself.' }
+    'geo': { 'name': 'Geomancer', 'desc': 'Raises walls and spikes, and breaks the ground itself.' },
+    'windrunner': { 'name': 'Windrunner', 'desc': 'A bow and the wind at your back. Shoot, dash, and never stand still.' },
+    'frostwarden': { 'name': 'Frostwarden', 'desc': 'An ice blade and a cold heart. Slow them, freeze them, then shatter them.' },
+    'lightbringer': { 'name': 'Lightbringer', 'desc': 'Light that heals friends and blinds foes. Stand in it and nothing can stop you.' },
+    'beastcaller': { 'name': 'Beastcaller', 'desc': 'A wolf pack, a bear and a hawk fight at your side. Call them, command them.' },
+    'elementalist': { 'name': 'Elementalist', 'desc': 'Fire, frost, lightning and stone. Mix them, and each one sets off the next.' },
+    'soulwarden': { 'name': 'Soul Warden', 'desc': 'Beaten foes rise as friendly spirits and fight at your side, then go home to rest.' },
+    'ironmonk': { 'name': 'Iron Monk', 'desc': 'Bare hands, fast feet. Every strike builds chi; spend it all on one mighty blow.' },
+    'bard': { 'name': 'Bard', 'desc': 'Songs that lift your side, and tunes that put the other to sleep or turn it on itself.' }
   },
   'skill': {
     'kind': { 'active': 'Active', 'passive': 'Passive' },
@@ -370,6 +378,12 @@ export default {
     'scales': 'Scales with {attr}',
 
     // Aegis Knight
+    'shieldThrow': { 'name': 'Shield Throw', 'desc': 'Your shield bounces off {bounces} enemies: {dmg}% Strength damage each. They deal {weak}% less for {dur}s.' },
+    'shieldShove': { 'name': 'Shield Shove', 'desc': 'Shove all in front of you for {dmg}% Strength damage. They fly back and stop what they were doing.' },
+    'holyChains': { 'name': 'Holy Chains', 'desc': 'Chains of light pull every enemy within {radius} m to you: {dmg}% Endurance damage and a {slow}% slow.' },
+    'bulwark': { 'name': 'Bulwark', 'desc': '+{block}% Block chance. Every block deals {back} damage back to the attacker.' },
+    'retribution': { 'name': 'Retribution', 'desc': 'For {dur}s, foes within {radius} m must attack you. Then light deals {dmg}% Strength +{back}% of hits taken.' },
+    'unbreakable': { 'name': 'Unbreakable', 'desc': 'While under {hp}% health, you take {reduce}% less damage.' },
     'shieldSlam': { 'name': 'Shield Slam', 'desc': 'Slam the target for {dmg}% Strength damage and stun it for {stun}s.' },
     'aegisAura': { 'name': 'Aegis Aura', 'desc': '+{armor}% Armor, and physical damage taken is reduced by {reduce}%.' },
     'radiantStrike': { 'name': 'Radiant Strike', 'desc': 'A holy blow for {dmg}% Strength damage that heals you for {heal}% of the damage dealt.' },
@@ -378,6 +392,12 @@ export default {
     'holyBastion': { 'name': 'Holy Bastion', 'desc': 'Invulnerable for {dur}s. Attackers take {reflect}% of their damage back.' },
 
     // Shadowblade
+    'starFan': { 'name': 'Star Fan', 'desc': 'Throw {stars} shadow stars in a fan, each dealing {dmg}% Dexterity damage.' },
+    'grapplingHook': { 'name': 'Grappling Hook', 'desc': 'Pull the target to you for {dmg}% Dexterity damage and slow it {slow}% for {dur}s. Big foes pull you in.' },
+    'silentStrike': { 'name': 'Silent Strike', 'desc': 'Backstabs deal +{backstab}% damage, and enemies notice you {notice}% later.' },
+    'shadowMark': { 'name': 'Shadow Mark', 'desc': 'The target takes {vuln}% more damage for {dur}s, and your next hit on anyone crits for +{bonus}%.' },
+    'bladeRhythm': { 'name': 'Blade Rhythm', 'desc': 'Critical hits take {cut}s off every cooldown. +{speed}% attack speed.' },
+    'nightshadeMist': { 'name': 'Nightshade Mist', 'desc': 'A poison mist for {dur}s: up to {dmg}% Dexterity damage. Enemies caught in it are confused for {confuse}s.' },
     'shadowstep': { 'name': 'Shadowstep', 'desc': 'Appear behind the target and backstab for {dmg}% Dexterity damage.' },
     'lethality': { 'name': 'Lethality', 'desc': '+{crit}% Critical Chance and +{critDmg}% Critical Damage.' },
     'venomousBlade': { 'name': 'Venomous Blade', 'desc': 'For {dur}s your attacks poison for {poison}% Dexterity over {over}s, stacking {stacks} times.' },
@@ -386,6 +406,12 @@ export default {
     'danceOfBlades': { 'name': 'Dance of Blades', 'desc': 'Dash between enemies within {radius} m, striking {hits} times for {dmg}% Dexterity damage in total. You cannot be hit while dancing.' },
 
     // Pyromancer
+    'firecracker': { 'name': 'Firecracker', 'desc': 'Stick a firecracker on the target. After {delay}s it pops for {dmg}% Intelligence damage and burns all near.' },
+    'fanTheFlames': { 'name': 'Fan the Flames', 'desc': 'Every burn within {radius} m flares {pct}% stronger and starts again. Foes within {push} m are blown back.' },
+    'ringOfFire': { 'name': 'Ring of Fire', 'desc': 'A ring of flames rises for {dur}s: up to {dmg}% Intelligence damage. Enemies inside are slowed {slow}%.' },
+    'everflame': { 'name': 'Everflame', 'desc': 'Your burns are {burn}% stronger, and your spells gain +{crit}% Critical Chance.' },
+    'wildfire': { 'name': 'Wildfire', 'desc': 'When a burning enemy is defeated, its flames leap to every enemy within {radius} m for {dur}s.' },
+    'phoenixFlight': { 'name': 'Phoenix Flight', 'desc': 'Fly as a phoenix, trailing fire: {dmg}% Intelligence damage where you land. Heal {regen}% a second for {dur}s.' },
     'fireball': { 'name': 'Fireball', 'desc': 'A ball of fire that bursts for {dmg}% Intelligence damage and burns for {burn}% more over {burnDur}s.' },
     'cauterize': { 'name': 'Cauterize', 'desc': 'Burning enemies deal {reduce}% less damage to you.' },
     'flamePillar': { 'name': 'Flame Pillar', 'desc': 'A pillar of fire erupts where you aim: {dmg}% Intelligence damage over {dur}s. Enemies caught in it are thrown into the air.' },
@@ -394,6 +420,12 @@ export default {
     'cataclysm': { 'name': 'Cataclysm', 'desc': 'Call {meteors} meteors over {dur}s. Each lands for {dmg}% Intelligence damage.' },
 
     // Grand Sovereign
+    'callArchers': { 'name': 'Call Archers', 'desc': 'Summon an archer who shoots for {dmg}% Charisma damage from behind you. Up to {max} at a time.' },
+    'royalRally': { 'name': 'Royal Rally', 'desc': 'Your minions rush to your side and heal {heal}% health. You all gain +{def}% Defense for {dur}s.' },
+    'warMarshal': { 'name': 'War Marshal', 'desc': 'Your minions deal {dmg}% more damage.' },
+    'royalDecree': { 'name': 'Royal Decree', 'desc': 'Enemies within {radius} m must bow: stunned for {stun}s, then they take {vuln}% more damage for {dur}s.' },
+    'loyalHearts': { 'name': 'Loyal Hearts', 'desc': 'When one of your minions falls, you heal {heal}% of your health.' },
+    'summonChampion': { 'name': 'Summon Champion', 'desc': 'Call the realm\'s champion for {dur}s: a giant knight with {hp}% of your health, striking for {dmg}% Charisma.' },
     'royalGuard': { 'name': 'Royal Guard', 'desc': 'Summon a guard who fights beside you, striking for {dmg}% Charisma damage. Up to {max} at a time.' },
     'inspiringPresence': { 'name': 'Inspiring Presence', 'desc': 'Your minions attack {speed}% faster and have {hp}% more health.' },
     'commandFocus': { 'name': 'Command Focus', 'desc': 'All minions charge the target: +{move}% move speed and +{atk}% attack speed for {dur}s.' },
@@ -402,6 +434,12 @@ export default {
     'armyOfTheRealm': { 'name': 'Army of the Realm', 'desc': 'Summon {archers} archers, {guards} guards and a battle mage for {dur}s.' },
 
     // Chrono-Weaver
+    'echoBolt': { 'name': 'Echo Bolt', 'desc': 'A bolt of time for {dmg}% Intelligence damage. {delay}s later it hits again for {echo}%.' },
+    'foresight': { 'name': 'Foresight', 'desc': 'You see blows coming a moment early: +{dodge}% Dodge and {cdr}% shorter cooldowns.' },
+    'timeBubble': { 'name': 'Time Bubble', 'desc': 'A bubble of slow time for {dur}s: enemies inside move {slow}% slower and take {dmg}% Intelligence damage.' },
+    'timeLoop': { 'name': 'Time Loop', 'desc': 'After {dur}s the target snaps back to where it was: {dmg}% Intelligence damage plus {echo}% of what it lost.' },
+    'frozenMoment': { 'name': 'Frozen Moment', 'desc': 'Your attacks have a {chance}% chance to freeze the enemy in time for {dur}s.' },
+    'timeStop': { 'name': 'Time Stop', 'desc': 'Stop time within {radius} m for {dur}s. When it restarts, each enemy takes {dmg}% Intelligence damage.' },
     'temporalStasis': { 'name': 'Temporal Stasis', 'desc': 'Freeze the target in time for {dur}s. It cannot act and cannot be harmed.' },
     'hasteField': { 'name': 'Haste Field', 'desc': 'For {dur}s, you and allies nearby move {move}% faster and attack {speed}% faster.' },
     'timeDistort': { 'name': 'Time Distort', 'desc': '{share}% of the damage you take is delayed and dealt over {over}s instead.' },
@@ -410,6 +448,12 @@ export default {
     'chronoRewind': { 'name': 'Chrono Rewind', 'desc': 'Return to where you stood {back}s ago, with the health and mana you had then.' },
 
     // Blood Alchemist
+    'essenceWard': { 'name': 'Essence Ward', 'desc': 'Turn {hp}% of your health into a glowing ward worth {shield}% of it, for {dur}s.' },
+    'vitalReserve': { 'name': 'Vital Reserve', 'desc': '+{hp}% max health, and you recover {regen} health every second.' },
+    'enfeeblingTonic': { 'name': 'Enfeebling Tonic', 'desc': 'Throw a tonic: {dmg}% Intelligence damage in an area. Enemies hit deal {weak}% less damage for {dur}s.' },
+    'homunculus': { 'name': 'Homunculus', 'desc': 'Brew a bubbly helper from {hp}% of your health for {dur}s. Brewing a new one returns {back}% of its life.' },
+    'adrenalCatalyst': { 'name': 'Adrenal Catalyst', 'desc': 'The lower your health, the more damage you deal: up to +{dmg}% at {low}% health or less.' },
+    'grandTransmutation': { 'name': 'Grand Transmutation', 'desc': 'Turn {pct}% of the life of enemies within {radius} m into essence. You heal {heal}% of it.' },
     'sanguineFlask': { 'name': 'Sanguine Flask', 'desc': 'Throw a flask of your own blood: {dmg}% Endurance damage in an area, and armor broken by {shred}% for {shredDur}s.' },
     'bloodTransmutation': { 'name': 'Blood Transmutation', 'desc': '{share}% of the physical damage you take returns as mana.' },
     'essenceHarvest': { 'name': 'Essence Harvest', 'desc': 'Drain every enemy within {radius} m for {dmg}% Intelligence damage. You are healed for {heal}% of it.' },
@@ -418,6 +462,12 @@ export default {
     'philosophersCrucible': { 'name': 'Philosopher\'s Crucible', 'desc': 'A pool of boiling blood for {dur}s: {dmg}% Intelligence damage to enemies in it, and it heals you while you stand in it.' },
 
     // Aether-Tech
+    'rocketJump': { 'name': 'Rocket Jump', 'desc': 'Blast off and land where you aim: {dmg}% Skill damage within {radius} m. Builds {heat} heat.' },
+    'coolantLoop': { 'name': 'Coolant Loop', 'desc': 'Heat drains {cool}% faster, and your skills build {cut}% less of it.' },
+    'shockGrenade': { 'name': 'Shock Grenade', 'desc': 'Lob a grenade: {dmg}% Skill damage and a {stun}s stun within {radius} m. Builds {heat} heat.' },
+    'precisionOptics': { 'name': 'Precision Optics', 'desc': '+{crit}% Critical Chance. Your shots pass through {pierce} extra enemy.' },
+    'arcCoil': { 'name': 'Arc Coil', 'desc': 'Lightning hits the target, then jumps to {jumps} more enemies: {dmg}% Skill damage each. Builds {heat} heat.' },
+    'thermalPlating': { 'name': 'Thermal Plating', 'desc': 'While your heat is at {heat} or more, you take {reduce}% less damage.' },
     'aetherPistol': { 'name': 'Aether Pistol', 'desc': 'A quick shot for {dmg}% Skill damage. Builds {heat} heat.' },
     'deployTurret': { 'name': 'Deploy Turret', 'desc': 'Place a turret that fires for {dmg}% Skill damage for {dur}s. Up to {max} at a time.' },
     'ventHeat': { 'name': 'Vent Heat', 'desc': 'Dump all heat in a cone: up to {dmg}% Skill damage, the more heat the more damage.' },
@@ -426,6 +476,12 @@ export default {
     'exoSuit': { 'name': 'Exo-Suit', 'desc': 'For {dur}s: +{armor}% Armor, and your attacks become rockets that deal {rocket}% Skill damage in an area.' },
 
     // Geomancer
+    'boulderRoll': { 'name': 'Boulder Roll', 'desc': 'Roll a boulder ahead: {dmg}% Strength damage to all in its path, knocking them down for {down}s.' },
+    'bedrock': { 'name': 'Bedrock', 'desc': 'Nothing can knock you back, down or into the air. +{hp}% max health.' },
+    'sinkhole': { 'name': 'Sinkhole', 'desc': 'The ground sinks, pulling enemies in for {dur}s, then caves in: {dmg}% Strength damage.' },
+    'mountainBreaker': { 'name': 'Mountain Breaker', 'desc': '+{boss}% damage to bosses and +{armor}% Armor.' },
+    'geodeShell': { 'name': 'Geode Shell', 'desc': 'A crystal shell absorbs {shield}% of your health for {dur}s, then bursts for up to {dmg}% Strength damage.' },
+    'crumble': { 'name': 'Crumble', 'desc': 'You deal {dmg}% more damage to enemies that are slowed, knocked down or turned to stone.' },
     'stoneSpike': { 'name': 'Stone Spike', 'desc': 'A spike bursts under the target: {dmg}% Strength damage and {slow}% slow for {dur}s.' },
     'earthBarrier': { 'name': 'Earth Barrier', 'desc': 'Raise a wall of rock for {dur}s. Nothing walks or shoots through it.' },
     'seismicShock': { 'name': 'Seismic Shock', 'desc': 'Slam the ground: {dmg}% Strength damage within {radius} m, knocking enemies down for {down}s.' },

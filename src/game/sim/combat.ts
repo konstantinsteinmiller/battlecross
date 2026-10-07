@@ -1,4 +1,4 @@
-import { SKILL_BY_ID } from '../data/skills'
+import { HEAT_MAX, SKILL_BY_ID } from '../data/skills'
 import { ENEMY_BY_ID, RANK_REWARD } from '../data/enemies'
 import { killGold, killXp, addXp, xpToNext } from '../data/progression'
 import { CHAMPION_REWARD } from '../data/loot'
@@ -234,6 +234,12 @@ export const dealDamage = (sim: Sim, src: Unit | null, tgt: Unit, base: number, 
   if (src) {
     amount *= src.s.damageMul * (1 + statusV(src, 'damageUp') + statusV(src, 'enrage') + statusV(src, 'elixirMight')) * (1 - Math.min(0.8, statusV(src, 'weaken')))
     if (tgt.rank === 'boss') amount *= 1 + (srcMods?.bossDamage ?? 0)
+    // Adrenal Catalyst (#95): the lower the hero's health, the harder she hits.
+    const low = srcMods?.lowHealthDamage ?? 0
+    if (low > 0 && src === hero) amount *= 1 + low * Math.min(1, Math.max(0, (1 - src.hp / src.s.maxHp) / 0.7))
+    // Crumble (#95): what is already shaken breaks easier.
+    const crumble = srcMods?.crumble ?? 0
+    if (crumble > 0 && (hasStatus(tgt, 'slow') || hasStatus(tgt, 'knockdown') || hasStatus(tgt, 'knockup') || hasStatus(tgt, 'petrify'))) amount *= 1 + crumble
     if (o.backstab || (o.attack && src === hero && isBehind(src, tgt))) amount *= 1.25 + (srcMods?.backstab ?? 0)
     // Smoke Bomb: the next strike from the shadows always crits, and harder.
     const ambush = !o.dot ? findStatus(src, 'ambush') : undefined
@@ -289,6 +295,10 @@ export const dealDamage = (sim: Sim, src: Unit | null, tgt: Unit, base: number, 
       amount *= 1 - tgt.s.resist
     }
     amount *= 1 - tgt.s.damageReduction
+    // Unbreakable (#95): the knight holds the line when low.
+    if (toHero && (tgt.s.mods.lastStand ?? 0) > 0 && tgt.hp < tgt.s.maxHp * ((SKILL_BY_ID.unbreakable?.p.hp ?? 30) / 100)) amount *= 1 - (tgt.s.mods.lastStand ?? 0)
+    // Thermal Plating (#95): a hot suit hardens.
+    if (toHero && (tgt.s.mods.heatArmor ?? 0) > 0 && sim.hero.heat >= HEAT_MAX * 0.5) amount *= 1 - (tgt.s.mods.heatArmor ?? 0)
     amount *= 1 + statusV(tgt, 'vulnerable')
     // Cauterize: a burning enemy hits the Pyromancer more softly.
     if (toHero && src && hasStatus(src, 'burn')) amount *= 1 - (tgt.s.mods.cauterize ?? 0)
@@ -433,6 +443,23 @@ export const reviveHero = (sim: Sim): boolean => {
 /** A unit dies: rewards, death effects, and the body left to fade. */
 export const kill = (sim: Sim, u: Unit, by: Unit | null): void => {
   if (!u.alive) return
+  const hh = sim.hero
+  // Wildfire (#95): a burning enemy's flames leap to its neighbours as it falls.
+  const reach = hh?.unit.s.mods.wildfire ?? 0
+  const burn = reach > 0 && u.team === 1 ? findStatus(u, 'burn') : undefined
+  if (burn && hh) {
+    for (const e of sim.units) {
+      if (e === u || !e.alive || e.team !== 1 || e.rank === 'npc' || Math.hypot(e.x - u.x, e.z - u.z) > reach) continue
+      applyStatus(sim, e, 'burn', SKILL_BY_ID.wildfire?.p.dur ?? 3, burn.v * burn.n, hh.unit, { quiet: true })
+      sim.emit({ t: 'fx', id: 'dash', x: u.x, z: u.z, x2: e.x, z2: e.z, color: '#ff8a2a' })
+    }
+  }
+  // Loyal Hearts (#95): a minion that falls for her heals her.
+  const loyal = hh?.unit.s.mods.loyalty ?? 0
+  if (loyal > 0 && hh && u.rank === 'minion' && u.ownerId === hh.unit.id && hh.unit.alive) {
+    heal(sim, hh.unit, hh.unit.s.maxHp * loyal)
+    sim.emit({ t: 'fx', id: 'heal', x: hh.unit.x, z: hh.unit.z, unit: hh.unit.id, color: '#ffd84a' })
+  }
   u.alive = false
   u.hp = 0
   u.deadT = 0

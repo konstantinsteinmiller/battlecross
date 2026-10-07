@@ -431,6 +431,38 @@ export default {
     geo: {
       name: 'Geomant',
       desc: 'Ridică ziduri și țepi și rupe pământul însuși.'
+    },
+    windrunner: {
+      name: 'Alergător al Vântului',
+      desc: 'Un arc și vântul din spate. Trage, țâșnește și nu sta niciodată pe loc.'
+    },
+    frostwarden: {
+      name: 'Străjer al Gerului',
+      desc: 'O lamă de gheață și o inimă rece. Încetinește-i, îngheață-i, apoi fă-i țăndări.'
+    },
+    lightbringer: {
+      name: 'Purtător de Lumină',
+      desc: 'Lumină care vindecă prietenii și orbește dușmanii. Stai în ea și nimic nu te poate opri.'
+    },
+    beastcaller: {
+      name: 'Chemător de Fiare',
+      desc: 'O haită de lupi, un urs și un șoim luptă alături de tine. Cheamă-i și comandă-i.'
+    },
+    elementalist: {
+      name: 'Elementalist',
+      desc: 'Foc, ger, fulger și piatră. Combină-le, și fiecare îl declanșează pe următorul.'
+    },
+    soulwarden: {
+      name: 'Străjer al Sufletelor',
+      desc: 'Dușmanii învinși se ridică drept spirite prietene, luptă alături de tine, apoi pleacă acasă să se odihnească.'
+    },
+    ironmonk: {
+      name: 'Călugăr de Fier',
+      desc: 'Mâini goale, picioare iuți. Fiecare lovitură adună chi; cheltuiește-l tot pe o singură lovitură puternică.'
+    },
+    bard: {
+      name: 'Bard',
+      desc: 'Cântece care îți înalță tabăra și melodii care o adorm pe cealaltă sau o întorc împotriva ei înseși.'
     }
   },
   skill: {
@@ -635,7 +667,199 @@ export default {
       name: 'Ruptură Tectonică',
       desc: 'Despică terenul: {dmg}% daune din Forță la tot ce e aproape și moloz care încetinește timp de {dur}s.'
     },
-    scales: 'Crește cu {attr}'
+    scales: 'Crește cu {attr}',
+    shieldThrow: {
+      name: 'Aruncarea Scutului',
+      desc: 'Scutul tău ricoșează din {bounces} inamici: câte {dmg}% daune din Forță. Ei dau cu {weak}% mai puțin timp de {dur}s.'
+    },
+    shieldShove: {
+      name: 'Împingere cu Scutul',
+      desc: 'Împinge tot ce e în fața ta cu {dmg}% daune din Forță. Zboară înapoi și se opresc din ce făceau.'
+    },
+    holyChains: {
+      name: 'Lanțuri Sfinte',
+      desc: 'Lanțuri de lumină trag spre tine fiecare inamic pe o rază de {radius} m: {dmg}% daune din Anduranță și încetinire de {slow}%.'
+    },
+    bulwark: {
+      name: 'Meterez',
+      desc: '+{block}% șansă de Blocare. Fiecare blocare îi dă atacatorului {back} daune înapoi.'
+    },
+    retribution: {
+      name: 'Pedeapsă',
+      desc: 'Timp de {dur}s, inamicii pe o rază de {radius} m trebuie să te atace. Apoi lumina dă {dmg}% din Forță +{back}% din loviturile primite.'
+    },
+    unbreakable: {
+      name: 'De Neclintit',
+      desc: 'Sub {hp}% viață, primești cu {reduce}% mai puține daune.'
+    },
+    starFan: {
+      name: 'Evantai de Stele',
+      desc: 'Aruncă {stars} stele de umbră în evantai, fiecare cu {dmg}% daune din Dexteritate.'
+    },
+    grapplingHook: {
+      name: 'Cârlig de Abordaj',
+      desc: 'Trage ținta spre tine cu {dmg}% daune din Dexteritate și încetinește-o cu {slow}% timp de {dur}s. Inamicii mari te trag pe tine.'
+    },
+    silentStrike: {
+      name: 'Lovitură Tăcută',
+      desc: 'Loviturile pe la spate dau +{backstab}% daune, iar inamicii te observă cu {notice}% mai târziu.'
+    },
+    shadowMark: {
+      name: 'Semnul Umbrei',
+      desc: 'Ținta primește cu {vuln}% mai multe daune timp de {dur}s, iar următoarea ta lovitură asupra oricui e critică cu +{bonus}%.'
+    },
+    bladeRhythm: {
+      name: 'Ritmul Lamelor',
+      desc: 'Loviturile critice scad {cut}s din fiecare reîncărcare. +{speed}% viteză de atac.'
+    },
+    nightshadeMist: {
+      name: 'Ceața Mătrăgunei',
+      desc: 'O ceață otrăvitoare timp de {dur}s: până la {dmg}% daune din Dexteritate. Inamicii prinși în ea sunt confuzi {confuse}s.'
+    },
+    firecracker: {
+      name: 'Petardă',
+      desc: 'Lipește o petardă pe țintă. După {delay}s pocnește cu {dmg}% daune din Inteligență și arde tot ce e aproape.'
+    },
+    fanTheFlames: {
+      name: 'Ațâță Flăcările',
+      desc: 'Fiecare arsură pe o rază de {radius} m se aprinde cu {pct}% mai tare și o ia de la capăt. Inamicii pe o rază de {push} m sunt aruncați înapoi.'
+    },
+    ringOfFire: {
+      name: 'Inel de Foc',
+      desc: 'Un inel de flăcări se înalță timp de {dur}s: până la {dmg}% daune din Inteligență. Inamicii dinăuntru sunt încetiniți cu {slow}%.'
+    },
+    everflame: {
+      name: 'Flacără Veșnică',
+      desc: 'Arsurile tale sunt cu {burn}% mai puternice, iar vrăjile tale primesc +{crit}% Șansă Critică.'
+    },
+    wildfire: {
+      name: 'Pârjol',
+      desc: 'Când un inamic care arde e învins, flăcările lui sar pe fiecare inamic pe o rază de {radius} m timp de {dur}s.'
+    },
+    phoenixFlight: {
+      name: 'Zborul Phoenixului',
+      desc: 'Zboară ca un phoenix, lăsând o dâră de foc: {dmg}% daune din Inteligență unde aterizezi. Te vindeci {regen}% pe secundă timp de {dur}s.'
+    },
+    callArchers: {
+      name: 'Cheamă Arcași',
+      desc: 'Cheamă un arcaș care trage din spatele tău cu {dmg}% daune din Carismă. Cel mult {max} deodată.'
+    },
+    royalRally: {
+      name: 'Adunarea Regală',
+      desc: 'Slujitorii tăi aleargă lângă tine și își refac {heal}% din viață. Tu și ei primiți +{def}% Apărare timp de {dur}s.'
+    },
+    warMarshal: {
+      name: 'Mareșal de Război',
+      desc: 'Slujitorii tăi dau cu {dmg}% mai multe daune.'
+    },
+    royalDecree: {
+      name: 'Decret Regal',
+      desc: 'Inamicii pe o rază de {radius} m trebuie să se plece: amețiți {stun}s, apoi primesc cu {vuln}% mai multe daune timp de {dur}s.'
+    },
+    loyalHearts: {
+      name: 'Inimi Loiale',
+      desc: 'Când unul dintre slujitorii tăi cade, îți refaci {heal}% din viață.'
+    },
+    summonChampion: {
+      name: 'Cheamă Campionul',
+      desc: 'Cheamă campionul regatului timp de {dur}s: un cavaler uriaș cu {hp}% din viața ta, care lovește cu {dmg}% din Carismă.'
+    },
+    echoBolt: {
+      name: 'Săgeata Ecoului',
+      desc: 'O săgeată a timpului cu {dmg}% daune din Inteligență. După {delay}s lovește din nou cu {echo}%.'
+    },
+    foresight: {
+      name: 'Presimțire',
+      desc: 'Vezi loviturile venind cu o clipă mai devreme: +{dodge}% Eschivă și reîncărcări cu {cdr}% mai scurte.'
+    },
+    timeBubble: {
+      name: 'Bula Timpului',
+      desc: 'O bulă de timp lent pentru {dur}s: inamicii dinăuntru se mișcă cu {slow}% mai încet și primesc {dmg}% daune din Inteligență.'
+    },
+    timeLoop: {
+      name: 'Bucla Timpului',
+      desc: 'După {dur}s ținta sare înapoi unde era: {dmg}% daune din Inteligență plus {echo}% din ce a pierdut.'
+    },
+    frozenMoment: {
+      name: 'Clipa Înghețată',
+      desc: 'Atacurile tale au o șansă de {chance}% să înghețe inamicul în timp pentru {dur}s.'
+    },
+    timeStop: {
+      name: 'Oprirea Timpului',
+      desc: 'Oprește timpul pe o rază de {radius} m timp de {dur}s. Când pornește din nou, fiecare inamic primește {dmg}% daune din Inteligență.'
+    },
+    essenceWard: {
+      name: 'Scutul Esenței',
+      desc: 'Transformă {hp}% din viața ta într-un scut strălucitor care valorează {shield}% din ea, timp de {dur}s.'
+    },
+    vitalReserve: {
+      name: 'Rezervă Vitală',
+      desc: '+{hp}% viață maximă, iar tu recuperezi {regen} viață în fiecare secundă.'
+    },
+    enfeeblingTonic: {
+      name: 'Tonic Slăbitor',
+      desc: 'Aruncă un tonic: {dmg}% daune din Inteligență pe o arie. Inamicii loviți dau cu {weak}% mai puține daune timp de {dur}s.'
+    },
+    homunculus: {
+      name: 'Homunculus',
+      desc: 'Prepară un ajutor bolborositor din {hp}% din viața ta pentru {dur}s. Când prepari unul nou, primești înapoi {back}% din viața lui.'
+    },
+    adrenalCatalyst: {
+      name: 'Catalizator de Adrenalină',
+      desc: 'Cu cât ai mai puțină viață, cu atât dai mai multe daune: până la +{dmg}% la {low}% viață sau mai puțin.'
+    },
+    grandTransmutation: {
+      name: 'Marea Transmutare',
+      desc: 'Transformă {pct}% din viața inamicilor pe o rază de {radius} m în esență. Te vindeci cu {heal}% din ea.'
+    },
+    rocketJump: {
+      name: 'Salt cu Rachetă',
+      desc: 'Decolează și aterizează unde țintești: {dmg}% daune din Măiestrie pe o rază de {radius} m. Adaugă {heat} căldură.'
+    },
+    coolantLoop: {
+      name: 'Circuit de Răcire',
+      desc: 'Căldura scade cu {cool}% mai repede, iar abilitățile tale adaugă cu {cut}% mai puțină.'
+    },
+    shockGrenade: {
+      name: 'Grenadă de Șoc',
+      desc: 'Aruncă o grenadă: {dmg}% daune din Măiestrie și amețire de {stun}s pe o rază de {radius} m. Adaugă {heat} căldură.'
+    },
+    precisionOptics: {
+      name: 'Optică de Precizie',
+      desc: '+{crit}% Șansă Critică. Gloanțele tale trec prin încă {pierce} inamic.'
+    },
+    arcCoil: {
+      name: 'Bobină cu Arc',
+      desc: 'Un fulger lovește ținta, apoi sare la încă {jumps} inamici: câte {dmg}% daune din Măiestrie. Adaugă {heat} căldură.'
+    },
+    thermalPlating: {
+      name: 'Blindaj Termic',
+      desc: 'Cât timp căldura ta e la {heat} sau mai mult, primești cu {reduce}% mai puține daune.'
+    },
+    boulderRoll: {
+      name: 'Bolovan Rostogolit',
+      desc: 'Rostogolește un bolovan înainte: {dmg}% daune din Forță tuturor din calea lui, doborându-i {down}s.'
+    },
+    bedrock: {
+      name: 'Rocă de Temelie',
+      desc: 'Nimic nu te poate împinge, doborî sau arunca în aer. +{hp}% viață maximă.'
+    },
+    sinkhole: {
+      name: 'Surpare',
+      desc: 'Pământul se lasă, trăgând inamicii înăuntru timp de {dur}s, apoi se prăbușește: {dmg}% daune din Forță.'
+    },
+    mountainBreaker: {
+      name: 'Spărgător de Munți',
+      desc: '+{boss}% daune împotriva șefilor și +{armor}% Armură.'
+    },
+    geodeShell: {
+      name: 'Carapace de Geodă',
+      desc: 'O carapace de cristal absoarbe {shield}% din viața ta timp de {dur}s, apoi explodează cu până la {dmg}% daune din Forță.'
+    },
+    crumble: {
+      name: 'Fărâmițare',
+      desc: 'Dai cu {dmg}% mai multe daune inamicilor încetiniți, doborâți sau prefăcuți în piatră.'
+    }
   },
   slot: {
     main: 'Mâna principală',

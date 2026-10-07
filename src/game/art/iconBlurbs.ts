@@ -130,7 +130,15 @@ export const CLASS_EMBLEM_BLURBS: Readonly<Record<ClassId, string>> = {
   chrono: 'a crest: an hourglass with gold end plates, set in the middle of a solid disc',
   blood: 'a crest: a conical glass laboratory flask with a cork, one third full of red liquid with two small bubbles in it',
   aether: 'a crest: a steel pistol pointing right with a small four-pointed spark at its muzzle',
-  geo: 'a crest: one tall sharp rock spike rising from a flat ground line, with a small spike on each side of it'
+  geo: 'a crest: one tall sharp rock spike rising from a flat ground line, with a small spike on each side of it',
+  windrunner: 'a crest: a lime-green arrow flying to the right with three curling wind streaks behind it',
+  frostwarden: 'a crest: a pale blue sword pointing up with a six-pointed ice crystal at its hilt',
+  lightbringer: 'a crest: a rose-gold sun disc with short rays and a small white heart in its middle',
+  beastcaller: 'a crest: a green wolf head seen from the front, ears up, with a small paw print below it',
+  elementalist: 'a crest: four small orbs in a ring, red, blue, yellow and brown, round a magenta star',
+  soulwarden: 'a crest: a friendly glowing periwinkle wisp with two dot eyes rising from an open lantern',
+  ironmonk: 'a crest: a jade-green closed fist seen from the front, with a short motion arc above it',
+  bard: 'a crest: a pink lute seen from the front, with two small music notes floating above it'
 }
 
 /** The empty-slot markers of the equipment doll: a slot's shape, in pale stone. */

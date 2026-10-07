@@ -431,6 +431,38 @@ export default {
     geo: {
       name: 'Termagiisto',
       desc: 'Levas murojn kaj pikilojn, kaj rompas la grundon mem.'
+    },
+    windrunner: {
+      name: 'Ventkuranto',
+      desc: 'Pafarko kaj la vento ĉe via dorso. Pafu, kuregu, kaj neniam staru senmove.'
+    },
+    frostwarden: {
+      name: 'Frostgardisto',
+      desc: 'Glacia klingo kaj malvarma koro. Malrapidigu ilin, frostigu ilin, poste frakasu ilin.'
+    },
+    lightbringer: {
+      name: 'Lumportanto',
+      desc: 'Lumo, kiu sanigas amikojn kaj blindigas malamikojn. Staru en ĝi, kaj nenio povas haltigi vin.'
+    },
+    beastcaller: {
+      name: 'Bestovokanto',
+      desc: 'Luparo, urso kaj akcipitro batalas apud vi. Alvoku ilin kaj komandu ilin.'
+    },
+    elementalist: {
+      name: 'Elementmagiisto',
+      desc: 'Fajro, frosto, fulmo kaj ŝtono. Miksu ilin, kaj ĉiu ekigas la sekvan.'
+    },
+    soulwarden: {
+      name: 'Animgardisto',
+      desc: 'Venkitaj malamikoj leviĝas kiel amikaj spiritoj, batalas apud vi, kaj poste iras hejmen por ripozi.'
+    },
+    ironmonk: {
+      name: 'Fera Monaĥo',
+      desc: 'Nudaj manoj, rapidaj piedoj. Ĉiu bato kolektas vivenergion; elspezu ĉion por unu potenca bato.'
+    },
+    bard: {
+      name: 'Bardo',
+      desc: 'Kantoj, kiuj kuraĝigas vian flankon, kaj melodioj, kiuj endormigas la alian aŭ turnas ĝin kontraŭ si mem.'
     }
   },
   skill: {
@@ -635,7 +667,199 @@ export default {
       name: 'Tektona Fendo',
       desc: 'Disŝiru la kampon: {dmg}% da Forto-damaĝo al ĉio proksima, kaj rubo, kiu malrapidigas dum {dur}s.'
     },
-    scales: 'Kreskas laŭ {attr}'
+    scales: 'Kreskas laŭ {attr}',
+    shieldThrow: {
+      name: 'Ŝildoĵeto',
+      desc: 'Via ŝildo resaltas de {bounces} malamikoj: {dmg}% da Forto-damaĝo al ĉiu. Ili faras {weak}% malpli da damaĝo dum {dur}s.'
+    },
+    shieldShove: {
+      name: 'Ŝildopuŝo',
+      desc: 'Puŝu ĉiujn antaŭ vi por {dmg}% da Forto-damaĝo. Ili flugas malantaŭen kaj ĉesas tion, kion ili faris.'
+    },
+    holyChains: {
+      name: 'Sanktaj Ĉenoj',
+      desc: 'Ĉenoj el lumo tiras ĉiun malamikon ene de {radius} m al vi: {dmg}% da Eltenemo-damaĝo kaj {slow}% da malrapidigo.'
+    },
+    bulwark: {
+      name: 'Remparo',
+      desc: '+{block}% da Blokoŝanco. Ĉiu bloko faras {back} da damaĝo reen al la atakanto.'
+    },
+    retribution: {
+      name: 'Venĝo',
+      desc: 'Dum {dur}s malamikoj ene de {radius} m devas ataki vin. Poste lumo faras {dmg}% da Forto +{back}% de la ricevitaj batoj.'
+    },
+    unbreakable: {
+      name: 'Nerompebla',
+      desc: 'Dum via sano estas sub {hp}%, vi ricevas {reduce}% malpli da damaĝo.'
+    },
+    starFan: {
+      name: 'Stela Ventumilo',
+      desc: 'Ĵetu {stars} ombrostelojn ventumile, ĉiu faras {dmg}% da Lerto-damaĝo.'
+    },
+    grapplingHook: {
+      name: 'Kroĉhoko',
+      desc: 'Tiru la celon al vi por {dmg}% da Lerto-damaĝo kaj malrapidigu ĝin je {slow}% dum {dur}s. Grandaj malamikoj tiras vin al si.'
+    },
+    silentStrike: {
+      name: 'Silenta Bato',
+      desc: 'Dorsopikoj faras +{backstab}% da damaĝo, kaj malamikoj rimarkas vin {notice}% pli malfrue.'
+    },
+    shadowMark: {
+      name: 'Ombromarko',
+      desc: 'La celo ricevas {vuln}% pli da damaĝo dum {dur}s, kaj via sekva trafo al iu ajn estas kritika je +{bonus}%.'
+    },
+    bladeRhythm: {
+      name: 'Klingoritmo',
+      desc: 'Kritikaj trafoj forprenas {cut}s de ĉiu reŝargo. +{speed}% da atakrapido.'
+    },
+    nightshadeMist: {
+      name: 'Beladona Nebulo',
+      desc: 'Venena nebulo dum {dur}s: ĝis {dmg}% da Lerto-damaĝo. Malamikoj kaptitaj en ĝi estas konfuzitaj dum {confuse}s.'
+    },
+    firecracker: {
+      name: 'Petardo',
+      desc: 'Gluu petardon al la celo. Post {delay}s ĝi krakas por {dmg}% da Inteligento-damaĝo kaj bruligas ĉion proksiman.'
+    },
+    fanTheFlames: {
+      name: 'Blovi la Flamojn',
+      desc: 'Ĉiu brulo ene de {radius} m ekflamas {pct}% pli forte kaj rekomenciĝas. Malamikoj ene de {push} m estas forblovitaj.'
+    },
+    ringOfFire: {
+      name: 'Fajra Ringo',
+      desc: 'Ringo de flamoj leviĝas dum {dur}s: ĝis {dmg}% da Inteligento-damaĝo. Malamikoj interne malrapidiĝas je {slow}%.'
+    },
+    everflame: {
+      name: 'Eterna Flamo',
+      desc: 'Viaj bruloj estas {burn}% pli fortaj, kaj viaj sorĉoj gajnas +{crit}% da Kritika Ŝanco.'
+    },
+    wildfire: {
+      name: 'Arbara Incendio',
+      desc: 'Kiam brulanta malamiko estas venkita, ĝiaj flamoj saltas al ĉiu malamiko ene de {radius} m dum {dur}s.'
+    },
+    phoenixFlight: {
+      name: 'Fenikso-Flugo',
+      desc: 'Flugu kiel fenikso kun fajra spuro: {dmg}% da Inteligento-damaĝo kie vi surteriĝas. Saniĝu {regen}% sekunde dum {dur}s.'
+    },
+    callArchers: {
+      name: 'Alvoki Pafarkistojn',
+      desc: 'Alvoku pafarkiston, kiu pafas de malantaŭ vi por {dmg}% da Karismo-damaĝo. Maksimume {max} samtempe.'
+    },
+    royalRally: {
+      name: 'Reĝa Kunvoko',
+      desc: 'Viaj servantoj rapidas al vi kaj saniĝas je {heal}% da sano. Vi ĉiuj gajnas +{def}% da Defendo dum {dur}s.'
+    },
+    warMarshal: {
+      name: 'Militmarŝalo',
+      desc: 'Viaj servantoj faras {dmg}% pli da damaĝo.'
+    },
+    royalDecree: {
+      name: 'Reĝa Dekreto',
+      desc: 'Malamikoj ene de {radius} m devas kliniĝi: stuporigitaj dum {stun}s, poste ili ricevas {vuln}% pli da damaĝo dum {dur}s.'
+    },
+    loyalHearts: {
+      name: 'Lojalaj Koroj',
+      desc: 'Kiam unu el viaj servantoj falas, vi saniĝas je {heal}% de via sano.'
+    },
+    summonChampion: {
+      name: 'Alvoki Ĉampionon',
+      desc: 'Alvoku la ĉampionon de la regno dum {dur}s: giganta kavaliro kun {hp}% de via sano, kiu frapas por {dmg}% da Karismo.'
+    },
+    echoBolt: {
+      name: 'Eĥa Sago',
+      desc: 'Tempa sago por {dmg}% da Inteligento-damaĝo. {delay}s poste ĝi trafas denove por {echo}%.'
+    },
+    foresight: {
+      name: 'Antaŭvido',
+      desc: 'Vi vidas batojn venantajn iom pli frue: +{dodge}% da Evito kaj {cdr}% pli mallongaj reŝargoj.'
+    },
+    timeBubble: {
+      name: 'Tempa Veziko',
+      desc: 'Veziko de malrapida tempo dum {dur}s: malamikoj interne moviĝas {slow}% pli malrapide kaj ricevas {dmg}% da Inteligento-damaĝo.'
+    },
+    timeLoop: {
+      name: 'Tempa Buklo',
+      desc: 'Post {dur}s la celo saltas reen al sia antaŭa loko: {dmg}% da Inteligento-damaĝo plus {echo}% de tio, kion ĝi perdis.'
+    },
+    frozenMoment: {
+      name: 'Frostigita Momento',
+      desc: 'Viaj atakoj havas {chance}% da ŝanco frostigi la malamikon en la tempo dum {dur}s.'
+    },
+    timeStop: {
+      name: 'Tempohalto',
+      desc: 'Haltigu la tempon ene de {radius} m dum {dur}s. Kiam ĝi rekomenciĝas, ĉiu malamiko ricevas {dmg}% da Inteligento-damaĝo.'
+    },
+    essenceWard: {
+      name: 'Esenca Ŝirmo',
+      desc: 'Ŝanĝu {hp}% de via sano en brilantan ŝirmon valoran je {shield}% de ĝi, dum {dur}s.'
+    },
+    vitalReserve: {
+      name: 'Viva Rezervo',
+      desc: '+{hp}% da Maksimuma Sano, kaj vi reakiras {regen} da sano ĉiun sekundon.'
+    },
+    enfeeblingTonic: {
+      name: 'Malfortiga Toniko',
+      desc: 'Ĵetu tonikon: {dmg}% da Inteligento-damaĝo en areo. Trafitaj malamikoj faras {weak}% malpli da damaĝo dum {dur}s.'
+    },
+    homunculus: {
+      name: 'Homunkulo',
+      desc: 'Faru bobelantan helpanton el {hp}% de via sano dum {dur}s. Fari novan redonas {back}% de ĝia vivo.'
+    },
+    adrenalCatalyst: {
+      name: 'Adrenalina Katalizilo',
+      desc: 'Ju malpli da sano vi havas, des pli da damaĝo vi faras: ĝis +{dmg}% je {low}% da sano aŭ malpli.'
+    },
+    grandTransmutation: {
+      name: 'Granda Transmutacio',
+      desc: 'Ŝanĝu {pct}% de la vivo de malamikoj ene de {radius} m en esencon. Vi saniĝas je {heal}% de ĝi.'
+    },
+    rocketJump: {
+      name: 'Raketsalto',
+      desc: 'Ekflugu kaj surteriĝu kien vi celas: {dmg}% da Majstreco-damaĝo ene de {radius} m. Kreas {heat} da varmo.'
+    },
+    coolantLoop: {
+      name: 'Malvarmiga Cirkvito',
+      desc: 'Varmo forfluas {cool}% pli rapide, kaj viaj kapabloj kreas {cut}% malpli da ĝi.'
+    },
+    shockGrenade: {
+      name: 'Ŝokgrenado',
+      desc: 'Ĵetu grenadon: {dmg}% da Majstreco-damaĝo kaj {stun}s da stuporo ene de {radius} m. Kreas {heat} da varmo.'
+    },
+    precisionOptics: {
+      name: 'Preciza Optiko',
+      desc: '+{crit}% da Kritika Ŝanco. Viaj pafoj trapasas {pierce} kroman malamikon.'
+    },
+    arcCoil: {
+      name: 'Arka Bobeno',
+      desc: 'Fulmo trafas la celon, poste saltas al {jumps} pliaj malamikoj: {dmg}% da Majstreco-damaĝo al ĉiu. Kreas {heat} da varmo.'
+    },
+    thermalPlating: {
+      name: 'Termika Tegaĵo',
+      desc: 'Dum via varmo estas {heat} aŭ pli, vi ricevas {reduce}% malpli da damaĝo.'
+    },
+    boulderRoll: {
+      name: 'Ruliĝanta Roko',
+      desc: 'Rulu rokegon antaŭen: {dmg}% da Forto-damaĝo al ĉio sur ĝia vojo, faligante ilin por {down}s.'
+    },
+    bedrock: {
+      name: 'Bazroko',
+      desc: 'Nenio povas puŝi vin malantaŭen, faligi vin aŭ ĵeti vin en la aeron. +{hp}% da Maksimuma Sano.'
+    },
+    sinkhole: {
+      name: 'Enfalejo',
+      desc: 'La grundo sinkas, tirante malamikojn enen dum {dur}s, poste enfalas: {dmg}% da Forto-damaĝo.'
+    },
+    mountainBreaker: {
+      name: 'Montorompanto',
+      desc: '+{boss}% da damaĝo kontraŭ ĉefmalamikoj kaj +{armor}% da Kiraso.'
+    },
+    geodeShell: {
+      name: 'Geoda Ŝelo',
+      desc: 'Kristala ŝelo sorbas damaĝon egalan al {shield}% de via sano dum {dur}s, poste krevas por ĝis {dmg}% da Forto-damaĝo.'
+    },
+    crumble: {
+      name: 'Disfalo',
+      desc: 'Vi faras {dmg}% pli da damaĝo al malamikoj malrapidigitaj, faligitaj aŭ ŝtonigitaj.'
+    }
   },
   slot: {
     main: 'Ĉefa mano',

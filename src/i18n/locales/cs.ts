@@ -434,6 +434,38 @@ export default {
     geo: {
       name: 'Geomant',
       desc: 'Zvedá zdi a hroty a láme samotnou zem.'
+    },
+    windrunner: {
+      name: 'Větroběžec',
+      desc: 'Luk a vítr v zádech. Střílej, dělej výpady a nikdy nestůj na místě.'
+    },
+    frostwarden: {
+      name: 'Strážce mrazu',
+      desc: 'Ledová čepel a chladné srdce. Zpomal je, zmraz je a pak je roztříštěj.'
+    },
+    lightbringer: {
+      name: 'Nositel světla',
+      desc: 'Světlo, které léčí přátele a oslepuje nepřátele. Stůj v něm a nic tě nezastaví.'
+    },
+    beastcaller: {
+      name: 'Vyvolávač šelem',
+      desc: 'Vlčí smečka, medvěd a jestřáb bojují po tvém boku. Přivolej je a vel jim.'
+    },
+    elementalist: {
+      name: 'Elementalista',
+      desc: 'Oheň, mráz, blesk a kámen. Kombinuj je a každý spustí ten další.'
+    },
+    soulwarden: {
+      name: 'Strážce duší',
+      desc: 'Poražení nepřátelé povstanou jako přátelští duchové, bojují po tvém boku a pak jdou domů odpočívat.'
+    },
+    ironmonk: {
+      name: 'Železný mnich',
+      desc: 'Holé ruce, rychlé nohy. Každý úder sbírá čchi; utrať ji celou na jednu mocnou ránu.'
+    },
+    bard: {
+      name: 'Bard',
+      desc: 'Písně, které povzbudí tvou stranu, a melodie, které soupeře uspí nebo ho obrátí proti sobě.'
     }
   },
   skill: {
@@ -638,7 +670,199 @@ export default {
       name: 'Tektonický zlom',
       desc: 'Roztrhni bojiště: {dmg}% poškození ze Síly všemu poblíž a suť, která zpomaluje {dur}s.'
     },
-    scales: 'Roste s: {attr}'
+    scales: 'Roste s: {attr}',
+    shieldThrow: {
+      name: 'Hod štítem',
+      desc: 'Tvůj štít se odrazí od nepřátel ({bounces}): každému {dmg}% poškození ze Síly. Na {dur}s pak způsobují o {weak}% méně.'
+    },
+    shieldShove: {
+      name: 'Náraz štítem',
+      desc: 'Odstrč všechny před sebou za {dmg}% poškození ze Síly. Odletí dozadu a přeruší, co dělali.'
+    },
+    holyChains: {
+      name: 'Svaté řetězy',
+      desc: 'Řetězy světla k tobě přitáhnou všechny nepřátele do {radius} m: {dmg}% poškození z Výdrže a {slow}% zpomalení.'
+    },
+    bulwark: {
+      name: 'Bašta',
+      desc: '+{block}% šance na blok. Každý blok vrátí útočníkovi {back} poškození.'
+    },
+    retribution: {
+      name: 'Odplata',
+      desc: 'Na {dur}s musí nepřátelé do {radius} m útočit na tebe. Pak světlo způsobí {dmg}% ze Síly +{back}% schytaných ran.'
+    },
+    unbreakable: {
+      name: 'Nezlomnost',
+      desc: 'Když máš méně než {hp}% zdraví, utržíš o {reduce}% menší poškození.'
+    },
+    starFan: {
+      name: 'Vějíř hvězd',
+      desc: 'Hoď vějíř stínových hvězdic ({stars}), každá za {dmg}% poškození z Obratnosti.'
+    },
+    grapplingHook: {
+      name: 'Hák s lanem',
+      desc: 'Přitáhni cíl k sobě za {dmg}% poškození z Obratnosti a zpomal ho o {slow}% na {dur}s. Velcí nepřátelé přitáhnou tebe.'
+    },
+    silentStrike: {
+      name: 'Tichý úder',
+      desc: 'Bodnutí do zad způsobí +{backstab}% poškození a nepřátelé si tě všimnou o {notice}% později.'
+    },
+    shadowMark: {
+      name: 'Stínové znamení',
+      desc: 'Cíl utrží na {dur}s o {vuln}% větší poškození a tvůj další zásah kohokoli bude kritický s +{bonus}%.'
+    },
+    bladeRhythm: {
+      name: 'Rytmus čepelí',
+      desc: 'Kritické zásahy zkrátí každé dobíjení o {cut}s. +{speed}% rychlosti útoku.'
+    },
+    nightshadeMist: {
+      name: 'Rulíková mlha',
+      desc: 'Jedovatá mlha na {dur}s: až {dmg}% poškození z Obratnosti. Chycení nepřátelé jsou na {confuse}s zmatení.'
+    },
+    firecracker: {
+      name: 'Petarda',
+      desc: 'Přilep na cíl petardu. Za {delay}s bouchne za {dmg}% poškození z Inteligence a zapálí všechny poblíž.'
+    },
+    fanTheFlames: {
+      name: 'Rozdmýchání',
+      desc: 'Každé hoření do {radius} m vzplane o {pct}% silněji a začne znovu. Nepřátelé do {push} m jsou odfouknuti.'
+    },
+    ringOfFire: {
+      name: 'Ohnivý kruh',
+      desc: 'Na {dur}s vyšlehne kruh plamenů: až {dmg}% poškození z Inteligence. Nepřátelé uvnitř jsou zpomaleni o {slow}%.'
+    },
+    everflame: {
+      name: 'Věčný plamen',
+      desc: 'Tvá hoření jsou o {burn}% silnější a kouzla získají +{crit}% šance na kritický zásah.'
+    },
+    wildfire: {
+      name: 'Požár',
+      desc: 'Když je hořící nepřítel poražen, jeho plameny přeskočí na všechny nepřátele do {radius} m na {dur}s.'
+    },
+    phoenixFlight: {
+      name: 'Let fénixe',
+      desc: 'Leť jako fénix a nech za sebou oheň: {dmg}% poškození z Inteligence, kde přistaneš. Po {dur}s se léčíš o {regen}% za sekundu.'
+    },
+    callArchers: {
+      name: 'Povolání lučištníků',
+      desc: 'Povolej lučištníka, který střílí zpoza tebe za {dmg}% poškození z Charismatu. Nejvýše {max} naráz.'
+    },
+    royalRally: {
+      name: 'Královský sraz',
+      desc: 'Tvoji přisluhovači přispěchají k tobě a vyléčí si {heal}% zdraví. Všichni získáte +{def}% Obrany na {dur}s.'
+    },
+    warMarshal: {
+      name: 'Válečný maršál',
+      desc: 'Tvoji přisluhovači způsobují o {dmg}% větší poškození.'
+    },
+    royalDecree: {
+      name: 'Královský výnos',
+      desc: 'Nepřátelé do {radius} m se musí poklonit: omráčení na {stun}s a pak na {dur}s utrží o {vuln}% větší poškození.'
+    },
+    loyalHearts: {
+      name: 'Věrná srdce',
+      desc: 'Když padne některý z tvých přisluhovačů, vyléčíš si {heal}% zdraví.'
+    },
+    summonChampion: {
+      name: 'Povolání šampiona',
+      desc: 'Povolej šampiona říše na {dur}s: obřího rytíře s {hp}% tvého zdraví, který útočí za {dmg}% z Charismatu.'
+    },
+    echoBolt: {
+      name: 'Ozvěnová střela',
+      desc: 'Střela času za {dmg}% poškození z Inteligence. Po {delay}s zasáhne znovu za {echo}%.'
+    },
+    foresight: {
+      name: 'Předvídavost',
+      desc: 'Vidíš rány přicházet o chvilku dřív: +{dodge}% Úhybu a o {cdr}% kratší dobíjení.'
+    },
+    timeBubble: {
+      name: 'Časová bublina',
+      desc: 'Bublina zpomaleného času na {dur}s: nepřátelé uvnitř se hýbou o {slow}% pomaleji a utrží {dmg}% poškození z Inteligence.'
+    },
+    timeLoop: {
+      name: 'Časová smyčka',
+      desc: 'Po {dur}s cíl skočí zpět, kde byl: {dmg}% poškození z Inteligence a navíc {echo}% toho, co ztratil.'
+    },
+    frozenMoment: {
+      name: 'Zamrzlý okamžik',
+      desc: 'Tvé útoky mají {chance}% šanci zmrazit nepřítele v čase na {dur}s.'
+    },
+    timeStop: {
+      name: 'Zastavení času',
+      desc: 'Zastav čas do {radius} m na {dur}s. Až se znovu rozběhne, každý nepřítel utrží {dmg}% poškození z Inteligence.'
+    },
+    essenceWard: {
+      name: 'Esenční štít',
+      desc: 'Přeměň {hp}% svého zdraví v zářící štít v hodnotě {shield}% z toho na {dur}s.'
+    },
+    vitalReserve: {
+      name: 'Životní rezerva',
+      desc: '+{hp}% max. zdraví a každou sekundu si obnovíš {regen} zdraví.'
+    },
+    enfeeblingTonic: {
+      name: 'Oslabující tonikum',
+      desc: 'Hoď tonikum: {dmg}% poškození z Inteligence v oblasti. Zasažení nepřátelé způsobují na {dur}s o {weak}% menší poškození.'
+    },
+    homunculus: {
+      name: 'Homunkulus',
+      desc: 'Uvař si bublavého pomocníka z {hp}% zdraví na {dur}s. Uvaření nového ti vrátí {back}% jeho života.'
+    },
+    adrenalCatalyst: {
+      name: 'Adrenalinový katalyzátor',
+      desc: 'Čím méně máš zdraví, tím víc poškození způsobíš: až +{dmg}% při {low}% zdraví nebo méně.'
+    },
+    grandTransmutation: {
+      name: 'Velká transmutace',
+      desc: 'Přeměň {pct}% života nepřátel do {radius} m v esenci. Vyléčíš se o {heal}% z ní.'
+    },
+    rocketJump: {
+      name: 'Raketový skok',
+      desc: 'Vzlétni a přistaň, kam míříš: {dmg}% poškození ze Zručnosti do {radius} m. Přidá {heat} žáru.'
+    },
+    coolantLoop: {
+      name: 'Chladicí okruh',
+      desc: 'Žár klesá o {cool}% rychleji a tvé dovednosti ho přidávají o {cut}% méně.'
+    },
+    shockGrenade: {
+      name: 'Šokový granát',
+      desc: 'Hoď granát: {dmg}% poškození ze Zručnosti a omráčení na {stun}s do {radius} m. Přidá {heat} žáru.'
+    },
+    precisionOptics: {
+      name: 'Přesná optika',
+      desc: '+{crit}% šance na kritický zásah. Tvé výstřely proletí dalšími nepřáteli: {pierce}.'
+    },
+    arcCoil: {
+      name: 'Oblouková cívka',
+      desc: 'Blesk zasáhne cíl a přeskočí na další nepřátele ({jumps}): každému {dmg}% poškození ze Zručnosti. Přidá {heat} žáru.'
+    },
+    thermalPlating: {
+      name: 'Tepelný pancíř',
+      desc: 'Když máš {heat} a více žáru, utržíš o {reduce}% menší poškození.'
+    },
+    boulderRoll: {
+      name: 'Valící se balvan',
+      desc: 'Vyval balvan dopředu: {dmg}% poškození ze Síly všem v cestě a sražení na {down}s.'
+    },
+    bedrock: {
+      name: 'Skalní podloží',
+      desc: 'Nic tě nemůže odhodit, srazit ani vyhodit do vzduchu. +{hp}% max. zdraví.'
+    },
+    sinkhole: {
+      name: 'Propadlina',
+      desc: 'Země se propadá a {dur}s vtahuje nepřátele, pak se zřítí: {dmg}% poškození ze Síly.'
+    },
+    mountainBreaker: {
+      name: 'Drtič hor',
+      desc: '+{boss}% poškození bossům a +{armor}% Brnění.'
+    },
+    geodeShell: {
+      name: 'Geodová skořápka',
+      desc: 'Krystalová skořápka pohltí {shield}% tvého zdraví na {dur}s a pak praskne za až {dmg}% poškození ze Síly.'
+    },
+    crumble: {
+      name: 'Rozdrcení',
+      desc: 'Způsobíš o {dmg}% větší poškození nepřátelům, kteří jsou zpomalení, sražení nebo zkamenělí.'
+    }
   },
   slot: {
     main: 'Hlavní ruka',

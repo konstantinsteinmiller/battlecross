@@ -431,6 +431,38 @@ export default {
     geo: {
       name: 'Geomanta',
       desc: 'Falakat és tüskéket emel, és magát a földet töri meg.'
+    },
+    windrunner: {
+      name: 'Szélfutó',
+      desc: 'Íj és hátszél. Lőj, suhanj, és sose állj meg.'
+    },
+    frostwarden: {
+      name: 'Fagyőr',
+      desc: 'Jégpenge és hideg szív. Lassítsd, fagyaszd meg, aztán zúzd szét őket.'
+    },
+    lightbringer: {
+      name: 'Fényhozó',
+      desc: 'Fény, amely gyógyítja a barátokat és elvakítja az ellenséget. Állj bele, és semmi sem állíthat meg.'
+    },
+    beastcaller: {
+      name: 'Vadhívó',
+      desc: 'Farkasfalka, medve és sólyom harcol melletted. Hívd és vezényeld őket.'
+    },
+    elementalist: {
+      name: 'Elementalista',
+      desc: 'Tűz, fagy, villám és kő. Keverd őket, és mindegyik beindítja a következőt.'
+    },
+    soulwarden: {
+      name: 'Lélekőr',
+      desc: 'A legyőzött ellenségek barátságos szellemként kelnek fel, melletted harcolnak, aztán hazatérnek pihenni.'
+    },
+    ironmonk: {
+      name: 'Vasszerzetes',
+      desc: 'Puszta kéz, fürge láb. Minden ütés csit gyűjt; költsd el mind egyetlen hatalmas csapásra.'
+    },
+    bard: {
+      name: 'Dalnok',
+      desc: 'Dalok, amelyek a te oldaladat emelik, és dallamok, amelyek a másikat elaltatják vagy önmaga ellen fordítják.'
     }
   },
   skill: {
@@ -635,7 +667,199 @@ export default {
       name: 'Tektonikus hasadás',
       desc: 'Felszakítod a csatateret: {dmg}% Erő alapú sebzés mindennek a közelben, és törmelék, amely {dur}s-ig lassít.'
     },
-    scales: 'Erősíti: {attr}'
+    scales: 'Erősíti: {attr}',
+    shieldThrow: {
+      name: 'Pajzsdobás',
+      desc: 'A pajzsod {bounces} ellenségről pattan tovább: mindegyiknek {dmg}% Erő alapú sebzés. {dur}s-ig {weak}%-kal kevesebbet sebeznek.'
+    },
+    shieldShove: {
+      name: 'Pajzslökés',
+      desc: 'Meglököd az előtted állókat: {dmg}% Erő alapú sebzés. Hátrarepülnek, és abbahagyják, amit csináltak.'
+    },
+    holyChains: {
+      name: 'Szent láncok',
+      desc: 'Fényláncok húznak magadhoz minden ellenséget {radius} m-en belül: {dmg}% Állóképesség alapú sebzés és {slow}% lassítás.'
+    },
+    bulwark: {
+      name: 'Védőbástya',
+      desc: '+{block}% Hárítási esély. Minden hárítás {back} sebzést ad vissza a támadónak.'
+    },
+    retribution: {
+      name: 'Megtorlás',
+      desc: '{dur}s-ig a {radius} m-en belüli ellenségeknek téged kell támadniuk. Utána a fény {dmg}% Erő +{back}% elszenvedett sebzést okoz.'
+    },
+    unbreakable: {
+      name: 'Megtörhetetlen',
+      desc: 'Amíg {hp}% életerő alatt vagy, {reduce}%-kal kevesebb sebzést kapsz.'
+    },
+    starFan: {
+      name: 'Csillaglegyező',
+      desc: 'Legyezőben eldobsz {stars} árnycsillagot, mindegyik {dmg}% Ügyesség alapú sebzést okoz.'
+    },
+    grapplingHook: {
+      name: 'Csáklya',
+      desc: 'Magadhoz rántod a célpontot: {dmg}% Ügyesség alapú sebzés és {slow}% lassítás {dur}s-ig. A nagy ellenségek téged húznak oda.'
+    },
+    silentStrike: {
+      name: 'Néma csapás',
+      desc: 'A hátba szúrások +{backstab}% sebzést okoznak, és az ellenségek {notice}%-kal később vesznek észre.'
+    },
+    shadowMark: {
+      name: 'Árnyjel',
+      desc: 'A célpont {dur}s-ig {vuln}%-kal több sebzést kap, és a következő találatod bárkin kritikus lesz +{bonus}%-kal.'
+    },
+    bladeRhythm: {
+      name: 'Pengeritmus',
+      desc: 'A kritikus találatok {cut}s-mal csökkentenek minden újratöltést. +{speed}% támadási sebesség.'
+    },
+    nightshadeMist: {
+      name: 'Nadragulyaköd',
+      desc: 'Mérgező köd {dur}s-ig: legfeljebb {dmg}% Ügyesség alapú sebzés. A benne rekedt ellenségek {confuse}s-ig zavartak.'
+    },
+    firecracker: {
+      name: 'Petárda',
+      desc: 'Petárdát ragasztasz a célpontra. {delay}s múlva {dmg}% Intelligencia alapú sebzéssel durran, és mindenkit felgyújt a közelben.'
+    },
+    fanTheFlames: {
+      name: 'Lángszítás',
+      desc: 'Minden égés {radius} m-en belül {pct}%-kal erősebben lobban fel, és újraindul. A {push} m-en belüli ellenségek hátrarepülnek.'
+    },
+    ringOfFire: {
+      name: 'Tűzgyűrű',
+      desc: 'Lánggyűrű emelkedik {dur}s-ig: legfeljebb {dmg}% Intelligencia alapú sebzés. A bent lévő ellenségek {slow}%-kal lassulnak.'
+    },
+    everflame: {
+      name: 'Örökláng',
+      desc: 'Az égetéseid {burn}%-kal erősebbek, a varázslataid pedig +{crit}% kritikus esélyt kapnak.'
+    },
+    wildfire: {
+      name: 'Futótűz',
+      desc: 'Ha egy égő ellenség elesik, a lángjai {dur}s-ra átugranak minden {radius} m-en belüli ellenségre.'
+    },
+    phoenixFlight: {
+      name: 'Főnixröpte',
+      desc: 'Főnixként repülsz, tűzcsíkot húzva: {dmg}% Intelligencia alapú sebzés ott, ahol landolsz. {dur}s-ig másodpercenként {regen}%-ot gyógyulsz.'
+    },
+    callArchers: {
+      name: 'Íjászhívás',
+      desc: 'Megidézel egy íjászt, aki mögüled lő {dmg}% Karizma alapú sebzéssel. Egyszerre legfeljebb {max}.'
+    },
+    royalRally: {
+      name: 'Királyi gyülekező',
+      desc: 'A csatlósaid melléd sietnek, és {heal}% életerőt gyógyulnak. Mind +{def}% Védelmet kaptok {dur}s-ig.'
+    },
+    warMarshal: {
+      name: 'Hadvezér',
+      desc: 'A csatlósaid {dmg}%-kal több sebzést okoznak.'
+    },
+    royalDecree: {
+      name: 'Királyi rendelet',
+      desc: 'A {radius} m-en belüli ellenségeknek meg kell hajolniuk: {stun}s-ig kábultak, aztán {dur}s-ig {vuln}%-kal több sebzést kapnak.'
+    },
+    loyalHearts: {
+      name: 'Hű szívek',
+      desc: 'Ha elesik egy csatlósod, életerőd {heal}%-ával gyógyulsz.'
+    },
+    summonChampion: {
+      name: 'Bajnokidézés',
+      desc: 'Megidézed a birodalom bajnokát {dur}s-ra: óriás lovag az életerőd {hp}%-ával, aki {dmg}% Karizma alapú sebzéssel üt.'
+    },
+    echoBolt: {
+      name: 'Visszhanglövedék',
+      desc: 'Időlövedék {dmg}% Intelligencia alapú sebzéssel. {delay}s múlva újra talál {echo}%-kal.'
+    },
+    foresight: {
+      name: 'Előrelátás',
+      desc: 'Egy pillanattal előbb látod a csapásokat: +{dodge}% Kitérés és {cdr}%-kal rövidebb újratöltések.'
+    },
+    timeBubble: {
+      name: 'Időbuborék',
+      desc: 'Lassú idő buboréka {dur}s-ig: a bent lévő ellenségek {slow}%-kal lassabban mozognak, és {dmg}% Intelligencia alapú sebzést kapnak.'
+    },
+    timeLoop: {
+      name: 'Időhurok',
+      desc: '{dur}s után a célpont visszaugrik oda, ahol volt: {dmg}% Intelligencia alapú sebzés, plusz az elvesztett életereje {echo}%-a.'
+    },
+    frozenMoment: {
+      name: 'Fagyott pillanat',
+      desc: 'A támadásaid {chance}% eséllyel {dur}s-ra megfagyasztják az ellenséget az időben.'
+    },
+    timeStop: {
+      name: 'Időmegállítás',
+      desc: 'Megállítod az időt {radius} m-en belül {dur}s-ra. Amikor újraindul, minden ellenség {dmg}% Intelligencia alapú sebzést kap.'
+    },
+    essenceWard: {
+      name: 'Esszenciapajzs',
+      desc: 'Életerőd {hp}%-át ragyogó pajzzsá alakítod, amely annak {shield}%-át éri, {dur}s-ig.'
+    },
+    vitalReserve: {
+      name: 'Életerő-tartalék',
+      desc: '+{hp}% max. életerő, és másodpercenként {regen} életerőt nyersz vissza.'
+    },
+    enfeeblingTonic: {
+      name: 'Gyengítő tonik',
+      desc: 'Eldobsz egy tonikot: {dmg}% Intelligencia alapú területi sebzés. Az eltalált ellenségek {dur}s-ig {weak}%-kal kevesebbet sebeznek.'
+    },
+    homunculus: {
+      name: 'Homunkulusz',
+      desc: 'Bugyborékoló segítőt főzöl életerőd {hp}%-ából {dur}s-ra. Ha újat főzöl, a régi életének {back}%-a visszajár.'
+    },
+    adrenalCatalyst: {
+      name: 'Adrenalinkatalizátor',
+      desc: 'Minél kevesebb az életerőd, annál többet sebzel: legfeljebb +{dmg}%, ha {low}% vagy kevesebb az életerőd.'
+    },
+    grandTransmutation: {
+      name: 'Nagy transzmutáció',
+      desc: 'A {radius} m-en belüli ellenségek életének {pct}%-át esszenciává alakítod. Ennek {heal}%-ával gyógyulsz.'
+    },
+    rocketJump: {
+      name: 'Rakétaugrás',
+      desc: 'Kilövöd magad, és oda érkezel, ahová célzol: {dmg}% Jártasság alapú sebzés {radius} m-en belül. {heat} hőt termel.'
+    },
+    coolantLoop: {
+      name: 'Hűtőkör',
+      desc: 'A hő {cool}%-kal gyorsabban csökken, a képességeid pedig {cut}%-kal kevesebbet termelnek belőle.'
+    },
+    shockGrenade: {
+      name: 'Sokkgránát',
+      desc: 'Gránátot dobsz: {dmg}% Jártasság alapú sebzés és {stun}s kábítás {radius} m-en belül. {heat} hőt termel.'
+    },
+    precisionOptics: {
+      name: 'Precíziós optika',
+      desc: '+{crit}% kritikus esély. A lövéseid {pierce} további ellenségen hatolnak át.'
+    },
+    arcCoil: {
+      name: 'Ívtekercs',
+      desc: 'Villám csap a célpontba, aztán még {jumps} ellenségre ugrik: mindegyiknek {dmg}% Jártasság alapú sebzés. {heat} hőt termel.'
+    },
+    thermalPlating: {
+      name: 'Hővédő páncél',
+      desc: 'Amíg a hőd legalább {heat}, {reduce}%-kal kevesebb sebzést kapsz.'
+    },
+    boulderRoll: {
+      name: 'Sziklagörgetés',
+      desc: 'Előregörgetsz egy sziklát: {dmg}% Erő alapú sebzés mindenkinek az útjában, és {down}s-ra leteríti őket.'
+    },
+    bedrock: {
+      name: 'Alapkőzet',
+      desc: 'Semmi sem lökhet hátra, teríthet le vagy dobhat a levegőbe. +{hp}% max. életerő.'
+    },
+    sinkhole: {
+      name: 'Víznyelő',
+      desc: 'A föld megsüllyed, {dur}s-ig behúzza az ellenségeket, aztán beomlik: {dmg}% Erő alapú sebzés.'
+    },
+    mountainBreaker: {
+      name: 'Hegytörő',
+      desc: '+{boss}% sebzés a főellenségekre és +{armor}% Páncél.'
+    },
+    geodeShell: {
+      name: 'Geodahéj',
+      desc: 'Kristályhéj nyeli el életerőd {shield}%-át {dur}s-ig, aztán szétrobban legfeljebb {dmg}% Erő alapú sebzéssel.'
+    },
+    crumble: {
+      name: 'Morzsolás',
+      desc: '{dmg}%-kal több sebzést okozol a lelassított, leterített vagy kővé vált ellenségeknek.'
+    }
   },
   slot: {
     main: 'Fő kéz',

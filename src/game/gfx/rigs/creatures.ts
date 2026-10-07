@@ -435,13 +435,19 @@ export const buildGolem = (variant: GolemVariant): Rig => {
 
 // ─── Elementals and other floating things ────────────────────────────────────
 
-type ElementalVariant = 'fire' | 'emberLord' | 'void'
+type ElementalVariant = 'fire' | 'emberLord' | 'void' | 'essence'
+
+/** Each variant's glow, body, depth and heart. The Blood Alchemist's homunculus
+ *  (#95) is a bubbly drop of life essence: pink and crimson, a warm glow. */
+const ELEMENTAL_TONES: Record<ElementalVariant, [string, string, string, string]> = {
+  fire: ['#ffd27a', '#ff7a1a', '#d83a10', '#3a1a14'],
+  emberLord: ['#ffd27a', '#ff7a1a', '#d83a10', '#3a1a14'],
+  void: ['#d8a8ff', '#8a4ae0', '#4a1a9a', '#1c0c38'],
+  essence: ['#ffc8d8', '#ff4a6a', '#a81838', '#4a0c1c']
+}
 
 export const buildElemental = (variant: ElementalVariant): Rig => {
-  const hot = variant === 'void' ? '#d8a8ff' : '#ffd27a'
-  const mid = variant === 'void' ? '#8a4ae0' : '#ff7a1a'
-  const deep = variant === 'void' ? '#4a1a9a' : '#d83a10'
-  const coal = variant === 'void' ? '#1c0c38' : '#3a1a14'
+  const [hot, mid, deep, coal] = ELEMENTAL_TONES[variant]
   const b = new RigBuilder()
   b.bone('root', null, [0, 0, 0])
   b.bone('hips', 'root', [0, 0.5, 0])
@@ -894,6 +900,7 @@ export const CREATURE_BUILDS: Record<string, () => Rig> = {
   fire: () => buildElemental('fire'),
   emberLord: () => buildElemental('emberLord'),
   void: () => buildElemental('void'),
+  essence: () => buildElemental('essence'),
   naga: () => buildNaga('naga'),
   oracle: () => buildNaga('oracle'),
   serpent: () => buildNaga('serpent'),

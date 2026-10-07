@@ -431,6 +431,38 @@ export default {
     geo: {
       name: 'Địa Pháp Sư',
       desc: 'Dựng tường và gai đá, và xé toạc cả mặt đất.'
+    },
+    windrunner: {
+      name: 'Phong Hành Giả',
+      desc: 'Một cây cung và làn gió sau lưng. Bắn, lướt, và không bao giờ đứng yên.'
+    },
+    frostwarden: {
+      name: 'Băng Hộ Vệ',
+      desc: 'Lưỡi kiếm băng và trái tim lạnh giá. Làm chậm, đóng băng, rồi đập vỡ chúng.'
+    },
+    lightbringer: {
+      name: 'Sứ Giả Ánh Sáng',
+      desc: 'Ánh sáng chữa lành bạn bè và làm lóa mắt kẻ thù. Đứng trong đó, không gì cản được bạn.'
+    },
+    beastcaller: {
+      name: 'Triệu Thú Sư',
+      desc: 'Bầy sói, gấu và chim ưng chiến đấu bên bạn. Gọi chúng, chỉ huy chúng.'
+    },
+    elementalist: {
+      name: 'Nguyên Tố Sư',
+      desc: 'Lửa, băng, sét và đá. Kết hợp chúng, mỗi thứ sẽ kích hoạt thứ tiếp theo.'
+    },
+    soulwarden: {
+      name: 'Hộ Hồn Sư',
+      desc: 'Kẻ địch bị hạ gục trỗi dậy thành linh hồn thân thiện, chiến đấu bên bạn rồi về nhà nghỉ ngơi.'
+    },
+    ironmonk: {
+      name: 'Thiết Võ Tăng',
+      desc: 'Tay không, chân nhanh. Mỗi đòn tích tụ khí; dồn hết vào một cú đánh thật mạnh.'
+    },
+    bard: {
+      name: 'Người Hát Rong',
+      desc: 'Bài hát nâng sức phe mình, và giai điệu ru phe kia ngủ hoặc khiến chúng đánh lẫn nhau.'
     }
   },
   skill: {
@@ -635,7 +667,199 @@ export default {
       name: 'Đứt Gãy Kiến Tạo',
       desc: 'Xé toạc chiến trường: {dmg}% sát thương Sức mạnh lên mọi thứ ở gần, và đá vụn làm chậm trong {dur} giây.'
     },
-    scales: 'Tăng theo {attr}'
+    scales: 'Tăng theo {attr}',
+    shieldThrow: {
+      name: 'Ném Khiên',
+      desc: 'Khiên của bạn nảy qua {bounces} kẻ địch: mỗi kẻ nhận {dmg}% sát thương Sức mạnh. Chúng gây ít hơn {weak}% sát thương trong {dur} giây.'
+    },
+    shieldShove: {
+      name: 'Đẩy Khiên',
+      desc: 'Đẩy mọi thứ phía trước, gây {dmg}% sát thương Sức mạnh. Chúng bay ngược ra sau và bị ngắt hành động.'
+    },
+    holyChains: {
+      name: 'Xích Thánh',
+      desc: 'Xích ánh sáng kéo mọi kẻ địch trong {radius} m về phía bạn: {dmg}% sát thương Sức bền và làm chậm {slow}%.'
+    },
+    bulwark: {
+      name: 'Tường Thành',
+      desc: '+{block}% Tỉ lệ Đỡ đòn. Mỗi lần đỡ gây {back} sát thương ngược lại kẻ tấn công.'
+    },
+    retribution: {
+      name: 'Trừng Phạt',
+      desc: 'Trong {dur} giây, kẻ địch trong {radius} m phải tấn công bạn. Sau đó ánh sáng gây {dmg}% Sức mạnh +{back}% sát thương bạn đã nhận.'
+    },
+    unbreakable: {
+      name: 'Bất Khuất',
+      desc: 'Khi máu dưới {hp}%, bạn nhận ít hơn {reduce}% sát thương.'
+    },
+    starFan: {
+      name: 'Quạt Phi Tiêu',
+      desc: 'Ném {stars} phi tiêu bóng tối thành hình quạt, mỗi cái gây {dmg}% sát thương Khéo léo.'
+    },
+    grapplingHook: {
+      name: 'Móc Câu',
+      desc: 'Kéo mục tiêu về phía bạn, gây {dmg}% sát thương Khéo léo và làm chậm {slow}% trong {dur} giây. Kẻ địch to lớn sẽ kéo bạn tới.'
+    },
+    silentStrike: {
+      name: 'Đòn Lặng Lẽ',
+      desc: 'Đâm lén gây thêm +{backstab}% sát thương, và kẻ địch phát hiện bạn chậm hơn {notice}%.'
+    },
+    shadowMark: {
+      name: 'Dấu Ấn Bóng Tối',
+      desc: 'Mục tiêu nhận thêm {vuln}% sát thương trong {dur} giây, và đòn kế tiếp của bạn lên bất kỳ ai sẽ chí mạng thêm +{bonus}%.'
+    },
+    bladeRhythm: {
+      name: 'Nhịp Lưỡi Dao',
+      desc: 'Đòn chí mạng giảm {cut} giây mọi hồi chiêu. +{speed}% tốc độ đánh.'
+    },
+    nightshadeMist: {
+      name: 'Sương Cà Độc',
+      desc: 'Màn sương độc trong {dur} giây: tối đa {dmg}% sát thương Khéo léo. Kẻ địch mắc kẹt bên trong bị rối loạn {confuse} giây.'
+    },
+    firecracker: {
+      name: 'Pháo Nổ',
+      desc: 'Dán một quả pháo lên mục tiêu. Sau {delay} giây nó nổ, gây {dmg}% sát thương Trí tuệ và thiêu đốt mọi thứ xung quanh.'
+    },
+    fanTheFlames: {
+      name: 'Thổi Bùng Lửa',
+      desc: 'Mọi hiệu ứng thiêu đốt trong {radius} m bùng mạnh thêm {pct}% và bắt đầu lại. Kẻ địch trong {push} m bị thổi bay.'
+    },
+    ringOfFire: {
+      name: 'Vòng Lửa',
+      desc: 'Một vòng lửa bốc lên trong {dur} giây: tối đa {dmg}% sát thương Trí tuệ. Kẻ địch bên trong bị làm chậm {slow}%.'
+    },
+    everflame: {
+      name: 'Lửa Vĩnh Cửu',
+      desc: 'Thiêu đốt của bạn mạnh hơn {burn}%, và phép của bạn được +{crit}% Tỉ lệ Chí mạng.'
+    },
+    wildfire: {
+      name: 'Cháy Lan',
+      desc: 'Khi một kẻ địch đang bị thiêu đốt bị hạ, lửa của nó lan sang mọi kẻ địch trong {radius} m trong {dur} giây.'
+    },
+    phoenixFlight: {
+      name: 'Phượng Hoàng Bay',
+      desc: 'Bay như phượng hoàng, để lại vệt lửa: {dmg}% sát thương Trí tuệ nơi bạn đáp. Hồi {regen}% máu mỗi giây trong {dur} giây.'
+    },
+    callArchers: {
+      name: 'Gọi Cung Thủ',
+      desc: 'Triệu hồi một cung thủ bắn từ phía sau bạn, gây {dmg}% sát thương Mị lực. Tối đa {max} cùng lúc.'
+    },
+    royalRally: {
+      name: 'Hoàng Gia Tập Hợp',
+      desc: 'Thuộc hạ lao tới bên bạn và hồi {heal}% máu. Tất cả được +{def}% Phòng thủ trong {dur} giây.'
+    },
+    warMarshal: {
+      name: 'Thống Soái',
+      desc: 'Thuộc hạ của bạn gây thêm {dmg}% sát thương.'
+    },
+    royalDecree: {
+      name: 'Chiếu Chỉ Hoàng Gia',
+      desc: 'Kẻ địch trong {radius} m phải cúi đầu: bị choáng {stun} giây, rồi nhận thêm {vuln}% sát thương trong {dur} giây.'
+    },
+    loyalHearts: {
+      name: 'Trái Tim Trung Thành',
+      desc: 'Khi một thuộc hạ của bạn gục ngã, bạn hồi {heal}% máu.'
+    },
+    summonChampion: {
+      name: 'Triệu Hồi Dũng Sĩ',
+      desc: 'Gọi dũng sĩ của vương quốc trong {dur} giây: một hiệp sĩ khổng lồ có {hp}% máu của bạn, đánh gây {dmg}% Mị lực.'
+    },
+    echoBolt: {
+      name: 'Tia Vọng',
+      desc: 'Một tia thời gian gây {dmg}% sát thương Trí tuệ. {delay} giây sau nó đánh lại với {echo}%.'
+    },
+    foresight: {
+      name: 'Tiên Tri',
+      desc: 'Bạn thấy đòn đánh tới sớm một chút: +{dodge}% Né và hồi chiêu ngắn hơn {cdr}%.'
+    },
+    timeBubble: {
+      name: 'Bong Bóng Thời Gian',
+      desc: 'Một bong bóng thời gian chậm trong {dur} giây: kẻ địch bên trong chậm hơn {slow}% và nhận {dmg}% sát thương Trí tuệ.'
+    },
+    timeLoop: {
+      name: 'Vòng Lặp Thời Gian',
+      desc: 'Sau {dur} giây mục tiêu bị kéo về chỗ cũ: {dmg}% sát thương Trí tuệ cộng {echo}% lượng máu nó đã mất.'
+    },
+    frozenMoment: {
+      name: 'Khoảnh Khắc Đóng Băng',
+      desc: 'Đòn đánh của bạn có {chance}% cơ hội đóng băng kẻ địch trong thời gian {dur} giây.'
+    },
+    timeStop: {
+      name: 'Dừng Thời Gian',
+      desc: 'Dừng thời gian trong {radius} m trong {dur} giây. Khi thời gian chạy lại, mỗi kẻ địch nhận {dmg}% sát thương Trí tuệ.'
+    },
+    essenceWard: {
+      name: 'Khiên Tinh Hoa',
+      desc: 'Biến {hp}% máu của bạn thành một lá chắn phát sáng bằng {shield}% lượng đó, trong {dur} giây.'
+    },
+    vitalReserve: {
+      name: 'Dự Trữ Sinh Lực',
+      desc: '+{hp}% máu tối đa, và bạn hồi {regen} máu mỗi giây.'
+    },
+    enfeeblingTonic: {
+      name: 'Thuốc Suy Nhược',
+      desc: 'Ném một lọ thuốc: {dmg}% sát thương Trí tuệ trên một vùng. Kẻ địch trúng phải gây ít hơn {weak}% sát thương trong {dur} giây.'
+    },
+    homunculus: {
+      name: 'Tiểu Nhân Giả Kim',
+      desc: 'Pha chế một trợ thủ sủi bọt từ {hp}% máu của bạn trong {dur} giây. Pha cái mới sẽ trả lại {back}% sinh lực của cái cũ.'
+    },
+    adrenalCatalyst: {
+      name: 'Xúc Tác Adrenaline',
+      desc: 'Máu càng thấp, sát thương càng cao: tối đa +{dmg}% khi còn {low}% máu hoặc ít hơn.'
+    },
+    grandTransmutation: {
+      name: 'Đại Chuyển Hóa',
+      desc: 'Biến {pct}% sinh lực của kẻ địch trong {radius} m thành tinh hoa. Bạn hồi {heal}% lượng đó.'
+    },
+    rocketJump: {
+      name: 'Nhảy Tên Lửa',
+      desc: 'Phóng lên và đáp xuống nơi bạn ngắm: {dmg}% sát thương Kỹ xảo trong {radius} m. Tích {heat} nhiệt.'
+    },
+    coolantLoop: {
+      name: 'Vòng Làm Mát',
+      desc: 'Nhiệt giảm nhanh hơn {cool}%, và kỹ năng của bạn tích ít hơn {cut}% nhiệt.'
+    },
+    shockGrenade: {
+      name: 'Lựu Đạn Choáng',
+      desc: 'Ném lựu đạn: {dmg}% sát thương Kỹ xảo và choáng {stun} giây trong {radius} m. Tích {heat} nhiệt.'
+    },
+    precisionOptics: {
+      name: 'Ống Ngắm Chính Xác',
+      desc: '+{crit}% Tỉ lệ Chí mạng. Phát bắn của bạn xuyên thêm {pierce} kẻ địch.'
+    },
+    arcCoil: {
+      name: 'Cuộn Hồ Quang',
+      desc: 'Tia sét đánh mục tiêu, rồi nhảy sang thêm {jumps} kẻ địch: mỗi kẻ nhận {dmg}% sát thương Kỹ xảo. Tích {heat} nhiệt.'
+    },
+    thermalPlating: {
+      name: 'Giáp Chịu Nhiệt',
+      desc: 'Khi nhiệt từ {heat} trở lên, bạn nhận ít hơn {reduce}% sát thương.'
+    },
+    boulderRoll: {
+      name: 'Lăn Đá Tảng',
+      desc: 'Lăn một tảng đá về phía trước: {dmg}% sát thương Sức mạnh lên mọi thứ trên đường, quật ngã chúng {down} giây.'
+    },
+    bedrock: {
+      name: 'Đá Nền',
+      desc: 'Không gì có thể đẩy lùi, quật ngã hay hất tung bạn. +{hp}% máu tối đa.'
+    },
+    sinkhole: {
+      name: 'Hố Sụt',
+      desc: 'Mặt đất sụt xuống, hút kẻ địch vào trong {dur} giây, rồi sập: {dmg}% sát thương Sức mạnh.'
+    },
+    mountainBreaker: {
+      name: 'Phá Sơn',
+      desc: '+{boss}% sát thương lên trùm và +{armor}% Giáp.'
+    },
+    geodeShell: {
+      name: 'Vỏ Tinh Thạch',
+      desc: 'Một lớp vỏ pha lê hấp thụ {shield}% máu của bạn trong {dur} giây, rồi vỡ ra gây tối đa {dmg}% sát thương Sức mạnh.'
+    },
+    crumble: {
+      name: 'Sụp Đổ',
+      desc: 'Bạn gây thêm {dmg}% sát thương lên kẻ địch đang bị làm chậm, ngã gục hoặc hóa đá.'
+    }
   },
   slot: {
     main: 'Tay chính',

@@ -215,11 +215,14 @@ describe('head, hands and feet (D39)', () => {
 })
 
 describe('classes and skills (GDD §5)', () => {
-  it('is eight classes of six skills', () => {
-    expect(CLASS_IDS).toHaveLength(8)
-    expect(SKILLS).toHaveLength(48)
-    expect(new Set(SKILLS.map(s => s.id)).size).toBe(48)
-    for (const c of CLASS_IDS) expect(skillsOf(c), c).toHaveLength(6)
+  it('every class has twelve skills: eight actives and four passives, for the 8 + 4 slots (#95)', () => {
+    expect(SKILLS).toHaveLength(CLASS_IDS.length * 12)
+    expect(new Set(SKILLS.map(s => s.id)).size).toBe(SKILLS.length)
+    for (const c of CLASS_IDS) {
+      expect(skillsOf(c), c).toHaveLength(12)
+      expect(skillsOf(c).filter(s => s.kind === 'active'), c).toHaveLength(ACTIVE_SLOTS)
+      expect(skillsOf(c).filter(s => s.kind === 'passive'), c).toHaveLength(PASSIVE_SLOTS)
+    }
   })
 
   it('four are the reimagined classics, four are new', () => {

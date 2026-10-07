@@ -576,6 +576,10 @@ const classMark = (d: Mesher, cls: ClassId, s: number): void => {
       d.prism([[-0.1 * s, 0.15 * s], [0, 0], [0.1 * s, 0.15 * s]], 0, 0.04, c)
       d.prism([[0, 0], [-0.1 * s, -0.15 * s], [0.1 * s, -0.15 * s]], 0, 0.04, c)
       break
+    default:
+      // The newer schools (#86, #95): a diamond in the class colour round a pale heart.
+      d.prism([[0, 0.17 * s], [-0.13 * s, 0], [0, -0.17 * s], [0.13 * s, 0]], 0, 0.04, c, shade(c, 0.8))
+      d.ball(0, 0, 0.05, 0.04 * s, '#fff8e3', 4, 3)
   }
 }
 

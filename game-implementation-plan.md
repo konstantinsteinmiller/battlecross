@@ -576,8 +576,24 @@ attribute buff; items are fixed named ids owned once.
   touch screen the bar goes four across once it has more than nine buttons,
   so it stays three rows high; the skills page lays the loadout in rows of
   four (one row of eight where there is room).
-- [ ] **25.3–25.18 Classes** (#86, #95; question 51 answered: eight new
-  classes, every class 12 skills). Kits drafted by design agents
-  (`scratchpad/kits`), built a class at a time.
+- [x] **25.3 Twelve skills for the eight classes** (#95). Each class gets
+  four actives and two passives more (Aether-Tech and Geomancer three and
+  three), levels kept in order, numbers matched to the old curve by the kit
+  agents and smoke-cast in the combat suite: Shield Throw, Shield Shove, Holy
+  Chains, Retribution, Bulwark, Unbreakable; Star Fan, Grappling Hook, Shadow
+  Mark, Nightshade Mist, Silent Strike, Blade Rhythm; Firecracker, Fan the
+  Flames, Ring of Fire, Phoenix Flight, Everflame, Wildfire; Call Archers,
+  Royal Rally, Royal Decree, Summon Champion, War Marshal, Loyal Hearts; Echo
+  Bolt, Time Bubble, Time Loop, Time Stop, Foresight, Frozen Moment; Essence
+  Ward, Enfeebling Tonic, Homunculus, Grand Transmutation, Vital Reserve,
+  Adrenal Catalyst; Rocket Jump, Shock Grenade, Arc Coil, Coolant Loop,
+  Precision Optics, Thermal Plating; Boulder Roll, Sinkhole, Geode Shell,
+  Bedrock, Mountain Breaker, Crumble. New: six modifiers (each tested), the
+  Sovereign's champion and the alchemist's homunculus (an elemental of life
+  essence). Glyphs and painter's blurbs for all, a second skill sheet per
+  class, cast clips. The eight new classes are in the type and the art
+  tables but join `CLASS_IDS` with their skills.
+- [ ] **25.4–25.11 The eight new classes** (#86, #95; question 51 answered:
+  eight new classes). Kits in `scratchpad/kits`, a class at a time.
 - [ ] **23 Voice, balance, end-to-end, performance** (#93).
 - [ ] **24 Icons, then the world map** (#94).

@@ -431,6 +431,38 @@ export default {
     geo: {
       name: 'Geomantiker',
       desc: 'Reiser murer og pigger, og bryter opp selve bakken.'
+    },
+    windrunner: {
+      name: 'Vindløper',
+      desc: 'En bue og vinden i ryggen. Skyt, spurt, og stå aldri stille.'
+    },
+    frostwarden: {
+      name: 'Frostvokter',
+      desc: 'En isklinge og et kaldt hjerte. Sink dem, frys dem, og knus dem etterpå.'
+    },
+    lightbringer: {
+      name: 'Lysbringer',
+      desc: 'Lys som leger venner og blender fiender. Stå i det, og ingenting kan stoppe deg.'
+    },
+    beastcaller: {
+      name: 'Dyrekaller',
+      desc: 'En ulveflokk, en bjørn og en hauk kjemper ved siden av deg. Kall på dem, og før dem i strid.'
+    },
+    elementalist: {
+      name: 'Elementmager',
+      desc: 'Ild, frost, lyn og stein. Bland dem, og hvert element utløser det neste.'
+    },
+    soulwarden: {
+      name: 'Sjelevokter',
+      desc: 'Beseirede fiender reiser seg som vennlige ånder, kjemper ved siden av deg og går så hjem for å hvile.'
+    },
+    ironmonk: {
+      name: 'Jernmunk',
+      desc: 'Bare hender, raske føtter. Hvert slag samler chi; bruk alt på ett mektig slag.'
+    },
+    bard: {
+      name: 'Bard',
+      desc: 'Sanger som løfter laget ditt, og melodier som får fienden til å sovne eller angripe hverandre.'
     }
   },
   skill: {
@@ -635,7 +667,199 @@ export default {
       name: 'Tektonisk brudd',
       desc: 'Riv opp banen: {dmg}% Styrke i skade på alt i nærheten, og steinrøys som sinker i {dur}s.'
     },
-    scales: 'Skalerer med {attr}'
+    scales: 'Skalerer med {attr}',
+    shieldThrow: {
+      name: 'Skjoldkast',
+      desc: 'Skjoldet ditt spretter mellom {bounces} fiender: {dmg}% Styrke i skade på hver. De gjør {weak}% mindre skade i {dur}s.'
+    },
+    shieldShove: {
+      name: 'Skjolddytt',
+      desc: 'Dytt alt foran deg for {dmg}% Styrke i skade. De flyr bakover og blir avbrutt i det de gjør.'
+    },
+    holyChains: {
+      name: 'Hellige lenker',
+      desc: 'Lenker av lys drar hver fiende innenfor {radius} m til deg: {dmg}% Utholdenhet i skade og {slow}% sinking.'
+    },
+    bulwark: {
+      name: 'Bolverk',
+      desc: '+{block}% Blokkeringssjanse. Hver blokkering gjør {back} skade tilbake på angriperen.'
+    },
+    retribution: {
+      name: 'Gjengjeldelse',
+      desc: 'I {dur}s må fiender innenfor {radius} m angripe deg. Så gjør lyset {dmg}% Styrke +{back}% av treffene du har tatt.'
+    },
+    unbreakable: {
+      name: 'Ubrytelig',
+      desc: 'Når du er under {hp}% liv, tar du {reduce}% mindre skade.'
+    },
+    starFan: {
+      name: 'Stjernevifte',
+      desc: 'Kast {stars} skyggestjerner i en vifte, som hver gjør {dmg}% Smidighet i skade.'
+    },
+    grapplingHook: {
+      name: 'Entrehake',
+      desc: 'Dra målet til deg for {dmg}% Smidighet i skade, og sink det {slow}% i {dur}s. Store fiender drar deg inn.'
+    },
+    silentStrike: {
+      name: 'Lydløst hugg',
+      desc: 'Ryggstikk gjør +{backstab}% skade, og fiender oppdager deg {notice}% senere.'
+    },
+    shadowMark: {
+      name: 'Skyggemerke',
+      desc: 'Målet tar {vuln}% mer skade i {dur}s, og ditt neste treff på hvem som helst blir kritisk for +{bonus}%.'
+    },
+    bladeRhythm: {
+      name: 'Klingerytme',
+      desc: 'Kritiske treff kutter {cut}s av all nedkjøling. +{speed}% angrepsfart.'
+    },
+    nightshadeMist: {
+      name: 'Søtvierdis',
+      desc: 'En giftdis i {dur}s: opptil {dmg}% Smidighet i skade. Fiender i disen blir forvirret i {confuse}s.'
+    },
+    firecracker: {
+      name: 'Kinaputt',
+      desc: 'Fest en kinaputt på målet. Etter {delay}s smeller den for {dmg}% Intelligens i skade og setter fyr på alt i nærheten.'
+    },
+    fanTheFlames: {
+      name: 'Blås på ilden',
+      desc: 'Hver brann innenfor {radius} m blusser opp {pct}% sterkere og starter på nytt. Fiender innenfor {push} m blåses bakover.'
+    },
+    ringOfFire: {
+      name: 'Ildring',
+      desc: 'En ring av flammer reiser seg i {dur}s: opptil {dmg}% Intelligens i skade. Fiender inni sinkes {slow}%.'
+    },
+    everflame: {
+      name: 'Evig flamme',
+      desc: 'Brannene dine er {burn}% sterkere, og trylleformlene dine får +{crit}% Kritisk sjanse.'
+    },
+    wildfire: {
+      name: 'Løpeild',
+      desc: 'Når en brennende fiende blir beseiret, hopper flammene over til hver fiende innenfor {radius} m i {dur}s.'
+    },
+    phoenixFlight: {
+      name: 'Føniksflukt',
+      desc: 'Fly som en føniks med ild etter deg: {dmg}% Intelligens i skade der du lander. Leg {regen}% i sekundet i {dur}s.'
+    },
+    callArchers: {
+      name: 'Kall bueskyttere',
+      desc: 'Påkall en bueskytter som skyter for {dmg}% Karisma i skade bak deg. Opptil {max} om gangen.'
+    },
+    royalRally: {
+      name: 'Kongelig samling',
+      desc: 'Tjenerne dine skynder seg til deg og leger {heal}% liv. Dere får alle +{def}% Forsvar i {dur}s.'
+    },
+    warMarshal: {
+      name: 'Krigsmarskalk',
+      desc: 'Tjenerne dine gjør {dmg}% mer skade.'
+    },
+    royalDecree: {
+      name: 'Kongelig dekret',
+      desc: 'Fiender innenfor {radius} m må bukke: lammet i {stun}s, så tar de {vuln}% mer skade i {dur}s.'
+    },
+    loyalHearts: {
+      name: 'Lojale hjerter',
+      desc: 'Når en av tjenerne dine faller, leger du {heal}% av livet ditt.'
+    },
+    summonChampion: {
+      name: 'Påkall forkjemper',
+      desc: 'Kall rikets forkjemper i {dur}s: en kjempestor ridder med {hp}% av livet ditt, som hugger for {dmg}% Karisma.'
+    },
+    echoBolt: {
+      name: 'Ekkolyn',
+      desc: 'Et tidslyn for {dmg}% Intelligens i skade. {delay}s senere treffer det igjen for {echo}%.'
+    },
+    foresight: {
+      name: 'Framsyn',
+      desc: 'Du ser slagene komme et øyeblikk før: +{dodge}% Unnvikelse og {cdr}% kortere nedkjøling.'
+    },
+    timeBubble: {
+      name: 'Tidsboble',
+      desc: 'En boble av langsom tid i {dur}s: fiender inni beveger seg {slow}% saktere og tar {dmg}% Intelligens i skade.'
+    },
+    timeLoop: {
+      name: 'Tidsløkke',
+      desc: 'Etter {dur}s smetter målet tilbake dit det var: {dmg}% Intelligens i skade pluss {echo}% av det det mistet.'
+    },
+    frozenMoment: {
+      name: 'Frosset øyeblikk',
+      desc: 'Angrepene dine har {chance}% sjanse til å fryse fienden i tiden i {dur}s.'
+    },
+    timeStop: {
+      name: 'Tidsstopp',
+      desc: 'Stopp tiden innenfor {radius} m i {dur}s. Når den starter igjen, tar hver fiende {dmg}% Intelligens i skade.'
+    },
+    essenceWard: {
+      name: 'Essensvern',
+      desc: 'Gjør {hp}% av livet ditt om til et glødende vern verdt {shield}% av det, i {dur}s.'
+    },
+    vitalReserve: {
+      name: 'Livsreserve',
+      desc: '+{hp}% maks Liv, og du får tilbake {regen} liv hvert sekund.'
+    },
+    enfeeblingTonic: {
+      name: 'Svekkende tonikum',
+      desc: 'Kast et tonikum: {dmg}% Intelligens i skade i et område. Fiender som treffes, gjør {weak}% mindre skade i {dur}s.'
+    },
+    homunculus: {
+      name: 'Homunkulus',
+      desc: 'Brygg en boblende hjelper av {hp}% av livet ditt i {dur}s. Brygger du en ny, får du tilbake {back}% av livet dens.'
+    },
+    adrenalCatalyst: {
+      name: 'Adrenalinkatalysator',
+      desc: 'Jo mindre liv du har, jo mer skade gjør du: opptil +{dmg}% ved {low}% liv eller mindre.'
+    },
+    grandTransmutation: {
+      name: 'Stor transmutasjon',
+      desc: 'Gjør {pct}% av livet til fiender innenfor {radius} m om til essens. Du leges med {heal}% av den.'
+    },
+    rocketJump: {
+      name: 'Rakettsprang',
+      desc: 'Skyt av gårde og land der du sikter: {dmg}% Teknikk i skade innenfor {radius} m. Bygger {heat} varme.'
+    },
+    coolantLoop: {
+      name: 'Kjølesløyfe',
+      desc: 'Varme synker {cool}% raskere, og ferdighetene dine bygger {cut}% mindre av den.'
+    },
+    shockGrenade: {
+      name: 'Sjokkgranat',
+      desc: 'Kast en granat: {dmg}% Teknikk i skade og {stun}s lammelse innenfor {radius} m. Bygger {heat} varme.'
+    },
+    precisionOptics: {
+      name: 'Presisjonsoptikk',
+      desc: '+{crit}% Kritisk sjanse. Skuddene dine går gjennom {pierce} fiende ekstra.'
+    },
+    arcCoil: {
+      name: 'Lysbuespole',
+      desc: 'Lynet treffer målet og hopper så videre til {jumps} fiender til: {dmg}% Teknikk i skade på hver. Bygger {heat} varme.'
+    },
+    thermalPlating: {
+      name: 'Varmepanser',
+      desc: 'Mens varmen din er {heat} eller mer, tar du {reduce}% mindre skade.'
+    },
+    boulderRoll: {
+      name: 'Steinrulling',
+      desc: 'Rull en kampestein framover: {dmg}% Styrke i skade på alt i veien, og de slås ned i {down}s.'
+    },
+    bedrock: {
+      name: 'Grunnfjell',
+      desc: 'Ingenting kan slå deg bakover, ned eller opp i lufta. +{hp}% maks Liv.'
+    },
+    sinkhole: {
+      name: 'Synkehull',
+      desc: 'Bakken synker og drar fiender inn i {dur}s, og raser så sammen: {dmg}% Styrke i skade.'
+    },
+    mountainBreaker: {
+      name: 'Fjellknuser',
+      desc: '+{boss}% skade mot bosser og +{armor}% Rustning.'
+    },
+    geodeShell: {
+      name: 'Geodeskall',
+      desc: 'Et krystallskall tar opp skade verdt {shield}% av livet ditt i {dur}s, og sprekker så for opptil {dmg}% Styrke i skade.'
+    },
+    crumble: {
+      name: 'Smuldre',
+      desc: 'Du gjør {dmg}% mer skade på fiender som er sinket, slått ned eller forsteinet.'
+    }
   },
   slot: {
     main: 'Hovedhånd',

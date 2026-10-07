@@ -431,6 +431,38 @@ export default {
     geo: {
       name: 'Geomantas',
       desc: 'Kelia sienas ir smaigus ir skaldo pačią žemę.'
+    },
+    windrunner: {
+      name: 'Vėjo bėgikas',
+      desc: 'Lankas ir vėjas į nugarą. Šaudyk, šok į priekį ir niekada nestovėk vietoje.'
+    },
+    frostwarden: {
+      name: 'Šalčio sargas',
+      desc: 'Ledo ašmenys ir šalta širdis. Sulėtink juos, užšaldyk, o tada sudaužyk.'
+    },
+    lightbringer: {
+      name: 'Šviesnešys',
+      desc: 'Šviesa, kuri gydo draugus ir apakina priešus. Stovėk joje ir niekas tavęs nesustabdys.'
+    },
+    beastcaller: {
+      name: 'Žvėrių šaukėjas',
+      desc: 'Vilkų gauja, lokys ir vanagas kaunasi šalia tavęs. Pašauk juos ir jiems vadovauk.'
+    },
+    elementalist: {
+      name: 'Elementalistas',
+      desc: 'Ugnis, šaltis, žaibas ir akmuo. Maišyk juos, ir kiekvienas sužadina kitą.'
+    },
+    soulwarden: {
+      name: 'Sielų sargas',
+      desc: 'Įveikti priešai prisikelia draugiškomis dvasiomis, kaunasi šalia tavęs, o paskui grįžta namo ilsėtis.'
+    },
+    ironmonk: {
+      name: 'Geležinis vienuolis',
+      desc: 'Plikos rankos, greitos kojos. Kiekvienas smūgis kaupia či; išleisk ją visą vienam galingam smūgiui.'
+    },
+    bard: {
+      name: 'Bardas',
+      desc: 'Dainos, kurios kelia tavo pusės dvasią, ir melodijos, kurios kitą pusę užmigdo arba atsuka prieš save pačią.'
     }
   },
   skill: {
@@ -635,7 +667,199 @@ export default {
       name: 'Tektoninis lūžis',
       desc: 'Perplėšk mūšio lauką: {dmg}% Jėgos žalos viskam šalia ir nuolaužos, kurios lėtina {dur}s.'
     },
-    scales: 'Stiprėja nuo: {attr}'
+    scales: 'Stiprėja nuo: {attr}',
+    shieldThrow: {
+      name: 'Skydo metimas',
+      desc: 'Tavo skydas atšoka nuo priešų ({bounces}): kiekvienam {dmg}% Jėgos žalos. {dur}s jie daro {weak}% mažiau žalos.'
+    },
+    shieldShove: {
+      name: 'Skydo stūmis',
+      desc: 'Stumk visus priešais save: {dmg}% Jėgos žalos. Jie atlekia atgal ir nutraukia, ką darė.'
+    },
+    holyChains: {
+      name: 'Šventosios grandinės',
+      desc: 'Šviesos grandinės pritraukia prie tavęs visus priešus {radius} m spinduliu: {dmg}% Ištvermės žalos ir {slow}% sulėtinimas.'
+    },
+    bulwark: {
+      name: 'Bastionas',
+      desc: '+{block}% atrėmimo tikimybės. Kiekvienas atrėmimas grąžina puolėjui {back} žalos.'
+    },
+    retribution: {
+      name: 'Atpildas',
+      desc: '{dur}s priešai {radius} m spinduliu privalo pulti tave. Tada šviesa padaro {dmg}% Jėgos +{back}% gautų smūgių.'
+    },
+    unbreakable: {
+      name: 'Nepalaužiamumas',
+      desc: 'Kol gyvybės turi mažiau nei {hp}%, gauni {reduce}% mažiau žalos.'
+    },
+    starFan: {
+      name: 'Žvaigždžių vėduoklė',
+      desc: 'Mesk vėduokle šešėlių žvaigždes ({stars}): kiekviena daro {dmg}% Vikrumo žalos.'
+    },
+    grapplingHook: {
+      name: 'Kablys',
+      desc: 'Pritrauk taikinį prie savęs: {dmg}% Vikrumo žalos ir {slow}% sulėtinimas {dur}s. Prie didelių priešų pritraukiamas tu.'
+    },
+    silentStrike: {
+      name: 'Tylusis smūgis',
+      desc: 'Smūgiai į nugarą daro +{backstab}% žalos, o priešai tave pastebi {notice}% vėliau.'
+    },
+    shadowMark: {
+      name: 'Šešėlio žymė',
+      desc: 'Taikinys {dur}s gauna {vuln}% daugiau žalos, o tavo kitas smūgis bet kam bus kritinis su +{bonus}%.'
+    },
+    bladeRhythm: {
+      name: 'Ašmenų ritmas',
+      desc: 'Kritiniai smūgiai sutrumpina kiekvieną atsikrovimą {cut}s. +{speed}% puolimo greičio.'
+    },
+    nightshadeMist: {
+      name: 'Šunvyšnės rūkas',
+      desc: 'Nuodingas rūkas {dur}s: iki {dmg}% Vikrumo žalos. Į jį patekę priešai sumišę {confuse}s.'
+    },
+    firecracker: {
+      name: 'Petarda',
+      desc: 'Prilipdyk petardą prie taikinio. Po {delay}s ji sprogsta: {dmg}% Intelekto žalos, ir užsidega visi šalia.'
+    },
+    fanTheFlames: {
+      name: 'Liepsnų įpūtimas',
+      desc: 'Kiekvienas deginimas {radius} m spinduliu įsiliepsnoja {pct}% stipriau ir prasideda iš naujo. Priešai {push} m spinduliu nubloškiami.'
+    },
+    ringOfFire: {
+      name: 'Ugnies žiedas',
+      desc: 'Liepsnų žiedas iškyla {dur}s: iki {dmg}% Intelekto žalos. Viduje esantys priešai sulėtinami {slow}%.'
+    },
+    everflame: {
+      name: 'Amžinoji liepsna',
+      desc: 'Tavo deginimai {burn}% stipresni, o burtai gauna +{crit}% kritinio smūgio tikimybės.'
+    },
+    wildfire: {
+      name: 'Gaisras',
+      desc: 'Kai degantis priešas įveikiamas, jo liepsnos {dur}s peršoka ant kiekvieno priešo {radius} m spinduliu.'
+    },
+    phoenixFlight: {
+      name: 'Fenikso skrydis',
+      desc: 'Skrisk kaip feniksas su ugnies taku: {dmg}% Intelekto žalos ten, kur nusileidi. {dur}s gydaisi po {regen}% per sekundę.'
+    },
+    callArchers: {
+      name: 'Lankininkų šauksmas',
+      desc: 'Iškviesk lankininką, kuris šaudo iš už tavęs: {dmg}% Charizmos žalos. Vienu metu ne daugiau kaip {max}.'
+    },
+    royalRally: {
+      name: 'Karališkasis sambūris',
+      desc: 'Tavo pakalikai skuba prie tavęs ir atgauna {heal}% gyvybės. Visi gaunate +{def}% Gynybos {dur}s.'
+    },
+    warMarshal: {
+      name: 'Karo maršalas',
+      desc: 'Tavo pakalikai daro {dmg}% daugiau žalos.'
+    },
+    royalDecree: {
+      name: 'Karališkasis įsakas',
+      desc: 'Priešai {radius} m spinduliu privalo nusilenkti: apsvaiginami {stun}s, o paskui {dur}s gauna {vuln}% daugiau žalos.'
+    },
+    loyalHearts: {
+      name: 'Ištikimos širdys',
+      desc: 'Kai krenta tavo pakalikas, pasigydai {heal}% savo gyvybės.'
+    },
+    summonChampion: {
+      name: 'Čempiono iškvietimas',
+      desc: 'Iškviesk karalystės čempioną {dur}s: milžinišką riterį su {hp}% tavo gyvybės, smogiantį {dmg}% Charizmos.'
+    },
+    echoBolt: {
+      name: 'Aido strėlė',
+      desc: 'Laiko strėlė: {dmg}% Intelekto žalos. Po {delay}s ji vėl pataiko už {echo}%.'
+    },
+    foresight: {
+      name: 'Įžvalga',
+      desc: 'Smūgius matai akimirka anksčiau: +{dodge}% Išsisukimo ir {cdr}% trumpesni atsikrovimai.'
+    },
+    timeBubble: {
+      name: 'Laiko burbulas',
+      desc: 'Lėto laiko burbulas {dur}s: viduje priešai juda {slow}% lėčiau ir gauna {dmg}% Intelekto žalos.'
+    },
+    timeLoop: {
+      name: 'Laiko kilpa',
+      desc: 'Po {dur}s taikinys grįžta ten, kur buvo: {dmg}% Intelekto žalos ir dar {echo}% to, ką prarado.'
+    },
+    frozenMoment: {
+      name: 'Sustingusi akimirka',
+      desc: 'Tavo puolimai turi {chance}% tikimybę sustingdyti priešą laike {dur}s.'
+    },
+    timeStop: {
+      name: 'Laiko sustabdymas',
+      desc: 'Sustabdyk laiką {radius} m spinduliu {dur}s. Kai jis vėl pajuda, kiekvienas priešas gauna {dmg}% Intelekto žalos.'
+    },
+    essenceWard: {
+      name: 'Esencijos skydas',
+      desc: 'Paversk {hp}% savo gyvybės švytinčiu skydu, vertu {shield}% jos, {dur}s.'
+    },
+    vitalReserve: {
+      name: 'Gyvybės rezervas',
+      desc: '+{hp}% didžiausios gyvybės, ir kas sekundę atgauni {regen} gyvybės.'
+    },
+    enfeeblingTonic: {
+      name: 'Silpninantis tonikas',
+      desc: 'Mesk toniką: {dmg}% Intelekto žalos plote. Pataikyti priešai {dur}s daro {weak}% mažiau žalos.'
+    },
+    homunculus: {
+      name: 'Homunkulas',
+      desc: 'Išsivirk burbuliuojantį pagalbininką iš {hp}% savo gyvybės {dur}s. Išvirus naują, grąžinama {back}% jo gyvybės.'
+    },
+    adrenalCatalyst: {
+      name: 'Adrenalino katalizatorius',
+      desc: 'Kuo mažiau gyvybės, tuo daugiau žalos darai: iki +{dmg}%, kai gyvybės {low}% ar mažiau.'
+    },
+    grandTransmutation: {
+      name: 'Didžioji transmutacija',
+      desc: 'Paversk {pct}% priešų {radius} m spinduliu gyvybės esencija. Pasigydai {heal}% jos.'
+    },
+    rocketJump: {
+      name: 'Raketinis šuolis',
+      desc: 'Pakilk ir nusileisk ten, kur taikai: {dmg}% Meistrystės žalos {radius} m spinduliu. Sukelia {heat} karščio.'
+    },
+    coolantLoop: {
+      name: 'Aušinimo kontūras',
+      desc: 'Karštis krenta {cool}% greičiau, o įgūdžiai jo sukelia {cut}% mažiau.'
+    },
+    shockGrenade: {
+      name: 'Šoko granata',
+      desc: 'Mesk granatą: {dmg}% Meistrystės žalos ir apsvaiginimas {stun}s {radius} m spinduliu. Sukelia {heat} karščio.'
+    },
+    precisionOptics: {
+      name: 'Tikslioji optika',
+      desc: '+{crit}% kritinio smūgio tikimybės. Tavo šūviai pramuša papildomų priešų: {pierce}.'
+    },
+    arcCoil: {
+      name: 'Lanko ritė',
+      desc: 'Žaibas trenkia į taikinį ir peršoka ant kitų priešų ({jumps}): kiekvienam {dmg}% Meistrystės žalos. Sukelia {heat} karščio.'
+    },
+    thermalPlating: {
+      name: 'Šiluminė danga',
+      desc: 'Kol tavo karštis {heat} ar daugiau, gauni {reduce}% mažiau žalos.'
+    },
+    boulderRoll: {
+      name: 'Riedulio ritinimas',
+      desc: 'Ridenk riedulį į priekį: {dmg}% Jėgos žalos visiems kelyje ir parbloškimas {down}s.'
+    },
+    bedrock: {
+      name: 'Pamatinė uola',
+      desc: 'Niekas negali tavęs atstumti, parblokšti ar išmesti į orą. +{hp}% didžiausios gyvybės.'
+    },
+    sinkhole: {
+      name: 'Smegduobė',
+      desc: 'Žemė įgriūva ir {dur}s traukia priešus, o tada užgriūva: {dmg}% Jėgos žalos.'
+    },
+    mountainBreaker: {
+      name: 'Kalnų laužytojas',
+      desc: '+{boss}% žalos bosams ir +{armor}% Šarvų.'
+    },
+    geodeShell: {
+      name: 'Geodo kiautas',
+      desc: 'Kristalų kiautas {dur}s sugeria {shield}% tavo gyvybės, o tada sprogsta iki {dmg}% Jėgos žalos.'
+    },
+    crumble: {
+      name: 'Trupinimas',
+      desc: 'Darai {dmg}% daugiau žalos sulėtintiems, parblokštiems ar suakmenėjusiems priešams.'
+    }
   },
   slot: {
     main: 'Pagrindinė ranka',

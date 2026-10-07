@@ -145,11 +145,11 @@ describe('the merchant\'s table', () => {
 })
 
 describe('the trainer\'s lesson', () => {
-  it('six lessons; learning one costs its fee and puts it in the first free slot', async () => {
+  it('twelve lessons (#95); learning one costs its fee and puts it in the first free slot', async () => {
     p.profile.gold = 5000
     await open('TeachScreen', 'trainerPyro')
     const lessons = $$('.lesson')
-    expect(lessons).toHaveLength(6)
+    expect(lessons).toHaveLength(12)
     await click(lessons[0]!)
     const cost = p.skillCost('fireball')
     await click(act())

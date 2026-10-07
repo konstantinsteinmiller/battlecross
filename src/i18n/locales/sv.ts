@@ -431,6 +431,38 @@ export default {
     geo: {
       name: 'Geomantiker',
       desc: 'Reser murar och spikar, och bryter upp själva marken.'
+    },
+    windrunner: {
+      name: 'Vindlöpare',
+      desc: 'En båge och vinden i ryggen. Skjut, rusa och stå aldrig still.'
+    },
+    frostwarden: {
+      name: 'Frostväktare',
+      desc: 'En isklinga och ett kallt hjärta. Sakta ner dem, frys dem och krossa dem sedan.'
+    },
+    lightbringer: {
+      name: 'Ljusbringare',
+      desc: 'Ljus som läker vänner och bländar fiender. Stå i det, så kan ingenting stoppa dig.'
+    },
+    beastcaller: {
+      name: 'Djurkallare',
+      desc: 'En vargflock, en björn och en hök slåss vid din sida. Kalla på dem och för befäl över dem.'
+    },
+    elementalist: {
+      name: 'Elementmagiker',
+      desc: 'Eld, frost, blixt och sten. Blanda dem, så sätter varje element igång nästa.'
+    },
+    soulwarden: {
+      name: 'Själaväktare',
+      desc: 'Besegrade fiender reser sig som vänliga andar, slåss vid din sida och går sedan hem och vilar.'
+    },
+    ironmonk: {
+      name: 'Järnmunk',
+      desc: 'Bara händer, snabba fötter. Varje slag samlar chi; lägg allt på ett mäktigt slag.'
+    },
+    bard: {
+      name: 'Bard',
+      desc: 'Sånger som lyfter ditt lag, och melodier som söver fienden eller får dem att anfalla varandra.'
     }
   },
   skill: {
@@ -635,7 +667,199 @@ export default {
       name: 'Tektonisk spricka',
       desc: 'Slit upp fältet: {dmg}% Styrka i skada på allt i närheten, och sten som saktar ner i {dur}s.'
     },
-    scales: 'Skalar med {attr}'
+    scales: 'Skalar med {attr}',
+    shieldThrow: {
+      name: 'Sköldkast',
+      desc: 'Din sköld studsar mellan {bounces} fiender: {dmg}% Styrka i skada på var och en. De gör {weak}% mindre skada i {dur}s.'
+    },
+    shieldShove: {
+      name: 'Sköldknuff',
+      desc: 'Knuffa allt framför dig för {dmg}% Styrka i skada. De flyger bakåt och avbryts i det de gör.'
+    },
+    holyChains: {
+      name: 'Heliga kedjor',
+      desc: 'Kedjor av ljus drar varje fiende inom {radius} m till dig: {dmg}% Uthållighet i skada och {slow}% nedsaktning.'
+    },
+    bulwark: {
+      name: 'Bålverk',
+      desc: '+{block}% Blockchans. Varje block gör {back} skada tillbaka på anfallaren.'
+    },
+    retribution: {
+      name: 'Vedergällning',
+      desc: 'I {dur}s måste fiender inom {radius} m anfalla dig. Sedan gör ljuset {dmg}% Styrka +{back}% av träffarna du tagit.'
+    },
+    unbreakable: {
+      name: 'Okuvlig',
+      desc: 'Under {hp}% hälsa tar du {reduce}% mindre skada.'
+    },
+    starFan: {
+      name: 'Stjärnsolfjäder',
+      desc: 'Kasta {stars} skuggstjärnor i en solfjäder, som var och en gör {dmg}% Smidighet i skada.'
+    },
+    grapplingHook: {
+      name: 'Änterhake',
+      desc: 'Dra målet till dig för {dmg}% Smidighet i skada och sakta ner det {slow}% i {dur}s. Stora fiender drar in dig.'
+    },
+    silentStrike: {
+      name: 'Tyst hugg',
+      desc: 'Hugg i ryggen gör +{backstab}% skada, och fiender märker dig {notice}% senare.'
+    },
+    shadowMark: {
+      name: 'Skuggmärke',
+      desc: 'Målet tar {vuln}% mer skada i {dur}s, och din nästa träff på vem som helst blir kritisk för +{bonus}%.'
+    },
+    bladeRhythm: {
+      name: 'Klingrytm',
+      desc: 'Kritiska träffar kortar all nedkylning med {cut}s. +{speed}% attackfart.'
+    },
+    nightshadeMist: {
+      name: 'Nattskattsdimma',
+      desc: 'En giftdimma i {dur}s: upp till {dmg}% Smidighet i skada. Fiender i dimman blir förvirrade i {confuse}s.'
+    },
+    firecracker: {
+      name: 'Smällare',
+      desc: 'Fäst en smällare på målet. Efter {delay}s smäller den för {dmg}% Intelligens i skada och sätter eld på allt i närheten.'
+    },
+    fanTheFlames: {
+      name: 'Blås på elden',
+      desc: 'Varje brand inom {radius} m flammar upp {pct}% starkare och börjar om. Fiender inom {push} m blåses bakåt.'
+    },
+    ringOfFire: {
+      name: 'Eldring',
+      desc: 'En ring av lågor reser sig i {dur}s: upp till {dmg}% Intelligens i skada. Fiender inuti saktas ner {slow}%.'
+    },
+    everflame: {
+      name: 'Evig låga',
+      desc: 'Dina bränder är {burn}% starkare, och dina trollformler får +{crit}% Kritisk chans.'
+    },
+    wildfire: {
+      name: 'Löpeld',
+      desc: 'När en brinnande fiende besegras hoppar dess lågor över till varje fiende inom {radius} m i {dur}s.'
+    },
+    phoenixFlight: {
+      name: 'Fenixflykt',
+      desc: 'Flyg som en fenix med eld efter dig: {dmg}% Intelligens i skada där du landar. Läk {regen}% per sekund i {dur}s.'
+    },
+    callArchers: {
+      name: 'Kalla bågskyttar',
+      desc: 'Frammana en bågskytt som skjuter för {dmg}% Karisma i skada bakom dig. Upp till {max} åt gången.'
+    },
+    royalRally: {
+      name: 'Kunglig samling',
+      desc: 'Dina tjänare rusar till din sida och läker {heal}% hälsa. Ni får alla +{def}% Försvar i {dur}s.'
+    },
+    warMarshal: {
+      name: 'Krigsmarskalk',
+      desc: 'Dina tjänare gör {dmg}% mer skada.'
+    },
+    royalDecree: {
+      name: 'Kungligt dekret',
+      desc: 'Fiender inom {radius} m måste buga: bedövade i {stun}s, sedan tar de {vuln}% mer skada i {dur}s.'
+    },
+    loyalHearts: {
+      name: 'Trogna hjärtan',
+      desc: 'När en av dina tjänare faller läker du {heal}% av din hälsa.'
+    },
+    summonChampion: {
+      name: 'Frammana kämpe',
+      desc: 'Kalla rikets kämpe i {dur}s: en jätteriddare med {hp}% av din hälsa, som hugger för {dmg}% Karisma.'
+    },
+    echoBolt: {
+      name: 'Ekoblixt',
+      desc: 'En tidsblixt för {dmg}% Intelligens i skada. {delay}s senare träffar den igen för {echo}%.'
+    },
+    foresight: {
+      name: 'Förutseende',
+      desc: 'Du ser slagen komma en stund i förväg: +{dodge}% Undvik och {cdr}% kortare nedkylning.'
+    },
+    timeBubble: {
+      name: 'Tidsbubbla',
+      desc: 'En bubbla av långsam tid i {dur}s: fiender inuti rör sig {slow}% långsammare och tar {dmg}% Intelligens i skada.'
+    },
+    timeLoop: {
+      name: 'Tidsslinga',
+      desc: 'Efter {dur}s rycks målet tillbaka dit det var: {dmg}% Intelligens i skada plus {echo}% av det det förlorade.'
+    },
+    frozenMoment: {
+      name: 'Fruset ögonblick',
+      desc: 'Dina attacker har {chance}% chans att frysa fienden i tiden i {dur}s.'
+    },
+    timeStop: {
+      name: 'Tidsstopp',
+      desc: 'Stoppa tiden inom {radius} m i {dur}s. När den startar igen tar varje fiende {dmg}% Intelligens i skada.'
+    },
+    essenceWard: {
+      name: 'Essensskydd',
+      desc: 'Gör om {hp}% av din hälsa till ett glödande skydd värt {shield}% av den, i {dur}s.'
+    },
+    vitalReserve: {
+      name: 'Livsreserv',
+      desc: '+{hp}% max Hälsa, och du återfår {regen} hälsa varje sekund.'
+    },
+    enfeeblingTonic: {
+      name: 'Försvagande tonikum',
+      desc: 'Kasta ett tonikum: {dmg}% Intelligens i skada i ett område. Träffade fiender gör {weak}% mindre skada i {dur}s.'
+    },
+    homunculus: {
+      name: 'Homunkulus',
+      desc: 'Brygg en bubblande hjälpare av {hp}% av din hälsa i {dur}s. Brygger du en ny får du tillbaka {back}% av dess liv.'
+    },
+    adrenalCatalyst: {
+      name: 'Adrenalinkatalysator',
+      desc: 'Ju lägre hälsa, desto mer skada gör du: upp till +{dmg}% vid {low}% hälsa eller mindre.'
+    },
+    grandTransmutation: {
+      name: 'Stor transmutation',
+      desc: 'Förvandla {pct}% av livet hos fiender inom {radius} m till essens. Du läks med {heal}% av den.'
+    },
+    rocketJump: {
+      name: 'Raketsprång',
+      desc: 'Skjut iväg och landa där du siktar: {dmg}% Teknik i skada inom {radius} m. Bygger {heat} hetta.'
+    },
+    coolantLoop: {
+      name: 'Kylslinga',
+      desc: 'Hettan sjunker {cool}% snabbare, och dina färdigheter bygger {cut}% mindre av den.'
+    },
+    shockGrenade: {
+      name: 'Chockgranat',
+      desc: 'Kasta en granat: {dmg}% Teknik i skada och {stun}s bedövning inom {radius} m. Bygger {heat} hetta.'
+    },
+    precisionOptics: {
+      name: 'Precisionsoptik',
+      desc: '+{crit}% Kritisk chans. Dina skott går igenom {pierce} fiende extra.'
+    },
+    arcCoil: {
+      name: 'Bågspole',
+      desc: 'Blixten träffar målet och hoppar sedan till {jumps} fiender till: {dmg}% Teknik i skada på var och en. Bygger {heat} hetta.'
+    },
+    thermalPlating: {
+      name: 'Värmepansar',
+      desc: 'Medan din hetta är {heat} eller mer tar du {reduce}% mindre skada.'
+    },
+    boulderRoll: {
+      name: 'Stenrullning',
+      desc: 'Rulla ett stenblock framåt: {dmg}% Styrka i skada på allt i dess väg, och de slås ner i {down}s.'
+    },
+    bedrock: {
+      name: 'Urberg',
+      desc: 'Inget kan slå dig bakåt, omkull eller upp i luften. +{hp}% max Hälsa.'
+    },
+    sinkhole: {
+      name: 'Slukhål',
+      desc: 'Marken sjunker och drar in fiender i {dur}s, och rasar sedan in: {dmg}% Styrka i skada.'
+    },
+    mountainBreaker: {
+      name: 'Bergkrossare',
+      desc: '+{boss}% skada mot bossar och +{armor}% Rustning.'
+    },
+    geodeShell: {
+      name: 'Geodskal',
+      desc: 'Ett kristallskal tar upp skada värd {shield}% av din hälsa i {dur}s och spricker sedan för upp till {dmg}% Styrka i skada.'
+    },
+    crumble: {
+      name: 'Smula sönder',
+      desc: 'Du gör {dmg}% mer skada på fiender som är nedsaktade, nedslagna eller förstenade.'
+    }
   },
   slot: {
     main: 'Huvudhand',

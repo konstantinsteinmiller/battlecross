@@ -431,6 +431,38 @@ export default {
     geo: {
       name: '地术师',
       desc: '升起石墙和尖刺，连大地本身也能打碎。'
+    },
+    windrunner: {
+      name: '疾风行者',
+      desc: '一把弓，背后有风。射击、冲刺，永不停下。'
+    },
+    frostwarden: {
+      name: '寒霜卫士',
+      desc: '冰之刃，冷之心。减速他们，冻住他们，再把他们击碎。'
+    },
+    lightbringer: {
+      name: '光明使者',
+      desc: '治愈朋友、致盲敌人的光。站在光里，没有什么能阻挡你。'
+    },
+    beastcaller: {
+      name: '唤兽师',
+      desc: '狼群、巨熊和猎鹰在你身边战斗。召唤它们，指挥它们。'
+    },
+    elementalist: {
+      name: '元素使',
+      desc: '火、冰、雷、石。把它们混合，一个会引发下一个。'
+    },
+    soulwarden: {
+      name: '灵魂守望者',
+      desc: '被击败的敌人化作友好的灵魂，在你身边战斗，然后回家安息。'
+    },
+    ironmonk: {
+      name: '钢铁武僧',
+      desc: '赤手空拳，脚步如飞。每次出击都积攒气，全部用在一记强力重击上。'
+    },
+    bard: {
+      name: '吟游诗人',
+      desc: '歌声鼓舞己方，曲调让对手入睡或自相残杀。'
     }
   },
   skill: {
@@ -635,7 +667,199 @@ export default {
       name: '地壳撕裂',
       desc: '撕开战场：对附近的一切造成{dmg}%力量伤害，碎石会减速{dur}秒。'
     },
-    scales: '随{attr}提升'
+    scales: '随{attr}提升',
+    shieldThrow: {
+      name: '盾牌投掷',
+      desc: '你的盾牌在{bounces}个敌人间弹跳，每个造成{dmg}%力量伤害。它们的伤害降低{weak}%，持续{dur}秒。'
+    },
+    shieldShove: {
+      name: '盾牌推撞',
+      desc: '推开你面前的所有敌人，造成{dmg}%力量伤害。它们被击退，正在做的事也被打断。'
+    },
+    holyChains: {
+      name: '神圣锁链',
+      desc: '光之锁链把{radius} m内的所有敌人拉到你身边：造成{dmg}%耐力伤害，并减速{slow}%。'
+    },
+    bulwark: {
+      name: '铜墙铁壁',
+      desc: '+{block}%格挡几率。每次格挡对攻击者反弹{back}点伤害。'
+    },
+    retribution: {
+      name: '惩戒',
+      desc: '{dur}秒内，{radius} m内的敌人必须攻击你。之后圣光造成{dmg}%力量伤害，外加所受伤害的{back}%。'
+    },
+    unbreakable: {
+      name: '坚不可摧',
+      desc: '生命低于{hp}%时，你受到的伤害降低{reduce}%。'
+    },
+    starFan: {
+      name: '星镖扇',
+      desc: '呈扇形掷出{stars}枚暗影星镖，每枚造成{dmg}%敏捷伤害。'
+    },
+    grapplingHook: {
+      name: '钩爪',
+      desc: '把目标拉到你身边，造成{dmg}%敏捷伤害，并减速{slow}%，持续{dur}秒。大型敌人会把你拉过去。'
+    },
+    silentStrike: {
+      name: '无声一击',
+      desc: '背刺伤害+{backstab}%，敌人发现你的时间推迟{notice}%。'
+    },
+    shadowMark: {
+      name: '暗影印记',
+      desc: '目标在{dur}秒内受到的伤害提高{vuln}%，你对任何人的下一击必定暴击，伤害+{bonus}%。'
+    },
+    bladeRhythm: {
+      name: '刀锋韵律',
+      desc: '暴击使所有冷却减少{cut}秒。攻击速度+{speed}%。'
+    },
+    nightshadeMist: {
+      name: '颠茄毒雾',
+      desc: '释放毒雾，持续{dur}秒：最多造成{dmg}%敏捷伤害。困在其中的敌人混乱{confuse}秒。'
+    },
+    firecracker: {
+      name: '爆竹',
+      desc: '在目标身上贴一个爆竹。{delay}秒后炸开，造成{dmg}%智力伤害，并点燃附近的一切。'
+    },
+    fanTheFlames: {
+      name: '煽风点火',
+      desc: '{radius} m内的所有灼烧增强{pct}%并重新开始。{push} m内的敌人被吹飞。'
+    },
+    ringOfFire: {
+      name: '火焰之环',
+      desc: '升起一圈火焰，持续{dur}秒：最多造成{dmg}%智力伤害。圈内的敌人减速{slow}%。'
+    },
+    everflame: {
+      name: '永恒之火',
+      desc: '你的灼烧增强{burn}%，法术暴击率+{crit}%。'
+    },
+    wildfire: {
+      name: '野火',
+      desc: '灼烧中的敌人被击败时，火焰会蔓延到{radius} m内的所有敌人，持续{dur}秒。'
+    },
+    phoenixFlight: {
+      name: '凤凰飞翔',
+      desc: '化作凤凰飞行，留下火焰轨迹：在落点造成{dmg}%智力伤害。{dur}秒内每秒回复{regen}%生命。'
+    },
+    callArchers: {
+      name: '召唤弓箭手',
+      desc: '召唤一名弓箭手在你身后射击，造成{dmg}%魅力伤害。最多同时{max}名。'
+    },
+    royalRally: {
+      name: '王者集结',
+      desc: '你的随从冲到你身边，回复{heal}%生命。你们全体防御+{def}%，持续{dur}秒。'
+    },
+    warMarshal: {
+      name: '战争元帅',
+      desc: '你的随从造成的伤害提高{dmg}%。'
+    },
+    royalDecree: {
+      name: '王室诏令',
+      desc: '{radius} m内的敌人必须鞠躬：眩晕{stun}秒，然后在{dur}秒内受到的伤害提高{vuln}%。'
+    },
+    loyalHearts: {
+      name: '忠诚之心',
+      desc: '每当你的一名随从倒下，你回复{heal}%生命。'
+    },
+    summonChampion: {
+      name: '召唤勇士',
+      desc: '召唤王国的勇士，持续{dur}秒：一名巨人骑士，拥有你{hp}%的生命，每击造成{dmg}%魅力伤害。'
+    },
+    echoBolt: {
+      name: '回响飞弹',
+      desc: '一道时间飞弹，造成{dmg}%智力伤害。{delay}秒后再次命中，造成{echo}%伤害。'
+    },
+    foresight: {
+      name: '预见',
+      desc: '你能提前一瞬看到攻击：闪避+{dodge}%，冷却缩短{cdr}%。'
+    },
+    timeBubble: {
+      name: '时间泡泡',
+      desc: '制造一个慢时间泡泡，持续{dur}秒：其中的敌人移动减慢{slow}%，并受到{dmg}%智力伤害。'
+    },
+    timeLoop: {
+      name: '时间循环',
+      desc: '{dur}秒后，目标被拉回原来的位置：造成{dmg}%智力伤害，外加它这段时间所失生命的{echo}%。'
+    },
+    frozenMoment: {
+      name: '凝固瞬间',
+      desc: '你的攻击有{chance}%几率把敌人冻结在时间里{dur}秒。'
+    },
+    timeStop: {
+      name: '时间停止',
+      desc: '让{radius} m内的时间停止{dur}秒。时间恢复时，每个敌人受到{dmg}%智力伤害。'
+    },
+    essenceWard: {
+      name: '精华结界',
+      desc: '把{hp}%的生命化作价值其{shield}%的发光结界，持续{dur}秒。'
+    },
+    vitalReserve: {
+      name: '生命储备',
+      desc: '最大生命+{hp}%，每秒回复{regen}点生命。'
+    },
+    enfeeblingTonic: {
+      name: '虚弱药剂',
+      desc: '扔出一瓶药剂：在范围内造成{dmg}%智力伤害。被击中的敌人造成的伤害降低{weak}%，持续{dur}秒。'
+    },
+    homunculus: {
+      name: '人造小人',
+      desc: '用{hp}%的生命炼出一个冒泡的小帮手，持续{dur}秒。炼制新的会返还旧帮手{back}%的生命。'
+    },
+    adrenalCatalyst: {
+      name: '肾上腺催化',
+      desc: '生命越低，伤害越高：生命在{low}%或以下时最多+{dmg}%。'
+    },
+    grandTransmutation: {
+      name: '大嬗变',
+      desc: '把{radius} m内敌人{pct}%的生命化为精华。你回复其中的{heal}%。'
+    },
+    rocketJump: {
+      name: '火箭跳',
+      desc: '腾空而起，落在瞄准处：对{radius} m内造成{dmg}%技巧伤害。积累{heat}点热量。'
+    },
+    coolantLoop: {
+      name: '冷却循环',
+      desc: '热量消散加快{cool}%，技能积累的热量减少{cut}%。'
+    },
+    shockGrenade: {
+      name: '电击手雷',
+      desc: '投出一枚手雷：对{radius} m内造成{dmg}%技巧伤害，并眩晕{stun}秒。积累{heat}点热量。'
+    },
+    precisionOptics: {
+      name: '精密瞄具',
+      desc: '+{crit}%暴击率。你的射击可额外穿透{pierce}个敌人。'
+    },
+    arcCoil: {
+      name: '电弧线圈',
+      desc: '闪电击中目标，再跳向{jumps}个敌人：每个造成{dmg}%技巧伤害。积累{heat}点热量。'
+    },
+    thermalPlating: {
+      name: '隔热装甲',
+      desc: '热量达到{heat}或以上时，你受到的伤害降低{reduce}%。'
+    },
+    boulderRoll: {
+      name: '滚石',
+      desc: '向前滚出一块巨石：对路径上的一切造成{dmg}%力量伤害，并击倒{down}秒。'
+    },
+    bedrock: {
+      name: '基岩',
+      desc: '任何东西都无法把你击退、击倒或击飞。最大生命+{hp}%。'
+    },
+    sinkhole: {
+      name: '天坑',
+      desc: '地面下陷，把敌人吸入{dur}秒，然后坍塌：造成{dmg}%力量伤害。'
+    },
+    mountainBreaker: {
+      name: '裂山',
+      desc: '对首领的伤害+{boss}%，护甲+{armor}%。'
+    },
+    geodeShell: {
+      name: '晶洞之壳',
+      desc: '水晶外壳在{dur}秒内吸收相当于生命{shield}%的伤害，然后爆裂，最多造成{dmg}%力量伤害。'
+    },
+    crumble: {
+      name: '崩解',
+      desc: '你对被减速、被击倒或被石化的敌人造成的伤害提高{dmg}%。'
+    }
   },
   slot: {
     main: '主手',

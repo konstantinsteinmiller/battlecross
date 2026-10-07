@@ -179,6 +179,12 @@ const ITEM_BLURBS: Readonly<Record<string, string>> = {
 
 const SKILL_BLURBS: Readonly<Record<string, string>> = {
   // Aegis Knight
+  shieldThrow: 'a round shield flying to the upper right, with short curved motion arcs bouncing off it in a zigzag',
+  shieldShove: 'a shield seen from the side with three bold curved push arcs spreading out in front of it',
+  holyChains: 'three gold chain links curving inward to a small shield in the centre',
+  bulwark: 'a tall shield with a short arrow bouncing back off its face',
+  retribution: 'a shield with two small arrows striking it and one big arrow of light bouncing back out, gold rays behind it',
+  unbreakable: 'a cracked steel shield that still stands, with a small red heart showing in the crack',
   shieldSlam: 'a shield tilted forward with a six-pointed impact burst at its upper right edge',
   aegisAura: 'a shield with a cross-shaped rib, sitting in the middle of a solid round disc of light',
   radiantStrike: 'a pale sword pointing up and to the right, in front of eight short solid light rays arranged in a ring',
@@ -186,6 +192,12 @@ const SKILL_BLURBS: Readonly<Record<string, string>> = {
   tauntingCry: 'a horn-shaped megaphone pointing right, with two curved solid sound arcs in front of its mouth',
   holyBastion: 'a small pale castle tower with three battlements and an arched door, standing in front of a solid half-dome, with one four-pointed star above it',
   // Shadowblade
+  starFan: 'three steel four-pointed throwing stars spread in a fan',
+  grapplingHook: 'a three-pronged grappling hook with a curling rope tail',
+  silentStrike: 'a steel dagger beside a small closed eye drawn as a curved line',
+  shadowMark: 'a round crosshair with a violet crescent moon in its middle',
+  bladeRhythm: 'a steel dagger crossed with a thick circular arrow',
+  nightshadeMist: 'a soft violet cloud with three green bubbles rising and a small bell-shaped flower in front',
   shadowstep: 'a crescent shape curving to the right, with three short horizontal speed lines trailing on its left',
   lethality: 'a steel dagger pointing up and to the right, with a red four-pointed star at its tip',
   venomousBlade: 'a steel dagger pointing up and to the right, with one fat green droplet falling from its blade',
@@ -193,6 +205,12 @@ const SKILL_BLURBS: Readonly<Record<string, string>> = {
   smokeBomb: 'a round black bomb with a short fuse and a spark, half covered by one puffy solid cloud',
   danceOfBlades: 'three short steel blades pointing outward from a small round hub, evenly spaced like a three-armed pinwheel',
   // Pyromancer
+  firecracker: 'a stubby red paper tube tilted to the right with a gold spark fizzing at its short fuse',
+  fanTheFlames: 'a folding steel hand fan with an orange flame flaring up above it',
+  ringOfFire: 'a bold circle of five small flames seen from above',
+  everflame: 'a flame inside an infinity loop',
+  wildfire: 'one big flame with two smaller flames jumping off it along curved arcs',
+  phoenixFlight: 'a firebird with spread orange wings, a gold body and a red flame tail',
   fireball: 'a teardrop-shaped ball of flame with a yellow core, flying up and to the right, with three short streaks behind it',
   cauterize: 'a flame with a thick white plus sign on its lower half',
   flamePillar: 'a tall, narrow column of flame with a yellow core, rising from a flat ground line',
@@ -200,6 +218,12 @@ const SKILL_BLURBS: Readonly<Record<string, string>> = {
   combustion: 'a nine-pointed explosion burst with a smaller yellow nine-pointed burst in its middle',
   cataclysm: 'a round cratered boulder falling toward the lower left, with three streaks behind it at the upper right and a flat ground line below',
   // Grand Sovereign
+  callArchers: 'a bow with a white arrow nocked and a tiny gold crown on its grip',
+  royalRally: 'a gold horn blowing to the right, with three small dots converging on its mouth',
+  warMarshal: 'a sword and a baton crossed under a gold crown',
+  royalDecree: 'an unrolled white scroll with lines of writing and a bold red wax seal',
+  loyalHearts: 'a red playing-card heart wearing a small gold crown',
+  summonChampion: 'a big gold knight\'s helmet with a face opening and a small crown on top',
   royalGuard: 'a steel knight\'s helmet with a face opening, topped with a short rounded plume',
   inspiringPresence: 'a gold crown with five points and one red jewel, with two white four-pointed sparks above it',
   commandFocus: 'a round target of three rings, with four short crosshair ticks at top, bottom, left and right',
@@ -213,7 +237,19 @@ const SKILL_BLURBS: Readonly<Record<string, string>> = {
   paradoxShift: 'two thick arrows stacked one above the other, the upper pointing right and the lower pointing left',
   entropy: 'a solid round disc with one thick white spiral line on it',
   chronoRewind: 'a white round clock face with two hands, with a curved arrow hooking back around its upper left',
+  echoBolt: 'a jagged lightning bolt with two faint ghostly copies of itself trailing behind it to the lower left',
+  foresight: 'a wide almond-shaped eye whose round pupil is a small clock face with two hands',
+  timeBubble: 'a big round soap bubble with a small white clock face floating inside it',
+  timeLoop: 'a thick circular arrow that nearly closes on itself, with a solid dot in the middle of the circle',
+  frozenMoment: 'a white round clock face with a six-pointed ice crystal at its upper right edge',
+  timeStop: 'a white round clock face with two thick upright pause bars across its middle',
   // Blood Alchemist: alchemy, never gore
+  essenceWard: 'a round red flask with a small white shield shape on its glass',
+  vitalReserve: 'a red playing-card heart with a white plus sign on it and a small gold arrow pointing up at its upper right',
+  enfeeblingTonic: 'a tilted green flask with a curved arrow drooping downward above it',
+  homunculus: 'a happy round red blob with two big white eyes and a smile, a little cork on top of its head',
+  adrenalCatalyst: 'a red playing-card heart with a gold lightning bolt across it',
+  grandTransmutation: 'a white droplet in the middle of a circle with a triangle drawn inside it, on a pale round disc',
   sanguineFlask: 'a conical glass laboratory flask with a cork, one third full of red liquid with two small bubbles in it',
   bloodTransmutation: 'two fat droplets of liquid side by side, a red one on the left and a blue one on the right, with a small arrowhead between them pointing right',
   essenceHarvest: 'one fat red droplet of liquid in the middle, circled by two curved arrows that chase each other',
@@ -221,6 +257,12 @@ const SKILL_BLURBS: Readonly<Record<string, string>> = {
   mutagenicRage: 'a round red cartoon face with angry slanted brows, two dot eyes and a zigzag row of teeth',
   philosophersCrucible: 'a wide steel bowl-shaped cauldron full of red liquid, with three round red bubbles rising above it',
   // Aether-Tech
+  rocketJump: 'a steel boot with a flame jet blasting out under it and a small gold arrow pointing up',
+  coolantLoop: 'a pale blue six-pointed ice crystal inside a thick circular arrow',
+  shockGrenade: 'a round steel grenade with a dark cap on top and a gold zig-zag spark across its face',
+  precisionOptics: 'a round crosshair scope with a white arrow passing straight through its middle',
+  arcCoil: 'a steel coil standing upright with a gold lightning bolt branching off its top',
+  thermalPlating: 'a steel shield with a white thermometer on it, filled halfway with red',
   aetherPistol: 'a steel pistol pointing right with a small four-pointed spark at its muzzle',
   deployTurret: 'a small boxy steel gun turret with one short barrel pointing right and a round lens, on a wooden tripod base',
   ventHeat: 'a steel nozzle on the left blowing a wide solid cone to the right, with three streak lines inside the cone',
@@ -228,6 +270,12 @@ const SKILL_BLURBS: Readonly<Record<string, string>> = {
   orbitalBeam: 'a thick vertical beam with a white core coming down from the top edge onto a flat oval of ground, with a white six-pointed burst where it lands',
   exoSuit: 'a six-sided steel armour shell seen from the front, with one wide visor slot across it',
   // Geomancer
+  boulderRoll: 'a big round boulder rolling to the right with three short speed lines behind it',
+  bedrock: 'a solid block of layered rock with a thick arrow pointing down into it',
+  sinkhole: 'a dark round hole in the ground with a thick white spiral swirling down into it',
+  mountainBreaker: 'a mountain peak split by a jagged crack, with a white fist above it',
+  geodeShell: 'an egg-shaped rock split open with pointed blue crystals inside',
+  crumble: 'a stone block cracking apart, three small pieces falling from it',
   stoneSpike: 'one tall sharp rock spike rising from a flat ground line, with a small spike on each side of it',
   earthBarrier: 'a wall of five rounded stone blocks in two staggered rows',
   seismicShock: 'a jagged zigzag shock line above a flat ground line, with two curved ripple arcs between them',
@@ -280,10 +328,14 @@ const COIN_BLURB = 'a thick round gold coin seen flat from the front: an orange-
 const TIER_NAME: Readonly<Record<number, string>> = { 1: 'pale silver-grey', 2: 'green', 3: 'blue', 4: 'violet', 5: 'orange', 6: 'gold' }
 /** Operator-facing (headings, the desk's search). Never in a prompt. */
 const CLASS_NAME: Readonly<Record<ClassId, string>> = {
-  aegis: 'Aegis Knight', shadow: 'Shadowblade', pyro: 'Pyromancer', sovereign: 'Grand Sovereign', chrono: 'Chrono-Weaver', blood: 'Blood Alchemist', aether: 'Aether-Tech', geo: 'Geomancer'
+  aegis: 'Aegis Knight', shadow: 'Shadowblade', pyro: 'Pyromancer', sovereign: 'Grand Sovereign', chrono: 'Chrono-Weaver', blood: 'Blood Alchemist', aether: 'Aether-Tech', geo: 'Geomancer',
+  windrunner: 'Windrunner', frostwarden: 'Frostwarden', lightbringer: 'Lightbringer', beastcaller: 'Beastcaller',
+  elementalist: 'Elementalist', soulwarden: 'Soul Warden', ironmonk: 'Iron Monk', bard: 'Bard'
 }
 const CLASS_HUE: Readonly<Record<ClassId, string>> = {
-  aegis: 'gold', shadow: 'violet', pyro: 'orange', sovereign: 'amber', chrono: 'cyan', blood: 'crimson', aether: 'teal', geo: 'sand'
+  aegis: 'gold', shadow: 'violet', pyro: 'orange', sovereign: 'amber', chrono: 'cyan', blood: 'crimson', aether: 'teal', geo: 'sand',
+  windrunner: 'lime', frostwarden: 'ice blue', lightbringer: 'rose', beastcaller: 'leaf green',
+  elementalist: 'magenta', soulwarden: 'periwinkle', ironmonk: 'jade', bard: 'pink'
 }
 
 // ─── The sheets ──────────────────────────────────────────────────────────────
@@ -427,13 +479,14 @@ const itemSet = (stem: string, title: string, items: ItemDef[]): ArtSet => ({
  */
 export const SKILL_FINISH_REFS: readonly string[] = ['ironBroadsword', 'dragonSmasher', 'voidCannon'].map(id => `public/${artTarget('items', id)}`)
 
-const skillSet = (cls: ClassId): ArtSet => ({
-  stem: `sheet-skills-${cls}`,
-  title: `Skill icons: ${CLASS_NAME[cls]}`,
+/** A class's skill icons, six to a sheet: its first six, then (#95) its next. */
+const skillSet = (cls: ClassId, part: 0 | 1): ArtSet => ({
+  stem: part ? `sheet-skills2-${cls}` : `sheet-skills-${cls}`,
+  title: `Skill icons: ${CLASS_NAME[cls]}${part ? ' (2 of 2)' : ''}`,
   kind: 'skills', doc: 'PROMPTS-SKILLS.md', cols: 3, rows: 2, panelH: TALL, maxEdge: 192, crop: 1, anchor: 'centre',
   accent: { hex: CLASSES[cls].color, name: CLASS_HUE[cls] },
   styleRefs: SKILL_FINISH_REFS,
-  cells: grid(skillsOf(cls).map(s => ({
+  cells: grid(skillsOf(cls).slice(part * 6, part * 6 + 6).map(s => ({
     id: s.id, draw: 'skill' as const, label: labelOf(s.id), blurb: need(SKILL_BLURBS, s.id), target: artTarget('skills', s.id),
     glyph: `skill.${s.id}`, tint: CLASSES[cls].color, tintName: CLASS_HUE[cls], round: s.kind === 'passive'
   })), 3, 2)
@@ -523,7 +576,7 @@ export const SETS: readonly ArtSet[] = [
   itemSet('sheet-items-trinkets', 'Item icons: trinkets', trinkets),
   itemSet('sheet-items-headgear', 'Item icons: headgear and gloves', [...head, ...hands]),
   itemSet('sheet-items-boots', 'Item icons: boots', feet),
-  ...CLASS_IDS.map(skillSet),
+  ...CLASS_IDS.flatMap(cls => (skillsOf(cls).length > 6 ? [skillSet(cls, 0), skillSet(cls, 1)] : [skillSet(cls, 0)])),
   portraitSet('sheet-portraits-town', 'Portraits: townsfolk', TOWN_LOOKS, 3, 3),
   portraitSet('sheet-portraits-trainers', 'Portraits: trainers', TRAINER_LOOKS, 3, 3),
   portraitSet('sheet-portraits-speakers', 'Portraits: quest speakers', SPEAKER_LOOKS, 3, 2),

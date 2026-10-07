@@ -432,6 +432,38 @@ export default {
     geo: {
       name: 'Geomant',
       desc: 'Lässt Wände und Stacheln wachsen und bricht den Boden selbst auf.'
+    },
+    windrunner: {
+      name: 'Windläufer',
+      desc: 'Ein Bogen und der Wind im Rücken. Schießen, sprinten und nie stillstehen.'
+    },
+    frostwarden: {
+      name: 'Frostwächter',
+      desc: 'Eine Eisklinge und ein kaltes Herz. Verlangsamen, einfrieren, dann zerschmettern.'
+    },
+    lightbringer: {
+      name: 'Lichtbringer',
+      desc: 'Licht, das Freunde heilt und Feinde blendet. Steh darin, und nichts hält dich auf.'
+    },
+    beastcaller: {
+      name: 'Bestienrufer',
+      desc: 'Ein Wolfsrudel, ein Bär und ein Falke kämpfen an deiner Seite. Ruf sie, befehlige sie.'
+    },
+    elementalist: {
+      name: 'Elementarist',
+      desc: 'Feuer, Frost, Blitz und Stein. Kombiniere sie, und jedes löst das nächste aus.'
+    },
+    soulwarden: {
+      name: 'Seelenwächter',
+      desc: 'Besiegte Feinde erheben sich als freundliche Geister, kämpfen an deiner Seite und kehren dann heim zur Ruhe.'
+    },
+    ironmonk: {
+      name: 'Eisenmönch',
+      desc: 'Bloße Hände, schnelle Füße. Jeder Schlag sammelt Chi; gib alles für einen mächtigen Hieb aus.'
+    },
+    bard: {
+      name: 'Barde',
+      desc: 'Lieder, die deine Seite stärken, und Melodien, die die andere einschläfern oder gegen sich selbst wenden.'
     }
   },
   skill: {
@@ -636,7 +668,199 @@ export default {
       name: 'Tektonischer Riss',
       desc: 'Reiß das Feld auf: {dmg}% Stärke-Schaden an allem in der Nähe, und Geröll, das für {dur}s verlangsamt.'
     },
-    scales: 'Skaliert mit {attr}'
+    scales: 'Skaliert mit {attr}',
+    shieldThrow: {
+      name: 'Schildwurf',
+      desc: 'Dein Schild prallt von {bounces} Gegnern ab: je {dmg}% Stärke-Schaden. Sie verursachen {dur}s lang {weak}% weniger.'
+    },
+    shieldShove: {
+      name: 'Schildstoß',
+      desc: 'Stoße alle vor dir für {dmg}% Stärke-Schaden. Sie fliegen zurück und brechen ab, was sie gerade tun.'
+    },
+    holyChains: {
+      name: 'Heilige Ketten',
+      desc: 'Ketten aus Licht ziehen jeden Gegner im Umkreis von {radius} m zu dir: {dmg}% Ausdauer-Schaden und {slow}% Verlangsamung.'
+    },
+    bulwark: {
+      name: 'Bollwerk',
+      desc: '+{block}% Blockchance. Jeder Block fügt dem Angreifer {back} Schaden zu.'
+    },
+    retribution: {
+      name: 'Vergeltung',
+      desc: '{dur}s lang müssen Gegner im Umkreis von {radius} m dich angreifen. Dann trifft Licht für {dmg}% Stärke +{back}% der erlittenen Treffer.'
+    },
+    unbreakable: {
+      name: 'Unbeugsam',
+      desc: 'Unter {hp}% Leben erleidest du {reduce}% weniger Schaden.'
+    },
+    starFan: {
+      name: 'Sternenfächer',
+      desc: 'Wirf {stars} Schattensterne im Fächer, jeder für {dmg}% Geschick-Schaden.'
+    },
+    grapplingHook: {
+      name: 'Enterhaken',
+      desc: 'Zieh das Ziel für {dmg}% Geschick-Schaden zu dir und verlangsame es {dur}s lang um {slow}%. Große Gegner ziehen dich hin.'
+    },
+    silentStrike: {
+      name: 'Lautloser Stoß',
+      desc: 'Rückenstiche verursachen +{backstab}% Schaden, und Gegner bemerken dich {notice}% später.'
+    },
+    shadowMark: {
+      name: 'Schattenmal',
+      desc: 'Das Ziel erleidet {dur}s lang {vuln}% mehr Schaden, und dein nächster Treffer auf irgendwen ist kritisch mit +{bonus}%.'
+    },
+    bladeRhythm: {
+      name: 'Klingenrhythmus',
+      desc: 'Kritische Treffer ziehen {cut}s von jeder Abklingzeit ab. +{speed}% Angriffstempo.'
+    },
+    nightshadeMist: {
+      name: 'Nachtschattennebel',
+      desc: 'Ein Giftnebel für {dur}s: bis zu {dmg}% Geschick-Schaden. Gegner darin sind {confuse}s lang verwirrt.'
+    },
+    firecracker: {
+      name: 'Knallfrosch',
+      desc: 'Heft dem Ziel einen Knallfrosch an. Nach {delay}s knallt er für {dmg}% Intelligenz-Schaden und setzt alles in der Nähe in Brand.'
+    },
+    fanTheFlames: {
+      name: 'Flammen schüren',
+      desc: 'Jeder Brand im Umkreis von {radius} m lodert {pct}% stärker auf und beginnt von vorn. Gegner im Umkreis von {push} m werden weggeschleudert.'
+    },
+    ringOfFire: {
+      name: 'Feuerring',
+      desc: 'Ein Flammenring steigt {dur}s lang auf: bis zu {dmg}% Intelligenz-Schaden. Gegner darin werden um {slow}% verlangsamt.'
+    },
+    everflame: {
+      name: 'Ewige Flamme',
+      desc: 'Deine Brände sind {burn}% stärker, und deine Zauber erhalten +{crit}% Kritische Chance.'
+    },
+    wildfire: {
+      name: 'Lauffeuer',
+      desc: 'Wird ein brennender Gegner besiegt, springen seine Flammen {dur}s lang auf jeden Gegner im Umkreis von {radius} m über.'
+    },
+    phoenixFlight: {
+      name: 'Phönixflug',
+      desc: 'Flieg als Phönix mit Feuerschweif: {dmg}% Intelligenz-Schaden, wo du landest. Heile {dur}s lang {regen}% pro Sekunde.'
+    },
+    callArchers: {
+      name: 'Bogenschützen rufen',
+      desc: 'Beschwöre einen Bogenschützen, der hinter dir für {dmg}% Charisma-Schaden schießt. Bis zu {max} gleichzeitig.'
+    },
+    royalRally: {
+      name: 'Königlicher Sammelruf',
+      desc: 'Deine Diener eilen an deine Seite und heilen {heal}% Leben. Ihr alle erhaltet {dur}s lang +{def}% Verteidigung.'
+    },
+    warMarshal: {
+      name: 'Kriegsmarschall',
+      desc: 'Deine Diener verursachen {dmg}% mehr Schaden.'
+    },
+    royalDecree: {
+      name: 'Königserlass',
+      desc: 'Gegner im Umkreis von {radius} m müssen sich verneigen: {stun}s betäubt, dann erleiden sie {dur}s lang {vuln}% mehr Schaden.'
+    },
+    loyalHearts: {
+      name: 'Treue Herzen',
+      desc: 'Fällt einer deiner Diener, heilst du {heal}% deines Lebens.'
+    },
+    summonChampion: {
+      name: 'Champion beschwören',
+      desc: 'Ruf den Champion des Reiches für {dur}s: ein riesiger Ritter mit {hp}% deines Lebens, der für {dmg}% Charisma zuschlägt.'
+    },
+    echoBolt: {
+      name: 'Echoblitz',
+      desc: 'Ein Zeitblitz für {dmg}% Intelligenz-Schaden. {delay}s später trifft er erneut für {echo}%.'
+    },
+    foresight: {
+      name: 'Vorahnung',
+      desc: 'Du siehst Schläge einen Moment früher kommen: +{dodge}% Ausweichen und {cdr}% kürzere Abklingzeiten.'
+    },
+    timeBubble: {
+      name: 'Zeitblase',
+      desc: 'Eine Blase aus langsamer Zeit für {dur}s: Gegner darin bewegen sich {slow}% langsamer und erleiden {dmg}% Intelligenz-Schaden.'
+    },
+    timeLoop: {
+      name: 'Zeitschleife',
+      desc: 'Nach {dur}s schnellt das Ziel dorthin zurück, wo es war: {dmg}% Intelligenz-Schaden plus {echo}% dessen, was es verloren hat.'
+    },
+    frozenMoment: {
+      name: 'Erstarrter Moment',
+      desc: 'Deine Angriffe haben eine Chance von {chance}%, den Gegner {dur}s lang in der Zeit einzufrieren.'
+    },
+    timeStop: {
+      name: 'Zeitstopp',
+      desc: 'Halte die Zeit im Umkreis von {radius} m für {dur}s an. Läuft sie weiter, erleidet jeder Gegner {dmg}% Intelligenz-Schaden.'
+    },
+    essenceWard: {
+      name: 'Essenzschild',
+      desc: 'Verwandle {hp}% deines Lebens für {dur}s in einen leuchtenden Schild, der {shield}% davon wert ist.'
+    },
+    vitalReserve: {
+      name: 'Lebensreserve',
+      desc: '+{hp}% maximales Leben, und du erhältst jede Sekunde {regen} Leben zurück.'
+    },
+    enfeeblingTonic: {
+      name: 'Schwächetrank',
+      desc: 'Wirf einen Trank: {dmg}% Intelligenz-Schaden in einem Bereich. Getroffene Gegner verursachen {dur}s lang {weak}% weniger Schaden.'
+    },
+    homunculus: {
+      name: 'Homunkulus',
+      desc: 'Braue aus {hp}% deines Lebens einen blubbernden Helfer für {dur}s. Braust du einen neuen, kehren {back}% seines Lebens zurück.'
+    },
+    adrenalCatalyst: {
+      name: 'Adrenalin-Katalysator',
+      desc: 'Je weniger Leben du hast, desto mehr Schaden verursachst du: bis zu +{dmg}% bei {low}% Leben oder weniger.'
+    },
+    grandTransmutation: {
+      name: 'Große Transmutation',
+      desc: 'Verwandle {pct}% des Lebens von Gegnern im Umkreis von {radius} m in Essenz. Du heilst dich um {heal}% davon.'
+    },
+    rocketJump: {
+      name: 'Raketensprung',
+      desc: 'Heb ab und lande, wo du zielst: {dmg}% Technik-Schaden im Umkreis von {radius} m. Erzeugt {heat} Hitze.'
+    },
+    coolantLoop: {
+      name: 'Kühlkreislauf',
+      desc: 'Hitze sinkt {cool}% schneller, und deine Fähigkeiten erzeugen {cut}% weniger davon.'
+    },
+    shockGrenade: {
+      name: 'Schockgranate',
+      desc: 'Wirf eine Granate: {dmg}% Technik-Schaden und {stun}s Betäubung im Umkreis von {radius} m. Erzeugt {heat} Hitze.'
+    },
+    precisionOptics: {
+      name: 'Präzisionsoptik',
+      desc: '+{crit}% Kritische Chance. Deine Schüsse durchdringen {pierce} zusätzlichen Gegner.'
+    },
+    arcCoil: {
+      name: 'Bogenspule',
+      desc: 'Ein Blitz trifft das Ziel und springt dann auf {jumps} weitere Gegner: je {dmg}% Technik-Schaden. Erzeugt {heat} Hitze.'
+    },
+    thermalPlating: {
+      name: 'Thermopanzerung',
+      desc: 'Solange deine Hitze bei {heat} oder mehr liegt, erleidest du {reduce}% weniger Schaden.'
+    },
+    boulderRoll: {
+      name: 'Rollender Fels',
+      desc: 'Roll einen Felsbrocken nach vorn: {dmg}% Stärke-Schaden an allem auf seinem Weg, das {down}s lang zu Boden geht.'
+    },
+    bedrock: {
+      name: 'Grundgestein',
+      desc: 'Nichts kann dich zurückstoßen, umwerfen oder in die Luft schleudern. +{hp}% maximales Leben.'
+    },
+    sinkhole: {
+      name: 'Erdloch',
+      desc: 'Der Boden sinkt ein und zieht Gegner {dur}s lang hinein, dann stürzt er ein: {dmg}% Stärke-Schaden.'
+    },
+    mountainBreaker: {
+      name: 'Bergbrecher',
+      desc: '+{boss}% Schaden gegen Bosse und +{armor}% Rüstung.'
+    },
+    geodeShell: {
+      name: 'Geodenpanzer',
+      desc: 'Eine Kristallhülle absorbiert {dur}s lang {shield}% deines Lebens und platzt dann für bis zu {dmg}% Stärke-Schaden.'
+    },
+    crumble: {
+      name: 'Zerbröckeln',
+      desc: 'Du verursachst {dmg}% mehr Schaden an Gegnern, die verlangsamt, am Boden oder zu Stein verwandelt sind.'
+    }
   },
   slot: {
     main: 'Haupthand',

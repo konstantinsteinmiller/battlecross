@@ -1185,10 +1185,26 @@
           }
         },
         {
+          "id": "shieldThrow",
+          "label": "Shield Throw",
+          "variant": "skills",
+          "x": 256,
+          "y": 288,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/shieldThrow.webp",
+          "fit": {
+            "h": 0.84,
+            "w": 0.781,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
           "id": "tauntingCry",
           "label": "Taunting Cry",
           "variant": "skills",
-          "x": 256,
+          "x": 512,
           "y": 288,
           "w": 256,
           "h": 288,
@@ -1199,13 +1215,63 @@
             "bottom": 0.82,
             "cx": 0.5
           }
+        }
+      ]
+    },
+    {
+      "id": "sheet-skills2-aegis",
+      "kind": "set",
+      "title": "Skill icons: Aegis Knight (2 of 2)",
+      "files": {
+        "clean": "sheet-skills2-aegis.png",
+        "key": "sheet-skills2-aegis-key.png"
+      },
+      "width": 768,
+      "height": 576,
+      "cols": 3,
+      "rows": 2,
+      "maxEdge": 192,
+      "crop": 1,
+      "anchor": "centre",
+      "cells": [
+        {
+          "id": "shieldShove",
+          "label": "Shield Shove",
+          "variant": "skills",
+          "x": 0,
+          "y": 0,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/shieldShove.webp",
+          "fit": {
+            "h": 0.727,
+            "w": 0.844,
+            "bottom": 0.863,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "holyChains",
+          "label": "Holy Chains",
+          "variant": "skills",
+          "x": 256,
+          "y": 0,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/holyChains.webp",
+          "fit": {
+            "h": 0.836,
+            "w": 0.766,
+            "bottom": 0.918,
+            "cx": 0.5
+          }
         },
         {
           "id": "holyBastion",
           "label": "Holy Bastion",
           "variant": "skills",
           "x": 512,
-          "y": 288,
+          "y": 0,
           "w": 256,
           "h": 288,
           "target": "images/skills/holyBastion.webp",
@@ -1213,6 +1279,56 @@
             "h": 0.836,
             "w": 0.836,
             "bottom": 0.918,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "bulwark",
+          "label": "Bulwark",
+          "variant": "skills",
+          "x": 0,
+          "y": 288,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/bulwark.webp",
+          "round": true,
+          "fit": {
+            "h": 0.82,
+            "w": 0.684,
+            "bottom": 0.91,
+            "cx": 0.498
+          }
+        },
+        {
+          "id": "retribution",
+          "label": "Retribution",
+          "variant": "skills",
+          "x": 256,
+          "y": 288,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/retribution.webp",
+          "fit": {
+            "h": 0.844,
+            "w": 0.844,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "unbreakable",
+          "label": "Unbreakable",
+          "variant": "skills",
+          "x": 512,
+          "y": 288,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/unbreakable.webp",
+          "round": true,
+          "fit": {
+            "h": 0.84,
+            "w": 0.664,
+            "bottom": 0.922,
             "cx": 0.5
           }
         }
@@ -1268,11 +1384,27 @@
           }
         },
         {
-          "id": "venomousBlade",
-          "label": "Venomous Blade",
+          "id": "starFan",
+          "label": "Star Fan",
           "variant": "skills",
           "x": 512,
           "y": 0,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/starFan.webp",
+          "fit": {
+            "h": 0.602,
+            "w": 0.84,
+            "bottom": 0.801,
+            "cx": 0.498
+          }
+        },
+        {
+          "id": "venomousBlade",
+          "label": "Venomous Blade",
+          "variant": "skills",
+          "x": 0,
+          "y": 288,
           "w": 256,
           "h": 288,
           "target": "images/skills/venomousBlade.webp",
@@ -1287,7 +1419,7 @@
           "id": "evasion",
           "label": "Evasion",
           "variant": "skills",
-          "x": 0,
+          "x": 256,
           "y": 288,
           "w": 256,
           "h": 288,
@@ -1301,11 +1433,45 @@
           }
         },
         {
+          "id": "grapplingHook",
+          "label": "Grappling Hook",
+          "variant": "skills",
+          "x": 512,
+          "y": 288,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/grapplingHook.webp",
+          "fit": {
+            "h": 0.84,
+            "w": 0.57,
+            "bottom": 0.918,
+            "cx": 0.5
+          }
+        }
+      ]
+    },
+    {
+      "id": "sheet-skills2-shadow",
+      "kind": "set",
+      "title": "Skill icons: Shadowblade (2 of 2)",
+      "files": {
+        "clean": "sheet-skills2-shadow.png",
+        "key": "sheet-skills2-shadow-key.png"
+      },
+      "width": 768,
+      "height": 576,
+      "cols": 3,
+      "rows": 2,
+      "maxEdge": 192,
+      "crop": 1,
+      "anchor": "centre",
+      "cells": [
+        {
           "id": "smokeBomb",
           "label": "Smoke Bomb",
           "variant": "skills",
-          "x": 256,
-          "y": 288,
+          "x": 0,
+          "y": 0,
           "w": 256,
           "h": 288,
           "target": "images/skills/smokeBomb.webp",
@@ -1317,10 +1483,43 @@
           }
         },
         {
+          "id": "silentStrike",
+          "label": "Silent Strike",
+          "variant": "skills",
+          "x": 256,
+          "y": 0,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/silentStrike.webp",
+          "round": true,
+          "fit": {
+            "h": 0.555,
+            "w": 0.813,
+            "bottom": 0.777,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "shadowMark",
+          "label": "Shadow Mark",
+          "variant": "skills",
+          "x": 512,
+          "y": 0,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/shadowMark.webp",
+          "fit": {
+            "h": 0.844,
+            "w": 0.84,
+            "bottom": 0.922,
+            "cx": 0.498
+          }
+        },
+        {
           "id": "danceOfBlades",
           "label": "Dance Of Blades",
           "variant": "skills",
-          "x": 512,
+          "x": 0,
           "y": 288,
           "w": 256,
           "h": 288,
@@ -1330,6 +1529,39 @@
             "w": 0.844,
             "bottom": 0.875,
             "cx": 0.5
+          }
+        },
+        {
+          "id": "bladeRhythm",
+          "label": "Blade Rhythm",
+          "variant": "skills",
+          "x": 256,
+          "y": 288,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/bladeRhythm.webp",
+          "round": true,
+          "fit": {
+            "h": 0.727,
+            "w": 0.789,
+            "bottom": 0.863,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "nightshadeMist",
+          "label": "Nightshade Mist",
+          "variant": "skills",
+          "x": 512,
+          "y": 288,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/nightshadeMist.webp",
+          "fit": {
+            "h": 0.82,
+            "w": 0.84,
+            "bottom": 0.91,
+            "cx": 0.502
           }
         }
       ]
@@ -1400,10 +1632,26 @@
           }
         },
         {
+          "id": "firecracker",
+          "label": "Firecracker",
+          "variant": "skills",
+          "x": 0,
+          "y": 288,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/firecracker.webp",
+          "fit": {
+            "h": 0.836,
+            "w": 0.672,
+            "bottom": 0.918,
+            "cx": 0.5
+          }
+        },
+        {
           "id": "pyromaniac",
           "label": "Pyromaniac",
           "variant": "skills",
-          "x": 0,
+          "x": 256,
           "y": 288,
           "w": 256,
           "h": 288,
@@ -1417,11 +1665,45 @@
           }
         },
         {
+          "id": "fanTheFlames",
+          "label": "Fan The Flames",
+          "variant": "skills",
+          "x": 512,
+          "y": 288,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/fanTheFlames.webp",
+          "fit": {
+            "h": 0.844,
+            "w": 0.648,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        }
+      ]
+    },
+    {
+      "id": "sheet-skills2-pyro",
+      "kind": "set",
+      "title": "Skill icons: Pyromancer (2 of 2)",
+      "files": {
+        "clean": "sheet-skills2-pyro.png",
+        "key": "sheet-skills2-pyro-key.png"
+      },
+      "width": 768,
+      "height": 576,
+      "cols": 3,
+      "rows": 2,
+      "maxEdge": 192,
+      "crop": 1,
+      "anchor": "centre",
+      "cells": [
+        {
           "id": "combustion",
           "label": "Combustion",
           "variant": "skills",
-          "x": 256,
-          "y": 288,
+          "x": 0,
+          "y": 0,
           "w": 256,
           "h": 288,
           "target": "images/skills/combustion.webp",
@@ -1433,10 +1715,43 @@
           }
         },
         {
+          "id": "ringOfFire",
+          "label": "Ring Of Fire",
+          "variant": "skills",
+          "x": 256,
+          "y": 0,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/ringOfFire.webp",
+          "fit": {
+            "h": 0.836,
+            "w": 0.773,
+            "bottom": 0.918,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "everflame",
+          "label": "Everflame",
+          "variant": "skills",
+          "x": 512,
+          "y": 0,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/everflame.webp",
+          "round": true,
+          "fit": {
+            "h": 0.504,
+            "w": 0.844,
+            "bottom": 0.754,
+            "cx": 0.5
+          }
+        },
+        {
           "id": "cataclysm",
           "label": "Cataclysm",
           "variant": "skills",
-          "x": 512,
+          "x": 0,
           "y": 288,
           "w": 256,
           "h": 288,
@@ -1445,6 +1760,39 @@
             "h": 0.84,
             "w": 0.813,
             "bottom": 0.918,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "wildfire",
+          "label": "Wildfire",
+          "variant": "skills",
+          "x": 256,
+          "y": 288,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/wildfire.webp",
+          "round": true,
+          "fit": {
+            "h": 0.703,
+            "w": 0.758,
+            "bottom": 0.852,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "phoenixFlight",
+          "label": "Phoenix Flight",
+          "variant": "skills",
+          "x": 512,
+          "y": 288,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/phoenixFlight.webp",
+          "fit": {
+            "h": 0.477,
+            "w": 0.836,
+            "bottom": 0.738,
             "cx": 0.5
           }
         }
@@ -1516,10 +1864,26 @@
           }
         },
         {
+          "id": "callArchers",
+          "label": "Call Archers",
+          "variant": "skills",
+          "x": 0,
+          "y": 288,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/callArchers.webp",
+          "fit": {
+            "h": 0.844,
+            "w": 0.75,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
           "id": "sovereignsTribute",
           "label": "Sovereigns Tribute",
           "variant": "skills",
-          "x": 0,
+          "x": 256,
           "y": 288,
           "w": 256,
           "h": 288,
@@ -1533,11 +1897,45 @@
           }
         },
         {
+          "id": "royalRally",
+          "label": "Royal Rally",
+          "variant": "skills",
+          "x": 512,
+          "y": 288,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/royalRally.webp",
+          "fit": {
+            "h": 0.742,
+            "w": 0.84,
+            "bottom": 0.871,
+            "cx": 0.502
+          }
+        }
+      ]
+    },
+    {
+      "id": "sheet-skills2-sovereign",
+      "kind": "set",
+      "title": "Skill icons: Grand Sovereign (2 of 2)",
+      "files": {
+        "clean": "sheet-skills2-sovereign.png",
+        "key": "sheet-skills2-sovereign-key.png"
+      },
+      "width": 768,
+      "height": 576,
+      "cols": 3,
+      "rows": 2,
+      "maxEdge": 192,
+      "crop": 1,
+      "anchor": "centre",
+      "cells": [
+        {
           "id": "bannerOfVictory",
           "label": "Banner Of Victory",
           "variant": "skills",
-          "x": 256,
-          "y": 288,
+          "x": 0,
+          "y": 0,
           "w": 256,
           "h": 288,
           "target": "images/skills/bannerOfVictory.webp",
@@ -1549,10 +1947,60 @@
           }
         },
         {
+          "id": "warMarshal",
+          "label": "War Marshal",
+          "variant": "skills",
+          "x": 256,
+          "y": 0,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/warMarshal.webp",
+          "round": true,
+          "fit": {
+            "h": 0.75,
+            "w": 0.609,
+            "bottom": 0.875,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "royalDecree",
+          "label": "Royal Decree",
+          "variant": "skills",
+          "x": 512,
+          "y": 0,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/royalDecree.webp",
+          "fit": {
+            "h": 0.84,
+            "w": 0.734,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "loyalHearts",
+          "label": "Loyal Hearts",
+          "variant": "skills",
+          "x": 0,
+          "y": 288,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/loyalHearts.webp",
+          "round": true,
+          "fit": {
+            "h": 0.828,
+            "w": 0.805,
+            "bottom": 0.914,
+            "cx": 0.5
+          }
+        },
+        {
           "id": "armyOfTheRealm",
           "label": "Army Of The Realm",
           "variant": "skills",
-          "x": 512,
+          "x": 256,
           "y": 288,
           "w": 256,
           "h": 288,
@@ -1561,6 +2009,22 @@
             "h": 0.57,
             "w": 0.836,
             "bottom": 0.785,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "summonChampion",
+          "label": "Summon Champion",
+          "variant": "skills",
+          "x": 512,
+          "y": 288,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/summonChampion.webp",
+          "fit": {
+            "h": 0.84,
+            "w": 0.648,
+            "bottom": 0.922,
             "cx": 0.5
           }
         }
@@ -1599,10 +2063,26 @@
           }
         },
         {
+          "id": "echoBolt",
+          "label": "Echo Bolt",
+          "variant": "skills",
+          "x": 256,
+          "y": 0,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/echoBolt.webp",
+          "fit": {
+            "h": 0.84,
+            "w": 0.664,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
           "id": "hasteField",
           "label": "Haste Field",
           "variant": "skills",
-          "x": 256,
+          "x": 512,
           "y": 0,
           "w": 256,
           "h": 288,
@@ -1615,11 +2095,28 @@
           }
         },
         {
+          "id": "foresight",
+          "label": "Foresight",
+          "variant": "skills",
+          "x": 0,
+          "y": 288,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/foresight.webp",
+          "round": true,
+          "fit": {
+            "h": 0.539,
+            "w": 0.844,
+            "bottom": 0.77,
+            "cx": 0.5
+          }
+        },
+        {
           "id": "timeDistort",
           "label": "Time Distort",
           "variant": "skills",
-          "x": 512,
-          "y": 0,
+          "x": 256,
+          "y": 288,
           "w": 256,
           "h": 288,
           "target": "images/skills/timeDistort.webp",
@@ -1632,11 +2129,45 @@
           }
         },
         {
+          "id": "timeBubble",
+          "label": "Time Bubble",
+          "variant": "skills",
+          "x": 512,
+          "y": 288,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/timeBubble.webp",
+          "fit": {
+            "h": 0.836,
+            "w": 0.836,
+            "bottom": 0.918,
+            "cx": 0.5
+          }
+        }
+      ]
+    },
+    {
+      "id": "sheet-skills2-chrono",
+      "kind": "set",
+      "title": "Skill icons: Chrono-Weaver (2 of 2)",
+      "files": {
+        "clean": "sheet-skills2-chrono.png",
+        "key": "sheet-skills2-chrono-key.png"
+      },
+      "width": 768,
+      "height": 576,
+      "cols": 3,
+      "rows": 2,
+      "maxEdge": 192,
+      "crop": 1,
+      "anchor": "centre",
+      "cells": [
+        {
           "id": "paradoxShift",
           "label": "Paradox Shift",
           "variant": "skills",
           "x": 0,
-          "y": 288,
+          "y": 0,
           "w": 256,
           "h": 288,
           "target": "images/skills/paradoxShift.webp",
@@ -1648,11 +2179,27 @@
           }
         },
         {
+          "id": "timeLoop",
+          "label": "Time Loop",
+          "variant": "skills",
+          "x": 256,
+          "y": 0,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/timeLoop.webp",
+          "fit": {
+            "h": 0.773,
+            "w": 0.844,
+            "bottom": 0.887,
+            "cx": 0.5
+          }
+        },
+        {
           "id": "entropy",
           "label": "Entropy",
           "variant": "skills",
-          "x": 256,
-          "y": 288,
+          "x": 512,
+          "y": 0,
           "w": 256,
           "h": 288,
           "target": "images/skills/entropy.webp",
@@ -1665,10 +2212,27 @@
           }
         },
         {
+          "id": "frozenMoment",
+          "label": "Frozen Moment",
+          "variant": "skills",
+          "x": 0,
+          "y": 288,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/frozenMoment.webp",
+          "round": true,
+          "fit": {
+            "h": 0.719,
+            "w": 0.742,
+            "bottom": 0.859,
+            "cx": 0.5
+          }
+        },
+        {
           "id": "chronoRewind",
           "label": "Chrono Rewind",
           "variant": "skills",
-          "x": 512,
+          "x": 256,
           "y": 288,
           "w": 256,
           "h": 288,
@@ -1677,6 +2241,22 @@
             "h": 0.836,
             "w": 0.82,
             "bottom": 0.918,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "timeStop",
+          "label": "Time Stop",
+          "variant": "skills",
+          "x": 512,
+          "y": 288,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/timeStop.webp",
+          "fit": {
+            "h": 0.844,
+            "w": 0.844,
+            "bottom": 0.922,
             "cx": 0.5
           }
         }
@@ -1732,11 +2312,27 @@
           }
         },
         {
-          "id": "essenceHarvest",
-          "label": "Essence Harvest",
+          "id": "essenceWard",
+          "label": "Essence Ward",
           "variant": "skills",
           "x": 512,
           "y": 0,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/essenceWard.webp",
+          "fit": {
+            "h": 0.84,
+            "w": 0.648,
+            "bottom": 0.918,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "essenceHarvest",
+          "label": "Essence Harvest",
+          "variant": "skills",
+          "x": 0,
+          "y": 288,
           "w": 256,
           "h": 288,
           "target": "images/skills/essenceHarvest.webp",
@@ -1748,11 +2344,62 @@
           }
         },
         {
+          "id": "vitalReserve",
+          "label": "Vital Reserve",
+          "variant": "skills",
+          "x": 256,
+          "y": 288,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/vitalReserve.webp",
+          "round": true,
+          "fit": {
+            "h": 0.766,
+            "w": 0.766,
+            "bottom": 0.883,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "enfeeblingTonic",
+          "label": "Enfeebling Tonic",
+          "variant": "skills",
+          "x": 512,
+          "y": 288,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/enfeeblingTonic.webp",
+          "fit": {
+            "h": 0.84,
+            "w": 0.738,
+            "bottom": 0.922,
+            "cx": 0.498
+          }
+        }
+      ]
+    },
+    {
+      "id": "sheet-skills2-blood",
+      "kind": "set",
+      "title": "Skill icons: Blood Alchemist (2 of 2)",
+      "files": {
+        "clean": "sheet-skills2-blood.png",
+        "key": "sheet-skills2-blood-key.png"
+      },
+      "width": 768,
+      "height": 576,
+      "cols": 3,
+      "rows": 2,
+      "maxEdge": 192,
+      "crop": 1,
+      "anchor": "centre",
+      "cells": [
+        {
           "id": "hemophilia",
           "label": "Hemophilia",
           "variant": "skills",
           "x": 0,
-          "y": 288,
+          "y": 0,
           "w": 256,
           "h": 288,
           "target": "images/skills/hemophilia.webp",
@@ -1765,11 +2412,27 @@
           }
         },
         {
+          "id": "homunculus",
+          "label": "Homunculus",
+          "variant": "skills",
+          "x": 256,
+          "y": 0,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/homunculus.webp",
+          "fit": {
+            "h": 0.836,
+            "w": 0.711,
+            "bottom": 0.918,
+            "cx": 0.5
+          }
+        },
+        {
           "id": "mutagenicRage",
           "label": "Mutagenic Rage",
           "variant": "skills",
-          "x": 256,
-          "y": 288,
+          "x": 512,
+          "y": 0,
           "w": 256,
           "h": 288,
           "target": "images/skills/mutagenicRage.webp",
@@ -1781,10 +2444,27 @@
           }
         },
         {
+          "id": "adrenalCatalyst",
+          "label": "Adrenal Catalyst",
+          "variant": "skills",
+          "x": 0,
+          "y": 288,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/adrenalCatalyst.webp",
+          "round": true,
+          "fit": {
+            "h": 0.742,
+            "w": 0.781,
+            "bottom": 0.871,
+            "cx": 0.5
+          }
+        },
+        {
           "id": "philosophersCrucible",
           "label": "Philosophers Crucible",
           "variant": "skills",
-          "x": 512,
+          "x": 256,
           "y": 288,
           "w": 256,
           "h": 288,
@@ -1793,6 +2473,22 @@
             "h": 0.758,
             "w": 0.836,
             "bottom": 0.879,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "grandTransmutation",
+          "label": "Grand Transmutation",
+          "variant": "skills",
+          "x": 512,
+          "y": 288,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/grandTransmutation.webp",
+          "fit": {
+            "h": 0.836,
+            "w": 0.836,
+            "bottom": 0.918,
             "cx": 0.5
           }
         }
@@ -1847,11 +2543,27 @@
           }
         },
         {
-          "id": "ventHeat",
-          "label": "Vent Heat",
+          "id": "rocketJump",
+          "label": "Rocket Jump",
           "variant": "skills",
           "x": 512,
           "y": 0,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/rocketJump.webp",
+          "fit": {
+            "h": 0.84,
+            "w": 0.539,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "ventHeat",
+          "label": "Vent Heat",
+          "variant": "skills",
+          "x": 0,
+          "y": 288,
           "w": 256,
           "h": 288,
           "target": "images/skills/ventHeat.webp",
@@ -1863,10 +2575,27 @@
           }
         },
         {
+          "id": "coolantLoop",
+          "label": "Coolant Loop",
+          "variant": "skills",
+          "x": 256,
+          "y": 288,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/coolantLoop.webp",
+          "round": true,
+          "fit": {
+            "h": 0.719,
+            "w": 0.766,
+            "bottom": 0.859,
+            "cx": 0.5
+          }
+        },
+        {
           "id": "thermalOverload",
           "label": "Thermal Overload",
           "variant": "skills",
-          "x": 0,
+          "x": 512,
           "y": 288,
           "w": 256,
           "h": 288,
@@ -1878,13 +2607,64 @@
             "bottom": 0.91,
             "cx": 0.5
           }
+        }
+      ]
+    },
+    {
+      "id": "sheet-skills2-aether",
+      "kind": "set",
+      "title": "Skill icons: Aether-Tech (2 of 2)",
+      "files": {
+        "clean": "sheet-skills2-aether.png",
+        "key": "sheet-skills2-aether-key.png"
+      },
+      "width": 768,
+      "height": 576,
+      "cols": 3,
+      "rows": 2,
+      "maxEdge": 192,
+      "crop": 1,
+      "anchor": "centre",
+      "cells": [
+        {
+          "id": "shockGrenade",
+          "label": "Shock Grenade",
+          "variant": "skills",
+          "x": 0,
+          "y": 0,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/shockGrenade.webp",
+          "fit": {
+            "h": 0.836,
+            "w": 0.711,
+            "bottom": 0.918,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "precisionOptics",
+          "label": "Precision Optics",
+          "variant": "skills",
+          "x": 256,
+          "y": 0,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/precisionOptics.webp",
+          "round": true,
+          "fit": {
+            "h": 0.844,
+            "w": 0.84,
+            "bottom": 0.922,
+            "cx": 0.498
+          }
         },
         {
           "id": "orbitalBeam",
           "label": "Orbital Beam",
           "variant": "skills",
-          "x": 256,
-          "y": 288,
+          "x": 512,
+          "y": 0,
           "w": 256,
           "h": 288,
           "target": "images/skills/orbitalBeam.webp",
@@ -1896,10 +2676,26 @@
           }
         },
         {
+          "id": "arcCoil",
+          "label": "Arc Coil",
+          "variant": "skills",
+          "x": 0,
+          "y": 288,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/arcCoil.webp",
+          "fit": {
+            "h": 0.836,
+            "w": 0.383,
+            "bottom": 0.918,
+            "cx": 0.5
+          }
+        },
+        {
           "id": "exoSuit",
           "label": "Exo Suit",
           "variant": "skills",
-          "x": 512,
+          "x": 256,
           "y": 288,
           "w": 256,
           "h": 288,
@@ -1907,6 +2703,23 @@
           "fit": {
             "h": 0.836,
             "w": 0.648,
+            "bottom": 0.918,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "thermalPlating",
+          "label": "Thermal Plating",
+          "variant": "skills",
+          "x": 512,
+          "y": 288,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/thermalPlating.webp",
+          "round": true,
+          "fit": {
+            "h": 0.836,
+            "w": 0.672,
             "bottom": 0.918,
             "cx": 0.5
           }
@@ -1946,10 +2759,26 @@
           }
         },
         {
+          "id": "boulderRoll",
+          "label": "Boulder Roll",
+          "variant": "skills",
+          "x": 256,
+          "y": 0,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/boulderRoll.webp",
+          "fit": {
+            "h": 0.645,
+            "w": 0.84,
+            "bottom": 0.82,
+            "cx": 0.498
+          }
+        },
+        {
           "id": "earthBarrier",
           "label": "Earth Barrier",
           "variant": "skills",
-          "x": 256,
+          "x": 512,
           "y": 0,
           "w": 256,
           "h": 288,
@@ -1962,11 +2791,28 @@
           }
         },
         {
+          "id": "bedrock",
+          "label": "Bedrock",
+          "variant": "skills",
+          "x": 0,
+          "y": 288,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/bedrock.webp",
+          "round": true,
+          "fit": {
+            "h": 0.727,
+            "w": 0.633,
+            "bottom": 0.863,
+            "cx": 0.5
+          }
+        },
+        {
           "id": "seismicShock",
           "label": "Seismic Shock",
           "variant": "skills",
-          "x": 512,
-          "y": 0,
+          "x": 256,
+          "y": 288,
           "w": 256,
           "h": 288,
           "target": "images/skills/seismicShock.webp",
@@ -1978,11 +2824,45 @@
           }
         },
         {
+          "id": "sinkhole",
+          "label": "Sinkhole",
+          "variant": "skills",
+          "x": 512,
+          "y": 288,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/sinkhole.webp",
+          "fit": {
+            "h": 0.836,
+            "w": 0.836,
+            "bottom": 0.918,
+            "cx": 0.5
+          }
+        }
+      ]
+    },
+    {
+      "id": "sheet-skills2-geo",
+      "kind": "set",
+      "title": "Skill icons: Geomancer (2 of 2)",
+      "files": {
+        "clean": "sheet-skills2-geo.png",
+        "key": "sheet-skills2-geo-key.png"
+      },
+      "width": 768,
+      "height": 576,
+      "cols": 3,
+      "rows": 2,
+      "maxEdge": 192,
+      "crop": 1,
+      "anchor": "centre",
+      "cells": [
+        {
           "id": "earthenSkin",
           "label": "Earthen Skin",
           "variant": "skills",
           "x": 0,
-          "y": 288,
+          "y": 0,
           "w": 256,
           "h": 288,
           "target": "images/skills/earthenSkin.webp",
@@ -1995,11 +2875,28 @@
           }
         },
         {
+          "id": "mountainBreaker",
+          "label": "Mountain Breaker",
+          "variant": "skills",
+          "x": 256,
+          "y": 0,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/mountainBreaker.webp",
+          "round": true,
+          "fit": {
+            "h": 0.672,
+            "w": 0.633,
+            "bottom": 0.836,
+            "cx": 0.5
+          }
+        },
+        {
           "id": "petrify",
           "label": "Petrify",
           "variant": "skills",
-          "x": 256,
-          "y": 288,
+          "x": 512,
+          "y": 0,
           "w": 256,
           "h": 288,
           "target": "images/skills/petrify.webp",
@@ -2011,10 +2908,26 @@
           }
         },
         {
+          "id": "geodeShell",
+          "label": "Geode Shell",
+          "variant": "skills",
+          "x": 0,
+          "y": 288,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/geodeShell.webp",
+          "fit": {
+            "h": 0.836,
+            "w": 0.711,
+            "bottom": 0.918,
+            "cx": 0.5
+          }
+        },
+        {
           "id": "tectonicRupture",
           "label": "Tectonic Rupture",
           "variant": "skills",
-          "x": 512,
+          "x": 256,
           "y": 288,
           "w": 256,
           "h": 288,
@@ -2023,6 +2936,23 @@
             "h": 0.637,
             "w": 0.836,
             "bottom": 0.82,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "crumble",
+          "label": "Crumble",
+          "variant": "skills",
+          "x": 512,
+          "y": 288,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/crumble.webp",
+          "round": true,
+          "fit": {
+            "h": 0.781,
+            "w": 0.586,
+            "bottom": 0.891,
             "cx": 0.5
           }
         }
@@ -3391,7 +4321,13 @@
           "w": 256,
           "h": 256,
           "target": "images/icons/status-elixirMight.webp",
-          "round": true
+          "round": true,
+          "fit": {
+            "h": 0.801,
+            "w": 0.617,
+            "bottom": 0.898,
+            "cx": 0.5
+          }
         },
         {
           "id": "status-elixirIron",
@@ -3402,7 +4338,13 @@
           "w": 256,
           "h": 256,
           "target": "images/icons/status-elixirIron.webp",
-          "round": true
+          "round": true,
+          "fit": {
+            "h": 0.801,
+            "w": 0.617,
+            "bottom": 0.898,
+            "cx": 0.5
+          }
         }
       ]
     },
@@ -3431,7 +4373,13 @@
           "w": 256,
           "h": 256,
           "target": "images/icons/status-elixirSwift.webp",
-          "round": true
+          "round": true,
+          "fit": {
+            "h": 0.801,
+            "w": 0.617,
+            "bottom": 0.898,
+            "cx": 0.5
+          }
         },
         {
           "id": "status-elixirMind",
@@ -3442,7 +4390,13 @@
           "w": 256,
           "h": 256,
           "target": "images/icons/status-elixirMind.webp",
-          "round": true
+          "round": true,
+          "fit": {
+            "h": 0.801,
+            "w": 0.617,
+            "bottom": 0.898,
+            "cx": 0.5
+          }
         },
         {
           "id": "status-elixirVigor",
@@ -3453,7 +4407,13 @@
           "w": 256,
           "h": 256,
           "target": "images/icons/status-elixirVigor.webp",
-          "round": true
+          "round": true,
+          "fit": {
+            "h": 0.801,
+            "w": 0.617,
+            "bottom": 0.898,
+            "cx": 0.5
+          }
         },
         {
           "id": "status-elixirShadow",
@@ -3464,7 +4424,13 @@
           "w": 256,
           "h": 256,
           "target": "images/icons/status-elixirShadow.webp",
-          "round": true
+          "round": true,
+          "fit": {
+            "h": 0.801,
+            "w": 0.617,
+            "bottom": 0.898,
+            "cx": 0.5
+          }
         }
       ]
     },

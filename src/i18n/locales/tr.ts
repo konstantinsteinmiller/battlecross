@@ -431,6 +431,38 @@ export default {
     geo: {
       name: 'Yer Büyücüsü',
       desc: 'Duvarlar ve dikenler yükseltir, zemini bile yarar.'
+    },
+    windrunner: {
+      name: 'Rüzgâr Koşucusu',
+      desc: 'Bir yay ve arkanda rüzgâr. Ateş et, atıl ve asla yerinde durma.'
+    },
+    frostwarden: {
+      name: 'Ayaz Muhafızı',
+      desc: 'Buzdan bir kılıç ve soğuk bir kalp. Yavaşlat, dondur, sonra paramparça et.'
+    },
+    lightbringer: {
+      name: 'Işık Getiren',
+      desc: 'Dostları iyileştiren, düşmanları kör eden ışık. İçinde dur, hiçbir şey seni durduramaz.'
+    },
+    beastcaller: {
+      name: 'Yaban Çağırıcısı',
+      desc: 'Bir kurt sürüsü, bir ayı ve bir şahin yanında savaşır. Onları çağır, onlara komuta et.'
+    },
+    elementalist: {
+      name: 'Element Büyücüsü',
+      desc: 'Ateş, ayaz, şimşek ve taş. Onları karıştır; her biri bir sonrakini tetikler.'
+    },
+    soulwarden: {
+      name: 'Ruh Muhafızı',
+      desc: 'Yenilen düşmanlar dost ruhlar olarak kalkar, yanında savaşır, sonra dinlenmek için evine döner.'
+    },
+    ironmonk: {
+      name: 'Demir Keşiş',
+      desc: 'Çıplak eller, hızlı ayaklar. Her vuruş çi biriktirir; hepsini tek bir güçlü darbeye harca.'
+    },
+    bard: {
+      name: 'Ozan',
+      desc: 'Tarafını coşturan şarkılar ve karşı tarafı uyutan ya da birbirine düşüren ezgiler.'
     }
   },
   skill: {
@@ -635,7 +667,199 @@ export default {
       name: 'Tektonik Yarılma',
       desc: 'Alanı yarıp aç: yakındaki her şeye {dmg}% Güç hasarı ve {dur} sn boyunca yavaşlatan moloz.'
     },
-    scales: '{attr} ile güçlenir'
+    scales: '{attr} ile güçlenir',
+    shieldThrow: {
+      name: 'Kalkan Fırlatma',
+      desc: 'Kalkanın {bounces} düşmana seker: her birine {dmg}% Güç hasarı. Onlar {dur} sn boyunca {weak}% daha az hasar verir.'
+    },
+    shieldShove: {
+      name: 'Kalkan İtişi',
+      desc: 'Önündeki herkesi it: {dmg}% Güç hasarı. Geriye uçarlar ve yaptıkları işi bırakırlar.'
+    },
+    holyChains: {
+      name: 'Kutsal Zincirler',
+      desc: 'Işıktan zincirler {radius} m içindeki her düşmanı sana çeker: {dmg}% Dayanıklılık hasarı ve {slow}% yavaşlatma.'
+    },
+    bulwark: {
+      name: 'Siper',
+      desc: '+{block}% Blok Şansı. Her blok saldırana {back} hasar geri verir.'
+    },
+    retribution: {
+      name: 'Kısas',
+      desc: '{dur} sn boyunca {radius} m içindeki düşmanlar sana saldırmak zorunda. Sonra ışık {dmg}% Güç + aldığın darbelerin {back}% kadarı hasar verir.'
+    },
+    unbreakable: {
+      name: 'Kırılmaz',
+      desc: 'Canın {hp}% altındayken {reduce}% daha az hasar alırsın.'
+    },
+    starFan: {
+      name: 'Yıldız Yelpazesi',
+      desc: 'Yelpaze gibi {stars} gölge yıldızı fırlat; her biri {dmg}% Çeviklik hasarı verir.'
+    },
+    grapplingHook: {
+      name: 'Kancalı Halat',
+      desc: 'Hedefi kendine çek: {dmg}% Çeviklik hasarı ve {dur} sn boyunca {slow}% yavaşlatma. Büyük düşmanlar seni kendine çeker.'
+    },
+    silentStrike: {
+      name: 'Sessiz Vuruş',
+      desc: 'Arkadan saldırılar +{backstab}% hasar verir ve düşmanlar seni {notice}% daha geç fark eder.'
+    },
+    shadowMark: {
+      name: 'Gölge İşareti',
+      desc: 'Hedef {dur} sn boyunca {vuln}% daha fazla hasar alır ve herhangi birine yaptığın sonraki vuruş +{bonus}% ile kritik olur.'
+    },
+    bladeRhythm: {
+      name: 'Bıçak Ritmi',
+      desc: 'Kritik vuruşlar tüm bekleme sürelerinden {cut} sn düşer. +{speed}% saldırı hızı.'
+    },
+    nightshadeMist: {
+      name: 'İtüzümü Sisi',
+      desc: '{dur} sn süren zehirli sis: en fazla {dmg}% Çeviklik hasarı. İçinde kalan düşmanlar {confuse} sn şaşkın olur.'
+    },
+    firecracker: {
+      name: 'Kestane Fişeği',
+      desc: 'Hedefe bir kestane fişeği yapıştır. {delay} sn sonra patlar: {dmg}% Zekâ hasarı verir ve yakındaki her şeyi yakar.'
+    },
+    fanTheFlames: {
+      name: 'Alevleri Körükle',
+      desc: '{radius} m içindeki her yanma {pct}% güçlenir ve yeniden başlar. {push} m içindeki düşmanlar geriye savrulur.'
+    },
+    ringOfFire: {
+      name: 'Ateş Çemberi',
+      desc: '{dur} sn boyunca bir alev çemberi yükselir: en fazla {dmg}% Zekâ hasarı. İçindeki düşmanlar {slow}% yavaşlar.'
+    },
+    everflame: {
+      name: 'Sönmez Alev',
+      desc: 'Yakmaların {burn}% daha güçlüdür ve büyülerin +{crit}% Kritik Şansı kazanır.'
+    },
+    wildfire: {
+      name: 'Orman Yangını',
+      desc: 'Yanan bir düşman yenildiğinde alevleri {radius} m içindeki her düşmana {dur} sn boyunca sıçrar.'
+    },
+    phoenixFlight: {
+      name: 'Anka Uçuşu',
+      desc: 'Ardında ateş bırakarak anka kuşu gibi uç: indiğin yerde {dmg}% Zekâ hasarı. {dur} sn boyunca saniyede {regen}% iyileş.'
+    },
+    callArchers: {
+      name: 'Okçu Çağır',
+      desc: 'Arkandan {dmg}% Karizma hasarıyla ok atan bir okçu çağır. Aynı anda en fazla {max}.'
+    },
+    royalRally: {
+      name: 'Kraliyet Toplanışı',
+      desc: 'Minyonların yanına koşar ve {heal}% can yeniler. {dur} sn boyunca hepiniz +{def}% Savunma kazanırsınız.'
+    },
+    warMarshal: {
+      name: 'Savaş Mareşali',
+      desc: 'Minyonların {dmg}% daha fazla hasar verir.'
+    },
+    royalDecree: {
+      name: 'Kraliyet Fermanı',
+      desc: '{radius} m içindeki düşmanlar eğilmek zorunda: {stun} sn sersemler, sonra {dur} sn boyunca {vuln}% daha fazla hasar alırlar.'
+    },
+    loyalHearts: {
+      name: 'Sadık Yürekler',
+      desc: 'Minyonlarından biri düştüğünde canının {heal}% kadarı iyileşir.'
+    },
+    summonChampion: {
+      name: 'Şampiyon Çağır',
+      desc: '{dur} sn boyunca diyarın şampiyonunu çağır: canının {hp}% kadarına sahip, {dmg}% Karizma ile vuran dev bir şövalye.'
+    },
+    echoBolt: {
+      name: 'Yankı Oku',
+      desc: '{dmg}% Zekâ hasarı veren bir zaman oku. {delay} sn sonra {echo}% ile yeniden vurur.'
+    },
+    foresight: {
+      name: 'Önsezi',
+      desc: 'Darbelerin geldiğini bir an önce görürsün: +{dodge}% Kaçınma ve {cdr}% daha kısa bekleme süreleri.'
+    },
+    timeBubble: {
+      name: 'Zaman Balonu',
+      desc: '{dur} sn süren yavaş zaman balonu: içindeki düşmanlar {slow}% daha yavaş hareket eder ve {dmg}% Zekâ hasarı alır.'
+    },
+    timeLoop: {
+      name: 'Zaman Döngüsü',
+      desc: '{dur} sn sonra hedef eski yerine geri fırlar: {dmg}% Zekâ hasarı ve kaybettiğinin {echo}% kadarı.'
+    },
+    frozenMoment: {
+      name: 'Donmuş An',
+      desc: 'Saldırıların {chance}% şansla düşmanı {dur} sn boyunca zamanda dondurur.'
+    },
+    timeStop: {
+      name: 'Zamanı Durdur',
+      desc: '{radius} m içinde zamanı {dur} sn durdur. Zaman yeniden akınca her düşman {dmg}% Zekâ hasarı alır.'
+    },
+    essenceWard: {
+      name: 'Öz Kalkanı',
+      desc: 'Canının {hp}% kadarını {dur} sn boyunca bunun {shield}% kadarı değerinde parlayan bir kalkana çevir.'
+    },
+    vitalReserve: {
+      name: 'Can Rezervi',
+      desc: '+{hp}% Maks. Can ve her saniye {regen} can yenilersin.'
+    },
+    enfeeblingTonic: {
+      name: 'Zayıflatan Tonik',
+      desc: 'Bir tonik fırlat: alanda {dmg}% Zekâ hasarı. Vurulan düşmanlar {dur} sn boyunca {weak}% daha az hasar verir.'
+    },
+    homunculus: {
+      name: 'Homunkulus',
+      desc: 'Canının {hp}% kadarından {dur} sn sürecek köpüklü bir yardımcı yap. Yenisini yapmak eskisinin canının {back}% kadarını geri verir.'
+    },
+    adrenalCatalyst: {
+      name: 'Adrenalin Katalizörü',
+      desc: 'Canın azaldıkça daha çok hasar verirsin: canın {low}% veya altındayken +{dmg}% kadar.'
+    },
+    grandTransmutation: {
+      name: 'Büyük Dönüşüm',
+      desc: '{radius} m içindeki düşmanların canının {pct}% kadarını öze dönüştür. Bunun {heal}% kadarı seni iyileştirir.'
+    },
+    rocketJump: {
+      name: 'Roket Sıçrayışı',
+      desc: 'Havalan ve nişan aldığın yere in: {radius} m içinde {dmg}% Beceri hasarı. {heat} ısı üretir.'
+    },
+    coolantLoop: {
+      name: 'Soğutma Devresi',
+      desc: 'Isı {cool}% daha hızlı düşer ve yeteneklerin {cut}% daha az ısı üretir.'
+    },
+    shockGrenade: {
+      name: 'Şok Bombası',
+      desc: 'Bir el bombası at: {radius} m içinde {dmg}% Beceri hasarı ve {stun} sn sersemletme. {heat} ısı üretir.'
+    },
+    precisionOptics: {
+      name: 'Hassas Optik',
+      desc: '+{crit}% Kritik Şansı. Atışların {pierce} ek düşmanı delip geçer.'
+    },
+    arcCoil: {
+      name: 'Ark Bobini',
+      desc: 'Şimşek hedefe çarpar, sonra {jumps} düşmana daha sıçrar: her birine {dmg}% Beceri hasarı. {heat} ısı üretir.'
+    },
+    thermalPlating: {
+      name: 'Isı Kaplaması',
+      desc: 'Isın {heat} veya üzerindeyken {reduce}% daha az hasar alırsın.'
+    },
+    boulderRoll: {
+      name: 'Kaya Yuvarlama',
+      desc: 'Önüne bir kaya yuvarla: yolundaki her şeye {dmg}% Güç hasarı ve {down} sn yere serme.'
+    },
+    bedrock: {
+      name: 'Ana Kaya',
+      desc: 'Hiçbir şey seni geri itemez, yere seremez ya da havaya fırlatamaz. +{hp}% Maks. Can.'
+    },
+    sinkhole: {
+      name: 'Obruk',
+      desc: 'Zemin çöker, {dur} sn boyunca düşmanları içine çeker, sonra göçer: {dmg}% Güç hasarı.'
+    },
+    mountainBreaker: {
+      name: 'Dağ Kıran',
+      desc: 'Patronlara +{boss}% hasar ve +{armor}% Zırh.'
+    },
+    geodeShell: {
+      name: 'Jeot Kabuğu',
+      desc: 'Kristal bir kabuk {dur} sn boyunca canının {shield}% kadarı hasarı emer, sonra patlayıp en fazla {dmg}% Güç hasarı verir.'
+    },
+    crumble: {
+      name: 'Parçala',
+      desc: 'Yavaşlamış, yere serilmiş ya da taşlaşmış düşmanlara {dmg}% daha fazla hasar verirsin.'
+    }
   },
   slot: {
     main: 'Ana el',

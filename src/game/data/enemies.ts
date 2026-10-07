@@ -636,6 +636,10 @@ export const MINIONS: Readonly<Record<string, MinionDef>> = {
   archer: { id: 'archer', rig: 'humanoid', look: 'royalArcher', scale: 0.9, r: 0.42, h: 1.3, style: 'ranged', type: 'pierce', range: 9, interval: 1.2, speed: 4.2, hp: 0.35, dmg: 0.55, shotFx: 'arrow', color: '#ffb04a' },
   mage: { id: 'mage', rig: 'humanoid', look: 'royalMage', scale: 0.9, r: 0.42, h: 1.3, style: 'magic', type: 'holy', range: 9, interval: 1.6, speed: 4, hp: 0.35, dmg: 0.9, shotFx: 'holy', color: '#8fd6ff' },
   turret: { id: 'turret', rig: 'turret', look: 'gatling', scale: 1, r: 0.5, h: 1.1, style: 'ranged', type: 'pierce', range: 10, interval: 0.5, speed: 0, hp: 0.4, dmg: 0.45, shotFx: 'bullet', color: '#4ff0c8' },
+  // The Grand Sovereign's champion (#95): a giant of the royal guard.
+  knightChampion: { id: 'knightChampion', rig: 'humanoid', look: 'royalGuard', scale: 1.3, r: 0.6, h: 1.85, style: 'melee', type: 'physical', range: 2.2, interval: 1.3, speed: 4.6, hp: 1.5, dmg: 1.4, taunts: true, color: '#ffe27a' },
+  // The Blood Alchemist's homunculus (#95): a bubbly drop of essence that draws the blows.
+  homunculus: { id: 'homunculus', rig: 'elemental', look: 'essence', scale: 0.55, r: 0.4, h: 1, style: 'melee', type: 'blood', range: 1.8, interval: 0.9, speed: 4.8, hp: 0.5, dmg: 0.6, taunts: true, color: '#ff4a6a' },
   rocketTurret: { id: 'rocketTurret', rig: 'turret', look: 'rocket', scale: 1, r: 0.5, h: 1.1, style: 'ranged', type: 'fire', range: 11, interval: 1, speed: 0, hp: 0.4, dmg: 0.9, shotFx: 'rocket', color: '#ff8a4a' },
   // The Void Dragon, bound by the pact struck on its peak (quest `dragon`).
   dragonAlly: { id: 'dragonAlly', rig: 'dragon', look: 'ally', scale: 1.1, r: 1.1, h: 2.2, style: 'magic', type: 'shadow', range: 8, interval: 1.6, speed: 4.6, hp: 2.2, dmg: 1.6, shotFx: 'shadow', color: '#9a4aff' }

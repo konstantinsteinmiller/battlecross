@@ -645,6 +645,15 @@ export const SKILL_CAST: Readonly<Record<string, CastName>> = {
   sanguineFlask: 'throw', essenceHarvest: 'drain', mutagenicRage: 'shout', philosophersCrucible: 'plant',
   aetherPistol: 'beam', deployTurret: 'throwDown', ventHeat: 'line', orbitalBeam: 'call', exoSuit: 'shout',
   stoneSpike: 'raise', earthBarrier: 'raise', seismicShock: 'slam', petrify: 'beam', tectonicRupture: 'slam',
+  // The classes' second six (#95).
+  shieldThrow: 'throw', shieldShove: 'bash', holyChains: 'channel', retribution: 'ward',
+  starFan: 'throw', grapplingHook: 'throw', shadowMark: 'point', nightshadeMist: 'throwDown',
+  firecracker: 'throw', fanTheFlames: 'burst', ringOfFire: 'raise', phoenixFlight: 'leap',
+  callArchers: 'summon', royalRally: 'shout', royalDecree: 'point', summonChampion: 'summon',
+  echoBolt: 'beam', timeBubble: 'throwDown', timeLoop: 'point', timeStop: 'channel',
+  essenceWard: 'ward', enfeeblingTonic: 'throw', homunculus: 'summon', grandTransmutation: 'drain',
+  rocketJump: 'leap', shockGrenade: 'throw', arcCoil: 'beam',
+  boulderRoll: 'line', sinkhole: 'raise', geodeShell: 'ward',
   // Not a skill: every hero's dodge.
   roll: 'roll'
 }

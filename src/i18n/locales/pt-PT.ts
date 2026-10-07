@@ -432,6 +432,38 @@ export default {
     geo: {
       name: 'Geomante',
       desc: 'Ergue muralhas e espigões, e parte o próprio chão.'
+    },
+    windrunner: {
+      name: 'Corredor do Vento',
+      desc: 'Um arco e o vento pelas costas. Dispara, avança e nunca pares.'
+    },
+    frostwarden: {
+      name: 'Guardião do Gelo',
+      desc: 'Uma lâmina de gelo e um coração frio. Abranda-os, congela-os e depois despedaça-os.'
+    },
+    lightbringer: {
+      name: 'Portador da Luz',
+      desc: 'Luz que cura os amigos e cega os inimigos. Fica nela e nada te poderá parar.'
+    },
+    beastcaller: {
+      name: 'Domador de Feras',
+      desc: 'Uma alcateia de lobos, um urso e um falcão lutam ao teu lado. Chama-os e dá-lhes ordens.'
+    },
+    elementalist: {
+      name: 'Elementalista',
+      desc: 'Fogo, gelo, relâmpago e pedra. Combina-os, e cada um desencadeia o seguinte.'
+    },
+    soulwarden: {
+      name: 'Guardião das Almas',
+      desc: 'Os inimigos vencidos erguem-se como espíritos amigos, lutam ao teu lado e depois voltam a casa para descansar.'
+    },
+    ironmonk: {
+      name: 'Monge de Ferro',
+      desc: 'Mãos nuas, pés ligeiros. Cada golpe acumula chi; gasta-o todo num único golpe poderoso.'
+    },
+    bard: {
+      name: 'Bardo',
+      desc: 'Canções que animam o teu lado e melodias que adormecem o outro ou o viram contra si próprio.'
     }
   },
   skill: {
@@ -636,7 +668,199 @@ export default {
       name: 'Rutura tectónica',
       desc: 'Rasga o campo: {dmg}% de dano de Força a tudo o que estiver perto, e escombros que abrandam durante {dur}s.'
     },
-    scales: 'Escala com {attr}'
+    scales: 'Escala com {attr}',
+    shieldThrow: {
+      name: 'Arremesso de escudo',
+      desc: 'O teu escudo ressalta em {bounces} inimigos: {dmg}% de dano de Força em cada um. Causam {weak}% menos durante {dur}s.'
+    },
+    shieldShove: {
+      name: 'Empurrão de escudo',
+      desc: 'Empurra tudo à tua frente com {dmg}% de dano de Força. Voam para trás e param o que estavam a fazer.'
+    },
+    holyChains: {
+      name: 'Correntes sagradas',
+      desc: 'Correntes de luz puxam até ti cada inimigo a menos de {radius} m: {dmg}% de dano de Vigor e abrandamento de {slow}%.'
+    },
+    bulwark: {
+      name: 'Baluarte',
+      desc: '+{block}% de probabilidade de Bloqueio. Cada bloqueio devolve {back} de dano ao atacante.'
+    },
+    retribution: {
+      name: 'Retribuição',
+      desc: 'Durante {dur}s, os inimigos a menos de {radius} m têm de te atacar. Depois a luz causa {dmg}% de Força +{back}% dos golpes sofridos.'
+    },
+    unbreakable: {
+      name: 'Inquebrável',
+      desc: 'Abaixo de {hp}% de vida, sofres {reduce}% menos dano.'
+    },
+    starFan: {
+      name: 'Leque de estrelas',
+      desc: 'Atira {stars} estrelas sombrias em leque, cada uma com {dmg}% de dano de Destreza.'
+    },
+    grapplingHook: {
+      name: 'Gancho',
+      desc: 'Puxa o alvo até ti com {dmg}% de dano de Destreza e abranda-o {slow}% durante {dur}s. Os inimigos grandes puxam-te a ti.'
+    },
+    silentStrike: {
+      name: 'Golpe silencioso',
+      desc: 'Os ataques pelas costas causam +{backstab}% de dano, e os inimigos reparam em ti {notice}% mais tarde.'
+    },
+    shadowMark: {
+      name: 'Marca sombria',
+      desc: 'O alvo sofre {vuln}% mais dano durante {dur}s, e o teu próximo golpe em qualquer um é crítico com +{bonus}%.'
+    },
+    bladeRhythm: {
+      name: 'Ritmo das lâminas',
+      desc: 'Os golpes críticos tiram {cut}s a cada recarga. +{speed}% de velocidade de ataque.'
+    },
+    nightshadeMist: {
+      name: 'Névoa de beladona',
+      desc: 'Uma névoa venenosa durante {dur}s: até {dmg}% de dano de Destreza. Os inimigos apanhados ficam confusos durante {confuse}s.'
+    },
+    firecracker: {
+      name: 'Petardo',
+      desc: 'Cola um petardo no alvo. Após {delay}s rebenta com {dmg}% de dano de Inteligência e queima tudo à volta.'
+    },
+    fanTheFlames: {
+      name: 'Atiçar as chamas',
+      desc: 'Cada queimadura a menos de {radius} m fica {pct}% mais forte e recomeça. Os inimigos a menos de {push} m são projetados.'
+    },
+    ringOfFire: {
+      name: 'Anel de fogo',
+      desc: 'Um anel de chamas ergue-se durante {dur}s: até {dmg}% de dano de Inteligência. Os inimigos lá dentro ficam {slow}% mais lentos.'
+    },
+    everflame: {
+      name: 'Chama eterna',
+      desc: 'As tuas queimaduras ficam {burn}% mais fortes, e os teus feitiços ganham +{crit}% de probabilidade de Crítico.'
+    },
+    wildfire: {
+      name: 'Incêndio',
+      desc: 'Quando um inimigo em chamas é derrotado, o fogo salta para cada inimigo a menos de {radius} m durante {dur}s.'
+    },
+    phoenixFlight: {
+      name: 'Voo da fénix',
+      desc: 'Voa como uma fénix com um rasto de fogo: {dmg}% de dano de Inteligência onde aterras. Cura {regen}% por segundo durante {dur}s.'
+    },
+    callArchers: {
+      name: 'Chamar arqueiros',
+      desc: 'Invoca um arqueiro que dispara atrás de ti com {dmg}% de dano de Carisma. Até {max} em simultâneo.'
+    },
+    royalRally: {
+      name: 'Reunião real',
+      desc: 'Os teus lacaios correm para o teu lado e curam {heal}% de vida. Tu e eles ganham +{def}% de Defesa durante {dur}s.'
+    },
+    warMarshal: {
+      name: 'Marechal de guerra',
+      desc: 'Os teus lacaios causam {dmg}% mais dano.'
+    },
+    royalDecree: {
+      name: 'Decreto real',
+      desc: 'Os inimigos a menos de {radius} m têm de se vergar: atordoados durante {stun}s, depois sofrem {vuln}% mais dano durante {dur}s.'
+    },
+    loyalHearts: {
+      name: 'Corações leais',
+      desc: 'Quando um dos teus lacaios cai, curas {heal}% da tua vida.'
+    },
+    summonChampion: {
+      name: 'Invocar campeão',
+      desc: 'Chama o campeão do reino durante {dur}s: um cavaleiro gigante com {hp}% da tua vida, que golpeia com {dmg}% de Carisma.'
+    },
+    echoBolt: {
+      name: 'Disparo de eco',
+      desc: 'Um disparo de tempo com {dmg}% de dano de Inteligência. {delay}s depois atinge de novo com {echo}%.'
+    },
+    foresight: {
+      name: 'Presciência',
+      desc: 'Vês os golpes a chegar um instante antes: +{dodge}% de Esquiva e recargas {cdr}% mais curtas.'
+    },
+    timeBubble: {
+      name: 'Bolha temporal',
+      desc: 'Uma bolha de tempo lento durante {dur}s: os inimigos lá dentro movem-se {slow}% mais devagar e sofrem {dmg}% de dano de Inteligência.'
+    },
+    timeLoop: {
+      name: 'Ciclo temporal',
+      desc: 'Após {dur}s o alvo volta de repente para onde estava: {dmg}% de dano de Inteligência mais {echo}% do que perdeu.'
+    },
+    frozenMoment: {
+      name: 'Instante congelado',
+      desc: 'Os teus ataques têm {chance}% de probabilidade de congelar o inimigo no tempo durante {dur}s.'
+    },
+    timeStop: {
+      name: 'Parar o tempo',
+      desc: 'Para o tempo a menos de {radius} m durante {dur}s. Quando recomeça, cada inimigo sofre {dmg}% de dano de Inteligência.'
+    },
+    essenceWard: {
+      name: 'Escudo de essência',
+      desc: 'Transforma {hp}% da tua vida num escudo brilhante que vale {shield}% disso, durante {dur}s.'
+    },
+    vitalReserve: {
+      name: 'Reserva vital',
+      desc: '+{hp}% de vida máxima, e recuperas {regen} de vida a cada segundo.'
+    },
+    enfeeblingTonic: {
+      name: 'Tónico enfraquecedor',
+      desc: 'Atira um tónico: {dmg}% de dano de Inteligência em área. Os inimigos atingidos causam {weak}% menos dano durante {dur}s.'
+    },
+    homunculus: {
+      name: 'Homúnculo',
+      desc: 'Prepara um ajudante borbulhante com {hp}% da tua vida durante {dur}s. Preparar um novo devolve {back}% da vida dele.'
+    },
+    adrenalCatalyst: {
+      name: 'Catalisador de adrenalina',
+      desc: 'Quanto menos vida tiveres, mais dano causas: até +{dmg}% com {low}% de vida ou menos.'
+    },
+    grandTransmutation: {
+      name: 'Grande transmutação',
+      desc: 'Transforma {pct}% da vida dos inimigos a menos de {radius} m em essência. Curas {heal}% disso.'
+    },
+    rocketJump: {
+      name: 'Salto-foguete',
+      desc: 'Descola e aterra onde apontas: {dmg}% de dano de Técnica num raio de {radius} m. Gera {heat} de calor.'
+    },
+    coolantLoop: {
+      name: 'Circuito de arrefecimento',
+      desc: 'O calor desce {cool}% mais depressa, e as tuas habilidades geram {cut}% menos.'
+    },
+    shockGrenade: {
+      name: 'Granada de choque',
+      desc: 'Lança uma granada: {dmg}% de dano de Técnica e atordoamento de {stun}s num raio de {radius} m. Gera {heat} de calor.'
+    },
+    precisionOptics: {
+      name: 'Ótica de precisão',
+      desc: '+{crit}% de probabilidade de Crítico. Os teus tiros atravessam {pierce} inimigo extra.'
+    },
+    arcCoil: {
+      name: 'Bobina de arco',
+      desc: 'Um relâmpago atinge o alvo e salta para mais {jumps} inimigos: {dmg}% de dano de Técnica em cada um. Gera {heat} de calor.'
+    },
+    thermalPlating: {
+      name: 'Blindagem térmica',
+      desc: 'Enquanto o teu calor estiver em {heat} ou mais, sofres {reduce}% menos dano.'
+    },
+    boulderRoll: {
+      name: 'Pedregulho rolante',
+      desc: 'Faz rolar um pedregulho em frente: {dmg}% de dano de Força a tudo no caminho, derrubando durante {down}s.'
+    },
+    bedrock: {
+      name: 'Rocha firme',
+      desc: 'Nada te pode empurrar, derrubar ou atirar ao ar. +{hp}% de vida máxima.'
+    },
+    sinkhole: {
+      name: 'Fosso',
+      desc: 'O chão afunda, puxando os inimigos durante {dur}s, e depois desaba: {dmg}% de dano de Força.'
+    },
+    mountainBreaker: {
+      name: 'Parte-montanhas',
+      desc: '+{boss}% de dano contra chefes e +{armor}% de Armadura.'
+    },
+    geodeShell: {
+      name: 'Casca de geode',
+      desc: 'Uma casca de cristal absorve {shield}% da tua vida durante {dur}s e depois rebenta com até {dmg}% de dano de Força.'
+    },
+    crumble: {
+      name: 'Desmoronar',
+      desc: 'Causas {dmg}% mais dano a inimigos abrandados, derrubados ou transformados em pedra.'
+    }
   },
   slot: {
     main: 'Mão principal',

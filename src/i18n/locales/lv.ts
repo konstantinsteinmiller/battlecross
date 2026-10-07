@@ -431,6 +431,38 @@ export default {
     geo: {
       name: 'Ģeomants',
       desc: 'Uzslej sienas un dzelkšņus un pāršķeļ pašu zemi.'
+    },
+    windrunner: {
+      name: 'Vēja skrējējs',
+      desc: 'Loks un ceļavējš. Šauj, meties uz priekšu un nekad nestāvi uz vietas.'
+    },
+    frostwarden: {
+      name: 'Sala sargs',
+      desc: 'Ledus asmens un auksta sirds. Palēnini, sasaldē un tad sadragā.'
+    },
+    lightbringer: {
+      name: 'Gaismas nesējs',
+      desc: 'Gaisma, kas dziedina draugus un apžilbina ienaidniekus. Stāvi tajā, un nekas tevi neapturēs.'
+    },
+    beastcaller: {
+      name: 'Zvēru saucējs',
+      desc: 'Vilku bars, lācis un vanags cīnās tev blakus. Izsauc tos un komandē.'
+    },
+    elementalist: {
+      name: 'Elementālists',
+      desc: 'Uguns, sals, zibens un akmens. Jauc tos, un katrs iedarbina nākamo.'
+    },
+    soulwarden: {
+      name: 'Dvēseļu sargs',
+      desc: 'Uzvarētie ienaidnieki augšāmceļas kā draudzīgi gari, cīnās tev blakus un tad dodas mājās atpūsties.'
+    },
+    ironmonk: {
+      name: 'Dzelzs mūks',
+      desc: 'Kailas rokas, ātras kājas. Katrs sitiens krāj či; iztērē to visu vienā varenā triecienā.'
+    },
+    bard: {
+      name: 'Bards',
+      desc: 'Dziesmas, kas iedvesmo tavējos, un meldijas, kas otru pusi iemidzina vai pavērš pret sevi.'
     }
   },
   skill: {
@@ -635,7 +667,199 @@ export default {
       name: 'Tektoniskais lūzums',
       desc: 'Pārplēs lauku: {dmg}% Spēka bojājumu visam apkārt un gruveši, kas palēnina {dur} s.'
     },
-    scales: 'Pieaug ar: {attr}'
+    scales: 'Pieaug ar: {attr}',
+    shieldThrow: {
+      name: 'Vairoga metiens',
+      desc: 'Tavs vairogs atlec no ienaidniekiem ({bounces}): katram {dmg}% Spēka bojājumu. {dur} s tie nodara par {weak}% mazāk.'
+    },
+    shieldShove: {
+      name: 'Vairoga grūdiens',
+      desc: 'Pagrūd visus sev priekšā: {dmg}% Spēka bojājumu. Tie atlido atpakaļ un pārtrauc, ko darīja.'
+    },
+    holyChains: {
+      name: 'Svētās ķēdes',
+      desc: 'Gaismas ķēdes pievelk tev visus ienaidniekus {radius} m rādiusā: {dmg}% Izturības bojājumu un {slow}% palēninājums.'
+    },
+    bulwark: {
+      name: 'Bastions',
+      desc: '+{block}% bloķēšanas iespēja. Katra bloķēšana nodara uzbrucējam {back} bojājumu atpakaļ.'
+    },
+    retribution: {
+      name: 'Atmaksa',
+      desc: '{dur} s ienaidniekiem {radius} m rādiusā jāuzbrūk tev. Tad gaisma nodara {dmg}% Spēka +{back}% no saņemtajiem sitieniem.'
+    },
+    unbreakable: {
+      name: 'Nesalaužamība',
+      desc: 'Kamēr tev ir mazāk par {hp}% veselības, tu saņem par {reduce}% mazāk bojājumu.'
+    },
+    starFan: {
+      name: 'Zvaigžņu vēdeklis',
+      desc: 'Met vēdeklī ēnu zvaigznes ({stars}), katra nodara {dmg}% Veiklības bojājumu.'
+    },
+    grapplingHook: {
+      name: 'Enkurāķis',
+      desc: 'Pievelc mērķi sev: {dmg}% Veiklības bojājumu un {slow}% palēninājums uz {dur} s. Lieli ienaidnieki pievelk tevi.'
+    },
+    silentStrike: {
+      name: 'Klusais sitiens',
+      desc: 'Dūrieni mugurā nodara +{backstab}% bojājumu, un ienaidnieki tevi pamana par {notice}% vēlāk.'
+    },
+    shadowMark: {
+      name: 'Ēnas zīme',
+      desc: 'Mērķis {dur} s saņem par {vuln}% vairāk bojājumu, un tavs nākamais trāpījums jebkuram ir kritisks ar +{bonus}%.'
+    },
+    bladeRhythm: {
+      name: 'Asmeņu ritms',
+      desc: 'Kritiskie trāpījumi saīsina katru atjaunošanos par {cut} s. +{speed}% uzbrukuma ātruma.'
+    },
+    nightshadeMist: {
+      name: 'Naktenes migla',
+      desc: 'Indīga migla uz {dur} s: līdz {dmg}% Veiklības bojājumu. Tajā iekļuvušie ienaidnieki ir apjukuši {confuse} s.'
+    },
+    firecracker: {
+      name: 'Petarde',
+      desc: 'Piestiprini mērķim petardi. Pēc {delay} s tā uzsprāgst ar {dmg}% Intelekta bojājumu un aizdedzina visus tuvumā.'
+    },
+    fanTheFlames: {
+      name: 'Liesmu uzpūšana',
+      desc: 'Katra degšana {radius} m rādiusā uzliesmo par {pct}% spēcīgāk un sākas no jauna. Ienaidnieki {push} m rādiusā tiek atsviesti.'
+    },
+    ringOfFire: {
+      name: 'Uguns aplis',
+      desc: 'Liesmu aplis paceļas uz {dur} s: līdz {dmg}% Intelekta bojājumu. Ienaidnieki iekšā ir palēnināti par {slow}%.'
+    },
+    everflame: {
+      name: 'Mūžīgā liesma',
+      desc: 'Tavas degšanas ir par {burn}% spēcīgākas, un burvestības iegūst +{crit}% kritiskā trāpījuma iespēju.'
+    },
+    wildfire: {
+      name: 'Ugunsgrēks',
+      desc: 'Kad degošs ienaidnieks tiek uzvarēts, tā liesmas uz {dur} s pārlec uz katru ienaidnieku {radius} m rādiusā.'
+    },
+    phoenixFlight: {
+      name: 'Fēniksa lidojums',
+      desc: 'Lido kā fēnikss ar uguns sliedi: {dmg}% Intelekta bojājumu tur, kur nolaidies. {dur} s dziedinies par {regen}% sekundē.'
+    },
+    callArchers: {
+      name: 'Strēlnieku sauciens',
+      desc: 'Izsauc strēlnieku, kas šauj no tavas mugurpuses ar {dmg}% Harizmas bojājumu. Vienlaikus līdz {max}.'
+    },
+    royalRally: {
+      name: 'Karaliskā pulcēšanās',
+      desc: 'Tavi kalpi steidzas tev blakus un atgūst {heal}% veselības. Jūs visi iegūstat +{def}% Aizsardzības uz {dur} s.'
+    },
+    warMarshal: {
+      name: 'Kara maršals',
+      desc: 'Tavi kalpi nodara par {dmg}% vairāk bojājumu.'
+    },
+    royalDecree: {
+      name: 'Karaliskais dekrēts',
+      desc: 'Ienaidniekiem {radius} m rādiusā jāpaklanās: apdullināti uz {stun} s, pēc tam {dur} s tie saņem par {vuln}% vairāk bojājumu.'
+    },
+    loyalHearts: {
+      name: 'Uzticīgās sirdis',
+      desc: 'Kad krīt kāds no taviem kalpiem, tu dziedinies par {heal}% savas veselības.'
+    },
+    summonChampion: {
+      name: 'Čempiona izsaukšana',
+      desc: 'Izsauc valstības čempionu uz {dur} s: milzu bruņinieku ar {hp}% tavas veselības, kas sit ar {dmg}% Harizmas.'
+    },
+    echoBolt: {
+      name: 'Atbalss lādiņš',
+      desc: 'Laika lādiņš ar {dmg}% Intelekta bojājumu. Pēc {delay} s tas trāpa vēlreiz ar {echo}%.'
+    },
+    foresight: {
+      name: 'Paredzējums',
+      desc: 'Tu redzi sitienus mirkli agrāk: +{dodge}% Izvairīšanās un par {cdr}% īsākas atjaunošanās.'
+    },
+    timeBubble: {
+      name: 'Laika burbulis',
+      desc: 'Lēna laika burbulis uz {dur} s: ienaidnieki iekšā kustas par {slow}% lēnāk un saņem {dmg}% Intelekta bojājumu.'
+    },
+    timeLoop: {
+      name: 'Laika cilpa',
+      desc: 'Pēc {dur} s mērķis atsitas atpakaļ, kur bija: {dmg}% Intelekta bojājumu un vēl {echo}% no zaudētā.'
+    },
+    frozenMoment: {
+      name: 'Sastindzis mirklis',
+      desc: 'Taviem uzbrukumiem ir {chance}% iespēja sasaldēt ienaidnieku laikā uz {dur} s.'
+    },
+    timeStop: {
+      name: 'Laika apturēšana',
+      desc: 'Aptur laiku {radius} m rādiusā uz {dur} s. Kad tas atsāk ritēt, katrs ienaidnieks saņem {dmg}% Intelekta bojājumu.'
+    },
+    essenceWard: {
+      name: 'Esences vairogs',
+      desc: 'Pārvērt {hp}% savas veselības mirdzošā vairogā {shield}% vērtībā no tās uz {dur} s.'
+    },
+    vitalReserve: {
+      name: 'Dzīvības rezerve',
+      desc: '+{hp}% maks. veselības, un tu atgūsti {regen} veselības katru sekundi.'
+    },
+    enfeeblingTonic: {
+      name: 'Novājinošs toniks',
+      desc: 'Met toniku: {dmg}% Intelekta bojājumu laukumā. Trāpītie ienaidnieki {dur} s nodara par {weak}% mazāk bojājumu.'
+    },
+    homunculus: {
+      name: 'Homunkuls',
+      desc: 'Izvāri burbuļojošu palīgu no {hp}% savas veselības uz {dur} s. Izvārot jaunu, atgūsti {back}% no tā dzīvības.'
+    },
+    adrenalCatalyst: {
+      name: 'Adrenalīna katalizators',
+      desc: 'Jo mazāk veselības, jo vairāk bojājumu tu nodari: līdz +{dmg}% pie {low}% veselības vai mazāk.'
+    },
+    grandTransmutation: {
+      name: 'Lielā transmutācija',
+      desc: 'Pārvērt {pct}% no ienaidnieku dzīvības {radius} m rādiusā esencē. Tu dziedinies par {heal}% no tās.'
+    },
+    rocketJump: {
+      name: 'Raķešu lēciens',
+      desc: 'Pacelies un nolaidies, kur tēmē: {dmg}% Meistarības bojājumu {radius} m rādiusā. Uzkrāj {heat} karstuma.'
+    },
+    coolantLoop: {
+      name: 'Dzesēšanas cilpa',
+      desc: 'Karstums izzūd par {cool}% ātrāk, un prasmes to uzkrāj par {cut}% mazāk.'
+    },
+    shockGrenade: {
+      name: 'Šoka granāta',
+      desc: 'Met granātu: {dmg}% Meistarības bojājumu un apdullinājums uz {stun} s {radius} m rādiusā. Uzkrāj {heat} karstuma.'
+    },
+    precisionOptics: {
+      name: 'Precīzā optika',
+      desc: '+{crit}% kritiskā trāpījuma iespēja. Tavi šāvieni izurbjas cauri vēl ienaidniekiem: {pierce}.'
+    },
+    arcCoil: {
+      name: 'Loka spole',
+      desc: 'Zibens trāpa mērķim un pārlec uz vēl ienaidniekiem ({jumps}): katram {dmg}% Meistarības bojājumu. Uzkrāj {heat} karstuma.'
+    },
+    thermalPlating: {
+      name: 'Termiskais apšuvums',
+      desc: 'Kamēr tavs karstums ir {heat} vai vairāk, tu saņem par {reduce}% mazāk bojājumu.'
+    },
+    boulderRoll: {
+      name: 'Laukakmens ripināšana',
+      desc: 'Ripini laukakmeni uz priekšu: {dmg}% Spēka bojājumu visiem ceļā, tie ir notriekti uz {down} s.'
+    },
+    bedrock: {
+      name: 'Pamatiezis',
+      desc: 'Nekas nevar tevi atgrūst, notriekt vai uzmest gaisā. +{hp}% maks. veselības.'
+    },
+    sinkhole: {
+      name: 'Iegruvums',
+      desc: 'Zeme iegrimst un {dur} s ievelk ienaidniekus, tad sabrūk: {dmg}% Spēka bojājumu.'
+    },
+    mountainBreaker: {
+      name: 'Kalnu lauzējs',
+      desc: '+{boss}% bojājumu bosiem un +{armor}% Bruņu.'
+    },
+    geodeShell: {
+      name: 'Ģeodas čaula',
+      desc: 'Kristāla čaula {dur} s absorbē {shield}% tavas veselības, tad pārsprāgst ar līdz {dmg}% Spēka bojājumu.'
+    },
+    crumble: {
+      name: 'Drupināšana',
+      desc: 'Tu nodari par {dmg}% vairāk bojājumu palēninātiem, notriektiem vai pārakmeņotiem ienaidniekiem.'
+    }
   },
   slot: {
     main: 'Galvenā roka',

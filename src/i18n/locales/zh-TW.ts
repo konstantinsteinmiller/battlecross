@@ -431,6 +431,38 @@ export default {
     geo: {
       name: '地術師',
       desc: '升起石牆和尖刺，連大地都能打碎。'
+    },
+    windrunner: {
+      name: '疾風行者',
+      desc: '一把弓，背後有風。射擊、衝刺，永不停下。'
+    },
+    frostwarden: {
+      name: '寒霜衛士',
+      desc: '冰之刃，冷之心。緩速他們，凍住他們，再把他們擊碎。'
+    },
+    lightbringer: {
+      name: '光明使者',
+      desc: '治癒朋友、讓敵人目盲的光。站在光裡，沒有什麼能擋住你。'
+    },
+    beastcaller: {
+      name: '喚獸師',
+      desc: '狼群、巨熊和獵鷹在你身邊戰鬥。召喚牠們，指揮牠們。'
+    },
+    elementalist: {
+      name: '元素使',
+      desc: '火、冰、雷、石。把它們混在一起，一個會引發下一個。'
+    },
+    soulwarden: {
+      name: '靈魂守望者',
+      desc: '被打倒的敵人化為友善的靈魂，在你身邊戰鬥，然後回家安息。'
+    },
+    ironmonk: {
+      name: '鋼鐵武僧',
+      desc: '赤手空拳，腳步如飛。每次出擊都累積氣，全部灌進一記強力重擊。'
+    },
+    bard: {
+      name: '吟遊詩人',
+      desc: '歌聲鼓舞己方，曲調讓對手睡著或自相殘殺。'
     }
   },
   skill: {
@@ -635,7 +667,199 @@ export default {
       name: '地殼撕裂',
       desc: '撕開戰場：對附近的一切造成{dmg}%力量傷害，碎石會緩速{dur}秒。'
     },
-    scales: '隨{attr}提升'
+    scales: '隨{attr}提升',
+    shieldThrow: {
+      name: '盾牌投擲',
+      desc: '你的盾牌在{bounces}個敵人間彈跳，每個造成{dmg}%力量傷害。它們的傷害降低{weak}%，持續{dur}秒。'
+    },
+    shieldShove: {
+      name: '盾牌推撞',
+      desc: '推開你面前的所有敵人，造成{dmg}%力量傷害。它們被擊退，正在做的事也被打斷。'
+    },
+    holyChains: {
+      name: '神聖鎖鏈',
+      desc: '光之鎖鏈把{radius} m內的所有敵人拉到你身邊：造成{dmg}%耐力傷害，並緩速{slow}%。'
+    },
+    bulwark: {
+      name: '銅牆鐵壁',
+      desc: '+{block}%格擋機率。每次格擋都對攻擊者反彈{back}點傷害。'
+    },
+    retribution: {
+      name: '懲戒',
+      desc: '{dur}秒內，{radius} m內的敵人必須攻擊你。之後聖光造成{dmg}%力量傷害，外加所受傷害的{back}%。'
+    },
+    unbreakable: {
+      name: '堅不可摧',
+      desc: '生命低於{hp}%時，你受到的傷害降低{reduce}%。'
+    },
+    starFan: {
+      name: '星鏢扇',
+      desc: '呈扇形擲出{stars}枚暗影星鏢，每枚造成{dmg}%敏捷傷害。'
+    },
+    grapplingHook: {
+      name: '鉤爪',
+      desc: '把目標拉到你身邊，造成{dmg}%敏捷傷害，並緩速{slow}%，持續{dur}秒。大型敵人會把你拉過去。'
+    },
+    silentStrike: {
+      name: '無聲一擊',
+      desc: '背刺傷害+{backstab}%，敵人發現你的時間延後{notice}%。'
+    },
+    shadowMark: {
+      name: '暗影印記',
+      desc: '目標在{dur}秒內受到的傷害提高{vuln}%，你對任何人的下一擊必定爆擊，傷害+{bonus}%。'
+    },
+    bladeRhythm: {
+      name: '刀鋒韻律',
+      desc: '爆擊讓所有冷卻減少{cut}秒。攻擊速度+{speed}%。'
+    },
+    nightshadeMist: {
+      name: '顛茄毒霧',
+      desc: '釋放毒霧，持續{dur}秒：最多造成{dmg}%敏捷傷害。困在其中的敵人混亂{confuse}秒。'
+    },
+    firecracker: {
+      name: '鞭炮',
+      desc: '在目標身上黏一串鞭炮。{delay}秒後炸開，造成{dmg}%智力傷害，並點燃附近的一切。'
+    },
+    fanTheFlames: {
+      name: '煽風點火',
+      desc: '{radius} m內的所有燃燒增強{pct}%並重新開始。{push} m內的敵人被吹飛。'
+    },
+    ringOfFire: {
+      name: '火焰之環',
+      desc: '升起一圈火焰，持續{dur}秒：最多造成{dmg}%智力傷害。圈內的敵人緩速{slow}%。'
+    },
+    everflame: {
+      name: '永恆之火',
+      desc: '你的燃燒增強{burn}%，法術爆擊率+{crit}%。'
+    },
+    wildfire: {
+      name: '野火',
+      desc: '燃燒中的敵人被打倒時，火焰會蔓延到{radius} m內的所有敵人，持續{dur}秒。'
+    },
+    phoenixFlight: {
+      name: '鳳凰飛翔',
+      desc: '化作鳳凰飛行，留下火焰軌跡：在落點造成{dmg}%智力傷害。{dur}秒內每秒回復{regen}%生命。'
+    },
+    callArchers: {
+      name: '召喚弓箭手',
+      desc: '召喚一名弓箭手在你身後射擊，造成{dmg}%魅力傷害。最多同時{max}名。'
+    },
+    royalRally: {
+      name: '王者集結',
+      desc: '你的手下衝到你身邊，回復{heal}%生命。你們全體防禦+{def}%，持續{dur}秒。'
+    },
+    warMarshal: {
+      name: '戰爭元帥',
+      desc: '你的手下造成的傷害提高{dmg}%。'
+    },
+    royalDecree: {
+      name: '王室詔令',
+      desc: '{radius} m內的敵人必須鞠躬：暈眩{stun}秒，然後在{dur}秒內受到的傷害提高{vuln}%。'
+    },
+    loyalHearts: {
+      name: '忠誠之心',
+      desc: '每當你的一名手下倒下，你回復{heal}%生命。'
+    },
+    summonChampion: {
+      name: '召喚勇士',
+      desc: '召喚王國的勇士，持續{dur}秒：一名巨人騎士，擁有你{hp}%的生命，每擊造成{dmg}%魅力傷害。'
+    },
+    echoBolt: {
+      name: '回響飛彈',
+      desc: '一道時間飛彈，造成{dmg}%智力傷害。{delay}秒後再次命中，造成{echo}%傷害。'
+    },
+    foresight: {
+      name: '預見',
+      desc: '你能提前一瞬看到攻擊：閃避+{dodge}%，冷卻縮短{cdr}%。'
+    },
+    timeBubble: {
+      name: '時間泡泡',
+      desc: '製造一個慢時間泡泡，持續{dur}秒：其中的敵人移動減慢{slow}%，並受到{dmg}%智力傷害。'
+    },
+    timeLoop: {
+      name: '時間循環',
+      desc: '{dur}秒後，目標被拉回原本的位置：造成{dmg}%智力傷害，外加它這段時間所失生命的{echo}%。'
+    },
+    frozenMoment: {
+      name: '凝結瞬間',
+      desc: '你的攻擊有{chance}%機率把敵人凍結在時間裡{dur}秒。'
+    },
+    timeStop: {
+      name: '時間停止',
+      desc: '讓{radius} m內的時間停止{dur}秒。時間恢復時，每個敵人受到{dmg}%智力傷害。'
+    },
+    essenceWard: {
+      name: '精華結界',
+      desc: '把{hp}%的生命化為價值其{shield}%的發光結界，持續{dur}秒。'
+    },
+    vitalReserve: {
+      name: '生命儲備',
+      desc: '最大生命+{hp}%，每秒回復{regen}點生命。'
+    },
+    enfeeblingTonic: {
+      name: '虛弱藥劑',
+      desc: '扔出一瓶藥劑：在範圍內造成{dmg}%智力傷害。被擊中的敵人造成的傷害降低{weak}%，持續{dur}秒。'
+    },
+    homunculus: {
+      name: '人造小人',
+      desc: '用{hp}%的生命煉出一個冒泡的小幫手，持續{dur}秒。煉製新的會返還舊幫手{back}%的生命。'
+    },
+    adrenalCatalyst: {
+      name: '腎上腺催化',
+      desc: '生命越低，傷害越高：生命在{low}%或以下時最多+{dmg}%。'
+    },
+    grandTransmutation: {
+      name: '大嬗變',
+      desc: '把{radius} m內敵人{pct}%的生命化為精華。你回復其中的{heal}%。'
+    },
+    rocketJump: {
+      name: '火箭跳',
+      desc: '騰空而起，落在瞄準處：對{radius} m內造成{dmg}%技巧傷害。累積{heat}點熱量。'
+    },
+    coolantLoop: {
+      name: '冷卻循環',
+      desc: '熱量消散加快{cool}%，技能累積的熱量減少{cut}%。'
+    },
+    shockGrenade: {
+      name: '電擊手榴彈',
+      desc: '投出一枚手榴彈：對{radius} m內造成{dmg}%技巧傷害，並暈眩{stun}秒。累積{heat}點熱量。'
+    },
+    precisionOptics: {
+      name: '精密瞄具',
+      desc: '+{crit}%爆擊率。你的射擊可額外穿透{pierce}個敵人。'
+    },
+    arcCoil: {
+      name: '電弧線圈',
+      desc: '閃電擊中目標，再跳向{jumps}個敵人：每個造成{dmg}%技巧傷害。累積{heat}點熱量。'
+    },
+    thermalPlating: {
+      name: '隔熱裝甲',
+      desc: '熱量達到{heat}或以上時，你受到的傷害降低{reduce}%。'
+    },
+    boulderRoll: {
+      name: '滾石',
+      desc: '向前滾出一塊巨石：對路徑上的一切造成{dmg}%力量傷害，並擊倒{down}秒。'
+    },
+    bedrock: {
+      name: '基岩',
+      desc: '任何東西都無法把你擊退、擊倒或擊飛。最大生命+{hp}%。'
+    },
+    sinkhole: {
+      name: '天坑',
+      desc: '地面下陷，把敵人吸入{dur}秒，然後坍塌：造成{dmg}%力量傷害。'
+    },
+    mountainBreaker: {
+      name: '裂山',
+      desc: '對頭目的傷害+{boss}%，護甲+{armor}%。'
+    },
+    geodeShell: {
+      name: '晶洞之殼',
+      desc: '水晶外殼在{dur}秒內吸收相當於生命{shield}%的傷害，然後爆裂，最多造成{dmg}%力量傷害。'
+    },
+    crumble: {
+      name: '崩解',
+      desc: '你對被緩速、被擊倒或被石化的敵人造成的傷害提高{dmg}%。'
+    }
   },
   slot: {
     main: '主手',

@@ -432,6 +432,38 @@ export default {
     geo: {
       name: 'Geomanta',
       desc: 'Wznosi ściany i kolce i rozłupuje samą ziemię.'
+    },
+    windrunner: {
+      name: 'Wiatrobiegacz',
+      desc: 'Łuk i wiatr w plecy. Strzelaj, rób zrywy i nigdy nie stój w miejscu.'
+    },
+    frostwarden: {
+      name: 'Strażnik Mrozu',
+      desc: 'Lodowe ostrze i zimne serce. Spowolnij ich, zamroź, a potem roztrzaskaj.'
+    },
+    lightbringer: {
+      name: 'Niosący Światło',
+      desc: 'Światło, które leczy przyjaciół i oślepia wrogów. Stań w nim, a nic cię nie zatrzyma.'
+    },
+    beastcaller: {
+      name: 'Przywoływacz Bestii',
+      desc: 'Wilcza wataha, niedźwiedź i jastrząb walczą u twego boku. Wezwij je i dowódź nimi.'
+    },
+    elementalist: {
+      name: 'Elementalista',
+      desc: 'Ogień, mróz, błyskawica i kamień. Łącz je, a każdy uruchomi następny.'
+    },
+    soulwarden: {
+      name: 'Strażnik Dusz',
+      desc: 'Pokonani wrogowie wstają jako przyjazne duchy, walczą u twego boku, a potem wracają do domu na spoczynek.'
+    },
+    ironmonk: {
+      name: 'Żelazny Mnich',
+      desc: 'Gołe ręce, szybkie nogi. Każdy cios gromadzi chi – wydaj je całe na jeden potężny cios.'
+    },
+    bard: {
+      name: 'Bard',
+      desc: 'Pieśni, które dodają sił twojej stronie, i melodie, które usypiają wrogów lub zwracają ich przeciw sobie.'
     }
   },
   skill: {
@@ -636,7 +668,199 @@ export default {
       name: 'Pęknięcie tektoniczne',
       desc: 'Rozerwij pole walki: {dmg}% obrażeń od Siły dla wszystkiego w pobliżu i gruz, który spowalnia przez {dur}s.'
     },
-    scales: 'Skaluje się z: {attr}'
+    scales: 'Skaluje się z: {attr}',
+    shieldThrow: {
+      name: 'Rzut tarczą',
+      desc: 'Twoja tarcza odbija się od wrogów ({bounces}): każdy dostaje {dmg}% obrażeń od Siły. Przez {dur}s zadają o {weak}% mniej.'
+    },
+    shieldShove: {
+      name: 'Pchnięcie tarczą',
+      desc: 'Odepchnij wszystkich przed sobą, zadając {dmg}% obrażeń od Siły. Odlatują i przerywają to, co robili.'
+    },
+    holyChains: {
+      name: 'Święte łańcuchy',
+      desc: 'Łańcuchy światła przyciągają do ciebie wrogów w promieniu {radius} m: {dmg}% obrażeń od Wytrzymałości i {slow}% spowolnienia.'
+    },
+    bulwark: {
+      name: 'Szaniec',
+      desc: '+{block}% szansy na blok. Każdy blok zadaje atakującemu {back} obrażeń.'
+    },
+    retribution: {
+      name: 'Odpłata',
+      desc: 'Przez {dur}s wrogowie w promieniu {radius} m muszą atakować ciebie. Potem światło zadaje {dmg}% od Siły +{back}% przyjętych ciosów.'
+    },
+    unbreakable: {
+      name: 'Niezłomność',
+      desc: 'Gdy masz mniej niż {hp}% zdrowia, otrzymujesz o {reduce}% mniej obrażeń.'
+    },
+    starFan: {
+      name: 'Wachlarz gwiazd',
+      desc: 'Rzuć wachlarzem cieniste gwiazdki ({stars}), każda zadaje {dmg}% obrażeń od Zręczności.'
+    },
+    grapplingHook: {
+      name: 'Hak z liną',
+      desc: 'Przyciągnij cel do siebie: {dmg}% obrażeń od Zręczności i {slow}% spowolnienia na {dur}s. Duzi wrogowie przyciągają ciebie.'
+    },
+    silentStrike: {
+      name: 'Cichy cios',
+      desc: 'Ciosy w plecy zadają +{backstab}% obrażeń, a wrogowie zauważają cię o {notice}% później.'
+    },
+    shadowMark: {
+      name: 'Znak cienia',
+      desc: 'Cel otrzymuje o {vuln}% więcej obrażeń przez {dur}s, a twój następny cios w kogokolwiek jest krytyczny z +{bonus}%.'
+    },
+    bladeRhythm: {
+      name: 'Rytm ostrzy',
+      desc: 'Trafienia krytyczne skracają każde odnowienie o {cut}s. +{speed}% szybkości ataku.'
+    },
+    nightshadeMist: {
+      name: 'Mgła psianki',
+      desc: 'Trująca mgła na {dur}s: do {dmg}% obrażeń od Zręczności. Wrogowie złapani w niej są zdezorientowani przez {confuse}s.'
+    },
+    firecracker: {
+      name: 'Petarda',
+      desc: 'Przyczep petardę do celu. Po {delay}s wybucha, zadając {dmg}% obrażeń od Inteligencji, i podpala wszystkich wokół.'
+    },
+    fanTheFlames: {
+      name: 'Podsycanie ognia',
+      desc: 'Każde podpalenie w promieniu {radius} m buchnie o {pct}% mocniej i zacznie się od nowa. Wrogowie w promieniu {push} m zostają odrzuceni.'
+    },
+    ringOfFire: {
+      name: 'Krąg ognia',
+      desc: 'Krąg płomieni płonie przez {dur}s: do {dmg}% obrażeń od Inteligencji. Wrogowie w środku są spowolnieni o {slow}%.'
+    },
+    everflame: {
+      name: 'Wieczny płomień',
+      desc: 'Twoje podpalenia są o {burn}% silniejsze, a zaklęcia zyskują +{crit}% szansy na trafienie krytyczne.'
+    },
+    wildfire: {
+      name: 'Pożoga',
+      desc: 'Gdy podpalony wróg zostanie pokonany, jego płomienie przeskakują na wszystkich wrogów w promieniu {radius} m na {dur}s.'
+    },
+    phoenixFlight: {
+      name: 'Lot feniksa',
+      desc: 'Leć jako feniks, zostawiając ogień: {dmg}% obrażeń od Inteligencji tam, gdzie wylądujesz. Leczysz się o {regen}% na sekundę przez {dur}s.'
+    },
+    callArchers: {
+      name: 'Wezwanie łuczników',
+      desc: 'Przyzwij łucznika, który strzela zza twoich pleców, zadając {dmg}% obrażeń od Charyzmy. Najwyżej {max} naraz.'
+    },
+    royalRally: {
+      name: 'Królewska zbiórka',
+      desc: 'Twoje sługi biegną do ciebie i odzyskują {heal}% zdrowia. Wszyscy zyskujecie +{def}% Obrony na {dur}s.'
+    },
+    warMarshal: {
+      name: 'Marszałek wojny',
+      desc: 'Twoje sługi zadają o {dmg}% więcej obrażeń.'
+    },
+    royalDecree: {
+      name: 'Królewski dekret',
+      desc: 'Wrogowie w promieniu {radius} m muszą się pokłonić: ogłuszenie na {stun}s, a potem przez {dur}s otrzymują o {vuln}% więcej obrażeń.'
+    },
+    loyalHearts: {
+      name: 'Wierne serca',
+      desc: 'Gdy padnie twój sługa, leczysz się o {heal}% swojego zdrowia.'
+    },
+    summonChampion: {
+      name: 'Przyzwanie czempiona',
+      desc: 'Wezwij czempiona królestwa na {dur}s: olbrzymiego rycerza z {hp}% twojego zdrowia, który uderza za {dmg}% Charyzmy.'
+    },
+    echoBolt: {
+      name: 'Pocisk echa',
+      desc: 'Pocisk czasu zadaje {dmg}% obrażeń od Inteligencji. Po {delay}s uderza znowu za {echo}%.'
+    },
+    foresight: {
+      name: 'Przewidywanie',
+      desc: 'Widzisz ciosy chwilę wcześniej: +{dodge}% Uniku i odnowienia krótsze o {cdr}%.'
+    },
+    timeBubble: {
+      name: 'Bańka czasu',
+      desc: 'Bańka zwolnionego czasu na {dur}s: wrogowie w środku ruszają się o {slow}% wolniej i otrzymują {dmg}% obrażeń od Inteligencji.'
+    },
+    timeLoop: {
+      name: 'Pętla czasu',
+      desc: 'Po {dur}s cel wraca tam, gdzie był: {dmg}% obrażeń od Inteligencji i {echo}% tego, co stracił.'
+    },
+    frozenMoment: {
+      name: 'Zamrożona chwila',
+      desc: 'Twoje ataki mają {chance}% szansy, by zamrozić wroga w czasie na {dur}s.'
+    },
+    timeStop: {
+      name: 'Zatrzymanie czasu',
+      desc: 'Zatrzymaj czas w promieniu {radius} m na {dur}s. Gdy ruszy, każdy wróg otrzymuje {dmg}% obrażeń od Inteligencji.'
+    },
+    essenceWard: {
+      name: 'Osłona esencji',
+      desc: 'Zamień {hp}% zdrowia w lśniącą osłonę wartą {shield}% tej ilości na {dur}s.'
+    },
+    vitalReserve: {
+      name: 'Zapas życia',
+      desc: '+{hp}% maks. zdrowia i odzyskujesz {regen} zdrowia co sekundę.'
+    },
+    enfeeblingTonic: {
+      name: 'Osłabiający tonik',
+      desc: 'Rzuć tonik: {dmg}% obrażeń od Inteligencji na obszarze. Trafieni wrogowie zadają o {weak}% mniej obrażeń przez {dur}s.'
+    },
+    homunculus: {
+      name: 'Homunkulus',
+      desc: 'Uwarz bulgoczącego pomocnika z {hp}% zdrowia na {dur}s. Uwarzenie nowego zwraca {back}% życia poprzedniego.'
+    },
+    adrenalCatalyst: {
+      name: 'Katalizator adrenaliny',
+      desc: 'Im mniej masz zdrowia, tym więcej zadajesz obrażeń: do +{dmg}% przy {low}% zdrowia lub mniej.'
+    },
+    grandTransmutation: {
+      name: 'Wielka transmutacja',
+      desc: 'Zamień {pct}% życia wrogów w promieniu {radius} m w esencję. Leczysz się o {heal}% z niej.'
+    },
+    rocketJump: {
+      name: 'Skok rakietowy',
+      desc: 'Wystartuj i wyląduj tam, gdzie celujesz: {dmg}% obrażeń od Biegłości w promieniu {radius} m. Dodaje {heat} ciepła.'
+    },
+    coolantLoop: {
+      name: 'Obieg chłodziwa',
+      desc: 'Ciepło spada o {cool}% szybciej, a umiejętności dodają go o {cut}% mniej.'
+    },
+    shockGrenade: {
+      name: 'Granat porażający',
+      desc: 'Rzuć granat: {dmg}% obrażeń od Biegłości i ogłuszenie na {stun}s w promieniu {radius} m. Dodaje {heat} ciepła.'
+    },
+    precisionOptics: {
+      name: 'Precyzyjna optyka',
+      desc: '+{crit}% szansy na trafienie krytyczne. Twoje strzały przebijają dodatkowych wrogów: {pierce}.'
+    },
+    arcCoil: {
+      name: 'Cewka łukowa',
+      desc: 'Błyskawica trafia cel i przeskakuje na kolejnych wrogów ({jumps}): każdy dostaje {dmg}% obrażeń od Biegłości. Dodaje {heat} ciepła.'
+    },
+    thermalPlating: {
+      name: 'Termopancerz',
+      desc: 'Gdy masz co najmniej {heat} ciepła, otrzymujesz o {reduce}% mniej obrażeń.'
+    },
+    boulderRoll: {
+      name: 'Toczący się głaz',
+      desc: 'Potocz głaz przed siebie: {dmg}% obrażeń od Siły wszystkim na drodze i powalenie na {down}s.'
+    },
+    bedrock: {
+      name: 'Skała macierzysta',
+      desc: 'Nic nie może cię odrzucić, powalić ani podrzucić. +{hp}% maks. zdrowia.'
+    },
+    sinkhole: {
+      name: 'Zapadlisko',
+      desc: 'Ziemia się zapada i przez {dur}s wciąga wrogów, a potem się obsuwa: {dmg}% obrażeń od Siły.'
+    },
+    mountainBreaker: {
+      name: 'Kruszyciel gór',
+      desc: '+{boss}% obrażeń przeciw bossom i +{armor}% Pancerza.'
+    },
+    geodeShell: {
+      name: 'Pancerz geody',
+      desc: 'Kryształowa skorupa pochłania {shield}% twojego zdrowia przez {dur}s, a potem pęka, zadając do {dmg}% obrażeń od Siły.'
+    },
+    crumble: {
+      name: 'Kruszenie',
+      desc: 'Zadajesz o {dmg}% więcej obrażeń wrogom spowolnionym, powalonym lub zamienionym w kamień.'
+    }
   },
   slot: {
     main: 'Główna ręka',

@@ -431,6 +431,38 @@ export default {
     geo: {
       name: 'ジオマンサー',
       desc: '壁とトゲを生み出し、大地そのものを割る。'
+    },
+    windrunner: {
+      name: 'ウィンドランナー',
+      desc: '弓と追い風。撃って、駆けて、決して止まらない。'
+    },
+    frostwarden: {
+      name: 'フロストウォーデン',
+      desc: '氷の刃と冷たい心。鈍らせ、凍らせ、そして砕く。'
+    },
+    lightbringer: {
+      name: 'ライトブリンガー',
+      desc: '仲間を癒やし、敵の目をくらませる光。その中に立てば、誰にも止められない。'
+    },
+    beastcaller: {
+      name: 'ビーストコーラー',
+      desc: 'オオカミの群れ、クマ、タカが共に戦う。呼び出して指揮しよう。'
+    },
+    elementalist: {
+      name: 'エレメンタリスト',
+      desc: '炎、氷、雷、岩。組み合わせれば、ひとつが次を引き起こす。'
+    },
+    soulwarden: {
+      name: 'ソウルウォーデン',
+      desc: '倒した敵が味方の魂としてよみがえり、共に戦ってから安らかに帰っていく。'
+    },
+    ironmonk: {
+      name: 'アイアンモンク',
+      desc: '素手と速い足。一撃ごとに気がたまる。すべてを強烈な一撃に込めよう。'
+    },
+    bard: {
+      name: 'バード',
+      desc: '味方を元気づける歌と、敵を眠らせたり同士討ちさせたりする旋律。'
     }
   },
   skill: {
@@ -635,7 +667,199 @@ export default {
       name: 'テクトニックラプチャー',
       desc: '大地を引き裂く。近くのすべてに筋力の{dmg}%のダメージ。がれきが{dur}秒間鈍足にする。'
     },
-    scales: '{attr}で強化'
+    scales: '{attr}で強化',
+    shieldThrow: {
+      name: 'シールドスロー',
+      desc: '盾が{bounces}体の敵に跳ね返り、それぞれ筋力の{dmg}%のダメージ。{dur}秒間、敵の与えるダメージが{weak}%減る。'
+    },
+    shieldShove: {
+      name: 'シールドプッシュ',
+      desc: '前方のすべてを押し出し、筋力の{dmg}%のダメージ。吹き飛ばされた敵は行動が止まる。'
+    },
+    holyChains: {
+      name: '聖なる鎖',
+      desc: '光の鎖が{radius} m以内の敵をすべて引き寄せる。耐久力の{dmg}%のダメージと{slow}%鈍足。'
+    },
+    bulwark: {
+      name: '鉄壁',
+      desc: 'ブロック率+{block}%。ブロックするたびに、攻撃してきた敵に{back}のダメージを返す。'
+    },
+    retribution: {
+      name: '報復',
+      desc: '{dur}秒間、{radius} m以内の敵はあなたを攻撃するしかない。その後、光が筋力の{dmg}%＋受けたダメージの{back}%を与える。'
+    },
+    unbreakable: {
+      name: '不壊',
+      desc: '体力が{hp}%未満のあいだ、受けるダメージが{reduce}%減る。'
+    },
+    starFan: {
+      name: 'スターファン',
+      desc: '影の星を{stars}個、扇状に投げる。それぞれ器用さの{dmg}%のダメージ。'
+    },
+    grapplingHook: {
+      name: 'グラップリングフック',
+      desc: 'ターゲットを引き寄せ、器用さの{dmg}%のダメージと{dur}秒間{slow}%鈍足。大きな敵には自分が引き寄せられる。'
+    },
+    silentStrike: {
+      name: 'サイレントストライク',
+      desc: '背後からの攻撃のダメージ+{backstab}%。敵があなたに気づくのが{notice}%遅くなる。'
+    },
+    shadowMark: {
+      name: 'シャドウマーク',
+      desc: 'ターゲットが受けるダメージが{dur}秒間{vuln}%増える。次に誰かに当てた攻撃はクリティカルになり、+{bonus}%。'
+    },
+    bladeRhythm: {
+      name: '刃のリズム',
+      desc: 'クリティカルのたびに全クールダウンが{cut}秒縮む。攻撃速度+{speed}%。'
+    },
+    nightshadeMist: {
+      name: '夜影の毒霧',
+      desc: '{dur}秒間、毒の霧を出す。器用さの最大{dmg}%のダメージ。霧に包まれた敵は{confuse}秒混乱する。'
+    },
+    firecracker: {
+      name: '爆竹',
+      desc: 'ターゲットに爆竹を貼りつける。{delay}秒後に弾けて知力の{dmg}%のダメージ、周りをすべて燃やす。'
+    },
+    fanTheFlames: {
+      name: '炎あおり',
+      desc: '{radius} m以内の燃焼がすべて{pct}%強く燃え上がり、最初からやり直す。{push} m以内の敵は吹き飛ばされる。'
+    },
+    ringOfFire: {
+      name: '炎の輪',
+      desc: '{dur}秒間、炎の輪が立ち上る。知力の最大{dmg}%のダメージ。中の敵は{slow}%鈍足。'
+    },
+    everflame: {
+      name: '不滅の炎',
+      desc: '燃焼が{burn}%強くなり、魔法のクリティカル率+{crit}%。'
+    },
+    wildfire: {
+      name: '野火',
+      desc: '燃焼中の敵を倒すと、その炎が{radius} m以内のすべての敵に{dur}秒間燃え移る。'
+    },
+    phoenixFlight: {
+      name: '不死鳥の飛翔',
+      desc: '炎の跡を残して不死鳥となって飛ぶ。着地点に知力の{dmg}%のダメージ。{dur}秒間、毎秒{regen}%回復。'
+    },
+    callArchers: {
+      name: '弓兵召集',
+      desc: '後ろから魅力の{dmg}%のダメージで撃つ弓兵を呼び出す。同時に{max}人まで。'
+    },
+    royalRally: {
+      name: '王の集結',
+      desc: 'ミニオンがそばに駆けつけ、体力を{heal}%回復。{dur}秒間、全員の防御力+{def}%。'
+    },
+    warMarshal: {
+      name: '元帥',
+      desc: 'ミニオンのダメージが{dmg}%増える。'
+    },
+    royalDecree: {
+      name: '王の勅令',
+      desc: '{radius} m以内の敵がひれ伏す。{stun}秒スタンし、その後{dur}秒間、受けるダメージが{vuln}%増える。'
+    },
+    loyalHearts: {
+      name: '忠義の心',
+      desc: 'ミニオンが1体倒れるたびに、体力を{heal}%回復する。'
+    },
+    summonChampion: {
+      name: 'チャンピオン召喚',
+      desc: '王国の勇者を{dur}秒間呼び出す。あなたの体力の{hp}%を持つ巨大な騎士で、魅力の{dmg}%で攻撃する。'
+    },
+    echoBolt: {
+      name: 'エコーボルト',
+      desc: '時の矢で知力の{dmg}%のダメージ。{delay}秒後にもう一度{echo}%のダメージ。'
+    },
+    foresight: {
+      name: '先見',
+      desc: '攻撃が来るのが一瞬早く見える。回避+{dodge}%、クールダウン{cdr}%短縮。'
+    },
+    timeBubble: {
+      name: 'タイムバブル',
+      desc: '{dur}秒間、時の遅い泡を作る。中の敵は{slow}%遅くなり、知力の{dmg}%のダメージを受ける。'
+    },
+    timeLoop: {
+      name: 'タイムループ',
+      desc: '{dur}秒後、ターゲットが元の場所に引き戻される。知力の{dmg}%のダメージに加え、失った体力の{echo}%。'
+    },
+    frozenMoment: {
+      name: '凍てつく瞬間',
+      desc: '攻撃が{chance}%の確率で、敵の時を{dur}秒止める。'
+    },
+    timeStop: {
+      name: 'タイムストップ',
+      desc: '{radius} m以内の時を{dur}秒止める。時が動き出すと、敵それぞれに知力の{dmg}%のダメージ。'
+    },
+    essenceWard: {
+      name: '精気の守り',
+      desc: '体力の{hp}%を、その{shield}%ぶんの光る守りに変える。{dur}秒間続く。'
+    },
+    vitalReserve: {
+      name: '生命の蓄え',
+      desc: '最大体力+{hp}%。毎秒体力を{regen}回復する。'
+    },
+    enfeeblingTonic: {
+      name: '弱体の薬',
+      desc: '薬を投げる。範囲に知力の{dmg}%のダメージ。当たった敵は{dur}秒間、与えるダメージが{weak}%減る。'
+    },
+    homunculus: {
+      name: 'ホムンクルス',
+      desc: '体力の{hp}%から泡立つ助っ人を{dur}秒間作る。新しく作ると、前の助っ人の命の{back}%が戻る。'
+    },
+    adrenalCatalyst: {
+      name: 'アドレナリン触媒',
+      desc: '体力が低いほどダメージが上がる。体力{low}%以下で最大+{dmg}%。'
+    },
+    grandTransmutation: {
+      name: '大変成',
+      desc: '{radius} m以内の敵の命の{pct}%を精気に変える。その{heal}%ぶん回復する。'
+    },
+    rocketJump: {
+      name: 'ロケットジャンプ',
+      desc: '飛び上がって狙った場所に着地。{radius} m以内に技量の{dmg}%のダメージ。ヒートが{heat}たまる。'
+    },
+    coolantLoop: {
+      name: '冷却ループ',
+      desc: 'ヒートが{cool}%速く下がり、スキルでたまるヒートが{cut}%減る。'
+    },
+    shockGrenade: {
+      name: 'ショックグレネード',
+      desc: 'グレネードを投げる。{radius} m以内に技量の{dmg}%のダメージと{stun}秒スタン。ヒートが{heat}たまる。'
+    },
+    precisionOptics: {
+      name: '精密スコープ',
+      desc: 'クリティカル率+{crit}%。射撃が敵を{pierce}体余分に貫通する。'
+    },
+    arcCoil: {
+      name: 'アークコイル',
+      desc: '雷がターゲットに当たり、さらに{jumps}体の敵へ跳ぶ。それぞれ技量の{dmg}%のダメージ。ヒートが{heat}たまる。'
+    },
+    thermalPlating: {
+      name: '耐熱装甲',
+      desc: 'ヒートが{heat}以上のあいだ、受けるダメージが{reduce}%減る。'
+    },
+    boulderRoll: {
+      name: '大岩転がし',
+      desc: '前に大岩を転がす。通り道のすべてに筋力の{dmg}%のダメージ、{down}秒ダウンさせる。'
+    },
+    bedrock: {
+      name: '岩盤',
+      desc: 'ノックバック、ダウン、打ち上げを受けない。最大体力+{hp}%。'
+    },
+    sinkhole: {
+      name: 'シンクホール',
+      desc: '地面が沈み、{dur}秒間敵を引きずり込んでから崩れ落ちる。筋力の{dmg}%のダメージ。'
+    },
+    mountainBreaker: {
+      name: '山崩し',
+      desc: 'ボスへのダメージ+{boss}%、アーマー+{armor}%。'
+    },
+    geodeShell: {
+      name: '晶洞の殻',
+      desc: '水晶の殻が{dur}秒間、体力の{shield}%ぶんのダメージを吸収し、その後弾けて筋力の最大{dmg}%のダメージ。'
+    },
+    crumble: {
+      name: '崩壊',
+      desc: '鈍足、ダウン、石化した敵へのダメージが{dmg}%増える。'
+    }
   },
   slot: {
     main: '利き手',

@@ -431,6 +431,38 @@ export default {
     geo: {
       name: '대지술사',
       desc: '벽과 가시를 세우고 땅 자체를 부순다.'
+    },
+    windrunner: {
+      name: '바람 질주자',
+      desc: '활 한 자루와 등 뒤의 바람. 쏘고, 질주하고, 절대 멈추지 마라.'
+    },
+    frostwarden: {
+      name: '서리 파수꾼',
+      desc: '얼음 칼날과 차가운 심장. 느리게 하고, 얼리고, 산산조각 내라.'
+    },
+    lightbringer: {
+      name: '빛의 인도자',
+      desc: '아군을 치유하고 적의 눈을 멀게 하는 빛. 그 안에 서면 아무것도 막을 수 없다.'
+    },
+    beastcaller: {
+      name: '야수 소환사',
+      desc: '늑대 무리, 곰, 매가 곁에서 싸운다. 불러내고, 지휘하라.'
+    },
+    elementalist: {
+      name: '원소술사',
+      desc: '불, 서리, 번개, 바위. 섞으면 하나가 다음 것을 일으킨다.'
+    },
+    soulwarden: {
+      name: '영혼 수호자',
+      desc: '쓰러뜨린 적이 우호적인 영혼으로 일어나 곁에서 싸우고, 쉬러 집으로 돌아간다.'
+    },
+    ironmonk: {
+      name: '강철 수도승',
+      desc: '맨손과 빠른 발. 칠 때마다 기가 쌓인다. 모두 모아 강력한 일격에 쏟아라.'
+    },
+    bard: {
+      name: '음유시인',
+      desc: '아군의 힘을 북돋는 노래, 그리고 적을 잠재우거나 서로 싸우게 하는 선율.'
     }
   },
   skill: {
@@ -635,7 +667,199 @@ export default {
       name: '지각 파열',
       desc: '전장을 찢어 연다. 근처 모든 것에 근력의 {dmg}% 피해, 잔해가 {dur}초 동안 둔화시킨다.'
     },
-    scales: '{attr}에 비례'
+    scales: '{attr}에 비례',
+    shieldThrow: {
+      name: '방패 던지기',
+      desc: '방패가 적 {bounces}명에게 튕긴다: 각각 근력의 {dmg}% 피해. 맞은 적은 {dur}초 동안 주는 피해가 {weak}% 줄어든다.'
+    },
+    shieldShove: {
+      name: '방패 밀치기',
+      desc: '앞에 있는 모두를 밀쳐 근력의 {dmg}% 피해를 준다. 적은 뒤로 날아가고 하던 행동을 멈춘다.'
+    },
+    holyChains: {
+      name: '성스러운 사슬',
+      desc: '빛의 사슬이 {radius} m 안의 모든 적을 끌어온다: 지구력의 {dmg}% 피해와 {slow}% 둔화.'
+    },
+    bulwark: {
+      name: '철벽',
+      desc: '막기 확률 +{block}%. 막을 때마다 공격자에게 {back} 피해를 돌려준다.'
+    },
+    retribution: {
+      name: '응징',
+      desc: '{dur}초 동안 {radius} m 안의 적은 당신만 공격해야 한다. 그 뒤 빛이 근력의 {dmg}% + 받은 피해의 {back}%를 준다.'
+    },
+    unbreakable: {
+      name: '금강불괴',
+      desc: '체력이 {hp}% 미만일 때 받는 피해가 {reduce}% 줄어든다.'
+    },
+    starFan: {
+      name: '별 부채',
+      desc: '그림자 별 {stars}개를 부채꼴로 던진다. 각각 민첩의 {dmg}% 피해.'
+    },
+    grapplingHook: {
+      name: '갈고리 줄',
+      desc: '대상을 끌어와 민첩의 {dmg}% 피해를 주고 {dur}초 동안 {slow}% 둔화시킨다. 큰 적에게는 당신이 끌려간다.'
+    },
+    silentStrike: {
+      name: '소리 없는 일격',
+      desc: '등 뒤 공격 피해 +{backstab}%. 적이 당신을 {notice}% 늦게 알아챈다.'
+    },
+    shadowMark: {
+      name: '그림자 표식',
+      desc: '대상이 {dur}초 동안 받는 피해가 {vuln}% 늘어난다. 다음 공격은 누구에게든 치명타가 되고 +{bonus}%.'
+    },
+    bladeRhythm: {
+      name: '칼날의 리듬',
+      desc: '치명타마다 모든 쿨타임이 {cut}초 줄어든다. 공격 속도 +{speed}%.'
+    },
+    nightshadeMist: {
+      name: '독초 안개',
+      desc: '{dur}초 동안 독 안개: 최대 민첩의 {dmg}% 피해. 안개에 갇힌 적은 {confuse}초 동안 혼란에 빠진다.'
+    },
+    firecracker: {
+      name: '폭죽',
+      desc: '대상에 폭죽을 붙인다. {delay}초 뒤 터져 지능의 {dmg}% 피해를 주고 주변 모두에게 화상을 입힌다.'
+    },
+    fanTheFlames: {
+      name: '불길 부채질',
+      desc: '{radius} m 안의 모든 화상이 {pct}% 더 강하게 타오르고 처음부터 다시 시작된다. {push} m 안의 적은 날아간다.'
+    },
+    ringOfFire: {
+      name: '불의 고리',
+      desc: '{dur}초 동안 불꽃 고리가 솟는다: 최대 지능의 {dmg}% 피해. 안의 적은 {slow}% 둔화.'
+    },
+    everflame: {
+      name: '영원의 불꽃',
+      desc: '화상이 {burn}% 강해지고, 주문의 치명타 확률이 +{crit}% 오른다.'
+    },
+    wildfire: {
+      name: '들불',
+      desc: '불타는 적이 쓰러지면 불꽃이 {radius} m 안의 모든 적에게 {dur}초 동안 옮겨붙는다.'
+    },
+    phoenixFlight: {
+      name: '불사조 비행',
+      desc: '불길을 남기며 불사조가 되어 난다: 착지한 곳에 지능의 {dmg}% 피해. {dur}초 동안 초당 {regen}% 회복.'
+    },
+    callArchers: {
+      name: '궁수 소환',
+      desc: '뒤에서 매력의 {dmg}% 피해로 쏘는 궁수를 소환한다. 동시에 최대 {max}명.'
+    },
+    royalRally: {
+      name: '왕의 집결',
+      desc: '하수인이 곁으로 달려와 체력을 {heal}% 회복한다. {dur}초 동안 모두 방어력 +{def}%.'
+    },
+    warMarshal: {
+      name: '전쟁 원수',
+      desc: '하수인이 주는 피해가 {dmg}% 늘어난다.'
+    },
+    royalDecree: {
+      name: '왕의 칙령',
+      desc: '{radius} m 안의 적이 무릎 꿇는다: {stun}초 동안 기절, 그 뒤 {dur}초 동안 받는 피해가 {vuln}% 늘어난다.'
+    },
+    loyalHearts: {
+      name: '충성스러운 마음',
+      desc: '하수인이 하나 쓰러질 때마다 체력의 {heal}%를 회복한다.'
+    },
+    summonChampion: {
+      name: '용사 소환',
+      desc: '왕국의 용사를 {dur}초 동안 부른다: 당신 체력의 {hp}%를 가진 거대한 기사로, 매력의 {dmg}%로 공격한다.'
+    },
+    echoBolt: {
+      name: '메아리 화살',
+      desc: '지능의 {dmg}% 피해를 주는 시간의 화살. {delay}초 뒤 {echo}%로 다시 맞힌다.'
+    },
+    foresight: {
+      name: '예지',
+      desc: '공격을 한발 앞서 본다: 회피 +{dodge}%, 쿨타임 {cdr}% 감소.'
+    },
+    timeBubble: {
+      name: '시간 거품',
+      desc: '{dur}초 동안 느린 시간의 거품: 안의 적은 {slow}% 느려지고 지능의 {dmg}% 피해를 받는다.'
+    },
+    timeLoop: {
+      name: '시간 고리',
+      desc: '{dur}초 뒤 대상이 원래 있던 곳으로 되돌아간다: 지능의 {dmg}% 피해와 그동안 잃은 체력의 {echo}%.'
+    },
+    frozenMoment: {
+      name: '얼어붙은 순간',
+      desc: '공격이 {chance}% 확률로 적을 {dur}초 동안 시간 속에 얼린다.'
+    },
+    timeStop: {
+      name: '멈춘 세계',
+      desc: '{radius} m 안의 시간을 {dur}초 동안 멈춘다. 다시 흐르면 각 적이 지능의 {dmg}% 피해를 받는다.'
+    },
+    essenceWard: {
+      name: '정수 보호막',
+      desc: '체력의 {hp}%를 그 {shield}%만큼의 빛나는 보호막으로 바꾼다. {dur}초 지속.'
+    },
+    vitalReserve: {
+      name: '생명 비축',
+      desc: '최대 체력 +{hp}%, 매초 체력 {regen} 회복.'
+    },
+    enfeeblingTonic: {
+      name: '약화의 물약',
+      desc: '물약을 던진다: 범위에 지능의 {dmg}% 피해. 맞은 적은 {dur}초 동안 주는 피해가 {weak}% 줄어든다.'
+    },
+    homunculus: {
+      name: '호문쿨루스',
+      desc: '체력의 {hp}%로 보글보글한 도우미를 {dur}초 동안 만든다. 새로 만들면 이전 도우미 생명의 {back}%가 돌아온다.'
+    },
+    adrenalCatalyst: {
+      name: '아드레날린 촉매',
+      desc: '체력이 낮을수록 피해가 커진다: 체력 {low}% 이하에서 최대 +{dmg}%.'
+    },
+    grandTransmutation: {
+      name: '대변환',
+      desc: '{radius} m 안의 적 생명의 {pct}%를 정수로 바꾼다. 그 {heal}%만큼 회복한다.'
+    },
+    rocketJump: {
+      name: '로켓 점프',
+      desc: '날아올라 조준한 곳에 착지한다: {radius} m 안에 숙련의 {dmg}% 피해. 열기가 {heat} 쌓인다.'
+    },
+    coolantLoop: {
+      name: '냉각 순환',
+      desc: '열기가 {cool}% 빨리 빠지고, 스킬이 쌓는 열기가 {cut}% 줄어든다.'
+    },
+    shockGrenade: {
+      name: '충격 수류탄',
+      desc: '수류탄을 던진다: {radius} m 안에 숙련의 {dmg}% 피해와 {stun}초 기절. 열기가 {heat} 쌓인다.'
+    },
+    precisionOptics: {
+      name: '정밀 조준경',
+      desc: '치명타 확률 +{crit}%. 사격이 적을 {pierce}명 더 관통한다.'
+    },
+    arcCoil: {
+      name: '아크 코일',
+      desc: '번개가 대상을 맞히고 적 {jumps}명에게 더 튄다: 각각 숙련의 {dmg}% 피해. 열기가 {heat} 쌓인다.'
+    },
+    thermalPlating: {
+      name: '내열 장갑',
+      desc: '열기가 {heat} 이상일 때 받는 피해가 {reduce}% 줄어든다.'
+    },
+    boulderRoll: {
+      name: '바위 굴리기',
+      desc: '앞으로 바위를 굴린다: 길에 있는 모두에게 근력의 {dmg}% 피해, {down}초 동안 넘어뜨린다.'
+    },
+    bedrock: {
+      name: '기반암',
+      desc: '밀려나지도, 넘어지지도, 공중에 뜨지도 않는다. 최대 체력 +{hp}%.'
+    },
+    sinkhole: {
+      name: '싱크홀',
+      desc: '땅이 꺼져 {dur}초 동안 적을 끌어들인 뒤 무너진다: 근력의 {dmg}% 피해.'
+    },
+    mountainBreaker: {
+      name: '산 부수기',
+      desc: '보스에게 주는 피해 +{boss}%, 방어도 +{armor}%.'
+    },
+    geodeShell: {
+      name: '수정 껍질',
+      desc: '수정 껍질이 {dur}초 동안 체력의 {shield}%만큼 피해를 흡수한 뒤 터져 최대 근력의 {dmg}% 피해를 준다.'
+    },
+    crumble: {
+      name: '붕괴',
+      desc: '둔화, 넘어짐, 석화 상태인 적에게 주는 피해가 {dmg}% 늘어난다.'
+    }
   },
   slot: {
     main: '주 무기',

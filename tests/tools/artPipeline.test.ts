@@ -74,17 +74,19 @@ describe('the manifest covers the game', () => {
     expect([...ART_CATALOGUE.items].sort()).toEqual(ITEMS.map(i => i.id).sort())
   })
 
-  it('every skill has a panel: 48 ids, one 3x2 sheet per class, in unlock order, in the class colour', () => {
-    expect(SKILLS).toHaveLength(48)
+  it('every skill has a panel: two 3x2 sheets per class (twelve skills, #95), in unlock order, in the class colour', () => {
+    expect(SKILLS).toHaveLength(CLASS_IDS.length * 12)
     for (const cls of CLASS_IDS) {
-      const stem = `sheet-skills-${cls}`
       const want = skillsOf(cls)
-      expect(idsOf(stem), stem).toEqual(want.map(s => s.id))
       expect(want.map(s => s.level), `${cls} unlock order`).toEqual([...want.map(s => s.level)].sort((a, b) => a - b))
-      const sheet = SETS.find(s => s.stem === stem)!
-      expect(sheet.accent?.hex).toBe(CLASSES[cls].color)
-      // A passive is clipped to a circle in the game, and its panel says so.
-      for (const c of sheet.cells) expect(!!c!.round, c!.id).toBe(want.find(s => s.id === c!.id)!.kind === 'passive')
+      for (const [k, stem] of [`sheet-skills-${cls}`, `sheet-skills2-${cls}`].entries()) {
+        const part = want.slice(k * 6, k * 6 + 6)
+        expect(idsOf(stem), stem).toEqual(part.map(s => s.id))
+        const sheet = SETS.find(s => s.stem === stem)!
+        expect(sheet.accent?.hex).toBe(CLASSES[cls].color)
+        // A passive is clipped to a circle in the game, and its panel says so.
+        for (const c of sheet.cells) expect(!!c!.round, c!.id).toBe(part.find(s => s.id === c!.id)!.kind === 'passive')
+      }
     }
     for (const s of SKILLS) expect(targets.has(`images/skills/${s.id}.webp`), s.id).toBe(true)
     expect([...ART_CATALOGUE.skills].sort()).toEqual(SKILLS.map(s => s.id).sort())
@@ -217,7 +219,7 @@ describe('the manifest covers the game', () => {
     const icons = ICON_SETS.reduce((n, s) => n + s.cells.filter(c => c).length, 0)
     // ... and the logo's badge and mascot, and the painted wordmark (#76).
     // The portraits: 22 speakers, the boy hero's four and the girl hero's four.
-    expect(seen.size).toBe(62 + 48 + 22 + 4 + 4 + 1 + 2 + 3 + icons + 2 + 1)
+    expect(seen.size).toBe(62 + SKILLS.length + 22 + 4 + 4 + 1 + 2 + 3 + icons + 2 + 1)
     // The catalogue `pnpm art:status` reports on is exactly what the sheets write.
     const catalogue = Object.entries(ART_CATALOGUE).flatMap(([kind, ids]) => ids.map(id => artTarget(kind as keyof typeof ART_CATALOGUE, id)))
     expect([...catalogue].sort()).toEqual([...seen].sort())
@@ -491,8 +493,7 @@ describe('what a prompt says', () => {
   it('a skill sheet demands painted volume, names the flat answer as wrong, and goes out with painted weapons as finish references', () => {
     // The first skill sheets came back as flat single-colour shapes while the
     // weapons, from the same style block, came back with volume.
-    for (const cls of CLASS_IDS) {
-      const stem = `sheet-skills-${cls}`
+    for (const stem of CLASS_IDS.flatMap(cls => [`sheet-skills-${cls}`, `sheet-skills2-${cls}`])) {
       const text = textOf(stem)
       expect(text, stem).toContain('PAINTED VOLUME — this is what the sheet is judged on.')
       expect(text, stem).toMatch(/a LIT side and a SHADOW side that meet along a hard edge/)
@@ -517,7 +518,7 @@ describe('what a prompt says', () => {
     for (const f of SKILL_FINISH_REFS) expect(manifestTargets().has(f.replace(/^public\//, '')), f).toBe(true)
     // Nothing else is sent with more than its own reference.
     // (The icon sheets borrow the same finish references; see their own test.)
-    for (const b of blocks) if (!b.stem.startsWith('sheet-skills-') && !b.stem.startsWith('sheet-icons-') && b.stem !== 'single-logo-mascot' && !b.stem.startsWith('single-logo-title-') && b.stem !== 'single-logo-wordmark' && b.stem !== 'sheet-portraits-girl' && !b.stem.startsWith('cover-')) expect(b.styleRefs, b.stem).toBeUndefined()
+    for (const b of blocks) if (!b.stem.startsWith('sheet-skills-') && !b.stem.startsWith('sheet-skills2-') && !b.stem.startsWith('sheet-icons-') && b.stem !== 'single-logo-mascot' && !b.stem.startsWith('single-logo-title-') && b.stem !== 'single-logo-wordmark' && b.stem !== 'sheet-portraits-girl' && !b.stem.startsWith('cover-')) expect(b.styleRefs, b.stem).toBeUndefined()
   })
 
   it('a sheet says its own grid, its blanks and its measured size', () => {
@@ -678,10 +679,10 @@ describe('the slicer knows a painting by its name, and only by its name', () => 
 
   it('refuses an unknown stem instead of matching it by shape', () => {
     const targets = buildTargets(sheetIndex())
-    // Fourteen sheets are 1024x768 (six of items, eight of icons) and nine
+    // Fourteen sheets are 1024x768 (six of items, eight of icons) and seventeen
     // are 768x576: shape says nothing.
     expect(targets.filter(t => t.width === 1024 && t.height === 768)).toHaveLength(14)
-    expect(targets.filter(t => t.width === 768 && t.height === 576 && t.kind === 'cells')).toHaveLength(9)
+    expect(targets.filter(t => t.width === 768 && t.height === 576 && t.kind === 'cells')).toHaveLength(17)
     for (const name of [
       'Gemini_Generated_Image_abc123.png', // a download nobody renamed
       'sheet-items-shields.png',           // a sheet the index does not know (yet, or any more)
@@ -848,9 +849,14 @@ describe('the slicer keys out a drawn panel grid without touching the palette', 
     // Skill sheets are 3 x 2; the armour sheet holds the tier-4 purple robe.
     await fake('sheet-skills-shadow', 'hues-plain', 3, 2, null)
     await fake('sheet-skills-blood', 'hues-plain', 3, 2, null)
+    // Dance of Blades and Mutagenic Rage are on the classes' second sheets (#95).
+    await fake('sheet-skills2-shadow', 'hues-plain', 3, 2, null)
+    await fake('sheet-skills2-blood', 'hues-plain', 3, 2, null)
     await fake('sheet-items-armor', 'hues-plain', 4, 3, null)
     await fake('sheet-skills-shadow', 'hues-grid', 3, 2, '#fb51f8')
     await fake('sheet-skills-blood', 'hues-grid', 3, 2, '#fb51f8')
+    await fake('sheet-skills2-shadow', 'hues-grid', 3, 2, '#fb51f8')
+    await fake('sheet-skills2-blood', 'hues-grid', 3, 2, '#fb51f8')
     await fake('sheet-items-armor', 'hues-grid', 4, 3, '#fb51f8')
     for (const d of ['hues-plain', 'hues-grid']) { const run = slice(d); expect(run.status, `${d}: ${run.stderr}`).toBe(0) }
 

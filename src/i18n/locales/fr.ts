@@ -432,6 +432,38 @@ export default {
     geo: {
       name: 'Géomancien',
       desc: 'Dresse des murs et des pics, et brise le sol lui-même.'
+    },
+    windrunner: {
+      name: 'Coureur des vents',
+      desc: 'Un arc et le vent dans le dos. Tire, fonce, et ne t’arrête jamais.'
+    },
+    frostwarden: {
+      name: 'Gardien du givre',
+      desc: 'Une lame de glace et un cœur froid. Ralentis-les, gèle-les, puis brise-les.'
+    },
+    lightbringer: {
+      name: 'Porte-Lumière',
+      desc: 'Une lumière qui soigne les amis et aveugle les ennemis. Tiens-toi dedans et rien ne t’arrête.'
+    },
+    beastcaller: {
+      name: 'Maître des bêtes',
+      desc: 'Une meute de loups, un ours et un faucon combattent à tes côtés. Appelle-les, commande-les.'
+    },
+    elementalist: {
+      name: 'Élémentaliste',
+      desc: 'Feu, givre, foudre et pierre. Mélange-les, et chacun déclenche le suivant.'
+    },
+    soulwarden: {
+      name: 'Gardien des âmes',
+      desc: 'Les ennemis vaincus se relèvent en esprits amis, combattent à tes côtés, puis rentrent se reposer.'
+    },
+    ironmonk: {
+      name: 'Moine de fer',
+      desc: 'Mains nues, pieds rapides. Chaque coup accumule du chi ; dépense-le tout en un seul coup puissant.'
+    },
+    bard: {
+      name: 'Barde',
+      desc: 'Des chants qui renforcent ton camp, et des airs qui endorment l’autre ou le retournent contre lui-même.'
     }
   },
   skill: {
@@ -636,7 +668,199 @@ export default {
       name: 'Rupture tectonique',
       desc: 'Éventre le terrain : {dmg} % de dégâts de Force à tout ce qui est proche, et des gravats qui ralentissent pendant {dur} s.'
     },
-    scales: 'Évolue avec {attr}'
+    scales: 'Évolue avec {attr}',
+    shieldThrow: {
+      name: 'Lancer de bouclier',
+      desc: 'Ton bouclier rebondit sur {bounces} ennemis : {dmg} % de dégâts de Force chacun. Ils infligent {weak} % de moins pendant {dur} s.'
+    },
+    shieldShove: {
+      name: 'Poussée de bouclier',
+      desc: 'Repousse tout ce qui est devant toi pour {dmg} % de dégâts de Force. Ils volent en arrière et arrêtent ce qu’ils faisaient.'
+    },
+    holyChains: {
+      name: 'Chaînes sacrées',
+      desc: 'Des chaînes de lumière attirent vers toi chaque ennemi à moins de {radius} m : {dmg} % de dégâts d’Endurance et un ralentissement de {slow} %.'
+    },
+    bulwark: {
+      name: 'Rempart',
+      desc: '+{block} % de chances de Blocage. Chaque blocage renvoie {back} dégâts à l’attaquant.'
+    },
+    retribution: {
+      name: 'Châtiment',
+      desc: 'Pendant {dur} s, les ennemis à moins de {radius} m doivent t’attaquer. Puis la lumière inflige {dmg} % de Force +{back} % des coups reçus.'
+    },
+    unbreakable: {
+      name: 'Inébranlable',
+      desc: 'Sous {hp} % de santé, tu subis {reduce} % de dégâts en moins.'
+    },
+    starFan: {
+      name: 'Éventail d’étoiles',
+      desc: 'Lance {stars} étoiles d’ombre en éventail, chacune infligeant {dmg} % de dégâts de Dextérité.'
+    },
+    grapplingHook: {
+      name: 'Grappin',
+      desc: 'Attire la cible vers toi pour {dmg} % de dégâts de Dextérité et ralentis-la de {slow} % pendant {dur} s. Les gros ennemis t’attirent à eux.'
+    },
+    silentStrike: {
+      name: 'Frappe silencieuse',
+      desc: 'Les coups dans le dos infligent +{backstab} % de dégâts, et les ennemis te remarquent {notice} % plus tard.'
+    },
+    shadowMark: {
+      name: 'Marque de l’ombre',
+      desc: 'La cible subit {vuln} % de dégâts en plus pendant {dur} s, et ton prochain coup sur n’importe qui est critique à +{bonus} %.'
+    },
+    bladeRhythm: {
+      name: 'Rythme des lames',
+      desc: 'Les coups critiques retirent {cut} s à chaque recharge. +{speed} % de vitesse d’attaque.'
+    },
+    nightshadeMist: {
+      name: 'Brume de belladone',
+      desc: 'Une brume toxique pendant {dur} s : jusqu’à {dmg} % de dégâts de Dextérité. Les ennemis pris dedans sont confus pendant {confuse} s.'
+    },
+    firecracker: {
+      name: 'Pétard',
+      desc: 'Colle un pétard sur la cible. Après {delay} s, il éclate pour {dmg} % de dégâts d’Intelligence et brûle tout autour.'
+    },
+    fanTheFlames: {
+      name: 'Attiser les flammes',
+      desc: 'Chaque brûlure à moins de {radius} m flambe {pct} % plus fort et repart de zéro. Les ennemis à moins de {push} m sont projetés.'
+    },
+    ringOfFire: {
+      name: 'Cercle de feu',
+      desc: 'Un cercle de flammes s’élève pendant {dur} s : jusqu’à {dmg} % de dégâts d’Intelligence. Les ennemis à l’intérieur sont ralentis de {slow} %.'
+    },
+    everflame: {
+      name: 'Flamme éternelle',
+      desc: 'Tes brûlures sont {burn} % plus fortes, et tes sorts gagnent +{crit} % de chances de Critique.'
+    },
+    wildfire: {
+      name: 'Incendie',
+      desc: 'Quand un ennemi en feu est vaincu, ses flammes sautent sur chaque ennemi à moins de {radius} m pendant {dur} s.'
+    },
+    phoenixFlight: {
+      name: 'Vol du phénix',
+      desc: 'Vole en phénix en laissant une traînée de feu : {dmg} % de dégâts d’Intelligence là où tu atterris. Soigne {regen} % par seconde pendant {dur} s.'
+    },
+    callArchers: {
+      name: 'Appel des archers',
+      desc: 'Invoque un archer qui tire derrière toi pour {dmg} % de dégâts de Charisme. Jusqu’à {max} à la fois.'
+    },
+    royalRally: {
+      name: 'Ralliement royal',
+      desc: 'Tes sbires accourent à tes côtés et récupèrent {heal} % de santé. Vous gagnez tous +{def} % de Défense pendant {dur} s.'
+    },
+    warMarshal: {
+      name: 'Maréchal de guerre',
+      desc: 'Tes sbires infligent {dmg} % de dégâts en plus.'
+    },
+    royalDecree: {
+      name: 'Décret royal',
+      desc: 'Les ennemis à moins de {radius} m doivent s’incliner : étourdis {stun} s, puis ils subissent {vuln} % de dégâts en plus pendant {dur} s.'
+    },
+    loyalHearts: {
+      name: 'Cœurs loyaux',
+      desc: 'Quand un de tes sbires tombe, tu récupères {heal} % de ta santé.'
+    },
+    summonChampion: {
+      name: 'Invoquer le champion',
+      desc: 'Appelle le champion du royaume pendant {dur} s : un chevalier géant avec {hp} % de ta santé, qui frappe pour {dmg} % de Charisme.'
+    },
+    echoBolt: {
+      name: 'Trait d’écho',
+      desc: 'Un trait de temps pour {dmg} % de dégâts d’Intelligence. {delay} s plus tard, il frappe à nouveau pour {echo} %.'
+    },
+    foresight: {
+      name: 'Prescience',
+      desc: 'Tu vois venir les coups un instant plus tôt : +{dodge} % d’Esquive et recharges {cdr} % plus courtes.'
+    },
+    timeBubble: {
+      name: 'Bulle temporelle',
+      desc: 'Une bulle de temps ralenti pendant {dur} s : les ennemis dedans bougent {slow} % moins vite et subissent {dmg} % de dégâts d’Intelligence.'
+    },
+    timeLoop: {
+      name: 'Boucle temporelle',
+      desc: 'Après {dur} s, la cible revient d’un coup là où elle était : {dmg} % de dégâts d’Intelligence plus {echo} % de ce qu’elle a perdu.'
+    },
+    frozenMoment: {
+      name: 'Instant figé',
+      desc: 'Tes attaques ont {chance} % de chances de figer l’ennemi dans le temps pendant {dur} s.'
+    },
+    timeStop: {
+      name: 'Arrêt du temps',
+      desc: 'Arrête le temps à moins de {radius} m pendant {dur} s. Quand il repart, chaque ennemi subit {dmg} % de dégâts d’Intelligence.'
+    },
+    essenceWard: {
+      name: 'Garde d’essence',
+      desc: 'Change {hp} % de ta santé en bouclier lumineux qui en vaut {shield} %, pendant {dur} s.'
+    },
+    vitalReserve: {
+      name: 'Réserve vitale',
+      desc: '+{hp} % de santé max, et tu récupères {regen} de santé chaque seconde.'
+    },
+    enfeeblingTonic: {
+      name: 'Tonique affaiblissant',
+      desc: 'Lance un tonique : {dmg} % de dégâts d’Intelligence en zone. Les ennemis touchés infligent {weak} % de dégâts en moins pendant {dur} s.'
+    },
+    homunculus: {
+      name: 'Homoncule',
+      desc: 'Prépare un assistant pétillant avec {hp} % de ta santé pendant {dur} s. En préparer un nouveau te rend {back} % de sa vie.'
+    },
+    adrenalCatalyst: {
+      name: 'Catalyseur d’adrénaline',
+      desc: 'Moins tu as de santé, plus tu infliges de dégâts : jusqu’à +{dmg} % à {low} % de santé ou moins.'
+    },
+    grandTransmutation: {
+      name: 'Grande transmutation',
+      desc: 'Change {pct} % de la vie des ennemis à moins de {radius} m en essence. Tu en récupères {heal} %.'
+    },
+    rocketJump: {
+      name: 'Saut-fusée',
+      desc: 'Décolle et atterris là où tu vises : {dmg} % de dégâts de Technique dans un rayon de {radius} m. Génère {heat} de chaleur.'
+    },
+    coolantLoop: {
+      name: 'Circuit de refroidissement',
+      desc: 'La chaleur baisse {cool} % plus vite, et tes compétences en génèrent {cut} % de moins.'
+    },
+    shockGrenade: {
+      name: 'Grenade à choc',
+      desc: 'Lance une grenade : {dmg} % de dégâts de Technique et {stun} s d’étourdissement dans un rayon de {radius} m. Génère {heat} de chaleur.'
+    },
+    precisionOptics: {
+      name: 'Optique de précision',
+      desc: '+{crit} % de chances de Critique. Tes tirs traversent {pierce} ennemi de plus.'
+    },
+    arcCoil: {
+      name: 'Bobine à arc',
+      desc: 'La foudre frappe la cible, puis saute sur {jumps} autres ennemis : {dmg} % de dégâts de Technique chacun. Génère {heat} de chaleur.'
+    },
+    thermalPlating: {
+      name: 'Blindage thermique',
+      desc: 'Tant que ta chaleur est à {heat} ou plus, tu subis {reduce} % de dégâts en moins.'
+    },
+    boulderRoll: {
+      name: 'Roc roulant',
+      desc: 'Fais rouler un rocher devant toi : {dmg} % de dégâts de Force à tout ce qui est sur son passage, renversé pendant {down} s.'
+    },
+    bedrock: {
+      name: 'Socle rocheux',
+      desc: 'Rien ne peut te repousser, te renverser ou te projeter en l’air. +{hp} % de santé max.'
+    },
+    sinkhole: {
+      name: 'Gouffre',
+      desc: 'Le sol s’enfonce et aspire les ennemis pendant {dur} s, puis s’effondre : {dmg} % de dégâts de Force.'
+    },
+    mountainBreaker: {
+      name: 'Brise-montagne',
+      desc: '+{boss} % de dégâts contre les boss et +{armor} % d’Armure.'
+    },
+    geodeShell: {
+      name: 'Coque de géode',
+      desc: 'Une coque de cristal absorbe {shield} % de ta santé pendant {dur} s, puis éclate pour jusqu’à {dmg} % de dégâts de Force.'
+    },
+    crumble: {
+      name: 'Effritement',
+      desc: 'Tu infliges {dmg} % de dégâts en plus aux ennemis ralentis, renversés ou changés en pierre.'
+    }
   },
   slot: {
     main: 'Main principale',

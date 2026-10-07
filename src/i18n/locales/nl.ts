@@ -432,6 +432,38 @@ export default {
     geo: {
       name: 'Geomant',
       desc: 'Laat muren en pieken oprijzen en breekt de grond zelf open.'
+    },
+    windrunner: {
+      name: 'Windloper',
+      desc: 'Een boog en de wind in je rug. Schieten, sprinten en nooit stilstaan.'
+    },
+    frostwarden: {
+      name: 'Vorstwachter',
+      desc: 'Een ijskling en een koud hart. Vertragen, bevriezen en dan verbrijzelen.'
+    },
+    lightbringer: {
+      name: 'Lichtbrenger',
+      desc: 'Licht dat vrienden geneest en vijanden verblindt. Sta erin en niets houdt je tegen.'
+    },
+    beastcaller: {
+      name: 'Beestenroeper',
+      desc: 'Een wolvenroedel, een beer en een havik vechten aan je zij. Roep ze op en voer ze aan.'
+    },
+    elementalist: {
+      name: 'Elementalist',
+      desc: 'Vuur, vorst, bliksem en steen. Combineer ze, en elk zet de volgende in gang.'
+    },
+    soulwarden: {
+      name: 'Zielenwachter',
+      desc: 'Verslagen vijanden staan op als vriendelijke geesten, vechten aan je zij en gaan dan naar huis om te rusten.'
+    },
+    ironmonk: {
+      name: 'IJzeren Monnik',
+      desc: 'Blote handen, snelle voeten. Elke slag bouwt chi op; gebruik alles voor één machtige klap.'
+    },
+    bard: {
+      name: 'Bard',
+      desc: 'Liederen die jouw kant oppeppen, en deuntjes die de andere kant in slaap sussen of tegen zichzelf keren.'
     }
   },
   skill: {
@@ -636,7 +668,199 @@ export default {
       name: 'Tektonische Breuk',
       desc: 'Scheur het veld open: {dmg}% Kracht-schade aan alles in de buurt, en puin dat {dur}s vertraagt.'
     },
-    scales: 'Schaalt met {attr}'
+    scales: 'Schaalt met {attr}',
+    shieldThrow: {
+      name: 'Schildworp',
+      desc: 'Je schild kaatst af op {bounces} vijanden: elk {dmg}% Kracht-schade. Ze doen {dur}s lang {weak}% minder.'
+    },
+    shieldShove: {
+      name: 'Schildduw',
+      desc: 'Duw alles voor je weg voor {dmg}% Kracht-schade. Ze vliegen achteruit en stoppen met wat ze deden.'
+    },
+    holyChains: {
+      name: 'Heilige Kettingen',
+      desc: 'Kettingen van licht trekken elke vijand binnen {radius} m naar je toe: {dmg}% Uithouding-schade en {slow}% vertraging.'
+    },
+    bulwark: {
+      name: 'Bolwerk',
+      desc: '+{block}% Blokkans. Elk blok doet {back} schade terug aan de aanvaller.'
+    },
+    retribution: {
+      name: 'Vergelding',
+      desc: '{dur}s lang moeten vijanden binnen {radius} m jou aanvallen. Dan doet licht {dmg}% Kracht +{back}% van de ontvangen klappen.'
+    },
+    unbreakable: {
+      name: 'Onbreekbaar',
+      desc: 'Onder {hp}% leven krijg je {reduce}% minder schade.'
+    },
+    starFan: {
+      name: 'Sterrenwaaier',
+      desc: 'Gooi {stars} schaduwsterren in een waaier, elk voor {dmg}% Behendigheid-schade.'
+    },
+    grapplingHook: {
+      name: 'Enterhaak',
+      desc: 'Trek het doelwit naar je toe voor {dmg}% Behendigheid-schade en vertraag het {dur}s met {slow}%. Grote vijanden trekken jou naar zich toe.'
+    },
+    silentStrike: {
+      name: 'Stille Steek',
+      desc: 'Steken in de rug doen +{backstab}% schade, en vijanden merken je {notice}% later op.'
+    },
+    shadowMark: {
+      name: 'Schaduwmerk',
+      desc: 'Het doelwit krijgt {dur}s lang {vuln}% meer schade, en je volgende klap op wie dan ook is kritiek met +{bonus}%.'
+    },
+    bladeRhythm: {
+      name: 'Klingenritme',
+      desc: 'Kritieke treffers halen {cut}s van elke afkoeltijd af. +{speed}% aanvalssnelheid.'
+    },
+    nightshadeMist: {
+      name: 'Nachtschadenevel',
+      desc: 'Een gifnevel voor {dur}s: tot {dmg}% Behendigheid-schade. Vijanden erin zijn {confuse}s verward.'
+    },
+    firecracker: {
+      name: 'Rotje',
+      desc: 'Plak een rotje op het doelwit. Na {delay}s knalt het voor {dmg}% Intelligentie-schade en zet alles in de buurt in brand.'
+    },
+    fanTheFlames: {
+      name: 'Vuur Aanwakkeren',
+      desc: 'Elke brand binnen {radius} m laait {pct}% sterker op en begint opnieuw. Vijanden binnen {push} m worden weggeblazen.'
+    },
+    ringOfFire: {
+      name: 'Vuurring',
+      desc: 'Een ring van vlammen rijst {dur}s op: tot {dmg}% Intelligentie-schade. Vijanden erbinnen worden {slow}% vertraagd.'
+    },
+    everflame: {
+      name: 'Eeuwige Vlam',
+      desc: 'Je branden zijn {burn}% sterker, en je spreuken krijgen +{crit}% Kritieke Kans.'
+    },
+    wildfire: {
+      name: 'Lopend Vuurtje',
+      desc: 'Wordt een brandende vijand verslagen, dan springen zijn vlammen {dur}s over op elke vijand binnen {radius} m.'
+    },
+    phoenixFlight: {
+      name: 'Feniksvlucht',
+      desc: 'Vlieg als een feniks met een vuurspoor: {dmg}% Intelligentie-schade waar je landt. Genees {dur}s lang {regen}% per seconde.'
+    },
+    callArchers: {
+      name: 'Boogschutters Roepen',
+      desc: 'Roep een boogschutter op die achter je schiet voor {dmg}% Charisma-schade. Maximaal {max} tegelijk.'
+    },
+    royalRally: {
+      name: 'Koninklijk Verzamelen',
+      desc: 'Je dienaren snellen naar je toe en genezen {heal}% leven. Jullie krijgen allemaal {dur}s lang +{def}% Verdediging.'
+    },
+    warMarshal: {
+      name: 'Oorlogsmaarschalk',
+      desc: 'Je dienaren doen {dmg}% meer schade.'
+    },
+    royalDecree: {
+      name: 'Koninklijk Decreet',
+      desc: 'Vijanden binnen {radius} m moeten buigen: {stun}s verdoofd, daarna krijgen ze {dur}s lang {vuln}% meer schade.'
+    },
+    loyalHearts: {
+      name: 'Trouwe Harten',
+      desc: 'Valt een van je dienaren, dan genees je {heal}% van je leven.'
+    },
+    summonChampion: {
+      name: 'Kampioen Oproepen',
+      desc: 'Roep de kampioen van het rijk op voor {dur}s: een reuzenridder met {hp}% van je leven die toeslaat voor {dmg}% Charisma.'
+    },
+    echoBolt: {
+      name: 'Echoschicht',
+      desc: 'Een tijdschicht voor {dmg}% Intelligentie-schade. {delay}s later raakt hij nog eens voor {echo}%.'
+    },
+    foresight: {
+      name: 'Vooruitziendheid',
+      desc: 'Je ziet klappen een moment eerder aankomen: +{dodge}% Ontwijken en {cdr}% kortere afkoeltijden.'
+    },
+    timeBubble: {
+      name: 'Tijdbel',
+      desc: 'Een bel van trage tijd voor {dur}s: vijanden erin bewegen {slow}% trager en krijgen {dmg}% Intelligentie-schade.'
+    },
+    timeLoop: {
+      name: 'Tijdlus',
+      desc: 'Na {dur}s schiet het doelwit terug naar waar het was: {dmg}% Intelligentie-schade plus {echo}% van wat het verloor.'
+    },
+    frozenMoment: {
+      name: 'Bevroren Moment',
+      desc: 'Je aanvallen hebben {chance}% kans om de vijand {dur}s in de tijd te bevriezen.'
+    },
+    timeStop: {
+      name: 'Tijdstop',
+      desc: 'Zet de tijd binnen {radius} m {dur}s stil. Als hij weer loopt, krijgt elke vijand {dmg}% Intelligentie-schade.'
+    },
+    essenceWard: {
+      name: 'Essentieschild',
+      desc: 'Verander {hp}% van je leven {dur}s lang in een gloeiend schild dat {shield}% daarvan waard is.'
+    },
+    vitalReserve: {
+      name: 'Levensreserve',
+      desc: '+{hp}% maximaal leven, en je herstelt elke seconde {regen} leven.'
+    },
+    enfeeblingTonic: {
+      name: 'Verzwakkend Tonicum',
+      desc: 'Gooi een tonicum: {dmg}% Intelligentie-schade in een gebied. Geraakte vijanden doen {dur}s lang {weak}% minder schade.'
+    },
+    homunculus: {
+      name: 'Homunculus',
+      desc: 'Brouw een bubbelende helper uit {hp}% van je leven voor {dur}s. Brouw je een nieuwe, dan krijg je {back}% van zijn leven terug.'
+    },
+    adrenalCatalyst: {
+      name: 'Adrenalinekatalysator',
+      desc: 'Hoe minder leven je hebt, hoe meer schade je doet: tot +{dmg}% bij {low}% leven of minder.'
+    },
+    grandTransmutation: {
+      name: 'Grote Transmutatie',
+      desc: 'Verander {pct}% van het leven van vijanden binnen {radius} m in essentie. Je geneest {heal}% daarvan.'
+    },
+    rocketJump: {
+      name: 'Raketsprong',
+      desc: 'Stijg op en land waar je mikt: {dmg}% Techniek-schade binnen {radius} m. Bouwt {heat} hitte op.'
+    },
+    coolantLoop: {
+      name: 'Koelcircuit',
+      desc: 'Hitte zakt {cool}% sneller, en je vaardigheden bouwen er {cut}% minder van op.'
+    },
+    shockGrenade: {
+      name: 'Schokgranaat',
+      desc: 'Gooi een granaat: {dmg}% Techniek-schade en {stun}s verdoving binnen {radius} m. Bouwt {heat} hitte op.'
+    },
+    precisionOptics: {
+      name: 'Precisieoptiek',
+      desc: '+{crit}% Kritieke Kans. Je schoten gaan door {pierce} extra vijand heen.'
+    },
+    arcCoil: {
+      name: 'Boogspoel',
+      desc: 'Bliksem raakt het doelwit en springt dan over op {jumps} andere vijanden: elk {dmg}% Techniek-schade. Bouwt {heat} hitte op.'
+    },
+    thermalPlating: {
+      name: 'Hittepantser',
+      desc: 'Zolang je hitte op {heat} of hoger staat, krijg je {reduce}% minder schade.'
+    },
+    boulderRoll: {
+      name: 'Rollend Rotsblok',
+      desc: 'Rol een rotsblok vooruit: {dmg}% Kracht-schade aan alles op zijn pad, dat {down}s neergaat.'
+    },
+    bedrock: {
+      name: 'Vast Gesteente',
+      desc: 'Niets kan je terugduwen, neerslaan of de lucht in gooien. +{hp}% maximaal leven.'
+    },
+    sinkhole: {
+      name: 'Zinkgat',
+      desc: 'De grond zakt weg en trekt vijanden {dur}s naar binnen, dan stort hij in: {dmg}% Kracht-schade.'
+    },
+    mountainBreaker: {
+      name: 'Bergbreker',
+      desc: '+{boss}% schade tegen bazen en +{armor}% Pantser.'
+    },
+    geodeShell: {
+      name: 'Geodeschild',
+      desc: 'Een kristalschild vangt {dur}s lang {shield}% van je leven op en barst dan voor tot {dmg}% Kracht-schade.'
+    },
+    crumble: {
+      name: 'Afbrokkelen',
+      desc: 'Je doet {dmg}% meer schade aan vijanden die vertraagd, neergeslagen of versteend zijn.'
+    }
   },
   slot: {
     main: 'Hoofdhand',

@@ -431,6 +431,38 @@ export default {
     geo: {
       name: 'Geomantikko',
       desc: 'Nostaa muureja ja piikkejä ja murtaa itse maan.'
+    },
+    windrunner: {
+      name: 'Tuulenjuoksija',
+      desc: 'Jousi ja myötätuuli. Ammu, syöksy äläkä koskaan seiso paikallasi.'
+    },
+    frostwarden: {
+      name: 'Pakkasvartija',
+      desc: 'Jääterä ja kylmä sydän. Hidasta heidät, jäädytä heidät ja murskaa sitten.'
+    },
+    lightbringer: {
+      name: 'Valontuoja',
+      desc: 'Valo, joka parantaa ystäviä ja sokaisee vihollisia. Seiso siinä, niin mikään ei pysäytä sinua.'
+    },
+    beastcaller: {
+      name: 'Pedonkutsuja',
+      desc: 'Susilauma, karhu ja haukka taistelevat rinnallasi. Kutsu ja komenna niitä.'
+    },
+    elementalist: {
+      name: 'Elementtimaagi',
+      desc: 'Tuli, pakkanen, salama ja kivi. Yhdistele niitä, niin kukin laukaisee seuraavan.'
+    },
+    soulwarden: {
+      name: 'Sielunvartija',
+      desc: 'Lyödyt viholliset nousevat ystävällisinä henkinä, taistelevat rinnallasi ja palaavat sitten kotiin lepäämään.'
+    },
+    ironmonk: {
+      name: 'Rautamunkki',
+      desc: 'Paljaat kädet, nopeat jalat. Jokainen isku kerryttää chitä; käytä kaikki yhteen mahtavaan iskuun.'
+    },
+    bard: {
+      name: 'Bardi',
+      desc: 'Lauluja, jotka nostattavat omiasi, ja säveliä, jotka nukuttavat vastustajat tai kääntävät ne toisiaan vastaan.'
     }
   },
   skill: {
@@ -635,7 +667,199 @@ export default {
       name: 'Mannerlaattojen repeämä',
       desc: 'Revi kenttä auki: {dmg}% Voima-vahinkoa kaikkeen lähellä olevaan, ja sora hidastaa {dur}s ajan.'
     },
-    scales: 'Skaalautuu: {attr}'
+    scales: 'Skaalautuu: {attr}',
+    shieldThrow: {
+      name: 'Kilvenheitto',
+      desc: 'Kilpesi kimpoaa {bounces} vihollisesta: {dmg}% Voima-vahinkoa kuhunkin. Ne tekevät {weak}% vähemmän vahinkoa {dur}s ajan.'
+    },
+    shieldShove: {
+      name: 'Kilpityöntö',
+      desc: 'Työnnä kaikkia edessäsi: {dmg}% Voima-vahinkoa. Ne lentävät taaksepäin, ja niiden tekeminen keskeytyy.'
+    },
+    holyChains: {
+      name: 'Pyhät kahleet',
+      desc: 'Valokahleet vetävät jokaisen vihollisen {radius} m säteeltä luoksesi: {dmg}% Kestävyys-vahinkoa ja {slow}% hidastus.'
+    },
+    bulwark: {
+      name: 'Suojavalli',
+      desc: '+{block}% torjunnan mahdollisuus. Jokainen torjunta tekee {back} vahinkoa takaisin hyökkääjälle.'
+    },
+    retribution: {
+      name: 'Kosto',
+      desc: '{dur}s ajan vihollisten {radius} m säteellä on pakko hyökätä sinuun. Sitten valo tekee {dmg}% Voima-vahinkoa +{back}% saamistasi iskuista.'
+    },
+    unbreakable: {
+      name: 'Murtumaton',
+      desc: 'Kun terveytesi on alle {hp}%, saat {reduce}% vähemmän vahinkoa.'
+    },
+    starFan: {
+      name: 'Tähtiviuhka',
+      desc: 'Heitä {stars} varjotähteä viuhkana, kukin {dmg}% Ketteryys-vahinkoa.'
+    },
+    grapplingHook: {
+      name: 'Koukkuköysi',
+      desc: 'Vedä kohde luoksesi: {dmg}% Ketteryys-vahinkoa ja {slow}% hidastus {dur}s ajaksi. Isot viholliset vetävät sinut luokseen.'
+    },
+    silentStrike: {
+      name: 'Hiljainen isku',
+      desc: 'Selkäiskut tekevät +{backstab}% vahinkoa, ja viholliset huomaavat sinut {notice}% myöhemmin.'
+    },
+    shadowMark: {
+      name: 'Varjomerkki',
+      desc: 'Kohde saa {vuln}% enemmän vahinkoa {dur}s ajan, ja seuraava osumasi keneen tahansa on kriittinen +{bonus}%.'
+    },
+    bladeRhythm: {
+      name: 'Terärytmi',
+      desc: 'Kriittiset osumat lyhentävät jokaista latausaikaa {cut}s. +{speed}% hyökkäysnopeutta.'
+    },
+    nightshadeMist: {
+      name: 'Koisousumu',
+      desc: 'Myrkkysumu {dur}s ajaksi: enintään {dmg}% Ketteryys-vahinkoa. Sumuun jääneet viholliset ovat sekaisin {confuse}s ajan.'
+    },
+    firecracker: {
+      name: 'Sähikäinen',
+      desc: 'Kiinnitä sähikäinen kohteeseen. {delay}s päästä se paukahtaa: {dmg}% Äly-vahinkoa, ja kaikki lähellä syttyy palamaan.'
+    },
+    fanTheFlames: {
+      name: 'Lietso liekkejä',
+      desc: 'Jokainen palo {radius} m säteellä leimahtaa {pct}% vahvemmaksi ja alkaa alusta. Viholliset {push} m säteellä lentävät taaksepäin.'
+    },
+    ringOfFire: {
+      name: 'Tulirengas',
+      desc: 'Liekkirengas nousee {dur}s ajaksi: enintään {dmg}% Äly-vahinkoa. Sisällä olevat viholliset hidastuvat {slow}%.'
+    },
+    everflame: {
+      name: 'Ikuinen liekki',
+      desc: 'Polttosi ovat {burn}% vahvempia, ja loitsusi saavat +{crit}% kriittisen osuman mahdollisuutta.'
+    },
+    wildfire: {
+      name: 'Maastopalo',
+      desc: 'Kun palava vihollinen kukistetaan, sen liekit hyppäävät jokaiseen viholliseen {radius} m säteellä {dur}s ajaksi.'
+    },
+    phoenixFlight: {
+      name: 'Feeniksin lento',
+      desc: 'Lennä feeniksinä tulivana perässäsi: {dmg}% Äly-vahinkoa laskeutumispaikassa. Parannut {regen}% sekunnissa {dur}s ajan.'
+    },
+    callArchers: {
+      name: 'Kutsu jousiampujia',
+      desc: 'Kutsu jousiampuja, joka ampuu takaasi {dmg}% Karisma-vahinkoa. Enintään {max} kerrallaan.'
+    },
+    royalRally: {
+      name: 'Kuninkaan kutsu',
+      desc: 'Kätyrisi rientävät rinnallesi ja parantavat {heal}% terveyttä. Kaikki saatte +{def}% Puolustusta {dur}s ajaksi.'
+    },
+    warMarshal: {
+      name: 'Sotamarsalkka',
+      desc: 'Kätyrisi tekevät {dmg}% enemmän vahinkoa.'
+    },
+    royalDecree: {
+      name: 'Kuninkaan käsky',
+      desc: 'Vihollisten {radius} m säteellä on kumarrettava: tainnutus {stun}s ajaksi, sitten ne saavat {vuln}% enemmän vahinkoa {dur}s ajan.'
+    },
+    loyalHearts: {
+      name: 'Uskolliset sydämet',
+      desc: 'Kun joku kätyreistäsi kaatuu, parannut {heal}% terveydestäsi.'
+    },
+    summonChampion: {
+      name: 'Kutsu sankari',
+      desc: 'Kutsu valtakunnan sankari {dur}s ajaksi: jättiläisritari, jolla on {hp}% terveydestäsi ja joka iskee {dmg}% Karisma-vahinkoa.'
+    },
+    echoBolt: {
+      name: 'Kaikusalama',
+      desc: 'Aikasalama: {dmg}% Äly-vahinkoa. {delay}s myöhemmin se osuu uudelleen {echo}%.'
+    },
+    foresight: {
+      name: 'Ennakointi',
+      desc: 'Näet iskut tulossa hetkeä aiemmin: +{dodge}% Väistö ja {cdr}% lyhyemmät latausajat.'
+    },
+    timeBubble: {
+      name: 'Aikakupla',
+      desc: 'Hitaan ajan kupla {dur}s ajaksi: sisällä olevat viholliset liikkuvat {slow}% hitaammin ja saavat {dmg}% Äly-vahinkoa.'
+    },
+    timeLoop: {
+      name: 'Aikasilmukka',
+      desc: '{dur}s päästä kohde palautuu sinne, missä se oli: {dmg}% Äly-vahinkoa sekä {echo}% siitä, mitä se menetti.'
+    },
+    frozenMoment: {
+      name: 'Jäätynyt hetki',
+      desc: 'Hyökkäyksilläsi on {chance}% mahdollisuus jäädyttää vihollinen aikaan {dur}s ajaksi.'
+    },
+    timeStop: {
+      name: 'Ajan pysäytys',
+      desc: 'Pysäytä aika {radius} m säteellä {dur}s ajaksi. Kun aika jatkuu, jokainen vihollinen saa {dmg}% Äly-vahinkoa.'
+    },
+    essenceWard: {
+      name: 'Olemussuoja',
+      desc: 'Muuta {hp}% terveydestäsi hehkuvaksi suojaksi, jonka arvo on {shield}% siitä, {dur}s ajaksi.'
+    },
+    vitalReserve: {
+      name: 'Elinvoimavara',
+      desc: '+{hp}% enimmäisterveys, ja palautat {regen} terveyttä joka sekunti.'
+    },
+    enfeeblingTonic: {
+      name: 'Heikentävä tonikki',
+      desc: 'Heitä tonikki: {dmg}% Äly-vahinkoa alueelle. Osuman saaneet viholliset tekevät {weak}% vähemmän vahinkoa {dur}s ajan.'
+    },
+    homunculus: {
+      name: 'Homunculus',
+      desc: 'Valmista kupliva apuri {hp}% terveydestäsi {dur}s ajaksi. Uuden valmistaminen palauttaa {back}% sen elämästä.'
+    },
+    adrenalCatalyst: {
+      name: 'Adrenaliinikatalyytti',
+      desc: 'Mitä vähemmän terveyttä, sitä enemmän vahinkoa teet: jopa +{dmg}%, kun terveyttä on {low}% tai vähemmän.'
+    },
+    grandTransmutation: {
+      name: 'Suuri transmutaatio',
+      desc: 'Muuta {pct}% vihollisten elämästä {radius} m säteellä olemukseksi. Parannut {heal}% siitä.'
+    },
+    rocketJump: {
+      name: 'Rakettihyppy',
+      desc: 'Ponkaise ilmaan ja laskeudu tähtäämääsi kohtaan: {dmg}% Taito-vahinkoa {radius} m säteellä. Kerryttää {heat} kuumuutta.'
+    },
+    coolantLoop: {
+      name: 'Jäähdytyskierto',
+      desc: 'Kuumuus haihtuu {cool}% nopeammin, ja kykysi kerryttävät sitä {cut}% vähemmän.'
+    },
+    shockGrenade: {
+      name: 'Shokkikranaatti',
+      desc: 'Heitä kranaatti: {dmg}% Taito-vahinkoa ja {stun}s tainnutus {radius} m säteellä. Kerryttää {heat} kuumuutta.'
+    },
+    precisionOptics: {
+      name: 'Tarkkuusoptiikka',
+      desc: '+{crit}% kriittisen osuman mahdollisuus. Laukauksesi läpäisevät {pierce} ylimääräisen vihollisen.'
+    },
+    arcCoil: {
+      name: 'Valokaarikela',
+      desc: 'Salama osuu kohteeseen ja hyppää sitten {jumps} muuhun viholliseen: {dmg}% Taito-vahinkoa kuhunkin. Kerryttää {heat} kuumuutta.'
+    },
+    thermalPlating: {
+      name: 'Lämpöpanssari',
+      desc: 'Kun kuumuutesi on {heat} tai enemmän, saat {reduce}% vähemmän vahinkoa.'
+    },
+    boulderRoll: {
+      name: 'Lohkarevyöry',
+      desc: 'Vieritä lohkare eteenpäin: {dmg}% Voima-vahinkoa kaikkeen sen tiellä, ja ne kaatuvat {down}s ajaksi.'
+    },
+    bedrock: {
+      name: 'Kallioperä',
+      desc: 'Mikään ei voi lennättää sinua taakse, kaataa tai heittää ilmaan. +{hp}% enimmäisterveys.'
+    },
+    sinkhole: {
+      name: 'Vajoama',
+      desc: 'Maa vajoaa ja imee vihollisia sisään {dur}s ajan, sitten se romahtaa: {dmg}% Voima-vahinkoa.'
+    },
+    mountainBreaker: {
+      name: 'Vuorenmurtaja',
+      desc: '+{boss}% vahinkoa pomoihin ja +{armor}% Panssaria.'
+    },
+    geodeShell: {
+      name: 'Geodikuori',
+      desc: 'Kristallikuori imee vahinkoa {shield}% terveydestäsi {dur}s ajan ja puhkeaa sitten: enintään {dmg}% Voima-vahinkoa.'
+    },
+    crumble: {
+      name: 'Murenna',
+      desc: 'Teet {dmg}% enemmän vahinkoa vihollisiin, jotka ovat hidastettuja, kaadettuja tai kivettyneitä.'
+    }
   },
   slot: {
     main: 'Pääkäsi',

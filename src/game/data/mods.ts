@@ -31,6 +31,18 @@ export type ModId =
   | 'burnOnHit'
   /** Chance per attack to freeze the foe (Chrono Blade). */
   | 'freezeOnHit'
+  /** Adrenal Catalyst (#95): up to this much more damage as health falls (full at 30 %). */
+  | 'lowHealthDamage'
+  /** Thermal Plating (#95): damage taken is cut by this share while heat is at half or more. */
+  | 'heatArmor'
+  /** Crumble (#95): more damage to slowed, knocked-down or petrified enemies. */
+  | 'crumble'
+  /** Unbreakable (#95): damage taken is cut by this share below 30 % health. */
+  | 'lastStand'
+  /** Wildfire (#95): a burning enemy's defeat sets its neighbours within this many metres alight. */
+  | 'wildfire'
+  /** Loyal Hearts (#95): a minion's defeat heals the hero this share of her health. */
+  | 'loyalty'
   /** Shots pass through this many extra enemies (Void Cannon). */
   | 'pierce'
   /** Critical hits take this many seconds off every cooldown (Blade of the Unbound). */

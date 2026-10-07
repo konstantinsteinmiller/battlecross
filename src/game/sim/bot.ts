@@ -1,6 +1,6 @@
 import { startAttrs, ATTRS, type Attr, type AttrBlock } from '../data/attributes'
 import { POINTS_PER_LEVEL } from '../data/attributes'
-import { ACTIVE_SLOTS, SKILLS, SKILL_BY_ID, meetsSkill, type ClassId } from '../data/skills'
+import { ACTIVE_SLOTS, PASSIVE_SLOTS, SKILLS, SKILL_BY_ID, meetsSkill, type ClassId } from '../data/skills'
 import { ITEMS, noGear, type ItemSlot, type ZoneId } from '../data/items'
 import { ZONES, visitLevel } from '../data/zones'
 import { applyPlan, populateZone } from './director'
@@ -38,7 +38,9 @@ export interface RefBuildOpts {
 /** Where each class puts its points: two in three into the main attribute. */
 const MAIN: Record<ClassId, [Attr, Attr]> = {
   aegis: ['str', 'end'], shadow: ['dex', 'skl'], pyro: ['int', 'skl'], sovereign: ['cha', 'end'],
-  chrono: ['int', 'skl'], blood: ['end', 'int'], aether: ['skl', 'int'], geo: ['str', 'int']
+  chrono: ['int', 'skl'], blood: ['end', 'int'], aether: ['skl', 'int'], geo: ['str', 'int'],
+  windrunner: ['dex', 'skl'], frostwarden: ['str', 'int'], lightbringer: ['int', 'cha'], beastcaller: ['cha', 'end'],
+  elementalist: ['int', 'skl'], soulwarden: ['int', 'cha'], ironmonk: ['dex', 'end'], bard: ['cha', 'skl']
 }
 
 export const referenceBuild = (o: RefBuildOpts): { build: HeroBuild; skills: string[] } => {
@@ -85,8 +87,8 @@ export const referenceBuild = (o: RefBuildOpts): { build: HeroBuild; skills: str
   const probe: HeroBuild = { level: o.level, attrs, equipped, passives: [] }
   const total = sumBuild(probe).attrs
   const own = SKILLS.filter(s => s.cls === o.cls && meetsSkill(s, o.level, total))
-  const passives = own.filter(s => s.kind === 'passive').slice(0, 3).map(s => s.id)
-  const skills = own.filter(s => s.kind === 'active').slice(0, 6).map(s => s.id)
+  const passives = own.filter(s => s.kind === 'passive').slice(0, PASSIVE_SLOTS).map(s => s.id)
+  const skills = own.filter(s => s.kind === 'active').slice(0, ACTIVE_SLOTS).map(s => s.id)
   return { build: { level: o.level, attrs, equipped, passives }, skills }
 }
 

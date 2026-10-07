@@ -431,6 +431,38 @@ export default {
     geo: {
       name: 'Geomant',
       desc: 'Devorlar va tikanlar koʻtaradi, yerning oʻzini yoradi.'
+    },
+    windrunner: {
+      name: 'Shamol chopari',
+      desc: 'Kamon va ortingizdagi shamol. Oting, otiling va hech qachon bir joyda turmang.'
+    },
+    frostwarden: {
+      name: 'Ayoz qoʻriqchisi',
+      desc: 'Muz tigʻ va sovuq yurak. Sekinlashtiring, muzlating, keyin parcha-parcha qiling.'
+    },
+    lightbringer: {
+      name: 'Nur keltiruvchi',
+      desc: 'Doʻstlarni davolaydigan va dushmanlarni koʻr qiladigan nur. Uning ichida turing — sizni hech narsa toʻxtata olmaydi.'
+    },
+    beastcaller: {
+      name: 'Hayvon chaqiruvchi',
+      desc: 'Boʻrilar galasi, ayiq va lochin yoningizda jang qiladi. Ularni chaqiring va buyruq bering.'
+    },
+    elementalist: {
+      name: 'Unsur sehrgari',
+      desc: 'Olov, ayoz, chaqmoq va tosh. Ularni aralashtiring — har biri keyingisini ishga tushiradi.'
+    },
+    soulwarden: {
+      name: 'Ruh qoʻriqchisi',
+      desc: 'Yengilgan dushmanlar doʻst ruhlar boʻlib turadi, yoningizda jang qiladi, soʻng dam olish uchun uyiga qaytadi.'
+    },
+    ironmonk: {
+      name: 'Temir rohib',
+      desc: 'Yalangʻoch qoʻllar, tez oyoqlar. Har bir zarba chi toʻplaydi; hammasini bitta kuchli zarbaga sarflang.'
+    },
+    bard: {
+      name: 'Baxshi',
+      desc: 'Oʻz tomoningizni ruhlantiradigan qoʻshiqlar va raqibni uxlatadigan yoki bir-biriga qarshi qoʻyadigan kuylar.'
     }
   },
   skill: {
@@ -635,7 +667,199 @@ export default {
       name: 'Tektonik yoriq',
       desc: 'Maydonni yorib yuboradi: yaqindagi hamma narsaga {dmg}% Kuch zarari va {dur} s davomida sekinlashtiradigan tosh uyumi.'
     },
-    scales: '{attr} bilan kuchayadi'
+    scales: '{attr} bilan kuchayadi',
+    shieldThrow: {
+      name: 'Qalqon otish',
+      desc: 'Qalqoningiz {bounces} ta dushmandan sakraydi: har biriga {dmg}% Kuch zarari. Ular {dur} s davomida {weak}% kam zarar yetkazadi.'
+    },
+    shieldShove: {
+      name: 'Qalqon turtkisi',
+      desc: 'Oldingizdagi hammani itarib yuboradi: {dmg}% Kuch zarari. Ular orqaga uchadi va qilayotgan ishini toʻxtatadi.'
+    },
+    holyChains: {
+      name: 'Muqaddas zanjirlar',
+      desc: 'Nur zanjirlari {radius} m ichidagi har bir dushmanni sizga tortadi: {dmg}% Chidamlilik zarari va {slow}% sekinlashtirish.'
+    },
+    bulwark: {
+      name: 'Istehkom',
+      desc: '+{block}% Blok imkoniyati. Har bir blok hujumchiga {back} zarar qaytaradi.'
+    },
+    retribution: {
+      name: 'Qasos',
+      desc: '{dur} s davomida {radius} m ichidagi dushmanlar sizga hujum qilishga majbur. Soʻng nur {dmg}% Kuch + olgan zarbalaringizning {back}% qismicha zarar yetkazadi.'
+    },
+    unbreakable: {
+      name: 'Sinmas',
+      desc: 'Joningiz {hp}% dan past boʻlganda {reduce}% kam zarar olasiz.'
+    },
+    starFan: {
+      name: 'Yulduz yelpigʻichi',
+      desc: 'Yelpigʻich shaklida {stars} ta soya yulduzini otadi, har biri {dmg}% Chaqqonlik zarari yetkazadi.'
+    },
+    grapplingHook: {
+      name: 'Ilmoqli arqon',
+      desc: 'Nishonni oʻzingizga tortadi: {dmg}% Chaqqonlik zarari va {dur} s davomida {slow}% sekinlashtirish. Katta dushmanlar sizni oʻziga tortadi.'
+    },
+    silentStrike: {
+      name: 'Sokin zarba',
+      desc: 'Ortdan zarbalar +{backstab}% zarar yetkazadi, dushmanlar esa sizni {notice}% kechroq payqaydi.'
+    },
+    shadowMark: {
+      name: 'Soya belgisi',
+      desc: 'Nishon {dur} s davomida {vuln}% koʻproq zarar oladi, istalgan dushmanga keyingi zarbangiz esa +{bonus}% bilan kritik boʻladi.'
+    },
+    bladeRhythm: {
+      name: 'Tigʻ ritmi',
+      desc: 'Kritik zarbalar har bir kutish vaqtidan {cut} s olib tashlaydi. +{speed}% hujum tezligi.'
+    },
+    nightshadeMist: {
+      name: 'Ituzum tumani',
+      desc: '{dur} s zaharli tuman: {dmg}% gacha Chaqqonlik zarari. Ichida qolgan dushmanlar {confuse} s gangib qoladi.'
+    },
+    firecracker: {
+      name: 'Mushak',
+      desc: 'Nishonga mushak yopishtiradi. {delay} s dan keyin u portlab, {dmg}% Aql zarari yetkazadi va atrofdagi hamma narsani yondiradi.'
+    },
+    fanTheFlames: {
+      name: 'Alangani puflash',
+      desc: '{radius} m ichidagi har bir yonish {pct}% kuchayib, qaytadan boshlanadi. {push} m ichidagi dushmanlar orqaga uloqtiriladi.'
+    },
+    ringOfFire: {
+      name: 'Olov halqasi',
+      desc: '{dur} s davomida alanga halqasi koʻtariladi: {dmg}% gacha Aql zarari. Ichidagi dushmanlar {slow}% sekinlashadi.'
+    },
+    everflame: {
+      name: 'Abadiy alanga',
+      desc: 'Kuydirishlaringiz {burn}% kuchliroq, sehrlaringiz esa +{crit}% Kritik imkoniyati oladi.'
+    },
+    wildfire: {
+      name: 'Dala yongʻini',
+      desc: 'Yonayotgan dushman yengilganda uning alangasi {radius} m ichidagi har bir dushmanga {dur} s ga oʻtadi.'
+    },
+    phoenixFlight: {
+      name: 'Semurgʻ parvozi',
+      desc: 'Ortingizda olov qoldirib, semurgʻ boʻlib uchasiz: qoʻngan joyingizda {dmg}% Aql zarari. {dur} s davomida soniyasiga {regen}% davolanasiz.'
+    },
+    callArchers: {
+      name: 'Kamonchi chaqirish',
+      desc: 'Ortingizdan {dmg}% Xarizma zarari bilan oʻq uzadigan kamonchini chaqiradi. Bir vaqtda koʻpi bilan {max} ta.'
+    },
+    royalRally: {
+      name: 'Qirollik yigʻini',
+      desc: 'Yordamchilaringiz yoningizga shoshiladi va {heal}% jonini tiklaydi. {dur} s davomida hammangiz +{def}% Himoya olasiz.'
+    },
+    warMarshal: {
+      name: 'Jang marshali',
+      desc: 'Yordamchilaringiz {dmg}% koʻproq zarar yetkazadi.'
+    },
+    royalDecree: {
+      name: 'Qirollik farmoni',
+      desc: '{radius} m ichidagi dushmanlar taʼzim qilishi shart: {stun} s karaxt boʻladi, soʻng {dur} s davomida {vuln}% koʻproq zarar oladi.'
+    },
+    loyalHearts: {
+      name: 'Sodiq yuraklar',
+      desc: 'Yordamchilaringizdan biri yiqilganda joningizning {heal}% qismi tiklanadi.'
+    },
+    summonChampion: {
+      name: 'Pahlavon chaqirish',
+      desc: '{dur} s ga oʻlka pahlavonini chaqiradi: joningizning {hp}% qismicha joni bor, {dmg}% Xarizma bilan uradigan ulkan ritsar.'
+    },
+    echoBolt: {
+      name: 'Aks-sado oʻqi',
+      desc: '{dmg}% Aql zarari yetkazadigan vaqt oʻqi. {delay} s dan keyin u yana {echo}% bilan uradi.'
+    },
+    foresight: {
+      name: 'Oldindan koʻrish',
+      desc: 'Zarbalar kelayotganini biroz oldin koʻrasiz: +{dodge}% Chap berish va {cdr}% qisqaroq kutish vaqti.'
+    },
+    timeBubble: {
+      name: 'Vaqt pufagi',
+      desc: '{dur} s lik sekin vaqt pufagi: ichidagi dushmanlar {slow}% sekinroq harakatlanadi va {dmg}% Aql zarari oladi.'
+    },
+    timeLoop: {
+      name: 'Vaqt halqasi',
+      desc: '{dur} s dan keyin nishon avvalgi joyiga qaytib sakraydi: {dmg}% Aql zarari va yoʻqotganining {echo}% qismi.'
+    },
+    frozenMoment: {
+      name: 'Muzlagan lahza',
+      desc: 'Hujumlaringiz {chance}% ehtimol bilan dushmanni {dur} s ga vaqtda muzlatadi.'
+    },
+    timeStop: {
+      name: 'Vaqtni toʻxtatish',
+      desc: '{radius} m ichida vaqtni {dur} s ga toʻxtatadi. Vaqt qayta yurganda har bir dushman {dmg}% Aql zarari oladi.'
+    },
+    essenceWard: {
+      name: 'Mohiyat qalqoni',
+      desc: 'Joningizning {hp}% qismini {dur} s ga uning {shield}% qismiga teng yorqin qalqonga aylantiradi.'
+    },
+    vitalReserve: {
+      name: 'Hayot zaxirasi',
+      desc: '+{hp}% Maks. jon va har soniyada {regen} jon tiklanadi.'
+    },
+    enfeeblingTonic: {
+      name: 'Zaiflashtiruvchi tonik',
+      desc: 'Tonik otasiz: maydonda {dmg}% Aql zarari. Tekkan dushmanlar {dur} s davomida {weak}% kam zarar yetkazadi.'
+    },
+    homunculus: {
+      name: 'Gomunkulus',
+      desc: 'Joningizning {hp}% qismidan {dur} s yashaydigan koʻpikli yordamchi tayyorlaysiz. Yangisini tayyorlash eskisining jonidan {back}% qaytaradi.'
+    },
+    adrenalCatalyst: {
+      name: 'Adrenalin katalizatori',
+      desc: 'Joningiz qancha kam boʻlsa, shuncha koʻp zarar yetkazasiz: jon {low}% yoki undan kam boʻlganda +{dmg}% gacha.'
+    },
+    grandTransmutation: {
+      name: 'Buyuk transmutatsiya',
+      desc: '{radius} m ichidagi dushmanlar jonining {pct}% qismini mohiyatga aylantiradi. Uning {heal}% qismi sizni davolaydi.'
+    },
+    rocketJump: {
+      name: 'Raketa sakrashi',
+      desc: 'Havoga koʻtarilib, moʻljalga olgan joyga qoʻnasiz: {radius} m ichida {dmg}% Mahorat zarari. {heat} issiqlik toʻplaydi.'
+    },
+    coolantLoop: {
+      name: 'Sovutish konturi',
+      desc: 'Issiqlik {cool}% tezroq tushadi, koʻnikmalaringiz esa uni {cut}% kamroq toʻplaydi.'
+    },
+    shockGrenade: {
+      name: 'Elektr granatasi',
+      desc: 'Granata otasiz: {radius} m ichida {dmg}% Mahorat zarari va {stun} s karaxtlik. {heat} issiqlik toʻplaydi.'
+    },
+    precisionOptics: {
+      name: 'Aniq optika',
+      desc: '+{crit}% Kritik imkoniyati. Oʻqlaringiz yana {pierce} ta dushmanni teshib oʻtadi.'
+    },
+    arcCoil: {
+      name: 'Yoy gʻaltagi',
+      desc: 'Chaqmoq nishonga tegib, soʻng yana {jumps} ta dushmanga sakraydi: har biriga {dmg}% Mahorat zarari. {heat} issiqlik toʻplaydi.'
+    },
+    thermalPlating: {
+      name: 'Issiqlik qoplamasi',
+      desc: 'Issiqligingiz {heat} yoki undan koʻp boʻlganda {reduce}% kam zarar olasiz.'
+    },
+    boulderRoll: {
+      name: 'Xarsang dumalatish',
+      desc: 'Oldinga xarsang dumalatasiz: yoʻlidagi hamma narsaga {dmg}% Kuch zarari, ular {down} s ga yiqiladi.'
+    },
+    bedrock: {
+      name: 'Tub qoya',
+      desc: 'Sizni hech narsa orqaga itara, yiqita yoki havoga uloqtira olmaydi. +{hp}% Maks. jon.'
+    },
+    sinkhole: {
+      name: 'Oʻpqon',
+      desc: 'Yer choʻkib, {dur} s davomida dushmanlarni ichiga tortadi, soʻng qulaydi: {dmg}% Kuch zarari.'
+    },
+    mountainBreaker: {
+      name: 'Togʻ buzar',
+      desc: 'Bosslarga +{boss}% zarar va +{armor}% Zirh.'
+    },
+    geodeShell: {
+      name: 'Geoda qobigʻi',
+      desc: 'Billur qobiq {dur} s davomida joningizning {shield}% qismicha zararni yutadi, soʻng portlab, {dmg}% gacha Kuch zarari yetkazadi.'
+    },
+    crumble: {
+      name: 'Uvalanish',
+      desc: 'Sekinlashgan, yiqitilgan yoki toshga aylangan dushmanlarga {dmg}% koʻproq zarar yetkazasiz.'
+    }
   },
   slot: {
     main: 'Asosiy qoʻl',

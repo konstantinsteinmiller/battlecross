@@ -434,6 +434,38 @@ export default {
     geo: {
       name: 'Geomant',
       desc: 'Podiže zidove i šiljke i lomi samo tlo.'
+    },
+    windrunner: {
+      name: 'Vjetrotrkač',
+      desc: 'Luk i vjetar u leđa. Pucaj, juri i nikad ne stoj na mjestu.'
+    },
+    frostwarden: {
+      name: 'Čuvar leda',
+      desc: 'Ledena oštrica i hladno srce. Uspori ih, zaledi ih, a onda ih razbij.'
+    },
+    lightbringer: {
+      name: 'Donositelj svjetla',
+      desc: 'Svjetlo koje liječi prijatelje i zasljepljuje neprijatelje. Stoj u njemu i ništa te ne može zaustaviti.'
+    },
+    beastcaller: {
+      name: 'Zazivač zvijeri',
+      desc: 'Vučji čopor, medvjed i jastreb bore se uz tebe. Pozovi ih i zapovijedaj im.'
+    },
+    elementalist: {
+      name: 'Elementalist',
+      desc: 'Vatra, mraz, munja i kamen. Miješaj ih i svaki pokreće sljedeći.'
+    },
+    soulwarden: {
+      name: 'Čuvar duša',
+      desc: 'Poraženi neprijatelji ustaju kao prijateljski duhovi, bore se uz tebe, a zatim odlaze kući na počinak.'
+    },
+    ironmonk: {
+      name: 'Željezni redovnik',
+      desc: 'Gole ruke, brze noge. Svaki udarac skuplja chi; potroši ga sav na jedan moćan udarac.'
+    },
+    bard: {
+      name: 'Bard',
+      desc: 'Pjesme koje dižu tvoju stranu i napjevi koji drugu uspavaju ili je okrenu protiv same sebe.'
     }
   },
   skill: {
@@ -638,7 +670,199 @@ export default {
       name: 'Tektonski rascjep',
       desc: 'Raspori bojište: {dmg}% štete od Snage svemu u blizini i krš koji usporava {dur}s.'
     },
-    scales: 'Raste s: {attr}'
+    scales: 'Raste s: {attr}',
+    shieldThrow: {
+      name: 'Bacanje štita',
+      desc: 'Tvoj se štit odbija od neprijatelja ({bounces}): svakome {dmg}% štete od Snage. {dur}s nanose {weak}% manje štete.'
+    },
+    shieldShove: {
+      name: 'Guranje štitom',
+      desc: 'Odgurni sve ispred sebe za {dmg}% štete od Snage. Odlete unatrag i prekinu ono što su radili.'
+    },
+    holyChains: {
+      name: 'Sveti lanci',
+      desc: 'Lanci svjetla privlače k tebi sve neprijatelje unutar {radius} m: {dmg}% štete od Izdržljivosti i {slow}% usporenja.'
+    },
+    bulwark: {
+      name: 'Bedem',
+      desc: '+{block}% šanse za blok. Svaki blok vraća napadaču {back} štete.'
+    },
+    retribution: {
+      name: 'Odmazda',
+      desc: '{dur}s neprijatelji unutar {radius} m moraju napadati tebe. Zatim svjetlo nanosi {dmg}% od Snage +{back}% primljenih udaraca.'
+    },
+    unbreakable: {
+      name: 'Neslomljivost',
+      desc: 'Dok imaš manje od {hp}% zdravlja, primaš {reduce}% manje štete.'
+    },
+    starFan: {
+      name: 'Lepeza zvijezda',
+      desc: 'Baci lepezu sjenovitih zvijezda ({stars}), svaka nanosi {dmg}% štete od Spretnosti.'
+    },
+    grapplingHook: {
+      name: 'Kuka s užetom',
+      desc: 'Povuci metu k sebi za {dmg}% štete od Spretnosti i uspori je {slow}% na {dur}s. Veliki neprijatelji povuku tebe.'
+    },
+    silentStrike: {
+      name: 'Tihi udarac',
+      desc: 'Ubodi u leđa nanose +{backstab}% štete, a neprijatelji te primijete {notice}% kasnije.'
+    },
+    shadowMark: {
+      name: 'Znak sjene',
+      desc: 'Meta prima {vuln}% više štete {dur}s, a tvoj sljedeći pogodak u bilo koga je kritičan uz +{bonus}%.'
+    },
+    bladeRhythm: {
+      name: 'Ritam oštrica',
+      desc: 'Kritični pogoci skraćuju svako čekanje za {cut}s. +{speed}% brzine napada.'
+    },
+    nightshadeMist: {
+      name: 'Velebiljna magla',
+      desc: 'Otrovna magla na {dur}s: do {dmg}% štete od Spretnosti. Neprijatelji u njoj zbunjeni su {confuse}s.'
+    },
+    firecracker: {
+      name: 'Petarda',
+      desc: 'Zalijepi petardu na metu. Nakon {delay}s pukne za {dmg}% štete od Inteligencije i zapali sve u blizini.'
+    },
+    fanTheFlames: {
+      name: 'Raspirivanje',
+      desc: 'Svako gorenje unutar {radius} m bukne {pct}% jače i krene ispočetka. Neprijatelji unutar {push} m bivaju odbačeni.'
+    },
+    ringOfFire: {
+      name: 'Vatreni prsten',
+      desc: 'Prsten plamena diže se na {dur}s: do {dmg}% štete od Inteligencije. Neprijatelji unutra usporeni su {slow}%.'
+    },
+    everflame: {
+      name: 'Vječni plamen',
+      desc: 'Tvoja gorenja su {burn}% jača, a čarolije dobivaju +{crit}% šanse za kritični pogodak.'
+    },
+    wildfire: {
+      name: 'Šumski požar',
+      desc: 'Kad je goreći neprijatelj poražen, njegov plamen preskoči na svakog neprijatelja unutar {radius} m na {dur}s.'
+    },
+    phoenixFlight: {
+      name: 'Let feniksa',
+      desc: 'Leti kao feniks i ostavljaj vatreni trag: {dmg}% štete od Inteligencije gdje sletiš. Liječiš {regen}% u sekundi tijekom {dur}s.'
+    },
+    callArchers: {
+      name: 'Poziv strijelaca',
+      desc: 'Prizovi strijelca koji puca iza tebe za {dmg}% štete od Karizme. Najviše {max} odjednom.'
+    },
+    royalRally: {
+      name: 'Kraljevski zbor',
+      desc: 'Tvoje sluge jure k tebi i liječe {heal}% zdravlja. Svi dobivate +{def}% Obrane na {dur}s.'
+    },
+    warMarshal: {
+      name: 'Ratni maršal',
+      desc: 'Tvoje sluge nanose {dmg}% više štete.'
+    },
+    royalDecree: {
+      name: 'Kraljevski proglas',
+      desc: 'Neprijatelji unutar {radius} m moraju se pokloniti: omamljeni {stun}s, a zatim primaju {vuln}% više štete {dur}s.'
+    },
+    loyalHearts: {
+      name: 'Vjerna srca',
+      desc: 'Kad ti padne sluga, izliječiš {heal}% svog zdravlja.'
+    },
+    summonChampion: {
+      name: 'Prizivanje prvaka',
+      desc: 'Prizovi prvaka kraljevstva na {dur}s: divovskog viteza s {hp}% tvog zdravlja koji udara za {dmg}% od Karizme.'
+    },
+    echoBolt: {
+      name: 'Strijela jeke',
+      desc: 'Strijela vremena za {dmg}% štete od Inteligencije. {delay}s kasnije pogodi opet za {echo}%.'
+    },
+    foresight: {
+      name: 'Predviđanje',
+      desc: 'Vidiš udarce trenutak ranije: +{dodge}% Izmaka i {cdr}% kraće čekanje.'
+    },
+    timeBubble: {
+      name: 'Mjehur vremena',
+      desc: 'Mjehur usporenog vremena na {dur}s: neprijatelji unutra kreću se {slow}% sporije i primaju {dmg}% štete od Inteligencije.'
+    },
+    timeLoop: {
+      name: 'Vremenska petlja',
+      desc: 'Nakon {dur}s meta se vrati gdje je bila: {dmg}% štete od Inteligencije plus {echo}% onoga što je izgubila.'
+    },
+    frozenMoment: {
+      name: 'Zaleđeni trenutak',
+      desc: 'Tvoji napadi imaju {chance}% šanse zalediti neprijatelja u vremenu na {dur}s.'
+    },
+    timeStop: {
+      name: 'Zaustavljanje vremena',
+      desc: 'Zaustavi vrijeme unutar {radius} m na {dur}s. Kad opet krene, svaki neprijatelj prima {dmg}% štete od Inteligencije.'
+    },
+    essenceWard: {
+      name: 'Štit esencije',
+      desc: 'Pretvori {hp}% svog zdravlja u blistavi štit vrijedan {shield}% toga, na {dur}s.'
+    },
+    vitalReserve: {
+      name: 'Životna pričuva',
+      desc: '+{hp}% maks. zdravlja i obnavljaš {regen} zdravlja svake sekunde.'
+    },
+    enfeeblingTonic: {
+      name: 'Oslabljujući tonik',
+      desc: 'Baci tonik: {dmg}% štete od Inteligencije na području. Pogođeni neprijatelji nanose {weak}% manje štete {dur}s.'
+    },
+    homunculus: {
+      name: 'Homunkul',
+      desc: 'Skuhaj mjehurastog pomoćnika od {hp}% svog zdravlja na {dur}s. Kuhanje novog vraća {back}% njegova života.'
+    },
+    adrenalCatalyst: {
+      name: 'Adrenalinski katalizator',
+      desc: 'Što manje zdravlja imaš, to više štete nanosiš: do +{dmg}% pri {low}% zdravlja ili manje.'
+    },
+    grandTransmutation: {
+      name: 'Velika transmutacija',
+      desc: 'Pretvori {pct}% života neprijatelja unutar {radius} m u esenciju. Liječiš se za {heal}% nje.'
+    },
+    rocketJump: {
+      name: 'Raketni skok',
+      desc: 'Poleti i sleti kamo ciljaš: {dmg}% štete od Umijeća unutar {radius} m. Stvara {heat} topline.'
+    },
+    coolantLoop: {
+      name: 'Rashladni krug',
+      desc: 'Toplina opada {cool}% brže, a tvoje vještine stvaraju je {cut}% manje.'
+    },
+    shockGrenade: {
+      name: 'Šok-granata',
+      desc: 'Baci granatu: {dmg}% štete od Umijeća i omamljivanje na {stun}s unutar {radius} m. Stvara {heat} topline.'
+    },
+    precisionOptics: {
+      name: 'Precizna optika',
+      desc: '+{crit}% šanse za kritični pogodak. Tvoji hici probijaju dodatne neprijatelje: {pierce}.'
+    },
+    arcCoil: {
+      name: 'Lučna zavojnica',
+      desc: 'Munja pogodi metu, pa preskoči na još neprijatelja ({jumps}): svakome {dmg}% štete od Umijeća. Stvara {heat} topline.'
+    },
+    thermalPlating: {
+      name: 'Toplinska oplata',
+      desc: 'Dok ti je toplina {heat} ili više, primaš {reduce}% manje štete.'
+    },
+    boulderRoll: {
+      name: 'Kotrljanje gromade',
+      desc: 'Zakotrljaj gromadu naprijed: {dmg}% štete od Snage svima na putu i obaranje na {down}s.'
+    },
+    bedrock: {
+      name: 'Temeljna stijena',
+      desc: 'Ništa te ne može odbaciti, oboriti ni baciti u zrak. +{hp}% maks. zdravlja.'
+    },
+    sinkhole: {
+      name: 'Ponor',
+      desc: 'Tlo se ulegne i uvlači neprijatelje {dur}s, a onda se uruši: {dmg}% štete od Snage.'
+    },
+    mountainBreaker: {
+      name: 'Lomitelj planina',
+      desc: '+{boss}% štete protiv bossova i +{armor}% Oklopa.'
+    },
+    geodeShell: {
+      name: 'Geodni oklop',
+      desc: 'Kristalni oklop upija {shield}% tvog zdravlja {dur}s, a zatim pukne za do {dmg}% štete od Snage.'
+    },
+    crumble: {
+      name: 'Mrvljenje',
+      desc: 'Nanosiš {dmg}% više štete usporenim, oborenim ili okamenjenim neprijateljima.'
+    }
   },
   slot: {
     main: 'Glavna ruka',
