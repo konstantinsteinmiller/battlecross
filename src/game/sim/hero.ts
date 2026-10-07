@@ -86,7 +86,8 @@ export const createHero = (sim: Sim, o: HeroInit): HeroState => {
     level: o.build.level,
     xpInto: o.xpInto,
     rested: Math.max(0, o.rested ?? 0),
-    killKinds: {}
+    killKinds: {},
+    herbs: {}
   }
   sim.hero = h
   return h

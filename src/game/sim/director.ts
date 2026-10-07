@@ -7,6 +7,7 @@ import { plainStats } from './stats'
 import { spawnTownPeople } from './townLife'
 import { fillGrid, type ZonePlan } from './zoneGen'
 import { SIDE_GROUP, type Sim } from './world'
+import { populateHerbs } from './herbs'
 import { HASTE, SWARM_COUNT, SWARM_HP } from '../arenaWeek'
 
 /**
@@ -77,6 +78,7 @@ export const populateZone = (sim: Sim, plan: ZonePlan, zone: ZoneId, owned: Iter
   // After the main chain and on streams of their own, so the fight's dice
   // fall exactly as they did before the zone had anything in it but packs.
   populateFeatures(sim, plan, zone, opened)
+  populateHerbs(sim, plan.herbs ?? [])
 }
 
 /** Put a town's people on the map (they never fight). */

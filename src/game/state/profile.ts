@@ -17,6 +17,7 @@ import { MAX_LEVEL, addXp, xpToNext, xpToReach } from '../data/progression'
 import { ACTIVE_SLOTS, PASSIVE_SLOTS, SKILL_BY_ID, meetsSkill, priceOf as skillPriceOf, CLASSES } from '../data/skills'
 import { EQUIP_SLOTS, ITEM_BY_ID, noGear, priceOf as itemPriceOf, sellValue, slotOf, type EquipSlot } from '../data/items'
 import { FORGE_MAX, forgeCost } from '../data/forge'
+import { HERB_CAP, isPlant } from '../data/plants'
 import { FACTIONS, FRIEND_DISCOUNT, QUEST_BY_ID, REP_FRIEND, REP_MAX, REP_MIN, choiceOpen, type FactionId } from '../data/quests'
 import { MAP, NODE_BY_ID, ZONES, nodeOpen, nodeReachable, type NodeId } from '../data/zones'
 import { heroStats, shopDiscount, sumBuild, type HeroBuild } from '../sim/stats'
@@ -73,6 +74,8 @@ export interface InventorySave {
   manaPotions: number
   /** Upgrade levels by item id, +1..+5 (roadmap #90). A sold piece loses its. */
   upgrades: Record<string, number>
+  /** The herb pouch: how many of each plant (roadmap #88), up to HERB_CAP. */
+  herbs: Record<string, number>
 }
 
 export interface QuestSave {
@@ -223,7 +226,8 @@ const defaultInv = (): InventorySave => ({
   fresh: [],
   potions: 3,
   manaPotions: 0,
-  upgrades: {}
+  upgrades: {},
+  herbs: {}
 })
 
 const defaults = (): Profile => ({
@@ -316,6 +320,13 @@ export const loadProfile = (): void => {
   for (const [id, v] of Object.entries(ups)) {
     const lvl = Math.round(num(v, 0))
     if (inv.items.includes(id) && lvl >= 1) inv.upgrades[id] = Math.min(FORGE_MAX, lvl)
+  }
+  // A save from before the herb pouch has none; only plants the game knows.
+  const herbs = obj(inv.herbs, {}) as Record<string, unknown>
+  inv.herbs = {}
+  for (const [id, v] of Object.entries(herbs)) {
+    const n = Math.round(num(v, 0))
+    if (isPlant(id) && n > 0) inv.herbs[id] = Math.min(HERB_CAP, n)
   }
   profile.inv = inv
 
@@ -863,6 +874,30 @@ export const sellItem = (id: string): boolean => {
   profile.gold += gold
   buyBack.push({ id, gold })
   saveProfile()
+  return true
+}
+
+// ─── The herb pouch (roadmap #88) ────────────────────────────────────────────
+
+/** How many of a plant the pouch holds. */
+export const herbCount = (id: string): number => profile.inv.herbs[id] ?? 0
+
+/** Herbs into the pouch (a visit's pickings), each kind up to the cap. */
+export const addHerbs = (got: Readonly<Record<string, number>>): void => {
+  for (const [id, n] of Object.entries(got)) {
+    if (!isPlant(id) || n <= 0) continue
+    profile.inv.herbs[id] = Math.min(HERB_CAP, herbCount(id) + Math.round(n))
+  }
+}
+
+/** Take herbs out of the pouch (a brew, a task handed in): all or nothing. */
+export const spendHerbs = (want: Readonly<Record<string, number>>): boolean => {
+  for (const [id, n] of Object.entries(want)) if (herbCount(id) < n) return false
+  for (const [id, n] of Object.entries(want)) {
+    const left = herbCount(id) - n
+    if (left > 0) profile.inv.herbs[id] = left
+    else delete profile.inv.herbs[id]
+  }
   return true
 }
 

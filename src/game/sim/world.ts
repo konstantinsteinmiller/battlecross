@@ -3,6 +3,7 @@ import { createGrid, nearestOpen, type Grid } from './grid'
 import type { HeroBuild } from './stats'
 import type { ChestTier, LootKind } from '../data/loot'
 import type { BranchPlan, ChestRole } from './zoneFeatures'
+import type { HerbState } from './herbs'
 import type {
   Action, Danger, Field, Projectile, SimEvent, Status, StatusId, Team, TempWall, Unit, UnitStats, Rank
 } from './types'
@@ -93,6 +94,8 @@ export interface HeroState {
   rested: number
   /** Kills by enemy kind (the faction contracts count them, roadmap #15). */
   killKinds: Record<string, number>
+  /** Herbs picked this visit, by plant (roadmap #88). */
+  herbs: Record<string, number>
 }
 
 /** One encounter: a pack of enemies that wakes together. */
@@ -247,6 +250,8 @@ export class Sim {
   branches: BranchState[] = []
   groupsDone = 0
   chests: ChestState[] = []
+  /** Herbs lying in the wild this visit (`herbs.ts`). */
+  herbs: HerbState[] = []
   plates: PlateState[] = []
   puzzle: PuzzleState | null = null
   doors: DoorState[] = []

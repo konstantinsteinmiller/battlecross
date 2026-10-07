@@ -82,7 +82,7 @@ const { t } = useI18n()
   +cel.label
   color: var(--bc-text-bad)
   &.is-forge
-    color: var(--bc-text-gold, #ffe36a)
+    color: var(--bc-text-gold)
   font-size: clamp(0.72rem, 3vmin, 0.9rem)
   text-shadow: var(--bc-text-outline-thin)
   text-align: end

@@ -10,6 +10,7 @@ import {
 import { ZONE_RELIEF, type LiquidId } from '../data/zones'
 import { buildRelief, buildTownRelief } from './relief'
 import { layTown, type TownPlan } from './town'
+import { placeHerbs, type HerbPlan } from './herbs'
 
 /**
  * ─── Zone layouts ────────────────────────────────────────────────────────────
@@ -124,6 +125,8 @@ export interface ZonePlan {
   /** The first visit of a new save: where the straw training dummy stands,
    *  by the road in the opening clearing (`coach/dummy.ts`). */
   dummy?: { x: number; z: number }
+  /** Herbs growing in the wild this visit (roadmap #88), walked over to pick. */
+  herbs?: HerbPlan[]
 }
 
 /** The main chain's width (cells): the road wanders inside it. */
@@ -388,9 +391,13 @@ export const generateZone = (def: ZoneDef, seed: number, o: ZoneGenOpts = {}): Z
     seed, w: Wd, h, kind, trail, cs, lobes, ledges: features.ledges, dais: features.dais, rivers: features.rivers, crossings: features.crossings,
     relief: ZONE_RELIEF[def.id], tutorial: !!o.tutorial
   })
+  const start = { x: clearings[0]!.x, z: clearings[0]!.z }
+  // Herbs (#88), last and on their own stream: nothing above moves for them.
+  // Not on the very first visit (one thing at a time) nor on a bare chain.
+  const herbs = o.tutorial || o.bare ? [] : placeHerbs({ seed, w: Wd, h, solid, sealed, trail, kind, start, chests: features.chests }, def.theme, def.min)
   return {
     seed, w: Wd, h, solid, trail, kind, cave, sealed, side, height, clearings,
-    start: { x: clearings[0]!.x, z: clearings[0]!.z },
+    start,
     packs,
     chest,
     secret,
@@ -398,6 +405,7 @@ export const generateZone = (def: ZoneDef, seed: number, o: ZoneGenOpts = {}): Z
     buildings: [],
     npcs: [],
     gates: [],
+    herbs,
     // The first visit opens on a calm beat: a dummy to learn to fight on.
     ...(o.tutorial ? { dummy: placeDummy(solid, h, cs, features.chests, packs[0]!) } : {})
   }

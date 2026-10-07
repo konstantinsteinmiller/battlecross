@@ -19,6 +19,8 @@ import { LIQUIDS, WATER_Y, wetCell, type Theme } from './terrain'
 import { groundAt } from './ground'
 import type { Vfx } from './vfx'
 import { DummyProp } from './dummyProp'
+import { plantGeometry } from './plants'
+import { PLANT_BY_ID, isPlant, type PlantId } from '../data/plants'
 import { markStill, splitByTile } from './cull'
 import type { Slice } from '../engine/slicer'
 
@@ -115,6 +117,24 @@ const CHEST_LOOK: Record<ChestTier, ChestLook> = {
   gold: { body: '#d48a14', body2: '#f0a81e', trim: '#fff6c0', lock: '#ffffff', gem: '#ff3a5a', glow: '#fff2a8', scale: 1.42 }
 }
 const CHEST_RING: Record<ChestTier, string> = { wood: '#ffd84a', iron: '#9fdcff', gold: '#ffe9a8' }
+
+interface HerbView {
+  id: number
+  kind: PlantId
+  root: Group
+  x: number
+  z: number
+  /** Seconds since it was picked (-1: still growing). */
+  popT: number
+  /** Seconds to its next glint, and its own sway phase. */
+  glint: number
+  phase: number
+}
+/** Herbs are drawn a little larger than life, to be seen from the camera. */
+const HERB_SCALE = 1.55
+/** The hop of a picked herb (s), and a glint every few seconds. */
+const HERB_POP = 0.38
+const HERB_GLINT = 2.6
 /** An opened chest's inner light holds this long, then sinks away over GLOW_FADE (s). */
 export const GLOW_HOLD = 0.9
 export const GLOW_FADE = 0.8
@@ -265,6 +285,8 @@ export class LevelProps {
   private caveSky = new Color(CAVE_SKY)
   /** The first visit's straw training dummy (`dummyProp.ts`). */
   private dummy: DummyProp | null = null
+  /** Herbs in the wild (#88): a sway, a glint now and then, a pop when picked. */
+  private herbs: HerbView[] = []
 
   /**
    * @param shake camera trauma, for the rumble of a door.
@@ -341,6 +363,7 @@ export class LevelProps {
     this.buildDoors(plan)
     await slice()
     this.buildChests()
+    this.buildHerbs()
     await slice()
     scene.add(this.root)
     if (plan.dummy) {
@@ -806,6 +829,38 @@ export class LevelProps {
     }
   }
 
+  private buildHerbs(): void {
+    for (const h of this.sim.herbs) {
+      if (!isPlant(h.kind)) continue
+      const g = plantGeometry(h.kind)
+      const root = new Group()
+      root.position.set(h.x, groundAt(h.x, h.z), h.z)
+      root.rotation.y = (h.id * 2.399) % (Math.PI * 2)
+      root.scale.setScalar(HERB_SCALE)
+      const body = new Mesh(g.lit, celVC())
+      const line = new Mesh(g.lit, outlineMat())
+      line.renderOrder = -1
+      root.add(body, line)
+      if (g.glow) root.add(new Mesh(g.glow, glowVC()))
+      root.visible = !h.taken
+      this.root.add(root)
+      this.herbs.push({ id: h.id, kind: h.kind, root, x: h.x, z: h.z, popT: -1, glint: 0.5 + (h.id % 4) * 0.7, phase: h.id * 1.7 })
+    }
+  }
+
+  /** Picked: it hops into the air in a puff of its colour, and is gone. */
+  private onHerb(e: Extract<SimEvent, { t: 'herb' }>): void {
+    const v = this.herbs.find(x => x.id === e.id)
+    if (!v || !isPlant(e.kind)) return
+    v.popT = 0
+    const col = PLANT_BY_ID[e.kind].bloom
+    this.vfx.ring(e.x, e.z, 0.2, 1.4, col, 0.45)
+    this.vfx.particles.riseRing(e.x, 0.3, e.z, col, 0.5, this.low ? 6 : 12)
+    this.vfx.orb(e.x, 0.5, e.z, this.heroX, 1.0, this.heroZ, 0.18, col, '#ffffff', 0.4, 1.4)
+    pushHud({ t: 'toast', key: 'toast.herb', params: { plant: `plant.${e.kind}.name` }, icon: `plant:${e.kind}` })
+    sfx('uiEquip', this.pan(e.x))
+  }
+
   // ─── Events ────────────────────────────────────────────────────────────────
 
   private pan(x: number): number {
@@ -816,6 +871,7 @@ export class LevelProps {
     this.dummy?.onEvent(e)
     switch (e.t) {
       case 'chest': this.onChest(e); break
+      case 'herb': this.onHerb(e); break
       case 'pickup': {
         const what = e.what
         const color = what === 'mana' ? '#6ab8ff' : what === 'potion' ? '#ff6a7a' : '#7dff8a'
@@ -936,6 +992,28 @@ export class LevelProps {
     if (!plan) return
     this.dummy?.update(dt)
     if (this.water) this.water.uniforms.uTime!.value = this.time * (this.water.userData.flow as number)
+
+    // ── Herbs: a breeze in their leaves, a glint now and then (they are worth the walk) ──
+    for (const v of this.herbs) {
+      if (!v.root.visible) continue
+      if (v.popT >= 0) {
+        v.popT += dt
+        const k = v.popT / HERB_POP
+        if (k >= 1) { v.root.visible = false; continue }
+        v.root.position.y = groundAt(v.x, v.z) + Math.sin(k * Math.PI) * 0.5
+        v.root.scale.setScalar(HERB_SCALE * (1 + k * 0.5) * (1 - k * k))
+        continue
+      }
+      v.root.rotation.z = Math.sin(this.time * 1.6 + v.phase) * 0.06
+      v.root.rotation.x = Math.sin(this.time * 1.3 + v.phase * 0.7) * 0.05
+      v.glint -= dt
+      if (v.glint <= 0) {
+        v.glint = HERB_GLINT + Math.random() * 1.5
+        if (!this.low && Math.hypot(v.x - this.heroX, v.z - this.heroZ) < 22) {
+          this.vfx.particles.emit({ x: v.x + (Math.random() - 0.5) * 0.3, y: groundAt(v.x, v.z) + 0.55, z: v.z + (Math.random() - 0.5) * 0.3, vy: 0.5, color: '#ffffff', size: 0.3, sizeEnd: 0.02, life: 0.7 })
+        }
+      }
+    }
 
     // ── Chests ──
     for (const v of this.chests) {
@@ -1088,5 +1166,6 @@ export class LevelProps {
     this.chests.length = 0
     this.plates.length = 0
     this.doors.length = 0
+    this.herbs.length = 0
   }
 }

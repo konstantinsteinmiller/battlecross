@@ -7,7 +7,9 @@
     TransitionGroup.toasts(name="toast" tag="div")
       div.toast(v-for="x in toasts" :key="x.id" :class="{ 'is-up': x.up }")
         span.toast__icon(v-if="x.item")
-          ItemIcon(:id="x.item")
+          //- A herb (#88): its own little drawing; anything else is an item.
+          PlantIcon(v-if="x.item.startsWith('plant:')" :id="x.item.slice(6)")
+          ItemIcon(v-else :id="x.item")
         //- A find: its name on a band of its tier's colour.
         I18nT.toast__text(v-if="x.name" :keypath="x.key" tag="span" scope="global")
           template(#item)
@@ -37,6 +39,7 @@ import { Translation as I18nT, useI18n } from 'vue-i18n'
 import { addHudTicker, hud, hudEvents, type TextKind } from '@/game/state/hud'
 import { currentZone } from '@/game/boot'
 import ItemIcon from '@/components/art/ItemIcon.vue'
+import PlantIcon from '@/components/art/PlantIcon.vue'
 import GameIcon from '@/components/icons/GameIcon.vue'
 import { ITEM_BY_ID, TIER_COLOR } from '@/game/data/items'
 import { isUpgrade } from '@/game/data/upgrade'

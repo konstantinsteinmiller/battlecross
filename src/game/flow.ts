@@ -14,7 +14,7 @@ import { abortTalk, beginTalk, talkResume, talkWaiting, type TalkStage } from '.
 import {
   clearNode, flagSet, gainItem, grantXp, hasFlag, isFreshProfile, isNodeOpen, isNodeReachable, lifetimeXp, profile, saveProfile
 } from './state/profile'
-import { countContracts, markChestsOpened, recordArenaWaves, recordMastery, setManaPotions } from './state/profile'
+import { addHerbs, countContracts, markChestsOpened, recordArenaWaves, recordMastery, setManaPotions } from './state/profile'
 import { zoneMastery, type Mastery } from './sim/route'
 import { playJingle } from './audio/music'
 import { flushSaveNow } from '@/use/useSaveStatus'
@@ -197,6 +197,8 @@ export interface VisitTally {
   rested?: number
   /** Kills by enemy kind (the faction contracts, #15). */
   killKinds?: Readonly<Record<string, number>>
+  /** Herbs picked, by plant (#88). */
+  herbs?: Readonly<Record<string, number>>
 }
 
 type Precompile = (mode: GameMode, onProgress: (f01: number) => void) => Promise<void>
@@ -513,7 +515,7 @@ export const finishVisit = async (outcome: 'victory' | 'defeat' | 'retreat'): Pr
   await bankVisit(outcome, node, {
     xp: h.xp, gold: h.gold, kills: h.kills, items: h.items, seconds: mode.sim.time, waves: mode.sim.wave.cleared,
     chests: mode.sim.chests.length ? { opened: h.chests, total: mode.sim.chests.length } : undefined,
-    special: mode.sim.specialOpened, manaPotions: h.manaPotions, rested: h.rested, killKinds: h.killKinds,
+    special: mode.sim.specialOpened, manaPotions: h.manaPotions, rested: h.rested, killKinds: h.killKinds, herbs: h.herbs,
     ...(mode.sim.mode === 'zone' && !flow.encounter ? { mastery: zoneMastery(mode.sim) } : {})
   })
 }
@@ -539,6 +541,8 @@ export const bankVisit = async (outcome: 'victory' | 'defeat' | 'retreat', node:
   if (h.manaPotions !== undefined) setManaPotions(h.manaPotions)
   if (h.rested !== undefined) profile.meta.rested = Math.max(0, Math.min(profile.meta.rested, h.rested))
   if (h.special?.length) markChestsOpened(h.special)
+  // The herbs picked go into the pouch, whatever the visit's end.
+  if (h.herbs) addHerbs(h.herbs)
   const mastery = h.mastery && !encounter ? { ...h.mastery, ...recordMastery(node, h.mastery) } : undefined
   profile.stats.kills += h.kills
   // The faction contracts count what the visit did (#15).

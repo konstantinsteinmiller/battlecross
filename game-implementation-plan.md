@@ -479,7 +479,13 @@ attribute buff; items are fixed named ids owned once.
   equipment page in a town (+1..+5, a gold stamp on its socket and beside its
   name); the item card, the stats and the "better" arrow count the levels.
   Translations of the new and renamed strings come with the wave's fan-out.
-- [ ] **21.2 Pickups and plants** (#88).
+- [x] **21.2 Pickups and plants** (#88). Eight herbs with models of their
+  own (`gfx/plants.ts`), 3–4 a visit by the zone's theme and level, laid on a
+  stream of their own after everything else (the packs' fingerprint holds) on
+  reachable ground off the road; picked by walking over them (a hop, a puff of
+  their colour, a toast with their icon), into the pouch at the end of every
+  visit; a Herbs tab in the bag. Not on the opening visit. Translations for
+  21.1 and 21.2 merged into all 38 locales (`i18nmerge.mjs`, parity green).
 - [ ] **21.3 Errands and the Journal**.
 - [ ] **21.4 Boards and town tasks** (#85).
 - [ ] **21.5 The caravan** (#85).

@@ -393,6 +393,8 @@ export type SimEvent =
   /** Something from a chest that is not gold or gear: a health potion for the
    *  belt, a full belt's potion drunk on the spot, a mana potion for the stock. */
   | { t: 'pickup'; what: 'potion' | 'heal' | 'mana'; x: number; z: number }
+  /** A herb walked over and picked (roadmap #88). */
+  | { t: 'herb'; id: number; kind: string; x: number; z: number }
   /** A pressure plate is stepped on: in its turn (`ok`), or out of turn (the
    *  puzzle resets). `step` plates are lit afterwards. */
   | { t: 'plate'; id: number; x: number; z: number; ok: boolean; step: number; solved: boolean }

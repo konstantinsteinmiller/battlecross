@@ -8,6 +8,7 @@ import { stepStatuses } from './combat'
 import { stepDirector } from './director'
 import { stepHero } from './hero'
 import { finishOpen } from './interact'
+import { stepPickups } from './herbs'
 import { HERO_SKILLS } from './heroSkills'
 import { stepTownLife } from './townLife'
 import type { ZonePlan } from './zoneGen'
@@ -56,6 +57,8 @@ export const stepSim = (sim: Sim, plan: ZonePlan, dt: number): void => {
   sim.runTimers()
   sim.stepDangers()
   if (!sim.ended || sim.ended === 'victory') stepHero(sim, dt)
+  // What the hero walks over is his: herbs (#88).
+  stepPickups(sim)
   // Rested (#9): the double-XP pool drains with fight time, never in town.
   const h = sim.hero
   if (h && h.rested > 0 && !sim.ended && sim.mode !== 'town') h.rested = Math.max(0, h.rested - dt)

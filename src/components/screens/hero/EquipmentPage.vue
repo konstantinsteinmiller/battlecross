@@ -39,10 +39,11 @@
           )
             span.doll__face(v-if="worn[s]")
               ItemIcon(:id="worn[s]")
-            //- Its upgrade, as a smith stamps it.
-            span.doll__plus(v-if="worn[s] && plusOf(worn[s])") +{{ plusOf(worn[s]) }}
             span.doll__ghost(v-else)
               ArtIcon(:glyph="GHOST[slotOf(s)]" tint="var(--bc-stone-hi)" :src="ICON_ART.get(`slot-${slotOf(s)}`)" frame="none")
+            //- Its upgrade, as a smith stamps it (on the frame, unclipped).
+            template(#badge)
+              span.doll__plus(v-if="worn[s] && plusOf(worn[s])") +{{ plusOf(worn[s]) }}
           span.doll__name {{ t(`slot.${slotOf(s)}`) }}
           //- Something in the bag would do better here.
           span.doll__up(v-if="upSlots.has(s)" aria-hidden="true")
@@ -68,8 +69,17 @@
           GameIcon(name="down")
           span {{ t(`bag.sort.${sort}`) }}
       div.bag__scroll
-        p.bag__empty(v-if="items.length === 0") {{ t('bag.empty') }}
-        div.bag__grid
+        //- The herb pouch (#88): what the wild gave, for the alchemist.
+        template(v-if="filter === 'herbs'")
+          p.bag__empty(v-if="herbs.length === 0") {{ t('bag.noHerbs') }}
+          div.bag__grid
+            div.herb-cell(v-for="h in herbs" :key="h.id" :aria-label="t('bag.herbCount', { plant: t(`plant.${h.id}.name`), n: h.n })")
+              span.herb-cell__icon
+                PlantIcon(:id="h.id")
+              span.herb-cell__n {{ h.n }}
+              span.herb-cell__name {{ t(`plant.${h.id}.name`) }}
+        p.bag__empty(v-else-if="items.length === 0") {{ t('bag.empty') }}
+        div.bag__grid(v-if="filter !== 'herbs'")
           ItemCell.cell(
             v-for="it in items"
             :key="it.id"
@@ -145,6 +155,8 @@ import { useDrag } from '@/components/game/useDrag'
 import { useMedia } from '@/components/game/useMedia'
 import HeroDoll from './HeroDoll.vue'
 import EquipCard from './EquipCard.vue'
+import PlantIcon from '@/components/art/PlantIcon.vue'
+import { PLANT_IDS } from '@/game/data/plants'
 
 const { t } = useI18n()
 
@@ -153,9 +165,12 @@ const GHOST: Record<ItemSlot, string> = { main: 'sword', off: 'shield', head: 'h
 const ORDER: readonly ItemSlot[] = ['main', 'off', 'head', 'body', 'hands', 'feet', 'trinket']
 
 // ── The bag: filtered and sorted ─────────────────────────────────────────────
-const FILTERS = ['all', 'weapons', 'armor', 'trinkets'] as const
+const FILTERS = ['all', 'weapons', 'armor', 'trinkets', 'herbs'] as const
 type Filter = (typeof FILTERS)[number]
-const IN_FILTER: Record<Filter, readonly ItemSlot[] | null> = { all: null, weapons: ['main', 'off'], armor: ['head', 'body', 'hands', 'feet'], trinkets: ['trinket'] }
+const IN_FILTER: Record<Filter, readonly ItemSlot[] | null> = { all: null, weapons: ['main', 'off'], armor: ['head', 'body', 'hands', 'feet'], trinkets: ['trinket'], herbs: [] }
+
+/** The pouch, in the order the plants are listed (#88). */
+const herbs = computed(() => PLANT_IDS.map(id => ({ id, n: profile.inv.herbs[id] ?? 0 })).filter(h => h.n > 0))
 const SORTS = ['slot', 'tier', 'level'] as const
 type Sort = (typeof SORTS)[number]
 
@@ -509,6 +524,43 @@ const portrait = useMedia('(max-aspect-ratio: 1/1)')
   display: grid
   grid-template-columns: repeat(auto-fill, minmax(clamp(2.9rem, 12.5vmin, 4rem), 1fr))
   gap: clamp(0.4rem, 1.8vmin, 0.7rem)
+// A herb in the pouch: its drawing, how many, its name under it.
+.herb-cell
+  position: relative
+  display: flex
+  flex-direction: column
+  align-items: center
+  gap: 0.15rem
+  min-width: 0
+.herb-cell__icon
+  width: clamp(2.6rem, 11vmin, 3.5rem)
+  aspect-ratio: 1
+  padding: 0.3rem
+  box-sizing: border-box
+  border: var(--bc-ol-thin) solid var(--bc-ink)
+  border-radius: var(--bc-r-sm)
+  background: var(--bc-paper)
+.herb-cell__n
+  position: absolute
+  top: -0.3rem
+  right: 0
+  min-width: 1.3rem
+  padding: 0 0.25rem
+  border: var(--bc-ol-thin) solid var(--bc-ink)
+  border-radius: 999px
+  background: var(--bc-white)
+  color: var(--bc-ink)
+  font-size: clamp(0.7rem, 2.6vmin, 0.85rem)
+  line-height: 1.15
+  text-align: center
+.herb-cell__name
+  max-width: 100%
+  color: var(--bc-text)
+  font-size: clamp(0.62rem, 2.4vmin, 0.78rem)
+  line-height: 1.1
+  text-align: center
+  text-shadow: var(--bc-text-outline-thin)
+  overflow-wrap: anywhere
 .bag__empty
   margin: 0.6rem 0
   color: var(--bc-stitch)
