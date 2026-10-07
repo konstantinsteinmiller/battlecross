@@ -92,7 +92,8 @@ export default {
     item: 'Trovato: {item}',
     levelUp: 'Livello {level}! +3 punti attributo',
     boss: 'Appare: {boss}',
-    wave: 'Ondata {n}'
+    wave: 'Ondata {n}',
+    herb: 'Raccolto: {plant}'
   },
   coach: {
     move: {
@@ -631,11 +632,11 @@ export default {
     trinket: 'Ninnolo'
   },
   tier: {
-    '1': 'Grado 1',
-    '2': 'Grado 2',
-    '3': 'Grado 3',
-    '4': 'Grado 4',
-    '5': 'Grado 5',
+    '1': 'Comune',
+    '2': 'Non comune',
+    '3': 'Raro',
+    '4': 'Epico',
+    '5': 'Eroico',
     '6': 'Leggendario'
   },
   weapon: {
@@ -912,14 +913,17 @@ export default {
       all: 'Tutto',
       weapons: 'Armi',
       armor: 'Armature',
-      trinkets: 'Ninnoli'
+      trinkets: 'Ninnoli',
+      herbs: 'Erbe'
     },
     sort: {
       slot: 'Tipo',
-      tier: 'Grado',
+      tier: 'Qualità',
       level: 'Livello'
     },
-    sortBy: 'Ordina per: {by}'
+    sortBy: 'Ordina per: {by}',
+    noHerbs: 'Ancora nessuna erba. Crescono nella natura selvaggia: passaci sopra per raccoglierla.',
+    herbCount: '{plant}: {n}'
   },
   shop: {
     buy: 'Compra',
@@ -3033,6 +3037,45 @@ export default {
       swarm: 'più nemici, con meno salute ciascuno',
       elites: 'un campione in ogni ondata',
       haste: 'i nemici si muovono e colpiscono più in fretta'
+    }
+  },
+  forge: {
+    upgrade: 'Migliora ({n} oro)',
+    max: 'Migliorato al massimo: +{n}.',
+    town: 'Il fabbro di qualsiasi città può migliorarlo.'
+  },
+  plant: {
+    sunpetal: {
+      name: 'Petalo solare',
+      desc: 'Un fiore giallo brillante. I guaritori non ne fanno a meno.'
+    },
+    glowcap: {
+      name: 'Cappellume',
+      desc: 'Un fungo che brilla al buio. Fa bene alla mente.'
+    },
+    swiftfern: {
+      name: 'Felce lesta',
+      desc: 'Una felce leggera. Strofinala sugli stivali e corri.'
+    },
+    ironmoss: {
+      name: 'Muschio di ferro',
+      desc: 'Muschio robusto delle pietre. Rende la pelle dura.'
+    },
+    emberbloom: {
+      name: 'Fior di brace',
+      desc: 'Un fiore che sembra caldo nella mano.'
+    },
+    frostmint: {
+      name: 'Menta gelida',
+      desc: 'Foglie fredde e fresche. Ti schiariscono le idee.'
+    },
+    moonbell: {
+      name: 'Campanula lunare',
+      desc: 'Un raro fiore pallido che aguzza la vista.'
+    },
+    shadowthorn: {
+      name: 'Spina d’ombra',
+      desc: 'Una rara spina scura. Forte, e un po’ malvagia.'
     }
   }
 }

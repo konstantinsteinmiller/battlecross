@@ -92,7 +92,8 @@ export default {
     item: 'Găsit: {item}',
     levelUp: 'Nivelul {level}! +3 puncte de atribut',
     boss: 'Apare: {boss}',
-    wave: 'Valul {n}'
+    wave: 'Valul {n}',
+    herb: 'Ai cules: {plant}'
   },
   coach: {
     move: {
@@ -630,11 +631,11 @@ export default {
     trinket: 'Talisman'
   },
   tier: {
-    '1': 'Rangul 1',
-    '2': 'Rangul 2',
-    '3': 'Rangul 3',
-    '4': 'Rangul 4',
-    '5': 'Rangul 5',
+    '1': 'Comun',
+    '2': 'Neobișnuit',
+    '3': 'Rar',
+    '4': 'Epic',
+    '5': 'Eroic',
     '6': 'Legendar'
   },
   weapon: {
@@ -911,14 +912,17 @@ export default {
       all: 'Toate',
       weapons: 'Arme',
       armor: 'Armuri',
-      trinkets: 'Bijuterii'
+      trinkets: 'Bijuterii',
+      herbs: 'Ierburi'
     },
     sort: {
       slot: 'Tip',
-      tier: 'Rang',
+      tier: 'Calitate',
       level: 'Nivel'
     },
-    sortBy: 'Sortează după: {by}'
+    sortBy: 'Sortează după: {by}',
+    noHerbs: 'Încă nu ai ierburi. Cresc în sălbăticie: calcă pe una ca s-o culegi.',
+    herbCount: '{plant}: {n}'
   },
   shop: {
     buy: 'Cumpără',
@@ -3014,6 +3018,45 @@ export default {
       swarm: 'mai mulți inamici, fiecare cu mai puțină viață',
       elites: 'un campion în fiecare val',
       haste: 'inamicii se mișcă și lovesc mai repede'
+    }
+  },
+  forge: {
+    upgrade: 'Îmbunătățește ({n} aur)',
+    max: 'Complet îmbunătățit: +{n}.',
+    town: 'Fierarul din orice oraș poate îmbunătăți asta.'
+  },
+  plant: {
+    sunpetal: {
+      name: 'Petală-de-Soare',
+      desc: 'O floare galben-aprins. Vindecătorii jură pe ea.'
+    },
+    glowcap: {
+      name: 'Strălucel',
+      desc: 'O ciupercă ce strălucește în întuneric. Bună pentru minte.'
+    },
+    swiftfern: {
+      name: 'Ferigă-Iute',
+      desc: 'O ferigă ușoară. Freacă-ți cizmele cu ea și fugi.'
+    },
+    ironmoss: {
+      name: 'Mușchi-de-Fier',
+      desc: 'Mușchi tare de pe pietre. Întărește pielea.'
+    },
+    emberbloom: {
+      name: 'Floare-de-Jar',
+      desc: 'O floare care pare caldă în mână.'
+    },
+    frostmint: {
+      name: 'Mentă-de-Ger',
+      desc: 'Frunze reci și proaspete. Îți limpezesc mintea.'
+    },
+    moonbell: {
+      name: 'Clopoțel-de-Lună',
+      desc: 'O floare rară și palidă care ascute privirea.'
+    },
+    shadowthorn: {
+      name: 'Spin-de-Umbră',
+      desc: 'Un spin rar și întunecat. Puternic și puțin răutăcios.'
     }
   }
 }

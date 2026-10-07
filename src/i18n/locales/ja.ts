@@ -92,7 +92,8 @@ export default {
     item: '入手：{item}',
     levelUp: 'レベル{level}！ 能力ポイント+3',
     boss: '{boss}が現れた',
-    wave: 'ウェーブ {n}'
+    wave: 'ウェーブ {n}',
+    herb: '摘んだ：{plant}'
   },
   coach: {
     move: {
@@ -630,11 +631,11 @@ export default {
     trinket: '装飾品'
   },
   tier: {
-    '1': 'ティア1',
-    '2': 'ティア2',
-    '3': 'ティア3',
-    '4': 'ティア4',
-    '5': 'ティア5',
+    '1': 'コモン',
+    '2': 'アンコモン',
+    '3': 'レア',
+    '4': 'エピック',
+    '5': 'ヒロイック',
     '6': 'レジェンド'
   },
   weapon: {
@@ -911,14 +912,17 @@ export default {
       all: 'すべて',
       weapons: '武器',
       armor: '防具',
-      trinkets: '装飾品'
+      trinkets: '装飾品',
+      herbs: '薬草'
     },
     sort: {
       slot: '種類',
-      tier: 'ティア',
+      tier: '品質',
       level: 'レベル'
     },
-    sortBy: '並び順：{by}'
+    sortBy: '並び順：{by}',
+    noHerbs: 'まだ薬草がない。野に生えているので、上を歩けば摘める。',
+    herbCount: '{plant}：{n}'
   },
   shop: {
     buy: '買う',
@@ -2975,6 +2979,45 @@ export default {
       swarm: '敵が増える代わりに、体力は少なめ',
       elites: '毎ウェーブにチャンピオンが登場',
       haste: '敵の移動と攻撃が速い'
+    }
+  },
+  forge: {
+    upgrade: '強化（{n} ゴールド）',
+    max: '最大まで強化済み：+{n}。',
+    town: 'どの町の鍛冶屋でも強化できます。'
+  },
+  plant: {
+    sunpetal: {
+      name: 'ヒナタバナ',
+      desc: '明るい黄色の花。癒し手のお墨付き。'
+    },
+    glowcap: {
+      name: 'ヒカリダケ',
+      desc: '暗闇で光るキノコ。頭の働きによい。'
+    },
+    swiftfern: {
+      name: 'ハヤテシダ',
+      desc: '軽いシダ。ブーツにこすりつけて走ろう。'
+    },
+    ironmoss: {
+      name: 'テツゴケ',
+      desc: '石に生える丈夫なコケ。肌を硬くする。'
+    },
+    emberbloom: {
+      name: 'ヒダネバナ',
+      desc: '手に持つとあたたかい花。'
+    },
+    frostmint: {
+      name: 'シモハッカ',
+      desc: '冷たくさわやかな葉。頭がすっきりする。'
+    },
+    moonbell: {
+      name: 'ツキスズ',
+      desc: '目を鋭くする、めずらしい青白い花。'
+    },
+    shadowthorn: {
+      name: 'カゲイバラ',
+      desc: 'めずらしい黒いトゲ。強いけれど、少しよこしま。'
     }
   }
 }

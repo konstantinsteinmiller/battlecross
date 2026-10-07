@@ -92,7 +92,8 @@ export default {
     item: 'Trouvé : {item}',
     levelUp: 'Niveau {level} ! +3 points d’attribut',
     boss: '{boss} apparaît',
-    wave: 'Vague {n}'
+    wave: 'Vague {n}',
+    herb: 'Cueilli : {plant}'
   },
   coach: {
     move: {
@@ -631,11 +632,11 @@ export default {
     trinket: 'Babiole'
   },
   tier: {
-    '1': 'Rang 1',
-    '2': 'Rang 2',
-    '3': 'Rang 3',
-    '4': 'Rang 4',
-    '5': 'Rang 5',
+    '1': 'Commun',
+    '2': 'Peu commun',
+    '3': 'Rare',
+    '4': 'Épique',
+    '5': 'Héroïque',
     '6': 'Légendaire'
   },
   weapon: {
@@ -912,14 +913,17 @@ export default {
       all: 'Tout',
       weapons: 'Armes',
       armor: 'Armures',
-      trinkets: 'Babioles'
+      trinkets: 'Babioles',
+      herbs: 'Herbes'
     },
     sort: {
       slot: 'Type',
-      tier: 'Rang',
+      tier: 'Qualité',
       level: 'Niveau'
     },
-    sortBy: 'Trier par : {by}'
+    sortBy: 'Trier par : {by}',
+    noHerbs: 'Pas encore d’herbes. Elles poussent dans la nature : marche sur l’une d’elles pour la cueillir.',
+    herbCount: '{plant} : {n}'
   },
   shop: {
     buy: 'Acheter',
@@ -3015,6 +3019,45 @@ export default {
       swarm: 'plus d’ennemis, avec moins de santé chacun',
       elites: 'un champion à chaque vague',
       haste: 'les ennemis bougent et frappent plus vite'
+    }
+  },
+  forge: {
+    upgrade: 'Améliorer ({n} pièces d’or)',
+    max: 'Amélioré au maximum : +{n}.',
+    town: 'Le forgeron de n’importe quelle ville peut l’améliorer.'
+  },
+  plant: {
+    sunpetal: {
+      name: 'Pétale de soleil',
+      desc: 'Une fleur d’un jaune vif. Les guérisseurs ne jurent que par elle.'
+    },
+    glowcap: {
+      name: 'Chapeau luisant',
+      desc: 'Un champignon qui luit dans le noir. Bon pour l’esprit.'
+    },
+    swiftfern: {
+      name: 'Fougère-éclair',
+      desc: 'Une fougère légère. Frotte-la sur tes bottes et cours.'
+    },
+    ironmoss: {
+      name: 'Mousse de fer',
+      desc: 'Une mousse coriace des pierres. Elle durcit la peau.'
+    },
+    emberbloom: {
+      name: 'Fleur de braise',
+      desc: 'Une fleur qui semble chaude dans la main.'
+    },
+    frostmint: {
+      name: 'Menthe givrée',
+      desc: 'Des feuilles froides et fraîches. Elles t’éclaircissent les idées.'
+    },
+    moonbell: {
+      name: 'Cloche-de-lune',
+      desc: 'Une fleur pâle et rare qui aiguise le regard.'
+    },
+    shadowthorn: {
+      name: 'Épine d’ombre',
+      desc: 'Une épine sombre et rare. Puissante, et un peu méchante.'
     }
   }
 }

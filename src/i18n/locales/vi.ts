@@ -92,7 +92,8 @@ export default {
     item: 'Tìm thấy: {item}',
     levelUp: 'Cấp {level}! +3 điểm thuộc tính',
     boss: '{boss} xuất hiện',
-    wave: 'Đợt {n}'
+    wave: 'Đợt {n}',
+    herb: 'Đã hái: {plant}'
   },
   coach: {
     move: {
@@ -630,11 +631,11 @@ export default {
     trinket: 'Bùa'
   },
   tier: {
-    '1': 'Bậc 1',
-    '2': 'Bậc 2',
-    '3': 'Bậc 3',
-    '4': 'Bậc 4',
-    '5': 'Bậc 5',
+    '1': 'Thường',
+    '2': 'Ít gặp',
+    '3': 'Hiếm',
+    '4': 'Sử thi',
+    '5': 'Anh hùng',
     '6': 'Huyền thoại'
   },
   weapon: {
@@ -911,14 +912,17 @@ export default {
       all: 'Tất cả',
       weapons: 'Vũ khí',
       armor: 'Giáp',
-      trinkets: 'Bùa'
+      trinkets: 'Bùa',
+      herbs: 'Thảo dược'
     },
     sort: {
       slot: 'Loại',
-      tier: 'Bậc',
+      tier: 'Chất lượng',
       level: 'Cấp'
     },
-    sortBy: 'Xếp theo: {by}'
+    sortBy: 'Xếp theo: {by}',
+    noHerbs: 'Chưa có thảo dược nào. Chúng mọc ngoài hoang dã: đi qua một cây để hái.',
+    herbCount: '{plant}: {n}'
   },
   shop: {
     buy: 'Mua',
@@ -2975,6 +2979,45 @@ export default {
       swarm: 'nhiều kẻ địch hơn, mỗi con ít máu hơn',
       elites: 'một nhà vô địch trong mỗi đợt',
       haste: 'kẻ địch di chuyển và đánh nhanh hơn'
+    }
+  },
+  forge: {
+    upgrade: 'Nâng cấp ({n} vàng)',
+    max: 'Đã nâng cấp tối đa: +{n}.',
+    town: 'Thợ rèn ở thị trấn nào cũng nâng cấp được món này.'
+  },
+  plant: {
+    sunpetal: {
+      name: 'Cánh Nắng',
+      desc: 'Một bông hoa vàng tươi. Thầy thuốc rất tin dùng nó.'
+    },
+    glowcap: {
+      name: 'Nấm Sáng',
+      desc: 'Một loại nấm phát sáng trong bóng tối. Tốt cho đầu óc.'
+    },
+    swiftfern: {
+      name: 'Dương Xỉ Gió',
+      desc: 'Một loại dương xỉ nhẹ. Xoa lên giày rồi chạy thôi.'
+    },
+    ironmoss: {
+      name: 'Rêu Sắt',
+      desc: 'Rêu dai mọc trên đá. Làm da cứng lại.'
+    },
+    emberbloom: {
+      name: 'Hoa Than Hồng',
+      desc: 'Một bông hoa cầm thấy ấm tay.'
+    },
+    frostmint: {
+      name: 'Bạc Hà Sương',
+      desc: 'Lá mát lạnh, tươi mới. Giúp đầu óc tỉnh táo.'
+    },
+    moonbell: {
+      name: 'Chuông Trăng',
+      desc: 'Một bông hoa nhạt màu hiếm giúp mắt tinh hơn.'
+    },
+    shadowthorn: {
+      name: 'Gai Bóng Tối',
+      desc: 'Một chiếc gai sẫm màu hiếm. Mạnh, và hơi độc ác.'
     }
   }
 }

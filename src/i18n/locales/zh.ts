@@ -92,7 +92,8 @@ export default {
     item: '获得：{item}',
     levelUp: '升到 {level} 级！属性点 +3',
     boss: '{boss}出现了',
-    wave: '第 {n} 波'
+    wave: '第 {n} 波',
+    herb: '采到：{plant}'
   },
   coach: {
     move: {
@@ -630,11 +631,11 @@ export default {
     trinket: '饰品'
   },
   tier: {
-    '1': '1阶',
-    '2': '2阶',
-    '3': '3阶',
-    '4': '4阶',
-    '5': '5阶',
+    '1': '普通',
+    '2': '优秀',
+    '3': '稀有',
+    '4': '史诗',
+    '5': '英雄',
     '6': '传说'
   },
   weapon: {
@@ -911,14 +912,17 @@ export default {
       all: '全部',
       weapons: '武器',
       armor: '护甲',
-      trinkets: '饰品'
+      trinkets: '饰品',
+      herbs: '草药'
     },
     sort: {
       slot: '类型',
-      tier: '阶',
+      tier: '品质',
       level: '等级'
     },
-    sortBy: '排序：{by}'
+    sortBy: '排序：{by}',
+    noHerbs: '还没有草药。它们长在野外：从上面走过就能采下。',
+    herbCount: '{plant}：{n}'
   },
   shop: {
     buy: '购买',
@@ -2975,6 +2979,45 @@ export default {
       swarm: '敌人更多，但各自的生命更少',
       elites: '每一波都有一位冠军',
       haste: '敌人移动和攻击都更快'
+    }
+  },
+  forge: {
+    upgrade: '升级（{n} 金币）',
+    max: '已满级：+{n}。',
+    town: '任何城镇的铁匠都能升级它。'
+  },
+  plant: {
+    sunpetal: {
+      name: '日光瓣',
+      desc: '一朵明黄色的花。治疗师们对它赞不绝口。'
+    },
+    glowcap: {
+      name: '荧光菇',
+      desc: '一种在黑暗中发光的蘑菇。对头脑有益。'
+    },
+    swiftfern: {
+      name: '疾风蕨',
+      desc: '一种轻盈的蕨草。擦在靴子上，跑起来吧。'
+    },
+    ironmoss: {
+      name: '铁苔',
+      desc: '长在石头上的坚韧苔藓。能让皮肤变硬。'
+    },
+    emberbloom: {
+      name: '余烬花',
+      desc: '握在手里暖暖的花。'
+    },
+    frostmint: {
+      name: '霜薄荷',
+      desc: '清凉新鲜的叶子。能让头脑清醒。'
+    },
+    moonbell: {
+      name: '月铃花',
+      desc: '一种罕见的苍白花朵，能让眼神更敏锐。'
+    },
+    shadowthorn: {
+      name: '影棘',
+      desc: '一种罕见的暗色荆棘。很强，还有点邪门。'
     }
   }
 }

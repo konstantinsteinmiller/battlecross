@@ -92,7 +92,8 @@ export default {
     item: 'Atrasts: {item}',
     levelUp: '{level}. līmenis! +3 īpašību punkti',
     boss: 'Parādās {boss}',
-    wave: 'Vilnis {n}'
+    wave: 'Vilnis {n}',
+    herb: 'Noplūkts: {plant}'
   },
   coach: {
     move: {
@@ -630,11 +631,11 @@ export default {
     trinket: 'Rota'
   },
   tier: {
-    '1': '1. pakāpe',
-    '2': '2. pakāpe',
-    '3': '3. pakāpe',
-    '4': '4. pakāpe',
-    '5': '5. pakāpe',
+    '1': 'Parasts',
+    '2': 'Neparasts',
+    '3': 'Rets',
+    '4': 'Episks',
+    '5': 'Varonīgs',
     '6': 'Leģendārs'
   },
   weapon: {
@@ -911,14 +912,17 @@ export default {
       all: 'Visi',
       weapons: 'Ieroči',
       armor: 'Bruņas',
-      trinkets: 'Rotas'
+      trinkets: 'Rotas',
+      herbs: 'Augi'
     },
     sort: {
       slot: 'Veids',
-      tier: 'Rangs',
+      tier: 'Kvalitāte',
       level: 'Līmenis'
     },
-    sortBy: 'Kārtot pēc: {by}'
+    sortBy: 'Kārtot pēc: {by}',
+    noHerbs: 'Augu vēl nav. Tie aug savvaļā: uzej uz kāda, lai to noplūktu.',
+    herbCount: '{plant}: {n}'
   },
   shop: {
     buy: 'Pirkt',
@@ -3040,6 +3044,45 @@ export default {
       swarm: 'vairāk ienaidnieku, katram mazāk veselības',
       elites: 'čempions katrā vilnī',
       haste: 'ienaidnieki kustas un sit ātrāk'
+    }
+  },
+  forge: {
+    upgrade: 'Uzlabot ({n} zelta)',
+    max: 'Pilnībā uzlabots: +{n}.',
+    town: 'To var uzlabot jebkuras pilsētas kalējs.'
+  },
+  plant: {
+    sunpetal: {
+      name: 'Saulziede',
+      desc: 'Spilgti dzeltens zieds. Dziednieki uz to zvēr.'
+    },
+    glowcap: {
+      name: 'Mirdzcepure',
+      desc: 'Sēne, kas spīd tumsā. Laba prātam.'
+    },
+    swiftfern: {
+      name: 'Ātrpaparde',
+      desc: 'Viegla paparde. Paberzē ar to zābakus un skrien.'
+    },
+    ironmoss: {
+      name: 'Dzelzssūna',
+      desc: 'Izturīga sūna no akmeņiem. Padara ādu cietu.'
+    },
+    emberbloom: {
+      name: 'Kvēlzieds',
+      desc: 'Zieds, kas rokā šķiet silts.'
+    },
+    frostmint: {
+      name: 'Salmētra',
+      desc: 'Vēsas, svaigas lapas. Tās noskaidro galvu.'
+    },
+    moonbell: {
+      name: 'Mēnespulkstenīte',
+      desc: 'Rets, bāls zieds, kas asina skatienu.'
+    },
+    shadowthorn: {
+      name: 'Ēnērkšķis',
+      desc: 'Rets, tumšs ērkšķis. Spēcīgs un mazliet ļauns.'
     }
   }
 }

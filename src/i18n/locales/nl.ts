@@ -92,7 +92,8 @@ export default {
     item: 'Gevonden: {item}',
     levelUp: 'Level {level}! +3 attribuutpunten',
     boss: '{boss} verschijnt',
-    wave: 'Golf {n}'
+    wave: 'Golf {n}',
+    herb: 'Geplukt: {plant}'
   },
   coach: {
     move: {
@@ -631,11 +632,11 @@ export default {
     trinket: 'Sieraad'
   },
   tier: {
-    '1': 'Rang 1',
-    '2': 'Rang 2',
-    '3': 'Rang 3',
-    '4': 'Rang 4',
-    '5': 'Rang 5',
+    '1': 'Gewoon',
+    '2': 'Ongewoon',
+    '3': 'Zeldzaam',
+    '4': 'Episch',
+    '5': 'Heroïsch',
     '6': 'Legendarisch'
   },
   weapon: {
@@ -912,14 +913,17 @@ export default {
       all: 'Alles',
       weapons: 'Wapens',
       armor: 'Pantsers',
-      trinkets: 'Sieraden'
+      trinkets: 'Sieraden',
+      herbs: 'Kruiden'
     },
     sort: {
       slot: 'Soort',
-      tier: 'Rang',
+      tier: 'Kwaliteit',
       level: 'Level'
     },
-    sortBy: 'Sorteren op: {by}'
+    sortBy: 'Sorteren op: {by}',
+    noHerbs: 'Nog geen kruiden. Ze groeien in het wild: loop over een kruid om het te plukken.',
+    herbCount: '{plant}: {n}'
   },
   shop: {
     buy: 'Kopen',
@@ -2983,6 +2987,45 @@ export default {
       swarm: 'meer vijanden, met elk minder gezondheid',
       elites: 'een kampioen in elke golf',
       haste: 'vijanden bewegen en slaan sneller'
+    }
+  },
+  forge: {
+    upgrade: 'Verbeteren ({n} goud)',
+    max: 'Volledig verbeterd: +{n}.',
+    town: 'Elke smid in een stad kan dit verbeteren.'
+  },
+  plant: {
+    sunpetal: {
+      name: 'Zonneblad',
+      desc: 'Een felgele bloem. Genezers zweren erbij.'
+    },
+    glowcap: {
+      name: 'Gloeihoed',
+      desc: 'Een paddenstoel die in het donker gloeit. Goed voor de geest.'
+    },
+    swiftfern: {
+      name: 'Snelvaren',
+      desc: 'Een lichte varen. Wrijf hem over je laarzen en ren.'
+    },
+    ironmoss: {
+      name: 'IJzermos',
+      desc: 'Taai mos van de stenen. Maakt de huid hard.'
+    },
+    emberbloom: {
+      name: 'Gloedbloem',
+      desc: 'Een bloem die warm aanvoelt in je hand.'
+    },
+    frostmint: {
+      name: 'Vorstmunt',
+      desc: 'Koude, frisse blaadjes. Ze maken je hoofd helder.'
+    },
+    moonbell: {
+      name: 'Maanklokje',
+      desc: 'Een zeldzame bleke bloem die je blik scherpt.'
+    },
+    shadowthorn: {
+      name: 'Schaduwdoorn',
+      desc: 'Een zeldzame donkere doorn. Sterk, en een beetje gemeen.'
     }
   }
 }

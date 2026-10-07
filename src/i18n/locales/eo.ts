@@ -92,7 +92,8 @@ export default {
     item: 'Trovita: {item}',
     levelUp: 'Nivelo {level}! +3 atributaj poentoj',
     boss: 'Aperas: {boss}',
-    wave: 'Ondo {n}'
+    wave: 'Ondo {n}',
+    herb: 'Plukita: {plant}'
   },
   coach: {
     move: {
@@ -630,11 +631,11 @@ export default {
     trinket: 'Amuleto'
   },
   tier: {
-    '1': 'Rango 1',
-    '2': 'Rango 2',
-    '3': 'Rango 3',
-    '4': 'Rango 4',
-    '5': 'Rango 5',
+    '1': 'Ordinara',
+    '2': 'Malkutima',
+    '3': 'Malofta',
+    '4': 'Epika',
+    '5': 'Heroa',
     '6': 'Legenda'
   },
   weapon: {
@@ -911,14 +912,17 @@ export default {
       all: 'Ĉio',
       weapons: 'Armiloj',
       armor: 'Kirasoj',
-      trinkets: 'Amuletoj'
+      trinkets: 'Amuletoj',
+      herbs: 'Herboj'
     },
     sort: {
       slot: 'Speco',
-      tier: 'Rango',
+      tier: 'Kvalito',
       level: 'Nivelo'
     },
-    sortBy: 'Ordigi laŭ: {by}'
+    sortBy: 'Ordigi laŭ: {by}',
+    noHerbs: 'Ankoraŭ neniuj herboj. Ili kreskas en la sovaĝejo: paŝu sur unu por pluki ĝin.',
+    herbCount: '{plant}: {n}'
   },
   shop: {
     buy: 'Aĉeti',
@@ -2975,6 +2979,45 @@ export default {
       swarm: 'pli da malamikoj, ĉiu kun malpli da sano',
       elites: 'ĉampiono en ĉiu ondo',
       haste: 'malamikoj moviĝas kaj batas pli rapide'
+    }
+  },
+  forge: {
+    upgrade: 'Plibonigi ({n} da oro)',
+    max: 'Plene plibonigita: +{n}.',
+    town: 'Ĉiu urba forĝisto povas plibonigi ĝin.'
+  },
+  plant: {
+    sunpetal: {
+      name: 'Sunpetalo',
+      desc: 'Hela flava floro. Kuracistoj ĵuras je ĝi.'
+    },
+    glowcap: {
+      name: 'Lumĉapo',
+      desc: 'Fungo, kiu lumas en la mallumo. Bona por la menso.'
+    },
+    swiftfern: {
+      name: 'Rapidfiliko',
+      desc: 'Malpeza filiko. Frotu ĝin sur viajn botojn kaj kuru.'
+    },
+    ironmoss: {
+      name: 'Fermusko',
+      desc: 'Malmola musko de la ŝtonoj. Ĝi malmoligas la haŭton.'
+    },
+    emberbloom: {
+      name: 'Braĝfloro',
+      desc: 'Floro, kiu sentiĝas varma en la mano.'
+    },
+    frostmint: {
+      name: 'Frostmento',
+      desc: 'Malvarmaj, freŝaj folioj. Ili klarigas la kapon.'
+    },
+    moonbell: {
+      name: 'Lunkampanulo',
+      desc: 'Malofta pala floro, kiu akrigas la vidon.'
+    },
+    shadowthorn: {
+      name: 'Ombrodorno',
+      desc: 'Malofta malhela dorno. Forta, kaj iom malica.'
     }
   }
 }

@@ -92,7 +92,8 @@ export default {
     item: '획득: {item}',
     levelUp: '레벨 {level}! 능력치 포인트 +3',
     boss: '{boss} 등장',
-    wave: '웨이브 {n}'
+    wave: '웨이브 {n}',
+    herb: '채집: {plant}'
   },
   coach: {
     move: {
@@ -630,11 +631,11 @@ export default {
     trinket: '장신구'
   },
   tier: {
-    '1': '1티어',
-    '2': '2티어',
-    '3': '3티어',
-    '4': '4티어',
-    '5': '5티어',
+    '1': '일반',
+    '2': '고급',
+    '3': '희귀',
+    '4': '에픽',
+    '5': '영웅',
     '6': '전설'
   },
   weapon: {
@@ -911,14 +912,17 @@ export default {
       all: '전체',
       weapons: '무기',
       armor: '방어구',
-      trinkets: '장신구'
+      trinkets: '장신구',
+      herbs: '약초'
     },
     sort: {
       slot: '종류',
-      tier: '티어',
+      tier: '품질',
       level: '레벨'
     },
-    sortBy: '정렬: {by}'
+    sortBy: '정렬: {by}',
+    noHerbs: '아직 약초가 없어요. 야생에서 자라니, 위로 걸어가면 채집해요.',
+    herbCount: '{plant}: {n}'
   },
   shop: {
     buy: '구매',
@@ -2975,6 +2979,45 @@ export default {
       swarm: '적은 더 많이, 체력은 더 적게',
       elites: '웨이브마다 챔피언 등장',
       haste: '적이 더 빠르게 움직이고 공격함'
+    }
+  },
+  forge: {
+    upgrade: '강화 ({n} 골드)',
+    max: '최대 강화: +{n}.',
+    town: '어느 마을 대장장이든 강화해 줄 수 있어요.'
+  },
+  plant: {
+    sunpetal: {
+      name: '햇살꽃잎',
+      desc: '밝은 노란 꽃이에요. 치유사들이 무척 아껴요.'
+    },
+    glowcap: {
+      name: '빛버섯',
+      desc: '어둠 속에서 빛나는 버섯이에요. 머리에 좋아요.'
+    },
+    swiftfern: {
+      name: '날쌘고사리',
+      desc: '가벼운 고사리예요. 신발에 문지르고 달려 보세요.'
+    },
+    ironmoss: {
+      name: '무쇠이끼',
+      desc: '돌에서 자라는 질긴 이끼예요. 피부를 단단하게 해요.'
+    },
+    emberbloom: {
+      name: '불씨꽃',
+      desc: '손에 쥐면 따뜻한 꽃이에요.'
+    },
+    frostmint: {
+      name: '서리박하',
+      desc: '차갑고 상쾌한 잎이에요. 머리가 맑아져요.'
+    },
+    moonbell: {
+      name: '달방울꽃',
+      desc: '눈을 밝게 해 주는 희귀하고 창백한 꽃이에요.'
+    },
+    shadowthorn: {
+      name: '그림자가시',
+      desc: '희귀한 검은 가시예요. 강하고, 조금 사악해요.'
     }
   }
 }

@@ -92,7 +92,8 @@ export default {
     item: 'Fundet: {item}',
     levelUp: 'Niveau {level}! +3 attributpoint',
     boss: '{boss} dukker op',
-    wave: 'Bølge {n}'
+    wave: 'Bølge {n}',
+    herb: 'Plukket: {plant}'
   },
   coach: {
     move: {
@@ -630,11 +631,11 @@ export default {
     trinket: 'Smykke'
   },
   tier: {
-    '1': 'Trin 1',
-    '2': 'Trin 2',
-    '3': 'Trin 3',
-    '4': 'Trin 4',
-    '5': 'Trin 5',
+    '1': 'Almindelig',
+    '2': 'Ualmindelig',
+    '3': 'Sjælden',
+    '4': 'Episk',
+    '5': 'Heroisk',
     '6': 'Legendarisk'
   },
   weapon: {
@@ -911,14 +912,17 @@ export default {
       all: 'Alle',
       weapons: 'Våben',
       armor: 'Rustning',
-      trinkets: 'Smykker'
+      trinkets: 'Smykker',
+      herbs: 'Urter'
     },
     sort: {
       slot: 'Type',
-      tier: 'Rang',
+      tier: 'Kvalitet',
       level: 'Niveau'
     },
-    sortBy: 'Sortér efter: {by}'
+    sortBy: 'Sortér efter: {by}',
+    noHerbs: 'Ingen urter endnu. De vokser ude i naturen: gå hen over en for at plukke den.',
+    herbCount: '{plant}: {n}'
   },
   shop: {
     buy: 'Køb',
@@ -2975,6 +2979,45 @@ export default {
       swarm: 'flere fjender, med mindre liv hver',
       elites: 'en mester i hver bølge',
       haste: 'fjender bevæger sig og slår hurtigere'
+    }
+  },
+  forge: {
+    upgrade: 'Opgrader ({n} guld)',
+    max: 'Fuldt opgraderet: +{n}.',
+    town: 'Smeden i enhver by kan opgradere den.'
+  },
+  plant: {
+    sunpetal: {
+      name: 'Solblad',
+      desc: 'En klargul blomst. Helbredere sværger til den.'
+    },
+    glowcap: {
+      name: 'Lyshat',
+      desc: 'En svamp, der lyser i mørket. God for sindet.'
+    },
+    swiftfern: {
+      name: 'Kvikbregne',
+      desc: 'En let bregne. Gnid den på støvlerne og løb.'
+    },
+    ironmoss: {
+      name: 'Jernmos',
+      desc: 'Sej mos fra stenene. Gør huden hård.'
+    },
+    emberbloom: {
+      name: 'Glødblomst',
+      desc: 'En blomst, der føles varm i hånden.'
+    },
+    frostmint: {
+      name: 'Frostmynte',
+      desc: 'Kolde, friske blade. De klarer hovedet.'
+    },
+    moonbell: {
+      name: 'Måneklokke',
+      desc: 'En sjælden, bleg blomst, der skærper blikket.'
+    },
+    shadowthorn: {
+      name: 'Skyggetorn',
+      desc: 'En sjælden mørk torn. Stærk, og lidt ond.'
     }
   }
 }

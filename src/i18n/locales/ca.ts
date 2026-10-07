@@ -92,7 +92,8 @@ export default {
     item: 'Trobat: {item}',
     levelUp: 'Nivell {level}! +3 punts d’atribut',
     boss: 'Apareix: {boss}',
-    wave: 'Onada {n}'
+    wave: 'Onada {n}',
+    herb: 'Collit: {plant}'
   },
   coach: {
     move: {
@@ -631,11 +632,11 @@ export default {
     trinket: 'Amulet'
   },
   tier: {
-    '1': 'Rang 1',
-    '2': 'Rang 2',
-    '3': 'Rang 3',
-    '4': 'Rang 4',
-    '5': 'Rang 5',
+    '1': 'Comú',
+    '2': 'Poc comú',
+    '3': 'Rar',
+    '4': 'Èpic',
+    '5': 'Heroic',
     '6': 'Llegendari'
   },
   weapon: {
@@ -912,14 +913,17 @@ export default {
       all: 'Tot',
       weapons: 'Armes',
       armor: 'Armadures',
-      trinkets: 'Amulets'
+      trinkets: 'Amulets',
+      herbs: 'Herbes'
     },
     sort: {
       slot: 'Tipus',
-      tier: 'Rang',
+      tier: 'Qualitat',
       level: 'Nivell'
     },
-    sortBy: 'Ordena per: {by}'
+    sortBy: 'Ordena per: {by}',
+    noHerbs: 'Encara no tens herbes. Creixen a la natura: passa per sobre d’una per collir-la.',
+    herbCount: '{plant}: {n}'
   },
   shop: {
     buy: 'Compra',
@@ -3013,6 +3017,45 @@ export default {
       swarm: 'més enemics, amb menys salut cadascun',
       elites: 'un campió a cada onada',
       haste: 'els enemics es mouen i ataquen més de pressa'
+    }
+  },
+  forge: {
+    upgrade: 'Millora ({n} d’or)',
+    max: 'Millorat al màxim: +{n}.',
+    town: 'Qualsevol ferrer d’una ciutat ho pot millorar.'
+  },
+  plant: {
+    sunpetal: {
+      name: 'Pètal de sol',
+      desc: 'Una flor d’un groc viu. Els curanderos hi confien.'
+    },
+    glowcap: {
+      name: 'Barret lluent',
+      desc: 'Un bolet que brilla a les fosques. Bo per a la ment.'
+    },
+    swiftfern: {
+      name: 'Falguera àgil',
+      desc: 'Una falguera lleugera. Frega-la a les botes i corre.'
+    },
+    ironmoss: {
+      name: 'Molsa de ferro',
+      desc: 'Molsa dura de les pedres. Endureix la pell.'
+    },
+    emberbloom: {
+      name: 'Flor de brasa',
+      desc: 'Una flor que sembla calenta a la mà.'
+    },
+    frostmint: {
+      name: 'Menta gebrada',
+      desc: 'Fulles fredes i fresques. T’aclareixen el cap.'
+    },
+    moonbell: {
+      name: 'Campaneta lunar',
+      desc: 'Una flor pàl·lida i rara que aguditza la vista.'
+    },
+    shadowthorn: {
+      name: 'Espina d’ombra',
+      desc: 'Una espina fosca i rara. Forta, i una mica malvada.'
     }
   }
 }

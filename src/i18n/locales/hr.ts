@@ -92,7 +92,8 @@ export default {
     item: 'Pronađeno: {item}',
     levelUp: 'Razina {level}! +3 boda atributa',
     boss: 'Dolazi: {boss}',
-    wave: 'Val {n}'
+    wave: 'Val {n}',
+    herb: 'Ubrano: {plant}'
   },
   coach: {
     move: {
@@ -633,11 +634,11 @@ export default {
     trinket: 'Amajlija'
   },
   tier: {
-    '1': 'Stupanj 1',
-    '2': 'Stupanj 2',
-    '3': 'Stupanj 3',
-    '4': 'Stupanj 4',
-    '5': 'Stupanj 5',
+    '1': 'Obično',
+    '2': 'Neobično',
+    '3': 'Rijetko',
+    '4': 'Epsko',
+    '5': 'Herojsko',
     '6': 'Legendarno'
   },
   weapon: {
@@ -915,14 +916,17 @@ export default {
       all: 'Sve',
       weapons: 'Oružje',
       armor: 'Oklop',
-      trinkets: 'Amajlije'
+      trinkets: 'Amajlije',
+      herbs: 'Bilje'
     },
     sort: {
       slot: 'Vrsta',
-      tier: 'Stupanj',
+      tier: 'Kvaliteta',
       level: 'Razina'
     },
-    sortBy: 'Poredaj: {by}'
+    sortBy: 'Poredaj: {by}',
+    noHerbs: 'Još nemaš bilja. Raste u divljini: prijeđi preko biljke da je ubereš.',
+    herbCount: '{plant}: {n}'
   },
   shop: {
     buy: 'Kupi',
@@ -3071,6 +3075,45 @@ export default {
       swarm: 'više neprijatelja, svaki s manje zdravlja',
       elites: 'prvak u svakom valu',
       haste: 'neprijatelji se kreću i udaraju brže'
+    }
+  },
+  forge: {
+    upgrade: 'Poboljšaj ({n} zlata)',
+    max: 'Potpuno poboljšano: +{n}.',
+    town: 'Ovo može poboljšati kovač u bilo kojem gradu.'
+  },
+  plant: {
+    sunpetal: {
+      name: 'Sunčana latica',
+      desc: 'Jarko žuti cvijet. Iscjelitelji se kunu u njega.'
+    },
+    glowcap: {
+      name: 'Svjetloklobuk',
+      desc: 'Gljiva koja svijetli u mraku. Dobra za um.'
+    },
+    swiftfern: {
+      name: 'Brza paprat',
+      desc: 'Lagana paprat. Utrljaj je u čizme i trči.'
+    },
+    ironmoss: {
+      name: 'Željezna mahovina',
+      desc: 'Žilava mahovina s kamenja. Čini kožu tvrdom.'
+    },
+    emberbloom: {
+      name: 'Žarocvijet',
+      desc: 'Cvijet koji je topao na dlanu.'
+    },
+    frostmint: {
+      name: 'Mrazna metvica',
+      desc: 'Hladni, svježi listovi. Razbistre glavu.'
+    },
+    moonbell: {
+      name: 'Mjesečevo zvonce',
+      desc: 'Rijedak blijedi cvijet koji izoštrava vid.'
+    },
+    shadowthorn: {
+      name: 'Sjenotrn',
+      desc: 'Rijedak tamni trn. Snažan i pomalo zloban.'
     }
   }
 }

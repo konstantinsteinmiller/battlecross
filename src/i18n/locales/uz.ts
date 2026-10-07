@@ -92,7 +92,8 @@ export default {
     item: 'Topildi: {item}',
     levelUp: '{level}-daraja! +3 xususiyat ochkosi',
     boss: '{boss} paydo boʻldi',
-    wave: 'Toʻlqin {n}'
+    wave: 'Toʻlqin {n}',
+    herb: 'Terildi: {plant}'
   },
   coach: {
     move: {
@@ -630,11 +631,11 @@ export default {
     trinket: 'Tumor'
   },
   tier: {
-    '1': '1-toifa',
-    '2': '2-toifa',
-    '3': '3-toifa',
-    '4': '4-toifa',
-    '5': '5-toifa',
+    '1': 'Oddiy',
+    '2': 'Noodatiy',
+    '3': 'Kamyob',
+    '4': 'Epik',
+    '5': 'Qahramonona',
     '6': 'Afsonaviy'
   },
   weapon: {
@@ -911,14 +912,17 @@ export default {
       all: 'Hammasi',
       weapons: 'Qurollar',
       armor: 'Zirhlar',
-      trinkets: 'Tumorlar'
+      trinkets: 'Tumorlar',
+      herbs: 'Giyohlar'
     },
     sort: {
       slot: 'Turi',
-      tier: 'Daraja',
+      tier: 'Sifat',
       level: 'Sath'
     },
-    sortBy: 'Saralash: {by}'
+    sortBy: 'Saralash: {by}',
+    noHerbs: 'Hali giyoh yoʻq. Ular yovvoyi tabiatda oʻsadi: uzish uchun ustidan yur.',
+    herbCount: '{plant}: {n}'
   },
   shop: {
     buy: 'Olish',
@@ -2975,6 +2979,45 @@ export default {
       swarm: 'dushman koʻproq, har birida jon kamroq',
       elites: 'har toʻlqinda bitta chempion',
       haste: 'dushmanlar tezroq harakatlanadi va uradi'
+    }
+  },
+  forge: {
+    upgrade: 'Kuchaytirish ({n} oltin)',
+    max: 'Toʻliq kuchaytirilgan: +{n}.',
+    town: 'Istalgan shahar temirchisi buni kuchaytira oladi.'
+  },
+  plant: {
+    sunpetal: {
+      name: 'Quyoshgulbarg',
+      desc: 'Yorqin sariq gul. Tabiblar unga qattiq ishonadi.'
+    },
+    glowcap: {
+      name: 'Nurqalpoq',
+      desc: 'Qorongʻida nur sochadigan qoʻziqorin. Aqlga foydali.'
+    },
+    swiftfern: {
+      name: 'Yelqirqquloq',
+      desc: 'Yengil qirqquloq. Etigingga surt-u, yugur.'
+    },
+    ironmoss: {
+      name: 'Temirmox',
+      desc: 'Toshlarda oʻsgan pishiq mox. Terini qattiq qiladi.'
+    },
+    emberbloom: {
+      name: 'Choʻgʻgul',
+      desc: 'Qoʻlda iliq tuyuladigan gul.'
+    },
+    frostmint: {
+      name: 'Ayozyalpiz',
+      desc: 'Salqin, yangi barglar. Boshingni tiniqlashtiradi.'
+    },
+    moonbell: {
+      name: 'Oyqoʻngʻiroq',
+      desc: 'Koʻzni oʻtkir qiladigan kamyob, oqish gul.'
+    },
+    shadowthorn: {
+      name: 'Soyatikan',
+      desc: 'Kamyob qora tikan. Kuchli va biroz yovuz.'
     }
   }
 }

@@ -92,7 +92,8 @@ export default {
     item: 'Gefunden: {item}',
     levelUp: 'Level {level}! +3 Attributspunkte',
     boss: '{boss} erscheint',
-    wave: 'Welle {n}'
+    wave: 'Welle {n}',
+    herb: 'Gepflückt: {plant}'
   },
   coach: {
     move: {
@@ -631,11 +632,11 @@ export default {
     trinket: 'Schmuck'
   },
   tier: {
-    '1': 'Stufe 1',
-    '2': 'Stufe 2',
-    '3': 'Stufe 3',
-    '4': 'Stufe 4',
-    '5': 'Stufe 5',
+    '1': 'Gewöhnlich',
+    '2': 'Ungewöhnlich',
+    '3': 'Selten',
+    '4': 'Episch',
+    '5': 'Heroisch',
     '6': 'Legendär'
   },
   weapon: {
@@ -912,14 +913,17 @@ export default {
       all: 'Alle',
       weapons: 'Waffen',
       armor: 'Rüstung',
-      trinkets: 'Schmuck'
+      trinkets: 'Schmuck',
+      herbs: 'Kräuter'
     },
     sort: {
       slot: 'Art',
-      tier: 'Stufe',
+      tier: 'Qualität',
       level: 'Level'
     },
-    sortBy: 'Sortieren nach: {by}'
+    sortBy: 'Sortieren nach: {by}',
+    noHerbs: 'Noch keine Kräuter. Sie wachsen draußen in der Wildnis: Lauf über eins, um es zu pflücken.',
+    herbCount: '{plant}: {n}'
   },
   shop: {
     buy: 'Kaufen',
@@ -2992,6 +2996,45 @@ export default {
       swarm: 'mehr Gegner, jeder mit weniger Leben',
       elites: 'ein Champion in jeder Welle',
       haste: 'Gegner bewegen sich und schlagen schneller'
+    }
+  },
+  forge: {
+    upgrade: 'Aufwerten ({n} Gold)',
+    max: 'Voll aufgewertet: +{n}.',
+    town: 'Jeder Schmied in einer Stadt kann das aufwerten.'
+  },
+  plant: {
+    sunpetal: {
+      name: 'Sonnenblüte',
+      desc: 'Eine leuchtend gelbe Blume. Heiler schwören darauf.'
+    },
+    glowcap: {
+      name: 'Leuchtkappe',
+      desc: 'Ein Pilz, der im Dunkeln leuchtet. Gut für den Geist.'
+    },
+    swiftfern: {
+      name: 'Flinkfarn',
+      desc: 'Ein leichter Farn. Reib ihn an deine Stiefel und lauf los.'
+    },
+    ironmoss: {
+      name: 'Eisenmoos',
+      desc: 'Zähes Moos von den Steinen. Macht die Haut hart.'
+    },
+    emberbloom: {
+      name: 'Glutblüte',
+      desc: 'Eine Blume, die sich warm in der Hand anfühlt.'
+    },
+    frostmint: {
+      name: 'Frostminze',
+      desc: 'Kalte, frische Blätter. Sie machen den Kopf frei.'
+    },
+    moonbell: {
+      name: 'Mondglocke',
+      desc: 'Eine seltene, blasse Blume, die den Blick schärft.'
+    },
+    shadowthorn: {
+      name: 'Schattendorn',
+      desc: 'Ein seltener dunkler Dorn. Stark und ein bisschen böse.'
     }
   }
 }

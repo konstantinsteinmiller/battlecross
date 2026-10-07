@@ -106,6 +106,7 @@ export default {
   },
   'toast': {
     'item': 'Found: {item}',
+    'herb': 'Picked: {plant}',
     'levelUp': 'Level {level}! +3 attribute points',
     'boss': '{boss} appears',
     'wave': 'Wave {n}'
@@ -584,7 +585,9 @@ export default {
     'empty': 'Nothing of this kind in the bag.',
     'slotEmpty': '{slot}: empty',
     'slotHolds': '{slot}: {item}',
-    'filter': { 'all': 'All', 'weapons': 'Weapons', 'armor': 'Armor', 'trinkets': 'Trinkets' },
+    'filter': { 'all': 'All', 'weapons': 'Weapons', 'armor': 'Armor', 'trinkets': 'Trinkets', 'herbs': 'Herbs' },
+    'noHerbs': 'No herbs yet. They grow out in the wild: walk over one to pick it.',
+    'herbCount': '{plant}: {n}',
     'sort': { 'slot': 'Type', 'tier': 'Quality', 'level': 'Level' },
     'sortBy': 'Sort by: {by}'
   },
@@ -636,6 +639,18 @@ export default {
     'order': 'The Iron Order',
     'syndicate': 'The Ashen Syndicate',
     'circle': 'The Circle of Aether'
+  },
+
+  // ─── Herbs (roadmap #88): picked in the wild, brewed by the alchemist ─────
+  'plant': {
+    'sunpetal': { 'name': 'Sunpetal', 'desc': 'A bright yellow flower. Healers swear by it.' },
+    'glowcap': { 'name': 'Glowcap', 'desc': 'A mushroom that glows in the dark. Good for the mind.' },
+    'swiftfern': { 'name': 'Swiftfern', 'desc': 'A light fern. Rub it on your boots and run.' },
+    'ironmoss': { 'name': 'Ironmoss', 'desc': 'Tough moss from the stones. Makes skin hard.' },
+    'emberbloom': { 'name': 'Emberbloom', 'desc': 'A flower that feels warm in the hand.' },
+    'frostmint': { 'name': 'Frostmint', 'desc': 'Cold, fresh leaves. They clear your head.' },
+    'moonbell': { 'name': 'Moonbell', 'desc': 'A rare pale flower that sharpens the eye.' },
+    'shadowthorn': { 'name': 'Shadowthorn', 'desc': 'A rare dark thorn. Strong, and a little wicked.' }
   },
 
   // ─── Townsfolk ────────────────────────────────────────────────────────────

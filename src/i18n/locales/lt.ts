@@ -92,7 +92,8 @@ export default {
     item: 'Rasta: {item}',
     levelUp: '{level} lygis! +3 savybių taškai',
     boss: 'Pasirodo: {boss}',
-    wave: 'Banga {n}'
+    wave: 'Banga {n}',
+    herb: 'Nuskinta: {plant}'
   },
   coach: {
     move: {
@@ -630,11 +631,11 @@ export default {
     trinket: 'Niekutis'
   },
   tier: {
-    '1': '1 pakopa',
-    '2': '2 pakopa',
-    '3': '3 pakopa',
-    '4': '4 pakopa',
-    '5': '5 pakopa',
+    '1': 'Paprastas',
+    '2': 'Neįprastas',
+    '3': 'Retas',
+    '4': 'Epinis',
+    '5': 'Herojiškas',
     '6': 'Legendinis'
   },
   weapon: {
@@ -911,14 +912,17 @@ export default {
       all: 'Visi',
       weapons: 'Ginklai',
       armor: 'Šarvai',
-      trinkets: 'Papuošalai'
+      trinkets: 'Papuošalai',
+      herbs: 'Žolelės'
     },
     sort: {
       slot: 'Tipas',
-      tier: 'Rangas',
+      tier: 'Kokybė',
       level: 'Lygis'
     },
-    sortBy: 'Rikiuoti pagal: {by}'
+    sortBy: 'Rikiuoti pagal: {by}',
+    noHerbs: 'Žolelių dar nėra. Jos auga laukuose: užeik ant vienos, kad ją nusiskintum.',
+    herbCount: '{plant}: {n}'
   },
   shop: {
     buy: 'Pirkti',
@@ -3026,6 +3030,45 @@ export default {
       swarm: 'daugiau priešų, bet kiekvienas turi mažiau sveikatos',
       elites: 'čempionas kiekvienoje bangoje',
       haste: 'priešai juda ir smogia greičiau'
+    }
+  },
+  forge: {
+    upgrade: 'Patobulinti ({n} aukso)',
+    max: 'Visiškai patobulinta: +{n}.',
+    town: 'Tai gali patobulinti bet kurio miesto kalvis.'
+  },
+  plant: {
+    sunpetal: {
+      name: 'Saulėžiedis',
+      desc: 'Ryškiai geltona gėlė. Gydytojai ja labai tiki.'
+    },
+    glowcap: {
+      name: 'Žibkepurė',
+      desc: 'Grybas, kuris švyti tamsoje. Naudingas protui.'
+    },
+    swiftfern: {
+      name: 'Greitpapartis',
+      desc: 'Lengvas papartis. Įtrink juo batus ir bėk.'
+    },
+    ironmoss: {
+      name: 'Geležinė samana',
+      desc: 'Kietos samanos nuo akmenų. Sukietina odą.'
+    },
+    emberbloom: {
+      name: 'Žarijažiedė',
+      desc: 'Gėlė, kuri rankoje atrodo šilta.'
+    },
+    frostmint: {
+      name: 'Šalčiamėtė',
+      desc: 'Šalti, gaivūs lapai. Jie praskaidrina galvą.'
+    },
+    moonbell: {
+      name: 'Mėnulio varpelis',
+      desc: 'Reta blyški gėlė, kuri paaštrina žvilgsnį.'
+    },
+    shadowthorn: {
+      name: 'Šešėldyglis',
+      desc: 'Retas tamsus dyglys. Stiprus ir truputį piktas.'
     }
   }
 }

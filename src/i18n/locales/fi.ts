@@ -92,7 +92,8 @@ export default {
     item: 'Löytyi: {item}',
     levelUp: 'Taso {level}! +3 ominaisuuspistettä',
     boss: '{boss} saapuu',
-    wave: 'Aalto {n}'
+    wave: 'Aalto {n}',
+    herb: 'Poimittu: {plant}'
   },
   coach: {
     move: {
@@ -630,11 +631,11 @@ export default {
     trinket: 'Koru'
   },
   tier: {
-    '1': 'Luokka 1',
-    '2': 'Luokka 2',
-    '3': 'Luokka 3',
-    '4': 'Luokka 4',
-    '5': 'Luokka 5',
+    '1': 'Tavallinen',
+    '2': 'Epätavallinen',
+    '3': 'Harvinainen',
+    '4': 'Eeppinen',
+    '5': 'Sankarillinen',
     '6': 'Legendaarinen'
   },
   weapon: {
@@ -911,14 +912,17 @@ export default {
       all: 'Kaikki',
       weapons: 'Aseet',
       armor: 'Panssarit',
-      trinkets: 'Korut'
+      trinkets: 'Korut',
+      herbs: 'Yrtit'
     },
     sort: {
       slot: 'Tyyppi',
-      tier: 'Taso',
+      tier: 'Laatu',
       level: 'Taso'
     },
-    sortBy: 'Järjestä: {by}'
+    sortBy: 'Järjestä: {by}',
+    noHerbs: 'Ei vielä yrttejä. Ne kasvavat luonnossa: kävele yhden yli poimiaksesi sen.',
+    herbCount: '{plant}: {n}'
   },
   shop: {
     buy: 'Osta',
@@ -2975,6 +2979,45 @@ export default {
       swarm: 'enemmän vihollisia, joilla kullakin on vähemmän elämää',
       elites: 'mestari joka aallossa',
       haste: 'viholliset liikkuvat ja iskevät nopeammin'
+    }
+  },
+  forge: {
+    upgrade: 'Paranna ({n} kultaa)',
+    max: 'Täysin parannettu: +{n}.',
+    town: 'Minkä tahansa kaupungin seppä voi parantaa tämän.'
+  },
+  plant: {
+    sunpetal: {
+      name: 'Aurinkoterä',
+      desc: 'Kirkkaankeltainen kukka. Parantajat vannovat sen nimeen.'
+    },
+    glowcap: {
+      name: 'Hehkulakki',
+      desc: 'Sieni, joka hehkuu pimeässä. Hyväksi mielelle.'
+    },
+    swiftfern: {
+      name: 'Pikasaniainen',
+      desc: 'Kevyt saniainen. Hiero sitä saappaisiisi ja juokse.'
+    },
+    ironmoss: {
+      name: 'Rautasammal',
+      desc: 'Sitkeää sammalta kiviltä. Tekee ihosta kovan.'
+    },
+    emberbloom: {
+      name: 'Hiilloskukka',
+      desc: 'Kukka, joka tuntuu lämpimältä kädessä.'
+    },
+    frostmint: {
+      name: 'Pakkasminttu',
+      desc: 'Kylmiä, raikkaita lehtiä. Ne selkeyttävät pään.'
+    },
+    moonbell: {
+      name: 'Kuunkello',
+      desc: 'Harvinainen kalpea kukka, joka terävöittää katseen.'
+    },
+    shadowthorn: {
+      name: 'Varjo-oka',
+      desc: 'Harvinainen tumma oka. Vahva ja vähän ilkeä.'
     }
   }
 }

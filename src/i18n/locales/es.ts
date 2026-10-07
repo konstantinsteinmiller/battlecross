@@ -92,7 +92,8 @@ export default {
     item: 'Encontrado: {item}',
     levelUp: '¡Nivel {level}! +3 puntos de atributo',
     boss: 'Aparece {boss}',
-    wave: 'Oleada {n}'
+    wave: 'Oleada {n}',
+    herb: 'Recogido: {plant}'
   },
   coach: {
     move: {
@@ -631,11 +632,11 @@ export default {
     trinket: 'Abalorio'
   },
   tier: {
-    '1': 'Rango 1',
-    '2': 'Rango 2',
-    '3': 'Rango 3',
-    '4': 'Rango 4',
-    '5': 'Rango 5',
+    '1': 'Común',
+    '2': 'Poco común',
+    '3': 'Raro',
+    '4': 'Épico',
+    '5': 'Heroico',
     '6': 'Legendario'
   },
   weapon: {
@@ -912,14 +913,17 @@ export default {
       all: 'Todo',
       weapons: 'Armas',
       armor: 'Armaduras',
-      trinkets: 'Abalorios'
+      trinkets: 'Abalorios',
+      herbs: 'Hierbas'
     },
     sort: {
       slot: 'Tipo',
-      tier: 'Rango',
+      tier: 'Calidad',
       level: 'Nivel'
     },
-    sortBy: 'Ordenar por: {by}'
+    sortBy: 'Ordenar por: {by}',
+    noHerbs: 'Aún no tienes hierbas. Crecen en la naturaleza: pasa por encima de una para recogerla.',
+    herbCount: '{plant}: {n}'
   },
   shop: {
     buy: 'Comprar',
@@ -3011,6 +3015,45 @@ export default {
       swarm: 'más enemigos, con menos salud cada uno',
       elites: 'un campeón en cada oleada',
       haste: 'los enemigos se mueven y golpean más rápido'
+    }
+  },
+  forge: {
+    upgrade: 'Mejorar ({n} de oro)',
+    max: 'Mejorado al máximo: +{n}.',
+    town: 'Cualquier herrero de una ciudad puede mejorarlo.'
+  },
+  plant: {
+    sunpetal: {
+      name: 'Pétalo solar',
+      desc: 'Una flor de un amarillo vivo. Los curanderos confían en ella.'
+    },
+    glowcap: {
+      name: 'Brillaseta',
+      desc: 'Una seta que brilla en la oscuridad. Buena para la mente.'
+    },
+    swiftfern: {
+      name: 'Helecho veloz',
+      desc: 'Un helecho ligero. Frótalo en tus botas y corre.'
+    },
+    ironmoss: {
+      name: 'Musgo de hierro',
+      desc: 'Musgo duro de las piedras. Endurece la piel.'
+    },
+    emberbloom: {
+      name: 'Flor de brasa',
+      desc: 'Una flor que se siente cálida en la mano.'
+    },
+    frostmint: {
+      name: 'Menta helada',
+      desc: 'Hojas frías y frescas. Te despejan la cabeza.'
+    },
+    moonbell: {
+      name: 'Campanilla lunar',
+      desc: 'Una flor pálida y rara que agudiza la vista.'
+    },
+    shadowthorn: {
+      name: 'Espina sombría',
+      desc: 'Una espina oscura y rara. Fuerte, y un poco malvada.'
     }
   }
 }

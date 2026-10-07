@@ -92,7 +92,8 @@ export default {
     item: 'Atopado: {item}',
     levelUp: 'Nivel {level}! +3 puntos de atributo',
     boss: 'Aparece: {boss}',
-    wave: 'Vaga {n}'
+    wave: 'Vaga {n}',
+    herb: 'Collido: {plant}'
   },
   coach: {
     move: {
@@ -631,11 +632,11 @@ export default {
     trinket: 'Amuleto'
   },
   tier: {
-    '1': 'Rango 1',
-    '2': 'Rango 2',
-    '3': 'Rango 3',
-    '4': 'Rango 4',
-    '5': 'Rango 5',
+    '1': 'Común',
+    '2': 'Pouco común',
+    '3': 'Raro',
+    '4': 'Épico',
+    '5': 'Heroico',
     '6': 'Lendario'
   },
   weapon: {
@@ -912,14 +913,17 @@ export default {
       all: 'Todo',
       weapons: 'Armas',
       armor: 'Armaduras',
-      trinkets: 'Amuletos'
+      trinkets: 'Amuletos',
+      herbs: 'Herbas'
     },
     sort: {
       slot: 'Tipo',
-      tier: 'Rango',
+      tier: 'Calidade',
       level: 'Nivel'
     },
-    sortBy: 'Ordenar por: {by}'
+    sortBy: 'Ordenar por: {by}',
+    noHerbs: 'Aínda non tes herbas. Medran no monte: pasa por riba dunha para collela.',
+    herbCount: '{plant}: {n}'
   },
   shop: {
     buy: 'Mercar',
@@ -3016,6 +3020,45 @@ export default {
       swarm: 'máis inimigos, con menos vida cada un',
       elites: 'un campión en cada vaga',
       haste: 'os inimigos móvense e golpean máis rápido'
+    }
+  },
+  forge: {
+    upgrade: 'Mellorar ({n} de ouro)',
+    max: 'Mellorado ao máximo: +{n}.',
+    town: 'Calquera ferreiro dunha cidade pode melloralo.'
+  },
+  plant: {
+    sunpetal: {
+      name: 'Pétalo do sol',
+      desc: 'Unha flor dun amarelo vivo. Os curandeiros xuran por ela.'
+    },
+    glowcap: {
+      name: 'Gorro lucente',
+      desc: 'Un cogomelo que brilla na escuridade. Bo para a mente.'
+    },
+    swiftfern: {
+      name: 'Fento veloz',
+      desc: 'Un fento lixeiro. Frégao nas botas e corre.'
+    },
+    ironmoss: {
+      name: 'Musgo de ferro',
+      desc: 'Musgo duro das pedras. Endurece a pel.'
+    },
+    emberbloom: {
+      name: 'Flor de brasa',
+      desc: 'Unha flor que se sente quente na man.'
+    },
+    frostmint: {
+      name: 'Menta xeada',
+      desc: 'Follas frías e frescas. Aclárante a cabeza.'
+    },
+    moonbell: {
+      name: 'Campaíña lunar',
+      desc: 'Unha flor pálida e rara que agudiza a vista.'
+    },
+    shadowthorn: {
+      name: 'Espiña sombría',
+      desc: 'Unha espiña escura e rara. Forte, e un pouco malvada.'
     }
   }
 }

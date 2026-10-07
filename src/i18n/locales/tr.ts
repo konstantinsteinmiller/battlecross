@@ -92,7 +92,8 @@ export default {
     item: 'Bulundu: {item}',
     levelUp: 'Seviye {level}! +3 nitelik puanı',
     boss: '{boss} ortaya çıktı',
-    wave: 'Dalga {n}'
+    wave: 'Dalga {n}',
+    herb: 'Toplandı: {plant}'
   },
   coach: {
     move: {
@@ -630,11 +631,11 @@ export default {
     trinket: 'Tılsım'
   },
   tier: {
-    '1': 'Kademe 1',
-    '2': 'Kademe 2',
-    '3': 'Kademe 3',
-    '4': 'Kademe 4',
-    '5': 'Kademe 5',
+    '1': 'Sıradan',
+    '2': 'Seyrek',
+    '3': 'Nadir',
+    '4': 'Destansı',
+    '5': 'Kahramanca',
     '6': 'Efsanevi'
   },
   weapon: {
@@ -911,14 +912,17 @@ export default {
       all: 'Hepsi',
       weapons: 'Silahlar',
       armor: 'Zırhlar',
-      trinkets: 'Tılsımlar'
+      trinkets: 'Tılsımlar',
+      herbs: 'Otlar'
     },
     sort: {
       slot: 'Tür',
-      tier: 'Kademe',
+      tier: 'Kalite',
       level: 'Seviye'
     },
-    sortBy: 'Sırala: {by}'
+    sortBy: 'Sırala: {by}',
+    noHerbs: 'Henüz ot yok. Doğada yetişirler: toplamak için birinin üstünden yürü.',
+    herbCount: '{plant}: {n}'
   },
   shop: {
     buy: 'Satın al',
@@ -2975,6 +2979,45 @@ export default {
       swarm: 'daha çok düşman, her birinde daha az can',
       elites: 'her dalgada bir şampiyon',
       haste: 'düşmanlar daha hızlı hareket eder ve vurur'
+    }
+  },
+  forge: {
+    upgrade: 'Geliştir ({n} altın)',
+    max: 'Tamamen geliştirildi: +{n}.',
+    town: 'Her kasabanın demircisi bunu geliştirebilir.'
+  },
+  plant: {
+    sunpetal: {
+      name: 'Güneşyaprağı',
+      desc: 'Parlak sarı bir çiçek. Şifacılar ona çok güvenir.'
+    },
+    glowcap: {
+      name: 'Işıkşapka',
+      desc: 'Karanlıkta parlayan bir mantar. Akla iyi gelir.'
+    },
+    swiftfern: {
+      name: 'Çevikeğrelti',
+      desc: 'Hafif bir eğrelti. Botlarına sür ve koş.'
+    },
+    ironmoss: {
+      name: 'Demiryosun',
+      desc: 'Taşlarda biten sert yosun. Deriyi sertleştirir.'
+    },
+    emberbloom: {
+      name: 'Korçiçeği',
+      desc: 'Elde sıcacık duran bir çiçek.'
+    },
+    frostmint: {
+      name: 'Ayaznane',
+      desc: 'Serin, taze yapraklar. Kafanı açar.'
+    },
+    moonbell: {
+      name: 'Ayçanı',
+      desc: 'Gözü keskinleştiren nadir, solgun bir çiçek.'
+    },
+    shadowthorn: {
+      name: 'Gölgediken',
+      desc: 'Nadir, karanlık bir diken. Güçlü ve biraz da kötü.'
     }
   }
 }

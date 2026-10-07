@@ -92,7 +92,8 @@ export default {
     item: 'Nalezeno: {item}',
     levelUp: 'Úroveň {level}! +3 body atributů',
     boss: 'Přichází: {boss}',
-    wave: 'Vlna {n}'
+    wave: 'Vlna {n}',
+    herb: 'Sebráno: {plant}'
   },
   coach: {
     move: {
@@ -633,11 +634,11 @@ export default {
     trinket: 'Cetka'
   },
   tier: {
-    '1': 'Stupeň 1',
-    '2': 'Stupeň 2',
-    '3': 'Stupeň 3',
-    '4': 'Stupeň 4',
-    '5': 'Stupeň 5',
+    '1': 'Běžný',
+    '2': 'Neobvyklý',
+    '3': 'Vzácný',
+    '4': 'Epický',
+    '5': 'Hrdinský',
     '6': 'Legendární'
   },
   weapon: {
@@ -914,14 +915,17 @@ export default {
       all: 'Vše',
       weapons: 'Zbraně',
       armor: 'Zbroj',
-      trinkets: 'Cetky'
+      trinkets: 'Cetky',
+      herbs: 'Byliny'
     },
     sort: {
       slot: 'Typ',
-      tier: 'Stupeň',
+      tier: 'Kvalita',
       level: 'Úroveň'
     },
-    sortBy: 'Řadit: {by}'
+    sortBy: 'Řadit: {by}',
+    noHerbs: 'Zatím žádné byliny. Rostou v divočině: přejdi přes jednu a utrhneš ji.',
+    herbCount: '{plant}: {n}'
   },
   shop: {
     buy: 'Koupit',
@@ -3065,6 +3069,45 @@ export default {
       swarm: 'víc nepřátel, každý s menším zdravím',
       elites: 'šampion v každé vlně',
       haste: 'nepřátelé se hýbou a útočí rychleji'
+    }
+  },
+  forge: {
+    upgrade: 'Vylepšit ({n} zl.)',
+    max: 'Plně vylepšeno: +{n}.',
+    town: 'Vylepšit to může kovář v kterémkoli městě.'
+  },
+  plant: {
+    sunpetal: {
+      name: 'Slunoplátek',
+      desc: 'Jasně žlutá květina. Léčitelé na ni nedají dopustit.'
+    },
+    glowcap: {
+      name: 'Světlohlávka',
+      desc: 'Houba, která ve tmě svítí. Dobrá pro mysl.'
+    },
+    swiftfern: {
+      name: 'Rychlokapradka',
+      desc: 'Lehká kapradina. Potři jí boty a utíkej.'
+    },
+    ironmoss: {
+      name: 'Železný mech',
+      desc: 'Odolný mech z kamenů. Zpevní kůži.'
+    },
+    emberbloom: {
+      name: 'Žhavokvět',
+      desc: 'Květina, která v ruce hřeje.'
+    },
+    frostmint: {
+      name: 'Mrazivá máta',
+      desc: 'Studené, svěží lístky. Vyčistí hlavu.'
+    },
+    moonbell: {
+      name: 'Měsíční zvonek',
+      desc: 'Vzácná bledá květina, která zbystří zrak.'
+    },
+    shadowthorn: {
+      name: 'Stínotrn',
+      desc: 'Vzácný temný trn. Silný a trochu zlomyslný.'
     }
   }
 }

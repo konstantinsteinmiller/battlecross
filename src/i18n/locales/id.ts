@@ -92,7 +92,8 @@ export default {
     item: 'Ditemukan: {item}',
     levelUp: 'Level {level}! +3 poin atribut',
     boss: '{boss} muncul',
-    wave: 'Gelombang {n}'
+    wave: 'Gelombang {n}',
+    herb: 'Dipetik: {plant}'
   },
   coach: {
     move: {
@@ -630,11 +631,11 @@ export default {
     trinket: 'Jimat'
   },
   tier: {
-    '1': 'Tingkat 1',
-    '2': 'Tingkat 2',
-    '3': 'Tingkat 3',
-    '4': 'Tingkat 4',
-    '5': 'Tingkat 5',
+    '1': 'Biasa',
+    '2': 'Tak Biasa',
+    '3': 'Langka',
+    '4': 'Epik',
+    '5': 'Heroik',
     '6': 'Legendaris'
   },
   weapon: {
@@ -911,14 +912,17 @@ export default {
       all: 'Semua',
       weapons: 'Senjata',
       armor: 'Zirah',
-      trinkets: 'Jimat'
+      trinkets: 'Jimat',
+      herbs: 'Herbal'
     },
     sort: {
       slot: 'Jenis',
-      tier: 'Tingkat',
+      tier: 'Kualitas',
       level: 'Level'
     },
-    sortBy: 'Urutkan: {by}'
+    sortBy: 'Urutkan: {by}',
+    noHerbs: 'Belum ada herbal. Mereka tumbuh di alam liar: jalan di atasnya untuk memetik.',
+    herbCount: '{plant}: {n}'
   },
   shop: {
     buy: 'Beli',
@@ -2975,6 +2979,45 @@ export default {
       swarm: 'lebih banyak musuh, nyawa masing-masing lebih sedikit',
       elites: 'satu juara di setiap gelombang',
       haste: 'musuh bergerak dan menyerang lebih cepat'
+    }
+  },
+  forge: {
+    upgrade: 'Tingkatkan ({n} emas)',
+    max: 'Sudah maksimal: +{n}.',
+    town: 'Pandai besi di kota mana pun bisa meningkatkan ini.'
+  },
+  plant: {
+    sunpetal: {
+      name: 'Kelopak Surya',
+      desc: 'Bunga kuning cerah. Para penyembuh sangat percaya padanya.'
+    },
+    glowcap: {
+      name: 'Jamur Pendar',
+      desc: 'Jamur yang menyala dalam gelap. Bagus untuk pikiran.'
+    },
+    swiftfern: {
+      name: 'Pakis Kilat',
+      desc: 'Pakis yang ringan. Gosokkan ke sepatumu lalu lari.'
+    },
+    ironmoss: {
+      name: 'Lumut Besi',
+      desc: 'Lumut keras dari bebatuan. Membuat kulit jadi kuat.'
+    },
+    emberbloom: {
+      name: 'Bunga Bara',
+      desc: 'Bunga yang terasa hangat di tangan.'
+    },
+    frostmint: {
+      name: 'Mint Beku',
+      desc: 'Daun yang dingin dan segar. Bikin kepala jernih.'
+    },
+    moonbell: {
+      name: 'Lonceng Bulan',
+      desc: 'Bunga pucat langka yang menajamkan mata.'
+    },
+    shadowthorn: {
+      name: 'Duri Bayang',
+      desc: 'Duri gelap yang langka. Kuat, dan sedikit jahat.'
     }
   }
 }

@@ -92,7 +92,8 @@ export default {
     item: 'Tapıldı: {item}',
     levelUp: 'Səviyyə {level}! +3 atribut xalı',
     boss: '{boss} peyda oldu',
-    wave: 'Dalğa {n}'
+    wave: 'Dalğa {n}',
+    herb: 'Dərildi: {plant}'
   },
   coach: {
     move: {
@@ -630,11 +631,11 @@ export default {
     trinket: 'Tilsim'
   },
   tier: {
-    '1': 'Dərəcə 1',
-    '2': 'Dərəcə 2',
-    '3': 'Dərəcə 3',
-    '4': 'Dərəcə 4',
-    '5': 'Dərəcə 5',
+    '1': 'Adi',
+    '2': 'Qeyri-adi',
+    '3': 'Nadir',
+    '4': 'Epik',
+    '5': 'Qəhrəmanlıq',
     '6': 'Əfsanəvi'
   },
   weapon: {
@@ -911,14 +912,17 @@ export default {
       all: 'Hamısı',
       weapons: 'Silahlar',
       armor: 'Zirehlər',
-      trinkets: 'Tilsimlər'
+      trinkets: 'Tilsimlər',
+      herbs: 'Otlar'
     },
     sort: {
       slot: 'Növ',
-      tier: 'Dərəcə',
+      tier: 'Keyfiyyət',
       level: 'Səviyyə'
     },
-    sortBy: 'Sırala: {by}'
+    sortBy: 'Sırala: {by}',
+    noHerbs: 'Hələ ot yoxdur. Onlar çöldə bitir: dərmək üçün üstündən keç.',
+    herbCount: '{plant}: {n}'
   },
   shop: {
     buy: 'Al',
@@ -2975,6 +2979,45 @@ export default {
       swarm: 'daha çox düşmən, hərəsində az can',
       elites: 'hər dalğada bir çempion',
       haste: 'düşmənlər daha sürətli hərəkət edir və vurur'
+    }
+  },
+  forge: {
+    upgrade: 'Təkmilləşdir ({n} qızıl)',
+    max: 'Tam təkmilləşdirilib: +{n}.',
+    town: 'İstənilən şəhərin dəmirçisi bunu təkmilləşdirə bilər.'
+  },
+  plant: {
+    sunpetal: {
+      name: 'Günləçək',
+      desc: 'Parlaq sarı çiçək. Loğmanlar ona çox güvənir.'
+    },
+    glowcap: {
+      name: 'Nurpapaq',
+      desc: 'Qaranlıqda parlayan göbələk. Ağıl üçün xeyirlidir.'
+    },
+    swiftfern: {
+      name: 'Yelqıjı',
+      desc: 'Yüngül qıjı. Çəkmələrinə sürt və qaç.'
+    },
+    ironmoss: {
+      name: 'Dəmirmamır',
+      desc: 'Daşlarda bitən bərk mamır. Dərini sərtləşdirir.'
+    },
+    emberbloom: {
+      name: 'Közçiçək',
+      desc: 'Əldə isti hiss olunan çiçək.'
+    },
+    frostmint: {
+      name: 'Şaxtananə',
+      desc: 'Sərin, təravətli yarpaqlar. Başını təmizləyir.'
+    },
+    moonbell: {
+      name: 'Ayzəng',
+      desc: 'Gözü itiləşdirən nadir, solğun çiçək.'
+    },
+    shadowthorn: {
+      name: 'Kölgətikan',
+      desc: 'Nadir tünd tikan. Güclü və bir az da şeytani.'
     }
   }
 }

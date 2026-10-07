@@ -92,7 +92,8 @@ export default {
     item: 'Hittade: {item}',
     levelUp: 'Nivå {level}! +3 attributpoäng',
     boss: '{boss} dyker upp',
-    wave: 'Våg {n}'
+    wave: 'Våg {n}',
+    herb: 'Plockade: {plant}'
   },
   coach: {
     move: {
@@ -630,11 +631,11 @@ export default {
     trinket: 'Smycke'
   },
   tier: {
-    '1': 'Rang 1',
-    '2': 'Rang 2',
-    '3': 'Rang 3',
-    '4': 'Rang 4',
-    '5': 'Rang 5',
+    '1': 'Vanlig',
+    '2': 'Ovanlig',
+    '3': 'Sällsynt',
+    '4': 'Episk',
+    '5': 'Heroisk',
     '6': 'Legendarisk'
   },
   weapon: {
@@ -911,14 +912,17 @@ export default {
       all: 'Alla',
       weapons: 'Vapen',
       armor: 'Rustning',
-      trinkets: 'Smycken'
+      trinkets: 'Smycken',
+      herbs: 'Örter'
     },
     sort: {
       slot: 'Typ',
-      tier: 'Rang',
+      tier: 'Kvalitet',
       level: 'Nivå'
     },
-    sortBy: 'Sortera efter: {by}'
+    sortBy: 'Sortera efter: {by}',
+    noHerbs: 'Inga örter än. De växer ute i det vilda: gå över en för att plocka den.',
+    herbCount: '{plant}: {n}'
   },
   shop: {
     buy: 'Köp',
@@ -2975,6 +2979,45 @@ export default {
       swarm: 'fler fiender, med mindre hälsa var',
       elites: 'en mästare i varje våg',
       haste: 'fiender rör sig och slår snabbare'
+    }
+  },
+  forge: {
+    upgrade: 'Uppgradera ({n} guld)',
+    max: 'Fullt uppgraderad: +{n}.',
+    town: 'Smeden i vilken stad som helst kan uppgradera den.'
+  },
+  plant: {
+    sunpetal: {
+      name: 'Solblad',
+      desc: 'En klargul blomma. Helare svär vid den.'
+    },
+    glowcap: {
+      name: 'Lyshatt',
+      desc: 'En svamp som lyser i mörkret. Bra för sinnet.'
+    },
+    swiftfern: {
+      name: 'Snabbräken',
+      desc: 'En lätt ormbunke. Gnid den på stövlarna och spring.'
+    },
+    ironmoss: {
+      name: 'Järnmossa',
+      desc: 'Seg mossa från stenarna. Gör huden hård.'
+    },
+    emberbloom: {
+      name: 'Glödblomma',
+      desc: 'En blomma som känns varm i handen.'
+    },
+    frostmint: {
+      name: 'Frostmynta',
+      desc: 'Kalla, friska blad. De rensar huvudet.'
+    },
+    moonbell: {
+      name: 'Månklocka',
+      desc: 'En sällsynt, blek blomma som skärper blicken.'
+    },
+    shadowthorn: {
+      name: 'Skuggtagg',
+      desc: 'En sällsynt mörk tagg. Stark, och lite elak.'
     }
   }
 }

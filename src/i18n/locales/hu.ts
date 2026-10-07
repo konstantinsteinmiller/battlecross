@@ -92,7 +92,8 @@ export default {
     item: 'Találtad: {item}',
     levelUp: '{level}. szint! +3 tulajdonságpont',
     boss: 'Megjelent: {boss}',
-    wave: '{n}. hullám'
+    wave: '{n}. hullám',
+    herb: 'Leszedve: {plant}'
   },
   coach: {
     move: {
@@ -630,11 +631,11 @@ export default {
     trinket: 'Csecsebecse'
   },
   tier: {
-    '1': '1. fokozat',
-    '2': '2. fokozat',
-    '3': '3. fokozat',
-    '4': '4. fokozat',
-    '5': '5. fokozat',
+    '1': 'Gyakori',
+    '2': 'Szokatlan',
+    '3': 'Ritka',
+    '4': 'Epikus',
+    '5': 'Hősi',
     '6': 'Legendás'
   },
   weapon: {
@@ -911,14 +912,17 @@ export default {
       all: 'Mind',
       weapons: 'Fegyverek',
       armor: 'Páncélok',
-      trinkets: 'Ékszerek'
+      trinkets: 'Ékszerek',
+      herbs: 'Gyógyfüvek'
     },
     sort: {
       slot: 'Típus',
-      tier: 'Rang',
+      tier: 'Minőség',
       level: 'Szint'
     },
-    sortBy: 'Rendezés: {by}'
+    sortBy: 'Rendezés: {by}',
+    noHerbs: 'Még nincsenek gyógyfüveid. A vadonban nőnek: sétálj rá egyre, hogy leszedd.',
+    herbCount: '{plant}: {n}'
   },
   shop: {
     buy: 'Vétel',
@@ -2975,6 +2979,45 @@ export default {
       swarm: 'több ellenség, egyenként kevesebb élettel',
       elites: 'bajnok minden hullámban',
       haste: 'az ellenségek gyorsabban mozognak és ütnek'
+    }
+  },
+  forge: {
+    upgrade: 'Fejlesztés ({n} arany)',
+    max: 'Teljesen fejlesztve: +{n}.',
+    town: 'Bármelyik város kovácsa fejlesztheti.'
+  },
+  plant: {
+    sunpetal: {
+      name: 'Napszirom',
+      desc: 'Élénksárga virág. A gyógyítók esküsznek rá.'
+    },
+    glowcap: {
+      name: 'Fénykalap',
+      desc: 'Gomba, ami a sötétben világít. Jót tesz az elmének.'
+    },
+    swiftfern: {
+      name: 'Fürgepáfrány',
+      desc: 'Könnyű páfrány. Dörzsöld a csizmádra, és fuss!'
+    },
+    ironmoss: {
+      name: 'Vasmoha',
+      desc: 'Szívós moha a kövekről. Megkeményíti a bőrt.'
+    },
+    emberbloom: {
+      name: 'Parázsvirág',
+      desc: 'Virág, ami melegnek érződik a kézben.'
+    },
+    frostmint: {
+      name: 'Fagymenta',
+      desc: 'Hideg, friss levelek. Kitisztítják a fejet.'
+    },
+    moonbell: {
+      name: 'Holdharang',
+      desc: 'Ritka, sápadt virág, ami élesíti a szemet.'
+    },
+    shadowthorn: {
+      name: 'Árnytüske',
+      desc: 'Ritka, sötét tüske. Erős, és kicsit gonosz.'
     }
   }
 }

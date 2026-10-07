@@ -92,7 +92,8 @@ export default {
     item: 'Znaleziono: {item}',
     levelUp: 'Poziom {level}! +3 punkty atrybutów',
     boss: 'Nadchodzi: {boss}',
-    wave: 'Fala {n}'
+    wave: 'Fala {n}',
+    herb: 'Zebrano: {plant}'
   },
   coach: {
     move: {
@@ -631,12 +632,12 @@ export default {
     trinket: 'Błyskotka'
   },
   tier: {
-    '1': 'Klasa 1',
-    '2': 'Klasa 2',
-    '3': 'Klasa 3',
-    '4': 'Klasa 4',
-    '5': 'Klasa 5',
-    '6': 'Legenda'
+    '1': 'Pospolity',
+    '2': 'Niepospolity',
+    '3': 'Rzadki',
+    '4': 'Epicki',
+    '5': 'Heroiczny',
+    '6': 'Legendarny'
   },
   weapon: {
     melee: 'Wręcz · atrybut: {attr}',
@@ -912,14 +913,17 @@ export default {
       all: 'Wszystko',
       weapons: 'Broń',
       armor: 'Zbroja',
-      trinkets: 'Błyskotki'
+      trinkets: 'Błyskotki',
+      herbs: 'Zioła'
     },
     sort: {
       slot: 'Typ',
-      tier: 'Klasa',
+      tier: 'Jakość',
       level: 'Poziom'
     },
-    sortBy: 'Sortuj: {by}'
+    sortBy: 'Sortuj: {by}',
+    noHerbs: 'Jeszcze brak ziół. Rosną w dziczy: przejdź po roślinie, by ją zerwać.',
+    herbCount: '{plant}: {n}'
   },
   shop: {
     buy: 'Kup',
@@ -3062,6 +3066,45 @@ export default {
       swarm: 'więcej wrogów, każdy z mniejszym zdrowiem',
       elites: 'mistrz w każdej fali',
       haste: 'wrogowie poruszają się i biją szybciej'
+    }
+  },
+  forge: {
+    upgrade: 'Ulepsz ({n} szt. złota)',
+    max: 'W pełni ulepszone: +{n}.',
+    town: 'Kowal w każdym mieście może to ulepszyć.'
+  },
+  plant: {
+    sunpetal: {
+      name: 'Słoneczny płatek',
+      desc: 'Jasnożółty kwiat. Uzdrowiciele nie mogą się go nachwalić.'
+    },
+    glowcap: {
+      name: 'Blaskówka',
+      desc: 'Grzyb, który świeci w ciemności. Dobry dla umysłu.'
+    },
+    swiftfern: {
+      name: 'Chyżopaproć',
+      desc: 'Lekka paproć. Natrzyj nią buty i biegnij.'
+    },
+    ironmoss: {
+      name: 'Żelazny mech',
+      desc: 'Twardy mech z kamieni. Utwardza skórę.'
+    },
+    emberbloom: {
+      name: 'Żarokwiat',
+      desc: 'Kwiat, który w dłoni wydaje się ciepły.'
+    },
+    frostmint: {
+      name: 'Mroźna mięta',
+      desc: 'Zimne, świeże liście. Rozjaśniają umysł.'
+    },
+    moonbell: {
+      name: 'Księżycowy dzwonek',
+      desc: 'Rzadki blady kwiat, który wyostrza wzrok.'
+    },
+    shadowthorn: {
+      name: 'Cieniocierń',
+      desc: 'Rzadki ciemny cierń. Silny i trochę złośliwy.'
     }
   }
 }
