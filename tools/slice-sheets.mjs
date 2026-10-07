@@ -851,12 +851,18 @@ const main = async () => {
    *  exception is the store covers' preview copies (`ArtCover` in the
    *  manifest), which climb out of `public/` so that no build ships them. */
   const COVER_OUT = resolve(ROOT, 'store-art', 'covers', 'masters')
+  // The world map's quarters too: `pnpm art:stitch-map` joins them into the
+  // one sheet the game loads.
+  const PARTS_OUT = resolve(ROOT, 'art-sheets', 'map-parts')
   const safeTarget = (target) => {
     const full = resolve(OUT_ROOT, target)
     const rel = relative(OUT_ROOT, full)
     if (rel && !rel.startsWith('..') && !rel.startsWith(sep)) return full
-    const cover = relative(COVER_OUT, full)
-    return cover && !cover.startsWith('..') && !cover.startsWith(sep) && !cover.includes(sep) ? full : null
+    const inside = (dir) => {
+      const r = relative(dir, full)
+      return r && !r.startsWith('..') && !r.startsWith(sep) && !r.includes(sep)
+    }
+    return inside(COVER_OUT) || inside(PARTS_OUT) ? full : null
   }
 
   // ─── The receipt: what each painting was cut against ──────────────────────

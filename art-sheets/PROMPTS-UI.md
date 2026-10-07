@@ -280,9 +280,9 @@ WHAT IT IS: the terrain of a hand-drawn storybook map, drawn the way such maps a
 · Right of centre: a pale green marsh of reeds around a turquoise lake with lily pads; a river runs from the lake to the sea.
 · Upper right: a violet land of pale crystal spikes and dark pools; beyond it, in the top right corner, a dark crimson land of black peaks with burning tips, thorn spikes and dead trees.
 · Right edge, under those: a jagged black tear in the land with a glowing hot-pink rim, running off the edge of the image.
-· Pale dirt roads wind between sixteen bare, flat, oval clearings, each with a darker lip along its lower edge. Keep every road and every clearing, at its place and its size, and keep the clearings EMPTY.
+· Pale dirt roads wind between 17 bare, flat, oval clearings, each with a darker lip along its lower edge. Keep every road and every clearing, at its place and its size, and keep the clearings EMPTY.
 
-WHAT IT IS NOT — read this twice. The game draws every landmark, every place marker and every name OVER this picture, on the sixteen clearings, and they change as the player travels: a place is hidden under cloud, then opens, then is marked as cleared. So the clearings stay bare ground, and NOTHING painted anywhere may be a building or a sign: no towns, no houses, no castles, no towers, no temples, no tents, no camps, no windmills, no lighthouses, no ships under sail, no people, no monsters, no flags, no banners, no crosses, no compass rose, no title ribbon, no clouds, no text, no letters, no numbers. A painted town would sit beside the real one and read as a second, wrong place.
+WHAT IT IS NOT — read this twice. The game draws every landmark, every place marker and every name OVER this picture, on the 17 clearings, and they change as the player travels: a place is hidden under cloud, then opens, then is marked as cleared. So the clearings stay bare ground, and NOTHING painted anywhere may be a building or a sign: no towns, no houses, no castles, no towers, no temples, no tents, no camps, no windmills, no lighthouses, no ships under sail, no people, no monsters, no flags, no banners, no crosses, no compass rose, no title ribbon, no clouds, no text, no letters, no numbers. A painted town would sit beside the real one and read as a second, wrong place.
 · Do not add regions, roads, rivers or clearings the reference does not have, and do not join, move or drop any it has.
 · Keep it bright and even: small landmarks and paper name tags sit on every part of it and must stay readable. No region darker or busier than the reference shows it.
 
@@ -304,8 +304,248 @@ AVOID: three-quarter or perspective views, realism, pixel art, thin technical li
 
 BEFORE YOU CALL IT FINISHED, check:
 · The picture reaches all four edges of the image; there is no magenta and no border.
-· Laid over the reference, every coast, river, bridge, road and clearing is where the reference has it.
-· The sixteen clearings are empty, and there is not one building, figure, symbol or letter anywhere in it.
+· Laid over the reference, every coast, river, bridge, road and clearing is where it has it.
+· The 17 clearings are empty, and there is not one building, figure, symbol or letter anywhere in it.
+
+OUTPUT: one image, 1376 x 768 pixels (16:9, landscape). If your tool has an aspect-ratio control, set it to 16:9. PNG. No labels, captions, numbers or watermarks.
+```
+
+## UI: the world map, top left quarter  (bg-ui-terrain-nw.png → ../art-sheets/map-parts/nw.webp)
+
+Attach, in this order: `art-sheets/painted/bg-ui-map.jpg`, then the reference named in the heading.
+
+```text
+WHAT COMES BACK IS THE TOP LEFT QUARTER OF AN ILLUSTRATED MAP OF A FANTASY REALM, ENLARGED: ITS TERRAIN ONLY, WITH NO BUILDINGS AND NO LETTERING.
+One landscape image, 1376 x 768 pixels (16:9), painted edge to edge.
+
+ATTACHED IMAGES — there are 2, and they do two different jobs.
+· The FIRST is the whole map, already painted. Take from it ONLY the finish: the hand, the outlines, the shading, the colour of every region, and how big each tree, mountain, hill, wave and field is against the roads and clearings. Not its layout: it is older than the plan and differs from it in places.
+· The LAST is the layout reference: the top left part of the map's plan, enlarged to fill the image. Paint EXACTLY what it shows, at its scale: every coast, region, river, bridge, road and clearing where the reference has it.
+
+Four such quarters are painted and joined into one big map, each overlapping its neighbours by a wide strip, so they must meet without a visible join. The top and left edges are the edges of the whole map. The bottom and right edges cut straight through the middle of the land: the terrain simply runs on past them, cut off mid-tree and mid-field. No coast, no frame, no darkening, no fade and no empty margin along them.
+Because it is enlarged, give every tree, mountain, wave and field MORE crisp detail than in the first image, at the SAME size against the roads and clearings — not more of them, and not smaller ones.
+
+IT FILLS THE IMAGE, edge to edge, corner to corner. There is NO background behind it and NO magenta anywhere in this one: it is itself the sheet the map screen is drawn on top of. No frame, no border, no vignette, no card, no matting, no rounded corners, no letterboxing, no curled or torn paper edge (the game draws the paper's edge itself).
+
+WHAT IT IS: part of the terrain of a hand-drawn storybook map, drawn the way such maps are: the land flat from above, and what stands on it (mountains, trees, hills) as small upright pictures. Repaint the LAST attached image. The game lays its own drawings over the picture by position. The whole map, for orientation (this quarter shows only some of it: paint only what the reference shows):
+· Sea along the left and the bottom edge and in the lower right corner: bright turquoise, a paler band of shallows hugging the coast, small white wave squiggles, a few rocks, a small wreck on the rocks of the left shore, a little sand island in the lower left corner and one at the right edge.
+· Lower left: bright green meadow with soft hills, tufts, flowers, lone round trees and a few sheep.
+· Left: olive-yellow hills dotted with grey rocks; a short river above them runs to the left shore.
+· Upper left: tan highlands crowded with brown, snow-capped mountains and dark pines.
+· Middle: a wood of round lollipop trees, a few in pink blossom or autumn orange; a blue river runs down its left side into the bay, with a plank bridge where a road crosses it; a ring of standing stones to the left of the wood.
+· Above the middle: an ashen grey-violet waste with cracks of glowing lava, cinder rocks, dead trees, and a stream of lava running into a small pool.
+· Top middle: snowfields with pale blue peaks, snow-tipped pines, drifts and frozen ponds; a river leaves them toward the lake, under a second plank bridge.
+· Lower middle to right: golden farmland, a patchwork of striped fields in wheat, green and brown, with hay stooks and hedge trees.
+· Right of centre: a pale green marsh of reeds around a turquoise lake with lily pads; a river runs from the lake to the sea.
+· Upper right: a violet land of pale crystal spikes and dark pools; beyond it, in the top right corner, a dark crimson land of black peaks with burning tips, thorn spikes and dead trees.
+· Right edge, under those: a jagged black tear in the land with a glowing hot-pink rim, running off the edge of the image.
+· Pale dirt roads wind between bare, flat, oval clearings, each with a darker lip along its lower edge. Keep every road and every clearing the reference shows, at its place and its size (one cut by the edge stays cut), and keep the clearings EMPTY.
+
+WHAT IT IS NOT — read this twice. The game draws every landmark, every place marker and every name OVER this picture, on the clearings, and they change as the player travels: a place is hidden under cloud, then opens, then is marked as cleared. So the clearings stay bare ground, and NOTHING painted anywhere may be a building or a sign: no towns, no houses, no castles, no towers, no temples, no tents, no camps, no windmills, no lighthouses, no ships under sail, no people, no monsters, no flags, no banners, no crosses, no compass rose, no title ribbon, no clouds, no text, no letters, no numbers. A painted town would sit beside the real one and read as a second, wrong place.
+· Do not add regions, roads, rivers or clearings the reference does not have, and do not join, move or drop any it has.
+· Keep it bright and even: small landmarks and paper name tags sit on every part of it and must stay readable. No region darker or busier than the reference shows it.
+
+COLOUR — the first image's own, region by region, so the four quarters match where they meet.
+
+THE VIEW — the map convention the reference uses: the ground from straight above, each mountain, tree and hill as a small upright picture on it. No horizon, no perspective, no tilt of the sheet.
+
+STYLE — the same hand as every other picture in this game.
+· Chunky, rounded, toy-like forms. Simplify: few large shapes, no fine detail that vanishes at thumbnail size.
+· ONE dark outline around every shape, in deep charcoal-violet (about #0F0C19, never pure black), brush-pen weight: at its heaviest about 2.5% of the panel's shorter side. Hold the picture at thumbnail size; if the outline has thinned to a hairline it is several times too thin.
+· Cel shading in hard steps, no blending: a base tone, ONE shadow step (the base darkened by about a third and pushed toward blue-violet) and ONE lighter step. No airbrush, no smooth gradients, no photographic texture, no noise.
+· Bright, saturated candy colours (saturation 60-85%, brightness 75-100%). Nothing muddy, grey or desaturated.
+· One small, hard-edged white glint on anything metal, glass, gem or liquid.
+· Light and energy are painted as SOLID shapes: a white-hot core, the colour, a darker edge. Nothing is ever see-through, hazy or ghostly.
+· People are squat chibi: the head is nearly half the figure, large oval eyes with one white glint, tiny nose or none, mitten hands, no fingers.
+· AN OBJECT WITH NO FACE IS NOT AN EXCEPTION TO ANY OF THIS. A sword, a ring, a flask or a rock gets the same outline, the same two-step shading and the same glint as a character.
+· The attached reference is a flat stand-in. Follow its SHAPE, its SIZE in the panel and its POSITION; take nothing else from it — not its line weight, flat fills or lack of shading. Its plain shapes are notation, and a sheet that comes back as the same flat shapes neatly repainted is unusable.
+AVOID: three-quarter or perspective views, realism, pixel art, thin technical line, soft glow around a shape, drop shadows, text, numbers, frames, badges or cards behind the object.
+
+BEFORE YOU CALL IT FINISHED, check:
+· The picture reaches all four edges of the image; there is no magenta and no border.
+· Laid over the last attached image, every coast, river, bridge, road and clearing is where it has it.
+· The clearings are empty, and there is not one building, figure, symbol or letter anywhere in it.
+· Along the bottom and right edges the land runs straight on, as if the picture were cut from a bigger one.
+
+OUTPUT: one image, 1376 x 768 pixels (16:9, landscape). If your tool has an aspect-ratio control, set it to 16:9. PNG. No labels, captions, numbers or watermarks.
+```
+
+## UI: the world map, top right quarter  (bg-ui-terrain-ne.png → ../art-sheets/map-parts/ne.webp)
+
+Attach, in this order: `art-sheets/painted/bg-ui-map.jpg`, then the reference named in the heading.
+
+```text
+WHAT COMES BACK IS THE TOP RIGHT QUARTER OF AN ILLUSTRATED MAP OF A FANTASY REALM, ENLARGED: ITS TERRAIN ONLY, WITH NO BUILDINGS AND NO LETTERING.
+One landscape image, 1376 x 768 pixels (16:9), painted edge to edge.
+
+ATTACHED IMAGES — there are 2, and they do two different jobs.
+· The FIRST is the whole map, already painted. Take from it ONLY the finish: the hand, the outlines, the shading, the colour of every region, and how big each tree, mountain, hill, wave and field is against the roads and clearings. Not its layout: it is older than the plan and differs from it in places.
+· The LAST is the layout reference: the top right part of the map's plan, enlarged to fill the image. Paint EXACTLY what it shows, at its scale: every coast, region, river, bridge, road and clearing where the reference has it.
+
+Four such quarters are painted and joined into one big map, each overlapping its neighbours by a wide strip, so they must meet without a visible join. The top and right edges are the edges of the whole map. The bottom and left edges cut straight through the middle of the land: the terrain simply runs on past them, cut off mid-tree and mid-field. No coast, no frame, no darkening, no fade and no empty margin along them.
+Because it is enlarged, give every tree, mountain, wave and field MORE crisp detail than in the first image, at the SAME size against the roads and clearings — not more of them, and not smaller ones.
+
+IT FILLS THE IMAGE, edge to edge, corner to corner. There is NO background behind it and NO magenta anywhere in this one: it is itself the sheet the map screen is drawn on top of. No frame, no border, no vignette, no card, no matting, no rounded corners, no letterboxing, no curled or torn paper edge (the game draws the paper's edge itself).
+
+WHAT IT IS: part of the terrain of a hand-drawn storybook map, drawn the way such maps are: the land flat from above, and what stands on it (mountains, trees, hills) as small upright pictures. Repaint the LAST attached image. The game lays its own drawings over the picture by position. The whole map, for orientation (this quarter shows only some of it: paint only what the reference shows):
+· Sea along the left and the bottom edge and in the lower right corner: bright turquoise, a paler band of shallows hugging the coast, small white wave squiggles, a few rocks, a small wreck on the rocks of the left shore, a little sand island in the lower left corner and one at the right edge.
+· Lower left: bright green meadow with soft hills, tufts, flowers, lone round trees and a few sheep.
+· Left: olive-yellow hills dotted with grey rocks; a short river above them runs to the left shore.
+· Upper left: tan highlands crowded with brown, snow-capped mountains and dark pines.
+· Middle: a wood of round lollipop trees, a few in pink blossom or autumn orange; a blue river runs down its left side into the bay, with a plank bridge where a road crosses it; a ring of standing stones to the left of the wood.
+· Above the middle: an ashen grey-violet waste with cracks of glowing lava, cinder rocks, dead trees, and a stream of lava running into a small pool.
+· Top middle: snowfields with pale blue peaks, snow-tipped pines, drifts and frozen ponds; a river leaves them toward the lake, under a second plank bridge.
+· Lower middle to right: golden farmland, a patchwork of striped fields in wheat, green and brown, with hay stooks and hedge trees.
+· Right of centre: a pale green marsh of reeds around a turquoise lake with lily pads; a river runs from the lake to the sea.
+· Upper right: a violet land of pale crystal spikes and dark pools; beyond it, in the top right corner, a dark crimson land of black peaks with burning tips, thorn spikes and dead trees.
+· Right edge, under those: a jagged black tear in the land with a glowing hot-pink rim, running off the edge of the image.
+· Pale dirt roads wind between bare, flat, oval clearings, each with a darker lip along its lower edge. Keep every road and every clearing the reference shows, at its place and its size (one cut by the edge stays cut), and keep the clearings EMPTY.
+
+WHAT IT IS NOT — read this twice. The game draws every landmark, every place marker and every name OVER this picture, on the clearings, and they change as the player travels: a place is hidden under cloud, then opens, then is marked as cleared. So the clearings stay bare ground, and NOTHING painted anywhere may be a building or a sign: no towns, no houses, no castles, no towers, no temples, no tents, no camps, no windmills, no lighthouses, no ships under sail, no people, no monsters, no flags, no banners, no crosses, no compass rose, no title ribbon, no clouds, no text, no letters, no numbers. A painted town would sit beside the real one and read as a second, wrong place.
+· Do not add regions, roads, rivers or clearings the reference does not have, and do not join, move or drop any it has.
+· Keep it bright and even: small landmarks and paper name tags sit on every part of it and must stay readable. No region darker or busier than the reference shows it.
+
+COLOUR — the first image's own, region by region, so the four quarters match where they meet.
+
+THE VIEW — the map convention the reference uses: the ground from straight above, each mountain, tree and hill as a small upright picture on it. No horizon, no perspective, no tilt of the sheet.
+
+STYLE — the same hand as every other picture in this game.
+· Chunky, rounded, toy-like forms. Simplify: few large shapes, no fine detail that vanishes at thumbnail size.
+· ONE dark outline around every shape, in deep charcoal-violet (about #0F0C19, never pure black), brush-pen weight: at its heaviest about 2.5% of the panel's shorter side. Hold the picture at thumbnail size; if the outline has thinned to a hairline it is several times too thin.
+· Cel shading in hard steps, no blending: a base tone, ONE shadow step (the base darkened by about a third and pushed toward blue-violet) and ONE lighter step. No airbrush, no smooth gradients, no photographic texture, no noise.
+· Bright, saturated candy colours (saturation 60-85%, brightness 75-100%). Nothing muddy, grey or desaturated.
+· One small, hard-edged white glint on anything metal, glass, gem or liquid.
+· Light and energy are painted as SOLID shapes: a white-hot core, the colour, a darker edge. Nothing is ever see-through, hazy or ghostly.
+· People are squat chibi: the head is nearly half the figure, large oval eyes with one white glint, tiny nose or none, mitten hands, no fingers.
+· AN OBJECT WITH NO FACE IS NOT AN EXCEPTION TO ANY OF THIS. A sword, a ring, a flask or a rock gets the same outline, the same two-step shading and the same glint as a character.
+· The attached reference is a flat stand-in. Follow its SHAPE, its SIZE in the panel and its POSITION; take nothing else from it — not its line weight, flat fills or lack of shading. Its plain shapes are notation, and a sheet that comes back as the same flat shapes neatly repainted is unusable.
+AVOID: three-quarter or perspective views, realism, pixel art, thin technical line, soft glow around a shape, drop shadows, text, numbers, frames, badges or cards behind the object.
+
+BEFORE YOU CALL IT FINISHED, check:
+· The picture reaches all four edges of the image; there is no magenta and no border.
+· Laid over the last attached image, every coast, river, bridge, road and clearing is where it has it.
+· The clearings are empty, and there is not one building, figure, symbol or letter anywhere in it.
+· Along the bottom and left edges the land runs straight on, as if the picture were cut from a bigger one.
+
+OUTPUT: one image, 1376 x 768 pixels (16:9, landscape). If your tool has an aspect-ratio control, set it to 16:9. PNG. No labels, captions, numbers or watermarks.
+```
+
+## UI: the world map, bottom left quarter  (bg-ui-terrain-sw.png → ../art-sheets/map-parts/sw.webp)
+
+Attach, in this order: `art-sheets/painted/bg-ui-map.jpg`, then the reference named in the heading.
+
+```text
+WHAT COMES BACK IS THE BOTTOM LEFT QUARTER OF AN ILLUSTRATED MAP OF A FANTASY REALM, ENLARGED: ITS TERRAIN ONLY, WITH NO BUILDINGS AND NO LETTERING.
+One landscape image, 1376 x 768 pixels (16:9), painted edge to edge.
+
+ATTACHED IMAGES — there are 2, and they do two different jobs.
+· The FIRST is the whole map, already painted. Take from it ONLY the finish: the hand, the outlines, the shading, the colour of every region, and how big each tree, mountain, hill, wave and field is against the roads and clearings. Not its layout: it is older than the plan and differs from it in places.
+· The LAST is the layout reference: the bottom left part of the map's plan, enlarged to fill the image. Paint EXACTLY what it shows, at its scale: every coast, region, river, bridge, road and clearing where the reference has it.
+
+Four such quarters are painted and joined into one big map, each overlapping its neighbours by a wide strip, so they must meet without a visible join. The bottom and left edges are the edges of the whole map. The top and right edges cut straight through the middle of the land: the terrain simply runs on past them, cut off mid-tree and mid-field. No coast, no frame, no darkening, no fade and no empty margin along them.
+Because it is enlarged, give every tree, mountain, wave and field MORE crisp detail than in the first image, at the SAME size against the roads and clearings — not more of them, and not smaller ones.
+
+IT FILLS THE IMAGE, edge to edge, corner to corner. There is NO background behind it and NO magenta anywhere in this one: it is itself the sheet the map screen is drawn on top of. No frame, no border, no vignette, no card, no matting, no rounded corners, no letterboxing, no curled or torn paper edge (the game draws the paper's edge itself).
+
+WHAT IT IS: part of the terrain of a hand-drawn storybook map, drawn the way such maps are: the land flat from above, and what stands on it (mountains, trees, hills) as small upright pictures. Repaint the LAST attached image. The game lays its own drawings over the picture by position. The whole map, for orientation (this quarter shows only some of it: paint only what the reference shows):
+· Sea along the left and the bottom edge and in the lower right corner: bright turquoise, a paler band of shallows hugging the coast, small white wave squiggles, a few rocks, a small wreck on the rocks of the left shore, a little sand island in the lower left corner and one at the right edge.
+· Lower left: bright green meadow with soft hills, tufts, flowers, lone round trees and a few sheep.
+· Left: olive-yellow hills dotted with grey rocks; a short river above them runs to the left shore.
+· Upper left: tan highlands crowded with brown, snow-capped mountains and dark pines.
+· Middle: a wood of round lollipop trees, a few in pink blossom or autumn orange; a blue river runs down its left side into the bay, with a plank bridge where a road crosses it; a ring of standing stones to the left of the wood.
+· Above the middle: an ashen grey-violet waste with cracks of glowing lava, cinder rocks, dead trees, and a stream of lava running into a small pool.
+· Top middle: snowfields with pale blue peaks, snow-tipped pines, drifts and frozen ponds; a river leaves them toward the lake, under a second plank bridge.
+· Lower middle to right: golden farmland, a patchwork of striped fields in wheat, green and brown, with hay stooks and hedge trees.
+· Right of centre: a pale green marsh of reeds around a turquoise lake with lily pads; a river runs from the lake to the sea.
+· Upper right: a violet land of pale crystal spikes and dark pools; beyond it, in the top right corner, a dark crimson land of black peaks with burning tips, thorn spikes and dead trees.
+· Right edge, under those: a jagged black tear in the land with a glowing hot-pink rim, running off the edge of the image.
+· Pale dirt roads wind between bare, flat, oval clearings, each with a darker lip along its lower edge. Keep every road and every clearing the reference shows, at its place and its size (one cut by the edge stays cut), and keep the clearings EMPTY.
+
+WHAT IT IS NOT — read this twice. The game draws every landmark, every place marker and every name OVER this picture, on the clearings, and they change as the player travels: a place is hidden under cloud, then opens, then is marked as cleared. So the clearings stay bare ground, and NOTHING painted anywhere may be a building or a sign: no towns, no houses, no castles, no towers, no temples, no tents, no camps, no windmills, no lighthouses, no ships under sail, no people, no monsters, no flags, no banners, no crosses, no compass rose, no title ribbon, no clouds, no text, no letters, no numbers. A painted town would sit beside the real one and read as a second, wrong place.
+· Do not add regions, roads, rivers or clearings the reference does not have, and do not join, move or drop any it has.
+· Keep it bright and even: small landmarks and paper name tags sit on every part of it and must stay readable. No region darker or busier than the reference shows it.
+
+COLOUR — the first image's own, region by region, so the four quarters match where they meet.
+
+THE VIEW — the map convention the reference uses: the ground from straight above, each mountain, tree and hill as a small upright picture on it. No horizon, no perspective, no tilt of the sheet.
+
+STYLE — the same hand as every other picture in this game.
+· Chunky, rounded, toy-like forms. Simplify: few large shapes, no fine detail that vanishes at thumbnail size.
+· ONE dark outline around every shape, in deep charcoal-violet (about #0F0C19, never pure black), brush-pen weight: at its heaviest about 2.5% of the panel's shorter side. Hold the picture at thumbnail size; if the outline has thinned to a hairline it is several times too thin.
+· Cel shading in hard steps, no blending: a base tone, ONE shadow step (the base darkened by about a third and pushed toward blue-violet) and ONE lighter step. No airbrush, no smooth gradients, no photographic texture, no noise.
+· Bright, saturated candy colours (saturation 60-85%, brightness 75-100%). Nothing muddy, grey or desaturated.
+· One small, hard-edged white glint on anything metal, glass, gem or liquid.
+· Light and energy are painted as SOLID shapes: a white-hot core, the colour, a darker edge. Nothing is ever see-through, hazy or ghostly.
+· People are squat chibi: the head is nearly half the figure, large oval eyes with one white glint, tiny nose or none, mitten hands, no fingers.
+· AN OBJECT WITH NO FACE IS NOT AN EXCEPTION TO ANY OF THIS. A sword, a ring, a flask or a rock gets the same outline, the same two-step shading and the same glint as a character.
+· The attached reference is a flat stand-in. Follow its SHAPE, its SIZE in the panel and its POSITION; take nothing else from it — not its line weight, flat fills or lack of shading. Its plain shapes are notation, and a sheet that comes back as the same flat shapes neatly repainted is unusable.
+AVOID: three-quarter or perspective views, realism, pixel art, thin technical line, soft glow around a shape, drop shadows, text, numbers, frames, badges or cards behind the object.
+
+BEFORE YOU CALL IT FINISHED, check:
+· The picture reaches all four edges of the image; there is no magenta and no border.
+· Laid over the last attached image, every coast, river, bridge, road and clearing is where it has it.
+· The clearings are empty, and there is not one building, figure, symbol or letter anywhere in it.
+· Along the top and right edges the land runs straight on, as if the picture were cut from a bigger one.
+
+OUTPUT: one image, 1376 x 768 pixels (16:9, landscape). If your tool has an aspect-ratio control, set it to 16:9. PNG. No labels, captions, numbers or watermarks.
+```
+
+## UI: the world map, bottom right quarter  (bg-ui-terrain-se.png → ../art-sheets/map-parts/se.webp)
+
+Attach, in this order: `art-sheets/painted/bg-ui-map.jpg`, then the reference named in the heading.
+
+```text
+WHAT COMES BACK IS THE BOTTOM RIGHT QUARTER OF AN ILLUSTRATED MAP OF A FANTASY REALM, ENLARGED: ITS TERRAIN ONLY, WITH NO BUILDINGS AND NO LETTERING.
+One landscape image, 1376 x 768 pixels (16:9), painted edge to edge.
+
+ATTACHED IMAGES — there are 2, and they do two different jobs.
+· The FIRST is the whole map, already painted. Take from it ONLY the finish: the hand, the outlines, the shading, the colour of every region, and how big each tree, mountain, hill, wave and field is against the roads and clearings. Not its layout: it is older than the plan and differs from it in places.
+· The LAST is the layout reference: the bottom right part of the map's plan, enlarged to fill the image. Paint EXACTLY what it shows, at its scale: every coast, region, river, bridge, road and clearing where the reference has it.
+
+Four such quarters are painted and joined into one big map, each overlapping its neighbours by a wide strip, so they must meet without a visible join. The bottom and right edges are the edges of the whole map. The top and left edges cut straight through the middle of the land: the terrain simply runs on past them, cut off mid-tree and mid-field. No coast, no frame, no darkening, no fade and no empty margin along them.
+Because it is enlarged, give every tree, mountain, wave and field MORE crisp detail than in the first image, at the SAME size against the roads and clearings — not more of them, and not smaller ones.
+
+IT FILLS THE IMAGE, edge to edge, corner to corner. There is NO background behind it and NO magenta anywhere in this one: it is itself the sheet the map screen is drawn on top of. No frame, no border, no vignette, no card, no matting, no rounded corners, no letterboxing, no curled or torn paper edge (the game draws the paper's edge itself).
+
+WHAT IT IS: part of the terrain of a hand-drawn storybook map, drawn the way such maps are: the land flat from above, and what stands on it (mountains, trees, hills) as small upright pictures. Repaint the LAST attached image. The game lays its own drawings over the picture by position. The whole map, for orientation (this quarter shows only some of it: paint only what the reference shows):
+· Sea along the left and the bottom edge and in the lower right corner: bright turquoise, a paler band of shallows hugging the coast, small white wave squiggles, a few rocks, a small wreck on the rocks of the left shore, a little sand island in the lower left corner and one at the right edge.
+· Lower left: bright green meadow with soft hills, tufts, flowers, lone round trees and a few sheep.
+· Left: olive-yellow hills dotted with grey rocks; a short river above them runs to the left shore.
+· Upper left: tan highlands crowded with brown, snow-capped mountains and dark pines.
+· Middle: a wood of round lollipop trees, a few in pink blossom or autumn orange; a blue river runs down its left side into the bay, with a plank bridge where a road crosses it; a ring of standing stones to the left of the wood.
+· Above the middle: an ashen grey-violet waste with cracks of glowing lava, cinder rocks, dead trees, and a stream of lava running into a small pool.
+· Top middle: snowfields with pale blue peaks, snow-tipped pines, drifts and frozen ponds; a river leaves them toward the lake, under a second plank bridge.
+· Lower middle to right: golden farmland, a patchwork of striped fields in wheat, green and brown, with hay stooks and hedge trees.
+· Right of centre: a pale green marsh of reeds around a turquoise lake with lily pads; a river runs from the lake to the sea.
+· Upper right: a violet land of pale crystal spikes and dark pools; beyond it, in the top right corner, a dark crimson land of black peaks with burning tips, thorn spikes and dead trees.
+· Right edge, under those: a jagged black tear in the land with a glowing hot-pink rim, running off the edge of the image.
+· Pale dirt roads wind between bare, flat, oval clearings, each with a darker lip along its lower edge. Keep every road and every clearing the reference shows, at its place and its size (one cut by the edge stays cut), and keep the clearings EMPTY.
+
+WHAT IT IS NOT — read this twice. The game draws every landmark, every place marker and every name OVER this picture, on the clearings, and they change as the player travels: a place is hidden under cloud, then opens, then is marked as cleared. So the clearings stay bare ground, and NOTHING painted anywhere may be a building or a sign: no towns, no houses, no castles, no towers, no temples, no tents, no camps, no windmills, no lighthouses, no ships under sail, no people, no monsters, no flags, no banners, no crosses, no compass rose, no title ribbon, no clouds, no text, no letters, no numbers. A painted town would sit beside the real one and read as a second, wrong place.
+· Do not add regions, roads, rivers or clearings the reference does not have, and do not join, move or drop any it has.
+· Keep it bright and even: small landmarks and paper name tags sit on every part of it and must stay readable. No region darker or busier than the reference shows it.
+
+COLOUR — the first image's own, region by region, so the four quarters match where they meet.
+
+THE VIEW — the map convention the reference uses: the ground from straight above, each mountain, tree and hill as a small upright picture on it. No horizon, no perspective, no tilt of the sheet.
+
+STYLE — the same hand as every other picture in this game.
+· Chunky, rounded, toy-like forms. Simplify: few large shapes, no fine detail that vanishes at thumbnail size.
+· ONE dark outline around every shape, in deep charcoal-violet (about #0F0C19, never pure black), brush-pen weight: at its heaviest about 2.5% of the panel's shorter side. Hold the picture at thumbnail size; if the outline has thinned to a hairline it is several times too thin.
+· Cel shading in hard steps, no blending: a base tone, ONE shadow step (the base darkened by about a third and pushed toward blue-violet) and ONE lighter step. No airbrush, no smooth gradients, no photographic texture, no noise.
+· Bright, saturated candy colours (saturation 60-85%, brightness 75-100%). Nothing muddy, grey or desaturated.
+· One small, hard-edged white glint on anything metal, glass, gem or liquid.
+· Light and energy are painted as SOLID shapes: a white-hot core, the colour, a darker edge. Nothing is ever see-through, hazy or ghostly.
+· People are squat chibi: the head is nearly half the figure, large oval eyes with one white glint, tiny nose or none, mitten hands, no fingers.
+· AN OBJECT WITH NO FACE IS NOT AN EXCEPTION TO ANY OF THIS. A sword, a ring, a flask or a rock gets the same outline, the same two-step shading and the same glint as a character.
+· The attached reference is a flat stand-in. Follow its SHAPE, its SIZE in the panel and its POSITION; take nothing else from it — not its line weight, flat fills or lack of shading. Its plain shapes are notation, and a sheet that comes back as the same flat shapes neatly repainted is unusable.
+AVOID: three-quarter or perspective views, realism, pixel art, thin technical line, soft glow around a shape, drop shadows, text, numbers, frames, badges or cards behind the object.
+
+BEFORE YOU CALL IT FINISHED, check:
+· The picture reaches all four edges of the image; there is no magenta and no border.
+· Laid over the last attached image, every coast, river, bridge, road and clearing is where it has it.
+· The clearings are empty, and there is not one building, figure, symbol or letter anywhere in it.
+· Along the top and left edges the land runs straight on, as if the picture were cut from a bigger one.
 
 OUTPUT: one image, 1376 x 768 pixels (16:9, landscape). If your tool has an aspect-ratio control, set it to 16:9. PNG. No labels, captions, numbers or watermarks.
 ```

@@ -5,6 +5,7 @@ import { BRAND_REFS } from './brandRefs'
 import { CG_BANNER, COVER_RECOMPOSED, COVER_SCENES, FAMILY_SIZE, VOID_DRAGON, type CoverScene } from './coverScenes'
 import { CLASS_EMBLEM_BLURBS, MARK_ICONS, SLOT_BLURBS, SLOT_GLYPH, STATUS_BLURBS, UI_ICONS } from './iconBlurbs'
 import { GLYPHS } from '../../components/art/glyphs'
+import { MAP } from '../data/zones'
 import { statusTint } from '../../components/art/tints'
 
 /**
@@ -531,6 +532,11 @@ export interface ArtScenery {
   bg: 'opaque'
   /** The plate the bench draws as its reference. */
   plate: 'map' | 'ground' | 'screen'
+  /** One quarter of the big world map (`MAP_PARTS`): which corner of the
+   *  plate it shows, as fractions of the whole. */
+  part?: MapPart
+  /** Finished paintings attached before the reference (see `ArtSet.styleRefs`). */
+  styleRefs?: readonly string[]
   label: string
   /** A screen's backdrop (`components/game/backdrops.ts`): which one, and
    *  what is in it, left, right and in the calm middle, for its prompt. */
@@ -755,11 +761,38 @@ export const SINGLES: readonly ArtSet[] = [
   }
 ]
 
+/**
+ * The big world map (#94, D116). One painting of the whole map comes back at
+ * 1376 px, which a phone's 3x screen stretches into mush; so the map is also
+ * painted as four overlapping quarters, each at the same 1376 px, and
+ * `pnpm art:stitch-map` joins them into one sheet of about 2500 px. Each
+ * quarter shows `MAP_PART_SPAN` of the plate's width and height, so
+ * neighbours share a strip the stitch cuts its seam through.
+ */
+export const MAP_PART_SPAN = 0.55
+export interface MapPart { name: 'nw' | 'ne' | 'sw' | 'se'; x: number; y: number }
+export const MAP_PARTS: readonly MapPart[] = [
+  { name: 'nw', x: 0, y: 0 },
+  { name: 'ne', x: 1 - MAP_PART_SPAN, y: 0 },
+  { name: 'sw', x: 0, y: 1 - MAP_PART_SPAN },
+  { name: 'se', x: 1 - MAP_PART_SPAN, y: 1 - MAP_PART_SPAN }
+]
+/** Where a quarter's slice goes: beside the sheets, never into a build. */
+export const mapPartTarget = (p: MapPart): string => `../art-sheets/map-parts/${p.name}.webp`
+/** The finished whole map: the hand and the colours every quarter keeps. */
+const MAP_FINISH_REF = 'art-sheets/painted/bg-ui-map.jpg'
+const PART_NAME: Readonly<Record<MapPart['name'], string>> = { nw: 'top left', ne: 'top right', sw: 'bottom left', se: 'bottom right' }
+
 export const SCENERY: readonly ArtScenery[] = [
   {
     stem: 'bg-ui-map', title: 'UI: the world map terrain', kind: 'ui', doc: 'PROMPTS-UI.md', width: 1376, height: 768,
     target: artTarget('ui', 'map'), maxEdge: 1376, tileable: false, bg: 'opaque', plate: 'map', label: 'World map'
   },
+  ...MAP_PARTS.map((p): ArtScenery => ({
+    stem: `bg-ui-terrain-${p.name}`, title: `UI: the world map, ${PART_NAME[p.name]} quarter`, kind: 'ui', doc: 'PROMPTS-UI.md', width: 1376, height: 768,
+    target: mapPartTarget(p), maxEdge: 1376, tileable: false, bg: 'opaque', plate: 'map', label: `Map ${p.name}`,
+    part: p, styleRefs: [MAP_FINISH_REF]
+  })),
   // The three big screens' backdrops (D38 to D40, D45). Drawn by
   // `components/game/backdrops.ts` until the file exists; shown `cover`, so the
   // middle of the sheet is always under the interface (see `screenPrompt`).
@@ -918,7 +951,8 @@ export const sheetIndex = (fits?: Fits): SheetIndex => ({
   })),
   scenery: [
     ...SCENERY.map(a => ({
-      id: a.stem, file: `${a.stem}.png`, title: a.title, width: a.width, height: a.height, target: a.target, maxEdge: a.maxEdge, tileable: a.tileable, bg: a.bg
+      id: a.stem, file: `${a.stem}.png`, title: a.title, width: a.width, height: a.height, target: a.target, maxEdge: a.maxEdge, tileable: a.tileable, bg: a.bg,
+      ...(a.part ? { part: { ...a.part, span: MAP_PART_SPAN } } : {})
     })),
     // A cover is an opaque picture to the slicer, exactly like a backdrop.
     ...COVERS.map(a => ({
@@ -1499,15 +1533,8 @@ const screenPrompt = (a: ArtScenery): string => {
   ].join('\n')
 }
 
-const mapPrompt = (a: ArtScenery): string => [
-  heading(a.title, a.stem, a.target),
-  '',
-  'WHAT COMES BACK IS ONE FULL-BLEED ILLUSTRATED MAP OF A FANTASY REALM: ITS TERRAIN ONLY, WITH NO BUILDINGS AND NO LETTERING.',
-  `One ${shapeWord(a.width, a.height)} image, ${a.width} x ${a.height} pixels (${ratio(a.width, a.height)}), painted edge to edge.`,
-  '',
-  'IT FILLS THE IMAGE, edge to edge, corner to corner. There is NO background behind it and NO magenta anywhere in this one: it is itself the sheet the map screen is drawn on top of. No frame, no border, no vignette, no card, no matting, no rounded corners, no letterboxing, no curled or torn paper edge (the game draws the paper\'s edge itself).',
-  '',
-  'WHAT IT IS: the terrain of a hand-drawn storybook map, drawn the way such maps are: the land flat from above, and what stands on it (mountains, trees, hills) as small upright pictures. Repaint the attached reference. Every coast, region, river, bridge, road and clearing stays exactly where the reference has it: the game lays its own drawings over the picture by position. In the reference:',
+/** The map's regions, as the plate draws them: shared by the whole map and its quarters. */
+const MAP_REGIONS: readonly string[] = [
   '· Sea along the left and the bottom edge and in the lower right corner: bright turquoise, a paler band of shallows hugging the coast, small white wave squiggles, a few rocks, a small wreck on the rocks of the left shore, a little sand island in the lower left corner and one at the right edge.',
   '· Lower left: bright green meadow with soft hills, tufts, flowers, lone round trees and a few sheep.',
   '· Left: olive-yellow hills dotted with grey rocks; a short river above them runs to the left shore.',
@@ -1518,26 +1545,70 @@ const mapPrompt = (a: ArtScenery): string => [
   '· Lower middle to right: golden farmland, a patchwork of striped fields in wheat, green and brown, with hay stooks and hedge trees.',
   '· Right of centre: a pale green marsh of reeds around a turquoise lake with lily pads; a river runs from the lake to the sea.',
   '· Upper right: a violet land of pale crystal spikes and dark pools; beyond it, in the top right corner, a dark crimson land of black peaks with burning tips, thorn spikes and dead trees.',
-  '· Right edge, under those: a jagged black tear in the land with a glowing hot-pink rim, running off the edge of the image.',
-  '· Pale dirt roads wind between sixteen bare, flat, oval clearings, each with a darker lip along its lower edge. Keep every road and every clearing, at its place and its size, and keep the clearings EMPTY.',
-  '',
-  'WHAT IT IS NOT — read this twice. The game draws every landmark, every place marker and every name OVER this picture, on the sixteen clearings, and they change as the player travels: a place is hidden under cloud, then opens, then is marked as cleared. So the clearings stay bare ground, and NOTHING painted anywhere may be a building or a sign: no towns, no houses, no castles, no towers, no temples, no tents, no camps, no windmills, no lighthouses, no ships under sail, no people, no monsters, no flags, no banners, no crosses, no compass rose, no title ribbon, no clouds, no text, no letters, no numbers. A painted town would sit beside the real one and read as a second, wrong place.',
-  '· Do not add regions, roads, rivers or clearings the reference does not have, and do not join, move or drop any it has.',
-  '· Keep it bright and even: small landmarks and paper name tags sit on every part of it and must stay readable. No region darker or busier than the reference shows it.',
-  '',
-  'COLOUR — the reference\'s own, region by region. Take the HUES from it, not the flatness.',
-  '',
-  'THE VIEW — the map convention the reference uses: the ground from straight above, each mountain, tree and hill as a small upright picture on it. No horizon, no perspective, no tilt of the sheet.',
-  '',
-  STYLE_BACKDROP,
-  '',
-  'BEFORE YOU CALL IT FINISHED, check:',
-  '· The picture reaches all four edges of the image; there is no magenta and no border.',
-  '· Laid over the reference, every coast, river, bridge, road and clearing is where the reference has it.',
-  '· The sixteen clearings are empty, and there is not one building, figure, symbol or letter anywhere in it.',
-  '',
-  `OUTPUT: one image, ${a.width} x ${a.height} pixels (${ratio(a.width, a.height)}, ${shapeWord(a.width, a.height)}). If your tool has an aspect-ratio control, set it to ${ratio(a.width, a.height)}. PNG. No labels, captions, numbers or watermarks.`
-].join('\n')
+  '· Right edge, under those: a jagged black tear in the land with a glowing hot-pink rim, running off the edge of the image.'
+]
+
+/** Which of a quarter's edges are the map's own edges, and which cut through its middle. */
+const partEdges = (p: MapPart): { outer: string; inner: string } => {
+  const outer = [p.y === 0 ? 'top' : 'bottom', p.x === 0 ? 'left' : 'right']
+  const inner = [p.y === 0 ? 'bottom' : 'top', p.x === 0 ? 'right' : 'left']
+  return { outer: outer.join(' and '), inner: inner.join(' and ') }
+}
+
+const mapPrompt = (a: ArtScenery): string => {
+  const p = a.part
+  const sites = MAP.length
+  const edges = p ? partEdges(p) : null
+  return [
+    heading(a.title, a.stem, a.target),
+    '',
+    p
+      ? `WHAT COMES BACK IS THE ${PART_NAME[p.name].toUpperCase()} QUARTER OF AN ILLUSTRATED MAP OF A FANTASY REALM, ENLARGED: ITS TERRAIN ONLY, WITH NO BUILDINGS AND NO LETTERING.`
+      : 'WHAT COMES BACK IS ONE FULL-BLEED ILLUSTRATED MAP OF A FANTASY REALM: ITS TERRAIN ONLY, WITH NO BUILDINGS AND NO LETTERING.',
+    `One ${shapeWord(a.width, a.height)} image, ${a.width} x ${a.height} pixels (${ratio(a.width, a.height)}), painted edge to edge.`,
+    '',
+    ...(p
+      ? [
+          'ATTACHED IMAGES — there are 2, and they do two different jobs.',
+          '· The FIRST is the whole map, already painted. Take from it ONLY the finish: the hand, the outlines, the shading, the colour of every region, and how big each tree, mountain, hill, wave and field is against the roads and clearings. Not its layout: it is older than the plan and differs from it in places.',
+          `· The LAST is the layout reference: the ${PART_NAME[p.name]} part of the map's plan, enlarged to fill the image. Paint EXACTLY what it shows, at its scale: every coast, region, river, bridge, road and clearing where the reference has it.`,
+          '',
+          `Four such quarters are painted and joined into one big map, each overlapping its neighbours by a wide strip, so they must meet without a visible join. The ${edges!.outer} edges are the edges of the whole map. The ${edges!.inner} edges cut straight through the middle of the land: the terrain simply runs on past them, cut off mid-tree and mid-field. No coast, no frame, no darkening, no fade and no empty margin along them.`,
+          'Because it is enlarged, give every tree, mountain, wave and field MORE crisp detail than in the first image, at the SAME size against the roads and clearings — not more of them, and not smaller ones.',
+          ''
+        ]
+      : []),
+    `IT FILLS THE IMAGE, edge to edge, corner to corner. There is NO background behind it and NO magenta anywhere in this one: it is itself the sheet the map screen is drawn on top of. No frame, no border, no vignette, no card, no matting, no rounded corners, no letterboxing, no curled or torn paper edge (the game draws the paper\'s edge itself).`,
+    '',
+    p
+      ? 'WHAT IT IS: part of the terrain of a hand-drawn storybook map, drawn the way such maps are: the land flat from above, and what stands on it (mountains, trees, hills) as small upright pictures. Repaint the LAST attached image. The game lays its own drawings over the picture by position. The whole map, for orientation (this quarter shows only some of it: paint only what the reference shows):'
+      : 'WHAT IT IS: the terrain of a hand-drawn storybook map, drawn the way such maps are: the land flat from above, and what stands on it (mountains, trees, hills) as small upright pictures. Repaint the attached reference. Every coast, region, river, bridge, road and clearing stays exactly where the reference has it: the game lays its own drawings over the picture by position. In the reference:',
+    ...MAP_REGIONS,
+    p
+      ? '· Pale dirt roads wind between bare, flat, oval clearings, each with a darker lip along its lower edge. Keep every road and every clearing the reference shows, at its place and its size (one cut by the edge stays cut), and keep the clearings EMPTY.'
+      : `· Pale dirt roads wind between ${sites} bare, flat, oval clearings, each with a darker lip along its lower edge. Keep every road and every clearing, at its place and its size, and keep the clearings EMPTY.`,
+    '',
+    `WHAT IT IS NOT — read this twice. The game draws every landmark, every place marker and every name OVER this picture, on the ${p ? '' : `${sites} `}clearings, and they change as the player travels: a place is hidden under cloud, then opens, then is marked as cleared. So the clearings stay bare ground, and NOTHING painted anywhere may be a building or a sign: no towns, no houses, no castles, no towers, no temples, no tents, no camps, no windmills, no lighthouses, no ships under sail, no people, no monsters, no flags, no banners, no crosses, no compass rose, no title ribbon, no clouds, no text, no letters, no numbers. A painted town would sit beside the real one and read as a second, wrong place.`,
+    '· Do not add regions, roads, rivers or clearings the reference does not have, and do not join, move or drop any it has.',
+    '· Keep it bright and even: small landmarks and paper name tags sit on every part of it and must stay readable. No region darker or busier than the reference shows it.',
+    '',
+    p
+      ? 'COLOUR — the first image\'s own, region by region, so the four quarters match where they meet.'
+      : 'COLOUR — the reference\'s own, region by region. Take the HUES from it, not the flatness.',
+    '',
+    'THE VIEW — the map convention the reference uses: the ground from straight above, each mountain, tree and hill as a small upright picture on it. No horizon, no perspective, no tilt of the sheet.',
+    '',
+    STYLE_BACKDROP,
+    '',
+    'BEFORE YOU CALL IT FINISHED, check:',
+    '· The picture reaches all four edges of the image; there is no magenta and no border.',
+    `· Laid over the ${p ? 'last attached image' : 'reference'}, every coast, river, bridge, road and clearing is where it has it.`,
+    `· The ${p ? '' : `${sites} `}clearings are empty, and there is not one building, figure, symbol or letter anywhere in it.`,
+    ...(p ? [`· Along the ${edges!.inner} edges the land runs straight on, as if the picture were cut from a bigger one.`] : []),
+    '',
+    `OUTPUT: one image, ${a.width} x ${a.height} pixels (${ratio(a.width, a.height)}, ${shapeWord(a.width, a.height)}). If your tool has an aspect-ratio control, set it to ${ratio(a.width, a.height)}. PNG. No labels, captions, numbers or watermarks.`
+  ].join('\n')
+}
 
 const groundPrompt = (a: ArtScenery): string => [
   heading(a.title, a.stem, a.target),
@@ -1647,7 +1718,7 @@ const setPrompt = (s: ArtSet, fits?: Fits): string =>
 export const promptBlocks = (fits?: Fits): PromptBlock[] => [
   ...SETS.map(s => ({ doc: s.doc, stem: s.stem, title: s.title, text: setPrompt(s, fits), ...(s.styleRefs?.length ? { styleRefs: s.styleRefs } : {}) })),
   ...SINGLES.map(s => ({ doc: s.doc, stem: s.stem, title: s.title, text: s.kind === 'logo' ? (s.cells[0]?.id.startsWith('title-') || s.cells[0]?.id === 'wordmark' ? titlePrompt(s, fits) : brandPrompt(s, fits)) : singlePrompt(s, fits), ...(s.styleRefs?.length ? { styleRefs: s.styleRefs } : {}) })),
-  ...SCENERY.map(a => ({ doc: a.doc, stem: a.stem, title: a.title, text: a.plate === 'map' ? mapPrompt(a) : a.plate === 'screen' ? screenPrompt(a) : groundPrompt(a) })),
+  ...SCENERY.map(a => ({ doc: a.doc, stem: a.stem, title: a.title, text: a.plate === 'map' ? mapPrompt(a) : a.plate === 'screen' ? screenPrompt(a) : groundPrompt(a), ...(a.styleRefs?.length ? { styleRefs: a.styleRefs } : {}) })),
   ...COVERS.map(a => ({ doc: a.doc, stem: a.stem, title: a.title, text: coverPrompt(a), styleRefs: a.styleRefs }))
 ]
 

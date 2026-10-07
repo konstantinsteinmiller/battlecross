@@ -45,7 +45,7 @@
 import { nextTick, onBeforeUnmount, onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import {
-  CELL, COVERS, ICON_FILL, ICON_FILL_ROUND, REF_SCALE, SCENERY, SETS, SINGLES, fitsOfIndex, panelHeight, promptDocs, sheetIndex, sheetSize,
+  CELL, COVERS, MAP_PART_SPAN, ICON_FILL, ICON_FILL_ROUND, REF_SCALE, SCENERY, SETS, SINGLES, fitsOfIndex, panelHeight, promptDocs, sheetIndex, sheetSize,
   type ArtCover, type ArtScenery, type ArtSet, type Fit, type SheetCell
 } from '@/game/art/artSheet'
 import { CG_BANNER, COVER_SIZES, coverPlateSvg, cropBox } from '@/game/art/coverScenes'
@@ -293,18 +293,25 @@ const svgImage = async (svg: string): Promise<HTMLImageElement> => {
  */
 const bakeMap = async (a: ArtScenery): Promise<View> => {
   const { width: W, height: H } = a
+  // A quarter (`MAP_PARTS`): the plate at the whole map's size, cut down to
+  // its corner. The plate is vector, so the crop is as sharp as the whole.
+  const span = a.part ? MAP_PART_SPAN : 1
+  const FW = W / span
+  const FH = H / span
+  const ox = (a.part?.x ?? 0) * FW
+  const oy = (a.part?.y ?? 0) * FH
   const [clean, g] = canvas(W, H)
-  g.drawImage(await svgImage(mapPlateSvg()), 0, 0, W, H)
+  g.drawImage(await svgImage(mapPlateSvg()), -ox, -oy, FW, FH)
   // The key shows what the game draws over the plate, so a return can be
   // checked against it: every landmark on its site. The painter never sees it.
   const [key, k] = canvas(W, H)
   k.drawImage(clean, 0, 0)
   // A landmark's box is 120 sheet units, its foot at 50 %, 80 % of it.
-  const bw = (120 / MAP_W) * W
-  const bh = (120 / MAP_H) * H
+  const bw = (120 / MAP_W) * FW
+  const bh = (120 / MAP_H) * FH
   for (const n of MAP) {
-    const x = n.at[0] * W
-    const y = n.at[1] * H
+    const x = n.at[0] * FW - ox
+    const y = n.at[1] * FH - oy
     const mark = await svgImage(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="240" height="240" overflow="visible">${landmarkSvg(n.id)}</svg>`)
     k.drawImage(mark, x - bw / 2, y - bh * 0.8, bw, bh)
     caption(k, n.id, x - 50, y + bh * 0.2 + 26, 100)

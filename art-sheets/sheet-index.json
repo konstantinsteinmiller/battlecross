@@ -2982,7 +2982,13 @@
           "y": 0,
           "w": 256,
           "h": 288,
-          "target": "images/skills/galeArrow.webp"
+          "target": "images/skills/galeArrow.webp",
+          "fit": {
+            "h": 0.609,
+            "w": 0.836,
+            "bottom": 0.805,
+            "cx": 0.5
+          }
         },
         {
           "id": "fleetfoot",
@@ -2993,7 +2999,13 @@
           "w": 256,
           "h": 288,
           "target": "images/skills/fleetfoot.webp",
-          "round": true
+          "round": true,
+          "fit": {
+            "h": 0.688,
+            "w": 0.609,
+            "bottom": 0.844,
+            "cx": 0.5
+          }
         },
         {
           "id": "zephyrDash",
@@ -3003,7 +3015,13 @@
           "y": 0,
           "w": 256,
           "h": 288,
-          "target": "images/skills/zephyrDash.webp"
+          "target": "images/skills/zephyrDash.webp",
+          "fit": {
+            "h": 0.758,
+            "w": 0.844,
+            "bottom": 0.879,
+            "cx": 0.5
+          }
         },
         {
           "id": "piercingGale",
@@ -3013,7 +3031,13 @@
           "y": 288,
           "w": 256,
           "h": 288,
-          "target": "images/skills/piercingGale.webp"
+          "target": "images/skills/piercingGale.webp",
+          "fit": {
+            "h": 0.578,
+            "w": 0.836,
+            "bottom": 0.789,
+            "cx": 0.5
+          }
         },
         {
           "id": "cycloneSnare",
@@ -3023,7 +3047,13 @@
           "y": 288,
           "w": 256,
           "h": 288,
-          "target": "images/skills/cycloneSnare.webp"
+          "target": "images/skills/cycloneSnare.webp",
+          "fit": {
+            "h": 0.836,
+            "w": 0.797,
+            "bottom": 0.918,
+            "cx": 0.5
+          }
         },
         {
           "id": "keenEye",
@@ -3034,7 +3064,13 @@
           "w": 256,
           "h": 288,
           "target": "images/skills/keenEye.webp",
-          "round": true
+          "round": true,
+          "fit": {
+            "h": 0.539,
+            "w": 0.844,
+            "bottom": 0.77,
+            "cx": 0.5
+          }
         }
       ]
     },
@@ -3062,7 +3098,13 @@
           "y": 0,
           "w": 256,
           "h": 288,
-          "target": "images/skills/updraftLeap.webp"
+          "target": "images/skills/updraftLeap.webp",
+          "fit": {
+            "h": 0.836,
+            "w": 0.688,
+            "bottom": 0.918,
+            "cx": 0.5
+          }
         },
         {
           "id": "swiftDraw",
@@ -3073,7 +3115,13 @@
           "w": 256,
           "h": 288,
           "target": "images/skills/swiftDraw.webp",
-          "round": true
+          "round": true,
+          "fit": {
+            "h": 0.773,
+            "w": 0.512,
+            "bottom": 0.887,
+            "cx": 0.498
+          }
         },
         {
           "id": "arrowStorm",
@@ -3083,7 +3131,13 @@
           "y": 0,
           "w": 256,
           "h": 288,
-          "target": "images/skills/arrowStorm.webp"
+          "target": "images/skills/arrowStorm.webp",
+          "fit": {
+            "h": 0.789,
+            "w": 0.836,
+            "bottom": 0.895,
+            "cx": 0.5
+          }
         },
         {
           "id": "galeSpirits",
@@ -3093,7 +3147,13 @@
           "y": 288,
           "w": 256,
           "h": 288,
-          "target": "images/skills/galeSpirits.webp"
+          "target": "images/skills/galeSpirits.webp",
+          "fit": {
+            "h": 0.844,
+            "w": 0.656,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
         },
         {
           "id": "skyHunter",
@@ -3104,7 +3164,13 @@
           "w": 256,
           "h": 288,
           "target": "images/skills/skyHunter.webp",
-          "round": true
+          "round": true,
+          "fit": {
+            "h": 0.641,
+            "w": 0.664,
+            "bottom": 0.82,
+            "cx": 0.5
+          }
         },
         {
           "id": "skyrender",
@@ -3114,7 +3180,13 @@
           "y": 288,
           "w": 256,
           "h": 288,
-          "target": "images/skills/skyrender.webp"
+          "target": "images/skills/skyrender.webp",
+          "fit": {
+            "h": 0.84,
+            "w": 0.773,
+            "bottom": 0.918,
+            "cx": 0.5
+          }
         }
       ]
     },
@@ -3142,7 +3214,13 @@
           "y": 0,
           "w": 256,
           "h": 288,
-          "target": "images/skills/frostCleave.webp"
+          "target": "images/skills/frostCleave.webp",
+          "fit": {
+            "h": 0.844,
+            "w": 0.82,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
         },
         {
           "id": "rimeLance",
@@ -3152,7 +3230,13 @@
           "y": 0,
           "w": 256,
           "h": 288,
-          "target": "images/skills/rimeLance.webp"
+          "target": "images/skills/rimeLance.webp",
+          "fit": {
+            "h": 0.836,
+            "w": 0.836,
+            "bottom": 0.918,
+            "cx": 0.5
+          }
         },
         {
           "id": "wintersBite",
@@ -3163,7 +3247,13 @@
           "w": 256,
           "h": 288,
           "target": "images/skills/wintersBite.webp",
-          "round": true
+          "round": true,
+          "fit": {
+            "h": 0.797,
+            "w": 0.465,
+            "bottom": 0.898,
+            "cx": 0.498
+          }
         },
         {
           "id": "frostArmor",
@@ -3173,7 +3263,13 @@
           "y": 288,
           "w": 256,
           "h": 288,
-          "target": "images/skills/frostArmor.webp"
+          "target": "images/skills/frostArmor.webp",
+          "fit": {
+            "h": 0.836,
+            "w": 0.602,
+            "bottom": 0.918,
+            "cx": 0.5
+          }
         },
         {
           "id": "glacialCharge",
@@ -3183,7 +3279,13 @@
           "y": 288,
           "w": 256,
           "h": 288,
-          "target": "images/skills/glacialCharge.webp"
+          "target": "images/skills/glacialCharge.webp",
+          "fit": {
+            "h": 0.555,
+            "w": 0.84,
+            "bottom": 0.777,
+            "cx": 0.502
+          }
         },
         {
           "id": "frozenHeart",
@@ -3194,7 +3296,13 @@
           "w": 256,
           "h": 288,
           "target": "images/skills/frozenHeart.webp",
-          "round": true
+          "round": true,
+          "fit": {
+            "h": 0.742,
+            "w": 0.773,
+            "bottom": 0.871,
+            "cx": 0.5
+          }
         }
       ]
     },
@@ -3222,7 +3330,13 @@
           "y": 0,
           "w": 256,
           "h": 288,
-          "target": "images/skills/rimeField.webp"
+          "target": "images/skills/rimeField.webp",
+          "fit": {
+            "h": 0.563,
+            "w": 0.836,
+            "bottom": 0.781,
+            "cx": 0.5
+          }
         },
         {
           "id": "frostShatter",
@@ -3232,7 +3346,13 @@
           "y": 0,
           "w": 256,
           "h": 288,
-          "target": "images/skills/frostShatter.webp"
+          "target": "images/skills/frostShatter.webp",
+          "fit": {
+            "h": 0.695,
+            "w": 0.836,
+            "bottom": 0.848,
+            "cx": 0.5
+          }
         },
         {
           "id": "shatterpoint",
@@ -3243,7 +3363,13 @@
           "w": 256,
           "h": 288,
           "target": "images/skills/shatterpoint.webp",
-          "round": true
+          "round": true,
+          "fit": {
+            "h": 0.84,
+            "w": 0.617,
+            "bottom": 0.918,
+            "cx": 0.5
+          }
         },
         {
           "id": "avalancheLeap",
@@ -3253,7 +3379,13 @@
           "y": 288,
           "w": 256,
           "h": 288,
-          "target": "images/skills/avalancheLeap.webp"
+          "target": "images/skills/avalancheLeap.webp",
+          "fit": {
+            "h": 0.84,
+            "w": 0.797,
+            "bottom": 0.918,
+            "cx": 0.5
+          }
         },
         {
           "id": "iceborn",
@@ -3264,7 +3396,13 @@
           "w": 256,
           "h": 288,
           "target": "images/skills/iceborn.webp",
-          "round": true
+          "round": true,
+          "fit": {
+            "h": 0.633,
+            "w": 0.664,
+            "bottom": 0.816,
+            "cx": 0.5
+          }
         },
         {
           "id": "absoluteZero",
@@ -3274,7 +3412,13 @@
           "y": 288,
           "w": 256,
           "h": 288,
-          "target": "images/skills/absoluteZero.webp"
+          "target": "images/skills/absoluteZero.webp",
+          "fit": {
+            "h": 0.844,
+            "w": 0.844,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
         }
       ]
     },
@@ -3302,7 +3446,13 @@
           "y": 0,
           "w": 256,
           "h": 288,
-          "target": "images/skills/sunbolt.webp"
+          "target": "images/skills/sunbolt.webp",
+          "fit": {
+            "h": 0.742,
+            "w": 0.84,
+            "bottom": 0.871,
+            "cx": 0.498
+          }
         },
         {
           "id": "mendingLight",
@@ -3312,7 +3462,13 @@
           "y": 0,
           "w": 256,
           "h": 288,
-          "target": "images/skills/mendingLight.webp"
+          "target": "images/skills/mendingLight.webp",
+          "fit": {
+            "h": 0.781,
+            "w": 0.84,
+            "bottom": 0.891,
+            "cx": 0.502
+          }
         },
         {
           "id": "kindledHope",
@@ -3323,7 +3479,13 @@
           "w": 256,
           "h": 288,
           "target": "images/skills/kindledHope.webp",
-          "round": true
+          "round": true,
+          "fit": {
+            "h": 0.828,
+            "w": 0.766,
+            "bottom": 0.914,
+            "cx": 0.5
+          }
         },
         {
           "id": "lanceOfLight",
@@ -3333,7 +3495,13 @@
           "y": 288,
           "w": 256,
           "h": 288,
-          "target": "images/skills/lanceOfLight.webp"
+          "target": "images/skills/lanceOfLight.webp",
+          "fit": {
+            "h": 0.375,
+            "w": 0.84,
+            "bottom": 0.688,
+            "cx": 0.502
+          }
         },
         {
           "id": "dawnShield",
@@ -3343,7 +3511,13 @@
           "y": 288,
           "w": 256,
           "h": 288,
-          "target": "images/skills/dawnShield.webp"
+          "target": "images/skills/dawnShield.webp",
+          "fit": {
+            "h": 0.844,
+            "w": 0.672,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
         },
         {
           "id": "haloWard",
@@ -3354,7 +3528,13 @@
           "w": 256,
           "h": 288,
           "target": "images/skills/haloWard.webp",
-          "round": true
+          "round": true,
+          "fit": {
+            "h": 0.828,
+            "w": 0.648,
+            "bottom": 0.914,
+            "cx": 0.5
+          }
         }
       ]
     },
@@ -3382,7 +3562,13 @@
           "y": 0,
           "w": 256,
           "h": 288,
-          "target": "images/skills/dawnSanctuary.webp"
+          "target": "images/skills/dawnSanctuary.webp",
+          "fit": {
+            "h": 0.797,
+            "w": 0.836,
+            "bottom": 0.898,
+            "cx": 0.5
+          }
         },
         {
           "id": "blindingFlash",
@@ -3392,7 +3578,13 @@
           "y": 0,
           "w": 256,
           "h": 288,
-          "target": "images/skills/blindingFlash.webp"
+          "target": "images/skills/blindingFlash.webp",
+          "fit": {
+            "h": 0.84,
+            "w": 0.82,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
         },
         {
           "id": "guardianLight",
@@ -3403,7 +3595,13 @@
           "w": 256,
           "h": 288,
           "target": "images/skills/guardianLight.webp",
-          "round": true
+          "round": true,
+          "fit": {
+            "h": 0.383,
+            "w": 0.836,
+            "bottom": 0.691,
+            "cx": 0.5
+          }
         },
         {
           "id": "sunfall",
@@ -3413,7 +3611,13 @@
           "y": 288,
           "w": 256,
           "h": 288,
-          "target": "images/skills/sunfall.webp"
+          "target": "images/skills/sunfall.webp",
+          "fit": {
+            "h": 0.836,
+            "w": 0.586,
+            "bottom": 0.918,
+            "cx": 0.5
+          }
         },
         {
           "id": "searingLight",
@@ -3424,7 +3628,13 @@
           "w": 256,
           "h": 288,
           "target": "images/skills/searingLight.webp",
-          "round": true
+          "round": true,
+          "fit": {
+            "h": 0.844,
+            "w": 0.844,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
         },
         {
           "id": "haloOfDawn",
@@ -3434,7 +3644,13 @@
           "y": 288,
           "w": 256,
           "h": 288,
-          "target": "images/skills/haloOfDawn.webp"
+          "target": "images/skills/haloOfDawn.webp",
+          "fit": {
+            "h": 0.844,
+            "w": 0.844,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
         }
       ]
     },
@@ -3462,7 +3678,13 @@
           "y": 0,
           "w": 256,
           "h": 288,
-          "target": "images/skills/callWolf.webp"
+          "target": "images/skills/callWolf.webp",
+          "fit": {
+            "h": 0.844,
+            "w": 0.813,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
         },
         {
           "id": "wolfPounce",
@@ -3472,7 +3694,13 @@
           "y": 0,
           "w": 256,
           "h": 288,
-          "target": "images/skills/wolfPounce.webp"
+          "target": "images/skills/wolfPounce.webp",
+          "fit": {
+            "h": 0.836,
+            "w": 0.844,
+            "bottom": 0.918,
+            "cx": 0.5
+          }
         },
         {
           "id": "wildKinship",
@@ -3483,7 +3711,13 @@
           "w": 256,
           "h": 288,
           "target": "images/skills/wildKinship.webp",
-          "round": true
+          "round": true,
+          "fit": {
+            "h": 0.742,
+            "w": 0.773,
+            "bottom": 0.871,
+            "cx": 0.5
+          }
         },
         {
           "id": "callHawk",
@@ -3493,7 +3727,13 @@
           "y": 288,
           "w": 256,
           "h": 288,
-          "target": "images/skills/callHawk.webp"
+          "target": "images/skills/callHawk.webp",
+          "fit": {
+            "h": 0.555,
+            "w": 0.836,
+            "bottom": 0.777,
+            "cx": 0.5
+          }
         },
         {
           "id": "callBear",
@@ -3503,7 +3743,13 @@
           "y": 288,
           "w": 256,
           "h": 288,
-          "target": "images/skills/callBear.webp"
+          "target": "images/skills/callBear.webp",
+          "fit": {
+            "h": 0.836,
+            "w": 0.797,
+            "bottom": 0.918,
+            "cx": 0.5
+          }
         },
         {
           "id": "thickHide",
@@ -3514,7 +3760,13 @@
           "w": 256,
           "h": 288,
           "target": "images/skills/thickHide.webp",
-          "round": true
+          "round": true,
+          "fit": {
+            "h": 0.836,
+            "w": 0.672,
+            "bottom": 0.918,
+            "cx": 0.5
+          }
         }
       ]
     },
@@ -3542,7 +3794,13 @@
           "y": 0,
           "w": 256,
           "h": 288,
-          "target": "images/skills/packBond.webp"
+          "target": "images/skills/packBond.webp",
+          "fit": {
+            "h": 0.805,
+            "w": 0.84,
+            "bottom": 0.902,
+            "cx": 0.502
+          }
         },
         {
           "id": "spiritStampede",
@@ -3552,7 +3810,13 @@
           "y": 0,
           "w": 256,
           "h": 288,
-          "target": "images/skills/spiritStampede.webp"
+          "target": "images/skills/spiritStampede.webp",
+          "fit": {
+            "h": 0.688,
+            "w": 0.84,
+            "bottom": 0.844,
+            "cx": 0.498
+          }
         },
         {
           "id": "packTactics",
@@ -3563,7 +3827,13 @@
           "w": 256,
           "h": 288,
           "target": "images/skills/packTactics.webp",
-          "round": true
+          "round": true,
+          "fit": {
+            "h": 0.664,
+            "w": 0.758,
+            "bottom": 0.832,
+            "cx": 0.5
+          }
         },
         {
           "id": "alphaHowl",
@@ -3573,7 +3843,13 @@
           "y": 288,
           "w": 256,
           "h": 288,
-          "target": "images/skills/alphaHowl.webp"
+          "target": "images/skills/alphaHowl.webp",
+          "fit": {
+            "h": 0.648,
+            "w": 0.84,
+            "bottom": 0.824,
+            "cx": 0.498
+          }
         },
         {
           "id": "leaderOfThePack",
@@ -3584,7 +3860,13 @@
           "w": 256,
           "h": 288,
           "target": "images/skills/leaderOfThePack.webp",
-          "round": true
+          "round": true,
+          "fit": {
+            "h": 0.836,
+            "w": 0.555,
+            "bottom": 0.918,
+            "cx": 0.5
+          }
         },
         {
           "id": "wildHunt",
@@ -3594,7 +3876,13 @@
           "y": 288,
           "w": 256,
           "h": 288,
-          "target": "images/skills/wildHunt.webp"
+          "target": "images/skills/wildHunt.webp",
+          "fit": {
+            "h": 0.797,
+            "w": 0.836,
+            "bottom": 0.898,
+            "cx": 0.5
+          }
         }
       ]
     },
@@ -3622,7 +3910,13 @@
           "y": 0,
           "w": 256,
           "h": 288,
-          "target": "images/skills/prismBolt.webp"
+          "target": "images/skills/prismBolt.webp",
+          "fit": {
+            "h": 0.836,
+            "w": 0.594,
+            "bottom": 0.918,
+            "cx": 0.5
+          }
         },
         {
           "id": "elementalHarmony",
@@ -3633,7 +3927,13 @@
           "w": 256,
           "h": 288,
           "target": "images/skills/elementalHarmony.webp",
-          "round": true
+          "round": true,
+          "fit": {
+            "h": 0.844,
+            "w": 0.844,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
         },
         {
           "id": "frostLance",
@@ -3643,7 +3943,13 @@
           "y": 0,
           "w": 256,
           "h": 288,
-          "target": "images/skills/frostLance.webp"
+          "target": "images/skills/frostLance.webp",
+          "fit": {
+            "h": 0.273,
+            "w": 0.836,
+            "bottom": 0.637,
+            "cx": 0.5
+          }
         },
         {
           "id": "chainSpark",
@@ -3653,7 +3959,13 @@
           "y": 288,
           "w": 256,
           "h": 288,
-          "target": "images/skills/chainSpark.webp"
+          "target": "images/skills/chainSpark.webp",
+          "fit": {
+            "h": 0.844,
+            "w": 0.703,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
         },
         {
           "id": "smolderingCore",
@@ -3664,7 +3976,13 @@
           "w": 256,
           "h": 288,
           "target": "images/skills/smolderingCore.webp",
-          "round": true
+          "round": true,
+          "fit": {
+            "h": 0.703,
+            "w": 0.68,
+            "bottom": 0.852,
+            "cx": 0.5
+          }
         },
         {
           "id": "rollingBoulder",
@@ -3674,7 +3992,13 @@
           "y": 288,
           "w": 256,
           "h": 288,
-          "target": "images/skills/rollingBoulder.webp"
+          "target": "images/skills/rollingBoulder.webp",
+          "fit": {
+            "h": 0.645,
+            "w": 0.84,
+            "bottom": 0.82,
+            "cx": 0.498
+          }
         }
       ]
     },
@@ -3702,7 +4026,13 @@
           "y": 0,
           "w": 256,
           "h": 288,
-          "target": "images/skills/thunderSnow.webp"
+          "target": "images/skills/thunderSnow.webp",
+          "fit": {
+            "h": 0.809,
+            "w": 0.836,
+            "bottom": 0.902,
+            "cx": 0.5
+          }
         },
         {
           "id": "spellweave",
@@ -3713,7 +4043,13 @@
           "w": 256,
           "h": 288,
           "target": "images/skills/spellweave.webp",
-          "round": true
+          "round": true,
+          "fit": {
+            "h": 0.578,
+            "w": 0.727,
+            "bottom": 0.789,
+            "cx": 0.5
+          }
         },
         {
           "id": "prismaticNova",
@@ -3723,7 +4059,13 @@
           "y": 0,
           "w": 256,
           "h": 288,
-          "target": "images/skills/prismaticNova.webp"
+          "target": "images/skills/prismaticNova.webp",
+          "fit": {
+            "h": 0.836,
+            "w": 0.836,
+            "bottom": 0.918,
+            "cx": 0.5
+          }
         },
         {
           "id": "prismaticWard",
@@ -3734,7 +4076,13 @@
           "w": 256,
           "h": 288,
           "target": "images/skills/prismaticWard.webp",
-          "round": true
+          "round": true,
+          "fit": {
+            "h": 0.836,
+            "w": 0.766,
+            "bottom": 0.918,
+            "cx": 0.5
+          }
         },
         {
           "id": "frostfireComet",
@@ -3744,7 +4092,13 @@
           "y": 288,
           "w": 256,
           "h": 288,
-          "target": "images/skills/frostfireComet.webp"
+          "target": "images/skills/frostfireComet.webp",
+          "fit": {
+            "h": 0.836,
+            "w": 0.836,
+            "bottom": 0.918,
+            "cx": 0.5
+          }
         },
         {
           "id": "elementalConvergence",
@@ -3754,7 +4108,13 @@
           "y": 288,
           "w": 256,
           "h": 288,
-          "target": "images/skills/elementalConvergence.webp"
+          "target": "images/skills/elementalConvergence.webp",
+          "fit": {
+            "h": 0.84,
+            "w": 0.82,
+            "bottom": 0.918,
+            "cx": 0.5
+          }
         }
       ]
     },
@@ -3782,7 +4142,13 @@
           "y": 0,
           "w": 256,
           "h": 288,
-          "target": "images/skills/wispBolt.webp"
+          "target": "images/skills/wispBolt.webp",
+          "fit": {
+            "h": 0.836,
+            "w": 0.586,
+            "bottom": 0.918,
+            "cx": 0.5
+          }
         },
         {
           "id": "kindredSpirits",
@@ -3793,7 +4159,13 @@
           "w": 256,
           "h": 288,
           "target": "images/skills/kindredSpirits.webp",
-          "round": true
+          "round": true,
+          "fit": {
+            "h": 0.566,
+            "w": 0.715,
+            "bottom": 0.785,
+            "cx": 0.502
+          }
         },
         {
           "id": "callTheFallen",
@@ -3803,7 +4175,13 @@
           "y": 0,
           "w": 256,
           "h": 288,
-          "target": "images/skills/callTheFallen.webp"
+          "target": "images/skills/callTheFallen.webp",
+          "fit": {
+            "h": 0.84,
+            "w": 0.547,
+            "bottom": 0.918,
+            "cx": 0.5
+          }
         },
         {
           "id": "soulBond",
@@ -3813,7 +4191,13 @@
           "y": 288,
           "w": 256,
           "h": 288,
-          "target": "images/skills/soulBond.webp"
+          "target": "images/skills/soulBond.webp",
+          "fit": {
+            "h": 0.734,
+            "w": 0.836,
+            "bottom": 0.867,
+            "cx": 0.5
+          }
         },
         {
           "id": "restlessSouls",
@@ -3824,7 +4208,13 @@
           "w": 256,
           "h": 288,
           "target": "images/skills/restlessSouls.webp",
-          "round": true
+          "round": true,
+          "fit": {
+            "h": 0.633,
+            "w": 0.672,
+            "bottom": 0.816,
+            "cx": 0.5
+          }
         },
         {
           "id": "spiritLantern",
@@ -3834,7 +4224,13 @@
           "y": 288,
           "w": 256,
           "h": 288,
-          "target": "images/skills/spiritLantern.webp"
+          "target": "images/skills/spiritLantern.webp",
+          "fit": {
+            "h": 0.656,
+            "w": 0.844,
+            "bottom": 0.828,
+            "cx": 0.5
+          }
         }
       ]
     },
@@ -3862,7 +4258,13 @@
           "y": 0,
           "w": 256,
           "h": 288,
-          "target": "images/skills/hauntingWail.webp"
+          "target": "images/skills/hauntingWail.webp",
+          "fit": {
+            "h": 0.648,
+            "w": 0.84,
+            "bottom": 0.824,
+            "cx": 0.502
+          }
         },
         {
           "id": "wardensVigil",
@@ -3873,7 +4275,13 @@
           "w": 256,
           "h": 288,
           "target": "images/skills/wardensVigil.webp",
-          "round": true
+          "round": true,
+          "fit": {
+            "h": 0.836,
+            "w": 0.672,
+            "bottom": 0.918,
+            "cx": 0.5
+          }
         },
         {
           "id": "releaseSouls",
@@ -3883,7 +4291,13 @@
           "y": 0,
           "w": 256,
           "h": 288,
-          "target": "images/skills/releaseSouls.webp"
+          "target": "images/skills/releaseSouls.webp",
+          "fit": {
+            "h": 0.84,
+            "w": 0.594,
+            "bottom": 0.918,
+            "cx": 0.5
+          }
         },
         {
           "id": "lanternKeeper",
@@ -3894,7 +4308,13 @@
           "w": 256,
           "h": 288,
           "target": "images/skills/lanternKeeper.webp",
-          "round": true
+          "round": true,
+          "fit": {
+            "h": 0.844,
+            "w": 0.422,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
         },
         {
           "id": "wispSwarm",
@@ -3904,7 +4324,13 @@
           "y": 288,
           "w": 256,
           "h": 288,
-          "target": "images/skills/wispSwarm.webp"
+          "target": "images/skills/wispSwarm.webp",
+          "fit": {
+            "h": 0.84,
+            "w": 0.813,
+            "bottom": 0.918,
+            "cx": 0.5
+          }
         },
         {
           "id": "processionOfSouls",
@@ -3914,7 +4340,13 @@
           "y": 288,
           "w": 256,
           "h": 288,
-          "target": "images/skills/processionOfSouls.webp"
+          "target": "images/skills/processionOfSouls.webp",
+          "fit": {
+            "h": 0.52,
+            "w": 0.844,
+            "bottom": 0.762,
+            "cx": 0.5
+          }
         }
       ]
     },
@@ -3942,7 +4374,13 @@
           "y": 0,
           "w": 256,
           "h": 288,
-          "target": "images/skills/palmStrike.webp"
+          "target": "images/skills/palmStrike.webp",
+          "fit": {
+            "h": 0.836,
+            "w": 0.805,
+            "bottom": 0.918,
+            "cx": 0.5
+          }
         },
         {
           "id": "ironBody",
@@ -3953,7 +4391,13 @@
           "w": 256,
           "h": 288,
           "target": "images/skills/ironBody.webp",
-          "round": true
+          "round": true,
+          "fit": {
+            "h": 0.758,
+            "w": 0.68,
+            "bottom": 0.879,
+            "cx": 0.5
+          }
         },
         {
           "id": "flyingKick",
@@ -3963,7 +4407,13 @@
           "y": 0,
           "w": 256,
           "h": 288,
-          "target": "images/skills/flyingKick.webp"
+          "target": "images/skills/flyingKick.webp",
+          "fit": {
+            "h": 0.531,
+            "w": 0.84,
+            "bottom": 0.766,
+            "cx": 0.498
+          }
         },
         {
           "id": "tigerStance",
@@ -3973,7 +4423,13 @@
           "y": 288,
           "w": 256,
           "h": 288,
-          "target": "images/skills/tigerStance.webp"
+          "target": "images/skills/tigerStance.webp",
+          "fit": {
+            "h": 0.836,
+            "w": 0.813,
+            "bottom": 0.918,
+            "cx": 0.5
+          }
         },
         {
           "id": "craneStance",
@@ -3983,7 +4439,13 @@
           "y": 288,
           "w": 256,
           "h": 288,
-          "target": "images/skills/craneStance.webp"
+          "target": "images/skills/craneStance.webp",
+          "fit": {
+            "h": 0.836,
+            "w": 0.594,
+            "bottom": 0.918,
+            "cx": 0.5
+          }
         },
         {
           "id": "flowingFists",
@@ -3994,7 +4456,13 @@
           "w": 256,
           "h": 288,
           "target": "images/skills/flowingFists.webp",
-          "round": true
+          "round": true,
+          "fit": {
+            "h": 0.586,
+            "w": 0.766,
+            "bottom": 0.793,
+            "cx": 0.5
+          }
         }
       ]
     },
@@ -4022,7 +4490,13 @@
           "y": 0,
           "w": 256,
           "h": 288,
-          "target": "images/skills/hundredFists.webp"
+          "target": "images/skills/hundredFists.webp",
+          "fit": {
+            "h": 0.648,
+            "w": 0.844,
+            "bottom": 0.824,
+            "cx": 0.5
+          }
         },
         {
           "id": "risingDragon",
@@ -4032,7 +4506,13 @@
           "y": 0,
           "w": 256,
           "h": 288,
-          "target": "images/skills/risingDragon.webp"
+          "target": "images/skills/risingDragon.webp",
+          "fit": {
+            "h": 0.84,
+            "w": 0.723,
+            "bottom": 0.918,
+            "cx": 0.502
+          }
         },
         {
           "id": "cranesGrace",
@@ -4043,7 +4523,13 @@
           "w": 256,
           "h": 288,
           "target": "images/skills/cranesGrace.webp",
-          "round": true
+          "round": true,
+          "fit": {
+            "h": 0.738,
+            "w": 0.547,
+            "bottom": 0.871,
+            "cx": 0.5
+          }
         },
         {
           "id": "whirlwindKick",
@@ -4053,7 +4539,13 @@
           "y": 288,
           "w": 256,
           "h": 288,
-          "target": "images/skills/whirlwindKick.webp"
+          "target": "images/skills/whirlwindKick.webp",
+          "fit": {
+            "h": 0.684,
+            "w": 0.836,
+            "bottom": 0.844,
+            "cx": 0.5
+          }
         },
         {
           "id": "tigersFury",
@@ -4064,7 +4556,13 @@
           "w": 256,
           "h": 288,
           "target": "images/skills/tigersFury.webp",
-          "round": true
+          "round": true,
+          "fit": {
+            "h": 0.738,
+            "w": 0.645,
+            "bottom": 0.871,
+            "cx": 0.498
+          }
         },
         {
           "id": "mountainPalm",
@@ -4074,7 +4572,13 @@
           "y": 288,
           "w": 256,
           "h": 288,
-          "target": "images/skills/mountainPalm.webp"
+          "target": "images/skills/mountainPalm.webp",
+          "fit": {
+            "h": 0.84,
+            "w": 0.695,
+            "bottom": 0.918,
+            "cx": 0.5
+          }
         }
       ]
     },
@@ -4102,7 +4606,13 @@
           "y": 0,
           "w": 256,
           "h": 288,
-          "target": "images/skills/sharpNote.webp"
+          "target": "images/skills/sharpNote.webp",
+          "fit": {
+            "h": 0.836,
+            "w": 0.719,
+            "bottom": 0.918,
+            "cx": 0.5
+          }
         },
         {
           "id": "stagePresence",
@@ -4113,7 +4623,13 @@
           "w": 256,
           "h": 288,
           "target": "images/skills/stagePresence.webp",
-          "round": true
+          "round": true,
+          "fit": {
+            "h": 0.688,
+            "w": 0.656,
+            "bottom": 0.844,
+            "cx": 0.5
+          }
         },
         {
           "id": "marchingSong",
@@ -4123,7 +4639,13 @@
           "y": 0,
           "w": 256,
           "h": 288,
-          "target": "images/skills/marchingSong.webp"
+          "target": "images/skills/marchingSong.webp",
+          "fit": {
+            "h": 0.84,
+            "w": 0.711,
+            "bottom": 0.918,
+            "cx": 0.5
+          }
         },
         {
           "id": "lullaby",
@@ -4133,7 +4655,13 @@
           "y": 288,
           "w": 256,
           "h": 288,
-          "target": "images/skills/lullaby.webp"
+          "target": "images/skills/lullaby.webp",
+          "fit": {
+            "h": 0.84,
+            "w": 0.805,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
         },
         {
           "id": "longRefrain",
@@ -4144,7 +4672,13 @@
           "w": 256,
           "h": 288,
           "target": "images/skills/longRefrain.webp",
-          "round": true
+          "round": true,
+          "fit": {
+            "h": 0.672,
+            "w": 0.668,
+            "bottom": 0.836,
+            "cx": 0.502
+          }
         },
         {
           "id": "balladOfValor",
@@ -4154,7 +4688,13 @@
           "y": 288,
           "w": 256,
           "h": 288,
-          "target": "images/skills/balladOfValor.webp"
+          "target": "images/skills/balladOfValor.webp",
+          "fit": {
+            "h": 0.84,
+            "w": 0.75,
+            "bottom": 0.918,
+            "cx": 0.5
+          }
         }
       ]
     },
@@ -4182,7 +4722,13 @@
           "y": 0,
           "w": 256,
           "h": 288,
-          "target": "images/skills/charmingSerenade.webp"
+          "target": "images/skills/charmingSerenade.webp",
+          "fit": {
+            "h": 0.805,
+            "w": 0.836,
+            "bottom": 0.902,
+            "cx": 0.5
+          }
         },
         {
           "id": "virtuoso",
@@ -4193,7 +4739,13 @@
           "w": 256,
           "h": 288,
           "target": "images/skills/virtuoso.webp",
-          "round": true
+          "round": true,
+          "fit": {
+            "h": 0.75,
+            "w": 0.754,
+            "bottom": 0.875,
+            "cx": 0.498
+          }
         },
         {
           "id": "hymnOfMending",
@@ -4203,7 +4755,13 @@
           "y": 0,
           "w": 256,
           "h": 288,
-          "target": "images/skills/hymnOfMending.webp"
+          "target": "images/skills/hymnOfMending.webp",
+          "fit": {
+            "h": 0.836,
+            "w": 0.836,
+            "bottom": 0.918,
+            "cx": 0.5
+          }
         },
         {
           "id": "crescendo",
@@ -4213,7 +4771,13 @@
           "y": 288,
           "w": 256,
           "h": 288,
-          "target": "images/skills/crescendo.webp"
+          "target": "images/skills/crescendo.webp",
+          "fit": {
+            "h": 0.578,
+            "w": 0.844,
+            "bottom": 0.789,
+            "cx": 0.5
+          }
         },
         {
           "id": "standingOvation",
@@ -4224,7 +4788,13 @@
           "w": 256,
           "h": 288,
           "target": "images/skills/standingOvation.webp",
-          "round": true
+          "round": true,
+          "fit": {
+            "h": 0.695,
+            "w": 0.609,
+            "bottom": 0.848,
+            "cx": 0.5
+          }
         },
         {
           "id": "grandFinale",
@@ -4234,7 +4804,13 @@
           "y": 288,
           "w": 256,
           "h": 288,
-          "target": "images/skills/grandFinale.webp"
+          "target": "images/skills/grandFinale.webp",
+          "fit": {
+            "h": 0.844,
+            "w": 0.797,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
         }
       ]
     },
@@ -4987,7 +5563,13 @@
           "w": 256,
           "h": 256,
           "target": "images/icons/class-windrunner.webp",
-          "round": true
+          "round": true,
+          "fit": {
+            "h": 0.57,
+            "w": 0.777,
+            "bottom": 0.785,
+            "cx": 0.498
+          }
         },
         {
           "id": "class-frostwarden",
@@ -4998,7 +5580,13 @@
           "w": 256,
           "h": 256,
           "target": "images/icons/class-frostwarden.webp",
-          "round": true
+          "round": true,
+          "fit": {
+            "h": 0.656,
+            "w": 0.641,
+            "bottom": 0.828,
+            "cx": 0.5
+          }
         },
         {
           "id": "class-lightbringer",
@@ -5009,7 +5597,13 @@
           "w": 256,
           "h": 256,
           "target": "images/icons/class-lightbringer.webp",
-          "round": true
+          "round": true,
+          "fit": {
+            "h": 0.742,
+            "w": 0.84,
+            "bottom": 0.871,
+            "cx": 0.498
+          }
         },
         {
           "id": "class-beastcaller",
@@ -5020,7 +5614,13 @@
           "w": 256,
           "h": 256,
           "target": "images/icons/class-beastcaller.webp",
-          "round": true
+          "round": true,
+          "fit": {
+            "h": 0.73,
+            "w": 0.711,
+            "bottom": 0.867,
+            "cx": 0.5
+          }
         },
         {
           "id": "class-elementalist",
@@ -5031,7 +5631,13 @@
           "w": 256,
           "h": 256,
           "target": "images/icons/class-elementalist.webp",
-          "round": true
+          "round": true,
+          "fit": {
+            "h": 0.836,
+            "w": 0.594,
+            "bottom": 0.918,
+            "cx": 0.5
+          }
         },
         {
           "id": "class-soulwarden",
@@ -5042,7 +5648,13 @@
           "w": 256,
           "h": 256,
           "target": "images/icons/class-soulwarden.webp",
-          "round": true
+          "round": true,
+          "fit": {
+            "h": 0.805,
+            "w": 0.563,
+            "bottom": 0.902,
+            "cx": 0.5
+          }
         },
         {
           "id": "class-ironmonk",
@@ -5053,7 +5665,13 @@
           "w": 256,
           "h": 256,
           "target": "images/icons/class-ironmonk.webp",
-          "round": true
+          "round": true,
+          "fit": {
+            "h": 0.727,
+            "w": 0.703,
+            "bottom": 0.863,
+            "cx": 0.5
+          }
         },
         {
           "id": "class-bard",
@@ -5064,7 +5682,13 @@
           "w": 256,
           "h": 256,
           "target": "images/icons/class-bard.webp",
-          "round": true
+          "round": true,
+          "fit": {
+            "h": 0.766,
+            "w": 0.656,
+            "bottom": 0.883,
+            "cx": 0.5
+          }
         }
       ]
     },
@@ -5707,7 +6331,13 @@
           "w": 256,
           "h": 256,
           "target": "images/icons/status-chi.webp",
-          "round": true
+          "round": true,
+          "fit": {
+            "h": 0.844,
+            "w": 0.84,
+            "bottom": 0.922,
+            "cx": 0.498
+          }
         },
         {
           "id": "status-elixirMight",
@@ -6822,6 +7452,74 @@
       "maxEdge": 1376,
       "tileable": false,
       "bg": "opaque"
+    },
+    {
+      "id": "bg-ui-terrain-nw",
+      "file": "bg-ui-terrain-nw.png",
+      "title": "UI: the world map, top left quarter",
+      "width": 1376,
+      "height": 768,
+      "target": "../art-sheets/map-parts/nw.webp",
+      "maxEdge": 1376,
+      "tileable": false,
+      "bg": "opaque",
+      "part": {
+        "name": "nw",
+        "x": 0,
+        "y": 0,
+        "span": 0.55
+      }
+    },
+    {
+      "id": "bg-ui-terrain-ne",
+      "file": "bg-ui-terrain-ne.png",
+      "title": "UI: the world map, top right quarter",
+      "width": 1376,
+      "height": 768,
+      "target": "../art-sheets/map-parts/ne.webp",
+      "maxEdge": 1376,
+      "tileable": false,
+      "bg": "opaque",
+      "part": {
+        "name": "ne",
+        "x": 0.44999999999999996,
+        "y": 0,
+        "span": 0.55
+      }
+    },
+    {
+      "id": "bg-ui-terrain-sw",
+      "file": "bg-ui-terrain-sw.png",
+      "title": "UI: the world map, bottom left quarter",
+      "width": 1376,
+      "height": 768,
+      "target": "../art-sheets/map-parts/sw.webp",
+      "maxEdge": 1376,
+      "tileable": false,
+      "bg": "opaque",
+      "part": {
+        "name": "sw",
+        "x": 0,
+        "y": 0.44999999999999996,
+        "span": 0.55
+      }
+    },
+    {
+      "id": "bg-ui-terrain-se",
+      "file": "bg-ui-terrain-se.png",
+      "title": "UI: the world map, bottom right quarter",
+      "width": 1376,
+      "height": 768,
+      "target": "../art-sheets/map-parts/se.webp",
+      "maxEdge": 1376,
+      "tileable": false,
+      "bg": "opaque",
+      "part": {
+        "name": "se",
+        "x": 0.44999999999999996,
+        "y": 0.44999999999999996,
+        "span": 0.55
+      }
     },
     {
       "id": "bg-ui-trade",

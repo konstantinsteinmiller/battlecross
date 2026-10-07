@@ -32,7 +32,7 @@ import { EMBLEM_BODY } from '@/game/art/brandRefs'
 import { HERO_OUTFITS, heroGenderOfId, heroOutfit, heroOutfitOf, heroOutfitOfId, heroPortraitId, heroSampleEquipped } from '@/game/art/heroPortrait'
 import {
   ART_CATALOGUE, BACKGROUND, CELL, COVERS, FINISH, GLOW, ICON_FILL, ICON_SETS, NOTATION, READABLE, READABLE_SMALL, SCENERY, SKILL_FINISH_REFS, SEE_THROUGH, SETS, SINGLES, STYLE_BACKDROP, STYLE_GREY, STYLE_PART, TALL,
-  allStems, artTarget, fitsOfIndex, manifestTargets, panelHeight, promptBlocks, promptDocs, sheetIndex, sheetSize, type Fits
+  allStems, artTarget, fitsOfIndex, manifestTargets, mapPartTarget, panelHeight, promptBlocks, promptDocs, sheetIndex, sheetSize, type Fits
 } from '@/game/art/artSheet'
 
 const ROOT = resolve(__dirname, '..', '..')
@@ -180,6 +180,11 @@ describe('the manifest covers the game', () => {
     expect(SINGLES[0]!.maxEdge).toBe(64)
     expect(SCENERY.map(a => [a.stem, a.width, a.height, a.target, a.bg, a.tileable])).toEqual([
       ['bg-ui-map', 1376, 768, 'images/ui/map.webp', 'opaque', false],
+      // D116: the big map, as four quarters `pnpm art:stitch-map` joins.
+      ['bg-ui-terrain-nw', 1376, 768, '../art-sheets/map-parts/nw.webp', 'opaque', false],
+      ['bg-ui-terrain-ne', 1376, 768, '../art-sheets/map-parts/ne.webp', 'opaque', false],
+      ['bg-ui-terrain-sw', 1376, 768, '../art-sheets/map-parts/sw.webp', 'opaque', false],
+      ['bg-ui-terrain-se', 1376, 768, '../art-sheets/map-parts/se.webp', 'opaque', false],
       // D45: the trade table, the equipment and the skills screens.
       ['bg-ui-trade', 1376, 768, 'images/ui/bg-trade.webp', 'opaque', false],
       ['bg-ui-inventory', 1376, 768, 'images/ui/bg-inventory.webp', 'opaque', false],
@@ -209,6 +214,7 @@ describe('the manifest covers the game', () => {
       }
     }
     for (const a of SCENERY) {
+      if (a.part) continue
       // A backdrop's name may carry a dash (`bg-trade`): the file name is the id.
       expect(a.target).toMatch(new RegExp(`^images/(${folders.join('|')})/[A-Za-z0-9]+(-[A-Za-z0-9]+)*\\.webp$`))
       expect(seen.has(a.target), `duplicate target ${a.target}`).toBe(false)
@@ -226,7 +232,10 @@ describe('the manifest covers the game', () => {
     // The store covers are the one target outside the override folders: their
     // preview copies climb out of public/ so that no build ships them.
     for (const a of COVERS) expect(a.target).toBe(`../store-art/covers/masters/${a.stem}.webp`)
-    expect(targets.size).toBe(seen.size + COVERS.length)
+    // So are the world map's quarters: the stitcher's input, not the game's.
+    const parts = SCENERY.filter(a => a.part)
+    for (const a of parts) expect(a.target).toBe(mapPartTarget(a.part!))
+    expect(targets.size).toBe(seen.size + COVERS.length + parts.length)
   })
 
   it('no stem is a prefix of another, so a file name can only mean one sheet', () => {
@@ -518,7 +527,7 @@ describe('what a prompt says', () => {
     for (const f of SKILL_FINISH_REFS) expect(manifestTargets().has(f.replace(/^public\//, '')), f).toBe(true)
     // Nothing else is sent with more than its own reference.
     // (The icon sheets borrow the same finish references; see their own test.)
-    for (const b of blocks) if (!b.stem.startsWith('sheet-skills-') && !b.stem.startsWith('sheet-skills2-') && !b.stem.startsWith('sheet-icons-') && b.stem !== 'single-logo-mascot' && !b.stem.startsWith('single-logo-title-') && b.stem !== 'single-logo-wordmark' && b.stem !== 'sheet-portraits-girl' && !b.stem.startsWith('cover-')) expect(b.styleRefs, b.stem).toBeUndefined()
+    for (const b of blocks) if (!b.stem.startsWith('sheet-skills-') && !b.stem.startsWith('sheet-skills2-') && !b.stem.startsWith('sheet-icons-') && b.stem !== 'single-logo-mascot' && !b.stem.startsWith('single-logo-title-') && b.stem !== 'single-logo-wordmark' && b.stem !== 'sheet-portraits-girl' && !b.stem.startsWith('cover-') && !b.stem.startsWith('bg-ui-terrain-')) expect(b.styleRefs, b.stem).toBeUndefined()
   })
 
   it('a sheet says its own grid, its blanks and its measured size', () => {
@@ -575,7 +584,7 @@ describe('the prompt documents', () => {
       expect(job!.prompt, b.stem).toBe(b.text.slice(cut + 1).replace(/^\n+/, ''))
       expect(job!.doc).toBe(b.doc)
       expect(job!.title).toBe(b.title)
-      expect(job!.target, b.stem).toMatch(/^(images\/|\.\.\/store-art\/covers\/masters\/)/)
+      expect(job!.target, b.stem).toMatch(/^(images\/|\.\.\/store-art\/covers\/masters\/|\.\.\/art-sheets\/map-parts\/)/)
       // What the desk attaches BEFORE the layout reference: exactly the manifest's list.
       expect(job!.styleRefs, b.stem).toEqual([...(b.styleRefs ?? [])])
       // The heading never leaks into what is sent.
@@ -602,7 +611,7 @@ describe('the prompt documents', () => {
             mine++
             // The last parenthesis ties the block to its reference image (a
             // backdrop's file name may carry a dash: `images/ui/bg-trade.webp`).
-            expect(line, name).toMatch(/\((?:(?:sheet|single|bg)-[a-z0-9-]+\.png → images\/|cover-[a-z0-9-]+\.png → \.\.\/store-art\/covers\/masters\/)[A-Za-z0-9/.-]+\)$/)
+            expect(line, name).toMatch(/\((?:(?:sheet|single|bg)-[a-z0-9-]+\.png → images\/|cover-[a-z0-9-]+\.png → \.\.\/store-art\/covers\/masters\/|bg-ui-terrain-[a-z]+\.png → \.\.\/art-sheets\/map-parts\/)[A-Za-z0-9/.-]+\)$/)
             continue
           }
           const m = /^(`{3,})text$/.exec(line)

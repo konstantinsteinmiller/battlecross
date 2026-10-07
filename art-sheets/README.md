@@ -42,6 +42,7 @@ pnpm art:export            # redraw the references (own dev server + headless Ch
 pnpm art:export --only sheet-items-weapons
 pnpm art:slice --dry       # print what would be written, write nothing
 pnpm art:slice             # cut everything in painted/
+pnpm art:stitch-map        # join the map's four quarters into images/ui/map.webp
 ```
 
 Run `art:export` only when a DRAWING changed (`src/components/art/`).
@@ -78,3 +79,17 @@ the files cut from it out of the game, so the game draws those again.
   references, attached BEFORE the sheet (the prompt documents say which).
 - Output sizes: items and skills 192 px, portraits 256 px, the coin 64 px,
   the map 1376 × 768, the ground 256 px.
+
+## The big world map
+
+One painting of the whole map (`bg-ui-map`) comes back at 1376 px, which a
+3× phone stretches into mush. So the map is also painted as four quarters
+(`bg-ui-terrain-nw|ne|sw|se`), each 55 % of the plate's width and height at
+the same 1376 px, with the whole painted map attached as the finish to keep.
+Their slices go to `map-parts/` (never into a build), and
+`pnpm art:stitch-map` joins them into `public/images/ui/map.webp` at
+2502 × 1396: one colour gain per quarter so the shared strips agree, a cut
+along the path where the two paintings differ least, and a narrow feather
+across it. `--seams <png>` writes a copy with the cuts drawn in; check it,
+and blur-probe the map screen on a 3× phone, before shipping. Re-painting
+`bg-ui-map` alone writes the small map over the stitched one.
