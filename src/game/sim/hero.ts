@@ -404,7 +404,7 @@ export const stepHero = (sim: Sim, dt: number): void => {
   if (u.action?.id === 'roll') {
     const a = u.action
     const sp = (ROLL_DIST / ROLL_T) * dt
-    moveCircle(sim.grid, u.x, u.z, Math.sin(a.a) * sp, Math.cos(a.a) * sp, u.r, rollOut)
+    moveCircle(sim.grid, u.x, u.z, Math.sin(a.a) * sp, Math.cos(a.a) * sp, u.r, rollOut, true)
     u.x = rollOut[0]
     u.z = rollOut[1]
     return

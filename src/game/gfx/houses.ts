@@ -36,6 +36,8 @@ import type { RoomLayout } from './roomLayout'
 
 /** How far the walls stand in from the edge of the footprint's cells. */
 export const WALL_IN = 0.4
+/** The room's own random stream, salted off the house's seed. */
+const ROOM_SALT = 0x3c6ef372
 /** Wall thickness. */
 const T = 0.22
 const BASE_H = 0.4
@@ -664,8 +666,10 @@ export const buildHouse = (base: Kit, h: TownHouse, c: HouseCtx): HouseOut => {
   const front = enterable ? cut : base
   const roomKit = enterable ? newKit() : null
   // The small things that tell the room's story: only while its front is lifted, never on a weak device.
-  const clutterKit = enterable && !c.low ? newKit() : null
-  const out: HouseOut = { cut: enterable ? cut : null, room: roomKit, clutter: clutterKit, layout: null, chimneys: [], lamps: [], forge: null, top: 0 }
+  // They are still LAID on one (and thrown away): the room's arrangement, and so
+  // the furniture the hero bumps into (roadmap #84), is the same on every device.
+  const clutterKit = enterable ? newKit() : null
+  const out: HouseOut = { cut: enterable ? cut : null, room: roomKit, clutter: c.low ? null : clutterKit, layout: null, chimneys: [], lamps: [], forge: null, top: 0 }
   /** The windows in the side walls, for the room's curtains. */
   const sideWins: RoomCtx['wins'] = []
   /** This house's cat has found its window (else it sleeps on the step). */
@@ -920,7 +924,8 @@ export const buildHouse = (base: Kit, h: TownHouse, c: HouseCtx): HouseOut => {
     // ── The room inside (before the chimneys: its hearth's chimney goes up over it) ──
     let hearth: { x: number; z: number; wall: string } | null = null
     if (roomKit) {
-      const fit = room(roomKit, clutterKit, h, W, D, doorX, F, sideWins, twoStorey, c, p, r)
+      // The room draws from its own stream: the house's spends differently on a weak device.
+      const fit = room(roomKit, clutterKit, h, W, D, doorX, F, sideWins, twoStorey, c, p, seeded((h.seed ^ ROOM_SALT) >>> 0))
       out.layout = fit.layout
       hearth = fit.hearth
     }

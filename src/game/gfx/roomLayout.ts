@@ -49,6 +49,20 @@ export const AGENT = 0.2
 const REACH = 0.35
 const GRID = 0.1
 
+/** A piece the hero bumps into: it stands on the floor and reaches past his shins (a rug, a shelf on the wall: no). */
+export const BUMP_H = 0.3
+
+/**
+ * A room's furniture as footprints in the world (the house's centre at
+ * `ox, oz`), for the walk grid (`sim/grid.ts` blocks; roadmap #84). The layout
+ * is the room's own arrangement, the same on every device, and it kept every
+ * way from the door open for a walker of AGENT's half width.
+ */
+export const furnitureBlocks = (lay: RoomLayout, ox: number, oz: number): Rect[] =>
+  lay.pieces
+    .filter(p => !p.flat && p.y0 < BUMP_H && p.y1 >= BUMP_H)
+    .map(p => ({ x0: ox + p.rect.x0, z0: oz + p.rect.z0, x1: ox + p.rect.x1, z1: oz + p.rect.z1 }))
+
 export const overlaps = (a: Rect, b: Rect, m = 0): boolean => a.x0 < b.x1 - m && b.x0 < a.x1 - m && a.z0 < b.z1 - m && b.z0 < a.z1 - m
 const inside = (a: Rect, b: Rect, m = 0.005): boolean => a.x0 >= b.x0 - m && a.x1 <= b.x1 + m && a.z0 >= b.z0 - m && a.z1 <= b.z1 + m
 export const grow = (a: Rect, d: number): Rect => ({ x0: a.x0 - d, z0: a.z0 - d, x1: a.x1 + d, z1: a.z1 + d })

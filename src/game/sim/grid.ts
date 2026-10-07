@@ -37,10 +37,20 @@ const WALK_MASK = 0xff
  *  map, however the river winds": a path that exists is always found. */
 export const PATH_BUDGET = 6000
 
+/** A piece of furniture's footprint, in metres (x across, z down the map). */
+export interface Block { x0: number; z0: number; x1: number; z1: number }
+
 export interface Grid {
   w: number
   h: number
   solid: Uint8Array
+  /** Furniture indoors (roadmap #84): smaller than a cell, so it is kept as
+   *  rectangles beside the cells. It stops the HERO's body (`resolveCircle`
+   *  with `blocks`), not a look, a shot or the townsfolk (their routines were
+   *  laid round it, and a stuck baker at a table would be worse than a sleeve
+   *  through one). Indexed by the cells each one touches. */
+  blocks?: Block[]
+  blockCells?: Map<number, number[]>
   // A* scratch, sized w·h.
   g: Float32Array
   f: Float32Array
@@ -98,8 +108,144 @@ export const setTempSolid = (g: Grid, i: number, j: number, on: boolean): void =
   else g.solid[k]! &= ~SOLID_TEMP
 }
 
-/** Push a circle out of every solid cell it overlaps. Writes `out`. */
-export const resolveCircle = (g: Grid, x: number, z: number, r: number, out: [number, number]): [number, number] => {
+/**
+ * The body furniture stops: the walker's half width the room layout keeps
+ * clear between pieces (`gfx/roomLayout.ts` AGENT). Every way the layout
+ * promises from the door is then walkable; the hero's sleeve may brush a
+ * table's edge, never his middle cross it.
+ */
+export const FURNITURE_R = 0.2
+
+/** Furniture for this grid (a town's rooms), indexed by cell. */
+export const setBlocks = (g: Grid, blocks: Block[]): void => {
+  const by = new Map<number, number[]>()
+  blocks.forEach((b, n) => {
+    for (let j = cellOf(b.z0); j <= cellOf(b.z1); j++) {
+      for (let i = cellOf(b.x0); i <= cellOf(b.x1); i++) {
+        const k = j * g.w + i
+        const list = by.get(k)
+        if (list) list.push(n)
+        else by.set(k, [n])
+      }
+    }
+  })
+  g.blocks = blocks
+  g.blockCells = by
+}
+
+/** Push a circle out of the furniture near it. */
+const resolveBlocks = (g: Grid, px: number, pz: number, out: [number, number]): void => {
+  const r = FURNITURE_R
+  const by = g.blockCells!
+  const blocks = g.blocks!
+  for (let j = cellOf(pz - r); j <= cellOf(pz + r); j++) {
+    for (let i = cellOf(px - r); i <= cellOf(px + r); i++) {
+      const list = by.get(j * g.w + i)
+      if (!list) continue
+      for (const n of list) {
+        const b = blocks[n]!
+        const cx = Math.max(b.x0, Math.min(px, b.x1))
+        const cz = Math.max(b.z0, Math.min(pz, b.z1))
+        const dx = px - cx
+        const dz = pz - cz
+        const d2 = dx * dx + dz * dz
+        if (d2 >= r * r) continue
+        if (d2 > 1e-8) {
+          const d = Math.sqrt(d2)
+          px += (dx / d) * (r - d)
+          pz += (dz / d) * (r - d)
+        } else {
+          const left = px - b.x0
+          const right = b.x1 - px
+          const top = pz - b.z0
+          const bottom = b.z1 - pz
+          const m = Math.min(left, right, top, bottom)
+          if (m === left) px = b.x0 - r
+          else if (m === right) px = b.x1 + r
+          else if (m === top) pz = b.z0 - r
+          else pz = b.z1 + r
+        }
+      }
+    }
+  }
+  out[0] = px
+  out[1] = pz
+}
+
+/** Does the segment cross a piece of furniture grown by `pad`? (Slab test.) */
+export const crossesBlock = (b: Block, ax: number, az: number, bx: number, bz: number, pad: number): boolean => {
+  const x0 = b.x0 - pad
+  const x1 = b.x1 + pad
+  const z0 = b.z0 - pad
+  const z1 = b.z1 + pad
+  let t0 = 0
+  let t1 = 1
+  const dx = bx - ax
+  const dz = bz - az
+  for (const [p, d, lo, hi] of [[ax, dx, x0, x1], [az, dz, z0, z1]] as const) {
+    if (Math.abs(d) < 1e-9) {
+      if (p <= lo || p >= hi) return false
+      continue
+    }
+    let ta = (lo - p) / d
+    let tb = (hi - p) / d
+    if (ta > tb) { const t = ta; ta = tb; tb = t }
+    t0 = Math.max(t0, ta)
+    t1 = Math.min(t1, tb)
+    if (t0 >= t1) return false
+  }
+  return true
+}
+
+/** The first piece of furniture a straight walk would cross (-1: none). */
+export const blockOnLine = (g: Grid, ax: number, az: number, bx: number, bz: number, pad = FURNITURE_R): number => {
+  const blocks = g.blocks
+  if (!blocks) return -1
+  let best = -1
+  let bd = Infinity
+  for (let n = 0; n < blocks.length; n++) {
+    const b = blocks[n]!
+    if (!crossesBlock(b, ax, az, bx, bz, pad)) continue
+    const d = Math.hypot((b.x0 + b.x1) / 2 - ax, (b.z0 + b.z1) / 2 - az)
+    if (d < bd) { bd = d; best = n }
+  }
+  return best
+}
+
+/**
+ * A walked path that goes round the furniture: where a leg crosses a piece, a
+ * waypoint is put at the corner of the piece (grown by the body and a little
+ * more) that makes the shortest way round. Mutates `path` ([x, z, …], the
+ * start not included). A room is small and its pieces are few, so a handful of
+ * corners at most.
+ */
+export const detourBlocks = (g: Grid, fx: number, fz: number, path: number[]): void => {
+  if (!g.blocks?.length) return
+  const pad = FURNITURE_R + 0.06
+  let ax = fx
+  let az = fz
+  for (let i = 0, guard = 0; i + 1 < path.length && guard < 24; guard++) {
+    const bx = path[i]!
+    const bz = path[i + 1]!
+    const n = blockOnLine(g, ax, az, bx, bz, FURNITURE_R)
+    if (n < 0) { ax = bx; az = bz; i += 2; continue }
+    const b = g.blocks[n]!
+    let cx = NaN
+    let cz = NaN
+    let best = Infinity
+    for (const [x, z] of [[b.x0 - pad, b.z0 - pad], [b.x1 + pad, b.z0 - pad], [b.x0 - pad, b.z1 + pad], [b.x1 + pad, b.z1 + pad]] as const) {
+      if (isSolidAt(g, x, z) || crossesBlock(b, ax, az, x, z, FURNITURE_R - 0.01)) continue
+      const d = Math.hypot(x - ax, z - az) + Math.hypot(bx - x, bz - z)
+      if (d < best) { best = d; cx = x; cz = z }
+    }
+    if (!Number.isFinite(best)) { ax = bx; az = bz; i += 2; continue }
+    path.splice(i, 0, cx, cz)
+  }
+}
+
+/** Push a circle out of every solid cell it overlaps (and, with `blocks`, out
+ *  of the furniture). Writes `out`. */
+export const resolveCircle = (g: Grid, x: number, z: number, r: number, out: [number, number], blocks = false): [number, number] => {
   let px = x
   let pz = z
   const i0 = cellOf(px - r)
@@ -137,6 +283,7 @@ export const resolveCircle = (g: Grid, x: number, z: number, r: number, out: [nu
   }
   out[0] = px
   out[1] = pz
+  if (blocks && g.blockCells) resolveBlocks(g, px, pz, out)
   return out
 }
 
@@ -145,20 +292,20 @@ export const resolveCircle = (g: Grid, x: number, z: number, r: number, out: [nu
  * and sub-stepped, so the circle slides along walls and a fast dash cannot
  * tunnel through a corner. Mutates and returns `out` ([x, z]).
  */
-export const moveCircle = (g: Grid, x: number, z: number, dx: number, dz: number, r: number, out: [number, number]): [number, number] => {
+export const moveCircle = (g: Grid, x: number, z: number, dx: number, dz: number, r: number, out: [number, number], blocks = false): [number, number] => {
   const len = Math.hypot(dx, dz)
-  const steps = Math.max(1, Math.ceil(len / (r * 0.8)))
+  const steps = Math.max(1, Math.ceil(len / ((blocks && g.blockCells ? Math.min(r, FURNITURE_R) : r) * 0.8)))
   let px = x
   let pz = z
   const sx = dx / steps
   const sz = dz / steps
   for (let s = 0; s < steps; s++) {
     px += sx
-    resolveCircle(g, px, pz, r, out)
+    resolveCircle(g, px, pz, r, out, blocks)
     px = out[0]
     pz = out[1]
     pz += sz
-    resolveCircle(g, px, pz, r, out)
+    resolveCircle(g, px, pz, r, out, blocks)
     px = out[0]
     pz = out[1]
   }

@@ -1,7 +1,7 @@
 import { Group, Mesh, MeshBasicMaterial, type BufferGeometry, type Material, type Scene, type ShaderMaterial } from 'three'
 import type { Slice } from '../engine/slicer'
 import { sceneQuality } from '../engine/quality'
-import { CELL } from '../sim/grid'
+import { CELL, setBlocks, type Block } from '../sim/grid'
 import { TC_DOOR, TC_GRASS, TC_GROUND, TC_STREET, TC_YARD, townRoomAt, type TownPlan } from '../sim/town'
 import { townLife, townPose, type TownPoseView } from '../sim/townLife'
 import type { ZonePlan } from '../sim/zoneGen'
@@ -11,6 +11,7 @@ import { Mesher, newKit, type Kit } from './archKit'
 import { celVC, glowVC, outlineMat, rigOutline, rigToon, setCelOpacity, setOutlineOpacity, type CelMaterial } from './cel'
 import { groundAt } from './ground'
 import { buildHouse, roomPropsOf, type HouseOut } from './houses'
+import { furnitureBlocks } from './roomLayout'
 import { holdProp } from './rigs/handProps'
 import { loopBeat, townLoop, type LoopClip } from './rigs/townClips'
 import type { RigView } from './rigs'
@@ -124,6 +125,7 @@ export class TownView {
     const kitAt = (x: number, z: number): Kit => kits[Math.min(nz - 1, Math.max(0, Math.floor(z / CHUNK))) * nx + Math.min(nx - 1, Math.max(0, Math.floor(x / CHUNK)))]!
 
     // ── Houses ──
+    const blocks: Block[] = []
     for (let hi = 0; hi < t.houses.length; hi++) {
       const h = t.houses[hi]!
       const x = (h.i0 + h.cw / 2) * CELL
@@ -133,8 +135,11 @@ export class TownView {
       v.chimneys.push(...out.chimneys)
       if (out.forge) v.forges.push(out.forge)
       if (out.cut) v.addCut(hi, out.cut, out.room, out.clutter, (h.doorI + 0.5) * CELL, (h.j0 + h.cd) * CELL)
+      if (out.layout) blocks.push(...furnitureBlocks(out.layout, x, z))
       if ((hi & 1) === 1) await slice()
     }
+    // The furniture stops the hero (roadmap #84): the room layout keeps its ways open.
+    setBlocks(sim.grid, blocks)
     // ── Props, fences, the yards' dummies ──
     for (const p of t.props) {
       if (p.kind === 'dummy' || p.kind === 'stone') v.addDummy(p.x, p.z, p.rot, p.kind === 'stone', t.ruined)

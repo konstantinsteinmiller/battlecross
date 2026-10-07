@@ -1,6 +1,6 @@
 import {
-  CELL, blocksSightAt, cellOf, centerOf, clearCorridor, findPath, hasLineOfSight, isSolidAt, isSolidCell, moveCircle,
-  nearestOpen, setTempSolid, smoothPath
+  CELL, blockOnLine, blocksSightAt, cellOf, centerOf, clearCorridor, detourBlocks, findPath, hasLineOfSight, isSolidAt, isSolidCell, moveCircle,
+  nearestOpen, resolveCircle, setTempSolid, smoothPath
 } from './grid'
 import { applyStatus, attackSpeedOf, dealDamage, heal, isControlled, moveSpeedOf } from './combat'
 import { angleTo, hasStatus, newAction, outOfReach, statusV, type Sim } from './world'
@@ -29,11 +29,19 @@ export const setGoal = (sim: Sim, u: Unit, x: number, z: number): void => {
     gx = out2[0]
     gz = out2[1]
   }
+  // The hero walks round the furniture of a room (roadmap #84): a goal on a
+  // table is the floor beside it, and a leg across a piece bends round its corner.
+  const furnished = u.rank === 'hero' && !!sim.grid.blocks?.length
+  if (furnished) {
+    resolveCircle(sim.grid, gx, gz, 0, out2, true)
+    gx = out2[0]
+    gz = out2[1]
+  }
   u.goalX = gx
   u.goalZ = gz
   u.hasGoal = true
   u.pathI = 0
-  if (clearCorridor(sim.grid, u.x, u.z, gx, gz, u.r * 0.9)) {
+  if (clearCorridor(sim.grid, u.x, u.z, gx, gz, u.r * 0.9) && (!furnished || blockOnLine(sim.grid, u.x, u.z, gx, gz) < 0)) {
     u.path.length = 0
     return
   }
@@ -42,7 +50,14 @@ export const setGoal = (sim: Sim, u: Unit, x: number, z: number): void => {
     // No way there: go as far as the straight line allows.
     u.path.length = 0
   }
+  if (furnished) {
+    if (!u.path.length) u.path.push(gx, gz)
+    detourBlocks(sim.grid, u.x, u.z, u.path)
+  }
 }
+
+/** Does furniture stop this body? Only the hero's (`Grid.blocks`). */
+const bodyBlocks = (u: Unit): boolean => u.rank === 'hero'
 
 export const stop = (u: Unit): void => {
   u.hasGoal = false
@@ -68,13 +83,13 @@ export const walk = (sim: Sim, u: Unit, dt: number, speedMul = 1): boolean => {
       u.pathI++
       return true
     }
-    moveCircle(sim.grid, u.x, u.z, dx, dz, u.r, out2)
+    moveCircle(sim.grid, u.x, u.z, dx, dz, u.r, out2, bodyBlocks(u))
     u.x = out2[0]
     u.z = out2[1]
     stop(u)
     return false
   }
-  moveCircle(sim.grid, u.x, u.z, (dx / d) * stepLen, (dz / d) * stepLen, u.r, out2)
+  moveCircle(sim.grid, u.x, u.z, (dx / d) * stepLen, (dz / d) * stepLen, u.r, out2, bodyBlocks(u))
   u.x = out2[0]
   u.z = out2[1]
   u.facing = turnToward(u.facing, Math.atan2(dx, dz), dt * 14)
@@ -86,7 +101,7 @@ export const stride = (sim: Sim, u: Unit, dirX: number, dirZ: number, dt: number
   const l = Math.hypot(dirX, dirZ)
   if (l < 1e-4) return
   const stepLen = moveSpeedOf(u) * speedMul * Math.min(1, l) * dt
-  moveCircle(sim.grid, u.x, u.z, (dirX / l) * stepLen, (dirZ / l) * stepLen, u.r, out2)
+  moveCircle(sim.grid, u.x, u.z, (dirX / l) * stepLen, (dirZ / l) * stepLen, u.r, out2, bodyBlocks(u))
   u.x = out2[0]
   u.z = out2[1]
   u.facing = turnToward(u.facing, Math.atan2(dirX, dirZ), dt * 14)
@@ -111,7 +126,7 @@ export const separate = (sim: Sim, dt: number): void => {
     const a = us[i]!
     if (!a.alive) continue
     if (a.kx !== 0 || a.kz !== 0) {
-      moveCircle(sim.grid, a.x, a.z, a.kx * dt, a.kz * dt, a.r, out2)
+      moveCircle(sim.grid, a.x, a.z, a.kx * dt, a.kz * dt, a.r, out2, bodyBlocks(a))
       a.x = out2[0]
       a.z = out2[1]
       const k = Math.exp(-dt * 8)
@@ -138,12 +153,12 @@ export const separate = (sim: Sim, dt: number): void => {
       const wa = fixedA ? 0 : fixedB ? 2 : 1
       const wb = fixedB ? 0 : fixedA ? 2 : 1
       if (wa > 0) {
-        moveCircle(sim.grid, a.x, a.z, -nx * push * wa, -nz * push * wa, a.r, out2)
+        moveCircle(sim.grid, a.x, a.z, -nx * push * wa, -nz * push * wa, a.r, out2, bodyBlocks(a))
         a.x = out2[0]
         a.z = out2[1]
       }
       if (wb > 0) {
-        moveCircle(sim.grid, b.x, b.z, nx * push * wb, nz * push * wb, b.r, out2)
+        moveCircle(sim.grid, b.x, b.z, nx * push * wb, nz * push * wb, b.r, out2, bodyBlocks(b))
         b.x = out2[0]
         b.z = out2[1]
       }
