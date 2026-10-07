@@ -2,6 +2,7 @@ import type { ConversationDef } from '../../dialog/types'
 import { SUNFORD_TALK } from './sunford'
 import { OAKHAVEN_TALK } from './oakhaven'
 import { IRONHOLD_TALK } from './ironhold'
+import { SILVERBRIDGE_TALK } from './silverbridge'
 import { DECISION_TALK } from './decisions'
 import { SMALLTALK } from './smalltalk'
 import { BOSS_BARKS } from './bosses'
@@ -14,7 +15,7 @@ import { BOSS_BARKS } from './bosses'
  * id is its key. `tools/voice-manifest.mjs` lists them all for recording.
  */
 export const CONVERSATIONS: readonly ConversationDef[] = [
-  ...SUNFORD_TALK, ...OAKHAVEN_TALK, ...IRONHOLD_TALK, ...DECISION_TALK
+  ...SUNFORD_TALK, ...OAKHAVEN_TALK, ...IRONHOLD_TALK, ...SILVERBRIDGE_TALK, ...DECISION_TALK
 ]
 
 /** Every line the game speaks: the conversations, the small talk the hero

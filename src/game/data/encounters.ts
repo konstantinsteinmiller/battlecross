@@ -34,7 +34,7 @@ export interface EncounterSpec {
 /** Whose land a place's surroundings are: a town's and the colosseum's
  *  wilds are those of the zone next door. */
 export const ENCOUNTER_REGION: Readonly<Record<NodeId, ZoneId>> = {
-  sunford: 'plains', arena: 'plains', oakhaven: 'outskirts', ironhold: 'mines',
+  sunford: 'plains', arena: 'plains', oakhaven: 'outskirts', ironhold: 'mines', silverbridge: 'woods',
   plains: 'plains', hollows: 'hollows', woods: 'woods', outskirts: 'outskirts', crags: 'crags', mines: 'mines',
   tundra: 'tundra', temple: 'temple', citadel: 'citadel', peak: 'peak', fortress: 'fortress', rift: 'rift'
 }

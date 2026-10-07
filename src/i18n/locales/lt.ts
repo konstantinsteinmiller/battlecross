@@ -247,6 +247,10 @@ export default {
     rift: {
       name: 'Tuštumos plyšys',
       desc: 'Žaizda, pro kurią atėjo demonai. Kitoje pusėje laukia Tuštumos valdovas.'
+    },
+    silverbridge: {
+      name: 'Silverbridge',
+      desc: 'Didelis upės miestas ant senojo akmeninio tilto. Čia moko kiekvienos klasės meistras.'
     }
   },
   map: {
@@ -1071,6 +1075,48 @@ export default {
     },
     trainerChrono: {
       name: 'Valandų sergėtojas'
+    },
+    mayorBrenna: {
+      name: 'Merė Brenna Quill'
+    },
+    sbHealer: {
+      name: 'Brolis Ansel'
+    },
+    sbArmorer: {
+      name: 'Greta Geležingyslė',
+      talk: 'Kalnų plienas, upės kainos. Belsk į ką tik nori.'
+    },
+    sbWeapons: {
+      name: 'Corvin Ashby',
+      talk: 'Ashby puikieji ašmenys. Kiekviena geležtė nupoliruota ranka. Mano ranka.'
+    },
+    sbJeweler: {
+      name: 'Tam Marlow',
+      talk: 'Žiedai, amuletai, laimės akmenys. Viskas tikra. Na, beveik viskas.'
+    },
+    sbMasterAegis: {
+      name: 'Dama Helga Audraskydė'
+    },
+    sbMasterPyro: {
+      name: 'Magistras Ignatius Vale'
+    },
+    sbMasterShadow: {
+      name: 'Nyx Halloway'
+    },
+    sbMasterSovereign: {
+      name: 'Lordas Percival Ashcombe'
+    },
+    sbMasterGeo: {
+      name: 'Močiutė Tova Gilušaknė'
+    },
+    sbMasterAether: {
+      name: 'Profesorius Quint Krumpliaratis'
+    },
+    sbMasterChrono: {
+      name: 'Laikrodžio sargas Selwyn'
+    },
+    sbMasterBlood: {
+      name: 'Vesper Raudonlapė'
     }
   },
   quest: {
@@ -2701,6 +2747,503 @@ export default {
         iceBreak: {
           '1': 'Ežeras tave praris!'
         }
+      }
+    },
+    mayorBrenna: {
+      hello: {
+        '1': 'Saugokis vežimo! Atsiprašau, ant šio tilto viskas juda. Sveikas atvykęs į Silverbridge\'ą.',
+        '2': 'Aš merė Brenna Quill. Jei kas pamesta, sulūžę ar vėluoja, viskas atsiduria ant mano stalo.'
+      },
+      ending: {
+        '1': 'Visa upė kalba apie tave. Prekyba niekada nėjo geriau. Tad ačiū.'
+      },
+      again: {
+        '1': 'Vėl čia? Gerai. Tik stenkis neužstoti kelio vežimams.'
+      },
+      who: {
+        '1': 'Merė jau devynerius metus. Prieš tai pardavinėjau virves. Tas pats darbas, tiesą sakant. Laikyti viską kartu.',
+        '2': 'Miestas balsuoja kiekvieną pavasarį. Kol kas niekas kitas to stalo nenori.'
+      },
+      town: {
+        '1': 'Pirmiau buvo tiltas. Paskui ant jo turgus, paskui namai, paskui namai ant tų namų.',
+        '2': 'Saugokis fontanų. Vaikai į juos įkrenta. Turgaus dieną ir suaugusieji.',
+        say: 'Papasakok apie Silverbridge\'ą.'
+      },
+      masters: {
+        '1': 'Kiekvienai. Skydas, ugnis, šešėlis, akmuo. Po meistrą kiekvienai, visi ant vieno tilto.',
+        '2': 'Mokiniai atvyksta iš visur. Gerai užeigoms. Ne taip gerai mano langams.',
+        say: 'Ar tikrai čia yra mokytojas kiekvienai klasei?'
+      },
+      river: {
+        '1': 'Viskuo, ką atneša upė. Žuvimi, šilku, Ironholdo plienu, kartais dėže piktų vištų.',
+        '2': 'Ir ne kiekvienas Silverbridge\'o prekeivis iškabina iškabą. Būk akylas.',
+        say: 'Kuo čia prekiaujama?'
+      },
+      rumor: {
+        crags: {
+          '1': 'Laivai iš šiaurės nebeplaukia. Kažkas dega aukštai Pelenų uolose.'
+        },
+        mines: {
+          '1': 'Šį mėnesį jokio Ironholdo plieno. Nykštukai sako, kad jų kasyklose kažkas negerai.'
+        },
+        tundra: {
+          '1': 'Kailių prekeiviai nebekerta tundros. Sako, milžinai pajudėjo.'
+        },
+        far: {
+          '1': 'Apie tolimąją šiaurę prekeiviai dabar tik šnabžda. Kas ten bebūtų, jis nieko neperka.'
+        }
+      },
+      bye: {
+        '1': 'Na, keliauk. O jei kas paklaus, tilto mokestis labai teisingas.'
+      }
+    },
+    sbHealer: {
+      hello: {
+        '1': 'Mm? A, pacientas. Atsiprašau, ilsinau akis. Gydytojai taip daro.',
+        '2': 'Brolis Ansel. Užeik, prisėsk. Kėdė patogesnė, nei atrodo.'
+      },
+      again: {
+        '1': 'A, sugrįžai. O aš ką tik atsisėdau.'
+      },
+      heal: {
+        '1': 'Atsilošk, užsimerk. Neilgam, nes ir aš užsnūsiu. Štai, kolbos pilnos.'
+      },
+      mana: {
+        '1': 'Žibkepurės tonikas. Gerai protui, blogai kvapui. Gurkšnok lėtai.'
+      },
+      potions: {
+        '1': 'Išgerk vieną, kol dar ne per vėlu. Didvyriai visada laukia per ilgai.',
+        '2': 'Jei nori nešiotis daugiau, parduodu ilgesnius diržus. Kolbas pripildau nemokamai.',
+        say: 'Gal turi patarimų dėl eliksyrų?'
+      },
+      sleep: {
+        '1': 'Ne naktimis. Mokiniai iš visų klasių, visi treniruojasi. Kažkas vis sprogsta.',
+        say: 'Ar tu kada nors iš tikrųjų miegi?'
+      },
+      healBack: {
+        '1': 'Na, keliauk. Kitą kartą ateik arbatos, o ne tvarsčių.'
+      },
+      bye: {
+        '1': 'Atsargiai su laiptais. Pusė mano pacientų tik už jų ir užkliuvo.'
+      }
+    },
+    sbArmorer: {
+      hello: {
+        '1': 'Cha! Pažiūrėk į tą įlenkimą. Tikiuosi, už tuos šarvus atgavai pinigus.',
+        '2': 'Greta Geležingyslė. Kalu šarvus, kurie grįžta namo su savo šeimininku. Kol kas kiekvieną kartą.'
+      },
+      again: {
+        '1': 'Vėl tu! Vis dar sveikas. Mano mėgstamiausia pirkėjų rūšis.'
+      },
+      trade: {
+        '1': 'Pirmyn, pabelsk. Kiek tik nori stipriai.'
+      },
+      who: {
+        '1': 'Kalnų giminė. Atplaukiau upe dėl prekybos ir likau dėl žuvies.'
+      },
+      steel: {
+        '1': 'Ne tai, kokie jie stori, o kur jie lankstosi. Geri šarvai lankstosi ten, kur ir tu.',
+        '2': 'Sunkiems šarvams reikia Jėgos, atmink. Be jos krypuosi kaip antis.',
+        say: 'Kas daro šarvus gerus?'
+      },
+      shopBack: {
+        '1': 'Nešiok sveikas. Įlenkimus atnešk man, mėgstu gerą istoriją.'
+      },
+      bye: {
+        '1': 'Na, keliauk. Tik negauk smūgio ten, kur neuždengiau.'
+      }
+    },
+    sbWeapons: {
+      hello: {
+        '1': 'A, pirkėjas su skoniu. Visada pažįstu. Iš to, kaip įeini.',
+        '2': 'Corvin Ashby iš „Ashby puikiųjų ašmenų“. Taip, tas pats Ashby. Juk girdėjai apie mane?'
+      },
+      again: {
+        '1': 'Jau grįžai? Pas Corviną visi visada grįžta.'
+      },
+      trade: {
+        '1': 'Kiekviena geležtė nupoliruota ranka. Mano ranka, beje. Saugokis atspindžio.'
+      },
+      who: {
+        '1': 'Geriausias ginklų pardavėjas prie upės. Paklausk bet ko. Arba tiesiog perskaityk mano iškabą.'
+      },
+      blades: {
+        '1': 'Rinkis tokį, kuris tau tinka. Greitoms rankoms lengva geležtė, stiprioms – sunki.',
+        '2': 'Ir jis turi gražiai atrodyti. Niekas nebėga nuo didvyrio su bjauriu kalaviju.',
+        say: 'Kaip išsirinkti gerą ginklą?'
+      },
+      shopBack: {
+        '1': 'Puikus pasirinkimas. Ne toks puikus kaip mano plaukai, bet beveik.'
+      },
+      bye: {
+        '1': 'Būtinai papasakok žmonėms, kur jį pirkai.'
+      }
+    },
+    sbJeweler: {
+      hello: {
+        '1': 'Ps! Čia! Žiedai, amuletai, laimės akmenys. Geriausias prekystalis ant tilto.',
+        '2': 'Aš Tam Marlow. Aš mažas, bet mano kainos dar mažesnės.'
+      },
+      again: {
+        '1': 'Mano mėgstamiausias pirkėjas! Tik nesakyk kitiems.'
+      },
+      trade: {
+        '1': 'Viskas tikra. Beveik. Gerai, šitas stiklinis, bet labai gražus stiklas.'
+      },
+      who: {
+        '1': 'Užaugau ant šio tilto. Žinau kiekvieną plyšį, kiekvieną katę ir kiekvieną trumpesnį kelią.'
+      },
+      gossip: {
+        '1': 'Profesorius Krumpliaratis vėl susprogdino sau antakius. Jau trečią kartą šį mėnesį.',
+        '2': 'O merė žino apie prekeivius, kurie neiškabina iškabų. Dirbu su tuo.',
+        say: 'Girdėjai kokių gerų paskalų?'
+      },
+      shopBack: {
+        '1': 'Malonu prekiauti! Papasakok draugams. Tik ne sargybiniams.'
+      },
+      bye: {
+        '1': 'Iki! Būsiu čia pat. Tikriausiai.'
+      }
+    },
+    sbMasterAegis: {
+      hello: {
+        '1': 'Cha! Dar vienas jaunuolis. Smakrą aukštyn, pečius atgal. Skydai geriau veikia su šypsena.',
+        '2': 'Dama Helga Audraskydė. Kadaise apgyniau šį tiltą. Dabar moku kitus neatsitraukti.'
+      },
+      again: {
+        '1': 'Štai ir tu! Skydas pakeltas? Gerai. Šypsaisi? Dar geriau.'
+      },
+      train: {
+        '1': 'Kojas plačiau. Pasilenk į priekį. Kai stumiu, tu nejudi. Pasiruošęs? Hop!'
+      },
+      class: {
+        '1': 'Stovi priekyje, kad kitiems nereikėtų. Geresnio darbo nėra.',
+        '2': 'Jėgos skydui pakelti. Ištvermės išlaikyti jį iki vakarienės.',
+        say: 'Ką iš tikrųjų veikia Egidos riteris?'
+      },
+      ready: {
+        strong: {
+          '1': 'Dabar tu tikra siena, brangusis. Imk bet kurią pamoką.'
+        },
+        able: {
+          '1': 'Tvirtos kojos! Esi pasiruošęs kitai.'
+        },
+        weak: {
+          '1': 'Dar ne. Vienas geras stumtelėjimas, ir parvirstum. Daugiau Jėgos ir Ištvermės, prašau.'
+        }
+      },
+      bridge: {
+        '1': 'Prieš keturiasdešimt metų, nuo upės piratų. Šešiese, vieni vartai, labai ilga naktis.',
+        '2': 'Laimėjome ne smogdami stipriausiai. Laimėjome nepajudėdami. Atmink tai.',
+        say: 'Tu apgynei šį tiltą?'
+      },
+      trainBack: {
+        '1': 'Šaunu! O dabar ką nors suvalgyk. Skydai sunkūs.'
+      },
+      bye: {
+        '1': 'Smakrą aukštyn!'
+      }
+    },
+    sbMasterPyro: {
+      hello: {
+        '1': 'Prašom užeiti. Atsargiai su užrašais ir, prašau, nečiaudėk prie žarijų dubens.',
+        '2': 'Magistras Ignatius Vale. Ugnies moku ant tilto. Mat aplink daug vandens.'
+      },
+      again: {
+        '1': 'Punktualus. Puiku. Pradėsime ten, kur baigėme.'
+      },
+      train: {
+        '1': 'Stebėk. Maža liepsnelė, laikoma ramiai. Didelės liepsnos lengvos. Mažoms reikia meistrystės.'
+      },
+      class: {
+        '1': 'Užkurti ugnį gali bet kas. Piromantas sprendžia, kur ji eina ir kur sustoja.',
+        '2': 'Viskas kyla iš Intelekto. Vėliau padeda Meistrystė, kai ugniai reikia tvirtos rankos.',
+        say: 'Ką iš tikrųjų veikia piromantas?'
+      },
+      ready: {
+        strong: {
+          '1': 'Tavo valdymas puikus. Man beveik nebėra ką taisyti. Rinkis laisvai.'
+        },
+        able: {
+          '1': 'Pakankamai. Net daugiau nei pakankamai. Gali imti kitą pamoką.'
+        },
+        weak: {
+          '1': 'Dar ne. Tavo liepsna virpa. Aštresnio proto, prašau. Daugiau Intelekto.'
+        }
+      },
+      sprocket: {
+        '1': 'Genialus žmogus. Triukšmingas, neatsargus ir genialus. Prie jo durų laikau kibirą.',
+        say: 'Ką manai apie profesorių Krumpliaratį?'
+      },
+      trainBack: {
+        '1': 'Treniruokis prie vandens. Primygtinai prašau.'
+      },
+      bye: {
+        '1': 'Geros dienos. Ir laikyk rankoves atsiraitęs.'
+      }
+    },
+    sbMasterShadow: {
+      hello: {
+        '1': 'Ieškai manęs? Esu šalia tavęs nuo pat fontano. Du kartus praėjai pro mane.',
+        '2': 'Nyx Halloway. Geriausia slėptuvė yra minia, o šis tiltas judriausias iš visų.'
+      },
+      again: {
+        '1': 'Labas vėl. Aš čia jau kurį laiką. Pastebėjai? Ne? Gerai.'
+      },
+      train: {
+        '1': 'Pirma pamoka: eik taip, lyg čia priklausytum. Į tokį niekas antrą kartą nepažiūri.'
+      },
+      class: {
+        '1': 'Niekada nebūti ten, kur žiūri. Įslink, vienas greitas smūgis, ir vėl ištirpk minioje.',
+        '2': 'Vikrumo greitoms kojoms ir rankoms. Meistrystės, kad smūgis būtų taiklus.',
+        say: 'Kas daro gerus Šešėlių ašmenis?'
+      },
+      ready: {
+        strong: {
+          '1': 'Dabar tu tikrai klastingas. Imk, kas liko, užsitarnavai.'
+        },
+        able: {
+          '1': 'Lengva eisena! Esi pasiruošęs kitam triukui.'
+        },
+        weak: {
+          '1': 'Dar ne. Girdžiu tave ateinant nuo pat fontano. Daugiau Vikrumo.'
+        }
+      },
+      past: {
+        '1': 'Kadaise vogiau iš kišenių būtent ant šio tilto. Ir sekėsi visai neblogai.',
+        '2': 'Paskui merė mane pagavo ir davė darbą, o ne kamerą. Tik nesakyk jai, kad esu dėkinga.',
+        say: 'Kaip visa tai išmokai?'
+      },
+      trainBack: {
+        '1': 'O dabar eik treniruotis. Stenkis, kad tavęs nepagaučiau.'
+      },
+      bye: {
+        '1': 'Iki. Na, tu manęs nepamatysi.'
+      }
+    },
+    sbMasterSovereign: {
+      hello: {
+        '1': 'O! Sveikas, sveikas. Atleisk, kalbėjausi su savo sargybiniais. Nuostabūs klausytojai.',
+        '2': 'Percival Ashcombe. Galėčiau mokyti pilyje, bet vadovauti išmoksti tik ten, kur žmonės.'
+      },
+      again: {
+        '1': 'Mielas bičiuli! Tęsiame? Žinoma, tik jei pats nori.'
+      },
+      train: {
+        '1': 'Na, gerai. Geras įsakymas yra aiškus, malonus ir duodamas tik kartą. Štai taip.'
+      },
+      class: {
+        '1': 'Vadas. Tavo sargybiniai stoja šalia tavęs ir kovoja kartu su tavimi, ne tik už tave.',
+        '2': 'Charizma yra viskas. Žmonės seka tais, kurie jiems patinka. Ir kurie prisimena jų vardus.',
+        say: 'Kas yra Didysis valdovas?'
+      },
+      ready: {
+        strong: {
+          '1': 'Nuostabu! Dabar žmonės sektų paskui tave bet kur. Imk visas pamokas.'
+        },
+        able: {
+          '1': 'Tavo sargybiniai tavęs klausytų. Esi pasiruošęs kitai pamokai.'
+        },
+        weak: {
+          '1': 'Deja, dar ne visai. Šiek tiek daugiau Charizmos, ir jie ateis.'
+        }
+      },
+      please: {
+        '1': 'Visada. Šauksmu pasieksi paklusnumo. „Prašau“ pelno ištikimybę, o ji trunka ilgiau.',
+        say: 'Ar tikrai sakai sargybiniams „prašau“?'
+      },
+      trainBack: {
+        '1': 'Puikus darbas. Nepamiršk jiems paskui padėkoti.'
+      },
+      bye: {
+        '1': 'Saugok save ir perduok visiems linkėjimų.'
+      }
+    },
+    sbMasterGeo: {
+      hello: {
+        '1': 'Atsargiai su samanomis, vaikeli, joms buvo ilga savaitė. Na, pažiūrėkim į tave.',
+        '2': 'Močiutė Tova Gilušaknė. Upės dugnas čia – nuostabus akmuo, iki pat apačios.'
+      },
+      again: {
+        '1': 'Jau grįžai? Sėsk, ką tik išviriau arbatos. Akmenų arbatos. Daugiausia arbatos.'
+      },
+      train: {
+        '1': 'Delnus plokščiai ant žemės. Ne taip. Lyg glostytum mieguistą šunį.'
+      },
+      class: {
+        '1': 'Prašome žemės pagalbos. Sienos, kai jos reikia, smaigalio, kai kas nors įžūlus.',
+        '2': 'Akmuo – kaip sodas. Jėgos kasti, Intelekto žinoti, kur sodinti.',
+        say: 'Ką veikia Geomantas?'
+      },
+      ready: {
+        strong: {
+          '1': 'Dabar žemė tave mėgsta. Mokykis ko tik nori, vaikeli.'
+        },
+        able: {
+          '1': 'Geros šaknys! Esi pasiruošęs kitai pamokai.'
+        },
+        weak: {
+          '1': 'Dar ne, mielasis. Akmuo dėl tavęs nė nekrusteli. Pirmiau daugiau Jėgos.'
+        }
+      },
+      garden: {
+        '1': 'Keturiasdešimt metų darbo. Kiekvienas akmuo užaugintas rankomis. Na, magija. Daugiausia rankomis.',
+        '2': 'Išeidamas pasiimk akmenuką. Iš jų puikios durų atramos.',
+        say: 'Ar tai akmenų sodas?'
+      },
+      trainBack: {
+        '1': 'Nuostabu. O dabar eik ką nors pakasti. Švelniai.'
+      },
+      bye: {
+        '1': 'Na, keliauk. Apsirenk šilčiau, prie upės drėgna.'
+      }
+    },
+    sbMasterAether: {
+      hello: {
+        '1': 'Sveikas, sveikas! Kaip tik laiku demonstracijai. Prašau, užsidenk ausis.',
+        '2': 'Profesorius Quint Krumpliaratis. Upė suka mano ratus nemokamai. Kur kitur galėčiau mokyti?'
+      },
+      again: {
+        '1': 'A, mano mėgstamiausias mokinys! Šiandienos demonstracija bus ypač garsi.'
+      },
+      train: {
+        '1': 'Žiūrėk į lentą. O dabar pamiršk lentą ir žiūrėk į mašiną.'
+      },
+      class: {
+        '1': 'Iš bėdos išsikonstruojame. Pistoletas, bokštelis ir karščio matuoklis, kad būtum sąžiningas.',
+        '2': 'Meistrystės taikymui, Intelekto gudriosioms dalims. Geriausia abiejų.',
+        say: 'Ką iš tikrųjų veikia Eterio technikas?'
+      },
+      ready: {
+        strong: {
+          '1': 'Nuostabu! Galėtum skaityti mano paskaitas. Tik, prašau, neskaityk. Imk likusias.'
+        },
+        able: {
+          '1': 'Tvirta ranka! Esi pasiruošęs kitai mašinai.'
+        },
+        weak: {
+          '1': 'Dar ne. Tavo taikiklis klaidžioja. Daugiau Meistrystės, tada pasikalbėsim.'
+        }
+      },
+      eyebrows: {
+        '1': 'Viena demonstracija pavyko kiek per gerai. Ataugs. Visada atauga.',
+        say: 'Kas nutiko tavo antakiams?'
+      },
+      trainBack: {
+        '1': 'Puiku. O dabar eik išleisk tą karštį. Geriausia lauke.'
+      },
+      bye: {
+        '1': 'Pamoka baigta! Atsargiai su laiptais.'
+      }
+    },
+    sbMasterChrono: {
+      hello: {
+        '1': 'Mano buvęs mokinys, Valandų sergėtojas, rašė, kad ateisi. Būtent šią minutę, tiesą sakant.',
+        '2': 'Laikrodžio sargas Selwyn. Prižiūriu tilto laikrodį. Toks judrus miestas negali sau leisti vėluoti.'
+      },
+      again: {
+        '1': 'Septynios minutės po. Geras laikas pradėti.'
+      },
+      train: {
+        '1': 'Skaičiuok su manimi. Vienas, du, ir laikyk. Laikas išsitempia, jei teisingai jį laikai.'
+      },
+      class: {
+        '1': 'Tvarkome laiką. Sulėtiname priešą, paskubiname draugą, atšaukiame vieną kitą klaidą.',
+        '2': 'Intelekto jam suprasti. Meistrystės jį paliesti nieko nesulaužant.',
+        say: 'Kas yra Laiko audėjas?'
+      },
+      ready: {
+        strong: {
+          '1': 'Puikus laiko pojūtis. Likusias mano pamokas imk, kada tau patogu.'
+        },
+        able: {
+          '1': 'Esi pasiruošęs. Kita pamoka prasideda, o, dabar.'
+        },
+        weak: {
+          '1': 'Dar ne. Visada atsilieki per taktą. Daugiau Intelekto ir daugiau Meistrystės.'
+        }
+      },
+      keeper: {
+        '1': 'Mokiau jį prieš daugelį metų. Genialus mokinys. Visada per anksti arba per vėlai, niekada laiku.',
+        say: 'Iš kur pažįsti Valandų sergėtoją?'
+      },
+      trainBack: {
+        '1': 'Treniruokis kasdien. Kiekvieną dieną tuo pačiu metu, jei malonėsi.'
+      },
+      bye: {
+        '1': 'Na, keliauk. Ir nevėluok.'
+      }
+    },
+    sbMasterBlood: {
+      hello: {
+        '1': 'Daktaras Sangrel man rašė apie tave. Sako, nenualpai. Iš jo lūpų tai didelis pagyrimas.',
+        '2': 'Vesper Raudonlapė. Pro šį tiltą praplaukia visos pasaulio žolelės. Čia mane lepina.'
+      },
+      again: {
+        '1': 'Sveikas sugrįžęs. Šiandien atrodai žvalus. Aš visada pastebiu.'
+      },
+      train: {
+        '1': 'Įkvėpk. Jauti savo jėgą? O dabar išleisk truputį jos. Išmintingai.'
+      },
+      class: {
+        '1': 'Už galią mokame savo gyvybine jėga, o paskui atsiimame ją iš priešų.',
+        '2': 'Ištvermė – tavo piniginė. Intelektas lemia, kaip gerai ją išleidi.',
+        say: 'Kas iš tikrųjų yra Kraujo alchemikas?'
+      },
+      ready: {
+        strong: {
+          '1': 'Kiek gyvybingumo! Esi pasiruošęs beveik viskam, ką moku.'
+        },
+        able: {
+          '1': 'Tavo esencija stipri. Pirmyn, prie kitos pamokos.'
+        },
+        weak: {
+          '1': 'Dar ne. Pavargtum po vieno burtažodžio. Pirmiau sustiprink Ištvermę.'
+        }
+      },
+      herbs: {
+        '1': 'Daugiausia tonikams. Truputis esencijos, daug mėtų. Mėtos viską pagerina.',
+        '2': 'Jei ten rasi retų augalų, užnešk juos. Mielai pažiūrėčiau.',
+        say: 'Kam visos šios žolelės?'
+      },
+      trainBack: {
+        '1': 'Po treniruotės pailsėk. Esencija sugrįžta, bet ji mėgsta pasnausti.'
+      },
+      bye: {
+        '1': 'Saugok save. Gerk vandenį. Valgyk ką nors žalio.'
+      }
+    },
+    smalltalkSilverbridge: {
+      barges: {
+        '1': 'Šįryt iš pakrantės atplaukė trys baržos.',
+        '2': 'Vėl sūdyta žuvis?',
+        '3': 'Šilkas, šįkart. Tik paskui pauostyk pirštus.'
+      },
+      lesson: {
+        '1': 'Kaip sekėsi per pamoką?',
+        '2': 'Padegiau sau rankovę. Meistras sako, kad tai pažanga.'
+      },
+      masters: {
+        '1': 'Visi krašto meistrai moko vienoje gatvėje.',
+        '2': 'Ir kiekvienas sako, kad jo klasė geriausia.',
+        '3': 'Ir visi teisūs. Tai ir erzina.'
+      },
+      bridge: {
+        '1': 'Sako, tiltas senesnis už miestą.',
+        '2': 'Girgžda jis tikrai panašiai.'
+      },
+      fish: {
+        '1': 'Pagavai ką nors?',
+        '2': 'Batą.',
+        '3': 'Na, tai pusė poros.'
+      },
+      newMaster: {
+        '1': 'Šiaurinėje gatvėje naujas meistras. Daug kalba apie laiką.',
+        '2': 'Lažinuosi, vėluoja į kiekvieną pamoką.'
+      },
+      siege: {
+        '1': 'Iš Oakhaveno blogos žinios. Plėšikai prie sienų.',
+        '2': 'Tada baržos plauks čia. Vargšai.'
       }
     }
   },

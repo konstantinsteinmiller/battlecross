@@ -247,6 +247,10 @@ export default {
     rift: {
       name: 'Heçlik Yarığı',
       desc: 'İblislərin içindən gəldiyi yara. Heçlik Lordu o tayda gözləyir.'
+    },
+    silverbridge: {
+      name: 'Silverbridge',
+      desc: 'Köhnə daş körpünün üstündəki böyük çay şəhəri. Burada hər sinfin bir ustası dərs verir.'
     }
   },
   map: {
@@ -1071,6 +1075,48 @@ export default {
     },
     trainerChrono: {
       name: 'Saatların Keşikçisi'
+    },
+    mayorBrenna: {
+      name: 'Mer Brenna Quill'
+    },
+    sbHealer: {
+      name: 'Rahib Ansel'
+    },
+    sbArmorer: {
+      name: 'Greta Ironvein',
+      talk: 'Dağ poladı, çay qiymətləri. İstədiyin şeyi döyüb yoxla.'
+    },
+    sbWeapons: {
+      name: 'Corvin Ashby',
+      talk: 'Ashby-nin Zərif Tiyələri. Hər tiyə əllə cilalanıb. Mənim əlimlə.'
+    },
+    sbJeweler: {
+      name: 'Tam Marlow',
+      talk: 'Üzüklər, tilsimlər, uğurlu daşlar. Hamısı əsl. Yəni, demək olar ki, hamısı.'
+    },
+    sbMasterAegis: {
+      name: 'Ledi Helga Stormshield'
+    },
+    sbMasterPyro: {
+      name: 'Magistr Ignatius Vale'
+    },
+    sbMasterShadow: {
+      name: 'Nyx Halloway'
+    },
+    sbMasterSovereign: {
+      name: 'Lord Percival Ashcombe'
+    },
+    sbMasterGeo: {
+      name: 'Tova Deeproot Nənə'
+    },
+    sbMasterAether: {
+      name: 'Professor Quint Sprocket'
+    },
+    sbMasterChrono: {
+      name: 'Saat Gözətçisi Selwyn'
+    },
+    sbMasterBlood: {
+      name: 'Vesper Crimsonleaf'
     }
   },
   quest: {
@@ -2654,6 +2700,503 @@ export default {
         iceBreak: {
           '1': 'Göl səni udacaq!'
         }
+      }
+    },
+    mayorBrenna: {
+      hello: {
+        '1': 'Arabaya fikir ver! Bağışla, bu körpüdə hər şey hərəkətdədir. Silverbridge-ə xoş gəldin.',
+        '2': 'Mən Mer Brenna Quill. İtən, sınan və ya gecikən nə varsa, mənim masama gəlir.'
+      },
+      ending: {
+        '1': 'Bütün çay boyu səndən danışırlar. Ticarət heç vaxt bu qədər yaxşı olmayıb. Yəni, sağ ol.'
+      },
+      again: {
+        '1': 'Yenə gəldin? Yaxşı. Arabaların yolunu kəsməməyə çalış.'
+      },
+      who: {
+        '1': 'Doqquz ildir merəm. Ondan əvvəl kəndir satırdım. Əslində eyni işdir: hər şeyi bir yerdə saxlamaq.',
+        '2': 'Şəhər hər yaz səs verir. Hələ ki bu masanı başqa istəyən yoxdur.'
+      },
+      town: {
+        '1': 'Əvvəl körpü vardı. Sonra üstündə bazar, sonra evlər, sonra da o evlərin üstündə evlər.',
+        '2': 'Fəvvarələrə fikir ver. Uşaqlar içinə düşür. Bazar günü böyüklər də.',
+        say: 'Mənə Silverbridge haqqında danış.'
+      },
+      masters: {
+        '1': 'Hamısının. Qalxan, od, kölgə, daş. Hər birinin ustası, hamısı bir körpüdə.',
+        '2': 'Hər yerdən şagird gəlir. Mehmanxanalar üçün yaxşıdır. Mənim pəncərələrim üçün o qədər də yox.',
+        say: 'Burada doğrudan da hər sinfin müəllimi var?'
+      },
+      river: {
+        '1': 'Çay nə gətirirsə. Balıq, ipək, Ironhold poladı, arabir bir qutu qəzəbli toyuq.',
+        '2': 'Silverbridge-də hər tacir lövhə asmır. Gözünü dörd aç.',
+        say: 'Burada nə ilə ticarət edirlər?'
+      },
+      rumor: {
+        crags: {
+          '1': 'Şimaldan gələn qayıqlar dayanıb. Kül Qayalıqlarında nəsə yanır.'
+        },
+        mines: {
+          '1': 'Bu ay Ironhold poladı yoxdur. Cırtdanlar deyir ki, mədənlərində nəsə pis gedib.'
+        },
+        tundra: {
+          '1': 'Xəz tacirləri artıq tundranı keçmir. Deyirlər, nəhənglər hərəkətə keçib.'
+        },
+        far: {
+          '1': 'Tacirlər uzaq şimaldan indi ancaq pıçıltıyla danışır. Orada nə varsa, alış-veriş etmir.'
+        }
+      },
+      bye: {
+        '1': 'Hə, get. Kimsə soruşsa, körpü haqqı çox ədalətlidir.'
+      }
+    },
+    sbHealer: {
+      hello: {
+        '1': 'Hm? Ah, xəstə. Bağışla, gözlərimi dincəldirdim. Şəfaçılar belə edir.',
+        '2': 'Rahib Ansel. Gəl, otur. Stul göründüyündən daha rahatdır.'
+      },
+      again: {
+        '1': 'Ah, qayıtdın. Mən də təzəcə oturmuşdum.'
+      },
+      heal: {
+        '1': 'Uzan, gözlərini yum. Çox yox, yoxsa mən də mürgüləyərəm. Budur, kolbalar doludur.'
+      },
+      mana: {
+        '1': 'Nurpapaq tonikası. Ağıla xeyirdir, nəfəsə ziyan. Yavaş-yavaş iç.'
+      },
+      potions: {
+        '1': 'Çarəsiz qalmamış birini iç. Qəhrəmanlar həmişə çox gözləyir.',
+        '2': 'Daha çox daşımaq istəsən, daha uzun kəmərlər satıram. Kolbaları doldurmaq pulsuzdur.',
+        say: 'İksirlər barədə məsləhətin var?'
+      },
+      sleep: {
+        '1': 'Gecələr yox. Hər sinifdən şagirdlər, hamısı məşq edir. Həmişə nəsə partlayır.',
+        say: 'Sən heç yatırsan?'
+      },
+      healBack: {
+        '1': 'Hə, get. Növbəti dəfə sarğı üçün yox, çay üçün gəl.'
+      },
+      bye: {
+        '1': 'Pillələrə fikir ver. Xəstələrimin yarısı elə onlara ilişib yıxılıb.'
+      }
+    },
+    sbArmorer: {
+      hello: {
+        '1': 'Ha! Bu əzikə bax. Ümid edirəm, o zirehin pulunu geri almısan.',
+        '2': 'Greta Ironvein. Sahibi ilə birlikdə evə qayıdan zirehlər düzəldirəm. Hələ ki hər dəfə.'
+      },
+      again: {
+        '1': 'Yenə sən! Hələ də sağ-salamatsan. Ən sevdiyim müştəri növü.'
+      },
+      trade: {
+        '1': 'Hə, döy görüm. İstədiyin qədər bərk.'
+      },
+      who: {
+        '1': 'Dağ ailəsindənəm. Ticarət üçün çayla aşağı endim, balığa görə qaldım.'
+      },
+      steel: {
+        '1': 'Qalınlığı deyil. Harada əyildiyi. Yaxşı zireh sən harada əyilirsənsə, orada əyilir.',
+        '2': 'Ağır zireh Güc istəyir, yadında saxla. Gücsüz geysən, ördək kimi yırğalanarsan.',
+        say: 'Yaxşı zirehin sirri nədir?'
+      },
+      shopBack: {
+        '1': 'Xeyrini gör. Əzikləri mənə gətir, yaxşı hekayəni sevirəm.'
+      },
+      bye: {
+        '1': 'Hə, get. Örtmədiyim yerdən zərbə yemə.'
+      }
+    },
+    sbWeapons: {
+      hello: {
+        '1': 'Ah, zövqlü müştəri. Mən həmişə bilirəm. İçəri girişindən bəllidir.',
+        '2': 'Corvin Ashby, Ashby-nin Zərif Tiyələrindən. Bəli, həmin Ashby. Yəqin ki, adımı eşitmisən.'
+      },
+      again: {
+        '1': 'Artıq qayıtdın? Hamı həmişə Corvin-ə qayıdır.'
+      },
+      trade: {
+        '1': 'Hər tiyə əllə cilalanıb. Özü də mənim əlimlə. Əksindən gözün qamaşmasın.'
+      },
+      who: {
+        '1': 'Çay boyunca ən yaxşı qılınc satıcısı. Kimdən istəsən soruş. Ya da sadəcə lövhəmi oxu.'
+      },
+      blades: {
+        '1': 'Sənə yaraşanı seç. Cəld əllər yüngül qılınc istəyir, güclü qollar ağırını.',
+        '2': 'Bir də gözəl görünməlidir. Çirkin qılınclı qəhrəmandan heç kim qaçmır.',
+        say: 'Yaxşı silahı necə seçim?'
+      },
+      shopBack: {
+        '1': 'Əla seçim. Saçlarım qədər əla deyil, amma yaxındır.'
+      },
+      bye: {
+        '1': 'Hamıya de ki, haradan almısan.'
+      }
+    },
+    sbJeweler: {
+      hello: {
+        '1': 'Pst! Bura bax! Üzüklər, tilsimlər, uğurlu daşlar. Körpünün ən yaxşı piştaxtası.',
+        '2': 'Adım Tam Marlow. Mən balacayam, qiymətlərim isə daha da balaca.'
+      },
+      again: {
+        '1': 'Ən sevdiyim müştəri! Bunu dediyimi başqalarına demə.'
+      },
+      trade: {
+        '1': 'Hamısı əsl. Çoxu. Yaxşı, o şüşədir, amma çox gözəl şüşədir.'
+      },
+      who: {
+        '1': 'Bu körpüdə böyümüşəm. Hər çatı, hər pişiyi, hər qısa yolu tanıyıram.'
+      },
+      gossip: {
+        '1': 'Professor Sprocket yenə qaşlarını yandırıb. Bu ay üçüncü dəfə.',
+        '2': 'Bir də mer lövhə asmayan tacirlərdən xəbərdardır. Mən də üstündə işləyirəm.',
+        say: 'Maraqlı şayiə eşitmisən?'
+      },
+      shopBack: {
+        '1': 'Səninlə iş görmək xoş idi! Dostlarına de. Keşikçilərə yox.'
+      },
+      bye: {
+        '1': 'Görüşərik! Elə burada olacağam. Yəqin ki.'
+      }
+    },
+    sbMasterAegis: {
+      hello: {
+        '1': 'Ha! Daha bir gənc. Başını qaldır, çiyinlər geri. Qalxanlar təbəssümlə daha yaxşı işləyir.',
+        '2': 'Ledi Helga Stormshield. Bir vaxt bu körpünü qorumuşam. İndi başqalarına yerində durmağı öyrədirəm.'
+      },
+      again: {
+        '1': 'Budur, gəldin! Qalxan yuxarıda? Yaxşı. Gülümsəyirsən? Daha yaxşı.'
+      },
+      train: {
+        '1': 'Ayaqlar geniş. Önə əyil. Mən itələyəndə tərpənmirsən. Hazırsan? Hop!'
+      },
+      class: {
+        '1': 'Öndə sən dayanırsan ki, başqaları dayanmasın. Bundan yaxşı iş yoxdur.',
+        '2': 'Qalxanı qaldırmaq üçün Güc. Şam yeməyinə qədər tutmaq üçün Dözüm.',
+        say: 'Egida Cəngavəri əslində nə edir?'
+      },
+      ready: {
+        strong: {
+          '1': 'Artıq əsl divarsan, əzizim. İstədiyin dərsi götür.'
+        },
+        able: {
+          '1': 'Möhkəm ayaqlar! Növbəti dərsə hazırsan.'
+        },
+        weak: {
+          '1': 'Hələ yox. Bir yaxşı təkanla yıxılarsan. Bir az da Güc və Dözüm, xahiş edirəm.'
+        }
+      },
+      bridge: {
+        '1': 'Qırx il əvvəl, çay quldurlarına qarşı. Altı nəfər idik, bir qapı, çox uzun bir gecə.',
+        '2': 'Ən bərk vurduğumuz üçün qalib gəlmədik. Yerimizdən tərpənmədiyimiz üçün qalib gəldik. Bunu unutma.',
+        say: 'Bu körpünü sən qorumusan?'
+      },
+      trainBack: {
+        '1': 'Afərin! İndi nəsə ye. Qalxanlar ağırdır.'
+      },
+      bye: {
+        '1': 'Orada başını dik tut!'
+      }
+    },
+    sbMasterPyro: {
+      hello: {
+        '1': 'Buyur, keç. Qeydlərə fikir ver və xahiş edirəm, manqalın yanında asqırma.',
+        '2': 'Magistr Ignatius Vale. Körpüdə od öyrədirəm. Ətrafda bol su var, başa düşürsən.'
+      },
+      again: {
+        '1': 'Dəqiqsən. Əla. Qaldığımız yerdən başlayırıq.'
+      },
+      train: {
+        '1': 'Diqqətlə bax. Kiçik alov, tərpənmədən saxlanılır. Böyük alov asandır. Kiçiyi məharət istəyir.'
+      },
+      class: {
+        '1': 'Odu hər kəs yandıra bilər. Piromant onun hara gedəcəyinə və harada dayanacağına qərar verir.',
+        '2': 'Hamısı Zəkadan gəlir. Sonra, od sabit əl istəyəndə, Məharət kömək edir.',
+        say: 'Piromant əslində nə edir?'
+      },
+      ready: {
+        strong: {
+          '1': 'Nəzarətin əladır. Düzəltməyə az şey qalıb. İstədiyini seç.'
+        },
+        able: {
+          '1': 'Kafi. Əslində kafidən də artıq. Növbəti dərsi götürə bilərsən.'
+        },
+        weak: {
+          '1': 'Hələ yox. Alovun titrəyir. Daha iti ağıl, xahiş edirəm. Daha çox Zəka.'
+        }
+      },
+      sprocket: {
+        '1': 'Parlaq adamdır. Səs-küylü, ehtiyatsız və parlaq. Qapısının yanında bir vedrə saxlayıram.',
+        say: 'Professor Sprocket haqqında nə düşünürsən?'
+      },
+      trainBack: {
+        '1': 'Suya yaxın məşq et. Təkid edirəm.'
+      },
+      bye: {
+        '1': 'Xeyirli gün. Qollarını çırmalanmış saxla.'
+      }
+    },
+    sbMasterShadow: {
+      hello: {
+        '1': 'Məni axtarırsan? Fəvvarədən bəri yanındayam. İki dəfə yanımdan keçdin.',
+        '2': 'Nyx Halloway. Gizlənmək üçün ən yaxşı yer izdihamdır, bu da ən qələbəlik körpüdür.'
+      },
+      again: {
+        '1': 'Yenə salam. Xeyli vaxtdır buradayam. Fərq etdin? Yox? Yaxşı.'
+      },
+      train: {
+        '1': 'Birinci dərs: buralıymış kimi yeri. Buralı olana heç kim ikinci dəfə baxmır.'
+      },
+      class: {
+        '1': 'Heç vaxt baxdıqları yerdə olmamaq. Sürüş, bir cəld zərbə, yenə izdihama qarış.',
+        '2': 'Cəld ayaqlar və əllər üçün Çeviklik. Zərbə boşa getməsin deyə Məharət.',
+        say: 'Yaxşı Kölgə Tiyəsinin sirri nədir?'
+      },
+      ready: {
+        strong: {
+          '1': 'Artıq əsl hiyləgərsən. Qalanını götür, haqq etmisən.'
+        },
+        able: {
+          '1': 'Ayaqların yüngüldür! Növbəti fəndə hazırsan.'
+        },
+        weak: {
+          '1': 'Hələ yox. Gəldiyini fəvvarədən eşidirəm. Daha çox Çeviklik.'
+        }
+      },
+      past: {
+        '1': 'Əvvəllər elə bu körpüdə cibgirlik edirdim. Özü də yaxşı edirdim.',
+        '2': 'Sonra mer məni tutdu və mənə kamera yox, iş verdi. Ona minnətdar olduğumu demə.',
+        say: 'Bütün bunları necə öyrəndin?'
+      },
+      trainBack: {
+        '1': 'İndi get məşq et. Çalış, səni tutmayım.'
+      },
+      bye: {
+        '1': 'Görüşərik. Yəni, sən məni görməyəcəksən.'
+      }
+    },
+    sbMasterSovereign: {
+      hello: {
+        '1': 'Oh! Salam, salam. Bağışla, keşikçilərimlə söhbət edirdim. Gözəl dinləyicilərdir.',
+        '2': 'Percival Ashcombe. Qalada dərs verə bilərdim, amma rəhbərliyi ancaq insanlar arasında öyrənirsən.'
+      },
+      again: {
+        '1': 'Əziz dostum! Davam edək? Əlbəttə, sən də istəsən.'
+      },
+      train: {
+        '1': 'Yaxşı, belə. Yaxşı əmr aydın, nəzakətli və yalnız bir dəfə verilir. Bax belə.'
+      },
+      class: {
+        '1': 'Lider. Keşikçilərin yanına gəlir və təkcə sənin üçün yox, səninlə birlikdə vuruşur.',
+        '2': 'Xarizma hər şeydir. İnsanlar sevdiklərinin ardınca gedir. Bir də adlarını yadda saxlayanın.',
+        say: 'Ali Hökmdar nədir?'
+      },
+      ready: {
+        strong: {
+          '1': 'Möhtəşəm! İndi insanlar səninlə hər yerə gedər. Bütün dərsləri götür.'
+        },
+        able: {
+          '1': 'Keşikçilərin sənə qulaq asardı. Növbəti dərsə hazırsan.'
+        },
+        weak: {
+          '1': 'Təəssüf ki, hələ yox. Bir az da Xarizma, onda gələcəklər.'
+        }
+      },
+      please: {
+        '1': 'Həmişə. Qışqırıq itaət gətirir. "Zəhmət olmasa" sədaqət gətirir, sədaqət isə daha uzun yaşayır.',
+        say: 'Keşikçilərinə doğrudan da "zəhmət olmasa" deyirsən?'
+      },
+      trainBack: {
+        '1': 'Gözəl iş. Sonra onlara təşəkkür etməyi unutma.'
+      },
+      bye: {
+        '1': 'Özünə yaxşı bax və hamıya salamımı çatdır.'
+      }
+    },
+    sbMasterGeo: {
+      hello: {
+        '1': 'Mamıra fikir ver, əzizim, ağır həftə keçirib. İndi gəl, sənə bir baxım.',
+        '2': 'Tova Deeproot nənə. Burada çay yatağı lap dibinə qədər gözəl daşdır.'
+      },
+      again: {
+        '1': 'Artıq qayıtdın? Otur, təzəcə çay dəmləmişəm. Daş çayı. Çoxu çaydır.'
+      },
+      train: {
+        '1': 'Əllərini yerə düz qoy. Elə yox. Yuxulu iti sığallayırmış kimi.'
+      },
+      class: {
+        '1': 'Torpaqdan kömək istəyirik. Lazım olanda divar, kimsə kobudluq edəndə tikan.',
+        '2': 'Daş bağ kimidir. Qazmaq üçün Güc, harada əkəcəyini bilmək üçün Zəka.',
+        say: 'Geomant nə edir?'
+      },
+      ready: {
+        strong: {
+          '1': 'Torpaq artıq səni sevir. Nə istəsən öyrən, əzizim.'
+        },
+        able: {
+          '1': 'Möhkəm köklər! Növbəti dərsə hazırsan.'
+        },
+        weak: {
+          '1': 'Hələ yox, balam. Daş sənə görə tərpənmir. Əvvəlcə daha çox Güc.'
+        }
+      },
+      garden: {
+        '1': 'Qırx illik zəhmət. Hər qaya əllə böyüdülüb. Yəni, sehrlə. Çoxu əllə.',
+        '2': 'Gedəndə bir çınqıl götür. Qapı üçün gözəl dayaq olur.',
+        say: 'Bu daşdan bağdır?'
+      },
+      trainBack: {
+        '1': 'Gözəl. İndi get nəyisə qaz. Ehmalca.'
+      },
+      bye: {
+        '1': 'Hə, get. İsti geyin, çay kənarı rütubətlidir.'
+      }
+    },
+    sbMasterAether: {
+      hello: {
+        '1': 'Xoş gəldin, xoş gəldin! Nümayişə düz vaxtında gəldin. Qulaqlarını tut, xahiş edirəm.',
+        '2': 'Professor Quint Sprocket. Çay çarxlarımı pulsuz fırladır. Başqa harada dərs verərdim?'
+      },
+      again: {
+        '1': 'Ah, ən sevimli şagirdim! Bugünkü nümayiş xüsusilə səs-küylüdür.'
+      },
+      train: {
+        '1': 'Lövhəyə bax. İndi lövhəni unut və maşına bax.'
+      },
+      class: {
+        '1': 'Bəladan çıxış yolunu düzəldirik. Tapança, turel və səni cilovlayan istilik göstəricisi.',
+        '2': 'Nişan üçün Məharət, ağıllı hissələr üçün Zəka. Ən yaxşısı ikisi birdən.',
+        say: 'Efir Texniki əslində nə edir?'
+      },
+      ready: {
+        strong: {
+          '1': 'Möhtəşəm! Mühazirələrimi sən oxuya bilərdin. Amma, xahiş edirəm, oxuma. Qalanını götür.'
+        },
+        able: {
+          '1': 'Sabit əl! Növbəti maşına hazırsan.'
+        },
+        weak: {
+          '1': 'Hələ yox. Nişanın sürüşür. Daha çox Məharət, sonra danışarıq.'
+        }
+      },
+      eyebrows: {
+        '1': 'Bir nümayiş bir az həddən artıq yaxşı alındı. Yenə çıxacaqlar. Həmişə çıxırlar.',
+        say: 'Qaşlarına nə olub?'
+      },
+      trainBack: {
+        '1': 'Əla. İndi get o istiliyi boşalt. Yaxşı olar ki, bayırda.'
+      },
+      bye: {
+        '1': 'Dərs bitdi! Pillələrə fikir ver.'
+      }
+    },
+    sbMasterChrono: {
+      hello: {
+        '1': 'Köhnə şagirdim, Saatların Keşikçisi, gələcəyini yazmışdı. Özü də düz bu dəqiqə.',
+        '2': 'Saat Gözətçisi Selwyn. Körpü saatına mən baxıram. Bu qədər qələbəlik şəhər gecikə bilməz.'
+      },
+      again: {
+        '1': 'Saat başını yeddi dəqiqə keçir. Başlamaq üçün yaxşı vaxtdır.'
+      },
+      train: {
+        '1': 'Mənimlə say. Bir, iki və saxla. Düz saxlasan, zaman uzanır.'
+      },
+      class: {
+        '1': 'Zamanı səliqəyə salırıq. Düşməni yavaşlat, dostu tələsdir, arabir bir səhvi geri qaytar.',
+        '2': 'Onu anlamaq üçün Zəka. Heç nəyi sındırmadan toxunmaq üçün Məharət.',
+        say: 'Zaman Toxuyan kimdir?'
+      },
+      ready: {
+        strong: {
+          '1': 'Əla vaxt hissi. Qalan dərslərimi nə vaxt istəsən götür.'
+        },
+        able: {
+          '1': 'Hazırsan. Növbəti dərs başlayır, ee, indi.'
+        },
+        weak: {
+          '1': 'Hələ yox. Həmişə bir addım geridəsən. Daha çox Zəka, daha çox Məharət.'
+        }
+      },
+      keeper: {
+        '1': 'İllər əvvəl ona dərs vermişəm. Parlaq şagird idi. Həmişə tez ya da gec, heç vaxt vaxtında yox.',
+        say: 'Saatların Keşikçisini haradan tanıyırsan?'
+      },
+      trainBack: {
+        '1': 'Hər gün məşq et. Xahiş edirəm, hər gün eyni saatda.'
+      },
+      bye: {
+        '1': 'Hə, get. Gecikmə.'
+      }
+    },
+    sbMasterBlood: {
+      hello: {
+        '1': 'Doktor Sangrel mənə səndən yazıb. Deyir, huşunu itirməmisən. Ondan bu, böyük tərifdir.',
+        '2': 'Vesper Crimsonleaf. Dünyanın hər otu bu körpünün yanından üzüb keçir. Burada ərköyün olmuşam.'
+      },
+      again: {
+        '1': 'Yenidən xoş gəldin. Bu gün çox gümrah görünürsən. Mən həmişə bilirəm.'
+      },
+      train: {
+        '1': 'Nəfəs al. Gücünü hiss edirsən? İndi bir azını xərclə. Ağılla.'
+      },
+      class: {
+        '1': 'Güc üçün öz həyat cövhərimizi xərcləyirik, sonra onu düşmənlərimizdən geri alırıq.',
+        '2': 'Dözüm sənin pul kisəndir. Zəka onu nə qədər yaxşı xərcləyəcəyinə qərar verir.',
+        say: 'Qan Kimyagəri əslində nədir?'
+      },
+      ready: {
+        strong: {
+          '1': 'Nə gümrahlıq! Bildiyim demək olar ki, hər şeyə hazırsan.'
+        },
+        able: {
+          '1': 'Cövhərin güclü axır. Növbəti dərsə keçək.'
+        },
+        weak: {
+          '1': 'Hələ yox. Bir sehrdən sonra yorulardın. Əvvəlcə Dözümünü artır.'
+        }
+      },
+      herbs: {
+        '1': 'Əsasən tonikalar. Bir az cövhər, bol nanə. Nanə hər şeyi yaxşılaşdırır.',
+        '2': 'Orada nadir bitki tapsan, mənə gətir. Baxmağa can atıram.',
+        say: 'Bu otların hamısı nə üçündür?'
+      },
+      trainBack: {
+        '1': 'Məşqdən sonra dincəl. Cövhər geri gəlir, amma mürgüləməyi sevir.'
+      },
+      bye: {
+        '1': 'Özünə yaxşı bax. Su iç. Yaşıl bir şey ye.'
+      }
+    },
+    smalltalkSilverbridge: {
+      barges: {
+        '1': 'Bu səhər sahildən üç barja gəldi.',
+        '2': 'Yenə duzlu balıq?',
+        '3': 'Bu dəfə ipək. Amma sonra barmaqlarını iylə.'
+      },
+      lesson: {
+        '1': 'Dərsin necə keçdi?',
+        '2': 'Qolumu yandırdım. Usta deyir, bu irəliləyişdir.'
+      },
+      masters: {
+        '1': 'Ölkənin bütün ustaları bir küçədə dərs verir.',
+        '2': 'Hər biri də deyir ki, ən yaxşı sinif onunkudur.',
+        '3': 'Hamısı haqlıdır, ən əsəbiləşdirəni də budur.'
+      },
+      bridge: {
+        '1': 'Deyirlər, körpü şəhərdən qədimdir.',
+        '2': 'Cırıltısından da bəllidir.'
+      },
+      fish: {
+        '1': 'Nəsə tutdun?',
+        '2': 'Bir çəkmə.',
+        '3': 'Eh, cütün yarısıdır.'
+      },
+      newMaster: {
+        '1': 'Şimal küçəsində yeni usta var. Hey zamandan danışır.',
+        '2': 'Mərc gələrəm, hər dərsə gecikir.'
+      },
+      siege: {
+        '1': 'Oakhavendən pis xəbər var. Quldurlar divarların dibindədir.',
+        '2': 'Onda barjalar bura gələcək. Yazıqlar.'
       }
     }
   },

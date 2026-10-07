@@ -247,6 +247,10 @@ export default {
     rift: {
       name: 'Falia Vidului',
       desc: 'Rana prin care au venit demonii. Stăpânul Vidului așteaptă de partea cealaltă.'
+    },
+    silverbridge: {
+      name: 'Silverbridge',
+      desc: 'Marele oraș de pe râu, pe vechiul pod de piatră. Aici predă un maestru al fiecărei clase.'
     }
   },
   map: {
@@ -1071,6 +1075,48 @@ export default {
     },
     trainerChrono: {
       name: 'Păzitorul Orelor'
+    },
+    mayorBrenna: {
+      name: 'Primărița Brenna Quill'
+    },
+    sbHealer: {
+      name: 'Fratele Ansel'
+    },
+    sbArmorer: {
+      name: 'Greta Vână-de-Fier',
+      talk: 'Oțel de munte, prețuri de râu. Ciocănește în ce vrei.'
+    },
+    sbWeapons: {
+      name: 'Corvin Ashby',
+      talk: 'Lamele Alese ale lui Ashby. Fiecare tăiș lustruit de mână. De mâna mea.'
+    },
+    sbJeweler: {
+      name: 'Tam Marlow',
+      talk: 'Inele, amulete, pietre norocoase. Toate adevărate. Ei, aproape toate.'
+    },
+    sbMasterAegis: {
+      name: 'Dama Helga Scut-de-Furtună'
+    },
+    sbMasterPyro: {
+      name: 'Magistrul Ignatius Vale'
+    },
+    sbMasterShadow: {
+      name: 'Nyx Halloway'
+    },
+    sbMasterSovereign: {
+      name: 'Lordul Percival Ashcombe'
+    },
+    sbMasterGeo: {
+      name: 'Bunica Tova Rădăcină-Adâncă'
+    },
+    sbMasterAether: {
+      name: 'Profesorul Quint Rotiță'
+    },
+    sbMasterChrono: {
+      name: 'Ceasornicarul Selwyn'
+    },
+    sbMasterBlood: {
+      name: 'Vesper Frunză-Stacojie'
     }
   },
   quest: {
@@ -2689,6 +2735,503 @@ export default {
         iceBreak: {
           '1': 'Lacul te va înghiți!'
         }
+      }
+    },
+    mayorBrenna: {
+      hello: {
+        '1': 'Atenție la căruță! Scuze, pe podul ăsta totul se mișcă. Bine ai venit în Silverbridge.',
+        '2': 'Sunt primărița Brenna Quill. Ce e pierdut, stricat sau întârziat ajunge pe biroul meu.'
+      },
+      ending: {
+        '1': 'Tot râul vorbește despre tine. Negoțul n-a mers niciodată mai bine. Așa că, mulțumesc.'
+      },
+      again: {
+        '1': 'Iar aici? Bine. Doar nu bloca căruțele.'
+      },
+      who: {
+        '1': 'Primăriță de nouă ani. Înainte vindeam frânghii. Cam aceeași treabă. Să țin totul legat.',
+        '2': 'Orașul votează în fiecare primăvară. Deocamdată nimeni altcineva nu vrea biroul.'
+      },
+      town: {
+        '1': 'Întâi a fost podul. Apoi o piață pe el, apoi case, apoi case peste casele alea.',
+        '2': 'Ai grijă la fântâni. Copiii cad în ele. Și adulții, în zi de târg.',
+        say: 'Spune-mi despre Silverbridge.'
+      },
+      masters: {
+        '1': 'Pentru fiecare. Scut, foc, umbră, piatră. Câte un maestru, toți pe un singur pod.',
+        '2': 'Ucenicii vin de peste tot. E bine pentru hanuri. Mai puțin pentru ferestrele mele.',
+        say: 'Chiar e aici un profesor pentru fiecare clasă?'
+      },
+      river: {
+        '1': 'Cu ce aduce râul. Pește, mătase, oțel din Ironhold, câte o ladă de găini supărate.',
+        '2': 'Și nu orice negustor din Silverbridge își pune firmă. Ține ochii deschiși.',
+        say: 'Cu ce face lumea negoț aici?'
+      },
+      rumor: {
+        crags: {
+          '1': 'Bărcile din nord nu mai vin. Ceva arde sus, în Stâncile de Cenușă.'
+        },
+        mines: {
+          '1': 'Luna asta, niciun oțel din Ironhold. Piticii zic că ceva n-a mers bine în minele lor.'
+        },
+        tundra: {
+          '1': 'Negustorii de blănuri nu mai trec tundra. Zic că uriașii s-au pus în mișcare.'
+        },
+        far: {
+          '1': 'Despre nordul îndepărtat negustorii doar șoptesc acum. Orice ar fi acolo, nu cumpără.'
+        }
+      },
+      bye: {
+        '1': 'Hai, du-te. Și dacă te întreabă cineva, taxa de pod e foarte corectă.'
+      }
+    },
+    sbHealer: {
+      hello: {
+        '1': 'Mm? A, un pacient. Scuze, îmi odihneam ochii. Vindecătorii fac asta.',
+        '2': 'Fratele Ansel. Intră, ia loc. Scaunul e mai comod decât pare.'
+      },
+      again: {
+        '1': 'A, te-ai întors. Și eu abia m-am așezat.'
+      },
+      heal: {
+        '1': 'Întinde-te, închide ochii. Nu prea mult, că ațipesc și eu. Gata, flacoanele sunt pline.'
+      },
+      mana: {
+        '1': 'Tonic de strălucel. Bun pentru minte, rău pentru respirație. Bea-l încet.'
+      },
+      potions: {
+        '1': 'Bea una înainte să fie disperare. Eroii așteaptă mereu prea mult.',
+        '2': 'Dacă vrei să cari mai multe, vând curele mai lungi. Umplerea flacoanelor e gratis.',
+        say: 'Ai vreun sfat despre poțiuni?'
+      },
+      sleep: {
+        '1': 'Nu noaptea. Ucenici din toate clasele, toți la antrenament. Mereu explodează ceva.',
+        say: 'Tu chiar dormi vreodată?'
+      },
+      healBack: {
+        '1': 'Hai, du-te. Data viitoare vino la ceai, nu după bandaje.'
+      },
+      bye: {
+        '1': 'Atenție la trepte. Jumătate din pacienții mei doar s-au împiedicat de ele.'
+      }
+    },
+    sbArmorer: {
+      hello: {
+        '1': 'Ha! Ia uite ce adâncitură. Sper că ți-ai primit banii înapoi pe armura aia.',
+        '2': 'Greta Vână-de-Fier. Fac armuri care se întorc acasă cu stăpânul lor. De fiecare dată, până acum.'
+      },
+      again: {
+        '1': 'Iar tu! Încă întreg. Genul meu preferat de client.'
+      },
+      trade: {
+        '1': 'Hai, ciocănește. Cât de tare vrei.'
+      },
+      who: {
+        '1': 'Sunt dintr-o familie de munte. Am coborât pe râu pentru negoț și am rămas pentru pește.'
+      },
+      steel: {
+        '1': 'Nu cât de groasă e. Ci unde se îndoaie. O armură bună se îndoaie unde te îndoi și tu.',
+        '2': 'Dar plăcile grele cer Forță. Fără ea, o să te legeni ca o rață.',
+        say: 'Ce face o armură bună?'
+      },
+      shopBack: {
+        '1': 'S-o porți sănătos. Adu-mi adânciturile, îmi plac poveștile bune.'
+      },
+      bye: {
+        '1': 'Hai, du-te. Nu te lăsa lovit unde nu te-am acoperit.'
+      }
+    },
+    sbWeapons: {
+      hello: {
+        '1': 'A, un client cu gust. Îmi dau seama mereu. Se vede după cum intri.',
+        '2': 'Corvin Ashby, de la Lamele Alese ale lui Ashby. Da, acel Ashby. Sigur ai auzit de mine.'
+      },
+      again: {
+        '1': 'Te-ai întors deja? La Corvin se întoarce toată lumea.'
+      },
+      trade: {
+        '1': 'Fiecare lamă lustruită de mână. De mâna mea, de fapt. Atenție la reflexie.'
+      },
+      who: {
+        '1': 'Cel mai bun vânzător de lame de pe râu. Întreabă pe oricine. Sau citește-mi firma.'
+      },
+      blades: {
+        '1': 'Alege una care ți se potrivește. Mâinile iuți vor o lamă ușoară, brațele puternice una grea.',
+        '2': 'Și trebuie să arate bine. Nimeni nu fuge de un erou cu o sabie urâtă.',
+        say: 'Cum aleg o armă bună?'
+      },
+      shopBack: {
+        '1': 'O alegere excelentă. Nu chiar ca părul meu, dar aproape.'
+      },
+      bye: {
+        '1': 'Spune-le oamenilor de unde ai cumpărat-o.'
+      }
+    },
+    sbJeweler: {
+      hello: {
+        '1': 'Pst! Aici! Inele, amulete, pietre norocoase. Cea mai bună tarabă de pe pod.',
+        '2': 'Mă cheamă Tam Marlow. Sunt mic, dar prețurile mele sunt și mai mici.'
+      },
+      again: {
+        '1': 'Clientul meu preferat! Nu le spune celorlalți că am zis asta.'
+      },
+      trade: {
+        '1': 'Toate adevărate. Mai mult sau mai puțin. Bine, aia e sticlă, dar e sticlă foarte frumoasă.'
+      },
+      who: {
+        '1': 'Am crescut pe podul ăsta. Știu fiecare crăpătură, fiecare pisică și fiecare scurtătură.'
+      },
+      gossip: {
+        '1': 'Profesorul Rotiță și-a ars iar sprâncenele. A treia oară luna asta.',
+        '2': 'Și primărița știe de negustorii care nu-și pun firmă. Lucrez la asta.',
+        say: 'Ai auzit vreo bârfă bună?'
+      },
+      shopBack: {
+        '1': 'Mi-a făcut plăcere! Spune-le prietenilor. Nu și gărzilor.'
+      },
+      bye: {
+        '1': 'Ne vedem! Sunt chiar aici. Probabil.'
+      }
+    },
+    sbMasterAegis: {
+      hello: {
+        '1': 'Ha! Încă un tinerel. Bărbia sus, umerii înapoi. Scuturile merg mai bine cu un zâmbet.',
+        '2': 'Dama Helga Scut-de-Furtună. Am apărat odată podul ăsta. Acum îi învăț pe alții să nu cedeze.'
+      },
+      again: {
+        '1': 'Aici erai! Scutul sus? Bine. Zâmbești? Și mai bine.'
+      },
+      train: {
+        '1': 'Picioarele depărtate. Apleacă-te. Când împing, nu te miști. Gata? Hop!'
+      },
+      class: {
+        '1': 'Stai în față, ca să nu trebuiască ceilalți. Cea mai bună meserie din lume.',
+        '2': 'Forță ca să ridici scutul. Anduranță ca să-l ții sus până la cină.',
+        say: 'Ce face de fapt un Cavaler al Egidei?'
+      },
+      ready: {
+        strong: {
+          '1': 'Acum ești un zid adevărat, dragul meu. Ia orice lecție vrei.'
+        },
+        able: {
+          '1': 'Picioare sigure! Ești gata pentru următoarea.'
+        },
+        weak: {
+          '1': 'Încă nu. O împingere bună și ai cădea. Mai multă Forță și Anduranță, te rog.'
+        }
+      },
+      bridge: {
+        '1': 'Acum patruzeci de ani, de pirații de râu. Șase dintre noi, o poartă, o noapte foarte lungă.',
+        '2': 'N-am câștigat lovind cel mai tare. Am câștigat nemișcându-ne. Ține minte asta.',
+        say: 'Tu ai apărat podul ăsta?'
+      },
+      trainBack: {
+        '1': 'Bravo! Acum mănâncă ceva. Scuturile sunt grele.'
+      },
+      bye: {
+        '1': 'Capul sus acolo!'
+      }
+    },
+    sbMasterPyro: {
+      hello: {
+        '1': 'Intră, te rog. Atenție la notițe și, te rog, nu strănuta lângă mangal.',
+        '2': 'Magistrul Ignatius Vale. Predau focul pe un pod. E apă din belșug în jur, înțelegi.'
+      },
+      again: {
+        '1': 'Punctual. Excelent. Continuăm de unde am rămas.'
+      },
+      train: {
+        '1': 'Privește. O flacără mică, ținută nemișcat. Flăcările mari sunt ușoare. Cele mici cer pricepere.'
+      },
+      class: {
+        '1': 'Oricine poate aprinde un foc. Un piromant hotărăște încotro merge și unde se oprește.',
+        '2': 'Totul vine din Inteligență. Mai târziu ajută Măiestria, când focul cere o mână sigură.',
+        say: 'Ce face de fapt un piromant?'
+      },
+      ready: {
+        strong: {
+          '1': 'Controlul tău e excelent. Mai am foarte puțin de corectat. Alege liber.'
+        },
+        able: {
+          '1': 'Satisfăcător. Chiar mai mult decât satisfăcător. Poți lua lecția următoare.'
+        },
+        weak: {
+          '1': 'Încă nu. Flacăra ta tremură. O minte mai ageră, te rog. Mai multă Inteligență.'
+        }
+      },
+      sprocket: {
+        '1': 'Un om strălucit. Gălăgios, neatent și strălucit. Țin o găleată lângă ușa lui.',
+        say: 'Ce părere ai despre Profesorul Rotiță?'
+      },
+      trainBack: {
+        '1': 'Exersează lângă apă. Insist.'
+      },
+      bye: {
+        '1': 'O zi bună. Și ține-ți mânecile suflecate.'
+      }
+    },
+    sbMasterShadow: {
+      hello: {
+        '1': 'Pe mine mă cauți? Sunt lângă tine de la fântână. Ai trecut de două ori pe lângă mine.',
+        '2': 'Nyx Halloway. Cel mai bun loc de ascuns e mulțimea, iar ăsta e cel mai aglomerat pod din lume.'
+      },
+      again: {
+        '1': 'Salut din nou. Sunt aici de ceva vreme. Ai observat? Nu? Bine.'
+      },
+      train: {
+        '1': 'Lecția unu: mergi ca și cum ai fi de-al locului. Nimeni nu se uită de două ori la unul de-al lor.'
+      },
+      class: {
+        '1': 'Să nu fie niciodată unde se uită ei. Te strecori, o lovitură rapidă și te pierzi iar în mulțime.',
+        '2': 'Dexteritate pentru picioare și mâini iuți. Măiestrie, ca lovitura să conteze.',
+        say: 'Ce face o Lamă a Umbrei bună?'
+      },
+      ready: {
+        strong: {
+          '1': 'Acum ești cu adevărat șiret. Ia ce a mai rămas, meriți.'
+        },
+        able: {
+          '1': 'Pas ușor! Ești gata pentru următorul truc.'
+        },
+        weak: {
+          '1': 'Încă nu. Te aud venind de la fântână. Mai multă Dexteritate.'
+        }
+      },
+      past: {
+        '1': 'Furam din buzunare chiar pe podul ăsta. Și eram bună la asta.',
+        '2': 'Apoi primărița m-a prins și mi-a dat o slujbă, nu o celulă. Nu-i spune că-i sunt recunoscătoare.',
+        say: 'Cum ai învățat toate astea?'
+      },
+      trainBack: {
+        '1': 'Acum du-te și exersează. Încearcă să nu te prind.'
+      },
+      bye: {
+        '1': 'Ne vedem. Ei, tu n-o să mă vezi.'
+      }
+    },
+    sbMasterSovereign: {
+      hello: {
+        '1': 'Oh! Bună, bună. Iartă-mă, stăteam la povești cu gărzile mele. Ascultători minunați.',
+        '2': 'Percival Ashcombe. Aș putea preda într-un castel, dar să conduci înveți doar printre oameni.'
+      },
+      again: {
+        '1': 'Dragul meu prieten! Continuăm? Doar dacă vrei, desigur.'
+      },
+      train: {
+        '1': 'Așadar. Un ordin bun e clar, blând și dat o singură dată. Uite așa.'
+      },
+      class: {
+        '1': 'Un conducător. Gărzile tale vin lângă tine și luptă cu tine, nu doar pentru tine.',
+        '2': 'Carisma e totul. Oamenii îi urmează pe cei care le plac. Și care le țin minte numele.',
+        say: 'Ce este un Mare Suveran?'
+      },
+      ready: {
+        strong: {
+          '1': 'Splendid! Acum oamenii te-ar urma oriunde. Ia toate lecțiile.'
+        },
+        able: {
+          '1': 'Gărzile tale te-ar asculta. Ești gata pentru următoarea lecție.'
+        },
+        weak: {
+          '1': 'Mă tem că încă nu chiar. Puțină Carismă în plus și vor veni.'
+        }
+      },
+      please: {
+        '1': 'Mereu. Cu strigăte obții ascultare. Cu „te rog” obții loialitate, iar loialitatea ține mai mult.',
+        say: 'Chiar le spui „te rog” gărzilor?'
+      },
+      trainBack: {
+        '1': 'Minunat. Nu uita să le mulțumești după aceea.'
+      },
+      bye: {
+        '1': 'Ai grijă de tine și salută-i pe toți din partea mea.'
+      }
+    },
+    sbMasterGeo: {
+      hello: {
+        '1': 'Atenție la mușchi, dragă, a avut o săptămână grea. Ia să te văd.',
+        '2': 'Bunica Tova Rădăcină-Adâncă. Albia râului de aici e piatră minunată, până jos de tot.'
+      },
+      again: {
+        '1': 'Te-ai întors deja? Stai jos, tocmai am făcut ceai. Ceai de piatră. Mai mult ceai.'
+      },
+      train: {
+        '1': 'Palmele lipite de pământ. Nu așa. Ca și cum ai mângâia un câine somnoros.'
+      },
+      class: {
+        '1': 'Cerem ajutorul pământului. Un zid când ai nevoie, un țep când cineva e nepoliticos.',
+        '2': 'Piatra e ca o grădină. Forță ca să sapi, Inteligență ca să știi unde să sădești.',
+        say: 'Ce face un Geomant?'
+      },
+      ready: {
+        strong: {
+          '1': 'Acum pământul te place. Învață ce vrei, dragă.'
+        },
+        able: {
+          '1': 'Rădăcini bune! Ești gata pentru următoarea lecție.'
+        },
+        weak: {
+          '1': 'Încă nu, puiule. Piatra nu se clintește pentru tine. Întâi mai multă Forță.'
+        }
+      },
+      garden: {
+        '1': 'Patruzeci de ani de muncă. Fiecare piatră crescută de mână. Ei, cu magie. Mai mult de mână.',
+        '2': 'Ia o pietricică la plecare. Sunt opritoare de ușă minunate.',
+        say: 'Aia e o grădină din piatră?'
+      },
+      trainBack: {
+        '1': 'Minunat. Acum du-te și sapă ceva. Ușurel.'
+      },
+      bye: {
+        '1': 'Hai, du-te. Îmbracă-te gros, e umed lângă râu.'
+      }
+    },
+    sbMasterAether: {
+      hello: {
+        '1': 'Bun venit, bun venit! Ai venit exact la demonstrație. Acoperă-ți urechile, te rog.',
+        '2': 'Profesorul Quint Rotiță. Râul îmi învârte roțile gratis. Unde altundeva să predau?'
+      },
+      again: {
+        '1': 'A, ucenicul meu preferat! Demonstrația de azi e extra zgomotoasă.'
+      },
+      train: {
+        '1': 'Privește tabla. Acum uită tabla și urmărește mașinăria.'
+      },
+      class: {
+        '1': 'Ne construim ieșirea din necaz. Un pistol, o turelă și un indicator de căldură, să nu exagerezi.',
+        '2': 'Măiestrie pentru țintit, Inteligență pentru părțile istețe. Ideal, amândouă.',
+        say: 'Ce face de fapt un Tehnician de Eter?'
+      },
+      ready: {
+        strong: {
+          '1': 'Minunat! Ai putea să-mi ții cursurile. Dar te rog, nu. Ia restul.'
+        },
+        able: {
+          '1': 'O mână sigură! Ești gata pentru următoarea mașinărie.'
+        },
+        weak: {
+          '1': 'Încă nu. Ținta îți fuge. Mai multă Măiestrie, apoi mai vorbim.'
+        }
+      },
+      eyebrows: {
+        '1': 'O demonstrație a mers puțin prea bine. Cresc la loc. Cresc mereu.',
+        say: 'Ce ți-au pățit sprâncenele?'
+      },
+      trainBack: {
+        '1': 'Splendid. Acum du-te și eliberează căldura. Afară, ideal.'
+      },
+      bye: {
+        '1': 'Ora s-a terminat! Atenție la trepte.'
+      }
+    },
+    sbMasterChrono: {
+      hello: {
+        '1': 'Fostul meu ucenic, Păzitorul Orelor, a scris că vei veni. Chiar în minutul ăsta, de fapt.',
+        '2': 'Ceasornicarul Selwyn. Am grijă de ceasul podului. Un oraș atât de ocupat nu-și permite să întârzie.'
+      },
+      again: {
+        '1': 'Și șapte minute. Un moment bun să începem.'
+      },
+      train: {
+        '1': 'Numără cu mine. Unu, doi și ține. Timpul se întinde, dacă îl ții cum trebuie.'
+      },
+      class: {
+        '1': 'Facem ordine în timp. Încetinim un dușman, grăbim un prieten, ștergem câte o greșeală.',
+        '2': 'Inteligență ca să-l înțelegi. Măiestrie ca să-l atingi fără să strici nimic.',
+        say: 'Ce este un Țesător al Timpului?'
+      },
+      ready: {
+        strong: {
+          '1': 'Simț excelent al timpului. Ia restul lecțiilor mele când îți convine.'
+        },
+        able: {
+          '1': 'Ești gata. Următoarea lecție începe, ia, acum.'
+        },
+        weak: {
+          '1': 'Încă nu. Ești mereu cu o bătaie în urmă. Mai multă Inteligență și mai multă Măiestrie.'
+        }
+      },
+      keeper: {
+        '1': 'L-am învățat eu, acum mulți ani. Un ucenic strălucit. Mereu devreme sau târziu, niciodată la timp.',
+        say: 'De unde îl cunoști pe Păzitorul Orelor?'
+      },
+      trainBack: {
+        '1': 'Exersează zilnic. La aceeași oră în fiecare zi, te rog.'
+      },
+      bye: {
+        '1': 'Hai, du-te. Și nu întârzia.'
+      }
+    },
+    sbMasterBlood: {
+      hello: {
+        '1': 'Doctorul Sangrel mi-a scris despre tine. Zice că n-ai leșinat. Mare laudă, din partea lui.',
+        '2': 'Vesper Frunză-Stacojie. Toate ierburile lumii plutesc pe lângă podul ăsta. Sunt răsfățată aici.'
+      },
+      again: {
+        '1': 'Bine ai revenit. Arăți plin de viață azi. Îmi dau seama mereu.'
+      },
+      train: {
+        '1': 'Inspiră. Îți simți puterea? Acum cheltuie puțin din ea. Cu cap.'
+      },
+      class: {
+        '1': 'Ne cheltuim propria forță vitală pentru putere, apoi o luăm înapoi de la dușmani.',
+        '2': 'Anduranța e punga ta. Inteligența hotărăște cât de bine o cheltuiești.',
+        say: 'Ce este, de fapt, un Alchimist al Sângelui?'
+      },
+      ready: {
+        strong: {
+          '1': 'Ce vitalitate! Ești gata pentru aproape tot ce știu.'
+        },
+        able: {
+          '1': 'Esența ta curge puternic. Mai departe, la următoarea lecție.'
+        },
+        weak: {
+          '1': 'Încă nu. Ai obosi după o singură vrajă. Întâi crește-ți Anduranța.'
+        }
+      },
+      herbs: {
+        '1': 'La tonice, mai ales. Puțină esență, multă mentă. Menta face totul mai bun.',
+        '2': 'Dacă găsești plante rare pe acolo, adu-mi-le. Mi-ar plăcea să le văd.',
+        say: 'La ce folosesc toate ierburile astea?'
+      },
+      trainBack: {
+        '1': 'Odihnește-te după antrenament. Esența revine, dar îi place să tragă un pui de somn.'
+      },
+      bye: {
+        '1': 'Ai grijă de tine. Bea apă. Mănâncă ceva verde.'
+      }
+    },
+    smalltalkSilverbridge: {
+      barges: {
+        '1': 'Au venit trei șlepuri de pe coastă azi-dimineață.',
+        '2': 'Iar pește sărat?',
+        '3': 'Mătase, de data asta. Dar tot să-ți miroși degetele după.'
+      },
+      lesson: {
+        '1': 'Cum a fost lecția?',
+        '2': 'Mi-am dat foc la mânecă. Maestrul zice că e progres.'
+      },
+      masters: {
+        '1': 'Toți maeștrii din țară predau pe o singură stradă.',
+        '2': 'Și fiecare zice că clasa lui e cea mai bună.',
+        '3': 'Toți au dreptate, și asta e partea enervantă.'
+      },
+      bridge: {
+        '1': 'Se zice că podul e mai vechi decât orașul.',
+        '2': 'După cum scârțâie, așa pare.'
+      },
+      fish: {
+        '1': 'Ai prins ceva?',
+        '2': 'O gheată.',
+        '3': 'Ei, asta-i jumătate de pereche.'
+      },
+      newMaster: {
+        '1': 'E un maestru nou pe strada de nord. Vorbește mult despre timp.',
+        '2': 'Pun pariu că întârzie la fiecare lecție.'
+      },
+      siege: {
+        '1': 'Vești proaste din Oakhaven. Bandiți la ziduri.',
+        '2': 'Atunci șlepurile vor veni aici. Sărmanii de ei.'
       }
     }
   },

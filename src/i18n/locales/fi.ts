@@ -247,6 +247,10 @@ export default {
     rift: {
       name: 'Tyhjyyden repeämä',
       desc: 'Haava, josta demonit tulivat. Tyhjyyden herra odottaa toisella puolella.'
+    },
+    silverbridge: {
+      name: 'Silverbridge',
+      desc: 'Suuri jokikaupunki vanhalla kivisillalla. Täällä opettaa mestari joka luokasta.'
     }
   },
   map: {
@@ -1071,6 +1075,48 @@ export default {
     },
     trainerChrono: {
       name: 'Tuntien vartija'
+    },
+    mayorBrenna: {
+      name: 'Pormestari Brenna Quill'
+    },
+    sbHealer: {
+      name: 'Veli Ansel'
+    },
+    sbArmorer: {
+      name: 'Greta Rautasuoni',
+      talk: 'Vuoriterästä jokihintaan. Koputa mitä vain haluat.'
+    },
+    sbWeapons: {
+      name: 'Corvin Ashby',
+      talk: 'Ashbyn Hienot Terät. Jokainen terä kiillotettu käsin. Minun käsilläni.'
+    },
+    sbJeweler: {
+      name: 'Tam Marlow',
+      talk: 'Sormuksia, amuletteja, onnenkiviä. Kaikki aitoja. No, melkein kaikki.'
+    },
+    sbMasterAegis: {
+      name: 'Rouva Helga Myrskykilpi'
+    },
+    sbMasterPyro: {
+      name: 'Magister Ignatius Vale'
+    },
+    sbMasterShadow: {
+      name: 'Nyx Halloway'
+    },
+    sbMasterSovereign: {
+      name: 'Lordi Percival Ashcombe'
+    },
+    sbMasterGeo: {
+      name: 'Mummo Tova Syväjuuri'
+    },
+    sbMasterAether: {
+      name: 'Professori Quint Ratas'
+    },
+    sbMasterChrono: {
+      name: 'Kellonvartija Selwyn'
+    },
+    sbMasterBlood: {
+      name: 'Vesper Purppuralehti'
     }
   },
   quest: {
@@ -2654,6 +2700,503 @@ export default {
         iceBreak: {
           '1': 'Järvi nielaisee sinut!'
         }
+      }
+    },
+    mayorBrenna: {
+      hello: {
+        '1': 'Varo kärryä! Anteeksi, kaikki tällä sillalla liikkuu. Tervetuloa Silverbridgeen.',
+        '2': 'Olen pormestari Brenna Quill. Jos jokin katoaa, hajoaa tai myöhästyy, se päätyy pöydälleni.'
+      },
+      ending: {
+        '1': 'Koko joki puhuu sinusta. Kauppa ei ole ikinä käynyt paremmin. Joten kiitos.'
+      },
+      again: {
+        '1': 'Taas täällä? Hyvä. Yritä olla tukkimatta kärryjen tietä.'
+      },
+      who: {
+        '1': 'Pormestarina nyt yhdeksän vuotta. Sitä ennen myin köyttä. Sama työ oikeastaan: asioiden koossa pitämistä.',
+        '2': 'Kaupunki äänestää joka kevät. Toistaiseksi kukaan muu ei ole halunnut pöytää.'
+      },
+      town: {
+        '1': 'Silta tuli ensin. Sitten sille tori, sitten taloja, sitten taloja niiden talojen päälle.',
+        '2': 'Varo suihkulähteitä. Lapset putoavat niihin. Niin aikuisetkin, toripäivänä.',
+        say: 'Kerro Silverbridgestä.'
+      },
+      masters: {
+        '1': 'Jokaiselle. Kilpi, tuli, varjo, kivi. Mestari jokaiseen, kaikki samalla sillalla.',
+        '2': 'Oppilaita tulee kaikkialta. Hyvä majataloille. Ei niin hyvä ikkunoilleni.',
+        say: 'Onko täällä tosiaan opettaja joka luokalle?'
+      },
+      river: {
+        '1': 'Kaikella, mitä joki tuo. Kalaa, silkkiä, Ironholdin terästä, joskus laatikollinen vihaisia kanoja.',
+        '2': 'Eikä jokainen Silverbridgen kauppias ripusta kylttiä. Pidä silmäsi auki.',
+        say: 'Millä täällä käydään kauppaa?'
+      },
+      rumor: {
+        crags: {
+          '1': 'Veneet pohjoisesta ovat lakanneet tulemasta. Jokin palaa ylhäällä Tuhkakallioilla.'
+        },
+        mines: {
+          '1': 'Ei Ironholdin terästä tässä kuussa. Kääpiöt sanovat, että kaivoksissa on mennyt jotain pieleen.'
+        },
+        tundra: {
+          '1': 'Turkiskauppiaat eivät enää ylitä tundraa. Sanovat, että jättiläiset ovat liikkeellä.'
+        },
+        far: {
+          '1': 'Kaukaisesta pohjoisesta kauppiaat enää kuiskivat. Mitä siellä onkin, se ei osta mitään.'
+        }
+      },
+      bye: {
+        '1': 'Mene vain. Ja jos joku kysyy, siltamaksu on oikein kohtuullinen.'
+      }
+    },
+    sbHealer: {
+      hello: {
+        '1': 'Mm? Ai, potilas. Anteeksi, lepuutin silmiäni. Parantajat tekevät niin.',
+        '2': 'Veli Ansel. Tule sisään, istu. Tuoli on mukavampi kuin miltä näyttää.'
+      },
+      again: {
+        '1': 'Ah, palasit. Ja minä kun juuri istuuduin.'
+      },
+      heal: {
+        '1': 'Nojaa taakse, sulje silmät. Ei liian pitkäksi aikaa, tai nukahdan minäkin. Kas niin, pullot täynnä.'
+      },
+      mana: {
+        '1': 'Hehkulakkijuomaa. Hyvää mielelle, pahaa hengitykselle. Siemaile hitaasti.'
+      },
+      potions: {
+        '1': 'Juo yksi ennen kuin on hätä. Sankarit odottavat aina liian kauan.',
+        '2': 'Jos haluat kantaa enemmän, myyn pidempiä vöitä. Pullojen täyttö on ilmaista.',
+        say: 'Onko neuvoja juomista?'
+      },
+      sleep: {
+        '1': 'En öisin. Oppilaita joka luokasta, kaikki harjoittelevat. Aina jokin räjähtää.',
+        say: 'Nukutko sinä koskaan oikeasti?'
+      },
+      healBack: {
+        '1': 'Mene vain. Tule ensi kerralla teelle eikä sidottavaksi.'
+      },
+      bye: {
+        '1': 'Varo portaita. Puolet potilaistani ovat vain kompastuneet niihin.'
+      }
+    },
+    sbArmorer: {
+      hello: {
+        '1': 'Hah! Katso tuota lommoa. Toivottavasti sait rahasi takaisin siitä haarniskasta.',
+        '2': 'Greta Rautasuoni. Teen haarniskoja, jotka tulevat kotiin omistajansa kanssa. Joka kerta, tähän asti.'
+      },
+      again: {
+        '1': 'Sinä taas! Yhä yhtenä kappaleena. Lempiasiakastyyppiäni.'
+      },
+      trade: {
+        '1': 'Anna mennä, koputa sitä. Niin kovaa kuin haluat.'
+      },
+      who: {
+        '1': 'Vuoristosukua. Tulin jokea alas kaupan takia ja jäin kalan takia.'
+      },
+      steel: {
+        '1': 'Ei se, kuinka paksu se on, vaan missä se taipuu. Hyvä haarniska taipuu siinä, missä sinäkin.',
+        '2': 'Raskas levyhaarniska vaatii Voimaa, muista. Ilman sitä taaperrat kuin ankka.',
+        say: 'Mikä tekee haarniskasta hyvän?'
+      },
+      shopBack: {
+        '1': 'Kanna sitä hyvin. Tuo lommot minulle, tykkään hyvistä tarinoista.'
+      },
+      bye: {
+        '1': 'Mene vain. Älä ota osumaa mihinkään, mitä en ole suojannut.'
+      }
+    },
+    sbWeapons: {
+      hello: {
+        '1': 'Ah, asiakas, jolla on makua. Huomaan sen aina. Se näkyy siitä, miten kävelet sisään.',
+        '2': 'Corvin Ashby, Ashbyn Hienoista Teristä. Kyllä, se Ashby. Olet varmasti kuullut minusta.'
+      },
+      again: {
+        '1': 'Jo takaisin? Aina ne palaavat Corvinin luo.'
+      },
+      trade: {
+        '1': 'Jokainen terä kiillotettu käsin. Minun käsilläni, itse asiassa. Varo heijastusta.'
+      },
+      who: {
+        '1': 'Joen hienoin terien myyjä. Kysy keneltä tahansa. Tai lue vain kylttini.'
+      },
+      blades: {
+        '1': 'Valitse sellainen, joka sopii sinulle. Nopeat kädet kevyen terän, vahvat käsivarret raskaan.',
+        '2': 'Ja sen pitää näyttää hyvältä. Kukaan ei pakene sankaria, jolla on ruma miekka.',
+        say: 'Miten valitsen hyvän aseen?'
+      },
+      shopBack: {
+        '1': 'Hieno valinta. Ei aivan yhtä hieno kuin hiukseni, mutta lähellä.'
+      },
+      bye: {
+        '1': 'Kerrothan ihmisille, mistä ostit sen.'
+      }
+    },
+    sbJeweler: {
+      hello: {
+        '1': 'Pss! Tänne! Sormuksia, amuletteja, onnenkiviä. Sillan paras koju.',
+        '2': 'Nimi on Tam Marlow. Olen pieni, mutta hintani ovat vielä pienempiä.'
+      },
+      again: {
+        '1': 'Lempiasiakkaani! Älä kerro muille, että sanoin noin.'
+      },
+      trade: {
+        '1': 'Kaikki aitoja. Enimmäkseen. No, tuo on lasia, mutta tosi hienoa lasia.'
+      },
+      who: {
+        '1': 'Kasvoin tällä sillalla. Tunnen jokaisen halkeaman, jokaisen kissan ja jokaisen oikotien.'
+      },
+      gossip: {
+        '1': 'Professori Ratas räjäytti taas kulmakarvansa irti. Kolmas kerta tässä kuussa.',
+        '2': 'Ja pormestari tietää kauppiaista, jotka eivät ripusta kylttiä. Työn alla.',
+        say: 'Kuulitko hyviä juoruja?'
+      },
+      shopBack: {
+        '1': 'Mukava tehdä kauppaa! Kerro ystävillesi. Ei vartijoille.'
+      },
+      bye: {
+        '1': 'Nähdään! Olen tässä. Luultavasti.'
+      }
+    },
+    sbMasterAegis: {
+      hello: {
+        '1': 'Hah! Taas yksi nuori. Leuka pystyyn, hartiat taakse. Kilpi toimii paremmin hymyn kanssa.',
+        '2': 'Rouva Helga Myrskykilpi. Puolustin kerran tätä siltaa. Nyt opetan muita pitämään pintansa.'
+      },
+      again: {
+        '1': 'Siinä sinä olet! Kilpi ylhäällä? Hyvä. Hymyiletkö? Vielä parempi.'
+      },
+      train: {
+        '1': 'Jalat leveälle. Nojaa eteen. Kun työnnän, et liiku. Valmis? Hop!'
+      },
+      class: {
+        '1': 'Seisot edessä, jotta muiden ei tarvitse. Paras työ, mitä on.',
+        '2': 'Voimaa kilven nostamiseen. Kestävyyttä pitämään sitä ylhäällä illalliseen asti.',
+        say: 'Mitä Aigisritari oikeasti tekee?'
+      },
+      ready: {
+        strong: {
+          '1': 'Olet nyt kunnon muuri, kultaseni. Ota mikä oppitunti tahansa.'
+        },
+        able: {
+          '1': 'Vakaat jalat! Olet valmis seuraavaan.'
+        },
+        weak: {
+          '1': 'Ei vielä. Yksi kunnon tönäisy ja kaatuisit. Lisää Voimaa ja Kestävyyttä, kiitos.'
+        }
+      },
+      bridge: {
+        '1': 'Neljäkymmentä vuotta sitten, jokimerirosvoja vastaan. Kuusi meitä, yksi portti, tosi pitkä yö.',
+        '2': 'Emme voittaneet lyömällä kovimmin. Voitimme pysymällä paikallamme. Muista se.',
+        say: 'Puolustitko sinä tätä siltaa?'
+      },
+      trainBack: {
+        '1': 'Hyvää työtä! Syö nyt jotain. Kilvet ovat painavia.'
+      },
+      bye: {
+        '1': 'Leuka pystyyn siellä!'
+      }
+    },
+    sbMasterPyro: {
+      hello: {
+        '1': 'Käy sisään. Varo muistiinpanoja, äläkä aivasta hiilipannun lähellä.',
+        '2': 'Magister Ignatius Vale. Opetan tulta sillalla. Vettä on runsaasti lähellä, ymmärräthän.'
+      },
+      again: {
+        '1': 'Täsmällinen. Erinomaista. Jatketaan siitä, mihin jäimme.'
+      },
+      train: {
+        '1': 'Katso. Pieni liekki, pidetty paikallaan. Isot liekit ovat helppoja. Pienet vaativat taitoa.'
+      },
+      class: {
+        '1': 'Kuka tahansa voi sytyttää tulen. Pyromantikko päättää, minne se menee ja missä se pysähtyy.',
+        '2': 'Kaikki lähtee Älystä. Myöhemmin Taito auttaa, kun tuli tarvitsee vakaata kättä.',
+        say: 'Mitä pyromantikko oikeasti tekee?'
+      },
+      ready: {
+        strong: {
+          '1': 'Hallintasi on erinomaista. Minulla on hyvin vähän korjattavaa. Valitse vapaasti.'
+        },
+        able: {
+          '1': 'Riittävää. Enemmän kuin riittävää, itse asiassa. Saat seuraavan oppitunnin.'
+        },
+        weak: {
+          '1': 'Ei vielä. Liekkisi huojuu. Terävämpi mieli, kiitos. Lisää Älyä.'
+        }
+      },
+      sprocket: {
+        '1': 'Nerokas mies. Äänekäs, huolimaton ja nerokas. Pidän ämpäriä hänen ovellaan.',
+        say: 'Mitä mieltä olet professori Rataksesta?'
+      },
+      trainBack: {
+        '1': 'Harjoittele veden lähellä. Vaadin sitä.'
+      },
+      bye: {
+        '1': 'Hyvää päivänjatkoa. Pidä hihat käärittyinä.'
+      }
+    },
+    sbMasterShadow: {
+      hello: {
+        '1': 'Etsitkö minua? Olen ollut vieressäsi suihkulähteeltä asti. Kävelit ohitseni kahdesti.',
+        '2': 'Nyx Halloway. Paras piilopaikka on väkijoukko, ja tämä on vilkkain silta, mitä on.'
+      },
+      again: {
+        '1': 'Moi taas. Olen ollut tässä jo hetken. Huomasitko? Et? Hyvä.'
+      },
+      train: {
+        '1': 'Ensimmäinen oppitunti: kävele kuin kuuluisit tänne. Kukaan ei vilkaise kahdesti sellaista.'
+      },
+      class: {
+        '1': 'Ettei ole koskaan siellä, minne he katsovat. Livahda sisään, yksi nopea isku, ja sulaudu takaisin.',
+        '2': 'Ketteryyttä nopeisiin jalkoihin ja käsiin. Taitoa, jotta isku osuu.',
+        say: 'Mikä tekee hyvän Varjoterän?'
+      },
+      ready: {
+        strong: {
+          '1': 'Olet nyt tosi ovela. Ota loput, olet ansainnut ne.'
+        },
+        able: {
+          '1': 'Kevyt askel! Olet valmis seuraavaan temppuun.'
+        },
+        weak: {
+          '1': 'Ei vielä. Kuulen sinun tulevan jo suihkulähteeltä. Lisää Ketteryyttä.'
+        }
+      },
+      past: {
+        '1': 'Olin ennen taskuvaras juuri tällä sillalla. Ja hyvä siinä.',
+        '2': 'Sitten pormestari nappasi minut ja antoi työpaikan, ei selliä. Älä kerro hänelle, että olen kiitollinen.',
+        say: 'Miten opit kaiken tämän?'
+      },
+      trainBack: {
+        '1': 'Mene nyt harjoittelemaan. Yritä, etten nappaa sinua.'
+      },
+      bye: {
+        '1': 'Nähdään. No, sinä et näe minua.'
+      }
+    },
+    sbMasterSovereign: {
+      hello: {
+        '1': 'Oi! Hei, hei. Suo anteeksi, juttelin vartijoideni kanssa. Ihania kuuntelijoita.',
+        '2': 'Percival Ashcombe. Voisin opettaa linnassa, mutta johtamaan oppii vain siellä, missä ihmiset ovat.'
+      },
+      again: {
+        '1': 'Rakas ystäväni! Jatketaanko? Vain jos haluat, tietenkin.'
+      },
+      train: {
+        '1': 'No niin. Hyvä käsky on selkeä, ystävällinen ja annetaan vain kerran. Näin.'
+      },
+      class: {
+        '1': 'Johtaja. Vartijasi tulevat rinnallesi ja taistelevat kanssasi, eivät vain puolestasi.',
+        '2': 'Karisma on kaikki kaikessa. Ihmiset seuraavat niitä, joista pitävät. Ja jotka muistavat heidän nimensä.',
+        say: 'Mikä on Suurhallitsija?'
+      },
+      ready: {
+        strong: {
+          '1': 'Loistavaa! Ihmiset seuraisivat sinua nyt minne vain. Ota kaikki oppitunnit.'
+        },
+        able: {
+          '1': 'Vartijasi kuuntelisivat sinua. Olet valmis seuraavaan oppituntiin.'
+        },
+        weak: {
+          '1': 'Ei ihan vielä, pelkään. Vähän lisää Karismaa, niin he tulevat.'
+        }
+      },
+      please: {
+        '1': 'Aina. Huutamalla saa tottelevaisuutta. Kohteliaisuudella uskollisuutta, ja se kestää pidempään.',
+        say: 'Sanotko tosiaan vartijoillesi ole hyvä?'
+      },
+      trainBack: {
+        '1': 'Ihanaa työtä. Muista kiittää heitä jälkeenpäin.'
+      },
+      bye: {
+        '1': 'Pidä huolta itsestäsi, ja terveisiä kaikille.'
+      }
+    },
+    sbMasterGeo: {
+      hello: {
+        '1': 'Varo sammalta, kultaseni, sillä on ollut pitkä viikko. No niin, katsotaanpa sinua.',
+        '2': 'Mummo Tova Syväjuuri. Joenpohja täällä on ihanaa kiveä, ihan pohjaan asti.'
+      },
+      again: {
+        '1': 'Jo takaisin? Istu, keitin juuri teetä. Kiviteetä. Se on enimmäkseen teetä.'
+      },
+      train: {
+        '1': 'Kädet lattein maahan. Ei noin. Niin kuin taputtaisit uneliasta koiraa.'
+      },
+      class: {
+        '1': 'Pyydämme maalta apua. Muurin kun tarvitset, piikin kun joku on töykeä.',
+        '2': 'Kivi on kuin puutarha. Voimaa kaivamiseen, Älyä tietämään, mihin istuttaa.',
+        say: 'Mitä Geomantikko tekee?'
+      },
+      ready: {
+        strong: {
+          '1': 'Maa pitää sinusta nyt. Opettele mitä haluat, kultaseni.'
+        },
+        able: {
+          '1': 'Hyvät juuret! Olet valmis seuraavaan oppituntiin.'
+        },
+        weak: {
+          '1': 'Ei vielä, kulta. Kivi ei liikahda sinulle. Ensin lisää Voimaa.'
+        }
+      },
+      garden: {
+        '1': 'Neljänkymmenen vuoden työ. Jokainen kivi kasvatettu käsin. No, taikuudella. Enimmäkseen käsin.',
+        '2': 'Ota pikkukivi mukaan lähtiessäsi. Niistä tulee ihania ovenpidikkeitä.',
+        say: 'Onko tuo kivestä tehty puutarha?'
+      },
+      trainBack: {
+        '1': 'Ihanaa. Mene nyt kaivamaan jotain. Varovasti.'
+      },
+      bye: {
+        '1': 'Mene vain. Pukeudu lämpimästi, joen varrella on kosteaa.'
+      }
+    },
+    sbMasterAether: {
+      hello: {
+        '1': 'Tervetuloa, tervetuloa! Ehdit juuri näytökseen. Peitä korvasi, kiitos.',
+        '2': 'Professori Quint Ratas. Joki pyörittää rattaitani ilmaiseksi. Missä muualla opettaisin?'
+      },
+      again: {
+        '1': 'Ah, lempioppilaani! Tämänpäiväinen näytös on erityisen äänekäs.'
+      },
+      train: {
+        '1': 'Katso liitutaulua. Unohda nyt liitutaulu ja katso konetta.'
+      },
+      class: {
+        '1': 'Rakennamme tiemme ulos pulasta. Pistooli, tykkitorni ja kuumuusmittari pitämään sinut rehellisenä.',
+        '2': 'Taitoa tähtäämiseen, Älyä nokkeliin osiin. Mieluiten molempia.',
+        say: 'Mitä Eetteriteknikko oikeastaan tekee?'
+      },
+      ready: {
+        strong: {
+          '1': 'Upeaa! Voisit pitää luentoni. Älä silti pidä. Ota loput.'
+        },
+        able: {
+          '1': 'Vakaa käsi! Olet valmis seuraavaan koneeseen.'
+        },
+        weak: {
+          '1': 'Ei vielä. Tähtäyksesi harhailee. Lisää Taitoa, sitten puhutaan.'
+        }
+      },
+      eyebrows: {
+        '1': 'Eräs näytös onnistui vähän liian hyvin. Ne kasvavat takaisin. Aina kasvavat.',
+        say: 'Mitä kulmakarvoillesi tapahtui?'
+      },
+      trainBack: {
+        '1': 'Loistavaa. Mene nyt purkamaan se kuumuus. Mieluiten ulkona.'
+      },
+      bye: {
+        '1': 'Tunti päättyi! Varo portaita.'
+      }
+    },
+    sbMasterChrono: {
+      hello: {
+        '1': 'Vanha oppilaani, Tuntien vartija, kirjoitti, että tulisit. Juuri tällä minuutilla, itse asiassa.',
+        '2': 'Kellonvartija Selwyn. Hoidan sillan kelloa. Näin kiireinen kaupunki ei voi myöhästellä.'
+      },
+      again: {
+        '1': 'Seitsemän yli. Hyvä hetki aloittaa.'
+      },
+      train: {
+        '1': 'Laske kanssani. Yksi, kaksi, ja pidä. Aika venyy, jos pitelet sitä oikein.'
+      },
+      class: {
+        '1': 'Siivoamme aikaa. Hidastamme vihollista, kiirehdimme ystävää, perumme jonkin virheen.',
+        '2': 'Älyä ymmärtää sitä. Taitoa koskea siihen rikkomatta mitään.',
+        say: 'Mikä on Ajankutoja?'
+      },
+      ready: {
+        strong: {
+          '1': 'Erinomainen ajoitus. Ota loput oppitunneistani, kun sinulle sopii.'
+        },
+        able: {
+          '1': 'Olet valmis. Seuraava oppitunti alkaa, öh, nyt.'
+        },
+        weak: {
+          '1': 'Ei vielä. Olet aina tahdin jäljessä. Lisää Älyä, ja lisää Taitoa.'
+        }
+      },
+      keeper: {
+        '1': 'Opetin häntä vuosia sitten. Nerokas oppilas. Aina etuajassa tai myöhässä, ei koskaan ajallaan.',
+        say: 'Mistä tunnet Tuntien vartijan?'
+      },
+      trainBack: {
+        '1': 'Harjoittele joka päivä. Samaan aikaan joka päivä, jos sopii.'
+      },
+      bye: {
+        '1': 'Mene vain. Älä myöhästy.'
+      }
+    },
+    sbMasterBlood: {
+      hello: {
+        '1': 'Tohtori Sangrel kirjoitti minulle sinusta. Hän sanoo, ettet pyörtynyt. Kova kehu häneltä.',
+        '2': 'Vesper Purppuralehti. Jokainen maailman yrtti kelluu tämän sillan ohi. Minua hemmotellaan täällä.'
+      },
+      again: {
+        '1': 'Tervetuloa takaisin. Näytät tänään virkeältä. Huomaan sen aina.'
+      },
+      train: {
+        '1': 'Hengitä sisään. Tunnetko voimasi? Käytä nyt vähän siitä. Viisaasti.'
+      },
+      class: {
+        '1': 'Käytämme omaa elinvoimaamme voimaan ja otamme sen sitten takaisin vihollisiltamme.',
+        '2': 'Kestävyys on kukkarosi. Äly päättää, kuinka hyvin käytät sen.',
+        say: 'Mikä Verialkemisti oikeastaan on?'
+      },
+      ready: {
+        strong: {
+          '1': 'Mikä elinvoima! Olet valmis melkein kaikkeen, mitä osaan.'
+        },
+        able: {
+          '1': 'Olemuksesi virtaa vahvana. Seuraavaan oppituntiin.'
+        },
+        weak: {
+          '1': 'Ei vielä. Väsyisit yhden loitsun jälkeen. Kasvata ensin Kestävyyttäsi.'
+        }
+      },
+      herbs: {
+        '1': 'Enimmäkseen juomiin. Vähän olemusta, paljon minttua. Minttu tekee kaikesta parempaa.',
+        '2': 'Jos löydät harvinaisia kasveja, tuo ne käymään. Katsoisin niitä mielelläni.',
+        say: 'Mihin kaikkia näitä yrttejä käytetään?'
+      },
+      trainBack: {
+        '1': 'Lepää harjoituksen jälkeen. Olemus palaa, mutta se tykkää päiväunista.'
+      },
+      bye: {
+        '1': 'Pidä huolta itsestäsi. Juo vettä. Syö jotain vihreää.'
+      }
+    },
+    smalltalkSilverbridge: {
+      barges: {
+        '1': 'Kolme proomua tuli rannikolta tänä aamuna.',
+        '2': 'Taasko suolakalaa?',
+        '3': 'Silkkiä, kerrankin. Mutta haistapa sormiasi jälkeenpäin.'
+      },
+      lesson: {
+        '1': 'Miten oppituntisi meni?',
+        '2': 'Sytytin hihani tuleen. Mestari sanoo, että se on edistystä.'
+      },
+      masters: {
+        '1': 'Maan jokainen mestari opettaa samalla kadulla.',
+        '2': 'Ja jokainen heistä sanoo, että juuri hänen luokkansa on paras.',
+        '3': 'Kaikki ovat oikeassa, ja se siinä ärsyttääkin.'
+      },
+      bridge: {
+        '1': 'Sanotaan, että silta on kaupunkia vanhempi.',
+        '2': 'Kyllä se ainakin narisee sen mukaisesti.'
+      },
+      fish: {
+        '1': 'Saitko mitään?',
+        '2': 'Saappaan.',
+        '3': 'No, se on puoli paria.'
+      },
+      newMaster: {
+        '1': 'Pohjoiskadulla on uusi mestari. Puhuu paljon ajasta.',
+        '2': 'Myöhästyy joka tunnilta, lyön vetoa.'
+      },
+      siege: {
+        '1': 'Oakhavenista kuuluu pahaa. Rosvoja muureilla.',
+        '2': 'Sitten proomut tulevat tänne. Voi raukkoja.'
       }
     }
   },

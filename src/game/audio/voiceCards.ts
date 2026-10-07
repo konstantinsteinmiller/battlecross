@@ -341,6 +341,112 @@ export const CARDS: Readonly<Record<string, VoiceCard>> = {
     notes: 'No FX: the bass carries it.'
   }),
 
+  // ── Silverbridge ──
+  mayorBrenna: card({
+    name: 'Mayor Brenna Quill', gender: 'female', age: 'about 50', pitch: 'mid', pace: 'brisk',
+    timbre: 'crisp, confident, slightly dry mezzo',
+    personality: 'The busy mayor of a river trade town: proud of it, practical, a little dry, always half on her way somewhere.',
+    design: 'A woman of about fifty with a crisp, confident mezzo voice. Brisk and practical, with a dry sense of humour and a quiet pride, like someone who runs a busy market and enjoys it.',
+    reference: "Mind the cart! Sorry, everything on this bridge moves. I'm Mayor Brenna Quill. If it's lost, broken or late, it ends up on my desk, so let's keep things moving, shall we?",
+    notes: ''
+  }),
+  sbHealer: card({
+    name: 'Friar Ansel', gender: 'male', age: 'late 40s', pitch: 'mid-low', pace: 'slow',
+    timbre: 'soft, warm, slightly drowsy baritone',
+    personality: 'A gentle healer who is always a little sleepy; kind, unhurried, with a quiet, yawning humour.',
+    design: 'A man in his late forties with a soft, warm baritone that sounds a little drowsy. Gentle and unhurried, kind, with a sleepy smile in the voice.',
+    reference: "Mm? Oh, a patient. Sorry, I was resting my eyes. Healers do that. I'm Friar Ansel. Come in and sit down, the chair's comfier than it looks.",
+    notes: 'Sleepy, never slurred: every word stays clear.'
+  }),
+  sbArmorer: card({
+    name: 'Greta Ironvein', gender: 'female', age: 'mid 40s, mountain-born', pitch: 'mid-low', pace: 'medium',
+    timbre: 'big, bright, laughing alto',
+    personality: 'A blunt, cheerful armourer from the mountains who laughs at dents and says exactly what she thinks.',
+    design: 'A sturdy woman in her mid forties with a big, bright alto and a ready laugh. Blunt and cheerful, loud in a friendly way, like a craftswoman who loves her work.',
+    reference: "Ha! Look at that dent. I'm Greta Ironvein, and I make armour that comes home with its owner. Go on, knock on it. Hard as you like.",
+    notes: 'Not Hilda Hammerhand (Ironhold, proud and hearty): Greta laughs more and brags less.'
+  }),
+  sbWeapons: card({
+    name: 'Corvin Ashby', gender: 'male', age: 'mid 30s', pitch: 'mid', pace: 'measured',
+    timbre: 'smooth, polished, honeyed tenor-baritone',
+    personality: 'A smooth blade salesman, charming and a little vain; loves his shop, his name and his hair.',
+    design: 'A man in his mid thirties with a smooth, polished voice, charming and a touch self-satisfied, like a salesman who knows he is good at it.',
+    reference: "Ah, a customer with taste. I can always tell. Corvin Ashby, of Ashby's Fine Blades. Every blade polished by hand. My hand, in fact.",
+    notes: 'Vain in a funny way, never sleazy.'
+  }),
+  sbJeweler: card({
+    name: 'Tam Marlow', gender: 'male', age: 'about 15', pitch: 'mid-high', pace: 'fast',
+    timbre: 'quick, cheeky teenage voice',
+    personality: 'A quick-talking street-stall kid with a cheeky grin; half salesman, half town gossip.',
+    design: 'A fifteen-year-old boy with a quick, cheeky, lively voice. Fast-talking and friendly, a street trader who always has one more thing to tell you.',
+    reference: "Psst! Over here! Rings, charms, lucky stones. Best stall on the bridge. Name's Tam Marlow. I'm small, but my prices are smaller.",
+    notes: 'A teenager, not a child: clearly older than the small-talk kids.'
+  }),
+  sbMasterAegis: card({
+    name: 'Dame Helga Stormshield', gender: 'female', age: 'mid 60s', pitch: 'mid-low', pace: 'medium',
+    timbre: 'big, warm, booming alto',
+    personality: 'A retired champion who once held the bridge: loud, jolly and big-hearted, a grandmother and a drill sergeant at once.',
+    design: 'A woman in her mid sixties with a big, warm, booming alto. Jolly and encouraging, loud in a friendly way, like a cheerful old champion coaching young people.',
+    reference: "Ha! Another young one. Chin up, shoulders back. Shields work better with a smile. I'm Dame Helga Stormshield. Feet wide, lean in, and when I push, you don't move.",
+    notes: 'Warm and loud, never harsh: not Ser Aldric (strict and formal).'
+  }),
+  sbMasterPyro: card({
+    name: 'Magister Ignatius Vale', gender: 'male', age: 'late 50s', pitch: 'mid', pace: 'measured',
+    timbre: 'precise, dry, slightly nasal academic tenor',
+    personality: 'A fussy, precise fire scholar who treats flame as a careful craft; calm, exact, quietly funny.',
+    design: 'A man in his late fifties with a precise, dry tenor, an old-fashioned scholar who chooses each word carefully. Calm and a little fussy, with a dry wit.',
+    reference: "Do come in. Mind the notes, and please don't sneeze near the brazier. I'm Magister Ignatius Vale. Big flames are easy. Small ones, held still, take skill.",
+    notes: 'Calm and controlled: the opposite of Ember Wren (bubbly, reckless).'
+  }),
+  sbMasterShadow: card({
+    name: 'Nyx Halloway', gender: 'female', age: 'early 20s', pitch: 'mid-high', pace: 'brisk',
+    timbre: 'light, quick, grinning voice',
+    personality: 'A former pickpocket gone straight: cheeky, playful and quick, hides in crowds in broad daylight.',
+    design: 'A young woman in her early twenties with a light, quick voice and a grin in it. Playful and cheeky, confident, a little teasing.',
+    reference: "Looking for me? I've been next to you since the fountain. You walked past me twice. I'm Nyx Halloway. Lesson one: walk like you belong.",
+    notes: 'Bright and playful: not the Whisper (soft, breathy, mysterious).'
+  }),
+  sbMasterSovereign: card({
+    name: 'Lord Percival Ashcombe', gender: 'male', age: 'mid 40s', pitch: 'mid', pace: 'medium',
+    timbre: 'kindly, well-spoken, gentle baritone',
+    personality: 'A gracious, kind nobleman who leads by saying please; polite to a fault, warm, a little fussy.',
+    design: 'A man in his mid forties with a kindly, well-spoken baritone. Gracious, warm and polite, a gentle nobleman who is genuinely glad to see you.',
+    reference: "Oh! Hello, hello. Do forgive me, I was chatting with my guards. I'm Percival Ashcombe. A good order is clear, kind, and only given once.",
+    notes: 'Warm and humble: not Lord Castellan (haughty, cold).'
+  }),
+  sbMasterGeo: card({
+    name: 'Grandmother Tova Deeproot', gender: 'female', age: 'about 75', pitch: 'mid', pace: 'medium',
+    timbre: 'warm, chatty, slightly creaky old voice',
+    personality: 'A feisty, chatty old earth mage who tends a garden of stone and treats every pupil like a grandchild.',
+    design: 'A woman of about seventy-five with a warm, chatty, slightly creaky voice. Lively and feisty, affectionate, always offering tea.',
+    reference: "Mind the moss, dear, it's had a long week. I'm Grandmother Tova Deeproot. Hands flat on the ground. Not like that. Like you're patting a sleepy dog.",
+    notes: 'Lively and chatty: not Old Stonefoot (slow, deep, male).'
+  }),
+  sbMasterAether: card({
+    name: 'Professor Quint Sprocket', gender: 'male', age: 'late 40s', pitch: 'mid', pace: 'brisk',
+    timbre: 'resonant, theatrical lecturer\'s baritone',
+    personality: 'A confident showman of an inventor: every lesson a demonstration, every demonstration loud, unbothered by lost eyebrows.',
+    design: 'A man in his late forties with a resonant, theatrical lecturer\'s voice. Confident and enthusiastic, a showman at a blackboard who loves an audience.',
+    reference: "Welcome, welcome! You're just in time for the demonstration. Cover your ears, please. I'm Professor Quint Sprocket. Observe the blackboard. Now forget it, and watch the machine.",
+    notes: 'Confident and grand: not Gearwright Pim (young, nervous, jittery).'
+  }),
+  sbMasterChrono: card({
+    name: 'Clockwarden Selwyn', gender: 'male', age: 'late 60s', pitch: 'mid', pace: 'brisk',
+    timbre: 'crisp, clipped, precise tenor',
+    personality: 'The punctual keeper of the bridge clock: brisk, exact and dry, the Keeper of Hours\' old teacher.',
+    design: 'A man in his late sixties with a crisp, clipped and precise tenor. Brisk and exact, with a dry humour, every word on the beat like a ticking clock.',
+    reference: "My old pupil wrote that you'd come, at this very minute. I'm Clockwarden Selwyn. I keep the bridge clock. Count with me. One, two, and hold.",
+    notes: 'Brisk and exact: not the Keeper of Hours (soft, dreamy, slow).'
+  }),
+  sbMasterBlood: card({
+    name: 'Vesper Crimsonleaf', gender: 'female', age: 'late 30s', pitch: 'mid', pace: 'measured',
+    timbre: 'bright, soft, kindly voice',
+    personality: 'A kind, bright-eyed alchemist of essence who brews tonics and loves mint; curious and caring.',
+    design: 'A woman in her late thirties with a bright, soft and kindly voice. Curious and caring, a little dreamy about herbs, warm and reassuring.',
+    reference: "Doctor Sangrel wrote to me about you. He says you didn't faint. High praise, from him. I'm Vesper Crimsonleaf. Breathe in. Feel your strength? Now spend a little of it.",
+    notes: 'Kind and bright, never eerie: not Doctor Sangrel (dry, cool, darkly funny).'
+  }),
+
   // ── Overheard small talk ──
   smalltalkSunford: card({
     name: 'Sunford villager', gender: 'female', age: 'about 60', pitch: 'mid', pace: 'medium',
@@ -366,13 +472,21 @@ export const CARDS: Readonly<Record<string, VoiceCard>> = {
     reference: "Good seam of copper on the fourth level. Copper pays the rent, silver pays for dreams. The great forge hasn't gone cold in a hundred years, you know.",
     notes: 'Starts the Ironhold chats; townsfolk answers.'
   }),
+  smalltalkSilverbridge: card({
+    name: 'Silverbridge trader', gender: 'female', age: 'late 20s', pitch: 'mid', pace: 'brisk',
+    timbre: 'bright, wry river-town voice',
+    personality: 'A young river trader: unloads barges all morning, teases her friends, a little proud of her big town.',
+    design: 'A woman in her late twenties with a bright, wry voice, a young river-market trader, quick and good-humoured.',
+    reference: "Three barges in from the coast this morning, silk for once. Every master in the land teaches on one street, and every one of them says theirs is the best class.",
+    notes: 'Starts the Silverbridge chats; townsfolk answers.'
+  }),
   townsfolk: card({
     name: 'Townsfolk', gender: 'male', age: 'early 40s', pitch: 'mid', pace: 'medium',
     timbre: 'plain, friendly everyman voice',
     personality: 'The other half of every grown-up street chat: plain, friendly, a bit dry.',
     design: 'A man in his early forties with a plain, friendly everyday voice, relaxed and a little dry, like a neighbour chatting in the street.',
     reference: "Your knee said that last week too. Let's hope we get to keep it. Nothing gets through the gate cheap these days. Still, I sleep a bit easier for it.",
-    notes: 'Answers in Sunford, Oakhaven and Ironhold; the children\'s chats get kidFriend instead (voiceOf).'
+    notes: 'Answers in Sunford, Oakhaven, Ironhold and Silverbridge; the children\'s chats get kidFriend instead (voiceOf).'
   }),
   smalltalkKids: card({
     name: 'Village boy', gender: 'male', age: 'about 8', pitch: 'high', pace: 'fast',

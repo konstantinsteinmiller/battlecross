@@ -3,7 +3,7 @@ import { app, type GameMode } from './engine/app'
 import { afterPaint } from './engine/slicer'
 import type { Input } from './engine/input'
 import { AMBUSH_KIND, FACTIONS, REP_HOSTILE, questOfNode, type FactionId } from './data/quests'
-import { NODE_BY_ID, TOWNS, ZONES, hiddenTrainerOf, visitLevel, type NodeId, type NpcDef, type ThemeId, type TownId } from './data/zones'
+import { NODE_BY_ID, TOWNS, ZONES, foundFlag, hiddenTrainerOf, visitLevel, type NodeId, type NpcDef, type ThemeId, type TownId } from './data/zones'
 import type { ClassId } from './data/skills'
 import type { ZoneId } from './data/items'
 import { ZoneMode, type ZoneSetup } from './modes/zoneMode'
@@ -743,6 +743,18 @@ const startTalk = (kind: Exclude<Talk, ''>, conv: ConversationDef, stage: TalkSt
 const roleWindow = (npc: NpcDef): Modal => (npc.role === 'shop' ? 'shop' : npc.role === 'trainer' ? 'trainer' : npc.role === 'healer' ? 'healer' : '')
 
 /** The hero walked up to a townsperson (the scene calls this; so may a test). */
+/**
+ * The hero has met a teacher of this class. For a hidden class that is news
+ * in Silverbridge: its master teaches there from now on (roadmap #86).
+ */
+const metTeacher = (cls: ClassId | undefined): void => {
+  if (!cls) return
+  const f = foundFlag(cls)
+  if (hasFlag(f) || !Object.values(TOWNS).some(t => t.npcs.some(n => n.needs?.includes(f)))) return
+  profile.world.flags.push(f)
+  saveProfile()
+}
+
 export const talkTo = (npcId: string): void => {
   if (flow.modal || flow.talk || flow.loading) return
   // The town square's notice board (#85): its tasks and the factions' contracts.
@@ -750,6 +762,7 @@ export const talkTo = (npcId: string): void => {
   const npc = npcById(npcId)
   if (!npc) return
   flow.npc = npc
+  if (npc.role === 'trainer') metTeacher(npc.cls)
   flow.trainerCls = npc.cls ?? ''
   const conv = conversationOf(npc.id)
   // Everyone has a conversation (a test holds the data to it); without one
@@ -782,6 +795,7 @@ export const visitHiddenTrainer = (node: NodeId): void => {
   if (flow.modal || flow.talk || flow.loading) return
   flow.npc = { id: t.npc, role: 'trainer', look: t.npc, at: [0, 0], cls: t.cls }
   flow.trainerCls = t.cls
+  metTeacher(t.cls)
   // Nobody to stand in front of on the map: the trainer speaks as a portrait.
   const conv = conversationOf(t.npc)
   if (conv) startTalk('map', conv, 'portrait')

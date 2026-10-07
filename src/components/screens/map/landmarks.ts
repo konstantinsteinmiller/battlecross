@@ -182,6 +182,21 @@ const DRAW: Record<NodeId, (p: Pen, st: LandmarkState) => string> = {
     p.s('M32 64h5v6h-5z', '#ffe45e', 1.8) + p.s('M60 64h5v6h-5z', '#ffe45e', 1.8) +
     flag(p, 34, 38, 15, '#ff5a4f', 11),
 
+  // The big town on the old stone bridge: houses on its back, the river under it.
+  silverbridge: p =>
+    p.s('M4 80q6-4 12 0t12 0t12 0t12 0t12 0t12 0t12 0t8 0V92H4z', '#48c2d0', 2.2) + p.l('M12 87q4-3 8 0M40 88q4-3 8 0M70 87q4-3 8 0', '#c3f3f8', 2) +
+    p.s('M30 58V30L39 18L48 30V58z', '#e8ecf4') + p.f('M39 18L48 30V58H42V30z', '#b8c0d4') + p.i('M30 58V30L39 18L48 30V58') +
+    p.s('M27 32L39 13L51 32z', '#7c93d8', 2.2) + p.f('M39 13L51 32H45L39 21z', '#5a6fb8') + flag(p, 39, 1, 12, '#3fa4ff', 11) +
+    p.s('M35 38h8v8h-8z', '#ffe45e', 1.8) +
+    p.s('M10 60V48L18 40L26 48V60z', '#ffeccb', 2.2) + p.s('M7 50L18 38L29 50z', '#9aaee8', 2.2) +
+    p.s('M52 60V44L62 34L72 44V60z', '#fff4dc', 2.2) + p.s('M49 46L62 32L75 46z', '#7c93d8', 2.2) + p.s('M59 48h6v6h-6z', '#ffe45e', 1.8) +
+    p.s('M74 60V50L82 43L90 50V60z', '#ffeccb', 2.2) + p.s('M71 52L82 41L93 52z', '#9aaee8', 2.2) + smoke(p, 85, 40) +
+    p.s('M4 58H96V68H4z', '#c9c2d4') + p.f('M4 64H96V68H4z', '#a39cb2') + p.i('M4 58H96V68H4z') +
+    p.s('M8 68H92V82H84V80A10 10 0 0 0 64 80V82H60V80A10 10 0 0 0 40 80V82H36V80A10 10 0 0 0 16 80V82H8z', '#dcd6e2') +
+    p.f('M8 76H16V82H8zM36 76H40V82H36zM60 76H64V82H60zM84 76H92V82H84z', '#aaa2b8') +
+    p.i('M8 68H92V82H84V80A10 10 0 0 0 64 80V82H60V80A10 10 0 0 0 40 80V82H36V80A10 10 0 0 0 16 80V82H8z') +
+    p.i('M14 58v-4M26 58v-4M50 58v-4M74 58v-4M86 58v-4', 2),
+
   // Spires of ice over the frozen waste.
   tundra: p =>
     p.s('M14 82L25 46L33 55L38 82z', '#bfe6ff') + p.f('M25 46L33 55L38 82H31z', '#7fc0f0') + p.i('M14 82L25 46L33 55L38 82') +

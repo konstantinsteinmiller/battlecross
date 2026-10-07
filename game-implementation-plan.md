@@ -506,7 +506,18 @@ attribute buff; items are fixed named ids owned once.
   escort tasks are then ready to hand in, at double pay), its loss loses
   without the defeat's gold. The goal chip reads "Guard the caravan" and the
   edge disc points to the cart when it is out of view.
-- [ ] **22.1 Silverbridge** (#86).
+- [x] **22.1 Silverbridge** (#86). The big river town west of the Whispering
+  Woods (a road and a bridge to them; its landmark is the old bridge with
+  houses on its back). The town plan takes a width: Silverbridge is 70 cells
+  to a village's 38, the same three rows round the same square, so eight
+  masters' halls stand along its north street. A master of every class
+  teaches there; the Chrono and Blood masters come once the hero has met
+  their class's own teacher out in the world (`foundChrono`, `foundBlood`).
+  A healer, an armourer, a weaponsmith, a trinket stall (tiers 2–4), the
+  mayor in the square, a taproom, the board (its tasks from the woods, crags
+  and mines), and its own street chatter. 13 new people with looks, voice
+  cards and conversations, voiced in English; all strings in 39 languages.
+  Its spot on the painted map sheet waits for the repaint (24).
 - [ ] **22.2 Alchemy** (#87).
 - [ ] **22.3 The gamblers** (#91, #92).
 - [ ] **22.4 Secret traders** (#86).

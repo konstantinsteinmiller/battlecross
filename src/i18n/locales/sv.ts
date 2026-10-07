@@ -247,6 +247,10 @@ export default {
     rift: {
       name: 'Tomhetsrevan',
       desc: 'Såret som demonerna kom igenom. Tomhetsfursten väntar på andra sidan.'
+    },
+    silverbridge: {
+      name: 'Silverbridge',
+      desc: 'Den stora flodstaden på den gamla stenbron. En mästare för varje klass undervisar här.'
     }
   },
   map: {
@@ -1071,6 +1075,48 @@ export default {
     },
     trainerChrono: {
       name: 'Timmarnas väktare'
+    },
+    mayorBrenna: {
+      name: 'Borgmästare Brenna Quill'
+    },
+    sbHealer: {
+      name: 'Broder Ansel'
+    },
+    sbArmorer: {
+      name: 'Greta Järnåder',
+      talk: 'Bergsstål till flodpriser. Knacka på vad du vill.'
+    },
+    sbWeapons: {
+      name: 'Corvin Ashby',
+      talk: 'Ashbys Fina Klingor. Varje egg polerad för hand. Min hand.'
+    },
+    sbJeweler: {
+      name: 'Tam Marlow',
+      talk: 'Ringar, amuletter, lyckostenar. Allt äkta. Nåja, nästan allt.'
+    },
+    sbMasterAegis: {
+      name: 'Dam Helga Stormsköld'
+    },
+    sbMasterPyro: {
+      name: 'Magister Ignatius Vale'
+    },
+    sbMasterShadow: {
+      name: 'Nyx Halloway'
+    },
+    sbMasterSovereign: {
+      name: 'Lord Percival Ashcombe'
+    },
+    sbMasterGeo: {
+      name: 'Mormor Tova Djuprot'
+    },
+    sbMasterAether: {
+      name: 'Professor Quint Kugghjul'
+    },
+    sbMasterChrono: {
+      name: 'Klockvaktare Selwyn'
+    },
+    sbMasterBlood: {
+      name: 'Vesper Karmosinblad'
     }
   },
   quest: {
@@ -2654,6 +2700,503 @@ export default {
         iceBreak: {
           '1': 'Sjön sluter sig över dig!'
         }
+      }
+    },
+    mayorBrenna: {
+      hello: {
+        '1': 'Se upp för kärran! Förlåt, allt på den här bron rör sig. Välkommen till Silverbridge.',
+        '2': 'Jag är borgmästare Brenna Quill. Är något borta, trasigt eller sent hamnar det på mitt skrivbord.'
+      },
+      ending: {
+        '1': 'Hela floden pratar om dig. Handeln har aldrig gått bättre. Så, tack.'
+      },
+      again: {
+        '1': 'Tillbaka igen? Bra. Försök att inte stå i vägen för kärrorna.'
+      },
+      who: {
+        '1': 'Borgmästare i nio år nu. Innan dess sålde jag rep. Samma jobb, egentligen. Hålla ihop saker.',
+        '2': 'Staden röstar varje vår. Hittills vill ingen annan ha skrivbordet.'
+      },
+      town: {
+        '1': 'Bron kom först. Sen en marknad på den, sen hus, sen hus ovanpå de husen.',
+        '2': 'Akta dig för fontänerna. Barn ramlar i. Vuxna också, på marknadsdagen.',
+        say: 'Berätta om Silverbridge.'
+      },
+      masters: {
+        '1': 'Varenda en. Sköld, eld, skugga, sten. En mästare för varje, allihop på en bro.',
+        '2': 'Elever kommer från alla håll. Bra för värdshusen. Mindre bra för mina fönster.',
+        say: 'Finns det verkligen en lärare för varje klass här?'
+      },
+      river: {
+        '1': 'Allt som floden för med sig. Fisk, siden, stål från Ironhold, en och annan låda arga höns.',
+        '2': 'Och alla handlare i Silverbridge hänger inte ut en skylt. Håll ögonen öppna.',
+        say: 'Vad handlar folk med här?'
+      },
+      rumor: {
+        crags: {
+          '1': 'Båtarna från norr har slutat komma. Något brinner uppe i Askklipporna.'
+        },
+        mines: {
+          '1': 'Inget stål från Ironhold den här månaden. Dvärgarna säger att något gått snett i gruvorna.'
+        },
+        tundra: {
+          '1': 'Pälshandlarna korsar inte tundran längre. De säger att jättarna är i rörelse.'
+        },
+        far: {
+          '1': 'Handlarna viskar bara om längst upp i norr nu. Vad som än finns där, så köper det inget.'
+        }
+      },
+      bye: {
+        '1': 'Iväg med dig. Och om någon frågar är broavgiften väldigt rimlig.'
+      }
+    },
+    sbHealer: {
+      hello: {
+        '1': 'Mm? Åh, en patient. Förlåt, jag vilade ögonen. Det gör helare.',
+        '2': 'Broder Ansel. Kom in, sätt dig. Stolen är skönare än den ser ut.'
+      },
+      again: {
+        '1': 'Ah, du är tillbaka. Och jag hade precis satt mig.'
+      },
+      heal: {
+        '1': 'Luta dig bakåt, blunda. Inte för länge, då somnar jag också. Så, flaskorna är fulla.'
+      },
+      mana: {
+        '1': 'Lyshattsdryck. Bra för huvudet, dålig för andedräkten. Smutta långsamt.'
+      },
+      potions: {
+        '1': 'Drick en innan det är kris. Hjältar väntar alltid för länge.',
+        '2': 'Vill du bära fler säljer jag längre bälten. Att fylla flaskorna är gratis.',
+        say: 'Har du några tips om drycker?'
+      },
+      sleep: {
+        '1': 'Inte på nätterna. Elever från varje klass, alla övar. Något exploderar alltid.',
+        say: 'Sover du någonsin på riktigt?'
+      },
+      healBack: {
+        '1': 'Iväg med dig. Kom på te nästa gång i stället för förband.'
+      },
+      bye: {
+        '1': 'Akta trappan. Hälften av mina patienter har bara snubblat i den.'
+      }
+    },
+    sbArmorer: {
+      hello: {
+        '1': 'Ha! Titta på den bucklan. Jag hoppas du fick pengarna tillbaka för den rustningen.',
+        '2': 'Greta Järnåder. Jag gör rustningar som kommer hem med sin ägare. Varje gång, hittills.'
+      },
+      again: {
+        '1': 'Du igen! Fortfarande hel. Min favoritsorts kund.'
+      },
+      trade: {
+        '1': 'Varsågod, knacka på den. Så hårt du vill.'
+      },
+      who: {
+        '1': 'Bergsfamilj. Jag kom nedför floden för handelns skull och stannade för fiskens.'
+      },
+      steel: {
+        '1': 'Det handlar inte om hur tjock den är, utan var den böjer sig. Bra rustning böjer sig där du gör det.',
+        '2': 'Tung plåt kräver Styrka, tänk på det. Utan den vaggar du som en anka.',
+        say: 'Vad gör en rustning bra?'
+      },
+      shopBack: {
+        '1': 'Bär den väl. Kom med bucklorna till mig, jag gillar en bra historia.'
+      },
+      bye: {
+        '1': 'Iväg med dig. Bli inte träffad någonstans där jag inte har skyddat dig.'
+      }
+    },
+    sbWeapons: {
+      hello: {
+        '1': 'Ah, en kund med smak. Det märker jag alltid. Det syns på hur du kliver in.',
+        '2': 'Corvin Ashby, från Ashbys Fina Klingor. Ja, den Ashby. Du har väl hört talas om mig?'
+      },
+      again: {
+        '1': 'Redan tillbaka? Alla kommer tillbaka till Corvin.'
+      },
+      trade: {
+        '1': 'Varje klinga polerad för hand. Min hand, faktiskt. Akta dig för spegelbilden.'
+      },
+      who: {
+        '1': 'Flodens finaste klingförsäljare. Fråga vem som helst. Eller läs bara min skylt.'
+      },
+      blades: {
+        '1': 'Välj ett som passar dig. Snabba händer vill ha en lätt klinga, starka armar en tung.',
+        '2': 'Och det ska se snyggt ut. Ingen flyr från en hjälte med ett fult svärd.',
+        say: 'Hur väljer jag ett bra vapen?'
+      },
+      shopBack: {
+        '1': 'Ett fint val. Inte riktigt lika fint som mitt hår, men nästan.'
+      },
+      bye: {
+        '1': 'Berätta gärna för folk var du köpte det.'
+      }
+    },
+    sbJeweler: {
+      hello: {
+        '1': 'Psst! Hitåt! Ringar, amuletter, lyckostenar. Brons bästa stånd.',
+        '2': 'Jag heter Tam Marlow. Jag är liten, men mina priser är ännu mindre.'
+      },
+      again: {
+        '1': 'Min favoritkund! Säg inte till de andra att jag sa det.'
+      },
+      trade: {
+        '1': 'Allt äkta. För det mesta. Okej, den där är glas, men det är väldigt fint glas.'
+      },
+      who: {
+        '1': 'Växte upp på den här bron. Jag känner varje spricka, varje katt och varje genväg.'
+      },
+      gossip: {
+        '1': 'Professor Kugghjul sprängde bort ögonbrynen igen. Tredje gången den här månaden.',
+        '2': 'Och borgmästaren vet om handlare som inte hänger ut någon skylt. Jag jobbar på det.',
+        say: 'Hört något bra skvaller?'
+      },
+      shopBack: {
+        '1': 'Trevligt att göra affärer! Berätta för dina vänner. Inte för vakterna.'
+      },
+      bye: {
+        '1': 'Vi ses! Jag är kvar här. Antagligen.'
+      }
+    },
+    sbMasterAegis: {
+      hello: {
+        '1': 'Ha! Ännu en ung en. Upp med hakan, axlarna bakåt. Sköldar funkar bättre med ett leende.',
+        '2': 'Dam Helga Stormsköld. Jag höll den här bron en gång. Nu lär jag andra att stå på sig.'
+      },
+      again: {
+        '1': 'Där är du! Skölden uppe? Bra. Ler du? Ännu bättre.'
+      },
+      train: {
+        '1': 'Fötterna isär. Luta dig framåt. När jag knuffar rör du dig inte. Redo? Hopp!'
+      },
+      class: {
+        '1': 'Du står längst fram, så att de andra slipper. Bästa jobbet som finns.',
+        '2': 'Styrka för att lyfta skölden. Uthållighet för att hålla den uppe till middagen.',
+        say: 'Vad gör en Aegisriddare egentligen?'
+      },
+      ready: {
+        strong: {
+          '1': 'Du är en riktig mur nu, kära du. Ta vilken lektion du vill.'
+        },
+        able: {
+          '1': 'Stadiga ben! Du är redo för nästa.'
+        },
+        weak: {
+          '1': 'Inte än. En ordentlig knuff och du skulle välta. Mer Styrka och Uthållighet, tack.'
+        }
+      },
+      bridge: {
+        '1': 'För fyrtio år sedan, mot flodpirater. Sex av oss, en port, en väldigt lång natt.',
+        '2': 'Vi vann inte genom att slå hårdast. Vi vann genom att inte flytta oss. Kom ihåg det.',
+        say: 'Höll du den här bron?'
+      },
+      trainBack: {
+        '1': 'Bra jobbat! Ät något nu. Sköldar är tunga.'
+      },
+      bye: {
+        '1': 'Upp med hakan där ute!'
+      }
+    },
+    sbMasterPyro: {
+      hello: {
+        '1': 'Stig på. Akta anteckningarna, och nys inte nära fyrfatet, tack.',
+        '2': 'Magister Ignatius Vale. Jag lär ut eld på en bro. Gott om vatten runtomkring, förstår du.'
+      },
+      again: {
+        '1': 'Punktlig. Utmärkt. Vi fortsätter där vi slutade.'
+      },
+      train: {
+        '1': 'Se här. En liten låga, hållen stilla. Stora lågor är lätta. Små kräver skicklighet.'
+      },
+      class: {
+        '1': 'Vem som helst kan tända en eld. En pyromantiker bestämmer vart den går, och var den stannar.',
+        '2': 'Allt kommer från Intelligens. Senare hjälper Teknik, när elden kräver en stadig hand.',
+        say: 'Vad gör en pyromantiker egentligen?'
+      },
+      ready: {
+        strong: {
+          '1': 'Din kontroll är utmärkt. Jag har väldigt lite kvar att rätta. Välj fritt.'
+        },
+        able: {
+          '1': 'Godtagbart. Mer än godtagbart, faktiskt. Du får ta nästa lektion.'
+        },
+        weak: {
+          '1': 'Inte än. Din låga fladdrar. Ett skarpare sinne, tack. Mer Intelligens.'
+        }
+      },
+      sprocket: {
+        '1': 'En briljant man. Högljudd, slarvig och briljant. Jag har en hink vid hans dörr.',
+        say: 'Vad tycker du om professor Kugghjul?'
+      },
+      trainBack: {
+        '1': 'Öva nära vatten. Jag insisterar.'
+      },
+      bye: {
+        '1': 'Adjö. Och håll ärmarna uppkavlade.'
+      }
+    },
+    sbMasterShadow: {
+      hello: {
+        '1': 'Letar du efter mig? Jag har gått bredvid dig sen fontänen. Du gick förbi mig två gånger.',
+        '2': 'Nyx Halloway. Bästa gömstället är en folkmassa, och det här är den livligaste bron som finns.'
+      },
+      again: {
+        '1': 'Hej igen. Jag har varit här ett tag. Märkte du det? Nej? Bra.'
+      },
+      train: {
+        '1': 'Lektion ett: gå som om du hör hemma här. Ingen tittar två gånger på någon som hör hemma.'
+      },
+      class: {
+        '1': 'Att aldrig vara där de tittar. Smyg in, ett snabbt hugg, och smält in igen.',
+        '2': 'Smidighet för snabba fötter och händer. Teknik, så att hugget räknas.',
+        say: 'Vad gör en bra Skuggklinga?'
+      },
+      ready: {
+        strong: {
+          '1': 'Du är riktigt smygig nu. Ta det som är kvar, du har förtjänat det.'
+        },
+        able: {
+          '1': 'Lätt på foten! Du är redo för nästa trick.'
+        },
+        weak: {
+          '1': 'Inte än. Jag hör dig komma redan från fontänen. Mer Smidighet.'
+        }
+      },
+      past: {
+        '1': 'Jag var ficktjuv på just den här bron. Jag var bra på det också.',
+        '2': 'Sen fångade borgmästaren mig och gav mig ett jobb, inte en cell. Säg inte till henne att jag är tacksam.',
+        say: 'Hur lärde du dig allt det här?'
+      },
+      trainBack: {
+        '1': 'Gå och öva nu. Försök att inte låta mig ta dig på bar gärning.'
+      },
+      bye: {
+        '1': 'Vi ses. Fast du ser inte mig.'
+      }
+    },
+    sbMasterSovereign: {
+      hello: {
+        '1': 'Oj! Hej, hej. Förlåt mig, jag pratade med mina vakter. Underbara lyssnare.',
+        '2': 'Percival Ashcombe. Jag kunde undervisa i ett slott, men att leda lär man sig där folket är.'
+      },
+      again: {
+        '1': 'Min käre vän! Ska vi fortsätta? Bara om du vill, förstås.'
+      },
+      train: {
+        '1': 'Nåväl. En bra order är tydlig, vänlig och ges bara en gång. Så här.'
+      },
+      class: {
+        '1': 'En ledare. Dina vakter kommer till din sida och slåss med dig, inte bara för dig.',
+        '2': 'Karisma är allt. Folk följer dem de tycker om. Och dem som minns deras namn.',
+        say: 'Vad är en Storsuverän?'
+      },
+      ready: {
+        strong: {
+          '1': 'Utmärkt! Folk skulle följa dig vart som helst nu. Ta alla lektionerna.'
+        },
+        able: {
+          '1': 'Dina vakter skulle lyssna på dig. Du är redo för nästa lektion.'
+        },
+        weak: {
+          '1': 'Inte riktigt än, tyvärr. Lite mer Karisma, så kommer de.'
+        }
+      },
+      please: {
+        '1': 'Alltid. Att skrika ger lydnad. Snälla ger lojalitet, och lojalitet varar längre.',
+        say: 'Säger du verkligen snälla till dina vakter?'
+      },
+      trainBack: {
+        '1': 'Fint arbete. Kom ihåg att tacka dem efteråt.'
+      },
+      bye: {
+        '1': 'Sköt om dig, och hälsa till alla.'
+      }
+    },
+    sbMasterGeo: {
+      hello: {
+        '1': 'Akta mossan, kära du, den har haft en lång vecka. Så, nu ska vi titta på dig.',
+        '2': 'Mormor Tova Djuprot. Flodbädden här är härlig sten, ända ner.'
+      },
+      again: {
+        '1': 'Redan tillbaka? Sätt dig, jag har just gjort te. Stente. Det är mest te.'
+      },
+      train: {
+        '1': 'Händerna platt mot marken. Inte så. Som om du klappar en sömnig hund.'
+      },
+      class: {
+        '1': 'Vi ber marken om hjälp. En mur när du behöver en, en spets när någon är oförskämd.',
+        '2': 'Sten är som en trädgård. Styrka för att gräva, Intelligens för att veta var man planterar.',
+        say: 'Vad gör en Geomantiker?'
+      },
+      ready: {
+        strong: {
+          '1': 'Marken gillar dig nu. Lär dig vad du vill, kära du.'
+        },
+        able: {
+          '1': 'Fina rötter! Du är redo för nästa lektion.'
+        },
+        weak: {
+          '1': 'Inte än, gullet. Stenen rubbas inte för dig. Mer Styrka först.'
+        }
+      },
+      garden: {
+        '1': 'Fyrtio års arbete. Varje sten odlad för hand. Nåja, med magi. Mest för hand.',
+        '2': 'Ta en småsten när du går. De blir fina dörrstopp.',
+        say: 'Är det där en trädgård av sten?'
+      },
+      trainBack: {
+        '1': 'Härligt. Gå och gräv i något nu. Försiktigt.'
+      },
+      bye: {
+        '1': 'Iväg med dig. Klä dig varmt, det är fuktigt vid floden.'
+      }
+    },
+    sbMasterAether: {
+      hello: {
+        '1': 'Välkommen, välkommen! Du kommer lagom till demonstrationen. Håll för öronen, tack.',
+        '2': 'Professor Quint Kugghjul. Floden driver mina hjul gratis. Var annars skulle jag undervisa?'
+      },
+      again: {
+        '1': 'Ah, min favoritelev! Dagens demonstration blir extra högljudd.'
+      },
+      train: {
+        '1': 'Titta på tavlan. Glöm nu tavlan och titta på maskinen.'
+      },
+      class: {
+        '1': 'Vi bygger oss ur knipor. En pistol, ett kanontorn och en hettamätare som håller dig ärlig.',
+        '2': 'Teknik för siktet, Intelligens för de smarta bitarna. Helst båda.',
+        say: 'Vad gör en Etertekniker egentligen?'
+      },
+      ready: {
+        strong: {
+          '1': 'Fantastiskt! Du kunde hålla mina föreläsningar. Gör det inte, bara. Ta resten.'
+        },
+        able: {
+          '1': 'En stadig hand! Du är redo för nästa maskin.'
+        },
+        weak: {
+          '1': 'Inte än. Ditt sikte vandrar. Mer Teknik, sen pratar vi.'
+        }
+      },
+      eyebrows: {
+        '1': 'En demonstration gick lite för bra. De växer ut igen. Det gör de alltid.',
+        say: 'Vad hände med dina ögonbryn?'
+      },
+      trainBack: {
+        '1': 'Utmärkt. Gå och släpp ut hettan nu. Helst utomhus.'
+      },
+      bye: {
+        '1': 'Lektionen är slut! Akta trappan.'
+      }
+    },
+    sbMasterChrono: {
+      hello: {
+        '1': 'Min gamla elev, Timmarnas väktare, skrev att du skulle komma. Just den här minuten, faktiskt.',
+        '2': 'Klockvaktare Selwyn. Jag sköter broklockan. En så livlig stad har inte råd att vara sen.'
+      },
+      again: {
+        '1': 'Sju minuter över. En bra tid att börja.'
+      },
+      train: {
+        '1': 'Räkna med mig. Ett, två, och håll. Tiden töjer sig, om du håller den rätt.'
+      },
+      class: {
+        '1': 'Vi städar i tiden. Saktar ner en fiende, skyndar på en vän, ångrar ett och annat misstag.',
+        '2': 'Intelligens för att förstå den. Teknik för att röra den utan att ha sönder något.',
+        say: 'Vad är en Kronovävare?'
+      },
+      ready: {
+        strong: {
+          '1': 'Utmärkt tajming. Ta resten av mina lektioner när det passar dig.'
+        },
+        able: {
+          '1': 'Du är redo. Nästa lektion börjar, åh, nu.'
+        },
+        weak: {
+          '1': 'Inte än. Du ligger alltid ett slag efter. Mer Intelligens, och mer Teknik.'
+        }
+      },
+      keeper: {
+        '1': 'Jag undervisade honom för länge sen. En briljant elev. Alltid för tidig eller sen, aldrig i tid.',
+        say: 'Hur känner du Timmarnas väktare?'
+      },
+      trainBack: {
+        '1': 'Öva varje dag. Samma tid varje dag, om jag får be.'
+      },
+      bye: {
+        '1': 'Iväg med dig. Kom inte för sent.'
+      }
+    },
+    sbMasterBlood: {
+      hello: {
+        '1': 'Doktor Sangrel skrev till mig om dig. Han säger att du inte svimmade. Högt beröm, från honom.',
+        '2': 'Vesper Karmosinblad. Varje ört i världen flyter förbi den här bron. Jag är bortskämd här.'
+      },
+      again: {
+        '1': 'Välkommen tillbaka. Du ser pigg ut i dag. Det märker jag alltid.'
+      },
+      train: {
+        '1': 'Andas in. Känner du din kraft? Spendera lite av den nu. Klokt.'
+      },
+      class: {
+        '1': 'Vi spenderar vår egen livskraft för makt, och tar sen tillbaka den från våra fiender.',
+        '2': 'Uthållighet är din börs. Intelligens avgör hur väl du spenderar den.',
+        say: 'Vad är en Blodalkemist, egentligen?'
+      },
+      ready: {
+        strong: {
+          '1': 'Vilken livskraft! Du är redo för nästan allt jag kan.'
+        },
+        able: {
+          '1': 'Din essens är stark. Vidare till nästa lektion.'
+        },
+        weak: {
+          '1': 'Inte än. Du skulle tröttna efter en besvärjelse. Bygg upp din Uthållighet först.'
+        }
+      },
+      herbs: {
+        '1': 'Mest drycker. Lite essens, mycket mynta. Mynta gör allt bättre.',
+        '2': 'Hittar du sällsynta växter där ute, kom förbi med dem. Jag tittar gärna.',
+        say: 'Vad är alla de här örterna till för?'
+      },
+      trainBack: {
+        '1': 'Vila efter träningen. Essensen kommer tillbaka, men den gillar en tupplur.'
+      },
+      bye: {
+        '1': 'Ta hand om dig. Drick vatten. Ät något grönt.'
+      }
+    },
+    smalltalkSilverbridge: {
+      barges: {
+        '1': 'Tre pråmar in från kusten i morse.',
+        '2': 'Saltfisk igen?',
+        '3': 'Siden, för en gångs skull. Lukta på fingrarna efteråt, bara.'
+      },
+      lesson: {
+        '1': 'Hur gick lektionen?',
+        '2': 'Jag tände eld på ärmen. Mästaren säger att det är framsteg.'
+      },
+      masters: {
+        '1': 'Varje mästare i landet undervisar på en enda gata.',
+        '2': 'Och var och en säger att just deras klass är bäst.',
+        '3': 'Alla har rätt, och det är det irriterande.'
+      },
+      bridge: {
+        '1': 'Det sägs att bron är äldre än staden.',
+        '2': 'Den knarrar onekligen så.'
+      },
+      fish: {
+        '1': 'Fått något?',
+        '2': 'En stövel.',
+        '3': 'Tja, det är ett halvt par.'
+      },
+      newMaster: {
+        '1': 'Det finns en ny mästare på norra gatan. Pratar mycket om tid.',
+        '2': 'Sen till varje lektion, slår jag vad om.'
+      },
+      siege: {
+        '1': 'Nyheterna från Oakhaven är dåliga. Banditer vid murarna.',
+        '2': 'Då kommer pråmarna hit i stället. Stackars människor.'
       }
     }
   },

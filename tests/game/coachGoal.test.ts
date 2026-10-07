@@ -115,7 +115,7 @@ describe('the next goal through the first hour', () => {
   it('every open place cleared: explore', () => {
     for (const n of ['plains', 'sunford', 'hollows', 'woods']) p.clearNode(n as 'plains')
     // Close the rest by clearing them as well (the whole map).
-    for (const n of ['outskirts', 'oakhaven', 'crags', 'mines', 'ironhold', 'tundra', 'temple', 'citadel', 'peak', 'fortress']) p.clearNode(n as 'plains')
+    for (const n of ['outskirts', 'oakhaven', 'silverbridge', 'crags', 'mines', 'ironhold', 'tundra', 'temple', 'citadel', 'peak', 'fortress']) p.clearNode(n as 'plains')
     expect(g.nextGoal(at('map', 'fortress'))).toEqual({ id: 'explore' })
   })
 

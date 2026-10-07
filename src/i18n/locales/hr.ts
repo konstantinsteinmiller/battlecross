@@ -250,6 +250,10 @@ export default {
     rift: {
       name: 'Rascjep Praznine',
       desc: 'Rana kroz koju su došli demoni. S druge strane čeka Gospodar Praznine.'
+    },
+    silverbridge: {
+      name: 'Silverbridge',
+      desc: 'Veliki riječni grad na starom kamenom mostu. Ovdje podučava majstor svake klase.'
     }
   },
   map: {
@@ -1076,6 +1080,48 @@ export default {
     },
     trainerChrono: {
       name: 'Čuvar sati'
+    },
+    mayorBrenna: {
+      name: 'Gradonačelnica Brenna Quill'
+    },
+    sbHealer: {
+      name: 'Fra Ansel'
+    },
+    sbArmorer: {
+      name: 'Greta Željeznožila',
+      talk: 'Planinski čelik, riječne cijene. Kucni po čemu god želiš.'
+    },
+    sbWeapons: {
+      name: 'Corvin Ashby',
+      talk: 'Ashbyjeve Fine Oštrice. Svaka oštrica ručno uglačana. Mojom rukom.'
+    },
+    sbJeweler: {
+      name: 'Tam Marlow',
+      talk: 'Prstenje, amuleti, kamenčići za sreću. Sve pravo. Pa, skoro sve.'
+    },
+    sbMasterAegis: {
+      name: 'Dama Helga Olujoštit'
+    },
+    sbMasterPyro: {
+      name: 'Magistar Ignatius Vale'
+    },
+    sbMasterShadow: {
+      name: 'Nyx Halloway'
+    },
+    sbMasterSovereign: {
+      name: 'Lord Percival Ashcombe'
+    },
+    sbMasterGeo: {
+      name: 'Baka Tova Dubokokorijen'
+    },
+    sbMasterAether: {
+      name: 'Profesor Quint Zupčanik'
+    },
+    sbMasterChrono: {
+      name: 'Urar Selwyn'
+    },
+    sbMasterBlood: {
+      name: 'Vesper Grimizlist'
     }
   },
   quest: {
@@ -2745,6 +2791,503 @@ export default {
         iceBreak: {
           '1': 'Jezero će te progutati!'
         }
+      }
+    },
+    mayorBrenna: {
+      hello: {
+        '1': 'Pazi, kola! Oprosti, na ovom se mostu sve kreće. Dobro došao u Silverbridge.',
+        '2': 'Ja sam gradonačelnica Brenna Quill. Što se izgubi, pokvari ili zakasni, završi na mom stolu.'
+      },
+      ending: {
+        '1': 'Cijela rijeka priča o tebi. Trgovina nikad nije bolje išla. Zato, hvala ti.'
+      },
+      again: {
+        '1': 'Opet ti? Dobro. Samo nemoj zakrčiti put kolima.'
+      },
+      who: {
+        '1': 'Gradonačelnica već devet godina. Prije sam prodavala užad. Isti posao, zapravo. Držati sve na okupu.',
+        '2': 'Grad glasa svakog proljeća. Zasad nitko drugi ne želi moj stol.'
+      },
+      town: {
+        '1': 'Prvo je bio most. Onda tržnica na njemu, pa kuće, pa kuće na tim kućama.',
+        '2': 'Pazi se fontana. Djeca upadaju u njih. I odrasli, na sajmeni dan.',
+        say: 'Reci mi o Silverbridgeu.'
+      },
+      masters: {
+        '1': 'Za svaku. Štit, vatra, sjena, kamen. Majstor za sve, svi na jednom mostu.',
+        '2': 'Učenici dolaze odasvud. Dobro je za gostionice. Manje za moje prozore.',
+        say: 'Zar ovdje stvarno ima učitelj za svaku klasu?'
+      },
+      river: {
+        '1': 'Svime što rijeka donese. Ribom, svilom, čelikom iz Ironholda, pokojim sandukom ljutih kokoši.',
+        '2': 'I ne izvjesi svaki trgovac u Silverbridgeu natpis. Drži oči otvorene.',
+        say: 'Čime se ovdje trguje?'
+      },
+      rumor: {
+        crags: {
+          '1': 'Brodovi sa sjevera više ne dolaze. Nešto gori gore u Pepeljastim liticama.'
+        },
+        mines: {
+          '1': 'Ovaj mjesec nema čelika iz Ironholda. Patuljci kažu da nešto nije u redu u njihovim rudnicima.'
+        },
+        tundra: {
+          '1': 'Trgovci krznom više ne žele preko tundre. Kažu da su se divovi pokrenuli.'
+        },
+        far: {
+          '1': 'O dalekom sjeveru trgovci sad samo šapuću. Što god je gore, ništa ne kupuje.'
+        }
+      },
+      bye: {
+        '1': 'Hajde, idi. I ako tko pita, mostarina je vrlo poštena.'
+      }
+    },
+    sbHealer: {
+      hello: {
+        '1': 'Hm? A, pacijent. Oprosti, odmarao sam oči. Iscjelitelji to rade.',
+        '2': 'Fra Ansel. Uđi, sjedni. Stolica je udobnija nego što izgleda.'
+      },
+      again: {
+        '1': 'A, vratio si se. A ja tek sjeo.'
+      },
+      heal: {
+        '1': 'Lezi, zatvori oči. Ne predugo, ili ću i ja zaspati. Eto, boce su pune.'
+      },
+      mana: {
+        '1': 'Napitak od svjetloklobuka. Dobar za um, loš za dah. Pij polako.'
+      },
+      potions: {
+        '1': 'Popij ga prije nego što postane očajno. Junaci uvijek čekaju predugo.',
+        '2': 'Ako želiš nositi više, prodajem dulje pojaseve. Punjenje boca je besplatno.',
+        say: 'Imaš li neki savjet za napitke?'
+      },
+      sleep: {
+        '1': 'Ne noću. Učenici svih klasa vježbaju. Uvijek nešto eksplodira.',
+        say: 'Spavaš li ti uopće?'
+      },
+      healBack: {
+        '1': 'Hajde, idi. Sljedeći put dođi na čaj umjesto po zavoje.'
+      },
+      bye: {
+        '1': 'Pazi na stepenice. Pola mojih pacijenata samo se spotaknulo o njih.'
+      }
+    },
+    sbArmorer: {
+      hello: {
+        '1': 'Ha! Vidi to udubljenje. Nadam se da su ti vratili novac za taj oklop.',
+        '2': 'Greta Željeznožila. Radim oklope koji se vraćaju kući zajedno s vlasnikom. Zasad uvijek.'
+      },
+      again: {
+        '1': 'Opet ti! Još u jednom komadu. Moja omiljena vrsta kupca.'
+      },
+      trade: {
+        '1': 'Hajde, kucni. Jako koliko želiš.'
+      },
+      who: {
+        '1': 'Iz planinske sam obitelji. Došla sam niz rijeku zbog trgovine, a ostala zbog ribe.'
+      },
+      steel: {
+        '1': 'Nije stvar u debljini. Stvar je u tome gdje se savija. Dobar oklop savija se gdje i ti.',
+        '2': 'Ali teški pločasti traži Snagu. Bez nje ćeš se gegati kao patka.',
+        say: 'Što čini dobar oklop?'
+      },
+      shopBack: {
+        '1': 'Nosi ga sa zdravljem. Donesi mi udubljenja, volim dobru priču.'
+      },
+      bye: {
+        '1': 'Hajde, idi. I ne daj da te pogode tamo gdje te nisam pokrila.'
+      }
+    },
+    sbWeapons: {
+      hello: {
+        '1': 'A, kupac s ukusom. Uvijek prepoznam. Vidi se po tome kako ulaziš.',
+        '2': 'Corvin Ashby, iz Ashbyjevih Finih Oštrica. Da, taj Ashby. Sigurno si čuo za mene.'
+      },
+      again: {
+        '1': 'Već natrag? Corvinu se uvijek vraćaju.'
+      },
+      trade: {
+        '1': 'Svaka oštrica ručno uglačana. Mojom rukom, zapravo. Pazi na odsjaj.'
+      },
+      who: {
+        '1': 'Najbolji prodavač oštrica na cijeloj rijeci. Pitaj bilo koga. Ili samo pročitaj moj natpis.'
+      },
+      blades: {
+        '1': 'Odaberi ono koje ti paše. Brze ruke traže laganu oštricu, snažne ruke tešku.',
+        '2': 'I mora dobro izgledati. Nitko ne bježi od junaka s ružnim mačem.',
+        say: 'Kako odabrati dobro oružje?'
+      },
+      shopBack: {
+        '1': 'Odličan izbor. Ne baš tako odličan kao moja kosa, ali blizu.'
+      },
+      bye: {
+        '1': 'Svakako reci ljudima gdje si to kupio.'
+      }
+    },
+    sbJeweler: {
+      hello: {
+        '1': 'Pst! Ovamo! Prstenje, amuleti, kamenčići za sreću. Najbolji štand na mostu.',
+        '2': 'Ja sam Tam Marlow. Malen sam, ali su mi cijene još manje.'
+      },
+      again: {
+        '1': 'Moj omiljeni kupac! Nemoj reći drugima da sam to rekao.'
+      },
+      trade: {
+        '1': 'Sve pravo. Uglavnom. Dobro, to je staklo, ali jako lijepo staklo.'
+      },
+      who: {
+        '1': 'Odrastao sam na ovom mostu. Znam svaku pukotinu, svaku mačku i svaki prečac.'
+      },
+      gossip: {
+        '1': 'Profesor Zupčanik opet si je spalio obrve. Treći put ovaj mjesec.',
+        '2': 'A gradonačelnica zna za trgovce koji ne izvjese natpis. Radim na tome.',
+        say: 'Čuo si neki dobar trač?'
+      },
+      shopBack: {
+        '1': 'Drago mi je poslovati s tobom! Reci prijateljima. Ali ne stražarima.'
+      },
+      bye: {
+        '1': 'Vidimo se! Bit ću baš ovdje. Vjerojatno.'
+      }
+    },
+    sbMasterAegis: {
+      hello: {
+        '1': 'Ha! Još jedan mladac. Brada gore, ramena natrag. Štit bolje radi uz osmijeh.',
+        '2': 'Dama Helga Olujoštit. Nekoć sam obranila ovaj most. Sad učim druge da ne ustuknu.'
+      },
+      again: {
+        '1': 'Tu si! Štit gore? Dobro. Smiješiš se? Još bolje.'
+      },
+      train: {
+        '1': 'Stopala široko. Nagni se naprijed. Kad gurnem, ne mičeš se. Spreman? Hop!'
+      },
+      class: {
+        '1': 'Stojiš naprijed, da drugi ne moraju. Najbolji posao na svijetu.',
+        '2': 'Snaga da podigneš štit. Izdržljivost da ga držiš do večere.',
+        say: 'Što zapravo radi Vitez Egide?'
+      },
+      ready: {
+        strong: {
+          '1': 'Sad si pravi zid, dušo. Uzmi koju god lekciju želiš.'
+        },
+        able: {
+          '1': 'Čvrste noge! Spreman si za sljedeću.'
+        },
+        weak: {
+          '1': 'Još ne. Jedno dobro guranje i past ćeš. Više Snage i Izdržljivosti, molim.'
+        }
+      },
+      bridge: {
+        '1': 'Prije četrdeset godina, od riječnih gusara. Nas šestero, jedna vrata, jako duga noć.',
+        '2': 'Nismo pobijedili jer smo najjače udarali. Pobijedili smo jer se nismo maknuli. Zapamti to.',
+        say: 'Ti si obranila ovaj most?'
+      },
+      trainBack: {
+        '1': 'Bravo! A sad nešto pojedi. Štitovi su teški.'
+      },
+      bye: {
+        '1': 'Glavu gore tamo vani!'
+      }
+    },
+    sbMasterPyro: {
+      hello: {
+        '1': 'Samo uđi. Pazi na bilješke i, molim te, ne kihaj blizu žeravnika.',
+        '2': 'Magistar Ignatius Vale. Podučavam vatru na mostu. Vode ima posvuda, vidiš.'
+      },
+      again: {
+        '1': 'Točan. Izvrsno. Počinjemo gdje smo stali.'
+      },
+      train: {
+        '1': 'Promatraj. Mali plamen, mirno držan. Veliki plamenovi su laki. Mali traže vještinu.'
+      },
+      class: {
+        '1': 'Svatko može zapaliti vatru. Piromant odlučuje kamo ide i gdje staje.',
+        '2': 'Sve dolazi od Inteligencije. Kasnije pomaže Umijeće, kad vatra traži mirnu ruku.',
+        say: 'Što zapravo radi piromant?'
+      },
+      ready: {
+        strong: {
+          '1': 'Tvoja kontrola je izvrsna. Malo mi je toga ostalo za ispraviti. Biraj slobodno.'
+        },
+        able: {
+          '1': 'Zadovoljavajuće. Zapravo više nego zadovoljavajuće. Možeš uzeti sljedeću lekciju.'
+        },
+        weak: {
+          '1': 'Još ne. Plamen ti se klima. Oštriji um, molim. Više Inteligencije.'
+        }
+      },
+      sprocket: {
+        '1': 'Briljantan čovjek. Bučan, nemaran i briljantan. Držim kantu pokraj njegovih vrata.',
+        say: 'Što misliš o profesoru Zupčaniku?'
+      },
+      trainBack: {
+        '1': 'Vježbaj blizu vode. Inzistiram.'
+      },
+      bye: {
+        '1': 'Ugodan dan. I drži rukave zasukane.'
+      }
+    },
+    sbMasterShadow: {
+      hello: {
+        '1': 'Tražiš mene? Pokraj tebe sam još od fontane. Dvaput si prošao kraj mene.',
+        '2': 'Nyx Halloway. Najbolje se skriti u gužvi, a ovo je najprometniji most na svijetu.'
+      },
+      again: {
+        '1': 'Opet bok. Ovdje sam već neko vrijeme. Primijetio si? Ne? Dobro.'
+      },
+      train: {
+        '1': 'Lekcija prva: hodaj kao da pripadaš ovdje. Nitko dvaput ne pogleda nekoga tko pripada.'
+      },
+      class: {
+        '1': 'Nikad ne biti tamo gdje gledaju. Ušuljaj se, jedan brz udarac i opet se stopi s gužvom.',
+        '2': 'Spretnost za brze noge i ruke. Umijeće, da udarac sjedne.',
+        say: 'Što čini dobru Sjenovitu oštricu?'
+      },
+      ready: {
+        strong: {
+          '1': 'Sad si pravi lukavac. Uzmi što je ostalo, zaslužio si.'
+        },
+        able: {
+          '1': 'Lagan korak! Spreman si za sljedeći trik.'
+        },
+        weak: {
+          '1': 'Još ne. Čujem te još od fontane. Više Spretnosti.'
+        }
+      },
+      past: {
+        '1': 'Nekoć sam džeparila baš na ovom mostu. I bila sam dobra u tome.',
+        '2': 'Onda me gradonačelnica uhvatila i dala mi posao, a ne ćeliju. Ne govori joj da sam zahvalna.',
+        say: 'Kako si sve ovo naučila?'
+      },
+      trainBack: {
+        '1': 'A sad idi vježbati. Pokušaj da te ne uhvatim.'
+      },
+      bye: {
+        '1': 'Vidimo se. Pa, ti mene nećeš vidjeti.'
+      }
+    },
+    sbMasterSovereign: {
+      hello: {
+        '1': 'Oh! Zdravo, zdravo. Oprosti mi, čavrljao sam sa svojim stražarima. Divni slušatelji.',
+        '2': 'Percival Ashcombe. Mogao bih podučavati u dvorcu, ali voditi se uči samo među ljudima.'
+      },
+      again: {
+        '1': 'Dragi moj prijatelju! Hoćemo li nastaviti? Samo ako želiš, naravno.'
+      },
+      train: {
+        '1': 'Dakle. Dobra zapovijed je jasna, ljubazna i daje se samo jednom. Ovako.'
+      },
+      class: {
+        '1': 'Vođa. Tvoji stražari dođu uz tebe i bore se s tobom, ne samo za tebe.',
+        '2': 'Karizma je sve. Ljudi slijede one koje vole. I koji pamte njihova imena.',
+        say: 'Što je Veliki suveren?'
+      },
+      ready: {
+        strong: {
+          '1': 'Krasno! Ljudi bi te sad slijedili bilo kamo. Uzmi sve lekcije.'
+        },
+        able: {
+          '1': 'Tvoji bi te stražari poslušali. Spreman si za sljedeću lekciju.'
+        },
+        weak: {
+          '1': 'Bojim se, još ne sasvim. Još malo Karizme i doći će.'
+        }
+      },
+      please: {
+        '1': 'Uvijek. Vikom dobiješ poslušnost. „Molim” ti donosi odanost, a odanost dulje traje.',
+        say: 'Zar stražarima stvarno kažeš „molim”?'
+      },
+      trainBack: {
+        '1': 'Divan posao. Ne zaboravi im poslije zahvaliti.'
+      },
+      bye: {
+        '1': 'Čuvaj se i pozdravi sve od mene.'
+      }
+    },
+    sbMasterGeo: {
+      hello: {
+        '1': 'Pazi na mahovinu, dušo, imala je naporan tjedan. Hajde da te pogledam.',
+        '2': 'Baka Tova Dubokokorijen. Riječno korito ovdje je divan kamen, skroz do dna.'
+      },
+      again: {
+        '1': 'Već natrag? Sjedni, upravo sam skuhala čaj. Kameni čaj. Uglavnom čaj.'
+      },
+      train: {
+        '1': 'Dlanove ravno na tlo. Ne tako. Kao da maziš pospanog psa.'
+      },
+      class: {
+        '1': 'Molimo tlo za pomoć. Zid kad ti treba, šiljak kad je netko nepristojan.',
+        '2': 'Kamen je kao vrt. Snaga za kopanje, Inteligencija da znaš gdje saditi.',
+        say: 'Što radi Geomant?'
+      },
+      ready: {
+        strong: {
+          '1': 'Tlo te sad voli. Uči što god želiš, dušo.'
+        },
+        able: {
+          '1': 'Dobro korijenje! Spreman si za sljedeću lekciju.'
+        },
+        weak: {
+          '1': 'Još ne, srce. Kamen se zbog tebe ne miče. Prvo više Snage.'
+        }
+      },
+      garden: {
+        '1': 'Četrdeset godina rada. Svaki kamen uzgojen rukom. Pa, magijom. Uglavnom rukom.',
+        '2': 'Uzmi kamenčić na izlasku. Od njih su divni graničnici za vrata.',
+        say: 'Je li to vrt od kamena?'
+      },
+      trainBack: {
+        '1': 'Divno. A sad idi nešto iskopati. Nježno.'
+      },
+      bye: {
+        '1': 'Hajde, idi. Toplo se obuci, uz rijeku je vlažno.'
+      }
+    },
+    sbMasterAether: {
+      hello: {
+        '1': 'Dobro došao, dobro došao! Taman na vrijeme za demonstraciju. Pokrij uši, molim te.',
+        '2': 'Profesor Quint Zupčanik. Rijeka mi besplatno okreće kotače. Gdje bih drugdje podučavao?'
+      },
+      again: {
+        '1': 'A, moj omiljeni učenik! Današnja demonstracija je posebno glasna.'
+      },
+      train: {
+        '1': 'Pogledaj ploču. A sad zaboravi ploču i gledaj stroj.'
+      },
+      class: {
+        '1': 'Iz nevolje se izgradimo. Pištolj, kupola i mjerač topline da ne pretjeraš.',
+        '2': 'Umijeće za nišanjenje, Inteligencija za pametne dijelove. Najbolje oboje.',
+        say: 'Što zapravo radi Eter-tehničar?'
+      },
+      ready: {
+        strong: {
+          '1': 'Čudesno! Mogao bi držati moja predavanja. Ali molim te, nemoj. Uzmi ostalo.'
+        },
+        able: {
+          '1': 'Mirna ruka! Spreman si za sljedeći stroj.'
+        },
+        weak: {
+          '1': 'Još ne. Nišan ti luta. Više Umijeća, pa ćemo razgovarati.'
+        }
+      },
+      eyebrows: {
+        '1': 'Demonstracija je uspjela malo predobro. Izrast će. Uvijek izrastu.',
+        say: 'Što ti se dogodilo s obrvama?'
+      },
+      trainBack: {
+        '1': 'Sjajno. A sad idi ispustiti toplinu. Vani, po mogućnosti.'
+      },
+      bye: {
+        '1': 'Sat je gotov! Pazi na stepenice.'
+      }
+    },
+    sbMasterChrono: {
+      hello: {
+        '1': 'Moj stari učenik, Čuvar sati, napisao je da ćeš doći. Baš u ovoj minuti, zapravo.',
+        '2': 'Urar Selwyn. Brinem o satu na mostu. Ovako užurban grad ne smije kasniti.'
+      },
+      again: {
+        '1': 'Sedam minuta iza punog sata. Dobro vrijeme za početak.'
+      },
+      train: {
+        '1': 'Broji sa mnom. Jedan, dva, i drži. Vrijeme se rasteže ako ga dobro držiš.'
+      },
+      class: {
+        '1': 'Mi spremamo vrijeme. Usporiti neprijatelja, požuriti prijatelja, poništiti pokoju grešku.',
+        '2': 'Inteligencija da ga razumiješ. Umijeće da ga dotakneš i ništa ne slomiš.',
+        say: 'Što je Tkalac vremena?'
+      },
+      ready: {
+        strong: {
+          '1': 'Izvrstan osjećaj za vrijeme. Uzmi ostatak mojih lekcija kad ti odgovara.'
+        },
+        able: {
+          '1': 'Spreman si. Sljedeća lekcija počinje, oh, sad.'
+        },
+        weak: {
+          '1': 'Još ne. Uvijek kasniš za jedan takt. Više Inteligencije i više Umijeća.'
+        }
+      },
+      keeper: {
+        '1': 'Podučavao sam ga, prije mnogo godina. Briljantan učenik. Uvijek rano ili kasno, nikad na vrijeme.',
+        say: 'Kako poznaješ Čuvara sati?'
+      },
+      trainBack: {
+        '1': 'Vježbaj svaki dan. U isto vrijeme svaki dan, molim te.'
+      },
+      bye: {
+        '1': 'Hajde, idi. I ne kasni.'
+      }
+    },
+    sbMasterBlood: {
+      hello: {
+        '1': 'Doktor Sangrel pisao mi je o tebi. Kaže da se nisi onesvijestio. Od njega je to velika pohvala.',
+        '2': 'Vesper Grimizlist. Svaka biljka na svijetu proplovi pokraj ovog mosta. Ovdje sam razmažena.'
+      },
+      again: {
+        '1': 'Dobro došao natrag. Danas izgledaš živahno. Uvijek prepoznam.'
+      },
+      train: {
+        '1': 'Udahni. Osjećaš svoju snagu? Sad potroši malo od nje. Mudro.'
+      },
+      class: {
+        '1': 'Trošimo vlastitu životnu snagu za moć, a onda je uzimamo natrag od neprijatelja.',
+        '2': 'Izdržljivost je tvoja kesa. Inteligencija odlučuje koliko je dobro trošiš.',
+        say: 'Što je zapravo Krvni alkemičar?'
+      },
+      ready: {
+        strong: {
+          '1': 'Koliko životnosti! Spreman si za gotovo sve što znam.'
+        },
+        able: {
+          '1': 'Tvoja esencija snažno teče. Na sljedeću lekciju.'
+        },
+        weak: {
+          '1': 'Još ne. Umorio bi se nakon jedne čarolije. Prvo podigni Izdržljivost.'
+        }
+      },
+      herbs: {
+        '1': 'Uglavnom za napitke. Malo esencije, puno mente. Uz mentu je sve bolje.',
+        '2': 'Ako vani nađeš rijetke biljke, donesi mi ih. Rado bih ih pogledala.',
+        say: 'Čemu služi sve ovo bilje?'
+      },
+      trainBack: {
+        '1': 'Odmori se nakon vježbe. Esencija se vraća, ali voli drijemati.'
+      },
+      bye: {
+        '1': 'Pazi na sebe. Pij vodu. Jedi nešto zeleno.'
+      }
+    },
+    smalltalkSilverbridge: {
+      barges: {
+        '1': 'Jutros su stigle tri teglenice s obale.',
+        '2': 'Opet slana riba?',
+        '3': 'Svila, za promjenu. Ali poslije ipak pomiriši prste.'
+      },
+      lesson: {
+        '1': 'Kako je bilo na satu?',
+        '2': 'Zapalio sam si rukav. Majstor kaže da je to napredak.'
+      },
+      masters: {
+        '1': 'Svi majstori u zemlji podučavaju u jednoj ulici.',
+        '2': 'I svaki od njih kaže da je njegova klasa najbolja.',
+        '3': 'I svi su u pravu, što je najdosadniji dio.'
+      },
+      bridge: {
+        '1': 'Kažu da je most stariji od grada.',
+        '2': 'Sigurno tako škripi.'
+      },
+      fish: {
+        '1': 'Jesi li što ulovio?',
+        '2': 'Čizmu.',
+        '3': 'Pa, to je pola para.'
+      },
+      newMaster: {
+        '1': 'U sjevernoj ulici je novi majstor. Stalno priča o vremenu.',
+        '2': 'Kladim se da kasni na svaki sat.'
+      },
+      siege: {
+        '1': 'Iz Oakhavena stižu loše vijesti. Razbojnici pred zidinama.',
+        '2': 'Onda će teglenice doći ovamo. Jadnici.'
       }
     }
   },

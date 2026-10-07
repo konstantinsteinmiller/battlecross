@@ -248,6 +248,10 @@ export default {
     rift: {
       name: 'De Leegtescheur',
       desc: 'De wond waardoor de demonen kwamen. Aan de overkant wacht de Leegteheer.'
+    },
+    silverbridge: {
+      name: 'Silverbridge',
+      desc: 'De grote rivierstad op de oude stenen brug. Hier geeft een meester van elke klasse les.'
     }
   },
   map: {
@@ -1072,6 +1076,48 @@ export default {
     },
     trainerChrono: {
       name: 'De Hoeder der Uren'
+    },
+    mayorBrenna: {
+      name: 'Burgemeester Brenna Quill'
+    },
+    sbHealer: {
+      name: 'Broeder Ansel'
+    },
+    sbArmorer: {
+      name: 'Greta IJzerader',
+      talk: 'Bergstaal voor rivierprijzen. Klop gerust overal op.'
+    },
+    sbWeapons: {
+      name: 'Corvin Ashby',
+      talk: 'Ashby\'s Fijne Klingen. Elke snede met de hand gepoetst. Met mijn hand.'
+    },
+    sbJeweler: {
+      name: 'Tam Marlow',
+      talk: 'Ringen, amuletten, geluksstenen. Allemaal echt. Nou ja, bijna allemaal.'
+    },
+    sbMasterAegis: {
+      name: 'Vrouwe Helga Stormschild'
+    },
+    sbMasterPyro: {
+      name: 'Magister Ignatius Vale'
+    },
+    sbMasterShadow: {
+      name: 'Nyx Halloway'
+    },
+    sbMasterSovereign: {
+      name: 'Heer Percival Ashcombe'
+    },
+    sbMasterGeo: {
+      name: 'Grootmoeder Tova Diepwortel'
+    },
+    sbMasterAether: {
+      name: 'Professor Quint Tandwiel'
+    },
+    sbMasterChrono: {
+      name: 'Klokwachter Selwyn'
+    },
+    sbMasterBlood: {
+      name: 'Vesper Karmijnblad'
     }
   },
   quest: {
@@ -2662,6 +2708,503 @@ export default {
         iceBreak: {
           '1': 'Het meer verslindt je!'
         }
+      }
+    },
+    mayorBrenna: {
+      hello: {
+        '1': 'Pas op voor de kar! Sorry, op deze brug beweegt alles. Welkom in Silverbridge.',
+        '2': 'Ik ben burgemeester Brenna Quill. Wat kwijt, kapot of te laat is, belandt op mijn bureau.'
+      },
+      ending: {
+        '1': 'De hele rivier heeft het over jou. De handel ging nog nooit zo goed. Dus: bedankt.'
+      },
+      again: {
+        '1': 'Ben je er weer? Mooi. Probeer de karren niet in de weg te staan.'
+      },
+      who: {
+        '1': 'Burgemeester, al negen jaar. Daarvoor verkocht ik touw. Eigenlijk hetzelfde werk: alles bij elkaar houden.',
+        '2': 'De stad stemt elk voorjaar. Tot nu toe wil niemand anders dat bureau.'
+      },
+      town: {
+        '1': 'Eerst kwam de brug. Toen een markt erop, toen huizen, en toen huizen bovenop die huizen.',
+        '2': 'Pas op bij de fonteinen. Kinderen vallen erin. Volwassenen ook, op marktdag.',
+        say: 'Vertel eens over Silverbridge.'
+      },
+      masters: {
+        '1': 'Voor elke klasse. Schild, vuur, schaduw, steen. Van elk een meester, allemaal op één brug.',
+        '2': 'Leerlingen komen van overal. Goed voor de herbergen. Minder goed voor mijn ramen.',
+        say: 'Is hier echt een leraar voor elke klasse?'
+      },
+      river: {
+        '1': 'In alles wat de rivier brengt. Vis, zijde, staal uit Ironhold, af en toe een kist boze kippen.',
+        '2': 'En niet elke handelaar in Silverbridge hangt een uithangbord op. Hou je ogen open.',
+        say: 'Waarin handelen ze hier?'
+      },
+      rumor: {
+        crags: {
+          '1': 'De boten uit het noorden komen niet meer. Er brandt iets daarboven, in de Askliffen.'
+        },
+        mines: {
+          '1': 'Deze maand geen staal uit Ironhold. De dwergen zeggen dat er iets mis is gegaan in hun mijnen.'
+        },
+        tundra: {
+          '1': 'De bonthandelaars steken de toendra niet meer over. Ze zeggen dat de reuzen in beweging zijn.'
+        },
+        far: {
+          '1': 'Over het verre noorden fluisteren handelaars alleen nog. Wat daar ook zit, het koopt niks.'
+        }
+      },
+      bye: {
+        '1': 'Ga maar. En als iemand het vraagt: de brugtol is heel eerlijk.'
+      }
+    },
+    sbHealer: {
+      hello: {
+        '1': 'Hm? O, een patiënt. Sorry, ik liet mijn ogen even rusten. Dat doen genezers.',
+        '2': 'Broeder Ansel. Kom binnen, ga zitten. De stoel zit beter dan hij eruitziet.'
+      },
+      again: {
+        '1': 'Ah, je bent terug. En ik zat net.'
+      },
+      heal: {
+        '1': 'Leun achterover, ogen dicht. Niet te lang, anders dommel ik ook in. Zo, flessen vol.'
+      },
+      mana: {
+        '1': 'Gloeihoed-tonic. Goed voor je hoofd, slecht voor je adem. Drink het langzaam.'
+      },
+      potions: {
+        '1': 'Drink er een voordat het wanhopig wordt. Helden wachten altijd te lang.',
+        '2': 'Wil je meer meenemen, dan verkoop ik langere riemen. De flessen vullen is gratis.',
+        say: 'Heb je tips over drankjes?'
+      },
+      sleep: {
+        '1': 'Niet \'s nachts. Leerlingen van elke klasse, allemaal aan het oefenen. Er ontploft altijd wel iets.',
+        say: 'Slaap jij eigenlijk ooit?'
+      },
+      healBack: {
+        '1': 'Ga maar. Kom de volgende keer voor thee in plaats van verband.'
+      },
+      bye: {
+        '1': 'Pas op het trapje. De helft van mijn patiënten is er alleen maar over gestruikeld.'
+      }
+    },
+    sbArmorer: {
+      hello: {
+        '1': 'Ha! Kijk die deuk. Ik hoop dat je je geld voor dat harnas hebt teruggekregen.',
+        '2': 'Greta IJzerader. Ik maak harnassen die samen met hun eigenaar thuiskomen. Tot nu toe elke keer.'
+      },
+      again: {
+        '1': 'Jij weer! Nog heel. Mijn favoriete soort klant.'
+      },
+      trade: {
+        '1': 'Toe maar, klop erop. Zo hard als je wilt.'
+      },
+      who: {
+        '1': 'Bergfamilie. Ik kwam stroomafwaarts voor de handel en bleef voor de vis.'
+      },
+      steel: {
+        '1': 'Niet hoe dik het is. Maar waar het buigt. Een goed harnas buigt waar jij buigt.',
+        '2': 'Zware platen vragen wel Kracht. Zonder waggel je als een eend.',
+        say: 'Wat maakt een harnas goed?'
+      },
+      shopBack: {
+        '1': 'Draag het met trots. Breng me de deuken, ik hou van een goed verhaal.'
+      },
+      bye: {
+        '1': 'Ga maar. En laat je niet raken waar ik je niet heb bedekt.'
+      }
+    },
+    sbWeapons: {
+      hello: {
+        '1': 'Ah, een klant met smaak. Dat zie ik altijd. Het zit in hoe je binnenloopt.',
+        '2': 'Corvin Ashby, van Ashby\'s Fijne Klingen. Ja, díe Ashby. Je hebt vast van me gehoord.'
+      },
+      again: {
+        '1': 'Nu al terug? Ze komen altijd terug bij Corvin.'
+      },
+      trade: {
+        '1': 'Elke kling met de hand gepoetst. Met mijn hand, zelfs. Pas op voor de weerspiegeling.'
+      },
+      who: {
+        '1': 'De beste klingenverkoper aan de rivier. Vraag het iedereen. Of lees gewoon mijn bord.'
+      },
+      blades: {
+        '1': 'Kies er een die bij je past. Snelle handen willen een lichte kling, sterke armen een zware.',
+        '2': 'En hij moet er goed uitzien. Niemand rent weg voor een held met een lelijk zwaard.',
+        say: 'Hoe kies ik een goed wapen?'
+      },
+      shopBack: {
+        '1': 'Een prima keuze. Niet zo prima als mijn kapsel, maar bijna.'
+      },
+      bye: {
+        '1': 'Vertel iedereen vooral waar je het gekocht hebt.'
+      }
+    },
+    sbJeweler: {
+      hello: {
+        '1': 'Psst! Hierzo! Ringen, amuletten, geluksstenen. Het beste kraampje op de brug.',
+        '2': 'Ik heet Tam Marlow. Ik ben klein, maar mijn prijzen zijn nog kleiner.'
+      },
+      again: {
+        '1': 'Mijn favoriete klant! Niet tegen de anderen zeggen, hoor.'
+      },
+      trade: {
+        '1': 'Allemaal echt. Meestal. Oké, die is van glas, maar het is heel mooi glas.'
+      },
+      who: {
+        '1': 'Opgegroeid op deze brug. Ik ken elke scheur, elke kat en elke binnenweg.'
+      },
+      gossip: {
+        '1': 'Professor Tandwiel heeft zijn wenkbrauwen er weer af geblazen. Al de derde keer deze maand.',
+        '2': 'En de burgemeester weet van handelaars zonder uithangbord. Ik ben ermee bezig.',
+        say: 'Nog sappige roddels gehoord?'
+      },
+      shopBack: {
+        '1': 'Fijn zakendoen! Vertel het je vrienden. Niet de wachters.'
+      },
+      bye: {
+        '1': 'Tot kijk! Ik ben gewoon hier. Waarschijnlijk.'
+      }
+    },
+    sbMasterAegis: {
+      hello: {
+        '1': 'Ha! Weer zo\'n jonkie. Kin omhoog, schouders naar achteren. Schilden werken beter met een glimlach.',
+        '2': 'Vrouwe Helga Stormschild. Ooit hield ik deze brug. Nu leer ik anderen stand te houden.'
+      },
+      again: {
+        '1': 'Daar ben je! Schild omhoog? Goed. Glimlach? Nog beter.'
+      },
+      train: {
+        '1': 'Voeten wijd. Leun erin. Als ik duw, beweeg jij niet. Klaar? Hup!'
+      },
+      class: {
+        '1': 'Jij staat vooraan, zodat de anderen dat niet hoeven. Het mooiste werk dat er is.',
+        '2': 'Kracht om het schild op te tillen. Uithouding om het omhoog te houden tot het avondeten.',
+        say: 'Wat doet een Aegisridder echt?'
+      },
+      ready: {
+        strong: {
+          '1': 'Je bent nu een echte muur, lieverd. Neem elke les die je wilt.'
+        },
+        able: {
+          '1': 'Stevige benen! Je bent klaar voor de volgende.'
+        },
+        weak: {
+          '1': 'Nog niet. Eén flinke duw en je valt om. Meer Kracht en Uithouding, graag.'
+        }
+      },
+      bridge: {
+        '1': 'Veertig jaar geleden, tegen rivierpiraten. Met z\'n zessen, één poort, een heel lange nacht.',
+        '2': 'We wonnen niet door het hardst te slaan. We wonnen door niet te bewegen. Onthoud dat.',
+        say: 'Heb jij deze brug gehouden?'
+      },
+      trainBack: {
+        '1': 'Goed gedaan! Eet nu wat. Schilden zijn zwaar.'
+      },
+      bye: {
+        '1': 'Kin omhoog daarbuiten!'
+      }
+    },
+    sbMasterPyro: {
+      hello: {
+        '1': 'Kom toch binnen. Pas op de aantekeningen, en alsjeblieft niet niezen bij het komfoor.',
+        '2': 'Magister Ignatius Vale. Ik geef vuurles op een brug. Water genoeg in de buurt, snap je.'
+      },
+      again: {
+        '1': 'Stipt op tijd. Uitstekend. We gaan verder waar we gebleven waren.'
+      },
+      train: {
+        '1': 'Kijk goed. Een klein vlammetje, stil gehouden. Grote vlammen zijn makkelijk. Kleine vragen vakmanschap.'
+      },
+      class: {
+        '1': 'Iedereen kan een vuur aansteken. Een pyromant bepaalt waar het heen gaat, en waar het stopt.',
+        '2': 'Alles komt uit Intelligentie. Later helpt Techniek, als het vuur een vaste hand nodig heeft.',
+        say: 'Wat doet een pyromant echt?'
+      },
+      ready: {
+        strong: {
+          '1': 'Je beheersing is uitstekend. Ik heb nauwelijks nog iets te verbeteren. Kies maar vrij.'
+        },
+        able: {
+          '1': 'Voldoende. Ruim voldoende, eigenlijk. Je mag de volgende les nemen.'
+        },
+        weak: {
+          '1': 'Nog niet. Je vlam wiebelt. Een scherpere geest, graag. Meer Intelligentie.'
+        }
+      },
+      sprocket: {
+        '1': 'Een briljante man. Luid, onvoorzichtig en briljant. Ik zet een emmer bij zijn deur.',
+        say: 'Wat vind jij van professor Tandwiel?'
+      },
+      trainBack: {
+        '1': 'Oefen bij water. Ik sta erop.'
+      },
+      bye: {
+        '1': 'Goedendag. En houd je mouwen vooral opgerold.'
+      }
+    },
+    sbMasterShadow: {
+      hello: {
+        '1': 'Zoek je mij? Ik sta al naast je sinds de fontein. Je bent me twee keer voorbijgelopen.',
+        '2': 'Nyx Halloway. De beste schuilplek is een menigte, en dit is de drukste brug die er is.'
+      },
+      again: {
+        '1': 'Hoi weer. Ik sta hier al even. Gemerkt? Nee? Mooi.'
+      },
+      train: {
+        '1': 'Les één: loop alsof je erbij hoort. Niemand kijkt twee keer naar iemand die erbij hoort.'
+      },
+      class: {
+        '1': 'Nooit zijn waar ze kijken. Erin glippen, één snelle steek, en weer opgaan in de menigte.',
+        '2': 'Behendigheid voor snelle voeten en handen. Techniek, zodat de steek telt.',
+        say: 'Wat maakt een goede Schaduwkling?'
+      },
+      ready: {
+        strong: {
+          '1': 'Je bent nu echt stiekem. Neem wat er over is, je hebt het verdiend.'
+        },
+        able: {
+          '1': 'Licht op je voeten! Je bent klaar voor het volgende trucje.'
+        },
+        weak: {
+          '1': 'Nog niet. Ik hoor je al aankomen vanaf de fontein. Meer Behendigheid.'
+        }
+      },
+      past: {
+        '1': 'Ik was vroeger zakkenroller, op precies deze brug. En ik was er goed in ook.',
+        '2': 'Toen betrapte de burgemeester me en gaf ze me een baan, geen cel. Zeg haar niet dat ik dankbaar ben.',
+        say: 'Hoe heb je dit allemaal geleerd?'
+      },
+      trainBack: {
+        '1': 'Ga nu oefenen. Probeer je niet door mij te laten betrappen.'
+      },
+      bye: {
+        '1': 'Tot ziens. Nou ja, jij ziet mij niet.'
+      }
+    },
+    sbMasterSovereign: {
+      hello: {
+        '1': 'O! Hallo, hallo. Vergeef me, ik was aan het kletsen met mijn wachters. Heerlijke luisteraars.',
+        '2': 'Percival Ashcombe. Ik kon in een kasteel lesgeven, maar leiden leer je alleen waar mensen zijn.'
+      },
+      again: {
+        '1': 'Mijn beste vriend! Zullen we verdergaan? Alleen als je zin hebt, natuurlijk.'
+      },
+      train: {
+        '1': 'Goed dan. Een goed bevel is duidelijk, vriendelijk en wordt maar één keer gegeven. Zo.'
+      },
+      class: {
+        '1': 'Een leider. Je wachters komen naast je staan en vechten met je, niet alleen voor je.',
+        '2': 'Charisma is alles. Mensen volgen wie ze aardig vinden. En wie hun naam onthoudt.',
+        say: 'Wat is een Grootsoeverein?'
+      },
+      ready: {
+        strong: {
+          '1': 'Prachtig! Mensen zouden je nu overal volgen. Neem alle lessen maar.'
+        },
+        able: {
+          '1': 'Je wachters zouden naar je luisteren. Je bent klaar voor de volgende les.'
+        },
+        weak: {
+          '1': 'Nog niet helemaal, vrees ik. Iets meer Charisma, en ze komen.'
+        }
+      },
+      please: {
+        '1': 'Altijd. Met schreeuwen krijg je gehoorzaamheid. Met alsjeblieft krijg je trouw, en trouw duurt langer.',
+        say: 'Zeg je echt alsjeblieft tegen je wachters?'
+      },
+      trainBack: {
+        '1': 'Mooi werk. Vergeet ze daarna niet te bedanken.'
+      },
+      bye: {
+        '1': 'Pas goed op jezelf, en doe iedereen de groeten.'
+      }
+    },
+    sbMasterGeo: {
+      hello: {
+        '1': 'Pas op het mos, lieverd, het heeft een lange week gehad. Zo, laat me je eens bekijken.',
+        '2': 'Grootmoeder Tova Diepwortel. De rivierbedding hier is prachtige steen, helemaal tot onderin.'
+      },
+      again: {
+        '1': 'Nu al terug? Ga zitten, ik heb net thee gezet. Steenthee. Het is vooral thee.'
+      },
+      train: {
+        '1': 'Handen plat op de grond. Niet zo. Alsof je een slaperige hond aait.'
+      },
+      class: {
+        '1': 'We vragen de grond om hulp. Een muur als je er een nodig hebt, een piek als iemand onbeleefd is.',
+        '2': 'Steen is net een tuin. Kracht om te graven, Intelligentie om te weten waar je plant.',
+        say: 'Wat doet een Geomant?'
+      },
+      ready: {
+        strong: {
+          '1': 'De grond mag je nu. Leer maar wat je wilt, lieverd.'
+        },
+        able: {
+          '1': 'Goede wortels! Je bent klaar voor de volgende les.'
+        },
+        weak: {
+          '1': 'Nog niet, schat. De steen geeft niet mee voor jou. Eerst meer Kracht.'
+        }
+      },
+      garden: {
+        '1': 'Veertig jaar werk. Elke rots met de hand gekweekt. Nou ja, met magie. Meestal met de hand.',
+        '2': 'Neem een kiezel mee als je weggaat. Het zijn heerlijke deurstoppers.',
+        say: 'Is dat een tuin van steen?'
+      },
+      trainBack: {
+        '1': 'Mooi zo. Ga nu iets uitgraven. Voorzichtig.'
+      },
+      bye: {
+        '1': 'Ga maar. Kleed je warm aan, het is vochtig bij de rivier.'
+      }
+    },
+    sbMasterAether: {
+      hello: {
+        '1': 'Welkom, welkom! Je bent precies op tijd voor de demonstratie. Oren dicht, alsjeblieft.',
+        '2': 'Professor Quint Tandwiel. De rivier draait mijn raderen gratis. Waar zou ik anders lesgeven?'
+      },
+      again: {
+        '1': 'Ah, mijn favoriete leerling! De demonstratie van vandaag is extra luid.'
+      },
+      train: {
+        '1': 'Kijk naar het schoolbord. Vergeet nu het schoolbord en kijk naar de machine.'
+      },
+      class: {
+        '1': 'We bouwen ons uit de problemen. Een pistool, een geschutstoren en een hittemeter die je eerlijk houdt.',
+        '2': 'Techniek om te mikken, Intelligentie voor de slimme stukjes. Het liefst allebei.',
+        say: 'Wat doet een Ethertechnicus eigenlijk?'
+      },
+      ready: {
+        strong: {
+          '1': 'Geweldig! Jij zou mijn colleges kunnen geven. Doe het alsjeblieft niet. Neem de rest.'
+        },
+        able: {
+          '1': 'Een vaste hand! Je bent klaar voor de volgende machine.'
+        },
+        weak: {
+          '1': 'Nog niet. Je richt niet zuiver. Meer Techniek, dan praten we verder.'
+        }
+      },
+      eyebrows: {
+        '1': 'Een demonstratie ging net iets te goed. Ze groeien wel terug. Dat doen ze altijd.',
+        say: 'Wat is er met je wenkbrauwen gebeurd?'
+      },
+      trainBack: {
+        '1': 'Schitterend. Ga nu die hitte afblazen. Buiten, het liefst.'
+      },
+      bye: {
+        '1': 'De les is voorbij! Pas op het trapje.'
+      }
+    },
+    sbMasterChrono: {
+      hello: {
+        '1': 'Mijn oude leerling, de Hoeder der Uren, schreef dat je zou komen. Precies op deze minuut, zelfs.',
+        '2': 'Klokwachter Selwyn. Ik zorg voor de brugklok. Zo\'n drukke stad kan zich niet veroorloven te laat te zijn.'
+      },
+      again: {
+        '1': 'Zeven over. Een mooi moment om te beginnen.'
+      },
+      train: {
+        '1': 'Tel met me mee. Een, twee, en vasthouden. De tijd rekt uit, als je hem goed vasthoudt.'
+      },
+      class: {
+        '1': 'Wij ruimen de tijd op. Een vijand afremmen, een vriend opjagen, een foutje ongedaan maken.',
+        '2': 'Intelligentie om haar te begrijpen. Techniek om haar aan te raken zonder iets te breken.',
+        say: 'Wat is een Chronowever?'
+      },
+      ready: {
+        strong: {
+          '1': 'Uitstekende timing. Neem de rest van mijn lessen wanneer het je uitkomt.'
+        },
+        able: {
+          '1': 'Je bent klaar. De volgende les begint, o, nu.'
+        },
+        weak: {
+          '1': 'Nog niet. Je loopt altijd een tel achter. Meer Intelligentie, en meer Techniek.'
+        }
+      },
+      keeper: {
+        '1': 'Ik heb hem lesgegeven, jaren geleden. Een briljante leerling. Altijd te vroeg of te laat, nooit op tijd.',
+        say: 'Hoe ken jij de Hoeder der Uren?'
+      },
+      trainBack: {
+        '1': 'Oefen elke dag. Elke dag op dezelfde tijd, als het kan.'
+      },
+      bye: {
+        '1': 'Ga maar. En wees niet te laat.'
+      }
+    },
+    sbMasterBlood: {
+      hello: {
+        '1': 'Dokter Sangrel schreef me over je. Hij zegt dat je niet bent flauwgevallen. Hoge lof, van hem.',
+        '2': 'Vesper Karmijnblad. Elk kruid ter wereld drijft langs deze brug. Ik word hier verwend.'
+      },
+      again: {
+        '1': 'Welkom terug. Je ziet er levendig uit vandaag. Dat zie ik altijd.'
+      },
+      train: {
+        '1': 'Adem in. Voel je je kracht? Geef er nu een beetje van uit. Verstandig.'
+      },
+      class: {
+        '1': 'We betalen met onze eigen levenskracht voor macht, en halen die terug bij onze vijanden.',
+        '2': 'Uithouding is je beurs. Intelligentie bepaalt hoe goed je die uitgeeft.',
+        say: 'Wat is een Bloedalchemist nou echt?'
+      },
+      ready: {
+        strong: {
+          '1': 'Wat een levenskracht! Je bent klaar voor bijna alles wat ik weet.'
+        },
+        able: {
+          '1': 'Je essentie stroomt krachtig. Op naar de volgende les.'
+        },
+        weak: {
+          '1': 'Nog niet. Na één spreuk zou je uitgeput zijn. Bouw eerst je Uithouding op.'
+        }
+      },
+      herbs: {
+        '1': 'Vooral voor tonics. Een beetje essentie, veel munt. Munt maakt alles beter.',
+        '2': 'Vind je daarbuiten zeldzame planten, breng ze dan langs. Ik kijk er graag naar.',
+        say: 'Waar zijn al die kruiden voor?'
+      },
+      trainBack: {
+        '1': 'Rust na het oefenen. Essentie komt terug, maar ze houdt van een dutje.'
+      },
+      bye: {
+        '1': 'Pas goed op jezelf. Drink water. Eet iets groens.'
+      }
+    },
+    smalltalkSilverbridge: {
+      barges: {
+        '1': 'Vanochtend kwamen er drie aken binnen van de kust.',
+        '2': 'Weer zoute vis?',
+        '3': 'Zijde, voor de verandering. Ruik daarna wel even aan je vingers.'
+      },
+      lesson: {
+        '1': 'Hoe was je les?',
+        '2': 'Ik heb mijn mouw in brand gezet. De meester zegt dat het vooruitgang is.'
+      },
+      masters: {
+        '1': 'Elke meester in het land geeft les in één straat.',
+        '2': 'En elk van hen zegt dat zijn klasse de beste is.',
+        '3': 'Ze hebben allemaal gelijk, en dat is het irritante.'
+      },
+      bridge: {
+        '1': 'Ze zeggen dat de brug ouder is dan de stad.',
+        '2': 'Zo kraakt hij in elk geval wel.'
+      },
+      fish: {
+        '1': 'Al wat gevangen?',
+        '2': 'Een laars.',
+        '3': 'Nou, dat is al een half paar.'
+      },
+      newMaster: {
+        '1': 'Er is een nieuwe meester in de noordstraat. Hij praat veel over tijd.',
+        '2': 'Wedden dat hij bij elke les te laat komt?'
+      },
+      siege: {
+        '1': 'Slecht nieuws uit Oakhaven. Bandieten bij de muren.',
+        '2': 'Dan komen de aken hierheen. Arme mensen.'
       }
     }
   },

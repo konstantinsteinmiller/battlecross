@@ -36,7 +36,8 @@ export const TASKS_PER_TOWN = 3
 export const TOWN_REGION: Readonly<Record<TownId, readonly ZoneId[]>> = {
   sunford: ['plains', 'hollows', 'woods'],
   oakhaven: ['outskirts', 'woods', 'crags'],
-  ironhold: ['mines', 'crags', 'tundra']
+  ironhold: ['mines', 'crags', 'tundra'],
+  silverbridge: ['woods', 'crags', 'mines']
 }
 /** What the hero "talks to" at the notice board, and from how near he reads it. */
 export const BOARD = '@board'

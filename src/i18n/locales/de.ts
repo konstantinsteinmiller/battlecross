@@ -248,6 +248,10 @@ export default {
     rift: {
       name: 'Der Leerenriss',
       desc: 'Die Wunde, durch die die Dämonen kamen. Auf der anderen Seite wartet der Leerenfürst.'
+    },
+    silverbridge: {
+      name: 'Silverbridge',
+      desc: 'Die große Flussstadt auf der alten Steinbrücke. Hier lehrt ein Meister jeder Klasse.'
     }
   },
   map: {
@@ -1072,6 +1076,48 @@ export default {
     },
     trainerChrono: {
       name: 'Der Hüter der Stunden'
+    },
+    mayorBrenna: {
+      name: 'Bürgermeisterin Brenna Quill'
+    },
+    sbHealer: {
+      name: 'Bruder Ansel'
+    },
+    sbArmorer: {
+      name: 'Greta Ironvein',
+      talk: 'Bergstahl zu Flusspreisen. Klopf ruhig auf alles drauf.'
+    },
+    sbWeapons: {
+      name: 'Corvin Ashby',
+      talk: 'Ashbys Feine Klingen. Jede Schneide von Hand poliert. Von meiner Hand.'
+    },
+    sbJeweler: {
+      name: 'Tam Marlow',
+      talk: 'Ringe, Talismane, Glückssteine. Alles echt. Na ja, fast alles.'
+    },
+    sbMasterAegis: {
+      name: 'Dame Helga Stormshield'
+    },
+    sbMasterPyro: {
+      name: 'Magister Ignatius Vale'
+    },
+    sbMasterShadow: {
+      name: 'Nyx Halloway'
+    },
+    sbMasterSovereign: {
+      name: 'Lord Percival Ashcombe'
+    },
+    sbMasterGeo: {
+      name: 'Großmutter Tova Deeproot'
+    },
+    sbMasterAether: {
+      name: 'Professor Quint Sprocket'
+    },
+    sbMasterChrono: {
+      name: 'Uhrwächter Selwyn'
+    },
+    sbMasterBlood: {
+      name: 'Vesper Crimsonleaf'
     }
   },
   quest: {
@@ -2671,6 +2717,503 @@ export default {
         iceBreak: {
           '1': 'Der See wird dich verschlingen!'
         }
+      }
+    },
+    mayorBrenna: {
+      hello: {
+        '1': 'Vorsicht, der Karren! Entschuldige, auf dieser Brücke bewegt sich alles. Willkommen in Silverbridge.',
+        '2': 'Ich bin Bürgermeisterin Brenna Quill. Was verloren, kaputt oder zu spät ist, landet auf meinem Tisch.'
+      },
+      ending: {
+        '1': 'Der ganze Fluss redet über dich. Der Handel lief noch nie so gut. Also: danke.'
+      },
+      again: {
+        '1': 'Schon wieder da? Gut. Versuch, den Karren nicht im Weg zu stehen.'
+      },
+      who: {
+        '1': 'Bürgermeisterin, seit neun Jahren. Davor habe ich Seile verkauft. Eigentlich derselbe Job: Dinge zusammenhalten.',
+        '2': 'Die Stadt wählt jeden Frühling. Bisher will sonst keiner den Tisch.'
+      },
+      town: {
+        '1': 'Zuerst kam die Brücke. Dann ein Markt darauf, dann Häuser, dann Häuser auf den Häusern.',
+        '2': 'Pass bei den Brunnen auf. Kinder fallen rein. Am Markttag auch Erwachsene.',
+        say: 'Erzähl mir von Silverbridge.'
+      },
+      masters: {
+        '1': 'Für jede einzelne. Schild, Feuer, Schatten, Stein. Von jeder ein Meister, alle auf einer Brücke.',
+        '2': 'Schüler kommen von überall her. Gut für die Gasthäuser. Weniger gut für meine Fenster.',
+        say: 'Gibt es hier wirklich einen Lehrer für jede Klasse?'
+      },
+      river: {
+        '1': 'Mit allem, was der Fluss bringt. Fisch, Seide, Stahl aus Ironhold, ab und zu eine Kiste wütender Hühner.',
+        '2': 'Und nicht jeder Händler in Silverbridge hängt ein Schild raus. Halt die Augen offen.',
+        say: 'Womit handelt man hier?'
+      },
+      rumor: {
+        crags: {
+          '1': 'Die Boote aus dem Norden kommen nicht mehr. Oben in den Aschenklippen brennt etwas.'
+        },
+        mines: {
+          '1': 'Diesen Monat kein Stahl aus Ironhold. Die Zwerge sagen, in ihren Minen ist etwas schiefgelaufen.'
+        },
+        tundra: {
+          '1': 'Die Pelzhändler wollen nicht mehr über die Tundra. Sie sagen, die Riesen sind unterwegs.'
+        },
+        far: {
+          '1': 'Über den hohen Norden flüstern die Händler nur noch. Was da oben ist, kauft jedenfalls nichts.'
+        }
+      },
+      bye: {
+        '1': 'Na los. Und falls jemand fragt: Der Brückenzoll ist sehr fair.'
+      }
+    },
+    sbHealer: {
+      hello: {
+        '1': 'Hm? Oh, ein Patient. Entschuldige, ich habe nur die Augen ausgeruht. Heiler machen das.',
+        '2': 'Bruder Ansel. Komm rein, setz dich. Der Stuhl ist bequemer, als er aussieht.'
+      },
+      again: {
+        '1': 'Ah, du bist zurück. Und ich hatte mich gerade erst hingesetzt.'
+      },
+      heal: {
+        '1': 'Leg dich zurück, Augen zu. Nicht zu lange, sonst schlafe ich auch ein. So, Flaschen voll.'
+      },
+      mana: {
+        '1': 'Leuchtkappen-Trank. Gut für den Kopf, schlecht für den Atem. Trink ihn langsam.'
+      },
+      potions: {
+        '1': 'Trink einen, bevor es verzweifelt wird. Helden warten immer zu lange.',
+        '2': 'Wenn du mehr tragen willst, verkaufe ich längere Gürtel. Das Auffüllen ist umsonst.',
+        say: 'Hast du Tipps zu Tränken?'
+      },
+      sleep: {
+        '1': 'Nachts nicht. Schüler aus jeder Klasse, alle am Üben. Irgendwas explodiert immer.',
+        say: 'Schläfst du eigentlich jemals?'
+      },
+      healBack: {
+        '1': 'Na los. Komm nächstes Mal lieber auf einen Tee statt für Verbände.'
+      },
+      bye: {
+        '1': 'Pass auf die Stufen auf. Die Hälfte meiner Patienten ist nur über die gestolpert.'
+      }
+    },
+    sbArmorer: {
+      hello: {
+        '1': 'Ha! Schau dir die Delle an. Ich hoffe, du hast dein Geld für die Rüstung zurückbekommen.',
+        '2': 'Greta Ironvein. Ich mache Rüstungen, die mit ihrem Besitzer heimkommen. Bisher jedes Mal.'
+      },
+      again: {
+        '1': 'Du schon wieder! Noch in einem Stück. Meine liebste Sorte Kunde.'
+      },
+      trade: {
+        '1': 'Na los, klopf drauf. So fest du willst.'
+      },
+      who: {
+        '1': 'Bergfamilie. Ich kam für den Handel flussabwärts und blieb wegen dem Fisch.'
+      },
+      steel: {
+        '1': 'Nicht wie dick sie ist. Sondern wo sie nachgibt. Gute Rüstung biegt sich da, wo du dich biegst.',
+        '2': 'Schwere Platte braucht aber Stärke. Ohne watschelst du darin wie eine Ente.',
+        say: 'Was macht eine gute Rüstung aus?'
+      },
+      shopBack: {
+        '1': 'Trag sie mit Stolz. Bring mir die Dellen, ich mag gute Geschichten.'
+      },
+      bye: {
+        '1': 'Na los. Lass dich nirgends treffen, wo ich dich nicht geschützt habe.'
+      }
+    },
+    sbWeapons: {
+      hello: {
+        '1': 'Ah, ein Kunde mit Geschmack. Das sehe ich sofort. Es liegt daran, wie du hereinkommst.',
+        '2': 'Corvin Ashby, von Ashbys Feine Klingen. Ja, der Ashby. Du hast doch sicher von mir gehört.'
+      },
+      again: {
+        '1': 'Schon zurück? Zu Corvin kommen sie immer zurück.'
+      },
+      trade: {
+        '1': 'Jede Klinge von Hand poliert. Von meiner Hand, um genau zu sein. Vorsicht, Spiegelung.'
+      },
+      who: {
+        '1': 'Der beste Klingenhändler am ganzen Fluss. Frag, wen du willst. Oder lies einfach mein Schild.'
+      },
+      blades: {
+        '1': 'Nimm eine, die zu dir passt. Flinke Hände wollen eine leichte Klinge, starke Arme eine schwere.',
+        '2': 'Und gut aussehen muss sie. Vor einem Helden mit hässlichem Schwert läuft keiner weg.',
+        say: 'Wie wähle ich eine gute Waffe?'
+      },
+      shopBack: {
+        '1': 'Eine feine Wahl. Nicht ganz so fein wie meine Frisur, aber fast.'
+      },
+      bye: {
+        '1': 'Erzähl ruhig allen, wo du sie gekauft hast.'
+      }
+    },
+    sbJeweler: {
+      hello: {
+        '1': 'Psst! Hier drüben! Ringe, Talismane, Glückssteine. Der beste Stand auf der Brücke.',
+        '2': 'Ich heiße Tam Marlow. Ich bin klein, aber meine Preise sind kleiner.'
+      },
+      again: {
+        '1': 'Mein Lieblingskunde! Sag den anderen nicht, dass ich das gesagt hab.'
+      },
+      trade: {
+        '1': 'Alles echt. Meistens. Na gut, der da ist aus Glas, aber sehr hübschem Glas.'
+      },
+      who: {
+        '1': 'Auf dieser Brücke aufgewachsen. Ich kenne jeden Riss, jede Katze und jede Abkürzung.'
+      },
+      gossip: {
+        '1': 'Professor Sprocket hat sich schon wieder die Augenbrauen weggesprengt. Zum dritten Mal diesen Monat.',
+        '2': 'Und die Bürgermeisterin weiß von Händlern ohne Schild. Ich arbeite dran.',
+        say: 'Gibt\'s guten Klatsch?'
+      },
+      shopBack: {
+        '1': 'War mir ein Vergnügen! Erzähl\'s deinen Freunden. Nicht den Wachen.'
+      },
+      bye: {
+        '1': 'Bis dann! Ich bin genau hier. Wahrscheinlich.'
+      }
+    },
+    sbMasterAegis: {
+      hello: {
+        '1': 'Ha! Noch ein junges Ding. Kinn hoch, Schultern zurück. Schilde wirken besser mit einem Lächeln.',
+        '2': 'Dame Helga Stormshield. Ich habe diese Brücke einst gehalten. Jetzt lehre ich andere, standzuhalten.'
+      },
+      again: {
+        '1': 'Da bist du ja! Schild oben? Gut. Lächeln? Noch besser.'
+      },
+      train: {
+        '1': 'Füße breit. Lehn dich rein. Wenn ich schiebe, bewegst du dich nicht. Bereit? Hopp!'
+      },
+      class: {
+        '1': 'Du stehst vorne, damit die anderen es nicht müssen. Der beste Job, den es gibt.',
+        '2': 'Stärke, um den Schild zu heben. Ausdauer, um ihn bis zum Abendessen oben zu halten.',
+        say: 'Was macht ein Aegis-Ritter wirklich?'
+      },
+      ready: {
+        strong: {
+          '1': 'Du bist jetzt eine richtige Mauer, Schätzchen. Nimm jede Lektion, die du willst.'
+        },
+        able: {
+          '1': 'Feste Beine! Du bist bereit für die nächste.'
+        },
+        weak: {
+          '1': 'Noch nicht. Ein kräftiger Stoß, und du kippst um. Mehr Stärke und Ausdauer, bitte.'
+        }
+      },
+      bridge: {
+        '1': 'Vor vierzig Jahren, gegen Flusspiraten. Sechs von uns, ein Tor, eine sehr lange Nacht.',
+        '2': 'Wir haben nicht gewonnen, weil wir am härtesten zuschlugen. Sondern weil wir uns nicht bewegten. Merk dir das.',
+        say: 'Du hast diese Brücke gehalten?'
+      },
+      trainBack: {
+        '1': 'Gute Arbeit! Jetzt iss was. Schilde sind schwer.'
+      },
+      bye: {
+        '1': 'Kopf hoch da draußen!'
+      }
+    },
+    sbMasterPyro: {
+      hello: {
+        '1': 'Komm doch herein. Vorsicht mit den Notizen, und bitte nicht in der Nähe der Feuerschale niesen.',
+        '2': 'Magister Ignatius Vale. Ich lehre Feuer auf einer Brücke. Wasser gibt es hier reichlich, verstehst du.'
+      },
+      again: {
+        '1': 'Pünktlich. Ausgezeichnet. Wir machen da weiter, wo wir aufgehört haben.'
+      },
+      train: {
+        '1': 'Sieh her. Eine kleine Flamme, ganz ruhig gehalten. Große Flammen sind leicht. Kleine brauchen Können.'
+      },
+      class: {
+        '1': 'Feuer machen kann jeder. Ein Pyromant entscheidet, wohin es geht und wo es aufhört.',
+        '2': 'Alles kommt aus der Intelligenz. Später hilft Technik, wenn das Feuer eine ruhige Hand braucht.',
+        say: 'Was macht ein Pyromant wirklich?'
+      },
+      ready: {
+        strong: {
+          '1': 'Deine Kontrolle ist ausgezeichnet. Ich habe kaum noch etwas zu verbessern. Wähl frei.'
+        },
+        able: {
+          '1': 'Ausreichend. Mehr als ausreichend, um ehrlich zu sein. Du darfst die nächste Lektion nehmen.'
+        },
+        weak: {
+          '1': 'Noch nicht. Deine Flamme wackelt. Einen schärferen Verstand, bitte. Mehr Intelligenz.'
+        }
+      },
+      sprocket: {
+        '1': 'Ein brillanter Mann. Laut, leichtsinnig und brillant. Ich stelle einen Eimer neben seine Tür.',
+        say: 'Was hältst du von Professor Sprocket?'
+      },
+      trainBack: {
+        '1': 'Übe in der Nähe von Wasser. Ich bestehe darauf.'
+      },
+      bye: {
+        '1': 'Guten Tag. Und lass die Ärmel immer schön hochgekrempelt.'
+      }
+    },
+    sbMasterShadow: {
+      hello: {
+        '1': 'Suchst du mich? Ich stehe seit dem Brunnen neben dir. Du bist zweimal an mir vorbeigelaufen.',
+        '2': 'Nyx Halloway. Das beste Versteck ist eine Menge, und das hier ist die vollste Brücke, die es gibt.'
+      },
+      again: {
+        '1': 'Hallo nochmal. Ich bin schon eine Weile hier. Gemerkt? Nein? Gut.'
+      },
+      train: {
+        '1': 'Lektion eins: Geh, als würdest du dazugehören. Wer dazugehört, den schaut keiner zweimal an.'
+      },
+      class: {
+        '1': 'Nie da zu sein, wo alle hinschauen. Reinschlüpfen, ein schneller Stich, wieder untertauchen.',
+        '2': 'Geschick für flinke Füße und Hände. Technik, damit der Stich auch sitzt.',
+        say: 'Was macht eine gute Schattenklinge aus?'
+      },
+      ready: {
+        strong: {
+          '1': 'Du bist jetzt richtig gerissen. Nimm den Rest, du hast es dir verdient.'
+        },
+        able: {
+          '1': 'Leichtfüßig! Du bist bereit für den nächsten Trick.'
+        },
+        weak: {
+          '1': 'Noch nicht. Ich höre dich schon vom Brunnen aus kommen. Mehr Geschick.'
+        }
+      },
+      past: {
+        '1': 'Früher war ich Taschendieb, genau auf dieser Brücke. Und ich war gut darin.',
+        '2': 'Dann erwischte mich die Bürgermeisterin und gab mir Arbeit statt einer Zelle. Sag ihr nicht, dass ich dankbar bin.',
+        say: 'Wie hast du das alles gelernt?'
+      },
+      trainBack: {
+        '1': 'Jetzt geh üben. Und lass dich nicht von mir erwischen.'
+      },
+      bye: {
+        '1': 'Bis dann. Na ja, du wirst mich nicht sehen.'
+      }
+    },
+    sbMasterSovereign: {
+      hello: {
+        '1': 'Oh! Hallo, hallo. Verzeih bitte, ich habe mit meinen Wachen geplaudert. Wunderbare Zuhörer.',
+        '2': 'Percival Ashcombe. Ich könnte in einer Burg lehren, aber führen lernt man nur dort, wo Leute sind.'
+      },
+      again: {
+        '1': 'Mein lieber Freund! Wollen wir weitermachen? Nur wenn du magst, natürlich.'
+      },
+      train: {
+        '1': 'Also dann. Ein guter Befehl ist klar, freundlich und wird nur einmal gegeben. So etwa.'
+      },
+      class: {
+        '1': 'Ein Anführer. Deine Wachen eilen an deine Seite und kämpfen mit dir, nicht nur für dich.',
+        '2': 'Charisma ist alles. Menschen folgen denen, die sie mögen. Und die sich ihre Namen merken.',
+        say: 'Was ist ein Großsouverän?'
+      },
+      ready: {
+        strong: {
+          '1': 'Großartig! Die Leute würden dir jetzt überallhin folgen. Nimm alle Lektionen.'
+        },
+        able: {
+          '1': 'Deine Wachen würden auf dich hören. Du bist bereit für die nächste Lektion.'
+        },
+        weak: {
+          '1': 'Leider noch nicht ganz. Ein wenig mehr Charisma, und sie werden kommen.'
+        }
+      },
+      please: {
+        '1': 'Immer. Mit Schreien bekommst du Gehorsam. Mit Bitte bekommst du Treue, und Treue hält länger.',
+        say: 'Sagst du wirklich bitte zu deinen Wachen?'
+      },
+      trainBack: {
+        '1': 'Schöne Arbeit. Denk daran, dich danach bei ihnen zu bedanken.'
+      },
+      bye: {
+        '1': 'Pass gut auf dich auf, und grüß alle von mir.'
+      }
+    },
+    sbMasterGeo: {
+      hello: {
+        '1': 'Vorsicht mit dem Moos, Kind, es hatte eine lange Woche. So, jetzt lass dich mal ansehen.',
+        '2': 'Großmutter Tova Deeproot. Das Flussbett hier ist herrlicher Stein, bis ganz nach unten.'
+      },
+      again: {
+        '1': 'Schon zurück? Setz dich, ich habe gerade Tee gemacht. Steintee. Ist hauptsächlich Tee.'
+      },
+      train: {
+        '1': 'Hände flach auf den Boden. Nicht so. Als würdest du einen müden Hund streicheln.'
+      },
+      class: {
+        '1': 'Wir bitten den Boden um Hilfe. Eine Mauer, wenn du eine brauchst, ein Stachel, wenn jemand frech wird.',
+        '2': 'Stein ist wie ein Garten. Stärke zum Graben, Intelligenz, um zu wissen, wo man pflanzt.',
+        say: 'Was macht ein Geomant?'
+      },
+      ready: {
+        strong: {
+          '1': 'Der Boden mag dich jetzt. Lern, was immer du willst, Kind.'
+        },
+        able: {
+          '1': 'Gute Wurzeln! Du bist bereit für die nächste Lektion.'
+        },
+        weak: {
+          '1': 'Noch nicht, Liebes. Der Stein rührt sich nicht für dich. Erst mehr Stärke.'
+        }
+      },
+      garden: {
+        '1': 'Vierzig Jahre Arbeit. Jeder Fels von Hand gezogen. Na ja, mit Magie. Meistens von Hand.',
+        '2': 'Nimm dir beim Rausgehen einen Kiesel mit. Die sind herrliche Türstopper.',
+        say: 'Ist das ein Garten aus Stein?'
+      },
+      trainBack: {
+        '1': 'Schön. Jetzt geh und grab was um. Aber sanft.'
+      },
+      bye: {
+        '1': 'Na los. Zieh dich warm an, am Fluss ist es feucht.'
+      }
+    },
+    sbMasterAether: {
+      hello: {
+        '1': 'Willkommen, willkommen! Du kommst genau richtig zur Vorführung. Ohren zuhalten, bitte.',
+        '2': 'Professor Quint Sprocket. Der Fluss dreht meine Räder umsonst. Wo sonst sollte ich lehren?'
+      },
+      again: {
+        '1': 'Ah, mein Lieblingsschüler! Die heutige Vorführung ist extra laut.'
+      },
+      train: {
+        '1': 'Sieh auf die Tafel. Jetzt vergiss die Tafel und schau auf die Maschine.'
+      },
+      class: {
+        '1': 'Wir bauen uns aus jeder Klemme raus. Eine Pistole, ein Geschützturm und eine Hitzeanzeige, die dich ehrlich hält.',
+        '2': 'Technik zum Zielen, Intelligenz für die cleveren Teile. Am besten beides.',
+        say: 'Was macht ein Äthertechniker eigentlich?'
+      },
+      ready: {
+        strong: {
+          '1': 'Fabelhaft! Du könntest meine Vorlesungen halten. Bitte tu\'s aber nicht. Nimm den Rest.'
+        },
+        able: {
+          '1': 'Eine ruhige Hand! Du bist bereit für die nächste Maschine.'
+        },
+        weak: {
+          '1': 'Noch nicht. Dein Ziel wandert. Mehr Technik, dann reden wir.'
+        }
+      },
+      eyebrows: {
+        '1': 'Eine Vorführung ist etwas zu gut gelaufen. Die wachsen nach. Das tun sie immer.',
+        say: 'Was ist mit deinen Augenbrauen passiert?'
+      },
+      trainBack: {
+        '1': 'Prächtig. Jetzt geh und lass die Hitze ab. Am besten draußen.'
+      },
+      bye: {
+        '1': 'Unterricht beendet! Vorsicht auf den Stufen.'
+      }
+    },
+    sbMasterChrono: {
+      hello: {
+        '1': 'Mein alter Schüler, der Hüter der Stunden, schrieb, dass du kommst. Genau in dieser Minute sogar.',
+        '2': 'Uhrwächter Selwyn. Ich hüte die Brückenuhr. Eine so geschäftige Stadt kann sich keine Verspätung leisten.'
+      },
+      again: {
+        '1': 'Sieben Minuten nach. Eine gute Zeit, um anzufangen.'
+      },
+      train: {
+        '1': 'Zähl mit mir. Eins, zwei, und halten. Die Zeit dehnt sich, wenn man sie richtig hält.'
+      },
+      class: {
+        '1': 'Wir räumen die Zeit auf. Einen Feind bremsen, einen Freund antreiben, den einen oder anderen Fehler ungeschehen machen.',
+        '2': 'Intelligenz, um sie zu verstehen. Technik, um sie zu berühren, ohne etwas kaputt zu machen.',
+        say: 'Was ist ein Chronoweber?'
+      },
+      ready: {
+        strong: {
+          '1': 'Ausgezeichnetes Timing. Nimm den Rest meiner Lektionen, wann immer es dir passt.'
+        },
+        able: {
+          '1': 'Du bist bereit. Die nächste Lektion beginnt, oh, jetzt.'
+        },
+        weak: {
+          '1': 'Noch nicht. Du bist immer einen Takt zu spät. Mehr Intelligenz und mehr Technik.'
+        }
+      },
+      keeper: {
+        '1': 'Ich habe ihn unterrichtet, vor Jahren. Ein brillanter Schüler. Immer zu früh oder zu spät, nie pünktlich.',
+        say: 'Woher kennst du den Hüter der Stunden?'
+      },
+      trainBack: {
+        '1': 'Übe jeden Tag. Jeden Tag zur selben Zeit, wenn ich bitten darf.'
+      },
+      bye: {
+        '1': 'Na los. Und sei nicht zu spät.'
+      }
+    },
+    sbMasterBlood: {
+      hello: {
+        '1': 'Doktor Sangrel hat mir von dir geschrieben. Er sagt, du bist nicht ohnmächtig geworden. Hohes Lob, von ihm.',
+        '2': 'Vesper Crimsonleaf. Jedes Kraut der Welt treibt an dieser Brücke vorbei. Ich bin hier verwöhnt.'
+      },
+      again: {
+        '1': 'Willkommen zurück. Du wirkst heute munter. Das sehe ich immer.'
+      },
+      train: {
+        '1': 'Atme ein. Spürst du deine Kraft? Jetzt gib ein wenig davon aus. Mit Bedacht.'
+      },
+      class: {
+        '1': 'Wir zahlen mit unserer eigenen Lebenskraft für Macht und holen sie uns von unseren Feinden zurück.',
+        '2': 'Ausdauer ist dein Geldbeutel. Intelligenz entscheidet, wie gut du ihn ausgibst.',
+        say: 'Was ist ein Blutalchemist eigentlich?'
+      },
+      ready: {
+        strong: {
+          '1': 'Welch eine Lebenskraft! Du bist bereit für fast alles, was ich weiß.'
+        },
+        able: {
+          '1': 'Deine Essenz fließt kräftig. Weiter zur nächsten Lektion.'
+        },
+        weak: {
+          '1': 'Noch nicht. Nach einem Zauber wärst du erschöpft. Bau erst deine Ausdauer auf.'
+        }
+      },
+      herbs: {
+        '1': 'Meistens für Tränke. Ein wenig Essenz, viel Minze. Minze macht alles besser.',
+        '2': 'Wenn du da draußen seltene Pflanzen findest, bring sie doch vorbei. Ich würde sie gern sehen.',
+        say: 'Wofür sind all diese Kräuter?'
+      },
+      trainBack: {
+        '1': 'Ruh dich nach dem Üben aus. Die Essenz kommt zurück, aber sie mag ein Nickerchen.'
+      },
+      bye: {
+        '1': 'Pass auf dich auf. Trink Wasser. Iss etwas Grünes.'
+      }
+    },
+    smalltalkSilverbridge: {
+      barges: {
+        '1': 'Heute Morgen sind drei Lastkähne von der Küste reingekommen.',
+        '2': 'Schon wieder Salzfisch?',
+        '3': 'Seide, ausnahmsweise. Riech aber danach mal an deinen Fingern.'
+      },
+      lesson: {
+        '1': 'Wie war deine Stunde?',
+        '2': 'Ich hab meinen Ärmel angezündet. Der Meister sagt, das ist ein Fortschritt.'
+      },
+      masters: {
+        '1': 'Jeder Meister im Land unterrichtet in einer einzigen Straße.',
+        '2': 'Und jeder von ihnen sagt, seine Klasse sei die beste.',
+        '3': 'Und alle haben recht. Das ist das Ärgerliche daran.'
+      },
+      bridge: {
+        '1': 'Man sagt, die Brücke ist älter als die Stadt.',
+        '2': 'So, wie sie knarrt, glaub ich das sofort.'
+      },
+      fish: {
+        '1': 'Was gefangen?',
+        '2': 'Einen Stiefel.',
+        '3': 'Na, das ist schon ein halbes Paar.'
+      },
+      newMaster: {
+        '1': 'In der Nordstraße gibt\'s einen neuen Meister. Redet viel über die Zeit.',
+        '2': 'Wetten, der kommt zu jeder Stunde zu spät.'
+      },
+      siege: {
+        '1': 'Aus Oakhaven kommen schlechte Nachrichten. Banditen vor den Mauern.',
+        '2': 'Dann kommen die Lastkähne eben hierher. Die armen Leute.'
       }
     }
   },

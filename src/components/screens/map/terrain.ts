@@ -101,7 +101,7 @@ const RIVER_LINES = RIVERS.map(r => sampleSpline(r.pts, false, 10))
 /** The ground a landmark stands on, by place. */
 const SITE: Record<NodeId, [string, string]> = {
   sunford: [C.site, C.roadLo], plains: [C.site, C.roadLo], hollows: [C.hillsHi, C.hillLo], arena: [C.site, C.roadLo], woods: [C.woodsHi, C.treeLo],
-  outskirts: [C.site, C.roadLo], oakhaven: [C.site, C.roadLo], crags: [C.ashHi, C.ashLo], mines: [C.rockHi, C.mountLo], ironhold: [C.rockHi, C.mountLo],
+  outskirts: [C.site, C.roadLo], oakhaven: [C.site, C.roadLo], crags: [C.ashHi, C.ashLo], mines: [C.rockHi, C.mountLo], ironhold: [C.rockHi, C.mountLo], silverbridge: [C.site, C.roadLo],
   tundra: [C.snowHi, C.snowLo], temple: [C.marshHi, C.reed], citadel: [C.voidHi, C.voidLo], peak: [C.snowHi, C.snowLo], fortress: [C.dreadHi, C.dreadLo], rift: [C.voidLo, C.rift]
 }
 

@@ -250,6 +250,10 @@ export default {
     rift: {
       name: 'Trhlina Prázdnoty',
       desc: 'Rána, kterou přišli démoni. Na druhé straně čeká Pán Prázdnoty.'
+    },
+    silverbridge: {
+      name: 'Silverbridge',
+      desc: 'Velké říční město na starém kamenném mostě. Učí tu mistr každého povolání.'
     }
   },
   map: {
@@ -1075,6 +1079,48 @@ export default {
     },
     trainerChrono: {
       name: 'Strážce hodin'
+    },
+    mayorBrenna: {
+      name: 'Starostka Brenna Quill'
+    },
+    sbHealer: {
+      name: 'Bratr Ansel'
+    },
+    sbArmorer: {
+      name: 'Greta Železnožilá',
+      talk: 'Horská ocel, říční ceny. Klepej, na co chceš.'
+    },
+    sbWeapons: {
+      name: 'Corvin Ashby',
+      talk: 'Ashbyho skvostné čepele. Každé ostří leštěné ručně. Mou rukou.'
+    },
+    sbJeweler: {
+      name: 'Tam Marlow',
+      talk: 'Prsteny, amulety, kameny pro štěstí. Všechno pravé. No, skoro všechno.'
+    },
+    sbMasterAegis: {
+      name: 'Dáma Helga Bouřoštítá'
+    },
+    sbMasterPyro: {
+      name: 'Magistr Ignatius Vale'
+    },
+    sbMasterShadow: {
+      name: 'Nyx Halloway'
+    },
+    sbMasterSovereign: {
+      name: 'Lord Percival Ashcombe'
+    },
+    sbMasterGeo: {
+      name: 'Babička Tova Hlubokokořenná'
+    },
+    sbMasterAether: {
+      name: 'Profesor Quint Kolečko'
+    },
+    sbMasterChrono: {
+      name: 'Hodinář Selwyn'
+    },
+    sbMasterBlood: {
+      name: 'Vesper Rudolistá'
     }
   },
   quest: {
@@ -2739,6 +2785,503 @@ export default {
         iceBreak: {
           '1': 'Jezero tě pohltí!'
         }
+      }
+    },
+    mayorBrenna: {
+      hello: {
+        '1': 'Pozor na vůz! Promiň, na tomhle mostě se všechno hýbe. Vítej v Silverbridgi.',
+        '2': 'Jsem starostka Brenna Quill. Co se ztratí, rozbije nebo zpozdí, skončí na mém stole.'
+      },
+      ending: {
+        '1': 'Celá řeka mluví o tobě. Obchod nikdy nešel líp. Takže děkuju.'
+      },
+      again: {
+        '1': 'Zase ty? Dobře. Jen neblokuj vozy.'
+      },
+      who: {
+        '1': 'Starostka už devět let. Předtím jsem prodávala lana. Vlastně stejná práce. Držet všechno pohromadě.',
+        '2': 'Město volí každé jaro. Zatím ten stůl nikdo jiný nechce.'
+      },
+      town: {
+        '1': 'Nejdřív byl most. Pak na něm trh, pak domy a pak domy na těch domech.',
+        '2': 'Pozor na kašny. Děti do nich padají. A v trhový den i dospělí.',
+        say: 'Pověz mi o Silverbridgi.'
+      },
+      masters: {
+        '1': 'Pro každé jedno. Štít, oheň, stín, kámen. Mistr každého, všichni na jednom mostě.',
+        '2': 'Žáci jezdí odevšad. Hospodám to prospívá. Mým oknům už méně.',
+        say: 'Je tu opravdu učitel pro každé povolání?'
+      },
+      river: {
+        '1': 'Čímkoli, co řeka přinese. Rybami, hedvábím, ocelí z Ironholdu, občas bednou vzteklých slepic.',
+        '2': 'A ne každý obchodník v Silverbridgi vyvěsí štít. Měj oči otevřené.',
+        say: 'Čím se tu obchoduje?'
+      },
+      rumor: {
+        crags: {
+          '1': 'Lodě ze severu přestaly připlouvat. V Popelavých útesech něco hoří.'
+        },
+        mines: {
+          '1': 'Tenhle měsíc žádná ocel z Ironholdu. Trpaslíci říkají, že se v dolech něco pokazilo.'
+        },
+        tundra: {
+          '1': 'Kožešníci už nechtějí přes tundru. Prý se obři dali do pohybu.'
+        },
+        far: {
+          '1': 'O dalekém severu si obchodníci už jen šeptají. Ať je tam cokoli, nenakupuje to.'
+        }
+      },
+      bye: {
+        '1': 'Tak běž. A kdyby se někdo ptal, mýtné za most je velmi férové.'
+      }
+    },
+    sbHealer: {
+      hello: {
+        '1': 'Hm? Á, pacient. Promiň, odpočíval jsem očima. To léčitelé dělají.',
+        '2': 'Bratr Ansel. Pojď dál, posaď se. Ta židle je pohodlnější, než vypadá.'
+      },
+      again: {
+        '1': 'Á, jsi zpátky. A já si zrovna sedl.'
+      },
+      heal: {
+        '1': 'Lehni si, zavři oči. Ne na dlouho, nebo usnu taky. Tak, lahve plné.'
+      },
+      mana: {
+        '1': 'Odvar ze světlohlávky. Dobrý pro mysl, horší pro dech. Pij pomalu.'
+      },
+      potions: {
+        '1': 'Napij se dřív, než je zle. Hrdinové vždycky čekají moc dlouho.',
+        '2': 'Chceš nosit víc? Prodám ti delší opasek. Plnění lahví je zdarma.',
+        say: 'Poradíš mi něco o lektvarech?'
+      },
+      sleep: {
+        '1': 'V noci ne. Žáci všech povolání trénují. Vždycky něco vybuchne.',
+        say: 'Spíš ty vůbec někdy?'
+      },
+      healBack: {
+        '1': 'Tak běž. Příště přijď na čaj, ne pro obvazy.'
+      },
+      bye: {
+        '1': 'Pozor na schody. Polovina mých pacientů o ně jen zakopla.'
+      }
+    },
+    sbArmorer: {
+      hello: {
+        '1': 'Ha! Koukni na tu promáčklinu. Doufám, že ti za tu zbroj vrátili peníze.',
+        '2': 'Greta Železnožilá. Dělám zbroj, která se vrací domů i se svým majitelem. Zatím pokaždé.'
+      },
+      again: {
+        '1': 'Zase ty! Pořád v jednom kuse. Můj nejoblíbenější druh zákazníka.'
+      },
+      trade: {
+        '1': 'No tak, zaklepej. Klidně pořádně.'
+      },
+      who: {
+        '1': 'Jsem z horské rodiny. Po řece jsem přišla kvůli obchodu a zůstala kvůli rybám.'
+      },
+      steel: {
+        '1': 'Nejde o to, jak je tlustá. Jde o to, kde se ohýbá. Dobrá zbroj se ohýbá tam, kde ty.',
+        '2': 'Těžká plátová ale chce Sílu. Bez ní se budeš kolébat jako kachna.',
+        say: 'Co dělá zbroj dobrou?'
+      },
+      shopBack: {
+        '1': 'Nos ji s chutí. Promáčkliny mi přines, mám ráda dobré historky.'
+      },
+      bye: {
+        '1': 'Tak běž. A nenech se trefit tam, kde tě nekryju.'
+      }
+    },
+    sbWeapons: {
+      hello: {
+        '1': 'Á, zákazník s vkusem. Vždycky to poznám. Je to vidět už na tom, jak vejdeš.',
+        '2': 'Corvin Ashby z Ashbyho skvostných čepelí. Ano, ten Ashby. Určitě jsi o mně slyšel.'
+      },
+      again: {
+        '1': 'Už zpátky? Ke Corvinovi se vždycky vrací.'
+      },
+      trade: {
+        '1': 'Každá čepel leštěná ručně. Mou rukou, abych byl přesný. Pozor na odlesk.'
+      },
+      who: {
+        '1': 'Nejlepší prodejce čepelí na celé řece. Zeptej se kohokoli. Nebo si přečti můj štít.'
+      },
+      blades: {
+        '1': 'Vyber si takovou, co ti sedí. Rychlé ruce chtějí lehkou čepel, silné paže těžkou.',
+        '2': 'A musí dobře vypadat. Před hrdinou s ošklivým mečem nikdo neuteče.',
+        say: 'Jak si vybrat dobrou zbraň?'
+      },
+      shopBack: {
+        '1': 'Skvělá volba. Ne tak skvělá jako moje vlasy, ale skoro.'
+      },
+      bye: {
+        '1': 'Určitě lidem řekni, kde jsi to koupil.'
+      }
+    },
+    sbJeweler: {
+      hello: {
+        '1': 'Pst! Sem! Prsteny, amulety, kameny pro štěstí. Nejlepší stánek na mostě.',
+        '2': 'Jsem Tam Marlow. Jsem malý, ale moje ceny jsou ještě menší.'
+      },
+      again: {
+        '1': 'Můj nejoblíbenější zákazník! Neříkej to ostatním.'
+      },
+      trade: {
+        '1': 'Všechno pravé. Většinou. Dobře, tohle je sklo, ale moc hezké sklo.'
+      },
+      who: {
+        '1': 'Vyrostl jsem na tomhle mostě. Znám každou škvíru, každou kočku a každou zkratku.'
+      },
+      gossip: {
+        '1': 'Profesor Kolečko si zase spálil obočí. Potřetí tento měsíc.',
+        '2': 'A starostka ví o obchodnících, co nevyvěšují štít. Pracuju na tom.',
+        say: 'Slyšel jsi nějaké drby?'
+      },
+      shopBack: {
+        '1': 'Rád jsem s tebou obchodoval! Řekni kamarádům. Ale ne strážím.'
+      },
+      bye: {
+        '1': 'Uvidíme se! Budu přímo tady. Asi.'
+      }
+    },
+    sbMasterAegis: {
+      hello: {
+        '1': 'Ha! Další mladý. Bradu nahoru, ramena dozadu. Se štítem to jde líp s úsměvem.',
+        '2': 'Dáma Helga Bouřoštítá. Kdysi jsem ubránila tenhle most. Teď učím ostatní nepovolit.'
+      },
+      again: {
+        '1': 'Tady jsi! Štít nahoře? Dobře. Usmíváš se? Ještě líp.'
+      },
+      train: {
+        '1': 'Nohy od sebe. Opři se. Když tlačím, nehneš se. Připraven? Hop!'
+      },
+      class: {
+        '1': 'Stojíš vepředu, aby ostatní nemuseli. Nejlepší práce na světě.',
+        '2': 'Síla, abys štít zvedl. Výdrž, abys ho udržel až do večeře.',
+        say: 'Co vlastně dělá Rytíř Égidy?'
+      },
+      ready: {
+        strong: {
+          '1': 'Teď jsi pořádná zeď, zlato. Vezmi si jakoukoli lekci.'
+        },
+        able: {
+          '1': 'Pevné nohy! Jsi připraven na další.'
+        },
+        weak: {
+          '1': 'Ještě ne. Jedno pořádné strčení a svalíš se. Víc Síly a Výdrže, prosím.'
+        }
+      },
+      bridge: {
+        '1': 'Před čtyřiceti lety, proti říčním pirátům. Šest nás, jedna brána, moc dlouhá noc.',
+        '2': 'Nevyhráli jsme tím, že jsme bili nejsilněji. Vyhráli jsme tím, že jsme se nehnuli. Pamatuj si to.',
+        say: 'Ty jsi ubránila tenhle most?'
+      },
+      trainBack: {
+        '1': 'Dobrá práce! A teď se najez. Štíty jsou těžké.'
+      },
+      bye: {
+        '1': 'Hlavu vzhůru!'
+      }
+    },
+    sbMasterPyro: {
+      hello: {
+        '1': 'Jen pojď dál. Pozor na poznámky a prosím nekýchej u žároviště.',
+        '2': 'Magistr Ignatius Vale. Učím oheň na mostě. Vody je tu všude dost, chápeš.'
+      },
+      again: {
+        '1': 'Přesně včas. Výborně. Začneme, kde jsme skončili.'
+      },
+      train: {
+        '1': 'Pozoruj. Malý plamen, držený v klidu. Velké plameny jsou snadné. Malé chtějí um.'
+      },
+      class: {
+        '1': 'Oheň zapálí každý. Pyromant rozhoduje, kam půjde a kde se zastaví.',
+        '2': 'Všechno vychází z Inteligence. Později pomůže Zručnost, když oheň chce pevnou ruku.',
+        say: 'Co vlastně dělá pyromant?'
+      },
+      ready: {
+        strong: {
+          '1': 'Tvé ovládání je výborné. Mám jen málo co opravovat. Vybírej volně.'
+        },
+        able: {
+          '1': 'Dostačující. Vlastně víc než dostačující. Můžeš mít další lekci.'
+        },
+        weak: {
+          '1': 'Ještě ne. Tvůj plamen se klepe. Bystřejší mysl, prosím. Víc Inteligence.'
+        }
+      },
+      sprocket: {
+        '1': 'Skvělý muž. Hlučný, neopatrný a skvělý. U jeho dveří mám kbelík.',
+        say: 'Co si myslíš o profesoru Kolečkovi?'
+      },
+      trainBack: {
+        '1': 'Cvič u vody. Trvám na tom.'
+      },
+      bye: {
+        '1': 'Hezký den. A rukávy měj vyhrnuté.'
+      }
+    },
+    sbMasterShadow: {
+      hello: {
+        '1': 'Hledáš mě? Jsem vedle tebe už od kašny. Dvakrát jsi kolem mě prošel.',
+        '2': 'Nyx Halloway. Nejlíp se schováš v davu a tohle je nejrušnější most, jaký existuje.'
+      },
+      again: {
+        '1': 'Ahoj zase. Jsem tu už chvíli. Všiml sis? Ne? Dobře.'
+      },
+      train: {
+        '1': 'Lekce jedna: choď, jako bys sem patřil. Na toho, kdo sem patří, se nikdo neotočí.'
+      },
+      class: {
+        '1': 'Nikdy nebýt tam, kam se dívají. Vklouznout, jeden rychlý úder a zase splynout s davem.',
+        '2': 'Obratnost pro rychlé nohy a ruce. Zručnost, aby úder seděl.',
+        say: 'Co dělá dobrou Stínovou čepel?'
+      },
+      ready: {
+        strong: {
+          '1': 'Teď jsi pořádně záludný. Vezmi si zbytek, zasloužíš si to.'
+        },
+        able: {
+          '1': 'Lehký krok! Jsi připraven na další trik.'
+        },
+        weak: {
+          '1': 'Ještě ne. Slyším tě už od kašny. Víc Obratnosti.'
+        }
+      },
+      past: {
+        '1': 'Kdysi jsem tady na tom mostě vybírala kapsy. A šlo mi to.',
+        '2': 'Pak mě starostka chytila a dala mi práci, ne celu. Neříkej jí, že jsem vděčná.',
+        say: 'Jak ses tohle všechno naučila?'
+      },
+      trainBack: {
+        '1': 'A teď běž trénovat. Snaž se, ať tě nechytím.'
+      },
+      bye: {
+        '1': 'Uvidíme se. No, ty mě neuvidíš.'
+      }
+    },
+    sbMasterSovereign: {
+      hello: {
+        '1': 'Ó! Zdravím, zdravím. Odpusť, povídal jsem si se svými strážemi. Báječní posluchači.',
+        '2': 'Percival Ashcombe. Mohl bych učit na hradě, ale vést se naučíš jen mezi lidmi.'
+      },
+      again: {
+        '1': 'Můj milý příteli! Pokračujeme? Jen jestli chceš, samozřejmě.'
+      },
+      train: {
+        '1': 'Tak tedy. Dobrý rozkaz je jasný, laskavý a dává se jen jednou. Takhle.'
+      },
+      class: {
+        '1': 'Vůdce. Tvé stráže přijdou k tobě a bojují s tebou, ne jen za tebe.',
+        '2': 'Charisma je všechno. Lidé následují ty, které mají rádi. A kteří si pamatují jejich jména.',
+        say: 'Co je Velký suverén?'
+      },
+      ready: {
+        strong: {
+          '1': 'Skvostné! Teď by tě lidé následovali kamkoli. Vezmi si všechny lekce.'
+        },
+        able: {
+          '1': 'Tvé stráže by tě poslechly. Jsi připraven na další lekci.'
+        },
+        weak: {
+          '1': 'Obávám se, že ještě ne tak docela. Trochu víc Charismatu, a přijdou.'
+        }
+      },
+      please: {
+        '1': 'Vždycky. Křikem získáš poslušnost. „Prosím“ ti získá věrnost a věrnost vydrží déle.',
+        say: 'Ty strážím opravdu říkáš „prosím“?'
+      },
+      trainBack: {
+        '1': 'Krásná práce. Nezapomeň jim pak poděkovat.'
+      },
+      bye: {
+        '1': 'Opatruj se a všechny ode mě pozdravuj.'
+      }
+    },
+    sbMasterGeo: {
+      hello: {
+        '1': 'Pozor na mech, zlatíčko, měl dlouhý týden. Tak, ukaž se mi.',
+        '2': 'Babička Tova Hlubokokořenná. Dno řeky je tu krásný kámen, až úplně dolů.'
+      },
+      again: {
+        '1': 'Už zpátky? Sedni si, zrovna jsem uvařila čaj. Kamenný čaj. Hlavně čaj.'
+      },
+      train: {
+        '1': 'Dlaně naplocho na zem. Takhle ne. Jako bys hladil ospalého psa.'
+      },
+      class: {
+        '1': 'Žádáme zem o pomoc. Zeď, když ji potřebuješ, bodec, když je někdo drzý.',
+        '2': 'Kámen je jako zahrada. Síla, abys kopal, Inteligence, abys věděl, kde sázet.',
+        say: 'Co dělá Geomant?'
+      },
+      ready: {
+        strong: {
+          '1': 'Zem tě teď má ráda. Uč se, co chceš, zlatíčko.'
+        },
+        able: {
+          '1': 'Dobré kořeny! Jsi připraven na další lekci.'
+        },
+        weak: {
+          '1': 'Ještě ne, broučku. Kámen se kvůli tobě nehne. Nejdřív víc Síly.'
+        }
+      },
+      garden: {
+        '1': 'Čtyřicet let práce. Každý kámen vypěstovaný ručně. No, magií. Ale hlavně ručně.',
+        '2': 'Vezmi si oblázek na cestu. Jsou z nich krásné zarážky do dveří.',
+        say: 'To je zahrada z kamene?'
+      },
+      trainBack: {
+        '1': 'Krása. A teď běž něco vykopat. Jemně.'
+      },
+      bye: {
+        '1': 'Tak běž. Teple se obleč, u řeky je vlhko.'
+      }
+    },
+    sbMasterAether: {
+      hello: {
+        '1': 'Vítej, vítej! Jdeš akorát na ukázku. Zakryj si uši, prosím.',
+        '2': 'Profesor Quint Kolečko. Řeka mi točí kola zadarmo. Kde jinde bych učil?'
+      },
+      again: {
+        '1': 'Á, můj nejoblíbenější žák! Dnešní ukázka bude extra hlasitá.'
+      },
+      train: {
+        '1': 'Podívej se na tabuli. Teď na tabuli zapomeň a sleduj stroj.'
+      },
+      class: {
+        '1': 'Z potíží se vystavíme. Pistole, věž a teploměr, aby ses nepřehnal.',
+        '2': 'Zručnost na míření, Inteligence na ty chytré kousky. Ideálně obojí.',
+        say: 'Co vlastně dělá Étertechnik?'
+      },
+      ready: {
+        strong: {
+          '1': 'Úžasné! Mohl bys vést mé přednášky. Ale prosím ne. Vezmi si zbytek.'
+        },
+        able: {
+          '1': 'Pevná ruka! Jsi připraven na další stroj.'
+        },
+        weak: {
+          '1': 'Ještě ne. Míříš vedle. Víc Zručnosti, pak si promluvíme.'
+        }
+      },
+      eyebrows: {
+        '1': 'Ukázka se povedla trochu moc. Doroste. Vždycky doroste.',
+        say: 'Co se stalo s tvým obočím?'
+      },
+      trainBack: {
+        '1': 'Skvělé. Teď běž vypustit žár. Nejlíp venku.'
+      },
+      bye: {
+        '1': 'Hodina končí! Pozor na schody.'
+      }
+    },
+    sbMasterChrono: {
+      hello: {
+        '1': 'Můj bývalý žák, Strážce hodin, psal, že přijdeš. Přesně tuhle minutu, mimochodem.',
+        '2': 'Hodinář Selwyn. Starám se o mostní hodiny. Tak rušné město si nemůže dovolit zpoždění.'
+      },
+      again: {
+        '1': 'Sedm minut po celé. Dobrý čas začít.'
+      },
+      train: {
+        '1': 'Počítej se mnou. Raz, dva a drž. Čas se natáhne, když ho držíš správně.'
+      },
+      class: {
+        '1': 'Uklízíme čas. Zpomalit nepřítele, popohnat přítele, vrátit sem tam nějakou chybu.',
+        '2': 'Inteligence, abys mu rozuměl. Zručnost, aby ses ho dotkl a nic nerozbil.',
+        say: 'Co je Tkadlec času?'
+      },
+      ready: {
+        strong: {
+          '1': 'Výborné načasování. Zbytek mých lekcí si vezmi, kdy se ti to hodí.'
+        },
+        able: {
+          '1': 'Jsi připraven. Další lekce začíná, ehm, teď.'
+        },
+        weak: {
+          '1': 'Ještě ne. Pořád jsi o dobu pozadu. Víc Inteligence a víc Zručnosti.'
+        }
+      },
+      keeper: {
+        '1': 'Učil jsem ho, před lety. Skvělý žák. Vždycky brzy nebo pozdě, nikdy včas.',
+        say: 'Odkud znáš Strážce hodin?'
+      },
+      trainBack: {
+        '1': 'Cvič každý den. Každý den ve stejnou dobu, prosím.'
+      },
+      bye: {
+        '1': 'Tak běž. A nepřijď pozdě.'
+      }
+    },
+    sbMasterBlood: {
+      hello: {
+        '1': 'Doktor Sangrel mi o tobě psal. Prý jsi neomdlel. To je od něj velká pochvala.',
+        '2': 'Vesper Rudolistá. Kolem tohohle mostu plují všechny byliny světa. Mám se tu jako v bavlnce.'
+      },
+      again: {
+        '1': 'Vítej zpátky. Dneska vypadáš čile. Vždycky to poznám.'
+      },
+      train: {
+        '1': 'Nadechni se. Cítíš svou sílu? Teď z ní trochu utrať. Moudře.'
+      },
+      class: {
+        '1': 'Za moc platíme vlastní životní silou a pak si ji bereme zpátky od nepřátel.',
+        '2': 'Výdrž je tvůj měšec. Inteligence rozhoduje, jak dobře ho utrácíš.',
+        say: 'Co je doopravdy Krvavý alchymista?'
+      },
+      ready: {
+        strong: {
+          '1': 'Tolik životní síly! Jsi připraven skoro na všechno, co umím.'
+        },
+        able: {
+          '1': 'Tvá esence proudí silně. Na další lekci.'
+        },
+        weak: {
+          '1': 'Ještě ne. Po jednom kouzle bys byl unavený. Nejdřív si posil Výdrž.'
+        }
+      },
+      herbs: {
+        '1': 'Hlavně na odvary. Trocha esence, hodně máty. S mátou je všechno lepší.',
+        '2': 'Jestli venku najdeš vzácné rostliny, přines mi je. Ráda se podívám.',
+        say: 'Na co jsou všechny ty byliny?'
+      },
+      trainBack: {
+        '1': 'Po cvičení odpočívej. Esence se vrací, ale má ráda šlofíka.'
+      },
+      bye: {
+        '1': 'Dávej na sebe pozor. Pij vodu. Jez něco zeleného.'
+      }
+    },
+    smalltalkSilverbridge: {
+      barges: {
+        '1': 'Ráno připluly tři čluny z pobřeží.',
+        '2': 'Zase solené ryby?',
+        '3': 'Pro jednou hedvábí. Ale pak si stejně očichej prsty.'
+      },
+      lesson: {
+        '1': 'Jak šla lekce?',
+        '2': 'Zapálil jsem si rukáv. Mistr říká, že je to pokrok.'
+      },
+      masters: {
+        '1': 'Všichni mistři v zemi učí v jedné ulici.',
+        '2': 'A každý z nich tvrdí, že jeho povolání je nejlepší.',
+        '3': 'Všichni mají pravdu, a to je na tom to otravné.'
+      },
+      bridge: {
+        '1': 'Prý je most starší než město.',
+        '2': 'Rozhodně tak vrže.'
+      },
+      fish: {
+        '1': 'Chytil jsi něco?',
+        '2': 'Botu.',
+        '3': 'No, to je půlka páru.'
+      },
+      newMaster: {
+        '1': 'V severní ulici je nový mistr. Pořád mluví o čase.',
+        '2': 'Vsadím se, že chodí pozdě na každou lekci.'
+      },
+      siege: {
+        '1': 'Z Oakhavenu jsou zlé zprávy. Bandité u hradeb.',
+        '2': 'Pak sem připlují čluny místo tam. Chudáci.'
       }
     }
   },

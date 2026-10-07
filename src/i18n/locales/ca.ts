@@ -248,6 +248,10 @@ export default {
     rift: {
       name: 'L’Esquerda del Buit',
       desc: 'La ferida per on van venir els dimonis. El Senyor del Buit espera a l’altra banda.'
+    },
+    silverbridge: {
+      name: 'Silverbridge',
+      desc: 'La gran ciutat del riu, damunt del vell pont de pedra. Aquí hi ensenya un mestre de cada classe.'
     }
   },
   map: {
@@ -1072,6 +1076,48 @@ export default {
     },
     trainerChrono: {
       name: 'El Guardià de les Hores'
+    },
+    mayorBrenna: {
+      name: 'Alcaldessa Brenna Quill'
+    },
+    sbHealer: {
+      name: 'Germà Ansel'
+    },
+    sbArmorer: {
+      name: 'Greta Veta de Ferro',
+      talk: 'Acer de muntanya a preus de riu. Pica on vulguis.'
+    },
+    sbWeapons: {
+      name: 'Corvin Ashby',
+      talk: 'Fulles Fines d’Ashby. Cada tall polit a mà. A la meva mà.'
+    },
+    sbJeweler: {
+      name: 'Tam Marlow',
+      talk: 'Anells, amulets, pedres de la sort. Tot autèntic. Bé, gairebé tot.'
+    },
+    sbMasterAegis: {
+      name: 'Dama Helga Escut de Tempesta'
+    },
+    sbMasterPyro: {
+      name: 'Magíster Ignatius Vale'
+    },
+    sbMasterShadow: {
+      name: 'Nyx Halloway'
+    },
+    sbMasterSovereign: {
+      name: 'Lord Percival Ashcombe'
+    },
+    sbMasterGeo: {
+      name: 'Àvia Tova Arrel Fonda'
+    },
+    sbMasterAether: {
+      name: 'Professor Quint Engranatge'
+    },
+    sbMasterChrono: {
+      name: 'Guardià del Rellotge Selwyn'
+    },
+    sbMasterBlood: {
+      name: 'Vesper Fulla Carmesí'
     }
   },
   quest: {
@@ -2687,6 +2733,503 @@ export default {
         iceBreak: {
           '1': 'El llac t’empassarà!'
         }
+      }
+    },
+    mayorBrenna: {
+      hello: {
+        '1': 'Compte amb el carro! Perdona, en aquest pont tot es mou. Benvingut a Silverbridge.',
+        '2': 'Soc l’alcaldessa Brenna Quill. Si alguna cosa es perd, es trenca o arriba tard, acaba a la meva taula.'
+      },
+      ending: {
+        '1': 'Tot el riu parla de tu. El comerç no havia anat mai tan bé. Així que gràcies.'
+      },
+      again: {
+        '1': 'Ja tornes a ser aquí? Bé. Intenta no tallar el pas als carros.'
+      },
+      who: {
+        '1': 'Alcaldessa des de fa nou anys. Abans venia corda. En el fons, és la mateixa feina: mantenir-ho tot lligat.',
+        '2': 'La ciutat vota cada primavera. De moment, ningú més vol la meva taula.'
+      },
+      town: {
+        '1': 'Primer va venir el pont. Després un mercat a sobre, després cases, i després cases damunt d’aquestes.',
+        '2': 'Compte amb les fonts. Els nens hi cauen. I els grans també, els dies de mercat.',
+        say: 'Parla’m de Silverbridge.'
+      },
+      masters: {
+        '1': 'Per a totes i cadascuna. Escut, foc, ombra, pedra. Un mestre de cada, tots en un sol pont.',
+        '2': 'Vénen alumnes de tot arreu. Va bé per a les fondes. No tant per a les meves finestres.',
+        say: 'De debò hi ha un mestre per a cada classe?'
+      },
+      river: {
+        '1': 'El que porti el riu. Peix, seda, acer d’Ironhold, de tant en tant una caixa de gallines enfadades.',
+        '2': 'I no tots els mercaders de Silverbridge pengen un rètol. Tingues els ulls oberts.',
+        say: 'Què s’hi comercia, aquí?'
+      },
+      rumor: {
+        crags: {
+          '1': 'Les barques del nord ja no arriben. Alguna cosa crema allà dalt, als Penyals de Cendra.'
+        },
+        mines: {
+          '1': 'Aquest mes no hi ha acer d’Ironhold. Els nans diuen que alguna cosa ha anat malament a les mines.'
+        },
+        tundra: {
+          '1': 'Els pellers ja no travessen la tundra. Diuen que els gegants s’estan movent.'
+        },
+        far: {
+          '1': 'Del nord llunyà, els mercaders ja només en parlen en veu baixa. Sigui el que sigui, no compra res.'
+        }
+      },
+      bye: {
+        '1': 'Au, vés. I si algú ho pregunta, el peatge del pont és molt just.'
+      }
+    },
+    sbHealer: {
+      hello: {
+        '1': 'Mm? Ah, un pacient. Perdona, estava descansant els ulls. Els guaridors ho fem.',
+        '2': 'Germà Ansel. Entra, seu. La cadira és més còmoda del que sembla.'
+      },
+      again: {
+        '1': 'Ah, has tornat. I jo que m’acabava d’asseure.'
+      },
+      heal: {
+        '1': 'Estira’t, tanca els ulls. No gaire estona, o també m’adormiré. Ja està, flascons plens.'
+      },
+      mana: {
+        '1': 'Tònic de barret lluent. Bo per a la ment, dolent per a l’alè. Beu-te’l a poc a poc.'
+      },
+      potions: {
+        '1': 'Beu-ne una abans d’estar desesperat. Els herois sempre esperen massa.',
+        '2': 'Si en vols portar més, venc cinturons més llargs. Omplir els flascons és gratis.',
+        say: 'Algun consell sobre pocions?'
+      },
+      sleep: {
+        '1': 'De nit, no. Alumnes de totes les classes, tots practicant. Sempre explota alguna cosa.',
+        say: 'Que dorms mai, tu?'
+      },
+      healBack: {
+        '1': 'Au, vés. La propera vegada, vine a fer un te i no a buscar benes.'
+      },
+      bye: {
+        '1': 'Compte amb els graons. La meitat dels meus pacients només hi van ensopegar.'
+      }
+    },
+    sbArmorer: {
+      hello: {
+        '1': 'Ha! Mira quin bony. Espero que et tornessin els diners d’aquesta armadura.',
+        '2': 'Greta Veta de Ferro. Faig armadures que tornen a casa amb el seu amo. Totes les vegades, de moment.'
+      },
+      again: {
+        '1': 'Tu un altre cop! Encara sencer. El meu tipus de client preferit.'
+      },
+      trade: {
+        '1': 'Au, pica-hi. Tan fort com vulguis.'
+      },
+      who: {
+        '1': 'Família de muntanya. Vaig baixar pel riu pel comerç i m’hi vaig quedar pel peix.'
+      },
+      steel: {
+        '1': 'No és el gruix. És on es doblega. Una bona armadura es doblega on et doblegues tu.',
+        '2': 'Ara, la placa pesant demana Força. Sense, caminaràs com un ànec.',
+        say: 'Què fa que una armadura sigui bona?'
+      },
+      shopBack: {
+        '1': 'Porta-la amb orgull. Porta’m els bonys, m’encanta una bona història.'
+      },
+      bye: {
+        '1': 'Au, vés. Que no et toquin on no t’he cobert.'
+      }
+    },
+    sbWeapons: {
+      hello: {
+        '1': 'Ah, un client amb bon gust. Sempre ho noto. Es veu en com entres.',
+        '2': 'Corvin Ashby, de Fulles Fines d’Ashby. Sí, aquell Ashby. Segur que n’has sentit parlar.'
+      },
+      again: {
+        '1': 'Ja tornes a ser aquí? Sempre tornen a en Corvin.'
+      },
+      trade: {
+        '1': 'Cada fulla polida a mà. A la meva mà, de fet. Compte amb el reflex.'
+      },
+      who: {
+        '1': 'El millor venedor de fulles del riu. Pregunta a qui vulguis. O llegeix el meu rètol.'
+      },
+      blades: {
+        '1': 'Tria’n una que et vagi bé. Mans ràpides, fulla lleugera. Braços forts, fulla pesant.',
+        '2': 'I ha de fer goig. Ningú fuig d’un heroi amb una espasa lletja.',
+        say: 'Com trio una bona arma?'
+      },
+      shopBack: {
+        '1': 'Una tria excel·lent. No tant com els meus cabells, però gairebé.'
+      },
+      bye: {
+        '1': 'Explica a tothom on l’has comprada.'
+      }
+    },
+    sbJeweler: {
+      hello: {
+        '1': 'Psst! Aquí! Anells, amulets, pedres de la sort. La millor parada del pont.',
+        '2': 'Em dic Tam Marlow. Soc petit, però els meus preus ho són més.'
+      },
+      again: {
+        '1': 'El meu client preferit! No diguis als altres que t’ho he dit.'
+      },
+      trade: {
+        '1': 'Tot autèntic. Gairebé sempre. D’acord, aquesta és de vidre, però és un vidre molt bonic.'
+      },
+      who: {
+        '1': 'M’he criat en aquest pont. Conec cada esquerda, cada gat i cada drecera.'
+      },
+      gossip: {
+        '1': 'El professor Engranatge s’ha tornat a cremar les celles. Tercera vegada aquest mes.',
+        '2': 'I l’alcaldessa sap que hi ha mercaders sense rètol. M’hi estic posant.',
+        say: 'Saps alguna xafarderia bona?'
+      },
+      shopBack: {
+        '1': 'Un plaer fer negocis! Digues-ho als amics. Als guàrdies, no.'
+      },
+      bye: {
+        '1': 'Fins aviat! Seré just aquí. Probablement.'
+      }
+    },
+    sbMasterAegis: {
+      hello: {
+        '1': 'Ha! Un altre jovenet. Barbeta amunt, espatlles enrere. Els escuts funcionen millor amb un somriure.',
+        '2': 'Dama Helga Escut de Tempesta. Una vegada vaig defensar aquest pont. Ara ensenyo als altres a no recular.'
+      },
+      again: {
+        '1': 'Ja ets aquí! Escut amunt? Bé. Somrient? Encara millor.'
+      },
+      train: {
+        '1': 'Peus separats. Inclina’t. Quan jo empenyi, tu no et mous. A punt? Hop!'
+      },
+      class: {
+        '1': 'Et poses al davant perquè els altres no ho hagin de fer. La millor feina que hi ha.',
+        '2': 'Força per aixecar l’escut. Aguant per mantenir-lo amunt fins al sopar.',
+        say: 'Què fa de debò un Cavaller de l’Ègida?'
+      },
+      ready: {
+        strong: {
+          '1': 'Ara ja ets una muralla de veritat, bonic. Tria la lliçó que vulguis.'
+        },
+        able: {
+          '1': 'Cames fermes! Ja estàs a punt per a la següent.'
+        },
+        weak: {
+          '1': 'Encara no. Una bona empenta i cauries. Més Força i Aguant, si us plau.'
+        }
+      },
+      bridge: {
+        '1': 'Fa quaranta anys, contra pirates del riu. Sis de nosaltres, una porta, una nit llarguíssima.',
+        '2': 'No vam guanyar picant més fort. Vam guanyar sense moure’ns. Recorda-ho.',
+        say: 'Vas defensar aquest pont?'
+      },
+      trainBack: {
+        '1': 'Bona feina! Ara menja alguna cosa. Els escuts pesen.'
+      },
+      bye: {
+        '1': 'Barbeta amunt allà fora!'
+      }
+    },
+    sbMasterPyro: {
+      hello: {
+        '1': 'Entra, entra. Compte amb els apunts, i si us plau, no esternudis a prop del braser.',
+        '2': 'Magíster Ignatius Vale. Ensenyo foc damunt d’un pont. Hi ha aigua de sobres, ja ho veus.'
+      },
+      again: {
+        '1': 'Puntual. Excel·lent. Continuarem on ho vam deixar.'
+      },
+      train: {
+        '1': 'Observa. Una flama petita, ben quieta. Les flames grans són fàcils. Les petites demanen traça.'
+      },
+      class: {
+        '1': 'Tothom pot encendre un foc. Un piromàntic decideix on va, i on s’atura.',
+        '2': 'Tot surt de la Intel·ligència. Més endavant ajuda la Perícia, quan el foc demana pols ferm.',
+        say: 'Què fa de debò un piromàntic?'
+      },
+      ready: {
+        strong: {
+          '1': 'El teu control és excel·lent. Gairebé no em queda res per corregir. Tria lliurement.'
+        },
+        able: {
+          '1': 'Suficient. Més que suficient, de fet. Pots fer la lliçó següent.'
+        },
+        weak: {
+          '1': 'Encara no. La teva flama tremola. Una ment més esmolada, si us plau. Més Intel·ligència.'
+        }
+      },
+      sprocket: {
+        '1': 'Un home brillant. Sorollós, descuidat i brillant. Tinc una galleda al costat de la seva porta.',
+        say: 'Què et sembla el professor Engranatge?'
+      },
+      trainBack: {
+        '1': 'Practica a prop de l’aigua. Hi insisteixo.'
+      },
+      bye: {
+        '1': 'Bon dia. I porta sempre les mànigues arremangades.'
+      }
+    },
+    sbMasterShadow: {
+      hello: {
+        '1': 'Em busques? Soc al teu costat des de la font. Has passat per davant meu dues vegades.',
+        '2': 'Nyx Halloway. El millor amagatall és una multitud, i aquest és el pont més concorregut que hi ha.'
+      },
+      again: {
+        '1': 'Hola de nou. Fa estona que soc aquí. T’hi havies fixat? No? Perfecte.'
+      },
+      train: {
+        '1': 'Lliçó u: camina com si fossis d’aquí. Ningú mira dues vegades algú que és d’aquí.'
+      },
+      class: {
+        '1': 'No ser mai on miren. Esmunyir-se, un cop ràpid, i tornar a fondre’s amb la gent.',
+        '2': 'Destresa per tenir peus i mans àgils. Perícia, perquè el cop compti.',
+        say: 'Què fa bona una Fulla d’Ombra?'
+      },
+      ready: {
+        strong: {
+          '1': 'Ara sí que ets sigilós. Queda’t el que falta, t’ho has guanyat.'
+        },
+        able: {
+          '1': 'Peus lleugers! Ja estàs a punt per al truc següent.'
+        },
+        weak: {
+          '1': 'Encara no. Et sento arribar des de la font. Més Destresa.'
+        }
+      },
+      past: {
+        '1': 'Abans robava bosses en aquest mateix pont. I ho feia molt bé, eh.',
+        '2': 'Després l’alcaldessa em va enxampar i em va donar una feina, no una cel·la. No li diguis que li estic agraït.',
+        say: 'Com vas aprendre tot això?'
+      },
+      trainBack: {
+        '1': 'Ara ves a practicar. Intenta que no t’enxampi.'
+      },
+      bye: {
+        '1': 'Ens veiem. Bé, tu a mi no em veuràs.'
+      }
+    },
+    sbMasterSovereign: {
+      hello: {
+        '1': 'Oh! Hola, hola. Perdona’m, xerrava amb els meus guàrdies. Escolten tan bé.',
+        '2': 'Percival Ashcombe. Podria ensenyar en un castell, però a liderar només s’aprèn on hi ha gent.'
+      },
+      again: {
+        '1': 'Estimat amic! Continuem? Només si et ve de gust, és clar.'
+      },
+      train: {
+        '1': 'Molt bé. Una bona ordre és clara, amable i es dona una sola vegada. Així.'
+      },
+      class: {
+        '1': 'Un líder. Els teus guàrdies vénen al teu costat i lluiten amb tu, no només per tu.',
+        '2': 'El Carisma ho és tot. La gent segueix qui li cau bé. I qui recorda el seu nom.',
+        say: 'Què és un Gran Sobirà?'
+      },
+      ready: {
+        strong: {
+          '1': 'Esplèndid! Ara la gent et seguiria a qualsevol lloc. Fes totes les lliçons.'
+        },
+        able: {
+          '1': 'Els teus guàrdies t’escoltarien. Ja estàs a punt per a la lliçó següent.'
+        },
+        weak: {
+          '1': 'Encara no del tot, em temo. Una mica més de Carisma, i vindran.'
+        }
+      },
+      please: {
+        '1': 'Sempre. Cridant aconsegueixes obediència. Amb un si us plau, lleialtat, i la lleialtat dura més.',
+        say: 'De debò dius si us plau als teus guàrdies?'
+      },
+      trainBack: {
+        '1': 'Molt bona feina. Recorda’t de donar-los les gràcies després.'
+      },
+      bye: {
+        '1': 'Cuida’t molt, i dona records a tothom de part meva.'
+      }
+    },
+    sbMasterGeo: {
+      hello: {
+        '1': 'Compte amb la molsa, bonic, ha tingut una setmana molt llarga. A veure, deixa’m que et miri.',
+        '2': 'Àvia Tova Arrel Fonda. El llit del riu, aquí, és una pedra preciosa fins al fons de tot.'
+      },
+      again: {
+        '1': 'Ja tornes a ser aquí? Seu, acabo de fer te. Te de pedra. Gairebé tot és te.'
+      },
+      train: {
+        '1': 'Mans planes a terra. Així no. Com si acariciessis un gos endormiscat.'
+      },
+      class: {
+        '1': 'Demanem ajuda a la terra. Un mur quan en necessites un, una punxa quan algú és maleducat.',
+        '2': 'La pedra és com un hort. Força per cavar, Intel·ligència per saber on plantar.',
+        say: 'Què fa un Geomàntic?'
+      },
+      ready: {
+        strong: {
+          '1': 'Ara la terra t’estima. Aprèn el que vulguis, bonic.'
+        },
+        able: {
+          '1': 'Bones arrels! Ja estàs a punt per a la lliçó següent.'
+        },
+        weak: {
+          '1': 'Encara no, rei. La pedra no es mou per tu. Primer, més Força.'
+        }
+      },
+      garden: {
+        '1': 'Quaranta anys de feina. Cada roca cultivada a mà. Bé, amb màgia. Gairebé sempre a mà.',
+        '2': 'Endú-te un còdol quan surtis. Fan uns topalls de porta preciosos.',
+        say: 'Això és un jardí de pedra?'
+      },
+      trainBack: {
+        '1': 'Preciós. Ara ves a cavar alguna cosa. Amb suavitat.'
+      },
+      bye: {
+        '1': 'Au, vés. Abriga’t, que a la vora del riu hi ha humitat.'
+      }
+    },
+    sbMasterAether: {
+      hello: {
+        '1': 'Benvingut, benvingut! Arribes just a temps per a la demostració. Tapa’t les orelles, si us plau.',
+        '2': 'Professor Quint Engranatge. El riu em fa girar les rodes de franc. On més podria ensenyar?'
+      },
+      again: {
+        '1': 'Ah, el meu alumne preferit! La demostració d’avui és extra sorollosa.'
+      },
+      train: {
+        '1': 'Fixa’t en la pissarra. Ara oblida la pissarra i mira la màquina.'
+      },
+      class: {
+        '1': 'Sortim dels embolics construint. Una pistola, una torreta i un indicador de calor que et manté a ratlla.',
+        '2': 'Perícia per apuntar, Intel·ligència per a les parts enginyoses. L’ideal, totes dues.',
+        say: 'Què fa realment un Tècnic d’Èter?'
+      },
+      ready: {
+        strong: {
+          '1': 'Meravellós! Podries fer les meves classes. Però no ho facis, si us plau. Fes la resta.'
+        },
+        able: {
+          '1': 'Pols ferm! Ja estàs a punt per a la màquina següent.'
+        },
+        weak: {
+          '1': 'Encara no. La teva punteria es desvia. Més Perícia, i després en parlem.'
+        }
+      },
+      eyebrows: {
+        '1': 'Una demostració va sortir una mica massa bé. Tornaran a créixer. Sempre ho fan.',
+        say: 'Què els ha passat a les teves celles?'
+      },
+      trainBack: {
+        '1': 'Esplèndid. Ara ves a treure aquesta calor. A fora, millor.'
+      },
+      bye: {
+        '1': 'S’ha acabat la classe! Compte amb els graons.'
+      }
+    },
+    sbMasterChrono: {
+      hello: {
+        '1': 'El meu antic alumne, el Guardià de les Hores, em va escriure que vindries. Just en aquest minut, de fet.',
+        '2': 'Guardià del Rellotge Selwyn. Cuido el rellotge del pont. Una ciutat tan atrafegada no pot fer tard.'
+      },
+      again: {
+        '1': 'I set minuts. Bona hora per començar.'
+      },
+      train: {
+        '1': 'Compta amb mi. Un, dos, i aguanta. El temps s’estira, si l’aguantes bé.'
+      },
+      class: {
+        '1': 'Endrecem el temps. Frenar un enemic, fer córrer un amic, desfer algun error.',
+        '2': 'Intel·ligència per entendre’l. Perícia per tocar-lo sense trencar res.',
+        say: 'Què és un Teixidor del Temps?'
+      },
+      ready: {
+        strong: {
+          '1': 'Un sentit del temps excel·lent. Fes la resta de les meves lliçons quan et vagi bé.'
+        },
+        able: {
+          '1': 'Ja estàs a punt. La lliçó següent comença... oh, ara.'
+        },
+        weak: {
+          '1': 'Encara no. Sempre vas un compàs endarrerit. Més Intel·ligència, i més Perícia.'
+        }
+      },
+      keeper: {
+        '1': 'Vaig ser el seu mestre, fa anys. Un alumne brillant. Sempre d’hora o tard, mai puntual.',
+        say: 'D’on coneixes el Guardià de les Hores?'
+      },
+      trainBack: {
+        '1': 'Practica cada dia. A la mateixa hora cada dia, si us plau.'
+      },
+      bye: {
+        '1': 'Au, vés. No facis tard.'
+      }
+    },
+    sbMasterBlood: {
+      hello: {
+        '1': 'El doctor Sangrel em va escriure sobre tu. Diu que no et vas desmaiar. Venint d’ell, és un gran elogi.',
+        '2': 'Vesper Fulla Carmesí. Totes les herbes del món passen surant per aquest pont. Aquí estic molt mimada.'
+      },
+      again: {
+        '1': 'Benvingut de nou. Avui et veig ple de vida. Sempre ho noto.'
+      },
+      train: {
+        '1': 'Inspira. Notes la teva força? Ara gasta’n una mica. Amb seny.'
+      },
+      class: {
+        '1': 'Gastem la nostra pròpia força vital a canvi de poder, i després la recuperem dels enemics.',
+        '2': 'L’Aguant és la teva bossa. La Intel·ligència decideix si la gastes bé.',
+        say: 'Què és realment un Alquimista de Sang?'
+      },
+      ready: {
+        strong: {
+          '1': 'Quina vitalitat! Estàs a punt per a gairebé tot el que sé.'
+        },
+        able: {
+          '1': 'La teva essència flueix amb força. Endavant amb la lliçó següent.'
+        },
+        weak: {
+          '1': 'Encara no. Et cansaries després d’un sol encanteri. Primer augmenta el teu Aguant.'
+        }
+      },
+      herbs: {
+        '1': 'Sobretot per a tònics. Una mica d’essència, molta menta. La menta ho millora tot.',
+        '2': 'Si trobes plantes rares per aquí fora, porta-me-les. M’encantaria veure-les.',
+        say: 'Per a què serveixen totes aquestes herbes?'
+      },
+      trainBack: {
+        '1': 'Descansa després de practicar. L’essència torna, però li agrada fer la migdiada.'
+      },
+      bye: {
+        '1': 'Cuida’t. Beu aigua. Menja alguna cosa verda.'
+      }
+    },
+    smalltalkSilverbridge: {
+      barges: {
+        '1': 'Aquest matí han arribat tres gavarres de la costa.',
+        '2': 'Peix salat, una altra vegada?',
+        '3': 'Seda, per variar. Però després ensuma’t els dits.'
+      },
+      lesson: {
+        '1': 'Com ha anat la lliçó?',
+        '2': 'M’he calat foc a la màniga. El mestre diu que això és progressar.'
+      },
+      masters: {
+        '1': 'Tots els mestres del regne ensenyen en un sol carrer.',
+        '2': 'I cadascun diu que la seva classe és la millor.',
+        '3': 'I tots tenen raó, que és el que fa ràbia.'
+      },
+      bridge: {
+        '1': 'Diuen que el pont és més vell que la ciutat.',
+        '2': 'Doncs ben bé que grinyola com si ho fos.'
+      },
+      fish: {
+        '1': 'Has pescat res?',
+        '2': 'Una bota.',
+        '3': 'Bé, ja és mig parell.'
+      },
+      newMaster: {
+        '1': 'Hi ha un mestre nou al carrer del nord. Parla molt del temps.',
+        '2': 'M’hi jugo que arriba tard a totes les lliçons.'
+      },
+      siege: {
+        '1': 'D’Oakhaven arriben males notícies. Bandits a les muralles.',
+        '2': 'Doncs les gavarres vindran cap aquí. Pobra gent.'
       }
     }
   },

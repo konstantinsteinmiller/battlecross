@@ -251,7 +251,7 @@ export const ZONE_BRANCHES: Readonly<Record<ZoneId, ZoneBranches>> = {
 
 // ─── Towns ───────────────────────────────────────────────────────────────────
 
-export type TownId = 'sunford' | 'oakhaven' | 'ironhold'
+export type TownId = 'sunford' | 'oakhaven' | 'ironhold' | 'silverbridge'
 
 export type NpcRole = 'shop' | 'trainer' | 'quest' | 'healer' | 'talk'
 
@@ -337,6 +337,8 @@ export interface TownDef {
   style: TownStyle
   /** The world flag that leaves the town a ruin (its houses burnt, its people few). */
   fallen?: string
+  /** Its width in cells (38: a village; the big town is wider, roadmap #86). */
+  width?: number
   npcs: NpcDef[]
   houses: TownHouseDef[]
   folk: TownFolkDef[]
@@ -448,6 +450,50 @@ export const TOWNS: Readonly<Record<TownId, TownDef>> = {
       { id: 'minerB', look: 'miner', job: 'drinker', at: [0.2, 0.86] },
       { id: 'kidA', look: 'child', job: 'child', at: [0.56, 0.62] }
     ]
+  },
+  // The big river town on the old stone bridge (roadmap #86): a master of every
+  // class teaches here, so pupils come from all over, and the river's trade
+  // fills the street. The two masters of the hidden classes come once the hero
+  // has met the class's own teacher out in the world (`foundFlag`).
+  silverbridge: {
+    id: 'silverbridge', theme: 'town', style: 'mercantile', width: 70,
+    npcs: [
+      // The masters' halls along the north street, one beside the other.
+      { id: 'sbMasterAegis', role: 'trainer', look: 'sbMasterAegis', at: [0.063, 0.15], place: 'inside', house: 'hall', job: 'knight', cls: 'aegis' },
+      { id: 'sbMasterPyro', role: 'trainer', look: 'sbMasterPyro', at: [0.19, 0.15], place: 'inside', house: 'hall', job: 'scholar', cls: 'pyro' },
+      { id: 'sbMasterShadow', role: 'trainer', look: 'sbMasterShadow', at: [0.317, 0.15], place: 'inside', house: 'hall', job: 'rogue', cls: 'shadow' },
+      { id: 'sbMasterSovereign', role: 'trainer', look: 'sbMasterSovereign', at: [0.444, 0.15], place: 'inside', house: 'hall', job: 'noble', cls: 'sovereign' },
+      { id: 'sbMasterGeo', role: 'trainer', look: 'sbMasterGeo', at: [0.571, 0.15], place: 'inside', house: 'hall', job: 'geo', cls: 'geo' },
+      { id: 'sbMasterAether', role: 'trainer', look: 'sbMasterAether', at: [0.698, 0.15], place: 'inside', house: 'hall', job: 'tinker', cls: 'aether' },
+      { id: 'sbMasterChrono', role: 'trainer', look: 'sbMasterChrono', at: [0.825, 0.15], place: 'inside', house: 'hall', job: 'scholar', cls: 'chrono', needs: ['foundChrono'] },
+      { id: 'sbMasterBlood', role: 'trainer', look: 'sbMasterBlood', at: [0.952, 0.15], place: 'inside', house: 'hall', job: 'alchemist', cls: 'blood', needs: ['foundBlood'] },
+      // Shops and the chapel either side of the square.
+      { id: 'sbHealer', role: 'healer', look: 'sbHealer', at: [0.1, 0.48], place: 'inside', house: 'chapel' },
+      { id: 'sbArmorer', role: 'shop', look: 'sbArmorer', at: [0.3, 0.48], place: 'porch', house: 'workshop', job: 'smith', stock: { slots: ['head', 'body', 'hands', 'feet', 'off'], tiers: [2, 3, 4] } },
+      { id: 'sbWeapons', role: 'shop', look: 'sbWeapons', at: [0.75, 0.48], place: 'inside', house: 'townhouse', job: 'merchant', stock: { slots: ['main', 'off'], tiers: [2, 3, 4] } },
+      { id: 'sbJeweler', role: 'shop', look: 'sbJeweler', at: [0.62, 0.38], place: 'street', job: 'merchant', stock: { slots: ['trinket'], tiers: [2, 3, 4] } },
+      { id: 'mayorBrenna', role: 'talk', look: 'mayorBrenna', at: [0.42, 0.38], place: 'street', job: 'elder' }
+    ],
+    houses: [{ kind: 'tavern', at: [0.22, 0.76], inside: true }],
+    folk: [
+      { id: 'innkeeper', look: 'villager', job: 'keeper', at: [0.22, 0.76], inn: true, lite: true },
+      { id: 'patronA', look: 'merchantF', job: 'drinker', at: [0.22, 0.76], inn: true, lite: true },
+      { id: 'patronB', look: 'squire', job: 'drinker', at: [0.22, 0.76], inn: true },
+      { id: 'patronC', look: 'villager', job: 'drinker', at: [0.22, 0.76], inn: true },
+      { id: 'bard', look: 'peddler', job: 'bard', at: [0.22, 0.76], inn: true },
+      // Pupils between their lessons, the watch, the market crowd.
+      { id: 'pupilA', look: 'squire', job: 'squire', at: [0.13, 0.15], lite: true },
+      { id: 'pupilB', look: 'villagerF', job: 'villager', at: [0.5, 0.26] },
+      { id: 'pupilC', look: 'squire', job: 'squire', at: [0.76, 0.15] },
+      { id: 'guardA', look: 'townGuard', job: 'guard', at: [0.5, 0.6], lite: true },
+      { id: 'guardB', look: 'townGuard', job: 'guard', at: [0.9, 0.62] },
+      { id: 'merchantF', look: 'merchantF', job: 'villager', at: [0.56, 0.5], lite: true },
+      { id: 'peddlerA', look: 'peddler', job: 'merchant', at: [0.36, 0.56] },
+      { id: 'drinker', look: 'villager', job: 'drinker', at: [0.3, 0.86] },
+      { id: 'washer', look: 'villagerF', job: 'villager', at: [0.72, 0.86], lite: true },
+      { id: 'kidA', look: 'child', job: 'child', at: [0.46, 0.64] },
+      { id: 'kidB', look: 'childF', job: 'child', at: [0.54, 0.64] }
+    ]
   }
 }
 
@@ -474,7 +520,9 @@ export const MAP: readonly MapNode[] = [
   { id: 'plains', kind: 'zone', at: [0.265, 0.625], links: ['sunford', 'hollows', 'woods'] },
   { id: 'hollows', kind: 'zone', at: [0.125, 0.455], links: ['plains', 'arena'], quest: 'goblinKing' },
   { id: 'arena', kind: 'arena', at: [0.315, 0.835], links: ['sunford', 'hollows'], needs: ['arenaOpen'] },
-  { id: 'woods', kind: 'zone', at: [0.415, 0.525], links: ['plains', 'outskirts', 'crags'] },
+  { id: 'woods', kind: 'zone', at: [0.415, 0.525], links: ['plains', 'outskirts', 'crags', 'silverbridge'] },
+  // The big town, over the river west of the woods (roadmap #86).
+  { id: 'silverbridge', kind: 'town', at: [0.25, 0.435], links: ['woods'] },
   { id: 'outskirts', kind: 'zone', at: [0.555, 0.67], links: ['woods', 'oakhaven'], quest: 'siege' },
   { id: 'oakhaven', kind: 'town', at: [0.695, 0.795], links: ['outskirts'] },
   { id: 'crags', kind: 'zone', at: [0.5, 0.345], links: ['woods', 'mines', 'tundra'] },
@@ -512,6 +560,10 @@ export const hiddenTrainerOf = (node: NodeId, cleared: ReadonlySet<string>, flag
   const fb = FALLBACK_TRAINERS.find(f => f.node === node && f.needs.every(x => flags.has(x)))
   return fb ? { cls: fb.cls, npc: fb.npc } : null
 }
+
+/** The flag a hidden class's teacher leaves once met: its master then teaches
+ *  in Silverbridge too (`foundChrono`, `foundBlood`). */
+export const foundFlag = (cls: ClassId): string => 'found' + cls[0]!.toUpperCase() + cls.slice(1)
 
 /** A town's people as the world's flags leave them. */
 export const townNpcs = (town: TownId, flags: ReadonlySet<string>): NpcDef[] =>

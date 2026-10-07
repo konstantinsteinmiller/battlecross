@@ -247,6 +247,10 @@ export default {
     rift: {
       name: 'La Malplena Fendo',
       desc: 'La vundo, tra kiu venis la demonoj. La Mastro de la Malpleno atendas transe.'
+    },
+    silverbridge: {
+      name: 'Silverbridge',
+      desc: 'La granda rivera urbo sur la malnova ŝtona ponto. Ĉi tie instruas majstro de ĉiu klaso.'
     }
   },
   map: {
@@ -1071,6 +1075,48 @@ export default {
     },
     trainerChrono: {
       name: 'La Gardanto de la Horoj'
+    },
+    mayorBrenna: {
+      name: 'Urbestro Brenna Quill'
+    },
+    sbHealer: {
+      name: 'Frato Ansel'
+    },
+    sbArmorer: {
+      name: 'Greta Ferovejno',
+      talk: 'Monta ŝtalo, riveraj prezoj. Frapu kion ajn vi volas.'
+    },
+    sbWeapons: {
+      name: 'Corvin Ashby',
+      talk: 'Belaj Klingoj de Ashby. Ĉiu tranĉrando polurita mane. Per mia mano.'
+    },
+    sbJeweler: {
+      name: 'Tam Marlow',
+      talk: 'Ringoj, amuletoj, bonŝancaj ŝtonoj. Ĉio vera. Nu, preskaŭ ĉio.'
+    },
+    sbMasterAegis: {
+      name: 'Damo Helga Ŝtormŝildo'
+    },
+    sbMasterPyro: {
+      name: 'Magistro Ignatius Vale'
+    },
+    sbMasterShadow: {
+      name: 'Nyx Halloway'
+    },
+    sbMasterSovereign: {
+      name: 'Lordo Percival Ashcombe'
+    },
+    sbMasterGeo: {
+      name: 'Avino Tova Profundradiko'
+    },
+    sbMasterAether: {
+      name: 'Profesoro Quint Ĉenrado'
+    },
+    sbMasterChrono: {
+      name: 'Horloĝgardisto Selwyn'
+    },
+    sbMasterBlood: {
+      name: 'Vesper Karmezinfolio'
     }
   },
   quest: {
@@ -2654,6 +2700,503 @@ export default {
         iceBreak: {
           '1': 'La lago formanĝos vin!'
         }
+      }
+    },
+    mayorBrenna: {
+      hello: {
+        '1': 'Atentu la ĉaron! Pardonon, ĉio sur ĉi tiu ponto moviĝas. Bonvenon al Silverbridge.',
+        '2': 'Mi estas urbestro Brenna Quill. Se io estas perdita, rompita aŭ malfrua, ĝi finiĝas sur mia skribotablo.'
+      },
+      ending: {
+        '1': 'La tuta rivero parolas pri vi. La komerco neniam iris pli bone. Do, dankon.'
+      },
+      again: {
+        '1': 'Denove ĉi tie? Bone. Provu ne bari la vojon al la ĉaroj.'
+      },
+      who: {
+        '1': 'Urbestro jam de naŭ jaroj. Antaŭe mi vendis ŝnurojn. Fakte la sama laboro: teni ĉion kune.',
+        '2': 'La urbo voĉdonas ĉiun printempon. Ĝis nun neniu alia volas la skribotablon.'
+      },
+      town: {
+        '1': 'Unue venis la ponto. Poste bazaro sur ĝi, poste domoj, poste domoj sur tiuj domoj.',
+        '2': 'Atentu la fontanojn. Infanoj falas en ilin. Plenkreskuloj ankaŭ, en bazara tago.',
+        say: 'Rakontu al mi pri Silverbridge.'
+      },
+      masters: {
+        '1': 'Por ĉiu sola. Ŝildo, fajro, ombro, ŝtono. Po unu majstro por ĉiu, ĉiuj sur unu ponto.',
+        '2': 'Lernantoj venas de ĉie. Bone por la gastejoj. Malpli bone por miaj fenestroj.',
+        say: 'Ĉu vere estas instruisto por ĉiu klaso ĉi tie?'
+      },
+      river: {
+        '1': 'Per ĉio, kion la rivero alportas. Fiŝoj, silko, ŝtalo el Ironhold, foje kesto da koleraj kokinoj.',
+        '2': 'Kaj ne ĉiu komercisto en Silverbridge pendigas ŝildon. Tenu viajn okulojn malfermitaj.',
+        say: 'Per kio oni komercas ĉi tie?'
+      },
+      rumor: {
+        crags: {
+          '1': 'La boatoj el la nordo ĉesis veni. Io brulas supre en la Cindraj Rokegoj.'
+        },
+        mines: {
+          '1': 'Neniu ŝtalo el Ironhold ĉi-monate. La nanoj diras, ke io misiris en iliaj minejoj.'
+        },
+        tundra: {
+          '1': 'La felkomercistoj ne plu transiras la tundron. Ili diras, ke la gigantoj ekmoviĝis.'
+        },
+        far: {
+          '1': 'Pri la fora nordo komercistoj nun nur flustras. Kio ajn estas tie supre, ĝi nenion aĉetas.'
+        }
+      },
+      bye: {
+        '1': 'Ek al via vojo. Kaj se iu demandas, la ponta pago estas tre justa.'
+      }
+    },
+    sbHealer: {
+      hello: {
+        '1': 'Hm? Ho, paciento. Pardonon, mi ripozigis miajn okulojn. Resanigistoj faras tion.',
+        '2': 'Frato Ansel. Envenu, sidiĝu. La seĝo estas pli komforta ol ĝi aspektas.'
+      },
+      again: {
+        '1': 'Ha, vi revenis. Kaj mi ĵus sidiĝis.'
+      },
+      heal: {
+        '1': 'Kuŝiĝu, fermu la okulojn. Ne tro longe, aŭ ankaŭ mi ekdormos. Jen, la flakonoj plenas.'
+      },
+      mana: {
+        '1': 'Lumĉapa tonikaĵo. Bona por la menso, malbona por la spiro. Trinketu malrapide.'
+      },
+      potions: {
+        '1': 'Trinku unu antaŭ ol vi estas en mizero. Herooj ĉiam atendas tro longe.',
+        '2': 'Se vi volas porti pli, mi vendas pli longajn zonojn. Plenigi la flakonojn estas senpage.',
+        say: 'Ĉu vi havas konsilojn pri pocioj?'
+      },
+      sleep: {
+        '1': 'Ne nokte. Lernantoj de ĉiu klaso, ĉiuj ekzercas. Io ĉiam eksplodas.',
+        say: 'Ĉu vi iam vere dormas?'
+      },
+      healBack: {
+        '1': 'Ek al via vojo. Venontfoje venu por teo anstataŭ por bandaĝoj.'
+      },
+      bye: {
+        '1': 'Atentu la ŝtupojn. Duono de miaj pacientoj nur stumblis sur ili.'
+      }
+    },
+    sbArmorer: {
+      hello: {
+        '1': 'Ha! Rigardu tiun kavaĵon. Mi esperas, ke vi rericevis vian monon por tiu kiraso.',
+        '2': 'Greta Ferovejno. Mi faras kirasojn, kiuj revenas hejmen kun sia posedanto. Ĉiufoje, ĝis nun.'
+      },
+      again: {
+        '1': 'Denove vi! Ankoraŭ en unu peco. Mia plej ŝatata speco de kliento.'
+      },
+      trade: {
+        '1': 'Nu, frapu ĝin. Tiel forte, kiel vi volas.'
+      },
+      who: {
+        '1': 'Monta familio. Mi venis laŭ la rivero pro la komerco kaj restis pro la fiŝoj.'
+      },
+      steel: {
+        '1': 'Ne gravas, kiom dika ĝi estas, sed kie ĝi fleksiĝas. Bona kiraso fleksiĝas tie, kie vi.',
+        '2': 'Peza plata kiraso postulas Forton, memoru. Sen ĝi vi ŝanceliĝos kiel anaso.',
+        say: 'Kio faras kirason bona?'
+      },
+      shopBack: {
+        '1': 'Portu ĝin bone. Alportu al mi la kavaĵojn, mi ŝatas bonan rakonton.'
+      },
+      bye: {
+        '1': 'Ek al via vojo. Ne estu trafita tie, kie mi ne kovris vin.'
+      }
+    },
+    sbWeapons: {
+      hello: {
+        '1': 'Ha, kliento kun bongusto. Mi ĉiam rimarkas. Tio videblas laŭ via maniero eniri.',
+        '2': 'Corvin Ashby, de Belaj Klingoj de Ashby. Jes, tiu Ashby. Vi certe aŭdis pri mi.'
+      },
+      again: {
+        '1': 'Jam reen? Ĉiuj ĉiam revenas al Corvin.'
+      },
+      trade: {
+        '1': 'Ĉiu klingo polurita mane. Per mia mano, fakte. Atentu la spegulbildon.'
+      },
+      who: {
+        '1': 'La plej bona klingovendisto ĉe la rivero. Demandu iun ajn. Aŭ simple legu mian ŝildon.'
+      },
+      blades: {
+        '1': 'Elektu tian, kiu taŭgas por vi. Rapidaj manoj volas malpezan klingon, fortaj brakoj pezan.',
+        '2': 'Kaj ĝi devas aspekti bele. Neniu forkuras de heroo kun malbela glavo.',
+        say: 'Kiel mi elektu bonan armilon?'
+      },
+      shopBack: {
+        '1': 'Bela elekto. Ne tute tiel bela kiel mia hararo, sed preskaŭ.'
+      },
+      bye: {
+        '1': 'Nepre diru al homoj, kie vi aĉetis ĝin.'
+      }
+    },
+    sbJeweler: {
+      hello: {
+        '1': 'Pst! Ĉi tien! Ringoj, amuletoj, bonŝancaj ŝtonoj. La plej bona budo sur la ponto.',
+        '2': 'Mi nomiĝas Tam Marlow. Mi estas malgranda, sed miaj prezoj estas eĉ pli malgrandaj.'
+      },
+      again: {
+        '1': 'Mia plej ŝatata kliento! Ne diru al la aliaj, ke mi diris tion.'
+      },
+      trade: {
+        '1': 'Ĉio vera. Plejparte. Bone, tiu estas vitro, sed tre bela vitro.'
+      },
+      who: {
+        '1': 'Mi kreskis sur ĉi tiu ponto. Mi konas ĉiun fendon, ĉiun katon kaj ĉiun mallongigan vojon.'
+      },
+      gossip: {
+        '1': 'Profesoro Ĉenrado denove forblovis siajn brovojn. Jam la trian fojon ĉi-monate.',
+        '2': 'Kaj la urbestro scias pri komercistoj, kiuj ne pendigas ŝildon. Mi laboras pri tio.',
+        say: 'Ĉu vi aŭdis bonan klaĉon?'
+      },
+      shopBack: {
+        '1': 'Plezuro komerci kun vi! Diru al viaj amikoj. Ne al la gardistoj.'
+      },
+      bye: {
+        '1': 'Ĝis! Mi estos ĝuste ĉi tie. Verŝajne.'
+      }
+    },
+    sbMasterAegis: {
+      hello: {
+        '1': 'Ha! Ankoraŭ unu junulo. Mentonon supren, ŝultrojn malantaŭen. Ŝildoj funkcias pli bone kun rideto.',
+        '2': 'Damo Helga Ŝtormŝildo. Iam mi defendis ĉi tiun ponton. Nun mi instruas aliajn ne cedi.'
+      },
+      again: {
+        '1': 'Jen vi! Ĉu ŝildo supre? Bone. Ĉu vi ridetas? Eĉ pli bone.'
+      },
+      train: {
+        '1': 'Piedojn larĝe. Kliniĝu antaŭen. Kiam mi puŝas, vi ne moviĝas. Preta? Hop!'
+      },
+      class: {
+        '1': 'Vi staras antaŭe, por ke la aliaj ne devu. La plej bona laboro, kiu ekzistas.',
+        '2': 'Forton por levi la ŝildon. Eltenemon por teni ĝin supre ĝis la vespermanĝo.',
+        say: 'Kion vere faras Egida Kavaliro?'
+      },
+      ready: {
+        strong: {
+          '1': 'Nun vi estas vera muro, kara. Prenu kiun ajn lecionon vi volas.'
+        },
+        able: {
+          '1': 'Stabilaj kruroj! Vi pretas por la sekva.'
+        },
+        weak: {
+          '1': 'Ankoraŭ ne. Unu bona puŝo, kaj vi renversiĝus. Pli da Forto kaj Eltenemo, mi petas.'
+        }
+      },
+      bridge: {
+        '1': 'Antaŭ kvardek jaroj, kontraŭ riveraj piratoj. Ses el ni, unu pordego, tre longa nokto.',
+        '2': 'Ni ne venkis per la plej forta bato. Ni venkis per ne moviĝi. Memoru tion.',
+        say: 'Ĉu vi defendis ĉi tiun ponton?'
+      },
+      trainBack: {
+        '1': 'Bona laboro! Nun manĝu ion. Ŝildoj estas pezaj.'
+      },
+      bye: {
+        '1': 'Mentonon supren tie ekstere!'
+      }
+    },
+    sbMasterPyro: {
+      hello: {
+        '1': 'Bonvolu eniri. Atentu la notojn, kaj bonvolu ne terni apud la ardujo.',
+        '2': 'Magistro Ignatius Vale. Mi instruas fajron sur ponto. Abundas akvo ĉirkaŭe, komprenu.'
+      },
+      again: {
+        '1': 'Akurata. Bonege. Ni daŭrigu de kie ni haltis.'
+      },
+      train: {
+        '1': 'Observu. Malgranda flamo, tenata kviete. Grandaj flamoj estas facilaj. Malgrandaj postulas lertecon.'
+      },
+      class: {
+        '1': 'Ĉiu ajn povas ekbruligi fajron. Fajromagiisto decidas, kien ĝi iras, kaj kie ĝi haltas.',
+        '2': 'Ĉio devenas de Inteligento. Poste Majstreco helpas, kiam la fajro bezonas stabilan manon.',
+        say: 'Kion vere faras fajromagiisto?'
+      },
+      ready: {
+        strong: {
+          '1': 'Via regado estas bonega. Restas al mi tre malmulte por korekti. Elektu libere.'
+        },
+        able: {
+          '1': 'Sufiĉa. Pli ol sufiĉa, fakte. Vi rajtas preni la sekvan lecionon.'
+        },
+        weak: {
+          '1': 'Ankoraŭ ne. Via flamo ŝanceliĝas. Pli akran menson, mi petas. Pli da Inteligento.'
+        }
+      },
+      sprocket: {
+        '1': 'Brila viro. Laŭta, senzorga kaj brila. Mi tenas sitelon apud lia pordo.',
+        say: 'Kion vi pensas pri profesoro Ĉenrado?'
+      },
+      trainBack: {
+        '1': 'Ekzercu apud akvo. Mi insistas.'
+      },
+      bye: {
+        '1': 'Bonan tagon. Kaj tenu viajn manikojn suprenfalditaj.'
+      }
+    },
+    sbMasterShadow: {
+      hello: {
+        '1': 'Ĉu vi serĉas min? Mi estas apud vi ekde la fontano. Vi preterpasis min dufoje.',
+        '2': 'Nyx Halloway. La plej bona kaŝejo estas homamaso, kaj ĉi tiu estas la plej plena ponto, kiu ekzistas.'
+      },
+      again: {
+        '1': 'Saluton denove. Mi estas ĉi tie jam de iom da tempo. Ĉu vi rimarkis? Ne? Bone.'
+      },
+      train: {
+        '1': 'Unua leciono: iru kvazaŭ vi apartenas ĉi tien. Neniu dufoje rigardas iun, kiu apartenas.'
+      },
+      class: {
+        '1': 'Neniam esti tie, kien ili rigardas. Englitu, unu rapida bato, kaj denove malaperu en la homamaso.',
+        '2': 'Lerto por rapidaj piedoj kaj manoj. Majstreco, por ke la bato gravu.',
+        say: 'Kio faras bonan Ombroklingon?'
+      },
+      ready: {
+        strong: {
+          '1': 'Nun vi estas vere kaŝema. Prenu la reston, vi meritis ĝin.'
+        },
+        able: {
+          '1': 'Malpeza paŝo! Vi pretas por la sekva ruzo.'
+        },
+        weak: {
+          '1': 'Ankoraŭ ne. Mi aŭdas vin veni jam de la fontano. Pli da Lerto.'
+        }
+      },
+      past: {
+        '1': 'Iam mi ŝtelis el poŝoj sur ĝuste ĉi tiu ponto. Kaj mi estis lerta pri tio.',
+        '2': 'Poste la urbestro kaptis min kaj donis al mi laboron, ne ĉelon. Ne diru al ŝi, ke mi estas dankema.',
+        say: 'Kiel vi lernis ĉion ĉi?'
+      },
+      trainBack: {
+        '1': 'Nun iru ekzerci. Provu ne lasi min kapti vin.'
+      },
+      bye: {
+        '1': 'Ĝis. Nu, vi ne vidos min.'
+      }
+    },
+    sbMasterSovereign: {
+      hello: {
+        '1': 'Ho! Saluton, saluton. Pardonu min, mi babilis kun miaj gardistoj. Ĉarmaj aŭskultantoj.',
+        '2': 'Percival Ashcombe. Mi povus instrui en kastelo, sed gvidi oni lernas nur tie, kie estas homoj.'
+      },
+      again: {
+        '1': 'Mia kara amiko! Ĉu ni daŭrigu? Nur se vi volas, kompreneble.'
+      },
+      train: {
+        '1': 'Nu do. Bona ordono estas klara, afabla kaj donata nur unufoje. Jen tiel.'
+      },
+      class: {
+        '1': 'Gvidanto. Viaj gardistoj venas al via flanko kaj batalas kun vi, ne nur por vi.',
+        '2': 'Karismo estas ĉio. Homoj sekvas tiujn, kiujn ili ŝatas. Kaj kiuj memoras iliajn nomojn.',
+        say: 'Kio estas Granda Suvereno?'
+      },
+      ready: {
+        strong: {
+          '1': 'Belege! Nun homoj sekvus vin ien ajn. Prenu ĉiujn lecionojn.'
+        },
+        able: {
+          '1': 'Viaj gardistoj aŭskultus vin. Vi pretas por la sekva leciono.'
+        },
+        weak: {
+          '1': 'Bedaŭrinde ankoraŭ ne tute. Iom pli da Karismo, kaj ili venos.'
+        }
+      },
+      please: {
+        '1': 'Ĉiam. Kriado alportas obeon. «Mi petas» alportas lojalecon, kaj lojaleco daŭras pli longe.',
+        say: 'Ĉu vi vere diras «mi petas» al viaj gardistoj?'
+      },
+      trainBack: {
+        '1': 'Ĉarma laboro. Memoru danki ilin poste.'
+      },
+      bye: {
+        '1': 'Zorgu pri vi, kaj salutu ĉiujn de mi.'
+      }
+    },
+    sbMasterGeo: {
+      hello: {
+        '1': 'Atentu la muskon, kara, ĝi havis longan semajnon. Nu, ni rigardu vin.',
+        '2': 'Avino Tova Profundradiko. La riverfundo ĉi tie estas ĉarma ŝtono, ĝis la plej malsupro.'
+      },
+      again: {
+        '1': 'Jam reen? Sidiĝu, mi ĵus faris teon. Ŝtonan teon. Ĝi estas plejparte teo.'
+      },
+      train: {
+        '1': 'Manojn plate sur la teron. Ne tiel. Kvazaŭ vi karesus dormeman hundon.'
+      },
+      class: {
+        '1': 'Ni petas helpon de la tero. Muron, kiam vi bezonas ĝin, pikilon, kiam iu estas malĝentila.',
+        '2': 'Ŝtono similas ĝardenon. Forto por fosi, Inteligento por scii, kie planti.',
+        say: 'Kion faras Termagiisto?'
+      },
+      ready: {
+        strong: {
+          '1': 'Nun la tero ŝatas vin. Lernu kion ajn vi volas, kara.'
+        },
+        able: {
+          '1': 'Bonaj radikoj! Vi pretas por la sekva leciono.'
+        },
+        weak: {
+          '1': 'Ankoraŭ ne, karulo. La ŝtono ne moviĝas por vi. Unue pli da Forto.'
+        }
+      },
+      garden: {
+        '1': 'Kvardek jaroj da laboro. Ĉiu roko kreskigita mane. Nu, per magio. Plejparte mane.',
+        '2': 'Prenu ŝtoneton elirante. Ili estas ĉarmaj pordotenantoj.',
+        say: 'Ĉu tio estas ĝardeno el ŝtono?'
+      },
+      trainBack: {
+        '1': 'Ĉarme. Nun iru kaj fosu ion. Delikate.'
+      },
+      bye: {
+        '1': 'Ek al via vojo. Vestu vin varme, estas malseke ĉe la rivero.'
+      }
+    },
+    sbMasterAether: {
+      hello: {
+        '1': 'Bonvenon, bonvenon! Vi venis ĝustatempe por la demonstracio. Kovru viajn orelojn, mi petas.',
+        '2': 'Profesoro Quint Ĉenrado. La rivero turnas miajn radojn senpage. Kie alie mi instruus?'
+      },
+      again: {
+        '1': 'Ha, mia plej ŝatata lernanto! La hodiaŭa demonstracio estos ekstra laŭta.'
+      },
+      train: {
+        '1': 'Rigardu la nigran tabulon. Nun forgesu la tabulon, kaj rigardu la maŝinon.'
+      },
+      class: {
+        '1': 'Ni konstruas nian vojon el embaraso. Pistolo, pafturo kaj varmomezurilo, kiu tenas vin honesta.',
+        '2': 'Majstreco por la celado, Inteligento por la saĝaj partoj. Prefere ambaŭ.',
+        say: 'Kion fakte faras Eterteknikisto?'
+      },
+      ready: {
+        strong: {
+          '1': 'Mirinde! Vi povus fari miajn prelegojn. Tamen bonvolu ne. Prenu la reston.'
+        },
+        able: {
+          '1': 'Stabila mano! Vi pretas por la sekva maŝino.'
+        },
+        weak: {
+          '1': 'Ankoraŭ ne. Via celado drivas. Pli da Majstreco, poste ni parolos.'
+        }
+      },
+      eyebrows: {
+        '1': 'Demonstracio sukcesis iomete tro bone. Ili rekreskos. Ili ĉiam rekreskas.',
+        say: 'Kio okazis al viaj brovoj?'
+      },
+      trainBack: {
+        '1': 'Belege. Nun iru kaj ellasu tiun varmon. Prefere ekstere.'
+      },
+      bye: {
+        '1': 'La leciono finiĝis! Atentu la ŝtupojn.'
+      }
+    },
+    sbMasterChrono: {
+      hello: {
+        '1': 'Mia iama lernanto, la Gardanto de la Horoj, skribis, ke vi venos. Ĝuste en ĉi tiu minuto, fakte.',
+        '2': 'Horloĝgardisto Selwyn. Mi prizorgas la pontan horloĝon. Tiel okupata urbo ne povas permesi malfruon.'
+      },
+      again: {
+        '1': 'Sep minutoj post. Bona tempo por komenci.'
+      },
+      train: {
+        '1': 'Kalkulu kun mi. Unu, du, kaj tenu. La tempo streĉiĝas, se vi tenas ĝin ĝuste.'
+      },
+      class: {
+        '1': 'Ni ordigas la tempon. Malrapidigas malamikon, rapidigas amikon, malfaras kelkan eraron.',
+        '2': 'Inteligento por kompreni ĝin. Majstreco por tuŝi ĝin sen rompi ion.',
+        say: 'Kio estas Tempoteksanto?'
+      },
+      ready: {
+        strong: {
+          '1': 'Bonega tempigo. Prenu la reston de miaj lecionoj, kiam ajn al vi konvenas.'
+        },
+        able: {
+          '1': 'Vi pretas. La sekva leciono komenciĝas, ho, nun.'
+        },
+        weak: {
+          '1': 'Ankoraŭ ne. Vi ĉiam estas unu takton malantaŭe. Pli da Inteligento, kaj pli da Majstreco.'
+        }
+      },
+      keeper: {
+        '1': 'Mi instruis lin antaŭ jaroj. Brila lernanto. Ĉiam frua aŭ malfrua, neniam ĝustatempa.',
+        say: 'Kiel vi konas la Gardanton de la Horoj?'
+      },
+      trainBack: {
+        '1': 'Ekzercu ĉiutage. Je la sama horo ĉiutage, se vi bonvolas.'
+      },
+      bye: {
+        '1': 'Ek al via vojo. Ne malfruu.'
+      }
+    },
+    sbMasterBlood: {
+      hello: {
+        '1': 'Doktoro Sangrel skribis al mi pri vi. Li diras, ke vi ne svenis. Granda laŭdo, de li.',
+        '2': 'Vesper Karmezinfolio. Ĉiu herbo de la mondo flosas preter ĉi tiu ponto. Mi estas dorlotata ĉi tie.'
+      },
+      again: {
+        '1': 'Bonvenon reen. Vi aspektas vigla hodiaŭ. Mi ĉiam rimarkas.'
+      },
+      train: {
+        '1': 'Enspiru. Ĉu vi sentas vian forton? Nun elspezu iom de ĝi. Saĝe.'
+      },
+      class: {
+        '1': 'Ni elspezas nian propran vivoforton por potenco, kaj poste reprenas ĝin de niaj malamikoj.',
+        '2': 'Eltenemo estas via monujo. Inteligento decidas, kiom bone vi elspezas ĝin.',
+        say: 'Kio vere estas Sangalkemiisto?'
+      },
+      ready: {
+        strong: {
+          '1': 'Kia vigleco! Vi pretas por preskaŭ ĉio, kion mi scias.'
+        },
+        able: {
+          '1': 'Via esenco fluas forte. Al la sekva leciono.'
+        },
+        weak: {
+          '1': 'Ankoraŭ ne. Vi laciĝus post unu sorĉo. Unue kreskigu vian Eltenemon.'
+        }
+      },
+      herbs: {
+        '1': 'Plejparte por tonikaĵoj. Iom da esenco, multe da mento. Mento plibonigas ĉion.',
+        '2': 'Se vi trovos rarajn plantojn tie ekstere, alportu ilin. Mi volonte rigardus.',
+        say: 'Por kio servas ĉiuj ĉi herboj?'
+      },
+      trainBack: {
+        '1': 'Ripozu post ekzercado. Esenco revenas, sed ĝi ŝatas dormeton.'
+      },
+      bye: {
+        '1': 'Zorgu pri vi. Trinku akvon. Manĝu ion verdan.'
+      }
+    },
+    smalltalkSilverbridge: {
+      barges: {
+        '1': 'Tri barĝoj alvenis de la marbordo ĉi-matene.',
+        '2': 'Denove salfiŝo?',
+        '3': 'Silko, unufoje. Tamen flaru viajn fingrojn poste.'
+      },
+      lesson: {
+        '1': 'Kiel iris via leciono?',
+        '2': 'Mi ekbruligis mian manikon. La majstro diras, ke tio estas progreso.'
+      },
+      masters: {
+        '1': 'Ĉiu majstro de la lando instruas sur unu strato.',
+        '2': 'Kaj ĉiu el ili diras, ke lia klaso estas la plej bona.',
+        '3': 'Ĉiuj pravas, kaj ĝuste tio ĝenas.'
+      },
+      bridge: {
+        '1': 'Oni diras, ke la ponto estas pli malnova ol la urbo.',
+        '2': 'Ĝi certe knaras tiel.'
+      },
+      fish: {
+        '1': 'Ĉu vi kaptis ion?',
+        '2': 'Boton.',
+        '3': 'Nu, tio estas duono de paro.'
+      },
+      newMaster: {
+        '1': 'Estas nova majstro sur la norda strato. Li multe parolas pri tempo.',
+        '2': 'Malfrua al ĉiu leciono, mi vetas.'
+      },
+      siege: {
+        '1': 'La novaĵoj el Oakhaven estas malbonaj. Banditoj ĉe la muroj.',
+        '2': 'Do la barĝoj venos ĉi tien anstataŭe. Kompatindaj homoj.'
       }
     }
   },

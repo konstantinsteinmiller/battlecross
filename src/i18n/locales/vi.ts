@@ -247,6 +247,10 @@ export default {
     rift: {
       name: 'Khe Nứt Hư Không',
       desc: 'Vết thương mà lũ quỷ đã chui qua. Chúa Tể Hư Không đang đợi ở phía bên kia.'
+    },
+    silverbridge: {
+      name: 'Silverbridge',
+      desc: 'Thị trấn sông lớn trên cây cầu đá cổ. Bậc thầy của mọi môn phái đều dạy ở đây.'
     }
   },
   map: {
@@ -1071,6 +1075,48 @@ export default {
     },
     trainerChrono: {
       name: 'Người Giữ Giờ'
+    },
+    mayorBrenna: {
+      name: 'Thị trưởng Brenna Quill'
+    },
+    sbHealer: {
+      name: 'Tu sĩ Ansel'
+    },
+    sbArmorer: {
+      name: 'Greta Ironvein',
+      talk: 'Thép núi, giá bến sông. Cứ gõ thử món nào cậu thích.'
+    },
+    sbWeapons: {
+      name: 'Corvin Ashby',
+      talk: 'Tiệm Kiếm Hảo Hạng Ashby. Mọi lưỡi đều mài bằng tay. Tay tôi đấy.'
+    },
+    sbJeweler: {
+      name: 'Tam Marlow',
+      talk: 'Nhẫn, bùa, đá may mắn. Toàn đồ thật. Ừm, gần như toàn bộ.'
+    },
+    sbMasterAegis: {
+      name: 'Nữ Hiệp sĩ Helga Stormshield'
+    },
+    sbMasterPyro: {
+      name: 'Đại Pháp sư Ignatius Vale'
+    },
+    sbMasterShadow: {
+      name: 'Nyx Halloway'
+    },
+    sbMasterSovereign: {
+      name: 'Lãnh chúa Percival Ashcombe'
+    },
+    sbMasterGeo: {
+      name: 'Bà Tova Deeproot'
+    },
+    sbMasterAether: {
+      name: 'Giáo sư Quint Sprocket'
+    },
+    sbMasterChrono: {
+      name: 'Quản Đồng Hồ Selwyn'
+    },
+    sbMasterBlood: {
+      name: 'Vesper Crimsonleaf'
     }
   },
   quest: {
@@ -2654,6 +2700,503 @@ export default {
         iceBreak: {
           '1': 'Hồ băng sẽ nuốt chửng ngươi!'
         }
+      }
+    },
+    mayorBrenna: {
+      hello: {
+        '1': 'Coi chừng xe hàng! Xin lỗi, trên cây cầu này cái gì cũng di chuyển. Chào mừng tới Silverbridge.',
+        '2': 'Tôi là Thị trưởng Brenna Quill. Thứ gì bị mất, bị hỏng hay bị trễ, cuối cùng đều nằm trên bàn tôi.'
+      },
+      ending: {
+        '1': 'Cả dòng sông đang bàn tán về cậu. Buôn bán chưa bao giờ tốt thế. Vậy nên, cảm ơn cậu.'
+      },
+      again: {
+        '1': 'Lại tới à? Tốt. Cố đừng chắn đường xe hàng nhé.'
+      },
+      who: {
+        '1': 'Làm thị trưởng chín năm rồi. Trước đó tôi bán dây thừng. Thật ra cùng một việc: giữ mọi thứ gắn với nhau.',
+        '2': 'Thị trấn bầu cử mỗi mùa xuân. Tới giờ vẫn chưa ai khác muốn cái bàn này.'
+      },
+      town: {
+        '1': 'Cây cầu có trước. Rồi chợ mọc trên cầu, rồi nhà, rồi nhà chồng lên nhà.',
+        '2': 'Coi chừng mấy đài phun nước. Trẻ con hay rơi xuống. Người lớn cũng vậy, vào ngày chợ.',
+        say: 'Kể về Silverbridge đi.'
+      },
+      masters: {
+        '1': 'Không thiếu một ai. Khiên, lửa, bóng tối, đá. Mỗi môn một bậc thầy, tất cả trên một cây cầu.',
+        '2': 'Học trò đến từ khắp nơi. Tốt cho quán trọ. Không tốt lắm cho cửa sổ nhà tôi.',
+        say: 'Ở đây thật sự có thầy cho mọi môn phái à?'
+      },
+      river: {
+        '1': 'Sông mang tới gì thì bán nấy. Cá, lụa, thép Ironhold, thỉnh thoảng một thùng gà đang cáu.',
+        '2': 'Mà không phải thương nhân nào ở Silverbridge cũng treo biển đâu. Để mắt kỹ vào.',
+        say: 'Người ta buôn bán gì ở đây?'
+      },
+      rumor: {
+        crags: {
+          '1': 'Thuyền từ phương bắc ngừng tới rồi. Có thứ gì đó đang cháy ở Vách Đá Tro Tàn.'
+        },
+        mines: {
+          '1': 'Tháng này không có thép Ironhold. Người lùn bảo có chuyện không ổn trong mỏ của họ.'
+        },
+        tundra: {
+          '1': 'Dân buôn lông thú không chịu băng qua lãnh nguyên nữa. Họ nói bọn khổng lồ đang di chuyển.'
+        },
+        far: {
+          '1': 'Giờ thương nhân chỉ dám thì thầm về miền cực bắc. Dù thứ gì ở đó, nó không tới để mua hàng.'
+        }
+      },
+      bye: {
+        '1': 'Đi đi. Ai có hỏi thì nói phí qua cầu rất công bằng nhé.'
+      }
+    },
+    sbHealer: {
+      hello: {
+        '1': 'Hửm? À, có bệnh nhân. Xin lỗi, tôi đang cho mắt nghỉ một chút. Thầy thuốc hay vậy lắm.',
+        '2': 'Tu sĩ Ansel đây. Vào đi, ngồi xuống. Cái ghế êm hơn vẻ ngoài của nó đấy.'
+      },
+      again: {
+        '1': 'À, cậu lại tới. Mà tôi vừa mới ngồi xuống.'
+      },
+      heal: {
+        '1': 'Nằm xuống, nhắm mắt lại. Đừng lâu quá, kẻo tôi ngủ gật theo. Rồi, bình thuốc đầy rồi.'
+      },
+      mana: {
+        '1': 'Thuốc bổ Nấm Sáng. Tốt cho đầu óc, tệ cho hơi thở. Uống từ từ thôi.'
+      },
+      potions: {
+        '1': 'Uống một bình trước khi quá nguy. Anh hùng lúc nào cũng chờ quá lâu.',
+        '2': 'Muốn mang nhiều hơn thì tôi có bán thắt lưng dài hơn. Đổ đầy bình thì miễn phí.',
+        say: 'Có lời khuyên nào về thuốc không?'
+      },
+      sleep: {
+        '1': 'Ban đêm thì không. Học trò đủ mọi môn phái đều tập luyện. Lúc nào cũng có thứ phát nổ.',
+        say: 'Thầy có bao giờ ngủ thật không?'
+      },
+      healBack: {
+        '1': 'Đi đi. Lần sau tới uống trà thay vì băng bó nhé.'
+      },
+      bye: {
+        '1': 'Coi chừng bậc thang. Một nửa bệnh nhân của tôi chỉ là vấp ở đó thôi.'
+      }
+    },
+    sbArmorer: {
+      hello: {
+        '1': 'Ha! Nhìn vết móp kìa. Mong là cậu đã đòi lại được tiền bộ giáp đó.',
+        '2': 'Greta Ironvein. Tôi làm giáp biết theo chủ về nhà. Lần nào cũng vậy, tới giờ.'
+      },
+      again: {
+        '1': 'Lại là cậu! Vẫn còn nguyên vẹn. Kiểu khách tôi thích nhất.'
+      },
+      trade: {
+        '1': 'Nào, gõ thử đi. Mạnh cỡ nào cũng được.'
+      },
+      who: {
+        '1': 'Nhà tôi ở trên núi. Tôi xuôi sông xuống buôn bán rồi ở lại vì món cá.'
+      },
+      steel: {
+        '1': 'Không phải ở độ dày. Mà ở chỗ nó uốn. Giáp tốt uốn đúng chỗ cậu uốn.',
+        '2': 'Nhưng giáp tấm nặng cần Sức mạnh. Mặc mà thiếu thì cậu sẽ lạch bạch như vịt.',
+        say: 'Giáp tốt là giáp thế nào?'
+      },
+      shopBack: {
+        '1': 'Mặc cho tốt nhé. Có vết móp thì mang tới, tôi thích nghe chuyện hay.'
+      },
+      bye: {
+        '1': 'Đi đi. Đừng để bị đánh vào chỗ tôi chưa che.'
+      }
+    },
+    sbWeapons: {
+      hello: {
+        '1': 'À, một vị khách sành điệu. Tôi luôn nhận ra. Nhìn dáng bước vào là biết.',
+        '2': 'Corvin Ashby, của Tiệm Kiếm Hảo Hạng Ashby. Phải, chính Ashby đó. Chắc cậu đã nghe tên tôi.'
+      },
+      again: {
+        '1': 'Quay lại rồi à? Ai rồi cũng quay về với Corvin.'
+      },
+      trade: {
+        '1': 'Mọi lưỡi đều mài bằng tay. Thật ra là tay tôi. Coi chừng bị lóa vì ánh phản chiếu.'
+      },
+      who: {
+        '1': 'Người bán kiếm giỏi nhất trên sông. Hỏi ai cũng biết. Hoặc chỉ cần đọc biển hiệu của tôi.'
+      },
+      blades: {
+        '1': 'Chọn cái hợp với cậu. Tay nhanh thì kiếm nhẹ, tay khỏe thì kiếm nặng.',
+        '2': 'Và phải đẹp nữa. Chẳng ai bỏ chạy trước một anh hùng cầm thanh kiếm xấu xí.',
+        say: 'Chọn vũ khí tốt thế nào?'
+      },
+      shopBack: {
+        '1': 'Lựa chọn tuyệt vời. Chưa đẹp bằng mái tóc của tôi, nhưng cũng gần.'
+      },
+      bye: {
+        '1': 'Nhớ kể với mọi người cậu mua ở đâu nhé.'
+      }
+    },
+    sbJeweler: {
+      hello: {
+        '1': 'Ê! Đằng này! Nhẫn, bùa, đá may mắn. Sạp xịn nhất trên cầu đấy.',
+        '2': 'Tớ là Tam Marlow. Người tớ nhỏ, nhưng giá còn nhỏ hơn.'
+      },
+      again: {
+        '1': 'Khách ruột của tớ! Đừng kể với người khác là tớ nói vậy nhé.'
+      },
+      trade: {
+        '1': 'Toàn đồ thật. Phần lớn. Thôi được, cái đó là thủy tinh, nhưng là thủy tinh rất đẹp.'
+      },
+      who: {
+        '1': 'Tớ lớn lên trên cây cầu này. Biết từng vết nứt, từng con mèo và từng lối tắt.'
+      },
+      gossip: {
+        '1': 'Giáo sư Sprocket lại làm nổ bay lông mày nữa rồi. Lần thứ ba trong tháng.',
+        '2': 'Còn thị trưởng thì biết về mấy thương nhân không treo biển. Tớ đang dò la đây.',
+        say: 'Có tin đồn gì hay không?'
+      },
+      shopBack: {
+        '1': 'Buôn bán vui vẻ! Kể với bạn bè nhé. Đừng kể với lính gác.'
+      },
+      bye: {
+        '1': 'Gặp lại sau! Tớ sẽ ở ngay đây. Chắc vậy.'
+      }
+    },
+    sbMasterAegis: {
+      hello: {
+        '1': 'Ha! Thêm một người trẻ nữa. Ngẩng cằm lên, ưỡn vai ra. Khiên hiệu quả hơn khi cười đấy.',
+        '2': 'Nữ Hiệp sĩ Helga Stormshield. Ta từng giữ cây cầu này. Giờ ta dạy người khác đứng vững.'
+      },
+      again: {
+        '1': 'Cậu đây rồi! Khiên giơ lên chưa? Tốt. Đang cười chứ? Còn tốt hơn.'
+      },
+      train: {
+        '1': 'Dang chân ra. Đổ người tới. Ta đẩy thì cậu không được nhúc nhích. Sẵn sàng? Hự!'
+      },
+      class: {
+        '1': 'Cậu đứng phía trước, để người khác khỏi phải đứng. Công việc tuyệt nhất trên đời.',
+        '2': 'Sức mạnh để nâng khiên. Sức bền để giữ nó tới giờ ăn tối.',
+        say: 'Kỵ Sĩ Aegis thật ra làm gì?'
+      },
+      ready: {
+        strong: {
+          '1': 'Giờ cậu là bức tường thực thụ rồi, cưng. Học bài nào tùy thích.'
+        },
+        able: {
+          '1': 'Chân vững đấy! Cậu sẵn sàng cho bài tiếp theo rồi.'
+        },
+        weak: {
+          '1': 'Chưa được. Đẩy một cái là cậu ngã. Thêm Sức mạnh và Sức bền nhé.'
+        }
+      },
+      bridge: {
+        '1': 'Bốn mươi năm trước, chống lũ cướp sông. Sáu người, một cổng, một đêm rất dài.',
+        '2': 'Bọn ta thắng không phải vì đánh mạnh nhất. Mà vì không lùi một bước. Nhớ lấy.',
+        say: 'Ngài từng giữ cây cầu này?'
+      },
+      trainBack: {
+        '1': 'Giỏi lắm! Giờ đi ăn gì đi. Khiên nặng lắm.'
+      },
+      bye: {
+        '1': 'Ra ngoài cũng ngẩng cao đầu nhé!'
+      }
+    },
+    sbMasterPyro: {
+      hello: {
+        '1': 'Mời vào. Cẩn thận mấy tờ ghi chép, và làm ơn đừng hắt xì gần lò than.',
+        '2': 'Đại Pháp sư Ignatius Vale. Ta dạy lửa trên một cây cầu. Quanh đây nhiều nước mà.'
+      },
+      again: {
+        '1': 'Đúng giờ. Tuyệt. Ta tiếp tục từ chỗ đã dừng.'
+      },
+      train: {
+        '1': 'Quan sát. Một ngọn lửa nhỏ, giữ yên. Lửa lớn thì dễ. Lửa nhỏ mới cần tài.'
+      },
+      class: {
+        '1': 'Ai cũng nhóm được lửa. Hỏa Pháp Sư quyết định nó đi đâu, và dừng ở đâu.',
+        '2': 'Tất cả đến từ Trí tuệ. Về sau, Kỹ xảo sẽ giúp khi ngọn lửa cần một bàn tay vững.',
+        say: 'Hỏa Pháp Sư thật ra làm gì?'
+      },
+      ready: {
+        strong: {
+          '1': 'Khả năng kiểm soát xuất sắc. Ta gần như chẳng còn gì để sửa. Cứ tự do chọn.'
+        },
+        able: {
+          '1': 'Đạt. Thật ra là hơn cả đạt. Cậu được học bài tiếp theo.'
+        },
+        weak: {
+          '1': 'Chưa được. Ngọn lửa của cậu chao đảo. Cần đầu óc sắc hơn. Thêm Trí tuệ.'
+        }
+      },
+      sprocket: {
+        '1': 'Một thiên tài. Ồn ào, bất cẩn và thiên tài. Ta luôn để sẵn một xô nước trước cửa ông ấy.',
+        say: 'Thầy nghĩ gì về Giáo sư Sprocket?'
+      },
+      trainBack: {
+        '1': 'Tập gần nước. Ta yêu cầu đấy.'
+      },
+      bye: {
+        '1': 'Chúc một ngày tốt lành. Nhớ xắn tay áo lên.'
+      }
+    },
+    sbMasterShadow: {
+      hello: {
+        '1': 'Tìm tôi à? Tôi đứng cạnh cậu từ chỗ đài phun nước rồi. Cậu đi ngang qua tôi hai lần.',
+        '2': 'Nyx Halloway. Chỗ trốn tốt nhất là đám đông, và đây là cây cầu đông nhất thế gian.'
+      },
+      again: {
+        '1': 'Chào lần nữa. Tôi ở đây được một lúc rồi. Cậu có để ý không? Không à? Tốt.'
+      },
+      train: {
+        '1': 'Bài một: đi như thể cậu thuộc về nơi đó. Không ai nhìn hai lần người thuộc về nơi đó.'
+      },
+      class: {
+        '1': 'Không bao giờ ở chỗ người ta đang nhìn. Lẻn vào, đánh một nhát nhanh, rồi hòa lại vào đám đông.',
+        '2': 'Khéo léo cho chân tay nhanh. Kỹ xảo để nhát đánh có giá trị.',
+        say: 'Thế nào là một Ảnh Kiếm giỏi?'
+      },
+      ready: {
+        strong: {
+          '1': 'Giờ cậu lén lút ra trò rồi đấy. Lấy hết phần còn lại đi, cậu xứng đáng.'
+        },
+        able: {
+          '1': 'Bước chân nhẹ đấy! Cậu sẵn sàng cho mánh tiếp theo rồi.'
+        },
+        weak: {
+          '1': 'Chưa được. Tôi nghe cậu đi tới từ tận đài phun nước. Thêm Khéo léo.'
+        }
+      },
+      past: {
+        '1': 'Hồi trước tôi móc túi ngay trên cây cầu này. Mà giỏi lắm nhé.',
+        '2': 'Rồi thị trưởng bắt được tôi và cho tôi một công việc, không phải phòng giam. Đừng nói với bà ấy là tôi biết ơn.',
+        say: 'Sao học được tất cả những thứ này?'
+      },
+      trainBack: {
+        '1': 'Giờ đi tập đi. Cố đừng để tôi bắt gặp.'
+      },
+      bye: {
+        '1': 'Hẹn gặp lại. À, cậu sẽ không gặp được tôi đâu.'
+      }
+    },
+    sbMasterSovereign: {
+      hello: {
+        '1': 'Ồ! Xin chào, xin chào. Thứ lỗi nhé, tôi đang trò chuyện với lính cận vệ. Những người nghe dễ thương lắm.',
+        '2': 'Percival Ashcombe. Tôi có thể dạy trong lâu đài, nhưng chỉ ở nơi có người mới học được cách dẫn dắt.'
+      },
+      again: {
+        '1': 'Bạn thân mến! Ta tiếp tục chứ? Tất nhiên, chỉ khi cậu muốn.'
+      },
+      train: {
+        '1': 'Nào. Một mệnh lệnh tốt phải rõ ràng, tử tế, và chỉ nói một lần. Như thế này.'
+      },
+      class: {
+        '1': 'Một người dẫn dắt. Cận vệ đến bên cậu và chiến đấu cùng cậu, không chỉ vì cậu.',
+        '2': 'Mị lực là tất cả. Người ta theo người mình quý. Và người nhớ tên họ.',
+        say: 'Đại Quân Vương là gì?'
+      },
+      ready: {
+        strong: {
+          '1': 'Tuyệt vời! Giờ người ta sẽ theo cậu tới bất cứ đâu. Học hết các bài đi.'
+        },
+        able: {
+          '1': 'Cận vệ sẽ nghe lời cậu. Cậu sẵn sàng cho bài tiếp theo rồi.'
+        },
+        weak: {
+          '1': 'E là chưa được. Thêm chút Mị lực nữa, họ sẽ tới.'
+        }
+      },
+      please: {
+        '1': 'Luôn luôn. Quát tháo thì được vâng lời. Làm ơn thì được trung thành, và trung thành bền lâu hơn.',
+        say: 'Ngài thật sự nói "làm ơn" với cận vệ sao?'
+      },
+      trainBack: {
+        '1': 'Làm tốt lắm. Nhớ cảm ơn họ sau đó nhé.'
+      },
+      bye: {
+        '1': 'Bảo trọng nhé, và gửi lời hỏi thăm tới mọi người.'
+      }
+    },
+    sbMasterGeo: {
+      hello: {
+        '1': 'Coi chừng đám rêu, cháu, nó mệt cả tuần rồi. Nào, để bà xem cháu nào.',
+        '2': 'Bà là Tova Deeproot. Lòng sông ở đây toàn đá đẹp, sâu tận đáy.'
+      },
+      again: {
+        '1': 'Lại tới rồi à? Ngồi đi, bà vừa pha trà. Trà đá. Đá thật đấy. Nhưng chủ yếu là trà.'
+      },
+      train: {
+        '1': 'Áp phẳng tay xuống đất. Không phải thế. Như đang vỗ về một chú chó buồn ngủ ấy.'
+      },
+      class: {
+        '1': 'Ta nhờ mặt đất giúp. Một bức tường khi cần, một mũi gai khi có kẻ vô lễ.',
+        '2': 'Đá giống như khu vườn. Sức mạnh để đào, Trí tuệ để biết trồng ở đâu.',
+        say: 'Địa Pháp Sư làm gì?'
+      },
+      ready: {
+        strong: {
+          '1': 'Mặt đất quý cháu rồi đấy. Muốn học gì thì học, cháu.'
+        },
+        able: {
+          '1': 'Rễ chắc đấy! Cháu sẵn sàng cho bài tiếp theo rồi.'
+        },
+        weak: {
+          '1': 'Chưa được đâu, cháu yêu. Đá chẳng chịu nhúc nhích vì cháu. Thêm Sức mạnh trước đã.'
+        }
+      },
+      garden: {
+        '1': 'Bốn mươi năm công sức. Từng hòn đá trồng bằng tay. À, bằng phép thuật. Chủ yếu bằng tay.',
+        '2': 'Lúc về nhớ lấy một viên sỏi. Chặn cửa đẹp lắm đấy.',
+        say: 'Đó là khu vườn làm bằng đá à?'
+      },
+      trainBack: {
+        '1': 'Giỏi lắm. Giờ đi đào thứ gì đi. Nhẹ nhàng thôi.'
+      },
+      bye: {
+        '1': 'Đi đi. Mặc cho ấm vào, bờ sông ẩm lắm.'
+      }
+    },
+    sbMasterAether: {
+      hello: {
+        '1': 'Chào mừng, chào mừng! Cậu tới đúng lúc buổi trình diễn. Bịt tai lại giùm nhé.',
+        '2': 'Giáo sư Quint Sprocket. Dòng sông quay bánh xe cho tôi miễn phí. Còn chỗ nào hơn để dạy chứ?'
+      },
+      again: {
+        '1': 'À, học trò cưng của tôi! Buổi trình diễn hôm nay ồn hơn mọi khi.'
+      },
+      train: {
+        '1': 'Nhìn bảng đen. Giờ quên bảng đen đi, và nhìn cỗ máy.'
+      },
+      class: {
+        '1': 'Ta chế tạo đường thoát khỏi rắc rối. Súng lục, tháp pháo, và thanh nhiệt để cậu khỏi ẩu.',
+        '2': 'Kỹ xảo để ngắm, Trí tuệ cho mấy phần khéo léo. Tốt nhất là cả hai.',
+        say: 'Kỹ Sư Aether thật ra làm gì?'
+      },
+      ready: {
+        strong: {
+          '1': 'Tuyệt diệu! Cậu giảng thay tôi được rồi. Nhưng làm ơn đừng. Lấy phần còn lại đi.'
+        },
+        able: {
+          '1': 'Tay vững đấy! Cậu sẵn sàng cho cỗ máy tiếp theo rồi.'
+        },
+        weak: {
+          '1': 'Chưa được. Đường ngắm còn trôi. Thêm Kỹ xảo, rồi ta nói tiếp.'
+        }
+      },
+      eyebrows: {
+        '1': 'Một buổi trình diễn thành công hơi quá. Rồi chúng sẽ mọc lại. Lần nào cũng vậy.',
+        say: 'Lông mày của thầy bị sao vậy?'
+      },
+      trainBack: {
+        '1': 'Tuyệt lắm. Giờ đi xả nhiệt đi. Tốt nhất là ở ngoài trời.'
+      },
+      bye: {
+        '1': 'Tan học! Coi chừng bậc thang nhé.'
+      }
+    },
+    sbMasterChrono: {
+      hello: {
+        '1': 'Học trò cũ của tôi, Người Giữ Giờ, viết thư báo cậu sẽ tới. Đúng phút này luôn.',
+        '2': 'Quản Đồng Hồ Selwyn. Tôi trông coi đồng hồ trên cầu. Thị trấn bận rộn thế này không được phép trễ.'
+      },
+      again: {
+        '1': 'Hơn bảy phút. Thời điểm tốt để bắt đầu.'
+      },
+      train: {
+        '1': 'Đếm cùng tôi. Một, hai, và giữ. Thời gian sẽ giãn ra, nếu cậu giữ đúng cách.'
+      },
+      class: {
+        '1': 'Chúng tôi dọn dẹp thời gian. Làm chậm kẻ thù, giục đồng đội nhanh lên, xóa vài lỗi nhỏ.',
+        '2': 'Trí tuệ để hiểu nó. Kỹ xảo để chạm vào mà không làm vỡ gì.',
+        say: 'Người Dệt Thời Gian là gì?'
+      },
+      ready: {
+        strong: {
+          '1': 'Canh giờ xuất sắc. Các bài còn lại cứ học lúc nào cậu tiện.'
+        },
+        able: {
+          '1': 'Cậu sẵn sàng rồi. Bài tiếp theo bắt đầu… à, ngay bây giờ.'
+        },
+        weak: {
+          '1': 'Chưa được. Cậu luôn chậm một nhịp. Thêm Trí tuệ, và thêm Kỹ xảo.'
+        }
+      },
+      keeper: {
+        '1': 'Tôi dạy cậu ấy từ nhiều năm trước. Học trò xuất sắc. Luôn sớm hoặc trễ, chẳng bao giờ đúng giờ.',
+        say: 'Sao thầy quen Người Giữ Giờ?'
+      },
+      trainBack: {
+        '1': 'Luyện tập mỗi ngày. Cùng một giờ mỗi ngày, nếu được.'
+      },
+      bye: {
+        '1': 'Đi đi. Đừng tới trễ.'
+      }
+    },
+    sbMasterBlood: {
+      hello: {
+        '1': 'Bác sĩ Sangrel có viết thư kể về cậu. Ông ấy nói cậu không ngất. Từ ông ấy, đó là lời khen lớn.',
+        '2': 'Vesper Crimsonleaf. Mọi loại thảo dược trên đời đều trôi qua cây cầu này. Ở đây tôi được chiều quá.'
+      },
+      again: {
+        '1': 'Chào mừng trở lại. Hôm nay trông cậu tràn đầy sức sống. Tôi luôn nhận ra.'
+      },
+      train: {
+        '1': 'Hít vào. Cảm thấy sức mạnh chứ? Giờ tiêu một chút. Một cách khôn ngoan.'
+      },
+      class: {
+        '1': 'Chúng tôi tiêu sinh lực của chính mình để lấy sức mạnh, rồi đòi lại từ kẻ thù.',
+        '2': 'Sức bền là túi tiền. Trí tuệ quyết định cậu tiêu nó khéo đến đâu.',
+        say: 'Huyết Giả Kim thật ra là gì?'
+      },
+      ready: {
+        strong: {
+          '1': 'Sinh lực dồi dào quá! Cậu sẵn sàng cho gần hết những gì tôi biết.'
+        },
+        able: {
+          '1': 'Tinh chất của cậu chảy mạnh lắm. Sang bài tiếp theo nào.'
+        },
+        weak: {
+          '1': 'Chưa được. Cậu sẽ mệt sau một phép. Hãy rèn Sức bền trước.'
+        }
+      },
+      herbs: {
+        '1': 'Chủ yếu là thuốc bổ. Chút tinh chất, nhiều bạc hà. Bạc hà làm gì cũng ngon hơn.',
+        '2': 'Nếu ngoài kia cậu thấy cây quý hiếm, mang ghé qua nhé. Tôi rất muốn xem.',
+        say: 'Mấy thảo dược này để làm gì?'
+      },
+      trainBack: {
+        '1': 'Tập xong thì nghỉ. Tinh chất sẽ hồi lại, nhưng nó thích ngủ trưa.'
+      },
+      bye: {
+        '1': 'Giữ gìn sức khỏe. Uống nước. Ăn chút rau xanh.'
+      }
+    },
+    smalltalkSilverbridge: {
+      barges: {
+        '1': 'Sáng nay có ba sà lan từ bờ biển cập bến.',
+        '2': 'Lại cá muối à?',
+        '3': 'Lần này là lụa. Nhưng lát nữa ngửi thử ngón tay xem.'
+      },
+      lesson: {
+        '1': 'Buổi học thế nào?',
+        '2': 'Tớ làm cháy tay áo. Thầy bảo vậy là tiến bộ.'
+      },
+      masters: {
+        '1': 'Bậc thầy cả xứ đều dạy trên một con phố.',
+        '2': 'Và ai cũng bảo môn phái của mình là nhất.',
+        '3': 'Mà ai cũng đúng, thế mới bực.'
+      },
+      bridge: {
+        '1': 'Người ta bảo cây cầu còn già hơn cả thị trấn.',
+        '2': 'Nghe nó kêu cót két thì đúng là vậy.'
+      },
+      fish: {
+        '1': 'Câu được gì chưa?',
+        '2': 'Một chiếc ủng.',
+        '3': 'Thế là được nửa đôi rồi.'
+      },
+      newMaster: {
+        '1': 'Có bậc thầy mới ở phố phía bắc. Nói về thời gian suốt.',
+        '2': 'Cá là buổi nào cũng tới trễ.'
+      },
+      siege: {
+        '1': 'Tin từ Oakhaven không hay. Cướp kéo tới tận tường thành.',
+        '2': 'Vậy sà lan sẽ tới đây thay. Tội nghiệp họ.'
       }
     }
   },

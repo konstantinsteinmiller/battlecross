@@ -63,6 +63,15 @@ export const SMALLTALK: readonly ConversationDef[] = [
     ['circle', 'ab', { flags: ['coreCircle'] }],
     ['cold', 'ab']
   ]),
+  town('smalltalkSilverbridge', 'merchantF', [
+    ['barges', 'aba'],
+    ['lesson', 'ab'],
+    ['masters', 'aba'],
+    ['bridge', 'ab'],
+    ['fish', 'aba'],
+    ['newMaster', 'ab', { flags: ['foundChrono'] }],
+    ['siege', 'ab', { quest: { siege: false } }]
+  ]),
   town('smalltalkKids', 'child', [
     ['tag', 'ab'],
     ['dragon', 'aba'],

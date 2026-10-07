@@ -4,7 +4,7 @@ import { SMALLTALK, smalltalkOf } from '@/game/data/dialogs/smalltalk'
 import { meets } from '@/game/dialog/conditions'
 import type { DialogWorld } from '@/game/dialog/types'
 import { QUESTS } from '@/game/data/quests'
-import { TOWNS, type TownId } from '@/game/data/zones'
+import { TOWNS, foundFlag, type TownId } from '@/game/data/zones'
 import { generateTown } from '@/game/sim/zoneGen'
 import { Sim } from '@/game/sim/world'
 import { applyPlan, populateTown } from '@/game/sim/director'
@@ -33,7 +33,8 @@ const textOf = (key: string): string => {
 
 describe('small talk data', () => {
   const quests = new Set(QUESTS.map(q => q.id))
-  const flags = new Set(['oakhavenFallen', ...QUESTS.flatMap(q => q.choices.flatMap(c => c.flags))])
+  // The quests' flags, and the ones a hidden class's teacher leaves when met (`foundFlag`).
+  const flags = new Set(['oakhavenFallen', foundFlag('chrono'), foundFlag('blood'), ...QUESTS.flatMap(q => q.choices.flatMap(c => c.flags))])
   it('every exchange is two or three short lines, said in turn, starting with the one who began the chat', () => {
     for (const c of SMALLTALK) {
       expect(c.greet.length, c.id).toBeGreaterThanOrEqual(4)

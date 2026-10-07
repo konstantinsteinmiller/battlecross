@@ -247,6 +247,10 @@ export default {
     rift: {
       name: 'Retakan Hampa',
       desc: 'Luka tempat para iblis masuk. Penguasa Hampa menunggu di sisi seberang.'
+    },
+    silverbridge: {
+      name: 'Silverbridge',
+      desc: 'Kota sungai besar di atas jembatan batu tua. Ada guru besar setiap kelas yang mengajar di sini.'
     }
   },
   map: {
@@ -1071,6 +1075,48 @@ export default {
     },
     trainerChrono: {
       name: 'Sang Penjaga Jam'
+    },
+    mayorBrenna: {
+      name: 'Wali Kota Brenna Quill'
+    },
+    sbHealer: {
+      name: 'Frater Ansel'
+    },
+    sbArmorer: {
+      name: 'Greta Ironvein',
+      talk: 'Baja gunung, harga sungai. Ketuk saja mana pun yang kamu suka.'
+    },
+    sbWeapons: {
+      name: 'Corvin Ashby',
+      talk: 'Pedang Pilihan Ashby. Setiap mata pedang dipoles dengan tangan. Tanganku.'
+    },
+    sbJeweler: {
+      name: 'Tam Marlow',
+      talk: 'Cincin, jimat, batu keberuntungan. Semua asli. Yah, hampir semua.'
+    },
+    sbMasterAegis: {
+      name: 'Dame Helga Stormshield'
+    },
+    sbMasterPyro: {
+      name: 'Magister Ignatius Vale'
+    },
+    sbMasterShadow: {
+      name: 'Nyx Halloway'
+    },
+    sbMasterSovereign: {
+      name: 'Lord Percival Ashcombe'
+    },
+    sbMasterGeo: {
+      name: 'Nenek Tova Deeproot'
+    },
+    sbMasterAether: {
+      name: 'Profesor Quint Sprocket'
+    },
+    sbMasterChrono: {
+      name: 'Juru Jam Selwyn'
+    },
+    sbMasterBlood: {
+      name: 'Vesper Crimsonleaf'
     }
   },
   quest: {
@@ -2654,6 +2700,503 @@ export default {
         iceBreak: {
           '1': 'Danau akan menelanmu!'
         }
+      }
+    },
+    mayorBrenna: {
+      hello: {
+        '1': 'Awas gerobaknya! Maaf, di jembatan ini semuanya bergerak. Selamat datang di Silverbridge.',
+        '2': 'Aku Wali Kota Brenna Quill. Kalau ada yang hilang, rusak, atau terlambat, ujungnya sampai di mejaku.'
+      },
+      ending: {
+        '1': 'Seluruh sungai membicarakanmu. Perdagangan tak pernah sebagus ini. Jadi, terima kasih.'
+      },
+      again: {
+        '1': 'Datang lagi? Bagus. Usahakan jangan menghalangi gerobak.'
+      },
+      who: {
+        '1': 'Sudah sembilan tahun jadi wali kota. Sebelumnya aku jualan tali. Sebenarnya sama saja: mengikat semuanya.',
+        '2': 'Kota ini memilih tiap musim semi. Sejauh ini, belum ada yang mau meja ini.'
+      },
+      town: {
+        '1': 'Jembatannya duluan. Lalu pasar di atasnya, lalu rumah, lalu rumah di atas rumah itu.',
+        '2': 'Hati-hati dengan air mancurnya. Anak-anak sering tercebur. Orang dewasa juga, kalau hari pasar.',
+        say: 'Ceritakan tentang Silverbridge.'
+      },
+      masters: {
+        '1': 'Tak satu pun terlewat. Perisai, api, bayangan, batu. Guru besar masing-masing, semua di satu jembatan.',
+        '2': 'Murid datang dari mana-mana. Bagus untuk penginapan. Kurang bagus untuk jendelaku.',
+        say: 'Benarkah ada guru untuk setiap kelas di sini?'
+      },
+      river: {
+        '1': 'Apa pun yang dibawa sungai. Ikan, sutra, baja Ironhold, kadang sepeti ayam yang sedang marah.',
+        '2': 'Dan tidak semua pedagang di Silverbridge memasang papan nama. Buka matamu lebar-lebar.',
+        say: 'Apa yang diperdagangkan di sini?'
+      },
+      rumor: {
+        crags: {
+          '1': 'Kapal dari utara sudah berhenti datang. Ada yang terbakar di Tebing Abu.'
+        },
+        mines: {
+          '1': 'Bulan ini tak ada baja Ironhold. Kata para kurcaci, ada yang tidak beres di tambang mereka.'
+        },
+        tundra: {
+          '1': 'Pedagang bulu tak mau lagi menyeberangi tundra. Katanya para raksasa mulai bergerak.'
+        },
+        far: {
+          '1': 'Sekarang pedagang hanya berbisik soal utara jauh. Apa pun yang ada di sana, ia tidak datang untuk belanja.'
+        }
+      },
+      bye: {
+        '1': 'Pergilah. Kalau ada yang tanya, tarif jembatannya sangat adil.'
+      }
+    },
+    sbHealer: {
+      hello: {
+        '1': 'Hm? Oh, pasien. Maaf, aku sedang mengistirahatkan mata. Penyembuh memang begitu.',
+        '2': 'Frater Ansel. Masuk, duduklah. Kursinya lebih nyaman daripada kelihatannya.'
+      },
+      again: {
+        '1': 'Ah, kamu kembali. Padahal aku baru saja duduk.'
+      },
+      heal: {
+        '1': 'Berbaring, pejamkan mata. Jangan lama-lama, nanti aku ikut tertidur. Nah, botolmu sudah penuh.'
+      },
+      mana: {
+        '1': 'Tonik Jamur Pendar. Bagus untuk pikiran, buruk untuk napas. Minum pelan-pelan.'
+      },
+      potions: {
+        '1': 'Minum satu sebelum kamu terdesak. Pahlawan selalu menunggu terlalu lama.',
+        '2': 'Kalau mau bawa lebih banyak, aku jual sabuk yang lebih panjang. Mengisi botol gratis.',
+        say: 'Ada saran soal ramuan?'
+      },
+      sleep: {
+        '1': 'Tidak di malam hari. Murid dari semua kelas berlatih. Selalu ada yang meledak.',
+        say: 'Kamu pernah benar-benar tidur?'
+      },
+      healBack: {
+        '1': 'Pergilah. Lain kali datang untuk minum teh, bukan untuk perban.'
+      },
+      bye: {
+        '1': 'Hati-hati di tangga. Separuh pasienku cuma tersandung di situ.'
+      }
+    },
+    sbArmorer: {
+      hello: {
+        '1': 'Ha! Lihat penyok itu. Semoga uang zirahmu itu dikembalikan.',
+        '2': 'Greta Ironvein. Aku membuat zirah yang pulang bersama pemiliknya. Selalu, sejauh ini.'
+      },
+      again: {
+        '1': 'Kamu lagi! Masih utuh. Pelanggan favoritku.'
+      },
+      trade: {
+        '1': 'Ayo, ketuk saja. Sekeras yang kamu mau.'
+      },
+      who: {
+        '1': 'Keluarga gunung. Aku menyusuri sungai untuk berdagang, lalu menetap karena ikannya.'
+      },
+      steel: {
+        '1': 'Bukan soal tebalnya. Tapi di mana ia menekuk. Zirah bagus menekuk di tempat kamu menekuk.',
+        '2': 'Tapi zirah pelat berat butuh Kekuatan. Pakai tanpa itu, jalanmu bakal megal-megol seperti bebek.',
+        say: 'Zirah yang bagus itu seperti apa?'
+      },
+      shopBack: {
+        '1': 'Pakai baik-baik. Bawa penyoknya padaku, aku suka cerita seru.'
+      },
+      bye: {
+        '1': 'Pergilah. Jangan sampai kena di bagian yang tidak kututupi.'
+      }
+    },
+    sbWeapons: {
+      hello: {
+        '1': 'Ah, pelanggan berselera tinggi. Aku selalu tahu. Kelihatan dari caramu masuk.',
+        '2': 'Corvin Ashby, dari Pedang Pilihan Ashby. Ya, Ashby yang itu. Kamu pasti pernah dengar.'
+      },
+      again: {
+        '1': 'Sudah kembali? Semua orang selalu kembali ke Corvin.'
+      },
+      trade: {
+        '1': 'Setiap bilah dipoles dengan tangan. Tanganku sendiri, malah. Awas silau pantulannya.'
+      },
+      who: {
+        '1': 'Penjual pedang terbaik di sepanjang sungai. Tanya siapa saja. Atau baca saja papan namaku.'
+      },
+      blades: {
+        '1': 'Pilih yang cocok untukmu. Tangan cepat butuh bilah ringan, lengan kuat bilah berat.',
+        '2': 'Dan harus kelihatan keren. Tak ada yang lari dari pahlawan berpedang jelek.',
+        say: 'Bagaimana memilih senjata yang bagus?'
+      },
+      shopBack: {
+        '1': 'Pilihan bagus. Belum sebagus rambutku, tapi hampir.'
+      },
+      bye: {
+        '1': 'Jangan lupa bilang ke orang-orang di mana kamu membelinya.'
+      }
+    },
+    sbJeweler: {
+      hello: {
+        '1': 'Ssst! Sini! Cincin, jimat, batu keberuntungan. Lapak terbaik di jembatan.',
+        '2': 'Namaku Tam Marlow. Badanku kecil, tapi hargaku lebih kecil lagi.'
+      },
+      again: {
+        '1': 'Pelanggan favoritku! Jangan bilang yang lain aku ngomong begitu.'
+      },
+      trade: {
+        '1': 'Semua asli. Kebanyakan. Oke, yang itu kaca, tapi kacanya bagus sekali.'
+      },
+      who: {
+        '1': 'Aku besar di jembatan ini. Aku tahu setiap retakan, setiap kucing, dan setiap jalan pintas.'
+      },
+      gossip: {
+        '1': 'Profesor Sprocket meledakkan alisnya lagi. Sudah tiga kali bulan ini.',
+        '2': 'Dan wali kota tahu soal pedagang yang tak pasang papan nama. Aku sedang menyelidikinya.',
+        say: 'Ada gosip seru?'
+      },
+      shopBack: {
+        '1': 'Senang berbisnis denganmu! Bilang ke teman-temanmu. Jangan ke penjaga.'
+      },
+      bye: {
+        '1': 'Sampai jumpa! Aku ada di sini terus. Mungkin.'
+      }
+    },
+    sbMasterAegis: {
+      hello: {
+        '1': 'Ha! Satu anak muda lagi. Angkat dagu, tegakkan bahu. Perisai lebih ampuh sambil tersenyum.',
+        '2': 'Dame Helga Stormshield. Dulu aku mempertahankan jembatan ini. Kini aku mengajari orang bertahan di tempat.'
+      },
+      again: {
+        '1': 'Itu dia! Perisai siap? Bagus. Tersenyum? Lebih bagus lagi.'
+      },
+      train: {
+        '1': 'Kaki lebar. Condong ke depan. Saat kudorong, kamu jangan bergeser. Siap? Hup!'
+      },
+      class: {
+        '1': 'Kamu berdiri di depan, supaya yang lain tidak perlu. Pekerjaan terbaik yang ada.',
+        '2': 'Kekuatan untuk mengangkat perisai. Ketahanan untuk menahannya sampai makan malam.',
+        say: 'Apa sebenarnya tugas Kesatria Aegis?'
+      },
+      ready: {
+        strong: {
+          '1': 'Kamu sudah jadi tembok sungguhan, Nak. Ambil pelajaran mana saja.'
+        },
+        able: {
+          '1': 'Kakimu kokoh! Kamu siap untuk pelajaran berikutnya.'
+        },
+        weak: {
+          '1': 'Belum. Sekali dorong saja kamu roboh. Tambah Kekuatan dan Ketahanan, ya.'
+        }
+      },
+      bridge: {
+        '1': 'Empat puluh tahun lalu, melawan bajak sungai. Enam orang, satu gerbang, satu malam yang sangat panjang.',
+        '2': 'Kami menang bukan karena memukul paling keras. Kami menang karena tidak bergeser. Ingat itu.',
+        say: 'Kamu pernah mempertahankan jembatan ini?'
+      },
+      trainBack: {
+        '1': 'Kerja bagus! Sekarang makanlah sesuatu. Perisai itu berat.'
+      },
+      bye: {
+        '1': 'Angkat dagumu di luar sana!'
+      }
+    },
+    sbMasterPyro: {
+      hello: {
+        '1': 'Silakan masuk. Hati-hati dengan catatannya, dan tolong jangan bersin dekat anglo.',
+        '2': 'Magister Ignatius Vale. Aku mengajar api di atas jembatan. Banyak air di sekitar, kamu tahu.'
+      },
+      again: {
+        '1': 'Tepat waktu. Bagus sekali. Kita lanjutkan dari yang terakhir.'
+      },
+      train: {
+        '1': 'Perhatikan. Nyala kecil, ditahan diam. Api besar itu mudah. Api kecil butuh keahlian.'
+      },
+      class: {
+        '1': 'Siapa pun bisa menyalakan api. Penyihir Api menentukan ke mana api pergi, dan di mana ia berhenti.',
+        '2': 'Semuanya berasal dari Kecerdasan. Nanti, Keahlian membantu saat api butuh tangan yang mantap.',
+        say: 'Apa sebenarnya tugas Penyihir Api?'
+      },
+      ready: {
+        strong: {
+          '1': 'Kendalimu luar biasa. Hampir tak ada lagi yang perlu kuperbaiki. Pilih sesukamu.'
+        },
+        able: {
+          '1': 'Cukup. Lebih dari cukup, malah. Kamu boleh ambil pelajaran berikutnya.'
+        },
+        weak: {
+          '1': 'Belum. Apimu goyah. Pikiranmu harus lebih tajam. Tambah Kecerdasan.'
+        }
+      },
+      sprocket: {
+        '1': 'Orang jenius. Berisik, ceroboh, dan jenius. Aku selalu menaruh ember di dekat pintunya.',
+        say: 'Apa pendapatmu soal Profesor Sprocket?'
+      },
+      trainBack: {
+        '1': 'Berlatihlah dekat air. Aku memaksa.'
+      },
+      bye: {
+        '1': 'Selamat siang. Tetap gulung lengan bajumu.'
+      }
+    },
+    sbMasterShadow: {
+      hello: {
+        '1': 'Mencariku? Aku di sebelahmu sejak air mancur. Kamu sudah lewat di depanku dua kali.',
+        '2': 'Nyx Halloway. Tempat sembunyi terbaik adalah keramaian, dan ini jembatan paling ramai yang ada.'
+      },
+      again: {
+        '1': 'Hai lagi. Aku sudah di sini dari tadi. Kamu sadar? Tidak? Bagus.'
+      },
+      train: {
+        '1': 'Pelajaran pertama: berjalanlah seolah kamu memang orang sini. Tak ada yang menoleh dua kali.'
+      },
+      class: {
+        '1': 'Tidak pernah ada di tempat yang mereka lihat. Menyelinap, satu serangan cepat, lalu berbaur lagi.',
+        '2': 'Ketangkasan untuk kaki dan tangan yang cepat. Keahlian supaya serangannya berarti.',
+        say: 'Apa yang membuat Bilah Bayangan hebat?'
+      },
+      ready: {
+        strong: {
+          '1': 'Kamu sudah licin sekarang. Ambil sisanya, kamu pantas mendapatkannya.'
+        },
+        able: {
+          '1': 'Langkahmu ringan! Kamu siap untuk trik berikutnya.'
+        },
+        weak: {
+          '1': 'Belum. Aku bisa dengar langkahmu dari air mancur. Tambah Ketangkasan.'
+        }
+      },
+      past: {
+        '1': 'Dulu aku pencopet di jembatan ini juga. Dan aku jago.',
+        '2': 'Lalu wali kota menangkapku dan memberiku pekerjaan, bukan sel. Jangan bilang padanya aku berterima kasih.',
+        say: 'Bagaimana kamu belajar semua ini?'
+      },
+      trainBack: {
+        '1': 'Sekarang pergi berlatih. Usahakan jangan sampai kutangkap.'
+      },
+      bye: {
+        '1': 'Sampai jumpa. Yah, kamu tidak akan melihatku.'
+      }
+    },
+    sbMasterSovereign: {
+      hello: {
+        '1': 'Oh! Halo, halo. Maafkan aku, tadi aku mengobrol dengan para pengawalku. Pendengar yang manis.',
+        '2': 'Percival Ashcombe. Aku bisa mengajar di kastel, tapi memimpin hanya bisa dipelajari di tengah orang.'
+      },
+      again: {
+        '1': 'Sahabatku! Kita lanjutkan? Tentu saja, kalau kamu mau.'
+      },
+      train: {
+        '1': 'Baiklah. Perintah yang baik itu jelas, ramah, dan cukup diberikan sekali. Begini.'
+      },
+      class: {
+        '1': 'Seorang pemimpin. Pengawalmu datang ke sisimu dan bertarung bersamamu, bukan hanya untukmu.',
+        '2': 'Karisma adalah segalanya. Orang mengikuti mereka yang disukai. Dan yang ingat nama mereka.',
+        say: 'Apa itu Penguasa Agung?'
+      },
+      ready: {
+        strong: {
+          '1': 'Hebat! Sekarang orang mau mengikutimu ke mana saja. Ambil semua pelajarannya.'
+        },
+        able: {
+          '1': 'Pengawalmu akan mendengarkanmu. Kamu siap untuk pelajaran berikutnya.'
+        },
+        weak: {
+          '1': 'Sayangnya belum. Sedikit lagi Karisma, dan mereka akan datang.'
+        }
+      },
+      please: {
+        '1': 'Selalu. Membentak membuatmu dipatuhi. Kata tolong membuatmu disetiai, dan kesetiaan bertahan lebih lama.',
+        say: 'Kamu benar-benar bilang "tolong" ke pengawal?'
+      },
+      trainBack: {
+        '1': 'Kerja yang bagus. Jangan lupa berterima kasih pada mereka sesudahnya.'
+      },
+      bye: {
+        '1': 'Jaga dirimu, dan sampaikan salamku untuk semuanya.'
+      }
+    },
+    sbMasterGeo: {
+      hello: {
+        '1': 'Awas lumutnya, Nak, minggunya berat. Nah, coba Nenek lihat dirimu.',
+        '2': 'Nenek Tova Deeproot. Dasar sungai di sini batu yang indah, sampai ke paling bawah.'
+      },
+      again: {
+        '1': 'Sudah kembali? Duduk, Nenek baru bikin teh. Teh batu. Kebanyakan sih teh.'
+      },
+      train: {
+        '1': 'Telapak tangan rata di tanah. Bukan begitu. Seperti menepuk anjing yang mengantuk.'
+      },
+      class: {
+        '1': 'Kita minta bantuan tanah. Tembok saat kamu butuh, duri saat ada yang kurang ajar.',
+        '2': 'Batu itu seperti kebun. Kekuatan untuk menggali, Kecerdasan untuk tahu di mana menanam.',
+        say: 'Apa tugas Penyihir Bumi?'
+      },
+      ready: {
+        strong: {
+          '1': 'Tanah sudah menyukaimu. Pelajari apa saja yang kamu mau, Nak.'
+        },
+        able: {
+          '1': 'Akarmu kuat! Kamu siap untuk pelajaran berikutnya.'
+        },
+        weak: {
+          '1': 'Belum, Sayang. Batunya tak mau bergeser untukmu. Tambah Kekuatan dulu.'
+        }
+      },
+      garden: {
+        '1': 'Empat puluh tahun kerja. Setiap batu ditumbuhkan dengan tangan. Yah, dengan sihir. Kebanyakan dengan tangan.',
+        '2': 'Ambil sebutir kerikil saat pulang. Bagus untuk mengganjal pintu.',
+        say: 'Itu kebun dari batu?'
+      },
+      trainBack: {
+        '1': 'Bagus sekali. Sekarang pergi gali sesuatu. Pelan-pelan.'
+      },
+      bye: {
+        '1': 'Pergilah. Pakai baju hangat, di tepi sungai lembap.'
+      }
+    },
+    sbMasterAether: {
+      hello: {
+        '1': 'Selamat datang, selamat datang! Pas sekali untuk demonstrasi. Tolong tutup telingamu.',
+        '2': 'Profesor Quint Sprocket. Sungai memutar rodaku gratis. Di mana lagi aku mau mengajar?'
+      },
+      again: {
+        '1': 'Ah, murid favoritku! Demonstrasi hari ini ekstra keras.'
+      },
+      train: {
+        '1': 'Perhatikan papan tulis. Sekarang lupakan papan tulisnya, dan lihat mesinnya.'
+      },
+      class: {
+        '1': 'Kita membangun jalan keluar dari masalah. Pistol, menara tembak, dan pengukur panas biar kamu tetap jujur.',
+        '2': 'Keahlian untuk membidik, Kecerdasan untuk bagian yang cerdik. Idealnya keduanya.',
+        say: 'Apa sebenarnya tugas Teknisi Aether?'
+      },
+      ready: {
+        strong: {
+          '1': 'Luar biasa! Kamu bisa menggantikan kuliahku. Tapi tolong jangan. Ambil sisanya.'
+        },
+        able: {
+          '1': 'Tangan yang mantap! Kamu siap untuk mesin berikutnya.'
+        },
+        weak: {
+          '1': 'Belum. Bidikanmu melenceng. Tambah Keahlian, baru kita bicara.'
+        }
+      },
+      eyebrows: {
+        '1': 'Satu demonstrasi berhasil sedikit terlalu baik. Nanti tumbuh lagi. Selalu begitu.',
+        say: 'Alismu kenapa?'
+      },
+      trainBack: {
+        '1': 'Hebat. Sekarang pergi buang panasnya. Sebaiknya di luar.'
+      },
+      bye: {
+        '1': 'Kelas bubar! Hati-hati di tangga.'
+      }
+    },
+    sbMasterChrono: {
+      hello: {
+        '1': 'Muridku dulu, Sang Penjaga Jam, menulis bahwa kamu akan datang. Tepat pada menit ini, malah.',
+        '2': 'Juru Jam Selwyn. Aku merawat jam jembatan. Kota sesibuk ini tak boleh terlambat.'
+      },
+      again: {
+        '1': 'Lewat tujuh menit. Waktu yang pas untuk mulai.'
+      },
+      train: {
+        '1': 'Hitung bersamaku. Satu, dua, dan tahan. Waktu bisa merenggang, kalau kamu menahannya dengan benar.'
+      },
+      class: {
+        '1': 'Kami merapikan waktu. Memperlambat musuh, mempercepat teman, membatalkan kesalahan kecil.',
+        '2': 'Kecerdasan untuk memahaminya. Keahlian untuk menyentuhnya tanpa merusak apa pun.',
+        say: 'Apa itu Penenun Waktu?'
+      },
+      ready: {
+        strong: {
+          '1': 'Ketepatan waktu yang bagus. Ambil sisa pelajaranku kapan pun kamu sempat.'
+        },
+        able: {
+          '1': 'Kamu siap. Pelajaran berikutnya dimulai, oh, sekarang.'
+        },
+        weak: {
+          '1': 'Belum. Kamu selalu terlambat satu ketukan. Tambah Kecerdasan, dan tambah Keahlian.'
+        }
+      },
+      keeper: {
+        '1': 'Aku mengajarnya, bertahun-tahun lalu. Murid cemerlang. Selalu kecepatan atau terlambat, tak pernah tepat waktu.',
+        say: 'Bagaimana kamu kenal Sang Penjaga Jam?'
+      },
+      trainBack: {
+        '1': 'Berlatihlah setiap hari. Di jam yang sama tiap hari, kalau bisa.'
+      },
+      bye: {
+        '1': 'Pergilah. Jangan terlambat.'
+      }
+    },
+    sbMasterBlood: {
+      hello: {
+        '1': 'Dokter Sangrel menulis surat tentangmu. Katanya kamu tidak pingsan. Dari dia, itu pujian tinggi.',
+        '2': 'Vesper Crimsonleaf. Semua tanaman obat di dunia hanyut melewati jembatan ini. Aku dimanja di sini.'
+      },
+      again: {
+        '1': 'Selamat datang kembali. Kamu kelihatan segar hari ini. Aku selalu bisa tahu.'
+      },
+      train: {
+        '1': 'Tarik napas. Rasakan kekuatanmu? Sekarang pakai sedikit. Dengan bijak.'
+      },
+      class: {
+        '1': 'Kami membayar dengan daya hidup sendiri demi kekuatan, lalu merebutnya kembali dari musuh.',
+        '2': 'Ketahanan adalah dompetmu. Kecerdasan menentukan seberapa baik kamu membelanjakannya.',
+        say: 'Apa sebenarnya Alkemis Darah itu?'
+      },
+      ready: {
+        strong: {
+          '1': 'Vitalitas yang luar biasa! Kamu siap untuk hampir semua yang kutahu.'
+        },
+        able: {
+          '1': 'Esensimu mengalir kuat. Lanjut ke pelajaran berikutnya.'
+        },
+        weak: {
+          '1': 'Belum. Kamu akan lelah setelah satu mantra. Bangun dulu Ketahananmu.'
+        }
+      },
+      herbs: {
+        '1': 'Kebanyakan tonik. Sedikit esensi, banyak mint. Mint membuat segalanya lebih baik.',
+        '2': 'Kalau kamu menemukan tanaman langka di luar sana, bawa ke sini, ya. Aku ingin sekali melihatnya.',
+        say: 'Semua tanaman obat ini untuk apa?'
+      },
+      trainBack: {
+        '1': 'Istirahat setelah latihan. Esensi akan kembali, tapi ia suka tidur siang.'
+      },
+      bye: {
+        '1': 'Jaga dirimu. Minum air. Makan yang hijau-hijau.'
+      }
+    },
+    smalltalkSilverbridge: {
+      barges: {
+        '1': 'Tiga tongkang datang dari pesisir pagi ini.',
+        '2': 'Ikan asin lagi?',
+        '3': 'Sutra, tumben. Tapi nanti cium jarimu.'
+      },
+      lesson: {
+        '1': 'Bagaimana pelajaranmu?',
+        '2': 'Lengan bajuku terbakar. Kata guru, itu kemajuan.'
+      },
+      masters: {
+        '1': 'Semua guru besar di negeri ini mengajar di satu jalan.',
+        '2': 'Dan masing-masing bilang kelasnya yang terbaik.',
+        '3': 'Mereka semua benar, itu yang menyebalkan.'
+      },
+      bridge: {
+        '1': 'Katanya jembatan ini lebih tua daripada kotanya.',
+        '2': 'Dari bunyi deritnya sih, memang iya.'
+      },
+      fish: {
+        '1': 'Dapat sesuatu?',
+        '2': 'Sebelah sepatu bot.',
+        '3': 'Yah, sudah dapat setengah pasang.'
+      },
+      newMaster: {
+        '1': 'Ada guru baru di jalan utara. Suka sekali bicara soal waktu.',
+        '2': 'Pasti telat di setiap pelajaran.'
+      },
+      siege: {
+        '1': 'Kabar dari Oakhaven buruk. Bandit sudah di depan tembok.',
+        '2': 'Berarti tongkangnya akan datang ke sini. Kasihan mereka.'
       }
     }
   },

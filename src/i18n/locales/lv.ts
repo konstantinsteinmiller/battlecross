@@ -247,6 +247,10 @@ export default {
     rift: {
       name: 'Tukšuma plaisa',
       desc: 'Brūce, pa kuru ienāca dēmoni. Otrā pusē gaida Tukšuma pavēlnieks.'
+    },
+    silverbridge: {
+      name: 'Silverbridža',
+      desc: 'Lielā upes pilsēta uz vecā akmens tilta. Šeit māca katras klases meistars.'
     }
   },
   map: {
@@ -1071,6 +1075,48 @@ export default {
     },
     trainerChrono: {
       name: 'Stundu glabātājs'
+    },
+    mayorBrenna: {
+      name: 'Mēre Brenna Kvila'
+    },
+    sbHealer: {
+      name: 'Brālis Ansels'
+    },
+    sbArmorer: {
+      name: 'Greta Dzelzsdzīsla',
+      talk: 'Kalnu tērauds par upes cenām. Klauvē, pie kā gribi.'
+    },
+    sbWeapons: {
+      name: 'Korvins Ešbijs',
+      talk: 'Ešbija smalkie asmeņi. Katrs asmens pulēts ar roku. Ar manu roku.'
+    },
+    sbJeweler: {
+      name: 'Tems Mārlovs',
+      talk: 'Gredzeni, amuleti, laimes akmeņi. Viss īsts. Nu, gandrīz viss.'
+    },
+    sbMasterAegis: {
+      name: 'Dāma Helga Vētrvairoga'
+    },
+    sbMasterPyro: {
+      name: 'Magistrs Ignatijs Veils'
+    },
+    sbMasterShadow: {
+      name: 'Niksa Haloveja'
+    },
+    sbMasterSovereign: {
+      name: 'Lords Persivals Eškoms'
+    },
+    sbMasterGeo: {
+      name: 'Vecmāmiņa Tova Dziļsakne'
+    },
+    sbMasterAether: {
+      name: 'Profesors Kvints Zobrats'
+    },
+    sbMasterChrono: {
+      name: 'Pulksteņsargs Selvins'
+    },
+    sbMasterBlood: {
+      name: 'Vespera Sārtlape'
     }
   },
   quest: {
@@ -2714,6 +2760,503 @@ export default {
         iceBreak: {
           '1': 'Ezers tevi aprīs!'
         }
+      }
+    },
+    mayorBrenna: {
+      hello: {
+        '1': 'Uzmanies no ratiem! Piedod, uz šī tilta viss kustas. Laipni lūgts Silverbridžā.',
+        '2': 'Es esmu mēre Brenna Kvila. Ja kas pazudis, salūzis vai kavējas, tas nonāk uz mana galda.'
+      },
+      ending: {
+        '1': 'Visa upe runā par tevi. Tirdzniecība nekad nav gājusi labāk. Tāpēc paldies.'
+      },
+      again: {
+        '1': 'Atkal te? Labi. Tikai mēģini neaizšķērsot ceļu ratiem.'
+      },
+      who: {
+        '1': 'Mēre jau deviņus gadus. Pirms tam tirgoju virves. Tas pats darbs, patiesībā. Turēt visu kopā.',
+        '2': 'Pilsēta balso katru pavasari. Pagaidām neviens cits šo galdu negrib.'
+      },
+      town: {
+        '1': 'Vispirms bija tilts. Tad uz tā tirgus, tad mājas, tad mājas virs tām mājām.',
+        '2': 'Uzmanies no strūklakām. Bērni tajās iekrīt. Tirgus dienā arī pieaugušie.',
+        say: 'Pastāsti par Silverbridžu.'
+      },
+      masters: {
+        '1': 'Katrai vienai. Vairogs, uguns, ēna, akmens. Katrai savs meistars, visi uz viena tilta.',
+        '2': 'Mācekļi brauc no visurienes. Labi krogiem. Ne tik labi maniem logiem.',
+        say: 'Vai šeit tiešām ir skolotājs katrai klasei?'
+      },
+      river: {
+        '1': 'Ar visu, ko atnes upe. Zivis, zīds, Aironholdas tērauds, reizēm kaste ar dusmīgām vistām.',
+        '2': 'Un ne katrs Silverbridžas tirgotājs izkar izkārtni. Turi acis vaļā.',
+        say: 'Ar ko šeit tirgojas?'
+      },
+      rumor: {
+        crags: {
+          '1': 'Laivas no ziemeļiem vairs nebrauc. Augšā Pelnu klintīs kaut kas deg.'
+        },
+        mines: {
+          '1': 'Šomēnes nav Aironholdas tērauda. Rūķi saka, ka viņu raktuvēs kaut kas nogājis greizi.'
+        },
+        tundra: {
+          '1': 'Kažokādu tirgotāji vairs nešķērso tundru. Saka, ka milži ir sakustējušies.'
+        },
+        far: {
+          '1': 'Par tālajiem ziemeļiem tirgotāji tagad tikai čukst. Kas tur augšā ir, tas neko nepērk.'
+        }
+      },
+      bye: {
+        '1': 'Nu, ej. Un, ja kāds jautā, tilta nodeva ir ļoti godīga.'
+      }
+    },
+    sbHealer: {
+      hello: {
+        '1': 'Mm? Ak, pacients. Piedod, es atpūtināju acis. Dziednieki tā dara.',
+        '2': 'Brālis Ansels. Nāc iekšā, apsēdies. Krēsls ir ērtāks, nekā izskatās.'
+      },
+      again: {
+        '1': 'Ā, tu atkal te. Un es tikko apsēdos.'
+      },
+      heal: {
+        '1': 'Atgulies, aizver acis. Ne uz ilgu, citādi es arī aizsnaudīšos. Tā, kolbas pilnas.'
+      },
+      mana: {
+        '1': 'Mirdzcepures dzira. Laba prātam, slikta elpai. Malko lēnām.'
+      },
+      potions: {
+        '1': 'Izdzer vienu, pirms ir par vēlu. Varoņi vienmēr gaida par ilgu.',
+        '2': 'Ja gribi nest vairāk, es pārdodu garākas jostas. Kolbu pildīšana ir par brīvu.',
+        say: 'Vai ir kāds padoms par dzirām?'
+      },
+      sleep: {
+        '1': 'Ne naktīs. Mācekļi no katras klases, visi trenējas. Kaut kas vienmēr uzsprāgst.',
+        say: 'Vai tu vispār kādreiz guli?'
+      },
+      healBack: {
+        '1': 'Nu, ej. Nākamreiz nāc uz tēju, nevis pēc pārsējiem.'
+      },
+      bye: {
+        '1': 'Uzmanies uz kāpnēm. Puse manu pacientu tikai paklupa uz tām.'
+      }
+    },
+    sbArmorer: {
+      hello: {
+        '1': 'Ha! Paskaties uz to iespiedumu. Ceru, ka par tām bruņām dabūji naudu atpakaļ.',
+        '2': 'Greta Dzelzsdzīsla. Es kaļu bruņas, kas pārnāk mājās kopā ar savu īpašnieku. Pagaidām katru reizi.'
+      },
+      again: {
+        '1': 'Atkal tu! Joprojām veselā gabalā. Mans mīļākais pircēju veids.'
+      },
+      trade: {
+        '1': 'Nu, pieklauvē. Tik stipri, cik gribi.'
+      },
+      who: {
+        '1': 'Kalnu dzimta. Atbraucu pa upi lejā tirgoties un paliku zivju dēļ.'
+      },
+      steel: {
+        '1': 'Ne tas, cik tās biezas, bet tas, kur tās liecas. Labas bruņas liecas tur, kur tu.',
+        '2': 'Smagām bruņām vajag Spēku, atceries. Bez tā tu vēlsies kā pīle.',
+        say: 'Kas padara bruņas labas?'
+      },
+      shopBack: {
+        '1': 'Valkā ar prieku. Nes iespiedumus man, man patīk labs stāsts.'
+      },
+      bye: {
+        '1': 'Nu, ej. Tikai nedabū sitienu tur, kur neesmu apsegusi.'
+      }
+    },
+    sbWeapons: {
+      hello: {
+        '1': 'Ā, pircējs ar gaumi. Es vienmēr to redzu. To var redzēt pēc tā, kā tu ienāc.',
+        '2': 'Korvins Ešbijs no „Ešbija smalkajiem asmeņiem”. Jā, tas pats Ešbijs. Tu taču esi par mani dzirdējis.'
+      },
+      again: {
+        '1': 'Jau atpakaļ? Pie Korvina vienmēr atgriežas.'
+      },
+      trade: {
+        '1': 'Katrs asmens pulēts ar roku. Ar manu roku, starp citu. Uzmanies no atspulga.'
+      },
+      who: {
+        '1': 'Labākais asmeņu tirgotājs pie upes. Pajautā jebkuram. Vai vienkārši izlasi manu izkārtni.'
+      },
+      blades: {
+        '1': 'Izvēlies tādu, kas tev der. Ātrām rokām vieglu asmeni, stiprām rokām smagu.',
+        '2': 'Un tam jāizskatās labi. Neviens nebēg no varoņa ar neglītu zobenu.',
+        say: 'Kā izvēlēties labu ieroci?'
+      },
+      shopBack: {
+        '1': 'Lieliska izvēle. Ne gluži tik lieliska kā mani mati, bet tuvu.'
+      },
+      bye: {
+        '1': 'Noteikti pastāsti citiem, kur to nopirki.'
+      }
+    },
+    sbJeweler: {
+      hello: {
+        '1': 'Psst! Šurp! Gredzeni, amuleti, laimes akmeņi. Labākā lete uz tilta.',
+        '2': 'Mani sauc Tems Mārlovs. Es esmu mazs, bet manas cenas ir vēl mazākas.'
+      },
+      again: {
+        '1': 'Mans mīļākais pircējs! Tikai nesaki citiem, ka tā teicu.'
+      },
+      trade: {
+        '1': 'Viss īsts. Lielākoties. Labi, tas ir stikls, bet ļoti skaists stikls.'
+      },
+      who: {
+        '1': 'Uzaugu uz šī tilta. Zinu katru plaisu, katru kaķi un katru īsāko ceļu.'
+      },
+      gossip: {
+        '1': 'Profesors Zobrats atkal sev nospridzināja uzacis. Jau trešo reizi šomēnes.',
+        '2': 'Un mēre zina par tirgotājiem, kas neizkar izkārtni. Es pie tā strādāju.',
+        say: 'Dzirdēji kādas labas tenkas?'
+      },
+      shopBack: {
+        '1': 'Prieks ar tevi tirgoties! Pastāsti draugiem. Tikai ne sargiem.'
+      },
+      bye: {
+        '1': 'Uz redzēšanos! Būšu tepat. Droši vien.'
+      }
+    },
+    sbMasterAegis: {
+      hello: {
+        '1': 'Ha! Vēl viens jaunais. Zodu augšā, plecus atpakaļ. Vairogi strādā labāk ar smaidu.',
+        '2': 'Dāma Helga Vētrvairoga. Reiz es noturēju šo tiltu. Tagad mācu citus noturēt savas pozīcijas.'
+      },
+      again: {
+        '1': 'Te tu esi! Vairogs augšā? Labi. Smaidi? Vēl labāk.'
+      },
+      train: {
+        '1': 'Kājas plati. Noliecies uz priekšu. Kad es grūžu, tu nekusties. Gatavs? Hop!'
+      },
+      class: {
+        '1': 'Tu stāvi priekšā, lai citiem nav jāstāv. Labākais darbs pasaulē.',
+        '2': 'Spēks, lai paceltu vairogu. Izturība, lai to noturētu līdz vakariņām.',
+        say: 'Ko īsti dara Egīdas bruņinieks?'
+      },
+      ready: {
+        strong: {
+          '1': 'Tagad tu esi īsts mūris, dārgais. Ņem jebkuru nodarbību.'
+        },
+        able: {
+          '1': 'Stingras kājas! Tu esi gatavs nākamajai.'
+        },
+        weak: {
+          '1': 'Vēl ne. Viens labs grūdiens, un tu apgāztos. Vairāk Spēka un Izturības, lūdzu.'
+        }
+      },
+      bridge: {
+        '1': 'Pirms četrdesmit gadiem, pret upes pirātiem. Mēs seši, vieni vārti, ļoti gara nakts.',
+        '2': 'Mēs neuzvarējām, sitot visstiprāk. Mēs uzvarējām, nekustoties. Atceries to.',
+        say: 'Tu noturēji šo tiltu?'
+      },
+      trainBack: {
+        '1': 'Labs darbs! Tagad apēd kaut ko. Vairogi ir smagi.'
+      },
+      bye: {
+        '1': 'Zodu augšā!'
+      }
+    },
+    sbMasterPyro: {
+      hello: {
+        '1': 'Lūdzu, nāc iekšā. Uzmanies no piezīmēm un, lūdzu, nešķaudi pie ogļu trauka.',
+        '2': 'Magistrs Ignatijs Veils. Es mācu uguni uz tilta. Redzi, apkārt ir daudz ūdens.'
+      },
+      again: {
+        '1': 'Precīzi laikā. Lieliski. Turpināsim, kur palikām.'
+      },
+      train: {
+        '1': 'Vēro. Maza liesma, noturēta mierīgi. Lielas liesmas ir vieglas. Mazām vajag prasmi.'
+      },
+      class: {
+        '1': 'Uguni var aizdedzināt jebkurš. Piromants izlemj, kur tā iet un kur apstājas.',
+        '2': 'Viss nāk no Intelekta. Vēlāk palīdz Meistarība, kad ugunij vajag stingru roku.',
+        say: 'Ko īsti dara piromants?'
+      },
+      ready: {
+        strong: {
+          '1': 'Tava kontrole ir izcila. Man gandrīz vairs nav ko labot. Izvēlies brīvi.'
+        },
+        able: {
+          '1': 'Pietiekami. Patiesībā vairāk nekā pietiekami. Vari ņemt nākamo nodarbību.'
+        },
+        weak: {
+          '1': 'Vēl ne. Tava liesma ļodzās. Asāku prātu, lūdzu. Vairāk Intelekta.'
+        }
+      },
+      sprocket: {
+        '1': 'Ģeniāls cilvēks. Skaļš, nevērīgs un ģeniāls. Pie viņa durvīm turu spaini.',
+        say: 'Ko tu domā par profesoru Zobratu?'
+      },
+      trainBack: {
+        '1': 'Trenējies pie ūdens. Es uzstāju.'
+      },
+      bye: {
+        '1': 'Labu dienu. Un turi piedurknes atrotītas.'
+      }
+    },
+    sbMasterShadow: {
+      hello: {
+        '1': 'Meklē mani? Esmu tev blakus kopš strūklakas. Tu divreiz pagāji man garām.',
+        '2': 'Niksa Haloveja. Labākā slēptuve ir pūlis, un šis ir pats rosīgākais tilts pasaulē.'
+      },
+      again: {
+        '1': 'Sveiks atkal. Esmu te jau kādu laiku. Pamanīji? Nē? Labi.'
+      },
+      train: {
+        '1': 'Pirmā nodarbība: ej tā, it kā tu te piederētu. Uz tādu neviens otrreiz neskatās.'
+      },
+      class: {
+        '1': 'Nekad nebūt tur, kur skatās. Ieslīdi, viens ātrs dūriens, un atkal izkūsti pūlī.',
+        '2': 'Veiklība ātrām kājām un rokām. Meistarība, lai dūriens trāpītu.',
+        say: 'Kas padara labu Ēnu asmeni?'
+      },
+      ready: {
+        strong: {
+          '1': 'Tagad tu esi pa īstam viltīgs. Ņem atlikušo, tu to esi nopelnījis.'
+        },
+        able: {
+          '1': 'Viegls solis! Tu esi gatavs nākamajam trikam.'
+        },
+        weak: {
+          '1': 'Vēl ne. Es dzirdu tevi nākam jau no strūklakas. Vairāk Veiklības.'
+        }
+      },
+      past: {
+        '1': 'Agrāk es zagu no kabatām tieši uz šī tilta. Un man tas labi padevās.',
+        '2': 'Tad mēre mani noķēra un iedeva darbu, nevis kameru. Nesaki viņai, ka esmu pateicīga.',
+        say: 'Kā tu to visu iemācījies?'
+      },
+      trainBack: {
+        '1': 'Tagad ej trenēties. Centies, lai es tevi nenoķeru.'
+      },
+      bye: {
+        '1': 'Uz redzēšanos. Nu, tu mani neredzēsi.'
+      }
+    },
+    sbMasterSovereign: {
+      hello: {
+        '1': 'Ak! Sveiki, sveiki. Piedod, es tērzēju ar saviem sargiem. Brīnišķīgi klausītāji.',
+        '2': 'Persivals Eškoms. Es varētu mācīt pilī, bet vadīt var iemācīties tikai tur, kur ir cilvēki.'
+      },
+      again: {
+        '1': 'Mans dārgais draugs! Turpināsim? Protams, tikai ja tu vēlies.'
+      },
+      train: {
+        '1': 'Nu tā. Laba pavēle ir skaidra, laipna un tiek dota tikai vienreiz. Lūk, tā.'
+      },
+      class: {
+        '1': 'Vadonis. Tavi sargi nostājas tev blakus un cīnās kopā ar tevi, ne tikai tavā labā.',
+        '2': 'Harizma ir viss. Cilvēki seko tiem, kas viņiem patīk. Un tiem, kas atceras viņu vārdus.',
+        say: 'Kas ir Lielais valdnieks?'
+      },
+      ready: {
+        strong: {
+          '1': 'Lieliski! Tagad cilvēki tev sekotu jebkur. Ņem visas nodarbības.'
+        },
+        able: {
+          '1': 'Tavi sargi tevī klausītos. Tu esi gatavs nākamajai nodarbībai.'
+        },
+        weak: {
+          '1': 'Baidos, ka vēl ne gluži. Mazliet vairāk Harizmas, un viņi nāks.'
+        }
+      },
+      please: {
+        '1': 'Vienmēr. Ar kliegšanu panāk paklausību. Ar „lūdzu” – uzticību, un tā ilgst ilgāk.',
+        say: 'Vai tu tiešām saki saviem sargiem „lūdzu”?'
+      },
+      trainBack: {
+        '1': 'Jauks darbs. Neaizmirsti pēc tam viņiem pateikties.'
+      },
+      bye: {
+        '1': 'Sargi sevi un nodod visiem sveicienus no manis.'
+      }
+    },
+    sbMasterGeo: {
+      hello: {
+        '1': 'Uzmanies no sūnām, dārgais, tām bijusi gara nedēļa. Nu, paskatīsimies uz tevi.',
+        '2': 'Vecmāmiņa Tova Dziļsakne. Upes gultne te ir brīnišķīgs akmens, līdz pašai apakšai.'
+      },
+      again: {
+        '1': 'Jau atpakaļ? Sēdies, tikko uzvārīju tēju. Akmens tēju. Pārsvarā tēju.'
+      },
+      train: {
+        '1': 'Plaukstas plakaniski uz zemes. Ne tā. It kā tu glāstītu miegainu suni.'
+      },
+      class: {
+        '1': 'Mēs lūdzam zemei palīdzību. Mūri, kad tas vajadzīgs, smaili, kad kāds ir rupjš.',
+        '2': 'Akmens ir kā dārzs. Spēks, lai raktu, Intelekts, lai zinātu, kur stādīt.',
+        say: 'Ko dara Ģeomants?'
+      },
+      ready: {
+        strong: {
+          '1': 'Zeme tevi tagad mīl. Mācies, ko vien vēlies, dārgais.'
+        },
+        able: {
+          '1': 'Labas saknes! Tu esi gatavs nākamajai nodarbībai.'
+        },
+        weak: {
+          '1': 'Vēl ne, mīļais. Akmens tavā labā ne pakustas. Vispirms vairāk Spēka.'
+        }
+      },
+      garden: {
+        '1': 'Četrdesmit gadu darbs. Katrs akmens izaudzēts ar rokām. Nu, ar maģiju. Pārsvarā ar rokām.',
+        '2': 'Paņem oli, ejot prom. No tiem sanāk jauki durvju turētāji.',
+        say: 'Vai tas ir akmens dārzs?'
+      },
+      trainBack: {
+        '1': 'Jauki. Tagad ej un parok kaut ko. Uzmanīgi.'
+      },
+      bye: {
+        '1': 'Nu, ej. Saģērbies silti, pie upes ir mitrs.'
+      }
+    },
+    sbMasterAether: {
+      hello: {
+        '1': 'Laipni lūgts, laipni lūgts! Tu esi tieši laikā demonstrācijai. Lūdzu, aizspied ausis.',
+        '2': 'Profesors Kvints Zobrats. Upe griež manus ratus par brīvu. Kur gan citur lai es mācītu?'
+      },
+      again: {
+        '1': 'Ā, mans mīļākais skolnieks! Šodienas demonstrācija būs īpaši skaļa.'
+      },
+      train: {
+        '1': 'Skaties uz tāfeli. Tagad aizmirsti tāfeli un skaties uz mašīnu.'
+      },
+      class: {
+        '1': 'Mēs izbūvējam sev ceļu ārā no nepatikšanām. Pistole, tornis un karstuma skala, kas tevi tur godīgu.',
+        '2': 'Meistarība tēmēšanai, Intelekts gudrajām detaļām. Ideāli – abi.',
+        say: 'Ko īsti dara Ētera tehniķis?'
+      },
+      ready: {
+        strong: {
+          '1': 'Brīnišķīgi! Tu varētu vadīt manas lekcijas. Tikai, lūdzu, nevadi. Ņem pārējās.'
+        },
+        able: {
+          '1': 'Stingra roka! Tu esi gatavs nākamajai mašīnai.'
+        },
+        weak: {
+          '1': 'Vēl ne. Tavs tēmējums klīst. Vairāk Meistarības, tad parunāsim.'
+        }
+      },
+      eyebrows: {
+        '1': 'Viena demonstrācija izdevās mazliet par labu. Ataugs. Tās vienmēr ataug.',
+        say: 'Kas notika ar tavām uzacīm?'
+      },
+      trainBack: {
+        '1': 'Lieliski. Tagad ej un izlaid to karstumu. Ideāli – ārā.'
+      },
+      bye: {
+        '1': 'Nodarbība beigusies! Uzmanies uz kāpnēm.'
+      }
+    },
+    sbMasterChrono: {
+      hello: {
+        '1': 'Mans bijušais skolnieks, Stundu glabātājs, rakstīja, ka tu nāksi. Tieši šajā minūtē, starp citu.',
+        '2': 'Pulksteņsargs Selvins. Es uzraugu tilta pulksteni. Tik rosīga pilsēta nevar atļauties kavēt.'
+      },
+      again: {
+        '1': 'Septiņas minūtes pāri. Labs laiks sākt.'
+      },
+      train: {
+        '1': 'Skaiti ar mani. Viens, divi, un turi. Laiks izstiepjas, ja to pareizi tur.'
+      },
+      class: {
+        '1': 'Mēs sakārtojam laiku. Palēninām ienaidnieku, paskubinām draugu, atsaucam pa kādai kļūdai.',
+        '2': 'Intelekts, lai to saprastu. Meistarība, lai to aizskartu, neko nesalaužot.',
+        say: 'Kas ir Laika audējs?'
+      },
+      ready: {
+        strong: {
+          '1': 'Izcila laika izjūta. Ņem pārējās manas nodarbības, kad tev der.'
+        },
+        able: {
+          '1': 'Tu esi gatavs. Nākamā nodarbība sākas, ak, tagad.'
+        },
+        weak: {
+          '1': 'Vēl ne. Tu vienmēr atpaliec par vienu taktu. Vairāk Intelekta un vairāk Meistarības.'
+        }
+      },
+      keeper: {
+        '1': 'Es viņu mācīju pirms daudziem gadiem. Ģeniāls skolnieks. Vienmēr par agru vai par vēlu, nekad laikā.',
+        say: 'No kurienes tu pazīsti Stundu glabātāju?'
+      },
+      trainBack: {
+        '1': 'Trenējies katru dienu. Katru dienu vienā laikā, ja drīkst lūgt.'
+      },
+      bye: {
+        '1': 'Nu, ej. Nekavē.'
+      }
+    },
+    sbMasterBlood: {
+      hello: {
+        '1': 'Doktors Sangrels man par tevi rakstīja. Viņš saka, ka tu nenoģībi. No viņa tā ir liela uzslava.',
+        '2': 'Vespera Sārtlape. Garām šim tiltam peld visas pasaules zāles. Te mani lutina.'
+      },
+      again: {
+        '1': 'Laipni lūgts atpakaļ. Šodien izskaties možs. Es to vienmēr redzu.'
+      },
+      train: {
+        '1': 'Ieelpo. Jūti savu spēku? Tagad iztērē mazliet no tā. Gudri.'
+      },
+      class: {
+        '1': 'Mēs tērējam paši savu dzīvības spēku varai un pēc tam paņemam to atpakaļ no ienaidniekiem.',
+        '2': 'Izturība ir tavs maks. Intelekts izlemj, cik labi tu to tērē.',
+        say: 'Kas īsti ir Asins alķīmiķis?'
+      },
+      ready: {
+        strong: {
+          '1': 'Kāds dzīvīgums! Tu esi gatavs gandrīz visam, ko es protu.'
+        },
+        able: {
+          '1': 'Tava esence ir spēcīga. Uz nākamo nodarbību.'
+        },
+        weak: {
+          '1': 'Vēl ne. Tu nogurtu pēc vienas burvestības. Vispirms vairo savu Izturību.'
+        }
+      },
+      herbs: {
+        '1': 'Pārsvarā dzirām. Mazliet esences, daudz piparmētru. Piparmētra visu padara labāku.',
+        '2': 'Ja atrodi retus augus, atnes tos man. Labprāt paskatītos.',
+        say: 'Kam paredzētas visas šīs zāles?'
+      },
+      trainBack: {
+        '1': 'Pēc treniņa atpūties. Esence atgriežas, bet tai patīk pasnaust.'
+      },
+      bye: {
+        '1': 'Rūpējies par sevi. Dzer ūdeni. Ēd kaut ko zaļu.'
+      }
+    },
+    smalltalkSilverbridge: {
+      barges: {
+        '1': 'Šorīt no krasta atpeldēja trīs baržas.',
+        '2': 'Atkal sālītas zivis?',
+        '3': 'Šoreiz zīds. Gan pēc tam paosti pirkstus.'
+      },
+      lesson: {
+        '1': 'Kā gāja nodarbībā?',
+        '2': 'Aizdedzināju sev piedurkni. Meistars saka, ka tas ir progress.'
+      },
+      masters: {
+        '1': 'Visi zemes meistari māca vienā ielā.',
+        '2': 'Un katrs no viņiem saka, ka viņa klase ir labākā.',
+        '3': 'Visiem ir taisnība, un tas ir tas kaitinošākais.'
+      },
+      bridge: {
+        '1': 'Saka, ka tilts ir vecāks par pilsētu.',
+        '2': 'Čīkst tas noteikti tā.'
+      },
+      fish: {
+        '1': 'Kaut ko noķēri?',
+        '2': 'Zābaku.',
+        '3': 'Nu, tas ir puse pāra.'
+      },
+      newMaster: {
+        '1': 'Ziemeļu ielā ir jauns meistars. Daudz runā par laiku.',
+        '2': 'Derēsim, ka kavē katru nodarbību.'
+      },
+      siege: {
+        '1': 'No Oukheivenas sliktas ziņas. Laupītāji pie mūriem.',
+        '2': 'Tad baržas brauks šurp. Nabadziņi.'
       }
     }
   },

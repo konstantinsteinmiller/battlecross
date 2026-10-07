@@ -247,6 +247,10 @@ export default {
     rift: {
       name: 'Boʻshliq yorigʻi',
       desc: 'Iblislar kirib kelgan yara. Boʻshliq hukmdori narigi tomonda kutmoqda.'
+    },
+    silverbridge: {
+      name: 'Silverbridge',
+      desc: 'Eski tosh koʻprik ustidagi katta daryo shahri. Bu yerda har bir sinfning ustozi dars beradi.'
     }
   },
   map: {
@@ -1071,6 +1075,48 @@ export default {
     },
     trainerChrono: {
       name: 'Soatlar posboni'
+    },
+    mayorBrenna: {
+      name: 'Hokim Brenna Quill'
+    },
+    sbHealer: {
+      name: 'Rohib Ansel'
+    },
+    sbArmorer: {
+      name: 'Greta Ironvein',
+      talk: 'Togʻ poʻlati, daryo narxlari. Istagan narsangni taqillatib koʻr.'
+    },
+    sbWeapons: {
+      name: 'Corvin Ashby',
+      talk: 'Ashbining Nafis Tigʻlari. Har bir tigʻ qoʻlda sayqallangan. Mening qoʻlimda.'
+    },
+    sbJeweler: {
+      name: 'Tam Marlow',
+      talk: 'Uzuklar, tumorlar, omadli toshlar. Hammasi haqiqiy. Xoʻsh, deyarli hammasi.'
+    },
+    sbMasterAegis: {
+      name: 'Ledi Helga Stormshield'
+    },
+    sbMasterPyro: {
+      name: 'Magistr Ignatius Vale'
+    },
+    sbMasterShadow: {
+      name: 'Nyx Halloway'
+    },
+    sbMasterSovereign: {
+      name: 'Lord Percival Ashcombe'
+    },
+    sbMasterGeo: {
+      name: 'Tova Deeproot buvi'
+    },
+    sbMasterAether: {
+      name: 'Professor Quint Sprocket'
+    },
+    sbMasterChrono: {
+      name: 'Soat qoʻriqchisi Selwyn'
+    },
+    sbMasterBlood: {
+      name: 'Vesper Crimsonleaf'
     }
   },
   quest: {
@@ -2654,6 +2700,503 @@ export default {
         iceBreak: {
           '1': 'Koʻl seni yutadi!'
         }
+      }
+    },
+    mayorBrenna: {
+      hello: {
+        '1': 'Aravaga ehtiyot boʻl! Kechirasan, bu koʻprikda hamma narsa harakatda. Silverbridgega xush kelibsan.',
+        '2': 'Men hokim Brenna Quill. Nima yoʻqolsa, sinsa yoki kechiksa, mening stolimga keladi.'
+      },
+      ending: {
+        '1': 'Butun daryo sen haqingda gapiryapti. Savdo hech qachon bunchalik yaxshi boʻlmagan. Xullas, rahmat.'
+      },
+      again: {
+        '1': 'Yana keldingmi? Yaxshi. Aravalarning yoʻlini toʻsmaslikka harakat qil.'
+      },
+      who: {
+        '1': 'Toʻqqiz yildan beri hokimman. Undan oldin arqon sotardim. Aslida bir xil ish: hammasini bogʻlab turish.',
+        '2': 'Shahar har bahor ovoz beradi. Hozircha bu stolni boshqa hech kim xohlamayapti.'
+      },
+      town: {
+        '1': 'Avval koʻprik paydo boʻldi. Keyin ustida bozor, keyin uylar, keyin oʻsha uylar ustida yana uylar.',
+        '2': 'Favvoralarga ehtiyot boʻl. Bolalar ichiga tushib ketadi. Bozor kuni kattalar ham.',
+        say: 'Menga Silverbridge haqida gapirib ber.'
+      },
+      masters: {
+        '1': 'Har birining. Qalqon, olov, soya, tosh. Har birining ustozi, hammasi bitta koʻprikda.',
+        '2': 'Har tomondan shogirdlar keladi. Mehmonxonalarga yaxshi. Mening derazalarimga unchalik emas.',
+        say: 'Bu yerda rostdan ham har bir sinfning ustozi bormi?'
+      },
+      river: {
+        '1': 'Daryo nima olib kelsa. Baliq, ipak, Ironhold poʻlati, baʼzan bir quti jahldor tovuq.',
+        '2': 'Silverbridgedagi har bir savdogar ham lavha osib qoʻymaydi. Hushyor boʻl.',
+        say: 'Bu yerda nima bilan savdo qilishadi?'
+      },
+      rumor: {
+        crags: {
+          '1': 'Shimoldan qayiqlar kelmay qoʻydi. Kul qoyalarida nimadir yonyapti.'
+        },
+        mines: {
+          '1': 'Bu oy Ironhold poʻlati yoʻq. Gnomlar konlarida nimadir buzilganini aytishyapti.'
+        },
+        tundra: {
+          '1': 'Moʻyna savdogarlari endi tundradan oʻtmayapti. Devlar yoʻlga chiqqanmish.'
+        },
+        far: {
+          '1': 'Savdogarlar endi uzoq shimol haqida faqat shivirlab gapirishadi. U yerda nima boʻlsa ham, savdo qilmaydi.'
+        }
+      },
+      bye: {
+        '1': 'Boraqol. Kimdir soʻrasa, koʻprik boji juda adolatli.'
+      }
+    },
+    sbHealer: {
+      hello: {
+        '1': 'Mm? A, bemor. Kechirasan, koʻzlarimga dam berayotgandim. Tabiblar shunaqa qiladi.',
+        '2': 'Rohib Ansel. Kir, oʻtir. Kursi koʻrinishidan qulayroq.'
+      },
+      again: {
+        '1': 'A, qaytib kelding. Men endigina oʻtirgandim.'
+      },
+      heal: {
+        '1': 'Yot, koʻzingni yum. Uzoq emas, boʻlmasa men ham mudrab qolaman. Mana, kolbalar toʻla.'
+      },
+      mana: {
+        '1': 'Nurqalpoq damlamasi. Aqlga foydali, nafasga zararli. Sekin-sekin ich.'
+      },
+      potions: {
+        '1': 'Ilojsiz qolmasdan oldin bittasini ich. Qahramonlar doim juda koʻp kutishadi.',
+        '2': 'Koʻproq olib yurmoqchi boʻlsang, uzunroq kamarlar sotaman. Kolbalarni toʻldirish bepul.',
+        say: 'Iksirlar haqida maslahating bormi?'
+      },
+      sleep: {
+        '1': 'Kechasi emas. Har sinfdan shogirdlar, hammasi mashq qiladi. Doim nimadir portlaydi.',
+        say: 'Sen umuman uxlaysanmi?'
+      },
+      healBack: {
+        '1': 'Boraqol. Keyingi safar bogʻich uchun emas, choy uchun kel.'
+      },
+      bye: {
+        '1': 'Zinalarga ehtiyot boʻl. Bemorlarimning yarmi shunchaki ularga qoqilgan.'
+      }
+    },
+    sbArmorer: {
+      hello: {
+        '1': 'Ha! Anavi pachoqni qara. Umid qilamanki, oʻsha zirhning pulini qaytarib olgansan.',
+        '2': 'Greta Ironvein. Egasi bilan birga uyga qaytadigan zirh yasayman. Hozircha har safar.'
+      },
+      again: {
+        '1': 'Yana sen! Hali ham butunsan. Eng yoqtirgan mijozim xili.'
+      },
+      trade: {
+        '1': 'Qani, taqillatib koʻr. Xohlaganingcha qattiq.'
+      },
+      who: {
+        '1': 'Togʻlik oiladanman. Savdo uchun daryo boʻylab tushdim, baliq uchun qolib ketdim.'
+      },
+      steel: {
+        '1': 'Qalinligida emas. Qayerda egilishida. Yaxshi zirh sen egiladigan joyda egiladi.',
+        '2': 'Ogʻir zirh Kuch talab qiladi, esingda tut. Kuchsiz kiysang, oʻrdakdek lapanglab yurasan.',
+        say: 'Yaxshi zirhning siri nimada?'
+      },
+      shopBack: {
+        '1': 'Muborak boʻlsin. Pachoqlarni menga olib kel, yaxshi hikoyani yaxshi koʻraman.'
+      },
+      bye: {
+        '1': 'Boraqol. Men yopmagan joyingga zarba yema.'
+      }
+    },
+    sbWeapons: {
+      hello: {
+        '1': 'A, didli mijoz. Men doim sezaman. Kirib kelishingdan bilinadi.',
+        '2': 'Corvin Ashby, Ashbining Nafis Tigʻlaridan. Ha, oʻsha Ashby. Men haqimda eshitgansan, albatta.'
+      },
+      again: {
+        '1': 'Shunchalik tez qaytdingmi? Hamma doim Corvinga qaytadi.'
+      },
+      trade: {
+        '1': 'Har bir tigʻ qoʻlda sayqallangan. Aynan mening qoʻlimda. Aksingdan koʻzing qamashmasin.'
+      },
+      who: {
+        '1': 'Daryodagi eng zoʻr tigʻ sotuvchisi. Istagan odamdan soʻra. Yoki shunchaki lavhamni oʻqi.'
+      },
+      blades: {
+        '1': 'Oʻzingga mosini tanla. Chaqqon qoʻllarga yengil tigʻ kerak, kuchli bilaklarga ogʻiri.',
+        '2': 'Yana chiroyli koʻrinishi kerak. Xunuk qilichli qahramondan hech kim qochmaydi.',
+        say: 'Yaxshi qurolni qanday tanlayman?'
+      },
+      shopBack: {
+        '1': 'Ajoyib tanlov. Sochlarimdek ajoyib emas, lekin yaqin.'
+      },
+      bye: {
+        '1': 'Qayerdan sotib olganingni hammaga ayt-a.'
+      }
+    },
+    sbJeweler: {
+      hello: {
+        '1': 'Pst! Bu yoqqa! Uzuklar, tumorlar, omadli toshlar. Koʻprikdagi eng zoʻr rasta.',
+        '2': 'Ismim Tam Marlow. Men kichkinaman, narxlarim esa undan ham kichik.'
+      },
+      again: {
+        '1': 'Eng sevimli mijozim! Buni aytganimni boshqalarga aytma.'
+      },
+      trade: {
+        '1': 'Hammasi haqiqiy. Koʻpi. Mayli, anavi shisha, lekin juda chiroyli shisha.'
+      },
+      who: {
+        '1': 'Shu koʻprikda oʻsganman. Har bir yoriqni, har bir mushukni, har bir qisqa yoʻlni bilaman.'
+      },
+      gossip: {
+        '1': 'Professor Sprocket yana qoshlarini kuydirib yubordi. Bu oy uchinchi marta.',
+        '2': 'Yana hokim lavha osmaydigan savdogarlardan xabardor. Men buning ustida ishlayapman.',
+        say: 'Qiziq gap-soʻz eshitdingmi?'
+      },
+      shopBack: {
+        '1': 'Sen bilan savdo qilish maroqli edi! Doʻstlaringga ayt. Soqchilarga emas.'
+      },
+      bye: {
+        '1': 'Koʻrishguncha! Shu yerda boʻlaman. Ehtimol.'
+      }
+    },
+    sbMasterAegis: {
+      hello: {
+        '1': 'Ha! Yana bir yosh. Iyagingni koʻtar, yelkalar orqaga. Qalqonlar tabassum bilan yaxshiroq ishlaydi.',
+        '2': 'Ledi Helga Stormshield. Bir paytlar bu koʻprikni himoya qilganman. Endi boshqalarga joyida turishni oʻrgataman.'
+      },
+      again: {
+        '1': 'Mana kelding! Qalqon tepadami? Yaxshi. Jilmayyapsanmi? Undan ham yaxshi.'
+      },
+      train: {
+        '1': 'Oyoqlar keng. Oldinga engash. Men itarsam, qimirlamaysan. Tayyormisan? Hop!'
+      },
+      class: {
+        '1': 'Sen oldinda turasan, boshqalar turmasin deb. Bundan yaxshi ish yoʻq.',
+        '2': 'Qalqonni koʻtarish uchun Kuch. Uni kechki ovqatgacha ushlab turish uchun Chidamlilik.',
+        say: 'Egida ritsari aslida nima qiladi?'
+      },
+      ready: {
+        strong: {
+          '1': 'Endi haqiqiy devorsan, azizim. Istagan darsingni ol.'
+        },
+        able: {
+          '1': 'Mustahkam oyoqlar! Keyingisiga tayyorsan.'
+        },
+        weak: {
+          '1': 'Hali emas. Bitta yaxshi turtki va agʻdarilasan. Koʻproq Kuch va Chidamlilik, iltimos.'
+        }
+      },
+      bridge: {
+        '1': 'Qirq yil oldin, daryo qaroqchilariga qarshi. Olti kishi edik, bitta darvoza, juda uzun tun.',
+        '2': 'Eng qattiq urganimiz uchun yutmadik. Joyimizdan qimirlamaganimiz uchun yutdik. Buni unutma.',
+        say: 'Bu koʻprikni sen himoya qilganmisan?'
+      },
+      trainBack: {
+        '1': 'Barakalla! Endi biror narsa ye. Qalqonlar ogʻir.'
+      },
+      bye: {
+        '1': 'U yerda boshingni baland tut!'
+      }
+    },
+    sbMasterPyro: {
+      hello: {
+        '1': 'Marhamat, kir. Yozuvlarga ehtiyot boʻl va iltimos, manqal yonida aksirma.',
+        '2': 'Magistr Ignatius Vale. Koʻprikda olovdan dars beraman. Atrofda suv koʻp, tushunasan-ku.'
+      },
+      again: {
+        '1': 'Oʻz vaqtida. Aʼlo. Toʻxtagan joyimizdan davom etamiz.'
+      },
+      train: {
+        '1': 'Kuzat. Kichik alanga, qimirlatmay tutilgan. Katta alanga oson. Kichigi mahorat talab qiladi.'
+      },
+      class: {
+        '1': 'Olovni har kim yoqa oladi. Piromant u qayerga borishi va qayerda toʻxtashini hal qiladi.',
+        '2': 'Hammasi Aqldan keladi. Keyin, olov barqaror qoʻl talab qilganda, Mahorat yordam beradi.',
+        say: 'Piromant aslida nima qiladi?'
+      },
+      ready: {
+        strong: {
+          '1': 'Nazorating aʼlo. Tuzatadigan deyarli hech narsa qolmadi. Xohlaganingni tanla.'
+        },
+        able: {
+          '1': 'Yetarli. Aslida yetarlidan ham ortiq. Keyingi darsni olishing mumkin.'
+        },
+        weak: {
+          '1': 'Hali emas. Alanganing titrayapti. Oʻtkirroq aql, iltimos. Koʻproq Aql.'
+        }
+      },
+      sprocket: {
+        '1': 'Ajoyib odam. Shovqinli, beparvo va ajoyib. Eshigi yonida bir chelak suv saqlayman.',
+        say: 'Professor Sprocket haqida nima deb oʻylaysan?'
+      },
+      trainBack: {
+        '1': 'Suv yaqinida mashq qil. Talab qilaman.'
+      },
+      bye: {
+        '1': 'Xayr. Yengingni shimarib yur.'
+      }
+    },
+    sbMasterShadow: {
+      hello: {
+        '1': 'Meni qidiryapsanmi? Favvoradan beri yoningdaman. Ikki marta yonimdan oʻtib ketding.',
+        '2': 'Nyx Halloway. Yashirinish uchun eng yaxshi joy olomon, bu esa eng gavjum koʻprik.'
+      },
+      again: {
+        '1': 'Yana salom. Ancha vaqtdan beri shu yerdaman. Payqadingmi? Yoʻqmi? Yaxshi.'
+      },
+      train: {
+        '1': 'Birinchi dars: shu yerlikdek yur. Shu yerlik odamga hech kim ikki marta qaramaydi.'
+      },
+      class: {
+        '1': 'Hech qachon ular qaragan joyda boʻlmaslik. Sirgʻalib kir, bitta tez zarba, yana olomonga qoʻshil.',
+        '2': 'Tez oyoq va qoʻllar uchun Chaqqonlik. Zarba bekor ketmasligi uchun Mahorat.',
+        say: 'Yaxshi Soya tigʻining siri nimada?'
+      },
+      ready: {
+        strong: {
+          '1': 'Endi rostakam ayyorsan. Qolganini ol, bunga loyiqsan.'
+        },
+        able: {
+          '1': 'Oyoqlaring yengil! Keyingi hiylaga tayyorsan.'
+        },
+        weak: {
+          '1': 'Hali emas. Kelayotganingni favvoradan eshityapman. Koʻproq Chaqqonlik.'
+        }
+      },
+      past: {
+        '1': 'Ilgari aynan shu koʻprikda choʻntak kesardim. Yaxshi uddalardim ham.',
+        '2': 'Keyin hokim meni ushlab oldi va menga qamoq emas, ish berdi. Unga minnatdorligimni aytma.',
+        say: 'Bularning hammasini qanday oʻrganding?'
+      },
+      trainBack: {
+        '1': 'Endi bor, mashq qil. Seni ushlab olishimga yoʻl qoʻyma.'
+      },
+      bye: {
+        '1': 'Koʻrishguncha. Toʻgʻrirogʻi, sen meni koʻrmaysan.'
+      }
+    },
+    sbMasterSovereign: {
+      hello: {
+        '1': 'Oh! Salom, salom. Kechirasan, soqchilarim bilan suhbatlashayotgandim. Ajoyib tinglovchilar.',
+        '2': 'Percival Ashcombe. Qasrda dars bersam boʻlardi, lekin yetakchilikni faqat odamlar orasida oʻrganasan.'
+      },
+      again: {
+        '1': 'Aziz doʻstim! Davom etamizmi? Albatta, agar xohlasang.'
+      },
+      train: {
+        '1': 'Xoʻsh. Yaxshi buyruq aniq, mehribon va faqat bir marta beriladi. Mana bunday.'
+      },
+      class: {
+        '1': 'Yetakchi. Soqchilaring yoningga keladi va faqat sen uchun emas, sen bilan birga jang qiladi.',
+        '2': 'Xarizma hamma narsa. Odamlar yoqtirganlariga ergashadi. Va ismlarini eslab qolganlarga.',
+        say: 'Buyuk hukmdor kim?'
+      },
+      ready: {
+        strong: {
+          '1': 'Ajoyib! Endi odamlar senga istalgan joyga ergashadi. Hamma darslarni ol.'
+        },
+        able: {
+          '1': 'Soqchilaring senga quloq solardi. Keyingi darsga tayyorsan.'
+        },
+        weak: {
+          '1': 'Afsuski, hali emas. Yana ozgina Xarizma, shunda ular keladi.'
+        }
+      },
+      please: {
+        '1': 'Doim. Baqirsang, itoat qilishadi. «Iltimos» desang, sodiq boʻlishadi, sodiqlik esa uzoqroq yashaydi.',
+        say: 'Soqchilaringga rostdan ham «iltimos» deysanmi?'
+      },
+      trainBack: {
+        '1': 'Ajoyib ish. Keyin ularga rahmat aytishni unutma.'
+      },
+      bye: {
+        '1': 'Oʻzingni ehtiyot qil, hammaga mendan salom ayt.'
+      }
+    },
+    sbMasterGeo: {
+      hello: {
+        '1': 'Moxga ehtiyot boʻl, azizim, uning haftasi ogʻir oʻtdi. Qani, bir koʻray-chi seni.',
+        '2': 'Tova Deeproot buvi. Bu yerda daryo tubi oxirigacha ajoyib tosh.'
+      },
+      again: {
+        '1': 'Shunchalik tez qaytdingmi? Oʻtir, hozirgina choy damladim. Tosh choyi. Asosan choy.'
+      },
+      train: {
+        '1': 'Kaftlaringni yerga tekis qoʻy. Unday emas. Uyquchi itni silayotgandek.'
+      },
+      class: {
+        '1': 'Yerdan yordam soʻraymiz. Kerak boʻlsa devor, kimdir qoʻpollik qilsa tikan.',
+        '2': 'Tosh bogʻga oʻxshaydi. Qazish uchun Kuch, qayerga ekishni bilish uchun Aql.',
+        say: 'Geomant nima qiladi?'
+      },
+      ready: {
+        strong: {
+          '1': 'Yer endi seni yaxshi koʻradi. Xohlaganingni oʻrgan, azizim.'
+        },
+        able: {
+          '1': 'Mustahkam ildizlar! Keyingi darsga tayyorsan.'
+        },
+        weak: {
+          '1': 'Hali emas, jonim. Tosh sen uchun qimirlamayapti. Avval koʻproq Kuch.'
+        }
+      },
+      garden: {
+        '1': 'Qirq yillik mehnat. Har bir qoya qoʻlda oʻstirilgan. Toʻgʻrirogʻi, sehr bilan. Asosan qoʻlda.',
+        '2': 'Ketayotganda bitta shagʻal ol. Eshikka ajoyib tirgak boʻladi.',
+        say: 'Bu toshdan qilingan bogʻmi?'
+      },
+      trainBack: {
+        '1': 'Ajoyib. Endi bor, biror narsa qaz. Ehtiyotlab.'
+      },
+      bye: {
+        '1': 'Boraqol. Issiq kiyin, daryo boʻyi zax.'
+      }
+    },
+    sbMasterAether: {
+      hello: {
+        '1': 'Xush kelibsan, xush kelibsan! Namoyishga aynan vaqtida kelding. Iltimos, quloqlaringni berkit.',
+        '2': 'Professor Quint Sprocket. Daryo gʻildiraklarimni tekinga aylantiradi. Yana qayerda dars berardim?'
+      },
+      again: {
+        '1': 'A, eng sevimli shogirdim! Bugungi namoyish ayniqsa shovqinli.'
+      },
+      train: {
+        '1': 'Doskaga qara. Endi doskani unut va mashinani kuzat.'
+      },
+      class: {
+        '1': 'Muammodan chiqish yoʻlini yasaymiz. Toʻpponcha, turel va seni jilovlab turadigan issiqlik oʻlchagichi.',
+        '2': 'Nishon uchun Mahorat, aqlli qismlar uchun Aql. Eng yaxshisi ikkalasi.',
+        say: 'Efir texnigi aslida nima qiladi?'
+      },
+      ready: {
+        strong: {
+          '1': 'Qoyil! Maʼruzalarimni sen oʻqishing mumkin edi. Lekin iltimos, oʻqima. Qolganini ol.'
+        },
+        able: {
+          '1': 'Barqaror qoʻl! Keyingi mashinaga tayyorsan.'
+        },
+        weak: {
+          '1': 'Hali emas. Nishoning chalgʻiyapti. Koʻproq Mahorat, keyin gaplashamiz.'
+        }
+      },
+      eyebrows: {
+        '1': 'Bir namoyish biroz haddan tashqari yaxshi chiqdi. Yana oʻsib chiqadi. Doim chiqadi.',
+        say: 'Qoshlaringga nima boʻldi?'
+      },
+      trainBack: {
+        '1': 'Ajoyib. Endi bor, oʻsha issiqlikni chiqarib yubor. Yaxshisi, tashqarida.'
+      },
+      bye: {
+        '1': 'Dars tugadi! Zinalarga ehtiyot boʻl.'
+      }
+    },
+    sbMasterChrono: {
+      hello: {
+        '1': 'Eski shogirdim Soatlar posboni kelishingni yozgandi. Aynan shu daqiqada, aytgancha.',
+        '2': 'Soat qoʻriqchisi Selwyn. Koʻprik soatiga men qarayman. Bunchalik gavjum shahar kechika olmaydi.'
+      },
+      again: {
+        '1': 'Yetti daqiqa oʻtdi. Boshlash uchun yaxshi vaqt.'
+      },
+      train: {
+        '1': 'Men bilan sana. Bir, ikki va ushla. Toʻgʻri ushlasang, vaqt choʻziladi.'
+      },
+      class: {
+        '1': 'Vaqtni tartibga solamiz. Dushmanni sekinlashtiramiz, doʻstni shoshiltiramiz, goh-goh xatoni bekor qilamiz.',
+        '2': 'Uni tushunish uchun Aql. Hech narsani sindirmay tegish uchun Mahorat.',
+        say: 'Vaqt toʻquvchisi kim?'
+      },
+      ready: {
+        strong: {
+          '1': 'Aʼlo vaqt tuygʻusi. Qolgan darslarimni xohlagan paytingda ol.'
+        },
+        able: {
+          '1': 'Tayyorsan. Keyingi dars boshlanadi, mana, hozir.'
+        },
+        weak: {
+          '1': 'Hali emas. Doim bir qadam ortdasan. Koʻproq Aql va koʻproq Mahorat.'
+        }
+      },
+      keeper: {
+        '1': 'Yillar oldin unga dars berganman. Ajoyib shogird edi. Doim erta yoki kech, hech qachon oʻz vaqtida emas.',
+        say: 'Soatlar posbonini qayerdan bilasan?'
+      },
+      trainBack: {
+        '1': 'Har kuni mashq qil. Iltimos, har kuni bir xil vaqtda.'
+      },
+      bye: {
+        '1': 'Boraqol. Kechikma.'
+      }
+    },
+    sbMasterBlood: {
+      hello: {
+        '1': 'Doktor Sangrel menga sen haqingda yozdi. Hushingdan ketmagan ekansan. Undan bu katta maqtov.',
+        '2': 'Vesper Crimsonleaf. Dunyodagi har bir giyoh shu koʻprik yonidan suzib oʻtadi. Bu yerda erka boʻlib ketdim.'
+      },
+      again: {
+        '1': 'Yana xush kelibsan. Bugun juda tetik koʻrinyapsan. Men doim sezaman.'
+      },
+      train: {
+        '1': 'Nafas ol. Kuchingni his qilyapsanmi? Endi ozgina sarfla. Oqilona.'
+      },
+      class: {
+        '1': 'Kuch uchun oʻz hayot mohiyatimizni sarflaymiz, keyin uni dushmanlardan qaytarib olamiz.',
+        '2': 'Chidamlilik sening hamyoning. Aql uni qanchalik yaxshi sarflashingni hal qiladi.',
+        say: 'Qon alkimyogari aslida kim?'
+      },
+      ready: {
+        strong: {
+          '1': 'Qanday tetiklik! Bilgan deyarli hamma narsamga tayyorsan.'
+        },
+        able: {
+          '1': 'Mohiyating kuchli oqyapti. Keyingi darsga oʻtamiz.'
+        },
+        weak: {
+          '1': 'Hali emas. Bitta afsundan keyin charchab qolasan. Avval Chidamlilikni oshir.'
+        }
+      },
+      herbs: {
+        '1': 'Asosan damlamalar. Ozgina mohiyat, koʻp yalpiz. Yalpiz hamma narsani yaxshilaydi.',
+        '2': 'U yoqlarda noyob oʻsimlik topsang, olib kel. Koʻrishni juda xohlayman.',
+        say: 'Bu giyohlarning hammasi nima uchun?'
+      },
+      trainBack: {
+        '1': 'Mashqdan keyin dam ol. Mohiyat qaytib keladi, lekin mudrashni yaxshi koʻradi.'
+      },
+      bye: {
+        '1': 'Oʻzingni asra. Suv ich. Yashil narsa ye.'
+      }
+    },
+    smalltalkSilverbridge: {
+      barges: {
+        '1': 'Bugun ertalab sohildan uchta barja keldi.',
+        '2': 'Yana tuzlangan baliqmi?',
+        '3': 'Bu safar ipak. Lekin keyin barmoqlaringni hidlab koʻr.'
+      },
+      lesson: {
+        '1': 'Darsing qanday oʻtdi?',
+        '2': 'Yengimga oʻt tushdi. Ustoz buni yutuq deydi.'
+      },
+      masters: {
+        '1': 'Yurtdagi hamma ustozlar bitta koʻchada dars beradi.',
+        '2': 'Har biri oʻz sinfini eng zoʻri deydi.',
+        '3': 'Hammasi haq, eng alamlisi ham shu.'
+      },
+      bridge: {
+        '1': 'Aytishlaricha, koʻprik shahardan ham qadimiy.',
+        '2': 'Gʻichirlashidan ham bilinib turibdi.'
+      },
+      fish: {
+        '1': 'Biror narsa tutdingmi?',
+        '2': 'Bitta etik.',
+        '3': 'Xoʻsh, juftning yarmi-ku.'
+      },
+      newMaster: {
+        '1': 'Shimoliy koʻchada yangi ustoz bor. Doim vaqt haqida gapiradi.',
+        '2': 'Garov oʻynayman, har darsga kechikadi.'
+      },
+      siege: {
+        '1': 'Oakhavendan yomon xabar bor. Bosqinchilar devor tagida.',
+        '2': 'Unda barjalar bu yoqqa keladi. Bechoralar.'
       }
     }
   },

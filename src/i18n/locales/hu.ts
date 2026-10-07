@@ -247,6 +247,10 @@ export default {
     rift: {
       name: 'Az Üresség hasadéka',
       desc: 'A seb, amelyen át a démonok jöttek. A túloldalon az Üresség Ura vár.'
+    },
+    silverbridge: {
+      name: 'Silverbridge',
+      desc: 'A nagy folyóparti város a régi kőhídon. Itt minden kaszt mestere tanít.'
     }
   },
   map: {
@@ -1071,6 +1075,48 @@ export default {
     },
     trainerChrono: {
       name: 'Az Órák Őrzője'
+    },
+    mayorBrenna: {
+      name: 'Brenna Quill polgármester'
+    },
+    sbHealer: {
+      name: 'Ansel barát'
+    },
+    sbArmorer: {
+      name: 'Vaserű Greta',
+      talk: 'Hegyi acél, folyóparti árak. Kopogtass meg bármit.'
+    },
+    sbWeapons: {
+      name: 'Corvin Ashby',
+      talk: 'Ashby Remek Pengéi. Minden él kézzel polírozva. Az én kezemmel.'
+    },
+    sbJeweler: {
+      name: 'Tam Marlow',
+      talk: 'Gyűrűk, amulettek, szerencsekövek. Mind valódi. Na jó, majdnem mind.'
+    },
+    sbMasterAegis: {
+      name: 'Viharpajzs Helga dáma'
+    },
+    sbMasterPyro: {
+      name: 'Ignatius Vale magiszter'
+    },
+    sbMasterShadow: {
+      name: 'Nyx Halloway'
+    },
+    sbMasterSovereign: {
+      name: 'Lord Percival Ashcombe'
+    },
+    sbMasterGeo: {
+      name: 'Mélygyökér Tova nagyi'
+    },
+    sbMasterAether: {
+      name: 'Fogaskerék Quint professzor'
+    },
+    sbMasterChrono: {
+      name: 'Selwyn órásmester'
+    },
+    sbMasterBlood: {
+      name: 'Bíborlevél Vesper'
     }
   },
   quest: {
@@ -2654,6 +2700,503 @@ export default {
         iceBreak: {
           '1': 'A tó elnyel téged!'
         }
+      }
+    },
+    mayorBrenna: {
+      hello: {
+        '1': 'Vigyázz, szekér! Bocs, ezen a hídon minden mozog. Üdv Silverbridge-ben.',
+        '2': 'Brenna Quill polgármester vagyok. Ami elveszett, eltört vagy késik, az az én asztalomon köt ki.'
+      },
+      ending: {
+        '1': 'Az egész folyó rólad beszél. A kereskedés sosem ment még ilyen jól. Szóval köszönöm.'
+      },
+      again: {
+        '1': 'Megint itt? Jó. Csak ne állj a szekerek útjába.'
+      },
+      who: {
+        '1': 'Polgármester vagyok, már kilenc éve. Előtte kötelet árultam. Ugyanaz a munka: egyben tartani mindent.',
+        '2': 'A város minden tavasszal szavaz. Eddig senki más nem kérte az asztalt.'
+      },
+      town: {
+        '1': 'Először a híd volt. Aztán rajta egy piac, aztán házak, aztán házak azokon a házakon.',
+        '2': 'Vigyázz a szökőkutakkal. A gyerekek beleesnek. Piacnapon a felnőttek is.',
+        say: 'Mesélj Silverbridge-ről.'
+      },
+      masters: {
+        '1': 'Mindegyiknek. Pajzs, tűz, árnyék, kő. Mindenből egy mester, mind egy hídon.',
+        '2': 'Mindenhonnan jönnek tanítványok. A fogadóknak jó. Az ablakaimnak kevésbé.',
+        say: 'Tényleg minden kasztnak van itt tanára?'
+      },
+      river: {
+        '1': 'Amit a folyó hoz. Hal, selyem, ironholdi acél, néha egy láda dühös tyúk.',
+        '2': 'És nem minden silverbridge-i kereskedő tesz ki cégért. Tartsd nyitva a szemed.',
+        say: 'Mivel kereskednek itt?'
+      },
+      rumor: {
+        crags: {
+          '1': 'Az északi hajók nem jönnek többé. Valami ég fent a Hamuszirteken.'
+        },
+        mines: {
+          '1': 'Ebben a hónapban nincs ironholdi acél. A törpék szerint valami elromlott a bányáikban.'
+        },
+        tundra: {
+          '1': 'A szőrmekereskedők már nem kelnek át a tundrán. Azt mondják, megindultak az óriások.'
+        },
+        far: {
+          '1': 'A messzi északról már csak suttognak a kereskedők. Bármi van ott, nem vásárol.'
+        }
+      },
+      bye: {
+        '1': 'Na, menj csak. És ha bárki kérdezi, a hídvám nagyon tisztességes.'
+      }
+    },
+    sbHealer: {
+      hello: {
+        '1': 'Hm? Ó, egy beteg. Bocs, épp a szememet pihentettem. A gyógyítók ilyet csinálnak.',
+        '2': 'Ansel barát. Gyere be, ülj le. A szék kényelmesebb, mint amilyennek látszik.'
+      },
+      again: {
+        '1': 'Á, visszajöttél. Pedig épp csak leültem.'
+      },
+      heal: {
+        '1': 'Feküdj le, csukd be a szemed. Ne sokáig, mert én is elbóbiskolok. Tessék, tele a flaskák.'
+      },
+      mana: {
+        '1': 'Fénykalap-tonik. Jót tesz az észnek, rosszat a leheletnek. Lassan kortyold.'
+      },
+      potions: {
+        '1': 'Igyál, mielőtt nagy a baj. A hősök mindig túl sokáig várnak.',
+        '2': 'Ha többet akarsz vinni, árulok hosszabb övet. A flaskák feltöltése ingyenes.',
+        say: 'Van tanácsod az italokról?'
+      },
+      sleep: {
+        '1': 'Éjjel nem. Minden kaszt tanítványai gyakorolnak. Mindig felrobban valami.',
+        say: 'Te egyáltalán alszol valaha?'
+      },
+      healBack: {
+        '1': 'Menj csak. Legközelebb teára gyere, ne kötszerért.'
+      },
+      bye: {
+        '1': 'Vigyázz a lépcsőn. A betegeim fele csak megbotlott rajta.'
+      }
+    },
+    sbArmorer: {
+      hello: {
+        '1': 'Ha! Nézd azt a horpadást. Remélem, visszakaptad a pénzed azért a páncélért.',
+        '2': 'Vaserű Greta. Olyan páncélt készítek, ami a gazdájával együtt ér haza. Eddig mindig.'
+      },
+      again: {
+        '1': 'Megint te! Még mindig egy darabban. A kedvenc fajta vevőm.'
+      },
+      trade: {
+        '1': 'Rajta, kopogtasd meg. Olyan erősen, ahogy csak akarod.'
+      },
+      who: {
+        '1': 'Hegyi családból jöttem. A kereskedés miatt jöttem le a folyón, a halak miatt maradtam.'
+      },
+      steel: {
+        '1': 'Nem attól, milyen vastag. Attól, hol hajlik. A jó páncél ott hajlik, ahol te.',
+        '2': 'De a nehéz vért Erőt kíván. Anélkül úgy fogsz totyogni, mint egy kacsa.',
+        say: 'Mitől jó egy páncél?'
+      },
+      shopBack: {
+        '1': 'Viseld egészséggel. A horpadásokat hozd vissza, szeretem a jó sztorikat.'
+      },
+      bye: {
+        '1': 'Menj csak. És ne kapj ütést ott, ahol nem takartalak.'
+      }
+    },
+    sbWeapons: {
+      hello: {
+        '1': 'Á, egy ízléses vevő. Mindig látom. Abból, ahogy belépsz.',
+        '2': 'Corvin Ashby, az Ashby Remek Pengéitől. Igen, AZ az Ashby. Biztos hallottál rólam.'
+      },
+      again: {
+        '1': 'Máris vissza? Corvinhoz mindig visszajönnek.'
+      },
+      trade: {
+        '1': 'Minden penge kézzel polírozva. Az én kezemmel, ami azt illeti. Vigyázz, tükröződik.'
+      },
+      who: {
+        '1': 'A legjobb pengeárus az egész folyón. Kérdezz meg bárkit. Vagy csak olvasd el a cégéremet.'
+      },
+      blades: {
+        '1': 'Olyat válassz, ami illik hozzád. A fürge kéznek könnyű penge kell, az erős karnak nehéz.',
+        '2': 'És jól is kell mutatnia. Senki sem menekül egy csúnya kardos hős elől.',
+        say: 'Hogyan válasszak jó fegyvert?'
+      },
+      shopBack: {
+        '1': 'Remek választás. Nem olyan remek, mint a hajam, de közel van.'
+      },
+      bye: {
+        '1': 'Mondd csak el az embereknek, hol vetted.'
+      }
+    },
+    sbJeweler: {
+      hello: {
+        '1': 'Pszt! Erre! Gyűrűk, amulettek, szerencsekövek. A legjobb stand a hídon.',
+        '2': 'Tam Marlow vagyok. Kicsi vagyok, de az áraim még kisebbek.'
+      },
+      again: {
+        '1': 'A kedvenc vevőm! Ne mondd el a többieknek, hogy ezt mondtam.'
+      },
+      trade: {
+        '1': 'Mind valódi. Többnyire. Jó, az ott üveg, de nagyon szép üveg.'
+      },
+      who: {
+        '1': 'Ezen a hídon nőttem fel. Ismerek minden repedést, minden macskát és minden rövidítést.'
+      },
+      gossip: {
+        '1': 'Fogaskerék professzor megint leégette a szemöldökét. Ebben a hónapban már harmadszor.',
+        '2': 'És a polgármester tud a cégér nélküli kereskedőkről. Dolgozom rajta.',
+        say: 'Hallottál valami jó pletykát?'
+      },
+      shopBack: {
+        '1': 'Öröm volt üzletelni! Szólj a barátaidnak. Az őröknek ne.'
+      },
+      bye: {
+        '1': 'Viszlát! Pont itt leszek. Valószínűleg.'
+      }
+    },
+    sbMasterAegis: {
+      hello: {
+        '1': 'Ha! Még egy fiatal. Állat fel, vállakat hátra. A pajzs mosollyal jobban működik.',
+        '2': 'Viharpajzs Helga dáma. Egyszer megvédtem ezt a hidat. Most másokat tanítok kitartani.'
+      },
+      again: {
+        '1': 'Hát itt vagy! Pajzs fent? Jó. Mosolyogsz? Még jobb.'
+      },
+      train: {
+        '1': 'Lábak szét. Dőlj előre. Amikor tolok, nem mozdulsz. Kész vagy? Hopp!'
+      },
+      class: {
+        '1': 'Elöl állsz, hogy a többieknek ne kelljen. A világ legjobb munkája.',
+        '2': 'Erő, hogy felemeld a pajzsot. Állóképesség, hogy vacsoráig tartsd.',
+        say: 'Mit csinál valójában egy Égisz-lovag?'
+      },
+      ready: {
+        strong: {
+          '1': 'Most már igazi fal vagy, drágám. Vegyél bármelyik leckét.'
+        },
+        able: {
+          '1': 'Biztos lábak! Készen állsz a következőre.'
+        },
+        weak: {
+          '1': 'Még nem. Egy jó lökés, és felborulnál. Több Erőt és Állóképességet, kérlek.'
+        }
+      },
+      bridge: {
+        '1': 'Negyven éve, folyami kalózok ellen. Hatan voltunk, egy kapu, egy nagyon hosszú éjszaka.',
+        '2': 'Nem azzal nyertünk, hogy a legnagyobbat ütöttük. Azzal, hogy nem mozdultunk. Ezt jegyezd meg.',
+        say: 'Te védted meg ezt a hidat?'
+      },
+      trainBack: {
+        '1': 'Szép munka! Most egyél valamit. A pajzs nehéz.'
+      },
+      bye: {
+        '1': 'Fel a fejjel odakint!'
+      }
+    },
+    sbMasterPyro: {
+      hello: {
+        '1': 'Kerülj csak beljebb. Vigyázz a jegyzetekre, és kérlek, ne tüsszents a parázstartó mellett.',
+        '2': 'Ignatius Vale magiszter. Egy hídon tanítom a tüzet. Víz van bőven, érted.'
+      },
+      again: {
+        '1': 'Pontos. Kitűnő. Ott folytatjuk, ahol abbahagytuk.'
+      },
+      train: {
+        '1': 'Figyelj. Egy kis láng, mozdulatlanul. A nagy láng könnyű. A kicsihez tudás kell.'
+      },
+      class: {
+        '1': 'Tüzet bárki gyújthat. A piromanta dönti el, merre megy, és hol áll meg.',
+        '2': 'Minden az Intelligenciából jön. Később a Jártasság segít, amikor a tűz biztos kezet kíván.',
+        say: 'Mit csinál valójában egy piromanta?'
+      },
+      ready: {
+        strong: {
+          '1': 'Kiváló az irányításod. Alig maradt mit javítanom. Válassz szabadon.'
+        },
+        able: {
+          '1': 'Megfelelő. Sőt, több mint megfelelő. Mehet a következő lecke.'
+        },
+        weak: {
+          '1': 'Még nem. Inog a lángod. Élesebb elmét, kérlek. Több Intelligenciát.'
+        }
+      },
+      sprocket: {
+        '1': 'Zseniális ember. Hangos, figyelmetlen és zseniális. Egy vödröt tartok az ajtaja mellett.',
+        say: 'Mit gondolsz Fogaskerék professzorról?'
+      },
+      trainBack: {
+        '1': 'Víz közelében gyakorolj. Ragaszkodom hozzá.'
+      },
+      bye: {
+        '1': 'Szép napot. És tartsd feltűrve az ujjadat.'
+      }
+    },
+    sbMasterShadow: {
+      hello: {
+        '1': 'Engem keresel? A szökőkút óta melletted vagyok. Kétszer is elmentél mellettem.',
+        '2': 'Nyx Halloway. A tömegben a legjobb elbújni, és ez a világ legforgalmasabb hídja.'
+      },
+      again: {
+        '1': 'Szia újra. Már egy ideje itt vagyok. Észrevetted? Nem? Helyes.'
+      },
+      train: {
+        '1': 'Első lecke: járj úgy, mintha idevalósi lennél. Az idevalósira senki sem néz kétszer.'
+      },
+      class: {
+        '1': 'Sosem ott lenni, ahová néznek. Beosonni, egy gyors csapás, és újra beolvadni.',
+        '2': 'Ügyesség a fürge lábhoz és kézhez. Jártasság, hogy a csapás számítson.',
+        say: 'Mitől jó egy Árnypenge?'
+      },
+      ready: {
+        strong: {
+          '1': 'Most már igazán sunyi vagy. Vedd el, ami maradt, megérdemled.'
+        },
+        able: {
+          '1': 'Könnyű léptek! Készen állsz a következő trükkre.'
+        },
+        weak: {
+          '1': 'Még nem. Már a szökőkúttól hallom, hogy jössz. Több Ügyességet.'
+        }
+      },
+      past: {
+        '1': 'Régen zsebtolvaj voltam épp ezen a hídon. Ráadásul jó.',
+        '2': 'Aztán a polgármester elkapott, és munkát adott, nem cellát. Ne mondd el neki, hogy hálás vagyok.',
+        say: 'Hogyan tanultad meg mindezt?'
+      },
+      trainBack: {
+        '1': 'Most menj gyakorolni. Próbáld meg, hogy ne kapjalak el.'
+      },
+      bye: {
+        '1': 'Viszlát. Hát, te engem nem fogsz látni.'
+      }
+    },
+    sbMasterSovereign: {
+      hello: {
+        '1': 'Ó! Szervusz, szervusz. Bocsáss meg, épp az őreimmel csevegtem. Remek hallgatóság.',
+        '2': 'Percival Ashcombe. Taníthatnék várban, de vezetni csak az emberek közt lehet megtanulni.'
+      },
+      again: {
+        '1': 'Kedves barátom! Folytassuk? Csak ha szeretnéd, természetesen.'
+      },
+      train: {
+        '1': 'Nos hát. A jó parancs világos, kedves, és csak egyszer hangzik el. Így.'
+      },
+      class: {
+        '1': 'Vezető. Az őreid melléd állnak, és veled harcolnak, nem csak érted.',
+        '2': 'A Karizma minden. Az emberek azt követik, akit kedvelnek. És aki megjegyzi a nevüket.',
+        say: 'Mi az a Nagyuralkodó?'
+      },
+      ready: {
+        strong: {
+          '1': 'Pompás! Most már bárhová követnének. Vedd fel az összes leckét.'
+        },
+        able: {
+          '1': 'Az őreid hallgatnának rád. Készen állsz a következő leckére.'
+        },
+        weak: {
+          '1': 'Attól tartok, még nem egészen. Egy kicsivel több Karizma, és jönni fognak.'
+        }
+      },
+      please: {
+        '1': 'Mindig. Kiabálással engedelmességet kapsz. A „kérlek” hűséget hoz, és a hűség tovább tart.',
+        say: 'Tényleg azt mondod az őreidnek, hogy „kérlek”?'
+      },
+      trainBack: {
+        '1': 'Gyönyörű munka. Ne felejtsd el utána megköszönni nekik.'
+      },
+      bye: {
+        '1': 'Vigyázz magadra, és add át üdvözletem mindenkinek.'
+      }
+    },
+    sbMasterGeo: {
+      hello: {
+        '1': 'Vigyázz a mohára, aranyom, nehéz hete volt. Na, hadd nézzelek.',
+        '2': 'Mélygyökér Tova nagyi. A folyómeder itt gyönyörű kő, egészen le az aljáig.'
+      },
+      again: {
+        '1': 'Máris vissza? Ülj le, épp most főztem teát. Kőteát. Leginkább tea.'
+      },
+      train: {
+        '1': 'Tenyér laposan a földre. Nem úgy. Mintha egy álmos kutyát simogatnál.'
+      },
+      class: {
+        '1': 'A föld segítségét kérjük. Falat, ha kell, tüskét, ha valaki goromba.',
+        '2': 'A kő olyan, mint a kert. Erő az ásáshoz, Intelligencia, hogy tudd, hová ültess.',
+        say: 'Mit csinál egy Geomanta?'
+      },
+      ready: {
+        strong: {
+          '1': 'A föld most már kedvel téged. Tanulj, amit csak szeretnél, aranyom.'
+        },
+        able: {
+          '1': 'Jó gyökerek! Készen állsz a következő leckére.'
+        },
+        weak: {
+          '1': 'Még nem, kincsem. A kő meg sem mozdul neked. Előbb több Erőt.'
+        }
+      },
+      garden: {
+        '1': 'Negyven év munkája. Minden kő kézzel nevelve. Na jó, varázslattal. De főleg kézzel.',
+        '2': 'Vigyél egy kavicsot kifelé menet. Remek ajtótámasz lesz belőle.',
+        say: 'Az ott egy kőből való kert?'
+      },
+      trainBack: {
+        '1': 'Gyönyörű. Most menj, és áss ki valamit. Óvatosan.'
+      },
+      bye: {
+        '1': 'Menj csak. Öltözz melegen, a folyónál nyirkos az idő.'
+      }
+    },
+    sbMasterAether: {
+      hello: {
+        '1': 'Üdv, üdv! Épp időben jöttél a bemutatóra. Fogd be a füled, kérlek.',
+        '2': 'Fogaskerék Quint professzor. A folyó ingyen hajtja a kerekeimet. Hol máshol tanítanék?'
+      },
+      again: {
+        '1': 'Á, a kedvenc tanítványom! A mai bemutató különösen hangos.'
+      },
+      train: {
+        '1': 'Nézd a táblát. Most felejtsd el a táblát, és figyeld a gépet.'
+      },
+      class: {
+        '1': 'Kiépítjük magunkat a bajból. Egy pisztoly, egy löveg és egy hőmérő, hogy ne vidd túlzásba.',
+        '2': 'Jártasság a célzáshoz, Intelligencia a trükkös részekhez. Legjobb, ha mindkettő megvan.',
+        say: 'Mit csinál valójában egy Étertechnikus?'
+      },
+      ready: {
+        strong: {
+          '1': 'Csodás! Akár az előadásaimat is tarthatnád. De kérlek, ne. Vedd a többit.'
+        },
+        able: {
+          '1': 'Biztos kéz! Készen állsz a következő gépre.'
+        },
+        weak: {
+          '1': 'Még nem. Elkalandozik a célzásod. Több Jártasságot, aztán beszélünk.'
+        }
+      },
+      eyebrows: {
+        '1': 'Egy bemutató kicsit túl jól sikerült. Visszanő. Mindig visszanő.',
+        say: 'Mi történt a szemöldököddel?'
+      },
+      trainBack: {
+        '1': 'Pompás. Most menj, és engedd ki azt a hőt. Lehetőleg kint.'
+      },
+      bye: {
+        '1': 'Az órának vége! Vigyázz a lépcsőn.'
+      }
+    },
+    sbMasterChrono: {
+      hello: {
+        '1': 'Régi tanítványom, az Órák Őrzője megírta, hogy jönni fogsz. Pontosan ebben a percben, mellesleg.',
+        '2': 'Selwyn órásmester. Én vigyázok a hídi órára. Egy ilyen nyüzsgő város nem késhet.'
+      },
+      again: {
+        '1': 'Hét perccel múlt egész. Jó időpont a kezdéshez.'
+      },
+      train: {
+        '1': 'Számolj velem. Egy, kettő, és tartsd. Az idő nyúlik, ha jól tartod.'
+      },
+      class: {
+        '1': 'Rendet rakunk az időben. Lassítunk egy ellenséget, siettetünk egy barátot, visszacsinálunk egy-egy hibát.',
+        '2': 'Intelligencia, hogy megértsd. Jártasság, hogy hozzáérj, és ne törj el semmit.',
+        say: 'Mi az az Időszövő?'
+      },
+      ready: {
+        strong: {
+          '1': 'Kiváló időzítés. A többi leckémet akkor vedd fel, amikor neked jó.'
+        },
+        able: {
+          '1': 'Készen állsz. A következő lecke kezdődik... most.'
+        },
+        weak: {
+          '1': 'Még nem. Mindig egy ütemmel le vagy maradva. Több Intelligenciát és több Jártasságot.'
+        }
+      },
+      keeper: {
+        '1': 'Én tanítottam, évekkel ezelőtt. Zseniális tanítvány. Mindig korán vagy későn, sosem időben.',
+        say: 'Honnan ismered az Órák Őrzőjét?'
+      },
+      trainBack: {
+        '1': 'Gyakorolj minden nap. Mindennap ugyanabban az időben, ha kérhetem.'
+      },
+      bye: {
+        '1': 'Menj csak. És el ne késs.'
+      }
+    },
+    sbMasterBlood: {
+      hello: {
+        '1': 'Sangrel doktor írt nekem rólad. Azt mondja, nem ájultál el. Tőle ez nagy dicséret.',
+        '2': 'Bíborlevél Vesper. A világ minden gyógynövénye elúszik e híd mellett. El vagyok kényeztetve.'
+      },
+      again: {
+        '1': 'Üdv újra. Ma élénknek tűnsz. Én mindig látom.'
+      },
+      train: {
+        '1': 'Lélegezz be. Érzed az erődet? Most költs el belőle egy keveset. Okosan.'
+      },
+      class: {
+        '1': 'A saját életerőnkkel fizetünk a hatalomért, aztán visszavesszük az ellenségtől.',
+        '2': 'Az Állóképesség az erszényed. Az Intelligencia dönti el, milyen jól költöd.',
+        say: 'Mi is valójában egy Véralkimista?'
+      },
+      ready: {
+        strong: {
+          '1': 'Micsoda életerő! Szinte mindenre készen állsz, amit tudok.'
+        },
+        able: {
+          '1': 'Erősen áramlik az esszenciád. Jöhet a következő lecke.'
+        },
+        weak: {
+          '1': 'Még nem. Egyetlen varázslat után kifáradnál. Előbb fejleszd az Állóképességed.'
+        }
+      },
+      herbs: {
+        '1': 'Főleg tonikokra. Egy kis esszencia, sok menta. A mentától minden jobb.',
+        '2': 'Ha odakint ritka növényeket találsz, hozd el őket. Szívesen megnézném.',
+        say: 'Mire valók ezek a füvek?'
+      },
+      trainBack: {
+        '1': 'Gyakorlás után pihenj. Az esszencia visszatér, de szeret szundítani.'
+      },
+      bye: {
+        '1': 'Vigyázz magadra. Igyál vizet. Egyél valami zöldet.'
+      }
+    },
+    smalltalkSilverbridge: {
+      barges: {
+        '1': 'Ma reggel három uszály jött a partvidékről.',
+        '2': 'Megint sózott hal?',
+        '3': 'Most kivételesen selyem. De utána azért szagold meg az ujjaidat.'
+      },
+      lesson: {
+        '1': 'Milyen volt az órád?',
+        '2': 'Felgyújtottam a ruhaujjamat. A mester szerint ez fejlődés.'
+      },
+      masters: {
+        '1': 'Az ország összes mestere egy utcában tanít.',
+        '2': 'És mind azt mondja, hogy az övé a legjobb kaszt.',
+        '3': 'Mindnek igaza van, és ez a bosszantó benne.'
+      },
+      bridge: {
+        '1': 'Azt mondják, a híd régebbi, mint a város.',
+        '2': 'Nyikorogni biztos úgy nyikorog.'
+      },
+      fish: {
+        '1': 'Fogtál valamit?',
+        '2': 'Egy csizmát.',
+        '3': 'Hát, az már fél pár.'
+      },
+      newMaster: {
+        '1': 'Új mester van az északi utcában. Sokat beszél az időről.',
+        '2': 'Fogadok, hogy minden órájáról elkésik.'
+      },
+      siege: {
+        '1': 'Rossz hírek jönnek Oakhavenből. Banditák a falaknál.',
+        '2': 'Akkor az uszályok majd ide jönnek. Szegények.'
       }
     }
   },

@@ -95,7 +95,37 @@ export const LOOKS: Readonly<Record<string, Look>> = {
   trainerChrono: L({ skin: '#cfe0ff', top: '#3f6fd6', bottom: '#2a4a9a', head: 'bun', hair: '#5f9fff', outfit: 'robe', held: 'wand', off: 'orb', trim: '#bfe6ff', glow: '#7fd8ff' }),
   trainerBlood: L({ skin: '#f0d0c0', top: '#f0ece4', bottom: '#8a2a3a', head: 'long', hair: '#c8283a', outfit: 'robe', held: 'flask', off: 'syringe', trim: '#c8283a', glow: '#ff4a6a', ears: 'pointy' }),
   trainerAether: L({ skin: '#e2b08a', top: '#3a5a8a', bottom: '#4a4a54', head: 'goggles', hair: '#f0d04a', outfit: 'leather', held: 'gun', trim: '#4ff0c8', glow: '#4ff0c8' }),
-  trainerGeo: L({ skin: '#b8845a', top: '#8a6a3a', bottom: '#5a4424', head: 'hood', hair: '#8a6a3a', outfit: 'robe', held: 'none', trim: '#c79a5a' })
+  trainerGeo: L({ skin: '#b8845a', top: '#8a6a3a', bottom: '#5a4424', head: 'hood', hair: '#8a6a3a', outfit: 'robe', held: 'none', trim: '#c79a5a' }),
+
+  // ── Silverbridge (river blue and bridge silver are the town's colours) ──
+  // The mayor: river-blue robe, silver trim, a ledger under her arm.
+  mayorBrenna: L({ skin: '#e8b890', top: '#2f6f9a', bottom: '#2a3a54', head: 'bun', hair: '#7a3a24', outfit: 'robe', held: 'none', off: 'tome', trim: '#d8dde8', cape: '#1f4a6a' }),
+  // The healer: a monk's pale robe, a fringe of brown hair, a calm green orb.
+  sbHealer: L({ skin: '#e2b08a', top: '#e8eef4', bottom: '#9fb4c8', head: 'bald', outfit: 'robe', held: 'none', off: 'orb', trim: '#4f9fd6', beard: '#7a5a3a', glow: '#8dff9a' }),
+  // The armourer: a sturdy mountain woman in a leather apron, red hair tied up, a hammer.
+  sbArmorer: L({ skin: '#e2a888', top: '#7a3a2a', bottom: '#4a3424', head: 'bun', hair: '#c9483a', outfit: 'apron', held: 'hammer', trim: '#c9a24a', bulk: 1.15, metal: '#b9c4d6' }),
+  // The weaponsmith: a dandy in burgundy and gold, a short cape, a gleaming sword.
+  sbWeapons: L({ skin: '#e8c4a4', top: '#7a1f3a', bottom: '#2a2030', head: 'short', hair: '#1c1418', outfit: 'tunic', held: 'sword', trim: '#ffd24a', cape: '#2a1c3a', metal: '#f4f8ff' }),
+  // The trinket kid: a patched green tunic, a leather cap over ginger hair, a pouch-orb of charms.
+  sbJeweler: L({ skin: '#f2c8a0', top: '#5f9a4a', bottom: '#6a5a44', head: 'leathercap', hair: '#d8783a', style: 'spiky', headCol: '#8a5f3a', outfit: 'tunic', held: 'none', off: 'orb', trim: '#ffd24a', glow: '#ffe07a' }),
+
+  // ── The Silverbridge masters (one per class, each dressed as its class) ──
+  // Aegis: an old champion in silver plate, a storm-blue cape, a hammer and a shield; grey braids under the helm.
+  sbMasterAegis: L({ skin: '#e8b890', top: '#d8dde8', bottom: '#4a5a78', head: 'helm', hair: '#c9ccd6', style: 'long', outfit: 'plate', held: 'hammer', off: 'shield', pauldrons: true, trim: '#4f8fd6', cape: '#2a4a8a', metal: '#eef2fa', bulk: 1.08 }),
+  // Pyro: a scholar's deep-orange robe, a pointed hat, a grey beard and a staff with a small, steady flame.
+  sbMasterPyro: L({ skin: '#f0c8a8', top: '#b84a1c', bottom: '#5a2a1c', head: 'wizard', hair: '#7a2a1c', outfit: 'robe', held: 'staff', trim: '#ffd84a', beard: '#c8c8d0', glow: '#ffb04a', metal: '#6a4a2a' }),
+  // Shadow: a midnight-teal hood, light leather, two daggers.
+  sbMasterShadow: L({ skin: '#e8b890', top: '#1f3a44', bottom: '#162a32', head: 'hood', hair: '#1f3a44', outfit: 'leather', held: 'dagger', off: 'dagger', trim: '#4fd0c0', cape: '#16303a' }),
+  // Sovereign: a kindly noble in royal blue, a gold circlet, a long gold-lined cape, a rapier.
+  sbMasterSovereign: L({ skin: '#f0c8a8', top: '#3f5fd6', bottom: '#2a2f5a', head: 'circlet', hair: '#c9a24a', style: 'short', outfit: 'robe', held: 'sword', trim: '#ffd84a', cape: '#7a1f3a', metal: '#f4f8ff' }),
+  // Geo: a grandmother in moss green and earth brown, a grey bun, a wooden staff with an amber stone.
+  sbMasterGeo: L({ skin: '#d9a47e', top: '#5f7a3a', bottom: '#6a4a2a', head: 'bun', hair: '#d8d8d0', outfit: 'robe', held: 'staff', trim: '#c79a5a', metal: '#7a5a34', glow: '#ffb84a' }),
+  // Aether: a lecturer's brown coat with brass trim, goggles on white hair, a pistol and a battery pack.
+  sbMasterAether: L({ skin: '#e2b08a', top: '#6a4a2a', bottom: '#3a3430', head: 'goggles', hair: '#e8e8f0', outfit: 'leather', held: 'gun', off: 'battery', trim: '#e0a84a', beard: '#e8e8f0', glow: '#4ff0c8', metal: '#c9a24a' }),
+  // Chrono: a time-blue robe with brass trim, a circlet, a grey beard, a staff and a glowing orb.
+  sbMasterChrono: L({ skin: '#e8c4a4', top: '#2a5ab8', bottom: '#1c3a7a', head: 'circlet', hair: '#c8ccd8', style: 'short', outfit: 'robe', held: 'staff', off: 'orb', trim: '#e0b84a', beard: '#c8ccd8', glow: '#7fd8ff' }),
+  // Blood: a dark-red alchemist's coat, long black hair, a flask and her book of recipes.
+  sbMasterBlood: L({ skin: '#f0d0c0', top: '#6a1c2a', bottom: '#2a1418', head: 'long', hair: '#1c1218', outfit: 'leather', held: 'flask', off: 'tome', trim: '#ff6a8a', cape: '#3a0e18', glow: '#ff4a6a' })
 }
 
 const HELD_OF: Record<string, Held> = {

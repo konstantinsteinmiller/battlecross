@@ -63,31 +63,68 @@ export const TC_GROUND = 9
 /** Out of town (the trees). */
 export const TC_RIM = 10
 
-const CX = 19
-/** The front (south) wall row of the north, middle and south rows of houses. */
-const FRONT = [8, 17, 25] as const
-/** The deepest a house may be in each row (the gardens behind take the rest). */
-const DEPTH = [5, 4, 3] as const
-/** The square. */
-const SQ = { i0: CX - 5, i1: CX + 5, j0: 9, j1: 20 }
-/** The main road, from the square down to the edge of the green. */
-const ROAD = { i0: CX - 1, i1: CX + 1, j1: TOWN_H - 3 }
-/** Where houses may stand in each row (inclusive column spans). */
-const SEGMENTS: ReadonlyArray<ReadonlyArray<readonly [number, number]>> = [
-  [[3, 34]],
-  [[3, SQ.i0 - 1], [SQ.i1 + 1, 34]],
-  [[3, ROAD.i0 - 2], [ROAD.i1 + 2, 34]]
-]
-const START_J = 28
-/** The well's (the fountain's) row: the middle of the square. */
-const WELL_J = 14
+/**
+ * The plan of a town, by its width: the big town (roadmap #86) is the same
+ * three rows of houses round the same square, only wider. Everything the
+ * layout places is measured from here.
+ */
+export interface TownGeo {
+  W: number
+  H: number
+  CX: number
+  /** The front (south) wall row of the north, middle and south rows of houses. */
+  FRONT: readonly [number, number, number]
+  /** The deepest a house may be in each row (the gardens behind take the rest). */
+  DEPTH: readonly [number, number, number]
+  /** The square. */
+  SQ: { i0: number; i1: number; j0: number; j1: number }
+  /** The main road, from the square down to the edge of the green. */
+  ROAD: { i0: number; i1: number; j1: number }
+  /** Where houses may stand in each row (inclusive column spans). */
+  SEGMENTS: ReadonlyArray<ReadonlyArray<readonly [number, number]>>
+  START_J: number
+  /** The well's (the fountain's) row: the middle of the square. */
+  WELL_J: number
+}
+
+const geoCache = new Map<number, TownGeo>()
+export const townGeo = (width: number = TOWN_W): TownGeo => {
+  let g = geoCache.get(width)
+  if (g) return g
+  const W = width
+  const H = TOWN_H
+  const CX = Math.floor(W / 2)
+  const SQ = { i0: CX - 5, i1: CX + 5, j0: 9, j1: 20 }
+  const ROAD = { i0: CX - 1, i1: CX + 1, j1: H - 3 }
+  g = {
+    W, H, CX,
+    FRONT: [8, 17, 25],
+    DEPTH: [5, 4, 3],
+    SQ,
+    ROAD,
+    SEGMENTS: [
+      [[3, W - 4]],
+      [[3, SQ.i0 - 1], [SQ.i1 + 1, W - 4]],
+      [[3, ROAD.i0 - 2], [ROAD.i1 + 2, W - 4]]
+    ],
+    START_J: 28,
+    WELL_J: 14
+  }
+  geoCache.set(width, g)
+  return g
+}
+
+/** The geometry of the town being laid (set by `layTown`, read by its helpers). */
+let G: TownGeo = townGeo()
 
 /** The lanes nothing may stand in: the middle of each street and the road
  *  below the square (inside the square, the fountain splits the way). */
-export const townLane = (i: number, j: number): boolean =>
-  ((j === FRONT[0] + 2 || j === FRONT[1] + 2) && i >= 4 && i <= TOWN_W - 5 && (i < SQ.i0 || i > SQ.i1)) ||
-  (i >= ROAD.i0 && i <= ROAD.i1 && j > SQ.j1 && j <= ROAD.j1)
-const isLane = townLane
+export const townLane = (i: number, j: number, width: number = TOWN_W): boolean => {
+  const g = townGeo(width)
+  return ((j === g.FRONT[0] + 2 || j === g.FRONT[1] + 2) && i >= 4 && i <= g.W - 5 && (i < g.SQ.i0 || i > g.SQ.i1)) ||
+    (i >= g.ROAD.i0 && i <= g.ROAD.i1 && j > g.SQ.j1 && j <= g.ROAD.j1)
+}
+const isLane = (i: number, j: number): boolean => townLane(i, j, G.W)
 
 // ─── The plan ────────────────────────────────────────────────────────────────
 
@@ -283,7 +320,7 @@ interface Home {
 }
 
 /** A 0..1 point of the town's own square → a cell. */
-const anchor = (at: [number, number]): [number, number] => [Math.round(3 + at[0] * 31), Math.round(3 + at[1] * 29)]
+const anchor = (at: [number, number]): [number, number] => [Math.round(3 + at[0] * (G.W - 7)), Math.round(3 + at[1] * (G.H - 7))]
 
 const rowOf = (aj: number): number => (aj <= 12 ? 0 : aj <= 21 ? 1 : 2)
 
@@ -303,8 +340,9 @@ const storeysOf = (kind: HouseKind, style: TownStyle, row: number, rng: Rng): 1 
 
 export const layTown = (def: TownDef, flags: ReadonlySet<string>, seed: number): TownLayout => {
   const rng = mulberry32(seed)
-  const W = TOWN_W
-  const H = TOWN_H
+  G = townGeo(def.width ?? TOWN_W)
+  const W = G.W
+  const H = G.H
   const N = W * H
   const solid = new Uint8Array(N).fill(1)
   const trail = new Uint8Array(N)
@@ -335,11 +373,11 @@ export const layTown = (def: TownDef, flags: ReadonlySet<string>, seed: number):
     cell[K(i, j)] = c
     trail[K(i, j)] = 1
   }
-  for (const f of [FRONT[0], FRONT[1]]) for (let i = 3; i <= W - 4; i++) for (let j = f + 1; j <= f + 3; j++) street(i, j)
-  for (let j = SQ.j0; j <= SQ.j1; j++) for (let i = SQ.i0; i <= SQ.i1; i++) street(i, j, TC_SQUARE)
-  for (let j = SQ.j1 + 1; j <= ROAD.j1; j++) for (let i = ROAD.i0; i <= ROAD.i1; i++) street(i, j)
+  for (const f of [G.FRONT[0], G.FRONT[1]]) for (let i = 3; i <= W - 4; i++) for (let j = f + 1; j <= f + 3; j++) street(i, j)
+  for (let j = G.SQ.j0; j <= G.SQ.j1; j++) for (let i = G.SQ.i0; i <= G.SQ.i1; i++) street(i, j, TC_SQUARE)
+  for (let j = G.SQ.j1 + 1; j <= G.ROAD.j1; j++) for (let i = G.ROAD.i0; i <= G.ROAD.i1; i++) street(i, j)
   // The street ends fray into the grass.
-  for (const f of [FRONT[0], FRONT[1]]) for (const i of [3, W - 4]) { trail[K(i, f + 1)] = 0; trail[K(i, f + 3)] = 0 }
+  for (const f of [G.FRONT[0], G.FRONT[1]]) for (const i of [3, W - 4]) { trail[K(i, f + 1)] = 0; trail[K(i, f + 3)] = 0 }
 
   // ── Homes: the cast's houses, then the town's landmarks ──
   const homes: Home[] = []
@@ -369,7 +407,7 @@ export const layTown = (def: TownDef, flags: ReadonlySet<string>, seed: number):
   // How many family homes are left to make walkable (see below).
   let familyLeft = 2
   for (let row = 0; row < 3; row++) {
-    for (const [s0, s1] of SEGMENTS[row]!) {
+    for (const [s0, s1] of G.SEGMENTS[row]!) {
       const mine = homes.filter(h => h.row === row && h.ai >= s0 - 3 && h.ai <= s1 + 3).sort((a, b) => a.ai - b.ai)
       const placed: Lot[] = []
       for (const h of mine) {
@@ -377,7 +415,7 @@ export const layTown = (def: TownDef, flags: ReadonlySet<string>, seed: number):
         let cw = w0 + Math.floor(rng() * (w1 - w0 + 1))
         const yw = h.yard ? 6 + Math.floor(rng() * 2) : 0
         // The yard lies toward the middle of the town.
-        const yardLeft = h.yard && h.ai > CX
+        const yardLeft = h.yard && h.ai > G.CX
         const total = cw + yw
         let i0 = h.ai - Math.floor(total / 2)
         const prev = placed[placed.length - 1]
@@ -415,7 +453,7 @@ export const layTown = (def: TownDef, flags: ReadonlySet<string>, seed: number):
           // (four cells each way: a room needs them; a few, for each one's front is drawn apart).
           const family = row < 2 && familyLeft > 0 && room >= 4
           if (family) { cw = Math.max(4, cw); familyLeft-- }
-          placed.push({ home: { kind: kindA, ai: i + (cw >> 1), aj: FRONT[row]!, row, owners: [], yard: false, inside: family, sign: '' }, i0: i, cw, yw: 0, yardLeft: false, row })
+          placed.push({ home: { kind: kindA, ai: i + (cw >> 1), aj: G.FRONT[row]!, row, owners: [], yard: false, inside: family, sign: '' }, i0: i, cw, yw: 0, yardLeft: false, row })
           i += cw
           // Gaps between houses: alleys, gardens, a way through to the next street.
           if (g1 - i + 1 >= 4 && rng() < 0.6) i += rng() < 0.3 ? 2 : 1
@@ -432,10 +470,10 @@ export const layTown = (def: TownDef, flags: ReadonlySet<string>, seed: number):
   for (const l of lots) {
     const h = l.home!
     const row = l.row
-    const front = FRONT[row]!
+    const front = G.FRONT[row]!
     // An ambient cottage in a deep row sits a step back with a front garden.
     const setback = h.owners.length === 0 && h.kind === 'cottage' && row < 2 && rng() < 0.4
-    const maxD = DEPTH[row]!
+    const maxD = G.DEPTH[row]!
     // (A taproom needs a room four cells deep: in the shallow south row it reaches a cell into the street behind.)
     const cd = (h.kind === 'tavern' || h.kind === 'cottage') && h.inside ? Math.max(4, maxD) : Math.min(maxD, h.kind === 'cottage' ? 3 + (row === 0 ? 1 : 0) : h.kind === 'townhouse' || h.kind === 'workshop' ? Math.min(4, maxD) : maxD)
     const hi0 = l.yardLeft ? l.i0 + l.yw : l.i0
@@ -503,15 +541,15 @@ export const layTown = (def: TownDef, flags: ReadonlySet<string>, seed: number):
   }
   // Grass in the north row's band (between houses, behind gardens) beyond the
   // first row of the street is garden too: it is hidden by the houses either side.
-  for (let j = 3; j < FRONT[0] - 1; j++) for (let i = 2; i < W - 2; i++) if (cell[K(i, j)] === TC_GRASS) cell[K(i, j)] = TC_YARD
+  for (let j = 3; j < G.FRONT[0] - 1; j++) for (let i = 2; i < W - 2; i++) if (cell[K(i, j)] === TC_GRASS) cell[K(i, j)] = TC_YARD
 
   const plan: TownPlan = {
     id: def.id, style: def.style, ruined, w: W, cell, room, houses, props: [], spots: [], people: [],
-    square: { i0: SQ.i0, j0: SQ.j0, i1: SQ.i1, j1: SQ.j1 }, patrol: []
+    square: { i0: G.SQ.i0, j0: G.SQ.j0, i1: G.SQ.i1, j1: G.SQ.j1 }, patrol: []
   }
   const pr = mulberry32(seed ^ 0x7a11)
   const layout: TownLayout = {
-    w: W, h: H, solid, trail, kind, start: { x: (CX + 0.5) * CELL, z: (START_J + 0.5) * CELL }, buildings, npcs: [], town: plan
+    w: W, h: H, solid, trail, kind, start: { x: (G.CX + 0.5) * CELL, z: (G.START_J + 0.5) * CELL }, buildings, npcs: [], town: plan
   }
   dress(def, flags, layout, pr)
   // Low cells: yards, fences and props keep feet out (the walk grid's LOW layer).
@@ -566,18 +604,18 @@ const dress = (def: TownDef, flags: ReadonlySet<string>, L: TownLayout, rng: Rng
   }
 
   // ── The square: a well (a fountain in a bigger town), benches round it, lamps ──
-  const wj = WELL_J
+  const wj = G.WELL_J
   const big = def.style === 'mercantile'
   const wellCells: number[] = []
-  if (big) { for (let j = wj - 1; j <= wj + 1; j++) for (let i = CX - 1; i <= CX + 1; i++) wellCells.push(K(i, j)) } else wellCells.push(K(CX, wj))
-  const well = addProp(big ? 'fountain' : 'well', C(CX), C(wj), 0, wellCells)
+  if (big) { for (let j = wj - 1; j <= wj + 1; j++) for (let i = G.CX - 1; i <= G.CX + 1; i++) wellCells.push(K(i, j)) } else wellCells.push(K(G.CX, wj))
+  const well = addProp(big ? 'fountain' : 'well', C(G.CX), C(wj), 0, wellCells)
   // Nobody stands right against it: a ring to walk round it.
   const ring = big ? 2 : 1
-  for (let j = wj - ring; j <= wj + ring; j++) for (let i = CX - ring; i <= CX + ring; i++) taken.add(K(i, j))
+  for (let j = wj - ring; j <= wj + ring; j++) for (let i = G.CX - ring; i <= G.CX + ring; i++) taken.add(K(i, j))
   // The fountain stands on the square's cross: the lane walks round it.
   // Benches face it from either side, and the well's rim can be sat on.
   for (const s of [-1, 1]) {
-    const bi = CX + s * (big ? 3 : 2)
+    const bi = G.CX + s * (big ? 3 : 2)
     const bj = wj
     if (!free(bi, bj)) continue
     const b = addProp('bench', C(bi), C(bj), s < 0 ? Math.PI / 2 : -Math.PI / 2, [K(bi, bj)])
@@ -588,12 +626,12 @@ const dress = (def: TownDef, flags: ReadonlySet<string>, L: TownLayout, rng: Rng
   }
   void well
   // Lamps at the square's corners; a notice board on its north side.
-  for (const [i, j] of [[SQ.i0, SQ.j0], [SQ.i1, SQ.j0], [SQ.i0, SQ.j1], [SQ.i1, SQ.j1]] as const) {
+  for (const [i, j] of [[G.SQ.i0, G.SQ.j0], [G.SQ.i1, G.SQ.j0], [G.SQ.i0, G.SQ.j1], [G.SQ.i1, G.SQ.j1]] as const) {
     if (free(i, j)) addProp(def.style === 'mountain' ? 'brazier' : 'lamp', C(i), C(j), 0, [K(i, j)])
   }
   {
-    const bi = CX + 3
-    const bj = SQ.j0 + 1
+    const bi = G.CX + 3
+    const bj = G.SQ.j0 + 1
     if (free(bi, bj)) {
       const b = addProp('board', C(bi), C(bj), 0, [K(bi, bj)])
       if (free(bi, bj + 1)) addSpot({ kind: 'look', x: C(bi), z: C(bj + 1) - 0.1, facing: Math.PI, ax: C(bi), az: C(bj + 1), room: -1, owner: '', prop: b })
@@ -601,25 +639,25 @@ const dress = (def: TownDef, flags: ReadonlySet<string>, L: TownLayout, rng: Rng
   }
   // Market stalls nobody keeps today, with goods to look at; flower planters;
   // barrels and crates stacked by the stalls.
-  for (const [i, j] of [[SQ.i0 + 1, WELL_J + 2], [SQ.i1 - 2, WELL_J + 2]] as const) {
+  for (const [i, j] of [[G.SQ.i0 + 1, G.WELL_J + 2], [G.SQ.i1 - 2, G.WELL_J + 2]] as const) {
     if (!free(i, j) || !free(i + 1, j) || !free(i, j + 1) || !free(i + 1, j + 1)) continue
     const st = addProp('stall', C(i) + CELL / 2, C(j), 0, [K(i, j), K(i + 1, j)], CELL * 2)
     addSpot({ kind: 'look', x: C(i) + 0.3, z: C(j + 1) - 0.15, facing: Math.PI, ax: C(i), az: C(j + 1), room: -1, owner: '', prop: st })
     taken.add(K(i, j + 1))
     taken.add(K(i + 1, j + 1))
   }
-  for (const [i, j] of [[SQ.i0 + 1, SQ.j0 + 3], [SQ.i1 - 1, SQ.j0 + 3]] as const) if (free(i, j)) addProp('planter', C(i), C(j), 0, [K(i, j)])
+  for (const [i, j] of [[G.SQ.i0 + 1, G.SQ.j0 + 3], [G.SQ.i1 - 1, G.SQ.j0 + 3]] as const) if (free(i, j)) addProp('planter', C(i), C(j), 0, [K(i, j)])
   {
-    const ci = SQ.i0 + 2
-    const cj = WELL_J - 2
+    const ci = G.SQ.i0 + 2
+    const cj = G.WELL_J - 2
     if (free(ci, cj) && !T.ruined) { addProp('chalk', C(ci), C(cj), rng() * 6.28, []); taken.add(K(ci, cj)) }
-    const si = SQ.i0 + 3
-    const sj = WELL_J + 2
+    const si = G.SQ.i0 + 3
+    const sj = G.WELL_J + 2
     if (free(si, sj)) addProp('spill', C(si), C(sj), rng() * 6.28, [K(si, sj)])
   }
-  for (const [i, j] of [[SQ.i0, WELL_J + 2], [SQ.i1, WELL_J + 2]] as const) if (free(i, j)) addProp('barrels', C(i), C(j), rng() * 6.28, [K(i, j)])
+  for (const [i, j] of [[G.SQ.i0, G.WELL_J + 2], [G.SQ.i1, G.WELL_J + 2]] as const) if (free(i, j)) addProp('barrels', C(i), C(j), rng() * 6.28, [K(i, j)])
   // Trees in the square's corners (a ruined town has stumps).
-  for (const [i, j] of [[SQ.i0 + 1, SQ.j1 - 1], [SQ.i1 - 1, SQ.j1 - 1]] as const) {
+  for (const [i, j] of [[G.SQ.i0 + 1, G.SQ.j1 - 1], [G.SQ.i1 - 1, G.SQ.j1 - 1]] as const) {
     if (free(i, j) && rng() < 0.85) addProp('tree', C(i), C(j), rng() * 6.28, [K(i, j)])
   }
 
@@ -883,10 +921,10 @@ const dress = (def: TownDef, flags: ReadonlySet<string>, L: TownLayout, rng: Rng
   }
 
   // ── Street dressing: lamps along the streets, barrels and crates at the walls ──
-  for (const f of [FRONT[0], FRONT[1]]) {
+  for (const f of [G.FRONT[0], G.FRONT[1]]) {
     for (let i = 5; i < W - 5; i += 6) {
       const j = f + 3
-      if (i >= SQ.i0 && i <= SQ.i1) continue
+      if (i >= G.SQ.i0 && i <= G.SQ.i1) continue
       if (free(i, j) && rng() < 0.8) addProp('lamp', C(i), C(j) + 0.4, 0, [K(i, j)])
     }
   }
@@ -905,17 +943,17 @@ const dress = (def: TownDef, flags: ReadonlySet<string>, L: TownLayout, rng: Rng
 
   // ── The green: the road in, a signpost, a cart, a laundry line, a field ──
   {
-    const gj = FRONT[2] + 3
-    const si = ROAD.i1 + 1
-    if (free(si, START_J - 1)) addProp('signpost', C(si), C(START_J - 1), 0, [K(si, START_J - 1)])
+    const gj = G.FRONT[2] + 3
+    const si = G.ROAD.i1 + 1
+    if (free(si, G.START_J - 1)) addProp('signpost', C(si), C(G.START_J - 1), 0, [K(si, G.START_J - 1)])
     // The town's gate over the road where it comes in.
     {
-      const gjj = ROAD.j1 - 1
-      const cells = [K(ROAD.i0 - 1, gjj), K(ROAD.i1 + 1, gjj)]
-      if (free(ROAD.i0 - 1, gjj) && free(ROAD.i1 + 1, gjj)) addProp('gate', C(CX), C(gjj), 0, cells, CELL * 4)
+      const gjj = G.ROAD.j1 - 1
+      const cells = [K(G.ROAD.i0 - 1, gjj), K(G.ROAD.i1 + 1, gjj)]
+      if (free(G.ROAD.i0 - 1, gjj) && free(G.ROAD.i1 + 1, gjj)) addProp('gate', C(G.CX), C(gjj), 0, cells, CELL * 4)
     }
     // A field each side of the road.
-    for (const [fi, fw] of [[ROAD.i1 + 3, 5], [ROAD.i0 - 8, 5]] as const) {
+    for (const [fi, fw] of [[G.ROAD.i1 + 3, 5], [G.ROAD.i0 - 8, 5]] as const) {
       const fj = gj + 3
       let ok = true
       for (let j = fj; j <= fj + 1; j++) for (let i = fi; i < fi + fw; i++) if (!free(i, j)) ok = false
@@ -925,18 +963,18 @@ const dress = (def: TownDef, flags: ReadonlySet<string>, L: TownLayout, rng: Rng
       const p = addProp('garden', C(fi) + (CELL * (fw - 1)) / 2, C(fj) + CELL / 2, 0, cells, CELL * fw)
       if (free(fi + 1, fj - 1)) addSpot({ kind: 'work', x: C(fi + 1), z: C(fj - 1) + 0.3, facing: 0, ax: C(fi + 1), az: C(fj - 1), room: -1, owner: '', prop: p })
     }
-    for (const [i, j, k] of [[ROAD.i0 - 4, gj + 1, 'cart'], [ROAD.i1 + 5, gj + 2, 'hay'], [ROAD.i0 - 8, gj + 3, 'hay']] as const) {
+    for (const [i, j, k] of [[G.ROAD.i0 - 4, gj + 1, 'cart'], [G.ROAD.i1 + 5, gj + 2, 'hay'], [G.ROAD.i0 - 8, gj + 3, 'hay']] as const) {
       if (free(i, j)) addProp(k, C(i), C(j), rng() * 0.6 - 0.3, [K(i, j)])
     }
     // A laundry line between two posts, and a vegetable patch with a fence.
     {
-      const li = ROAD.i1 + 7
+      const li = G.ROAD.i1 + 7
       const lj = gj + 1
       if (free(li, lj) && free(li + 1, lj)) {
         const p = addProp('laundry', C(li) + CELL / 2, C(lj), 0, [K(li, lj), K(li + 1, lj)], CELL * 2)
         if (free(li, lj + 1)) addSpot({ kind: 'work', x: C(li) + 0.3, z: C(lj + 1) - 0.3, facing: Math.PI, ax: C(li), az: C(lj + 1), room: -1, owner: '', prop: p })
       }
-      const gi = ROAD.i0 - 9
+      const gi = G.ROAD.i0 - 9
       const gjj = gj + 1
       let ok = true
       for (let j = gjj; j <= gjj + 1; j++) for (let i = gi; i <= gi + 3; i++) if (!free(i, j)) ok = false
@@ -971,8 +1009,8 @@ const dress = (def: TownDef, flags: ReadonlySet<string>, L: TownLayout, rng: Rng
   }
 
   // ── The guards' round: the square's corners and the streets' ends ──
-  const round: Array<[number, number]> = [[SQ.i0 + 1, FRONT[0] + 2], [SQ.i1 - 1, FRONT[0] + 2], [SQ.i1 + 4, FRONT[1] + 2], [SQ.i1 - 1, FRONT[1] + 2],
-    [ROAD.i1, FRONT[2] + 3], [SQ.i0 + 1, FRONT[1] + 2], [SQ.i0 - 4, FRONT[1] + 2]]
+  const round: Array<[number, number]> = [[G.SQ.i0 + 1, G.FRONT[0] + 2], [G.SQ.i1 - 1, G.FRONT[0] + 2], [G.SQ.i1 + 4, G.FRONT[1] + 2], [G.SQ.i1 - 1, G.FRONT[1] + 2],
+    [G.ROAD.i1, G.FRONT[2] + 3], [G.SQ.i0 + 1, G.FRONT[1] + 2], [G.SQ.i0 - 4, G.FRONT[1] + 2]]
   const open = (i: number, j: number): boolean => { const c = at(i, j); return (c === TC_STREET || c === TC_SQUARE || c === TC_GRASS) && !doorstep(i, j) }
   T.patrol = round.map(([i, j]) => { const c = nearestFree(i, j, open, 4); return [C(c[0]), C(c[1])] })
 }
