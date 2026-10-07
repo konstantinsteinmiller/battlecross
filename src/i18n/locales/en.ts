@@ -1135,7 +1135,7 @@ export default {
     },
     'sbMasterChrono': {
       'hello': { '1': 'My old pupil, the Keeper of Hours, wrote that you\'d come. At this very minute, in fact.', '2': 'Clockwarden Selwyn. I keep the bridge clock. A town this busy can\'t afford to be late.' },
-      'again': { '1': 'Seven minutes past. A good time to begin.' },
+      'again': { '1': 'Seven minutes after the hour. A good time to begin.' },
       'train': { '1': 'Count with me. One, two, and hold. Time stretches, if you hold it right.' },
       'class': {
         'say': 'What is a Chrono-Weaver?',

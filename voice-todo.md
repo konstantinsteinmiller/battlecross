@@ -16,15 +16,15 @@ rewrites it, and a test fails when it is stale. Do not edit by hand.
 
 | Voice | Lines | EN voiced |
 | --- | --- | --- |
-| hero | 162 | 155 |
+| hero | 162 | 162 |
 | sunfordSmith | 19 | 19 |
 | sunfordPeddler | 15 | 15 |
 | trainerAegis | 18 | 18 |
 | trainerPyro | 15 | 15 |
-| elderMara | 27 | 25 |
+| elderMara | 27 | 27 |
 | sunfordHealer | 12 | 12 |
 | goblinTrader | 11 | 11 |
-| sunfordGambler | 10 | 9 |
+| sunfordGambler | 10 | 10 |
 | captainHale | 18 | 18 |
 | oakArmorer | 20 | 20 |
 | oakWeapons | 10 | 10 |
@@ -48,8 +48,8 @@ rewrites it, and a test fails when it is stale. Do not edit by hand.
 | sbHealer | 10 | 10 |
 | sbAlchemist | 11 | 11 |
 | sbGambler | 10 | 10 |
-| sbCollector | 13 | 0 |
-| sbFence | 13 | 0 |
+| sbCollector | 13 | 13 |
+| sbFence | 13 | 13 |
 | sbArmorer | 9 | 9 |
 | sbWeapons | 9 | 9 |
 | sbJeweler | 9 | 9 |
@@ -59,7 +59,7 @@ rewrites it, and a test fails when it is stale. Do not edit by hand.
 | sbMasterSovereign | 12 | 12 |
 | sbMasterGeo | 13 | 13 |
 | sbMasterAether | 12 | 12 |
-| sbMasterChrono | 12 | 11 |
+| sbMasterChrono | 12 | 12 |
 | sbMasterBlood | 13 | 13 |
 | goblinKing | 9 | 9 |
 | warlord | 5 | 5 |
@@ -74,57 +74,12 @@ rewrites it, and a test fails when it is stale. Do not edit by hand.
 | smalltalkKids | 6 | 6 |
 | kidFriend | 4 | 4 |
 | frostJarl | 2 | 2 |
-| heroine | 162 | 155 |
-| **All** | **1046** | **1002** |
+| heroine | 162 | 162 |
+| **All** | **1046** | **1046** |
 
-## To do (44)
+## To do (0)
 
-| File | Who | Scene | English | EN |
-| --- | --- | --- | --- | --- |
-| `dlg.elderMara.map.say` | The hero (hero) | elderMara | I found a piece of an old map. | **missing** |
-| `dlg.elderMara.map.1` | Elder Mara (elderMara) | elderMara | Captain Rook's map! He tore it up and hid the pieces before the goblins caught him. | **missing** |
-| `dlg.elderMara.map.2` | Elder Mara (elderMara) | elderMara | Find all six and the X shows the way: somewhere in the Ashen Crags. Dig there, and the gold is yours. | **missing** |
-| `dlg.sunfordGambler.hello.2` | Dob Tumbler (sunfordGambler) | sunfordGambler | Dob Tumbler. I play for fun, mostly. And for boots. | **missing** |
-| `dlg.sbCollector.hello.1` | Alder Vane (sbCollector) | sbCollector | Shut the door, there's a draught. The moths are after my tapestries. | **missing** |
-| `dlg.sbCollector.hello.2` | Alder Vane (sbCollector) | sbCollector | Alder Vane. Some call me the Collector. I buy rare things, and sell them to people I like. | **missing** |
-| `dlg.sbCollector.open.1` | Alder Vane (sbCollector) | sbCollector | My friend! Come in, come in. I've dusted something special for you. | **missing** |
-| `dlg.sbCollector.again.1` | Alder Vane (sbCollector) | sbCollector | You again. Still haven't done me that favour, I see. | **missing** |
-| `dlg.sbCollector.trade.1` | Alder Vane (sbCollector) | sbCollector | The cabinets are open. Only the best, and I remember every price. | **missing** |
-| `dlg.sbCollector.favor.say` | The hero (hero) | sbCollector | Do you sell anything? | **missing** |
-| `dlg.sbCollector.favor.1` | Alder Vane (sbCollector) | sbCollector | Not to strangers. But do me a favour and we'll be friends. | **missing** |
-| `dlg.sbCollector.favor.2` | Alder Vane (sbCollector) | sbCollector | Treants in the Whispering Woods guard the moonbells I need. Beat six of them and bring me three moonbells. | **missing** |
-| `dlg.sbCollector.waiting.say` | The hero (hero) | sbCollector | About that favour... | **missing** |
-| `dlg.sbCollector.waiting.1` | Alder Vane (sbCollector) | sbCollector | Six treants, three moonbells. The moonbells won't pick themselves, sadly. | **missing** |
-| `dlg.sbCollector.favorDone.say` | The hero (hero) | sbCollector | I brought your moonbells. | **missing** |
-| `dlg.sbCollector.favorDone.1` | Alder Vane (sbCollector) | sbCollector | Oh, they still smell of the woods! Wonderful. | **missing** |
-| `dlg.sbCollector.favorDone.2` | Alder Vane (sbCollector) | sbCollector | A deal's a deal. My cabinets are yours to look through, any time. | **missing** |
-| `dlg.sbCollector.who.1` | Alder Vane (sbCollector) | sbCollector | I've collected since I was six. First it was buttons. Now it's swords that hum. | **missing** |
-| `dlg.sbCollector.shopBack.1` | Alder Vane (sbCollector) | sbCollector | Treat that one kindly. It's older than both of us. | **missing** |
-| `dlg.sbCollector.bye.1` | Alder Vane (sbCollector) | sbCollector | Close the door behind you. Gently, the vases rattle. | **missing** |
-| `dlg.sbFence.hello.1` | Mirela Thorne (sbFence) | sbFence | You're staring. Either buy something or stop blocking my light. | **missing** |
-| `dlg.sbFence.hello.2` | Mirela Thorne (sbFence) | sbFence | Mirela Thorne. I find things people lose. Then I find them new owners. | **missing** |
-| `dlg.sbFence.open.1` | Mirela Thorne (sbFence) | sbFence | Ah, my favourite hero. I kept the good stuff under the cloth for you. | **missing** |
-| `dlg.sbFence.again.1` | Mirela Thorne (sbFence) | sbFence | Back? Remember what I asked. Then we can talk business. | **missing** |
-| `dlg.sbFence.trade.1` | Mirela Thorne (sbFence) | sbFence | Armour from all over. Don't ask where. It's all clean now, I promise. | **missing** |
-| `dlg.sbFence.favor.say` | The hero (hero) | sbFence | What's under the cloth? | **missing** |
-| `dlg.sbFence.favor.1` | Mirela Thorne (sbFence) | sbFence | Good armour. For friends. And friends do each other favours. | **missing** |
-| `dlg.sbFence.favor.2` | Mirela Thorne (sbFence) | sbFence | Bandits in the Oakhaven outskirts keep robbing my deliveries. Beat fifteen, then ask the trinket kid who sent them. | **missing** |
-| `dlg.sbFence.waiting.say` | The hero (hero) | sbFence | About those bandits... | **missing** |
-| `dlg.sbFence.waiting.1` | Mirela Thorne (sbFence) | sbFence | Fifteen bandits, then a word with the trinket kid. Off you go. | **missing** |
-| `dlg.sbFence.favorDone.say` | The hero (hero) | sbFence | The bandits are beaten, and I know who sent them. | **missing** |
-| `dlg.sbFence.favorDone.1` | Mirela Thorne (sbFence) | sbFence | So it was the gossip all along. Ha! I owe you one. | **missing** |
-| `dlg.sbFence.favorDone.2` | Mirela Thorne (sbFence) | sbFence | Lift the cloth whenever you like. Friends get first pick. | **missing** |
-| `dlg.sbFence.who.1` | Mirela Thorne (sbFence) | sbFence | I grew up on these river steps. Everything that floats past ends up with me sooner or later. | **missing** |
-| `dlg.sbFence.shopBack.1` | Mirela Thorne (sbFence) | sbFence | Wear it well. And if anyone asks, you bought it in Ironhold. | **missing** |
-| `dlg.sbFence.bye.1` | Mirela Thorne (sbFence) | sbFence | Mind your purse. Not everyone here is as honest as me. | **missing** |
-| `dlg.sbMasterChrono.again.1` | Clockwarden Selwyn (sbMasterChrono) | sbMasterChrono | Seven minutes past. A good time to begin. | **missing** |
-| `dlg.elderMara.map.say__f` | The girl hero (heroine) | elderMara | I found a piece of an old map. | **missing** |
-| `dlg.sbCollector.favor.say__f` | The girl hero (heroine) | sbCollector | Do you sell anything? | **missing** |
-| `dlg.sbCollector.waiting.say__f` | The girl hero (heroine) | sbCollector | About that favour... | **missing** |
-| `dlg.sbCollector.favorDone.say__f` | The girl hero (heroine) | sbCollector | I brought your moonbells. | **missing** |
-| `dlg.sbFence.favor.say__f` | The girl hero (heroine) | sbFence | What's under the cloth? | **missing** |
-| `dlg.sbFence.waiting.say__f` | The girl hero (heroine) | sbFence | About those bandits... | **missing** |
-| `dlg.sbFence.favorDone.say__f` | The girl hero (heroine) | sbFence | The bandits are beaten, and I know who sent them. | **missing** |
+Nothing: every line has its recording.
 
 ## Every line (1046)
 
@@ -219,9 +174,9 @@ rewrites it, and a test fails when it is stale. Do not edit by hand.
 | `dlg.elderMara.fallen.1` | Elder Mara (elderMara) | elderMara | Oakhaven burned, they say. I'd rather not hear how. Not today. | chatterbox |
 | `dlg.elderMara.ending.1` | Elder Mara (elderMara) | elderMara | They say you decided the fate of the Dread Fortress. From our little road to that. | chatterbox |
 | `dlg.elderMara.again.1` | Elder Mara (elderMara) | elderMara | Sit for a moment. The road will still be there. | chatterbox |
-| `dlg.elderMara.map.say` | The hero (hero) | elderMara | I found a piece of an old map. | **missing** |
-| `dlg.elderMara.map.1` | Elder Mara (elderMara) | elderMara | Captain Rook's map! He tore it up and hid the pieces before the goblins caught him. | **missing** |
-| `dlg.elderMara.map.2` | Elder Mara (elderMara) | elderMara | Find all six and the X shows the way: somewhere in the Ashen Crags. Dig there, and the gold is yours. | **missing** |
+| `dlg.elderMara.map.say` | The hero (hero) | elderMara | I found a piece of an old map. | chatterbox |
+| `dlg.elderMara.map.1` | Elder Mara (elderMara) | elderMara | Captain Rook's map! He tore it up and hid the pieces before the goblins caught him. | chatterbox |
+| `dlg.elderMara.map.2` | Elder Mara (elderMara) | elderMara | Find all six and the X shows the way: somewhere in the Ashen Crags. Dig there, and the gold is yours. | chatterbox |
 | `dlg.elderMara.reward.say` | The hero (hero) | elderMara | Someone said you wanted to see me? | chatterbox |
 | `dlg.elderMara.reward.1` | Elder Mara (elderMara) | elderMara | You held the road when our militia couldn't. The town put a little together. | chatterbox |
 | `dlg.elderMara.reward.2` | Elder Mara (elderMara) | elderMara | It isn't much. It's what we could spare. | chatterbox |
@@ -273,7 +228,7 @@ rewrites it, and a test fails when it is stale. Do not edit by hand.
 | `dlg.goblinTrader.shopBack.1` | Grik the Trader (goblinTrader) | goblinTrader | Thank you. Come again. | chatterbox |
 | `dlg.goblinTrader.bye.1` | Grik the Trader (goblinTrader) | goblinTrader | Go safely, friend. | chatterbox |
 | `dlg.sunfordGambler.hello.1` | Dob Tumbler (sunfordGambler) | sunfordGambler | Psst. Got any junk in that bag? Old boots, bent swords? I'll play you for it. | chatterbox |
-| `dlg.sunfordGambler.hello.2` | Dob Tumbler (sunfordGambler) | sunfordGambler | Dob Tumbler. I play for fun, mostly. And for boots. | **missing** |
+| `dlg.sunfordGambler.hello.2` | Dob Tumbler (sunfordGambler) | sunfordGambler | Dob Tumbler. I play for fun, mostly. And for boots. | chatterbox |
 | `dlg.sunfordGambler.again.1` | Dob Tumbler (sunfordGambler) | sunfordGambler | You again! Got any more of that lovely junk? | chatterbox |
 | `dlg.hero.play` | The hero (hero) | hero | Deal me in. | chatterbox |
 | `dlg.sunfordGambler.play.1` | Dob Tumbler (sunfordGambler) | sunfordGambler | Fee on the table. Lay your things down, highest price takes the point. | chatterbox |
@@ -650,38 +605,38 @@ rewrites it, and a test fails when it is stale. Do not edit by hand.
 | `dlg.sbGambler.prize.1` | Madame Pell (sbGambler) | sbGambler | A dwarf, once. Nobody has seen him blink since. | chatterbox |
 | `dlg.sbGambler.playBack.1` | Madame Pell (sbGambler) | sbGambler | Win or lose, that was a good game. Come back when your eyes are rested. | chatterbox |
 | `dlg.sbGambler.bye.1` | Madame Pell (sbGambler) | sbGambler | Off you go! Remember where you put your feet. | chatterbox |
-| `dlg.sbCollector.hello.1` | Alder Vane (sbCollector) | sbCollector | Shut the door, there's a draught. The moths are after my tapestries. | **missing** |
-| `dlg.sbCollector.hello.2` | Alder Vane (sbCollector) | sbCollector | Alder Vane. Some call me the Collector. I buy rare things, and sell them to people I like. | **missing** |
-| `dlg.sbCollector.open.1` | Alder Vane (sbCollector) | sbCollector | My friend! Come in, come in. I've dusted something special for you. | **missing** |
-| `dlg.sbCollector.again.1` | Alder Vane (sbCollector) | sbCollector | You again. Still haven't done me that favour, I see. | **missing** |
-| `dlg.sbCollector.trade.1` | Alder Vane (sbCollector) | sbCollector | The cabinets are open. Only the best, and I remember every price. | **missing** |
-| `dlg.sbCollector.favor.say` | The hero (hero) | sbCollector | Do you sell anything? | **missing** |
-| `dlg.sbCollector.favor.1` | Alder Vane (sbCollector) | sbCollector | Not to strangers. But do me a favour and we'll be friends. | **missing** |
-| `dlg.sbCollector.favor.2` | Alder Vane (sbCollector) | sbCollector | Treants in the Whispering Woods guard the moonbells I need. Beat six of them and bring me three moonbells. | **missing** |
-| `dlg.sbCollector.waiting.say` | The hero (hero) | sbCollector | About that favour... | **missing** |
-| `dlg.sbCollector.waiting.1` | Alder Vane (sbCollector) | sbCollector | Six treants, three moonbells. The moonbells won't pick themselves, sadly. | **missing** |
-| `dlg.sbCollector.favorDone.say` | The hero (hero) | sbCollector | I brought your moonbells. | **missing** |
-| `dlg.sbCollector.favorDone.1` | Alder Vane (sbCollector) | sbCollector | Oh, they still smell of the woods! Wonderful. | **missing** |
-| `dlg.sbCollector.favorDone.2` | Alder Vane (sbCollector) | sbCollector | A deal's a deal. My cabinets are yours to look through, any time. | **missing** |
-| `dlg.sbCollector.who.1` | Alder Vane (sbCollector) | sbCollector | I've collected since I was six. First it was buttons. Now it's swords that hum. | **missing** |
-| `dlg.sbCollector.shopBack.1` | Alder Vane (sbCollector) | sbCollector | Treat that one kindly. It's older than both of us. | **missing** |
-| `dlg.sbCollector.bye.1` | Alder Vane (sbCollector) | sbCollector | Close the door behind you. Gently, the vases rattle. | **missing** |
-| `dlg.sbFence.hello.1` | Mirela Thorne (sbFence) | sbFence | You're staring. Either buy something or stop blocking my light. | **missing** |
-| `dlg.sbFence.hello.2` | Mirela Thorne (sbFence) | sbFence | Mirela Thorne. I find things people lose. Then I find them new owners. | **missing** |
-| `dlg.sbFence.open.1` | Mirela Thorne (sbFence) | sbFence | Ah, my favourite hero. I kept the good stuff under the cloth for you. | **missing** |
-| `dlg.sbFence.again.1` | Mirela Thorne (sbFence) | sbFence | Back? Remember what I asked. Then we can talk business. | **missing** |
-| `dlg.sbFence.trade.1` | Mirela Thorne (sbFence) | sbFence | Armour from all over. Don't ask where. It's all clean now, I promise. | **missing** |
-| `dlg.sbFence.favor.say` | The hero (hero) | sbFence | What's under the cloth? | **missing** |
-| `dlg.sbFence.favor.1` | Mirela Thorne (sbFence) | sbFence | Good armour. For friends. And friends do each other favours. | **missing** |
-| `dlg.sbFence.favor.2` | Mirela Thorne (sbFence) | sbFence | Bandits in the Oakhaven outskirts keep robbing my deliveries. Beat fifteen, then ask the trinket kid who sent them. | **missing** |
-| `dlg.sbFence.waiting.say` | The hero (hero) | sbFence | About those bandits... | **missing** |
-| `dlg.sbFence.waiting.1` | Mirela Thorne (sbFence) | sbFence | Fifteen bandits, then a word with the trinket kid. Off you go. | **missing** |
-| `dlg.sbFence.favorDone.say` | The hero (hero) | sbFence | The bandits are beaten, and I know who sent them. | **missing** |
-| `dlg.sbFence.favorDone.1` | Mirela Thorne (sbFence) | sbFence | So it was the gossip all along. Ha! I owe you one. | **missing** |
-| `dlg.sbFence.favorDone.2` | Mirela Thorne (sbFence) | sbFence | Lift the cloth whenever you like. Friends get first pick. | **missing** |
-| `dlg.sbFence.who.1` | Mirela Thorne (sbFence) | sbFence | I grew up on these river steps. Everything that floats past ends up with me sooner or later. | **missing** |
-| `dlg.sbFence.shopBack.1` | Mirela Thorne (sbFence) | sbFence | Wear it well. And if anyone asks, you bought it in Ironhold. | **missing** |
-| `dlg.sbFence.bye.1` | Mirela Thorne (sbFence) | sbFence | Mind your purse. Not everyone here is as honest as me. | **missing** |
+| `dlg.sbCollector.hello.1` | Alder Vane (sbCollector) | sbCollector | Shut the door, there's a draught. The moths are after my tapestries. | chatterbox |
+| `dlg.sbCollector.hello.2` | Alder Vane (sbCollector) | sbCollector | Alder Vane. Some call me the Collector. I buy rare things, and sell them to people I like. | chatterbox |
+| `dlg.sbCollector.open.1` | Alder Vane (sbCollector) | sbCollector | My friend! Come in, come in. I've dusted something special for you. | chatterbox |
+| `dlg.sbCollector.again.1` | Alder Vane (sbCollector) | sbCollector | You again. Still haven't done me that favour, I see. | chatterbox |
+| `dlg.sbCollector.trade.1` | Alder Vane (sbCollector) | sbCollector | The cabinets are open. Only the best, and I remember every price. | chatterbox |
+| `dlg.sbCollector.favor.say` | The hero (hero) | sbCollector | Do you sell anything? | chatterbox |
+| `dlg.sbCollector.favor.1` | Alder Vane (sbCollector) | sbCollector | Not to strangers. But do me a favour and we'll be friends. | chatterbox |
+| `dlg.sbCollector.favor.2` | Alder Vane (sbCollector) | sbCollector | Treants in the Whispering Woods guard the moonbells I need. Beat six of them and bring me three moonbells. | chatterbox |
+| `dlg.sbCollector.waiting.say` | The hero (hero) | sbCollector | About that favour... | chatterbox |
+| `dlg.sbCollector.waiting.1` | Alder Vane (sbCollector) | sbCollector | Six treants, three moonbells. The moonbells won't pick themselves, sadly. | chatterbox |
+| `dlg.sbCollector.favorDone.say` | The hero (hero) | sbCollector | I brought your moonbells. | chatterbox |
+| `dlg.sbCollector.favorDone.1` | Alder Vane (sbCollector) | sbCollector | Oh, they still smell of the woods! Wonderful. | chatterbox |
+| `dlg.sbCollector.favorDone.2` | Alder Vane (sbCollector) | sbCollector | A deal's a deal. My cabinets are yours to look through, any time. | chatterbox |
+| `dlg.sbCollector.who.1` | Alder Vane (sbCollector) | sbCollector | I've collected since I was six. First it was buttons. Now it's swords that hum. | chatterbox |
+| `dlg.sbCollector.shopBack.1` | Alder Vane (sbCollector) | sbCollector | Treat that one kindly. It's older than both of us. | chatterbox |
+| `dlg.sbCollector.bye.1` | Alder Vane (sbCollector) | sbCollector | Close the door behind you. Gently, the vases rattle. | chatterbox |
+| `dlg.sbFence.hello.1` | Mirela Thorne (sbFence) | sbFence | You're staring. Either buy something or stop blocking my light. | chatterbox |
+| `dlg.sbFence.hello.2` | Mirela Thorne (sbFence) | sbFence | Mirela Thorne. I find things people lose. Then I find them new owners. | chatterbox |
+| `dlg.sbFence.open.1` | Mirela Thorne (sbFence) | sbFence | Ah, my favourite hero. I kept the good stuff under the cloth for you. | chatterbox |
+| `dlg.sbFence.again.1` | Mirela Thorne (sbFence) | sbFence | Back? Remember what I asked. Then we can talk business. | chatterbox |
+| `dlg.sbFence.trade.1` | Mirela Thorne (sbFence) | sbFence | Armour from all over. Don't ask where. It's all clean now, I promise. | chatterbox |
+| `dlg.sbFence.favor.say` | The hero (hero) | sbFence | What's under the cloth? | chatterbox |
+| `dlg.sbFence.favor.1` | Mirela Thorne (sbFence) | sbFence | Good armour. For friends. And friends do each other favours. | chatterbox |
+| `dlg.sbFence.favor.2` | Mirela Thorne (sbFence) | sbFence | Bandits in the Oakhaven outskirts keep robbing my deliveries. Beat fifteen, then ask the trinket kid who sent them. | chatterbox |
+| `dlg.sbFence.waiting.say` | The hero (hero) | sbFence | About those bandits... | chatterbox |
+| `dlg.sbFence.waiting.1` | Mirela Thorne (sbFence) | sbFence | Fifteen bandits, then a word with the trinket kid. Off you go. | chatterbox |
+| `dlg.sbFence.favorDone.say` | The hero (hero) | sbFence | The bandits are beaten, and I know who sent them. | chatterbox |
+| `dlg.sbFence.favorDone.1` | Mirela Thorne (sbFence) | sbFence | So it was the gossip all along. Ha! I owe you one. | chatterbox |
+| `dlg.sbFence.favorDone.2` | Mirela Thorne (sbFence) | sbFence | Lift the cloth whenever you like. Friends get first pick. | chatterbox |
+| `dlg.sbFence.who.1` | Mirela Thorne (sbFence) | sbFence | I grew up on these river steps. Everything that floats past ends up with me sooner or later. | chatterbox |
+| `dlg.sbFence.shopBack.1` | Mirela Thorne (sbFence) | sbFence | Wear it well. And if anyone asks, you bought it in Ironhold. | chatterbox |
+| `dlg.sbFence.bye.1` | Mirela Thorne (sbFence) | sbFence | Mind your purse. Not everyone here is as honest as me. | chatterbox |
 | `dlg.sbArmorer.hello.1` | Greta Ironvein (sbArmorer) | sbArmorer | Ha! Look at that dent. I hope you got your money back for that armour. | chatterbox |
 | `dlg.sbArmorer.hello.2` | Greta Ironvein (sbArmorer) | sbArmorer | Greta Ironvein. I make armour that comes home with its owner. Every time, so far. | chatterbox |
 | `dlg.sbArmorer.again.1` | Greta Ironvein (sbArmorer) | sbArmorer | You again! Still in one piece. My favourite kind of customer. | chatterbox |
@@ -801,7 +756,7 @@ rewrites it, and a test fails when it is stale. Do not edit by hand.
 | `dlg.sbMasterAether.bye.1` | Professor Quint Sprocket (sbMasterAether) | sbMasterAether | Class dismissed! Do mind the steps. | chatterbox |
 | `dlg.sbMasterChrono.hello.1` | Clockwarden Selwyn (sbMasterChrono) | sbMasterChrono | My old pupil, the Keeper of Hours, wrote that you'd come. At this very minute, in fact. | chatterbox |
 | `dlg.sbMasterChrono.hello.2` | Clockwarden Selwyn (sbMasterChrono) | sbMasterChrono | Clockwarden Selwyn. I keep the bridge clock. A town this busy can't afford to be late. | chatterbox |
-| `dlg.sbMasterChrono.again.1` | Clockwarden Selwyn (sbMasterChrono) | sbMasterChrono | Seven minutes past. A good time to begin. | **missing** |
+| `dlg.sbMasterChrono.again.1` | Clockwarden Selwyn (sbMasterChrono) | sbMasterChrono | Seven minutes after the hour. A good time to begin. | chatterbox |
 | `dlg.sbMasterChrono.train.1` | Clockwarden Selwyn (sbMasterChrono) | sbMasterChrono | Count with me. One, two, and hold. Time stretches, if you hold it right. | chatterbox |
 | `dlg.sbMasterChrono.class.say` | The hero (hero) | sbMasterChrono | What is a Chrono-Weaver? | chatterbox |
 | `dlg.sbMasterChrono.class.1` | Clockwarden Selwyn (sbMasterChrono) | sbMasterChrono | We tidy up time. Slow a foe down, hurry a friend along, undo the odd mistake. | chatterbox |
@@ -1027,7 +982,7 @@ rewrites it, and a test fails when it is stale. Do not edit by hand.
 | `dlg.trainerAegis.order.say__f` | The girl hero (heroine) | trainerAegis | Tell me about the Iron Order. | chatterbox |
 | `dlg.trainerPyro.class.say__f` | The girl hero (heroine) | trainerPyro | What does a pyromancer do, exactly? | chatterbox |
 | `dlg.trainerPyro.circle.say__f` | The girl hero (heroine) | trainerPyro | Who are the Circle of Aether? | chatterbox |
-| `dlg.elderMara.map.say__f` | The girl hero (heroine) | elderMara | I found a piece of an old map. | **missing** |
+| `dlg.elderMara.map.say__f` | The girl hero (heroine) | elderMara | I found a piece of an old map. | chatterbox |
 | `dlg.elderMara.reward.say__f` | The girl hero (heroine) | elderMara | Someone said you wanted to see me? | chatterbox |
 | `dlg.elderMara.quest.say__f` | The girl hero (heroine) | elderMara | What's troubling Sunford? | chatterbox |
 | `dlg.elderMara.quest.2__f` | The girl hero (heroine) | elderMara | And you want him dead? | chatterbox |
@@ -1088,12 +1043,12 @@ rewrites it, and a test fails when it is stale. Do not edit by hand.
 | `dlg.sbAlchemist.elixirs.say__f` | The girl hero (heroine) | sbAlchemist | What do the elixirs do? | chatterbox |
 | `dlg.sbGambler.rules.say__f` | The girl hero (heroine) | sbGambler | How does it work? | chatterbox |
 | `dlg.sbGambler.prize.say__f` | The girl hero (heroine) | sbGambler | Has anyone ever won the prize? | chatterbox |
-| `dlg.sbCollector.favor.say__f` | The girl hero (heroine) | sbCollector | Do you sell anything? | **missing** |
-| `dlg.sbCollector.waiting.say__f` | The girl hero (heroine) | sbCollector | About that favour... | **missing** |
-| `dlg.sbCollector.favorDone.say__f` | The girl hero (heroine) | sbCollector | I brought your moonbells. | **missing** |
-| `dlg.sbFence.favor.say__f` | The girl hero (heroine) | sbFence | What's under the cloth? | **missing** |
-| `dlg.sbFence.waiting.say__f` | The girl hero (heroine) | sbFence | About those bandits... | **missing** |
-| `dlg.sbFence.favorDone.say__f` | The girl hero (heroine) | sbFence | The bandits are beaten, and I know who sent them. | **missing** |
+| `dlg.sbCollector.favor.say__f` | The girl hero (heroine) | sbCollector | Do you sell anything? | chatterbox |
+| `dlg.sbCollector.waiting.say__f` | The girl hero (heroine) | sbCollector | About that favour... | chatterbox |
+| `dlg.sbCollector.favorDone.say__f` | The girl hero (heroine) | sbCollector | I brought your moonbells. | chatterbox |
+| `dlg.sbFence.favor.say__f` | The girl hero (heroine) | sbFence | What's under the cloth? | chatterbox |
+| `dlg.sbFence.waiting.say__f` | The girl hero (heroine) | sbFence | About those bandits... | chatterbox |
+| `dlg.sbFence.favorDone.say__f` | The girl hero (heroine) | sbFence | The bandits are beaten, and I know who sent them. | chatterbox |
 | `dlg.sbArmorer.steel.say__f` | The girl hero (heroine) | sbArmorer | What makes good armour? | chatterbox |
 | `dlg.sbWeapons.blades.say__f` | The girl hero (heroine) | sbWeapons | How do I pick a good weapon? | chatterbox |
 | `dlg.sbJeweler.gossip.say__f` | The girl hero (heroine) | sbJeweler | Heard any good gossip? | chatterbox |

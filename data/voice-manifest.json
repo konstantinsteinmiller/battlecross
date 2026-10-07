@@ -7099,8 +7099,8 @@
       "who": "Clockwarden Selwyn",
       "scene": "sbMasterChrono",
       "emotion": "neutral",
-      "text": "Seven minutes past. A good time to begin.",
-      "textHash": "fe06a7b4bb",
+      "text": "Seven minutes after the hour. A good time to begin.",
+      "textHash": "68f22e5664",
       "file": "public/audio/voice/en/dlg.sbMasterChrono.again.1.ogg"
     },
     {
