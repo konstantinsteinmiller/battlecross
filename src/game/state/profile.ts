@@ -16,6 +16,7 @@ import { ATTRS, ATTR_START, POINTS_PER_LEVEL, startAttrs, type Attr, type AttrBl
 import { MAX_LEVEL, addXp, xpToNext, xpToReach } from '../data/progression'
 import { ACTIVE_SLOTS, PASSIVE_SLOTS, SKILL_BY_ID, meetsSkill, priceOf as skillPriceOf, CLASSES } from '../data/skills'
 import { EQUIP_SLOTS, ITEM_BY_ID, noGear, priceOf as itemPriceOf, sellValue, slotOf, type EquipSlot } from '../data/items'
+import { FORGE_MAX, forgeCost } from '../data/forge'
 import { FACTIONS, FRIEND_DISCOUNT, QUEST_BY_ID, REP_FRIEND, REP_MAX, REP_MIN, choiceOpen, type FactionId } from '../data/quests'
 import { MAP, NODE_BY_ID, ZONES, nodeOpen, nodeReachable, type NodeId } from '../data/zones'
 import { heroStats, shopDiscount, sumBuild, type HeroBuild } from '../sim/stats'
@@ -70,6 +71,8 @@ export interface InventorySave {
   /** Mana potions in stock: found in chests or bought, kept between visits,
    *  never more than the belt has slots (`potions`). */
   manaPotions: number
+  /** Upgrade levels by item id, +1..+5 (roadmap #90). A sold piece loses its. */
+  upgrades: Record<string, number>
 }
 
 export interface QuestSave {
@@ -219,7 +222,8 @@ const defaultInv = (): InventorySave => ({
   equipped: { ...noGear(), main: 'rustedShortsword', off: 'woodenBuckler', body: 'paddedTunic' },
   fresh: [],
   potions: 3,
-  manaPotions: 0
+  manaPotions: 0,
+  upgrades: {}
 })
 
 const defaults = (): Profile => ({
@@ -305,6 +309,14 @@ export const loadProfile = (): void => {
   inv.potions = Math.max(1, Math.min(5, Math.round(num(inv.potions, 3))))
   // A save from before mana potions has none.
   inv.manaPotions = Math.max(0, Math.min(inv.potions, Math.round(num(inv.manaPotions, 0))))
+  // A save from before upgrades has none; a level out of range or of a piece
+  // no longer owned is dropped.
+  const ups = obj(inv.upgrades, {}) as Record<string, unknown>
+  inv.upgrades = {}
+  for (const [id, v] of Object.entries(ups)) {
+    const lvl = Math.round(num(v, 0))
+    if (inv.items.includes(id) && lvl >= 1) inv.upgrades[id] = Math.min(FORGE_MAX, lvl)
+  }
   profile.inv = inv
 
   const quests = obj(stored(QUESTS_KEY), d.quests)
@@ -467,7 +479,8 @@ export const heroBuild = (attrs: AttrBlock = profile.hero.attrs): HeroBuild => (
   attrs,
   equipped: profile.inv.equipped,
   passives: profile.hero.passive.filter(Boolean),
-  blessings: blessings()
+  blessings: blessings(),
+  upgrades: profile.inv.upgrades
 })
 
 export const computeStats = (attrs: AttrBlock = profile.hero.attrs): UnitStats => heroStats(heroBuild(attrs))
@@ -845,9 +858,36 @@ export const sellItem = (id: string): boolean => {
   if (!it || !owns(id) || equippedIn(id)) return false
   profile.inv.items.splice(profile.inv.items.indexOf(id), 1)
   markSeen(id)
+  delete profile.inv.upgrades[id]
   const gold = sellValue(it)
   profile.gold += gold
   buyBack.push({ id, gold })
+  saveProfile()
+  return true
+}
+
+// ─── Upgrades (roadmap #90, D99) ──────────────────────────────────────────────
+
+/** The level a piece is upgraded to (0: as found). */
+export const upgradeLevel = (id: string): number => profile.inv.upgrades[id] ?? 0
+
+/** What the next level of a piece costs (0: it is at the top). */
+export const upgradeCost = (id: string): number => {
+  const it = ITEM_BY_ID[id]
+  const lvl = upgradeLevel(id)
+  return it && lvl < FORGE_MAX ? forgeCost(it, lvl) : 0
+}
+
+/** Can a worn piece go up a level now (gold aside: `upgradeCost` says that)? */
+export const canUpgrade = (id: string): boolean => !!ITEM_BY_ID[id] && !!equippedIn(id) && upgradeLevel(id) < FORGE_MAX
+
+/** The smith's work: a worn piece one level up, for its price. A town's
+ *  business: the screens offer it only there. */
+export const upgradeItem = (id: string): boolean => {
+  const cost = upgradeCost(id)
+  if (!canUpgrade(id) || !cost || profile.gold < cost) return false
+  profile.gold -= cost
+  profile.inv.upgrades[id] = upgradeLevel(id) + 1
   saveProfile()
   return true
 }

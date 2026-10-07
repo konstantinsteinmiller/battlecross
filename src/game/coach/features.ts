@@ -99,7 +99,7 @@ export const equipCandidate = (prefer: string | null = null): { id: string; slot
       slot = better(inv.equipped.trinket1!, inv.equipped.trinket2) ? 'trinket2' : 'trinket1'
     } else slot = it.slot as EquipSlot
     // The same "better" rule as the arrows on the toast, the bag and the sockets.
-    if (EQUIP_SLOTS.includes(slot) && isUpgrade(id, inv.equipped, totalAttrs())) return { id, slot }
+    if (EQUIP_SLOTS.includes(slot) && isUpgrade(id, inv.equipped, totalAttrs(), inv.upgrades)) return { id, slot }
   }
   return null
 }

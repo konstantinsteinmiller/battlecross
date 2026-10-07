@@ -6,7 +6,20 @@
     div.equip-card__paper
       ItemCard(:id="id" :against="against" show-source)
     p.equip-card__note(v-if="!worn && !canWear") {{ t('bag.tooLow', { n: level }) }}
+    //- The smith (roadmap #90): a worn piece goes up a level, in a town.
+    p.equip-card__note.is-forge(v-if="worn && forge && forge.level >= forgeMax") {{ t('forge.max', { n: forgeMax }) }}
+    p.equip-card__note.is-forge(v-else-if="worn && forge && !forge.town") {{ t('forge.town') }}
     div.bag__actions
+      FButton(
+        v-if="worn && forge && forge.town && forge.level < forgeMax"
+        :label="t('forge.upgrade', { n: forge.cost })"
+        type="primary"
+        size="sm"
+        icon="up"
+        data-coach="forge"
+        :is-disabled="!forge.affordable"
+        @click="emit('upgrade')"
+      )
       FButton(v-if="worn" :label="t('bag.unequip')" type="danger" size="sm" @click="emit('unequip')")
       FButton(v-else :label="t('bag.equip')" type="success" size="sm" :is-disabled="!canWear" @click="emit('equip')")
 </template>
@@ -22,6 +35,9 @@ import { useI18n } from 'vue-i18n'
 import FButton from '@/components/atoms/FButton.vue'
 import GameIcon from '@/components/icons/GameIcon.vue'
 import ItemCard from '@/components/game/ItemCard.vue'
+import { FORGE_MAX } from '@/game/data/forge'
+
+const forgeMax = FORGE_MAX
 
 defineProps<{
   id: string
@@ -33,8 +49,11 @@ defineProps<{
   canWear: boolean
   /** The level it asks for. */
   level: number
+  /** A worn piece's upgrade: its level, the next level's price, whether the
+   *  hero is in a town and has the gold. */
+  forge?: { level: number; cost: number; town: boolean; affordable: boolean } | null
 }>()
-const emit = defineEmits<{ (e: 'equip'): void; (e: 'unequip'): void; (e: 'close'): void }>()
+const emit = defineEmits<{ (e: 'equip'): void; (e: 'unequip'): void; (e: 'close'): void; (e: 'upgrade'): void }>()
 const { t } = useI18n()
 </script>
 
@@ -62,6 +81,8 @@ const { t } = useI18n()
   margin: 0
   +cel.label
   color: var(--bc-text-bad)
+  &.is-forge
+    color: var(--bc-text-gold, #ffe36a)
   font-size: clamp(0.72rem, 3vmin, 0.9rem)
   text-shadow: var(--bc-text-outline-thin)
   text-align: end

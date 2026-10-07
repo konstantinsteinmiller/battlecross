@@ -431,11 +431,11 @@ export default {
     'trinket': 'Trinket'
   },
   'tier': {
-    '1': 'Tier 1',
-    '2': 'Tier 2',
-    '3': 'Tier 3',
-    '4': 'Tier 4',
-    '5': 'Tier 5',
+    '1': 'Common',
+    '2': 'Uncommon',
+    '3': 'Rare',
+    '4': 'Epic',
+    '5': 'Heroic',
     '6': 'Legendary'
   },
   'weapon': {
@@ -585,7 +585,7 @@ export default {
     'slotEmpty': '{slot}: empty',
     'slotHolds': '{slot}: {item}',
     'filter': { 'all': 'All', 'weapons': 'Weapons', 'armor': 'Armor', 'trinkets': 'Trinkets' },
-    'sort': { 'slot': 'Type', 'tier': 'Tier', 'level': 'Level' },
+    'sort': { 'slot': 'Type', 'tier': 'Quality', 'level': 'Level' },
     'sortBy': 'Sort by: {by}'
   },
   'shop': {
@@ -1770,6 +1770,11 @@ export default {
     'confirm': 'Sure? Tap again',
     'bench': 'These skills go back on the shelf: {list}',
     'done': 'There. Your points are yours to spend again.'
+  },
+  'forge': {
+    'upgrade': 'Upgrade ({n} gold)',
+    'max': 'Fully upgraded: +{n}.',
+    'town': 'Any town\'s smith can upgrade this.'
   },
   'contract': {
     'title': 'Contract board',

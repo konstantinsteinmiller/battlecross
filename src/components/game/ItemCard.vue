@@ -5,6 +5,7 @@
         ItemIcon(:id="id")
       span.item-card__title
         span.item-card__name {{ t(`item.${id}.name`) }}
+          span.item-card__plus(v-if="plus") +{{ plus }}
         span.item-card__sub
           | {{ t(`slot.${item.slot}`) }} · {{ t(`tier.${item.tier}`) }} ·
           |
@@ -12,7 +13,7 @@
     ul.item-card__lines
       li.item-card__weapon(v-if="item.weapon") {{ t(`weapon.${item.weapon.style}`, { attr: t(`attr.${item.weapon.scale}.short`) }) }}
       li(v-if="item.armor || armorDelta")
-        span(:class="{ 'is-gone': !item.armor }") {{ t('mod.armor', { n: item.armor || (worn && worn.armor) || 0 }) }}
+        span(:class="{ 'is-gone': !item.armor }") {{ t('mod.armor', { n: armorOf || wornArmor }) }}
         span.delta(v-if="armorDelta" :class="armorDelta > 0 ? 'is-up' : 'is-down'") {{ signed(armorDelta) }}
       li(
         v-for="l in lines"
@@ -40,8 +41,9 @@
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { ITEM_BY_ID, TIER_COLOR } from '@/game/data/items'
+import { forgedArmor, forgedMods } from '@/game/data/forge'
 import { ATTR_COLOR, type Attr } from '@/game/data/attributes'
-import { profile } from '@/game/state/profile'
+import { profile, upgradeLevel } from '@/game/state/profile'
 import ItemIcon from '@/components/art/ItemIcon.vue'
 import { compareMods, signed, type ModCompare } from './modLines'
 
@@ -55,8 +57,18 @@ const { t } = useI18n()
 const item = computed(() => ITEM_BY_ID[props.id])
 const worn = computed(() => (props.against && props.against !== props.id ? ITEM_BY_ID[props.against] : undefined))
 const tint = computed(() => TIER_COLOR[item.value?.tier ?? 1])
-const lines = computed<ModCompare[]>(() => compareMods(item.value?.mods, worn.value?.mods))
-const armorDelta = computed(() => (worn.value ? (item.value?.armor ?? 0) - (worn.value.armor ?? 0) : 0))
+// An owned piece is shown as the smith left it (roadmap #90): its level, and
+// its numbers grown by it; the worn one it is set against likewise.
+const plus = computed(() => upgradeLevel(props.id))
+const wornPlus = computed(() => (worn.value ? upgradeLevel(worn.value.id) : 0))
+const r1 = (v: number): number => Math.round(v * 10) / 10
+const armorOf = computed(() => (item.value ? r1(forgedArmor(item.value, plus.value)) : 0))
+const wornArmor = computed(() => (worn.value ? r1(forgedArmor(worn.value, wornPlus.value)) : 0))
+const lines = computed<ModCompare[]>(() => compareMods(
+  item.value ? forgedMods(item.value, plus.value) : undefined,
+  worn.value ? forgedMods(worn.value, wornPlus.value) : undefined
+))
+const armorDelta = computed(() => (worn.value ? r1(armorOf.value - wornArmor.value) : 0))
 const attrColor = (id: string): string => ATTR_COLOR[id as Attr]
 </script>
 
@@ -102,6 +114,17 @@ const attrColor = (id: string): string => ATTR_COLOR[id as Attr]
   line-height: 1.15
   overflow-wrap: break-word
   hyphens: auto
+// The smith's level beside the name (roadmap #90).
+.item-card__plus
+  display: inline-block
+  margin-inline-start: 0.35em
+  padding: 0 0.3em
+  border: var(--bc-ol-thin) solid var(--bc-ink)
+  border-radius: 999px
+  background: var(--bc-gold)
+  color: var(--bc-ink)
+  font-size: 0.85em
+  line-height: 1.1
 .item-card__sub
   color: var(--bc-paper-ink-soft)
   font-size: clamp(0.7rem, 2.9vmin, 0.88rem)

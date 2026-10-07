@@ -14,8 +14,10 @@
           :worn="!!wornSlot"
           :can-wear="canEquip(sel)"
           :level="levelOf(sel)"
+          :forge="forge"
           @equip="doEquip(sel)"
           @unequip="wornSlot && doUnequip(wornSlot)"
+          @upgrade="doUpgrade"
           @close="sel = ''"
         )
         button.doll__socket(
@@ -37,6 +39,8 @@
           )
             span.doll__face(v-if="worn[s]")
               ItemIcon(:id="worn[s]")
+            //- Its upgrade, as a smith stamps it.
+            span.doll__plus(v-if="worn[s] && plusOf(worn[s])") +{{ plusOf(worn[s]) }}
             span.doll__ghost(v-else)
               ArtIcon(:glyph="GHOST[slotOf(s)]" tint="var(--bc-stone-hi)" :src="ICON_ART.get(`slot-${slotOf(s)}`)" frame="none")
           span.doll__name {{ t(`slot.${slotOf(s)}`) }}
@@ -74,7 +78,7 @@
             :worn="!!equippedIn(it.id)"
             :fresh="profile.inv.fresh.includes(it.id)"
             :locked="profile.level < it.level"
-            :better="!equippedIn(it.id) && isUpgrade(it.id, profile.inv.equipped, profile.hero.attrs)"
+            :better="!equippedIn(it.id) && isUpgrade(it.id, profile.inv.equipped, profile.hero.attrs, profile.inv.upgrades)"
             v-on="drag.handle({ id: it.id, from: 'bag' })"
             @click="tapCell(it.id)"
           )
@@ -88,8 +92,10 @@
         :worn="!!wornSlot"
         :can-wear="canEquip(sel)"
         :level="levelOf(sel)"
+        :forge="forge"
         @equip="doEquip(sel)"
         @unequip="wornSlot && doUnequip(wornSlot)"
+        @upgrade="doUpgrade"
         @close="sel = ''"
       )
       p.equip__hint(v-else) {{ t('bag.hint') }}
@@ -123,7 +129,8 @@ import { computed, nextTick, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { EQUIP_SLOTS, ITEM_BY_ID, TIER_COLOR, slotOf, type EquipSlot, type ItemDef, type ItemSlot } from '@/game/data/items'
 import { isUpgrade, slotHasUpgrade } from '@/game/data/upgrade'
-import { canEquip, computeStats, equipItem, equippedIn, fitsSlot, markSeen, owns, profile, saveProfile, unequip } from '@/game/state/profile'
+import { canEquip, computeStats, equipItem, equippedIn, fitsSlot, markSeen, owns, profile, saveProfile, unequip, upgradeCost, upgradeItem, upgradeLevel } from '@/game/state/profile'
+import { flow } from '@/game/flow'
 import { sfx } from '@/game/audio/sfx'
 import FSocket from '@/components/atoms/FSocket.vue'
 import ArtIcon from '@/components/art/ArtIcon.vue'
@@ -178,7 +185,7 @@ const against = computed(() => (sel.value && !wornSlot.value ? wornAgainst(sel.v
 /** The sockets the bag holds something better for (the green arrow). */
 const upSlots = computed<Set<EquipSlot>>(() => {
   const inv = profile.inv
-  return new Set(EQUIP_SLOTS.filter(s => slotHasUpgrade(s, inv.equipped, inv.items, profile.level, profile.hero.attrs)))
+  return new Set(EQUIP_SLOTS.filter(s => slotHasUpgrade(s, inv.equipped, inv.items, profile.level, profile.hero.attrs, inv.upgrades)))
 })
 
 /** The sockets that would take the thing in hand (selected, or being dragged). */
@@ -228,6 +235,27 @@ const doEquip = (id: string, into?: EquipSlot): boolean => {
     doll.value?.react()
   })
   return true
+}
+
+/** A worn piece's upgrade (roadmap #90): only a town has a smith. */
+const plusOf = (id: string): number => upgradeLevel(id)
+const forge = computed(() => {
+  if (!sel.value || !wornSlot.value) return null
+  const cost = upgradeCost(sel.value)
+  return { level: upgradeLevel(sel.value), cost, town: flow.screen === 'town', affordable: cost > 0 && profile.gold >= cost }
+})
+const doUpgrade = (): void => {
+  const id = sel.value
+  const s = wornSlot.value
+  if (!id || !s || !upgradeItem(id)) { sfx('denied'); return }
+  sfx('block')
+  sfx('coin')
+  void nextTick(() => {
+    const el = socketEl(s)
+    thunk(el?.querySelector('.f-socket'))
+    burst(el, tierOf(id), true)
+    doll.value?.react()
+  })
 }
 
 const doUnequip = (s: EquipSlot): void => {
@@ -360,6 +388,21 @@ const portrait = useMedia('(max-aspect-ratio: 1/1)')
 // The bag has better for this slot: a green arrow on the socket's shoulder.
 .doll__socket
   position: relative
+// A worn piece's upgrade, stamped on its corner (roadmap #90).
+.doll__plus
+  position: absolute
+  right: 4%
+  bottom: 2%
+  z-index: 1
+  padding: 0 0.28em
+  border: var(--bc-ol-thin) solid var(--bc-ink)
+  border-radius: 999px
+  background: linear-gradient(180deg, var(--bc-gold-hi) 0, var(--bc-gold) 60%)
+  color: var(--bc-ink)
+  font-family: var(--font-ui)
+  font-size: calc(var(--sock) * 0.2)
+  line-height: 1.15
+  pointer-events: none
 .doll__up
   position: absolute
   right: -8%

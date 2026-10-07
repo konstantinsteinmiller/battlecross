@@ -429,7 +429,7 @@ attribute buff; items are fixed named ids owned once.
 | D96 | Level edge (#83) | One smooth distance field darkens ground, scenery and outlines into a soft haze; no step over 4 % a cell (test) | owner |
 | D97 | Furniture (#84) | Every standing piece indoors blocks the hero, placed by the town plan (same on every quality); test | ground truth |
 | D98 | Quality names | Common, Uncommon, Rare, Epic, Heroic, Legendary for tiers 1–6 | owner's wording; question 44 |
-| D99 | Upgrades (#90) | +5 max per worn piece, in towns, from the equipment page; 4/5/6/7/8/10 % of attributes and armour a level by quality; cost 12 % of the price ×1.6 a level; never above the next quality's piece (test); counted by the "better" arrow | owner; question 50 |
+| D99 | Upgrades (#90) | +5 max per worn piece, in towns, from the equipment page; 3 % of attributes and armour a level (a legendary 5 %), so a better piece grows by more in numbers; the item's own effects untouched; cost 12 % of the price ×1.6 a level (a legendary reckoned at 12,000); a +5 piece never beats a next-quality piece of its slot made for the same build (test: the item tables' top steps are as small as +16 %, so a rising share per quality was not possible); counted by the "better" arrow; a sold piece loses its levels | owner; question 50 |
 | D100 | Journal | A Journal page in the hero book: tasks, secret quests, the treasure map | owner ("quest log") |
 | D101 | Errands | One quest model (defeat, gather, bring, escort, dig), counted at the end of each visit | contracts pattern |
 | D102 | Pickups | Walk-over plants and map pieces on their own random stream | fight fingerprint test |
@@ -474,7 +474,11 @@ attribute buff; items are fixed named ids owned once.
   from 0.5 m to 10 m past the walkable. The distance rings no longer stop at 4
   and jump. Overlapping scenery never holds flat faces within 15 mm of each
   other (a temple seed's two plinths at 0.55 m, exposed by the new low props).
-- [ ] **21.1 Quality names and upgrades** (#90).
+- [x] **21.1 Quality names and upgrades** (#90). Tiers are called Common,
+  Uncommon, Rare, Epic, Heroic, Legendary. A worn piece is upgraded on the
+  equipment page in a town (+1..+5, a gold stamp on its socket and beside its
+  name); the item card, the stats and the "better" arrow count the levels.
+  Translations of the new and renamed strings come with the wave's fan-out.
 - [ ] **21.2 Pickups and plants** (#88).
 - [ ] **21.3 Errands and the Journal**.
 - [ ] **21.4 Boards and town tasks** (#85).

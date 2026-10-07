@@ -62,7 +62,7 @@
           span.loot__icon
             ItemIcon(:id="it.id")
           span.loot__name {{ t(`item.${it.id}.name`) }}
-          span.loot__up(v-if="it.added && !equippedIn(it.id) && isUpgrade(it.id, profile.inv.equipped, profile.hero.attrs)" :aria-label="t('results.better')")
+          span.loot__up(v-if="it.added && !equippedIn(it.id) && isUpgrade(it.id, profile.inv.equipped, profile.hero.attrs, profile.inv.upgrades)" :aria-label="t('results.better')")
             GameIcon(name="up")
           span.loot__dup(v-if="!it.added")
             IconCoin.results__coin

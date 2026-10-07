@@ -1,6 +1,7 @@
 import { ATTRS, ATTR_EFFECTS, CAPS, statPower, zeroAttrs, type Attr, type AttrBlock } from '../data/attributes'
 import { addMods, type Mods } from '../data/mods'
 import { ITEM_BY_ID, UNARMED, isPlate, type EquipSlot } from '../data/items'
+import { forgedArmor, forgedMods } from '../data/forge'
 import { SKILL_BY_ID } from '../data/skills'
 import type { DamageType, UnitStats } from './types'
 import type { FactionId } from '../data/quests'
@@ -25,6 +26,8 @@ export interface HeroBuild {
   passives: readonly string[]
   /** Factions whose +5 blessing the hero holds (roadmap #15). */
   blessings?: readonly FactionId[]
+  /** Upgrade levels by item id (roadmap #90; none: +0). */
+  upgrades?: Readonly<Record<string, number>>
 }
 
 const clamp = (v: number, lo: number, hi: number): number => Math.max(lo, Math.min(hi, v))
@@ -38,10 +41,12 @@ export const sumBuild = (b: HeroBuild): { attrs: AttrBlock; mods: Mods; armor: n
     const id = b.equipped[slot as EquipSlot]
     const it = id ? ITEM_BY_ID[id] : undefined
     if (!it) continue
-    addMods(mods, it.mods)
+    const lvl = b.upgrades?.[it.id] ?? 0
+    addMods(mods, forgedMods(it, lvl))
     if (it.armor) {
-      armor += it.armor
-      if (isPlate(it)) plate += it.armor
+      const a = forgedArmor(it, lvl)
+      armor += a
+      if (isPlate(it)) plate += a
     }
   }
   for (const id of b.passives) addMods(mods, SKILL_BY_ID[id]?.mods)

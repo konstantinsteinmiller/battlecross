@@ -178,7 +178,7 @@ onMounted(() => {
           id, text: t(e.key, resolve(e.params)), item: e.icon ?? '', key: e.key,
           name: it && nameKey && te(nameKey) ? t(nameKey) : '',
           tier: it ? TIER_COLOR[it.tier] ?? '' : '',
-          up: !!it && isUpgrade(it.id, profile.inv.equipped, profile.hero.attrs)
+          up: !!it && isUpgrade(it.id, profile.inv.equipped, profile.hero.attrs, profile.inv.upgrades)
         }]
         const zone = currentZone()
         if (it && e.at && zone && zone.project(e.at.x, e.at.y, e.at.z, at)) {

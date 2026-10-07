@@ -177,6 +177,16 @@ about 2500 px.
 - **In effect:** an Upgrade button on the equipment page, in any town.
 - **Recommended:** keep (a blacksmith to walk up to is the alternative).
 
+### 51. #95's four classes: more, or the secret four?
+
+#95 (queued after #94, as asked) wants four more classes, two of them mage
+classes (an Elementalist, a Soul Warden), 12 skills for every class and 8 + 4
+skill slots.
+
+- **In effect:** four more on top of the secret four of #86 (eight new
+  classes); the secret four stay bow, ice blade, holy and beasts.
+- **Recommended:** say if they are meant to be the same four.
+
 Decision report for #78–#94: https://claude.ai/artifact/QkADooVg1f8ndUYurrpaYi
 
 ## Defaults taken in the playtest pass, overrule any
