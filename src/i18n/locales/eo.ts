@@ -30,7 +30,9 @@ export default {
     manaPotion: 'Manaopocio (restas {n})',
     groups: '{n} el {total} malamikaj grupoj venkitaj',
     wave: 'Ondo {n} / {total}',
-    roll: 'Rulo'
+    roll: 'Rulo',
+    elixir: '{name} (restas {n})',
+    elixirNext: 'Sekva eliksiro'
   },
   menu: {
     map: 'Mondmapo',
@@ -87,7 +89,13 @@ export default {
     accelerate: 'Akcelo',
     overheat: 'Trovarmiĝinta',
     enrage: 'Furioza',
-    ambush: 'Embusko'
+    ambush: 'Embusko',
+    elixirMight: 'Eliksiro de Forto',
+    elixirIron: 'Ferhaŭto',
+    elixirSwift: 'Rapideco',
+    elixirMind: 'Klara Menso',
+    elixirVigor: 'Vigleco',
+    elixirShadow: 'Soifa Klingo'
   },
   toast: {
     item: 'Trovita: {item}',
@@ -1117,6 +1125,9 @@ export default {
     },
     sbMasterBlood: {
       name: 'Vesper Karmezinfolio'
+    },
+    sbAlchemist: {
+      name: 'Odile Filikfajfilo'
     }
   },
   quest: {
@@ -1355,7 +1366,8 @@ export default {
       mana: 'Ĉu vi havas ion por manao?',
       who: 'Kiu vi estas, se vi ne ĝenas, ke mi demandas?',
       rumor: 'Ĉu vi aŭdis ion lastatempe?',
-      ready: 'Ĉu vi pensas, ke mi pretas por pli?'
+      ready: 'Ĉu vi pensas, ke mi pretas por pli?',
+      brew: 'Ĉu vi povus prepari ion por mi?'
     },
     sunfordSmith: {
       hello: {
@@ -3198,6 +3210,37 @@ export default {
         '1': 'La novaĵoj el Oakhaven estas malbonaj. Banditoj ĉe la muroj.',
         '2': 'Do la barĝoj venos ĉi tien anstataŭe. Kompatindaj homoj.'
       }
+    },
+    sbAlchemist: {
+      hello: {
+        '1': 'Ho! Atentu la vazojn. Tiu mordas. Nu, ĝi mordetas.',
+        '2': 'Odile Filikfajfilo, alkemiisto. Alportu al mi herbojn, kaj mi enboteligos por vi iom da kuraĝo.'
+      },
+      again: {
+        '1': 'Vi revenis! Ĉu vi alportis al mi ion verdan?'
+      },
+      brew: {
+        '1': 'Ni vidu vian saketon. Ho, ĉarme. Elektu, kion vi volas, kaj mi metos la kaldronon sur la fajron.'
+      },
+      who: {
+        '1': 'Mi ekbruligis la ĝardenon de mia panjo per lekanto. Neniu povis klarigi tion, do mi devis lerni.'
+      },
+      herbs: {
+        '1': 'Ekstere en la sovaĝejo, ĉie, kie vi batalas. Simple paŝu sur planton, kaj ĝi estas via.',
+        '2': 'La maloftaj kreskas pli malproksime. Lunkampanuloj kaj ombrodorno kaŝiĝas trans la arbaro.',
+        say: 'Kie mi trovas herbojn?'
+      },
+      elixirs: {
+        '1': 'Ĉiu fortigas vin en batalo dum tuta minuto. Pli fortaj batoj, pli dura haŭto, pli rapidaj piedoj.',
+        '2': 'Ili estas en via tria flakono. Tuŝu la malgrandan sagon por elekti, kiun vi trinkos.',
+        say: 'Kion faras la eliksiroj?'
+      },
+      brewBack: {
+        '1': 'Atente, ili ankoraŭ estas varmaj. Revenu, kiam via saketo estos plena!'
+      },
+      bye: {
+        '1': 'Ĝis! Se vi vidos purpuran floron, pluku du. Unu por mi.'
+      }
     }
   },
   enemy: {
@@ -3370,7 +3413,9 @@ export default {
       character: 'Heroo',
       inventory: 'Sako',
       skills: 'Kapabloj',
-      roll: 'Evita rulo'
+      roll: 'Evita rulo',
+      elixir: 'Trinki eliksiron',
+      elixirNext: 'Sekva eliksiro'
     },
     difficulties: {
       easy: 'Facila',
@@ -3606,5 +3651,46 @@ export default {
     waiting: 'La karavano atendas vin.',
     arrived: 'La karavano sukcese alvenis!',
     lost: 'La karavano perdiĝis…'
+  },
+  elixir: {
+    might: {
+      name: 'Eliksiro de Forto',
+      desc: '+{n}% da damaĝo dum unu minuto'
+    },
+    iron: {
+      name: 'Ferhaŭta Trinkaĵo',
+      desc: '+{n}% da kiraso dum unu minuto'
+    },
+    swift: {
+      name: 'Rapideca Toniko',
+      desc: '+{n}% da rapido kaj atakrapido dum unu minuto'
+    },
+    mind: {
+      name: 'Klarmensa Infuzaĵo',
+      desc: 'Kapabloj reŝargiĝas {n}% pli rapide dum unu minuto'
+    },
+    vigor: {
+      name: 'Eliksiro de Vigleco',
+      desc: 'Resanigas {n}% de via sano ĉiun sekundon dum unu minuto'
+    },
+    shadow: {
+      name: 'Soifa Trinkaĵo',
+      desc: 'Viaj batoj resanigas vin je {n}% de sia damaĝo dum unu minuto'
+    }
+  },
+  alchemy: {
+    talk: 'Herboj enen, eliksiroj elen. Kiun ni preparu?',
+    lead: 'Ĉiu eliksiro efikas dum unu minuto en batalo. Trinku ĝin el via tria flakono. Vi povas porti {n} de ĉiu.',
+    brew: 'Prepari · {n}',
+    carry: 'Porti ĉi tiun',
+    carried: 'En via flakono',
+    count: '{n} / {max}',
+    herb: '{plant}: {have} el {n}',
+    done: 'Preta!',
+    why: {
+      full: 'Vi jam portas tiom da ĉi tiu, kiom vi povas.',
+      herbs: 'Ne sufiĉe da herboj. Pluku pliajn en la sovaĝejo.',
+      gold: 'Ne sufiĉe da oro.'
+    }
   }
 }

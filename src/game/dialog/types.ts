@@ -94,7 +94,7 @@ export interface BlockDef {
 }
 
 /** The windows a conversation hands over to (and comes back from). */
-export type TalkWindow = 'shop' | 'trainer' | 'healer'
+export type TalkWindow = 'shop' | 'trainer' | 'healer' | 'alchemy'
 
 export type Effect =
   /** Remember something beyond the topic itself. */
@@ -118,7 +118,7 @@ export interface Offer {
   block: '' | 'gold' | 'full'
 }
 
-export type ChoiceIcon = 'trade' | 'train' | 'heal' | 'quest' | 'gift' | 'buy' | 'decision' | 'end'
+export type ChoiceIcon = 'trade' | 'train' | 'heal' | 'brew' | 'quest' | 'gift' | 'buy' | 'decision' | 'end'
 export type ChoiceTone = 'noble' | 'ruthless' | 'cunning'
 
 /** Something the hero can say. */

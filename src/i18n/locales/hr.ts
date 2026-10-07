@@ -30,7 +30,9 @@ export default {
     manaPotion: 'Napitak mane (preostalo: {n})',
     groups: 'Poražene skupine neprijatelja: {n} od {total}',
     wave: 'Val {n} / {total}',
-    roll: 'Kotrljaj'
+    roll: 'Kotrljaj',
+    elixir: '{name} (preostalo: {n})',
+    elixirNext: 'Sljedeći eliksir'
   },
   menu: {
     map: 'Karta svijeta',
@@ -87,7 +89,13 @@ export default {
     accelerate: 'Ubrzanje',
     overheat: 'Pregrijanost',
     enrage: 'Bijes',
-    ambush: 'Zasjeda'
+    ambush: 'Zasjeda',
+    elixirMight: 'Eliksir moći',
+    elixirIron: 'Željezna koža',
+    elixirSwift: 'Hitrina',
+    elixirMind: 'Bistar um',
+    elixirVigor: 'Snaga',
+    elixirShadow: 'Žedna oštrica'
   },
   toast: {
     item: 'Pronađeno: {item}',
@@ -1122,6 +1130,9 @@ export default {
     },
     sbMasterBlood: {
       name: 'Vesper Grimizlist'
+    },
+    sbAlchemist: {
+      name: 'Odile Papratozvižd'
     }
   },
   quest: {
@@ -1361,7 +1372,8 @@ export default {
       who: 'Tko si ti, ako smijem pitati?',
       rumor: 'Čuo si nešto u zadnje vrijeme?',
       ready: 'Misliš li da sam spreman za više?',
-      ready__f: 'Misliš li da sam spremna za više?'
+      ready__f: 'Misliš li da sam spremna za više?',
+      brew: 'Možeš li mi nešto skuhati?'
     },
     sunfordSmith: {
       hello: {
@@ -3289,6 +3301,37 @@ export default {
         '1': 'Iz Oakhavena stižu loše vijesti. Razbojnici pred zidinama.',
         '2': 'Onda će teglenice doći ovamo. Jadnici.'
       }
+    },
+    sbAlchemist: {
+      hello: {
+        '1': 'Joj! Pazi na staklenke. Ova grize. Dobro, gricka.',
+        '2': 'Odile Papratozvižd, alkemičarka. Donesi mi bilje i natočit ću ti malo hrabrosti u bočicu.'
+      },
+      again: {
+        '1': 'Opet ti! Imaš li nešto zeleno za mene?'
+      },
+      brew: {
+        '1': 'Da vidim tvoju torbicu. Oho, krasno. Odaberi što želiš, a ja ću pristaviti kotlić.'
+      },
+      who: {
+        '1': 'Zapalila sam mamin vrt tratinčicom. Nitko to nije znao objasniti, pa sam morala naučiti.'
+      },
+      herbs: {
+        '1': 'Vani u divljini, svugdje gdje se boriš. Samo prijeđi preko biljke i tvoja je.',
+        '2': 'Rijetke rastu dalje. Mjesečeva zvonca i sjenotrn skrivaju se iza šume.',
+        say: 'Gdje mogu naći bilje?'
+      },
+      elixirs: {
+        '1': 'Svaki te u borbi ojača na cijelu minutu. Jači udarci, tvrđa koža, brže noge.',
+        '2': 'Stoje u tvojoj trećoj bočici. Dodirni malu strelicu da odabereš koji ćeš popiti.',
+        say: 'Što rade eliksiri?'
+      },
+      brewBack: {
+        '1': 'Pažljivo, još su topli. Vrati se kad ti torbica bude puna!'
+      },
+      bye: {
+        '1': 'Bok! Ako vidiš ljubičasti cvijet, uberi dva. Jedan za mene.'
+      }
     }
   },
   enemy: {
@@ -3461,7 +3504,9 @@ export default {
       character: 'Junak',
       inventory: 'Torba',
       skills: 'Vještine',
-      roll: 'Kotrljaj'
+      roll: 'Kotrljaj',
+      elixir: 'Popij eliksir',
+      elixirNext: 'Sljedeći eliksir'
     },
     difficulties: {
       easy: 'Lako',
@@ -3702,5 +3747,46 @@ export default {
     waiting: 'Karavana te čeka.',
     arrived: 'Karavana je stigla!',
     lost: 'Karavana je izgubljena…'
+  },
+  elixir: {
+    might: {
+      name: 'Eliksir moći',
+      desc: '+{n}% štete na minutu'
+    },
+    iron: {
+      name: 'Napoj željezne kože',
+      desc: '+{n}% oklopa na minutu'
+    },
+    swift: {
+      name: 'Tonik hitrine',
+      desc: '+{n}% brzine i brzine napada na minutu'
+    },
+    mind: {
+      name: 'Čaj bistrog uma',
+      desc: 'Vještine se na minutu vraćaju {n}% brže'
+    },
+    vigor: {
+      name: 'Eliksir snage',
+      desc: 'Liječi {n}% tvog zdravlja svake sekunde tijekom minute'
+    },
+    shadow: {
+      name: 'Žedni napoj',
+      desc: 'Tvoji udarci liječe te za {n}% svoje štete tijekom minute'
+    }
+  },
+  alchemy: {
+    talk: 'Bilje unutra, eliksiri van. Koji ćemo skuhati?',
+    lead: 'Svaki eliksir djeluje minutu u borbi. Pij ga iz svoje treće bočice. Možeš nositi po {n} od svakog.',
+    brew: 'Skuhaj · {n}',
+    carry: 'Ponesi ovo',
+    carried: 'U tvojoj bočici',
+    count: '{n} / {max}',
+    herb: '{plant}: {have} od {n}',
+    done: 'Skuhano!',
+    why: {
+      full: 'Ovoga već nosiš koliko možeš.',
+      herbs: 'Nemaš dovoljno bilja. Uberi još u divljini.',
+      gold: 'Nemaš dovoljno zlata.'
+    }
   }
 }

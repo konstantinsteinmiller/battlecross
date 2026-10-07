@@ -99,6 +99,40 @@
             span.slot__count {{ hud.manaPotions }}
             KeyCap.slot__key(v-if="hud.device === 'mouse'" :code="manaPotionCode")
         span.slot__flash(aria-hidden="true")
+    //- The third flask (#87): the elixir the alchemist brewed, carried once
+    //- there is one. Its little arrow turns it to the next kind carried.
+    Transition(name="reveal")
+      div.slot.slot--potion.slot--elixir(
+        v-if="hud.elixirKinds > 0"
+        data-elixir
+        :style="{ '--tint': elixirDef ? elixirDef.colour : 'var(--bc-off-deep)' }"
+        :class="{ 'is-empty': hud.elixirs <= 0, 'is-ready': hud.elixirReady && hud.elixirs > 0 }"
+      )
+        button.slot__hit(
+          type="button"
+          :aria-label="elixirDef ? t('hud.elixir', { name: t(`status.${elixirDef.status}`), n: hud.elixirs }) : t('hud.elixirNext')"
+          @pointerdown.prevent="onElixir"
+        )
+        FSocket.slot__socket(shape="round" :tint="elixirDef ? elixirDef.colour : undefined" cork art="skill-frame-potion")
+          span.slot__face.flask
+            span.flask__liquid(:style="{ transform: `translateY(${elixirLevel}%)` }")
+            span.flask__glyph(v-if="elixirDef")
+              ArtIcon(:glyph="`mark.elixir.${elixirDef.id}`" :tint="elixirDef.colour" frame="none")
+          template(#over)
+            span.slot__shine(aria-hidden="true")
+            span.slot__cd(ref="elixirCd")
+            span.slot__num(ref="elixirNum")
+          template(#badge)
+            span.slot__count {{ hud.elixirs }}
+            KeyCap.slot__key(v-if="hud.device === 'mouse'" :code="elixirCode")
+        button.slot__swap(
+          v-if="hud.elixirKinds > 1"
+          type="button"
+          :aria-label="t('hud.elixirNext')"
+          @pointerdown.prevent="onElixirNext"
+        )
+          GameIcon(name="replay" drawn)
+        span.slot__flash(aria-hidden="true")
 </template>
 
 <script setup lang="ts">
@@ -133,6 +167,8 @@ import { MARKS } from '@/components/icons/marks'
 import SkillIcon from '@/components/art/SkillIcon.vue'
 import KeyCap from '@/components/glyphs/KeyCap.vue'
 import { glowing, revealed } from '@/game/coach/reveal'
+import ArtIcon from '@/components/art/ArtIcon.vue'
+import { ELIXIR_BY_ID, ELIXIR_CAP, isElixir } from '@/game/data/elixirs'
 
 const { t } = useI18n()
 
@@ -152,6 +188,7 @@ const keyCode = (slot: number): string => DEFAULT_BINDINGS[`skill${slot + 1}` as
 const potionCode = DEFAULT_BINDINGS.potion[0]!
 const rollCode = DEFAULT_BINDINGS.roll[0]!
 const manaPotionCode = DEFAULT_BINDINGS.manaPotion[0]!
+const elixirCode = DEFAULT_BINDINGS.elixir[0]!
 
 /** How far the liquid is pushed down its flask, in % of the window: a full
  *  belt fills it to the neck, the last flask still shows a puddle. */
@@ -162,6 +199,8 @@ const level = (n: number, max: number): number => {
 }
 const healthLevel = computed(() => level(hud.potions, hud.potionsMax))
 const manaLevel = computed(() => level(hud.manaPotions, hud.manaPotionMax))
+const elixirDef = computed(() => (isElixir(hud.elixir) ? ELIXIR_BY_ID[hud.elixir] : null))
+const elixirLevel = computed(() => level(hud.elixirs, ELIXIR_CAP))
 
 // ── Cooldown clocks (direct DOM) ─────────────────────────────────────────────
 const cdEls: Array<HTMLElement | null> = [null, null, null, null, null, null]
@@ -171,12 +210,15 @@ const potionCd = ref<HTMLElement | null>(null)
 const potionNum = ref<HTMLElement | null>(null)
 const manaCd = ref<HTMLElement | null>(null)
 const manaNum = ref<HTMLElement | null>(null)
+const elixirCd = ref<HTMLElement | null>(null)
+const elixirNum = ref<HTMLElement | null>(null)
 const rollCd = ref<HTMLElement | null>(null)
 const rollNum = ref<HTMLElement | null>(null)
 const rollReady = ref(true)
 let rollShown = -1
 let potionShown = -1
 let manaShown = -1
+let elixirShown = -1
 type RefEl = Element | ComponentPublicInstance | null
 const setCd = (el: RefEl, slot: number): void => { cdEls[slot] = el as HTMLElement | null; shown[slot] = -1 }
 const setNum = (el: RefEl, slot: number): void => { numEls[slot] = el as HTMLElement | null; shown[slot] = -1 }
@@ -215,6 +257,7 @@ onMounted(() => {
     }
     potionShown = paint(potionCd.value, potionNum.value, hudLive.potionCd, hudLive.potionCdMax, potionShown)
     manaShown = paint(manaCd.value, manaNum.value, hudLive.manaPotionCd, hudLive.manaPotionCdMax, manaShown)
+    elixirShown = paint(elixirCd.value, elixirNum.value, hudLive.elixirCd, hudLive.elixirCdMax, elixirShown)
     rollShown = paint(rollCd.value, rollNum.value, hudLive.rollCd, hudLive.rollCdMax, rollShown)
     if (rollReady.value !== hudLive.rollCd <= 0) rollReady.value = hudLive.rollCd <= 0
   })
@@ -299,6 +342,14 @@ const onManaPotion = (e: PointerEvent): void => {
   device(e)
   input.manaPotionQueued = true
 }
+const onElixir = (e: PointerEvent): void => {
+  device(e)
+  input.elixirQueued = true
+}
+const onElixirNext = (e: PointerEvent): void => {
+  device(e)
+  input.elixirNextQueued = true
+}
 </script>
 
 <style scoped lang="sass">
@@ -351,6 +402,54 @@ const onManaPotion = (e: PointerEvent): void => {
   --tint: var(--bc-red)
 .slot--mana
   --tint: var(--bc-blue)
+// The elixir flask: a whole-button hit area under the socket's art, and a
+// small arrow on its rim that turns it to the next kind.
+.slot__hit
+  position: absolute
+  inset: 0
+  z-index: 2
+  padding: 0
+  border: 0
+  border-radius: 50%
+  background: none
+  cursor: pointer
+  touch-action: none
+  +cel.focus-ring
+.slot--elixir:active
+  transform: none
+.slot--elixir:has(.slot__hit:active)
+  transform: scale(0.9)
+.slot__swap
+  position: absolute
+  z-index: 3
+  right: -10%
+  top: -6%
+  width: 46%
+  height: 46%
+  padding: 9%
+  border: 0
+  border-radius: 50%
+  +cel.tone('gold')
+  background: var(--c)
+  box-shadow: 0 0 0 2px var(--bc-ink), 0 2px 0 2px var(--bc-ink)
+  color: var(--bc-ink)
+  cursor: pointer
+  touch-action: none
+  :deep(svg)
+    display: block
+    width: 100%
+    height: 100%
+.flask__glyph
+  position: absolute
+  display: block
+  left: 18%
+  top: 16%
+  width: 64%
+  height: 68%
+  :deep(.art-icon), :deep(svg)
+    display: block
+    width: 100%
+    height: 100%
 
 .slot__socket
   position: absolute

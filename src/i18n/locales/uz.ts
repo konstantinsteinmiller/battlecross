@@ -30,7 +30,9 @@ export default {
     manaPotion: 'Mana iksiri ({n} ta qoldi)',
     groups: '{total} ta dushman guruhidan {n} tasi yengildi',
     wave: 'Toʻlqin {n} / {total}',
-    roll: 'Dumalash'
+    roll: 'Dumalash',
+    elixir: '{name} ({n} ta qoldi)',
+    elixirNext: 'Keyingi eliksir'
   },
   menu: {
     map: 'Dunyo xaritasi',
@@ -87,7 +89,13 @@ export default {
     accelerate: 'Tezlashish',
     overheat: 'Qizib ketgan',
     enrage: 'Gʻazablangan',
-    ambush: 'Pistirma'
+    ambush: 'Pistirma',
+    elixirMight: 'Qudrat eliksiri',
+    elixirIron: 'Temirteri',
+    elixirSwift: 'Chaqqonlik',
+    elixirMind: 'Tiniq aql',
+    elixirVigor: 'Tetiklik',
+    elixirShadow: 'Tashna tigʻ'
   },
   toast: {
     item: 'Topildi: {item}',
@@ -1117,6 +1125,9 @@ export default {
     },
     sbMasterBlood: {
       name: 'Vesper Crimsonleaf'
+    },
+    sbAlchemist: {
+      name: 'Odile Fernwhistle'
     }
   },
   quest: {
@@ -1355,7 +1366,8 @@ export default {
       mana: 'Mana uchun biror narsang bormi?',
       who: 'Qarshi boʻlmasang, sen kimsan?',
       rumor: 'Yaqinda biror gap eshitdingmi?',
-      ready: 'Sencha, men koʻprogʻiga tayyormanmi?'
+      ready: 'Sencha, men koʻprogʻiga tayyormanmi?',
+      brew: 'Menga biror narsa damlab bera olasanmi?'
     },
     sunfordSmith: {
       hello: {
@@ -3198,6 +3210,37 @@ export default {
         '1': 'Oakhavendan yomon xabar bor. Bosqinchilar devor tagida.',
         '2': 'Unda barjalar bu yoqqa keladi. Bechoralar.'
       }
+    },
+    sbAlchemist: {
+      hello: {
+        '1': 'Voy! Bankalarga ehtiyot boʻl. Anavi tishlaydi. Yaxshi, chimdiydi xolos.',
+        '2': 'Odile Fernwhistle, alkimyogar. Menga giyoh olib kel, senga bir shisha jasorat quyib beraman.'
+      },
+      again: {
+        '1': 'Qaytding! Menga yashil biror narsa olib keldingmi?'
+      },
+      brew: {
+        '1': 'Xaltangni koʻray-chi. Voy, ajoyib. Xohlaganingni tanla, men qozonni olovga qoʻyaman.'
+      },
+      who: {
+        '1': 'Onamning bogʻini moychechak bilan yondirib yuborganman. Hech kim tushuntirib berolmadi, shuning uchun oʻrganishga toʻgʻri keldi.'
+      },
+      herbs: {
+        '1': 'Tabiatda, sen jang qiladigan hamma joyda. Oʻsimlik ustidan yurib oʻtsang bas, u seniki.',
+        '2': 'Kamyoblari uzoqroqda oʻsadi. Oyqoʻngʻiroqlar va soyatikan oʻrmon ortida yashirinadi.',
+        say: 'Giyohlarni qayerdan topaman?'
+      },
+      elixirs: {
+        '1': 'Har biri seni jangda butun bir daqiqa kuchliroq qiladi. Qattiqroq zarba, pishiqroq teri, chaqqonroq oyoq.',
+        '2': 'Ular uchinchi kolbangda turadi. Qaysi birini ichishni almashtirish uchun kichik strelkaga bos.',
+        say: 'Eliksirlar nima qiladi?'
+      },
+      brewBack: {
+        '1': 'Ehtiyot boʻl, ular hali iliq. Xaltang toʻlganda yana kel!'
+      },
+      bye: {
+        '1': 'Xayr! Binafsha gul koʻrsang, ikkitasini ter. Bittasi menga.'
+      }
     }
   },
   enemy: {
@@ -3370,7 +3413,9 @@ export default {
       character: 'Qahramon',
       inventory: 'Xalta',
       skills: 'Koʻnikmalar',
-      roll: 'Dumalash'
+      roll: 'Dumalash',
+      elixir: 'Eliksir ichish',
+      elixirNext: 'Keyingi eliksir'
     },
     difficulties: {
       easy: 'Oson',
@@ -3606,5 +3651,46 @@ export default {
     waiting: 'Karvon seni kutmoqda.',
     arrived: 'Karvon yetib keldi!',
     lost: 'Karvon halok boʻldi…'
+  },
+  elixir: {
+    might: {
+      name: 'Qudrat eliksiri',
+      desc: 'Bir daqiqaga +{n}% zarar'
+    },
+    iron: {
+      name: 'Temirteri sharbati',
+      desc: 'Bir daqiqaga +{n}% zirh'
+    },
+    swift: {
+      name: 'Chaqqonlik tonigi',
+      desc: 'Bir daqiqaga +{n}% tezlik va hujum tezligi'
+    },
+    mind: {
+      name: 'Tiniq aql damlamasi',
+      desc: 'Bir daqiqa davomida koʻnikmalar {n}% tezroq tiklanadi'
+    },
+    vigor: {
+      name: 'Tetiklik eliksiri',
+      desc: 'Bir daqiqa davomida har soniyada joningizning {n}% qismini tiklaydi'
+    },
+    shadow: {
+      name: 'Tashna sharbat',
+      desc: 'Bir daqiqa davomida zarbalaringiz bergan zararning {n}% qismicha joningizni tiklaydi'
+    }
+  },
+  alchemy: {
+    talk: 'Giyoh kiradi, eliksir chiqadi. Qaysi birini damlaymiz?',
+    lead: 'Har bir eliksir jangda bir daqiqa taʼsir qiladi. Uni uchinchi kolbangizdan iching. Har biridan {n} tadan olib yura olasiz.',
+    brew: 'Damlash · {n}',
+    carry: 'Olib yurish',
+    carried: 'Kolbangizda',
+    count: '{n} / {max}',
+    herb: '{plant}: {have} / {n}',
+    done: 'Tayyor!',
+    why: {
+      full: 'Bundan olib yura oladiganingizning hammasi sizda bor.',
+      herbs: 'Giyoh yetarli emas. Tabiatdan koʻproq tering.',
+      gold: 'Oltin yetarli emas.'
+    }
   }
 }

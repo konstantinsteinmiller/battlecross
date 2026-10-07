@@ -30,7 +30,9 @@ export default {
     manaPotion: 'Lektvar many (zbývá {n})',
     groups: 'Poražené skupiny nepřátel: {n} z {total}',
     wave: 'Vlna {n} / {total}',
-    roll: 'Kotoul'
+    roll: 'Kotoul',
+    elixir: '{name} (zbývá {n})',
+    elixirNext: 'Další elixír'
   },
   menu: {
     map: 'Mapa světa',
@@ -87,7 +89,13 @@ export default {
     accelerate: 'Akcelerace',
     overheat: 'Přehřátí',
     enrage: 'Zuřivost',
-    ambush: 'Léčka'
+    ambush: 'Léčka',
+    elixirMight: 'Elixír síly',
+    elixirIron: 'Železná kůže',
+    elixirSwift: 'Hbitost',
+    elixirMind: 'Jasná mysl',
+    elixirVigor: 'Elán',
+    elixirShadow: 'Žíznivá čepel'
   },
   toast: {
     item: 'Nalezeno: {item}',
@@ -1121,6 +1129,9 @@ export default {
     },
     sbMasterBlood: {
       name: 'Vesper Rudolistá'
+    },
+    sbAlchemist: {
+      name: 'Odile Kapradohvizd'
     }
   },
   quest: {
@@ -1360,7 +1371,8 @@ export default {
       who: 'Kdo jsi, jestli se smím zeptat?',
       rumor: 'Slyšel jsi něco nového?',
       ready: 'Myslíš, že jsem připravený na víc?',
-      ready__f: 'Myslíš, že jsem připravená na víc?'
+      ready__f: 'Myslíš, že jsem připravená na víc?',
+      brew: 'Uvaříš mi něco?'
     },
     sunfordSmith: {
       hello: {
@@ -3283,6 +3295,37 @@ export default {
         '1': 'Z Oakhavenu jsou zlé zprávy. Bandité u hradeb.',
         '2': 'Pak sem připlují čluny místo tam. Chudáci.'
       }
+    },
+    sbAlchemist: {
+      hello: {
+        '1': 'Jéje! Pozor na sklenice. Tahle kouše. No, okusuje.',
+        '2': 'Odile Kapradohvizd, alchymistka. Přines mi byliny a já ti do lahviček naleju trochu odvahy.'
+      },
+      again: {
+        '1': 'Jsi zpátky! Máš pro mě něco zeleného?'
+      },
+      brew: {
+        '1': 'Ukaž mi váček. Ó, krása. Vyber si, co chceš, a já postavím kotlík.'
+      },
+      who: {
+        '1': 'Sedmikráskou jsem zapálila mámě zahradu. Nikdo to neuměl vysvětlit, tak jsem se to musela naučit.'
+      },
+      herbs: {
+        '1': 'Venku v divočině, všude, kde bojuješ. Stačí přejít přes rostlinu a je tvoje.',
+        '2': 'Ty vzácné rostou dál. Měsíční zvonky a stínotrn se schovávají za lesem.',
+        say: 'Kde najdu byliny?'
+      },
+      elixirs: {
+        '1': 'Každý tě v boji posílí na celou minutu. Tvrdší rány, tužší kůže, rychlejší nohy.',
+        '2': 'Jsou ve tvé třetí lahvičce. Ťukni na malou šipku a vyber, který vypiješ.',
+        say: 'Co dělají elixíry?'
+      },
+      brewBack: {
+        '1': 'Opatrně, ještě jsou teplé. Vrať se, až budeš mít plný váček!'
+      },
+      bye: {
+        '1': 'Tak ahoj! Když uvidíš fialovou květinu, utrhni dvě. Jednu pro mě.'
+      }
     }
   },
   enemy: {
@@ -3455,7 +3498,9 @@ export default {
       character: 'Hrdina',
       inventory: 'Batoh',
       skills: 'Dovednosti',
-      roll: 'Úhybný kotoul'
+      roll: 'Úhybný kotoul',
+      elixir: 'Vypít elixír',
+      elixirNext: 'Další elixír'
     },
     difficulties: {
       easy: 'Lehká',
@@ -3696,5 +3741,46 @@ export default {
     waiting: 'Karavana na tebe čeká.',
     arrived: 'Karavana dorazila!',
     lost: 'Karavana je ztracena…'
+  },
+  elixir: {
+    might: {
+      name: 'Elixír síly',
+      desc: '+{n}% poškození na minutu'
+    },
+    iron: {
+      name: 'Odvar železné kůže',
+      desc: '+{n}% brnění na minutu'
+    },
+    swift: {
+      name: 'Tonikum hbitosti',
+      desc: '+{n}% rychlosti a rychlosti útoku na minutu'
+    },
+    mind: {
+      name: 'Nálev jasné mysli',
+      desc: 'Dovednosti se na minutu dobíjejí o {n}% rychleji'
+    },
+    vigor: {
+      name: 'Elixír elánu',
+      desc: 'Léčí {n}% zdraví každou sekundu po dobu minuty'
+    },
+    shadow: {
+      name: 'Žíznivý odvar',
+      desc: 'Tvé zásahy tě na minutu léčí o {n}% způsobeného poškození'
+    }
+  },
+  alchemy: {
+    talk: 'Byliny dovnitř, elixíry ven. Který uvaříme?',
+    lead: 'Každý elixír působí v boji minutu. Pij ho ze své třetí lahvičky. Od každého uneseš {n}.',
+    brew: 'Uvařit · {n}',
+    carry: 'Vzít s sebou',
+    carried: 'Ve tvé lahvičce',
+    count: '{n} / {max}',
+    herb: '{plant}: {have} z {n}',
+    done: 'Uvařeno!',
+    why: {
+      full: 'Tohohle už neseš, kolik uneseš.',
+      herbs: 'Nemáš dost bylin. Nasbírej další v divočině.',
+      gold: 'Nemáš dost zlata.'
+    }
   }
 }

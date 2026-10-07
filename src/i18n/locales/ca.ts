@@ -30,7 +30,9 @@ export default {
     manaPotion: 'Poció de manà (en queden {n})',
     groups: '{n} de {total} grups enemics derrotats',
     wave: 'Onada {n} / {total}',
-    roll: 'Voltereta'
+    roll: 'Voltereta',
+    elixir: '{name} (en queden {n})',
+    elixirNext: 'Elixir següent'
   },
   menu: {
     map: 'Mapa del món',
@@ -87,7 +89,13 @@ export default {
     accelerate: 'Acceleració',
     overheat: 'Sobreescalfat',
     enrage: 'Enfurismat',
-    ambush: 'Emboscada'
+    ambush: 'Emboscada',
+    elixirMight: 'Elixir de poder',
+    elixirIron: 'Pell de ferro',
+    elixirSwift: 'Celeritat',
+    elixirMind: 'Ment clara',
+    elixirVigor: 'Vigor',
+    elixirShadow: 'Fulla assedegada'
   },
   toast: {
     item: 'Trobat: {item}',
@@ -1118,6 +1126,9 @@ export default {
     },
     sbMasterBlood: {
       name: 'Vesper Fulla Carmesí'
+    },
+    sbAlchemist: {
+      name: 'Odile Xiulet de Falguera'
     }
   },
   quest: {
@@ -1356,7 +1367,8 @@ export default {
       mana: 'Tens alguna cosa per al manà?',
       who: 'Qui ets, si no et sap greu que ho pregunti?',
       rumor: 'Has sentit alguna cosa últimament?',
-      ready: 'Creus que estic a punt per a més?'
+      ready: 'Creus que estic a punt per a més?',
+      brew: 'Em pots preparar alguna cosa?'
     },
     sunfordSmith: {
       hello: {
@@ -3231,6 +3243,37 @@ export default {
         '1': 'D’Oakhaven arriben males notícies. Bandits a les muralles.',
         '2': 'Doncs les gavarres vindran cap aquí. Pobra gent.'
       }
+    },
+    sbAlchemist: {
+      hello: {
+        '1': 'Oh! Compte amb els pots. Aquell mossega. Bé, mossegueja.',
+        '2': 'Odile Xiulet de Falguera, alquimista. Porta’m herbes i t’embotellaré una mica de coratge.'
+      },
+      again: {
+        '1': 'Ja has tornat! M’has portat res de verd?'
+      },
+      brew: {
+        '1': 'A veure aquesta bossa. Uau, que bonic. Tria el que vulguis i poso la tetera al foc.'
+      },
+      who: {
+        '1': 'Vaig calar foc al jardí de la meva mare amb una margarida. Ningú no ho sabia explicar, així que vaig haver d’aprendre.'
+      },
+      herbs: {
+        '1': 'A la natura, allà on lluitis. Passa per sobre d’una planta i és teva.',
+        '2': 'Les rares creixen més lluny. Les campanetes lunars i l’espina d’ombra s’amaguen més enllà del bosc.',
+        say: 'On trobo herbes?'
+      },
+      elixirs: {
+        '1': 'Cadascun et dona més força en combat durant un minut sencer. Cops més durs, pell més resistent, peus més lleugers.',
+        '2': 'Van al teu tercer flascó. Toca la fletxeta per canviar quin et beus.',
+        say: 'Què fan els elixirs?'
+      },
+      brewBack: {
+        '1': 'Compte, encara són calents. Torna quan tinguis la bossa plena!'
+      },
+      bye: {
+        '1': 'Adeu! Si veus una flor lila, cull-ne dues. Una per a mi.'
+      }
     }
   },
   enemy: {
@@ -3404,7 +3447,9 @@ export default {
       character: 'Heroi',
       inventory: 'Bossa',
       skills: 'Habilitats',
-      roll: 'Voltereta d’esquiva'
+      roll: 'Voltereta d’esquiva',
+      elixir: 'Beu elixir',
+      elixirNext: 'Elixir següent'
     },
     difficulties: {
       easy: 'Fàcil',
@@ -3644,5 +3689,46 @@ export default {
     waiting: 'La caravana t’espera.',
     arrived: 'La caravana ha arribat!',
     lost: 'La caravana s’ha perdut…'
+  },
+  elixir: {
+    might: {
+      name: 'Elixir de poder',
+      desc: '+{n}% de dany durant un minut'
+    },
+    iron: {
+      name: 'Beuratge pell de ferro',
+      desc: '+{n}% d’armadura durant un minut'
+    },
+    swift: {
+      name: 'Tònic de celeritat',
+      desc: '+{n}% de velocitat i velocitat d’atac durant un minut'
+    },
+    mind: {
+      name: 'Infusió de ment clara',
+      desc: 'Les habilitats es recarreguen un {n}% més ràpid durant un minut'
+    },
+    vigor: {
+      name: 'Elixir de vigor',
+      desc: 'Cura un {n}% de la teva salut cada segon durant un minut'
+    },
+    shadow: {
+      name: 'Beuratge assedegat',
+      desc: 'Els teus cops et curen un {n}% del seu dany durant un minut'
+    }
+  },
+  alchemy: {
+    talk: 'Entren herbes, surten elixirs. Quin preparem?',
+    lead: 'Cada elixir fa efecte durant un minut en combat. Beu-te’l del tercer flascó. En pots portar {n} de cadascun.',
+    brew: 'Preparar · {n}',
+    carry: 'Porta aquest',
+    carried: 'Al teu flascó',
+    count: '{n} / {max}',
+    herb: '{plant}: {have} de {n}',
+    done: 'Preparat!',
+    why: {
+      full: 'Ja en portes tants com pots.',
+      herbs: 'No tens prou herbes. Cull-ne més a la natura.',
+      gold: 'No tens prou or.'
+    }
   }
 }

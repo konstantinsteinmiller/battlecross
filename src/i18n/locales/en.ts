@@ -39,6 +39,8 @@ export default {
     'gold': '{n} gold',
     'potion': 'Health potion ({n} left)',
     'manaPotion': 'Mana potion ({n} left)',
+    'elixir': '{name} ({n} left)',
+    'elixirNext': 'Next elixir',
     'groups': '{n} of {total} enemy groups defeated',
     'wave': 'Wave {n} / {total}',
     'roll': 'Dodge roll'
@@ -103,7 +105,13 @@ export default {
     'accelerate': 'Accelerate',
     'overheat': 'Overheated',
     'enrage': 'Enraged',
-    'ambush': 'Ambush'
+    'ambush': 'Ambush',
+    'elixirMight': 'Elixir of Might',
+    'elixirIron': 'Ironskin',
+    'elixirSwift': 'Swiftness',
+    'elixirMind': 'Clear Mind',
+    'elixirVigor': 'Vigour',
+    'elixirShadow': 'Thirsting Blade'
   },
   'toast': {
     'item': 'Found: {item}',
@@ -645,6 +653,30 @@ export default {
   },
 
   // ─── Herbs (roadmap #88): picked in the wild, brewed by the alchemist ─────
+  // The alchemist's elixirs (#87): `{n}` is the strength in per cent.
+  'elixir': {
+    'might': { 'name': 'Elixir of Might', 'desc': '+{n}% damage for a minute' },
+    'iron': { 'name': 'Ironskin Draught', 'desc': '+{n}% armour for a minute' },
+    'swift': { 'name': 'Swiftness Tonic', 'desc': '+{n}% speed and attack speed for a minute' },
+    'mind': { 'name': 'Clear Mind Brew', 'desc': 'Skills come back {n}% faster for a minute' },
+    'vigor': { 'name': 'Vigour Elixir', 'desc': 'Heals {n}% of your health every second for a minute' },
+    'shadow': { 'name': 'Thirsting Draught', 'desc': 'Your hits heal you for {n}% of their damage for a minute' }
+  },
+  'alchemy': {
+    'talk': 'Herbs in, elixirs out. Which one shall we brew?',
+    'lead': 'Each elixir works for a minute in a fight. Drink it from your third flask. You can carry {n} of each.',
+    'brew': 'Brew · {n}',
+    'carry': 'Carry this',
+    'carried': 'In your flask',
+    'count': '{n} / {max}',
+    'herb': '{plant}: {have} of {n}',
+    'done': 'Brewed!',
+    'why': {
+      'full': 'You carry all you can of this one.',
+      'herbs': 'Not enough herbs. Pick more in the wild.',
+      'gold': 'Not enough gold.'
+    }
+  },
   'plant': {
     'sunpetal': { 'name': 'Sunpetal', 'desc': 'A bright yellow flower. Healers swear by it.' },
     'glowcap': { 'name': 'Glowcap', 'desc': 'A mushroom that glows in the dark. Good for the mind.' },
@@ -691,6 +723,7 @@ export default {
     // (TradeScreen.vue reads `npc.<id>.talk`); the healer screen uses `healer.talk`.
     'mayorBrenna': { 'name': 'Mayor Brenna Quill' },
     'sbHealer': { 'name': 'Friar Ansel' },
+    'sbAlchemist': { 'name': 'Odile Fernwhistle' },
     'sbArmorer': { 'name': 'Greta Ironvein', 'talk': 'Mountain steel, river prices. Knock on anything you like.' },
     'sbWeapons': { 'name': 'Corvin Ashby', 'talk': 'Ashby\'s Fine Blades. Every edge polished by hand. My hand.' },
     'sbJeweler': { 'name': 'Tam Marlow', 'talk': 'Rings, charms, lucky stones. All real. Well, nearly all.' },
@@ -806,6 +839,24 @@ export default {
       'sleep': { 'say': 'Do you ever actually sleep?', '1': 'Not at night. Pupils from every class, all practising. Something always explodes.' },
       'healBack': { '1': 'Off you go. Next time, come for tea instead of bandages.' },
       'bye': { '1': 'Mind the steps. Half my patients only tripped on them.' }
+    },
+    'sbAlchemist': {
+      'hello': { '1': 'Oh! Mind the jars. That one bites. Well, it nibbles.', '2': 'Odile Fernwhistle, alchemist. Bring me herbs and I\'ll bottle you a little courage.' },
+      'again': { '1': 'You\'re back! Did you bring me anything green?' },
+      'brew': { '1': 'Let\'s see your pouch. Ooh, lovely. Pick what you want and I\'ll get the kettle on.' },
+      'who': { '1': 'I set my mum\'s garden on fire with a daisy. Nobody could explain it, so I had to learn.' },
+      'herbs': {
+        'say': 'Where do I find herbs?',
+        '1': 'Out in the wild, everywhere you fight. Just walk over a plant and it\'s yours.',
+        '2': 'The rare ones grow further out. Moonbells and shadowthorn hide past the woods.'
+      },
+      'elixirs': {
+        'say': 'What do the elixirs do?',
+        '1': 'Each one makes you stronger in a fight for a whole minute. Harder hits, tougher skin, quicker feet.',
+        '2': 'They sit in your third flask. Tap the little arrow to swap which one you drink.'
+      },
+      'brewBack': { '1': 'Careful with those, they\'re still warm. Come back when your pouch is full!' },
+      'bye': { '1': 'Bye now! If you see a purple flower, pick two. One for me.' }
     },
     'sbArmorer': {
       'hello': { '1': 'Ha! Look at that dent. I hope you got your money back for that armour.', '2': 'Greta Ironvein. I make armour that comes home with its owner. Every time, so far.' },
@@ -1076,6 +1127,7 @@ export default {
       'trade': 'Can I see what you\'ve got?',
       'train': 'Will you teach me?',
       'heal': 'Could you patch me up?',
+      'brew': 'Could you brew me something?',
       'mana': 'Do you have anything for mana?',
       'who': 'Who are you, if you don\'t mind me asking?',
       'rumor': 'Heard anything lately?',
@@ -1933,6 +1985,8 @@ export default {
       'skill6': 'Skill 6',
       'potion': 'Drink potion',
       'manaPotion': 'Drink mana potion',
+      'elixir': 'Drink elixir',
+      'elixirNext': 'Next elixir',
       'leave': 'Leave a won zone',
       'interact': 'Talk',
       'target': 'Next target',

@@ -253,7 +253,7 @@ export const ZONE_BRANCHES: Readonly<Record<ZoneId, ZoneBranches>> = {
 
 export type TownId = 'sunford' | 'oakhaven' | 'ironhold' | 'silverbridge'
 
-export type NpcRole = 'shop' | 'trainer' | 'quest' | 'healer' | 'talk'
+export type NpcRole = 'shop' | 'trainer' | 'quest' | 'healer' | 'alchemist' | 'talk'
 
 /**
  * Where a townsperson spends the day (roadmap #41, #42):
@@ -470,6 +470,8 @@ export const TOWNS: Readonly<Record<TownId, TownDef>> = {
       // Shops and the chapel either side of the square.
       { id: 'sbHealer', role: 'healer', look: 'sbHealer', at: [0.1, 0.48], place: 'inside', house: 'chapel' },
       { id: 'sbArmorer', role: 'shop', look: 'sbArmorer', at: [0.3, 0.48], place: 'porch', house: 'workshop', job: 'smith', stock: { slots: ['head', 'body', 'hands', 'feet', 'off'], tiers: [2, 3, 4] } },
+      // The alchemist (#87): brews the herbs the hero picks into elixirs.
+      { id: 'sbAlchemist', role: 'alchemist', look: 'sbAlchemist', at: [0.9, 0.48], place: 'inside', house: 'townhouse', job: 'alchemist' },
       { id: 'sbWeapons', role: 'shop', look: 'sbWeapons', at: [0.75, 0.48], place: 'inside', house: 'townhouse', job: 'merchant', stock: { slots: ['main', 'off'], tiers: [2, 3, 4] } },
       { id: 'sbJeweler', role: 'shop', look: 'sbJeweler', at: [0.62, 0.38], place: 'street', job: 'merchant', stock: { slots: ['trinket'], tiers: [2, 3, 4] } },
       { id: 'mayorBrenna', role: 'talk', look: 'mayorBrenna', at: [0.42, 0.38], place: 'street', job: 'elder' }

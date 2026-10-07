@@ -30,7 +30,9 @@ export default {
     manaPotion: 'Mana iksiri ({n} kaldı)',
     groups: '{total} düşman grubundan {n} tanesi yenildi',
     wave: 'Dalga {n} / {total}',
-    roll: 'Yuvarlan'
+    roll: 'Yuvarlan',
+    elixir: '{name} ({n} kaldı)',
+    elixirNext: 'Sonraki eliksir'
   },
   menu: {
     map: 'Dünya haritası',
@@ -87,7 +89,13 @@ export default {
     accelerate: 'Hızlanma',
     overheat: 'Aşırı ısındı',
     enrage: 'Öfkelendi',
-    ambush: 'Pusu'
+    ambush: 'Pusu',
+    elixirMight: 'Kudret Eliksiri',
+    elixirIron: 'Demirderi',
+    elixirSwift: 'Çeviklik',
+    elixirMind: 'Berrak Zihin',
+    elixirVigor: 'Dinçlik',
+    elixirShadow: 'Susamış Kılıç'
   },
   toast: {
     item: 'Bulundu: {item}',
@@ -1117,6 +1125,9 @@ export default {
     },
     sbMasterBlood: {
       name: 'Vesper Crimsonleaf'
+    },
+    sbAlchemist: {
+      name: 'Odile Fernwhistle'
     }
   },
   quest: {
@@ -1355,7 +1366,8 @@ export default {
       mana: 'Mana için bir şeyin var mı?',
       who: 'Sakıncası yoksa, sen kimsin?',
       rumor: 'Son zamanlarda bir şey duydun mu?',
-      ready: 'Sence daha fazlasına hazır mıyım?'
+      ready: 'Sence daha fazlasına hazır mıyım?',
+      brew: 'Bana bir şey kaynatır mısın?'
     },
     sunfordSmith: {
       hello: {
@@ -3198,6 +3210,37 @@ export default {
         '1': 'Oakhaven\'dan kötü haberler var. Haydutlar surlara dayanmış.',
         '2': 'O zaman mavnalar buraya gelir. Zavallılar.'
       }
+    },
+    sbAlchemist: {
+      hello: {
+        '1': 'Aa! Kavanozlara dikkat. Şu ısırır. Yani, kemirir biraz.',
+        '2': 'Odile Fernwhistle, simyacı. Bana ot getir, sana biraz cesaret şişeleyeyim.'
+      },
+      again: {
+        '1': 'Döndün! Bana yeşil bir şey getirdin mi?'
+      },
+      brew: {
+        '1': 'Keseni göreyim. Ooo, harika. İstediğini seç, ben de kazanı ateşe koyayım.'
+      },
+      who: {
+        '1': 'Annemin bahçesini bir papatyayla ateşe verdim. Kimse açıklayamadı, ben de öğrenmek zorunda kaldım.'
+      },
+      herbs: {
+        '1': 'Doğada, savaştığın her yerde. Bir bitkinin üstünden yürü, senin olsun.',
+        '2': 'Nadir olanlar daha uzakta yetişir. Ayçanları ve gölgediken ormanın ötesinde saklanır.',
+        say: 'Otları nerede bulurum?'
+      },
+      elixirs: {
+        '1': 'Her biri seni bir savaşta tam bir dakika güçlendirir. Daha sert vuruşlar, daha sağlam deri, daha çevik ayaklar.',
+        '2': 'Üçüncü şişende dururlar. Hangisini içeceğini değiştirmek için küçük oka dokun.',
+        say: 'Eliksirler ne işe yarar?'
+      },
+      brewBack: {
+        '1': 'Dikkat, hâlâ sıcaklar. Kesen dolunca yine gel!'
+      },
+      bye: {
+        '1': 'Hoşça kal! Mor bir çiçek görürsen iki tane topla. Biri benim için.'
+      }
     }
   },
   enemy: {
@@ -3370,7 +3413,9 @@ export default {
       character: 'Kahraman',
       inventory: 'Çanta',
       skills: 'Yetenekler',
-      roll: 'Yuvarlanma'
+      roll: 'Yuvarlanma',
+      elixir: 'Eliksir iç',
+      elixirNext: 'Sonraki eliksir'
     },
     difficulties: {
       easy: 'Kolay',
@@ -3606,5 +3651,46 @@ export default {
     waiting: 'Kervan seni bekliyor.',
     arrived: 'Kervan ulaştı!',
     lost: 'Kervan yok oldu…'
+  },
+  elixir: {
+    might: {
+      name: 'Kudret Eliksiri',
+      desc: 'Bir dakika boyunca +{n}% hasar'
+    },
+    iron: {
+      name: 'Demirderi Şerbeti',
+      desc: 'Bir dakika boyunca +{n}% zırh'
+    },
+    swift: {
+      name: 'Çeviklik Toniği',
+      desc: 'Bir dakika boyunca +{n}% hız ve saldırı hızı'
+    },
+    mind: {
+      name: 'Berrak Zihin Karışımı',
+      desc: 'Yetenekler bir dakika boyunca {n}% daha hızlı dolar'
+    },
+    vigor: {
+      name: 'Dinçlik Eliksiri',
+      desc: 'Bir dakika boyunca her saniye canının {n}% kadarını yeniler'
+    },
+    shadow: {
+      name: 'Susamış Şerbet',
+      desc: 'Bir dakika boyunca vuruşların, verdikleri hasarın {n}% kadar canını yeniler'
+    }
+  },
+  alchemy: {
+    talk: 'Otlar girer, eliksirler çıkar. Hangisini kaynatalım?',
+    lead: 'Her eliksir bir savaşta bir dakika etki eder. Onu üçüncü şişenden iç. Her birinden {n} tane taşıyabilirsin.',
+    brew: 'Kaynat · {n}',
+    carry: 'Bunu taşı',
+    carried: 'Şişende',
+    count: '{n} / {max}',
+    herb: '{plant}: {have} / {n}',
+    done: 'Hazır!',
+    why: {
+      full: 'Bundan taşıyabileceğin kadarını taşıyorsun.',
+      herbs: 'Yeterli ot yok. Doğada daha fazla topla.',
+      gold: 'Yeterli altın yok.'
+    }
   }
 }

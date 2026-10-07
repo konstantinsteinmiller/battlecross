@@ -30,7 +30,9 @@ export default {
     manaPotion: 'Manos eliksyras (liko: {n})',
     groups: 'Įveikta priešų grupių: {n} iš {total}',
     wave: 'Banga {n} / {total}',
-    roll: 'Riedėjimas'
+    roll: 'Riedėjimas',
+    elixir: '{name} (liko: {n})',
+    elixirNext: 'Kitas nuoviras'
   },
   menu: {
     map: 'Žemėlapis',
@@ -87,7 +89,13 @@ export default {
     accelerate: 'Pagreitis',
     overheat: 'Perkaitimas',
     enrage: 'Įniršis',
-    ambush: 'Pasala'
+    ambush: 'Pasala',
+    elixirMight: 'Galios nuoviras',
+    elixirIron: 'Geležinė oda',
+    elixirSwift: 'Vikrumas',
+    elixirMind: 'Aiškus protas',
+    elixirVigor: 'Žvalumas',
+    elixirShadow: 'Ištroškę ašmenys'
   },
   toast: {
     item: 'Rasta: {item}',
@@ -1117,6 +1125,9 @@ export default {
     },
     sbMasterBlood: {
       name: 'Vesper Raudonlapė'
+    },
+    sbAlchemist: {
+      name: 'Odilė Papartšvilpė'
     }
   },
   quest: {
@@ -1356,7 +1367,8 @@ export default {
       who: 'Kas tu esi, jei galiu paklausti?',
       rumor: 'Ar ką nors girdėjai?',
       ready: 'Ar manai, kad esu pasiruošęs daugiau?',
-      ready__f: 'Ar manai, kad esu pasiruošusi daugiau?'
+      ready__f: 'Ar manai, kad esu pasiruošusi daugiau?',
+      brew: 'Ar galėtum man ką nors išvirti?'
     },
     sunfordSmith: {
       hello: {
@@ -3245,6 +3257,37 @@ export default {
         '1': 'Iš Oakhaveno blogos žinios. Plėšikai prie sienų.',
         '2': 'Tada baržos plauks čia. Vargšai.'
       }
+    },
+    sbAlchemist: {
+      hello: {
+        '1': 'Oi! Atsargiai su stiklainiais. Tas kandžiojasi. Na, kramsnoja.',
+        '2': 'Odilė Papartšvilpė, alchemikė. Atnešk man žolelių, ir aš tau išpilstysiu šiek tiek drąsos.'
+      },
+      again: {
+        '1': 'Grįžai! Ar atnešei man ko nors žalio?'
+      },
+      brew: {
+        '1': 'Parodyk savo maišelį. Oho, puiku. Rinkis, ko nori, o aš užkaisiu katiliuką.'
+      },
+      who: {
+        '1': 'Ramunėle padegiau mamos sodą. Niekas negalėjo to paaiškinti, tad teko išmokti pačiai.'
+      },
+      herbs: {
+        '1': 'Laukinėse vietose, visur, kur kovoji. Tiesiog pereik per augalą, ir jis tavo.',
+        '2': 'Retieji auga toliau. Mėnulio varpeliai ir šešėldygliai slepiasi už miško.',
+        say: 'Kur rasti žolelių?'
+      },
+      elixirs: {
+        '1': 'Kiekvienas sustiprina tave kovoje visai minutei. Stipresni smūgiai, kietesnė oda, greitesnės kojos.',
+        '2': 'Jie tavo trečiojoje kolboje. Bakstelėk mažą rodyklę ir išsirink, kurį gerti.',
+        say: 'Ką daro nuovirai?'
+      },
+      brewBack: {
+        '1': 'Atsargiai, jie dar šilti. Grįžk, kai maišelis bus pilnas!'
+      },
+      bye: {
+        '1': 'Iki! Jei pamatysi violetinę gėlę, nuskink dvi. Vieną man.'
+      }
     }
   },
   enemy: {
@@ -3417,7 +3460,9 @@ export default {
       character: 'Herojus',
       inventory: 'Krepšys',
       skills: 'Įgūdžiai',
-      roll: 'Riedėjimas'
+      roll: 'Riedėjimas',
+      elixir: 'Gerti nuovirą',
+      elixirNext: 'Kitas nuoviras'
     },
     difficulties: {
       easy: 'Lengvas',
@@ -3657,5 +3702,46 @@ export default {
     waiting: 'Karavanas tavęs laukia.',
     arrived: 'Karavanas pasiekė tikslą!',
     lost: 'Karavanas prarastas…'
+  },
+  elixir: {
+    might: {
+      name: 'Galios nuoviras',
+      desc: '+{n}% žalos vieną minutę'
+    },
+    iron: {
+      name: 'Geležinės odos gėrimas',
+      desc: '+{n}% šarvų vieną minutę'
+    },
+    swift: {
+      name: 'Vikrumo tonikas',
+      desc: '+{n}% greičio ir puolimo greičio vieną minutę'
+    },
+    mind: {
+      name: 'Aiškaus proto antpilas',
+      desc: 'Įgūdžiai vieną minutę atsikrauna {n}% greičiau'
+    },
+    vigor: {
+      name: 'Žvalumo nuoviras',
+      desc: 'Vieną minutę kas sekundę gydo {n}% tavo gyvybės'
+    },
+    shadow: {
+      name: 'Ištroškęs gėrimas',
+      desc: 'Vieną minutę tavo smūgiai gydo tave {n}% jų žalos'
+    }
+  },
+  alchemy: {
+    talk: 'Žolelės į vidų, nuovirai laukan. Kurį virsime?',
+    lead: 'Kiekvienas nuoviras kovoje veikia minutę. Gerk jį iš trečiosios kolbos. Kiekvieno gali nešti po {n}.',
+    brew: 'Virti · {n}',
+    carry: 'Pasiimti',
+    carried: 'Tavo kolboje',
+    count: '{n} / {max}',
+    herb: '{plant}: {have} iš {n}',
+    done: 'Išvirta!',
+    why: {
+      full: 'Šito jau neši tiek, kiek gali.',
+      herbs: 'Neužtenka žolelių. Prisiskink daugiau laukinėse vietose.',
+      gold: 'Neužtenka aukso.'
+    }
   }
 }

@@ -30,7 +30,9 @@ export default {
     manaPotion: 'Bình mana (còn {n})',
     groups: 'Đã hạ {n} trên {total} nhóm địch',
     wave: 'Đợt {n} / {total}',
-    roll: 'Lăn'
+    roll: 'Lăn',
+    elixir: '{name} (còn {n})',
+    elixirNext: 'Linh dược kế tiếp'
   },
   menu: {
     map: 'Bản đồ thế giới',
@@ -87,7 +89,13 @@ export default {
     accelerate: 'Gia tốc',
     overheat: 'Quá nhiệt',
     enrage: 'Cuồng nộ',
-    ambush: 'Phục kích'
+    ambush: 'Phục kích',
+    elixirMight: 'Linh dược Sức mạnh',
+    elixirIron: 'Da sắt',
+    elixirSwift: 'Nhanh nhẹn',
+    elixirMind: 'Minh mẫn',
+    elixirVigor: 'Sinh lực',
+    elixirShadow: 'Lưỡi kiếm khát máu'
   },
   toast: {
     item: 'Tìm thấy: {item}',
@@ -1117,6 +1125,9 @@ export default {
     },
     sbMasterBlood: {
       name: 'Vesper Crimsonleaf'
+    },
+    sbAlchemist: {
+      name: 'Odile Fernwhistle'
     }
   },
   quest: {
@@ -1355,7 +1366,8 @@ export default {
       mana: 'Bạn có gì cho mana không?',
       who: 'Xin lỗi, bạn là ai vậy?',
       rumor: 'Dạo này có nghe tin gì không?',
-      ready: 'Bạn nghĩ tôi sẵn sàng học thêm chưa?'
+      ready: 'Bạn nghĩ tôi sẵn sàng học thêm chưa?',
+      brew: 'Bạn nấu giúp tôi thứ gì được không?'
     },
     sunfordSmith: {
       hello: {
@@ -3198,6 +3210,37 @@ export default {
         '1': 'Tin từ Oakhaven không hay. Cướp kéo tới tận tường thành.',
         '2': 'Vậy sà lan sẽ tới đây thay. Tội nghiệp họ.'
       }
+    },
+    sbAlchemist: {
+      hello: {
+        '1': 'Ôi! Cẩn thận mấy cái lọ. Cái đó cắn đấy. À, nó gặm thôi.',
+        '2': 'Odile Fernwhistle, nhà giả kim. Mang thảo dược tới, tôi sẽ đóng chai cho cậu một chút can đảm.'
+      },
+      again: {
+        '1': 'Cậu quay lại rồi! Có mang gì xanh xanh cho tôi không?'
+      },
+      brew: {
+        '1': 'Cho tôi xem túi của cậu nào. Ồ, tuyệt quá. Chọn món cậu muốn đi, tôi đi đun ấm nước.'
+      },
+      who: {
+        '1': 'Tôi từng làm cháy vườn của mẹ chỉ bằng một bông cúc. Chẳng ai giải thích nổi, nên tôi phải tự đi học.'
+      },
+      herbs: {
+        '1': 'Ngoài hoang dã, chỗ nào cậu chiến đấu cũng có. Cứ đi qua cái cây là nó thuộc về cậu.',
+        '2': 'Loại hiếm mọc xa hơn. Chuông Trăng và Gai Bóng Tối nấp ở bên kia khu rừng.',
+        say: 'Tìm thảo dược ở đâu?'
+      },
+      elixirs: {
+        '1': 'Loại nào cũng làm cậu mạnh hơn trong trận đấu suốt một phút. Đánh mạnh hơn, da cứng hơn, chân nhanh hơn.',
+        '2': 'Chúng nằm trong bình thứ ba của cậu. Chạm mũi tên nhỏ để đổi loại muốn uống.',
+        say: 'Linh dược có tác dụng gì?'
+      },
+      brewBack: {
+        '1': 'Cẩn thận, vẫn còn ấm đấy. Khi nào túi đầy thì quay lại nhé!'
+      },
+      bye: {
+        '1': 'Tạm biệt! Nếu thấy bông hoa tím, hái hai bông nhé. Một bông cho tôi.'
+      }
     }
   },
   enemy: {
@@ -3370,7 +3413,9 @@ export default {
       character: 'Anh hùng',
       inventory: 'Túi đồ',
       skills: 'Kỹ năng',
-      roll: 'Lăn né'
+      roll: 'Lăn né',
+      elixir: 'Uống linh dược',
+      elixirNext: 'Linh dược kế tiếp'
     },
     difficulties: {
       easy: 'Dễ',
@@ -3606,5 +3651,46 @@ export default {
     waiting: 'Đoàn buôn đang chờ bạn.',
     arrived: 'Đoàn buôn đã đến nơi!',
     lost: 'Mất đoàn buôn rồi…'
+  },
+  elixir: {
+    might: {
+      name: 'Linh dược Sức mạnh',
+      desc: '+{n}% sát thương trong một phút'
+    },
+    iron: {
+      name: 'Thuốc Da Sắt',
+      desc: '+{n}% giáp trong một phút'
+    },
+    swift: {
+      name: 'Thuốc bổ Nhanh nhẹn',
+      desc: '+{n}% tốc độ chạy và tốc độ đánh trong một phút'
+    },
+    mind: {
+      name: 'Thuốc sắc Minh mẫn',
+      desc: 'Kỹ năng hồi nhanh hơn {n}% trong một phút'
+    },
+    vigor: {
+      name: 'Linh dược Sinh lực',
+      desc: 'Hồi {n}% máu mỗi giây trong một phút'
+    },
+    shadow: {
+      name: 'Thuốc Khát Máu',
+      desc: 'Đòn đánh hồi máu bằng {n}% sát thương gây ra, trong một phút'
+    }
+  },
+  alchemy: {
+    talk: 'Thảo dược vào, linh dược ra. Ta nấu loại nào đây?',
+    lead: 'Mỗi linh dược có tác dụng một phút khi chiến đấu. Uống từ bình thứ ba. Mỗi loại mang được {n} bình.',
+    brew: 'Nấu · {n}',
+    carry: 'Mang theo',
+    carried: 'Đang trong bình',
+    count: '{n} / {max}',
+    herb: '{plant}: {have}/{n}',
+    done: 'Nấu xong!',
+    why: {
+      full: 'Bạn đã mang tối đa loại này rồi.',
+      herbs: 'Không đủ thảo dược. Hãy hái thêm ngoài hoang dã.',
+      gold: 'Không đủ vàng.'
+    }
   }
 }

@@ -30,7 +30,9 @@ export default {
     manaPotion: 'Manaital (maradt: {n})',
     groups: 'Legyőzött ellenséges csapatok: {n} / {total}',
     wave: 'Hullám: {n} / {total}',
-    roll: 'Gurulás'
+    roll: 'Gurulás',
+    elixir: '{name} (maradt: {n})',
+    elixirNext: 'Következő elixír'
   },
   menu: {
     map: 'Világtérkép',
@@ -87,7 +89,13 @@ export default {
     accelerate: 'Gyorsítás',
     overheat: 'Túlhevült',
     enrage: 'Dühöng',
-    ambush: 'Rajtaütés'
+    ambush: 'Rajtaütés',
+    elixirMight: 'Erő elixírje',
+    elixirIron: 'Vasbőr',
+    elixirSwift: 'Fürgeség',
+    elixirMind: 'Tiszta elme',
+    elixirVigor: 'Életerő',
+    elixirShadow: 'Szomjas penge'
   },
   toast: {
     item: 'Találtad: {item}',
@@ -1117,6 +1125,9 @@ export default {
     },
     sbMasterBlood: {
       name: 'Bíborlevél Vesper'
+    },
+    sbAlchemist: {
+      name: 'Páfránysíp Odile'
     }
   },
   quest: {
@@ -1355,7 +1366,8 @@ export default {
       mana: 'Van valamid a manára?',
       who: 'Ki vagy te, ha szabad kérdeznem?',
       rumor: 'Hallottál valamit mostanában?',
-      ready: 'Szerinted készen állok többre?'
+      ready: 'Szerinted készen állok többre?',
+      brew: 'Főznél nekem valamit?'
     },
     sunfordSmith: {
       hello: {
@@ -3198,6 +3210,37 @@ export default {
         '1': 'Rossz hírek jönnek Oakhavenből. Banditák a falaknál.',
         '2': 'Akkor az uszályok majd ide jönnek. Szegények.'
       }
+    },
+    sbAlchemist: {
+      hello: {
+        '1': 'Jaj! Vigyázz az üvegekre. Az ott harap. Na jó, csipked.',
+        '2': 'Páfránysíp Odile vagyok, alkimista. Hozz füveket, és palackozok neked egy kis bátorságot.'
+      },
+      again: {
+        '1': 'Visszajöttél! Hoztál valami zöldet?'
+      },
+      brew: {
+        '1': 'Mutasd az erszényed. Ó, de szép. Válassz, amit akarsz, én meg felteszem az üstöt.'
+      },
+      who: {
+        '1': 'Egy százszorszéppel felgyújtottam anyu kertjét. Senki nem tudta megmagyarázni, így meg kellett tanulnom.'
+      },
+      herbs: {
+        '1': 'Kint a vadonban, mindenhol, ahol harcolsz. Csak sétálj rá egy növényre, és a tiéd.',
+        '2': 'A ritkák messzebb nőnek. A holdharang és az árnytüske az erdőn túl bújik.',
+        say: 'Hol találok füveket?'
+      },
+      elixirs: {
+        '1': 'Mindegyik egy teljes percre erősebbé tesz harcban. Keményebb ütés, szívósabb bőr, fürgébb láb.',
+        '2': 'A harmadik fiolában vannak. Koppints a kis nyílra, és válaszd ki, melyiket iszod.',
+        say: 'Mit csinálnak az elixírek?'
+      },
+      brewBack: {
+        '1': 'Óvatosan, még melegek. Gyere vissza, ha megtelt az erszényed!'
+      },
+      bye: {
+        '1': 'Szia! Ha lila virágot látsz, szedj kettőt. Az egyik az enyém.'
+      }
     }
   },
   enemy: {
@@ -3370,7 +3413,9 @@ export default {
       character: 'Hős',
       inventory: 'Táska',
       skills: 'Képességek',
-      roll: 'Gurulás'
+      roll: 'Gurulás',
+      elixir: 'Elixír megivása',
+      elixirNext: 'Következő elixír'
     },
     difficulties: {
       easy: 'Könnyű',
@@ -3606,5 +3651,46 @@ export default {
     waiting: 'A karaván rád vár.',
     arrived: 'A karaván megérkezett!',
     lost: 'A karaván elveszett…'
+  },
+  elixir: {
+    might: {
+      name: 'Erő elixírje',
+      desc: '+{n}% sebzés egy percig'
+    },
+    iron: {
+      name: 'Vasbőr-főzet',
+      desc: '+{n}% páncél egy percig'
+    },
+    swift: {
+      name: 'Fürgeség-tonik',
+      desc: '+{n}% sebesség és támadási sebesség egy percig'
+    },
+    mind: {
+      name: 'Tiszta elme főzete',
+      desc: 'A képességek {n}%-kal gyorsabban töltődnek egy percig'
+    },
+    vigor: {
+      name: 'Életerő elixírje',
+      desc: 'Másodpercenként {n}% életerőt gyógyít egy percig'
+    },
+    shadow: {
+      name: 'Szomjas főzet',
+      desc: 'Az ütéseid sebzésük {n}%-ával gyógyítanak egy percig'
+    }
+  },
+  alchemy: {
+    talk: 'Fű be, elixír ki. Melyiket főzzük?',
+    lead: 'Minden elixír egy percig hat harcban. A harmadik fiolából idd. Mindegyikből {n} lehet nálad.',
+    brew: 'Főzés · {n}',
+    carry: 'Viszem',
+    carried: 'A fioládban',
+    count: '{n} / {max}',
+    herb: '{plant}: {have} / {n}',
+    done: 'Kész!',
+    why: {
+      full: 'Ebből már annyi van nálad, amennyit vihetsz.',
+      herbs: 'Nincs elég füved. Szedj még a vadonban.',
+      gold: 'Nincs elég aranyad.'
+    }
   }
 }

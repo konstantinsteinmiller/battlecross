@@ -4,7 +4,7 @@ A report, not a contract: it is a picture of `art-sheets/painted/` and the
 slicer's receipt at the moment it was written. Re-run `pnpm art:prompts`
 after painting or slicing anything.
 
-**36 sliced · 0 need a repaint · 0 painted, unreceipted · 0 outstanding**
+**36 sliced · 0 need a repaint · 0 painted, unreceipted · 1 outstanding**
 
 | | Sheet | Prompt block in | Reference | State |
 | --- | --- | --- | --- | --- |
@@ -28,9 +28,10 @@ after painting or slicing anything.
 | ✓ | **Portraits: the hero, per outfit** | `PROMPTS-PORTRAITS.md` | `sheet-portraits-hero.png` (rev `75c7036e6e95`) | sliced 2026-10-03 |
 | ✓ | **Portraits: the girl hero, per outfit** | `PROMPTS-PORTRAITS.md` | `sheet-portraits-girl.png` (rev `7e58d5984004`) | sliced 2026-10-04 |
 | ✓ | **Icons: class emblems** | `PROMPTS-ICONS.md` | `sheet-icons-classes.png` (rev `5b8dd08575e3`) | sliced 2026-10-03 |
-| ✓ | **Icons: status effects (1 of 3)** | `PROMPTS-ICONS.md` | `sheet-icons-status-1.png` (rev `3b679b490b8f`) | sliced 2026-10-03 |
-| ✓ | **Icons: status effects (2 of 3)** | `PROMPTS-ICONS.md` | `sheet-icons-status-2.png` (rev `6a52868c9374`) | sliced 2026-10-03 |
-| ✓ | **Icons: status effects (3 of 3)** | `PROMPTS-ICONS.md` | `sheet-icons-status-3.png` (rev `96c14f307c6a`) | sliced 2026-10-03 |
+| ✓ | **Icons: status effects (1 of 4)** | `PROMPTS-ICONS.md` | `sheet-icons-status-1.png` (rev `3b679b490b8f`) | sliced 2026-10-03 |
+| ✓ | **Icons: status effects (2 of 4)** | `PROMPTS-ICONS.md` | `sheet-icons-status-2.png` (rev `6a52868c9374`) | sliced 2026-10-03 |
+| ✓ | **Icons: status effects (3 of 4)** | `PROMPTS-ICONS.md` | `sheet-icons-status-3.png` (rev `96c14f307c6a`) | sliced 2026-10-03 |
+| · | **Icons: status effects (4 of 4)** | `PROMPTS-ICONS.md` | `sheet-icons-status-4.png` — *missing, run `pnpm art:export`* | not painted yet |
 | ✓ | **Icons: HUD and menu buttons** | `PROMPTS-ICONS.md` | `sheet-icons-ui-1.png` (rev `742792342418`) | sliced 2026-10-03 |
 | ✓ | **Icons: screen buttons** | `PROMPTS-ICONS.md` | `sheet-icons-ui-2.png` (rev `3e4281f52940`) | sliced 2026-10-03 |
 | ✓ | **Icons: badges, pins and help** | `PROMPTS-ICONS.md` | `sheet-icons-ui-3.png` (rev `85181b617148`) | sliced 2026-10-03 |

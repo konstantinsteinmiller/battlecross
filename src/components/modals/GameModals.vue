@@ -3,6 +3,7 @@
   TradeScreen(v-else-if="flow.modal === 'shop'")
   TeachScreen(v-else-if="flow.modal === 'trainer'")
   HealerScreen(v-else-if="flow.modal === 'healer'")
+  AlchemyScreen(v-else-if="flow.modal === 'alchemy'")
   ResultsModal(v-else-if="flow.modal === 'results'")
   SecondWindModal(v-else-if="flow.modal === 'secondWind'")
   ContractBoard(v-else-if="flow.modal === 'contracts'")
@@ -26,6 +27,7 @@ const HeroBook = defineAsyncComponent(SCREEN_CHUNKS.heroBook)
 const TradeScreen = defineAsyncComponent(SCREEN_CHUNKS.trade)
 const TeachScreen = defineAsyncComponent(SCREEN_CHUNKS.teach)
 const HealerScreen = defineAsyncComponent(SCREEN_CHUNKS.healer)
+const AlchemyScreen = defineAsyncComponent(SCREEN_CHUNKS.alchemy)
 import ResultsModal from './ResultsModal.vue'
 import SecondWindModal from './SecondWindModal.vue'
 import ContractBoard from './ContractBoard.vue'

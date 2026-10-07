@@ -21,7 +21,7 @@ import { KEY_BINDINGS_KEY } from '@/keys'
 export type Action =
   | 'up' | 'down' | 'left' | 'right'
   | 'skill1' | 'skill2' | 'skill3' | 'skill4' | 'skill5' | 'skill6'
-  | 'roll' | 'potion' | 'manaPotion' | 'interact' | 'target' | 'leave'
+  | 'roll' | 'potion' | 'manaPotion' | 'elixir' | 'elixirNext' | 'interact' | 'target' | 'leave'
   | 'map' | 'character' | 'inventory' | 'skills'
 
 /** Defaults: the first code is the action's main key, the rest alternates. */
@@ -39,6 +39,8 @@ export const DEFAULT_BINDINGS: Readonly<Record<Action, readonly string[]>> = {
   roll: ['Space'],
   potion: ['KeyQ'],
   manaPotion: ['KeyR'],
+  elixir: ['KeyG'],
+  elixirNext: ['KeyT'],
   interact: ['KeyE', 'KeyF'],
   target: ['Tab'],
   leave: ['KeyL'],

@@ -53,6 +53,15 @@ const GUN = (c: Cls = 'm'): string => P('M5 16h34a3 3 0 0 1 3 3v5H27l-2 5h-6l-3 
 const BOMB = (c: Cls = 'd'): string => C(22, 29, 14, c) + P('M30 17l5-6', 'n') + star(38, 8, 6, 2.6, 5, 'g')
 const FLASK = (c: Cls = 'a'): string =>
   P('M19 5h10v11l9 17a6 6 0 0 1-5 9H15a6 6 0 0 1-5-9l9-17z', 'w') + P('M14 30h20l3 5a4 4 0 0 1-4 5H15a4 4 0 0 1-4-5z', c) + R(17, 3, 14, 4, 2, 'k')
+/** What each elixir does, drawn as one bold sign (the flask's glass). */
+const ELIXIR_MARK = {
+  might: P('M24 3l4 5v22h-8V8z', 'w') + R(13, 29, 22, 5, 2.5, 'g') + R(21, 34, 6, 10, 2, 'k'),
+  iron: P('M24 5l15 5v12c0 10-6 17-15 21C15 39 9 32 9 22V10z', 'w'),
+  swift: P('M4 14l16 10L4 34zM22 14l22 10-22 10z', 'w'),
+  mind: C(24, 24, 17, 'w') + P('M24 13v11l7 5', 'i'),
+  vigor: P('M24 41C10 31 6 24 6 17a9 9 0 0 1 18-3 9 9 0 0 1 18 3c0 7-4 14-18 24z', 'w'),
+  shadow: P('M24 5c6 9 13 15 13 24a13 13 0 0 1-26 0c0-9 7-15 13-24z', 'w')
+} as const
 const RING = (c: Cls = 'g'): string => `<circle class="n" style="stroke:var(--ol);stroke-width:11" cx="24" cy="28" r="11"/><circle class="n" style="stroke:var(--${c === 'g' ? 'gold' : 'a'});stroke-width:6" cx="24" cy="28" r="11"/>`
 const GEM = (c: Cls = 'a', y = 11): string => P(`M24 ${y - 7}l7 6-7 8-7-8z`, c)
 const ARROW_R = (c: Cls = 'w'): string => P('M6 20h22v-8l14 12-14 12v-8H6z', c)
@@ -201,6 +210,20 @@ export const GLYPHS: Readonly<Record<string, string>> = {
   'status.overheat': R(18, 4, 12, 28, 6, 'w') + C(24, 35, 10, 'r') + R(21.5, 10, 5, 26, 2.5, 'r'),
   'status.enrage': C(24, 25, 19, 'r') + P('M12 17l9 5M36 17l-9 5', 'n') + C(17, 26, 2.6, 'd') + C(31, 26, 2.6, 'd') + P('M17 36h14', 'n'),
   'status.ambush': SKULL('w'),
+  // The elixirs (#87): a flask of the brew's colour, its strength on the glass.
+  'status.elixirMight': FLASK('r') + G('translate(15 21) scale(0.38)', ELIXIR_MARK.might),
+  'status.elixirIron': FLASK('m') + G('translate(15 21) scale(0.38)', ELIXIR_MARK.iron),
+  'status.elixirSwift': FLASK('e') + G('translate(15 21) scale(0.38)', ELIXIR_MARK.swift),
+  'status.elixirMind': FLASK('b') + G('translate(15 21) scale(0.38)', ELIXIR_MARK.mind),
+  'status.elixirVigor': FLASK('r') + G('translate(15 21) scale(0.38)', ELIXIR_MARK.vigor),
+  'status.elixirShadow': FLASK('u') + G('translate(15 21) scale(0.38)', ELIXIR_MARK.shadow),
+  // The same strengths alone, for the third flask's glass on the battle bar.
+  'mark.elixir.might': ELIXIR_MARK.might,
+  'mark.elixir.iron': ELIXIR_MARK.iron,
+  'mark.elixir.swift': ELIXIR_MARK.swift,
+  'mark.elixir.mind': ELIXIR_MARK.mind,
+  'mark.elixir.vigor': ELIXIR_MARK.vigor,
+  'mark.elixir.shadow': ELIXIR_MARK.shadow,
 
   // ── Odds and ends ──
   potion: FLASK('r') + G('translate(14.4 20) scale(0.4)', HEART('w')),

@@ -65,6 +65,11 @@ export interface HeroState {
   manaPotions: number
   manaPotionsMax: number
   manaPotionCd: number
+  /** Elixirs carried (roadmap #87): how many of each, the one the third flask
+   *  pours, and its cooldown (shared by every elixir). */
+  elixirs: Record<string, number>
+  elixirPick: string
+  elixirCd: number
   /** Seconds until the dodge roll is back. */
   rollCd: number
   order: Order

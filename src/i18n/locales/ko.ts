@@ -30,7 +30,9 @@ export default {
     manaPotion: '마나 물약 ({n}개 남음)',
     groups: '적 무리 {n}/{total} 처치',
     wave: '웨이브 {n} / {total}',
-    roll: '구르기'
+    roll: '구르기',
+    elixir: '{name} ({n}개 남음)',
+    elixirNext: '다음 엘릭서'
   },
   menu: {
     map: '월드맵',
@@ -87,7 +89,13 @@ export default {
     accelerate: '시간 가속',
     overheat: '과열',
     enrage: '격노',
-    ambush: '기습'
+    ambush: '기습',
+    elixirMight: '힘의 엘릭서',
+    elixirIron: '무쇠 피부',
+    elixirSwift: '신속',
+    elixirMind: '맑은 정신',
+    elixirVigor: '활력',
+    elixirShadow: '갈망의 칼날'
   },
   toast: {
     item: '획득: {item}',
@@ -1117,6 +1125,9 @@ export default {
     },
     sbMasterBlood: {
       name: '베스퍼 크림슨리프'
+    },
+    sbAlchemist: {
+      name: '고사리피리 오딜'
     }
   },
   quest: {
@@ -1355,7 +1366,8 @@ export default {
       mana: '마나에 좋은 게 있나요?',
       who: '실례지만, 누구세요?',
       rumor: '요즘 들은 소식 있어요?',
-      ready: '제가 더 배워도 될 것 같아요?'
+      ready: '제가 더 배워도 될 것 같아요?',
+      brew: '뭐 좀 만들어 주실래요?'
     },
     sunfordSmith: {
       hello: {
@@ -3198,6 +3210,37 @@ export default {
         '1': '오크헤이븐 소식이 안 좋아. 성벽에 도적 떼래.',
         '2': '그럼 바지선들은 여기로 오겠네. 딱하기도 하지.'
       }
+    },
+    sbAlchemist: {
+      hello: {
+        '1': '앗! 병 조심해요. 그거 물어요. 음, 살짝 깨무는 정도지만.',
+        '2': '연금술사 고사리피리 오딜이에요. 약초를 가져오면 작은 용기를 병에 담아 줄게요.'
+      },
+      again: {
+        '1': '또 왔네요! 초록색 뭐라도 가져왔어요?'
+      },
+      brew: {
+        '1': '주머니 좀 봐요. 우와, 좋네요. 원하는 걸 골라요. 주전자 올려 둘게요.'
+      },
+      who: {
+        '1': '데이지 한 송이로 엄마 정원에 불을 냈어요. 아무도 이유를 몰라서, 제가 배울 수밖에 없었죠.'
+      },
+      herbs: {
+        '1': '바깥, 싸우는 곳 어디에나 있어요. 식물 위로 지나가기만 하면 바로 챙겨져요.',
+        '2': '귀한 건 더 멀리서 자라요. 달방울꽃이랑 그림자가시는 숲 너머에 숨어 있죠.',
+        say: '약초는 어디서 찾아요?'
+      },
+      elixirs: {
+        '1': '전부 전투에서 꼬박 1분 동안 더 강하게 해 줘요. 더 센 공격, 더 단단한 피부, 더 빠른 발.',
+        '2': '세 번째 물약병에 들어가요. 작은 화살표를 누르면 마실 걸 바꿀 수 있어요.',
+        say: '엘릭서는 무슨 효과가 있어요?'
+      },
+      brewBack: {
+        '1': '조심해요, 아직 따뜻하거든요. 주머니가 꽉 차면 또 와요!'
+      },
+      bye: {
+        '1': '잘 가요! 보라색 꽃을 보면 두 송이 따요. 하나는 제 거예요.'
+      }
     }
   },
   enemy: {
@@ -3370,7 +3413,9 @@ export default {
       character: '영웅',
       inventory: '가방',
       skills: '스킬',
-      roll: '구르기'
+      roll: '구르기',
+      elixir: '엘릭서 마시기',
+      elixirNext: '다음 엘릭서'
     },
     difficulties: {
       easy: '쉬움',
@@ -3606,5 +3651,46 @@ export default {
     waiting: '상단이 기다리고 있어요.',
     arrived: '상단이 무사히 도착했어요!',
     lost: '상단을 잃었어요…'
+  },
+  elixir: {
+    might: {
+      name: '힘의 엘릭서',
+      desc: '1분 동안 피해량 +{n}%'
+    },
+    iron: {
+      name: '무쇠 피부 물약',
+      desc: '1분 동안 방어도 +{n}%'
+    },
+    swift: {
+      name: '신속의 강장제',
+      desc: '1분 동안 이동 속도와 공격 속도 +{n}%'
+    },
+    mind: {
+      name: '맑은 정신의 탕약',
+      desc: '1분 동안 스킬이 {n}% 더 빨리 돌아옴'
+    },
+    vigor: {
+      name: '활력의 엘릭서',
+      desc: '1분 동안 매초 체력의 {n}% 회복'
+    },
+    shadow: {
+      name: '갈망의 물약',
+      desc: '1분 동안 준 피해의 {n}%만큼 체력 회복'
+    }
+  },
+  alchemy: {
+    talk: '약초를 넣으면 엘릭서가 나와요. 뭘 만들어 볼까요?',
+    lead: '엘릭서는 전투에서 1분 동안 효과가 있어요. 세 번째 물약병으로 마셔요. 종류마다 {n}개까지 들 수 있어요.',
+    brew: '제조 · {n}',
+    carry: '이걸로 챙기기',
+    carried: '물약병에 있음',
+    count: '{n} / {max}',
+    herb: '{plant}: {have}/{n}',
+    done: '완성!',
+    why: {
+      full: '이건 더 들 수 없다.',
+      herbs: '약초가 부족하다. 야외에서 더 캐 오자.',
+      gold: '골드가 부족하다.'
+    }
   }
 }

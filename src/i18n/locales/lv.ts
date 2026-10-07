@@ -30,7 +30,9 @@ export default {
     manaPotion: 'Manas dzira (atlikušas: {n})',
     groups: 'Sakautas ienaidnieku grupas: {n} no {total}',
     wave: 'Vilnis {n} / {total}',
-    roll: 'Ripošana'
+    roll: 'Ripošana',
+    elixir: '{name} (atlikuši: {n})',
+    elixirNext: 'Nākamais eliksīrs'
   },
   menu: {
     map: 'Pasaules karte',
@@ -87,7 +89,13 @@ export default {
     accelerate: 'Paātrinājums',
     overheat: 'Pārkarsis',
     enrage: 'Saniknots',
-    ambush: 'Slēpnis'
+    ambush: 'Slēpnis',
+    elixirMight: 'Spēka eliksīrs',
+    elixirIron: 'Dzelzs āda',
+    elixirSwift: 'Veiklība',
+    elixirMind: 'Skaidrs prāts',
+    elixirVigor: 'Možums',
+    elixirShadow: 'Izslāpis asmens'
   },
   toast: {
     item: 'Atrasts: {item}',
@@ -1117,6 +1125,9 @@ export default {
     },
     sbMasterBlood: {
       name: 'Vespera Sārtlape'
+    },
+    sbAlchemist: {
+      name: 'Odile Papardsvilpe'
     }
   },
   quest: {
@@ -1356,7 +1367,8 @@ export default {
       who: 'Kas tu esi, ja drīkstu pajautāt?',
       rumor: 'Vai dzirdēji kaut ko jaunu?',
       ready: 'Vai tu domā, ka esmu gatavs vairākam?',
-      ready__f: 'Vai tu domā, ka esmu gatava vairākam?'
+      ready__f: 'Vai tu domā, ka esmu gatava vairākam?',
+      brew: 'Vai varētu man kaut ko izvārīt?'
     },
     sunfordSmith: {
       hello: {
@@ -3258,6 +3270,37 @@ export default {
         '1': 'No Oukheivenas sliktas ziņas. Laupītāji pie mūriem.',
         '2': 'Tad baržas brauks šurp. Nabadziņi.'
       }
+    },
+    sbAlchemist: {
+      hello: {
+        '1': 'Ak! Uzmanīgi ar burkām. Tā tur kož. Nu, knibina.',
+        '2': 'Odile Papardsvilpe, alķīmiķe. Atnes man zāles, un es tev iepildīšu pudelītē mazliet drosmes.'
+      },
+      again: {
+        '1': 'Tu esi atpakaļ! Vai atnesi man kaut ko zaļu?'
+      },
+      brew: {
+        '1': 'Parādi savu maisiņu. Ā, jauki. Izvēlies, ko gribi, un es uzlikšu katliņu.'
+      },
+      who: {
+        '1': 'Es ar margrietiņu aizdedzināju mammas dārzu. Neviens to nevarēja izskaidrot, tāpēc man bija jāmācās.'
+      },
+      herbs: {
+        '1': 'Ārā savvaļā, visur, kur tu cīnies. Vienkārši pārej pāri augam, un tas ir tavs.',
+        '2': 'Retie aug tālāk. Mēnespulkstenītes un ēnērkšķi slēpjas aiz meža.',
+        say: 'Kur atrast zāles?'
+      },
+      elixirs: {
+        '1': 'Katrs dod tev spēku cīņā uz veselu minūti. Stiprāki sitieni, cietāka āda, ātrākas kājas.',
+        '2': 'Tie ir tavā trešajā kolbā. Pieskaries mazajai bultiņai, lai izvēlētos, kuru dzert.',
+        say: 'Ko dara eliksīri?'
+      },
+      brewBack: {
+        '1': 'Uzmanīgi, tie vēl ir silti. Nāc atpakaļ, kad maisiņš būs pilns!'
+      },
+      bye: {
+        '1': 'Atā! Ja ieraugi violetu ziedu, noplūc divus. Vienu man.'
+      }
     }
   },
   enemy: {
@@ -3431,7 +3474,9 @@ export default {
       character: 'Varonis',
       inventory: 'Soma',
       skills: 'Prasmes',
-      roll: 'Ripošana'
+      roll: 'Ripošana',
+      elixir: 'Dzert eliksīru',
+      elixirNext: 'Nākamais eliksīrs'
     },
     difficulties: {
       easy: 'Viegls',
@@ -3671,5 +3716,46 @@ export default {
     waiting: 'Karavāna tevi gaida.',
     arrived: 'Karavāna tika galā!',
     lost: 'Karavāna ir zaudēta…'
+  },
+  elixir: {
+    might: {
+      name: 'Spēka eliksīrs',
+      desc: '+{n}% kaitējuma uz minūti'
+    },
+    iron: {
+      name: 'Dzelzs ādas novārījums',
+      desc: '+{n}% bruņu uz minūti'
+    },
+    swift: {
+      name: 'Veiklības toniks',
+      desc: '+{n}% ātruma un uzbrukuma ātruma uz minūti'
+    },
+    mind: {
+      name: 'Skaidra prāta uzlējums',
+      desc: 'Prasmes minūti atjaunojas par {n}% ātrāk'
+    },
+    vigor: {
+      name: 'Možuma eliksīrs',
+      desc: 'Minūti katru sekundi dziedē {n}% tavas veselības'
+    },
+    shadow: {
+      name: 'Izslāpušais novārījums',
+      desc: 'Minūti tavi sitieni dziedē tevi par {n}% no to kaitējuma'
+    }
+  },
+  alchemy: {
+    talk: 'Zāles iekšā, eliksīri ārā. Kuru vārīsim?',
+    lead: 'Katrs eliksīrs cīņā darbojas minūti. Dzer to no savas trešās kolbas. No katra vari nest {n}.',
+    brew: 'Vārīt · {n}',
+    carry: 'Ņemt līdzi',
+    carried: 'Tavā kolbā',
+    count: '{n} / {max}',
+    herb: '{plant}: {have} no {n}',
+    done: 'Izvārīts!',
+    why: {
+      full: 'No šī tev jau ir tik, cik vari nest.',
+      herbs: 'Nepietiek zāļu. Saplūc vēl savvaļā.',
+      gold: 'Nepietiek zelta.'
+    }
   }
 }

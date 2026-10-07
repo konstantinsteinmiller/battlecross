@@ -40,7 +40,7 @@ import { UI_ART } from '../assets/overrides'
 import { StillCull } from '../gfx/cull'
 import { townCanTalk } from '../sim/town'
 import { townAddress, townGreet } from '../sim/townLife'
-import { POTION_CD, ROLL_CD, rollHero, useManaPotion } from '../sim/hero'
+import { POTION_CD, ROLL_CD, cycleElixir, rollHero, useElixir, useManaPotion } from '../sim/hero'
 import { nearChest, orderOpen, pickChest } from '../sim/interact'
 import { hud, hudLive, pushHud, sayBark, tickHud, type SkillSlotView, type TextKind } from '../state/hud'
 import { heroBuild, loadoutActive, markTip, profile } from '../state/profile'
@@ -267,6 +267,8 @@ export class ZoneMode implements GameMode {
       potions: setup.kind === 'town' || setup.arenaMod === 'nopotions' ? 0 : profile.inv.potions,
       // Mana potions are a carried stock: as many slots as the health belt has.
       manaPotions: setup.kind === 'town' || setup.arenaMod === 'nopotions' ? 0 : profile.inv.manaPotions, manaPotionsMax: profile.inv.potions,
+      // Elixirs too (#87): none drunk in town, none in a "No potions" week.
+      elixirs: setup.kind === 'town' || setup.arenaMod === 'nopotions' ? {} : profile.inv.elixirs, elixirPick: profile.inv.elixirPick,
       rested: setup.kind === 'town' ? 0 : profile.meta.rested
     })
     if (setup.kind === 'zone') populateZone(sim, plan, setup.zone!, profile.inv.items, profile.world.chests)
@@ -560,6 +562,8 @@ export class ZoneMode implements GameMode {
     if (i.rollQueued) rollHero(sim, h.stickX, h.stickZ)
     if (i.potionQueued && usePotion(sim)) coach.use('potion')
     if (i.manaPotionQueued && useManaPotion(sim)) { coach.use('mana'); markRevealUsed('mana') }
+    if (i.elixirNextQueued) cycleElixir(sim)
+    if (i.elixirQueued) useElixir(sim)
     if (i.targetQueued) cycleTarget(sim)
     if (i.leaveQueued && (leaveVisit(sim) || leaveLadder(sim))) sfx('uiOpen')
     if (i.findChestQueued && findChest(sim)) {
@@ -1016,6 +1020,9 @@ export class ZoneMode implements GameMode {
     const h = sim.hero
     for (let s = 0; s < 6; s++) { hudLive.cd[s] = h.cd[s]!; hudLive.cdMax[s] = h.cdMax[s]! }
     hudLive.potionCd = h.potionCd
+    hudLive.potionCdMax = POTION_CD
+    hudLive.elixirCd = h.elixirCd
+    hudLive.elixirCdMax = POTION_CD
     hudLive.rollCd = h.rollCd
     hudLive.rollCdMax = ROLL_CD
     hudLive.manaPotionCd = h.manaPotionCd
@@ -1071,6 +1078,10 @@ export class ZoneMode implements GameMode {
     hud.manaPotions = h.manaPotions
     hud.manaPotionMax = h.manaPotionsMax
     hud.manaPotionReady = h.manaPotionCd <= 0
+    hud.elixir = h.elixirPick
+    hud.elixirs = h.elixirPick ? h.elixirs[h.elixirPick] ?? 0 : 0
+    hud.elixirKinds = Object.values(h.elixirs).filter(n => n > 0).length
+    hud.elixirReady = h.elixirCd <= 0
     let changed = force
     const next: SkillSlotView[] = []
     for (let s = 0; s < 6; s++) {

@@ -67,6 +67,9 @@ export interface Input {
   rollQueued: boolean
   potionQueued: boolean
   manaPotionQueued: boolean
+  /** The third flask (an elixir, #87): drink it, or turn it to the next kind. */
+  elixirQueued: boolean
+  elixirNextQueued: boolean
   /** Leave a won zone (the Leave button or its key). */
   leaveQueued: boolean
   /** Show the way to the nearest closed chest (the chest counter by Leave). */
@@ -121,7 +124,7 @@ export const createInput = (): Input => ({
   held: false, dragging: false, ptrX: 0, ptrY: 0, ptrX0: 0, ptrY0: 0,
   dropped: false, dropX: 0, dropY: 0, hoverX: -1, hoverY: -1,
   skillTap: -1, aimSlot: -1, aimX: 0, aimY: 0, aimLive: false, aimDrop: -1, aimDropX: 0, aimDropY: 0,
-  rollQueued: false, potionQueued: false, manaPotionQueued: false, leaveQueued: false, findChestQueued: false, interactQueued: false, targetQueued: false, pauseQueued: false, panelQueued: '',
+  rollQueued: false, potionQueued: false, manaPotionQueued: false, elixirQueued: false, elixirNextQueued: false, leaveQueued: false, findChestQueued: false, interactQueued: false, targetQueued: false, pauseQueued: false, panelQueued: '',
   anyPressed: false,
   joyActive: false, joyOriginX: 0, joyOriginY: 0, joyX: 0, joyY: 0, joyHomeX: 0, joyHomeY: 0, joyHomeR: 0,
   touched: false, device: guessDevice(), keysMoving: false
@@ -136,6 +139,8 @@ export const consumeEdges = (i: Input): void => {
   i.rollQueued = false
   i.potionQueued = false
   i.manaPotionQueued = false
+  i.elixirQueued = false
+  i.elixirNextQueued = false
   i.leaveQueued = false
   i.findChestQueued = false
   i.interactQueued = false
@@ -324,6 +329,8 @@ export const attachInput = (surface: HTMLElement, input: Input, opts: InputOptio
       else if (a === 'roll') { input.rollQueued = true; e.preventDefault() }
       else if (a === 'potion') input.potionQueued = true
       else if (a === 'manaPotion') input.manaPotionQueued = true
+      else if (a === 'elixir') input.elixirQueued = true
+      else if (a === 'elixirNext') input.elixirNextQueued = true
       else if (a === 'leave') input.leaveQueued = true
       else if (a === 'interact') input.interactQueued = true
       else if (a === 'target') { input.targetQueued = true; e.preventDefault() }

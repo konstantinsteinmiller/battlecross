@@ -30,7 +30,9 @@ export default {
     manaPotion: 'Poțiune de mană (rămase: {n})',
     groups: '{n} din {total} grupuri de inamici învinse',
     wave: 'Valul {n} / {total}',
-    roll: 'Rostogolire'
+    roll: 'Rostogolire',
+    elixir: '{name} (rămase: {n})',
+    elixirNext: 'Elixirul următor'
   },
   menu: {
     map: 'Harta lumii',
@@ -87,7 +89,13 @@ export default {
     accelerate: 'Accelerare',
     overheat: 'Supraîncălzit',
     enrage: 'Înfuriat',
-    ambush: 'Ambuscadă'
+    ambush: 'Ambuscadă',
+    elixirMight: 'Elixirul Puterii',
+    elixirIron: 'Piele de fier',
+    elixirSwift: 'Iuțeală',
+    elixirMind: 'Minte limpede',
+    elixirVigor: 'Vigoare',
+    elixirShadow: 'Lamă însetată'
   },
   toast: {
     item: 'Găsit: {item}',
@@ -1117,6 +1125,9 @@ export default {
     },
     sbMasterBlood: {
       name: 'Vesper Frunză-Stacojie'
+    },
+    sbAlchemist: {
+      name: 'Odile Fluier-de-Ferigă'
     }
   },
   quest: {
@@ -1355,7 +1366,8 @@ export default {
       mana: 'Ai ceva pentru mana?',
       who: 'Cine ești, dacă pot întreba?',
       rumor: 'Ai auzit ceva în ultima vreme?',
-      ready: 'Crezi că sunt gata pentru mai mult?'
+      ready: 'Crezi că sunt gata pentru mai mult?',
+      brew: 'Mi-ai putea prepara ceva?'
     },
     sunfordSmith: {
       hello: {
@@ -3233,6 +3245,37 @@ export default {
         '1': 'Vești proaste din Oakhaven. Bandiți la ziduri.',
         '2': 'Atunci șlepurile vor veni aici. Sărmanii de ei.'
       }
+    },
+    sbAlchemist: {
+      hello: {
+        '1': 'Oh! Ai grijă la borcane. Ăla mușcă. Mă rog, ronțăie.',
+        '2': 'Odile Fluier-de-Ferigă, alchimistă. Adu-mi ierburi și îți pun puțin curaj într-o sticluță.'
+      },
+      again: {
+        '1': 'Te-ai întors! Mi-ai adus ceva verde?'
+      },
+      brew: {
+        '1': 'Ia să-ți văd punguța. Ooo, minunat. Alege ce vrei și pun ceainicul pe foc.'
+      },
+      who: {
+        '1': 'Am dat foc grădinii mamei cu o margaretă. Nimeni n-a putut explica, așa că a trebuit să învăț.'
+      },
+      herbs: {
+        '1': 'Afară, în sălbăticie, peste tot pe unde lupți. Treci peste o plantă și e a ta.',
+        '2': 'Cele rare cresc mai departe. Clopoțeii-de-Lună și Spinul-de-Umbră se ascund dincolo de pădure.',
+        say: 'Unde găsesc ierburi?'
+      },
+      elixirs: {
+        '1': 'Fiecare îți dă mai multă putere în luptă, un minut întreg. Lovituri mai tari, piele mai dură, picioare mai iuți.',
+        '2': 'Stau în al treilea flacon. Atinge săgeata mică ca să schimbi pe care îl bei.',
+        say: 'Ce fac elixirele?'
+      },
+      brewBack: {
+        '1': 'Ai grijă, sunt încă calde. Revino când ai punguța plină!'
+      },
+      bye: {
+        '1': 'Pa! Dacă vezi o floare mov, culege două. Una pentru mine.'
+      }
     }
   },
   enemy: {
@@ -3405,7 +3448,9 @@ export default {
       character: 'Erou',
       inventory: 'Rucsac',
       skills: 'Abilități',
-      roll: 'Rostogolire'
+      roll: 'Rostogolire',
+      elixir: 'Bea elixirul',
+      elixirNext: 'Elixirul următor'
     },
     difficulties: {
       easy: 'Ușor',
@@ -3645,5 +3690,46 @@ export default {
     waiting: 'Caravana te așteaptă.',
     arrived: 'Caravana a ajuns!',
     lost: 'Caravana s-a pierdut…'
+  },
+  elixir: {
+    might: {
+      name: 'Elixirul Puterii',
+      desc: '+{n}% daune timp de un minut'
+    },
+    iron: {
+      name: 'Licoare de piele de fier',
+      desc: '+{n}% armură timp de un minut'
+    },
+    swift: {
+      name: 'Tonic de iuțeală',
+      desc: '+{n}% viteză și viteză de atac timp de un minut'
+    },
+    mind: {
+      name: 'Fiertură de minte limpede',
+      desc: 'Abilitățile se reîncarcă cu {n}% mai repede timp de un minut'
+    },
+    vigor: {
+      name: 'Elixir de vigoare',
+      desc: 'Vindecă {n}% din viața ta în fiecare secundă, timp de un minut'
+    },
+    shadow: {
+      name: 'Licoare însetată',
+      desc: 'Loviturile tale te vindecă cu {n}% din daunele lor, timp de un minut'
+    }
+  },
+  alchemy: {
+    talk: 'Intră ierburi, ies elixire. Pe care îl preparăm?',
+    lead: 'Fiecare elixir ține un minut în luptă. Bea-l din al treilea flacon. Poți căra {n} din fiecare.',
+    brew: 'Prepară · {n}',
+    carry: 'Ia-l cu tine',
+    carried: 'În flaconul tău',
+    count: '{n} / {max}',
+    herb: '{plant}: {have} din {n}',
+    done: 'Gata!',
+    why: {
+      full: 'Ai deja cât poți căra din acesta.',
+      herbs: 'Nu ai destule ierburi. Culege mai multe din sălbăticie.',
+      gold: 'Nu ai destul aur.'
+    }
   }
 }

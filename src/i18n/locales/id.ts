@@ -30,7 +30,9 @@ export default {
     manaPotion: 'Ramuan mana (sisa {n})',
     groups: '{n} dari {total} kelompok musuh dikalahkan',
     wave: 'Gelombang {n} / {total}',
-    roll: 'Guling'
+    roll: 'Guling',
+    elixir: '{name} (sisa {n})',
+    elixirNext: 'Eliksir berikutnya'
   },
   menu: {
     map: 'Peta dunia',
@@ -87,7 +89,13 @@ export default {
     accelerate: 'Akselerasi',
     overheat: 'Kepanasan',
     enrage: 'Mengamuk',
-    ambush: 'Sergapan'
+    ambush: 'Sergapan',
+    elixirMight: 'Eliksir Kekuatan',
+    elixirIron: 'Kulit Besi',
+    elixirSwift: 'Lincah',
+    elixirMind: 'Pikiran Jernih',
+    elixirVigor: 'Bugar',
+    elixirShadow: 'Bilah Haus'
   },
   toast: {
     item: 'Ditemukan: {item}',
@@ -1117,6 +1125,9 @@ export default {
     },
     sbMasterBlood: {
       name: 'Vesper Crimsonleaf'
+    },
+    sbAlchemist: {
+      name: 'Odile Fernwhistle'
     }
   },
   quest: {
@@ -1355,7 +1366,8 @@ export default {
       mana: 'Punya sesuatu untuk mana?',
       who: 'Siapa kamu, kalau boleh tahu?',
       rumor: 'Ada kabar terbaru?',
-      ready: 'Menurutmu aku sudah siap untuk yang lebih berat?'
+      ready: 'Menurutmu aku sudah siap untuk yang lebih berat?',
+      brew: 'Bisa buatkan aku sesuatu?'
     },
     sunfordSmith: {
       hello: {
@@ -3198,6 +3210,37 @@ export default {
         '1': 'Kabar dari Oakhaven buruk. Bandit sudah di depan tembok.',
         '2': 'Berarti tongkangnya akan datang ke sini. Kasihan mereka.'
       }
+    },
+    sbAlchemist: {
+      hello: {
+        '1': 'Oh! Awas toples-toplesnya. Yang itu menggigit. Yah, menggigit kecil.',
+        '2': 'Odile Fernwhistle, alkemis. Bawakan aku herbal, nanti kubotolkan sedikit keberanian untukmu.'
+      },
+      again: {
+        '1': 'Kamu kembali! Bawa sesuatu yang hijau untukku?'
+      },
+      brew: {
+        '1': 'Coba lihat kantongmu. Wah, bagus sekali. Pilih yang kamu mau, aku jerang air dulu.'
+      },
+      who: {
+        '1': 'Aku pernah membakar kebun ibuku dengan sekuntum aster. Tak ada yang bisa menjelaskannya, jadi aku harus belajar sendiri.'
+      },
+      herbs: {
+        '1': 'Di alam liar, di mana pun kamu bertarung. Cukup lewati tanamannya, dan itu jadi milikmu.',
+        '2': 'Yang langka tumbuh lebih jauh. Lonceng Bulan dan Duri Bayang bersembunyi di balik hutan.',
+        say: 'Di mana aku bisa menemukan herbal?'
+      },
+      elixirs: {
+        '1': 'Setiap eliksir membuatmu lebih kuat dalam pertempuran selama satu menit penuh. Pukulan lebih keras, kulit lebih tangguh, kaki lebih cepat.',
+        '2': 'Eliksir ada di botol ketigamu. Ketuk panah kecil untuk mengganti yang mau kamu minum.',
+        say: 'Apa gunanya eliksir?'
+      },
+      brewBack: {
+        '1': 'Hati-hati, masih hangat. Kembali lagi kalau kantongmu sudah penuh!'
+      },
+      bye: {
+        '1': 'Dah! Kalau lihat bunga ungu, petik dua. Satu untukku.'
+      }
     }
   },
   enemy: {
@@ -3370,7 +3413,9 @@ export default {
       character: 'Pahlawan',
       inventory: 'Tas',
       skills: 'Skill',
-      roll: 'Guling'
+      roll: 'Guling',
+      elixir: 'Minum eliksir',
+      elixirNext: 'Eliksir berikutnya'
     },
     difficulties: {
       easy: 'Mudah',
@@ -3606,5 +3651,46 @@ export default {
     waiting: 'Kafilah menunggumu.',
     arrived: 'Kafilah berhasil sampai!',
     lost: 'Kafilah hancur…'
+  },
+  elixir: {
+    might: {
+      name: 'Eliksir Kekuatan',
+      desc: '+{n}% damage selama satu menit'
+    },
+    iron: {
+      name: 'Ramuan Kulit Besi',
+      desc: '+{n}% zirah selama satu menit'
+    },
+    swift: {
+      name: 'Tonik Lincah',
+      desc: '+{n}% kecepatan gerak dan kecepatan serang selama satu menit'
+    },
+    mind: {
+      name: 'Seduhan Pikiran Jernih',
+      desc: 'Skill kembali {n}% lebih cepat selama satu menit'
+    },
+    vigor: {
+      name: 'Eliksir Bugar',
+      desc: 'Memulihkan {n}% nyawamu tiap detik selama satu menit'
+    },
+    shadow: {
+      name: 'Ramuan Dahaga',
+      desc: 'Seranganmu memulihkan {n}% dari damage-nya selama satu menit'
+    }
+  },
+  alchemy: {
+    talk: 'Herbal masuk, eliksir keluar. Mau kita seduh yang mana?',
+    lead: 'Tiap eliksir bekerja satu menit dalam pertempuran. Minum dari botol ketigamu. Kamu bisa membawa {n} dari tiap jenis.',
+    brew: 'Seduh · {n}',
+    carry: 'Bawa ini',
+    carried: 'Di botolmu',
+    count: '{n} / {max}',
+    herb: '{plant}: {have} dari {n}',
+    done: 'Jadi!',
+    why: {
+      full: 'Kamu sudah membawa sebanyak mungkin yang ini.',
+      herbs: 'Herbal tidak cukup. Petik lagi di alam liar.',
+      gold: 'Emas tidak cukup.'
+    }
   }
 }

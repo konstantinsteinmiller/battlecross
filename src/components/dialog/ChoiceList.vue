@@ -49,7 +49,7 @@ const { t } = useI18n()
 const denied = ref('')
 
 const ICON: Record<string, GameIconName> = {
-  trade: 'shop', train: 'book', heal: 'flask', quest: 'map', gift: 'gift', buy: 'coin', end: 'back'
+  trade: 'shop', train: 'book', heal: 'flask', brew: 'flask', quest: 'map', gift: 'gift', buy: 'coin', end: 'back'
 }
 const TONE_ICON: Record<string, GameIconName> = { noble: 'shield', ruthless: 'skull', cunning: 'star' }
 const iconOf = (c: ChoiceView): GameIconName | undefined =>

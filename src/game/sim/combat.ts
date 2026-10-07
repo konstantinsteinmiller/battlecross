@@ -128,16 +128,16 @@ export const isControlled = (u: Unit): boolean => {
 
 export const moveSpeedOf = (u: Unit): number => {
   const slow = Math.min(0.8, statusV(u, 'slow'))
-  return u.s.moveSpeed * (1 + statusV(u, 'haste') + statusV(u, 'focus') * 2) * (1 - slow)
+  return u.s.moveSpeed * (1 + statusV(u, 'haste') + statusV(u, 'focus') * 2 + statusV(u, 'elixirSwift')) * (1 - slow)
 }
 
 export const attackSpeedOf = (u: Unit): number =>
-  u.s.attackSpeed * (1 + statusV(u, 'attackSpeed') + statusV(u, 'enrage') * 0.6)
+  u.s.attackSpeed * (1 + statusV(u, 'attackSpeed') + statusV(u, 'enrage') * 0.6 + statusV(u, 'elixirSwift'))
 
 /** Effective cooldown reduction: the stat plus Entropy's Accelerate stacks. */
 export const cdrOf = (u: Unit): number => {
   const acc = findStatus(u, 'accelerate')
-  return Math.min(0.6, u.s.cdr + (acc ? acc.v * acc.n : 0))
+  return Math.min(0.6, u.s.cdr + (acc ? acc.v * acc.n : 0) + statusV(u, 'elixirMind'))
 }
 
 export const heal = (sim: Sim, tgt: Unit, amount: number, quiet = false): number => {
@@ -232,7 +232,7 @@ export const dealDamage = (sim: Sim, src: Unit | null, tgt: Unit, base: number, 
   let amount = base
   let crit = false
   if (src) {
-    amount *= src.s.damageMul * (1 + statusV(src, 'damageUp') + statusV(src, 'enrage')) * (1 - Math.min(0.8, statusV(src, 'weaken')))
+    amount *= src.s.damageMul * (1 + statusV(src, 'damageUp') + statusV(src, 'enrage') + statusV(src, 'elixirMight')) * (1 - Math.min(0.8, statusV(src, 'weaken')))
     if (tgt.rank === 'boss') amount *= 1 + (srcMods?.bossDamage ?? 0)
     if (o.backstab || (o.attack && src === hero && isBehind(src, tgt))) amount *= 1.25 + (srcMods?.backstab ?? 0)
     // Smoke Bomb: the next strike from the shadows always crits, and harder.
@@ -280,7 +280,7 @@ export const dealDamage = (sim: Sim, src: Unit | null, tgt: Unit, base: number, 
       if (back > 0 && src && src.alive) dealDamage(sim, tgt, src, back, { type: 'true', canCrit: false, echo: true })
     }
     if (phys) {
-      const armor = tgt.s.armor * (1 + statusV(tgt, 'defenseUp') + (hasStatus(tgt, 'exosuit') ? 0.5 : 0)) * (1 - Math.min(0.9, statusV(tgt, 'armorShred')))
+      const armor = tgt.s.armor * (1 + statusV(tgt, 'defenseUp') + statusV(tgt, 'elixirIron') + (hasStatus(tgt, 'exosuit') ? 0.5 : 0)) * (1 - Math.min(0.9, statusV(tgt, 'armorShred')))
       amount *= 1 - armorMitigation(armor, src?.level ?? tgt.level)
       amount *= 1 - tgt.s.physReduction
       // Petrified: stone shatters.
@@ -375,7 +375,7 @@ export const dealDamage = (sim: Sim, src: Unit | null, tgt: Unit, base: number, 
 
   // ── What the hit gives back to the source ──
   if (src && src.alive && dealt > 0 && !o.echo) {
-    let steal = src.s.lifesteal + (phys ? src.s.physLifesteal : 0) + statusV(src, 'lifestealUp') + (o.steal ?? 0)
+    let steal = src.s.lifesteal + (phys ? src.s.physLifesteal : 0) + statusV(src, 'lifestealUp') + statusV(src, 'elixirShadow') + (o.steal ?? 0)
     if (o.drain) steal *= 1 + (srcMods?.lifeDrainPct ?? 0)
     if (steal > 0) heal(sim, src, dealt * steal, dealt * steal < src.s.maxHp * 0.02)
     if (src === hero && crit) {
@@ -539,7 +539,7 @@ export const stepStatuses = (sim: Sim, u: Unit, dt: number): void => {
         dealDamage(sim, src, u, s.v * s.n * 0.5, { type, dot: true, canCrit: false, echo: s.id === 'delayed' })
         if (!u.alive) return
       }
-    } else if (s.id === 'regen') {
+    } else if (s.id === 'regen' || s.id === 'elixirVigor') {
       heal(sim, u, u.s.maxHp * s.v * dt, true)
     }
     if (s.t <= 0) {

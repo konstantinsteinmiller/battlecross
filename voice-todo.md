@@ -16,7 +16,7 @@ rewrites it, and a test fails when it is stale. Do not edit by hand.
 
 | Voice | Lines | EN voiced |
 | --- | --- | --- |
-| hero | 145 | 121 |
+| hero | 148 | 121 |
 | sunfordSmith | 19 | 19 |
 | sunfordPeddler | 15 | 15 |
 | trainerAegis | 18 | 18 |
@@ -44,6 +44,7 @@ rewrites it, and a test fails when it is stale. Do not edit by hand.
 | trainerChrono | 19 | 19 |
 | mayorBrenna | 17 | 0 |
 | sbHealer | 10 | 0 |
+| sbAlchemist | 11 | 0 |
 | sbArmorer | 9 | 0 |
 | sbWeapons | 9 | 0 |
 | sbJeweler | 9 | 0 |
@@ -68,10 +69,10 @@ rewrites it, and a test fails when it is stale. Do not edit by hand.
 | smalltalkKids | 6 | 6 |
 | kidFriend | 4 | 4 |
 | frostJarl | 2 | 2 |
-| heroine | 145 | 121 |
-| **All** | **943** | **724** |
+| heroine | 148 | 121 |
+| **All** | **960** | **724** |
 
-## To do (219)
+## To do (236)
 
 | File | Who | Scene | English | EN |
 | --- | --- | --- | --- | --- |
@@ -107,6 +108,20 @@ rewrites it, and a test fails when it is stale. Do not edit by hand.
 | `dlg.sbHealer.sleep.1` | Friar Ansel (sbHealer) | sbHealer | Not at night. Pupils from every class, all practising. Something always explodes. | **missing** |
 | `dlg.sbHealer.healBack.1` | Friar Ansel (sbHealer) | sbHealer | Off you go. Next time, come for tea instead of bandages. | **missing** |
 | `dlg.sbHealer.bye.1` | Friar Ansel (sbHealer) | sbHealer | Mind the steps. Half my patients only tripped on them. | **missing** |
+| `dlg.sbAlchemist.hello.1` | Odile Fernwhistle (sbAlchemist) | sbAlchemist | Oh! Mind the jars. That one bites. Well, it nibbles. | **missing** |
+| `dlg.sbAlchemist.hello.2` | Odile Fernwhistle (sbAlchemist) | sbAlchemist | Odile Fernwhistle, alchemist. Bring me herbs and I'll bottle you a little courage. | **missing** |
+| `dlg.sbAlchemist.again.1` | Odile Fernwhistle (sbAlchemist) | sbAlchemist | You're back! Did you bring me anything green? | **missing** |
+| `dlg.hero.brew` | The hero (hero) | hero | Could you brew me something? | **missing** |
+| `dlg.sbAlchemist.brew.1` | Odile Fernwhistle (sbAlchemist) | sbAlchemist | Let's see your pouch. Ooh, lovely. Pick what you want and I'll get the kettle on. | **missing** |
+| `dlg.sbAlchemist.who.1` | Odile Fernwhistle (sbAlchemist) | sbAlchemist | I set my mum's garden on fire with a daisy. Nobody could explain it, so I had to learn. | **missing** |
+| `dlg.sbAlchemist.herbs.say` | The hero (hero) | sbAlchemist | Where do I find herbs? | **missing** |
+| `dlg.sbAlchemist.herbs.1` | Odile Fernwhistle (sbAlchemist) | sbAlchemist | Out in the wild, everywhere you fight. Just walk over a plant and it's yours. | **missing** |
+| `dlg.sbAlchemist.herbs.2` | Odile Fernwhistle (sbAlchemist) | sbAlchemist | The rare ones grow further out. Moonbells and shadowthorn hide past the woods. | **missing** |
+| `dlg.sbAlchemist.elixirs.say` | The hero (hero) | sbAlchemist | What do the elixirs do? | **missing** |
+| `dlg.sbAlchemist.elixirs.1` | Odile Fernwhistle (sbAlchemist) | sbAlchemist | Each one makes you stronger in a fight for a whole minute. Harder hits, tougher skin, quicker feet. | **missing** |
+| `dlg.sbAlchemist.elixirs.2` | Odile Fernwhistle (sbAlchemist) | sbAlchemist | They sit in your third flask. Tap the little arrow to swap which one you drink. | **missing** |
+| `dlg.sbAlchemist.brewBack.1` | Odile Fernwhistle (sbAlchemist) | sbAlchemist | Careful with those, they're still warm. Come back when your pouch is full! | **missing** |
+| `dlg.sbAlchemist.bye.1` | Odile Fernwhistle (sbAlchemist) | sbAlchemist | Bye now! If you see a purple flower, pick two. One for me. | **missing** |
 | `dlg.sbArmorer.hello.1` | Greta Ironvein (sbArmorer) | sbArmorer | Ha! Look at that dent. I hope you got your money back for that armour. | **missing** |
 | `dlg.sbArmorer.hello.2` | Greta Ironvein (sbArmorer) | sbArmorer | Greta Ironvein. I make armour that comes home with its owner. Every time, so far. | **missing** |
 | `dlg.sbArmorer.again.1` | Greta Ironvein (sbArmorer) | sbArmorer | You again! Still in one piece. My favourite kind of customer. | **missing** |
@@ -266,7 +281,7 @@ rewrites it, and a test fails when it is stale. Do not edit by hand.
 | `dlg.smalltalkSilverbridge.fish.1` | Townsfolk (smalltalkSilverbridge) | smalltalkSilverbridge | Caught anything? | **missing** |
 | `dlg.smalltalkSilverbridge.fish.2` | Townsfolk (townsfolk) | smalltalkSilverbridge | A boot. | **missing** |
 | `dlg.smalltalkSilverbridge.fish.3` | Townsfolk (smalltalkSilverbridge) | smalltalkSilverbridge | Well, that's half a pair. | **missing** |
-| `dlg.smalltalkSilverbridge.newMaster.1` | Townsfolk (smalltalkSilverbridge) | smalltalkSilverbridge | There's a new master on the north street. Talks about time a lot. | **missing** |
+| `dlg.smalltalkSilverbridge.newMaster.1` | Townsfolk (smalltalkSilverbridge) | smalltalkSilverbridge | A new master moved in up the street. Talks about time a lot. | **missing** |
 | `dlg.smalltalkSilverbridge.newMaster.2` | Townsfolk (townsfolk) | smalltalkSilverbridge | Late for every lesson, I bet. | **missing** |
 | `dlg.smalltalkSilverbridge.siege.1` | Townsfolk (smalltalkSilverbridge) | smalltalkSilverbridge | Word from Oakhaven is bad. Bandits at the walls. | **missing** |
 | `dlg.smalltalkSilverbridge.siege.2` | Townsfolk (townsfolk) | smalltalkSilverbridge | Then the barges will come here instead. Poor souls. | **missing** |
@@ -275,6 +290,9 @@ rewrites it, and a test fails when it is stale. Do not edit by hand.
 | `dlg.mayorBrenna.river.say__f` | The girl hero (heroine) | mayorBrenna | What do people trade here? | **missing** |
 | `dlg.sbHealer.potions.say__f` | The girl hero (heroine) | sbHealer | Any advice on potions? | **missing** |
 | `dlg.sbHealer.sleep.say__f` | The girl hero (heroine) | sbHealer | Do you ever actually sleep? | **missing** |
+| `dlg.hero.brew__f` | The girl hero (heroine) | hero | Could you brew me something? | **missing** |
+| `dlg.sbAlchemist.herbs.say__f` | The girl hero (heroine) | sbAlchemist | Where do I find herbs? | **missing** |
+| `dlg.sbAlchemist.elixirs.say__f` | The girl hero (heroine) | sbAlchemist | What do the elixirs do? | **missing** |
 | `dlg.sbArmorer.steel.say__f` | The girl hero (heroine) | sbArmorer | What makes good armour? | **missing** |
 | `dlg.sbWeapons.blades.say__f` | The girl hero (heroine) | sbWeapons | How do I pick a good weapon? | **missing** |
 | `dlg.sbJeweler.gossip.say__f` | The girl hero (heroine) | sbJeweler | Heard any good gossip? | **missing** |
@@ -295,7 +313,7 @@ rewrites it, and a test fails when it is stale. Do not edit by hand.
 | `dlg.sbMasterBlood.class.say__f` | The girl hero (heroine) | sbMasterBlood | What is a Blood Alchemist, really? | **missing** |
 | `dlg.sbMasterBlood.herbs.say__f` | The girl hero (heroine) | sbMasterBlood | What are all these herbs for? | **missing** |
 
-## Every line (943)
+## Every line (960)
 
 | File | Who | Scene | English | EN |
 | --- | --- | --- | --- | --- |
@@ -765,6 +783,20 @@ rewrites it, and a test fails when it is stale. Do not edit by hand.
 | `dlg.sbHealer.sleep.1` | Friar Ansel (sbHealer) | sbHealer | Not at night. Pupils from every class, all practising. Something always explodes. | **missing** |
 | `dlg.sbHealer.healBack.1` | Friar Ansel (sbHealer) | sbHealer | Off you go. Next time, come for tea instead of bandages. | **missing** |
 | `dlg.sbHealer.bye.1` | Friar Ansel (sbHealer) | sbHealer | Mind the steps. Half my patients only tripped on them. | **missing** |
+| `dlg.sbAlchemist.hello.1` | Odile Fernwhistle (sbAlchemist) | sbAlchemist | Oh! Mind the jars. That one bites. Well, it nibbles. | **missing** |
+| `dlg.sbAlchemist.hello.2` | Odile Fernwhistle (sbAlchemist) | sbAlchemist | Odile Fernwhistle, alchemist. Bring me herbs and I'll bottle you a little courage. | **missing** |
+| `dlg.sbAlchemist.again.1` | Odile Fernwhistle (sbAlchemist) | sbAlchemist | You're back! Did you bring me anything green? | **missing** |
+| `dlg.hero.brew` | The hero (hero) | hero | Could you brew me something? | **missing** |
+| `dlg.sbAlchemist.brew.1` | Odile Fernwhistle (sbAlchemist) | sbAlchemist | Let's see your pouch. Ooh, lovely. Pick what you want and I'll get the kettle on. | **missing** |
+| `dlg.sbAlchemist.who.1` | Odile Fernwhistle (sbAlchemist) | sbAlchemist | I set my mum's garden on fire with a daisy. Nobody could explain it, so I had to learn. | **missing** |
+| `dlg.sbAlchemist.herbs.say` | The hero (hero) | sbAlchemist | Where do I find herbs? | **missing** |
+| `dlg.sbAlchemist.herbs.1` | Odile Fernwhistle (sbAlchemist) | sbAlchemist | Out in the wild, everywhere you fight. Just walk over a plant and it's yours. | **missing** |
+| `dlg.sbAlchemist.herbs.2` | Odile Fernwhistle (sbAlchemist) | sbAlchemist | The rare ones grow further out. Moonbells and shadowthorn hide past the woods. | **missing** |
+| `dlg.sbAlchemist.elixirs.say` | The hero (hero) | sbAlchemist | What do the elixirs do? | **missing** |
+| `dlg.sbAlchemist.elixirs.1` | Odile Fernwhistle (sbAlchemist) | sbAlchemist | Each one makes you stronger in a fight for a whole minute. Harder hits, tougher skin, quicker feet. | **missing** |
+| `dlg.sbAlchemist.elixirs.2` | Odile Fernwhistle (sbAlchemist) | sbAlchemist | They sit in your third flask. Tap the little arrow to swap which one you drink. | **missing** |
+| `dlg.sbAlchemist.brewBack.1` | Odile Fernwhistle (sbAlchemist) | sbAlchemist | Careful with those, they're still warm. Come back when your pouch is full! | **missing** |
+| `dlg.sbAlchemist.bye.1` | Odile Fernwhistle (sbAlchemist) | sbAlchemist | Bye now! If you see a purple flower, pick two. One for me. | **missing** |
 | `dlg.sbArmorer.hello.1` | Greta Ironvein (sbArmorer) | sbArmorer | Ha! Look at that dent. I hope you got your money back for that armour. | **missing** |
 | `dlg.sbArmorer.hello.2` | Greta Ironvein (sbArmorer) | sbArmorer | Greta Ironvein. I make armour that comes home with its owner. Every time, so far. | **missing** |
 | `dlg.sbArmorer.again.1` | Greta Ironvein (sbArmorer) | sbArmorer | You again! Still in one piece. My favourite kind of customer. | **missing** |
@@ -1055,7 +1087,7 @@ rewrites it, and a test fails when it is stale. Do not edit by hand.
 | `dlg.smalltalkSilverbridge.fish.1` | Townsfolk (smalltalkSilverbridge) | smalltalkSilverbridge | Caught anything? | **missing** |
 | `dlg.smalltalkSilverbridge.fish.2` | Townsfolk (townsfolk) | smalltalkSilverbridge | A boot. | **missing** |
 | `dlg.smalltalkSilverbridge.fish.3` | Townsfolk (smalltalkSilverbridge) | smalltalkSilverbridge | Well, that's half a pair. | **missing** |
-| `dlg.smalltalkSilverbridge.newMaster.1` | Townsfolk (smalltalkSilverbridge) | smalltalkSilverbridge | There's a new master on the north street. Talks about time a lot. | **missing** |
+| `dlg.smalltalkSilverbridge.newMaster.1` | Townsfolk (smalltalkSilverbridge) | smalltalkSilverbridge | A new master moved in up the street. Talks about time a lot. | **missing** |
 | `dlg.smalltalkSilverbridge.newMaster.2` | Townsfolk (townsfolk) | smalltalkSilverbridge | Late for every lesson, I bet. | **missing** |
 | `dlg.smalltalkSilverbridge.siege.1` | Townsfolk (smalltalkSilverbridge) | smalltalkSilverbridge | Word from Oakhaven is bad. Bandits at the walls. | **missing** |
 | `dlg.smalltalkSilverbridge.siege.2` | Townsfolk (townsfolk) | smalltalkSilverbridge | Then the barges will come here instead. Poor souls. | **missing** |
@@ -1160,6 +1192,9 @@ rewrites it, and a test fails when it is stale. Do not edit by hand.
 | `dlg.mayorBrenna.river.say__f` | The girl hero (heroine) | mayorBrenna | What do people trade here? | **missing** |
 | `dlg.sbHealer.potions.say__f` | The girl hero (heroine) | sbHealer | Any advice on potions? | **missing** |
 | `dlg.sbHealer.sleep.say__f` | The girl hero (heroine) | sbHealer | Do you ever actually sleep? | **missing** |
+| `dlg.hero.brew__f` | The girl hero (heroine) | hero | Could you brew me something? | **missing** |
+| `dlg.sbAlchemist.herbs.say__f` | The girl hero (heroine) | sbAlchemist | Where do I find herbs? | **missing** |
+| `dlg.sbAlchemist.elixirs.say__f` | The girl hero (heroine) | sbAlchemist | What do the elixirs do? | **missing** |
 | `dlg.sbArmorer.steel.say__f` | The girl hero (heroine) | sbArmorer | What makes good armour? | **missing** |
 | `dlg.sbWeapons.blades.say__f` | The girl hero (heroine) | sbWeapons | How do I pick a good weapon? | **missing** |
 | `dlg.sbJeweler.gossip.say__f` | The girl hero (heroine) | sbJeweler | Heard any good gossip? | **missing** |

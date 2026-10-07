@@ -60,7 +60,7 @@ const setEl = (el: Element | ComponentPublicInstance | null, id: string): void =
   else els.delete(id)
 }
 
-const ICON: Record<NpcPin, GameIconName> = { quest: 'chat', shop: 'anvil', trainer: 'book', healer: 'flask', talk: 'chat' }
+const ICON: Record<NpcPin, GameIconName> = { quest: 'chat', shop: 'anvil', trainer: 'book', healer: 'flask', alchemist: 'flask', talk: 'chat' }
 
 let seen: ZoneMode | null = null
 const rebuild = (): void => {

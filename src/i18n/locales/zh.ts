@@ -30,7 +30,9 @@ export default {
     manaPotion: '法力药水（剩余 {n} 瓶）',
     groups: '已击败 {n}/{total} 群敌人',
     wave: '第 {n} / {total} 波',
-    roll: '翻滚'
+    roll: '翻滚',
+    elixir: '{name}（剩余 {n} 瓶）',
+    elixirNext: '下一种灵药'
   },
   menu: {
     map: '世界地图',
@@ -87,7 +89,13 @@ export default {
     accelerate: '加速',
     overheat: '过热',
     enrage: '狂怒',
-    ambush: '伏击'
+    ambush: '伏击',
+    elixirMight: '力量灵药',
+    elixirIron: '铁肤',
+    elixirSwift: '迅捷',
+    elixirMind: '清心',
+    elixirVigor: '活力',
+    elixirShadow: '渴血之刃'
   },
   toast: {
     item: '获得：{item}',
@@ -1117,6 +1125,9 @@ export default {
     },
     sbMasterBlood: {
       name: '维斯珀·克里姆森利夫'
+    },
+    sbAlchemist: {
+      name: '“蕨笛”奥迪尔'
     }
   },
   quest: {
@@ -1355,7 +1366,8 @@ export default {
       mana: '你这儿有补法力的东西吗？',
       who: '冒昧问一句，你是谁？',
       rumor: '最近听到什么消息吗？',
-      ready: '你觉得我可以学更多了吗？'
+      ready: '你觉得我可以学更多了吗？',
+      brew: '能帮我熬点什么吗？'
     },
     sunfordSmith: {
       hello: {
@@ -3198,6 +3210,37 @@ export default {
         '1': '奥克黑文传来的消息不妙。强盗都打到城墙下了。',
         '2': '那驳船就会改来这儿了。真是可怜人。'
       }
+    },
+    sbAlchemist: {
+      hello: {
+        '1': '哎呀！小心那些罐子。那个会咬人。好吧，是轻轻啃一下。',
+        '2': '我是“蕨笛”奥迪尔，炼金术士。给我带草药来，我就给你装一瓶小小的勇气。'
+      },
+      again: {
+        '1': '你回来啦！有没有给我带点绿色的东西？'
+      },
+      brew: {
+        '1': '让我看看你的小袋子。哇，真不错。挑你想要的，我去烧水。'
+      },
+      who: {
+        '1': '我用一朵雏菊把我妈妈的花园点着了。谁也解释不了，所以我只好自己去学。'
+      },
+      herbs: {
+        '1': '在野外，你战斗的地方到处都有。从植物上走过去，它就归你了。',
+        '2': '稀有的长在更远的地方。月铃花和影棘藏在树林后面。',
+        say: '去哪儿找草药？'
+      },
+      elixirs: {
+        '1': '每一种都能让你在战斗中变强整整一分钟。打得更狠，皮更硬，脚更快。',
+        '2': '它们放在你的第三个药瓶里。点一下小箭头，就能换要喝的那种。',
+        say: '灵药有什么用？'
+      },
+      brewBack: {
+        '1': '小心，还热着呢。袋子装满了再来找我！'
+      },
+      bye: {
+        '1': '再见啦！看到紫色的花就摘两朵。一朵给我。'
+      }
     }
   },
   enemy: {
@@ -3370,7 +3413,9 @@ export default {
       character: '英雄',
       inventory: '背包',
       skills: '技能',
-      roll: '翻滚'
+      roll: '翻滚',
+      elixir: '喝灵药',
+      elixirNext: '下一种灵药'
     },
     difficulties: {
       easy: '简单',
@@ -3606,5 +3651,46 @@ export default {
     waiting: '商队在等你。',
     arrived: '商队平安抵达！',
     lost: '商队覆没了……'
+  },
+  elixir: {
+    might: {
+      name: '力量灵药',
+      desc: '一分钟内伤害 +{n}%'
+    },
+    iron: {
+      name: '铁肤药剂',
+      desc: '一分钟内护甲 +{n}%'
+    },
+    swift: {
+      name: '迅捷补剂',
+      desc: '一分钟内移动速度和攻击速度 +{n}%'
+    },
+    mind: {
+      name: '清心药汤',
+      desc: '一分钟内技能冷却加快 {n}%'
+    },
+    vigor: {
+      name: '活力灵药',
+      desc: '一分钟内每秒恢复 {n}% 生命'
+    },
+    shadow: {
+      name: '渴血药剂',
+      desc: '一分钟内攻击按伤害的 {n}% 为你回血'
+    }
+  },
+  alchemy: {
+    talk: '草药放进去，灵药倒出来。我们来熬哪一种？',
+    lead: '每种灵药在战斗中生效一分钟。用第三个药瓶来喝。每种最多带 {n} 瓶。',
+    brew: '熬制 · {n}',
+    carry: '带上这个',
+    carried: '已装进药瓶',
+    count: '{n} / {max}',
+    herb: '{plant}：{have}/{n}',
+    done: '熬好了！',
+    why: {
+      full: '这种你已经带满了。',
+      herbs: '草药不够。去野外多采一些。',
+      gold: '金币不够。'
+    }
   }
 }

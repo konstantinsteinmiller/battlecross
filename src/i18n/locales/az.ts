@@ -30,7 +30,9 @@ export default {
     manaPotion: 'Mana iksiri ({n} qalıb)',
     groups: '{total} düşmən dəstəsindən {n} məğlub edildi',
     wave: 'Dalğa {n} / {total}',
-    roll: 'Yuvarlanma'
+    roll: 'Yuvarlanma',
+    elixir: '{name} ({n} qalıb)',
+    elixirNext: 'Növbəti eliksir'
   },
   menu: {
     map: 'Dünya xəritəsi',
@@ -87,7 +89,13 @@ export default {
     accelerate: 'Sürətlənmə',
     overheat: 'Həddən artıq qızıb',
     enrage: 'Qəzəblənib',
-    ambush: 'Pusqu'
+    ambush: 'Pusqu',
+    elixirMight: 'Qüdrət Eliksiri',
+    elixirIron: 'Dəmirdəri',
+    elixirSwift: 'Çeviklik',
+    elixirMind: 'Aydın Ağıl',
+    elixirVigor: 'Gümrahlıq',
+    elixirShadow: 'Susamış Tiyə'
   },
   toast: {
     item: 'Tapıldı: {item}',
@@ -1117,6 +1125,9 @@ export default {
     },
     sbMasterBlood: {
       name: 'Vesper Crimsonleaf'
+    },
+    sbAlchemist: {
+      name: 'Odile Fernwhistle'
     }
   },
   quest: {
@@ -1355,7 +1366,8 @@ export default {
       mana: 'Mana üçün nəyin var?',
       who: 'Qəbahət olmasa, sən kimsən?',
       rumor: 'Son vaxtlar nəsə eşitmisən?',
-      ready: 'Səncə daha çoxuna hazıram?'
+      ready: 'Səncə daha çoxuna hazıram?',
+      brew: 'Mənə bir şey dəmləyərsən?'
     },
     sunfordSmith: {
       hello: {
@@ -3198,6 +3210,37 @@ export default {
         '1': 'Oakhavendən pis xəbər var. Quldurlar divarların dibindədir.',
         '2': 'Onda barjalar bura gələcək. Yazıqlar.'
       }
+    },
+    sbAlchemist: {
+      hello: {
+        '1': 'Ay! Bankalardan ehtiyatlı ol. O dişləyir. Yaxşı, bir az gəmirir.',
+        '2': 'Odile Fernwhistle, kimyagər. Mənə ot gətir, sənə bir az cəsarət şüşələyim.'
+      },
+      again: {
+        '1': 'Qayıtdın! Mənə yaşıl bir şey gətirmisən?'
+      },
+      brew: {
+        '1': 'Kisənə baxım. Ooo, gözəl. İstədiyini seç, mən də qazanı oda qoyum.'
+      },
+      who: {
+        '1': 'Anamın bağçasını bir çobanyastığı ilə yandırdım. Heç kim izah edə bilmədi, ona görə öyrənməli oldum.'
+      },
+      herbs: {
+        '1': 'Çöldə, döyüşdüyün hər yerdə. Sadəcə bitkinin üstündən keç, o sənindir.',
+        '2': 'Nadirləri daha uzaqda bitir. Ayzənglər və kölgətikan meşənin o tayında gizlənir.',
+        say: 'Otları harada tapım?'
+      },
+      elixirs: {
+        '1': 'Hər biri səni döyüşdə düz bir dəqiqə gücləndirir. Daha sərt zərbələr, daha möhkəm dəri, daha cəld ayaqlar.',
+        '2': 'Onlar üçüncü kolbandadır. Hansını içəcəyini dəyişmək üçün kiçik oxa toxun.',
+        say: 'Eliksirlər nə edir?'
+      },
+      brewBack: {
+        '1': 'Ehtiyatlı ol, hələ istidirlər. Kisən dolanda yenə gəl!'
+      },
+      bye: {
+        '1': 'Hələlik! Bənövşəyi çiçək görsən, iki dənə dər. Biri mənim üçün.'
+      }
     }
   },
   enemy: {
@@ -3370,7 +3413,9 @@ export default {
       character: 'Qəhrəman',
       inventory: 'Çanta',
       skills: 'Bacarıqlar',
-      roll: 'Yuvarlanma'
+      roll: 'Yuvarlanma',
+      elixir: 'Eliksir iç',
+      elixirNext: 'Növbəti eliksir'
     },
     difficulties: {
       easy: 'Asan',
@@ -3606,5 +3651,46 @@ export default {
     waiting: 'Karvan səni gözləyir.',
     arrived: 'Karvan çatdı!',
     lost: 'Karvan məhv oldu…'
+  },
+  elixir: {
+    might: {
+      name: 'Qüdrət Eliksiri',
+      desc: 'Bir dəqiqəlik +{n}% zərər'
+    },
+    iron: {
+      name: 'Dəmirdəri Şərbəti',
+      desc: 'Bir dəqiqəlik +{n}% zireh'
+    },
+    swift: {
+      name: 'Çeviklik Toniki',
+      desc: 'Bir dəqiqəlik +{n}% sürət və hücum sürəti'
+    },
+    mind: {
+      name: 'Aydın Ağıl Dəmləməsi',
+      desc: 'Bacarıqlar bir dəqiqə ərzində {n}% daha tez dolur'
+    },
+    vigor: {
+      name: 'Gümrahlıq Eliksiri',
+      desc: 'Bir dəqiqə ərzində hər saniyə canının {n}% qədərini bərpa edir'
+    },
+    shadow: {
+      name: 'Susamış Şərbət',
+      desc: 'Bir dəqiqə ərzində zərbələrin vurduqları zərərin {n}% qədər canını bərpa edir'
+    }
+  },
+  alchemy: {
+    talk: 'Otlar girir, eliksirlər çıxır. Hansını dəmləyək?',
+    lead: 'Hər eliksir döyüşdə bir dəqiqə təsir edir. Onu üçüncü kolbandan iç. Hər birindən {n} ədəd daşıya bilərsən.',
+    brew: 'Dəmlə · {n}',
+    carry: 'Bunu götür',
+    carried: 'Kolbanda',
+    count: '{n} / {max}',
+    herb: '{plant}: {have} / {n}',
+    done: 'Hazırdır!',
+    why: {
+      full: 'Bundan daşıya biləcəyin qədər daşıyırsan.',
+      herbs: 'Ot çatmır. Çöldə daha çox dər.',
+      gold: 'Qızıl çatmır.'
+    }
   }
 }

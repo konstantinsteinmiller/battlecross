@@ -30,7 +30,9 @@ export default {
     manaPotion: 'Manatrank (noch {n})',
     groups: '{n} von {total} Gegnergruppen besiegt',
     wave: 'Welle {n} / {total}',
-    roll: 'Ausweichrolle'
+    roll: 'Ausweichrolle',
+    elixir: '{name} (noch {n})',
+    elixirNext: 'Nächstes Elixier'
   },
   menu: {
     map: 'Weltkarte',
@@ -87,7 +89,13 @@ export default {
     accelerate: 'Beschleunigt',
     overheat: 'Überhitzt',
     enrage: 'Rasend',
-    ambush: 'Hinterhalt'
+    ambush: 'Hinterhalt',
+    elixirMight: 'Elixier der Macht',
+    elixirIron: 'Eisenhaut',
+    elixirSwift: 'Flinkheit',
+    elixirMind: 'Klarer Geist',
+    elixirVigor: 'Lebenskraft',
+    elixirShadow: 'Durstige Klinge'
   },
   toast: {
     item: 'Gefunden: {item}',
@@ -1118,6 +1126,9 @@ export default {
     },
     sbMasterBlood: {
       name: 'Vesper Crimsonleaf'
+    },
+    sbAlchemist: {
+      name: 'Odile Fernwhistle'
     }
   },
   quest: {
@@ -1356,7 +1367,8 @@ export default {
       mana: 'Hast du etwas für Mana?',
       who: 'Wer bist du, wenn ich fragen darf?',
       rumor: 'Was gibt es Neues?',
-      ready: 'Meinst du, ich bin bereit für mehr?'
+      ready: 'Meinst du, ich bin bereit für mehr?',
+      brew: 'Kannst du mir was brauen?'
     },
     sunfordSmith: {
       hello: {
@@ -3215,6 +3227,37 @@ export default {
         '1': 'Aus Oakhaven kommen schlechte Nachrichten. Banditen vor den Mauern.',
         '2': 'Dann kommen die Lastkähne eben hierher. Die armen Leute.'
       }
+    },
+    sbAlchemist: {
+      hello: {
+        '1': 'Oh! Vorsicht mit den Gläsern. Das da beißt. Na ja, es knabbert.',
+        '2': 'Odile Fernwhistle, Alchemistin. Bring mir Kräuter, und ich fülle dir ein bisschen Mut ab.'
+      },
+      again: {
+        '1': 'Du bist zurück! Hast du mir was Grünes mitgebracht?'
+      },
+      brew: {
+        '1': 'Zeig mal deinen Beutel. Oh, herrlich. Such dir was aus, ich setz schon mal den Kessel auf.'
+      },
+      who: {
+        '1': 'Ich hab mit einem Gänseblümchen Mamas Garten angezündet. Keiner konnte es erklären, also musste ich es lernen.'
+      },
+      herbs: {
+        '1': 'Draußen in der Wildnis, überall, wo du kämpfst. Lauf einfach über eine Pflanze, und sie gehört dir.',
+        '2': 'Die seltenen wachsen weiter draußen. Mondglocken und Schattendorn verstecken sich hinter dem Wald.',
+        say: 'Wo finde ich Kräuter?'
+      },
+      elixirs: {
+        '1': 'Jedes macht dich im Kampf eine ganze Minute lang stärker. Härtere Schläge, zähere Haut, flinkere Füße.',
+        '2': 'Sie stecken in deiner dritten Flasche. Tippe auf den kleinen Pfeil, um zu wechseln, welches du trinkst.',
+        say: 'Was bewirken die Elixiere?'
+      },
+      brewBack: {
+        '1': 'Vorsicht, die sind noch warm. Komm wieder, wenn dein Beutel voll ist!'
+      },
+      bye: {
+        '1': 'Tschüss! Wenn du eine lila Blume siehst, pflück zwei. Eine für mich.'
+      }
     }
   },
   enemy: {
@@ -3387,7 +3430,9 @@ export default {
       character: 'Held',
       inventory: 'Tasche',
       skills: 'Fähigkeiten',
-      roll: 'Ausweichrolle'
+      roll: 'Ausweichrolle',
+      elixir: 'Elixier trinken',
+      elixirNext: 'Nächstes Elixier'
     },
     difficulties: {
       easy: 'Leicht',
@@ -3623,5 +3668,46 @@ export default {
     waiting: 'Die Karawane wartet auf dich.',
     arrived: 'Die Karawane hat es geschafft!',
     lost: 'Die Karawane ist verloren…'
+  },
+  elixir: {
+    might: {
+      name: 'Elixier der Macht',
+      desc: '+{n}% Schaden für eine Minute'
+    },
+    iron: {
+      name: 'Eisenhaut-Trank',
+      desc: '+{n}% Rüstung für eine Minute'
+    },
+    swift: {
+      name: 'Tonikum der Flinkheit',
+      desc: '+{n}% Tempo und Angriffstempo für eine Minute'
+    },
+    mind: {
+      name: 'Sud des klaren Geistes',
+      desc: 'Fähigkeiten laden eine Minute lang {n}% schneller'
+    },
+    vigor: {
+      name: 'Elixier der Lebenskraft',
+      desc: 'Heilt eine Minute lang jede Sekunde {n}% deines Lebens'
+    },
+    shadow: {
+      name: 'Durstiger Trank',
+      desc: 'Deine Treffer heilen dich eine Minute lang um {n}% ihres Schadens'
+    }
+  },
+  alchemy: {
+    talk: 'Kräuter rein, Elixiere raus. Welches brauen wir?',
+    lead: 'Jedes Elixier wirkt im Kampf eine Minute lang. Trink es aus deiner dritten Flasche. Du kannst {n} von jedem tragen.',
+    brew: 'Brauen · {n}',
+    carry: 'Mitnehmen',
+    carried: 'In deiner Flasche',
+    count: '{n} / {max}',
+    herb: '{plant}: {have} von {n}',
+    done: 'Gebraut!',
+    why: {
+      full: 'Davon trägst du schon so viel, wie du kannst.',
+      herbs: 'Nicht genug Kräuter. Sammle mehr in der Wildnis.',
+      gold: 'Nicht genug Gold.'
+    }
   }
 }

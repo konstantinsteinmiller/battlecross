@@ -30,7 +30,9 @@ export default {
     manaPotion: 'Manajuoma ({n} jäljellä)',
     groups: '{n} / {total} vihollisryhmää voitettu',
     wave: 'Aalto {n} / {total}',
-    roll: 'Väistökieri'
+    roll: 'Väistökieri',
+    elixir: '{name} ({n} jäljellä)',
+    elixirNext: 'Seuraava eliksiiri'
   },
   menu: {
     map: 'Maailmankartta',
@@ -87,7 +89,13 @@ export default {
     accelerate: 'Kiihdytys',
     overheat: 'Ylikuumentunut',
     enrage: 'Raivoissaan',
-    ambush: 'Väijytys'
+    ambush: 'Väijytys',
+    elixirMight: 'Voiman eliksiiri',
+    elixirIron: 'Rautaiho',
+    elixirSwift: 'Ketteryys',
+    elixirMind: 'Kirkas mieli',
+    elixirVigor: 'Elinvoima',
+    elixirShadow: 'Janoava terä'
   },
   toast: {
     item: 'Löytyi: {item}',
@@ -1117,6 +1125,9 @@ export default {
     },
     sbMasterBlood: {
       name: 'Vesper Purppuralehti'
+    },
+    sbAlchemist: {
+      name: 'Odile Saniaispilli'
     }
   },
   quest: {
@@ -1355,7 +1366,8 @@ export default {
       mana: 'Onko sinulla jotain manaan?',
       who: 'Kuka sinä olet, jos saan kysyä?',
       rumor: 'Onko kuulunut jotain?',
-      ready: 'Luuletko, että olen valmis enempään?'
+      ready: 'Luuletko, että olen valmis enempään?',
+      brew: 'Voisitko keittää minulle jotain?'
     },
     sunfordSmith: {
       hello: {
@@ -3198,6 +3210,37 @@ export default {
         '1': 'Oakhavenista kuuluu pahaa. Rosvoja muureilla.',
         '2': 'Sitten proomut tulevat tänne. Voi raukkoja.'
       }
+    },
+    sbAlchemist: {
+      hello: {
+        '1': 'Oho! Varo purkkeja. Tuo puree. No, näykkii.',
+        '2': 'Odile Saniaispilli, alkemisti. Tuo minulle yrttejä, niin pullotan sinulle vähän rohkeutta.'
+      },
+      again: {
+        '1': 'Tulit takaisin! Toitko minulle mitään vihreää?'
+      },
+      brew: {
+        '1': 'Näytähän pussiasi. Ooh, ihanaa. Valitse mitä haluat, niin laitan padan tulelle.'
+      },
+      who: {
+        '1': 'Sytytin äitini puutarhan tuleen päivänkakkaralla. Kukaan ei osannut selittää sitä, joten minun piti opetella.'
+      },
+      herbs: {
+        '1': 'Luonnosta, kaikkialta missä taistelet. Kävele vain kasvin yli, niin se on sinun.',
+        '2': 'Harvinaiset kasvavat kauempana. Kuunkellot ja varjo-oka piileskelevät metsän takana.',
+        say: 'Mistä löydän yrttejä?'
+      },
+      elixirs: {
+        '1': 'Jokainen tekee sinusta vahvemman taistelussa kokonaisen minuutin ajan. Kovemmat iskut, sitkeämpi iho, nopeammat jalat.',
+        '2': 'Ne ovat kolmannessa pullossasi. Napauta pientä nuolta vaihtaaksesi, minkä juot.',
+        say: 'Mitä eliksiirit tekevät?'
+      },
+      brewBack: {
+        '1': 'Varovasti, ne ovat vielä lämpimiä. Tule takaisin, kun pussisi on täynnä!'
+      },
+      bye: {
+        '1': 'Heippa! Jos näet violetin kukan, poimi kaksi. Toinen minulle.'
+      }
     }
   },
   enemy: {
@@ -3370,7 +3413,9 @@ export default {
       character: 'Sankari',
       inventory: 'Laukku',
       skills: 'Kyvyt',
-      roll: 'Väistökieri'
+      roll: 'Väistökieri',
+      elixir: 'Juo eliksiiri',
+      elixirNext: 'Seuraava eliksiiri'
     },
     difficulties: {
       easy: 'Helppo',
@@ -3606,5 +3651,46 @@ export default {
     waiting: 'Karavaani odottaa sinua.',
     arrived: 'Karavaani pääsi perille!',
     lost: 'Karavaani menetettiin…'
+  },
+  elixir: {
+    might: {
+      name: 'Voiman eliksiiri',
+      desc: '+{n}% vahinkoa minuutin ajan'
+    },
+    iron: {
+      name: 'Rautaihojuoma',
+      desc: '+{n}% panssaria minuutin ajan'
+    },
+    swift: {
+      name: 'Ketteryystonikki',
+      desc: '+{n}% nopeutta ja hyökkäysnopeutta minuutin ajan'
+    },
+    mind: {
+      name: 'Kirkkaan mielen keitos',
+      desc: 'Kyvyt latautuvat {n}% nopeammin minuutin ajan'
+    },
+    vigor: {
+      name: 'Elinvoimaeliksiiri',
+      desc: 'Parantaa {n}% terveydestäsi joka sekunti minuutin ajan'
+    },
+    shadow: {
+      name: 'Janoava juoma',
+      desc: 'Iskusi parantavat sinua {n}% tekemästään vahingosta minuutin ajan'
+    }
+  },
+  alchemy: {
+    talk: 'Yrtit sisään, eliksiirit ulos. Minkä keitämme?',
+    lead: 'Jokainen eliksiiri toimii taistelussa minuutin. Juo se kolmannesta pullostasi. Voit kantaa {n} kutakin.',
+    brew: 'Keitä · {n}',
+    carry: 'Ota mukaan',
+    carried: 'Pullossasi',
+    count: '{n} / {max}',
+    herb: '{plant}: {have} / {n}',
+    done: 'Keitetty!',
+    why: {
+      full: 'Kannat jo niin monta tätä kuin voit.',
+      herbs: 'Yrttejä ei ole tarpeeksi. Poimi lisää luonnosta.',
+      gold: 'Kulta ei riitä.'
+    }
   }
 }

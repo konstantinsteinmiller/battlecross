@@ -240,7 +240,7 @@ export const abortTalk = (): void => {
 
 // ─── The marker over a townsperson's head ────────────────────────────────────
 
-export type NpcPin = 'quest' | 'shop' | 'trainer' | 'healer' | 'talk'
+export type NpcPin = 'quest' | 'shop' | 'trainer' | 'healer' | 'alchemist' | 'talk'
 
 /**
  * What floats over an NPC: a quest mark while their quest is undecided, else
@@ -249,6 +249,6 @@ export type NpcPin = 'quest' | 'shop' | 'trainer' | 'healer' | 'talk'
 export const npcPin = (npc: NpcDef, w: DialogWorld = dialogWorld()): { kind: NpcPin; news: boolean } => {
   const conv = conversationOf(npc.id)
   const open = !!npc.quest && !w.quests[npc.quest]
-  const kind: NpcPin = open ? 'quest' : npc.role === 'shop' ? 'shop' : npc.role === 'trainer' ? 'trainer' : npc.role === 'healer' ? 'healer' : 'talk'
+  const kind: NpcPin = open ? 'quest' : npc.role === 'shop' ? 'shop' : npc.role === 'trainer' ? 'trainer' : npc.role === 'healer' ? 'healer' : npc.role === 'alchemist' ? 'alchemist' : 'talk'
   return { kind, news: !!conv && hasNews(conv, w) }
 }

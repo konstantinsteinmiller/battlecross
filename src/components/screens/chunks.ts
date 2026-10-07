@@ -14,6 +14,7 @@ export const SCREEN_CHUNKS = {
   trade: () => import('./trade/TradeScreen.vue'),
   teach: () => import('./trade/TeachScreen.vue'),
   healer: () => import('./trade/HealerScreen.vue'),
+  alchemy: () => import('./trade/AlchemyScreen.vue'),
   // Not screens, but not on the first frame either: a conversation's layer
   // (towns and decisions) and the options window.
   dialog: () => import('../dialog/DialogLayer.vue'),

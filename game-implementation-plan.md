@@ -518,7 +518,19 @@ attribute buff; items are fixed named ids owned once.
   and mines), and its own street chatter. 13 new people with looks, voice
   cards and conversations, voiced in English; all strings in 39 languages.
   Its spot on the painted map sheet waits for the repaint (24).
-- [ ] **22.2 Alchemy** (#87).
+- [x] **22.2 Alchemy** (#87). Odile Fernwhistle, the alchemist in
+  Silverbridge (a new `alchemist` role: her pin, her table, her talk), brews
+  six elixirs from three herbs each and a fee of 15 + 3 × level: Might
+  (+15 % damage), Ironskin (+25 % armour), Swiftness (+15 % speed and attack
+  speed), Clear Mind (+20 % cooldown recovery), Vigour (1.2 % health a
+  second), Thirsting (8 % life steal). Every herb is in some recipe (test).
+  Five of each are carried; the third flask on the battle bar (key G) pours
+  the one marked "in your flask" for a minute, its arrow (key T) turns it to
+  the next kind; each is its own status, so it adds to a skill's buff of the
+  same kind. None in towns or a "No potions" week, where the stocks now stay
+  as they were (the mana stock was emptied there before). The health flask's
+  cooldown dial now has its length. The status icons have a fourth sheet for
+  the art pass.
 - [ ] **22.3 The gamblers** (#91, #92).
 - [ ] **22.4 Secret traders** (#86).
 - [ ] **22.5–22.8 Secret classes** (#86).

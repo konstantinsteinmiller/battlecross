@@ -2755,7 +2755,7 @@
     {
       "id": "sheet-icons-status-1",
       "kind": "set",
-      "title": "Icons: status effects (1 of 3)",
+      "title": "Icons: status effects (1 of 4)",
       "files": {
         "clean": "sheet-icons-status-1.png",
         "key": "sheet-icons-status-1-key.png"
@@ -2977,7 +2977,7 @@
     {
       "id": "sheet-icons-status-2",
       "kind": "set",
-      "title": "Icons: status effects (2 of 3)",
+      "title": "Icons: status effects (2 of 4)",
       "files": {
         "clean": "sheet-icons-status-2.png",
         "key": "sheet-icons-status-2-key.png"
@@ -3199,7 +3199,7 @@
     {
       "id": "sheet-icons-status-3",
       "kind": "set",
-      "title": "Icons: status effects (3 of 3)",
+      "title": "Icons: status effects (3 of 4)",
       "files": {
         "clean": "sheet-icons-status-3.png",
         "key": "sheet-icons-status-3-key.png"
@@ -3381,6 +3381,90 @@
             "bottom": 0.883,
             "cx": 0.5
           }
+        },
+        {
+          "id": "status-elixirMight",
+          "label": "Status-elixir Might",
+          "variant": "icons",
+          "x": 512,
+          "y": 512,
+          "w": 256,
+          "h": 256,
+          "target": "images/icons/status-elixirMight.webp",
+          "round": true
+        },
+        {
+          "id": "status-elixirIron",
+          "label": "Status-elixir Iron",
+          "variant": "icons",
+          "x": 768,
+          "y": 512,
+          "w": 256,
+          "h": 256,
+          "target": "images/icons/status-elixirIron.webp",
+          "round": true
+        }
+      ]
+    },
+    {
+      "id": "sheet-icons-status-4",
+      "kind": "set",
+      "title": "Icons: status effects (4 of 4)",
+      "files": {
+        "clean": "sheet-icons-status-4.png",
+        "key": "sheet-icons-status-4-key.png"
+      },
+      "width": 1024,
+      "height": 768,
+      "cols": 4,
+      "rows": 3,
+      "maxEdge": 96,
+      "crop": 1,
+      "anchor": "centre",
+      "cells": [
+        {
+          "id": "status-elixirSwift",
+          "label": "Status-elixir Swift",
+          "variant": "icons",
+          "x": 0,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/icons/status-elixirSwift.webp",
+          "round": true
+        },
+        {
+          "id": "status-elixirMind",
+          "label": "Status-elixir Mind",
+          "variant": "icons",
+          "x": 256,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/icons/status-elixirMind.webp",
+          "round": true
+        },
+        {
+          "id": "status-elixirVigor",
+          "label": "Status-elixir Vigor",
+          "variant": "icons",
+          "x": 512,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/icons/status-elixirVigor.webp",
+          "round": true
+        },
+        {
+          "id": "status-elixirShadow",
+          "label": "Status-elixir Shadow",
+          "variant": "icons",
+          "x": 768,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/icons/status-elixirShadow.webp",
+          "round": true
         }
       ]
     },

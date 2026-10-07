@@ -14,7 +14,7 @@ import { abortTalk, beginTalk, talkResume, talkWaiting, type TalkStage } from '.
 import {
   clearNode, flagSet, gainItem, grantXp, hasFlag, isFreshProfile, isNodeOpen, isNodeReachable, lifetimeXp, profile, saveProfile
 } from './state/profile'
-import { addHerbs, countContracts, countErrands, countTasks, finishEscortTasks, markChestsOpened, recordArenaWaves, recordMastery, setManaPotions } from './state/profile'
+import { addHerbs, setElixirs, countContracts, countErrands, countTasks, finishEscortTasks, markChestsOpened, recordArenaWaves, recordMastery, setManaPotions } from './state/profile'
 import { zoneMastery, type Mastery } from './sim/route'
 import { playJingle } from './audio/music'
 import { flushSaveNow } from '@/use/useSaveStatus'
@@ -51,7 +51,7 @@ import { mapSpot, setMapPos } from './state/profile'
 
 export type Screen = 'boot' | 'zone' | 'town' | 'map'
 export type Modal =
-  | '' | 'results' | 'secondWind' | 'contracts' | 'pause' | 'character' | 'skills' | 'inventory' | 'journal' | 'shop' | 'trainer' | 'healer' | 'ending' | 'help'
+  | '' | 'results' | 'secondWind' | 'contracts' | 'pause' | 'character' | 'skills' | 'inventory' | 'journal' | 'shop' | 'trainer' | 'healer' | 'alchemy' | 'ending' | 'help'
 /** A conversation in progress (`talk.ts`, drawn by `DialogLayer`): with a
  *  townsperson in the scene, with a trainer met on the map, or a quest's
  *  decision. It is not a window — the world keeps running under it — and it
@@ -201,6 +201,9 @@ export interface VisitTally {
   killKinds?: Readonly<Record<string, number>>
   /** Herbs picked, by plant (#88). */
   herbs?: Readonly<Record<string, number>>
+  /** The elixirs as the visit leaves them (some drunk, #87), and the one carried. */
+  elixirs?: Readonly<Record<string, number>>
+  elixirPick?: string
 }
 
 type Precompile = (mode: GameMode, onProgress: (f01: number) => void) => Promise<void>
@@ -531,7 +534,10 @@ export const finishVisit = async (outcome: 'victory' | 'defeat' | 'retreat'): Pr
   await bankVisit(outcome, node, {
     xp: h.xp, gold: h.gold, kills: h.kills, items: h.items, seconds: mode.sim.time, waves: mode.sim.wave.cleared,
     chests: mode.sim.chests.length ? { opened: h.chests, total: mode.sim.chests.length } : undefined,
-    special: mode.sim.specialOpened, manaPotions: h.manaPotions, rested: h.rested, killKinds: h.killKinds, herbs: h.herbs,
+    special: mode.sim.specialOpened, rested: h.rested, killKinds: h.killKinds, herbs: h.herbs,
+    // The flasks went in only where they may be drunk (not in a "No potions"
+    // week): elsewhere the stocks stay as they were.
+    ...(mode.setup.arenaMod !== 'nopotions' ? { manaPotions: h.manaPotions, elixirs: h.elixirs, elixirPick: h.elixirPick } : {}),
     ...(mode.sim.mode === 'zone' && !flow.encounter ? { mastery: zoneMastery(mode.sim) } : {})
   })
 }
@@ -555,6 +561,7 @@ export const bankVisit = async (outcome: 'victory' | 'defeat' | 'retreat', node:
   // What the chests held beside gold and gear: the stock of mana potions as
   // it stands, and the one-time chests that are now empty for good.
   if (h.manaPotions !== undefined) setManaPotions(h.manaPotions)
+  if (h.elixirs) setElixirs(h.elixirs, h.elixirPick ?? '')
   if (h.rested !== undefined) profile.meta.rested = Math.max(0, Math.min(profile.meta.rested, h.rested))
   if (h.special?.length) markChestsOpened(h.special)
   // The herbs picked go into the pouch, whatever the visit's end.
@@ -740,7 +747,8 @@ const startTalk = (kind: Exclude<Talk, ''>, conv: ConversationDef, stage: TalkSt
 }
 
 /** The window a townsperson's role opens (reached through their conversation). */
-const roleWindow = (npc: NpcDef): Modal => (npc.role === 'shop' ? 'shop' : npc.role === 'trainer' ? 'trainer' : npc.role === 'healer' ? 'healer' : '')
+const roleWindow = (npc: NpcDef): Modal =>
+  (npc.role === 'shop' ? 'shop' : npc.role === 'trainer' ? 'trainer' : npc.role === 'healer' ? 'healer' : npc.role === 'alchemist' ? 'alchemy' : '')
 
 /** The hero walked up to a townsperson (the scene calls this; so may a test). */
 /**

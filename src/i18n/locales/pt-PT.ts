@@ -30,7 +30,9 @@ export default {
     manaPotion: 'Poção de mana (restam {n})',
     groups: '{n} de {total} grupos de inimigos derrotados',
     wave: 'Vaga {n} / {total}',
-    roll: 'Rolamento'
+    roll: 'Rolamento',
+    elixir: '{name} (restam {n})',
+    elixirNext: 'Próximo elixir'
   },
   menu: {
     map: 'Mapa do mundo',
@@ -87,7 +89,13 @@ export default {
     accelerate: 'Aceleração',
     overheat: 'Sobreaquecido',
     enrage: 'Enfurecido',
-    ambush: 'Emboscada'
+    ambush: 'Emboscada',
+    elixirMight: 'Elixir do poder',
+    elixirIron: 'Pele de ferro',
+    elixirSwift: 'Ligeireza',
+    elixirMind: 'Mente clara',
+    elixirVigor: 'Vigor',
+    elixirShadow: 'Lâmina sedenta'
   },
   toast: {
     item: 'Encontraste: {item}',
@@ -1118,6 +1126,9 @@ export default {
     },
     sbMasterBlood: {
       name: 'Vesper Crimsonleaf'
+    },
+    sbAlchemist: {
+      name: 'Odile Fernwhistle'
     }
   },
   quest: {
@@ -1357,7 +1368,8 @@ export default {
       who: 'Quem és tu, se não te importas que pergunte?',
       rumor: 'Ouviste alguma coisa ultimamente?',
       ready: 'Achas que estou pronto para mais?',
-      ready__f: 'Achas que estou pronta para mais?'
+      ready__f: 'Achas que estou pronta para mais?',
+      brew: 'Podes preparar-me alguma coisa?'
     },
     sunfordSmith: {
       hello: {
@@ -3234,6 +3246,37 @@ export default {
         '1': 'As notícias de Oakhaven são más. Bandidos junto às muralhas.',
         '2': 'Então as barcaças vêm para cá. Coitados.'
       }
+    },
+    sbAlchemist: {
+      hello: {
+        '1': 'Ah! Cuidado com os boiões. Aquele morde. Bem, mordisca.',
+        '2': 'Odile Fernwhistle, alquimista. Traz-me ervas e eu engarrafo-te um pouco de coragem.'
+      },
+      again: {
+        '1': 'Voltaste! Trouxeste-me alguma coisa verde?'
+      },
+      brew: {
+        '1': 'Deixa-me ver a tua bolsa. Ooh, que maravilha. Escolhe o que quiseres e eu ponho a chaleira ao lume.'
+      },
+      who: {
+        '1': 'Peguei fogo ao jardim da minha mãe com uma margarida. Ninguém conseguiu explicar, por isso tive de aprender.'
+      },
+      herbs: {
+        '1': 'Lá fora, na natureza, em todo o lado onde lutas. Basta passares por cima de uma planta e é tua.',
+        '2': 'As raras crescem mais longe. Os sinos-lunares e o espinho-sombrio escondem-se para lá do bosque.',
+        say: 'Onde encontro ervas?'
+      },
+      elixirs: {
+        '1': 'Cada um torna-te mais forte em combate durante um minuto inteiro. Golpes mais duros, pele mais rija, pés mais rápidos.',
+        '2': 'Ficam no teu terceiro frasco. Toca na setinha para trocares o que bebes.',
+        say: 'O que fazem os elixires?'
+      },
+      brewBack: {
+        '1': 'Cuidado, ainda estão quentes. Volta quando tiveres a bolsa cheia!'
+      },
+      bye: {
+        '1': 'Adeus! Se vires uma flor roxa, apanha duas. Uma é para mim.'
+      }
     }
   },
   enemy: {
@@ -3406,7 +3449,9 @@ export default {
       character: 'Herói',
       inventory: 'Mochila',
       skills: 'Habilidades',
-      roll: 'Rolamento'
+      roll: 'Rolamento',
+      elixir: 'Beber elixir',
+      elixirNext: 'Próximo elixir'
     },
     difficulties: {
       easy: 'Fácil',
@@ -3646,5 +3691,46 @@ export default {
     waiting: 'A caravana está à tua espera.',
     arrived: 'A caravana chegou!',
     lost: 'A caravana perdeu-se…'
+  },
+  elixir: {
+    might: {
+      name: 'Elixir do poder',
+      desc: '+{n}% de dano durante um minuto'
+    },
+    iron: {
+      name: 'Trago pele de ferro',
+      desc: '+{n}% de armadura durante um minuto'
+    },
+    swift: {
+      name: 'Tónico da ligeireza',
+      desc: '+{n}% de velocidade e velocidade de ataque durante um minuto'
+    },
+    mind: {
+      name: 'Infusão da mente clara',
+      desc: 'As habilidades recarregam {n}% mais depressa durante um minuto'
+    },
+    vigor: {
+      name: 'Elixir do vigor',
+      desc: 'Cura {n}% da tua vida a cada segundo durante um minuto'
+    },
+    shadow: {
+      name: 'Trago sedento',
+      desc: 'Os teus golpes curam-te {n}% do dano causado durante um minuto'
+    }
+  },
+  alchemy: {
+    talk: 'Entram ervas, saem elixires. Qual vamos preparar?',
+    lead: 'Cada elixir dura um minuto em combate. Bebe-o do teu terceiro frasco. Podes levar {n} de cada.',
+    brew: 'Preparar · {n}',
+    carry: 'Levar este',
+    carried: 'No teu frasco',
+    count: '{n} / {max}',
+    herb: '{plant}: {have} de {n}',
+    done: 'Pronto!',
+    why: {
+      full: 'Já levas o máximo deste.',
+      herbs: 'Ervas insuficientes. Apanha mais na natureza.',
+      gold: 'Ouro insuficiente.'
+    }
   }
 }

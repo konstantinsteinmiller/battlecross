@@ -30,7 +30,9 @@ export default {
     manaPotion: 'Manadryck ({n} kvar)',
     groups: '{n} av {total} fiendegrupper besegrade',
     wave: 'Våg {n} / {total}',
-    roll: 'Rulla'
+    roll: 'Rulla',
+    elixir: '{name} ({n} kvar)',
+    elixirNext: 'Nästa elixir'
   },
   menu: {
     map: 'Världskarta',
@@ -87,7 +89,13 @@ export default {
     accelerate: 'Accelererad',
     overheat: 'Överhettad',
     enrage: 'Rasande',
-    ambush: 'Bakhåll'
+    ambush: 'Bakhåll',
+    elixirMight: 'Styrkeelixir',
+    elixirIron: 'Järnhud',
+    elixirSwift: 'Snabbhet',
+    elixirMind: 'Klart sinne',
+    elixirVigor: 'Livskraft',
+    elixirShadow: 'Törstande klinga'
   },
   toast: {
     item: 'Hittade: {item}',
@@ -1117,6 +1125,9 @@ export default {
     },
     sbMasterBlood: {
       name: 'Vesper Karmosinblad'
+    },
+    sbAlchemist: {
+      name: 'Odile Ormbunksvissla'
     }
   },
   quest: {
@@ -1355,7 +1366,8 @@ export default {
       mana: 'Har du något för mana?',
       who: 'Vem är du, om jag får fråga?',
       rumor: 'Hört något nytt?',
-      ready: 'Tror du att jag är redo för mer?'
+      ready: 'Tror du att jag är redo för mer?',
+      brew: 'Kan du brygga något åt mig?'
     },
     sunfordSmith: {
       hello: {
@@ -3198,6 +3210,37 @@ export default {
         '1': 'Nyheterna från Oakhaven är dåliga. Banditer vid murarna.',
         '2': 'Då kommer pråmarna hit i stället. Stackars människor.'
       }
+    },
+    sbAlchemist: {
+      hello: {
+        '1': 'Oj! Akta burkarna. Den där bits. Nåja, den nafsar.',
+        '2': 'Odile Ormbunksvissla, alkemist. Ge mig örter, så tappar jag upp lite mod på flaska åt dig.'
+      },
+      again: {
+        '1': 'Du är tillbaka! Har du med dig något grönt?'
+      },
+      brew: {
+        '1': 'Får jag se din påse. Åh, härligt. Välj vad du vill ha, så sätter jag på kitteln.'
+      },
+      who: {
+        '1': 'Jag satte eld på mammas trädgård med en tusensköna. Ingen kunde förklara det, så jag fick lära mig.'
+      },
+      herbs: {
+        '1': 'Ute i det vilda, överallt där du slåss. Gå bara över en växt, så är den din.',
+        '2': 'De sällsynta växer längre bort. Månklockor och skuggtagg gömmer sig bortom skogen.',
+        say: 'Var hittar jag örter?'
+      },
+      elixirs: {
+        '1': 'Vart och ett gör dig starkare i en strid i en hel minut. Hårdare slag, tåligare hud, snabbare fötter.',
+        '2': 'De ligger i din tredje flaska. Tryck på den lilla pilen för att byta vilket du dricker.',
+        say: 'Vad gör elixiren?'
+      },
+      brewBack: {
+        '1': 'Försiktigt med de där, de är fortfarande varma. Kom tillbaka när påsen är full!'
+      },
+      bye: {
+        '1': 'Hej då! Ser du en lila blomma, plocka två. En till mig.'
+      }
     }
   },
   enemy: {
@@ -3370,7 +3413,9 @@ export default {
       character: 'Hjälte',
       inventory: 'Väska',
       skills: 'Färdigheter',
-      roll: 'Rulla undan'
+      roll: 'Rulla undan',
+      elixir: 'Drick elixir',
+      elixirNext: 'Nästa elixir'
     },
     difficulties: {
       easy: 'Lätt',
@@ -3606,5 +3651,46 @@ export default {
     waiting: 'Karavanen väntar på dig.',
     arrived: 'Karavanen kom fram!',
     lost: 'Karavanen gick förlorad…'
+  },
+  elixir: {
+    might: {
+      name: 'Styrkeelixir',
+      desc: '+{n}% skada i en minut'
+    },
+    iron: {
+      name: 'Järnhudsdryck',
+      desc: '+{n}% rustning i en minut'
+    },
+    swift: {
+      name: 'Snabbhetstonikum',
+      desc: '+{n}% fart och attackfart i en minut'
+    },
+    mind: {
+      name: 'Klarsinnesbrygd',
+      desc: 'Färdigheter kommer tillbaka {n}% snabbare i en minut'
+    },
+    vigor: {
+      name: 'Livskraftselixir',
+      desc: 'Helar {n}% av din hälsa varje sekund i en minut'
+    },
+    shadow: {
+      name: 'Törstande dryck',
+      desc: 'Dina träffar helar dig med {n}% av skadan i en minut'
+    }
+  },
+  alchemy: {
+    talk: 'In med örter, ut med elixir. Vilket ska vi brygga?',
+    lead: 'Varje elixir verkar i en minut i en strid. Drick det ur din tredje flaska. Du kan bära {n} av varje.',
+    brew: 'Brygg · {n}',
+    carry: 'Bär det här',
+    carried: 'I din flaska',
+    count: '{n} / {max}',
+    herb: '{plant}: {have} av {n}',
+    done: 'Bryggt!',
+    why: {
+      full: 'Du bär redan så många du kan av det här.',
+      herbs: 'För lite örter. Plocka fler i det vilda.',
+      gold: 'Inte tillräckligt med guld.'
+    }
   }
 }

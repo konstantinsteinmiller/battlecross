@@ -53,6 +53,12 @@ export const hud = shallowReactive({
   manaPotions: 0,
   manaPotionMax: 0,
   manaPotionReady: true,
+  /** The third flask (#87): the elixir it pours ('' none), how many of it,
+   *  how many kinds are carried, and whether one can be drunk now. */
+  elixir: '',
+  elixirs: 0,
+  elixirKinds: 0,
+  elixirReady: true,
   /** The six active slots. Replaced whole on a change. */
   skills: [emptySlot(), emptySlot(), emptySlot(), emptySlot(), emptySlot(), emptySlot()] as SkillSlotView[],
   /** Status icons on the hero (ids, e.g. 'stun', 'burn', 'haste'). */
@@ -106,6 +112,8 @@ export const hudLive = {
   potionCdMax: 1,
   manaPotionCd: 0,
   manaPotionCdMax: 1,
+  elixirCd: 0,
+  elixirCdMax: 1,
   rollCd: 0,
   rollCdMax: 1,
   /** The hero on screen (surface px), for hints drawn around them. */

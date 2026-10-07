@@ -1,6 +1,7 @@
 import { statPower } from '../data/attributes'
 import { HEAT_DECAY, SKILL_BY_ID, type SkillDef } from '../data/skills'
 import { MANA_POTION, POTION_HEAL } from '../data/loot'
+import { ELIXIRS, ELIXIR_BY_ID, ELIXIR_TIME, isElixir } from '../data/elixirs'
 import { hasLineOfSight, moveCircle } from './grid'
 import { face, fire, inAttackRange, setGoal, setHeroOnHit, startAttack, stop, stride, walk } from './actors'
 import { applyStatus, cdrOf, cleanse, dealDamage, giveMana, heal, isControlled, attackSpeedOf } from './combat'
@@ -42,6 +43,9 @@ export interface HeroInit {
   /** Mana potions carried in, and how many the belt holds (default: none, the health belt's size). */
   manaPotions?: number
   manaPotionsMax?: number
+  /** Elixirs carried in (roadmap #87) and the one the third flask pours. */
+  elixirs?: Readonly<Record<string, number>>
+  elixirPick?: string
   /** Seconds of double kill XP the hero brings in (roadmap #9). */
   rested?: number
 }
@@ -67,6 +71,9 @@ export const createHero = (sim: Sim, o: HeroInit): HeroState => {
     manaPotions: Math.max(0, o.manaPotions ?? 0),
     manaPotionsMax: Math.max(o.manaPotions ?? 0, o.manaPotionsMax ?? o.potions),
     manaPotionCd: 0,
+    elixirs: { ...(o.elixirs ?? {}) },
+    elixirPick: '',
+    elixirCd: 0,
     rollCd: 0,
     order: { kind: 'none', targetId: 0, x: o.x, z: o.z },
     queued: null,
@@ -89,8 +96,43 @@ export const createHero = (sim: Sim, o: HeroInit): HeroState => {
     killKinds: {},
     herbs: {}
   }
+  h.elixirPick = o.elixirPick && (h.elixirs[o.elixirPick] ?? 0) > 0 ? o.elixirPick : nextElixir(h, '')
   sim.hero = h
   return h
+}
+
+/** The next elixir the hero has any of, after `from` in the alchemist's order ('' when none). */
+export const nextElixir = (h: Pick<HeroState, 'elixirs'>, from: string): string => {
+  const ids = ELIXIRS.map(e => e.id)
+  const at = ids.indexOf(from as never)
+  for (let k = 1; k <= ids.length; k++) {
+    const id = ids[(at + k + ids.length) % ids.length]!
+    if ((h.elixirs[id] ?? 0) > 0) return id
+  }
+  return ''
+}
+
+/** Drink the elixir the third flask holds: a minute of its strength. */
+export const useElixir = (sim: Sim): boolean => {
+  const h = sim.hero
+  const u = h.unit
+  const id = h.elixirPick
+  if (!u.alive || !isElixir(id) || (h.elixirs[id] ?? 0) <= 0 || h.elixirCd > 0 || sim.ended === 'defeat' || sim.leaving) { sim.emit({ t: 'denied', why: 'cooldown' }); return false }
+  const e = ELIXIR_BY_ID[id]
+  h.elixirs[id] = h.elixirs[id]! - 1
+  h.elixirCd = POTION_CD
+  applyStatus(sim, u, e.status, ELIXIR_TIME, e.v, u)
+  // The last one of a kind drunk: the flask turns to the next kind carried.
+  if (h.elixirs[id]! <= 0) h.elixirPick = nextElixir(h, id)
+  sim.emit({ t: 'potion', elixir: true })
+  sim.emit({ t: 'fx', id: 'heal', x: u.x, z: u.z, unit: u.id, color: e.colour })
+  return true
+}
+
+/** Turn the third flask to the next kind carried. */
+export const cycleElixir = (sim: Sim): void => {
+  const h = sim.hero
+  h.elixirPick = nextElixir(h, h.elixirPick)
 }
 
 // ─── Orders ──────────────────────────────────────────────────────────────────
@@ -378,6 +420,7 @@ export const stepHero = (sim: Sim, dt: number): void => {
   for (let i = 0; i < h.cd.length; i++) if (h.cd[i]! > 0) h.cd[i] = Math.max(0, h.cd[i]! - dt)
   if (h.potionCd > 0) h.potionCd = Math.max(0, h.potionCd - dt)
   if (h.manaPotionCd > 0) h.manaPotionCd = Math.max(0, h.manaPotionCd - dt)
+  if (h.elixirCd > 0) h.elixirCd = Math.max(0, h.elixirCd - dt)
   if (h.rollCd > 0) h.rollCd = Math.max(0, h.rollCd - dt)
   if (h.overheatT > 0) {
     h.overheatT -= dt

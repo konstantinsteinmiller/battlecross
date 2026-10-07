@@ -350,6 +350,14 @@ export const CARDS: Readonly<Record<string, VoiceCard>> = {
     reference: "Mind the cart! Sorry, everything on this bridge moves. I'm Mayor Brenna Quill. If it's lost, broken or late, it ends up on my desk, so let's keep things moving, shall we?",
     notes: ''
   }),
+  sbAlchemist: card({
+    name: 'Odile Fernwhistle', gender: 'female', age: 'early 30s', pitch: 'mid-high', pace: 'fast',
+    timbre: 'bright, bubbly, slightly breathless soprano',
+    personality: 'The Silverbridge alchemist: delighted by every plant, a little scatterbrained, warm and funny, always mid-experiment.',
+    design: 'A woman in her early thirties with a bright, bubbly voice that runs a little breathless with excitement, like someone who just found a rare flower.',
+    reference: "Oh! Mind the jars. That one bites. Well, it nibbles. Odile Fernwhistle, alchemist. Bring me herbs and I'll bottle you a little courage. Did you bring me anything green?",
+    notes: 'Not Vesper Crimsonleaf (calm, bright teacher): Odile is quicker and giddier.'
+  }),
   sbHealer: card({
     name: 'Friar Ansel', gender: 'male', age: 'late 40s', pitch: 'mid-low', pace: 'slow',
     timbre: 'soft, warm, slightly drowsy baritone',

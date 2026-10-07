@@ -30,7 +30,9 @@ export default {
     manaPotion: 'Mikstura many (zostało: {n})',
     groups: 'Pokonane grupy wrogów: {n} z {total}',
     wave: 'Fala {n} / {total}',
-    roll: 'Przewrót'
+    roll: 'Przewrót',
+    elixir: '{name} (zostało: {n})',
+    elixirNext: 'Następny eliksir'
   },
   menu: {
     map: 'Mapa świata',
@@ -87,7 +89,13 @@ export default {
     accelerate: 'Akceleracja',
     overheat: 'Przegrzanie',
     enrage: 'Szał',
-    ambush: 'Zasadzka'
+    ambush: 'Zasadzka',
+    elixirMight: 'Eliksir mocy',
+    elixirIron: 'Żelazna skóra',
+    elixirSwift: 'Chyżość',
+    elixirMind: 'Jasny umysł',
+    elixirVigor: 'Wigor',
+    elixirShadow: 'Spragnione ostrze'
   },
   toast: {
     item: 'Znaleziono: {item}',
@@ -1119,6 +1127,9 @@ export default {
     },
     sbMasterBlood: {
       name: 'Vesper Karmazynolist'
+    },
+    sbAlchemist: {
+      name: 'Odile Świstopaproć'
     }
   },
   quest: {
@@ -1358,7 +1369,8 @@ export default {
       who: 'Kim jesteś, jeśli mogę spytać?',
       rumor: 'Słyszałeś coś ostatnio?',
       ready: 'Myślisz, że jestem gotowy na więcej?',
-      ready__f: 'Myślisz, że jestem gotowa na więcej?'
+      ready__f: 'Myślisz, że jestem gotowa na więcej?',
+      brew: 'Uwarzysz mi coś?'
     },
     sunfordSmith: {
       hello: {
@@ -3280,6 +3292,37 @@ export default {
         '1': 'Z Oakhaven złe wieści. Bandyci pod murami.',
         '2': 'To barki przypłyną tutaj. Biedacy.'
       }
+    },
+    sbAlchemist: {
+      hello: {
+        '1': 'Ojej! Uważaj na słoje. Ten gryzie. No, podgryza.',
+        '2': 'Odile Świstopaproć, alchemiczka. Przynieś mi zioła, a nabutelkuję ci trochę odwagi.'
+      },
+      again: {
+        '1': 'Jesteś z powrotem! Masz dla mnie coś zielonego?'
+      },
+      brew: {
+        '1': 'Pokaż sakiewkę. Och, cudnie. Wybierz, co chcesz, a ja nastawię kociołek.'
+      },
+      who: {
+        '1': 'Podpaliłam mamie ogród stokrotką. Nikt nie umiał tego wyjaśnić, więc musiałam się nauczyć.'
+      },
+      herbs: {
+        '1': 'W dziczy, wszędzie tam, gdzie walczysz. Wystarczy przejść po roślinie i jest twoja.',
+        '2': 'Rzadkie rosną dalej. Księżycowe dzwonki i cieniocierń chowają się za lasem.',
+        say: 'Gdzie znajdę zioła?'
+      },
+      elixirs: {
+        '1': 'Każdy wzmacnia cię w walce na całą minutę. Mocniejsze ciosy, twardsza skóra, szybsze nogi.',
+        '2': 'Siedzą w twojej trzeciej flaszce. Stuknij małą strzałkę, żeby wybrać, który wypić.',
+        say: 'Co dają eliksiry?'
+      },
+      brewBack: {
+        '1': 'Ostrożnie, są jeszcze ciepłe. Wróć, kiedy sakiewka będzie pełna!'
+      },
+      bye: {
+        '1': 'Pa! Jak zobaczysz fioletowy kwiat, zerwij dwa. Jeden dla mnie.'
+      }
     }
   },
   enemy: {
@@ -3452,7 +3495,9 @@ export default {
       character: 'Bohater',
       inventory: 'Torba',
       skills: 'Umiejętności',
-      roll: 'Przewrót'
+      roll: 'Przewrót',
+      elixir: 'Wypij eliksir',
+      elixirNext: 'Następny eliksir'
     },
     difficulties: {
       easy: 'Łatwy',
@@ -3693,5 +3738,46 @@ export default {
     waiting: 'Karawana na ciebie czeka.',
     arrived: 'Karawana dotarła!',
     lost: 'Karawana przepadła…'
+  },
+  elixir: {
+    might: {
+      name: 'Eliksir mocy',
+      desc: '+{n}% obrażeń przez minutę'
+    },
+    iron: {
+      name: 'Wywar żelaznej skóry',
+      desc: '+{n}% pancerza przez minutę'
+    },
+    swift: {
+      name: 'Tonik chyżości',
+      desc: '+{n}% szybkości i szybkości ataku przez minutę'
+    },
+    mind: {
+      name: 'Napar jasnego umysłu',
+      desc: 'Umiejętności odnawiają się o {n}% szybciej przez minutę'
+    },
+    vigor: {
+      name: 'Eliksir wigoru',
+      desc: 'Leczy {n}% zdrowia co sekundę przez minutę'
+    },
+    shadow: {
+      name: 'Spragniony wywar',
+      desc: 'Twoje ciosy leczą cię o {n}% zadanych obrażeń przez minutę'
+    }
+  },
+  alchemy: {
+    talk: 'Zioła do środka, eliksiry na zewnątrz. Co warzymy?',
+    lead: 'Każdy eliksir działa przez minutę w walce. Pij go z trzeciej flaszki. Możesz nosić po {n} sztuk każdego.',
+    brew: 'Uwarz · {n}',
+    carry: 'Weź ze sobą',
+    carried: 'W twojej flaszce',
+    count: '{n} / {max}',
+    herb: '{plant}: {have} z {n}',
+    done: 'Uwarzone!',
+    why: {
+      full: 'Masz już tyle, ile możesz unieść.',
+      herbs: 'Za mało ziół. Nazbieraj więcej w dziczy.',
+      gold: 'Za mało złota.'
+    }
   }
 }

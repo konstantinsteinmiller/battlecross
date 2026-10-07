@@ -30,7 +30,9 @@ export default {
     manaPotion: '魔力藥水（剩 {n} 瓶）',
     groups: '已擊敗 {n}/{total} 群敵人',
     wave: '第 {n} / {total} 波',
-    roll: '翻滾'
+    roll: '翻滾',
+    elixir: '{name}（剩 {n} 瓶）',
+    elixirNext: '下一種靈藥'
   },
   menu: {
     map: '世界地圖',
@@ -87,7 +89,13 @@ export default {
     accelerate: '時間加速',
     overheat: '過熱',
     enrage: '狂怒',
-    ambush: '伏擊'
+    ambush: '伏擊',
+    elixirMight: '力量靈藥',
+    elixirIron: '鐵膚',
+    elixirSwift: '迅捷',
+    elixirMind: '清心',
+    elixirVigor: '活力',
+    elixirShadow: '渴血之刃'
   },
   toast: {
     item: '獲得：{item}',
@@ -1117,6 +1125,9 @@ export default {
     },
     sbMasterBlood: {
       name: '維斯珀·克里姆森利夫'
+    },
+    sbAlchemist: {
+      name: '「蕨笛」奧迪爾'
     }
   },
   quest: {
@@ -1355,7 +1366,8 @@ export default {
       mana: '你這裡有補魔力的東西嗎？',
       who: '冒昧問一下，你是誰？',
       rumor: '最近有聽到什麼消息嗎？',
-      ready: '你覺得我可以學更多了嗎？'
+      ready: '你覺得我可以學更多了嗎？',
+      brew: '可以幫我熬點什麼嗎？'
     },
     sunfordSmith: {
       hello: {
@@ -3198,6 +3210,37 @@ export default {
         '1': '奧克赫文傳來的消息不妙。強盜都打到城牆下了。',
         '2': '那駁船就會改來這裡了。真是可憐人。'
       }
+    },
+    sbAlchemist: {
+      hello: {
+        '1': '哎呀！小心那些罐子。那個會咬人。好啦，是輕輕啃一下。',
+        '2': '我是「蕨笛」奧迪爾，鍊金術士。幫我帶草藥來，我就幫你裝一瓶小小的勇氣。'
+      },
+      again: {
+        '1': '你回來啦！有沒有幫我帶點綠色的東西？'
+      },
+      brew: {
+        '1': '讓我看看你的小袋子。哇，真不錯。挑你想要的，我去燒水。'
+      },
+      who: {
+        '1': '我用一朵雛菊把我媽媽的花園點著了。誰也解釋不了，所以我只好自己去學。'
+      },
+      herbs: {
+        '1': '在野外，你戰鬥的地方到處都有。從植物上走過去，它就歸你了。',
+        '2': '稀有的長在更遠的地方。月鈴花和影棘藏在樹林後面。',
+        say: '去哪裡找草藥？'
+      },
+      elixirs: {
+        '1': '每一種都能讓你在戰鬥中變強整整一分鐘。打得更狠，皮更硬，腳更快。',
+        '2': '它們放在你的第三個藥瓶裡。點一下小箭頭，就能換要喝的那種。',
+        say: '靈藥有什麼用？'
+      },
+      brewBack: {
+        '1': '小心，還熱著呢。袋子裝滿了再來找我！'
+      },
+      bye: {
+        '1': '再見啦！看到紫色的花就摘兩朵。一朵給我。'
+      }
     }
   },
   enemy: {
@@ -3370,7 +3413,9 @@ export default {
       character: '英雄',
       inventory: '背包',
       skills: '技能',
-      roll: '翻滾'
+      roll: '翻滾',
+      elixir: '喝靈藥',
+      elixirNext: '下一種靈藥'
     },
     difficulties: {
       easy: '簡單',
@@ -3606,5 +3651,46 @@ export default {
     waiting: '商隊在等你。',
     arrived: '商隊平安抵達！',
     lost: '商隊覆沒了……'
+  },
+  elixir: {
+    might: {
+      name: '力量靈藥',
+      desc: '一分鐘內傷害 +{n}%'
+    },
+    iron: {
+      name: '鐵膚藥劑',
+      desc: '一分鐘內護甲 +{n}%'
+    },
+    swift: {
+      name: '迅捷補劑',
+      desc: '一分鐘內移動速度和攻擊速度 +{n}%'
+    },
+    mind: {
+      name: '清心藥湯',
+      desc: '一分鐘內技能冷卻加快 {n}%'
+    },
+    vigor: {
+      name: '活力靈藥',
+      desc: '一分鐘內每秒恢復 {n}% 生命'
+    },
+    shadow: {
+      name: '渴血藥劑',
+      desc: '一分鐘內攻擊按傷害的 {n}% 為你回血'
+    }
+  },
+  alchemy: {
+    talk: '草藥放進去，靈藥倒出來。我們來熬哪一種？',
+    lead: '每種靈藥在戰鬥中生效一分鐘。用第三個藥瓶來喝。每種最多帶 {n} 瓶。',
+    brew: '熬製 · {n}',
+    carry: '帶上這個',
+    carried: '已裝進藥瓶',
+    count: '{n} / {max}',
+    herb: '{plant}：{have}/{n}',
+    done: '熬好了！',
+    why: {
+      full: '這種你已經帶滿了。',
+      herbs: '草藥不夠。去野外多採一些。',
+      gold: '金幣不夠。'
+    }
   }
 }

@@ -30,7 +30,9 @@ export default {
     manaPotion: 'Manaeliksir ({n} igjen)',
     groups: '{n} av {total} fiendegrupper beseiret',
     wave: 'Bølge {n} / {total}',
-    roll: 'Rulle'
+    roll: 'Rulle',
+    elixir: '{name} ({n} igjen)',
+    elixirNext: 'Neste eliksir'
   },
   menu: {
     map: 'Verdenskart',
@@ -87,7 +89,13 @@ export default {
     accelerate: 'Akselerert',
     overheat: 'Overopphetet',
     enrage: 'Rasende',
-    ambush: 'Bakhold'
+    ambush: 'Bakhold',
+    elixirMight: 'Styrkeeliksir',
+    elixirIron: 'Jernhud',
+    elixirSwift: 'Hurtighet',
+    elixirMind: 'Klart sinn',
+    elixirVigor: 'Livskraft',
+    elixirShadow: 'Tørstende klinge'
   },
   toast: {
     item: 'Fant: {item}',
@@ -1117,6 +1125,9 @@ export default {
     },
     sbMasterBlood: {
       name: 'Vesper Karmosinblad'
+    },
+    sbAlchemist: {
+      name: 'Odile Bregnefløyte'
     }
   },
   quest: {
@@ -1355,7 +1366,8 @@ export default {
       mana: 'Har du noe til mana?',
       who: 'Hvem er du, hvis jeg får spørre?',
       rumor: 'Hørt noe nytt?',
-      ready: 'Tror du jeg er klar for mer?'
+      ready: 'Tror du jeg er klar for mer?',
+      brew: 'Kan du brygge noe til meg?'
     },
     sunfordSmith: {
       hello: {
@@ -3198,6 +3210,37 @@ export default {
         '1': 'Nyhetene fra Oakhaven er dårlige. Banditter ved murene.',
         '2': 'Da kommer lekterne hit i stedet. Stakkars folk.'
       }
+    },
+    sbAlchemist: {
+      hello: {
+        '1': 'Å! Pass på krukkene. Den der biter. Altså, den napper.',
+        '2': 'Odile Bregnefløyte, alkymist. Gi meg urter, så tapper jeg litt mot på flaske til deg.'
+      },
+      again: {
+        '1': 'Du er tilbake! Har du med noe grønt til meg?'
+      },
+      brew: {
+        '1': 'La meg se posen din. Å, så fint. Velg det du vil ha, så setter jeg på kjelen.'
+      },
+      who: {
+        '1': 'Jeg satte fyr på mammas hage med en tusenfryd. Ingen kunne forklare det, så jeg måtte lære meg det.'
+      },
+      herbs: {
+        '1': 'Ute i villmarken, overalt der du kjemper. Bare gå over en plante, så er den din.',
+        '2': 'De sjeldne vokser lenger ute. Måneklokker og skyggetorn gjemmer seg bortenfor skogen.',
+        say: 'Hvor finner jeg urter?'
+      },
+      elixirs: {
+        '1': 'Hver av dem gjør deg sterkere i en kamp i et helt minutt. Hardere slag, tøffere hud, kjappere føtter.',
+        '2': 'De ligger i den tredje flasken din. Trykk på den lille pilen for å bytte hvilken du drikker.',
+        say: 'Hva gjør eliksirene?'
+      },
+      brewBack: {
+        '1': 'Forsiktig med dem, de er fortsatt varme. Kom tilbake når posen din er full!'
+      },
+      bye: {
+        '1': 'Ha det! Ser du en lilla blomst, så plukk to. Én til meg.'
+      }
     }
   },
   enemy: {
@@ -3370,7 +3413,9 @@ export default {
       character: 'Helt',
       inventory: 'Sekk',
       skills: 'Ferdigheter',
-      roll: 'Rulle'
+      roll: 'Rulle',
+      elixir: 'Drikk eliksir',
+      elixirNext: 'Neste eliksir'
     },
     difficulties: {
       easy: 'Lett',
@@ -3606,5 +3651,46 @@ export default {
     waiting: 'Karavanen venter på deg.',
     arrived: 'Karavanen kom fram!',
     lost: 'Karavanen gikk tapt…'
+  },
+  elixir: {
+    might: {
+      name: 'Styrkeeliksir',
+      desc: '+{n}% skade i ett minutt'
+    },
+    iron: {
+      name: 'Jernhudsdrikk',
+      desc: '+{n}% rustning i ett minutt'
+    },
+    swift: {
+      name: 'Hurtighetstonikk',
+      desc: '+{n}% fart og angrepsfart i ett minutt'
+    },
+    mind: {
+      name: 'Klarsinnsbrygg',
+      desc: 'Ferdigheter kommer {n}% raskere tilbake i ett minutt'
+    },
+    vigor: {
+      name: 'Livskrafteliksir',
+      desc: 'Helbreder {n}% av livet ditt hvert sekund i ett minutt'
+    },
+    shadow: {
+      name: 'Tørstende drikk',
+      desc: 'Treffene dine helbreder deg for {n}% av skaden i ett minutt'
+    }
+  },
+  alchemy: {
+    talk: 'Urter inn, eliksirer ut. Hvilken skal vi brygge?',
+    lead: 'Hver eliksir virker i ett minutt i en kamp. Drikk den fra den tredje flasken din. Du kan bære {n} av hver.',
+    brew: 'Brygg · {n}',
+    carry: 'Bær denne',
+    carried: 'I flasken din',
+    count: '{n} / {max}',
+    herb: '{plant}: {have} av {n}',
+    done: 'Brygget!',
+    why: {
+      full: 'Du bærer allerede så mange av denne som du kan.',
+      herbs: 'Ikke nok urter. Plukk flere i villmarken.',
+      gold: 'Ikke nok gull.'
+    }
   }
 }

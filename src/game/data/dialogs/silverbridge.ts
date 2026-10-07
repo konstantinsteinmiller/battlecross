@@ -1,6 +1,6 @@
 import { conversation } from '../../dialog/build'
 import type { ConversationDef } from '../../dialog/types'
-import { heal, mana, news, ready, rumor, trade, train, who } from './shared'
+import { brew, heal, mana, news, ready, rumor, trade, train, who } from './shared'
 
 /**
  * Silverbridge: a busy river trade town built on an old stone bridge. A master
@@ -47,6 +47,23 @@ const sbHealer = conversation('sbHealer', {
   ],
   back: { healer: [{ id: 'healBack' }] },
   bye: [{ id: 'bye', mood: 'amused' }]
+})
+
+/** Odile Fernwhistle: the alchemist (#87). Herbs in her hair, ink on her nose, delighted by everything that grows. */
+const sbAlchemist = conversation('sbAlchemist', {
+  name: 'npc.sbAlchemist.name', look: 'sbAlchemist', mood: 'excited',
+  greet: [
+    { id: 'hello', when: { met: false }, lines: 'nn' },
+    { id: 'again', mood: 'warm' }
+  ],
+  topics: [
+    brew(),
+    who({ mood: 'amused' }),
+    { id: 'herbs', lines: 'nn' },
+    { id: 'elixirs', lines: 'nn' }
+  ],
+  back: { alchemy: [{ id: 'brewBack' }] },
+  bye: [{ id: 'bye' }]
 })
 
 /** Greta Ironvein: armour from the mountains, opinions free of charge. */
@@ -241,7 +258,7 @@ const sbMasterBlood = conversation('sbMasterBlood', {
 })
 
 export const SILVERBRIDGE_TALK: ConversationDef[] = [
-  mayorBrenna, sbHealer, sbArmorer, sbWeapons, sbJeweler,
+  mayorBrenna, sbHealer, sbAlchemist, sbArmorer, sbWeapons, sbJeweler,
   sbMasterAegis, sbMasterPyro, sbMasterShadow, sbMasterSovereign, sbMasterGeo, sbMasterAether,
   sbMasterChrono, sbMasterBlood
 ]

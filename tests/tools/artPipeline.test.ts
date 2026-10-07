@@ -678,9 +678,9 @@ describe('the slicer knows a painting by its name, and only by its name', () => 
 
   it('refuses an unknown stem instead of matching it by shape', () => {
     const targets = buildTargets(sheetIndex())
-    // Thirteen sheets are 1024x768 (six of items, seven of icons) and nine
+    // Fourteen sheets are 1024x768 (six of items, eight of icons) and nine
     // are 768x576: shape says nothing.
-    expect(targets.filter(t => t.width === 1024 && t.height === 768)).toHaveLength(13)
+    expect(targets.filter(t => t.width === 1024 && t.height === 768)).toHaveLength(14)
     expect(targets.filter(t => t.width === 768 && t.height === 576 && t.kind === 'cells')).toHaveLength(9)
     for (const name of [
       'Gemini_Generated_Image_abc123.png', // a download nobody renamed

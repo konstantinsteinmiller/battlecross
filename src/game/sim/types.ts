@@ -78,6 +78,8 @@ export type StatusId =
   // Good
   | 'haste' | 'attackSpeed' | 'damageUp' | 'defenseUp' | 'regen' | 'lifestealUp' | 'invulnerable' | 'unkillable'
   | 'stealth' | 'reflect' | 'envenom' | 'exosuit' | 'focus' | 'accelerate' | 'overheat' | 'enrage' | 'ambush'
+  // The alchemist's elixirs (`data/elixirs.ts`): each its own, so it adds to a skill's buff
+  | 'elixirMight' | 'elixirIron' | 'elixirSwift' | 'elixirMind' | 'elixirVigor' | 'elixirShadow'
 
 export interface Status {
   id: StatusId
@@ -413,7 +415,7 @@ export type SimEvent =
   | { t: 'overheat'; on: boolean }
   | { t: 'denied'; why: 'mana' | 'cooldown' | 'range' | 'target' | 'locked' | 'hp' }
   /** A potion is drunk: the health one, or (`mana`) a mana potion. */
-  | { t: 'potion'; mana?: boolean }
+  | { t: 'potion'; mana?: boolean; elixir?: boolean }
   | { t: 'victory' }
   | { t: 'defeat' }
 

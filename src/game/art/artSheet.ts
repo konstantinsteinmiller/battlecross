@@ -504,9 +504,11 @@ const iconSet = (stem: string, title: string, cells: SheetCell[], cols: number, 
 /** The icon sheets, in the order to paint them: what stands out most first. */
 export const ICON_SETS: readonly ArtSet[] = [
   iconSet('sheet-icons-classes', 'Icons: class emblems', classCells, 3, 3, 128),
-  iconSet('sheet-icons-status-1', 'Icons: status effects (1 of 3)', statusCells.slice(0, 12), 4, 3, 96),
-  iconSet('sheet-icons-status-2', 'Icons: status effects (2 of 3)', statusCells.slice(12, 24), 4, 3, 96),
-  iconSet('sheet-icons-status-3', 'Icons: status effects (3 of 3)', statusCells.slice(24), 4, 3, 96),
+  iconSet('sheet-icons-status-1', 'Icons: status effects (1 of 4)', statusCells.slice(0, 12), 4, 3, 96),
+  iconSet('sheet-icons-status-2', 'Icons: status effects (2 of 4)', statusCells.slice(12, 24), 4, 3, 96),
+  iconSet('sheet-icons-status-3', 'Icons: status effects (3 of 4)', statusCells.slice(24, 36), 4, 3, 96),
+  // The alchemist's elixirs (#87) and what comes after them.
+  iconSet('sheet-icons-status-4', 'Icons: status effects (4 of 4)', statusCells.slice(36), 4, 3, 96),
   iconSet('sheet-icons-ui-1', 'Icons: HUD and menu buttons', uiCells.slice(0, 12), 4, 3, 96),
   iconSet('sheet-icons-ui-2', 'Icons: screen buttons', uiCells.slice(12, 24), 4, 3, 96),
   iconSet('sheet-icons-ui-3', 'Icons: badges, pins and help', uiCells.slice(24, 36), 4, 3, 96),

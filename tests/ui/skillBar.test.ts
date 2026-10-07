@@ -9,7 +9,7 @@ import { nextTick } from 'vue'
 
 const input = vi.hoisted(() => ({
   touched: false, anyPressed: false, device: 'touch',
-  potionQueued: false, manaPotionQueued: false, rollQueued: false,
+  potionQueued: false, manaPotionQueued: false, elixirQueued: false, elixirNextQueued: false, rollQueued: false,
   skillTap: -1, aimSlot: -1, aimLive: false, aimX: 0, aimY: 0, aimDrop: -1, aimDropX: 0, aimDropY: 0
 }))
 vi.mock('@/game/boot', () => ({ input }))
@@ -37,6 +37,10 @@ beforeEach(() => {
   hud.manaPotions = 2
   hud.manaPotionMax = 3
   hud.manaPotionReady = true
+  hud.elixir = ''
+  hud.elixirs = 0
+  hud.elixirKinds = 0
+  hud.elixirReady = true
   input.potionQueued = false
   input.manaPotionQueued = false
   input.skillTap = -1
@@ -117,6 +121,28 @@ describe('SkillBar', () => {
     await b.trigger('pointerdown')
     expect(input.rollQueued).toBe(true)
     input.rollQueued = false
+  })
+})
+
+describe('SkillBar: the elixir flask (roadmap #87)', () => {
+  it('is there only while an elixir is carried; a tap drinks, its arrow turns it when there is more than one kind', async () => {
+    const w = mount(SkillBar)
+    expect(w.find('[data-elixir]').exists()).toBe(false)
+    hud.elixir = 'might'
+    hud.elixirs = 2
+    hud.elixirKinds = 1
+    await nextTick()
+    const f = w.find('[data-elixir]')
+    expect(f.classes()).toEqual(expect.arrayContaining(['slot', 'slot--potion', 'slot--elixir', 'is-ready']))
+    expect(f.find('.slot__count').text()).toBe('2')
+    expect(f.find('.slot__swap').exists()).toBe(false)
+    expect(w.findAll('.slot')).toHaveLength(9)
+    await f.find('.slot__hit').trigger('pointerdown', { pointerType: 'touch' })
+    expect(input.elixirQueued).toBe(true)
+    hud.elixirKinds = 2
+    await nextTick()
+    await w.find('[data-elixir] .slot__swap').trigger('pointerdown', { pointerType: 'touch' })
+    expect(input.elixirNextQueued).toBe(true)
   })
 })
 

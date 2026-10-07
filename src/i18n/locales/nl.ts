@@ -30,7 +30,9 @@ export default {
     manaPotion: 'Manadrank (nog {n})',
     groups: '{n} van {total} vijandelijke groepen verslagen',
     wave: 'Golf {n} / {total}',
-    roll: 'Ontwijrol'
+    roll: 'Ontwijrol',
+    elixir: '{name} (nog {n})',
+    elixirNext: 'Volgend elixer'
   },
   menu: {
     map: 'Wereldkaart',
@@ -87,7 +89,13 @@ export default {
     accelerate: 'Versneld',
     overheat: 'Oververhit',
     enrage: 'Woedend',
-    ambush: 'Hinderlaag'
+    ambush: 'Hinderlaag',
+    elixirMight: 'Elixer van kracht',
+    elixirIron: 'IJzerhuid',
+    elixirSwift: 'Vlugheid',
+    elixirMind: 'Heldere geest',
+    elixirVigor: 'Levenskracht',
+    elixirShadow: 'Dorstige kling'
   },
   toast: {
     item: 'Gevonden: {item}',
@@ -1118,6 +1126,9 @@ export default {
     },
     sbMasterBlood: {
       name: 'Vesper Karmijnblad'
+    },
+    sbAlchemist: {
+      name: 'Odile Varenfluit'
     }
   },
   quest: {
@@ -1356,7 +1367,8 @@ export default {
       mana: 'Heb je iets voor mana?',
       who: 'Wie ben jij, als ik dat mag vragen?',
       rumor: 'Nog nieuws gehoord?',
-      ready: 'Denk je dat ik klaar ben voor meer?'
+      ready: 'Denk je dat ik klaar ben voor meer?',
+      brew: 'Kun je iets voor me brouwen?'
     },
     sunfordSmith: {
       hello: {
@@ -3206,6 +3218,37 @@ export default {
         '1': 'Slecht nieuws uit Oakhaven. Bandieten bij de muren.',
         '2': 'Dan komen de aken hierheen. Arme mensen.'
       }
+    },
+    sbAlchemist: {
+      hello: {
+        '1': 'Oh! Pas op voor de potten. Die daar bijt. Nou ja, hij knabbelt.',
+        '2': 'Odile Varenfluit, alchemist. Breng me kruiden en ik doe wat moed voor je in een flesje.'
+      },
+      again: {
+        '1': 'Je bent terug! Heb je iets groens voor me meegebracht?'
+      },
+      brew: {
+        '1': 'Laat je buidel eens zien. Ooh, prachtig. Kies maar wat je wilt, dan zet ik de ketel op.'
+      },
+      who: {
+        '1': 'Ik heb met een madeliefje de tuin van mijn moeder in brand gestoken. Niemand kon het verklaren, dus moest ik het zelf leren.'
+      },
+      herbs: {
+        '1': 'Buiten in het wild, overal waar je vecht. Loop gewoon over een plant en hij is van jou.',
+        '2': 'De zeldzame groeien verder weg. Maanklokjes en schaduwdoorn verstoppen zich voorbij het bos.',
+        say: 'Waar vind ik kruiden?'
+      },
+      elixirs: {
+        '1': 'Elk elixer maakt je een hele minuut sterker in een gevecht. Hardere klappen, taaiere huid, snellere voeten.',
+        '2': 'Ze zitten in je derde fles. Tik op het pijltje om te wisselen welke je drinkt.',
+        say: 'Wat doen de elixers?'
+      },
+      brewBack: {
+        '1': 'Voorzichtig, ze zijn nog warm. Kom terug als je buidel vol is!'
+      },
+      bye: {
+        '1': 'Doei! Zie je een paarse bloem, pluk er dan twee. Eentje voor mij.'
+      }
     }
   },
   enemy: {
@@ -3378,7 +3421,9 @@ export default {
       character: 'Held',
       inventory: 'Tas',
       skills: 'Vaardigheden',
-      roll: 'Ontwijrol'
+      roll: 'Ontwijrol',
+      elixir: 'Elixer drinken',
+      elixirNext: 'Volgend elixer'
     },
     difficulties: {
       easy: 'Makkelijk',
@@ -3614,5 +3659,46 @@ export default {
     waiting: 'De karavaan wacht op je.',
     arrived: 'De karavaan is aangekomen!',
     lost: 'De karavaan is verloren…'
+  },
+  elixir: {
+    might: {
+      name: 'Elixer van kracht',
+      desc: '+{n}% schade, een minuut lang'
+    },
+    iron: {
+      name: 'IJzerhuiddrank',
+      desc: '+{n}% pantser, een minuut lang'
+    },
+    swift: {
+      name: 'Vlugheidstonicum',
+      desc: '+{n}% snelheid en aanvalssnelheid, een minuut lang'
+    },
+    mind: {
+      name: 'Brouwsel van heldere geest',
+      desc: 'Vaardigheden laden een minuut lang {n}% sneller op'
+    },
+    vigor: {
+      name: 'Levenskrachtelixer',
+      desc: 'Herstelt een minuut lang elke seconde {n}% van je leven'
+    },
+    shadow: {
+      name: 'Dorstige drank',
+      desc: 'Je treffers genezen je een minuut lang voor {n}% van hun schade'
+    }
+  },
+  alchemy: {
+    talk: 'Kruiden erin, elixers eruit. Welke gaan we brouwen?',
+    lead: 'Elk elixer werkt een minuut lang in een gevecht. Drink het uit je derde fles. Je kunt er {n} van elk dragen.',
+    brew: 'Brouwen · {n}',
+    carry: 'Meenemen',
+    carried: 'In je fles',
+    count: '{n} / {max}',
+    herb: '{plant}: {have} van {n}',
+    done: 'Gebrouwen!',
+    why: {
+      full: 'Hiervan draag je al zoveel als je kunt.',
+      herbs: 'Niet genoeg kruiden. Pluk er meer in het wild.',
+      gold: 'Niet genoeg goud.'
+    }
   }
 }

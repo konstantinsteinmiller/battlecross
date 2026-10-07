@@ -101,6 +101,8 @@ export const LOOKS: Readonly<Record<string, Look>> = {
   // The mayor: river-blue robe, silver trim, a ledger under her arm.
   mayorBrenna: L({ skin: '#e8b890', top: '#2f6f9a', bottom: '#2a3a54', head: 'bun', hair: '#7a3a24', outfit: 'robe', held: 'none', off: 'tome', trim: '#d8dde8', cape: '#1f4a6a' }),
   // The healer: a monk's pale robe, a fringe of brown hair, a calm green orb.
+  // The alchemist: a moss-green apron over a lilac dress, a bun of red hair stuck with herbs, a bubbling flask.
+  sbAlchemist: L({ skin: '#f2c8a0', top: '#8a6ab8', bottom: '#4a6a3a', head: 'bun', hair: '#d8583a', outfit: 'apron', held: 'flask', off: 'tome', trim: '#9ef06a', glow: '#9ef06a' }),
   sbHealer: L({ skin: '#e2b08a', top: '#e8eef4', bottom: '#9fb4c8', head: 'bald', outfit: 'robe', held: 'none', off: 'orb', trim: '#4f9fd6', beard: '#7a5a3a', glow: '#8dff9a' }),
   // The armourer: a sturdy mountain woman in a leather apron, red hair tied up, a hammer.
   sbArmorer: L({ skin: '#e2a888', top: '#7a3a2a', bottom: '#4a3424', head: 'bun', hair: '#c9483a', outfit: 'apron', held: 'hammer', trim: '#c9a24a', bulk: 1.15, metal: '#b9c4d6' }),

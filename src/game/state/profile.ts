@@ -18,6 +18,7 @@ import { ACTIVE_SLOTS, PASSIVE_SLOTS, SKILL_BY_ID, meetsSkill, priceOf as skillP
 import { EQUIP_SLOTS, ITEM_BY_ID, noGear, priceOf as itemPriceOf, sellValue, slotOf, type EquipSlot } from '../data/items'
 import { FORGE_MAX, forgeCost } from '../data/forge'
 import { HERB_CAP, isPlant } from '../data/plants'
+import { ELIXIR_BY_ID, ELIXIR_CAP, ELIXIR_IDS, brewFee, isElixir, type ElixirId } from '../data/elixirs'
 import { ESCORT_PAY, TASK_XP, countTaskDeeds, postTasks, taskGold, type TaskDeeds, type TownTask } from '../townTasks'
 import { errandDef, type ErrandDef, type ErrandReward } from '../data/errands'
 import { countTalk, countVisit, errandState, handInCost, settle, type ErrandDeeds, type ErrandSave, type ErrandState, type ErrandWorld } from '../errands'
@@ -79,6 +80,10 @@ export interface InventorySave {
   upgrades: Record<string, number>
   /** The herb pouch: how many of each plant (roadmap #88), up to HERB_CAP. */
   herbs: Record<string, number>
+  /** Elixirs brewed by the alchemist (roadmap #87), up to ELIXIR_CAP of each,
+   *  and the one the third flask pours ('' when none is carried). */
+  elixirs: Record<string, number>
+  elixirPick: string
 }
 
 export interface QuestSave {
@@ -236,7 +241,9 @@ const defaultInv = (): InventorySave => ({
   potions: 3,
   manaPotions: 0,
   upgrades: {},
-  herbs: {}
+  herbs: {},
+  elixirs: {},
+  elixirPick: ''
 })
 
 const defaults = (): Profile => ({
@@ -337,6 +344,14 @@ export const loadProfile = (): void => {
     const n = Math.round(num(v, 0))
     if (isPlant(id) && n > 0) inv.herbs[id] = Math.min(HERB_CAP, n)
   }
+  // A save from before the alchemist has no elixirs; only the six he brews.
+  const elix = obj(inv.elixirs, {}) as Record<string, unknown>
+  inv.elixirs = {}
+  for (const [id, v] of Object.entries(elix)) {
+    const n = Math.round(num(v, 0))
+    if (isElixir(id) && n > 0) inv.elixirs[id] = Math.min(ELIXIR_CAP, n)
+  }
+  inv.elixirPick = typeof inv.elixirPick === 'string' && (inv.elixirs[inv.elixirPick] ?? 0) > 0 ? inv.elixirPick : firstElixir(inv.elixirs)
   profile.inv = inv
 
   const quests = obj(stored(QUESTS_KEY), d.quests)
@@ -1065,6 +1080,51 @@ export const spendHerbs = (want: Readonly<Record<string, number>>): boolean => {
     else delete profile.inv.herbs[id]
   }
   return true
+}
+
+// ─── Elixirs (roadmap #87, D104) ──────────────────────────────────────────────
+
+/** The first elixir carried, in the alchemist's order ('' when none). */
+const firstElixir = (have: Readonly<Record<string, number>>): string => ELIXIR_IDS.find(id => (have[id] ?? 0) > 0) ?? ''
+
+/** How many of an elixir the hero carries. */
+export const elixirCount = (id: string): number => profile.inv.elixirs[id] ?? 0
+
+/** Why the alchemist cannot brew this one now ('' when he can). */
+export const brewBlock = (id: ElixirId): '' | 'full' | 'herbs' | 'gold' => {
+  if (elixirCount(id) >= ELIXIR_CAP) return 'full'
+  if (Object.entries(ELIXIR_BY_ID[id].recipe).some(([p, n]) => herbCount(p) < (n ?? 0))) return 'herbs'
+  if (profile.gold < brewFee(profile.level)) return 'gold'
+  return ''
+}
+
+/** Brew one: the herbs and the fee for a flask. The first one brewed is the one carried. */
+export const brewElixir = (id: ElixirId): boolean => {
+  if (brewBlock(id)) return false
+  spendHerbs(ELIXIR_BY_ID[id].recipe as Record<string, number>)
+  profile.gold -= brewFee(profile.level)
+  profile.inv.elixirs[id] = elixirCount(id) + 1
+  if (!profile.inv.elixirPick) profile.inv.elixirPick = id
+  saveProfile()
+  return true
+}
+
+/** The elixir the third flask pours. */
+export const pickElixir = (id: ElixirId): void => {
+  if (elixirCount(id) <= 0) return
+  profile.inv.elixirPick = id
+  saveProfile()
+}
+
+/** The elixirs as a visit leaves them (some drunk), and the one it ended on. */
+export const setElixirs = (have: Readonly<Record<string, number>>, pick: string): void => {
+  const out: Record<string, number> = {}
+  for (const id of ELIXIR_IDS) {
+    const n = Math.max(0, Math.min(ELIXIR_CAP, Math.round(have[id] ?? 0)))
+    if (n > 0) out[id] = n
+  }
+  profile.inv.elixirs = out
+  profile.inv.elixirPick = (out[pick] ?? 0) > 0 ? pick : firstElixir(out)
 }
 
 // ─── Upgrades (roadmap #90, D99) ──────────────────────────────────────────────

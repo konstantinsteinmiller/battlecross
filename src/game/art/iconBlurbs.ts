@@ -109,7 +109,13 @@ export const STATUS_BLURBS: Readonly<Record<string, string>> = {
   accelerate: 'a white round clock face with two small fast-forward triangles at its lower right',
   overheat: 'a glass thermometer full of red liquid',
   enrage: 'a round red cartoon face with angry slanted brows and two dot eyes',
-  ambush: 'a white cartoon skull seen from the front'
+  ambush: 'a white cartoon skull seen from the front',
+  elixirMight: 'a round glass flask of glowing orange-red liquid with a small white sword on the glass',
+  elixirIron: 'a round glass flask of silver-grey liquid with a small white shield on the glass',
+  elixirSwift: 'a round glass flask of bright green liquid with two small white arrowheads pointing right on the glass',
+  elixirMind: 'a round glass flask of pale blue liquid with a small white clock face on the glass',
+  elixirVigor: 'a round glass flask of pink liquid with a small white heart on the glass',
+  elixirShadow: 'a round glass flask of violet liquid with a small white droplet on the glass'
 }
 
 /**
