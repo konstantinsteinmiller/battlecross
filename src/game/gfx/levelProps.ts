@@ -115,6 +115,9 @@ const CHEST_LOOK: Record<ChestTier, ChestLook> = {
   gold: { body: '#d48a14', body2: '#f0a81e', trim: '#fff6c0', lock: '#ffffff', gem: '#ff3a5a', glow: '#fff2a8', scale: 1.42 }
 }
 const CHEST_RING: Record<ChestTier, string> = { wood: '#ffd84a', iron: '#9fdcff', gold: '#ffe9a8' }
+/** An opened chest's inner light holds this long, then sinks away over GLOW_FADE (s). */
+export const GLOW_HOLD = 0.9
+export const GLOW_FADE = 0.8
 
 interface ChestGeo { base: BufferGeometry; lid: BufferGeometry; glow: BufferGeometry }
 const chestGeo = (tier: ChestTier): ChestGeo => {
@@ -948,7 +951,11 @@ export class LevelProps {
         const k = Math.min(1, v.popT / 0.5)
         angle -= Math.sin(k * Math.PI) * 0.34 * (1 - k)
         squash = 1 + Math.sin(Math.min(1, v.popT / 0.28) * Math.PI) * 0.16
-        v.glow.scale.setScalar(1 + Math.sin(this.time * 7) * 0.05)
+        // The light of what was inside goes with it: an open chest is empty
+        // (roadmap #78 — a heap glowing on forever read as loot left behind).
+        const left = 1 - Math.min(1, Math.max(0, (v.popT - GLOW_HOLD) / GLOW_FADE))
+        if (left <= 0) v.glow.visible = false
+        else v.glow.scale.set(1 + Math.sin(this.time * 7) * 0.05, left, 1 + Math.sin(this.time * 7) * 0.05)
       } else if (v.aim > 0) {
         // Something stirs inside: the lid rattles as it starts to lift.
         v.liftT += dt

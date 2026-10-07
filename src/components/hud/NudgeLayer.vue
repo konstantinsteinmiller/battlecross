@@ -1,6 +1,6 @@
 <template lang="pug">
   //- The nudges drawn over the screen (`game/coach/nudge.ts`): wordless, one at a time.
-  div.nudges(:class="{ 'is-idle': !onboard.nudge }" aria-hidden="true")
+  div.nudges(:class="{ 'is-idle': !onboard.nudge && !findingChest }" aria-hidden="true")
     //- The suggested road on the world map, lit for a few seconds.
     svg.nudges__lines
       path.nudges__road(ref="roadEl")
@@ -34,7 +34,7 @@
  */
 import { computed, onMounted, onUnmounted, ref } from 'vue'
 import { onboard } from '@/game/coach/state'
-import { nudgeWorld } from '@/game/coach/world'
+import { finder, nudgeWorld } from '@/game/coach/world'
 import { profile } from '@/game/state/profile'
 import { MAP, type NodeId } from '@/game/data/zones'
 import { isNodeOpen } from '@/game/state/profile'
@@ -47,7 +47,11 @@ const roadEl = ref<SVGPathElement | null>(null)
 const edgeEl = ref<HTMLElement | null>(null)
 const wayEl = ref<HTMLElement | null>(null)
 
+/** The disc points at the chest the counter by Leave asked for (roadmap #79). */
+const findingChest = ref(false)
+let findFade = 0
 const edgeIcon = computed<GameIconName>(() => {
+  if (findingChest.value) return 'chest'
   const g = onboard.goal?.id
   return g === 'boss' ? 'skull' : g === 'trainer' ? 'chat' : 'sword'
 })
@@ -87,6 +91,40 @@ const roadTo = (place: string): Pt[] => {
 
 const hide = (el: HTMLElement | SVGElement | null): void => { if (el) el.style.opacity = '0' }
 
+/** Stand the edge disc on the way from the hero to a point on the screen (tx, ty). */
+const placeEdge = (edge: HTMLElement, tx: number, ty: number, k01: number): void => {
+  const w = innerWidth
+  const h = innerHeight
+  const cx = w / 2
+  const cy = h / 2
+  const dx = tx - nudgeWorld.hx
+  const dy = ty - nudgeWorld.hy
+  const ang = Math.atan2(dy, dx)
+  // Out from the middle along the way to the goal, stopped at a margin
+  // inside the screen and clear of the HUD's top and bottom rows.
+  const top = (document.querySelector('.hud__top')?.getBoundingClientRect().bottom ?? h * 0.2) + 36
+  const bottom = Math.min(document.querySelector('.hud__br')?.getBoundingClientRect().top ?? h * 0.78, document.querySelector('.hud__bl')?.getBoundingClientRect().top ?? h * 0.78) - 36
+  const m = Math.min(w, h) * 0.1
+  const kx = Math.abs(Math.cos(ang)) > 1e-3 ? (w / 2 - m) / Math.abs(Math.cos(ang)) : Infinity
+  const ky = Math.abs(Math.sin(ang)) > 1e-3 ? (h / 2 - m) / Math.abs(Math.sin(ang)) : Infinity
+  const k = Math.min(kx, ky)
+  const x = cx + Math.cos(ang) * k
+  let y = Math.max(Math.min(top, bottom), Math.min(Math.max(top, bottom), cy + Math.sin(ang) * k))
+  let xx = x
+  // On a short screen the band is narrow: never over the hero himself —
+  // slide sideways, the way the goal lies, until he is clear.
+  const clear = Math.min(w, h) * 0.24
+  if (Math.hypot(xx - nudgeWorld.hx, y - nudgeWorld.hy) < clear) {
+    const side = Math.cos(ang) >= 0 ? 1 : -1
+    xx = Math.max(m, Math.min(w - m, nudgeWorld.hx + side * clear))
+    if (Math.hypot(xx - nudgeWorld.hx, y - nudgeWorld.hy) < clear * 0.8) y = Math.max(Math.min(top, bottom), nudgeWorld.hy - clear)
+  }
+  edge.style.opacity = String(k01)
+  edge.style.transform = `translate(${xx.toFixed(1)}px, ${y.toFixed(1)}px)`
+  // The pointer on its rim aims from where the disc stands to the goal.
+  edge.style.setProperty('--ang', `${Math.atan2(ty - y, tx - xx).toFixed(3)}rad`)
+}
+
 let raf = 0
 let fade = 0
 let last = 0
@@ -96,9 +134,19 @@ const frame = (): void => {
   const dt = last ? Math.min(0.1, (now - last) / 1000) : 0
   last = now
   const n = onboard.nudge
+  // Asked for: the chest the counter by Leave points to, while it is out of view.
+  const finding = finder.t > 0 && !finder.onScreen
+  if (findingChest.value !== finding) findingChest.value = finding
+  if (finding && edgeEl.value) {
+    findFade = Math.min(1, findFade + dt * 4)
+    placeEdge(edgeEl.value, finder.sx, finder.sy, findFade)
+  } else if (findFade > 0) {
+    findFade = 0
+    if (!n || n.kind !== 'edge') hide(edgeEl.value)
+  }
   if (!n) {
     unmark()
-    if (fade > 0) { fade = 0; hide(edgeEl.value); hide(wayEl.value); hide(roadEl.value) }
+    if (fade > 0) { fade = 0; if (!finding) hide(edgeEl.value); hide(wayEl.value); hide(roadEl.value) }
     roadFor = ''
     return
   }
@@ -108,39 +156,9 @@ const frame = (): void => {
 
   // ── The edge arrow ──
   const edge = edgeEl.value
-  if (edge) {
-    if (n.kind === 'edge' && nudgeWorld.has) {
-      const w = innerWidth
-      const h = innerHeight
-      const cx = w / 2
-      const cy = h / 2
-      const dx = nudgeWorld.sx - nudgeWorld.hx
-      const dy = nudgeWorld.sy - nudgeWorld.hy
-      const ang = Math.atan2(dy, dx)
-      // Out from the middle along the way to the goal, stopped at a margin
-      // inside the screen and clear of the HUD's top and bottom rows.
-      const top = (document.querySelector('.hud__top')?.getBoundingClientRect().bottom ?? h * 0.2) + 36
-      const bottom = Math.min(document.querySelector('.hud__br')?.getBoundingClientRect().top ?? h * 0.78, document.querySelector('.hud__bl')?.getBoundingClientRect().top ?? h * 0.78) - 36
-      const m = Math.min(w, h) * 0.1
-      const kx = Math.abs(Math.cos(ang)) > 1e-3 ? (w / 2 - m) / Math.abs(Math.cos(ang)) : Infinity
-      const ky = Math.abs(Math.sin(ang)) > 1e-3 ? (h / 2 - m) / Math.abs(Math.sin(ang)) : Infinity
-      const k = Math.min(kx, ky)
-      const x = cx + Math.cos(ang) * k
-      let y = Math.max(Math.min(top, bottom), Math.min(Math.max(top, bottom), cy + Math.sin(ang) * k))
-      let xx = x
-      // On a short screen the band is narrow: never over the hero himself —
-      // slide sideways, the way the goal lies, until he is clear.
-      const clear = Math.min(w, h) * 0.24
-      if (Math.hypot(xx - nudgeWorld.hx, y - nudgeWorld.hy) < clear) {
-        const side = Math.cos(ang) >= 0 ? 1 : -1
-        xx = Math.max(m, Math.min(w - m, nudgeWorld.hx + side * clear))
-        if (Math.hypot(xx - nudgeWorld.hx, y - nudgeWorld.hy) < clear * 0.8) y = Math.max(Math.min(top, bottom), nudgeWorld.hy - clear)
-      }
-      edge.style.opacity = String(fade)
-      edge.style.transform = `translate(${xx.toFixed(1)}px, ${y.toFixed(1)}px)`
-      // The pointer on its rim aims from where the disc stands to the goal.
-      edge.style.setProperty('--ang', `${Math.atan2(nudgeWorld.sy - y, nudgeWorld.sx - xx).toFixed(3)}rad`)
-    } else hide(edge)
+  if (edge && !finding) {
+    if (n.kind === 'edge' && nudgeWorld.has) placeEdge(edge, nudgeWorld.sx, nudgeWorld.sy, fade)
+    else hide(edge)
   }
 
   // ── The map: the arrow at the hero and the lit road ──

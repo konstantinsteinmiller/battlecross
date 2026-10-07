@@ -45,7 +45,7 @@ import { nearChest, orderOpen, pickChest } from '../sim/interact'
 import { hud, hudLive, pushHud, sayBark, tickHud, type SkillSlotView, type TextKind } from '../state/hud'
 import { heroBuild, loadoutActive, markTip, profile } from '../state/profile'
 import { coach } from '../coach'
-import { emitCrumbs, peekOffset } from '../coach/nudgeFx'
+import { emitCrumbs, findChest, finder, peekOffset } from '../coach/nudgeFx'
 import { isDummy, spawnDummy, stepDummy } from '../coach/dummy'
 import { markRevealUsed } from '../coach/reveal'
 import { PREVIEW_FEED } from '../previewFlags'
@@ -548,6 +548,12 @@ export class ZoneMode implements GameMode {
     if (i.manaPotionQueued && useManaPotion(sim)) { coach.use('mana'); markRevealUsed('mana') }
     if (i.targetQueued) cycleTarget(sim)
     if (i.leaveQueued && (leaveVisit(sim) || leaveLadder(sim))) sfx('uiOpen')
+    if (i.findChestQueued && findChest(sim)) {
+      // Where it is: a column of light over it, the crumbs run there, the camera leans.
+      this.vfx.pillar(finder.x, finder.z, 0.6, 6, '#ffd84a', 1.6)
+      this.vfx.ring(finder.x, finder.z, 0.3, 2.6, '#ffd84a', 0.8)
+      sfx('uiOpen')
+    }
     if (i.interactQueued) {
       const u = h.unit
       let best: Unit | undefined

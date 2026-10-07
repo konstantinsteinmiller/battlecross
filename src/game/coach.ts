@@ -11,7 +11,7 @@ import { isVeteran, revealed } from './coach/reveal'
 import { onboard, type FeatureId } from './coach/state'
 import { canLearnFrom } from './coach/goal'
 import { heroChoice } from './heroChoice'
-import { nudgeWorld, senseWorld } from './coach/world'
+import { nudgeWorld, senseFinder, senseWorld } from './coach/world'
 import type { ClassId } from './data/skills'
 
 /**
@@ -227,6 +227,8 @@ class Coach {
     for (const k in hintGeo) hintGeo[k as LessonId].on = false
     // The hero is being chosen over the opening scene: no glyph, no clock.
     if (heroChoice.open) { this.idleT = 0; nudgeWorld.has = false; this.publish([]); return }
+    // The chest the counter by Leave asked for (it is asked after the win).
+    senseFinder(host)
     if (!u.alive || sim.ended) { this.setFight(false); nudgeWorld.has = false; nudgeWorld.chest = false; this.publish([]); return }
     // Where the next objective stands, for the nudges (`coach/world.ts`).
     senseWorld(host, onboard.goal?.id ?? '')

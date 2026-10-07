@@ -1,4 +1,4 @@
-import type { ZoneId } from '../data/items'
+import { ITEM_BY_ID, sellValue, type ZoneId } from '../data/items'
 import {
   POTION_BELT_MAX, POTION_HEAL, ZONE_LOOT, finaleGold, manaPotionGold, secretGold, type ChestTable, type ChestTier
 } from '../data/loot'
@@ -41,6 +41,13 @@ export const FINALE_BEAT = 1.3
 
 const LOOT_SALT = 0x2c1b3c6d
 const SIDE_SALT = 0x71d3a4f9
+
+/** Where a chest's loot lands: in front of it, on the hero's side (roadmap #78).
+ *  The chest's own cell is solid, so a beam or a pile drawn at its centre reads
+ *  as treasure stuck inside a box the hero cannot reach. */
+export const SPILL = 0.75
+export const spillOf = (c: ChestState): { x: number; z: number } =>
+  ({ x: c.x + (c.sx - c.x) * SPILL, z: c.z + (c.sz - c.z) * SPILL })
 
 /** The save key of a one-time chest. */
 export const specialKey = (zone: string, role: string): string => zone + ':' + role
@@ -164,6 +171,7 @@ export const openChest = (sim: Sim, c: ChestState): void => {
   if (h.opening === c.id) h.opening = -1
   if (c.special) sim.specialOpened.push(c.special)
   sim.emit({ t: 'chest', id: c.id, x: c.x, z: c.z, state: 'open' })
+  const at = spillOf(c)
   const pool = c.role === 'finale' ? sim.dropTable.chest.concat(sim.dropTable.mob) : ZONE_LOOT[sim.zone as ZoneId]?.items ?? []
   // Every pile in the chest is one purse (and one number over it).
   let gold = 0
@@ -178,22 +186,28 @@ export const openChest = (sim: Sim, c: ChestState): void => {
         id = from[Math.min(from.length - 1, Math.floor(d.u * from.length))] ?? ''
       } else if (sim.owned.has(id) || h.items.includes(id)) id = ''
       if (!id) continue
+      if (sim.owned.has(id) || h.items.includes(id)) {
+        // The zone has nothing new left: the copy is worth its sale price, and
+        // is never announced as a find the bag will not hold.
+        gold += sellValue(ITEM_BY_ID[id]!)
+        continue
+      }
       h.items.push(id)
-      sim.emit({ t: 'loot', x: c.x, z: c.z, gold: 0, item: id })
+      sim.emit({ t: 'loot', x: at.x, z: at.z, gold: 0, item: id })
     } else if (d.kind === 'potion') {
       if (h.potions < POTION_BELT_MAX) {
         h.potions++
         h.potionsMax = Math.max(h.potionsMax, h.potions)
-        sim.emit({ t: 'pickup', what: 'potion', x: c.x, z: c.z })
+        sim.emit({ t: 'pickup', what: 'potion', x: at.x, z: at.z })
       } else {
         // A full belt: the potion is drunk on the spot.
         heal(sim, u, u.s.maxHp * POTION_HEAL)
-        sim.emit({ t: 'pickup', what: 'heal', x: c.x, z: c.z })
+        sim.emit({ t: 'pickup', what: 'heal', x: at.x, z: at.z })
       }
     } else if (h.manaPotions < h.manaPotionsMax) {
       // Into the stock: his to drink when he chooses, this visit or a later one.
       h.manaPotions++
-      sim.emit({ t: 'pickup', what: 'mana', x: c.x, z: c.z })
+      sim.emit({ t: 'pickup', what: 'mana', x: at.x, z: at.z })
     } else {
       // No room for it: a little gold instead, like a second copy of an item.
       gold += manaPotionGold(sim.level)
@@ -201,7 +215,7 @@ export const openChest = (sim: Sim, c: ChestState): void => {
   }
   if (gold > 0) {
     h.gold += gold
-    sim.emit({ t: 'loot', x: c.x, z: c.z, gold, item: '' })
+    sim.emit({ t: 'loot', x: at.x, z: at.z, gold, item: '' })
   }
 }
 

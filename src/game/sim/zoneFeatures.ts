@@ -1254,7 +1254,10 @@ export const addFeatures = (c: FeatureCtx): Features => {
     for (let tries = 0; tries < 10; tries++) {
       const k = int(0, midHi)
       const from = cs[k]!
-      const a = rng() * Math.PI * 2
+      // Never by the near (camera-side) wall: a chest there hides behind the
+      // clearing's edge and under the controls (roadmap #79). Mirrored up-screen.
+      let a = rng() * Math.PI * 2
+      if (Math.sin(a) > 0.2) a = -a
       const d = from.r * 0.7
       const ci = Math.round(from.i + Math.cos(a) * d)
       const cj = Math.round(from.j + Math.sin(a) * d)

@@ -6,14 +6,15 @@ import {
   SOLID_LOW, SOLID_SEALED, type Grid
 } from '@/game/sim/grid'
 import { ZONES, ZONE_FEATURES, ZONE_IDS } from '@/game/data/zones'
-import { ITEM_BY_ID, type ZoneId } from '@/game/data/items'
+import { ITEM_BY_ID, sellValue, type ZoneId } from '@/game/data/items'
 import { CHAMPION_REWARD, CHEST_TIERS, POTION_BELT_MAX, ZONE_LOOT, finaleGold, lootZoneOf, manaPotionGold } from '@/game/data/loot'
 import { Sim, SIDE_GROUP } from '@/game/sim/world'
 import { applyPlan, leaveVisit, populateZone } from '@/game/sim/director'
 import { createHero, orderAttack, orderMove, useManaPotion, POTION_CD } from '@/game/sim/hero'
 import {
-  CHEST_REACH, LEAVE_BEAT, chestLock, nearChest, openChest, orderOpen, pickChest, rollChest, specialKey
+  CHEST_REACH, LEAVE_BEAT, chestLock, nearChest, openChest, orderOpen, pickChest, rollChest, specialKey, spillOf
 } from '@/game/sim/interact'
+import { lowRingOf } from '@/game/gfx/terrain'
 import { stepSim } from '@/game/sim/step'
 import { botThink, referenceBuild, runZone, setupRun } from '@/game/sim/bot'
 import { fire } from '@/game/sim/actors'
@@ -132,6 +133,22 @@ describe('the plan: everything a visit holds can be walked to', () => {
         for (const k of cr.cells) {
           expect([K_BRIDGE, K_FORD]).toContain(plan.kind[k])
           expect(walk(g, plan, (k % plan.w + 0.5) * CELL, (Math.floor(k / plan.w) + 0.5) * CELL), `${tag} crossing`).toBe(true)
+        }
+      }
+    })
+  })
+
+  it('no chest hides behind tall scenery: the rows in front of it stay low (roadmap #79)', () => {
+    everyPlan((plan, _zone, tag) => {
+      const { ring } = lowRingOf(plan)
+      for (const c of plan.chests) {
+        const i = cellOf(c.x)
+        const j = cellOf(c.z)
+        for (let dj = 1; dj <= 3; dj++) {
+          for (let di = -1; di <= 1; di++) {
+            const k = (j + dj) * plan.w + i + di
+            if (j + dj < plan.h && plan.solid[k]) expect(ring[k], `${tag} chest ${c.id} (${c.role}) +${di},${dj}`).toBeGreaterThan(0)
+          }
         }
       }
     })
@@ -508,12 +525,42 @@ describe('opening a chest', () => {
     expect(h.items).toHaveLength(2)
     expect(new Set(h.items).size).toBe(2)
     for (const id of h.items) { expect(pool).toContain(id); expect(id).not.toBe(pool[0]) }
-    // Everything owned: a second copy (it becomes gold on the way to the bag).
+    // Everything owned: the copy is its sale price in gold, and no find is
+    // announced for it (roadmap #78: a beam for an item the bag never held).
     for (const id of pool) sim.owned.add(id)
     const c = sim.chests[0]!
     c.state = 'closed'
+    c.loot = [{ kind: 'item', gold: 0, u: 0.01, item: '' }]
+    const gold = h.gold
+    sim.events.length = 0
     openChest(sim, c)
-    expect(pool).toContain(h.items[2])
+    expect(h.items).toHaveLength(2)
+    expect(h.gold).toBe(gold + sellValue(ITEM_BY_ID[pool[0]!]!))
+    expect(sim.events.some(e => e.t === 'loot' && e.item)).toBe(false)
+    expect(sim.events.some(e => e.t === 'loot' && e.gold > 0)).toBe(true)
+  })
+
+  it('the loot comes out in front of the chest, on ground the hero walks (roadmap #78)', () => {
+    for (const zone of ZONE_IDS) {
+      for (const seed of SEEDS.slice(0, 4)) {
+        const { sim } = visit(zone, seed)
+        for (const c of sim.chests) {
+          // (A chest behind a closed door is opened once the door is gone.)
+          if (c.state === 'hidden') continue
+          c.loot = [{ kind: 'gold', gold: 10, u: 0, item: '' }, { kind: 'item', gold: 0, u: 0.5, item: '' }, { kind: 'potion', gold: 0, u: 0, item: '' }]
+          sim.events.length = 0
+          openChest(sim, c)
+          const at = spillOf(c)
+          expect(isSolidAt(sim.grid, at.x, at.z), `${zone}#${seed} chest ${c.id}`).toBe(false)
+          for (const e of sim.events) {
+            if (e.t !== 'loot' && e.t !== 'pickup') continue
+            expect(isSolidAt(sim.grid, e.x, e.z), `${zone}#${seed} chest ${c.id} ${e.t}`).toBe(false)
+            // Out of the chest's own cell, toward where the hero stood.
+            expect(Math.hypot(e.x - c.sx, e.z - c.sz)).toBeLessThan(Math.hypot(e.x - c.x, e.z - c.z))
+          }
+        }
+      }
+    }
   })
 })
 

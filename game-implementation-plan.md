@@ -400,3 +400,90 @@ https://claude.ai/artifact/F4PGs8yrX78wpkt7yywkXA
 - [x] **19.9 See-through scenery** (D89).
 - [x] **19.10 The trailer on YouTube**: https://youtu.be/xZCQeQjo6ZM (`pnpm publish-trailer`).
 - [x] **19.11 The screen's own resolution, an effects ladder** (D90).
+
+## 11. Playtest batch #78–#94 (2026-10-07)
+
+Owner's notes from a phone playtest on Wavedash: chest and level-edge bugs,
+HUD and map layout, then quest boards, a big town with secret traders and four
+secret classes, alchemy and plants, a treasure map, equipment upgrades, two
+gamblers, voice-over for every new line, and the icon and world-map art.
+Sequential worker. Decision report:
+https://claude.ai/artifact/QkADooVg1f8ndUYurrpaYi (open questions 44–50 in
+`outstanding-decisions.md`; their defaults are in effect).
+
+Ground truth (map agents): no chest is unreachable (3,000 Hollows layouts, 349
+chests opened by the real hero); the "loot inside" was the beam, coins and
+toast rising out of the solid chest plus a glow that never went out. Furniture
+indoors is view-only (only tavern tables block). The level-edge darkening
+stops at 4 cells and jumps. The world map is a padded strip on a phone (about
+248 px tall). There is no quest log, no ground pickup, no mini-game and no
+attribute buff; items are fixed named ids owned once.
+
+| ID | Topic | Decision | Source |
+| --- | --- | --- | --- |
+| D91 | Chest loot (#78) | Loot spills in front of the chest at the hero's side; the glow fades after opening; an owned item is never announced (gold instead) | ground truth |
+| D92 | Hidden chests (#79) | Scenery on the camera side of every chest stays low (test, every zone); after the win the chest counter at Leave points to the nearest unopened chest; the camera keeps peeking at unopened chests | ground truth; #69 |
+| D93 | Leave (#80) | Top-left under the hero frame with the counter beside it; 20 % smaller on touch; desktop moves there too | owner |
+| D94 | Map (#81) | Full screen on phones; the bars float over it; the table frame on desktop only | owner |
+| D95 | Lesson ring (#82) | Drawn only where its target is visible; the map scrolls the target into view first | ground truth |
+| D96 | Level edge (#83) | One smooth distance field darkens ground, scenery and outlines into a soft haze; no step over 4 % a cell (test) | owner |
+| D97 | Furniture (#84) | Every standing piece indoors blocks the hero, placed by the town plan (same on every quality); test | ground truth |
+| D98 | Quality names | Common, Uncommon, Rare, Epic, Heroic, Legendary for tiers 1–6 | owner's wording; question 44 |
+| D99 | Upgrades (#90) | +5 max per worn piece, in towns, from the equipment page; 4/5/6/7/8/10 % of attributes and armour a level by quality; cost 12 % of the price ×1.6 a level; never above the next quality's piece (test); counted by the "better" arrow | owner; question 50 |
+| D100 | Journal | A Journal page in the hero book: tasks, secret quests, the treasure map | owner ("quest log") |
+| D101 | Errands | One quest model (defeat, gather, bring, escort, dig), counted at the end of each visit | contracts pattern |
+| D102 | Pickups | Walk-over plants and map pieces on their own random stream | fight fingerprint test |
+| D103 | Plants (#88) | Eight kinds with models; 3–4 a visit by theme; back every visit | owner |
+| D104 | Alchemy (#87) | Alchemist in Silverbridge; recipes; six 60 s elixirs; a third flask button; 5 of each carried | owner |
+| D105 | Boards (#85) | The square's board is usable: contracts plus 3 town tasks a day; gold and 20 % of a level's XP | owner |
+| D106 | Caravan (#85) | A road visit Sunford → Oakhaven outskirts escorting a mule cart with a health bar | owner |
+| D107 | Big town (#86) | Silverbridge, off the Whispering Woods; teachers for every class (hidden and secret ones once found), alchemist, memory gambler, board, two secret traders | owner; D29 |
+| D108 | Secret traders (#86) | The Collector and Mirela the Fence, unlocked by their quests; Rare and Epic stock | owner |
+| D109 | Secret classes (#86) | Windrunner, Frostwarden, Lightbringer, Beastcaller; 6 skills each; D31 over 12 classes | owner; question 46 |
+| D110 | Memory gambler (#91) | Stakes by level; pairs against the clock (70→34 s); 5 wins in a row add a Legendary not owned | owner; question 47 |
+| D111 | Item battle (#92) | Sunford and Oakhaven; fee 10 + 2 × level; best of three by sale value; items gone either way; 3 wins in a row give an Epic not owned | owner; question 48 |
+| D112 | Treasure map (#89) | Six pieces (Plains 1, Hollows 1, Woods 2, Outskirts 2); a dig spot in the Ashen Crags once whole | owner |
+| D113 | Prize levels | Prizes are unowned items of that quality, worn at their own level | question 45 |
+| D114 | Voice (#93) | Every new line voiced (Chatterbox, English) at the end of each content phase | D77 |
+| D115 | Art (#94) | New icon sheets for every unpainted and new icon; then the world map repainted to match the layout, with Silverbridge | art status |
+| D116 | Map resolution | Four stitched quarters, about 2600 px, blur-probed | question 49 |
+
+### Phases
+
+- [x] **20.1 Chests** (#78, #79). Loot, coins, potions and the find toast come
+  out in front of the chest; its inner glow sinks away; an owned item is its
+  sale price in gold, never announced. Scenery on the camera side of every
+  chest stays low (`lowRingOf`, tested over every zone and seed); the nook
+  chest's fallback never stands by a clearing's near wall. The chest counter
+  by Leave is a button: crumbs run to the nearest closed chest, the camera
+  leans to it, a light rises over it, and while it is out of view the edge
+  disc points to it with a chest on it.
+- [x] **20.2 Leave, the map on phones, the lesson ring** (#80, #81, #82).
+  Leave hangs under the hero's frame (a fifth smaller on touch). On a touch
+  screen the map is the whole screen and its rows float over it. A lesson's
+  ring is drawn only where its target is not scrolled out of its box.
+- [x] **20.3 Furniture blocks** (#84). Each room's arrangement is the same on
+  every device (its own random stream; the clutter is laid and dropped on a
+  weak one); its standing pieces are rectangles in the walk grid that stop the
+  hero's body (AGENT's half width) and that his walked paths bend round.
+  Townsfolk walk as before. Tested: low = high layout; the hero reaches every
+  indoor person in every town without crossing a piece.
+- [x] **20.4 Soft level edge** (#83). One distance field (chamfer on half
+  cells, blurred) in a small texture, read by the ground, the land beyond, the
+  instanced scenery and its outlines: they sink together into the theme's dusk
+  from 0.5 m to 10 m past the walkable. The distance rings no longer stop at 4
+  and jump. Overlapping scenery never holds flat faces within 15 mm of each
+  other (a temple seed's two plinths at 0.55 m, exposed by the new low props).
+- [ ] **21.1 Quality names and upgrades** (#90).
+- [ ] **21.2 Pickups and plants** (#88).
+- [ ] **21.3 Errands and the Journal**.
+- [ ] **21.4 Boards and town tasks** (#85).
+- [ ] **21.5 The caravan** (#85).
+- [ ] **22.1 Silverbridge** (#86).
+- [ ] **22.2 Alchemy** (#87).
+- [ ] **22.3 The gamblers** (#91, #92).
+- [ ] **22.4 Secret traders** (#86).
+- [ ] **22.5–22.8 Secret classes** (#86).
+- [ ] **22.9 Treasure map** (#89).
+- [ ] **23 Voice, balance, end-to-end, performance** (#93).
+- [ ] **24 Icons, then the world map** (#94).

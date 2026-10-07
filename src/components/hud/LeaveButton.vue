@@ -5,13 +5,21 @@
       :label="t('level.leave')"
       type="success"
       size="lg"
+      :emphasis="hud.device === 'touch' ? 0.8 : 1"
       icon="forward"
       :attention="hud.finaleOpen"
       @click="leave"
     )
     KeyCap.leave__key(v-if="hud.device === 'mouse'" :code="leaveCode")
-    //- What this place still holds: a chest and a number, no words.
-    span.leave__left(v-if="hud.chestsLeft > 0" role="img" :aria-label="t('level.chestsLeft', { n: hud.chestsLeft })")
+    //- What this place still holds: a chest and a number, no words. Tapped, it
+    //- shows the way to the nearest one (roadmap #79).
+    button.leave__left(
+      v-if="hud.chestsLeft > 0"
+      type="button"
+      data-coach="chestsLeft"
+      :aria-label="t('level.chestsLeft', { n: hud.chestsLeft })"
+      @click="find"
+    )
       GameIcon(name="chest")
       span.leave__count {{ hud.chestsLeft }}
 </template>
@@ -19,10 +27,14 @@
 <script setup lang="ts">
 /**
  * After a zone's finale falls the place is the hero's to walk: its chests,
- * its corners, the finale's own chest. This is how he goes home — a big green
+ * its corners, the finale's own chest. This is how he goes home — a green
  * ribbon of a button that pulses once the finale's chest is open, with the
  * number of chests still closed here beside it. Leaving opens the finale's
  * chest for him if he never did, so the boss's reward is never lost.
+ *
+ * It hangs under the hero's frame, top-left (roadmap #80): in the middle of the
+ * screen it stood in the way of the packs still to fight. A fifth smaller on
+ * a touch screen, where `lg` reaches its desktop size on a wide phone.
  */
 import { useI18n } from 'vue-i18n'
 import { hud } from '@/game/state/hud'
@@ -36,24 +48,21 @@ import GameIcon from '@/components/icons/GameIcon.vue'
 const { t } = useI18n()
 const leaveCode = DEFAULT_BINDINGS.leave[0]!
 const leave = (): void => { input.leaveQueued = true }
+const find = (): void => { input.findChestQueued = true }
 </script>
 
 <style scoped lang="sass">
 .leave
+  // Under the hero's frame (its column is the positioning box).
   position: absolute
-  left: 50%
-  // Touch: above the stick and the skill bar, in the middle of the screen's foot.
-  bottom: calc(env(safe-area-inset-bottom, 0px) + clamp(9.5rem, 42vmin, 13.5rem))
-  transform: translateX(-50%)
+  left: 0
+  top: calc(100% + clamp(0.35rem, 1.6vmin, 0.7rem))
   display: flex
   align-items: center
   gap: 0.5rem
   pointer-events: auto
+  white-space: nowrap
   animation: leave-in 320ms var(--bc-ease-pop, cubic-bezier(0.2, 1.4, 0.4, 1)) both
-.hud--mouse .leave
-  // Desktop: top centre, under the zone's status.
-  top: calc(env(safe-area-inset-top, 0px) + clamp(4.6rem, 12vh, 6.4rem))
-  bottom: auto
 .leave__btn
   filter: drop-shadow(0 0.25rem 0 rgba(var(--bc-ink-rgb), 0.35))
 .leave.is-ready .leave__btn
@@ -63,6 +72,11 @@ const leave = (): void => { input.leaveQueued = true }
   color: var(--bc-ink)
 .leave__left
   position: relative
+  appearance: none
+  margin: 0
+  cursor: pointer
+  font: inherit
+  transition: transform 120ms ease-out
   display: inline-flex
   align-items: center
   justify-content: center
@@ -74,6 +88,11 @@ const leave = (): void => { input.leaveQueued = true }
   border-radius: 50%
   background: linear-gradient(180deg, var(--bc-gold-hi) 0, var(--bc-gold) 50%, var(--bc-gold-lo) 100%)
   color: var(--bc-ink)
+.leave__left:active
+  transform: scale(0.92)
+.leave__left:focus-visible
+  outline: 3px solid var(--bc-white)
+  outline-offset: 2px
 .leave__count
   position: absolute
   right: -0.35rem
@@ -91,7 +110,7 @@ const leave = (): void => { input.leaveQueued = true }
 @keyframes leave-in
   from
     opacity: 0
-    transform: translateX(-50%) translateY(0.8rem) scale(0.85)
+    transform: translateY(-0.6rem) scale(0.85)
 @keyframes leave-pulse
   0%, 100%
     transform: scale(1)

@@ -83,6 +83,14 @@ export const nudgeWorld = {
   chestId: -1
 }
 
+/**
+ * The chest finder (roadmap #79): the chest counter by Leave asked where the
+ * nearest closed chest is. Seconds left, the chest (x, z) and the spot it is
+ * opened from (ax, az); its point on the screen and whether that is in view
+ * (filled each step by `senseWorld`, read by the edge arrow).
+ */
+export const finder = { t: 0, x: 0, z: 0, ax: 0, az: 0, id: -1, sx: 0, sy: 0, onScreen: false }
+
 const p = { x: 0, y: 0 }
 /** Chests the hero has been within reach of, per scene. */
 const seen = new WeakMap<Sim, Set<number>>()
@@ -91,6 +99,22 @@ export interface SenseHost {
   sim: Sim
   setup: { kind: 'zone' | 'town' | 'arena' }
   project(x: number, y: number, z: number, out: { x: number; y: number }): boolean
+}
+
+/** Where the asked-for chest is on the screen (after the win too, when the
+ *  rest of the sensing has stopped). */
+export const senseFinder = (host: SenseHost): void => {
+  if (finder.t <= 0) return
+  const u = host.sim.hero.unit
+  host.project(u.x, 0.5, u.z, p)
+  nudgeWorld.hx = p.x
+  nudgeWorld.hy = p.y
+  host.project(finder.x, 0.6, finder.z, p)
+  finder.sx = p.x
+  finder.sy = p.y
+  const vw = typeof innerWidth === 'number' ? innerWidth : 1
+  const vh = typeof innerHeight === 'number' ? innerHeight : 1
+  finder.onScreen = p.x > vw * 0.06 && p.x < vw * 0.94 && p.y > vh * 0.12 && p.y < vh * 0.88
 }
 
 export const senseWorld = (host: SenseHost, goal: string): void => {

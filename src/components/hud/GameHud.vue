@@ -10,10 +10,12 @@
     CoachLayer(v-if="(flow.screen === 'zone' || flow.screen === 'town') && !flow.modal && !flow.talk")
     //- The "Open" prompt on the chest in reach.
     ChestPrompt(v-if="flow.screen === 'zone'")
-    //- After the finale falls: how the hero goes home.
-    LeaveButton(v-if="flow.screen === 'zone'")
     div.hud__top
-      HeroFrame.hud__tl
+      div.hud__tl
+        HeroFrame
+        //- After the finale falls: how the hero goes home, under his frame
+        //- (roadmap #80: out of the field he still explores and fights in).
+        LeaveButton(v-if="flow.screen === 'zone'")
       TopStatus.hud__tc
       HudMenu.hud__tr(pause help @pause="pause" @help="help")
     div.hud__bl
@@ -87,6 +89,7 @@ const help = (): void => {
   gap: clamp(0.3rem, 1.4vmin, 0.8rem)
 .hud__tl
   grid-area: tl
+  position: relative
 .hud__tc
   grid-area: tc
   padding-top: 0.15rem

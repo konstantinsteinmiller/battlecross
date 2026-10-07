@@ -5,7 +5,7 @@ answered. Answered items move to the decision table in
 [`game-implementation-plan.md`](./game-implementation-plan.md) and are removed
 here.
 
-Last updated: 2026-10-06.
+Last updated: 2026-10-07.
 
 ## Needs an answer
 
@@ -126,6 +126,58 @@ zone)?
 
 - **In effect:** every boss fight.
 - **Recommended:** keep.
+
+### 44. Quality names (#90, D98)
+
+Item tiers become quality names. Common, Uncommon, Rare, Epic and Legendary
+fit five of the six tiers. What is tier 5 (orange) called?
+
+- **In effect:** Common, Uncommon, Rare, Epic, Heroic, Legendary.
+- **Recommended:** keep, or name another word for tier 5.
+
+### 45. Gambler prizes and the hero's level (#91, #92, D113)
+
+Every legendary needs hero level 28–30, every epic 17–20. A prize won at level
+6 waits in the bag a long time.
+
+- **In effect:** a random item of that quality the hero does not own yet,
+  worn at its own level.
+- **Recommended:** keep (a long-term goal in the bag).
+
+### 46. The four secret classes (#86, D109)
+
+- **In effect:** Windrunner (bow), Frostwarden (ice blade), Lightbringer
+  (holy healer), Beastcaller (beast companions).
+- **Recommended:** keep. Other options: Stormcaller, Bard, Iron Monk
+  (decision report).
+
+### 47. Where the memory gambler stands (#91, D110)
+
+- **In effect:** the market of the new big town, Silverbridge.
+- **Recommended:** keep.
+
+### 48. The item battle: is the gambler's item shown? (#92, D111)
+
+- **In effect:** its picture and quality show; its coin value is revealed
+  only after both items are laid.
+- **Recommended:** keep (fully shown, the player just lays the cheapest item
+  that beats it).
+
+### 49. A sharp world map on phones (#81, #94, D116)
+
+The free Gemini app returns 1376 px. A full-screen map on a 3× phone needs
+about 2500 px.
+
+- **In effect:** paint it as four overlapping quarters, stitched to about
+  2600 px, checked by the blur probe.
+- **Recommended:** keep.
+
+### 50. Where equipment is upgraded (#90, D99)
+
+- **In effect:** an Upgrade button on the equipment page, in any town.
+- **Recommended:** keep (a blacksmith to walk up to is the alternative).
+
+Decision report for #78–#94: https://claude.ai/artifact/QkADooVg1f8ndUYurrpaYi
 
 ## Defaults taken in the playtest pass, overrule any
 

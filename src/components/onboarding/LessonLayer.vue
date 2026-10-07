@@ -107,6 +107,34 @@ const pick = (sel: string, last = false): HTMLElement | null => {
 /** Seen on the screen (laid out, inside the window)? */
 const onScreen = (r: DOMRect): boolean => r.width > 1 && r.height > 1 && r.right > 0 && r.bottom > 0 && r.left < innerWidth && r.top < innerHeight
 
+/** The ancestors that cut a thing off (a scrolling list, the map's window). */
+const clipOf = new WeakMap<HTMLElement, HTMLElement[]>()
+const clippers = (el: HTMLElement): HTMLElement[] => {
+  let list = clipOf.get(el)
+  if (!list) {
+    list = []
+    for (let p = el.parentElement; p && p !== document.body; p = p.parentElement) {
+      const cs = getComputedStyle(p)
+      if (cs.overflowX !== 'visible' || cs.overflowY !== 'visible') list.push(p)
+    }
+    clipOf.set(el, list)
+  }
+  return list
+}
+/** Seen, and not scrolled out of the box it lives in: its middle shows. A ring
+ *  round a map node scrolled out of the map's window hung over the buttons
+ *  below it (roadmap #82). */
+const shown = (el: HTMLElement, r: DOMRect): boolean => {
+  if (!onScreen(r)) return false
+  const x = r.left + r.width / 2
+  const y = r.top + r.height / 2
+  for (const p of clippers(el)) {
+    const c = p.getBoundingClientRect()
+    if (x < c.left || x > c.right || y < c.top || y > c.bottom) return false
+  }
+  return true
+}
+
 /** A thing scrolled out of its list is brought into view, once. */
 const scrolled = new WeakSet<HTMLElement>()
 const bringIntoView = (el: HTMLElement): void => {
@@ -187,7 +215,7 @@ const draw = (step: Step | null): void => {
   const glowTo = step.glow ? pick(step.glow) : null
   const gr = glowTo?.getBoundingClientRect() ?? null
   if (gl) {
-    if (gr && onScreen(gr)) {
+    if (glowTo && gr && shown(glowTo, gr)) {
       gl.style.opacity = '1'
       gl.style.transform = `translate(${(gr.left - 4).toFixed(1)}px, ${(gr.top - 4).toFixed(1)}px)`
       gl.style.width = `${(gr.width + 8).toFixed(1)}px`
@@ -197,7 +225,7 @@ const draw = (step: Step | null): void => {
   if (step.kind === 'tap') {
     const el = pick(step.at, step.last)
     const r = el?.getBoundingClientRect() ?? null
-    if (!el || !r || !onScreen(r)) { if (el) bringIntoView(el); hide(); return }
+    if (!el || !r || !shown(el, r)) { if (el) bringIntoView(el); hide(); return }
     if (r.top < 0 || r.bottom > innerHeight || r.left < 0 || r.right > innerWidth) bringIntoView(el)
     // Every match breathes (the six "+"), the first is tapped.
     if (step.rings) {
@@ -205,7 +233,7 @@ const draw = (step: Step | null): void => {
       for (let i = 0; i < RING_POOL; i++) {
         const e = all[i] ?? null
         const er = e?.getBoundingClientRect() ?? null
-        placeRing(rings[i]!, e, er && onScreen(er) ? er : null)
+        placeRing(rings[i]!, e, e && er && shown(e, er) ? er : null)
       }
     } else {
       placeRing(rings[0]!, el, r)
@@ -221,7 +249,7 @@ const draw = (step: Step | null): void => {
   const b = pick(step.to)
   const ra = a?.getBoundingClientRect() ?? null
   const rb = b?.getBoundingClientRect() ?? null
-  if (!a || !b || !ra || !rb || !onScreen(ra) || !onScreen(rb)) { if (a) bringIntoView(a); hide(); return }
+  if (!a || !b || !ra || !rb || !shown(a, ra) || !shown(b, rb)) { if (a) bringIntoView(a); hide(); return }
   placeRing(rings[0]!, b, rb)
   placeRing(rings[1]!, a, ra, true)
   for (let i = 2; i < RING_POOL; i++) placeRing(rings[i]!, null, null)

@@ -3,7 +3,7 @@ import { findPath, smoothPath } from '../sim/grid'
 import type { Particles } from '../gfx/particles'
 import { groundAt } from '../gfx/ground'
 import { onboard } from './state'
-import { nudgeWorld } from './world'
+import { finder, nudgeWorld } from './world'
 
 /**
  * ─── The nudges drawn in the scene (roadmap #69) ─────────────────────────────
@@ -16,6 +16,10 @@ import { nudgeWorld } from './world'
  *           objective — light, short-lived, gone when the nudge ends;
  *   peek    the camera leans toward an unopened chest nearby and back, once a
  *           zone (an offset on the follow target, eased in and out).
+ *
+ * And one the player asks for: the chest counter beside Leave (roadmap #79)
+ * runs the crumbs all the way to the nearest closed chest and leans the camera
+ * toward it for a few seconds (`findChest`).
  */
 
 const way: number[] = []
@@ -28,16 +32,54 @@ const REACH = 13
 /** A sparkle every this many metres of the pulse. */
 const STEP = 0.75
 
+export { finder }
+export const FIND_SECONDS = 4
+/** How far the finder's crumbs run (metres): to the chest, wherever it is. */
+const FIND_REACH = 60
+
+/** Point the way to the nearest closed chest the hero can open (none: false). */
+export const findChest = (sim: Sim): boolean => {
+  const u = sim.hero.unit
+  let best = -1
+  let bd = Infinity
+  for (const c of sim.chests) {
+    if (c.state !== 'closed' && c.state !== 'opening') continue
+    const d = Math.hypot(c.x - u.x, c.z - u.z)
+    if (d < bd) { bd = d; best = c.id }
+  }
+  const c = best >= 0 ? sim.chests[best] : undefined
+  if (!c) return false
+  finder.t = FIND_SECONDS
+  finder.id = c.id
+  finder.x = c.x
+  finder.z = c.z
+  finder.ax = c.sx
+  finder.az = c.sz
+  wayAge = 1e9
+  wayT = 0
+  pulse = 0
+  return true
+}
+
 /** Lay sparkles along the walked way while the crumbs nudge is up. */
 export const emitCrumbs = (sim: Sim, ps: Particles, dt: number, low: boolean): void => {
   const n = onboard.nudge
-  if (!n || n.kind !== 'crumbs' || !nudgeWorld.has) { wayAge = 1e9; return }
+  if (finder.t > 0) {
+    finder.t -= dt
+    const c = sim.chests[finder.id]
+    if (!c || c.state === 'open') finder.t = 0
+  }
+  const finding = finder.t > 0
+  if (!finding && (!n || n.kind !== 'crumbs' || !nudgeWorld.has)) { wayAge = 1e9; return }
+  const tx = finding ? finder.ax : nudgeWorld.x
+  const tz = finding ? finder.az : nudgeWorld.z
+  const reach = finding ? FIND_REACH : REACH
   const u = sim.hero.unit
   wayAge += dt
   if (wayAge > 0.6) {
     wayAge = 0
     way.length = 0
-    if (findPath(sim.grid, u.x, u.z, nudgeWorld.x, nudgeWorld.z, scratch) > 0) {
+    if (findPath(sim.grid, u.x, u.z, tx, tz, scratch) > 0) {
       scratch.length = smoothPath(sim.grid, u.x, u.z, scratch)
       way.push(u.x, u.z, ...scratch)
     }
@@ -46,7 +88,7 @@ export const emitCrumbs = (sim: Sim, ps: Particles, dt: number, low: boolean): v
   // A pulse runs out along the way every 1.4 s; each step a few sparkles
   // are dropped where its front is, so the trail draws itself and fades.
   wayT += dt
-  const front = ((wayT % 1.4) / 1.4) * REACH
+  const front = ((wayT % 1.4) / 1.4) * reach
   const from = pulse
   pulse = front
   if (front < from) return
@@ -85,13 +127,23 @@ const pointAlong = (d: number): [number, number] | null => {
 const off = { x: 0, z: 0 }
 /** Metres the camera leans at most toward the chest. */
 const PEEK_MAX = 4.5
+/** …and when the player asked where it is. */
+const FIND_LEAN = 7
 
 /** The camera's lean this frame (added to its follow target). */
 export const peekOffset = (dt: number, hx: number, hz: number): { x: number; z: number } => {
   const n = onboard.nudge
   let tx = 0
   let tz = 0
-  if (n && n.kind === 'peek' && nudgeWorld.chest) {
+  if (finder.t > 0) {
+    // Asked for: a longer lean, all the way when the chest is close enough.
+    const dx = finder.x - hx
+    const dz = finder.z - hz
+    const l = Math.hypot(dx, dz) || 1
+    const k = Math.min(FIND_LEAN, l * 0.8) / l
+    tx = dx * k
+    tz = dz * k
+  } else if (n && n.kind === 'peek' && nudgeWorld.chest) {
     const dx = nudgeWorld.cx - hx
     const dz = nudgeWorld.cz - hz
     const l = Math.hypot(dx, dz) || 1
@@ -113,4 +165,6 @@ export const resetNudgeFx = (): void => {
   wayT = 0
   pulse = 0
   off.x = off.z = 0
+  finder.t = 0
+  finder.id = -1
 }

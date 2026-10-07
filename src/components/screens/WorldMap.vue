@@ -1,6 +1,6 @@
 <template lang="pug">
   div.wmap(
-    :class="{ 'is-paused': isGamePaused, 'is-rushing': rushing, 'is-moving': moving, 'is-alarm': alarm, 'wmap--low': low, 'wmap--tiny': scale < 0.47 }"
+    :class="{ 'is-paused': isGamePaused, 'is-rushing': rushing, 'is-moving': moving, 'is-alarm': alarm, 'wmap--low': low, 'wmap--tiny': scale < 0.47, 'wmap--full': touch }"
     @pointerdown.capture="skipWalk"
   )
     div.wmap__top
@@ -1655,6 +1655,42 @@ onBeforeUnmount(() => {
   min-height: clamp(2.9rem, 13vmin, 4rem)
   > :last-child
     margin-left: auto
+
+// ── A phone: the map is the screen (roadmap #81) ─────────────────────────────
+// No table round it: the sheet fills the window edge to edge, and the top and
+// bottom rows float over it (a soft shade under each keeps their text legible).
+// Only their buttons take a finger; the rest of the row is the map's.
+.wmap--full
+  padding: 0
+  gap: 0
+  background: #56c4ea
+  .wmap__sheet
+    position: absolute
+    inset: 0
+    border: 0
+    border-radius: 0
+    &.is-pannable
+      box-shadow: none
+  .wmap__top, .wmap__bottom
+    position: absolute
+    left: 0
+    right: 0
+    z-index: 5
+    pointer-events: none
+    > *
+      pointer-events: auto
+  .wmap__top
+    top: 0
+    padding: calc(env(safe-area-inset-top, 0px) + var(--pad)) calc(env(safe-area-inset-right, 0px) + var(--pad)) calc(var(--pad) * 2.2) calc(env(safe-area-inset-left, 0px) + var(--pad))
+    background: linear-gradient(180deg, rgba(var(--bc-ink-rgb, 27, 22, 38), 0.5) 0%, rgba(var(--bc-ink-rgb, 27, 22, 38), 0.22) 62%, transparent 100%)
+  .wmap__head
+    pointer-events: none
+    > *
+      pointer-events: auto
+  .wmap__bottom
+    bottom: 0
+    padding: calc(var(--pad) * 2.2) calc(env(safe-area-inset-right, 0px) + var(--pad)) calc(env(safe-area-inset-bottom, 0px) + var(--pad)) calc(env(safe-area-inset-left, 0px) + var(--pad))
+    background: linear-gradient(0deg, rgba(var(--bc-ink-rgb, 27, 22, 38), 0.42) 0%, rgba(var(--bc-ink-rgb, 27, 22, 38), 0.16) 62%, transparent 100%)
 
 // ── The picked place's card: a slip of parchment in a leather rim ────────────
 .card
