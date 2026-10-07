@@ -698,7 +698,8 @@ export default {
     tectonicRupture: {
       name: 'التصدّع التكتوني',
       desc: 'شُقّ الميدان: ضرر {dmg}% من القوة لكل ما هو قريب، وركام يبطّئ لمدة {dur}ث.'
-    }
+    },
+    scales: 'يتعزّز بـ{attr}'
   },
   slot: {
     main: 'اليد الرئيسية',

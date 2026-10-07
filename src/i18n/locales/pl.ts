@@ -635,7 +635,8 @@ export default {
     tectonicRupture: {
       name: 'Pęknięcie tektoniczne',
       desc: 'Rozerwij pole walki: {dmg}% obrażeń od Siły dla wszystkiego w pobliżu i gruz, który spowalnia przez {dur}s.'
-    }
+    },
+    scales: 'Skaluje się z: {attr}'
   },
   slot: {
     main: 'Główna ręka',

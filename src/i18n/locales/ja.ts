@@ -634,7 +634,8 @@ export default {
     tectonicRupture: {
       name: 'テクトニックラプチャー',
       desc: '大地を引き裂く。近くのすべてに筋力の{dmg}%のダメージ。がれきが{dur}秒間鈍足にする。'
-    }
+    },
+    scales: '{attr}で強化'
   },
   slot: {
     main: '利き手',

@@ -634,7 +634,8 @@ export default {
     tectonicRupture: {
       name: 'Retakan Tektonik',
       desc: 'Belah arena: {dmg}% damage Kekuatan ke semua yang ada di dekatnya, dan puing yang memperlambat selama {dur} dtk.'
-    }
+    },
+    scales: 'Meningkat dengan {attr}'
   },
   slot: {
     main: 'Tangan utama',

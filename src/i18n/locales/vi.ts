@@ -634,7 +634,8 @@ export default {
     tectonicRupture: {
       name: 'Đứt Gãy Kiến Tạo',
       desc: 'Xé toạc chiến trường: {dmg}% sát thương Sức mạnh lên mọi thứ ở gần, và đá vụn làm chậm trong {dur} giây.'
-    }
+    },
+    scales: 'Tăng theo {attr}'
   },
   slot: {
     main: 'Tay chính',

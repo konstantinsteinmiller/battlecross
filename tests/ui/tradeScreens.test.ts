@@ -6,6 +6,7 @@
 
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { mount, type VueWrapper } from '@vue/test-utils'
+import { SKILL_BY_ID } from '@/game/data/skills'
 import { nextTick } from 'vue'
 import { drainAndResetModules, drainPersist, holdGameState } from '../stubs/drainPersist'
 
@@ -156,6 +157,14 @@ describe('the trainer\'s lesson', () => {
     expect(p.profile.gold).toBe(5000 - cost)
     expect(p.profile.hero.active[1]).toBe('fireball')
     expect($('.deal-stamp')).toBeTruthy()
+  })
+
+  it('every lesson and the card in hand show the attribute the skill grows with (#96)', async () => {
+    await open('TeachScreen', 'trainerPyro')
+    const lessons = $$('.lesson')
+    for (const l of lessons) expect(l.querySelector('.stat-badge')?.getAttribute('data-scales'), l.getAttribute('data-skill') ?? '').toBe(SKILL_BY_ID[l.getAttribute('data-skill')!]!.scales)
+    await click(lessons[0]!)
+    expect($('.skill-card .stat-badge.is-long')!.textContent).toContain('skill.scales')
   })
 
   it('a lesson out of reach says why and cannot be bought', async () => {

@@ -635,7 +635,8 @@ export default {
     tectonicRupture: {
       name: 'Tektonischer Riss',
       desc: 'Reiß das Feld auf: {dmg}% Stärke-Schaden an allem in der Nähe, und Geröll, das für {dur}s verlangsamt.'
-    }
+    },
+    scales: 'Skaliert mit {attr}'
   },
   slot: {
     main: 'Haupthand',

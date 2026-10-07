@@ -634,7 +634,8 @@ export default {
     tectonicRupture: {
       name: 'Tektonikus hasadás',
       desc: 'Felszakítod a csatateret: {dmg}% Erő alapú sebzés mindennek a közelben, és törmelék, amely {dur}s-ig lassít.'
-    }
+    },
+    scales: 'Erősíti: {attr}'
   },
   slot: {
     main: 'Fő kéz',

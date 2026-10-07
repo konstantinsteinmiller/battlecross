@@ -634,7 +634,8 @@ export default {
     tectonicRupture: {
       name: 'Mannerlaattojen repeämä',
       desc: 'Revi kenttä auki: {dmg}% Voima-vahinkoa kaikkeen lähellä olevaan, ja sora hidastaa {dur}s ajan.'
-    }
+    },
+    scales: 'Skaalautuu: {attr}'
   },
   slot: {
     main: 'Pääkäsi',

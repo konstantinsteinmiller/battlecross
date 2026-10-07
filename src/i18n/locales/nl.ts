@@ -635,7 +635,8 @@ export default {
     tectonicRupture: {
       name: 'Tektonische Breuk',
       desc: 'Scheur het veld open: {dmg}% Kracht-schade aan alles in de buurt, en puin dat {dur}s vertraagt.'
-    }
+    },
+    scales: 'Schaalt met {attr}'
   },
   slot: {
     main: 'Hoofdhand',

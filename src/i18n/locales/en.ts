@@ -367,6 +367,7 @@ export default {
     'hpCost': '{n}% health',
     'heat': '+{n} heat',
     'aimed': 'Drag to aim',
+    'scales': 'Scales with {attr}',
 
     // Aegis Knight
     'shieldSlam': { 'name': 'Shield Slam', 'desc': 'Slam the target for {dmg}% Strength damage and stun it for {stun}s.' },

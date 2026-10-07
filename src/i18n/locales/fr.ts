@@ -635,7 +635,8 @@ export default {
     tectonicRupture: {
       name: 'Rupture tectonique',
       desc: 'Éventre le terrain : {dmg} % de dégâts de Force à tout ce qui est proche, et des gravats qui ralentissent pendant {dur} s.'
-    }
+    },
+    scales: 'Évolue avec {attr}'
   },
   slot: {
     main: 'Main principale',

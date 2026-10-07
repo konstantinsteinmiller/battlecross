@@ -8,6 +8,7 @@
         span.skill-card__sub {{ t(`class.${skill.cls}.name`) }} · {{ t(`skill.kind.${skill.kind}`) }}
     p.skill-card__desc {{ t(`skill.${id}.desc`, skill.p) }}
     div.skill-card__facts
+      StatBadge(:id="id" long)
       span.fact(v-if="skill.cd > 0") {{ t('skill.cooldown', { n: skill.cd }) }}
       span.fact.fact--mana(v-if="skill.mana > 0") {{ t('skill.mana', { n: skill.mana }) }}
       span.fact.fact--hp(v-if="skill.hpCost") {{ t('skill.hpCost', { n: skill.hpCost }) }}
@@ -27,6 +28,7 @@ import { SKILL_BY_ID } from '@/game/data/skills'
 import { ATTR_COLOR, type Attr } from '@/game/data/attributes'
 import { profile, totalAttrs } from '@/game/state/profile'
 import SkillIcon from '@/components/art/SkillIcon.vue'
+import StatBadge from './StatBadge.vue'
 
 const props = withDefaults(defineProps<{ id: string; dim?: boolean }>(), { dim: false })
 const { t } = useI18n()

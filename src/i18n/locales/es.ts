@@ -635,7 +635,8 @@ export default {
     tectonicRupture: {
       name: 'Ruptura tectónica',
       desc: 'Desgarra el campo: {dmg}% de daño de Fuerza a todo lo cercano, y escombros que ralentizan durante {dur}s.'
-    }
+    },
+    scales: 'Escala con {attr}'
   },
   slot: {
     main: 'Mano principal',

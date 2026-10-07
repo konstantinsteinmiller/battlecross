@@ -634,7 +634,8 @@ export default {
     tectonicRupture: {
       name: 'Tektona Fendo',
       desc: 'Disŝiru la kampon: {dmg}% da Forto-damaĝo al ĉio proksima, kaj rubo, kiu malrapidigas dum {dur}s.'
-    }
+    },
+    scales: 'Kreskas laŭ {attr}'
   },
   slot: {
     main: 'Ĉefa mano',

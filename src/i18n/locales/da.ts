@@ -634,7 +634,8 @@ export default {
     tectonicRupture: {
       name: 'Tektonisk brud',
       desc: 'Flå banen op: {dmg}% Styrke i skade på alt i nærheden, og murbrokker, der sinker i {dur}s.'
-    }
+    },
+    scales: 'Skalerer med {attr}'
   },
   slot: {
     main: 'Hovedhånd',

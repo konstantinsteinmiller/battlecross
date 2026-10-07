@@ -634,7 +634,8 @@ export default {
     tectonicRupture: {
       name: 'Tektonik yoriq',
       desc: 'Maydonni yorib yuboradi: yaqindagi hamma narsaga {dmg}% Kuch zarari va {dur} s davomida sekinlashtiradigan tosh uyumi.'
-    }
+    },
+    scales: '{attr} bilan kuchayadi'
   },
   slot: {
     main: 'Asosiy qoʻl',

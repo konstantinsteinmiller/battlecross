@@ -634,7 +634,8 @@ export default {
     tectonicRupture: {
       name: '地殼撕裂',
       desc: '撕開戰場：對附近的一切造成{dmg}%力量傷害，碎石會緩速{dur}秒。'
-    }
+    },
+    scales: '隨{attr}提升'
   },
   slot: {
     main: '主手',

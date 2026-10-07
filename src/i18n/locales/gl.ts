@@ -635,7 +635,8 @@ export default {
     tectonicRupture: {
       name: 'Ruptura Tectónica',
       desc: 'Racha o campo: {dmg}% de dano de Forza a todo o que estea preto, e cascallos que ralentizan durante {dur}s.'
-    }
+    },
+    scales: 'Escala con {attr}'
   },
   slot: {
     main: 'Man principal',

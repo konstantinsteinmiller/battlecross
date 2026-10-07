@@ -635,7 +635,8 @@ export default {
     tectonicRupture: {
       name: 'Frattura tettonica',
       desc: 'Squarcia il campo: {dmg}% di danno da Forza a tutto ciò che è vicino, e macerie che rallentano per {dur}s.'
-    }
+    },
+    scales: 'Scala con {attr}'
   },
   slot: {
     main: 'Mano primaria',

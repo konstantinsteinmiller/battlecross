@@ -634,7 +634,8 @@ export default {
     tectonicRupture: {
       name: 'Tektonisk spricka',
       desc: 'Slit upp fältet: {dmg}% Styrka i skada på allt i närheten, och sten som saktar ner i {dur}s.'
-    }
+    },
+    scales: 'Skalar med {attr}'
   },
   slot: {
     main: 'Huvudhand',

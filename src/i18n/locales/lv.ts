@@ -634,7 +634,8 @@ export default {
     tectonicRupture: {
       name: 'Tektoniskais lūzums',
       desc: 'Pārplēs lauku: {dmg}% Spēka bojājumu visam apkārt un gruveši, kas palēnina {dur} s.'
-    }
+    },
+    scales: 'Pieaug ar: {attr}'
   },
   slot: {
     main: 'Galvenā roka',

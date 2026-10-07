@@ -637,7 +637,8 @@ export default {
     tectonicRupture: {
       name: 'Tektonický zlom',
       desc: 'Roztrhni bojiště: {dmg}% poškození ze Síly všemu poblíž a suť, která zpomaluje {dur}s.'
-    }
+    },
+    scales: 'Roste s: {attr}'
   },
   slot: {
     main: 'Hlavní ruka',

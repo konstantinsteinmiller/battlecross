@@ -634,7 +634,8 @@ export default {
     tectonicRupture: {
       name: 'Tektonisk brudd',
       desc: 'Riv opp banen: {dmg}% Styrke i skade på alt i nærheten, og steinrøys som sinker i {dur}s.'
-    }
+    },
+    scales: 'Skalerer med {attr}'
   },
   slot: {
     main: 'Hovedhånd',

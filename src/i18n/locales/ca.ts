@@ -635,7 +635,8 @@ export default {
     tectonicRupture: {
       name: 'Ruptura Tectònica',
       desc: 'Esquinça el camp: {dmg}% de dany de Força a tot el que hi ha a prop, i runa que alenteix durant {dur}s.'
-    }
+    },
+    scales: 'Escala amb {attr}'
   },
   slot: {
     main: 'Mà principal',

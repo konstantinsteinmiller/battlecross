@@ -637,7 +637,8 @@ export default {
     tectonicRupture: {
       name: 'Tektonski rascjep',
       desc: 'Raspori bojište: {dmg}% štete od Snage svemu u blizini i krš koji usporava {dur}s.'
-    }
+    },
+    scales: 'Raste s: {attr}'
   },
   slot: {
     main: 'Glavna ruka',

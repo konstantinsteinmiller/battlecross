@@ -634,7 +634,8 @@ export default {
     tectonicRupture: {
       name: '지각 파열',
       desc: '전장을 찢어 연다. 근처 모든 것에 근력의 {dmg}% 피해, 잔해가 {dur}초 동안 둔화시킨다.'
-    }
+    },
+    scales: '{attr}에 비례'
   },
   slot: {
     main: '주 무기',

@@ -634,7 +634,8 @@ export default {
     tectonicRupture: {
       name: 'Tektoninis lūžis',
       desc: 'Perplėšk mūšio lauką: {dmg}% Jėgos žalos viskam šalia ir nuolaužos, kurios lėtina {dur}s.'
-    }
+    },
+    scales: 'Stiprėja nuo: {attr}'
   },
   slot: {
     main: 'Pagrindinė ranka',

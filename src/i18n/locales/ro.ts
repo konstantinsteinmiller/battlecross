@@ -634,7 +634,8 @@ export default {
     tectonicRupture: {
       name: 'Ruptură Tectonică',
       desc: 'Despică terenul: {dmg}% daune din Forță la tot ce e aproape și moloz care încetinește timp de {dur}s.'
-    }
+    },
+    scales: 'Crește cu {attr}'
   },
   slot: {
     main: 'Mâna principală',

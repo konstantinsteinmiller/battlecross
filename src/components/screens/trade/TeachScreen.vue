@@ -25,6 +25,7 @@
               )
                 span.lesson__icon
                   SkillIcon(:id="s.id" :dim="lockedOut(s.id)")
+                  StatBadge.lesson__stat(:id="s.id")
                 span.lesson__text
                   span.lesson__name {{ t(`skill.${s.id}.name`) }}
                   span.lesson__reqs
@@ -114,6 +115,7 @@ import FSocket from '@/components/atoms/FSocket.vue'
 import SkillIcon from '@/components/art/SkillIcon.vue'
 import GameIcon from '@/components/icons/GameIcon.vue'
 import SkillCard from '@/components/game/SkillCard.vue'
+import StatBadge from '@/components/game/StatBadge.vue'
 import PriceTag from '@/components/game/PriceTag.vue'
 import DealStamp from '@/components/game/DealStamp.vue'
 import { burst, shake, thunk } from '@/components/game/fx'
@@ -264,6 +266,11 @@ const learn = (): void => {
   grid-row: span 2
   width: clamp(2.5rem, 10.5vmin, 3.1rem)
   border-radius: 24%
+// What the skill grows with (#96), on the icon's lower left.
+.lesson__stat
+  position: absolute
+  left: -8%
+  bottom: -10%
 .lesson__text
   display: flex
   flex-direction: column

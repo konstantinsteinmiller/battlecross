@@ -75,6 +75,7 @@
           )
             span.node__icon
               SkillIcon(:id="s.id" :dim="!knows(s.id)")
+              StatBadge.node__stat(:id="s.id")
             span.node__mark(v-if="!knows(s.id)" aria-hidden="true")
               GameIcon(:name="usable(s.id) ? 'plus' : 'lock'")
             span.node__used(v-else-if="slotted(s.id)" aria-hidden="true")
@@ -130,6 +131,7 @@ import { ICON_ART } from '@/game/assets/overrides'
 import SkillIcon from '@/components/art/SkillIcon.vue'
 import GameIcon from '@/components/icons/GameIcon.vue'
 import SkillCard from '@/components/game/SkillCard.vue'
+import StatBadge from '@/components/game/StatBadge.vue'
 import { burst, thunk } from '@/components/game/fx'
 import { trainerPlace } from '@/components/game/trainerPlace'
 import { useDrag } from '@/components/game/useDrag'
@@ -489,6 +491,12 @@ const drag = useDrag<Held>({
 // A skill within reach but not yet learned keeps its colour, a locked one loses it.
 .node.is-open .node__icon :deep(.art-icon)
   filter: grayscale(0.25) brightness(0.9)
+// What the skill grows with (#96), on the icon's lower left.
+.node__stat
+  position: absolute
+  left: -6%
+  bottom: -8%
+  z-index: 1
 .node__mark, .node__used
   position: absolute
   right: 4%

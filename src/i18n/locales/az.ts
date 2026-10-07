@@ -634,7 +634,8 @@ export default {
     tectonicRupture: {
       name: 'Tektonik Yarılma',
       desc: 'Meydanı yarıb aç: yaxındakı hər şeyə {dmg}% Güc zərəri və {dur} san ərzində yavaşladan dağıntı.'
-    }
+    },
+    scales: '{attr} ilə güclənir'
   },
   slot: {
     main: 'Əsas əl',

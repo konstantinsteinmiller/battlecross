@@ -566,5 +566,10 @@ attribute buff; items are fixed named ids owned once.
   along the way but never in the boss's clearing. Opening it is the dig: a
   purse three times a secret chest's and an Epic not owned yet; the errand
   ends by itself.
+- [x] **25.1 Scaling badges** (#96). Every skill shows the attribute it grows
+  with: a chip in that attribute's colour on its icon in the skill tree and
+  at the trainer ("STR"), and spelled out on the skill's card ("Scales with
+  Strength"). Done ahead of the classes (independent; the classes wait on
+  question 51).
 - [ ] **23 Voice, balance, end-to-end, performance** (#93).
 - [ ] **24 Icons, then the world map** (#94).

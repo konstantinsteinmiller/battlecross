@@ -634,7 +634,8 @@ export default {
     tectonicRupture: {
       name: 'Tektonik Yarılma',
       desc: 'Alanı yarıp aç: yakındaki her şeye {dmg}% Güç hasarı ve {dur} sn boyunca yavaşlatan moloz.'
-    }
+    },
+    scales: '{attr} ile güçlenir'
   },
   slot: {
     main: 'Ana el',
