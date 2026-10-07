@@ -4,7 +4,7 @@ A report, not a contract: it is a picture of `art-sheets/painted/` and the
 slicer's receipt at the moment it was written. Re-run `pnpm art:prompts`
 after painting or slicing anything.
 
-**26 sliced · 10 need a repaint · 0 painted, unreceipted · 26 outstanding**
+**39 sliced · 9 need a repaint · 0 painted, unreceipted · 18 outstanding**
 
 | | Sheet | Prompt block in | Reference | State |
 | --- | --- | --- | --- | --- |
@@ -15,48 +15,48 @@ after painting or slicing anything.
 | ✓ | **Item icons: headgear and gloves** | `PROMPTS-ITEMS.md` | `sheet-items-headgear.png` (rev `f56cfdfaf5fb`) | sliced 2026-10-03 |
 | ✓ | **Item icons: boots** | `PROMPTS-ITEMS.md` | `sheet-items-boots.png` (rev `05a2d72cdd50`) | sliced 2026-10-03 |
 | ! | **Skill icons: Aegis Knight** | `PROMPTS-SKILLS.md` | `sheet-skills-aegis.png` (rev `0ba6202c756b`) | REPAINT — the reference changed (41ace8182dfc → 0ba6202c756b) |
-| · | **Skill icons: Aegis Knight (2 of 2)** | `PROMPTS-SKILLS.md` | `sheet-skills2-aegis.png` (rev `58e4d7a026f6`) | not painted yet |
+| ✓ | **Skill icons: Aegis Knight (2 of 2)** | `PROMPTS-SKILLS.md` | `sheet-skills2-aegis.png` (rev `58e4d7a026f6`) | sliced 2026-10-07 |
 | ! | **Skill icons: Shadowblade** | `PROMPTS-SKILLS.md` | `sheet-skills-shadow.png` (rev `085c60ddf84e`) | REPAINT — the reference changed (2cfb44cfe91f → 085c60ddf84e) |
-| · | **Skill icons: Shadowblade (2 of 2)** | `PROMPTS-SKILLS.md` | `sheet-skills2-shadow.png` (rev `60af38781de3`) | not painted yet |
+| ✓ | **Skill icons: Shadowblade (2 of 2)** | `PROMPTS-SKILLS.md` | `sheet-skills2-shadow.png` (rev `60af38781de3`) | sliced 2026-10-07 |
 | ! | **Skill icons: Pyromancer** | `PROMPTS-SKILLS.md` | `sheet-skills-pyro.png` (rev `ffb8ed2290a0`) | REPAINT — the reference changed (11c33b95224f → ffb8ed2290a0) |
-| · | **Skill icons: Pyromancer (2 of 2)** | `PROMPTS-SKILLS.md` | `sheet-skills2-pyro.png` (rev `fffff84ea918`) | not painted yet |
+| ✓ | **Skill icons: Pyromancer (2 of 2)** | `PROMPTS-SKILLS.md` | `sheet-skills2-pyro.png` (rev `fffff84ea918`) | sliced 2026-10-07 |
 | ! | **Skill icons: Grand Sovereign** | `PROMPTS-SKILLS.md` | `sheet-skills-sovereign.png` (rev `2aa55f4832db`) | REPAINT — the reference changed (8f5bbb595a22 → 2aa55f4832db) |
-| · | **Skill icons: Grand Sovereign (2 of 2)** | `PROMPTS-SKILLS.md` | `sheet-skills2-sovereign.png` (rev `14da6a244a47`) | not painted yet |
+| ✓ | **Skill icons: Grand Sovereign (2 of 2)** | `PROMPTS-SKILLS.md` | `sheet-skills2-sovereign.png` (rev `14da6a244a47`) | sliced 2026-10-07 |
 | ! | **Skill icons: Chrono-Weaver** | `PROMPTS-SKILLS.md` | `sheet-skills-chrono.png` (rev `5a4f6c11ad07`) | REPAINT — the reference changed (31ab3a6fd666 → 5a4f6c11ad07) |
-| · | **Skill icons: Chrono-Weaver (2 of 2)** | `PROMPTS-SKILLS.md` | `sheet-skills2-chrono.png` (rev `10dc842e0435`) | not painted yet |
+| ✓ | **Skill icons: Chrono-Weaver (2 of 2)** | `PROMPTS-SKILLS.md` | `sheet-skills2-chrono.png` (rev `10dc842e0435`) | sliced 2026-10-07 |
 | ! | **Skill icons: Blood Alchemist** | `PROMPTS-SKILLS.md` | `sheet-skills-blood.png` (rev `2b91ed1ae8ed`) | REPAINT — the reference changed (e804ce33c01a → 2b91ed1ae8ed) |
-| · | **Skill icons: Blood Alchemist (2 of 2)** | `PROMPTS-SKILLS.md` | `sheet-skills2-blood.png` (rev `6507652f3d78`) | not painted yet |
+| ✓ | **Skill icons: Blood Alchemist (2 of 2)** | `PROMPTS-SKILLS.md` | `sheet-skills2-blood.png` (rev `6507652f3d78`) | sliced 2026-10-07 |
 | ! | **Skill icons: Aether-Tech** | `PROMPTS-SKILLS.md` | `sheet-skills-aether.png` (rev `6d672439580a`) | REPAINT — the reference changed (bc36381ba573 → 6d672439580a) |
-| · | **Skill icons: Aether-Tech (2 of 2)** | `PROMPTS-SKILLS.md` | `sheet-skills2-aether.png` (rev `c1e83c7902f1`) | not painted yet |
+| ✓ | **Skill icons: Aether-Tech (2 of 2)** | `PROMPTS-SKILLS.md` | `sheet-skills2-aether.png` (rev `c1e83c7902f1`) | sliced 2026-10-07 |
 | ! | **Skill icons: Geomancer** | `PROMPTS-SKILLS.md` | `sheet-skills-geo.png` (rev `822030d247c9`) | REPAINT — the reference changed (f6c6e1ae01f5 → 822030d247c9) |
-| · | **Skill icons: Geomancer (2 of 2)** | `PROMPTS-SKILLS.md` | `sheet-skills2-geo.png` (rev `c5da2b948ee8`) | not painted yet |
-| · | **Skill icons: Windrunner** | `PROMPTS-SKILLS.md` | `sheet-skills-windrunner.png` — *missing, run `pnpm art:export`* | not painted yet |
-| · | **Skill icons: Windrunner (2 of 2)** | `PROMPTS-SKILLS.md` | `sheet-skills2-windrunner.png` — *missing, run `pnpm art:export`* | not painted yet |
-| · | **Skill icons: Frostwarden** | `PROMPTS-SKILLS.md` | `sheet-skills-frostwarden.png` — *missing, run `pnpm art:export`* | not painted yet |
-| · | **Skill icons: Frostwarden (2 of 2)** | `PROMPTS-SKILLS.md` | `sheet-skills2-frostwarden.png` — *missing, run `pnpm art:export`* | not painted yet |
-| · | **Skill icons: Lightbringer** | `PROMPTS-SKILLS.md` | `sheet-skills-lightbringer.png` — *missing, run `pnpm art:export`* | not painted yet |
-| · | **Skill icons: Lightbringer (2 of 2)** | `PROMPTS-SKILLS.md` | `sheet-skills2-lightbringer.png` — *missing, run `pnpm art:export`* | not painted yet |
-| · | **Skill icons: Beastcaller** | `PROMPTS-SKILLS.md` | `sheet-skills-beastcaller.png` — *missing, run `pnpm art:export`* | not painted yet |
-| · | **Skill icons: Beastcaller (2 of 2)** | `PROMPTS-SKILLS.md` | `sheet-skills2-beastcaller.png` — *missing, run `pnpm art:export`* | not painted yet |
-| · | **Skill icons: Elementalist** | `PROMPTS-SKILLS.md` | `sheet-skills-elementalist.png` — *missing, run `pnpm art:export`* | not painted yet |
-| · | **Skill icons: Elementalist (2 of 2)** | `PROMPTS-SKILLS.md` | `sheet-skills2-elementalist.png` — *missing, run `pnpm art:export`* | not painted yet |
-| · | **Skill icons: Soul Warden** | `PROMPTS-SKILLS.md` | `sheet-skills-soulwarden.png` — *missing, run `pnpm art:export`* | not painted yet |
-| · | **Skill icons: Soul Warden (2 of 2)** | `PROMPTS-SKILLS.md` | `sheet-skills2-soulwarden.png` — *missing, run `pnpm art:export`* | not painted yet |
-| · | **Skill icons: Iron Monk** | `PROMPTS-SKILLS.md` | `sheet-skills-ironmonk.png` — *missing, run `pnpm art:export`* | not painted yet |
-| · | **Skill icons: Iron Monk (2 of 2)** | `PROMPTS-SKILLS.md` | `sheet-skills2-ironmonk.png` — *missing, run `pnpm art:export`* | not painted yet |
-| · | **Skill icons: Bard** | `PROMPTS-SKILLS.md` | `sheet-skills-bard.png` — *missing, run `pnpm art:export`* | not painted yet |
-| · | **Skill icons: Bard (2 of 2)** | `PROMPTS-SKILLS.md` | `sheet-skills2-bard.png` — *missing, run `pnpm art:export`* | not painted yet |
+| ✓ | **Skill icons: Geomancer (2 of 2)** | `PROMPTS-SKILLS.md` | `sheet-skills2-geo.png` (rev `c5da2b948ee8`) | sliced 2026-10-07 |
+| ✓ | **Skill icons: Windrunner** | `PROMPTS-SKILLS.md` | `sheet-skills-windrunner.png` (rev `38f5ed58228f`) | sliced 2026-10-07 |
+| ✓ | **Skill icons: Windrunner (2 of 2)** | `PROMPTS-SKILLS.md` | `sheet-skills2-windrunner.png` (rev `ccd5343695eb`) | sliced 2026-10-07 |
+| · | **Skill icons: Frostwarden** | `PROMPTS-SKILLS.md` | `sheet-skills-frostwarden.png` (rev `a74323ae56df`) | not painted yet |
+| · | **Skill icons: Frostwarden (2 of 2)** | `PROMPTS-SKILLS.md` | `sheet-skills2-frostwarden.png` (rev `07208654e3c4`) | not painted yet |
+| · | **Skill icons: Lightbringer** | `PROMPTS-SKILLS.md` | `sheet-skills-lightbringer.png` (rev `6bbb8dffceeb`) | not painted yet |
+| · | **Skill icons: Lightbringer (2 of 2)** | `PROMPTS-SKILLS.md` | `sheet-skills2-lightbringer.png` (rev `43450a614ce4`) | not painted yet |
+| · | **Skill icons: Beastcaller** | `PROMPTS-SKILLS.md` | `sheet-skills-beastcaller.png` (rev `cbea98f501c5`) | not painted yet |
+| · | **Skill icons: Beastcaller (2 of 2)** | `PROMPTS-SKILLS.md` | `sheet-skills2-beastcaller.png` (rev `d00012fc554d`) | not painted yet |
+| · | **Skill icons: Elementalist** | `PROMPTS-SKILLS.md` | `sheet-skills-elementalist.png` (rev `a6531c8688ba`) | not painted yet |
+| · | **Skill icons: Elementalist (2 of 2)** | `PROMPTS-SKILLS.md` | `sheet-skills2-elementalist.png` (rev `32983c7ed53c`) | not painted yet |
+| · | **Skill icons: Soul Warden** | `PROMPTS-SKILLS.md` | `sheet-skills-soulwarden.png` (rev `06aa76023241`) | not painted yet |
+| · | **Skill icons: Soul Warden (2 of 2)** | `PROMPTS-SKILLS.md` | `sheet-skills2-soulwarden.png` (rev `97f0e4862e97`) | not painted yet |
+| · | **Skill icons: Iron Monk** | `PROMPTS-SKILLS.md` | `sheet-skills-ironmonk.png` (rev `5ab58e187ffa`) | not painted yet |
+| · | **Skill icons: Iron Monk (2 of 2)** | `PROMPTS-SKILLS.md` | `sheet-skills2-ironmonk.png` (rev `ab03cc998cb4`) | not painted yet |
+| · | **Skill icons: Bard** | `PROMPTS-SKILLS.md` | `sheet-skills-bard.png` (rev `d6f4ff72caa4`) | not painted yet |
+| · | **Skill icons: Bard (2 of 2)** | `PROMPTS-SKILLS.md` | `sheet-skills2-bard.png` (rev `86f4925e0612`) | not painted yet |
 | ✓ | **Portraits: townsfolk** | `PROMPTS-PORTRAITS.md` | `sheet-portraits-town.png` (rev `3732e628fe79`) | sliced 2026-10-02 |
 | ✓ | **Portraits: trainers** | `PROMPTS-PORTRAITS.md` | `sheet-portraits-trainers.png` (rev `770414fa440b`) | sliced 2026-10-02 |
 | ✓ | **Portraits: quest speakers** | `PROMPTS-PORTRAITS.md` | `sheet-portraits-speakers.png` (rev `58641c102acc`) | sliced 2026-10-03 |
 | ✓ | **Portraits: the hero, per outfit** | `PROMPTS-PORTRAITS.md` | `sheet-portraits-hero.png` (rev `75c7036e6e95`) | sliced 2026-10-03 |
 | ✓ | **Portraits: the girl hero, per outfit** | `PROMPTS-PORTRAITS.md` | `sheet-portraits-girl.png` (rev `7e58d5984004`) | sliced 2026-10-04 |
 | ✓ | **Icons: class emblems (1 of 2)** | `PROMPTS-ICONS.md` | `sheet-icons-classes.png` (rev `5b8dd08575e3`) | sliced 2026-10-03 |
-| · | **Icons: class emblems (2 of 2)** | `PROMPTS-ICONS.md` | `sheet-icons-crests.png` — *missing, run `pnpm art:export`* | not painted yet |
+| ✓ | **Icons: class emblems (2 of 2)** | `PROMPTS-ICONS.md` | `sheet-icons-crests.png` (rev `64961b383e5a`) | sliced 2026-10-07 |
 | ✓ | **Icons: status effects (1 of 4)** | `PROMPTS-ICONS.md` | `sheet-icons-status-1.png` (rev `3b679b490b8f`) | sliced 2026-10-03 |
 | ✓ | **Icons: status effects (2 of 4)** | `PROMPTS-ICONS.md` | `sheet-icons-status-2.png` (rev `6a52868c9374`) | sliced 2026-10-03 |
-| ! | **Icons: status effects (3 of 4)** | `PROMPTS-ICONS.md` | `sheet-icons-status-3.png` (rev `97b329a076eb`) | REPAINT — the reference changed (96c14f307c6a → 97b329a076eb) |
-| · | **Icons: status effects (4 of 4)** | `PROMPTS-ICONS.md` | `sheet-icons-status-4.png` (rev `1cff862903c8`) | not painted yet |
+| ✓ | **Icons: status effects (3 of 4)** | `PROMPTS-ICONS.md` | `sheet-icons-status-3.png` (rev `3021cbd7a46e`) | sliced 2026-10-07 |
+| ✓ | **Icons: status effects (4 of 4)** | `PROMPTS-ICONS.md` | `sheet-icons-status-4.png` (rev `32e58aa7ad29`) | sliced 2026-10-07 |
 | ✓ | **Icons: HUD and menu buttons** | `PROMPTS-ICONS.md` | `sheet-icons-ui-1.png` (rev `742792342418`) | sliced 2026-10-03 |
 | ✓ | **Icons: screen buttons** | `PROMPTS-ICONS.md` | `sheet-icons-ui-2.png` (rev `3e4281f52940`) | sliced 2026-10-03 |
 | ✓ | **Icons: badges, pins and help** | `PROMPTS-ICONS.md` | `sheet-icons-ui-3.png` (rev `85181b617148`) | sliced 2026-10-03 |
@@ -66,6 +66,10 @@ after painting or slicing anything.
 | ✓ | **Logo: the mascot (the hero)** | `PROMPTS-UI.md` | `single-logo-mascot.png` (rev `4924603fb50a`) | sliced 2026-10-03 |
 | ✓ | **Logo: the wordmark (the pick)** | `PROMPTS-UI.md` | `single-logo-wordmark.png` (rev `3c04e7ce9c37`) | sliced 2026-10-06 |
 | ! | **UI: the world map terrain** | `PROMPTS-UI.md` | `bg-ui-map.png` (rev `c6bd38bc39ff`) | REPAINT — the reference changed (876728296704 → c6bd38bc39ff) |
+| · | **UI: the world map, top left quarter** | `PROMPTS-UI.md` | `bg-ui-terrain-nw.png` (rev `52265c20b8df`) | not painted yet |
+| · | **UI: the world map, top right quarter** | `PROMPTS-UI.md` | `bg-ui-terrain-ne.png` (rev `fa56cf61a9cd`) | not painted yet |
+| · | **UI: the world map, bottom left quarter** | `PROMPTS-UI.md` | `bg-ui-terrain-sw.png` (rev `7648db88377e`) | not painted yet |
+| · | **UI: the world map, bottom right quarter** | `PROMPTS-UI.md` | `bg-ui-terrain-se.png` (rev `f3db401f0561`) | not painted yet |
 | ✓ | **UI: the trade table backdrop** | `PROMPTS-UI.md` | `bg-ui-trade.png` (rev `748f6cfd871f`) | sliced 2026-10-03 |
 | ✓ | **UI: the equipment backdrop** | `PROMPTS-UI.md` | `bg-ui-inventory.png` (rev `f58e29283d5b`) | sliced 2026-10-03 |
 | ✓ | **UI: the skills backdrop** | `PROMPTS-UI.md` | `bg-ui-skills.png` (rev `c1d39c64381c`) | sliced 2026-10-03 |

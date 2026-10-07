@@ -163,12 +163,6 @@
       "painting": "be3b80ba8688",
       "at": "2026-10-03T10:35:42.556Z"
     },
-    "sheet-icons-status-3.jpg": {
-      "sheet": "sheet-icons-status-3",
-      "rev": "96c14f307c6a",
-      "painting": "13017331a529",
-      "at": "2026-10-03T10:38:21.215Z"
-    },
     "sheet-icons-ui-1.jpg": {
       "sheet": "sheet-icons-ui-1",
       "rev": "742792342418",
@@ -288,6 +282,84 @@
       "rev": "3c04e7ce9c37",
       "painting": "0553325012f4",
       "at": "2026-10-06T16:08:41.893Z"
+    },
+    "sheet-icons-status-3.jpg": {
+      "sheet": "sheet-icons-status-3",
+      "rev": "3021cbd7a46e",
+      "painting": "e63acd4b6e62",
+      "at": "2026-10-07T14:24:07.182Z"
+    },
+    "sheet-icons-status-4.jpg": {
+      "sheet": "sheet-icons-status-4",
+      "rev": "32e58aa7ad29",
+      "painting": "c33da0ca34f6",
+      "at": "2026-10-07T14:26:48.130Z"
+    },
+    "sheet-icons-crests.jpg": {
+      "sheet": "sheet-icons-crests",
+      "rev": "64961b383e5a",
+      "painting": "a56309849906",
+      "at": "2026-10-07T14:30:08.299Z"
+    },
+    "sheet-skills2-aegis.jpg": {
+      "sheet": "sheet-skills2-aegis",
+      "rev": "58e4d7a026f6",
+      "painting": "59e3bff9c9ad",
+      "at": "2026-10-07T14:33:38.364Z"
+    },
+    "sheet-skills2-shadow.jpg": {
+      "sheet": "sheet-skills2-shadow",
+      "rev": "60af38781de3",
+      "painting": "bad901935056",
+      "at": "2026-10-07T14:36:21.965Z"
+    },
+    "sheet-skills2-pyro.jpg": {
+      "sheet": "sheet-skills2-pyro",
+      "rev": "fffff84ea918",
+      "painting": "32992745b6ff",
+      "at": "2026-10-07T14:39:11.885Z"
+    },
+    "sheet-skills2-sovereign.jpg": {
+      "sheet": "sheet-skills2-sovereign",
+      "rev": "14da6a244a47",
+      "painting": "487873706ccd",
+      "at": "2026-10-07T14:42:33.553Z"
+    },
+    "sheet-skills2-chrono.jpg": {
+      "sheet": "sheet-skills2-chrono",
+      "rev": "10dc842e0435",
+      "painting": "5ec4b27712ba",
+      "at": "2026-10-07T14:45:46.782Z"
+    },
+    "sheet-skills2-blood.jpg": {
+      "sheet": "sheet-skills2-blood",
+      "rev": "6507652f3d78",
+      "painting": "54091468e0b0",
+      "at": "2026-10-07T14:48:31.952Z"
+    },
+    "sheet-skills2-aether.jpg": {
+      "sheet": "sheet-skills2-aether",
+      "rev": "c1e83c7902f1",
+      "painting": "38c9b26866c8",
+      "at": "2026-10-07T14:51:36.498Z"
+    },
+    "sheet-skills2-geo.jpg": {
+      "sheet": "sheet-skills2-geo",
+      "rev": "c5da2b948ee8",
+      "painting": "2b46cc2a9485",
+      "at": "2026-10-07T14:55:07.776Z"
+    },
+    "sheet-skills-windrunner.jpg": {
+      "sheet": "sheet-skills-windrunner",
+      "rev": "38f5ed58228f",
+      "painting": "8ce329af5db4",
+      "at": "2026-10-07T14:57:53.242Z"
+    },
+    "sheet-skills2-windrunner.jpg": {
+      "sheet": "sheet-skills2-windrunner",
+      "rev": "ccd5343695eb",
+      "painting": "792c68e18e6e",
+      "at": "2026-10-07T15:01:02.712Z"
     }
   }
 }

@@ -1661,7 +1661,7 @@ READABLE AT 40 PIXELS — each of these is shown about 40 pixels wide in the gam
 · Hold each panel at thumbnail size: if it is not instantly recognisable as a silhouette with two or three big areas of colour, simplify it.
 
 SIZE AND PLACE — measure against the PANEL, not against the paper.
-· In the reference no drawing is wider than about 84% of its panel or taller than about 75%, and every panel keeps a clear magenta margin on all four sides.
+· In the reference no drawing is wider than about 84% of its panel or taller than about 74%, and every panel keeps a clear magenta margin on all four sides.
 · Paint each one as LARGE as the reference shows it: it takes up most of its panel, with a narrow, even margin of magenta around it. A small drawing in the middle of a big empty panel is the wrong answer.
 · Keep each one at the size and in the spot its own panel shows. If yours reaches a panel edge it is too big, and it will be cut in half by the slice.
 · Where a drawing sits in its panel is not a composition choice: do not re-centre, do not even out the spacing, do not let one lean into the next panel.
@@ -2354,7 +2354,7 @@ READABLE AT 40 PIXELS — each of these is shown about 40 pixels wide in the gam
 · Hold each panel at thumbnail size: if it is not instantly recognisable as a silhouette with two or three big areas of colour, simplify it.
 
 SIZE AND PLACE — measure against the PANEL, not against the paper.
-· In the reference no drawing is wider than about 84% of its panel or taller than about 75%, and every panel keeps a clear magenta margin on all four sides.
+· In the reference no drawing is wider than about 84% of its panel or taller than about 74%, and every panel keeps a clear magenta margin on all four sides.
 · Paint each one as LARGE as the reference shows it: it takes up most of its panel, with a narrow, even margin of magenta around it. A small drawing in the middle of a big empty panel is the wrong answer.
 · Keep each one at the size and in the spot its own panel shows. If yours reaches a panel edge it is too big, and it will be cut in half by the slice.
 · Where a drawing sits in its panel is not a composition choice: do not re-centre, do not even out the spacing, do not let one lean into the next panel.
@@ -2849,7 +2849,7 @@ READABLE AT 40 PIXELS — each of these is shown about 40 pixels wide in the gam
 · Hold each panel at thumbnail size: if it is not instantly recognisable as a silhouette with two or three big areas of colour, simplify it.
 
 SIZE AND PLACE — measure against the PANEL, not against the paper.
-· In the reference no drawing is wider than about 84% of its panel or taller than about 75%, and every panel keeps a clear magenta margin on all four sides.
+· In the reference no drawing is wider than about 84% of its panel or taller than about 74%, and every panel keeps a clear magenta margin on all four sides.
 · Paint each one as LARGE as the reference shows it: it takes up most of its panel, with a narrow, even margin of magenta around it. A small drawing in the middle of a big empty panel is the wrong answer.
 · Keep each one at the size and in the spot its own panel shows. If yours reaches a panel edge it is too big, and it will be cut in half by the slice.
 · Where a drawing sits in its panel is not a composition choice: do not re-centre, do not even out the spacing, do not let one lean into the next panel.
@@ -3047,7 +3047,7 @@ READABLE AT 40 PIXELS — each of these is shown about 40 pixels wide in the gam
 · Hold each panel at thumbnail size: if it is not instantly recognisable as a silhouette with two or three big areas of colour, simplify it.
 
 SIZE AND PLACE — measure against the PANEL, not against the paper.
-· In the reference no drawing is wider than about 84% of its panel or taller than about 75%, and every panel keeps a clear magenta margin on all four sides.
+· In the reference no drawing is wider than about 81% of its panel or taller than about 75%, and every panel keeps a clear magenta margin on all four sides.
 · Paint each one as LARGE as the reference shows it: it takes up most of its panel, with a narrow, even margin of magenta around it. A small drawing in the middle of a big empty panel is the wrong answer.
 · Keep each one at the size and in the spot its own panel shows. If yours reaches a panel edge it is too big, and it will be cut in half by the slice.
 · Where a drawing sits in its panel is not a composition choice: do not re-centre, do not even out the spacing, do not let one lean into the next panel.
