@@ -622,5 +622,13 @@ attribute buff; items are fixed named ids owned once.
   class clears 10–12 of 12 zones; average clear times spread 45 s
   (Shadowblade) to 164 s (Chrono-Weaver), Aegis 158 s, Blood 143 s, Bard
   134 s at the slow end; Aether, Elementalist, Windrunner, Sovereign, Pyro
-  and Beastcaller 62–75 s at the fast end. To narrow in the balance pass.
+  and Beastcaller 62–75 s at the fast end.
+  Balance, the new classes: a damage meter in the sim (`sim.meter`, off
+  unless a measurement sets it) showed the spread is mostly the basic
+  attack (Shadowblade 57 %, Windrunner 39 % of their damage) against the
+  tanks' and supports' slower pace, which is roadmap #13 (the owner's, left
+  for it: the eight older classes' numbers are untouched). The new kits
+  were brought into the band: Elementalist skill damage ×0.75 (67 → 75 s,
+  it kept 90 % health), Windrunner ×0.8, Frostwarden ×1.3 (111 → 99 s),
+  Bard ×1.4 (127 → 114 s; his songs buff rather than hit).
 - [ ] **24 Icons, then the world map** (#94).

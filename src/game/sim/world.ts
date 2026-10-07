@@ -269,6 +269,8 @@ export class Sim {
   doors: DoorState[] = []
   /** One-time chests opened this visit (their save keys). */
   specialOpened: string[] = []
+  /** Balance measurements only: damage dealt to enemies, by skill ('basic', 'minion', 'dot'). Off unless set. */
+  meter: Record<string, number> | null = null
   /** A won visit may close: the colosseum's purse is paid, or the hero chose
    *  to leave a zone and its beat has passed (`leaveVisit`). */
   endReady = false

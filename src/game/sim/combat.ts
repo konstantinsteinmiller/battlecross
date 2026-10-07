@@ -381,6 +381,10 @@ export const dealDamage = (sim: Sim, src: Unit | null, tgt: Unit, base: number, 
     }
   }
   const dealt = Math.max(0, before - Math.max(0, tgt.hp))
+  if (sim.meter && tgt.team === 1 && src && src.team === 0) {
+    const key = o.skill ?? (src.rank === 'hero' ? (o.dot ? 'dot' : 'basic') : 'minion')
+    sim.meter[key] = (sim.meter[key] ?? 0) + dealt
+  }
 
   if (!o.dot) {
     tgt.flinch = 1

@@ -227,32 +227,32 @@ export const SKILLS: readonly SkillDef[] = [
   P('crumble', 'geo', 29, { str: 34, int: 26 }, 'str', { crumble: 0.2 }, { dmg: 20 }),
 
   // ── Windrunner ────────────────────────────────────────────────────────────
-  A('galeArrow', 'windrunner', 1, { dex: 5 }, 3, 6, 'enemy', 12, 'dex', { dmg: 130, push: 4 }, { cast: 0.15 }),
+  A('galeArrow', 'windrunner', 1, { dex: 5 }, 3, 6, 'enemy', 12, 'dex', { dmg: 105, push: 4 }, { cast: 0.15 }),
   P('fleetfoot', 'windrunner', 3, { dex: 8 }, 'dex', { moveSpeed: 0.1, dodge: 0.08 }, { move: 10, dodge: 8 }),
   A('zephyrDash', 'windrunner', 5, { dex: 10, skl: 6 }, 7, 8, 'dir', 7, 'dex', { dist: 7, move: 30, dur: 2 }, { cast: 0.06 }),
-  A('piercingGale', 'windrunner', 7, { dex: 13 }, 9, 12, 'dir', 14, 'dex', { dmg: 170, slow: 35, dur: 2 }, { cast: 0.3 }),
-  A('cycloneSnare', 'windrunner', 9, { skl: 13, dex: 11 }, 13, 14, 'ground', 11, 'skl', { dmg: 180, dur: 4, radius: 3 }, { radius: 3 }),
+  A('piercingGale', 'windrunner', 7, { dex: 13 }, 9, 12, 'dir', 14, 'dex', { dmg: 135, slow: 35, dur: 2 }, { cast: 0.3 }),
+  A('cycloneSnare', 'windrunner', 9, { skl: 13, dex: 11 }, 13, 14, 'ground', 11, 'skl', { dmg: 145, dur: 4, radius: 3 }, { radius: 3 }),
   P('keenEye', 'windrunner', 11, { skl: 16, dex: 12 }, 'skl', { critDamage: 0.25, pierce: 1 }, { critDmg: 25, pierce: 1 }),
-  A('updraftLeap', 'windrunner', 13, { dex: 18, skl: 14 }, 15, 14, 'self', 0, 'dex', { dmg: 150, air: 1, radius: 4, leap: 6 }, { radius: 4, cast: 0.1 }),
+  A('updraftLeap', 'windrunner', 13, { dex: 18, skl: 14 }, 15, 14, 'self', 0, 'dex', { dmg: 120, air: 1, radius: 4, leap: 6 }, { radius: 4, cast: 0.1 }),
   P('swiftDraw', 'windrunner', 16, { dex: 22 }, 'dex', { attackSpeed: 0.15, cdr: 0.05 }, { speed: 15, cdr: 5 }),
-  A('arrowStorm', 'windrunner', 18, { skl: 24, dex: 18 }, 20, 22, 'ground', 12, 'skl', { dmg: 300, volleys: 8, dur: 2, radius: 3.5, slow: 30 }, { radius: 3.5, cast: 0.35 }),
-  A('galeSpirits', 'windrunner', 21, { skl: 27, dex: 20 }, 30, 26, 'self', 0, 'skl', { dur: 8, shots: 10, dmg: 50, move: 25 }, { cast: 0.25 }),
+  A('arrowStorm', 'windrunner', 18, { skl: 24, dex: 18 }, 20, 22, 'ground', 12, 'skl', { dmg: 240, volleys: 8, dur: 2, radius: 3.5, slow: 30 }, { radius: 3.5, cast: 0.35 }),
+  A('galeSpirits', 'windrunner', 21, { skl: 27, dex: 20 }, 30, 26, 'self', 0, 'skl', { dur: 8, shots: 10, dmg: 40, move: 25 }, { cast: 0.25 }),
   P('skyHunter', 'windrunner', 24, { dex: 30, skl: 24 }, 'dex', { bossDamage: 0.15, critChance: 0.06 }, { boss: 15, crit: 6 }),
-  A('skyrender', 'windrunner', 28, { dex: 34, skl: 28 }, 45, 40, 'dir', 18, 'dex', { dmg: 550, air: 1.2, width: 1.6 }, { cast: 0.6 }),
+  A('skyrender', 'windrunner', 28, { dex: 34, skl: 28 }, 45, 40, 'dir', 18, 'dex', { dmg: 440, air: 1.2, width: 1.6 }, { cast: 0.6 }),
 
   // ── Frostwarden ───────────────────────────────────────────────────────────
-  A('frostCleave', 'frostwarden', 1, { str: 5 }, 4, 6, 'enemy', MELEE, 'str', { dmg: 120, slow: 30, dur: 2 }),
-  A('rimeLance', 'frostwarden', 3, { int: 7, str: 5 }, 5, 8, 'enemy', 11, 'int', { dmg: 130, slow: 40, dur: 3 }, { cast: 0.18 }),
+  A('frostCleave', 'frostwarden', 1, { str: 5 }, 4, 6, 'enemy', MELEE, 'str', { dmg: 155, slow: 30, dur: 2 }),
+  A('rimeLance', 'frostwarden', 3, { int: 7, str: 5 }, 5, 8, 'enemy', 11, 'int', { dmg: 170, slow: 40, dur: 3 }, { cast: 0.18 }),
   P('wintersBite', 'frostwarden', 5, { str: 10 }, 'str', { chillOnHit: 0.25 }, { slow: 25, dur: 2 }),
   A('frostArmor', 'frostwarden', 7, { int: 12, str: 9 }, 14, 12, 'self', 0, 'int', { shield: 300, dur: 6, slow: 40, slowDur: 3, radius: 3.5 }, { radius: 3.5, cast: 0.2 }),
-  A('glacialCharge', 'frostwarden', 9, { str: 14, int: 10 }, 11, 12, 'enemy', 9, 'str', { dmg: 170, freeze: 1.2, slow: 40, dur: 2 }, { cast: 0.1 }),
+  A('glacialCharge', 'frostwarden', 9, { str: 14, int: 10 }, 11, 12, 'enemy', 9, 'str', { dmg: 220, freeze: 1.2, slow: 40, dur: 2 }, { cast: 0.1 }),
   P('frozenHeart', 'frostwarden', 11, { str: 15, end: 10 }, 'str', { maxHpPct: 0.08, damageReduction: 0.06 }, { hp: 8, reduce: 6 }),
-  A('rimeField', 'frostwarden', 13, { int: 18, str: 13 }, 16, 16, 'ground', 10, 'int', { dmg: 150, dur: 5, slow: 50, freeze: 1, radius: 3.5 }, { radius: 3.5 }),
-  A('frostShatter', 'frostwarden', 16, { str: 22, int: 15 }, 14, 16, 'self', 0, 'str', { dmg: 150, chilled: 50, frozen: 150, radius: 5 }, { radius: 5, cast: 0.3 }),
+  A('rimeField', 'frostwarden', 13, { int: 18, str: 13 }, 16, 16, 'ground', 10, 'int', { dmg: 195, dur: 5, slow: 50, freeze: 1, radius: 3.5 }, { radius: 3.5 }),
+  A('frostShatter', 'frostwarden', 16, { str: 22, int: 15 }, 14, 16, 'self', 0, 'str', { dmg: 195, chilled: 50, frozen: 150, radius: 5 }, { radius: 5, cast: 0.3 }),
   P('shatterpoint', 'frostwarden', 19, { str: 24, int: 18 }, 'str', { chillDamage: 0.2 }, { bonus: 20 }),
-  A('avalancheLeap', 'frostwarden', 22, { str: 28, int: 20 }, 24, 24, 'ground', 9, 'str', { dmg: 300, down: 1.2, slow: 40, dur: 3, radius: 3.5 }, { radius: 3.5, cast: 0.3 }),
+  A('avalancheLeap', 'frostwarden', 22, { str: 28, int: 20 }, 24, 24, 'ground', 9, 'str', { dmg: 390, down: 1.2, slow: 40, dur: 3, radius: 3.5 }, { radius: 3.5, cast: 0.3 }),
   P('iceborn', 'frostwarden', 25, { str: 30, end: 22 }, 'str', { knockbackImmune: 1, stunDurationCut: 0.3 }, { cut: 30 }),
-  A('absoluteZero', 'frostwarden', 28, { int: 34, str: 28 }, 50, 40, 'self', 0, 'int', { dmg: 420, freeze: 3, shield: 400, radius: 10 }, { radius: 10, cast: 0.6 }),
+  A('absoluteZero', 'frostwarden', 28, { int: 34, str: 28 }, 50, 40, 'self', 0, 'int', { dmg: 545, freeze: 3, shield: 400, radius: 10 }, { radius: 10, cast: 0.6 }),
 
   // ── Lightbringer ──────────────────────────────────────────────────────────
   A('sunbolt', 'lightbringer', 1, { int: 5 }, 3, 6, 'enemy', 11, 'int', { dmg: 120, weaken: 15, dur: 3 }, { cast: 0.18 }),
@@ -283,18 +283,18 @@ export const SKILLS: readonly SkillDef[] = [
   A('wildHunt', 'beastcaller', 28, { cha: 34, end: 26 }, 55, 40, 'self', 0, 'cha', { wolves: 3, dur: 12, dmg: 50, move: 30 }, { cast: 0.5 }),
 
   // ── Elementalist (#95) ────────────────────────────────────────────────────
-  A('prismBolt', 'elementalist', 1, { int: 5 }, 2.5, 6, 'enemy', 11, 'int', { dmg: 120, burn: 30, slow: 30, dur: 3 }, { cast: 0.15 }),
+  A('prismBolt', 'elementalist', 1, { int: 5 }, 2.5, 6, 'enemy', 11, 'int', { dmg: 90, burn: 30, slow: 30, dur: 3 }, { cast: 0.15 }),
   P('elementalHarmony', 'elementalist', 3, { int: 8 }, 'int', { reactionDamage: 0.25 }, { pct: 25 }),
-  A('frostLance', 'elementalist', 4, { int: 9 }, 7, 10, 'dir', 10, 'int', { dmg: 150, slow: 40, dur: 3 }, { radius: 0.6 }),
-  A('chainSpark', 'elementalist', 7, { int: 12, skl: 8 }, 8, 12, 'enemy', 10, 'int', { dmg: 140, jumps: 4, fall: 15 }, { cast: 0.15 }),
+  A('frostLance', 'elementalist', 4, { int: 9 }, 7, 10, 'dir', 10, 'int', { dmg: 110, slow: 40, dur: 3 }, { radius: 0.6 }),
+  A('chainSpark', 'elementalist', 7, { int: 12, skl: 8 }, 8, 12, 'enemy', 10, 'int', { dmg: 105, jumps: 4, fall: 15 }, { cast: 0.15 }),
   P('smolderingCore', 'elementalist', 9, { int: 14 }, 'int', { igniteBonus: 0.3, maxMana: 40 }, { burn: 30, mana: 40 }),
-  A('rollingBoulder', 'elementalist', 10, { int: 15, skl: 10 }, 10, 14, 'dir', 10, 'int', { dmg: 170, down: 1 }, { radius: 1.2, cast: 0.3 }),
-  A('thunderSnow', 'elementalist', 14, { int: 19, skl: 13 }, 16, 18, 'ground', 10, 'int', { dmg: 160, bolt: 70, dur: 5, radius: 3.5 }, { radius: 3.5 }),
+  A('rollingBoulder', 'elementalist', 10, { int: 15, skl: 10 }, 10, 14, 'dir', 10, 'int', { dmg: 130, down: 1 }, { radius: 1.2, cast: 0.3 }),
+  A('thunderSnow', 'elementalist', 14, { int: 19, skl: 13 }, 16, 18, 'ground', 10, 'int', { dmg: 120, bolt: 70, dur: 5, radius: 3.5 }, { radius: 3.5 }),
   P('spellweave', 'elementalist', 16, { int: 21, skl: 16 }, 'int', { spellCrit: 0.08, manaDiscount: 0.1 }, { crit: 8, mana: 10 }),
-  A('prismaticNova', 'elementalist', 18, { int: 23, skl: 17 }, 16, 20, 'self', 0, 'int', { dmg: 180, radius: 7 }, { radius: 7, cast: 0.3 }),
+  A('prismaticNova', 'elementalist', 18, { int: 23, skl: 17 }, 16, 20, 'self', 0, 'int', { dmg: 135, radius: 7 }, { radius: 7, cast: 0.3 }),
   P('prismaticWard', 'elementalist', 21, { int: 26, end: 14 }, 'end', { damageReduction: 0.08, maxHpPct: 0.12 }, { reduce: 8, hp: 12 }),
-  A('frostfireComet', 'elementalist', 23, { int: 28, skl: 21 }, 24, 28, 'ground', 11, 'int', { dmg: 320, radius: 3.2, burn: 40, slow: 40, dur: 4 }, { radius: 3.2, cast: 0.4, fire: true }),
-  A('elementalConvergence', 'elementalist', 28, { int: 34, skl: 26 }, 50, 42, 'self', 0, 'int', { dmg: 45, strikes: 12, dur: 6 }, { radius: 12, cast: 0.5 }),
+  A('frostfireComet', 'elementalist', 23, { int: 28, skl: 21 }, 24, 28, 'ground', 11, 'int', { dmg: 240, radius: 3.2, burn: 40, slow: 40, dur: 4 }, { radius: 3.2, cast: 0.4, fire: true }),
+  A('elementalConvergence', 'elementalist', 28, { int: 34, skl: 26 }, 50, 42, 'self', 0, 'int', { dmg: 35, strikes: 12, dur: 6 }, { radius: 12, cast: 0.5 }),
 
   // ── Soul Warden (#95) ─────────────────────────────────────────────────────
   A('wispBolt', 'soulwarden', 1, { int: 5 }, 3, 6, 'enemy', 11, 'int', { dmg: 130, life: 8 }, { cast: 0.15 }),
@@ -325,18 +325,18 @@ export const SKILLS: readonly SkillDef[] = [
   A('mountainPalm', 'ironmonk', 28, { dex: 34, end: 26 }, 40, 35, 'ground', 8, 'dex', { dmg: 420, per: 60, radius: 3.5, down: 1.5 }, { radius: 3.5, cast: 0.4 }),
 
   // ── Bard (#95) ────────────────────────────────────────────────────────────
-  A('sharpNote', 'bard', 1, { cha: 5 }, 3, 6, 'enemy', 11, 'cha', { dmg: 120, weaken: 15, dur: 3 }, { cast: 0.15 }),
+  A('sharpNote', 'bard', 1, { cha: 5 }, 3, 6, 'enemy', 11, 'cha', { dmg: 170, weaken: 15, dur: 3 }, { cast: 0.15 }),
   P('stagePresence', 'bard', 3, { cha: 8 }, 'cha', { manaDiscount: 0.1, moveSpeed: 0.06 }, { mana: 10, move: 6 }),
   A('marchingSong', 'bard', 4, { cha: 9, skl: 6 }, 18, 14, 'self', 0, 'cha', { dur: 10, move: 25, speed: 20, radius: 7 }, { radius: 7, cast: 0.3 }),
   A('lullaby', 'bard', 7, { cha: 12, skl: 8 }, 16, 14, 'dir', 7, 'cha', { dur: 3, cone: 70 }, { radius: 7, cast: 0.3 }),
   P('longRefrain', 'bard', 9, { cha: 14, skl: 10 }, 'cha', { songLength: 0.3 }, { pct: 30 }),
-  A('balladOfValor', 'bard', 10, { cha: 15, skl: 10 }, 22, 18, 'self', 0, 'cha', { dur: 10, dmg: 20, def: 25, radius: 7 }, { radius: 7, cast: 0.3 }),
+  A('balladOfValor', 'bard', 10, { cha: 15, skl: 10 }, 22, 18, 'self', 0, 'cha', { dur: 10, dmg: 30, def: 25, radius: 7 }, { radius: 7, cast: 0.3 }),
   A('charmingSerenade', 'bard', 13, { cha: 18, skl: 12 }, 18, 18, 'enemy', 10, 'cha', { dur: 4, radius: 3.5 }, { radius: 3.5, cast: 0.3 }),
   P('virtuoso', 'bard', 15, { skl: 18, cha: 14 }, 'skl', { cdr: 0.08, critDamage: 0.25 }, { cdr: 8, critDmg: 25 }),
   A('hymnOfMending', 'bard', 17, { cha: 22, skl: 15 }, 28, 24, 'self', 0, 'cha', { dur: 8, regen: 2, radius: 7 }, { radius: 7, cast: 0.3 }),
-  A('crescendo', 'bard', 21, { cha: 26, skl: 20 }, 14, 20, 'self', 0, 'cha', { dmg: 220, per: 80, radius: 6 }, { radius: 6, cast: 0.25 }),
+  A('crescendo', 'bard', 21, { cha: 26, skl: 20 }, 14, 20, 'self', 0, 'cha', { dmg: 310, per: 80, radius: 6 }, { radius: 6, cast: 0.25 }),
   P('standingOvation', 'bard', 24, { cha: 29, skl: 22 }, 'cha', { damagePct: 0.1, damageReduction: 0.08 }, { dmg: 10, reduce: 8 }),
-  A('grandFinale', 'bard', 27, { cha: 33, skl: 26 }, 50, 40, 'self', 0, 'cha', { dur: 8, buff: 15, dmg: 400, charm: 3, radius: 9 }, { radius: 9, cast: 0.5 })
+  A('grandFinale', 'bard', 27, { cha: 33, skl: 26 }, 50, 40, 'self', 0, 'cha', { dur: 8, buff: 15, dmg: 560, charm: 3, radius: 9 }, { radius: 9, cast: 0.5 })
 ]
 
 export const SKILL_BY_ID: Readonly<Record<string, SkillDef>> = Object.fromEntries(SKILLS.map(s => [s.id, s]))
