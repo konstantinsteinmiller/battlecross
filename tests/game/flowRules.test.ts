@@ -416,3 +416,37 @@ describe('Rested (#9) at the end of a visit', () => {
     expect(p.profile.meta.rested).toBe(200)
   })
 })
+
+describe('the first scene', () => {
+  const fake = { setup: { theme: 'plains' } } as never
+
+  it('a travel while the loader builds the first scene is refused until the game takes it up', async () => {
+    // The loader's build, held open: the prepared scene is not adopted yet.
+    let finish: () => void = () => {}
+    const built: string[] = []
+    f.setNodeBuilder(async (node) => {
+      built.push(node)
+      if (built.length === 1) await new Promise<void>(r => { finish = r })
+      return fake
+    })
+    const boot = f.createBootMode()
+    await f.travel('sunford')
+    finish()
+    await boot
+    // Built once (the first scene), and the flow names it: no travel slipped in.
+    expect(built).toEqual(['plains'])
+    expect(f.flow.node).toBe('plains')
+    // Still not adopted: travel waits.
+    await f.travel('sunford')
+    expect(built).toEqual(['plains'])
+    f.bootAdopted()
+    await f.travel('sunford')
+    expect(built).toEqual(['plains', 'sunford'])
+    expect(f.flow.node).toBe('sunford')
+    f.setNodeBuilder(null)
+  })
+
+  it('there is one input record, made on first use, before or after the engine runs', () => {
+    expect(f.gameInput()).toBe(f.gameInput())
+  })
+})

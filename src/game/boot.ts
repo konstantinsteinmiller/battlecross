@@ -1,13 +1,12 @@
 import type { Material, Mesh, Object3D } from 'three'
 import { getRenderer } from './engine/renderer'
-import { createInput } from './engine/input'
 import { afterPaint, createSlicer, yieldToBrowser } from './engine/slicer'
 import { app, type GameMode } from './engine/app'
 import { bakeTextures, loadTextureOverrides } from './gfx/textures'
 import { ZoneMode } from './modes/zoneMode'
 import { initProfile } from './state/profile'
 import { hud } from './state/hud'
-import { bindInput, createBootMode, setPrecompile } from './flow'
+import { bootAdopted, bootStarting, createBootMode, gameInput, setPrecompile } from './flow'
 import { installSynth, loadSfxOverrides } from './audio/synth'
 import { fmt } from '@/utils/format'
 import { awaitCritical } from './assets/preload'
@@ -30,8 +29,9 @@ import { awaitCritical } from './assets/preload'
  *   load on exactly the slow devices it was meant to protect.
  */
 
-export const input = createInput()
-bindInput(input)
+export const input = gameInput()
+// From here until `adoptBootMode`, the first scene is the loader's to show.
+bootStarting()
 // The HUD knows which hand is on the controls from its first frame (a phone's
 // stick must be there to grab before the first step of the simulation runs).
 hud.device = input.device
@@ -174,9 +174,13 @@ export const adoptBootMode = async (): Promise<GameMode> => {
   ])
   const m = takePreparedMode()
   performance.mark(m ? 'boot:adopted' : 'boot:fallback-build')
-  if (m) return m
-  initProfile()
-  return createBootMode()
+  try {
+    if (m) return m
+    initProfile()
+    return await createBootMode()
+  } finally {
+    bootAdopted()
+  }
 }
 
 /** The live zone / town, if one is up (HUD components read it). */

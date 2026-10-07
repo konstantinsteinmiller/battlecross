@@ -1,7 +1,7 @@
 import { reactive, watch } from 'vue'
 import { app, type GameMode } from './engine/app'
 import { afterPaint } from './engine/slicer'
-import type { Input } from './engine/input'
+import { createInput, type Input } from './engine/input'
 import { AMBUSH_KIND, FACTIONS, REP_HOSTILE, questOfNode, type FactionId } from './data/quests'
 import { NODE_BY_ID, TOWNS, ZONES, foundFlag, hiddenTrainerOf, visitLevel, type NodeId, type NpcDef, type ThemeId, type TownId } from './data/zones'
 import type { ClassId } from './data/skills'
@@ -127,8 +127,24 @@ export const flow = reactive({
 
 
 let input: Input | null = null
-/** The game's one input record (owned by `boot.ts`). */
-export const bindInput = (i: Input): void => { input = i }
+/**
+ * The game's one input record. The flow owns it (`boot.ts` and the HUD take
+ * this same record), so a place built before the engine chunk has run still
+ * reads the controls: a zone built with none threw on every frame.
+ */
+export const gameInput = (): Input => (input ??= createInput())
+
+/**
+ * The loader is building the first scene and the game has not taken it up
+ * yet (`boot.adoptBootMode`). A travel in that window was undone when it
+ * was: the prepared scene replaced the place travelled to and the flow
+ * named the wrong node. Nothing is built for a travel until then.
+ */
+let booting = false
+/** The engine chunk is in and the loader is about to build: travel waits. */
+export const bootStarting = (): void => { booting = true }
+/** The game shows its first scene: travel is open. */
+export const bootAdopted = (): void => { booting = false }
 
 const hashSeed = (s: string, n: number): number => {
   let h = 2166136261 ^ n
@@ -251,7 +267,7 @@ export const setOutEscort = async (): Promise<void> => {
 
 const buildZone = async (node: NodeId, onProgress: (p01: number) => void, encounter?: EncounterSpec): Promise<ZoneMode> => {
   const setup = encounter ? encounterSetup(encounter) : setupFor(node)
-  const mode = await ZoneMode.create(setup, input!, {
+  const mode = await ZoneMode.create(setup, gameInput(), {
     onEnd: (outcome) => { void finishVisit(outcome) },
     askSecondWind: offerSecondWind,
     onInteract: (npcId) => talkTo(npcId),
@@ -315,6 +331,7 @@ const enter = (node: NodeId, mode: BuiltPlace): void => {
 
 /** The first scene (no main menu): the opening fight, or the last town. */
 export const createBootMode = async (onProgress: (p01: number) => void = () => {}): Promise<GameMode> => {
+  booting = true
   // The portal's own board, when the build carries one: joined on arrival.
   void joinPortalBoard(lifetimeXp())
   // The save is read (the cloud's too): a new player gets the introductions,
@@ -339,7 +356,7 @@ export const createBootMode = async (onProgress: (p01: number) => void = () => {
  */
 export const travel = async (node: NodeId): Promise<void> => {
   // Any place without a story lock: too strong is the player's own risk (#72).
-  if (flow.loading || !NODE_BY_ID[node] || !isNodeReachable(node)) return
+  if (flow.loading || booting || !NODE_BY_ID[node] || !isNodeReachable(node)) return
   flow.loading = true
   flow.loadProgress = 0
   flow.loadingNode = node
@@ -366,7 +383,7 @@ export const travel = async (node: NodeId): Promise<void> => {
  * fall, he is back where he was walking.
  */
 export const startEncounter = async (e: EncounterSpec): Promise<void> => {
-  if (flow.loading || e.kind === 'chest' || e.kind === 'merchant' || !e.packs.length) return
+  if (flow.loading || booting || e.kind === 'chest' || e.kind === 'merchant' || !e.packs.length) return
   flow.loading = true
   flow.loadProgress = 0
   flow.loadingNode = ''
