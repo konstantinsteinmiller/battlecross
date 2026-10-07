@@ -148,7 +148,7 @@ describe('the skills page', () => {
     await openBook('skills')
     expect($$('.loadout--active .slot')).toHaveLength(8)
     expect($$('.loadout--passive .slot')).toHaveLength(4)
-    expect($$('.emblem')).toHaveLength(8)
+    expect($$('.emblem')).toHaveLength(16)
     expect($$('.codex__path .node')).toHaveLength(12)
   })
 

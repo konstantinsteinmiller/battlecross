@@ -4,7 +4,7 @@ A report, not a contract: it is a picture of `art-sheets/painted/` and the
 slicer's receipt at the moment it was written. Re-run `pnpm art:prompts`
 after painting or slicing anything.
 
-**26 sliced · 10 need a repaint · 0 painted, unreceipted · 9 outstanding**
+**26 sliced · 10 need a repaint · 0 painted, unreceipted · 26 outstanding**
 
 | | Sheet | Prompt block in | Reference | State |
 | --- | --- | --- | --- | --- |
@@ -30,12 +30,29 @@ after painting or slicing anything.
 | · | **Skill icons: Aether-Tech (2 of 2)** | `PROMPTS-SKILLS.md` | `sheet-skills2-aether.png` (rev `c1e83c7902f1`) | not painted yet |
 | ! | **Skill icons: Geomancer** | `PROMPTS-SKILLS.md` | `sheet-skills-geo.png` (rev `822030d247c9`) | REPAINT — the reference changed (f6c6e1ae01f5 → 822030d247c9) |
 | · | **Skill icons: Geomancer (2 of 2)** | `PROMPTS-SKILLS.md` | `sheet-skills2-geo.png` (rev `c5da2b948ee8`) | not painted yet |
+| · | **Skill icons: Windrunner** | `PROMPTS-SKILLS.md` | `sheet-skills-windrunner.png` — *missing, run `pnpm art:export`* | not painted yet |
+| · | **Skill icons: Windrunner (2 of 2)** | `PROMPTS-SKILLS.md` | `sheet-skills2-windrunner.png` — *missing, run `pnpm art:export`* | not painted yet |
+| · | **Skill icons: Frostwarden** | `PROMPTS-SKILLS.md` | `sheet-skills-frostwarden.png` — *missing, run `pnpm art:export`* | not painted yet |
+| · | **Skill icons: Frostwarden (2 of 2)** | `PROMPTS-SKILLS.md` | `sheet-skills2-frostwarden.png` — *missing, run `pnpm art:export`* | not painted yet |
+| · | **Skill icons: Lightbringer** | `PROMPTS-SKILLS.md` | `sheet-skills-lightbringer.png` — *missing, run `pnpm art:export`* | not painted yet |
+| · | **Skill icons: Lightbringer (2 of 2)** | `PROMPTS-SKILLS.md` | `sheet-skills2-lightbringer.png` — *missing, run `pnpm art:export`* | not painted yet |
+| · | **Skill icons: Beastcaller** | `PROMPTS-SKILLS.md` | `sheet-skills-beastcaller.png` — *missing, run `pnpm art:export`* | not painted yet |
+| · | **Skill icons: Beastcaller (2 of 2)** | `PROMPTS-SKILLS.md` | `sheet-skills2-beastcaller.png` — *missing, run `pnpm art:export`* | not painted yet |
+| · | **Skill icons: Elementalist** | `PROMPTS-SKILLS.md` | `sheet-skills-elementalist.png` — *missing, run `pnpm art:export`* | not painted yet |
+| · | **Skill icons: Elementalist (2 of 2)** | `PROMPTS-SKILLS.md` | `sheet-skills2-elementalist.png` — *missing, run `pnpm art:export`* | not painted yet |
+| · | **Skill icons: Soul Warden** | `PROMPTS-SKILLS.md` | `sheet-skills-soulwarden.png` — *missing, run `pnpm art:export`* | not painted yet |
+| · | **Skill icons: Soul Warden (2 of 2)** | `PROMPTS-SKILLS.md` | `sheet-skills2-soulwarden.png` — *missing, run `pnpm art:export`* | not painted yet |
+| · | **Skill icons: Iron Monk** | `PROMPTS-SKILLS.md` | `sheet-skills-ironmonk.png` — *missing, run `pnpm art:export`* | not painted yet |
+| · | **Skill icons: Iron Monk (2 of 2)** | `PROMPTS-SKILLS.md` | `sheet-skills2-ironmonk.png` — *missing, run `pnpm art:export`* | not painted yet |
+| · | **Skill icons: Bard** | `PROMPTS-SKILLS.md` | `sheet-skills-bard.png` — *missing, run `pnpm art:export`* | not painted yet |
+| · | **Skill icons: Bard (2 of 2)** | `PROMPTS-SKILLS.md` | `sheet-skills2-bard.png` — *missing, run `pnpm art:export`* | not painted yet |
 | ✓ | **Portraits: townsfolk** | `PROMPTS-PORTRAITS.md` | `sheet-portraits-town.png` (rev `3732e628fe79`) | sliced 2026-10-02 |
 | ✓ | **Portraits: trainers** | `PROMPTS-PORTRAITS.md` | `sheet-portraits-trainers.png` (rev `770414fa440b`) | sliced 2026-10-02 |
 | ✓ | **Portraits: quest speakers** | `PROMPTS-PORTRAITS.md` | `sheet-portraits-speakers.png` (rev `58641c102acc`) | sliced 2026-10-03 |
 | ✓ | **Portraits: the hero, per outfit** | `PROMPTS-PORTRAITS.md` | `sheet-portraits-hero.png` (rev `75c7036e6e95`) | sliced 2026-10-03 |
 | ✓ | **Portraits: the girl hero, per outfit** | `PROMPTS-PORTRAITS.md` | `sheet-portraits-girl.png` (rev `7e58d5984004`) | sliced 2026-10-04 |
-| ✓ | **Icons: class emblems** | `PROMPTS-ICONS.md` | `sheet-icons-classes.png` (rev `5b8dd08575e3`) | sliced 2026-10-03 |
+| ✓ | **Icons: class emblems (1 of 2)** | `PROMPTS-ICONS.md` | `sheet-icons-classes.png` (rev `5b8dd08575e3`) | sliced 2026-10-03 |
+| · | **Icons: class emblems (2 of 2)** | `PROMPTS-ICONS.md` | `sheet-icons-crests.png` — *missing, run `pnpm art:export`* | not painted yet |
 | ✓ | **Icons: status effects (1 of 4)** | `PROMPTS-ICONS.md` | `sheet-icons-status-1.png` (rev `3b679b490b8f`) | sliced 2026-10-03 |
 | ✓ | **Icons: status effects (2 of 4)** | `PROMPTS-ICONS.md` | `sheet-icons-status-2.png` (rev `6a52868c9374`) | sliced 2026-10-03 |
 | ! | **Icons: status effects (3 of 4)** | `PROMPTS-ICONS.md` | `sheet-icons-status-3.png` (rev `97b329a076eb`) | REPAINT — the reference changed (96c14f307c6a → 97b329a076eb) |

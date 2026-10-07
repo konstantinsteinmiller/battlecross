@@ -10,7 +10,7 @@ import { layTown } from '@/game/sim/town'
  * until their favour is done; then Rare and Epic stock for good.
  */
 
-const SECRET = TOWNS.silverbridge.npcs.filter(n => n.secret)
+const SECRET = TOWNS.silverbridge.npcs.filter(n => n.secret && n.role === 'shop')
 
 describe('the secret traders', () => {
   it('two of them, each opened by the flag of an errand they give, selling Rare and Epic pieces', () => {

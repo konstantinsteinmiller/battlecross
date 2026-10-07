@@ -84,3 +84,55 @@ export const spawnMinion = (sim: Sim, kind: string, x: number, z: number, life: 
   u.animT = 0
   return u
 }
+
+/** Spirits a Soul Warden keeps at once: one more sends the oldest home. */
+export const SPIRIT_MAX = 5
+export const SPIRIT_COLOR = '#7f9cff'
+
+/** One of the hero's spirits: an ENEMY kind fighting on his side. */
+export const isSpirit = (m: Unit, owner: Unit): boolean =>
+  m.alive && m.team === 0 && m.ownerId === owner.id && !!ENEMY_BY_ID[m.kind] && !MINIONS[m.kind]
+
+/**
+ * Soul Warden (#95): the spirit of a fallen — or befriended — enemy fights for
+ * the hero for `life` seconds. It keeps its old shape (drawn as a glowing
+ * ghost), its reach, its attack style and its damage type, but none of its
+ * abilities. Health is a share of the hero's times the kind's own toughness
+ * (capped), damage a share of his Intelligence hit times the kind's punch
+ * (capped); `mul` scales both (a befriended soul is stronger). Bosses never
+ * rise. A body that rises is taken up by its spirit: it is aged past the
+ * sweep, so no body rises twice.
+ */
+export const spawnSpirit = (sim: Sim, from: Unit, life: number, mul = 1): Unit | null => {
+  const def = ENEMY_BY_ID[from.kind]
+  const h = sim.hero
+  if (!def || !h || from.team !== 1 || from.rank === 'boss') return null
+  if (!from.alive && from.deadT >= 3) return null
+  const hs = h.unit.s
+  const band = sim.units.filter(m => isSpirit(m, h.unit))
+  if (band.length >= SPIRIT_MAX) band[0]!.life = 0.01
+  const s = plainStats({
+    hp: hs.maxHp * 0.4 * Math.min(2.5, def.hp) * mul * (1 + (hs.mods.minionHp ?? 0)),
+    dmg: scalePower(hs, 'int') * 0.45 * Math.min(1.6, def.dmg) * mul * (1 + (hs.mods.minionDamage ?? 0)),
+    armor: hs.armor * 0.6,
+    resist: def.resist,
+    speed: Math.max(4, def.speed),
+    range: def.range,
+    interval: def.interval,
+    style: def.style,
+    type: def.type
+  })
+  s.attackSpeed = 1 + (hs.mods.minionAttackSpeed ?? 0)
+  const u = sim.addUnit({
+    kind: from.kind, team: 0, rank: 'minion', level: h.level, x: from.x, z: from.z, r: def.r, h: def.h, s,
+    ownerId: h.unit.id, life, facing: from.facing
+  })
+  u.anim = 'spawn'
+  u.animT = 0
+  if (!from.alive) from.deadT = 3.01
+  sim.emit({ t: 'fx', id: 'summon', x: u.x, z: u.z, color: SPIRIT_COLOR })
+  return u
+}
+
+/** How long a spirit risen by Restless Souls (#95) fights. */
+export const SOUL_RISE_LIFE = 10

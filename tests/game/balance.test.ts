@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest'
 import { runZone } from '@/game/sim/bot'
 import { ZONES, ZONE_IDS } from '@/game/data/zones'
-import type { ClassId } from '@/game/data/skills'
+import { CLASS_IDS } from '@/game/data/skills'
 
 /**
  * The balance curve, pinned. A reference player (`sim/bot.ts`) with a
@@ -13,7 +13,8 @@ import type { ClassId } from '@/game/data/skills'
  * an armour curve, a status duration — cannot move the curve silently.
  */
 
-const CLASSES: ClassId[] = ['aegis', 'shadow', 'pyro', 'sovereign', 'chrono', 'blood', 'aether', 'geo']
+/** Every class, the eight of #86 and #95 too. */
+const CLASSES = CLASS_IDS
 
 describe('balance: the reference player through every zone', () => {
   const rows: string[] = []
@@ -30,7 +31,7 @@ describe('balance: the reference player through every zone', () => {
         rows.push(`${zone.padEnd(10)} ${cls.padEnd(10)} ${r.outcome.padEnd(8)} ${r.seconds.toFixed(0).padStart(4)}s hp ${(r.hpLeft01 * 100).toFixed(0).padStart(3)}% potions ${r.potionsUsed} kills ${r.kills}`)
       }
       // Most classes clear it; none of them should stroll through.
-      expect(wins).toBeGreaterThanOrEqual(5)
+      expect(wins).toBeGreaterThanOrEqual(Math.ceil(CLASSES.length * 0.6))
       const avg = seconds / Math.max(1, wins)
       // The plains are the opening stage: short on purpose.
       expect(avg).toBeGreaterThan(zone === 'plains' ? 20 : 45)

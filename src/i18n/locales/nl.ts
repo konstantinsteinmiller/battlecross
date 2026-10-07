@@ -95,7 +95,8 @@ export default {
     elixirSwift: 'Vlugheid',
     elixirMind: 'Heldere geest',
     elixirVigor: 'Levenskracht',
-    elixirShadow: 'Dorstige kling'
+    elixirShadow: 'Dorstige kling',
+    chi: 'Chi'
   },
   toast: {
     item: 'Gevonden: {item}',
@@ -860,6 +861,390 @@ export default {
     crumble: {
       name: 'Afbrokkelen',
       desc: 'Je doet {dmg}% meer schade aan vijanden die vertraagd, neergeslagen of versteend zijn.'
+    },
+    galeArrow: {
+      name: 'Rukwindpijl',
+      desc: 'Een pijl op een windvlaag: {dmg}% Behendigheid-schade, en het doelwit wordt teruggeduwd.'
+    },
+    fleetfoot: {
+      name: 'Vlugvoet',
+      desc: '+{move}% loopsnelheid en +{dodge}% Ontwijken.'
+    },
+    zephyrDash: {
+      name: 'Zefiersprint',
+      desc: 'Sprint tot {dist} m naar waar je mikt en ren daarna {dur}s lang {move}% sneller.'
+    },
+    piercingGale: {
+      name: 'Doorborende storm',
+      desc: 'Een pijl die door elke vijand in een lijn vliegt: {dmg}% Behendigheid-schade en {dur}s {slow}% vertraging.'
+    },
+    cycloneSnare: {
+      name: 'Cycloonval',
+      desc: 'Een wervelwind trekt {dur}s lang vijanden naar zijn oog en doet {dmg}% Techniek-schade.'
+    },
+    keenEye: {
+      name: 'Scherp oog',
+      desc: '+{critDmg}% Kritieke Schade. Je schoten vliegen door {pierce} vijand meer.'
+    },
+    updraftLeap: {
+      name: 'Opwindsprong',
+      desc: 'Een windvlaag gooit vijanden binnen {radius} m de lucht in voor {dmg}% Behendigheid-schade. Jij springt {leap} m weg.'
+    },
+    swiftDraw: {
+      name: 'Snelle trek',
+      desc: 'Je valt {speed}% sneller aan en je afkoeltijden zijn {cdr}% korter.'
+    },
+    arrowStorm: {
+      name: 'Pijlenstorm',
+      desc: 'Pijlen regenen {dur}s op het gebied: in totaal {dmg}% Techniek-schade, en {slow}% vertraging.'
+    },
+    galeSpirits: {
+      name: 'Windgeesten',
+      desc: 'Windgeesten vliegen {dur}s met je mee en schieten {shots} pijlen van {dmg}% Techniek-schade. +{move}% loopsnelheid.'
+    },
+    skyHunter: {
+      name: 'Hemeljager',
+      desc: '+{boss}% schade tegen bazen en +{crit}% Kritieke Kans.'
+    },
+    skyrender: {
+      name: 'Hemelscheurder',
+      desc: 'Een stormpijl scheurt een pad open: {dmg}% Behendigheid-schade aan iedereen in de lijn, die omhoog en opzij vliegt.'
+    },
+    frostCleave: {
+      name: 'Vorsthouw',
+      desc: 'Zwaai je ijskling voor je langs: {dmg}% Kracht-schade en {dur}s {slow}% vertraging.'
+    },
+    rimeLance: {
+      name: 'Rijplans',
+      desc: 'Werp een lans van ijs voor {dmg}% Intelligentie-schade. Die vertraagt {dur}s met {slow}%.'
+    },
+    wintersBite: {
+      name: 'Winterbeet',
+      desc: 'Je aanvallen vertragen de vijand {dur}s met {slow}%.'
+    },
+    frostArmor: {
+      name: 'Vorstpantser',
+      desc: 'IJspantser vangt {dur}s lang {shield}% Intelligentie aan schade op. Vijanden bij je vertragen {slow}%.'
+    },
+    glacialCharge: {
+      name: 'Gletsjerstorm',
+      desc: 'Storm op het doelwit af voor {dmg}% Kracht-schade en bevries het {freeze}s.'
+    },
+    frozenHeart: {
+      name: 'Bevroren hart',
+      desc: '+{hp}% maximaal leven, en alle schade die je krijgt is {reduce}% lager.'
+    },
+    rimeField: {
+      name: 'Rijpveld',
+      desc: 'IJskoude grond voor {dur}s: {dmg}% Intelligentie-schade. Vertraagde vijanden erin bevriezen {freeze}s.'
+    },
+    frostShatter: {
+      name: 'Vorstsplinter',
+      desc: '{dmg}% Kracht-schade binnen {radius} m: +{chilled}% tegen vertraagde vijanden, +{frozen}% tegen bevroren.'
+    },
+    shatterpoint: {
+      name: 'Breekpunt',
+      desc: 'Je doet {bonus}% meer schade tegen vertraagde en bevroren vijanden.'
+    },
+    avalancheLeap: {
+      name: 'Lawinesprong',
+      desc: 'Spring naar waar je mikt en land als een lawine: {dmg}% Kracht-schade, en vijanden gaan neer.'
+    },
+    iceborn: {
+      name: 'IJsgeboren',
+      desc: 'Niets duwt of gooit je. Verdovingen op jou zijn {cut}% korter.'
+    },
+    absoluteZero: {
+      name: 'Absoluut nulpunt',
+      desc: 'Winter barst uit je los: {dmg}% Intelligentie-schade binnen {radius} m, en alles bevriest {freeze}s.'
+    },
+    sunbolt: {
+      name: 'Zonneschicht',
+      desc: 'Een schicht zonlicht voor {dmg}% Intelligentie-schade. Het verblinde doelwit doet {dur}s {weaken}% minder.'
+    },
+    mendingLight: {
+      name: 'Helend licht',
+      desc: 'Genees meteen {heal}% Charisma, daarna {dur}s lang {regen}% van je leven per seconde.'
+    },
+    kindledHope: {
+      name: 'Ontstoken hoop',
+      desc: 'Alle genezing die je krijgt is {heal}% sterker.'
+    },
+    lanceOfLight: {
+      name: 'Lans van licht',
+      desc: 'Een lichtstraal: {dmg}% Intelligentie-schade in een lijn. Genees {heal}% leven per geraakte vijand.'
+    },
+    dawnShield: {
+      name: 'Dageraadschild',
+      desc: 'Verwijder elk slecht effect op je en krijg {dur}s een schild van {shield}% Charisma.'
+    },
+    haloWard: {
+      name: 'Stralenkrans',
+      desc: 'Alle schade die je krijgt is {reduce}% lager.'
+    },
+    dawnSanctuary: {
+      name: 'Dageraadheiligdom',
+      desc: 'Heilige grond voor {dur}s: geneest je {heal}% Charisma per seconde, en vijanden krijgen {dmg}% Intelligentie.'
+    },
+    blindingFlash: {
+      name: 'Verblindende flits',
+      desc: 'Een lichtflits: vijanden binnen {radius} m vluchten {fear}s en doen {dur}s {weaken}% minder.'
+    },
+    guardianLight: {
+      name: 'Hoederlicht',
+      desc: 'Een klap die je zou verslaan laat je op 1 leven, {dur}s onaantastbaar. Eens per {icd}s.'
+    },
+    sunfall: {
+      name: 'Zonneval',
+      desc: 'Een zuil van zonlicht valt op het doelwit: {dmg}% Intelligentie-schade. Vijanden krijgen {dur}s {vuln}% meer.'
+    },
+    searingLight: {
+      name: 'Schroeiend licht',
+      desc: '+{crit}% Kritieke Kans voor spreuken en +{critDmg}% Kritieke Schade.'
+    },
+    haloOfDawn: {
+      name: 'Krans van de dageraad',
+      desc: 'Straal {dur}s lang: elke seconde {dmg}% Intelligentie-schade binnen {radius} m en genees {heal}% leven.'
+    },
+    callWolf: {
+      name: 'Wolf roepen',
+      desc: 'Een geestwolf sluit zich bij je aan en bijt voor {dmg}% Charisma-schade. Maximaal {max} tegelijk.'
+    },
+    wolfPounce: {
+      name: 'Wolvensprong',
+      desc: 'Je wolven springen op het doelwit: elk {dmg}% Charisma-schade, en het gaat {down}s neer.'
+    },
+    wildKinship: {
+      name: 'Wilde verwantschap',
+      desc: 'Je metgezellen hebben {hp}% meer leven en doen {dmg}% meer schade.'
+    },
+    callHawk: {
+      name: 'Havik roepen',
+      desc: 'Een havik duikt op het doelwit voor {dmg}% Charisma-schade: het krijgt {dur}s {vuln}% meer. Blijft {life}s.'
+    },
+    callBear: {
+      name: 'Beer roepen',
+      desc: 'Een geestbeer sluit zich bij je aan. Hij slaat voor {dmg}% schade en houdt vijanden bezig. Maximaal {max}.'
+    },
+    thickHide: {
+      name: 'Dikke huid',
+      desc: '+{hp}% maximaal leven en +{regen} levensherstel per seconde.'
+    },
+    packBond: {
+      name: 'Roedelband',
+      desc: 'Jij en metgezellen binnen {radius} m herstellen {dur}s lang {regen}% leven per seconde en krijgen {def}% Verdediging.'
+    },
+    spiritStampede: {
+      name: 'Geestenstormloop',
+      desc: 'Een kudde geestdieren stormt vooruit: {dmg}% Charisma-schade in een lijn, en vijanden gaan neer.'
+    },
+    packTactics: {
+      name: 'Roedeltactiek',
+      desc: 'Je doet {bonus}% meer schade voor elke metgezel bij je, tot {max}.'
+    },
+    alphaHowl: {
+      name: 'Alfagehuil',
+      desc: 'Je metgezellen genezen {heal}% en vechten {dur}s lang {rage}% harder. Vijanden bij je vluchten.'
+    },
+    leaderOfThePack: {
+      name: 'Leider van de roedel',
+      desc: 'Je metgezellen vallen {speed}% sneller aan en doen {dmg}% meer schade.'
+    },
+    wildHunt: {
+      name: 'Wilde jacht',
+      desc: '{wolves} extra wolven rennen {dur}s met je mee. De hele roedel doet +{dmg}% schade en is {move}% sneller.'
+    },
+    prismBolt: {
+      name: 'Prismaschicht',
+      desc: 'Een schicht voor {dmg}% Intelligentie-schade: vorst als het doelwit brandt, anders vuur. Ze activeren elkaar.'
+    },
+    elementalHarmony: {
+      name: 'Elementaire harmonie',
+      desc: 'Je reacties (Smelten, Stoom, Verbrijzelen, Overbelasting, Kristal) zijn {pct}% sterker.'
+    },
+    frostLance: {
+      name: 'Vorstlans',
+      desc: 'IJs door een lijn: {dmg}% Intelligentie-schade en {dur}s {slow}% vertraging. Brandende vijanden geven Stoom.'
+    },
+    chainSpark: {
+      name: 'Kettingvonk',
+      desc: 'Bliksem voor {dmg}% Intelligentie die naar {jumps} vijanden meer springt. Verbrijzelt ijs, Overbelast vuur.'
+    },
+    smolderingCore: {
+      name: 'Smeulende kern',
+      desc: 'Je brandwonden doen {burn}% meer schade, en je hebt {mana} meer mana.'
+    },
+    rollingBoulder: {
+      name: 'Rollend rotsblok',
+      desc: 'Een rotsblok rolt weg: {dmg}% Intelligentie-schade, {down}s neer. Gemarkeerde vijanden geven je een schild.'
+    },
+    thunderSnow: {
+      name: 'Onweerssneeuw',
+      desc: 'Een sneeuwstorm voor {dur}s: {dmg}% Intelligentie-vorstschade, en elke seconde bliksem voor {bolt}%.'
+    },
+    spellweave: {
+      name: 'Spreukweven',
+      desc: '+{crit}% Kritieke Kans voor spreuken, en je vaardigheden kosten {mana}% minder mana.'
+    },
+    prismaticNova: {
+      name: 'Prismanova',
+      desc: 'Raak alles binnen {radius} m voor {dmg}% Intelligentie, elk met het element waarop het reageert.'
+    },
+    prismaticWard: {
+      name: 'Prismaschild',
+      desc: 'Je krijgt {reduce}% minder schade en hebt {hp}% meer leven.'
+    },
+    frostfireComet: {
+      name: 'Vorstvuurkomeet',
+      desc: 'Een komeet van vuur en ijs: {dmg}% Intelligentie-schade. Vijanden blijven brandend en vertraagd achter.'
+    },
+    elementalConvergence: {
+      name: 'Elementaire samenkomst',
+      desc: '{dur}s lang wisselen vier elementen elkaar af: {strikes} slagen van {dmg}% Intelligentie die elkaar activeren.'
+    },
+    wispBolt: {
+      name: 'Dwaallichtschicht',
+      desc: 'Een dwaallicht voor {dmg}% Intelligentie-schade. Een vijand die het verslaat, staat {life}s op als jouw geest.'
+    },
+    kindredSpirits: {
+      name: 'Verwante geesten',
+      desc: 'Je geesten en dienaren hebben {hp}% meer leven en vallen {speed}% sneller aan.'
+    },
+    callTheFallen: {
+      name: 'Roep de gevallenen',
+      desc: 'Tot {max} net gevallen vijanden binnen {radius} m staan {life}s op als jouw geesten.'
+    },
+    soulBond: {
+      name: 'Zielenband',
+      desc: 'Sluit vriendschap met een vijand: {chance}% ({low}% als gewond) dat hij {life}s als geest meedoet. Anders {dmg}% schade.'
+    },
+    restlessSouls: {
+      name: 'Rusteloze zielen',
+      desc: 'Een vijand die je verslaat heeft {chance}% kans om {life}s op te staan als jouw geest.'
+    },
+    spiritLantern: {
+      name: 'Geestenlantaarn',
+      desc: 'Een lantaarn voor {dur}s: vijanden in het licht krijgen {dmg}% Intelligentie, vrienden genezen, gevallenen staan op.'
+    },
+    hauntingWail: {
+      name: 'Spookgehuil',
+      desc: 'Een spookachtig BOE: {dmg}% Intelligentie-schade binnen {radius} m, en vijanden rennen {fear}s weg.'
+    },
+    wardensVigil: {
+      name: 'Wake van de wachter',
+      desc: 'Je geesten en dienaren doen {dmg}% meer schade, en jij krijgt {reduce}% minder.'
+    },
+    releaseSouls: {
+      name: 'Zielen vrijlaten',
+      desc: 'Je geesten gaan naar huis in lichtflitsen: elk {dmg}% Intelligentie eromheen, elk {heal}% leven terug.'
+    },
+    lanternKeeper: {
+      name: 'Lantaarnhoeder',
+      desc: '{cdr}% kortere afkoeltijden, en je vaardigheden kosten {mana}% minder mana.'
+    },
+    wispSwarm: {
+      name: 'Dwaallichtzwerm',
+      desc: '{wisps} dwaallichten duiken op vijanden in het gebied voor in totaal {dmg}% Intelligentie. Wie ze verslaan, staat op.'
+    },
+    processionOfSouls: {
+      name: 'Zielenstoet',
+      desc: '{dur}s lang staat elke vijand die bij je valt op als jouw geest, en geesten doen {atk}% meer.'
+    },
+    palmStrike: {
+      name: 'Handpalmslag',
+      desc: 'Een snelle handpalm voor {dmg}% Behendigheid-schade die de vijand terugduwt. Geeft {chi} chi.'
+    },
+    ironBody: {
+      name: 'IJzeren lichaam',
+      desc: 'Fysieke schade die je krijgt is {reduce}% lager, en je hebt {hp}% meer leven.'
+    },
+    flyingKick: {
+      name: 'Vliegende trap',
+      desc: 'Vlieg naar het doelwit en trap voor {dmg}% Behendigheid-schade; vijanden onderweg krijgen {path}%. Geeft {chi} chi.'
+    },
+    tigerStance: {
+      name: 'Tijgerhouding',
+      desc: '{dur}s lang: +{dmg}% schade en +{speed}% aanvalssnelheid. Beëindigt Kraanvogelhouding.'
+    },
+    craneStance: {
+      name: 'Kraanvogelhouding',
+      desc: '{dur}s lang: +{def}% Verdediging, en je geneest {regen}% van je leven per seconde. Beëindigt Tijgerhouding.'
+    },
+    flowingFists: {
+      name: 'Vloeiende vuisten',
+      desc: 'Je aanvallen hebben {chance}% kans om chi op te bouwen.'
+    },
+    hundredFists: {
+      name: 'Honderd vuisten',
+      desc: 'Een regen van {hits} slagen voor in totaal {dmg}% Behendigheid-schade. Geeft {chi} chi.'
+    },
+    risingDragon: {
+      name: 'Opstijgende draak',
+      desc: 'Gebruik alle chi voor een opstoot: {dmg}% Behendigheid-schade, +{per}% per chi. De vijand vliegt omhoog.'
+    },
+    cranesGrace: {
+      name: 'Gratie van de kraanvogel',
+      desc: '+{dodge}% Ontwijken, en verdovingen en neerslagen op jou zijn {cut}% korter.'
+    },
+    whirlwindKick: {
+      name: 'Wervelwindtrap',
+      desc: 'Trap alles binnen {radius} m twee keer voor in totaal {dmg}% Behendigheid-schade. Geeft tot {chi} chi.'
+    },
+    tigersFury: {
+      name: 'Tijgerwoede',
+      desc: '+{crit}% Kritieke Kans en +{speed}% aanvalssnelheid.'
+    },
+    mountainPalm: {
+      name: 'Berghandpalm',
+      desc: 'Gebruik alle chi: een reuzenhand valt voor {dmg}% Behendigheid-schade, +{per}% per chi, en vijanden gaan neer.'
+    },
+    sharpNote: {
+      name: 'Scherpe noot',
+      desc: 'Een scherpe noot voor {dmg}% Charisma-schade. De vijand doet {dur}s {weaken}% minder schade.'
+    },
+    stagePresence: {
+      name: 'Podiumuitstraling',
+      desc: 'Je vaardigheden kosten {mana}% minder mana, en je loopt {move}% sneller.'
+    },
+    marchingSong: {
+      name: 'Marslied',
+      desc: 'Een lied voor {dur}s: jij en bondgenoten binnen {radius} m lopen {move}% en vallen {speed}% sneller aan.'
+    },
+    lullaby: {
+      name: 'Slaapliedje',
+      desc: 'Een zacht wijsje in een kegel: elke vijand die het bereikt, valt {dur}s in slaap.'
+    },
+    longRefrain: {
+      name: 'Lang refrein',
+      desc: 'Je liederen duren {pct}% langer.'
+    },
+    balladOfValor: {
+      name: 'Ballade van moed',
+      desc: 'Een lied voor {dur}s: jij en bondgenoten binnen {radius} m doen {dmg}% meer schade en krijgen {def}% Verdediging.'
+    },
+    charmingSerenade: {
+      name: 'Betoverende serenade',
+      desc: 'Betover het doelwit en vijanden binnen {radius} m: {dur}s lang vechten ze tegen elkaar.'
+    },
+    virtuoso: {
+      name: 'Virtuoos',
+      desc: '{cdr}% kortere afkoeltijden en +{critDmg}% Kritieke Schade.'
+    },
+    hymnOfMending: {
+      name: 'Hymne van heling',
+      desc: 'Verwijdert slechte effecten, daarna genezen jij en bondgenoten binnen {radius} m {dur}s lang {regen}% leven per seconde.'
+    },
+    crescendo: {
+      name: 'Crescendo',
+      desc: 'Een klankknal binnen {radius} m: {dmg}% Charisma-schade, +{per}% voor elk lied dat je speelt.'
+    },
+    standingOvation: {
+      name: 'Staande ovatie',
+      desc: '+{dmg}% schade, en je krijgt {reduce}% minder schade.'
+    },
+    grandFinale: {
+      name: 'Grote finale',
+      desc: 'Speel alles {dur}s lang (+{buff}% snelheid, schade, Verdediging), dan een slotakkoord: {dmg}% Charisma, vijanden betoverd.'
     }
   },
   slot: {
@@ -1372,6 +1757,30 @@ export default {
     sbFence: {
       name: 'Mirela Thorne',
       talk: 'Mooie harnassen, geen vragen. Nou ja, heel weinig vragen.'
+    },
+    sbMasterWindrunner: {
+      name: 'Sefa Windvleugel'
+    },
+    sbMasterFrostwarden: {
+      name: 'Halvard Rijphart'
+    },
+    sbMasterLightbringer: {
+      name: 'Zuster Auriel Dageraad'
+    },
+    sbMasterBeastcaller: {
+      name: 'Ouwe Rowan Distelvoet'
+    },
+    sbMasterElementalist: {
+      name: 'Magistra Iris Vierwinden'
+    },
+    sbMasterSoulwarden: {
+      name: 'Wachter Odalys Lantaarnlicht'
+    },
+    sbMasterIronmonk: {
+      name: 'Meester Oru Stilwater'
+    },
+    sbMasterBard: {
+      name: 'Lark Vrolijkweer'
     }
   },
   quest: {
@@ -3663,6 +4072,382 @@ export default {
       },
       bye: {
         '1': 'Let op je beurs. Niet iedereen hier is zo eerlijk als ik.'
+      }
+    },
+    sbMasterWindrunner: {
+      hello: {
+        '1': 'O, hoi! Sorry, kan niet blijven staan. Ik wacht tot de wind draait. Kan elk moment zijn.',
+        '2': 'Sefa Windvleugel. Ik schiet pijlen en jaag op de wind. Meestal wint de wind.'
+      },
+      open: {
+        '1': 'Daar is mijn renner! Klaar? Natuurlijk ben je dat. Kom op, kom op!'
+      },
+      again: {
+        '1': 'Hoi weer! Ik ben er nog. Nou ja, grotendeels. Mijn voeten dwalen steeds af.'
+      },
+      train: {
+        '1': 'Voel je de wind op je wang? Mik een beetje links van waar je denkt. En nu loslaten!'
+      },
+      favor: {
+        '1': 'Alleen aan wie me bij kan houden. Kun jij me bijhouden? Dat gaan we zien.',
+        '2': 'Versla twaalf bandiet-boogschutters aan de Rand van Oakhaven en breng me dan drie snelvarens.',
+        say: 'Geef jij boogschietles?'
+      },
+      waiting: {
+        '1': 'Twaalf bandiet-boogschutters, drie snelvarens. Ga maar! Ik blijf hier. Huppelend.',
+        say: 'Over je test...'
+      },
+      favorDone: {
+        '1': 'Ha! Je hebt me echt bijgehouden! Niemand houdt me bij!',
+        '2': 'Goed, je bent nu mijn leerling. Eén regel: niet zitten tijdens mijn lessen.',
+        say: 'De boogschutters zijn verslagen, en hier zijn je snelvarens.'
+      },
+      class: {
+        '1': 'Schieten, rennen, weer schieten. Als ze je pakken, stond je te lang stil.',
+        '2': 'Behendigheid voor snelle voeten en een snelle boog. Techniek, zodat elke pijl raak is.',
+        say: 'Wat doet een Windloper?'
+      },
+      ready: {
+        strong: {
+          '1': 'Je bent nu zo snel als de wind. Nou ja, bijna. Neem elke les die je wilt!'
+        },
+        able: {
+          '1': 'Lichte voeten! Je bent klaar voor de volgende. Gaan, gaan!'
+        },
+        weak: {
+          '1': 'Nog niet. Je rent alsof je een bank draagt. Meer Behendigheid, graag.'
+        }
+      },
+      who: {
+        '1': 'Ik woon boven in de oude windmolen bij de rivier. Beste uitzicht op de wind in de stad.',
+        '2': 'Tweehonderd treden naar boven. Prima training. Ik heb ze allemaal geteld.'
+      },
+      trainBack: {
+        '1': 'Goed zo! Ren nu naar huis. Niet lopen. Rennen telt als training.'
+      },
+      bye: {
+        '1': 'Tot ziens! Pas op voor lage takken. Dat doe ik nooit.'
+      }
+    },
+    sbMasterFrostwarden: {
+      hello: {
+        '1': 'Hm. Je liep drie keer langs me heen. Verdwaald, of nieuwsgierig?',
+        '2': 'Halvard Rijphart. Ik kwam uit de sneeuw naar het zuiden. Het is warm hier. Te warm.'
+      },
+      open: {
+        '1': 'Leerling. Goed. Het ijs is klaar, en ik ook.'
+      },
+      again: {
+        '1': 'Jij weer. Goed. Ik praat niet veel. Blijf toch maar.'
+      },
+      train: {
+        '1': 'Adem langzaam uit. Zie je de damp? Stop die nu in de kling.'
+      },
+      favor: {
+        '1': 'Ja. Ik leer het alleen aan wie het hoofd koel houdt op een hete plek.',
+        '2': 'Doof tien vuurelementalen in de Askliffen. Breng me dan drie takjes vorstmunt.',
+        say: 'Is dat zwaard van ijs?'
+      },
+      waiting: {
+        '1': 'Tien vuurelementalen. Drie takjes vorstmunt. Neem je tijd. Niet te veel tijd.',
+        say: 'Over je test...'
+      },
+      favorDone: {
+        '1': 'Hm. Niet eens geschroeid. Goed.',
+        '2': 'Je hield je hoofd koel. Dat was de eerste les. De rest leer ik je.',
+        say: 'De vuurelementalen zijn gedoofd. Hier is je vorstmunt.'
+      },
+      class: {
+        '1': 'Een ridder van de kou. Koel ze af, bevries ze, en breek dan het ijs.',
+        '2': 'Kracht voor de kling. Intelligentie voor de vorst. Je hebt ze allebei nodig.',
+        say: 'Wat is een Vorstwachter?'
+      },
+      ready: {
+        strong: {
+          '1': 'Je bent nu zo koud als het noorden. Neem elke les.'
+        },
+        able: {
+          '1': 'Goed. Rustig. De volgende les is voor jou.'
+        },
+        weak: {
+          '1': 'Nog niet. Je vorst smelt te snel. Meer Intelligentie, en meer Kracht.'
+        }
+      },
+      who: {
+        '1': 'Ik bewaakte een bergpas in het noorden. Toen wilde ik een rivier zien die niet bevriest.'
+      },
+      trainBack: {
+        '1': 'Goed. Rust nu. IJs haast zich niet. Jij ook niet.'
+      },
+      bye: {
+        '1': 'Het ga je goed. Blijf koel.'
+      }
+    },
+    sbMasterLightbringer: {
+      hello: {
+        '1': 'Mm-hm-hmm... O! Sorry, lieverd, ik zat te neuriën. Neuriede ik naar jou? Dat doe ik soms.',
+        '2': 'Zuster Auriel Dageraad. Ik houd het lampje aan het eind van de brug brandend.'
+      },
+      open: {
+        '1': 'Daar is mijn stralende! Kom even in het licht staan. Dat heb je verdiend.'
+      },
+      again: {
+        '1': 'Hallo weer! Nog steeds hier, nog steeds neuriënd. De lamp houdt van gezelschap.'
+      },
+      train: {
+        '1': 'Handen open, kin omhoog. Denk aan de mooiste ochtend die je ooit had. Zo. Voel je dat?'
+      },
+      favor: {
+        '1': 'Iedereen heeft een beetje licht vanbinnen. Ik leer mensen het eruit te laten, als ze er klaar voor zijn.',
+        '2': 'Versla tien cultisten in de Askliffen en breng me dan vijf zonnebladen voor mijn lamp.',
+        say: 'Is die lamp magisch?'
+      },
+      waiting: {
+        '1': 'Tien cultisten, vijf zonnebladen. Versla ze zachtjes. Iedereen verdient een tweede kans.',
+        say: 'Over je test...'
+      },
+      favorDone: {
+        '1': 'O, kijk nou! De lamp zal een maand lang goudkleurig gloeien.',
+        '2': 'En jij ook, lieverd. Ik leer je graag.',
+        say: 'De cultisten zijn verslagen. Hier zijn je zonnebladen.'
+      },
+      class: {
+        '1': 'Wij dragen de dageraad. Licht om mee te vechten, licht om mee te genezen, licht om achter te schuilen.',
+        '2': 'Intelligentie maakt het licht sterk. Charisma maakt het warm. Je wilt ze allebei.',
+        say: 'Wat doet een Lichtbrenger?'
+      },
+      ready: {
+        strong: {
+          '1': 'Je straalt als een zonsopgang, lieverd. Neem elke les die je wilt.'
+        },
+        able: {
+          '1': 'Mooi gloeiend! Je bent klaar voor de volgende.'
+        },
+        weak: {
+          '1': 'Nog niet, lieverd. Je licht is wat zwak. Meer Charisma, en je gaat gloeien.'
+        }
+      },
+      who: {
+        '1': 'Ik zong ooit in een grote tempel. Maar mijn lamp hier wijst de boten de weg naar huis. Dat is beter.'
+      },
+      trainBack: {
+        '1': 'Prachtig. Ga nu iemands dag opfleuren. Zusters orders.'
+      },
+      bye: {
+        '1': 'Ga maar, lieverd. En lach naar de donkere hoekjes. Daar kunnen ze niet tegen.'
+      }
+    },
+    sbMasterBeastcaller: {
+      hello: {
+        '1': 'Let op je voeten. Dat is Braam. Zij was hier eerst.',
+        '2': 'Rowan Distelvoet. Ik hou van dieren. Over mensen ben ik nog niet uit.'
+      },
+      open: {
+        '1': 'O, jij bent het. Braam zat al te wachten. Ik ook. Een beetje.'
+      },
+      again: {
+        '1': 'Jij weer. Braam mag je wel. Ik denk er nog over na.'
+      },
+      train: {
+        '1': 'Hurk neer. Langzamer. Steek je hand uit en laat ze naar jou komen. Goed.'
+      },
+      favor: {
+        '1': 'Praten? Ik luister. Dat trucje leren de meeste mensen nooit.',
+        '2': 'Reuzenspinnen spinnen de dierenpaden in het Fluisterwoud dicht. Ruim er twaalf op.',
+        '3': 'Breng me dan twee maanklokjes voor mijn hol. Braam slaapt beter in de buurt ervan.',
+        say: 'Kun jij met dieren praten?'
+      },
+      waiting: {
+        '1': 'Twaalf spinnen, twee maanklokjes. De dieren wachten. Braam ook.',
+        say: 'Over je test...'
+      },
+      favorDone: {
+        '1': 'Hm. De herten kwamen vanochtend naar de rivier. Dacht al dat jij het was.',
+        '2': 'Goed dan. Ik leer het je. Maak er geen drukte over. Braam, hou op met kwispelen.',
+        say: 'De paden zijn vrij, en hier zijn je maanklokjes.'
+      },
+      class: {
+        '1': 'Je roept het wild, en het wild komt. Wolven, een havik, een beer. Vrienden, geen huisdieren.',
+        '2': 'Charisma, zodat ze willen komen. Uithouding, zodat je ze kunt bijhouden.',
+        say: 'Wat is een Beestenroeper?'
+      },
+      ready: {
+        strong: {
+          '1': 'De hele roedel vertrouwt je nu. Neem wat je wilt.'
+        },
+        able: {
+          '1': 'De wolven mogen je. Je bent klaar voor de volgende.'
+        },
+        weak: {
+          '1': 'Nog niet. Ze vertrouwen je niet. Meer Charisma, en veel meer geduld.'
+        }
+      },
+      who: {
+        '1': 'Jaren geleden vond ik Braam in een val. Drie poten, een en al karakter. Sindsdien zijn we een stel.',
+        '2': 'Ik slaap op de hooizolder van de stal. Paarden snurken minder dan mensen.'
+      },
+      trainBack: {
+        '1': 'Goed. Ga dan maar. En zeg de kraaien gedag. Die onthouden alles.'
+      },
+      bye: {
+        '1': 'Ga maar. Braam zegt dag.'
+      }
+    },
+    sbMasterElementalist: {
+      hello: {
+        '1': 'Hoi! Momentje, ik ben aan het jongleren. Vuur, vorst, vonk, steen en... gevangen! Hallo!',
+        '2': 'Magistra Iris Vierwinden. Ik leer alle vier de elementen. Mengen is het leukste deel.'
+      },
+      again: {
+        '1': 'Weer terug! Fijn, ik had iemand nodig om te kijken. Kijk dit. Tadaa!'
+      },
+      train: {
+        '1': 'Kies twee bollen. Maakt niet uit welke. Laat ze nu botsen. Voorzichtig! Zie je? Een reactie!'
+      },
+      class: {
+        '1': 'Wij mengen! Vorst en dan vuur: het smelt. Vuur en dan bliksem: boem. Elk paar doet iets.',
+        '2': 'Intelligentie voor elke spreuk. Techniek, want de goeie vragen snelle handen.',
+        say: 'Wat doet een Elementalist?'
+      },
+      ready: {
+        strong: {
+          '1': 'Je mengt nu als een meester! Neem elke les. Neem er twee!'
+        },
+        able: {
+          '1': 'Oeh, mooie vonk! Je bent klaar voor de volgende.'
+        },
+        weak: {
+          '1': 'Nog niet! Je elementen blijven sissend uitgaan. Meer Intelligentie, graag.'
+        }
+      },
+      sleeve: {
+        '1': 'O! Inderdaad. Wacht even... Zo.',
+        '2': 'Vuur, en dan vorst. Dat was eigenlijk een les. Graag gedaan!',
+        say: 'Eh, je mouw staat in brand.'
+      },
+      trainBack: {
+        '1': 'Geweldig! Oefen nu buiten, alsjeblieft. De gordijnen zijn nieuw.'
+      },
+      bye: {
+        '1': 'Doei! Ruik je rook, dan ben ik het waarschijnlijk. Geen zorgen!'
+      }
+    },
+    sbMasterSoulwarden: {
+      hello: {
+        '1': 'Sst, het is goed, ze zijn lief. O, jij niet. Ik had het tegen de dwaallichtjes.',
+        '2': 'Wachter Odalys Lantaarnlicht. Ik help verdwaalde geesten hun weg naar huis te vinden.'
+      },
+      again: {
+        '1': 'Hallo weer. De dwaallichtjes kennen je nog. Die daar zwaait.'
+      },
+      train: {
+        '1': 'Houd de lantaarn laag en praat zachtjes. Wat verdwaald is, komt naar een vriendelijke stem.'
+      },
+      class: {
+        '1': 'Als een vijand verslagen is, raakt zijn geest een beetje de weg kwijt. Wij helpen hem, en hij helpt ons terug.',
+        '2': 'Intelligentie om het licht te sturen. Charisma, zodat de geesten graag even blijven.',
+        say: 'Wat doet een Zielenwachter?'
+      },
+      ready: {
+        strong: {
+          '1': 'Zelfs de verlegenste geesten komen nu naar je toe. Neem elke les.'
+        },
+        able: {
+          '1': 'De dwaallichtjes vertrouwen je. Je bent klaar voor de volgende les.'
+        },
+        weak: {
+          '1': 'Nog niet. Ze zijn nog verlegen bij jou. Meer Intelligentie, en een beetje Charisma.'
+        }
+      },
+      wisps: {
+        '1': 'Zo\'n beetje! Het zijn geesten die zijn afgedwaald. Deze heet Friemel. Hij zit graag aan de warme kant.',
+        '2': 'Geen enkele geest is slecht, weet je. Alleen verdwaald. Ze gaan naar huis als ze er klaar voor zijn.',
+        say: 'Leven die lichtjes in je lantaarn?'
+      },
+      trainBack: {
+        '1': 'Goed gedaan. Laat ze nu zachtjes gaan. Ze hebben een lange dag gehad.'
+      },
+      bye: {
+        '1': 'Pas goed op jezelf. En zie je een verdwaald lichtje, zeg dan hallo.'
+      }
+    },
+    sbMasterIronmonk: {
+      hello: {
+        '1': 'Zit. Adem. Nee, je ademt alsof je ergens te laat voor bent. Nog eens.',
+        '2': 'Meester Oru Stilwater. Ik onderwijs de open hand. IJzeren vuisten, kalm hart.'
+      },
+      again: {
+        '1': 'Ah. De leerling keert terug. De rivier ook. Elke dag.'
+      },
+      train: {
+        '1': 'Voeten als wortels, handen als regen. Sla. Nog eens. De honderdste telt.'
+      },
+      class: {
+        '1': 'Geen kling. Handen, voeten, adem. Elke slag bouwt de volgende op, tot de grote komt.',
+        '2': 'Behendigheid voor snelle handen. Uithouding om kalm te blijven als anderen buiten adem raken.',
+        say: 'Wat is een IJzeren Monnik?'
+      },
+      ready: {
+        strong: {
+          '1': 'De leerling wordt de leraar. Vertel het aan niemand. Neem elke les.'
+        },
+        able: {
+          '1': 'Goed. De kom raakt vol. Neem de volgende les.'
+        },
+        weak: {
+          '1': 'Nog niet. Een boom met korte wortels valt om in de wind. Meer Uithouding.'
+        }
+      },
+      noodles: {
+        '1': 'Jazeker. De bouillon heeft twee dagen getrokken. Adem er alsjeblieft niet op.',
+        '2': 'Een goede kom leert geduld. Een geweldige kom leert al het andere.',
+        say: 'Is dat een kom noedels?'
+      },
+      trainBack: {
+        '1': 'Goed. Eet nu iets warms. Kracht komt uit de kom.'
+      },
+      bye: {
+        '1': 'Het ga je goed. Loop zacht. Trap hard.'
+      }
+    },
+    sbMasterBard: {
+      hello: {
+        '1': 'Welkom, welkom, kom binnen uit de kou! O jee, dat rijmde. Dat gebeurt me vaak.',
+        '2': 'Lark Vrolijkweer. Ik speel bij het vuur en leer iedereen die wil luisteren de luit.'
+      },
+      again: {
+        '1': 'Mijn favoriete luisteraar! Pak een krukje. Pas op de kat, zij is de recensent.'
+      },
+      train: {
+        '1': 'Tokkel met me mee. Een, twee, en drie... Kijk niet naar je vingers. Voel het!'
+      },
+      class: {
+        '1': 'Liederen die jouw kant dapperder maken, wijsjes die de andere kant in slaap sussen.',
+        '2': 'Charisma om het publiek te winnen. Techniek, zodat je vingers je hart bijhouden.',
+        say: 'Wat doet een Bard?'
+      },
+      ready: {
+        strong: {
+          '1': 'Jij krijgt nu elke herberg vol! Neem alle liederen die ik heb.'
+        },
+        able: {
+          '1': 'Mooi wijsje! Je bent klaar voor het volgende couplet.'
+        },
+        weak: {
+          '1': 'Nog niet. Het publiek zit nog te gapen. Meer Charisma, vriend.'
+        }
+      },
+      story: {
+        '1': 'Ooit stak een ridder precies deze brug over, met niets dan een zwaard en een lied...',
+        '2': 'Wacht, met muziek is het beter. La-la-la, de ridder ging... Waar was ik?',
+        '3': 'Ach, laat maar. Mooi liedje wel, hè?',
+        say: 'Vertel je me een verhaal?'
+      },
+      trainBack: {
+        '1': 'Bravo! Oefen elke dag. Ook als het vreselijk klinkt. Juist dan.'
+      },
+      bye: {
+        '1': 'Vaarwel, en vaar wel! Oeps. Weer gerijmd. Doei!'
       }
     }
   },

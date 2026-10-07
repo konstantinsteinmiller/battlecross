@@ -68,6 +68,27 @@ export const ERRANDS: ErrandDef[] = [
     steps: [{ kind: 'pieces', n: 6 }, { kind: 'dig', place: 'crags', n: 1 }],
     reward: { xp: 0.5 }
   },
+  // The secret masters' tests (#86): handed in, the master teaches.
+  {
+    id: 'windrunnerTest', giver: 'sbMasterWindrunner',
+    steps: [{ kind: 'slay', enemy: 'banditArcher', place: 'outskirts', n: 12 }, { kind: 'gather', plant: 'swiftfern', n: 3 }],
+    reward: { xp: 0.4, flags: ['foundWindrunner'] }
+  },
+  {
+    id: 'frostwardenTest', giver: 'sbMasterFrostwarden',
+    steps: [{ kind: 'slay', enemy: 'fireElemental', place: 'crags', n: 10 }, { kind: 'gather', plant: 'frostmint', n: 3 }],
+    reward: { xp: 0.4, flags: ['foundFrostwarden'] }
+  },
+  {
+    id: 'lightbringerTest', giver: 'sbMasterLightbringer',
+    steps: [{ kind: 'slay', enemy: 'cultist', place: 'crags', n: 10 }, { kind: 'gather', plant: 'sunpetal', n: 5 }],
+    reward: { xp: 0.4, flags: ['foundLightbringer'] }
+  },
+  {
+    id: 'beastcallerTest', giver: 'sbMasterBeastcaller',
+    steps: [{ kind: 'slay', enemy: 'spider', place: 'woods', n: 12 }, { kind: 'gather', plant: 'moonbell', n: 2 }],
+    reward: { xp: 0.4, flags: ['foundBeastcaller'] }
+  },
   {
     id: 'mirelaFavor', giver: 'sbFence',
     steps: [{ kind: 'slay', enemy: 'bandit', place: 'outskirts', n: 15 }, { kind: 'talk', npc: 'sbJeweler', n: 1 }],

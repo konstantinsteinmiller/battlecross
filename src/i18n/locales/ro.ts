@@ -95,7 +95,8 @@ export default {
     elixirSwift: 'Iuțeală',
     elixirMind: 'Minte limpede',
     elixirVigor: 'Vigoare',
-    elixirShadow: 'Lamă însetată'
+    elixirShadow: 'Lamă însetată',
+    chi: 'Chi'
   },
   toast: {
     item: 'Găsit: {item}',
@@ -859,6 +860,390 @@ export default {
     crumble: {
       name: 'Fărâmițare',
       desc: 'Dai cu {dmg}% mai multe daune inamicilor încetiniți, doborâți sau prefăcuți în piatră.'
+    },
+    galeArrow: {
+      name: 'Săgeată de Vijelie',
+      desc: 'O săgeată purtată de o rafală: {dmg}% daune din Dexteritate, iar ținta e împinsă înapoi.'
+    },
+    fleetfoot: {
+      name: 'Pas Iute',
+      desc: '+{move}% viteză de mers și +{dodge}% Eschivă.'
+    },
+    zephyrDash: {
+      name: 'Țâșnire de Zefir',
+      desc: 'Țâșnești până la {dist} m unde țintești, apoi alergi cu {move}% mai repede timp de {dur}s.'
+    },
+    piercingGale: {
+      name: 'Vijelie Străpungătoare',
+      desc: 'O săgeată care trece prin toți inamicii dintr-o linie: {dmg}% daune din Dexteritate și încetinire de {slow}% timp de {dur}s.'
+    },
+    cycloneSnare: {
+      name: 'Capcana Ciclonului',
+      desc: 'Un vârtej de {dur}s trage inamicii spre ochiul lui și face {dmg}% daune din Măiestrie.'
+    },
+    keenEye: {
+      name: 'Ochi Ager',
+      desc: '+{critDmg}% Daune Critice. Loviturile tale trec prin încă {pierce} inamic.'
+    },
+    updraftLeap: {
+      name: 'Salt pe Curent',
+      desc: 'O rafală aruncă în aer inamicii pe o rază de {radius} m, cu {dmg}% daune din Dexteritate. Tu sari {leap} m mai încolo.'
+    },
+    swiftDraw: {
+      name: 'Tragere Rapidă',
+      desc: 'Ataci cu {speed}% mai repede, iar reîncărcările tale sunt cu {cdr}% mai scurte.'
+    },
+    arrowStorm: {
+      name: 'Furtună de Săgeți',
+      desc: 'Săgețile plouă peste zonă timp de {dur}s: {dmg}% daune din Măiestrie în total și încetinire de {slow}%.'
+    },
+    galeSpirits: {
+      name: 'Duhurile Vântului',
+      desc: 'Duhuri ale vântului zboară cu tine timp de {dur}s și trag {shots} săgeți cu {dmg}% daune din Măiestrie. +{move}% viteză de mers.'
+    },
+    skyHunter: {
+      name: 'Vânătoare în Văzduh',
+      desc: '+{boss}% daune împotriva șefilor și +{crit}% Șansă Critică.'
+    },
+    skyrender: {
+      name: 'Sfâșie-Cer',
+      desc: 'O săgeată de furtună își taie drum: {dmg}% daune din Dexteritate tuturor din linie, aruncați în sus și într-o parte.'
+    },
+    frostCleave: {
+      name: 'Tăietură de Ger',
+      desc: 'Rotești lama de gheață în fața ta: {dmg}% daune din Forță și încetinire de {slow}% timp de {dur}s.'
+    },
+    rimeLance: {
+      name: 'Lance de Chiciură',
+      desc: 'Arunci o lance de gheață cu {dmg}% daune din Inteligență. Încetinește cu {slow}% timp de {dur}s.'
+    },
+    wintersBite: {
+      name: 'Mușcătura Iernii',
+      desc: 'Atacurile tale încetinesc inamicul cu {slow}% timp de {dur}s.'
+    },
+    frostArmor: {
+      name: 'Armură de Ger',
+      desc: 'O armură de gheață absoarbe daune egale cu {shield}% din Inteligență timp de {dur}s. Inamicii din preajmă sunt încetiniți cu {slow}%.'
+    },
+    glacialCharge: {
+      name: 'Șarjă Glaciară',
+      desc: 'Te năpustești asupra țintei cu {dmg}% daune din Forță și o îngheți {freeze}s.'
+    },
+    frozenHeart: {
+      name: 'Inimă Înghețată',
+      desc: '+{hp}% viață maximă, iar toate daunele primite scad cu {reduce}%.'
+    },
+    rimeField: {
+      name: 'Câmp de Chiciură',
+      desc: 'Pământ înghețat timp de {dur}s: {dmg}% daune din Inteligență. Inamicii încetiniți de pe el îngheață {freeze}s.'
+    },
+    frostShatter: {
+      name: 'Spargerea Gerului',
+      desc: '{dmg}% daune din Forță pe o rază de {radius} m: +{chilled}% inamicilor încetiniți, +{frozen}% celor înghețați.'
+    },
+    shatterpoint: {
+      name: 'Punct de Rupere',
+      desc: 'Faci cu {bonus}% mai multe daune inamicilor încetiniți și înghețați.'
+    },
+    avalancheLeap: {
+      name: 'Saltul Avalanșei',
+      desc: 'Sari unde țintești și aterizezi ca o avalanșă: {dmg}% daune din Forță, iar inamicii sunt doborâți.'
+    },
+    iceborn: {
+      name: 'Sânge de Gheață',
+      desc: 'Nimic nu te împinge și nu te aruncă. Amețelile durează cu {cut}% mai puțin pe tine.'
+    },
+    absoluteZero: {
+      name: 'Zero Absolut',
+      desc: 'Iarna izbucnește din tine: {dmg}% daune din Inteligență pe o rază de {radius} m, înghețând pe toți {freeze}s.'
+    },
+    sunbolt: {
+      name: 'Rază Solară',
+      desc: 'O rază de soare cu {dmg}% daune din Inteligență. Ținta orbită face cu {weaken}% mai puțin timp de {dur}s.'
+    },
+    mendingLight: {
+      name: 'Lumină Vindecătoare',
+      desc: 'Te vindeci pe loc cu {heal}% din Carismă, apoi cu {regen}% din viața ta pe secundă timp de {dur}s.'
+    },
+    kindledHope: {
+      name: 'Speranță Aprinsă',
+      desc: 'Toate vindecările pe care le primești sunt cu {heal}% mai puternice.'
+    },
+    lanceOfLight: {
+      name: 'Lancea Luminii',
+      desc: 'O rază de lumină: {dmg}% daune din Inteligență în linie. Te vindeci cu {heal}% viață pentru fiecare inamic lovit.'
+    },
+    dawnShield: {
+      name: 'Scutul Zorilor',
+      desc: 'Șterge toate efectele rele de pe tine și primești un scut de {shield}% din Carismă timp de {dur}s.'
+    },
+    haloWard: {
+      name: 'Aură Ocrotitoare',
+      desc: 'Toate daunele primite scad cu {reduce}%.'
+    },
+    dawnSanctuary: {
+      name: 'Sanctuarul Zorilor',
+      desc: 'Pământ sfânt timp de {dur}s: te vindecă cu {heal}% din Carismă pe secundă, iar inamicii primesc {dmg}% din Inteligență.'
+    },
+    blindingFlash: {
+      name: 'Fulger Orbitor',
+      desc: 'O sclipire de lumină: inamicii pe o rază de {radius} m fug {fear}s și fac cu {weaken}% mai puțin timp de {dur}s.'
+    },
+    guardianLight: {
+      name: 'Lumină Păzitoare',
+      desc: 'O lovitură care te-ar învinge te lasă cu 1 viață, de neatins timp de {dur}s. O dată la {icd}s.'
+    },
+    sunfall: {
+      name: 'Căderea Soarelui',
+      desc: 'Un stâlp de lumină solară cade pe țintă: {dmg}% daune din Inteligență. Inamicii primesc cu {vuln}% mai mult timp de {dur}s.'
+    },
+    searingLight: {
+      name: 'Lumină Arzătoare',
+      desc: '+{crit}% Șansă Critică a vrăjilor și +{critDmg}% Daune Critice.'
+    },
+    haloOfDawn: {
+      name: 'Aura Zorilor',
+      desc: 'Strălucești timp de {dur}s: în fiecare secundă, {dmg}% daune din Inteligență pe o rază de {radius} m și te vindeci cu {heal}% viață.'
+    },
+    callWolf: {
+      name: 'Cheamă Lupul',
+      desc: 'Un lup-spirit ți se alătură și mușcă cu {dmg}% daune din Carismă. Cel mult {max} deodată.'
+    },
+    wolfPounce: {
+      name: 'Saltul Lupilor',
+      desc: 'Lupii tăi sar pe țintă: câte {dmg}% daune din Carismă fiecare, doborând-o {down}s.'
+    },
+    wildKinship: {
+      name: 'Înrudire Sălbatică',
+      desc: 'Însoțitorii tăi au cu {hp}% mai multă viață și fac cu {dmg}% mai multe daune.'
+    },
+    callHawk: {
+      name: 'Cheamă Șoimul',
+      desc: 'Un șoim plonjează asupra țintei cu {dmg}% daune din Carismă: ea primește cu {vuln}% mai mult timp de {dur}s. Rămâne {life}s.'
+    },
+    callBear: {
+      name: 'Cheamă Ursul',
+      desc: 'Un urs-spirit ți se alătură. Lovește cu {dmg}% daune și ține inamicii ocupați. Cel mult {max}.'
+    },
+    thickHide: {
+      name: 'Blană Groasă',
+      desc: '+{hp}% viață maximă și +{regen} regenerare de viață pe secundă.'
+    },
+    packBond: {
+      name: 'Legătura Haitei',
+      desc: 'Tu și însoțitorii pe o rază de {radius} m vă refaceți {regen}% din viață pe secundă și primiți {def}% Apărare timp de {dur}s.'
+    },
+    spiritStampede: {
+      name: 'Năvala Duhurilor',
+      desc: 'O turmă de fiare-spirit se năpustește: {dmg}% daune din Carismă în linie, doborând inamicii.'
+    },
+    packTactics: {
+      name: 'Tactica Haitei',
+      desc: 'Faci cu {bonus}% mai multe daune pentru fiecare însoțitor cu tine, până la {max}.'
+    },
+    alphaHowl: {
+      name: 'Urletul Alfa',
+      desc: 'Însoțitorii tăi se vindecă cu {heal}% și luptă cu {rage}% mai aprig timp de {dur}s. Inamicii din preajmă fug.'
+    },
+    leaderOfThePack: {
+      name: 'Conducătorul Haitei',
+      desc: 'Însoțitorii tăi atacă cu {speed}% mai repede și fac cu {dmg}% mai multe daune.'
+    },
+    wildHunt: {
+      name: 'Vânătoarea Sălbatică',
+      desc: 'Încă {wolves} lupi aleargă cu tine timp de {dur}s. Toată haita face +{dmg}% daune și se mișcă cu {move}% mai repede.'
+    },
+    prismBolt: {
+      name: 'Rază Prismatică',
+      desc: 'O rază cu {dmg}% daune din Inteligență: ger dacă ținta arde, altfel foc. Fiecare îl declanșează pe celălalt.'
+    },
+    elementalHarmony: {
+      name: 'Armonie Elementală',
+      desc: 'Reacțiile tale (Topire, Abur, Spargere, Supraîncărcare, Cristal) sunt cu {pct}% mai puternice.'
+    },
+    frostLance: {
+      name: 'Lance de Gheață',
+      desc: 'Gheață printr-o linie: {dmg}% daune din Inteligență și încetinire de {slow}% timp de {dur}s. Inamicii care ard fac Abur.'
+    },
+    chainSpark: {
+      name: 'Scânteie în Lanț',
+      desc: 'Un fulger cu {dmg}% din Inteligență care sare la încă {jumps} inamici. Sparge gheața, Supraîncarcă focul.'
+    },
+    smolderingCore: {
+      name: 'Miez Mocnit',
+      desc: 'Arsurile tale fac cu {burn}% mai multe daune și ai cu {mana} mai multă mană.'
+    },
+    rollingBoulder: {
+      name: 'Bolovan Rostogolit',
+      desc: 'Un bolovan se rostogolește: {dmg}% daune din Inteligență, doborâre {down}s. Inamicii marcați îți dau un scut.'
+    },
+    thunderSnow: {
+      name: 'Ninsoare cu Tunete',
+      desc: 'Un viscol timp de {dur}s: {dmg}% daune de ger din Inteligență și un fulger în fiecare secundă pentru {bolt}%.'
+    },
+    spellweave: {
+      name: 'Țesătură de Vrăji',
+      desc: '+{crit}% Șansă Critică a vrăjilor, iar abilitățile tale costă cu {mana}% mai puțină mană.'
+    },
+    prismaticNova: {
+      name: 'Nova Prismatică',
+      desc: 'Lovește tot pe o rază de {radius} m cu {dmg}% din Inteligență, fiecare cu elementul la care reacționează.'
+    },
+    prismaticWard: {
+      name: 'Pavăză Prismatică',
+      desc: 'Primești cu {reduce}% mai puține daune și ai cu {hp}% mai multă viață.'
+    },
+    frostfireComet: {
+      name: 'Cometă de Foc și Ger',
+      desc: 'O cometă de foc și gheață: {dmg}% daune din Inteligență. Inamicii rămân în flăcări și încetiniți.'
+    },
+    elementalConvergence: {
+      name: 'Convergență Elementală',
+      desc: 'Timp de {dur}s patru elemente se succed: {strikes} lovituri de {dmg}% din Inteligență care se declanșează reciproc.'
+    },
+    wispBolt: {
+      name: 'Rază de Flăcăruie',
+      desc: 'O flăcăruie cu {dmg}% daune din Inteligență. Un inamic învins de ea se ridică drept spiritul tău timp de {life}s.'
+    },
+    kindredSpirits: {
+      name: 'Spirite Înrudite',
+      desc: 'Spiritele și slujitorii tăi au cu {hp}% mai multă viață și atacă cu {speed}% mai repede.'
+    },
+    callTheFallen: {
+      name: 'Chemarea Celor Căzuți',
+      desc: 'Până la {max} inamici căzuți de curând pe o rază de {radius} m se ridică drept spiritele tale timp de {life}s.'
+    },
+    soulBond: {
+      name: 'Legătura Sufletelor',
+      desc: 'Împrietenește-te cu un inamic: {chance}% ({low}% dacă e rănit) să ți se alăture ca spirit timp de {life}s. Altfel, {dmg}% daune.'
+    },
+    restlessSouls: {
+      name: 'Suflete Neliniștite',
+      desc: 'Un inamic învins de tine are {chance}% șanse să se ridice drept spiritul tău timp de {life}s.'
+    },
+    spiritLantern: {
+      name: 'Felinarul Spiritelor',
+      desc: 'Un felinar timp de {dur}s: inamicii din lumina lui primesc {dmg}% din Inteligență, prietenii se vindecă, cei căzuți se ridică.'
+    },
+    hauntingWail: {
+      name: 'Bocet Fantomatic',
+      desc: 'Un BUU fantomatic: {dmg}% daune din Inteligență pe o rază de {radius} m, iar inamicii fug {fear}s.'
+    },
+    wardensVigil: {
+      name: 'Veghea Străjerului',
+      desc: 'Spiritele și slujitorii tăi fac cu {dmg}% mai multe daune, iar tu primești cu {reduce}% mai puține.'
+    },
+    releaseSouls: {
+      name: 'Eliberarea Sufletelor',
+      desc: 'Spiritele tale pleacă acasă în izbucniri de lumină: {dmg}% din Inteligență în jurul fiecăruia, {heal}% viață înapoi pentru fiecare.'
+    },
+    lanternKeeper: {
+      name: 'Păzitorul Felinarului',
+      desc: 'Reîncărcări cu {cdr}% mai scurte, iar abilitățile tale costă cu {mana}% mai puțină mană.'
+    },
+    wispSwarm: {
+      name: 'Roi de Flăcărui',
+      desc: '{wisps} flăcărui plonjează asupra inamicilor din zonă cu {dmg}% din Inteligență în total. Cei învinși de ele se ridică.'
+    },
+    processionOfSouls: {
+      name: 'Procesiunea Sufletelor',
+      desc: 'Timp de {dur}s, orice inamic care cade lângă tine se ridică drept spiritul tău, iar spiritele fac cu {atk}% mai mult.'
+    },
+    palmStrike: {
+      name: 'Lovitură cu Palma',
+      desc: 'O palmă iute cu {dmg}% daune din Dexteritate, care împinge inamicul înapoi. Adună {chi} chi.'
+    },
+    ironBody: {
+      name: 'Trup de Fier',
+      desc: 'Daunele fizice primite scad cu {reduce}%, iar tu ai cu {hp}% mai multă viață.'
+    },
+    flyingKick: {
+      name: 'Lovitură Zburătoare',
+      desc: 'Zbori spre țintă și lovești cu piciorul: {dmg}% daune din Dexteritate; inamicii din cale primesc {path}%. Adună {chi} chi.'
+    },
+    tigerStance: {
+      name: 'Poziția Tigrului',
+      desc: 'Timp de {dur}s: +{dmg}% daune și +{speed}% viteză de atac. Încheie Poziția Cocorului.'
+    },
+    craneStance: {
+      name: 'Poziția Cocorului',
+      desc: 'Timp de {dur}s: +{def}% Apărare și te vindeci cu {regen}% din viață pe secundă. Încheie Poziția Tigrului.'
+    },
+    flowingFists: {
+      name: 'Pumni Curgători',
+      desc: 'Atacurile tale au {chance}% șanse să adune chi.'
+    },
+    hundredFists: {
+      name: 'O Sută de Pumni',
+      desc: 'O rafală de {hits} lovituri cu {dmg}% daune din Dexteritate în total. Adună {chi} chi.'
+    },
+    risingDragon: {
+      name: 'Dragonul Ascendent',
+      desc: 'Folosești tot chi-ul într-un upercut: {dmg}% daune din Dexteritate, +{per}% pentru fiecare chi. Inamicul zboară în sus.'
+    },
+    cranesGrace: {
+      name: 'Grația Cocorului',
+      desc: '+{dodge}% Eschivă, iar amețelile și doborârile durează cu {cut}% mai puțin pe tine.'
+    },
+    whirlwindKick: {
+      name: 'Lovitura Vârtej',
+      desc: 'Lovești cu piciorul de două ori tot ce e pe o rază de {radius} m, cu {dmg}% daune din Dexteritate în total. Adună până la {chi} chi.'
+    },
+    tigersFury: {
+      name: 'Furia Tigrului',
+      desc: '+{crit}% Șansă Critică și +{speed}% viteză de atac.'
+    },
+    mountainPalm: {
+      name: 'Palma Muntelui',
+      desc: 'Folosești tot chi-ul: o palmă uriașă cade cu {dmg}% daune din Dexteritate, +{per}% pentru fiecare chi, și doboară inamicii.'
+    },
+    sharpNote: {
+      name: 'Notă Ascuțită',
+      desc: 'O notă ascuțită cu {dmg}% daune din Carismă. Inamicul face cu {weaken}% mai puține daune timp de {dur}s.'
+    },
+    stagePresence: {
+      name: 'Prezență Scenică',
+      desc: 'Abilitățile tale costă cu {mana}% mai puțină mană și te miști cu {move}% mai repede.'
+    },
+    marchingSong: {
+      name: 'Cântec de Marș',
+      desc: 'Un cântec timp de {dur}s: tu și aliații pe o rază de {radius} m vă mișcați cu {move}% și atacați cu {speed}% mai repede.'
+    },
+    lullaby: {
+      name: 'Cântec de Leagăn',
+      desc: 'O melodie blândă într-un con: orice inamic atins adoarme timp de {dur}s.'
+    },
+    longRefrain: {
+      name: 'Refren Lung',
+      desc: 'Cântecele tale durează cu {pct}% mai mult.'
+    },
+    balladOfValor: {
+      name: 'Balada Vitejiei',
+      desc: 'Un cântec timp de {dur}s: tu și aliații pe o rază de {radius} m faceți cu {dmg}% mai multe daune și primiți {def}% Apărare.'
+    },
+    charmingSerenade: {
+      name: 'Serenadă Fermecată',
+      desc: 'Farmeci ținta și inamicii pe o rază de {radius} m: timp de {dur}s se bat între ei.'
+    },
+    virtuoso: {
+      name: 'Virtuoz',
+      desc: 'Reîncărcări cu {cdr}% mai scurte și +{critDmg}% Daune Critice.'
+    },
+    hymnOfMending: {
+      name: 'Imnul Vindecării',
+      desc: 'Șterge efectele rele, apoi timp de {dur}s tu și aliații pe o rază de {radius} m vă refaceți {regen}% viață pe secundă.'
+    },
+    crescendo: {
+      name: 'Crescendo',
+      desc: 'O explozie de sunet pe o rază de {radius} m: {dmg}% daune din Carismă, +{per}% pentru fiecare cântec pe care îl cânți.'
+    },
+    standingOvation: {
+      name: 'Ovații în Picioare',
+      desc: '+{dmg}% daune și primești cu {reduce}% mai puține daune.'
+    },
+    grandFinale: {
+      name: 'Marele Final',
+      desc: 'Cânți tot timp de {dur}s (+{buff}% viteză, daune, Apărare), apoi un ultim acord: {dmg}% din Carismă, inamici fermecați.'
     }
   },
   slot: {
@@ -1371,6 +1756,30 @@ export default {
     sbFence: {
       name: 'Mirela Thorne',
       talk: 'Armuri fine, fără întrebări. Mă rog, foarte puține întrebări.'
+    },
+    sbMasterWindrunner: {
+      name: 'Sefa Aripă-de-Vânt'
+    },
+    sbMasterFrostwarden: {
+      name: 'Halvard Inimă-de-Chiciură'
+    },
+    sbMasterLightbringer: {
+      name: 'Sora Auriel Lac-de-Zori'
+    },
+    sbMasterBeastcaller: {
+      name: 'Bătrânul Rowan Picior-de-Scai'
+    },
+    sbMasterElementalist: {
+      name: 'Magistra Iris Patru-Vânturi'
+    },
+    sbMasterSoulwarden: {
+      name: 'Străjera Odalys Lumină-de-Felinar'
+    },
+    sbMasterIronmonk: {
+      name: 'Maestrul Oru Apă-Liniștită'
+    },
+    sbMasterBard: {
+      name: 'Lark Vreme-Bună'
     }
   },
   quest: {
@@ -3690,6 +4099,382 @@ export default {
       },
       bye: {
         '1': 'Ai grijă la pungă. Nu toți de aici sunt cinstiți ca mine.'
+      }
+    },
+    sbMasterWindrunner: {
+      hello: {
+        '1': 'Oh, salut! Scuze, nu mă pot opri. Aștept să se întoarcă vântul. Dintr-o clipă în alta.',
+        '2': 'Sefa Aripă-de-Vânt. Trag cu arcul și alerg după vânt. De obicei câștigă vântul.'
+      },
+      open: {
+        '1': 'Ia te uită cine-a venit! Gata? Sigur că da. Hai, hai, hai!'
+      },
+      again: {
+        '1': 'Salut din nou! Tot aici sunt. Mă rog, aproape. Picioarele mele tot o iau razna.'
+      },
+      train: {
+        '1': 'Simți vântul pe obraz? Țintește puțin la stânga de unde crezi. Acum, dă drumul!'
+      },
+      favor: {
+        '1': 'Doar celor care țin pasul cu mine. Tu poți? Hai să vedem.',
+        '2': 'Învinge doisprezece bandiți arcași în Împrejurimile Oakhaven, apoi adu-mi trei ferigi-iuți.',
+        say: 'Predai tirul cu arcul?'
+      },
+      waiting: {
+        '1': 'Doisprezece bandiți arcași, trei ferigi-iuți. Hai, du-te! Eu sunt chiar aici. Țopăind.',
+        say: 'Despre proba ta...'
+      },
+      favorDone: {
+        '1': 'Ha! Chiar ai ținut pasul! Nimeni nu ține pasul!',
+        '2': 'Gata, de-acum te antrenez eu. O singură regulă: la lecțiile mele nu se stă jos.',
+        say: 'Arcașii sunt învinși, iar aici sunt ferigile-iuți.'
+      },
+      class: {
+        '1': 'Tragi, alergi, tragi iar. Dacă te prind, ai stat pe loc prea mult.',
+        '2': 'Dexteritate pentru picioare iuți și un arc iute. Măiestrie, ca fiecare săgeată să nimerească.',
+        say: 'Ce face un Alergător al Vântului?'
+      },
+      ready: {
+        strong: {
+          '1': 'Acum ești iute ca vântul. Mă rog, aproape. Ia orice lecție vrei!'
+        },
+        able: {
+          '1': 'Pas ușor! Ești gata pentru următoarea. Hai, hai!'
+        },
+        weak: {
+          '1': 'Încă nu. Alergi de parcă ai căra o canapea. Mai multă Dexteritate, te rog.'
+        }
+      },
+      who: {
+        '1': 'Locuiesc sus, în moara de vânt veche de lângă râu. Cea mai bună priveliște spre vânt din tot orașul.',
+        '2': 'Două sute de trepte până sus. Antrenament grozav. Le-am numărat pe toate.'
+      },
+      trainBack: {
+        '1': 'Bun! Acum fugi acasă. Nu la pas. Și alergatul e antrenament.'
+      },
+      bye: {
+        '1': 'Pa! Atenție la crengile joase. Eu nu sunt niciodată atentă.'
+      }
+    },
+    sbMasterFrostwarden: {
+      hello: {
+        '1': 'Hm. Ai trecut pe lângă mine de trei ori. Cauți drumul sau te mână curiozitatea?',
+        '2': 'Halvard Inimă-de-Chiciură. Am venit spre sud din zăpadă. E cald aici. Prea cald.'
+      },
+      open: {
+        '1': 'Ai venit. Bine. Gheața e gata, și eu la fel.'
+      },
+      again: {
+        '1': 'Iar tu. Bine. Nu vorbesc mult. Rămâi oricum.'
+      },
+      train: {
+        '1': 'Expiră încet. Vezi aburul? Acum pune-l în lamă.'
+      },
+      favor: {
+        '1': 'Da. O predau doar celor care își păstrează sângele rece într-un loc fierbinte.',
+        '2': 'Stinge zece elementali de foc în Stâncile de Cenușă. Apoi adu-mi trei fire de mentă-de-Ger.',
+        say: 'Sabia aia e făcută din gheață?'
+      },
+      waiting: {
+        '1': 'Zece elementali de foc. Trei fire de mentă-de-Ger. Ia-ți timp. Nu prea mult.',
+        say: 'Despre proba ta...'
+      },
+      favorDone: {
+        '1': 'Hm. Nicio pârlitură. Bine.',
+        '2': 'Ți-ai păstrat sângele rece. Asta a fost prima lecție. Te învăț și restul.',
+        say: 'Elementalii de foc sunt stinși. Iată menta-de-Ger.'
+      },
+      class: {
+        '1': 'Un cavaler al frigului. Îi încetinești, îi îngheți, apoi spargi gheața.',
+        '2': 'Forță pentru lamă. Inteligență pentru ger. Ai nevoie de amândouă.',
+        say: 'Ce este un Străjer al Gerului?'
+      },
+      ready: {
+        strong: {
+          '1': 'Acum porți în tine frigul nordului. Ia orice lecție.'
+        },
+        able: {
+          '1': 'Bine. Mână sigură. Următoarea lecție e a ta.'
+        },
+        weak: {
+          '1': 'Încă nu. Gerul tău se topește prea repede. Mai multă Inteligență, și mai multă Forță.'
+        }
+      },
+      who: {
+        '1': 'Am păzit o trecătoare de munte în nord. Apoi am vrut să văd un râu care nu îngheață.'
+      },
+      trainBack: {
+        '1': 'Bine. Acum odihnește-te. Gheața nu se grăbește. Nici tu n-ar trebui.'
+      },
+      bye: {
+        '1': 'Drum bun. Și sânge rece.'
+      }
+    },
+    sbMasterLightbringer: {
+      hello: {
+        '1': 'Mm-hm-hmm... Oh! Iartă-mă, dragă, fredonam. Ți-am fredonat în față? Mi se întâmplă.',
+        '2': 'Sora Auriel Lac-de-Zori. Eu țin aprinsă lămpița de la capătul podului.'
+      },
+      open: {
+        '1': 'Uite-mi luminița! Vino și stai puțin în lumină. Ai meritat-o.'
+      },
+      again: {
+        '1': 'Bună din nou! Tot aici, tot fredonând. Lămpii îi place compania.'
+      },
+      train: {
+        '1': 'Palmele deschise, bărbia sus. Gândește-te la cea mai frumoasă dimineață pe care ai avut-o. Așa. Simți?'
+      },
+      favor: {
+        '1': 'Fiecare are puțină lumină înăuntru. Eu îi învăț pe oameni s-o lase să iasă, când le vine vremea.',
+        '2': 'Învinge zece cultiști în Stâncile de Cenușă, apoi adu-mi cinci petale-de-Soare pentru lampa mea.',
+        say: 'Lampa aia e magică?'
+      },
+      waiting: {
+        '1': 'Zece cultiști, cinci petale-de-Soare. Învinge-i cu blândețe. Toată lumea merită o a doua șansă.',
+        say: 'Despre proba ta...'
+      },
+      favorDone: {
+        '1': 'Oh, ia uită-te la ele! Lampa o să strălucească aurie o lună întreagă.',
+        '2': 'Și tu la fel, dragă. Te învăț cu drag.',
+        say: 'Cultiștii sunt învinși. Iată petalele-de-Soare.'
+      },
+      class: {
+        '1': 'Purtăm zorii. Lumină cu care lupți, lumină cu care vindeci, lumină după care te ascunzi.',
+        '2': 'Inteligența face lumina puternică. Carisma o face caldă. Îți trebuie amândouă.',
+        say: 'Ce face un Purtător de Lumină?'
+      },
+      ready: {
+        strong: {
+          '1': 'Strălucești ca un răsărit, dragă. Ia orice lecție vrei.'
+        },
+        able: {
+          '1': 'Ce frumos strălucești! Ești gata pentru următoarea.'
+        },
+        weak: {
+          '1': 'Încă nu, dragă. Lumina ta e cam slabă. Mai multă Carismă și o să strălucești.'
+        }
+      },
+      who: {
+        '1': 'Cândva cântam într-un templu mare. Dar aici lampa mea călăuzește bărcile spre casă. E mai bine așa.'
+      },
+      trainBack: {
+        '1': 'Minunat. Acum du-te și luminează ziua cuiva. Așa a zis Sora.'
+      },
+      bye: {
+        '1': 'Hai, du-te, dragă. Și zâmbește-le colțurilor întunecate. Nu suportă asta.'
+      }
+    },
+    sbMasterBeastcaller: {
+      hello: {
+        '1': 'Ai grijă pe unde calci. Aia e Mura. Ea a fost aici prima.',
+        '2': 'Rowan Picior-de-Scai. Îmi plac animalele. Despre oameni, încă mă gândesc.'
+      },
+      open: {
+        '1': 'A, tu ești. Mura te-a așteptat. Și eu. Puțin.'
+      },
+      again: {
+        '1': 'Iar tu. Murei îi placi. Eu încă mă gândesc.'
+      },
+      train: {
+        '1': 'Lasă-te jos. Mai încet. Întinde mâna și lasă-le să vină ele la tine. Bine.'
+      },
+      favor: {
+        '1': 'Să vorbesc? Eu ascult. Ăsta e trucul pe care majoritatea nu-l învață niciodată.',
+        '2': 'Păianjenii uriași acoperă cu pânze potecile animalelor din Pădurea Șoaptelor. Învinge doisprezece.',
+        '3': 'Apoi adu-mi doi clopoței-de-Lună pentru vizuina mea. Mura doarme mai bine lângă ei.',
+        say: 'Poți vorbi cu animalele?'
+      },
+      waiting: {
+        '1': 'Doisprezece păianjeni, doi clopoței-de-Lună. Animalele așteaptă. Și Mura la fel.',
+        say: 'Despre proba ta...'
+      },
+      favorDone: {
+        '1': 'Hm. Căprioarele au coborât azi-dimineață la râu. M-am gândit că e mâna ta.',
+        '2': 'Fie. Te învăț. Fără agitație. Mura, nu mai da din coadă.',
+        say: 'Potecile sunt libere, iar aici sunt clopoțeii-de-Lună.'
+      },
+      class: {
+        '1': 'Chemi sălbăticia, și sălbăticia vine. Lupi, un șoim, un urs. Prieteni, nu animăluțe de casă.',
+        '2': 'Carismă, ca să vrea să vină. Anduranță, ca să ții pasul cu ei.',
+        say: 'Ce este un Chemător de Fiare?'
+      },
+      ready: {
+        strong: {
+          '1': 'Acum toată haita are încredere în tine. Ia ce vrei.'
+        },
+        able: {
+          '1': 'Lupii te plac. Ești gata pentru următoarea.'
+        },
+        weak: {
+          '1': 'Încă nu. Nu au încredere în tine. Mai multă Carismă și mult mai multă răbdare.'
+        }
+      },
+      who: {
+        '1': 'Am găsit-o pe Mura într-o capcană, acum câțiva ani. Trei picioare, numai caracter. De atunci suntem nedespărțiți.',
+        '2': 'Dorm în podul cu fân al grajdului. Caii sforăie mai puțin decât oamenii.'
+      },
+      trainBack: {
+        '1': 'Bine. Hai, du-te. Și salută ciorile. Ele țin minte.'
+      },
+      bye: {
+        '1': 'Hai, du-te. Mura îți spune pa.'
+      }
+    },
+    sbMasterElementalist: {
+      hello: {
+        '1': 'Salut! O secundă, jonglez. Foc, ger, scânteie, piatră și... le-am prins! Salut!',
+        '2': 'Magistra Iris Patru-Vânturi. Predau toate cele patru elemente. Amestecatul e partea distractivă.'
+      },
+      again: {
+        '1': 'Iar aici! Bine, aveam nevoie de public. Uite. Ta-da!'
+      },
+      train: {
+        '1': 'Alege două globuri. Oricare două. Acum lasă-le să se ciocnească. Ușor! Vezi? O reacție!'
+      },
+      class: {
+        '1': 'Amestecăm! Ger, apoi foc: se topește. Foc, apoi fulger: bum. Fiecare pereche face ceva.',
+        '2': 'Inteligență pentru fiecare vrajă. Măiestrie, pentru că vrăjile bune cer mâini iuți.',
+        say: 'Ce face un Elementalist?'
+      },
+      ready: {
+        strong: {
+          '1': 'Acum amesteci de minune! Ia orice lecție. Ia două!'
+        },
+        able: {
+          '1': 'Uuh, ce scânteie! Ești gata pentru următoarea.'
+        },
+        weak: {
+          '1': 'Încă nu! Elementele tale tot se sting. Mai multă Inteligență, te rog.'
+        }
+      },
+      sleeve: {
+        '1': 'Oh! Chiar așa. Stai puțin... Gata.',
+        '2': 'Foc, apoi ger. A fost o lecție, de fapt. Cu plăcere!',
+        say: 'Ăăă, îți arde mâneca.'
+      },
+      trainBack: {
+        '1': 'Genial! Acum exersează afară, te rog. Perdelele sunt noi.'
+      },
+      bye: {
+        '1': 'Pa! Dacă simți miros de fum, probabil sunt eu. Nu-ți face griji!'
+      }
+    },
+    sbMasterSoulwarden: {
+      hello: {
+        '1': 'Șșș, e în regulă, sunt prietenoase. Oh, nu tu. Vorbeam cu flăcăruile.',
+        '2': 'Străjera Odalys Lumină-de-Felinar. Ajut spiritele rătăcite să-și găsească drumul spre casă.'
+      },
+      again: {
+        '1': 'Bună din nou. Flăcăruile își amintesc de tine. Aia de colo îți face cu mâna.'
+      },
+      train: {
+        '1': 'Ține felinarul jos și vorbește încet. Lucrurile rătăcite vin spre o voce blândă.'
+      },
+      class: {
+        '1': 'Când un inamic e învins, spiritul lui se rătăcește puțin. Noi îl ajutăm, iar el ne ajută înapoi.',
+        '2': 'Inteligență ca să călăuzești lumina. Carismă, ca spiritele să vrea să mai rămână.',
+        say: 'Ce face un Străjer al Sufletelor?'
+      },
+      ready: {
+        strong: {
+          '1': 'Acum până și cele mai sfioase spirite vin la tine. Ia orice lecție.'
+        },
+        able: {
+          '1': 'Flăcăruile au încredere în tine. Ești gata pentru următoarea lecție.'
+        },
+        weak: {
+          '1': 'Încă nu. Încă le e sfială de tine. Mai multă Inteligență și puțină Carismă.'
+        }
+      },
+      wisps: {
+        '1': 'Cam așa ceva! Sunt spirite care s-au rătăcit. Ăsta e Țopăilă. Îi place partea caldă.',
+        '2': 'Niciun spirit nu e rău, să știi. Doar rătăcit. Se duc acasă când sunt gata.',
+        say: 'Luminițele din felinarul tău sunt vii?'
+      },
+      trainBack: {
+        '1': 'Bravo. Acum lasă-le să plece ușurel. Au avut o zi lungă.'
+      },
+      bye: {
+        '1': 'Ai grijă de tine. Și dacă vezi o luminiță rătăcită, salut-o.'
+      }
+    },
+    sbMasterIronmonk: {
+      hello: {
+        '1': 'Stai jos. Respiră. Nu, respiri de parcă ai întârzia undeva. Încă o dată.',
+        '2': 'Maestrul Oru Apă-Liniștită. Predau mâna deschisă. Pumni de fier, inimă liniștită.'
+      },
+      again: {
+        '1': 'A. Te întorci. Ca râul. În fiecare zi.'
+      },
+      train: {
+        '1': 'Picioare ca rădăcinile, mâini ca ploaia. Lovește. Încă o dată. A suta lovitură contează.'
+      },
+      class: {
+        '1': 'Nicio lamă. Mâini, picioare, respirație. Fiecare lovitură o pregătește pe următoarea, până la cea mare.',
+        '2': 'Dexteritate pentru mâini iuți. Anduranță ca să-ți păstrezi calmul când alții rămân fără suflu.',
+        say: 'Ce este un Călugăr de Fier?'
+      },
+      ready: {
+        strong: {
+          '1': 'Cine învață ajunge să-i învețe pe alții. Nu spune nimănui. Ia orice lecție.'
+        },
+        able: {
+          '1': 'Bine. Ceașca se umple. Ia următoarea lecție.'
+        },
+        weak: {
+          '1': 'Încă nu. Un copac cu rădăcini scurte cade în vânt. Mai multă Anduranță.'
+        }
+      },
+      noodles: {
+        '1': 'Da. Supa a fiert încet două zile. Te rog, nu respira peste ea.',
+        '2': 'Un castron bun te învață răbdarea. Un castron grozav te învață tot restul.',
+        say: 'Ăla e un castron cu tăiței?'
+      },
+      trainBack: {
+        '1': 'Bine. Acum mănâncă ceva cald. Puterea vine din castron.'
+      },
+      bye: {
+        '1': 'Drum bun. Pășește ușor. Lovește tare.'
+      }
+    },
+    sbMasterBard: {
+      hello: {
+        '1': 'Intră, intră, nu sta-n ger, aici e cald ca-n cer! Vai, a rimat. Mi se întâmplă.',
+        '2': 'Lark Vreme-Bună. Cânt lângă foc și predau lăuta oricui vrea să asculte.'
+      },
+      again: {
+        '1': 'Publicul meu preferat! Trage-ți un scăunel. Atenție la pisică, ea e critica.'
+      },
+      train: {
+        '1': 'Ciupește corzile cu mine. Unu, doi și trei... Nu te uita la degete. Simte!'
+      },
+      class: {
+        '1': 'Cântece care îi fac pe ai tăi mai curajoși, melodii care îi adorm pe ceilalți.',
+        '2': 'Carismă ca să cucerești mulțimea. Măiestrie, ca degetele să țină pasul cu inima.',
+        say: 'Ce face un Bard?'
+      },
+      ready: {
+        strong: {
+          '1': 'Acum ai umple orice tavernă! Ia toate cântecele pe care le am.'
+        },
+        able: {
+          '1': 'Ce melodie frumoasă! Ești gata pentru următoarea strofă.'
+        },
+        weak: {
+          '1': 'Încă nu. Mulțimea tot cască. Mai multă Carismă, te rog frumos.'
+        }
+      },
+      story: {
+        '1': 'Odată, un cavaler a trecut chiar podul ăsta, doar cu o sabie și un cântec...',
+        '2': 'Stai, e mai frumos cu muzică. La-la-la, cavalerul a pornit... Unde rămăsesem?',
+        '3': 'Ah, nu mai contează. Frumos cântec, totuși, nu-i așa?',
+        say: 'Îmi spui o poveste?'
+      },
+      trainBack: {
+        '1': 'Bravo! Exersează în fiecare zi. Chiar și când sună groaznic. Mai ales atunci.'
+      },
+      bye: {
+        '1': 'Rămas-bun și drum bun, cu-n cântec bun! Hopa. Iar am rimat. Pa!'
       }
     }
   },

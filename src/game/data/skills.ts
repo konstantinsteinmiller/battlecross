@@ -25,7 +25,9 @@ export type ClassId = 'aegis' | 'shadow' | 'pyro' | 'sovereign' | 'chrono' | 'bl
 /** The classes in play, in the skills page's order. A new class joins the
  *  list in the phase that gives it its skills (#86, #95). */
 export const CLASS_IDS: readonly ClassId[] = [
-  'aegis', 'shadow', 'pyro', 'sovereign', 'chrono', 'blood', 'aether', 'geo'
+  'aegis', 'shadow', 'pyro', 'sovereign', 'chrono', 'blood', 'aether', 'geo',
+  'windrunner', 'frostwarden', 'lightbringer', 'beastcaller',
+  'elementalist', 'soulwarden', 'ironmonk', 'bard'
 ]
 
 /** How a skill is aimed. */
@@ -222,7 +224,119 @@ export const SKILLS: readonly SkillDef[] = [
   A('petrify', 'geo', 20, { int: 25, str: 20 }, 22, 18, 'enemy', 10, 'int', { dur: 5, vuln: 30 }),
   A('geodeShell', 'geo', 23, { str: 28, int: 22 }, 24, 22, 'self', 0, 'str', { shield: 30, dur: 6, dmg: 300, radius: 5 }, { radius: 5, cast: 0.2 }),
   A('tectonicRupture', 'geo', 26, { str: 30, int: 25 }, 40, 40, 'self', 0, 'str', { dmg: 500, dur: 5, rubble: 8 }, { radius: 16, cast: 0.6 }),
-  P('crumble', 'geo', 29, { str: 34, int: 26 }, 'str', { crumble: 0.2 }, { dmg: 20 })
+  P('crumble', 'geo', 29, { str: 34, int: 26 }, 'str', { crumble: 0.2 }, { dmg: 20 }),
+
+  // ── Windrunner ────────────────────────────────────────────────────────────
+  A('galeArrow', 'windrunner', 1, { dex: 5 }, 3, 6, 'enemy', 12, 'dex', { dmg: 130, push: 4 }, { cast: 0.15 }),
+  P('fleetfoot', 'windrunner', 3, { dex: 8 }, 'dex', { moveSpeed: 0.1, dodge: 0.08 }, { move: 10, dodge: 8 }),
+  A('zephyrDash', 'windrunner', 5, { dex: 10, skl: 6 }, 7, 8, 'dir', 7, 'dex', { dist: 7, move: 30, dur: 2 }, { cast: 0.06 }),
+  A('piercingGale', 'windrunner', 7, { dex: 13 }, 9, 12, 'dir', 14, 'dex', { dmg: 170, slow: 35, dur: 2 }, { cast: 0.3 }),
+  A('cycloneSnare', 'windrunner', 9, { skl: 13, dex: 11 }, 13, 14, 'ground', 11, 'skl', { dmg: 180, dur: 4, radius: 3 }, { radius: 3 }),
+  P('keenEye', 'windrunner', 11, { skl: 16, dex: 12 }, 'skl', { critDamage: 0.25, pierce: 1 }, { critDmg: 25, pierce: 1 }),
+  A('updraftLeap', 'windrunner', 13, { dex: 18, skl: 14 }, 15, 14, 'self', 0, 'dex', { dmg: 150, air: 1, radius: 4, leap: 6 }, { radius: 4, cast: 0.1 }),
+  P('swiftDraw', 'windrunner', 16, { dex: 22 }, 'dex', { attackSpeed: 0.15, cdr: 0.05 }, { speed: 15, cdr: 5 }),
+  A('arrowStorm', 'windrunner', 18, { skl: 24, dex: 18 }, 20, 22, 'ground', 12, 'skl', { dmg: 300, volleys: 8, dur: 2, radius: 3.5, slow: 30 }, { radius: 3.5, cast: 0.35 }),
+  A('galeSpirits', 'windrunner', 21, { skl: 27, dex: 20 }, 30, 26, 'self', 0, 'skl', { dur: 8, shots: 10, dmg: 50, move: 25 }, { cast: 0.25 }),
+  P('skyHunter', 'windrunner', 24, { dex: 30, skl: 24 }, 'dex', { bossDamage: 0.15, critChance: 0.06 }, { boss: 15, crit: 6 }),
+  A('skyrender', 'windrunner', 28, { dex: 34, skl: 28 }, 45, 40, 'dir', 18, 'dex', { dmg: 550, air: 1.2, width: 1.6 }, { cast: 0.6 }),
+
+  // ── Frostwarden ───────────────────────────────────────────────────────────
+  A('frostCleave', 'frostwarden', 1, { str: 5 }, 4, 6, 'enemy', MELEE, 'str', { dmg: 120, slow: 30, dur: 2 }),
+  A('rimeLance', 'frostwarden', 3, { int: 7, str: 5 }, 5, 8, 'enemy', 11, 'int', { dmg: 130, slow: 40, dur: 3 }, { cast: 0.18 }),
+  P('wintersBite', 'frostwarden', 5, { str: 10 }, 'str', { chillOnHit: 0.25 }, { slow: 25, dur: 2 }),
+  A('frostArmor', 'frostwarden', 7, { int: 12, str: 9 }, 14, 12, 'self', 0, 'int', { shield: 300, dur: 6, slow: 40, slowDur: 3, radius: 3.5 }, { radius: 3.5, cast: 0.2 }),
+  A('glacialCharge', 'frostwarden', 9, { str: 14, int: 10 }, 11, 12, 'enemy', 9, 'str', { dmg: 170, freeze: 1.2, slow: 40, dur: 2 }, { cast: 0.1 }),
+  P('frozenHeart', 'frostwarden', 11, { str: 15, end: 10 }, 'str', { maxHpPct: 0.08, damageReduction: 0.06 }, { hp: 8, reduce: 6 }),
+  A('rimeField', 'frostwarden', 13, { int: 18, str: 13 }, 16, 16, 'ground', 10, 'int', { dmg: 150, dur: 5, slow: 50, freeze: 1, radius: 3.5 }, { radius: 3.5 }),
+  A('frostShatter', 'frostwarden', 16, { str: 22, int: 15 }, 14, 16, 'self', 0, 'str', { dmg: 150, chilled: 50, frozen: 150, radius: 5 }, { radius: 5, cast: 0.3 }),
+  P('shatterpoint', 'frostwarden', 19, { str: 24, int: 18 }, 'str', { chillDamage: 0.2 }, { bonus: 20 }),
+  A('avalancheLeap', 'frostwarden', 22, { str: 28, int: 20 }, 24, 24, 'ground', 9, 'str', { dmg: 300, down: 1.2, slow: 40, dur: 3, radius: 3.5 }, { radius: 3.5, cast: 0.3 }),
+  P('iceborn', 'frostwarden', 25, { str: 30, end: 22 }, 'str', { knockbackImmune: 1, stunDurationCut: 0.3 }, { cut: 30 }),
+  A('absoluteZero', 'frostwarden', 28, { int: 34, str: 28 }, 50, 40, 'self', 0, 'int', { dmg: 420, freeze: 3, shield: 400, radius: 10 }, { radius: 10, cast: 0.6 }),
+
+  // ── Lightbringer ──────────────────────────────────────────────────────────
+  A('sunbolt', 'lightbringer', 1, { int: 5 }, 3, 6, 'enemy', 11, 'int', { dmg: 120, weaken: 15, dur: 3 }, { cast: 0.18 }),
+  A('mendingLight', 'lightbringer', 3, { cha: 7, int: 5 }, 10, 12, 'self', 0, 'cha', { heal: 250, regen: 2, dur: 4 }, { cast: 0.25 }),
+  P('kindledHope', 'lightbringer', 5, { cha: 10 }, 'cha', { healPower: 0.2 }, { heal: 20 }),
+  A('lanceOfLight', 'lightbringer', 7, { int: 12, cha: 8 }, 9, 12, 'dir', 12, 'int', { dmg: 170, heal: 3, width: 0.9 }, { cast: 0.25 }),
+  A('dawnShield', 'lightbringer', 10, { cha: 15, int: 10 }, 15, 14, 'self', 0, 'cha', { shield: 300, dur: 6 }, { cast: 0.15 }),
+  P('haloWard', 'lightbringer', 12, { int: 16, cha: 12 }, 'int', { damageReduction: 0.08 }, { reduce: 8 }),
+  A('dawnSanctuary', 'lightbringer', 14, { cha: 19, int: 14 }, 20, 20, 'ground', 8, 'cha', { heal: 25, dmg: 160, dur: 8, radius: 4 }, { radius: 4, cast: 0.3 }),
+  A('blindingFlash', 'lightbringer', 17, { int: 22, cha: 16 }, 20, 18, 'self', 0, 'int', { fear: 2, weaken: 30, dur: 5, radius: 6 }, { radius: 6, cast: 0.15 }),
+  P('guardianLight', 'lightbringer', 20, { cha: 25, int: 18 }, 'cha', { fatalSave: 2 }, { dur: 2, icd: 120 }),
+  A('sunfall', 'lightbringer', 22, { int: 28, cha: 20 }, 22, 24, 'enemy', 12, 'int', { dmg: 380, vuln: 20, dur: 5, radius: 2.5 }, { radius: 2.5, cast: 0.3 }),
+  P('searingLight', 'lightbringer', 25, { int: 30, cha: 22 }, 'int', { spellCrit: 0.12, critDamage: 0.2 }, { crit: 12, critDmg: 20 }),
+  A('haloOfDawn', 'lightbringer', 28, { int: 34, cha: 28 }, 50, 40, 'self', 0, 'int', { dur: 10, dmg: 60, heal: 3, radius: 6 }, { radius: 6, cast: 0.5 }),
+
+  // ── Beastcaller ───────────────────────────────────────────────────────────
+  A('callWolf', 'beastcaller', 1, { cha: 5 }, 10, 10, 'self', 0, 'cha', { dmg: 45, max: 2 }, { cast: 0.3 }),
+  A('wolfPounce', 'beastcaller', 3, { cha: 8 }, 7, 8, 'enemy', 12, 'cha', { dmg: 110, down: 0.8 }, { cast: 0.1 }),
+  P('wildKinship', 'beastcaller', 5, { cha: 10 }, 'cha', { minionHp: 0.25, minionDamage: 0.1 }, { hp: 25, dmg: 10 }),
+  A('callHawk', 'beastcaller', 7, { cha: 12, end: 6 }, 16, 14, 'enemy', 14, 'cha', { dmg: 120, vuln: 15, dur: 5, life: 20 }, { cast: 0.2 }),
+  A('callBear', 'beastcaller', 10, { cha: 15, end: 10 }, 20, 18, 'self', 0, 'end', { dmg: 70, max: 1 }, { cast: 0.4 }),
+  P('thickHide', 'beastcaller', 12, { end: 16 }, 'end', { maxHpPct: 0.1, hpRegen: 1.5 }, { hp: 10, regen: 1.5 }),
+  A('packBond', 'beastcaller', 14, { end: 19, cha: 14 }, 18, 16, 'self', 0, 'end', { regen: 3, def: 30, dur: 6, radius: 10 }, { radius: 10, cast: 0.2 }),
+  A('spiritStampede', 'beastcaller', 17, { cha: 22, end: 16 }, 18, 20, 'dir', 12, 'cha', { dmg: 220, down: 1, width: 1.8 }, { cast: 0.35 }),
+  P('packTactics', 'beastcaller', 20, { cha: 25, end: 18 }, 'cha', { packDamage: 0.05 }, { bonus: 5, max: 4 }),
+  A('alphaHowl', 'beastcaller', 22, { cha: 28, end: 20 }, 28, 24, 'self', 0, 'cha', { dur: 8, rage: 40, heal: 30, fear: 1.5, radius: 8 }, { radius: 8, cast: 0.3 }),
+  P('leaderOfThePack', 'beastcaller', 25, { cha: 30, end: 22 }, 'cha', { minionAttackSpeed: 0.2, minionDamage: 0.15 }, { speed: 20, dmg: 15 }),
+  A('wildHunt', 'beastcaller', 28, { cha: 34, end: 26 }, 55, 40, 'self', 0, 'cha', { wolves: 3, dur: 12, dmg: 50, move: 30 }, { cast: 0.5 }),
+
+  // ── Elementalist (#95) ────────────────────────────────────────────────────
+  A('prismBolt', 'elementalist', 1, { int: 5 }, 2.5, 6, 'enemy', 11, 'int', { dmg: 120, burn: 30, slow: 30, dur: 3 }, { cast: 0.15 }),
+  P('elementalHarmony', 'elementalist', 3, { int: 8 }, 'int', { reactionDamage: 0.25 }, { pct: 25 }),
+  A('frostLance', 'elementalist', 4, { int: 9 }, 7, 10, 'dir', 10, 'int', { dmg: 150, slow: 40, dur: 3 }, { radius: 0.6 }),
+  A('chainSpark', 'elementalist', 7, { int: 12, skl: 8 }, 8, 12, 'enemy', 10, 'int', { dmg: 140, jumps: 4, fall: 15 }, { cast: 0.15 }),
+  P('smolderingCore', 'elementalist', 9, { int: 14 }, 'int', { igniteBonus: 0.3, maxMana: 40 }, { burn: 30, mana: 40 }),
+  A('rollingBoulder', 'elementalist', 10, { int: 15, skl: 10 }, 10, 14, 'dir', 10, 'int', { dmg: 170, down: 1 }, { radius: 1.2, cast: 0.3 }),
+  A('thunderSnow', 'elementalist', 14, { int: 19, skl: 13 }, 16, 18, 'ground', 10, 'int', { dmg: 160, bolt: 70, dur: 5, radius: 3.5 }, { radius: 3.5 }),
+  P('spellweave', 'elementalist', 16, { int: 21, skl: 16 }, 'int', { spellCrit: 0.08, manaDiscount: 0.1 }, { crit: 8, mana: 10 }),
+  A('prismaticNova', 'elementalist', 18, { int: 23, skl: 17 }, 16, 20, 'self', 0, 'int', { dmg: 180, radius: 7 }, { radius: 7, cast: 0.3 }),
+  P('prismaticWard', 'elementalist', 21, { int: 26, end: 14 }, 'end', { damageReduction: 0.08, maxHpPct: 0.12 }, { reduce: 8, hp: 12 }),
+  A('frostfireComet', 'elementalist', 23, { int: 28, skl: 21 }, 24, 28, 'ground', 11, 'int', { dmg: 320, radius: 3.2, burn: 40, slow: 40, dur: 4 }, { radius: 3.2, cast: 0.4, fire: true }),
+  A('elementalConvergence', 'elementalist', 28, { int: 34, skl: 26 }, 50, 42, 'self', 0, 'int', { dmg: 45, strikes: 12, dur: 6 }, { radius: 12, cast: 0.5 }),
+
+  // ── Soul Warden (#95) ─────────────────────────────────────────────────────
+  A('wispBolt', 'soulwarden', 1, { int: 5 }, 3, 6, 'enemy', 11, 'int', { dmg: 130, life: 8 }, { cast: 0.15 }),
+  P('kindredSpirits', 'soulwarden', 3, { int: 7, cha: 6 }, 'int', { minionHp: 0.25, minionAttackSpeed: 0.15 }, { hp: 25, speed: 15 }),
+  A('callTheFallen', 'soulwarden', 4, { int: 9 }, 12, 14, 'self', 0, 'int', { max: 3, life: 15, radius: 8 }, { radius: 8, cast: 0.35 }),
+  A('soulBond', 'soulwarden', 7, { int: 12, cha: 9 }, 14, 16, 'enemy', 9, 'int', { dmg: 160, chance: 15, low: 30, life: 20, fear: 1.5 }, { cast: 0.3 }),
+  P('restlessSouls', 'soulwarden', 9, { int: 14, cha: 10 }, 'int', { soulRise: 0.15 }, { chance: 15, life: 10 }),
+  A('spiritLantern', 'soulwarden', 11, { int: 16, cha: 11 }, 18, 18, 'ground', 9, 'int', { dmg: 150, heal: 2, dur: 6, radius: 4, life: 12 }, { radius: 4, cast: 0.3 }),
+  A('hauntingWail', 'soulwarden', 14, { int: 19, cha: 13 }, 16, 16, 'self', 0, 'int', { dmg: 160, fear: 2, radius: 6 }, { radius: 6, cast: 0.3 }),
+  P('wardensVigil', 'soulwarden', 16, { int: 21, end: 14 }, 'int', { minionDamage: 0.2, damageReduction: 0.08 }, { dmg: 20, reduce: 8 }),
+  A('releaseSouls', 'soulwarden', 18, { int: 23, cha: 16 }, 14, 14, 'self', 0, 'int', { dmg: 220, heal: 5, radius: 3 }, { radius: 3, cast: 0.25 }),
+  P('lanternKeeper', 'soulwarden', 21, { int: 26, cha: 18 }, 'int', { cdr: 0.08, manaDiscount: 0.15 }, { cdr: 8, mana: 15 }),
+  A('wispSwarm', 'soulwarden', 23, { int: 28, cha: 20 }, 20, 26, 'ground', 11, 'int', { dmg: 320, wisps: 8, radius: 3.5, life: 10 }, { radius: 3.5, cast: 0.3 }),
+  A('processionOfSouls', 'soulwarden', 27, { int: 33, cha: 24 }, 50, 40, 'self', 0, 'int', { dur: 10, atk: 50, life: 15 }, { radius: 12, cast: 0.5 }),
+
+  // ── Iron Monk (#95) ───────────────────────────────────────────────────────
+  A('palmStrike', 'ironmonk', 1, { dex: 5 }, 3, 5, 'enemy', MELEE, 'dex', { dmg: 130, chi: 1 }, { cast: 0.12 }),
+  P('ironBody', 'ironmonk', 3, { end: 8 }, 'end', { physReduction: 0.08, maxHpPct: 0.1 }, { reduce: 8, hp: 10 }),
+  A('flyingKick', 'ironmonk', 4, { dex: 9 }, 8, 9, 'enemy', 8, 'dex', { dmg: 160, path: 60, chi: 1 }, { cast: 0.08 }),
+  A('tigerStance', 'ironmonk', 6, { dex: 11 }, 4, 6, 'self', 0, 'dex', { dur: 20, dmg: 20, speed: 20 }, { cast: 0.15 }),
+  A('craneStance', 'ironmonk', 8, { end: 12, dex: 8 }, 4, 6, 'self', 0, 'end', { dur: 20, def: 40, regen: 1 }, { cast: 0.15 }),
+  P('flowingFists', 'ironmonk', 10, { dex: 15, end: 10 }, 'dex', { chiOnHit: 0.25 }, { chance: 25 }),
+  A('hundredFists', 'ironmonk', 12, { dex: 17, end: 11 }, 10, 12, 'enemy', MELEE, 'dex', { hits: 8, dmg: 240, dur: 1.2, chi: 2 }, { cast: 0.1 }),
+  A('risingDragon', 'ironmonk', 15, { dex: 20, end: 14 }, 12, 14, 'enemy', MELEE, 'dex', { dmg: 200, per: 50, up: 1 }, { cast: 0.15 }),
+  P('cranesGrace', 'ironmonk', 17, { end: 22, dex: 16 }, 'end', { dodge: 0.1, stunDurationCut: 0.3 }, { dodge: 10, cut: 30 }),
+  A('whirlwindKick', 'ironmonk', 20, { dex: 25, end: 18 }, 14, 18, 'self', 0, 'dex', { dmg: 260, radius: 4, chi: 3 }, { radius: 4, cast: 0.2 }),
+  P('tigersFury', 'ironmonk', 24, { dex: 30, end: 20 }, 'dex', { critChance: 0.08, attackSpeed: 0.12 }, { crit: 8, speed: 12 }),
+  A('mountainPalm', 'ironmonk', 28, { dex: 34, end: 26 }, 40, 35, 'ground', 8, 'dex', { dmg: 420, per: 60, radius: 3.5, down: 1.5 }, { radius: 3.5, cast: 0.4 }),
+
+  // ── Bard (#95) ────────────────────────────────────────────────────────────
+  A('sharpNote', 'bard', 1, { cha: 5 }, 3, 6, 'enemy', 11, 'cha', { dmg: 120, weaken: 15, dur: 3 }, { cast: 0.15 }),
+  P('stagePresence', 'bard', 3, { cha: 8 }, 'cha', { manaDiscount: 0.1, moveSpeed: 0.06 }, { mana: 10, move: 6 }),
+  A('marchingSong', 'bard', 4, { cha: 9, skl: 6 }, 18, 14, 'self', 0, 'cha', { dur: 10, move: 25, speed: 20, radius: 7 }, { radius: 7, cast: 0.3 }),
+  A('lullaby', 'bard', 7, { cha: 12, skl: 8 }, 16, 14, 'dir', 7, 'cha', { dur: 3, cone: 70 }, { radius: 7, cast: 0.3 }),
+  P('longRefrain', 'bard', 9, { cha: 14, skl: 10 }, 'cha', { songLength: 0.3 }, { pct: 30 }),
+  A('balladOfValor', 'bard', 10, { cha: 15, skl: 10 }, 22, 18, 'self', 0, 'cha', { dur: 10, dmg: 20, def: 25, radius: 7 }, { radius: 7, cast: 0.3 }),
+  A('charmingSerenade', 'bard', 13, { cha: 18, skl: 12 }, 18, 18, 'enemy', 10, 'cha', { dur: 4, radius: 3.5 }, { radius: 3.5, cast: 0.3 }),
+  P('virtuoso', 'bard', 15, { skl: 18, cha: 14 }, 'skl', { cdr: 0.08, critDamage: 0.25 }, { cdr: 8, critDmg: 25 }),
+  A('hymnOfMending', 'bard', 17, { cha: 22, skl: 15 }, 28, 24, 'self', 0, 'cha', { dur: 8, regen: 2, radius: 7 }, { radius: 7, cast: 0.3 }),
+  A('crescendo', 'bard', 21, { cha: 26, skl: 20 }, 14, 20, 'self', 0, 'cha', { dmg: 220, per: 80, radius: 6 }, { radius: 6, cast: 0.25 }),
+  P('standingOvation', 'bard', 24, { cha: 29, skl: 22 }, 'cha', { damagePct: 0.1, damageReduction: 0.08 }, { dmg: 10, reduce: 8 }),
+  A('grandFinale', 'bard', 27, { cha: 33, skl: 26 }, 50, 40, 'self', 0, 'cha', { dur: 8, buff: 15, dmg: 400, charm: 3, radius: 9 }, { radius: 9, cast: 0.5 })
 ]
 
 export const SKILL_BY_ID: Readonly<Record<string, SkillDef>> = Object.fromEntries(SKILLS.map(s => [s.id, s]))

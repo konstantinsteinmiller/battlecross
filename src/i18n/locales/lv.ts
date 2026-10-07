@@ -95,7 +95,8 @@ export default {
     elixirSwift: 'Veiklība',
     elixirMind: 'Skaidrs prāts',
     elixirVigor: 'Možums',
-    elixirShadow: 'Izslāpis asmens'
+    elixirShadow: 'Izslāpis asmens',
+    chi: 'Či'
   },
   toast: {
     item: 'Atrasts: {item}',
@@ -859,6 +860,390 @@ export default {
     crumble: {
       name: 'Drupināšana',
       desc: 'Tu nodari par {dmg}% vairāk bojājumu palēninātiem, notriektiem vai pārakmeņotiem ienaidniekiem.'
+    },
+    galeArrow: {
+      name: 'Brāzmas bulta',
+      desc: 'Bulta vēja brāzmā: {dmg}% Veiklības bojājumu, un mērķis tiek atgrūsts.'
+    },
+    fleetfoot: {
+      name: 'Vieglkāja',
+      desc: '+{move}% kustības ātruma un +{dodge}% Izvairīšanās.'
+    },
+    zephyrDash: {
+      name: 'Zefīra rāviens',
+      desc: 'Rāviens līdz {dist} m turp, kur tēmē, tad skrien par {move}% ātrāk {dur} s.'
+    },
+    piercingGale: {
+      name: 'Caururbjošā brāzma',
+      desc: 'Bulta izlido cauri visiem ienaidniekiem līnijā: {dmg}% Veiklības bojājumu un {slow}% palēninājums uz {dur} s.'
+    },
+    cycloneSnare: {
+      name: 'Ciklona lamatas',
+      desc: 'Virpulis uz {dur} s ievelk ienaidniekus savā acī un nodara {dmg}% Meistarības bojājumu.'
+    },
+    keenEye: {
+      name: 'Asā acs',
+      desc: '+{critDmg}% kritisko bojājumu. Tavi šāvieni izlido cauri vēl ienaidniekiem: {pierce}.'
+    },
+    updraftLeap: {
+      name: 'Augšupvēja lēciens',
+      desc: 'Brāzma uzmet gaisā ienaidniekus {radius} m rādiusā: {dmg}% Veiklības bojājumu. Tu aizlec {leap} m tālāk.'
+    },
+    swiftDraw: {
+      name: 'Ātrā stiepšana',
+      desc: 'Tu uzbrūc par {speed}% ātrāk, un atjaunošanās laiki ir par {cdr}% īsāki.'
+    },
+    arrowStorm: {
+      name: 'Bultu vētra',
+      desc: 'Bultas līst pār apgabalu {dur} s: kopā {dmg}% Meistarības bojājumu un {slow}% palēninājums.'
+    },
+    galeSpirits: {
+      name: 'Vēja gari',
+      desc: 'Vēja gari lido tev līdzi {dur} s un izšauj {shots} bultas pa {dmg}% Meistarības bojājumu. +{move}% kustības ātruma.'
+    },
+    skyHunter: {
+      name: 'Debesu mednieks',
+      desc: '+{boss}% bojājumu bosiem un +{crit}% kritiskā trāpījuma iespēja.'
+    },
+    skyrender: {
+      name: 'Debesu plēsējs',
+      desc: 'Vētras bulta izrauj ceļu: {dmg}% Veiklības bojājumu visiem līnijā, tie tiek uzmesti gaisā un nomesti malā.'
+    },
+    frostCleave: {
+      name: 'Sala cirtiens',
+      desc: 'Vēziens ar ledus asmeni sev priekšā: {dmg}% Spēka bojājumu un {slow}% palēninājums uz {dur} s.'
+    },
+    rimeLance: {
+      name: 'Sarmas šķēps',
+      desc: 'Met ledus šķēpu: {dmg}% Intelekta bojājumu. Palēnina par {slow}% uz {dur} s.'
+    },
+    wintersBite: {
+      name: 'Ziemas kodiens',
+      desc: 'Tavi uzbrukumi palēnina ienaidnieku par {slow}% uz {dur} s.'
+    },
+    frostArmor: {
+      name: 'Sala bruņas',
+      desc: 'Ledus bruņas {dur} s absorbē {shield}% Intelekta bojājumu. Ienaidnieki tev blakus palēninās par {slow}%.'
+    },
+    glacialCharge: {
+      name: 'Ledāja uzbrukums',
+      desc: 'Metiens pie mērķa: {dmg}% Spēka bojājumu, un tas sasalst uz {freeze} s.'
+    },
+    frozenHeart: {
+      name: 'Sasalusī sirds',
+      desc: '+{hp}% maks. veselības, un visi saņemtie bojājumi samazināti par {reduce}%.'
+    },
+    rimeField: {
+      name: 'Sarmas lauks',
+      desc: 'Salstoša zeme uz {dur} s: {dmg}% Intelekta bojājumu. Palēnināti ienaidnieki uz tās sasalst uz {freeze} s.'
+    },
+    frostShatter: {
+      name: 'Sala šķelšana',
+      desc: '{dmg}% Spēka bojājumu {radius} m rādiusā: +{chilled}% palēninātiem ienaidniekiem, +{frozen}% sasaldētiem.'
+    },
+    shatterpoint: {
+      name: 'Lūzuma punkts',
+      desc: 'Tu nodari par {bonus}% vairāk bojājumu palēninātiem un sasaldētiem ienaidniekiem.'
+    },
+    avalancheLeap: {
+      name: 'Lavīnas lēciens',
+      desc: 'Lec turp, kur tēmē, un piezemējies kā lavīna: {dmg}% Spēka bojājumu, ienaidnieki tiek notriekti.'
+    },
+    iceborn: {
+      name: 'Ledus asinis',
+      desc: 'Nekas tevi neatgrūž un neuzmet gaisā. Apdullinājumi tev ir par {cut}% īsāki.'
+    },
+    absoluteZero: {
+      name: 'Absolūtā nulle',
+      desc: 'No tevis izlaužas ziema: {dmg}% Intelekta bojājumu {radius} m rādiusā, visi sasalst uz {freeze} s.'
+    },
+    sunbolt: {
+      name: 'Saules zibens',
+      desc: 'Saules gaismas zibens: {dmg}% Intelekta bojājumu. Apžilbinātais mērķis {dur} s nodara par {weaken}% mazāk.'
+    },
+    mendingLight: {
+      name: 'Dziedinošā gaisma',
+      desc: 'Uzreiz dziedē {heal}% Harizmas, tad {dur} s ik sekundi {regen}% tavas veselības.'
+    },
+    kindledHope: {
+      name: 'Iedegtā cerība',
+      desc: 'Visa dziedināšana, ko saņem, ir par {heal}% spēcīgāka.'
+    },
+    lanceOfLight: {
+      name: 'Gaismas šķēps',
+      desc: 'Gaismas stars: {dmg}% Intelekta bojājumu līnijā. Dziedē {heal}% veselības par katru trāpīto ienaidnieku.'
+    },
+    dawnShield: {
+      name: 'Ausmas vairogs',
+      desc: 'Noņem no tevis visus sliktos efektus un dod {shield}% Harizmas vairogu uz {dur} s.'
+    },
+    haloWard: {
+      name: 'Oreola sargs',
+      desc: 'Visi saņemtie bojājumi samazināti par {reduce}%.'
+    },
+    dawnSanctuary: {
+      name: 'Ausmas svētnīca',
+      desc: 'Svēta zeme uz {dur} s: dziedē tevi par {heal}% Harizmas sekundē, ienaidnieki saņem {dmg}% Intelekta.'
+    },
+    blindingFlash: {
+      name: 'Apžilbinošs uzplaiksnījums',
+      desc: 'Gaismas zibsnis: ienaidnieki {radius} m rādiusā bēg {fear} s un {dur} s nodara par {weaken}% mazāk.'
+    },
+    guardianLight: {
+      name: 'Sargājošā gaisma',
+      desc: 'Sitiens, kas tevi pieveiktu, atstāj tev 1 veselību, un {dur} s tevi nekas nevar aizskart. Reizi {icd} s.'
+    },
+    sunfall: {
+      name: 'Saules krišana',
+      desc: 'Uz mērķi krīt saules gaismas stabs: {dmg}% Intelekta bojājumu. Ienaidnieki {dur} s saņem par {vuln}% vairāk.'
+    },
+    searingLight: {
+      name: 'Svilinošā gaisma',
+      desc: '+{crit}% burvestību kritiskā trāpījuma iespēja un +{critDmg}% kritisko bojājumu.'
+    },
+    haloOfDawn: {
+      name: 'Ausmas oreols',
+      desc: 'Mirdzi {dur} s: ik sekundi {dmg}% Intelekta bojājumu {radius} m rādiusā un dziedē {heal}% veselības.'
+    },
+    callWolf: {
+      name: 'Vilka sauciens',
+      desc: 'Pie tevis pievienojas gara vilks un kož ar {dmg}% Harizmas bojājumu. Vienlaikus līdz {max}.'
+    },
+    wolfPounce: {
+      name: 'Vilku lēciens',
+      desc: 'Tavi vilki uzlec mērķim: katrs {dmg}% Harizmas bojājumu, un mērķis tiek notriekts uz {down} s.'
+    },
+    wildKinship: {
+      name: 'Savvaļas radniecība',
+      desc: 'Taviem biedriem ir par {hp}% vairāk veselības, un tie nodara par {dmg}% vairāk bojājumu.'
+    },
+    callHawk: {
+      name: 'Vanaga sauciens',
+      desc: 'Vanags metas uz mērķi ar {dmg}% Harizmas bojājumu: tas {dur} s saņem par {vuln}% vairāk. Paliek {life} s.'
+    },
+    callBear: {
+      name: 'Lāča sauciens',
+      desc: 'Pie tevis pievienojas gara lācis. Tas sit ar {dmg}% bojājumu un aizņem ienaidniekus. Līdz {max}.'
+    },
+    thickHide: {
+      name: 'Bieza āda',
+      desc: '+{hp}% maks. veselības un +{regen} veselības atjaunošanās sekundē.'
+    },
+    packBond: {
+      name: 'Bara saite',
+      desc: 'Tu un biedri {radius} m rādiusā atjaunojat {regen}% veselības sekundē un iegūstat {def}% Aizsardzības uz {dur} s.'
+    },
+    spiritStampede: {
+      name: 'Garu bars',
+      desc: 'Garu zvēru bars metas uz priekšu: {dmg}% Harizmas bojājumu līnijā, ienaidnieki tiek notriekti.'
+    },
+    packTactics: {
+      name: 'Bara taktika',
+      desc: 'Tu nodari par {bonus}% vairāk bojājumu par katru biedru tev blakus, līdz {max}.'
+    },
+    alphaHowl: {
+      name: 'Vadoņa gaudas',
+      desc: 'Tavi biedri dziedējas par {heal}% un {dur} s cīnās par {rage}% sīvāk. Ienaidnieki tev blakus bēg.'
+    },
+    leaderOfThePack: {
+      name: 'Bara vadonis',
+      desc: 'Tavi biedri uzbrūk par {speed}% ātrāk un nodara par {dmg}% vairāk bojājumu.'
+    },
+    wildHunt: {
+      name: 'Mežonīgās medības',
+      desc: 'Vēl {wolves} vilki skrien tev līdzi {dur} s. Viss bars nodara +{dmg}% bojājumu un kustas par {move}% ātrāk.'
+    },
+    prismBolt: {
+      name: 'Prizmas zibens',
+      desc: 'Zibens ar {dmg}% Intelekta bojājumu: sals, ja mērķis deg, citādi uguns. Katrs iedarbina otru.'
+    },
+    elementalHarmony: {
+      name: 'Stihiju saskaņa',
+      desc: 'Tavas reakcijas (Kušana, Tvaiks, Šķelšana, Pārslodze, Kristāls) ir par {pct}% spēcīgākas.'
+    },
+    frostLance: {
+      name: 'Sala šķēps',
+      desc: 'Ledus caur līniju: {dmg}% Intelekta bojājumu un {slow}% palēninājums uz {dur} s. Degošie ienaidnieki rada Tvaiku.'
+    },
+    chainSpark: {
+      name: 'Ķēdes dzirkstele',
+      desc: 'Zibens ar {dmg}% Intelekta pārlec vēl uz {jumps} ienaidniekiem. Šķeļ ledu, pārslogo uguni.'
+    },
+    smolderingCore: {
+      name: 'Gruzdošais kodols',
+      desc: 'Tavas degšanas nodara par {burn}% vairāk bojājumu, un tev ir par {mana} vairāk manas.'
+    },
+    rollingBoulder: {
+      name: 'Ripojošais laukakmens',
+      desc: 'Izripo laukakmens: {dmg}% Intelekta bojājumu, notriekšana uz {down} s. Iezīmētie ienaidnieki dod tev vairogu.'
+    },
+    thunderSnow: {
+      name: 'Sniega pērkons',
+      desc: 'Sniegavētra uz {dur} s: {dmg}% Intelekta sala bojājumu un ik sekundi zibens ar {bolt}%.'
+    },
+    spellweave: {
+      name: 'Burvju pinums',
+      desc: '+{crit}% burvestību kritiskā trāpījuma iespēja, un tavas prasmes maksā par {mana}% mazāk manas.'
+    },
+    prismaticNova: {
+      name: 'Prizmas nova',
+      desc: 'Trāpa visam {radius} m rādiusā ar {dmg}% Intelekta, katram ar stihiju, uz kuru tas reaģē.'
+    },
+    prismaticWard: {
+      name: 'Prizmas sargs',
+      desc: 'Tu saņem par {reduce}% mazāk bojājumu, un tev ir par {hp}% vairāk veselības.'
+    },
+    frostfireComet: {
+      name: 'Uguns un sala komēta',
+      desc: 'Uguns un ledus komēta: {dmg}% Intelekta bojājumu. Ienaidnieki paliek degoši un palēnināti.'
+    },
+    elementalConvergence: {
+      name: 'Stihiju saplūšana',
+      desc: '{dur} s četras stihijas mainās: {strikes} triecieni pa {dmg}% Intelekta, kas iedarbina cits citu.'
+    },
+    wispBolt: {
+      name: 'Maldugunīša zibens',
+      desc: 'Maldugunītis ar {dmg}% Intelekta bojājumu. Tā pieveikts ienaidnieks ceļas kā tavs gars uz {life} s.'
+    },
+    kindredSpirits: {
+      name: 'Radniecīgie gari',
+      desc: 'Taviem gariem un kalpiem ir par {hp}% vairāk veselības, un tie uzbrūk par {speed}% ātrāk.'
+    },
+    callTheFallen: {
+      name: 'Kritušo sauciens',
+      desc: 'Līdz {max} tikko kritušiem ienaidniekiem {radius} m rādiusā ceļas kā tavi gari uz {life} s.'
+    },
+    soulBond: {
+      name: 'Dvēseļu saite',
+      desc: 'Sadraudzējies ar ienaidnieku: {chance}% ({low}%, ja ievainots) tas pievienojas kā gars uz {life} s. Citādi {dmg}% bojājumu.'
+    },
+    restlessSouls: {
+      name: 'Nemierīgās dvēseles',
+      desc: 'Tevis pieveiktam ienaidniekam ir {chance}% iespēja celties kā tavam garam uz {life} s.'
+    },
+    spiritLantern: {
+      name: 'Garu laterna',
+      desc: 'Laterna uz {dur} s: ienaidnieki tās gaismā saņem {dmg}% Intelekta, draugi dziedējas, kritušie ceļas.'
+    },
+    hauntingWail: {
+      name: 'Spokainā vaimana',
+      desc: 'Spokains BŪ: {dmg}% Intelekta bojājumu {radius} m rādiusā, un ienaidnieki aizbēg uz {fear} s.'
+    },
+    wardensVigil: {
+      name: 'Sarga nomods',
+      desc: 'Tavi gari un kalpi nodara par {dmg}% vairāk bojājumu, un tu saņem par {reduce}% mazāk.'
+    },
+    releaseSouls: {
+      name: 'Atbrīvot dvēseles',
+      desc: 'Tavi gari dodas mājās gaismas uzliesmojumos: katrs {dmg}% Intelekta apkārt un {heal}% veselības tev atpakaļ.'
+    },
+    lanternKeeper: {
+      name: 'Laternas glabātājs',
+      desc: 'Par {cdr}% īsākas atjaunošanās, un tavas prasmes maksā par {mana}% mazāk manas.'
+    },
+    wispSwarm: {
+      name: 'Maldugunīšu spiets',
+      desc: '{wisps} maldugunīši metas uz ienaidniekiem apgabalā: kopā {dmg}% Intelekta. Viņu pieveiktie ceļas.'
+    },
+    processionOfSouls: {
+      name: 'Dvēseļu gājiens',
+      desc: '{dur} s katrs ienaidnieks, kas krīt tev blakus, ceļas kā tavs gars, un gari nodara par {atk}% vairāk.'
+    },
+    palmStrike: {
+      name: 'Plaukstas sitiens',
+      desc: 'Ātrs plaukstas sitiens ar {dmg}% Veiklības bojājumu, kas atgrūž ienaidnieku. Krāj {chi} či.'
+    },
+    ironBody: {
+      name: 'Dzelzs ķermenis',
+      desc: 'Saņemtie fiziskie bojājumi samazināti par {reduce}%, un tev ir par {hp}% vairāk veselības.'
+    },
+    flyingKick: {
+      name: 'Lidojošais spēriens',
+      desc: 'Lido pie mērķa un sper ar {dmg}% Veiklības bojājumu; ienaidnieki ceļā saņem {path}%. Krāj {chi} či.'
+    },
+    tigerStance: {
+      name: 'Tīģera stāja',
+      desc: '{dur} s: +{dmg}% bojājumu un +{speed}% uzbrukuma ātruma. Beidz Dzērves stāju.'
+    },
+    craneStance: {
+      name: 'Dzērves stāja',
+      desc: '{dur} s: +{def}% Aizsardzības, un tu ik sekundi dziedē {regen}% savas veselības. Beidz Tīģera stāju.'
+    },
+    flowingFists: {
+      name: 'Plūstošās dūres',
+      desc: 'Taviem uzbrukumiem ir {chance}% iespēja krāt či.'
+    },
+    hundredFists: {
+      name: 'Simts dūres',
+      desc: '{hits} sitienu krusa ar kopā {dmg}% Veiklības bojājumu. Krāj {chi} či.'
+    },
+    risingDragon: {
+      name: 'Augšupejošais pūķis',
+      desc: 'Iztērē visu či augšupsitienam: {dmg}% Veiklības bojājumu, +{per}% par katru či. Ienaidnieks uzlido gaisā.'
+    },
+    cranesGrace: {
+      name: 'Dzērves grācija',
+      desc: '+{dodge}% Izvairīšanās, un apdullinājumi un notriekšana tev ir par {cut}% īsāki.'
+    },
+    whirlwindKick: {
+      name: 'Viesuļa spēriens',
+      desc: 'Divreiz sper visam {radius} m rādiusā ar kopā {dmg}% Veiklības bojājumu. Krāj līdz {chi} či.'
+    },
+    tigersFury: {
+      name: 'Tīģera niknums',
+      desc: '+{crit}% kritiskā trāpījuma iespēja un +{speed}% uzbrukuma ātruma.'
+    },
+    mountainPalm: {
+      name: 'Kalna plauksta',
+      desc: 'Iztērē visu či: krīt milzu plauksta ar {dmg}% Veiklības bojājumu, +{per}% par katru či, un notriec ienaidniekus.'
+    },
+    sharpNote: {
+      name: 'Asā nots',
+      desc: 'Asa nots ar {dmg}% Harizmas bojājumu. Ienaidnieks {dur} s nodara par {weaken}% mazāk bojājumu.'
+    },
+    stagePresence: {
+      name: 'Skatuves šarms',
+      desc: 'Tavas prasmes maksā par {mana}% mazāk manas, un tu kusties par {move}% ātrāk.'
+    },
+    marchingSong: {
+      name: 'Gājiena dziesma',
+      desc: 'Dziesma uz {dur} s: tu un sabiedrotie {radius} m rādiusā kustaties par {move}% un uzbrūkat par {speed}% ātrāk.'
+    },
+    lullaby: {
+      name: 'Šūpuļdziesma',
+      desc: 'Maiga melodija konusā: katrs ienaidnieks, ko tā sasniedz, aizmieg uz {dur} s.'
+    },
+    longRefrain: {
+      name: 'Garais piedziedājums',
+      desc: 'Tavas dziesmas ilgst par {pct}% ilgāk.'
+    },
+    balladOfValor: {
+      name: 'Varonības balāde',
+      desc: 'Dziesma uz {dur} s: tu un sabiedrotie {radius} m rādiusā nodarāt par {dmg}% vairāk bojājumu un iegūstat {def}% Aizsardzības.'
+    },
+    charmingSerenade: {
+      name: 'Apburošā serenāde',
+      desc: 'Apbur mērķi un ienaidniekus {radius} m rādiusā: {dur} s tie cīnās savā starpā.'
+    },
+    virtuoso: {
+      name: 'Virtuozs',
+      desc: 'Par {cdr}% īsākas atjaunošanās un +{critDmg}% kritisko bojājumu.'
+    },
+    hymnOfMending: {
+      name: 'Dziedināšanas himna',
+      desc: 'Noņem sliktos efektus, tad {dur} s tu un sabiedrotie {radius} m rādiusā dziedējat {regen}% veselības sekundē.'
+    },
+    crescendo: {
+      name: 'Krešendo',
+      desc: 'Skaņas sprādziens {radius} m rādiusā: {dmg}% Harizmas bojājumu, +{per}% par katru dziesmu, ko spēlē.'
+    },
+    standingOvation: {
+      name: 'Stāvovācijas',
+      desc: '+{dmg}% bojājumu, un tu saņem par {reduce}% mazāk bojājumu.'
+    },
+    grandFinale: {
+      name: 'Lielais fināls',
+      desc: 'Spēlē visu {dur} s (+{buff}% ātruma, bojājumu, Aizsardzības), tad pēdējais akords: {dmg}% Harizmas, ienaidnieki apburti.'
     }
   },
   slot: {
@@ -1371,6 +1756,30 @@ export default {
     sbFence: {
       name: 'Mirela Torna',
       talk: 'Lieliskas bruņas, bez jautājumiem. Nu, ar pavisam nedaudz jautājumiem.'
+    },
+    sbMasterWindrunner: {
+      name: 'Sefa Vējspārne'
+    },
+    sbMasterFrostwarden: {
+      name: 'Halvards Sarmsirdis'
+    },
+    sbMasterLightbringer: {
+      name: 'Māsa Auriela Ausmezere'
+    },
+    sbMasterBeastcaller: {
+      name: 'Vecais Rovans Dadžkājis'
+    },
+    sbMasterElementalist: {
+      name: 'Magistre Irisa Četrvēja'
+    },
+    sbMasterSoulwarden: {
+      name: 'Sargātāja Odalisa Lukturgaisma'
+    },
+    sbMasterIronmonk: {
+      name: 'Meistars Oru Klusūdens'
+    },
+    sbMasterBard: {
+      name: 'Larks Jautrlaiks'
     }
   },
   quest: {
@@ -3715,6 +4124,382 @@ export default {
       },
       bye: {
         '1': 'Pieskati savu maku. Ne visi te ir tik godīgi kā es.'
+      }
+    },
+    sbMasterWindrunner: {
+      hello: {
+        '1': 'Ak, sveiki! Piedod, nevaru apstāties. Gaidu, kad vējš pagriezīsies. Tūlīt, tūlīt.',
+        '2': 'Sefa Vējspārne. Es šauju bultas un dzenos pakaļ vējam. Parasti vējš uzvar.'
+      },
+      open: {
+        '1': 'Re, kur mans skrējējs! Uz priekšu? Protams, uz priekšu. Ejam, ejam!'
+      },
+      again: {
+        '1': 'Atkal sveiki! Es joprojām te. Nu, gandrīz. Manas kājas visu laiku aizklīst.'
+      },
+      train: {
+        '1': 'Jūti vēju uz vaiga? Tēmē mazliet pa kreisi no tā, kur šķiet. Un tagad laid!'
+      },
+      favor: {
+        '1': 'Tikai tos, kas spēj man turēt līdzi. Vai tu spēj? Paskatīsimies.',
+        '2': 'Pieveic divpadsmit laupītājus loka šāvējus Oukheivenas pievārtē, tad atnes man trīs ātrpapardes.',
+        say: 'Tu māci šaut ar loku?'
+      },
+      waiting: {
+        '1': 'Divpadsmit loka šāvēji, trīs ātrpapardes. Aiziet! Es būšu tepat. Lēkāšu.',
+        say: 'Par tavu pārbaudījumu...'
+      },
+      favorDone: {
+        '1': 'Ha! Tu tiešām noturēji līdzi! Neviens nenotur līdzi!',
+        '2': 'Labi, tagad tu mācies pie manis. Viens noteikums: manās nodarbībās nesēž.',
+        say: 'Loka šāvēji pieveikti, un te ir tavas ātrpapardes.'
+      },
+      class: {
+        '1': 'Šauj, skrien, šauj vēlreiz. Ja tevi noķer, tu par ilgu stāvēji uz vietas.',
+        '2': 'Veiklība ātrām kājām un ātram lokam. Meistarība, lai katra bulta trāpa.',
+        say: 'Ko dara Vēja skrējējs?'
+      },
+      ready: {
+        strong: {
+          '1': 'Tagad tev ir vēja ātrums. Nu, gandrīz. Ņem jebkuru nodarbību!'
+        },
+        able: {
+          '1': 'Vieglas kājas! Vari ņemt nākamo. Aiziet, aiziet!'
+        },
+        weak: {
+          '1': 'Vēl ne. Tu skrien tā, it kā nestu dīvānu. Vairāk Veiklības, lūdzu.'
+        }
+      },
+      who: {
+        '1': 'Es dzīvoju augšā vecajās vējdzirnavās pie upes. Labākais skats uz vēju visā pilsētā.',
+        '2': 'Divsimt pakāpienu līdz augšai. Lielisks treniņš. Esmu saskaitījusi katru.'
+      },
+      trainBack: {
+        '1': 'Labi! Tagad skrien mājās. Neej, skrien. Skriešana arī ir treniņš.'
+      },
+      bye: {
+        '1': 'Uz redzēšanos! Uzmanies no zemiem zariem. Es nekad neuzmanos.'
+      }
+    },
+    sbMasterFrostwarden: {
+      hello: {
+        '1': 'Hm. Tu jau trešo reizi ej man garām. Meklē ceļu vai vienkārši interesē?',
+        '2': 'Halvards Sarmsirdis. Es atnācu uz dienvidiem no sniegiem. Te ir silti. Pārāk silti.'
+      },
+      open: {
+        '1': 'Māceklis. Labi. Ledus ir gatavs, un es arī.'
+      },
+      again: {
+        '1': 'Atkal tu. Labi. Es daudz nerunāju. Paliec tāpat.'
+      },
+      train: {
+        '1': 'Izelpo lēni. Redzi tvaiku? Tagad ieliec to asmenī.'
+      },
+      favor: {
+        '1': 'Jā. Es to māku tikai tiem, kas karstā vietā saglabā vēsu galvu.',
+        '2': 'Nodzēs desmit uguns elementāļus Pelnu klintīs. Tad atnes man trīs salmētras zariņus.',
+        say: 'Vai tas zobens ir no ledus?'
+      },
+      waiting: {
+        '1': 'Desmit uguns elementāļi. Trīs salmētras zariņi. Nesteidzies. Bet ne pārāk.',
+        say: 'Par tavu pārbaudījumu...'
+      },
+      favorDone: {
+        '1': 'Hm. Pat neapsvilis. Labi.',
+        '2': 'Galva palika vēsa. Tā bija pirmā nodarbība. Pārējo es tev iemācīšu.',
+        say: 'Uguns elementāļi nodzēsti. Te ir tava salmētra.'
+      },
+      class: {
+        '1': 'Aukstuma bruņinieks. Atvēsini viņus, sasaldē viņus, tad salauz ledu.',
+        '2': 'Spēks asmenim. Intelekts salam. Vajag abus.',
+        say: 'Kas ir Sala sargs?'
+      },
+      ready: {
+        strong: {
+          '1': 'Tagad tevī ir ziemeļu aukstums. Ņem jebkuru nodarbību.'
+        },
+        able: {
+          '1': 'Labi. Mierīgi. Nākamā nodarbība ir tava.'
+        },
+        weak: {
+          '1': 'Vēl ne. Tavs sals kūst pārāk ātri. Vairāk Intelekta un vairāk Spēka.'
+        }
+      },
+      who: {
+        '1': 'Es sargāju kalnu pāreju ziemeļos. Tad gribēju redzēt upi, kas neaizsalst.'
+      },
+      trainBack: {
+        '1': 'Labi. Tagad atpūties. Ledus nesteidzas. Arī tev nevajag.'
+      },
+      bye: {
+        '1': 'Laimīgu ceļu. Saglabā vēsu prātu.'
+      }
+    },
+    sbMasterLightbringer: {
+      hello: {
+        '1': 'Mm-hm-hmm... Ak! Piedod, dārgumiņ, es dungoju. Vai es tev uzdungoju? Man tā gadās.',
+        '2': 'Māsa Auriela Ausmezere. Es gādāju, lai mazā lampa tilta galā vienmēr degtu.'
+      },
+      open: {
+        '1': 'Re, kur mans spožulītis! Nāc, pastāvi brītiņu gaismā. Tas tev pienākas.'
+      },
+      again: {
+        '1': 'Atkal sveiki! Joprojām te, joprojām dungoju. Lampai patīk sabiedrība.'
+      },
+      train: {
+        '1': 'Plaukstas vaļā, zodu augšā. Iedomājies labāko rītu, kāds tev bijis. Re. Jūti?'
+      },
+      favor: {
+        '1': 'Katrā ir mazliet gaismas. Es māku to izlaist ārā, kad pienāk laiks.',
+        '2': 'Pieveic desmit kultistus Pelnu klintīs, tad atnes man piecas saulziedes manai lampai.',
+        say: 'Vai tā lampa ir burvju?'
+      },
+      waiting: {
+        '1': 'Desmit kultisti, piecas saulziedes. Pieveic viņus maigi. Katrs ir pelnījis otru iespēju.',
+        say: 'Par tavu pārbaudījumu...'
+      },
+      favorDone: {
+        '1': 'Ak, tikai paskaties uz tām! Lampa mēnesi mirdzēs zeltaini.',
+        '2': 'Un tu arī, dārgumiņ. Es ar prieku tevi mācīšu.',
+        say: 'Kultisti pieveikti. Te ir tavas saulziedes.'
+      },
+      class: {
+        '1': 'Mēs nesam ausmu. Gaisma, ar ko cīnīties, gaisma, ar ko dziedēt, gaisma, aiz kuras paslēpties.',
+        '2': 'Intelekts padara gaismu stipru. Harizma padara to siltu. Noderēs abi.',
+        say: 'Ko dara Gaismas nesējs?'
+      },
+      ready: {
+        strong: {
+          '1': 'Tu mirdzi kā saullēkts, dārgumiņ. Ņem jebkuru nodarbību.'
+        },
+        able: {
+          '1': 'Jauki mirdzi! Vari ņemt nākamo.'
+        },
+        weak: {
+          '1': 'Vēl ne, dārgumiņ. Tava gaisma ir mazliet blāva. Vairāk Harizmas, un tu mirdzēsi.'
+        }
+      },
+      who: {
+        '1': 'Reiz es dziedāju lielā templī. Bet mana lampa te ārā ved laivas mājās. Tā ir labāk.'
+      },
+      trainBack: {
+        '1': 'Brīnišķīgi. Tagad ej un padari kādam dienu gaišāku. Māsas pavēle.'
+      },
+      bye: {
+        '1': 'Ej nu, dārgumiņ. Un uzsmaidi tumšajiem stūriem. Tie to ienīst.'
+      }
+    },
+    sbMasterBeastcaller: {
+      hello: {
+        '1': 'Skaties zem kājām. Tā ir Ērkšķīte. Viņa te bija pirmā.',
+        '2': 'Rovans Dadžkājis. Man patīk dzīvnieki. Par cilvēkiem vēl domāju.'
+      },
+      open: {
+        '1': 'Ā, tu. Ērkšķīte tevi gaidīja. Es arī. Mazliet.'
+      },
+      again: {
+        '1': 'Atkal tu. Ērkšķītei tu patīc. Es vēl apdomāju.'
+      },
+      train: {
+        '1': 'Notupies. Lēnāk. Izstiep roku un ļauj viņiem pašiem nākt. Labi.'
+      },
+      favor: {
+        '1': 'Runāt? Es klausos. Tas ir triks, ko lielākā daļa nekad neiemācās.',
+        '2': 'Milzu zirnekļi apvij ar tīkliem zvēru takas Čukstošajā mežā. Iztīri divpadsmit.',
+        '3': 'Tad atnes man divas mēnespulkstenītes manam midzenim. Ērkšķīte pie tām guļ labāk.',
+        say: 'Vai tu proti runāt ar dzīvniekiem?'
+      },
+      waiting: {
+        '1': 'Divpadsmit zirnekļi, divas mēnespulkstenītes. Dzīvnieki gaida. Ērkšķīte arī.',
+        say: 'Par tavu pārbaudījumu...'
+      },
+      favorDone: {
+        '1': 'Hm. Brieži šorīt nāca lejā pie upes. Nodomāju, ka tas būsi tu.',
+        '2': 'Labi. Es tevi mācīšu. Bez liekas ņemšanās. Ērkšķīte, beidz luncināt asti.',
+        say: 'Takas ir tīras, un te ir tavas mēnespulkstenītes.'
+      },
+      class: {
+        '1': 'Tu sauc savvaļu, un savvaļa atnāk. Vilki, vanags, lācis. Draugi, nevis mājdzīvnieki.',
+        '2': 'Harizma, lai viņi gribētu nākt. Izturība, lai tu spētu viņiem turēt līdzi.',
+        say: 'Kas ir Zvēru saucējs?'
+      },
+      ready: {
+        strong: {
+          '1': 'Tagad tev uzticas viss bars. Ņem, ko vēlies.'
+        },
+        able: {
+          '1': 'Vilkiem tu patīc. Vari ņemt nākamo.'
+        },
+        weak: {
+          '1': 'Vēl ne. Viņi tev neuzticas. Vairāk Harizmas un daudz vairāk pacietības.'
+        }
+      },
+      who: {
+        '1': 'Pirms gadiem atradu Ērkšķīti slazdā. Trīs kājas, bet raksturs kā lauvai. Kopš tā laika esam pāris.',
+        '2': 'Es guļu staļļa siena bēniņos. Zirgi krāc mazāk nekā cilvēki.'
+      },
+      trainBack: {
+        '1': 'Labi. Ej nu. Un pasveicini vārnas. Tās atceras.'
+      },
+      bye: {
+        '1': 'Ej nu. Ērkšķīte saka atā.'
+      }
+    },
+    sbMasterElementalist: {
+      hello: {
+        '1': 'Sveiki! Sekundīti, es žonglēju. Uguns, sals, dzirkstele, akmens un... noķerts! Sveiki!',
+        '2': 'Magistre Irisa Četrvēja. Es mācu visas četras stihijas. Jaukt tās ir pats jautrākais.'
+      },
+      again: {
+        '1': 'Atkal te! Labi, man vajadzēja skatītāju. Skaties. Ta-dā!'
+      },
+      train: {
+        '1': 'Izvēlies divas lodes. Jebkuras divas. Tagad lai tās saskaras. Maigi! Redzi? Reakcija!'
+      },
+      class: {
+        '1': 'Mēs jaucam! Sals, tad uguns — kūst. Uguns, tad zibens — bum. Katrs pāris kaut ko dara.',
+        '2': 'Intelekts katrai burvestībai. Meistarība, jo labākajām vajag ātras rokas.',
+        say: 'Ko dara Elementālists?'
+      },
+      ready: {
+        strong: {
+          '1': 'Tu jauc kā īsts meistars! Ņem jebkuru nodarbību. Ņem divas!'
+        },
+        able: {
+          '1': 'Ū, jauka dzirkstele! Vari ņemt nākamo.'
+        },
+        weak: {
+          '1': 'Vēl ne! Tavas stihijas visu laiku apdziest. Vairāk Intelekta, lūdzu.'
+        }
+      },
+      sleeve: {
+        '1': 'Ak! Tiešām. Pagaidi... Re.',
+        '2': 'Uguns, tad sals. Patiesībā tā bija nodarbība. Nav par ko!',
+        say: 'Ēē, tev deg piedurkne.'
+      },
+      trainBack: {
+        '1': 'Lieliski! Tagad, lūdzu, trenējies ārā. Aizkari ir jauni.'
+      },
+      bye: {
+        '1': 'Atā! Ja sajūti dūmus, droši vien tā esmu es. Neuztraucies!'
+      }
+    },
+    sbMasterSoulwarden: {
+      hello: {
+        '1': 'Ššš, viss labi, viņi ir draudzīgi. Ak, ne tev. Es runāju ar maldugunīšiem.',
+        '2': 'Sargātāja Odalisa Lukturgaisma. Es palīdzu apmaldījušamies gariem atrast ceļu mājās.'
+      },
+      again: {
+        '1': 'Atkal sveiki. Maldugunīši tevi atceras. Tas tur māj.'
+      },
+      train: {
+        '1': 'Turi laternu zemu un runā klusi. Pazudušais nāk pie laipnas balss.'
+      },
+      class: {
+        '1': 'Kad ienaidnieks ir pieveikts, viņa gars mazliet apmaldās. Mēs palīdzam tam, un tas palīdz mums.',
+        '2': 'Intelekts, lai vadītu gaismu. Harizma, lai gari gribētu kādu brīdi palikt.',
+        say: 'Ko dara Dvēseļu sargs?'
+      },
+      ready: {
+        strong: {
+          '1': 'Tagad pie tevis nāk pat kautrīgākie gari. Ņem jebkuru nodarbību.'
+        },
+        able: {
+          '1': 'Maldugunīši tev uzticas. Vari ņemt nākamo nodarbību.'
+        },
+        weak: {
+          '1': 'Vēl ne. Viņi tevi vēl kautrējas. Vairāk Intelekta un mazliet Harizmas.'
+        }
+      },
+      wisps: {
+        '1': 'Kaut kā tā! Tie ir gari, kas aizklīduši. Šis ir Kustulis. Viņam patīk siltā puse.',
+        '2': 'Zini, neviens gars nav ļauns. Tikai apmaldījies. Viņi dodas mājās, kad ir gatavi.',
+        say: 'Vai mazās gaismiņas tavā laternā ir dzīvas?'
+      },
+      trainBack: {
+        '1': 'Labi padarīts. Tagad palaid viņus maigi. Viņiem bijusi gara diena.'
+      },
+      bye: {
+        '1': 'Sargā sevi. Un ja ieraugi pazudušu gaismiņu, pasveicini to.'
+      }
+    },
+    sbMasterIronmonk: {
+      hello: {
+        '1': 'Sēdi. Elpo. Nē, tu elpo tā, it kā kaut kur kavētos. Vēlreiz.',
+        '2': 'Meistars Oru Klusūdens. Es mācu atvērtās plaukstas ceļu. Dzelzs dūres, mierīga sirds.'
+      },
+      again: {
+        '1': 'Ā. Māceklis atgriežas. Tāpat kā upe. Katru dienu.'
+      },
+      train: {
+        '1': 'Kājas kā saknes, rokas kā lietus. Sit. Vēlreiz. Simtais skaitās.'
+      },
+      class: {
+        '1': 'Bez asmens. Rokas, kājas, elpa. Katrs sitiens sagatavo nākamo, līdz pienāk lielais.',
+        '2': 'Veiklība ātrām rokām. Izturība, lai saglabātu mieru, kad citiem pietrūkst elpas.',
+        say: 'Kas ir Dzelzs mūks?'
+      },
+      ready: {
+        strong: {
+          '1': 'Māceklis kļūst par skolotāju. Nevienam nesaki. Ņem jebkuru nodarbību.'
+        },
+        able: {
+          '1': 'Labi. Krūze pildās. Ņem nākamo nodarbību.'
+        },
+        weak: {
+          '1': 'Vēl ne. Koks ar īsām saknēm vējā krīt. Vairāk Izturības.'
+        }
+      },
+      noodles: {
+        '1': 'Jā. Buljons vārījās divas dienas. Lūdzu, neelpo uz to.',
+        '2': 'Laba bļoda māca pacietību. Izcila bļoda māca visu pārējo.',
+        say: 'Vai tā ir nūdeļu bļoda?'
+      },
+      trainBack: {
+        '1': 'Labi. Tagad apēd kaut ko siltu. Spēks nāk no bļodas.'
+      },
+      bye: {
+        '1': 'Laimīgu ceļu. Ej klusi. Sper stipri.'
+      }
+    },
+    sbMasterBard: {
+      hello: {
+        '1': 'Sveiki, sveiki, nāc iekšā no sala, te siltums bez gala! Ak vai, tas atskaņojās. Man tā gadās.',
+        '2': 'Larks Jautrlaiks. Es spēlēju pie uguns un mācu lautu ikvienam, kas klausās.'
+      },
+      again: {
+        '1': 'Mana mīļākā publika! Pievelc ķeblīti. Uzmanies no kaķes, viņa ir kritiķe.'
+      },
+      train: {
+        '1': 'Strinkšķini kopā ar mani. Viens, divi un trīs... Neskaties uz pirkstiem. Sajūti!'
+      },
+      class: {
+        '1': 'Dziesmas, kas savējos dara drosmīgākus, un melodijas, kas pretiniekus iemidzina.',
+        '2': 'Harizma, lai iekarotu publiku. Meistarība, lai pirksti tiktu līdzi sirdij.',
+        say: 'Ko dara Bards?'
+      },
+      ready: {
+        strong: {
+          '1': 'Tu tagad piepildītu jebkuru krogu! Ņem visas manas dziesmas.'
+        },
+        able: {
+          '1': 'Jauka melodija! Vari ņemt nākamo pantu.'
+        },
+        weak: {
+          '1': 'Vēl ne. Publika joprojām žāvājas. Vairāk Harizmas, mans draugs.'
+        }
+      },
+      story: {
+        '1': 'Reiz pār šo pašu tiltu gāja bruņinieks, kam bija tikai zobens un dziesma...',
+        '2': 'Pagaidi, ar mūziku labāk. La-la-la, bruņinieks gāja... Kur es paliku?',
+        '3': 'Ak, nekas. Bet jauka dziesma, vai ne?',
+        say: 'Vai tu man izstāstīsi stāstu?'
+      },
+      trainBack: {
+        '1': 'Bravo! Vingrinies katru dienu. Pat tad, kad skan briesmīgi. It īpaši tad.'
+      },
+      bye: {
+        '1': 'Ardievu, mans draugs, lai tev ceļš ir jauks! Ups. Atkal atskaņa. Atā!'
       }
     }
   },

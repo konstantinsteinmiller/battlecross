@@ -110,6 +110,7 @@ export const STATUS_BLURBS: Readonly<Record<string, string>> = {
   overheat: 'a glass thermometer full of red liquid',
   enrage: 'a round red cartoon face with angry slanted brows and two dot eyes',
   ambush: 'a white cartoon skull seen from the front',
+  chi: 'a round jade-green bead with a white swirl dividing it into two halves, each with a small dot',
   elixirMight: 'a round glass flask of glowing orange-red liquid with a small white sword on the glass',
   elixirIron: 'a round glass flask of silver-grey liquid with a small white shield on the glass',
   elixirSwift: 'a round glass flask of bright green liquid with two small white arrowheads pointing right on the glass',

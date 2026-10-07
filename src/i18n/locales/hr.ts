@@ -95,7 +95,8 @@ export default {
     elixirSwift: 'Hitrina',
     elixirMind: 'Bistar um',
     elixirVigor: 'Snaga',
-    elixirShadow: 'Žedna oštrica'
+    elixirShadow: 'Žedna oštrica',
+    chi: 'Chi'
   },
   toast: {
     item: 'Pronađeno: {item}',
@@ -862,6 +863,390 @@ export default {
     crumble: {
       name: 'Mrvljenje',
       desc: 'Nanosiš {dmg}% više štete usporenim, oborenim ili okamenjenim neprijateljima.'
+    },
+    galeArrow: {
+      name: 'Strijela oluje',
+      desc: 'Strijela na naletu vjetra: {dmg}% štete od Spretnosti, a meta je odbačena unatrag.'
+    },
+    fleetfoot: {
+      name: 'Brzonogost',
+      desc: '+{move}% brzine kretanja i +{dodge}% Izmaka.'
+    },
+    zephyrDash: {
+      name: 'Zefirov trk',
+      desc: 'Jurni do {dist} m kamo ciljaš, a zatim trči {move}% brže {dur}s.'
+    },
+    piercingGale: {
+      name: 'Probojna oluja',
+      desc: 'Strijela leti kroz sve neprijatelje u liniji: {dmg}% štete od Spretnosti i {slow}% usporenja na {dur}s.'
+    },
+    cycloneSnare: {
+      name: 'Zamka vihora',
+      desc: 'Vihor na {dur}s vuče neprijatelje u svoje oko i nanosi {dmg}% štete od Umijeća.'
+    },
+    keenEye: {
+      name: 'Oštro oko',
+      desc: '+{critDmg}% kritične štete. Tvoji hici probijaju još neprijatelja: {pierce}.'
+    },
+    updraftLeap: {
+      name: 'Skok uzlaznog vjetra',
+      desc: 'Nalet vjetra baca neprijatelje unutar {radius} m u zrak za {dmg}% štete od Spretnosti. Ti odskočiš {leap} m.'
+    },
+    swiftDraw: {
+      name: 'Brzo natezanje',
+      desc: 'Napadaš {speed}% brže, a čekanja su ti {cdr}% kraća.'
+    },
+    arrowStorm: {
+      name: 'Oluja strijela',
+      desc: 'Strijele pljušte na područje {dur}s: ukupno {dmg}% štete od Umijeća i {slow}% usporenja.'
+    },
+    galeSpirits: {
+      name: 'Duhovi vjetra',
+      desc: 'Duhovi vjetra lete uz tebe {dur}s i ispale {shots} strijela od {dmg}% štete od Umijeća. +{move}% brzine kretanja.'
+    },
+    skyHunter: {
+      name: 'Nebeski lovac',
+      desc: '+{boss}% štete bossovima i +{crit}% šanse za kritični pogodak.'
+    },
+    skyrender: {
+      name: 'Paranje neba',
+      desc: 'Olujna strijela krči put: {dmg}% štete od Spretnosti svima u liniji, odbačenima uvis i u stranu.'
+    },
+    frostCleave: {
+      name: 'Mrazni zamah',
+      desc: 'Zamahni ledenom oštricom ispred sebe: {dmg}% štete od Snage i {slow}% usporenja na {dur}s.'
+    },
+    rimeLance: {
+      name: 'Koplje inja',
+      desc: 'Baci ledeno koplje za {dmg}% štete od Inteligencije. Usporava za {slow}% na {dur}s.'
+    },
+    wintersBite: {
+      name: 'Ugriz zime',
+      desc: 'Tvoji napadi usporavaju neprijatelja za {slow}% na {dur}s.'
+    },
+    frostArmor: {
+      name: 'Mrazni oklop',
+      desc: 'Ledeni oklop upija {shield}% štete od Inteligencije {dur}s. Neprijatelji blizu tebe usporeni su {slow}%.'
+    },
+    glacialCharge: {
+      name: 'Ledenjački juriš',
+      desc: 'Jurišaj na metu za {dmg}% štete od Snage i zaledi je na {freeze}s.'
+    },
+    frozenHeart: {
+      name: 'Zaleđeno srce',
+      desc: '+{hp}% maks. zdravlja, a sva šteta koju primaš smanjena je za {reduce}%.'
+    },
+    rimeField: {
+      name: 'Polje inja',
+      desc: 'Ledeno tlo na {dur}s: {dmg}% štete od Inteligencije. Ohlađeni neprijatelji na njemu se zalede na {freeze}s.'
+    },
+    frostShatter: {
+      name: 'Mrazni lom',
+      desc: '{dmg}% štete od Snage unutar {radius} m: +{chilled}% usporenim neprijateljima, +{frozen}% zaleđenima.'
+    },
+    shatterpoint: {
+      name: 'Točka loma',
+      desc: 'Nanosiš {bonus}% više štete usporenim i zaleđenim neprijateljima.'
+    },
+    avalancheLeap: {
+      name: 'Skok lavine',
+      desc: 'Skoči kamo ciljaš i sleti poput lavine: {dmg}% štete od Snage, neprijatelji padaju na tlo.'
+    },
+    iceborn: {
+      name: 'Rođenje u ledu',
+      desc: 'Ništa te ne gura ni baca. Omamljenost na tebi traje {cut}% kraće.'
+    },
+    absoluteZero: {
+      name: 'Apsolutna nula',
+      desc: 'Iz tebe provali zima: {dmg}% štete od Inteligencije unutar {radius} m i svi se zalede na {freeze}s.'
+    },
+    sunbolt: {
+      name: 'Sunčani hitac',
+      desc: 'Zraka sunca za {dmg}% štete od Inteligencije. Zaslijepljena meta nanosi {weaken}% manje {dur}s.'
+    },
+    mendingLight: {
+      name: 'Svjetlo iscjeljenja',
+      desc: 'Odmah izliječi {heal}% od Karizme, a zatim {regen}% zdravlja svake sekunde {dur}s.'
+    },
+    kindledHope: {
+      name: 'Upaljena nada',
+      desc: 'Svako liječenje koje primaš {heal}% je jače.'
+    },
+    lanceOfLight: {
+      name: 'Koplje svjetla',
+      desc: 'Zraka svjetla: {dmg}% štete od Inteligencije u liniji. Izliječi {heal}% zdravlja za svakog pogođenog neprijatelja.'
+    },
+    dawnShield: {
+      name: 'Štit zore',
+      desc: 'Ukloni sve loše učinke sa sebe i dobij štit od {shield}% Karizme na {dur}s.'
+    },
+    haloWard: {
+      name: 'Zaštitni oreol',
+      desc: 'Sva šteta koju primaš smanjena je za {reduce}%.'
+    },
+    dawnSanctuary: {
+      name: 'Svetište zore',
+      desc: 'Sveto tlo na {dur}s: liječi te {heal}% od Karizme u sekundi, a neprijatelji primaju {dmg}% od Inteligencije.'
+    },
+    blindingFlash: {
+      name: 'Zasljepljujući bljesak',
+      desc: 'Bljesak svjetla: neprijatelji unutar {radius} m bježe {fear}s i nanose {weaken}% manje {dur}s.'
+    },
+    guardianLight: {
+      name: 'Svjetlo čuvar',
+      desc: 'Udarac koji bi te porazio ostavlja ti 1 zdravlja i nedodirljivost na {dur}s. Jednom u {icd}s.'
+    },
+    sunfall: {
+      name: 'Pad sunca',
+      desc: 'Stup sunčeva svjetla pada na metu: {dmg}% štete od Inteligencije. Neprijatelji primaju {vuln}% više {dur}s.'
+    },
+    searingLight: {
+      name: 'Žareće svjetlo',
+      desc: '+{crit}% šanse za kritični pogodak čarolijom i +{critDmg}% kritične štete.'
+    },
+    haloOfDawn: {
+      name: 'Oreol zore',
+      desc: 'Sjaji {dur}s: svake sekunde {dmg}% štete od Inteligencije unutar {radius} m i liječenje {heal}% zdravlja.'
+    },
+    callWolf: {
+      name: 'Poziv vuka',
+      desc: 'Pridružuje ti se duh vuka koji grize za {dmg}% štete od Karizme. Najviše {max} odjednom.'
+    },
+    wolfPounce: {
+      name: 'Vučji skok',
+      desc: 'Tvoji vukovi skaču na metu: svaki za {dmg}% štete od Karizme, i obaraju je na {down}s.'
+    },
+    wildKinship: {
+      name: 'Divlje srodstvo',
+      desc: 'Tvoji pratitelji imaju {hp}% više zdravlja i nanose {dmg}% više štete.'
+    },
+    callHawk: {
+      name: 'Poziv jastreba',
+      desc: 'Jastreb se obrušava na metu za {dmg}% štete od Karizme: prima {vuln}% više {dur}s. Ostaje {life}s.'
+    },
+    callBear: {
+      name: 'Poziv medvjeda',
+      desc: 'Pridružuje ti se duh medvjeda. Udara za {dmg}% štete i zaokuplja neprijatelje. Najviše {max}.'
+    },
+    thickHide: {
+      name: 'Debela koža',
+      desc: '+{hp}% maks. zdravlja i +{regen} zdravlja u sekundi.'
+    },
+    packBond: {
+      name: 'Veza čopora',
+      desc: 'Ti i pratitelji unutar {radius} m obnavljate {regen}% zdravlja u sekundi i dobivate {def}% Obrane na {dur}s.'
+    },
+    spiritStampede: {
+      name: 'Stampedo duhova',
+      desc: 'Krdo duhova zvijeri juriša: {dmg}% štete od Karizme u liniji, neprijatelji padaju na tlo.'
+    },
+    packTactics: {
+      name: 'Taktika čopora',
+      desc: 'Nanosiš {bonus}% više štete za svakog pratitelja uz sebe, najviše {max}.'
+    },
+    alphaHowl: {
+      name: 'Zavijanje vođe',
+      desc: 'Tvoji pratitelji liječe {heal}% i bore se {rage}% žešće {dur}s. Neprijatelji blizu tebe bježe.'
+    },
+    leaderOfThePack: {
+      name: 'Vođa čopora',
+      desc: 'Tvoji pratitelji napadaju {speed}% brže i nanose {dmg}% više štete.'
+    },
+    wildHunt: {
+      name: 'Divlji lov',
+      desc: 'Još {wolves} vukova trči s tobom {dur}s. Cijeli čopor nanosi +{dmg}% štete i kreće se {move}% brže.'
+    },
+    prismBolt: {
+      name: 'Prizmin hitac',
+      desc: 'Hitac za {dmg}% štete od Inteligencije: mraz ako meta gori, inače vatra. Svaki pokreće drugoga.'
+    },
+    elementalHarmony: {
+      name: 'Sklad elemenata',
+      desc: 'Tvoje reakcije (Taljenje, Para, Lom, Preopterećenje, Kristal) su {pct}% jače.'
+    },
+    frostLance: {
+      name: 'Mrazno koplje',
+      desc: 'Led kroz liniju: {dmg}% štete od Inteligencije i {slow}% usporenja na {dur}s. Gorući neprijatelji stvaraju Paru.'
+    },
+    chainSpark: {
+      name: 'Lančana iskra',
+      desc: 'Munja za {dmg}% od Inteligencije skače na još {jumps} neprijatelja. Lomi led, preopterećuje vatru.'
+    },
+    smolderingCore: {
+      name: 'Tinjajuća jezgra',
+      desc: 'Tvoja gorenja nanose {burn}% više štete, a imaš {mana} mane više.'
+    },
+    rollingBoulder: {
+      name: 'Kotrljajuća stijena',
+      desc: 'Stijena se otkotrlja: {dmg}% štete od Inteligencije, obaranje na {down}s. Označeni neprijatelji daju ti štit.'
+    },
+    thunderSnow: {
+      name: 'Snježna grmljavina',
+      desc: 'Snježna oluja na {dur}s: {dmg}% mrazne štete od Inteligencije i munja svake sekunde za {bolt}%.'
+    },
+    spellweave: {
+      name: 'Tkanje čarolija',
+      desc: '+{crit}% šanse za kritični pogodak čarolijom, a vještine troše {mana}% manje mane.'
+    },
+    prismaticNova: {
+      name: 'Prizmatična nova',
+      desc: 'Pogodi sve unutar {radius} m za {dmg}% od Inteligencije, svakoga elementom na koji reagira.'
+    },
+    prismaticWard: {
+      name: 'Prizmatična zaštita',
+      desc: 'Primaš {reduce}% manje štete i imaš {hp}% više zdravlja.'
+    },
+    frostfireComet: {
+      name: 'Komet mraza i vatre',
+      desc: 'Komet vatre i leda: {dmg}% štete od Inteligencije. Neprijatelji gore i usporeni su.'
+    },
+    elementalConvergence: {
+      name: 'Stapanje elemenata',
+      desc: '{dur}s četiri elementa se izmjenjuju: {strikes} udara od {dmg}% od Inteligencije koji pokreću jedan drugoga.'
+    },
+    wispBolt: {
+      name: 'Hitac svjetlaca',
+      desc: 'Svjetlac za {dmg}% štete od Inteligencije. Neprijatelj kojeg porazi ustaje kao tvoj duh na {life}s.'
+    },
+    kindredSpirits: {
+      name: 'Srodne duše',
+      desc: 'Tvoji duhovi i sluge imaju {hp}% više zdravlja i napadaju {speed}% brže.'
+    },
+    callTheFallen: {
+      name: 'Poziv palih',
+      desc: 'Do {max} neprijatelja koji su upravo pali unutar {radius} m ustaju kao tvoji duhovi na {life}s.'
+    },
+    soulBond: {
+      name: 'Veza duša',
+      desc: 'Sprijatelji se s neprijateljem: {chance}% ({low}% ako je ranjen) da ti se pridruži kao duh na {life}s. Inače {dmg}% štete.'
+    },
+    restlessSouls: {
+      name: 'Nemirne duše',
+      desc: 'Neprijatelj kojeg pobijediš ima {chance}% šanse da ustane kao tvoj duh na {life}s.'
+    },
+    spiritLantern: {
+      name: 'Fenjer duhova',
+      desc: 'Fenjer na {dur}s: neprijatelji u njegovu svjetlu primaju {dmg}% od Inteligencije, prijatelji se liječe, pali ustaju.'
+    },
+    hauntingWail: {
+      name: 'Sablasni jauk',
+      desc: 'Sablasni BU: {dmg}% štete od Inteligencije unutar {radius} m, a neprijatelji bježe {fear}s.'
+    },
+    wardensVigil: {
+      name: 'Bdijenje čuvara',
+      desc: 'Tvoji duhovi i sluge nanose {dmg}% više štete, a ti primaš {reduce}% manje.'
+    },
+    releaseSouls: {
+      name: 'Oslobodi duše',
+      desc: 'Tvoji duhovi odlaze kući u bljescima svjetla: svaki {dmg}% od Inteligencije okolo i {heal}% zdravlja natrag.'
+    },
+    lanternKeeper: {
+      name: 'Čuvar fenjera',
+      desc: 'Čekanja su {cdr}% kraća, a vještine troše {mana}% manje mane.'
+    },
+    wispSwarm: {
+      name: 'Roj svjetlaca',
+      desc: '{wisps} svjetlaca obrušava se na neprijatelje u području za ukupno {dmg}% od Inteligencije. Oni koje poraze ustaju.'
+    },
+    processionOfSouls: {
+      name: 'Povorka duša',
+      desc: '{dur}s svaki neprijatelj koji padne blizu tebe ustaje kao tvoj duh, a duhovi nanose {atk}% više.'
+    },
+    palmStrike: {
+      name: 'Udarac dlanom',
+      desc: 'Brz udarac dlanom za {dmg}% štete od Spretnosti koji odbacuje neprijatelja. Skuplja {chi} chija.'
+    },
+    ironBody: {
+      name: 'Željezno tijelo',
+      desc: 'Primljena fizička šteta smanjena je za {reduce}%, a imaš {hp}% više zdravlja.'
+    },
+    flyingKick: {
+      name: 'Leteći udarac',
+      desc: 'Poleti do mete i udari nogom za {dmg}% štete od Spretnosti; neprijatelji na putu primaju {path}%. Skuplja {chi} chija.'
+    },
+    tigerStance: {
+      name: 'Tigrov stav',
+      desc: 'Na {dur}s: +{dmg}% štete i +{speed}% brzine napada. Prekida Ždralov stav.'
+    },
+    craneStance: {
+      name: 'Ždralov stav',
+      desc: 'Na {dur}s: +{def}% Obrane i liječiš {regen}% zdravlja u sekundi. Prekida Tigrov stav.'
+    },
+    flowingFists: {
+      name: 'Tekuće šake',
+      desc: 'Tvoji napadi imaju {chance}% šanse skupiti chi.'
+    },
+    hundredFists: {
+      name: 'Sto šaka',
+      desc: 'Niz od {hits} udaraca za ukupno {dmg}% štete od Spretnosti. Skuplja {chi} chija.'
+    },
+    risingDragon: {
+      name: 'Uzlazni zmaj',
+      desc: 'Potroši sav chi na aperkat: {dmg}% štete od Spretnosti, +{per}% po chiju. Neprijatelj leti uvis.'
+    },
+    cranesGrace: {
+      name: 'Ždralova gracioznost',
+      desc: '+{dodge}% Izmaka, a omamljenost i obaranje na tebi traju {cut}% kraće.'
+    },
+    whirlwindKick: {
+      name: 'Vihorni udarac',
+      desc: 'Dvaput udari nogom sve unutar {radius} m za ukupno {dmg}% štete od Spretnosti. Skuplja do {chi} chija.'
+    },
+    tigersFury: {
+      name: 'Tigrov bijes',
+      desc: '+{crit}% šanse za kritični pogodak i +{speed}% brzine napada.'
+    },
+    mountainPalm: {
+      name: 'Dlan planine',
+      desc: 'Potroši sav chi: golemi dlan pada za {dmg}% štete od Spretnosti, +{per}% po chiju, i obara neprijatelje.'
+    },
+    sharpNote: {
+      name: 'Oštar ton',
+      desc: 'Oštar ton za {dmg}% štete od Karizme. Neprijatelj nanosi {weaken}% manje štete {dur}s.'
+    },
+    stagePresence: {
+      name: 'Scenska pojava',
+      desc: 'Vještine troše {mana}% manje mane, a krećeš se {move}% brže.'
+    },
+    marchingSong: {
+      name: 'Koračnica',
+      desc: 'Pjesma na {dur}s: ti i saveznici unutar {radius} m krećete se {move}% i napadate {speed}% brže.'
+    },
+    lullaby: {
+      name: 'Uspavanka',
+      desc: 'Nježna melodija u stošcu: svaki neprijatelj kojeg dosegne zaspi na {dur}s.'
+    },
+    longRefrain: {
+      name: 'Dugi refren',
+      desc: 'Tvoje pjesme traju {pct}% dulje.'
+    },
+    balladOfValor: {
+      name: 'Balada o hrabrosti',
+      desc: 'Pjesma na {dur}s: ti i saveznici unutar {radius} m nanosite {dmg}% više štete i dobivate {def}% Obrane.'
+    },
+    charmingSerenade: {
+      name: 'Očaravajuća serenada',
+      desc: 'Očaraj metu i neprijatelje unutar {radius} m: {dur}s se bore jedni protiv drugih.'
+    },
+    virtuoso: {
+      name: 'Virtuoz',
+      desc: 'Čekanja su {cdr}% kraća i +{critDmg}% kritične štete.'
+    },
+    hymnOfMending: {
+      name: 'Himna iscjeljenja',
+      desc: 'Uklanja loše učinke, a zatim {dur}s ti i saveznici unutar {radius} m liječite {regen}% zdravlja u sekundi.'
+    },
+    crescendo: {
+      name: 'Crescendo',
+      desc: 'Prasak zvuka unutar {radius} m: {dmg}% štete od Karizme, +{per}% za svaku pjesmu koju sviraš.'
+    },
+    standingOvation: {
+      name: 'Ovacije',
+      desc: '+{dmg}% štete, a primaš {reduce}% manje štete.'
+    },
+    grandFinale: {
+      name: 'Veliko finale',
+      desc: 'Sviraj sve {dur}s (+{buff}% brzine, štete, Obrane), pa završni akord: {dmg}% od Karizme, neprijatelji očarani.'
     }
   },
   slot: {
@@ -1376,6 +1761,30 @@ export default {
     sbFence: {
       name: 'Mirela Thorne',
       talk: 'Dobar oklop, bez pitanja. Dobro, uz vrlo malo pitanja.'
+    },
+    sbMasterWindrunner: {
+      name: 'Sefa Vjetrokrila'
+    },
+    sbMasterFrostwarden: {
+      name: 'Halvard Injosrce'
+    },
+    sbMasterLightbringer: {
+      name: 'Sestra Auriel Zorosjaj'
+    },
+    sbMasterBeastcaller: {
+      name: 'Stari Rowan Čičkonog'
+    },
+    sbMasterElementalist: {
+      name: 'Magistra Iris Četirivjetra'
+    },
+    sbMasterSoulwarden: {
+      name: 'Čuvarica Odalys Svjetlofenjer'
+    },
+    sbMasterIronmonk: {
+      name: 'Majstor Oru Tihavoda'
+    },
+    sbMasterBard: {
+      name: 'Lark Vedrodan'
     }
   },
   quest: {
@@ -3746,6 +4155,382 @@ export default {
       },
       bye: {
         '1': 'Čuvaj kesu. Nije svatko ovdje pošten kao ja.'
+      }
+    },
+    sbMasterWindrunner: {
+      hello: {
+        '1': 'Oh, bok! Oprosti, ne mogu stati. Čekam da vjetar okrene. Svaki čas.',
+        '2': 'Sefa Vjetrokrila. Gađam strijelama i jurim vjetar. Vjetar obično pobijedi.'
+      },
+      open: {
+        '1': 'Evo mog trkača! Idemo? Naravno da idemo. Hajde, hajde!'
+      },
+      again: {
+        '1': 'Opet bok! Još sam tu. Pa, uglavnom. Noge mi stalno nekamo odlutaju.'
+      },
+      train: {
+        '1': 'Osjećaš vjetar na obrazu? Ciljaj malo lijevo od onoga što misliš. A sad pusti!'
+      },
+      favor: {
+        '1': 'Samo one koji me mogu pratiti. Možeš li ti? Idemo provjeriti.',
+        '2': 'Pobijedi dvanaest razbojnika strijelaca u Okolici Oakhavena, pa mi donesi tri brze paprati.',
+        say: 'Podučavaš li streličarstvo?'
+      },
+      waiting: {
+        '1': 'Dvanaest razbojnika strijelaca, tri brze paprati. Hajde! Bit ću tu. Skakutat ću.',
+        say: 'Što se tiče kušnje...'
+      },
+      favorDone: {
+        '1': 'Ha! Stvarno me pratiš! Nitko me ne prati!',
+        '2': 'Dobro, sad učiš kod mene. Jedno pravilo: na mojim satovima nema sjedenja.',
+        say: 'Strijelci su pobijeđeni, a evo i tvojih brzih paprati.'
+      },
+      class: {
+        '1': 'Pucaj, trči, opet pucaj. Ako te uhvate, predugo stojiš na mjestu.',
+        '2': 'Spretnost za brze noge i brz luk. Umijeće, da svaka strijela pogodi.',
+        say: 'Što radi Vjetrotrkač?'
+      },
+      ready: {
+        strong: {
+          '1': 'Sad imaš brzinu vjetra. Pa, skoro. Uzmi koju god lekciju želiš!'
+        },
+        able: {
+          '1': 'Lagane noge! Sljedeća lekcija te čeka. Hajde, hajde!'
+        },
+        weak: {
+          '1': 'Još ne. Trčiš kao da nosiš kauč. Više Spretnosti, molim.'
+        }
+      },
+      who: {
+        '1': 'Živim gore u staroj vjetrenjači kraj rijeke. Najbolji pogled na vjetar u gradu.',
+        '2': 'Dvjesto stepenica do vrha. Odličan trening. Prebrojila sam svaku.'
+      },
+      trainBack: {
+        '1': 'Dobro! A sad trkom kući. Ne hodaj. Trčanje se računa kao vježba.'
+      },
+      bye: {
+        '1': 'Vidimo se! Pazi na niske grane. Ja nikad ne pazim.'
+      }
+    },
+    sbMasterFrostwarden: {
+      hello: {
+        '1': 'Hm. Već treći put prolaziš pokraj mene. Tražiš put, ili te zanima?',
+        '2': 'Halvard Injosrce. Došao sam na jug iz snijega. Ovdje je toplo. Pretoplo.'
+      },
+      open: {
+        '1': 'Tu si. Dobro. Led je spreman, a i ja.'
+      },
+      again: {
+        '1': 'Opet ti. Dobro. Ne pričam puno. Ipak ostani.'
+      },
+      train: {
+        '1': 'Polako izdahni. Vidiš paru? Sad je stavi u oštricu.'
+      },
+      favor: {
+        '1': 'Jest. Učim ga samo one koji na vrućem mjestu ostanu hladne glave.',
+        '2': 'Ugasi deset vatrenih elementala na Pepeljastim liticama. Zatim mi donesi tri grančice mrazne metvice.',
+        say: 'Je li taj mač od leda?'
+      },
+      waiting: {
+        '1': 'Deset vatrenih elementala. Tri grančice mrazne metvice. Ne žuri. Ali ni previše ne odugovlači.',
+        say: 'Što se tiče kušnje...'
+      },
+      favorDone: {
+        '1': 'Hm. Nije te ni oprljilo. Dobro.',
+        '2': 'Hladna glava. To je bila prva lekcija. Ostale ću te naučiti ja.',
+        say: 'Vatreni elementali su ugašeni. Evo tvoje mrazne metvice.'
+      },
+      class: {
+        '1': 'Vitez hladnoće. Ohladi ih, zaledi ih, pa razbij led.',
+        '2': 'Snaga za oštricu. Inteligencija za mraz. Trebaš oboje.',
+        say: 'Što je Čuvar leda?'
+      },
+      ready: {
+        strong: {
+          '1': 'Sad nosiš hladnoću sjevera. Uzmi koju god lekciju.'
+        },
+        able: {
+          '1': 'Dobro. Mirno. Sljedeća lekcija je tvoja.'
+        },
+        weak: {
+          '1': 'Još ne. Tvoj se mraz prebrzo topi. Više Inteligencije, i više Snage.'
+        }
+      },
+      who: {
+        '1': 'Čuvao sam planinski prijevoj na sjeveru. Onda sam htio vidjeti rijeku koja se ne zaledi.'
+      },
+      trainBack: {
+        '1': 'Dobro. Sad se odmori. Led se ne žuri. Ne žuri ni ti.'
+      },
+      bye: {
+        '1': 'Sretno. Ostani hladne glave.'
+      }
+    },
+    sbMasterLightbringer: {
+      hello: {
+        '1': 'Mm-hm-hmm... Oh! Oprosti, dušo, pjevušila sam. Jesam li pjevušila na tebe? To mi se događa.',
+        '2': 'Sestra Auriel Zorosjaj. Pazim da mala svjetiljka na kraju mosta uvijek gori.'
+      },
+      open: {
+        '1': 'Evo moga sunašca! Dođi, stani malo na svjetlo. Zaslužuješ to.'
+      },
+      again: {
+        '1': 'Opet bok! Još sam tu, još pjevušim. Svjetiljka voli društvo.'
+      },
+      train: {
+        '1': 'Ruke otvorene, brada gore. Sjeti se najljepšeg jutra koje pamtiš. Eto. Osjećaš li to?'
+      },
+      favor: {
+        '1': 'Svatko u sebi ima malo svjetla. Učim ljude da ga puste van, kad za to dođe vrijeme.',
+        '2': 'Pobijedi deset kultista na Pepeljastim liticama, pa mi donesi pet sunčanih latica za moju svjetiljku.',
+        say: 'Je li ta svjetiljka čarobna?'
+      },
+      waiting: {
+        '1': 'Deset kultista, pet sunčanih latica. Pobijedi ih nježno. Svatko zaslužuje drugu priliku.',
+        say: 'Što se tiče kušnje...'
+      },
+      favorDone: {
+        '1': 'Oh, pogledaj ih samo! Svjetiljka će sjati zlatno cijeli mjesec.',
+        '2': 'A i ti ćeš, dušo. Rado ću te podučavati.',
+        say: 'Kultisti su pobijeđeni. Evo tvojih sunčanih latica.'
+      },
+      class: {
+        '1': 'Mi nosimo zoru. Svjetlo za borbu, svjetlo za liječenje, svjetlo za zaklon.',
+        '2': 'Inteligencija čini svjetlo snažnim. Karizma ga čini toplim. Trebat će ti oboje.',
+        say: 'Što radi Donositelj svjetla?'
+      },
+      ready: {
+        strong: {
+          '1': 'Sjaš kao izlazak sunca, dušo. Uzmi koju god lekciju želiš.'
+        },
+        able: {
+          '1': 'Lijepo sjaš! Sljedeća lekcija te čeka.'
+        },
+        weak: {
+          '1': 'Još ne, dušo. Tvoje je svjetlo malo prigušeno. Više Karizme i zasjat ćeš.'
+        }
+      },
+      who: {
+        '1': 'Nekoć sam pjevala u velikom hramu. Ali moja svjetiljka ovdje vodi čamce kući. To je bolje.'
+      },
+      trainBack: {
+        '1': 'Divno. A sad idi i nekome uljepšaj dan. Sestrina naredba.'
+      },
+      bye: {
+        '1': 'Hajde, dušo. I nasmiješi se mračnim kutovima. To mrze.'
+      }
+    },
+    sbMasterBeastcaller: {
+      hello: {
+        '1': 'Pazi kamo staješ. To je Kupina. Ona je bila ovdje prva.',
+        '2': 'Rowan Čičkonog. Volim životinje. Za ljude još odlučujem.'
+      },
+      open: {
+        '1': 'Ah, ti si. Kupina te čekala. I ja. Malo.'
+      },
+      again: {
+        '1': 'Opet ti. Kupina te voli. Ja još razmišljam.'
+      },
+      train: {
+        '1': 'Čučni. Sporije. Ispruži ruku i pusti ih da dođu k tebi. Dobro.'
+      },
+      favor: {
+        '1': 'Razgovarati? Ja slušam. To je trik koji većina nikad ne nauči.',
+        '2': 'Divovski pauci zapliću mrežama životinjske staze u Šaptavoj šumi. Očisti dvanaest.',
+        '3': 'Onda mi donesi dva mjesečeva zvonca za moju jazbinu. Kupina bolje spava uz njih.',
+        say: 'Možeš li razgovarati sa životinjama?'
+      },
+      waiting: {
+        '1': 'Dvanaest pauka, dva mjesečeva zvonca. Životinje čekaju. I Kupina.',
+        say: 'Što se tiče kušnje...'
+      },
+      favorDone: {
+        '1': 'Hm. Jelen je jutros sišao do rijeke. Mislio sam da je to tvoje djelo.',
+        '2': 'Dobro. Podučit ću te. Bez gužve. Kupina, prestani mahati repom.',
+        say: 'Staze su čiste, a evo i tvojih mjesečevih zvonaca.'
+      },
+      class: {
+        '1': 'Zazoveš divljinu, i divljina dođe. Vukovi, jastreb, medvjed. Prijatelji, ne ljubimci.',
+        '2': 'Karizma, da požele doći. Izdržljivost, da ih možeš pratiti.',
+        say: 'Što je Zazivač zvijeri?'
+      },
+      ready: {
+        strong: {
+          '1': 'Sad ti cijeli čopor vjeruje. Uzmi što želiš.'
+        },
+        able: {
+          '1': 'Vukovi te vole. Sljedeća lekcija te čeka.'
+        },
+        weak: {
+          '1': 'Još ne. Ne vjeruju ti. Više Karizme, i puno više strpljenja.'
+        }
+      },
+      who: {
+        '1': 'Prije mnogo godina našao sam Kupinu u zamci. Tri noge, sav karakter. Otad smo par.',
+        '2': 'Spavam na sjeniku u štali. Konji hrču manje od ljudi.'
+      },
+      trainBack: {
+        '1': 'Dobro. Hajde onda. I pozdravi vrane. One pamte.'
+      },
+      bye: {
+        '1': 'Hajde. Kupina kaže bok.'
+      }
+    },
+    sbMasterElementalist: {
+      hello: {
+        '1': 'Bok! Sekundu, žongliram. Vatra, mraz, iskra, kamen i... uhvaćeni! Bok!',
+        '2': 'Magistra Iris Četirivjetra. Podučavam sva četiri elementa. Miješanje je najzabavniji dio.'
+      },
+      again: {
+        '1': 'Opet ti! Super, trebala sam nekoga da gleda. Gledaj ovo. Ta-da!'
+      },
+      train: {
+        '1': 'Odaberi dvije kugle. Bilo koje dvije. Sad neka se sudare. Nježno! Vidiš? Reakcija!'
+      },
+      class: {
+        '1': 'Miješamo! Mraz pa vatra, otopi se. Vatra pa munja, bum. Svaki par nešto napravi.',
+        '2': 'Inteligencija za svaku čaroliju. Umijeće, jer dobre trebaju brze ruke.',
+        say: 'Što radi Elementalist?'
+      },
+      ready: {
+        strong: {
+          '1': 'Sad miješaš kao pravi majstor! Uzmi koju god lekciju. Uzmi dvije!'
+        },
+        able: {
+          '1': 'Uuu, lijepa iskra! Sljedeća lekcija te čeka.'
+        },
+        weak: {
+          '1': 'Još ne! Elementi ti se stalno gase. Više Inteligencije, molim.'
+        }
+      },
+      sleeve: {
+        '1': 'Oh! Stvarno. Čekaj malo... Evo.',
+        '2': 'Vatra, pa mraz. To je zapravo bila lekcija. Nema na čemu!',
+        say: 'Ovaj, rukav ti gori.'
+      },
+      trainBack: {
+        '1': 'Sjajno! A sad vježbaj vani, molim te. Zavjese su nove.'
+      },
+      bye: {
+        '1': 'Bok! Ako osjetiš dim, vjerojatno sam to ja. Bez brige!'
+      }
+    },
+    sbMasterSoulwarden: {
+      hello: {
+        '1': 'Pst, sve je u redu, prijateljski su. Oh, ne ti. Pričala sam sa svjetlacima.',
+        '2': 'Čuvarica Odalys Svjetlofenjer. Pomažem izgubljenim duhovima da nađu put kući.'
+      },
+      again: {
+        '1': 'Opet bok. Svjetlaci te pamte. Onaj ti maše.'
+      },
+      train: {
+        '1': 'Drži fenjer nisko i govori tiho. Izgubljeno dolazi na blag glas.'
+      },
+      class: {
+        '1': 'Kad je neprijatelj pobijeđen, njegov se duh malo izgubi. Mi mu pomognemo, a on pomogne nama.',
+        '2': 'Inteligencija da vodi svjetlo. Karizma, da duhovi požele malo ostati.',
+        say: 'Što radi Čuvar duša?'
+      },
+      ready: {
+        strong: {
+          '1': 'Sad ti dolaze i najsramežljiviji duhovi. Uzmi koju god lekciju.'
+        },
+        able: {
+          '1': 'Svjetlaci ti vjeruju. Sljedeća lekcija te čeka.'
+        },
+        weak: {
+          '1': 'Još ne. Još te se srame. Više Inteligencije, i malo Karizme.'
+        }
+      },
+      wisps: {
+        '1': 'Nekako! To su duhovi koji su odlutali. Ovo je Vrpoljko. Voli toplu stranu.',
+        '2': 'Znaš, nijedan duh nije zao. Samo izgubljen. Odu kući kad su spremni.',
+        say: 'Jesu li ta mala svjetla u tvom fenjeru živa?'
+      },
+      trainBack: {
+        '1': 'Bravo. A sad ih nježno pusti. Imali su dug dan.'
+      },
+      bye: {
+        '1': 'Čuvaj se. I ako vidiš malo izgubljeno svjetlo, pozdravi ga.'
+      }
+    },
+    sbMasterIronmonk: {
+      hello: {
+        '1': 'Sjedni. Diši. Ne, dišeš kao da nekamo kasniš. Ponovo.',
+        '2': 'Majstor Oru Tihavoda. Podučavam otvorenu ruku. Željezne šake, mirno srce.'
+      },
+      again: {
+        '1': 'Ah. Učenik se vraća. Kao i rijeka. Svaki dan.'
+      },
+      train: {
+        '1': 'Stopala kao korijenje, ruke kao kiša. Udari. Opet. Stoti se računa.'
+      },
+      class: {
+        '1': 'Bez oštrice. Ruke, noge, dah. Svaki udarac gradi sljedeći, sve do onog velikog.',
+        '2': 'Spretnost za brze ruke. Izdržljivost da sačuvaš mir dok drugima ponestaje daha.',
+        say: 'Što je Željezni redovnik?'
+      },
+      ready: {
+        strong: {
+          '1': 'Učenik postaje učitelj. Nemoj nikome reći. Uzmi koju god lekciju.'
+        },
+        able: {
+          '1': 'Dobro. Šalica se puni. Uzmi sljedeću lekciju.'
+        },
+        weak: {
+          '1': 'Još ne. Stablo s kratkim korijenjem padne na vjetru. Više Izdržljivosti.'
+        }
+      },
+      noodles: {
+        '1': 'Jest. Juha se krčkala dva dana. Molim te, ne diši na nju.',
+        '2': 'Dobra zdjela uči strpljenju. Izvrsna zdjela uči svemu ostalom.',
+        say: 'Je li to zdjela rezanaca?'
+      },
+      trainBack: {
+        '1': 'Dobro. A sad pojedi nešto toplo. Snaga dolazi iz zdjele.'
+      },
+      bye: {
+        '1': 'Sretno. Hodaj tiho. Udaraj snažno.'
+      }
+    },
+    sbMasterBard: {
+      hello: {
+        '1': 'Uđi, uđi, nemoj stati, vatra će te ugrijati! Ups, to se rimuje. Događa se.',
+        '2': 'Lark Vedrodan. Sviram kraj vatre i učim lutnju svakoga tko želi slušati.'
+      },
+      again: {
+        '1': 'Moja omiljena publika! Privuci stolac. Pazi na mačku, ona je kritičarka.'
+      },
+      train: {
+        '1': 'Sviraj sa mnom. Jedan, dva, i tri... Ne gledaj prste. Osjeti to!'
+      },
+      class: {
+        '1': 'Pjesme od kojih tvoja strana postaje hrabrija, melodije od kojih druga strana zaspi.',
+        '2': 'Karizma da osvojiš publiku. Umijeće, da prsti prate srce.',
+        say: 'Što radi Bard?'
+      },
+      ready: {
+        strong: {
+          '1': 'Sad bi s tobom svaka krčma bila puna! Uzmi sve moje pjesme.'
+        },
+        able: {
+          '1': 'Krasna melodija! Sljedeća kitica te čeka.'
+        },
+        weak: {
+          '1': 'Još ne. Publika još zijeva. Više Karizme, prijatelju.'
+        }
+      },
+      story: {
+        '1': 'Jednom je vitez prešao baš ovaj most, a imao je samo mač i pjesmu...',
+        '2': 'Čekaj, bolje je uz glazbu. La-la-la, vitez je pošao... Gdje sam ono stao?',
+        '3': 'Oh, nema veze. Ali lijepa pjesma, zar ne?',
+        say: 'Hoćeš li mi ispričati priču?'
+      },
+      trainBack: {
+        '1': 'Bravo! Vježbaj svaki dan. Čak i kad zvuči grozno. Pogotovo tada.'
+      },
+      bye: {
+        '1': 'Zbogom, sretno ti bilo, i nek ti se dobro zbilo! Ups. Opet rima. Bok!'
       }
     }
   },

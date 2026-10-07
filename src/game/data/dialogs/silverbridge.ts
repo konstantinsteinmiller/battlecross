@@ -314,8 +314,181 @@ const sbMasterBlood = conversation('sbMasterBlood', {
   bye: [{ id: 'bye' }]
 })
 
+/**
+ * The eight new Silverbridge masters (#86, #95). Drop into
+ * src/game/data/dialogs/silverbridge.ts and append NEW_MASTERS to SILVERBRIDGE_TALK.
+ *
+ * The secret four (Windrunner, Frostwarden, Lightbringer, Beastcaller) follow the
+ * secret traders' favour flow: a face in the street until their test is handed
+ * in, which sets `found<Class>`; only then do they teach.
+ * `ready()` takes no over-props, so the secret ones spread it and add the gate
+ * (or shared.ts's `ready` gains an `over: Partial<TopicSpec> = {}` like `train`).
+ */
+
+/** Sefa Galewing: a cheerful, restless archer who can never sit down. Lives in the old windmill loft (#86). */
+const sbMasterWindrunner = conversation('sbMasterWindrunner', {
+  name: 'npc.sbMasterWindrunner.name', look: 'sbMasterWindrunner', mood: 'excited',
+  greet: [
+    { id: 'hello', when: { met: false }, lines: 'nn' },
+    { id: 'open', when: { flags: ['foundWindrunner'] } },
+    { id: 'again', mood: 'amused' }
+  ],
+  topics: [
+    train({ when: { flags: ['foundWindrunner'] } }),
+    // The test (#86): asked, waited on, handed in.
+    { id: 'favor', lines: 'nn', when: { errand: { windrunnerTest: 'none' } }, fx: [{ t: 'errand', id: 'windrunnerTest', act: 'start' }] },
+    { id: 'waiting', once: false, when: { errand: { windrunnerTest: 'active' } } },
+    { id: 'favorDone', lines: 'nn', when: { errand: { windrunnerTest: 'ready' } }, fx: [{ t: 'errand', id: 'windrunnerTest', act: 'complete' }], mood: 'warm' },
+    { id: 'class', lines: 'nn', when: { flags: ['foundWindrunner'] } },
+    { ...ready('windrunner'), when: { flags: ['foundWindrunner'] } },
+    who({ lines: 'nn', mood: 'amused' })
+  ],
+  back: { trainer: [{ id: 'trainBack' }] },
+  bye: [{ id: 'bye', mood: 'amused' }]
+})
+
+/** Halvard Rimeheart: a calm northern knight of few words. Keeps to the icehouse by the docks (#86). */
+const sbMasterFrostwarden = conversation('sbMasterFrostwarden', {
+  name: 'npc.sbMasterFrostwarden.name', look: 'sbMasterFrostwarden', mood: 'neutral',
+  greet: [
+    { id: 'hello', when: { met: false }, lines: 'nn' },
+    { id: 'open', when: { flags: ['foundFrostwarden'] }, mood: 'warm' },
+    { id: 'again' }
+  ],
+  topics: [
+    train({ when: { flags: ['foundFrostwarden'] } }),
+    // The test (#86): asked, waited on, handed in.
+    { id: 'favor', lines: 'nn', when: { errand: { frostwardenTest: 'none' } }, fx: [{ t: 'errand', id: 'frostwardenTest', act: 'start' }] },
+    { id: 'waiting', once: false, when: { errand: { frostwardenTest: 'active' } } },
+    { id: 'favorDone', lines: 'nn', when: { errand: { frostwardenTest: 'ready' } }, fx: [{ t: 'errand', id: 'frostwardenTest', act: 'complete' }], mood: 'warm' },
+    { id: 'class', lines: 'nn', when: { flags: ['foundFrostwarden'] } },
+    { ...ready('frostwarden'), when: { flags: ['foundFrostwarden'] } },
+    who()
+  ],
+  back: { trainer: [{ id: 'trainBack' }] },
+  bye: [{ id: 'bye', mood: 'amused' }]
+})
+
+/** Sister Auriel Dawnmere: warm and teasing, hums old hymns, tends the lamp-tower at the bridge's end (#86). */
+const sbMasterLightbringer = conversation('sbMasterLightbringer', {
+  name: 'npc.sbMasterLightbringer.name', look: 'sbMasterLightbringer', mood: 'warm',
+  greet: [
+    { id: 'hello', when: { met: false }, lines: 'nn', mood: 'amused' },
+    { id: 'open', when: { flags: ['foundLightbringer'] } },
+    { id: 'again' }
+  ],
+  topics: [
+    train({ when: { flags: ['foundLightbringer'] } }),
+    // The test (#86): asked, waited on, handed in.
+    { id: 'favor', lines: 'nn', when: { errand: { lightbringerTest: 'none' } }, fx: [{ t: 'errand', id: 'lightbringerTest', act: 'start' }] },
+    { id: 'waiting', once: false, when: { errand: { lightbringerTest: 'active' } }, mood: 'amused' },
+    { id: 'favorDone', lines: 'nn', when: { errand: { lightbringerTest: 'ready' } }, fx: [{ t: 'errand', id: 'lightbringerTest', act: 'complete' }], mood: 'excited' },
+    { id: 'class', lines: 'nn', when: { flags: ['foundLightbringer'] } },
+    { ...ready('lightbringer'), when: { flags: ['foundLightbringer'] } },
+    who()
+  ],
+  back: { trainer: [{ id: 'trainBack' }] },
+  bye: [{ id: 'bye' }]
+})
+
+/** Old Rowan Thistlefoot: a gruff hermit with a three-legged fox, kinder to animals than to people (#86). */
+const sbMasterBeastcaller = conversation('sbMasterBeastcaller', {
+  name: 'npc.sbMasterBeastcaller.name', look: 'sbMasterBeastcaller', mood: 'gruff',
+  greet: [
+    { id: 'hello', when: { met: false }, lines: 'nn' },
+    { id: 'open', when: { flags: ['foundBeastcaller'] }, mood: 'warm' },
+    { id: 'again' }
+  ],
+  topics: [
+    train({ when: { flags: ['foundBeastcaller'] } }),
+    // The test (#86): asked, waited on, handed in.
+    { id: 'favor', lines: 'nnn', when: { errand: { beastcallerTest: 'none' } }, fx: [{ t: 'errand', id: 'beastcallerTest', act: 'start' }] },
+    { id: 'waiting', once: false, when: { errand: { beastcallerTest: 'active' } } },
+    { id: 'favorDone', lines: 'nn', when: { errand: { beastcallerTest: 'ready' } }, fx: [{ t: 'errand', id: 'beastcallerTest', act: 'complete' }], mood: 'warm' },
+    { id: 'class', lines: 'nn', when: { flags: ['foundBeastcaller'] } },
+    { ...ready('beastcaller'), when: { flags: ['foundBeastcaller'] } },
+    who({ lines: 'nn' })
+  ],
+  back: { trainer: [{ id: 'trainBack' }] },
+  bye: [{ id: 'bye', mood: 'warm' }]
+})
+
+/** Magistra Iris Fourwinds: bubbly and quick, juggles four tiny orbs, sets her own sleeve alight (#95). */
+const sbMasterElementalist = conversation('sbMasterElementalist', {
+  name: 'npc.sbMasterElementalist.name', look: 'sbMasterElementalist', mood: 'excited',
+  greet: [
+    { id: 'hello', when: { met: false }, lines: 'nn' },
+    { id: 'again', mood: 'amused' }
+  ],
+  topics: [
+    train(),
+    { id: 'class', lines: 'nn' },
+    ready('elementalist'),
+    { id: 'sleeve', lines: 'nn', mood: 'amused' }
+  ],
+  back: { trainer: [{ id: 'trainBack' }] },
+  bye: [{ id: 'bye', mood: 'amused' }]
+})
+
+/** Warden Odalys Lanternlight: soft-spoken and kind; no spirit is bad, only lost (#95). */
+const sbMasterSoulwarden = conversation('sbMasterSoulwarden', {
+  name: 'npc.sbMasterSoulwarden.name', look: 'sbMasterSoulwarden', mood: 'warm',
+  greet: [
+    { id: 'hello', when: { met: false }, lines: 'nn', mood: 'amused' },
+    { id: 'again' }
+  ],
+  topics: [
+    train(),
+    { id: 'class', lines: 'nn' },
+    ready('soulwarden'),
+    { id: 'wisps', lines: 'nn' }
+  ],
+  back: { trainer: [{ id: 'trainBack' }] },
+  bye: [{ id: 'bye' }]
+})
+
+/** Master Oru Stillwater: calm, dry, answers in short proverbs, very serious about noodles (#95). */
+const sbMasterIronmonk = conversation('sbMasterIronmonk', {
+  name: 'npc.sbMasterIronmonk.name', look: 'sbMasterIronmonk', mood: 'neutral',
+  greet: [
+    { id: 'hello', when: { met: false }, lines: 'nn' },
+    { id: 'again', mood: 'amused' }
+  ],
+  topics: [
+    train(),
+    { id: 'class', lines: 'nn' },
+    ready('ironmonk'),
+    { id: 'noodles', lines: 'nn', mood: 'proud' }
+  ],
+  back: { trainer: [{ id: 'trainBack' }] },
+  bye: [{ id: 'bye', mood: 'amused' }]
+})
+
+/** Lark Merriweather: the tavern's bard; rhymes by accident, can't finish a story without a song (#95). */
+const sbMasterBard = conversation('sbMasterBard', {
+  name: 'npc.sbMasterBard.name', look: 'sbMasterBard', mood: 'excited',
+  greet: [
+    { id: 'hello', when: { met: false }, lines: 'nn' },
+    { id: 'again', mood: 'warm' }
+  ],
+  topics: [
+    train(),
+    { id: 'class', lines: 'nn' },
+    ready('bard'),
+    { id: 'story', lines: 'nnn', mood: 'amused' }
+  ],
+  back: { trainer: [{ id: 'trainBack' }] },
+  bye: [{ id: 'bye', mood: 'amused' }]
+})
+
+const NEW_MASTERS: ConversationDef[] = [
+  sbMasterWindrunner, sbMasterFrostwarden, sbMasterLightbringer, sbMasterBeastcaller,
+  sbMasterElementalist, sbMasterSoulwarden, sbMasterIronmonk, sbMasterBard
+]
+
 export const SILVERBRIDGE_TALK: ConversationDef[] = [
   mayorBrenna, sbHealer, sbAlchemist, sbGambler, sbCollector, sbFence, sbArmorer, sbWeapons, sbJeweler,
   sbMasterAegis, sbMasterPyro, sbMasterShadow, sbMasterSovereign, sbMasterGeo, sbMasterAether,
-  sbMasterChrono, sbMasterBlood
+  sbMasterChrono, sbMasterBlood,
+  ...NEW_MASTERS
 ]

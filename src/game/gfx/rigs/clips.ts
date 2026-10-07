@@ -654,6 +654,22 @@ export const SKILL_CAST: Readonly<Record<string, CastName>> = {
   essenceWard: 'ward', enfeeblingTonic: 'throw', homunculus: 'summon', grandTransmutation: 'drain',
   rocketJump: 'leap', shockGrenade: 'throw', arcCoil: 'beam',
   boulderRoll: 'line', sinkhole: 'raise', geodeShell: 'ward',
+  // Windrunner (#86).
+  galeArrow: 'beam', zephyrDash: 'dash', piercingGale: 'beam', cycloneSnare: 'throwDown', updraftLeap: 'leap', arrowStorm: 'call', galeSpirits: 'summon', skyrender: 'line',
+  // Frostwarden (#86).
+  frostCleave: 'cleave', rimeLance: 'throw', frostArmor: 'ward', glacialCharge: 'charge', rimeField: 'raise', frostShatter: 'slam', avalancheLeap: 'leap', absoluteZero: 'channel',
+  // Lightbringer (#86).
+  sunbolt: 'beam', mendingLight: 'raise', lanceOfLight: 'line', dawnShield: 'ward', dawnSanctuary: 'plant', blindingFlash: 'burst', sunfall: 'call', haloOfDawn: 'channel',
+  // Beastcaller (#86).
+  callWolf: 'summon', wolfPounce: 'point', callHawk: 'call', callBear: 'summon', packBond: 'shout', spiritStampede: 'line', alphaHowl: 'shout', wildHunt: 'shout',
+  // Elementalist (#95).
+  prismBolt: 'beam', frostLance: 'line', chainSpark: 'beam', rollingBoulder: 'line', thunderSnow: 'call', prismaticNova: 'burst', frostfireComet: 'call', elementalConvergence: 'channel',
+  // Soul Warden (#95).
+  wispBolt: 'beam', callTheFallen: 'raise', soulBond: 'point', spiritLantern: 'plant', hauntingWail: 'shout', releaseSouls: 'burst', wispSwarm: 'call', processionOfSouls: 'summon',
+  // Iron Monk (#95).
+  palmStrike: 'strike', flyingKick: 'leap', tigerStance: 'shout', craneStance: 'ward', hundredFists: 'strike', risingDragon: 'bash', whirlwindKick: 'whirl', mountainPalm: 'slam',
+  // Bard (#95).
+  sharpNote: 'beam', marchingSong: 'shout', lullaby: 'line', balladOfValor: 'shout', charmingSerenade: 'point', hymnOfMending: 'raise', crescendo: 'burst', grandFinale: 'channel',
   // Not a skill: every hero's dodge.
   roll: 'roll'
 }

@@ -636,6 +636,10 @@ export const MINIONS: Readonly<Record<string, MinionDef>> = {
   archer: { id: 'archer', rig: 'humanoid', look: 'royalArcher', scale: 0.9, r: 0.42, h: 1.3, style: 'ranged', type: 'pierce', range: 9, interval: 1.2, speed: 4.2, hp: 0.35, dmg: 0.55, shotFx: 'arrow', color: '#ffb04a' },
   mage: { id: 'mage', rig: 'humanoid', look: 'royalMage', scale: 0.9, r: 0.42, h: 1.3, style: 'magic', type: 'holy', range: 9, interval: 1.6, speed: 4, hp: 0.35, dmg: 0.9, shotFx: 'holy', color: '#8fd6ff' },
   turret: { id: 'turret', rig: 'turret', look: 'gatling', scale: 1, r: 0.5, h: 1.1, style: 'ranged', type: 'pierce', range: 10, interval: 0.5, speed: 0, hp: 0.4, dmg: 0.45, shotFx: 'bullet', color: '#4ff0c8' },
+  // The Beastcaller's companions (#86).
+  packWolf: { id: 'packWolf', rig: 'beast', look: 'spiritWolf', scale: 0.85, r: 0.44, h: 0.9, style: 'melee', type: 'physical', range: 1.7, interval: 0.8, speed: 5.4, hp: 0.35, dmg: 0.45, color: '#7fe08a' },
+  packBear: { id: 'packBear', rig: 'beast', look: 'spiritBear', scale: 1.3, r: 0.72, h: 1.6, style: 'melee', type: 'physical', range: 2, interval: 1.4, speed: 4.2, hp: 1.1, dmg: 0.7, taunts: true, color: '#d8a860' },
+  packHawk: { id: 'packHawk', rig: 'wyvern', look: 'spiritHawk', scale: 0.45, r: 0.35, h: 1.8, style: 'ranged', type: 'pierce', range: 8, interval: 1, speed: 6.5, hp: 0.25, dmg: 0.55, shotFx: 'arrow', color: '#f0d890' },
   // The Grand Sovereign's champion (#95): a giant of the royal guard.
   knightChampion: { id: 'knightChampion', rig: 'humanoid', look: 'royalGuard', scale: 1.3, r: 0.6, h: 1.85, style: 'melee', type: 'physical', range: 2.2, interval: 1.3, speed: 4.6, hp: 1.5, dmg: 1.4, taunts: true, color: '#ffe27a' },
   // The Blood Alchemist's homunculus (#95): a bubbly drop of essence that draws the blows.

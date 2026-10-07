@@ -295,6 +295,8 @@ export const jobOf = (n: NpcDef): TownJob => {
 }
 
 const SIGN_OF = (n: NpcDef): SignKind => {
+  // A secret trader or master hangs out no sign (#86).
+  if (n.secret) return ''
   if (n.role === 'healer') return 'healer'
   if (n.role === 'trainer') return 'class'
   if (n.role !== 'shop' || !n.stock || n.secret) return n.job === 'captain' ? 'guard' : ''

@@ -16,7 +16,7 @@ rewrites it, and a test fails when it is stale. Do not edit by hand.
 
 | Voice | Lines | EN voiced |
 | --- | --- | --- |
-| hero | 162 | 162 |
+| hero | 186 | 186 |
 | sunfordSmith | 19 | 19 |
 | sunfordPeddler | 15 | 15 |
 | trainerAegis | 18 | 18 |
@@ -61,6 +61,14 @@ rewrites it, and a test fails when it is stale. Do not edit by hand.
 | sbMasterAether | 12 | 12 |
 | sbMasterChrono | 12 | 12 |
 | sbMasterBlood | 13 | 13 |
+| sbMasterWindrunner | 19 | 19 |
+| sbMasterFrostwarden | 18 | 18 |
+| sbMasterLightbringer | 18 | 18 |
+| sbMasterBeastcaller | 20 | 20 |
+| sbMasterElementalist | 13 | 13 |
+| sbMasterSoulwarden | 13 | 13 |
+| sbMasterIronmonk | 13 | 13 |
+| sbMasterBard | 14 | 14 |
 | goblinKing | 9 | 9 |
 | warlord | 5 | 5 |
 | oracle | 5 | 5 |
@@ -74,14 +82,14 @@ rewrites it, and a test fails when it is stale. Do not edit by hand.
 | smalltalkKids | 6 | 6 |
 | kidFriend | 4 | 4 |
 | frostJarl | 2 | 2 |
-| heroine | 162 | 162 |
-| **All** | **1046** | **1046** |
+| heroine | 186 | 186 |
+| **All** | **1222** | **1222** |
 
 ## To do (0)
 
 Nothing: every line has its recording.
 
-## Every line (1046)
+## Every line (1222)
 
 | File | Who | Scene | English | EN |
 | --- | --- | --- | --- | --- |
@@ -783,6 +791,158 @@ Nothing: every line has its recording.
 | `dlg.sbMasterBlood.herbs.2` | Vesper Crimsonleaf (sbMasterBlood) | sbMasterBlood | If you find rare plants out there, do bring them by. I'd love a look. | chatterbox |
 | `dlg.sbMasterBlood.trainBack.1` | Vesper Crimsonleaf (sbMasterBlood) | sbMasterBlood | Rest after practice. Essence comes back, but it likes a nap. | chatterbox |
 | `dlg.sbMasterBlood.bye.1` | Vesper Crimsonleaf (sbMasterBlood) | sbMasterBlood | Look after yourself. Drink water. Eat something green. | chatterbox |
+| `dlg.sbMasterWindrunner.hello.1` | Sefa Galewing (sbMasterWindrunner) | sbMasterWindrunner | Oh, hi! Sorry, can't stop. I'm waiting for the wind to turn. Any minute now. | chatterbox |
+| `dlg.sbMasterWindrunner.hello.2` | Sefa Galewing (sbMasterWindrunner) | sbMasterWindrunner | Sefa Galewing. I shoot arrows and chase the wind. The wind usually wins. | chatterbox |
+| `dlg.sbMasterWindrunner.open.1` | Sefa Galewing (sbMasterWindrunner) | sbMasterWindrunner | There's my runner! Ready? Course you are. Let's go, let's go! | chatterbox |
+| `dlg.sbMasterWindrunner.again.1` | Sefa Galewing (sbMasterWindrunner) | sbMasterWindrunner | Hi again! I'm still here. Well, mostly. My feet keep wandering off. | chatterbox |
+| `dlg.sbMasterWindrunner.train.1` | Sefa Galewing (sbMasterWindrunner) | sbMasterWindrunner | Feel the wind on your cheek? Aim a little left of where you think. Now let go! | chatterbox |
+| `dlg.sbMasterWindrunner.favor.say` | The hero (hero) | sbMasterWindrunner | Do you teach archery? | chatterbox |
+| `dlg.sbMasterWindrunner.favor.1` | Sefa Galewing (sbMasterWindrunner) | sbMasterWindrunner | Only to people who can keep up. Can you keep up? Let's find out. | chatterbox |
+| `dlg.sbMasterWindrunner.favor.2` | Sefa Galewing (sbMasterWindrunner) | sbMasterWindrunner | Beat twelve bandit archers in the Oakhaven Outskirts, then bring me three swiftferns. | chatterbox |
+| `dlg.sbMasterWindrunner.waiting.say` | The hero (hero) | sbMasterWindrunner | About your test... | chatterbox |
+| `dlg.sbMasterWindrunner.waiting.1` | Sefa Galewing (sbMasterWindrunner) | sbMasterWindrunner | Twelve bandit archers, three swiftferns. Go on! I'll be right here. Bouncing. | chatterbox |
+| `dlg.sbMasterWindrunner.favorDone.say` | The hero (hero) | sbMasterWindrunner | The archers are beaten, and here are your swiftferns. | chatterbox |
+| `dlg.sbMasterWindrunner.favorDone.1` | Sefa Galewing (sbMasterWindrunner) | sbMasterWindrunner | Ha! You actually kept up! Nobody keeps up! | chatterbox |
+| `dlg.sbMasterWindrunner.favorDone.2` | Sefa Galewing (sbMasterWindrunner) | sbMasterWindrunner | Right, you're my pupil now. One rule: no sitting down in my lessons. | chatterbox |
+| `dlg.sbMasterWindrunner.class.say` | The hero (hero) | sbMasterWindrunner | What does a Windrunner do? | chatterbox |
+| `dlg.sbMasterWindrunner.class.1` | Sefa Galewing (sbMasterWindrunner) | sbMasterWindrunner | Shoot, run, shoot again. If they catch you, you stood still too long. | chatterbox |
+| `dlg.sbMasterWindrunner.class.2` | Sefa Galewing (sbMasterWindrunner) | sbMasterWindrunner | Dexterity for quick feet and a quick bow. Skill, so every arrow lands. | chatterbox |
+| `dlg.sbMasterWindrunner.ready.strong.1` | Sefa Galewing (sbMasterWindrunner) | sbMasterWindrunner | You're as quick as the wind now. Well, nearly. Take any lesson you like! | chatterbox |
+| `dlg.sbMasterWindrunner.ready.able.1` | Sefa Galewing (sbMasterWindrunner) | sbMasterWindrunner | Light feet! You're ready for the next one. Go, go! | chatterbox |
+| `dlg.sbMasterWindrunner.ready.weak.1` | Sefa Galewing (sbMasterWindrunner) | sbMasterWindrunner | Not yet. You run like you're carrying a sofa. More Dexterity, please. | chatterbox |
+| `dlg.sbMasterWindrunner.who.1` | Sefa Galewing (sbMasterWindrunner) | sbMasterWindrunner | I live up in the old windmill by the river. Best view of the wind in town. | chatterbox |
+| `dlg.sbMasterWindrunner.who.2` | Sefa Galewing (sbMasterWindrunner) | sbMasterWindrunner | Two hundred stairs to the top. Great practice. I've counted every one. | chatterbox |
+| `dlg.sbMasterWindrunner.trainBack.1` | Sefa Galewing (sbMasterWindrunner) | sbMasterWindrunner | Good! Now run home. Don't walk. Running counts as practice. | chatterbox |
+| `dlg.sbMasterWindrunner.bye.1` | Sefa Galewing (sbMasterWindrunner) | sbMasterWindrunner | See you! Watch out for low branches. I never do. | chatterbox |
+| `dlg.sbMasterFrostwarden.hello.1` | Halvard Rimeheart (sbMasterFrostwarden) | sbMasterFrostwarden | Hm. You walked past me three times. Lost, or curious? | chatterbox |
+| `dlg.sbMasterFrostwarden.hello.2` | Halvard Rimeheart (sbMasterFrostwarden) | sbMasterFrostwarden | Halvard Rimeheart. I came south from the snow. It is warm here. Too warm. | chatterbox |
+| `dlg.sbMasterFrostwarden.open.1` | Halvard Rimeheart (sbMasterFrostwarden) | sbMasterFrostwarden | Pupil. Good. The ice is ready, and so am I. | chatterbox |
+| `dlg.sbMasterFrostwarden.again.1` | Halvard Rimeheart (sbMasterFrostwarden) | sbMasterFrostwarden | You again. Good. I do not talk much. Stay anyway. | chatterbox |
+| `dlg.sbMasterFrostwarden.train.1` | Halvard Rimeheart (sbMasterFrostwarden) | sbMasterFrostwarden | Breathe out slowly. See the mist? Now put it into the blade. | chatterbox |
+| `dlg.sbMasterFrostwarden.favor.say` | The hero (hero) | sbMasterFrostwarden | Is that sword made of ice? | chatterbox |
+| `dlg.sbMasterFrostwarden.favor.1` | Halvard Rimeheart (sbMasterFrostwarden) | sbMasterFrostwarden | It is. I teach it only to those who keep a cool head in a hot place. | chatterbox |
+| `dlg.sbMasterFrostwarden.favor.2` | Halvard Rimeheart (sbMasterFrostwarden) | sbMasterFrostwarden | Put out ten fire elementals in the Ashen Crags. Then bring me three sprigs of frostmint. | chatterbox |
+| `dlg.sbMasterFrostwarden.waiting.say` | The hero (hero) | sbMasterFrostwarden | About your test... | chatterbox |
+| `dlg.sbMasterFrostwarden.waiting.1` | Halvard Rimeheart (sbMasterFrostwarden) | sbMasterFrostwarden | Ten fire elementals. Three sprigs of frostmint. Take your time. Not too much time. | chatterbox |
+| `dlg.sbMasterFrostwarden.favorDone.say` | The hero (hero) | sbMasterFrostwarden | The fire elementals are out. Here is your frostmint. | chatterbox |
+| `dlg.sbMasterFrostwarden.favorDone.1` | Halvard Rimeheart (sbMasterFrostwarden) | sbMasterFrostwarden | Hm. Not even singed. Good. | chatterbox |
+| `dlg.sbMasterFrostwarden.favorDone.2` | Halvard Rimeheart (sbMasterFrostwarden) | sbMasterFrostwarden | You kept a cool head. That was the first lesson. I will teach you the rest. | chatterbox |
+| `dlg.sbMasterFrostwarden.class.say` | The hero (hero) | sbMasterFrostwarden | What is a Frostwarden? | chatterbox |
+| `dlg.sbMasterFrostwarden.class.1` | Halvard Rimeheart (sbMasterFrostwarden) | sbMasterFrostwarden | A knight of the cold. Chill them, freeze them, then break the ice. | chatterbox |
+| `dlg.sbMasterFrostwarden.class.2` | Halvard Rimeheart (sbMasterFrostwarden) | sbMasterFrostwarden | Strength for the blade. Intelligence for the frost. You need both. | chatterbox |
+| `dlg.sbMasterFrostwarden.ready.strong.1` | Halvard Rimeheart (sbMasterFrostwarden) | sbMasterFrostwarden | You are as cold as the north now. Take any lesson. | chatterbox |
+| `dlg.sbMasterFrostwarden.ready.able.1` | Halvard Rimeheart (sbMasterFrostwarden) | sbMasterFrostwarden | Good. Steady. The next lesson is yours. | chatterbox |
+| `dlg.sbMasterFrostwarden.ready.weak.1` | Halvard Rimeheart (sbMasterFrostwarden) | sbMasterFrostwarden | Not yet. Your frost melts too fast. More Intelligence, and more Strength. | chatterbox |
+| `dlg.sbMasterFrostwarden.who.1` | Halvard Rimeheart (sbMasterFrostwarden) | sbMasterFrostwarden | I guarded a mountain pass in the north. Then I wanted to see a river that does not freeze. | chatterbox |
+| `dlg.sbMasterFrostwarden.trainBack.1` | Halvard Rimeheart (sbMasterFrostwarden) | sbMasterFrostwarden | Good. Now rest. Ice does not hurry. Neither should you. | chatterbox |
+| `dlg.sbMasterFrostwarden.bye.1` | Halvard Rimeheart (sbMasterFrostwarden) | sbMasterFrostwarden | Go well. Stay cool. | chatterbox |
+| `dlg.sbMasterLightbringer.hello.1` | Sister Auriel Dawnmere (sbMasterLightbringer) | sbMasterLightbringer | Mm-hm-hmm... Oh! Sorry, dear, I was humming. Did I hum at you? I do that. | chatterbox |
+| `dlg.sbMasterLightbringer.hello.2` | Sister Auriel Dawnmere (sbMasterLightbringer) | sbMasterLightbringer | Sister Auriel Dawnmere. I keep the little lamp at the end of the bridge burning. | chatterbox |
+| `dlg.sbMasterLightbringer.open.1` | Sister Auriel Dawnmere (sbMasterLightbringer) | sbMasterLightbringer | There's my bright one! Come and stand in the light a moment. You've earned it. | chatterbox |
+| `dlg.sbMasterLightbringer.again.1` | Sister Auriel Dawnmere (sbMasterLightbringer) | sbMasterLightbringer | Hello again! Still here, still humming. The lamp likes the company. | chatterbox |
+| `dlg.sbMasterLightbringer.train.1` | Sister Auriel Dawnmere (sbMasterLightbringer) | sbMasterLightbringer | Hands open, chin up. Think of the best morning you ever had. There. Feel that? | chatterbox |
+| `dlg.sbMasterLightbringer.favor.say` | The hero (hero) | sbMasterLightbringer | Is that lamp magic? | chatterbox |
+| `dlg.sbMasterLightbringer.favor.1` | Sister Auriel Dawnmere (sbMasterLightbringer) | sbMasterLightbringer | Everyone has a little light inside. I teach people to let it out, when they're ready. | chatterbox |
+| `dlg.sbMasterLightbringer.favor.2` | Sister Auriel Dawnmere (sbMasterLightbringer) | sbMasterLightbringer | Beat ten cultists in the Ashen Crags, then bring me five sunpetals for my lamp. | chatterbox |
+| `dlg.sbMasterLightbringer.waiting.say` | The hero (hero) | sbMasterLightbringer | About your test... | chatterbox |
+| `dlg.sbMasterLightbringer.waiting.1` | Sister Auriel Dawnmere (sbMasterLightbringer) | sbMasterLightbringer | Ten cultists, five sunpetals. Beat them gently. Everyone deserves a second chance. | chatterbox |
+| `dlg.sbMasterLightbringer.favorDone.say` | The hero (hero) | sbMasterLightbringer | The cultists are beaten. Here are your sunpetals. | chatterbox |
+| `dlg.sbMasterLightbringer.favorDone.1` | Sister Auriel Dawnmere (sbMasterLightbringer) | sbMasterLightbringer | Oh, look at them! The lamp will glow golden for a month. | chatterbox |
+| `dlg.sbMasterLightbringer.favorDone.2` | Sister Auriel Dawnmere (sbMasterLightbringer) | sbMasterLightbringer | And so will you, dear. I'd be glad to teach you. | chatterbox |
+| `dlg.sbMasterLightbringer.class.say` | The hero (hero) | sbMasterLightbringer | What does a Lightbringer do? | chatterbox |
+| `dlg.sbMasterLightbringer.class.1` | Sister Auriel Dawnmere (sbMasterLightbringer) | sbMasterLightbringer | We carry the dawn. Light to fight with, light to heal with, light to hide behind. | chatterbox |
+| `dlg.sbMasterLightbringer.class.2` | Sister Auriel Dawnmere (sbMasterLightbringer) | sbMasterLightbringer | Intelligence makes the light strong. Charisma makes it warm. You'll want both. | chatterbox |
+| `dlg.sbMasterLightbringer.ready.strong.1` | Sister Auriel Dawnmere (sbMasterLightbringer) | sbMasterLightbringer | You shine like a sunrise, dear. Take any lesson you like. | chatterbox |
+| `dlg.sbMasterLightbringer.ready.able.1` | Sister Auriel Dawnmere (sbMasterLightbringer) | sbMasterLightbringer | Glowing nicely! You're ready for the next one. | chatterbox |
+| `dlg.sbMasterLightbringer.ready.weak.1` | Sister Auriel Dawnmere (sbMasterLightbringer) | sbMasterLightbringer | Not yet, dear. Your light's a bit dim. More Charisma, and you'll glow. | chatterbox |
+| `dlg.sbMasterLightbringer.who.1` | Sister Auriel Dawnmere (sbMasterLightbringer) | sbMasterLightbringer | I sang in a big temple once. But my lamp out here guides the boats home. That's better. | chatterbox |
+| `dlg.sbMasterLightbringer.trainBack.1` | Sister Auriel Dawnmere (sbMasterLightbringer) | sbMasterLightbringer | Lovely. Now go and brighten someone's day. Sister's orders. | chatterbox |
+| `dlg.sbMasterLightbringer.bye.1` | Sister Auriel Dawnmere (sbMasterLightbringer) | sbMasterLightbringer | Off you go, dear. And smile at the dark corners. They hate that. | chatterbox |
+| `dlg.sbMasterBeastcaller.hello.1` | Old Rowan Thistlefoot (sbMasterBeastcaller) | sbMasterBeastcaller | Watch your feet. That's Bramble. She was here first. | chatterbox |
+| `dlg.sbMasterBeastcaller.hello.2` | Old Rowan Thistlefoot (sbMasterBeastcaller) | sbMasterBeastcaller | Rowan Thistlefoot. I like animals. People, I'm still deciding. | chatterbox |
+| `dlg.sbMasterBeastcaller.open.1` | Old Rowan Thistlefoot (sbMasterBeastcaller) | sbMasterBeastcaller | Oh, it's you. Bramble's been waiting. So have I. A bit. | chatterbox |
+| `dlg.sbMasterBeastcaller.again.1` | Old Rowan Thistlefoot (sbMasterBeastcaller) | sbMasterBeastcaller | You again. Bramble likes you. I'm still thinking about it. | chatterbox |
+| `dlg.sbMasterBeastcaller.train.1` | Old Rowan Thistlefoot (sbMasterBeastcaller) | sbMasterBeastcaller | Crouch down. Slower. Hold out your hand and let them come to you. Good. | chatterbox |
+| `dlg.sbMasterBeastcaller.favor.say` | The hero (hero) | sbMasterBeastcaller | Can you talk to animals? | chatterbox |
+| `dlg.sbMasterBeastcaller.favor.1` | Old Rowan Thistlefoot (sbMasterBeastcaller) | sbMasterBeastcaller | Talk? I listen. That's the trick most people never learn. | chatterbox |
+| `dlg.sbMasterBeastcaller.favor.2` | Old Rowan Thistlefoot (sbMasterBeastcaller) | sbMasterBeastcaller | Giant spiders are webbing up the animal trails in the Whispering Woods. Clear twelve. | chatterbox |
+| `dlg.sbMasterBeastcaller.favor.3` | Old Rowan Thistlefoot (sbMasterBeastcaller) | sbMasterBeastcaller | Then bring me two moonbells for my den. Bramble sleeps better near them. | chatterbox |
+| `dlg.sbMasterBeastcaller.waiting.say` | The hero (hero) | sbMasterBeastcaller | About your test... | chatterbox |
+| `dlg.sbMasterBeastcaller.waiting.1` | Old Rowan Thistlefoot (sbMasterBeastcaller) | sbMasterBeastcaller | Twelve spiders, two moonbells. The animals are waiting. So is Bramble. | chatterbox |
+| `dlg.sbMasterBeastcaller.favorDone.say` | The hero (hero) | sbMasterBeastcaller | The trails are clear, and here are your moonbells. | chatterbox |
+| `dlg.sbMasterBeastcaller.favorDone.1` | Old Rowan Thistlefoot (sbMasterBeastcaller) | sbMasterBeastcaller | Hm. The deer came down to the river this morning. Thought it might be you. | chatterbox |
+| `dlg.sbMasterBeastcaller.favorDone.2` | Old Rowan Thistlefoot (sbMasterBeastcaller) | sbMasterBeastcaller | Fine. I'll teach you. Don't make a fuss. Bramble, stop wagging. | chatterbox |
+| `dlg.sbMasterBeastcaller.class.say` | The hero (hero) | sbMasterBeastcaller | What do you teach, exactly? | chatterbox |
+| `dlg.sbMasterBeastcaller.class.1` | Old Rowan Thistlefoot (sbMasterBeastcaller) | sbMasterBeastcaller | You call the wild, and the wild comes. Wolves, a hawk, a bear. Friends, not pets. | chatterbox |
+| `dlg.sbMasterBeastcaller.class.2` | Old Rowan Thistlefoot (sbMasterBeastcaller) | sbMasterBeastcaller | Charisma, so they want to come. Endurance, so you can keep up with them. | chatterbox |
+| `dlg.sbMasterBeastcaller.ready.strong.1` | Old Rowan Thistlefoot (sbMasterBeastcaller) | sbMasterBeastcaller | The whole pack trusts you now. Take what you like. | chatterbox |
+| `dlg.sbMasterBeastcaller.ready.able.1` | Old Rowan Thistlefoot (sbMasterBeastcaller) | sbMasterBeastcaller | The wolves like you. You're ready for the next one. | chatterbox |
+| `dlg.sbMasterBeastcaller.ready.weak.1` | Old Rowan Thistlefoot (sbMasterBeastcaller) | sbMasterBeastcaller | Not yet. They don't trust you. More Charisma, and a lot more patience. | chatterbox |
+| `dlg.sbMasterBeastcaller.who.1` | Old Rowan Thistlefoot (sbMasterBeastcaller) | sbMasterBeastcaller | Found Bramble in a trap years ago. Three legs, all attitude. We've been a pair since. | chatterbox |
+| `dlg.sbMasterBeastcaller.who.2` | Old Rowan Thistlefoot (sbMasterBeastcaller) | sbMasterBeastcaller | I sleep in the stable hayloft. Horses snore less than people. | chatterbox |
+| `dlg.sbMasterBeastcaller.trainBack.1` | Old Rowan Thistlefoot (sbMasterBeastcaller) | sbMasterBeastcaller | Good. Go on, then. And say hello to the crows. They remember. | chatterbox |
+| `dlg.sbMasterBeastcaller.bye.1` | Old Rowan Thistlefoot (sbMasterBeastcaller) | sbMasterBeastcaller | Off you go. Bramble says bye. | chatterbox |
+| `dlg.sbMasterElementalist.hello.1` | Magistra Iris Fourwinds (sbMasterElementalist) | sbMasterElementalist | Hi! One sec, I'm juggling. Fire, frost, spark, stone and... caught them! Hello! | chatterbox |
+| `dlg.sbMasterElementalist.hello.2` | Magistra Iris Fourwinds (sbMasterElementalist) | sbMasterElementalist | Magistra Iris Fourwinds. I teach all four elements. Mixing them is the fun part. | chatterbox |
+| `dlg.sbMasterElementalist.again.1` | Magistra Iris Fourwinds (sbMasterElementalist) | sbMasterElementalist | Back again! Good, I needed someone to watch. Watch this. Ta-da! | chatterbox |
+| `dlg.sbMasterElementalist.train.1` | Magistra Iris Fourwinds (sbMasterElementalist) | sbMasterElementalist | Pick two orbs. Any two. Now let them bump. Gently! See? A reaction! | chatterbox |
+| `dlg.sbMasterElementalist.class.say` | The hero (hero) | sbMasterElementalist | What does an Elementalist do? | chatterbox |
+| `dlg.sbMasterElementalist.class.1` | Magistra Iris Fourwinds (sbMasterElementalist) | sbMasterElementalist | We mix! Frost then fire, it melts. Fire then lightning, boom. Every pair does something. | chatterbox |
+| `dlg.sbMasterElementalist.class.2` | Magistra Iris Fourwinds (sbMasterElementalist) | sbMasterElementalist | Intelligence for every spell. Skill, because the good ones need quick hands. | chatterbox |
+| `dlg.sbMasterElementalist.ready.strong.1` | Magistra Iris Fourwinds (sbMasterElementalist) | sbMasterElementalist | You mix like a master now! Take any lesson. Take two! | chatterbox |
+| `dlg.sbMasterElementalist.ready.able.1` | Magistra Iris Fourwinds (sbMasterElementalist) | sbMasterElementalist | Ooh, nice spark! You're ready for the next one. | chatterbox |
+| `dlg.sbMasterElementalist.ready.weak.1` | Magistra Iris Fourwinds (sbMasterElementalist) | sbMasterElementalist | Not yet! Your elements keep fizzling out. More Intelligence, please. | chatterbox |
+| `dlg.sbMasterElementalist.sleeve.say` | The hero (hero) | sbMasterElementalist | Um, your sleeve is on fire. | chatterbox |
+| `dlg.sbMasterElementalist.sleeve.1` | Magistra Iris Fourwinds (sbMasterElementalist) | sbMasterElementalist | Oh! So it is. Hold on... There. | chatterbox |
+| `dlg.sbMasterElementalist.sleeve.2` | Magistra Iris Fourwinds (sbMasterElementalist) | sbMasterElementalist | Fire, then frost. That was a lesson, actually. You're welcome! | chatterbox |
+| `dlg.sbMasterElementalist.trainBack.1` | Magistra Iris Fourwinds (sbMasterElementalist) | sbMasterElementalist | Brilliant! Now practise outside, please. The curtains are new. | chatterbox |
+| `dlg.sbMasterElementalist.bye.1` | Magistra Iris Fourwinds (sbMasterElementalist) | sbMasterElementalist | Bye! If you smell smoke, it's probably me. Don't worry! | chatterbox |
+| `dlg.sbMasterSoulwarden.hello.1` | Warden Odalys Lanternlight (sbMasterSoulwarden) | sbMasterSoulwarden | Shh, it's all right, they're friendly. Oh, not you. I was talking to the wisps. | chatterbox |
+| `dlg.sbMasterSoulwarden.hello.2` | Warden Odalys Lanternlight (sbMasterSoulwarden) | sbMasterSoulwarden | Warden Odalys Lanternlight. I help lost spirits find their way home. | chatterbox |
+| `dlg.sbMasterSoulwarden.again.1` | Warden Odalys Lanternlight (sbMasterSoulwarden) | sbMasterSoulwarden | Hello again. The wisps remember you. That one's waving. | chatterbox |
+| `dlg.sbMasterSoulwarden.train.1` | Warden Odalys Lanternlight (sbMasterSoulwarden) | sbMasterSoulwarden | Hold the lantern low and speak softly. Lost things come to a kind voice. | chatterbox |
+| `dlg.sbMasterSoulwarden.class.say` | The hero (hero) | sbMasterSoulwarden | What does a Soul Warden do? | chatterbox |
+| `dlg.sbMasterSoulwarden.class.1` | Warden Odalys Lanternlight (sbMasterSoulwarden) | sbMasterSoulwarden | When a foe is beaten, its spirit gets a bit lost. We help it, and it helps us back. | chatterbox |
+| `dlg.sbMasterSoulwarden.class.2` | Warden Odalys Lanternlight (sbMasterSoulwarden) | sbMasterSoulwarden | Intelligence to guide the light. Charisma, so the spirits want to stay a while. | chatterbox |
+| `dlg.sbMasterSoulwarden.ready.strong.1` | Warden Odalys Lanternlight (sbMasterSoulwarden) | sbMasterSoulwarden | Even the shyest spirits come to you now. Take any lesson. | chatterbox |
+| `dlg.sbMasterSoulwarden.ready.able.1` | Warden Odalys Lanternlight (sbMasterSoulwarden) | sbMasterSoulwarden | The wisps trust you. You're ready for the next lesson. | chatterbox |
+| `dlg.sbMasterSoulwarden.ready.weak.1` | Warden Odalys Lanternlight (sbMasterSoulwarden) | sbMasterSoulwarden | Not yet. They're still shy of you. More Intelligence, and a little Charisma. | chatterbox |
+| `dlg.sbMasterSoulwarden.wisps.say` | The hero (hero) | sbMasterSoulwarden | Are the little lights in your lantern alive? | chatterbox |
+| `dlg.sbMasterSoulwarden.wisps.1` | Warden Odalys Lanternlight (sbMasterSoulwarden) | sbMasterSoulwarden | Sort of! They're spirits who wandered off. This one's Fidget. He likes the warm side. | chatterbox |
+| `dlg.sbMasterSoulwarden.wisps.2` | Warden Odalys Lanternlight (sbMasterSoulwarden) | sbMasterSoulwarden | No spirit is ever bad, you know. Only lost. They go home when they're ready. | chatterbox |
+| `dlg.sbMasterSoulwarden.trainBack.1` | Warden Odalys Lanternlight (sbMasterSoulwarden) | sbMasterSoulwarden | Well done. Now let them go gently. They've had a long day. | chatterbox |
+| `dlg.sbMasterSoulwarden.bye.1` | Warden Odalys Lanternlight (sbMasterSoulwarden) | sbMasterSoulwarden | Take care. And if you see a lost little light, say hello. | chatterbox |
+| `dlg.sbMasterIronmonk.hello.1` | Master Oru Stillwater (sbMasterIronmonk) | sbMasterIronmonk | Sit. Breathe. No, you're breathing like you're late for something. Again. | chatterbox |
+| `dlg.sbMasterIronmonk.hello.2` | Master Oru Stillwater (sbMasterIronmonk) | sbMasterIronmonk | Master Oru Stillwater. I teach the open hand. Iron fists, calm heart. | chatterbox |
+| `dlg.sbMasterIronmonk.again.1` | Master Oru Stillwater (sbMasterIronmonk) | sbMasterIronmonk | Ah. The pupil returns. So does the river. Every day. | chatterbox |
+| `dlg.sbMasterIronmonk.train.1` | Master Oru Stillwater (sbMasterIronmonk) | sbMasterIronmonk | Feet like roots, hands like rain. Strike. Again. The hundredth one counts. | chatterbox |
+| `dlg.sbMasterIronmonk.class.say` | The hero (hero) | sbMasterIronmonk | What is an Iron Monk? | chatterbox |
+| `dlg.sbMasterIronmonk.class.1` | Master Oru Stillwater (sbMasterIronmonk) | sbMasterIronmonk | No blade. Hands, feet, breath. Each blow builds the next, until the big one. | chatterbox |
+| `dlg.sbMasterIronmonk.class.2` | Master Oru Stillwater (sbMasterIronmonk) | sbMasterIronmonk | Dexterity for quick hands. Endurance to stay calm while others run out of breath. | chatterbox |
+| `dlg.sbMasterIronmonk.ready.strong.1` | Master Oru Stillwater (sbMasterIronmonk) | sbMasterIronmonk | The pupil becomes the teacher. Don't tell anyone. Take any lesson. | chatterbox |
+| `dlg.sbMasterIronmonk.ready.able.1` | Master Oru Stillwater (sbMasterIronmonk) | sbMasterIronmonk | Good. The cup is filling. Take the next lesson. | chatterbox |
+| `dlg.sbMasterIronmonk.ready.weak.1` | Master Oru Stillwater (sbMasterIronmonk) | sbMasterIronmonk | Not yet. A tree with short roots falls in the wind. More Endurance. | chatterbox |
+| `dlg.sbMasterIronmonk.noodles.say` | The hero (hero) | sbMasterIronmonk | Is that a bowl of noodles? | chatterbox |
+| `dlg.sbMasterIronmonk.noodles.1` | Master Oru Stillwater (sbMasterIronmonk) | sbMasterIronmonk | It is. The broth simmered for two days. Please do not breathe on it. | chatterbox |
+| `dlg.sbMasterIronmonk.noodles.2` | Master Oru Stillwater (sbMasterIronmonk) | sbMasterIronmonk | A good bowl teaches patience. A great bowl teaches everything else. | chatterbox |
+| `dlg.sbMasterIronmonk.trainBack.1` | Master Oru Stillwater (sbMasterIronmonk) | sbMasterIronmonk | Good. Now eat something warm. Strength comes from the bowl. | chatterbox |
+| `dlg.sbMasterIronmonk.bye.1` | Master Oru Stillwater (sbMasterIronmonk) | sbMasterIronmonk | Go well. Walk softly. Kick hard. | chatterbox |
+| `dlg.sbMasterBard.hello.1` | Lark Merriweather (sbMasterBard) | sbMasterBard | Welcome, welcome, come in from the cold! Oh dear, that rhymed. It does that. | chatterbox |
+| `dlg.sbMasterBard.hello.2` | Lark Merriweather (sbMasterBard) | sbMasterBard | Lark Merriweather. I play by the fire and teach the lute to anyone who'll listen. | chatterbox |
+| `dlg.sbMasterBard.again.1` | Lark Merriweather (sbMasterBard) | sbMasterBard | My favourite listener! Pull up a stool. Mind the cat, she's the critic. | chatterbox |
+| `dlg.sbMasterBard.train.1` | Lark Merriweather (sbMasterBard) | sbMasterBard | Strum with me. One, two, and three... Don't watch your fingers. Feel it! | chatterbox |
+| `dlg.sbMasterBard.class.say` | The hero (hero) | sbMasterBard | What does a Bard do? | chatterbox |
+| `dlg.sbMasterBard.class.1` | Lark Merriweather (sbMasterBard) | sbMasterBard | Songs that make your side braver, tunes that put the other side to sleep. | chatterbox |
+| `dlg.sbMasterBard.class.2` | Lark Merriweather (sbMasterBard) | sbMasterBard | Charisma to win the crowd. Skill, so your fingers keep up with your heart. | chatterbox |
+| `dlg.sbMasterBard.ready.strong.1` | Lark Merriweather (sbMasterBard) | sbMasterBard | You'd fill any tavern now! Take every song I've got. | chatterbox |
+| `dlg.sbMasterBard.ready.able.1` | Lark Merriweather (sbMasterBard) | sbMasterBard | Lovely tune! You're ready for the next verse. | chatterbox |
+| `dlg.sbMasterBard.ready.weak.1` | Lark Merriweather (sbMasterBard) | sbMasterBard | Not yet. The crowd's still yawning. More Charisma, my friend. | chatterbox |
+| `dlg.sbMasterBard.story.say` | The hero (hero) | sbMasterBard | Will you tell me a story? | chatterbox |
+| `dlg.sbMasterBard.story.1` | Lark Merriweather (sbMasterBard) | sbMasterBard | Once, a knight crossed this very bridge with nothing but a sword and a song... | chatterbox |
+| `dlg.sbMasterBard.story.2` | Lark Merriweather (sbMasterBard) | sbMasterBard | Hold on, it's better with music. La-la-la, the knight went... Where was I? | chatterbox |
+| `dlg.sbMasterBard.story.3` | Lark Merriweather (sbMasterBard) | sbMasterBard | Oh, never mind. Nice song, though, wasn't it? | chatterbox |
+| `dlg.sbMasterBard.trainBack.1` | Lark Merriweather (sbMasterBard) | sbMasterBard | Bravo! Practise every day. Even when it sounds terrible. Especially then. | chatterbox |
+| `dlg.sbMasterBard.bye.1` | Lark Merriweather (sbMasterBard) | sbMasterBard | Farewell, and fare thee well! Oops. Rhymed again. Bye! | chatterbox |
 | `dlg.quest.goblinKing.ask.1` | The Goblin King (goblinKing) | quest.goblinKing | Stop. Please. I yield. | chatterbox |
 | `dlg.quest.goblinKing.ask.2` | The Goblin King (goblinKing) | quest.goblinKing | My people raid because they are hungry. That is the truth. | chatterbox |
 | `dlg.quest.goblinKing.ask.3` | The Goblin King (goblinKing) | quest.goblinKing | Let us make a deal instead. Your kind and mine. | chatterbox |
@@ -1068,6 +1228,30 @@ Nothing: every line has its recording.
 | `dlg.sbMasterChrono.keeper.say__f` | The girl hero (heroine) | sbMasterChrono | How do you know the Keeper of Hours? | chatterbox |
 | `dlg.sbMasterBlood.class.say__f` | The girl hero (heroine) | sbMasterBlood | What is a Blood Alchemist, really? | chatterbox |
 | `dlg.sbMasterBlood.herbs.say__f` | The girl hero (heroine) | sbMasterBlood | What are all these herbs for? | chatterbox |
+| `dlg.sbMasterWindrunner.favor.say__f` | The girl hero (heroine) | sbMasterWindrunner | Do you teach archery? | chatterbox |
+| `dlg.sbMasterWindrunner.waiting.say__f` | The girl hero (heroine) | sbMasterWindrunner | About your test... | chatterbox |
+| `dlg.sbMasterWindrunner.favorDone.say__f` | The girl hero (heroine) | sbMasterWindrunner | The archers are beaten, and here are your swiftferns. | chatterbox |
+| `dlg.sbMasterWindrunner.class.say__f` | The girl hero (heroine) | sbMasterWindrunner | What does a Windrunner do? | chatterbox |
+| `dlg.sbMasterFrostwarden.favor.say__f` | The girl hero (heroine) | sbMasterFrostwarden | Is that sword made of ice? | chatterbox |
+| `dlg.sbMasterFrostwarden.waiting.say__f` | The girl hero (heroine) | sbMasterFrostwarden | About your test... | chatterbox |
+| `dlg.sbMasterFrostwarden.favorDone.say__f` | The girl hero (heroine) | sbMasterFrostwarden | The fire elementals are out. Here is your frostmint. | chatterbox |
+| `dlg.sbMasterFrostwarden.class.say__f` | The girl hero (heroine) | sbMasterFrostwarden | What is a Frostwarden? | chatterbox |
+| `dlg.sbMasterLightbringer.favor.say__f` | The girl hero (heroine) | sbMasterLightbringer | Is that lamp magic? | chatterbox |
+| `dlg.sbMasterLightbringer.waiting.say__f` | The girl hero (heroine) | sbMasterLightbringer | About your test... | chatterbox |
+| `dlg.sbMasterLightbringer.favorDone.say__f` | The girl hero (heroine) | sbMasterLightbringer | The cultists are beaten. Here are your sunpetals. | chatterbox |
+| `dlg.sbMasterLightbringer.class.say__f` | The girl hero (heroine) | sbMasterLightbringer | What does a Lightbringer do? | chatterbox |
+| `dlg.sbMasterBeastcaller.favor.say__f` | The girl hero (heroine) | sbMasterBeastcaller | Can you talk to animals? | chatterbox |
+| `dlg.sbMasterBeastcaller.waiting.say__f` | The girl hero (heroine) | sbMasterBeastcaller | About your test... | chatterbox |
+| `dlg.sbMasterBeastcaller.favorDone.say__f` | The girl hero (heroine) | sbMasterBeastcaller | The trails are clear, and here are your moonbells. | chatterbox |
+| `dlg.sbMasterBeastcaller.class.say__f` | The girl hero (heroine) | sbMasterBeastcaller | What do you teach, exactly? | chatterbox |
+| `dlg.sbMasterElementalist.class.say__f` | The girl hero (heroine) | sbMasterElementalist | What does an Elementalist do? | chatterbox |
+| `dlg.sbMasterElementalist.sleeve.say__f` | The girl hero (heroine) | sbMasterElementalist | Um, your sleeve is on fire. | chatterbox |
+| `dlg.sbMasterSoulwarden.class.say__f` | The girl hero (heroine) | sbMasterSoulwarden | What does a Soul Warden do? | chatterbox |
+| `dlg.sbMasterSoulwarden.wisps.say__f` | The girl hero (heroine) | sbMasterSoulwarden | Are the little lights in your lantern alive? | chatterbox |
+| `dlg.sbMasterIronmonk.class.say__f` | The girl hero (heroine) | sbMasterIronmonk | What is an Iron Monk? | chatterbox |
+| `dlg.sbMasterIronmonk.noodles.say__f` | The girl hero (heroine) | sbMasterIronmonk | Is that a bowl of noodles? | chatterbox |
+| `dlg.sbMasterBard.class.say__f` | The girl hero (heroine) | sbMasterBard | What does a Bard do? | chatterbox |
+| `dlg.sbMasterBard.story.say__f` | The girl hero (heroine) | sbMasterBard | Will you tell me a story? | chatterbox |
 | `dlg.quest.goblinKing.slay.say__f` | The girl hero (heroine) | quest.goblinKing | No deals. Your raids end here. | chatterbox |
 | `dlg.quest.goblinKing.slay.1__f` | The girl hero, telling the story (heroine) | quest.goblinKing | The Goblin King falls, and the Hollows empty. | chatterbox |
 | `dlg.quest.goblinKing.slay.2__f` | The girl hero, telling the story (heroine) | quest.goblinKing | Sunford sleeps easier, and the Iron Order hears your name. | chatterbox |

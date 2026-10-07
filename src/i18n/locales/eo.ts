@@ -95,7 +95,8 @@ export default {
     elixirSwift: 'Rapideco',
     elixirMind: 'Klara Menso',
     elixirVigor: 'Vigleco',
-    elixirShadow: 'Soifa Klingo'
+    elixirShadow: 'Soifa Klingo',
+    chi: 'Vivenergio'
   },
   toast: {
     item: 'Trovita: {item}',
@@ -859,6 +860,390 @@ export default {
     crumble: {
       name: 'Disfalo',
       desc: 'Vi faras {dmg}% pli da damaĝo al malamikoj malrapidigitaj, faligitaj aŭ ŝtonigitaj.'
+    },
+    galeArrow: {
+      name: 'Ventega Sago',
+      desc: 'Sago portata de ventblovo: {dmg}% da Lerto-damaĝo, kaj la celo estas puŝita malantaŭen.'
+    },
+    fleetfoot: {
+      name: 'Rapidpiedo',
+      desc: '+{move}% da movrapido kaj +{dodge}% da Evito.'
+    },
+    zephyrDash: {
+      name: 'Zefira Ĵeto',
+      desc: 'Ĵetu vin ĝis {dist} m kien vi celas, poste kuru {move}% pli rapide dum {dur}s.'
+    },
+    piercingGale: {
+      name: 'Trapika Ventego',
+      desc: 'Sago, kiu trapasas ĉiun malamikon en linio: {dmg}% da Lerto-damaĝo kaj {slow}% da malrapidigo dum {dur}s.'
+    },
+    cycloneSnare: {
+      name: 'Ciklona Kaptilo',
+      desc: 'Kirlvento dum {dur}s tiras malamikojn al sia okulo kaj faras {dmg}% da Majstreco-damaĝo.'
+    },
+    keenEye: {
+      name: 'Akra Okulo',
+      desc: '+{critDmg}% da Kritika Damaĝo. Viaj pafoj trapasas {pierce} kroman malamikon.'
+    },
+    updraftLeap: {
+      name: 'Suprenventa Salto',
+      desc: 'Ventblovo ĵetas malamikojn ene de {radius} m en la aeron por {dmg}% da Lerto-damaĝo. Vi saltas {leap} m for.'
+    },
+    swiftDraw: {
+      name: 'Rapida Streĉo',
+      desc: 'Vi atakas {speed}% pli rapide, kaj viaj reŝargoj estas {cdr}% pli mallongaj.'
+    },
+    arrowStorm: {
+      name: 'Sagoŝtormo',
+      desc: 'Sagoj pluvas sur la areon dum {dur}s: entute {dmg}% da Majstreco-damaĝo, kaj {slow}% da malrapidigo.'
+    },
+    galeSpirits: {
+      name: 'Ventospiritoj',
+      desc: 'Ventospiritoj flugas kun vi dum {dur}s kaj pafas {shots} sagojn de {dmg}% da Majstreco-damaĝo. +{move}% da movrapido.'
+    },
+    skyHunter: {
+      name: 'Ĉielĉasisto',
+      desc: '+{boss}% da damaĝo al estroj kaj +{crit}% da Kritika Ŝanco.'
+    },
+    skyrender: {
+      name: 'Ĉielŝiranto',
+      desc: 'Ŝtormsago ŝiras vojon: {dmg}% da Lerto-damaĝo al ĉiuj en la linio, ĵetitaj supren kaj flanken.'
+    },
+    frostCleave: {
+      name: 'Frosta Fendobato',
+      desc: 'Svingu vian glacian klingon antaŭ vi: {dmg}% da Forto-damaĝo kaj {slow}% da malrapidigo dum {dur}s.'
+    },
+    rimeLance: {
+      name: 'Prujna Lanco',
+      desc: 'Ĵetu glacian lancon por {dmg}% da Inteligento-damaĝo. Ĝi malrapidigas je {slow}% dum {dur}s.'
+    },
+    wintersBite: {
+      name: 'Vintra Mordo',
+      desc: 'Viaj atakoj malrapidigas la malamikon je {slow}% dum {dur}s.'
+    },
+    frostArmor: {
+      name: 'Frosta Kiraso',
+      desc: 'Glacia kiraso sorbas {shield}% da Inteligento-damaĝo dum {dur}s. Malamikoj apud vi malrapidiĝas je {slow}%.'
+    },
+    glacialCharge: {
+      name: 'Glacia Sturmo',
+      desc: 'Sturmu al la celo por {dmg}% da Forto-damaĝo kaj frostigu ĝin dum {freeze}s.'
+    },
+    frozenHeart: {
+      name: 'Frosta Koro',
+      desc: '+{hp}% da Maksimuma Sano, kaj ĉiu damaĝo, kiun vi ricevas, malpliiĝas je {reduce}%.'
+    },
+    rimeField: {
+      name: 'Prujna Kampo',
+      desc: 'Frostiga grundo dum {dur}s: {dmg}% da Inteligento-damaĝo. Malvarmigitaj malamikoj en ĝi frostiĝas dum {freeze}s.'
+    },
+    frostShatter: {
+      name: 'Frosta Frakaso',
+      desc: '{dmg}% da Forto-damaĝo ene de {radius} m: +{chilled}% al malrapidigitaj malamikoj, +{frozen}% al frostigitaj.'
+    },
+    shatterpoint: {
+      name: 'Rompopunkto',
+      desc: 'Vi faras {bonus}% pli da damaĝo al malrapidigitaj kaj frostigitaj malamikoj.'
+    },
+    avalancheLeap: {
+      name: 'Lavanga Salto',
+      desc: 'Saltu kien vi celas kaj surteriĝu kiel lavango: {dmg}% da Forto-damaĝo, faligante malamikojn.'
+    },
+    iceborn: {
+      name: 'Glacinaskito',
+      desc: 'Nenio puŝas aŭ ĵetas vin. Stuporoj sur vi estas {cut}% pli mallongaj.'
+    },
+    absoluteZero: {
+      name: 'Absoluta Nulo',
+      desc: 'Vintro eksplodas el vi: {dmg}% da Inteligento-damaĝo ene de {radius} m, frostigante ĉiujn dum {freeze}s.'
+    },
+    sunbolt: {
+      name: 'Sunradio',
+      desc: 'Fulmo de sunlumo por {dmg}% da Inteligento-damaĝo. La blindumita celo faras {weaken}% malpli dum {dur}s.'
+    },
+    mendingLight: {
+      name: 'Saniga Lumo',
+      desc: 'Sanigu {heal}% da Karismo tuj, poste {regen}% de via sano ĉiun sekundon dum {dur}s.'
+    },
+    kindledHope: {
+      name: 'Ekbrulinta Espero',
+      desc: 'Ĉiu saniĝo, kiun vi ricevas, estas {heal}% pli forta.'
+    },
+    lanceOfLight: {
+      name: 'Lanco de Lumo',
+      desc: 'Lumradio: {dmg}% da Inteligento-damaĝo en linio. Sanigu {heal}% da sano por ĉiu trafita malamiko.'
+    },
+    dawnShield: {
+      name: 'Aŭrora Ŝildo',
+      desc: 'Forigu ĉiun malbonan efikon de vi kaj gajnu ŝildon de {shield}% da Karismo dum {dur}s.'
+    },
+    haloWard: {
+      name: 'Aŭreola Ŝirmo',
+      desc: 'Ĉiu damaĝo, kiun vi ricevas, malpliiĝas je {reduce}%.'
+    },
+    dawnSanctuary: {
+      name: 'Aŭrora Sanktejo',
+      desc: 'Sankta grundo dum {dur}s: sanigas vin je {heal}% da Karismo ĉiusekunde, kaj malamikoj ricevas {dmg}% da Inteligento.'
+    },
+    blindingFlash: {
+      name: 'Blindiga Ekbrilo',
+      desc: 'Ekbrilo: malamikoj ene de {radius} m fuĝas dum {fear}s kaj faras {weaken}% malpli dum {dur}s.'
+    },
+    guardianLight: {
+      name: 'Gardanta Lumo',
+      desc: 'Bato, kiu venkus vin, lasas vin kun 1 sano, netuŝebla dum {dur}s. Unufoje en {icd}s.'
+    },
+    sunfall: {
+      name: 'Sunfalo',
+      desc: 'Kolono de sunlumo falas sur la celon: {dmg}% da Inteligento-damaĝo. Malamikoj ricevas {vuln}% pli dum {dur}s.'
+    },
+    searingLight: {
+      name: 'Brulanta Lumo',
+      desc: '+{crit}% da Kritika Sorĉoŝanco kaj +{critDmg}% da Kritika Damaĝo.'
+    },
+    haloOfDawn: {
+      name: 'Aŭreolo de Aŭroro',
+      desc: 'Brilu dum {dur}s: ĉiun sekundon {dmg}% da Inteligento-damaĝo ene de {radius} m, kaj sanigu {heal}% da sano.'
+    },
+    callWolf: {
+      name: 'Voki Lupon',
+      desc: 'Spirita lupo aliĝas al vi kaj mordas por {dmg}% da Karismo-damaĝo. Ĝis {max} samtempe.'
+    },
+    wolfPounce: {
+      name: 'Lupa Atako',
+      desc: 'Viaj lupoj saltas sur la celon: po {dmg}% da Karismo-damaĝo, faligante ĝin dum {down}s.'
+    },
+    wildKinship: {
+      name: 'Sovaĝa Parenceco',
+      desc: 'Viaj kunuloj havas {hp}% pli da sano kaj faras {dmg}% pli da damaĝo.'
+    },
+    callHawk: {
+      name: 'Voki Akcipitron',
+      desc: 'Akcipitro plonĝas sur la celon por {dmg}% da Karismo-damaĝo: ĝi ricevas {vuln}% pli dum {dur}s. Restas {life}s.'
+    },
+    callBear: {
+      name: 'Voki Urson',
+      desc: 'Spirita urso aliĝas al vi. Ĝi batas por {dmg}% da damaĝo kaj okupas malamikojn. Ĝis {max}.'
+    },
+    thickHide: {
+      name: 'Dika Felo',
+      desc: '+{hp}% da Maksimuma Sano kaj +{regen} da sanregenerado ĉiusekunde.'
+    },
+    packBond: {
+      name: 'Aroligo',
+      desc: 'Vi kaj kunuloj ene de {radius} m regeneras {regen}% da sano ĉiusekunde kaj gajnas {def}% da Defendo dum {dur}s.'
+    },
+    spiritStampede: {
+      name: 'Spirita Galopo',
+      desc: 'Grego de spiritaj bestoj sturmas: {dmg}% da Karismo-damaĝo en linio, faligante malamikojn.'
+    },
+    packTactics: {
+      name: 'Ara Taktiko',
+      desc: 'Vi faras {bonus}% pli da damaĝo por ĉiu kunulo kun vi, ĝis {max}.'
+    },
+    alphaHowl: {
+      name: 'Alfa Hurlo',
+      desc: 'Viaj kunuloj saniĝas je {heal}% kaj batalas {rage}% pli forte dum {dur}s. Malamikoj apud vi fuĝas.'
+    },
+    leaderOfThePack: {
+      name: 'Estro de la Aro',
+      desc: 'Viaj kunuloj atakas {speed}% pli rapide kaj faras {dmg}% pli da damaĝo.'
+    },
+    wildHunt: {
+      name: 'Sovaĝa Ĉaso',
+      desc: '{wolves} pliaj lupoj kuras kun vi dum {dur}s. La tuta aro faras +{dmg}% da damaĝo kaj moviĝas {move}% pli rapide.'
+    },
+    prismBolt: {
+      name: 'Prisma Fulmo',
+      desc: 'Fulmo por {dmg}% da Inteligento-damaĝo: frosto, se la celo brulas, alie fajro. Ĉiu ekigas la alian.'
+    },
+    elementalHarmony: {
+      name: 'Elementa Harmonio',
+      desc: 'Viaj reakcioj (Fando, Vaporo, Frakaso, Troŝarĝo, Kristaliĝo) estas {pct}% pli fortaj.'
+    },
+    frostLance: {
+      name: 'Frosta Lanco',
+      desc: 'Glacio tra linio: {dmg}% da Inteligento-damaĝo kaj {slow}% da malrapidigo dum {dur}s. Brulantaj malamikoj Vaporas.'
+    },
+    chainSpark: {
+      name: 'Ĉena Fajrero',
+      desc: 'Fulmo por {dmg}% da Inteligento, kiu saltas al {jumps} pliaj malamikoj. Frakasas glacion, Troŝarĝas fajron.'
+    },
+    smolderingCore: {
+      name: 'Ardanta Kerno',
+      desc: 'Viaj bruloj faras {burn}% pli da damaĝo, kaj vi havas {mana} pli da manao.'
+    },
+    rollingBoulder: {
+      name: 'Ruliĝanta Rokego',
+      desc: 'Rokego ruliĝas: {dmg}% da Inteligento-damaĝo, faligo dum {down}s. Markitaj malamikoj donas al vi ŝildon.'
+    },
+    thunderSnow: {
+      name: 'Tondroneĝo',
+      desc: 'Neĝoŝtormo dum {dur}s: {dmg}% da Inteligento-frostodamaĝo, kaj fulmo ĉiusekunde por {bolt}%.'
+    },
+    spellweave: {
+      name: 'Sorĉteksado',
+      desc: '+{crit}% da Kritika Sorĉoŝanco, kaj viaj kapabloj kostas {mana}% malpli da manao.'
+    },
+    prismaticNova: {
+      name: 'Prisma Novao',
+      desc: 'Trafu ĉion ene de {radius} m por {dmg}% da Inteligento, ĉiun per la elemento, al kiu ĝi reagas.'
+    },
+    prismaticWard: {
+      name: 'Prisma Ŝirmo',
+      desc: 'Vi ricevas {reduce}% malpli da damaĝo kaj havas {hp}% pli da sano.'
+    },
+    frostfireComet: {
+      name: 'Frostfajra Kometo',
+      desc: 'Kometo de fajro kaj glacio: {dmg}% da Inteligento-damaĝo. Malamikoj restas brulantaj kaj malrapidigitaj.'
+    },
+    elementalConvergence: {
+      name: 'Elementa Konverĝo',
+      desc: 'Dum {dur}s kvar elementoj alternas: {strikes} batoj de {dmg}% da Inteligento, kiuj ekigas unu la alian.'
+    },
+    wispBolt: {
+      name: 'Erarlumeta Fulmo',
+      desc: 'Erarlumeto por {dmg}% da Inteligento-damaĝo. Malamiko, kiun ĝi venkas, leviĝas kiel via spirito dum {life}s.'
+    },
+    kindredSpirits: {
+      name: 'Parencaj Spiritoj',
+      desc: 'Viaj spiritoj kaj servantoj havas {hp}% pli da sano kaj atakas {speed}% pli rapide.'
+    },
+    callTheFallen: {
+      name: 'Voki la Falintojn',
+      desc: 'Ĝis {max} malamikoj, kiuj ĵus falis ene de {radius} m, leviĝas kiel viaj spiritoj dum {life}s.'
+    },
+    soulBond: {
+      name: 'Animligo',
+      desc: 'Amikigu malamikon: {chance}% ({low}% se vundita), ke ĝi aliĝas kiel spirito dum {life}s. Alie {dmg}% da damaĝo.'
+    },
+    restlessSouls: {
+      name: 'Senripozaj Animoj',
+      desc: 'Malamiko, kiun vi venkas, havas {chance}% da ŝanco leviĝi kiel via spirito dum {life}s.'
+    },
+    spiritLantern: {
+      name: 'Spirita Lanterno',
+      desc: 'Lanterno dum {dur}s: malamikoj en ĝia lumo ricevas {dmg}% da Inteligento, amikoj saniĝas, falintoj leviĝas.'
+    },
+    hauntingWail: {
+      name: 'Fantoma Ululo',
+      desc: 'Fantoma BU: {dmg}% da Inteligento-damaĝo ene de {radius} m, kaj malamikoj forkuras dum {fear}s.'
+    },
+    wardensVigil: {
+      name: 'Gardista Vigilo',
+      desc: 'Viaj spiritoj kaj servantoj faras {dmg}% pli da damaĝo, kaj vi ricevas {reduce}% malpli.'
+    },
+    releaseSouls: {
+      name: 'Liberigi Animojn',
+      desc: 'Viaj spiritoj iras hejmen per lumeksplodoj: po {dmg}% da Inteligento ĉirkaŭe, po {heal}% da sano reen.'
+    },
+    lanternKeeper: {
+      name: 'Lanternisto',
+      desc: '{cdr}% pli mallongaj reŝargoj, kaj viaj kapabloj kostas {mana}% malpli da manao.'
+    },
+    wispSwarm: {
+      name: 'Erarlumeta Svarmo',
+      desc: '{wisps} erarlumetoj plonĝas al malamikoj en la areo por entute {dmg}% da Inteligento. Kiujn ili venkas, tiuj leviĝas.'
+    },
+    processionOfSouls: {
+      name: 'Procesio de Animoj',
+      desc: 'Dum {dur}s ĉiu malamiko, kiu falas apud vi, leviĝas kiel via spirito, kaj spiritoj faras {atk}% pli.'
+    },
+    palmStrike: {
+      name: 'Polmobato',
+      desc: 'Rapida polmobato por {dmg}% da Lerto-damaĝo, kiu puŝas la malamikon malantaŭen. Kolektas {chi} da vivenergio.'
+    },
+    ironBody: {
+      name: 'Fera Korpo',
+      desc: 'Ricevata fizika damaĝo malpliiĝas je {reduce}%, kaj vi havas {hp}% pli da sano.'
+    },
+    flyingKick: {
+      name: 'Fluga Piedbato',
+      desc: 'Flugu al la celo kaj piedbatu por {dmg}% da Lerto-damaĝo; malamikoj survoje ricevas {path}%. Kolektas {chi} da vivenergio.'
+    },
+    tigerStance: {
+      name: 'Tigra Pozicio',
+      desc: 'Dum {dur}s: +{dmg}% da damaĝo kaj +{speed}% da atakrapido. Finas la Gruan Pozicion.'
+    },
+    craneStance: {
+      name: 'Grua Pozicio',
+      desc: 'Dum {dur}s: +{def}% da Defendo, kaj vi saniĝas je {regen}% de via sano ĉiusekunde. Finas la Tigran Pozicion.'
+    },
+    flowingFists: {
+      name: 'Fluantaj Pugnoj',
+      desc: 'Viaj atakoj havas {chance}% da ŝanco kolekti vivenergion.'
+    },
+    hundredFists: {
+      name: 'Cent Pugnoj',
+      desc: 'Hajlo de {hits} batoj por entute {dmg}% da Lerto-damaĝo. Kolektas {chi} da vivenergio.'
+    },
+    risingDragon: {
+      name: 'Leviĝanta Drako',
+      desc: 'Elspezu ĉiun vivenergion por suprenbato: {dmg}% da Lerto-damaĝo, +{per}% po unuo. La malamiko flugas supren.'
+    },
+    cranesGrace: {
+      name: 'Grua Gracio',
+      desc: '+{dodge}% da Evito, kaj stuporoj kaj faligoj sur vi estas {cut}% pli mallongaj.'
+    },
+    whirlwindKick: {
+      name: 'Kirlventa Piedbato',
+      desc: 'Piedbatu ĉion ene de {radius} m dufoje por entute {dmg}% da Lerto-damaĝo. Kolektas ĝis {chi} da vivenergio.'
+    },
+    tigersFury: {
+      name: 'Tigra Furiozo',
+      desc: '+{crit}% da Kritika Ŝanco kaj +{speed}% da atakrapido.'
+    },
+    mountainPalm: {
+      name: 'Monta Polmo',
+      desc: 'Elspezu ĉiun vivenergion: giganta polmo falas por {dmg}% da Lerto-damaĝo, +{per}% po unuo, kaj faligas malamikojn.'
+    },
+    sharpNote: {
+      name: 'Akra Noto',
+      desc: 'Akra noto por {dmg}% da Karismo-damaĝo. La malamiko faras {weaken}% malpli da damaĝo dum {dur}s.'
+    },
+    stagePresence: {
+      name: 'Scenĉeesto',
+      desc: 'Viaj kapabloj kostas {mana}% malpli da manao, kaj vi moviĝas {move}% pli rapide.'
+    },
+    marchingSong: {
+      name: 'Marŝkanto',
+      desc: 'Kanto dum {dur}s: vi kaj aliancanoj ene de {radius} m moviĝas {move}% kaj atakas {speed}% pli rapide.'
+    },
+    lullaby: {
+      name: 'Lulkanto',
+      desc: 'Milda melodio en konuso: ĉiu malamiko, kiun ĝi atingas, ekdormas dum {dur}s.'
+    },
+    longRefrain: {
+      name: 'Longa Refreno',
+      desc: 'Viaj kantoj daŭras {pct}% pli longe.'
+    },
+    balladOfValor: {
+      name: 'Balado de Kuraĝo',
+      desc: 'Kanto dum {dur}s: vi kaj aliancanoj ene de {radius} m faras {dmg}% pli da damaĝo kaj gajnas {def}% da Defendo.'
+    },
+    charmingSerenade: {
+      name: 'Ĉarma Serenado',
+      desc: 'Ĉarmu la celon kaj malamikojn ene de {radius} m: dum {dur}s ili batalas inter si.'
+    },
+    virtuoso: {
+      name: 'Virtuozo',
+      desc: '{cdr}% pli mallongaj reŝargoj kaj +{critDmg}% da Kritika Damaĝo.'
+    },
+    hymnOfMending: {
+      name: 'Himno de Sanigo',
+      desc: 'Forigas malbonajn efikojn, poste dum {dur}s vi kaj aliancanoj ene de {radius} m saniĝas je {regen}% ĉiusekunde.'
+    },
+    crescendo: {
+      name: 'Kreskendo',
+      desc: 'Sonbato ene de {radius} m: {dmg}% da Karismo-damaĝo, +{per}% por ĉiu kanto, kiun vi ludas.'
+    },
+    standingOvation: {
+      name: 'Stara Ovacio',
+      desc: '+{dmg}% da damaĝo, kaj vi ricevas {reduce}% malpli da damaĝo.'
+    },
+    grandFinale: {
+      name: 'Granda Finalo',
+      desc: 'Ludu ĉion dum {dur}s (+{buff}% da rapido, damaĝo, Defendo), poste lasta akordo: {dmg}% da Karismo, malamikoj ĉarmitaj.'
     }
   },
   slot: {
@@ -1371,6 +1756,30 @@ export default {
     sbFence: {
       name: 'Mirela Thorne',
       talk: 'Bona kiraso, sen demandoj. Nu, kun tre malmultaj demandoj.'
+    },
+    sbMasterWindrunner: {
+      name: 'Sefa Ventoflugilo'
+    },
+    sbMasterFrostwarden: {
+      name: 'Halvard Prujnokoro'
+    },
+    sbMasterLightbringer: {
+      name: 'Fratino Auriel Aŭrorlago'
+    },
+    sbMasterBeastcaller: {
+      name: 'Maljuna Rowan Kardopiedo'
+    },
+    sbMasterElementalist: {
+      name: 'Magistra Iris Kvarventoj'
+    },
+    sbMasterSoulwarden: {
+      name: 'Gardistino Odalys Lanternlumo'
+    },
+    sbMasterIronmonk: {
+      name: 'Majstro Oru Kvietakvo'
+    },
+    sbMasterBard: {
+      name: 'Lark Gajvetero'
     }
   },
   quest: {
@@ -3655,6 +4064,382 @@ export default {
       },
       bye: {
         '1': 'Gardu vian monujon. Ne ĉiuj ĉi tie estas tiel honestaj kiel mi.'
+      }
+    },
+    sbMasterWindrunner: {
+      hello: {
+        '1': 'Ho, saluton! Pardonu, mi ne povas halti. Mi atendas, ke la vento turniĝu. Ĉiun momenton nun.',
+        '2': 'Sefa Ventoflugilo. Mi pafas sagojn kaj ĉasas la venton. Kutime la vento venkas.'
+      },
+      open: {
+        '1': 'Jen mia kuranto! Ĉu preta? Kompreneble jes. Ek, ek!'
+      },
+      again: {
+        '1': 'Saluton denove! Mi ankoraŭ estas ĉi tie. Nu, plejparte. Miaj piedoj ĉiam forvagas.'
+      },
+      train: {
+        '1': 'Ĉu vi sentas la venton sur la vango? Celu iom maldekstren de kie vi pensas. Nun lasu!'
+      },
+      favor: {
+        '1': 'Nur al tiuj, kiuj povas sekvi min. Ĉu vi povas? Ni eltrovu.',
+        '2': 'Venku dek du banditajn pafarkistojn en la Ĉirkaŭaĵo de Oakhaven, poste alportu al mi tri rapidfilikojn.',
+        say: 'Ĉu vi instruas arkpafadon?'
+      },
+      waiting: {
+        '1': 'Dek du banditaj pafarkistoj, tri rapidfilikoj. Ek! Mi estos ĝuste ĉi tie. Saltetante.',
+        say: 'Pri via provo...'
+      },
+      favorDone: {
+        '1': 'Ha! Vi vere sukcesis sekvi min! Neniu sukcesas!',
+        '2': 'Bone, nun vi estas mia lernanto. Unu regulo: neniu sidas dum miaj lecionoj.',
+        say: 'La pafarkistoj estas venkitaj, kaj jen viaj rapidfilikoj.'
+      },
+      class: {
+        '1': 'Pafi, kuri, denove pafi. Se ili kaptas vin, vi staris senmove tro longe.',
+        '2': 'Lerton por rapidaj piedoj kaj rapida arko. Majstrecon, por ke ĉiu sago trafu.',
+        say: 'Kion faras Ventkuranto?'
+      },
+      ready: {
+        strong: {
+          '1': 'Nun vi estas rapida kiel la vento. Nu, preskaŭ. Prenu kiun ajn lecionon vi volas!'
+        },
+        able: {
+          '1': 'Malpezaj piedoj! Vi pretas por la sekva. Ek, ek!'
+        },
+        weak: {
+          '1': 'Ankoraŭ ne. Vi kuras, kvazaŭ vi portus sofon. Pli da Lerto, mi petas.'
+        }
+      },
+      who: {
+        '1': 'Mi loĝas supre en la malnova ventmuelejo ĉe la rivero. La plej bona vido de la vento en la urbo.',
+        '2': 'Ducent ŝtupoj ĝis la supro. Bonega ekzercado. Mi kalkulis ĉiun.'
+      },
+      trainBack: {
+        '1': 'Bone! Nun kuru hejmen. Ne iru. Kurado validas kiel ekzercado.'
+      },
+      bye: {
+        '1': 'Ĝis! Atentu malaltajn branĉojn. Mi neniam atentas.'
+      }
+    },
+    sbMasterFrostwarden: {
+      hello: {
+        '1': 'Hm. Vi preteriris min trifoje. Ĉu perdita, aŭ scivolema?',
+        '2': 'Halvard Prujnokoro. Mi venis suden el la neĝo. Estas varme ĉi tie. Tro varme.'
+      },
+      open: {
+        '1': 'Lernanto. Bone. La glacio pretas, kaj ankaŭ mi.'
+      },
+      again: {
+        '1': 'Denove vi. Bone. Mi ne parolas multe. Restu tamen.'
+      },
+      train: {
+        '1': 'Elspiru malrapide. Ĉu vi vidas la nebuleton? Nun metu ĝin en la klingon.'
+      },
+      favor: {
+        '1': 'Jes. Mi instruas ĝin nur al tiuj, kiuj restas trankvilaj en varma loko.',
+        '2': 'Estingu dek fajrajn elementulojn en la Cindraj Rokegoj. Poste alportu al mi tri branĉetojn de frostmento.',
+        say: 'Ĉu tiu glavo estas el glacio?'
+      },
+      waiting: {
+        '1': 'Dek fajraj elementuloj. Tri branĉetoj de frostmento. Ne hastu. Sed ne tro malrapidu.',
+        say: 'Pri via provo...'
+      },
+      favorDone: {
+        '1': 'Hm. Eĉ ne bruldifektita. Bone.',
+        '2': 'Vi restis trankvila. Tio estis la unua leciono. Mi instruos al vi la ceteron.',
+        say: 'La fajraj elementuloj estas estingitaj. Jen via frostmento.'
+      },
+      class: {
+        '1': 'Kavaliro de la malvarmo. Malvarmigu ilin, frostigu ilin, poste rompu la glacion.',
+        '2': 'Forton por la klingo. Inteligenton por la frosto. Vi bezonas ambaŭ.',
+        say: 'Kio estas Frostgardisto?'
+      },
+      ready: {
+        strong: {
+          '1': 'Nun vi estas malvarma kiel la nordo. Prenu kiun ajn lecionon.'
+        },
+        able: {
+          '1': 'Bone. Stabile. La sekva leciono estas via.'
+        },
+        weak: {
+          '1': 'Ankoraŭ ne. Via frosto degelas tro rapide. Pli da Inteligento, kaj pli da Forto.'
+        }
+      },
+      who: {
+        '1': 'Mi gardis montopasejon en la nordo. Poste mi volis vidi riveron, kiu ne frostiĝas.'
+      },
+      trainBack: {
+        '1': 'Bone. Nun ripozu. Glacio ne hastas. Nek vi hastu.'
+      },
+      bye: {
+        '1': 'Iru bone. Restu malvarmeta.'
+      }
+    },
+    sbMasterLightbringer: {
+      hello: {
+        '1': 'Mm-hm-hmm... Ho! Pardonu, kara, mi zumkantis. Ĉu mi zumis al vi? Mi faras tion.',
+        '2': 'Fratino Auriel Aŭrorlago. Mi tenas brulanta la lampeton ĉe la fino de la ponto.'
+      },
+      open: {
+        '1': 'Jen mia brilulo! Venu kaj staru momenton en la lumo. Vi meritas ĝin.'
+      },
+      again: {
+        '1': 'Saluton denove! Ankoraŭ ĉi tie, ankoraŭ zumkantante. La lampo ŝatas kompanion.'
+      },
+      train: {
+        '1': 'Manojn malfermitaj, mentonon supren. Pensu pri la plej bela mateno, kiun vi iam havis. Jen. Ĉu vi sentas?'
+      },
+      favor: {
+        '1': 'Ĉiu havas iom da lumo interne. Mi instruas homojn ellasi ĝin, kiam ili pretas.',
+        '2': 'Venku dek kultanojn en la Cindraj Rokegoj, poste alportu al mi kvin sunpetalojn por mia lampo.',
+        say: 'Ĉu tiu lampo estas magia?'
+      },
+      waiting: {
+        '1': 'Dek kultanoj, kvin sunpetaloj. Venku ilin milde. Ĉiu meritas duan ŝancon.',
+        say: 'Pri via provo...'
+      },
+      favorDone: {
+        '1': 'Ho, rigardu ilin! La lampo brilos orkolore dum monato.',
+        '2': 'Kaj ankaŭ vi, kara. Mi volonte instruos vin.',
+        say: 'La kultanoj estas venkitaj. Jen viaj sunpetaloj.'
+      },
+      class: {
+        '1': 'Ni portas la aŭroron. Lumo por batali, lumo por sanigi, lumo por ŝirmiĝi malantaŭ ĝi.',
+        '2': 'Inteligento fortigas la lumon. Karismo varmigas ĝin. Vi volos ambaŭ.',
+        say: 'Kion faras Lumportanto?'
+      },
+      ready: {
+        strong: {
+          '1': 'Vi brilas kiel sunleviĝo, kara. Prenu kiun ajn lecionon vi volas.'
+        },
+        able: {
+          '1': 'Bele brilanta! Vi pretas por la sekva.'
+        },
+        weak: {
+          '1': 'Ankoraŭ ne, kara. Via lumo estas iom malforta. Pli da Karismo, kaj vi brilos.'
+        }
+      },
+      who: {
+        '1': 'Iam mi kantis en granda templo. Sed mia lampo ĉi tie gvidas la boatojn hejmen. Tio estas pli bona.'
+      },
+      trainBack: {
+        '1': 'Bele. Nun iru kaj heligu ies tagon. Ordono de Fratino.'
+      },
+      bye: {
+        '1': 'Iru, kara. Kaj ridetu al la mallumaj anguloj. Ili malamas tion.'
+      }
+    },
+    sbMasterBeastcaller: {
+      hello: {
+        '1': 'Atentu viajn piedojn. Tio estas Rubuso. Ŝi estis ĉi tie unue.',
+        '2': 'Rowan Kardopiedo. Mi ŝatas bestojn. Pri homoj mi ankoraŭ decidas.'
+      },
+      open: {
+        '1': 'Ho, estas vi. Rubuso atendis. Ankaŭ mi. Iomete.'
+      },
+      again: {
+        '1': 'Denove vi. Rubuso ŝatas vin. Mi ankoraŭ pripensas.'
+      },
+      train: {
+        '1': 'Kaŭru. Pli malrapide. Etendu la manon kaj lasu ilin veni al vi. Bone.'
+      },
+      favor: {
+        '1': 'Paroli? Mi aŭskultas. Jen la lertaĵo, kiun plej multaj homoj neniam lernas.',
+        '2': 'Gigantaj araneoj tekskovras la bestovojojn en la Flustranta Arbaro. Forigu dek du.',
+        '3': 'Poste alportu al mi du lunkampanulojn por mia nesto. Rubuso dormas pli bone apud ili.',
+        say: 'Ĉu vi povas paroli kun bestoj?'
+      },
+      waiting: {
+        '1': 'Dek du araneoj, du lunkampanuloj. La bestoj atendas. Ankaŭ Rubuso.',
+        say: 'Pri via provo...'
+      },
+      favorDone: {
+        '1': 'Hm. La cervoj venis al la rivero ĉi-matene. Mi pensis, ke eble tio estas danke al vi.',
+        '2': 'Nu bone. Mi instruos vin. Ne faru bruon pri tio. Rubuso, ĉesu svingi la voston.',
+        say: 'La vojoj estas liberaj, kaj jen viaj lunkampanuloj.'
+      },
+      class: {
+        '1': 'Vi vokas la sovaĝejon, kaj la sovaĝejo venas. Lupoj, akcipitro, urso. Amikoj, ne dorlotbestoj.',
+        '2': 'Karismon, por ke ili volu veni. Eltenemon, por ke vi povu sekvi ilin.',
+        say: 'Kio estas Bestovokanto?'
+      },
+      ready: {
+        strong: {
+          '1': 'La tuta aro nun fidas vin. Prenu kion vi volas.'
+        },
+        able: {
+          '1': 'La lupoj ŝatas vin. Vi pretas por la sekva.'
+        },
+        weak: {
+          '1': 'Ankoraŭ ne. Ili ne fidas vin. Pli da Karismo, kaj multe pli da pacienco.'
+        }
+      },
+      who: {
+        '1': 'Antaŭ jaroj mi trovis Rubuson en kaptilo. Tri kruroj, plena karaktero. De tiam ni estas paro.',
+        '2': 'Mi dormas sur la fojnejo de la stalo. Ĉevaloj ronkas malpli ol homoj.'
+      },
+      trainBack: {
+        '1': 'Bone. Iru do. Kaj salutu la kornikojn. Ili memoras.'
+      },
+      bye: {
+        '1': 'Iru. Rubuso diras ĝis.'
+      }
+    },
+    sbMasterElementalist: {
+      hello: {
+        '1': 'Saluton! Momenton, mi ĵonglas. Fajro, frosto, fajrero, ŝtono kaj... kaptitaj! Saluton!',
+        '2': 'Magistra Iris Kvarventoj. Mi instruas ĉiujn kvar elementojn. Miksi ilin estas la amuza parto.'
+      },
+      again: {
+        '1': 'Denove ĉi tie! Bone, mi bezonis spektanton. Rigardu. Ta-dam!'
+      },
+      train: {
+        '1': 'Elektu du globojn. Iujn ajn du. Nun lasu ilin kunpuŝiĝi. Milde! Ĉu vi vidas? Reakcio!'
+      },
+      class: {
+        '1': 'Ni miksas! Frosto kaj poste fajro: ĝi fandiĝas. Fajro kaj poste fulmo: bum. Ĉiu paro faras ion.',
+        '2': 'Inteligenton por ĉiu sorĉo. Majstrecon, ĉar la bonaj bezonas rapidajn manojn.',
+        say: 'Kion faras Elementmagiisto?'
+      },
+      ready: {
+        strong: {
+          '1': 'Nun vi miksas kiel majstro! Prenu kiun ajn lecionon. Prenu du!'
+        },
+        able: {
+          '1': 'Ho, bela fajrero! Vi pretas por la sekva.'
+        },
+        weak: {
+          '1': 'Ankoraŭ ne! Viaj elementoj daŭre estingiĝas. Pli da Inteligento, mi petas.'
+        }
+      },
+      sleeve: {
+        '1': 'Ho! Ja vere. Atendu... Jen.',
+        '2': 'Fajro, poste frosto. Tio fakte estis leciono. Ne dankinde!',
+        say: 'Ehm, via maniko brulas.'
+      },
+      trainBack: {
+        '1': 'Brile! Nun ekzercu ekstere, mi petas. La kurtenoj estas novaj.'
+      },
+      bye: {
+        '1': 'Ĝis! Se vi flaras fumon, verŝajne temas pri mi. Ne zorgu!'
+      }
+    },
+    sbMasterSoulwarden: {
+      hello: {
+        '1': 'Ŝŝ, ĉio estas en ordo, ili estas amikemaj. Ho, ne vi. Mi parolis al la erarlumetoj.',
+        '2': 'Gardistino Odalys Lanternlumo. Mi helpas perditajn spiritojn trovi la vojon hejmen.'
+      },
+      again: {
+        '1': 'Saluton denove. La erarlumetoj memoras vin. Tiu ĉi mansvingas.'
+      },
+      train: {
+        '1': 'Tenu la lanternon malalte kaj parolu mallaŭte. Perditaj estaĵoj venas al afabla voĉo.'
+      },
+      class: {
+        '1': 'Kiam malamiko estas venkita, ĝia spirito iom perdiĝas. Ni helpas ĝin, kaj ĝi helpas nin reen.',
+        '2': 'Inteligenton por gvidi la lumon. Karismon, por ke la spiritoj volu resti iom.',
+        say: 'Kion faras Animgardisto?'
+      },
+      ready: {
+        strong: {
+          '1': 'Eĉ la plej timidaj spiritoj nun venas al vi. Prenu kiun ajn lecionon.'
+        },
+        able: {
+          '1': 'La erarlumetoj fidas vin. Vi pretas por la sekva leciono.'
+        },
+        weak: {
+          '1': 'Ankoraŭ ne. Ili ankoraŭ timas vin. Pli da Inteligento, kaj iom da Karismo.'
+        }
+      },
+      wisps: {
+        '1': 'Iel jes! Ili estas spiritoj, kiuj forvagis. Tiu ĉi estas Saltetulo. Li ŝatas la varman flankon.',
+        '2': 'Neniu spirito estas iam malbona, sciu. Nur perdita. Ili iras hejmen, kiam ili pretas.',
+        say: 'Ĉu la lumetoj en via lanterno vivas?'
+      },
+      trainBack: {
+        '1': 'Bone farite. Nun lasu ilin iri milde. Ili havis longan tagon.'
+      },
+      bye: {
+        '1': 'Gardu vin. Kaj se vi vidas perditan lumeton, salutu ĝin.'
+      }
+    },
+    sbMasterIronmonk: {
+      hello: {
+        '1': 'Sidiĝu. Spiru. Ne, vi spiras, kvazaŭ vi malfruus ien. Denove.',
+        '2': 'Majstro Oru Kvietakvo. Mi instruas la malfermitan manon. Feraj pugnoj, trankvila koro.'
+      },
+      again: {
+        '1': 'Ha. La lernanto revenas. Same la rivero. Ĉiutage.'
+      },
+      train: {
+        '1': 'Piedoj kiel radikoj, manoj kiel pluvo. Batu. Denove. La centa kalkuliĝas.'
+      },
+      class: {
+        '1': 'Neniu klingo. Manoj, piedoj, spiro. Ĉiu bato konstruas la sekvan, ĝis la granda.',
+        '2': 'Lerton por rapidaj manoj. Eltenemon por resti trankvila, dum aliaj perdas la spiron.',
+        say: 'Kio estas Fera Monaĥo?'
+      },
+      ready: {
+        strong: {
+          '1': 'La lernanto fariĝas la instruisto. Diru al neniu. Prenu kiun ajn lecionon.'
+        },
+        able: {
+          '1': 'Bone. La taso pleniĝas. Prenu la sekvan lecionon.'
+        },
+        weak: {
+          '1': 'Ankoraŭ ne. Arbo kun mallongaj radikoj falas en la vento. Pli da Eltenemo.'
+        }
+      },
+      noodles: {
+        '1': 'Jes. La buljono kuiris malrapide dum du tagoj. Bonvolu ne spiri sur ĝin.',
+        '2': 'Bona bovlo instruas paciencon. Bonega bovlo instruas ĉion alian.',
+        say: 'Ĉu tio estas bovlo da nudeloj?'
+      },
+      trainBack: {
+        '1': 'Bone. Nun manĝu ion varman. Forto venas el la bovlo.'
+      },
+      bye: {
+        '1': 'Iru bone. Paŝu mole. Piedbatu forte.'
+      }
+    },
+    sbMasterBard: {
+      hello: {
+        '1': 'Bonvenon, bonvenon! El malvarmo venu, ĉe fajro vin tenu! Ho ve, tio rimis. Tio okazas.',
+        '2': 'Lark Gajvetero. Mi ludas ĉe la fajro kaj instruas la liuton al ĉiu, kiu aŭskultas.'
+      },
+      again: {
+        '1': 'Mia plej ŝatata aŭskultanto! Prenu tabureton. Atentu la katinon, ŝi estas la kritikisto.'
+      },
+      train: {
+        '1': 'Frapu la kordojn kun mi. Unu, du, kaj tri... Ne rigardu viajn fingrojn. Sentu ĝin!'
+      },
+      class: {
+        '1': 'Kantoj, kiuj kuraĝigas vian flankon, melodioj, kiuj dormigas la alian.',
+        '2': 'Karismon por gajni la publikon. Majstrecon, por ke viaj fingroj sekvu vian koron.',
+        say: 'Kion faras Bardo?'
+      },
+      ready: {
+        strong: {
+          '1': 'Nun vi plenigus ajnan tavernon! Prenu ĉiun kanton, kiun mi havas.'
+        },
+        able: {
+          '1': 'Bela melodio! Vi pretas por la sekva strofo.'
+        },
+        weak: {
+          '1': 'Ankoraŭ ne. La publiko ankoraŭ oscedas. Pli da Karismo, mia amiko.'
+        }
+      },
+      story: {
+        '1': 'Iam kavaliro transiris ĝuste ĉi tiun ponton kun nenio krom glavo kaj kanto...',
+        '2': 'Atendu, ĝi estas pli bona kun muziko. La-la-la, la kavaliro iris... Kie mi estis?',
+        '3': 'Ho, ne gravas. Bela kanto tamen, ĉu ne?',
+        say: 'Ĉu vi rakontos al mi historion?'
+      },
+      trainBack: {
+        '1': 'Brave! Ekzercu ĉiutage. Eĉ kiam ĝi sonas terure. Precipe tiam.'
+      },
+      bye: {
+        '1': 'Adiaŭ, ĝis revido, kun ĝojo kaj fido! Ups. Denove rimis. Ĝis!'
       }
     }
   },

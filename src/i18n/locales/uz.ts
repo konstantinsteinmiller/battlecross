@@ -95,7 +95,8 @@ export default {
     elixirSwift: 'Chaqqonlik',
     elixirMind: 'Tiniq aql',
     elixirVigor: 'Tetiklik',
-    elixirShadow: 'Tashna tigʻ'
+    elixirShadow: 'Tashna tigʻ',
+    chi: 'Chi'
   },
   toast: {
     item: 'Topildi: {item}',
@@ -859,6 +860,390 @@ export default {
     crumble: {
       name: 'Uvalanish',
       desc: 'Sekinlashgan, yiqitilgan yoki toshga aylangan dushmanlarga {dmg}% koʻproq zarar yetkazasiz.'
+    },
+    galeArrow: {
+      name: 'Boʻron oʻqi',
+      desc: 'Shamolga minib uchgan oʻq: {dmg}% Chaqqonlik zarari, nishon orqaga itariladi.'
+    },
+    fleetfoot: {
+      name: 'Yengil oyoq',
+      desc: '+{move}% harakat tezligi va +{dodge}% Chap berish.'
+    },
+    zephyrDash: {
+      name: 'Shabada hamlasi',
+      desc: 'Moʻljallagan tomonga {dist} m gacha otiling, soʻng {dur} s davomida {move}% tezroq yuguring.'
+    },
+    piercingGale: {
+      name: 'Teshuvchi boʻron',
+      desc: 'Chiziqdagi barcha dushmanlarni teshib oʻtadigan oʻq: {dmg}% Chaqqonlik zarari va {dur} s davomida {slow}% sekinlashtirish.'
+    },
+    cycloneSnare: {
+      name: 'Girdob tuzogʻi',
+      desc: '{dur} s davom etadigan quyun dushmanlarni oʻz markaziga tortadi va {dmg}% Mahorat zarari yetkazadi.'
+    },
+    keenEye: {
+      name: 'Oʻtkir koʻz',
+      desc: '+{critDmg}% Kritik zarar. Oʻqlaringiz yana {pierce} ta dushmanni teshib oʻtadi.'
+    },
+    updraftLeap: {
+      name: 'Yuksalish sakrashi',
+      desc: 'Shamol {radius} m ichidagi dushmanlarni havoga uloqtiradi: {dmg}% Chaqqonlik zarari. Siz {leap} m nariga sakraysiz.'
+    },
+    swiftDraw: {
+      name: 'Chaqqon kamon',
+      desc: '{speed}% tezroq hujum qilasiz, kutish vaqtlaringiz esa {cdr}% qisqaroq.'
+    },
+    arrowStorm: {
+      name: 'Oʻqlar boʻroni',
+      desc: '{dur} s davomida hududga oʻqlar yogʻiladi: jami {dmg}% Mahorat zarari va {slow}% sekinlashtirish.'
+    },
+    galeSpirits: {
+      name: 'Shamol ruhlari',
+      desc: '{dur} s davomida shamol ruhlari siz bilan uchib, {dmg}% Mahorat zararli {shots} ta oʻq otadi. +{move}% harakat tezligi.'
+    },
+    skyHunter: {
+      name: 'Osmon ovchisi',
+      desc: 'Bosslarga +{boss}% zarar va +{crit}% Kritik imkoniyati.'
+    },
+    skyrender: {
+      name: 'Osmonyorar',
+      desc: 'Boʻron oʻqi yoʻl ochadi: chiziqdagi hammaga {dmg}% Chaqqonlik zarari, ular tepaga va chetga uloqtiriladi.'
+    },
+    frostCleave: {
+      name: 'Ayozli chopish',
+      desc: 'Muz tigʻingizni oldingizga silting: {dmg}% Kuch zarari va {dur} s davomida {slow}% sekinlashtirish.'
+    },
+    rimeLance: {
+      name: 'Qirov nayzasi',
+      desc: 'Muz nayza otasiz: {dmg}% Aql zarari. U {dur} s davomida {slow}% sekinlashtiradi.'
+    },
+    wintersBite: {
+      name: 'Qish chaqishi',
+      desc: 'Hujumlaringiz dushmanni {dur} s davomida {slow}% sekinlashtiradi.'
+    },
+    frostArmor: {
+      name: 'Ayoz zirhi',
+      desc: 'Muz zirh {dur} s davomida {shield}% Aql miqdoridagi zararni yutadi. Yoningizdagi dushmanlar {slow}% sekinlashadi.'
+    },
+    glacialCharge: {
+      name: 'Muzlik hamlasi',
+      desc: 'Nishonga tashlanib {dmg}% Kuch zarari yetkazing va uni {freeze} s muzlating.'
+    },
+    frozenHeart: {
+      name: 'Muz yurak',
+      desc: '+{hp}% Maks. jon, olgan barcha zararingiz esa {reduce}% kamayadi.'
+    },
+    rimeField: {
+      name: 'Qirov maydoni',
+      desc: '{dur} s davomida muzlatuvchi yer: {dmg}% Aql zarari. Undagi sovqotgan dushmanlar {freeze} s muzlaydi.'
+    },
+    frostShatter: {
+      name: 'Ayoz parchalanishi',
+      desc: '{radius} m ichida {dmg}% Kuch zarari: sekinlashganlarga +{chilled}%, muzlaganlarga +{frozen}%.'
+    },
+    shatterpoint: {
+      name: 'Sinish nuqtasi',
+      desc: 'Sekinlashgan va muzlagan dushmanlarga {bonus}% koʻproq zarar yetkazasiz.'
+    },
+    avalancheLeap: {
+      name: 'Koʻchki sakrashi',
+      desc: 'Moʻljalga sakrab, koʻchkidek qoʻning: {dmg}% Kuch zarari, dushmanlar yiqiladi.'
+    },
+    iceborn: {
+      name: 'Muzdan tugʻilgan',
+      desc: 'Sizni hech narsa itara yoki uloqtira olmaydi. Sizdagi karaxtlik {cut}% qisqaroq.'
+    },
+    absoluteZero: {
+      name: 'Mutlaq nol',
+      desc: 'Sizdan qish otilib chiqadi: {radius} m ichida {dmg}% Aql zarari, hamma {freeze} s muzlaydi.'
+    },
+    sunbolt: {
+      name: 'Quyosh oʻqi',
+      desc: 'Quyosh nuri zarbasi: {dmg}% Aql zarari. Koʻzi qamashgan nishon {dur} s davomida {weaken}% kam zarar yetkazadi.'
+    },
+    mendingLight: {
+      name: 'Shifo nuri',
+      desc: 'Darhol {heal}% Xarizma miqdorida davolaning, soʻng {dur} s davomida har soniyada jonning {regen}% qismini tiklang.'
+    },
+    kindledHope: {
+      name: 'Yongan umid',
+      desc: 'Siz oladigan barcha davolash {heal}% kuchliroq.'
+    },
+    lanceOfLight: {
+      name: 'Nur nayzasi',
+      desc: 'Yorqin nur: chiziq boʻylab {dmg}% Aql zarari. Urilgan har bir dushman uchun {heal}% jon tiklang.'
+    },
+    dawnShield: {
+      name: 'Tong qalqoni',
+      desc: 'Sizdagi barcha yomon taʼsirlarni tozalang va {dur} s davomida {shield}% Xarizma qalqoni oling.'
+    },
+    haloWard: {
+      name: 'Nur halqasi',
+      desc: 'Olgan barcha zararingiz {reduce}% kamayadi.'
+    },
+    dawnSanctuary: {
+      name: 'Tong panohi',
+      desc: '{dur} s davomida muqaddas yer: sizni har soniyada {heal}% Xarizma davolaydi, dushmanlar {dmg}% Aql zarari oladi.'
+    },
+    blindingFlash: {
+      name: 'Koʻr qiluvchi chaqnash',
+      desc: 'Nur chaqnashi: {radius} m ichidagi dushmanlar {fear} s qochadi va {dur} s davomida {weaken}% kam zarar yetkazadi.'
+    },
+    guardianLight: {
+      name: 'Himoyachi nur',
+      desc: 'Sizni yengadigan zarba 1 jon qoldiradi va {dur} s davomida sizga hech narsa tegmaydi. Har {icd} s da bir marta.'
+    },
+    sunfall: {
+      name: 'Quyosh qulashi',
+      desc: 'Nishonga quyosh nuri ustuni tushadi: {dmg}% Aql zarari. Dushmanlar {dur} s davomida {vuln}% koʻproq zarar oladi.'
+    },
+    searingLight: {
+      name: 'Kuydiruvchi nur',
+      desc: '+{crit}% Sehr kritik imkoniyati va +{critDmg}% Kritik zarar.'
+    },
+    haloOfDawn: {
+      name: 'Tong halqasi',
+      desc: '{dur} s porlang: har soniyada {radius} m ichida {dmg}% Aql zarari va {heal}% jon tiklash.'
+    },
+    callWolf: {
+      name: 'Boʻri chaqirish',
+      desc: 'Ruh boʻri sizga qoʻshilib, {dmg}% Xarizma zarari bilan tishlaydi. Bir vaqtda {max} tagacha.'
+    },
+    wolfPounce: {
+      name: 'Boʻri hamlasi',
+      desc: 'Boʻrilaringiz nishonga tashlanadi: har biri {dmg}% Xarizma zarari yetkazib, uni {down} s yiqitadi.'
+    },
+    wildKinship: {
+      name: 'Yovvoyi qardoshlik',
+      desc: 'Hamrohlaringizning joni {hp}% koʻproq va ular {dmg}% koʻproq zarar yetkazadi.'
+    },
+    callHawk: {
+      name: 'Lochin chaqirish',
+      desc: 'Lochin nishonga shoʻngʻiydi: {dmg}% Xarizma zarari, u {dur} s davomida {vuln}% koʻproq zarar oladi. {life} s qoladi.'
+    },
+    callBear: {
+      name: 'Ayiq chaqirish',
+      desc: 'Ruh ayiq sizga qoʻshiladi. U {dmg}% zarar bilan uradi va dushmanlarni band qiladi. {max} tagacha.'
+    },
+    thickHide: {
+      name: 'Qalin teri',
+      desc: '+{hp}% Maks. jon va har soniyada +{regen} jon tiklanadi.'
+    },
+    packBond: {
+      name: 'Gala rishtasi',
+      desc: 'Siz va {radius} m ichidagi hamrohlar {dur} s davomida har soniyada {regen}% jon tiklaysiz va {def}% Himoya olasiz.'
+    },
+    spiritStampede: {
+      name: 'Ruhlar podasi',
+      desc: 'Ruh hayvonlar podasi bostirib keladi: chiziq boʻylab {dmg}% Xarizma zarari, dushmanlar yiqiladi.'
+    },
+    packTactics: {
+      name: 'Gala taktikasi',
+      desc: 'Yoningizdagi har bir hamroh uchun {bonus}% koʻproq zarar yetkazasiz, {max} tagacha.'
+    },
+    alphaHowl: {
+      name: 'Yoʻlboshchi uvlashi',
+      desc: 'Hamrohlaringiz {heal}% tiklanadi va {dur} s davomida {rage}% qattiqroq jang qiladi. Yoningizdagi dushmanlar qochadi.'
+    },
+    leaderOfThePack: {
+      name: 'Gala yetakchisi',
+      desc: 'Hamrohlaringiz {speed}% tezroq hujum qiladi va {dmg}% koʻproq zarar yetkazadi.'
+    },
+    wildHunt: {
+      name: 'Yovvoyi ov',
+      desc: '{dur} s davomida siz bilan yana {wolves} ta boʻri yuguradi. Butun gala +{dmg}% zarar yetkazadi va {move}% tezroq harakatlanadi.'
+    },
+    prismBolt: {
+      name: 'Prizma oʻqi',
+      desc: '{dmg}% Aql zararli oʻq: nishon yonayotgan boʻlsa ayoz, aks holda olov. Har biri boshqasini qoʻzgʻaydi.'
+    },
+    elementalHarmony: {
+      name: 'Unsurlar uygʻunligi',
+      desc: 'Reaksiyalaringiz (Erish, Bugʻ, Parchalanish, Ortiqcha yuk, Kristall) {pct}% kuchliroq.'
+    },
+    frostLance: {
+      name: 'Ayoz nayzasi',
+      desc: 'Chiziq boʻylab muz: {dmg}% Aql zarari va {dur} s davomida {slow}% sekinlashtirish. Yonayotgan dushmanlarda Bugʻ hosil boʻladi.'
+    },
+    chainSpark: {
+      name: 'Zanjir uchquni',
+      desc: '{dmg}% Aql zararli chaqmoq yana {jumps} ta dushmanga sakraydi. Muzni parchalaydi, olovda Ortiqcha yuk chaqiradi.'
+    },
+    smolderingCore: {
+      name: 'Choʻgʻ yadro',
+      desc: 'Kuydirishlaringiz {burn}% koʻproq zarar yetkazadi, sizda esa {mana} koʻproq mana bor.'
+    },
+    rollingBoulder: {
+      name: 'Dumalovchi xarsang',
+      desc: 'Xarsang dumalaydi: {dmg}% Aql zarari, {down} s yiqitish. Belgilangan dushmanlar sizga qalqon beradi.'
+    },
+    thunderSnow: {
+      name: 'Momaqaldiroqli qor',
+      desc: '{dur} s davomida qor boʻroni: {dmg}% Aql ayoz zarari va har soniyada {bolt}% chaqmoq.'
+    },
+    spellweave: {
+      name: 'Sehr toʻqish',
+      desc: '+{crit}% Sehr kritik imkoniyati, koʻnikmalaringiz esa {mana}% kam mana sarflaydi.'
+    },
+    prismaticNova: {
+      name: 'Prizmatik portlash',
+      desc: '{radius} m ichidagi hamma narsaga {dmg}% Aql bilan uring, har biriga u reaksiya beradigan unsur bilan.'
+    },
+    prismaticWard: {
+      name: 'Prizmatik himoya',
+      desc: '{reduce}% kam zarar olasiz va joningiz {hp}% koʻproq.'
+    },
+    frostfireComet: {
+      name: 'Ayoz-olov kometasi',
+      desc: 'Olov va muz kometasi: {dmg}% Aql zarari. Dushmanlar yonib, sekinlashib qoladi.'
+    },
+    elementalConvergence: {
+      name: 'Unsurlar birlashuvi',
+      desc: '{dur} s davomida toʻrt unsur navbatlashadi: {dmg}% Aql bilan {strikes} ta zarba, ular bir-birini qoʻzgʻaydi.'
+    },
+    wispBolt: {
+      name: 'Ruhcha oʻqi',
+      desc: '{dmg}% Aql zararli ruhcha. U yenggan dushman {life} s ga sizning ruhingiz boʻlib turadi.'
+    },
+    kindredSpirits: {
+      name: 'Qardosh ruhlar',
+      desc: 'Ruhlaringiz va yordamchilaringizning joni {hp}% koʻproq va ular {speed}% tezroq hujum qiladi.'
+    },
+    callTheFallen: {
+      name: 'Yiqilganlarni chaqirish',
+      desc: '{radius} m ichida hozirgina yiqilgan {max} tagacha dushman {life} s ga sizning ruhlaringiz boʻlib turadi.'
+    },
+    soulBond: {
+      name: 'Ruh rishtasi',
+      desc: 'Dushmanni doʻst qiling: {chance}% (yarador boʻlsa {low}%) u {life} s ruh boʻlib sizga qoʻshiladi. Aks holda {dmg}% zarar.'
+    },
+    restlessSouls: {
+      name: 'Bezovta ruhlar',
+      desc: 'Siz yenggan dushman {chance}% ehtimol bilan {life} s ga sizning ruhingiz boʻlib turadi.'
+    },
+    spiritLantern: {
+      name: 'Ruh chirogʻi',
+      desc: '{dur} s ga chiroq: uning nuridagi dushmanlar {dmg}% Aql zarari oladi, doʻstlar davolanadi, yiqilganlar turadi.'
+    },
+    hauntingWail: {
+      name: 'Arvoh faryodi',
+      desc: 'Arvohona BUU: {radius} m ichida {dmg}% Aql zarari, dushmanlar {fear} s qochib ketadi.'
+    },
+    wardensVigil: {
+      name: 'Qoʻriqchi hushyorligi',
+      desc: 'Ruhlaringiz va yordamchilaringiz {dmg}% koʻproq zarar yetkazadi, siz esa {reduce}% kam zarar olasiz.'
+    },
+    releaseSouls: {
+      name: 'Ruhlarni ozod qilish',
+      desc: 'Ruhlaringiz nur chaqnab uyiga qaytadi: har biri atrofga {dmg}% Aql zarari, har biri {heal}% jon qaytaradi.'
+    },
+    lanternKeeper: {
+      name: 'Chiroq posboni',
+      desc: '{cdr}% qisqaroq kutish vaqtlari, koʻnikmalaringiz esa {mana}% kam mana sarflaydi.'
+    },
+    wispSwarm: {
+      name: 'Ruhchalar toʻdasi',
+      desc: '{wisps} ta ruhcha hududdagi dushmanlarga shoʻngʻiydi: jami {dmg}% Aql. Ular yenggan dushmanlar qayta turadi.'
+    },
+    processionOfSouls: {
+      name: 'Ruhlar karvoni',
+      desc: '{dur} s davomida yoningizda yiqilgan har bir dushman ruhingiz boʻlib turadi, ruhlar esa {atk}% koʻproq zarar yetkazadi.'
+    },
+    palmStrike: {
+      name: 'Kaft zarbasi',
+      desc: 'Tezkor kaft zarbasi: {dmg}% Chaqqonlik zarari, dushman orqaga itariladi. {chi} chi toʻplaydi.'
+    },
+    ironBody: {
+      name: 'Temir tana',
+      desc: 'Olinadigan jismoniy zarar {reduce}% kamayadi, joningiz esa {hp}% koʻproq.'
+    },
+    flyingKick: {
+      name: 'Uchar tepki',
+      desc: 'Nishonga uchib, tepib {dmg}% Chaqqonlik zarari yetkazing; yoʻldagi dushmanlar {path}% oladi. {chi} chi toʻplaydi.'
+    },
+    tigerStance: {
+      name: 'Yoʻlbars holati',
+      desc: '{dur} s davomida: +{dmg}% zarar va +{speed}% hujum tezligi. Turna holatini tugatadi.'
+    },
+    craneStance: {
+      name: 'Turna holati',
+      desc: '{dur} s davomida: +{def}% Himoya, har soniyada jonning {regen}% qismini tiklaysiz. Yoʻlbars holatini tugatadi.'
+    },
+    flowingFists: {
+      name: 'Oqar mushtlar',
+      desc: 'Hujumlaringiz {chance}% ehtimol bilan chi toʻplaydi.'
+    },
+    hundredFists: {
+      name: 'Yuz musht',
+      desc: '{hits} ta zarba yomgʻiri: jami {dmg}% Chaqqonlik zarari. {chi} chi toʻplaydi.'
+    },
+    risingDragon: {
+      name: 'Yuksalgan ajdar',
+      desc: 'Barcha chi sarflanadi, pastdan zarba: {dmg}% Chaqqonlik zarari, har bir chi uchun +{per}%. Dushman havoga uchadi.'
+    },
+    cranesGrace: {
+      name: 'Turna nafosati',
+      desc: '+{dodge}% Chap berish, sizdagi karaxtlik va yiqilish {cut}% qisqaroq.'
+    },
+    whirlwindKick: {
+      name: 'Girdob tepkisi',
+      desc: '{radius} m ichidagi hamma narsani ikki marta tepasiz: jami {dmg}% Chaqqonlik zarari. {chi} tagacha chi toʻplaydi.'
+    },
+    tigersFury: {
+      name: 'Yoʻlbars gʻazabi',
+      desc: '+{crit}% Kritik imkoniyati va +{speed}% hujum tezligi.'
+    },
+    mountainPalm: {
+      name: 'Togʻ kafti',
+      desc: 'Barcha chi sarflanadi: ulkan kaft tushib {dmg}% Chaqqonlik zarari yetkazadi, har bir chi uchun +{per}%, dushmanlarni yiqitadi.'
+    },
+    sharpNote: {
+      name: 'Oʻtkir nota',
+      desc: '{dmg}% Xarizma zararli oʻtkir nota. Dushman {dur} s davomida {weaken}% kam zarar yetkazadi.'
+    },
+    stagePresence: {
+      name: 'Sahna mahorati',
+      desc: 'Koʻnikmalaringiz {mana}% kam mana sarflaydi, siz esa {move}% tezroq harakatlanasiz.'
+    },
+    marchingSong: {
+      name: 'Marsh qoʻshigʻi',
+      desc: '{dur} s ga qoʻshiq: siz va {radius} m ichidagi ittifoqchilar {move}% tezroq yuradi va {speed}% tezroq hujum qiladi.'
+    },
+    lullaby: {
+      name: 'Alla',
+      desc: 'Konus boʻylab mayin kuy: u yetgan har bir dushman {dur} s uxlab qoladi.'
+    },
+    longRefrain: {
+      name: 'Uzun naqarot',
+      desc: 'Qoʻshiqlaringiz {pct}% uzoqroq davom etadi.'
+    },
+    balladOfValor: {
+      name: 'Jasorat dostoni',
+      desc: '{dur} s ga qoʻshiq: siz va {radius} m ichidagi ittifoqchilar {dmg}% koʻproq zarar yetkazadi va {def}% Himoya oladi.'
+    },
+    charmingSerenade: {
+      name: 'Sehrli serenada',
+      desc: 'Nishonni va {radius} m ichidagi dushmanlarni maftun qiling: {dur} s davomida ular bir-biri bilan jang qiladi.'
+    },
+    virtuoso: {
+      name: 'Virtuoz',
+      desc: '{cdr}% qisqaroq kutish vaqtlari va +{critDmg}% Kritik zarar.'
+    },
+    hymnOfMending: {
+      name: 'Shifo madhiyasi',
+      desc: 'Yomon taʼsirlarni tozalaydi, soʻng {dur} s davomida siz va {radius} m ichidagi ittifoqchilar har soniyada {regen}% jon tiklaysiz.'
+    },
+    crescendo: {
+      name: 'Kreshendo',
+      desc: '{radius} m ichida tovush portlashi: {dmg}% Xarizma zarari, chalayotgan har bir qoʻshigʻingiz uchun +{per}%.'
+    },
+    standingOvation: {
+      name: 'Qizgʻin olqish',
+      desc: '+{dmg}% zarar, siz esa {reduce}% kam zarar olasiz.'
+    },
+    grandFinale: {
+      name: 'Buyuk final',
+      desc: '{dur} s hammasini chaling (+{buff}% tezlik, zarar, Himoya), soʻng soʻnggi akkord: {dmg}% Xarizma, dushmanlar maftun.'
     }
   },
   slot: {
@@ -1371,6 +1756,30 @@ export default {
     sbFence: {
       name: 'Mirela Thorne',
       talk: 'Zoʻr zirh, savolsiz. Mayli, juda kam savol bilan.'
+    },
+    sbMasterWindrunner: {
+      name: 'Sefa Galewing'
+    },
+    sbMasterFrostwarden: {
+      name: 'Halvard Rimeheart'
+    },
+    sbMasterLightbringer: {
+      name: 'Rohiba Auriel Dawnmere'
+    },
+    sbMasterBeastcaller: {
+      name: 'Keksa Rowan Thistlefoot'
+    },
+    sbMasterElementalist: {
+      name: 'Magistr Iris Fourwinds'
+    },
+    sbMasterSoulwarden: {
+      name: 'Qoʻriqchi Odalys Lanternlight'
+    },
+    sbMasterIronmonk: {
+      name: 'Usta Oru Stillwater'
+    },
+    sbMasterBard: {
+      name: 'Lark Merriweather'
     }
   },
   quest: {
@@ -3655,6 +4064,382 @@ export default {
       },
       bye: {
         '1': 'Hamyoningga ehtiyot boʻl. Bu yerda hamma ham men kabi halol emas.'
+      }
+    },
+    sbMasterWindrunner: {
+      hello: {
+        '1': 'Oh, salom! Kechir, toʻxtay olmayman. Shamol burilishini kutyapman. Hozir-hozir.',
+        '2': 'Sefa Galewing. Kamondan otaman va shamolni quvaman. Odatda shamol yutadi.'
+      },
+      open: {
+        '1': 'Mana mening chopqirim! Tayyormisan? Albatta tayyorsan. Ketdik, ketdik!'
+      },
+      again: {
+        '1': 'Yana salom! Men hali shu yerdaman. Xullas, deyarli. Oyoqlarim oʻzi ketib qolaveradi.'
+      },
+      train: {
+        '1': 'Yuzingda shamolni sezyapsanmi? Oʻylaganingdan sal chaproqqa moʻljalla. Endi qoʻyib yubor!'
+      },
+      favor: {
+        '1': 'Faqat ortimdan yetib kela oladiganlarga. Sen yetib kela olasanmi? Koʻramiz.',
+        '2': 'Oakhaven atrofida oʻn ikkita kamonchi qaroqchini yeng, soʻng menga uchta yelqirqquloq olib kel.',
+        say: 'Kamon otishni oʻrgatasanmi?'
+      },
+      waiting: {
+        '1': 'Oʻn ikki kamonchi qaroqchi, uchta yelqirqquloq. Qani, bor! Men shu yerda boʻlaman. Sakrab turaman.',
+        say: 'Sinoving haqida...'
+      },
+      favorDone: {
+        '1': 'Ha! Rostdan ham yetib kelding! Hech kim yetib kelolmaydi-ku!',
+        '2': 'Xoʻp, endi sen mening shogirdimsan. Bitta qoida: darslarimda oʻtirish yoʻq.',
+        say: 'Kamonchilar yengildi, mana yelqirqquloqlaring.'
+      },
+      class: {
+        '1': 'Ot, yugur, yana ot. Seni tutib olishsa, demak bir joyda juda uzoq turib qolgansan.',
+        '2': 'Chaqqonlik tez oyoqlar va tez kamon uchun. Mahorat esa har bir oʻq nishonga tegishi uchun.',
+        say: 'Shamol chopari nima qiladi?'
+      },
+      ready: {
+        strong: {
+          '1': 'Endi shamoldek tezsan. Xoʻsh, deyarli. Istagan darsingni ol!'
+        },
+        able: {
+          '1': 'Yengil oyoqlar! Keyingisiga tayyorsan. Qani, qani!'
+        },
+        weak: {
+          '1': 'Hali emas. Divan koʻtarib yugurayotgandeksan. Koʻproq Chaqqonlik, iltimos.'
+        }
+      },
+      who: {
+        '1': 'Daryo boʻyidagi eski shamol tegirmonida yashayman. Shahardagi shamolni eng yaxshi koʻradigan joy.',
+        '2': 'Tepaga ikki yuzta zina. Zoʻr mashq. Har birini sanab chiqqanman.'
+      },
+      trainBack: {
+        '1': 'Yaxshi! Endi uyga yugur. Yurma. Yugurish ham mashq hisoblanadi.'
+      },
+      bye: {
+        '1': 'Koʻrishguncha! Past shoxlardan ehtiyot boʻl. Men hech qachon ehtiyot boʻlmayman.'
+      }
+    },
+    sbMasterFrostwarden: {
+      hello: {
+        '1': 'Hm. Yonimdan uch marta oʻtding. Adashdingmi yoki qiziqyapsanmi?',
+        '2': 'Halvard Rimeheart. Qorlar yurtidan janubga keldim. Bu yer issiq. Juda issiq.'
+      },
+      open: {
+        '1': 'Shogird. Yaxshi. Muz tayyor, men ham.'
+      },
+      again: {
+        '1': 'Yana sen. Yaxshi. Men koʻp gapirmayman. Baribir qol.'
+      },
+      train: {
+        '1': 'Sekin nafas chiqar. Bugʻni koʻryapsanmi? Endi uni tigʻga joyla.'
+      },
+      favor: {
+        '1': 'Ha. Uni faqat issiq joyda boshini sovuq tuta oladiganlarga oʻrgataman.',
+        '2': 'Kul qoyalarida oʻnta olov elementalini oʻchir. Soʻng menga uch shox ayozyalpiz olib kel.',
+        say: 'Bu qilich muzdanmi?'
+      },
+      waiting: {
+        '1': 'Oʻnta olov elementali. Uch shox ayozyalpiz. Shoshilma. Lekin juda choʻzma ham.',
+        say: 'Sinoving haqida...'
+      },
+      favorDone: {
+        '1': 'Hm. Hatto kuymabsan ham. Yaxshi.',
+        '2': 'Boshingni sovuq tutding. Bu birinchi dars edi. Qolganini men oʻrgataman.',
+        say: 'Olov elementallari oʻchdi. Mana ayozyalpizing.'
+      },
+      class: {
+        '1': 'Sovuq ritsari. Ularni sovqotir, muzlat, keyin muzni sindir.',
+        '2': 'Tigʻ uchun Kuch. Ayoz uchun Aql. Ikkalasi ham kerak.',
+        say: 'Ayoz qoʻriqchisi kim?'
+      },
+      ready: {
+        strong: {
+          '1': 'Endi shimoldek sovuqsan. Istagan darsingni ol.'
+        },
+        able: {
+          '1': 'Yaxshi. Barqaror. Keyingi dars seniki.'
+        },
+        weak: {
+          '1': 'Hali emas. Ayozing juda tez eriydi. Koʻproq Aql va koʻproq Kuch.'
+        }
+      },
+      who: {
+        '1': 'Shimolda togʻ dovonini qoʻriqlardim. Keyin muzlamaydigan daryoni koʻrgim keldi.'
+      },
+      trainBack: {
+        '1': 'Yaxshi. Endi dam ol. Muz shoshilmaydi. Sen ham shoshilma.'
+      },
+      bye: {
+        '1': 'Oq yoʻl. Sovuqqon boʻl.'
+      }
+    },
+    sbMasterLightbringer: {
+      hello: {
+        '1': 'Mm-hm-hmm... Voy! Kechir, jonim, xirgoyi qilayotgandim. Senga qarab xirgoyi qildimmi? Shunaqa odatim bor.',
+        '2': 'Rohiba Auriel Dawnmere. Koʻprik oxiridagi kichkina chiroqni oʻchirmay turaman.'
+      },
+      open: {
+        '1': 'Mana mening yorugʻ yulduzim! Kel, bir zum nurda tur. Bunga loyiqsan.'
+      },
+      again: {
+        '1': 'Yana salom! Hali shu yerdaman, hali xirgoyi qilyapman. Chiroqqa hamroh yoqadi.'
+      },
+      train: {
+        '1': 'Qoʻllar ochiq, iyak tepada. Hayotingdagi eng yaxshi tongni esla. Mana. Sezyapsanmi?'
+      },
+      favor: {
+        '1': 'Har kimning ichida ozgina nur bor. Men odamlarga uni chiqarishni oʻrgataman, tayyor boʻlganlarida.',
+        '2': 'Kul qoyalarida oʻnta mazhabchini yeng, soʻng chirogʻim uchun beshta quyoshgulbarg olib kel.',
+        say: 'Bu chiroq sehrlimi?'
+      },
+      waiting: {
+        '1': 'Oʻnta mazhabchi, beshta quyoshgulbarg. Ularni muloyimlik bilan yeng. Har kim ikkinchi imkoniyatga loyiq.',
+        say: 'Sinoving haqida...'
+      },
+      favorDone: {
+        '1': 'Voy, qara-ya! Chiroq bir oy oltindek porlaydi.',
+        '2': 'Sen ham, jonim. Senga dars berishdan xursand boʻlaman.',
+        say: 'Mazhabchilar yengildi. Mana quyoshgulbarglaring.'
+      },
+      class: {
+        '1': 'Biz tongni olib yuramiz. Jang qilish uchun nur, davolash uchun nur, orqasiga yashirinish uchun nur.',
+        '2': 'Aql nurni kuchli qiladi. Xarizma uni iliq qiladi. Ikkalasi ham kerak boʻladi.',
+        say: 'Nur keltiruvchi nima qiladi?'
+      },
+      ready: {
+        strong: {
+          '1': 'Quyosh chiqishidek porlayapsan, jonim. Istagan darsingni ol.'
+        },
+        able: {
+          '1': 'Chiroyli porlayapsan! Keyingisiga tayyorsan.'
+        },
+        weak: {
+          '1': 'Hali emas, jonim. Nuring biroz xira. Koʻproq Xarizma, shunda porlaysan.'
+        }
+      },
+      who: {
+        '1': 'Bir paytlar katta ibodatxonada qoʻshiq aytardim. Lekin bu yerdagi chirogʻim qayiqlarni uyga boshlaydi. Bu yaxshiroq.'
+      },
+      trainBack: {
+        '1': 'Ajoyib. Endi borib kimningdir kunini yoritib qoʻy. Rohibaning buyrugʻi.'
+      },
+      bye: {
+        '1': 'Yoʻling boʻlsin, jonim. Qorongʻi burchaklarga jilmay. Ular buni yomon koʻradi.'
+      }
+    },
+    sbMasterBeastcaller: {
+      hello: {
+        '1': 'Oyogʻingga qara. Bu Bramble. U bu yerga birinchi kelgan.',
+        '2': 'Rowan Thistlefoot. Hayvonlarni yaxshi koʻraman. Odamlar haqida hali oʻylayapman.'
+      },
+      open: {
+        '1': 'E, senmisan. Bramble seni kutayotgandi. Men ham. Sal-pal.'
+      },
+      again: {
+        '1': 'Yana sen. Bramble seni yoqtiradi. Men hali oʻylayapman.'
+      },
+      train: {
+        '1': 'Choʻkkala. Sekinroq. Qoʻlingni uzat, ular oʻzi kelsin. Yaxshi.'
+      },
+      favor: {
+        '1': 'Gaplashish? Men tinglayman. Koʻp odamlar buni hech qachon oʻrganmaydi.',
+        '2': 'Shivirlovchi oʻrmonda ulkan oʻrgimchaklar hayvon soʻqmoqlarini toʻr bilan oʻrayapti. Oʻn ikkitasini tozala.',
+        '3': 'Soʻng uyam uchun ikkita oyqoʻngʻiroq olib kel. Bramble ular yonida yaxshiroq uxlaydi.',
+        say: 'Hayvonlar bilan gaplasha olasanmi?'
+      },
+      waiting: {
+        '1': 'Oʻn ikki oʻrgimchak, ikkita oyqoʻngʻiroq. Hayvonlar kutyapti. Bramble ham.',
+        say: 'Sinoving haqida...'
+      },
+      favorDone: {
+        '1': 'Hm. Bugun ertalab bugʻular daryoga tushib keldi. Sen boʻlsang kerak, deb oʻylagandim.',
+        '2': 'Mayli. Oʻrgataman. Shovqin koʻtarma. Bramble, dum likillatishni bas qil.',
+        say: 'Soʻqmoqlar toza, mana oyqoʻngʻiroqlaring.'
+      },
+      class: {
+        '1': 'Sen yovvoyi tabiatni chaqirasan, u keladi. Boʻrilar, lochin, ayiq. Doʻstlar, uy hayvonlari emas.',
+        '2': 'Xarizma, ular kelishni xohlashi uchun. Chidamlilik, ulardan ortda qolmasliging uchun.',
+        say: 'Hayvon chaqiruvchi kim?'
+      },
+      ready: {
+        strong: {
+          '1': 'Endi butun gala senga ishonadi. Xohlaganingni ol.'
+        },
+        able: {
+          '1': 'Boʻrilar seni yoqtiradi. Keyingisiga tayyorsan.'
+        },
+        weak: {
+          '1': 'Hali emas. Ular senga ishonmaydi. Koʻproq Xarizma va ancha koʻproq sabr.'
+        }
+      },
+      who: {
+        '1': 'Brambleni yillar oldin tuzoqdan topganman. Uch oyoq, lekin feʼli zoʻr. Oʻshandan beri birgamiz.',
+        '2': 'Otxonadagi pichanxonada uxlayman. Otlar odamlardan kamroq xurrak otadi.'
+      },
+      trainBack: {
+        '1': 'Yaxshi. Qani, bor endi. Qargʻalarga salom ayt. Ular eslab qoladi.'
+      },
+      bye: {
+        '1': 'Yoʻling boʻlsin. Bramble xayr deyapti.'
+      }
+    },
+    sbMasterElementalist: {
+      hello: {
+        '1': 'Salom! Bir soniya, koptok oʻynatyapman. Olov, ayoz, uchqun, tosh va... ushladim! Salom!',
+        '2': 'Magistr Iris Fourwinds. Toʻrtala unsurni oʻrgataman. Ularni aralashtirish eng qiziq qismi.'
+      },
+      again: {
+        '1': 'Yana keldingmi! Yaxshi, menga tomoshabin kerak edi. Mana buni koʻr. Ta-da!'
+      },
+      train: {
+        '1': 'Ikkita shar tanla. Istalgan ikkitasini. Endi ularni toʻqnashtir. Sekin! Koʻrdingmi? Reaksiya!'
+      },
+      class: {
+        '1': 'Biz aralashtiramiz! Avval ayoz, keyin olov: eriydi. Avval olov, keyin chaqmoq: bum! Har bir juftlik nimadir qiladi.',
+        '2': 'Har bir sehr uchun Aql. Mahorat esa, chunki yaxshilari chaqqon qoʻl talab qiladi.',
+        say: 'Unsur sehrgari nima qiladi?'
+      },
+      ready: {
+        strong: {
+          '1': 'Endi ustadek aralashtirasan! Istagan darsingni ol. Ikkitasini ol!'
+        },
+        able: {
+          '1': 'Voy, zoʻr uchqun! Keyingisiga tayyorsan.'
+        },
+        weak: {
+          '1': 'Hali emas! Unsurlaring pishillab soʻnib qolyapti. Koʻproq Aql, iltimos.'
+        }
+      },
+      sleeve: {
+        '1': 'Voy! Rostdan ham. Shoshma... Boʻldi.',
+        '2': 'Olov, keyin ayoz. Aslida bu dars edi. Arzimaydi!',
+        say: 'Hm, yenging yonyapti.'
+      },
+      trainBack: {
+        '1': 'Ajoyib! Endi tashqarida mashq qil, iltimos. Pardalar yangi.'
+      },
+      bye: {
+        '1': 'Xayr! Tutun hidi kelsa, ehtimol bu menman. Xavotir olma!'
+      }
+    },
+    sbMasterSoulwarden: {
+      hello: {
+        '1': 'Tss, hammasi joyida, ular mehribon. Voy, sen emas. Ruhchalar bilan gaplashayotgandim.',
+        '2': 'Qoʻriqchi Odalys Lanternlight. Adashgan ruhlarga uyga yoʻl topishda yordam beraman.'
+      },
+      again: {
+        '1': 'Yana salom. Ruhchalar seni eslaydi. Anavi biri qoʻl silkitayapti.'
+      },
+      train: {
+        '1': 'Chiroqni past tut va ohista gapir. Adashganlar mehribon ovozga keladi.'
+      },
+      class: {
+        '1': 'Dushman yengilganda, uning ruhi biroz adashib qoladi. Biz unga yordam beramiz, u esa bizga.',
+        '2': 'Nurni boshqarish uchun Aql. Xarizma esa ruhlar biroz qolishni xohlashi uchun.',
+        say: 'Ruh qoʻriqchisi nima qiladi?'
+      },
+      ready: {
+        strong: {
+          '1': 'Endi hatto eng uyatchan ruhlar ham oldingga keladi. Istagan darsingni ol.'
+        },
+        able: {
+          '1': 'Ruhchalar senga ishonadi. Keyingi darsga tayyorsan.'
+        },
+        weak: {
+          '1': 'Hali emas. Ular hali sendan uyalishadi. Koʻproq Aql va ozgina Xarizma.'
+        }
+      },
+      wisps: {
+        '1': 'Qaysidir maʼnoda! Ular adashib ketgan ruhlar. Bunisining ismi Qimirloq. U iliq tomonni yaxshi koʻradi.',
+        '2': 'Bilasanmi, hech bir ruh yomon emas. Faqat adashgan. Tayyor boʻlganlarida uyga qaytishadi.',
+        say: 'Chirogʻingdagi kichkina nurlar tirikmi?'
+      },
+      trainBack: {
+        '1': 'Barakalla. Endi ularni ohista qoʻyib yubor. Ularning kuni uzoq boʻldi.'
+      },
+      bye: {
+        '1': 'Oʻzingni ehtiyot qil. Adashgan kichkina nurni koʻrsang, salom ayt.'
+      }
+    },
+    sbMasterIronmonk: {
+      hello: {
+        '1': 'Oʻtir. Nafas ol. Yoʻq, qayergadir kechikayotgandek nafas olyapsan. Yana.',
+        '2': 'Usta Oru Stillwater. Ochiq qoʻl yoʻlini oʻrgataman. Temir mushtlar, xotirjam yurak.'
+      },
+      again: {
+        '1': 'Ha. Shogird qaytdi. Daryo ham qaytadi. Har kuni.'
+      },
+      train: {
+        '1': 'Oyoqlar ildizdek, qoʻllar yomgʻirdek. Ur. Yana. Yuzinchisi hisobga oʻtadi.'
+      },
+      class: {
+        '1': 'Tigʻ yoʻq. Qoʻllar, oyoqlar, nafas. Har bir zarba keyingisini quradi, katta zarbagacha.',
+        '2': 'Tez qoʻllar uchun Chaqqonlik. Boshqalarning nafasi tugaganda xotirjam qolish uchun Chidamlilik.',
+        say: 'Temir rohib kim?'
+      },
+      ready: {
+        strong: {
+          '1': 'Shogird ustozga aylanadi. Hech kimga aytma. Istagan darsingni ol.'
+        },
+        able: {
+          '1': 'Yaxshi. Kosa toʻlib boryapti. Keyingi darsni ol.'
+        },
+        weak: {
+          '1': 'Hali emas. Ildizi kalta daraxt shamolda yiqiladi. Koʻproq Chidamlilik.'
+        }
+      },
+      noodles: {
+        '1': 'Ha. Shoʻrvasi ikki kun qaynagan. Iltimos, unga nafas olma.',
+        '2': 'Yaxshi kosa sabrni oʻrgatadi. Ajoyib kosa esa qolgan hamma narsani.',
+        say: 'Bu bir kosa lagʻmonmi?'
+      },
+      trainBack: {
+        '1': 'Yaxshi. Endi iliq narsa ye. Kuch kosadan keladi.'
+      },
+      bye: {
+        '1': 'Oq yoʻl. Ohista yur. Qattiq tep.'
+      }
+    },
+    sbMasterBard: {
+      hello: {
+        '1': 'Xush kelding, kel, kel, sovuqdan qoch, olov yonida dilingni och! Voy, qofiya chiqib qoldi. Shunaqa boʻlib turadi.',
+        '2': 'Lark Merriweather. Olov yonida chalaman va tinglaydigan har kimga doʻmbira oʻrgataman.'
+      },
+      again: {
+        '1': 'Eng sevimli tinglovchim! Kursi tortib oʻtir. Mushukka ehtiyot boʻl, u tanqidchi.'
+      },
+      train: {
+        '1': 'Men bilan chert. Bir, ikki va uch... Barmoqlaringga qarama. His qil!'
+      },
+      class: {
+        '1': 'Oʻz tomoningni jasur qiladigan qoʻshiqlar, narigi tomonni uxlatadigan kuylar.',
+        '2': 'Olomonni zabt etish uchun Xarizma. Barmoqlaring yuragingdan ortda qolmasligi uchun Mahorat.',
+        say: 'Baxshi nima qiladi?'
+      },
+      ready: {
+        strong: {
+          '1': 'Endi istalgan choyxonani toʻldirasan! Bor qoʻshiqlarimni ol.'
+        },
+        able: {
+          '1': 'Yoqimli kuy! Keyingi bandga tayyorsan.'
+        },
+        weak: {
+          '1': 'Hali emas. Olomon hali esnayapti. Koʻproq Xarizma, doʻstim.'
+        }
+      },
+      story: {
+        '1': 'Bir zamonlar bir ritsar aynan shu koʻprikdan faqat qilich va qoʻshiq bilan oʻtgan ekan...',
+        '2': 'Toʻxta, musiqa bilan yaxshiroq. La-la-la, ritsar ketdi... Qayerda qolgandim?',
+        '3': 'E, mayli. Lekin qoʻshiq yaxshi edi-ku, a?',
+        say: 'Menga ertak aytib berasanmi?'
+      },
+      trainBack: {
+        '1': 'Barakalla! Har kuni mashq qil. Dahshatli eshitilsa ham. Ayniqsa oʻshanda.'
+      },
+      bye: {
+        '1': 'Xayr, yoʻling ochiq boʻlsin, qalbing quvonchga toʻlsin! Voy. Yana qofiya. Xayr!'
       }
     }
   },

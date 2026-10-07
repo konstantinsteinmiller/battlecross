@@ -282,7 +282,7 @@ describe('the manifest covers the game', () => {
         expect(c.y + c.h).toBeLessThanOrEqual(s.height)
       }
       // Icons are drawn small (24 to 64 px): emblems and slots 128, the rest 96.
-      const icon = s.id === 'sheet-icons-classes' || s.id === 'sheet-icons-misc' ? 128 : s.id.startsWith('sheet-icons-') ? 96 : null
+      const icon = s.id === 'sheet-icons-classes' || s.id === 'sheet-icons-crests' || s.id === 'sheet-icons-misc' ? 128 : s.id.startsWith('sheet-icons-') ? 96 : null
       // The logo's badge and mascot are written at 512 whatever the default (`exact`), the painted titles at 1024 (#76).
       const brand = s.id.startsWith('single-logo-title-') || s.id === 'single-logo-wordmark' ? 1024 : s.id.startsWith('single-logo-') ? 512 : null
       expect(s.maxEdge, s.id).toBe(brand ?? icon ?? (s.id.startsWith('sheet-portraits') ? 256 : s.id === 'single-ui-coin' ? 64 : 192))
@@ -682,7 +682,8 @@ describe('the slicer knows a painting by its name, and only by its name', () => 
     // Fourteen sheets are 1024x768 (six of items, eight of icons) and seventeen
     // are 768x576: shape says nothing.
     expect(targets.filter(t => t.width === 1024 && t.height === 768)).toHaveLength(14)
-    expect(targets.filter(t => t.width === 768 && t.height === 576 && t.kind === 'cells')).toHaveLength(17)
+    // (Two skill sheets for every class, and the portraits.)
+    expect(targets.filter(t => t.width === 768 && t.height === 576 && t.kind === 'cells')).toHaveLength(CLASS_IDS.length * 2 + 1)
     for (const name of [
       'Gemini_Generated_Image_abc123.png', // a download nobody renamed
       'sheet-items-shields.png',           // a sheet the index does not know (yet, or any more)

@@ -1,5 +1,6 @@
 import { HEAT_MAX, SKILL_BY_ID } from '../data/skills'
 import { ENEMY_BY_ID, RANK_REWARD } from '../data/enemies'
+import { SOUL_RISE_LIFE, spawnSpirit } from './spawn'
 import { killGold, killXp, addXp, xpToNext } from '../data/progression'
 import { CHAMPION_REWARD } from '../data/loot'
 import { RESTED_XP } from '../rested'
@@ -142,6 +143,8 @@ export const cdrOf = (u: Unit): number => {
 
 export const heal = (sim: Sim, tgt: Unit, amount: number, quiet = false): number => {
   if (!tgt.alive || amount <= 0) return 0
+  // Kindled Hope (#86): the Lightbringer is mended the more by everything that mends her.
+  if (tgt === sim.hero?.unit) amount *= 1 + (tgt.s.mods.healPower ?? 0)
   const before = tgt.hp
   tgt.hp = Math.min(tgt.s.maxHp, tgt.hp + amount)
   const got = tgt.hp - before
@@ -237,6 +240,11 @@ export const dealDamage = (sim: Sim, src: Unit | null, tgt: Unit, base: number, 
     // Adrenal Catalyst (#95): the lower the hero's health, the harder she hits.
     const low = srcMods?.lowHealthDamage ?? 0
     if (low > 0 && src === hero) amount *= 1 + low * Math.min(1, Math.max(0, (1 - src.hp / src.s.maxHp) / 0.7))
+    // Pack Tactics (#86): the more of her pack fights beside her, the harder she hits.
+    if (src === hero && srcMods?.packDamage) amount *= 1 + srcMods.packDamage * Math.min(4, sim.countAlive(0, undefined, src.id))
+    // Shatterpoint (#86): what is cold breaks easier.
+    const chill = srcMods?.chillDamage ?? 0
+    if (chill > 0 && (hasStatus(tgt, 'slow') || hasStatus(tgt, 'frozen'))) amount *= 1 + chill
     // Crumble (#95): what is already shaken breaks easier.
     const crumble = srcMods?.crumble ?? 0
     if (crumble > 0 && (hasStatus(tgt, 'slow') || hasStatus(tgt, 'knockdown') || hasStatus(tgt, 'knockup') || hasStatus(tgt, 'petrify'))) amount *= 1 + crumble
@@ -524,6 +532,9 @@ export const kill = (sim: Sim, u: Unit, by: Unit | null): void => {
     const near = sim.inCircle(0, u.x, u.z, b.r, scratch)
     for (const t of near) dealDamage(sim, null, t, u.s.baseDmg * b.dmg, { type: b.type, canCrit: false })
   }
+  // Restless Souls (#95): a foe beaten by the hero or his own may rise as his spirit.
+  const rise = h ? (h.unit.s.mods.soulRise ?? 0) : 0
+  if (rise > 0 && h && by && (by === h.unit || by.ownerId === h.unit.id) && sim.rng() < rise) spawnSpirit(sim, u, SOUL_RISE_LIFE)
 }
 
 const scratch: Unit[] = []

@@ -593,7 +593,34 @@ attribute buff; items are fixed named ids owned once.
   essence). Glyphs and painter's blurbs for all, a second skill sheet per
   class, cast clips. The eight new classes are in the type and the art
   tables but join `CLASS_IDS` with their skills.
-- [ ] **25.4–25.11 The eight new classes** (#86, #95; question 51 answered:
-  eight new classes). Kits in `scratchpad/kits`, a class at a time.
-- [ ] **23 Voice, balance, end-to-end, performance** (#93).
+- [x] **25.4–25.11 The eight new classes** (#86, #95; question 51 answered:
+  eight new classes), twelve skills each, kits drafted per class, every
+  active cast and resolved in the combat suite.
+  The secret four, each a face in Silverbridge's street until their test is
+  handed in (`NpcDef.secret` now hides a trainer's pin, sign and lessons as
+  it does a trader's; the test's errand sets `found<Class>`):
+  Windrunner (Sefa Galewing; a bow ranger: pushing and piercing arrows,
+  a cyclone, a leap, wind spirits; 12 bandit archers and 3 swiftfern),
+  Frostwarden (Halvard Rimeheart; an ice blade that slows, freezes and
+  shatters; two new modifiers; 10 fire elementals and 3 frostmint),
+  Lightbringer (Sister Auriel Dawnmere; light that mends, shields and
+  blinds; healing taken stronger; 10 cultists and 5 sunpetals), Beastcaller
+  (Old Rowan Thistlefoot; lasting wolves and bear, a hawk, commands; new
+  companion looks on the beast and wyvern rigs; 12 spiders and 2 moonbells).
+  #95's four, in halls on the south street: Elementalist (Magistra Iris
+  Fourwinds; fire and frost marks set off five reactions), Soul Warden
+  (Warden Odalys Lanternlight; beaten foes rise as friendly ghost-tinted
+  spirits of their own kind, a living one turns at a low chance; no team
+  flips: a befriended foe is beaten the normal way, its rewards and counts
+  kept), Iron Monk (Master Oru Stillwater; chi beads built by strikes and
+  spent by finishers, two stances), Bard (Lark Merriweather; songs that walk
+  with him, a lullaby and a charm). New: the chi status, eight modifiers,
+  the spirit minion path, three companion minions. Masters' conversations,
+  voice cards and looks drafted by a writer agent and voiced.
+- [ ] **23 Voice, balance, end-to-end, performance** (#93). Balance input
+  from the reference player over every zone with all 16 classes (25.4): each
+  class clears 10–12 of 12 zones; average clear times spread 45 s
+  (Shadowblade) to 164 s (Chrono-Weaver), Aegis 158 s, Blood 143 s, Bard
+  134 s at the slow end; Aether, Elementalist, Windrunner, Sovereign, Pyro
+  and Beastcaller 62–75 s at the fast end. To narrow in the balance pass.
 - [ ] **24 Icons, then the world map** (#94).

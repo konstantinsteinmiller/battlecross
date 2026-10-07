@@ -95,7 +95,8 @@ export default {
     elixirSwift: 'Celeritat',
     elixirMind: 'Ment clara',
     elixirVigor: 'Vigor',
-    elixirShadow: 'Fulla assedegada'
+    elixirShadow: 'Fulla assedegada',
+    chi: 'Chi'
   },
   toast: {
     item: 'Trobat: {item}',
@@ -860,6 +861,390 @@ export default {
     crumble: {
       name: 'Esmicolar',
       desc: 'Fas un {dmg}% més de dany als enemics alentits, tombats o convertits en pedra.'
+    },
+    galeArrow: {
+      name: 'Fletxa de Ràfega',
+      desc: 'Una fletxa que cavalca una ràfega: {dmg}% de dany de Destresa, i l’objectiu surt empès enrere.'
+    },
+    fleetfoot: {
+      name: 'Peus Lleugers',
+      desc: '+{move}% de velocitat de moviment i +{dodge}% d’Esquiva.'
+    },
+    zephyrDash: {
+      name: 'Carrera del Zèfir',
+      desc: 'Llança’t fins a {dist} m cap on apuntes, i després corre un {move}% més ràpid durant {dur}s.'
+    },
+    piercingGale: {
+      name: 'Ràfega Perforant',
+      desc: 'Una fletxa que travessa tots els enemics en línia: {dmg}% de dany de Destresa i alentiment del {slow}% durant {dur}s.'
+    },
+    cycloneSnare: {
+      name: 'Parany Cicló',
+      desc: 'Un remolí durant {dur}s atrau els enemics cap al seu ull i fa {dmg}% de dany de Perícia.'
+    },
+    keenEye: {
+      name: 'Ull Agut',
+      desc: '+{critDmg}% de Dany Crític. Els teus trets travessen {pierce} enemic més.'
+    },
+    updraftLeap: {
+      name: 'Salt Ascendent',
+      desc: 'Una ràfega llança enlaire els enemics a {radius} m amb {dmg}% de dany de Destresa. Tu saltes {leap} m lluny.'
+    },
+    swiftDraw: {
+      name: 'Tret Àgil',
+      desc: 'Ataques un {speed}% més ràpid i les teves recàrregues són un {cdr}% més curtes.'
+    },
+    arrowStorm: {
+      name: 'Tempesta de Fletxes',
+      desc: 'Plouen fletxes sobre la zona durant {dur}s: {dmg}% de dany de Perícia en total i alentiment del {slow}%.'
+    },
+    galeSpirits: {
+      name: 'Esperits del Vent',
+      desc: 'Esperits del vent volen amb tu durant {dur}s i disparen {shots} fletxes de {dmg}% de dany de Perícia. +{move}% de velocitat de moviment.'
+    },
+    skyHunter: {
+      name: 'Caçador del Cel',
+      desc: '+{boss}% de dany contra caps finals i +{crit}% de Probabilitat de Crític.'
+    },
+    skyrender: {
+      name: 'Esquinçacels',
+      desc: 'Una fletxa de tempesta obre camí: {dmg}% de dany de Destresa a tots els de la línia, llançats amunt i a un costat.'
+    },
+    frostCleave: {
+      name: 'Tall de Gebre',
+      desc: 'Escombra amb la fulla de gel davant teu: {dmg}% de dany de Força i alentiment del {slow}% durant {dur}s.'
+    },
+    rimeLance: {
+      name: 'Llança de Gebre',
+      desc: 'Tira una llança de gel amb {dmg}% de dany d’Intel·ligència. Alenteix un {slow}% durant {dur}s.'
+    },
+    wintersBite: {
+      name: 'Mossegada d’Hivern',
+      desc: 'Els teus atacs alenteixen l’enemic un {slow}% durant {dur}s.'
+    },
+    frostArmor: {
+      name: 'Armadura de Gebre',
+      desc: 'Una armadura de gel absorbeix el {shield}% d’Intel·ligència en dany durant {dur}s. Els enemics propers s’alenteixen un {slow}%.'
+    },
+    glacialCharge: {
+      name: 'Càrrega Glacial',
+      desc: 'Carrega contra l’objectiu amb {dmg}% de dany de Força i congela’l {freeze}s.'
+    },
+    frozenHeart: {
+      name: 'Cor Glaçat',
+      desc: '+{hp}% de salut màxima, i tot el dany que reps es redueix un {reduce}%.'
+    },
+    rimeField: {
+      name: 'Camp de Gebre',
+      desc: 'Terra glaçada durant {dur}s: {dmg}% de dany d’Intel·ligència. Els enemics alentits que hi ha es congelen {freeze}s.'
+    },
+    frostShatter: {
+      name: 'Esclat de Gebre',
+      desc: '{dmg}% de dany de Força a {radius} m: +{chilled}% als enemics alentits, +{frozen}% als congelats.'
+    },
+    shatterpoint: {
+      name: 'Punt de Ruptura',
+      desc: 'Fas un {bonus}% més de dany als enemics alentits i congelats.'
+    },
+    avalancheLeap: {
+      name: 'Salt d’Allau',
+      desc: 'Salta on apuntes i cau com una allau: {dmg}% de dany de Força, i tomba els enemics.'
+    },
+    iceborn: {
+      name: 'Sang de Gel',
+      desc: 'Res no et pot empènyer ni llançar. Els atordiments que reps duren un {cut}% menys.'
+    },
+    absoluteZero: {
+      name: 'Zero Absolut',
+      desc: 'L’hivern esclata des de tu: {dmg}% de dany d’Intel·ligència a {radius} m, i ho congela tot {freeze}s.'
+    },
+    sunbolt: {
+      name: 'Raig de Sol',
+      desc: 'Un raig de llum solar amb {dmg}% de dany d’Intel·ligència. L’objectiu enlluernat fa un {weaken}% menys de dany durant {dur}s.'
+    },
+    mendingLight: {
+      name: 'Llum Guaridora',
+      desc: 'Cura’t un {heal}% de Carisma de cop, i després el {regen}% de la salut cada segon durant {dur}s.'
+    },
+    kindledHope: {
+      name: 'Esperança Encesa',
+      desc: 'Totes les curacions que reps són un {heal}% més fortes.'
+    },
+    lanceOfLight: {
+      name: 'Llança de Llum',
+      desc: 'Un raig de llum: {dmg}% de dany d’Intel·ligència en línia. Et cures un {heal}% de salut per cada enemic tocat.'
+    },
+    dawnShield: {
+      name: 'Escut de l’Alba',
+      desc: 'Treu-te tots els efectes negatius i guanya un escut del {shield}% de Carisma durant {dur}s.'
+    },
+    haloWard: {
+      name: 'Halo Protector',
+      desc: 'Tot el dany que reps es redueix un {reduce}%.'
+    },
+    dawnSanctuary: {
+      name: 'Santuari de l’Alba',
+      desc: 'Terra sagrada durant {dur}s: et cura un {heal}% de Carisma per segon, i els enemics reben {dmg}% d’Intel·ligència.'
+    },
+    blindingFlash: {
+      name: 'Llampec Encegador',
+      desc: 'Un esclat de llum: els enemics a {radius} m fugen {fear}s i fan un {weaken}% menys de dany durant {dur}s.'
+    },
+    guardianLight: {
+      name: 'Llum Protectora',
+      desc: 'Un cop que et derrotaria et deixa amb 1 de salut, intocable durant {dur}s. Un cop cada {icd}s.'
+    },
+    sunfall: {
+      name: 'Caiguda del Sol',
+      desc: 'Un pilar de llum solar cau sobre l’objectiu: {dmg}% de dany d’Intel·ligència. Els enemics reben un {vuln}% més durant {dur}s.'
+    },
+    searingLight: {
+      name: 'Llum Abrasadora',
+      desc: '+{crit}% de Probabilitat de Crític d’encanteri i +{critDmg}% de Dany Crític.'
+    },
+    haloOfDawn: {
+      name: 'Halo de l’Alba',
+      desc: 'Brilla durant {dur}s: cada segon, {dmg}% de dany d’Intel·ligència a {radius} m i et cures un {heal}% de salut.'
+    },
+    callWolf: {
+      name: 'Crida el Llop',
+      desc: 'Un llop espiritual s’uneix a tu i mossega amb {dmg}% de dany de Carisma. Fins a {max} alhora.'
+    },
+    wolfPounce: {
+      name: 'Salt del Llop',
+      desc: 'Els teus llops salten sobre l’objectiu: {dmg}% de dany de Carisma cadascun, i el tomben {down}s.'
+    },
+    wildKinship: {
+      name: 'Germanor Salvatge',
+      desc: 'Els teus companys tenen un {hp}% més de salut i fan un {dmg}% més de dany.'
+    },
+    callHawk: {
+      name: 'Crida el Falcó',
+      desc: 'Un falcó es llança sobre l’objectiu amb {dmg}% de dany de Carisma: rep un {vuln}% més durant {dur}s. Es queda {life}s.'
+    },
+    callBear: {
+      name: 'Crida l’Ós',
+      desc: 'Un ós espiritual s’uneix a tu. Colpeja amb {dmg}% de dany i entreté els enemics. Fins a {max}.'
+    },
+    thickHide: {
+      name: 'Pell Gruixuda',
+      desc: '+{hp}% de salut màxima i +{regen} de regeneració de salut per segon.'
+    },
+    packBond: {
+      name: 'Vincle de Manada',
+      desc: 'Tu i els companys a {radius} m regenereu un {regen}% de salut per segon i guanyeu {def}% de Defensa durant {dur}s.'
+    },
+    spiritStampede: {
+      name: 'Estampida d’Esperits',
+      desc: 'Un ramat de bèsties espirituals carrega: {dmg}% de dany de Carisma en línia, i tomba els enemics.'
+    },
+    packTactics: {
+      name: 'Tàctica de Manada',
+      desc: 'Fas un {bonus}% més de dany per cada company que t’acompanya, fins a {max}.'
+    },
+    alphaHowl: {
+      name: 'Udol Alfa',
+      desc: 'Els teus companys es curen un {heal}% i lluiten un {rage}% més fort durant {dur}s. Els enemics propers fugen.'
+    },
+    leaderOfThePack: {
+      name: 'Cap de la Manada',
+      desc: 'Els teus companys ataquen un {speed}% més ràpid i fan un {dmg}% més de dany.'
+    },
+    wildHunt: {
+      name: 'Cacera Salvatge',
+      desc: '{wolves} llops més corren amb tu durant {dur}s. Tota la manada fa +{dmg}% de dany i es mou un {move}% més ràpid.'
+    },
+    prismBolt: {
+      name: 'Raig Prismàtic',
+      desc: 'Un raig de {dmg}% de dany d’Intel·ligència: gebre si l’objectiu crema, si no, foc. L’un activa l’altre.'
+    },
+    elementalHarmony: {
+      name: 'Harmonia Elemental',
+      desc: 'Les teves reaccions (Fusió, Vapor, Trencament, Sobrecàrrega, Cristall) són un {pct}% més fortes.'
+    },
+    frostLance: {
+      name: 'Llança de Gel',
+      desc: 'Gel en línia: {dmg}% de dany d’Intel·ligència i alentiment del {slow}% durant {dur}s. Els enemics que cremen fan Vapor.'
+    },
+    chainSpark: {
+      name: 'Espurna en Cadena',
+      desc: 'Un llamp de {dmg}% d’Intel·ligència que salta a {jumps} enemics més. Trenca el gel, sobrecarrega el foc.'
+    },
+    smolderingCore: {
+      name: 'Nucli Ardent',
+      desc: 'Les teves cremades fan un {burn}% més de dany, i tens {mana} de manà més.'
+    },
+    rollingBoulder: {
+      name: 'Roca Rodolant',
+      desc: 'Una roca surt rodolant: {dmg}% de dany d’Intel·ligència i tomba {down}s. Els enemics marcats et donen un escut.'
+    },
+    thunderSnow: {
+      name: 'Neu de Tro',
+      desc: 'Una tempesta de neu durant {dur}s: {dmg}% de dany de gebre d’Intel·ligència, i un llamp cada segon de {bolt}%.'
+    },
+    spellweave: {
+      name: 'Teixit Arcà',
+      desc: '+{crit}% de Probabilitat de Crític d’encanteri, i les teves habilitats costen un {mana}% menys de manà.'
+    },
+    prismaticNova: {
+      name: 'Nova Prismàtica',
+      desc: 'Colpeja tot el que hi ha a {radius} m amb {dmg}% d’Intel·ligència, cadascú amb l’element al qual reacciona.'
+    },
+    prismaticWard: {
+      name: 'Escut Prismàtic',
+      desc: 'Reps un {reduce}% menys de dany i tens un {hp}% més de salut.'
+    },
+    frostfireComet: {
+      name: 'Cometa de Foc i Gel',
+      desc: 'Un cometa de foc i gel: {dmg}% de dany d’Intel·ligència. Els enemics queden cremant i alentits.'
+    },
+    elementalConvergence: {
+      name: 'Convergència Elemental',
+      desc: 'Durant {dur}s quatre elements s’alternen: {strikes} cops de {dmg}% d’Intel·ligència que s’activen entre ells.'
+    },
+    wispBolt: {
+      name: 'Dard Follet',
+      desc: 'Un foc follet amb {dmg}% de dany d’Intel·ligència. Si derrota un enemic, s’alça com el teu esperit durant {life}s.'
+    },
+    kindredSpirits: {
+      name: 'Esperits Afins',
+      desc: 'Els teus esperits i sequaços tenen un {hp}% més de salut i ataquen un {speed}% més ràpid.'
+    },
+    callTheFallen: {
+      name: 'Crida els Caiguts',
+      desc: 'Fins a {max} enemics acabats de caure a {radius} m s’alcen com els teus esperits durant {life}s.'
+    },
+    soulBond: {
+      name: 'Vincle d’Ànimes',
+      desc: 'Fes-te amic d’un enemic: {chance}% ({low}% si està ferit) que s’uneixi a tu com a esperit {life}s. Si no, {dmg}% de dany.'
+    },
+    restlessSouls: {
+      name: 'Ànimes Inquietes',
+      desc: 'Un enemic que derrotes té un {chance}% de probabilitat d’alçar-se com el teu esperit durant {life}s.'
+    },
+    spiritLantern: {
+      name: 'Fanal d’Esperits',
+      desc: 'Un fanal durant {dur}s: els enemics a la seva llum reben {dmg}% d’Intel·ligència, els amics es curen, els caiguts s’alcen.'
+    },
+    hauntingWail: {
+      name: 'Gemec Fantasmal',
+      desc: 'Un BU fantasmal: {dmg}% de dany d’Intel·ligència a {radius} m, i els enemics fugen {fear}s.'
+    },
+    wardensVigil: {
+      name: 'Vetlla del Guardià',
+      desc: 'Els teus esperits i sequaços fan un {dmg}% més de dany, i tu reps un {reduce}% menys.'
+    },
+    releaseSouls: {
+      name: 'Allibera les Ànimes',
+      desc: 'Els teus esperits tornen a casa en esclats de llum: {dmg}% d’Intel·ligència al voltant de cadascun, i recuperes un {heal}% de salut per cadascun.'
+    },
+    lanternKeeper: {
+      name: 'Guardafanals',
+      desc: 'Recàrregues un {cdr}% més curtes, i les teves habilitats costen un {mana}% menys de manà.'
+    },
+    wispSwarm: {
+      name: 'Eixam de Follets',
+      desc: '{wisps} focs follets es llancen sobre els enemics de la zona amb {dmg}% d’Intel·ligència en total. Els que derroten s’alcen.'
+    },
+    processionOfSouls: {
+      name: 'Processó d’Ànimes',
+      desc: 'Durant {dur}s cada enemic que cau a prop teu s’alça com el teu esperit, i els esperits fan un {atk}% més.'
+    },
+    palmStrike: {
+      name: 'Cop de Palmell',
+      desc: 'Un palmell ràpid amb {dmg}% de dany de Destresa que empeny l’enemic enrere. Acumula {chi} de chi.'
+    },
+    ironBody: {
+      name: 'Cos de Ferro',
+      desc: 'El dany físic que reps es redueix un {reduce}%, i tens un {hp}% més de salut.'
+    },
+    flyingKick: {
+      name: 'Puntada Voladora',
+      desc: 'Vola cap a l’objectiu i clava-li una puntada amb {dmg}% de dany de Destresa; els enemics del camí reben un {path}%. Acumula {chi} de chi.'
+    },
+    tigerStance: {
+      name: 'Postura del Tigre',
+      desc: 'Durant {dur}s: +{dmg}% de dany i +{speed}% de velocitat d’atac. Acaba la Postura de la Grua.'
+    },
+    craneStance: {
+      name: 'Postura de la Grua',
+      desc: 'Durant {dur}s: +{def}% de Defensa, i et cures un {regen}% de la salut per segon. Acaba la Postura del Tigre.'
+    },
+    flowingFists: {
+      name: 'Punys Fluids',
+      desc: 'Els teus atacs tenen un {chance}% de probabilitat d’acumular chi.'
+    },
+    hundredFists: {
+      name: 'Cent Punys',
+      desc: 'Una ràfega de {hits} cops amb {dmg}% de dany de Destresa en total. Acumula {chi} de chi.'
+    },
+    risingDragon: {
+      name: 'Drac Ascendent',
+      desc: 'Gasta tot el chi en un cop de puny ascendent: {dmg}% de dany de Destresa, +{per}% per chi. L’enemic surt volant.'
+    },
+    cranesGrace: {
+      name: 'Gràcia de la Grua',
+      desc: '+{dodge}% d’Esquiva, i els atordiments i les tombades que reps duren un {cut}% menys.'
+    },
+    whirlwindKick: {
+      name: 'Puntada Remolí',
+      desc: 'Clava dues puntades a tot el que hi ha a {radius} m amb {dmg}% de dany de Destresa en total. Acumula fins a {chi} de chi.'
+    },
+    tigersFury: {
+      name: 'Fúria del Tigre',
+      desc: '+{crit}% de Probabilitat de Crític i +{speed}% de velocitat d’atac.'
+    },
+    mountainPalm: {
+      name: 'Palmell de Muntanya',
+      desc: 'Gasta tot el chi: un palmell gegant cau amb {dmg}% de dany de Destresa, +{per}% per chi, i tomba els enemics.'
+    },
+    sharpNote: {
+      name: 'Nota Aguda',
+      desc: 'Una nota aguda amb {dmg}% de dany de Carisma. L’enemic fa un {weaken}% menys de dany durant {dur}s.'
+    },
+    stagePresence: {
+      name: 'Presència Escènica',
+      desc: 'Les teves habilitats costen un {mana}% menys de manà, i et mous un {move}% més ràpid.'
+    },
+    marchingSong: {
+      name: 'Cançó de Marxa',
+      desc: 'Una cançó durant {dur}s: tu i els aliats a {radius} m us moveu un {move}% i ataqueu un {speed}% més ràpid.'
+    },
+    lullaby: {
+      name: 'Cançó de Bressol',
+      desc: 'Una melodia suau en con: tots els enemics que toca s’adormen {dur}s.'
+    },
+    longRefrain: {
+      name: 'Tornada Llarga',
+      desc: 'Les teves cançons duren un {pct}% més.'
+    },
+    balladOfValor: {
+      name: 'Balada del Valor',
+      desc: 'Una cançó durant {dur}s: tu i els aliats a {radius} m feu un {dmg}% més de dany i guanyeu {def}% de Defensa.'
+    },
+    charmingSerenade: {
+      name: 'Serenata Encisadora',
+      desc: 'Encisa l’objectiu i els enemics a {radius} m: durant {dur}s lluiten entre ells.'
+    },
+    virtuoso: {
+      name: 'Virtuosisme',
+      desc: 'Recàrregues un {cdr}% més curtes i +{critDmg}% de Dany Crític.'
+    },
+    hymnOfMending: {
+      name: 'Himne Guaridor',
+      desc: 'Treu els efectes negatius i, durant {dur}s, tu i els aliats a {radius} m us cureu un {regen}% de salut per segon.'
+    },
+    crescendo: {
+      name: 'Crescendo',
+      desc: 'Un esclat de so a {radius} m: {dmg}% de dany de Carisma, +{per}% per cada cançó que estàs tocant.'
+    },
+    standingOvation: {
+      name: 'Ovació Dempeus',
+      desc: '+{dmg}% de dany, i reps un {reduce}% menys de dany.'
+    },
+    grandFinale: {
+      name: 'Gran Final',
+      desc: 'Toca-ho tot durant {dur}s (+{buff}% de velocitat, dany i Defensa), i després un últim acord: {dmg}% de Carisma, enemics encisats.'
     }
   },
   slot: {
@@ -1372,6 +1757,30 @@ export default {
     sbFence: {
       name: 'Mirela Thorne',
       talk: 'Armadures fines, sense preguntes. Bé, molt poques preguntes.'
+    },
+    sbMasterWindrunner: {
+      name: 'Sefa Ala de Vendaval'
+    },
+    sbMasterFrostwarden: {
+      name: 'Halvard Cor de Gebre'
+    },
+    sbMasterLightbringer: {
+      name: 'Germana Auriel Llac de l’Alba'
+    },
+    sbMasterBeastcaller: {
+      name: 'El vell Rowan Peu de Card'
+    },
+    sbMasterElementalist: {
+      name: 'Magistra Iris Quatre Vents'
+    },
+    sbMasterSoulwarden: {
+      name: 'Guardiana Odalys Llum de Fanal'
+    },
+    sbMasterIronmonk: {
+      name: 'Mestre Oru Aigua Quieta'
+    },
+    sbMasterBard: {
+      name: 'Lark Bon Oratge'
     }
   },
   quest: {
@@ -3688,6 +4097,382 @@ export default {
       },
       bye: {
         '1': 'Vigila la bossa. Aquí no tothom és tan honest com jo.'
+      }
+    },
+    sbMasterWindrunner: {
+      hello: {
+        '1': 'Ai, hola! Perdona, no em puc aturar. Espero que giri el vent. D’un moment a l’altre.',
+        '2': 'Sefa Ala de Vendaval. Tiro fletxes i persegueixo el vent. Normalment guanya el vent.'
+      },
+      open: {
+        '1': 'Mira qui ha arribat! A punt? I tant que sí. Som-hi, som-hi!'
+      },
+      again: {
+        '1': 'Hola de nou! Encara soc aquí. Bé, gairebé. Els peus se me’n van tot sols.'
+      },
+      train: {
+        '1': 'Notes el vent a la galta? Apunta una mica a l’esquerra d’on creus. Ara, deixa-la anar!'
+      },
+      favor: {
+        '1': 'Només a qui em pot seguir el ritme. I tu, pots? Ho descobrirem.',
+        '2': 'Derrota dotze bandits arquers als Afores d’Oakhaven i després porta’m tres falgueres àgils.',
+        say: 'Ensenyes tir amb arc?'
+      },
+      waiting: {
+        '1': 'Dotze bandits arquers, tres falgueres àgils. Au, vés! Jo t’espero aquí. Saltironejant.',
+        say: 'Sobre la teva prova...'
+      },
+      favorDone: {
+        '1': 'Ha! M’has seguit el ritme de veritat! Ningú no me’l segueix!',
+        '2': 'Doncs ara t’entreno jo. Una sola norma: a les meves classes no s’hi seu ningú.',
+        say: 'Els arquers estan vençuts, i aquí tens les falgueres àgils.'
+      },
+      class: {
+        '1': 'Disparar, córrer, tornar a disparar. Si t’atrapen, és que t’has aturat massa estona.',
+        '2': 'Destresa per tenir peus i arc ràpids. Perícia, perquè cada fletxa encerti.',
+        say: 'Què fa un Corredor del Vent?'
+      },
+      ready: {
+        strong: {
+          '1': 'Ara ja vas com el vent. Bé, gairebé. Tria la lliçó que vulguis!'
+        },
+        able: {
+          '1': 'Peus lleugers! Ja estàs a punt per a la següent. Au, au!'
+        },
+        weak: {
+          '1': 'Encara no. Corres com si carreguessis un sofà. Més Destresa, si us plau.'
+        }
+      },
+      who: {
+        '1': 'Visc dalt del molí de vent vell, vora el riu. La millor vista del vent de tota la ciutat.',
+        '2': 'Dos-cents graons fins a dalt. Un entrenament genial. Els he comptat tots.'
+      },
+      trainBack: {
+        '1': 'Molt bé! Ara torna a casa corrent. Res de caminar. Córrer també és entrenar.'
+      },
+      bye: {
+        '1': 'Fins aviat! Compte amb les branques baixes. Jo mai no en tinc.'
+      }
+    },
+    sbMasterFrostwarden: {
+      hello: {
+        '1': 'Hm. Has passat per davant meu tres vegades. T’has perdut o tens curiositat?',
+        '2': 'Halvard Cor de Gebre. Vaig baixar cap al sud des de la neu. Aquí fa calor. Massa calor.'
+      },
+      open: {
+        '1': 'Has vingut. Bé. El gel està a punt, i jo també.'
+      },
+      again: {
+        '1': 'Tu, una altra vegada. Bé. No parlo gaire. Queda’t igualment.'
+      },
+      train: {
+        '1': 'Treu l’aire a poc a poc. Veus el baf? Ara posa’l a la fulla.'
+      },
+      favor: {
+        '1': 'Sí. Només l’ensenyo a qui manté el cap fred en un lloc calent.',
+        '2': 'Apaga deu elementals de foc als Penyals de Cendra. Després porta’m tres branquetes de menta gebrada.',
+        say: 'Aquesta espasa és de gel?'
+      },
+      waiting: {
+        '1': 'Deu elementals de foc. Tres branquetes de menta gebrada. Pren-t’ho amb calma. No amb massa calma.',
+        say: 'Sobre la teva prova...'
+      },
+      favorDone: {
+        '1': 'Hm. Ni una cremada. Bé.',
+        '2': 'Has mantingut el cap fred. Aquesta era la primera lliçó. T’ensenyaré la resta.',
+        say: 'Els elementals de foc estan apagats. Aquí tens la menta gebrada.'
+      },
+      class: {
+        '1': 'Un cavaller del fred. Refreda’ls, congela’ls i després trenca el gel.',
+        '2': 'Força per a la fulla. Intel·ligència per al gebre. Necessites totes dues.',
+        say: 'Què és un Guardià del Gel?'
+      },
+      ready: {
+        strong: {
+          '1': 'Ara portes el fred del nord a dins. Tria qualsevol lliçó.'
+        },
+        able: {
+          '1': 'Bé. Amb calma. La lliçó següent és teva.'
+        },
+        weak: {
+          '1': 'Encara no. El teu gebre es fon massa de pressa. Més Intel·ligència, i més Força.'
+        }
+      },
+      who: {
+        '1': 'Vaig guardar un pas de muntanya al nord. Després vaig voler veure un riu que no es glaça.'
+      },
+      trainBack: {
+        '1': 'Bé. Ara descansa. El gel no té pressa. Tu tampoc no n’hauries de tenir.'
+      },
+      bye: {
+        '1': 'Bon camí. I el cap ben fred.'
+      }
+    },
+    sbMasterLightbringer: {
+      hello: {
+        '1': 'Mm-hm-hmm... Oh! Perdona, cor, estava taral·larejant. T’he taral·larejat a sobre? Em passa sovint.',
+        '2': 'Germana Auriel Llac de l’Alba. Mantinc encès el llumet del final del pont.'
+      },
+      open: {
+        '1': 'Aquí arriba la meva llumeta! Vine, posa’t una estona a la llum. T’ho has guanyat.'
+      },
+      again: {
+        '1': 'Hola de nou! Encara aquí, encara taral·larejant. Al llum li agrada la companyia.'
+      },
+      train: {
+        '1': 'Mans obertes, barbeta amunt. Pensa en el millor matí que has viscut mai. Així. Ho notes?'
+      },
+      favor: {
+        '1': 'Tothom té una mica de llum a dins. Jo ensenyo a deixar-la sortir, quan arriba el moment.',
+        '2': 'Derrota deu cultistes als Penyals de Cendra i després porta’m cinc pètals de sol per al meu llum.',
+        say: 'Aquest llum és màgic?'
+      },
+      waiting: {
+        '1': 'Deu cultistes, cinc pètals de sol. Derrota’ls amb suavitat. Tothom mereix una segona oportunitat.',
+        say: 'Sobre la teva prova...'
+      },
+      favorDone: {
+        '1': 'Oh, mira’ls! El llum brillarà daurat tot un mes.',
+        '2': 'I tu també, cor. M’encantarà ensenyar-te.',
+        say: 'Els cultistes estan vençuts. Aquí tens els pètals de sol.'
+      },
+      class: {
+        '1': 'Portem l’alba. Llum per lluitar, llum per curar, llum per amagar-s’hi al darrere.',
+        '2': 'La Intel·ligència fa forta la llum. El Carisma la fa càlida. Voldràs totes dues coses.',
+        say: 'Què fa un Portador de Llum?'
+      },
+      ready: {
+        strong: {
+          '1': 'Brilles com una sortida de sol, cor. Tria la lliçó que vulguis.'
+        },
+        able: {
+          '1': 'Quina llum més bonica! Ja estàs a punt per a la següent.'
+        },
+        weak: {
+          '1': 'Encara no, cor. La teva llum és una mica feble. Més Carisma, i brillaràs.'
+        }
+      },
+      who: {
+        '1': 'Una vegada cantava en un gran temple. Però aquí fora el meu llum guia les barques cap a casa. Això és millor.'
+      },
+      trainBack: {
+        '1': 'Preciós. Ara ves i alegra el dia a algú. Ordres de la germana.'
+      },
+      bye: {
+        '1': 'Au, vés, cor. I somriu als racons foscos. Ho odien.'
+      }
+    },
+    sbMasterBeastcaller: {
+      hello: {
+        '1': 'Compte on trepitges. Aquesta és la Bramble. Ella hi era primer.',
+        '2': 'Rowan Peu de Card. M’agraden els animals. La gent, encara m’ho estic pensant.'
+      },
+      open: {
+        '1': 'Ah, ets tu. La Bramble t’esperava. Jo també. Una mica.'
+      },
+      again: {
+        '1': 'Tu, una altra vegada. A la Bramble li agrades. Jo encara m’ho estic pensant.'
+      },
+      train: {
+        '1': 'Ajup-te. Més a poc a poc. Allarga la mà i deixa que vinguin ells. Bé.'
+      },
+      favor: {
+        '1': 'Parlar? Jo escolto. Aquest és el truc que la majoria no aprèn mai.',
+        '2': 'Les aranyes gegants omplen de teranyines els camins dels animals al Bosc dels Murmuris. Elimina’n dotze.',
+        '3': 'Després porta’m dues campanetes lunars per al cau. La Bramble hi dorm millor a prop.',
+        say: 'Pots parlar amb els animals?'
+      },
+      waiting: {
+        '1': 'Dotze aranyes, dues campanetes lunars. Els animals esperen. La Bramble també.',
+        say: 'Sobre la teva prova...'
+      },
+      favorDone: {
+        '1': 'Hm. Aquest matí els cérvols han baixat al riu. Ja m’ensumava que series tu.',
+        '2': 'Està bé. T’ensenyaré. No en facis un drama. Bramble, deixa de bellugar la cua.',
+        say: 'Els camins estan nets, i aquí tens les campanetes lunars.'
+      },
+      class: {
+        '1': 'Crides la natura salvatge, i la natura salvatge ve. Llops, un falcó, un ós. Amics, no mascotes.',
+        '2': 'Carisma, perquè vulguin venir. Aguant, perquè els puguis seguir.',
+        say: 'Què és un Domador de Bèsties?'
+      },
+      ready: {
+        strong: {
+          '1': 'Ara tota la manada confia en tu. Agafa el que vulguis.'
+        },
+        able: {
+          '1': 'Als llops els agrades. Ja estàs a punt per a la següent.'
+        },
+        weak: {
+          '1': 'Encara no. No es refien de tu. Més Carisma, i molta més paciència.'
+        }
+      },
+      who: {
+        '1': 'Vaig trobar la Bramble en un parany fa anys. Tres potes i molt de caràcter. Des de llavors som inseparables.',
+        '2': 'Dormo al paller de l’estable. Els cavalls ronquen menys que la gent.'
+      },
+      trainBack: {
+        '1': 'Bé. Au, vés. I saluda els corbs. Se’n recorden.'
+      },
+      bye: {
+        '1': 'Au, vés. La Bramble et diu adéu.'
+      }
+    },
+    sbMasterElementalist: {
+      hello: {
+        '1': 'Hola! Un segon, que faig malabars. Foc, gebre, espurna, pedra i... agafats! Hola!',
+        '2': 'Magistra Iris Quatre Vents. Ensenyo els quatre elements. Barrejar-los és la part divertida.'
+      },
+      again: {
+        '1': 'Ja tornes a ser aquí! Bé, necessitava públic. Mira això. Tatxan!'
+      },
+      train: {
+        '1': 'Tria dues esferes. Les que vulguis. Ara fes que xoquin. Amb suavitat! Ho veus? Una reacció!'
+      },
+      class: {
+        '1': 'Barregem! Gebre i després foc: es fon. Foc i després llamp: bum. Cada parella fa alguna cosa.',
+        '2': 'Intel·ligència per a cada encanteri. Perícia, perquè els bons demanen mans ràpides.',
+        say: 'Què fa un Elementalista?'
+      },
+      ready: {
+        strong: {
+          '1': 'Ara barreges de meravella! Tria qualsevol lliçó. Tria’n dues!'
+        },
+        able: {
+          '1': 'Uau, quina espurna! Ja estàs a punt per a la següent.'
+        },
+        weak: {
+          '1': 'Encara no! Els teus elements s’apaguen sols. Més Intel·ligència, si us plau.'
+        }
+      },
+      sleeve: {
+        '1': 'Oh! És veritat. Espera... Ja està.',
+        '2': 'Foc, i després gebre. De fet, era una lliçó. De res!',
+        say: 'Ehem, et crema la màniga.'
+      },
+      trainBack: {
+        '1': 'Genial! Ara practica a fora, si us plau. Les cortines són noves.'
+      },
+      bye: {
+        '1': 'Adéu! Si fa olor de fum, segurament soc jo. No pateixis!'
+      }
+    },
+    sbMasterSoulwarden: {
+      hello: {
+        '1': 'Xst, tranquils, que són amics. Ai, tu no. Parlava amb els focs follets.',
+        '2': 'Guardiana Odalys Llum de Fanal. Ajudo els esperits perduts a trobar el camí de casa.'
+      },
+      again: {
+        '1': 'Hola de nou. Els focs follets se’n recorden de tu. Aquell et saluda.'
+      },
+      train: {
+        '1': 'Aguanta el fanal baix i parla fluixet. Les coses perdudes s’acosten a una veu amable.'
+      },
+      class: {
+        '1': 'Quan un enemic és vençut, el seu esperit es perd una mica. L’ajudem, i ell ens ajuda a nosaltres.',
+        '2': 'Intel·ligència per guiar la llum. Carisma, perquè els esperits vulguin quedar-se una estona.',
+        say: 'Què fa un Guardià d’Ànimes?'
+      },
+      ready: {
+        strong: {
+          '1': 'Ara fins i tot els esperits més tímids s’acosten a tu. Tria qualsevol lliçó.'
+        },
+        able: {
+          '1': 'Els focs follets confien en tu. Ja estàs a punt per a la lliçó següent.'
+        },
+        weak: {
+          '1': 'Encara no. Encara et tenen vergonya. Més Intel·ligència, i una mica de Carisma.'
+        }
+      },
+      wisps: {
+        '1': 'Més o menys! Són esperits que es van perdre. Aquest és en Fidget. Li agrada el costat calent.',
+        '2': 'Cap esperit no és dolent, saps? Només està perdut. Tornen a casa quan estan a punt.',
+        say: 'Els llumets del teu fanal són vius?'
+      },
+      trainBack: {
+        '1': 'Molt bé. Ara deixa’ls anar amb suavitat. Han tingut un dia llarg.'
+      },
+      bye: {
+        '1': 'Cuida’t. I si veus un llumet perdut, saluda’l.'
+      }
+    },
+    sbMasterIronmonk: {
+      hello: {
+        '1': 'Seu. Respira. No, respires com si arribessis tard a algun lloc. Un altre cop.',
+        '2': 'Mestre Oru Aigua Quieta. Ensenyo la mà oberta. Punys de ferro, cor tranquil.'
+      },
+      again: {
+        '1': 'Ah. Has tornat. El riu també torna. Cada dia.'
+      },
+      train: {
+        '1': 'Peus com arrels, mans com la pluja. Colpeja. Un altre cop. El centè és el que compta.'
+      },
+      class: {
+        '1': 'Sense fulla. Mans, peus, alè. Cada cop prepara el següent, fins al gran cop.',
+        '2': 'Destresa per a unes mans ràpides. Aguant per mantenir la calma quan als altres els falta l’alè.',
+        say: 'Què és un Monjo de Ferro?'
+      },
+      ready: {
+        strong: {
+          '1': 'Ara ja em podries ensenyar tu. No ho diguis a ningú. Tria qualsevol lliçó.'
+        },
+        able: {
+          '1': 'Bé. La tassa s’omple. Pren la lliçó següent.'
+        },
+        weak: {
+          '1': 'Encara no. Un arbre d’arrels curtes cau amb el vent. Més Aguant.'
+        }
+      },
+      noodles: {
+        '1': 'Sí. El brou ha bullit a foc lent dos dies. Si us plau, no hi respiris a sobre.',
+        '2': 'Un bon bol ensenya paciència. Un gran bol ensenya tota la resta.',
+        say: 'Això és un bol de fideus?'
+      },
+      trainBack: {
+        '1': 'Bé. Ara menja alguna cosa calenta. La força ve del bol.'
+      },
+      bye: {
+        '1': 'Bon camí. Passos suaus. Puntades fortes.'
+      }
+    },
+    sbMasterBard: {
+      hello: {
+        '1': 'Passa, passa, deixa el fred a la plaça! Ai, ha rimat. Em passa sovint.',
+        '2': 'Lark Bon Oratge. Toco vora el foc i ensenyo llaüt a qui em vulgui escoltar.'
+      },
+      again: {
+        '1': 'El meu públic preferit! Agafa un tamboret. Compte amb la gata, que és la crítica.'
+      },
+      train: {
+        '1': 'Rasgueja amb mi. Un, dos, i tres... No et miris els dits. Sent-ho!'
+      },
+      class: {
+        '1': 'Cançons que fan més valent el teu bàndol, melodies que adormen l’altre.',
+        '2': 'Carisma per guanyar-te el públic. Perícia, perquè els dits segueixin el cor.',
+        say: 'Què fa un Bard?'
+      },
+      ready: {
+        strong: {
+          '1': 'Ara podries omplir qualsevol taverna! Queda’t totes les cançons que tinc.'
+        },
+        able: {
+          '1': 'Quina melodia més bonica! Ja estàs a punt per a la següent estrofa.'
+        },
+        weak: {
+          '1': 'Encara no. El públic encara bada. Més Carisma, artista.'
+        }
+      },
+      story: {
+        '1': 'Una vegada, un cavaller va creuar aquest mateix pont només amb una espasa i una cançó...',
+        '2': 'Espera, amb música queda millor. La-la-la, el cavaller anava... On era?',
+        '3': 'Bah, és igual. Una cançó bonica, oi?',
+        say: 'M’expliques una història?'
+      },
+      trainBack: {
+        '1': 'Bravo! Practica cada dia. Fins i tot quan soni fatal. Sobretot llavors.'
+      },
+      bye: {
+        '1': 'Adéu, adeuet, ves amb compte i no passis fred! Ui. Una altra rima. Adéu!'
       }
     }
   },

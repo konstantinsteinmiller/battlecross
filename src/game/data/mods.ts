@@ -43,6 +43,22 @@ export type ModId =
   | 'wildfire'
   /** Loyal Hearts (#95): a minion's defeat heals the hero this share of her health. */
   | 'loyalty'
+  /** Winter's Bite (#86): the hero's basic hits slow by this share for 2 s. */
+  | 'chillOnHit'
+  /** Shatterpoint (#86): more damage to slowed or frozen enemies. */
+  | 'chillDamage'
+  /** Kindled Hope (#86): healing the hero receives is this much stronger. */
+  | 'healPower'
+  /** Pack Tactics (#86): the hero deals this much more damage for each companion alive (up to 4). */
+  | 'packDamage'
+  /** Elemental Harmony (#95): element reactions are this much stronger. */
+  | 'reactionDamage'
+  /** Restless Souls (#95): a beaten foe may rise as the hero's spirit. */
+  | 'soulRise'
+  /** Flowing Fists (#95): an attack builds a bead of chi with this chance. */
+  | 'chiOnHit'
+  /** Long Refrain (#95): the bard's songs last this much longer. */
+  | 'songLength'
   /** Shots pass through this many extra enemies (Void Cannon). */
   | 'pierce'
   /** Critical hits take this many seconds off every cooldown (Blade of the Unbound). */

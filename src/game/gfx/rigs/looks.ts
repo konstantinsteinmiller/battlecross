@@ -104,6 +104,23 @@ export const LOOKS: Readonly<Record<string, Look>> = {
   // The alchemist: a moss-green apron over a lilac dress, a bun of red hair stuck with herbs, a bubbling flask.
   // The gamblers (#91, #92): a showwoman in purple and gold; a scruffy dice man in a
   // patched waistcoat; a sleek dealer in midnight blue with a jewelled cap.
+  // ── The new Silverbridge masters (#86, #95), each dressed as its class ──
+  // Windrunner: a green leather ranger, lime trim, a hood with a copper fringe peeking out, a pale ash bow with a lime glow.
+  sbMasterWindrunner: L({ skin: '#e2b08a', top: '#5f8a3a', bottom: '#4a3b2a', head: 'hood', headCol: '#4f7a2a', hair: '#c9783a', style: 'ponytail', outfit: 'leather', held: 'bow', trim: '#c4f05a', cape: '#3f6a2a', metal: '#e0d0a8', glow: '#c4f05a', boots: 'leather' }),
+  // Frostwarden: ice-blue plate, a white fur mantle, a frosted helm, a white beard and a crystal sword.
+  sbMasterFrostwarden: L({ skin: '#e8c4a4', top: '#bfe0f8', bottom: '#4a6a8a', head: 'helm', headCol: '#d8eeff', hair: '#eef4fa', style: 'short', outfit: 'plate', held: 'sword', pauldrons: true, trim: '#a8d8ff', cape: '#f4f8ff', beard: '#eef4fa', metal: '#bfe6ff', glow: '#a8d8ff', bulk: 1.08 }),
+  // Lightbringer: a white robe with dawn-rose trim and skirt, a golden bun, a staff and a softly glowing orb.
+  sbMasterLightbringer: L({ skin: '#f0c8a8', top: '#fbf4f0', bottom: '#ffa8c8', head: 'bun', hair: '#e8c46a', outfit: 'robe', held: 'staff', off: 'orb', trim: '#ffa8c8', metal: '#e0b84a', glow: '#fff2a8' }),
+  // Beastcaller: a moss-green hunting coat, a grey fur hood over long grey hair, a beard and a walking staff.
+  sbMasterBeastcaller: L({ skin: '#d9a47e', top: '#4a6a34', bottom: '#5a4430', head: 'hood', headCol: '#8a8278', hair: '#c8c4bc', style: 'long', outfit: 'leather', held: 'staff', trim: '#4fb85a', cape: '#5a4a34', beard: '#c8c4bc', metal: '#7a5a34', glow: '#4fb85a', boots: 'leather' }),
+  // Elementalist: a prism-orchid robe, a fiery orange ponytail, a staff and an orb that glows magenta.
+  sbMasterElementalist: L({ skin: '#f2c8a0', top: '#b04ac8', bottom: '#4a2a6a', head: 'ponytail', hair: '#ff8a3a', ribbon: '#5fd8ff', outfit: 'robe', held: 'staff', off: 'orb', trim: '#e86bff', metal: '#c9a24a', glow: '#e86bff' }),
+  // Soul Warden: a periwinkle robe under a dusk-blue hood, long silver hair, a staff and a lantern-bright orb.
+  sbMasterSoulwarden: L({ skin: '#e8c4a4', top: '#6f86e0', bottom: '#2f3a6a', head: 'hood', headCol: '#3f4a8a', hair: '#d8dce8', style: 'long', outfit: 'robe', held: 'staff', off: 'orb', trim: '#7f9cff', metal: '#8a7a6a', glow: '#a8c0ff' }),
+  // Iron Monk: a jade tunic with a dark sash, grey trousers, bald with a long white beard, bare hands.
+  sbMasterIronmonk: L({ skin: '#d9a47e', top: '#3fa86a', bottom: '#5a6a6a', head: 'bald', hair: '#e8e8e0', outfit: 'tunic', held: 'none', off: 'none', trim: '#2f5a44', beard: '#e8e8e0', gloves: 'none', boots: 'none' }),
+  // Bard: a stage-pink doublet with gold trim, a feathered plum hat over copper hair, a sky-blue cape, a songbook (no lute on the rig).
+  sbMasterBard: L({ skin: '#e8b890', top: '#ff8ad8', bottom: '#4a3a6a', head: 'hat', headCol: '#7a2a5a', headTrim: '#ffd24a', hair: '#c9783a', style: 'short', outfit: 'tunic', held: 'none', off: 'tome', trim: '#ffd24a', cape: '#5fb8e0' }),
   // The secret traders (#86): a stooped old collector in a dusty plum coat with
   // a monocle-bright orb; a river fence in a teal hood, a dagger at her belt.
   sbCollector: L({ skin: '#e8c4a4', top: '#5a2a4a', bottom: '#3a2a2a', head: 'bald', outfit: 'robe', held: 'none', off: 'orb', trim: '#c9a24a', beard: '#d8d8d0', glow: '#ffe07a' }),

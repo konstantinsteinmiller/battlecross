@@ -1,4 +1,5 @@
 import { ENEMY_BY_ID, MINIONS } from '../../data/enemies'
+import { SPIRIT_COLOR } from '../../sim/spawn'
 import { setCelRim } from '../cel'
 import { cloneRig, type Rig } from '../kit'
 import { buildBeast, buildBoar, buildCart, buildDragon, buildElemental, buildGolem, buildNaga, buildSpider, buildTreant, buildTurret, buildWyvern } from './creatures'
@@ -230,12 +231,14 @@ export const makeRigView = (u: Unit, heroLook?: Look): RigView => {
   } else {
     const e = ENEMY_BY_ID[u.kind]
     const m = MINIONS[u.kind]
-    if (e) { spec = specFor(e.rig, e.look ?? e.id, true); scale = e.scale; color = e.color } else if (m) { spec = specFor(m.rig, m.look, u.team !== 0); scale = m.scale; color = m.color } else spec = humanoid(LOOKS.bandit!)
+    // A Soul Warden's spirit (#95): its old shape, drawn as a glowing ghost.
+    if (e && u.team === 0) { spec = { ...specFor(e.rig, e.look ?? e.id, true), ghost: true }; scale = e.scale; color = SPIRIT_COLOR } else if (e) { spec = specFor(e.rig, e.look ?? e.id, true); scale = e.scale; color = e.color } else if (m) { spec = specFor(m.rig, m.look, u.team !== 0); scale = m.scale; color = m.color } else spec = humanoid(LOOKS.bandit!)
   }
   const rig = cloneRig(template(spec.key, spec.build))
   rig.root.scale.setScalar(scale)
   // A boss (and, less, an elite) is lit round its edge in its own colour: it reads as the one that matters.
   if (u.rank === 'boss') setCelRim(rig.material, color, 0.55)
+  else if (spec.ghost && u.team === 0 && ENEMY_BY_ID[u.kind]) setCelRim(rig.material, SPIRIT_COLOR, 0.45)
   else if (u.rank === 'elite') setCelRim(rig.material, color, 0.3)
   const off = spec.off ?? 'none'
   const set = clipSet(styleOf(spec.held, off, u.s.atkStyle), off === 'shield', u.s.dual > 0 || off === 'dagger' || off === 'gun')

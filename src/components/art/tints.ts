@@ -10,6 +10,7 @@ const TINTS: Record<string, string> = {
   haste: BOON, attackSpeed: BOON, damageUp: '#ffb04a', defenseUp: '#50aaff', regen: BOON, lifestealUp: '#ff4a6a',
   invulnerable: '#ffe9a8', unkillable: '#ffe9a8', stealth: '#9c7bff', reflect: '#50aaff', envenom: '#8dff5a',
   exosuit: '#4ff0c8', focus: '#ffd24a', accelerate: '#7fd8ff', overheat: '#ff7a2a', enrage: HARM, ambush: '#c08aff',
+  chi: '#5fd08a',
   elixirMight: '#ff6a3a', elixirIron: '#a8b8c8', elixirSwift: '#9ef06a', elixirMind: '#7fb8ff', elixirVigor: '#ff7aa8', elixirShadow: '#a85ad8'
 }
 export const statusTint = (id: string): string => TINTS[id] ?? '#7fd8ff'

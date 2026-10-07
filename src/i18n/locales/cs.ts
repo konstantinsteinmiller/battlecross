@@ -95,7 +95,8 @@ export default {
     elixirSwift: 'Hbitost',
     elixirMind: 'Jasná mysl',
     elixirVigor: 'Elán',
-    elixirShadow: 'Žíznivá čepel'
+    elixirShadow: 'Žíznivá čepel',
+    chi: 'Čchi'
   },
   toast: {
     item: 'Nalezeno: {item}',
@@ -862,6 +863,390 @@ export default {
     crumble: {
       name: 'Rozdrcení',
       desc: 'Způsobíš o {dmg}% větší poškození nepřátelům, kteří jsou zpomalení, sražení nebo zkamenělí.'
+    },
+    galeArrow: {
+      name: 'Šíp vichřice',
+      desc: 'Šíp nesený poryvem: {dmg}% poškození z Obratnosti a cíl je odhozen dozadu.'
+    },
+    fleetfoot: {
+      name: 'Hbité nohy',
+      desc: '+{move}% rychlosti pohybu a +{dodge}% Úhybu.'
+    },
+    zephyrDash: {
+      name: 'Zefírův úprk',
+      desc: 'Vyraz až {dist} m tam, kam míříš, a pak běž {dur}s o {move}% rychleji.'
+    },
+    piercingGale: {
+      name: 'Probodávající vichr',
+      desc: 'Šíp proletí všemi nepřáteli v řadě: {dmg}% poškození z Obratnosti a {slow}% zpomalení na {dur}s.'
+    },
+    cycloneSnare: {
+      name: 'Past cyklónu',
+      desc: 'Vír na {dur}s stahuje nepřátele do svého oka a způsobí {dmg}% poškození ze Zručnosti.'
+    },
+    keenEye: {
+      name: 'Bystré oko',
+      desc: '+{critDmg}% kritického poškození. Tvé výstřely proletí dalšími nepřáteli: {pierce}.'
+    },
+    updraftLeap: {
+      name: 'Skok ve vzestupu',
+      desc: 'Poryv vyhodí nepřátele do {radius} m do vzduchu za {dmg}% poškození z Obratnosti. Ty odskočíš o {leap} m.'
+    },
+    swiftDraw: {
+      name: 'Rychlé napnutí',
+      desc: 'Útočíš o {speed}% rychleji a tvé dobíjení je o {cdr}% kratší.'
+    },
+    arrowStorm: {
+      name: 'Bouře šípů',
+      desc: 'Na oblast prší {dur}s šípy: celkem {dmg}% poškození ze Zručnosti a {slow}% zpomalení.'
+    },
+    galeSpirits: {
+      name: 'Duchové větru',
+      desc: 'Duchové větru letí {dur}s s tebou a vystřelí {shots} šípů za {dmg}% poškození ze Zručnosti. +{move}% rychlosti pohybu.'
+    },
+    skyHunter: {
+      name: 'Nebeský lovec',
+      desc: '+{boss}% poškození bossům a +{crit}% šance na kritický zásah.'
+    },
+    skyrender: {
+      name: 'Trhač nebes',
+      desc: 'Bouřný šíp si prorazí cestu: {dmg}% poškození z Obratnosti všem v řadě, vyhodí je nahoru a stranou.'
+    },
+    frostCleave: {
+      name: 'Mrazivý sek',
+      desc: 'Máchni ledovou čepelí před sebou: {dmg}% poškození ze Síly a {slow}% zpomalení na {dur}s.'
+    },
+    rimeLance: {
+      name: 'Kopí jinovatky',
+      desc: 'Hoď ledové kopí za {dmg}% poškození z Inteligence. Zpomalí o {slow}% na {dur}s.'
+    },
+    wintersBite: {
+      name: 'Kousnutí zimy',
+      desc: 'Tvé útoky zpomalí nepřítele o {slow}% na {dur}s.'
+    },
+    frostArmor: {
+      name: 'Mrazivá zbroj',
+      desc: 'Ledová zbroj pohltí {dur}s poškození za {shield}% z Inteligence. Nepřátelé u tebe zpomalí o {slow}%.'
+    },
+    glacialCharge: {
+      name: 'Ledovcový nápor',
+      desc: 'Vyraz na cíl za {dmg}% poškození ze Síly a zmraz ho na {freeze}s.'
+    },
+    frozenHeart: {
+      name: 'Zamrzlé srdce',
+      desc: '+{hp}% max. zdraví a veškeré utržené poškození je sníženo o {reduce}%.'
+    },
+    rimeField: {
+      name: 'Pole jinovatky',
+      desc: 'Mrznoucí zem na {dur}s: {dmg}% poškození z Inteligence. Zpomalení nepřátelé na ní zmrznou na {freeze}s.'
+    },
+    frostShatter: {
+      name: 'Mrazivé roztříštění',
+      desc: '{dmg}% poškození ze Síly do {radius} m: +{chilled}% zpomaleným nepřátelům, +{frozen}% zmrazeným.'
+    },
+    shatterpoint: {
+      name: 'Bod zlomu',
+      desc: 'Způsobíš o {bonus}% větší poškození zpomaleným a zmrazeným nepřátelům.'
+    },
+    avalancheLeap: {
+      name: 'Lavinový skok',
+      desc: 'Skoč tam, kam míříš, a dopadni jako lavina: {dmg}% poškození ze Síly a nepřátelé jsou sraženi.'
+    },
+    iceborn: {
+      name: 'Dítě ledu',
+      desc: 'Nic tě neodhodí ani nevyhodí. Omráčení na tobě jsou o {cut}% kratší.'
+    },
+    absoluteZero: {
+      name: 'Absolutní nula',
+      desc: 'Vybuchne z tebe zima: {dmg}% poškození z Inteligence do {radius} m a všechny zmrazí na {freeze}s.'
+    },
+    sunbolt: {
+      name: 'Sluneční blesk',
+      desc: 'Paprsek slunce za {dmg}% poškození z Inteligence. Oslněný cíl způsobuje {dur}s o {weaken}% méně.'
+    },
+    mendingLight: {
+      name: 'Hojivé světlo',
+      desc: 'Hned vyléčí {heal}% z Charismatu, pak {dur}s léčí {regen}% tvého zdraví za sekundu.'
+    },
+    kindledHope: {
+      name: 'Zažehnutá naděje',
+      desc: 'Veškeré léčení, které dostaneš, je o {heal}% silnější.'
+    },
+    lanceOfLight: {
+      name: 'Kopí světla',
+      desc: 'Paprsek světla: {dmg}% poškození z Inteligence v řadě. Za každého zasaženého nepřítele vyléčí {heal}% zdraví.'
+    },
+    dawnShield: {
+      name: 'Štít úsvitu',
+      desc: 'Zbav se všech špatných efektů a získej štít za {shield}% z Charismatu na {dur}s.'
+    },
+    haloWard: {
+      name: 'Ochranná svatozář',
+      desc: 'Veškeré utržené poškození je sníženo o {reduce}%.'
+    },
+    dawnSanctuary: {
+      name: 'Svatyně úsvitu',
+      desc: 'Svatá půda na {dur}s: léčí tě za {heal}% z Charismatu za sekundu a nepřátelé utrží {dmg}% z Inteligence.'
+    },
+    blindingFlash: {
+      name: 'Oslepující záblesk',
+      desc: 'Záblesk světla: nepřátelé do {radius} m na {fear}s utečou a {dur}s způsobují o {weaken}% méně.'
+    },
+    guardianLight: {
+      name: 'Strážné světlo',
+      desc: 'Rána, která by tě porazila, ti nechá 1 zdraví a {dur}s tě nic nezraní. Jednou za {icd}s.'
+    },
+    sunfall: {
+      name: 'Pád slunce',
+      desc: 'Na cíl dopadne sloup slunečního světla: {dmg}% poškození z Inteligence. Nepřátelé utrží {dur}s o {vuln}% víc.'
+    },
+    searingLight: {
+      name: 'Spalující světlo',
+      desc: '+{crit}% šance na kritický zásah kouzlem a +{critDmg}% kritického poškození.'
+    },
+    haloOfDawn: {
+      name: 'Svatozář úsvitu',
+      desc: 'Zář {dur}s: každou sekundu {dmg}% poškození z Inteligence do {radius} m a léčení {heal}% zdraví.'
+    },
+    callWolf: {
+      name: 'Přivolání vlka',
+      desc: 'Přidá se k tobě duchovní vlk a kouše za {dmg}% poškození z Charismatu. Nejvýše {max} naráz.'
+    },
+    wolfPounce: {
+      name: 'Vlčí skok',
+      desc: 'Tví vlci skočí na cíl: každý za {dmg}% poškození z Charismatu a srazí ho na {down}s.'
+    },
+    wildKinship: {
+      name: 'Divoké příbuzenství',
+      desc: 'Tví společníci mají o {hp}% víc zdraví a způsobují o {dmg}% větší poškození.'
+    },
+    callHawk: {
+      name: 'Přivolání jestřába',
+      desc: 'Jestřáb se vrhne na cíl za {dmg}% poškození z Charismatu: cíl utrží {dur}s o {vuln}% víc. Zůstane {life}s.'
+    },
+    callBear: {
+      name: 'Přivolání medvěda',
+      desc: 'Přidá se k tobě duchovní medvěd. Bije za {dmg}% poškození a zaměstná nepřátele. Nejvýše {max}.'
+    },
+    thickHide: {
+      name: 'Tlustá kůže',
+      desc: '+{hp}% max. zdraví a +{regen} zdraví za sekundu.'
+    },
+    packBond: {
+      name: 'Pouto smečky',
+      desc: 'Ty a společníci do {radius} m si {dur}s obnovujete {regen}% zdraví za sekundu a máte +{def}% Obrany.'
+    },
+    spiritStampede: {
+      name: 'Duchovní dupot',
+      desc: 'Stádo duchovních zvířat se žene vpřed: {dmg}% poškození z Charismatu v řadě a nepřátelé jsou sraženi.'
+    },
+    packTactics: {
+      name: 'Taktika smečky',
+      desc: 'Způsobíš o {bonus}% větší poškození za každého společníka s tebou, nejvýše {max}.'
+    },
+    alphaHowl: {
+      name: 'Vytí alfy',
+      desc: 'Tví společníci se vyléčí o {heal}% a {dur}s bojují o {rage}% zuřivěji. Nepřátelé u tebe utečou.'
+    },
+    leaderOfThePack: {
+      name: 'Vůdce smečky',
+      desc: 'Tví společníci útočí o {speed}% rychleji a způsobují o {dmg}% větší poškození.'
+    },
+    wildHunt: {
+      name: 'Divoký hon',
+      desc: 'Na {dur}s s tebou běží dalších {wolves} vlků. Celá smečka má +{dmg}% poškození a je o {move}% rychlejší.'
+    },
+    prismBolt: {
+      name: 'Hranolová střela',
+      desc: 'Střela za {dmg}% poškození z Inteligence: mráz, když cíl hoří, jinak oheň. Každý spouští ten druhý.'
+    },
+    elementalHarmony: {
+      name: 'Živelná harmonie',
+      desc: 'Tvé reakce (Tání, Pára, Roztříštění, Přetížení, Krystal) jsou o {pct}% silnější.'
+    },
+    frostLance: {
+      name: 'Mrazivé kopí',
+      desc: 'Led v řadě: {dmg}% poškození z Inteligence a {slow}% zpomalení na {dur}s. Hořící nepřátelé dají Páru.'
+    },
+    chainSpark: {
+      name: 'Řetězová jiskra',
+      desc: 'Blesk za {dmg}% z Inteligence přeskočí na {jumps} dalších nepřátel. Roztříští led, přetíží oheň.'
+    },
+    smolderingCore: {
+      name: 'Doutnající jádro',
+      desc: 'Tvá hoření způsobují o {burn}% větší poškození a máš o {mana} many víc.'
+    },
+    rollingBoulder: {
+      name: 'Valící se balvan',
+      desc: 'Vyvalí se balvan: {dmg}% poškození z Inteligence, sražení na {down}s. Označení nepřátelé ti dají štít.'
+    },
+    thunderSnow: {
+      name: 'Sněhová bouře',
+      desc: 'Vánice na {dur}s: {dmg}% mrazivého poškození z Inteligence a každou sekundu blesk za {bolt}%.'
+    },
+    spellweave: {
+      name: 'Tkaní kouzel',
+      desc: '+{crit}% šance na kritický zásah kouzlem a tvé dovednosti stojí o {mana}% méně many.'
+    },
+    prismaticNova: {
+      name: 'Hranolová nova',
+      desc: 'Zasáhni vše do {radius} m za {dmg}% z Inteligence, každého živlem, na který reaguje.'
+    },
+    prismaticWard: {
+      name: 'Hranolová ochrana',
+      desc: 'Utrpíš o {reduce}% menší poškození a máš o {hp}% víc zdraví.'
+    },
+    frostfireComet: {
+      name: 'Kometa ohně a mrazu',
+      desc: 'Kometa z ohně a ledu: {dmg}% poškození z Inteligence. Nepřátelé zůstanou hořící a zpomalení.'
+    },
+    elementalConvergence: {
+      name: 'Souběh živlů',
+      desc: 'Na {dur}s se střídají čtyři živly: {strikes} úderů za {dmg}% z Inteligence, které spouštějí jeden druhý.'
+    },
+    wispBolt: {
+      name: 'Bludičková střela',
+      desc: 'Bludička za {dmg}% poškození z Inteligence. Nepřítel, kterého porazí, povstane na {life}s jako tvůj duch.'
+    },
+    kindredSpirits: {
+      name: 'Spřízněné duše',
+      desc: 'Tví duchové a přisluhovači mají o {hp}% víc zdraví a útočí o {speed}% rychleji.'
+    },
+    callTheFallen: {
+      name: 'Volání padlých',
+      desc: 'Až {max} právě padlých nepřátel do {radius} m povstane na {life}s jako tví duchové.'
+    },
+    soulBond: {
+      name: 'Pouto duše',
+      desc: 'Spřátel se s nepřítelem: s šancí {chance}% ({low}% když je zraněný) se k tobě na {life}s přidá jako duch. Jinak {dmg}% poškození.'
+    },
+    restlessSouls: {
+      name: 'Neklidné duše',
+      desc: 'Nepřítel, kterého porazíš, má {chance}% šanci povstat na {life}s jako tvůj duch.'
+    },
+    spiritLantern: {
+      name: 'Lucerna duchů',
+      desc: 'Lucerna na {dur}s: nepřátelé v jejím světle utrží {dmg}% z Inteligence, přátelé se léčí, padlí povstanou.'
+    },
+    hauntingWail: {
+      name: 'Strašidelné kvílení',
+      desc: 'Strašidelné BÚ: {dmg}% poškození z Inteligence do {radius} m a nepřátelé na {fear}s utečou.'
+    },
+    wardensVigil: {
+      name: 'Bdění strážce',
+      desc: 'Tví duchové a přisluhovači způsobují o {dmg}% větší poškození a ty utrpíš o {reduce}% menší.'
+    },
+    releaseSouls: {
+      name: 'Propuštění duší',
+      desc: 'Tví duchové odejdou domů v záblescích světla: každý za {dmg}% z Inteligence kolem, každý ti vrátí {heal}% zdraví.'
+    },
+    lanternKeeper: {
+      name: 'Strážce lucerny',
+      desc: 'O {cdr}% kratší dobíjení a tvé dovednosti stojí o {mana}% méně many.'
+    },
+    wispSwarm: {
+      name: 'Roj bludiček',
+      desc: '{wisps} bludiček se vrhne na nepřátele v oblasti za celkem {dmg}% z Inteligence. Koho porazí, ten povstane.'
+    },
+    processionOfSouls: {
+      name: 'Průvod duší',
+      desc: 'Na {dur}s každý nepřítel, který u tebe padne, povstane jako tvůj duch a duchové způsobují o {atk}% víc.'
+    },
+    palmStrike: {
+      name: 'Úder dlaní',
+      desc: 'Rychlá dlaň za {dmg}% poškození z Obratnosti, která nepřítele odhodí. Získáš {chi} čchi.'
+    },
+    ironBody: {
+      name: 'Železné tělo',
+      desc: 'Utržené fyzické poškození je sníženo o {reduce}% a máš o {hp}% víc zdraví.'
+    },
+    flyingKick: {
+      name: 'Kop ve skoku',
+      desc: 'Leť na cíl a kopni ho za {dmg}% poškození z Obratnosti; nepřátelé v cestě utrží {path}%. Získáš {chi} čchi.'
+    },
+    tigerStance: {
+      name: 'Postoj tygra',
+      desc: 'Na {dur}s: +{dmg}% poškození a +{speed}% rychlosti útoku. Ukončí Postoj jeřába.'
+    },
+    craneStance: {
+      name: 'Postoj jeřába',
+      desc: 'Na {dur}s: +{def}% Obrany a léčíš si {regen}% zdraví za sekundu. Ukončí Postoj tygra.'
+    },
+    flowingFists: {
+      name: 'Plynoucí pěsti',
+      desc: 'Tvé útoky mají {chance}% šanci získat čchi.'
+    },
+    hundredFists: {
+      name: 'Sto pěstí',
+      desc: 'Smršť {hits} ran za celkem {dmg}% poškození z Obratnosti. Získáš {chi} čchi.'
+    },
+    risingDragon: {
+      name: 'Stoupající drak',
+      desc: 'Vlož všechnu čchi do zvedáku: {dmg}% poškození z Obratnosti, +{per}% za každou čchi. Nepřítel vyletí nahoru.'
+    },
+    cranesGrace: {
+      name: 'Jeřábí ladnost',
+      desc: '+{dodge}% Úhybu a omráčení i sražení na tobě jsou o {cut}% kratší.'
+    },
+    whirlwindKick: {
+      name: 'Kop vichru',
+      desc: 'Kopni dvakrát vše do {radius} m za celkem {dmg}% poškození z Obratnosti. Získáš až {chi} čchi.'
+    },
+    tigersFury: {
+      name: 'Tygří zuřivost',
+      desc: '+{crit}% šance na kritický zásah a +{speed}% rychlosti útoku.'
+    },
+    mountainPalm: {
+      name: 'Dlaň hory',
+      desc: 'Utrať všechnu čchi: obří dlaň dopadne za {dmg}% poškození z Obratnosti, +{per}% za každou čchi, a srazí nepřátele.'
+    },
+    sharpNote: {
+      name: 'Ostrý tón',
+      desc: 'Ostrý tón za {dmg}% poškození z Charismatu. Nepřítel způsobuje {dur}s o {weaken}% menší poškození.'
+    },
+    stagePresence: {
+      name: 'Hvězda jeviště',
+      desc: 'Tvé dovednosti stojí o {mana}% méně many a pohybuješ se o {move}% rychleji.'
+    },
+    marchingSong: {
+      name: 'Pochodová píseň',
+      desc: 'Píseň na {dur}s: ty a spojenci do {radius} m se pohybujete o {move}% a útočíte o {speed}% rychleji.'
+    },
+    lullaby: {
+      name: 'Ukolébavka',
+      desc: 'Jemná melodie v kuželu: každý nepřítel, na kterého dosáhne, na {dur}s usne.'
+    },
+    longRefrain: {
+      name: 'Dlouhý refrén',
+      desc: 'Tvé písně trvají o {pct}% déle.'
+    },
+    balladOfValor: {
+      name: 'Balada o chrabrosti',
+      desc: 'Píseň na {dur}s: ty a spojenci do {radius} m způsobujete o {dmg}% větší poškození a máte +{def}% Obrany.'
+    },
+    charmingSerenade: {
+      name: 'Okouzlující serenáda',
+      desc: 'Okouzli cíl a nepřátele do {radius} m: {dur}s bojují mezi sebou.'
+    },
+    virtuoso: {
+      name: 'Virtuos',
+      desc: 'O {cdr}% kratší dobíjení a +{critDmg}% kritického poškození.'
+    },
+    hymnOfMending: {
+      name: 'Hymna uzdravení',
+      desc: 'Odstraní špatné efekty, pak se {dur}s ty a spojenci do {radius} m léčíte o {regen}% zdraví za sekundu.'
+    },
+    crescendo: {
+      name: 'Crescendo',
+      desc: 'Výbuch zvuku do {radius} m: {dmg}% poškození z Charismatu, +{per}% za každou píseň, kterou hraješ.'
+    },
+    standingOvation: {
+      name: 'Ovace vestoje',
+      desc: '+{dmg}% poškození a utrpíš o {reduce}% menší poškození.'
+    },
+    grandFinale: {
+      name: 'Velké finále',
+      desc: 'Zahraj vše na {dur}s (+{buff}% rychlosti, poškození, Obrany), pak poslední akord: {dmg}% z Charismatu, nepřátelé okouzleni.'
     }
   },
   slot: {
@@ -1375,6 +1760,30 @@ export default {
     sbFence: {
       name: 'Mirela Thorne',
       talk: 'Pěkná zbroj, žádné otázky. No, jen pár otázek.'
+    },
+    sbMasterWindrunner: {
+      name: 'Sefa Větrokřídlá'
+    },
+    sbMasterFrostwarden: {
+      name: 'Halvard Ledosrdý'
+    },
+    sbMasterLightbringer: {
+      name: 'Sestra Auriel Jitřní'
+    },
+    sbMasterBeastcaller: {
+      name: 'Starý Rowan Bodlákonohý'
+    },
+    sbMasterElementalist: {
+      name: 'Magistra Iris Čtyřvětrná'
+    },
+    sbMasterSoulwarden: {
+      name: 'Strážkyně Odalys Lucernová'
+    },
+    sbMasterIronmonk: {
+      name: 'Mistr Oru Tichovodý'
+    },
+    sbMasterBard: {
+      name: 'Lark Veselodný'
     }
   },
   quest: {
@@ -3740,6 +4149,382 @@ export default {
       },
       bye: {
         '1': 'Hlídej si měšec. Ne každý je tu tak poctivý jako já.'
+      }
+    },
+    sbMasterWindrunner: {
+      hello: {
+        '1': 'Á, ahoj! Promiň, nemůžu se zastavit. Čekám, až se otočí vítr. Každou chvíli.',
+        '2': 'Sefa Větrokřídlá. Střílím šípy a honím vítr. Vítr většinou vyhraje.'
+      },
+      open: {
+        '1': 'Tady je můj běžec! Jdeme na to? Jasně že jo. Jdeme, jdeme!'
+      },
+      again: {
+        '1': 'Zase ahoj! Pořád jsem tu. Teda, skoro. Nohy mi pořád někam utíkají.'
+      },
+      train: {
+        '1': 'Cítíš vítr na tváři? Miř kousek vlevo od místa, kam myslíš. A teď pusť!'
+      },
+      favor: {
+        '1': 'Jen ty, kdo se mnou udrží krok. Udržíš ho? Tak to zjistíme.',
+        '2': 'Poraz dvanáct banditů lučištníků na Předpolí Oakhavenu, pak mi přines tři rychlokapradky.',
+        say: 'Učíš lukostřelbu?'
+      },
+      waiting: {
+        '1': 'Dvanáct banditů lučištníků, tři rychlokapradky. No tak, běž! Budu tady. Poskakovat.',
+        say: 'Ohledně té zkoušky...'
+      },
+      favorDone: {
+        '1': 'Ha! Ty fakt udržíš krok! Nikdo neudrží krok!',
+        '2': 'Dobře, od teď tě učím. Jedno pravidlo: na mých lekcích se nesedí.',
+        say: 'Lučištníci jsou poraženi a tady jsou tvé rychlokapradky.'
+      },
+      class: {
+        '1': 'Střílíš, běžíš, střílíš znova. Když tě chytí, stojíš moc dlouho na místě.',
+        '2': 'Obratnost pro rychlé nohy a rychlý luk. Zručnost, aby každý šíp trefil.',
+        say: 'Co dělá Větroběžec?'
+      },
+      ready: {
+        strong: {
+          '1': 'Teď máš rychlost větru. No, skoro. Vezmi si jakoukoli lekci!'
+        },
+        able: {
+          '1': 'Lehké nohy! Můžeš na další lekci. Běž, běž!'
+        },
+        weak: {
+          '1': 'Ještě ne. Běháš, jako kdyby ti na zádech seděl gauč. Víc Obratnosti, prosím.'
+        }
+      },
+      who: {
+        '1': 'Bydlím nahoře ve starém větrném mlýně u řeky. Nejlepší výhled na vítr v celém městě.',
+        '2': 'Dvě stě schodů nahoru. Skvělý trénink. Spočítala jsem každý.'
+      },
+      trainBack: {
+        '1': 'Dobře! A teď běž domů. Nechoď, běž. Běh se počítá jako trénink.'
+      },
+      bye: {
+        '1': 'Uvidíme se! Pozor na nízké větve. Já si nedávám pozor nikdy.'
+      }
+    },
+    sbMasterFrostwarden: {
+      hello: {
+        '1': 'Hm. Už potřetí jdeš kolem mě. Hledáš cestu, nebo tě to tu zajímá?',
+        '2': 'Halvard Ledosrdý. Přišel jsem na jih ze sněhu. Je tu teplo. Moc teplo.'
+      },
+      open: {
+        '1': 'Žák. Dobře. Led je připravený a já taky.'
+      },
+      again: {
+        '1': 'Zase ty. Dobře. Moc nemluvím. Stejně zůstaň.'
+      },
+      train: {
+        '1': 'Pomalu vydechni. Vidíš tu páru? Teď ji vlož do čepele.'
+      },
+      favor: {
+        '1': 'Je. Učím to jen ty, kdo si na horkém místě zachovají chladnou hlavu.',
+        '2': 'Uhas deset ohnivých elementálů na Popelavých útesech. Pak mi přines tři snítky mrazivé máty.',
+        say: 'Ten meč je z ledu?'
+      },
+      waiting: {
+        '1': 'Deset ohnivých elementálů. Tři snítky mrazivé máty. Nespěchej. Ale ne moc dlouho.',
+        say: 'Ohledně té zkoušky...'
+      },
+      favorDone: {
+        '1': 'Hm. Ani ožehnutý kousek. Dobře.',
+        '2': 'Chladná hlava vydržela. To byla první lekce. Zbytek tě naučím.',
+        say: 'Ohniví elementálové jsou uhašení. Tady je tvá mrazivá máta.'
+      },
+      class: {
+        '1': 'Rytíř chladu. Ochlaď je, zmraz je, pak rozbij led.',
+        '2': 'Síla pro čepel. Inteligence pro mráz. Potřebuješ obojí.',
+        say: 'Co je Strážce mrazu?'
+      },
+      ready: {
+        strong: {
+          '1': 'Teď v tobě je chlad severu. Vezmi si jakoukoli lekci.'
+        },
+        able: {
+          '1': 'Dobře. Klidně. Další lekce je tvoje.'
+        },
+        weak: {
+          '1': 'Ještě ne. Tvůj mráz taje moc rychle. Víc Inteligence a víc Síly.'
+        }
+      },
+      who: {
+        '1': 'Hlídal jsem horský průsmyk na severu. Pak jsem chtěl vidět řeku, která nezamrzá.'
+      },
+      trainBack: {
+        '1': 'Dobře. Teď si odpočiň. Led nespěchá. Ty taky nemusíš.'
+      },
+      bye: {
+        '1': 'Šťastnou cestu. Zůstaň v klidu.'
+      }
+    },
+    sbMasterLightbringer: {
+      hello: {
+        '1': 'Mm-hm-hmm... Á! Promiň, zlatíčko, broukala jsem si. Broukala jsem na tebe? To dělám.',
+        '2': 'Sestra Auriel Jitřní. Starám se, aby lampička na konci mostu nezhasla.'
+      },
+      open: {
+        '1': 'Tady je moje sluníčko! Pojď si na chvilku stoupnout do světla. Zasloužíš si to.'
+      },
+      again: {
+        '1': 'Zase ahoj! Pořád tu, pořád si broukám. Lampa má ráda společnost.'
+      },
+      train: {
+        '1': 'Ruce otevřené, bradu nahoru. Vzpomeň si na nejhezčí ráno, jaké znáš. Tak. Cítíš to?'
+      },
+      favor: {
+        '1': 'Každý má v sobě trochu světla. Učím lidi pustit ho ven, až na to přijde čas.',
+        '2': 'Poraz deset kultistů na Popelavých útesech, pak mi přines pět slunoplátků pro mou lampu.',
+        say: 'Je ta lampa kouzelná?'
+      },
+      waiting: {
+        '1': 'Deset kultistů, pět slunoplátků. Poraz je jemně. Každý si zaslouží druhou šanci.',
+        say: 'Ohledně té zkoušky...'
+      },
+      favorDone: {
+        '1': 'Ach, jen se na ně podívej! Lampa bude celý měsíc zářit zlatě.',
+        '2': 'A ty taky, zlatíčko. Ráda tě budu učit.',
+        say: 'Kultisté jsou poraženi. Tady jsou tvé slunoplátky.'
+      },
+      class: {
+        '1': 'Neseme úsvit. Světlo k boji, světlo k léčení, světlo, za které se dá schovat.',
+        '2': 'Inteligence dělá světlo silným. Charisma ho dělá hřejivým. Budeš chtít obojí.',
+        say: 'Co dělá Nositel světla?'
+      },
+      ready: {
+        strong: {
+          '1': 'Záříš jako východ slunce, zlatíčko. Vezmi si jakoukoli lekci.'
+        },
+        able: {
+          '1': 'Hezky záříš! Můžeš na další lekci.'
+        },
+        weak: {
+          '1': 'Ještě ne, zlatíčko. Tvé světlo je trochu slabé. Víc Charismatu a rozzáříš se.'
+        }
+      },
+      who: {
+        '1': 'Kdysi jsem zpívala ve velkém chrámu. Ale moje lampa tady vede lodě domů. To je lepší.'
+      },
+      trainBack: {
+        '1': 'Krása. Teď běž a rozjasni někomu den. Rozkaz sestry.'
+      },
+      bye: {
+        '1': 'Tak běž, zlatíčko. A usmívej se na tmavé kouty. To ony nesnášejí.'
+      }
+    },
+    sbMasterBeastcaller: {
+      hello: {
+        '1': 'Dívej se pod nohy. To je Ostružina. Byla tu první.',
+        '2': 'Rowan Bodlákonohý. Mám rád zvířata. Lidi... o těch ještě rozhoduju.'
+      },
+      open: {
+        '1': 'Á, to jsi ty. Ostružina čekala. Já taky. Trochu.'
+      },
+      again: {
+        '1': 'Zase ty. Ostružina tě má ráda. Já si to ještě rozmýšlím.'
+      },
+      train: {
+        '1': 'Skrč se. Pomaleji. Natáhni ruku a nech je, ať přijdou k tobě. Dobře.'
+      },
+      favor: {
+        '1': 'Mluvit? Já poslouchám. To je ten trik, co se většina lidí nikdy nenaučí.',
+        '2': 'Obří pavouci zapřádají zvířecí stezky v Šeptajícím hvozdu. Vyčisti jich dvanáct.',
+        '3': 'Pak mi přines dva měsíční zvonky do doupěte. Ostružina u nich líp spí.',
+        say: 'Umíš mluvit se zvířaty?'
+      },
+      waiting: {
+        '1': 'Dvanáct pavouků, dva měsíční zvonky. Zvířata čekají. Ostružina taky.',
+        say: 'Ohledně té zkoušky...'
+      },
+      favorDone: {
+        '1': 'Hm. Dnes ráno sešli jeleni k řece. Říkal jsem si, že to bude tvoje práce.',
+        '2': 'Dobře. Naučím tě to. Nedělej z toho vědu. Ostružino, přestaň vrtět ocasem.',
+        say: 'Stezky jsou volné a tady jsou tvé měsíční zvonky.'
+      },
+      class: {
+        '1': 'Zavoláš divočinu a divočina přijde. Vlci, jestřáb, medvěd. Přátelé, ne mazlíčci.',
+        '2': 'Charisma, aby chtěli přijít. Výdrž, aby ti neutekli.',
+        say: 'Co je Vyvolávač šelem?'
+      },
+      ready: {
+        strong: {
+          '1': 'Teď ti věří celá smečka. Vezmi si, co chceš.'
+        },
+        able: {
+          '1': 'Vlci tě mají rádi. Můžeš na další lekci.'
+        },
+        weak: {
+          '1': 'Ještě ne. Nevěří ti. Víc Charismatu a mnohem víc trpělivosti.'
+        }
+      },
+      who: {
+        '1': 'Ostružinu jsem před lety našel v pasti. Tři nohy, samá povaha. Od té doby jsme dvojka.',
+        '2': 'Spím na seníku nad stájí. Koně chrápou míň než lidi.'
+      },
+      trainBack: {
+        '1': 'Dobře. Tak běž. A pozdrav vrány. Ty si to pamatují.'
+      },
+      bye: {
+        '1': 'Tak jdi. Ostružina říká ahoj.'
+      }
+    },
+    sbMasterElementalist: {
+      hello: {
+        '1': 'Ahoj! Moment, žongluju. Oheň, mráz, jiskra, kámen a... chycené! Ahoj!',
+        '2': 'Magistra Iris Čtyřvětrná. Učím všechny čtyři živly. Míchat je je ta zábavná část.'
+      },
+      again: {
+        '1': 'Zase tady! Skvělé, potřebuju diváka. Dívej se. Tadá!'
+      },
+      train: {
+        '1': 'Vyber dvě koule. Jakékoli dvě. Teď je nech ťuknout. Jemně! Vidíš? Reakce!'
+      },
+      class: {
+        '1': 'My mícháme! Mráz a pak oheň, roztaje to. Oheň a pak blesk, bum. Každá dvojice něco umí.',
+        '2': 'Inteligence pro každé kouzlo. Zručnost, protože ta nejlepší potřebují rychlé ruce.',
+        say: 'Co dělá Elementalista?'
+      },
+      ready: {
+        strong: {
+          '1': 'Mícháš jako mistr! Vezmi si jakoukoli lekci. Vezmi si dvě!'
+        },
+        able: {
+          '1': 'Ó, pěkná jiskra! Můžeš na další lekci.'
+        },
+        weak: {
+          '1': 'Ještě ne! Tvé živly pořád vyprchávají. Víc Inteligence, prosím.'
+        }
+      },
+      sleeve: {
+        '1': 'Ó! Vážně. Moment... Tak.',
+        '2': 'Oheň, pak mráz. To byla vlastně lekce. Rádo se stalo!',
+        say: 'Ehm, hoří ti rukáv.'
+      },
+      trainBack: {
+        '1': 'Skvělé! A teď trénuj venku, prosím. Ty závěsy jsou nové.'
+      },
+      bye: {
+        '1': 'Ahoj! Jestli ucítíš kouř, jsem to nejspíš já. Neboj!'
+      }
+    },
+    sbMasterSoulwarden: {
+      hello: {
+        '1': 'Pst, to nic, jsou hodné. Ach, ty ne. Mluvila jsem k bludičkám.',
+        '2': 'Strážkyně Odalys Lucernová. Pomáhám ztraceným duchům najít cestu domů.'
+      },
+      again: {
+        '1': 'Zase ahoj. Bludičky si tě pamatují. Tamta mává.'
+      },
+      train: {
+        '1': 'Drž lucernu nízko a mluv potichu. Ztracené věci přicházejí za laskavým hlasem.'
+      },
+      class: {
+        '1': 'Když je nepřítel poražen, jeho duch se trochu ztratí. My mu pomůžeme a on pomůže nám.',
+        '2': 'Inteligence k vedení světla. Charisma, aby duchové chtěli chvíli zůstat.',
+        say: 'Co dělá Strážce duší?'
+      },
+      ready: {
+        strong: {
+          '1': 'Teď k tobě chodí i ti nejplašší duchové. Vezmi si jakoukoli lekci.'
+        },
+        able: {
+          '1': 'Bludičky ti věří. Můžeš na další lekci.'
+        },
+        weak: {
+          '1': 'Ještě ne. Pořád se tě ostýchají. Víc Inteligence a trochu Charismatu.'
+        }
+      },
+      wisps: {
+        '1': 'Tak trochu! Jsou to duchové, kteří se zatoulali. Tohle je Vrtek. Má rád teplou stranu.',
+        '2': 'Víš, žádný duch není zlý. Jen ztracený. Jdou domů, až jsou připravení.',
+        say: 'Jsou ta světélka v tvé lucerně živá?'
+      },
+      trainBack: {
+        '1': 'Výborně. Teď je jemně pusť. Měli dlouhý den.'
+      },
+      bye: {
+        '1': 'Opatruj se. A když uvidíš ztracené světélko, pozdrav ho.'
+      }
+    },
+    sbMasterIronmonk: {
+      hello: {
+        '1': 'Sedni. Dýchej. Ne, dýcháš, jako kdyby tě někdo honil. Znovu.',
+        '2': 'Mistr Oru Tichovodý. Učím otevřenou dlaň. Železné pěsti, klidné srdce.'
+      },
+      again: {
+        '1': 'Á. Žák se vrací. Řeka taky. Každý den.'
+      },
+      train: {
+        '1': 'Nohy jako kořeny, ruce jako déšť. Úder. Znovu. Počítá se ten stý.'
+      },
+      class: {
+        '1': 'Žádná čepel. Ruce, nohy, dech. Každý úder chystá další, až přijde ten velký.',
+        '2': 'Obratnost pro rychlé ruce. Výdrž pro klid, když ostatním dochází dech.',
+        say: 'Co je Železný mnich?'
+      },
+      ready: {
+        strong: {
+          '1': 'Ze žáka se stává učitel. Nikomu to neříkej. Vezmi si jakoukoli lekci.'
+        },
+        able: {
+          '1': 'Dobře. Miska se plní. Vezmi si další lekci.'
+        },
+        weak: {
+          '1': 'Ještě ne. Strom s krátkými kořeny ve větru padne. Víc Výdrže.'
+        }
+      },
+      noodles: {
+        '1': 'Je. Vývar se vařil dva dny. Prosím, nedýchej na ni.',
+        '2': 'Dobrá miska učí trpělivosti. Skvělá miska učí všechno ostatní.',
+        say: 'To je miska nudlí?'
+      },
+      trainBack: {
+        '1': 'Dobře. Teď sněz něco teplého. Síla pochází z misky.'
+      },
+      bye: {
+        '1': 'Šťastnou cestu. Kráčej zlehka. Kopej tvrdě.'
+      }
+    },
+    sbMasterBard: {
+      hello: {
+        '1': 'Vítej, pojď dál, venku je mráz, u ohně se zahřeješ zas! Jéje, to se rýmovalo. To se mi stává.',
+        '2': 'Lark Veselodný. Hraju u ohně a učím na loutnu každého, kdo chce poslouchat.'
+      },
+      again: {
+        '1': 'Můj nejoblíbenější posluchač! Přitáhni si stoličku. Pozor na kočku, ta je kritička.'
+      },
+      train: {
+        '1': 'Brnkej se mnou. Raz, dva a tři... Nekoukej na prsty. Cíť to!'
+      },
+      class: {
+        '1': 'Písně, po kterých jsou tví statečnější, a melodie, po kterých ti druzí usnou.',
+        '2': 'Charisma, aby si tě publikum zamilovalo. Zručnost, aby prsty stačily srdci.',
+        say: 'Co dělá Bard?'
+      },
+      ready: {
+        strong: {
+          '1': 'Teď by se kvůli tobě zaplnila každá hospoda! Vezmi si všechny moje písně.'
+        },
+        able: {
+          '1': 'Krásná melodie! Můžeš na další sloku.'
+        },
+        weak: {
+          '1': 'Ještě ne. Publikum pořád zívá. Víc Charismatu, příteli.'
+        }
+      },
+      story: {
+        '1': 'Jednou přešel tenhle most rytíř, jen s mečem a písní...',
+        '2': 'Moment, s hudbou je to lepší. La-la-la, rytíř šel... Kde jsem to byl?',
+        '3': 'Ále, nevadí. Ale hezká písnička, ne?',
+        say: 'Řekneš mi příběh?'
+      },
+      trainBack: {
+        '1': 'Bravo! Cvič každý den. I když to zní hrozně. Hlavně tehdy.'
+      },
+      bye: {
+        '1': 'Sbohem, ať se ti daří, ať se ti cesta vydaří! Jejda. Zase rým. Ahoj!'
       }
     }
   },

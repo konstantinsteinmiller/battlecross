@@ -249,8 +249,9 @@ export type NpcPin = 'quest' | 'shop' | 'trainer' | 'healer' | 'alchemist' | 'ga
 export const npcPin = (npc: NpcDef, w: DialogWorld = dialogWorld()): { kind: NpcPin; news: boolean } => {
   const conv = conversationOf(npc.id)
   const open = !!npc.quest && !w.quests[npc.quest]
-  // A secret trader is a face in the crowd until the hero has earned the shop.
-  const shop = npc.role === 'shop' && (!npc.secret || w.flags.has(npc.secret))
-  const kind: NpcPin = open ? 'quest' : shop ? 'shop' : npc.role === 'shop' ? 'talk' : npc.role === 'trainer' ? 'trainer' : npc.role === 'healer' ? 'healer' : npc.role === 'alchemist' ? 'alchemist' : npc.role === 'gambler' ? 'gambler' : 'talk'
+  // A secret trader or master is a face in the crowd until the hero has earned them.
+  const hidden = !!npc.secret && !w.flags.has(npc.secret)
+  const shop = npc.role === 'shop' && !hidden
+  const kind: NpcPin = open ? 'quest' : hidden ? 'talk' : shop ? 'shop' : npc.role === 'trainer' ? 'trainer' : npc.role === 'healer' ? 'healer' : npc.role === 'alchemist' ? 'alchemist' : npc.role === 'gambler' ? 'gambler' : 'talk'
   return { kind, news: !!conv && hasNews(conv, w) }
 }

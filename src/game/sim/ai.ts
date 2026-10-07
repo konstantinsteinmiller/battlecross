@@ -145,7 +145,8 @@ export const stepEnemy = (sim: Sim, u: Unit, dt: number): void => {
 
 /** One of the hero's minions or machines. */
 export const stepAlly = (sim: Sim, u: Unit, dt: number): void => {
-  const def = MINIONS[u.kind]
+  // A Soul Warden's spirit (#95) is an enemy kind on the hero's side.
+  const def = MINIONS[u.kind] ?? ENEMY_BY_ID[u.kind]
   const hero = sim.hero.unit
   if (u.life > 0) {
     u.life -= dt

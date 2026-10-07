@@ -95,7 +95,8 @@ export default {
     elixirSwift: 'Çeviklik',
     elixirMind: 'Aydın Ağıl',
     elixirVigor: 'Gümrahlıq',
-    elixirShadow: 'Susamış Tiyə'
+    elixirShadow: 'Susamış Tiyə',
+    chi: 'Çi'
   },
   toast: {
     item: 'Tapıldı: {item}',
@@ -859,6 +860,390 @@ export default {
     crumble: {
       name: 'Parçala',
       desc: 'Yavaşlamış, yerə yıxılmış və ya daşlaşmış düşmənlərə {dmg}% çox zərər vurursan.'
+    },
+    galeArrow: {
+      name: 'Tufan Oxu',
+      desc: 'Külək üstündə uçan ox: {dmg}% Çeviklik zərəri, hədəf geri itələnir.'
+    },
+    fleetfoot: {
+      name: 'Yelayaq',
+      desc: '+{move}% hərəkət sürəti və +{dodge}% Yayınma.'
+    },
+    zephyrDash: {
+      name: 'Meh Atılışı',
+      desc: 'Nişan aldığın yerə {dist} m-ə qədər atıl, sonra {dur} san {move}% daha sürətli qaç.'
+    },
+    piercingGale: {
+      name: 'Dəlici Tufan',
+      desc: 'Xətdəki bütün düşmənləri deşib keçən ox: {dmg}% Çeviklik zərəri və {dur} san {slow}% yavaşlama.'
+    },
+    cycloneSnare: {
+      name: 'Qasırğa Tələsi',
+      desc: '{dur} san qasırğa düşmənləri mərkəzinə çəkir və {dmg}% Məharət zərəri vurur.'
+    },
+    keenEye: {
+      name: 'İti Göz',
+      desc: '+{critDmg}% Kritik Zərər. Oxların daha {pierce} düşməni deşib keçir.'
+    },
+    updraftLeap: {
+      name: 'Yel Sıçrayışı',
+      desc: 'Külək {radius} m daxilindəki düşmənləri havaya atır: {dmg}% Çeviklik zərəri. Sən {leap} m kənara sıçrayırsan.'
+    },
+    swiftDraw: {
+      name: 'Cəld Nişan',
+      desc: '{speed}% daha sürətli hücum edirsən, gözləmə müddətlərin {cdr}% qısalır.'
+    },
+    arrowStorm: {
+      name: 'Ox Fırtınası',
+      desc: '{dur} san ərazinin üstünə ox yağır: cəmi {dmg}% Məharət zərəri və {slow}% yavaşlama.'
+    },
+    galeSpirits: {
+      name: 'Külək Ruhları',
+      desc: '{dur} san külək ruhları səninlə uçur və {dmg}% Məharət zərərli {shots} ox atır. +{move}% hərəkət sürəti.'
+    },
+    skyHunter: {
+      name: 'Səma Ovçusu',
+      desc: 'Bosslara +{boss}% zərər və +{crit}% Kritik Şansı.'
+    },
+    skyrender: {
+      name: 'Göyyaran',
+      desc: 'Fırtına oxu yol açır: xətdəki hamıya {dmg}% Çeviklik zərəri, hamısı havaya və kənara atılır.'
+    },
+    frostCleave: {
+      name: 'Şaxta Kəsiyi',
+      desc: 'Buz tiyəni önündə yellə: {dmg}% Güc zərəri və {dur} san {slow}% yavaşlama.'
+    },
+    rimeLance: {
+      name: 'Qırov Nizəsi',
+      desc: 'Buz nizəsi at: {dmg}% Zəka zərəri. {dur} san {slow}% yavaşladır.'
+    },
+    wintersBite: {
+      name: 'Qış Dişi',
+      desc: 'Hücumların düşməni {dur} san {slow}% yavaşladır.'
+    },
+    frostArmor: {
+      name: 'Şaxta Zirehi',
+      desc: 'Buz zireh {dur} san {shield}% Zəka qədər zərəri udur. Yaxınındakı düşmənlər {slow}% yavaşlayır.'
+    },
+    glacialCharge: {
+      name: 'Buzlaq Hücumu',
+      desc: 'Hədəfə cum: {dmg}% Güc zərəri, onu {freeze} san dondur.'
+    },
+    frozenHeart: {
+      name: 'Donmuş Ürək',
+      desc: '+{hp}% maksimum can, aldığın bütün zərər {reduce}% azalır.'
+    },
+    rimeField: {
+      name: 'Qırov Sahəsi',
+      desc: '{dur} san donduran torpaq: {dmg}% Zəka zərəri. İçindəki üşümüş düşmənlər {freeze} san donur.'
+    },
+    frostShatter: {
+      name: 'Şaxta Qırılışı',
+      desc: '{radius} m daxilində {dmg}% Güc zərəri: yavaşlamışlara +{chilled}%, donmuşlara +{frozen}%.'
+    },
+    shatterpoint: {
+      name: 'Qırılma Nöqtəsi',
+      desc: 'Yavaşlamış və donmuş düşmənlərə {bonus}% çox zərər vurursan.'
+    },
+    avalancheLeap: {
+      name: 'Uçqun Sıçrayışı',
+      desc: 'Nişan aldığın yerə sıçra, uçqun kimi en: {dmg}% Güc zərəri, düşmənlər yerə yıxılır.'
+    },
+    iceborn: {
+      name: 'Buzdan Doğulan',
+      desc: 'Heç nə səni itələmir, havaya atmır. Səni gicəlləndirmə {cut}% qısa çəkir.'
+    },
+    absoluteZero: {
+      name: 'Mütləq Sıfır',
+      desc: 'Səndən qış partlayır: {radius} m daxilində {dmg}% Zəka zərəri, hamı {freeze} san donur.'
+    },
+    sunbolt: {
+      name: 'Günəş Oxu',
+      desc: 'Günəş işığı şüası: {dmg}% Zəka zərəri. Gözü qamaşan hədəf {dur} san {weaken}% az zərər vurur.'
+    },
+    mendingLight: {
+      name: 'Şəfa Nuru',
+      desc: 'Dərhal {heal}% Xarizma qədər sağal, sonra {dur} san hər saniyə canının {regen}% qədəri.'
+    },
+    kindledHope: {
+      name: 'Alovlanan Ümid',
+      desc: 'Aldığın bütün sağalma {heal}% güclü olur.'
+    },
+    lanceOfLight: {
+      name: 'Nur Nizəsi',
+      desc: 'Nur şüası: xətdə {dmg}% Zəka zərəri. Vurulan hər düşmən üçün {heal}% can bərpa et.'
+    },
+    dawnShield: {
+      name: 'Şəfəq Qalxanı',
+      desc: 'Üstündəki bütün pis effektləri təmizlə və {dur} san {shield}% Xarizma qədər qalxan al.'
+    },
+    haloWard: {
+      name: 'Halə Mühafizəsi',
+      desc: 'Aldığın bütün zərər {reduce}% azalır.'
+    },
+    dawnSanctuary: {
+      name: 'Şəfəq Sığınağı',
+      desc: '{dur} san müqəddəs torpaq: hər saniyə səni {heal}% Xarizma qədər sağaldır, düşmənlər {dmg}% Zəka zərəri alır.'
+    },
+    blindingFlash: {
+      name: 'Kor Edən Parıltı',
+      desc: 'İşıq parıltısı: {radius} m daxilindəki düşmənlər {fear} san qaçır və {dur} san {weaken}% az zərər vurur.'
+    },
+    guardianLight: {
+      name: 'Qoruyucu Nur',
+      desc: 'Səni məğlub edəcək zərbə səni 1 canla saxlayır, {dur} san toxunulmaz olursan. Hər {icd} san bir dəfə.'
+    },
+    sunfall: {
+      name: 'Günəş Enişi',
+      desc: 'Hədəfin üstünə günəş sütunu enir: {dmg}% Zəka zərəri. Düşmənlər {dur} san {vuln}% çox zərər alır.'
+    },
+    searingLight: {
+      name: 'Yandıran Nur',
+      desc: '+{crit}% Sehr Kritik Şansı və +{critDmg}% Kritik Zərər.'
+    },
+    haloOfDawn: {
+      name: 'Şəfəq Haləsi',
+      desc: '{dur} san parla: hər saniyə {radius} m daxilində {dmg}% Zəka zərəri və {heal}% can bərpası.'
+    },
+    callWolf: {
+      name: 'Qurd Çağır',
+      desc: 'Ruh qurdu sənə qoşulur və {dmg}% Xarizma zərəri ilə dişləyir. Eyni anda {max} qurda qədər.'
+    },
+    wolfPounce: {
+      name: 'Qurd Hücumu',
+      desc: 'Qurdların hədəfin üstünə atılır: hər biri {dmg}% Xarizma zərəri, hədəf {down} san yerə yıxılır.'
+    },
+    wildKinship: {
+      name: 'Vəhşi Qohumluq',
+      desc: 'Yoldaşlarının {hp}% çox canı var və {dmg}% çox zərər vururlar.'
+    },
+    callHawk: {
+      name: 'Şahin Çağır',
+      desc: 'Şahin hədəfə şığıyır: {dmg}% Xarizma zərəri, hədəf {dur} san {vuln}% çox zərər alır. {life} san qalır.'
+    },
+    callBear: {
+      name: 'Ayı Çağır',
+      desc: 'Ruh ayısı sənə qoşulur. {dmg}% zərər vurur və düşmənləri məşğul saxlayır. {max} ayıya qədər.'
+    },
+    thickHide: {
+      name: 'Qalın Dəri',
+      desc: '+{hp}% maksimum can və saniyədə +{regen} can bərpası.'
+    },
+    packBond: {
+      name: 'Sürü Bağı',
+      desc: '{dur} san sən və {radius} m daxilindəki yoldaşların hər saniyə {regen}% can bərpa edir və {def}% Müdafiə qazanır.'
+    },
+    spiritStampede: {
+      name: 'Ruh Sürüsü',
+      desc: 'Ruh heyvanları sürüsü hücuma keçir: xətdə {dmg}% Xarizma zərəri, düşmənlər yerə yıxılır.'
+    },
+    packTactics: {
+      name: 'Sürü Taktikası',
+      desc: 'Yanındakı hər yoldaş üçün {bonus}% çox zərər vurursan, {max} yoldaşa qədər.'
+    },
+    alphaHowl: {
+      name: 'Alfa Ulartısı',
+      desc: 'Yoldaşların {heal}% sağalır və {dur} san {rage}% daha güclü döyüşür. Yaxınındakı düşmənlər qaçır.'
+    },
+    leaderOfThePack: {
+      name: 'Sürü Başçısı',
+      desc: 'Yoldaşların {speed}% daha sürətli hücum edir və {dmg}% çox zərər vurur.'
+    },
+    wildHunt: {
+      name: 'Vəhşi Ov',
+      desc: '{dur} san daha {wolves} qurd səninlə qaçır. Bütün sürü +{dmg}% zərər vurur və {move}% sürətli hərəkət edir.'
+    },
+    prismBolt: {
+      name: 'Prizma Oxu',
+      desc: '{dmg}% Zəka zərərli ox: hədəf yanırsa şaxta, yoxsa od. Biri digərini işə salır.'
+    },
+    elementalHarmony: {
+      name: 'Element Ahəngi',
+      desc: 'Reaksiyaların (Ərimə, Buxar, Qırılma, Yüklənmə, Kristal) {pct}% güclü olur.'
+    },
+    frostLance: {
+      name: 'Şaxta Nizəsi',
+      desc: 'Xətt boyu buz: {dmg}% Zəka zərəri və {dur} san {slow}% yavaşlama. Yanan düşmənlər Buxara çevrilir.'
+    },
+    chainSpark: {
+      name: 'Zəncirvari Qığılcım',
+      desc: '{dmg}% Zəka zərərli ildırım daha {jumps} düşmənə sıçrayır. Buzu Qırır, odu Yükləyir.'
+    },
+    smolderingCore: {
+      name: 'Közərən Nüvə',
+      desc: 'Yanıqların {burn}% çox zərər vurur, sənin isə {mana} çox manan var.'
+    },
+    rollingBoulder: {
+      name: 'Diyirlənən Qaya',
+      desc: 'Qaya diyirlənir: {dmg}% Zəka zərəri, {down} san yerə yıxır. Nişanlı düşmənlər sənə qalxan verir.'
+    },
+    thunderSnow: {
+      name: 'Göy Gurultulu Qar',
+      desc: '{dur} san qar fırtınası: {dmg}% Zəka şaxta zərəri, hər saniyə {bolt}% ildırım.'
+    },
+    spellweave: {
+      name: 'Sehr Toxuması',
+      desc: '+{crit}% Sehr Kritik Şansı, bacarıqların {mana}% az mana tələb edir.'
+    },
+    prismaticNova: {
+      name: 'Prizmatik Nova',
+      desc: '{radius} m daxilində hər şeyi {dmg}% Zəka ilə vur, hərəsini reaksiya verdiyi elementlə.'
+    },
+    prismaticWard: {
+      name: 'Prizmatik Mühafizə',
+      desc: '{reduce}% az zərər alırsan və {hp}% çox canın olur.'
+    },
+    frostfireComet: {
+      name: 'Odlu-Buzlu Kometa',
+      desc: 'Od və buz kometası: {dmg}% Zəka zərəri. Düşmənlər yanır və yavaşlayır.'
+    },
+    elementalConvergence: {
+      name: 'Elementlərin Birləşməsi',
+      desc: '{dur} san dörd element növbələşir: bir-birini işə salan {strikes} zərbə, hərəsi {dmg}% Zəka.'
+    },
+    wispBolt: {
+      name: 'İşıqcıq Oxu',
+      desc: '{dmg}% Zəka zərərli işıqcıq. Məğlub etdiyi düşmən {life} san sənin ruhun kimi qalxır.'
+    },
+    kindredSpirits: {
+      name: 'Doğma Ruhlar',
+      desc: 'Ruhlarının və köməkçilərinin {hp}% çox canı var və {speed}% sürətli hücum edirlər.'
+    },
+    callTheFallen: {
+      name: 'Yıxılanları Çağır',
+      desc: '{radius} m daxilində təzə yıxılan {max} düşmənə qədər {life} san sənin ruhun kimi qalxır.'
+    },
+    soulBond: {
+      name: 'Ruh Bağı',
+      desc: 'Düşmənlə dostlaş: {chance}% (yaralıdırsa {low}%) şansla {life} san ruh kimi sənə qoşulur. Yoxsa {dmg}% zərər.'
+    },
+    restlessSouls: {
+      name: 'Narahat Ruhlar',
+      desc: 'Məğlub etdiyin düşmənin {life} san sənin ruhun kimi qalxmaq şansı {chance}%-dir.'
+    },
+    spiritLantern: {
+      name: 'Ruh Fənəri',
+      desc: '{dur} san fənər: işığındakı düşmənlər {dmg}% Zəka alır, dostlar sağalır, yıxılanlar qalxır.'
+    },
+    hauntingWail: {
+      name: 'Xəyalət Fəryadı',
+      desc: 'Xəyalət BUU-su: {radius} m daxilində {dmg}% Zəka zərəri, düşmənlər {fear} san qaçır.'
+    },
+    wardensVigil: {
+      name: 'Keşikçinin Növbəsi',
+      desc: 'Ruhların və köməkçilərin {dmg}% çox zərər vurur, sən isə {reduce}% az alırsan.'
+    },
+    releaseSouls: {
+      name: 'Ruhları Burax',
+      desc: 'Ruhların işıq partlayışları ilə evə gedir: hərəsi ətrafa {dmg}% Zəka, hərəsi sənə {heal}% can qaytarır.'
+    },
+    lanternKeeper: {
+      name: 'Fənər Keşikçisi',
+      desc: 'Gözləmə müddətləri {cdr}% qısa, bacarıqların {mana}% az mana tələb edir.'
+    },
+    wispSwarm: {
+      name: 'İşıqcıq Sürüsü',
+      desc: '{wisps} işıqcıq ərazidəki düşmənlərə şığıyır: cəmi {dmg}% Zəka. Məğlub etdikləri qalxır.'
+    },
+    processionOfSouls: {
+      name: 'Ruhlar Karvanı',
+      desc: '{dur} san yanında yıxılan hər düşmən sənin ruhun kimi qalxır, ruhlar {atk}% çox zərər vurur.'
+    },
+    palmStrike: {
+      name: 'Ovuc Zərbəsi',
+      desc: 'Cəld ovuc zərbəsi: {dmg}% Çeviklik zərəri, düşmən geri itələnir. {chi} çi yığır.'
+    },
+    ironBody: {
+      name: 'Dəmir Bədən',
+      desc: 'Alınan fiziki zərər {reduce}% azalır, {hp}% çox canın olur.'
+    },
+    flyingKick: {
+      name: 'Uçan Təpik',
+      desc: 'Hədəfə uç və {dmg}% Çeviklik zərəri ilə təpiklə; yoldakı düşmənlər {path}% alır. {chi} çi yığır.'
+    },
+    tigerStance: {
+      name: 'Pələng Duruşu',
+      desc: '{dur} san: +{dmg}% zərər və +{speed}% hücum sürəti. Durna Duruşunu bitirir.'
+    },
+    craneStance: {
+      name: 'Durna Duruşu',
+      desc: '{dur} san: +{def}% Müdafiə, hər saniyə canının {regen}% qədəri bərpa olur. Pələng Duruşunu bitirir.'
+    },
+    flowingFists: {
+      name: 'Axan Yumruqlar',
+      desc: 'Hücumlarının {chance}% şansla çi yığmaq imkanı var.'
+    },
+    hundredFists: {
+      name: 'Yüz Yumruq',
+      desc: '{hits} zərbəlik yağış: cəmi {dmg}% Çeviklik zərəri. {chi} çi yığır.'
+    },
+    risingDragon: {
+      name: 'Yüksələn Əjdaha',
+      desc: 'Bütün çini aşağıdan zərbəyə xərclə: {dmg}% Çeviklik zərəri, hər çi üçün +{per}%. Düşmən havaya uçur.'
+    },
+    cranesGrace: {
+      name: 'Durna Zərifliyi',
+      desc: '+{dodge}% Yayınma, səni gicəlləndirmə və yıxılma {cut}% qısa çəkir.'
+    },
+    whirlwindKick: {
+      name: 'Burulğan Təpiyi',
+      desc: '{radius} m daxilindəki hər şeyi iki dəfə təpiklə: cəmi {dmg}% Çeviklik zərəri. {chi} çiyə qədər yığır.'
+    },
+    tigersFury: {
+      name: 'Pələng Qəzəbi',
+      desc: '+{crit}% Kritik Şansı və +{speed}% hücum sürəti.'
+    },
+    mountainPalm: {
+      name: 'Dağ Ovucu',
+      desc: 'Bütün çini xərclə: nəhəng ovuc enir, {dmg}% Çeviklik zərəri, hər çi üçün +{per}%, düşmənlər yıxılır.'
+    },
+    sharpNote: {
+      name: 'İti Not',
+      desc: 'İti not: {dmg}% Xarizma zərəri. Düşmən {dur} san {weaken}% az zərər vurur.'
+    },
+    stagePresence: {
+      name: 'Səhnə Cazibəsi',
+      desc: 'Bacarıqların {mana}% az mana tələb edir, {move}% sürətli hərəkət edirsən.'
+    },
+    marchingSong: {
+      name: 'Marş Mahnısı',
+      desc: '{dur} san mahnı: sən və {radius} m daxilindəki müttəfiqlər {move}% sürətli hərəkət, {speed}% sürətli hücum edirsiniz.'
+    },
+    lullaby: {
+      name: 'Layla',
+      desc: 'Konus boyu yumşaq melodiya: çatdığı hər düşmən {dur} san yuxuya gedir.'
+    },
+    longRefrain: {
+      name: 'Uzun Nəqarət',
+      desc: 'Mahnıların {pct}% uzun sürür.'
+    },
+    balladOfValor: {
+      name: 'Şücaət Dastanı',
+      desc: '{dur} san mahnı: sən və {radius} m daxilindəki müttəfiqlər {dmg}% çox zərər vurur və {def}% Müdafiə qazanırsınız.'
+    },
+    charmingSerenade: {
+      name: 'Ovsunlu Serenada',
+      desc: 'Hədəfi və {radius} m daxilindəki düşmənləri ovsunla: {dur} san bir-biri ilə döyüşürlər.'
+    },
+    virtuoso: {
+      name: 'Virtuoz',
+      desc: 'Gözləmə müddətləri {cdr}% qısa və +{critDmg}% Kritik Zərər.'
+    },
+    hymnOfMending: {
+      name: 'Şəfa Nəğməsi',
+      desc: 'Pis effektləri təmizləyir, sonra {dur} san sən və {radius} m daxilindəki müttəfiqlər hər saniyə {regen}% can bərpa edirsiniz.'
+    },
+    crescendo: {
+      name: 'Krescendo',
+      desc: '{radius} m daxilində səs partlayışı: {dmg}% Xarizma zərəri, çaldığın hər mahnı üçün +{per}%.'
+    },
+    standingOvation: {
+      name: 'Ayaq Üstə Alqış',
+      desc: '+{dmg}% zərər, aldığın zərər {reduce}% azalır.'
+    },
+    grandFinale: {
+      name: 'Möhtəşəm Final',
+      desc: '{dur} san hər şeyi çal (+{buff}% sürət, zərər, Müdafiə), sonra son akkord: {dmg}% Xarizma, düşmənlər ovsunlanır.'
     }
   },
   slot: {
@@ -1371,6 +1756,30 @@ export default {
     sbFence: {
       name: 'Mirela Thorne',
       talk: 'Gözəl zireh, sual yoxdur. Yaxşı, çox az sual.'
+    },
+    sbMasterWindrunner: {
+      name: 'Sefa Galewing'
+    },
+    sbMasterFrostwarden: {
+      name: 'Halvard Rimeheart'
+    },
+    sbMasterLightbringer: {
+      name: 'Rahibə Auriel Dawnmere'
+    },
+    sbMasterBeastcaller: {
+      name: 'Qoca Rowan Thistlefoot'
+    },
+    sbMasterElementalist: {
+      name: 'Magistr Iris Fourwinds'
+    },
+    sbMasterSoulwarden: {
+      name: 'Keşikçi Odalys Lanternlight'
+    },
+    sbMasterIronmonk: {
+      name: 'Usta Oru Stillwater'
+    },
+    sbMasterBard: {
+      name: 'Lark Merriweather'
     }
   },
   quest: {
@@ -3655,6 +4064,382 @@ export default {
       },
       bye: {
         '1': 'Pul kisənə diqqət et. Burada hamı mənim kimi dürüst deyil.'
+      }
+    },
+    sbMasterWindrunner: {
+      hello: {
+        '1': 'Ay, salam! Bağışla, dayana bilmirəm. Küləyin dönməsini gözləyirəm. Hər an dönə bilər.',
+        '2': 'Sefa Galewing. Ox atıram və küləyin dalınca qaçıram. Adətən külək qalib gəlir.'
+      },
+      open: {
+        '1': 'Budur mənim qaçışçım! Hazırsan? Əlbəttə hazırsan. Gedək, gedək!'
+      },
+      again: {
+        '1': 'Yenə salam! Hələ buradayam. Yəni, demək olar. Ayaqlarım öz-özünə gəzməyə gedir.'
+      },
+      train: {
+        '1': 'Yanağında küləyi hiss edirsən? Fikirləşdiyindən bir az sola nişan al. İndi burax!'
+      },
+      favor: {
+        '1': 'Yalnız mənimlə ayaqlaşa bilənlərə. Sən bacararsan? Gəl görək.',
+        '2': 'Oakhaven ətrafında on iki oxatan quldurun öhdəsindən gəl, sonra mənə üç yelqıjı gətir.',
+        say: 'Oxatma öyrədirsən?'
+      },
+      waiting: {
+        '1': 'On iki oxatan quldur, üç yelqıjı. Haydı! Mən elə buradayam. Hoppanaraq.',
+        say: 'Sınağın barədə...'
+      },
+      favorDone: {
+        '1': 'Ha! Doğrudan da ayaqlaşdın! Heç kim mənimlə ayaqlaşa bilmir!',
+        '2': 'Yaxşı, indi mənim şagirdimsən. Bir qayda: dərslərimdə oturmaq yoxdur.',
+        say: 'Oxatanlar məğlub oldu, yelqıjıların da buradadır.'
+      },
+      class: {
+        '1': 'At, qaç, yenə at. Səni tutsalar, deməli çox dayanmısan.',
+        '2': 'Cəld ayaqlar və cəld yay üçün Çeviklik. Hər ox hədəfə dəysin deyə Məharət.',
+        say: 'Külək Qaçışçısı nə edir?'
+      },
+      ready: {
+        strong: {
+          '1': 'Artıq külək qədər cəldsən. Yaxşı, az qala. İstədiyin dərsi götür!'
+        },
+        able: {
+          '1': 'Yüngül ayaqlar! Növbəti dərsə hazırsan. Haydı, haydı!'
+        },
+        weak: {
+          '1': 'Hələ yox. Elə qaçırsan, elə bil divan daşıyırsan. Bir az da Çeviklik, xahiş edirəm.'
+        }
+      },
+      who: {
+        '1': 'Çayın yanındakı köhnə yel dəyirmanında yaşayıram. Şəhərdə küləyə ən yaxşı mənzərə oradadır.',
+        '2': 'Yuxarı iki yüz pillə. Əla məşqdir. Hər birini saymışam.'
+      },
+      trainBack: {
+        '1': 'Əla! İndi evə qaç. Yeriyib getmə. Qaçmaq da məşqdir.'
+      },
+      bye: {
+        '1': 'Görüşərik! Alçaq budaqlara fikir ver. Mən heç vaxt vermirəm.'
+      }
+    },
+    sbMasterFrostwarden: {
+      hello: {
+        '1': 'Hm. Yanımdan üç dəfə keçdin. Azmısan, yoxsa maraqlanırsan?',
+        '2': 'Halvard Rimeheart. Qarlı yerlərdən cənuba gəlmişəm. Burada isti olur. Çox isti.'
+      },
+      open: {
+        '1': 'Şagird. Yaxşı. Buz hazırdır, mən də.'
+      },
+      again: {
+        '1': 'Yenə sən. Yaxşı. Mən çox danışmıram. Yenə də qal.'
+      },
+      train: {
+        '1': 'Yavaşca nəfəs ver. Buğu görürsən? İndi onu tiyəyə ötür.'
+      },
+      favor: {
+        '1': 'Bəli. Onu yalnız isti yerdə başını soyuq saxlayanlara öyrədirəm.',
+        '2': 'Kül Qayalıqlarında on od elementalını söndür. Sonra mənə üç budaq şaxtananə gətir.',
+        say: 'O qılınc buzdandır?'
+      },
+      waiting: {
+        '1': 'On od elementalı. Üç budaq şaxtananə. Tələsmə. Çox da ləngimə.',
+        say: 'Sınağın barədə...'
+      },
+      favorDone: {
+        '1': 'Hm. Heç qarsalanmamısan da. Yaxşı.',
+        '2': 'Başını soyuq saxladın. Bu, birinci dərs idi. Qalanını mən öyrədəcəyəm.',
+        say: 'Od elementalları söndü. Şaxtananən də buradadır.'
+      },
+      class: {
+        '1': 'Soyuğun cəngavəri. Onları üşüt, dondur, sonra buzu qır.',
+        '2': 'Tiyə üçün Güc. Şaxta üçün Zəka. İkisi də lazımdır.',
+        say: 'Şaxta Keşikçisi nədir?'
+      },
+      ready: {
+        strong: {
+          '1': 'Artıq şimal qədər soyuqsan. İstədiyin dərsi götür.'
+        },
+        able: {
+          '1': 'Yaxşı. Sakit. Növbəti dərs sənindir.'
+        },
+        weak: {
+          '1': 'Hələ yox. Şaxtan çox tez əriyir. Bir az da Zəka, bir az da Güc.'
+        }
+      },
+      who: {
+        '1': 'Şimalda dağ keçidini qoruyurdum. Sonra donmayan bir çay görmək istədim.'
+      },
+      trainBack: {
+        '1': 'Yaxşı. İndi dincəl. Buz tələsmir. Sən də tələsmə.'
+      },
+      bye: {
+        '1': 'Yolun açıq olsun. Soyuqqanlı qal.'
+      }
+    },
+    sbMasterLightbringer: {
+      hello: {
+        '1': 'Mm-hm-hmm... Ay! Bağışla, əzizim, zümzümə edirdim. Sənə zümzümə etdim? Belə edirəm.',
+        '2': 'Rahibə Auriel Dawnmere. Körpünün ucundakı balaca çırağı yanar saxlayıram.'
+      },
+      open: {
+        '1': 'Budur mənim nurlu balam! Gəl, bir az işıqda dayan. Bunu qazanmısan.'
+      },
+      again: {
+        '1': 'Yenə salam! Hələ buradayam, hələ zümzümə edirəm. Çıraq yoldaşlığı sevir.'
+      },
+      train: {
+        '1': 'Əllər açıq, baş dik. Ən gözəl səhərini xatırla. Budur. Hiss edirsən?'
+      },
+      favor: {
+        '1': 'Hər kəsin içində bir az işıq var. Mən insanlara hazır olanda onu çölə buraxmağı öyrədirəm.',
+        '2': 'Kül Qayalıqlarında on təriqətçinin öhdəsindən gəl, sonra çırağım üçün beş günləçək gətir.',
+        say: 'O çıraq sehrlidir?'
+      },
+      waiting: {
+        '1': 'On təriqətçi, beş günləçək. Onları yumşaqca məğlub et. Hər kəs ikinci şansa layiqdir.',
+        say: 'Sınağın barədə...'
+      },
+      favorDone: {
+        '1': 'Ay, bir bax onlara! Çıraq bir ay qızılı yanacaq.',
+        '2': 'Sən də, əzizim. Səni məmnuniyyətlə öyrədərəm.',
+        say: 'Təriqətçilər məğlub oldu. Günləçəklərin buradadır.'
+      },
+      class: {
+        '1': 'Biz şəfəqi daşıyırıq. Döyüşmək üçün nur, sağaltmaq üçün nur, arxasında gizlənmək üçün nur.',
+        '2': 'Zəka nuru güclü edir. Xarizma onu isti edir. İkisi də lazım olacaq.',
+        say: 'Nur Gətirən nə edir?'
+      },
+      ready: {
+        strong: {
+          '1': 'Gün doğumu kimi parlayırsan, əzizim. İstədiyin dərsi götür.'
+        },
+        able: {
+          '1': 'Gözəl parlayırsan! Növbəti dərsə hazırsan.'
+        },
+        weak: {
+          '1': 'Hələ yox, əzizim. Nurun bir az sönükdür. Bir az da Xarizma, parlayacaqsan.'
+        }
+      },
+      who: {
+        '1': 'Bir vaxt böyük məbəddə oxuyurdum. Amma buradakı çırağım qayıqlara evin yolunu göstərir. Bu daha yaxşıdır.'
+      },
+      trainBack: {
+        '1': 'Gözəl. İndi get, kiminsə gününü işıqlandır. Rahibənin əmridir.'
+      },
+      bye: {
+        '1': 'Yolun açıq olsun, əzizim. Qaranlıq künclərə gülümsə. Buna nifrət edirlər.'
+      }
+    },
+    sbMasterBeastcaller: {
+      hello: {
+        '1': 'Ayağının altına bax. O, Böyürtkəndir. Buraya səndən əvvəl gəlib.',
+        '2': 'Rowan Thistlefoot. Heyvanları sevirəm. İnsanlar barədə hələ qərar verməmişəm.'
+      },
+      open: {
+        '1': 'A, sənsən. Böyürtkən səni gözləyirdi. Mən də. Bir az.'
+      },
+      again: {
+        '1': 'Yenə sən. Böyürtkən səni sevir. Mən hələ fikirləşirəm.'
+      },
+      train: {
+        '1': 'Çömbəl. Daha yavaş. Əlini uzat, qoy onlar özləri yanına gəlsin. Yaxşı.'
+      },
+      favor: {
+        '1': 'Danışmaq? Mən qulaq asıram. Çoxları bu sirri heç vaxt öyrənmir.',
+        '2': 'Pıçıldayan Meşədə nəhəng hörümçəklər heyvan cığırlarını torla örtür. On ikisini təmizlə.',
+        '3': 'Sonra yuvam üçün iki ayzəng gətir. Böyürtkən onların yanında daha yaxşı yatır.',
+        say: 'Heyvanlarla danışa bilirsən?'
+      },
+      waiting: {
+        '1': 'On iki hörümçək, iki ayzəng. Heyvanlar gözləyir. Böyürtkən də.',
+        say: 'Sınağın barədə...'
+      },
+      favorDone: {
+        '1': 'Hm. Bu səhər maral çaya endi. Düşündüm ki, yəqin sənin işindir.',
+        '2': 'Yaxşı. Səni öyrədərəm. Hay-küy salma. Böyürtkən, quyruğunu bulama.',
+        say: 'Cığırlar təmizdir, ayzənglərin də buradadır.'
+      },
+      class: {
+        '1': 'Vəhşi təbiəti çağırırsan, o da gəlir. Qurdlar, şahin, ayı. Ev heyvanı yox, dost.',
+        '2': 'Xarizma ki, gəlmək istəsinlər. Dözüm ki, onlarla ayaqlaşasan.',
+        say: 'Heyvan Çağıran nədir?'
+      },
+      ready: {
+        strong: {
+          '1': 'Bütün sürü artıq sənə güvənir. İstədiyini götür.'
+        },
+        able: {
+          '1': 'Qurdlar səni sevir. Növbəti dərsə hazırsan.'
+        },
+        weak: {
+          '1': 'Hələ yox. Sənə güvənmirlər. Bir az da Xarizma, bir xeyli də səbir.'
+        }
+      },
+      who: {
+        '1': 'Böyürtkəni illər əvvəl tələdə tapdım. Üç ayaq, bol xasiyyət. O vaxtdan bir cütük.',
+        '2': 'Tövlənin samanlığında yatıram. Atlar insanlardan az xoruldayır.'
+      },
+      trainBack: {
+        '1': 'Yaxşı. Get, onda. Qarğalara da salam de. Onlar yadda saxlayır.'
+      },
+      bye: {
+        '1': 'Yolun açıq olsun. Böyürtkən də sağ ol deyir.'
+      }
+    },
+    sbMasterElementalist: {
+      hello: {
+        '1': 'Salam! Bir saniyə, jonqlyorluq edirəm. Od, şaxta, qığılcım, daş və... tutdum! Salam!',
+        '2': 'Magistr Iris Fourwinds. Dörd elementin hamısını öyrədirəm. Onları qarışdırmaq ən maraqlı hissədir.'
+      },
+      again: {
+        '1': 'Yenə gəldin! Əla, mənə tamaşaçı lazım idi. Bax. Ta-da!'
+      },
+      train: {
+        '1': 'İki kürə seç. İstənilən ikisini. İndi qoy toqquşsunlar. Yavaşca! Gördün? Reaksiya!'
+      },
+      class: {
+        '1': 'Biz qarışdırırıq! Əvvəl şaxta, sonra od: əriyir. Əvvəl od, sonra ildırım: bum. Hər cüt nəsə edir.',
+        '2': 'Hər sehr üçün Zəka. Məharət isə ona görə ki, yaxşı sehrlər cəld əl istəyir.',
+        say: 'Element Sehrbazı nə edir?'
+      },
+      ready: {
+        strong: {
+          '1': 'Artıq usta kimi qarışdırırsan! İstədiyin dərsi götür. İkisini götür!'
+        },
+        able: {
+          '1': 'Vay, gözəl qığılcım! Növbəti dərsə hazırsan.'
+        },
+        weak: {
+          '1': 'Hələ yox! Elementlərin fısıldayıb sönür. Bir az da Zəka, xahiş edirəm.'
+        }
+      },
+      sleeve: {
+        '1': 'Ay! Doğrudan da. Bir dəqiqə... Budur.',
+        '2': 'Əvvəl od, sonra şaxta. Bu, əslində dərs idi. Dəyməz!',
+        say: 'Ee, qolun yanır.'
+      },
+      trainBack: {
+        '1': 'Möhtəşəm! İndi bayırda məşq et, xahiş edirəm. Pərdələr təzədir.'
+      },
+      bye: {
+        '1': 'Hələlik! Tüstü iyi gəlsə, yəqin mənəm. Narahat olma!'
+      }
+    },
+    sbMasterSoulwarden: {
+      hello: {
+        '1': 'Ss, hər şey qaydasındadır, onlar mehribandır. Ay, sənə demirdim. İşıqcıqlarla danışırdım.',
+        '2': 'Keşikçi Odalys Lanternlight. Azmış ruhlara evin yolunu tapmağa kömək edirəm.'
+      },
+      again: {
+        '1': 'Yenə salam. İşıqcıqlar səni xatırlayır. O biri əl yelləyir.'
+      },
+      train: {
+        '1': 'Fənəri aşağı tut və yumşaq danış. Azmış şeylər mehriban səsə gəlir.'
+      },
+      class: {
+        '1': 'Düşmən məğlub olanda ruhu bir az azır. Biz ona kömək edirik, o da bizə kömək edir.',
+        '2': 'İşığa yol göstərmək üçün Zəka. Xarizma ki, ruhlar bir az qalmaq istəsin.',
+        say: 'Ruh Keşikçisi nə edir?'
+      },
+      ready: {
+        strong: {
+          '1': 'Ən utancaq ruhlar da artıq yanına gəlir. İstədiyin dərsi götür.'
+        },
+        able: {
+          '1': 'İşıqcıqlar sənə güvənir. Növbəti dərsə hazırsan.'
+        },
+        weak: {
+          '1': 'Hələ yox. Hələ səndən utanırlar. Bir az da Zəka, bir az da Xarizma.'
+        }
+      },
+      wisps: {
+        '1': 'Bir növ! Onlar yolunu azmış ruhlardır. Bu, Fırfırdır. İsti tərəfi sevir.',
+        '2': 'Bilirsən, heç bir ruh pis olmur. Sadəcə azır. Hazır olanda evə gedirlər.',
+        say: 'Fənərindəki balaca işıqlar canlıdır?'
+      },
+      trainBack: {
+        '1': 'Afərin. İndi onları yumşaqca burax. Uzun gün keçiriblər.'
+      },
+      bye: {
+        '1': 'Özünə yaxşı bax. Azmış balaca işıq görsən, salam ver.'
+      }
+    },
+    sbMasterIronmonk: {
+      hello: {
+        '1': 'Otur. Nəfəs al. Yox, elə nəfəs alırsan, elə bil haraya gecikirsən. Yenidən.',
+        '2': 'Usta Oru Stillwater. Açıq əl yolunu öyrədirəm. Dəmir yumruq, sakit ürək.'
+      },
+      again: {
+        '1': 'Ah. Şagird qayıdır. Çay da qayıdır. Hər gün.'
+      },
+      train: {
+        '1': 'Ayaqlar kök kimi, əllər yağış kimi. Vur. Yenidən. Yüzüncüsü sayılır.'
+      },
+      class: {
+        '1': 'Tiyə yoxdur. Əllər, ayaqlar, nəfəs. Hər zərbə növbətisini qurur, ta böyüyünə qədər.',
+        '2': 'Cəld əllər üçün Çeviklik. Başqalarının nəfəsi kəsiləndə sakit qalmaq üçün Dözüm.',
+        say: 'Dəmir Rahib nədir?'
+      },
+      ready: {
+        strong: {
+          '1': 'Şagird müəllim olur. Heç kimə demə. İstədiyin dərsi götür.'
+        },
+        able: {
+          '1': 'Yaxşı. Fincan dolur. Növbəti dərsi götür.'
+        },
+        weak: {
+          '1': 'Hələ yox. Kökü qısa ağacı külək yıxır. Bir az da Dözüm.'
+        }
+      },
+      noodles: {
+        '1': 'Bəli. Bulyonu iki gün qaynayıb. Xahiş edirəm, üstünə nəfəs alma.',
+        '2': 'Yaxşı kasa səbir öyrədir. Əla kasa qalan hər şeyi öyrədir.',
+        say: 'O, bir kasa əriştədir?'
+      },
+      trainBack: {
+        '1': 'Yaxşı. İndi isti bir şey ye. Güc kasadan gəlir.'
+      },
+      bye: {
+        '1': 'Yolun açıq olsun. Yumşaq addımla. Bərk təpiklə.'
+      }
+    },
+    sbMasterBard: {
+      hello: {
+        '1': 'Xoş gəldin, xoş gəldin, soyuqdan içəri gəl! Ay, qafiyə oldu. Belə olur.',
+        '2': 'Lark Merriweather. Ocaq başında çalıram, qulaq asan hər kəsə saz öyrədirəm.'
+      },
+      again: {
+        '1': 'Ən sevimli dinləyicim! Kətil çək otur. Pişiyə fikir ver, o, tənqidçidir.'
+      },
+      train: {
+        '1': 'Mənimlə çal. Bir, iki və üç... Barmaqlarına baxma. Hiss et!'
+      },
+      class: {
+        '1': 'Sənin tərəfini cəsur edən mahnılar, o biri tərəfi yuxuya verən melodiyalar.',
+        '2': 'Camaatı ələ almaq üçün Xarizma. Məharət ki, barmaqların ürəyinə çatsın.',
+        say: 'Aşıq nə edir?'
+      },
+      ready: {
+        strong: {
+          '1': 'Artıq istənilən meyxananı doldurarsan! Bütün mahnılarımı götür.'
+        },
+        able: {
+          '1': 'Gözəl melodiya! Növbəti bəndə hazırsan.'
+        },
+        weak: {
+          '1': 'Hələ yox. Camaat hələ əsnəyir. Bir az da Xarizma, dostum.'
+        }
+      },
+      story: {
+        '1': 'Bir vaxt bir cəngavər elə bu körpüdən keçdi, yanında bir qılınc və bir mahnıdan başqa heç nə yox idi...',
+        '2': 'Dayan, musiqi ilə daha yaxşıdır. La-la-la, cəngavər getdi... Harada qalmışdım?',
+        '3': 'Ay, boş ver. Amma gözəl mahnı idi, elə deyil?',
+        say: 'Mənə bir nağıl danışarsan?'
+      },
+      trainBack: {
+        '1': 'Bravo! Hər gün məşq et. Pis səslənəndə də. Xüsusən də onda.'
+      },
+      bye: {
+        '1': 'Salamat qal, yolun uğurlu! Ay. Yenə qafiyə. Hələlik!'
       }
     }
   },

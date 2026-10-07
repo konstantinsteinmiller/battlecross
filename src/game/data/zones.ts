@@ -302,8 +302,9 @@ export interface NpcDef {
   quest?: string
   /** Gamblers (roadmap #91, #92): the game at their table. */
   game?: 'memory' | 'items'
-  /** A secret trader (roadmap #86): no sign and no shop until this world
-   *  flag is set (their errand handed in); a townsperson to talk to till then. */
+  /** A secret trader or master (roadmap #86): no sign, no shop or lessons
+   *  until this world flag is set (their errand handed in); a townsperson to
+   *  talk to till then. */
   secret?: string
   /** Shown only while every flag in `needs` is set and none in `not`. */
   needs?: string[]
@@ -479,6 +480,16 @@ export const TOWNS: Readonly<Record<TownId, TownDef>> = {
       // Shops and the chapel either side of the square.
       { id: 'sbHealer', role: 'healer', look: 'sbHealer', at: [0.1, 0.48], place: 'inside', house: 'chapel' },
       { id: 'sbArmorer', role: 'shop', look: 'sbArmorer', at: [0.3, 0.48], place: 'porch', house: 'workshop', job: 'smith', stock: { slots: ['head', 'body', 'hands', 'feet', 'off'], tiers: [2, 3, 4] } },
+      // The secret masters (#86): faces in the street until their test is done.
+      { id: 'sbMasterWindrunner', role: 'trainer', look: 'sbMasterWindrunner', at: [0.06, 0.62], place: 'street', job: 'villager', cls: 'windrunner', secret: 'foundWindrunner' },
+      { id: 'sbMasterFrostwarden', role: 'trainer', look: 'sbMasterFrostwarden', at: [0.8, 0.66], place: 'street', job: 'knight', cls: 'frostwarden', secret: 'foundFrostwarden' },
+      { id: 'sbMasterLightbringer', role: 'trainer', look: 'sbMasterLightbringer', at: [0.96, 0.62], place: 'street', job: 'healer', cls: 'lightbringer', secret: 'foundLightbringer' },
+      { id: 'sbMasterBeastcaller', role: 'trainer', look: 'sbMasterBeastcaller', at: [0.44, 0.86], place: 'street', job: 'farmer', cls: 'beastcaller', secret: 'foundBeastcaller' },
+      // The masters of #95's classes, in halls along the south street.
+      { id: 'sbMasterElementalist', role: 'trainer', look: 'sbMasterElementalist', at: [0.06, 0.76], place: 'inside', house: 'hall', job: 'scholar', cls: 'elementalist' },
+      { id: 'sbMasterSoulwarden', role: 'trainer', look: 'sbMasterSoulwarden', at: [0.42, 0.76], place: 'inside', house: 'hall', job: 'scholar', cls: 'soulwarden' },
+      { id: 'sbMasterIronmonk', role: 'trainer', look: 'sbMasterIronmonk', at: [0.8, 0.76], place: 'inside', house: 'hall', job: 'knight', cls: 'ironmonk' },
+      { id: 'sbMasterBard', role: 'trainer', look: 'sbMasterBard', at: [0.95, 0.76], place: 'inside', house: 'hall', job: 'bard', cls: 'bard' },
       // The memory stand (#91): cards on a cloth, an hourglass, a showman.
       { id: 'sbGambler', role: 'gambler', look: 'sbGambler', at: [0.28, 0.36], place: 'street', job: 'merchant', game: 'memory' },
       // The secret traders (#86, D108): no sign over them until their favour is done.

@@ -109,7 +109,7 @@ describe('in every world the player can make', () => {
 
   it('there are 360 of them', () => { expect(all).toHaveLength(360) })
 
-  it('all eight classes still have a trainer somewhere', () => {
+  it('every class still has a trainer somewhere', () => {
     const broken: string[] = []
     for (const w of all) {
       const got = trainersIn(w.flags)

@@ -95,7 +95,8 @@ export default {
     elixirSwift: 'Çeviklik',
     elixirMind: 'Berrak Zihin',
     elixirVigor: 'Dinçlik',
-    elixirShadow: 'Susamış Kılıç'
+    elixirShadow: 'Susamış Kılıç',
+    chi: 'Çi'
   },
   toast: {
     item: 'Bulundu: {item}',
@@ -859,6 +860,390 @@ export default {
     crumble: {
       name: 'Parçala',
       desc: 'Yavaşlamış, yere serilmiş ya da taşlaşmış düşmanlara {dmg}% daha fazla hasar verirsin.'
+    },
+    galeArrow: {
+      name: 'Bora Oku',
+      desc: 'Rüzgârla uçan bir ok: {dmg}% Çeviklik hasarı verir ve hedefi geri iter.'
+    },
+    fleetfoot: {
+      name: 'Çevik Adım',
+      desc: '+{move}% hareket hızı ve +{dodge}% Kaçınma.'
+    },
+    zephyrDash: {
+      name: 'Meltem Atılışı',
+      desc: 'Nişan aldığın yöne en fazla {dist} m atıl, sonra {dur} sn boyunca {move}% daha hızlı koş.'
+    },
+    piercingGale: {
+      name: 'Delici Bora',
+      desc: 'Bir hattaki tüm düşmanların içinden geçen ok: {dmg}% Çeviklik hasarı ve {dur} sn boyunca {slow}% yavaşlatma.'
+    },
+    cycloneSnare: {
+      name: 'Kasırga Tuzağı',
+      desc: '{dur} sn süren bir hortum düşmanları merkezine çeker ve {dmg}% Beceri hasarı verir.'
+    },
+    keenEye: {
+      name: 'Keskin Göz',
+      desc: '+{critDmg}% Kritik Hasarı. Atışların {pierce} düşmanın daha içinden geçer.'
+    },
+    updraftLeap: {
+      name: 'Yükselen Sıçrayış',
+      desc: 'Bir rüzgâr {radius} m içindeki düşmanları havaya fırlatır: {dmg}% Çeviklik hasarı. Sen {leap} m uzağa sıçrarsın.'
+    },
+    swiftDraw: {
+      name: 'Hızlı Çekiş',
+      desc: '{speed}% daha hızlı saldırırsın ve bekleme sürelerin {cdr}% kısalır.'
+    },
+    arrowStorm: {
+      name: 'Ok Fırtınası',
+      desc: '{dur} sn boyunca alana ok yağar: toplam {dmg}% Beceri hasarı ve {slow}% yavaşlatma.'
+    },
+    galeSpirits: {
+      name: 'Rüzgâr Ruhları',
+      desc: '{dur} sn boyunca rüzgâr ruhları seninle uçar ve {dmg}% Beceri hasarlı {shots} ok atar. +{move}% hareket hızı.'
+    },
+    skyHunter: {
+      name: 'Gök Avcısı',
+      desc: 'Patronlara +{boss}% hasar ve +{crit}% Kritik Şansı.'
+    },
+    skyrender: {
+      name: 'Gökyaran',
+      desc: 'Bir fırtına oku yol açar: hattaki herkese {dmg}% Çeviklik hasarı; hepsi havaya ve yana savrulur.'
+    },
+    frostCleave: {
+      name: 'Ayaz Biçişi',
+      desc: 'Buz kılıcını önünde savur: {dmg}% Güç hasarı ve {dur} sn boyunca {slow}% yavaşlatma.'
+    },
+    rimeLance: {
+      name: 'Kırağı Mızrağı',
+      desc: '{dmg}% Zekâ hasarı veren bir buz mızrağı fırlat. {dur} sn boyunca {slow}% yavaşlatır.'
+    },
+    wintersBite: {
+      name: 'Kışın Isırığı',
+      desc: 'Saldırıların düşmanı {dur} sn boyunca {slow}% yavaşlatır.'
+    },
+    frostArmor: {
+      name: 'Ayaz Zırhı',
+      desc: 'Buz zırhı {dur} sn boyunca {shield}% Zekâ kadar hasarı emer. Yakınındaki düşmanlar {slow}% yavaşlar.'
+    },
+    glacialCharge: {
+      name: 'Buzul Hücumu',
+      desc: 'Hedefe hücum et: {dmg}% Güç hasarı ver ve onu {freeze} sn dondur.'
+    },
+    frozenHeart: {
+      name: 'Donmuş Yürek',
+      desc: '+{hp}% Maks. Can ve aldığın tüm hasar {reduce}% azalır.'
+    },
+    rimeField: {
+      name: 'Kırağı Alanı',
+      desc: '{dur} sn boyunca donduran zemin: {dmg}% Zekâ hasarı. İçindeki üşümüş düşmanlar {freeze} sn donar.'
+    },
+    frostShatter: {
+      name: 'Ayaz Parçalama',
+      desc: '{radius} m içinde {dmg}% Güç hasarı: yavaşlamış düşmanlara +{chilled}%, donmuşlara +{frozen}%.'
+    },
+    shatterpoint: {
+      name: 'Kırılma Noktası',
+      desc: 'Yavaşlamış ve donmuş düşmanlara {bonus}% daha fazla hasar verirsin.'
+    },
+    avalancheLeap: {
+      name: 'Çığ Sıçrayışı',
+      desc: 'Nişan aldığın yere sıçra ve çığ gibi in: {dmg}% Güç hasarı, düşmanlar yere serilir.'
+    },
+    iceborn: {
+      name: 'Buzdoğan',
+      desc: 'Hiçbir şey seni itemez ya da fırlatamaz. Üzerindeki sersemletmeler {cut}% daha kısa sürer.'
+    },
+    absoluteZero: {
+      name: 'Mutlak Sıfır',
+      desc: 'İçinden kış patlar: {radius} m içinde {dmg}% Zekâ hasarı, herkes {freeze} sn donar.'
+    },
+    sunbolt: {
+      name: 'Güneş Oku',
+      desc: '{dmg}% Zekâ hasarı veren bir güneş ışığı oku. Gözü kamaşan hedef {dur} sn boyunca {weaken}% daha az hasar verir.'
+    },
+    mendingLight: {
+      name: 'Onaran Işık',
+      desc: 'Hemen {heal}% Karizma kadar iyileş, sonra {dur} sn boyunca her saniye canının {regen}% kadarını yenile.'
+    },
+    kindledHope: {
+      name: 'Yanan Umut',
+      desc: 'Aldığın tüm iyileştirmeler {heal}% daha güçlüdür.'
+    },
+    lanceOfLight: {
+      name: 'Işık Mızrağı',
+      desc: 'Bir ışık huzmesi: bir hatta {dmg}% Zekâ hasarı. Vurulan her düşman için {heal}% can yenile.'
+    },
+    dawnShield: {
+      name: 'Şafak Kalkanı',
+      desc: 'Üzerindeki tüm kötü etkileri temizle ve {dur} sn boyunca {shield}% Karizma değerinde kalkan kazan.'
+    },
+    haloWard: {
+      name: 'Hale Koruması',
+      desc: 'Aldığın tüm hasar {reduce}% azalır.'
+    },
+    dawnSanctuary: {
+      name: 'Şafak Sığınağı',
+      desc: '{dur} sn boyunca kutsal zemin: seni saniyede {heal}% Karizma kadar iyileştirir, düşmanlar {dmg}% Zekâ hasarı alır.'
+    },
+    blindingFlash: {
+      name: 'Kör Eden Parıltı',
+      desc: 'Bir ışık parlaması: {radius} m içindeki düşmanlar {fear} sn kaçar ve {dur} sn boyunca {weaken}% daha az hasar verir.'
+    },
+    guardianLight: {
+      name: 'Koruyucu Işık',
+      desc: 'Seni yenecek bir darbe seni 1 canla bırakır ve {dur} sn dokunulmaz olursun. {icd} sn’de bir.'
+    },
+    sunfall: {
+      name: 'Güneş Düşüşü',
+      desc: 'Hedefe bir güneş ışığı sütunu iner: {dmg}% Zekâ hasarı. Düşmanlar {dur} sn boyunca {vuln}% daha fazla hasar alır.'
+    },
+    searingLight: {
+      name: 'Yakıcı Işık',
+      desc: '+{crit}% Büyü Kritik Şansı ve +{critDmg}% Kritik Hasarı.'
+    },
+    haloOfDawn: {
+      name: 'Şafak Halesi',
+      desc: '{dur} sn parla: her saniye {radius} m içinde {dmg}% Zekâ hasarı ver ve {heal}% can yenile.'
+    },
+    callWolf: {
+      name: 'Kurt Çağır',
+      desc: 'Bir ruh kurdu sana katılır ve {dmg}% Karizma hasarıyla ısırır. Aynı anda en fazla {max}.'
+    },
+    wolfPounce: {
+      name: 'Kurt Atılışı',
+      desc: 'Kurtların hedefe atılır: her biri {dmg}% Karizma hasarı verir ve onu {down} sn yere serer.'
+    },
+    wildKinship: {
+      name: 'Yaban Akrabalığı',
+      desc: 'Yoldaşlarının {hp}% daha fazla canı olur ve {dmg}% daha fazla hasar verirler.'
+    },
+    callHawk: {
+      name: 'Şahin Çağır',
+      desc: 'Bir şahin hedefe dalar: {dmg}% Karizma hasarı; hedef {dur} sn boyunca {vuln}% daha fazla hasar alır. {life} sn kalır.'
+    },
+    callBear: {
+      name: 'Ayı Çağır',
+      desc: 'Bir ruh ayısı sana katılır. {dmg}% hasarla vurur ve düşmanları oyalar. En fazla {max}.'
+    },
+    thickHide: {
+      name: 'Kalın Post',
+      desc: '+{hp}% Maks. Can ve saniyede +{regen} can yenilenmesi.'
+    },
+    packBond: {
+      name: 'Sürü Bağı',
+      desc: 'Sen ve {radius} m içindeki yoldaşların {dur} sn boyunca saniyede {regen}% can yenilersiniz ve {def}% Savunma kazanırsınız.'
+    },
+    spiritStampede: {
+      name: 'Ruh Akını',
+      desc: 'Bir ruh hayvanı sürüsü hücum eder: bir hatta {dmg}% Karizma hasarı, düşmanlar yere serilir.'
+    },
+    packTactics: {
+      name: 'Sürü Taktiği',
+      desc: 'Yanındaki her yoldaş için {bonus}% daha fazla hasar verirsin (en fazla {max} yoldaş).'
+    },
+    alphaHowl: {
+      name: 'Alfa Uluması',
+      desc: 'Yoldaşların {heal}% iyileşir ve {dur} sn boyunca {rage}% daha sert savaşır. Yakınındaki düşmanlar kaçar.'
+    },
+    leaderOfThePack: {
+      name: 'Sürünün Lideri',
+      desc: 'Yoldaşların {speed}% daha hızlı saldırır ve {dmg}% daha fazla hasar verir.'
+    },
+    wildHunt: {
+      name: 'Yaban Avı',
+      desc: '{dur} sn boyunca {wolves} kurt daha seninle koşar. Tüm sürü +{dmg}% hasar verir ve {move}% daha hızlı hareket eder.'
+    },
+    prismBolt: {
+      name: 'Prizma Oku',
+      desc: '{dmg}% Zekâ hasarı veren bir ok: hedef yanıyorsa ayaz, yoksa ateş. Biri diğerini tetikler.'
+    },
+    elementalHarmony: {
+      name: 'Element Uyumu',
+      desc: 'Tepkilerin (Erime, Buhar, Parçalanma, Aşırı Yük, Kristal) {pct}% daha güçlüdür.'
+    },
+    frostLance: {
+      name: 'Ayaz Mızrağı',
+      desc: 'Bir hat boyunca buz: {dmg}% Zekâ hasarı ve {dur} sn boyunca {slow}% yavaşlatma. Yanan düşmanlarda Buhar oluşur.'
+    },
+    chainSpark: {
+      name: 'Zincir Kıvılcım',
+      desc: '{dmg}% Zekâ hasarı veren ve {jumps} düşmana daha sıçrayan şimşek. Buzu Parçalar, ateşte Aşırı Yük yapar.'
+    },
+    smolderingCore: {
+      name: 'Köz Çekirdek',
+      desc: 'Yakmaların {burn}% daha fazla hasar verir ve {mana} daha fazla manan olur.'
+    },
+    rollingBoulder: {
+      name: 'Yuvarlanan Kaya',
+      desc: 'Bir kaya yuvarlanır: {dmg}% Zekâ hasarı, {down} sn yere serme. İşaretli düşmanlar sana kalkan verir.'
+    },
+    thunderSnow: {
+      name: 'Şimşekli Kar',
+      desc: '{dur} sn süren bir kar fırtınası: {dmg}% Zekâ ayaz hasarı ve her saniye {bolt}% şimşek.'
+    },
+    spellweave: {
+      name: 'Büyü Dokuma',
+      desc: '+{crit}% büyü Kritik Şansı ve yeteneklerin {mana}% daha az mana harcar.'
+    },
+    prismaticNova: {
+      name: 'Prizma Patlaması',
+      desc: '{radius} m içindeki her şeye {dmg}% Zekâ hasarı vur; her birine tepki verdiği elementle.'
+    },
+    prismaticWard: {
+      name: 'Prizma Koruması',
+      desc: '{reduce}% daha az hasar alırsın ve {hp}% daha fazla canın olur.'
+    },
+    frostfireComet: {
+      name: 'Ayazateş Meteoru',
+      desc: 'Ateş ve buzdan bir kuyrukluyıldız: {dmg}% Zekâ hasarı. Düşmanlar yanar ve yavaşlar.'
+    },
+    elementalConvergence: {
+      name: 'Element Birleşimi',
+      desc: '{dur} sn boyunca dört element sırayla vurur: birbirini tetikleyen {strikes} darbe, her biri {dmg}% Zekâ.'
+    },
+    wispBolt: {
+      name: 'Işıltı Oku',
+      desc: '{dmg}% Zekâ hasarı veren bir ışıltı. Yendiği düşman {life} sn boyunca senin ruhun olarak kalkar.'
+    },
+    kindredSpirits: {
+      name: 'Akraba Ruhlar',
+      desc: 'Ruhlarının ve minyonlarının {hp}% daha fazla canı olur ve {speed}% daha hızlı saldırırlar.'
+    },
+    callTheFallen: {
+      name: 'Düşenleri Çağır',
+      desc: '{radius} m içinde az önce düşen en fazla {max} düşman, {life} sn boyunca senin ruhların olarak kalkar.'
+    },
+    soulBond: {
+      name: 'Ruh Bağı',
+      desc: 'Bir düşmanla dost ol: {chance}% şansla (yaralıysa {low}%) {life} sn ruh olarak sana katılır. Yoksa {dmg}% hasar.'
+    },
+    restlessSouls: {
+      name: 'Huzursuz Ruhlar',
+      desc: 'Yendiğin bir düşmanın {life} sn boyunca ruhun olarak kalkma şansı {chance}%.'
+    },
+    spiritLantern: {
+      name: 'Ruh Feneri',
+      desc: '{dur} sn bir fener: ışığındaki düşmanlar {dmg}% Zekâ hasarı alır, dostlar iyileşir, düşenler kalkar.'
+    },
+    hauntingWail: {
+      name: 'Ürkütücü Feryat',
+      desc: 'Hayalet gibi bir BÖÖ!: {radius} m içinde {dmg}% Zekâ hasarı ve düşmanlar {fear} sn kaçar.'
+    },
+    wardensVigil: {
+      name: 'Muhafızın Nöbeti',
+      desc: 'Ruhların ve minyonların {dmg}% daha fazla hasar verir, sen de {reduce}% daha az hasar alırsın.'
+    },
+    releaseSouls: {
+      name: 'Ruhları Sal',
+      desc: 'Ruhların ışık patlamalarıyla evine döner: her biri çevresine {dmg}% Zekâ hasarı verir ve {heal}% can geri kazandırır.'
+    },
+    lanternKeeper: {
+      name: 'Fener Bekçisi',
+      desc: '{cdr}% daha kısa bekleme süreleri ve yeteneklerin {mana}% daha az mana harcar.'
+    },
+    wispSwarm: {
+      name: 'Işıltı Sürüsü',
+      desc: '{wisps} ışıltı alandaki düşmanlara dalar: toplam {dmg}% Zekâ. Yendikleri düşmanlar kalkar.'
+    },
+    processionOfSouls: {
+      name: 'Ruhlar Alayı',
+      desc: '{dur} sn boyunca yakınında düşen her düşman ruhun olarak kalkar ve ruhlar {atk}% daha fazla hasar verir.'
+    },
+    palmStrike: {
+      name: 'Avuç Darbesi',
+      desc: '{dmg}% Çeviklik hasarı veren ve düşmanı geri iten hızlı bir avuç darbesi. {chi} çi biriktirir.'
+    },
+    ironBody: {
+      name: 'Demir Beden',
+      desc: 'Alınan fiziksel hasar {reduce}% azalır ve {hp}% daha fazla canın olur.'
+    },
+    flyingKick: {
+      name: 'Uçan Tekme',
+      desc: 'Hedefe uç ve tekmele: {dmg}% Çeviklik hasarı; yoldaki düşmanlar {path}% alır. {chi} çi biriktirir.'
+    },
+    tigerStance: {
+      name: 'Kaplan Duruşu',
+      desc: '{dur} sn boyunca: +{dmg}% hasar ve +{speed}% saldırı hızı. Turna Duruşunu bitirir.'
+    },
+    craneStance: {
+      name: 'Turna Duruşu',
+      desc: '{dur} sn boyunca: +{def}% Savunma ve saniyede canının {regen}% kadarını yenilersin. Kaplan Duruşunu bitirir.'
+    },
+    flowingFists: {
+      name: 'Akan Yumruklar',
+      desc: 'Saldırıların {chance}% şansla çi biriktirir.'
+    },
+    hundredFists: {
+      name: 'Yüz Yumruk',
+      desc: '{hits} darbelik bir yumruk yağmuru: toplam {dmg}% Çeviklik hasarı. {chi} çi biriktirir.'
+    },
+    risingDragon: {
+      name: 'Yükselen Ejderha',
+      desc: 'Tüm çiyi bir aparkata harca: {dmg}% Çeviklik hasarı, çi başına +{per}%. Düşman havaya uçar.'
+    },
+    cranesGrace: {
+      name: 'Turna Zarafeti',
+      desc: '+{dodge}% Kaçınma; üzerindeki sersemletmeler ve yere serilmeler {cut}% daha kısa sürer.'
+    },
+    whirlwindKick: {
+      name: 'Kasırga Tekmesi',
+      desc: '{radius} m içindeki her şeyi iki kez tekmele: toplam {dmg}% Çeviklik hasarı. En fazla {chi} çi biriktirir.'
+    },
+    tigersFury: {
+      name: 'Kaplanın Öfkesi',
+      desc: '+{crit}% Kritik Şansı ve +{speed}% saldırı hızı.'
+    },
+    mountainPalm: {
+      name: 'Dağ Avucu',
+      desc: 'Tüm çiyi harca: dev bir avuç iner, {dmg}% Çeviklik hasarı, çi başına +{per}%, düşmanlar yere serilir.'
+    },
+    sharpNote: {
+      name: 'Keskin Nota',
+      desc: '{dmg}% Karizma hasarı veren keskin bir nota. Düşman {dur} sn boyunca {weaken}% daha az hasar verir.'
+    },
+    stagePresence: {
+      name: 'Sahne Hâkimiyeti',
+      desc: 'Yeteneklerin {mana}% daha az mana harcar ve {move}% daha hızlı hareket edersin.'
+    },
+    marchingSong: {
+      name: 'Yürüyüş Marşı',
+      desc: '{dur} sn süren bir şarkı: sen ve {radius} m içindeki dostlar {move}% daha hızlı yürür, {speed}% daha hızlı saldırırsınız.'
+    },
+    lullaby: {
+      name: 'Ninni',
+      desc: 'Koni biçiminde yumuşak bir ezgi: ulaştığı her düşman {dur} sn uyur.'
+    },
+    longRefrain: {
+      name: 'Uzun Nakarat',
+      desc: 'Şarkıların {pct}% daha uzun sürer.'
+    },
+    balladOfValor: {
+      name: 'Cesaret Baladı',
+      desc: '{dur} sn süren bir şarkı: sen ve {radius} m içindeki dostlar {dmg}% daha fazla hasar verir ve {def}% Savunma kazanırsınız.'
+    },
+    charmingSerenade: {
+      name: 'Büyüleyici Serenat',
+      desc: 'Hedefi ve {radius} m içindeki düşmanları büyüle: {dur} sn boyunca birbirleriyle savaşırlar.'
+    },
+    virtuoso: {
+      name: 'Virtüöz',
+      desc: '{cdr}% daha kısa bekleme süreleri ve +{critDmg}% Kritik Hasarı.'
+    },
+    hymnOfMending: {
+      name: 'Şifa İlahisi',
+      desc: 'Kötü etkileri temizler, sonra {dur} sn boyunca sen ve {radius} m içindeki dostlar saniyede {regen}% can yenilersiniz.'
+    },
+    crescendo: {
+      name: 'Kreşendo',
+      desc: '{radius} m içinde bir ses patlaması: {dmg}% Karizma hasarı, çaldığın her şarkı için +{per}%.'
+    },
+    standingOvation: {
+      name: 'Ayakta Alkış',
+      desc: '+{dmg}% hasar ve {reduce}% daha az hasar alırsın.'
+    },
+    grandFinale: {
+      name: 'Büyük Final',
+      desc: '{dur} sn hepsini çal (+{buff}% hız, hasar, Savunma), sonra son akor: {dmg}% Karizma, düşmanlar büyülenir.'
     }
   },
   slot: {
@@ -1371,6 +1756,30 @@ export default {
     sbFence: {
       name: 'Mirela Thorne',
       talk: 'Kaliteli zırh, soru sorulmaz. Yani, pek az soru.'
+    },
+    sbMasterWindrunner: {
+      name: 'Sefa Galewing'
+    },
+    sbMasterFrostwarden: {
+      name: 'Halvard Rimeheart'
+    },
+    sbMasterLightbringer: {
+      name: 'Rahibe Auriel Dawnmere'
+    },
+    sbMasterBeastcaller: {
+      name: 'Koca Rowan Thistlefoot'
+    },
+    sbMasterElementalist: {
+      name: 'Magistra Iris Fourwinds'
+    },
+    sbMasterSoulwarden: {
+      name: 'Muhafız Odalys Lanternlight'
+    },
+    sbMasterIronmonk: {
+      name: 'Usta Oru Stillwater'
+    },
+    sbMasterBard: {
+      name: 'Lark Merriweather'
     }
   },
   quest: {
@@ -3655,6 +4064,382 @@ export default {
       },
       bye: {
         '1': 'Keseni kolla. Buradaki herkes benim kadar dürüst değil.'
+      }
+    },
+    sbMasterWindrunner: {
+      hello: {
+        '1': 'Ah, selam! Kusura bakma, duramam. Rüzgârın dönmesini bekliyorum. Her an dönebilir.',
+        '2': 'Sefa Galewing. Ok atarım, rüzgârı kovalarım. Genelde rüzgâr kazanır.'
+      },
+      open: {
+        '1': 'İşte benim koşucum! Hazır mısın? Elbette hazırsın. Hadi, hadi!'
+      },
+      again: {
+        '1': 'Yine selam! Hâlâ buradayım. Yani, çoğunlukla. Ayaklarım hep bir yerlere kaçıyor.'
+      },
+      train: {
+        '1': 'Rüzgârı yanağında hissediyor musun? Sandığından biraz soluna nişan al. Şimdi bırak!'
+      },
+      favor: {
+        '1': 'Sadece bana yetişebilenlere. Sen yetişebilir misin? Görelim bakalım.',
+        '2': 'Oakhaven Varoşları\'nda on iki okçu haydudu yen, sonra bana üç çevikeğrelti getir.',
+        say: 'Okçuluk öğretiyor musun?'
+      },
+      waiting: {
+        '1': 'On iki okçu haydut, üç çevikeğrelti. Hadi! Ben tam buradayım. Zıplıyorum.',
+        say: 'Sınavın hakkında...'
+      },
+      favorDone: {
+        '1': 'Ha! Gerçekten yetiştin! Kimse yetişemez!',
+        '2': 'Tamam, artık öğrencimsin. Tek kural: derslerimde oturmak yok.',
+        say: 'Okçular yenildi, işte çevikeğreltilerin.'
+      },
+      class: {
+        '1': 'Ok at, koş, yine ok at. Seni yakalarlarsa çok uzun durmuşsun demektir.',
+        '2': 'Hızlı ayaklar ve hızlı bir yay için Çeviklik. Her ok hedefi bulsun diye Beceri.',
+        say: 'Rüzgâr Koşucusu ne yapar?'
+      },
+      ready: {
+        strong: {
+          '1': 'Artık rüzgâr kadar hızlısın. Yani, neredeyse. İstediğin dersi al!'
+        },
+        able: {
+          '1': 'Hafif ayaklar! Bir sonrakine hazırsın. Hadi, hadi!'
+        },
+        weak: {
+          '1': 'Henüz değil. Sırtında kanepe taşıyor gibi koşuyorsun. Biraz daha Çeviklik lütfen.'
+        }
+      },
+      who: {
+        '1': 'Nehir kıyısındaki eski yel değirmeninde yaşıyorum. Kasabada rüzgâr en iyi oradan görünür.',
+        '2': 'Tepeye iki yüz basamak. Harika antrenman. Her birini tek tek saydım.'
+      },
+      trainBack: {
+        '1': 'Güzel! Şimdi eve koş. Yürüme. Koşmak da antrenmana sayılır.'
+      },
+      bye: {
+        '1': 'Görüşürüz! Alçak dallara dikkat et. Ben hiç etmem.'
+      }
+    },
+    sbMasterFrostwarden: {
+      hello: {
+        '1': 'Hm. Üç kez önümden geçtin. Kayıp mısın, meraklı mı?',
+        '2': 'Halvard Rimeheart. Karlı diyarlardan güneye geldim. Burası sıcak. Fazla sıcak.'
+      },
+      open: {
+        '1': 'Öğrenci. Güzel. Buz hazır, ben de.'
+      },
+      again: {
+        '1': 'Yine sen. Güzel. Çok konuşmam. Yine de kal.'
+      },
+      train: {
+        '1': 'Yavaşça nefes ver. Buharı görüyor musun? Şimdi onu kılıca koy.'
+      },
+      favor: {
+        '1': 'Öyle. Bunu yalnızca sıcak bir yerde serin kalabilenlere öğretirim.',
+        '2': 'Kül Kayalıkları\'nda on ateş elementalini söndür. Sonra bana üç dal ayaznane getir.',
+        say: 'O kılıç buzdan mı?'
+      },
+      waiting: {
+        '1': 'On ateş elementali. Üç dal ayaznane. Acele etme. Ama çok da oyalanma.',
+        say: 'Sınavın hakkında...'
+      },
+      favorDone: {
+        '1': 'Hm. Ucun bile yanmamış. Güzel.',
+        '2': 'Serin kaldın. İlk ders buydu. Gerisini ben öğreteceğim.',
+        say: 'Ateş elementalleri söndü. İşte ayaznanen.'
+      },
+      class: {
+        '1': 'Soğuğun şövalyesi. Önce üşüt, sonra dondur, sonra buzu kır.',
+        '2': 'Kılıç için Güç. Ayaz için Zekâ. İkisine de ihtiyacın var.',
+        say: 'Ayaz Muhafızı nedir?'
+      },
+      ready: {
+        strong: {
+          '1': 'Artık kuzey kadar soğuksun. İstediğin dersi al.'
+        },
+        able: {
+          '1': 'Güzel. Sakin ve sağlam. Sıradaki ders senin.'
+        },
+        weak: {
+          '1': 'Henüz değil. Ayazın çok çabuk eriyor. Daha fazla Zekâ, daha fazla Güç.'
+        }
+      },
+      who: {
+        '1': 'Kuzeyde bir dağ geçidini korudum. Sonra donmayan bir nehir görmek istedim.'
+      },
+      trainBack: {
+        '1': 'Güzel. Şimdi dinlen. Buz acele etmez. Sen de etme.'
+      },
+      bye: {
+        '1': 'Güle güle. Serin kal.'
+      }
+    },
+    sbMasterLightbringer: {
+      hello: {
+        '1': 'Mm-hm-hmm... Ah! Kusura bakma canım, mırıldanıyordum. Sana mı mırıldandım? Bazen yaparım.',
+        '2': 'Rahibe Auriel Dawnmere. Köprünün ucundaki küçük lambayı hep yanık tutarım.'
+      },
+      open: {
+        '1': 'İşte benim ışıl ışıl öğrencim! Gel, biraz ışıkta dur. Bunu hak ettin.'
+      },
+      again: {
+        '1': 'Yine merhaba! Hâlâ buradayım, hâlâ mırıldanıyorum. Lamba arkadaşlıktan hoşlanıyor.'
+      },
+      train: {
+        '1': 'Eller açık, çene yukarı. Yaşadığın en güzel sabahı düşün. İşte. Hissettin mi?'
+      },
+      favor: {
+        '1': 'Herkesin içinde küçük bir ışık vardır. Hazır olduklarında insanlara onu dışarı salmayı öğretirim.',
+        '2': 'Kül Kayalıkları\'nda on kültçüyü yen, sonra lambam için bana beş güneşyaprağı getir.',
+        say: 'O lamba büyülü mü?'
+      },
+      waiting: {
+        '1': 'On kültçü, beş güneşyaprağı. Onları nazikçe yen. Herkes ikinci bir şansı hak eder.',
+        say: 'Sınavın hakkında...'
+      },
+      favorDone: {
+        '1': 'Ah, şunlara bak! Lamba bir ay boyunca altın gibi parlayacak.',
+        '2': 'Sen de öyle, canım. Sana seve seve öğretirim.',
+        say: 'Kültçüler yenildi. İşte güneşyaprakların.'
+      },
+      class: {
+        '1': 'Şafağı taşırız. Savaşmak için ışık, iyileştirmek için ışık, arkasına saklanmak için ışık.',
+        '2': 'Zekâ ışığı güçlü yapar. Karizma onu sıcak yapar. İkisini de isteyeceksin.',
+        say: 'Işık Getiren ne yapar?'
+      },
+      ready: {
+        strong: {
+          '1': 'Gün doğumu gibi parlıyorsun, canım. İstediğin dersi al.'
+        },
+        able: {
+          '1': 'Güzel parlıyorsun! Bir sonrakine hazırsın.'
+        },
+        weak: {
+          '1': 'Henüz değil, canım. Işığın biraz sönük. Biraz daha Karizma, sonra parlarsın.'
+        }
+      },
+      who: {
+        '1': 'Bir zamanlar büyük bir tapınakta şarkı söylerdim. Ama buradaki lambam tekneleri eve yönlendiriyor. Bu daha güzel.'
+      },
+      trainBack: {
+        '1': 'Harika. Şimdi git, birinin gününü aydınlat. Rahibenin emri.'
+      },
+      bye: {
+        '1': 'Haydi bakalım, canım. Karanlık köşelere gülümse. Buna hiç dayanamazlar.'
+      }
+    },
+    sbMasterBeastcaller: {
+      hello: {
+        '1': 'Ayağına dikkat. O Bramble. Buraya senden önce geldi.',
+        '2': 'Rowan Thistlefoot. Hayvanları severim. İnsanlara gelince, hâlâ karar veriyorum.'
+      },
+      open: {
+        '1': 'Ah, sensin. Bramble seni bekliyordu. Ben de. Biraz.'
+      },
+      again: {
+        '1': 'Yine sen. Bramble seni seviyor. Ben hâlâ düşünüyorum.'
+      },
+      train: {
+        '1': 'Çömel. Daha yavaş. Elini uzat, onlar sana gelsin. Güzel.'
+      },
+      favor: {
+        '1': 'Konuşmak mı? Ben dinlerim. Çoğu insanın hiç öğrenemediği püf noktası bu.',
+        '2': 'Fısıldayan Orman\'da dev örümcekler hayvan patikalarını ağlarla kaplıyor. On ikisini temizle.',
+        '3': 'Sonra inim için bana iki ayçanı getir. Bramble onların yanında daha iyi uyur.',
+        say: 'Hayvanlarla konuşabiliyor musun?'
+      },
+      waiting: {
+        '1': 'On iki örümcek, iki ayçanı. Hayvanlar bekliyor. Bramble da.',
+        say: 'Sınavın hakkında...'
+      },
+      favorDone: {
+        '1': 'Hm. Geyikler bu sabah nehre indi. Senin işin olabilir diye düşündüm.',
+        '2': 'Peki. Sana öğreteceğim. Olay çıkarma. Bramble, kuyruk sallamayı bırak.',
+        say: 'Patikalar temiz, işte ayçanların.'
+      },
+      class: {
+        '1': 'Yabanı çağırırsın, yaban gelir. Kurtlar, bir şahin, bir ayı. Evcil hayvan değil, dost.',
+        '2': 'Gelmek istesinler diye Karizma. Onlara yetişebilesin diye Dayanıklılık.',
+        say: 'Yaban Çağırıcısı nedir?'
+      },
+      ready: {
+        strong: {
+          '1': 'Artık bütün sürü sana güveniyor. İstediğini al.'
+        },
+        able: {
+          '1': 'Kurtlar seni seviyor. Bir sonrakine hazırsın.'
+        },
+        weak: {
+          '1': 'Henüz değil. Sana güvenmiyorlar. Daha fazla Karizma ve çok daha fazla sabır.'
+        }
+      },
+      who: {
+        '1': 'Bramble\'ı yıllar önce bir tuzakta buldum. Üç bacak, bir ton kafa. O günden beri ikimiz biriz.',
+        '2': 'Ahırın samanlığında uyurum. Atlar insanlardan az horlar.'
+      },
+      trainBack: {
+        '1': 'Güzel. Hadi git bakalım. Kargalara da selam söyle. Onlar unutmaz.'
+      },
+      bye: {
+        '1': 'Hadi git. Bramble güle güle diyor.'
+      }
+    },
+    sbMasterElementalist: {
+      hello: {
+        '1': 'Selam! Bir saniye, hokkabazlık yapıyorum. Ateş, ayaz, kıvılcım, taş ve... yakaladım! Merhaba!',
+        '2': 'Magistra Iris Fourwinds. Dört elementin hepsini öğretirim. İşin en eğlenceli kısmı onları karıştırmak.'
+      },
+      again: {
+        '1': 'Yine geldin! Güzel, izleyecek birine ihtiyacım vardı. Şuna bak. Ta-da!'
+      },
+      train: {
+        '1': 'İki küre seç. Hangileri olursa. Şimdi çarpışsınlar. Nazikçe! Gördün mü? Bir tepki!'
+      },
+      class: {
+        '1': 'Karıştırırız! Önce ayaz sonra ateş: erir. Önce ateş sonra şimşek: bum. Her ikili bir şey yapar.',
+        '2': 'Her büyü için Zekâ. Beceri de, çünkü iyi büyüler çevik eller ister.',
+        say: 'Element Büyücüsü ne yapar?'
+      },
+      ready: {
+        strong: {
+          '1': 'Artık bir usta gibi karıştırıyorsun! İstediğin dersi al. İki tane al!'
+        },
+        able: {
+          '1': 'Oo, güzel kıvılcım! Bir sonrakine hazırsın.'
+        },
+        weak: {
+          '1': 'Henüz değil! Elementlerin hep fıss diye sönüyor. Biraz daha Zekâ lütfen.'
+        }
+      },
+      sleeve: {
+        '1': 'Aa! Gerçekten de. Bir saniye... Tamam.',
+        '2': 'Önce ateş, sonra ayaz. Aslında bu bir dersti. Rica ederim!',
+        say: 'Şey, kolun yanıyor.'
+      },
+      trainBack: {
+        '1': 'Harika! Şimdi lütfen dışarıda çalış. Perdeler yeni.'
+      },
+      bye: {
+        '1': 'Hoşça kal! Duman kokusu alırsan büyük ihtimalle benimdir. Merak etme!'
+      }
+    },
+    sbMasterSoulwarden: {
+      hello: {
+        '1': 'Şşş, sorun yok, onlar dost. Ah, sana değil. Işıltılarla konuşuyordum.',
+        '2': 'Muhafız Odalys Lanternlight. Kayıp ruhların evlerinin yolunu bulmasına yardım ederim.'
+      },
+      again: {
+        '1': 'Yine merhaba. Işıltılar seni hatırlıyor. Şu el sallıyor.'
+      },
+      train: {
+        '1': 'Feneri aşağıda tut ve yumuşak konuş. Kayıp şeyler nazik bir sese gelir.'
+      },
+      class: {
+        '1': 'Bir düşman yenilince ruhu biraz kaybolur. Biz ona yardım ederiz, o da bize yardım eder.',
+        '2': 'Işığa yol göstermek için Zekâ. Ruhlar biraz kalmak istesin diye Karizma.',
+        say: 'Ruh Muhafızı ne yapar?'
+      },
+      ready: {
+        strong: {
+          '1': 'Artık en utangaç ruhlar bile sana geliyor. İstediğin dersi al.'
+        },
+        able: {
+          '1': 'Işıltılar sana güveniyor. Bir sonraki derse hazırsın.'
+        },
+        weak: {
+          '1': 'Henüz değil. Senden hâlâ çekiniyorlar. Daha fazla Zekâ ve biraz Karizma.'
+        }
+      },
+      wisps: {
+        '1': 'Sayılır! Yolunu kaybetmiş ruhlar onlar. Bu Kıpır. Sıcak tarafı seviyor.',
+        '2': 'Hiçbir ruh kötü değildir, biliyor musun? Sadece kayıptır. Hazır olunca eve dönerler.',
+        say: 'Fenerindeki küçük ışıklar canlı mı?'
+      },
+      trainBack: {
+        '1': 'Aferin. Şimdi onları nazikçe bırak. Uzun bir gün geçirdiler.'
+      },
+      bye: {
+        '1': 'Kendine iyi bak. Küçük, kayıp bir ışık görürsen merhaba de.'
+      }
+    },
+    sbMasterIronmonk: {
+      hello: {
+        '1': 'Otur. Nefes al. Hayır, bir yere geç kalmış gibi nefes alıyorsun. Tekrar.',
+        '2': 'Usta Oru Stillwater. Açık eli öğretirim. Demir yumruklar, sakin yürek.'
+      },
+      again: {
+        '1': 'Ah. Öğrenci geri döner. Nehir de döner. Her gün.'
+      },
+      train: {
+        '1': 'Ayaklar kök gibi, eller yağmur gibi. Vur. Tekrar. Yüzüncüsü sayılır.'
+      },
+      class: {
+        '1': 'Kılıç yok. Eller, ayaklar, nefes. Her darbe bir sonrakini hazırlar, ta ki büyük darbeye kadar.',
+        '2': 'Hızlı eller için Çeviklik. Başkalarının nefesi tükenirken sakin kalmak için Dayanıklılık.',
+        say: 'Demir Keşiş nedir?'
+      },
+      ready: {
+        strong: {
+          '1': 'Öğrenci öğretmen oldu. Kimseye söyleme. İstediğin dersi al.'
+        },
+        able: {
+          '1': 'Güzel. Fincan doluyor. Sıradaki dersi al.'
+        },
+        weak: {
+          '1': 'Henüz değil. Kökleri kısa ağaç rüzgârda devrilir. Daha fazla Dayanıklılık.'
+        }
+      },
+      noodles: {
+        '1': 'Evet. Suyu iki gün kaynadı. Lütfen üstüne nefes verme.',
+        '2': 'İyi bir kâse sabrı öğretir. Harika bir kâse geri kalan her şeyi.',
+        say: 'O bir kâse erişte mi?'
+      },
+      trainBack: {
+        '1': 'Güzel. Şimdi sıcak bir şey ye. Güç kâseden gelir.'
+      },
+      bye: {
+        '1': 'Güle güle. Yumuşak yürü. Sert tekmele.'
+      }
+    },
+    sbMasterBard: {
+      hello: {
+        '1': 'Hoş geldin, buyur, soğukta kalma, gel otur! Eyvah, kafiyeli oldu. Hep böyle olur.',
+        '2': 'Lark Merriweather. Ateşin başında çalarım, dinleyen herkese lavta öğretirim.'
+      },
+      again: {
+        '1': 'En sevdiğim dinleyicim! Bir tabure çek. Kediye dikkat, eleştirmen o.'
+      },
+      train: {
+        '1': 'Benimle tıngırdat. Bir, iki ve üç... Parmaklarına bakma. Hisset!'
+      },
+      class: {
+        '1': 'Kendi tarafını cesaretlendiren şarkılar, karşı tarafı uyutan ezgiler.',
+        '2': 'Kalabalığı kazanmak için Karizma. Parmakların kalbine yetişsin diye Beceri.',
+        say: 'Ozan ne yapar?'
+      },
+      ready: {
+        strong: {
+          '1': 'Artık her hanı doldurursun! Bildiğim bütün şarkılar senin.'
+        },
+        able: {
+          '1': 'Ne güzel ezgi! Bir sonraki kıtaya hazırsın.'
+        },
+        weak: {
+          '1': 'Henüz değil. Dinleyiciler hâlâ esniyor. Biraz daha Karizma, dostum.'
+        }
+      },
+      story: {
+        '1': 'Bir zamanlar bir şövalye, bir kılıç ve bir şarkıdan başka hiçbir şeyi olmadan tam bu köprüden geçmiş...',
+        '2': 'Dur, müzikle daha güzel. La-la-la, şövalye gitmiş... Nerede kalmıştım?',
+        '3': 'Ah, boş ver. Ama güzel şarkıydı, değil mi?',
+        say: 'Bana bir hikâye anlatır mısın?'
+      },
+      trainBack: {
+        '1': 'Bravo! Her gün çalış. Kulağa berbat geldiğinde bile. Hele o zaman.'
+      },
+      bye: {
+        '1': 'Elveda, yolun açık olsun, sağlıcakla kal, hoşça kal! Hay aksi. Yine kafiye. Görüşürüz!'
       }
     }
   },

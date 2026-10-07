@@ -95,7 +95,8 @@ export default {
     elixirSwift: 'Fürgeség',
     elixirMind: 'Tiszta elme',
     elixirVigor: 'Életerő',
-    elixirShadow: 'Szomjas penge'
+    elixirShadow: 'Szomjas penge',
+    chi: 'Csi'
   },
   toast: {
     item: 'Találtad: {item}',
@@ -859,6 +860,390 @@ export default {
     crumble: {
       name: 'Morzsolás',
       desc: '{dmg}%-kal több sebzést okozol a lelassított, leterített vagy kővé vált ellenségeknek.'
+    },
+    galeArrow: {
+      name: 'Szélvésznyíl',
+      desc: 'Széllökésen száguldó nyíl: {dmg}% Ügyesség alapú sebzés, és a célpont hátralökődik.'
+    },
+    fleetfoot: {
+      name: 'Fürgeláb',
+      desc: '+{move}% mozgási sebesség és +{dodge}% Kitérés.'
+    },
+    zephyrDash: {
+      name: 'Zefírszökkenés',
+      desc: 'Legfeljebb {dist} m-t szökkensz oda, ahová célzol, aztán {dur}s-ig {move}%-kal gyorsabban futsz.'
+    },
+    piercingGale: {
+      name: 'Átütő szélvész',
+      desc: 'Nyíl, amely egy vonalban minden ellenségen átrepül: {dmg}% Ügyesség alapú sebzés és {slow}% lassítás {dur}s-ig.'
+    },
+    cycloneSnare: {
+      name: 'Forgószélcsapda',
+      desc: 'Forgószél {dur}s-ig: a közepébe húzza az ellenségeket, és {dmg}% Jártasság alapú sebzést okoz.'
+    },
+    keenEye: {
+      name: 'Sasszem',
+      desc: '+{critDmg}% kritikus sebzés. A lövéseid {pierce} további ellenségen hatolnak át.'
+    },
+    updraftLeap: {
+      name: 'Szélugrás',
+      desc: 'Széllökés dobja a levegőbe a {radius} m-en belüli ellenségeket: {dmg}% Ügyesség alapú sebzés. Te {leap} m-t elugrasz.'
+    },
+    swiftDraw: {
+      name: 'Gyors húzás',
+      desc: '{speed}%-kal gyorsabban támadsz, és az újratöltéseid {cdr}%-kal rövidebbek.'
+    },
+    arrowStorm: {
+      name: 'Nyílvihar',
+      desc: 'Nyilak záporoznak a területre {dur}s-ig: összesen {dmg}% Jártasság alapú sebzés és {slow}% lassítás.'
+    },
+    galeSpirits: {
+      name: 'Szélszellemek',
+      desc: 'Szélszellemek repülnek veled {dur}s-ig, és {shots} nyilat lőnek, egyenként {dmg}% Jártasság alapú sebzéssel. +{move}% mozgási sebesség.'
+    },
+    skyHunter: {
+      name: 'Égi vadász',
+      desc: '+{boss}% sebzés a főellenségekre és +{crit}% kritikus esély.'
+    },
+    skyrender: {
+      name: 'Éghasító',
+      desc: 'Viharnyíl tép utat: {dmg}% Ügyesség alapú sebzés mindenkinek a vonalban, akiket fel és oldalra repít.'
+    },
+    frostCleave: {
+      name: 'Fagyhasítás',
+      desc: 'Jégpengéd elsöpör előtted: {dmg}% Erő alapú sebzés és {slow}% lassítás {dur}s-ig.'
+    },
+    rimeLance: {
+      name: 'Zúzmaradárda',
+      desc: 'Jégdárdát hajítasz: {dmg}% Intelligencia alapú sebzés. {dur}s-ig {slow}%-kal lassít.'
+    },
+    wintersBite: {
+      name: 'Tél harapása',
+      desc: 'A támadásaid {dur}s-ig {slow}%-kal lassítják az ellenséget.'
+    },
+    frostArmor: {
+      name: 'Fagypáncél',
+      desc: 'Jégpáncél nyel el {shield}% Intelligencia alapú sebzést {dur}s-ig. A közeli ellenségek {slow}%-kal lassulnak.'
+    },
+    glacialCharge: {
+      name: 'Gleccserroham',
+      desc: 'Rárontasz a célpontra: {dmg}% Erő alapú sebzés, és {freeze}s-ig megfagyasztod.'
+    },
+    frozenHeart: {
+      name: 'Fagyott szív',
+      desc: '+{hp}% max. életerő, és minden elszenvedett sebzés {reduce}%-kal csökken.'
+    },
+    rimeField: {
+      name: 'Zúzmaramező',
+      desc: 'Fagyos talaj {dur}s-ig: {dmg}% Intelligencia alapú sebzés. A rajta álló lelassított ellenségek {freeze}s-ig megfagynak.'
+    },
+    frostShatter: {
+      name: 'Fagyzúzás',
+      desc: '{dmg}% Erő alapú sebzés {radius} m-en belül: +{chilled}% a lelassított, +{frozen}% a megfagyott ellenségeknek.'
+    },
+    shatterpoint: {
+      name: 'Töréspont',
+      desc: '{bonus}%-kal több sebzést okozol a lelassított és megfagyott ellenségeknek.'
+    },
+    avalancheLeap: {
+      name: 'Lavinaugrás',
+      desc: 'Odaugrasz, ahová célzol, és lavinaként érkezel: {dmg}% Erő alapú sebzés, az ellenségek a földre kerülnek.'
+    },
+    iceborn: {
+      name: 'Jégszülött',
+      desc: 'Semmi sem lök el és nem dob fel. A rád ható kábítások {cut}%-kal rövidebbek.'
+    },
+    absoluteZero: {
+      name: 'Abszolút nulla',
+      desc: 'Tél tör ki belőled: {dmg}% Intelligencia alapú sebzés {radius} m-en belül, és mindenki megfagy {freeze}s-ig.'
+    },
+    sunbolt: {
+      name: 'Napnyíl',
+      desc: 'Napfénysugár: {dmg}% Intelligencia alapú sebzés. Az elvakított célpont {dur}s-ig {weaken}%-kal kevesebbet sebez.'
+    },
+    mendingLight: {
+      name: 'Gyógyító fény',
+      desc: 'Azonnal gyógyulsz {heal}% Karizma alapon, aztán {dur}s-ig másodpercenként életerőd {regen}%-át.'
+    },
+    kindledHope: {
+      name: 'Fellobbanó remény',
+      desc: 'Minden gyógyítás, amit kapsz, {heal}%-kal erősebb.'
+    },
+    lanceOfLight: {
+      name: 'Fénydárda',
+      desc: 'Fénysugár: {dmg}% Intelligencia alapú sebzés egy vonalban. Minden eltalált ellenségért {heal}% életerőt gyógyulsz.'
+    },
+    dawnShield: {
+      name: 'Hajnalpajzs',
+      desc: 'Minden rossz hatást eltávolít rólad, és {dur}s-ig {shield}% Karizma alapú pajzsot kapsz.'
+    },
+    haloWard: {
+      name: 'Glóriaóvás',
+      desc: 'Minden elszenvedett sebzés {reduce}%-kal csökken.'
+    },
+    dawnSanctuary: {
+      name: 'Hajnali szentély',
+      desc: 'Szent föld {dur}s-ig: másodpercenként {heal}% Karizma alapon gyógyít, az ellenségek pedig {dmg}% Intelligencia alapú sebzést kapnak.'
+    },
+    blindingFlash: {
+      name: 'Vakító villanás',
+      desc: 'Fényvillanás: a {radius} m-en belüli ellenségek {fear}s-ig menekülnek, és {dur}s-ig {weaken}%-kal kevesebbet sebeznek.'
+    },
+    guardianLight: {
+      name: 'Őrzőfény',
+      desc: 'Egy csapás, amely legyőzne, 1 életerőn hagy, és {dur}s-ig érinthetetlen vagy. {icd}s-onként egyszer.'
+    },
+    sunfall: {
+      name: 'Napzuhatag',
+      desc: 'Napfényoszlop zuhan a célpontra: {dmg}% Intelligencia alapú sebzés. Az ellenségek {dur}s-ig {vuln}%-kal több sebzést kapnak.'
+    },
+    searingLight: {
+      name: 'Perzselő fény',
+      desc: '+{crit}% kritikus esély varázslatokra és +{critDmg}% kritikus sebzés.'
+    },
+    haloOfDawn: {
+      name: 'Hajnalglória',
+      desc: 'Ragyogsz {dur}s-ig: másodpercenként {dmg}% Intelligencia alapú sebzés {radius} m-en belül, és {heal}% életerőt gyógyulsz.'
+    },
+    callWolf: {
+      name: 'Farkashívás',
+      desc: 'Egy szellemfarkas csatlakozik hozzád, és {dmg}% Karizma alapú sebzéssel harap. Egyszerre legfeljebb {max}.'
+    },
+    wolfPounce: {
+      name: 'Farkasroham',
+      desc: 'Farkasaid a célpontra vetik magukat: egyenként {dmg}% Karizma alapú sebzés, és {down}s-ig leterítik.'
+    },
+    wildKinship: {
+      name: 'Vad rokonság',
+      desc: 'Társaidnak {hp}%-kal több életerejük van, és {dmg}%-kal többet sebeznek.'
+    },
+    callHawk: {
+      name: 'Sólyomhívás',
+      desc: 'Egy sólyom lecsap a célpontra: {dmg}% Karizma alapú sebzés, és {dur}s-ig {vuln}%-kal több sebzést kap. {life}s-ig marad.'
+    },
+    callBear: {
+      name: 'Medvehívás',
+      desc: 'Egy szellemmedve csatlakozik hozzád. {dmg}% sebzéssel üt, és leköti az ellenségeket. Legfeljebb {max}.'
+    },
+    thickHide: {
+      name: 'Vastag bőr',
+      desc: '+{hp}% max. életerő és +{regen} életerő másodpercenként.'
+    },
+    packBond: {
+      name: 'Falkakötelék',
+      desc: 'Te és a {radius} m-en belüli társaid {dur}s-ig másodpercenként {regen}% életerőt töltötök vissza, és +{def}% Védelmet kaptok.'
+    },
+    spiritStampede: {
+      name: 'Szellemcsorda',
+      desc: 'Szellemállatok csordája ront előre: {dmg}% Karizma alapú sebzés egy vonalban, az ellenségek a földre kerülnek.'
+    },
+    packTactics: {
+      name: 'Falkataktika',
+      desc: 'Minden veled lévő társért {bonus}%-kal többet sebzel, legfeljebb {max} társig.'
+    },
+    alphaHowl: {
+      name: 'Alfa-üvöltés',
+      desc: 'Társaid {heal}%-ot gyógyulnak, és {dur}s-ig {rage}%-kal keményebben harcolnak. A közeli ellenségek elmenekülnek.'
+    },
+    leaderOfThePack: {
+      name: 'A falka vezére',
+      desc: 'Társaid {speed}%-kal gyorsabban támadnak, és {dmg}%-kal többet sebeznek.'
+    },
+    wildHunt: {
+      name: 'Vad vadászat',
+      desc: '{wolves} további farkas fut veled {dur}s-ig. Az egész falka +{dmg}% sebzést okoz, és {move}%-kal gyorsabban mozog.'
+    },
+    prismBolt: {
+      name: 'Prizmalövedék',
+      desc: 'Lövedék {dmg}% Intelligencia alapú sebzéssel: fagy, ha a célpont ég, különben tűz. Mindkettő beindítja a másikat.'
+    },
+    elementalHarmony: {
+      name: 'Elemi harmónia',
+      desc: 'A reakcióid (Olvadás, Gőz, Zúzás, Túlterhelés, Kristály) {pct}%-kal erősebbek.'
+    },
+    frostLance: {
+      name: 'Fagylándzsa',
+      desc: 'Jég egy vonalban: {dmg}% Intelligencia alapú sebzés és {slow}% lassítás {dur}s-ig. Az égő ellenségeken Gőz keletkezik.'
+    },
+    chainSpark: {
+      name: 'Láncszikra',
+      desc: 'Villám {dmg}% Intelligencia alapú sebzéssel, amely {jumps} további ellenségre ugrik át. Szétzúzza a jeget, túlterheli a tüzet.'
+    },
+    smolderingCore: {
+      name: 'Parázsló mag',
+      desc: 'Az égetéseid {burn}%-kal több sebzést okoznak, és +{mana} manát kapsz.'
+    },
+    rollingBoulder: {
+      name: 'Gördülő szikla',
+      desc: 'Szikla gördül ki: {dmg}% Intelligencia alapú sebzés, {down}s leterítés. A megjelölt ellenségek pajzsot adnak.'
+    },
+    thunderSnow: {
+      name: 'Mennydörgő hó',
+      desc: 'Hóvihar {dur}s-ig: {dmg}% Intelligencia alapú fagysebzés, és másodpercenként villám {bolt}% sebzéssel.'
+    },
+    spellweave: {
+      name: 'Varázsszövés',
+      desc: '+{crit}% kritikus esély varázslatokra, és a képességeid {mana}%-kal kevesebb manába kerülnek.'
+    },
+    prismaticNova: {
+      name: 'Prizmanóva',
+      desc: 'Mindent eltalálsz {radius} m-en belül {dmg}% Intelligencia alapú sebzéssel, mindegyiket azzal az elemmel, amelyre reagál.'
+    },
+    prismaticWard: {
+      name: 'Prizmaóvás',
+      desc: '{reduce}%-kal kevesebb sebzést kapsz, és {hp}%-kal több életerőd van.'
+    },
+    frostfireComet: {
+      name: 'Fagytűz-üstökös',
+      desc: 'Tűz és jég üstököse: {dmg}% Intelligencia alapú sebzés. Az ellenségek égnek és lelassulnak.'
+    },
+    elementalConvergence: {
+      name: 'Elemek egyesülése',
+      desc: '{dur}s-ig négy elem váltja egymást: {strikes} csapás {dmg}% Intelligencia alapú sebzéssel, amelyek beindítják egymást.'
+    },
+    wispBolt: {
+      name: 'Lidércnyíl',
+      desc: 'Lidércfény {dmg}% Intelligencia alapú sebzéssel. Az általa legyőzött ellenség {life}s-ig a szellemedként kel fel.'
+    },
+    kindredSpirits: {
+      name: 'Rokon lelkek',
+      desc: 'Szellemeidnek és csatlósaidnak {hp}%-kal több életerejük van, és {speed}%-kal gyorsabban támadnak.'
+    },
+    callTheFallen: {
+      name: 'Az elesettek hívása',
+      desc: 'Legfeljebb {max}, épp most elesett ellenség kel fel {radius} m-en belül a szellemedként {life}s-ig.'
+    },
+    soulBond: {
+      name: 'Lélekkötés',
+      desc: 'Barátkozz meg egy ellenséggel: {chance}% ({low}%, ha sebesült) eséllyel {life}s-ig szellemként csatlakozik. Különben {dmg}% sebzés.'
+    },
+    restlessSouls: {
+      name: 'Nyugtalan lelkek',
+      desc: 'Az általad legyőzött ellenség {chance}% eséllyel a szellemedként kel fel {life}s-ig.'
+    },
+    spiritLantern: {
+      name: 'Szellemlámpás',
+      desc: 'Lámpás {dur}s-ig: a fényében álló ellenségek {dmg}% Intelligencia alapú sebzést kapnak, a barátok gyógyulnak, az elesettek felkelnek.'
+    },
+    hauntingWail: {
+      name: 'Kísértő jajszó',
+      desc: 'Kísérteties BÚÚ: {dmg}% Intelligencia alapú sebzés {radius} m-en belül, és az ellenségek {fear}s-ig elszaladnak.'
+    },
+    wardensVigil: {
+      name: 'Az őrző virrasztása',
+      desc: 'Szellemeid és csatlósaid {dmg}%-kal többet sebeznek, te pedig {reduce}%-kal kevesebbet kapsz.'
+    },
+    releaseSouls: {
+      name: 'Lelkek elengedése',
+      desc: 'Szellemeid fénykitörésben hazatérnek: mindegyik {dmg}% Intelligencia alapú sebzést okoz maga körül, és {heal}% életerőt ad vissza.'
+    },
+    lanternKeeper: {
+      name: 'Lámpásőr',
+      desc: '{cdr}%-kal rövidebb újratöltések, és a képességeid {mana}%-kal kevesebb manába kerülnek.'
+    },
+    wispSwarm: {
+      name: 'Lidércraj',
+      desc: '{wisps} lidércfény csap le a terület ellenségeire, összesen {dmg}% Intelligencia alapú sebzéssel. Akiket legyőznek, felkelnek.'
+    },
+    processionOfSouls: {
+      name: 'Lelkek menete',
+      desc: '{dur}s-ig minden melletted elesett ellenség a szellemedként kel fel, a szellemek pedig {atk}%-kal többet sebeznek.'
+    },
+    palmStrike: {
+      name: 'Tenyércsapás',
+      desc: 'Gyors tenyércsapás {dmg}% Ügyesség alapú sebzéssel, amely hátralöki az ellenséget. {chi} csit gyűjt.'
+    },
+    ironBody: {
+      name: 'Vastest',
+      desc: 'Az elszenvedett fizikai sebzés {reduce}%-kal csökken, és {hp}%-kal több életerőd van.'
+    },
+    flyingKick: {
+      name: 'Repülő rúgás',
+      desc: 'A célpontra repülsz és belerúgsz: {dmg}% Ügyesség alapú sebzés; az útba kerülő ellenségek {path}%-ot kapnak. {chi} csit gyűjt.'
+    },
+    tigerStance: {
+      name: 'Tigrisállás',
+      desc: '{dur}s-ig: +{dmg}% sebzés és +{speed}% támadási sebesség. Véget vet a Darúállásnak.'
+    },
+    craneStance: {
+      name: 'Darúállás',
+      desc: '{dur}s-ig: +{def}% Védelem, és másodpercenként életerőd {regen}%-át gyógyulod. Véget vet a Tigrisállásnak.'
+    },
+    flowingFists: {
+      name: 'Áramló öklök',
+      desc: 'A támadásaid {chance}% eséllyel csit gyűjtenek.'
+    },
+    hundredFists: {
+      name: 'Száz ököl',
+      desc: '{hits} ütésből álló sorozat, összesen {dmg}% Ügyesség alapú sebzéssel. {chi} csit gyűjt.'
+    },
+    risingDragon: {
+      name: 'Felszálló sárkány',
+      desc: 'Minden csit egy felütésre költesz: {dmg}% Ügyesség alapú sebzés, csinként +{per}%. Az ellenség a levegőbe repül.'
+    },
+    cranesGrace: {
+      name: 'A daru kecsessége',
+      desc: '+{dodge}% Kitérés, és a rád ható kábítások és leterítések {cut}%-kal rövidebbek.'
+    },
+    whirlwindKick: {
+      name: 'Forgószélrúgás',
+      desc: 'Kétszer megrúgsz mindent {radius} m-en belül, összesen {dmg}% Ügyesség alapú sebzéssel. Legfeljebb {chi} csit gyűjt.'
+    },
+    tigersFury: {
+      name: 'Tigrisdüh',
+      desc: '+{crit}% kritikus esély és +{speed}% támadási sebesség.'
+    },
+    mountainPalm: {
+      name: 'Hegytenyér',
+      desc: 'Minden csit elköltesz: óriási tenyér zuhan le {dmg}% Ügyesség alapú sebzéssel, csinként +{per}%, és leteríti az ellenségeket.'
+    },
+    sharpNote: {
+      name: 'Éles hang',
+      desc: 'Éles hang {dmg}% Karizma alapú sebzéssel. Az ellenség {dur}s-ig {weaken}%-kal kevesebbet sebez.'
+    },
+    stagePresence: {
+      name: 'Színpadi jelenlét',
+      desc: 'A képességeid {mana}%-kal kevesebb manába kerülnek, és {move}%-kal gyorsabban mozogsz.'
+    },
+    marchingSong: {
+      name: 'Indulódal',
+      desc: 'Dal {dur}s-ig: te és a {radius} m-en belüli szövetségeseid {move}%-kal gyorsabban mozogtok és {speed}%-kal gyorsabban támadtok.'
+    },
+    lullaby: {
+      name: 'Altatódal',
+      desc: 'Szelíd dallam egy kúpban: minden ellenség, akit elér, {dur}s-ig elalszik.'
+    },
+    longRefrain: {
+      name: 'Hosszú refrén',
+      desc: 'A dalaid {pct}%-kal tovább tartanak.'
+    },
+    balladOfValor: {
+      name: 'A bátorság balladája',
+      desc: 'Dal {dur}s-ig: te és a {radius} m-en belüli szövetségeseid {dmg}%-kal többet sebeztek, és +{def}% Védelmet kaptok.'
+    },
+    charmingSerenade: {
+      name: 'Bűvölő szerenád',
+      desc: 'Elbűvölöd a célpontot és a {radius} m-en belüli ellenségeket: {dur}s-ig egymással harcolnak.'
+    },
+    virtuoso: {
+      name: 'Virtuóz',
+      desc: '{cdr}%-kal rövidebb újratöltések és +{critDmg}% kritikus sebzés.'
+    },
+    hymnOfMending: {
+      name: 'A gyógyulás himnusza',
+      desc: 'Eltávolítja a rossz hatásokat, aztán {dur}s-ig te és a {radius} m-en belüli szövetségeseid másodpercenként {regen}% életerőt gyógyultok.'
+    },
+    crescendo: {
+      name: 'Crescendo',
+      desc: 'Hangrobbanás {radius} m-en belül: {dmg}% Karizma alapú sebzés, és minden szóló dalodért +{per}%.'
+    },
+    standingOvation: {
+      name: 'Vastaps',
+      desc: '+{dmg}% sebzés, és {reduce}%-kal kevesebb sebzést kapsz.'
+    },
+    grandFinale: {
+      name: 'Nagy finálé',
+      desc: 'Mindent beleadsz {dur}s-ig (+{buff}% sebesség, sebzés, Védelem), aztán utolsó akkord: {dmg}% Karizma alapú sebzés, az ellenségek elbűvölve.'
     }
   },
   slot: {
@@ -1371,6 +1756,30 @@ export default {
     sbFence: {
       name: 'Mirela Thorne',
       talk: 'Remek páncél, kérdések nélkül. Na jó, nagyon kevés kérdéssel.'
+    },
+    sbMasterWindrunner: {
+      name: 'Szélszárny Sefa'
+    },
+    sbMasterFrostwarden: {
+      name: 'Zúzmaraszív Halvard'
+    },
+    sbMasterLightbringer: {
+      name: 'Hajnaltó Auriel nővér'
+    },
+    sbMasterBeastcaller: {
+      name: 'Bogáncsláb Rowan apó'
+    },
+    sbMasterElementalist: {
+      name: 'Négyszél Iris magisztra'
+    },
+    sbMasterSoulwarden: {
+      name: 'Lámpafény Odalys őrző'
+    },
+    sbMasterIronmonk: {
+      name: 'Csendesvíz Oru mester'
+    },
+    sbMasterBard: {
+      name: 'Derűsidő Lark'
     }
   },
   quest: {
@@ -3655,6 +4064,382 @@ export default {
       },
       bye: {
         '1': 'Vigyázz az erszényedre. Itt nem mindenki olyan becsületes, mint én.'
+      }
+    },
+    sbMasterWindrunner: {
+      hello: {
+        '1': 'Ó, szia! Bocs, nem állhatok meg. Várom, hogy forduljon a szél. Bármelyik percben.',
+        '2': 'Szélszárny Sefa vagyok. Nyilakat lövök és kergetem a szelet. Általában a szél nyer.'
+      },
+      open: {
+        '1': 'Itt a futóm! Mehetünk? Persze hogy mehetünk. Gyerünk, gyerünk!'
+      },
+      again: {
+        '1': 'Szia megint! Még mindig itt vagyok. Nagyjából. A lábam folyton elkóborol.'
+      },
+      train: {
+        '1': 'Érzed a szelet az arcodon? Célozz kicsit balra attól, ahová gondolod. Most engedd el!'
+      },
+      favor: {
+        '1': 'Csak annak, aki lépést tud tartani velem. Te tudsz? Derítsük ki.',
+        '2': 'Győzz le tizenkét bandita íjászt Oakhaven határában, aztán hozz nekem három fürgepáfrányt.',
+        say: 'Tanítasz íjászatot?'
+      },
+      waiting: {
+        '1': 'Tizenkét bandita íjász, három fürgepáfrány. Rajta! Itt leszek. Ugrálok.',
+        say: 'A próbádról...'
+      },
+      favorDone: {
+        '1': 'Ha! Tényleg lépést tartottál! Senki sem tart lépést!',
+        '2': 'Jól van, mostantól a tanítványom vagy. Egy szabály van: az óráimon nem ülünk le.',
+        say: 'Az íjászokat legyőztem, és itt a fürgepáfrányod.'
+      },
+      class: {
+        '1': 'Lősz, futsz, újra lősz. Ha elkapnak, túl sokáig álltál egy helyben.',
+        '2': 'Ügyesség a gyors lábhoz és a gyors íjhoz. Jártasság, hogy minden nyíl célba érjen.',
+        say: 'Mit csinál egy Szélfutó?'
+      },
+      ready: {
+        strong: {
+          '1': 'Most már olyan gyors vagy, mint a szél. Na jó, majdnem. Válassz bármelyik leckét!'
+        },
+        able: {
+          '1': 'Könnyű léptek! Készen állsz a következőre. Gyerünk, gyerünk!'
+        },
+        weak: {
+          '1': 'Még nem. Úgy futsz, mintha egy kanapét cipelnél. Több Ügyességet, kérlek.'
+        }
+      },
+      who: {
+        '1': 'Fent lakom a régi szélmalomban a folyó mellett. Onnan látni a legjobban a szelet a városban.',
+        '2': 'Kétszáz lépcső a tetejéig. Remek edzés. Mindegyiket megszámoltam.'
+      },
+      trainBack: {
+        '1': 'Ügyes! Most fuss haza. Ne sétálj. A futás is edzésnek számít.'
+      },
+      bye: {
+        '1': 'Szia! Vigyázz az alacsony ágakkal. Én sosem vigyázok.'
+      }
+    },
+    sbMasterFrostwarden: {
+      hello: {
+        '1': 'Hm. Háromszor mentél el mellettem. Eltévedtél, vagy kíváncsi vagy?',
+        '2': 'Zúzmaraszív Halvard. Délre jöttem, a hó földjéről. Meleg van itt. Túl meleg.'
+      },
+      open: {
+        '1': 'Tanítvány. Jó. A jég kész, és én is.'
+      },
+      again: {
+        '1': 'Megint te. Jó. Nem beszélek sokat. Maradj azért.'
+      },
+      train: {
+        '1': 'Fújd ki lassan a levegőt. Látod a párát? Most tedd bele a pengébe.'
+      },
+      favor: {
+        '1': 'Abból. Csak annak tanítom, aki forró helyen is hideg fejjel marad.',
+        '2': 'Olts ki tíz tűzelementált a Hamuszirteken. Aztán hozz nekem három szál fagymentát.',
+        say: 'Az a kard jégből van?'
+      },
+      waiting: {
+        '1': 'Tíz tűzelementál. Három szál fagymenta. Ne siess. De ne is húzd sokáig.',
+        say: 'A próbádról...'
+      },
+      favorDone: {
+        '1': 'Hm. Még csak meg sem perzselődtél. Jó.',
+        '2': 'Hideg fejjel maradtál. Ez volt az első lecke. A többit én tanítom meg.',
+        say: 'A tűzelementálok kialudtak. Itt a fagymentád.'
+      },
+      class: {
+        '1': 'A hideg lovagja. Lehűtöd őket, megfagyasztod őket, aztán széttöröd a jeget.',
+        '2': 'Erő a pengéhez. Intelligencia a fagyhoz. Mindkettő kell.',
+        say: 'Mi az a Fagyőr?'
+      },
+      ready: {
+        strong: {
+          '1': 'Most már olyan hideg vagy, mint az észak. Válassz bármelyik leckét.'
+        },
+        able: {
+          '1': 'Jó. Nyugodt. A következő lecke a tiéd.'
+        },
+        weak: {
+          '1': 'Még nem. Túl gyorsan olvad a fagyod. Több Intelligenciát, és több Erőt.'
+        }
+      },
+      who: {
+        '1': 'Egy hágót őriztem északon. Aztán látni akartam egy folyót, amely nem fagy be.'
+      },
+      trainBack: {
+        '1': 'Jó. Most pihenj. A jég nem siet. Te se siess.'
+      },
+      bye: {
+        '1': 'Jó utat. Maradj hűvös.'
+      }
+    },
+    sbMasterLightbringer: {
+      hello: {
+        '1': 'Hm-hm-hmm... Ó! Bocsáss meg, drágám, dúdoltam. Rád dúdoltam? Szoktam.',
+        '2': 'Hajnaltó Auriel nővér vagyok. Én vigyázok, hogy a híd végén égjen a kis lámpás.'
+      },
+      open: {
+        '1': 'Itt a ragyogóm! Gyere, állj egy kicsit a fénybe. Megérdemled.'
+      },
+      again: {
+        '1': 'Szia újra! Még itt vagyok, még dúdolok. A lámpás szereti a társaságot.'
+      },
+      train: {
+        '1': 'Kezek nyitva, áll fel. Gondolj a legszebb reggeledre. Na. Érzed?'
+      },
+      favor: {
+        '1': 'Mindenkiben van egy kis fény. Én megtanítom kiengedni, amikor eljön az ideje.',
+        '2': 'Győzz le tíz kultistát a Hamuszirteken, aztán hozz öt napszirmot a lámpásomhoz.',
+        say: 'Varázslámpás az ott?'
+      },
+      waiting: {
+        '1': 'Tíz kultista, öt napszirom. Gyengéden győzd le őket. Mindenki megérdemel egy második esélyt.',
+        say: 'A próbádról...'
+      },
+      favorDone: {
+        '1': 'Ó, nézd csak! A lámpás egy hónapig aranyosan fog ragyogni.',
+        '2': 'És te is, drágám. Örömmel tanítalak.',
+        say: 'A kultistákat legyőztem. Itt a napszirmod.'
+      },
+      class: {
+        '1': 'Mi hozzuk a hajnalt. Fény, amivel harcolunk, fény, amivel gyógyítunk, fény, ami mögé elbújhatunk.',
+        '2': 'Az Intelligencia erőssé teszi a fényt. A Karizma meleggé. Mindkettőre szükséged lesz.',
+        say: 'Mit csinál egy Fényhozó?'
+      },
+      ready: {
+        strong: {
+          '1': 'Úgy ragyogsz, mint a napfelkelte, drágám. Válassz bármelyik leckét.'
+        },
+        able: {
+          '1': 'Szépen fénylesz! Készen állsz a következőre.'
+        },
+        weak: {
+          '1': 'Még nem, drágám. Kicsit halvány a fényed. Több Karizma, és ragyogni fogsz.'
+        }
+      },
+      who: {
+        '1': 'Egyszer egy nagy templomban énekeltem. De itt a lámpásom hazavezeti a csónakokat. Ez jobb.'
+      },
+      trainBack: {
+        '1': 'Gyönyörű. Most menj, és ragyogd be valakinek a napját. Nővéri parancs.'
+      },
+      bye: {
+        '1': 'Indulj, drágám. És mosolyogj a sötét sarkokra. Azt utálják.'
+      }
+    },
+    sbMasterBeastcaller: {
+      hello: {
+        '1': 'Vigyázz, hová lépsz. Az ott Szeder. Ő volt itt előbb.',
+        '2': 'Bogáncsláb Rowan. Szeretem az állatokat. Az emberekről még nem döntöttem.'
+      },
+      open: {
+        '1': 'Ó, te vagy az. Szeder már várt. Én is. Egy kicsit.'
+      },
+      again: {
+        '1': 'Megint te. Szeder kedvel. Én még gondolkodom rajta.'
+      },
+      train: {
+        '1': 'Guggolj le. Lassabban. Nyújtsd ki a kezed, és hagyd, hogy ők jöjjenek oda. Jó.'
+      },
+      favor: {
+        '1': 'Beszélni? Én hallgatok. Ezt a trükköt a legtöbben sosem tanulják meg.',
+        '2': 'Óriáspókok szövik be az állatok ösvényeit a Suttogó-erdőben. Takaríts el tizenkettőt.',
+        '3': 'Aztán hozz két holdharangot az odúmba. Szeder jobban alszik mellettük.',
+        say: 'Tudsz beszélni az állatokkal?'
+      },
+      waiting: {
+        '1': 'Tizenkét pók, két holdharang. Az állatok várnak. Szeder is.',
+        say: 'A próbádról...'
+      },
+      favorDone: {
+        '1': 'Hm. Ma reggel lejöttek a szarvasok a folyóhoz. Gondoltam, hogy te voltál.',
+        '2': 'Jól van. Tanítalak. Csak semmi felhajtás. Szeder, ne csóváld már.',
+        say: 'Az ösvények szabadok, és itt a holdharangod.'
+      },
+      class: {
+        '1': 'Hívod a vadont, és a vadon eljön. Farkasok, egy sólyom, egy medve. Barátok, nem háziállatok.',
+        '2': 'Karizma, hogy el akarjanak jönni. Állóképesség, hogy lépést tudj tartani velük.',
+        say: 'Mi az a Vadhívó?'
+      },
+      ready: {
+        strong: {
+          '1': 'Most már az egész falka megbízik benned. Vidd, amit akarsz.'
+        },
+        able: {
+          '1': 'A farkasok kedvelnek. Készen állsz a következőre.'
+        },
+        weak: {
+          '1': 'Még nem. Nem bíznak benned. Több Karizmát, és sokkal több türelmet.'
+        }
+      },
+      who: {
+        '1': 'Évekkel ezelőtt találtam Szedert egy csapdában. Három láb, de annál több önérzet. Azóta együtt vagyunk.',
+        '2': 'Az istálló szénapadlásán alszom. A lovak kevesebbet horkolnak, mint az emberek.'
+      },
+      trainBack: {
+        '1': 'Jó. Na, menj csak. És köszönj a varjaknak. Ők emlékeznek.'
+      },
+      bye: {
+        '1': 'Menj csak. Szeder is köszön.'
+      }
+    },
+    sbMasterElementalist: {
+      hello: {
+        '1': 'Szia! Egy pillanat, zsonglőrködöm. Tűz, fagy, szikra, kő és... elkaptam! Szia!',
+        '2': 'Négyszél Iris magisztra. Mind a négy elemet tanítom. A keverésük a legmókásabb rész.'
+      },
+      again: {
+        '1': 'Újra itt! Jó, épp kellett valaki, aki figyel. Ezt nézd. Tadam!'
+      },
+      train: {
+        '1': 'Válassz két gömböt. Bármelyik kettőt. Most hagyd, hogy összekoccanjanak. Óvatosan! Látod? Reakció!'
+      },
+      class: {
+        '1': 'Keverünk! Fagy, aztán tűz: olvad. Tűz, aztán villám: bumm. Minden párosítás csinál valamit.',
+        '2': 'Intelligencia minden varázslathoz. Jártasság, mert a jókhoz gyors kéz kell.',
+        say: 'Mit csinál egy Elementalista?'
+      },
+      ready: {
+        strong: {
+          '1': 'Már úgy keversz, mint egy mester! Válassz bármelyik leckét. Válassz kettőt!'
+        },
+        able: {
+          '1': 'Ó, szép szikra! Készen állsz a következőre.'
+        },
+        weak: {
+          '1': 'Még nem! Az elemeid folyton kifulladnak. Több Intelligenciát, kérlek.'
+        }
+      },
+      sleeve: {
+        '1': 'Ó! Tényleg. Várj csak... Na.',
+        '2': 'Tűz, aztán fagy. Ez egyébként lecke volt. Szívesen!',
+        say: 'Öhm, ég a ruhaujjad.'
+      },
+      trainBack: {
+        '1': 'Ragyogó! Most gyakorolj kint, kérlek. Új a függöny.'
+      },
+      bye: {
+        '1': 'Szia! Ha füstszagot érzel, valószínűleg én vagyok. Ne aggódj!'
+      }
+    },
+    sbMasterSoulwarden: {
+      hello: {
+        '1': 'Psszt, semmi baj, barátságosak. Ó, nem neked szóltam. A lidércfényekkel beszéltem.',
+        '2': 'Lámpafény Odalys őrző vagyok. Segítek az eltévedt szellemeknek hazatalálni.'
+      },
+      again: {
+        '1': 'Szia újra. A lidércfények emlékeznek rád. Az ott integet.'
+      },
+      train: {
+        '1': 'Tartsd lent a lámpást, és beszélj halkan. Ami elveszett, a kedves hangra jön.'
+      },
+      class: {
+        '1': 'Amikor legyőznek egy ellenséget, a szelleme kicsit eltéved. Mi segítünk neki, ő pedig visszasegít nekünk.',
+        '2': 'Intelligencia, hogy vezesd a fényt. Karizma, hogy a szellemek maradni akarjanak egy kicsit.',
+        say: 'Mit csinál egy Lélekőr?'
+      },
+      ready: {
+        strong: {
+          '1': 'Most már a legfélénkebb szellemek is hozzád jönnek. Válassz bármelyik leckét.'
+        },
+        able: {
+          '1': 'A lidércfények megbíznak benned. Készen állsz a következő leckére.'
+        },
+        weak: {
+          '1': 'Még nem. Még félénkek veled. Több Intelligenciát, és egy kis Karizmát.'
+        }
+      },
+      wisps: {
+        '1': 'Valahogy úgy! Elkóborolt szellemek. Ez itt Ficánka. Ő a meleg oldalt szereti.',
+        '2': 'Tudod, egyetlen szellem sem rossz. Csak elveszett. Hazamennek, amikor készen állnak.',
+        say: 'Élnek a kis fények a lámpásodban?'
+      },
+      trainBack: {
+        '1': 'Szép munka. Most engedd el őket gyengéden. Hosszú napjuk volt.'
+      },
+      bye: {
+        '1': 'Vigyázz magadra. És ha látsz egy eltévedt kis fényt, köszönj neki.'
+      }
+    },
+    sbMasterIronmonk: {
+      hello: {
+        '1': 'Ülj le. Lélegezz. Nem, úgy lélegzel, mintha elkésnél valahonnan. Még egyszer.',
+        '2': 'Csendesvíz Oru mester. A nyitott tenyér útját tanítom. Vasököl, nyugodt szív.'
+      },
+      again: {
+        '1': 'Á. A tanítvány visszatér. A folyó is. Minden nap.'
+      },
+      train: {
+        '1': 'Lábad, mint a gyökér, kezed, mint az eső. Üss. Még egyszer. A századik számít.'
+      },
+      class: {
+        '1': 'Nincs penge. Kéz, láb, lélegzet. Minden ütés felépíti a következőt, egészen a nagyig.',
+        '2': 'Ügyesség a gyors kézhez. Állóképesség, hogy nyugodt maradj, amikor másoknak elfogy a levegője.',
+        say: 'Mi az a Vasszerzetes?'
+      },
+      ready: {
+        strong: {
+          '1': 'A tanítványból tanító lesz. Ne mondd el senkinek. Válassz bármelyik leckét.'
+        },
+        able: {
+          '1': 'Jó. A csésze telik. Vedd a következő leckét.'
+        },
+        weak: {
+          '1': 'Még nem. A rövid gyökerű fát kidönti a szél. Több Állóképességet.'
+        }
+      },
+      noodles: {
+        '1': 'Az. Két napig főtt a leves. Kérlek, ne lehelj rá.',
+        '2': 'Egy jó tál türelemre tanít. Egy nagyszerű tál minden másra.',
+        say: 'Az ott egy tál tészta?'
+      },
+      trainBack: {
+        '1': 'Jó. Most egyél valami meleget. Az erő a tálból jön.'
+      },
+      bye: {
+        '1': 'Jó utat. Lépj halkan. Rúgj nagyot.'
+      }
+    },
+    sbMasterBard: {
+      hello: {
+        '1': 'Üdv, üdv, gyere csak beljebb, itt a tűznél melegebb! Jaj, ez rímelt. Szokott.',
+        '2': 'Derűsidő Lark vagyok. A tűz mellett játszom, és lantra tanítok mindenkit, aki meghallgat.'
+      },
+      again: {
+        '1': 'A kedvenc hallgatóm! Húzz ide egy zsámolyt. Vigyázz a macskára, ő a kritikus.'
+      },
+      train: {
+        '1': 'Pengesd velem. Egy, kettő és három... Ne az ujjaidat nézd. Érezd!'
+      },
+      class: {
+        '1': 'Dalok, amelyektől a te oldalad bátrabb lesz, és dallamok, amelyektől a másik oldal elalszik.',
+        '2': 'Karizma, hogy megnyerd a közönséget. Jártasság, hogy az ujjaid lépést tartsanak a szíveddel.',
+        say: 'Mit csinál egy Dalnok?'
+      },
+      ready: {
+        strong: {
+          '1': 'Most már bármelyik fogadót megtöltenéd! Vidd az összes dalomat.'
+        },
+        able: {
+          '1': 'Gyönyörű dallam! Készen állsz a következő versszakra.'
+        },
+        weak: {
+          '1': 'Még nem. A közönség még ásítozik. Több Karizmát, barátom.'
+        }
+      },
+      story: {
+        '1': 'Egyszer egy lovag átkelt pont ezen a hídon, és nem volt nála más, csak egy kard és egy dal...',
+        '2': 'Várj, zenével jobb. La-la-la, a lovag ment, ment... Hol is tartottam?',
+        '3': 'Ó, mindegy. De szép dal volt, nem?',
+        say: 'Mesélsz nekem egy történetet?'
+      },
+      trainBack: {
+        '1': 'Bravó! Gyakorolj minden nap. Akkor is, ha borzasztóan szól. Akkor főleg.'
+      },
+      bye: {
+        '1': 'Isten veled, jó utat neked! Hoppá. Megint rímelt. Szia!'
       }
     }
   },

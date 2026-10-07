@@ -95,7 +95,8 @@ export default {
     elixirSwift: 'Celeridade',
     elixirMind: 'Mente clara',
     elixirVigor: 'Vigor',
-    elixirShadow: 'Folla sedenta'
+    elixirShadow: 'Folla sedenta',
+    chi: 'Chi'
   },
   toast: {
     item: 'Atopado: {item}',
@@ -860,6 +861,390 @@ export default {
     crumble: {
       name: 'Esboroar',
       desc: 'Fas un {dmg}% máis de dano aos inimigos ralentizados, derrubados ou convertidos en pedra.'
+    },
+    galeArrow: {
+      name: 'Frecha de Vendaval',
+      desc: 'Unha frecha que cabalga un refacho: {dmg}% de dano de Destreza, e o obxectivo sae empurrado cara atrás.'
+    },
+    fleetfoot: {
+      name: 'Pés Lixeiros',
+      desc: '+{move}% de velocidade de movemento e +{dodge}% de Esquiva.'
+    },
+    zephyrDash: {
+      name: 'Carreira do Céfiro',
+      desc: 'Lánzate ata {dist} m cara a onde apuntas, e despois corre un {move}% máis rápido durante {dur}s.'
+    },
+    piercingGale: {
+      name: 'Vendaval Perforante',
+      desc: 'Unha frecha que atravesa todos os inimigos en liña: {dmg}% de dano de Destreza e ralentízaos un {slow}% durante {dur}s.'
+    },
+    cycloneSnare: {
+      name: 'Trampa Ciclón',
+      desc: 'Un remuíño durante {dur}s atrae os inimigos cara ao seu ollo e fai {dmg}% de dano de Pericia.'
+    },
+    keenEye: {
+      name: 'Ollo Agudo',
+      desc: '+{critDmg}% de Dano Crítico. Os teus disparos atravesan {pierce} inimigo máis.'
+    },
+    updraftLeap: {
+      name: 'Salto Ascendente',
+      desc: 'Un refacho lanza polo aire os inimigos a {radius} m con {dmg}% de dano de Destreza. Ti saltas {leap} m lonxe.'
+    },
+    swiftDraw: {
+      name: 'Disparo Áxil',
+      desc: 'Atacas un {speed}% máis rápido e as túas recargas son un {cdr}% máis curtas.'
+    },
+    arrowStorm: {
+      name: 'Tormenta de Frechas',
+      desc: 'Choven frechas sobre a zona durante {dur}s: {dmg}% de dano de Pericia en total, e ralentiza un {slow}%.'
+    },
+    galeSpirits: {
+      name: 'Espíritos do Vento',
+      desc: 'Espíritos do vento voan contigo durante {dur}s e disparan {shots} frechas de {dmg}% de dano de Pericia. +{move}% de velocidade de movemento.'
+    },
+    skyHunter: {
+      name: 'Cazador do Ceo',
+      desc: '+{boss}% de dano contra xefes e +{crit}% de Probabilidade de Crítico.'
+    },
+    skyrender: {
+      name: 'Rachaceos',
+      desc: 'Unha frecha de tormenta abre camiño: {dmg}% de dano de Destreza a todos os da liña, lanzados arriba e a un lado.'
+    },
+    frostCleave: {
+      name: 'Corte de Xeada',
+      desc: 'Varre coa folla de xeo diante de ti: {dmg}% de dano de Forza e ralentiza un {slow}% durante {dur}s.'
+    },
+    rimeLance: {
+      name: 'Lanza de Xeada',
+      desc: 'Lanza unha lanza de xeo con {dmg}% de dano de Intelixencia. Ralentiza un {slow}% durante {dur}s.'
+    },
+    wintersBite: {
+      name: 'Trabada do Inverno',
+      desc: 'Os teus ataques ralentizan o inimigo un {slow}% durante {dur}s.'
+    },
+    frostArmor: {
+      name: 'Armadura de Xeada',
+      desc: 'Unha armadura de xeo absorbe o {shield}% da Intelixencia en dano durante {dur}s. Os inimigos próximos ralentízanse un {slow}%.'
+    },
+    glacialCharge: {
+      name: 'Carga Glacial',
+      desc: 'Carga contra o obxectivo con {dmg}% de dano de Forza e conxélao {freeze}s.'
+    },
+    frozenHeart: {
+      name: 'Corazón Xeado',
+      desc: '+{hp}% de saúde máxima, e todo o dano que recibes redúcese un {reduce}%.'
+    },
+    rimeField: {
+      name: 'Campo de Xeada',
+      desc: 'Chan xeado durante {dur}s: {dmg}% de dano de Intelixencia. Os inimigos arrefriados que estean nel conxélanse {freeze}s.'
+    },
+    frostShatter: {
+      name: 'Estoupido de Xeo',
+      desc: '{dmg}% de dano de Forza a {radius} m: +{chilled}% aos inimigos ralentizados, +{frozen}% aos conxelados.'
+    },
+    shatterpoint: {
+      name: 'Punto de Rotura',
+      desc: 'Fas un {bonus}% máis de dano aos inimigos ralentizados e conxelados.'
+    },
+    avalancheLeap: {
+      name: 'Salto de Avalancha',
+      desc: 'Salta onde apuntas e cae coma unha avalancha: {dmg}% de dano de Forza, e derruba os inimigos.'
+    },
+    iceborn: {
+      name: 'Sangue de Xeo',
+      desc: 'Nada pode empurrarte nin lanzarte. Os aturdimentos que recibes duran un {cut}% menos.'
+    },
+    absoluteZero: {
+      name: 'Cero Absoluto',
+      desc: 'O inverno estoupa desde ti: {dmg}% de dano de Intelixencia a {radius} m, e conxela todo {freeze}s.'
+    },
+    sunbolt: {
+      name: 'Raio de Sol',
+      desc: 'Un raio de luz solar con {dmg}% de dano de Intelixencia. O obxectivo cegado fai un {weaken}% menos de dano durante {dur}s.'
+    },
+    mendingLight: {
+      name: 'Luz Sandadora',
+      desc: 'Cúrate un {heal}% de Carisma de golpe, e despois o {regen}% da saúde cada segundo durante {dur}s.'
+    },
+    kindledHope: {
+      name: 'Esperanza Acesa',
+      desc: 'Todas as curas que recibes son un {heal}% máis fortes.'
+    },
+    lanceOfLight: {
+      name: 'Lanza de Luz',
+      desc: 'Un raio de luz: {dmg}% de dano de Intelixencia en liña. Cúraste un {heal}% de saúde por cada inimigo alcanzado.'
+    },
+    dawnShield: {
+      name: 'Escudo da Alba',
+      desc: 'Quítate todos os efectos negativos e gaña un escudo do {shield}% de Carisma durante {dur}s.'
+    },
+    haloWard: {
+      name: 'Halo Protector',
+      desc: 'Todo o dano que recibes redúcese un {reduce}%.'
+    },
+    dawnSanctuary: {
+      name: 'Santuario da Alba',
+      desc: 'Chan sagrado durante {dur}s: cúrate un {heal}% de Carisma por segundo, e os inimigos reciben {dmg}% de Intelixencia.'
+    },
+    blindingFlash: {
+      name: 'Escintileo Cegador',
+      desc: 'Un escintileo de luz: os inimigos a {radius} m foxen {fear}s e fan un {weaken}% menos de dano durante {dur}s.'
+    },
+    guardianLight: {
+      name: 'Luz Protectora',
+      desc: 'Un golpe que te derrotaría déixate con 1 de saúde, intocable durante {dur}s. Unha vez cada {icd}s.'
+    },
+    sunfall: {
+      name: 'Caída do Sol',
+      desc: 'Un piar de luz solar cae sobre o obxectivo: {dmg}% de dano de Intelixencia. Os inimigos reciben un {vuln}% máis durante {dur}s.'
+    },
+    searingLight: {
+      name: 'Luz Abrasadora',
+      desc: '+{crit}% de Probabilidade de Crítico de feitizo e +{critDmg}% de Dano Crítico.'
+    },
+    haloOfDawn: {
+      name: 'Halo da Alba',
+      desc: 'Brilla durante {dur}s: cada segundo, {dmg}% de dano de Intelixencia a {radius} m e cúraste un {heal}% de saúde.'
+    },
+    callWolf: {
+      name: 'Chamar o Lobo',
+      desc: 'Un lobo espiritual únese a ti e trabe con {dmg}% de dano de Carisma. Ata {max} á vez.'
+    },
+    wolfPounce: {
+      name: 'Salto do Lobo',
+      desc: 'Os teus lobos saltan sobre o obxectivo: {dmg}% de dano de Carisma cada un, e derrúbano {down}s.'
+    },
+    wildKinship: {
+      name: 'Irmandade Salvaxe',
+      desc: 'Os teus compañeiros teñen un {hp}% máis de saúde e fan un {dmg}% máis de dano.'
+    },
+    callHawk: {
+      name: 'Chamar o Falcón',
+      desc: 'Un falcón lánzase sobre o obxectivo con {dmg}% de dano de Carisma: recibe un {vuln}% máis durante {dur}s. Queda {life}s.'
+    },
+    callBear: {
+      name: 'Chamar o Oso',
+      desc: 'Un oso espiritual únese a ti. Golpea con {dmg}% de dano e mantén ocupados os inimigos. Ata {max}.'
+    },
+    thickHide: {
+      name: 'Pel Grosa',
+      desc: '+{hp}% de saúde máxima e +{regen} de rexeneración de saúde por segundo.'
+    },
+    packBond: {
+      name: 'Vínculo da Manada',
+      desc: 'Ti e os compañeiros a {radius} m rexenerades un {regen}% de saúde por segundo e gañades {def}% de Defensa durante {dur}s.'
+    },
+    spiritStampede: {
+      name: 'Estampida de Espíritos',
+      desc: 'Un rabaño de bestas espirituais carga: {dmg}% de dano de Carisma en liña, e derruba os inimigos.'
+    },
+    packTactics: {
+      name: 'Táctica da Manada',
+      desc: 'Fas un {bonus}% máis de dano por cada compañeiro que te acompaña, ata {max}.'
+    },
+    alphaHowl: {
+      name: 'Oubeo Alfa',
+      desc: 'Os teus compañeiros cúranse un {heal}% e loitan un {rage}% máis forte durante {dur}s. Os inimigos próximos foxen.'
+    },
+    leaderOfThePack: {
+      name: 'Xefe da Manada',
+      desc: 'Os teus compañeiros atacan un {speed}% máis rápido e fan un {dmg}% máis de dano.'
+    },
+    wildHunt: {
+      name: 'Caza Salvaxe',
+      desc: '{wolves} lobos máis corren contigo durante {dur}s. Toda a manada fai +{dmg}% de dano e móvese un {move}% máis rápido.'
+    },
+    prismBolt: {
+      name: 'Raio Prismático',
+      desc: 'Un raio de {dmg}% de dano de Intelixencia: xeada se o obxectivo arde, se non, lume. Cada un activa o outro.'
+    },
+    elementalHarmony: {
+      name: 'Harmonía Elemental',
+      desc: 'As túas reaccións (Fusión, Vapor, Rotura, Sobrecarga, Cristal) son un {pct}% máis fortes.'
+    },
+    frostLance: {
+      name: 'Lanza de Xeo',
+      desc: 'Xeo en liña: {dmg}% de dano de Intelixencia e ralentiza un {slow}% durante {dur}s. Os inimigos que arden fan Vapor.'
+    },
+    chainSpark: {
+      name: 'Faísca en Cadea',
+      desc: 'Un lóstrego de {dmg}% de Intelixencia que salta a {jumps} inimigos máis. Rompe o xeo, sobrecarga o lume.'
+    },
+    smolderingCore: {
+      name: 'Núcleo Ardente',
+      desc: 'As túas queimaduras fan un {burn}% máis de dano, e tes {mana} de maná máis.'
+    },
+    rollingBoulder: {
+      name: 'Pedra Rodante',
+      desc: 'Sae rodando unha pedra: {dmg}% de dano de Intelixencia e derruba {down}s. Os inimigos marcados dante un escudo.'
+    },
+    thunderSnow: {
+      name: 'Neve de Trono',
+      desc: 'Unha nevarada durante {dur}s: {dmg}% de dano de xeada de Intelixencia, e un lóstrego cada segundo de {bolt}%.'
+    },
+    spellweave: {
+      name: 'Tecido Arcano',
+      desc: '+{crit}% de Probabilidade de Crítico de feitizo, e as túas habilidades custan un {mana}% menos de maná.'
+    },
+    prismaticNova: {
+      name: 'Nova Prismática',
+      desc: 'Golpea todo o que hai a {radius} m con {dmg}% de Intelixencia, cada un co elemento co que reacciona.'
+    },
+    prismaticWard: {
+      name: 'Escudo Prismático',
+      desc: 'Recibes un {reduce}% menos de dano e tes un {hp}% máis de saúde.'
+    },
+    frostfireComet: {
+      name: 'Cometa de Lume e Xeo',
+      desc: 'Un cometa de lume e xeo: {dmg}% de dano de Intelixencia. Os inimigos quedan ardendo e ralentizados.'
+    },
+    elementalConvergence: {
+      name: 'Converxencia Elemental',
+      desc: 'Durante {dur}s catro elementos altérnanse: {strikes} golpes de {dmg}% de Intelixencia que se activan entre eles.'
+    },
+    wispBolt: {
+      name: 'Dardo Fátuo',
+      desc: 'Un fogo fátuo con {dmg}% de dano de Intelixencia. Se derrota un inimigo, este érguese como o teu espírito durante {life}s.'
+    },
+    kindredSpirits: {
+      name: 'Espíritos Afíns',
+      desc: 'Os teus espíritos e secuaces teñen un {hp}% máis de saúde e atacan un {speed}% máis rápido.'
+    },
+    callTheFallen: {
+      name: 'Chamar os Caídos',
+      desc: 'Ata {max} inimigos que acaban de caer a {radius} m érguense como os teus espíritos durante {life}s.'
+    },
+    soulBond: {
+      name: 'Vínculo de Almas',
+      desc: 'Fai amizade cun inimigo: {chance}% ({low}% se está ferido) de que se una a ti como espírito {life}s. Se non, {dmg}% de dano.'
+    },
+    restlessSouls: {
+      name: 'Almas Inquedas',
+      desc: 'Un inimigo que derrotas ten un {chance}% de probabilidade de erguerse como o teu espírito durante {life}s.'
+    },
+    spiritLantern: {
+      name: 'Lanterna de Espíritos',
+      desc: 'Unha lanterna durante {dur}s: os inimigos na súa luz reciben {dmg}% de Intelixencia, os amigos cúranse, os caídos érguense.'
+    },
+    hauntingWail: {
+      name: 'Laio Fantasmal',
+      desc: 'Un BÚ fantasmal: {dmg}% de dano de Intelixencia a {radius} m, e os inimigos foxen {fear}s.'
+    },
+    wardensVigil: {
+      name: 'Vixilia do Gardián',
+      desc: 'Os teus espíritos e secuaces fan un {dmg}% máis de dano, e ti recibes un {reduce}% menos.'
+    },
+    releaseSouls: {
+      name: 'Liberar as Almas',
+      desc: 'Os teus espíritos volven á casa en estoupidos de luz: {dmg}% de Intelixencia arredor de cada un, e recuperas un {heal}% de saúde por cada un.'
+    },
+    lanternKeeper: {
+      name: 'Gardalanternas',
+      desc: 'Recargas un {cdr}% máis curtas, e as túas habilidades custan un {mana}% menos de maná.'
+    },
+    wispSwarm: {
+      name: 'Enxame Fátuo',
+      desc: '{wisps} fogos fátuos lánzanse contra os inimigos da zona con {dmg}% de Intelixencia en total. Os que derrotan érguense.'
+    },
+    processionOfSouls: {
+      name: 'Procesión de Almas',
+      desc: 'Durante {dur}s cada inimigo que cae preto de ti érguese como o teu espírito, e os espíritos fan un {atk}% máis.'
+    },
+    palmStrike: {
+      name: 'Golpe de Palma',
+      desc: 'Unha palma rápida con {dmg}% de dano de Destreza que empurra o inimigo cara atrás. Acumula {chi} de chi.'
+    },
+    ironBody: {
+      name: 'Corpo de Ferro',
+      desc: 'O dano físico que recibes redúcese un {reduce}%, e tes un {hp}% máis de saúde.'
+    },
+    flyingKick: {
+      name: 'Patada Voadora',
+      desc: 'Voa cara ao obxectivo e dálle unha patada con {dmg}% de dano de Destreza; os inimigos do camiño reciben un {path}%. Acumula {chi} de chi.'
+    },
+    tigerStance: {
+      name: 'Postura do Tigre',
+      desc: 'Durante {dur}s: +{dmg}% de dano e +{speed}% de velocidade de ataque. Remata a Postura do Grou.'
+    },
+    craneStance: {
+      name: 'Postura do Grou',
+      desc: 'Durante {dur}s: +{def}% de Defensa, e cúraste un {regen}% da saúde por segundo. Remata a Postura do Tigre.'
+    },
+    flowingFists: {
+      name: 'Puños Fluídos',
+      desc: 'Os teus ataques teñen un {chance}% de probabilidade de acumular chi.'
+    },
+    hundredFists: {
+      name: 'Cen Puños',
+      desc: 'Unha chuvia de {hits} golpes con {dmg}% de dano de Destreza en total. Acumula {chi} de chi.'
+    },
+    risingDragon: {
+      name: 'Dragón Ascendente',
+      desc: 'Gasta todo o chi nun golpe ascendente: {dmg}% de dano de Destreza, +{per}% por chi. O inimigo sae voando.'
+    },
+    cranesGrace: {
+      name: 'Graza do Grou',
+      desc: '+{dodge}% de Esquiva, e os aturdimentos e derrubes que recibes duran un {cut}% menos.'
+    },
+    whirlwindKick: {
+      name: 'Patada Remuíño',
+      desc: 'Dálle dúas patadas a todo o que hai a {radius} m con {dmg}% de dano de Destreza en total. Acumula ata {chi} de chi.'
+    },
+    tigersFury: {
+      name: 'Furia do Tigre',
+      desc: '+{crit}% de Probabilidade de Crítico e +{speed}% de velocidade de ataque.'
+    },
+    mountainPalm: {
+      name: 'Palma da Montaña',
+      desc: 'Gasta todo o chi: unha palma xigante cae con {dmg}% de dano de Destreza, +{per}% por chi, e derruba os inimigos.'
+    },
+    sharpNote: {
+      name: 'Nota Aguda',
+      desc: 'Unha nota aguda con {dmg}% de dano de Carisma. O inimigo fai un {weaken}% menos de dano durante {dur}s.'
+    },
+    stagePresence: {
+      name: 'Presenza Escénica',
+      desc: 'As túas habilidades custan un {mana}% menos de maná, e móveste un {move}% máis rápido.'
+    },
+    marchingSong: {
+      name: 'Canción de Marcha',
+      desc: 'Unha canción durante {dur}s: ti e os aliados a {radius} m movédesvos un {move}% e atacades un {speed}% máis rápido.'
+    },
+    lullaby: {
+      name: 'Canción de Berce',
+      desc: 'Unha melodía suave en cono: todos os inimigos que alcanza quedan durmidos {dur}s.'
+    },
+    longRefrain: {
+      name: 'Retrouso Longo',
+      desc: 'As túas cancións duran un {pct}% máis.'
+    },
+    balladOfValor: {
+      name: 'Balada do Valor',
+      desc: 'Unha canción durante {dur}s: ti e os aliados a {radius} m facedes un {dmg}% máis de dano e gañades {def}% de Defensa.'
+    },
+    charmingSerenade: {
+      name: 'Serenata Feiticeira',
+      desc: 'Enfeitiza o obxectivo e os inimigos a {radius} m: durante {dur}s loitan entre eles.'
+    },
+    virtuoso: {
+      name: 'Virtuosismo',
+      desc: 'Recargas un {cdr}% máis curtas e +{critDmg}% de Dano Crítico.'
+    },
+    hymnOfMending: {
+      name: 'Himno Sandador',
+      desc: 'Quita os efectos negativos e, durante {dur}s, ti e os aliados a {radius} m curádesvos un {regen}% de saúde por segundo.'
+    },
+    crescendo: {
+      name: 'Crescendo',
+      desc: 'Un estoupido de son a {radius} m: {dmg}% de dano de Carisma, +{per}% por cada canción que estás tocando.'
+    },
+    standingOvation: {
+      name: 'Ovación en Pé',
+      desc: '+{dmg}% de dano, e recibes un {reduce}% menos de dano.'
+    },
+    grandFinale: {
+      name: 'Gran Final',
+      desc: 'Tócao todo durante {dur}s (+{buff}% de velocidade, dano e Defensa), e despois un último acorde: {dmg}% de Carisma, inimigos enfeitizados.'
     }
   },
   slot: {
@@ -1372,6 +1757,30 @@ export default {
     sbFence: {
       name: 'Mirela Thorne',
       talk: 'Armaduras finas, sen preguntas. Ben, moi poucas preguntas.'
+    },
+    sbMasterWindrunner: {
+      name: 'Sefa Á de Vendaval'
+    },
+    sbMasterFrostwarden: {
+      name: 'Halvard Corazón de Xeada'
+    },
+    sbMasterLightbringer: {
+      name: 'Irmá Auriel Lago da Alba'
+    },
+    sbMasterBeastcaller: {
+      name: 'O vello Rowan Pé de Cardo'
+    },
+    sbMasterElementalist: {
+      name: 'Maxistra Iris Catro Ventos'
+    },
+    sbMasterSoulwarden: {
+      name: 'Gardiá Odalys Luz de Lanterna'
+    },
+    sbMasterIronmonk: {
+      name: 'Mestre Oru Auga Queda'
+    },
+    sbMasterBard: {
+      name: 'Lark Bo Tempo'
     }
   },
   quest: {
@@ -3692,6 +4101,382 @@ export default {
       },
       bye: {
         '1': 'Coida da bolsa. Aquí non todos son tan honrados coma min.'
+      }
+    },
+    sbMasterWindrunner: {
+      hello: {
+        '1': 'Ai, ola! Perdoa, non podo parar. Estou agardando a que vire o vento. En calquera momento.',
+        '2': 'Sefa Á de Vendaval. Disparo frechas e persigo o vento. Adoita gañar o vento.'
+      },
+      open: {
+        '1': 'Mira quen chegou! Preparado o arco? Claro que si. Imos, imos!'
+      },
+      again: {
+        '1': 'Ola outra vez! Sigo aquí. Ben, case. Os pés escápanseme sós.'
+      },
+      train: {
+        '1': 'Notas o vento na meixela? Apunta un pouco á esquerda de onde cres. Agora, sóltaa!'
+      },
+      favor: {
+        '1': 'Só a quen me pode seguir o ritmo. E ti, podes? Imos descubrilo.',
+        '2': 'Derrota doce bandidos arqueiros nos Arredores de Oakhaven e despois tráeme tres fentos veloces.',
+        say: 'Ensinas tiro con arco?'
+      },
+      waiting: {
+        '1': 'Doce bandidos arqueiros, tres fentos veloces. Vai! Eu agardo aquí. Dando brincos.',
+        say: 'Sobre a túa proba...'
+      },
+      favorDone: {
+        '1': 'Ha! Seguíchesme o ritmo de verdade! Ninguén mo segue!',
+        '2': 'Pois agora adéstrote eu. Unha soa regra: nas miñas clases non se senta ninguén.',
+        say: 'Os arqueiros están vencidos, e aquí tes os fentos veloces.'
+      },
+      class: {
+        '1': 'Disparar, correr, volver disparar. Se te pillan, é que paraches demasiado tempo.',
+        '2': 'Destreza para ter pés e arco rápidos. Pericia, para que cada frecha acerte.',
+        say: 'Que fai un Corredor do Vento?'
+      },
+      ready: {
+        strong: {
+          '1': 'Agora xa vas coma o vento. Ben, case. Colle a lección que queiras!'
+        },
+        able: {
+          '1': 'Pés lixeiros! Xa podes pasar á seguinte. Vai, vai!'
+        },
+        weak: {
+          '1': 'Aínda non. Corres coma se levases un sofá. Máis Destreza, por favor.'
+        }
+      },
+      who: {
+        '1': 'Vivo no alto do vello muíño de vento, á beira do río. A mellor vista do vento de toda a cidade.',
+        '2': 'Douscentos chanzos ata arriba. Un adestramento xenial. Conteinos todos.'
+      },
+      trainBack: {
+        '1': 'Moi ben! Agora volve á casa correndo. Nada de camiñar. Correr tamén é adestrar.'
+      },
+      bye: {
+        '1': 'Ata logo! Coidado coas pólas baixas. Eu nunca o teño.'
+      }
+    },
+    sbMasterFrostwarden: {
+      hello: {
+        '1': 'Hm. Pasaches por diante de min tres veces. Perdiches o camiño ou tes curiosidade?',
+        '2': 'Halvard Corazón de Xeada. Baixei ao sur desde a neve. Aquí vai calor. Demasiada calor.'
+      },
+      open: {
+        '1': 'Viñeches. Ben. O xeo está preparado, e eu tamén.'
+      },
+      again: {
+        '1': 'Ti outra vez. Ben. Non falo moito. Queda igualmente.'
+      },
+      train: {
+        '1': 'Bota o aire amodo. Ves o bafo? Agora ponno na folla.'
+      },
+      favor: {
+        '1': 'É. Só lla ensino a quen mantén a cabeza fría nun sitio quente.',
+        '2': 'Apaga dez elementais de lume nos Penedos de Cinza. Despois tráeme tres ramiñas de menta xeada.',
+        say: 'Esa espada é de xeo?'
+      },
+      waiting: {
+        '1': 'Dez elementais de lume. Tres ramiñas de menta xeada. Tómao con calma. Sen demasiada calma.',
+        say: 'Sobre a túa proba...'
+      },
+      favorDone: {
+        '1': 'Hm. Nin unha queimadura. Ben.',
+        '2': 'Mantiveches a cabeza fría. Esa era a primeira lección. Ensinareiche o resto.',
+        say: 'Os elementais de lume están apagados. Aquí tes a menta xeada.'
+      },
+      class: {
+        '1': 'Un cabaleiro do frío. Arrefríaos, conxélaos e despois rompe o xeo.',
+        '2': 'Forza para a folla. Intelixencia para a xeada. Precisas as dúas.',
+        say: 'Que é un Gardián da Xeada?'
+      },
+      ready: {
+        strong: {
+          '1': 'Agora levas dentro o frío do norte. Colle calquera lección.'
+        },
+        able: {
+          '1': 'Ben. Con calma. A seguinte lección é túa.'
+        },
+        weak: {
+          '1': 'Aínda non. A túa xeada derrétese moi axiña. Máis Intelixencia, e máis Forza.'
+        }
+      },
+      who: {
+        '1': 'Gardei un paso de montaña no norte. Despois quixen ver un río que non se xea.'
+      },
+      trainBack: {
+        '1': 'Ben. Agora descansa. O xeo non ten présa. Ti tampouco deberías tela.'
+      },
+      bye: {
+        '1': 'Bo camiño. E a cabeza ben fría.'
+      }
+    },
+    sbMasterLightbringer: {
+      hello: {
+        '1': 'Mm-hm-hmm... Oh! Perdoa, meu ben, estaba tarareando. Tarareeite enriba? Pásame a miúdo.',
+        '2': 'Irmá Auriel Lago da Alba. Manteño acesa a lampadiña do final da ponte.'
+      },
+      open: {
+        '1': 'Aquí chega a miña luciña! Ven, ponte un momento á luz. Merecíchelo.'
+      },
+      again: {
+        '1': 'Ola outra vez! Aínda aquí, aínda tarareando. Á lámpada góstalle a compañía.'
+      },
+      train: {
+        '1': 'Mans abertas, queixo arriba. Pensa na mellor mañá que tiveches nunca. Así. Notas iso?'
+      },
+      favor: {
+        '1': 'Todo o mundo ten un pouco de luz dentro. Eu ensino a deixala saír, cando chega o momento.',
+        '2': 'Derrota dez cultistas nos Penedos de Cinza e despois tráeme cinco pétalos do sol para a miña lámpada.',
+        say: 'Esa lámpada é máxica?'
+      },
+      waiting: {
+        '1': 'Dez cultistas, cinco pétalos do sol. Derrótaos con delicadeza. Todo o mundo merece unha segunda oportunidade.',
+        say: 'Sobre a túa proba...'
+      },
+      favorDone: {
+        '1': 'Oh, mira para eles! A lámpada brillará dourada durante un mes.',
+        '2': 'E ti tamén, meu ben. Encantarame ensinarche.',
+        say: 'Os cultistas están vencidos. Aquí tes os pétalos do sol.'
+      },
+      class: {
+        '1': 'Levamos a alba. Luz para loitar, luz para curar, luz para agocharse detrás.',
+        '2': 'A Intelixencia fai forte a luz. O Carisma faina cálida. Vas querer as dúas cousas.',
+        say: 'Que fai un Portador da Luz?'
+      },
+      ready: {
+        strong: {
+          '1': 'Brillas coma un amencer, meu ben. Colle a lección que queiras.'
+        },
+        able: {
+          '1': 'Que luz máis bonita! Xa podes pasar á seguinte.'
+        },
+        weak: {
+          '1': 'Aínda non, meu ben. A túa luz está algo apagada. Máis Carisma, e brillarás.'
+        }
+      },
+      who: {
+        '1': 'Hai tempo cantaba nun gran templo. Pero aquí fóra a miña lámpada guía os barcos ata a casa. Iso é mellor.'
+      },
+      trainBack: {
+        '1': 'Precioso. Agora vai alegrarlle o día a alguén. Ordes da irmá.'
+      },
+      bye: {
+        '1': 'Andando, meu ben. E sorrílles aos recunchos escuros. Odian iso.'
+      }
+    },
+    sbMasterBeastcaller: {
+      hello: {
+        '1': 'Mira onde pisas. Esa é Bramble. Ela chegou primeiro.',
+        '2': 'Rowan Pé de Cardo. Góstanme os animais. A xente, aínda o estou pensando.'
+      },
+      open: {
+        '1': 'Ah, es ti. Bramble estábate agardando. Eu tamén. Un pouco.'
+      },
+      again: {
+        '1': 'Ti outra vez. A Bramble góstalle de ti. Eu aínda o estou pensando.'
+      },
+      train: {
+        '1': 'Agáchate. Máis amodo. Estende a man e deixa que veñan eles. Ben.'
+      },
+      favor: {
+        '1': 'Falar? Eu escoito. Ese é o truco que a maioría nunca aprende.',
+        '2': 'As arañas xigantes enchen de teas os camiños dos animais no Bosque dos Murmurios. Acaba con doce.',
+        '3': 'Despois tráeme dúas campaíñas lunares para a miña toca. Bramble dorme mellor preto delas.',
+        say: 'Podes falar cos animais?'
+      },
+      waiting: {
+        '1': 'Doce arañas, dúas campaíñas lunares. Os animais agardan. Bramble tamén.',
+        say: 'Sobre a túa proba...'
+      },
+      favorDone: {
+        '1': 'Hm. Esta mañá os cervos baixaron ao río. Xa me parecía que serías ti.',
+        '2': 'Está ben. Ensinareiche. Non fagas un drama. Bramble, deixa de abanear o rabo.',
+        say: 'Os camiños están limpos, e aquí tes as campaíñas lunares.'
+      },
+      class: {
+        '1': 'Chamas o mundo salvaxe, e o mundo salvaxe vén. Lobos, un falcón, un oso. Amigos, non mascotas.',
+        '2': 'Carisma, para que queiran vir. Aguante, para poder seguilos.',
+        say: 'Que é un Domador de Bestas?'
+      },
+      ready: {
+        strong: {
+          '1': 'Agora toda a manada confía en ti. Colle o que queiras.'
+        },
+        able: {
+          '1': 'Aos lobos gústalles de ti. Xa podes pasar á seguinte.'
+        },
+        weak: {
+          '1': 'Aínda non. Non se fían de ti. Máis Carisma, e moita máis paciencia.'
+        }
+      },
+      who: {
+        '1': 'Atopei a Bramble nunha trampa hai anos. Tres patas e moito carácter. Desde entón somos inseparables.',
+        '2': 'Durmo no palleiro da corte dos cabalos. Os cabalos roncan menos que a xente.'
+      },
+      trainBack: {
+        '1': 'Ben. Vai, logo. E saúda os corvos. Eles lembran.'
+      },
+      bye: {
+        '1': 'Andando. Bramble dice adeus.'
+      }
+    },
+    sbMasterElementalist: {
+      hello: {
+        '1': 'Ola! Un segundo, que estou facendo malabares. Lume, xeada, faísca, pedra e... collidos! Ola!',
+        '2': 'Maxistra Iris Catro Ventos. Ensino os catro elementos. Mesturalos é a parte divertida.'
+      },
+      again: {
+        '1': 'Outra vez por aquí! Ben, precisaba público. Mira isto. Tachán!'
+      },
+      train: {
+        '1': 'Escolle dúas esferas. As que queiras. Agora fai que choquen. Con xeito! Ves? Unha reacción!'
+      },
+      class: {
+        '1': 'Mesturamos! Xeada e despois lume: derrétese. Lume e despois lóstrego: bum. Cada parella fai algo.',
+        '2': 'Intelixencia para cada feitizo. Pericia, porque os bos piden mans rápidas.',
+        say: 'Que fai un Elementalista?'
+      },
+      ready: {
+        strong: {
+          '1': 'Agora mesturas de marabilla! Colle calquera lección. Colle dúas!'
+        },
+        able: {
+          '1': 'Ooh, que faísca! Xa podes pasar á seguinte.'
+        },
+        weak: {
+          '1': 'Aínda non! Os teus elementos apáganse sós. Máis Intelixencia, por favor.'
+        }
+      },
+      sleeve: {
+        '1': 'Oh! É verdade. Agarda... Xa está.',
+        '2': 'Lume, e despois xeada. De feito, era unha lección. De nada!',
+        say: 'Ehem, árdeche a manga.'
+      },
+      trainBack: {
+        '1': 'Xenial! Agora practica fóra, por favor. As cortinas son novas.'
+      },
+      bye: {
+        '1': 'Adeus! Se cheira a fume, seguramente son eu. Non te preocupes!'
+      }
+    },
+    sbMasterSoulwarden: {
+      hello: {
+        '1': 'Shh, tranquilos, son amigables. Ai, ti non. Falaba cos fogos fátuos.',
+        '2': 'Gardiá Odalys Luz de Lanterna. Axudo os espíritos perdidos a atopar o camiño da casa.'
+      },
+      again: {
+        '1': 'Ola outra vez. Os fogos fátuos lémbranse de ti. Aquel está saudando.'
+      },
+      train: {
+        '1': 'Colle a lanterna baixa e fala amodiño. As cousas perdidas achéganse a unha voz amable.'
+      },
+      class: {
+        '1': 'Cando un inimigo é vencido, o seu espírito pérdese un pouco. Axudámolo, e el axúdanos a nós.',
+        '2': 'Intelixencia para guiar a luz. Carisma, para que os espíritos queiran quedar un anaco.',
+        say: 'Que fai un Gardián das Almas?'
+      },
+      ready: {
+        strong: {
+          '1': 'Agora ata os espíritos máis tímidos se achegan a ti. Colle calquera lección.'
+        },
+        able: {
+          '1': 'Os fogos fátuos confían en ti. Xa podes pasar á seguinte lección.'
+        },
+        weak: {
+          '1': 'Aínda non. Aínda che teñen vergonza. Máis Intelixencia, e un pouco de Carisma.'
+        }
+      },
+      wisps: {
+        '1': 'Máis ou menos! Son espíritos que se perderon. Este é Fidget. Gústalle o lado quente.',
+        '2': 'Ningún espírito é malo, sabes? Só está perdido. Volven á casa cando están preparados.',
+        say: 'As luciñas da túa lanterna están vivas?'
+      },
+      trainBack: {
+        '1': 'Moi ben. Agora déixaos marchar con agarimo. Tiveron un día longo.'
+      },
+      bye: {
+        '1': 'Coídate. E se ves unha luciña perdida, saúdaa.'
+      }
+    },
+    sbMasterIronmonk: {
+      hello: {
+        '1': 'Senta. Respira. Non, respiras coma se chegases tarde a algo. Outra vez.',
+        '2': 'Mestre Oru Auga Queda. Ensino a man aberta. Puños de ferro, corazón tranquilo.'
+      },
+      again: {
+        '1': 'Ah. Volviches. O río tamén volve. Cada día.'
+      },
+      train: {
+        '1': 'Pés coma raíces, mans coma a chuvia. Golpea. Outra vez. O centésimo é o que conta.'
+      },
+      class: {
+        '1': 'Sen folla. Mans, pés, alento. Cada golpe prepara o seguinte, ata o grande.',
+        '2': 'Destreza para unhas mans rápidas. Aguante para manter a calma cando aos demais lles falta o alento.',
+        say: 'Que é un Monxe de Ferro?'
+      },
+      ready: {
+        strong: {
+          '1': 'Agora xa me poderías ensinar ti. Non llo digas a ninguén. Colle calquera lección.'
+        },
+        able: {
+          '1': 'Ben. A cunca vaise enchendo. Colle a seguinte lección.'
+        },
+        weak: {
+          '1': 'Aínda non. Unha árbore de raíces curtas cae co vento. Máis Aguante.'
+        }
+      },
+      noodles: {
+        '1': 'É. O caldo coceu a lume lento dous días. Por favor, non respires enriba.',
+        '2': 'Unha boa cunca ensina paciencia. Unha gran cunca ensina todo o demais.',
+        say: 'Iso é unha cunca de fideos?'
+      },
+      trainBack: {
+        '1': 'Ben. Agora come algo quente. A forza vén da cunca.'
+      },
+      bye: {
+        '1': 'Bo camiño. Pasos suaves. Patadas fortes.'
+      }
+    },
+    sbMasterBard: {
+      hello: {
+        '1': 'Pasa, pasa, que aquí dentro estás coma na casa! Ai, rimou. Pásame moito.',
+        '2': 'Lark Bo Tempo. Toco á beira do lume e ensino laúde a quen me queira escoitar.'
+      },
+      again: {
+        '1': 'O meu público favorito! Colle un tallo. Coidado coa gata, que é a crítica.'
+      },
+      train: {
+        '1': 'Rasguea comigo. Un, dous, e tres... Non mires os dedos. Sénteo!'
+      },
+      class: {
+        '1': 'Cancións que fan máis valente o teu bando, melodías que fan durmir o outro.',
+        '2': 'Carisma para gañar o público. Pericia, para que os dedos sigan o corazón.',
+        say: 'Que fai un Bardo?'
+      },
+      ready: {
+        strong: {
+          '1': 'Agora poderías encher calquera taberna! Colle todas as cancións que teño.'
+        },
+        able: {
+          '1': 'Que melodía máis bonita! Xa podes pasar á seguinte estrofa.'
+        },
+        weak: {
+          '1': 'Aínda non. O público segue bocexando. Máis Carisma, artista.'
+        }
+      },
+      story: {
+        '1': 'Unha vez, un cabaleiro cruzou esta mesma ponte con nada máis ca unha espada e unha canción...',
+        '2': 'Agarda, con música queda mellor. La-la-la, o cabaleiro ía... Por onde ía eu?',
+        '3': 'Bah, tanto ten. Bonita canción, non si?',
+        say: 'Contasme unha historia?'
+      },
+      trainBack: {
+        '1': 'Bravo! Practica todos os días. Mesmo cando soe fatal. Sobre todo daquela.'
+      },
+      bye: {
+        '1': 'Adeus, e boa viaxe, que o vento che leve a equipaxe! Uh. Outra rima. Adeus!'
       }
     }
   },

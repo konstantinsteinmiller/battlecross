@@ -94,12 +94,15 @@ const glare = (b: RigBuilder, bone: string, x: number, y: number, z: number, r: 
 
 // ─── Four legs: wolf, void stalker, frost howler ─────────────────────────────
 
-type BeastVariant = 'wolf' | 'stalker' | 'howler'
+type BeastVariant = 'wolf' | 'stalker' | 'howler' | 'spiritWolf' | 'spiritBear'
 
 const BEAST: Record<BeastVariant, { fur: string; back: string; belly: string; eye: string; accent: string; nose: string }> = {
   wolf: { fur: '#8e98ac', back: '#58627a', belly: '#e4e8f0', eye: '#ffb02a', accent: '#c8ced8', nose: '#2a2430' },
   stalker: { fur: '#4a2a8a', back: '#24104a', belly: '#9a6ae8', eye: '#f0c0ff', accent: '#b06aff', nose: '#14081f' },
-  howler: { fur: '#dce6f4', back: '#8ea8cc', belly: '#ffffff', eye: '#7fe8ff', accent: '#9fd8ff', nose: '#3a4a66' }
+  howler: { fur: '#dce6f4', back: '#8ea8cc', belly: '#ffffff', eye: '#7fe8ff', accent: '#9fd8ff', nose: '#3a4a66' },
+  // The Beastcaller's companions (#86): a leaf-green wolf, a honey-brown bear (the beast rig, scaled up).
+  spiritWolf: { fur: '#6fbf7a', back: '#3f7a4a', belly: '#e8f4d8', eye: '#ffe07a', accent: '#b8f0a0', nose: '#24301f' },
+  spiritBear: { fur: '#a8784a', back: '#6a4a2a', belly: '#e8d0a8', eye: '#ffe07a', accent: '#d8a860', nose: '#2a1c14' }
 }
 
 export const buildBeast = (variant: BeastVariant): Rig => {
@@ -620,14 +623,18 @@ const wing = (b: RigBuilder, bone: string, s: -1 | 1, span: number, chord: numbe
 
 // ─── Wyvern and dragon ───────────────────────────────────────────────────────
 
-type WyvernVariant = 'wyvern' | 'matriarch'
+type WyvernVariant = 'wyvern' | 'matriarch' | 'spiritHawk'
+
+/** Hide, belly, wing skin and eye. The Beastcaller's hawk (#86) is the small wyvern in a hawk's browns. */
+const WYVERN_TONES: Record<WyvernVariant, [string, string, string, string]> = {
+  wyvern: ['#d8683a', '#ffd9a8', '#b8482a', '#ffe07a'],
+  matriarch: ['#8a3a6a', '#f4c8e0', '#5a1a4a', '#ff8ad8'],
+  spiritHawk: ['#b8864a', '#f4e4c0', '#7a5a34', '#ffe07a']
+}
 
 export const buildWyvern = (variant: WyvernVariant = 'wyvern'): Rig => {
-  const hide = variant === 'wyvern' ? '#d8683a' : '#8a3a6a'
-  const belly = variant === 'wyvern' ? '#ffd9a8' : '#f4c8e0'
-  const skin = variant === 'wyvern' ? '#b8482a' : '#5a1a4a'
+  const [hide, belly, skin, eye] = WYVERN_TONES[variant]
   const horn = '#f4e8d0'
-  const eye = variant === 'wyvern' ? '#ffe07a' : '#ff8ad8'
   const b = new RigBuilder()
   b.bone('root', null, [0, 0, 0])
   b.bone('body', 'root', [0, 0.9, 0])
@@ -886,6 +893,8 @@ export const CREATURE_BUILDS: Record<string, () => Rig> = {
   wolf: () => buildBeast('wolf'),
   stalker: () => buildBeast('stalker'),
   howler: () => buildBeast('howler'),
+  spiritWolf: () => buildBeast('spiritWolf'),
+  spiritBear: () => buildBeast('spiritBear'),
   boar: buildBoar,
   cart: buildCart,
   spider: () => buildSpider('spider'),
@@ -906,6 +915,7 @@ export const CREATURE_BUILDS: Record<string, () => Rig> = {
   serpent: () => buildNaga('serpent'),
   wyvern: () => buildWyvern('wyvern'),
   matriarch: () => buildWyvern('matriarch'),
+  spiritHawk: () => buildWyvern('spiritHawk'),
   dragon: () => buildDragon('void'),
   drake: () => buildDragon('drake'),
   ally: () => buildDragon('ally'),

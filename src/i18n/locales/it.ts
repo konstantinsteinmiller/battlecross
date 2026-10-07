@@ -95,7 +95,8 @@ export default {
     elixirSwift: 'Rapidità',
     elixirMind: 'Mente lucida',
     elixirVigor: 'Vigore',
-    elixirShadow: 'Lama assetata'
+    elixirShadow: 'Lama assetata',
+    chi: 'Chi'
   },
   toast: {
     item: 'Trovato: {item}',
@@ -860,6 +861,390 @@ export default {
     crumble: {
       name: 'Sgretolamento',
       desc: 'Infliggi il {dmg}% di danno in più ai nemici rallentati, a terra o trasformati in pietra.'
+    },
+    galeArrow: {
+      name: 'Freccia di raffica',
+      desc: 'Una freccia portata da una raffica: {dmg}% di danno da Destrezza, e il bersaglio viene respinto.'
+    },
+    fleetfoot: {
+      name: 'Piè veloce',
+      desc: '+{move}% velocità di movimento e +{dodge}% Schivata.'
+    },
+    zephyrDash: {
+      name: 'Scatto di zefiro',
+      desc: 'Scatta fino a {dist} m dove miri, poi corri il {move}% più in fretta per {dur}s.'
+    },
+    piercingGale: {
+      name: 'Raffica perforante',
+      desc: 'Una freccia che trapassa ogni nemico in linea: {dmg}% di danno da Destrezza e rallentamento del {slow}% per {dur}s.'
+    },
+    cycloneSnare: {
+      name: 'Trappola ciclone',
+      desc: 'Un turbine per {dur}s attira i nemici verso il suo occhio e infligge {dmg}% di danno da Tecnica.'
+    },
+    keenEye: {
+      name: 'Occhio acuto',
+      desc: '+{critDmg}% danno Critico. I tuoi colpi trapassano {pierce} nemico in più.'
+    },
+    updraftLeap: {
+      name: 'Balzo ascensionale',
+      desc: 'Una raffica scaglia in aria i nemici entro {radius} m per {dmg}% di danno da Destrezza. Tu balzi via di {leap} m.'
+    },
+    swiftDraw: {
+      name: 'Tiro rapido',
+      desc: 'Attacchi il {speed}% più in fretta e le tue ricariche sono il {cdr}% più brevi.'
+    },
+    arrowStorm: {
+      name: 'Tempesta di frecce',
+      desc: 'Frecce piovono sull’area per {dur}s: {dmg}% di danno da Tecnica in totale e rallentamento del {slow}%.'
+    },
+    galeSpirits: {
+      name: 'Spiriti del vento',
+      desc: 'Spiriti del vento volano con te per {dur}s e scoccano {shots} frecce da {dmg}% di danno da Tecnica. +{move}% velocità di movimento.'
+    },
+    skyHunter: {
+      name: 'Caccia nei cieli',
+      desc: '+{boss}% di danno ai boss e +{crit}% probabilità di Critico.'
+    },
+    skyrender: {
+      name: 'Squarciacielo',
+      desc: 'Una freccia di tempesta apre un varco: {dmg}% di danno da Destrezza a tutti sulla linea, scagliati in alto e di lato.'
+    },
+    frostCleave: {
+      name: 'Fendente di gelo',
+      desc: 'Fendi davanti a te con la lama di ghiaccio: {dmg}% di danno da Forza e rallentamento del {slow}% per {dur}s.'
+    },
+    rimeLance: {
+      name: 'Lancia di brina',
+      desc: 'Scagli una lancia di ghiaccio per {dmg}% di danno da Intelligenza. Rallenta del {slow}% per {dur}s.'
+    },
+    wintersBite: {
+      name: 'Morso d’inverno',
+      desc: 'I tuoi attacchi rallentano il nemico del {slow}% per {dur}s.'
+    },
+    frostArmor: {
+      name: 'Armatura di gelo',
+      desc: 'Un’armatura di ghiaccio assorbe danni pari al {shield}% dell’Intelligenza per {dur}s. I nemici vicini rallentano del {slow}%.'
+    },
+    glacialCharge: {
+      name: 'Carica glaciale',
+      desc: 'Carichi il bersaglio per {dmg}% di danno da Forza e lo congeli per {freeze}s.'
+    },
+    frozenHeart: {
+      name: 'Cuore di ghiaccio',
+      desc: '+{hp}% salute massima, e tutto il danno che subisci è ridotto del {reduce}%.'
+    },
+    rimeField: {
+      name: 'Campo di brina',
+      desc: 'Terreno gelido per {dur}s: {dmg}% di danno da Intelligenza. I nemici rallentati al suo interno si congelano per {freeze}s.'
+    },
+    frostShatter: {
+      name: 'Schianto di gelo',
+      desc: '{dmg}% di danno da Forza entro {radius} m: +{chilled}% ai nemici rallentati, +{frozen}% a quelli congelati.'
+    },
+    shatterpoint: {
+      name: 'Punto di rottura',
+      desc: 'Infliggi il {bonus}% di danno in più ai nemici rallentati e congelati.'
+    },
+    avalancheLeap: {
+      name: 'Balzo valanga',
+      desc: 'Balza dove miri e atterra come una valanga: {dmg}% di danno da Forza, e i nemici finiscono a terra.'
+    },
+    iceborn: {
+      name: 'Sangue di ghiaccio',
+      desc: 'Niente ti spinge o ti scaglia via. Gli stordimenti su di te durano il {cut}% in meno.'
+    },
+    absoluteZero: {
+      name: 'Zero assoluto',
+      desc: 'L’inverno esplode da te: {dmg}% di danno da Intelligenza entro {radius} m, e tutti si congelano per {freeze}s.'
+    },
+    sunbolt: {
+      name: 'Dardo solare',
+      desc: 'Un dardo di luce solare per {dmg}% di danno da Intelligenza. Il bersaglio abbagliato infligge il {weaken}% in meno per {dur}s.'
+    },
+    mendingLight: {
+      name: 'Luce curativa',
+      desc: 'Ti cura subito del {heal}% del Carisma, poi del {regen}% della tua salute al secondo per {dur}s.'
+    },
+    kindledHope: {
+      name: 'Speranza accesa',
+      desc: 'Tutte le cure che ricevi sono il {heal}% più forti.'
+    },
+    lanceOfLight: {
+      name: 'Lancia di luce',
+      desc: 'Un raggio di luce: {dmg}% di danno da Intelligenza in linea. Ti curi del {heal}% di salute per ogni nemico colpito.'
+    },
+    dawnShield: {
+      name: 'Scudo dell’alba',
+      desc: 'Rimuove ogni effetto negativo su di te e ti dà uno scudo pari al {shield}% del Carisma per {dur}s.'
+    },
+    haloWard: {
+      name: 'Aureola protettiva',
+      desc: 'Tutto il danno che subisci è ridotto del {reduce}%.'
+    },
+    dawnSanctuary: {
+      name: 'Santuario dell’alba',
+      desc: 'Terreno sacro per {dur}s: ti cura del {heal}% del Carisma al secondo, e i nemici subiscono il {dmg}% dell’Intelligenza.'
+    },
+    blindingFlash: {
+      name: 'Lampo accecante',
+      desc: 'Un lampo di luce: i nemici entro {radius} m fuggono per {fear}s e infliggono il {weaken}% in meno per {dur}s.'
+    },
+    guardianLight: {
+      name: 'Luce custode',
+      desc: 'Un colpo che ti sconfiggerebbe ti lascia a 1 di salute, intoccabile per {dur}s. Una volta ogni {icd}s.'
+    },
+    sunfall: {
+      name: 'Caduta del sole',
+      desc: 'Una colonna di luce solare cade sul bersaglio: {dmg}% di danno da Intelligenza. I nemici subiscono il {vuln}% in più per {dur}s.'
+    },
+    searingLight: {
+      name: 'Luce rovente',
+      desc: '+{crit}% probabilità di Critico degli incantesimi e +{critDmg}% danno Critico.'
+    },
+    haloOfDawn: {
+      name: 'Aureola dell’alba',
+      desc: 'Risplendi per {dur}s: ogni secondo, {dmg}% di danno da Intelligenza entro {radius} m e ti curi del {heal}% di salute.'
+    },
+    callWolf: {
+      name: 'Richiamo del lupo',
+      desc: 'Un lupo spirituale si unisce a te e morde per {dmg}% di danno da Carisma. Fino a {max} alla volta.'
+    },
+    wolfPounce: {
+      name: 'Assalto dei lupi',
+      desc: 'I tuoi lupi balzano sul bersaglio: {dmg}% di danno da Carisma ciascuno, e lo mandano a terra per {down}s.'
+    },
+    wildKinship: {
+      name: 'Legame selvaggio',
+      desc: 'I tuoi compagni hanno il {hp}% di salute in più e infliggono il {dmg}% di danno in più.'
+    },
+    callHawk: {
+      name: 'Richiamo del falco',
+      desc: 'Un falco piomba sul bersaglio per {dmg}% di danno da Carisma: subisce il {vuln}% in più per {dur}s. Resta {life}s.'
+    },
+    callBear: {
+      name: 'Richiamo dell’orso',
+      desc: 'Un orso spirituale si unisce a te. Colpisce per {dmg}% di danno e tiene occupati i nemici. Fino a {max}.'
+    },
+    thickHide: {
+      name: 'Pelle spessa',
+      desc: '+{hp}% salute massima e +{regen} di rigenerazione della salute al secondo.'
+    },
+    packBond: {
+      name: 'Legame del branco',
+      desc: 'Tu e i compagni entro {radius} m rigenerate il {regen}% di salute al secondo e ottenete il {def}% di Difesa per {dur}s.'
+    },
+    spiritStampede: {
+      name: 'Carica degli spiriti',
+      desc: 'Una mandria di bestie spirituali carica: {dmg}% di danno da Carisma in linea, e i nemici finiscono a terra.'
+    },
+    packTactics: {
+      name: 'Tattiche di branco',
+      desc: 'Infliggi il {bonus}% di danno in più per ogni compagno con te, fino a {max}.'
+    },
+    alphaHowl: {
+      name: 'Ululato alfa',
+      desc: 'I tuoi compagni si curano del {heal}% e combattono il {rage}% più forte per {dur}s. I nemici vicini fuggono.'
+    },
+    leaderOfThePack: {
+      name: 'Capobranco',
+      desc: 'I tuoi compagni attaccano il {speed}% più in fretta e infliggono il {dmg}% di danno in più.'
+    },
+    wildHunt: {
+      name: 'Caccia selvaggia',
+      desc: '{wolves} lupi in più corrono con te per {dur}s. Tutto il branco infligge +{dmg}% di danno e si muove il {move}% più in fretta.'
+    },
+    prismBolt: {
+      name: 'Dardo prismatico',
+      desc: 'Un dardo da {dmg}% di danno da Intelligenza: gelo se il bersaglio brucia, altrimenti fuoco. Ognuno innesca l’altro.'
+    },
+    elementalHarmony: {
+      name: 'Armonia elementale',
+      desc: 'Le tue reazioni (Fusione, Vapore, Frantumazione, Sovraccarico, Cristallo) sono il {pct}% più forti.'
+    },
+    frostLance: {
+      name: 'Lancia gelata',
+      desc: 'Ghiaccio lungo una linea: {dmg}% di danno da Intelligenza e rallentamento del {slow}% per {dur}s. I nemici in fiamme fanno Vapore.'
+    },
+    chainSpark: {
+      name: 'Scintilla a catena',
+      desc: 'Un fulmine da {dmg}% di Intelligenza che salta su altri {jumps} nemici. Frantuma il ghiaccio, Sovraccarica il fuoco.'
+    },
+    smolderingCore: {
+      name: 'Nucleo ardente',
+      desc: 'Le tue ustioni infliggono il {burn}% di danno in più, e hai {mana} di mana in più.'
+    },
+    rollingBoulder: {
+      name: 'Masso rotolante',
+      desc: 'Un masso rotola via: {dmg}% di danno da Intelligenza, {down}s a terra. I nemici marchiati ti danno uno scudo.'
+    },
+    thunderSnow: {
+      name: 'Neve tonante',
+      desc: 'Una bufera di neve per {dur}s: {dmg}% di danno da gelo da Intelligenza, e un fulmine al secondo per il {bolt}%.'
+    },
+    spellweave: {
+      name: 'Intreccio magico',
+      desc: '+{crit}% probabilità di Critico degli incantesimi, e le tue abilità costano il {mana}% di mana in meno.'
+    },
+    prismaticNova: {
+      name: 'Nova prismatica',
+      desc: 'Colpisce tutto entro {radius} m per il {dmg}% dell’Intelligenza, ognuno con l’elemento a cui reagisce.'
+    },
+    prismaticWard: {
+      name: 'Egida prismatica',
+      desc: 'Subisci il {reduce}% di danno in meno e hai il {hp}% di salute in più.'
+    },
+    frostfireComet: {
+      name: 'Cometa di fuoco e gelo',
+      desc: 'Una cometa di fuoco e ghiaccio: {dmg}% di danno da Intelligenza. I nemici restano in fiamme e rallentati.'
+    },
+    elementalConvergence: {
+      name: 'Convergenza elementale',
+      desc: 'Per {dur}s quattro elementi si alternano: {strikes} colpi da {dmg}% di Intelligenza che si innescano a vicenda.'
+    },
+    wispBolt: {
+      name: 'Dardo fatuo',
+      desc: 'Un fuoco fatuo da {dmg}% di danno da Intelligenza. Un nemico che sconfigge risorge come tuo spirito per {life}s.'
+    },
+    kindredSpirits: {
+      name: 'Spiriti affini',
+      desc: 'I tuoi spiriti e servitori hanno il {hp}% di salute in più e attaccano il {speed}% più in fretta.'
+    },
+    callTheFallen: {
+      name: 'Richiamo dei caduti',
+      desc: 'Fino a {max} nemici appena caduti entro {radius} m risorgono come tuoi spiriti per {life}s.'
+    },
+    soulBond: {
+      name: 'Legame d’anima',
+      desc: 'Fai amicizia con un nemico: al {chance}% (al {low}% se ferito) si unisce a te come spirito per {life}s. Altrimenti {dmg}% di danno.'
+    },
+    restlessSouls: {
+      name: 'Anime inquiete',
+      desc: 'Un nemico che sconfiggi ha il {chance}% di probabilità di risorgere come tuo spirito per {life}s.'
+    },
+    spiritLantern: {
+      name: 'Lanterna degli spiriti',
+      desc: 'Una lanterna per {dur}s: i nemici nella sua luce subiscono il {dmg}% dell’Intelligenza, gli amici si curano, i caduti risorgono.'
+    },
+    hauntingWail: {
+      name: 'Lamento spettrale',
+      desc: 'Un BUU spettrale: {dmg}% di danno da Intelligenza entro {radius} m, e i nemici scappano per {fear}s.'
+    },
+    wardensVigil: {
+      name: 'Veglia del custode',
+      desc: 'I tuoi spiriti e servitori infliggono il {dmg}% di danno in più, e tu ne subisci il {reduce}% in meno.'
+    },
+    releaseSouls: {
+      name: 'Liberazione delle anime',
+      desc: 'I tuoi spiriti tornano a casa in lampi di luce: {dmg}% di Intelligenza attorno a ciascuno, {heal}% di salute in cambio per ognuno.'
+    },
+    lanternKeeper: {
+      name: 'Custode della lanterna',
+      desc: 'Ricariche più brevi del {cdr}%, e le tue abilità costano il {mana}% di mana in meno.'
+    },
+    wispSwarm: {
+      name: 'Sciame fatuo',
+      desc: '{wisps} fuochi fatui piombano sui nemici nell’area per il {dmg}% dell’Intelligenza in totale. Chi sconfiggono risorge.'
+    },
+    processionOfSouls: {
+      name: 'Processione di anime',
+      desc: 'Per {dur}s ogni nemico che cade vicino a te risorge come tuo spirito, e gli spiriti infliggono il {atk}% in più.'
+    },
+    palmStrike: {
+      name: 'Colpo di palmo',
+      desc: 'Un rapido colpo di palmo per {dmg}% di danno da Destrezza che respinge il nemico. Genera {chi} chi.'
+    },
+    ironBody: {
+      name: 'Corpo di ferro',
+      desc: 'Il danno fisico subito è ridotto del {reduce}%, e hai il {hp}% di salute in più.'
+    },
+    flyingKick: {
+      name: 'Calcio volante',
+      desc: 'Vola sul bersaglio e calcia per {dmg}% di danno da Destrezza; i nemici sul percorso subiscono il {path}%. Genera {chi} chi.'
+    },
+    tigerStance: {
+      name: 'Posizione della tigre',
+      desc: 'Per {dur}s: +{dmg}% di danno e +{speed}% velocità d’attacco. Termina la Posizione della gru.'
+    },
+    craneStance: {
+      name: 'Posizione della gru',
+      desc: 'Per {dur}s: +{def}% Difesa, e ti curi del {regen}% della salute al secondo. Termina la Posizione della tigre.'
+    },
+    flowingFists: {
+      name: 'Pugni fluenti',
+      desc: 'I tuoi attacchi hanno il {chance}% di probabilità di generare chi.'
+    },
+    hundredFists: {
+      name: 'Cento pugni',
+      desc: 'Una raffica di {hits} colpi per {dmg}% di danno da Destrezza in totale. Genera {chi} chi.'
+    },
+    risingDragon: {
+      name: 'Drago nascente',
+      desc: 'Spendi tutto il chi in un montante: {dmg}% di danno da Destrezza, +{per}% per ogni chi. Il nemico vola in alto.'
+    },
+    cranesGrace: {
+      name: 'Grazia della gru',
+      desc: '+{dodge}% Schivata, e stordimenti e atterramenti su di te durano il {cut}% in meno.'
+    },
+    whirlwindKick: {
+      name: 'Calcio turbine',
+      desc: 'Calcia due volte tutto ciò che è entro {radius} m per {dmg}% di danno da Destrezza in totale. Genera fino a {chi} chi.'
+    },
+    tigersFury: {
+      name: 'Furia della tigre',
+      desc: '+{crit}% probabilità di Critico e +{speed}% velocità d’attacco.'
+    },
+    mountainPalm: {
+      name: 'Palmo della montagna',
+      desc: 'Spendi tutto il chi: un palmo gigante cade per {dmg}% di danno da Destrezza, +{per}% per ogni chi, e manda a terra i nemici.'
+    },
+    sharpNote: {
+      name: 'Nota acuta',
+      desc: 'Una nota acuta per {dmg}% di danno da Carisma. Il nemico infligge il {weaken}% di danno in meno per {dur}s.'
+    },
+    stagePresence: {
+      name: 'Presenza scenica',
+      desc: 'Le tue abilità costano il {mana}% di mana in meno, e ti muovi il {move}% più in fretta.'
+    },
+    marchingSong: {
+      name: 'Canto di marcia',
+      desc: 'Una canzone per {dur}s: tu e gli alleati entro {radius} m vi muovete il {move}% e attaccate il {speed}% più in fretta.'
+    },
+    lullaby: {
+      name: 'Ninna nanna',
+      desc: 'Una melodia dolce a cono: ogni nemico che raggiunge si addormenta per {dur}s.'
+    },
+    longRefrain: {
+      name: 'Ritornello lungo',
+      desc: 'Le tue canzoni durano il {pct}% in più.'
+    },
+    balladOfValor: {
+      name: 'Ballata del valore',
+      desc: 'Una canzone per {dur}s: tu e gli alleati entro {radius} m infliggete il {dmg}% di danno in più e ottenete il {def}% di Difesa.'
+    },
+    charmingSerenade: {
+      name: 'Serenata incantata',
+      desc: 'Incanta il bersaglio e i nemici entro {radius} m: per {dur}s combattono tra loro.'
+    },
+    virtuoso: {
+      name: 'Virtuoso',
+      desc: 'Ricariche più brevi del {cdr}% e +{critDmg}% danno Critico.'
+    },
+    hymnOfMending: {
+      name: 'Inno curativo',
+      desc: 'Rimuove gli effetti negativi, poi per {dur}s tu e gli alleati entro {radius} m vi curate del {regen}% di salute al secondo.'
+    },
+    crescendo: {
+      name: 'Crescendo',
+      desc: 'Un’esplosione di suono entro {radius} m: {dmg}% di danno da Carisma, +{per}% per ogni canzone che stai suonando.'
+    },
+    standingOvation: {
+      name: 'Ovazione',
+      desc: '+{dmg}% di danno, e subisci il {reduce}% di danno in meno.'
+    },
+    grandFinale: {
+      name: 'Gran finale',
+      desc: 'Suona tutto per {dur}s (+{buff}% velocità, danno, Difesa), poi un ultimo accordo: {dmg}% di Carisma, nemici incantati.'
     }
   },
   slot: {
@@ -1372,6 +1757,30 @@ export default {
     sbFence: {
       name: 'Mirela Thorne',
       talk: 'Armature pregiate, niente domande. Be’, pochissime domande.'
+    },
+    sbMasterWindrunner: {
+      name: 'Sefa Galewing'
+    },
+    sbMasterFrostwarden: {
+      name: 'Halvard Rimeheart'
+    },
+    sbMasterLightbringer: {
+      name: 'Sorella Auriel Dawnmere'
+    },
+    sbMasterBeastcaller: {
+      name: 'Il vecchio Rowan Thistlefoot'
+    },
+    sbMasterElementalist: {
+      name: 'Magistra Iris Fourwinds'
+    },
+    sbMasterSoulwarden: {
+      name: 'Custode Odalys Lanternlight'
+    },
+    sbMasterIronmonk: {
+      name: 'Maestro Oru Stillwater'
+    },
+    sbMasterBard: {
+      name: 'Lark Merriweather'
     }
   },
   quest: {
@@ -3709,6 +4118,382 @@ export default {
       },
       bye: {
         '1': 'Occhio al borsellino. Non tutti qui sono onesti come me.'
+      }
+    },
+    sbMasterWindrunner: {
+      hello: {
+        '1': 'Oh, ciao! Scusa, non posso fermarmi. Aspetto che giri il vento. Da un momento all’altro.',
+        '2': 'Sefa Galewing. Scocco frecce e inseguo il vento. Di solito vince il vento.'
+      },
+      open: {
+        '1': 'Eccoti qua, piedi veloci! Si parte? Certo che si parte. Andiamo, andiamo!'
+      },
+      again: {
+        '1': 'Ciao di nuovo! Sono ancora qui. Be’, più o meno. I miei piedi continuano a scappare via.'
+      },
+      train: {
+        '1': 'Senti il vento sulla guancia? Mira un po’ a sinistra di dove pensi. Ora lascia andare!'
+      },
+      favor: {
+        '1': 'Solo a chi riesce a starmi dietro. Tu ci riesci? Scopriamolo.',
+        '2': 'Sconfiggi dodici arcieri banditi nei Dintorni di Oakhaven, poi portami tre felci leste.',
+        say: 'Insegni il tiro con l’arco?'
+      },
+      waiting: {
+        '1': 'Dodici arcieri banditi, tre felci leste. Vai! Io resto qui. A saltellare.',
+        say: 'Riguardo alla tua prova...'
+      },
+      favorDone: {
+        '1': 'Ah! Hai tenuto il passo davvero! Nessuno tiene il passo!',
+        '2': 'Bene, da oggi ti alleno io. Una regola: alle mie lezioni non ci si siede.',
+        say: 'Gli arcieri sono sconfitti, ed ecco le tue felci leste.'
+      },
+      class: {
+        '1': 'Tira, corri, tira di nuovo. Se ti prendono, è perché non ti muovevi abbastanza.',
+        '2': 'Destrezza per piedi svelti e un arco svelto. Tecnica, perché ogni freccia vada a segno.',
+        say: 'Cosa fa un Corrivento?'
+      },
+      ready: {
+        strong: {
+          '1': 'Ora sei veloce come il vento. Be’, quasi. Scegli la lezione che vuoi!'
+        },
+        able: {
+          '1': 'Piedi leggeri! Puoi passare alla prossima. Vai, vai!'
+        },
+        weak: {
+          '1': 'Non ancora. Corri come se portassi un divano. Più Destrezza, per favore.'
+        }
+      },
+      who: {
+        '1': 'Abito su nel vecchio mulino a vento vicino al fiume. La vista migliore sul vento di tutta la città.',
+        '2': 'Duecento scalini fino in cima. Ottimo allenamento. Li ho contati tutti.'
+      },
+      trainBack: {
+        '1': 'Ottimo! Ora torna a casa di corsa. Niente passeggiate. Anche correre è allenamento.'
+      },
+      bye: {
+        '1': 'Ci vediamo! Occhio ai rami bassi. Io non ci sto mai attenta.'
+      }
+    },
+    sbMasterFrostwarden: {
+      hello: {
+        '1': 'Hm. Sono tre volte che mi passi davanti. Cerchi la strada, o è curiosità?',
+        '2': 'Halvard Rimeheart. Sono sceso a sud dalla neve. Qui fa caldo. Troppo caldo.'
+      },
+      open: {
+        '1': 'Eccoti. Bene. Il ghiaccio è pronto, e anch’io.'
+      },
+      again: {
+        '1': 'Di nuovo tu. Bene. Non parlo molto. Resta comunque.'
+      },
+      train: {
+        '1': 'Espira piano. Vedi la nebbiolina? Ora mettila nella lama.'
+      },
+      favor: {
+        '1': 'Sì. La insegno solo a chi tiene la testa fredda in un posto caldo.',
+        '2': 'Spegni dieci elementali del fuoco nelle Rupi di Cenere. Poi portami tre rametti di menta gelida.',
+        say: 'Quella spada è fatta di ghiaccio?'
+      },
+      waiting: {
+        '1': 'Dieci elementali del fuoco. Tre rametti di menta gelida. Prenditi il tuo tempo. Non troppo.',
+        say: 'Riguardo alla tua prova...'
+      },
+      favorDone: {
+        '1': 'Hm. Neanche una bruciacchiatura. Bene.',
+        '2': 'Hai tenuto la testa fredda. Era la prima lezione. Ti insegnerò il resto.',
+        say: 'Gli elementali del fuoco sono spenti. Ecco la tua menta gelida.'
+      },
+      class: {
+        '1': 'Un cavaliere del freddo. Rallentali, congelali, poi spezza il ghiaccio.',
+        '2': 'Forza per la lama. Intelligenza per il gelo. Servono entrambe.',
+        say: 'Cos’è un Custode del Gelo?'
+      },
+      ready: {
+        strong: {
+          '1': 'Ora hai dentro il freddo del nord. Scegli una lezione qualsiasi.'
+        },
+        able: {
+          '1': 'Bene. Mano ferma. La prossima lezione è tua.'
+        },
+        weak: {
+          '1': 'Non ancora. Il tuo gelo si scioglie troppo in fretta. Più Intelligenza, e più Forza.'
+        }
+      },
+      who: {
+        '1': 'Facevo la guardia a un passo di montagna, al nord. Poi ho voluto vedere un fiume che non gela.'
+      },
+      trainBack: {
+        '1': 'Bene. Ora riposa. Il ghiaccio non ha fretta. E nemmeno tu dovresti averne.'
+      },
+      bye: {
+        '1': 'Buon cammino. E sangue freddo.'
+      }
+    },
+    sbMasterLightbringer: {
+      hello: {
+        '1': 'Mm-mm-mmm... Oh! Scusa, tesoro, stavo canticchiando. Ti ho canticchiato addosso? Mi succede.',
+        '2': 'Sorella Auriel Dawnmere. Tengo accesa la piccola lampada in fondo al ponte.'
+      },
+      open: {
+        '1': 'Ecco la mia stellina! Vieni un attimo nella luce. Te lo sei meritato.'
+      },
+      again: {
+        '1': 'Ciao di nuovo! Sempre qui, sempre a canticchiare. Alla lampada piace la compagnia.'
+      },
+      train: {
+        '1': 'Mani aperte, mento in su. Pensa al mattino più bello che tu abbia mai vissuto. Ecco. Lo senti?'
+      },
+      favor: {
+        '1': 'Tutti hanno un po’ di luce dentro. Io insegno a farla uscire, quando è il momento giusto.',
+        '2': 'Sconfiggi dieci cultisti nelle Rupi di Cenere, poi portami cinque petali solari per la mia lampada.',
+        say: 'Quella lampada è magica?'
+      },
+      waiting: {
+        '1': 'Dieci cultisti, cinque petali solari. Sconfiggili con gentilezza. Tutti meritano una seconda possibilità.',
+        say: 'Riguardo alla tua prova...'
+      },
+      favorDone: {
+        '1': 'Oh, guardali! La lampada brillerà d’oro per un mese.',
+        '2': 'E anche tu, tesoro. Sarò felice di insegnarti.',
+        say: 'I cultisti sono sconfitti. Ecco i tuoi petali solari.'
+      },
+      class: {
+        '1': 'Portiamo l’alba. Luce per combattere, luce per guarire, luce dietro cui nascondersi.',
+        '2': 'L’Intelligenza rende forte la luce. Il Carisma la rende calda. Ti serviranno entrambi.',
+        say: 'Cosa fa un Portatore di Luce?'
+      },
+      ready: {
+        strong: {
+          '1': 'Risplendi come un’alba, tesoro. Scegli la lezione che vuoi.'
+        },
+        able: {
+          '1': 'Che bel bagliore! Puoi passare alla prossima.'
+        },
+        weak: {
+          '1': 'Non ancora, tesoro. La tua luce è un po’ fioca. Più Carisma, e brillerai.'
+        }
+      },
+      who: {
+        '1': 'Una volta cantavo in un grande tempio. Ma qui la mia lampada guida le barche a casa. È meglio così.'
+      },
+      trainBack: {
+        '1': 'Splendido. Ora vai a illuminare la giornata di qualcuno. Ordini della Sorella.'
+      },
+      bye: {
+        '1': 'Vai pure, tesoro. E sorridi agli angoli bui. Lo detestano.'
+      }
+    },
+    sbMasterBeastcaller: {
+      hello: {
+        '1': 'Occhio ai piedi. Quella è Bramble. Lei era qui prima.',
+        '2': 'Rowan Thistlefoot. Mi piacciono gli animali. Sulla gente, ci sto ancora pensando.'
+      },
+      open: {
+        '1': 'Ah, sei tu. Bramble ti aspettava. Anch’io. Un po’.'
+      },
+      again: {
+        '1': 'Di nuovo tu. A Bramble piaci. Io ci sto ancora pensando.'
+      },
+      train: {
+        '1': 'Abbassati. Più piano. Tendi la mano e lascia che vengano loro da te. Bene.'
+      },
+      favor: {
+        '1': 'Parlare? Io ascolto. È il trucco che quasi nessuno impara.',
+        '2': 'I ragni giganti coprono di ragnatele i sentieri degli animali nel Bosco Sussurrante. Sconfiggine dodici.',
+        '3': 'Poi portami due campanule lunari per la mia tana. Bramble dorme meglio vicino a loro.',
+        say: 'Sai parlare con gli animali?'
+      },
+      waiting: {
+        '1': 'Dodici ragni, due campanule lunari. Gli animali aspettano. E anche Bramble.',
+        say: 'Riguardo alla tua prova...'
+      },
+      favorDone: {
+        '1': 'Hm. Stamattina i cervi sono scesi al fiume. Ho pensato che fosse merito tuo.',
+        '2': 'Va bene. Ti insegnerò. Non fare storie. Bramble, smettila di scodinzolare.',
+        say: 'I sentieri sono liberi, ed ecco le tue campanule lunari.'
+      },
+      class: {
+        '1': 'Chiami la natura, e la natura arriva. Lupi, un falco, un orso. Amici, non animali da compagnia.',
+        '2': 'Carisma, perché vogliano venire. Vigore, per riuscire a star loro dietro.',
+        say: 'Cos’è un Signore delle Bestie?'
+      },
+      ready: {
+        strong: {
+          '1': 'Ormai tutto il branco si fida di te. Prendi quello che vuoi.'
+        },
+        able: {
+          '1': 'Piaci ai lupi. Puoi passare alla prossima.'
+        },
+        weak: {
+          '1': 'Non ancora. Non si fidano di te. Più Carisma, e molta più pazienza.'
+        }
+      },
+      who: {
+        '1': 'Ho trovato Bramble in una trappola, anni fa. Tre zampe, tutto carattere. Da allora siamo una coppia.',
+        '2': 'Dormo nel fienile della stalla. I cavalli russano meno della gente.'
+      },
+      trainBack: {
+        '1': 'Bene. Vai, allora. E saluta i corvi. Loro si ricordano.'
+      },
+      bye: {
+        '1': 'Vai pure. Bramble ti saluta.'
+      }
+    },
+    sbMasterElementalist: {
+      hello: {
+        '1': 'Ciao! Un attimo, sto facendo giocoleria. Fuoco, gelo, scintilla, pietra e... presi! Ciao!',
+        '2': 'Magistra Iris Fourwinds. Insegno tutti e quattro gli elementi. Mescolarli è la parte divertente.'
+      },
+      again: {
+        '1': 'Di nuovo qui! Bene, mi serviva un pubblico. Guarda qui. Ta-dà!'
+      },
+      train: {
+        '1': 'Scegli due sfere. Due qualsiasi. Ora falle scontrare. Piano! Visto? Una reazione!'
+      },
+      class: {
+        '1': 'Mescoliamo! Gelo e poi fuoco, si scioglie. Fuoco e poi fulmine, bum. Ogni coppia fa qualcosa.',
+        '2': 'Intelligenza per ogni incantesimo. Tecnica, perché quelli belli vogliono mani veloci.',
+        say: 'Cosa fa un Elementalista?'
+      },
+      ready: {
+        strong: {
+          '1': 'Ormai mescoli alla perfezione! Prendi una lezione qualsiasi. Anzi, due!'
+        },
+        able: {
+          '1': 'Ooh, bella scintilla! Puoi passare alla prossima.'
+        },
+        weak: {
+          '1': 'Non ancora! I tuoi elementi continuano a spegnersi. Più Intelligenza, per favore.'
+        }
+      },
+      sleeve: {
+        '1': 'Oh! È vero. Aspetta... Ecco.',
+        '2': 'Fuoco, poi gelo. Era una lezione, in realtà. Prego!',
+        say: 'Ehm, la tua manica sta andando a fuoco.'
+      },
+      trainBack: {
+        '1': 'Fantastico! Ora esercitati fuori, per favore. Le tende sono nuove.'
+      },
+      bye: {
+        '1': 'Ciao! Se senti odore di fumo, probabilmente sono io. Niente paura!'
+      }
+    },
+    sbMasterSoulwarden: {
+      hello: {
+        '1': 'Shh, va tutto bene, sono amichevoli. Oh, non tu. Parlavo con i fuochi fatui.',
+        '2': 'Custode Odalys Lanternlight. Aiuto gli spiriti smarriti a ritrovare la strada di casa.'
+      },
+      again: {
+        '1': 'Ciao di nuovo. I fuochi fatui si ricordano di te. Quello là ti sta salutando.'
+      },
+      train: {
+        '1': 'Tieni la lanterna bassa e parla piano. Le cose smarrite vanno verso una voce gentile.'
+      },
+      class: {
+        '1': 'Quando un nemico è sconfitto, il suo spirito si smarrisce un po’. Noi lo aiutiamo, e lui aiuta noi.',
+        '2': 'Intelligenza per guidare la luce. Carisma, perché gli spiriti vogliano restare un po’.',
+        say: 'Cosa fa un Custode delle Anime?'
+      },
+      ready: {
+        strong: {
+          '1': 'Ora anche gli spiriti più timidi vengono da te. Scegli una lezione qualsiasi.'
+        },
+        able: {
+          '1': 'I fuochi fatui si fidano di te. Puoi passare alla prossima lezione.'
+        },
+        weak: {
+          '1': 'Non ancora. Sono ancora timidi con te. Più Intelligenza, e un po’ di Carisma.'
+        }
+      },
+      wisps: {
+        '1': 'Più o meno! Sono spiriti che si sono allontanati. Questo è Fidget. Gli piace il lato caldo.',
+        '2': 'Nessuno spirito è mai cattivo, sai. Solo smarrito. Tornano a casa quando sono pronti.',
+        say: 'Le lucine nella tua lanterna sono vive?'
+      },
+      trainBack: {
+        '1': 'Ben fatto. Ora lasciali andare con dolcezza. Hanno avuto una lunga giornata.'
+      },
+      bye: {
+        '1': 'Abbi cura di te. E se vedi una piccola luce smarrita, salutala.'
+      }
+    },
+    sbMasterIronmonk: {
+      hello: {
+        '1': 'Siediti. Respira. No, respiri come se fossi in ritardo per qualcosa. Di nuovo.',
+        '2': 'Maestro Oru Stillwater. Insegno la mano aperta. Pugni di ferro, cuore calmo.'
+      },
+      again: {
+        '1': 'Ah. Ritorni. Come il fiume. Ogni giorno.'
+      },
+      train: {
+        '1': 'Piedi come radici, mani come pioggia. Colpisci. Ancora. È il centesimo che conta.'
+      },
+      class: {
+        '1': 'Nessuna lama. Mani, piedi, respiro. Ogni colpo prepara il successivo, fino a quello grande.',
+        '2': 'Destrezza per mani rapide. Vigore per mantenere la calma mentre gli altri restano senza fiato.',
+        say: 'Cos’è un Monaco di Ferro?'
+      },
+      ready: {
+        strong: {
+          '1': 'Chi impara diventa chi insegna. Non dirlo a nessuno. Scegli una lezione qualsiasi.'
+        },
+        able: {
+          '1': 'Bene. La tazza si sta riempiendo. Prendi la prossima lezione.'
+        },
+        weak: {
+          '1': 'Non ancora. Un albero dalle radici corte cade col vento. Più Vigore.'
+        }
+      },
+      noodles: {
+        '1': 'Sì. Il brodo ha sobbollito per due giorni. Per favore, non respirarci sopra.',
+        '2': 'Una buona ciotola insegna la pazienza. Una grande ciotola insegna tutto il resto.',
+        say: 'Quella è una ciotola di noodles?'
+      },
+      trainBack: {
+        '1': 'Bene. Ora mangia qualcosa di caldo. La forza viene dalla ciotola.'
+      },
+      bye: {
+        '1': 'Buon cammino. Passo leggero. Calcio forte.'
+      }
+    },
+    sbMasterBard: {
+      hello: {
+        '1': 'Avanti, avanti, lascia il freddo là fuori, qui dentro ci son canti e cuori! Oh no, ho fatto rima. Mi capita.',
+        '2': 'Lark Merriweather. Suono accanto al fuoco e insegno il liuto a chiunque mi ascolti.'
+      },
+      again: {
+        '1': 'Il mio pubblico preferito! Prendi uno sgabello. Attenzione alla gatta, è lei la critica.'
+      },
+      train: {
+        '1': 'Strimpella con me. Uno, due, e tre... Non guardarti le dita. Sentilo!'
+      },
+      class: {
+        '1': 'Canzoni che rendono più coraggiosa la tua parte, melodie che fanno addormentare l’altra.',
+        '2': 'Carisma per conquistare il pubblico. Tecnica, perché le dita tengano il passo del cuore.',
+        say: 'Cosa fa un Bardo?'
+      },
+      ready: {
+        strong: {
+          '1': 'Ormai riempiresti qualsiasi taverna! Prendi tutte le canzoni che ho.'
+        },
+        able: {
+          '1': 'Che bella melodia! Puoi passare alla prossima strofa.'
+        },
+        weak: {
+          '1': 'Non ancora. Il pubblico sbadiglia ancora. Più Carisma, mi raccomando.'
+        }
+      },
+      story: {
+        '1': 'Una volta, un cavaliere attraversò proprio questo ponte con nient’altro che una spada e una canzone...',
+        '2': 'Aspetta, è meglio con la musica. La-la-là, il cavaliere andò... Dov’ero rimasto?',
+        '3': 'Oh, lascia perdere. Bella canzone, però, vero?',
+        say: 'Mi racconti una storia?'
+      },
+      trainBack: {
+        '1': 'Bis! Esercitati ogni giorno. Anche quando suona malissimo. Soprattutto allora.'
+      },
+      bye: {
+        '1': 'Arrivederci, e buon viaggio con coraggio! Ops. Un’altra rima. Ciao!'
       }
     }
   },

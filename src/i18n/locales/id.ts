@@ -95,7 +95,8 @@ export default {
     elixirSwift: 'Lincah',
     elixirMind: 'Pikiran Jernih',
     elixirVigor: 'Bugar',
-    elixirShadow: 'Bilah Haus'
+    elixirShadow: 'Bilah Haus',
+    chi: 'Chi'
   },
   toast: {
     item: 'Ditemukan: {item}',
@@ -859,6 +860,390 @@ export default {
     crumble: {
       name: 'Remuk',
       desc: 'Kamu memberi {dmg}% lebih banyak damage ke musuh yang melambat, terjatuh, atau membatu.'
+    },
+    galeArrow: {
+      name: 'Panah Badai',
+      desc: 'Panah yang menunggang embusan angin: {dmg}% damage Ketangkasan, dan target terdorong mundur.'
+    },
+    fleetfoot: {
+      name: 'Kaki Kilat',
+      desc: '+{move}% kecepatan gerak dan +{dodge}% Hindar.'
+    },
+    zephyrDash: {
+      name: 'Lesatan Zefir',
+      desc: 'Melesat hingga {dist} m ke arah bidikanmu, lalu berlari {move}% lebih cepat selama {dur} dtk.'
+    },
+    piercingGale: {
+      name: 'Angin Penembus',
+      desc: 'Panah yang menembus setiap musuh dalam satu garis: {dmg}% damage Ketangkasan dan perlambatan {slow}% selama {dur} dtk.'
+    },
+    cycloneSnare: {
+      name: 'Jerat Topan',
+      desc: 'Pusaran angin selama {dur} dtk menarik musuh ke pusatnya dan memberi {dmg}% damage Keahlian.'
+    },
+    keenEye: {
+      name: 'Mata Tajam',
+      desc: '+{critDmg}% Damage Kritis. Tembakanmu menembus {pierce} musuh tambahan.'
+    },
+    updraftLeap: {
+      name: 'Lompatan Angin',
+      desc: 'Embusan angin melempar musuh dalam {radius} m ke udara dengan {dmg}% damage Ketangkasan. Kamu melompat {leap} m menjauh.'
+    },
+    swiftDraw: {
+      name: 'Tarikan Cepat',
+      desc: 'Kamu menyerang {speed}% lebih cepat dan cooldown-mu {cdr}% lebih singkat.'
+    },
+    arrowStorm: {
+      name: 'Hujan Panah',
+      desc: 'Panah menghujani area selama {dur} dtk: total {dmg}% damage Keahlian, dan perlambatan {slow}%.'
+    },
+    galeSpirits: {
+      name: 'Roh Angin',
+      desc: 'Roh angin terbang bersamamu selama {dur} dtk, menembakkan {shots} panah dengan {dmg}% damage Keahlian. +{move}% kecepatan gerak.'
+    },
+    skyHunter: {
+      name: 'Pemburu Langit',
+      desc: '+{boss}% damage ke bos dan +{crit}% Peluang Kritis.'
+    },
+    skyrender: {
+      name: 'Pembelah Langit',
+      desc: 'Panah badai merobek jalan: {dmg}% damage Ketangkasan ke semua di garisnya, terlempar ke atas dan ke samping.'
+    },
+    frostCleave: {
+      name: 'Tebasan Es',
+      desc: 'Ayunkan bilah esmu ke depan: {dmg}% damage Kekuatan dan perlambatan {slow}% selama {dur} dtk.'
+    },
+    rimeLance: {
+      name: 'Tombak Embun Beku',
+      desc: 'Lempar tombak es dengan {dmg}% damage Kecerdasan. Memperlambat {slow}% selama {dur} dtk.'
+    },
+    wintersBite: {
+      name: 'Gigitan Musim Dingin',
+      desc: 'Seranganmu memperlambat musuh {slow}% selama {dur} dtk.'
+    },
+    frostArmor: {
+      name: 'Zirah Es',
+      desc: 'Zirah es menyerap damage senilai {shield}% Kecerdasan selama {dur} dtk. Musuh di dekatmu melambat {slow}%.'
+    },
+    glacialCharge: {
+      name: 'Serbuan Gletser',
+      desc: 'Serbu target dengan {dmg}% damage Kekuatan dan bekukan ia selama {freeze} dtk.'
+    },
+    frozenHeart: {
+      name: 'Hati Beku',
+      desc: '+{hp}% nyawa maks, dan semua damage yang kamu terima berkurang {reduce}%.'
+    },
+    rimeField: {
+      name: 'Padang Embun Beku',
+      desc: 'Tanah membeku selama {dur} dtk: {dmg}% damage Kecerdasan. Musuh yang melambat di dalamnya membeku selama {freeze} dtk.'
+    },
+    frostShatter: {
+      name: 'Pecahan Es',
+      desc: '{dmg}% damage Kekuatan dalam {radius} m: +{chilled}% ke musuh yang melambat, +{frozen}% ke yang membeku.'
+    },
+    shatterpoint: {
+      name: 'Titik Retak',
+      desc: 'Kamu memberi {bonus}% lebih banyak damage ke musuh yang melambat dan membeku.'
+    },
+    avalancheLeap: {
+      name: 'Lompatan Longsor',
+      desc: 'Melompat ke arah bidikanmu dan mendarat seperti longsor salju: {dmg}% damage Kekuatan, menjatuhkan musuh.'
+    },
+    iceborn: {
+      name: 'Lahir dari Es',
+      desc: 'Tak ada yang bisa mendorong atau melemparmu. Efek pingsan padamu {cut}% lebih singkat.'
+    },
+    absoluteZero: {
+      name: 'Nol Mutlak',
+      desc: 'Musim dingin meledak darimu: {dmg}% damage Kecerdasan dalam {radius} m, membekukan semua selama {freeze} dtk.'
+    },
+    sunbolt: {
+      name: 'Panah Surya',
+      desc: 'Sambaran cahaya matahari dengan {dmg}% damage Kecerdasan. Target yang silau memberi {weaken}% lebih sedikit selama {dur} dtk.'
+    },
+    mendingLight: {
+      name: 'Cahaya Pemulih',
+      desc: 'Pulihkan {heal}% Karisma seketika, lalu {regen}% nyawamu tiap detik selama {dur} dtk.'
+    },
+    kindledHope: {
+      name: 'Harapan Menyala',
+      desc: 'Semua pemulihan yang kamu terima {heal}% lebih kuat.'
+    },
+    lanceOfLight: {
+      name: 'Tombak Cahaya',
+      desc: 'Sinar cahaya: {dmg}% damage Kecerdasan dalam satu garis. Pulihkan {heal}% nyawa per musuh yang kena.'
+    },
+    dawnShield: {
+      name: 'Perisai Fajar',
+      desc: 'Hapus semua efek buruk padamu dan dapatkan perisai senilai {shield}% Karisma selama {dur} dtk.'
+    },
+    haloWard: {
+      name: 'Lingkaran Pelindung',
+      desc: 'Semua damage yang kamu terima berkurang {reduce}%.'
+    },
+    dawnSanctuary: {
+      name: 'Suaka Fajar',
+      desc: 'Tanah suci selama {dur} dtk: memulihkanmu {heal}% Karisma per detik, dan musuh menerima {dmg}% Kecerdasan.'
+    },
+    blindingFlash: {
+      name: 'Kilatan Silau',
+      desc: 'Kilatan cahaya: musuh dalam {radius} m kabur selama {fear} dtk dan memberi {weaken}% lebih sedikit selama {dur} dtk.'
+    },
+    guardianLight: {
+      name: 'Cahaya Penjaga',
+      desc: 'Pukulan yang akan mengalahkanmu menyisakan 1 nyawa, dan kamu tak tersentuh selama {dur} dtk. Sekali tiap {icd} dtk.'
+    },
+    sunfall: {
+      name: 'Jatuhnya Surya',
+      desc: 'Pilar cahaya matahari jatuh ke target: {dmg}% damage Kecerdasan. Musuh menerima {vuln}% lebih banyak selama {dur} dtk.'
+    },
+    searingLight: {
+      name: 'Cahaya Membakar',
+      desc: '+{crit}% Peluang Kritis sihir dan +{critDmg}% Damage Kritis.'
+    },
+    haloOfDawn: {
+      name: 'Lingkaran Fajar',
+      desc: 'Bersinar selama {dur} dtk: tiap detik, {dmg}% damage Kecerdasan dalam {radius} m dan pulihkan {heal}% nyawa.'
+    },
+    callWolf: {
+      name: 'Panggil Serigala',
+      desc: 'Serigala roh bergabung denganmu, menggigit dengan {dmg}% damage Karisma. Maksimal {max} sekaligus.'
+    },
+    wolfPounce: {
+      name: 'Terkaman Serigala',
+      desc: 'Serigalamu menerkam target: masing-masing {dmg}% damage Karisma, menjatuhkannya selama {down} dtk.'
+    },
+    wildKinship: {
+      name: 'Saudara Rimba',
+      desc: 'Kawan hewanmu punya {hp}% lebih banyak nyawa dan memberi {dmg}% lebih banyak damage.'
+    },
+    callHawk: {
+      name: 'Panggil Elang',
+      desc: 'Elang menukik ke target dengan {dmg}% damage Karisma: ia menerima {vuln}% lebih banyak selama {dur} dtk. Bertahan {life} dtk.'
+    },
+    callBear: {
+      name: 'Panggil Beruang',
+      desc: 'Beruang roh bergabung denganmu. Ia memukul dengan {dmg}% damage dan menyibukkan musuh. Maksimal {max}.'
+    },
+    thickHide: {
+      name: 'Kulit Tebal',
+      desc: '+{hp}% nyawa maks dan +{regen} pemulihan nyawa per detik.'
+    },
+    packBond: {
+      name: 'Ikatan Kawanan',
+      desc: 'Kamu dan kawan hewan dalam {radius} m memulihkan {regen}% nyawa per detik dan mendapat {def}% Pertahanan selama {dur} dtk.'
+    },
+    spiritStampede: {
+      name: 'Serbuan Roh',
+      desc: 'Sekawanan binatang roh menyerbu: {dmg}% damage Karisma dalam satu garis, menjatuhkan musuh.'
+    },
+    packTactics: {
+      name: 'Taktik Kawanan',
+      desc: 'Kamu memberi {bonus}% lebih banyak damage untuk tiap kawan hewan bersamamu, maksimal {max}.'
+    },
+    alphaHowl: {
+      name: 'Lolongan Alfa',
+      desc: 'Kawan hewanmu pulih {heal}% dan bertarung {rage}% lebih ganas selama {dur} dtk. Musuh di dekatmu kabur.'
+    },
+    leaderOfThePack: {
+      name: 'Pemimpin Kawanan',
+      desc: 'Kawan hewanmu menyerang {speed}% lebih cepat dan memberi {dmg}% lebih banyak damage.'
+    },
+    wildHunt: {
+      name: 'Perburuan Liar',
+      desc: '{wolves} serigala lagi berlari bersamamu selama {dur} dtk. Seluruh kawanan memberi +{dmg}% damage dan bergerak {move}% lebih cepat.'
+    },
+    prismBolt: {
+      name: 'Panah Prisma',
+      desc: 'Sambaran dengan {dmg}% damage Kecerdasan: es jika target terbakar, selain itu api. Keduanya saling memicu.'
+    },
+    elementalHarmony: {
+      name: 'Harmoni Elemen',
+      desc: 'Reaksimu (Lebur, Uap, Pecah, Lonjakan, Kristal) {pct}% lebih kuat.'
+    },
+    frostLance: {
+      name: 'Tombak Es',
+      desc: 'Es menembus satu garis: {dmg}% damage Kecerdasan dan perlambatan {slow}% selama {dur} dtk. Musuh yang terbakar jadi Uap.'
+    },
+    chainSpark: {
+      name: 'Percikan Berantai',
+      desc: 'Petir dengan {dmg}% Kecerdasan yang melompat ke {jumps} musuh lagi. Memecah es, membuat api Melonjak.'
+    },
+    smolderingCore: {
+      name: 'Inti Membara',
+      desc: 'Efek bakarmu memberi {burn}% lebih banyak damage, dan kamu punya {mana} mana lebih banyak.'
+    },
+    rollingBoulder: {
+      name: 'Batu Menggelinding',
+      desc: 'Batu besar menggelinding: {dmg}% damage Kecerdasan, jatuh {down} dtk. Musuh bertanda memberimu perisai.'
+    },
+    thunderSnow: {
+      name: 'Badai Salju Petir',
+      desc: 'Badai salju selama {dur} dtk: {dmg}% damage es Kecerdasan, dan petir tiap detik sebesar {bolt}%.'
+    },
+    spellweave: {
+      name: 'Tenun Sihir',
+      desc: '+{crit}% Peluang Kritis sihir, dan skill-mu butuh {mana}% lebih sedikit mana.'
+    },
+    prismaticNova: {
+      name: 'Nova Prisma',
+      desc: 'Hantam semua dalam {radius} m dengan {dmg}% Kecerdasan, masing-masing dengan elemen yang memicu reaksinya.'
+    },
+    prismaticWard: {
+      name: 'Pelindung Prisma',
+      desc: 'Kamu menerima {reduce}% lebih sedikit damage dan punya {hp}% lebih banyak nyawa.'
+    },
+    frostfireComet: {
+      name: 'Komet Api Es',
+      desc: 'Komet api dan es: {dmg}% damage Kecerdasan. Musuh jadi terbakar dan melambat.'
+    },
+    elementalConvergence: {
+      name: 'Pertemuan Elemen',
+      desc: 'Selama {dur} dtk empat elemen bergiliran: {strikes} serangan {dmg}% Kecerdasan yang saling memicu.'
+    },
+    wispBolt: {
+      name: 'Panah Wisp',
+      desc: 'Wisp dengan {dmg}% damage Kecerdasan. Musuh yang dikalahkannya bangkit jadi rohmu selama {life} dtk.'
+    },
+    kindredSpirits: {
+      name: 'Roh Sahabat',
+      desc: 'Roh dan pengikutmu punya {hp}% lebih banyak nyawa dan menyerang {speed}% lebih cepat.'
+    },
+    callTheFallen: {
+      name: 'Panggil yang Gugur',
+      desc: 'Hingga {max} musuh yang baru tumbang dalam {radius} m bangkit jadi rohmu selama {life} dtk.'
+    },
+    soulBond: {
+      name: 'Ikatan Jiwa',
+      desc: 'Ajak musuh berteman: {chance}% ({low}% jika terluka) ia ikut sebagai roh selama {life} dtk. Jika tidak, {dmg}% damage.'
+    },
+    restlessSouls: {
+      name: 'Jiwa Gelisah',
+      desc: 'Musuh yang kamu kalahkan punya peluang {chance}% bangkit jadi rohmu selama {life} dtk.'
+    },
+    spiritLantern: {
+      name: 'Lentera Roh',
+      desc: 'Lentera selama {dur} dtk: musuh dalam cahayanya menerima {dmg}% Kecerdasan, kawan pulih, yang gugur bangkit.'
+    },
+    hauntingWail: {
+      name: 'Ratapan Hantu',
+      desc: 'BUU! ala hantu: {dmg}% damage Kecerdasan dalam {radius} m, dan musuh lari selama {fear} dtk.'
+    },
+    wardensVigil: {
+      name: 'Jaga Sang Penjaga',
+      desc: 'Roh dan pengikutmu memberi {dmg}% lebih banyak damage, dan kamu menerima {reduce}% lebih sedikit.'
+    },
+    releaseSouls: {
+      name: 'Lepaskan Jiwa',
+      desc: 'Roh-rohmu pulang dalam ledakan cahaya: masing-masing {dmg}% Kecerdasan di sekitarnya, dan {heal}% nyawa kembali.'
+    },
+    lanternKeeper: {
+      name: 'Penjaga Lentera',
+      desc: 'Cooldown {cdr}% lebih singkat, dan skill-mu butuh {mana}% lebih sedikit mana.'
+    },
+    wispSwarm: {
+      name: 'Kawanan Wisp',
+      desc: '{wisps} wisp menukik ke musuh di area dengan total {dmg}% Kecerdasan. Yang mereka kalahkan bangkit.'
+    },
+    processionOfSouls: {
+      name: 'Arak-arakan Jiwa',
+      desc: 'Selama {dur} dtk tiap musuh yang tumbang di dekatmu bangkit jadi rohmu, dan roh memberi {atk}% lebih banyak.'
+    },
+    palmStrike: {
+      name: 'Pukulan Telapak',
+      desc: 'Telapak cepat dengan {dmg}% damage Ketangkasan yang mendorong musuh mundur. Menambah {chi} chi.'
+    },
+    ironBody: {
+      name: 'Tubuh Besi',
+      desc: 'Damage fisik yang kamu terima berkurang {reduce}%, dan kamu punya {hp}% lebih banyak nyawa.'
+    },
+    flyingKick: {
+      name: 'Tendangan Terbang',
+      desc: 'Terbang ke target dan tendang dengan {dmg}% damage Ketangkasan; musuh di jalur menerima {path}%. Menambah {chi} chi.'
+    },
+    tigerStance: {
+      name: 'Kuda-kuda Harimau',
+      desc: 'Selama {dur} dtk: +{dmg}% damage dan +{speed}% kecepatan serang. Mengakhiri Kuda-kuda Bangau.'
+    },
+    craneStance: {
+      name: 'Kuda-kuda Bangau',
+      desc: 'Selama {dur} dtk: +{def}% Pertahanan, dan kamu pulih {regen}% nyawa per detik. Mengakhiri Kuda-kuda Harimau.'
+    },
+    flowingFists: {
+      name: 'Tinju Mengalir',
+      desc: 'Seranganmu punya peluang {chance}% menambah chi.'
+    },
+    hundredFists: {
+      name: 'Seratus Tinju',
+      desc: 'Rentetan {hits} pukulan dengan total {dmg}% damage Ketangkasan. Menambah {chi} chi.'
+    },
+    risingDragon: {
+      name: 'Naga Naik',
+      desc: 'Habiskan semua chi untuk pukulan ke atas: {dmg}% damage Ketangkasan, +{per}% per chi. Musuh terlempar ke atas.'
+    },
+    cranesGrace: {
+      name: 'Keanggunan Bangau',
+      desc: '+{dodge}% Hindar, dan efek pingsan serta jatuh padamu {cut}% lebih singkat.'
+    },
+    whirlwindKick: {
+      name: 'Tendangan Puyuh',
+      desc: 'Tendang semua dalam {radius} m dua kali dengan total {dmg}% damage Ketangkasan. Menambah hingga {chi} chi.'
+    },
+    tigersFury: {
+      name: 'Amukan Harimau',
+      desc: '+{crit}% Peluang Kritis dan +{speed}% kecepatan serang.'
+    },
+    mountainPalm: {
+      name: 'Telapak Gunung',
+      desc: 'Habiskan semua chi: telapak raksasa jatuh dengan {dmg}% damage Ketangkasan, +{per}% per chi, dan menjatuhkan musuh.'
+    },
+    sharpNote: {
+      name: 'Nada Tajam',
+      desc: 'Nada tajam dengan {dmg}% damage Karisma. Musuh memberi {weaken}% lebih sedikit damage selama {dur} dtk.'
+    },
+    stagePresence: {
+      name: 'Pesona Panggung',
+      desc: 'Skill-mu butuh {mana}% lebih sedikit mana, dan kamu bergerak {move}% lebih cepat.'
+    },
+    marchingSong: {
+      name: 'Lagu Mars',
+      desc: 'Lagu selama {dur} dtk: kamu dan kawan dalam {radius} m bergerak {move}% dan menyerang {speed}% lebih cepat.'
+    },
+    lullaby: {
+      name: 'Nina Bobo',
+      desc: 'Lagu lembut dalam bentuk kerucut: setiap musuh yang terkena tertidur selama {dur} dtk.'
+    },
+    longRefrain: {
+      name: 'Refrein Panjang',
+      desc: 'Lagumu bertahan {pct}% lebih lama.'
+    },
+    balladOfValor: {
+      name: 'Balada Keberanian',
+      desc: 'Lagu selama {dur} dtk: kamu dan kawan dalam {radius} m memberi {dmg}% lebih banyak damage dan mendapat {def}% Pertahanan.'
+    },
+    charmingSerenade: {
+      name: 'Serenade Memikat',
+      desc: 'Pikat target dan musuh dalam {radius} m: selama {dur} dtk mereka saling bertarung.'
+    },
+    virtuoso: {
+      name: 'Virtuoso',
+      desc: 'Cooldown {cdr}% lebih singkat dan +{critDmg}% Damage Kritis.'
+    },
+    hymnOfMending: {
+      name: 'Himne Pemulih',
+      desc: 'Hapus efek buruk, lalu selama {dur} dtk kamu dan kawan dalam {radius} m pulih {regen}% nyawa per detik.'
+    },
+    crescendo: {
+      name: 'Crescendo',
+      desc: 'Ledakan suara dalam {radius} m: {dmg}% damage Karisma, +{per}% untuk tiap lagu yang sedang kamu mainkan.'
+    },
+    standingOvation: {
+      name: 'Tepuk Tangan Meriah',
+      desc: '+{dmg}% damage, dan kamu menerima {reduce}% lebih sedikit damage.'
+    },
+    grandFinale: {
+      name: 'Grand Finale',
+      desc: 'Mainkan semuanya selama {dur} dtk (+{buff}% kecepatan, damage, Pertahanan), lalu akor terakhir: {dmg}% Karisma, musuh terpikat.'
     }
   },
   slot: {
@@ -1371,6 +1756,30 @@ export default {
     sbFence: {
       name: 'Mirela Thorne',
       talk: 'Zirah bagus, tanpa pertanyaan. Yah, sedikit sekali pertanyaan.'
+    },
+    sbMasterWindrunner: {
+      name: 'Sefa Galewing'
+    },
+    sbMasterFrostwarden: {
+      name: 'Halvard Rimeheart'
+    },
+    sbMasterLightbringer: {
+      name: 'Suster Auriel Dawnmere'
+    },
+    sbMasterBeastcaller: {
+      name: 'Si Tua Rowan Thistlefoot'
+    },
+    sbMasterElementalist: {
+      name: 'Magistra Iris Fourwinds'
+    },
+    sbMasterSoulwarden: {
+      name: 'Penjaga Odalys Lanternlight'
+    },
+    sbMasterIronmonk: {
+      name: 'Guru Oru Stillwater'
+    },
+    sbMasterBard: {
+      name: 'Lark Merriweather'
     }
   },
   quest: {
@@ -3655,6 +4064,382 @@ export default {
       },
       bye: {
         '1': 'Jaga dompetmu. Tidak semua orang di sini sejujur aku.'
+      }
+    },
+    sbMasterWindrunner: {
+      hello: {
+        '1': 'Oh, hai! Maaf, nggak bisa berhenti. Aku lagi menunggu angin berbalik. Sebentar lagi.',
+        '2': 'Sefa Galewing. Aku memanah dan mengejar angin. Biasanya angin yang menang.'
+      },
+      open: {
+        '1': 'Itu dia pelariku! Siap? Tentu saja siap. Ayo, ayo!'
+      },
+      again: {
+        '1': 'Hai lagi! Aku masih di sini. Yah, hampir. Kakiku suka jalan-jalan sendiri.'
+      },
+      train: {
+        '1': 'Terasa angin di pipimu? Bidik sedikit ke kiri dari yang kamu kira. Sekarang lepas!'
+      },
+      favor: {
+        '1': 'Cuma untuk yang bisa mengimbangiku. Kamu bisa? Ayo kita lihat.',
+        '2': 'Kalahkan dua belas Bandit Pemanah di Pinggiran Oakhaven, lalu bawakan aku tiga Pakis Kilat.',
+        say: 'Kamu mengajar memanah?'
+      },
+      waiting: {
+        '1': 'Dua belas bandit pemanah, tiga Pakis Kilat. Ayo! Aku tunggu di sini. Sambil melompat-lompat.',
+        say: 'Soal ujianmu...'
+      },
+      favorDone: {
+        '1': 'Ha! Kamu benar-benar bisa mengimbangiku! Nggak ada yang pernah bisa!',
+        '2': 'Oke, sekarang kamu muridku. Satu aturan: nggak boleh duduk waktu pelajaranku.',
+        say: 'Para pemanah sudah kalah, dan ini Pakis Kilat-mu.'
+      },
+      class: {
+        '1': 'Tembak, lari, tembak lagi. Kalau mereka menangkapmu, berarti kamu diam terlalu lama.',
+        '2': 'Ketangkasan untuk kaki dan busur yang cepat. Keahlian, supaya setiap panah kena.',
+        say: 'Apa tugas Pelari Angin?'
+      },
+      ready: {
+        strong: {
+          '1': 'Sekarang kamu secepat angin. Yah, hampir. Ambil pelajaran mana saja!'
+        },
+        able: {
+          '1': 'Kakimu ringan! Kamu siap untuk pelajaran berikutnya. Ayo, ayo!'
+        },
+        weak: {
+          '1': 'Belum. Larimu seperti sambil memanggul sofa. Tambah Ketangkasan, ya.'
+        }
+      },
+      who: {
+        '1': 'Aku tinggal di kincir angin tua dekat sungai. Tempat terbaik di kota untuk melihat angin.',
+        '2': 'Dua ratus anak tangga sampai ke atas. Latihan yang hebat. Sudah kuhitung semuanya.'
+      },
+      trainBack: {
+        '1': 'Bagus! Sekarang lari pulang. Jangan jalan. Lari juga termasuk latihan.'
+      },
+      bye: {
+        '1': 'Sampai jumpa! Awas dahan rendah. Aku sih nggak pernah awas.'
+      }
+    },
+    sbMasterFrostwarden: {
+      hello: {
+        '1': 'Hm. Kamu sudah tiga kali lewat di depanku. Tersesat, atau penasaran?',
+        '2': 'Halvard Rimeheart. Aku datang ke selatan dari negeri salju. Di sini hangat. Terlalu hangat.'
+      },
+      open: {
+        '1': 'Murid. Bagus. Esnya sudah siap, aku juga.'
+      },
+      again: {
+        '1': 'Kamu lagi. Bagus. Aku tidak banyak bicara. Tetaplah di sini.'
+      },
+      train: {
+        '1': 'Embuskan napas pelan-pelan. Lihat uapnya? Sekarang masukkan ke dalam bilah.'
+      },
+      favor: {
+        '1': 'Ya. Aku hanya mengajarkannya pada yang tetap berkepala dingin di tempat panas.',
+        '2': 'Padamkan sepuluh Elemental Api di Tebing Abu. Lalu bawakan aku tiga tangkai Mint Beku.',
+        say: 'Pedang itu terbuat dari es?'
+      },
+      waiting: {
+        '1': 'Sepuluh elemental api. Tiga tangkai Mint Beku. Tak usah buru-buru. Tapi jangan terlalu lama.',
+        say: 'Soal ujianmu...'
+      },
+      favorDone: {
+        '1': 'Hm. Tidak hangus sedikit pun. Bagus.',
+        '2': 'Kamu tetap berkepala dingin. Itu pelajaran pertama. Sisanya akan kuajarkan.',
+        say: 'Elemental apinya sudah padam. Ini Mint Beku-mu.'
+      },
+      class: {
+        '1': 'Kesatria dingin. Dinginkan mereka, bekukan mereka, lalu pecahkan esnya.',
+        '2': 'Kekuatan untuk bilah. Kecerdasan untuk es. Kamu butuh keduanya.',
+        say: 'Apa itu Penjaga Es?'
+      },
+      ready: {
+        strong: {
+          '1': 'Kini kamu sedingin utara. Ambil pelajaran mana saja.'
+        },
+        able: {
+          '1': 'Bagus. Mantap. Pelajaran berikutnya milikmu.'
+        },
+        weak: {
+          '1': 'Belum. Esmu terlalu cepat mencair. Tambah Kecerdasan, dan tambah Kekuatan.'
+        }
+      },
+      who: {
+        '1': 'Dulu aku menjaga celah gunung di utara. Lalu aku ingin melihat sungai yang tidak membeku.'
+      },
+      trainBack: {
+        '1': 'Bagus. Sekarang istirahat. Es tidak terburu-buru. Kamu juga jangan.'
+      },
+      bye: {
+        '1': 'Hati-hati. Tetap dingin.'
+      }
+    },
+    sbMasterLightbringer: {
+      hello: {
+        '1': 'Mm-hm-hmm... Oh! Maaf, Nak, aku sedang bersenandung. Aku bersenandung padamu, ya? Aku memang begitu.',
+        '2': 'Suster Auriel Dawnmere. Aku menjaga pelita kecil di ujung jembatan tetap menyala.'
+      },
+      open: {
+        '1': 'Itu dia si cerah! Ayo berdiri di bawah cahaya sebentar. Kamu pantas mendapatkannya.'
+      },
+      again: {
+        '1': 'Halo lagi! Masih di sini, masih bersenandung. Pelitanya senang ditemani.'
+      },
+      train: {
+        '1': 'Tangan terbuka, dagu terangkat. Ingat pagi terindah yang pernah kamu alami. Nah. Terasa?'
+      },
+      favor: {
+        '1': 'Setiap orang punya sedikit cahaya di dalam diri. Aku mengajari mereka melepaskannya, kalau sudah siap.',
+        '2': 'Kalahkan sepuluh Pemuja di Tebing Abu, lalu bawakan aku lima Kelopak Surya untuk pelitaku.',
+        say: 'Pelita itu ajaib?'
+      },
+      waiting: {
+        '1': 'Sepuluh pemuja, lima Kelopak Surya. Kalahkan mereka dengan lembut. Semua orang pantas dapat kesempatan kedua.',
+        say: 'Soal ujianmu...'
+      },
+      favorDone: {
+        '1': 'Oh, lihat ini! Pelitanya akan bersinar keemasan selama sebulan.',
+        '2': 'Begitu juga kamu, Nak. Aku senang sekali bisa mengajarimu.',
+        say: 'Para pemuja sudah kalah. Ini Kelopak Surya-mu.'
+      },
+      class: {
+        '1': 'Kami membawa fajar. Cahaya untuk bertarung, cahaya untuk menyembuhkan, cahaya untuk berlindung.',
+        '2': 'Kecerdasan membuat cahaya kuat. Karisma membuatnya hangat. Kamu butuh keduanya.',
+        say: 'Apa tugas Pembawa Cahaya?'
+      },
+      ready: {
+        strong: {
+          '1': 'Kamu bersinar seperti matahari terbit, Nak. Ambil pelajaran mana saja.'
+        },
+        able: {
+          '1': 'Sinarmu bagus! Kamu siap untuk pelajaran berikutnya.'
+        },
+        weak: {
+          '1': 'Belum, Nak. Cahayamu masih agak redup. Tambah Karisma, nanti kamu bersinar.'
+        }
+      },
+      who: {
+        '1': 'Dulu aku bernyanyi di kuil besar. Tapi pelitaku di sini menuntun perahu pulang. Itu lebih baik.'
+      },
+      trainBack: {
+        '1': 'Bagus sekali. Sekarang pergi dan cerahkan hari seseorang. Perintah Suster.'
+      },
+      bye: {
+        '1': 'Pergilah, Nak. Dan tersenyumlah pada sudut-sudut gelap. Mereka benci itu.'
+      }
+    },
+    sbMasterBeastcaller: {
+      hello: {
+        '1': 'Awas kakimu. Itu Bramble. Dia di sini lebih dulu.',
+        '2': 'Rowan Thistlefoot. Aku suka binatang. Kalau manusia, masih kupikirkan.'
+      },
+      open: {
+        '1': 'Oh, kamu. Bramble sudah menunggu. Aku juga. Sedikit.'
+      },
+      again: {
+        '1': 'Kamu lagi. Bramble suka kamu. Aku masih memikirkannya.'
+      },
+      train: {
+        '1': 'Jongkok. Lebih pelan. Ulurkan tanganmu dan biarkan mereka mendekat. Bagus.'
+      },
+      favor: {
+        '1': 'Bicara? Aku mendengarkan. Itu rahasia yang tak pernah dipelajari kebanyakan orang.',
+        '2': 'Laba-laba Raksasa menutupi jalur binatang di Hutan Berbisik dengan jaring. Bersihkan dua belas.',
+        '3': 'Lalu bawakan aku dua Lonceng Bulan untuk sarangku. Bramble tidur lebih nyenyak di dekatnya.',
+        say: 'Kamu bisa bicara dengan binatang?'
+      },
+      waiting: {
+        '1': 'Dua belas laba-laba, dua Lonceng Bulan. Para binatang menunggu. Bramble juga.',
+        say: 'Soal ujianmu...'
+      },
+      favorDone: {
+        '1': 'Hm. Rusa turun ke sungai pagi ini. Kupikir itu karena kamu.',
+        '2': 'Baiklah. Akan kuajari. Jangan heboh. Bramble, berhenti mengibaskan ekor.',
+        say: 'Jalurnya sudah bersih, dan ini Lonceng Bulan-mu.'
+      },
+      class: {
+        '1': 'Kamu memanggil alam liar, dan alam liar datang. Serigala, elang, beruang. Sahabat, bukan peliharaan.',
+        '2': 'Karisma, supaya mereka mau datang. Ketahanan, supaya kamu bisa mengimbangi mereka.',
+        say: 'Apa itu Pemanggil Binatang?'
+      },
+      ready: {
+        strong: {
+          '1': 'Seluruh kawanan percaya padamu sekarang. Ambil yang kamu mau.'
+        },
+        able: {
+          '1': 'Para serigala suka kamu. Kamu siap untuk pelajaran berikutnya.'
+        },
+        weak: {
+          '1': 'Belum. Mereka belum percaya padamu. Tambah Karisma, dan jauh lebih banyak sabar.'
+        }
+      },
+      who: {
+        '1': 'Bertahun-tahun lalu aku menemukan Bramble di perangkap. Kaki tiga, gayanya selangit. Sejak itu kami berdua.',
+        '2': 'Aku tidur di loteng jerami kandang kuda. Kuda lebih jarang mendengkur daripada manusia.'
+      },
+      trainBack: {
+        '1': 'Bagus. Sana, pergilah. Dan sapa burung-burung gagak. Mereka ingat.'
+      },
+      bye: {
+        '1': 'Pergilah. Bramble bilang dadah.'
+      }
+    },
+    sbMasterElementalist: {
+      hello: {
+        '1': 'Hai! Sebentar, aku lagi main sulap. Api, es, percikan, batu dan... tertangkap! Halo!',
+        '2': 'Magistra Iris Fourwinds. Aku mengajar keempat elemen. Mencampurnya itu bagian serunya.'
+      },
+      again: {
+        '1': 'Kembali lagi! Pas, aku butuh penonton. Lihat ini. Ta-da!'
+      },
+      train: {
+        '1': 'Pilih dua bola. Bebas. Sekarang biarkan bersentuhan. Pelan-pelan! Lihat? Reaksi!'
+      },
+      class: {
+        '1': 'Kami mencampur! Es lalu api, mencair. Api lalu petir, duar. Setiap pasangan menghasilkan sesuatu.',
+        '2': 'Kecerdasan untuk setiap sihir. Keahlian, karena sihir yang bagus butuh tangan yang cekatan.',
+        say: 'Apa tugas Penyihir Elemen?'
+      },
+      ready: {
+        strong: {
+          '1': 'Kamu mencampur seperti ahli sekarang! Ambil pelajaran mana saja. Ambil dua!'
+        },
+        able: {
+          '1': 'Wah, percikan yang bagus! Kamu siap untuk pelajaran berikutnya.'
+        },
+        weak: {
+          '1': 'Belum! Elemenmu terus padam. Tambah Kecerdasan, ya.'
+        }
+      },
+      sleeve: {
+        '1': 'Oh! Benar juga. Tunggu... Nah.',
+        '2': 'Api, lalu es. Itu tadi pelajaran, lho. Sama-sama!',
+        say: 'Eh, lengan bajumu terbakar.'
+      },
+      trainBack: {
+        '1': 'Hebat! Sekarang berlatih di luar, ya. Gordennya baru.'
+      },
+      bye: {
+        '1': 'Dadah! Kalau kamu mencium bau asap, mungkin itu aku. Jangan khawatir!'
+      }
+    },
+    sbMasterSoulwarden: {
+      hello: {
+        '1': 'Ssst, tidak apa-apa, mereka ramah. Oh, bukan kamu. Aku bicara dengan para wisp.',
+        '2': 'Penjaga Odalys Lanternlight. Aku membantu roh yang tersesat menemukan jalan pulang.'
+      },
+      again: {
+        '1': 'Halo lagi. Para wisp ingat kamu. Yang itu melambai.'
+      },
+      train: {
+        '1': 'Pegang lentera rendah-rendah dan bicaralah pelan. Yang tersesat datang pada suara yang ramah.'
+      },
+      class: {
+        '1': 'Saat musuh dikalahkan, rohnya agak tersesat. Kami membantunya, dan ia membantu kami.',
+        '2': 'Kecerdasan untuk menuntun cahaya. Karisma, supaya para roh mau tinggal sebentar.',
+        say: 'Apa tugas Penjaga Jiwa?'
+      },
+      ready: {
+        strong: {
+          '1': 'Roh yang paling pemalu pun datang padamu sekarang. Ambil pelajaran mana saja.'
+        },
+        able: {
+          '1': 'Para wisp percaya padamu. Kamu siap untuk pelajaran berikutnya.'
+        },
+        weak: {
+          '1': 'Belum. Mereka masih malu padamu. Tambah Kecerdasan, dan sedikit Karisma.'
+        }
+      },
+      wisps: {
+        '1': 'Kurang lebih! Mereka roh yang berkelana. Yang ini Fidget. Dia suka sisi yang hangat.',
+        '2': 'Tidak ada roh yang jahat, lho. Hanya tersesat. Mereka pulang kalau sudah siap.',
+        say: 'Cahaya-cahaya kecil di lenteramu itu hidup?'
+      },
+      trainBack: {
+        '1': 'Bagus sekali. Sekarang lepaskan mereka dengan lembut. Hari mereka panjang.'
+      },
+      bye: {
+        '1': 'Jaga dirimu. Dan kalau kamu melihat cahaya kecil yang tersesat, sapalah.'
+      }
+    },
+    sbMasterIronmonk: {
+      hello: {
+        '1': 'Duduk. Bernapas. Bukan, napasmu seperti orang terlambat. Ulangi.',
+        '2': 'Guru Oru Stillwater. Aku mengajar tangan terbuka. Tinju besi, hati tenang.'
+      },
+      again: {
+        '1': 'Ah. Sang murid kembali. Sungai juga. Setiap hari.'
+      },
+      train: {
+        '1': 'Kaki seperti akar, tangan seperti hujan. Pukul. Lagi. Pukulan keseratus yang dihitung.'
+      },
+      class: {
+        '1': 'Tanpa bilah. Tangan, kaki, napas. Setiap pukulan membangun pukulan berikutnya, sampai pukulan besar.',
+        '2': 'Ketangkasan untuk tangan yang cepat. Ketahanan untuk tetap tenang saat yang lain kehabisan napas.',
+        say: 'Apa itu Biksu Besi?'
+      },
+      ready: {
+        strong: {
+          '1': 'Sang murid menjadi guru. Jangan bilang siapa-siapa. Ambil pelajaran mana saja.'
+        },
+        able: {
+          '1': 'Bagus. Cawannya mulai terisi. Ambil pelajaran berikutnya.'
+        },
+        weak: {
+          '1': 'Belum. Pohon berakar pendek tumbang diterpa angin. Tambah Ketahanan.'
+        }
+      },
+      noodles: {
+        '1': 'Benar. Kuahnya direbus dua hari. Tolong jangan bernapas di atasnya.',
+        '2': 'Semangkuk mi yang baik mengajarkan kesabaran. Semangkuk mi yang hebat mengajarkan segalanya.',
+        say: 'Itu semangkuk mi?'
+      },
+      trainBack: {
+        '1': 'Bagus. Sekarang makan yang hangat. Kekuatan datang dari mangkuk.'
+      },
+      bye: {
+        '1': 'Hati-hati. Melangkah lembut. Menendang keras.'
+      }
+    },
+    sbMasterBard: {
+      hello: {
+        '1': 'Selamat datang, selamat datang, masuklah dari dingin! Aduh, berima. Memang suka begitu.',
+        '2': 'Lark Merriweather. Aku bermain di dekat api dan mengajar kecapi pada siapa pun yang mau mendengar.'
+      },
+      again: {
+        '1': 'Pendengar favoritku! Ambil bangku. Awas kucingnya, dia kritikusnya.'
+      },
+      train: {
+        '1': 'Petik bersamaku. Satu, dua, dan tiga... Jangan lihat jarimu. Rasakan!'
+      },
+      class: {
+        '1': 'Lagu yang membuat pihakmu lebih berani, nada yang menidurkan pihak lawan.',
+        '2': 'Karisma untuk memikat penonton. Keahlian, supaya jarimu bisa mengikuti hatimu.',
+        say: 'Apa tugas Pujangga?'
+      },
+      ready: {
+        strong: {
+          '1': 'Kamu bisa memenuhi kedai mana pun sekarang! Ambil semua laguku.'
+        },
+        able: {
+          '1': 'Nada yang indah! Kamu siap untuk bait berikutnya.'
+        },
+        weak: {
+          '1': 'Belum. Penontonnya masih menguap. Tambah Karisma, kawan.'
+        }
+      },
+      story: {
+        '1': 'Dahulu kala, seorang kesatria menyeberangi jembatan ini hanya dengan pedang dan sebuah lagu...',
+        '2': 'Tunggu, lebih seru pakai musik. La-la-la, sang kesatria pergi... Sampai mana tadi?',
+        '3': 'Oh, sudahlah. Lagunya bagus, kan?',
+        say: 'Maukah kamu bercerita?'
+      },
+      trainBack: {
+        '1': 'Bravo! Berlatihlah setiap hari. Bahkan saat terdengar jelek. Apalagi saat itu.'
+      },
+      bye: {
+        '1': 'Selamat jalan, sampai jumpa di persimpangan jalan! Ups. Berima lagi. Dadah!'
       }
     }
   },

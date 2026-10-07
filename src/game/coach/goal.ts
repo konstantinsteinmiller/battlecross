@@ -88,7 +88,8 @@ export const canLearnFrom = (cls: ClassId): boolean => skillsOf(cls).some(s => l
 /** The trainers of a town (as the world's flags leave it) who can teach him now. */
 export const teachersIn = (town: string): string[] => {
   if (!TOWNS[town as TownId]) return []
-  return townNpcs(town as TownId, flagSet()).filter(n => n.role === 'trainer' && n.cls && canLearnFrom(n.cls)).map(n => n.id)
+  const flags = flagSet()
+  return townNpcs(town as TownId, flags).filter(n => n.role === 'trainer' && n.cls && (!n.secret || flags.has(n.secret)) && canLearnFrom(n.cls)).map(n => n.id)
 }
 
 /** The next place to go: a town not yet walked into, else the first open

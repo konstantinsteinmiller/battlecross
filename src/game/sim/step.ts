@@ -32,7 +32,7 @@ const land = (sim: Sim, u: Unit): void => {
     return
   }
   if (a.id === 'attack') {
-    const fx = u.team === 1 ? ENEMY_BY_ID[u.kind]?.shotFx : MINIONS[u.kind]?.shotFx
+    const fx = u.team === 1 ? ENEMY_BY_ID[u.kind]?.shotFx : (MINIONS[u.kind] ?? ENEMY_BY_ID[u.kind])?.shotFx
     resolveAttack(sim, u, sim.live(a.targetId), 1, fx ?? '')
     return
   }

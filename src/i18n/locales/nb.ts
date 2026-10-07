@@ -95,7 +95,8 @@ export default {
     elixirSwift: 'Hurtighet',
     elixirMind: 'Klart sinn',
     elixirVigor: 'Livskraft',
-    elixirShadow: 'Tørstende klinge'
+    elixirShadow: 'Tørstende klinge',
+    chi: 'Chi'
   },
   toast: {
     item: 'Fant: {item}',
@@ -859,6 +860,390 @@ export default {
     crumble: {
       name: 'Smuldre',
       desc: 'Du gjør {dmg}% mer skade på fiender som er sinket, slått ned eller forsteinet.'
+    },
+    galeArrow: {
+      name: 'Kulingpil',
+      desc: 'En pil på et vindkast: {dmg}% Smidighet i skade, og målet blir dyttet bakover.'
+    },
+    fleetfoot: {
+      name: 'Lettbeint',
+      desc: '+{move}% løpefart og +{dodge}% Unnvikelse.'
+    },
+    zephyrDash: {
+      name: 'Brisesprint',
+      desc: 'Sprint opptil {dist} m dit du sikter, og løp så {move}% raskere i {dur}s.'
+    },
+    piercingGale: {
+      name: 'Gjennomborende kuling',
+      desc: 'En pil som flyr gjennom hver fiende på en linje: {dmg}% Smidighet i skade og {slow}% sinking i {dur}s.'
+    },
+    cycloneSnare: {
+      name: 'Syklonfelle',
+      desc: 'En virvelvind i {dur}s drar fiender mot midten og gjør {dmg}% Teknikk i skade.'
+    },
+    keenEye: {
+      name: 'Skarpt øye',
+      desc: '+{critDmg}% Kritisk skade. Skuddene dine går gjennom {pierce} fiende ekstra.'
+    },
+    updraftLeap: {
+      name: 'Oppvindssprang',
+      desc: 'Et vindkast kaster fiender innenfor {radius} m opp i lufta for {dmg}% Smidighet i skade. Du hopper {leap} m unna.'
+    },
+    swiftDraw: {
+      name: 'Rask trekning',
+      desc: 'Du angriper {speed}% raskere, og nedkjølingen din er {cdr}% kortere.'
+    },
+    arrowStorm: {
+      name: 'Pilestorm',
+      desc: 'Piler regner over området i {dur}s: {dmg}% Teknikk i skade totalt, og {slow}% sinking.'
+    },
+    galeSpirits: {
+      name: 'Vindånder',
+      desc: 'Vindånder flyr med deg i {dur}s og skyter {shots} piler på {dmg}% Teknikk i skade. +{move}% løpefart.'
+    },
+    skyHunter: {
+      name: 'Himmeljeger',
+      desc: '+{boss}% skade mot bosser og +{crit}% Kritisk sjanse.'
+    },
+    skyrender: {
+      name: 'Himmelsplitter',
+      desc: 'En stormpil river opp en sti: {dmg}% Smidighet i skade på alle på linjen, kastet opp og til siden.'
+    },
+    frostCleave: {
+      name: 'Frosthugg',
+      desc: 'Sveip isklingen foran deg: {dmg}% Styrke i skade og {slow}% sinking i {dur}s.'
+    },
+    rimeLance: {
+      name: 'Rimlanse',
+      desc: 'Kast en lanse av is for {dmg}% Intelligens i skade. Den sinker med {slow}% i {dur}s.'
+    },
+    wintersBite: {
+      name: 'Vinterbitt',
+      desc: 'Angrepene dine sinker fienden med {slow}% i {dur}s.'
+    },
+    frostArmor: {
+      name: 'Frostrustning',
+      desc: 'Isrustning tar opp {shield}% Intelligens i skade i {dur}s. Fiender nær deg sinkes med {slow}%.'
+    },
+    glacialCharge: {
+      name: 'Bresstorm',
+      desc: 'Storm mot målet for {dmg}% Styrke i skade, og frys det i {freeze}s.'
+    },
+    frozenHeart: {
+      name: 'Frosset hjerte',
+      desc: '+{hp}% maks liv, og all skade du tar blir {reduce}% mindre.'
+    },
+    rimeField: {
+      name: 'Rimfelt',
+      desc: 'Iskald bakke i {dur}s: {dmg}% Intelligens i skade. Nedkjølte fiender i den fryser i {freeze}s.'
+    },
+    frostShatter: {
+      name: 'Frostknus',
+      desc: '{dmg}% Styrke i skade innenfor {radius} m: +{chilled}% mot sinkede fiender, +{frozen}% mot frosne.'
+    },
+    shatterpoint: {
+      name: 'Knusepunkt',
+      desc: 'Du gjør {bonus}% mer skade mot sinkede og frosne fiender.'
+    },
+    avalancheLeap: {
+      name: 'Skredsprang',
+      desc: 'Hopp dit du sikter og land som et snøskred: {dmg}% Styrke i skade, og fiender slås ned.'
+    },
+    iceborn: {
+      name: 'Isfødt',
+      desc: 'Ingenting dytter eller kaster deg. Lammelser på deg er {cut}% kortere.'
+    },
+    absoluteZero: {
+      name: 'Absolutt null',
+      desc: 'Vinteren bryter ut fra deg: {dmg}% Intelligens i skade innenfor {radius} m, og alle fryser i {freeze}s.'
+    },
+    sunbolt: {
+      name: 'Solstråle',
+      desc: 'En stråle av sollys for {dmg}% Intelligens i skade. Det blendede målet gjør {weaken}% mindre i {dur}s.'
+    },
+    mendingLight: {
+      name: 'Legende lys',
+      desc: 'Leg {heal}% Karisma med en gang, og så {regen}% av livet ditt hvert sekund i {dur}s.'
+    },
+    kindledHope: {
+      name: 'Tent håp',
+      desc: 'All leging du får er {heal}% sterkere.'
+    },
+    lanceOfLight: {
+      name: 'Lyslanse',
+      desc: 'En lysstråle: {dmg}% Intelligens i skade på en linje. Leg {heal}% liv per fiende som treffes.'
+    },
+    dawnShield: {
+      name: 'Daggryskjold',
+      desc: 'Fjern alle dårlige effekter på deg, og få et skjold på {shield}% Karisma i {dur}s.'
+    },
+    haloWard: {
+      name: 'Glorievern',
+      desc: 'All skade du tar blir {reduce}% mindre.'
+    },
+    dawnSanctuary: {
+      name: 'Daggryhelligdom',
+      desc: 'Hellig grunn i {dur}s: leger deg {heal}% Karisma i sekundet, og fiender tar {dmg}% Intelligens.'
+    },
+    blindingFlash: {
+      name: 'Blendende glimt',
+      desc: 'Et lysglimt: fiender innenfor {radius} m flykter i {fear}s og gjør {weaken}% mindre i {dur}s.'
+    },
+    guardianLight: {
+      name: 'Vokterlys',
+      desc: 'Et slag som ville beseiret deg, gir deg 1 liv og gjør deg urørlig i {dur}s. Én gang hvert {icd}s.'
+    },
+    sunfall: {
+      name: 'Solfall',
+      desc: 'En søyle av sollys faller på målet: {dmg}% Intelligens i skade. Fiender tar {vuln}% mer i {dur}s.'
+    },
+    searingLight: {
+      name: 'Brennende lys',
+      desc: '+{crit}% Kritisk sjanse for magi og +{critDmg}% Kritisk skade.'
+    },
+    haloOfDawn: {
+      name: 'Daggryglorie',
+      desc: 'Skinn i {dur}s: hvert sekund {dmg}% Intelligens i skade innenfor {radius} m, og leg {heal}% liv.'
+    },
+    callWolf: {
+      name: 'Kall ulv',
+      desc: 'En åndeulv slutter seg til deg og biter for {dmg}% Karisma i skade. Opptil {max} om gangen.'
+    },
+    wolfPounce: {
+      name: 'Ulvesprang',
+      desc: 'Ulvene dine kaster seg over målet: {dmg}% Karisma i skade hver, og det slås ned i {down}s.'
+    },
+    wildKinship: {
+      name: 'Vill slekt',
+      desc: 'Følgesvennene dine har {hp}% mer liv og gjør {dmg}% mer skade.'
+    },
+    callHawk: {
+      name: 'Kall hauk',
+      desc: 'En hauk stuper mot målet for {dmg}% Karisma i skade: det tar {vuln}% mer i {dur}s. Blir i {life}s.'
+    },
+    callBear: {
+      name: 'Kall bjørn',
+      desc: 'En åndebjørn slutter seg til deg. Den slår for {dmg}% skade og holder fiender opptatt. Opptil {max}.'
+    },
+    thickHide: {
+      name: 'Tykk pels',
+      desc: '+{hp}% maks liv og +{regen} liv tilbake hvert sekund.'
+    },
+    packBond: {
+      name: 'Flokkbånd',
+      desc: 'Du og følgesvenner innenfor {radius} m får tilbake {regen}% liv i sekundet og {def}% Forsvar i {dur}s.'
+    },
+    spiritStampede: {
+      name: 'Åndeflokk',
+      desc: 'En flokk åndedyr stormer fram: {dmg}% Karisma i skade på en linje, og fiender slås ned.'
+    },
+    packTactics: {
+      name: 'Flokktaktikk',
+      desc: 'Du gjør {bonus}% mer skade for hver følgesvenn med deg, opptil {max}.'
+    },
+    alphaHowl: {
+      name: 'Alfaul',
+      desc: 'Følgesvennene dine leges {heal}% og kjemper {rage}% hardere i {dur}s. Fiender nær deg flykter.'
+    },
+    leaderOfThePack: {
+      name: 'Flokkens leder',
+      desc: 'Følgesvennene dine angriper {speed}% raskere og gjør {dmg}% mer skade.'
+    },
+    wildHunt: {
+      name: 'Vill jakt',
+      desc: '{wolves} ulver til løper med deg i {dur}s. Hele flokken gjør +{dmg}% skade og løper {move}% raskere.'
+    },
+    prismBolt: {
+      name: 'Prismestråle',
+      desc: 'En stråle for {dmg}% Intelligens i skade: frost hvis målet brenner, ellers ild. De setter i gang hverandre.'
+    },
+    elementalHarmony: {
+      name: 'Elementharmoni',
+      desc: 'Reaksjonene dine (Smelting, Damp, Knusing, Overbelastning, Krystall) er {pct}% sterkere.'
+    },
+    frostLance: {
+      name: 'Frostlanse',
+      desc: 'Is gjennom en linje: {dmg}% Intelligens i skade og {slow}% sinking i {dur}s. Brennende fiender damper.'
+    },
+    chainSpark: {
+      name: 'Kjedegnist',
+      desc: 'Lyn for {dmg}% Intelligens som hopper til {jumps} fiender til. Knuser is, overbelaster ild.'
+    },
+    smolderingCore: {
+      name: 'Ulmende kjerne',
+      desc: 'Brannene dine gjør {burn}% mer skade, og du har {mana} mer mana.'
+    },
+    rollingBoulder: {
+      name: 'Rullende kampestein',
+      desc: 'En kampestein ruller ut: {dmg}% Intelligens i skade, slått ned i {down}s. Merkede fiender gir deg skjold.'
+    },
+    thunderSnow: {
+      name: 'Tordensnø',
+      desc: 'En snøstorm i {dur}s: {dmg}% Intelligens i frostskade, og lyn hvert sekund for {bolt}%.'
+    },
+    spellweave: {
+      name: 'Trolldomsvev',
+      desc: '+{crit}% Kritisk sjanse for magi, og ferdighetene dine koster {mana}% mindre mana.'
+    },
+    prismaticNova: {
+      name: 'Prismenova',
+      desc: 'Treff alt innenfor {radius} m for {dmg}% Intelligens, hver med elementet den reagerer på.'
+    },
+    prismaticWard: {
+      name: 'Prismevern',
+      desc: 'Du tar {reduce}% mindre skade og har {hp}% mer liv.'
+    },
+    frostfireComet: {
+      name: 'Frostildkomet',
+      desc: 'En komet av ild og is: {dmg}% Intelligens i skade. Fiender blir brennende og sinket.'
+    },
+    elementalConvergence: {
+      name: 'Elementmøte',
+      desc: 'I {dur}s bytter fire elementer på: {strikes} slag på {dmg}% Intelligens som setter i gang hverandre.'
+    },
+    wispBolt: {
+      name: 'Lyktemannstråle',
+      desc: 'En lyktemann for {dmg}% Intelligens i skade. En fiende den beseirer, reiser seg som din ånd i {life}s.'
+    },
+    kindredSpirits: {
+      name: 'Beslektede ånder',
+      desc: 'Åndene og tjenerne dine har {hp}% mer liv og angriper {speed}% raskere.'
+    },
+    callTheFallen: {
+      name: 'Kall de falne',
+      desc: 'Opptil {max} fiender som nettopp falt innenfor {radius} m, reiser seg som dine ånder i {life}s.'
+    },
+    soulBond: {
+      name: 'Sjelebånd',
+      desc: 'Bli venn med en fiende: {chance}% ({low}% hvis skadet) for at den blir din ånd i {life}s. Ellers {dmg}% skade.'
+    },
+    restlessSouls: {
+      name: 'Rastløse sjeler',
+      desc: 'En fiende du beseirer, har {chance}% sjanse til å reise seg som din ånd i {life}s.'
+    },
+    spiritLantern: {
+      name: 'Åndelykt',
+      desc: 'En lykt i {dur}s: fiender i lyset tar {dmg}% Intelligens, venner leges, de falne reiser seg.'
+    },
+    hauntingWail: {
+      name: 'Spøkelseshyl',
+      desc: 'Et spøkelsesaktig BØ: {dmg}% Intelligens i skade innenfor {radius} m, og fiender løper vekk i {fear}s.'
+    },
+    wardensVigil: {
+      name: 'Vokterens vakt',
+      desc: 'Åndene og tjenerne dine gjør {dmg}% mer skade, og du tar {reduce}% mindre.'
+    },
+    releaseSouls: {
+      name: 'Slipp sjelene',
+      desc: 'Åndene dine drar hjem i lysglimt: {dmg}% Intelligens rundt hver, {heal}% liv tilbake for hver.'
+    },
+    lanternKeeper: {
+      name: 'Lyktevokter',
+      desc: '{cdr}% kortere nedkjøling, og ferdighetene dine koster {mana}% mindre mana.'
+    },
+    wispSwarm: {
+      name: 'Lyktemannsverm',
+      desc: '{wisps} lyktemenn stuper mot fiender i området for {dmg}% Intelligens totalt. De de beseirer, reiser seg.'
+    },
+    processionOfSouls: {
+      name: 'Sjeleprosesjon',
+      desc: 'I {dur}s reiser hver fiende som faller nær deg seg som din ånd, og ånder gjør {atk}% mer.'
+    },
+    palmStrike: {
+      name: 'Håndflateslag',
+      desc: 'Et raskt håndflateslag for {dmg}% Smidighet i skade som dytter fienden bakover. Samler {chi} chi.'
+    },
+    ironBody: {
+      name: 'Jernkropp',
+      desc: 'Fysisk skade du tar blir {reduce}% mindre, og du har {hp}% mer liv.'
+    },
+    flyingKick: {
+      name: 'Flygende spark',
+      desc: 'Fly mot målet og spark for {dmg}% Smidighet i skade; fiender i veien tar {path}%. Samler {chi} chi.'
+    },
+    tigerStance: {
+      name: 'Tigerstilling',
+      desc: 'I {dur}s: +{dmg}% skade og +{speed}% angrepsfart. Avslutter Tranestilling.'
+    },
+    craneStance: {
+      name: 'Tranestilling',
+      desc: 'I {dur}s: +{def}% Forsvar, og du leger {regen}% av livet ditt i sekundet. Avslutter Tigerstilling.'
+    },
+    flowingFists: {
+      name: 'Flytende never',
+      desc: 'Angrepene dine har {chance}% sjanse til å samle chi.'
+    },
+    hundredFists: {
+      name: 'Hundre never',
+      desc: 'En byge av {hits} slag for {dmg}% Smidighet i skade totalt. Samler {chi} chi.'
+    },
+    risingDragon: {
+      name: 'Stigende drage',
+      desc: 'Bruk all chi på en oppstøt: {dmg}% Smidighet i skade, +{per}% per chi. Fienden flyr opp.'
+    },
+    cranesGrace: {
+      name: 'Tranens ynde',
+      desc: '+{dodge}% Unnvikelse, og lammelser og nedslag på deg er {cut}% kortere.'
+    },
+    whirlwindKick: {
+      name: 'Virvelspark',
+      desc: 'Spark alt innenfor {radius} m to ganger for {dmg}% Smidighet i skade totalt. Samler opptil {chi} chi.'
+    },
+    tigersFury: {
+      name: 'Tigerens raseri',
+      desc: '+{crit}% Kritisk sjanse og +{speed}% angrepsfart.'
+    },
+    mountainPalm: {
+      name: 'Fjellhånd',
+      desc: 'Bruk all chi: en kjempehånd faller for {dmg}% Smidighet i skade, +{per}% per chi, og slår fiender ned.'
+    },
+    sharpNote: {
+      name: 'Skarp tone',
+      desc: 'En skarp tone for {dmg}% Karisma i skade. Fienden gjør {weaken}% mindre skade i {dur}s.'
+    },
+    stagePresence: {
+      name: 'Scenenærvær',
+      desc: 'Ferdighetene dine koster {mana}% mindre mana, og du løper {move}% raskere.'
+    },
+    marchingSong: {
+      name: 'Marsjsang',
+      desc: 'En sang i {dur}s: du og allierte innenfor {radius} m løper {move}% og angriper {speed}% raskere.'
+    },
+    lullaby: {
+      name: 'Vuggevise',
+      desc: 'En mild melodi i en kjegle: hver fiende den når, sovner i {dur}s.'
+    },
+    longRefrain: {
+      name: 'Langt refreng',
+      desc: 'Sangene dine varer {pct}% lenger.'
+    },
+    balladOfValor: {
+      name: 'Tapperhetsballade',
+      desc: 'En sang i {dur}s: du og allierte innenfor {radius} m gjør {dmg}% mer skade og får {def}% Forsvar.'
+    },
+    charmingSerenade: {
+      name: 'Sjarmerende serenade',
+      desc: 'Sjarmer målet og fiender innenfor {radius} m: i {dur}s slåss de mot hverandre.'
+    },
+    virtuoso: {
+      name: 'Virtuos',
+      desc: '{cdr}% kortere nedkjøling og +{critDmg}% Kritisk skade.'
+    },
+    hymnOfMending: {
+      name: 'Legende salme',
+      desc: 'Fjerner dårlige effekter, og i {dur}s leges du og allierte innenfor {radius} m {regen}% liv i sekundet.'
+    },
+    crescendo: {
+      name: 'Crescendo',
+      desc: 'Et lydsmell innenfor {radius} m: {dmg}% Karisma i skade, +{per}% for hver sang du spiller.'
+    },
+    standingOvation: {
+      name: 'Stående applaus',
+      desc: '+{dmg}% skade, og du tar {reduce}% mindre skade.'
+    },
+    grandFinale: {
+      name: 'Stor finale',
+      desc: 'Spill alt i {dur}s (+{buff}% fart, skade, Forsvar), så en siste akkord: {dmg}% Karisma, fiender sjarmert.'
     }
   },
   slot: {
@@ -1371,6 +1756,30 @@ export default {
     sbFence: {
       name: 'Mirela Thorne',
       talk: 'Fine rustninger, ingen spørsmål. Vel, veldig få spørsmål.'
+    },
+    sbMasterWindrunner: {
+      name: 'Sefa Kulingvinge'
+    },
+    sbMasterFrostwarden: {
+      name: 'Halvard Rimhjerte'
+    },
+    sbMasterLightbringer: {
+      name: 'Søster Auriel Daggrysjø'
+    },
+    sbMasterBeastcaller: {
+      name: 'Gamle Rowan Tistelfot'
+    },
+    sbMasterElementalist: {
+      name: 'Magistra Iris Firevind'
+    },
+    sbMasterSoulwarden: {
+      name: 'Vokter Odalys Lyktelys'
+    },
+    sbMasterIronmonk: {
+      name: 'Mester Oru Stillevann'
+    },
+    sbMasterBard: {
+      name: 'Lark Godvær'
     }
   },
   quest: {
@@ -3655,6 +4064,382 @@ export default {
       },
       bye: {
         '1': 'Pass på pungen. Ikke alle her er like ærlige som meg.'
+      }
+    },
+    sbMasterWindrunner: {
+      hello: {
+        '1': 'Å, hei! Beklager, kan ikke stoppe. Jeg venter på at vinden skal snu. Når som helst nå.',
+        '2': 'Sefa Kulingvinge. Jeg skyter piler og jager vinden. Vinden vinner som regel.'
+      },
+      open: {
+        '1': 'Der er løperen min! Klar? Klart du er. Kom igjen, kom igjen!'
+      },
+      again: {
+        '1': 'Hei igjen! Jeg er fortsatt her. Nesten, i hvert fall. Føttene mine vandrer stadig av gårde.'
+      },
+      train: {
+        '1': 'Kjenner du vinden på kinnet? Sikt litt til venstre for der du tror. Slipp nå!'
+      },
+      favor: {
+        '1': 'Bare til folk som klarer å henge med. Klarer du det? La oss finne ut.',
+        '2': 'Slå tolv bandittbueskyttere i Oakhavens utkant, og gi meg tre kvikkbregner.',
+        say: 'Lærer du bort bueskyting?'
+      },
+      waiting: {
+        '1': 'Tolv bandittbueskyttere, tre kvikkbregner. Av gårde! Jeg er her. Og hopper.',
+        say: 'Om prøven din ...'
+      },
+      favorDone: {
+        '1': 'Ha! Du klarte faktisk å henge med! Ingen henger med!',
+        '2': 'Greit, nå er du eleven min. Én regel: ingen sitting i timene mine.',
+        say: 'Bueskytterne er slått, og her er kvikkbregnene dine.'
+      },
+      class: {
+        '1': 'Skyt, løp, skyt igjen. Blir du tatt, sto du stille for lenge.',
+        '2': 'Smidighet for raske føtter og en rask bue. Teknikk, så hver pil treffer.',
+        say: 'Hva gjør en Vindløper?'
+      },
+      ready: {
+        strong: {
+          '1': 'Du er rask som vinden nå. Vel, nesten. Ta hvilken time du vil!'
+        },
+        able: {
+          '1': 'Lette føtter! Du er klar for den neste. Løp, løp!'
+        },
+        weak: {
+          '1': 'Ikke ennå. Du løper som om du bærer på en sofa. Mer Smidighet, takk.'
+        }
+      },
+      who: {
+        '1': 'Jeg bor oppe i den gamle vindmølla ved elva. Byens beste utsikt over vinden.',
+        '2': 'To hundre trappetrinn til toppen. God trening. Jeg har talt hvert eneste ett.'
+      },
+      trainBack: {
+        '1': 'Bra! Løp hjem nå. Ikke gå. Løping teller som trening.'
+      },
+      bye: {
+        '1': 'Ses! Pass deg for lave greiner. Det gjør aldri jeg.'
+      }
+    },
+    sbMasterFrostwarden: {
+      hello: {
+        '1': 'Hm. Du har gått forbi meg tre ganger. Gått deg vill, eller nysgjerrig?',
+        '2': 'Halvard Rimhjerte. Jeg kom sørover fra snøen. Det er varmt her. For varmt.'
+      },
+      open: {
+        '1': 'Elev. Bra. Isen er klar, og det er jeg også.'
+      },
+      again: {
+        '1': 'Du igjen. Bra. Jeg snakker ikke mye. Bli likevel.'
+      },
+      train: {
+        '1': 'Pust sakte ut. Ser du dampen? Legg den nå i klingen.'
+      },
+      favor: {
+        '1': 'Det er det. Jeg lærer det bare bort til dem som holder hodet kaldt på et varmt sted.',
+        '2': 'Slukk ti ildelementarer i Askeklippene. Gi meg så tre kvister frostmynte.',
+        say: 'Er det sverdet laget av is?'
+      },
+      waiting: {
+        '1': 'Ti ildelementarer. Tre kvister frostmynte. Ta den tiden du trenger. Ikke for mye tid.',
+        say: 'Om prøven din ...'
+      },
+      favorDone: {
+        '1': 'Hm. Ikke engang svidd. Bra.',
+        '2': 'Du holdt hodet kaldt. Det var den første leksen. Resten skal jeg lære deg.',
+        say: 'Ildelementarene er slukket. Her er frostmynta di.'
+      },
+      class: {
+        '1': 'En ridder av kulden. Kjøl dem ned, frys dem, knus så isen.',
+        '2': 'Styrke for klingen. Intelligens for frosten. Du trenger begge.',
+        say: 'Hva er en Frostvokter?'
+      },
+      ready: {
+        strong: {
+          '1': 'Du er kald som nord nå. Ta hvilken time du vil.'
+        },
+        able: {
+          '1': 'Bra. Stødig. Neste time er din.'
+        },
+        weak: {
+          '1': 'Ikke ennå. Frosten din smelter for fort. Mer Intelligens, og mer Styrke.'
+        }
+      },
+      who: {
+        '1': 'Jeg voktet et fjellpass i nord. Så ville jeg se en elv som ikke fryser.'
+      },
+      trainBack: {
+        '1': 'Bra. Hvil nå. Is har ikke hastverk. Det skal ikke du heller.'
+      },
+      bye: {
+        '1': 'Gå med fred. Hold deg kald.'
+      }
+    },
+    sbMasterLightbringer: {
+      hello: {
+        '1': 'Mm-hm-hmm ... Å! Unnskyld, kjære, jeg nynnet. Nynnet jeg på deg? Det gjør jeg.',
+        '2': 'Søster Auriel Daggrysjø. Jeg holder den lille lampa ved enden av brua tent.'
+      },
+      open: {
+        '1': 'Der er min lyse venn! Kom og stå i lyset et øyeblikk. Det har du fortjent.'
+      },
+      again: {
+        '1': 'Hei igjen! Fortsatt her, nynner fortsatt. Lampa liker selskapet.'
+      },
+      train: {
+        '1': 'Åpne hender, haka opp. Tenk på den beste morgenen du har hatt. Sånn. Kjenner du det?'
+      },
+      favor: {
+        '1': 'Alle har litt lys inni seg. Jeg lærer folk å slippe det ut, når de er klare.',
+        '2': 'Slå ti kultister i Askeklippene, og gi meg fem solblad til lampa mi.',
+        say: 'Er den lampa magisk?'
+      },
+      waiting: {
+        '1': 'Ti kultister, fem solblad. Slå dem forsiktig. Alle fortjener en ny sjanse.',
+        say: 'Om prøven din ...'
+      },
+      favorDone: {
+        '1': 'Å, se på dem! Lampa kommer til å gløde gyllent i en måned.',
+        '2': 'Og det gjør du også, kjære. Jeg lærer deg gjerne.',
+        say: 'Kultistene er slått. Her er solbladene dine.'
+      },
+      class: {
+        '1': 'Vi bærer daggryet. Lys å kjempe med, lys å lege med, lys å gjemme seg bak.',
+        '2': 'Intelligens gjør lyset sterkt. Karisma gjør det varmt. Du vil ha begge.',
+        say: 'Hva gjør en Lysbringer?'
+      },
+      ready: {
+        strong: {
+          '1': 'Du skinner som en soloppgang, kjære. Ta hvilken time du vil.'
+        },
+        able: {
+          '1': 'Du gløder fint! Du er klar for den neste.'
+        },
+        weak: {
+          '1': 'Ikke ennå, kjære. Lyset ditt er litt svakt. Mer Karisma, så gløder du.'
+        }
+      },
+      who: {
+        '1': 'Jeg sang i et stort tempel en gang. Men lampa mi her ute leder båtene hjem. Det er bedre.'
+      },
+      trainBack: {
+        '1': 'Nydelig. Gå nå og lys opp dagen for noen. Søsters ordre.'
+      },
+      bye: {
+        '1': 'Av sted med deg, kjære. Og smil til de mørke krokene. Det hater de.'
+      }
+    },
+    sbMasterBeastcaller: {
+      hello: {
+        '1': 'Se deg for. Det er Bramble. Hun var her først.',
+        '2': 'Rowan Tistelfot. Jeg liker dyr. Folk har jeg ikke bestemt meg for ennå.'
+      },
+      open: {
+        '1': 'Å, det er deg. Bramble har ventet. Det har jeg også. Litt.'
+      },
+      again: {
+        '1': 'Du igjen. Bramble liker deg. Jeg tenker fortsatt på saken.'
+      },
+      train: {
+        '1': 'Sett deg på huk. Saktere. Rekk fram hånda og la dem komme til deg. Bra.'
+      },
+      favor: {
+        '1': 'Snakke? Jeg lytter. Det er trikset de fleste aldri lærer.',
+        '2': 'Kjempeedderkopper spinner igjen dyrestiene i Den hviskende skogen. Rydd vekk tolv.',
+        '3': 'Gi meg så to måneklokker til hiet mitt. Bramble sover bedre nær dem.',
+        say: 'Kan du snakke med dyr?'
+      },
+      waiting: {
+        '1': 'Tolv edderkopper, to måneklokker. Dyrene venter. Det gjør Bramble også.',
+        say: 'Om prøven din ...'
+      },
+      favorDone: {
+        '1': 'Hm. Rådyrene kom ned til elva i morges. Tenkte det kanskje var deg.',
+        '2': 'Greit. Jeg skal lære deg. Ikke lag noe oppstyr. Bramble, slutt å logre.',
+        say: 'Stiene er ryddet, og her er måneklokkene dine.'
+      },
+      class: {
+        '1': 'Du kaller på villmarka, og villmarka kommer. Ulver, en hauk, en bjørn. Venner, ikke kjæledyr.',
+        '2': 'Karisma, så de vil komme. Utholdenhet, så du klarer å holde følge med dem.',
+        say: 'Hva er en Dyrekaller?'
+      },
+      ready: {
+        strong: {
+          '1': 'Hele flokken stoler på deg nå. Ta det du vil.'
+        },
+        able: {
+          '1': 'Ulvene liker deg. Du er klar for den neste.'
+        },
+        weak: {
+          '1': 'Ikke ennå. De stoler ikke på deg. Mer Karisma, og mye mer tålmodighet.'
+        }
+      },
+      who: {
+        '1': 'Fant Bramble i en felle for mange år siden. Tre bein, full av temperament. Vi har vært et par siden.',
+        '2': 'Jeg sover på høyloftet i stallen. Hester snorker mindre enn folk.'
+      },
+      trainBack: {
+        '1': 'Bra. Gå nå, da. Og hils på kråkene. De husker.'
+      },
+      bye: {
+        '1': 'Av sted med deg. Bramble sier ha det.'
+      }
+    },
+    sbMasterElementalist: {
+      hello: {
+        '1': 'Hei! Et øyeblikk, jeg sjonglerer. Ild, frost, gnist, stein og ... tok dem! Hei!',
+        '2': 'Magistra Iris Firevind. Jeg lærer bort alle fire elementene. Å blande dem er det morsomme.'
+      },
+      again: {
+        '1': 'Tilbake igjen! Fint, jeg trengte noen som så på. Se her. Ta-da!'
+      },
+      train: {
+        '1': 'Velg to kuler. Hvilke som helst. La dem nå støte borti hverandre. Forsiktig! Ser du? En reaksjon!'
+      },
+      class: {
+        '1': 'Vi blander! Frost og så ild, det smelter. Ild og så lyn, bom. Hvert par gjør noe.',
+        '2': 'Intelligens for hver trylleformel. Teknikk, fordi de gode krever raske hender.',
+        say: 'Hva gjør en Elementmager?'
+      },
+      ready: {
+        strong: {
+          '1': 'Du blander som en mester nå! Ta hvilken time du vil. Ta to!'
+        },
+        able: {
+          '1': 'Åh, fin gnist! Du er klar for den neste.'
+        },
+        weak: {
+          '1': 'Ikke ennå! Elementene dine slukner hele tiden. Mer Intelligens, takk.'
+        }
+      },
+      sleeve: {
+        '1': 'Å! Det gjør det jo. Vent litt ... Sånn.',
+        '2': 'Ild, så frost. Det var faktisk en leksjon. Bare hyggelig!',
+        say: 'Øh, ermet ditt brenner.'
+      },
+      trainBack: {
+        '1': 'Strålende! Øv utendørs nå, takk. Gardinene er nye.'
+      },
+      bye: {
+        '1': 'Ha det! Lukter du røyk, er det nok meg. Ikke vær redd!'
+      }
+    },
+    sbMasterSoulwarden: {
+      hello: {
+        '1': 'Hysj, det går bra, de er snille. Å, ikke du. Jeg snakket med lyktemennene.',
+        '2': 'Vokter Odalys Lyktelys. Jeg hjelper fortapte ånder å finne veien hjem.'
+      },
+      again: {
+        '1': 'Hei igjen. Lyktemennene husker deg. Den der vinker.'
+      },
+      train: {
+        '1': 'Hold lykta lavt og snakk mykt. Det som har gått seg vill, kommer til en vennlig stemme.'
+      },
+      class: {
+        '1': 'Når en fiende er slått, går ånden litt vill. Vi hjelper den, og den hjelper oss tilbake.',
+        '2': 'Intelligens til å lede lyset. Karisma, så åndene vil bli en stund.',
+        say: 'Hva gjør en Sjelevokter?'
+      },
+      ready: {
+        strong: {
+          '1': 'Selv de mest sjenerte åndene kommer til deg nå. Ta hvilken time du vil.'
+        },
+        able: {
+          '1': 'Lyktemennene stoler på deg. Du er klar for neste time.'
+        },
+        weak: {
+          '1': 'Ikke ennå. De er fortsatt sjenerte for deg. Mer Intelligens, og litt Karisma.'
+        }
+      },
+      wisps: {
+        '1': 'Liksom! Det er ånder som har vandret bort. Denne heter Fikle. Han liker den varme siden.',
+        '2': 'Ingen ånd er noen gang slem, vet du. Bare fortapt. De drar hjem når de er klare.',
+        say: 'Er de små lysene i lykta di levende?'
+      },
+      trainBack: {
+        '1': 'Godt gjort. Slipp dem forsiktig nå. De har hatt en lang dag.'
+      },
+      bye: {
+        '1': 'Ta vare på deg. Og ser du et lite fortapt lys, så si hei.'
+      }
+    },
+    sbMasterIronmonk: {
+      hello: {
+        '1': 'Sett deg. Pust. Nei, du puster som om du er sent ute til noe. Igjen.',
+        '2': 'Mester Oru Stillevann. Jeg lærer bort den åpne hånden. Jernnever, rolig hjerte.'
+      },
+      again: {
+        '1': 'Ah. Eleven kommer tilbake. Det gjør elva også. Hver dag.'
+      },
+      train: {
+        '1': 'Føtter som røtter, hender som regn. Slå. Igjen. Det hundrede slaget teller.'
+      },
+      class: {
+        '1': 'Ingen klinge. Hender, føtter, pust. Hvert slag bygger opp det neste, helt til det store.',
+        '2': 'Smidighet for raske hender. Utholdenhet til å holde roen mens andre går tom for pust.',
+        say: 'Hva er en Jernmunk?'
+      },
+      ready: {
+        strong: {
+          '1': 'Eleven blir læreren. Ikke si det til noen. Ta hvilken time du vil.'
+        },
+        able: {
+          '1': 'Bra. Koppen fylles. Ta neste time.'
+        },
+        weak: {
+          '1': 'Ikke ennå. Et tre med korte røtter faller i vinden. Mer Utholdenhet.'
+        }
+      },
+      noodles: {
+        '1': 'Det er det. Kraften har småkokt i to dager. Vær så snill, ikke pust på den.',
+        '2': 'En god bolle lærer deg tålmodighet. En fantastisk bolle lærer deg alt det andre.',
+        say: 'Er det en bolle nudler?'
+      },
+      trainBack: {
+        '1': 'Bra. Spis noe varmt nå. Styrke kommer fra bollen.'
+      },
+      bye: {
+        '1': 'Gå med fred. Gå mykt. Spark hardt.'
+      }
+    },
+    sbMasterBard: {
+      hello: {
+        '1': 'Velkommen, velkommen! Kom inn fra snø og is, her ved bålet er det varmt på alle vis! Å nei, det rimte. Det skjer stadig.',
+        '2': 'Lark Godvær. Jeg spiller ved bålet og lærer bort lutt til alle som gidder å høre.'
+      },
+      again: {
+        '1': 'Favorittlytteren min! Ta deg en krakk. Pass deg for katta, hun er kritikeren.'
+      },
+      train: {
+        '1': 'Klimpre med meg. Én, to, og tre ... Ikke se på fingrene. Kjenn det!'
+      },
+      class: {
+        '1': 'Sanger som gjør laget ditt modigere, og melodier som får de andre til å sovne.',
+        '2': 'Karisma for å vinne publikum. Teknikk, så fingrene holder følge med hjertet.',
+        say: 'Hva gjør en Bard?'
+      },
+      ready: {
+        strong: {
+          '1': 'Du kunne fylt hvilken som helst kro nå! Ta alle sangene jeg har.'
+        },
+        able: {
+          '1': 'Nydelig melodi! Du er klar for neste vers.'
+        },
+        weak: {
+          '1': 'Ikke ennå. Publikum gjesper fortsatt. Mer Karisma, min venn.'
+        }
+      },
+      story: {
+        '1': 'En gang krysset en ridder akkurat denne brua med bare et sverd og en sang ...',
+        '2': 'Vent, den er bedre med musikk. La-la-la, ridderen gikk ... Hvor var jeg?',
+        '3': 'Å, glem det. Fin sang likevel, ikke sant?',
+        say: 'Vil du fortelle meg en historie?'
+      },
+      trainBack: {
+        '1': 'Bravo! Øv hver dag. Selv når det låter forferdelig. Særlig da.'
+      },
+      bye: {
+        '1': 'Farvel, og far vel! Oi. Rimte igjen. Ha det!'
       }
     }
   },

@@ -225,9 +225,9 @@ describe('classes and skills (GDD §5)', () => {
     }
   })
 
-  it('four are the reimagined classics, four are new', () => {
+  it('four are the reimagined classics, the rest are new (#86, #95)', () => {
     expect(CLASS_IDS.filter(c => !CLASSES[c].novel)).toEqual(['aegis', 'shadow', 'pyro', 'sovereign'])
-    expect(CLASS_IDS.filter(c => CLASSES[c].novel)).toEqual(['chrono', 'blood', 'aether', 'geo'])
+    expect(CLASS_IDS.filter(c => CLASSES[c].novel)).toEqual(CLASS_IDS.slice(4))
   })
 
   it('a fresh hero (5 in everything, level 1) can learn the first skill of every class', () => {

@@ -95,7 +95,8 @@ export default {
     elixirSwift: 'Vikrumas',
     elixirMind: 'Aiškus protas',
     elixirVigor: 'Žvalumas',
-    elixirShadow: 'Ištroškę ašmenys'
+    elixirShadow: 'Ištroškę ašmenys',
+    chi: 'Či'
   },
   toast: {
     item: 'Rasta: {item}',
@@ -859,6 +860,390 @@ export default {
     crumble: {
       name: 'Trupinimas',
       desc: 'Darai {dmg}% daugiau žalos sulėtintiems, parblokštiems ar suakmenėjusiems priešams.'
+    },
+    galeArrow: {
+      name: 'Škvalo strėlė',
+      desc: 'Strėlė, nešama vėjo gūsio: {dmg}% Vikrumo žalos, o taikinys nustumiamas atgal.'
+    },
+    fleetfoot: {
+      name: 'Greitakojis',
+      desc: '+{move}% judėjimo greičio ir +{dodge}% Išsisukimo.'
+    },
+    zephyrDash: {
+      name: 'Zefyro šuolis',
+      desc: 'Šok iki {dist} m ten, kur taikai, o tada {dur}s bėk {move}% greičiau.'
+    },
+    piercingGale: {
+      name: 'Veriantis škvalas',
+      desc: 'Strėlė perskrieja per visus priešus linijoje: {dmg}% Vikrumo žalos ir {slow}% sulėtinimas {dur}s.'
+    },
+    cycloneSnare: {
+      name: 'Ciklono spąstai',
+      desc: 'Viesulas {dur}s traukia priešus į savo akį ir daro {dmg}% Meistrystės žalos.'
+    },
+    keenEye: {
+      name: 'Aštri akis',
+      desc: '+{critDmg}% kritinės žalos. Tavo šūviai pramuša dar priešų: {pierce}.'
+    },
+    updraftLeap: {
+      name: 'Vėjo šuolis',
+      desc: 'Gūsis išmeta į orą priešus {radius} m spinduliu: {dmg}% Vikrumo žalos. Tu nušoki {leap} m tolyn.'
+    },
+    swiftDraw: {
+      name: 'Greita tempa',
+      desc: 'Puoli {speed}% greičiau, o atsikrovimai {cdr}% trumpesni.'
+    },
+    arrowStorm: {
+      name: 'Strėlių audra',
+      desc: 'Strėlės {dur}s lyja į plotą: iš viso {dmg}% Meistrystės žalos ir {slow}% sulėtinimas.'
+    },
+    galeSpirits: {
+      name: 'Vėjo dvasios',
+      desc: 'Vėjo dvasios {dur}s skrenda su tavimi ir paleidžia {shots} strėlių po {dmg}% Meistrystės žalos. +{move}% judėjimo greičio.'
+    },
+    skyHunter: {
+      name: 'Dangaus medžiotojas',
+      desc: '+{boss}% žalos bosams ir +{crit}% kritinio smūgio tikimybės.'
+    },
+    skyrender: {
+      name: 'Dangaus draskytojas',
+      desc: 'Audros strėlė praskina kelią: {dmg}% Vikrumo žalos visiems linijoje, jie išmetami aukštyn ir į šoną.'
+    },
+    frostCleave: {
+      name: 'Šalčio kirtis',
+      desc: 'Mostelk ledo ašmenimis priešais save: {dmg}% Jėgos žalos ir {slow}% sulėtinimas {dur}s.'
+    },
+    rimeLance: {
+      name: 'Šarmos ietis',
+      desc: 'Mesk ledo ietį: {dmg}% Intelekto žalos. Ji sulėtina {slow}% {dur}s.'
+    },
+    wintersBite: {
+      name: 'Žiemos kąsnis',
+      desc: 'Tavo puolimai sulėtina priešą {slow}% {dur}s.'
+    },
+    frostArmor: {
+      name: 'Šalčio šarvai',
+      desc: 'Ledo šarvai {dur}s sugeria {shield}% Intelekto vertės žalos. Šalia esantys priešai sulėtėja {slow}%.'
+    },
+    glacialCharge: {
+      name: 'Ledyno puolimas',
+      desc: 'Pulk taikinį: {dmg}% Jėgos žalos ir sušaldymas {freeze}s.'
+    },
+    frozenHeart: {
+      name: 'Sušalusi širdis',
+      desc: '+{hp}% maks. Gyvybės, o visa gaunama žala sumažėja {reduce}%.'
+    },
+    rimeField: {
+      name: 'Šarmos laukas',
+      desc: 'Šąlanti žemė {dur}s: {dmg}% Intelekto žalos. Sulėtinti priešai joje sušąla {freeze}s.'
+    },
+    frostShatter: {
+      name: 'Ledo skilimas',
+      desc: '{dmg}% Jėgos žalos {radius} m spinduliu: +{chilled}% sulėtintiems priešams, +{frozen}% sušalusiems.'
+    },
+    shatterpoint: {
+      name: 'Skilimo taškas',
+      desc: 'Darai {bonus}% daugiau žalos sulėtintiems ir sušalusiems priešams.'
+    },
+    avalancheLeap: {
+      name: 'Lavinos šuolis',
+      desc: 'Šok ten, kur taikai, ir nusileisk kaip lavina: {dmg}% Jėgos žalos, priešai parbloškiami.'
+    },
+    iceborn: {
+      name: 'Ledo vaikas',
+      desc: 'Niekas tavęs nenustumia ir neišmeta. Apsvaiginimai tau {cut}% trumpesni.'
+    },
+    absoluteZero: {
+      name: 'Absoliutus nulis',
+      desc: 'Iš tavęs išsiveržia žiema: {dmg}% Intelekto žalos {radius} m spinduliu, visi sušąla {freeze}s.'
+    },
+    sunbolt: {
+      name: 'Saulės strėlė',
+      desc: 'Saulės šviesos spindulys: {dmg}% Intelekto žalos. Apakintas taikinys {dur}s daro {weaken}% mažiau žalos.'
+    },
+    mendingLight: {
+      name: 'Gydanti šviesa',
+      desc: 'Iškart pagydo {heal}% Charizmos vertės, o paskui {dur}s kas sekundę po {regen}% tavo gyvybės.'
+    },
+    kindledHope: {
+      name: 'Įžiebta viltis',
+      desc: 'Visas tavo gaunamas gydymas {heal}% stipresnis.'
+    },
+    lanceOfLight: {
+      name: 'Šviesos ietis',
+      desc: 'Šviesos spindulys: {dmg}% Intelekto žalos linijoje. Už kiekvieną pataikytą priešą atgauni {heal}% gyvybės.'
+    },
+    dawnShield: {
+      name: 'Aušros skydas',
+      desc: 'Pašalink visus blogus efektus ir {dur}s gauk {shield}% Charizmos vertės skydą.'
+    },
+    haloWard: {
+      name: 'Aureolės apsauga',
+      desc: 'Visa gaunama žala sumažėja {reduce}%.'
+    },
+    dawnSanctuary: {
+      name: 'Aušros šventovė',
+      desc: 'Šventa žemė {dur}s: kas sekundę pagydo tave {heal}% Charizmos vertės, o priešai gauna {dmg}% Intelekto žalos.'
+    },
+    blindingFlash: {
+      name: 'Akinantis blyksnis',
+      desc: 'Šviesos blyksnis: priešai {radius} m spinduliu bėga {fear}s ir {dur}s daro {weaken}% mažiau žalos.'
+    },
+    guardianLight: {
+      name: 'Sergėtoja šviesa',
+      desc: 'Smūgis, kuris tave nugalėtų, palieka 1 gyvybę, ir {dur}s tavęs niekas nepaliečia. Kartą per {icd}s.'
+    },
+    sunfall: {
+      name: 'Saulės kritimas',
+      desc: 'Ant taikinio krenta saulės šviesos stulpas: {dmg}% Intelekto žalos. Priešai {dur}s gauna {vuln}% daugiau žalos.'
+    },
+    searingLight: {
+      name: 'Deginanti šviesa',
+      desc: '+{crit}% kritinio burto tikimybės ir +{critDmg}% kritinės žalos.'
+    },
+    haloOfDawn: {
+      name: 'Aušros aureolė',
+      desc: 'Švytėk {dur}s: kas sekundę {dmg}% Intelekto žalos {radius} m spinduliu ir {heal}% gyvybės pagydymas.'
+    },
+    callWolf: {
+      name: 'Vilko šauksmas',
+      desc: 'Prie tavęs prisijungia dvasių vilkas ir kanda: {dmg}% Charizmos žalos. Vienu metu ne daugiau kaip {max}.'
+    },
+    wolfPounce: {
+      name: 'Vilko šuolis',
+      desc: 'Tavo vilkai šoka ant taikinio: kiekvienas po {dmg}% Charizmos žalos, taikinys parbloškiamas {down}s.'
+    },
+    wildKinship: {
+      name: 'Laukinė giminystė',
+      desc: 'Tavo palydovai turi {hp}% daugiau gyvybės ir daro {dmg}% daugiau žalos.'
+    },
+    callHawk: {
+      name: 'Vanago šauksmas',
+      desc: 'Vanagas smigia ant taikinio: {dmg}% Charizmos žalos, ir jis {dur}s gauna {vuln}% daugiau žalos. Lieka {life}s.'
+    },
+    callBear: {
+      name: 'Lokio šauksmas',
+      desc: 'Prie tavęs prisijungia dvasių lokys. Jis smogia {dmg}% žalos ir neduoda priešams ramybės. Ne daugiau kaip {max}.'
+    },
+    thickHide: {
+      name: 'Stora oda',
+      desc: '+{hp}% maks. Gyvybės ir +{regen} Gyvybės per sekundę.'
+    },
+    packBond: {
+      name: 'Gaujos ryšys',
+      desc: 'Tu ir palydovai {radius} m spinduliu {dur}s atgaunate {regen}% gyvybės per sekundę ir gaunate {def}% Gynybos.'
+    },
+    spiritStampede: {
+      name: 'Dvasių bandos lėkimas',
+      desc: 'Dvasių žvėrių banda puola: {dmg}% Charizmos žalos linijoje, priešai parbloškiami.'
+    },
+    packTactics: {
+      name: 'Gaujos taktika',
+      desc: 'Už kiekvieną šalia esantį palydovą darai {bonus}% daugiau žalos, iki {max}.'
+    },
+    alphaHowl: {
+      name: 'Vedlio staugimas',
+      desc: 'Tavo palydovai atgauna {heal}% ir {dur}s kovoja {rage}% smarkiau. Šalia esantys priešai bėga.'
+    },
+    leaderOfThePack: {
+      name: 'Gaujos vedlys',
+      desc: 'Tavo palydovai puola {speed}% greičiau ir daro {dmg}% daugiau žalos.'
+    },
+    wildHunt: {
+      name: 'Laukinė medžioklė',
+      desc: 'Dar {wolves} vilkai {dur}s bėga su tavimi. Visa gauja daro +{dmg}% žalos ir juda {move}% greičiau.'
+    },
+    prismBolt: {
+      name: 'Prizmės strėlė',
+      desc: 'Strėlė, daranti {dmg}% Intelekto žalos: šaltis, jei taikinys dega, kitaip ugnis. Viena sužadina kitą.'
+    },
+    elementalHarmony: {
+      name: 'Stichijų darna',
+      desc: 'Tavo reakcijos (Tirpimas, Garai, Skilimas, Perkrova, Kristalas) {pct}% stipresnės.'
+    },
+    frostLance: {
+      name: 'Šalčio ietis',
+      desc: 'Ledas per liniją: {dmg}% Intelekto žalos ir {slow}% sulėtinimas {dur}s. Degantys priešai virsta Garais.'
+    },
+    chainSpark: {
+      name: 'Grandininė kibirkštis',
+      desc: 'Žaibas, darantis {dmg}% Intelekto žalos, peršoka dar į {jumps} priešus. Skaldo ledą, perkrauna ugnį.'
+    },
+    smolderingCore: {
+      name: 'Rusenanti šerdis',
+      desc: 'Tavo deginimai daro {burn}% daugiau žalos, o tu turi {mana} daugiau manos.'
+    },
+    rollingBoulder: {
+      name: 'Riedantis riedulys',
+      desc: 'Išrieda riedulys: {dmg}% Intelekto žalos, parbloškimas {down}s. Pažymėti priešai tau duoda skydą.'
+    },
+    thunderSnow: {
+      name: 'Sniego perkūnija',
+      desc: 'Pūga {dur}s: {dmg}% Intelekto šalčio žalos, o kas sekundę žaibas po {bolt}%.'
+    },
+    spellweave: {
+      name: 'Burtų audinys',
+      desc: '+{crit}% kritinio burto tikimybės, o tavo įgūdžiai kainuoja {mana}% mažiau manos.'
+    },
+    prismaticNova: {
+      name: 'Prizminė nova',
+      desc: 'Smok viskam {radius} m spinduliu: {dmg}% Intelekto žalos, kiekvienam ta stichija, į kurią jis reaguoja.'
+    },
+    prismaticWard: {
+      name: 'Prizminė apsauga',
+      desc: 'Gauni {reduce}% mažiau žalos ir turi {hp}% daugiau gyvybės.'
+    },
+    frostfireComet: {
+      name: 'Ledo ir ugnies kometa',
+      desc: 'Ugnies ir ledo kometa: {dmg}% Intelekto žalos. Priešai lieka degantys ir sulėtinti.'
+    },
+    elementalConvergence: {
+      name: 'Stichijų susiliejimas',
+      desc: '{dur}s keturios stichijos smogia paeiliui: {strikes} smūgiai po {dmg}% Intelekto, sužadinantys vienas kitą.'
+    },
+    wispBolt: {
+      name: 'Žiburėlio strėlė',
+      desc: 'Žiburėlis, darantis {dmg}% Intelekto žalos. Jo nugalėtas priešas {life}s prisikelia kaip tavo dvasia.'
+    },
+    kindredSpirits: {
+      name: 'Giminingos sielos',
+      desc: 'Tavo dvasios ir pakalikai turi {hp}% daugiau gyvybės ir puola {speed}% greičiau.'
+    },
+    callTheFallen: {
+      name: 'Kritusiųjų šauksmas',
+      desc: 'Iki {max} ką tik kritusių priešų {radius} m spinduliu {life}s prisikelia kaip tavo dvasios.'
+    },
+    soulBond: {
+      name: 'Sielų ryšys',
+      desc: 'Susidraugauk su priešu: {chance}% tikimybė ({low}%, jei jis sužeistas), kad {life}s taps tavo dvasia. Kitaip {dmg}% žalos.'
+    },
+    restlessSouls: {
+      name: 'Neramios sielos',
+      desc: 'Tavo nugalėtas priešas turi {chance}% tikimybę {life}s prisikelti kaip tavo dvasia.'
+    },
+    spiritLantern: {
+      name: 'Dvasių žibintas',
+      desc: 'Žibintas {dur}s: priešai jo šviesoje gauna {dmg}% Intelekto žalos, draugai gyja, kritusieji prisikelia.'
+    },
+    hauntingWail: {
+      name: 'Šmėklos rauda',
+      desc: 'Vaiduokliškas BŪŪ: {dmg}% Intelekto žalos {radius} m spinduliu, o priešai {fear}s bėga šalin.'
+    },
+    wardensVigil: {
+      name: 'Sargo budėjimas',
+      desc: 'Tavo dvasios ir pakalikai daro {dmg}% daugiau žalos, o tu gauni {reduce}% mažiau.'
+    },
+    releaseSouls: {
+      name: 'Paleisti sielas',
+      desc: 'Tavo dvasios grįžta namo šviesos blyksniuose: kiekviena po {dmg}% Intelekto aplinkui ir {heal}% gyvybės tau.'
+    },
+    lanternKeeper: {
+      name: 'Žibinto saugotojas',
+      desc: 'Atsikrovimai {cdr}% trumpesni, o tavo įgūdžiai kainuoja {mana}% mažiau manos.'
+    },
+    wispSwarm: {
+      name: 'Žiburėlių spiečius',
+      desc: '{wisps} žiburėliai smigia į priešus plote: iš viso {dmg}% Intelekto. Jų nugalėtieji prisikelia.'
+    },
+    processionOfSouls: {
+      name: 'Sielų procesija',
+      desc: '{dur}s kiekvienas šalia tavęs kritęs priešas prisikelia kaip tavo dvasia, o dvasios daro {atk}% daugiau.'
+    },
+    palmStrike: {
+      name: 'Delno smūgis',
+      desc: 'Greitas delno smūgis: {dmg}% Vikrumo žalos, priešas nustumiamas atgal. Sukaupia {chi} či.'
+    },
+    ironBody: {
+      name: 'Geležinis kūnas',
+      desc: 'Gaunama fizinė žala sumažėja {reduce}%, o tu turi {hp}% daugiau gyvybės.'
+    },
+    flyingKick: {
+      name: 'Spyris skrydžiu',
+      desc: 'Nuskrisk prie taikinio ir spirk: {dmg}% Vikrumo žalos; priešai kelyje gauna {path}%. Sukaupia {chi} či.'
+    },
+    tigerStance: {
+      name: 'Tigro stovėsena',
+      desc: '{dur}s: +{dmg}% žalos ir +{speed}% puolimo greičio. Nutraukia Gervės stovėseną.'
+    },
+    craneStance: {
+      name: 'Gervės stovėsena',
+      desc: '{dur}s: +{def}% Gynybos, ir kas sekundę atgauni {regen}% gyvybės. Nutraukia Tigro stovėseną.'
+    },
+    flowingFists: {
+      name: 'Tekantys kumščiai',
+      desc: 'Tavo puolimai turi {chance}% tikimybę sukaupti či.'
+    },
+    hundredFists: {
+      name: 'Šimtas kumščių',
+      desc: '{hits} smūgių kruša: iš viso {dmg}% Vikrumo žalos. Sukaupia {chi} či.'
+    },
+    risingDragon: {
+      name: 'Kylantis drakonas',
+      desc: 'Išleisk visą či smūgiui iš apačios: {dmg}% Vikrumo žalos, +{per}% už kiekvieną či. Priešas išlekia aukštyn.'
+    },
+    cranesGrace: {
+      name: 'Gervės grakštumas',
+      desc: '+{dodge}% Išsisukimo, o apsvaiginimai ir parbloškimai tau {cut}% trumpesni.'
+    },
+    whirlwindKick: {
+      name: 'Viesulo spyris',
+      desc: 'Dukart spirk viskam {radius} m spinduliu: iš viso {dmg}% Vikrumo žalos. Sukaupia iki {chi} či.'
+    },
+    tigersFury: {
+      name: 'Tigro įniršis',
+      desc: '+{crit}% kritinio smūgio tikimybės ir +{speed}% puolimo greičio.'
+    },
+    mountainPalm: {
+      name: 'Kalno delnas',
+      desc: 'Išleisk visą či: krenta milžiniškas delnas, {dmg}% Vikrumo žalos, +{per}% už kiekvieną či, priešai parbloškiami.'
+    },
+    sharpNote: {
+      name: 'Aštri nata',
+      desc: 'Aštri nata: {dmg}% Charizmos žalos. Priešas {dur}s daro {weaken}% mažiau žalos.'
+    },
+    stagePresence: {
+      name: 'Scenos žvaigždė',
+      desc: 'Tavo įgūdžiai kainuoja {mana}% mažiau manos, o tu judi {move}% greičiau.'
+    },
+    marchingSong: {
+      name: 'Žygio daina',
+      desc: 'Daina {dur}s: tu ir sąjungininkai {radius} m spinduliu judate {move}% ir puolate {speed}% greičiau.'
+    },
+    lullaby: {
+      name: 'Lopšinė',
+      desc: 'Švelni melodija kūgiu: kiekvienas pasiektas priešas užmiega {dur}s.'
+    },
+    longRefrain: {
+      name: 'Ilgas priedainis',
+      desc: 'Tavo dainos trunka {pct}% ilgiau.'
+    },
+    balladOfValor: {
+      name: 'Narsos baladė',
+      desc: 'Daina {dur}s: tu ir sąjungininkai {radius} m spinduliu darote {dmg}% daugiau žalos ir gaunate {def}% Gynybos.'
+    },
+    charmingSerenade: {
+      name: 'Kerinti serenada',
+      desc: 'Užkerėk taikinį ir priešus {radius} m spinduliu: {dur}s jie kovoja tarpusavyje.'
+    },
+    virtuoso: {
+      name: 'Virtuozas',
+      desc: '{cdr}% trumpesni atsikrovimai ir +{critDmg}% kritinės žalos.'
+    },
+    hymnOfMending: {
+      name: 'Gydymo himnas',
+      desc: 'Pašalina blogus efektus, o tada {dur}s tu ir sąjungininkai {radius} m spinduliu atgaunate {regen}% gyvybės per sekundę.'
+    },
+    crescendo: {
+      name: 'Krešendo',
+      desc: 'Garso sprogimas {radius} m spinduliu: {dmg}% Charizmos žalos, +{per}% už kiekvieną skambančią dainą.'
+    },
+    standingOvation: {
+      name: 'Ovacijos',
+      desc: '+{dmg}% žalos, o tu gauni {reduce}% mažiau žalos.'
+    },
+    grandFinale: {
+      name: 'Didysis finalas',
+      desc: 'Grok viską {dur}s (+{buff}% greičio, žalos, Gynybos), o tada paskutinis akordas: {dmg}% Charizmos, priešai užkerėti.'
     }
   },
   slot: {
@@ -1371,6 +1756,30 @@ export default {
     sbFence: {
       name: 'Mirela Thorne',
       talk: 'Puikūs šarvai, jokių klausimų. Na, labai mažai klausimų.'
+    },
+    sbMasterWindrunner: {
+      name: 'Sefa Vėjasparnė'
+    },
+    sbMasterFrostwarden: {
+      name: 'Halvard Šarmaširdis'
+    },
+    sbMasterLightbringer: {
+      name: 'Sesuo Auriel Aušrinė'
+    },
+    sbMasterBeastcaller: {
+      name: 'Senasis Rowan Usniakojis'
+    },
+    sbMasterElementalist: {
+      name: 'Magistrė Iris Keturvėjė'
+    },
+    sbMasterSoulwarden: {
+      name: 'Sargė Odalys Žibintė'
+    },
+    sbMasterIronmonk: {
+      name: 'Meistras Oru Ramiavandenis'
+    },
+    sbMasterBard: {
+      name: 'Lark Linksmaoris'
     }
   },
   quest: {
@@ -3702,6 +4111,382 @@ export default {
       },
       bye: {
         '1': 'Saugok piniginę. Ne visi čia tokie sąžiningi kaip aš.'
+      }
+    },
+    sbMasterWindrunner: {
+      hello: {
+        '1': 'O, labas! Atsiprašau, negaliu sustoti. Laukiu, kol vėjas pasisuks. Tuoj tuoj.',
+        '2': 'Sefa Vėjasparnė. Šaudau iš lanko ir vejuosi vėją. Dažniausiai laimi vėjas.'
+      },
+      open: {
+        '1': 'Štai ir mano bėgikas! Pirmyn? Žinoma, pirmyn. Einam, einam!'
+      },
+      again: {
+        '1': 'Vėl labas! Aš vis dar čia. Na, beveik. Mano kojos vis kur nors nuklysta.'
+      },
+      train: {
+        '1': 'Jauti vėją ant skruosto? Taikyk truputį kairiau, nei atrodo. Dabar paleisk!'
+      },
+      favor: {
+        '1': 'Tik tuos, kurie spėja paskui mane. Ar tu spėsi? Tuoj pamatysim.',
+        '2': 'Nugalėk dvylika banditų lankininkų Oakhaveno prieigose, o tada atnešk man tris greitpapartes.',
+        say: 'Ar moki šaudyti iš lanko?'
+      },
+      waiting: {
+        '1': 'Dvylika banditų lankininkų, trys greitpapartės. Pirmyn! Aš būsiu čia. Strakaliosiu.',
+        say: 'Dėl tavo išbandymo...'
+      },
+      favorDone: {
+        '1': 'Cha! Tu iš tikrųjų spėjai! Niekas nespėja!',
+        '2': 'Gerai, dabar mokysiesi pas mane. Viena taisyklė: per mano pamokas nesėdima.',
+        say: 'Lankininkai nugalėti, o štai tavo greitpapartės.'
+      },
+      class: {
+        '1': 'Šauk, bėk, vėl šauk. Jei tave pagavo, per ilgai stovėjai vietoje.',
+        '2': 'Vikrumo greitoms kojoms ir greitam lankui. Meistrystės, kad kiekviena strėlė pataikytų.',
+        say: 'Ką veikia Vėjo bėgikas?'
+      },
+      ready: {
+        strong: {
+          '1': 'Dabar tavo greitis kaip vėjo. Na, beveik. Imk bet kurią pamoką!'
+        },
+        able: {
+          '1': 'Lengvos kojos! Gali imtis kitos pamokos. Pirmyn, pirmyn!'
+        },
+        weak: {
+          '1': 'Dar ne. Bėgi taip, lyg neštum sofą. Daugiau Vikrumo, prašau.'
+        }
+      },
+      who: {
+        '1': 'Gyvenu sename vėjo malūne prie upės. Geriausias vaizdas į vėją visame mieste.',
+        '2': 'Du šimtai laiptelių iki viršaus. Puiki treniruotė. Suskaičiavau kiekvieną.'
+      },
+      trainBack: {
+        '1': 'Gerai! Dabar bėk namo. Ne eik, o bėk. Bėgimas irgi treniruotė.'
+      },
+      bye: {
+        '1': 'Iki! Saugokis žemų šakų. Aš niekada nesisaugau.'
+      }
+    },
+    sbMasterFrostwarden: {
+      hello: {
+        '1': 'Hm. Jau trečią kartą eini pro mane. Ieškai kelio ar smalsu?',
+        '2': 'Halvard Šarmaširdis. Atkeliavau į pietus iš sniegynų. Čia šilta. Per šilta.'
+      },
+      open: {
+        '1': 'Mokiny. Gerai. Ledas paruoštas, ir aš taip pat.'
+      },
+      again: {
+        '1': 'Vėl tu. Gerai. Daug nekalbu. Vis tiek pabūk.'
+      },
+      train: {
+        '1': 'Lėtai iškvėpk. Matai garą? Dabar įdėk jį į ašmenis.'
+      },
+      favor: {
+        '1': 'Taip. To moku tik tuos, kurie karštoje vietoje išlaiko šaltą galvą.',
+        '2': 'Užgesink dešimt ugnies elementalių Pelenų uolose. Tada atnešk man tris šalčiamėtės šakeles.',
+        say: 'Ar tas kardas iš ledo?'
+      },
+      waiting: {
+        '1': 'Dešimt ugnies elementalių. Trys šalčiamėtės šakelės. Neskubėk. Bet ir neužtruk.',
+        say: 'Dėl tavo išbandymo...'
+      },
+      favorDone: {
+        '1': 'Hm. Net neapsvilo. Gerai.',
+        '2': 'Išlaikei šaltą galvą. Tai buvo pirmoji pamoka. Likusių išmokysiu aš.',
+        say: 'Ugnies elementaliai užgesinti. Štai tavo šalčiamėtė.'
+      },
+      class: {
+        '1': 'Šalčio riteris. Atvėsink juos, sušaldyk, o tada sudaužyk ledą.',
+        '2': 'Jėgos ašmenims. Intelekto šalčiui. Reikia abiejų.',
+        say: 'Kas yra Šalčio sargas?'
+      },
+      ready: {
+        strong: {
+          '1': 'Dabar tavyje šiaurės šaltis. Imk bet kurią pamoką.'
+        },
+        able: {
+          '1': 'Gerai. Ramiai. Kita pamoka tavo.'
+        },
+        weak: {
+          '1': 'Dar ne. Tavo šaltis per greitai tirpsta. Daugiau Intelekto ir daugiau Jėgos.'
+        }
+      },
+      who: {
+        '1': 'Saugojau kalnų perėją šiaurėje. Paskui panorau pamatyti upę, kuri neužšąla.'
+      },
+      trainBack: {
+        '1': 'Gerai. Dabar pailsėk. Ledas neskuba. Ir tu neskubėk.'
+      },
+      bye: {
+        '1': 'Laimingai. Išlaikyk šaltą galvą.'
+      }
+    },
+    sbMasterLightbringer: {
+      hello: {
+        '1': 'Mm-hm-hmm... O! Atsiprašau, brangute, niūniavau. Ar niūniavau tau? Man taip būna.',
+        '2': 'Sesuo Auriel Aušrinė. Prižiūriu, kad mažoji lempa tilto gale degtų.'
+      },
+      open: {
+        '1': 'Štai ir mano šviesuliukas! Ateik, pastovėk akimirką šviesoje. Užsitarnavai.'
+      },
+      again: {
+        '1': 'Vėl labas, brangute! Vis dar čia, vis dar niūniuoju. Lempai patinka kompanija.'
+      },
+      train: {
+        '1': 'Delnai atviri, smakras aukštyn. Prisimink geriausią savo rytą. Štai. Jauti?'
+      },
+      favor: {
+        '1': 'Kiekviename yra truputis šviesos. Aš moku ją išleisti, kai ateina laikas.',
+        '2': 'Nugalėk dešimt kultistų Pelenų uolose, o tada atnešk man penkis saulėžiedžius mano lempai.',
+        say: 'Ar ta lempa stebuklinga?'
+      },
+      waiting: {
+        '1': 'Dešimt kultistų, penki saulėžiedžiai. Nugalėk juos švelniai. Kiekvienas nusipelno antro šanso.',
+        say: 'Dėl tavo išbandymo...'
+      },
+      favorDone: {
+        '1': 'O, tik pažiūrėk į juos! Lempa visą mėnesį švies auksu.',
+        '2': 'Ir tu taip pat, brangute. Mielai tave mokysiu.',
+        say: 'Kultistai nugalėti. Štai tavo saulėžiedžiai.'
+      },
+      class: {
+        '1': 'Mes nešame aušrą. Šviesa kovai, šviesa gydymui, šviesa, už kurios gali pasislėpti.',
+        '2': 'Intelektas daro šviesą stiprią. Charizma daro ją šiltą. Prireiks abiejų.',
+        say: 'Ką veikia Šviesnešys?'
+      },
+      ready: {
+        strong: {
+          '1': 'Švyti kaip saulėtekis, brangute. Imk bet kurią pamoką.'
+        },
+        able: {
+          '1': 'Gražiai švyti! Gali imtis kitos pamokos.'
+        },
+        weak: {
+          '1': 'Dar ne, brangute. Tavo šviesa kiek blanki. Daugiau Charizmos, ir sušvisi.'
+        }
+      },
+      who: {
+        '1': 'Kadaise giedojau didelėje šventykloje. Bet čia mano lempa veda valtis namo. Taip geriau.'
+      },
+      trainBack: {
+        '1': 'Puiku. Dabar eik ir praskaidrink kam nors dieną. Sesers įsakymas.'
+      },
+      bye: {
+        '1': 'Keliauk, brangute. Ir šypsokis tamsiems kampams. Jie to nekenčia.'
+      }
+    },
+    sbMasterBeastcaller: {
+      hello: {
+        '1': 'Žiūrėk po kojomis. Čia Gervuogė. Ji buvo čia pirma.',
+        '2': 'Rowan Usniakojis. Myliu gyvūnus. Dėl žmonių dar galvoju.'
+      },
+      open: {
+        '1': 'A, tai tu. Gervuogė laukė. Ir aš. Truputį.'
+      },
+      again: {
+        '1': 'Vėl tu. Gervuogei tu patinki. Aš dar galvoju.'
+      },
+      train: {
+        '1': 'Pritūpk. Lėčiau. Ištiesk ranką ir leisk jiems prieiti patiems. Gerai.'
+      },
+      favor: {
+        '1': 'Kalbėtis? Aš klausausi. Šito dauguma taip ir neišmoksta.',
+        '2': 'Milžiniški vorai apraizgo žvėrių takus Šnabždančiame miške. Išvalyk dvylika.',
+        '3': 'Tada atnešk man du mėnulio varpelius mano guoliui. Gervuogė prie jų geriau miega.',
+        say: 'Ar moki kalbėtis su gyvūnais?'
+      },
+      waiting: {
+        '1': 'Dvylika vorų, du mėnulio varpeliai. Gyvūnai laukia. Ir Gervuogė.',
+        say: 'Dėl tavo išbandymo...'
+      },
+      favorDone: {
+        '1': 'Hm. Šįryt elniai nusileido prie upės. Pamaniau, kad čia tavo darbas.',
+        '2': 'Gerai. Išmokysiu. Tik be triukšmo. Gervuoge, liaukis vizgint uodegą.',
+        say: 'Takai išvalyti, o štai tavo mėnulio varpeliai.'
+      },
+      class: {
+        '1': 'Šauki laukinę gamtą, ir ji ateina. Vilkai, vanagas, lokys. Draugai, ne augintiniai.',
+        '2': 'Charizmos, kad jie norėtų ateiti. Ištvermės, kad spėtum paskui juos.',
+        say: 'Kas yra Žvėrių šaukėjas?'
+      },
+      ready: {
+        strong: {
+          '1': 'Dabar tavimi pasitiki visa gauja. Imk ką nori.'
+        },
+        able: {
+          '1': 'Vilkams tu patinki. Gali imtis kitos pamokos.'
+        },
+        weak: {
+          '1': 'Dar ne. Jie tavimi nepasitiki. Daugiau Charizmos ir daug daugiau kantrybės.'
+        }
+      },
+      who: {
+        '1': 'Prieš daug metų radau Gervuogę spąstuose. Trys kojos, bet koks charakteris! Nuo tada mes kartu.',
+        '2': 'Miegu arklidės šieno pastogėje. Arkliai knarkia mažiau nei žmonės.'
+      },
+      trainBack: {
+        '1': 'Gerai. Na, eik. Ir pasisveikink su varnomis. Jos viską prisimena.'
+      },
+      bye: {
+        '1': 'Keliauk. Gervuogė sako „iki“.'
+      }
+    },
+    sbMasterElementalist: {
+      hello: {
+        '1': 'Labas! Sekundėlę, žongliruoju. Ugnis, šaltis, kibirkštis, akmuo ir... pagavau! Labas!',
+        '2': 'Magistrė Iris Keturvėjė. Moku visų keturių stichijų. Jas maišyti smagiausia.'
+      },
+      again: {
+        '1': 'Vėl sugrįžai! Puiku, man kaip tik reikėjo žiūrovo. Žiūrėk. Ta-dam!'
+      },
+      train: {
+        '1': 'Išsirink du rutulius. Bet kuriuos du. Dabar leisk jiems susidurti. Atsargiai! Matai? Reakcija!'
+      },
+      class: {
+        '1': 'Maišome! Šaltis, paskui ugnis, ir tirpsta. Ugnis, paskui žaibas, ir bum. Kiekviena pora kažką daro.',
+        '2': 'Intelekto kiekvienam burtui. Meistrystės, nes geriausiems reikia vikrių rankų.',
+        say: 'Ką veikia Elementalistas?'
+      },
+      ready: {
+        strong: {
+          '1': 'Maišai kaip tikras meistras! Imk bet kurią pamoką. Imk dvi!'
+        },
+        able: {
+          '1': 'Oho, kokia kibirkštis! Gali imtis kitos pamokos.'
+        },
+        weak: {
+          '1': 'Dar ne! Tavo stichijos vis užgęsta. Daugiau Intelekto, prašau.'
+        }
+      },
+      sleeve: {
+        '1': 'O! Tikrai. Palauk... Štai.',
+        '2': 'Ugnis, paskui šaltis. Tiesą sakant, tai buvo pamoka. Prašom!',
+        say: 'Ee, tau dega rankovė.'
+      },
+      trainBack: {
+        '1': 'Nuostabu! O dabar treniruokis lauke, prašau. Užuolaidos naujos.'
+      },
+      bye: {
+        '1': 'Iki! Jei užuosi dūmus, greičiausiai tai aš. Nesijaudink!'
+      }
+    },
+    sbMasterSoulwarden: {
+      hello: {
+        '1': 'Ššš, viskas gerai, jie draugiški. O, ne tau. Kalbėjau su žiburėliais.',
+        '2': 'Sargė Odalys Žibintė. Padedu paklydusioms dvasioms rasti kelią namo.'
+      },
+      again: {
+        '1': 'Vėl labas. Žiburėliai tave prisimena. Va tas mojuoja.'
+      },
+      train: {
+        '1': 'Laikyk žibintą žemai ir kalbėk tyliai. Kas pasiklydo, ateina į gerą balsą.'
+      },
+      class: {
+        '1': 'Kai priešas nugalimas, jo dvasia truputį pasiklysta. Mes jai padedame, o ji padeda mums.',
+        '2': 'Intelekto šviesai vesti. Charizmos, kad dvasios norėtų kiek pasilikti.',
+        say: 'Ką veikia Sielų sargas?'
+      },
+      ready: {
+        strong: {
+          '1': 'Dabar pas tave ateina net drovingiausios dvasios. Imk bet kurią pamoką.'
+        },
+        able: {
+          '1': 'Žiburėliai tavimi pasitiki. Gali imtis kitos pamokos.'
+        },
+        weak: {
+          '1': 'Dar ne. Jie tavęs vis dar drovisi. Daugiau Intelekto ir truputį Charizmos.'
+        }
+      },
+      wisps: {
+        '1': 'Kažkiek! Tai dvasios, kurios nuklydo. Šitas yra Neramukas. Jam patinka šiltoji pusė.',
+        '2': 'Žinai, nė viena dvasia nėra bloga. Tik paklydusi. Jos grįžta namo, kai būna pasiruošusios.',
+        say: 'Ar tos šviesos tavo žibinte gyvos?'
+      },
+      trainBack: {
+        '1': 'Šaunu. Dabar švelniai juos paleisk. Jiems buvo ilga diena.'
+      },
+      bye: {
+        '1': 'Saugokis. Ir jei pamatysi paklydusį žiburėlį, pasisveikink.'
+      }
+    },
+    sbMasterIronmonk: {
+      hello: {
+        '1': 'Sėsk. Kvėpuok. Ne, kvėpuoji taip, lyg kažkur vėluotum. Iš naujo.',
+        '2': 'Meistras Oru Ramiavandenis. Moku atviro delno kovos. Geležiniai kumščiai, rami širdis.'
+      },
+      again: {
+        '1': 'A. Mokinys grįžta. Kaip ir upė. Kasdien.'
+      },
+      train: {
+        '1': 'Kojos kaip šaknys, rankos kaip lietus. Smūgis. Dar. Šimtasis yra tas, kuris skaitosi.'
+      },
+      class: {
+        '1': 'Jokių ašmenų. Rankos, kojos, kvėpavimas. Kiekvienas smūgis kuria kitą, iki pat didžiojo.',
+        '2': 'Vikrumo greitoms rankoms. Ištvermės ramybei išlaikyti, kai kitiems pritrūksta kvapo.',
+        say: 'Kas yra Geležinis vienuolis?'
+      },
+      ready: {
+        strong: {
+          '1': 'Mokinys tampa mokytoju. Niekam nesakyk. Imk bet kurią pamoką.'
+        },
+        able: {
+          '1': 'Gerai. Taurė pildosi. Imk kitą pamoką.'
+        },
+        weak: {
+          '1': 'Dar ne. Medis trumpomis šaknimis vėjyje virsta. Daugiau Ištvermės.'
+        }
+      },
+      noodles: {
+        '1': 'Taip. Sultinys virė dvi dienas. Prašau, nekvėpuok ant jo.',
+        '2': 'Geras dubenėlis moko kantrybės. Puikus dubenėlis moko visko kito.',
+        say: 'Ar tai makaronų dubenėlis?'
+      },
+      trainBack: {
+        '1': 'Gerai. Dabar suvalgyk ką nors šilto. Jėga ateina iš dubenėlio.'
+      },
+      bye: {
+        '1': 'Laimingai. Eik tyliai. Spirk stipriai.'
+      }
+    },
+    sbMasterBard: {
+      hello: {
+        '1': 'Užeik, užeik, iš šalčio ateik! O ne, sueiliavau. Man taip nutinka.',
+        '2': 'Lark Linksmaoris. Groju prie ugnies ir moku liutnios visus, kas tik nori klausytis.'
+      },
+      again: {
+        '1': 'Mano mėgstamiausias klausytojas! Prisitrauk kėdutę. Atsargiai, katė čia kritikė.'
+      },
+      train: {
+        '1': 'Brazdink kartu su manim. Vienas, du ir trys... Nežiūrėk į pirštus. Jausk!'
+      },
+      class: {
+        '1': 'Dainos, nuo kurių saviškiai drąsėja, ir melodijos, nuo kurių kiti užmiega.',
+        '2': 'Charizmos publikai sužavėti. Meistrystės, kad pirštai spėtų paskui širdį.',
+        say: 'Ką veikia Bardas?'
+      },
+      ready: {
+        strong: {
+          '1': 'Dabar pripildytum bet kurią smuklę! Imk visas mano dainas.'
+        },
+        able: {
+          '1': 'Graži melodija! Gali imtis kito posmo.'
+        },
+        weak: {
+          '1': 'Dar ne. Publika vis dar žiovauja. Daugiau Charizmos, mano drauge.'
+        }
+      },
+      story: {
+        '1': 'Kartą per šį patį tiltą ėjo riteris, turėdamas tik kardą ir dainą...',
+        '2': 'Palauk, su muzika geriau. La-la-la, ir riteris ėjo... Kur aš sustojau?',
+        '3': 'A, nesvarbu. Bet daina graži, ar ne?',
+        say: 'Gal papasakosi istoriją?'
+      },
+      trainBack: {
+        '1': 'Bravo! Praktikuokis kasdien. Net kai skamba baisiai. Ypač tada.'
+      },
+      bye: {
+        '1': 'Sudie, keliauk, laimės sulauk! Oi. Vėl eilėmis. Iki!'
       }
     }
   },

@@ -95,7 +95,8 @@ export default {
     elixirSwift: 'Ketteryys',
     elixirMind: 'Kirkas mieli',
     elixirVigor: 'Elinvoima',
-    elixirShadow: 'Janoava terä'
+    elixirShadow: 'Janoava terä',
+    chi: 'Chi'
   },
   toast: {
     item: 'Löytyi: {item}',
@@ -859,6 +860,390 @@ export default {
     crumble: {
       name: 'Murenna',
       desc: 'Teet {dmg}% enemmän vahinkoa vihollisiin, jotka ovat hidastettuja, kaadettuja tai kivettyneitä.'
+    },
+    galeArrow: {
+      name: 'Puuskanuoli',
+      desc: 'Tuulenpuuskalla ratsastava nuoli: {dmg}% Ketteryys-vahinkoa, ja kohde työntyy taaksepäin.'
+    },
+    fleetfoot: {
+      name: 'Kevytjalka',
+      desc: '+{move}% liikenopeutta ja +{dodge}% Väistö.'
+    },
+    zephyrDash: {
+      name: 'Länsituulen syöksy',
+      desc: 'Syöksy enintään {dist} m tähtäämääsi suuntaan ja juokse sitten {move}% nopeammin {dur}s ajan.'
+    },
+    piercingGale: {
+      name: 'Lävistävä puuska',
+      desc: 'Nuoli lentää jokaisen linjan vihollisen läpi: {dmg}% Ketteryys-vahinkoa ja {slow}% hidastus {dur}s ajaksi.'
+    },
+    cycloneSnare: {
+      name: 'Pyörremyrskyansa',
+      desc: 'Pyörretuuli {dur}s ajan vetää vihollisia silmäänsä kohti ja tekee {dmg}% Taito-vahinkoa.'
+    },
+    keenEye: {
+      name: 'Tarkka silmä',
+      desc: '+{critDmg}% kriittinen vahinko. Laukauksesi lentävät {pierce} vihollisen enemmän läpi.'
+    },
+    updraftLeap: {
+      name: 'Nousutuulen loikka',
+      desc: 'Puuska heittää viholliset {radius} m säteellä ilmaan: {dmg}% Ketteryys-vahinkoa. Loikkaat {leap} m kauemmas.'
+    },
+    swiftDraw: {
+      name: 'Nopea veto',
+      desc: 'Hyökkäät {speed}% nopeammin, ja latausaikasi ovat {cdr}% lyhyempiä.'
+    },
+    arrowStorm: {
+      name: 'Nuolimyrsky',
+      desc: 'Nuolia sataa alueelle {dur}s ajan: yhteensä {dmg}% Taito-vahinkoa ja {slow}% hidastus.'
+    },
+    galeSpirits: {
+      name: 'Tuulihenget',
+      desc: 'Tuulihenget lentävät kanssasi {dur}s ajan ja ampuvat {shots} nuolta, kukin {dmg}% Taito-vahinkoa. +{move}% liikenopeutta.'
+    },
+    skyHunter: {
+      name: 'Taivaan metsästäjä',
+      desc: '+{boss}% vahinkoa pomoihin ja +{crit}% kriittisen osuman mahdollisuus.'
+    },
+    skyrender: {
+      name: 'Taivaanrepijä',
+      desc: 'Myrskynuoli repii polun: {dmg}% Ketteryys-vahinkoa kaikille linjalla, jotka lentävät ylös ja sivuun.'
+    },
+    frostCleave: {
+      name: 'Pakkashalkaisu',
+      desc: 'Sivalla jääterälläsi edessäsi: {dmg}% Voima-vahinkoa ja {slow}% hidastus {dur}s ajaksi.'
+    },
+    rimeLance: {
+      name: 'Huurrekeihäs',
+      desc: 'Heitä jääkeihäs: {dmg}% Äly-vahinkoa. Se hidastaa {slow}% {dur}s ajaksi.'
+    },
+    wintersBite: {
+      name: 'Talven purema',
+      desc: 'Hyökkäyksesi hidastavat vihollista {slow}% {dur}s ajaksi.'
+    },
+    frostArmor: {
+      name: 'Pakkaspanssari',
+      desc: 'Jääpanssari imee {shield}% Äly-vahinkoa {dur}s ajan. Lähelläsi olevat viholliset hidastuvat {slow}%.'
+    },
+    glacialCharge: {
+      name: 'Jäätikkörynnäkkö',
+      desc: 'Rynnäkkö kohteeseen: {dmg}% Voima-vahinkoa ja kohde jäätyy {freeze}s ajaksi.'
+    },
+    frozenHeart: {
+      name: 'Jäinen sydän',
+      desc: '+{hp}% enimmäisterveyttä, ja kaikki saamasi vahinko pienenee {reduce}%.'
+    },
+    rimeField: {
+      name: 'Huurrekenttä',
+      desc: 'Jäätävä maa {dur}s ajan: {dmg}% Äly-vahinkoa. Hidastetut viholliset siinä jäätyvät {freeze}s ajaksi.'
+    },
+    frostShatter: {
+      name: 'Pakkasmurska',
+      desc: '{dmg}% Voima-vahinkoa {radius} m säteellä: +{chilled}% hidastettuihin, +{frozen}% jäätyneisiin vihollisiin.'
+    },
+    shatterpoint: {
+      name: 'Murtumakohta',
+      desc: 'Teet {bonus}% enemmän vahinkoa hidastettuihin ja jäätyneisiin vihollisiin.'
+    },
+    avalancheLeap: {
+      name: 'Lumivyöryloikka',
+      desc: 'Loikkaa tähtäämääsi kohtaan ja laskeudu kuin lumivyöry: {dmg}% Voima-vahinkoa, viholliset kaatuvat.'
+    },
+    iceborn: {
+      name: 'Jäästä syntynyt',
+      desc: 'Mikään ei työnnä tai heitä sinua. Tainnutukset sinuun ovat {cut}% lyhyempiä.'
+    },
+    absoluteZero: {
+      name: 'Absoluuttinen nolla',
+      desc: 'Talvi purkautuu sinusta: {dmg}% Äly-vahinkoa {radius} m säteellä, ja kaikki jäätyvät {freeze}s ajaksi.'
+    },
+    sunbolt: {
+      name: 'Aurinkosalama',
+      desc: 'Auringonvalon salama: {dmg}% Äly-vahinkoa. Häikäistynyt kohde tekee {weaken}% vähemmän {dur}s ajan.'
+    },
+    mendingLight: {
+      name: 'Parantava valo',
+      desc: 'Paranna heti {heal}% Karismasta, sitten {regen}% terveydestäsi joka sekunti {dur}s ajan.'
+    },
+    kindledHope: {
+      name: 'Sytytetty toivo',
+      desc: 'Kaikki saamasi parannus on {heal}% vahvempaa.'
+    },
+    lanceOfLight: {
+      name: 'Valon keihäs',
+      desc: 'Valonsäde: {dmg}% Äly-vahinkoa linjalla. Paranna {heal}% terveyttä jokaisesta osutusta vihollisesta.'
+    },
+    dawnShield: {
+      name: 'Aamunkoiton kilpi',
+      desc: 'Poista kaikki haitat itsestäsi ja saa {shield}% Karisman kilpi {dur}s ajaksi.'
+    },
+    haloWard: {
+      name: 'Sädekehän suoja',
+      desc: 'Kaikki saamasi vahinko pienenee {reduce}%.'
+    },
+    dawnSanctuary: {
+      name: 'Aamunkoiton pyhättö',
+      desc: 'Pyhä maa {dur}s ajan: parantaa sinua {heal}% Karismasta sekunnissa, ja viholliset saavat {dmg}% Älystä.'
+    },
+    blindingFlash: {
+      name: 'Sokaiseva välähdys',
+      desc: 'Valon välähdys: viholliset {radius} m säteellä pakenevat {fear}s ajan ja tekevät {weaken}% vähemmän {dur}s ajan.'
+    },
+    guardianLight: {
+      name: 'Suojeleva valo',
+      desc: 'Isku, joka voittaisi sinut, jättää sinulle 1 terveyttä ja olet koskematon {dur}s ajan. Kerran {icd}s välein.'
+    },
+    sunfall: {
+      name: 'Auringonlasku',
+      desc: 'Auringonvalon pylväs laskeutuu kohteeseen: {dmg}% Äly-vahinkoa. Viholliset saavat {vuln}% enemmän {dur}s ajan.'
+    },
+    searingLight: {
+      name: 'Polttava valo',
+      desc: '+{crit}% loitsujen kriittisen osuman mahdollisuus ja +{critDmg}% kriittinen vahinko.'
+    },
+    haloOfDawn: {
+      name: 'Aamun sädekehä',
+      desc: 'Loista {dur}s ajan: joka sekunti {dmg}% Äly-vahinkoa {radius} m säteellä ja paranna {heal}% terveyttä.'
+    },
+    callWolf: {
+      name: 'Kutsu susi',
+      desc: 'Henkisusi liittyy seuraasi ja puree: {dmg}% Karisma-vahinkoa. Enintään {max} kerrallaan.'
+    },
+    wolfPounce: {
+      name: 'Suden syöksy',
+      desc: 'Sutesi hyppäävät kohteen kimppuun: kukin {dmg}% Karisma-vahinkoa, ja kohde kaatuu {down}s ajaksi.'
+    },
+    wildKinship: {
+      name: 'Villi sukulaisuus',
+      desc: 'Kumppaneillasi on {hp}% enemmän terveyttä ja ne tekevät {dmg}% enemmän vahinkoa.'
+    },
+    callHawk: {
+      name: 'Kutsu haukka',
+      desc: 'Haukka syöksyy kohteeseen: {dmg}% Karisma-vahinkoa, ja se saa {vuln}% enemmän {dur}s ajan. Pysyy {life}s.'
+    },
+    callBear: {
+      name: 'Kutsu karhu',
+      desc: 'Henkikarhu liittyy seuraasi. Se iskee {dmg}% vahinkoa ja pitää viholliset kiireisinä. Enintään {max}.'
+    },
+    thickHide: {
+      name: 'Paksu nahka',
+      desc: '+{hp}% enimmäisterveyttä ja +{regen} terveyden palautumista sekunnissa.'
+    },
+    packBond: {
+      name: 'Laumaside',
+      desc: 'Sinä ja kumppanit {radius} m säteellä palaudutte {regen}% terveyttä sekunnissa ja saatte {def}% Puolustusta {dur}s ajaksi.'
+    },
+    spiritStampede: {
+      name: 'Henkien ryntäys',
+      desc: 'Henkipetojen lauma ryntää: {dmg}% Karisma-vahinkoa linjalla, ja viholliset kaatuvat.'
+    },
+    packTactics: {
+      name: 'Laumataktiikka',
+      desc: 'Teet {bonus}% enemmän vahinkoa jokaisesta mukanasi olevasta kumppanista, enintään {max}.'
+    },
+    alphaHowl: {
+      name: 'Johtajan ulvonta',
+      desc: 'Kumppanisi parantuvat {heal}% ja taistelevat {rage}% kovemmin {dur}s ajan. Lähelläsi olevat viholliset pakenevat.'
+    },
+    leaderOfThePack: {
+      name: 'Lauman johtaja',
+      desc: 'Kumppanisi hyökkäävät {speed}% nopeammin ja tekevät {dmg}% enemmän vahinkoa.'
+    },
+    wildHunt: {
+      name: 'Villi jahti',
+      desc: '{wolves} sutta lisää juoksee kanssasi {dur}s ajan. Koko lauma tekee +{dmg}% vahinkoa ja liikkuu {move}% nopeammin.'
+    },
+    prismBolt: {
+      name: 'Prismasalama',
+      desc: 'Salama, {dmg}% Äly-vahinkoa: pakkasta, jos kohde palaa, muuten tulta. Kumpikin laukaisee toisen.'
+    },
+    elementalHarmony: {
+      name: 'Elementtien sopusointu',
+      desc: 'Reaktiosi (Sulaminen, Höyry, Särkyminen, Ylikuorma, Kristalli) ovat {pct}% vahvempia.'
+    },
+    frostLance: {
+      name: 'Pakkaskeihäs',
+      desc: 'Jäätä linjan läpi: {dmg}% Äly-vahinkoa ja {slow}% hidastus {dur}s ajaksi. Palavista vihollisista nousee Höyry.'
+    },
+    chainSpark: {
+      name: 'Ketjukipinä',
+      desc: 'Salama, {dmg}% Älystä, hyppää {jumps} viholliseen lisää. Särkee jään, Ylikuormittaa tulen.'
+    },
+    smolderingCore: {
+      name: 'Kytevä ydin',
+      desc: 'Polttosi tekevät {burn}% enemmän vahinkoa, ja sinulla on {mana} manaa enemmän.'
+    },
+    rollingBoulder: {
+      name: 'Vyöryvä lohkare',
+      desc: 'Lohkare vierii: {dmg}% Äly-vahinkoa, kaato {down}s ajaksi. Merkityistä vihollisista saat kilven.'
+    },
+    thunderSnow: {
+      name: 'Ukkoslumi',
+      desc: 'Lumimyrsky {dur}s ajan: {dmg}% Äly-pakkasvahinkoa ja joka sekunti salama, {bolt}%.'
+    },
+    spellweave: {
+      name: 'Loitsunkudonta',
+      desc: '+{crit}% loitsujen kriittisen osuman mahdollisuus, ja kykysi maksavat {mana}% vähemmän manaa.'
+    },
+    prismaticNova: {
+      name: 'Prismanova',
+      desc: 'Osu kaikkeen {radius} m säteellä: {dmg}% Älystä, kuhunkin elementillä, johon se reagoi.'
+    },
+    prismaticWard: {
+      name: 'Prismasuoja',
+      desc: 'Saat {reduce}% vähemmän vahinkoa, ja sinulla on {hp}% enemmän terveyttä.'
+    },
+    frostfireComet: {
+      name: 'Pakkastulikomeetta',
+      desc: 'Tulen ja jään komeetta: {dmg}% Äly-vahinkoa. Viholliset jäävät palamaan ja hidastuvat.'
+    },
+    elementalConvergence: {
+      name: 'Elementtien yhtymä',
+      desc: '{dur}s ajan neljä elementtiä vuorottelee: {strikes} iskua, kukin {dmg}% Älystä, jotka laukaisevat toisiaan.'
+    },
+    wispBolt: {
+      name: 'Virvasalama',
+      desc: 'Virvatuli, {dmg}% Äly-vahinkoa. Sen voittama vihollinen nousee hengeksesi {life}s ajaksi.'
+    },
+    kindredSpirits: {
+      name: 'Sukulaissielut',
+      desc: 'Henkiesi ja kätyriesi terveys on {hp}% suurempi ja ne hyökkäävät {speed}% nopeammin.'
+    },
+    callTheFallen: {
+      name: 'Kutsu kaatuneet',
+      desc: 'Enintään {max} juuri kaatunutta vihollista {radius} m säteellä nousee hengiksesi {life}s ajaksi.'
+    },
+    soulBond: {
+      name: 'Sielunside',
+      desc: 'Ystävysty vihollisen kanssa: {chance}% ({low}% jos haavoittunut) se liittyy hengeksesi {life}s ajaksi. Muuten {dmg}% vahinkoa.'
+    },
+    restlessSouls: {
+      name: 'Levottomat sielut',
+      desc: 'Voittamallasi vihollisella on {chance}% mahdollisuus nousta hengeksesi {life}s ajaksi.'
+    },
+    spiritLantern: {
+      name: 'Henkilyhty',
+      desc: 'Lyhty {dur}s ajan: sen valossa viholliset saavat {dmg}% Älystä, ystävät parantuvat, kaatuneet nousevat.'
+    },
+    hauntingWail: {
+      name: 'Kummitteleva valitus',
+      desc: 'Aavemainen BÖÖ: {dmg}% Äly-vahinkoa {radius} m säteellä, ja viholliset juoksevat pakoon {fear}s ajan.'
+    },
+    wardensVigil: {
+      name: 'Vartijan valvonta',
+      desc: 'Henkesi ja kätyrisi tekevät {dmg}% enemmän vahinkoa, ja sinä saat {reduce}% vähemmän.'
+    },
+    releaseSouls: {
+      name: 'Vapauta sielut',
+      desc: 'Henkesi lähtevät kotiin valonpurkauksina: kukin {dmg}% Älystä ympärilleen ja {heal}% terveyttä takaisin.'
+    },
+    lanternKeeper: {
+      name: 'Lyhdynvartija',
+      desc: '{cdr}% lyhyemmät latausajat, ja kykysi maksavat {mana}% vähemmän manaa.'
+    },
+    wispSwarm: {
+      name: 'Virvaparvi',
+      desc: '{wisps} virvatulta syöksyy alueen vihollisiin, yhteensä {dmg}% Älystä. Niiden voittamat nousevat.'
+    },
+    processionOfSouls: {
+      name: 'Sielujen saattue',
+      desc: '{dur}s ajan jokainen lähelläsi kaatuva vihollinen nousee hengeksesi, ja henget tekevät {atk}% enemmän.'
+    },
+    palmStrike: {
+      name: 'Kämmenisku',
+      desc: 'Nopea kämmen, {dmg}% Ketteryys-vahinkoa, työntää vihollisen taakse. Kerää {chi} chitä.'
+    },
+    ironBody: {
+      name: 'Rautaruumis',
+      desc: 'Saamasi fyysinen vahinko pienenee {reduce}%, ja sinulla on {hp}% enemmän terveyttä.'
+    },
+    flyingKick: {
+      name: 'Lentävä potku',
+      desc: 'Lennä kohteeseen ja potkaise: {dmg}% Ketteryys-vahinkoa; tiellä olevat saavat {path}%. Kerää {chi} chitä.'
+    },
+    tigerStance: {
+      name: 'Tiikerin asento',
+      desc: '{dur}s ajan: +{dmg}% vahinkoa ja +{speed}% hyökkäysnopeutta. Päättää Kurjen asennon.'
+    },
+    craneStance: {
+      name: 'Kurjen asento',
+      desc: '{dur}s ajan: +{def}% Puolustusta, ja parannut {regen}% terveydestäsi sekunnissa. Päättää Tiikerin asennon.'
+    },
+    flowingFists: {
+      name: 'Virtaavat nyrkit',
+      desc: 'Hyökkäyksilläsi on {chance}% mahdollisuus kerätä chitä.'
+    },
+    hundredFists: {
+      name: 'Sata nyrkkiä',
+      desc: '{hits} iskun ryöppy, yhteensä {dmg}% Ketteryys-vahinkoa. Kerää {chi} chitä.'
+    },
+    risingDragon: {
+      name: 'Nouseva lohikäärme',
+      desc: 'Käytä kaikki chi yläiskuun: {dmg}% Ketteryys-vahinkoa, +{per}% per chi. Vihollinen lentää ylös.'
+    },
+    cranesGrace: {
+      name: 'Kurjen sulokkuus',
+      desc: '+{dodge}% Väistö, ja tainnutukset ja kaadot sinuun ovat {cut}% lyhyempiä.'
+    },
+    whirlwindKick: {
+      name: 'Pyörrepotku',
+      desc: 'Potkaise kaikkea {radius} m säteellä kahdesti, yhteensä {dmg}% Ketteryys-vahinkoa. Kerää enintään {chi} chitä.'
+    },
+    tigersFury: {
+      name: 'Tiikerin raivo',
+      desc: '+{crit}% kriittisen osuman mahdollisuus ja +{speed}% hyökkäysnopeutta.'
+    },
+    mountainPalm: {
+      name: 'Vuorikämmen',
+      desc: 'Käytä kaikki chi: jättikämmen putoaa, {dmg}% Ketteryys-vahinkoa, +{per}% per chi, ja kaataa viholliset.'
+    },
+    sharpNote: {
+      name: 'Terävä sävel',
+      desc: 'Terävä sävel, {dmg}% Karisma-vahinkoa. Vihollinen tekee {weaken}% vähemmän vahinkoa {dur}s ajan.'
+    },
+    stagePresence: {
+      name: 'Lavakarisma',
+      desc: 'Kykysi maksavat {mana}% vähemmän manaa, ja liikut {move}% nopeammin.'
+    },
+    marchingSong: {
+      name: 'Marssilaulu',
+      desc: 'Laulu {dur}s ajan: sinä ja liittolaiset {radius} m säteellä liikutte {move}% ja hyökkäätte {speed}% nopeammin.'
+    },
+    lullaby: {
+      name: 'Tuutulaulu',
+      desc: 'Lempeä sävelmä kartiossa: jokainen vihollinen, johon se yltää, nukahtaa {dur}s ajaksi.'
+    },
+    longRefrain: {
+      name: 'Pitkä kertosäe',
+      desc: 'Laulusi kestävät {pct}% pidempään.'
+    },
+    balladOfValor: {
+      name: 'Urhouden balladi',
+      desc: 'Laulu {dur}s ajan: sinä ja liittolaiset {radius} m säteellä teette {dmg}% enemmän vahinkoa ja saatte {def}% Puolustusta.'
+    },
+    charmingSerenade: {
+      name: 'Lumoava serenadi',
+      desc: 'Lumoa kohde ja viholliset {radius} m säteellä: {dur}s ajan ne taistelevat toisiaan vastaan.'
+    },
+    virtuoso: {
+      name: 'Virtuoosi',
+      desc: '{cdr}% lyhyemmät latausajat ja +{critDmg}% kriittinen vahinko.'
+    },
+    hymnOfMending: {
+      name: 'Parannuksen hymni',
+      desc: 'Poistaa haitat, sitten {dur}s ajan sinä ja liittolaiset {radius} m säteellä parannutte {regen}% terveyttä sekunnissa.'
+    },
+    crescendo: {
+      name: 'Crescendo',
+      desc: 'Äänipurkaus {radius} m säteellä: {dmg}% Karisma-vahinkoa, +{per}% jokaisesta soittamastasi laulusta.'
+    },
+    standingOvation: {
+      name: 'Raikuvat aplodit',
+      desc: '+{dmg}% vahinkoa, ja saat {reduce}% vähemmän vahinkoa.'
+    },
+    grandFinale: {
+      name: 'Suuri finaali',
+      desc: 'Soita kaikki {dur}s ajan (+{buff}% nopeutta, vahinkoa, Puolustusta), sitten viimeinen sointu: {dmg}% Karismasta, viholliset lumottu.'
     }
   },
   slot: {
@@ -1371,6 +1756,30 @@ export default {
     sbFence: {
       name: 'Mirela Thorne',
       talk: 'Hienoja haarniskoja, ei kysymyksiä. No, hyvin vähän kysymyksiä.'
+    },
+    sbMasterWindrunner: {
+      name: 'Sefa Puuskasiipi'
+    },
+    sbMasterFrostwarden: {
+      name: 'Halvard Huurresydän'
+    },
+    sbMasterLightbringer: {
+      name: 'Sisar Auriel Aamujärvi'
+    },
+    sbMasterBeastcaller: {
+      name: 'Vanha Rowan Ohdakejalka'
+    },
+    sbMasterElementalist: {
+      name: 'Magistra Iris Nelituuli'
+    },
+    sbMasterSoulwarden: {
+      name: 'Vartija Odalys Lyhdynvalo'
+    },
+    sbMasterIronmonk: {
+      name: 'Mestari Oru Tyynivesi'
+    },
+    sbMasterBard: {
+      name: 'Lark Hilpeäsää'
     }
   },
   quest: {
@@ -3655,6 +4064,382 @@ export default {
       },
       bye: {
         '1': 'Varo kukkaroasi. Kaikki täällä eivät ole yhtä rehellisiä kuin minä.'
+      }
+    },
+    sbMasterWindrunner: {
+      hello: {
+        '1': 'Ai, hei! Sori, en voi pysähtyä. Odotan, että tuuli kääntyy. Ihan kohta.',
+        '2': 'Sefa Puuskasiipi. Ammun nuolia ja jahtaan tuulta. Yleensä tuuli voittaa.'
+      },
+      open: {
+        '1': 'Siinä on juoksijani! Valmis? Tietenkin olet. Mennään, mennään!'
+      },
+      again: {
+        '1': 'Hei taas! Olen yhä täällä. No, melkein. Jalkani karkailevat koko ajan.'
+      },
+      train: {
+        '1': 'Tunnetko tuulen poskellasi? Tähtää vähän vasemmalle siitä, mihin luulet. Nyt päästä irti!'
+      },
+      favor: {
+        '1': 'Vain niille, jotka pysyvät perässä. Pysytkö sinä? Otetaan selvää.',
+        '2': 'Voita kaksitoista rosvojousimiestä Oakhavenin laitamilla ja tuo sitten kolme pikasaniaista.',
+        say: 'Opetatko jousiammuntaa?'
+      },
+      waiting: {
+        '1': 'Kaksitoista rosvojousimiestä, kolme pikasaniaista. Mene jo! Minä olen tässä. Pomppimassa.',
+        say: 'Siitä kokeestasi...'
+      },
+      favorDone: {
+        '1': 'Hah! Sinä oikeasti pysyit perässä! Kukaan ei pysy perässä!',
+        '2': 'Selvä, olet nyt oppilaani. Yksi sääntö: tunneillani ei istuta.',
+        say: 'Jousimiehet on voitettu, ja tässä ovat pikasaniaisesi.'
+      },
+      class: {
+        '1': 'Ammu, juokse, ammu taas. Jos he saavat sinut kiinni, seisoit paikallasi liian kauan.',
+        '2': 'Ketteryyttä nopeisiin jalkoihin ja nopeaan jouseen. Taitoa, jotta jokainen nuoli osuu.',
+        say: 'Mitä Tuulenjuoksija tekee?'
+      },
+      ready: {
+        strong: {
+          '1': 'Olet nyt yhtä nopea kuin tuuli. No, melkein. Ota mikä oppitunti tahansa!'
+        },
+        able: {
+          '1': 'Kevyet jalat! Olet valmis seuraavaan. Mene, mene!'
+        },
+        weak: {
+          '1': 'Ei vielä. Juokset kuin kantaisit sohvaa. Lisää Ketteryyttä, kiitos.'
+        }
+      },
+      who: {
+        '1': 'Asun vanhassa tuulimyllyssä joen rannalla. Kaupungin paras näköala tuuleen.',
+        '2': 'Kaksisataa porrasta huipulle. Loistavaa treeniä. Olen laskenut joka ikisen.'
+      },
+      trainBack: {
+        '1': 'Hyvä! Juokse nyt kotiin. Älä kävele. Juokseminen lasketaan harjoitukseksi.'
+      },
+      bye: {
+        '1': 'Nähdään! Varo matalia oksia. Minä en koskaan varo.'
+      }
+    },
+    sbMasterFrostwarden: {
+      hello: {
+        '1': 'Hm. Kävelit ohitseni kolme kertaa. Eksyksissä vai utelias?',
+        '2': 'Halvard Huurresydän. Tulin etelään lumien keskeltä. Täällä on lämmin. Liian lämmin.'
+      },
+      open: {
+        '1': 'Oppilas. Hyvä. Jää on valmis, ja niin olen minäkin.'
+      },
+      again: {
+        '1': 'Sinä taas. Hyvä. En puhu paljon. Jää silti.'
+      },
+      train: {
+        '1': 'Hengitä hitaasti ulos. Näetkö huurun? Laita se nyt terään.'
+      },
+      favor: {
+        '1': 'On. Opetan sitä vain niille, jotka pitävät pään kylmänä kuumassa paikassa.',
+        '2': 'Sammuta kymmenen tulielementaalia Tuhkakallioilla. Tuo sitten kolme oksaa pakkasminttua.',
+        say: 'Onko tuo miekka jäätä?'
+      },
+      waiting: {
+        '1': 'Kymmenen tulielementaalia. Kolme oksaa pakkasminttua. Ota aikaa. Ei liikaa aikaa.',
+        say: 'Siitä kokeestasi...'
+      },
+      favorDone: {
+        '1': 'Hm. Ei edes kärventynyt. Hyvä.',
+        '2': 'Pidit pään kylmänä. Se oli ensimmäinen oppitunti. Opetan sinulle loput.',
+        say: 'Tulielementaalit on sammutettu. Tässä pakkasminttusi.'
+      },
+      class: {
+        '1': 'Kylmyyden ritari. Hidasta heidät, jäädytä heidät ja riko sitten jää.',
+        '2': 'Voimaa terään. Älyä pakkaseen. Tarvitset molempia.',
+        say: 'Mikä on Pakkasvartija?'
+      },
+      ready: {
+        strong: {
+          '1': 'Olet nyt kylmä kuin pohjoinen. Ota mikä oppitunti tahansa.'
+        },
+        able: {
+          '1': 'Hyvä. Vakaa. Seuraava oppitunti on sinun.'
+        },
+        weak: {
+          '1': 'Ei vielä. Pakkasesi sulaa liian nopeasti. Lisää Älyä ja lisää Voimaa.'
+        }
+      },
+      who: {
+        '1': 'Vartioin vuoristosolaa pohjoisessa. Sitten halusin nähdä joen, joka ei jäädy.'
+      },
+      trainBack: {
+        '1': 'Hyvä. Lepää nyt. Jää ei kiirehdi. Älä sinäkään.'
+      },
+      bye: {
+        '1': 'Kulje hyvin. Pysy viileänä.'
+      }
+    },
+    sbMasterLightbringer: {
+      hello: {
+        '1': 'Mm-hm-hmm... Oi! Anteeksi, kultaseni, minä hyräilin. Hyräilinkö sinulle? Teen niin.',
+        '2': 'Sisar Auriel Aamujärvi. Pidän sillan päässä olevan pikku lampun palamassa.'
+      },
+      open: {
+        '1': 'Siinä on minun valoisani! Tule seisomaan valoon hetkeksi. Olet ansainnut sen.'
+      },
+      again: {
+        '1': 'Hei taas! Yhä täällä, yhä hyräilemässä. Lamppu pitää seurasta.'
+      },
+      train: {
+        '1': 'Kädet auki, leuka pystyyn. Ajattele parasta aamua, joka sinulla on ollut. Noin. Tunnetko?'
+      },
+      favor: {
+        '1': 'Jokaisen sisällä on pieni valo. Opetan ihmisiä päästämään sen esiin, kun he ovat valmiita.',
+        '2': 'Voita kymmenen kultistia Tuhkakallioilla ja tuo sitten viisi aurinkoterää lamppuuni.',
+        say: 'Onko tuo lamppu taikaa?'
+      },
+      waiting: {
+        '1': 'Kymmenen kultistia, viisi aurinkoterää. Voita heidät lempeästi. Jokainen ansaitsee toisen mahdollisuuden.',
+        say: 'Siitä kokeestasi...'
+      },
+      favorDone: {
+        '1': 'Oi, katso niitä! Lamppu hehkuu kultaisena kuukauden.',
+        '2': 'Ja niin hehkut sinäkin, kultaseni. Opetan sinua mielelläni.',
+        say: 'Kultistit on voitettu. Tässä aurinkoteräsi.'
+      },
+      class: {
+        '1': 'Me kannamme aamunkoittoa. Valoa taisteluun, valoa parantamiseen, valoa suojaksi.',
+        '2': 'Äly tekee valosta vahvan. Karisma tekee siitä lämpimän. Haluat molempia.',
+        say: 'Mitä Valontuoja tekee?'
+      },
+      ready: {
+        strong: {
+          '1': 'Loistat kuin auringonnousu, kultaseni. Ota mikä oppitunti tahansa.'
+        },
+        able: {
+          '1': 'Hehkut kauniisti! Olet valmis seuraavaan.'
+        },
+        weak: {
+          '1': 'Ei vielä, kultaseni. Valosi on vähän himmeä. Lisää Karismaa, niin alat hehkua.'
+        }
+      },
+      who: {
+        '1': 'Lauloin kerran isossa temppelissä. Mutta täällä lamppuni ohjaa veneet kotiin. Se on parempaa.'
+      },
+      trainBack: {
+        '1': 'Ihanaa. Mene nyt ja ilahduta jonkun päivää. Sisaren käsky.'
+      },
+      bye: {
+        '1': 'Mene vain, kultaseni. Ja hymyile pimeille nurkille. Ne inhoavat sitä.'
+      }
+    },
+    sbMasterBeastcaller: {
+      hello: {
+        '1': 'Varo jalkojasi. Tuo on Vatukka. Hän oli täällä ensin.',
+        '2': 'Rowan Ohdakejalka. Pidän eläimistä. Ihmisistä en ole vielä päättänyt.'
+      },
+      open: {
+        '1': 'Ai, sinä. Vatukka on odottanut. Niin minäkin. Vähän.'
+      },
+      again: {
+        '1': 'Sinä taas. Vatukka pitää sinusta. Minä mietin vielä.'
+      },
+      train: {
+        '1': 'Kyykisty. Hitaammin. Ojenna kätesi ja anna niiden tulla luoksesi. Hyvä.'
+      },
+      favor: {
+        '1': 'Puhua? Minä kuuntelen. Sitä temppua useimmat eivät koskaan opi.',
+        '2': 'Jättihämähäkit tukkivat eläinpolkuja seitillä Kuiskaavassa metsässä. Raivaa kaksitoista.',
+        '3': 'Tuo sitten kaksi kuunkelloa pesääni. Vatukka nukkuu paremmin niiden lähellä.',
+        say: 'Osaatko puhua eläimille?'
+      },
+      waiting: {
+        '1': 'Kaksitoista hämähäkkiä, kaksi kuunkelloa. Eläimet odottavat. Niin Vatukkakin.',
+        say: 'Siitä kokeestasi...'
+      },
+      favorDone: {
+        '1': 'Hm. Peurat tulivat joelle tänä aamuna. Arvelin, että se olit sinä.',
+        '2': 'Hyvä on. Opetan sinua. Älä tee siitä numeroa. Vatukka, lopeta heiluttaminen.',
+        say: 'Polut ovat selvät, ja tässä kuunkellosi.'
+      },
+      class: {
+        '1': 'Kutsut villiä, ja villi tulee. Susia, haukka, karhu. Ystäviä, ei lemmikkejä.',
+        '2': 'Karismaa, jotta ne haluavat tulla. Kestävyyttä, jotta pysyt niiden perässä.',
+        say: 'Mikä on Pedonkutsuja?'
+      },
+      ready: {
+        strong: {
+          '1': 'Koko lauma luottaa sinuun nyt. Ota mitä haluat.'
+        },
+        able: {
+          '1': 'Sudet pitävät sinusta. Olet valmis seuraavaan.'
+        },
+        weak: {
+          '1': 'Ei vielä. Ne eivät luota sinuun. Lisää Karismaa ja paljon lisää kärsivällisyyttä.'
+        }
+      },
+      who: {
+        '1': 'Löysin Vatukan ansasta vuosia sitten. Kolme jalkaa, pelkkää asennetta. Siitä asti olemme olleet pari.',
+        '2': 'Nukun tallin heinäparvella. Hevoset kuorsaavat vähemmän kuin ihmiset.'
+      },
+      trainBack: {
+        '1': 'Hyvä. Mene sitten. Ja sano hei variksille. Ne muistavat.'
+      },
+      bye: {
+        '1': 'Mene vain. Vatukka sanoo heipat.'
+      }
+    },
+    sbMasterElementalist: {
+      hello: {
+        '1': 'Hei! Hetki vain, minä jongleeraan. Tuli, pakkanen, kipinä, kivi ja... sain kiinni! Hei!',
+        '2': 'Magistra Iris Nelituuli. Opetan kaikkia neljää elementtiä. Niiden sekoittaminen on se hauska osa.'
+      },
+      again: {
+        '1': 'Taas täällä! Hyvä, tarvitsin katsojan. Katso tätä. Ta-daa!'
+      },
+      train: {
+        '1': 'Valitse kaksi palloa. Mitkä tahansa. Anna niiden nyt törmätä. Varovasti! Näetkö? Reaktio!'
+      },
+      class: {
+        '1': 'Me sekoitamme! Pakkanen ja sitten tuli, se sulaa. Tuli ja sitten salama, pum. Jokainen pari tekee jotain.',
+        '2': 'Älyä jokaiseen loitsuun. Taitoa, koska parhaat vaativat nopeat kädet.',
+        say: 'Mitä Elementtimaagi tekee?'
+      },
+      ready: {
+        strong: {
+          '1': 'Sekoitat nyt kuin mestari! Ota mikä oppitunti tahansa. Ota kaksi!'
+        },
+        able: {
+          '1': 'Ooh, hieno kipinä! Olet valmis seuraavaan.'
+        },
+        weak: {
+          '1': 'Ei vielä! Elementtisi sammuvat sihisten. Lisää Älyä, kiitos.'
+        }
+      },
+      sleeve: {
+        '1': 'Oho! Niinpä onkin. Hetki vain... Noin.',
+        '2': 'Tuli ja sitten pakkanen. Se oli itse asiassa oppitunti. Ole hyvä!',
+        say: 'Öh, hihasi on tulessa.'
+      },
+      trainBack: {
+        '1': 'Loistavaa! Harjoittele nyt ulkona, kiitos. Verhot ovat uudet.'
+      },
+      bye: {
+        '1': 'Hei hei! Jos haistat savua, se olen luultavasti minä. Älä huoli!'
+      }
+    },
+    sbMasterSoulwarden: {
+      hello: {
+        '1': 'Shh, ei hätää, ne ovat ystävällisiä. Ai, en tarkoittanut sinua. Puhuin virvatulille.',
+        '2': 'Vartija Odalys Lyhdynvalo. Autan eksyneitä henkiä löytämään kotiin.'
+      },
+      again: {
+        '1': 'Hei taas. Virvatulet muistavat sinut. Tuo tuossa vilkuttaa.'
+      },
+      train: {
+        '1': 'Pidä lyhtyä alhaalla ja puhu hiljaa. Eksyneet tulevat ystävällisen äänen luo.'
+      },
+      class: {
+        '1': 'Kun vihollinen voitetaan, sen henki eksyy vähän. Me autamme sitä, ja se auttaa meitä takaisin.',
+        '2': 'Älyä valon ohjaamiseen. Karismaa, jotta henget haluavat jäädä hetkeksi.',
+        say: 'Mitä Sielunvartija tekee?'
+      },
+      ready: {
+        strong: {
+          '1': 'Ujoimmatkin henget tulevat nyt luoksesi. Ota mikä oppitunti tahansa.'
+        },
+        able: {
+          '1': 'Virvatulet luottavat sinuun. Olet valmis seuraavaan oppituntiin.'
+        },
+        weak: {
+          '1': 'Ei vielä. Ne ujostelevat sinua yhä. Lisää Älyä ja vähän Karismaa.'
+        }
+      },
+      wisps: {
+        '1': 'Tavallaan! Ne ovat henkiä, jotka harhailivat pois. Tämä on Vipeltäjä. Hän pitää lämpimästä puolesta.',
+        '2': 'Mikään henki ei ole paha, tiedäthän. Vain eksynyt. Ne menevät kotiin, kun ovat valmiita.',
+        say: 'Ovatko lyhtysi pikku valot elossa?'
+      },
+      trainBack: {
+        '1': 'Hyvin tehty. Päästä ne nyt lempeästi menemään. Niillä on ollut pitkä päivä.'
+      },
+      bye: {
+        '1': 'Pidä huolta. Ja jos näet eksyneen pikku valon, sano hei.'
+      }
+    },
+    sbMasterIronmonk: {
+      hello: {
+        '1': 'Istu. Hengitä. Ei, hengität kuin olisit myöhässä jostain. Uudestaan.',
+        '2': 'Mestari Oru Tyynivesi. Opetan avointa kättä. Rautanyrkit, tyyni sydän.'
+      },
+      again: {
+        '1': 'Ah. Oppilas palaa. Niin palaa joki. Joka päivä.'
+      },
+      train: {
+        '1': 'Jalat kuin juuret, kädet kuin sade. Iske. Uudestaan. Sadas isku ratkaisee.'
+      },
+      class: {
+        '1': 'Ei terää. Kädet, jalat, hengitys. Jokainen isku rakentaa seuraavan, kunnes tulee se iso.',
+        '2': 'Ketteryyttä nopeisiin käsiin. Kestävyyttä pysyä tyynenä, kun muilta loppuu puhti.',
+        say: 'Mikä on Rautamunkki?'
+      },
+      ready: {
+        strong: {
+          '1': 'Oppilaasta tulee opettaja. Älä kerro kenellekään. Ota mikä oppitunti tahansa.'
+        },
+        able: {
+          '1': 'Hyvä. Kuppi täyttyy. Ota seuraava oppitunti.'
+        },
+        weak: {
+          '1': 'Ei vielä. Lyhytjuurinen puu kaatuu tuulessa. Lisää Kestävyyttä.'
+        }
+      },
+      noodles: {
+        '1': 'On. Lientä haudutettiin kaksi päivää. Älä hengitä sen päälle, kiitos.',
+        '2': 'Hyvä kulho opettaa kärsivällisyyttä. Loistava kulho opettaa kaiken muun.',
+        say: 'Onko tuo nuudelikulho?'
+      },
+      trainBack: {
+        '1': 'Hyvä. Syö nyt jotain lämmintä. Voima tulee kulhosta.'
+      },
+      bye: {
+        '1': 'Kulje hyvin. Astu kevyesti. Potkaise lujaa.'
+      }
+    },
+    sbMasterBard: {
+      hello: {
+        '1': 'Tervetuloa, käy sisään vaan, täällä tuli lämmittää aina vaan! Voi ei, se riimasi. Niin käy.',
+        '2': 'Lark Hilpeäsää. Soitan tulen ääressä ja opetan luuttua kaikille, jotka jaksavat kuunnella.'
+      },
+      again: {
+        '1': 'Lempikuuntelijani! Ota jakkara. Varo kissaa, hän on kriitikko.'
+      },
+      train: {
+        '1': 'Näppäile kanssani. Yksi, kaksi ja kolme... Älä katso sormiasi. Tunne se!'
+      },
+      class: {
+        '1': 'Lauluja, jotka tekevät omista rohkeampia, ja sävelmiä, jotka nukuttavat toisen puolen.',
+        '2': 'Karismaa yleisön voittamiseen. Taitoa, jotta sormesi pysyvät sydämesi perässä.',
+        say: 'Mitä Bardi tekee?'
+      },
+      ready: {
+        strong: {
+          '1': 'Täyttäisit nyt minkä tahansa tavernan! Ota jokainen lauluni.'
+        },
+        able: {
+          '1': 'Ihana sävel! Olet valmis seuraavaan säkeistöön.'
+        },
+        weak: {
+          '1': 'Ei vielä. Yleisö haukottelee yhä. Lisää Karismaa, ystäväni.'
+        }
+      },
+      story: {
+        '1': 'Olipa kerran ritari, joka ylitti juuri tämän sillan pelkkä miekka ja laulu mukanaan...',
+        '2': 'Hetkinen, se on parempi musiikin kanssa. La-la-laa, ritari meni... Missä olinkaan?',
+        '3': 'Ai, ei se mitään. Kiva laulu silti, eikö?',
+        say: 'Kerrotko minulle tarinan?'
+      },
+      trainBack: {
+        '1': 'Bravo! Harjoittele joka päivä. Silloinkin, kun se kuulostaa kamalalta. Varsinkin silloin.'
+      },
+      bye: {
+        '1': 'Hyvästi ja hyvää matkaa, laulu tietäsi jatkaa! Hups. Taas riimi. Heippa!'
       }
     }
   },

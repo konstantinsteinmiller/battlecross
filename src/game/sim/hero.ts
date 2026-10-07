@@ -389,6 +389,10 @@ const onHit = (sim: Sim, tgt: Unit, base: number): void => {
     if (m.burnOnHit) applyStatus(sim, tgt, 'burn', 3, m.burnOnHit / 3, u, { type: 'fire', quiet: true })
     // Chrono Blade: a chance to freeze.
     if (m.freezeOnHit && sim.rng() < m.freezeOnHit) applyStatus(sim, tgt, 'frozen', 1.5, 1, u)
+    // Flowing Fists (#95): a blow may build a bead of chi.
+    if (m.chiOnHit && sim.rng() < m.chiOnHit) applyStatus(sim, u, 'chi', 8, 1, u, { maxStacks: 5, quiet: true })
+    // Winter's Bite (#86): every blow carries the cold.
+    if (m.chillOnHit && tgt.alive) applyStatus(sim, tgt, 'slow', 2, m.chillOnHit, u, { quiet: true })
     // Venomous Blade: 40 % of the hit again as poison over 4 s, up to five stacks.
     const venom = findStatus(u, 'envenom')
     if (venom) applyStatus(sim, tgt, 'poison', 4, (base * venom.v) / 4, u, { type: 'poison', maxStacks: 5, quiet: true })

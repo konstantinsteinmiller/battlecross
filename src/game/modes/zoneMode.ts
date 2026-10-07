@@ -7,6 +7,7 @@ import { createSlicer, yieldToBrowser, type Slice } from '../engine/slicer'
 import { sceneQuality } from '../engine/quality'
 import { sfx, type SfxName } from '../audio/sfx'
 import { ENEMY_BY_ID, MINIONS } from '../data/enemies'
+import { SPIRIT_COLOR } from '../sim/spawn'
 import { BOSS_SCRIPTS } from '../sim/bosses'
 import { ACTIVE_SLOTS, SKILL_BY_ID } from '../data/skills'
 import { ARENA_WAVES, OPENING, TOWNS, ZONES, unitLevelTier, type ThemeId, type TownId } from '../data/zones'
@@ -743,7 +744,7 @@ export class ZoneMode implements GameMode {
           } else if (e.rank === 'hero') {
             this.vfx.death(e.x, e.z, 1.4, '#ff5a5a', 1.6)
             sfx('deathBig')
-          } else this.vfx.poof(e.x, e.z, MINIONS[e.kind]?.color ?? '#ffffff', 0.8)
+          } else this.vfx.poof(e.x, e.z, MINIONS[e.kind]?.color ?? (ENEMY_BY_ID[e.kind] && e.team === 0 ? SPIRIT_COLOR : '#ffffff'), 0.8)
           break
         }
         case 'spawn': {

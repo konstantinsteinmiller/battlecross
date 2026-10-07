@@ -95,7 +95,8 @@ export default {
     elixirSwift: 'Nhanh nhẹn',
     elixirMind: 'Minh mẫn',
     elixirVigor: 'Sinh lực',
-    elixirShadow: 'Lưỡi kiếm khát máu'
+    elixirShadow: 'Lưỡi kiếm khát máu',
+    chi: 'Khí'
   },
   toast: {
     item: 'Tìm thấy: {item}',
@@ -859,6 +860,390 @@ export default {
     crumble: {
       name: 'Sụp Đổ',
       desc: 'Bạn gây thêm {dmg}% sát thương lên kẻ địch đang bị làm chậm, ngã gục hoặc hóa đá.'
+    },
+    galeArrow: {
+      name: 'Tên Cuồng Phong',
+      desc: 'Mũi tên cưỡi cơn gió: {dmg}% sát thương Khéo léo, và mục tiêu bị đẩy lùi.'
+    },
+    fleetfoot: {
+      name: 'Chân Gió',
+      desc: '+{move}% tốc độ chạy và +{dodge}% Né.'
+    },
+    zephyrDash: {
+      name: 'Lướt Gió',
+      desc: 'Lướt tới tối đa {dist} m theo hướng bạn nhắm, rồi chạy nhanh hơn {move}% trong {dur} giây.'
+    },
+    piercingGale: {
+      name: 'Gió Xuyên Thấu',
+      desc: 'Mũi tên bay xuyên mọi kẻ địch trên một đường: {dmg}% sát thương Khéo léo và làm chậm {slow}% trong {dur} giây.'
+    },
+    cycloneSnare: {
+      name: 'Bẫy Lốc Xoáy',
+      desc: 'Một cơn lốc trong {dur} giây hút kẻ địch vào tâm và gây {dmg}% sát thương Kỹ xảo.'
+    },
+    keenEye: {
+      name: 'Mắt Tinh',
+      desc: '+{critDmg}% Sát thương Chí mạng. Phát bắn của bạn xuyên thêm {pierce} kẻ địch.'
+    },
+    updraftLeap: {
+      name: 'Bật Gió',
+      desc: 'Luồng gió hất tung kẻ địch trong {radius} m, gây {dmg}% sát thương Khéo léo. Bạn nhảy ra xa {leap} m.'
+    },
+    swiftDraw: {
+      name: 'Giương Cung Nhanh',
+      desc: 'Bạn đánh nhanh hơn {speed}% và hồi chiêu ngắn hơn {cdr}%.'
+    },
+    arrowStorm: {
+      name: 'Bão Tên',
+      desc: 'Tên trút xuống khu vực trong {dur} giây: tổng cộng {dmg}% sát thương Kỹ xảo, và làm chậm {slow}%.'
+    },
+    galeSpirits: {
+      name: 'Tinh Linh Gió',
+      desc: 'Tinh linh gió bay cùng bạn trong {dur} giây, bắn {shots} mũi tên, mỗi mũi {dmg}% sát thương Kỹ xảo. +{move}% tốc độ chạy.'
+    },
+    skyHunter: {
+      name: 'Thợ Săn Bầu Trời',
+      desc: '+{boss}% sát thương lên trùm và +{crit}% Tỉ lệ Chí mạng.'
+    },
+    skyrender: {
+      name: 'Xé Trời',
+      desc: 'Mũi tên bão xé một đường: {dmg}% sát thương Khéo léo lên mọi kẻ trên đường, hất tung và hất sang bên.'
+    },
+    frostCleave: {
+      name: 'Chém Băng',
+      desc: 'Quét lưỡi kiếm băng phía trước: {dmg}% sát thương Sức mạnh và làm chậm {slow}% trong {dur} giây.'
+    },
+    rimeLance: {
+      name: 'Thương Sương Giá',
+      desc: 'Phóng ngọn thương băng gây {dmg}% sát thương Trí tuệ. Làm chậm {slow}% trong {dur} giây.'
+    },
+    wintersBite: {
+      name: 'Nanh Mùa Đông',
+      desc: 'Đòn đánh của bạn làm chậm kẻ địch {slow}% trong {dur} giây.'
+    },
+    frostArmor: {
+      name: 'Giáp Băng',
+      desc: 'Giáp băng hấp thụ sát thương bằng {shield}% Trí tuệ trong {dur} giây. Kẻ địch gần bạn bị làm chậm {slow}%.'
+    },
+    glacialCharge: {
+      name: 'Xung Phong Băng Hà',
+      desc: 'Lao vào mục tiêu gây {dmg}% sát thương Sức mạnh và đóng băng nó {freeze} giây.'
+    },
+    frozenHeart: {
+      name: 'Trái Tim Băng Giá',
+      desc: '+{hp}% máu tối đa, và mọi sát thương bạn nhận giảm {reduce}%.'
+    },
+    rimeField: {
+      name: 'Đồng Sương Giá',
+      desc: 'Mặt đất đóng băng trong {dur} giây: {dmg}% sát thương Trí tuệ. Kẻ địch bị làm chậm trong đó đóng băng {freeze} giây.'
+    },
+    frostShatter: {
+      name: 'Vỡ Băng',
+      desc: '{dmg}% sát thương Sức mạnh trong {radius} m: +{chilled}% lên kẻ địch bị làm chậm, +{frozen}% lên kẻ bị đóng băng.'
+    },
+    shatterpoint: {
+      name: 'Điểm Vỡ',
+      desc: 'Bạn gây thêm {bonus}% sát thương lên kẻ địch bị làm chậm và bị đóng băng.'
+    },
+    avalancheLeap: {
+      name: 'Nhảy Tuyết Lở',
+      desc: 'Nhảy tới chỗ bạn nhắm và đáp xuống như tuyết lở: {dmg}% sát thương Sức mạnh, quật ngã kẻ địch.'
+    },
+    iceborn: {
+      name: 'Sinh Ra Từ Băng',
+      desc: 'Không gì đẩy lùi hay hất tung được bạn. Choáng lên bạn ngắn hơn {cut}%.'
+    },
+    absoluteZero: {
+      name: 'Độ Không Tuyệt Đối',
+      desc: 'Mùa đông bùng ra từ bạn: {dmg}% sát thương Trí tuệ trong {radius} m, đóng băng tất cả {freeze} giây.'
+    },
+    sunbolt: {
+      name: 'Tia Mặt Trời',
+      desc: 'Tia nắng gây {dmg}% sát thương Trí tuệ. Mục tiêu bị lóa mắt gây ít hơn {weaken}% trong {dur} giây.'
+    },
+    mendingLight: {
+      name: 'Ánh Sáng Chữa Lành',
+      desc: 'Hồi ngay {heal}% Mị lực, rồi hồi {regen}% máu mỗi giây trong {dur} giây.'
+    },
+    kindledHope: {
+      name: 'Hy Vọng Bừng Cháy',
+      desc: 'Mọi lượng hồi máu bạn nhận mạnh hơn {heal}%.'
+    },
+    lanceOfLight: {
+      name: 'Thương Ánh Sáng',
+      desc: 'Một tia sáng: {dmg}% sát thương Trí tuệ trên một đường. Hồi {heal}% máu cho mỗi kẻ địch trúng đòn.'
+    },
+    dawnShield: {
+      name: 'Khiên Bình Minh',
+      desc: 'Xóa mọi hiệu ứng xấu trên bạn và nhận khiên bằng {shield}% Mị lực trong {dur} giây.'
+    },
+    haloWard: {
+      name: 'Hào Quang Hộ Thân',
+      desc: 'Mọi sát thương bạn nhận giảm {reduce}%.'
+    },
+    dawnSanctuary: {
+      name: 'Thánh Địa Bình Minh',
+      desc: 'Vùng đất thánh trong {dur} giây: mỗi giây hồi cho bạn {heal}% Mị lực, và kẻ địch nhận {dmg}% Trí tuệ.'
+    },
+    blindingFlash: {
+      name: 'Chớp Lóa',
+      desc: 'Một chớp sáng: kẻ địch trong {radius} m bỏ chạy {fear} giây và gây ít hơn {weaken}% trong {dur} giây.'
+    },
+    guardianLight: {
+      name: 'Ánh Sáng Hộ Mệnh',
+      desc: 'Đòn lẽ ra hạ gục bạn sẽ để lại 1 máu, và bạn bất khả xâm phạm {dur} giây. Mỗi {icd} giây một lần.'
+    },
+    sunfall: {
+      name: 'Mặt Trời Giáng',
+      desc: 'Cột nắng giáng xuống mục tiêu: {dmg}% sát thương Trí tuệ. Kẻ địch nhận thêm {vuln}% trong {dur} giây.'
+    },
+    searingLight: {
+      name: 'Ánh Sáng Thiêu Đốt',
+      desc: '+{crit}% Tỉ lệ Chí mạng phép và +{critDmg}% Sát thương Chí mạng.'
+    },
+    haloOfDawn: {
+      name: 'Hào Quang Bình Minh',
+      desc: 'Tỏa sáng trong {dur} giây: mỗi giây gây {dmg}% sát thương Trí tuệ trong {radius} m và hồi {heal}% máu.'
+    },
+    callWolf: {
+      name: 'Gọi Sói',
+      desc: 'Một sói linh hồn đi cùng bạn, cắn gây {dmg}% sát thương Mị lực. Tối đa {max} con cùng lúc.'
+    },
+    wolfPounce: {
+      name: 'Sói Vồ',
+      desc: 'Bầy sói vồ lên mục tiêu: mỗi con {dmg}% sát thương Mị lực, quật ngã nó {down} giây.'
+    },
+    wildKinship: {
+      name: 'Tình Thân Hoang Dã',
+      desc: 'Bạn đồng hành của bạn có thêm {hp}% máu và gây thêm {dmg}% sát thương.'
+    },
+    callHawk: {
+      name: 'Gọi Diều Hâu',
+      desc: 'Diều hâu bổ nhào xuống mục tiêu gây {dmg}% sát thương Mị lực: nó nhận thêm {vuln}% trong {dur} giây. Ở lại {life} giây.'
+    },
+    callBear: {
+      name: 'Gọi Gấu',
+      desc: 'Một gấu linh hồn đi cùng bạn. Nó đánh gây {dmg}% sát thương và cầm chân kẻ địch. Tối đa {max} con.'
+    },
+    thickHide: {
+      name: 'Da Dày',
+      desc: '+{hp}% máu tối đa và +{regen} hồi máu mỗi giây.'
+    },
+    packBond: {
+      name: 'Gắn Kết Bầy Đàn',
+      desc: 'Bạn và bạn đồng hành trong {radius} m hồi {regen}% máu mỗi giây và được +{def}% Phòng thủ trong {dur} giây.'
+    },
+    spiritStampede: {
+      name: 'Linh Thú Xung Kích',
+      desc: 'Một đàn linh thú lao tới: {dmg}% sát thương Mị lực trên một đường, quật ngã kẻ địch.'
+    },
+    packTactics: {
+      name: 'Chiến Thuật Bầy Đàn',
+      desc: 'Bạn gây thêm {bonus}% sát thương cho mỗi bạn đồng hành bên cạnh, tối đa {max}.'
+    },
+    alphaHowl: {
+      name: 'Tiếng Hú Đầu Đàn',
+      desc: 'Bạn đồng hành hồi {heal}% và chiến đấu hăng hơn {rage}% trong {dur} giây. Kẻ địch gần bạn bỏ chạy.'
+    },
+    leaderOfThePack: {
+      name: 'Thủ Lĩnh Bầy Đàn',
+      desc: 'Bạn đồng hành của bạn đánh nhanh hơn {speed}% và gây thêm {dmg}% sát thương.'
+    },
+    wildHunt: {
+      name: 'Cuộc Săn Hoang Dã',
+      desc: 'Thêm {wolves} con sói chạy cùng bạn trong {dur} giây. Cả bầy gây +{dmg}% sát thương và chạy nhanh hơn {move}%.'
+    },
+    prismBolt: {
+      name: 'Tia Lăng Kính',
+      desc: 'Tia phép gây {dmg}% sát thương Trí tuệ: băng nếu mục tiêu đang cháy, không thì lửa. Mỗi loại kích hoạt loại kia.'
+    },
+    elementalHarmony: {
+      name: 'Hòa Hợp Nguyên Tố',
+      desc: 'Phản ứng của bạn (Tan Chảy, Hơi Nước, Vỡ Vụn, Quá Tải, Kết Tinh) mạnh hơn {pct}%.'
+    },
+    frostLance: {
+      name: 'Giáo Băng',
+      desc: 'Băng xuyên một đường: {dmg}% sát thương Trí tuệ và làm chậm {slow}% trong {dur} giây. Kẻ địch đang cháy bốc Hơi Nước.'
+    },
+    chainSpark: {
+      name: 'Chuỗi Tia Điện',
+      desc: 'Tia sét gây {dmg}% Trí tuệ, nhảy sang thêm {jumps} kẻ địch. Làm Vỡ Vụn băng, gây Quá Tải lửa.'
+    },
+    smolderingCore: {
+      name: 'Lõi Âm Ỉ',
+      desc: 'Thiêu đốt của bạn gây thêm {burn}% sát thương, và bạn có thêm {mana} mana.'
+    },
+    rollingBoulder: {
+      name: 'Tảng Đá Lăn',
+      desc: 'Tảng đá lăn ra: {dmg}% sát thương Trí tuệ, quật ngã {down} giây. Kẻ địch bị đánh dấu cho bạn một tấm khiên.'
+    },
+    thunderSnow: {
+      name: 'Bão Tuyết Sấm',
+      desc: 'Bão tuyết trong {dur} giây: {dmg}% sát thương băng Trí tuệ, và mỗi giây một tia sét gây {bolt}%.'
+    },
+    spellweave: {
+      name: 'Dệt Phép',
+      desc: '+{crit}% Tỉ lệ Chí mạng phép, và kỹ năng của bạn tốn ít hơn {mana}% mana.'
+    },
+    prismaticNova: {
+      name: 'Tân Tinh Lăng Kính',
+      desc: 'Đánh mọi thứ trong {radius} m gây {dmg}% Trí tuệ, mỗi mục tiêu bằng nguyên tố phản ứng với nó.'
+    },
+    prismaticWard: {
+      name: 'Lá Chắn Lăng Kính',
+      desc: 'Bạn nhận ít hơn {reduce}% sát thương và có thêm {hp}% máu.'
+    },
+    frostfireComet: {
+      name: 'Sao Chổi Băng Hỏa',
+      desc: 'Sao chổi lửa và băng: {dmg}% sát thương Trí tuệ. Kẻ địch bị thiêu đốt và làm chậm.'
+    },
+    elementalConvergence: {
+      name: 'Hội Tụ Nguyên Tố',
+      desc: 'Trong {dur} giây, bốn nguyên tố thay phiên: {strikes} đòn, mỗi đòn {dmg}% Trí tuệ, kích hoạt lẫn nhau.'
+    },
+    wispBolt: {
+      name: 'Tia Đốm Hồn',
+      desc: 'Một đốm hồn gây {dmg}% sát thương Trí tuệ. Kẻ địch bị nó hạ gục trỗi dậy làm linh hồn của bạn trong {life} giây.'
+    },
+    kindredSpirits: {
+      name: 'Linh Hồn Đồng Điệu',
+      desc: 'Linh hồn và thuộc hạ của bạn có thêm {hp}% máu và đánh nhanh hơn {speed}%.'
+    },
+    callTheFallen: {
+      name: 'Gọi Kẻ Đã Ngã',
+      desc: 'Tối đa {max} kẻ địch vừa gục ngã trong {radius} m trỗi dậy làm linh hồn của bạn trong {life} giây.'
+    },
+    soulBond: {
+      name: 'Kết Nối Linh Hồn',
+      desc: 'Kết bạn với kẻ địch: {chance}% ({low}% nếu bị thương) nó theo bạn làm linh hồn trong {life} giây. Nếu không, {dmg}% sát thương.'
+    },
+    restlessSouls: {
+      name: 'Linh Hồn Bất An',
+      desc: 'Kẻ địch bạn hạ gục có {chance}% cơ hội trỗi dậy làm linh hồn của bạn trong {life} giây.'
+    },
+    spiritLantern: {
+      name: 'Đèn Linh Hồn',
+      desc: 'Đèn lồng trong {dur} giây: kẻ địch trong ánh sáng nhận {dmg}% Trí tuệ, đồng đội hồi máu, kẻ đã ngã trỗi dậy.'
+    },
+    hauntingWail: {
+      name: 'Tiếng Than Ma Quái',
+      desc: 'Một tiếng HÙ ma quái: {dmg}% sát thương Trí tuệ trong {radius} m, và kẻ địch bỏ chạy {fear} giây.'
+    },
+    wardensVigil: {
+      name: 'Hộ Hồn Canh Thức',
+      desc: 'Linh hồn và thuộc hạ của bạn gây thêm {dmg}% sát thương, và bạn nhận ít hơn {reduce}%.'
+    },
+    releaseSouls: {
+      name: 'Giải Thoát Linh Hồn',
+      desc: 'Linh hồn của bạn về nhà trong chớp sáng: mỗi linh hồn gây {dmg}% Trí tuệ xung quanh và trả lại {heal}% máu.'
+    },
+    lanternKeeper: {
+      name: 'Người Giữ Đèn',
+      desc: 'Hồi chiêu ngắn hơn {cdr}%, và kỹ năng của bạn tốn ít hơn {mana}% mana.'
+    },
+    wispSwarm: {
+      name: 'Bầy Đốm Hồn',
+      desc: '{wisps} đốm hồn lao vào kẻ địch trong khu vực, tổng cộng {dmg}% Trí tuệ. Kẻ bị chúng hạ gục sẽ trỗi dậy.'
+    },
+    processionOfSouls: {
+      name: 'Đoàn Rước Linh Hồn',
+      desc: 'Trong {dur} giây, mọi kẻ địch gục ngã gần bạn trỗi dậy làm linh hồn của bạn, và linh hồn gây thêm {atk}%.'
+    },
+    palmStrike: {
+      name: 'Xuất Chưởng',
+      desc: 'Một chưởng nhanh gây {dmg}% sát thương Khéo léo, đẩy lùi kẻ địch. Tích {chi} Khí.'
+    },
+    ironBody: {
+      name: 'Thiết Thân',
+      desc: 'Sát thương vật lý phải nhận giảm {reduce}%, và bạn có thêm {hp}% máu.'
+    },
+    flyingKick: {
+      name: 'Phi Cước',
+      desc: 'Bay tới mục tiêu và đá gây {dmg}% sát thương Khéo léo; kẻ địch trên đường nhận {path}%. Tích {chi} Khí.'
+    },
+    tigerStance: {
+      name: 'Thế Hổ',
+      desc: 'Trong {dur} giây: +{dmg}% sát thương và +{speed}% tốc độ đánh. Kết thúc Thế Hạc.'
+    },
+    craneStance: {
+      name: 'Thế Hạc',
+      desc: 'Trong {dur} giây: +{def}% Phòng thủ, và bạn hồi {regen}% máu mỗi giây. Kết thúc Thế Hổ.'
+    },
+    flowingFists: {
+      name: 'Quyền Như Nước',
+      desc: 'Đòn đánh của bạn có {chance}% cơ hội tích Khí.'
+    },
+    hundredFists: {
+      name: 'Bách Quyền',
+      desc: 'Một loạt {hits} cú đấm, tổng cộng {dmg}% sát thương Khéo léo. Tích {chi} Khí.'
+    },
+    risingDragon: {
+      name: 'Thăng Long',
+      desc: 'Dùng hết Khí cho một cú đấm móc: {dmg}% sát thương Khéo léo, +{per}% mỗi điểm Khí. Kẻ địch bay lên.'
+    },
+    cranesGrace: {
+      name: 'Dáng Hạc',
+      desc: '+{dodge}% Né, và choáng cùng quật ngã lên bạn ngắn hơn {cut}%.'
+    },
+    whirlwindKick: {
+      name: 'Toàn Phong Cước',
+      desc: 'Đá mọi thứ trong {radius} m hai lần, tổng cộng {dmg}% sát thương Khéo léo. Tích tối đa {chi} Khí.'
+    },
+    tigersFury: {
+      name: 'Hổ Nộ',
+      desc: '+{crit}% Tỉ lệ Chí mạng và +{speed}% tốc độ đánh.'
+    },
+    mountainPalm: {
+      name: 'Thái Sơn Chưởng',
+      desc: 'Dùng hết Khí: bàn tay khổng lồ giáng xuống gây {dmg}% sát thương Khéo léo, +{per}% mỗi điểm Khí, và quật ngã kẻ địch.'
+    },
+    sharpNote: {
+      name: 'Nốt Chói',
+      desc: 'Một nốt nhạc chói gây {dmg}% sát thương Mị lực. Kẻ địch gây ít hơn {weaken}% sát thương trong {dur} giây.'
+    },
+    stagePresence: {
+      name: 'Phong Thái Sân Khấu',
+      desc: 'Kỹ năng của bạn tốn ít hơn {mana}% mana, và bạn chạy nhanh hơn {move}%.'
+    },
+    marchingSong: {
+      name: 'Khúc Hành Quân',
+      desc: 'Bài hát trong {dur} giây: bạn và đồng minh trong {radius} m chạy nhanh hơn {move}% và đánh nhanh hơn {speed}%.'
+    },
+    lullaby: {
+      name: 'Khúc Ru',
+      desc: 'Giai điệu êm dịu hình nón: mọi kẻ địch nghe thấy đều ngủ thiếp {dur} giây.'
+    },
+    longRefrain: {
+      name: 'Điệp Khúc Dài',
+      desc: 'Bài hát của bạn kéo dài hơn {pct}%.'
+    },
+    balladOfValor: {
+      name: 'Bản Ca Dũng Cảm',
+      desc: 'Bài hát trong {dur} giây: bạn và đồng minh trong {radius} m gây thêm {dmg}% sát thương và được +{def}% Phòng thủ.'
+    },
+    charmingSerenade: {
+      name: 'Dạ Khúc Mê Hoặc',
+      desc: 'Mê hoặc mục tiêu và kẻ địch trong {radius} m: trong {dur} giây chúng đánh lẫn nhau.'
+    },
+    virtuoso: {
+      name: 'Nghệ Sĩ Bậc Thầy',
+      desc: 'Hồi chiêu ngắn hơn {cdr}% và +{critDmg}% Sát thương Chí mạng.'
+    },
+    hymnOfMending: {
+      name: 'Thánh Ca Chữa Lành',
+      desc: 'Xóa hiệu ứng xấu, rồi trong {dur} giây bạn và đồng minh trong {radius} m hồi {regen}% máu mỗi giây.'
+    },
+    crescendo: {
+      name: 'Cao Trào',
+      desc: 'Vụ nổ âm thanh trong {radius} m: {dmg}% sát thương Mị lực, +{per}% cho mỗi bài hát bạn đang chơi.'
+    },
+    standingOvation: {
+      name: 'Tràng Pháo Tay',
+      desc: '+{dmg}% sát thương, và bạn nhận ít hơn {reduce}% sát thương.'
+    },
+    grandFinale: {
+      name: 'Màn Kết Hoành Tráng',
+      desc: 'Chơi hết mình trong {dur} giây (+{buff}% tốc độ, sát thương, Phòng thủ), rồi hợp âm cuối: {dmg}% Mị lực, kẻ địch bị mê hoặc.'
     }
   },
   slot: {
@@ -1371,6 +1756,30 @@ export default {
     sbFence: {
       name: 'Mirela Thorne',
       talk: 'Giáp tốt, không hỏi han gì. À, hỏi rất ít thôi.'
+    },
+    sbMasterWindrunner: {
+      name: 'Sefa Galewing'
+    },
+    sbMasterFrostwarden: {
+      name: 'Halvard Rimeheart'
+    },
+    sbMasterLightbringer: {
+      name: 'Xơ Auriel Dawnmere'
+    },
+    sbMasterBeastcaller: {
+      name: 'Lão Rowan Thistlefoot'
+    },
+    sbMasterElementalist: {
+      name: 'Nữ Pháp sư Iris Fourwinds'
+    },
+    sbMasterSoulwarden: {
+      name: 'Hộ vệ Odalys Lanternlight'
+    },
+    sbMasterIronmonk: {
+      name: 'Sư phụ Oru Stillwater'
+    },
+    sbMasterBard: {
+      name: 'Lark Merriweather'
     }
   },
   quest: {
@@ -3655,6 +4064,382 @@ export default {
       },
       bye: {
         '1': 'Giữ kỹ túi tiền. Không phải ai ở đây cũng thật thà như tôi đâu.'
+      }
+    },
+    sbMasterWindrunner: {
+      hello: {
+        '1': 'Ồ, chào! Xin lỗi, không dừng được. Tôi đang chờ gió đổi chiều. Sắp rồi đấy.',
+        '2': 'Sefa Galewing. Tôi bắn tên và đuổi theo gió. Thường thì gió thắng.'
+      },
+      open: {
+        '1': 'Học trò chạy nhanh của tôi đây rồi! Sẵn sàng chưa? Tất nhiên rồi. Đi nào, đi nào!'
+      },
+      again: {
+        '1': 'Lại chào nhé! Tôi vẫn ở đây. Ừ thì, gần như vậy. Chân tôi cứ tự đi lang thang.'
+      },
+      train: {
+        '1': 'Thấy gió trên má không? Nhắm lệch trái hơn chỗ cậu nghĩ một chút. Giờ thả tay!'
+      },
+      favor: {
+        '1': 'Chỉ dạy người theo kịp tôi thôi. Cậu theo kịp không? Thử xem nào.',
+        '2': 'Đánh bại mười hai Cung Thủ Thổ Phỉ ở Ngoại Ô Oakhaven, rồi mang cho tôi ba nhánh Dương Xỉ Gió.',
+        say: 'Chị có dạy bắn cung không?'
+      },
+      waiting: {
+        '1': 'Mười hai cung thủ, ba nhánh Dương Xỉ Gió. Đi đi! Tôi ở ngay đây. Nhún nhảy chờ.',
+        say: 'Về bài thử thách...'
+      },
+      favorDone: {
+        '1': 'Ha! Cậu theo kịp thật kìa! Chưa ai theo kịp cả!',
+        '2': 'Được rồi, giờ cậu là học trò của tôi. Một luật thôi: không được ngồi trong giờ học.',
+        say: 'Đám cung thủ đã bị đánh bại, còn đây là Dương Xỉ Gió.'
+      },
+      class: {
+        '1': 'Bắn, chạy, bắn tiếp. Nếu bị bắt kịp, là cậu đứng yên lâu quá rồi.',
+        '2': 'Khéo léo cho đôi chân nhanh và cây cung nhanh. Kỹ xảo để mũi tên nào cũng trúng.',
+        say: 'Phong Hành Giả làm gì?'
+      },
+      ready: {
+        strong: {
+          '1': 'Giờ cậu nhanh như gió rồi. À, gần như thế. Học bài nào tùy thích!'
+        },
+        able: {
+          '1': 'Chân nhẹ đấy! Cậu sẵn sàng cho bài tiếp theo rồi. Đi, đi!'
+        },
+        weak: {
+          '1': 'Chưa được. Cậu chạy như đang vác cái ghế sofa. Thêm Khéo léo nhé.'
+        }
+      },
+      who: {
+        '1': 'Tôi sống trên cối xay gió cũ cạnh sông. Chỗ ngắm gió đẹp nhất thị trấn.',
+        '2': 'Hai trăm bậc thang lên đỉnh. Tập luyện tuyệt vời. Tôi đếm từng bậc rồi.'
+      },
+      trainBack: {
+        '1': 'Tốt! Giờ chạy về nhà đi. Đừng đi bộ. Chạy cũng tính là tập luyện.'
+      },
+      bye: {
+        '1': 'Gặp lại nhé! Coi chừng cành cây thấp. Tôi thì chẳng bao giờ coi chừng.'
+      }
+    },
+    sbMasterFrostwarden: {
+      hello: {
+        '1': 'Hừm. Cậu đi ngang qua ta ba lần rồi. Lạc đường, hay tò mò?',
+        '2': 'Halvard Rimeheart. Ta từ xứ tuyết xuống phương nam. Ở đây ấm. Ấm quá.'
+      },
+      open: {
+        '1': 'Học trò. Tốt. Băng đã sẵn sàng, ta cũng vậy.'
+      },
+      again: {
+        '1': 'Lại là cậu. Tốt. Ta không nói nhiều. Cứ ở lại.'
+      },
+      train: {
+        '1': 'Thở ra thật chậm. Thấy hơi sương không? Giờ đưa nó vào lưỡi kiếm.'
+      },
+      favor: {
+        '1': 'Đúng vậy. Ta chỉ dạy nó cho ai giữ được cái đầu lạnh ở nơi nóng bức.',
+        '2': 'Dập tắt mười Tinh Linh Lửa ở Vách Đá Tro Tàn. Rồi mang cho ta ba nhánh Bạc Hà Sương.',
+        say: 'Thanh kiếm đó làm bằng băng à?'
+      },
+      waiting: {
+        '1': 'Mười Tinh Linh Lửa. Ba nhánh Bạc Hà Sương. Cứ từ từ. Đừng quá từ từ.',
+        say: 'Về bài thử thách...'
+      },
+      favorDone: {
+        '1': 'Hừm. Không sém chút nào. Tốt.',
+        '2': 'Cậu giữ được cái đầu lạnh. Đó là bài học đầu tiên. Ta sẽ dạy cậu phần còn lại.',
+        say: 'Tinh Linh Lửa đã tắt. Đây là Bạc Hà Sương.'
+      },
+      class: {
+        '1': 'Hiệp sĩ của giá lạnh. Làm chúng lạnh cóng, đóng băng chúng, rồi đập vỡ lớp băng.',
+        '2': 'Sức mạnh cho lưỡi kiếm. Trí tuệ cho băng giá. Cậu cần cả hai.',
+        say: 'Băng Hộ Vệ là gì?'
+      },
+      ready: {
+        strong: {
+          '1': 'Giờ cậu lạnh như phương bắc rồi. Học bài nào tùy ý.'
+        },
+        able: {
+          '1': 'Tốt. Vững vàng. Bài tiếp theo là của cậu.'
+        },
+        weak: {
+          '1': 'Chưa được. Băng của cậu tan quá nhanh. Thêm Trí tuệ, và thêm Sức mạnh.'
+        }
+      },
+      who: {
+        '1': 'Ta từng canh một đèo núi ở phương bắc. Rồi ta muốn thấy một dòng sông không bao giờ đóng băng.'
+      },
+      trainBack: {
+        '1': 'Tốt. Giờ nghỉ ngơi. Băng không vội vàng. Cậu cũng đừng vội.'
+      },
+      bye: {
+        '1': 'Đi bình an. Giữ đầu lạnh nhé.'
+      }
+    },
+    sbMasterLightbringer: {
+      hello: {
+        '1': 'Ư-hừm-hừm... Ồ! Xin lỗi con, Xơ đang ngân nga. Xơ ngân nga vào mặt con à? Xơ hay thế lắm.',
+        '2': 'Xơ Auriel Dawnmere. Xơ giữ cho ngọn đèn nhỏ cuối cầu luôn cháy sáng.'
+      },
+      open: {
+        '1': 'Đứa trẻ rạng rỡ của Xơ đây rồi! Lại đây đứng trong ánh sáng một chút. Con xứng đáng mà.'
+      },
+      again: {
+        '1': 'Lại chào con! Xơ vẫn ở đây, vẫn ngân nga. Ngọn đèn thích có bạn.'
+      },
+      train: {
+        '1': 'Mở tay ra, ngẩng cằm lên. Nghĩ về buổi sáng đẹp nhất con từng có. Đó. Thấy chưa?'
+      },
+      favor: {
+        '1': 'Ai cũng có một chút ánh sáng bên trong. Xơ dạy mọi người thả nó ra, khi họ sẵn sàng.',
+        '2': 'Đánh bại mười Tín Đồ ở Vách Đá Tro Tàn, rồi mang cho Xơ năm bông Cánh Nắng để thắp đèn.',
+        say: 'Ngọn đèn đó có phép thuật không?'
+      },
+      waiting: {
+        '1': 'Mười Tín Đồ, năm bông Cánh Nắng. Đánh nhẹ tay thôi nhé. Ai cũng đáng có cơ hội thứ hai.',
+        say: 'Về bài thử thách...'
+      },
+      favorDone: {
+        '1': 'Ôi, nhìn chúng kìa! Ngọn đèn sẽ tỏa ánh vàng suốt một tháng.',
+        '2': 'Và con cũng vậy, con yêu. Xơ rất vui được dạy con.',
+        say: 'Đám Tín Đồ đã bị đánh bại. Đây là Cánh Nắng.'
+      },
+      class: {
+        '1': 'Chúng ta mang theo bình minh. Ánh sáng để chiến đấu, ánh sáng để chữa lành, ánh sáng để nấp sau.',
+        '2': 'Trí tuệ làm ánh sáng mạnh. Mị lực làm nó ấm áp. Con sẽ cần cả hai.',
+        say: 'Sứ Giả Ánh Sáng làm gì?'
+      },
+      ready: {
+        strong: {
+          '1': 'Con tỏa sáng như bình minh rồi, con yêu. Học bài nào tùy thích.'
+        },
+        able: {
+          '1': 'Sáng đẹp lắm! Con sẵn sàng cho bài tiếp theo rồi.'
+        },
+        weak: {
+          '1': 'Chưa được đâu, con yêu. Ánh sáng của con hơi mờ. Thêm Mị lực, rồi con sẽ tỏa sáng.'
+        }
+      },
+      who: {
+        '1': 'Xơ từng hát trong một ngôi đền lớn. Nhưng ngọn đèn ngoài này dẫn thuyền về nhà. Như thế tốt hơn.'
+      },
+      trainBack: {
+        '1': 'Tuyệt lắm. Giờ đi làm ai đó vui lên đi. Lệnh của Xơ đấy.'
+      },
+      bye: {
+        '1': 'Đi đi con. Và mỉm cười với những góc tối nhé. Chúng ghét thế lắm.'
+      }
+    },
+    sbMasterBeastcaller: {
+      hello: {
+        '1': 'Coi chừng chân. Đó là Bramble. Cô nàng ở đây trước.',
+        '2': 'Rowan Thistlefoot. Ta thích động vật. Còn con người thì ta vẫn đang cân nhắc.'
+      },
+      open: {
+        '1': 'À, là cậu. Bramble chờ cậu mãi. Ta cũng thế. Một chút.'
+      },
+      again: {
+        '1': 'Lại là cậu. Bramble thích cậu. Ta thì vẫn đang nghĩ.'
+      },
+      train: {
+        '1': 'Ngồi thấp xuống. Chậm hơn. Chìa tay ra và để chúng tự đến. Tốt.'
+      },
+      favor: {
+        '1': 'Nói chuyện? Ta lắng nghe. Đó là bí quyết mà hầu hết mọi người chẳng bao giờ học được.',
+        '2': 'Nhện Khổng Lồ đang giăng tơ kín lối đi của thú ở Rừng Thì Thầm. Dọn sạch mười hai con.',
+        '3': 'Rồi mang cho ta hai bông Chuông Trăng để trong hang. Bramble ngủ ngon hơn khi có chúng.',
+        say: 'Ông nói chuyện được với động vật à?'
+      },
+      waiting: {
+        '1': 'Mười hai con nhện, hai bông Chuông Trăng. Lũ thú đang chờ. Bramble cũng vậy.',
+        say: 'Về bài thử thách...'
+      },
+      favorDone: {
+        '1': 'Hừm. Sáng nay bầy hươu xuống sông uống nước. Ta đoán là nhờ cậu.',
+        '2': 'Được. Ta sẽ dạy cậu. Đừng làm ầm lên. Bramble, thôi vẫy đuôi đi.',
+        say: 'Lối đi đã sạch, còn đây là Chuông Trăng.'
+      },
+      class: {
+        '1': 'Cậu gọi hoang dã, và hoang dã đến. Sói, diều hâu, gấu. Là bạn, không phải thú cưng.',
+        '2': 'Mị lực, để chúng muốn đến. Sức bền, để cậu theo kịp chúng.',
+        say: 'Triệu Thú Sư là gì?'
+      },
+      ready: {
+        strong: {
+          '1': 'Giờ cả bầy tin cậu rồi. Muốn học gì thì lấy.'
+        },
+        able: {
+          '1': 'Bầy sói thích cậu. Cậu sẵn sàng cho bài tiếp theo rồi.'
+        },
+        weak: {
+          '1': 'Chưa được. Chúng chưa tin cậu. Thêm Mị lực, và thêm thật nhiều kiên nhẫn.'
+        }
+      },
+      who: {
+        '1': 'Nhiều năm trước ta thấy Bramble mắc bẫy. Ba chân, đầy cá tính. Từ đó bọn ta thành một cặp.',
+        '2': 'Ta ngủ trên gác cỏ trong chuồng ngựa. Ngựa ngáy ít hơn người.'
+      },
+      trainBack: {
+        '1': 'Tốt. Đi đi. Và chào lũ quạ giúp ta. Chúng nhớ dai lắm.'
+      },
+      bye: {
+        '1': 'Đi đi. Bramble chào tạm biệt đấy.'
+      }
+    },
+    sbMasterElementalist: {
+      hello: {
+        '1': 'Chào! Đợi chút, tôi đang tung hứng. Lửa, băng, tia điện, đá và... bắt được rồi! Xin chào!',
+        '2': 'Nữ Pháp sư Iris Fourwinds. Tôi dạy cả bốn nguyên tố. Trộn chúng mới là phần vui nhất.'
+      },
+      again: {
+        '1': 'Lại tới rồi! Tốt, tôi đang cần người xem. Xem này. Ta-đa!'
+      },
+      train: {
+        '1': 'Chọn hai quả cầu. Hai quả nào cũng được. Giờ cho chúng chạm nhau. Nhẹ thôi! Thấy chưa? Phản ứng đấy!'
+      },
+      class: {
+        '1': 'Bọn tôi pha trộn! Băng rồi lửa, nó tan chảy. Lửa rồi sét, bùm. Cặp nào cũng làm ra gì đó.',
+        '2': 'Trí tuệ cho mọi phép thuật. Kỹ xảo, vì phép hay cần đôi tay nhanh.',
+        say: 'Nguyên Tố Sư làm gì?'
+      },
+      ready: {
+        strong: {
+          '1': 'Giờ cậu pha trộn như bậc thầy rồi! Học bài nào cũng được. Học hai bài luôn!'
+        },
+        able: {
+          '1': 'Ồ, tia lửa đẹp đấy! Cậu sẵn sàng cho bài tiếp theo rồi.'
+        },
+        weak: {
+          '1': 'Chưa được! Nguyên tố của cậu cứ xì hơi mất. Thêm Trí tuệ nhé.'
+        }
+      },
+      sleeve: {
+        '1': 'Ồ! Đúng thật. Chờ chút... Xong.',
+        '2': 'Lửa, rồi băng. Thật ra đó là một bài học đấy. Không có gì!',
+        say: 'Ừm, tay áo cô đang cháy kìa.'
+      },
+      trainBack: {
+        '1': 'Xuất sắc! Giờ ra ngoài tập nhé. Rèm cửa mới thay đấy.'
+      },
+      bye: {
+        '1': 'Tạm biệt! Nếu ngửi thấy mùi khói, chắc là tôi đấy. Đừng lo!'
+      }
+    },
+    sbMasterSoulwarden: {
+      hello: {
+        '1': 'Suỵt, không sao đâu, chúng thân thiện mà. Ồ, không phải cậu. Tôi đang nói với các đốm hồn.',
+        '2': 'Hộ vệ Odalys Lanternlight. Tôi giúp những linh hồn lạc tìm đường về nhà.'
+      },
+      again: {
+        '1': 'Lại chào cậu. Các đốm hồn nhớ cậu đấy. Đốm kia đang vẫy tay kìa.'
+      },
+      train: {
+        '1': 'Cầm đèn lồng thấp xuống và nói thật khẽ. Những gì lạc lối sẽ tìm đến giọng nói tử tế.'
+      },
+      class: {
+        '1': 'Khi kẻ địch bị đánh bại, linh hồn nó hơi lạc lối. Bọn tôi giúp nó, và nó giúp lại bọn tôi.',
+        '2': 'Trí tuệ để dẫn ánh sáng. Mị lực, để linh hồn muốn ở lại một lúc.',
+        say: 'Hộ Hồn Sư làm gì?'
+      },
+      ready: {
+        strong: {
+          '1': 'Giờ cả những linh hồn nhút nhát nhất cũng tìm đến cậu. Học bài nào tùy ý.'
+        },
+        able: {
+          '1': 'Các đốm hồn tin cậu. Cậu sẵn sàng cho bài tiếp theo rồi.'
+        },
+        weak: {
+          '1': 'Chưa được. Chúng vẫn còn ngại cậu. Thêm Trí tuệ, và một chút Mị lực.'
+        }
+      },
+      wisps: {
+        '1': 'Kiểu vậy! Chúng là linh hồn đi lạc. Cậu này là Fidget. Cậu ấy thích phía ấm.',
+        '2': 'Biết không, chẳng có linh hồn nào xấu cả. Chỉ là lạc thôi. Khi sẵn sàng, chúng sẽ về nhà.',
+        say: 'Những đốm sáng nhỏ trong đèn lồng có sống không?'
+      },
+      trainBack: {
+        '1': 'Giỏi lắm. Giờ nhẹ nhàng thả chúng đi. Chúng đã có một ngày dài rồi.'
+      },
+      bye: {
+        '1': 'Bảo trọng nhé. Nếu thấy một đốm sáng nhỏ đi lạc, hãy chào nó.'
+      }
+    },
+    sbMasterIronmonk: {
+      hello: {
+        '1': 'Ngồi. Thở. Không, con thở như đang trễ hẹn vậy. Lại nào.',
+        '2': 'Sư phụ Oru Stillwater. Ta dạy quyền tay không. Nắm đấm sắt, trái tim tĩnh lặng.'
+      },
+      again: {
+        '1': 'À. Đồ đệ quay lại. Dòng sông cũng vậy. Ngày nào cũng thế.'
+      },
+      train: {
+        '1': 'Chân như rễ cây, tay như mưa rơi. Đánh. Lại. Cú thứ một trăm mới tính.'
+      },
+      class: {
+        '1': 'Không binh khí. Tay, chân, hơi thở. Mỗi đòn dựng nên đòn sau, cho tới đòn lớn.',
+        '2': 'Khéo léo cho đôi tay nhanh. Sức bền để giữ bình tĩnh khi người khác hết hơi.',
+        say: 'Thiết Võ Tăng là gì?'
+      },
+      ready: {
+        strong: {
+          '1': 'Đồ đệ trở thành thầy. Đừng kể với ai. Học bài nào tùy ý.'
+        },
+        able: {
+          '1': 'Tốt. Chén đang đầy dần. Học bài tiếp theo đi.'
+        },
+        weak: {
+          '1': 'Chưa được. Cây rễ nông thì gió thổi là đổ. Thêm Sức bền.'
+        }
+      },
+      noodles: {
+        '1': 'Phải. Nước dùng ninh suốt hai ngày. Làm ơn đừng thở vào nó.',
+        '2': 'Một bát ngon dạy sự kiên nhẫn. Một bát tuyệt hảo dạy mọi thứ còn lại.',
+        say: 'Đó là bát mì à?'
+      },
+      trainBack: {
+        '1': 'Tốt. Giờ ăn gì đó ấm đi. Sức mạnh đến từ cái bát.'
+      },
+      bye: {
+        '1': 'Đi bình an. Bước nhẹ. Đá mạnh.'
+      }
+    },
+    sbMasterBard: {
+      hello: {
+        '1': 'Chào mừng, chào mừng, vào đây cho đỡ lạnh, đừng ngại ngần! Ôi trời, lại vần rồi. Cứ thế đấy.',
+        '2': 'Lark Merriweather. Tôi chơi đàn bên bếp lửa và dạy đàn luýt cho ai chịu nghe.'
+      },
+      again: {
+        '1': 'Thính giả yêu thích của tôi! Kéo ghế lại đây. Coi chừng con mèo, cô nàng là nhà phê bình đấy.'
+      },
+      train: {
+        '1': 'Gảy đàn cùng tôi. Một, hai, và ba... Đừng nhìn ngón tay. Cảm nhận nó!'
+      },
+      class: {
+        '1': 'Những bài hát làm phe mình dũng cảm hơn, những giai điệu ru phe kia ngủ say.',
+        '2': 'Mị lực để chinh phục khán giả. Kỹ xảo, để ngón tay theo kịp trái tim.',
+        say: 'Người Hát Rong làm gì?'
+      },
+      ready: {
+        strong: {
+          '1': 'Giờ cậu làm chật kín quán rượu nào cũng được! Lấy hết mọi bài hát của tôi đi.'
+        },
+        able: {
+          '1': 'Giai điệu hay lắm! Cậu sẵn sàng cho đoạn tiếp theo rồi.'
+        },
+        weak: {
+          '1': 'Chưa được. Khán giả vẫn đang ngáp. Thêm Mị lực nhé, bạn của tôi.'
+        }
+      },
+      story: {
+        '1': 'Ngày xưa, có một hiệp sĩ băng qua chính cây cầu này, chỉ với một thanh kiếm và một bài ca...',
+        '2': 'Khoan, có nhạc thì hay hơn. La-la-la, hiệp sĩ đi... Tôi đang kể tới đâu nhỉ?',
+        '3': 'Ồ, thôi bỏ đi. Nhưng bài hát hay đấy chứ nhỉ?',
+        say: 'Anh kể cho tôi một câu chuyện nhé?'
+      },
+      trainBack: {
+        '1': 'Hoan hô! Tập mỗi ngày nhé. Kể cả khi nghe tệ kinh khủng. Nhất là những lúc đó.'
+      },
+      bye: {
+        '1': 'Tạm biệt, chúc bình an, chẳng gì gian nan! Úi. Lại vần rồi. Tạm biệt!'
       }
     }
   },

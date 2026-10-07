@@ -80,6 +80,8 @@ export type StatusId =
   | 'stealth' | 'reflect' | 'envenom' | 'exosuit' | 'focus' | 'accelerate' | 'overheat' | 'enrage' | 'ambush'
   // The alchemist's elixirs (`data/elixirs.ts`): each its own, so it adds to a skill's buff
   | 'elixirMight' | 'elixirIron' | 'elixirSwift' | 'elixirMind' | 'elixirVigor' | 'elixirShadow'
+  // The Iron Monk's chi (#95): beads built by strikes, spent by finishers
+  | 'chi'
 
 export interface Status {
   id: StatusId

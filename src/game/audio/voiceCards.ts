@@ -350,6 +350,71 @@ export const CARDS: Readonly<Record<string, VoiceCard>> = {
     reference: "Mind the cart! Sorry, everything on this bridge moves. I'm Mayor Brenna Quill. If it's lost, broken or late, it ends up on my desk, so let's keep things moving, shall we?",
     notes: ''
   }),
+  // ── The new Silverbridge masters (#86, #95) ──
+  sbMasterWindrunner: card({
+    name: 'Sefa Galewing', gender: 'female', age: 'late 20s', pitch: 'mid', pace: 'fast',
+    timbre: 'bright, sporty, slightly breathless voice, as if she just ran up the stairs',
+    personality: 'A cheerful, restless archer who talks in quick bursts and can never sit down; sunny and encouraging.',
+    design: 'A woman in her late twenties with a bright, sporty voice, a little breathless, as if she has just finished a run. Cheerful and restless, she talks in quick happy bursts.',
+    reference: "Oh, hi! Sorry, can't stop. I'm waiting for the wind to turn. I'm Sefa Galewing. Feel the wind on your cheek? Aim a little left of where you think. Now let go!",
+    notes: 'Not Nyx Halloway (cheeky, grinning, teasing) nor Ember Wren (bubbly fire mage): Sefa is outdoorsy and breathless, always mid-run.'
+  }),
+  sbMasterFrostwarden: card({
+    name: 'Halvard Rimeheart', gender: 'male', age: 'early 50s', pitch: 'mid-low', pace: 'slow',
+    timbre: 'quiet, calm, smooth baritone with long pauses',
+    personality: 'A calm northern knight of very few words, each one meant; kind underneath, with a dry, deadpan humour.',
+    design: 'A man in his early fifties with a quiet, calm and smooth baritone. He speaks slowly, in short sentences with pauses, steady and kind, with a dry, deadpan humour.',
+    reference: "Hm. You walked past me three times. Lost, or curious? I am Halvard Rimeheart. I came south from the snow. Breathe out slowly. See the mist? Now put it into the blade.",
+    notes: 'Not the Frost Jarl (booming theatrical bass) nor Garrun Ironside (gruff dwarf): Halvard is soft-spoken and still.'
+  }),
+  sbMasterLightbringer: card({
+    name: 'Sister Auriel Dawnmere', gender: 'female', age: 'about 50', pitch: 'mid', pace: 'medium',
+    timbre: 'warm, musical voice with a smile in it, a singer\'s lilt',
+    personality: 'A warm, teasing sister who hums old hymns and believes everyone deserves a second chance.',
+    design: 'A woman of about fifty with a warm, musical voice and a singer\'s lilt, always a smile in it. Kind and gently teasing, like a favourite aunt.',
+    reference: "Oh! Sorry, dear, I was humming. Did I hum at you? I do that. I'm Sister Auriel Dawnmere. Hands open, chin up. Think of the best morning you ever had. There. Feel that?",
+    notes: 'Not Sister Lune (young, gentle healer) nor Mother Brynja (homely, plain): Auriel is musical and teasing.'
+  }),
+  sbMasterBeastcaller: card({
+    name: 'Old Rowan Thistlefoot', gender: 'male', age: 'about 70', pitch: 'mid-low', pace: 'measured',
+    timbre: 'rough, grumbly, slightly husky old voice that softens on animals',
+    personality: 'A gruff old hermit, kinder to animals than to people, who warms up to the hero; short sentences, hidden soft heart.',
+    design: 'A man of about seventy with a rough, grumbly, slightly husky voice. Gruff and blunt in short sentences, but there is a soft, kind heart under it.',
+    reference: "Watch your feet. That's Bramble. She was here first. I'm Rowan Thistlefoot. I like animals. People, I'm still deciding. Crouch down. Slower. Let them come to you. Good.",
+    notes: 'Not Old Stonefoot (slow, deep, earthy) nor Bram the Smith (gruff, younger): Rowan is grumbly and clipped, never deep and slow.'
+  }),
+  sbMasterElementalist: card({
+    name: 'Magistra Iris Fourwinds', gender: 'female', age: 'mid 30s', pitch: 'mid', pace: 'brisk',
+    timbre: 'clear, bubbly, confident teacher\'s voice, quick to laugh',
+    personality: 'A bubbly, quick mage who juggles four tiny orbs while she talks and sets her own sleeve alight just to put it out.',
+    design: 'A woman in her mid thirties with a clear, bubbly and confident voice. Quick and cheerful, a teacher who has done this a thousand times and still finds it delightful.',
+    reference: "Hi! One second, I'm juggling. Fire, frost, spark, stone and... caught them! I'm Magistra Iris Fourwinds. Pick two orbs. Any two. Now let them bump. Gently! See?",
+    notes: 'Not Odile Fernwhistle (giddy, breathless alchemist) nor Tinker Voss (fast, distracted): Iris is bubbly but sure of herself.'
+  }),
+  sbMasterSoulwarden: card({
+    name: 'Warden Odalys Lanternlight', gender: 'female', age: 'early 40s', pitch: 'mid-low', pace: 'measured',
+    timbre: 'soft, warm, cosy alto, like reading a bedtime story',
+    personality: 'A soft-spoken, kind lantern-bearer who chats to the wisps in her lantern like old friends; no spirit is bad, only lost.',
+    design: 'A woman in her early forties with a soft, warm and cosy alto, like someone reading a bedtime story. Gentle and kind, quietly amused, never mysterious.',
+    reference: "Shh, it's all right, they're friendly. Oh, not you. I was talking to the wisps. I'm Warden Odalys Lanternlight. Hold the lantern low and speak softly.",
+    notes: 'Not the Whisper (breathy, mysterious) nor the Drowned Oracle (otherworldly): Odalys is cosy and homely, never eerie.'
+  }),
+  sbMasterIronmonk: card({
+    name: 'Master Oru Stillwater', gender: 'male', age: 'about 65', pitch: 'mid-low', pace: 'measured',
+    timbre: 'calm, centred, dry baritone with a hint of a smile',
+    personality: 'A calm martial-arts master with dry humour who answers in short proverbs and is secretly very serious about noodles.',
+    design: 'A man of about sixty-five with a calm, centred and dry baritone, a hint of a smile behind it. Patient and wise, every sentence short and deliberate.',
+    reference: "Sit. Breathe. No, you're breathing like you're late for something. Again. I am Master Oru Stillwater. Feet like roots, hands like rain. Strike. Again.",
+    notes: 'Not Friar Ansel (sleepy) nor Doctor Sangrel (cool, darkly funny) nor the Keeper of Hours (dreamy): Oru is awake, centred and dry.'
+  }),
+  sbMasterBard: card({
+    name: 'Lark Merriweather', gender: 'male', age: 'late 20s', pitch: 'mid-high', pace: 'brisk',
+    timbre: 'bright, musical tenor with a showman\'s lilt',
+    personality: 'The tavern\'s cheerful bard: rhymes by accident, can never finish a story without a song, delighted by every listener.',
+    design: 'A man in his late twenties with a bright, musical tenor and a showman\'s lilt. Cheerful and warm, he speaks like he might break into song at any moment.',
+    reference: "Welcome, welcome, come in from the cold! Oh dear, that rhymed. It does that. I'm Lark Merriweather. Strum with me. One, two, and three. Don't watch your fingers. Feel it!",
+    notes: 'Not Gearwright Pim (nervous, jittery) nor Dob Tumbler (giggly) nor Corvin Ashby (vain): Lark is a warm showman with a singer\'s lilt.'
+  }),
   sbCollector: card({
     name: 'Alder Vane', gender: 'male', age: 'about 75', pitch: 'mid-low', pace: 'slow',
     timbre: 'dry, papery, fond old voice',

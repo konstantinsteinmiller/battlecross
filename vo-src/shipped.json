@@ -2819,6 +2819,236 @@
     "at": "2026-10-07",
     "hash": "2632ae7828"
   },
+  "en/dlg.sbMasterBard.again.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "27fcc22586"
+  },
+  "en/dlg.sbMasterBard.bye.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "dfd0926276"
+  },
+  "en/dlg.sbMasterBard.class.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "205afcab1a"
+  },
+  "en/dlg.sbMasterBard.class.2": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "fb7e81efe6"
+  },
+  "en/dlg.sbMasterBard.class.say": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "44d114c4ec"
+  },
+  "en/dlg.sbMasterBard.class.say__f": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "44d114c4ec"
+  },
+  "en/dlg.sbMasterBard.hello.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "0bc9259efe"
+  },
+  "en/dlg.sbMasterBard.hello.2": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "b80e523ce6"
+  },
+  "en/dlg.sbMasterBard.ready.able.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "1a7d3524f9"
+  },
+  "en/dlg.sbMasterBard.ready.strong.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "ac76d8848c"
+  },
+  "en/dlg.sbMasterBard.ready.weak.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "a1e4ab40f4"
+  },
+  "en/dlg.sbMasterBard.story.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "2988f99e0f"
+  },
+  "en/dlg.sbMasterBard.story.2": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "8857def8ef"
+  },
+  "en/dlg.sbMasterBard.story.3": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "52ca0cf230"
+  },
+  "en/dlg.sbMasterBard.story.say": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "3da7e2b20d"
+  },
+  "en/dlg.sbMasterBard.story.say__f": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "3da7e2b20d"
+  },
+  "en/dlg.sbMasterBard.train.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "52f5898f56"
+  },
+  "en/dlg.sbMasterBard.trainBack.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "29076ac331"
+  },
+  "en/dlg.sbMasterBeastcaller.again.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "30dfe41714"
+  },
+  "en/dlg.sbMasterBeastcaller.bye.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "afb32f152b"
+  },
+  "en/dlg.sbMasterBeastcaller.class.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "672e81ab83"
+  },
+  "en/dlg.sbMasterBeastcaller.class.2": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "aa76a85412"
+  },
+  "en/dlg.sbMasterBeastcaller.class.say": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "03a00224f2"
+  },
+  "en/dlg.sbMasterBeastcaller.class.say__f": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "03a00224f2"
+  },
+  "en/dlg.sbMasterBeastcaller.favor.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "6ca971a118"
+  },
+  "en/dlg.sbMasterBeastcaller.favor.2": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "cb7e240178"
+  },
+  "en/dlg.sbMasterBeastcaller.favor.3": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "e6e32379df"
+  },
+  "en/dlg.sbMasterBeastcaller.favor.say": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "0228f9b47d"
+  },
+  "en/dlg.sbMasterBeastcaller.favor.say__f": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "0228f9b47d"
+  },
+  "en/dlg.sbMasterBeastcaller.favorDone.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "b6eba74575"
+  },
+  "en/dlg.sbMasterBeastcaller.favorDone.2": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "b518ee6a93"
+  },
+  "en/dlg.sbMasterBeastcaller.favorDone.say": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "6b1e471ace"
+  },
+  "en/dlg.sbMasterBeastcaller.favorDone.say__f": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "6b1e471ace"
+  },
+  "en/dlg.sbMasterBeastcaller.hello.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "d217f843fa"
+  },
+  "en/dlg.sbMasterBeastcaller.hello.2": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "2b0a908bd5"
+  },
+  "en/dlg.sbMasterBeastcaller.open.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "3635605a32"
+  },
+  "en/dlg.sbMasterBeastcaller.ready.able.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "0435a44bd2"
+  },
+  "en/dlg.sbMasterBeastcaller.ready.strong.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "7de456fc2c"
+  },
+  "en/dlg.sbMasterBeastcaller.ready.weak.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "d416f923e8"
+  },
+  "en/dlg.sbMasterBeastcaller.train.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "13d402d7b5"
+  },
+  "en/dlg.sbMasterBeastcaller.trainBack.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "b0aa5ce659"
+  },
+  "en/dlg.sbMasterBeastcaller.waiting.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "ab379244ab"
+  },
+  "en/dlg.sbMasterBeastcaller.waiting.say": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "1cdc457d3c"
+  },
+  "en/dlg.sbMasterBeastcaller.waiting.say__f": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "1cdc457d3c"
+  },
+  "en/dlg.sbMasterBeastcaller.who.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "2d6a3a5606"
+  },
+  "en/dlg.sbMasterBeastcaller.who.2": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "e6b0cbfd5a"
+  },
   "en/dlg.sbMasterBlood.again.1": {
     "engine": "chatterbox",
     "at": "2026-10-07",
@@ -2984,6 +3214,221 @@
     "at": "2026-10-07",
     "hash": "299d409ab1"
   },
+  "en/dlg.sbMasterElementalist.again.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "ff69a93109"
+  },
+  "en/dlg.sbMasterElementalist.bye.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "941a3fe22e"
+  },
+  "en/dlg.sbMasterElementalist.class.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "595b37f77a"
+  },
+  "en/dlg.sbMasterElementalist.class.2": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "18d706c0a4"
+  },
+  "en/dlg.sbMasterElementalist.class.say": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "fc698e1a20"
+  },
+  "en/dlg.sbMasterElementalist.class.say__f": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "fc698e1a20"
+  },
+  "en/dlg.sbMasterElementalist.hello.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "88aa3599bb"
+  },
+  "en/dlg.sbMasterElementalist.hello.2": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "eab38b8599"
+  },
+  "en/dlg.sbMasterElementalist.ready.able.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "abe119861d"
+  },
+  "en/dlg.sbMasterElementalist.ready.strong.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "30aade39c3"
+  },
+  "en/dlg.sbMasterElementalist.ready.weak.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "336d5af768"
+  },
+  "en/dlg.sbMasterElementalist.sleeve.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "6d91659c7d"
+  },
+  "en/dlg.sbMasterElementalist.sleeve.2": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "7a3498e1a6"
+  },
+  "en/dlg.sbMasterElementalist.sleeve.say": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "39d8ae98c0"
+  },
+  "en/dlg.sbMasterElementalist.sleeve.say__f": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "39d8ae98c0"
+  },
+  "en/dlg.sbMasterElementalist.train.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "1c88e1f7d0"
+  },
+  "en/dlg.sbMasterElementalist.trainBack.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "b71c13e841"
+  },
+  "en/dlg.sbMasterFrostwarden.again.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "2172701932"
+  },
+  "en/dlg.sbMasterFrostwarden.bye.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "dea07be418"
+  },
+  "en/dlg.sbMasterFrostwarden.class.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "63c84abdf1"
+  },
+  "en/dlg.sbMasterFrostwarden.class.2": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "821bfdffe4"
+  },
+  "en/dlg.sbMasterFrostwarden.class.say": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "160ba396aa"
+  },
+  "en/dlg.sbMasterFrostwarden.class.say__f": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "160ba396aa"
+  },
+  "en/dlg.sbMasterFrostwarden.favor.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "05c0d05840"
+  },
+  "en/dlg.sbMasterFrostwarden.favor.2": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "fdaeb9c0f5"
+  },
+  "en/dlg.sbMasterFrostwarden.favor.say": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "14c66e5fa9"
+  },
+  "en/dlg.sbMasterFrostwarden.favor.say__f": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "14c66e5fa9"
+  },
+  "en/dlg.sbMasterFrostwarden.favorDone.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "ec793efaa0"
+  },
+  "en/dlg.sbMasterFrostwarden.favorDone.2": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "c876cb9a08"
+  },
+  "en/dlg.sbMasterFrostwarden.favorDone.say": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "4da5883dec"
+  },
+  "en/dlg.sbMasterFrostwarden.favorDone.say__f": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "4da5883dec"
+  },
+  "en/dlg.sbMasterFrostwarden.hello.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "211faac4cd"
+  },
+  "en/dlg.sbMasterFrostwarden.hello.2": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "288e6b7c6e"
+  },
+  "en/dlg.sbMasterFrostwarden.open.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "74eddaac0d"
+  },
+  "en/dlg.sbMasterFrostwarden.ready.able.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "5863cae474"
+  },
+  "en/dlg.sbMasterFrostwarden.ready.strong.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "6bf76266bb"
+  },
+  "en/dlg.sbMasterFrostwarden.ready.weak.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "bb96c86188"
+  },
+  "en/dlg.sbMasterFrostwarden.train.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "0ed6fb44d0"
+  },
+  "en/dlg.sbMasterFrostwarden.trainBack.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "0a83b63dee"
+  },
+  "en/dlg.sbMasterFrostwarden.waiting.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "efe388c54c"
+  },
+  "en/dlg.sbMasterFrostwarden.waiting.say": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "1cdc457d3c"
+  },
+  "en/dlg.sbMasterFrostwarden.waiting.say__f": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "1cdc457d3c"
+  },
+  "en/dlg.sbMasterFrostwarden.who.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "05926b9829"
+  },
   "en/dlg.sbMasterGeo.again.1": {
     "engine": "chatterbox",
     "at": "2026-10-07",
@@ -3068,6 +3513,221 @@
     "engine": "chatterbox",
     "at": "2026-10-07",
     "hash": "bacc7fbc33"
+  },
+  "en/dlg.sbMasterIronmonk.again.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "91211a14e8"
+  },
+  "en/dlg.sbMasterIronmonk.bye.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "b0d9087cbc"
+  },
+  "en/dlg.sbMasterIronmonk.class.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "dc3bfa679a"
+  },
+  "en/dlg.sbMasterIronmonk.class.2": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "1ab4c639ea"
+  },
+  "en/dlg.sbMasterIronmonk.class.say": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "4cd560bbe6"
+  },
+  "en/dlg.sbMasterIronmonk.class.say__f": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "4cd560bbe6"
+  },
+  "en/dlg.sbMasterIronmonk.hello.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "e669a4f8a7"
+  },
+  "en/dlg.sbMasterIronmonk.hello.2": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "22515d55a5"
+  },
+  "en/dlg.sbMasterIronmonk.noodles.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "aaa67410f6"
+  },
+  "en/dlg.sbMasterIronmonk.noodles.2": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "cf24af61a3"
+  },
+  "en/dlg.sbMasterIronmonk.noodles.say": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "46d7cfacbf"
+  },
+  "en/dlg.sbMasterIronmonk.noodles.say__f": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "46d7cfacbf"
+  },
+  "en/dlg.sbMasterIronmonk.ready.able.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "4a4e8a73f9"
+  },
+  "en/dlg.sbMasterIronmonk.ready.strong.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "3ed3f46168"
+  },
+  "en/dlg.sbMasterIronmonk.ready.weak.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "75211b96bd"
+  },
+  "en/dlg.sbMasterIronmonk.train.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "1b96e4db3a"
+  },
+  "en/dlg.sbMasterIronmonk.trainBack.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "3c7e0f48f4"
+  },
+  "en/dlg.sbMasterLightbringer.again.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "1b300b1c00"
+  },
+  "en/dlg.sbMasterLightbringer.bye.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "6a6b99c931"
+  },
+  "en/dlg.sbMasterLightbringer.class.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "8d0461bc41"
+  },
+  "en/dlg.sbMasterLightbringer.class.2": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "764574b214"
+  },
+  "en/dlg.sbMasterLightbringer.class.say": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "c3578f9dc6"
+  },
+  "en/dlg.sbMasterLightbringer.class.say__f": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "c3578f9dc6"
+  },
+  "en/dlg.sbMasterLightbringer.favor.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "4140f21ee9"
+  },
+  "en/dlg.sbMasterLightbringer.favor.2": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "609cd4dd36"
+  },
+  "en/dlg.sbMasterLightbringer.favor.say": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "9b512a500d"
+  },
+  "en/dlg.sbMasterLightbringer.favor.say__f": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "9b512a500d"
+  },
+  "en/dlg.sbMasterLightbringer.favorDone.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "b430ac8d71"
+  },
+  "en/dlg.sbMasterLightbringer.favorDone.2": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "f5d9b6524e"
+  },
+  "en/dlg.sbMasterLightbringer.favorDone.say": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "53db286077"
+  },
+  "en/dlg.sbMasterLightbringer.favorDone.say__f": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "53db286077"
+  },
+  "en/dlg.sbMasterLightbringer.hello.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "23753428b2"
+  },
+  "en/dlg.sbMasterLightbringer.hello.2": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "0062922343"
+  },
+  "en/dlg.sbMasterLightbringer.open.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "aae7f06162"
+  },
+  "en/dlg.sbMasterLightbringer.ready.able.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "5ae1afc05d"
+  },
+  "en/dlg.sbMasterLightbringer.ready.strong.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "c46e552f1a"
+  },
+  "en/dlg.sbMasterLightbringer.ready.weak.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "804d0db525"
+  },
+  "en/dlg.sbMasterLightbringer.train.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "b7eab2e82e"
+  },
+  "en/dlg.sbMasterLightbringer.trainBack.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "0ab95fbda3"
+  },
+  "en/dlg.sbMasterLightbringer.waiting.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "620b3d266b"
+  },
+  "en/dlg.sbMasterLightbringer.waiting.say": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "1cdc457d3c"
+  },
+  "en/dlg.sbMasterLightbringer.waiting.say__f": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "1cdc457d3c"
+  },
+  "en/dlg.sbMasterLightbringer.who.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "1e8efe8745"
   },
   "en/dlg.sbMasterPyro.again.1": {
     "engine": "chatterbox",
@@ -3234,6 +3894,91 @@
     "at": "2026-10-07",
     "hash": "e4471ca8b0"
   },
+  "en/dlg.sbMasterSoulwarden.again.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "9a310191eb"
+  },
+  "en/dlg.sbMasterSoulwarden.bye.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "32c677362e"
+  },
+  "en/dlg.sbMasterSoulwarden.class.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "daa8736d40"
+  },
+  "en/dlg.sbMasterSoulwarden.class.2": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "c380f83b35"
+  },
+  "en/dlg.sbMasterSoulwarden.class.say": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "871723ac0a"
+  },
+  "en/dlg.sbMasterSoulwarden.class.say__f": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "871723ac0a"
+  },
+  "en/dlg.sbMasterSoulwarden.hello.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "49d5f6ffda"
+  },
+  "en/dlg.sbMasterSoulwarden.hello.2": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "99b9a31cdf"
+  },
+  "en/dlg.sbMasterSoulwarden.ready.able.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "e56a2e7d55"
+  },
+  "en/dlg.sbMasterSoulwarden.ready.strong.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "f9deffd00b"
+  },
+  "en/dlg.sbMasterSoulwarden.ready.weak.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "fb475dd63c"
+  },
+  "en/dlg.sbMasterSoulwarden.train.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "319a5c79b3"
+  },
+  "en/dlg.sbMasterSoulwarden.trainBack.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "bc3616be46"
+  },
+  "en/dlg.sbMasterSoulwarden.wisps.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "1dd8e8391e"
+  },
+  "en/dlg.sbMasterSoulwarden.wisps.2": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "87bdb6c749"
+  },
+  "en/dlg.sbMasterSoulwarden.wisps.say": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "78804f5766"
+  },
+  "en/dlg.sbMasterSoulwarden.wisps.say__f": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "78804f5766"
+  },
   "en/dlg.sbMasterSovereign.again.1": {
     "engine": "chatterbox",
     "at": "2026-10-07",
@@ -3313,6 +4058,141 @@
     "engine": "chatterbox",
     "at": "2026-10-07",
     "hash": "a7d6ef7d3b"
+  },
+  "en/dlg.sbMasterWindrunner.again.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "6bff62b852"
+  },
+  "en/dlg.sbMasterWindrunner.bye.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "eb2b8f29d1"
+  },
+  "en/dlg.sbMasterWindrunner.class.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "cf7176b116"
+  },
+  "en/dlg.sbMasterWindrunner.class.2": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "323b087e52"
+  },
+  "en/dlg.sbMasterWindrunner.class.say": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "2d4467a6a2"
+  },
+  "en/dlg.sbMasterWindrunner.class.say__f": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "2d4467a6a2"
+  },
+  "en/dlg.sbMasterWindrunner.favor.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "e3dfaf4614"
+  },
+  "en/dlg.sbMasterWindrunner.favor.2": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "40ecbce73c"
+  },
+  "en/dlg.sbMasterWindrunner.favor.say": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "55e4b7b993"
+  },
+  "en/dlg.sbMasterWindrunner.favor.say__f": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "55e4b7b993"
+  },
+  "en/dlg.sbMasterWindrunner.favorDone.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "5467169c63"
+  },
+  "en/dlg.sbMasterWindrunner.favorDone.2": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "612a762a3d"
+  },
+  "en/dlg.sbMasterWindrunner.favorDone.say": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "586f5a6066"
+  },
+  "en/dlg.sbMasterWindrunner.favorDone.say__f": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "586f5a6066"
+  },
+  "en/dlg.sbMasterWindrunner.hello.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "8212a944ef"
+  },
+  "en/dlg.sbMasterWindrunner.hello.2": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "a0467b36cf"
+  },
+  "en/dlg.sbMasterWindrunner.open.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "fe9645d7a7"
+  },
+  "en/dlg.sbMasterWindrunner.ready.able.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "92bc708240"
+  },
+  "en/dlg.sbMasterWindrunner.ready.strong.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "e5c9fc071d"
+  },
+  "en/dlg.sbMasterWindrunner.ready.weak.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "254da0fd13"
+  },
+  "en/dlg.sbMasterWindrunner.train.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "f48ae05a35"
+  },
+  "en/dlg.sbMasterWindrunner.trainBack.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "18fca964b5"
+  },
+  "en/dlg.sbMasterWindrunner.waiting.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "227d141488"
+  },
+  "en/dlg.sbMasterWindrunner.waiting.say": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "1cdc457d3c"
+  },
+  "en/dlg.sbMasterWindrunner.waiting.say__f": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "1cdc457d3c"
+  },
+  "en/dlg.sbMasterWindrunner.who.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "297d9ad60e"
+  },
+  "en/dlg.sbMasterWindrunner.who.2": {
+    "engine": "chatterbox",
+    "at": "2026-10-07",
+    "hash": "935943d850"
   },
   "en/dlg.sbWeapons.again.1": {
     "engine": "chatterbox",
