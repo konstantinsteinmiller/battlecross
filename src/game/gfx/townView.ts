@@ -1,8 +1,8 @@
-import { Group, Mesh, MeshBasicMaterial, type BufferGeometry, type Material, type Scene, type ShaderMaterial } from 'three'
+import { Group, Mesh, MeshBasicMaterial, type BufferGeometry, type Material, type Object3D, type Scene, type ShaderMaterial } from 'three'
 import type { Slice } from '../engine/slicer'
 import { sceneQuality } from '../engine/quality'
 import { CELL, setBlocks, type Block } from '../sim/grid'
-import { TC_DOOR, TC_GRASS, TC_GROUND, TC_STREET, TC_YARD, townRoomAt, type TownPlan } from '../sim/town'
+import { TC_DOOR, townRoomAt, type TownPlan } from '../sim/town'
 import { townLife, townPose, type TownPoseView } from '../sim/townLife'
 import type { ZonePlan } from '../sim/zoneGen'
 import type { Sim } from '../sim/world'
@@ -20,6 +20,7 @@ import { buildFences, buildPaving, buildProp, type PropCtx } from './townProps'
 import type { Particles } from './particles'
 import type { HandProp } from '../sim/townLife'
 import { markStill, splitByTile } from './cull'
+import { TownAnimals } from './townAnimals'
 
 /**
  * ─── A town in the view (roadmap #41, #42) ───────────────────────────────────
@@ -34,7 +35,7 @@ import { markStill, splitByTile } from './cull'
  *   • townspeople's loops (`rigs/townClips.ts`), what they hold
  *     (`rigs/handProps.ts`), the beats of their work (sparks off the anvil, a
  *     puff of the pipe, a dummy rocking from a blow) and their emote bubbles;
- *   • a few chickens about the gardens, a cat by a door.
+ *   • its animals (`townAnimals.ts`): chickens, cats, dogs and squirrels.
  *
  * Nothing here decides anything: the sim says what everybody does.
  */
@@ -75,21 +76,6 @@ interface Dummy {
   dir: number
 }
 
-interface Animal {
-  obj: Group
-  head: Group | null
-  x: number
-  z: number
-  tx: number
-  tz: number
-  rest: number
-  yaw: number
-  hop: number
-  cat: boolean
-  hx: number
-  hz: number
-}
-
 export class TownView {
   readonly root = new Group()
   private owned: BufferGeometry[] = []
@@ -98,7 +84,7 @@ export class TownView {
   private chimneys: Array<[number, number, number]> = []
   private forges: Array<[number, number, number]> = []
   private dummies: Dummy[] = []
-  private animals: Animal[] = []
+  private zoo: TownAnimals | null = null
   private people = new Map<number, Person>()
   private puffs: Puffs
   private bubbles: Bubbles
@@ -167,8 +153,12 @@ export class TownView {
         v.root.add(m)
       }
     }
-    // ── A few animals ──
-    if (!v.low && !t.ruined) v.addAnimals()
+    // ── Its animals (roadmap #97); a burnt town has none ──
+    if (!t.ruined) {
+      v.zoo = new TownAnimals(t, plan.w, plan.h, sim.grid, v.owned)
+      v.zoo.populate(v.low, plan.seed)
+      v.root.add(v.zoo.root)
+    }
     scene.add(v.root)
     await slice()
     return v
@@ -266,75 +256,6 @@ export class TownView {
     if (!stone) obj.scale.setScalar(0.8)
     this.root.add(obj)
     this.dummies.push({ obj, x, z, w: 0, dw: 0, dir: 1 })
-  }
-
-  private addAnimals(): void {
-    const t = this.town
-    const W = this.plan.w
-    const H = this.plan.h
-    const open = (x: number, z: number): boolean => {
-      const i = Math.floor(x / CELL)
-      const j = Math.floor(z / CELL)
-      if (i < 0 || j < 0 || i >= W || j >= H) return false
-      const c = t.cell[j * W + i]
-      return c === TC_GRASS || c === TC_YARD || c === TC_GROUND
-    }
-    // Chickens about the green and the gardens.
-    const chicken = (): Group => {
-      const k = newKit()
-      k.hull.ball(0, 0.2, 0, 0.16, '#fff8ee', 7, 5, 0.9)
-      k.hull.ball(0, 0.36, 0.12, 0.09, '#fffaf2', 6, 4)
-      k.detail.ball(0, 0.26, -0.15, 0.08, '#f4ece0', 5, 3, 1.3)
-      k.detail.box(-0.02, 0.43, 0.08, 0.02, 0.48, 0.16, '#e03a3a', 'b')
-      k.detail.box(-0.02, 0.34, 0.2, 0.02, 0.37, 0.26, '#ffb02a', 'b')
-      k.detail.box(-0.07, 0.37, 0.16, -0.05, 0.39, 0.18, '#1b1626', 'b')
-      k.detail.box(0.05, 0.37, 0.16, 0.07, 0.39, 0.18, '#1b1626', 'b')
-      for (const s of [-1, 1]) k.detail.box(s * 0.05 - 0.012, 0, -0.012, s * 0.05 + 0.012, 0.09, 0.012, '#ffb02a', 'b')
-      return this.small(k)
-    }
-    const homes: Array<[number, number]> = []
-    for (const p of t.props) if (p.kind === 'garden' || p.kind === 'hay' || p.kind === 'cart') homes.push([p.x, p.z + 1.2])
-    const n = t.style === 'mountain' ? 0 : 4
-    for (let i = 0; i < n && homes.length; i++) {
-      const [hx, hz] = homes[(i * 3) % homes.length]!
-      if (!open(hx, hz)) continue
-      const obj = chicken()
-      this.root.add(obj)
-      this.animals.push({ obj, head: null, x: hx, z: hz, tx: hx, tz: hz, rest: i * 0.7, yaw: i, hop: 0, cat: false, hx, hz })
-    }
-    // A cat on a doorstep.
-    const door = t.houses.find(h => !h.inside && h.kind === 'cottage')
-    if (door) {
-      const k = newKit()
-      const fur = t.style === 'mountain' ? '#8a8a94' : '#f0a050'
-      k.hull.ball(0, 0.16, -0.05, 0.17, fur, 7, 5, 0.85)
-      k.detail.beam(0, 0.12, -0.2, 0.18, 0.05, -0.38, 0.05, fur, 0.05)
-      const body = this.small(k)
-      const hk = newKit()
-      hk.hull.ball(0, 0, 0, 0.13, fur, 7, 5)
-      for (const s of [-1, 1]) hk.detail.prism([[s * 0.1 - 0.04, 0.07], [s * 0.1 + 0.04, 0.07], [s * 0.1, 0.17]], -0.02, 0.02, fur)
-      hk.detail.box(-0.06, 0.01, 0.11, -0.03, 0.04, 0.13, '#3a8a3a', 'b')
-      hk.detail.box(0.03, 0.01, 0.11, 0.06, 0.04, 0.13, '#3a8a3a', 'b')
-      const head = this.small(hk)
-      head.position.set(0, 0.36, 0.08)
-      body.add(head)
-      const x = (door.doorI + 0.5) * CELL + 0.75
-      const z = (door.j0 + door.cd) * CELL + 0.15
-      this.root.add(body)
-      this.animals.push({ obj: body, head, x, z, tx: x, tz: z, rest: 0, yaw: 0, hop: 0, cat: true, hx: x, hz: z })
-    }
-  }
-
-  private small(k: Kit): Group {
-    const g = new Group()
-    const lit = new Mesher().append(k.hull).append(k.detail).build()
-    const line = k.hull.welded()
-    this.owned.push(lit, line)
-    g.add(new Mesh(lit, celVC()))
-    const o = new Mesh(line, outlineMat())
-    o.renderOrder = -1
-    g.add(o)
-    return g
   }
 
   // ─── Every frame ───────────────────────────────────────────────────────────
@@ -484,52 +405,11 @@ export class TownView {
       d.obj.rotation.z = -Math.sin(d.dir) * d.w * 0.12
     }
     // ── Animals ──
-    for (const a of this.animals) this.animal(a, dt)
+    this.zoo?.update(dt, hx, hz)
   }
 
-  private animal(a: Animal, dt: number): void {
-    if (a.cat) {
-      // A cat sits on its step and looks about; now and then it washes.
-      a.rest += dt
-      a.obj.position.set(a.x, groundAt(a.x, a.z), a.z)
-      a.obj.rotation.y = 0.5
-      if (a.head) {
-        a.head.rotation.y = Math.sin(a.rest * 0.4) * 0.9
-        a.head.rotation.x = Math.max(0, Math.sin(a.rest * 0.23)) * 0.4
-      }
-      const s = 1 + Math.sin(a.rest * 2.2) * 0.02
-      a.obj.scale.set(1, s, 1)
-      return
-    }
-    a.rest -= dt
-    const dx = a.tx - a.x
-    const dz = a.tz - a.z
-    const d = Math.hypot(dx, dz)
-    let peck = 0
-    if (a.rest > 0) {
-      // Pecking at the ground.
-      peck = Math.max(0, Math.sin(a.rest * 9)) * 0.5
-    } else if (d > 0.05) {
-      const s = Math.min(d, dt * 0.9)
-      a.x += (dx / d) * s
-      a.z += (dz / d) * s
-      a.yaw = Math.atan2(dx, dz)
-      a.hop += dt * 14
-    } else {
-      // Somewhere else to scratch at, near home.
-      const ang = Math.random() * Math.PI * 2
-      const r = Math.random() * 2.2
-      const nx = a.hx + Math.cos(ang) * r
-      const nz = a.hz + Math.sin(ang) * r
-      const i = Math.floor(nx / CELL)
-      const j = Math.floor(nz / CELL)
-      const c = this.town.cell[j * this.town.w + i]
-      if (c === TC_GRASS || c === TC_YARD || c === TC_STREET || c === TC_GROUND) { a.tx = nx; a.tz = nz }
-      a.rest = 1 + Math.random() * 2.5
-    }
-    a.obj.position.set(a.x, groundAt(a.x, a.z) + Math.abs(Math.sin(a.hop)) * 0.05, a.z)
-    a.obj.rotation.set(peck, a.yaw, 0, 'YXZ')
-  }
+  /** The animals at their places (the z-fighting test, the probes). */
+  get animals(): Array<{ obj: Object3D; x: number; z: number }> { return this.zoo?.objects ?? [] }
 
   /** DEV probes: the town's people as the sim has them, and how one is posed. */
   people_(): ReturnType<typeof townLife> { return townLife(this.sim) }

@@ -631,4 +631,30 @@ attribute buff; items are fixed named ids owned once.
   were brought into the band: Elementalist skill damage ×0.75 (67 → 75 s,
   it kept 90 % health), Windrunner ×0.8, Frostwarden ×1.3 (111 → 99 s),
   Bard ×1.4 (127 → 114 s; his songs buff rather than hit).
-- [ ] **24 Icons, then the world map** (#94).
+- [ ] **24 Icons, then the world map** (#94). Painting through the Art
+  Desk: the status sheets 3 and 4, the class crests and the second skill
+  sheets of the eight first classes, then the Windrunner's first sheet, are
+  painted and checked; Gemini's daily image limit stopped the queue there.
+  Waiting: the new classes' 14 skill sheets, the four map quarters, then
+  repaints of the eight first skill sheets. The map as four quarters
+  (D116) is built: `bg-ui-terrain-nw|ne|sw|se`, references cut from the
+  plate at 55 % of its width and height each, the painted whole map as the
+  finish; `pnpm art:stitch-map` joins them (2502 × 1396) with a colour gain
+  per quarter, a least-difference cut through each shared strip and a
+  feather across it. Tried on quarters cut from the current map with
+  colour casts and 2–3 px offsets: the join is invisible.
+- [x] **25 No level requirement for gear** (#98, asked mid-round). Any owned
+  piece is worn at once; the padlocks, "Needs level" notes, the item card's
+  level line and the level filters on the upgrade arrow and the coach's buy
+  tip are gone, and so is `bag.tooLow` in every locale. The item's level
+  still sets its price and where it is found (GDD 6: "Item Level").
+- [x] **26 Animals in the towns** (#97, asked mid-round). `gfx/townAnimals.ts`
+  holds the chickens (moved from the town view), doorstep cats in five
+  coats that watch the hero, a strolling cat that keeps out of his reach,
+  a dog or two that roam and trot up to sit and wag at his feet (then wait
+  half a minute before greeting again), and squirrels that dart about
+  their tree and run up into the crown when he comes near. Pets are drawn
+  larger than life (cat 1.3, dog 1.15, squirrel 1.7) so the fixed camera
+  reads them. A weak device gets about half; a burnt town none. Covered by
+  the z-fighting test (every coat and pose, and every town as built,
+  Silverbridge now included) and behaviour tests.

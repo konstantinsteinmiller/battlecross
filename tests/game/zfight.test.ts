@@ -122,7 +122,7 @@ describe('z-fighting: every static model', () => {
     const { Sim } = await import('@/game/sim/world')
     const slice = async (): Promise<void> => {}
     const bad: string[] = []
-    for (const [t, flags] of [['sunford', []], ['oakhaven', []], ['ironhold', []], ['oakhaven', ['oakhavenFallen']]] as const) {
+    for (const [t, flags] of [['sunford', []], ['oakhaven', []], ['ironhold', []], ['silverbridge', []], ['oakhaven', ['oakhavenFallen']]] as const) {
       const name = `${t}${flags.length ? ' (fallen)' : ''}`
       const plan = generateTown(TOWNS[t], new Set(flags), 7)
       setGround({ w: plan.w, h: plan.h, height: plan.height })
@@ -235,6 +235,29 @@ describe('z-fighting: every static model', () => {
     }
     expect(bad).toEqual([])
   }, 120_000)
+
+  it('every town animal, in every coat and pose (#97)', async () => {
+    const { animalKits, CAT_COATS, DOG_COATS, SQUIRREL_COAT } = await import('@/game/gfx/townAnimals')
+    const bad: string[] = []
+    const all = [
+      ...CAT_COATS.flatMap((c, i) => (['stand', 'sit'] as const).map(p => [`cat ${i} ${p}`, animalKits('cat', c, p)] as const)),
+      ...DOG_COATS.flatMap((c, i) => (['stand', 'sit'] as const).map(p => [`dog ${i} ${p}`, animalKits('dog', c, p)] as const)),
+      ['squirrel', animalKits('squirrel', SQUIRREL_COAT)] as const,
+      ['chicken', animalKits('chicken', CAT_COATS[0]!)] as const
+    ]
+    for (const [name, k] of all) {
+      // Each part on its own (they move apart), and the body with its head and
+      // tail where they hang.
+      for (const [part, kit] of [['body', k.body], ['head', k.head], ['tail', k.tail]] as const) {
+        if (!kit) continue
+        const tris: Tri[] = []
+        for (const [ln, m] of [['hull', kit.hull], ['detail', kit.detail]] as const) trisOfMesher(m, `${part}.${ln}`, tris)
+        const f = fights(tris, 0.003)
+        if (f.length) bad.push(`${name} ${part}: ${f.join(' | ')}`)
+      }
+    }
+    expect(bad).toEqual([])
+  })
 
   it('the detector finds a fight, and lets a real step or a same-look overlap be', () => {
     const quad = (y: number, x0: number, tag: string, look?: string): Tri[] => {
