@@ -18,6 +18,8 @@ import { ACTIVE_SLOTS, PASSIVE_SLOTS, SKILL_BY_ID, meetsSkill, priceOf as skillP
 import { EQUIP_SLOTS, ITEM_BY_ID, noGear, priceOf as itemPriceOf, sellValue, slotOf, type EquipSlot } from '../data/items'
 import { FORGE_MAX, forgeCost } from '../data/forge'
 import { HERB_CAP, isPlant } from '../data/plants'
+import { errandDef, type ErrandDef, type ErrandReward } from '../data/errands'
+import { countTalk, countVisit, errandState, handInCost, settle, type ErrandDeeds, type ErrandSave, type ErrandState, type ErrandWorld } from '../errands'
 import { FACTIONS, FRIEND_DISCOUNT, QUEST_BY_ID, REP_FRIEND, REP_MAX, REP_MIN, choiceOpen, type FactionId } from '../data/quests'
 import { MAP, NODE_BY_ID, ZONES, nodeOpen, nodeReachable, type NodeId } from '../data/zones'
 import { heroStats, shopDiscount, sumBuild, type HeroBuild } from '../sim/stats'
@@ -82,6 +84,8 @@ export interface QuestSave {
   /** Quest id → the choice made. Permanent. */
   done: Record<string, string>
   rep: Record<FactionId, number>
+  /** Errands taken (roadmap #85, #86, #89): where each stands. */
+  errands: Record<string, ErrandSave>
 }
 
 export interface WorldSave {
@@ -105,6 +109,8 @@ export interface WorldSave {
   /** Dialogue memory (`game/talk.ts`): who the hero has met (`<npc>`) and
    *  what was said (`<npc>.<topic>`), so nobody introduces themselves twice. */
   said: string[]
+  /** Pieces of the treasure map found (roadmap #89), by piece id. */
+  pieces: string[]
 }
 
 /** What the hero has made of a zone over all his visits (roadmap #70). */
@@ -237,8 +243,8 @@ const defaults = (): Profile => ({
   questsDone: 0,
   hero: defaultHero(),
   inv: defaultInv(),
-  quests: { done: {}, rep: { order: 0, syndicate: 0, circle: 0 } },
-  world: { cleared: [], flags: [], at: 'plains', pos: mapSpot('plains'), visits: {}, arenaBest: 0, chests: [], mastery: {}, said: [] },
+  quests: { done: {}, rep: { order: 0, syndicate: 0, circle: 0 }, errands: {} },
+  world: { cleared: [], flags: [], at: 'plains', pos: mapSpot('plains'), visits: {}, arenaBest: 0, chests: [], mastery: {}, said: [], pieces: [] },
   stats: { kills: 0, deaths: 0, runs: 0, playSeconds: 0, bestLevel: 1, xpEarned: 0 },
   tips: {},
   meta: { shelf: { day: '', wares: {}, rolls: {}, used: 0 }, arena: { week: '', best: 0 }, contracts: { day: '', list: [] }, repGifts: [], presets: [null, null], lastSeen: 0, rested: 0, respecs: 0 }
@@ -335,6 +341,15 @@ export const loadProfile = (): void => {
   const rep = obj(quests.rep, d.quests.rep)
   for (const f of FACTIONS) rep[f] = Math.max(REP_MIN, Math.min(REP_MAX, Math.round(num(rep[f], 0))))
   quests.rep = rep
+  // A save from before errands has none; an errand the game no longer has is
+  // kept (a later build may bring it back) but cleaned to numbers.
+  const errands = obj(quests.errands, {}) as Record<string, unknown>
+  quests.errands = {}
+  for (const [id, v] of Object.entries(errands)) {
+    if (!v || typeof v !== 'object') continue
+    const e = v as Partial<ErrandSave>
+    quests.errands[id] = { step: Math.max(0, Math.round(num(e.step, 0))), have: Math.max(0, Math.round(num(e.have, 0))), done: e.done === true }
+  }
   profile.quests = quests
 
   const storedWorld = stored(WORLD_KEY)
@@ -357,6 +372,8 @@ export const loadProfile = (): void => {
   world.mastery = mastery
   // A save from before the conversations has no memory: everyone is met anew.
   world.said = [...new Set(strs(world.said))]
+  // A save from before the treasure map has no pieces.
+  world.pieces = [...new Set(strs(world.pieces))]
   if (!NODE_BY_ID[world.at]) world.at = 'plains'
   // A save from before the hero walked the map freely: he stands at his place.
   // (Read off what was stored: the defaults would stand him at the plains.)
@@ -875,6 +892,90 @@ export const sellItem = (id: string): boolean => {
   buyBack.push({ id, gold })
   saveProfile()
   return true
+}
+
+// ─── Errands (roadmap #85, #86, #89, D101) ───────────────────────────────────
+
+/** The world as the errands' live steps see it. */
+export const errandWorld = (): ErrandWorld => ({
+  herbs: herbCount,
+  // Something handed over must be in the bag, not on the hero.
+  owns: (id: string) => owns(id) && !equippedIn(id),
+  pieces: () => profile.world.pieces.length,
+  flags: flagSet()
+})
+
+/** Where an errand stands. */
+export const errandStateOf = (id: string): ErrandState => {
+  const def = errandDef(id)
+  return def ? errandState(def, profile.quests.errands[id], errandWorld()) : 'none'
+}
+
+/** Every errand taken and not yet handed in, with where it stands. */
+export const openErrands = (): Array<{ def: ErrandDef; save: ErrandSave; state: ErrandState }> => {
+  const w = errandWorld()
+  const out: Array<{ def: ErrandDef; save: ErrandSave; state: ErrandState }> = []
+  for (const [id, save] of Object.entries(profile.quests.errands)) {
+    const def = errandDef(id)
+    if (!def || save.done) continue
+    out.push({ def, save, state: errandState(def, save, w) })
+  }
+  return out
+}
+
+/** Take an errand on (once). */
+export const startErrand = (id: string): boolean => {
+  const def = errandDef(id)
+  if (!def || profile.quests.errands[id]) return false
+  const save: ErrandSave = { step: 0, have: 0, done: false }
+  settle(def, save, errandWorld())
+  profile.quests.errands[id] = save
+  saveProfile()
+  return true
+}
+
+/** Hand an errand in: what it asked for is given over, its reward paid. */
+export const completeErrand = (id: string): ErrandReward | null => {
+  const def = errandDef(id)
+  const save = profile.quests.errands[id]
+  if (!def || !save || errandState(def, save, errandWorld()) !== 'ready') return null
+  const cost = handInCost(def)
+  if (Object.keys(cost.herbs).length && !spendHerbs(cost.herbs)) return null
+  if (cost.item) {
+    const i = profile.inv.items.indexOf(cost.item)
+    if (i < 0) return null
+    profile.inv.items.splice(i, 1)
+    delete profile.inv.upgrades[cost.item]
+  }
+  save.done = true
+  save.step = def.steps.length
+  const r = def.reward
+  if (r.gold) profile.gold += r.gold
+  if (r.xp) grantXp(Math.round(xpToNext(Math.min(profile.level, MAX_LEVEL - 1)) * r.xp))
+  for (const f of r.flags ?? []) if (!profile.world.flags.includes(f)) profile.world.flags.push(f)
+  if (r.item) gainItem(r.item)
+  saveProfile()
+  return r
+}
+
+/** A visit's deeds into every open errand (the end of each visit). */
+export const countErrands = (d: ErrandDeeds): void => {
+  const w = errandWorld()
+  for (const [id, save] of Object.entries(profile.quests.errands)) {
+    const def = errandDef(id)
+    if (def && !save.done) countVisit(def, save, d, w)
+  }
+}
+
+/** Someone spoken to: errands waiting on a word with them move on. */
+export const errandTalk = (npc: string): void => {
+  const w = errandWorld()
+  let moved = false
+  for (const [id, save] of Object.entries(profile.quests.errands)) {
+    const def = errandDef(id)
+    if (def && !save.done && countTalk(def, save, npc, w)) moved = true
+  }
+  if (moved) saveProfile()
 }
 
 // ─── The herb pouch (roadmap #88) ────────────────────────────────────────────

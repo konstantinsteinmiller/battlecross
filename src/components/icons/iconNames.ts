@@ -84,7 +84,9 @@ export const GAME_ICON_NAMES = [
   // ── Battlecross ───────────────────────────────────────────────────────────
   // The world map (a folded sheet), the bag, the hero's own sheet (a bust),
   // a speech bubble for "talk", and a sword for "fight".
-  'map', 'bag', 'hero', 'chat', 'sword'
+  'map', 'bag', 'hero', 'chat', 'sword',
+  // The journal (#85, #89): a scroll with three lines written on it.
+  'scroll'
 ] as const
 
 export type GameIconName = (typeof GAME_ICON_NAMES)[number]

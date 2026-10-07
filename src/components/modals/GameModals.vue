@@ -1,5 +1,5 @@
 <template lang="pug">
-  HeroBook(v-if="flow.modal === 'character' || flow.modal === 'skills' || flow.modal === 'inventory'")
+  HeroBook(v-if="flow.modal === 'character' || flow.modal === 'skills' || flow.modal === 'inventory' || flow.modal === 'journal'")
   TradeScreen(v-else-if="flow.modal === 'shop'")
   TeachScreen(v-else-if="flow.modal === 'trainer'")
   HealerScreen(v-else-if="flow.modal === 'healer'")

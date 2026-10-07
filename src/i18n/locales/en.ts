@@ -47,7 +47,8 @@ export default {
     'map': 'World map',
     'character': 'Hero',
     'skills': 'Skills',
-    'inventory': 'Bag'
+    'inventory': 'Bag',
+    'journal': 'Journal'
   },
 
   // ─── Floating combat text: short, they pop for under a second ─────────────
@@ -1790,6 +1791,27 @@ export default {
     'upgrade': 'Upgrade ({n} gold)',
     'max': 'Fully upgraded: +{n}.',
     'town': 'Any town\'s smith can upgrade this.'
+  },
+  // ─── The journal (roadmap #85, #86, #89): errands and how far they are ────
+  'journal': {
+    'errands': 'Errands',
+    'empty': 'Nothing in your journal yet. People in town will ask for your help.',
+    'from': 'For {npc}',
+    'ready': 'Done! Go back to {npc}.',
+    'taken': 'New errand: {title}',
+    'done': 'Errand done: {title}',
+    'step': {
+      'slay': 'Defeat {n} × {enemy}',
+      'slayAt': 'Defeat {n} × {enemy} in {place}',
+      'slayAnyAt': 'Defeat {n} enemies in {place}',
+      'clear': 'Clear {place}',
+      'visit': 'Go to {place}',
+      'gather': 'Gather {n} × {plant}',
+      'bring': 'Bring {item}',
+      'pieces': 'Find {n} pieces of the treasure map',
+      'dig': 'Dig for the treasure in {place}',
+      'talk': 'Talk to {npc}'
+    }
   },
   'contract': {
     'title': 'Contract board',

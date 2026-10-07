@@ -654,5 +654,9 @@ export const ICON_PATHS: Record<GameIconName, string[]> = {
   'sword': [
     'M19.2 2.4H21.6V4.8L12.2 14.6L9.4 11.8Z',
     'M6.6 11.6L12.4 17.4L10.8 19L9 17.2L5.6 20.6L3.4 18.4L6.8 15L5 13.2Z'
+  ],
+  // A scroll: a sheet between two rolls, its lines wound the other way (holes).
+  'scroll': [
+    'M7 3H18A3 3 0 0 1 21 6V7.6H17V17A4 4 0 0 1 13 21H5A3 3 0 0 1 2 18V16.4H6V6A3 3 0 0 1 7 3Z M9 7.6V9.2H14.4V7.6Z M9 11.2V12.8H14.4V11.2Z M9 14.8V16.4H12.6V14.8Z'
   ]
 }

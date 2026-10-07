@@ -27,6 +27,13 @@ export const meets = (c: Cond | undefined, w: DialogWorld, conv: string): boolea
   if (c.said && !c.said.every(k => w.said.has(memoryKey(conv, k)))) return false
   if (c.unsaid && c.unsaid.some(k => w.said.has(memoryKey(conv, k)))) return false
   if (c.met !== undefined && w.said.has(conv) !== c.met) return false
+  if (c.errand) {
+    for (const id in c.errand) {
+      const want = c.errand[id]!
+      const is = w.errands[id] ?? 'none'
+      if (typeof want === 'string' ? is !== want : !want.includes(is)) return false
+    }
+  }
   if (c.any && !c.any.some(x => meets(x, w, conv))) return false
   return true
 }

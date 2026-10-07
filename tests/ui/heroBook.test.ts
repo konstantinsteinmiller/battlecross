@@ -59,7 +59,7 @@ describe('the book', () => {
   it('opens on the page flow.modal names, and its tabs turn the pages', async () => {
     await openBook('inventory')
     const tabs = $$('.book__tab')
-    expect(tabs.map(t => t.dataset.page)).toEqual(['character', 'skills', 'inventory'])
+    expect(tabs.map(t => t.dataset.page)).toEqual(['character', 'skills', 'inventory', 'journal'])
     expect($('.equip')).toBeTruthy()
     await click($('.book__tab[data-page="character"]'))
     expect(f.flow.modal).toBe('character')
@@ -67,6 +67,14 @@ describe('the book', () => {
     await new Promise(r => setTimeout(r, 0))
     await click($('.book__tab[data-page="skills"]'))
     expect(f.flow.modal).toBe('skills')
+    // The journal (#85, #89): its own page, empty until somebody asks.
+    await nextTick()
+    await new Promise(r => setTimeout(r, 0))
+    await click($('.book__tab[data-page="journal"]'))
+    expect(f.flow.modal).toBe('journal')
+    await nextTick()
+    await new Promise(r => setTimeout(r, 300))
+    expect($('.journal')).toBeTruthy()
   })
 })
 

@@ -486,7 +486,14 @@ attribute buff; items are fixed named ids owned once.
   their colour, a toast with their icon), into the pouch at the end of every
   visit; a Herbs tab in the bag. Not on the opening visit. Translations for
   21.1 and 21.2 merged into all 38 locales (`i18nmerge.mjs`, parity green).
-- [ ] **21.3 Errands and the Journal**.
+- [x] **21.3 Errands and the Journal**. One errand model (`data/errands.ts`
+  defs, `errands.ts` rules, profile wrappers): counted steps (slay, clear,
+  visit) move at the end of a visit, live ones (gather, bring, pieces, dig)
+  read the world, `talk` moves when the person is spoken to; gather / bring
+  give their goods over at hand-in and may only be the last step (tested).
+  Conversations can ask where an errand stands and start or hand one in. The
+  hero's book has a fourth page, the Journal (a scroll glyph), listing every
+  open errand with its steps, counts and who to go back to.
 - [ ] **21.4 Boards and town tasks** (#85).
 - [ ] **21.5 The caravan** (#85).
 - [ ] **22.1 Silverbridge** (#86).

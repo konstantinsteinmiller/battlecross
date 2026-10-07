@@ -1,5 +1,6 @@
 import type { AttrBlock } from '../data/attributes'
 import type { FactionId } from '../data/quests'
+import type { ErrandState } from '../errands'
 
 /**
  * ─── Conversations as data (D37) ─────────────────────────────────────────────
@@ -54,6 +55,8 @@ export interface Cond {
   unsaid?: readonly string[]
   /** The hero has (not) spoken to this person before. */
   met?: boolean
+  /** Errand id → where it stands (one state or any of several). */
+  errand?: Readonly<Record<string, ErrandState | readonly ErrandState[]>>
   any?: readonly Cond[]
 }
 
@@ -69,6 +72,8 @@ export interface DialogWorld {
   cleared: ReadonlySet<string>
   /** Dialogue memory: `<conversation>` (met) and `<conversation>.<topic>` (said). */
   said: ReadonlySet<string>
+  /** Errands taken, by id, and where they stand (absent: 'none'). */
+  errands: Readonly<Record<string, ErrandState>>
 }
 
 export interface LineDef {
@@ -102,6 +107,8 @@ export type Effect =
   | { t: 'hint'; quest: string }
   /** A quest decision: permanent. */
   | { t: 'decide'; quest: string; choice: string }
+  /** An errand taken on, or handed in (roadmap #85, #86, #89). */
+  | { t: 'errand'; id: string; act: 'start' | 'complete' }
 
 /** Something sold inside a conversation (a mana potion): the game's rule says
  *  what it costs and whether it can be bought right now. */
@@ -194,4 +201,6 @@ export interface DialogHost {
   offer(id: string): Offer | null
   /** Buy it. False when the rules refuse. */
   buy(id: string): boolean
+  /** Take an errand on, or hand it in. False when the rules refuse. */
+  errand(id: string, act: 'start' | 'complete'): boolean
 }

@@ -20,12 +20,14 @@
             span.book__tab-label {{ t(`menu.${p.id}`) }}
           FHudBadge.book__tab-badge(v-if="p.id === 'character' && profile.hero.points > 0" tone="red") {{ profile.hero.points }}
           FHudBadge.book__tab-badge(v-else-if="p.id === 'inventory' && profile.inv.fresh.length > 0" tone="green") {{ profile.inv.fresh.length }}
+          FHudBadge.book__tab-badge(v-else-if="p.id === 'journal' && journalReady > 0" tone="green") {{ journalReady }}
     template(#tail)
       GoldPill
     //- A page turns: the old one leaves toward the side the new one is not on.
     Transition(:name="back ? 'turn-back' : 'turn'" mode="out-in")
       CharacterPage(v-if="page === 'character'" key="character")
       SkillsPage(v-else-if="page === 'skills'" key="skills")
+      JournalPage(v-else-if="page === 'journal'" key="journal")
       EquipmentPage(v-else key="inventory")
 </template>
 
@@ -52,19 +54,24 @@ import type { BackdropName } from '@/components/game/backdrops'
 import CharacterPage from './CharacterPage.vue'
 import SkillsPage from './SkillsPage.vue'
 import EquipmentPage from './EquipmentPage.vue'
+import JournalPage from './JournalPage.vue'
+import { openErrands } from '@/game/state/profile'
 
-type Page = 'character' | 'skills' | 'inventory'
+type Page = 'character' | 'skills' | 'inventory' | 'journal'
 const PAGES: ReadonlyArray<{ id: Page; icon: GameIconName }> = [
   { id: 'character', icon: 'hero' },
   { id: 'skills', icon: 'book' },
-  { id: 'inventory', icon: 'bag' }
+  { id: 'inventory', icon: 'bag' },
+  { id: 'journal', icon: 'scroll' }
 ]
 /** What lies behind each page: the armoury for the hero and his gear, the
- *  constellation board for his skills. */
-const ART: Record<Page, BackdropName> = { character: 'inventory', skills: 'skills', inventory: 'inventory' }
+ *  constellation board for his skills, the trader's table for his journal. */
+const ART: Record<Page, BackdropName> = { character: 'inventory', skills: 'skills', inventory: 'inventory', journal: 'trade' }
 
 const { t } = useI18n()
-const page = computed<Page>(() => (flow.modal === 'character' || flow.modal === 'skills' ? flow.modal : 'inventory'))
+const page = computed<Page>(() => (flow.modal === 'character' || flow.modal === 'skills' || flow.modal === 'journal' ? flow.modal : 'inventory'))
+/** Errands ready to hand in: the journal's tab says how many. */
+const journalReady = computed(() => openErrands().filter(e => e.state === 'ready').length)
 
 /** Which way the page turns: back when the new page is before the old one. */
 const back = ref(false)

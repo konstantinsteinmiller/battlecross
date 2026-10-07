@@ -6,7 +6,8 @@ import { MANA_OFFER } from './data/dialogs/shared'
 import { QUEST_BY_ID, type ChoiceDef as QuestChoice } from './data/quests'
 import type { NpcDef } from './data/zones'
 import {
-  buyManaPotion, decideQuest, flagSet, gainItem, manaPotionCost, manaPotionRoom, profile, saveProfile, totalAttrs
+  buyManaPotion, completeErrand, decideQuest, errandStateOf, errandTalk, flagSet, gainItem, manaPotionCost, manaPotionRoom, profile, saveProfile,
+  startErrand, totalAttrs
 } from './state/profile'
 import { pushHud } from './state/hud'
 import { sfx } from './audio/sfx'
@@ -58,7 +59,8 @@ export const dialogWorld = (): DialogWorld => ({
   rep: profile.quests.rep,
   quests: profile.quests.done,
   cleared: new Set(profile.world.cleared),
-  said: new Set(profile.world.said)
+  said: new Set(profile.world.said),
+  errands: Object.fromEntries(Object.keys(profile.quests.errands).map(id => [id, errandStateOf(id)]))
 })
 
 /** Remember a dialogue key in the save (a checkpoint, like any purchase). */
@@ -125,6 +127,21 @@ const host: DialogHost = {
   open(window) {
     opts?.onOpen(window)
   },
+  errand(id, act) {
+    if (act === 'start') {
+      if (!startErrand(id)) return false
+      pushHud({ t: 'toast', key: 'journal.taken', params: { title: `errand.${id}.title` } })
+      sfx('uiOpen')
+      return true
+    }
+    const r = completeErrand(id)
+    if (!r) return false
+    pushHud({ t: 'toast', key: 'journal.done', params: { title: `errand.${id}.title` } })
+    if (r.gold) { pushHud({ t: 'toast', key: 'dlg.ui.gotGold', params: { n: r.gold } }); sfx('coin') }
+    if (r.item) pushHud({ t: 'toast', key: 'dlg.ui.gotItem', params: { item: `item.${r.item}.name` }, icon: r.item })
+    sfx('levelUp')
+    return true
+  },
   offer: id => (id === MANA_OFFER ? manaOffer() : null),
   buy: (id) => {
     if (id !== MANA_OFFER || !buyManaPotion()) return false
@@ -166,6 +183,8 @@ const finish = (): void => {
 /** Start a conversation. False when one is already running. */
 export const beginTalk = (conv: ConversationDef, o: TalkOptions): boolean => {
   if (runner) return false
+  // A word with this person may be a step of an errand (#86).
+  errandTalk(conv.id)
   runner = new DialogRunner(conv, host)
   opts = o
   talk.on = true

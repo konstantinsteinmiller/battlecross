@@ -14,7 +14,7 @@ import { abortTalk, beginTalk, talkResume, talkWaiting, type TalkStage } from '.
 import {
   clearNode, flagSet, gainItem, grantXp, hasFlag, isFreshProfile, isNodeOpen, isNodeReachable, lifetimeXp, profile, saveProfile
 } from './state/profile'
-import { addHerbs, countContracts, markChestsOpened, recordArenaWaves, recordMastery, setManaPotions } from './state/profile'
+import { addHerbs, countContracts, countErrands, markChestsOpened, recordArenaWaves, recordMastery, setManaPotions } from './state/profile'
 import { zoneMastery, type Mastery } from './sim/route'
 import { playJingle } from './audio/music'
 import { flushSaveNow } from '@/use/useSaveStatus'
@@ -49,7 +49,7 @@ import { mapSpot, setMapPos } from './state/profile'
 
 export type Screen = 'boot' | 'zone' | 'town' | 'map'
 export type Modal =
-  | '' | 'results' | 'secondWind' | 'contracts' | 'pause' | 'character' | 'skills' | 'inventory' | 'shop' | 'trainer' | 'healer' | 'ending' | 'help'
+  | '' | 'results' | 'secondWind' | 'contracts' | 'pause' | 'character' | 'skills' | 'inventory' | 'journal' | 'shop' | 'trainer' | 'healer' | 'ending' | 'help'
 /** A conversation in progress (`talk.ts`, drawn by `DialogLayer`): with a
  *  townsperson in the scene, with a trainer met on the map, or a quest's
  *  decision. It is not a window — the world keeps running under it — and it
@@ -545,6 +545,8 @@ export const bankVisit = async (outcome: 'victory' | 'defeat' | 'retreat', node:
   if (h.herbs) addHerbs(h.herbs)
   const mastery = h.mastery && !encounter ? { ...h.mastery, ...recordMastery(node, h.mastery) } : undefined
   profile.stats.kills += h.kills
+  // Errands taken count what the visit did (#85, #86, #89).
+  countErrands({ node: encounter ? '' : node, won: outcome === 'victory', kills: h.killKinds ?? {} })
   // The faction contracts count what the visit did (#15).
   countContracts({ zone: !encounter && node in ZONES ? node as ZoneId : '', won: outcome === 'victory', kills: h.killKinds ?? {}, chests: h.chests?.opened ?? 0 })
   profile.stats.runs++
