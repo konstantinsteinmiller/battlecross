@@ -1,7 +1,7 @@
 import { Float32BufferAttribute, Matrix4, type Color } from 'three'
 import type { TownStyle } from '../data/zones'
 import { CELL } from '../sim/grid'
-import { TC_FENCE, TC_GRASS, TC_GROUND, TC_SQUARE, TC_STREET, TC_YARD, type TownPlan, type TownProp } from '../sim/town'
+import { TC_FENCE, TC_GRASS, TC_GROUND, TC_PARAPET, TC_SQUARE, TC_STREET, TC_TOWNWALL, TC_YARD, type TownPlan, type TownProp } from '../sim/town'
 import { Mesher, cage, lc, seeded, shade, under, type Kit } from './archKit'
 import { rock } from './kit'
 import { armourStand, laundryBasket, pack } from './interiors'
@@ -570,6 +570,67 @@ export const buildFences = (k: Kit, t: TownPlan, w: number, h: number, c: PropCt
 }
 
 /** One length of fence from a to b (a post at a). */
+/**
+ * A town's stone (#103): the wall round a walled town and the parapet along a
+ * bridge town's deck. A course from each cell's centre to its neighbour's, a
+ * pier at every end and corner; the wall carries merlons. The south wall is
+ * kept low: the camera looks over it.
+ */
+export const buildTownStone = (k: Kit, t: TownPlan, w: number, h: number, c: PropCtx): void => {
+  const cell = t.cell
+  const hh = k.hull
+  const d = k.detail
+  const at = (i: number, j: number): number => (i < 0 || j < 0 || i >= w || j >= h ? -1 : cell[j * w + i]!)
+  for (let j = 0; j < h; j++) {
+    for (let i = 0; i < w; i++) {
+      const v = at(i, j)
+      if (v !== TC_TOWNWALL && v !== TC_PARAPET) continue
+      const wall = v === TC_TOWNWALL
+      const ht = wall ? (j > h * 0.7 ? 1.1 : 2.1) : 0.62
+      const th = wall ? 0.8 : 0.42
+      const cx = (i + 0.5) * CELL
+      const cz = (j + 0.5) * CELL
+      // A parapet stands on the deck's edge (its cell falls away to the water).
+      const gy = (x: number, z: number): number => (wall ? c.gy(x, z) : c.gy(x, Math.floor(z / CELL) * CELL + 0.05))
+      const y0 = gy(cx, cz)
+      const tone = 0.9 + ((i * 7 + j * 3) % 3) * 0.06
+      const col = shade(c.ruined ? '#6a6460' : wall ? '#9a948a' : '#b4ac9c', tone)
+      let links = 0
+      for (const [di, dj] of [[1, 0], [0, 1], [1, 1], [-1, 1]] as const) {
+        if (at(i + di, j + dj) !== v) continue
+        // A diagonal only where the corner is not already turned by two straights.
+        if (di !== 0 && dj !== 0 && (at(i + di, j) === v || at(i, j + dj) === v)) continue
+        const bx = (i + di + 0.5) * CELL
+        const bz = (j + dj + 0.5) * CELL
+        const y1 = gy(bx, bz)
+        // A diagonal course (a rounded corner) stands 8 cm prouder than the
+        // straight one it crosses: their tops are never one plane.
+        const yb = Math.min(y0, y1) + (di !== 0 && dj !== 0 ? 0.08 : 0)
+        hh.beam(cx, yb + ht / 2 - 0.3, cz, bx, yb + ht / 2 - 0.3, bz, th, col, ht + 0.6)
+        if (wall && !c.low) {
+          // Merlons along the top, between the piers.
+          for (const tt of [0.25, 0.75]) {
+            const mx = cx + (bx - cx) * tt
+            const mz = cz + (bz - cz) * tt
+            const my = yb + ht
+            d.box(mx - 0.22, my, mz - 0.22, mx + 0.22, my + 0.36, mz + 0.22, { top: shade(col, 1.06), side: shade(col, 0.9) }, 'b')
+          }
+        }
+        links++
+      }
+      // A pier wherever the run is not straight (ends, corners, turns): taller
+      // and wider than the courses, it caps where they cross.
+      let n = 0
+      for (const [di, dj] of [[1, 0], [-1, 0], [0, 1], [0, -1], [1, 1], [-1, 1], [1, -1], [-1, -1]] as const) if (at(i + di, j + dj) === v) n++
+      const straight = n === 2 && ((at(i - 1, j) === v && at(i + 1, j) === v) || (at(i, j - 1) === v && at(i, j + 1) === v))
+      if (!straight || links === 0) {
+        const pw = th / 2 + 0.08
+        hh.box(cx - pw, y0 - 0.3, cz - pw, cx + pw, y0 + ht + (wall ? 0.5 : 0.14), cz + pw, { top: shade(col, 1.08), side: shade(col, 0.92) }, 'b')
+      }
+    }
+  }
+}
+
 const fence = (k: Kit, ax: number, az: number, bx: number, bz: number, c: PropCtx, yard: boolean): void => {
   const d = k.detail
   const hh = k.hull

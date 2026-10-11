@@ -16,7 +16,7 @@ import { holdProp } from './rigs/handProps'
 import { loopBeat, townLoop, type LoopClip } from './rigs/townClips'
 import type { RigView } from './rigs'
 import { Bubbles, Puffs } from './townFx'
-import { buildFences, buildPaving, buildProp, type PropCtx } from './townProps'
+import { buildFences, buildPaving, buildProp, buildTownStone, type PropCtx } from './townProps'
 import type { Particles } from './particles'
 import type { HandProp } from '../sim/townLife'
 import { markStill, splitByTile } from './cull'
@@ -135,6 +135,7 @@ export class TownView {
     // Fences go into the kit of where they stand; one pass per quarter keeps them together.
     const fences = newKit()
     buildFences(fences, t, plan.w, plan.h, ctx)
+    buildTownStone(fences, t, plan.w, plan.h, ctx)
     v.addKit(fences, true, 'fences', true)
     await slice()
     for (const k of kits) v.addKit(k, true)

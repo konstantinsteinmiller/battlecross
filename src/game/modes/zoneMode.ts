@@ -358,7 +358,8 @@ export class ZoneMode implements GameMode {
     m.bars = new HealthBars(m.scene, 72)
     m.scene.add(m.walls.root)
     // A zone's chests (the finale's too) are level props; the colosseum keeps its prize chest.
-    if (setup.kind === 'zone') {
+    // A town on a river (#103) has its water drawn the same way.
+    if (setup.kind === 'zone' || (setup.kind === 'town' && plan.liquid)) {
       m.props = new LevelProps(sim, m.vfx, m.terrain.theme, n => m.cam.addTrauma(n))
       await m.props.build(plan, m.scene, slice)
       if (resume?.sim) m.props.syncFromSim()

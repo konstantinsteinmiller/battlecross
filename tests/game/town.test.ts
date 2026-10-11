@@ -129,12 +129,12 @@ describe('town plans', () => {
           for (const k of p.cells) {
             const i = k % plan.w
             const j = (k - i) / plan.w
-            expect(townLane(i, j, plan.w), `${town}#${seed}: a ${p.kind} in the lane at ${i},${j}`).toBe(false)
+            expect(townLane(i, j, plan.w, TOWNS[town].site), `${town}#${seed}: a ${p.kind} in the lane at ${i},${j}`).toBe(false)
           }
         }
         for (let j = 0; j < plan.h; j++) {
           for (let i = 0; i < plan.w; i++) {
-            if (!townLane(i, j, plan.w)) continue
+            if (!townLane(i, j, plan.w, TOWNS[town].site)) continue
             expect(g.solid[j * plan.w + i], `${town}#${seed} lane ${i},${j}`).toBe(0)
             expect(reach(g, plan, (i + 0.5) * CELL, (j + 0.5) * CELL), `${town}#${seed} lane ${i},${j} cut off`).toBe(true)
           }

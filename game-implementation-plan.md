@@ -797,7 +797,17 @@ All sound is synthesised (53 recipes); recorded files can override a recipe.
   translated into all 38 locales (with feminine variants where a language
   needs them). Verified: full suite, vue-tsc, the five zones in a real
   browser (SHARP), z-fight tests.
-- [ ] **35 Towns of their own** (#103): Silverbridge on its bridge, Oakhaven.
+- [x] **35 Towns of their own** (#103). A town's `site`: Silverbridge stands
+  on a bridge (the river runs past the north gardens and below a quay before
+  the south row, a stone parapet at the deck's edge, the banks are the town's
+  two ends; the road ends at the quay, where the hero comes in; the water is
+  the zones' own, drawn by the level props, and lies level). Oakhaven is a
+  walled market (a stone wall with merlons on the ground's edge, low on the
+  camera's side; the east gate with the road running out of it, where the
+  hero comes in, and the south gate on the road). The quay is a lane kept
+  clear; folk whose anchor falls in the river look further for a free spot.
+  Verified: full suite (town reach, lanes, relief, z-fight), vue-tsc, both
+  towns in a real browser (SHARP).
 - [ ] **36 Ore and mining** (#99), chests that cannot be cancelled.
 - [ ] **37 The smith and smithing** (#99).
 - [ ] **38 Cages and captives** (#100).

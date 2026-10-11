@@ -2,7 +2,7 @@ import type { HouseKind, NpcDef, NpcPlace, TownDef, TownFolkDef, TownId, TownJob
 import type { ClassId } from '../data/skills'
 import { CELL, SOLID_LOW, SOLID_TERRAIN, createGrid, findPath, type Grid } from './grid'
 import { mulberry32, type Rng } from './rng'
-import { K_BLOCK } from './zoneFeatures'
+import { K_BLOCK, K_WATER } from './zoneFeatures'
 
 /**
  * ─── A town's plan (roadmap #41, #42) ───────────────────────────────────────
@@ -62,6 +62,12 @@ export const TC_FENCE = 8
 export const TC_GROUND = 9
 /** Out of town (the trees). */
 export const TC_RIM = 10
+/** The river under a bridge town (#103). */
+export const TC_WATER = 11
+/** A town's wall (a walled town, #103): stone, nobody passes. */
+export const TC_TOWNWALL = 12
+/** A bridge's parapet (#103): a low stone wall at the deck's edge. */
+export const TC_PARAPET = 13
 
 /**
  * The plan of a town, by its width: the big town (roadmap #86) is the same
@@ -85,17 +91,22 @@ export interface TownGeo {
   START_J: number
   /** The well's (the fountain's) row: the middle of the square. */
   WELL_J: number
+  /** A bridge town (#103): the quay before the south row (a lane end to
+   *  end), and how far the land reaches in from each end. */
+  QUAY?: { j: number; bank: number }
 }
 
-const geoCache = new Map<number, TownGeo>()
-export const townGeo = (width: number = TOWN_W): TownGeo => {
-  let g = geoCache.get(width)
+const geoCache = new Map<string, TownGeo>()
+export const townGeo = (width: number = TOWN_W, site?: TownDef['site']): TownGeo => {
+  const key = width + '|' + (site ?? '')
+  let g = geoCache.get(key)
   if (g) return g
   const W = width
   const H = TOWN_H
   const CX = Math.floor(W / 2)
   const SQ = { i0: CX - 5, i1: CX + 5, j0: 9, j1: 20 }
-  const ROAD = { i0: CX - 1, i1: CX + 1, j1: H - 3 }
+  // On a bridge the road ends at the quay: below it runs the river.
+  const ROAD = { i0: CX - 1, i1: CX + 1, j1: site === 'bridge' ? 26 : H - 3 }
   g = {
     W, H, CX,
     FRONT: [8, 17, 25],
@@ -108,9 +119,10 @@ export const townGeo = (width: number = TOWN_W): TownGeo => {
       [[3, ROAD.i0 - 2], [ROAD.i1 + 2, W - 4]]
     ],
     START_J: 28,
-    WELL_J: 14
+    WELL_J: 14,
+    ...(site === 'bridge' ? { QUAY: { j: 26, bank: 8 } } : {})
   }
-  geoCache.set(width, g)
+  geoCache.set(key, g)
   return g
 }
 
@@ -119,12 +131,14 @@ let G: TownGeo = townGeo()
 
 /** The lanes nothing may stand in: the middle of each street and the road
  *  below the square (inside the square, the fountain splits the way). */
-export const townLane = (i: number, j: number, width: number = TOWN_W): boolean => {
-  const g = townGeo(width)
+export const townLane = (i: number, j: number, width: number = TOWN_W, site?: TownDef['site']): boolean => {
+  const g = townGeo(width, site)
   return ((j === g.FRONT[0] + 2 || j === g.FRONT[1] + 2) && i >= 4 && i <= g.W - 5 && (i < g.SQ.i0 || i > g.SQ.i1)) ||
-    (i >= g.ROAD.i0 && i <= g.ROAD.i1 && j > g.SQ.j1 && j <= g.ROAD.j1)
+    (i >= g.ROAD.i0 && i <= g.ROAD.i1 && j > g.SQ.j1 && j <= g.ROAD.j1) ||
+    (!!g.QUAY && j === g.QUAY.j && i >= g.QUAY.bank && i <= g.W - 1 - g.QUAY.bank)
 }
-const isLane = (i: number, j: number): boolean => townLane(i, j, G.W)
+let site: TownDef['site']
+const isLane = (i: number, j: number): boolean => townLane(i, j, G.W, site)
 
 // ─── The plan ────────────────────────────────────────────────────────────────
 
@@ -344,7 +358,8 @@ const storeysOf = (kind: HouseKind, style: TownStyle, row: number, rng: Rng): 1 
 
 export const layTown = (def: TownDef, flags: ReadonlySet<string>, seed: number): TownLayout => {
   const rng = mulberry32(seed)
-  G = townGeo(def.width ?? TOWN_W)
+  site = def.site
+  G = townGeo(def.width ?? TOWN_W, site)
   const W = G.W
   const H = G.H
   const N = W * H
@@ -547,19 +562,68 @@ export const layTown = (def: TownDef, flags: ReadonlySet<string>, seed: number):
   // first row of the street is garden too: it is hidden by the houses either side.
   for (let j = 3; j < G.FRONT[0] - 1; j++) for (let i = 2; i < W - 2; i++) if (cell[K(i, j)] === TC_GRASS) cell[K(i, j)] = TC_YARD
 
+  let start = { x: (G.CX + 0.5) * CELL, z: (G.START_J + 0.5) * CELL }
+  if (def.site === 'bridge') {
+    // ── On a bridge (#103): the town is one long deck across a river. The
+    // north rows and the middle street are its upper side, the south row its
+    // lower side, a quay in front of its doors and a parapet at the edge; the
+    // river runs past both sides, the banks are the town's two ends.
+    const pj = G.QUAY!.j + 1
+    const bank = G.QUAY!.bank
+    for (let j = 0; j < H; j++) {
+      for (let i = bank; i <= W - 1 - bank; i++) {
+        const k = K(i, j)
+        if (j > pj || j <= 2) {
+          solid[k] = 0; kind[k] = K_WATER; cell[k] = TC_WATER; trail[k] = 0; room[k] = -1
+        } else if (j === pj && !solid[k]) {
+          cell[k] = TC_PARAPET; trail[k] = 0
+        }
+      }
+    }
+    // The hero comes in on the quay, before the south row.
+    start = { x: (G.CX + 0.5) * CELL, z: (G.QUAY!.j + 0.5) * CELL }
+  } else if (def.site === 'walled') {
+    // ── A walled market (#103): a stone wall round the town's ground, two
+    // gates (the road from the east along the middle street, the south road),
+    // and the hero comes in at the east gate.
+    // The wall stands on the ground's edge: a cell of it beside the trees.
+    const out = (i: number, j: number): boolean => !inGrid(i, j) || cell[K(i, j)] === TC_RIM
+    const eastJ = G.FRONT[1] + 2
+    const gate = (i: number, j: number): boolean =>
+      (Math.abs(j - eastJ) <= 1 && i >= W - 6) || (i >= G.ROAD.i0 && i <= G.ROAD.i1 && j >= H - 6)
+    const ring: number[] = []
+    for (let j = 0; j < H; j++) {
+      for (let i = 0; i < W; i++) {
+        if (out(i, j) || solid[K(i, j)] || gate(i, j)) continue
+        if (out(i - 1, j) || out(i + 1, j) || out(i, j - 1) || out(i, j + 1)) ring.push(K(i, j))
+      }
+    }
+    for (const k of ring) { cell[k] = TC_TOWNWALL; trail[k] = 0; room[k] = -1 }
+    // The east road runs on out of the gate, into the trees.
+    for (let j = eastJ - 1; j <= eastJ + 1; j++) {
+      for (let i = W - 6; i < W; i++) {
+        const k = K(i, j)
+        solid[k] = 0
+        if (cell[k] === TC_RIM || cell[k] === TC_GRASS) cell[k] = TC_STREET
+        trail[k] = 1
+      }
+    }
+    start = { x: (W - 5 + 0.5) * CELL, z: (eastJ + 0.5) * CELL }
+  }
+
   const plan: TownPlan = {
     id: def.id, style: def.style, ruined, w: W, cell, room, houses, props: [], spots: [], people: [],
     square: { i0: G.SQ.i0, j0: G.SQ.j0, i1: G.SQ.i1, j1: G.SQ.j1 }, patrol: []
   }
   const pr = mulberry32(seed ^ 0x7a11)
   const layout: TownLayout = {
-    w: W, h: H, solid, trail, kind, start: { x: (G.CX + 0.5) * CELL, z: (G.START_J + 0.5) * CELL }, buildings, npcs: [], town: plan
+    w: W, h: H, solid, trail, kind, start, buildings, npcs: [], town: plan
   }
   dress(def, flags, layout, pr)
   // Low cells: yards, fences and props keep feet out (the walk grid's LOW layer).
   for (let k = 0; k < N; k++) {
     const c = cell[k]
-    if (c === TC_YARD || c === TC_PROP || c === TC_FENCE) kind[k] = K_BLOCK
+    if (c === TC_YARD || c === TC_PROP || c === TC_FENCE || c === TC_TOWNWALL || c === TC_PARAPET) kind[k] = K_BLOCK
   }
   return layout
 }
@@ -915,7 +979,8 @@ const dress = (def: TownDef, flags: ReadonlySet<string>, L: TownLayout, rng: Rng
       }
     }
     const [ai, aj] = anchor(f.at)
-    const c = nearestFree(ai, aj, free, 7)
+    // (Far enough to get off a bridge town's river, #103.)
+    const c = nearestFree(ai, aj, free, 14)
     taken.add(K(c[0], c[1]))
     people.push({
       id: f.id, npc: '', look: f.look, job: f.job, place: 'street', x: C(c[0]), z: C(c[1]), facing: 0, room: -1, station: -1,
@@ -1067,7 +1132,7 @@ export const townCanTalk = (t: TownPlan, ax: number, az: number, bx: number, bz:
 /** The sim's walk grid for a town layout: walls solid, yards and props low. */
 export const townGrid = (l: { w: number; h: number; solid: Uint8Array; kind: Uint8Array }): Grid => {
   const g = createGrid(l.w, l.h)
-  for (let k = 0; k < l.solid.length; k++) g.solid[k] = (l.solid[k] ? SOLID_TERRAIN : 0) | (l.kind[k] === K_BLOCK ? SOLID_LOW : 0)
+  for (let k = 0; k < l.solid.length; k++) g.solid[k] = (l.solid[k] ? SOLID_TERRAIN : 0) | (l.kind[k] === K_BLOCK || l.kind[k] === K_WATER ? SOLID_LOW : 0)
   return g
 }
 

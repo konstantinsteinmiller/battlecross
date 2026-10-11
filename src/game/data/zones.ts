@@ -374,6 +374,9 @@ export interface TownDef {
   fallen?: string
   /** Its width in cells (38: a village; the big town is wider, roadmap #86). */
   width?: number
+  /** Where the town stands (#103): on a bridge over a river (a long deck with a
+   *  row of houses each side of it), or inside a wall round its market. */
+  site?: 'bridge' | 'walled'
   npcs: NpcDef[]
   houses: TownHouseDef[]
   folk: TownFolkDef[]
@@ -427,7 +430,7 @@ export const TOWNS: Readonly<Record<TownId, TownDef>> = {
   },
   // Bigger and mercantile: two storeys, shop fronts, a fountain, the watch.
   oakhaven: {
-    id: 'oakhaven', theme: 'town', style: 'mercantile', fallen: 'oakhavenFallen',
+    id: 'oakhaven', theme: 'town', style: 'mercantile', fallen: 'oakhavenFallen', site: 'walled',
     npcs: [
       { id: 'captainHale', role: 'quest', look: 'captain', at: [0.82, 0.15], place: 'yard', house: 'hall', job: 'captain', quest: 'siege', not: ['oakhavenFallen'] },
       // Defended: a prosperous trade hub with high-tier armourers.
@@ -499,7 +502,7 @@ export const TOWNS: Readonly<Record<TownId, TownDef>> = {
   // fills the street. The two masters of the hidden classes come once the hero
   // has met the class's own teacher out in the world (`foundFlag`).
   silverbridge: {
-    id: 'silverbridge', theme: 'town', style: 'mercantile', width: 70,
+    id: 'silverbridge', theme: 'town', style: 'mercantile', width: 70, site: 'bridge',
     npcs: [
       // The masters' halls along the north street, one beside the other.
       { id: 'sbMasterAegis', role: 'trainer', look: 'sbMasterAegis', at: [0.063, 0.15], place: 'inside', house: 'hall', job: 'knight', cls: 'aegis' },
