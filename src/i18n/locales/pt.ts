@@ -2145,7 +2145,7 @@ export default {
         '1': 'Pés afastados. Solte o ar. Deixe o vento levá-la.'
       },
       again: {
-        '1': 'Ei! O vento está bom hoje. Vamos atirar?'
+        '1': 'Ei! O vento está bom hoje. Vamos treinar?'
       },
       hello: {
         '2': 'Kestrel Vane. Sefa Galewing me ensinou o arco. Posso ensinar a você o que ela me ensinou.',
@@ -2535,7 +2535,7 @@ export default {
         '1': 'Forjar? Hum. Segure o martelo assim, não como um porrete.'
       },
       ore: {
-        '1': 'Minério, é? Fico com tudo. Peso justo, moeda justa.'
+        '1': 'Pepitas, é? Fico com todas. Peso justo, moeda justa.'
       },
       forgeBack: {
         '1': 'Nada mal. Nada bom também. Continue.'
@@ -3422,10 +3422,10 @@ export default {
         '1': 'Um morador da superfície na bigorna? Bem, todo mundo começa de algum lugar.'
       },
       ore: {
-        '1': 'Rá, minério honesto. Ironhold sempre paga por isso.'
+        '1': 'Metal bom e honesto. Ironhold sempre paga por isso.'
       },
       forgeBack: {
-        '1': 'Hum. Um anão teria feito melhor. Mas não muito.'
+        '1': 'Um anão teria feito melhor. Mas não muito.'
       },
       hello: {
         '1': 'Cuidado com a vitrine. Essas têm fio dos dois lados.',
@@ -4518,7 +4518,7 @@ export default {
       },
       herbs: {
         '1': 'Lá fora, na natureza, em todo lugar onde você luta. É só passar por cima de uma planta e ela é sua.',
-        '2': 'As raras crescem mais longe. Sinos-lunares e espinho-sombrio se escondem depois da floresta.',
+        '2': 'As raras são exigentes. Os sinos-lunares se abrem no Bosque Sussurrante; o espinho-sombrio quer os lugares escuros.',
         say: 'Onde encontro ervas?'
       },
       elixirs: {
@@ -5577,7 +5577,7 @@ export default {
   },
   battle: {
     title: 'Duelo de Itens',
-    lead: 'Coloque um item contra o do apostador: o maior preço de venda leva o ponto, dois pontos vencem. Seus itens se vão de qualquer jeito. Três vitórias seguidas somam um prêmio épico.',
+    lead: 'Coloque um item contra o do apostador: o maior preço de venda leva o ponto, dois pontos vencem. Seus itens se vão de qualquer jeito. Três vitórias seguidas trazem uma peça de prêmio.',
     fee: 'Sentar · {n}',
     row: 'Vitórias seguidas: {n} de {max}',
     needItems: 'Você precisa de pelo menos {n} itens não equipados na bolsa.',

@@ -2141,7 +2141,7 @@ export default {
         '1': 'Füße auseinander. Ausatmen. Lass den Wind ihn tragen.'
       },
       again: {
-        '1': 'Hey! Der Wind ist heute gut. Lust zu schießen?'
+        '1': 'Hey! Der Wind ist heute gut. Wollen wir üben?'
       },
       hello: {
         '2': 'Kestrel Vane. Sefa Galewing hat mich den Bogen gelehrt. Ich kann dir beibringen, was sie mir beigebracht hat.',
@@ -2524,7 +2524,7 @@ export default {
         '1': 'Schmieden? Hm. Halt den Hammer so, nicht wie eine Keule.'
       },
       ore: {
-        '1': 'Erz, was? Ich nehme alles. Faires Gewicht, faire Münze.'
+        '1': 'Erzbrocken, was? Ich nehm sie alle. Faires Gewicht, faire Münze.'
       },
       forgeBack: {
         '1': 'Nicht schlecht. Aber auch nicht gut. Bleib dran.'
@@ -3400,10 +3400,10 @@ export default {
         '1': 'Ein Oberweltler am Amboss? Na, jeder fängt mal irgendwo an.'
       },
       ore: {
-        '1': 'Hah, ehrliches Erz. Dafür zahlt Ironhold immer.'
+        '1': 'Gutes, ehrliches Metall. Dafür zahlt Ironhold immer.'
       },
       forgeBack: {
-        '1': 'Hm. Ein Zwerg hätte es besser gemacht. Aber nicht viel besser.'
+        '1': 'Ein Zwerg hätte es besser gemacht. Aber nicht viel besser.'
       },
       hello: {
         '1': 'Vorsicht mit der Auslage. Die sind auf beiden Seiten scharf.',
@@ -4486,7 +4486,7 @@ export default {
       },
       herbs: {
         '1': 'Draußen in der Wildnis, überall, wo du kämpfst. Lauf einfach über eine Pflanze, und sie gehört dir.',
-        '2': 'Die seltenen wachsen weiter draußen. Mondglocken und Schattendorn verstecken sich hinter dem Wald.',
+        '2': 'Die seltenen sind wählerisch. Mondglocken blühen im Flüsterwald; Schattendorn will die dunklen Orte.',
         say: 'Wo finde ich Kräuter?'
       },
       elixirs: {
@@ -5541,7 +5541,7 @@ export default {
   },
   battle: {
     title: 'Gegenstandsduell',
-    lead: 'Lege einen Gegenstand gegen den des Zockers: Der höhere Verkaufspreis holt den Punkt, zwei Punkte gewinnen. Deine Gegenstände sind so oder so weg. Drei Siege in Folge bringen einen epischen Preis.',
+    lead: 'Lege einen Gegenstand gegen den des Zockers: Der höhere Verkaufspreis holt den Punkt, zwei Punkte gewinnen. Deine Gegenstände sind so oder so weg. Drei Siege in Folge bringen ein Preisstück.',
     fee: 'Hinsetzen · {n}',
     row: 'Siege in Folge: {n} von {max}',
     needItems: 'Du brauchst mindestens {n} nicht angelegte Gegenstände im Beutel.',

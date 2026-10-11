@@ -2145,7 +2145,7 @@ export default {
         '1': 'Kojos plačiau. Iškvėpk. Tegul vėjas neša.'
       },
       again: {
-        '1': 'Ei! Šiandien geras vėjas. Pašaudom?'
+        '1': 'Ei! Šiandien geras vėjas. Patreniruojam?'
       },
       hello: {
         '2': 'Kestrel Vane. Šaudyti iš lanko mane išmokė Sefa Vėjasparnė. Galiu tave išmokyti to, ko ji išmokė mane.',
@@ -2531,7 +2531,7 @@ export default {
         '1': 'Kalvystės? Hm. Laikyk kūjį štai taip, ne kaip vėzdą.'
       },
       ore: {
-        '1': 'Rūda, a? Imu viską. Sąžiningas svoris, sąžiningi pinigai.'
+        '1': 'Grynuoliai, a? Imu viską. Sąžiningas svoris, sąžiningi pinigai.'
       },
       forgeBack: {
         '1': 'Neblogai. Bet ir ne gerai. Dirbk toliau.'
@@ -3424,10 +3424,10 @@ export default {
         '1': 'Paviršietis prie priekalo? Na, kiekvienas kažkur pradeda.'
       },
       ore: {
-        '1': 'Cha, sąžininga rūda. Ironhold už tokią visada sumoka.'
+        '1': 'Geras, sąžiningas metalas. Ironhold už tokį visada sumoka.'
       },
       forgeBack: {
-        '1': 'Hm. Nykštukas būtų padaręs geriau. Bet nedaug.'
+        '1': 'Nykštukas būtų padaręs geriau. Bet nedaug.'
       },
       hello: {
         '1': 'Atsargiai su ekspozicija. Jie aštrūs iš abiejų pusių.',
@@ -4527,7 +4527,7 @@ export default {
       },
       herbs: {
         '1': 'Laukinėse vietose, visur, kur kovoji. Tiesiog pereik per augalą, ir jis tavo.',
-        '2': 'Retieji auga toliau. Mėnulio varpeliai ir šešėldygliai slepiasi už miško.',
+        '2': 'Retieji išrankūs. Mėnulio varpeliai žydi Šnabždančiame miške; šešėldygliai mėgsta tamsias vietas.',
         say: 'Kur rasti žolelių?'
       },
       elixirs: {
@@ -5586,7 +5586,7 @@ export default {
   },
   battle: {
     title: 'Daiktų mūšis',
-    lead: 'Padėk daiktą prieš varžovo daiktą: tašką gauna tas, kurio pardavimo kaina didesnė, du taškai laimi. Daiktų netenki bet kuriuo atveju. Trys pergalės iš eilės prideda epinį prizą.',
+    lead: 'Padėk daiktą prieš varžovo daiktą: tašką gauna tas, kurio pardavimo kaina didesnė, du taškai laimi. Daiktų netenki bet kuriuo atveju. Trys pergalės iš eilės atneša prizinį daiktą.',
     fee: 'Prisėsti · {n}',
     row: 'Pergalės iš eilės: {n} iš {max}',
     needItems: 'Krepšyje reikia bent {n} daiktų, kurių nevilki.',

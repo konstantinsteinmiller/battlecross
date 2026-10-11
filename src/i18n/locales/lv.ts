@@ -2146,7 +2146,7 @@ export default {
         '1': 'Kājas plati. Izelpo. Ļauj vējam to nest.'
       },
       again: {
-        '1': 'Ei! Šodien labs vējš. Pašausim?'
+        '1': 'Ei! Šodien labs vējš. Patrenēsimies?'
       },
       hello: {
         '2': 'Kestrels Veins. Šaut ar loku man iemācīja Sefa Vējspārne. Varu tev iemācīt to, ko viņa iemācīja man.',
@@ -2532,7 +2532,7 @@ export default {
         '1': 'Kalšana? Hm. Turi āmuru šādi, nevis kā vāli.'
       },
       ore: {
-        '1': 'Rūda, ko? Ņemšu visu. Godīgs svars, godīga nauda.'
+        '1': 'Tīradņi, ko? Ņemšu visus. Godīgs svars, godīga nauda.'
       },
       forgeBack: {
         '1': 'Nav slikti. Bet arī ne labi. Turpini.'
@@ -3435,10 +3435,10 @@ export default {
         '1': 'Virszemietis pie laktas? Nu, katrs kaut kur sāk.'
       },
       ore: {
-        '1': 'Ha, godīga rūda. Ironhold par tādu vienmēr maksā.'
+        '1': 'Labs, godīgs metāls. Ironhold par tādu vienmēr maksā.'
       },
       forgeBack: {
-        '1': 'Hm. Rūķis būtu izdarījis labāk. Bet ne par daudz.'
+        '1': 'Rūķis būtu izdarījis labāk. Bet ne par daudz.'
       },
       hello: {
         '1': 'Uzmanīgi ar izstādi. Tie ir asi abās pusēs.',
@@ -4540,7 +4540,7 @@ export default {
       },
       herbs: {
         '1': 'Ārā savvaļā, visur, kur tu cīnies. Vienkārši pārej pāri augam, un tas ir tavs.',
-        '2': 'Retie aug tālāk. Mēnespulkstenītes un ēnērkšķi slēpjas aiz meža.',
+        '2': 'Retie ir izvēlīgi. Mēnespulkstenītes zied Čukstošajā mežā; ēnērkšķi grib tumšas vietas.',
         say: 'Kur atrast zāles?'
       },
       elixirs: {
@@ -5600,7 +5600,7 @@ export default {
   },
   battle: {
     title: 'Priekšmetu kauja',
-    lead: 'Noliec priekšmetu pret pretinieka priekšmetu: punktu iegūst tas, kura pārdošanas cena ir augstāka, divi punkti uzvar. Savus priekšmetus tu zaudē jebkurā gadījumā. Trīs uzvaras pēc kārtas pievieno episku balvu.',
+    lead: 'Noliec priekšmetu pret pretinieka priekšmetu: punktu iegūst tas, kura pārdošanas cena ir augstāka, divi punkti uzvar. Savus priekšmetus tu zaudē jebkurā gadījumā. Trīs uzvaras pēc kārtas atnes balvas priekšmetu.',
     fee: 'Piesēsties · {n}',
     row: 'Uzvaras pēc kārtas: {n} no {max}',
     needItems: 'Somā vajag vismaz {n} priekšmetus, kas nav uzvilkti.',

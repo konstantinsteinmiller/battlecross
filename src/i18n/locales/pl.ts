@@ -2148,7 +2148,7 @@ export default {
         '1': 'Stopy w rozkroku. Wydech. Niech wiatr ją poniesie.'
       },
       again: {
-        '1': 'Hej! Wiatr dziś dobry. Postrzelamy?'
+        '1': 'Hej! Wiatr dziś dobry. Poćwiczymy?'
       },
       hello: {
         '2': 'Kestrel Vane. Sefa Wichroskrzydła nauczyła mnie strzelać z łuku. Mogę nauczyć cię tego, czego ona nauczyła mnie.',
@@ -2536,7 +2536,7 @@ export default {
         '1': 'Kowalstwo? Hm. Trzymaj młot tak, a nie jak pałkę.'
       },
       ore: {
-        '1': 'Ruda, co? Biorę wszystko. Uczciwa waga, uczciwa moneta.'
+        '1': 'Bryłki, co? Biorę wszystkie. Uczciwa waga, uczciwa moneta.'
       },
       forgeBack: {
         '1': 'Nieźle. Ale i nie dobrze. Pracuj dalej.'
@@ -3455,10 +3455,10 @@ export default {
         '1': 'Mieszkaniec powierzchni przy kowadle? Cóż, każdy od czegoś zaczyna.'
       },
       ore: {
-        '1': 'Ha, uczciwa ruda. Ironhold zawsze za taką płaci.'
+        '1': 'Dobry, uczciwy metal. Ironhold zawsze za taki płaci.'
       },
       forgeBack: {
-        '1': 'Hm. Krasnolud zrobiłby to lepiej. Ale niewiele.'
+        '1': 'Krasnolud zrobiłby to lepiej. Ale niewiele.'
       },
       hello: {
         '1': 'Ostrożnie z gablotą. Są ostre z obu stron.',
@@ -4562,7 +4562,7 @@ export default {
       },
       herbs: {
         '1': 'W dziczy, wszędzie tam, gdzie walczysz. Wystarczy przejść po roślinie i jest twoja.',
-        '2': 'Rzadkie rosną dalej. Księżycowe dzwonki i cieniocierń chowają się za lasem.',
+        '2': 'Te rzadkie są wybredne. Księżycowe dzwonki kwitną w Szepczącym Lesie; cieniocierń chce ciemnych miejsc.',
         say: 'Gdzie znajdę zioła?'
       },
       elixirs: {
@@ -5622,7 +5622,7 @@ export default {
   },
   battle: {
     title: 'Bitwa przedmiotów',
-    lead: 'Połóż przedmiot przeciw przedmiotowi rywala: punkt zdobywa ten o wyższej cenie sprzedaży, dwa punkty wygrywają. Twoje przedmioty i tak przepadają. Trzy wygrane z rzędu dodają epicką nagrodę.',
+    lead: 'Połóż przedmiot przeciw przedmiotowi rywala: punkt zdobywa ten o wyższej cenie sprzedaży, dwa punkty wygrywają. Twoje przedmioty i tak przepadają. Trzy wygrane z rzędu przynoszą przedmiot w nagrodę.',
     fee: 'Siadam · {n}',
     row: 'Wygrane z rzędu: {n} z {max}',
     needItems: 'Potrzebujesz w torbie przedmiotów, których nie nosisz: co najmniej {n}.',

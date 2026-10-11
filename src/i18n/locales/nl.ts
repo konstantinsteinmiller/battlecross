@@ -2141,7 +2141,7 @@ export default {
         '1': 'Voeten uit elkaar. Adem uit. Laat de wind hem dragen.'
       },
       again: {
-        '1': 'Hé! De wind is goed vandaag. Zin om te schieten?'
+        '1': 'Hé! De wind is goed vandaag. Zullen we oefenen?'
       },
       hello: {
         '2': 'Kestrel Vane. Sefa Windvleugel leerde me de boog. Ik kan je leren wat zij mij leerde.',
@@ -2524,7 +2524,7 @@ export default {
         '1': 'Smeden? Hm. Houd de hamer zo vast, niet als een knuppel.'
       },
       ore: {
-        '1': 'Erts, hè? Ik neem alles. Eerlijk gewicht, eerlijke munt.'
+        '1': 'Klompjes, hè? Ik neem ze allemaal. Eerlijk gewicht, eerlijke munt.'
       },
       forgeBack: {
         '1': 'Niet slecht. Ook niet goed. Ga zo door.'
@@ -3392,10 +3392,10 @@ export default {
         '1': 'Een bovengronder aan het aambeeld? Nou ja, iedereen begint ergens.'
       },
       ore: {
-        '1': 'Ha, eerlijk erts. Daar betaalt Ironhold altijd voor.'
+        '1': 'Goed, eerlijk metaal. Daar betaalt Ironhold altijd voor.'
       },
       forgeBack: {
-        '1': 'Hm. Een dwerg had het beter gedaan. Maar niet veel beter.'
+        '1': 'Een dwerg had het beter gedaan. Maar niet veel beter.'
       },
       hello: {
         '1': 'Voorzichtig met de uitstalling. Die zijn aan beide kanten scherp.',
@@ -4476,7 +4476,7 @@ export default {
       },
       herbs: {
         '1': 'Buiten in het wild, overal waar je vecht. Loop gewoon over een plant en hij is van jou.',
-        '2': 'De zeldzame groeien verder weg. Maanklokjes en schaduwdoorn verstoppen zich voorbij het bos.',
+        '2': 'De zeldzame zijn kieskeurig. Maanklokjes bloeien in het Fluisterwoud; schaduwdoorn wil de donkere plekken.',
         say: 'Waar vind ik kruiden?'
       },
       elixirs: {
@@ -5531,7 +5531,7 @@ export default {
   },
   battle: {
     title: 'Voorwerpenduel',
-    lead: 'Leg een voorwerp tegen dat van de gokker: de hoogste verkoopprijs pakt het punt, twee punten winnen. Je voorwerpen ben je hoe dan ook kwijt. Drie keer op rij winnen levert een epische prijs op.',
+    lead: 'Leg een voorwerp tegen dat van de gokker: de hoogste verkoopprijs pakt het punt, twee punten winnen. Je voorwerpen ben je hoe dan ook kwijt. Drie keer op rij winnen levert een prijsstuk op.',
     fee: 'Aanschuiven · {n}',
     row: 'Op rij gewonnen: {n} van {max}',
     needItems: 'Je hebt minstens {n} voorwerpen in je tas nodig die je niet draagt.',

@@ -2140,7 +2140,7 @@ export default {
         '1': 'Fötterna isär. Andas ut. Låt vinden bära den.'
       },
       again: {
-        '1': 'Hej! Bra vind i dag. Ska vi skjuta?'
+        '1': 'Hej! Bra vind i dag. Ska vi öva?'
       },
       hello: {
         '2': 'Kestrel Vane. Sefa Vindvinge lärde mig bågen. Jag kan lära dig det hon lärde mig.',
@@ -2520,7 +2520,7 @@ export default {
         '1': 'Smide? Hm. Håll hammaren så här, inte som en klubba.'
       },
       ore: {
-        '1': 'Malm, va? Jag tar alltihop. Ärlig vikt, ärligt mynt.'
+        '1': 'Klumpar, va? Jag tar alltihop. Ärlig vikt, ärligt mynt.'
       },
       forgeBack: {
         '1': 'Inte dåligt. Inte bra heller. Fortsätt.'
@@ -3383,10 +3383,10 @@ export default {
         '1': 'En ytbo vid städet? Nåväl, alla börjar någonstans.'
       },
       ore: {
-        '1': 'Hah, ärlig malm. Ironhold betalar alltid för sådan.'
+        '1': 'Bra, ärlig metall. Ironhold betalar alltid för sådan.'
       },
       forgeBack: {
-        '1': 'Hm. En dvärg hade gjort det bättre. Men inte mycket.'
+        '1': 'En dvärg hade gjort det bättre. Men inte mycket.'
       },
       hello: {
         '1': 'Försiktigt med utställningen. De är vassa på båda eggarna.',
@@ -4465,7 +4465,7 @@ export default {
       },
       herbs: {
         '1': 'Ute i det vilda, överallt där du slåss. Gå bara över en växt, så är den din.',
-        '2': 'De sällsynta växer längre bort. Månklockor och skuggtagg gömmer sig bortom skogen.',
+        '2': 'De sällsynta är kräsna. Månklockor slår ut i Viskande skogen; skuggtagg vill ha de mörka platserna.',
         say: 'Var hittar jag örter?'
       },
       elixirs: {
@@ -5520,7 +5520,7 @@ export default {
   },
   battle: {
     title: 'Föremålsduell',
-    lead: 'Lägg en sak mot motspelarens: högst försäljningspris tar poängen, två poäng vinner. Dina saker försvinner hur det än går. Tre vinster i rad ger ett episkt pris.',
+    lead: 'Lägg en sak mot motspelarens: högst försäljningspris tar poängen, två poäng vinner. Dina saker försvinner hur det än går. Tre vinster i rad ger ett prisföremål.',
     fee: 'Slå dig ner · {n}',
     row: 'Vinster i rad: {n} av {max}',
     needItems: 'Du behöver minst {n} saker i väskan som du inte har på dig.',

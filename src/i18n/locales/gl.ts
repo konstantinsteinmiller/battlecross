@@ -2145,7 +2145,7 @@ export default {
         '1': 'Pés separados. Bota o aire. Deixa que o vento a leve.'
       },
       again: {
-        '1': 'Ei! Hoxe vai bo vento. Tiramos?'
+        '1': 'Ei! Hoxe vai bo vento. Practicamos?'
       },
       hello: {
         '2': 'Kestrel Vane. Sefa Á de Vendaval ensinoume o arco. Podo ensinarche o que ela me ensinou.',
@@ -2535,7 +2535,7 @@ export default {
         '1': 'Forxar? Hm. Colle o martelo así, non coma unha moca.'
       },
       ore: {
-        '1': 'Mineral, eh? Quédome con todo. Peso xusto, moeda xusta.'
+        '1': 'Pebidas, eh? Quédome con todas. Peso xusto, moeda xusta.'
       },
       forgeBack: {
         '1': 'Non está mal. Tampouco está ben. Segue así.'
@@ -3422,10 +3422,10 @@ export default {
         '1': 'Un da superficie na engra? Bueno, todo o mundo comeza nalgures.'
       },
       ore: {
-        '1': 'Ha, mineral honrado. Ironhold sempre paga por iso.'
+        '1': 'Bo metal, honrado. Ironhold sempre paga por iso.'
       },
       forgeBack: {
-        '1': 'Hm. Un anano faríao mellor. Pero non moito mellor.'
+        '1': 'Un anano faríao mellor. Pero non moito mellor.'
       },
       hello: {
         '1': 'Coidado coa exposición. Estas están afiadas polos dous lados.',
@@ -4518,7 +4518,7 @@ export default {
       },
       herbs: {
         '1': 'Aí fóra, na natureza, en calquera sitio onde loites. Pasa por riba dunha planta e xa é túa.',
-        '2': 'As raras medran máis lonxe. As campaíñas lunares e a espiña sombría agóchanse alén do bosque.',
+        '2': 'As raras son esixentes. As campaíñas lunares ábrense no Bosque dos Murmurios; a espiña sombría quere os lugares escuros.',
         say: 'Onde atopo herbas?'
       },
       elixirs: {
@@ -5577,7 +5577,7 @@ export default {
   },
   battle: {
     title: 'Duelo de obxectos',
-    lead: 'Pon un obxecto contra o do apostador: o prezo de venda máis alto lévase o punto, e dous puntos gañan. Os teus obxectos pérdense pase o que pase. Tres vitorias seguidas engaden un premio épico.',
+    lead: 'Pon un obxecto contra o do apostador: o prezo de venda máis alto lévase o punto, e dous puntos gañan. Os teus obxectos pérdense pase o que pase. Tres vitorias seguidas traen unha peza de premio.',
     fee: 'Sentar · {n}',
     row: 'Vitorias seguidas: {n} de {max}',
     needItems: 'Necesitas polo menos {n} obxectos sen poñer na bolsa.',

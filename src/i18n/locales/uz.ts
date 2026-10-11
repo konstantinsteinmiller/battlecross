@@ -2140,7 +2140,7 @@ export default {
         '1': 'Oyoqlar keng. Nafas chiqar. Shamol olib ketsin.'
       },
       again: {
-        '1': 'Hey! Bugun shamol yaxshi. Otamizmi?'
+        '1': 'Hey! Bugun shamol yaxshi. Mashq qilamizmi?'
       },
       hello: {
         '2': 'Kestrel Vane. Menga kamonni Sefa Galewing oʻrgatgan. U menga oʻrgatganini senga oʻrgata olaman.',
@@ -2520,7 +2520,7 @@ export default {
         '1': 'Temirchilik? Hm. Bolgʻani mana bunday ushla, toʻqmoqdek emas.'
       },
       ore: {
-        '1': 'Ruda, a? Hammasini olaman. Toʻgʻri tarozi, toʻgʻri pul.'
+        '1': 'Yombilar, a? Hammasini olaman. Toʻgʻri tarozi, toʻgʻri pul.'
       },
       forgeBack: {
         '1': 'Yomon emas. Yaxshi ham emas. Davom et.'
@@ -3383,10 +3383,10 @@ export default {
         '1': 'Sandon oldida yer usti odami? Mayli, hamma qayerdandir boshlaydi.'
       },
       ore: {
-        '1': 'Ha, halol ruda. Ironhold bunga doim pul toʻlaydi.'
+        '1': 'Yaxshi, halol metall. Ironhold bunga doim pul toʻlaydi.'
       },
       forgeBack: {
-        '1': 'Hm. Gnom yaxshiroq qilardi. Lekin unchalik emas.'
+        '1': 'Gnom yaxshiroq qilardi. Lekin unchalik emas.'
       },
       hello: {
         '1': 'Vitrinaga ehtiyot boʻl. Bular ikki tomondan ham oʻtkir.',
@@ -4465,7 +4465,7 @@ export default {
       },
       herbs: {
         '1': 'Tabiatda, sen jang qiladigan hamma joyda. Oʻsimlik ustidan yurib oʻtsang bas, u seniki.',
-        '2': 'Kamyoblari uzoqroqda oʻsadi. Oyqoʻngʻiroqlar va soyatikan oʻrmon ortida yashirinadi.',
+        '2': 'Kamyoblari injiq boʻladi. Oyqoʻngʻiroqlar Shivirlovchi oʻrmonda ochiladi; soyatikan esa qorongʻi joylarni yoqtiradi.',
         say: 'Giyohlarni qayerdan topaman?'
       },
       elixirs: {
@@ -5520,7 +5520,7 @@ export default {
   },
   battle: {
     title: 'Buyumlar jangi',
-    lead: 'Qimorbozning buyumiga qarshi buyum qoʻying: sotish narxi balandrogʻi ochkoni oladi, ikki ochko gʻalaba keltiradi. Buyumlaringiz baribir ketadi. Ketma-ket uchta gʻalaba epik sovgʻa qoʻshadi.',
+    lead: 'Qimorbozning buyumiga qarshi buyum qoʻying: sotish narxi balandrogʻi ochkoni oladi, ikki ochko gʻalaba keltiradi. Buyumlaringiz baribir ketadi. Ketma-ket uchta gʻalaba sovrin buyum keltiradi.',
     fee: 'Oʻtirish · {n}',
     row: 'Ketma-ket gʻalaba: {n} / {max}',
     needItems: 'Xaltangizda kiyilmagan kamida {n} ta buyum boʻlishi kerak.',

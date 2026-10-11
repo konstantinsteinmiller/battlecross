@@ -2140,7 +2140,7 @@ export default {
         '1': 'Ayaqlar aralı. Nəfəsini ver. Qoy külək onu aparsın.'
       },
       again: {
-        '1': 'Hey! Bu gün külək yaxşıdır. Ox ataq?'
+        '1': 'Hey! Bu gün külək yaxşıdır. Məşq edək?'
       },
       hello: {
         '2': 'Kestrel Vane. Yayı mənə Sefa Galewing öyrədib. Onun mənə öyrətdiklərini sənə öyrədə bilərəm.',
@@ -2520,7 +2520,7 @@ export default {
         '1': 'Dəmirçilik? Hm. Çəkici belə tut, dəyənək kimi yox.'
       },
       ore: {
-        '1': 'Filiz, hə? Hamısını alıram. Düz çəki, düz pul.'
+        '1': 'Külçələr, hə? Hamısını alıram. Düz çəki, düz pul.'
       },
       forgeBack: {
         '1': 'Pis deyil. Yaxşı da deyil. Davam et.'
@@ -3383,10 +3383,10 @@ export default {
         '1': 'Zindan başında bir səthli? Neynək, hamı haradansa başlayır.'
       },
       ore: {
-        '1': 'Hah, dürüst filiz. Ironhold buna həmişə pul verir.'
+        '1': 'Yaxşı, dürüst metal. Ironhold buna həmişə pul verir.'
       },
       forgeBack: {
-        '1': 'Hm. Bir cırtdan daha yaxşısını edərdi. Amma çox da yox.'
+        '1': 'Bir cırtdan daha yaxşısını edərdi. Amma çox da yox.'
       },
       hello: {
         '1': 'Vitrinə ehtiyatlı ol. Bunlar hər iki tərəfdən itidir.',
@@ -4465,7 +4465,7 @@ export default {
       },
       herbs: {
         '1': 'Çöldə, döyüşdüyün hər yerdə. Sadəcə bitkinin üstündən keç, o sənindir.',
-        '2': 'Nadirləri daha uzaqda bitir. Ayzənglər və kölgətikan meşənin o tayında gizlənir.',
+        '2': 'Nadirlər nazlıdır. Ayzənglər Pıçıldayan Meşədə açır; kölgətikan isə qaranlıq yerləri sevir.',
         say: 'Otları harada tapım?'
       },
       elixirs: {
@@ -5520,7 +5520,7 @@ export default {
   },
   battle: {
     title: 'Əşya Döyüşü',
-    lead: 'Qumarbazın əşyasına qarşı bir əşya qoy: satış qiyməti yüksək olan xalı alır, iki xal qələbə gətirir. Əşyaların hər halda gedir. Ardıcıl üç qələbə epik bir mükafat əlavə edir.',
+    lead: 'Qumarbazın əşyasına qarşı bir əşya qoy: satış qiyməti yüksək olan xalı alır, iki xal qələbə gətirir. Əşyaların hər halda gedir. Ardıcıl üç qələbə mükafat əşyası gətirir.',
     fee: 'Otur · {n}',
     row: 'Ardıcıl qələbə: {n} / {max}',
     needItems: 'Çantanda geyinilməmiş ən azı {n} əşya olmalıdır.',

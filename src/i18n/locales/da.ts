@@ -2140,7 +2140,7 @@ export default {
         '1': 'Fødderne fra hinanden. Ånd ud. Lad vinden bære den.'
       },
       again: {
-        '1': 'Hej! God vind i dag. Skal vi skyde?'
+        '1': 'Hej! God vind i dag. Skal vi øve os?'
       },
       hello: {
         '2': 'Kestrel Vane. Sefa Stormvinge lærte mig buen. Jeg kan lære dig det, hun lærte mig.',
@@ -2520,7 +2520,7 @@ export default {
         '1': 'Smedning? Hm. Hold hammeren sådan her, ikke som en kølle.'
       },
       ore: {
-        '1': 'Malm, hva\'? Jeg tager det hele. Ærlig vægt, ærlig mønt.'
+        '1': 'Klumper, hva\'? Jeg tager dem alle. Ærlig vægt, ærlig mønt.'
       },
       forgeBack: {
         '1': 'Ikke dårligt. Heller ikke godt. Bliv ved.'
@@ -3383,10 +3383,10 @@ export default {
         '1': 'En overfladebo ved ambolten? Nå, alle starter et sted.'
       },
       ore: {
-        '1': 'Hah, ærlig malm. Ironhold betaler altid for den slags.'
+        '1': 'Godt, ærligt metal. Ironhold betaler altid for den slags.'
       },
       forgeBack: {
-        '1': 'Hm. En dværg ville have gjort det bedre. Men ikke meget.'
+        '1': 'En dværg ville have gjort det bedre. Men ikke meget.'
       },
       hello: {
         '1': 'Forsigtig med udstillingen. De er skarpe på begge sider.',
@@ -4465,7 +4465,7 @@ export default {
       },
       herbs: {
         '1': 'Ude i naturen, overalt hvor du kæmper. Gå bare hen over en plante, så er den din.',
-        '2': 'De sjældne vokser længere ude. Måneklokker og skyggetorn gemmer sig bag skoven.',
+        '2': 'De sjældne er kræsne. Måneklokker springer ud i Den Hviskende Skov; skyggetorn vil have de mørke steder.',
         say: 'Hvor finder jeg urter?'
       },
       elixirs: {
@@ -5520,7 +5520,7 @@ export default {
   },
   battle: {
     title: 'Tingduel',
-    lead: 'Læg en ting mod gamblerens: den højeste salgspris tager pointet, to point vinder. Dine ting er væk uanset hvad. Tre sejre i træk giver en episk præmie.',
+    lead: 'Læg en ting mod gamblerens: den højeste salgspris tager pointet, to point vinder. Dine ting er væk uanset hvad. Tre sejre i træk giver en præmiegenstand.',
     fee: 'Sæt dig · {n}',
     row: 'Sejre i træk: {n} af {max}',
     needItems: 'Du skal have mindst {n} ting i tasken, som du ikke har på.',

@@ -2144,7 +2144,7 @@ export default {
         '1': 'Piedi divaricati. Espira. Lascia che il vento la porti.'
       },
       again: {
-        '1': 'Ehi! Oggi il vento è buono. Tiriamo?'
+        '1': 'Ehi! Oggi il vento è buono. Ci alleniamo?'
       },
       hello: {
         '2': 'Kestrel Vane. Sefa Galewing mi ha insegnato l’arco. Posso insegnarti quello che lei ha insegnato a me.',
@@ -2540,7 +2540,7 @@ export default {
         '1': 'Forgiare? Mh. Tieni il martello così, non come una clava.'
       },
       ore: {
-        '1': 'Minerale, eh? Lo prendo tutto. Peso giusto, moneta giusta.'
+        '1': 'Pepite, eh? Le prendo tutte. Peso giusto, moneta giusta.'
       },
       forgeBack: {
         '1': 'Non male. Nemmeno bene, però. Continua così.'
@@ -3436,10 +3436,10 @@ export default {
         '1': 'Uno di superficie all’incudine? Be’, tutti cominciano da qualche parte.'
       },
       ore: {
-        '1': 'Ah, minerale onesto. Ironhold paga sempre per questo.'
+        '1': 'Metallo buono e onesto. Ironhold paga sempre per questo.'
       },
       forgeBack: {
-        '1': 'Mh. Un nano avrebbe fatto meglio. Ma non di molto.'
+        '1': 'Un nano avrebbe fatto meglio. Ma non di molto.'
       },
       hello: {
         '1': 'Attento all’esposizione. Quelle sono affilate da entrambi i lati.',
@@ -4542,7 +4542,7 @@ export default {
       },
       herbs: {
         '1': 'Là fuori, nelle terre selvagge, ovunque combatti. Ti basta passare sopra una pianta ed è tua.',
-        '2': 'Quelle rare crescono più lontano. Campanule lunari e spina d’ombra si nascondono oltre il bosco.',
+        '2': 'Quelle rare sono schizzinose. Le campanule lunari sbocciano nel Bosco Sussurrante; la spina d’ombra vuole i posti bui.',
         say: 'Dove trovo le erbe?'
       },
       elixirs: {
@@ -5601,7 +5601,7 @@ export default {
   },
   battle: {
     title: 'Sfida di oggetti',
-    lead: 'Metti un oggetto contro quello dello scommettitore: il prezzo di vendita più alto prende il punto, due punti vincono. I tuoi oggetti li perdi comunque. Tre vittorie di fila aggiungono un premio epico.',
+    lead: 'Metti un oggetto contro quello dello scommettitore: il prezzo di vendita più alto prende il punto, due punti vincono. I tuoi oggetti li perdi comunque. Tre vittorie di fila portano un pezzo in premio.',
     fee: 'Siediti · {n}',
     row: 'Vittorie di fila: {n} su {max}',
     needItems: 'Ti servono almeno {n} oggetti non indossati nella borsa.',

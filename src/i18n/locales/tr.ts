@@ -2140,7 +2140,7 @@ export default {
         '1': 'Ayaklar açık. Nefesini ver. Bırak rüzgâr taşısın.'
       },
       again: {
-        '1': 'Hey! Bugün rüzgâr güzel. Biraz atış yapalım mı?'
+        '1': 'Hey! Bugün rüzgâr güzel. Biraz alıştırma yapalım mı?'
       },
       hello: {
         '2': 'Kestrel Vane. Bana yayı Sefa Galewing öğretti. Onun bana öğrettiklerini sana öğretebilirim.',
@@ -2520,7 +2520,7 @@ export default {
         '1': 'Demircilik mi? Hm. Çekici böyle tut, sopa gibi değil.'
       },
       ore: {
-        '1': 'Cevher mi? Hepsini alırım. Doğru tartı, doğru para.'
+        '1': 'Külçeler mi? Hepsini alırım. Doğru tartı, doğru para.'
       },
       forgeBack: {
         '1': 'Fena değil. İyi de değil. Devam et.'
@@ -3383,10 +3383,10 @@ export default {
         '1': 'Örsün başında bir yüzeyli mi? Neyse, herkes bir yerden başlar.'
       },
       ore: {
-        '1': 'Hah, dürüst cevher. Ironhold buna her zaman para öder.'
+        '1': 'İyi, dürüst metal. Ironhold buna her zaman para öder.'
       },
       forgeBack: {
-        '1': 'Hm. Bir cüce daha iyisini yapardı. Ama çok da değil.'
+        '1': 'Bir cüce daha iyisini yapardı. Ama çok da değil.'
       },
       hello: {
         '1': 'Vitrine dikkat. Bunlar iki yanı da keskin.',
@@ -4465,7 +4465,7 @@ export default {
       },
       herbs: {
         '1': 'Doğada, savaştığın her yerde. Bir bitkinin üstünden yürü, senin olsun.',
-        '2': 'Nadir olanlar daha uzakta yetişir. Ayçanları ve gölgediken ormanın ötesinde saklanır.',
+        '2': 'Nadir olanlar naz yapar. Ayçanları Fısıldayan Orman\'da açar; gölgediken karanlık yerleri ister.',
         say: 'Otları nerede bulurum?'
       },
       elixirs: {
@@ -5520,7 +5520,7 @@ export default {
   },
   battle: {
     title: 'Eşya Düellosu',
-    lead: 'Kumarbazın eşyasına karşı bir eşya koy: satış fiyatı yüksek olan puanı alır, iki puan kazanır. Eşyaların her durumda gider. Üst üste üç galibiyet destansı bir ödül ekler.',
+    lead: 'Kumarbazın eşyasına karşı bir eşya koy: satış fiyatı yüksek olan puanı alır, iki puan kazanır. Eşyaların her durumda gider. Üst üste üç galibiyet bir ödül eşyası getirir.',
     fee: 'Otur · {n}',
     row: 'Üst üste galibiyet: {n} / {max}',
     needItems: 'Çantanda kuşanılmamış en az {n} eşya olmalı.',

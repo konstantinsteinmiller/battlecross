@@ -2140,7 +2140,7 @@ export default {
         '1': 'Dang chân ra. Thở ra. Để gió mang nó đi.'
       },
       again: {
-        '1': 'Này! Hôm nay gió đẹp đấy. Bắn thử không?'
+        '1': 'Này! Hôm nay gió đẹp đấy. Mình tập nhé?'
       },
       hello: {
         '2': 'Kestrel Vane. Sefa Galewing dạy tôi bắn cung. Tôi có thể dạy cậu những gì chị ấy đã dạy tôi.',
@@ -2520,7 +2520,7 @@ export default {
         '1': 'Rèn à? Hừm. Cầm búa thế này, đừng cầm như cầm gậy.'
       },
       ore: {
-        '1': 'Quặng hả? Tôi lấy hết. Cân đủ, trả đủ.'
+        '1': 'Quặng cục hả? Tôi lấy hết. Cân đủ, trả đủ.'
       },
       forgeBack: {
         '1': 'Không tệ. Cũng chẳng tốt. Cứ tiếp tục.'
@@ -3383,10 +3383,10 @@ export default {
         '1': 'Người trên mặt đất đứng bên đe à? Thôi thì ai cũng phải bắt đầu từ đâu đó.'
       },
       ore: {
-        '1': 'Ha, quặng thật thà. Ironhold luôn trả tiền cho thứ đó.'
+        '1': 'Kim loại tốt, thật thà. Ironhold luôn trả tiền cho thứ đó.'
       },
       forgeBack: {
-        '1': 'Hừm. Người lùn sẽ làm tốt hơn. Nhưng chẳng hơn bao nhiêu.'
+        '1': 'Người lùn sẽ làm tốt hơn. Nhưng chẳng hơn bao nhiêu.'
       },
       hello: {
         '1': 'Cẩn thận với hàng trưng bày. Chúng sắc cả hai lưỡi đấy.',
@@ -4465,7 +4465,7 @@ export default {
       },
       herbs: {
         '1': 'Ngoài hoang dã, chỗ nào cậu chiến đấu cũng có. Cứ đi qua cái cây là nó thuộc về cậu.',
-        '2': 'Loại hiếm mọc xa hơn. Chuông Trăng và Gai Bóng Tối nấp ở bên kia khu rừng.',
+        '2': 'Loại hiếm thì kén chọn lắm. Chuông Trăng nở trong Rừng Thì Thầm; Gai Bóng Tối thì ưa những chỗ tối tăm.',
         say: 'Tìm thảo dược ở đâu?'
       },
       elixirs: {
@@ -5520,7 +5520,7 @@ export default {
   },
   battle: {
     title: 'Đấu Vật Phẩm',
-    lead: 'Đặt một món đồ đấu với món của tay cờ bạc: món có giá bán cao hơn được điểm, hai điểm là thắng. Dù thắng hay thua, đồ đã đặt đều mất. Thắng ba lần liên tiếp được thêm một phần thưởng Sử thi.',
+    lead: 'Đặt một món đồ đấu với món của tay cờ bạc: món có giá bán cao hơn được điểm, hai điểm là thắng. Dù thắng hay thua, đồ đã đặt đều mất. Thắng ba lần liên tiếp được một món đồ phần thưởng.',
     fee: 'Ngồi vào · {n}',
     row: 'Thắng liên tiếp: {n}/{max}',
     needItems: 'Bạn cần ít nhất {n} món chưa mặc trong túi.',

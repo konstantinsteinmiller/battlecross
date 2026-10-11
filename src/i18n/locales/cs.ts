@@ -2148,7 +2148,7 @@ export default {
         '1': 'Nohy od sebe. Vydechni. Nech vítr, ať ji nese.'
       },
       again: {
-        '1': 'Hej! Vítr je dneska dobrý. Zastřílíme si?'
+        '1': 'Hej! Vítr je dneska dobrý. Zatrénujeme si?'
       },
       hello: {
         '2': 'Kestrel Vane. Sefa Větrokřídlá mě naučila střílet z luku. Můžu tě naučit to, co naučila mě.',
@@ -2536,7 +2536,7 @@ export default {
         '1': 'Kovařina? Hm. Drž kladivo takhle, ne jako kyj.'
       },
       ore: {
-        '1': 'Ruda, jo? Beru všechno. Poctivá váha, poctivá mince.'
+        '1': 'Hroudy, jo? Beru všechny. Poctivá váha, poctivá mince.'
       },
       forgeBack: {
         '1': 'Ujde to. Ale dobré to taky není. Pokračuj.'
@@ -3454,10 +3454,10 @@ export default {
         '1': 'Obyvatel povrchu u kovadliny? No, každý někde začíná.'
       },
       ore: {
-        '1': 'Ha, poctivá ruda. Ironhold za takovou vždycky zaplatí.'
+        '1': 'Dobrý, poctivý kov. Ironhold za takový vždycky zaplatí.'
       },
       forgeBack: {
-        '1': 'Hm. Trpaslík by to udělal líp. Ale ne o moc.'
+        '1': 'Trpaslík by to udělal líp. Ale ne o moc.'
       },
       hello: {
         '1': 'Opatrně s vitrínou. Jsou ostré z obou stran.',
@@ -4563,7 +4563,7 @@ export default {
       },
       herbs: {
         '1': 'Venku v divočině, všude, kde bojuješ. Stačí přejít přes rostlinu a je tvoje.',
-        '2': 'Ty vzácné rostou dál. Měsíční zvonky a stínotrn se schovávají za lesem.',
+        '2': 'Ty vzácné jsou vybíravé. Měsíční zvonky kvetou v Šeptajícím hvozdu; stínotrn chce temná místa.',
         say: 'Kde najdu byliny?'
       },
       elixirs: {
@@ -5623,7 +5623,7 @@ export default {
   },
   battle: {
     title: 'Souboj předmětů',
-    lead: 'Polož předmět proti soupeřovu: bod bere ten s vyšší prodejní cenou, dva body vyhrávají. O své předměty přijdeš tak jako tak. Tři výhry v řadě přidají epickou cenu.',
+    lead: 'Polož předmět proti soupeřovu: bod bere ten s vyšší prodejní cenou, dva body vyhrávají. O své předměty přijdeš tak jako tak. Tři výhry v řadě přinesou výherní předmět.',
     fee: 'Přisednout · {n}',
     row: 'Výhry v řadě: {n} z {max}',
     needItems: 'V batohu potřebuješ aspoň {n} předmětů, které nemáš na sobě.',

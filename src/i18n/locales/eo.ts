@@ -2140,7 +2140,7 @@ export default {
         '1': 'Piedojn dise. Elspiru. Lasu la venton porti ĝin.'
       },
       again: {
-        '1': 'Hej! La vento estas bona hodiaŭ. Ĉu ni pafu?'
+        '1': 'Hej! La vento estas bona hodiaŭ. Ĉu ni ekzercu?'
       },
       hello: {
         '2': 'Kestrel Vane. Sefa Ventoflugilo instruis al mi la pafarkon. Mi povas instrui al vi tion, kion ŝi instruis al mi.',
@@ -2520,7 +2520,7 @@ export default {
         '1': 'Forĝado? Hm. Tenu la martelon tiel, ne kiel klabon.'
       },
       ore: {
-        '1': 'Erco, ĉu? Mi prenos ĉion. Justa pezo, justa monero.'
+        '1': 'Ercbuloj, ĉu? Mi prenos ĉiujn. Justa pezo, justa monero.'
       },
       forgeBack: {
         '1': 'Ne malbone. Ankaŭ ne bone. Daŭrigu.'
@@ -3383,10 +3383,10 @@ export default {
         '1': 'Surfaculo ĉe la amboso? Nu, ĉiu komencas ie.'
       },
       ore: {
-        '1': 'Ha, honesta erco. Ironhold ĉiam pagas por tio.'
+        '1': 'Bona, honesta metalo. Ironhold ĉiam pagas por tio.'
       },
       forgeBack: {
-        '1': 'Hm. Nano farus pli bone. Sed ne multe.'
+        '1': 'Nano farus pli bone. Sed ne multe.'
       },
       hello: {
         '1': 'Atentu la ekspoziciaĵon. Tiuj estas akraj ambaŭflanke.',
@@ -4465,7 +4465,7 @@ export default {
       },
       herbs: {
         '1': 'Ekstere en la sovaĝejo, ĉie, kie vi batalas. Simple paŝu sur planton, kaj ĝi estas via.',
-        '2': 'La maloftaj kreskas pli malproksime. Lunkampanuloj kaj ombrodorno kaŝiĝas trans la arbaro.',
+        '2': 'La maloftaj estas elektemaj. Lunkampanuloj malfermiĝas en la Flustranta Arbaro; ombrodorno volas la malhelajn lokojn.',
         say: 'Kie mi trovas herbojn?'
       },
       elixirs: {
@@ -5520,7 +5520,7 @@ export default {
   },
   battle: {
     title: 'Objekta Batalo',
-    lead: 'Metu objekton kontraŭ tiun de la hazardludanto: la pli alta vendoprezo prenas la poenton, du poentoj venkas. Viaj objektoj perdiĝas ĉiuokaze. Tri venkoj sinsekve aldonas epikan premion.',
+    lead: 'Metu objekton kontraŭ tiun de la hazardludanto: la pli alta vendoprezo prenas la poenton, du poentoj venkas. Viaj objektoj perdiĝas ĉiuokaze. Tri venkoj sinsekve alportas premian objekton.',
     fee: 'Sidiĝi · {n}',
     row: 'Venkoj sinsekve: {n} el {max}',
     needItems: 'Vi bezonas almenaŭ {n} nesurmetitajn objektojn en via sako.',

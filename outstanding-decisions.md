@@ -9,13 +9,16 @@ Last updated: 2026-10-11.
 
 ## Needs an answer
 
-### 51. Commit this session's work before the #99–#115 batch
+### 59. What is wrong with the yellow frame over a town (#108)
 
-The Wavedash cloud save, the manual save slots (pause menu, exact zone state)
-and the slot window's layout fix are verified but uncommitted.
+#108 reads "Skill point highlight seen over the entered town", and the
+answer was "the character button that is highlighted with a yellow frame on
+the map". The frame is the attention pulse on the character button while
+attribute points are unspent; it pulses the same on the map and in a town.
 
-- **In effect:** two commits before phase 1; the owner's own modified files stay out.
-- **Recommended:** commit.
+- **In effect:** unchanged (the pulse shows wherever points wait to be spent).
+- **Needed:** what should change: hide it in towns, place it elsewhere, or
+  stop it once the player has seen it? #108 stays open until then.
 
 ### 52. Smithed gear: fixed catalogue or rolled pieces (#99)
 

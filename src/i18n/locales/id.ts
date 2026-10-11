@@ -2140,7 +2140,7 @@ export default {
         '1': 'Kaki dibuka. Embuskan napas. Biarkan angin membawanya.'
       },
       again: {
-        '1': 'Hei! Anginnya bagus hari ini. Mau memanah?'
+        '1': 'Hei! Anginnya bagus hari ini. Mau latihan?'
       },
       hello: {
         '2': 'Kestrel Vane. Sefa Galewing mengajariku memanah. Aku bisa mengajarimu apa yang dia ajarkan padaku.',
@@ -2520,7 +2520,7 @@ export default {
         '1': 'Menempa? Hm. Pegang palunya begini, jangan seperti pentungan.'
       },
       ore: {
-        '1': 'Bijih, ya? Kuambil semuanya. Timbangan jujur, bayaran jujur.'
+        '1': 'Bongkahan, ya? Kuambil semuanya. Timbangan jujur, bayaran jujur.'
       },
       forgeBack: {
         '1': 'Lumayan. Tapi belum bagus juga. Terus berlatih.'
@@ -3383,10 +3383,10 @@ export default {
         '1': 'Orang permukaan di depan landasan? Yah, semua orang mulai dari suatu tempat.'
       },
       ore: {
-        '1': 'Hah, bijih yang jujur. Ironhold selalu membayar untuk itu.'
+        '1': 'Logam yang bagus dan jujur. Ironhold selalu membayar untuk itu.'
       },
       forgeBack: {
-        '1': 'Hm. Kurcaci pasti lebih baik. Tapi tak jauh lebih baik.'
+        '1': 'Kurcaci pasti lebih baik. Tapi tak jauh lebih baik.'
       },
       hello: {
         '1': 'Hati-hati dengan pajangannya. Itu tajam di kedua sisi.',
@@ -4465,7 +4465,7 @@ export default {
       },
       herbs: {
         '1': 'Di alam liar, di mana pun kamu bertarung. Cukup lewati tanamannya, dan itu jadi milikmu.',
-        '2': 'Yang langka tumbuh lebih jauh. Lonceng Bulan dan Duri Bayang bersembunyi di balik hutan.',
+        '2': 'Yang langka itu pemilih. Lonceng Bulan mekar di Hutan Berbisik; Duri Bayang menyukai tempat-tempat gelap.',
         say: 'Di mana aku bisa menemukan herbal?'
       },
       elixirs: {
@@ -5520,7 +5520,7 @@ export default {
   },
   battle: {
     title: 'Adu Barang',
-    lead: 'Adu barangmu dengan barang si penjudi: harga jual yang lebih tinggi dapat poin, dua poin menang. Barangmu tetap hilang, menang atau kalah. Tiga kemenangan beruntun memberi hadiah Epik.',
+    lead: 'Adu barangmu dengan barang si penjudi: harga jual yang lebih tinggi dapat poin, dua poin menang. Barangmu tetap hilang, menang atau kalah. Tiga kemenangan beruntun memberi barang hadiah.',
     fee: 'Duduk · {n}',
     row: 'Menang beruntun: {n} dari {max}',
     needItems: 'Kamu butuh minimal {n} barang yang tidak dipakai di tas.',

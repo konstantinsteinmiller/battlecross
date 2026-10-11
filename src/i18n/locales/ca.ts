@@ -2146,7 +2146,7 @@ export default {
         '1': 'Peus separats. Treu l’aire. Deixa que el vent se l’emporti.'
       },
       again: {
-        '1': 'Ei! Avui fa bon vent. Tirem?'
+        '1': 'Ei! Avui fa bon vent. Practiquem?'
       },
       hello: {
         '2': 'Kestrel Vane. La Sefa Ala de Vendaval em va ensenyar l’arc. Et puc ensenyar el que ella em va ensenyar.',
@@ -2535,7 +2535,7 @@ export default {
         '1': 'Forjar? Hm. Agafa el martell així, no com una porra.'
       },
       ore: {
-        '1': 'Mineral, eh? M’ho quedo tot. Pes just, moneda justa.'
+        '1': 'Pepites, eh? M’ho quedo tot. Pes just, moneda justa.'
       },
       forgeBack: {
         '1': 'No està malament. Tampoc no està bé. Continua.'
@@ -3421,10 +3421,10 @@ export default {
         '1': 'Un de la superfície a l’enclusa? Bé, tothom comença en algun lloc.'
       },
       ore: {
-        '1': 'Ha, mineral honest. Ironhold sempre en paga.'
+        '1': 'Metall bo i honest. Ironhold sempre en paga.'
       },
       forgeBack: {
-        '1': 'Hm. Un nan ho hauria fet millor. Però no gaire.'
+        '1': 'Un nan ho hauria fet millor. Però no gaire.'
       },
       hello: {
         '1': 'Compte amb l’exposició. Aquestes són esmolades pels dos costats.',
@@ -4515,7 +4515,7 @@ export default {
       },
       herbs: {
         '1': 'A la natura, allà on lluitis. Passa per sobre d’una planta i és teva.',
-        '2': 'Les rares creixen més lluny. Les campanetes lunars i l’espina d’ombra s’amaguen més enllà del bosc.',
+        '2': 'Les rares són primmirades. Les campanetes lunars s’obren al Bosc dels Murmuris; l’espina d’ombra vol els llocs foscos.',
         say: 'On trobo herbes?'
       },
       elixirs: {
@@ -5575,7 +5575,7 @@ export default {
   },
   battle: {
     title: 'Duel d’objectes',
-    lead: 'Posa un objecte contra el de l’apostador: el preu de venda més alt s’emporta el punt, i dos punts guanyen. Perds els teus objectes passi el que passi. Tres victòries seguides hi afegeixen un premi èpic.',
+    lead: 'Posa un objecte contra el de l’apostador: el preu de venda més alt s’emporta el punt, i dos punts guanyen. Perds els teus objectes passi el que passi. Tres victòries seguides porten una peça de premi.',
     fee: 'Seure · {n}',
     row: 'Victòries seguides: {n} de {max}',
     needItems: 'Necessites com a mínim {n} objectes que no portis posats a la bossa.',

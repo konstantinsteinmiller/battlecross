@@ -2144,7 +2144,7 @@ export default {
         '1': 'Pieds écartés. Expire. Laisse le vent la porter.'
       },
       again: {
-        '1': 'Salut ! Le vent est bon aujourd’hui. On tire ?'
+        '1': 'Salut ! Le vent est bon aujourd’hui. On s’entraîne ?'
       },
       hello: {
         '2': 'Kestrel Vane. Sefa Galewing m’a appris l’arc. Je peux t’apprendre ce qu’elle m’a appris.',
@@ -2532,7 +2532,7 @@ export default {
         '1': 'Forger ? Hm. Tiens le marteau comme ça, pas comme un gourdin.'
       },
       ore: {
-        '1': 'Du minerai, hein ? Je prends tout. Juste poids, juste prix.'
+        '1': 'Des pépites, hein ? Je prends tout. Juste poids, juste prix.'
       },
       forgeBack: {
         '1': 'Pas mal. Pas bien non plus. Continue.'
@@ -3421,10 +3421,10 @@ export default {
         '1': 'Un habitant de la surface à l’enclume ? Bah, tout le monde commence quelque part.'
       },
       ore: {
-        '1': 'Ha, du minerai honnête. Ironhold paie toujours pour ça.'
+        '1': 'Du bon métal, honnête. Ironhold paie toujours pour ça.'
       },
       forgeBack: {
-        '1': 'Hm. Un nain aurait fait mieux. Mais pas de beaucoup.'
+        '1': 'Un nain aurait fait mieux. Mais pas de beaucoup.'
       },
       hello: {
         '1': 'Attention à la vitrine. Elles sont tranchantes des deux côtés.',
@@ -4514,7 +4514,7 @@ export default {
       },
       herbs: {
         '1': 'Dans la nature, partout où tu te bats. Marche sur une plante et elle est à toi.',
-        '2': 'Les plus rares poussent plus loin. Les cloches-de-lune et l’épine d’ombre se cachent au-delà des bois.',
+        '2': 'Les plus rares sont difficiles. Les cloches-de-lune s’ouvrent dans les Bois Murmurants ; l’épine d’ombre veut les endroits sombres.',
         say: 'Où trouver des herbes ?'
       },
       elixirs: {
@@ -5574,7 +5574,7 @@ export default {
   },
   battle: {
     title: 'Duel d’objets',
-    lead: 'Pose un objet contre celui du parieur : le prix de vente le plus haut gagne le point, deux points pour gagner. Tes objets sont perdus quoi qu’il arrive. Trois victoires d’affilée ajoutent un prix épique.',
+    lead: 'Pose un objet contre celui du parieur : le prix de vente le plus haut gagne le point, deux points pour gagner. Tes objets sont perdus quoi qu’il arrive. Trois victoires d’affilée rapportent un objet en récompense.',
     fee: 'S’asseoir · {n}',
     row: 'Victoires d’affilée : {n} sur {max}',
     needItems: 'Il te faut au moins {n} objets non portés dans ton sac.',

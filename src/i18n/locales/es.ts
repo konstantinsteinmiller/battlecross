@@ -2145,7 +2145,7 @@ export default {
         '1': 'Pies separados. Suelta el aire. Deja que el viento la lleve.'
       },
       again: {
-        '1': '¡Eh! Hoy hace buen viento. ¿Disparamos?'
+        '1': '¡Eh! Hoy hace buen viento. ¿Practicamos?'
       },
       hello: {
         '2': 'Kestrel Vane. Sefa Galewing me enseñó el arco. Puedo enseñarte lo que ella me enseñó.',
@@ -2533,7 +2533,7 @@ export default {
         '1': '¿Forjar? Hm. Sujeta el martillo así, no como un garrote.'
       },
       ore: {
-        '1': '¿Mineral, eh? Me lo quedo todo. Peso justo, moneda justa.'
+        '1': '¿Pepitas, eh? Me las quedo todas. Peso justo, moneda justa.'
       },
       forgeBack: {
         '1': 'No está mal. Tampoco está bien. Sigue así.'
@@ -3419,10 +3419,10 @@ export default {
         '1': '¿Uno de la superficie en el yunque? Bueno, todo el mundo empieza por algún sitio.'
       },
       ore: {
-        '1': 'Ja, mineral honrado. Ironhold siempre paga por eso.'
+        '1': 'Buen metal, honrado. Ironhold siempre paga por eso.'
       },
       forgeBack: {
-        '1': 'Hm. Un enano lo habría hecho mejor. Pero no mucho mejor.'
+        '1': 'Un enano lo habría hecho mejor. Pero no mucho mejor.'
       },
       hello: {
         '1': 'Cuidado con la exposición. Esas cortan por ambos filos.',
@@ -4512,7 +4512,7 @@ export default {
       },
       herbs: {
         '1': 'Ahí fuera, en la naturaleza, en todos los sitios donde luchas. Pasa por encima de una planta y es tuya.',
-        '2': 'Las raras crecen más lejos. Las campanillas lunares y la espina sombría se esconden más allá del bosque.',
+        '2': 'Las raras son caprichosas. Las campanillas lunares se abren en el Bosque Susurrante; la espina sombría busca los lugares oscuros.',
         say: '¿Dónde encuentro hierbas?'
       },
       elixirs: {
@@ -5571,7 +5571,7 @@ export default {
   },
   battle: {
     title: 'Duelo de objetos',
-    lead: 'Pon un objeto contra el del apostador: el precio de venta más alto se lleva el punto, dos puntos ganan. Tus objetos se pierden pase lo que pase. Tres victorias seguidas añaden un premio épico.',
+    lead: 'Pon un objeto contra el del apostador: el precio de venta más alto se lleva el punto, dos puntos ganan. Tus objetos se pierden pase lo que pase. Tres victorias seguidas traen una pieza de premio.',
     fee: 'Sentarse · {n}',
     row: 'Victorias seguidas: {n} de {max}',
     needItems: 'Necesitas al menos {n} objetos sin equipar en la bolsa.',

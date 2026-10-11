@@ -2152,7 +2152,7 @@ export default {
         '1': 'Stopala razmaknuta. Izdahni. Neka je vjetar nosi.'
       },
       again: {
-        '1': 'Hej! Vjetar je danas dobar. Hoćemo li gađati?'
+        '1': 'Hej! Vjetar je danas dobar. Hoćemo li vježbati?'
       },
       hello: {
         '2': 'Kestrel Vane. Sefa Vjetrokrila naučila me luku. Mogu te naučiti ono što je ona naučila mene.',
@@ -2542,7 +2542,7 @@ export default {
         '1': 'Kovanje? Hm. Drži čekić ovako, ne kao toljagu.'
       },
       ore: {
-        '1': 'Ruda, ha? Uzimam sve. Pošteno mjerilo, pošten novac.'
+        '1': 'Grumeni, ha? Uzimam sve. Pošteno mjerilo, pošten novac.'
       },
       forgeBack: {
         '1': 'Nije loše. Ali ni dobro. Samo nastavi.'
@@ -3463,10 +3463,10 @@ export default {
         '1': 'Stanovnik površine za nakovnjem? Pa, svatko negdje počinje.'
       },
       ore: {
-        '1': 'Ha, poštena ruda. Ironhold za takvu uvijek plaća.'
+        '1': 'Dobar, pošten metal. Ironhold za takav uvijek plaća.'
       },
       forgeBack: {
-        '1': 'Hm. Patuljak bi to bolje napravio. Ali ne puno.'
+        '1': 'Patuljak bi to bolje napravio. Ali ne puno.'
       },
       hello: {
         '1': 'Oprezno s vitrinom. Oštre su s obje strane.',
@@ -4574,7 +4574,7 @@ export default {
       },
       herbs: {
         '1': 'Vani u divljini, svugdje gdje se boriš. Samo prijeđi preko biljke i tvoja je.',
-        '2': 'Rijetke rastu dalje. Mjesečeva zvonca i sjenotrn skrivaju se iza šume.',
+        '2': 'Rijetke su izbirljive. Mjesečeva zvonca cvjetaju u Šaptavoj šumi; sjenotrn traži mračna mjesta.',
         say: 'Gdje mogu naći bilje?'
       },
       elixirs: {
@@ -5634,7 +5634,7 @@ export default {
   },
   battle: {
     title: 'Bitka predmeta',
-    lead: 'Položi predmet protiv protivnikova: bod uzima onaj s višom prodajnom cijenom, dva boda pobjeđuju. Predmete gubiš u svakom slučaju. Tri pobjede zaredom donose epsku nagradu.',
+    lead: 'Položi predmet protiv protivnikova: bod uzima onaj s višom prodajnom cijenom, dva boda pobjeđuju. Predmete gubiš u svakom slučaju. Tri pobjede zaredom donose nagradni predmet.',
     fee: 'Sjedni · {n}',
     row: 'Pobjede zaredom: {n} od {max}',
     needItems: 'U torbi trebaš barem {n} predmeta koje ne nosiš.',

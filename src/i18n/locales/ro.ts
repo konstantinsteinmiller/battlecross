@@ -2142,7 +2142,7 @@ export default {
         '1': 'Picioarele depărtate. Expiră. Lasă vântul s-o ducă.'
       },
       again: {
-        '1': 'Hei! Vântul e bun azi. Tragem?'
+        '1': 'Hei! Vântul e bun azi. Exersăm?'
       },
       hello: {
         '2': 'Kestrel Vane. Sefa Aripă-de-Vânt m-a învățat arcul. Te pot învăța ce m-a învățat ea.',
@@ -2526,7 +2526,7 @@ export default {
         '1': 'Fierărie? Hm. Ține ciocanul așa, nu ca pe o bâtă.'
       },
       ore: {
-        '1': 'Minereu, zici? Iau tot. Greutate cinstită, bani cinstiți.'
+        '1': 'Pepite, zici? Le iau pe toate. Greutate cinstită, bani cinstiți.'
       },
       forgeBack: {
         '1': 'Nu-i rău. Nici bun. Mai încearcă.'
@@ -3415,10 +3415,10 @@ export default {
         '1': 'Un locuitor de la suprafață la nicovală? Ei, toată lumea începe de undeva.'
       },
       ore: {
-        '1': 'Ha, minereu cinstit. Ironhold plătește mereu pentru așa ceva.'
+        '1': 'Metal bun, cinstit. Ironhold plătește mereu pentru așa ceva.'
       },
       forgeBack: {
-        '1': 'Hm. Un pitic ar fi făcut-o mai bine. Dar nu cu mult.'
+        '1': 'Un pitic ar fi făcut-o mai bine. Dar nu cu mult.'
       },
       hello: {
         '1': 'Atenție la vitrină. Sunt ascuțite pe ambele tăișuri.',
@@ -4510,7 +4510,7 @@ export default {
       },
       herbs: {
         '1': 'Afară, în sălbăticie, peste tot pe unde lupți. Treci peste o plantă și e a ta.',
-        '2': 'Cele rare cresc mai departe. Clopoțeii-de-Lună și Spinul-de-Umbră se ascund dincolo de pădure.',
+        '2': 'Cele rare sunt mofturoase. Clopoțeii-de-Lună se deschid în Pădurea Șoaptelor; Spinul-de-Umbră vrea locurile întunecate.',
         say: 'Unde găsesc ierburi?'
       },
       elixirs: {
@@ -5569,7 +5569,7 @@ export default {
   },
   battle: {
     title: 'Duelul obiectelor',
-    lead: 'Pune un obiect împotriva celui al jucătorului de noroc: prețul de vânzare mai mare ia punctul, două puncte câștigă. Obiectele tale se duc oricum. Trei victorii la rând aduc un premiu epic.',
+    lead: 'Pune un obiect împotriva celui al jucătorului de noroc: prețul de vânzare mai mare ia punctul, două puncte câștigă. Obiectele tale se duc oricum. Trei victorii la rând aduc un obiect-premiu.',
     fee: 'Stai jos · {n}',
     row: 'Victorii la rând: {n} din {max}',
     needItems: 'Ai nevoie de cel puțin {n} obiecte nepurtate în geantă.',

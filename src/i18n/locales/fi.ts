@@ -2140,7 +2140,7 @@ export default {
         '1': 'Jalat erilleen. Hengitä ulos. Anna tuulen kantaa se.'
       },
       again: {
-        '1': 'Hei! Hyvä tuuli tänään. Ammutaanko?'
+        '1': 'Hei! Hyvä tuuli tänään. Harjoitellaanko?'
       },
       hello: {
         '2': 'Kestrel Vane. Sefa Puuskasiipi opetti minulle jousen. Voin opettaa sinulle sen, minkä hän opetti minulle.',
@@ -2520,7 +2520,7 @@ export default {
         '1': 'Takomista? Hm. Pidä vasarasta näin, älä kuin nuijasta.'
       },
       ore: {
-        '1': 'Malmia, vai? Otan kaiken. Reilu paino, reilu raha.'
+        '1': 'Kimpaleita, vai? Otan kaikki. Reilu paino, reilu raha.'
       },
       forgeBack: {
         '1': 'Ei huono. Ei hyväkään. Jatka harjoittelua.'
@@ -3383,10 +3383,10 @@ export default {
         '1': 'Pinta-asukas alasimella? No, jostain kaikki aloittavat.'
       },
       ore: {
-        '1': 'Hah, rehellistä malmia. Ironhold maksaa siitä aina.'
+        '1': 'Hyvää, rehellistä metallia. Ironhold maksaa siitä aina.'
       },
       forgeBack: {
-        '1': 'Hm. Kääpiö olisi tehnyt paremmin. Mutta ei paljon.'
+        '1': 'Kääpiö olisi tehnyt paremmin. Mutta ei paljon.'
       },
       hello: {
         '1': 'Varovasti esillä olevien kanssa. Ne ovat teräviä molemmilta reunoilta.',
@@ -4465,7 +4465,7 @@ export default {
       },
       herbs: {
         '1': 'Luonnosta, kaikkialta missä taistelet. Kävele vain kasvin yli, niin se on sinun.',
-        '2': 'Harvinaiset kasvavat kauempana. Kuunkellot ja varjo-oka piileskelevät metsän takana.',
+        '2': 'Harvinaiset ovat nirsoja. Kuunkellot aukeavat Kuiskaavassa metsässä; varjo-oka haluaa pimeät paikat.',
         say: 'Mistä löydän yrttejä?'
       },
       elixirs: {
@@ -5520,7 +5520,7 @@ export default {
   },
   battle: {
     title: 'Esineottelu',
-    lead: 'Pane esine pelurin esinettä vastaan: korkeampi myyntihinta vie pisteen, kaksi pistettä voittaa. Esineesi menevät joka tapauksessa. Kolme voittoa putkeen tuo eeppisen palkinnon.',
+    lead: 'Pane esine pelurin esinettä vastaan: korkeampi myyntihinta vie pisteen, kaksi pistettä voittaa. Esineesi menevät joka tapauksessa. Kolme voittoa putkeen tuo palkintoesineen.',
     fee: 'Istu alas · {n}',
     row: 'Voittoja putkeen: {n} / {max}',
     needItems: 'Laukussasi pitää olla vähintään {n} esinettä, jotka eivät ole yllä.',

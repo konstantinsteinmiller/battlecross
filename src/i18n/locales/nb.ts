@@ -2140,7 +2140,7 @@ export default {
         '1': 'Føttene fra hverandre. Pust ut. La vinden bære den.'
       },
       again: {
-        '1': 'Hei! God vind i dag. Skal vi skyte?'
+        '1': 'Hei! God vind i dag. Skal vi øve?'
       },
       hello: {
         '2': 'Kestrel Vane. Sefa Kulingvinge lærte meg buen. Jeg kan lære deg det hun lærte meg.',
@@ -2520,7 +2520,7 @@ export default {
         '1': 'Smiing? Hm. Hold hammeren sånn, ikke som en klubbe.'
       },
       ore: {
-        '1': 'Malm, hva? Jeg tar alt sammen. Ærlig vekt, ærlig mynt.'
+        '1': 'Klumper, hva? Jeg tar alt sammen. Ærlig vekt, ærlig mynt.'
       },
       forgeBack: {
         '1': 'Ikke dårlig. Ikke bra heller. Fortsett.'
@@ -3383,10 +3383,10 @@ export default {
         '1': 'En overflateboer ved ambolten? Vel, alle begynner et sted.'
       },
       ore: {
-        '1': 'Hah, ærlig malm. Ironhold betaler alltid for slikt.'
+        '1': 'Godt, ærlig metall. Ironhold betaler alltid for slikt.'
       },
       forgeBack: {
-        '1': 'Hm. En dverg ville gjort det bedre. Men ikke mye.'
+        '1': 'En dverg ville gjort det bedre. Men ikke mye.'
       },
       hello: {
         '1': 'Forsiktig med utstillingen. De er skarpe på begge sider.',
@@ -4465,7 +4465,7 @@ export default {
       },
       herbs: {
         '1': 'Ute i villmarken, overalt der du kjemper. Bare gå over en plante, så er den din.',
-        '2': 'De sjeldne vokser lenger ute. Måneklokker og skyggetorn gjemmer seg bortenfor skogen.',
+        '2': 'De sjeldne er kresne. Måneklokker springer ut i Den hviskende skogen; skyggetorn vil ha de mørke stedene.',
         say: 'Hvor finner jeg urter?'
       },
       elixirs: {
@@ -5520,7 +5520,7 @@ export default {
   },
   battle: {
     title: 'Gjenstandsduell',
-    lead: 'Legg en gjenstand mot gamblerens: høyeste salgspris tar poenget, to poeng vinner. Gjenstandene dine er borte uansett. Tre seire på rad gir en episk premie.',
+    lead: 'Legg en gjenstand mot gamblerens: høyeste salgspris tar poenget, to poeng vinner. Gjenstandene dine er borte uansett. Tre seire på rad gir en premiegjenstand.',
     fee: 'Sett deg · {n}',
     row: 'Seire på rad: {n} av {max}',
     needItems: 'Du trenger minst {n} gjenstander i sekken som du ikke har på deg.',

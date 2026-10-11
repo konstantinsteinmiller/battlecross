@@ -2140,7 +2140,7 @@ export default {
         '1': 'Lábak szét. Fújd ki a levegőt. Hadd vigye a szél.'
       },
       again: {
-        '1': 'Szia! Ma jó a szél. Lövünk egyet?'
+        '1': 'Szia! Ma jó a szél. Gyakorolunk?'
       },
       hello: {
         '2': 'Kestrel Vane. Szélszárny Sefa tanított íjászatra. Megtaníthatom neked, amit tőle tanultam.',
@@ -2520,7 +2520,7 @@ export default {
         '1': 'Kovácsolás? Hm. Így fogd a kalapácsot, ne úgy, mint egy bunkót.'
       },
       ore: {
-        '1': 'Érc, mi? Az egészet viszem. Becsületes súly, becsületes pénz.'
+        '1': 'Rögök, mi? Az egészet viszem. Becsületes súly, becsületes pénz.'
       },
       forgeBack: {
         '1': 'Nem rossz. Jó se. Csináld tovább.'
@@ -3383,10 +3383,10 @@ export default {
         '1': 'Egy felszíni az üllőnél? Hát, mindenki kezdi valahol.'
       },
       ore: {
-        '1': 'Hah, becsületes érc. Ironhold mindig fizet érte.'
+        '1': 'Jó, becsületes fém. Ironhold mindig fizet érte.'
       },
       forgeBack: {
-        '1': 'Hm. Egy törp jobban csinálta volna. De nem sokkal.'
+        '1': 'Egy törp jobban csinálta volna. De nem sokkal.'
       },
       hello: {
         '1': 'Óvatosan a kiállított darabokkal. Mindkét élükön élesek.',
@@ -4465,7 +4465,7 @@ export default {
       },
       herbs: {
         '1': 'Kint a vadonban, mindenhol, ahol harcolsz. Csak sétálj rá egy növényre, és a tiéd.',
-        '2': 'A ritkák messzebb nőnek. A holdharang és az árnytüske az erdőn túl bújik.',
+        '2': 'A ritkák válogatósak. A holdharang a Suttogó-erdőben nyílik; az árnytüske a sötét helyeket kedveli.',
         say: 'Hol találok füveket?'
       },
       elixirs: {
@@ -5520,7 +5520,7 @@ export default {
   },
   battle: {
     title: 'Tárgycsata',
-    lead: 'Tégy egy tárgyat az ellenfeléé mellé: a magasabb eladási ár viszi a pontot, két pont nyer. A tárgyaid így is, úgy is odavesznek. Három győzelem sorban epikus nyereményt ad.',
+    lead: 'Tégy egy tárgyat az ellenfeléé mellé: a magasabb eladási ár viszi a pontot, két pont nyer. A tárgyaid így is, úgy is odavesznek. Három győzelem sorban egy nyereménytárgyat hoz.',
     fee: 'Leülök · {n}',
     row: 'Győzelmek sorban: {n}/{max}',
     needItems: 'Legalább {n} nem viselt tárgy kell a táskádba.',
