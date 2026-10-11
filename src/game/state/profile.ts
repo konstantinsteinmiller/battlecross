@@ -19,7 +19,7 @@ import { EQUIP_SLOTS, ITEM_BY_ID, noGear, priceOf as itemPriceOf, sellValue, slo
 import { FORGE_MAX, forgeCost } from '../data/forge'
 import { HERB_CAP, isPlant } from '../data/plants'
 import { ELIXIR_BY_ID, ELIXIR_CAP, ELIXIR_IDS, brewFee, isElixir, type ElixirId } from '../data/elixirs'
-import { BATTLE_MIN_ITEMS, BATTLE_ROW, MEMORY_ROW, battleFee, battleXp, prizeOf } from '../gamble'
+import { BATTLE_MIN_ITEMS, BATTLE_ROW, MEMORY_ROW, battleFee, battleXp, gamblerTable, prizeOf } from '../gamble'
 import { DUG_FLAG, MAP_PIECES, TREASURE_ERRAND, TREASURE_ZONE, isPiece, piecesIn } from '../data/treasure'
 import { ESCORT_PAY, TASK_XP, countTaskDeeds, postTasks, taskGold, type TaskDeeds, type TownTask } from '../townTasks'
 import { errandDef, type ErrandDef, type ErrandReward } from '../data/errands'
@@ -198,7 +198,9 @@ export interface MetaSave {
   tasks: { day: string; towns: Partial<Record<TownId, TownTask[]>> }
   /** The gamblers' winning rows (roadmap #91, #92): games won in a row at
    *  the memory stand and at the item battle. */
-  gamble: { memory: number; battle: number }
+  /** Wins in a row: at the memory stand, and at each item-battle table (by
+   *  gambler, #115). `battle` is the old shared row, read once into Sunford's. */
+  gamble: { memory: number; battle: number; rows: Record<string, number> }
 }
 
 /** What the last absence added to the rested pool, in seconds (0: nothing
@@ -262,7 +264,7 @@ const defaults = (): Profile => ({
   world: { cleared: [], flags: [], at: 'plains', pos: mapSpot('plains'), visits: {}, arenaBest: 0, chests: [], mastery: {}, said: [], pieces: [] },
   stats: { kills: 0, deaths: 0, runs: 0, playSeconds: 0, bestLevel: 1, xpEarned: 0 },
   tips: {},
-  meta: { shelf: { day: '', wares: {}, rolls: {}, used: 0 }, arena: { week: '', best: 0 }, contracts: { day: '', list: [] }, repGifts: [], presets: [null, null], lastSeen: 0, rested: 0, respecs: 0, tasks: { day: '', towns: {} }, gamble: { memory: 0, battle: 0 } }
+  meta: { shelf: { day: '', wares: {}, rolls: {}, used: 0 }, arena: { week: '', best: 0 }, contracts: { day: '', list: [] }, repGifts: [], presets: [null, null], lastSeen: 0, rested: 0, respecs: 0, tasks: { day: '', towns: {} }, gamble: { memory: 0, battle: 0, rows: {} } }
 })
 
 const num = (v: unknown, d: number): number => (typeof v === 'number' && Number.isFinite(v) ? v : typeof v === 'string' && Number.isFinite(Number(v)) ? Number(v) : d)
@@ -450,9 +452,16 @@ export const loadProfile = (): void => {
   meta.tasks = { day: typeof ts.day === 'string' ? ts.day : '', towns }
   // A save from before the gamblers has no winning rows.
   const gm = obj(meta.gamble, d.meta.gamble) as Record<string, unknown>
+  const rows: Record<string, number> = {}
+  const rawRows = gm.rows && typeof gm.rows === 'object' ? gm.rows as Record<string, unknown> : {}
+  for (const [k, v] of Object.entries(rawRows)) rows[k] = Math.max(0, Math.min(BATTLE_ROW - 1, Math.round(num(v, 0))))
+  // A save from before #115 kept one row for both tables: it was Sunford's.
+  const legacy = Math.max(0, Math.min(BATTLE_ROW - 1, Math.round(num(gm.battle, 0))))
+  if (legacy && rows.sunfordGambler === undefined) rows.sunfordGambler = legacy
   meta.gamble = {
     memory: Math.max(0, Math.min(MEMORY_ROW - 1, Math.round(num(gm.memory, 0)))),
-    battle: Math.max(0, Math.min(BATTLE_ROW - 1, Math.round(num(gm.battle, 0))))
+    battle: 0,
+    rows
   }
   // Rested (#9): the absence since the last save fills the pool. The new
   // last-seen is written by the next save; a reload before it reads the same
@@ -1031,10 +1040,10 @@ export const treasureFor = (zone: string): { pieces: string[]; treasure: boolean
 export const unwornItems = (): string[] => profile.inv.items.filter(id => !equippedIn(id) && !!ITEM_BY_ID[id])
 
 /** A prize: an Epic or a Legendary not owned yet, into the bag (its sale price in gold when every one is owned). */
-const givePrize = (tier: 4 | 6): { item: string; gold: number } => {
+const givePrize = (tier: number): { item: string; gold: number } => {
   const it = prizeOf(tier, new Set(profile.inv.items), Date.now() >>> 0)
   if (it) { gainItem(it.id); return { item: it.id, gold: 0 } }
-  const gold = tier === 6 ? 2400 : 600
+  const gold = tier >= 6 ? 2400 : tier >= 4 ? 600 : 250
   profile.gold += gold
   return { item: '', gold }
 }
@@ -1062,17 +1071,20 @@ export const settleMemory = (won: boolean, stake: number): { gold: number; prize
   return { gold, prize, row: profile.meta.gamble.memory }
 }
 
-/** Why the item battle cannot start ('' when it can). */
-export const battleBlock = (): '' | 'items' | 'gold' => {
+/** Why the item battle at this gambler's table cannot start ('' when it can). */
+export const battleBlock = (gambler: string): '' | 'items' | 'gold' => {
   if (unwornItems().length < BATTLE_MIN_ITEMS) return 'items'
-  if (profile.gold < battleFee(profile.level)) return 'gold'
+  if (profile.gold < battleFee(gambler)) return 'gold'
   return ''
 }
 
-/** Sit down at the item battle: the fee. */
-export const startBattle = (): boolean => {
-  if (battleBlock()) return false
-  profile.gold -= battleFee(profile.level)
+/** Wins in a row at this gambler's table. */
+export const battleRow = (gambler: string): number => profile.meta.gamble.rows[gambler] ?? 0
+
+/** Sit down at the item battle: the table's fee. */
+export const startBattle = (gambler: string): boolean => {
+  if (battleBlock(gambler)) return false
+  profile.gold -= battleFee(gambler)
   saveProfile()
   return true
 }
@@ -1088,17 +1100,18 @@ export const layBattleItem = (id: string): boolean => {
 }
 
 /** A game decided: a won one pays a little experience (and the row's Epic on its third win). */
-export const settleBattle = (won: boolean): { xp: number; prize: { item: string; gold: number } | null; row: number } => {
+export const settleBattle = (won: boolean, gambler: string): { xp: number; prize: { item: string; gold: number } | null; row: number } => {
   let prize: { item: string; gold: number } | null = null
   let xp = 0
+  const rows = profile.meta.gamble.rows
   if (won) {
     xp = battleXp(profile.level)
     grantXp(xp)
-    profile.meta.gamble.battle++
-    if (profile.meta.gamble.battle >= BATTLE_ROW) { prize = givePrize(4); profile.meta.gamble.battle = 0 }
-  } else profile.meta.gamble.battle = 0
+    rows[gambler] = (rows[gambler] ?? 0) + 1
+    if (rows[gambler]! >= BATTLE_ROW) { prize = givePrize(gamblerTable(gambler).prize); rows[gambler] = 0 }
+  } else rows[gambler] = 0
   saveProfile()
-  return { xp, prize, row: profile.meta.gamble.battle }
+  return { xp, prize, row: rows[gambler] ?? 0 }
 }
 
 // ─── Errands (roadmap #85, #86, #89, D101) ───────────────────────────────────

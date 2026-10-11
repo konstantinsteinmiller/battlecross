@@ -4497,6 +4497,7 @@ export default {
     frostThane: 'フロストセイン'
   },
   results: {
+    careful: '慎重な勝利 ×{mult}',
     victory: '勝利！',
     defeat: '敗北',
     retreat: '撤退',

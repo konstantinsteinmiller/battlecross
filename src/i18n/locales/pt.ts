@@ -4535,6 +4535,7 @@ export default {
     frostThane: 'Thane do Gelo'
   },
   results: {
+    careful: 'Vitória cuidadosa ×{mult}',
     victory: 'Vitória!',
     defeat: 'Derrota',
     retreat: 'Retirada',

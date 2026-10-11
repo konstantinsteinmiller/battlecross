@@ -91,6 +91,10 @@ export interface HeroState {
   /** Damage the hero has dealt and taken (balance tests, the result screen). */
   dealt: number
   taken: number
+  /** Health actually lost: each blow counts no more than the health it found
+   *  (an overkill is not counted twice); healing does not pay it back. The
+   *  careful clear reads it (#113). */
+  lost: number
   /** Minion damage multiplier (Charisma + Sovereign's Signet). */
   minionMul: number
   /** Level at the start of the visit and now (XP is banked live). */

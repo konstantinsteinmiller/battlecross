@@ -4497,6 +4497,7 @@ export default {
     frostThane: 'Аяз бегі'
   },
   results: {
+    careful: 'Абайлы жеңіс ×{mult}',
     victory: 'Жеңіс!',
     defeat: 'Жеңіліс',
     retreat: 'Шегініс',

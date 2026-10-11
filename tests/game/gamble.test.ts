@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import {
-  BATTLE_ROW, MEMORY_ROUNDS, MEMORY_ROW, battleFee, battleRound, battleXp, dealMemory, gamblerItem, memoryRound, memoryStakes, prizeOf
+  BATTLE_ROW, MEMORY_ROUNDS, MEMORY_ROW, battleFee, battleRound, battleXp, dealMemory, gamblerItem, gamblerTable, memoryRound, memoryStakes, prizeOf
 } from '@/game/gamble'
 import { ITEMS, sellValue } from '@/game/data/items'
 
@@ -40,24 +40,29 @@ describe('the memory stand', () => {
 })
 
 describe('the item battle', () => {
-  it('a low fee and a little experience, both by level', () => {
-    expect(battleFee(1)).toBe(12)
-    expect(battleFee(20)).toBe(50)
+  it('each table has its own fee; a won game pays a little experience by level', () => {
+    expect(battleFee('sunfordGambler')).toBe(14)
+    expect(battleFee('oakGambler')).toBe(40)
     expect(battleXp(10)).toBeGreaterThan(battleXp(2))
     expect(BATTLE_ROW).toBe(3)
   })
 
-  it('the gambler lays dearer things the further into a game and the longer the row, never a Legendary', () => {
-    for (const level of [1, 8, 15, 22, 30]) {
+  it('the gambler lays dearer things the further into a game and the longer the row, never past his table (#115)', () => {
+    for (const g of ['sunfordGambler', 'oakGambler']) {
+      const t = gamblerTable(g)
       for (let seed = 1; seed < 20; seed++) {
-        const first = gamblerItem(level, 0, 0, seed)
-        const last = gamblerItem(level, 2, 2, seed)
+        const first = gamblerItem(g, 0, 0, seed)
+        const last = gamblerItem(g, 2, 2, seed)
         expect(last.tier).toBeGreaterThanOrEqual(first.tier)
-        expect(first.tier).toBeLessThan(6)
-        expect(last.tier).toBeLessThan(6)
+        expect(first.tier).toBe(t.base)
+        expect(last.tier).toBeLessThanOrEqual(t.top)
       }
     }
-    expect(gamblerItem(8, 0, 0, 5)).toEqual(gamblerItem(8, 0, 0, 5))
+    // Sunford's never lays above Uncommon, even three wins into a row, in its third game.
+    for (let seed = 1; seed < 40; seed++) for (let row = 0; row < BATTLE_ROW; row++) for (let k = 0; k < 3; k++) {
+      expect(gamblerItem('sunfordGambler', row, k, seed).tier).toBeLessThanOrEqual(2)
+    }
+    expect(gamblerItem('oakGambler', 0, 0, 5)).toEqual(gamblerItem('oakGambler', 0, 0, 5))
   })
 
   it('the dearer item takes the point; a tie goes to the house', () => {

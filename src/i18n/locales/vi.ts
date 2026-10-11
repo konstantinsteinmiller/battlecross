@@ -4497,6 +4497,7 @@ export default {
     frostThane: 'Lãnh Chúa Băng Giá'
   },
   results: {
+    careful: 'Chiến thắng cẩn trọng ×{mult}',
     victory: 'Chiến thắng!',
     defeat: 'Thất bại',
     retreat: 'Đã rút lui',

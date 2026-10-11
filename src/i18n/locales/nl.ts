@@ -4505,6 +4505,7 @@ export default {
     frostThane: 'Vorsthoofdman'
   },
   results: {
+    careful: 'Voorzichtige zege ×{mult}',
     victory: 'Overwinning!',
     defeat: 'Verslagen',
     retreat: 'Teruggetrokken',

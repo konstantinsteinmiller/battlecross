@@ -67,22 +67,42 @@ export const BATTLE_POINTS = 2
 /** Wins in a row for the Epic. */
 export const BATTLE_ROW = 3
 
-/** The table's fee, by the hero's level. */
-export const battleFee = (level: number): number => 10 + 2 * level
+/**
+ * Each gambler plays his own table (#115): what he lays does not follow the
+ * hero's level or what the hero owns, so collecting better pieces is how a
+ * table is beaten. Sunford's never lays above Uncommon, even three wins into
+ * a row; Oakhaven's goes up to Rare. A table's fee is its own, and so is the
+ * prize for three wins in a row (a Rare in Sunford, so the easy table is not
+ * an Epic farm).
+ *
+ *   base    the quality he opens with
+ *   top     the dearest quality he ever lays
+ *   fee     gold to sit down
+ *   prize   the quality of the piece three wins in a row bring
+ */
+export interface GamblerTable { base: number; top: number; fee: number; prize: number }
+export const GAMBLER_TABLES: Readonly<Record<string, GamblerTable>> = {
+  sunfordGambler: { base: 1, top: 2, fee: 14, prize: 3 },
+  oakGambler: { base: 2, top: 3, fee: 40, prize: 4 }
+}
+/** A gambler without a table of his own (a later town): Oakhaven's stakes. */
+const DEFAULT_TABLE: GamblerTable = { base: 2, top: 3, fee: 40, prize: 4 }
+export const gamblerTable = (gambler: string): GamblerTable => GAMBLER_TABLES[gambler] ?? DEFAULT_TABLE
+
+/** The table's fee. */
+export const battleFee = (gambler: string): number => gamblerTable(gambler).fee
 
 /** The experience a won game pays: a tenth of a level. */
 export const battleXp = (level: number): number => Math.round(xpToNext(level) * 0.1)
 
-/** The quality of item a hero of this level mostly carries. */
-const homeTier = (level: number): number => (level < 6 ? 1 : level < 11 ? 2 : level < 17 ? 3 : level < 24 ? 4 : 5)
-
 /**
- * What the gambler lays in a round: a piece of the quality the hero mostly
- * carries, a step dearer for every two rounds into the game and every win in
- * the row (never a Legendary).
+ * What the gambler lays in a round: his table's opening quality, a step dearer
+ * for every two rounds into the game and every win in the row, never past his
+ * table's top.
  */
-export const gamblerItem = (level: number, streak: number, round: number, seed: number): ItemDef => {
-  const tier = Math.min(5, homeTier(level) + Math.floor((round + streak) / 2))
+export const gamblerItem = (gambler: string, streak: number, round: number, seed: number): ItemDef => {
+  const t = gamblerTable(gambler)
+  const tier = Math.min(t.top, t.base + Math.floor((round + streak) / 2))
   const pool = ITEMS.filter(i => i.tier === tier)
   const rng = mulberry32(seed + round * 7919 + streak * 104729)
   return pool[Math.floor(rng() * pool.length)]!
@@ -94,7 +114,7 @@ export const battleRound = (mine: ItemDef, theirs: ItemDef): 'win' | 'lose' => (
 // ─── The prizes (D113) ───────────────────────────────────────────────────────
 
 /** A random piece of this quality the hero does not own yet (null: he owns them all). */
-export const prizeOf = (tier: 4 | 6, owned: ReadonlySet<string>, seed: number): ItemDef | null => {
+export const prizeOf = (tier: number, owned: ReadonlySet<string>, seed: number): ItemDef | null => {
   const pool = ITEMS.filter(i => i.tier === tier && !owned.has(i.id))
   if (!pool.length) return null
   return pool[Math.floor(mulberry32(seed)() * pool.length)]!

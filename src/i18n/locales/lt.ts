@@ -4544,6 +4544,7 @@ export default {
     frostThane: 'Šalčio tanas'
   },
   results: {
+    careful: 'Atsargi pergalė ×{mult}',
     victory: 'Pergalė!',
     defeat: 'Pralaimėjimas',
     retreat: 'Atsitraukimas',

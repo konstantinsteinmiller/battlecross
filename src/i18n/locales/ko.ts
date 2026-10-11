@@ -4497,6 +4497,7 @@ export default {
     frostThane: '서리 영주'
   },
   results: {
+    careful: '신중한 승리 ×{mult}',
     victory: '승리!',
     defeat: '패배',
     retreat: '후퇴',

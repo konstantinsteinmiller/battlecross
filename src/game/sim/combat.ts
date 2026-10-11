@@ -353,7 +353,10 @@ export const dealDamage = (sim: Sim, src: Unit | null, tgt: Unit, base: number, 
   }
   const before = tgt.hp
   tgt.hp -= left
-  if (toHero) sim.hero.taken += left
+  if (toHero) {
+    sim.hero.taken += left
+    sim.hero.lost += Math.min(left, Math.max(0, before))
+  }
   else if (src && (src === hero || src.ownerId === hero?.id)) sim.hero.dealt += left
 
   // Fortitude: a heavy blow raises a shield.

@@ -4497,6 +4497,7 @@ export default {
     frostThane: 'Pakkaspäällikkö'
   },
   results: {
+    careful: 'Varovainen voitto ×{mult}',
     victory: 'Voitto!',
     defeat: 'Tappio',
     retreat: 'Perääntyminen',

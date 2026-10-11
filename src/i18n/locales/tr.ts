@@ -4497,6 +4497,7 @@ export default {
     frostThane: 'Ayaz Ağası'
   },
   results: {
+    careful: 'Dikkatli zafer ×{mult}',
     victory: 'Zafer!',
     defeat: 'Yenildin',
     retreat: 'Geri çekildin',

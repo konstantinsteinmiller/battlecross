@@ -4588,6 +4588,7 @@ export default {
     frostThane: 'Ledeni tan'
   },
   results: {
+    careful: 'Oprezna pobjeda ×{mult}',
     victory: 'Pobjeda!',
     defeat: 'Poraz',
     retreat: 'Povlačenje',

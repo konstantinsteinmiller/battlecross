@@ -4579,6 +4579,7 @@ export default {
     frostThane: 'Mroźny Wielmoża'
   },
   results: {
+    careful: 'Ostrożne zwycięstwo ×{mult}',
     victory: 'Zwycięstwo!',
     defeat: 'Porażka',
     retreat: 'Odwrót',

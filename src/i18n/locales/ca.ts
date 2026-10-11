@@ -4530,6 +4530,7 @@ export default {
     frostThane: 'Thane del Gel'
   },
   results: {
+    careful: 'Victòria prudent ×{mult}',
     victory: 'Victòria!',
     defeat: 'Derrota',
     retreat: 'Retirada',

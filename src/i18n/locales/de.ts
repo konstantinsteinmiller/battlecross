@@ -4514,6 +4514,7 @@ export default {
     frostThane: 'Frosthäuptling'
   },
   results: {
+    careful: 'Vorsichtiger Sieg ×{mult}',
     victory: 'Sieg!',
     defeat: 'Besiegt',
     retreat: 'Rückzug',

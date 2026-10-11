@@ -4529,6 +4529,7 @@ export default {
     frostThane: 'Thane de la Escarcha'
   },
   results: {
+    careful: 'Victoria cuidadosa ×{mult}',
     victory: '¡Victoria!',
     defeat: 'Derrota',
     retreat: 'Retirada',

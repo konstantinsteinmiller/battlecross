@@ -4497,6 +4497,7 @@ export default {
     frostThane: '冰霜族长'
   },
   results: {
+    careful: '谨慎通关 ×{mult}',
     victory: '胜利！',
     defeat: '战败',
     retreat: '已撤退',

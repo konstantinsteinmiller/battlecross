@@ -4497,6 +4497,7 @@ export default {
     frostThane: 'Frostnobelo'
   },
   results: {
+    careful: 'Singarda venko ×{mult}',
     victory: 'Venko!',
     defeat: 'Malvenko',
     retreat: 'Retiriĝo',

@@ -4497,6 +4497,7 @@ export default {
     frostThane: 'Şaxta Bəyi'
   },
   results: {
+    careful: 'Ehtiyatlı qələbə ×{mult}',
     victory: 'Qələbə!',
     defeat: 'Məğlub oldun',
     retreat: 'Geri çəkildin',

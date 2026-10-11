@@ -55,7 +55,8 @@ import FModal from '@/components/molecules/FModal.vue'
 import FButton from '@/components/atoms/FButton.vue'
 import ItemCell from '@/components/game/ItemCell.vue'
 import { closeModal } from '@/game/flow'
-import { battleBlock, layBattleItem, profile, settleBattle, startBattle, unwornItems } from '@/game/state/profile'
+import { battleBlock, battleRow, layBattleItem, profile, settleBattle, startBattle, unwornItems } from '@/game/state/profile'
+import { flow } from '@/game/flow'
 import { BATTLE_MIN_ITEMS, BATTLE_POINTS, BATTLE_ROW, battleFee, battleRound, gamblerItem } from '@/game/gamble'
 import { ITEM_BY_ID, TIER_COLOR, sellValue, type ItemDef } from '@/game/data/items'
 import { sfx } from '@/game/audio/sfx'
@@ -65,9 +66,11 @@ const { t } = useI18n()
 
 type Phase = 'idle' | 'round' | 'reveal' | 'over'
 const phase = ref<Phase>('idle')
-const row = computed(() => profile.meta.gamble.battle)
-const fee = computed(() => battleFee(profile.level))
-const block = computed(() => battleBlock())
+/** Whose table: each gambler plays his own (#115). */
+const gambler = computed(() => flow.npc?.id ?? 'sunfordGambler')
+const row = computed(() => { void profile.meta.gamble.rows[gambler.value]; return battleRow(gambler.value) })
+const fee = computed(() => battleFee(gambler.value))
+const block = computed(() => battleBlock(gambler.value))
 const bag = computed(() => unwornItems())
 
 let seed = 0
@@ -80,10 +83,10 @@ const lastWon = ref<boolean | null>(null)
 const won = ref(false)
 const xp = ref(0)
 const prize = ref<{ item: string; gold: number } | null>(null)
-const their = computed(() => gamblerItem(profile.level, row.value, k.value, seed))
+const their = computed(() => gamblerItem(gambler.value, row.value, k.value, seed))
 
 const sit = (): void => {
-  if (!startBattle()) { sfx('denied'); return }
+  if (!startBattle(gambler.value)) { sfx('denied'); return }
   sfx('coin')
   seed = Date.now() >>> 0
   k.value = 0
@@ -118,7 +121,7 @@ const lay = (): void => {
 }
 
 const finish = (w: boolean): void => {
-  const r = settleBattle(w)
+  const r = settleBattle(w, gambler.value)
   won.value = w
   xp.value = r.xp
   prize.value = r.prize

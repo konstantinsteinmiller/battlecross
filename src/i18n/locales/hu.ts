@@ -4497,6 +4497,7 @@ export default {
     frostThane: 'Fagythán'
   },
   results: {
+    careful: 'Óvatos győzelem ×{mult}',
     victory: 'Győzelem!',
     defeat: 'Vereség',
     retreat: 'Visszavonulás',

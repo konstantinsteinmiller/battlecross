@@ -4497,6 +4497,7 @@ export default {
     frostThane: 'ขุนนางน้ำแข็ง'
   },
   results: {
+    careful: 'ชนะอย่างระมัดระวัง ×{mult}',
     victory: 'ชนะแล้ว!',
     defeat: 'พ่ายแพ้',
     retreat: 'ถอยทัพ',

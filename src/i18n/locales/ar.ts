@@ -4756,6 +4756,7 @@ export default {
     frostThane: 'نبيل الصقيع'
   },
   results: {
+    careful: 'نصر حذر ×{mult}',
     victory: 'نصر!',
     defeat: 'هُزمت',
     retreat: 'انسحبت',

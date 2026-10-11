@@ -763,7 +763,16 @@ All sound is synthesised (53 recipes); recorded files can override a recipe.
   points, mana for every class, a glass cannon wins no more and with less).
   Deferred: a base damage on weapons (D138) — the level might does that
   work.
-- [ ] **32 Careful clear and gambler tables** (#113, #115).
+- [x] **32 Careful clear and gambler tables** (#113, #115). The sim counts
+  the health a visit LOSES (`hero.lost`: each blow up to the health it
+  found, healing does not pay it back); a won zone or road fight pays its
+  gold and experience ×2 at 15 % lost or less, ×1 from 50 %, straight
+  between (`careful.ts`), on its own result line beside the purse; the
+  video's ×3 stays on the earned purse. Each item-battle gambler plays a
+  fixed table (`GAMBLER_TABLES`): Sunford opens Common and never lays above
+  Uncommon (fee 14, three wins bring a Rare), Oakhaven opens Uncommon and
+  tops at Rare (fee 40, an Epic); neither follows the hero's level. A row
+  per gambler (a save's old shared row becomes Sunford's).
 - [ ] **33 Sunford teachers** (#106).
 - [ ] **34 Place-shaped layouts** (#103): peak, temple, outskirts, tundra, crags.
 - [ ] **35 Towns of their own** (#103): Silverbridge on its bridge, Oakhaven.

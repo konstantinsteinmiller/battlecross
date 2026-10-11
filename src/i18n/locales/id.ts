@@ -4497,6 +4497,7 @@ export default {
     frostThane: 'Bangsawan Es'
   },
   results: {
+    careful: 'Kemenangan hati-hati ×{mult}',
     victory: 'Menang!',
     defeat: 'Kalah',
     retreat: 'Mundur',

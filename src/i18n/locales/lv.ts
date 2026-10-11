@@ -4557,6 +4557,7 @@ export default {
     frostThane: 'Sala tans'
   },
   results: {
+    careful: 'Uzmanīga uzvara ×{mult}',
     victory: 'Uzvara!',
     defeat: 'Sakāve',
     retreat: 'Atkāpšanās',

@@ -20,6 +20,14 @@
             IconCoin.results__coin
             | +{{ fmt(r.tripled ? r.gold * 3 : r.gold) }}
             span.results__x3(v-if="r.tripled") ×3
+        //- A careful clear (#113): the bonus beside what the visit earned.
+        div(v-if="r.careful" data-careful)
+          dt {{ t('results.careful', { mult: r.careful.mult }) }}
+          dd.careful
+            span.xp +{{ fmt(r.careful.xp) }}
+            span.gold
+              IconCoin.results__coin
+              | +{{ fmt(r.careful.gold) }}
         div(v-if="r.goldLost > 0")
           dt {{ t('results.lost') }}
           dd.lost
@@ -191,6 +199,12 @@ const takePurse = async (): Promise<void> => { if (await triplePurse()) { sfx('c
     color: var(--bc-on-bad)
   .mastery
     flex-wrap: wrap
+  .careful
+    gap: 0.6em
+    span
+      display: inline-flex
+      align-items: center
+      gap: 0.2em
 .results__best
   padding: 0 0.4em
   border-radius: var(--bc-r-md)

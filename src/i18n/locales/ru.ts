@@ -4581,6 +4581,7 @@ export default {
     frostThane: 'Ледяной тан'
   },
   results: {
+    careful: 'Осторожная победа ×{mult}',
     victory: 'Победа!',
     defeat: 'Поражение',
     retreat: 'Отступление',

@@ -4532,6 +4532,7 @@ export default {
     frostThane: 'Thane al Gerului'
   },
   results: {
+    careful: 'Victorie prudentă ×{mult}',
     victory: 'Victorie!',
     defeat: 'Înfrângere',
     retreat: 'Retragere',

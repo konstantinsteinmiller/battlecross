@@ -89,6 +89,7 @@ export const createHero = (sim: Sim, o: HeroInit): HeroState => {
     opening: -1,
     dealt: 0,
     taken: 0,
+    lost: 0,
     minionMul: minionMul(s.power.cha, s.mods),
     level: o.build.level,
     xpInto: o.xpInto,

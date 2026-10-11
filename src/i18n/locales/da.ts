@@ -4497,6 +4497,7 @@ export default {
     frostThane: 'Frosthøvding'
   },
   results: {
+    careful: 'Forsigtig sejr ×{mult}',
     victory: 'Sejr!',
     defeat: 'Besejret',
     retreat: 'Tilbagetog',

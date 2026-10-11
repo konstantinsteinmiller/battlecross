@@ -35,6 +35,7 @@ import { PREVIEW_ON } from './previewFlags'
 import { classifyOnboarding } from './coach/reveal'
 import { chestReward, escortPacks, merchantTiers, type EncounterSpec } from './data/encounters'
 import { dayKey } from './rareShelf'
+import { carefulMult } from './careful'
 import { BOARD } from './townTasks'
 import { mapSpot, setMapPos } from './state/profile'
 
@@ -99,6 +100,9 @@ export interface ResultsData {
   /** The purse was tripled by a rewarded video (#19): `gold` stays what the
    *  run earned, twice that again went into the wallet. */
   tripled?: boolean
+  /** A careful clear (#113): its multiplier, the bonus it paid beside `xp`
+   *  and `gold`, and the share of health the visit lost. */
+  careful?: { mult: number; xp: number; gold: number; lostPct: number }
 }
 
 export const flow = reactive({
@@ -225,6 +229,9 @@ export interface VisitTally {
   /** The elixirs as the visit leaves them (some drunk, #87), and the one carried. */
   elixirs?: Readonly<Record<string, number>>
   elixirPick?: string
+  /** Health lost over the visit and the hero's health (the careful clear, #113). */
+  lost?: number
+  maxHp?: number
 }
 
 type Precompile = (mode: GameMode, onProgress: (f01: number) => void) => Promise<void>
@@ -610,6 +617,7 @@ export const finishVisit = async (outcome: 'victory' | 'defeat' | 'retreat'): Pr
   const h = mode.sim.hero
   await bankVisit(outcome, node, {
     xp: h.xp, gold: h.gold, kills: h.kills, items: h.items, seconds: mode.sim.time, waves: mode.sim.wave.cleared,
+    lost: h.lost, maxHp: h.unit.s.maxHp,
     chests: mode.sim.chests.length ? { opened: h.chests, total: mode.sim.chests.length } : undefined,
     special: mode.sim.specialOpened, rested: h.rested, killKinds: h.killKinds, herbs: h.herbs, pieces: h.pieces,
     // The flasks went in only where they may be drunk (not in a "No potions"
@@ -629,8 +637,12 @@ export const bankVisit = async (outcome: 'victory' | 'defeat' | 'retreat', node:
   // Read before the run counter moves: the first visit ever is the opening fight.
   const opening = profile.stats.runs === 0
   const items: ResultItem[] = []
-  grantXp(h.xp)
-  profile.gold += h.gold
+  // A careful clear (#113): a win with little health lost pays up to twice.
+  const careful = outcome === 'victory' && node !== 'arena' && h.lost !== undefined && h.maxHp ? carefulMult(h.lost, h.maxHp) : 1
+  const carefulXp = Math.round(h.xp * (careful - 1))
+  const carefulGold = Math.round(h.gold * (careful - 1))
+  grantXp(h.xp + carefulXp)
+  profile.gold += h.gold + carefulGold
   for (const id of h.items) {
     const r = gainItem(id)
     items.push({ id, added: r.added, gold: r.gold })
@@ -684,7 +696,8 @@ export const bankVisit = async (outcome: 'victory' | 'defeat' | 'retreat', node:
   const results: ResultsData = {
     node, outcome, xp: h.xp, gold: h.gold, goldLost, kills: h.kills, items, levelBefore, levelAfter: profile.level,
     seconds: h.seconds, firstClear, unlocked, waves: h.waves, chests: h.chests, ...(mastery ? { mastery } : {}), ...(encounter ? { encounter: true } : {}), ...(opening ? { opening: true } : {}),
-    ...(arenaNew ? { arenaBest: arenaNew.best, arenaNewBest: arenaNew.isNew, arenaWeek: arenaNew.week } : {})
+    ...(arenaNew ? { arenaBest: arenaNew.best, arenaNewBest: arenaNew.isNew, arenaWeek: arenaNew.week } : {}),
+    ...(careful > 1 ? { careful: { mult: Math.round(careful * 10) / 10, xp: carefulXp, gold: carefulGold, lostPct: Math.round((h.lost! / h.maxHp!) * 100) } } : {})
   }
   // An ad another placement started may still be up: never open under it.
   await waitForAdGate()

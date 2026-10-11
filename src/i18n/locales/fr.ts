@@ -4532,6 +4532,7 @@ export default {
     frostThane: 'Thane du Givre'
   },
   results: {
+    careful: 'Victoire prudente ×{mult}',
     victory: 'Victoire !',
     defeat: 'Défaite',
     retreat: 'Retraite',

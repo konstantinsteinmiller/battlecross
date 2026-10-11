@@ -4570,6 +4570,7 @@ export default {
     frostThane: 'हिम सामंत'
   },
   results: {
+    careful: 'सावधान जीत ×{mult}',
     victory: 'जीत!',
     defeat: 'हार गए',
     defeat__f: 'हार गईं',

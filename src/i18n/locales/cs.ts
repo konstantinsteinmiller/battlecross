@@ -4582,6 +4582,7 @@ export default {
     frostThane: 'Mrazivý thán'
   },
   results: {
+    careful: 'Opatrné vítězství ×{mult}',
     victory: 'Vítězství!',
     defeat: 'Porážka',
     retreat: 'Ústup',

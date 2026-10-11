@@ -4497,6 +4497,7 @@ export default {
     frostThane: 'Ayoz beki'
   },
   results: {
+    careful: 'Ehtiyotkor gʻalaba ×{mult}',
     victory: 'Gʻalaba!',
     defeat: 'Magʻlubiyat',
     retreat: 'Chekinildi',

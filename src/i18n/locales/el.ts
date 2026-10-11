@@ -4540,6 +4540,7 @@ export default {
     frostThane: 'Οπλαρχηγός του Παγετού'
   },
   results: {
+    careful: 'Προσεκτική νίκη ×{mult}',
     victory: 'Νίκη!',
     defeat: 'Ήττα',
     retreat: 'Υποχώρηση',

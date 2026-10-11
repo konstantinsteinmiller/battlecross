@@ -845,7 +845,7 @@ export default {
   },
   'battle': {
     'title': 'Item Battle',
-    'lead': 'Lay an item against the gambler\'s: the higher sale price takes the point, two points win. Your items are gone either way. Three wins in a row add an epic prize.',
+    'lead': 'Lay an item against the gambler\'s: the higher sale price takes the point, two points win. Your items are gone either way. Three wins in a row bring a prize piece.',
     'fee': 'Sit down · {n}',
     'row': 'Wins in a row: {n} of {max}',
     'needItems': 'You need at least {n} unworn items in your bag.',
@@ -2377,6 +2377,8 @@ export default {
 
   // ─── End of a visit ───────────────────────────────────────────────────────
   'results': {
+    // A careful clear (#113): little health lost, the visit pays up to twice.
+    'careful': 'Careful clear ×{mult}',
     'victory': 'Victory!',
     'defeat': 'Defeated',
     'retreat': 'Retreated',
