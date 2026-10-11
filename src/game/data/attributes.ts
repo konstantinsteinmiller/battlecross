@@ -36,17 +36,19 @@ export const ATTR_COLOR: Record<Attr, string> = {
  * What one point of each attribute buys, as the character sheet lists it. The
  * numbers are the ones `sim/stats.ts` applies; a test holds the two together.
  */
+// #110: gear gives far fewer attributes, so a point is worth more: Dexterity's
+// and Skill's per-point effects doubled (the caps below are unchanged).
 export const ATTR_EFFECTS = {
   /** STR: melee power, heavy-armour affinity, block chance. */
   str: { blockPerPoint: 0.002, plateArmorPerPoint: 0.005 },
   /** DEX: crit chance, attack speed, move speed, dual-wield efficiency. */
-  dex: { critPerPoint: 0.004, attackSpeedPerPoint: 0.008, moveSpeedPerPoint: 0.003, dualWieldPerPoint: 0.01 },
+  dex: { critPerPoint: 0.008, attackSpeedPerPoint: 0.016, moveSpeedPerPoint: 0.006, dualWieldPerPoint: 0.02 },
   /** INT: spell power, max mana, mana regeneration, elemental resistance. */
-  int: { manaPerPoint: 5, manaRegenPerPoint: 0.12, resistPerPoint: 0.005 },
+  int: { manaPerPoint: 3, manaRegenPerPoint: 0.06, resistPerPoint: 0.005 },
   /** END: max health, health regeneration, physical defence, stun resistance. */
-  end: { hpPerPoint: 8, hpRegenPerPoint: 0.04, armorPerPoint: 1.5, stunResistPerPoint: 0.008 },
+  end: { hpPerPoint: 20, hpRegenPerPoint: 0.04, armorPerPoint: 1.5, stunResistPerPoint: 0.008 },
   /** SKL: crit damage, cooldown reduction, ranged weapon damage. */
-  skl: { critDamagePerPoint: 0.01, cdrPerPoint: 0.005 },
+  skl: { critDamagePerPoint: 0.02, cdrPerPoint: 0.01 },
   /** CHA: minion damage, shop prices, quest rewards, dialogue options. */
   cha: { minionPerPoint: 0.02, discountPerPoint: 0.008, rewardPerPoint: 0.01 }
 } as const

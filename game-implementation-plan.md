@@ -743,7 +743,26 @@ All sound is synthesised (53 recipes); recorded files can override a recipe.
   diagonal trot above 1.4 model units a second, the squirrel's bound;
   stride from speed, never past 1.1 legs. At rest the legs settle under the
   body; the z-fighting test covers every leg.
-- [ ] **31 Balance core** (#109, #110, #104).
+- [x] **31 Balance core** (#109, #110, #104). Health: base 150, Endurance +20
+  a point (was +8), a level +10 (was +32), so three points beat a level-up.
+  Gear: the item tables keep the GDD's numbers, a piece adds its attributes
+  times its quality's share (Common ×0.5 … Legendary ×0.22,
+  `GEAR_ATTR_SCALE`): a full set at level 25 is 1.26× the points spent (was
+  3–6×). The hero's level MIGHT (`heroMight`, ×1.27 at 5 to ×2.6 at 30) gives
+  back the damage the old gear gave, his summons' too; Dexterity's and
+  Skill's per-point effects doubled. Mana: 30 + 5 a level + 3 an INT point,
+  regeneration 1.5 + 0.06 a level + 0.06 an INT point: every class can cast
+  its loadout, and most cannot cast everything on cooldown for ever.
+  Enemies hit ×1.15 from level 6 to 22 (back to ×1 by 28, where the
+  scripted bosses are tuned). The reference player keeps a quarter of its
+  points in Endurance; `glass: true` is the all-out build. The opening
+  fight's damage re-fitted (2.22 → 3.16: a naive clicker still ends on 1–5).
+  Balance run (16 classes × 12 zones): 182 wins of 192 (188 before), the
+  same pace, less health to spare; Chrono 8/12 and Bard 9/12 are the
+  thinnest. Pinned by `balanceCurve.test.ts` (Endurance vs levels, gear vs
+  points, mana for every class, a glass cannon wins no more and with less).
+  Deferred: a base damage on weapons (D138) — the level might does that
+  work.
 - [ ] **32 Careful clear and gambler tables** (#113, #115).
 - [ ] **33 Sunford teachers** (#106).
 - [ ] **34 Place-shaped layouts** (#103): peak, temple, outskirts, tundra, crags.

@@ -33,9 +33,13 @@ export interface RefBuildOpts {
   cls: ClassId
   /** Gear tier to wear (best item of each slot at or below the hero's level). */
   geared?: boolean
+  /** The all-out build: every free point into the two attack attributes, none
+   *  into Endurance (#109's glass cannon). */
+  glass?: boolean
 }
 
-/** Where each class puts its points: two in three into the main attribute. */
+/** Where each class puts its points: half into the main attribute, a quarter
+ *  into the second and a quarter into Endurance. */
 const MAIN: Record<ClassId, [Attr, Attr]> = {
   aegis: ['str', 'end'], shadow: ['dex', 'skl'], pyro: ['int', 'skl'], sovereign: ['cha', 'end'],
   chrono: ['int', 'skl'], blood: ['end', 'int'], aether: ['skl', 'int'], geo: ['str', 'int'],
@@ -58,9 +62,17 @@ export const referenceBuild = (o: RefBuildOpts): { build: HeroBuild; skills: str
       if (need > 0 && need <= points) { attrs[attr] += need; points -= need }
     }
   }
-  attrs[a] += Math.ceil(points * 0.6)
-  attrs[b] += Math.floor(points * 0.3)
-  attrs.end += points - Math.ceil(points * 0.6) - Math.floor(points * 0.3)
+  // A sensible build keeps a quarter of all it has earned in Endurance: since
+  // #109 health comes from it, not from levels. `glass` is the all-out build
+  // (none). The rest: two in three to the main attribute.
+  if (!o.glass) {
+    const want = Math.round(((o.level - 1) * POINTS_PER_LEVEL) * 0.25) + 5 - attrs.end
+    const put = Math.max(0, Math.min(points, want))
+    attrs.end += put
+    points -= put
+  }
+  attrs[a] += Math.ceil(points * (2 / 3))
+  attrs[b] += points - Math.ceil(points * (2 / 3))
   const equipped = noGear()
   if (o.geared !== false) {
     const score = (id: string): number => {

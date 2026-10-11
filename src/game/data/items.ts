@@ -67,7 +67,30 @@ const melee = (scale: Attr, interval = 0.95, heavy = false) => ({ scale, style: 
 const ranged = (scale: Attr, interval = 0.9) => ({ scale, style: 'ranged' as const, range: 9.5, interval })
 const magic = (interval = 1.05) => ({ scale: 'int' as Attr, style: 'magic' as const, range: 9, interval })
 
-export const ITEMS: readonly ItemDef[] = [
+/**
+ * ─── Gear gives attributes, but less than the hero earns (#110) ──────────────
+ *
+ * The item tables below keep the GDD's numbers; what a piece actually adds is
+ * that times its quality's share. Before #110 a full set at level 25 was worth
+ * three to six times the attribute points the hero had spent, so where those
+ * points went hardly mattered. Rarer gear is cut harder: a legendary weapon's
+ * 140 points were 47 levels' worth. Only attributes are scaled; a piece's own
+ * effects (crit, cooldowns, lifesteal...) and armour are untouched.
+ */
+export const GEAR_ATTR_SCALE: Readonly<Record<number, number>> = { 1: 0.5, 2: 0.4, 3: 0.32, 4: 0.28, 5: 0.25, 6: 0.22 }
+const ATTR_KEYS = ['str', 'dex', 'int', 'end', 'skl', 'cha', 'allAttrs', 'strOrDex'] as const
+
+const scaled = (it: ItemDef): ItemDef => {
+  const k = GEAR_ATTR_SCALE[it.tier] ?? 1
+  const mods = { ...it.mods }
+  for (const a of ATTR_KEYS) {
+    const v = mods[a]
+    if (v) mods[a] = Math.max(1, Math.round(v * k))
+  }
+  return { ...it, mods }
+}
+
+const ITEM_TABLE: readonly ItemDef[] = [
   // ── Weapons (main hand) ───────────────────────────────────────────────────
   { id: 'rustedShortsword', slot: 'main', kind: 'sword', tier: 1, level: 1, mods: { str: 4, dex: 2 }, weapon: melee('str'), drop: { zone: 'plains', src: 'mob' } },
   { id: 'apprenticeStaff', slot: 'main', kind: 'staff', tier: 1, level: 1, mods: { int: 5, manaDiscount: 0.05 }, weapon: magic(), unique: true, drop: { zone: 'plains', src: 'chest' } },
@@ -152,6 +175,8 @@ export const ITEMS: readonly ItemDef[] = [
   { id: 'heartOfTheMountain', slot: 'trinket', kind: 'heart', tier: 5, level: 25, mods: { str: 35, end: 20, knockbackImmune: 1 }, unique: true, drop: { zone: 'citadel', src: 'mob' } },
   { id: 'ringOfAbsolutePower', slot: 'trinket', kind: 'ring', tier: 6, level: 30, mods: { allAttrs: 25, damagePct: 0.15, damageReduction: 0.15 }, unique: true, drop: { zone: 'fortress', src: 'secret' } }
 ]
+
+export const ITEMS: readonly ItemDef[] = ITEM_TABLE.map(scaled)
 
 export const ITEM_BY_ID: Readonly<Record<string, ItemDef>> = Object.fromEntries(ITEMS.map(i => [i.id, i]))
 

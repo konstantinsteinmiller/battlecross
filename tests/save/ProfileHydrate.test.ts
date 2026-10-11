@@ -16,6 +16,7 @@
 // portal SDK by `scripts/hydrate-check.mjs`.
 
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
+import { ITEM_BY_ID } from '@/game/data/items'
 import { drainAndResetModules, drainPersist, holdGameState } from '../stubs/drainPersist'
 
 const STATE_KEY = 'bcross_state'
@@ -165,7 +166,7 @@ describe('booting from the state blob', () => {
     const first = await boot()
     first.initProfile()
     expect(first.profile.inv.equipped).toEqual(worn)
-    expect(first.totalAttrs().dex).toBe(7 + 4 + 1)
+    expect(first.totalAttrs().dex).toBe(7 + ITEM_BY_ID.stalkersHood!.mods.dex! + ITEM_BY_ID.hideGloves!.mods.dex!)
 
     drainAndResetModules()
     localStorage.setItem(STATE_KEY, JSON.stringify({

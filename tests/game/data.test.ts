@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { ITEMS, ITEM_BY_ID, EQUIP_SLOTS, TIER_PRICE, itemsOfZone, noGear, priceOf, sellValue, slotOf, type ItemDef, type ItemSlot, type ZoneId } from '@/game/data/items'
+import { ITEMS, ITEM_BY_ID, GEAR_ATTR_SCALE, EQUIP_SLOTS, TIER_PRICE, itemsOfZone, noGear, priceOf, sellValue, slotOf, type ItemDef, type ItemSlot, type ZoneId } from '@/game/data/items'
 import { ZONE_LOOT } from '@/game/data/loot'
 import { GLYPHS } from '@/components/art/glyphs'
 import { modLines } from '@/components/game/modLines'
@@ -67,11 +67,23 @@ describe('items (GDD §6)', () => {
     ['ringOfMending', 2, 7, { end: 8, hpRegen: 3 }],
     ['sovereignsSignet', 5, 24, { cha: 30, minionDamage: 0.2 }],
     ['ringOfAbsolutePower', 6, 30, { allAttrs: 25, damagePct: 0.15, damageReduction: 0.15 }]
-  ] as const)('%s is as tabled', (id, tier, level, mods) => {
+  ] as const)('%s is as tabled, its attributes times its quality\'s share (#110)', (id, tier, level, mods) => {
     const it = ITEM_BY_ID[id]!
     expect(it.tier).toBe(tier)
     expect(it.level).toBe(level)
-    expect(it.mods).toEqual(mods)
+    const k = GEAR_ATTR_SCALE[tier]!
+    const want: Record<string, number> = {}
+    for (const [m, v] of Object.entries(mods)) {
+      want[m] = ['str', 'dex', 'int', 'end', 'skl', 'cha', 'allAttrs', 'strOrDex'].includes(m) ? Math.max(1, Math.round(v * k)) : v
+    }
+    expect(it.mods).toEqual(want)
+  })
+
+  it('gear gives less than the hero earns: rarer is cut harder (#110)', () => {
+    for (let t = 2; t <= 6; t++) expect(GEAR_ATTR_SCALE[t]!).toBeLessThan(GEAR_ATTR_SCALE[t - 1]!)
+    // A legendary weapon is no longer worth dozens of levels of points.
+    const blade = ITEM_BY_ID.bladeOfTheUnbound!
+    expect((blade.mods.str ?? 0) + (blade.mods.dex ?? 0)).toBeLessThanOrEqual(31)
   })
 
   it.each([['paddedTunic', 8], ['chainmailVest', 28], ['reinforcedPlate', 55], ['dragonscaleHauberk', 140], ['armorOfTheTitan', 220]] as const)(

@@ -660,14 +660,14 @@ export const dangerOf = (zone: ZoneDef, heroLevel: number): 0 | 1 | 2 | 3 => {
  * The opening fight (the first visit of a new save, Sunford Plains): tuned so
  * the most naive way to play it — click an enemy, let the hero swing until it
  * falls, the next, never a skill or a potion — wins with 1 to 5 health left
- * (owner, 2026-10-04; `tests/game/openingBalance.test.ts`). Only that visit:
+ * (owner, 2026-10-04; `tests/game/openingBalance.test.ts`; re-fitted for the #109 health curve). Only that visit:
  * a replay of the plains is the zone as tabled.
  *
  *   pack   enemies in each pack after the first (the first is the two
  *          goblins the controls are learned on)
  *   dmg    enemy damage multiplier
  */
-export const OPENING = { pack: 5, dmg: 2.22 } as const
+export const OPENING = { pack: 5, dmg: 3.16 } as const
 
 export const visitLevel = (zone: ZoneDef, heroLevel: number): number =>
   Math.max(zone.min, Math.min(zone.max, heroLevel))

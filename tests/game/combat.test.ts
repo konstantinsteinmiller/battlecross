@@ -11,6 +11,7 @@ import { applyPlan } from '@/game/sim/director'
 import { startAttrs, ATTR_EFFECTS, CAPS } from '@/game/data/attributes'
 import { CLASS_IDS, SKILLS, SKILL_BY_ID, skillsOf } from '@/game/data/skills'
 import { ZONES } from '@/game/data/zones'
+import { ITEM_BY_ID } from '@/game/data/items'
 import type { Unit } from '@/game/sim/types'
 
 /**
@@ -67,7 +68,10 @@ describe('stats from attributes and gear (GDD §4.1)', () => {
   it('gear adds its stats, and a passive its modifiers', () => {
     const base = heroStats(naked())
     const armed = heroStats(naked({ equipped: { main: 'ironBroadsword', off: 'ironShield', body: 'chainmailVest', trinket1: 'ringOfMending', trinket2: null } }))
-    expect(armed.power.str).toBe(5 + 12 + 8 + 10)
+    // Gear's attributes are its tabled numbers times its quality's share (#110).
+    const str = (id: string): number => ITEM_BY_ID[id]!.mods.str ?? 0
+    expect(armed.power.str).toBe(5 + str('ironBroadsword') + str('ironShield') + str('chainmailVest'))
+    expect(str('ironBroadsword')).toBeLessThan(12)
     expect(armed.armor).toBeGreaterThan(base.armor + 28 - 0.001)
     expect(armed.block).toBeGreaterThan(base.block + 0.14)
     expect(armed.hpRegen).toBeGreaterThan(base.hpRegen + 2.9)
@@ -312,8 +316,9 @@ describe('skills', () => {
         hero.mana = hero.s.maxMana
         const aim = s.target === 'ground' || s.target === 'dir' ? { x: foes[0]!.x, z: foes[0]!.z } : null
         expect(castSkill(sim, slot, aim), s.id).toBe(true)
-        run(sim, 0.7)
-        const cd = sim.hero.cd[slot]!
+        // The cooldown it started (a short one at the cooldown cap may run out within the window).
+        let cd = 0
+        for (let t = 0; t < 0.7; t += 0.05) { run(sim, 0.05); cd = Math.max(cd, sim.hero.cd[slot]!) }
         expect(() => run(sim, 2.5), s.id).not.toThrow()
         expect(Number.isFinite(hero.hp) && Number.isFinite(hero.x) && Number.isFinite(hero.z), s.id).toBe(true)
         expect(cd, `${s.id} cooldown`).toBeGreaterThan(0)

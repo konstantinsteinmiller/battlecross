@@ -79,7 +79,7 @@ describe('the smith\'s rules', () => {
     const attrs = { str: 5, dex: 5, int: 5, end: 5, skl: 5, cha: 5 }
     const base = sumBuild({ level: 6, attrs, equipped, passives: [] })
     const up = sumBuild({ level: 6, attrs, equipped, passives: [], upgrades: { ironBroadsword: 3 } })
-    expect(up.attrs.str).toBeCloseTo(base.attrs.str + 12 * FORGE_GAIN[2] * 3, 5)
+    expect(up.attrs.str).toBeCloseTo(base.attrs.str + ITEM_BY_ID.ironBroadsword!.mods.str! * FORGE_GAIN[2] * 3, 5)
     expect(up.mods.block).toBe(base.mods.block)
   })
 })

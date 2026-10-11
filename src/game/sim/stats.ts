@@ -32,6 +32,28 @@ export interface HeroBuild {
 
 const clamp = (v: number, lo: number, hi: number): number => Math.max(lo, Math.min(hi, v))
 
+/**
+ * ─── The level curve (#104, #109, #110) ──────────────────────────────────────
+ *
+ * Health comes mostly from Endurance, not from levels: before #109 a level-up
+ * gave +32 health and three points of Endurance +24, so nobody needed it and a
+ * glass cannon stood as long as a tank. Mana grows with level for every class
+ * (a Strength hero kept 55-70 all game and could not cast his own skills);
+ * Intelligence still adds mana and regeneration, less of both. And since gear
+ * gives far fewer attributes (`GEAR_ATTR_SCALE`), the hero's own MIGHT grows
+ * with level instead: the damage the old gear gave, back as a level factor, so
+ * the points a player spends are a far larger share of what he hits for.
+ */
+/** A hero's health before Endurance and levels. */
+export const HP_BASE = 150
+export const HP_PER_LEVEL = 10
+export const MANA_PER_LEVEL = 5
+export const MANA_REGEN_PER_LEVEL = 0.06
+/** Damage factor for the hero's level: the power the old gear gave a
+ *  reference build's main attribute (1.13 at level 5, 2.33 at 30), and an
+ *  eighth more for what it gave the others (crit, attack speed, cooldowns). */
+export const heroMight = (level: number): number => Math.max(1, 1.27 + 0.054 * (level - 5))
+
 /** The attribute totals and the summed modifier bag of a build. */
 export const sumBuild = (b: HeroBuild): { attrs: AttrBlock; mods: Mods; armor: number; plate: number } => {
   const mods: Mods = {}
@@ -77,15 +99,15 @@ export const heroStats = (b: HeroBuild): UnitStats => {
   const armor = armorBase * (1 + m('armorPct'))
 
   const blessed = (f: FactionId): boolean => !!b.blessings?.includes(f)
-  const maxHp = (100 + attrs.end * E.end.hpPerPoint + b.level * 32 + m('maxHp')) * (1 + m('maxHpPct')) *
+  const maxHp = (HP_BASE + attrs.end * E.end.hpPerPoint + b.level * HP_PER_LEVEL + m('maxHp')) * (1 + m('maxHpPct')) *
     (blessed('order') ? 1 + BLESSING.order.maxHpPct : 1)
-  const maxMana = 30 + attrs.int * E.int.manaPerPoint + m('maxMana')
+  const maxMana = 30 + b.level * MANA_PER_LEVEL + attrs.int * E.int.manaPerPoint + m('maxMana')
 
   return {
     maxHp: Math.round(maxHp),
     maxMana: Math.round(maxMana),
     hpRegen: attrs.end * E.end.hpRegenPerPoint + m('hpRegen'),
-    manaRegen: (1.5 + attrs.int * E.int.manaRegenPerPoint) * (blessed('circle') ? 1 + BLESSING.circle.manaRegenPct : 1),
+    manaRegen: (1.5 + b.level * MANA_REGEN_PER_LEVEL + attrs.int * E.int.manaRegenPerPoint) * (blessed('circle') ? 1 + BLESSING.circle.manaRegenPct : 1),
     armor,
     resist: clamp(attrs.int * E.int.resistPerPoint, 0, CAPS.resist),
     block: clamp(attrs.str * E.str.blockPerPoint + m('block'), 0, CAPS.block),
@@ -103,7 +125,7 @@ export const heroStats = (b: HeroBuild): UnitStats => {
     cdr: clamp(attrs.skl * E.skl.cdrPerPoint + m('cdr'), 0, CAPS.cdr),
     lifesteal: m('lifesteal'),
     physLifesteal: m('physLifesteal'),
-    damageMul: 1 + m('damagePct'),
+    damageMul: (1 + m('damagePct')) * heroMight(b.level),
     manaDiscount: clamp(m('manaDiscount'), 0, 0.5),
     atkScale: w.scale,
     atkStyle: w.style,
@@ -142,8 +164,27 @@ export const enemyHp = (level: number): number => {
  */
 export const enemyDmg = (level: number): number => {
   const l = Math.max(0, level - 1)
-  return 3.2 + 0.52 * l + 0.004 * l * l
+  return (3.2 + 0.52 * l + 0.004 * l * l) * lateEase(level)
 }
+
+/**
+ * How hard enemies hit for their level, on top of the base curve (#109). Before
+ * #109 the hero's health piled up from levels and gear and enemies were tuned
+ * against that: a reference build left most zones with 80-90 % of it, and a
+ * glass cannon with no Endurance did as well. Now health comes from Endurance,
+ * and enemies past the opening hit hard enough that skipping it shows: ×1 for
+ * the first levels (the opening fight keeps its own tuning), ×`ENEMY_BITE`
+ * from level 6 to 22, back to ×1 by 28 (the endgame bosses' own tuning).
+ */
+export const ENEMY_BITE = 1.15
+const ramp = (level: number, from: number, to: number): number => {
+  const t = Math.max(0, Math.min(1, (level - from) / (to - from)))
+  return t * t * (3 - 2 * t)
+}
+const lateEase = (level: number): number =>
+  // In from level 2 to 6; out again from 22 to 28, where the endgame's
+  // scripted bosses were tuned (they pin their own fight length).
+  1 + (ENEMY_BITE - 1) * (ramp(level, 2, 6) - ramp(level, 22, 28))
 
 /** Armour's mitigation against an attacker of a given level. */
 export const armorMitigation = (armor: number, attackerLevel: number): number =>

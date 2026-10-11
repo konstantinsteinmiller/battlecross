@@ -1,5 +1,5 @@
 import { ENEMY_BY_ID, MINIONS, type EnemyDef } from '../data/enemies'
-import { enemyDmg, enemyHp, plainStats, scalePower } from './stats'
+import { enemyDmg, enemyHp, heroMight, plainStats, scalePower } from './stats'
 import type { Unit } from './types'
 import { newBossState } from './bosses/kit'
 import type { Sim } from './world'
@@ -62,9 +62,10 @@ export const spawnMinion = (sim: Sim, kind: string, x: number, z: number, life: 
   const machine = def.rig === 'turret'
   const hs = h.unit.s
   const hpMul = machine ? 1 : 1 + (hs.mods.minionHp ?? 0)
-  const dmg = machine
+  // The hero's level might (#110) is his summons' too.
+  const dmg = (machine
     ? scalePower(hs, 'skl') * def.dmg
-    : hs.baseDmg * def.dmg * h.minionMul
+    : hs.baseDmg * def.dmg * h.minionMul) * heroMight(h.level)
   const s = plainStats({
     hp: hs.maxHp * def.hp * hpMul,
     dmg,
@@ -113,7 +114,7 @@ export const spawnSpirit = (sim: Sim, from: Unit, life: number, mul = 1): Unit |
   if (band.length >= SPIRIT_MAX) band[0]!.life = 0.01
   const s = plainStats({
     hp: hs.maxHp * 0.4 * Math.min(2.5, def.hp) * mul * (1 + (hs.mods.minionHp ?? 0)),
-    dmg: scalePower(hs, 'int') * 0.45 * Math.min(1.6, def.dmg) * mul * (1 + (hs.mods.minionDamage ?? 0)),
+    dmg: scalePower(hs, 'int') * 0.45 * Math.min(1.6, def.dmg) * mul * (1 + (hs.mods.minionDamage ?? 0)) * heroMight(h.level),
     armor: hs.armor * 0.6,
     resist: def.resist,
     speed: Math.max(4, def.speed),

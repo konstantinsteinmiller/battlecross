@@ -1,5 +1,6 @@
 // @vitest-environment jsdom
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
+import { ITEM_BY_ID } from '@/game/data/items'
 import { drainAndResetModules, drainPersist, holdGameState } from '../stubs/drainPersist'
 import { xpToNext } from '@/game/data/progression'
 
@@ -219,7 +220,7 @@ describe('gear and shops (GDD §6)', () => {
     expect(after.armor).toBeGreaterThan(before.armor + 40)
     expect(after.attackSpeed).toBeGreaterThan(before.attackSpeed)
     expect(after.moveSpeed).toBeGreaterThan(before.moveSpeed)
-    expect(p.totalAttrs().int).toBe(p.profile.hero.attrs.int + 12)
+    expect(p.totalAttrs().int).toBe(p.profile.hero.attrs.int + ITEM_BY_ID.mistwalkerBoots!.mods.int!)
     // Taken off again, the hero is who he was.
     p.unequip('head'); p.unequip('hands'); p.unequip('feet')
     expect(p.computeStats()).toEqual(before)

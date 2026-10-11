@@ -45,13 +45,30 @@ const probe = (def: SkillDef): { reads: string[]; summon: boolean } => {
   })
   const u = sim.hero.unit
   u.mana = 9999
-  for (let i = 0; i < 3; i++) { const e = spawnEnemy(sim, 'goblin', u.x + 2 + i, u.z + 1)!; e.awake = true }
+  // Nothing dies: a kill's reward reads Charisma, which is no skill's scaling.
+  for (let i = 0; i < 3; i++) { const e = spawnEnemy(sim, 'goblin', u.x + 2 + i, u.z + 1)!; e.awake = true; e.s.maxHp *= 1000; e.hp = e.s.maxHp }
   const reads = new Set<string>()
   u.s.power = new Proxy(u.s.power, { get(t, k) { if (typeof k === 'string') reads.add(k); return (t as Record<string, unknown>)[k as string] } })
+  // What the fight reads anyway (basic attacks, passives), without the skill.
+  const quiet = (): Set<string> => {
+    const shadow = new Sim({ seed: 7, w: plan.w, h: plan.h, level: 30, difficulty: 1, mode: 'zone', zone: 'plains' })
+    applyPlan(shadow, plan)
+    createHero(shadow, {
+      build: { level: 30, attrs, equipped: { main: null, off: null, body: null, trinket1: null, trinket2: null }, passives: [] },
+      skills: [def.id], x: plan.start.x, z: plan.start.z, xpInto: 0, potions: 3
+    })
+    const v = shadow.hero.unit
+    for (let i = 0; i < 3; i++) { const e = spawnEnemy(shadow, 'goblin', v.x + 2 + i, v.z + 1)!; e.awake = true; e.s.maxHp *= 1000; e.hp = e.s.maxHp }
+    const seen = new Set<string>()
+    v.s.power = new Proxy(v.s.power, { get(t, k) { if (typeof k === 'string') seen.add(k); return (t as Record<string, unknown>)[k as string] } })
+    for (let t = 0; t < 4; t += 1 / 30) { stepSim(shadow, plan, 1 / 30); shadow.events.length = 0 }
+    return seen
+  }
   const target = sim.units.find(x => x.team === 1)!
   castSkill(sim, 0, { x: target.x, z: target.z })
   for (let t = 0; t < 4; t += 1 / 30) { stepSim(sim, plan, 1 / 30); sim.events.length = 0 }
-  return { reads: [...reads].filter(a => ATTRS.includes(a)), summon: sim.units.some(x => x.team === 0 && x.ownerId === u.id) }
+  const base = quiet()
+  return { reads: [...reads].filter(a => ATTRS.includes(a) && !base.has(a)), summon: sim.units.some(x => x.team === 0 && x.ownerId === u.id) }
 }
 
 describe('the scaling badge only where the effect grows with an attribute', () => {
