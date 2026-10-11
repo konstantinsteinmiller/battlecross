@@ -1330,7 +1330,7 @@ export default {
       'herbs': {
         'say': 'Where do I find herbs?',
         '1': 'Out in the wild, everywhere you fight. Just walk over a plant and it\'s yours.',
-        '2': 'The rare ones grow further out. Moonbells and shadowthorn hide past the woods.'
+        '2': 'The rare ones are choosy. Moonbells open in the Whispering Woods; shadowthorn wants the dark places.'
       },
       'elixirs': {
         'say': 'What do the elixirs do?',

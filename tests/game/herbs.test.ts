@@ -6,6 +6,8 @@ import { stubCanvas, trisOf, findFights, describe1, type Tri } from './zfightToo
 import { generateZone, fillGrid } from '@/game/sim/zoneGen'
 import { ZONES, ZONE_IDS } from '@/game/data/zones'
 import { HERBS_MAX, HERBS_MIN, PLANTS, PLANT_IDS, plantsOf } from '@/game/data/plants'
+import { ERRANDS } from '@/game/data/errands'
+import type { ZoneId } from '@/game/data/items'
 import { PICK_REACH } from '@/game/sim/herbs'
 import { CELL, cellOf, createGrid, findPath, isSolidAt } from '@/game/sim/grid'
 import { K_GROUND } from '@/game/sim/zoneFeatures'
@@ -28,7 +30,7 @@ describe('where herbs grow', () => {
   it('every zone holds 3 or 4 a visit, of its own plants, on ground the hero walks to, apart', () => {
     for (const zone of ZONE_IDS) {
       const def = ZONES[zone]
-      const kinds = new Set(plantsOf(def.theme, def.min).map(p => p.id))
+      const kinds = new Set(plantsOf(def.id).map(p => p.id))
       expect(kinds.size, zone).toBeGreaterThanOrEqual(2)
       for (const seed of SEEDS) {
         const plan = generateZone(def, seed)
@@ -63,11 +65,11 @@ describe('where herbs grow', () => {
 
   it('every plant grows somewhere, the rare ones only past the first zones', () => {
     for (const p of PLANTS) {
-      expect(ZONE_IDS.some(z => plantsOf(ZONES[z].theme, ZONES[z].min).some(q => q.id === p.id)), p.id).toBe(true)
+      expect(ZONE_IDS.some(z => plantsOf(z).some(q => q.id === p.id)), p.id).toBe(true)
     }
-    expect(plantsOf('plains', 1).some(p => p.id === 'moonbell')).toBe(false)
+    expect(plantsOf('plains').some(p => p.id === 'moonbell')).toBe(false)
     // The heal plant of the board's task (#85) grows in the first zone.
-    expect(plantsOf(ZONES.plains.theme, ZONES.plains.min).some(p => p.id === 'sunpetal')).toBe(true)
+    expect(plantsOf('plains').some(p => p.id === 'sunpetal')).toBe(true)
   })
 })
 
@@ -143,5 +145,27 @@ describe('the herb models', () => {
       if (f.length) bad.push(`${id}: ${f.slice(0, 3).join(' | ')}`)
     }
     expect(bad).toEqual([])
+  })
+})
+
+describe('plants grow where they belong (#112, #114)', () => {
+  it('an errand that sends the hero to a place for its plant finds it growing there', () => {
+    for (const e of ERRANDS) {
+      const place = e.steps.find(s => s.kind === 'slay' && s.place)?.place
+      for (const s of e.steps) {
+        if (s.kind !== 'gather' || !place || !s.plant) continue
+        const grows = plantsOf(place as ZoneId).some(p => p.id === s.plant)
+        const anywhere = ZONE_IDS.some(z => plantsOf(z).some(p => p.id === s.plant))
+        expect(anywhere, `${e.id}: ${s.plant} grows nowhere`).toBe(true)
+        // The Collector's and Old Rowan's moonbells are where they say: the Woods.
+        if (s.plant === 'moonbell') expect(grows, `${e.id}: moonbells in ${place}`).toBe(true)
+      }
+    }
+    expect(plantsOf('woods').some(p => p.id === 'moonbell')).toBe(true)
+  })
+
+  it('no sun petals in the drowned temple; every zone grows at least two kinds', () => {
+    expect(plantsOf('temple').some(p => p.id === 'sunpetal')).toBe(false)
+    for (const z of ZONE_IDS) expect(plantsOf(z).length, z).toBeGreaterThanOrEqual(2)
   })
 })

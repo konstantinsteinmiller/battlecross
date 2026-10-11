@@ -658,3 +658,85 @@ attribute buff; items are fixed named ids owned once.
   reads them. A weak device gets about half; a burnt town none. Covered by
   the z-fighting test (every coat and pose, and every town as built,
   Silverbridge now included) and behaviour tests.
+
+## 12. Playtest batch #99–#115 (2026-10-11)
+
+Mining and smithing, cages with captives, sounds, animal gaits, place-shaped
+layouts and towns of their own, a balance pass (HP, gear, mana), the careful
+clear, fixed gambler tables, more Sunford teachers, plant habitats, map
+walking, art. Sequential worker. Decision report:
+https://claude.ai/artifact/FoU5cUbJPLUspNd4YpoytW (open questions 51–58 in
+`outstanding-decisions.md`; 55 and 56 answered, the rest on their defaults).
+
+Ground truth (map agents): a level-up gives +32 HP and three END points +24;
+at level 25 a full gear set is worth 3–6× the points spent (a legendary
+weapon 140 = 47 levels of points); casters out-regenerate their casting from
+level 10 while non-INT classes keep 55–70 mana all game. Every zone and
+encounter is one chain of clearings; the four towns are one street template.
+Plants are drawn for the zone's lowest level by theme (moonbells need 8, the
+Woods are 6; sun petals list the temple theme). The town dog, cat and
+squirrel have baked legs (a bob, no gait). The world map slides only along
+the axes. Items are fixed named pieces owned once; no instances, no rolls.
+All sound is synthesised (53 recipes); recorded files can override a recipe.
+
+| ID | Topic | Decision | Source |
+| --- | --- | --- | --- |
+| D117 | Ores (#99) | Iron 1, silver 6, gold 13, mithril 21; ≤3 nodes a visit on their own stream, against stone, each with its own outcrop | owner; map |
+| D118 | Mining (#99) | Three pickaxe swings (~2.4 s), 1–2 nuggets, node spent; no damage, knockback, stun or cancel during it; only with no awake enemy within 8 m | owner; abuse guard |
+| D119 | Chests (#99) | Opening, once begun, cannot be cancelled; damage still lands | owner |
+| D120 | Selling ore (#99) | Every town smith: iron 6, silver 15, gold 35, mithril 80 a nugget | economy |
+| D121 | Smithed gear (#99) | Fixed catalogue: 6 recipes × 4 ores with masterwork twins; grade picks the twin and +0..+3 forge levels; an owned piece gains forge levels | question 52 |
+| D122 | Recipes (#99) | Smithing taught once by a smith; the first nugget of an ore unlocks its recipes; nuggets + gold, the piece's level | owner |
+| D123 | Forge mini-game (#99) | Three strikes on a sweeping hot spot that narrows with rarer ore; Poor / Good / Great / Perfect; touch and keyboard | owner |
+| D124 | Smithing window (#99) | Its own window from any town smith, a drawn forge backdrop until painted; Ore tab in the bag | trade-screen pattern |
+| D125 | Cages (#100) | Wooden in Plains, Hollows, Woods; iron in Crags, Tundra, Temple; on some visits until opened; hidden key that glints near | owner |
+| D126 | Captives (#100) | Low: a peddler (Sunford trader), a herbalist (Silverbridge herbs + quest), farmers (Oakhaven quest). Later: Windrunner, Frostwarden, Lightbringer disciples teaching in Oakhaven, Ironhold, Sunford | owner; question 57 |
+| D127 | Sound (#101) | Layered synthesis per element and skill family; impact events sound | question 53 |
+| D128 | Animals (#102) | Separate legs, walk and trot cycles for dog, cat, squirrel; slip under 10 % of ground covered | measured |
+| D129 | Layouts (#103) | Peak: a path spiralling up and around the mountain. Temple: rooms and hallways through open doors. Outskirts: wheat field with paths, packs in the wheat. Tundra: ring round a frozen lake. Crags: lava gorge with ledges. Other zones keep the chain; encounters draw chain, ring or gorge | owner (question 56) |
+| D130 | Silverbridge (#103) | One long deck across the river, a row of houses on each side; the near row low | owner; camera |
+| D131 | Oakhaven (#103) | Walled market: crossing lanes round a market square, the road in from the east | uniqueness |
+| D132 | Mana (#104) | Mana per level for every class; INT less mana and regen; costs follow the skill's level (a rotation ≈ half a pool); mana use in the sims | measured |
+| D133 | Scaling badge (#105) | Only when the effect reads an attribute; summons show Charisma | map |
+| D134 | Sunford (#106) | Shadow and Geo masters join Aegis and Pyro | variety |
+| D135 | Paint (#107) | Art Desk queue at the end; stop and ask on a login | question 54 |
+| D136 | Highlight (#108) | The character button's yellow attention frame on the world map, shown over the town just entered: reproduce and fix | owner (question 55) |
+| D137 | HP (#109) | Level HP +32 → +14, END +8 → +16; enemy damage re-tuned; a glass-cannon balance run | owner; measured |
+| D138 | Gear (#110) | Gear attributes to ~40 % (legendary ~35 %); weapons get base damage by quality; a full set at 25 ≈ the points spent | owner; measured |
+| D139 | Map walking (#111) | Slide along the bank; one clearance for steps and paths; 3-cell bridges; no walking on painted water near towns | map |
+| D140 | Plants (#112, #114) | A habitat (zone list) per plant; moonbells in the Woods; no sun petals in the Temple; gather errands checked against habitats | owner |
+| D141 | Careful clear (#113) | On a win: lost ≤ 15 % → ×2 purse, ≥ 50 % → ×1, linear between; lost = damage up to the HP left, heals do not refund; its own result line; the video triples only the base | owner; question 58 |
+| D142 | Gamblers (#115) | Fixed tables: Sunford ≤ Uncommon, Oakhaven ≤ Rare; streak per gambler; Sunford's prize a Rare | owner; farm guard |
+
+### Phases
+
+- [x] **27 Commit the session's work** (question 51): save slots with the exact
+  zone state (c31dd9f), then the Wavedash cloud save (7aaaf82).
+- [x] **28 Quick fixes** (#105, #112, #114; #108 waits for the owner). The
+  scaling badge shows only where the effect reads an attribute
+  (`scalingOf`, `FIXED_EFFECT`: 27 utilities and every passive show none;
+  Call Bear now shows Charisma). `skillScaling.test.ts` casts every active
+  skill with the hero's power table watched and reads the handlers'
+  source for effects that fire later, so the list cannot drift. Plants grow
+  by habitat (a zone list with weights) instead of theme and lowest level:
+  moonbells in the Whispering Woods (weight 3), no sun petals in the Temple,
+  every zone two kinds or more; the alchemist's hint re-written and
+  re-voiced; a test that the moonbell errands' plant grows where they send
+  the hero. #108: the frame was reproduced on the map and in town (same
+  pulse); what is wrong with it is asked.
+- [ ] **29 World map walking** (#111).
+- [ ] **30 Animal gaits** (#102).
+- [ ] **31 Balance core** (#109, #110, #104).
+- [ ] **32 Careful clear and gambler tables** (#113, #115).
+- [ ] **33 Sunford teachers** (#106).
+- [ ] **34 Place-shaped layouts** (#103): peak, temple, outskirts, tundra, crags.
+- [ ] **35 Towns of their own** (#103): Silverbridge on its bridge, Oakhaven.
+- [ ] **36 Ore and mining** (#99), chests that cannot be cancelled.
+- [ ] **37 The smith and smithing** (#99).
+- [ ] **38 Cages and captives** (#100).
+- [ ] **39 Sound pass** (#101).
+- [ ] **40 Voice, translations, paint, final balance** (#107).
+
+### Deferred
+
+(none yet)

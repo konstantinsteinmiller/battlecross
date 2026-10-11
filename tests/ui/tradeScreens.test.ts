@@ -6,7 +6,7 @@
 
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { mount, type VueWrapper } from '@vue/test-utils'
-import { SKILL_BY_ID } from '@/game/data/skills'
+import { SKILL_BY_ID, scalingOf } from '@/game/data/skills'
 import { nextTick } from 'vue'
 import { drainAndResetModules, drainPersist, holdGameState } from '../stubs/drainPersist'
 
@@ -159,10 +159,15 @@ describe('the trainer\'s lesson', () => {
     expect($('.deal-stamp')).toBeTruthy()
   })
 
-  it('every lesson and the card in hand show the attribute the skill grows with (#96)', async () => {
+  it('every lesson and the card in hand show the attribute the skill grows with (#96), none when it reads none (#105)', async () => {
     await open('TeachScreen', 'trainerPyro')
     const lessons = $$('.lesson')
-    for (const l of lessons) expect(l.querySelector('.stat-badge')?.getAttribute('data-scales'), l.getAttribute('data-skill') ?? '').toBe(SKILL_BY_ID[l.getAttribute('data-skill')!]!.scales)
+    for (const l of lessons) {
+      const def = SKILL_BY_ID[l.getAttribute('data-skill')!]!
+      expect(l.querySelector('.stat-badge')?.getAttribute('data-scales') ?? null, def.id).toBe(scalingOf(def))
+    }
+    expect(lessons.some(l => l.querySelector('.stat-badge')), 'some lesson scales').toBe(true)
+    expect(lessons.some(l => !l.querySelector('.stat-badge')), 'a passive shows none').toBe(true)
     await click(lessons[0]!)
     expect($('.skill-card .stat-badge.is-long')!.textContent).toContain('skill.scales')
   })

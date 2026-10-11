@@ -5,9 +5,51 @@ answered. Answered items move to the decision table in
 [`game-implementation-plan.md`](./game-implementation-plan.md) and are removed
 here.
 
-Last updated: 2026-10-07.
+Last updated: 2026-10-11.
 
 ## Needs an answer
+
+### 51. Commit this session's work before the #99–#115 batch
+
+The Wavedash cloud save, the manual save slots (pause menu, exact zone state)
+and the slot window's layout fix are verified but uncommitted.
+
+- **In effect:** two commits before phase 1; the owner's own modified files stay out.
+- **Recommended:** commit.
+
+### 52. Smithed gear: fixed catalogue or rolled pieces (#99)
+
+Items are fixed named pieces owned once; nothing is rolled.
+
+- **In effect:** a fixed catalogue (6 recipes × 4 ores, each with a masterwork
+  twin); the mini-game grade picks the twin and +0..+3 forge levels.
+- **Recommended:** the catalogue; rolled pieces touch the save, the item card,
+  selling, the item battle and art.
+
+### 53. Spell sounds: synthesis or generated files (#101)
+
+- **In effect:** layered synthesis per element and skill family.
+- **Recommended:** synthesis; generated files (+1–3 MB) only if wanted.
+
+### 54. Painting through the owner's Gemini (#107)
+
+- **In effect:** the Art Desk queue runs at the end of the batch; a login
+  prompt stops it and the painting is deferred.
+- **Recommended:** be logged in to gemini.google.com in the Art Desk browser.
+
+### 57. A freed disciple skips the master's test (#100)
+
+- **In effect:** yes; freeing them counts as finding the class.
+- **Recommended:** yes.
+
+### 58. Careful-clear bonus and the ad's ×3 (#113)
+
+- **In effect:** the bonus is added to the purse; the video triples only the
+  base purse.
+- **Recommended:** keep (no ×6).
+
+The decision report for the batch:
+https://claude.ai/artifact/FoU5cUbJPLUspNd4YpoytW
 
 ### 1. Portrait crop
 

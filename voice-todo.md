@@ -595,7 +595,7 @@ Nothing: every line has its recording.
 | `dlg.sbAlchemist.who.1` | Odile Fernwhistle (sbAlchemist) | sbAlchemist | I set my mum's garden on fire with a daisy. Nobody could explain it, so I had to learn. | chatterbox |
 | `dlg.sbAlchemist.herbs.say` | The hero (hero) | sbAlchemist | Where do I find herbs? | chatterbox |
 | `dlg.sbAlchemist.herbs.1` | Odile Fernwhistle (sbAlchemist) | sbAlchemist | Out in the wild, everywhere you fight. Just walk over a plant and it's yours. | chatterbox |
-| `dlg.sbAlchemist.herbs.2` | Odile Fernwhistle (sbAlchemist) | sbAlchemist | The rare ones grow further out. Moonbells and shadowthorn hide past the woods. | chatterbox |
+| `dlg.sbAlchemist.herbs.2` | Odile Fernwhistle (sbAlchemist) | sbAlchemist | The rare ones are choosy. Moonbells open in the Whispering Woods; shadowthorn wants the dark places. | chatterbox |
 | `dlg.sbAlchemist.elixirs.say` | The hero (hero) | sbAlchemist | What do the elixirs do? | chatterbox |
 | `dlg.sbAlchemist.elixirs.1` | Odile Fernwhistle (sbAlchemist) | sbAlchemist | Each one makes you stronger in a fight for a whole minute. Harder hits, tougher skin, quicker feet. | chatterbox |
 | `dlg.sbAlchemist.elixirs.2` | Odile Fernwhistle (sbAlchemist) | sbAlchemist | They sit in your third flask. Tap the little arrow to swap which one you drink. | chatterbox |

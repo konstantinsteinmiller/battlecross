@@ -1,5 +1,5 @@
 import { HERBS_MAX, HERBS_MIN, plantsOf, type PlantId } from '../data/plants'
-import type { ThemeId } from '../data/zones'
+import type { ZoneId } from '../data/items'
 import { CELL, cellOf, centerOf } from './grid'
 import { mulberry32, type Rng } from './rng'
 import type { Sim } from './world'
@@ -120,9 +120,9 @@ export const pickSpots = (p: SpotPlan, rng: Rng, n: number, apart = 7, avoid: Re
   return out
 }
 
-/** The herbs a visit holds: 3–4 of what grows in this theme and level band. */
-export const placeHerbs = (p: SpotPlan & { seed: number }, theme: ThemeId, level: number): HerbPlan[] => {
-  const pool = plantsOf(theme, level)
+/** The herbs a visit holds: 3–4 of what grows in this zone (its habitats). */
+export const placeHerbs = (p: SpotPlan & { seed: number }, zone: ZoneId): HerbPlan[] => {
+  const pool = plantsOf(zone)
   if (!pool.length) return []
   const rng = mulberry32((p.seed ^ HERB_SALT) >>> 0)
   const n = HERBS_MIN + Math.floor(rng() * (HERBS_MAX - HERBS_MIN + 1))

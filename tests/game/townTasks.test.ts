@@ -42,7 +42,7 @@ describe('what a board posts', () => {
           expect(ENEMY_BY_ID[t.enemy]!.rank).toBe('normal')
           expect(t.n).toBeGreaterThanOrEqual(8)
         } else if (t.kind === 'gather') {
-          expect(ZONES_EARLY.some(z => plantsOf(ZONES[z].theme, ZONES[z].min).some(p => p.id === t.plant)), `${town} ${t.plant}`).toBe(true)
+          expect(ZONES_EARLY.some(z => plantsOf(z).some(p => p.id === t.plant)), `${town} ${t.plant}`).toBe(true)
           expect(t.n).toBeGreaterThanOrEqual(3)
         }
       }

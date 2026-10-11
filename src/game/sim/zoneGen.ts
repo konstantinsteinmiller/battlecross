@@ -403,7 +403,7 @@ export const generateZone = (def: ZoneDef, seed: number, o: ZoneGenOpts = {}): Z
   // Herbs (#88), last and on their own stream: nothing above moves for them.
   // Not on the very first visit (one thing at a time) nor on a bare chain.
   const spots = { seed, w: Wd, h, solid, sealed, trail, kind, start, chests: features.chests }
-  const herbs = o.tutorial || o.bare ? [] : placeHerbs(spots, def.theme, def.min)
+  const herbs = o.tutorial || o.bare ? [] : placeHerbs(spots, def.id)
   // The treasure map (#89), after the herbs and on streams of their own too.
   const pieces = o.tutorial || o.bare ? [] : placePieces(spots, o.pieces ?? [], herbs)
   const end = clearings.find(c => c.role === 'finale') ?? clearings[clearings.length - 1]!

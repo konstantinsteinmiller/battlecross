@@ -71,7 +71,7 @@ export const postTasks = (town: TownId, day: string, zones: readonly ZoneId[], c
   const gather = (): TownTask | null => {
     // What grows where the hero can go; the common herbs more often.
     const grows = new Map<PlantId, number>()
-    for (const z of zones.length ? zones : ['plains' as ZoneId]) for (const p of plantsOf(ZONES[z].theme, ZONES[z].min)) grows.set(p.id, p.weight)
+    for (const z of zones.length ? zones : ['plains' as ZoneId]) for (const p of plantsOf(z)) grows.set(p.id, p.weight)
     const list = [...grows.entries()]
     if (!list.length) return null
     let r = rng() * list.reduce((s, [, w]) => s + w, 0)

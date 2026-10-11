@@ -273,7 +273,7 @@ export const SKILLS: readonly SkillDef[] = [
   A('wolfPounce', 'beastcaller', 3, { cha: 8 }, 7, 8, 'enemy', 12, 'cha', { dmg: 110, down: 0.8 }, { cast: 0.1 }),
   P('wildKinship', 'beastcaller', 5, { cha: 10 }, 'cha', { minionHp: 0.25, minionDamage: 0.1 }, { hp: 25, dmg: 10 }),
   A('callHawk', 'beastcaller', 7, { cha: 12, end: 6 }, 16, 14, 'enemy', 14, 'cha', { dmg: 120, vuln: 15, dur: 5, life: 20 }, { cast: 0.2 }),
-  A('callBear', 'beastcaller', 10, { cha: 15, end: 10 }, 20, 18, 'self', 0, 'end', { dmg: 70, max: 1 }, { cast: 0.4 }),
+  A('callBear', 'beastcaller', 10, { cha: 15, end: 10 }, 20, 18, 'self', 0, 'cha', { dmg: 70, max: 1 }, { cast: 0.4 }),
   P('thickHide', 'beastcaller', 12, { end: 16 }, 'end', { maxHpPct: 0.1, hpRegen: 1.5 }, { hp: 10, regen: 1.5 }),
   A('packBond', 'beastcaller', 14, { end: 19, cha: 14 }, 18, 16, 'self', 0, 'end', { regen: 3, def: 30, dur: 6, radius: 10 }, { radius: 10, cast: 0.2 }),
   A('spiritStampede', 'beastcaller', 17, { cha: 22, end: 16 }, 18, 20, 'dir', 12, 'cha', { dmg: 220, down: 1, width: 1.8 }, { cast: 0.35 }),
@@ -340,6 +340,24 @@ export const SKILLS: readonly SkillDef[] = [
 ]
 
 export const SKILL_BY_ID: Readonly<Record<string, SkillDef>> = Object.fromEntries(SKILLS.map(s => [s.id, s]))
+
+/**
+ * Actives whose effect reads no attribute (roadmap #105): flat percentages,
+ * durations, a taunt, a dash, a stance. They show no scaling badge. Pinned by
+ * `skillScaling.test.ts`, which casts every active skill and records which
+ * attributes it reads, so a skill that starts scaling cannot stay listed.
+ */
+export const FIXED_EFFECT: ReadonlySet<string> = new Set([
+  'tauntingCry', 'holyBastion', 'venomousBlade', 'smokeBomb', 'shadowMark', 'fanTheFlames', 'commandFocus',
+  'royalRally', 'bannerOfVictory', 'royalDecree', 'temporalStasis', 'hasteField', 'chronoRewind', 'essenceWard',
+  'earthBarrier', 'petrify', 'zephyrDash', 'blindingFlash', 'packBond', 'alphaHowl', 'tigerStance', 'craneStance',
+  'marchingSong', 'lullaby', 'balladOfValor', 'charmingSerenade', 'hymnOfMending'
+])
+
+/** The attribute a skill's effect grows with, or null when nothing it does
+ *  reads one (every passive: flat bonuses; the actives in FIXED_EFFECT). */
+export const scalingOf = (def: SkillDef): Attr | null =>
+  def.kind === 'passive' || FIXED_EFFECT.has(def.id) ? null : def.scales
 
 export const skillsOf = (cls: ClassId): SkillDef[] => SKILLS.filter(s => s.cls === cls)
 
