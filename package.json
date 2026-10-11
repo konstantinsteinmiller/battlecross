@@ -27,6 +27,8 @@
     "deploy:playgama": "node tools/playgama-deploy/deploy.mjs",
     "build-github-main": "vite build --base=/Battlecross/ --outDir=dist",
     "build-github-develop": "vite build --base=/Battlecross/develop/ --outDir=dist/develop",
+    "wiki:dev": "vite --config wiki/vite.config.ts",
+    "wiki:build": "vite build --config wiki/vite.config.ts",
     "deploy": "vite build && surge dist/ --domain Battlecross.surge.sh",
     "validated-build": "vue-tsc -b && vite build",
     "type-check": "vue-tsc --build",

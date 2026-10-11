@@ -74,6 +74,12 @@ jobs:
 #          VITE_APP_TURN_USERNAME: ${{ secrets.VITE_APP_TURN_USERNAME }}
 #          VITE_APP_TURN_CREDENTIAL: ${{ secrets.VITE_APP_TURN_CREDENTIAL }}
 
+      # The player codex (builds, planner, loot finder) at /battlecross/wiki/.
+      # It reads the game's own data, so it is rebuilt with every deploy.
+      - name: Build Wiki
+        run: npm run wiki:build
+        working-directory: main
+
       - name: Create Dist Folder
         run: mkdir dist
 
