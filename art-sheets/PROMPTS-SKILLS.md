@@ -1935,11 +1935,11 @@ EACH PANEL IS ONE CHUNKY PAINTED OBJECT OR BURST OF ENERGY — NOT A FLAT SYMBOL
 
 WHAT EACH PANEL IS:
 Panel 1 (row 1, column 1): a flat oval on the ground with frost spikes around its rim.
-Panel 2 (row 1, column 2): an ice block bursting into four shards flying out from its corners.
-Panel 3 (row 1, column 3): a cracked blue crystal with a bold red dot on the crack. Keep this one compact, well away from its panel's four corners (the game crops it to a circle). Do NOT draw a circle, ring, disc or badge around or behind it.
-Panel 4 (row 2, column 1): a thick arrow pointing down at a snow-capped peak.
-Panel 5 (row 2, column 2): a tall blue ice pillar standing in front of a pale mountain. Keep this one compact, well away from its panel's four corners (the game crops it to a circle). Do NOT draw a circle, ring, disc or badge around or behind it.
-Panel 6 (row 2, column 3): a big white snowflake inside a round pale disc, a small red thermometer bulb at the bottom.
+Panel 2 (row 1, column 2): a solid blue ice cube cracking apart, four pointed ice shards flying off its corners.
+Panel 3 (row 1, column 3): a tall faceted blue ice crystal split down the middle by a jagged dark crack, three chips flying off its sides. Keep this one compact, well away from its panel's four corners (the game crops it to a circle). Do NOT draw a circle, ring, disc or badge around or behind it.
+Panel 4 (row 2, column 1): a snow-capped peak with a big white burst of snow exploding on its top, blue ice chunks flying off it.
+Panel 5 (row 2, column 2): a knight's helmet carved from clear blue ice, two long frost horns sweeping up from its sides. Keep this one compact, well away from its panel's four corners (the game crops it to a circle). Do NOT draw a circle, ring, disc or badge around or behind it.
+Panel 6 (row 2, column 3): a big six-pointed ice crystal star, a smaller white star crystal inside it and a pale blue gem in its centre.
 
 COLOUR — ONE accent for the whole sheet: ice blue (about #a8d8ff). Wherever the reference uses that colour, yours does; white, gold, steel, wood, red, green and blue details keep the colours the reference gives them. Take the HUE, not the flatness.
 
@@ -2034,10 +2034,10 @@ EACH PANEL IS ONE CHUNKY PAINTED OBJECT OR BURST OF ENERGY — NOT A FLAT SYMBOL
 · The game draws its own coloured frame around each one. Nothing here sits on a tile, badge, ring or disc.
 
 WHAT EACH PANEL IS:
-Panel 1 (row 1, column 1): a small gold sun with one long ray shooting out to the right.
+Panel 1 (row 1, column 1): a blazing gold sun orb with a white-hot centre, trailing a short solid golden tail to the lower left as it flies.
 Panel 2 (row 1, column 2): a rose heart with a white plus sign on it and small gold sparkles rising beside it.
-Panel 3 (row 1, column 3): a small gold candle flame cupped in a pair of pale hands. Keep this one compact, well away from its panel's four corners (the game crops it to a circle). Do NOT draw a circle, ring, disc or badge around or behind it.
-Panel 4 (row 2, column 1): a straight gold beam with a white four-pointed starburst at its tip.
+Panel 3 (row 1, column 3): a short white wax candle with a small gold flame burning on top. Keep this one compact, well away from its panel's four corners (the game crops it to a circle). Do NOT draw a circle, ring, disc or badge around or behind it.
+Panel 4 (row 2, column 1): a long spear of solid gold light flying up and to the right, its tip a white-hot point.
 Panel 5 (row 2, column 2): a rose shield with a gold half-sun rising across its lower half.
 Panel 6 (row 2, column 3): a gold halo ring floating above a small rose shield. Keep this one compact, well away from its panel's four corners (the game crops it to a circle). Do NOT draw a circle, ring, disc or badge around or behind it.
 
@@ -2137,9 +2137,9 @@ WHAT EACH PANEL IS:
 Panel 1 (row 1, column 1): a flat oval of light on the ground with a gold cross of light rising out of it.
 Panel 2 (row 1, column 2): a wide eye with a big gold eight-pointed starburst flashing above it.
 Panel 3 (row 1, column 3): gold wings of light folded around a rose heart. Keep this one compact, well away from its panel's four corners (the game crops it to a circle). Do NOT draw a circle, ring, disc or badge around or behind it.
-Panel 4 (row 2, column 1): a gold sun dropping a thick pillar of light straight down to the ground.
+Panel 4 (row 2, column 1): a gold sun hanging at the top, pouring a thick solid pillar of golden light straight down to the ground.
 Panel 5 (row 2, column 2): a gold sun with rays and a sharp white four-pointed star in its centre. Keep this one compact, well away from its panel's four corners (the game crops it to a circle). Do NOT draw a circle, ring, disc or badge around or behind it.
-Panel 6 (row 2, column 3): a small white figure inside a big radiant gold halo.
+Panel 6 (row 2, column 3): a big golden halo ring floating flat, with solid gold sun rays fanning out all around it.
 
 COLOUR — ONE accent for the whole sheet: rose (about #ffa8c8). Wherever the reference uses that colour, yours does; white, gold, steel, wood, red, green and blue details keep the colours the reference gives them. Take the HUE, not the flatness.
 
@@ -2234,11 +2234,11 @@ EACH PANEL IS ONE CHUNKY PAINTED OBJECT OR BURST OF ENERGY — NOT A FLAT SYMBOL
 · The game draws its own coloured frame around each one. Nothing here sits on a tile, badge, ring or disc.
 
 WHAT EACH PANEL IS:
-Panel 1 (row 1, column 1): a leaf-green wolf head seen from the front inside a pale circle.
-Panel 2 (row 1, column 2): a green wolf head leaning forward with a thick arrow pointing down beside it.
+Panel 1 (row 1, column 1): a leaf-green spirit wolf's head seen from the front: tall pointed ears, a long muzzle with a dark nose, narrow fierce eyes and pale cheek ruffs.
+Panel 2 (row 1, column 2): a leaf-green spirit wolf's head lunging forward with jaws open, its two front paws stretched out below it, claws out.
 Panel 3 (row 1, column 3): a green heart with a white paw print on it. Keep this one compact, well away from its panel's four corners (the game crops it to a circle). Do NOT draw a circle, ring, disc or badge around or behind it.
-Panel 4 (row 2, column 1): a golden hawk with spread wings diving down.
-Panel 5 (row 2, column 2): a honey-brown bear head seen from the front with round ears.
+Panel 4 (row 2, column 1): a golden-brown hawk swooping down at the viewer, broad feathered wings spread wide, a hooked yellow beak and sharp eyes.
+Panel 5 (row 2, column 2): a honey-brown bear's head seen from the front: round ears with pale insides, a pale muzzle, a dark nose and small fierce eyes.
 Panel 6 (row 2, column 3): a shield shape covered in short fur stripes. Keep this one compact, well away from its panel's four corners (the game crops it to a circle). Do NOT draw a circle, ring, disc or badge around or behind it.
 
 COLOUR — ONE accent for the whole sheet: leaf green (about #4fb85a). Wherever the reference uses that colour, yours does; white, gold, steel, wood, red, green and blue details keep the colours the reference gives them. Take the HUE, not the flatness.
@@ -2337,7 +2337,7 @@ WHAT EACH PANEL IS:
 Panel 1 (row 1, column 1): three green paw prints in a ring around a white plus sign.
 Panel 2 (row 1, column 2): three green paw prints running to the right with speed lines below them.
 Panel 3 (row 1, column 3): a steel spearhead pointing up with a green paw print on each side. Keep this one compact, well away from its panel's four corners (the game crops it to a circle). Do NOT draw a circle, ring, disc or badge around or behind it.
-Panel 4 (row 2, column 1): a green wolf head with curved sound arcs coming from its mouth.
+Panel 4 (row 2, column 1): a leaf-green spirit wolf's head raised to the sky in a howl, muzzle pointing up, a small white star of sound beside it.
 Panel 5 (row 2, column 2): a green paw print wearing a small gold crown. Keep this one compact, well away from its panel's four corners (the game crops it to a circle). Do NOT draw a circle, ring, disc or badge around or behind it.
 Panel 6 (row 2, column 3): a gold crescent moon over a low line of running animal shapes.
 
@@ -2436,10 +2436,10 @@ EACH PANEL IS ONE CHUNKY PAINTED OBJECT OR BURST OF ENERGY — NOT A FLAT SYMBOL
 WHAT EACH PANEL IS:
 Panel 1 (row 1, column 1): a small diamond-shaped prism, its left half flame orange and its right half ice blue.
 Panel 2 (row 1, column 2): four small orbs, red, blue, gold and stone grey, sitting on a thin ring. Keep this one compact, well away from its panel's four corners (the game crops it to a circle). Do NOT draw a circle, ring, disc or badge around or behind it.
-Panel 3 (row 1, column 3): a long ice-blue spear of ice pointing to the right.
-Panel 4 (row 2, column 1): a zigzag lightning bolt that forks into three bright tips.
+Panel 3 (row 1, column 3): a long spear of clear blue ice pointing to the right, small ice spikes jutting from its shaft.
+Panel 4 (row 2, column 1): a jagged gold lightning bolt with three small sparks crackling off it.
 Panel 5 (row 2, column 2): a dark glowing coal with a red heart and a small blue drop above it. Keep this one compact, well away from its panel's four corners (the game crops it to a circle). Do NOT draw a circle, ring, disc or badge around or behind it.
-Panel 6 (row 2, column 3): a round grey boulder rolling to the right with three speed lines behind it.
+Panel 6 (row 2, column 3): a big round grey boulder with cracks and a chipped face.
 
 COLOUR — ONE accent for the whole sheet: magenta (about #e86bff). Wherever the reference uses that colour, yours does; white, gold, steel, wood, red, green and blue details keep the colours the reference gives them. Take the HUE, not the flatness.
 
@@ -2637,7 +2637,7 @@ WHAT EACH PANEL IS:
 Panel 1 (row 1, column 1): a friendly teardrop-shaped periwinkle wisp with two dot eyes and a little curl of a tail.
 Panel 2 (row 1, column 2): two small friendly white ghost shapes side by side, one with a small heart. Keep this one compact, well away from its panel's four corners (the game crops it to a circle). Do NOT draw a circle, ring, disc or badge around or behind it.
 Panel 3 (row 1, column 3): an open cupped hand with three small glowing wisps rising from it.
-Panel 4 (row 2, column 1): two small wisps joined by a curved ribbon.
+Panel 4 (row 2, column 1): two small periwinkle wisps side by side, joined by a curved golden ribbon beneath them.
 Panel 5 (row 2, column 2): a glowing wisp rising over a dotted ground line. Keep this one compact, well away from its panel's four corners (the game crops it to a circle). Do NOT draw a circle, ring, disc or badge around or behind it.
 Panel 6 (row 2, column 3): a gold hanging lantern with a white glow inside and short rays around it.
 
@@ -2836,9 +2836,9 @@ EACH PANEL IS ONE CHUNKY PAINTED OBJECT OR BURST OF ENERGY — NOT A FLAT SYMBOL
 WHAT EACH PANEL IS:
 Panel 1 (row 1, column 1): an open jade palm facing forward with three short motion lines beside it.
 Panel 2 (row 1, column 2): a steel chest plate held on with four rivets. Keep this one compact, well away from its panel's four corners (the game crops it to a circle). Do NOT draw a circle, ring, disc or badge around or behind it.
-Panel 3 (row 1, column 3): a foot kicking up and to the right in a leap, with a long motion trail.
+Panel 3 (row 1, column 3): a jade-sleeved leg kicking straight up and to the right in a leap, a wooden sandal on the foot.
 Panel 4 (row 2, column 1): a gold tiger paw print with two small claw marks.
-Panel 5 (row 2, column 2): a white crane standing on one leg.
+Panel 5 (row 2, column 2): a white crane standing tall on one leg, its wings half raised and a yellow beak.
 Panel 6 (row 2, column 3): a jade fist above a flowing wave. Keep this one compact, well away from its panel's four corners (the game crops it to a circle). Do NOT draw a circle, ring, disc or badge around or behind it.
 
 COLOUR — ONE accent for the whole sheet: jade (about #5fd08a). Wherever the reference uses that colour, yours does; white, gold, steel, wood, red, green and blue details keep the colours the reference gives them. Take the HUE, not the flatness.
@@ -2878,7 +2878,7 @@ READABLE AT 40 PIXELS — each of these is shown about 40 pixels wide in the gam
 · Hold each panel at thumbnail size: if it is not instantly recognisable as a silhouette with two or three big areas of colour, simplify it.
 
 SIZE AND PLACE — measure against the PANEL, not against the paper.
-· In the reference no drawing is wider than about 84% of its panel or taller than about 74%, and every panel keeps a clear magenta margin on all four sides.
+· In the reference no drawing is wider than about 84% of its panel or taller than about 75%, and every panel keeps a clear magenta margin on all four sides.
 · Paint each one as LARGE as the reference shows it: it takes up most of its panel, with a narrow, even margin of magenta around it. A small drawing in the middle of a big empty panel is the wrong answer.
 · Keep each one at the size and in the spot its own panel shows. If yours reaches a panel edge it is too big, and it will be cut in half by the slice.
 · Where a drawing sits in its panel is not a composition choice: do not re-centre, do not even out the spacing, do not let one lean into the next panel.
@@ -2935,9 +2935,9 @@ EACH PANEL IS ONE CHUNKY PAINTED OBJECT OR BURST OF ENERGY — NOT A FLAT SYMBOL
 
 WHAT EACH PANEL IS:
 Panel 1 (row 1, column 1): four small jade fists fanned out together.
-Panel 2 (row 1, column 2): a jade fist rising with a long curling ribbon wrapped around it.
+Panel 2 (row 1, column 2): a jade fist driving upward, a long curling jade ribbon spiralling up around it.
 Panel 3 (row 1, column 3): a single long white feather. Keep this one compact, well away from its panel's four corners (the game crops it to a circle). Do NOT draw a circle, ring, disc or badge around or behind it.
-Panel 4 (row 2, column 1): a thick spiral with a small foot shape at its outer tip.
+Panel 4 (row 2, column 1): a jade-sleeved leg sweeping round in a high spinning kick, a wide pale curved swoosh following the foot.
 Panel 5 (row 2, column 2): a jade fist with three red claw slashes across it. Keep this one compact, well away from its panel's four corners (the game crops it to a circle). Do NOT draw a circle, ring, disc or badge around or behind it.
 Panel 6 (row 2, column 3): a giant jade palm pressing down on a pale mountain peak.
 
@@ -3137,8 +3137,8 @@ WHAT EACH PANEL IS:
 Panel 1 (row 1, column 1): a pink heart with a white musical note on it.
 Panel 2 (row 1, column 2): a pink lute with three small gold sparks flying from its strings. Keep this one compact, well away from its panel's four corners (the game crops it to a circle). Do NOT draw a circle, ring, disc or badge around or behind it.
 Panel 3 (row 1, column 3): a green plus sign with a white musical note on it.
-Panel 4 (row 2, column 1): a widening wedge shape opening to the right, with curved sound arcs.
-Panel 5 (row 2, column 2): two pink hands clapping with short motion lines above them. Keep this one compact, well away from its panel's four corners (the game crops it to a circle). Do NOT draw a circle, ring, disc or badge around or behind it.
+Panel 4 (row 2, column 1): a pink brass horn, its bell flaring wide to the upper right, a gold four-pointed sparkle at its mouth.
+Panel 5 (row 2, column 2): a pale raised hand with spread fingers clapping, two small gold sparkles around it. Keep this one compact, well away from its panel's four corners (the game crops it to a circle). Do NOT draw a circle, ring, disc or badge around or behind it.
 Panel 6 (row 2, column 3): a pink lute under a big bursting gold firework.
 
 COLOUR — ONE accent for the whole sheet: pink (about #ff8ad8). Wherever the reference uses that colour, yours does; white, gold, steel, wood, red, green and blue details keep the colours the reference gives them. Take the HUE, not the flatness.
