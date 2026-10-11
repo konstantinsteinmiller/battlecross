@@ -30,7 +30,7 @@ const GROUPS = [
             <span class="chip" v-if="CLASSES[c].faction !== 'none'">{{ factionName(CLASSES[c].faction) }}</span>
             <span class="chip">From ~lv {{ classOpensAt(c) }}</span>
           </div>
-          <div class="row sk"><SkillIcon v-for="s in skillsByClass(c).slice(0, 6)" :key="s.id" :id="s.id" :size="30" /></div>
+          <div class="sk"><SkillIcon v-for="s in skillsByClass(c)" :key="s.id" :id="s.id" :size="30" /></div>
           <div class="dim small">{{ teachersOf(c).length }} teacher{{ teachersOf(c).length > 1 ? 's' : '' }}</div>
         </a>
       </div>
@@ -44,5 +44,5 @@ const GROUPS = [
 .cc::before { content: ''; position: absolute; right: -60px; top: -60px; width: 200px; height: 200px; background: radial-gradient(circle, color-mix(in srgb, var(--c) 30%, transparent), transparent 70%); }
 .ico { width: 64px; height: 64px; object-fit: contain; position: relative; filter: drop-shadow(0 4px 10px rgba(0,0,0,.6)); }
 .cc h3 { margin: 8px 0 4px; font-size: 22px; }
-.sk { gap: 5px; margin: 10px 0 6px; }
+.sk { display: grid; grid-template-columns: repeat(6, minmax(0, 30px)); gap: 6px; margin: 10px 0 6px; position: relative; }
 </style>
