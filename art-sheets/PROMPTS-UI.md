@@ -85,6 +85,7 @@ PAINTED VOLUME — this is what the sheet is judged on.
 · Fire, light and energy are solid things too: a bright, almost white inner core, the accent colour around it, and a deeper shade of that colour at the rim, in hard steps.
 · A thick dark outline around every shape: the charcoal-violet line on a solid object, a DARK SHADE OF THE SHAPE'S OWN COLOUR on fire, light and energy.
 · A shape filled with ONE flat colour is the wrong answer. So is the look of an icon font, a sticker, a logo or a road sign. An earlier attempt came back as flat single-colour shapes with an outline, just like the reference, and it could not be used.
+· The other wrong answer is a glossy 3D render: a plastic, vinyl, clay or rubber-toy look, soft airbrushed gradients, shiny specular blobs all over. That came back too and could not be used. This is a HAND-PAINTED 2D game icon, painted by the same hand as the attached weapons: hard-stepped cel shading, thick outline, a few crisp highlights.
 · The silhouette is the reference's, unchanged. Put the volume INSIDE the outline; do not add parts around it.
 · The accent colour stays the dominant colour of every panel.
 
@@ -148,6 +149,7 @@ PAINTED VOLUME — this is what the sheet is judged on.
 · Fire, light and energy are solid things too: a bright, almost white inner core, the accent colour around it, and a deeper shade of that colour at the rim, in hard steps.
 · A thick dark outline around every shape: the charcoal-violet line on a solid object, a DARK SHADE OF THE SHAPE'S OWN COLOUR on fire, light and energy.
 · A shape filled with ONE flat colour is the wrong answer. So is the look of an icon font, a sticker, a logo or a road sign. An earlier attempt came back as flat single-colour shapes with an outline, just like the reference, and it could not be used.
+· The other wrong answer is a glossy 3D render: a plastic, vinyl, clay or rubber-toy look, soft airbrushed gradients, shiny specular blobs all over. That came back too and could not be used. This is a HAND-PAINTED 2D game icon, painted by the same hand as the attached weapons: hard-stepped cel shading, thick outline, a few crisp highlights.
 · The silhouette is the reference's, unchanged. Put the volume INSIDE the outline; do not add parts around it.
 · The accent colour stays the dominant colour of every panel.
 
@@ -220,6 +222,7 @@ PAINTED VOLUME — this is what the sheet is judged on.
 · Fire, light and energy are solid things too: a bright, almost white inner core, the accent colour around it, and a deeper shade of that colour at the rim, in hard steps.
 · A thick dark outline around every shape: the charcoal-violet line on a solid object, a DARK SHADE OF THE SHAPE'S OWN COLOUR on fire, light and energy.
 · A shape filled with ONE flat colour is the wrong answer. So is the look of an icon font, a sticker, a logo or a road sign. An earlier attempt came back as flat single-colour shapes with an outline, just like the reference, and it could not be used.
+· The other wrong answer is a glossy 3D render: a plastic, vinyl, clay or rubber-toy look, soft airbrushed gradients, shiny specular blobs all over. That came back too and could not be used. This is a HAND-PAINTED 2D game icon, painted by the same hand as the attached weapons: hard-stepped cel shading, thick outline, a few crisp highlights.
 · The silhouette is the reference's, unchanged. Put the volume INSIDE the outline; do not add parts around it.
 · The accent colour stays the dominant colour of every panel.
 
@@ -262,9 +265,15 @@ OUTPUT: one square image (1:1), 1024 x 1024 pixels or larger. If your tool has a
 
 ## UI: the world map terrain  (bg-ui-map.png → images/ui/map.webp)
 
+Attach, in this order: `art-sheets/painted/sheet-items-weapons.jpg`, `art-sheets/painted/sheet-icons-misc.jpg`, then the reference named in the heading.
+
 ```text
 WHAT COMES BACK IS ONE FULL-BLEED ILLUSTRATED MAP OF A FANTASY REALM: ITS TERRAIN ONLY, WITH NO BUILDINGS AND NO LETTERING.
 One landscape image, 1376 x 768 pixels (16:9), painted edge to edge.
+
+ATTACHED IMAGES — there are 3, and they do two different jobs.
+· The FIRST TWO are finished paintings from this same game: its item icons and its interface icons. Take from them ONLY the HAND: the thick charcoal-violet outline round every shape, the hard two-step cel shading, the small white glints, the saturated candy colours and the chunky, rounded, toy-like forms. Every mountain, tree, hill, rock, wave and bridge on the map is painted as if it were one more icon from those sheets. Nothing of their CONTENT (no swords, no icons, no panels, no magenta) goes on the map.
+· The LAST is the layout reference: the map's plan. Paint EXACTLY what it shows, at its scale: every coast, region, river, bridge, road and clearing where the reference has it.
 
 IT FILLS THE IMAGE, edge to edge, corner to corner. There is NO background behind it and NO magenta anywhere in this one: it is itself the sheet the map screen is drawn on top of. No frame, no border, no vignette, no card, no matting, no rounded corners, no letterboxing, no curled or torn paper edge (the game draws the paper's edge itself).
 
@@ -284,9 +293,10 @@ WHAT IT IS: the terrain of a hand-drawn storybook map, drawn the way such maps a
 
 WHAT IT IS NOT — read this twice. The game draws every landmark, every place marker and every name OVER this picture, on the 17 clearings, and they change as the player travels: a place is hidden under cloud, then opens, then is marked as cleared. So the clearings stay bare ground, and NOTHING painted anywhere may be a building or a sign: no towns, no houses, no castles, no towers, no temples, no tents, no camps, no windmills, no lighthouses, no ships under sail, no people, no monsters, no flags, no banners, no crosses, no compass rose, no title ribbon, no clouds, no text, no letters, no numbers. A painted town would sit beside the real one and read as a second, wrong place.
 · Do not add regions, roads, rivers or clearings the reference does not have, and do not join, move or drop any it has.
+EVERY REGION KEEPS ITS OWN OUTLINE — the mistake to avoid above all. The mountains stand ONLY inside the mountain regions the reference marks, and no bigger and no more of them than it shows: a mountain range never spills over the green land, the fields, the forest, the coast, a road or a clearing, and never grows to cover a larger share of the map than its region does in the reference. The same holds for forest, hills, ice, lava and swamp: each fills its own region and stops at its edge. Where the reference shows open grassland, it stays open grassland.
 · Keep it bright and even: small landmarks and paper name tags sit on every part of it and must stay readable. No region darker or busier than the reference shows it.
 
-COLOUR — the reference's own, region by region. Take the HUES from it, not the flatness.
+COLOUR — the layout reference's own, region by region (so the four quarters match where they meet), in the saturation of the first two images. Take the HUES from the reference, not its flatness.
 
 THE VIEW — the map convention the reference uses: the ground from straight above, each mountain, tree and hill as a small upright picture on it. No horizon, no perspective, no tilt of the sheet.
 
@@ -305,6 +315,8 @@ AVOID: three-quarter or perspective views, realism, pixel art, thin technical li
 BEFORE YOU CALL IT FINISHED, check:
 · The picture reaches all four edges of the image; there is no magenta and no border.
 · Laid over the reference, every coast, river, bridge, road and clearing is where it has it.
+· Each region's outline matches the reference: no mountains, trees or hills outside their own region, and the mountain regions are no larger than the reference makes them.
+· Held next to the first two attached images, the map looks painted by the same hand: the same outline weight, the same two-step shading, the same glints. Flat, outline-thin clip-art stickers are wrong.
 · The 17 clearings are empty, and there is not one building, figure, symbol or letter anywhere in it.
 
 OUTPUT: one image, 1376 x 768 pixels (16:9, landscape). If your tool has an aspect-ratio control, set it to 16:9. PNG. No labels, captions, numbers or watermarks.
@@ -312,14 +324,14 @@ OUTPUT: one image, 1376 x 768 pixels (16:9, landscape). If your tool has an aspe
 
 ## UI: the world map, top left quarter  (bg-ui-terrain-nw.png → ../art-sheets/map-parts/nw.webp)
 
-Attach, in this order: `art-sheets/painted/bg-ui-map.jpg`, then the reference named in the heading.
+Attach, in this order: `art-sheets/painted/sheet-items-weapons.jpg`, `art-sheets/painted/sheet-icons-misc.jpg`, then the reference named in the heading.
 
 ```text
 WHAT COMES BACK IS THE TOP LEFT QUARTER OF AN ILLUSTRATED MAP OF A FANTASY REALM, ENLARGED: ITS TERRAIN ONLY, WITH NO BUILDINGS AND NO LETTERING.
 One landscape image, 1376 x 768 pixels (16:9), painted edge to edge.
 
-ATTACHED IMAGES — there are 2, and they do two different jobs.
-· The FIRST is the whole map, already painted. Take from it ONLY the finish: the hand, the outlines, the shading, the colour of every region, and how big each tree, mountain, hill, wave and field is against the roads and clearings. Not its layout: it is older than the plan and differs from it in places.
+ATTACHED IMAGES — there are 3, and they do two different jobs.
+· The FIRST TWO are finished paintings from this same game: its item icons and its interface icons. Take from them ONLY the HAND: the thick charcoal-violet outline round every shape, the hard two-step cel shading, the small white glints, the saturated candy colours and the chunky, rounded, toy-like forms. Every mountain, tree, hill, rock, wave and bridge on the map is painted as if it were one more icon from those sheets. Nothing of their CONTENT (no swords, no icons, no panels, no magenta) goes on the map.
 · The LAST is the layout reference: the top left part of the map's plan, enlarged to fill the image. Paint EXACTLY what it shows, at its scale: every coast, region, river, bridge, road and clearing where the reference has it.
 
 Four such quarters are painted and joined into one big map, each overlapping its neighbours by a wide strip, so they must meet without a visible join. The top and left edges are the edges of the whole map. The bottom and right edges cut straight through the middle of the land: the terrain simply runs on past them, cut off mid-tree and mid-field. No coast, no frame, no darkening, no fade and no empty margin along them.
@@ -343,9 +355,10 @@ WHAT IT IS: part of the terrain of a hand-drawn storybook map, drawn the way suc
 
 WHAT IT IS NOT — read this twice. The game draws every landmark, every place marker and every name OVER this picture, on the clearings, and they change as the player travels: a place is hidden under cloud, then opens, then is marked as cleared. So the clearings stay bare ground, and NOTHING painted anywhere may be a building or a sign: no towns, no houses, no castles, no towers, no temples, no tents, no camps, no windmills, no lighthouses, no ships under sail, no people, no monsters, no flags, no banners, no crosses, no compass rose, no title ribbon, no clouds, no text, no letters, no numbers. A painted town would sit beside the real one and read as a second, wrong place.
 · Do not add regions, roads, rivers or clearings the reference does not have, and do not join, move or drop any it has.
+EVERY REGION KEEPS ITS OWN OUTLINE — the mistake to avoid above all. The mountains stand ONLY inside the mountain regions the reference marks, and no bigger and no more of them than it shows: a mountain range never spills over the green land, the fields, the forest, the coast, a road or a clearing, and never grows to cover a larger share of the map than its region does in the reference. The same holds for forest, hills, ice, lava and swamp: each fills its own region and stops at its edge. Where the reference shows open grassland, it stays open grassland.
 · Keep it bright and even: small landmarks and paper name tags sit on every part of it and must stay readable. No region darker or busier than the reference shows it.
 
-COLOUR — the first image's own, region by region, so the four quarters match where they meet.
+COLOUR — the layout reference's own, region by region (so the four quarters match where they meet), in the saturation of the first two images. Take the HUES from the reference, not its flatness.
 
 THE VIEW — the map convention the reference uses: the ground from straight above, each mountain, tree and hill as a small upright picture on it. No horizon, no perspective, no tilt of the sheet.
 
@@ -364,6 +377,8 @@ AVOID: three-quarter or perspective views, realism, pixel art, thin technical li
 BEFORE YOU CALL IT FINISHED, check:
 · The picture reaches all four edges of the image; there is no magenta and no border.
 · Laid over the last attached image, every coast, river, bridge, road and clearing is where it has it.
+· Each region's outline matches the reference: no mountains, trees or hills outside their own region, and the mountain regions are no larger than the reference makes them.
+· Held next to the first two attached images, the map looks painted by the same hand: the same outline weight, the same two-step shading, the same glints. Flat, outline-thin clip-art stickers are wrong.
 · The clearings are empty, and there is not one building, figure, symbol or letter anywhere in it.
 · Along the bottom and right edges the land runs straight on, as if the picture were cut from a bigger one.
 
@@ -372,14 +387,14 @@ OUTPUT: one image, 1376 x 768 pixels (16:9, landscape). If your tool has an aspe
 
 ## UI: the world map, top right quarter  (bg-ui-terrain-ne.png → ../art-sheets/map-parts/ne.webp)
 
-Attach, in this order: `art-sheets/painted/bg-ui-map.jpg`, then the reference named in the heading.
+Attach, in this order: `art-sheets/painted/sheet-items-weapons.jpg`, `art-sheets/painted/sheet-icons-misc.jpg`, then the reference named in the heading.
 
 ```text
 WHAT COMES BACK IS THE TOP RIGHT QUARTER OF AN ILLUSTRATED MAP OF A FANTASY REALM, ENLARGED: ITS TERRAIN ONLY, WITH NO BUILDINGS AND NO LETTERING.
 One landscape image, 1376 x 768 pixels (16:9), painted edge to edge.
 
-ATTACHED IMAGES — there are 2, and they do two different jobs.
-· The FIRST is the whole map, already painted. Take from it ONLY the finish: the hand, the outlines, the shading, the colour of every region, and how big each tree, mountain, hill, wave and field is against the roads and clearings. Not its layout: it is older than the plan and differs from it in places.
+ATTACHED IMAGES — there are 3, and they do two different jobs.
+· The FIRST TWO are finished paintings from this same game: its item icons and its interface icons. Take from them ONLY the HAND: the thick charcoal-violet outline round every shape, the hard two-step cel shading, the small white glints, the saturated candy colours and the chunky, rounded, toy-like forms. Every mountain, tree, hill, rock, wave and bridge on the map is painted as if it were one more icon from those sheets. Nothing of their CONTENT (no swords, no icons, no panels, no magenta) goes on the map.
 · The LAST is the layout reference: the top right part of the map's plan, enlarged to fill the image. Paint EXACTLY what it shows, at its scale: every coast, region, river, bridge, road and clearing where the reference has it.
 
 Four such quarters are painted and joined into one big map, each overlapping its neighbours by a wide strip, so they must meet without a visible join. The top and right edges are the edges of the whole map. The bottom and left edges cut straight through the middle of the land: the terrain simply runs on past them, cut off mid-tree and mid-field. No coast, no frame, no darkening, no fade and no empty margin along them.
@@ -403,9 +418,10 @@ WHAT IT IS: part of the terrain of a hand-drawn storybook map, drawn the way suc
 
 WHAT IT IS NOT — read this twice. The game draws every landmark, every place marker and every name OVER this picture, on the clearings, and they change as the player travels: a place is hidden under cloud, then opens, then is marked as cleared. So the clearings stay bare ground, and NOTHING painted anywhere may be a building or a sign: no towns, no houses, no castles, no towers, no temples, no tents, no camps, no windmills, no lighthouses, no ships under sail, no people, no monsters, no flags, no banners, no crosses, no compass rose, no title ribbon, no clouds, no text, no letters, no numbers. A painted town would sit beside the real one and read as a second, wrong place.
 · Do not add regions, roads, rivers or clearings the reference does not have, and do not join, move or drop any it has.
+EVERY REGION KEEPS ITS OWN OUTLINE — the mistake to avoid above all. The mountains stand ONLY inside the mountain regions the reference marks, and no bigger and no more of them than it shows: a mountain range never spills over the green land, the fields, the forest, the coast, a road or a clearing, and never grows to cover a larger share of the map than its region does in the reference. The same holds for forest, hills, ice, lava and swamp: each fills its own region and stops at its edge. Where the reference shows open grassland, it stays open grassland.
 · Keep it bright and even: small landmarks and paper name tags sit on every part of it and must stay readable. No region darker or busier than the reference shows it.
 
-COLOUR — the first image's own, region by region, so the four quarters match where they meet.
+COLOUR — the layout reference's own, region by region (so the four quarters match where they meet), in the saturation of the first two images. Take the HUES from the reference, not its flatness.
 
 THE VIEW — the map convention the reference uses: the ground from straight above, each mountain, tree and hill as a small upright picture on it. No horizon, no perspective, no tilt of the sheet.
 
@@ -424,6 +440,8 @@ AVOID: three-quarter or perspective views, realism, pixel art, thin technical li
 BEFORE YOU CALL IT FINISHED, check:
 · The picture reaches all four edges of the image; there is no magenta and no border.
 · Laid over the last attached image, every coast, river, bridge, road and clearing is where it has it.
+· Each region's outline matches the reference: no mountains, trees or hills outside their own region, and the mountain regions are no larger than the reference makes them.
+· Held next to the first two attached images, the map looks painted by the same hand: the same outline weight, the same two-step shading, the same glints. Flat, outline-thin clip-art stickers are wrong.
 · The clearings are empty, and there is not one building, figure, symbol or letter anywhere in it.
 · Along the bottom and left edges the land runs straight on, as if the picture were cut from a bigger one.
 
@@ -432,14 +450,14 @@ OUTPUT: one image, 1376 x 768 pixels (16:9, landscape). If your tool has an aspe
 
 ## UI: the world map, bottom left quarter  (bg-ui-terrain-sw.png → ../art-sheets/map-parts/sw.webp)
 
-Attach, in this order: `art-sheets/painted/bg-ui-map.jpg`, then the reference named in the heading.
+Attach, in this order: `art-sheets/painted/sheet-items-weapons.jpg`, `art-sheets/painted/sheet-icons-misc.jpg`, then the reference named in the heading.
 
 ```text
 WHAT COMES BACK IS THE BOTTOM LEFT QUARTER OF AN ILLUSTRATED MAP OF A FANTASY REALM, ENLARGED: ITS TERRAIN ONLY, WITH NO BUILDINGS AND NO LETTERING.
 One landscape image, 1376 x 768 pixels (16:9), painted edge to edge.
 
-ATTACHED IMAGES — there are 2, and they do two different jobs.
-· The FIRST is the whole map, already painted. Take from it ONLY the finish: the hand, the outlines, the shading, the colour of every region, and how big each tree, mountain, hill, wave and field is against the roads and clearings. Not its layout: it is older than the plan and differs from it in places.
+ATTACHED IMAGES — there are 3, and they do two different jobs.
+· The FIRST TWO are finished paintings from this same game: its item icons and its interface icons. Take from them ONLY the HAND: the thick charcoal-violet outline round every shape, the hard two-step cel shading, the small white glints, the saturated candy colours and the chunky, rounded, toy-like forms. Every mountain, tree, hill, rock, wave and bridge on the map is painted as if it were one more icon from those sheets. Nothing of their CONTENT (no swords, no icons, no panels, no magenta) goes on the map.
 · The LAST is the layout reference: the bottom left part of the map's plan, enlarged to fill the image. Paint EXACTLY what it shows, at its scale: every coast, region, river, bridge, road and clearing where the reference has it.
 
 Four such quarters are painted and joined into one big map, each overlapping its neighbours by a wide strip, so they must meet without a visible join. The bottom and left edges are the edges of the whole map. The top and right edges cut straight through the middle of the land: the terrain simply runs on past them, cut off mid-tree and mid-field. No coast, no frame, no darkening, no fade and no empty margin along them.
@@ -463,9 +481,10 @@ WHAT IT IS: part of the terrain of a hand-drawn storybook map, drawn the way suc
 
 WHAT IT IS NOT — read this twice. The game draws every landmark, every place marker and every name OVER this picture, on the clearings, and they change as the player travels: a place is hidden under cloud, then opens, then is marked as cleared. So the clearings stay bare ground, and NOTHING painted anywhere may be a building or a sign: no towns, no houses, no castles, no towers, no temples, no tents, no camps, no windmills, no lighthouses, no ships under sail, no people, no monsters, no flags, no banners, no crosses, no compass rose, no title ribbon, no clouds, no text, no letters, no numbers. A painted town would sit beside the real one and read as a second, wrong place.
 · Do not add regions, roads, rivers or clearings the reference does not have, and do not join, move or drop any it has.
+EVERY REGION KEEPS ITS OWN OUTLINE — the mistake to avoid above all. The mountains stand ONLY inside the mountain regions the reference marks, and no bigger and no more of them than it shows: a mountain range never spills over the green land, the fields, the forest, the coast, a road or a clearing, and never grows to cover a larger share of the map than its region does in the reference. The same holds for forest, hills, ice, lava and swamp: each fills its own region and stops at its edge. Where the reference shows open grassland, it stays open grassland.
 · Keep it bright and even: small landmarks and paper name tags sit on every part of it and must stay readable. No region darker or busier than the reference shows it.
 
-COLOUR — the first image's own, region by region, so the four quarters match where they meet.
+COLOUR — the layout reference's own, region by region (so the four quarters match where they meet), in the saturation of the first two images. Take the HUES from the reference, not its flatness.
 
 THE VIEW — the map convention the reference uses: the ground from straight above, each mountain, tree and hill as a small upright picture on it. No horizon, no perspective, no tilt of the sheet.
 
@@ -484,6 +503,8 @@ AVOID: three-quarter or perspective views, realism, pixel art, thin technical li
 BEFORE YOU CALL IT FINISHED, check:
 · The picture reaches all four edges of the image; there is no magenta and no border.
 · Laid over the last attached image, every coast, river, bridge, road and clearing is where it has it.
+· Each region's outline matches the reference: no mountains, trees or hills outside their own region, and the mountain regions are no larger than the reference makes them.
+· Held next to the first two attached images, the map looks painted by the same hand: the same outline weight, the same two-step shading, the same glints. Flat, outline-thin clip-art stickers are wrong.
 · The clearings are empty, and there is not one building, figure, symbol or letter anywhere in it.
 · Along the top and right edges the land runs straight on, as if the picture were cut from a bigger one.
 
@@ -492,14 +513,14 @@ OUTPUT: one image, 1376 x 768 pixels (16:9, landscape). If your tool has an aspe
 
 ## UI: the world map, bottom right quarter  (bg-ui-terrain-se.png → ../art-sheets/map-parts/se.webp)
 
-Attach, in this order: `art-sheets/painted/bg-ui-map.jpg`, then the reference named in the heading.
+Attach, in this order: `art-sheets/painted/sheet-items-weapons.jpg`, `art-sheets/painted/sheet-icons-misc.jpg`, then the reference named in the heading.
 
 ```text
 WHAT COMES BACK IS THE BOTTOM RIGHT QUARTER OF AN ILLUSTRATED MAP OF A FANTASY REALM, ENLARGED: ITS TERRAIN ONLY, WITH NO BUILDINGS AND NO LETTERING.
 One landscape image, 1376 x 768 pixels (16:9), painted edge to edge.
 
-ATTACHED IMAGES — there are 2, and they do two different jobs.
-· The FIRST is the whole map, already painted. Take from it ONLY the finish: the hand, the outlines, the shading, the colour of every region, and how big each tree, mountain, hill, wave and field is against the roads and clearings. Not its layout: it is older than the plan and differs from it in places.
+ATTACHED IMAGES — there are 3, and they do two different jobs.
+· The FIRST TWO are finished paintings from this same game: its item icons and its interface icons. Take from them ONLY the HAND: the thick charcoal-violet outline round every shape, the hard two-step cel shading, the small white glints, the saturated candy colours and the chunky, rounded, toy-like forms. Every mountain, tree, hill, rock, wave and bridge on the map is painted as if it were one more icon from those sheets. Nothing of their CONTENT (no swords, no icons, no panels, no magenta) goes on the map.
 · The LAST is the layout reference: the bottom right part of the map's plan, enlarged to fill the image. Paint EXACTLY what it shows, at its scale: every coast, region, river, bridge, road and clearing where the reference has it.
 
 Four such quarters are painted and joined into one big map, each overlapping its neighbours by a wide strip, so they must meet without a visible join. The bottom and right edges are the edges of the whole map. The top and left edges cut straight through the middle of the land: the terrain simply runs on past them, cut off mid-tree and mid-field. No coast, no frame, no darkening, no fade and no empty margin along them.
@@ -523,9 +544,10 @@ WHAT IT IS: part of the terrain of a hand-drawn storybook map, drawn the way suc
 
 WHAT IT IS NOT — read this twice. The game draws every landmark, every place marker and every name OVER this picture, on the clearings, and they change as the player travels: a place is hidden under cloud, then opens, then is marked as cleared. So the clearings stay bare ground, and NOTHING painted anywhere may be a building or a sign: no towns, no houses, no castles, no towers, no temples, no tents, no camps, no windmills, no lighthouses, no ships under sail, no people, no monsters, no flags, no banners, no crosses, no compass rose, no title ribbon, no clouds, no text, no letters, no numbers. A painted town would sit beside the real one and read as a second, wrong place.
 · Do not add regions, roads, rivers or clearings the reference does not have, and do not join, move or drop any it has.
+EVERY REGION KEEPS ITS OWN OUTLINE — the mistake to avoid above all. The mountains stand ONLY inside the mountain regions the reference marks, and no bigger and no more of them than it shows: a mountain range never spills over the green land, the fields, the forest, the coast, a road or a clearing, and never grows to cover a larger share of the map than its region does in the reference. The same holds for forest, hills, ice, lava and swamp: each fills its own region and stops at its edge. Where the reference shows open grassland, it stays open grassland.
 · Keep it bright and even: small landmarks and paper name tags sit on every part of it and must stay readable. No region darker or busier than the reference shows it.
 
-COLOUR — the first image's own, region by region, so the four quarters match where they meet.
+COLOUR — the layout reference's own, region by region (so the four quarters match where they meet), in the saturation of the first two images. Take the HUES from the reference, not its flatness.
 
 THE VIEW — the map convention the reference uses: the ground from straight above, each mountain, tree and hill as a small upright picture on it. No horizon, no perspective, no tilt of the sheet.
 
@@ -544,6 +566,8 @@ AVOID: three-quarter or perspective views, realism, pixel art, thin technical li
 BEFORE YOU CALL IT FINISHED, check:
 · The picture reaches all four edges of the image; there is no magenta and no border.
 · Laid over the last attached image, every coast, river, bridge, road and clearing is where it has it.
+· Each region's outline matches the reference: no mountains, trees or hills outside their own region, and the mountain regions are no larger than the reference makes them.
+· Held next to the first two attached images, the map looks painted by the same hand: the same outline weight, the same two-step shading, the same glints. Flat, outline-thin clip-art stickers are wrong.
 · The clearings are empty, and there is not one building, figure, symbol or letter anywhere in it.
 · Along the top and left edges the land runs straight on, as if the picture were cut from a bigger one.
 

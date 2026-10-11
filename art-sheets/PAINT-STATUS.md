@@ -4,7 +4,7 @@ A report, not a contract: it is a picture of `art-sheets/painted/` and the
 slicer's receipt at the moment it was written. Re-run `pnpm art:prompts`
 after painting or slicing anything.
 
-**39 sliced · 9 need a repaint · 0 painted, unreceipted · 18 outstanding**
+**40 sliced · 9 need a repaint · 0 painted, unreceipted · 17 outstanding**
 
 | | Sheet | Prompt block in | Reference | State |
 | --- | --- | --- | --- | --- |
@@ -32,7 +32,7 @@ after painting or slicing anything.
 | ✓ | **Skill icons: Geomancer (2 of 2)** | `PROMPTS-SKILLS.md` | `sheet-skills2-geo.png` (rev `c5da2b948ee8`) | sliced 2026-10-07 |
 | ✓ | **Skill icons: Windrunner** | `PROMPTS-SKILLS.md` | `sheet-skills-windrunner.png` (rev `38f5ed58228f`) | sliced 2026-10-07 |
 | ✓ | **Skill icons: Windrunner (2 of 2)** | `PROMPTS-SKILLS.md` | `sheet-skills2-windrunner.png` (rev `ccd5343695eb`) | sliced 2026-10-07 |
-| · | **Skill icons: Frostwarden** | `PROMPTS-SKILLS.md` | `sheet-skills-frostwarden.png` (rev `a74323ae56df`) | not painted yet |
+| ✓ | **Skill icons: Frostwarden** | `PROMPTS-SKILLS.md` | `sheet-skills-frostwarden.png` (rev `a74323ae56df`) | sliced 2026-10-11 |
 | · | **Skill icons: Frostwarden (2 of 2)** | `PROMPTS-SKILLS.md` | `sheet-skills2-frostwarden.png` (rev `07208654e3c4`) | not painted yet |
 | · | **Skill icons: Lightbringer** | `PROMPTS-SKILLS.md` | `sheet-skills-lightbringer.png` (rev `6bbb8dffceeb`) | not painted yet |
 | · | **Skill icons: Lightbringer (2 of 2)** | `PROMPTS-SKILLS.md` | `sheet-skills2-lightbringer.png` (rev `43450a614ce4`) | not painted yet |

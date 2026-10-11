@@ -779,19 +779,24 @@ export const MAP_PARTS: readonly MapPart[] = [
 ]
 /** Where a quarter's slice goes: beside the sheets, never into a build. */
 export const mapPartTarget = (p: MapPart): string => `../art-sheets/map-parts/${p.name}.webp`
-/** The finished whole map: the hand and the colours every quarter keeps. */
-const MAP_FINISH_REF = 'art-sheets/painted/bg-ui-map.jpg'
+/**
+ * The hand the map is painted in: the game's finished item and icon sheets
+ * (#107). The earlier whole-map painting came back as flat clip-art that
+ * matched nothing else in the game, so it is no longer the model for the
+ * quarters; the icons are.
+ */
+const MAP_STYLE_REFS: readonly string[] = ['art-sheets/painted/sheet-items-weapons.jpg', 'art-sheets/painted/sheet-icons-misc.jpg']
 const PART_NAME: Readonly<Record<MapPart['name'], string>> = { nw: 'top left', ne: 'top right', sw: 'bottom left', se: 'bottom right' }
 
 export const SCENERY: readonly ArtScenery[] = [
   {
     stem: 'bg-ui-map', title: 'UI: the world map terrain', kind: 'ui', doc: 'PROMPTS-UI.md', width: 1376, height: 768,
-    target: artTarget('ui', 'map'), maxEdge: 1376, tileable: false, bg: 'opaque', plate: 'map', label: 'World map'
+    target: artTarget('ui', 'map'), maxEdge: 1376, tileable: false, bg: 'opaque', plate: 'map', label: 'World map', styleRefs: MAP_STYLE_REFS
   },
   ...MAP_PARTS.map((p): ArtScenery => ({
     stem: `bg-ui-terrain-${p.name}`, title: `UI: the world map, ${PART_NAME[p.name]} quarter`, kind: 'ui', doc: 'PROMPTS-UI.md', width: 1376, height: 768,
     target: mapPartTarget(p), maxEdge: 1376, tileable: false, bg: 'opaque', plate: 'map', label: `Map ${p.name}`,
-    part: p, styleRefs: [MAP_FINISH_REF]
+    part: p, styleRefs: MAP_STYLE_REFS
   })),
   // The three big screens' backdrops (D38 to D40, D45). Drawn by
   // `components/game/backdrops.ts` until the file exists; shown `cover`, so the
@@ -1021,7 +1026,7 @@ export const BACKGROUND = [
 export const GLOW = 'KEEP ANY GLOW TIGHT. A halo, aura or bloom spreading out into the background is measured as part of the object when the return is fitted back onto the reference, so a wide aura comes back as a tiny object inside a huge smear. It also cannot be keyed: soft light over magenta turns pink rather than transparent. Any glow belongs inside the shape\'s own outline.'
 
 /** Effects only: the flat placeholder is notation, and what "painted" means. */
-export const NOTATION = '· The reference\'s flat bands, stripes, dashes, dotted rings and hard single-colour shapes are NOTATION for where things go — never a look to copy. A sheet that comes back as the same flat bands, neatly repainted, is a trace of the placeholder, and it is unusable.'
+export const NOTATION = '· The reference\'s flat bands, stripes, dashes, dotted rings and hard single-colour shapes are NOTATION for where things go — never a look to copy. A sheet that comes back as the same flat bands, neatly repainted, is a trace of the placeholder, and it is unusable. So is a plain white block arrow (↓ →) in a reference panel: it marks which way something moves and is NEVER painted as an object (an archer\'s arrow that the panel\'s description names is an object, and is painted).'
 /**
  * Effects only: what "painted" means, spelled out. The first skill sheets
  * came back as flat single-colour shapes with an outline (the reference,
@@ -1036,6 +1041,7 @@ export const FINISH = [
   '· Fire, light and energy are solid things too: a bright, almost white inner core, the accent colour around it, and a deeper shade of that colour at the rim, in hard steps.',
   '· A thick dark outline around every shape: the charcoal-violet line on a solid object, a DARK SHADE OF THE SHAPE\'S OWN COLOUR on fire, light and energy.',
   '· A shape filled with ONE flat colour is the wrong answer. So is the look of an icon font, a sticker, a logo or a road sign. An earlier attempt came back as flat single-colour shapes with an outline, just like the reference, and it could not be used.',
+  '· The other wrong answer is a glossy 3D render: a plastic, vinyl, clay or rubber-toy look, soft airbrushed gradients, shiny specular blobs all over. That came back too and could not be used. This is a HAND-PAINTED 2D game icon, painted by the same hand as the attached weapons: hard-stepped cel shading, thick outline, a few crisp highlights.',
   '· The silhouette is the reference\'s, unchanged. Put the volume INSIDE the outline; do not add parts around it.',
   '· The accent colour stays the dominant colour of every panel.'
 ].join('\n')
@@ -1567,12 +1573,14 @@ const mapPrompt = (a: ArtScenery): string => {
       : 'WHAT COMES BACK IS ONE FULL-BLEED ILLUSTRATED MAP OF A FANTASY REALM: ITS TERRAIN ONLY, WITH NO BUILDINGS AND NO LETTERING.',
     `One ${shapeWord(a.width, a.height)} image, ${a.width} x ${a.height} pixels (${ratio(a.width, a.height)}), painted edge to edge.`,
     '',
+    'ATTACHED IMAGES — there are 3, and they do two different jobs.',
+    '· The FIRST TWO are finished paintings from this same game: its item icons and its interface icons. Take from them ONLY the HAND: the thick charcoal-violet outline round every shape, the hard two-step cel shading, the small white glints, the saturated candy colours and the chunky, rounded, toy-like forms. Every mountain, tree, hill, rock, wave and bridge on the map is painted as if it were one more icon from those sheets. Nothing of their CONTENT (no swords, no icons, no panels, no magenta) goes on the map.',
+    p
+      ? `· The LAST is the layout reference: the ${PART_NAME[p.name]} part of the map's plan, enlarged to fill the image. Paint EXACTLY what it shows, at its scale: every coast, region, river, bridge, road and clearing where the reference has it.`
+      : '· The LAST is the layout reference: the map\'s plan. Paint EXACTLY what it shows, at its scale: every coast, region, river, bridge, road and clearing where the reference has it.',
+    '',
     ...(p
       ? [
-          'ATTACHED IMAGES — there are 2, and they do two different jobs.',
-          '· The FIRST is the whole map, already painted. Take from it ONLY the finish: the hand, the outlines, the shading, the colour of every region, and how big each tree, mountain, hill, wave and field is against the roads and clearings. Not its layout: it is older than the plan and differs from it in places.',
-          `· The LAST is the layout reference: the ${PART_NAME[p.name]} part of the map's plan, enlarged to fill the image. Paint EXACTLY what it shows, at its scale: every coast, region, river, bridge, road and clearing where the reference has it.`,
-          '',
           `Four such quarters are painted and joined into one big map, each overlapping its neighbours by a wide strip, so they must meet without a visible join. The ${edges!.outer} edges are the edges of the whole map. The ${edges!.inner} edges cut straight through the middle of the land: the terrain simply runs on past them, cut off mid-tree and mid-field. No coast, no frame, no darkening, no fade and no empty margin along them.`,
           'Because it is enlarged, give every tree, mountain, wave and field MORE crisp detail than in the first image, at the SAME size against the roads and clearings — not more of them, and not smaller ones.',
           ''
@@ -1590,11 +1598,10 @@ const mapPrompt = (a: ArtScenery): string => {
     '',
     `WHAT IT IS NOT — read this twice. The game draws every landmark, every place marker and every name OVER this picture, on the ${p ? '' : `${sites} `}clearings, and they change as the player travels: a place is hidden under cloud, then opens, then is marked as cleared. So the clearings stay bare ground, and NOTHING painted anywhere may be a building or a sign: no towns, no houses, no castles, no towers, no temples, no tents, no camps, no windmills, no lighthouses, no ships under sail, no people, no monsters, no flags, no banners, no crosses, no compass rose, no title ribbon, no clouds, no text, no letters, no numbers. A painted town would sit beside the real one and read as a second, wrong place.`,
     '· Do not add regions, roads, rivers or clearings the reference does not have, and do not join, move or drop any it has.',
+    'EVERY REGION KEEPS ITS OWN OUTLINE — the mistake to avoid above all. The mountains stand ONLY inside the mountain regions the reference marks, and no bigger and no more of them than it shows: a mountain range never spills over the green land, the fields, the forest, the coast, a road or a clearing, and never grows to cover a larger share of the map than its region does in the reference. The same holds for forest, hills, ice, lava and swamp: each fills its own region and stops at its edge. Where the reference shows open grassland, it stays open grassland.',
     '· Keep it bright and even: small landmarks and paper name tags sit on every part of it and must stay readable. No region darker or busier than the reference shows it.',
     '',
-    p
-      ? 'COLOUR — the first image\'s own, region by region, so the four quarters match where they meet.'
-      : 'COLOUR — the reference\'s own, region by region. Take the HUES from it, not the flatness.',
+    'COLOUR — the layout reference\'s own, region by region (so the four quarters match where they meet), in the saturation of the first two images. Take the HUES from the reference, not its flatness.',
     '',
     'THE VIEW — the map convention the reference uses: the ground from straight above, each mountain, tree and hill as a small upright picture on it. No horizon, no perspective, no tilt of the sheet.',
     '',
@@ -1603,6 +1610,8 @@ const mapPrompt = (a: ArtScenery): string => {
     'BEFORE YOU CALL IT FINISHED, check:',
     '· The picture reaches all four edges of the image; there is no magenta and no border.',
     `· Laid over the ${p ? 'last attached image' : 'reference'}, every coast, river, bridge, road and clearing is where it has it.`,
+    '· Each region\'s outline matches the reference: no mountains, trees or hills outside their own region, and the mountain regions are no larger than the reference makes them.',
+    '· Held next to the first two attached images, the map looks painted by the same hand: the same outline weight, the same two-step shading, the same glints. Flat, outline-thin clip-art stickers are wrong.',
     `· The ${p ? '' : `${sites} `}clearings are empty, and there is not one building, figure, symbol or letter anywhere in it.`,
     ...(p ? [`· Along the ${edges!.inner} edges the land runs straight on, as if the picture were cut from a bigger one.`] : []),
     '',

@@ -56,6 +56,7 @@ PAINTED VOLUME — this is what the sheet is judged on.
 · Fire, light and energy are solid things too: a bright, almost white inner core, the accent colour around it, and a deeper shade of that colour at the rim, in hard steps.
 · A thick dark outline around every shape: the charcoal-violet line on a solid object, a DARK SHADE OF THE SHAPE'S OWN COLOUR on fire, light and energy.
 · A shape filled with ONE flat colour is the wrong answer. So is the look of an icon font, a sticker, a logo or a road sign. An earlier attempt came back as flat single-colour shapes with an outline, just like the reference, and it could not be used.
+· The other wrong answer is a glossy 3D render: a plastic, vinyl, clay or rubber-toy look, soft airbrushed gradients, shiny specular blobs all over. That came back too and could not be used. This is a HAND-PAINTED 2D game icon, painted by the same hand as the attached weapons: hard-stepped cel shading, thick outline, a few crisp highlights.
 · The silhouette is the reference's, unchanged. Put the volume INSIDE the outline; do not add parts around it.
 · The accent colour stays the dominant colour of every panel.
 
@@ -71,7 +72,7 @@ STYLE — the same hand as every other picture in this game.
 · The attached reference is a flat stand-in. Follow its SHAPE, its SIZE in the panel and its POSITION; take nothing else from it — not its line weight, flat fills or lack of shading. Its plain shapes are notation, and a sheet that comes back as the same flat shapes neatly repainted is unusable.
 AVOID: three-quarter or perspective views, realism, pixel art, thin technical line, soft glow around a shape, drop shadows, text, numbers, frames, badges or cards behind the object.
 · Each object floats in its own panel at the size the reference shows. It does NOT fill its panel; do not invent anything for a panel that is blank in the reference — flat magenta and nothing else.
-· The reference's flat bands, stripes, dashes, dotted rings and hard single-colour shapes are NOTATION for where things go — never a look to copy. A sheet that comes back as the same flat bands, neatly repainted, is a trace of the placeholder, and it is unusable.
+· The reference's flat bands, stripes, dashes, dotted rings and hard single-colour shapes are NOTATION for where things go — never a look to copy. A sheet that comes back as the same flat bands, neatly repainted, is a trace of the placeholder, and it is unusable. So is a plain white block arrow (↓ →) in a reference panel: it marks which way something moves and is NEVER painted as an object (an archer's arrow that the panel's description names is an object, and is painted).
 
 READABLE AT 24 PIXELS — each of these is shown between 24 and 40 pixels wide in the game, and it has to be recognised at a glance.
 · Bold, chunky shapes and a thick outline. Few parts, each one large.
@@ -157,6 +158,7 @@ PAINTED VOLUME — this is what the sheet is judged on.
 · Fire, light and energy are solid things too: a bright, almost white inner core, the accent colour around it, and a deeper shade of that colour at the rim, in hard steps.
 · A thick dark outline around every shape: the charcoal-violet line on a solid object, a DARK SHADE OF THE SHAPE'S OWN COLOUR on fire, light and energy.
 · A shape filled with ONE flat colour is the wrong answer. So is the look of an icon font, a sticker, a logo or a road sign. An earlier attempt came back as flat single-colour shapes with an outline, just like the reference, and it could not be used.
+· The other wrong answer is a glossy 3D render: a plastic, vinyl, clay or rubber-toy look, soft airbrushed gradients, shiny specular blobs all over. That came back too and could not be used. This is a HAND-PAINTED 2D game icon, painted by the same hand as the attached weapons: hard-stepped cel shading, thick outline, a few crisp highlights.
 · The silhouette is the reference's, unchanged. Put the volume INSIDE the outline; do not add parts around it.
 · The accent colour stays the dominant colour of every panel.
 
@@ -172,7 +174,7 @@ STYLE — the same hand as every other picture in this game.
 · The attached reference is a flat stand-in. Follow its SHAPE, its SIZE in the panel and its POSITION; take nothing else from it — not its line weight, flat fills or lack of shading. Its plain shapes are notation, and a sheet that comes back as the same flat shapes neatly repainted is unusable.
 AVOID: three-quarter or perspective views, realism, pixel art, thin technical line, soft glow around a shape, drop shadows, text, numbers, frames, badges or cards behind the object.
 · Each object floats in its own panel at the size the reference shows. It does NOT fill its panel; do not invent anything for a panel that is blank in the reference — flat magenta and nothing else.
-· The reference's flat bands, stripes, dashes, dotted rings and hard single-colour shapes are NOTATION for where things go — never a look to copy. A sheet that comes back as the same flat bands, neatly repainted, is a trace of the placeholder, and it is unusable.
+· The reference's flat bands, stripes, dashes, dotted rings and hard single-colour shapes are NOTATION for where things go — never a look to copy. A sheet that comes back as the same flat bands, neatly repainted, is a trace of the placeholder, and it is unusable. So is a plain white block arrow (↓ →) in a reference panel: it marks which way something moves and is NEVER painted as an object (an archer's arrow that the panel's description names is an object, and is painted).
 
 READABLE AT 24 PIXELS — each of these is shown between 24 and 40 pixels wide in the game, and it has to be recognised at a glance.
 · Bold, chunky shapes and a thick outline. Few parts, each one large.
@@ -260,6 +262,7 @@ PAINTED VOLUME — this is what the sheet is judged on.
 · Fire, light and energy are solid things too: a bright, almost white inner core, the accent colour around it, and a deeper shade of that colour at the rim, in hard steps.
 · A thick dark outline around every shape: the charcoal-violet line on a solid object, a DARK SHADE OF THE SHAPE'S OWN COLOUR on fire, light and energy.
 · A shape filled with ONE flat colour is the wrong answer. So is the look of an icon font, a sticker, a logo or a road sign. An earlier attempt came back as flat single-colour shapes with an outline, just like the reference, and it could not be used.
+· The other wrong answer is a glossy 3D render: a plastic, vinyl, clay or rubber-toy look, soft airbrushed gradients, shiny specular blobs all over. That came back too and could not be used. This is a HAND-PAINTED 2D game icon, painted by the same hand as the attached weapons: hard-stepped cel shading, thick outline, a few crisp highlights.
 · The silhouette is the reference's, unchanged. Put the volume INSIDE the outline; do not add parts around it.
 · The accent colour stays the dominant colour of every panel.
 
@@ -275,7 +278,7 @@ STYLE — the same hand as every other picture in this game.
 · The attached reference is a flat stand-in. Follow its SHAPE, its SIZE in the panel and its POSITION; take nothing else from it — not its line weight, flat fills or lack of shading. Its plain shapes are notation, and a sheet that comes back as the same flat shapes neatly repainted is unusable.
 AVOID: three-quarter or perspective views, realism, pixel art, thin technical line, soft glow around a shape, drop shadows, text, numbers, frames, badges or cards behind the object.
 · Each object floats in its own panel at the size the reference shows. It does NOT fill its panel; do not invent anything for a panel that is blank in the reference — flat magenta and nothing else.
-· The reference's flat bands, stripes, dashes, dotted rings and hard single-colour shapes are NOTATION for where things go — never a look to copy. A sheet that comes back as the same flat bands, neatly repainted, is a trace of the placeholder, and it is unusable.
+· The reference's flat bands, stripes, dashes, dotted rings and hard single-colour shapes are NOTATION for where things go — never a look to copy. A sheet that comes back as the same flat bands, neatly repainted, is a trace of the placeholder, and it is unusable. So is a plain white block arrow (↓ →) in a reference panel: it marks which way something moves and is NEVER painted as an object (an archer's arrow that the panel's description names is an object, and is painted).
 
 READABLE AT 24 PIXELS — each of these is shown between 24 and 40 pixels wide in the game, and it has to be recognised at a glance.
 · Bold, chunky shapes and a thick outline. Few parts, each one large.
@@ -363,6 +366,7 @@ PAINTED VOLUME — this is what the sheet is judged on.
 · Fire, light and energy are solid things too: a bright, almost white inner core, the accent colour around it, and a deeper shade of that colour at the rim, in hard steps.
 · A thick dark outline around every shape: the charcoal-violet line on a solid object, a DARK SHADE OF THE SHAPE'S OWN COLOUR on fire, light and energy.
 · A shape filled with ONE flat colour is the wrong answer. So is the look of an icon font, a sticker, a logo or a road sign. An earlier attempt came back as flat single-colour shapes with an outline, just like the reference, and it could not be used.
+· The other wrong answer is a glossy 3D render: a plastic, vinyl, clay or rubber-toy look, soft airbrushed gradients, shiny specular blobs all over. That came back too and could not be used. This is a HAND-PAINTED 2D game icon, painted by the same hand as the attached weapons: hard-stepped cel shading, thick outline, a few crisp highlights.
 · The silhouette is the reference's, unchanged. Put the volume INSIDE the outline; do not add parts around it.
 · The accent colour stays the dominant colour of every panel.
 
@@ -378,7 +382,7 @@ STYLE — the same hand as every other picture in this game.
 · The attached reference is a flat stand-in. Follow its SHAPE, its SIZE in the panel and its POSITION; take nothing else from it — not its line weight, flat fills or lack of shading. Its plain shapes are notation, and a sheet that comes back as the same flat shapes neatly repainted is unusable.
 AVOID: three-quarter or perspective views, realism, pixel art, thin technical line, soft glow around a shape, drop shadows, text, numbers, frames, badges or cards behind the object.
 · Each object floats in its own panel at the size the reference shows. It does NOT fill its panel; do not invent anything for a panel that is blank in the reference — flat magenta and nothing else.
-· The reference's flat bands, stripes, dashes, dotted rings and hard single-colour shapes are NOTATION for where things go — never a look to copy. A sheet that comes back as the same flat bands, neatly repainted, is a trace of the placeholder, and it is unusable.
+· The reference's flat bands, stripes, dashes, dotted rings and hard single-colour shapes are NOTATION for where things go — never a look to copy. A sheet that comes back as the same flat bands, neatly repainted, is a trace of the placeholder, and it is unusable. So is a plain white block arrow (↓ →) in a reference panel: it marks which way something moves and is NEVER painted as an object (an archer's arrow that the panel's description names is an object, and is painted).
 
 READABLE AT 24 PIXELS — each of these is shown between 24 and 40 pixels wide in the game, and it has to be recognised at a glance.
 · Bold, chunky shapes and a thick outline. Few parts, each one large.
@@ -466,6 +470,7 @@ PAINTED VOLUME — this is what the sheet is judged on.
 · Fire, light and energy are solid things too: a bright, almost white inner core, the accent colour around it, and a deeper shade of that colour at the rim, in hard steps.
 · A thick dark outline around every shape: the charcoal-violet line on a solid object, a DARK SHADE OF THE SHAPE'S OWN COLOUR on fire, light and energy.
 · A shape filled with ONE flat colour is the wrong answer. So is the look of an icon font, a sticker, a logo or a road sign. An earlier attempt came back as flat single-colour shapes with an outline, just like the reference, and it could not be used.
+· The other wrong answer is a glossy 3D render: a plastic, vinyl, clay or rubber-toy look, soft airbrushed gradients, shiny specular blobs all over. That came back too and could not be used. This is a HAND-PAINTED 2D game icon, painted by the same hand as the attached weapons: hard-stepped cel shading, thick outline, a few crisp highlights.
 · The silhouette is the reference's, unchanged. Put the volume INSIDE the outline; do not add parts around it.
 · The accent colour stays the dominant colour of every panel.
 
@@ -481,7 +486,7 @@ STYLE — the same hand as every other picture in this game.
 · The attached reference is a flat stand-in. Follow its SHAPE, its SIZE in the panel and its POSITION; take nothing else from it — not its line weight, flat fills or lack of shading. Its plain shapes are notation, and a sheet that comes back as the same flat shapes neatly repainted is unusable.
 AVOID: three-quarter or perspective views, realism, pixel art, thin technical line, soft glow around a shape, drop shadows, text, numbers, frames, badges or cards behind the object.
 · Each object floats in its own panel at the size the reference shows. It does NOT fill its panel; do not invent anything for a panel that is blank in the reference — flat magenta and nothing else.
-· The reference's flat bands, stripes, dashes, dotted rings and hard single-colour shapes are NOTATION for where things go — never a look to copy. A sheet that comes back as the same flat bands, neatly repainted, is a trace of the placeholder, and it is unusable.
+· The reference's flat bands, stripes, dashes, dotted rings and hard single-colour shapes are NOTATION for where things go — never a look to copy. A sheet that comes back as the same flat bands, neatly repainted, is a trace of the placeholder, and it is unusable. So is a plain white block arrow (↓ →) in a reference panel: it marks which way something moves and is NEVER painted as an object (an archer's arrow that the panel's description names is an object, and is painted).
 
 READABLE AT 24 PIXELS — each of these is shown between 24 and 40 pixels wide in the game, and it has to be recognised at a glance.
 · Bold, chunky shapes and a thick outline. Few parts, each one large.
@@ -570,6 +575,7 @@ PAINTED VOLUME — this is what the sheet is judged on.
 · Fire, light and energy are solid things too: a bright, almost white inner core, the accent colour around it, and a deeper shade of that colour at the rim, in hard steps.
 · A thick dark outline around every shape: the charcoal-violet line on a solid object, a DARK SHADE OF THE SHAPE'S OWN COLOUR on fire, light and energy.
 · A shape filled with ONE flat colour is the wrong answer. So is the look of an icon font, a sticker, a logo or a road sign. An earlier attempt came back as flat single-colour shapes with an outline, just like the reference, and it could not be used.
+· The other wrong answer is a glossy 3D render: a plastic, vinyl, clay or rubber-toy look, soft airbrushed gradients, shiny specular blobs all over. That came back too and could not be used. This is a HAND-PAINTED 2D game icon, painted by the same hand as the attached weapons: hard-stepped cel shading, thick outline, a few crisp highlights.
 · The silhouette is the reference's, unchanged. Put the volume INSIDE the outline; do not add parts around it.
 · The accent colour stays the dominant colour of every panel.
 
@@ -585,7 +591,7 @@ STYLE — the same hand as every other picture in this game.
 · The attached reference is a flat stand-in. Follow its SHAPE, its SIZE in the panel and its POSITION; take nothing else from it — not its line weight, flat fills or lack of shading. Its plain shapes are notation, and a sheet that comes back as the same flat shapes neatly repainted is unusable.
 AVOID: three-quarter or perspective views, realism, pixel art, thin technical line, soft glow around a shape, drop shadows, text, numbers, frames, badges or cards behind the object.
 · Each object floats in its own panel at the size the reference shows. It does NOT fill its panel; do not invent anything for a panel that is blank in the reference — flat magenta and nothing else.
-· The reference's flat bands, stripes, dashes, dotted rings and hard single-colour shapes are NOTATION for where things go — never a look to copy. A sheet that comes back as the same flat bands, neatly repainted, is a trace of the placeholder, and it is unusable.
+· The reference's flat bands, stripes, dashes, dotted rings and hard single-colour shapes are NOTATION for where things go — never a look to copy. A sheet that comes back as the same flat bands, neatly repainted, is a trace of the placeholder, and it is unusable. So is a plain white block arrow (↓ →) in a reference panel: it marks which way something moves and is NEVER painted as an object (an archer's arrow that the panel's description names is an object, and is painted).
 
 READABLE AT 24 PIXELS — each of these is shown between 24 and 40 pixels wide in the game, and it has to be recognised at a glance.
 · Bold, chunky shapes and a thick outline. Few parts, each one large.
@@ -673,6 +679,7 @@ PAINTED VOLUME — this is what the sheet is judged on.
 · Fire, light and energy are solid things too: a bright, almost white inner core, the accent colour around it, and a deeper shade of that colour at the rim, in hard steps.
 · A thick dark outline around every shape: the charcoal-violet line on a solid object, a DARK SHADE OF THE SHAPE'S OWN COLOUR on fire, light and energy.
 · A shape filled with ONE flat colour is the wrong answer. So is the look of an icon font, a sticker, a logo or a road sign. An earlier attempt came back as flat single-colour shapes with an outline, just like the reference, and it could not be used.
+· The other wrong answer is a glossy 3D render: a plastic, vinyl, clay or rubber-toy look, soft airbrushed gradients, shiny specular blobs all over. That came back too and could not be used. This is a HAND-PAINTED 2D game icon, painted by the same hand as the attached weapons: hard-stepped cel shading, thick outline, a few crisp highlights.
 · The silhouette is the reference's, unchanged. Put the volume INSIDE the outline; do not add parts around it.
 · The accent colour stays the dominant colour of every panel.
 
@@ -688,7 +695,7 @@ STYLE — the same hand as every other picture in this game.
 · The attached reference is a flat stand-in. Follow its SHAPE, its SIZE in the panel and its POSITION; take nothing else from it — not its line weight, flat fills or lack of shading. Its plain shapes are notation, and a sheet that comes back as the same flat shapes neatly repainted is unusable.
 AVOID: three-quarter or perspective views, realism, pixel art, thin technical line, soft glow around a shape, drop shadows, text, numbers, frames, badges or cards behind the object.
 · Each object floats in its own panel at the size the reference shows. It does NOT fill its panel; do not invent anything for a panel that is blank in the reference — flat magenta and nothing else.
-· The reference's flat bands, stripes, dashes, dotted rings and hard single-colour shapes are NOTATION for where things go — never a look to copy. A sheet that comes back as the same flat bands, neatly repainted, is a trace of the placeholder, and it is unusable.
+· The reference's flat bands, stripes, dashes, dotted rings and hard single-colour shapes are NOTATION for where things go — never a look to copy. A sheet that comes back as the same flat bands, neatly repainted, is a trace of the placeholder, and it is unusable. So is a plain white block arrow (↓ →) in a reference panel: it marks which way something moves and is NEVER painted as an object (an archer's arrow that the panel's description names is an object, and is painted).
 
 READABLE AT 24 PIXELS — each of these is shown between 24 and 40 pixels wide in the game, and it has to be recognised at a glance.
 · Bold, chunky shapes and a thick outline. Few parts, each one large.
@@ -776,6 +783,7 @@ PAINTED VOLUME — this is what the sheet is judged on.
 · Fire, light and energy are solid things too: a bright, almost white inner core, the accent colour around it, and a deeper shade of that colour at the rim, in hard steps.
 · A thick dark outline around every shape: the charcoal-violet line on a solid object, a DARK SHADE OF THE SHAPE'S OWN COLOUR on fire, light and energy.
 · A shape filled with ONE flat colour is the wrong answer. So is the look of an icon font, a sticker, a logo or a road sign. An earlier attempt came back as flat single-colour shapes with an outline, just like the reference, and it could not be used.
+· The other wrong answer is a glossy 3D render: a plastic, vinyl, clay or rubber-toy look, soft airbrushed gradients, shiny specular blobs all over. That came back too and could not be used. This is a HAND-PAINTED 2D game icon, painted by the same hand as the attached weapons: hard-stepped cel shading, thick outline, a few crisp highlights.
 · The silhouette is the reference's, unchanged. Put the volume INSIDE the outline; do not add parts around it.
 · The accent colour stays the dominant colour of every panel.
 
@@ -791,7 +799,7 @@ STYLE — the same hand as every other picture in this game.
 · The attached reference is a flat stand-in. Follow its SHAPE, its SIZE in the panel and its POSITION; take nothing else from it — not its line weight, flat fills or lack of shading. Its plain shapes are notation, and a sheet that comes back as the same flat shapes neatly repainted is unusable.
 AVOID: three-quarter or perspective views, realism, pixel art, thin technical line, soft glow around a shape, drop shadows, text, numbers, frames, badges or cards behind the object.
 · Each object floats in its own panel at the size the reference shows. It does NOT fill its panel; do not invent anything for a panel that is blank in the reference — flat magenta and nothing else.
-· The reference's flat bands, stripes, dashes, dotted rings and hard single-colour shapes are NOTATION for where things go — never a look to copy. A sheet that comes back as the same flat bands, neatly repainted, is a trace of the placeholder, and it is unusable.
+· The reference's flat bands, stripes, dashes, dotted rings and hard single-colour shapes are NOTATION for where things go — never a look to copy. A sheet that comes back as the same flat bands, neatly repainted, is a trace of the placeholder, and it is unusable. So is a plain white block arrow (↓ →) in a reference panel: it marks which way something moves and is NEVER painted as an object (an archer's arrow that the panel's description names is an object, and is painted).
 
 READABLE AT 24 PIXELS — each of these is shown between 24 and 40 pixels wide in the game, and it has to be recognised at a glance.
 · Bold, chunky shapes and a thick outline. Few parts, each one large.
@@ -879,6 +887,7 @@ PAINTED VOLUME — this is what the sheet is judged on.
 · Fire, light and energy are solid things too: a bright, almost white inner core, the accent colour around it, and a deeper shade of that colour at the rim, in hard steps.
 · A thick dark outline around every shape: the charcoal-violet line on a solid object, a DARK SHADE OF THE SHAPE'S OWN COLOUR on fire, light and energy.
 · A shape filled with ONE flat colour is the wrong answer. So is the look of an icon font, a sticker, a logo or a road sign. An earlier attempt came back as flat single-colour shapes with an outline, just like the reference, and it could not be used.
+· The other wrong answer is a glossy 3D render: a plastic, vinyl, clay or rubber-toy look, soft airbrushed gradients, shiny specular blobs all over. That came back too and could not be used. This is a HAND-PAINTED 2D game icon, painted by the same hand as the attached weapons: hard-stepped cel shading, thick outline, a few crisp highlights.
 · The silhouette is the reference's, unchanged. Put the volume INSIDE the outline; do not add parts around it.
 · The accent colour stays the dominant colour of every panel.
 
@@ -894,7 +903,7 @@ STYLE — the same hand as every other picture in this game.
 · The attached reference is a flat stand-in. Follow its SHAPE, its SIZE in the panel and its POSITION; take nothing else from it — not its line weight, flat fills or lack of shading. Its plain shapes are notation, and a sheet that comes back as the same flat shapes neatly repainted is unusable.
 AVOID: three-quarter or perspective views, realism, pixel art, thin technical line, soft glow around a shape, drop shadows, text, numbers, frames, badges or cards behind the object.
 · Each object floats in its own panel at the size the reference shows. It does NOT fill its panel; do not invent anything for a panel that is blank in the reference — flat magenta and nothing else.
-· The reference's flat bands, stripes, dashes, dotted rings and hard single-colour shapes are NOTATION for where things go — never a look to copy. A sheet that comes back as the same flat bands, neatly repainted, is a trace of the placeholder, and it is unusable.
+· The reference's flat bands, stripes, dashes, dotted rings and hard single-colour shapes are NOTATION for where things go — never a look to copy. A sheet that comes back as the same flat bands, neatly repainted, is a trace of the placeholder, and it is unusable. So is a plain white block arrow (↓ →) in a reference panel: it marks which way something moves and is NEVER painted as an object (an archer's arrow that the panel's description names is an object, and is painted).
 
 READABLE AT 24 PIXELS — each of these is shown between 24 and 40 pixels wide in the game, and it has to be recognised at a glance.
 · Bold, chunky shapes and a thick outline. Few parts, each one large.
@@ -982,6 +991,7 @@ PAINTED VOLUME — this is what the sheet is judged on.
 · Fire, light and energy are solid things too: a bright, almost white inner core, the accent colour around it, and a deeper shade of that colour at the rim, in hard steps.
 · A thick dark outline around every shape: the charcoal-violet line on a solid object, a DARK SHADE OF THE SHAPE'S OWN COLOUR on fire, light and energy.
 · A shape filled with ONE flat colour is the wrong answer. So is the look of an icon font, a sticker, a logo or a road sign. An earlier attempt came back as flat single-colour shapes with an outline, just like the reference, and it could not be used.
+· The other wrong answer is a glossy 3D render: a plastic, vinyl, clay or rubber-toy look, soft airbrushed gradients, shiny specular blobs all over. That came back too and could not be used. This is a HAND-PAINTED 2D game icon, painted by the same hand as the attached weapons: hard-stepped cel shading, thick outline, a few crisp highlights.
 · The silhouette is the reference's, unchanged. Put the volume INSIDE the outline; do not add parts around it.
 · The accent colour stays the dominant colour of every panel.
 
@@ -997,7 +1007,7 @@ STYLE — the same hand as every other picture in this game.
 · The attached reference is a flat stand-in. Follow its SHAPE, its SIZE in the panel and its POSITION; take nothing else from it — not its line weight, flat fills or lack of shading. Its plain shapes are notation, and a sheet that comes back as the same flat shapes neatly repainted is unusable.
 AVOID: three-quarter or perspective views, realism, pixel art, thin technical line, soft glow around a shape, drop shadows, text, numbers, frames, badges or cards behind the object.
 · Each object floats in its own panel at the size the reference shows. It does NOT fill its panel; do not invent anything for a panel that is blank in the reference — flat magenta and nothing else.
-· The reference's flat bands, stripes, dashes, dotted rings and hard single-colour shapes are NOTATION for where things go — never a look to copy. A sheet that comes back as the same flat bands, neatly repainted, is a trace of the placeholder, and it is unusable.
+· The reference's flat bands, stripes, dashes, dotted rings and hard single-colour shapes are NOTATION for where things go — never a look to copy. A sheet that comes back as the same flat bands, neatly repainted, is a trace of the placeholder, and it is unusable. So is a plain white block arrow (↓ →) in a reference panel: it marks which way something moves and is NEVER painted as an object (an archer's arrow that the panel's description names is an object, and is painted).
 
 READABLE AT 24 PIXELS — each of these is shown between 24 and 40 pixels wide in the game, and it has to be recognised at a glance.
 · Bold, chunky shapes and a thick outline. Few parts, each one large.

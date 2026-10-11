@@ -497,6 +497,12 @@ describe('what a prompt says', () => {
     // game draws its landmarks OVER the picture, so the sites stay empty.
     expect(textOf('bg-ui-map')).toMatch(/draws every landmark, every place marker and every name OVER this picture/)
     expect(textOf('bg-ui-map')).toMatch(/keep the clearings EMPTY/)
+    // #107: the map is painted in the icons' hand, and no region spills into the next.
+    for (const stem of ['bg-ui-map', 'bg-ui-terrain-nw']) {
+      expect(textOf(stem)).toMatch(/EVERY REGION KEEPS ITS OWN OUTLINE/)
+      expect(textOf(stem)).toMatch(/no mountains, trees or hills outside their own region/)
+      expect(textOf(stem)).toMatch(/Flat, outline-thin clip-art stickers are wrong/)
+    }
   })
 
   it('a skill sheet demands painted volume, names the flat answer as wrong, and goes out with painted weapons as finish references', () => {
@@ -527,7 +533,7 @@ describe('what a prompt says', () => {
     for (const f of SKILL_FINISH_REFS) expect(manifestTargets().has(f.replace(/^public\//, '')), f).toBe(true)
     // Nothing else is sent with more than its own reference.
     // (The icon sheets borrow the same finish references; see their own test.)
-    for (const b of blocks) if (!b.stem.startsWith('sheet-skills-') && !b.stem.startsWith('sheet-skills2-') && !b.stem.startsWith('sheet-icons-') && b.stem !== 'single-logo-mascot' && !b.stem.startsWith('single-logo-title-') && b.stem !== 'single-logo-wordmark' && b.stem !== 'sheet-portraits-girl' && !b.stem.startsWith('cover-') && !b.stem.startsWith('bg-ui-terrain-')) expect(b.styleRefs, b.stem).toBeUndefined()
+    for (const b of blocks) if (!b.stem.startsWith('sheet-skills-') && !b.stem.startsWith('sheet-skills2-') && !b.stem.startsWith('sheet-icons-') && b.stem !== 'single-logo-mascot' && !b.stem.startsWith('single-logo-title-') && b.stem !== 'single-logo-wordmark' && b.stem !== 'sheet-portraits-girl' && !b.stem.startsWith('cover-') && !b.stem.startsWith('bg-ui-terrain-') && b.stem !== 'bg-ui-map') expect(b.styleRefs, b.stem).toBeUndefined()
   })
 
   it('a sheet says its own grid, its blanks and its measured size', () => {
