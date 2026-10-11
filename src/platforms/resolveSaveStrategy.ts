@@ -92,6 +92,14 @@ export const resolveSaveStrategy = async (_flags: PlatformFlags): Promise<SaveSt
     const { PokiStrategy } = await import('@/utils/save/PokiStrategy')
     return new PokiStrategy()
   }
+  if (import.meta.env.VITE_APP_WAVEDASH === 'true') {
+    // Wavedash Remote Storage: one cloud file per player. The game's own
+    // browser storage did not survive a full close of the Wavedash
+    // home-screen app on iOS, so the cloud copy is what carries progress
+    // across. `main.ts` awaits the SDK's `init` before this resolver runs.
+    const { WavedashStrategy } = await import('@/utils/save/WavedashStrategy')
+    return new WavedashStrategy()
+  }
   const { LocalStorageStrategy } = await import('@/utils/save/LocalStorageStrategy')
   return new LocalStorageStrategy()
 }

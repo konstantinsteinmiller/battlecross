@@ -170,6 +170,17 @@ const GAMEMONETIZE_HOSTS: ReadonlyArray<string> = [
   'https://*.gamemonetize.co'
 ]
 
+/** Wavedash Remote Storage (cloud saves), connect-src on the Wavedash build
+ *  only. Downloads come from the UGC host (`ugc.wavedashcdn.com` — the
+ *  game itself runs on `*.builds.wavedashcdn.com`); uploads PUT to a
+ *  presigned Cloudflare R2 URL. The SDK's control calls ride the
+ *  `*.wavedash.com` hosts already in the base list. Without these the
+ *  CSP refuses every save request and progress never leaves the device. */
+const WAVEDASH_SAVE_HOSTS: ReadonlyArray<string> = [
+  'https://*.wavedashcdn.com',
+  'https://*.r2.cloudflarestorage.com'
+]
+
 const CONNECT_BASE_EXTRA: ReadonlyArray<string> = [
   'https://*.sentry.io',
   'wss://*.wavedash.com',
@@ -217,6 +228,7 @@ export const buildCsp = (env: Record<string, string>): string => {
   const isGamepix = env.VITE_APP_GAMEPIX === 'true'
   const isGameMonetize = env.VITE_APP_GAME_MONETIZE === 'true'
   const isYandex = env.VITE_APP_YANDEX === 'true'
+  const isWavedash = env.VITE_APP_WAVEDASH === 'true'
 
   // Playgama / GamePix / GameMonetize / Yandex run an ad-waterfall like GD —
   // open the same directives so partner creatives / bidders (the Google-IMA
@@ -280,6 +292,7 @@ export const buildCsp = (env: Record<string, string>): string => {
       // draft. `.env.yandex.local` also empties the URL, so this is belt AND
       // braces, and it has to be: the two switches fail independently.
       ...(isYandex ? [] : [leaderboardOrigin(env.VITE_LEADERBOARD_URL)].filter((o): o is string => o !== null)),
+      ...(isWavedash ? WAVEDASH_SAVE_HOSTS : []),
       // GD / Playgama partner analytics / ad telemetry beacons.
       ...(adWaterfallBuild ? ['https:', 'wss:'] : [])
     ],

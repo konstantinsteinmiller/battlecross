@@ -29,6 +29,28 @@ describe('buildCsp', () => {
     })
   })
 
+  // Wavedash cloud saves download from `ugc.wavedashcdn.com` and upload to a
+  // presigned Cloudflare R2 URL; a CSP without them refuses every save
+  // request, and progress never leaves the device.
+  describe('wavedash', () => {
+    const connectSrc = (env: Record<string, string>): string =>
+      buildCsp(env).split('; ').find(d => d.startsWith('connect-src')) ?? ''
+
+    it('opens the Remote Storage hosts on the Wavedash build', () => {
+      const csp = connectSrc({ VITE_APP_WAVEDASH: 'true' })
+      expect(csp).toContain('https://*.wavedashcdn.com')
+      expect(csp).toContain('https://*.r2.cloudflarestorage.com')
+    })
+
+    it('keeps them out of every other build', () => {
+      for (const env of [baseEnv(), { VITE_APP_CRAZY_WEB: 'true' }, { VITE_APP_YANDEX: 'true' }, { VITE_APP_GAME_MONETIZE: 'true' }]) {
+        const csp = buildCsp(env)
+        expect(csp).not.toContain('wavedashcdn')
+        expect(csp).not.toContain('cloudflarestorage')
+      }
+    })
+  })
+
   describe('default web (no platform flag)', () => {
     it('contains base host whitelist', () => {
       const csp = buildCsp(baseEnv())

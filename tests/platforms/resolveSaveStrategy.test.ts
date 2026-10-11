@@ -31,7 +31,8 @@ const ALL_PLATFORM_ENVS = [
   'VITE_APP_GAME_MONETIZE',
   'VITE_APP_YANDEX',
   'VITE_APP_GLITCH',
-  'VITE_APP_POKI'
+  'VITE_APP_POKI',
+  'VITE_APP_WAVEDASH'
 ] as const
 
 const clearEnv = () => {
@@ -62,10 +63,11 @@ describe('resolveSaveStrategy', () => {
     expect(strategy.name).toBe('localStorage')
   })
 
-  it('returns LocalStorageStrategy when only wavedash is set', async () => {
+  it('returns WavedashStrategy (Remote Storage) when the wavedash env is set', async () => {
+    vi.stubEnv('VITE_APP_WAVEDASH', 'true')
     const resolveSaveStrategy = await loadResolver()
     const strategy = await resolveSaveStrategy({ ...allOff, isWaveDash: true })
-    expect(strategy.name).toBe('localStorage')
+    expect(strategy.name).toBe('wavedash')
   })
 
   it('returns CrazyGamesStrategy when isCrazyWeb env is set', async () => {
