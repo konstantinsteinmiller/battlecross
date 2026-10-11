@@ -280,12 +280,12 @@ export const GLYPHS: Readonly<Record<string, string>> = {
   'skill.wildHunt': P('M34 2a10 10 0 1 0 0 16a12 12 0 0 1 0-16z', 'g') + P('M6 26c8 0 22 4 30 14l4-4c-8-10-22-16-34-14z', 'w') + P('M36 40l6 4 2-6z', 'g') + P('M14 26l-2 6M22 28l-2 6', 'i'),
 
   // ── Elementalist (#95) ──
-  'skill.prismBolt': P('M24 4l14 20-14 20-14-20z', 'r') + P('M24 4l14 20-14 20z', 'u') + P('M24 4v40', 'n'),
+  'skill.prismBolt': P('M24 4l14 20-14 20-14-20z', 'r') + P('M24 4l14 20-14 20z', 'u') + P('M24 4l-5 20 5 20 5-20z', 'b'),
   'skill.elementalHarmony': C(24, 24, 16, 'n') + C(24, 8, 5, 'r') + C(40, 24, 5, 'u') + C(24, 40, 5, 'g') + C(8, 24, 5, 'm'),
-  'skill.frostLance': P('M4 26L34 20l10 4-10 4z', 'u') + P('M8 25L34 21v6z', 'w') + P('M16 18l4 4-6 0zM24 16l4 5-6 0zM20 32l4-4-6 0z', 'u'),
-  'skill.chainSpark': P('M28 2L12 22h9l-5 12 8-6-2 18 14-24h-9l6-14z', 'g') + P('M6 30l4 4-5 2zM40 36l5 2-4 4zM8 8l5 3-5 2z', 'g'),
-  'skill.smolderingCore': ROCK('d') + C(24, 26, 6, 'r') + G('translate(28 4) scale(0.4)', DROP('u')),
-  'skill.rollingBoulder': C(26, 26, 17, 'm') + P('M18 18l6 2 2 8-6 4-6-4z', 'b') + P('M30 14l6 4-2 6M32 34l4-6', 'i') + P('M2 42h10M4 36h6', 'b'),
+  'skill.frostLance': P('M2 27L34 19l12 5-12 5z', 'u') + P('M8 26l26-5v4z', 'w'),
+  'skill.chainSpark': P('M28 2L12 22h9l-5 12 8-6-2 18 14-24h-9l6-14z', 'g') + star(8, 12, 5, 2, 4, 'w', 0) + star(40, 38, 5, 2, 4, 'w', 0) + star(8, 36, 4, 1.6, 4, 'w', 0),
+  'skill.smolderingCore': P('M6 40l5-18 11-10 13 4 7 16-5 10H12z', 'k') + P('M14 26l7 5-3 8 6-4 5 6 1-9 7-3-8-2-2-7-4 6z', 'r') + C(24, 32, 4, 'g') + G('translate(28 -2) scale(0.4)', DROP('u')),
+  'skill.rollingBoulder': G('translate(-6 -8) scale(1.25)', ROCK('m')),
   'skill.thunderSnow': P('M8 18c-6 0-6-10 1-10 0-6 10-8 14-3 4-5 15-3 14 3 7 0 7 10 0 10z', 'b') + star(14, 32, 7, 2.5, 6, 'u', 0) + G('translate(20 18) scale(0.5)', BOLT('g')),
   'skill.spellweave': P('M6 10c12 8 24 20 36 28M6 38c12-8 24-20 36-28', 'n') + star(24, 24, 9, 3.5, 4, 'g', 0),
   'skill.prismaticNova': P('M24 24L24 2M24 24L46 24M24 24L24 46M24 24L2 24', 'n') + C(24, 4, 4, 'r') + C(44, 24, 4, 'u') + C(24, 44, 4, 'g') + C(4, 24, 4, 'm') + C(24, 24, 5, 'w'),

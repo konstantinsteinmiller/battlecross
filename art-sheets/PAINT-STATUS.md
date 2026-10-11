@@ -38,7 +38,7 @@ after painting or slicing anything.
 | ✓ | **Skill icons: Lightbringer (2 of 2)** | `PROMPTS-SKILLS.md` | `sheet-skills2-lightbringer.png` (rev `c53ac606e411`) | sliced 2026-10-11 |
 | ✓ | **Skill icons: Beastcaller** | `PROMPTS-SKILLS.md` | `sheet-skills-beastcaller.png` (rev `297a1ae74d6f`) | sliced 2026-10-11 |
 | ✓ | **Skill icons: Beastcaller (2 of 2)** | `PROMPTS-SKILLS.md` | `sheet-skills2-beastcaller.png` (rev `b875613cce10`) | sliced 2026-10-11 |
-| · | **Skill icons: Elementalist** | `PROMPTS-SKILLS.md` | `sheet-skills-elementalist.png` (rev `dcb515f85ebe`) | not painted yet |
+| · | **Skill icons: Elementalist** | `PROMPTS-SKILLS.md` | `sheet-skills-elementalist.png` (rev `e9c017869c92`) | not painted yet |
 | · | **Skill icons: Elementalist (2 of 2)** | `PROMPTS-SKILLS.md` | `sheet-skills2-elementalist.png` (rev `32983c7ed53c`) | not painted yet |
 | · | **Skill icons: Soul Warden** | `PROMPTS-SKILLS.md` | `sheet-skills-soulwarden.png` (rev `4f8e6a467369`) | not painted yet |
 | · | **Skill icons: Soul Warden (2 of 2)** | `PROMPTS-SKILLS.md` | `sheet-skills2-soulwarden.png` (rev `97f0e4862e97`) | not painted yet |

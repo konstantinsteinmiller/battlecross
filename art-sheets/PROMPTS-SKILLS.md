@@ -2434,12 +2434,12 @@ EACH PANEL IS ONE CHUNKY PAINTED OBJECT OR BURST OF ENERGY — NOT A FLAT SYMBOL
 · The game draws its own coloured frame around each one. Nothing here sits on a tile, badge, ring or disc.
 
 WHAT EACH PANEL IS:
-Panel 1 (row 1, column 1): a small diamond-shaped prism, its left half flame orange and its right half ice blue.
+Panel 1 (row 1, column 1): a faceted diamond-shaped crystal prism, its left half flame orange and its right half ice blue, a pale facet down its middle.
 Panel 2 (row 1, column 2): four small orbs, red, blue, gold and stone grey, sitting on a thin ring. Keep this one compact, well away from its panel's four corners (the game crops it to a circle). Do NOT draw a circle, ring, disc or badge around or behind it.
 Panel 3 (row 1, column 3): a long spear of clear blue ice pointing to the right, small ice spikes jutting from its shaft.
 Panel 4 (row 2, column 1): a jagged gold lightning bolt with three small sparks crackling off it.
-Panel 5 (row 2, column 2): a dark glowing coal with a red heart and a small blue drop above it. Keep this one compact, well away from its panel's four corners (the game crops it to a circle). Do NOT draw a circle, ring, disc or badge around or behind it.
-Panel 6 (row 2, column 3): a big round grey boulder with cracks and a chipped face.
+Panel 5 (row 2, column 2): a brown-black lump of coal split by bright glowing red-orange cracks, a hot gold core in the middle, a small blue water drop above it. Keep this one compact, well away from its panel's four corners (the game crops it to a circle). Do NOT draw a circle, ring, disc or badge around or behind it.
+Panel 6 (row 2, column 3): a big round grey boulder with a few cracks across its face.
 
 COLOUR — ONE accent for the whole sheet: magenta (about #e86bff). Wherever the reference uses that colour, yours does; white, gold, steel, wood, red, green and blue details keep the colours the reference gives them. Take the HUE, not the flatness.
 
