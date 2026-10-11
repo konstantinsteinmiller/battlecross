@@ -3,7 +3,7 @@ import { BUILDS } from '../../wiki/src/builds'
 import { problemsOf, pointsAt, spentOf, skillPath, encodePlan, decodePlan } from '../../wiki/src/planner'
 import { SKILL_BY_ID } from '@/game/data/skills'
 import { ITEM_BY_ID } from '@/game/data/items'
-import { ALL_PAIRS } from '../../wiki/src/synergy'
+import { ALL_PAIRS, statFocus } from '../../wiki/src/synergy'
 
 /** The wiki's guide builds must be builds the game lets a player make. */
 describe('wiki guide builds', () => {
@@ -22,6 +22,9 @@ describe('wiki guide builds', () => {
       for (const id of b.passives) expect(SKILL_BY_ID[id]?.kind, id).toBe('passive')
       for (const id of Object.values(b.gear)) expect(ITEM_BY_ID[id!], id).toBeTruthy()
       expect(problemsOf(plan)).toEqual([])
+      // One damage stat: at least 3 of every 4 scaling actives use the build's top attribute.
+      const f = statFocus(b.actives, b.attrs)
+      expect(f.pct, `${f.on}/${f.total} on ${f.attr}`).toBeGreaterThanOrEqual(75)
       expect(skillPath(plan)).toHaveLength(12)
       expect(decodePlan(encodePlan(plan))).toMatchObject(plan)
     })

@@ -3,7 +3,7 @@ import { computed, reactive, ref, watch } from 'vue'
 import { query, setQuery } from '../router'
 import { BUILDS } from '../builds'
 import { decodePlan, emptyPlan, encodePlan, pointsAt, problemsOf, spentOf, totalsOf, type Plan } from '../planner'
-import { barSynergy } from '../synergy'
+import { barSynergy, statFocus } from '../synergy'
 import {
   CLASS_IDS, CLASSES, SKILLS, ATTRS, ATTR_NAME, ATTR_COLOR, ATTR_START, ACTIVE_SLOTS, PASSIVE_SLOTS, EQUIP_SLOT_LIST, ALL_ITEMS,
   ITEM_BY_ID, SKILL_BY_ID, TIER_COLOR, MAX_LEVEL, className, classIcon, skillName, itemName, slotName, slotOfEquip, tierName,
@@ -34,7 +34,8 @@ const budget = computed(() => pointsAt(plan.level))
 const left = computed(() => budget.value - spentOf(plan.attrs))
 const totals = computed(() => totalsOf(plan))
 const problems = computed(() => problemsOf(plan))
-const syn = computed(() => barSynergy([...plan.actives, ...plan.passives]))
+const focus = computed(() => statFocus(plan.actives, totals.value))
+const syn = computed(() => barSynergy([...plan.actives, ...plan.passives], totals.value))
 
 const add = (a: Attr, n: number): void => {
   const step = n > 0 ? Math.min(n, left.value) : Math.max(n, ATTR_START - plan.attrs[a])
@@ -132,7 +133,13 @@ watch(preset, v => { if (v) { load(v); preset.value = '' } })
       <!-- Middle: bar + picker -->
       <section class="stack">
         <div class="panel">
-          <div class="row between"><h3>Skill bar</h3><span class="chip">Synergy {{ syn.score }}/100</span></div>
+          <div class="row between"><h3>Skill bar</h3>
+            <div class="row">
+              <span v-if="focus.total" class="chip" :style="{ color: ATTR_COLOR[focus.attr] }" :title="'Damage skills scaling with your highest attribute'">{{ ATTR_NAME[focus.attr] }} focus {{ focus.on }}/{{ focus.total }}</span>
+              <span class="chip">Synergy {{ syn.score }}/100</span>
+            </div>
+          </div>
+          <p v-if="focus.total && focus.pct < 75" class="small warn">Only {{ focus.on }} of {{ focus.total }} damage skills scale with {{ ATTR_NAME[focus.attr] }}, your highest attribute. Skills on one stat hit hardest: every point from levels and gear raises all of them.</p>
           <div class="slots">
             <div v-for="i in ACTIVE_SLOTS" :key="'a' + i" class="slot" @click="plan.actives[i - 1] && toggle(plan.actives[i - 1]!)">
               <SkillIcon v-if="plan.actives[i - 1]" :id="plan.actives[i - 1]!" :size="56" :dim="!meets(plan.actives[i - 1]!)" />

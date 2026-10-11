@@ -5,7 +5,7 @@
  * one sets up the condition the other pays off (a freeze before a shatter,
  * a mark before a burst). Scored over all pairs of the 192 skills.
  */
-import { SKILLS, skillName, type SkillDef } from './data'
+import { SKILLS, skillName, scalingOf, type SkillDef, type Attr } from './data'
 
 export type Tag =
   | 'summon' | 'stun' | 'freeze' | 'slow' | 'knock' | 'confuse' | 'fear' | 'charm' | 'taunt'
@@ -153,12 +153,27 @@ export const ALL_PAIRS = (): Pair[] => {
   return allPairs
 }
 
-/** How well a whole bar hangs together (0..100). */
-export const barSynergy = (ids: string[]): { score: number; top: Pair[] } => {
+/** How well a whole bar hangs together (0..100): its skill combos, and — given
+ *  the attributes — how many damage skills share the top stat (45 % weight). */
+export const barSynergy = (ids: string[], attrs?: Record<Attr, number>): { score: number; top: Pair[] } => {
   const sk = ids.map(i => SKILLS.find(s => s.id === i)!).filter(Boolean)
   const pairs: Pair[] = []
   for (let i = 0; i < sk.length; i++) for (let j = i + 1; j < sk.length; j++) pairs.push(pairScore(sk[i]!, sk[j]!))
   const total = pairs.reduce((a, p) => a + Math.min(p.score, 9), 0)
-  const score = Math.max(0, Math.min(100, Math.round((total / Math.max(1, sk.length * 3.2)) * 20)))
+  const combos = Math.max(0, Math.min(100, (total / Math.max(1, sk.length * 3.2)) * 20))
+  const f = attrs ? statFocus(ids, attrs) : null
+  const score = Math.round(f && f.total ? combos * 0.55 + f.pct * 0.45 : combos)
   return { score, top: pairs.filter(p => p.score >= 3).sort((x, y) => y.score - x.score).slice(0, 6) }
+}
+
+/**
+ * Stat focus: a hero hits hardest when his damage skills all scale with the
+ * attribute he has the most of (levels, gear and points stacked on ONE stat).
+ * `on` of `total` scaling actives use the build's top attribute.
+ */
+export const statFocus = (actives: string[], attrs: Record<Attr, number>): { attr: Attr; on: number; total: number; pct: number } => {
+  const attr = (Object.entries(attrs) as [Attr, number][]).sort((a, b) => b[1] - a[1])[0]![0]
+  const sc = actives.map(id => SKILLS.find(s => s.id === id)).filter((s): s is SkillDef => !!s).map(scalingOf).filter((a): a is Attr => !!a)
+  const on = sc.filter(a => a === attr).length
+  return { attr, on, total: sc.length, pct: sc.length ? Math.round((on / sc.length) * 100) : 100 }
 }

@@ -3,7 +3,7 @@ import { computed } from 'vue'
 import { parts } from '../router'
 import { BUILD_BY_ID } from '../builds'
 import { encodePlan, type Plan } from '../planner'
-import { barSynergy } from '../synergy'
+import { barSynergy, statFocus } from '../synergy'
 import { CLASSES, ATTRS, ATTR_NAME, ATTR_COLOR, EQUIP_SLOT_LIST, ITEM_BY_ID, IMG, classIcon, className, itemName, slotName, type ClassId } from '../data'
 import SkillIcon from '../components/SkillIcon.vue'
 import ItemIcon from '../components/ItemIcon.vue'
@@ -12,7 +12,8 @@ import SkillPath from '../components/SkillPath.vue'
 
 const b = computed(() => BUILD_BY_ID[parts.value[1] ?? ''])
 const plan = computed<Plan | null>(() => b.value ? { level: 30, attrs: b.value.attrs, actives: b.value.actives, passives: b.value.passives, gear: b.value.gear } : null)
-const syn = computed(() => (b.value ? barSynergy([...b.value.actives, ...b.value.passives]) : { score: 0, top: [] }))
+const syn = computed(() => (b.value ? barSynergy([...b.value.actives, ...b.value.passives], b.value.attrs) : { score: 0, top: [] }))
+const focus = computed(() => (b.value ? statFocus(b.value.actives, b.value.attrs) : null))
 const color = computed(() => (b.value ? CLASSES[b.value.classes[0] as ClassId].color : '#fff'))
 const portrait = computed(() => {
   const body = b.value?.gear.body ? ITEM_BY_ID[b.value.gear.body] : undefined
@@ -37,6 +38,7 @@ const maxAttr = computed(() => (b.value ? Math.max(...ATTRS.map(a => b.value!.at
           <span v-for="r in b.roles" :key="r" class="chip">{{ r }}</span>
           <span class="chip">Difficulty {{ '★'.repeat(b.difficulty) }}</span>
           <span class="chip">Synergy {{ syn.score }}/100</span>
+          <span v-if="focus" class="chip" :style="{ color: ATTR_COLOR[focus.attr] }">{{ ATTR_NAME[focus.attr] }} focus {{ focus.on }}/{{ focus.total }}</span>
         </div>
         <div class="row" style="margin-top:14px">
           <a class="btn" :href="'#/planner?b=' + encodeURIComponent(encodePlan(plan))">⚒ Open in Planner</a>
@@ -90,8 +92,9 @@ const maxAttr = computed(() => (b.value ? Math.max(...ATTRS.map(a => b.value!.at
           <div class="panel"><h3 class="warn">Weaknesses</h3><ul><li v-for="s in b.weaknesses" :key="s">{{ s }}</li></ul></div>
         </section>
 
-        <section v-if="syn.top.length" class="panel">
+        <section v-if="syn.top.length || focus" class="panel">
           <h2>Why it works</h2>
+          <p v-if="focus" class="small"><b :style="{ color: ATTR_COLOR[focus.attr] }">{{ focus.on }} of {{ focus.total }}</b> damage skills scale with {{ ATTR_NAME[focus.attr] }}, the build's highest attribute — every point from levels and gear in it raises all of them at once.</p>
           <ul><li v-for="p in syn.top" :key="p.a.id + p.b.id">{{ p.why[0] }}</li></ul>
         </section>
       </div>
