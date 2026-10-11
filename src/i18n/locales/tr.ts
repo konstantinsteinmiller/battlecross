@@ -4566,6 +4566,22 @@ export default {
     }
   },
   options: {
+    saves: {
+      save: 'Kaydet',
+      load: 'Yükle',
+      newGame: 'Yeni Oyun Başlat',
+      newGameWarn: 'Mevcut oyunun yenisiyle değiştirilir. Saklamak istiyorsan önce bir yuvaya kaydet.',
+      confirm: 'Emin misin? Tekrar dokun',
+      slot: 'Yuva {n}',
+      empty: 'Boş',
+      level: 'Seviye {n}',
+      levelAt: '{level} · {place}',
+      overwriteAsk: 'Üzerine yaz',
+      saved: 'Kaydedildi!',
+      loadWarn: 'Yüklemek mevcut oyununun yerini alır. Saklamak istiyorsan önce bir yuvaya kaydet.',
+      saveHint: 'Oyunun sen oynarken kendini kaydeder. Daha sonra dönmek için buraya bir kopya kaydet, örneğin farklı bir build denemek için.',
+      loadHint: 'Kayıtlı bir kopyayı yükle. Oyun ondan yeniden başlar.'
+    },
     gameplay: 'Oynanış',
     title: 'Seçenekler',
     general: 'Genel',

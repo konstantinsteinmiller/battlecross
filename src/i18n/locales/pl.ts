@@ -4648,6 +4648,22 @@ export default {
     }
   },
   options: {
+    saves: {
+      save: 'Zapisz',
+      load: 'Wczytaj',
+      newGame: 'Rozpocznij nową grę',
+      newGameWarn: 'Obecna gra zostanie zastąpiona nową. Najpierw zapisz ją w slocie, jeśli chcesz ją zachować.',
+      confirm: 'Na pewno? Dotknij ponownie',
+      slot: 'Slot {n}',
+      empty: 'Pusty',
+      level: 'Poziom {n}',
+      levelAt: '{level} · {place}',
+      overwriteAsk: 'Nadpisz',
+      saved: 'Zapisano!',
+      loadWarn: 'Wczytanie zastąpi obecną grę. Najpierw zapisz ją w slocie, jeśli chcesz ją zachować.',
+      saveHint: 'Gra zapisuje się sama podczas grania. Zapisz tu kopię, aby wrócić do niej później, na przykład żeby wypróbować inny build.',
+      loadHint: 'Wczytaj zapisaną kopię. Gra uruchomi się od niej ponownie.'
+    },
     gameplay: 'Rozgrywka',
     title: 'Opcje',
     general: 'Ogólne',

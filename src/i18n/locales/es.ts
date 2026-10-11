@@ -4598,6 +4598,22 @@ export default {
     }
   },
   options: {
+    saves: {
+      save: 'Guardar',
+      load: 'Cargar',
+      newGame: 'Empezar partida nueva',
+      newGameWarn: 'Tu partida actual se sustituye por una nueva. Guárdala antes en una ranura si quieres conservarla.',
+      confirm: '¿Seguro? Toca otra vez',
+      slot: 'Ranura {n}',
+      empty: 'Vacía',
+      level: 'Nivel {n}',
+      levelAt: '{level} · {place}',
+      overwriteAsk: 'Sobrescribir',
+      saved: '¡Guardado!',
+      loadWarn: 'Cargar sustituye tu partida actual. Guárdala antes en una ranura si quieres conservarla.',
+      saveHint: 'Tu partida se guarda sola mientras juegas. Guarda aquí una copia para volver a ella más tarde, por ejemplo para probar otra build.',
+      loadHint: 'Carga una copia guardada. La partida se reinicia desde ella.'
+    },
     gameplay: 'Jugabilidad',
     title: 'Opciones',
     general: 'General',

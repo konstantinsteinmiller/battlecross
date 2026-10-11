@@ -4566,6 +4566,22 @@ export default {
     }
   },
   options: {
+    saves: {
+      save: '儲存',
+      load: '讀取',
+      newGame: '開始新遊戲',
+      newGameWarn: '目前的遊戲將被新遊戲取代。如果想保留，請先儲存到一個存檔欄位。',
+      confirm: '確定嗎？再點一次',
+      slot: '存檔欄位 {n}',
+      empty: '空',
+      level: '等級 {n}',
+      levelAt: '{level} · {place}',
+      overwriteAsk: '覆寫',
+      saved: '已儲存！',
+      loadWarn: '讀取會取代目前的遊戲。如果想保留，請先儲存到一個存檔欄位。',
+      saveHint: '遊戲會在你遊玩時自動儲存。在這裡儲存一份副本，之後可以回到它，例如嘗試不同的流派。',
+      loadHint: '讀取已儲存的副本。遊戲將從那裡重新開始。'
+    },
     gameplay: '遊戲玩法',
     title: '選項',
     general: '一般',

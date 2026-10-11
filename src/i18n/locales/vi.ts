@@ -4566,6 +4566,22 @@ export default {
     }
   },
   options: {
+    saves: {
+      save: 'Lưu',
+      load: 'Tải',
+      newGame: 'Bắt đầu trò chơi mới',
+      newGameWarn: 'Trò chơi hiện tại sẽ được thay bằng trò chơi mới. Hãy lưu vào một ô trước nếu bạn muốn giữ lại.',
+      confirm: 'Chắc chưa? Chạm lần nữa',
+      slot: 'Ô {n}',
+      empty: 'Trống',
+      level: 'Cấp {n}',
+      levelAt: '{level} · {place}',
+      overwriteAsk: 'Ghi đè',
+      saved: 'Đã lưu!',
+      loadWarn: 'Tải sẽ thay thế trò chơi hiện tại. Hãy lưu vào một ô trước nếu bạn muốn giữ lại.',
+      saveHint: 'Trò chơi tự lưu khi bạn chơi. Lưu một bản sao ở đây để quay lại sau, ví dụ để thử một build khác.',
+      loadHint: 'Tải một bản sao đã lưu. Trò chơi sẽ bắt đầu lại từ đó.'
+    },
     gameplay: 'Lối chơi',
     title: 'Tùy chọn',
     general: 'Chung',

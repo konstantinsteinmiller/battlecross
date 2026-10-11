@@ -4620,6 +4620,22 @@ export default {
     }
   },
   options: {
+    saves: {
+      save: 'Salva',
+      load: 'Carica',
+      newGame: 'Nuova partita',
+      newGameWarn: 'La partita attuale viene sostituita da una nuova. Salvala prima in uno slot se vuoi tenerla.',
+      confirm: 'Sicuro? Tocca di nuovo',
+      slot: 'Slot {n}',
+      empty: 'Vuoto',
+      level: 'Livello {n}',
+      levelAt: '{level} · {place}',
+      overwriteAsk: 'Sovrascrivi',
+      saved: 'Salvato!',
+      loadWarn: 'Caricare sostituisce la partita attuale. Salvala prima in uno slot se vuoi tenerla.',
+      saveHint: 'La partita si salva da sola mentre giochi. Salva qui una copia per tornarci più tardi, per esempio per provare una build diversa.',
+      loadHint: 'Carica una copia salvata. Il gioco riparte da lì.'
+    },
     gameplay: 'Gioco',
     title: 'Opzioni',
     general: 'Generale',

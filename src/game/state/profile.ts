@@ -476,10 +476,22 @@ export const setSaveSandbox = (on: boolean): void => {
   saveSandbox = on
 }
 
+/**
+ * Set once a save slot was loaded or a new game started (`saveSlots.ts`): the
+ * blob already holds the NEW game and the page is about to reload, so the old
+ * in-memory profile must never be written back over it by a checkpoint that
+ * fires in the meantime.
+ */
+let profileReplaced = false
+export const freezeProfile = (): void => {
+  profileReplaced = true
+}
+
 /** Persist the whole profile (a checkpoint). Cheap: one debounced blob write.
  *  The blob gets copies, so play after a checkpoint waits for the next one. */
 export const saveProfile = (): void => {
   if (import.meta.env.DEV && saveSandbox) return
+  if (profileReplaced) return
   profile.meta.lastSeen = Date.now()
   setStates({
     [VERSION_KEY]: SAVE_VERSION,
@@ -498,6 +510,9 @@ export const saveProfile = (): void => {
 }
 
 let loaded = false
+/** The profile has been read from the save (before that it holds defaults,
+ *  and writing it out would put a first-timer over the real save). */
+export const profileLoaded = (): boolean => loaded
 /** Load once, and re-load whenever a cloud hydrate lands new data. */
 export const initProfile = (): void => {
   if (loaded) return

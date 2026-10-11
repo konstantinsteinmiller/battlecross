@@ -4566,6 +4566,22 @@ export default {
     }
   },
   options: {
+    saves: {
+      save: 'Tallenna',
+      load: 'Lataa',
+      newGame: 'Aloita uusi peli',
+      newGameWarn: 'Nykyinen pelisi korvataan uudella. Tallenna se ensin paikkaan, jos haluat säilyttää sen.',
+      confirm: 'Varma? Napauta uudelleen',
+      slot: 'Paikka {n}',
+      empty: 'Tyhjä',
+      level: 'Taso {n}',
+      levelAt: '{level} · {place}',
+      overwriteAsk: 'Korvaa',
+      saved: 'Tallennettu!',
+      loadWarn: 'Lataaminen korvaa nykyisen pelisi. Tallenna se ensin paikkaan, jos haluat säilyttää sen.',
+      saveHint: 'Pelisi tallentuu itsestään pelatessasi. Tallenna tähän kopio palataksesi siihen myöhemmin, esimerkiksi kokeillaksesi toista buildia.',
+      loadHint: 'Lataa tallennettu kopio. Peli alkaa siitä uudelleen.'
+    },
     gameplay: 'Pelattavuus',
     title: 'Asetukset',
     general: 'Yleiset',

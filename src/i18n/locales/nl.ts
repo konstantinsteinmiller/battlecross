@@ -4574,6 +4574,22 @@ export default {
     }
   },
   options: {
+    saves: {
+      save: 'Opslaan',
+      load: 'Laden',
+      newGame: 'Nieuw spel starten',
+      newGameWarn: 'Je huidige spel wordt vervangen door een nieuw spel. Sla het eerst op in een slot als je het wilt bewaren.',
+      confirm: 'Zeker? Tik nog eens',
+      slot: 'Slot {n}',
+      empty: 'Leeg',
+      level: 'Level {n}',
+      levelAt: '{level} · {place}',
+      overwriteAsk: 'Overschrijven',
+      saved: 'Opgeslagen!',
+      loadWarn: 'Laden vervangt je huidige spel. Sla het eerst op in een slot als je het wilt bewaren.',
+      saveHint: 'Je spel slaat zichzelf op terwijl je speelt. Sla hier een kopie op om er later naar terug te gaan, bijvoorbeeld om een andere build te proberen.',
+      loadHint: 'Laad een opgeslagen kopie. Het spel start daarmee opnieuw.'
+    },
     gameplay: 'Gameplay',
     title: 'Opties',
     general: 'Algemeen',

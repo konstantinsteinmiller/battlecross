@@ -357,6 +357,24 @@ export class Sim {
     try { fn() } finally { this.rng = keep }
   }
 
+  /** Saved games (`snapshot.ts`): the private bookkeeping a visit needs to
+   *  carry on from where it was saved. */
+  core(): { nextId: number; dangerN: number; timers: number } {
+    return { nextId: this.nextId, dangerN: this.dangerN, timers: this.timers.length }
+  }
+
+  /** Saved games: put the units and the bookkeeping back. Pending timers (a
+   *  meteor still falling, a second strike due) are closures and do not
+   *  survive a save; they are dropped. */
+  restoreCore(c: { nextId: number; dangerN: number }, units: Unit[]): void {
+    this.nextId = c.nextId
+    this.dangerN = c.dangerN
+    this.units = units
+    this.byId.clear()
+    for (const u of units) this.byId.set(u.id, u)
+    this.timers.length = 0
+  }
+
   /** A unit's encounter group, main or side. */
   groupById(id: number): GroupState | undefined {
     return id >= SIDE_GROUP ? this.sideGroups[id - SIDE_GROUP] : id >= 0 ? this.groups[id] : undefined

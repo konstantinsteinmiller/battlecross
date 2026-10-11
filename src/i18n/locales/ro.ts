@@ -4601,6 +4601,22 @@ export default {
     }
   },
   options: {
+    saves: {
+      save: 'Salvează',
+      load: 'Încarcă',
+      newGame: 'Joc nou',
+      newGameWarn: 'Jocul actual este înlocuit cu unul nou. Salvează-l mai întâi într-un slot dacă vrei să-l păstrezi.',
+      confirm: 'Sigur? Atinge din nou',
+      slot: 'Slot {n}',
+      empty: 'Gol',
+      level: 'Nivel {n}',
+      levelAt: '{level} · {place}',
+      overwriteAsk: 'Suprascrie',
+      saved: 'Salvat!',
+      loadWarn: 'Încărcarea înlocuiește jocul actual. Salvează-l mai întâi într-un slot dacă vrei să-l păstrezi.',
+      saveHint: 'Jocul se salvează singur în timp ce joci. Salvează aici o copie ca să revii la ea mai târziu, de exemplu ca să încerci alt build.',
+      loadHint: 'Încarcă o copie salvată. Jocul repornește de la ea.'
+    },
     gameplay: 'Joc',
     title: 'Opțiuni',
     general: 'General',

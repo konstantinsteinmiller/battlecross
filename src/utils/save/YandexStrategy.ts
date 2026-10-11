@@ -43,7 +43,7 @@ import type {
 } from './types'
 import { isInternalKey } from './types'
 import { STATE_KEY } from '@/use/useGameState'
-import { META_KEY, computeMeta, decideMerge, parseMeta, serializeMeta } from './SaveMergePolicy'
+import { META_KEY, computeMeta, decideMerge, epochOf, parseMeta, serializeMeta } from './SaveMergePolicy'
 import { isDebug } from '@/use/useMatch'
 import { getYandexPlayer } from '@/utils/yandexPlugin'
 
@@ -173,7 +173,10 @@ export class YandexStrategy implements SaveStrategy {
         ?? computeMeta({ get: (k) => (k === STATE_KEY ? remoteState : null) })
       const localMeta = parseMeta(local.get(META_KEY))
         ?? (local.get(STATE_KEY) !== null ? computeMeta({ get: (k) => local.get(k) }) : null)
-      const resolution = decideMerge(localMeta, remoteMeta)
+      const resolution = decideMerge(localMeta, remoteMeta, {
+        local: epochOf({ get: (k) => local.get(k) }),
+        remote: epochOf({ get: (k) => (k === STATE_KEY ? remoteState : null) })
+      })
       if (resolution.kind === 'remote-wins' || resolution.kind === 'remote-only') {
         // Writes queued before the read were made against pre-hydrate state;
         // the cloud just won, so they must not go back up over it.

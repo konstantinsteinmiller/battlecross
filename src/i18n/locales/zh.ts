@@ -4566,6 +4566,22 @@ export default {
     }
   },
   options: {
+    saves: {
+      save: '保存',
+      load: '读取',
+      newGame: '开始新游戏',
+      newGameWarn: '当前游戏将被新游戏取代。如果想保留，请先保存到一个存档位。',
+      confirm: '确定吗？再点一次',
+      slot: '存档位 {n}',
+      empty: '空',
+      level: '等级 {n}',
+      levelAt: '{level} · {place}',
+      overwriteAsk: '覆盖',
+      saved: '已保存！',
+      loadWarn: '读取会取代当前游戏。如果想保留，请先保存到一个存档位。',
+      saveHint: '游戏会在你游玩时自动保存。在这里保存一份副本，以后可以回到它，比如尝试不同的流派。',
+      loadHint: '读取已保存的副本。游戏将从那里重新开始。'
+    },
     gameplay: '玩法',
     title: '选项',
     general: '通用',

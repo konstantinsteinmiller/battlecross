@@ -4566,6 +4566,22 @@ export default {
     }
   },
   options: {
+    saves: {
+      save: 'Saqlash',
+      load: 'Yuklash',
+      newGame: 'Yangi oʻyin boshlash',
+      newGameWarn: 'Joriy oʻyiningiz yangisi bilan almashtiriladi. Saqlab qolmoqchi boʻlsangiz, avval uni uyachaga saqlang.',
+      confirm: 'Ishonchingiz komilmi? Yana bosing',
+      slot: 'Uyacha {n}',
+      empty: 'Boʻsh',
+      level: 'Daraja {n}',
+      levelAt: '{level} · {place}',
+      overwriteAsk: 'Ustiga yozish',
+      saved: 'Saqlandi!',
+      loadWarn: 'Yuklash joriy oʻyiningizni almashtiradi. Saqlab qolmoqchi boʻlsangiz, avval uni uyachaga saqlang.',
+      saveHint: 'Oʻyin siz oʻynayotganingizda oʻzi saqlanadi. Keyinroq qaytish uchun bu yerga nusxasini saqlang, masalan boshqa buildni sinab koʻrish uchun.',
+      loadHint: 'Saqlangan nusxani yuklang. Oʻyin undan qayta boshlanadi.'
+    },
     gameplay: 'Oʻyin',
     title: 'Sozlamalar',
     general: 'Umumiy',

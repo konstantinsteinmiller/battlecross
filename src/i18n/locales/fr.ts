@@ -4602,6 +4602,22 @@ export default {
     }
   },
   options: {
+    saves: {
+      save: 'Sauvegarder',
+      load: 'Charger',
+      newGame: 'Nouvelle partie',
+      newGameWarn: 'Ta partie actuelle est remplacée par une nouvelle. Sauvegarde-la d\'abord dans un emplacement si tu veux la garder.',
+      confirm: 'Sûr ? Touche encore',
+      slot: 'Emplacement {n}',
+      empty: 'Vide',
+      level: 'Niveau {n}',
+      levelAt: '{level} · {place}',
+      overwriteAsk: 'Écraser',
+      saved: 'Sauvegardé !',
+      loadWarn: 'Charger remplace ta partie actuelle. Sauvegarde-la d\'abord dans un emplacement si tu veux la garder.',
+      saveHint: 'Ta partie se sauvegarde toute seule pendant que tu joues. Sauvegarde ici une copie pour y revenir plus tard, par exemple pour essayer un autre build.',
+      loadHint: 'Charge une copie sauvegardée. Le jeu redémarre à partir d\'elle.'
+    },
     gameplay: 'Jeu',
     title: 'Options',
     general: 'Général',

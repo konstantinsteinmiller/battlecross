@@ -4566,6 +4566,22 @@ export default {
     }
   },
   options: {
+    saves: {
+      save: 'Mentés',
+      load: 'Betöltés',
+      newGame: 'Új játék indítása',
+      newGameWarn: 'A jelenlegi játékod helyére egy új kerül. Ha meg akarod tartani, előbb mentsd el egy helyre.',
+      confirm: 'Biztos? Koppints újra',
+      slot: '{n}. hely',
+      empty: 'Üres',
+      level: '{n}. szint',
+      levelAt: '{level} · {place}',
+      overwriteAsk: 'Felülírás',
+      saved: 'Mentve!',
+      loadWarn: 'A betöltés lecseréli a jelenlegi játékodat. Ha meg akarod tartani, előbb mentsd el egy helyre.',
+      saveHint: 'A játék játék közben magától ment. Ments ide egy másolatot, hogy később visszatérhess hozzá, például egy másik build kipróbálásához.',
+      loadHint: 'Tölts be egy mentett másolatot. A játék onnan indul újra.'
+    },
     gameplay: 'Játékmenet',
     title: 'Beállítások',
     general: 'Általános',

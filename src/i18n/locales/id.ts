@@ -4566,6 +4566,22 @@ export default {
     }
   },
   options: {
+    saves: {
+      save: 'Simpan',
+      load: 'Muat',
+      newGame: 'Mulai Game Baru',
+      newGameWarn: 'Game kamu saat ini akan diganti dengan yang baru. Simpan dulu ke slot jika ingin menyimpannya.',
+      confirm: 'Yakin? Ketuk lagi',
+      slot: 'Slot {n}',
+      empty: 'Kosong',
+      level: 'Level {n}',
+      levelAt: '{level} · {place}',
+      overwriteAsk: 'Timpa',
+      saved: 'Tersimpan!',
+      loadWarn: 'Memuat akan mengganti game kamu saat ini. Simpan dulu ke slot jika ingin menyimpannya.',
+      saveHint: 'Game kamu tersimpan otomatis saat bermain. Simpan salinan di sini untuk kembali nanti, misalnya untuk mencoba build lain.',
+      loadHint: 'Muat salinan yang tersimpan. Game akan dimulai ulang dari sana.'
+    },
     gameplay: 'Permainan',
     title: 'Opsi',
     general: 'Umum',

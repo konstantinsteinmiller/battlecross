@@ -4583,6 +4583,22 @@ export default {
     }
   },
   options: {
+    saves: {
+      save: 'Speichern',
+      load: 'Laden',
+      newGame: 'Neues Spiel starten',
+      newGameWarn: 'Dein aktuelles Spiel wird durch ein neues ersetzt. Speichere es vorher in einem Slot, wenn du es behalten willst.',
+      confirm: 'Sicher? Nochmal tippen',
+      slot: 'Slot {n}',
+      empty: 'Leer',
+      level: 'Level {n}',
+      levelAt: '{level} · {place}',
+      overwriteAsk: 'Überschreiben',
+      saved: 'Gespeichert!',
+      loadWarn: 'Laden ersetzt dein aktuelles Spiel. Speichere es vorher in einem Slot, wenn du es behalten willst.',
+      saveHint: 'Dein Spiel speichert sich beim Spielen automatisch. Speichere hier eine Kopie, um später dorthin zurückzukehren, zum Beispiel um einen anderen Build auszuprobieren.',
+      loadHint: 'Lade eine gespeicherte Kopie. Das Spiel startet damit neu.'
+    },
     gameplay: 'Gameplay',
     title: 'Optionen',
     general: 'Allgemein',

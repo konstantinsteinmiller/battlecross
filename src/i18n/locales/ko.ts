@@ -4566,6 +4566,22 @@ export default {
     }
   },
   options: {
+    saves: {
+      save: '저장',
+      load: '불러오기',
+      newGame: '새 게임 시작',
+      newGameWarn: '현재 게임이 새 게임으로 바뀝니다. 남겨 두려면 먼저 슬롯에 저장하세요.',
+      confirm: '정말요? 한 번 더 탭',
+      slot: '슬롯 {n}',
+      empty: '비어 있음',
+      level: '레벨 {n}',
+      levelAt: '{level} · {place}',
+      overwriteAsk: '덮어쓰기',
+      saved: '저장됨!',
+      loadWarn: '불러오면 현재 게임이 바뀝니다. 남겨 두려면 먼저 슬롯에 저장하세요.',
+      saveHint: '게임은 플레이하는 동안 자동으로 저장됩니다. 나중에 돌아올 수 있도록 여기에 사본을 저장하세요. 다른 빌드를 시험해 볼 때 좋습니다.',
+      loadHint: '저장된 사본을 불러옵니다. 게임이 거기서 다시 시작됩니다.'
+    },
     gameplay: '게임플레이',
     title: '설정',
     general: '일반',

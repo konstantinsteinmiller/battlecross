@@ -4603,6 +4603,22 @@ export default {
     }
   },
   options: {
+    saves: {
+      save: 'Gardar',
+      load: 'Cargar',
+      newGame: 'Comezar partida nova',
+      newGameWarn: 'A túa partida actual substitúese por unha nova. Gárdaa antes nun espazo se a queres conservar.',
+      confirm: 'Seguro? Toca outra vez',
+      slot: 'Espazo {n}',
+      empty: 'Baleiro',
+      level: 'Nivel {n}',
+      levelAt: '{level} · {place}',
+      overwriteAsk: 'Sobrescribir',
+      saved: 'Gardado!',
+      loadWarn: 'Cargar substitúe a túa partida actual. Gárdaa antes nun espazo se a queres conservar.',
+      saveHint: 'A túa partida gárdase soa mentres xogas. Garda aquí unha copia para volver a ela máis tarde, por exemplo para probar outra build.',
+      loadHint: 'Carga unha copia gardada. O xogo reiníciase desde ela.'
+    },
     gameplay: 'Xogabilidade',
     title: 'Opcións',
     general: 'Xeral',

@@ -4651,6 +4651,22 @@ export default {
     }
   },
   options: {
+    saves: {
+      save: 'Uložit',
+      load: 'Načíst',
+      newGame: 'Začít novou hru',
+      newGameWarn: 'Tvoje současná hra bude nahrazena novou. Pokud si ji chceš nechat, nejdřív ji ulož do slotu.',
+      confirm: 'Opravdu? Klepni znovu',
+      slot: 'Slot {n}',
+      empty: 'Prázdný',
+      level: 'Úroveň {n}',
+      levelAt: '{level} · {place}',
+      overwriteAsk: 'Přepsat',
+      saved: 'Uloženo!',
+      loadWarn: 'Načtení nahradí tvou současnou hru. Pokud si ji chceš nechat, nejdřív ji ulož do slotu.',
+      saveHint: 'Hra se během hraní ukládá sama. Ulož si tu kopii, abys se k ní mohl později vrátit, třeba když chceš zkusit jiný build.',
+      loadHint: 'Načti uloženou kopii. Hra se z ní spustí znovu.'
+    },
     gameplay: 'Hratelnost',
     title: 'Možnosti',
     general: 'Obecné',

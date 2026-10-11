@@ -4627,6 +4627,22 @@ export default {
     }
   },
   options: {
+    saves: {
+      save: 'Saglabāt',
+      load: 'Ielādēt',
+      newGame: 'Sākt jaunu spēli',
+      newGameWarn: 'Tava pašreizējā spēle tiks aizstāta ar jaunu. Ja vēlies to paturēt, vispirms saglabā to vietā.',
+      confirm: 'Droši? Pieskaries vēlreiz',
+      slot: 'Vieta {n}',
+      empty: 'Tukša',
+      level: 'Līmenis {n}',
+      levelAt: '{level} · {place}',
+      overwriteAsk: 'Pārrakstīt',
+      saved: 'Saglabāts!',
+      loadWarn: 'Ielāde aizstāj tavu pašreizējo spēli. Ja vēlies to paturēt, vispirms saglabā to vietā.',
+      saveHint: 'Spēle saglabājas pati, kamēr spēlē. Saglabā šeit kopiju, lai vēlāk pie tās atgrieztos, piemēram, lai izmēģinātu citu būvējumu.',
+      loadHint: 'Ielādē saglabātu kopiju. Spēle sāksies no tās no jauna.'
+    },
     gameplay: 'Spēle',
     title: 'Iestatījumi',
     general: 'Vispārīgi',

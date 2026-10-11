@@ -4566,6 +4566,22 @@ export default {
     }
   },
   options: {
+    saves: {
+      save: 'Konservi',
+      load: 'Ŝargi',
+      newGame: 'Komenci novan ludon',
+      newGameWarn: 'Via nuna ludo estos anstataŭigita per nova. Unue konservu ĝin en ingo, se vi volas teni ĝin.',
+      confirm: 'Ĉu certe? Tuŝu denove',
+      slot: 'Ingo {n}',
+      empty: 'Malplena',
+      level: 'Nivelo {n}',
+      levelAt: '{level} · {place}',
+      overwriteAsk: 'Anstataŭigi',
+      saved: 'Konservita!',
+      loadWarn: 'Ŝargado anstataŭigas vian nunan ludon. Unue konservu ĝin en ingo, se vi volas teni ĝin.',
+      saveHint: 'Via ludo konserviĝas mem dum vi ludas. Konservu ĉi tie kopion por reveni al ĝi poste, ekzemple por provi alian konstruon.',
+      loadHint: 'Ŝargu konservitan kopion. La ludo rekomenciĝas de ĝi.'
+    },
     gameplay: 'Ludado',
     title: 'Agordoj',
     general: 'Ĝenerale',

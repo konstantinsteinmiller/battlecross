@@ -2,15 +2,32 @@
  *  reproducible from a seed so a mission snapshot only stores deltas. */
 export type Rng = () => number
 
+/** The internal state of every mulberry32 stream, so a saved game can carry
+ *  the fight's dice and roll on exactly where they stood (`sim/snapshot.ts`). */
+const states = new WeakMap<Rng, { get: () => number; set: (v: number) => void }>()
+
 export const mulberry32 = (seed: number): Rng => {
   let a = seed >>> 0
-  return () => {
+  const rng: Rng = () => {
     a = (a + 0x6d2b79f5) >>> 0
     let t = a
     t = Math.imul(t ^ (t >>> 15), t | 1)
     t ^= t + Math.imul(t ^ (t >>> 7), t | 61)
     return ((t ^ (t >>> 14)) >>> 0) / 4294967296
   }
+  states.set(rng, { get: () => a, set: (v) => { a = v >>> 0 } })
+  return rng
+}
+
+/** Where a mulberry32 stream stands (null: not one). */
+export const rngState = (rng: Rng): number | null => states.get(rng)?.get() ?? null
+
+/** Put a mulberry32 stream back where it stood. False: not one. */
+export const setRngState = (rng: Rng, v: number): boolean => {
+  const s = states.get(rng)
+  if (!s) return false
+  s.set(v)
+  return true
 }
 
 export const randInt = (rng: Rng, min: number, max: number): number =>

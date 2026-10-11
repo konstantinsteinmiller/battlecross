@@ -1,6 +1,7 @@
 import {
   computeMeta,
   decideMerge,
+  epochOf,
   isPayloadKey,
   META_KEY,
   parseMeta,
@@ -285,7 +286,10 @@ export class CrazyGamesStrategy implements SaveStrategy {
       parseMeta(local.get(META_KEY))
       ?? (anyPayloadKeyPresent(local) ? computeMeta({ get: (k) => local.get(k) }) : null)
 
-    const resolution = decideMerge(localMeta, remoteMeta)
+    const resolution = decideMerge(localMeta, remoteMeta, {
+      local: epochOf({ get: (k) => local.get(k) }),
+      remote: epochOf({ get: (k) => remoteSnapshot.get(k) ?? null })
+    })
 
     switch (resolution.kind) {
       case 'remote-only':

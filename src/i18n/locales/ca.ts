@@ -4600,6 +4600,22 @@ export default {
     }
   },
   options: {
+    saves: {
+      save: 'Desa',
+      load: 'Carrega',
+      newGame: 'Comença una partida nova',
+      newGameWarn: 'La partida actual se substitueix per una de nova. Desa-la abans en una ranura si la vols conservar.',
+      confirm: 'Segur? Toca un altre cop',
+      slot: 'Ranura {n}',
+      empty: 'Buida',
+      level: 'Nivell {n}',
+      levelAt: '{level} · {place}',
+      overwriteAsk: 'Sobreescriu',
+      saved: 'Desat!',
+      loadWarn: 'Carregar substitueix la partida actual. Desa-la abans en una ranura si la vols conservar.',
+      saveHint: 'La partida es desa sola mentre jugues. Desa\'n aquí una còpia per tornar-hi més tard, per exemple per provar una altra build.',
+      loadHint: 'Carrega una còpia desada. El joc es reinicia des d\'aquí.'
+    },
     gameplay: 'Joc',
     title: 'Opcions',
     general: 'General',

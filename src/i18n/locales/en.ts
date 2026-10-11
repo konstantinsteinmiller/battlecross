@@ -2433,6 +2433,23 @@ export default {
 
   // ─── Options ──────────────────────────────────────────────────────────────
   'options': {
+    // Pause menu → Save / Load: the four manual save slots, and Start New Game.
+    'saves': {
+      'save': 'Save',
+      'load': 'Load',
+      'newGame': 'Start New Game',
+      'newGameWarn': 'Your current game is replaced by a new one. Save it to a slot first if you want to keep it.',
+      'confirm': 'Sure? Tap again',
+      'slot': 'Slot {n}',
+      'empty': 'Empty',
+      'level': 'Level {n}',
+      'levelAt': '{level} · {place}',
+      'overwriteAsk': 'Overwrite',
+      'saved': 'Saved!',
+      'loadWarn': 'Loading replaces your current game. Save it to a slot first if you want to keep it.',
+      'saveHint': 'Your game keeps saving itself as you play. Save a copy here to come back to it later, for example to try a different build.',
+      'loadHint': 'Load a saved copy. The game restarts from it.'
+    },
     'gameplay': 'Gameplay',
     'title': 'Options',
     'general': 'General',

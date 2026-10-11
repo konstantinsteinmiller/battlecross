@@ -48,6 +48,29 @@ export const META_KEY = 'bc_meta'
 /** Save shape version (number), for migrations of the structured fields. */
 export const VERSION_KEY = 'bc_version'
 
+/** Every field that IS the game being played — what `saveProfile` writes,
+ *  what a manual save slot copies, what "Start New Game" clears. Settings,
+ *  the leaderboard identity and the slots themselves are not in it: they
+ *  belong to the player, not to one playthrough. */
+export const PROFILE_FIELDS: readonly string[] = [
+  VERSION_KEY, LEVEL_KEY, GOLD_KEY, STORY_KEY, QUESTS_DONE_KEY,
+  HERO_KEY, INVENTORY_KEY, QUESTS_KEY, WORLD_KEY, STATS_KEY, TUTORIAL_KEY, META_KEY
+]
+
+// ─── Manual save slots ──────────────────────────────────────────────────────
+
+/** `(SlotSave | null)[]` — the four manual save slots (pause menu → Save / Load).
+ *  Inside the blob, so the slots ride the cloud save like everything else. */
+export const SAVE_SLOTS_KEY = 'bc_save_slots'
+/** Number (ms) — when the player last loaded a slot or started a new game.
+ *  The save merge lets the newer epoch win over a higher progress score, so
+ *  a deliberate step back to an earlier save is not undone by the cloud copy
+ *  of the game it replaced (`SaveMergePolicy.decideMerge`). */
+export const SAVE_EPOCH_KEY = 'bc_save_epoch'
+/** The visit a just-loaded slot was saved in (`flow.SavedVisit`): read and
+ *  removed by the next boot, which builds straight into it. */
+export const SAVE_RESUME_KEY = 'bc_resume'
+
 // ─── Leaderboard identity + posting bookkeeping ─────────────────────────────
 //
 // All of these live inside the same `bc_` blob as everything else, so they

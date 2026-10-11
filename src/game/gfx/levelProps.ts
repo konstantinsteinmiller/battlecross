@@ -921,6 +921,22 @@ export class LevelProps {
     return Math.max(-1, Math.min(1, (x - this.heroX) / 9))
   }
 
+  /** A saved game put back (`sim/snapshot.ts`): doors already open stand
+   *  gone and plates already pressed stay lit, without replaying their
+   *  moment. (Chests and herbs are built from the sim's state already.) */
+  syncFromSim(): void {
+    for (const d of this.doors) {
+      if (!this.sim.doors.find(v => v.id === d.id)?.open) continue
+      d.wait = -1
+      d.t = 2
+      d.mesh.visible = d.line.visible = false
+    }
+    for (const v of this.plates) {
+      const p = this.sim.plates.find(q => q.id === v.id)
+      if (p?.lit) v.aim = v.lit = 1
+    }
+  }
+
   onEvent(e: SimEvent): void {
     this.dummy?.onEvent(e)
     switch (e.t) {

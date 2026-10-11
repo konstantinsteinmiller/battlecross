@@ -10,6 +10,7 @@ import {
   applyBonusCoins,
   computeMeta,
   decideMerge,
+  epochOf,
   META_KEY,
   parseMeta,
   SAVE_KEYS,
@@ -239,7 +240,10 @@ export class GlitchStrategy implements SaveStrategy {
       parseMeta(local.get(META_KEY))
       ?? (anyPayloadKeyPresent(local) ? computeMeta({ get: (k) => local.get(k) }) : null)
 
-    const resolution = decideMerge(localMeta, remoteMeta)
+    const resolution = decideMerge(localMeta, remoteMeta, {
+      local: epochOf({ get: (k) => local.get(k) }),
+      remote: epochOf({ get: remoteRead })
+    })
     let bonusCoinsAwarded = 0
 
     switch (resolution.kind) {

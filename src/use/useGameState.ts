@@ -170,6 +170,16 @@ export const setStates = (patch: Record<string, unknown>): void => {
   schedulePersist()
 }
 
+/** Set some fields and drop others in ONE reactive change and ONE persist —
+ *  loading a save slot swaps the whole playthrough at once, so no reader (and
+ *  no cloud upload) ever sees half of one save and half of another. */
+export const replaceStates = (patch: Record<string, unknown>, remove: readonly string[] = []): void => {
+  const next = { ...gameState.value, ...patch }
+  for (const k of remove) delete next[k]
+  gameState.value = next
+  schedulePersist()
+}
+
 export const removeState = (key: string): void => {
   if (gameState.value[key] === undefined) return
   const next = { ...gameState.value }

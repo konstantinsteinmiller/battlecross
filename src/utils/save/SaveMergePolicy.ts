@@ -20,13 +20,16 @@
 // break ties between two saves at the same story beat and level.
 //
 // Conflict policy:
+//   - a newer save epoch wins outright (the player loaded a slot or started
+//     a new game — a deliberate step back that must not be undone by the
+//     further-along copy of the game it replaced)
 //   - higher score wins
 //   - tie on score → newer savedAt wins
 //   - same time too → keep local (no needless writes)
 //   - if remote wins and local had ANY progress (score > 0), the player
 //     gets bonus bolts = winner.maxStage (hero level) × 50 to soften the loss
 
-import { LEVEL_KEY, STORY_KEY, QUESTS_DONE_KEY, GOLD_KEY } from '@/keys'
+import { LEVEL_KEY, STORY_KEY, QUESTS_DONE_KEY, GOLD_KEY, SAVE_EPOCH_KEY } from '@/keys'
 import { STATE_KEY, STATE_FIELD_PREFIX } from '@/use/useGameState'
 
 /** Where the meta blob is stored in localStorage / on the remote backend.
@@ -190,12 +193,24 @@ export const parseMeta = (raw: string | null | undefined): SaveMeta | null => {
 
 export const serializeMeta = (meta: SaveMeta): string => JSON.stringify(meta)
 
+/** The save epoch of a snapshot (0: never loaded a slot / started over). */
+export const epochOf = (read: SnapshotReader): number =>
+  Math.max(0, safeInt(readField(read, SAVE_EPOCH_KEY), 0))
+
+/** Both sides' save epochs, for `decideMerge`. */
+export interface MergeEpochs {
+  local: number
+  remote: number
+}
+
 /**
  * Compare local and remote metas, return the resolution.
  *
  * Rules (in order):
  *   1. No remote → 'local-only'
  *   2. No local  → 'remote-only'  (nothing to lose; no bonus needed)
+ *   2b. Epochs differ → the newer epoch wins, whatever the scores (no bonus:
+ *       the other side was given up on purpose)
  *   3. remote.score > local.score → 'remote-wins' with bonus = remote.maxStage * 50 if local had any progress
  *   4. local.score > remote.score → 'local-wins'
  *   5. Equal scores → newer savedAt wins (no bonus on score-tie wins)
@@ -203,10 +218,15 @@ export const serializeMeta = (meta: SaveMeta): string => JSON.stringify(meta)
  */
 export const decideMerge = (
   localMeta: SaveMeta | null,
-  remoteMeta: SaveMeta | null
+  remoteMeta: SaveMeta | null,
+  epochs?: MergeEpochs
 ): MergeResolution => {
   if (!remoteMeta) return { kind: 'local-only' }
   if (!localMeta) return { kind: 'remote-only' }
+
+  if (epochs && epochs.local !== epochs.remote) {
+    return epochs.local > epochs.remote ? { kind: 'local-wins' } : { kind: 'remote-wins', bonusCoins: 0 }
+  }
 
   if (remoteMeta.progressScore > localMeta.progressScore) {
     const bonus = localMeta.progressScore > 0 ? remoteMeta.maxStage * 50 : 0

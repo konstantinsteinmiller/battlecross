@@ -56,7 +56,7 @@ import type {
 } from './types'
 import { isInternalKey } from './types'
 import { STATE_KEY } from '@/use/useGameState'
-import { META_KEY, computeMeta, decideMerge, parseMeta, serializeMeta } from './SaveMergePolicy'
+import { META_KEY, computeMeta, decideMerge, epochOf, parseMeta, serializeMeta } from './SaveMergePolicy'
 import { isDebug } from '@/use/useMatch'
 import { getPlaygamaBridge, isPlaygamaSdkActive } from '@/utils/playgamaPlugin'
 
@@ -198,7 +198,10 @@ export class PlaygamaStrategy implements SaveStrategy {
     const localMeta = parseMeta(local.get(META_KEY))
       ?? (local.get(STATE_KEY) !== null ? computeMeta({ get: (k) => local.get(k) }) : null)
 
-    const resolution = decideMerge(localMeta, remoteMeta)
+    const resolution = decideMerge(localMeta, remoteMeta, {
+      local: epochOf({ get: (k) => local.get(k) }),
+      remote: epochOf({ get: (k) => (k === STATE_KEY ? remoteState : null) })
+    })
     if ((resolution.kind === 'remote-wins' || resolution.kind === 'remote-only') && remoteState !== null) {
       // Anything queued before the read was written against the pre-hydrate
       // defaults. The cloud just won, so pushing that queue later would put the

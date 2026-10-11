@@ -4566,6 +4566,22 @@ export default {
     }
   },
   options: {
+    saves: {
+      save: 'Spara',
+      load: 'Ladda',
+      newGame: 'Starta nytt spel',
+      newGameWarn: 'Ditt nuvarande spel ersätts med ett nytt. Spara det i en plats först om du vill behålla det.',
+      confirm: 'Säker? Tryck igen',
+      slot: 'Plats {n}',
+      empty: 'Tom',
+      level: 'Nivå {n}',
+      levelAt: '{level} · {place}',
+      overwriteAsk: 'Skriv över',
+      saved: 'Sparat!',
+      loadWarn: 'Att ladda ersätter ditt nuvarande spel. Spara det i en plats först om du vill behålla det.',
+      saveHint: 'Ditt spel sparar sig självt medan du spelar. Spara en kopia här för att komma tillbaka till den senare, till exempel för att testa ett annat bygge.',
+      loadHint: 'Ladda en sparad kopia. Spelet startar om från den.'
+    },
     gameplay: 'Spel',
     title: 'Inställningar',
     general: 'Allmänt',

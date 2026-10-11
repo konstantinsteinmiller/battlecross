@@ -6,7 +6,8 @@ import { AMBUSH_KIND, FACTIONS, REP_HOSTILE, questOfNode, type FactionId } from 
 import { NODE_BY_ID, TOWNS, ZONES, foundFlag, hiddenTrainerOf, visitLevel, type NodeId, type NpcDef, type ThemeId, type TownId } from './data/zones'
 import type { ClassId } from './data/skills'
 import type { ZoneId } from './data/items'
-import { ZoneMode, type ZoneSetup } from './modes/zoneMode'
+import { ZoneMode, type VisitResume, type ZoneSetup } from './modes/zoneMode'
+import { setVisitSnapshotProvider, takeResumeVisit } from './state/saveSlots'
 import { hud } from './state/hud'
 import { conversationOf, decisionOf } from './data/dialogs'
 import type { ConversationDef } from './dialog/types'
@@ -243,7 +244,39 @@ const openPanel = (panel: 'map' | 'character' | 'inventory' | 'skills'): void =>
 export interface BuiltPlace extends GameMode {
   setup: { theme: ThemeId }
 }
-type NodeBuilder = (node: NodeId, onProgress: (p01: number) => void, encounter?: EncounterSpec) => Promise<BuiltPlace>
+type NodeBuilder = (node: NodeId, onProgress: (p01: number) => void, encounter?: EncounterSpec, saved?: SavedVisit) => Promise<BuiltPlace>
+
+/**
+ * ─── A visit kept in a manual save slot ─────────────────────────────────────
+ *
+ * The place the hero was in when the game was saved, and how to rebuild it
+ * exactly: its setup as it was built (the seed above all), and what has
+ * happened in it since (`ZoneMode.snapshot`). Loading the slot boots straight
+ * back into it (`createBootMode`) — no new visit, no re-populated zone.
+ */
+export interface SavedVisit {
+  v: 1
+  node: NodeId
+  encounter: EncounterSpec | null
+  setup: Omit<ZoneSetup, 'flags'> & { flags: string[] }
+  resume: VisitResume
+}
+
+/** The visit being played, as a save slot keeps it (null: not in a place). */
+export const savedVisit = (): SavedVisit | null => {
+  const mode = app.mode
+  if (!(mode instanceof ZoneMode) || flow.loading || !flow.node || (flow.screen !== 'zone' && flow.screen !== 'town')) return null
+  const resume = mode.snapshot()
+  if (!resume) return null
+  return {
+    v: 1,
+    node: flow.node as NodeId,
+    encounter: flow.encounter ? JSON.parse(JSON.stringify(flow.encounter)) as EncounterSpec : null,
+    setup: { ...JSON.parse(JSON.stringify({ ...mode.setup, flags: undefined })), flags: [...mode.setup.flags] },
+    resume
+  }
+}
+setVisitSnapshotProvider(savedVisit)
 
 /** A random encounter's fight: the region's ground and enemies, at its level. */
 const encounterSetup = (e: EncounterSpec): ZoneSetup => ({
@@ -265,15 +298,18 @@ export const setOutEscort = async (): Promise<void> => {
   await startEncounter({ kind: 'fight', zone, level: visitLevel(ZONES[zone], profile.level), seed, packs: escortPacks(zone, seed), escort: true })
 }
 
-const buildZone = async (node: NodeId, onProgress: (p01: number) => void, encounter?: EncounterSpec): Promise<ZoneMode> => {
-  const setup = encounter ? encounterSetup(encounter) : setupFor(node)
+const buildZone = async (node: NodeId, onProgress: (p01: number) => void, encounter?: EncounterSpec, saved?: SavedVisit): Promise<ZoneMode> => {
+  // A saved visit is rebuilt from the setup it was built with, not today's.
+  const setup: ZoneSetup = saved
+    ? { ...saved.setup, flags: new Set(saved.setup.flags) }
+    : encounter ? encounterSetup(encounter) : setupFor(node)
   const mode = await ZoneMode.create(setup, gameInput(), {
     onEnd: (outcome) => { void finishVisit(outcome) },
     askSecondWind: offerSecondWind,
     onInteract: (npcId) => talkTo(npcId),
     onPause: () => { if (!flow.modal && !flow.talk && !flow.loading && flow.screen !== 'map') flow.modal = 'pause' },
     onPanel: openPanel
-  }, p => onProgress(p * 0.82))
+  }, p => onProgress(p * 0.82), saved?.resume)
   await precompile(mode, f => onProgress(0.82 + f * 0.12))
   try { await mode.warmUp(async () => {}, f => onProgress(0.94 + f * 0.06)) } catch (e) { console.warn('[flow] warm-up render failed', e) }
   onProgress(1)
@@ -337,6 +373,26 @@ export const createBootMode = async (onProgress: (p01: number) => void = () => {
   // The save is read (the cloud's too): a new player gets the introductions,
   // a returning one is past them (`coach/reveal.ts`).
   classifyOnboarding()
+  // A save slot was just loaded mid-visit: straight back into that moment.
+  const saved = takeResumeVisit() as SavedVisit | null
+  if (saved && saved.v === 1 && NODE_BY_ID[saved.node]) {
+    try {
+      const mode = await buildNode(saved.node, onProgress, saved.encounter ?? undefined, saved)
+      const def = NODE_BY_ID[saved.node]!
+      flow.node = saved.node
+      flow.encounter = saved.encounter
+      flow.screen = def.kind === 'town' && !saved.encounter ? 'town' : 'zone'
+      if (!saved.encounter) profile.world.at = saved.node
+      setMusicTrack(trackForTheme(mode.setup.theme))
+      measureStart(saved.encounter ? ENCOUNTER_LEVEL : saved.node)
+      return mode
+    } catch (e) {
+      // A save from a game version that builds this place differently: the
+      // usual start instead (the profile in the slot is loaded either way).
+      console.warn('[flow] the saved visit could not be restored', e)
+      flow.encounter = null
+    }
+  }
   const at = profile.world.at
   const node: NodeId = isFreshProfile() ? 'plains' : NODE_BY_ID[at]?.kind === 'town' ? at : 'sunford'
   const mode = await buildNode(node, onProgress)

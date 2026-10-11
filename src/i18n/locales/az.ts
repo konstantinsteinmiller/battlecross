@@ -4566,6 +4566,22 @@ export default {
     }
   },
   options: {
+    saves: {
+      save: 'Yadda saxla',
+      load: 'Yüklə',
+      newGame: 'Yeni oyuna başla',
+      newGameWarn: 'Hazırkı oyunun yenisi ilə əvəz olunur. Saxlamaq istəyirsənsə, əvvəlcə onu yuvaya yadda saxla.',
+      confirm: 'Əminsən? Yenidən toxun',
+      slot: 'Yuva {n}',
+      empty: 'Boş',
+      level: 'Səviyyə {n}',
+      levelAt: '{level} · {place}',
+      overwriteAsk: 'Üzərinə yaz',
+      saved: 'Yadda saxlanıldı!',
+      loadWarn: 'Yükləmə hazırkı oyununu əvəz edir. Saxlamaq istəyirsənsə, əvvəlcə onu yuvaya yadda saxla.',
+      saveHint: 'Oyun sən oynadıqca özü yadda saxlanılır. Sonra ona qayıtmaq üçün burada surətini saxla, məsələn başqa bild sınamaq üçün.',
+      loadHint: 'Yadda saxlanılmış surəti yüklə. Oyun ondan yenidən başlayır.'
+    },
     gameplay: 'Oyun',
     title: 'Seçimlər',
     general: 'Ümumi',

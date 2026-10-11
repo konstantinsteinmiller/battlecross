@@ -4602,6 +4602,22 @@ export default {
     }
   },
   options: {
+    saves: {
+      save: 'Guardar',
+      load: 'Carregar',
+      newGame: 'Começar novo jogo',
+      newGameWarn: 'O teu jogo atual é substituído por um novo. Guarda-o primeiro numa ranhura se o quiseres manter.',
+      confirm: 'Tens a certeza? Toca outra vez',
+      slot: 'Ranhura {n}',
+      empty: 'Vazia',
+      level: 'Nível {n}',
+      levelAt: '{level} · {place}',
+      overwriteAsk: 'Substituir',
+      saved: 'Guardado!',
+      loadWarn: 'Carregar substitui o teu jogo atual. Guarda-o primeiro numa ranhura se o quiseres manter.',
+      saveHint: 'O teu jogo guarda-se sozinho enquanto jogas. Guarda aqui uma cópia para voltares a ela mais tarde, por exemplo para experimentar outra build.',
+      loadHint: 'Carrega uma cópia guardada. O jogo recomeça a partir dela.'
+    },
     gameplay: 'Jogabilidade',
     title: 'Opções',
     general: 'Geral',

@@ -4657,6 +4657,22 @@ export default {
     }
   },
   options: {
+    saves: {
+      save: 'Spremi',
+      load: 'Učitaj',
+      newGame: 'Započni novu igru',
+      newGameWarn: 'Tvoja trenutna igra zamjenjuje se novom. Najprije je spremi u utor ako je želiš zadržati.',
+      confirm: 'Sigurno? Dodirni ponovno',
+      slot: 'Utor {n}',
+      empty: 'Prazno',
+      level: 'Razina {n}',
+      levelAt: '{level} · {place}',
+      overwriteAsk: 'Prepiši',
+      saved: 'Spremljeno!',
+      loadWarn: 'Učitavanje zamjenjuje tvoju trenutnu igru. Najprije je spremi u utor ako je želiš zadržati.',
+      saveHint: 'Igra se sama sprema dok igraš. Ovdje spremi kopiju da joj se kasnije vratiš, primjerice da isprobaš drugačiji build.',
+      loadHint: 'Učitaj spremljenu kopiju. Igra se ponovno pokreće od nje.'
+    },
     gameplay: 'Igranje',
     title: 'Postavke',
     general: 'Općenito',

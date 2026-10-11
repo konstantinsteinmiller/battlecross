@@ -4566,6 +4566,22 @@ export default {
     }
   },
   options: {
+    saves: {
+      save: 'Gem',
+      load: 'Indlæs',
+      newGame: 'Start nyt spil',
+      newGameWarn: 'Dit nuværende spil erstattes af et nyt. Gem det i en plads først, hvis du vil beholde det.',
+      confirm: 'Sikker? Tryk igen',
+      slot: 'Plads {n}',
+      empty: 'Tom',
+      level: 'Niveau {n}',
+      levelAt: '{level} · {place}',
+      overwriteAsk: 'Overskriv',
+      saved: 'Gemt!',
+      loadWarn: 'Indlæsning erstatter dit nuværende spil. Gem det i en plads først, hvis du vil beholde det.',
+      saveHint: 'Dit spil gemmer sig selv, mens du spiller. Gem en kopi her for at vende tilbage til den senere, for eksempel for at prøve et andet build.',
+      loadHint: 'Indlæs en gemt kopi. Spillet starter forfra fra den.'
+    },
     gameplay: 'Spil',
     title: 'Indstillinger',
     general: 'Generelt',

@@ -4604,6 +4604,22 @@ export default {
     }
   },
   options: {
+    saves: {
+      save: 'Salvar',
+      load: 'Carregar',
+      newGame: 'Começar novo jogo',
+      newGameWarn: 'Seu jogo atual será substituído por um novo. Salve-o antes em um slot se quiser mantê-lo.',
+      confirm: 'Certeza? Toque de novo',
+      slot: 'Slot {n}',
+      empty: 'Vazio',
+      level: 'Nível {n}',
+      levelAt: '{level} · {place}',
+      overwriteAsk: 'Sobrescrever',
+      saved: 'Salvo!',
+      loadWarn: 'Carregar substitui seu jogo atual. Salve-o antes em um slot se quiser mantê-lo.',
+      saveHint: 'Seu jogo se salva sozinho enquanto você joga. Salve uma cópia aqui para voltar a ela depois, por exemplo para testar outra build.',
+      loadHint: 'Carregue uma cópia salva. O jogo recomeça a partir dela.'
+    },
     gameplay: 'Jogabilidade',
     title: 'Opções',
     general: 'Geral',

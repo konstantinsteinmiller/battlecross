@@ -4613,6 +4613,22 @@ export default {
     }
   },
   options: {
+    saves: {
+      save: 'Išsaugoti',
+      load: 'Įkelti',
+      newGame: 'Pradėti naują žaidimą',
+      newGameWarn: 'Dabartinis žaidimas bus pakeistas nauju. Jei nori jį pasilikti, pirmiau išsaugok jį lizde.',
+      confirm: 'Tikrai? Paliesk dar kartą',
+      slot: 'Lizdas {n}',
+      empty: 'Tuščias',
+      level: 'Lygis {n}',
+      levelAt: '{level} · {place}',
+      overwriteAsk: 'Perrašyti',
+      saved: 'Išsaugota!',
+      loadWarn: 'Įkėlimas pakeičia dabartinį žaidimą. Jei nori jį pasilikti, pirmiau išsaugok jį lizde.',
+      saveHint: 'Žaidimas pats išsisaugo, kol žaidi. Išsaugok čia kopiją, kad vėliau galėtum prie jos grįžti, pavyzdžiui, išbandyti kitą buildą.',
+      loadHint: 'Įkelk išsaugotą kopiją. Žaidimas nuo jos prasidės iš naujo.'
+    },
     gameplay: 'Žaidimas',
     title: 'Nustatymai',
     general: 'Bendra',

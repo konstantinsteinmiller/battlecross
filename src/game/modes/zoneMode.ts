@@ -20,6 +20,7 @@ import { stepSim } from '../sim/step'
 import { reviveHero } from '../sim/combat'
 import { generateArena, generateEncounter, generateTown, generateZone, type ZonePlan } from '../sim/zoneGen'
 import { Sim } from '../sim/world'
+import { captureBaseline, restoreSim, snapshotSim, type SimBaseline, type SimSnapshot } from '../sim/snapshot'
 import type { DamageType, SimEvent, Unit } from '../sim/types'
 import { updateCelFrame, updateSeeThrough } from '../gfx/cel'
 import { fxLevel, stepEffectsLadder } from '../engine/effectsLadder'
@@ -94,6 +95,21 @@ export interface ZoneSetup {
   /** The colosseum's weekly modifier (roadmap #10). */
   arenaMod?: ArenaMod
   flags: ReadonlySet<string>
+}
+
+/**
+ * A visit as a manual save slot keeps it (`state/saveSlots.ts`): a zone's
+ * whole state on top of its generation, or — in a town, whose folk are
+ * regenerated anyway — just where the hero stood.
+ */
+export interface VisitResume {
+  /** A zone, an encounter or the colosseum: everything that changed. */
+  sim?: SimSnapshot
+  /** A town: the hero's spot and heading. */
+  hero?: { x: number; z: number; facing: number }
+  /** The training dummy stood in this visit (it is generated only while
+   *  `profile.tips.dummy` is unset, which the visit itself may have set). */
+  dummy?: boolean
 }
 
 export interface ZoneCallbacks {
@@ -233,6 +249,10 @@ export class ZoneMode implements GameMode {
   /** Seconds after a conversation in which input is still swallowed (the key
    *  or tap that ended it is not an order). */
   private talkHold = 0
+  /** The units as this visit was generated: what a saved game is told apart from. */
+  private baseline: SimBaseline | null = null
+  /** The training dummy was set up in this visit. */
+  private dummy = false
 
   private constructor(setup: ZoneSetup, plan: ZonePlan, input: Input, cb: ZoneCallbacks) {
     this.setup = setup
@@ -246,7 +266,7 @@ export class ZoneMode implements GameMode {
   }
 
   /** Build a visit, time-sliced so the loader keeps painting. */
-  static async create(setup: ZoneSetup, input: Input, cb: ZoneCallbacks, onProgress: (p01: number) => void = () => {}): Promise<ZoneMode> {
+  static async create(setup: ZoneSetup, input: Input, cb: ZoneCallbacks, onProgress: (p01: number) => void = () => {}, resume?: VisitResume): Promise<ZoneMode> {
     const slice: Slice = createSlicer(12)
     const plan = setup.kind === 'town'
       ? generateTown(TOWNS[setup.town!], setup.flags, setup.seed)
@@ -280,7 +300,9 @@ export class ZoneMode implements GameMode {
     // An encounter pays in gold and experience, never in the zone's gear.
     if (setup.encounter) { sim.dropTable.mob = []; sim.dropTable.chest = []; sim.dropTable.boss = [] }
     // The first visit's training dummy, until it has been dealt with once.
-    if (setup.kind === 'zone' && setup.tutorial && !profile.tips.dummy) spawnDummy(sim, plan)
+    // (A saved game says whether it stood: the visit may have dealt with it since.)
+    m.dummy = setup.kind === 'zone' && !!setup.tutorial && (resume ? !!resume.dummy : !profile.tips.dummy)
+    if (m.dummy) spawnDummy(sim, plan)
     // A weak device leaves out most of the folk; every visit is a different day.
     else if (setup.kind === 'town') populateTown(sim, plan, { lite: sceneQuality() === 'low', visit: profile.world.visits[setup.town!] ?? 0 })
     else sim.wave.rest = 1.6
@@ -288,6 +310,15 @@ export class ZoneMode implements GameMode {
     // An escort (#85): what the visit is about, said once at the start.
     if (setup.escort) pushHud({ t: 'toast', key: 'escort.start' })
     sim.events.length = 0
+    m.baseline = captureBaseline(sim)
+    // A saved game: the same visit, put back as it was saved.
+    if (resume?.sim && !restoreSim(sim, m.baseline, resume.sim)) throw new Error('[zone] the saved visit does not match this zone')
+    if (resume?.hero) {
+      const h = sim.hero.unit
+      h.x = h.px = h.homeX = resume.hero.x
+      h.z = h.pz = h.homeZ = resume.hero.z
+      h.facing = resume.hero.facing
+    }
     onProgress(0.08)
     await slice()
 
@@ -330,6 +361,7 @@ export class ZoneMode implements GameMode {
     if (setup.kind === 'zone') {
       m.props = new LevelProps(sim, m.vfx, m.terrain.theme, n => m.cam.addTrauma(n))
       await m.props.build(plan, m.scene, slice)
+      if (resume?.sim) m.props.syncFromSim()
     }
     if (setup.kind === 'town' && plan.town) {
       const { TownView } = await loadTownView()
@@ -348,10 +380,23 @@ export class ZoneMode implements GameMode {
     m.still.collect(m.scene)
     onProgress(0.95)
     m.cam.snap()
-    m.cam.follow(plan.start.x, plan.start.z, 0, 0, 0.016, groundAt(plan.start.x, plan.start.z))
+    const at = resume ? sim.hero.unit : plan.start
+    m.cam.follow(at.x, at.z, 0, 0, 0.016, groundAt(at.x, at.z))
     m.syncHud(true)
     onProgress(1)
     return m
+  }
+
+  /** This visit as a save slot keeps it (null: nothing to keep — the visit
+   *  is over, or the hero has fallen). */
+  snapshot(): VisitResume | null {
+    const sim = this.sim
+    if (!this.baseline || !sim.hero.unit.alive) return null
+    if (this.setup.kind === 'town') {
+      const h = sim.hero.unit
+      return { hero: { x: h.x, z: h.z, facing: h.facing } }
+    }
+    return { sim: snapshotSim(sim, this.baseline), dummy: this.dummy }
   }
 
   // ─── Views ─────────────────────────────────────────────────────────────────
