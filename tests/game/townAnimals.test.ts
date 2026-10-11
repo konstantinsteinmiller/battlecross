@@ -107,3 +107,57 @@ describe('the towns\' animals (#97)', () => {
     expect(Math.abs(sitter.head!.rotation.y)).toBeGreaterThan(0.2)
   })
 })
+
+describe('the animals walk on their legs (#102)', () => {
+  it('a paw on the ground stays put: slip under 2 % of the ground covered, in every gait and pace', async () => {
+    const { WALK, TROT, BOUND, pawAt, legPose, strideFor, maxStride } = await import('@/game/gfx/townAnimals')
+    const cases = [
+      { g: WALK, len: 0.32, v: 1.13 }, { g: TROT, len: 0.32, v: 2.43 },
+      { g: WALK, len: 0.18, v: 0.58 }, { g: TROT, len: 0.18, v: 1.38 },
+      { g: BOUND, len: 0.05, v: 1.9 }
+    ]
+    for (const { g, len, v } of cases) {
+      const stride = strideFor(g, len, v)
+      expect(stride * g.duty, 'the paw never reaches past the leg').toBeLessThanOrEqual(1.1 * len + 1e-9)
+      expect(stride).toBeLessThanOrEqual(maxStride(g, len) + 1e-9)
+      // Walk the body for two cycles; follow the first leg's paw on the ground.
+      const T = (2 * stride) / v
+      let worst = 0
+      let plantedAt: number | null = null
+      for (let k = 0; k <= 400; k++) {
+        const time = (k / 400) * T
+        const body = v * time
+        const p = pawAt(g, (body / stride) + g.offsets[0], stride, len)
+        // The posed leg puts its paw exactly there.
+        const q = legPose(p.z, p.lift, len)
+        const pz = -len * q.stretch * Math.sin(q.pitch)
+        const py = -len * q.stretch * Math.cos(q.pitch)
+        expect(pz).toBeCloseTo(p.z, 9)
+        expect(py).toBeCloseTo(-len + p.lift, 9)
+        const ground = body + pz
+        if (p.lift === 0) {
+          if (plantedAt === null) plantedAt = ground
+          worst = Math.max(worst, Math.abs(ground - plantedAt))
+        } else plantedAt = null
+      }
+      expect(worst / (2 * stride), `${len} at ${v}`).toBeLessThan(0.02)
+    }
+  })
+
+  it('a walking dog moves its legs; standing, they settle under it', async () => {
+    const { zoo } = await build('sunford')
+    const dog = zoo.beasts.find(b => b.kind === 'dog')!
+    expect(dog.legs.length).toBe(4)
+    dog.mode = 'walk'
+    dog.tx = dog.x + 3
+    dog.tz = dog.z
+    const pitches = new Set<number>()
+    for (let i = 0; i < 30; i++) {
+      zoo.update(1 / 30, dog.x + 40, dog.z + 40)
+      pitches.add(Math.round(dog.legs[0]!.obj.rotation.x * 100))
+    }
+    expect(pitches.size, 'the front leg swings').toBeGreaterThan(5)
+    // Diagonal pairs move together in a trot or apart in a walk: never all alike.
+    expect(new Set(dog.legs.map(l => Math.round(l.obj.rotation.x * 100))).size).toBeGreaterThan(1)
+  })
+})

@@ -248,7 +248,7 @@ describe('z-fighting: every static model', () => {
     for (const [name, k] of all) {
       // Each part on its own (they move apart), and the body with its head and
       // tail where they hang.
-      for (const [part, kit] of [['body', k.body], ['head', k.head], ['tail', k.tail]] as const) {
+      for (const [part, kit] of [['body', k.body], ['head', k.head], ['tail', k.tail], ...k.legs.map((l, i) => [`leg ${i}`, l.kit] as const)] as const) {
         if (!kit) continue
         const tris: Tri[] = []
         for (const [ln, m] of [['hull', kit.hull], ['detail', kit.detail]] as const) trisOfMesher(m, `${part}.${ln}`, tris)

@@ -41,6 +41,13 @@ export const DOG_COATS: readonly Coat[] = [
 export const SQUIRREL_COAT: Coat = { fur: '#b8602e', belly: '#f0dcc0', ear: '#9a4a22', eye: '#1b1626' }
 const CHICKEN_COAT: Coat = { fur: '#fff8ee', belly: '#f4ece0', ear: '#e03a3a', eye: '#1b1626' }
 
+/** One leg, hanging from its hip (the kit's origin) straight down `len` to the paw. */
+export interface LegKit {
+  kit: Kit
+  at: [number, number, number]
+  len: number
+}
+
 /** The parts of one animal in one pose, and where the moving ones hang. */
 export interface AnimalKits {
   body: Kit
@@ -48,7 +55,22 @@ export interface AnimalKits {
   headAt: [number, number, number]
   tail: Kit | null
   tailAt: [number, number, number]
+  /** Standing four-legged bodies: the legs, front left, front right, hind
+   *  left, hind right (#102). Empty where the legs are part of the body. */
+  legs: LegKit[]
 }
+
+/** A leg: a post from the hip down to a paw ball, the hip at the origin. */
+const legKit = (r: number, len: number, fur: string, paw: string): Kit => {
+  const k = newKit()
+  k.hull.cyl(0, -len + r * 0.6, 0, r * 0.88, r, len - r * 0.6, 6, fur)
+  k.hull.ball(0, -len + r * 0.75, r * 0.25, r * 1.05, paw, 5, 3, 0.75)
+  return k
+}
+
+/** Four legs at (±x, ±z) under hips at height `len`: FL, FR, HL, HR. */
+const fourLegs = (x: number, z: number, len: number, r: number, fur: string, paw: string): LegKit[] =>
+  [[-1, 1], [1, 1], [-1, -1], [1, -1]].map(([sx, sz]) => ({ kit: legKit(r, len, fur, paw), at: [sx! * x, len, sz! * z] as [number, number, number], len }))
 
 const INK = '#1b1626'
 
@@ -102,7 +124,7 @@ export const animalKits = (kind: AnimalKind, coat: Coat, pose: AnimalPose = 'sta
     d.box(-0.07, 0.37, 0.16, -0.05, 0.39, 0.18, c.eye, 'b')
     d.box(0.05, 0.37, 0.16, 0.07, 0.39, 0.18, c.eye, 'b')
     for (const s of [-1, 1]) d.box(s * 0.05 - 0.012, 0, -0.012, s * 0.05 + 0.012, 0.09, 0.012, '#ffb02a', 'b')
-    return { body, head: null, headAt: [0, 0, 0], tail: null, tailAt: [0, 0, 0] }
+    return { body, head: null, headAt: [0, 0, 0], tail: null, tailAt: [0, 0, 0], legs: [] }
   }
   if (kind === 'cat') {
     let headAt: [number, number, number]
@@ -117,12 +139,12 @@ export const animalKits = (kind: AnimalKind, coat: Coat, pose: AnimalPose = 'sta
       headAt = [0, 0.37, 0.07]
     } else {
       for (const z of [-0.1, 0, 0.1]) h.ball(0, 0.2, z, 0.1, coat.fur, 7, 5, 0.9)
-      for (const sx of [-1, 1]) for (const sz of [-1, 1]) h.cyl(sx * 0.055, 0, sz * 0.1, 0.028, 0.026, 0.18, 5, coat.fur)
       tail = newKit()
       tail.hull.beam(0, 0, 0, 0, 0.2, -0.12, 0.045, coat.fur, 0.045)
       headAt = [0, 0.31, 0.17]
     }
-    return { body, head: catHead(coat), headAt, tail, tailAt: pose === 'sit' ? [0, 0, 0] : [0, 0.24, -0.19] }
+    const legs = pose === 'sit' ? [] : fourLegs(0.055, 0.1, 0.18, 0.027, coat.fur, coat.belly)
+    return { body, head: catHead(coat), headAt, tail, tailAt: pose === 'sit' ? [0, 0, 0] : [0, 0.24, -0.19], legs }
   }
   if (kind === 'dog') {
     let headAt: [number, number, number]
@@ -138,13 +160,13 @@ export const animalKits = (kind: AnimalKind, coat: Coat, pose: AnimalPose = 'sta
     } else {
       for (const z of [-0.13, 0, 0.13]) h.ball(0, 0.38, z, 0.15, coat.fur, 7, 5, 0.85)
       d.ball(0, 0.33, 0.17, 0.1, coat.belly, 6, 4)
-      for (const sx of [-1, 1]) for (const sz of [-1, 1]) h.cyl(sx * 0.085, 0, sz * 0.15, 0.045, 0.04, 0.32, 6, coat.fur)
       headAt = [0, 0.53, 0.27]
       tailAt = [0, 0.44, -0.26]
     }
     const tail = newKit()
     tail.hull.beam(0, 0, 0, 0, pose === 'sit' ? 0.04 : 0.18, -0.2, 0.05, coat.fur, 0.05)
-    return { body, head: dogHead(coat), headAt, tail, tailAt }
+    const legs = pose === 'sit' ? [] : fourLegs(0.085, 0.15, 0.32, 0.043, coat.fur, coat.belly)
+    return { body, head: dogHead(coat), headAt, tail, tailAt, legs }
   }
   // A squirrel, crouched.
   h.ball(0, 0.08, 0.01, 0.065, coat.fur, 6, 4, 1.1)
@@ -154,12 +176,63 @@ export const animalKits = (kind: AnimalKind, coat: Coat, pose: AnimalPose = 'sta
   for (const s of [-1, 1]) d.prism([[s * 0.03 - 0.015, 0.175], [s * 0.03 + 0.015, 0.175], [s * 0.033, 0.215]], 0.06, 0.08, coat.ear)
   d.box(-0.035, 0.145, 0.11, -0.015, 0.165, 0.122, coat.eye, 'b')
   d.box(0.015, 0.145, 0.11, 0.035, 0.165, 0.122, coat.eye, 'b')
-  for (const s of [-1, 1]) d.box(s * 0.035 - 0.015, 0, -0.08, s * 0.035 + 0.015, 0.06, -0.03, coat.fur, 'b')
   const tail = newKit()
   tail.hull.ball(0, 0.04, -0.03, 0.045, coat.fur, 6, 4)
   tail.hull.ball(0, 0.12, -0.07, 0.062, coat.fur, 6, 4, 1.2)
   tail.hull.ball(0, 0.22, -0.04, 0.056, coat.ear, 6, 4)
-  return { body, head: null, headAt: [0, 0, 0], tail, tailAt: [0, 0.06, -0.09] }
+  // Four short legs under the crouch: it bounds, fore pair then hind pair.
+  const legs = fourLegs(0.032, 0.035, 0.05, 0.016, coat.fur, coat.fur)
+  legs[2]!.at[2] = -0.065
+  legs[3]!.at[2] = -0.065
+  return { body, head: null, headAt: [0, 0, 0], tail, tailAt: [0, 0.06, -0.09], legs }
+}
+
+// ─── Gaits (#102) ────────────────────────────────────────────────────────────
+//
+// A paw on the ground does not slide: during its stance the foot moves back
+// under the hip in a straight line, exactly as fast as the body moves forward
+// (stride × duty ÷ stance time = speed), so its place on the ground stays put.
+// In the swing it comes forward, lifted. The leg is a rigid post turned and
+// stretched so its paw lands exactly there (a cartoon knee). Phases per leg
+// (FL, FR, HL, HR) make the gait: a lateral walk, a diagonal trot, the
+// squirrel's bound.
+
+export interface Gait {
+  /** Share of a cycle a paw is on the ground. */
+  duty: number
+  /** Each leg's phase offset in the cycle: FL, FR, HL, HR. */
+  offsets: readonly [number, number, number, number]
+  /** Cycles a second at a comfortable stride, for a leg as long as a dog's. */
+  hz: number
+}
+
+export const WALK: Gait = { duty: 0.62, offsets: [0.25, 0.75, 0, 0.5], hz: 1.7 }
+export const TROT: Gait = { duty: 0.5, offsets: [0, 0.5, 0.5, 0], hz: 2.6 }
+export const BOUND: Gait = { duty: 0.4, offsets: [0, 0.08, 0.5, 0.58], hz: 4.5 }
+
+/** The longest stride a leg of `len` takes in a gait: the paw's travel under
+ *  the hip (stride × duty) never more than 1.1 legs. */
+export const maxStride = (g: Gait, len: number): number => (1.1 * len) / g.duty
+
+/** The stride (model units a cycle) for a speed (model units a second). */
+export const strideFor = (g: Gait, len: number, speed: number): number =>
+  Math.min(maxStride(g, len), speed / (g.hz * Math.sqrt(0.32 / len)))
+
+/** Where a paw is, relative to its hip, at `phase` (0..1) of its cycle:
+ *  forward along the body, and how high it is lifted. */
+export const pawAt = (g: Gait, phase: number, stride: number, len: number): { z: number; lift: number } => {
+  const u = phase - Math.floor(phase)
+  const a = (stride * g.duty) / 2
+  if (u < g.duty) return { z: a - (2 * a * u) / g.duty, lift: 0 }
+  const t = (u - g.duty) / (1 - g.duty)
+  const k = t * t * (3 - 2 * t)
+  return { z: -a + 2 * a * k, lift: Math.sin(Math.PI * t) * len * 0.28 }
+}
+
+/** The leg's turn about its hip and its stretch, so its paw is at (z, -len + lift). */
+export const legPose = (z: number, lift: number, len: number): { pitch: number; stretch: number } => {
+  const down = len - lift
+  return { pitch: Math.atan2(-z, down), stretch: Math.hypot(z, down) / len }
 }
 
 // ─── Behaviour ───────────────────────────────────────────────────────────────
@@ -196,6 +269,11 @@ export interface Beast {
   seed: number
   /** Drawn larger than life, so the fixed camera reads it (`SIZE`). */
   size: number
+  /** The standing legs (FL, FR, HL, HR) and how long they are. */
+  legs: Array<{ obj: Group; len: number }>
+  /** Where in the gait cycle it is, and how fast it went this frame. */
+  cycle: number
+  speed: number
 }
 
 /** A pet is drawn bigger than life, as the cartoon camera needs: a real cat
@@ -325,6 +403,12 @@ export class TownAnimals {
       obj.add(sit)
       sitHead = sk.headAt
     }
+    const legs = st.legs.map(l => {
+      const g = this.mesh(l.kit)
+      g.position.set(...l.at)
+      stand.add(g)
+      return { obj: g, len: l.len }
+    })
     const head = st.head ? this.mesh(st.head) : null
     if (head) { head.position.set(...st.headAt); obj.add(head) }
     const tail = st.tail ? this.mesh(st.tail) : null
@@ -333,7 +417,8 @@ export class TownAnimals {
     this.root.add(obj)
     const b: Beast = {
       kind, sitter: false, obj, stand, sit, head, tail, headAt: { stand: st.headAt, sit: sitHead },
-      x, z, y: 0, tx: x, tz: z, hx: x, hz: z, yaw: clock, mode: 'idle', t: 1 + (clock % 2), clock, cool: 0, hop: 0, tree: null, seed: clock, size: SIZE[kind]
+      x, z, y: 0, tx: x, tz: z, hx: x, hz: z, yaw: clock, mode: 'idle', t: 1 + (clock % 2), clock, cool: 0, hop: 0, tree: null, seed: clock, size: SIZE[kind],
+      legs, cycle: 0, speed: 0
     }
     this.place(b)
     this.beasts.push(b)
@@ -362,11 +447,36 @@ export class TownAnimals {
     const step = Math.min(dt, 1 / 20)
     for (const b of this.beasts) {
       b.clock += step
+      b.speed = 0
       if (b.kind === 'chicken') this.hen(b, step)
       else if (b.kind === 'cat') this.cat(b, step, px, pz)
       else if (b.kind === 'dog') this.dog(b, step, px, pz)
       else this.squirrel(b, step, px, pz)
+      if (b.legs.length) this.stride(b, step)
     }
+  }
+
+  /** The legs this frame: the gait for its speed, the paws where the cycle
+   *  puts them; standing still, they settle back under the body. */
+  private stride(b: Beast, dt: number): void {
+    const len = b.legs[0]!.len
+    const v = b.speed / b.size
+    if (v < 0.05) {
+      for (const l of b.legs) {
+        l.obj.rotation.x *= 1 - Math.min(1, dt * 10)
+        l.obj.scale.y += (1 - l.obj.scale.y) * Math.min(1, dt * 10)
+      }
+      return
+    }
+    const g = b.kind === 'squirrel' ? BOUND : v > 1.4 ? TROT : WALK
+    const stride = strideFor(g, len, v)
+    b.cycle += (v * dt) / stride
+    b.legs.forEach((l, i) => {
+      const p = pawAt(g, b.cycle + g.offsets[i]!, stride, len)
+      const q = legPose(p.z, p.lift, len)
+      l.obj.rotation.x = q.pitch
+      l.obj.scale.y = q.stretch
+    })
   }
 
   /** Walk toward (tx, tz) at `speed`; true when there. */
@@ -378,6 +488,7 @@ export class TownAnimals {
     const s = Math.min(d, dt * speed)
     b.x += (dx / d) * s
     b.z += (dz / d) * s
+    b.speed = s / dt
     // Turn toward the way it goes, not in a snap.
     let dy = Math.atan2(dx, dz) - b.yaw
     dy = Math.atan2(Math.sin(dy), Math.cos(dy))

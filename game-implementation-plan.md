@@ -734,7 +734,15 @@ All sound is synthesised (53 recipes); recorded files can override a recipe.
   bridges), and a place's bare site no longer makes its river walkable.
   Measured on every river bank, pushing 45° into the water: 204 of 268
   spots keep moving (71 before).
-- [ ] **30 Animal gaits** (#102).
+- [x] **30 Animal gaits** (#102). The standing dog, cat and squirrel have
+  four legs of their own (`fourLegs`), each turned about its hip and
+  stretched so its paw lands where the gait puts it: on the ground the paw
+  moves back in a straight line exactly as fast as the body moves on, so it
+  stays planted (slip under 2 % of the ground covered, tested over every
+  gait and pace); in the swing it comes forward lifted. Lateral walk,
+  diagonal trot above 1.4 model units a second, the squirrel's bound;
+  stride from speed, never past 1.1 legs. At rest the legs settle under the
+  body; the z-fighting test covers every leg.
 - [ ] **31 Balance core** (#109, #110, #104).
 - [ ] **32 Careful clear and gambler tables** (#113, #115).
 - [ ] **33 Sunford teachers** (#106).
