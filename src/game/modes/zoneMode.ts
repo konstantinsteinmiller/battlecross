@@ -10,6 +10,7 @@ import { ENEMY_BY_ID, MINIONS } from '../data/enemies'
 import { SPIRIT_COLOR } from '../sim/spawn'
 import { BOSS_SCRIPTS } from '../sim/bosses'
 import { ACTIVE_SLOTS, SKILL_BY_ID } from '../data/skills'
+import { CAST_SOUND, IMPACT_SOUND, skillElement } from '../data/skillSounds'
 import { ARENA_WAVES, OPENING, TOWNS, ZONES, unitLevelTier, type ThemeId, type TownId } from '../data/zones'
 import { ITEM_BY_ID, type ZoneId } from '../data/items'
 import { applyPlan, populateTown, populateZone, summonDragonAlly } from '../sim/director'
@@ -748,8 +749,14 @@ export class ZoneMode implements GameMode {
             // It sounds like what landed: an edge, a weight or a point, and the element it carried.
             const blow = e.type === 'pierce' ? 'pierce' : blowOf(by)
             sfx(e.crit ? 'crit' : e.heavy ? 'hitHeavy' : blow === 'blunt' ? 'hitBlunt' : blow === 'pierce' ? 'hitPierce' : 'hit', this.pan(e.x))
-            const elem = HIT_ELEMENT[e.type]
-            if (elem) sfx(elem, this.pan(e.x), 0.45)
+            // A skill's hit sounds like its element landing (#101): the fireball's
+            // explosion, ice shattering. Anything else carries its damage's element.
+            const sk = e.skill && !e.dot ? SKILL_BY_ID[e.skill] : undefined
+            if (sk) sfx(IMPACT_SOUND[skillElement(sk)], this.pan(e.x), 0.8)
+            else {
+              const elem = HIT_ELEMENT[e.type]
+              if (elem) sfx(elem, this.pan(e.x), 0.45)
+            }
           }
           break
         }
@@ -771,7 +778,8 @@ export class ZoneMode implements GameMode {
           break
         case 'cast': {
           const def = SKILL_BY_ID[e.skill]
-          if (def) sfx(def.fire ? 'fire' : def.cls === 'chrono' ? 'teleport' : def.cls === 'aegis' ? 'holy' : def.cls === 'blood' ? 'blood' : def.cls === 'geo' ? 'quake' : def.cls === 'aether' ? 'shoot' : 'cast')
+          // Each skill gathers in its element's own sound (#101).
+          if (def) sfx(CAST_SOUND[skillElement(def)], this.pan(e.x))
           else sfx('telegraph', this.pan(e.x), 0.7)
           // The skill's colour gathers under the caster as the cast begins.
           if (def && e.src === hero.id) this.vfx.castStart(e.x, e.z, def.color, def.cast >= 0.4)

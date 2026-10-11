@@ -861,7 +861,21 @@ All sound is synthesised (53 recipes); recorded files can override a recipe.
   every seed, the lock, the key, the freeing, the towns, the masters), full
   suite, vue-tsc --build, a real browser (the woods' cage, key, freeing, Jory
   in Oakhaven; SHARP); strings in all 38 locales.
-- [ ] **39 Sound pass** (#101).
+- [x] **39 Sound pass** (#101). Every active skill (128) belongs to an
+  element: plain steel, fire, frost, spark, light, shadow, poison, blood,
+  earth, wind, the wild, the arcane, time, spirits, song, machines, command.
+  Each element has its own layered cast (fire drawn in with its first
+  crackles, frost crystallising in four climbing chimes, a spark's tightening
+  buzz, a horn call...) and its own impact (a fireball's blast and the flames
+  after it, ice shattering out of tune, a spark's crack and falling zap, a
+  gust, a woody thud, a glassy pop...). A skill's hit carries its skill to the
+  view, which sounds the impact of its element; anything else keeps its
+  damage type's layer. Every new sound is a synth recipe a recorded file can
+  replace. Verified: skill-sound tests (every skill an element, every
+  element its own sounds), full suite, vue-tsc --build, a real browser
+  (every new sound measured through the effects bus: all heard, none
+  clipping, levels in line with the existing ones; a fireball in a fight
+  sounds its fire cast and its fire impact).
 - [ ] **40 Voice, translations, paint, final balance** (#107).
 
 ### Deferred

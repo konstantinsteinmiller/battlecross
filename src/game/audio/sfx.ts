@@ -16,6 +16,9 @@ export type SfxName =
   | 'hit' | 'hitBlunt' | 'hitPierce' | 'hitHeavy' | 'crit' | 'block' | 'dodge' | 'hurt'
   // Elements and schools
   | 'fire' | 'ice' | 'holy' | 'shadow' | 'poison' | 'blood' | 'quake' | 'beam' | 'explode' | 'teleport'
+  // A skill's element: its cast and its impact (#101)
+  | 'castFire' | 'castIce' | 'castShock' | 'castHoly' | 'castShadow' | 'castPoison' | 'castBlood' | 'castEarth' | 'castWind' | 'castNature' | 'castArcane' | 'castTime' | 'castSpirit' | 'castSong' | 'castTech' | 'castCommand'
+  | 'impactFire' | 'impactIce' | 'impactShock' | 'impactWind' | 'impactNature' | 'impactArcane' | 'impactTime' | 'impactSpirit' | 'impactSong' | 'impactTech'
   // Abilities
   | 'summon' | 'heal' | 'shieldUp' | 'roar' | 'telegraph' | 'overheat'
   // Enemies
@@ -27,7 +30,10 @@ export type SfxName =
 
 export const SFX_NAMES: readonly SfxName[] = [
   'swing', 'swingDagger', 'swingHeavy', 'swingBlunt', 'shoot', 'shootBow', 'cast', 'hit', 'hitBlunt', 'hitPierce', 'hitHeavy', 'crit', 'block', 'dodge', 'hurt', 'fire', 'ice', 'holy',
-  'shadow', 'poison', 'blood', 'quake', 'beam', 'explode', 'teleport', 'summon', 'heal', 'shieldUp', 'roar', 'telegraph',
+  'shadow', 'poison', 'blood', 'quake', 'beam', 'explode', 'teleport',
+  'castFire', 'castIce', 'castShock', 'castHoly', 'castShadow', 'castPoison', 'castBlood', 'castEarth', 'castWind', 'castNature', 'castArcane', 'castTime', 'castSpirit', 'castSong', 'castTech', 'castCommand',
+  'impactFire', 'impactIce', 'impactShock', 'impactWind', 'impactNature', 'impactArcane', 'impactTime', 'impactSpirit', 'impactSong', 'impactTech',
+  'summon', 'heal', 'shieldUp', 'roar', 'telegraph',
   'overheat', 'alert', 'bossIntro', 'death', 'deathBig', 'coin', 'loot', 'lootRare', 'lootEpic', 'lootLegend', 'chest', 'levelUp', 'potion', 'denied', 'uiClick',
   'uiOpen', 'uiClose', 'uiEquip', 'uiBuy', 'uiLearn', 'uiPoint', 'uiChoice', 'mapMove'
 ]

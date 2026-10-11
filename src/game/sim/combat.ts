@@ -399,7 +399,7 @@ export const dealDamage = (sim: Sim, src: Unit | null, tgt: Unit, base: number, 
     if (blocked) sim.emit({ t: 'miss', tgt: tgt.id, x: tgt.x, z: tgt.z, h: tgt.h, why: 'block' })
   }
   sim.emit({
-    t: 'hit', src: src?.id ?? 0, tgt: tgt.id, x: tgt.x, z: tgt.z, h: tgt.h,
+    t: 'hit', src: src?.id ?? 0, tgt: tgt.id, x: tgt.x, z: tgt.z, h: tgt.h, skill: o.skill ?? '',
     amount: Math.max(1, Math.round(amount)), crit, type: o.type, heavy: !!o.heavy || crit, toHero, killed, dot: !!o.dot
   })
 

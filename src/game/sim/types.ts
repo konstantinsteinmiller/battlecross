@@ -376,7 +376,9 @@ export interface Telegraph {
 
 export type SimEvent =
   /** `dot`: a tick of damage over time (a small effect, no hit-stop). */
-  | { t: 'hit'; src: number; tgt: number; x: number; z: number; h: number; amount: number; crit: boolean; type: DamageType; heavy: boolean; toHero: boolean; killed: boolean; dot: boolean }
+  | { t: 'hit'; src: number; tgt: number; x: number; z: number; h: number; amount: number; crit: boolean; type: DamageType; heavy: boolean; toHero: boolean; killed: boolean; dot: boolean
+    /** The skill it came from ('' for an attack, an ability, a reflection). */
+    skill?: string }
   | { t: 'miss'; tgt: number; x: number; z: number; h: number; why: 'dodge' | 'block' | 'immune' }
   | { t: 'heal'; tgt: number; x: number; z: number; h: number; amount: number }
   | { t: 'mana'; tgt: number; x: number; z: number; h: number; amount: number }
