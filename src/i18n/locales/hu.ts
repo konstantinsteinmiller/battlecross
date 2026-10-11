@@ -47,6 +47,7 @@ export default {
     immune: 'Immunis'
   },
   level: {
+    mine: 'Bányászás',
     open: 'Kinyitás',
     guarded: 'Őrzik',
     locked: 'Zárva',
@@ -99,6 +100,8 @@ export default {
     chi: 'Csi'
   },
   toast: {
+    ore: 'Kibányászva: {n} × {ore}',
+    mineBusy: 'Nem, amíg ellenség van a közelben!',
     item: 'Találtad: {item}',
     levelUp: '{level}. szint! +3 tulajdonságpont',
     boss: 'Megjelent: {boss}',
@@ -4875,6 +4878,20 @@ export default {
     upgrade: 'Fejlesztés ({n} arany)',
     max: 'Teljesen fejlesztve: +{n}.',
     town: 'Bármelyik város kovácsa fejlesztheti.'
+  },
+  ore: {
+    iron: {
+      name: 'Vasérc'
+    },
+    silver: {
+      name: 'Ezüstérc'
+    },
+    gold: {
+      name: 'Aranyérc'
+    },
+    mithril: {
+      name: 'Mithrilérc'
+    }
   },
   plant: {
     sunpetal: {

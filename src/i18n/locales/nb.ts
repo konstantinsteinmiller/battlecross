@@ -47,6 +47,7 @@ export default {
     immune: 'Immun'
   },
   level: {
+    mine: 'Utvinn',
     open: 'Åpne',
     guarded: 'Voktet',
     locked: 'Låst',
@@ -99,6 +100,8 @@ export default {
     chi: 'Chi'
   },
   toast: {
+    ore: 'Utvunnet: {n} × {ore}',
+    mineBusy: 'Ikke med fiender i nærheten!',
     item: 'Fant: {item}',
     levelUp: 'Nivå {level}! +3 attributtpoeng',
     boss: '{boss} dukker opp',
@@ -4875,6 +4878,20 @@ export default {
     upgrade: 'Oppgrader ({n} gull)',
     max: 'Fullt oppgradert: +{n}.',
     town: 'Smeden i hvilken som helst by kan oppgradere den.'
+  },
+  ore: {
+    iron: {
+      name: 'Jernmalm'
+    },
+    silver: {
+      name: 'Sølvmalm'
+    },
+    gold: {
+      name: 'Gullmalm'
+    },
+    mithril: {
+      name: 'Mithrilmalm'
+    }
   },
   plant: {
     sunpetal: {

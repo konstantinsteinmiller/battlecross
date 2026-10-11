@@ -22,7 +22,7 @@ export const GAME_ICON_NAMES = [
   // `chest` is now the IDLE chest on the HUD, which pays coins for waiting.
   // They were one glyph until the chest became a thing of its own; two
   // buttons that do different things may not wear the same drawing.
-  'settings', 'shop', 'chest', 'anvil', 'video', 'ads', 'book', 'info', 'help',
+  'settings', 'shop', 'chest', 'anvil', 'pickaxe', 'video', 'ads', 'book', 'info', 'help',
   // Audio
   'music', 'music-off', 'sound', 'sound-off',
   // Progression

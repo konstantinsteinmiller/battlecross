@@ -47,6 +47,7 @@ export default {
     immune: 'Insensible'
   },
   level: {
+    mine: 'Miner',
     open: 'Ouvrir',
     guarded: 'Gardé',
     locked: 'Verrouillé',
@@ -99,6 +100,8 @@ export default {
     chi: 'Chi'
   },
   toast: {
+    ore: 'Extrait : {n} × {ore}',
+    mineBusy: 'Pas avec des ennemis dans les parages !',
     item: 'Trouvé : {item}',
     levelUp: 'Niveau {level} ! +3 points d’attribut',
     boss: '{boss} apparaît',
@@ -4919,6 +4922,20 @@ export default {
     upgrade: 'Améliorer ({n} pièces d’or)',
     max: 'Amélioré au maximum : +{n}.',
     town: 'Le forgeron de n’importe quelle ville peut l’améliorer.'
+  },
+  ore: {
+    iron: {
+      name: 'Minerai de fer'
+    },
+    silver: {
+      name: 'Minerai d\'argent'
+    },
+    gold: {
+      name: 'Minerai d\'or'
+    },
+    mithril: {
+      name: 'Minerai de mithril'
+    }
   },
   plant: {
     sunpetal: {

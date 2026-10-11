@@ -47,6 +47,7 @@ export default {
     immune: 'Imunost'
   },
   level: {
+    mine: 'Iskopaj',
     open: 'Otvori',
     guarded: 'Čuvano',
     locked: 'Zaključano',
@@ -99,6 +100,8 @@ export default {
     chi: 'Chi'
   },
   toast: {
+    ore: 'Iskopano: {n} × {ore}',
+    mineBusy: 'Ne dok su neprijatelji blizu!',
     item: 'Pronađeno: {item}',
     levelUp: 'Razina {level}! +3 boda atributa',
     boss: 'Dolazi: {boss}',
@@ -4971,6 +4974,20 @@ export default {
     upgrade: 'Poboljšaj ({n} zlata)',
     max: 'Potpuno poboljšano: +{n}.',
     town: 'Ovo može poboljšati kovač u bilo kojem gradu.'
+  },
+  ore: {
+    iron: {
+      name: 'Željezna ruda'
+    },
+    silver: {
+      name: 'Srebrna ruda'
+    },
+    gold: {
+      name: 'Zlatna ruda'
+    },
+    mithril: {
+      name: 'Mitrilna ruda'
+    }
   },
   plant: {
     sunpetal: {

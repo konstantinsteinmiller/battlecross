@@ -7,6 +7,7 @@ import { face, fire, inAttackRange, setGoal, setHeroOnHit, startAttack, stop, st
 import { applyStatus, cdrOf, cleanse, dealDamage, giveMana, heal, isControlled, attackSpeedOf } from './combat'
 import { FREE_AIM, addHeat } from './heroSkills'
 import { CHEST_REACH, beginOpen, cancelOpen, chestLock } from './interact'
+import { MINE_REACH, beginMine, committed } from './ores'
 import { heroStats, minionMul, type HeroBuild } from './stats'
 import { angleTo, atPeace, findStatus, hasStatus, newAction, type HeroState, type Sim } from './world'
 import type { Unit } from './types'
@@ -87,6 +88,7 @@ export const createHero = (sim: Sim, o: HeroInit): HeroState => {
     items: [],
     chests: 0,
     opening: -1,
+    mining: -1,
     dealt: 0,
     taken: 0,
     lost: 0,
@@ -96,6 +98,7 @@ export const createHero = (sim: Sim, o: HeroInit): HeroState => {
     rested: Math.max(0, o.rested ?? 0),
     killKinds: {},
     herbs: {},
+    ores: {},
     pieces: []
   }
   h.elixirPick = o.elixirPick && (h.elixirs[o.elixirPick] ?? 0) > 0 ? o.elixirPick : nextElixir(h, '')
@@ -343,7 +346,8 @@ const rollOut: [number, number] = [0, 0]
 export const rollHero = (sim: Sim, dx: number, dz: number): boolean => {
   const h = sim.hero
   const u = h.unit
-  if (!u.alive || h.rollCd > 0 || isControlled(u) || u.action?.id === 'roll' || sim.ended === 'defeat' || sim.leaving) {
+  // A chest's lid once lifting and the pickaxe once swinging are not given up (#99).
+  if (!u.alive || h.rollCd > 0 || isControlled(u) || u.action?.id === 'roll' || committed(sim) || sim.ended === 'defeat' || sim.leaving) {
     sim.emit({ t: 'denied', why: 'cooldown' })
     return false
   }
@@ -461,10 +465,9 @@ export const stepHero = (sim: Sim, dt: number): void => {
   }
   const stick = Math.hypot(h.stickX, h.stickZ)
   if (u.action) {
-    // A skill's wind-up roots him; a basic swing gives way to the stick, and
-    // so does a chest's lid.
+    // A skill's wind-up roots him; a basic swing gives way to the stick. A
+    // chest's lid and the pickaxe do not (#99): once begun, they finish.
     if (u.action.id === 'attack' && stick > 0.2) cancelSwing(u)
-    else if (u.action.id === 'open' && stick > 0.2) cancelOpen(sim)
     else return
   }
 
@@ -528,6 +531,24 @@ export const stepHero = (sim: Sim, dt: number): void => {
       return
     }
     chase(sim, u, t, dt)
+    return
+  }
+
+  if (h.order.kind === 'mine') {
+    const o = sim.ores[h.order.targetId]
+    if (!o || o.spent) { h.order.kind = 'none'; u.anim = 'idle'; return }
+    if (Math.hypot(o.x - u.x, o.z - u.z) <= MINE_REACH) {
+      h.order.kind = 'none'
+      if (!beginMine(sim, o)) u.anim = 'idle'
+      return
+    }
+    u.repathT -= dt
+    if (u.repathT <= 0 || !u.hasGoal) {
+      u.repathT = 0.5
+      setGoal(sim, u, o.x, o.z)
+    }
+    walk(sim, u, dt)
+    u.anim = 'walk'
     return
   }
 

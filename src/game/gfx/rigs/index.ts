@@ -1,3 +1,4 @@
+import type { Object3D } from 'three'
 import { ENEMY_BY_ID, MINIONS } from '../../data/enemies'
 import { SPIRIT_COLOR } from '../../sim/spawn'
 import { setCelRim } from '../cel'
@@ -54,6 +55,8 @@ export interface RigView {
   color: string
   /** A mount's rider (#74), seated in its `saddle` bone until it leaps off (`anim.ts` poses it). */
   rider?: Rig
+  /** The pickaxe while the hero mines (#99, `anim.ts`). */
+  pick?: Object3D | null
 
   // ── The pose layer (humanoids) ──
   /** The core pose as last drawn, and the pose a crossfade started from. */

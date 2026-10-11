@@ -47,6 +47,7 @@ export default {
     immune: 'Immuun'
   },
   level: {
+    mine: 'Delven',
     open: 'Openen',
     guarded: 'Bewaakt',
     locked: 'Op slot',
@@ -99,6 +100,8 @@ export default {
     chi: 'Chi'
   },
   toast: {
+    ore: 'Gedolven: {n} × {ore}',
+    mineBusy: 'Niet met vijanden in de buurt!',
     item: 'Gevonden: {item}',
     levelUp: 'Level {level}! +3 attribuutpunten',
     boss: '{boss} verschijnt',
@@ -4883,6 +4886,20 @@ export default {
     upgrade: 'Verbeteren ({n} goud)',
     max: 'Volledig verbeterd: +{n}.',
     town: 'Elke smid in een stad kan dit verbeteren.'
+  },
+  ore: {
+    iron: {
+      name: 'IJzererts'
+    },
+    silver: {
+      name: 'Zilvererts'
+    },
+    gold: {
+      name: 'Gouderts'
+    },
+    mithril: {
+      name: 'Mithrilerts'
+    }
   },
   plant: {
     sunpetal: {

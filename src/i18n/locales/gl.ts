@@ -47,6 +47,7 @@ export default {
     immune: 'Inmune'
   },
   level: {
+    mine: 'Picar',
     open: 'Abrir',
     guarded: 'Vixiado',
     locked: 'Pechado',
@@ -99,6 +100,8 @@ export default {
     chi: 'Chi'
   },
   toast: {
+    ore: 'Extraído: {n} × {ore}',
+    mineBusy: 'Non con inimigos preto!',
     item: 'Atopado: {item}',
     levelUp: 'Nivel {level}! +3 puntos de atributo',
     boss: 'Aparece: {boss}',
@@ -4920,6 +4923,20 @@ export default {
     upgrade: 'Mellorar ({n} de ouro)',
     max: 'Mellorado ao máximo: +{n}.',
     town: 'Calquera ferreiro dunha cidade pode melloralo.'
+  },
+  ore: {
+    iron: {
+      name: 'Mineral de ferro'
+    },
+    silver: {
+      name: 'Mineral de prata'
+    },
+    gold: {
+      name: 'Mineral de ouro'
+    },
+    mithril: {
+      name: 'Mineral de mithril'
+    }
   },
   plant: {
     sunpetal: {

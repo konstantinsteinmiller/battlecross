@@ -15,7 +15,7 @@ import { abortTalk, beginTalk, talkResume, talkWaiting, type TalkStage } from '.
 import {
   clearNode, flagSet, gainItem, grantXp, hasFlag, isFreshProfile, isNodeOpen, isNodeReachable, lifetimeXp, profile, saveProfile
 } from './state/profile'
-import { addHerbs, addPieces, markTreasureDug, treasureFor, setElixirs, countContracts, countErrands, countTasks, finishEscortTasks, markChestsOpened, recordArenaWaves, recordMastery, setManaPotions } from './state/profile'
+import { addHerbs, addOres, addPieces, markTreasureDug, treasureFor, setElixirs, countContracts, countErrands, countTasks, finishEscortTasks, markChestsOpened, recordArenaWaves, recordMastery, setManaPotions } from './state/profile'
 import { zoneMastery, type Mastery } from './sim/route'
 import { playJingle } from './audio/music'
 import { flushSaveNow } from '@/use/useSaveStatus'
@@ -224,6 +224,8 @@ export interface VisitTally {
   killKinds?: Readonly<Record<string, number>>
   /** Herbs picked, by plant (#88). */
   herbs?: Readonly<Record<string, number>>
+  /** Ore mined (#99), nuggets by metal. */
+  ores?: Readonly<Record<string, number>>
   /** Treasure map pieces picked up (#89). */
   pieces?: readonly string[]
   /** The elixirs as the visit leaves them (some drunk, #87), and the one carried. */
@@ -619,7 +621,7 @@ export const finishVisit = async (outcome: 'victory' | 'defeat' | 'retreat'): Pr
     xp: h.xp, gold: h.gold, kills: h.kills, items: h.items, seconds: mode.sim.time, waves: mode.sim.wave.cleared,
     lost: h.lost, maxHp: h.unit.s.maxHp,
     chests: mode.sim.chests.length ? { opened: h.chests, total: mode.sim.chests.length } : undefined,
-    special: mode.sim.specialOpened, rested: h.rested, killKinds: h.killKinds, herbs: h.herbs, pieces: h.pieces,
+    special: mode.sim.specialOpened, rested: h.rested, killKinds: h.killKinds, herbs: h.herbs, ores: h.ores, pieces: h.pieces,
     // The flasks went in only where they may be drunk (not in a "No potions"
     // week): elsewhere the stocks stay as they were.
     ...(mode.setup.arenaMod !== 'nopotions' ? { manaPotions: h.manaPotions, elixirs: h.elixirs, elixirPick: h.elixirPick } : {}),
@@ -655,6 +657,8 @@ export const bankVisit = async (outcome: 'victory' | 'defeat' | 'retreat', node:
   if (h.special?.length) markChestsOpened(h.special)
   // The herbs picked go into the pouch, whatever the visit's end.
   if (h.herbs) addHerbs(h.herbs)
+  // So does the ore (#99).
+  if (h.ores) addOres(h.ores)
   // So do the map's pieces (#89); the buried chest dug up ends the errand.
   if (h.pieces?.length) addPieces(h.pieces)
   if (h.special?.some(k => k.endsWith(':treasure'))) markTreasureDug()

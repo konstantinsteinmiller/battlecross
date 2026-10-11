@@ -47,6 +47,7 @@ export default {
     immune: 'Inmune'
   },
   level: {
+    mine: 'Picar',
     open: 'Abrir',
     guarded: 'Vigilado',
     locked: 'Cerrado',
@@ -99,6 +100,8 @@ export default {
     chi: 'Chi'
   },
   toast: {
+    ore: 'Extraído: {n} × {ore}',
+    mineBusy: '¡No con enemigos cerca!',
     item: 'Encontrado: {item}',
     levelUp: '¡Nivel {level}! +3 puntos de atributo',
     boss: 'Aparece {boss}',
@@ -4914,6 +4917,20 @@ export default {
     upgrade: 'Mejorar ({n} de oro)',
     max: 'Mejorado al máximo: +{n}.',
     town: 'Cualquier herrero de una ciudad puede mejorarlo.'
+  },
+  ore: {
+    iron: {
+      name: 'Mineral de hierro'
+    },
+    silver: {
+      name: 'Mineral de plata'
+    },
+    gold: {
+      name: 'Mineral de oro'
+    },
+    mithril: {
+      name: 'Mineral de mithril'
+    }
   },
   plant: {
     sunpetal: {

@@ -21,6 +21,7 @@ import type { Vfx } from './vfx'
 import { DummyProp } from './dummyProp'
 import { mapPieceGeometry, plantGeometry } from './plants'
 import { PLANT_BY_ID, isPlant, type PlantId } from '../data/plants'
+import { ORE_LOOK, isOre } from '../data/ores'
 import { markStill, splitByTile } from './cull'
 import type { Slice } from '../engine/slicer'
 
@@ -117,6 +118,19 @@ const CHEST_LOOK: Record<ChestTier, ChestLook> = {
   gold: { body: '#d48a14', body2: '#f0a81e', trim: '#fff6c0', lock: '#ffffff', gem: '#ff3a5a', glow: '#fff2a8', scale: 1.42 }
 }
 const CHEST_RING: Record<ChestTier, string> = { wood: '#ffd84a', iron: '#9fdcff', gold: '#ffe9a8' }
+
+/** An ore outcrop (#99): the rock, and the vein that is gone once mined. */
+interface OreView {
+  id: number
+  root: Group
+  vein: Group
+  x: number
+  z: number
+  glow: string
+  glint: number
+  /** Seconds of the pickaxe's knocks left (a little jolt and chips per swing). */
+  knockT: number
+}
 
 interface HerbView {
   id: number
@@ -289,6 +303,7 @@ export class LevelProps {
   private dummy: DummyProp | null = null
   /** Herbs in the wild (#88): a sway, a glint now and then, a pop when picked. */
   private herbs: HerbView[] = []
+  private ores: OreView[] = []
 
   /**
    * @param shake camera trauma, for the rumble of a door.
@@ -366,6 +381,7 @@ export class LevelProps {
     await slice()
     this.buildChests()
     this.buildHerbs()
+    this.buildOres()
     await slice()
     scene.add(this.root)
     if (plan.dummy) {
@@ -875,6 +891,64 @@ export class LevelProps {
     }
   }
 
+  /** The outcrops (#99): a boulder against the stone with a vein of the
+   *  metal in it, nuggets bulging through its face. */
+  private buildOres(): void {
+    for (const o of this.sim.ores) {
+      if (!isOre(o.kind)) continue
+      const look = ORE_LOOK[o.kind]
+      const root = new Group()
+      root.position.set(o.x, groundAt(o.x, o.z), o.z)
+      root.rotation.y = (o.id * 2.399 + 0.4) % (Math.PI * 2)
+      const stone = merge([
+        xform(paint(rock(1, 11 + o.id * 7), '#8c8a86'), [0, 0.42, 0], [0, 0, 0], [0.82, 0.62, 0.7]),
+        xform(paint(rock(1, 5 + o.id * 3), '#7a7874'), [0.48, 0.2, 0.22], [0, 0.6, 0], [0.42, 0.3, 0.38])
+      ])
+      this.owned.push(stone)
+      const body = new Mesh(stone, celVC())
+      const line = new Mesh(stone, outlineMat())
+      line.renderOrder = -1
+      root.add(body, line)
+      // The vein: nuggets set into the rock's face, standing proud of it.
+      const lumps: BufferGeometry[] = []
+      const spots: Array<[number, number, number, number]> = [[-0.3, 0.62, 0.48, 0.17], [0.12, 0.85, 0.42, 0.14], [0.32, 0.5, 0.52, 0.15], [-0.05, 0.36, 0.62, 0.12], [-0.5, 0.4, 0.3, 0.11]]
+      spots.forEach(([x, y, z, r], q) => lumps.push(xform(paint(rock(1, 31 + q + o.id * 5, 7, 5), q % 2 ? look.vein : look.glint), [x, y, z], [q, q * 0.7, 0], [r, r * 0.85, r])))
+      const vg = merge(lumps)
+      this.owned.push(vg)
+      const vein = new Group()
+      const vb = new Mesh(vg, celVC())
+      const vl = new Mesh(vg, outlineMat())
+      vl.renderOrder = -1
+      vein.add(vb, vl)
+      vein.visible = !o.spent
+      root.add(vein)
+      this.root.add(root)
+      this.ores.push({ id: o.id, root, vein, x: o.x, z: o.z, glow: look.glint, glint: 0.4 + o.id * 0.9, knockT: -1 })
+    }
+  }
+
+  /** The pickaxe: chips fly at each swing; the last one breaks the vein out. */
+  private onMine(e: Extract<SimEvent, { t: 'mine' }>): void {
+    const v = this.ores.find(x => x.id === e.id)
+    if (e.state === 'busy') {
+      pushHud({ t: 'toast', key: 'toast.mineBusy' })
+      sfx('denied')
+      return
+    }
+    if (!v) return
+    if (e.state === 'start') { v.knockT = 0; return }
+    v.knockT = -1
+    v.vein.visible = false
+    v.root.position.x = v.x
+    v.root.position.z = v.z
+    const col = isOre(e.kind) ? ORE_LOOK[e.kind].vein : '#cccccc'
+    this.vfx.ring(e.x, e.z, 0.2, 1.6, col, 0.5)
+    this.vfx.particles.riseRing(e.x, 0.5, e.z, col, 0.6, this.low ? 6 : 14)
+    this.vfx.orb(e.x, 0.7, e.z, this.heroX, 1.0, this.heroZ, 0.2, col, '#ffffff', 0.45, 1.5)
+    pushHud({ t: 'toast', key: 'toast.ore', params: { n: e.n, ore: `ore.${e.kind}.name` }, icon: `ore:${e.kind}` })
+    sfx('uiEquip', this.pan(e.x))
+  }
+
   private treasureGeoCache: BufferGeometry | null = null
   /** The heap of earth round the buried chest, and its X (in the chest's space). */
   private treasureGeo(): BufferGeometry {
@@ -942,6 +1016,7 @@ export class LevelProps {
     switch (e.t) {
       case 'chest': this.onChest(e); break
       case 'herb': this.onHerb(e); break
+      case 'mine': this.onMine(e); break
       case 'piece': this.onPiece(e); break
       case 'pickup': {
         const what = e.what
@@ -1082,6 +1157,35 @@ export class LevelProps {
         v.glint = HERB_GLINT + Math.random() * 1.5
         if (!this.low && Math.hypot(v.x - this.heroX, v.z - this.heroZ) < 22) {
           this.vfx.particles.emit({ x: v.x + (Math.random() - 0.5) * 0.3, y: groundAt(v.x, v.z) + 0.55, z: v.z + (Math.random() - 0.5) * 0.3, vy: 0.5, color: '#ffffff', size: 0.3, sizeEnd: 0.02, life: 0.7 })
+        }
+      }
+    }
+
+    // ── Ore: a glint off the vein now and then; under the pickaxe, a knock and chips at each swing ──
+    for (const v of this.ores) {
+      if (!v.vein.visible) continue
+      if (v.knockT >= 0) {
+        const before = v.knockT
+        v.knockT += dt
+        // The first two swings land at 0.62 s and 1.42 s (the third is the 'done').
+        for (const at of [0.62, 1.42]) {
+          if (before < at && v.knockT >= at) {
+            this.shake(0.08)
+            sfx('hitBlunt', this.pan(v.x))
+            for (let q = 0; q < (this.low ? 3 : 7); q++) {
+              this.vfx.particles.emit({ x: v.x + (Math.random() - 0.5) * 0.4, y: groundAt(v.x, v.z) + 0.6, z: v.z + (Math.random() - 0.5) * 0.4, vx: (Math.random() - 0.5) * 3, vy: 1.5 + Math.random() * 2, vz: (Math.random() - 0.5) * 3, color: q % 2 ? v.glow : '#8c8a86', size: 0.14, sizeEnd: 0.05, life: 0.5, gravity: 9 })
+            }
+          }
+        }
+        const jolt = Math.max(0, 1 - ((v.knockT - 0.62) % 0.8) / 0.15)
+        v.root.position.x = v.x + (v.knockT > 0.62 ? jolt * 0.03 : 0)
+        continue
+      }
+      v.glint -= dt
+      if (v.glint <= 0) {
+        v.glint = 1.6 + Math.random() * 1.8
+        if (!this.low && Math.hypot(v.x - this.heroX, v.z - this.heroZ) < 22) {
+          this.vfx.particles.emit({ x: v.x + (Math.random() - 0.5) * 0.5, y: groundAt(v.x, v.z) + 0.7, z: v.z + 0.3, vy: 0.4, color: v.glow, size: 0.32, sizeEnd: 0.02, life: 0.7 })
         }
       }
     }
@@ -1238,5 +1342,6 @@ export class LevelProps {
     this.plates.length = 0
     this.doors.length = 0
     this.herbs.length = 0
+    this.ores.length = 0
   }
 }

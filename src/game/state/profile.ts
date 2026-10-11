@@ -18,6 +18,7 @@ import { ACTIVE_SLOTS, PASSIVE_SLOTS, SKILL_BY_ID, meetsSkill, priceOf as skillP
 import { EQUIP_SLOTS, ITEM_BY_ID, noGear, priceOf as itemPriceOf, sellValue, slotOf, type EquipSlot } from '../data/items'
 import { FORGE_MAX, forgeCost } from '../data/forge'
 import { HERB_CAP, isPlant } from '../data/plants'
+import { ORE_CAP, ORE_IDS, isOre } from '../data/ores'
 import { ELIXIR_BY_ID, ELIXIR_CAP, ELIXIR_IDS, brewFee, isElixir, type ElixirId } from '../data/elixirs'
 import { BATTLE_MIN_ITEMS, BATTLE_ROW, MEMORY_ROW, battleFee, battleXp, gamblerTable, prizeOf } from '../gamble'
 import { DUG_FLAG, MAP_PIECES, TREASURE_ERRAND, TREASURE_ZONE, isPiece, piecesIn } from '../data/treasure'
@@ -82,6 +83,10 @@ export interface InventorySave {
   upgrades: Record<string, number>
   /** The herb pouch: how many of each plant (roadmap #88), up to HERB_CAP. */
   herbs: Record<string, number>
+  /** The ore pouch: nuggets of each metal (roadmap #99), up to ORE_CAP; and
+   *  every metal ever mined (its smithing recipes are known). */
+  ores: Record<string, number>
+  oresFound: string[]
   /** Elixirs brewed by the alchemist (roadmap #87), up to ELIXIR_CAP of each,
    *  and the one the third flask pours ('' when none is carried). */
   elixirs: Record<string, number>
@@ -249,6 +254,8 @@ const defaultInv = (): InventorySave => ({
   manaPotions: 0,
   upgrades: {},
   herbs: {},
+  ores: {},
+  oresFound: [],
   elixirs: {},
   elixirPick: ''
 })
@@ -351,6 +358,15 @@ export const loadProfile = (): void => {
     const n = Math.round(num(v, 0))
     if (isPlant(id) && n > 0) inv.herbs[id] = Math.min(HERB_CAP, n)
   }
+  // A save from before ore has no pouch; only the four metals.
+  const ores = obj(inv.ores, {}) as Record<string, unknown>
+  inv.ores = {}
+  for (const [id, v] of Object.entries(ores)) {
+    const n = Math.round(num(v, 0))
+    if (isOre(id) && n > 0) inv.ores[id] = Math.min(ORE_CAP, n)
+  }
+  inv.oresFound = Array.isArray(inv.oresFound) ? ORE_IDS.filter(o => (inv.oresFound as unknown[]).includes(o)) : []
+  for (const id of Object.keys(inv.ores)) if (!inv.oresFound.includes(id)) inv.oresFound.push(id)
   // A save from before the alchemist has no elixirs; only the six he brews.
   const elix = obj(inv.elixirs, {}) as Record<string, unknown>
   inv.elixirs = {}
@@ -1218,6 +1234,31 @@ export const spendHerbs = (want: Readonly<Record<string, number>>): boolean => {
     const left = herbCount(id) - n
     if (left > 0) profile.inv.herbs[id] = left
     else delete profile.inv.herbs[id]
+  }
+  return true
+}
+
+// ─── The ore pouch (roadmap #99) ──────────────────────────────────────────────
+
+/** How many nuggets of a metal the pouch holds. */
+export const oreCount = (id: string): number => profile.inv.ores[id] ?? 0
+
+/** Nuggets into the pouch (a visit's mining); a metal mined is a metal known. */
+export const addOres = (got: Readonly<Record<string, number>>): void => {
+  for (const [id, n] of Object.entries(got)) {
+    if (!isOre(id) || n <= 0) continue
+    profile.inv.ores[id] = Math.min(ORE_CAP, oreCount(id) + Math.round(n))
+    if (!profile.inv.oresFound.includes(id)) profile.inv.oresFound.push(id)
+  }
+}
+
+/** Take nuggets out of the pouch (sold, smithed): all or nothing. */
+export const spendOres = (want: Readonly<Record<string, number>>): boolean => {
+  for (const [id, n] of Object.entries(want)) if (oreCount(id) < n) return false
+  for (const [id, n] of Object.entries(want)) {
+    const left = oreCount(id) - n
+    if (left > 0) profile.inv.ores[id] = left
+    else delete profile.inv.ores[id]
   }
   return true
 }

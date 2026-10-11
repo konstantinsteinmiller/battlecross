@@ -47,6 +47,7 @@ export default {
     immune: 'Имунитет'
   },
   level: {
+    mine: 'Копай',
     open: 'Отвори',
     guarded: 'Охранява се',
     locked: 'Заключено',
@@ -99,6 +100,8 @@ export default {
     chi: 'Ци'
   },
   toast: {
+    ore: 'Изкопано: {n} × {ore}',
+    mineBusy: 'Не и с врагове наоколо!',
     item: 'Намерено: {item}',
     levelUp: 'Ниво {level}! +3 точки за атрибути',
     boss: 'Появява се {boss}',
@@ -4939,6 +4942,20 @@ export default {
     upgrade: 'Подобри ({n} злато)',
     max: 'Напълно подобрено: +{n}.',
     town: 'Ковачът във всеки град може да го подобри.'
+  },
+  ore: {
+    iron: {
+      name: 'Желязна руда'
+    },
+    silver: {
+      name: 'Сребърна руда'
+    },
+    gold: {
+      name: 'Златна руда'
+    },
+    mithril: {
+      name: 'Митрилова руда'
+    }
   },
   plant: {
     sunpetal: {

@@ -399,6 +399,9 @@ export type SimEvent =
   | { t: 'pickup'; what: 'potion' | 'heal' | 'mana'; x: number; z: number }
   /** A herb walked over and picked (roadmap #88). */
   | { t: 'herb'; id: number; kind: string; x: number; z: number }
+  /** An outcrop (roadmap #99): mining starts, is refused (enemies near), or
+   *  ends with `n` nuggets. */
+  | { t: 'mine'; id: number; kind: string; x: number; z: number; state: 'start' | 'busy' | 'done'; n: number }
   | { t: 'piece'; id: string; x: number; z: number }
   /** The escort's caravan rolls, waits for the hero, holds, arrives or is lost (#85). */
   | { t: 'caravan'; phase: 'rolling' | 'waiting' | 'held' | 'arrived' | 'lost'; x: number; z: number }

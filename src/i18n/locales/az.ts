@@ -47,6 +47,7 @@ export default {
     immune: 'Təsirsiz'
   },
   level: {
+    mine: 'Qaz',
     open: 'Aç',
     guarded: 'Qorunur',
     locked: 'Kilidli',
@@ -99,6 +100,8 @@ export default {
     chi: 'Çi'
   },
   toast: {
+    ore: 'Qazıldı: {n} × {ore}',
+    mineBusy: 'Düşmənlər yaxındaykən olmaz!',
     item: 'Tapıldı: {item}',
     levelUp: 'Səviyyə {level}! +3 atribut xalı',
     boss: '{boss} peyda oldu',
@@ -4875,6 +4878,20 @@ export default {
     upgrade: 'Təkmilləşdir ({n} qızıl)',
     max: 'Tam təkmilləşdirilib: +{n}.',
     town: 'İstənilən şəhərin dəmirçisi bunu təkmilləşdirə bilər.'
+  },
+  ore: {
+    iron: {
+      name: 'Dəmir filizi'
+    },
+    silver: {
+      name: 'Gümüş filizi'
+    },
+    gold: {
+      name: 'Qızıl filizi'
+    },
+    mithril: {
+      name: 'Mitril filizi'
+    }
   },
   plant: {
     sunpetal: {

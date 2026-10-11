@@ -47,6 +47,7 @@ export default {
     immune: 'Kebal'
   },
   level: {
+    mine: 'Tambang',
     open: 'Buka',
     guarded: 'Dijaga',
     locked: 'Terkunci',
@@ -99,6 +100,8 @@ export default {
     chi: 'Chi'
   },
   toast: {
+    ore: 'Ditambang: {n} × {ore}',
+    mineBusy: 'Musuh ada di dekat!',
     item: 'Ditemukan: {item}',
     levelUp: 'Level {level}! +3 poin atribut',
     boss: '{boss} muncul',
@@ -4875,6 +4878,20 @@ export default {
     upgrade: 'Tingkatkan ({n} emas)',
     max: 'Sudah maksimal: +{n}.',
     town: 'Pandai besi di kota mana pun bisa meningkatkan ini.'
+  },
+  ore: {
+    iron: {
+      name: 'Bijih besi'
+    },
+    silver: {
+      name: 'Bijih perak'
+    },
+    gold: {
+      name: 'Bijih emas'
+    },
+    mithril: {
+      name: 'Bijih mithril'
+    }
   },
   plant: {
     sunpetal: {

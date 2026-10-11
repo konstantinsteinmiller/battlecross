@@ -9,6 +9,8 @@
         span.toast__icon(v-if="x.item")
           //- A herb (#88): its own little drawing; anything else is an item.
           PlantIcon(v-if="x.item.startsWith('plant:')" :id="x.item.slice(6)")
+          //- A nugget (#99).
+          OreIcon(v-else-if="x.item.startsWith('ore:')" :id="x.item.slice(4)")
           ItemIcon(v-else :id="x.item")
         //- A find: its name on a band of its tier's colour.
         I18nT.toast__text(v-if="x.name" :keypath="x.key" tag="span" scope="global")
@@ -40,6 +42,7 @@ import { addHudTicker, hud, hudEvents, type TextKind } from '@/game/state/hud'
 import { currentZone } from '@/game/boot'
 import ItemIcon from '@/components/art/ItemIcon.vue'
 import PlantIcon from '@/components/art/PlantIcon.vue'
+import OreIcon from '@/components/art/OreIcon.vue'
 import GameIcon from '@/components/icons/GameIcon.vue'
 import { ITEM_BY_ID, TIER_COLOR } from '@/game/data/items'
 import { isUpgrade } from '@/game/data/upgrade'

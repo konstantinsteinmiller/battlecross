@@ -5,6 +5,7 @@ import type {
   BranchState, ChestState, DoorState, GroupState, HeroState, PlateState, PuzzleState, Sim, WaveState
 } from './world'
 import type { HerbState, PieceState } from './herbs'
+import type { OreState } from './ores'
 import type { CaravanState } from './caravan'
 
 /**
@@ -71,6 +72,8 @@ export interface SimSnapshot {
   groupsDone: number
   chests: ChestState[]
   herbs: HerbState[]
+  /** The outcrops (#99); a save from before ore has none. */
+  ores?: OreState[]
   pieces: PieceState[]
   caravan: CaravanState | null
   plates: PlateState[]
@@ -141,6 +144,7 @@ export const snapshotSim = (sim: Sim, base: SimBaseline): SimSnapshot => {
     groupsDone: sim.groupsDone,
     chests: plain(sim.chests),
     herbs: plain(sim.herbs),
+    ores: plain(sim.ores),
     pieces: plain(sim.pieces),
     caravan: plain(sim.caravan),
     plates: plain(sim.plates),
@@ -190,6 +194,7 @@ export const restoreSim = (sim: Sim, base: SimBaseline, s: SimSnapshot): boolean
   sim.groupsDone = s.groupsDone
   sim.chests = plain(s.chests)
   sim.herbs = plain(s.herbs)
+  if (s.ores) sim.ores = plain(s.ores)
   sim.pieces = plain(s.pieces)
   sim.caravan = plain(s.caravan)
   sim.plates = plain(s.plates)

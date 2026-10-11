@@ -459,18 +459,18 @@ describe('opening a chest', () => {
     expect(pickChest(sim, chest.x, chest.z, 0.5)).toBeUndefined()
   })
 
-  it('opening takes a moment, and walking off with the stick leaves it closed', () => {
+  it('opening takes a moment, and once begun the stick does not call him away (#99)', () => {
     const { sim, plan, chest } = sideChest()
     orderOpen(sim, chest.id)
     run(sim, plan, 60, () => chest.state === 'opening')
     expect(chest.state).toBe('opening')
     expect(sim.hero.gold).toBe(0)
     sim.hero.stickX = 1
-    const ev = run(sim, plan, 0.2)
+    const ev = run(sim, plan, 1)
     sim.hero.stickX = 0
-    expect(chest.state).toBe('closed')
-    expect(ev.some(e => e.t === 'chest' && e.state === 'closed')).toBe(true)
-    expect(sim.hero.chests).toBe(0)
+    expect(chest.state).toBe('open')
+    expect(ev.some(e => e.t === 'chest' && e.state === 'closed')).toBe(false)
+    expect(sim.hero.chests).toBe(1)
   })
 
   it('a tap finds the chest, and the prompt offers the nearest one in reach', () => {

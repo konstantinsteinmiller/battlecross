@@ -47,6 +47,7 @@ export default {
     immune: 'Imunita'
   },
   level: {
+    mine: 'Těžit',
     open: 'Otevřít',
     guarded: 'Střeženo',
     locked: 'Zamčeno',
@@ -99,6 +100,8 @@ export default {
     chi: 'Čchi'
   },
   toast: {
+    ore: 'Vytěženo: {n} × {ore}',
+    mineBusy: 'Ne s nepřáteli poblíž!',
     item: 'Nalezeno: {item}',
     levelUp: 'Úroveň {level}! +3 body atributů',
     boss: 'Přichází: {boss}',
@@ -4965,6 +4968,20 @@ export default {
     upgrade: 'Vylepšit ({n} zl.)',
     max: 'Plně vylepšeno: +{n}.',
     town: 'Vylepšit to může kovář v kterémkoli městě.'
+  },
+  ore: {
+    iron: {
+      name: 'Železná ruda'
+    },
+    silver: {
+      name: 'Stříbrná ruda'
+    },
+    gold: {
+      name: 'Zlatá ruda'
+    },
+    mithril: {
+      name: 'Mithrilová ruda'
+    }
   },
   plant: {
     sunpetal: {

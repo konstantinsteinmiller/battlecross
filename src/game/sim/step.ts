@@ -8,6 +8,7 @@ import { stepStatuses } from './combat'
 import { stepDirector } from './director'
 import { stepHero } from './hero'
 import { finishOpen } from './interact'
+import { finishMine } from './ores'
 import { stepPickups } from './herbs'
 import { HERO_SKILLS } from './heroSkills'
 import { stepTownLife } from './townLife'
@@ -29,6 +30,10 @@ const land = (sim: Sim, u: Unit): void => {
   if (!a) return
   if (a.id === 'open') {
     finishOpen(sim)
+    return
+  }
+  if (a.id === 'mine') {
+    finishMine(sim)
     return
   }
   if (a.id === 'attack') {

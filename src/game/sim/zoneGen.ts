@@ -11,6 +11,7 @@ import { ZONE_RELIEF, ZONE_SHAPE, type LiquidId, type ZoneShape } from '../data/
 import { buildRelief, buildTownRelief } from './relief'
 import { TC_DOOR, TC_FLOOR, TC_GRASS, TC_GROUND, TC_SQUARE, TC_STREET, layTown, type TownPlan } from './town'
 import { placeHerbs, placePieces, placeTreasure, type HerbPlan, type PiecePlan } from './herbs'
+import { placeOres, type OrePlan } from './ores'
 
 /**
  * ─── Zone layouts ────────────────────────────────────────────────────────────
@@ -127,6 +128,8 @@ export interface ZonePlan {
   dummy?: { x: number; z: number }
   /** Herbs growing in the wild this visit (roadmap #88), walked over to pick. */
   herbs?: HerbPlan[]
+  /** Ore outcrops against the stone (roadmap #99). */
+  ores?: OrePlan[]
   /** The treasure map's pieces lying here (roadmap #89). */
   pieces?: PiecePlan[]
   /** An escort (roadmap #85): the caravan's road, x, z pairs from start to end. */
@@ -528,6 +531,9 @@ export const generateZone = (def: ZoneDef, seed: number, o: ZoneGenOpts = {}): Z
   const pieces = o.tutorial || o.bare ? [] : placePieces(spots, o.pieces ?? [], herbs)
   const end = clearings.find(c => c.role === 'finale') ?? clearings[clearings.length - 1]!
   const x = o.treasure && !o.tutorial && !o.bare ? placeTreasure({ ...spots, end: { x: end.x, z: end.z } }, [...herbs, ...pieces]) : null
+  // Ore (#99), last of all and on its own stream: against the stone, off the
+  // herbs, the pieces and the treasure.
+  const ores = o.tutorial || o.bare ? [] : placeOres(spots, def.min, [...herbs, ...pieces, ...(x ? [x] : [])])
   if (x) {
     features.chests.push({ id: features.chests.length, x: x.x, z: x.z, tier: 'gold', role: 'treasure', sx: x.x, sz: x.z + 1.2, door: -1, guard: -1 })
   }
@@ -568,6 +574,7 @@ export const generateZone = (def: ZoneDef, seed: number, o: ZoneGenOpts = {}): Z
     npcs: [],
     gates: [],
     herbs,
+    ores,
     pieces,
     // The first visit opens on a calm beat: a dummy to learn to fight on.
     ...(o.tutorial ? { dummy: placeDummy(solid, h, cs, features.chests, packs[0]!) } : {})

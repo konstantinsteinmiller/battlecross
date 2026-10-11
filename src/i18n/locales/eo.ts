@@ -47,6 +47,7 @@ export default {
     immune: 'Imuna'
   },
   level: {
+    mine: 'Elfosi',
     open: 'Malfermi',
     guarded: 'Gardata',
     locked: 'Ŝlosita',
@@ -99,6 +100,8 @@ export default {
     chi: 'Vivenergio'
   },
   toast: {
+    ore: 'Elfosita: {n} × {ore}',
+    mineBusy: 'Ne kun malamikoj ĉirkaŭe!',
     item: 'Trovita: {item}',
     levelUp: 'Nivelo {level}! +3 atributaj poentoj',
     boss: 'Aperas: {boss}',
@@ -4875,6 +4878,20 @@ export default {
     upgrade: 'Plibonigi ({n} da oro)',
     max: 'Plene plibonigita: +{n}.',
     town: 'Ĉiu urba forĝisto povas plibonigi ĝin.'
+  },
+  ore: {
+    iron: {
+      name: 'Fera erco'
+    },
+    silver: {
+      name: 'Arĝenta erco'
+    },
+    gold: {
+      name: 'Ora erco'
+    },
+    mithril: {
+      name: 'Mitrila erco'
+    }
   },
   plant: {
     sunpetal: {

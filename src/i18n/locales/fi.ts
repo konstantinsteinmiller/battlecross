@@ -47,6 +47,7 @@ export default {
     immune: 'Immuuni'
   },
   level: {
+    mine: 'Louhi',
     open: 'Avaa',
     guarded: 'Vartioitu',
     locked: 'Lukittu',
@@ -99,6 +100,8 @@ export default {
     chi: 'Chi'
   },
   toast: {
+    ore: 'Louhittu: {n} × {ore}',
+    mineBusy: 'Ei vihollisten lähellä!',
     item: 'Löytyi: {item}',
     levelUp: 'Taso {level}! +3 ominaisuuspistettä',
     boss: '{boss} saapuu',
@@ -4875,6 +4878,20 @@ export default {
     upgrade: 'Paranna ({n} kultaa)',
     max: 'Täysin parannettu: +{n}.',
     town: 'Minkä tahansa kaupungin seppä voi parantaa tämän.'
+  },
+  ore: {
+    iron: {
+      name: 'Rautamalmi'
+    },
+    silver: {
+      name: 'Hopeamalmi'
+    },
+    gold: {
+      name: 'Kultamalmi'
+    },
+    mithril: {
+      name: 'Mithrilmalmi'
+    }
   },
   plant: {
     sunpetal: {

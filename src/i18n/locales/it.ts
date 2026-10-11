@@ -47,6 +47,7 @@ export default {
     immune: 'Immune'
   },
   level: {
+    mine: 'Scava',
     open: 'Apri',
     guarded: 'Sorvegliato',
     locked: 'Chiuso',
@@ -99,6 +100,8 @@ export default {
     chi: 'Chi'
   },
   toast: {
+    ore: 'Estratto: {n} × {ore}',
+    mineBusy: 'Non con nemici nei paraggi!',
     item: 'Trovato: {item}',
     levelUp: 'Livello {level}! +3 punti attributo',
     boss: 'Appare: {boss}',
@@ -4941,6 +4944,20 @@ export default {
     upgrade: 'Migliora ({n} oro)',
     max: 'Migliorato al massimo: +{n}.',
     town: 'Il fabbro di qualsiasi città può migliorarlo.'
+  },
+  ore: {
+    iron: {
+      name: 'Minerale di ferro'
+    },
+    silver: {
+      name: 'Minerale d\'argento'
+    },
+    gold: {
+      name: 'Minerale d\'oro'
+    },
+    mithril: {
+      name: 'Minerale di mithril'
+    }
   },
   plant: {
     sunpetal: {

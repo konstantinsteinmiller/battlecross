@@ -125,6 +125,12 @@ export const ICON_PATHS: Record<GameIconName, string[]> = {
     // Base: the splayed foot, wider than the face so the waist reads.
     'M9.6 18.9 14.4 18.9A1.2 1.2 0 0 1 15.6 20L15.6 20.6A0.8 0.8 0 0 1 14.8 21.4L9.2 21.4A0.8 0.8 0 0 1 8.4 20.6L8.4 20A1.2 1.2 0 0 1 9.6 18.9Z'
   ],
+  // The pickaxe (mining, #99): a haft from the lower left into a curved head
+  // whose two points hang down either side, the eye where they cross.
+  'pickaxe': [
+    'M2.6 19.6 4.4 21.4 14.6 11.2 12.8 9.4Z',
+    'M2.8 8.2C7.2 3.6 13.6 2.4 18.8 4.6L20.2 3.2 20.8 3.8 19.4 5.2C21.6 10.4 20.4 16.8 15.8 21.2 17 15.6 16.2 10.8 13.4 8.4 10.8 6 7.2 5.6 2.8 8.2Z'
+  ],
   'video': [
     'M2.3 8.9A2.8 2.8 0 0 1 5.1 6.1L12.1 6.1A2.8 2.8 0 0 1 14.9 8.9L14.9 15.1A2.8 2.8 0 0 1 12.1 17.9L5.1 17.9A2.8 2.8 0 0 1 2.3 15.1L2.3 8.9Z',
     'M19.29 8.67A1.4 1.4 0 0 1 21.5 9.81L21.5 14.19A1.4 1.4 0 0 1 19.29 15.33L16.76 13.53A1.1 1.1 0 0 1 16.3 12.63L16.3 11.37A1.1 1.1 0 0 1 16.76 10.47L19.29 8.67Z'

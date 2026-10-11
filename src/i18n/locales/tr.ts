@@ -47,6 +47,7 @@ export default {
     immune: 'Bağışık'
   },
   level: {
+    mine: 'Kaz',
     open: 'Aç',
     guarded: 'Korunuyor',
     locked: 'Kilitli',
@@ -99,6 +100,8 @@ export default {
     chi: 'Çi'
   },
   toast: {
+    ore: 'Kazıldı: {n} × {ore}',
+    mineBusy: 'Düşmanlar yakındayken olmaz!',
     item: 'Bulundu: {item}',
     levelUp: 'Seviye {level}! +3 nitelik puanı',
     boss: '{boss} ortaya çıktı',
@@ -4875,6 +4878,20 @@ export default {
     upgrade: 'Geliştir ({n} altın)',
     max: 'Tamamen geliştirildi: +{n}.',
     town: 'Her kasabanın demircisi bunu geliştirebilir.'
+  },
+  ore: {
+    iron: {
+      name: 'Demir cevheri'
+    },
+    silver: {
+      name: 'Gümüş cevheri'
+    },
+    gold: {
+      name: 'Altın cevheri'
+    },
+    mithril: {
+      name: 'Mithril cevheri'
+    }
   },
   plant: {
     sunpetal: {

@@ -47,6 +47,7 @@ export default {
     immune: 'Taʼsirsiz'
   },
   level: {
+    mine: 'Qazish',
     open: 'Ochish',
     guarded: 'Qoʻriqlanmoqda',
     locked: 'Qulflangan',
@@ -99,6 +100,8 @@ export default {
     chi: 'Chi'
   },
   toast: {
+    ore: 'Qazildi: {n} × {ore}',
+    mineBusy: 'Dushmanlar yaqinda — mumkin emas!',
     item: 'Topildi: {item}',
     levelUp: '{level}-daraja! +3 xususiyat ochkosi',
     boss: '{boss} paydo boʻldi',
@@ -4875,6 +4878,20 @@ export default {
     upgrade: 'Kuchaytirish ({n} oltin)',
     max: 'Toʻliq kuchaytirilgan: +{n}.',
     town: 'Istalgan shahar temirchisi buni kuchaytira oladi.'
+  },
+  ore: {
+    iron: {
+      name: 'Temir rudasi'
+    },
+    silver: {
+      name: 'Kumush rudasi'
+    },
+    gold: {
+      name: 'Oltin rudasi'
+    },
+    mithril: {
+      name: 'Mitril rudasi'
+    }
   },
   plant: {
     sunpetal: {

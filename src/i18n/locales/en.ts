@@ -64,6 +64,8 @@ export default {
   // chest or the hero for under a second.
   'level': {
     'open': 'Open',
+    // The prompt over an ore outcrop (#99).
+    'mine': 'Mine',
     'guarded': 'Guarded',
     'locked': 'Locked',
     'potion': '+1 potion',
@@ -117,6 +119,8 @@ export default {
   'toast': {
     'item': 'Found: {item}',
     'herb': 'Picked: {plant}',
+    'ore': 'Mined: {n} × {ore}',
+    'mineBusy': 'Not with enemies about!',
     'piece': 'A piece of the treasure map!',
     'levelUp': 'Level {level}! +3 attribute points',
     'boss': '{boss} appears',
@@ -879,6 +883,13 @@ export default {
       'herbs': 'Not enough herbs. Pick more in the wild.',
       'gold': 'Not enough gold.'
     }
+  },
+  // The four metals mined from outcrops (#99).
+  'ore': {
+    'iron': { 'name': 'Iron ore' },
+    'silver': { 'name': 'Silver ore' },
+    'gold': { 'name': 'Gold ore' },
+    'mithril': { 'name': 'Mithril ore' }
   },
   'plant': {
     'sunpetal': { 'name': 'Sunpetal', 'desc': 'A bright yellow flower. Healers swear by it.' },

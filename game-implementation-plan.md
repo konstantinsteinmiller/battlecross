@@ -808,7 +808,20 @@ All sound is synthesised (53 recipes); recorded files can override a recipe.
   clear; folk whose anchor falls in the river look further for a free spot.
   Verified: full suite (town reach, lanes, relief, z-fight), vue-tsc, both
   towns in a real browser (SHARP).
-- [ ] **36 Ore and mining** (#99), chests that cannot be cancelled.
+- [x] **36 Ore and mining** (#99, smithing follows in 37). Iron, silver,
+  gold and mithril (from zone levels 1, 6, 13, 21; the one below the richest
+  the commonest): one to three outcrops a visit, on their own stream after
+  everything else, against the stone (two to five rock neighbours), off the
+  road and herbs and beyond a chest's prompt. "Mine" prompt (key or tap): the
+  hero walks up and swings a pickaxe three times (2.4 s, the weapon and the
+  off-hand piece put away, the pick in both hands); meanwhile no damage, no
+  control, no shove, no cancel, and it only starts with no awake enemy within
+  8 m. One or two nuggets, the vein breaks out, a toast; the pouch keeps them
+  (and every metal ever mined) after any visit's end; snapshots carry the
+  outcrops. A chest's lid, once lifting, now finishes too (the stick, a roll
+  or a stun no longer stop it; damage still lands). Verified: ore and level
+  tests, full suite, vue-tsc --build, a real browser (prompt, swing, toast;
+  SHARP); strings in all 38 locales.
 - [ ] **37 The smith and smithing** (#99).
 - [ ] **38 Cages and captives** (#100).
 - [ ] **39 Sound pass** (#101).

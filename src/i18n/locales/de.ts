@@ -47,6 +47,7 @@ export default {
     immune: 'Immun'
   },
   level: {
+    mine: 'Abbauen',
     open: 'Öffnen',
     guarded: 'Bewacht',
     locked: 'Verschlossen',
@@ -99,6 +100,8 @@ export default {
     chi: 'Chi'
   },
   toast: {
+    ore: 'Abgebaut: {n} × {ore}',
+    mineBusy: 'Nicht mit Feinden in der Nähe!',
     item: 'Gefunden: {item}',
     levelUp: 'Level {level}! +3 Attributspunkte',
     boss: '{boss} erscheint',
@@ -4892,6 +4895,20 @@ export default {
     upgrade: 'Aufwerten ({n} Gold)',
     max: 'Voll aufgewertet: +{n}.',
     town: 'Jeder Schmied in einer Stadt kann das aufwerten.'
+  },
+  ore: {
+    iron: {
+      name: 'Eisenerz'
+    },
+    silver: {
+      name: 'Silbererz'
+    },
+    gold: {
+      name: 'Golderz'
+    },
+    mithril: {
+      name: 'Mithrilerz'
+    }
   },
   plant: {
     sunpetal: {

@@ -47,6 +47,7 @@ export default {
     immune: '無効'
   },
   level: {
+    mine: '掘る',
     open: '開ける',
     guarded: '守られている',
     locked: 'ロック中',
@@ -99,6 +100,8 @@ export default {
     chi: '気'
   },
   toast: {
+    ore: '採掘した：{n} × {ore}',
+    mineBusy: '敵が近くにいる！',
     item: '入手：{item}',
     levelUp: 'レベル{level}！ 能力ポイント+3',
     boss: '{boss}が現れた',
@@ -4875,6 +4878,20 @@ export default {
     upgrade: '強化（{n} ゴールド）',
     max: '最大まで強化済み：+{n}。',
     town: 'どの町の鍛冶屋でも強化できます。'
+  },
+  ore: {
+    iron: {
+      name: '鉄鉱石'
+    },
+    silver: {
+      name: '銀鉱石'
+    },
+    gold: {
+      name: '金鉱石'
+    },
+    mithril: {
+      name: 'ミスリル鉱石'
+    }
   },
   plant: {
     sunpetal: {

@@ -47,6 +47,7 @@ export default {
     immune: 'ไม่มีผล'
   },
   level: {
+    mine: 'ขุด',
     open: 'เปิด',
     guarded: 'มีผู้เฝ้า',
     locked: 'ล็อกอยู่',
@@ -99,6 +100,8 @@ export default {
     chi: 'ลมปราณ'
   },
   toast: {
+    ore: 'ขุดได้: {n} × {ore}',
+    mineBusy: 'ศัตรูอยู่ใกล้ๆ!',
     item: 'พบ: {item}',
     levelUp: 'เลเวล {level}! แต้มค่าพลัง +3',
     boss: '{boss} ปรากฏตัว',
@@ -4875,6 +4878,20 @@ export default {
     upgrade: 'อัปเกรด ({n} ทอง)',
     max: 'อัปเกรดเต็มแล้ว: +{n}',
     town: 'ช่างตีเหล็กในเมืองไหนก็อัปเกรดให้ได้'
+  },
+  ore: {
+    iron: {
+      name: 'แร่เหล็ก'
+    },
+    silver: {
+      name: 'แร่เงิน'
+    },
+    gold: {
+      name: 'แร่ทอง'
+    },
+    mithril: {
+      name: 'แร่มิธริล'
+    }
   },
   plant: {
     sunpetal: {

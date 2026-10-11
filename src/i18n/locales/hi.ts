@@ -47,6 +47,7 @@ export default {
     immune: 'बेअसर'
   },
   level: {
+    mine: 'खोदें',
     open: 'खोलें',
     guarded: 'पहरे में',
     locked: 'बंद',
@@ -99,6 +100,8 @@ export default {
     chi: 'ची'
   },
   toast: {
+    ore: 'खोदा: {n} × {ore}',
+    mineBusy: 'दुश्मन पास हैं!',
     item: 'मिला: {item}',
     levelUp: 'लेवल {level}! +3 गुण अंक',
     boss: '{boss} सामने है',
@@ -4955,6 +4958,20 @@ export default {
     upgrade: 'अपग्रेड ({n} सोना)',
     max: 'पूरा अपग्रेड: +{n}।',
     town: 'किसी भी शहर का लोहार इसे अपग्रेड कर सकता है।'
+  },
+  ore: {
+    iron: {
+      name: 'लौह अयस्क'
+    },
+    silver: {
+      name: 'चाँदी अयस्क'
+    },
+    gold: {
+      name: 'सोना अयस्क'
+    },
+    mithril: {
+      name: 'मिथ्रिल अयस्क'
+    }
   },
   plant: {
     sunpetal: {

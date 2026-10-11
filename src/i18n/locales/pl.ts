@@ -47,6 +47,7 @@ export default {
     immune: 'Odporność'
   },
   level: {
+    mine: 'Wydobądź',
     open: 'Otwórz',
     guarded: 'Strzeżone',
     locked: 'Zamknięte',
@@ -99,6 +100,8 @@ export default {
     chi: 'Chi'
   },
   toast: {
+    ore: 'Wydobyto: {n} × {ore}',
+    mineBusy: 'Nie, gdy wrogowie są blisko!',
     item: 'Znaleziono: {item}',
     levelUp: 'Poziom {level}! +3 punkty atrybutów',
     boss: 'Nadchodzi: {boss}',
@@ -4962,6 +4965,20 @@ export default {
     upgrade: 'Ulepsz ({n} szt. złota)',
     max: 'W pełni ulepszone: +{n}.',
     town: 'Kowal w każdym mieście może to ulepszyć.'
+  },
+  ore: {
+    iron: {
+      name: 'Ruda żelaza'
+    },
+    silver: {
+      name: 'Ruda srebra'
+    },
+    gold: {
+      name: 'Ruda złota'
+    },
+    mithril: {
+      name: 'Ruda mithrilu'
+    }
   },
   plant: {
     sunpetal: {

@@ -47,6 +47,7 @@ export default {
     immune: 'Miễn nhiễm'
   },
   level: {
+    mine: 'Đào',
     open: 'Mở',
     guarded: 'Có canh gác',
     locked: 'Đã khóa',
@@ -99,6 +100,8 @@ export default {
     chi: 'Khí'
   },
   toast: {
+    ore: 'Đã đào: {n} × {ore}',
+    mineBusy: 'Kẻ thù đang ở gần!',
     item: 'Tìm thấy: {item}',
     levelUp: 'Cấp {level}! +3 điểm thuộc tính',
     boss: '{boss} xuất hiện',
@@ -4875,6 +4878,20 @@ export default {
     upgrade: 'Nâng cấp ({n} vàng)',
     max: 'Đã nâng cấp tối đa: +{n}.',
     town: 'Thợ rèn ở thị trấn nào cũng nâng cấp được món này.'
+  },
+  ore: {
+    iron: {
+      name: 'Quặng sắt'
+    },
+    silver: {
+      name: 'Quặng bạc'
+    },
+    gold: {
+      name: 'Quặng vàng'
+    },
+    mithril: {
+      name: 'Quặng mithril'
+    }
   },
   plant: {
     sunpetal: {

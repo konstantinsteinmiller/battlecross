@@ -47,6 +47,7 @@ export default {
     immune: 'Иммунитет'
   },
   level: {
+    mine: 'Добыть',
     open: 'Открыть',
     guarded: 'Под охраной',
     locked: 'Заперто',
@@ -99,6 +100,8 @@ export default {
     chi: 'Ци'
   },
   toast: {
+    ore: 'Добыто: {n} × {ore}',
+    mineBusy: 'Не когда рядом враги!',
     item: 'Найдено: {item}',
     levelUp: 'Уровень {level}! +3 очка атрибутов',
     boss: 'Появляется {boss}',
@@ -4964,6 +4967,20 @@ export default {
     upgrade: 'Улучшить ({n} золота)',
     max: 'Полностью улучшено: +{n}.',
     town: 'Улучшить это может кузнец в любом городе.'
+  },
+  ore: {
+    iron: {
+      name: 'Железная руда'
+    },
+    silver: {
+      name: 'Серебряная руда'
+    },
+    gold: {
+      name: 'Золотая руда'
+    },
+    mithril: {
+      name: 'Мифриловая руда'
+    }
   },
   plant: {
     sunpetal: {

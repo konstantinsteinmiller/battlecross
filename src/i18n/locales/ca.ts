@@ -47,6 +47,7 @@ export default {
     immune: 'Immune'
   },
   level: {
+    mine: 'Pica',
     open: 'Obre',
     guarded: 'Vigilat',
     locked: 'Tancat',
@@ -99,6 +100,8 @@ export default {
     chi: 'Chi'
   },
   toast: {
+    ore: 'Extret: {n} × {ore}',
+    mineBusy: 'No amb enemics a prop!',
     item: 'Trobat: {item}',
     levelUp: 'Nivell {level}! +3 punts d’atribut',
     boss: 'Apareix: {boss}',
@@ -4917,6 +4920,20 @@ export default {
     upgrade: 'Millora ({n} d’or)',
     max: 'Millorat al màxim: +{n}.',
     town: 'Qualsevol ferrer d’una ciutat ho pot millorar.'
+  },
+  ore: {
+    iron: {
+      name: 'Mineral de ferro'
+    },
+    silver: {
+      name: 'Mineral de plata'
+    },
+    gold: {
+      name: 'Mineral d\'or'
+    },
+    mithril: {
+      name: 'Mineral de mithril'
+    }
   },
   plant: {
     sunpetal: {

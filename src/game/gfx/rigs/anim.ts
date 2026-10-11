@@ -1,3 +1,4 @@
+import { Group } from 'three'
 import { setCelFlash, setCelOpacity, setCelTint } from '../cel'
 import { nudge, pose, scaleBone, type Rig } from '../kit'
 import { ENEMY_BY_ID } from '../../data/enemies'
@@ -9,6 +10,7 @@ import { LID_FLAT, LID_OPEN } from './humanoid'
 import { I, N, inOut, lerpPose, sample, snap, type Clip, type Pose } from './pose'
 import type { RigView } from './index'
 import { sampleLoop } from './townClips'
+import { pickaxeMesh } from './handProps'
 
 /**
  * ─── Animation ───────────────────────────────────────────────────────────────
@@ -123,8 +125,9 @@ const win = (s: number, S: number, t0: number, t1: number): number =>
 const clipOf = (v: RigView, u: Unit, a: Action): Clip => {
   const set = v.set
   if (a.id === 'attack') return set.attacks[v.combo % set.attacks.length]!
-  // Opening a chest (`sim/interact.ts`).
+  // Opening a chest (`sim/interact.ts`), mining an outcrop (`sim/ores.ts`).
   if (a.id === 'open') return castClip(set, 'open')
+  if (a.id === 'mine') return castClip(set, 'mine')
   let name: CastName | undefined = SKILL_CAST[a.id]
   if (!name) {
     name = ABILITY_CAST[a.id]
@@ -981,6 +984,27 @@ const turret = (v: RigView, u: Unit, time: number): void => {
  * Pose a rig for this frame. `x`, `z` are the interpolated position; `dt` is
  * the frame's EFFECT time (slowed, never stopped, by a hit-stop).
  */
+const holdPick = (v: RigView, on: boolean): void => {
+  const w = v.rig.bones.weapon
+  const o = v.rig.bones.offhand
+  if (!w || !w.parent) return
+  if (on) {
+    const g = new Group()
+    g.position.copy(w.position)
+    g.quaternion.copy(w.quaternion)
+    g.add(pickaxeMesh())
+    w.parent.add(g)
+    v.pick = g
+    w.scale.setScalar(0.001)
+    o?.scale.setScalar(0.001)
+  } else {
+    v.pick?.removeFromParent()
+    v.pick = null
+    w.scale.setScalar(1)
+    o?.scale.setScalar(1)
+  }
+}
+
 export const animate = (v: RigView, u: Unit, x: number, z: number, time: number, dt: number): void => {
   const rig = v.rig
   const root = rig.root
@@ -996,8 +1020,12 @@ export const animate = (v: RigView, u: Unit, x: number, z: number, time: number,
   // A new ability squashes the body before it springs into the move.
   if (u.action !== v.squashAction) {
     v.squashAction = u.action
-    if (u.action && u.action.id !== 'attack' && u.action.id !== 'open') squash(v, 0.16)
+    if (u.action && u.action.id !== 'attack' && u.action.id !== 'open' && u.action.id !== 'mine') squash(v, 0.16)
   }
+  // The pickaxe (#99): the weapon and the off hand's piece are put away (their
+  // bones folded to nothing) and the pick is in both hands while he mines.
+  const mining = u.action?.id === 'mine'
+  if (mining !== !!v.pick) holdPick(v, mining)
   if (u.anim === 'spawn' && u.animT < dt * 2) squash(v, 0.35)
   if (v.squashT >= 0) {
     v.squashT += dt

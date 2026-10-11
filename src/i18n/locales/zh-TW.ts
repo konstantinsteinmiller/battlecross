@@ -47,6 +47,7 @@ export default {
     immune: '免疫'
   },
   level: {
+    mine: '開採',
     open: '打開',
     guarded: '有守衛',
     locked: '已鎖住',
@@ -99,6 +100,8 @@ export default {
     chi: '氣'
   },
   toast: {
+    ore: '採到：{n} × {ore}',
+    mineBusy: '敵人就在附近！',
     item: '獲得：{item}',
     levelUp: '升上 {level} 級！屬性點 +3',
     boss: '{boss}現身',
@@ -4875,6 +4878,20 @@ export default {
     upgrade: '升級（{n} 金幣）',
     max: '已滿級：+{n}。',
     town: '任何城鎮的鐵匠都能升級它。'
+  },
+  ore: {
+    iron: {
+      name: '鐵礦石'
+    },
+    silver: {
+      name: '銀礦石'
+    },
+    gold: {
+      name: '金礦石'
+    },
+    mithril: {
+      name: '秘銀礦石'
+    }
   },
   plant: {
     sunpetal: {

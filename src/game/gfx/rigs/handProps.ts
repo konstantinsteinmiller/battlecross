@@ -117,5 +117,32 @@ export const holdProp = (bone: Object3D | undefined, held: Mesh | null, kind: Ha
   return m
 }
 
+let pickGeo: { lit: BufferGeometry; hull: BufferGeometry } | null = null
+/**
+ * The hero's pickaxe (mining, #99), authored like a weapon: along +Z from the
+ * grip, the point toward −Y (the way the arm chops). Life size; the rim and
+ * edge like any hand prop.
+ */
+export const pickaxeMesh = (): Mesh => {
+  if (!pickGeo) {
+    const m = new Mesher()
+    m.beam(0, 0, -0.06, 0, 0, 0.74, 0.042, '#a07848', 0.042)
+    // The head: a collar round the haft, the point down, a short pick up.
+    m.box(-0.045, -0.06, 0.62, 0.045, 0.06, 0.72, '#6a6e76', '')
+    m.beam(0, -0.04, 0.67, 0, -0.34, 0.56, 0.06, '#9aa0a8', 0.05)
+    m.beam(0, 0.04, 0.67, 0, 0.24, 0.6, 0.055, '#9aa0a8', 0.045)
+    pickGeo = { lit: m.build(), hull: m.welded() }
+  }
+  const mesh = new Mesh(pickGeo.lit, celVC())
+  mesh.frustumCulled = false
+  for (const mat of [outlineMat(RIM, WHITE), outlineMat(EDGE)]) {
+    const o = new Mesh(pickGeo.hull, mat)
+    o.frustumCulled = false
+    o.renderOrder = -1
+    mesh.add(o)
+  }
+  return mesh
+}
+
 /** A cup standing on Y turned to stand along −Z (up in a hanging hand). */
 const UPRIGHT = new Matrix4().makeRotationX(-Math.PI / 2)

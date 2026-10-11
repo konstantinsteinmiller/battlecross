@@ -1,28 +1,30 @@
 <template lang="pug">
-  div.chest-prompt(v-show="hud.interactChest && !flow.modal && !flow.talk")
-    div.chest-prompt__pin(ref="pin" :class="`chest-prompt__pin--${hud.interactChest || 'wood'}`")
-      button.chest-prompt__btn(v-if="hud.interactChest" type="button" :aria-label="t('level.open')" @click="open")
+  div.chest-prompt(v-show="(hud.interactChest || hud.interactOre) && !flow.modal && !flow.talk")
+    div.chest-prompt__pin(ref="pin" :class="`chest-prompt__pin--${hud.interactChest || (hud.interactOre ? 'ore' : 'wood')}`")
+      button.chest-prompt__btn(v-if="hud.interactChest || hud.interactOre" type="button" :aria-label="label" @click="open")
         span.chest-prompt__row
           span.chest-prompt__glyph
-            GameIcon(name="chest")
-          span.chest-prompt__label {{ t('level.open') }}
+            GameIcon(:name="hud.interactChest ? 'chest' : 'pickaxe'")
+          span.chest-prompt__label {{ label }}
           KeyCap.chest-prompt__key(v-if="hud.device === 'mouse'" :code="interactCode")
 </template>
 
 <script setup lang="ts">
 /**
- * The prompt over a chest the hero can open: "Open", with the key on a
+ * The prompt over a chest the hero can open: "Open" (or over an ore outcrop:
+ * "Mine", #99), with the key on a
  * desktop. It hangs over the chest itself (a transform written from the HUD
  * ticker, the scene's own frame), like the "Talk" prompt over a townsperson,
  * so a thumb finds it where the eye already is. Tapping the chest in the world
  * does the same thing.
  */
-import { onMounted, onUnmounted, ref } from 'vue'
+import { computed, onMounted, onUnmounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { addHudTicker, hud } from '@/game/state/hud'
 import { flow } from '@/game/flow'
 import { currentZone, input } from '@/game/boot'
 import { nearChest } from '@/game/sim/interact'
+import { nearOre } from '@/game/sim/ores'
 import { DEFAULT_BINDINGS } from '@/game/engine/keyBindings'
 import GameIcon from '@/components/icons/GameIcon.vue'
 import KeyCap from '@/components/glyphs/KeyCap.vue'
@@ -30,15 +32,16 @@ import KeyCap from '@/components/glyphs/KeyCap.vue'
 const { t } = useI18n()
 const interactCode = DEFAULT_BINDINGS.interact[0]!
 const pin = ref<HTMLElement | null>(null)
+const label = computed(() => t(hud.interactChest ? 'level.open' : 'level.mine'))
 
 const p = { x: 0, y: 0 }
 let remove: (() => void) | null = null
 onMounted(() => {
   remove = addHudTicker(() => {
     const el = pin.value
-    if (!el || !hud.interactChest) return
+    if (!el || (!hud.interactChest && !hud.interactOre)) return
     const zone = currentZone()
-    const c = zone && zone.setup.kind === 'zone' ? nearChest(zone.sim) : undefined
+    const c = zone && zone.setup.kind === 'zone' ? (hud.interactChest ? nearChest(zone.sim) : nearOre(zone.sim)) : undefined
     const on = !!c && zone!.project(c.x, 1.5, c.z, p)
     el.style.transform = on ? `translate3d(${Math.round(p.x)}px, ${Math.round(p.y)}px, 0)` : 'translate3d(-999px, -999px, 0)'
   })
@@ -113,6 +116,10 @@ const open = (): void => { input.interactQueued = true }
 .chest-prompt__glyph
   width: 1.3em
   height: 1.3em
+.chest-prompt__pin--ore
+  --c-hi: var(--bc-stone-hi)
+  --c: var(--bc-stone)
+  --c-lo: var(--bc-stone-lo)
 .chest-prompt__pin--iron .chest-prompt__btn
   color: var(--bc-white)
 .chest-prompt__pin--iron .chest-prompt__label

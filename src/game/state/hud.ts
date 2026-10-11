@@ -88,6 +88,9 @@ export const hud = shallowReactive({
   /** A chest the hero can open is in reach (zone): its tier ('wood' | 'iron' |
    *  'gold') for the "Open" prompt, '' for none. */
   interactChest: '',
+  /** An ore outcrop is in reach and no chest is (#99): its metal for the
+   *  "Mine" prompt, '' for none. */
+  interactOre: '',
   /** The town square's notice board is in reach (#85): the "Read" prompt. */
   interactBoard: false,
   /** A won zone: the Leave button is up; the finale's chest is open; chests still closed here. */

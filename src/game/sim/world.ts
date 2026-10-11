@@ -4,6 +4,7 @@ import type { HeroBuild } from './stats'
 import type { ChestTier, LootKind } from '../data/loot'
 import type { BranchPlan, ChestRole } from './zoneFeatures'
 import type { HerbState, PieceState } from './herbs'
+import type { OreState } from './ores'
 import type { CaravanState } from './caravan'
 import type {
   Action, Danger, Field, Projectile, SimEvent, Status, StatusId, Team, TempWall, Unit, UnitStats, Rank
@@ -23,7 +24,7 @@ import type {
 /** What the hero is trying to do. */
 export interface Order {
   /** `chest`: walk up to a chest and open it (`targetId` is the chest's id). */
-  kind: 'none' | 'move' | 'attack' | 'interact' | 'chest'
+  kind: 'none' | 'move' | 'attack' | 'interact' | 'chest' | 'mine'
   targetId: number
   x: number
   z: number
@@ -88,6 +89,8 @@ export interface HeroState {
   /** Chests opened this visit, and the chest being opened now (-1: none). */
   chests: number
   opening: number
+  /** The outcrop being mined now (-1: none, roadmap #99). */
+  mining: number
   /** Damage the hero has dealt and taken (balance tests, the result screen). */
   dealt: number
   taken: number
@@ -106,6 +109,8 @@ export interface HeroState {
   killKinds: Record<string, number>
   /** Herbs picked this visit, by plant (roadmap #88). */
   herbs: Record<string, number>
+  /** Ore mined this visit, nuggets by metal (roadmap #99). */
+  ores: Record<string, number>
   /** Treasure map pieces picked up this visit (roadmap #89). */
   pieces: string[]
 }
@@ -264,6 +269,8 @@ export class Sim {
   chests: ChestState[] = []
   /** Herbs lying in the wild this visit (`herbs.ts`). */
   herbs: HerbState[] = []
+  /** Ore outcrops this visit (`ores.ts`, roadmap #99). */
+  ores: OreState[] = []
   /** The treasure map's pieces lying in this zone (roadmap #89). */
   pieces: PieceState[] = []
   /** The caravan of an escort (roadmap #85, `caravan.ts`); null: none. */

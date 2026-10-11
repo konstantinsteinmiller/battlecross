@@ -47,6 +47,7 @@ export default {
     immune: '면역'
   },
   level: {
+    mine: '채굴',
     open: '열기',
     guarded: '지키는 중',
     locked: '잠김',
@@ -99,6 +100,8 @@ export default {
     chi: '기'
   },
   toast: {
+    ore: '채굴: {n} × {ore}',
+    mineBusy: '적이 가까이 있어!',
     item: '획득: {item}',
     levelUp: '레벨 {level}! 능력치 포인트 +3',
     boss: '{boss} 등장',
@@ -4875,6 +4878,20 @@ export default {
     upgrade: '강화 ({n} 골드)',
     max: '최대 강화: +{n}.',
     town: '어느 마을 대장장이든 강화해 줄 수 있어요.'
+  },
+  ore: {
+    iron: {
+      name: '철광석'
+    },
+    silver: {
+      name: '은광석'
+    },
+    gold: {
+      name: '금광석'
+    },
+    mithril: {
+      name: '미스릴 광석'
+    }
   },
   plant: {
     sunpetal: {

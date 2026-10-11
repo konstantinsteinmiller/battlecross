@@ -75,7 +75,8 @@ export const applyStatus = (sim: Sim, tgt: Unit, id: StatusId, dur: number, v: n
   if (hasStatus(tgt, 'stasis') && id !== 'stasis') return null
   let d = dur
   if (HARD_CC.has(id) || id === 'confuse') {
-    if (hasStatus(tgt, 'invulnerable')) return null
+    // (A hero at his pickaxe is untouchable too, #99.)
+    if (hasStatus(tgt, 'invulnerable') || tgt.action?.id === 'mine') return null
     if (KNOCK.has(id) && (tgt.s.mods.knockbackImmune ?? 0) > 0) return null
     if (tgt.rank === 'boss') d *= BOSS_CC
     else if (tgt.rank === 'elite') d *= ELITE_CC
@@ -100,8 +101,9 @@ export const applyStatus = (sim: Sim, tgt: Unit, id: StatusId, dur: number, v: n
   const st: Status = { id, t: d, dur: d, v, n: 1, src: src?.id ?? 0, type: o.type, tick: 0.5 }
   tgt.statuses.push(st)
   if (HARD_CC.has(id)) {
-    // Whatever it was doing is interrupted.
-    tgt.action = null
+    // Whatever it was doing is interrupted (not a chest's lid once lifting:
+    // that finishes, #99).
+    if (tgt.action?.id !== 'open') tgt.action = null
     tgt.hasGoal = false
     tgt.path.length = 0
   }
@@ -170,6 +172,8 @@ export const addShield = (tgt: Unit, amount: number, dur: number): void => {
 export const knockback = (tgt: Unit, fromX: number, fromZ: number, speed: number): void => {
   if (tgt.rank === 'boss' || tgt.rank === 'turret' || (tgt.s.mods.knockbackImmune ?? 0) > 0) return
   if (hasStatus(tgt, 'stasis') || hasStatus(tgt, 'petrify')) return
+  // Nothing shoves a hero at his pickaxe (#99).
+  if (tgt.action?.id === 'mine') return
   const dx = tgt.x - fromX
   const dz = tgt.z - fromZ
   const d = Math.hypot(dx, dz) || 1
@@ -274,7 +278,8 @@ export const dealDamage = (sim: Sim, src: Unit | null, tgt: Unit, base: number, 
     if (hasteV > 0) applyStatus(sim, tgt, 'haste', 2, hasteV, tgt, { quiet: true })
     return 0
   }
-  const invulnerable = hasStatus(tgt, 'invulnerable')
+  // A hero at his pickaxe takes no harm (#99): the swing is his whole world.
+  const invulnerable = hasStatus(tgt, 'invulnerable') || tgt.action?.id === 'mine'
   // Holy Bastion: the blow never lands, and half of it goes back.
   const reflect = !o.echo && !o.dot && src ? statusV(tgt, 'reflect') : 0
   if (reflect > 0 && src && src.alive) dealDamage(sim, tgt, src, amount * reflect, { type: 'holy', canCrit: false, echo: true })

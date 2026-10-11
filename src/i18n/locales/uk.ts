@@ -47,6 +47,7 @@ export default {
     immune: 'Імунітет'
   },
   level: {
+    mine: 'Добути',
     open: 'Відкрити',
     guarded: 'Під охороною',
     locked: 'Замкнено',
@@ -99,6 +100,8 @@ export default {
     chi: 'Ці'
   },
   toast: {
+    ore: 'Добуто: {n} × {ore}',
+    mineBusy: 'Не тоді, коли поруч вороги!',
     item: 'Знайдено: {item}',
     levelUp: 'Рівень {level}! +3 очки атрибутів',
     boss: 'З’являється {boss}',
@@ -4964,6 +4967,20 @@ export default {
     upgrade: 'Покращити ({n} золота)',
     max: 'Повністю покращено: +{n}.',
     town: 'Покращити це може коваль у будь-якому місті.'
+  },
+  ore: {
+    iron: {
+      name: 'Залізна руда'
+    },
+    silver: {
+      name: 'Срібна руда'
+    },
+    gold: {
+      name: 'Золота руда'
+    },
+    mithril: {
+      name: 'Мітрилова руда'
+    }
   },
   plant: {
     sunpetal: {

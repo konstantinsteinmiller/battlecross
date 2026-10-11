@@ -47,6 +47,7 @@ export default {
     immune: 'Imun'
   },
   level: {
+    mine: 'Minează',
     open: 'Deschide',
     guarded: 'Păzit',
     locked: 'Încuiat',
@@ -99,6 +100,8 @@ export default {
     chi: 'Chi'
   },
   toast: {
+    ore: 'Ai minat: {n} × {ore}',
+    mineBusy: 'Nu cu dușmani prin preajmă!',
     item: 'Găsit: {item}',
     levelUp: 'Nivelul {level}! +3 puncte de atribut',
     boss: 'Apare: {boss}',
@@ -4914,6 +4917,20 @@ export default {
     upgrade: 'Îmbunătățește ({n} aur)',
     max: 'Complet îmbunătățit: +{n}.',
     town: 'Fierarul din orice oraș poate îmbunătăți asta.'
+  },
+  ore: {
+    iron: {
+      name: 'Minereu de fier'
+    },
+    silver: {
+      name: 'Minereu de argint'
+    },
+    gold: {
+      name: 'Minereu de aur'
+    },
+    mithril: {
+      name: 'Minereu de mithril'
+    }
   },
   plant: {
     sunpetal: {

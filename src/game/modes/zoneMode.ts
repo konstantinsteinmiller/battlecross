@@ -44,6 +44,7 @@ import { townCanTalk } from '../sim/town'
 import { townAddress, townGreet } from '../sim/townLife'
 import { POTION_CD, ROLL_CD, cycleElixir, rollHero, useElixir, useManaPotion } from '../sim/hero'
 import { nearChest, orderOpen, pickChest } from '../sim/interact'
+import { nearOre, orderMine, pickOre } from '../sim/ores'
 import { hud, hudLive, pushHud, sayBark, tickHud, type SkillSlotView, type TextKind } from '../state/hud'
 import { heroBuild, loadoutActive, markTip, profile } from '../state/profile'
 import { coach } from '../coach'
@@ -637,9 +638,12 @@ export class ZoneMode implements GameMode {
       if (best) orderAttack(sim, best.id)
       else if (hud.interactBoard) this.cb.onInteract(BOARD)
       else {
-        // No one to talk to: the chest in reach, if there is one.
+        // No one to talk to: the chest in reach, if there is one; else an
+        // outcrop to mine (#99).
         const c = nearChest(sim)
+        const o = c ? undefined : nearOre(sim)
         if (c) orderOpen(sim, c.id)
+        else if (o) orderMine(sim, o.id)
       }
     }
   }
@@ -661,7 +665,13 @@ export class ZoneMode implements GameMode {
    *  chest's lid is behind the chest, so a point nearer the camera counts too. */
   private openAt(x: number, z: number, pad: number): boolean {
     const c = pickChest(this.sim, x, z, pad) ?? pickChest(this.sim, x, z + 0.7, pad)
-    if (!c) return false
+    if (!c) {
+      // An outcrop under the finger is mined, not walked onto (#99).
+      const o = pickOre(this.sim, x, z, pad) ?? pickOre(this.sim, x, z + 0.7, pad)
+      if (!o) return false
+      if (orderMine(this.sim, o.id)) sfx('uiClick')
+      return true
+    }
     if (orderOpen(this.sim, c.id)) sfx('uiClick')
     return true
   }
@@ -1193,6 +1203,8 @@ export class ZoneMode implements GameMode {
     if (this.boardWalk && hud.interactBoard) { this.boardWalk = false; this.cb.onInteract(BOARD) }
     // The chest within reach, for the "Open" prompt.
     hud.interactChest = ((!sim.ended || (sim.ended === 'victory' && !sim.leaving)) && u.alive && this.props && nearChest(sim)?.tier) || ''
+    // An outcrop within reach, for the "Mine" prompt (#99): not while he mines.
+    hud.interactOre = (!hud.interactChest && (!sim.ended || (sim.ended === 'victory' && !sim.leaving)) && u.alive && this.props && u.action?.id !== 'mine' && nearOre(sim)?.kind) || ''
     // After the finale falls: the Leave button, whether the finale's chest is
     // open yet, and how many chests the place still holds.
     hud.canLeave = (this.setup.kind === 'zone' && sim.ended === 'victory' && !sim.leaving) ||

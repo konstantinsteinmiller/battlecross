@@ -47,6 +47,7 @@ export default {
     immune: 'Imunitetas'
   },
   level: {
+    mine: 'Kasti',
     open: 'Atidaryti',
     guarded: 'Saugoma',
     locked: 'Užrakinta',
@@ -99,6 +100,8 @@ export default {
     chi: 'Či'
   },
   toast: {
+    ore: 'Iškasta: {n} × {ore}',
+    mineBusy: 'Ne, kai šalia priešai!',
     item: 'Rasta: {item}',
     levelUp: '{level} lygis! +3 savybių taškai',
     boss: 'Pasirodo: {boss}',
@@ -4926,6 +4929,20 @@ export default {
     upgrade: 'Patobulinti ({n} aukso)',
     max: 'Visiškai patobulinta: +{n}.',
     town: 'Tai gali patobulinti bet kurio miesto kalvis.'
+  },
+  ore: {
+    iron: {
+      name: 'Geležies rūda'
+    },
+    silver: {
+      name: 'Sidabro rūda'
+    },
+    gold: {
+      name: 'Aukso rūda'
+    },
+    mithril: {
+      name: 'Mitrilo rūda'
+    }
   },
   plant: {
     sunpetal: {

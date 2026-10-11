@@ -47,6 +47,7 @@ export default {
     immune: 'Imūns'
   },
   level: {
+    mine: 'Rakt',
     open: 'Atvērt',
     guarded: 'Apsargāts',
     locked: 'Aizslēgts',
@@ -99,6 +100,8 @@ export default {
     chi: 'Či'
   },
   toast: {
+    ore: 'Izrakts: {n} × {ore}',
+    mineBusy: 'Ne, kad tuvumā ir ienaidnieki!',
     item: 'Atrasts: {item}',
     levelUp: '{level}. līmenis! +3 īpašību punkti',
     boss: 'Parādās {boss}',
@@ -4940,6 +4943,20 @@ export default {
     upgrade: 'Uzlabot ({n} zelta)',
     max: 'Pilnībā uzlabots: +{n}.',
     town: 'To var uzlabot jebkuras pilsētas kalējs.'
+  },
+  ore: {
+    iron: {
+      name: 'Dzelzsrūda'
+    },
+    silver: {
+      name: 'Sudraba rūda'
+    },
+    gold: {
+      name: 'Zelta rūda'
+    },
+    mithril: {
+      name: 'Mitrila rūda'
+    }
   },
   plant: {
     sunpetal: {

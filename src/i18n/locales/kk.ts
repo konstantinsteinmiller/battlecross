@@ -47,6 +47,7 @@ export default {
     immune: 'Иммунитет'
   },
   level: {
+    mine: 'Қазу',
     open: 'Ашу',
     guarded: 'Күзетілуде',
     locked: 'Құлыптаулы',
@@ -99,6 +100,8 @@ export default {
     chi: 'Ци'
   },
   toast: {
+    ore: 'Қазылды: {n} × {ore}',
+    mineBusy: 'Жау жақында жүргенде болмайды!',
     item: 'Табылды: {item}',
     levelUp: '{level}-деңгей! +3 атрибут ұпайы',
     boss: '{boss} пайда болды',
@@ -4875,6 +4878,20 @@ export default {
     upgrade: 'Жетілдіру ({n} алтын)',
     max: 'Толық жетілдірілген: +{n}.',
     town: 'Кез келген қаланың ұстасы мұны жетілдіре алады.'
+  },
+  ore: {
+    iron: {
+      name: 'Темір кені'
+    },
+    silver: {
+      name: 'Күміс кені'
+    },
+    gold: {
+      name: 'Алтын кені'
+    },
+    mithril: {
+      name: 'Мифрил кені'
+    }
   },
   plant: {
     sunpetal: {

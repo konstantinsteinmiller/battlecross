@@ -47,6 +47,7 @@ export default {
     immune: 'منيع'
   },
   level: {
+    mine: 'تعدين',
     open: 'فتح',
     guarded: 'محروس',
     locked: 'مقفل',
@@ -100,6 +101,8 @@ export default {
     chi: 'تشي'
   },
   toast: {
+    ore: 'استخرجت: {n} × {ore}',
+    mineBusy: 'ليس والأعداء قريبون!',
     item: 'وجدت: {item}',
     levelUp: 'المستوى {level}! +3 نقاط سمات',
     boss: 'ظهور {boss}',
@@ -5156,6 +5159,20 @@ export default {
     upgrade: 'تطوير ({n} ذهب)',
     max: 'مطوَّر بالكامل: +{n}.',
     town: 'أي حدّاد في أي بلدة يستطيع تطوير هذا.'
+  },
+  ore: {
+    iron: {
+      name: 'خام الحديد'
+    },
+    silver: {
+      name: 'خام الفضة'
+    },
+    gold: {
+      name: 'خام الذهب'
+    },
+    mithril: {
+      name: 'خام الميثريل'
+    }
   },
   plant: {
     sunpetal: {

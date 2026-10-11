@@ -41,7 +41,7 @@ export type Style =
 export type CastName =
   | 'slam' | 'dash' | 'throw' | 'throwDown' | 'channel' | 'summon' | 'shout' | 'ward' | 'buff' | 'whirl' | 'beam'
   | 'raise' | 'burst' | 'point' | 'plant' | 'drain' | 'call' | 'bash' | 'strike' | 'cleave' | 'breath' | 'charge'
-  | 'line' | 'leap' | 'open' | 'roll'
+  | 'line' | 'leap' | 'open' | 'roll' | 'mine'
 
 export interface ClipSet {
   stance: Pose
@@ -566,6 +566,26 @@ const CASTS: Record<CastName, (st: Pose) => Clip> = {
     { at: 1.5, p: mk(st, { ...HALF_SQUAT, pitch: 0.04, torRy: 0, headRx: -0.15, headRy: 0, aRx: -1.2, aRy: 0, aRz: 0.9, eR: 0.3, wRx: 2.4, wRy: 0.6, aLx: -1.2, aLy: 0, aLz: 0.9, eL: 0.3, brow: 1, mouth: 0.6 }), e: easeOut },
     { at: 2, p: st, e: inOut }
   ], { trail: null, strike: 0.12, tail: 0.45 }),
+
+  // The pickaxe (#99): three swings, up over the head with both hands and
+  // down into the stone, the body leaning into each. The last is the hit.
+  mine: st => {
+    const up = mk(st, { lLx: -0.3, kL: 0.35, lRx: 0.3, kR: 0.1, torRx: -0.22, pitch: -0.06, headRx: -0.12, torRy: 0, headRy: 0, aRx: -2.7, aRy: 0, aRz: 0.18, eR: 0.9, aLx: -2.6, aLy: 0, aLz: 0.2, eL: 1.0, brow: -0.6, mouth: 0.2 })
+    const down = mk(st, { lLx: -0.38, kL: 0.5, lRx: 0.32, kR: 0.15, torRx: 0.38, pitch: 0.24, headRx: 0.28, torRy: 0, headRy: 0, aRx: -0.5, aRy: 0, aRz: 0.16, eR: 0.15, aLx: -0.58, aLy: 0, aLz: 0.18, eL: 0.22, brow: -1, mouth: 0.9 })
+    return clip([
+      { at: 0, p: st, e: lin },
+      { at: 0.13, p: up, e: inOut },
+      { at: 0.26, p: down, e: lin },
+      { at: 0.31, p: down, e: lin },
+      { at: 0.46, p: up, e: inOut },
+      { at: 0.59, p: down, e: lin },
+      { at: 0.64, p: down, e: lin },
+      { at: 0.82, p: up, e: inOut },
+      { at: 1, p: down, e: lin },
+      { at: 1.5, p: down, e: lin },
+      { at: 2, p: st, e: inOut }
+    ], { trail: null, strike: 0.004, tail: 0.3 })
+  },
 
   // Coiled to the ground, into the air, and down on them.
   leap: st => swing(st, {
