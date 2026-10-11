@@ -1,6 +1,6 @@
 import { conversation } from '../../dialog/build'
 import type { ConversationDef } from '../../dialog/types'
-import { foe, friend, heal, mana, news, play, ready, rumor, trade, train, who } from './shared'
+import { foe, friend, heal, mana, news, play, ready, rumor, trade, train, who, smithing } from './shared'
 
 /**
  * Sunford: the farming town the hero comes home to. Its people talk about the
@@ -20,6 +20,8 @@ const sunfordSmith = conversation('sunfordSmith', {
   ],
   topics: [
     trade(),
+    // Ore and the forge (#99).
+    ...smithing(),
     who({ lines: 'nn' }),
     { id: 'gear', lines: 'nn' },
     rumor([
@@ -30,7 +32,7 @@ const sunfordSmith = conversation('sunfordSmith', {
       { id: 'north' }
     ])
   ],
-  back: { shop: [{ id: 'shopBack' }] },
+  back: { shop: [{ id: 'shopBack' }], smithing: [{ id: 'forgeBack' }] },
   bye: [{ id: 'bye' }]
 })
 

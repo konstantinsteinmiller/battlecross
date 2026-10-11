@@ -41,8 +41,8 @@ export type ZoneId =
   | 'plains' | 'hollows' | 'woods' | 'outskirts' | 'crags' | 'mines'
   | 'tundra' | 'temple' | 'citadel' | 'peak' | 'fortress' | 'rift'
 
-/** Where it comes from inside its zone. */
-export type DropSource = 'mob' | 'chest' | 'boss' | 'secret'
+/** Where it comes from inside its zone ('smith': made at a forge, #99; never dropped). */
+export type DropSource = 'mob' | 'chest' | 'boss' | 'secret' | 'smith'
 
 export interface ItemDef {
   id: string
@@ -178,7 +178,59 @@ const ITEM_TABLE: readonly ItemDef[] = [
 
 export const ITEMS: readonly ItemDef[] = ITEM_TABLE.map(scaled)
 
-export const ITEM_BY_ID: Readonly<Record<string, ItemDef>> = Object.fromEntries(ITEMS.map(i => [i.id, i]))
+/**
+ * ─── Smithed gear (roadmap #99, D121) ────────────────────────────────────────
+ *
+ * A fixed catalogue: six pieces of metal gear in each of the four ores, and a
+ * masterwork twin of each a quality higher. Never dropped, never sold in a
+ * shop (they are kept out of `ITEMS`, which shops, gamblers and the drop
+ * tables read); only made at a forge. Plain, honest pieces: strength and
+ * endurance, the weight of their metal, no passive.
+ */
+export type SmithPiece = 'sword' | 'hammer' | 'shield' | 'helm' | 'plate' | 'greaves'
+export const SMITH_PIECES: readonly SmithPiece[] = ['sword', 'hammer', 'shield', 'helm', 'plate', 'greaves']
+export type SmithMetal = 'iron' | 'silver' | 'gold' | 'mithril'
+/** Each metal's quality (the masterwork one higher) and the level its pieces ask. */
+export const SMITH_METAL: Readonly<Record<SmithMetal, { tier: 1 | 2 | 3 | 4; level: number }>> = {
+  iron: { tier: 1, level: 3 }, silver: { tier: 2, level: 8 }, gold: { tier: 3, level: 15 }, mithril: { tier: 4, level: 23 }
+}
+/** The attribute points (before the quality's share) a main-hand piece of a
+ *  quality carries, and a body piece's armour: in step with the found gear. */
+const SMITH_BUDGET: Readonly<Record<number, number>> = { 1: 6, 2: 17, 3: 34, 4: 58, 5: 92 }
+const SMITH_ARMOR: Readonly<Record<number, number>> = { 1: 14, 2: 28, 3: 55, 4: 85, 5: 120 }
+const SMITH_SHAPE: Readonly<Record<SmithPiece, { slot: ItemSlot; kind: ItemKind; share: number; split: [Attr, number, Attr] }>> = {
+  sword: { slot: 'main', kind: 'sword', share: 1, split: ['str', 0.7, 'dex'] },
+  hammer: { slot: 'main', kind: 'hammer', share: 1.1, split: ['str', 0.75, 'end'] },
+  shield: { slot: 'off', kind: 'shield', share: 0.55, split: ['end', 0.6, 'str'] },
+  helm: { slot: 'head', kind: 'helm', share: 0.3, split: ['end', 0.6, 'str'] },
+  plate: { slot: 'body', kind: 'plate', share: 1, split: ['str', 0.55, 'end'] },
+  greaves: { slot: 'feet', kind: 'greaves', share: 0.3, split: ['end', 0.6, 'str'] }
+}
+export const smithItemId = (metal: SmithMetal, piece: SmithPiece, master: boolean): string =>
+  `smith${master ? 'Master' : ''}${metal[0]!.toUpperCase()}${metal.slice(1)}${piece[0]!.toUpperCase()}${piece.slice(1)}`
+const smithDef = (metal: SmithMetal, piece: SmithPiece, master: boolean): ItemDef => {
+  const m = SMITH_METAL[metal]
+  const tier = (m.tier + (master ? 1 : 0)) as ItemDef['tier']
+  const sh = SMITH_SHAPE[piece]
+  const pts = SMITH_BUDGET[tier]! * sh.share
+  const a = Math.max(1, Math.round(pts * sh.split[1]))
+  const b = Math.max(1, Math.round(pts * (1 - sh.split[1])))
+  const mods: Mods = { [sh.split[0]]: a, [sh.split[2]]: b }
+  if (piece === 'shield') mods.block = master ? 0.08 : 0.06
+  if (piece === 'helm') mods.armor = Math.round(SMITH_ARMOR[tier]! * 0.3)
+  if (piece === 'greaves') mods.armor = Math.round(SMITH_ARMOR[tier]! * 0.28)
+  return {
+    id: smithItemId(metal, piece, master), slot: sh.slot, kind: sh.kind, tier, level: m.level, mods,
+    ...(piece === 'plate' ? { armor: SMITH_ARMOR[tier]! } : {}),
+    ...(piece === 'sword' ? { weapon: melee('str') } : piece === 'hammer' ? { weapon: melee('str', 1.2, true) } : {}),
+    drop: { zone: 'plains', src: 'smith' }
+  }
+}
+export const SMITHED: readonly ItemDef[] = (Object.keys(SMITH_METAL) as SmithMetal[])
+  .flatMap(metal => SMITH_PIECES.flatMap(piece => [smithDef(metal, piece, false), smithDef(metal, piece, true)]))
+  .map(scaled)
+
+export const ITEM_BY_ID: Readonly<Record<string, ItemDef>> = Object.fromEntries([...ITEMS, ...SMITHED].map(i => [i.id, i]))
 
 /** Tier frame colours (icons, loot beams, names). T6 is the legendary gold. */
 export const TIER_COLOR: Record<number, string> = {

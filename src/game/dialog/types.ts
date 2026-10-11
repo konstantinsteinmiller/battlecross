@@ -57,6 +57,10 @@ export interface Cond {
   met?: boolean
   /** Errand id → where it stands (one state or any of several). */
   errand?: Readonly<Record<string, ErrandState | readonly ErrandState[]>>
+  /** The ore pouch holds nuggets / is empty (#99). */
+  ore?: boolean
+  /** Smithing has / has not been taught (#99). */
+  smithing?: boolean
   any?: readonly Cond[]
 }
 
@@ -74,6 +78,9 @@ export interface DialogWorld {
   said: ReadonlySet<string>
   /** Errands taken, by id, and where they stand (absent: 'none'). */
   errands: Readonly<Record<string, ErrandState>>
+  /** Nuggets in the ore pouch, and whether smithing is known (#99). */
+  ore?: number
+  smithing?: boolean
 }
 
 export interface LineDef {
@@ -94,7 +101,7 @@ export interface BlockDef {
 }
 
 /** The windows a conversation hands over to (and comes back from). */
-export type TalkWindow = 'shop' | 'trainer' | 'healer' | 'alchemy' | 'memory' | 'itemBattle'
+export type TalkWindow = 'shop' | 'trainer' | 'healer' | 'alchemy' | 'memory' | 'itemBattle' | 'smithing'
 
 export type Effect =
   /** Remember something beyond the topic itself. */
@@ -109,6 +116,9 @@ export type Effect =
   | { t: 'decide'; quest: string; choice: string }
   /** An errand taken on, or handed in (roadmap #85, #86, #89). */
   | { t: 'errand'; id: string; act: 'start' | 'complete' }
+  /** A smith buys the whole ore pouch (#99), and teaches smithing. */
+  | { t: 'sellOre' }
+  | { t: 'learnSmith' }
 
 /** Something sold inside a conversation (a mana potion): the game's rule says
  *  what it costs and whether it can be bought right now. */
@@ -203,4 +213,7 @@ export interface DialogHost {
   buy(id: string): boolean
   /** Take an errand on, or hand it in. False when the rules refuse. */
   errand(id: string, act: 'start' | 'complete'): boolean
+  /** Sell the ore pouch to the smith (#99); learn smithing. */
+  sellOre(): void
+  learnSmith(): void
 }

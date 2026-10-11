@@ -1,5 +1,34 @@
 // Lithuanian (lt) bundle — mirrors en.ts.
 export default {
+  smith: {
+    why: {
+      max: 'Turi abu, patobulintus iki galo.',
+      gold: 'Neužtenka aukso.',
+      ore: 'Neužtenka rūdos.',
+      metal: 'Pirmiau iškask šią rūdą.',
+      learn: 'Pirmiau tave turi išmokyti kalvis.'
+    },
+    stamp: 'Nukalta',
+    take: 'Paimti',
+    worked: '{item}: patobulinimas iki +{n}',
+    made: '{item} +{n}',
+    grade: {
+      perfect: 'Tobula!',
+      great: 'Puikus darbas!',
+      good: 'Geras darbas',
+      poor: 'Grubus darbas'
+    },
+    hint: 'Bakstelėk „Kirsk!“ arba spausk tarpą, kol žėrėjimas karštame taške.',
+    strikes: 'Smūgis {n} iš {max}',
+    strike: 'Kirsk!',
+    forge: 'Kalti',
+    gold: '{n} aukso',
+    nuggets: '{ore}: {have} iš {n}',
+    master: 'Puikus smūgis paverčia jį: {item}.',
+    locked: 'Pirmiau iškask: {ore}, kad sužinotum jos dirbinius.',
+    lead: 'Kiekvienas iškastas metalas atskleidžia savo dirbinius. Kirsk į žėrėjimą ten, kur karščiausia: trys smūgiai lemia dirbinį.',
+    talk: 'Įkaitusi geležis nieko nelaukia.'
+  },
   gameName: 'Battlecross',
   cancel: 'Atšaukti',
   close: 'Uždaryti',
@@ -1272,6 +1301,7 @@ export default {
     magic: 'Magija · savybė: {attr}'
   },
   source: {
+    smith: 'Nukaldinta kalvėje.',
     mob: 'Iškrenta iš pabaisų zonoje: {zone}.',
     chest: 'Randama skryniose zonoje: {zone}.',
     boss: 'Iškrenta iš zonos boso: {zone}.',
@@ -1339,6 +1369,150 @@ export default {
     overheatCrit: '+{n}% kritinės žalos perkaitus'
   },
   item: {
+    smithMasterMithrilGreaves: {
+      name: 'Meistriški mitriliniai blauzdiniai'
+    },
+    smithMithrilGreaves: {
+      name: 'Mitriliniai blauzdiniai'
+    },
+    smithMasterMithrilPlate: {
+      name: 'Meistriški mitriliniai šarvai'
+    },
+    smithMithrilPlate: {
+      name: 'Mitriliniai šarvai'
+    },
+    smithMasterMithrilHelm: {
+      name: 'Meistriškas mitrilinis šalmas'
+    },
+    smithMithrilHelm: {
+      name: 'Mitrilinis šalmas'
+    },
+    smithMasterMithrilShield: {
+      name: 'Meistriškas mitrilinis skydas'
+    },
+    smithMithrilShield: {
+      name: 'Mitrilinis skydas'
+    },
+    smithMasterMithrilHammer: {
+      name: 'Meistriškas mitrilinis kūjis'
+    },
+    smithMithrilHammer: {
+      name: 'Mitrilinis kūjis'
+    },
+    smithMasterMithrilSword: {
+      name: 'Meistriškas mitrilinis kalavijas'
+    },
+    smithMithrilSword: {
+      name: 'Mitrilinis kalavijas'
+    },
+    smithMasterGoldGreaves: {
+      name: 'Meistriški auksiniai blauzdiniai'
+    },
+    smithGoldGreaves: {
+      name: 'Auksiniai blauzdiniai'
+    },
+    smithMasterGoldPlate: {
+      name: 'Meistriški auksiniai šarvai'
+    },
+    smithGoldPlate: {
+      name: 'Auksiniai šarvai'
+    },
+    smithMasterGoldHelm: {
+      name: 'Meistriškas auksinis šalmas'
+    },
+    smithGoldHelm: {
+      name: 'Auksinis šalmas'
+    },
+    smithMasterGoldShield: {
+      name: 'Meistriškas auksinis skydas'
+    },
+    smithGoldShield: {
+      name: 'Auksinis skydas'
+    },
+    smithMasterGoldHammer: {
+      name: 'Meistriškas auksinis kūjis'
+    },
+    smithGoldHammer: {
+      name: 'Auksinis kūjis'
+    },
+    smithMasterGoldSword: {
+      name: 'Meistriškas auksinis kalavijas'
+    },
+    smithGoldSword: {
+      name: 'Auksinis kalavijas'
+    },
+    smithMasterSilverGreaves: {
+      name: 'Meistriški sidabriniai blauzdiniai'
+    },
+    smithSilverGreaves: {
+      name: 'Sidabriniai blauzdiniai'
+    },
+    smithMasterSilverPlate: {
+      name: 'Meistriški sidabriniai šarvai'
+    },
+    smithSilverPlate: {
+      name: 'Sidabriniai šarvai'
+    },
+    smithMasterSilverHelm: {
+      name: 'Meistriškas sidabrinis šalmas'
+    },
+    smithSilverHelm: {
+      name: 'Sidabrinis šalmas'
+    },
+    smithMasterSilverShield: {
+      name: 'Meistriškas sidabrinis skydas'
+    },
+    smithSilverShield: {
+      name: 'Sidabrinis skydas'
+    },
+    smithMasterSilverHammer: {
+      name: 'Meistriškas sidabrinis kūjis'
+    },
+    smithSilverHammer: {
+      name: 'Sidabrinis kūjis'
+    },
+    smithMasterSilverSword: {
+      name: 'Meistriškas sidabrinis kalavijas'
+    },
+    smithSilverSword: {
+      name: 'Sidabrinis kalavijas'
+    },
+    smithMasterIronGreaves: {
+      name: 'Meistriški geležiniai blauzdiniai'
+    },
+    smithIronGreaves: {
+      name: 'Geležiniai blauzdiniai'
+    },
+    smithMasterIronPlate: {
+      name: 'Meistriški geležiniai šarvai'
+    },
+    smithIronPlate: {
+      name: 'Geležiniai šarvai'
+    },
+    smithMasterIronHelm: {
+      name: 'Meistriškas geležinis šalmas'
+    },
+    smithIronHelm: {
+      name: 'Geležinis šalmas'
+    },
+    smithMasterIronShield: {
+      name: 'Meistriškas geležinis skydas'
+    },
+    smithIronShield: {
+      name: 'Geležinis skydas'
+    },
+    smithMasterIronHammer: {
+      name: 'Meistriškas geležinis kūjis'
+    },
+    smithIronHammer: {
+      name: 'Geležinis kūjis'
+    },
+    smithMasterIronSword: {
+      name: 'Meistriškas geležinis kalavijas'
+    },
+    smithIronSword: {
+      name: 'Geležinis kalavijas'
+    },
     rustedShortsword: {
       name: 'Surūdijęs trumpas kalavijas'
     },
@@ -1527,6 +1701,8 @@ export default {
     }
   },
   bag: {
+    oreCount: '{ore}: {n}',
+    noOre: 'Rūdos dar neturi. Laukinėse vietose kask rūdos atodangas prie uolų.',
     equip: 'Užsidėti',
     unequip: 'Nusiimti',
     worn: 'Tai dabar vilki. Nusiimk, kad parduotum.',
@@ -1536,6 +1712,7 @@ export default {
     slotEmpty: '{slot}: tuščia',
     slotHolds: '{slot}: {item}',
     filter: {
+      ore: 'Rūda',
       all: 'Visi',
       weapons: 'Ginklai',
       armor: 'Šarvai',
@@ -2095,6 +2272,9 @@ export default {
       }
     },
     hero: {
+      forge: 'Norėčiau pasinaudoti tavo žaizdru.',
+      learnSmith: 'Ar išmokytum mane kalvystės?',
+      ore: 'Turiu šiek tiek rūdos parduoti.',
       bye: 'Neberiu tau galvos.',
       trade: 'Ar galiu pažiūrėti, ką turi?',
       train: 'Ar išmokysi mane?',
@@ -2108,6 +2288,19 @@ export default {
       play: 'Dalink ir man.'
     },
     sunfordSmith: {
+      forge: {
+        '1': 'Žaizdras karštas. Saugok pirštus.'
+      },
+      learnSmith: {
+        '2': 'Kirsk, kai metalas žėri ryškiausiai. Prašausi – bus laužas. Pirmyn.',
+        '1': 'Kalvystės? Hm. Laikyk kūjį štai taip, ne kaip vėzdą.'
+      },
+      ore: {
+        '1': 'Rūda, a? Imu viską. Sąžiningas svoris, sąžiningi pinigai.'
+      },
+      forgeBack: {
+        '1': 'Neblogai. Bet ir ne gerai. Dirbk toliau.'
+      },
       hello: {
         '1': 'Anksčiau tavęs nemačiau. Ar tu tas, kuris išvalė kelią?',
         '1__f': 'Anksčiau tavęs nemačiau. Ar tu ta, kuri išvalė kelią?',
@@ -2530,6 +2723,19 @@ export default {
       }
     },
     oakArmorer: {
+      forge: {
+        '1': 'Priekalas tavo. Padaryk ką nors tvirto.'
+      },
+      learnSmith: {
+        '2': 'Stebėk žėrėjimą. Kirsk į jo širdį, tris kartus, ir metalas atsimins.',
+        '1': 'Nori išmokti amato? Gerai. Oakhavenui reikia kiekvieno kūjo.'
+      },
+      ore: {
+        '1': 'Žalia rūda! Ginklinei jos niekada neužtenka. Štai tavo atlygis.'
+      },
+      forgeBack: {
+        '1': 'Geras plienas. Sienos tau dėkingos.'
+      },
       hello: {
         '1': 'Jei ieškai šalmo, atsiprašau. Jie visi ant sienos.',
         '2': 'Odo. Kaliu šarvus. Pastaruoju metu mažai miegojau.'
@@ -2561,6 +2767,19 @@ export default {
       }
     },
     oakMasterArmorer: {
+      forge: {
+        '1': 'Ugnis pakurta ir laukia. Pirmyn.'
+      },
+      learnSmith: {
+        '2': 'Trys smūgiai, kiekvienas į žėrėjimo širdį. Ir visa paslaptis.',
+        '1': 'Nuo apgulties mokau kiekvieną, kas paprašo. Eik, stok čia.'
+      },
+      ore: {
+        '1': 'Dar rūdos sienoms? Telaimina tave. Še, paimk.'
+      },
+      forgeBack: {
+        '1': 'Kiekvienas smūgis tave tobulina. Ateik bet kada.'
+      },
       hello: {
         '1': 'Štai ir tu! Užeik. Galinis kambarys atidarytas, ir jis atidarytas tau.',
         '2': 'Dabar mane vadina meistru Odo. Juokinga, ką šiek tiek taikos padaro verslui.'
@@ -2961,6 +3180,20 @@ export default {
       }
     },
     ironWeapons: {
+      forge: {
+        '1': 'Saugokis kibirkščių ir neliesk mano gerojo kūjo.'
+      },
+      learnSmith: {
+        '2': 'Žėrėjimas pasako kada. Ranka pasako kaip stipriai. Trys smūgiai.',
+        '1__f': 'Paviršietė prie priekalo? Na, kiekvienas kažkur pradeda.',
+        '1': 'Paviršietis prie priekalo? Na, kiekvienas kažkur pradeda.'
+      },
+      ore: {
+        '1': 'Cha, sąžininga rūda. Ironhold už tokią visada sumoka.'
+      },
+      forgeBack: {
+        '1': 'Hm. Nykštukas būtų padaręs geriau. Bet nedaug.'
+      },
       hello: {
         '1': 'Atsargiai su ekspozicija. Jie aštrūs iš abiejų pusių.',
         '2': 'Hilda Kūjarankė. Kiekvieną gabalą čia nukalė nykštukų rankos.'
@@ -3020,6 +3253,21 @@ export default {
       }
     },
     ironArmor: {
+      forge: {
+        '1__f': 'Žaizdras pasiruošęs, kai tik būsi pasiruošusi ir tu.',
+        '1': 'Žaizdras pasiruošęs, kai tik būsi pasiruošęs ir tu.'
+      },
+      learnSmith: {
+        '2': 'Kaitink, kirsk, versk. Trys smūgiai, tiesiai į žėrėjimą. Tada leisk atvėsti.',
+        '1': 'Šarvai – kantrybės darbas. Parodysiu pagrindus.'
+      },
+      ore: {
+        '1': 'Leisk pasverti. Gerai. Pinigai tavo.'
+      },
+      forgeBack: {
+        '1__f': 'Leisk jam atvėsti prieš užsidėdama.',
+        '1': 'Leisk jam atvėsti prieš užsidėdamas.'
+      },
       hello: {
         '1': 'Garrun. Šarvai ant stovų, žiedai dėkle.'
       },
@@ -3049,6 +3297,19 @@ export default {
       }
     },
     ironOrderArmor: {
+      forge: {
+        '1': 'Naudokis Ordino žaizdru garbingai.'
+      },
+      learnSmith: {
+        '2': 'Drausmė prie priekalo, kaip ir mūšio lauke. Trys smūgiai, ištikimi žėrėjimui.',
+        '1': 'Ordinas apginkluoja savo draugus. Aš tave išmokysiu.'
+      },
+      ore: {
+        '1': 'Ordinas superka visą rūdą karui. Tavo užmokestis.'
+      },
+      forgeBack: {
+        '1': 'Gerai nukalta. Tarnauk juose garbingai.'
+      },
       hello: {
         '1': 'Tu tas, kuris sunaikino šerdį. Ordinas tai atsimena.',
         '1__f': 'Tu ta, kuri sunaikino šerdį. Ordinas tai atsimena.',
@@ -3582,6 +3843,21 @@ export default {
       }
     },
     sbArmorer: {
+      forge: {
+        '1': 'Naudokis žaizdru. Šauk, jei kas nors užsidegtų.'
+      },
+      learnSmith: {
+        '2': 'Kirsk, kai žėri karščiausiai. Trys geri smūgiai – geras dirbinys.',
+        '1__f': 'Nori pati pabandyti kūjį? Man negaila pasidalyti žaizdru.',
+        '1': 'Nori pats pabandyti kūjį? Man negaila pasidalyti žaizdru.'
+      },
+      ore: {
+        '1': 'Puiki rūda. Silverbridge visada moka sąžiningą kainą.'
+      },
+      forgeBack: {
+        '1__f': 'Tik pažiūrėk! Tu gimusi tam.',
+        '1': 'Tik pažiūrėk! Tu gimęs tam.'
+      },
       hello: {
         '1': 'Cha! Pažiūrėk į tą įlenkimą. Tikiuosi, už tuos šarvus atgavai pinigus.',
         '2': 'Greta Geležingyslė. Kalu šarvus, kurie grįžta namo su savo šeimininku. Kol kas kiekvieną kartą.'

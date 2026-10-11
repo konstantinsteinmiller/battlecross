@@ -7,7 +7,8 @@ import { QUEST_BY_ID, type ChoiceDef as QuestChoice } from './data/quests'
 import type { NpcDef } from './data/zones'
 import {
   buyManaPotion, completeErrand, decideQuest, errandStateOf, errandTalk, flagSet, gainItem, manaPotionCost, manaPotionRoom, profile, saveProfile,
-  startErrand, totalAttrs
+  startErrand, totalAttrs,
+  learnSmithing, sellAllOre
 } from './state/profile'
 import { pushHud } from './state/hud'
 import { sfx } from './audio/sfx'
@@ -60,7 +61,9 @@ export const dialogWorld = (): DialogWorld => ({
   quests: profile.quests.done,
   cleared: new Set(profile.world.cleared),
   said: new Set(profile.world.said),
-  errands: Object.fromEntries(Object.keys(profile.quests.errands).map(id => [id, errandStateOf(id)]))
+  errands: Object.fromEntries(Object.keys(profile.quests.errands).map(id => [id, errandStateOf(id)])),
+  ore: Object.values(profile.inv.ores).reduce((s, n) => s + n, 0),
+  smithing: profile.inv.smithing
 })
 
 /** Remember a dialogue key in the save (a checkpoint, like any purchase). */
@@ -141,6 +144,15 @@ const host: DialogHost = {
     if (r.item) pushHud({ t: 'toast', key: 'dlg.ui.gotItem', params: { item: `item.${r.item}.name` }, icon: r.item })
     sfx('levelUp')
     return true
+  },
+  sellOre() {
+    const gold = sellAllOre()
+    if (!gold) return
+    pushHud({ t: 'toast', key: 'dlg.ui.gotGold', params: { n: gold } })
+    sfx('coin')
+  },
+  learnSmith() {
+    learnSmithing()
   },
   offer: id => (id === MANA_OFFER ? manaOffer() : null),
   buy: (id) => {

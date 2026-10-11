@@ -1,5 +1,34 @@
 // Korean locale — mirrors the key shape of en.ts exactly.
 export default {
+  smith: {
+    why: {
+      max: '둘 다 보유 중이며 최대까지 단련했습니다.',
+      gold: '골드가 부족합니다.',
+      ore: '광석이 부족합니다.',
+      metal: '이 광석을 먼저 캐세요.',
+      learn: '먼저 대장장이에게 배워야 합니다.'
+    },
+    stamp: '단조품',
+    take: '받기',
+    worked: '{item} +{n}까지 단련',
+    made: '{item} +{n}',
+    grade: {
+      perfect: '완벽!',
+      great: '훌륭한 솜씨!',
+      good: '좋은 솜씨',
+      poor: '거친 솜씨'
+    },
+    hint: '빛이 핫스폿에 있을 때 타격을 탭하거나 스페이스를 누르세요.',
+    strikes: '타격 {n}/{max}',
+    strike: '타격!',
+    forge: '단조',
+    gold: '{n} 골드',
+    nuggets: '{ore}: {have}/{n}',
+    master: '회심의 타격이면: {item}',
+    locked: '먼저 {ore}을 캐야 만들 물건을 배울 수 있습니다.',
+    lead: '캐낸 금속마다 만들 수 있는 물건이 열립니다. 빛이 가장 뜨거운 곳을 내리치세요. 세 번의 타격이 물건을 결정합니다.',
+    talk: '달군 쇠는 누구도 기다려 주지 않지.'
+  },
   gameName: 'Battlecross',
   cancel: '취소',
   close: '닫기',
@@ -1272,6 +1301,7 @@ export default {
     magic: '마법 · {attr} 비례'
   },
   source: {
+    smith: '대장간에서 벼려 낸 물건.',
     mob: '{zone}의 몬스터가 떨어뜨린다.',
     chest: '{zone}의 상자에서 나온다.',
     boss: '{zone}의 보스가 떨어뜨린다.',
@@ -1339,6 +1369,150 @@ export default {
     overheatCrit: '과열 중 치명타 피해 +{n}%'
   },
   item: {
+    smithMasterMithrilGreaves: {
+      name: '장인의 미스릴 정강이갑'
+    },
+    smithMithrilGreaves: {
+      name: '미스릴 정강이갑'
+    },
+    smithMasterMithrilPlate: {
+      name: '장인의 미스릴 판금 갑옷'
+    },
+    smithMithrilPlate: {
+      name: '미스릴 판금 갑옷'
+    },
+    smithMasterMithrilHelm: {
+      name: '장인의 미스릴 투구'
+    },
+    smithMithrilHelm: {
+      name: '미스릴 투구'
+    },
+    smithMasterMithrilShield: {
+      name: '장인의 미스릴 방패'
+    },
+    smithMithrilShield: {
+      name: '미스릴 방패'
+    },
+    smithMasterMithrilHammer: {
+      name: '장인의 미스릴 망치'
+    },
+    smithMithrilHammer: {
+      name: '미스릴 망치'
+    },
+    smithMasterMithrilSword: {
+      name: '장인의 미스릴 검'
+    },
+    smithMithrilSword: {
+      name: '미스릴 검'
+    },
+    smithMasterGoldGreaves: {
+      name: '장인의 금 정강이갑'
+    },
+    smithGoldGreaves: {
+      name: '금 정강이갑'
+    },
+    smithMasterGoldPlate: {
+      name: '장인의 금 판금 갑옷'
+    },
+    smithGoldPlate: {
+      name: '금 판금 갑옷'
+    },
+    smithMasterGoldHelm: {
+      name: '장인의 금 투구'
+    },
+    smithGoldHelm: {
+      name: '금 투구'
+    },
+    smithMasterGoldShield: {
+      name: '장인의 금 방패'
+    },
+    smithGoldShield: {
+      name: '금 방패'
+    },
+    smithMasterGoldHammer: {
+      name: '장인의 금 망치'
+    },
+    smithGoldHammer: {
+      name: '금 망치'
+    },
+    smithMasterGoldSword: {
+      name: '장인의 금검'
+    },
+    smithGoldSword: {
+      name: '금검'
+    },
+    smithMasterSilverGreaves: {
+      name: '장인의 은 정강이갑'
+    },
+    smithSilverGreaves: {
+      name: '은 정강이갑'
+    },
+    smithMasterSilverPlate: {
+      name: '장인의 은 판금 갑옷'
+    },
+    smithSilverPlate: {
+      name: '은 판금 갑옷'
+    },
+    smithMasterSilverHelm: {
+      name: '장인의 은 투구'
+    },
+    smithSilverHelm: {
+      name: '은 투구'
+    },
+    smithMasterSilverShield: {
+      name: '장인의 은 방패'
+    },
+    smithSilverShield: {
+      name: '은 방패'
+    },
+    smithMasterSilverHammer: {
+      name: '장인의 은 망치'
+    },
+    smithSilverHammer: {
+      name: '은 망치'
+    },
+    smithMasterSilverSword: {
+      name: '장인의 은검'
+    },
+    smithSilverSword: {
+      name: '은검'
+    },
+    smithMasterIronGreaves: {
+      name: '장인의 철 정강이갑'
+    },
+    smithIronGreaves: {
+      name: '철 정강이갑'
+    },
+    smithMasterIronPlate: {
+      name: '장인의 철 판금 갑옷'
+    },
+    smithIronPlate: {
+      name: '철 판금 갑옷'
+    },
+    smithMasterIronHelm: {
+      name: '장인의 철 투구'
+    },
+    smithIronHelm: {
+      name: '철 투구'
+    },
+    smithMasterIronShield: {
+      name: '장인의 철 방패'
+    },
+    smithIronShield: {
+      name: '철 방패'
+    },
+    smithMasterIronHammer: {
+      name: '장인의 철 망치'
+    },
+    smithIronHammer: {
+      name: '철 망치'
+    },
+    smithMasterIronSword: {
+      name: '장인의 철검'
+    },
+    smithIronSword: {
+      name: '철검'
+    },
     rustedShortsword: {
       name: '녹슨 숏소드'
     },
@@ -1527,6 +1701,8 @@ export default {
     }
   },
   bag: {
+    oreCount: '{ore}: {n}',
+    noOre: '아직 광석이 없습니다. 야외 암벽의 광맥을 캐세요.',
     equip: '장착',
     unequip: '해제',
     worn: '착용 중이다. 팔려면 먼저 벗자.',
@@ -1536,6 +1712,7 @@ export default {
     slotEmpty: '{slot}: 비어 있음',
     slotHolds: '{slot}: {item}',
     filter: {
+      ore: '광석',
       all: '전체',
       weapons: '무기',
       armor: '방어구',
@@ -2095,6 +2272,9 @@ export default {
       }
     },
     hero: {
+      forge: '화덕을 좀 쓰고 싶어요.',
+      learnSmith: '대장일을 가르쳐 주실 수 있나요?',
+      ore: '팔 광석이 좀 있어요.',
       bye: '그럼 방해 안 할게요.',
       trade: '물건을 좀 볼 수 있을까요?',
       train: '가르쳐 주세요.',
@@ -2107,6 +2287,19 @@ export default {
       play: '저도 낄게요.'
     },
     sunfordSmith: {
+      forge: {
+        '1': '화덕 뜨거워. 손가락 조심해.'
+      },
+      learnSmith: {
+        '2': '쇠가 가장 밝게 빛날 때 내리쳐. 놓치면 고철이야. 해 봐.',
+        '1': '대장일? 흠. 망치는 이렇게 쥐어. 몽둥이처럼 말고.'
+      },
+      ore: {
+        '1': '광석이라? 몽땅 사지. 정확한 무게, 정확한 값.'
+      },
+      forgeBack: {
+        '1': '나쁘진 않군. 좋지도 않고. 계속해.'
+      },
       hello: {
         '1': '처음 보는 얼굴이군. 길을 정리한 게 자네인가?',
         '2': '브람이야. 이 대장간은 내가 맡고 있지. 칼이 필요하면 나한테 와.'
@@ -2516,6 +2709,19 @@ export default {
       }
     },
     oakArmorer: {
+      forge: {
+        '1': '모루는 마음껏 쓰세요. 튼튼한 걸 만들어 줘요.'
+      },
+      learnSmith: {
+        '2': '빛을 보세요. 그 중심을 세 번 치면, 쇠가 기억해요.',
+        '1': '기술을 배우고 싶다고요? 좋아요. 오크헤이븐엔 망치 하나하나가 필요해요.'
+      },
+      ore: {
+        '1': '원광석이군요! 무기고는 늘 모자라요. 여기 값이요.'
+      },
+      forgeBack: {
+        '1': '좋은 강철이네요. 성벽이 고마워할 거예요.'
+      },
       hello: {
         '1': '투구를 찾으신다면 미안해요. 전부 성벽 위에 올라가 있어요.',
         '2': '오도예요. 갑옷을 만들죠. 요즘 잠을 통 못 자서요.'
@@ -2546,6 +2752,19 @@ export default {
       }
     },
     oakMasterArmorer: {
+      forge: {
+        '1': '불씨를 묻어 두고 기다리고 있었어요. 어서 해 봐요.'
+      },
+      learnSmith: {
+        '2': '세 번의 타격, 매번 빛의 중심에. 비결은 그게 전부예요.',
+        '1': '포위전 이후로는 청하는 누구에게나 가르쳐요. 이리 와서 여기 서요.'
+      },
+      ore: {
+        '1': '성벽에 쓸 광석을 또요? 고마워라. 자, 이거 받아요.'
+      },
+      forgeBack: {
+        '1': '칠 때마다 실력이 늘어요. 언제든 다시 와요.'
+      },
       hello: {
         '1': '왔군! 들어와요. 뒷방이 열려 있어요, 당신을 위해서요.',
         '2': '이제 다들 명장 오도라고 불러요. 조금 평화로워지니 장사가 달라지네요.'
@@ -2931,6 +3150,19 @@ export default {
       }
     },
     ironWeapons: {
+      forge: {
+        '1': '불똥 조심하고, 내 좋은 망치엔 손대지 마.'
+      },
+      learnSmith: {
+        '2': '언제 칠지는 빛이 알려 줘. 얼마나 세게 칠지는 팔이 알려 주고. 세 번이다.',
+        '1': '지상 사람이 모루 앞에? 뭐, 누구나 처음은 있지.'
+      },
+      ore: {
+        '1': '하, 정직한 광석이군. 아이언홀드는 이런 건 꼭 값을 쳐 주지.'
+      },
+      forgeBack: {
+        '1': '흠. 드워프라면 더 잘했겠지. 그래도 큰 차이는 없어.'
+      },
       hello: {
         '1': '진열품 조심해. 양쪽 날이 다 날카로우니까.',
         '2': '망치손 힐다야. 여기 있는 건 전부 드워프의 손으로 벼렸어.'
@@ -2990,6 +3222,19 @@ export default {
       }
     },
     ironArmor: {
+      forge: {
+        '1': '네가 준비되면 화덕도 준비돼 있어.'
+      },
+      learnSmith: {
+        '2': '달구고, 치고, 뒤집고. 빛 한가운데에 세 번. 그다음엔 식혀.',
+        '1': '판금은 인내가 필요한 일이야. 기초를 보여 주지.'
+      },
+      ore: {
+        '1': '무게 좀 달아 보지. 좋아. 값은 네 거다.'
+      },
+      forgeBack: {
+        '1': '입기 전에 식혀.'
+      },
       hello: {
         '1': '가룬. 갑옷은 선반에, 반지는 쟁반에.'
       },
@@ -3019,6 +3264,19 @@ export default {
       }
     },
     ironOrderArmor: {
+      forge: {
+        '1': '기사단의 화덕을 명예롭게 써라.'
+      },
+      learnSmith: {
+        '2': '전장에서처럼 모루 앞에서도 규율이다. 빛에 충실하게, 세 번.',
+        '1': '기사단은 벗을 무장시킨다. 내가 가르치지.'
+      },
+      ore: {
+        '1': '기사단은 전쟁을 위해 모든 광석을 사들인다. 네 보수다.'
+      },
+      forgeBack: {
+        '1': '잘 벼렸군. 그걸 입고 충실히 복무하라.'
+      },
       hello: {
         '1': '핵을 부순 사람이 너로군. 기사단은 그걸 기억한다.',
         '2': '이곳 기사단의 보급관이다. 우리 무기고는 너에게 열려 있다.'
@@ -3535,6 +3793,19 @@ export default {
       }
     },
     sbArmorer: {
+      forge: {
+        '1': '화덕은 마음껏 써. 뭐에 불붙으면 소리 질러.'
+      },
+      learnSmith: {
+        '2': '가장 뜨겁게 빛날 때 내리쳐. 좋은 타격 세 번이면 좋은 물건이 나와.',
+        '1': '직접 망치를 쥐어 볼래? 화덕 같이 쓰는 건 괜찮아.'
+      },
+      ore: {
+        '1': '좋은 광석이야. 실버브리지는 언제나 제값을 쳐 줘.'
+      },
+      forgeBack: {
+        '1': '이것 봐! 타고난 솜씨네.'
+      },
       hello: {
         '1': '하! 그 찌그러진 것 좀 봐. 그 갑옷, 환불은 받았길 바라.',
         '2': '그레타 아이언베인이야. 주인이랑 같이 집에 돌아오는 갑옷을 만들지. 지금까진 매번.'

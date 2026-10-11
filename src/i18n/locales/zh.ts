@@ -1,5 +1,34 @@
 // Simplified Chinese locale — mirrors the key shape of en.ts exactly.
 export default {
+  smith: {
+    why: {
+      max: '两件都已拥有，且已锻到顶。',
+      gold: '金币不足。',
+      ore: '矿石不足。',
+      metal: '先开采这种矿石。',
+      learn: '得先有铁匠教你。'
+    },
+    stamp: '锻造',
+    take: '收下',
+    worked: '{item}已锻至+{n}',
+    made: '{item} +{n}',
+    grade: {
+      perfect: '完美！',
+      great: '出色之作！',
+      good: '不错之作',
+      poor: '粗糙之作'
+    },
+    hint: '光芒处于热点时，点击“敲”或按空格键。',
+    strikes: '第{n}/{max}击',
+    strike: '敲！',
+    forge: '锻造',
+    gold: '{n}金币',
+    nuggets: '{ore}：{have}/{n}',
+    master: '一记绝佳的敲击能让它成为{item}。',
+    locked: '先开采{ore}，才能学会用它打造的物件。',
+    lead: '你开采的每种金属都会解锁能用它打造的物件。在光芒最炽热处敲击：三次敲击决定成品。',
+    talk: '趁热打铁，铁可不等人。'
+  },
   gameName: 'Battlecross',
   cancel: '取消',
   close: '关闭',
@@ -1272,6 +1301,7 @@ export default {
     magic: '魔法 · 随{attr}成长'
   },
   source: {
+    smith: '在铁匠铺锻造。',
     mob: '由{zone}的怪物掉落。',
     chest: '可在{zone}的宝箱里找到。',
     boss: '由{zone}的首领掉落。',
@@ -1339,6 +1369,150 @@ export default {
     overheatCrit: '过热时暴击伤害 +{n}%'
   },
   item: {
+    smithMasterMithrilGreaves: {
+      name: '精工秘银胫甲'
+    },
+    smithMithrilGreaves: {
+      name: '秘银胫甲'
+    },
+    smithMasterMithrilPlate: {
+      name: '精工秘银板甲'
+    },
+    smithMithrilPlate: {
+      name: '秘银板甲'
+    },
+    smithMasterMithrilHelm: {
+      name: '精工秘银盔'
+    },
+    smithMithrilHelm: {
+      name: '秘银盔'
+    },
+    smithMasterMithrilShield: {
+      name: '精工秘银盾'
+    },
+    smithMithrilShield: {
+      name: '秘银盾'
+    },
+    smithMasterMithrilHammer: {
+      name: '精工秘银锤'
+    },
+    smithMithrilHammer: {
+      name: '秘银锤'
+    },
+    smithMasterMithrilSword: {
+      name: '精工秘银剑'
+    },
+    smithMithrilSword: {
+      name: '秘银剑'
+    },
+    smithMasterGoldGreaves: {
+      name: '精工金胫甲'
+    },
+    smithGoldGreaves: {
+      name: '金胫甲'
+    },
+    smithMasterGoldPlate: {
+      name: '精工金板甲'
+    },
+    smithGoldPlate: {
+      name: '金板甲'
+    },
+    smithMasterGoldHelm: {
+      name: '精工金盔'
+    },
+    smithGoldHelm: {
+      name: '金盔'
+    },
+    smithMasterGoldShield: {
+      name: '精工金盾'
+    },
+    smithGoldShield: {
+      name: '金盾'
+    },
+    smithMasterGoldHammer: {
+      name: '精工金锤'
+    },
+    smithGoldHammer: {
+      name: '金锤'
+    },
+    smithMasterGoldSword: {
+      name: '精工金剑'
+    },
+    smithGoldSword: {
+      name: '金剑'
+    },
+    smithMasterSilverGreaves: {
+      name: '精工银胫甲'
+    },
+    smithSilverGreaves: {
+      name: '银胫甲'
+    },
+    smithMasterSilverPlate: {
+      name: '精工银板甲'
+    },
+    smithSilverPlate: {
+      name: '银板甲'
+    },
+    smithMasterSilverHelm: {
+      name: '精工银盔'
+    },
+    smithSilverHelm: {
+      name: '银盔'
+    },
+    smithMasterSilverShield: {
+      name: '精工银盾'
+    },
+    smithSilverShield: {
+      name: '银盾'
+    },
+    smithMasterSilverHammer: {
+      name: '精工银锤'
+    },
+    smithSilverHammer: {
+      name: '银锤'
+    },
+    smithMasterSilverSword: {
+      name: '精工银剑'
+    },
+    smithSilverSword: {
+      name: '银剑'
+    },
+    smithMasterIronGreaves: {
+      name: '精工铁胫甲'
+    },
+    smithIronGreaves: {
+      name: '铁胫甲'
+    },
+    smithMasterIronPlate: {
+      name: '精工铁板甲'
+    },
+    smithIronPlate: {
+      name: '铁板甲'
+    },
+    smithMasterIronHelm: {
+      name: '精工铁盔'
+    },
+    smithIronHelm: {
+      name: '铁盔'
+    },
+    smithMasterIronShield: {
+      name: '精工铁盾'
+    },
+    smithIronShield: {
+      name: '铁盾'
+    },
+    smithMasterIronHammer: {
+      name: '精工铁锤'
+    },
+    smithIronHammer: {
+      name: '铁锤'
+    },
+    smithMasterIronSword: {
+      name: '精工铁剑'
+    },
+    smithIronSword: {
+      name: '铁剑'
+    },
     rustedShortsword: {
       name: '生锈的短剑'
     },
@@ -1527,6 +1701,8 @@ export default {
     }
   },
   bag: {
+    oreCount: '{ore}：{n}',
+    noOre: '还没有矿石。去野外开采岩壁上的矿脉吧。',
     equip: '装备',
     unequip: '卸下',
     worn: '你正穿着它。先脱下才能出售。',
@@ -1536,6 +1712,7 @@ export default {
     slotEmpty: '{slot}：空',
     slotHolds: '{slot}：{item}',
     filter: {
+      ore: '矿石',
       all: '全部',
       weapons: '武器',
       armor: '护甲',
@@ -2095,6 +2272,9 @@ export default {
       }
     },
     hero: {
+      forge: '我想用一下你的熔炉。',
+      learnSmith: '你能教我打铁吗？',
+      ore: '我有些矿石要卖。',
       bye: '那我不打扰你了。',
       trade: '能看看你的货吗？',
       train: '教教我。',
@@ -2107,6 +2287,19 @@ export default {
       play: '算我一个。'
     },
     sunfordSmith: {
+      forge: {
+        '1': '炉子热着。当心手指。'
+      },
+      learnSmith: {
+        '2': '金属最亮的时候敲。敲偏了就是废铁。去吧。',
+        '1': '打铁？哼。锤子要这么握，别像握棍子。'
+      },
+      ore: {
+        '1': '矿石，嗯？我全收了。分量足，钱也足。'
+      },
+      forgeBack: {
+        '1': '不坏。也不算好。继续练。'
+      },
       hello: {
         '1': '以前没见过你。清了那条路的就是你？',
         '2': '布拉姆，这炉子归我管。要用刀剑，来找我。'
@@ -2516,6 +2709,19 @@ export default {
       }
     },
     oakArmorer: {
+      forge: {
+        '1': '铁砧归你了。打点结实耐用的东西。'
+      },
+      learnSmith: {
+        '2': '盯着光芒。敲它的中心，敲三次，金属就会记住。',
+        '1': '想学这门手艺？好。奥克黑文需要每一把锤子。'
+      },
+      ore: {
+        '1': '生矿！军械库永远不够用。这是你的报酬。'
+      },
+      forgeBack: {
+        '1': '好钢。城墙谢谢你。'
+      },
       hello: {
         '1': '要是想买头盔，抱歉。都在城墙上呢。',
         '2': '奥多。我做护甲。最近没怎么睡。'
@@ -2546,6 +2752,19 @@ export default {
       }
     },
     oakMasterArmorer: {
+      forge: {
+        '1': '炉火已经封好等着了。动手吧。'
+      },
+      learnSmith: {
+        '2': '三击，每一击都落在光芒中心。秘诀就这么多。',
+        '1': '自从围城之后，谁来问我都教。来，站这儿。'
+      },
+      ore: {
+        '1': '又给城墙送矿石来了？真是谢天谢地。来，拿着这个。'
+      },
+      forgeBack: {
+        '1': '每一击都让你更进一步。随时再来。'
+      },
       hello: {
         '1': '你来啦！快进来。后屋开着，专门为你开的。',
         '2': '现在大家都叫我奥多大师了。有点太平日子，生意就是不一样。'
@@ -2931,6 +3150,19 @@ export default {
       }
     },
     ironWeapons: {
+      forge: {
+        '1': '小心火星，别碰我那把好锤子。'
+      },
+      learnSmith: {
+        '2': '光芒告诉你何时敲。手臂告诉你多用力。三击。',
+        '1': '地面上的人来打铁？好吧，谁都得有个开头。'
+      },
+      ore: {
+        '1': '哈，实在的矿石。艾恩霍尔德向来为这种东西付钱。'
+      },
+      forgeBack: {
+        '1': '哼。换个矮人会做得更好。不过也好不了多少。'
+      },
       hello: {
         '1': '小心展示品。两边的刃都很锋利。',
         '2': '“锤手”希尔达。这里每一件都出自矮人之手。'
@@ -2990,6 +3222,19 @@ export default {
       }
     },
     ironArmor: {
+      forge: {
+        '1': '你准备好了，熔炉就准备好了。'
+      },
+      learnSmith: {
+        '2': '加热，敲击，翻面。三击，正落在光芒里。然后让它冷却。',
+        '1': '板甲是耐心活。我教你些基础。'
+      },
+      ore: {
+        '1': '我称一下。好。钱归你了。'
+      },
+      forgeBack: {
+        '1': '先晾凉再穿。'
+      },
       hello: {
         '1': '加伦。甲在架子上，戒指在盘子里。'
       },
@@ -3019,6 +3264,19 @@ export default {
       }
     },
     ironOrderArmor: {
+      forge: {
+        '1': '以荣誉使用骑士团的熔炉。'
+      },
+      learnSmith: {
+        '2': '铁砧前要守纪律，如同在战场上。三击，紧随光芒。',
+        '1': '骑士团为朋友提供武装。我来教你。'
+      },
+      ore: {
+        '1': '骑士团为战事收购所有矿石。这是你的报酬。'
+      },
+      forgeBack: {
+        '1': '锻得好。穿上它好好效力。'
+      },
       hello: {
         '1': '毁掉核心的就是你。骑士团记得这件事。',
         '2': '我是骑士团驻此地的军需官。我们的军械库向你敞开。'
@@ -3535,6 +3793,19 @@ export default {
       }
     },
     sbArmorer: {
+      forge: {
+        '1': '熔炉随便用。要是什么着火了就喊一声。'
+      },
+      learnSmith: {
+        '2': '在它最亮最热时敲。三下好的敲击，就是一件好东西。',
+        '1': '想自己试试锤子吗？我不介意和你共用熔炉。'
+      },
+      ore: {
+        '1': '好矿石。西尔弗布里奇向来给公道价。'
+      },
+      forgeBack: {
+        '1': '瞧瞧！你真是天生的好手。'
+      },
       hello: {
         '1': '哈！瞧瞧这个凹坑。希望你买这身盔甲的钱要回来了。',
         '2': '格蕾塔·艾恩维恩。我做的盔甲会跟主人一起回家。到目前为止，次次都是。'

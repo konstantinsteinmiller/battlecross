@@ -1,5 +1,34 @@
 // Catalan (ca) bundle — mirrors en.ts.
 export default {
+  smith: {
+    why: {
+      max: 'Tens tots dos, millorats al màxim.',
+      gold: 'No tens prou or.',
+      ore: 'No tens prou mineral.',
+      metal: 'Extreu primer aquest mineral.',
+      learn: 'Primer t’ho ha d’ensenyar un ferrer.'
+    },
+    stamp: 'Forjat',
+    take: 'Agafa-ho',
+    worked: '{item} millorat fins a +{n}',
+    made: '{item} +{n}',
+    grade: {
+      perfect: 'Perfecte!',
+      great: 'Gran feina!',
+      good: 'Bona feina',
+      poor: 'Feina basta'
+    },
+    hint: 'Toca «Colpeja», o prem Espai, mentre la lluïssor és a la zona calenta.',
+    strikes: 'Cop {n} de {max}',
+    strike: 'Colpeja!',
+    forge: 'Forja',
+    gold: '{n} d’or',
+    nuggets: '{ore}: {have} de {n}',
+    master: 'Un gran cop el converteix en: {item}.',
+    locked: 'Extreu primer {ore} per aprendre’n les peces.',
+    lead: 'Cada metall que extreus et revela les seves peces. Colpeja la lluïssor on és més calenta: tres cops decideixen la peça.',
+    talk: 'El ferro calent no espera ningú.'
+  },
   gameName: 'Battlecross',
   cancel: 'Cancel·la',
   close: 'Tanca',
@@ -1273,6 +1302,7 @@ export default {
     magic: 'Màgia · escala amb {attr}'
   },
   source: {
+    smith: 'Forjat en una farga.',
     mob: 'El deixen anar els monstres. Zona: {zone}.',
     chest: 'Es troba als cofres. Zona: {zone}.',
     boss: 'El deixa anar el cap final. Zona: {zone}.',
@@ -1340,6 +1370,150 @@ export default {
     overheatCrit: '+{n}% de Dany Crític mentre estàs sobreescalfat'
   },
   item: {
+    smithMasterMithrilGreaves: {
+      name: 'Gamberes de mithril magistrals'
+    },
+    smithMithrilGreaves: {
+      name: 'Gamberes de mithril'
+    },
+    smithMasterMithrilPlate: {
+      name: 'Cuirassa de mithril magistral'
+    },
+    smithMithrilPlate: {
+      name: 'Cuirassa de mithril'
+    },
+    smithMasterMithrilHelm: {
+      name: 'Elm de mithril magistral'
+    },
+    smithMithrilHelm: {
+      name: 'Elm de mithril'
+    },
+    smithMasterMithrilShield: {
+      name: 'Escut de mithril magistral'
+    },
+    smithMithrilShield: {
+      name: 'Escut de mithril'
+    },
+    smithMasterMithrilHammer: {
+      name: 'Martell de mithril magistral'
+    },
+    smithMithrilHammer: {
+      name: 'Martell de mithril'
+    },
+    smithMasterMithrilSword: {
+      name: 'Espasa de mithril magistral'
+    },
+    smithMithrilSword: {
+      name: 'Espasa de mithril'
+    },
+    smithMasterGoldGreaves: {
+      name: 'Gamberes d’or magistrals'
+    },
+    smithGoldGreaves: {
+      name: 'Gamberes d’or'
+    },
+    smithMasterGoldPlate: {
+      name: 'Cuirassa d’or magistral'
+    },
+    smithGoldPlate: {
+      name: 'Cuirassa d’or'
+    },
+    smithMasterGoldHelm: {
+      name: 'Elm d’or magistral'
+    },
+    smithGoldHelm: {
+      name: 'Elm d’or'
+    },
+    smithMasterGoldShield: {
+      name: 'Escut d’or magistral'
+    },
+    smithGoldShield: {
+      name: 'Escut d’or'
+    },
+    smithMasterGoldHammer: {
+      name: 'Martell d’or magistral'
+    },
+    smithGoldHammer: {
+      name: 'Martell d’or'
+    },
+    smithMasterGoldSword: {
+      name: 'Espasa d’or magistral'
+    },
+    smithGoldSword: {
+      name: 'Espasa d’or'
+    },
+    smithMasterSilverGreaves: {
+      name: 'Gamberes de plata magistrals'
+    },
+    smithSilverGreaves: {
+      name: 'Gamberes de plata'
+    },
+    smithMasterSilverPlate: {
+      name: 'Cuirassa de plata magistral'
+    },
+    smithSilverPlate: {
+      name: 'Cuirassa de plata'
+    },
+    smithMasterSilverHelm: {
+      name: 'Elm de plata magistral'
+    },
+    smithSilverHelm: {
+      name: 'Elm de plata'
+    },
+    smithMasterSilverShield: {
+      name: 'Escut de plata magistral'
+    },
+    smithSilverShield: {
+      name: 'Escut de plata'
+    },
+    smithMasterSilverHammer: {
+      name: 'Martell de plata magistral'
+    },
+    smithSilverHammer: {
+      name: 'Martell de plata'
+    },
+    smithMasterSilverSword: {
+      name: 'Espasa de plata magistral'
+    },
+    smithSilverSword: {
+      name: 'Espasa de plata'
+    },
+    smithMasterIronGreaves: {
+      name: 'Gamberes de ferro magistrals'
+    },
+    smithIronGreaves: {
+      name: 'Gamberes de ferro'
+    },
+    smithMasterIronPlate: {
+      name: 'Cuirassa de ferro magistral'
+    },
+    smithIronPlate: {
+      name: 'Cuirassa de ferro'
+    },
+    smithMasterIronHelm: {
+      name: 'Elm de ferro magistral'
+    },
+    smithIronHelm: {
+      name: 'Elm de ferro'
+    },
+    smithMasterIronShield: {
+      name: 'Escut de ferro magistral'
+    },
+    smithIronShield: {
+      name: 'Escut de ferro'
+    },
+    smithMasterIronHammer: {
+      name: 'Martell de ferro magistral'
+    },
+    smithIronHammer: {
+      name: 'Martell de ferro'
+    },
+    smithMasterIronSword: {
+      name: 'Espasa de ferro magistral'
+    },
+    smithIronSword: {
+      name: 'Espasa de ferro'
+    },
     rustedShortsword: {
       name: 'Espasa Curta Rovellada'
     },
@@ -1528,6 +1702,8 @@ export default {
     }
   },
   bag: {
+    oreCount: '{ore}: {n}',
+    noOre: 'Encara no tens mineral. Pica les vetes contra la roca, allà fora en terres salvatges.',
     equip: 'Equipa',
     unequip: 'Treu',
     worn: 'Ho portes posat. Treu-te’l per vendre’l.',
@@ -1537,6 +1713,7 @@ export default {
     slotEmpty: '{slot}: buit',
     slotHolds: '{slot}: {item}',
     filter: {
+      ore: 'Mineral',
       all: 'Tot',
       weapons: 'Armes',
       armor: 'Armadures',
@@ -2100,6 +2277,9 @@ export default {
       }
     },
     hero: {
+      forge: 'M’agradaria fer servir la teva farga.',
+      learnSmith: 'Em podries ensenyar a forjar?',
+      ore: 'Tinc mineral per vendre.',
       bye: 'Et deixo anar a la feina.',
       trade: 'Puc veure què tens?',
       train: 'Em vols ensenyar?',
@@ -2112,6 +2292,19 @@ export default {
       play: 'Reparteix, que jugo.'
     },
     sunfordSmith: {
+      forge: {
+        '1': 'La farga és calenta. Compte amb els dits.'
+      },
+      learnSmith: {
+        '2': 'Colpeja quan el metall brilli més. Si falles, és ferralla. Som-hi.',
+        '1': 'Forjar? Hm. Agafa el martell així, no com una porra.'
+      },
+      ore: {
+        '1': 'Mineral, eh? M’ho quedo tot. Pes just, moneda justa.'
+      },
+      forgeBack: {
+        '1': 'No està malament. Tampoc no està bé. Continua.'
+      },
       hello: {
         '1': 'Mai no t’havia vist. Ets tu qui ha netejat el camí?',
         '2': 'Bram. La farga és meva. Si necessites una fulla, vine a mi.'
@@ -2532,6 +2725,19 @@ export default {
       }
     },
     oakArmorer: {
+      forge: {
+        '1': 'L’enclusa és teva. Fes alguna cosa que aguanti.'
+      },
+      learnSmith: {
+        '2': 'Vigila la lluïssor. Colpeja’n el cor, tres vegades, i el metall ho recorda.',
+        '1': 'Vols aprendre l’ofici? Bé. Oakhaven necessita cada martell.'
+      },
+      ore: {
+        '1': 'Mineral en brut! L’armeria mai no en té prou. Aquí tens la paga.'
+      },
+      forgeBack: {
+        '1': 'Bon acer. Les muralles t’ho agraeixen.'
+      },
       hello: {
         '1': 'Si busques un elm, em sap greu. Són tots a la muralla.',
         '2': 'Odo. Faig armadures. Últimament dormo poc.'
@@ -2563,6 +2769,20 @@ export default {
       }
     },
     oakMasterArmorer: {
+      forge: {
+        '1': 'El foc està colgat i espera. Endavant.'
+      },
+      learnSmith: {
+        '2': 'Tres cops, cadascun al cor de la lluïssor. Aquest és tot el secret.',
+        '1': 'Des del setge ensenyo qualsevol que m’ho demani. Vine, posa’t aquí.'
+      },
+      ore: {
+        '1__f': 'Més mineral per a les muralles? Beneïda siguis. Té, queda’t això.',
+        '1': 'Més mineral per a les muralles? Beneït siguis. Té, queda’t això.'
+      },
+      forgeBack: {
+        '1': 'Cada cop et fa millor. Torna quan vulguis.'
+      },
       hello: {
         '1': 'Ja has vingut! Passa. El magatzem és obert, i obert per a tu.',
         '2': 'Ara em diuen Mestre Odo. Mira què fa una mica de pau pel negoci.'
@@ -2957,6 +3177,20 @@ export default {
       }
     },
     ironWeapons: {
+      forge: {
+        '1': 'Compte amb les espurnes, i no toquis el meu martell bo.'
+      },
+      learnSmith: {
+        '2': 'La lluïssor et diu quan. El braç et diu amb quina força. Tres cops.',
+        '1__f': 'Una de la superfície a l’enclusa? Bé, tothom comença en algun lloc.',
+        '1': 'Un de la superfície a l’enclusa? Bé, tothom comença en algun lloc.'
+      },
+      ore: {
+        '1': 'Ha, mineral honest. Ironhold sempre en paga.'
+      },
+      forgeBack: {
+        '1': 'Hm. Un nan ho hauria fet millor. Però no gaire.'
+      },
       hello: {
         '1': 'Compte amb l’exposició. Aquestes són esmolades pels dos costats.',
         '2': 'Hilda Mà de Martell. Cada peça d’aquí l’han forjat mans de nan.'
@@ -3016,6 +3250,19 @@ export default {
       }
     },
     ironArmor: {
+      forge: {
+        '1': 'La farga és a punt quan tu ho estiguis.'
+      },
+      learnSmith: {
+        '2': 'Escalfar, colpejar, girar. Tres cops, just a la lluïssor. Després deixar refredar.',
+        '1': 'Les plaques són feina de paciència. T’ensenyaré el més bàsic.'
+      },
+      ore: {
+        '1': 'Deixa’m pesar-ho. Bé. Les monedes són teves.'
+      },
+      forgeBack: {
+        '1': 'Deixa-la refredar abans de posar-te-la.'
+      },
       hello: {
         '1': 'Garrun. Armadures als prestatges, anells a la safata.'
       },
@@ -3045,6 +3292,19 @@ export default {
       }
     },
     ironOrderArmor: {
+      forge: {
+        '1': 'Fes servir la farga de l’Orde amb honor.'
+      },
+      learnSmith: {
+        '2': 'Disciplina a l’enclusa, com al camp. Tres cops, fidels a la lluïssor.',
+        '1': 'L’Orde arma els seus amics. T’ensenyaré.'
+      },
+      ore: {
+        '1': 'L’Orde compra tot el mineral per a la guerra. El teu pagament.'
+      },
+      forgeBack: {
+        '1': 'Ben forjat. Serveix-hi bé.'
+      },
       hello: {
         '1': 'Ets tu qui va destruir el nucli. L’Orde ho recorda.',
         '2': 'Sóc l’intendent de l’Orde aquí. Els nostres arsenals són oberts per a tu.'
@@ -3572,6 +3832,20 @@ export default {
       }
     },
     sbArmorer: {
+      forge: {
+        '1': 'Fes servir la farga. Crida si s’encén res.'
+      },
+      learnSmith: {
+        '2': 'Colpeja quan brilli més calenta. Tres bons cops fan una bona peça.',
+        '1__f': 'Vols provar el martell tu mateixa? No em fa res compartir la farga.',
+        '1': 'Vols provar el martell tu mateix? No em fa res compartir la farga.'
+      },
+      ore: {
+        '1': 'Quin mineral més bonic. Silverbridge sempre paga un preu just.'
+      },
+      forgeBack: {
+        '1': 'Mira això! Tens un talent natural.'
+      },
       hello: {
         '1': 'Ha! Mira quin bony. Espero que et tornessin els diners d’aquesta armadura.',
         '2': 'Greta Veta de Ferro. Faig armadures que tornen a casa amb el seu amo. Totes les vegades, de moment.'

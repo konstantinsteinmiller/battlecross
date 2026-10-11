@@ -1,5 +1,34 @@
 // Hungarian (hu) bundle — mirrors en.ts.
 export default {
+  smith: {
+    why: {
+      max: 'Mindkettő megvan, a csúcsig feljavítva.',
+      gold: 'Nincs elég arany.',
+      ore: 'Nincs elég érc.',
+      metal: 'Előbb bányászd ki ezt az ércet.',
+      learn: 'Előbb egy kovácsnak meg kell tanítania.'
+    },
+    stamp: 'Kovácsolva',
+    take: 'Elveszem',
+    worked: '{item} feljavítva +{n} szintre',
+    made: '{item} +{n}',
+    grade: {
+      perfect: 'Tökéletes!',
+      great: 'Remek munka!',
+      good: 'Jó munka',
+      poor: 'Durva munka'
+    },
+    hint: 'Koppints az Üss! gombra, vagy nyomd meg a Szóközt, amíg az izzás a forró ponton van.',
+    strikes: '{n}. ütés / {max}',
+    strike: 'Üss!',
+    forge: 'Kovácsolás',
+    gold: '{n} arany',
+    nuggets: '{ore}: {have}/{n}',
+    master: 'Egy remek ütéstől ez lesz belőle: {item}.',
+    locked: 'Előbb bányássz ilyet: {ore}, hogy megtanuld a darabjait.',
+    lead: 'Minden kibányászott fém megmutatja, mi készülhet belőle. Üss az izzásra ott, ahol a legforróbb: három ütés dönti el a darabot.',
+    talk: 'A forró vas senkire sem vár.'
+  },
   gameName: 'Battlecross',
   cancel: 'Mégse',
   close: 'Bezárás',
@@ -1272,6 +1301,7 @@ export default {
     magic: 'Mágikus · alapja: {attr}'
   },
   source: {
+    smith: 'Kovácsműhelyben kovácsolva.',
     mob: 'Szörnyekből esik, zóna: {zone}.',
     chest: 'Ládákban található, zóna: {zone}.',
     boss: 'A főellenségből esik, zóna: {zone}.',
@@ -1339,6 +1369,150 @@ export default {
     overheatCrit: '+{n}% kritikus sebzés túlhevülten'
   },
   item: {
+    smithMasterMithrilGreaves: {
+      name: 'Mesteri mithril lábszárvédő'
+    },
+    smithMithrilGreaves: {
+      name: 'Mithril lábszárvédő'
+    },
+    smithMasterMithrilPlate: {
+      name: 'Mesteri mithrillemezvért'
+    },
+    smithMithrilPlate: {
+      name: 'Mithrillemezvért'
+    },
+    smithMasterMithrilHelm: {
+      name: 'Mesteri mithrilsisak'
+    },
+    smithMithrilHelm: {
+      name: 'Mithrilsisak'
+    },
+    smithMasterMithrilShield: {
+      name: 'Mesteri mithrilpajzs'
+    },
+    smithMithrilShield: {
+      name: 'Mithrilpajzs'
+    },
+    smithMasterMithrilHammer: {
+      name: 'Mesteri mithrilkalapács'
+    },
+    smithMithrilHammer: {
+      name: 'Mithrilkalapács'
+    },
+    smithMasterMithrilSword: {
+      name: 'Mesteri mithrilkard'
+    },
+    smithMithrilSword: {
+      name: 'Mithrilkard'
+    },
+    smithMasterGoldGreaves: {
+      name: 'Mesteri arany lábszárvédő'
+    },
+    smithGoldGreaves: {
+      name: 'Arany lábszárvédő'
+    },
+    smithMasterGoldPlate: {
+      name: 'Mesteri aranylemezvért'
+    },
+    smithGoldPlate: {
+      name: 'Aranylemezvért'
+    },
+    smithMasterGoldHelm: {
+      name: 'Mesteri aranysisak'
+    },
+    smithGoldHelm: {
+      name: 'Aranysisak'
+    },
+    smithMasterGoldShield: {
+      name: 'Mesteri aranypajzs'
+    },
+    smithGoldShield: {
+      name: 'Aranypajzs'
+    },
+    smithMasterGoldHammer: {
+      name: 'Mesteri aranykalapács'
+    },
+    smithGoldHammer: {
+      name: 'Aranykalapács'
+    },
+    smithMasterGoldSword: {
+      name: 'Mesteri aranykard'
+    },
+    smithGoldSword: {
+      name: 'Aranykard'
+    },
+    smithMasterSilverGreaves: {
+      name: 'Mesteri ezüst lábszárvédő'
+    },
+    smithSilverGreaves: {
+      name: 'Ezüst lábszárvédő'
+    },
+    smithMasterSilverPlate: {
+      name: 'Mesteri ezüstlemezvért'
+    },
+    smithSilverPlate: {
+      name: 'Ezüstlemezvért'
+    },
+    smithMasterSilverHelm: {
+      name: 'Mesteri ezüstsisak'
+    },
+    smithSilverHelm: {
+      name: 'Ezüstsisak'
+    },
+    smithMasterSilverShield: {
+      name: 'Mesteri ezüstpajzs'
+    },
+    smithSilverShield: {
+      name: 'Ezüstpajzs'
+    },
+    smithMasterSilverHammer: {
+      name: 'Mesteri ezüstkalapács'
+    },
+    smithSilverHammer: {
+      name: 'Ezüstkalapács'
+    },
+    smithMasterSilverSword: {
+      name: 'Mesteri ezüstkard'
+    },
+    smithSilverSword: {
+      name: 'Ezüstkard'
+    },
+    smithMasterIronGreaves: {
+      name: 'Mesteri vas lábszárvédő'
+    },
+    smithIronGreaves: {
+      name: 'Vas lábszárvédő'
+    },
+    smithMasterIronPlate: {
+      name: 'Mesteri vaslemezvért'
+    },
+    smithIronPlate: {
+      name: 'Vaslemezvért'
+    },
+    smithMasterIronHelm: {
+      name: 'Mesteri vassisak'
+    },
+    smithIronHelm: {
+      name: 'Vassisak'
+    },
+    smithMasterIronShield: {
+      name: 'Mesteri vaspajzs'
+    },
+    smithIronShield: {
+      name: 'Vaspajzs'
+    },
+    smithMasterIronHammer: {
+      name: 'Mesteri vaskalapács'
+    },
+    smithIronHammer: {
+      name: 'Vaskalapács'
+    },
+    smithMasterIronSword: {
+      name: 'Mesteri vaskard'
+    },
+    smithIronSword: {
+      name: 'Vaskard'
+    },
     rustedShortsword: {
       name: 'Rozsdás rövidkard'
     },
@@ -1527,6 +1701,8 @@ export default {
     }
   },
   bag: {
+    oreCount: '{ore}: {n}',
+    noOre: 'Még nincs érced. Bányászd ki a sziklák tövében kibukkanó ereket a vadonban.',
     equip: 'Felvesz',
     unequip: 'Levesz',
     worn: 'Ez rajtad van. Vedd le az eladásához.',
@@ -1536,6 +1712,7 @@ export default {
     slotEmpty: '{slot}: üres',
     slotHolds: '{slot}: {item}',
     filter: {
+      ore: 'Érc',
       all: 'Mind',
       weapons: 'Fegyverek',
       armor: 'Páncélok',
@@ -2095,6 +2272,9 @@ export default {
       }
     },
     hero: {
+      forge: 'Szeretném használni a kohódat.',
+      learnSmith: 'Megtanítanál kovácsolni?',
+      ore: 'Van egy kis eladó ércem.',
       bye: 'Nem zavarlak tovább.',
       trade: 'Megnézhetem, mid van?',
       train: 'Megtanítasz?',
@@ -2107,6 +2287,19 @@ export default {
       play: 'Beszállok.'
     },
     sunfordSmith: {
+      forge: {
+        '1': 'Forró a kohó. Vigyázz az ujjaidra.'
+      },
+      learnSmith: {
+        '2': 'Akkor üss, amikor a fém a legfényesebben izzik. Ha mellé, selejt. Rajta.',
+        '1': 'Kovácsolás? Hm. Így fogd a kalapácsot, ne úgy, mint egy bunkót.'
+      },
+      ore: {
+        '1': 'Érc, mi? Az egészet viszem. Becsületes súly, becsületes pénz.'
+      },
+      forgeBack: {
+        '1': 'Nem rossz. Jó se. Csináld tovább.'
+      },
       hello: {
         '1': 'Még nem láttalak. Te vagy az, aki megtisztította az utat?',
         '2': 'Bram. Én viszem a kovácsműhelyt. Ha pengére van szükséged, hozzám gyere.'
@@ -2516,6 +2709,19 @@ export default {
       }
     },
     oakArmorer: {
+      forge: {
+        '1': 'Tiéd az üllő. Csinálj valamit, ami kitart.'
+      },
+      learnSmith: {
+        '2': 'Figyeld az izzást. Üss a szívébe háromszor, és a fém emlékezni fog.',
+        '1': 'Ki akarod tanulni a mesterséget? Jó. Oakhavennek minden kalapács kell.'
+      },
+      ore: {
+        '1': 'Nyers érc! A fegyvertárban sosem elég. Itt a fizetséged.'
+      },
+      forgeBack: {
+        '1': 'Jó acél. A falak hálásak érte.'
+      },
       hello: {
         '1': 'Ha sisakot keresel, sajnálom. Mind a falon van.',
         '2': 'Odo. Páncélokat készítek. Nemigen aludtam mostanában.'
@@ -2546,6 +2752,19 @@ export default {
       }
     },
     oakMasterArmorer: {
+      forge: {
+        '1': 'A tűz fel van szítva, és vár. Rajta.'
+      },
+      learnSmith: {
+        '2': 'Három ütés, mindegyik az izzás szívébe. Ennyi az egész titok.',
+        '1': 'Az ostrom óta bárkit tanítok, aki kéri. Gyere, állj ide.'
+      },
+      ore: {
+        '1': 'Még érc a falakhoz? Áldjon meg az ég. Tessék, ezt fogadd el.'
+      },
+      forgeBack: {
+        '1': 'Minden ütéssel jobb leszel. Gyere bármikor.'
+      },
       hello: {
         '1': 'Itt vagy! Gyere be. A hátsó szoba nyitva van, és neked van nyitva.',
         '2': 'Odo mesternek hívnak most. Vicces, mit tesz egy kis béke az üzlettel.'
@@ -2931,6 +3150,19 @@ export default {
       }
     },
     ironWeapons: {
+      forge: {
+        '1': 'Vigyázz a szikrákkal, és ne nyúlj a jó kalapácsomhoz.'
+      },
+      learnSmith: {
+        '2': 'Az izzás megmondja, mikor. A karod, hogy milyen erősen. Három ütés.',
+        '1': 'Egy felszíni az üllőnél? Hát, mindenki kezdi valahol.'
+      },
+      ore: {
+        '1': 'Hah, becsületes érc. Ironhold mindig fizet érte.'
+      },
+      forgeBack: {
+        '1': 'Hm. Egy törp jobban csinálta volna. De nem sokkal.'
+      },
       hello: {
         '1': 'Óvatosan a kiállított darabokkal. Mindkét élükön élesek.',
         '2': 'Kalapácskezű Hilda. Minden darabot törpekezek kovácsoltak.'
@@ -2990,6 +3222,19 @@ export default {
       }
     },
     ironArmor: {
+      forge: {
+        '1': 'A kohó kész, amint te is az vagy.'
+      },
+      learnSmith: {
+        '2': 'Hevítsd, üsd, fordítsd. Három ütés, pont az izzásba. Aztán hagyd kihűlni.',
+        '1': 'A páncél türelmes munka. Megmutatom az alapokat.'
+      },
+      ore: {
+        '1': 'Hadd mérjem meg. Jó. Tiéd a pénz.'
+      },
+      forgeBack: {
+        '1': 'Hagyd kihűlni, mielőtt felveszed.'
+      },
       hello: {
         '1': 'Garrun. Páncélok az állványon, gyűrűk a tálcán.'
       },
@@ -3019,6 +3264,19 @@ export default {
       }
     },
     ironOrderArmor: {
+      forge: {
+        '1': 'Használd becsülettel a Rend kohóját.'
+      },
+      learnSmith: {
+        '2': 'Fegyelem az üllőnél, akár a csatamezőn. Három ütés, hűen az izzáshoz.',
+        '1': 'A Rend felfegyverzi a barátait. Megtanítalak.'
+      },
+      ore: {
+        '1': 'A Rend minden ércet felvásárol a háborúhoz. A fizetséged.'
+      },
+      forgeBack: {
+        '1': 'Jól kovácsolt. Szolgálj benne becsülettel.'
+      },
       hello: {
         '1': 'Te vagy az, aki elpusztította a magot. A Rend emlékszik rá.',
         '2': 'A Rend szállásmestere vagyok itt. A fegyvertáraink nyitva állnak előtted.'
@@ -3535,6 +3793,19 @@ export default {
       }
     },
     sbArmorer: {
+      forge: {
+        '1': 'Használd nyugodtan a kohót. Kiálts, ha valami lángra kap.'
+      },
+      learnSmith: {
+        '2': 'Akkor üss, amikor a legforróbban izzik. Három jó ütés jó darabot ad.',
+        '1': 'Kipróbálnád magad is a kalapácsot? Szívesen megosztom a kohót.'
+      },
+      ore: {
+        '1': 'Gyönyörű érc. Silverbridge mindig tisztességes árat fizet.'
+      },
+      forgeBack: {
+        '1': 'Nézd csak! Neked ez a véredben van.'
+      },
       hello: {
         '1': 'Ha! Nézd azt a horpadást. Remélem, visszakaptad a pénzed azért a páncélért.',
         '2': 'Vaserű Greta. Olyan páncélt készítek, ami a gazdájával együtt ér haza. Eddig mindig.'

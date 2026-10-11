@@ -1,5 +1,34 @@
 // Dutch locale — mirrors the key shape of en.ts exactly.
 export default {
+  smith: {
+    why: {
+      max: 'Je hebt ze allebei, tot het maximum opgewerkt.',
+      gold: 'Niet genoeg goud.',
+      ore: 'Niet genoeg erts.',
+      metal: 'Delf eerst dit erts.',
+      learn: 'Eerst moet een smid het je leren.'
+    },
+    stamp: 'Gesmeed',
+    take: 'Aanpakken',
+    worked: '{item} opgewerkt tot +{n}',
+    made: '{item} +{n}',
+    grade: {
+      perfect: 'Perfect!',
+      great: 'Geweldig werk!',
+      good: 'Goed werk',
+      poor: 'Ruw werk'
+    },
+    hint: 'Tik op Sla, of druk op Spatie, terwijl de gloed in de hete zone is.',
+    strikes: 'Slag {n} van {max}',
+    strike: 'Sla!',
+    forge: 'Smeden',
+    gold: '{n} goud',
+    nuggets: '{ore}: {have} van {n}',
+    master: 'Een geweldige slag maakt er dit van: {item}.',
+    locked: 'Delf eerst {ore} om de stukken ervan te leren.',
+    lead: 'Elk metaal dat je delft, laat zijn stukken zien. Sla op de gloed waar die het heetst is: drie slagen bepalen het stuk.',
+    talk: 'Heet ijzer wacht op niemand.'
+  },
   gameName: 'Battlecross',
   cancel: 'Annuleren',
   close: 'Sluiten',
@@ -1273,6 +1302,7 @@ export default {
     magic: 'Magie · schaalt met {attr}'
   },
   source: {
+    smith: 'Gesmeed in een smidse.',
     mob: 'Buit van monsters. Gebied: {zone}.',
     chest: 'Uit kisten. Gebied: {zone}.',
     boss: 'Buit van de baas. Gebied: {zone}.',
@@ -1340,6 +1370,150 @@ export default {
     overheatCrit: '+{n}% Kritieke Schade terwijl je oververhit bent'
   },
   item: {
+    smithMasterMithrilGreaves: {
+      name: 'Meesterlijke Mithril Scheenplaten'
+    },
+    smithMithrilGreaves: {
+      name: 'Mithril Scheenplaten'
+    },
+    smithMasterMithrilPlate: {
+      name: 'Meesterlijk Mithril Harnas'
+    },
+    smithMithrilPlate: {
+      name: 'Mithril Harnas'
+    },
+    smithMasterMithrilHelm: {
+      name: 'Meesterlijke Mithril Helm'
+    },
+    smithMithrilHelm: {
+      name: 'Mithril Helm'
+    },
+    smithMasterMithrilShield: {
+      name: 'Meesterlijk Mithril Schild'
+    },
+    smithMithrilShield: {
+      name: 'Mithril Schild'
+    },
+    smithMasterMithrilHammer: {
+      name: 'Meesterlijke Mithril Hamer'
+    },
+    smithMithrilHammer: {
+      name: 'Mithril Hamer'
+    },
+    smithMasterMithrilSword: {
+      name: 'Meesterlijk Mithril Zwaard'
+    },
+    smithMithrilSword: {
+      name: 'Mithril Zwaard'
+    },
+    smithMasterGoldGreaves: {
+      name: 'Meesterlijke Gouden Scheenplaten'
+    },
+    smithGoldGreaves: {
+      name: 'Gouden Scheenplaten'
+    },
+    smithMasterGoldPlate: {
+      name: 'Meesterlijk Gouden Harnas'
+    },
+    smithGoldPlate: {
+      name: 'Gouden Harnas'
+    },
+    smithMasterGoldHelm: {
+      name: 'Meesterlijke Gouden Helm'
+    },
+    smithGoldHelm: {
+      name: 'Gouden Helm'
+    },
+    smithMasterGoldShield: {
+      name: 'Meesterlijk Gouden Schild'
+    },
+    smithGoldShield: {
+      name: 'Gouden Schild'
+    },
+    smithMasterGoldHammer: {
+      name: 'Meesterlijke Gouden Hamer'
+    },
+    smithGoldHammer: {
+      name: 'Gouden Hamer'
+    },
+    smithMasterGoldSword: {
+      name: 'Meesterlijk Gouden Zwaard'
+    },
+    smithGoldSword: {
+      name: 'Gouden Zwaard'
+    },
+    smithMasterSilverGreaves: {
+      name: 'Meesterlijke Zilveren Scheenplaten'
+    },
+    smithSilverGreaves: {
+      name: 'Zilveren Scheenplaten'
+    },
+    smithMasterSilverPlate: {
+      name: 'Meesterlijk Zilveren Harnas'
+    },
+    smithSilverPlate: {
+      name: 'Zilveren Harnas'
+    },
+    smithMasterSilverHelm: {
+      name: 'Meesterlijke Zilveren Helm'
+    },
+    smithSilverHelm: {
+      name: 'Zilveren Helm'
+    },
+    smithMasterSilverShield: {
+      name: 'Meesterlijk Zilveren Schild'
+    },
+    smithSilverShield: {
+      name: 'Zilveren Schild'
+    },
+    smithMasterSilverHammer: {
+      name: 'Meesterlijke Zilveren Hamer'
+    },
+    smithSilverHammer: {
+      name: 'Zilveren Hamer'
+    },
+    smithMasterSilverSword: {
+      name: 'Meesterlijk Zilveren Zwaard'
+    },
+    smithSilverSword: {
+      name: 'Zilveren Zwaard'
+    },
+    smithMasterIronGreaves: {
+      name: 'Meesterlijke IJzeren Scheenplaten'
+    },
+    smithIronGreaves: {
+      name: 'IJzeren Scheenplaten'
+    },
+    smithMasterIronPlate: {
+      name: 'Meesterlijk IJzeren Harnas'
+    },
+    smithIronPlate: {
+      name: 'IJzeren Harnas'
+    },
+    smithMasterIronHelm: {
+      name: 'Meesterlijke IJzeren Helm'
+    },
+    smithIronHelm: {
+      name: 'IJzeren Helm'
+    },
+    smithMasterIronShield: {
+      name: 'Meesterlijk IJzeren Schild'
+    },
+    smithIronShield: {
+      name: 'IJzeren Schild'
+    },
+    smithMasterIronHammer: {
+      name: 'Meesterlijke IJzeren Hamer'
+    },
+    smithIronHammer: {
+      name: 'IJzeren Hamer'
+    },
+    smithMasterIronSword: {
+      name: 'Meesterlijk IJzeren Zwaard'
+    },
+    smithIronSword: {
+      name: 'IJzeren Zwaard'
+    },
     rustedShortsword: {
       name: 'Roestig Kortzwaard'
     },
@@ -1528,6 +1702,8 @@ export default {
     }
   },
   bag: {
+    oreCount: '{ore}: {n}',
+    noOre: 'Nog geen erts. Hak de aders tegen de rotsen uit, buiten in de wildernis.',
     equip: 'Uitrusten',
     unequip: 'Afdoen',
     worn: 'Je draagt dit. Doe het af om het te verkopen.',
@@ -1537,6 +1713,7 @@ export default {
     slotEmpty: '{slot}: leeg',
     slotHolds: '{slot}: {item}',
     filter: {
+      ore: 'Erts',
       all: 'Alles',
       weapons: 'Wapens',
       armor: 'Pantsers',
@@ -2096,6 +2273,9 @@ export default {
       }
     },
     hero: {
+      forge: 'Ik wil graag je smidse gebruiken.',
+      learnSmith: 'Kun je me leren smeden?',
+      ore: 'Ik heb erts te koop.',
       bye: 'Ik laat je verder met rust.',
       trade: 'Mag ik zien wat je hebt?',
       train: 'Wil je me iets leren?',
@@ -2108,6 +2288,19 @@ export default {
       play: 'Ik doe mee.'
     },
     sunfordSmith: {
+      forge: {
+        '1': 'De smidse is heet. Pas op je vingers.'
+      },
+      learnSmith: {
+        '2': 'Sla als het metaal het felst gloeit. Mis, en het is schroot. Toe maar.',
+        '1': 'Smeden? Hm. Houd de hamer zo vast, niet als een knuppel.'
+      },
+      ore: {
+        '1': 'Erts, hè? Ik neem alles. Eerlijk gewicht, eerlijke munt.'
+      },
+      forgeBack: {
+        '1': 'Niet slecht. Ook niet goed. Ga zo door.'
+      },
       hello: {
         '1': 'Jou heb ik hier nog niet gezien. Ben jij degene die de weg heeft vrijgemaakt?',
         '2': 'Bram. De smidse is van mij. Als je een kling nodig hebt, kom naar mij.'
@@ -2520,6 +2713,19 @@ export default {
       }
     },
     oakArmorer: {
+      forge: {
+        '1': 'Het aambeeld is van jou. Maak iets dat standhoudt.'
+      },
+      learnSmith: {
+        '2': 'Let op de gloed. Sla in het hart ervan, drie keer, en het metaal onthoudt het.',
+        '1': 'Wil je het vak leren? Goed. Oakhaven heeft elke hamer nodig.'
+      },
+      ore: {
+        '1': 'Ruw erts! Het arsenaal heeft nooit genoeg. Hier is je loon.'
+      },
+      forgeBack: {
+        '1': 'Goed staal. De muren danken je.'
+      },
       hello: {
         '1': 'Als je een helm zoekt, het spijt me. Ze hangen allemaal op de muur.',
         '2': 'Odo. Ik maak harnassen. Ik heb de laatste tijd weinig geslapen.'
@@ -2550,6 +2756,19 @@ export default {
       }
     },
     oakMasterArmorer: {
+      forge: {
+        '1': 'Het vuur is opgestookt en wacht. Ga je gang.'
+      },
+      learnSmith: {
+        '2': 'Drie slagen, elk in het hart van de gloed. Meer geheim is er niet.',
+        '1': 'Sinds het beleg leer ik iedereen die het vraagt. Kom, ga hier staan.'
+      },
+      ore: {
+        '1': 'Nog meer erts voor de muren? Zegen je. Hier, neem dit.'
+      },
+      forgeBack: {
+        '1': 'Elke slag maakt je beter. Kom terug wanneer je wilt.'
+      },
       hello: {
         '1': 'Daar ben je! Kom binnen. De achterkamer is open, en open voor jou.',
         '2': 'Meester Odo noemen ze me nu. Grappig wat een beetje vrede doet voor de zaken.'
@@ -2937,6 +3156,19 @@ export default {
       }
     },
     ironWeapons: {
+      forge: {
+        '1': 'Pas op de vonken, en blijf van mijn goede hamer af.'
+      },
+      learnSmith: {
+        '2': 'De gloed zegt je wanneer. Je arm zegt je hoe hard. Drie slagen.',
+        '1': 'Een bovengronder aan het aambeeld? Nou ja, iedereen begint ergens.'
+      },
+      ore: {
+        '1': 'Ha, eerlijk erts. Daar betaalt Ironhold altijd voor.'
+      },
+      forgeBack: {
+        '1': 'Hm. Een dwerg had het beter gedaan. Maar niet veel beter.'
+      },
       hello: {
         '1': 'Voorzichtig met de uitstalling. Die zijn aan beide kanten scherp.',
         '2': 'Hilda Hamerhand. Elk stuk hier is gesmeed door dwergenhanden.'
@@ -2996,6 +3228,19 @@ export default {
       }
     },
     ironArmor: {
+      forge: {
+        '1': 'De smidse is klaar wanneer jij dat bent.'
+      },
+      learnSmith: {
+        '2': 'Verhitten, slaan, draaien. Drie slagen, recht in de gloed. Dan laten afkoelen.',
+        '1': 'Plaatpantser is geduldwerk. Ik laat je de basis zien.'
+      },
+      ore: {
+        '1': 'Laat me wegen. Goed. De munten zijn van jou.'
+      },
+      forgeBack: {
+        '1': 'Laat het afkoelen voor je het aantrekt.'
+      },
       hello: {
         '1': 'Garrun. Harnassen op de rekken, ringen in het bakje.'
       },
@@ -3025,6 +3270,19 @@ export default {
       }
     },
     ironOrderArmor: {
+      forge: {
+        '1': 'Gebruik de smidse van de Orde met eer.'
+      },
+      learnSmith: {
+        '2': 'Discipline aan het aambeeld, net als op het veld. Drie slagen, trouw aan de gloed.',
+        '1': 'De Orde bewapent haar vrienden. Ik zal het je leren.'
+      },
+      ore: {
+        '1': 'De Orde koopt al het erts voor de oorlog. Je betaling.'
+      },
+      forgeBack: {
+        '1': 'Goed gesmeed. Dien er goed in.'
+      },
       hello: {
         '1': 'Jij bent degene die de kern vernietigde. De Orde onthoudt dat.',
         '2': 'Ik ben hier de kwartiermeester van de Orde. Onze wapenkamers staan voor je open.'
@@ -3543,6 +3801,19 @@ export default {
       }
     },
     sbArmorer: {
+      forge: {
+        '1': 'Gebruik de smidse maar. Roep als er iets vlam vat.'
+      },
+      learnSmith: {
+        '2': 'Sla als het het heetst gloeit. Drie goede slagen maken een goed stuk.',
+        '1': 'Wil je zelf de hamer eens proberen? Ik deel de smidse graag.'
+      },
+      ore: {
+        '1': 'Mooi erts. Silverbridge betaalt altijd een eerlijke prijs.'
+      },
+      forgeBack: {
+        '1': 'Moet je zien! Je bent een natuurtalent.'
+      },
       hello: {
         '1': 'Ha! Kijk die deuk. Ik hoop dat je je geld voor dat harnas hebt teruggekregen.',
         '2': 'Greta IJzerader. Ik maak harnassen die samen met hun eigenaar thuiskomen. Tot nu toe elke keer.'

@@ -1,5 +1,34 @@
 // Latvian (lv) bundle — mirrors en.ts.
 export default {
+  smith: {
+    why: {
+      max: 'Tev ir abi, uzlaboti līdz galam.',
+      gold: 'Nepietiek zelta.',
+      ore: 'Nepietiek rūdas.',
+      metal: 'Vispirms izrok šo rūdu.',
+      learn: 'Vispirms kalējam tevi jāapmāca.'
+    },
+    stamp: 'Izkalts',
+    take: 'Paņemt',
+    worked: '{item}: uzlabojums līdz +{n}',
+    made: '{item} +{n}',
+    grade: {
+      perfect: 'Nevainojami!',
+      great: 'Lielisks darbs!',
+      good: 'Labs darbs',
+      poor: 'Rupjš darbs'
+    },
+    hint: 'Pieskaries “Sit!” vai nospied atstarpi, kamēr kvēle ir karstajā punktā.',
+    strikes: 'Sitiens {n} no {max}',
+    strike: 'Sit!',
+    forge: 'Kalt',
+    gold: '{n} zelta',
+    nuggets: '{ore}: {have} no {n}',
+    master: 'Lielisks sitiens to pārvērš: {item}.',
+    locked: 'Vispirms izrok: {ore}, lai uzzinātu tās izstrādājumus.',
+    lead: 'Katrs metāls, ko izrok, atklāj savus izstrādājumus. Sit kvēlē tur, kur tā ir viskarstākā: trīs sitieni izšķir izstrādājumu.',
+    talk: 'Karsta dzelzs nevienu negaida.'
+  },
   gameName: 'Battlecross',
   cancel: 'Atcelt',
   close: 'Aizvērt',
@@ -1272,6 +1301,7 @@ export default {
     magic: 'Maģija · aug no: {attr}'
   },
   source: {
+    smith: 'Izkalts smēdē.',
     mob: 'Izkrīt no briesmoņiem. Zona: {zone}.',
     chest: 'Atrodams lādēs. Zona: {zone}.',
     boss: 'Izkrīt no bosa. Zona: {zone}.',
@@ -1339,6 +1369,150 @@ export default {
     overheatCrit: '+{n}% kritisko bojājumu, kamēr esi pārkarsis'
   },
   item: {
+    smithMasterMithrilGreaves: {
+      name: 'Meistara mitrila stilbu sargi'
+    },
+    smithMithrilGreaves: {
+      name: 'Mitrila stilbu sargi'
+    },
+    smithMasterMithrilPlate: {
+      name: 'Meistara mitrila bruņas'
+    },
+    smithMithrilPlate: {
+      name: 'Mitrila bruņas'
+    },
+    smithMasterMithrilHelm: {
+      name: 'Meistara mitrila ķivere'
+    },
+    smithMithrilHelm: {
+      name: 'Mitrila ķivere'
+    },
+    smithMasterMithrilShield: {
+      name: 'Meistara mitrila vairogs'
+    },
+    smithMithrilShield: {
+      name: 'Mitrila vairogs'
+    },
+    smithMasterMithrilHammer: {
+      name: 'Meistara mitrila āmurs'
+    },
+    smithMithrilHammer: {
+      name: 'Mitrila āmurs'
+    },
+    smithMasterMithrilSword: {
+      name: 'Meistara mitrila zobens'
+    },
+    smithMithrilSword: {
+      name: 'Mitrila zobens'
+    },
+    smithMasterGoldGreaves: {
+      name: 'Meistara zelta stilbu sargi'
+    },
+    smithGoldGreaves: {
+      name: 'Zelta stilbu sargi'
+    },
+    smithMasterGoldPlate: {
+      name: 'Meistara zelta bruņas'
+    },
+    smithGoldPlate: {
+      name: 'Zelta bruņas'
+    },
+    smithMasterGoldHelm: {
+      name: 'Meistara zelta ķivere'
+    },
+    smithGoldHelm: {
+      name: 'Zelta ķivere'
+    },
+    smithMasterGoldShield: {
+      name: 'Meistara zelta vairogs'
+    },
+    smithGoldShield: {
+      name: 'Zelta vairogs'
+    },
+    smithMasterGoldHammer: {
+      name: 'Meistara zelta āmurs'
+    },
+    smithGoldHammer: {
+      name: 'Zelta āmurs'
+    },
+    smithMasterGoldSword: {
+      name: 'Meistara zelta zobens'
+    },
+    smithGoldSword: {
+      name: 'Zelta zobens'
+    },
+    smithMasterSilverGreaves: {
+      name: 'Meistara sudraba stilbu sargi'
+    },
+    smithSilverGreaves: {
+      name: 'Sudraba stilbu sargi'
+    },
+    smithMasterSilverPlate: {
+      name: 'Meistara sudraba bruņas'
+    },
+    smithSilverPlate: {
+      name: 'Sudraba bruņas'
+    },
+    smithMasterSilverHelm: {
+      name: 'Meistara sudraba ķivere'
+    },
+    smithSilverHelm: {
+      name: 'Sudraba ķivere'
+    },
+    smithMasterSilverShield: {
+      name: 'Meistara sudraba vairogs'
+    },
+    smithSilverShield: {
+      name: 'Sudraba vairogs'
+    },
+    smithMasterSilverHammer: {
+      name: 'Meistara sudraba āmurs'
+    },
+    smithSilverHammer: {
+      name: 'Sudraba āmurs'
+    },
+    smithMasterSilverSword: {
+      name: 'Meistara sudraba zobens'
+    },
+    smithSilverSword: {
+      name: 'Sudraba zobens'
+    },
+    smithMasterIronGreaves: {
+      name: 'Meistara dzelzs stilbu sargi'
+    },
+    smithIronGreaves: {
+      name: 'Dzelzs stilbu sargi'
+    },
+    smithMasterIronPlate: {
+      name: 'Meistara dzelzs bruņas'
+    },
+    smithIronPlate: {
+      name: 'Dzelzs bruņas'
+    },
+    smithMasterIronHelm: {
+      name: 'Meistara dzelzs ķivere'
+    },
+    smithIronHelm: {
+      name: 'Dzelzs ķivere'
+    },
+    smithMasterIronShield: {
+      name: 'Meistara dzelzs vairogs'
+    },
+    smithIronShield: {
+      name: 'Dzelzs vairogs'
+    },
+    smithMasterIronHammer: {
+      name: 'Meistara dzelzs āmurs'
+    },
+    smithIronHammer: {
+      name: 'Dzelzs āmurs'
+    },
+    smithMasterIronSword: {
+      name: 'Meistara dzelzs zobens'
+    },
+    smithIronSword: {
+      name: 'Dzelzs zobens'
+    },
     rustedShortsword: {
       name: 'Sarūsējis īsais zobens'
     },
@@ -1527,6 +1701,8 @@ export default {
     }
   },
   bag: {
+    oreCount: '{ore}: {n}',
+    noOre: 'Rūdas vēl nav. Mežonīgajos apvidos rok rūdas atsegumus pie akmeņiem.',
     equip: 'Uzvilkt',
     unequip: 'Novilkt',
     worn: 'Tas ir uzvilkts. Novelc, lai to pārdotu.',
@@ -1536,6 +1712,7 @@ export default {
     slotEmpty: '{slot}: tukšs',
     slotHolds: '{slot}: {item}',
     filter: {
+      ore: 'Rūda',
       all: 'Visi',
       weapons: 'Ieroči',
       armor: 'Bruņas',
@@ -2095,6 +2272,9 @@ export default {
       }
     },
     hero: {
+      forge: 'Es gribētu izmantot tavu ēzi.',
+      learnSmith: 'Vai iemācītu man kalt?',
+      ore: 'Man ir mazliet rūdas pārdošanai.',
       bye: 'Neaizkavēšu tevi.',
       trade: 'Vai drīkstu paskatīties, kas tev ir?',
       train: 'Vai iemācīsi mani?',
@@ -2108,6 +2288,19 @@ export default {
       play: 'Dali arī man.'
     },
     sunfordSmith: {
+      forge: {
+        '1': 'Ēze ir karsta. Uzmanies ar pirkstiem.'
+      },
+      learnSmith: {
+        '2': 'Sit, kad metāls kvēlo visspožāk. Netrāpīsi, un tie ir lūžņi. Aiziet.',
+        '1': 'Kalšana? Hm. Turi āmuru šādi, nevis kā vāli.'
+      },
+      ore: {
+        '1': 'Rūda, ko? Ņemšu visu. Godīgs svars, godīga nauda.'
+      },
+      forgeBack: {
+        '1': 'Nav slikti. Bet arī ne labi. Turpini.'
+      },
       hello: {
         '1': 'Tevi iepriekš neesmu redzējis. Vai tu esi tas, kas attīrīja ceļu?',
         '1__f': 'Tevi iepriekš neesmu redzējis. Vai tu esi tā, kas attīrīja ceļu?',
@@ -2534,6 +2727,19 @@ export default {
       }
     },
     oakArmorer: {
+      forge: {
+        '1': 'Lakta ir tava. Uztaisi ko izturīgu.'
+      },
+      learnSmith: {
+        '2': 'Vēro kvēli. Sit tās sirdī trīs reizes, un metāls atcerēsies.',
+        '1': 'Gribi apgūt amatu? Labi. Oakhaven ir vajadzīgs katrs āmurs.'
+      },
+      ore: {
+        '1': 'Neapstrādāta rūda! Ieroču noliktavai tās nekad nepietiek. Še tava samaksa.'
+      },
+      forgeBack: {
+        '1': 'Labs tērauds. Mūri tev pateicas.'
+      },
       hello: {
         '1': 'Ja meklē ķiveri, piedod. Tās visas ir uz mūra.',
         '2': 'Odo. Es taisu bruņas. Pēdējā laikā maz gulēts.'
@@ -2565,6 +2771,19 @@ export default {
       }
     },
     oakMasterArmorer: {
+      forge: {
+        '1': 'Uguns ir sakurta un gaida. Aiziet.'
+      },
+      learnSmith: {
+        '2': 'Trīs sitieni, katrs kvēles sirdī. Tas ir viss noslēpums.',
+        '1': 'Kopš aplenkuma es mācu ikvienu, kas lūdz. Nāc, nostājies šeit.'
+      },
+      ore: {
+        '1': 'Vēl rūda mūriem? Lai tevi svētī. Še, ņem šo.'
+      },
+      forgeBack: {
+        '1': 'Katrs sitiens tevi padara labāku. Nāc jebkurā laikā.'
+      },
       hello: {
         '1': 'Te nu tu esi! Nāc iekšā. Aizmugures istaba ir vaļā, un tā ir vaļā tev.',
         '2': 'Tagad mani sauc par meistaru Odo. Smieklīgi, ko mazliet miera dara uzņēmējdarbībai.'
@@ -2971,6 +3190,20 @@ export default {
       }
     },
     ironWeapons: {
+      forge: {
+        '1': 'Uzmanies no dzirkstelēm un neaiztiec manu labo āmuru.'
+      },
+      learnSmith: {
+        '2': 'Kvēle pasaka, kad. Roka pasaka, cik stipri. Trīs sitieni.',
+        '1__f': 'Virszemiete pie laktas? Nu, katrs kaut kur sāk.',
+        '1': 'Virszemietis pie laktas? Nu, katrs kaut kur sāk.'
+      },
+      ore: {
+        '1': 'Ha, godīga rūda. Ironhold par tādu vienmēr maksā.'
+      },
+      forgeBack: {
+        '1': 'Hm. Rūķis būtu izdarījis labāk. Bet ne par daudz.'
+      },
       hello: {
         '1': 'Uzmanīgi ar izstādi. Tie ir asi abās pusēs.',
         '2': 'Hilda Āmurroka. Katru gabalu šeit ir kalušas rūķu rokas.'
@@ -3031,6 +3264,20 @@ export default {
       }
     },
     ironArmor: {
+      forge: {
+        '1__f': 'Ēze ir gatava, tiklīdz esi gatava tu.',
+        '1': 'Ēze ir gatava, tiklīdz esi gatavs tu.'
+      },
+      learnSmith: {
+        '2': 'Karsē, sit, apgriez. Trīs sitieni, tieši kvēlē. Tad ļauj atdzist.',
+        '1': 'Bruņas ir pacietīgs darbs. Parādīšu tev pamatus.'
+      },
+      ore: {
+        '1': 'Ļauj nosvērt. Labi. Nauda ir tava.'
+      },
+      forgeBack: {
+        '1': 'Ļauj tam atdzist, pirms uzvelc.'
+      },
       hello: {
         '1': 'Garruns. Bruņas uz statīviem, gredzeni paplātē.'
       },
@@ -3061,6 +3308,19 @@ export default {
       }
     },
     ironOrderArmor: {
+      forge: {
+        '1': 'Izmanto Ordeņa ēzi ar godu.'
+      },
+      learnSmith: {
+        '2': 'Disciplīna pie laktas, tāpat kā kaujas laukā. Trīs sitieni, uzticīgi kvēlei.',
+        '1': 'Ordenis apbruņo savus draugus. Es tevi apmācīšu.'
+      },
+      ore: {
+        '1': 'Ordenis iepērk visu rūdu karam. Tava samaksa.'
+      },
+      forgeBack: {
+        '1': 'Labi izkalts. Kalpo tajās godam.'
+      },
       hello: {
         '1': 'Tu esi tas, kas iznīcināja kodolu. Ordenis to atceras.',
         '1__f': 'Tu esi tā, kas iznīcināja kodolu. Ordenis to atceras.',
@@ -3595,6 +3855,21 @@ export default {
       }
     },
     sbArmorer: {
+      forge: {
+        '1': 'Lieto ēzi droši. Kliedz, ja kas aizdegas.'
+      },
+      learnSmith: {
+        '2': 'Sit, kad tas kvēlo viskarstāk. Trīs labi sitieni dod labu izstrādājumu.',
+        '1__f': 'Gribi pati pamēģināt āmuru? Man nav žēl dalīties ar ēzi.',
+        '1': 'Gribi pats pamēģināt āmuru? Man nav žēl dalīties ar ēzi.'
+      },
+      ore: {
+        '1': 'Jauka rūda. Silverbridge vienmēr maksā godīgu cenu.'
+      },
+      forgeBack: {
+        '1__f': 'Paskat tik! Tu esi dzimusi šim darbam.',
+        '1': 'Paskat tik! Tu esi dzimis šim darbam.'
+      },
       hello: {
         '1': 'Ha! Paskaties uz to iespiedumu. Ceru, ka par tām bruņām dabūji naudu atpakaļ.',
         '2': 'Greta Dzelzsdzīsla. Es kaļu bruņas, kas pārnāk mājās kopā ar savu īpašnieku. Pagaidām katru reizi.'

@@ -24,8 +24,8 @@ export const BACKDROP_H = 768
 /** The calm middle, as fractions of the sheet's width. */
 export const BACKDROP_SAFE: readonly [number, number] = [0.28, 0.72]
 
-export type BackdropName = 'trade' | 'inventory' | 'skills'
-export const BACKDROPS: readonly BackdropName[] = ['trade', 'inventory', 'skills']
+export type BackdropName = 'trade' | 'inventory' | 'skills' | 'forge'
+export const BACKDROPS: readonly BackdropName[] = ['trade', 'inventory', 'skills', 'forge']
 
 const W = BACKDROP_W
 const H = BACKDROP_H
@@ -363,7 +363,58 @@ const skillsSvg = (): string => {
   return wrap(s)
 }
 
-const BUILDERS: Record<BackdropName, () => string> = { trade: tradeSvg, inventory: inventorySvg, skills: skillsSvg }
+// ═════════════════════════════════════════════════════════════════════════════
+// Forge: the smith's hearth and anvil (#99, D124)
+// ═════════════════════════════════════════════════════════════════════════════
+const STONE = { hi: '#6e6670', base: '#5a535e', lo: '#4a444e', seam: '#2e2a33' }
+const BRICK = { hi: '#b8603a', base: '#9a4a2c', lo: '#7a3820' }
+const FIRE = { hi: '#fff3a0', base: '#ffb43a', lo: '#ff6a1a', deep: '#c8320c' }
+
+const forgeSvg = (): string => {
+  const rnd = seeded(73)
+  let s = `<rect width="${W}" height="${H}" fill="${STONE.base}"/>`
+  // The wall: courses of dressed stone, every other one offset.
+  const CH = 64
+  for (let r = 0; r * CH < H; r++) {
+    const y = r * CH
+    if (r % 2) s += `<rect x="0" y="${y}" width="${W}" height="${CH}" fill="${STONE.lo}"/>`
+    s += `<rect x="0" y="${y + 4}" width="${W}" height="6" fill="${STONE.hi}" opacity="0.45"/>`
+    s += L(`M0 ${y}H${W}`, STONE.seam, 5)
+    for (let x = (r % 2) * 60; x < W; x += 120 + Math.round(rnd() * 20)) s += L(`M${x} ${y + 3}v${CH - 6}`, STONE.seam, 4)
+  }
+  // The hearth's glow over the whole wall, strongest at the left.
+  s += C(170, 520, 420, FIRE.base, 0, 0.1) + C(170, 520, 300, FIRE.hi, 0, 0.1)
+  // The calm middle: a darker smoke-stained band, nothing on it.
+  s += `<rect x="385" y="0" width="606" height="${H}" fill="${STONE.seam}" opacity="0.18"/>`
+
+  // ── The hearth (left): a brick arch, coals and fire, a hood above ──
+  s += S('M40 768V430Q40 300 190 300Q340 300 340 430V768Z', BRICK.base)
+  for (let y = 330; y < 768; y += 34) s += L(`M46 ${y}H334`, BRICK.lo, 4)
+  s += S('M80 768V460Q80 360 190 360Q300 360 300 460V768Z', '#2a1810')
+  s += E(190, 690, 104, 38, FIRE.deep, 4) + E(190, 680, 86, 28, FIRE.lo, 0) + E(190, 674, 54, 16, FIRE.hi, 0)
+  s += S('M130 690Q120 600 165 560Q160 620 190 640Q200 570 240 540Q232 610 252 690Z', FIRE.base, 4)
+  s += F('M160 690Q156 640 180 612Q186 650 200 660Q210 630 224 618Q226 660 228 690Z', FIRE.hi)
+  s += S('M10 300L60 150H320L370 300Z', STONE.lo)
+  s += L('M60 150H320', STONE.hi, 6)
+  // Sparks rising.
+  for (let k = 0; k < 9; k++) s += C(140 + rnd() * 110, 300 + rnd() * 240, 4 + rnd() * 3, FIRE.hi, 0, 0.9)
+
+  // ── The anvil (right): on its stump, a hammer on its face, tongs on the wall ──
+  s += S('M1086 768V640Q1086 620 1106 620H1266Q1286 620 1286 640V768Z', '#7a4a28')
+  for (const y of [660, 700, 740]) s += L(`M1092 ${y}H1280`, '#5c3317', 4)
+  s += S('M1030 560H1240Q1300 560 1330 530L1336 556Q1306 600 1240 604H1210L1196 620H1120L1106 604H1050Q1030 600 1030 580Z', STEEL.lo)
+  s += F('M1036 566H1236Q1290 566 1318 542', STEEL.hi, 0.9)
+  s += L('M1036 566H1236Q1290 566 1318 542', STEEL.hi, 6)
+  s += S('M1070 548L1196 520L1204 540L1078 568Z', '#8a5a34', 4)
+  s += S('M1180 500H1236V552H1180Z', STEEL.base, 4)
+  s += L('M1140 120L1110 360M1160 120L1190 360', STEEL.lo, 10)
+  s += C(1150, 120, 16, STEEL.base, 5)
+  // A glowing bar waiting on the anvil's horn.
+  s += S('M1260 536H1330V548H1260Z', FIRE.lo, 3)
+  return wrap(s)
+}
+
+const BUILDERS: Record<BackdropName, () => string> = { trade: tradeSvg, inventory: inventorySvg, skills: skillsSvg, forge: forgeSvg }
 const cache: Partial<Record<BackdropName, string>> = {}
 
 /** The drawn backdrop, as one standalone SVG document. */

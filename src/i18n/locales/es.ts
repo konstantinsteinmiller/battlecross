@@ -1,5 +1,34 @@
 // Spanish locale — mirrors the key shape of en.ts exactly.
 export default {
+  smith: {
+    why: {
+      max: 'Tienes ambos, mejorados al máximo.',
+      gold: 'No tienes suficiente oro.',
+      ore: 'No tienes suficiente mineral.',
+      metal: 'Extrae primero este mineral.',
+      learn: 'Primero un herrero tiene que enseñarte.'
+    },
+    stamp: 'Forjado',
+    take: 'Tomar',
+    worked: '{item} mejorado hasta +{n}',
+    made: '{item} +{n}',
+    grade: {
+      perfect: '¡Perfecto!',
+      great: '¡Gran trabajo!',
+      good: 'Buen trabajo',
+      poor: 'Trabajo tosco'
+    },
+    hint: 'Toca «Golpea», o pulsa Espacio, cuando el brillo esté en la zona caliente.',
+    strikes: 'Golpe {n} de {max}',
+    strike: '¡Golpea!',
+    forge: 'Forjar',
+    gold: '{n} de oro',
+    nuggets: '{ore}: {have} de {n}',
+    master: 'Un gran golpe lo convierte en: {item}.',
+    locked: 'Extrae primero {ore} para aprender sus piezas.',
+    lead: 'Cada metal que extraes te revela sus piezas. Golpea el brillo donde está más caliente: tres golpes deciden la pieza.',
+    talk: 'El hierro caliente no espera a nadie.'
+  },
   gameName: 'Battlecross',
   cancel: 'Cancelar',
   close: 'Cerrar',
@@ -1273,6 +1302,7 @@ export default {
     magic: 'Magia · escala con {attr}'
   },
   source: {
+    smith: 'Forjado en una herrería.',
     mob: '{zone}: lo sueltan los monstruos.',
     chest: '{zone}: se encuentra en los cofres.',
     boss: '{zone}: lo suelta el jefe.',
@@ -1340,6 +1370,150 @@ export default {
     overheatCrit: '+{n}% de daño Crítico mientras estás sobrecalentado'
   },
   item: {
+    smithMasterMithrilGreaves: {
+      name: 'Grebas de mithril magistrales'
+    },
+    smithMithrilGreaves: {
+      name: 'Grebas de mithril'
+    },
+    smithMasterMithrilPlate: {
+      name: 'Coraza de mithril magistral'
+    },
+    smithMithrilPlate: {
+      name: 'Coraza de mithril'
+    },
+    smithMasterMithrilHelm: {
+      name: 'Yelmo de mithril magistral'
+    },
+    smithMithrilHelm: {
+      name: 'Yelmo de mithril'
+    },
+    smithMasterMithrilShield: {
+      name: 'Escudo de mithril magistral'
+    },
+    smithMithrilShield: {
+      name: 'Escudo de mithril'
+    },
+    smithMasterMithrilHammer: {
+      name: 'Martillo de mithril magistral'
+    },
+    smithMithrilHammer: {
+      name: 'Martillo de mithril'
+    },
+    smithMasterMithrilSword: {
+      name: 'Espada de mithril magistral'
+    },
+    smithMithrilSword: {
+      name: 'Espada de mithril'
+    },
+    smithMasterGoldGreaves: {
+      name: 'Grebas de oro magistrales'
+    },
+    smithGoldGreaves: {
+      name: 'Grebas de oro'
+    },
+    smithMasterGoldPlate: {
+      name: 'Coraza de oro magistral'
+    },
+    smithGoldPlate: {
+      name: 'Coraza de oro'
+    },
+    smithMasterGoldHelm: {
+      name: 'Yelmo de oro magistral'
+    },
+    smithGoldHelm: {
+      name: 'Yelmo de oro'
+    },
+    smithMasterGoldShield: {
+      name: 'Escudo de oro magistral'
+    },
+    smithGoldShield: {
+      name: 'Escudo de oro'
+    },
+    smithMasterGoldHammer: {
+      name: 'Martillo de oro magistral'
+    },
+    smithGoldHammer: {
+      name: 'Martillo de oro'
+    },
+    smithMasterGoldSword: {
+      name: 'Espada de oro magistral'
+    },
+    smithGoldSword: {
+      name: 'Espada de oro'
+    },
+    smithMasterSilverGreaves: {
+      name: 'Grebas de plata magistrales'
+    },
+    smithSilverGreaves: {
+      name: 'Grebas de plata'
+    },
+    smithMasterSilverPlate: {
+      name: 'Coraza de plata magistral'
+    },
+    smithSilverPlate: {
+      name: 'Coraza de plata'
+    },
+    smithMasterSilverHelm: {
+      name: 'Yelmo de plata magistral'
+    },
+    smithSilverHelm: {
+      name: 'Yelmo de plata'
+    },
+    smithMasterSilverShield: {
+      name: 'Escudo de plata magistral'
+    },
+    smithSilverShield: {
+      name: 'Escudo de plata'
+    },
+    smithMasterSilverHammer: {
+      name: 'Martillo de plata magistral'
+    },
+    smithSilverHammer: {
+      name: 'Martillo de plata'
+    },
+    smithMasterSilverSword: {
+      name: 'Espada de plata magistral'
+    },
+    smithSilverSword: {
+      name: 'Espada de plata'
+    },
+    smithMasterIronGreaves: {
+      name: 'Grebas de hierro magistrales'
+    },
+    smithIronGreaves: {
+      name: 'Grebas de hierro'
+    },
+    smithMasterIronPlate: {
+      name: 'Coraza de hierro magistral'
+    },
+    smithIronPlate: {
+      name: 'Coraza de hierro'
+    },
+    smithMasterIronHelm: {
+      name: 'Yelmo de hierro magistral'
+    },
+    smithIronHelm: {
+      name: 'Yelmo de hierro'
+    },
+    smithMasterIronShield: {
+      name: 'Escudo de hierro magistral'
+    },
+    smithIronShield: {
+      name: 'Escudo de hierro'
+    },
+    smithMasterIronHammer: {
+      name: 'Martillo de hierro magistral'
+    },
+    smithIronHammer: {
+      name: 'Martillo de hierro'
+    },
+    smithMasterIronSword: {
+      name: 'Espada de hierro magistral'
+    },
+    smithIronSword: {
+      name: 'Espada de hierro'
+    },
     rustedShortsword: {
       name: 'Espada corta oxidada'
     },
@@ -1528,6 +1702,8 @@ export default {
     }
   },
   bag: {
+    oreCount: '{ore}: {n}',
+    noOre: 'Aún no tienes mineral. Pica las vetas contra la roca, ahí fuera en la naturaleza.',
     equip: 'Equipar',
     unequip: 'Quitar',
     worn: 'Llevas esto puesto. Quítatelo para venderlo.',
@@ -1537,6 +1713,7 @@ export default {
     slotEmpty: '{slot}: vacío',
     slotHolds: '{slot}: {item}',
     filter: {
+      ore: 'Mineral',
       all: 'Todo',
       weapons: 'Armas',
       armor: 'Armaduras',
@@ -2099,6 +2276,9 @@ export default {
       }
     },
     hero: {
+      forge: 'Me gustaría usar tu forja.',
+      learnSmith: '¿Podrías enseñarme a forjar?',
+      ore: 'Tengo mineral para vender.',
       bye: 'Te dejo seguir con lo tuyo.',
       trade: '¿Puedo ver lo que tienes?',
       train: '¿Me enseñas algo?',
@@ -2111,6 +2291,19 @@ export default {
       play: 'Reparte, que juego.'
     },
     sunfordSmith: {
+      forge: {
+        '1': 'La forja está caliente. Cuidado con los dedos.'
+      },
+      learnSmith: {
+        '2': 'Golpea cuando el metal brille más. Si fallas, es chatarra. Venga.',
+        '1': '¿Forjar? Hm. Sujeta el martillo así, no como un garrote.'
+      },
+      ore: {
+        '1': '¿Mineral, eh? Me lo quedo todo. Peso justo, moneda justa.'
+      },
+      forgeBack: {
+        '1': 'No está mal. Tampoco está bien. Sigue así.'
+      },
       hello: {
         '1': 'A ti no te había visto. ¿Eres quien despejó el camino?',
         '2': 'Bram. Yo llevo la forja. Si necesitas una hoja, ven a verme.'
@@ -2531,6 +2724,19 @@ export default {
       }
     },
     oakArmorer: {
+      forge: {
+        '1': 'El yunque es tuyo. Haz algo que aguante.'
+      },
+      learnSmith: {
+        '2': 'Mira el brillo. Golpea en su corazón, tres veces, y el metal lo recuerda.',
+        '1': '¿Quieres aprender el oficio? Bien. Oakhaven necesita cada martillo.'
+      },
+      ore: {
+        '1': '¡Mineral en bruto! La armería nunca tiene suficiente. Aquí tienes tu paga.'
+      },
+      forgeBack: {
+        '1': 'Buen acero. Las murallas te lo agradecen.'
+      },
       hello: {
         '1': 'Si buscas un casco, lo siento. Están todos en la muralla.',
         '2': 'Odo. Hago armaduras. No he dormido mucho últimamente.'
@@ -2562,6 +2768,20 @@ export default {
       }
     },
     oakMasterArmorer: {
+      forge: {
+        '1': 'El fuego está avivado y esperando. Adelante.'
+      },
+      learnSmith: {
+        '2': 'Tres golpes, cada uno en el corazón del brillo. Ese es todo el secreto.',
+        '1': 'Desde el asedio enseño a cualquiera que lo pida. Ven, ponte aquí.'
+      },
+      ore: {
+        '1__f': '¿Más mineral para las murallas? Bendita seas. Toma, quédate esto.',
+        '1': '¿Más mineral para las murallas? Bendito seas. Toma, quédate esto.'
+      },
+      forgeBack: {
+        '1': 'Cada golpe te hace mejor. Vuelve cuando quieras.'
+      },
       hello: {
         '1': '¡Ahí estás! Pasa. La trastienda está abierta, y abierta para ti.',
         '2': 'Maestro Odo, me llaman ahora. Qué curioso lo que un poco de paz hace por el negocio.'
@@ -2956,6 +3176,20 @@ export default {
       }
     },
     ironWeapons: {
+      forge: {
+        '1': 'Cuidado con las chispas, y no toques mi martillo bueno.'
+      },
+      learnSmith: {
+        '2': 'El brillo te dice cuándo. Tu brazo te dice con qué fuerza. Tres golpes.',
+        '1__f': '¿Una de la superficie en el yunque? Bueno, todo el mundo empieza por algún sitio.',
+        '1': '¿Uno de la superficie en el yunque? Bueno, todo el mundo empieza por algún sitio.'
+      },
+      ore: {
+        '1': 'Ja, mineral honrado. Ironhold siempre paga por eso.'
+      },
+      forgeBack: {
+        '1': 'Hm. Un enano lo habría hecho mejor. Pero no mucho mejor.'
+      },
       hello: {
         '1': 'Cuidado con la exposición. Esas cortan por ambos filos.',
         '2': 'Hilda Hammerhand. Cada pieza de aquí fue forjada por manos enanas.'
@@ -3015,6 +3249,19 @@ export default {
       }
     },
     ironArmor: {
+      forge: {
+        '1': 'La forja está lista cuando tú lo estés.'
+      },
+      learnSmith: {
+        '2': 'Calentar, golpear, girar. Tres golpes, justo en el brillo. Luego dejar enfriar.',
+        '1': 'Las placas son un trabajo de paciencia. Te enseñaré lo básico.'
+      },
+      ore: {
+        '1': 'Déjame pesarlo. Bien. Las monedas son tuyas.'
+      },
+      forgeBack: {
+        '1': 'Deja que se enfríe antes de ponértela.'
+      },
       hello: {
         '1': 'Garrun. Armaduras en los soportes, anillos en la bandeja.'
       },
@@ -3044,6 +3291,19 @@ export default {
       }
     },
     ironOrderArmor: {
+      forge: {
+        '1': 'Usa la forja de la Orden con honor.'
+      },
+      learnSmith: {
+        '2': 'Disciplina en el yunque, como en el campo. Tres golpes, fieles al brillo.',
+        '1': 'La Orden arma a sus amigos. Te enseñaré.'
+      },
+      ore: {
+        '1': 'La Orden compra todo el mineral para la guerra. Tu pago.'
+      },
+      forgeBack: {
+        '1': 'Bien forjado. Sirve bien con ella.'
+      },
       hello: {
         '1': 'Eres quien destruyó el núcleo. La Orden lo recuerda.',
         '2': 'Soy el intendente de la Orden aquí. Nuestras armerías están abiertas para ti.'
@@ -3570,6 +3830,20 @@ export default {
       }
     },
     sbArmorer: {
+      forge: {
+        '1': 'Usa la forja cuando quieras. Grita si algo se prende fuego.'
+      },
+      learnSmith: {
+        '2': 'Golpea cuando brille más caliente. Tres buenos golpes hacen una buena pieza.',
+        '1__f': '¿Quieres probar el martillo tú misma? No me importa compartir la forja.',
+        '1': '¿Quieres probar el martillo tú mismo? No me importa compartir la forja.'
+      },
+      ore: {
+        '1': 'Buen mineral. Silverbridge siempre paga un precio justo.'
+      },
+      forgeBack: {
+        '1': '¡Mira eso! Tienes un talento natural.'
+      },
       hello: {
         '1': '¡Ja! Mira esa abolladura. Espero que te devolvieran el dinero de esa armadura.',
         '2': 'Greta Ironvein. Hago armaduras que vuelven a casa con su dueño. Todas las veces, de momento.'

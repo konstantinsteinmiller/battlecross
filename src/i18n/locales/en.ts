@@ -632,7 +632,8 @@ export default {
     'mob': 'Dropped by the monsters of {zone}.',
     'chest': 'Found in the chests of {zone}.',
     'boss': 'Dropped by the boss of {zone}.',
-    'secret': 'Hidden in a secret chest in {zone}.'
+    'secret': 'Hidden in a secret chest in {zone}.',
+    'smith': 'Forged at a smithy.'
   },
   'mod': {
     'str': '+{n} Strength',
@@ -696,6 +697,55 @@ export default {
     'overheatCrit': '+{n}% Critical Damage while overheated'
   },
   'item': {
+    // Smithed at a forge (#99): six pieces in each metal and their masterwork twins.
+    'smithIronSword': { 'name': 'Iron Sword' },
+    'smithMasterIronSword': { 'name': 'Masterwork Iron Sword' },
+    'smithIronHammer': { 'name': 'Iron Hammer' },
+    'smithMasterIronHammer': { 'name': 'Masterwork Iron Hammer' },
+    'smithIronShield': { 'name': 'Iron Shield' },
+    'smithMasterIronShield': { 'name': 'Masterwork Iron Shield' },
+    'smithIronHelm': { 'name': 'Iron Helm' },
+    'smithMasterIronHelm': { 'name': 'Masterwork Iron Helm' },
+    'smithIronPlate': { 'name': 'Iron Plate' },
+    'smithMasterIronPlate': { 'name': 'Masterwork Iron Plate' },
+    'smithIronGreaves': { 'name': 'Iron Greaves' },
+    'smithMasterIronGreaves': { 'name': 'Masterwork Iron Greaves' },
+    'smithSilverSword': { 'name': 'Silver Sword' },
+    'smithMasterSilverSword': { 'name': 'Masterwork Silver Sword' },
+    'smithSilverHammer': { 'name': 'Silver Hammer' },
+    'smithMasterSilverHammer': { 'name': 'Masterwork Silver Hammer' },
+    'smithSilverShield': { 'name': 'Silver Shield' },
+    'smithMasterSilverShield': { 'name': 'Masterwork Silver Shield' },
+    'smithSilverHelm': { 'name': 'Silver Helm' },
+    'smithMasterSilverHelm': { 'name': 'Masterwork Silver Helm' },
+    'smithSilverPlate': { 'name': 'Silver Plate' },
+    'smithMasterSilverPlate': { 'name': 'Masterwork Silver Plate' },
+    'smithSilverGreaves': { 'name': 'Silver Greaves' },
+    'smithMasterSilverGreaves': { 'name': 'Masterwork Silver Greaves' },
+    'smithGoldSword': { 'name': 'Gold Sword' },
+    'smithMasterGoldSword': { 'name': 'Masterwork Gold Sword' },
+    'smithGoldHammer': { 'name': 'Gold Hammer' },
+    'smithMasterGoldHammer': { 'name': 'Masterwork Gold Hammer' },
+    'smithGoldShield': { 'name': 'Gold Shield' },
+    'smithMasterGoldShield': { 'name': 'Masterwork Gold Shield' },
+    'smithGoldHelm': { 'name': 'Gold Helm' },
+    'smithMasterGoldHelm': { 'name': 'Masterwork Gold Helm' },
+    'smithGoldPlate': { 'name': 'Gold Plate' },
+    'smithMasterGoldPlate': { 'name': 'Masterwork Gold Plate' },
+    'smithGoldGreaves': { 'name': 'Gold Greaves' },
+    'smithMasterGoldGreaves': { 'name': 'Masterwork Gold Greaves' },
+    'smithMithrilSword': { 'name': 'Mithril Sword' },
+    'smithMasterMithrilSword': { 'name': 'Masterwork Mithril Sword' },
+    'smithMithrilHammer': { 'name': 'Mithril Hammer' },
+    'smithMasterMithrilHammer': { 'name': 'Masterwork Mithril Hammer' },
+    'smithMithrilShield': { 'name': 'Mithril Shield' },
+    'smithMasterMithrilShield': { 'name': 'Masterwork Mithril Shield' },
+    'smithMithrilHelm': { 'name': 'Mithril Helm' },
+    'smithMasterMithrilHelm': { 'name': 'Masterwork Mithril Helm' },
+    'smithMithrilPlate': { 'name': 'Mithril Plate' },
+    'smithMasterMithrilPlate': { 'name': 'Masterwork Mithril Plate' },
+    'smithMithrilGreaves': { 'name': 'Mithril Greaves' },
+    'smithMasterMithrilGreaves': { 'name': 'Masterwork Mithril Greaves' },
     'rustedShortsword': { 'name': 'Rusted Shortsword' },
     'apprenticeStaff': { 'name': 'Apprentice Staff' },
     'scoutsHandgun': { 'name': 'Scout\'s Handgun' },
@@ -768,7 +818,9 @@ export default {
     'empty': 'Nothing of this kind in the bag.',
     'slotEmpty': '{slot}: empty',
     'slotHolds': '{slot}: {item}',
-    'filter': { 'all': 'All', 'weapons': 'Weapons', 'armor': 'Armor', 'trinkets': 'Trinkets', 'herbs': 'Herbs' },
+    'filter': { 'all': 'All', 'weapons': 'Weapons', 'armor': 'Armor', 'trinkets': 'Trinkets', 'herbs': 'Herbs', 'ore': 'Ore' },
+    'noOre': 'No ore yet. Mine the outcrops against the stone out in the wild.',
+    'oreCount': '{ore}: {n}',
     'noHerbs': 'No herbs yet. They grow out in the wild: walk over one to pick it.',
     'herbCount': '{plant}: {n}',
     'sort': { 'slot': 'Type', 'tier': 'Quality', 'level': 'Level' },
@@ -868,6 +920,31 @@ export default {
   'gamble': {
     'prize': 'Prize: {item}!',
     'prizeGold': 'You own them all, so you get {n} gold instead!'
+  },
+  // The forge (#99): a smith's window.
+  'smith': {
+    'talk': 'Hot iron waits for no one.',
+    'lead': 'Every metal you mine makes its pieces known. Strike the glow where it is hottest: three strikes decide the piece.',
+    'locked': 'Mine {ore} first to learn its pieces.',
+    'master': 'A great strike makes it a {item}.',
+    'nuggets': '{ore}: {have} of {n}',
+    'gold': '{n} gold',
+    'forge': 'Forge',
+    'strike': 'Strike!',
+    'strikes': 'Strike {n} of {max}',
+    'hint': 'Tap Strike, or press Space, while the glow is in the hot spot.',
+    'grade': { 'poor': 'Rough work', 'good': 'Good work', 'great': 'Great work!', 'perfect': 'Perfect!' },
+    'made': '{item} +{n}',
+    'worked': '{item} worked up to +{n}',
+    'take': 'Take it',
+    'stamp': 'Forged',
+    'why': {
+      'learn': 'A smith has to teach you first.',
+      'metal': 'Mine this ore first.',
+      'ore': 'Not enough ore.',
+      'gold': 'Not enough gold.',
+      'max': 'You own both, worked to the top.'
+    }
   },
   'alchemy': {
     'talk': 'Herbs in, elixirs out. Which one shall we brew?',
@@ -1354,6 +1431,10 @@ export default {
       'bye': { '1': 'Bye now! If you see a purple flower, pick two. One for me.' }
     },
     'sbArmorer': {
+      'forgeBack': { '1': 'Look at that! You\'re a natural.' },
+      'ore': { '1': 'Lovely ore. Silverbridge always pays a fair price.' },
+      'learnSmith': { '1': 'Want to try the hammer yourself? I don\'t mind sharing the forge.', '2': 'Strike when it glows hottest. Three good strikes make a good piece.' },
+      'forge': { '1': 'Help yourself to the forge. Shout if anything catches fire.' },
       'hello': { '1': 'Ha! Look at that dent. I hope you got your money back for that armour.', '2': 'Greta Ironvein. I make armour that comes home with its owner. Every time, so far.' },
       'again': { '1': 'You again! Still in one piece. My favourite kind of customer.' },
       'trade': { '1': 'Go on, knock on it. Hard as you like.' },
@@ -1623,6 +1704,9 @@ export default {
       'train': 'Will you teach me?',
       'heal': 'Could you patch me up?',
       'brew': 'Could you brew me something?',
+      'ore': 'I\'ve got some ore to sell.',
+      'learnSmith': 'Could you teach me to smith?',
+      'forge': 'I\'d like to use your forge.',
       'play': 'Deal me in.',
       'mana': 'Do you have anything for mana?',
       'who': 'Who are you, if you don\'t mind me asking?',
@@ -1632,6 +1716,10 @@ export default {
 
     // ── Sunford ──
     'sunfordSmith': {
+      'forgeBack': { '1': 'Not bad. Not good either. Keep at it.' },
+      'ore': { '1': 'Nuggets, eh? I\'ll take the lot. Fair weight, fair coin.' },
+      'learnSmith': { '1': 'Smithing? Hm. Hold the hammer like this, not like a club.', '2': 'Strike when the metal glows brightest. Miss, and it\'s scrap. Go on.' },
+      'forge': { '1': 'Forge is hot. Mind your fingers.' },
       'hello': { '1': 'Haven\'t seen you before. You\'re the one who cleared the road?', '2': 'Bram. I keep the forge. If you need a blade, come to me.' },
       'kingDead': { '1': 'Heard the Goblin King\'s dead. Can\'t say I\'ll miss him.' },
       'kingPact': { '1': 'Goblins trading in the square now. Never thought I\'d see it.' },
@@ -1875,6 +1963,10 @@ export default {
       'bye': { '1': 'Keep your sword close.' }
     },
     'oakArmorer': {
+      'forgeBack': { '1': 'Good steel. The walls thank you.' },
+      'ore': { '1': 'Raw ore! The armoury never has enough. Here\'s your pay.' },
+      'learnSmith': { '1': 'You want to learn the trade? Good. Oakhaven needs every hammer.', '2': 'Watch the glow. Strike at its heart, three times, and the metal remembers.' },
+      'forge': { '1': 'The anvil\'s yours. Make something that holds.' },
       'hello': { '1': 'If you\'re after a helmet, I\'m sorry. They\'re all up on the wall.', '2': 'Odo. I make armour. Haven\'t slept much lately.' },
       'again': { '1': 'Still here. Still short of nearly everything.' },
       'trade': { '1': 'Half my stock went to the wall. Take what\'s left, if it fits.' },
@@ -1885,6 +1977,10 @@ export default {
       'bye': { '1': 'Keep your head down out there.' }
     },
     'oakMasterArmorer': {
+      'forgeBack': { '1': 'Every strike makes you better. Come back anytime.' },
+      'ore': { '1': 'More ore for the walls? Bless you. Here, take this.' },
+      'learnSmith': { '1': 'Since the siege I teach anyone who asks. Come, stand here.', '2': 'Three strikes, each in the heart of the glow. That\'s all the secret there is.' },
+      'forge': { '1': 'Fire\'s banked and waiting. Go ahead.' },
       'hello': { '1': 'There you are! Come in. The back room\'s open, and it\'s open for you.', '2': 'Master Odo, they call me now. Funny what a little peace does for business.' },
       'ending': { '1': 'From our gate to the Dread Fortress. I tell everyone I fitted your armour.' },
       'again': { '1': 'Good to see you. What\'ll it be today?' },
@@ -2064,6 +2160,10 @@ export default {
       'bye': { '1': 'Go well.' }
     },
     'ironWeapons': {
+      'forgeBack': { '1': 'A dwarf would\'ve done better. But not by much.' },
+      'ore': { '1': 'Good, honest metal. Ironhold always pays for that.' },
+      'learnSmith': { '1': 'A surface-dweller at the anvil? Well, everyone starts somewhere.', '2': 'The glow tells you when. Your arm tells you how hard. Three strikes.' },
+      'forge': { '1': 'Mind the sparks, and don\'t touch my good hammer.' },
       'hello': { '1': 'Careful with the display. Those are sharp on both edges.', '2': 'Hilda Hammerhand. Every piece here was forged by dwarven hands.' },
       'dragon': { '1': 'You killed the dragon? I hope it was with one of my blades.' },
       'again': { '1': 'Back for proper steel?' },
@@ -2086,6 +2186,10 @@ export default {
       'bye': { '1': 'Mind the recoil.' }
     },
     'ironArmor': {
+      'forgeBack': { '1': 'Let it cool before you wear it.' },
+      'ore': { '1': 'Let me weigh it. Good. The coin\'s yours.' },
+      'learnSmith': { '1': 'Plate is patient work. I\'ll show you the basics.', '2': 'Heat, strike, turn. Three strikes, right in the glow. Then let it cool.' },
+      'forge': { '1': 'The forge is ready when you are.' },
       'hello': { '1': 'Garrun. Armour on the racks, rings in the tray.' },
       'again': { '1': 'Back. What do you need?' },
       'trade': { '1': 'That plate will turn a giant\'s club. Have a look.' },
@@ -2098,6 +2202,10 @@ export default {
       'bye': { '1': 'Take care.' }
     },
     'ironOrderArmor': {
+      'forgeBack': { '1': 'Well forged. Serve well in it.' },
+      'ore': { '1': 'The Order buys all ore for the war. Your payment.' },
+      'learnSmith': { '1': 'The Order arms its friends. I will teach you.', '2': 'Discipline at the anvil, as on the field. Three strikes, true to the glow.' },
+      'forge': { '1': 'Use the Order\'s forge with honour.' },
       'hello': { '1': 'You\'re the one who destroyed the core. The Order remembers that.', '2': 'I\'m the Order\'s quartermaster here. Our armouries are open to you.' },
       'throneOurs': { '1': 'The Order holds the Dread Fortress, thanks to you. At ease. You\'ve earned it.' },
       'foe': { '1': 'The Order has you on a list. My orders say to sell to you anyway. I\'ll follow them.' },

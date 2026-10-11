@@ -1,5 +1,34 @@
 // Vietnamese locale — mirrors the key shape of en.ts exactly.
 export default {
+  smith: {
+    why: {
+      max: 'Bạn đã có cả hai, rèn đến mức tối đa.',
+      gold: 'Không đủ vàng.',
+      ore: 'Không đủ quặng.',
+      metal: 'Hãy đào quặng này trước.',
+      learn: 'Phải có thợ rèn dạy bạn trước.'
+    },
+    stamp: 'Đã rèn',
+    take: 'Nhận lấy',
+    worked: '{item} đã rèn lên +{n}',
+    made: '{item} +{n}',
+    grade: {
+      perfect: 'Hoàn hảo!',
+      great: 'Làm rất tốt!',
+      good: 'Làm tốt',
+      poor: 'Làm thô'
+    },
+    hint: 'Chạm Đập, hoặc nhấn Space, khi ánh lửa nằm trong vùng nóng.',
+    strikes: 'Nhát {n}/{max}',
+    strike: 'Đập!',
+    forge: 'Rèn',
+    gold: '{n} vàng',
+    nuggets: '{ore}: {have}/{n}',
+    master: 'Một nhát tuyệt hảo sẽ biến nó thành {item}.',
+    locked: 'Hãy đào {ore} trước để học các món của nó.',
+    lead: 'Mỗi loại kim loại bạn đào được sẽ mở ra các món của nó. Đập vào chỗ ánh lửa nóng nhất: ba nhát quyết định món đồ.',
+    talk: 'Sắt nóng chẳng đợi ai.'
+  },
   gameName: 'Battlecross',
   cancel: 'Hủy',
   close: 'Đóng',
@@ -1272,6 +1301,7 @@ export default {
     magic: 'Phép thuật · tăng theo {attr}'
   },
   source: {
+    smith: 'Được rèn tại lò rèn.',
     mob: 'Rơi từ quái vật ở {zone}.',
     chest: 'Tìm thấy trong rương ở {zone}.',
     boss: 'Rơi từ trùm ở {zone}.',
@@ -1339,6 +1369,150 @@ export default {
     overheatCrit: '+{n}% Sát thương Chí mạng khi quá nhiệt'
   },
   item: {
+    smithMasterMithrilGreaves: {
+      name: 'Giáp Ống Chân Mithril Tuyệt Phẩm'
+    },
+    smithMithrilGreaves: {
+      name: 'Giáp Ống Chân Mithril'
+    },
+    smithMasterMithrilPlate: {
+      name: 'Giáp Tấm Mithril Tuyệt Phẩm'
+    },
+    smithMithrilPlate: {
+      name: 'Giáp Tấm Mithril'
+    },
+    smithMasterMithrilHelm: {
+      name: 'Mũ Giáp Mithril Tuyệt Phẩm'
+    },
+    smithMithrilHelm: {
+      name: 'Mũ Giáp Mithril'
+    },
+    smithMasterMithrilShield: {
+      name: 'Khiên Mithril Tuyệt Phẩm'
+    },
+    smithMithrilShield: {
+      name: 'Khiên Mithril'
+    },
+    smithMasterMithrilHammer: {
+      name: 'Búa Mithril Tuyệt Phẩm'
+    },
+    smithMithrilHammer: {
+      name: 'Búa Mithril'
+    },
+    smithMasterMithrilSword: {
+      name: 'Kiếm Mithril Tuyệt Phẩm'
+    },
+    smithMithrilSword: {
+      name: 'Kiếm Mithril'
+    },
+    smithMasterGoldGreaves: {
+      name: 'Giáp Ống Chân Vàng Tuyệt Phẩm'
+    },
+    smithGoldGreaves: {
+      name: 'Giáp Ống Chân Vàng'
+    },
+    smithMasterGoldPlate: {
+      name: 'Giáp Tấm Vàng Tuyệt Phẩm'
+    },
+    smithGoldPlate: {
+      name: 'Giáp Tấm Vàng'
+    },
+    smithMasterGoldHelm: {
+      name: 'Mũ Giáp Vàng Tuyệt Phẩm'
+    },
+    smithGoldHelm: {
+      name: 'Mũ Giáp Vàng'
+    },
+    smithMasterGoldShield: {
+      name: 'Khiên Vàng Tuyệt Phẩm'
+    },
+    smithGoldShield: {
+      name: 'Khiên Vàng'
+    },
+    smithMasterGoldHammer: {
+      name: 'Búa Vàng Tuyệt Phẩm'
+    },
+    smithGoldHammer: {
+      name: 'Búa Vàng'
+    },
+    smithMasterGoldSword: {
+      name: 'Kiếm Vàng Tuyệt Phẩm'
+    },
+    smithGoldSword: {
+      name: 'Kiếm Vàng'
+    },
+    smithMasterSilverGreaves: {
+      name: 'Giáp Ống Chân Bạc Tuyệt Phẩm'
+    },
+    smithSilverGreaves: {
+      name: 'Giáp Ống Chân Bạc'
+    },
+    smithMasterSilverPlate: {
+      name: 'Giáp Tấm Bạc Tuyệt Phẩm'
+    },
+    smithSilverPlate: {
+      name: 'Giáp Tấm Bạc'
+    },
+    smithMasterSilverHelm: {
+      name: 'Mũ Giáp Bạc Tuyệt Phẩm'
+    },
+    smithSilverHelm: {
+      name: 'Mũ Giáp Bạc'
+    },
+    smithMasterSilverShield: {
+      name: 'Khiên Bạc Tuyệt Phẩm'
+    },
+    smithSilverShield: {
+      name: 'Khiên Bạc'
+    },
+    smithMasterSilverHammer: {
+      name: 'Búa Bạc Tuyệt Phẩm'
+    },
+    smithSilverHammer: {
+      name: 'Búa Bạc'
+    },
+    smithMasterSilverSword: {
+      name: 'Kiếm Bạc Tuyệt Phẩm'
+    },
+    smithSilverSword: {
+      name: 'Kiếm Bạc'
+    },
+    smithMasterIronGreaves: {
+      name: 'Giáp Ống Chân Sắt Tuyệt Phẩm'
+    },
+    smithIronGreaves: {
+      name: 'Giáp Ống Chân Sắt'
+    },
+    smithMasterIronPlate: {
+      name: 'Giáp Tấm Sắt Tuyệt Phẩm'
+    },
+    smithIronPlate: {
+      name: 'Giáp Tấm Sắt'
+    },
+    smithMasterIronHelm: {
+      name: 'Mũ Giáp Sắt Tuyệt Phẩm'
+    },
+    smithIronHelm: {
+      name: 'Mũ Giáp Sắt'
+    },
+    smithMasterIronShield: {
+      name: 'Khiên Sắt Tuyệt Phẩm'
+    },
+    smithIronShield: {
+      name: 'Khiên Sắt'
+    },
+    smithMasterIronHammer: {
+      name: 'Búa Sắt Tuyệt Phẩm'
+    },
+    smithIronHammer: {
+      name: 'Búa Sắt'
+    },
+    smithMasterIronSword: {
+      name: 'Kiếm Sắt Tuyệt Phẩm'
+    },
+    smithIronSword: {
+      name: 'Kiếm Sắt'
+    },
     rustedShortsword: {
       name: 'Đoản Kiếm Gỉ'
     },
@@ -1527,6 +1701,8 @@ export default {
     }
   },
   bag: {
+    oreCount: '{ore}: {n}',
+    noOre: 'Chưa có quặng. Hãy đào các mỏm đá ngoài hoang dã.',
     equip: 'Trang bị',
     unequip: 'Tháo ra',
     worn: 'Bạn đang mặc món này. Hãy tháo ra mới bán được.',
@@ -1536,6 +1712,7 @@ export default {
     slotEmpty: '{slot}: trống',
     slotHolds: '{slot}: {item}',
     filter: {
+      ore: 'Quặng',
       all: 'Tất cả',
       weapons: 'Vũ khí',
       armor: 'Giáp',
@@ -2095,6 +2272,9 @@ export default {
       }
     },
     hero: {
+      forge: 'Cho tôi dùng lò rèn nhé.',
+      learnSmith: 'Có thể dạy tôi rèn không?',
+      ore: 'Tôi có ít quặng muốn bán.',
       bye: 'Vậy tôi không làm phiền nữa.',
       trade: 'Cho tôi xem hàng của bạn được không?',
       train: 'Dạy tôi.',
@@ -2107,6 +2287,19 @@ export default {
       play: 'Cho tôi chơi với.'
     },
     sunfordSmith: {
+      forge: {
+        '1': 'Lò đang nóng. Coi chừng ngón tay.'
+      },
+      learnSmith: {
+        '2': 'Đập khi kim loại sáng rực nhất. Trượt là thành sắt vụn. Làm đi.',
+        '1': 'Rèn à? Hừm. Cầm búa thế này, đừng cầm như cầm gậy.'
+      },
+      ore: {
+        '1': 'Quặng hả? Tôi lấy hết. Cân đủ, trả đủ.'
+      },
+      forgeBack: {
+        '1': 'Không tệ. Cũng chẳng tốt. Cứ tiếp tục.'
+      },
       hello: {
         '1': 'Chưa thấy mặt cậu bao giờ. Cậu là người đã dọn sạch con đường à?',
         '2': 'Bram. Tôi giữ lò rèn. Cần kiếm thì cứ đến tìm tôi.'
@@ -2516,6 +2709,19 @@ export default {
       }
     },
     oakArmorer: {
+      forge: {
+        '1': 'Cái đe là của cậu. Làm ra thứ gì thật bền nhé.'
+      },
+      learnSmith: {
+        '2': 'Nhìn ánh lửa. Đập vào tâm nó, ba lần, và kim loại sẽ ghi nhớ.',
+        '1': 'Cậu muốn học nghề à? Tốt. Oakhaven cần từng chiếc búa.'
+      },
+      ore: {
+        '1': 'Quặng thô! Kho vũ khí chẳng bao giờ đủ. Tiền của cậu đây.'
+      },
+      forgeBack: {
+        '1': 'Thép tốt. Tường thành cảm ơn cậu.'
+      },
       hello: {
         '1': 'Nếu cậu tìm mũ giáp thì tiếc quá. Chúng đều lên tường thành hết rồi.',
         '2': 'Odo. Tôi làm giáp. Dạo này ngủ không được mấy.'
@@ -2546,6 +2752,19 @@ export default {
       }
     },
     oakMasterArmorer: {
+      forge: {
+        '1': 'Lửa đã ủ sẵn chờ rồi. Cứ làm đi.'
+      },
+      learnSmith: {
+        '2': 'Ba nhát, nhát nào cũng vào tâm ánh lửa. Bí quyết chỉ có thế.',
+        '1': 'Từ sau cuộc vây hãm, ai hỏi tôi cũng dạy. Lại đây, đứng chỗ này.'
+      },
+      ore: {
+        '1': 'Thêm quặng cho tường thành à? Quý hóa quá. Đây, cầm lấy.'
+      },
+      forgeBack: {
+        '1': 'Mỗi nhát lại giúp cậu giỏi hơn. Cứ quay lại bất cứ lúc nào.'
+      },
       hello: {
         '1': 'Cậu đến rồi! Vào đi. Phòng sau đang mở, mở cho cậu đấy.',
         '2': 'Giờ họ gọi tôi là Bậc thầy Odo. Hóa ra chút hòa bình làm ăn khấm khá lên nhiều.'
@@ -2931,6 +3150,19 @@ export default {
       }
     },
     ironWeapons: {
+      forge: {
+        '1': 'Coi chừng tia lửa, và đừng đụng vào cây búa tốt của ta.'
+      },
+      learnSmith: {
+        '2': 'Ánh lửa bảo cậu khi nào. Cánh tay bảo cậu mạnh cỡ nào. Ba nhát.',
+        '1': 'Người trên mặt đất đứng bên đe à? Thôi thì ai cũng phải bắt đầu từ đâu đó.'
+      },
+      ore: {
+        '1': 'Ha, quặng thật thà. Ironhold luôn trả tiền cho thứ đó.'
+      },
+      forgeBack: {
+        '1': 'Hừm. Người lùn sẽ làm tốt hơn. Nhưng chẳng hơn bao nhiêu.'
+      },
       hello: {
         '1': 'Cẩn thận với hàng trưng bày. Chúng sắc cả hai lưỡi đấy.',
         '2': 'Hilda Hammerhand. Mọi món ở đây đều do tay người lùn rèn.'
@@ -2990,6 +3222,19 @@ export default {
       }
     },
     ironArmor: {
+      forge: {
+        '1': 'Lò sẵn sàng khi cậu sẵn sàng.'
+      },
+      learnSmith: {
+        '2': 'Nung, đập, lật. Ba nhát, ngay trong ánh lửa. Rồi để nguội.',
+        '1': 'Giáp tấm là việc cần kiên nhẫn. Ta sẽ chỉ cậu những điều cơ bản.'
+      },
+      ore: {
+        '1': 'Để ta cân. Được. Tiền là của cậu.'
+      },
+      forgeBack: {
+        '1': 'Để nguội rồi hẵng mặc.'
+      },
       hello: {
         '1': 'Garrun. Giáp trên giá, nhẫn trong khay.'
       },
@@ -3019,6 +3264,19 @@ export default {
       }
     },
     ironOrderArmor: {
+      forge: {
+        '1': 'Hãy dùng lò của Thiết Hội với danh dự.'
+      },
+      learnSmith: {
+        '2': 'Kỷ luật bên đe, như trên chiến trường. Ba nhát, đúng theo ánh lửa.',
+        '1': 'Thiết Hội vũ trang cho bạn hữu. Ta sẽ dạy cậu.'
+      },
+      ore: {
+        '1': 'Thiết Hội mua hết quặng cho chiến tranh. Tiền công của cậu.'
+      },
+      forgeBack: {
+        '1': 'Rèn tốt lắm. Hãy mặc nó mà phục vụ cho xứng.'
+      },
       hello: {
         '1': 'Cậu là người đã phá hủy lõi. Thiết Hội nhớ điều đó.',
         '2': 'Tôi là quản kho của Thiết Hội ở đây. Kho vũ khí của chúng tôi mở cho cậu.'
@@ -3535,6 +3793,19 @@ export default {
       }
     },
     sbArmorer: {
+      forge: {
+        '1': 'Cứ tự nhiên dùng lò. Có gì bắt lửa thì hét lên nhé.'
+      },
+      learnSmith: {
+        '2': 'Đập khi nó rực nóng nhất. Ba nhát tốt làm nên một món tốt.',
+        '1': 'Muốn tự cầm búa thử không? Tôi chẳng ngại chia lò đâu.'
+      },
+      ore: {
+        '1': 'Quặng đẹp quá. Silverbridge luôn trả giá công bằng.'
+      },
+      forgeBack: {
+        '1': 'Nhìn kìa! Cậu đúng là có khiếu bẩm sinh.'
+      },
       hello: {
         '1': 'Ha! Nhìn vết móp kìa. Mong là cậu đã đòi lại được tiền bộ giáp đó.',
         '2': 'Greta Ironvein. Tôi làm giáp biết theo chủ về nhà. Lần nào cũng vậy, tới giờ.'

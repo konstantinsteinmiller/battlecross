@@ -1,5 +1,34 @@
 // Japanese locale — mirrors the key shape of en.ts exactly.
 export default {
+  smith: {
+    why: {
+      max: '両方とも所持済み、最大まで鍛えてある。',
+      gold: 'ゴールドが足りない。',
+      ore: '鉱石が足りない。',
+      metal: 'まずこの鉱石を採掘しよう。',
+      learn: 'まず鍛冶屋に教わる必要がある。'
+    },
+    stamp: '鍛造品',
+    take: '受け取る',
+    worked: '{item}を+{n}まで鍛えた',
+    made: '{item} +{n}',
+    grade: {
+      perfect: '完璧！',
+      great: '見事な出来！',
+      good: '良い出来',
+      poor: '粗い出来'
+    },
+    hint: '輝きがホットスポットにある間に「打て」をタップ、またはスペースキーを押す。',
+    strikes: '{n}/{max}打目',
+    strike: '打て！',
+    forge: '鍛造',
+    gold: '{n}ゴールド',
+    nuggets: '{ore}: {have}/{n}',
+    master: '会心の一打で{item}になる。',
+    locked: 'まず{ore}を採掘して、作れる品を覚えよう。',
+    lead: '採掘した金属ごとに、作れる品がわかる。輝きが最も熱い所を打て。三打で品の出来が決まる。',
+    talk: '熱い鉄は誰も待ってくれない。'
+  },
   gameName: 'Battlecross',
   cancel: 'キャンセル',
   close: '閉じる',
@@ -1272,6 +1301,7 @@ export default {
     magic: '魔法 · {attr}で強化'
   },
   source: {
+    smith: '鍛冶場で鍛えられた品。',
     mob: '{zone}のモンスターが落とす。',
     chest: '{zone}の宝箱で見つかる。',
     boss: '{zone}のボスが落とす。',
@@ -1339,6 +1369,150 @@ export default {
     overheatCrit: 'オーバーヒート中クリティカルダメージ+{n}%'
   },
   item: {
+    smithMasterMithrilGreaves: {
+      name: '名工のミスリルの脛当て'
+    },
+    smithMithrilGreaves: {
+      name: 'ミスリルの脛当て'
+    },
+    smithMasterMithrilPlate: {
+      name: '名工のミスリルのプレート'
+    },
+    smithMithrilPlate: {
+      name: 'ミスリルのプレート'
+    },
+    smithMasterMithrilHelm: {
+      name: '名工のミスリルの兜'
+    },
+    smithMithrilHelm: {
+      name: 'ミスリルの兜'
+    },
+    smithMasterMithrilShield: {
+      name: '名工のミスリルの盾'
+    },
+    smithMithrilShield: {
+      name: 'ミスリルの盾'
+    },
+    smithMasterMithrilHammer: {
+      name: '名工のミスリルの戦鎚'
+    },
+    smithMithrilHammer: {
+      name: 'ミスリルの戦鎚'
+    },
+    smithMasterMithrilSword: {
+      name: '名工のミスリルの剣'
+    },
+    smithMithrilSword: {
+      name: 'ミスリルの剣'
+    },
+    smithMasterGoldGreaves: {
+      name: '名工の金の脛当て'
+    },
+    smithGoldGreaves: {
+      name: '金の脛当て'
+    },
+    smithMasterGoldPlate: {
+      name: '名工の金のプレート'
+    },
+    smithGoldPlate: {
+      name: '金のプレート'
+    },
+    smithMasterGoldHelm: {
+      name: '名工の金の兜'
+    },
+    smithGoldHelm: {
+      name: '金の兜'
+    },
+    smithMasterGoldShield: {
+      name: '名工の金の盾'
+    },
+    smithGoldShield: {
+      name: '金の盾'
+    },
+    smithMasterGoldHammer: {
+      name: '名工の金の戦鎚'
+    },
+    smithGoldHammer: {
+      name: '金の戦鎚'
+    },
+    smithMasterGoldSword: {
+      name: '名工の金の剣'
+    },
+    smithGoldSword: {
+      name: '金の剣'
+    },
+    smithMasterSilverGreaves: {
+      name: '名工の銀の脛当て'
+    },
+    smithSilverGreaves: {
+      name: '銀の脛当て'
+    },
+    smithMasterSilverPlate: {
+      name: '名工の銀のプレート'
+    },
+    smithSilverPlate: {
+      name: '銀のプレート'
+    },
+    smithMasterSilverHelm: {
+      name: '名工の銀の兜'
+    },
+    smithSilverHelm: {
+      name: '銀の兜'
+    },
+    smithMasterSilverShield: {
+      name: '名工の銀の盾'
+    },
+    smithSilverShield: {
+      name: '銀の盾'
+    },
+    smithMasterSilverHammer: {
+      name: '名工の銀の戦鎚'
+    },
+    smithSilverHammer: {
+      name: '銀の戦鎚'
+    },
+    smithMasterSilverSword: {
+      name: '名工の銀の剣'
+    },
+    smithSilverSword: {
+      name: '銀の剣'
+    },
+    smithMasterIronGreaves: {
+      name: '名工の鉄の脛当て'
+    },
+    smithIronGreaves: {
+      name: '鉄の脛当て'
+    },
+    smithMasterIronPlate: {
+      name: '名工の鉄のプレート'
+    },
+    smithIronPlate: {
+      name: '鉄のプレート'
+    },
+    smithMasterIronHelm: {
+      name: '名工の鉄の兜'
+    },
+    smithIronHelm: {
+      name: '鉄の兜'
+    },
+    smithMasterIronShield: {
+      name: '名工の鉄の盾'
+    },
+    smithIronShield: {
+      name: '鉄の盾'
+    },
+    smithMasterIronHammer: {
+      name: '名工の鉄の戦鎚'
+    },
+    smithIronHammer: {
+      name: '鉄の戦鎚'
+    },
+    smithMasterIronSword: {
+      name: '名工の鉄の剣'
+    },
+    smithIronSword: {
+      name: '鉄の剣'
+    },
     rustedShortsword: {
       name: '錆びたショートソード'
     },
@@ -1527,6 +1701,8 @@ export default {
     }
   },
   bag: {
+    oreCount: '{ore}: {n}',
+    noOre: 'まだ鉱石がない。野外の岩場で、岩肌の鉱脈を掘ろう。',
     equip: '装備',
     unequip: '外す',
     worn: '身につけている。売るには外そう。',
@@ -1536,6 +1712,7 @@ export default {
     slotEmpty: '{slot}：なし',
     slotHolds: '{slot}：{item}',
     filter: {
+      ore: '鉱石',
       all: 'すべて',
       weapons: '武器',
       armor: '防具',
@@ -2095,6 +2272,9 @@ export default {
       }
     },
     hero: {
+      forge: '炉を使わせてほしい。',
+      learnSmith: '鍛冶を教えてもらえないか？',
+      ore: '鉱石を売りたいんだ。',
       bye: 'じゃあ、邪魔しないよ。',
       trade: '品物を見せてもらえる？',
       train: '教えてくれ。',
@@ -2107,6 +2287,19 @@ export default {
       play: '乗った。'
     },
     sunfordSmith: {
+      forge: {
+        '1': '炉は熱い。指に気をつけろ。'
+      },
+      learnSmith: {
+        '2': '金属が一番明るく光ったときに打て。外せばくず鉄だ。さあ、やれ。',
+        '1': '鍛冶だと？ふむ。ハンマーはこう持て。棍棒みたいに握るな。'
+      },
+      ore: {
+        '1': '鉱石か。全部もらおう。正しい目方に、正しい代金だ。'
+      },
+      forgeBack: {
+        '1': '悪くない。良くもないがな。続けろ。'
+      },
       hello: {
         '1': '見ない顔だな。街道を片づけたのはあんたか？',
         '2': 'ブラムだ。ここの鍛冶屋をやってる。剣が要るなら、俺のところへ来い。'
@@ -2516,6 +2709,19 @@ export default {
       }
     },
     oakArmorer: {
+      forge: {
+        '1': '金床は好きに使って。持ちこたえる物を作っておくれ。'
+      },
+      learnSmith: {
+        '2': '輝きを見て。その芯を三度打てば、金属が覚えてくれる。',
+        '1': '技を学びたいって？いいね。オークヘイヴンにはハンマーが一本でも多く要る。'
+      },
+      ore: {
+        '1': '生の鉱石！武器庫はいつも足りないんだ。はい、代金だよ。'
+      },
+      forgeBack: {
+        '1': 'いい鋼だ。城壁が礼を言うよ。'
+      },
       hello: {
         '1': '兜が欲しいなら、すまないね。全部、城壁に上がってるよ。',
         '2': 'オドだ。鎧を作ってる。最近はあまり眠れていなくてね。'
@@ -2546,6 +2752,19 @@ export default {
       }
     },
     oakMasterArmorer: {
+      forge: {
+        '1': '火は埋めて待たせてあるよ。さあ、どうぞ。'
+      },
+      learnSmith: {
+        '2': '三打、どれも輝きの芯に。秘訣はそれだけさ。',
+        '1': '包囲戦のあとは、頼まれれば誰にでも教えてるよ。さあ、ここにお立ち。'
+      },
+      ore: {
+        '1': '城壁のための鉱石をまた？ありがたいねえ。ほら、これをお取り。'
+      },
+      forgeBack: {
+        '1': '打つたびに腕が上がるね。いつでもおいで。'
+      },
       hello: {
         '1': '来たな！ 入っておくれ。奥の部屋は開いてるよ。あんたのためにね。',
         '2': '今じゃ親方オドなんて呼ばれてる。ちょっと平和になっただけで商売が変わるもんだ。'
@@ -2931,6 +3150,19 @@ export default {
       }
     },
     ironWeapons: {
+      forge: {
+        '1': '火花に気をつけろ。それと、わしの上等なハンマーには触るな。'
+      },
+      learnSmith: {
+        '2': 'いつ打つかは輝きが教える。どれだけ強くかは腕が教える。三打だ。',
+        '1': '地上の者が金床に？まあ、誰にでも最初はあるもんだ。'
+      },
+      ore: {
+        '1': 'はっ、正直な鉱石だ。アイアンホールドはそういうものには必ず払う。'
+      },
+      forgeBack: {
+        '1': 'ふむ。ドワーフならもっとうまくやった。だが大差はない。'
+      },
       hello: {
         '1': '展示品には気をつけて。どれも両刃で、よく切れるよ。',
         '2': '鉄槌のヒルダだ。ここの品は全部、ドワーフの手で鍛えたものさ。'
@@ -2990,6 +3222,19 @@ export default {
       }
     },
     ironArmor: {
+      forge: {
+        '1': '炉はいつでも使える。お前次第だ。'
+      },
+      learnSmith: {
+        '2': '熱し、打ち、返す。輝きのど真ん中に三打。それから冷ます。',
+        '1': '板金は根気の仕事だ。基本を教えよう。'
+      },
+      ore: {
+        '1': '量らせてくれ。よし。代金はお前のものだ。'
+      },
+      forgeBack: {
+        '1': '身につける前に冷ませ。'
+      },
       hello: {
         '1': 'ガルンだ。鎧は棚に、指輪は皿の上。'
       },
@@ -3019,6 +3264,19 @@ export default {
       }
     },
     ironOrderArmor: {
+      forge: {
+        '1': '騎士団の炉を、名誉をもって使え。'
+      },
+      learnSmith: {
+        '2': '戦場と同じく、金床でも規律だ。輝きに忠実に、三打。',
+        '1': '騎士団は友を武装させる。君に教えよう。'
+      },
+      ore: {
+        '1': '騎士団は戦のため、鉱石をすべて買い上げる。君の報酬だ。'
+      },
+      forgeBack: {
+        '1': '見事な鍛えだ。それを着て立派に務めよ。'
+      },
       hello: {
         '1': 'コアを壊したのは君だな。騎士団はそれを覚えている。',
         '2': '騎士団の補給係だ。我らの武具庫は、君に開かれている。'
@@ -3535,6 +3793,19 @@ export default {
       }
     },
     sbArmorer: {
+      forge: {
+        '1': '炉は好きに使いな。何か燃えだしたら叫んでおくれ。'
+      },
+      learnSmith: {
+        '2': '一番熱く光ったときに打つんだ。いい三打で、いい品ができる。',
+        '1': '自分でハンマーを振ってみたいかい？炉なら喜んで貸すよ。'
+      },
+      ore: {
+        '1': 'いい鉱石だね。シルバーブリッジはいつだって公正な値で買うよ。'
+      },
+      forgeBack: {
+        '1': '見てごらん！あんた、筋がいいよ。'
+      },
       hello: {
         '1': 'はっ！なんだいそのへこみ。その鎧の代金、返してもらえたといいけどね。',
         '2': 'グレタ・アイアンヴェインだ。持ち主と一緒に帰ってくる鎧を作ってる。今のところ毎回ね。'

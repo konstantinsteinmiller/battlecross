@@ -1,6 +1,6 @@
 import { conversation } from '../../dialog/build'
 import type { ConversationDef } from '../../dialog/types'
-import { brew, heal, mana, news, play, ready, rumor, trade, train, who } from './shared'
+import { brew, heal, mana, news, play, ready, rumor, trade, train, who, smithing } from './shared'
 
 /**
  * Silverbridge: a busy river trade town built on an old stone bridge. A master
@@ -132,10 +132,12 @@ const sbArmorer = conversation('sbArmorer', {
   ],
   topics: [
     trade(),
+    // Ore and the forge (#99).
+    ...smithing(),
     who(),
     { id: 'steel', lines: 'nn' }
   ],
-  back: { shop: [{ id: 'shopBack' }] },
+  back: { shop: [{ id: 'shopBack' }], smithing: [{ id: 'forgeBack' }] },
   bye: [{ id: 'bye' }]
 })
 

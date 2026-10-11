@@ -34,6 +34,8 @@ export const meets = (c: Cond | undefined, w: DialogWorld, conv: string): boolea
       if (typeof want === 'string' ? is !== want : !want.includes(is)) return false
     }
   }
+  if (c.ore !== undefined && ((w.ore ?? 0) > 0) !== c.ore) return false
+  if (c.smithing !== undefined && !!w.smithing !== c.smithing) return false
   if (c.any && !c.any.some(x => meets(x, w, conv))) return false
   return true
 }

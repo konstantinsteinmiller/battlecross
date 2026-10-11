@@ -18,7 +18,8 @@ import { ACTIVE_SLOTS, PASSIVE_SLOTS, SKILL_BY_ID, meetsSkill, priceOf as skillP
 import { EQUIP_SLOTS, ITEM_BY_ID, noGear, priceOf as itemPriceOf, sellValue, slotOf, type EquipSlot } from '../data/items'
 import { FORGE_MAX, forgeCost } from '../data/forge'
 import { HERB_CAP, isPlant } from '../data/plants'
-import { ORE_CAP, ORE_IDS, isOre } from '../data/ores'
+import { ORE_CAP, ORE_IDS, ORE_PRICE, isOre } from '../data/ores'
+import { RECIPE_BY_ID, gradeMakes, type Grade } from '../data/smithing'
 import { ELIXIR_BY_ID, ELIXIR_CAP, ELIXIR_IDS, brewFee, isElixir, type ElixirId } from '../data/elixirs'
 import { BATTLE_MIN_ITEMS, BATTLE_ROW, MEMORY_ROW, battleFee, battleXp, gamblerTable, prizeOf } from '../gamble'
 import { DUG_FLAG, MAP_PIECES, TREASURE_ERRAND, TREASURE_ZONE, isPiece, piecesIn } from '../data/treasure'
@@ -87,6 +88,8 @@ export interface InventorySave {
    *  every metal ever mined (its smithing recipes are known). */
   ores: Record<string, number>
   oresFound: string[]
+  /** A town smith has taught the hero smithing (#99, D122). */
+  smithing: boolean
   /** Elixirs brewed by the alchemist (roadmap #87), up to ELIXIR_CAP of each,
    *  and the one the third flask pours ('' when none is carried). */
   elixirs: Record<string, number>
@@ -256,6 +259,7 @@ const defaultInv = (): InventorySave => ({
   herbs: {},
   ores: {},
   oresFound: [],
+  smithing: false,
   elixirs: {},
   elixirPick: ''
 })
@@ -367,6 +371,7 @@ export const loadProfile = (): void => {
   }
   inv.oresFound = Array.isArray(inv.oresFound) ? ORE_IDS.filter(o => (inv.oresFound as unknown[]).includes(o)) : []
   for (const id of Object.keys(inv.ores)) if (!inv.oresFound.includes(id)) inv.oresFound.push(id)
+  inv.smithing = inv.smithing === true
   // A save from before the alchemist has no elixirs; only the six he brews.
   const elix = obj(inv.elixirs, {}) as Record<string, unknown>
   inv.elixirs = {}
@@ -1261,6 +1266,64 @@ export const spendOres = (want: Readonly<Record<string, number>>): boolean => {
     else delete profile.inv.ores[id]
   }
   return true
+}
+
+/** What the smith pays for the whole pouch (#99, D120): a flat price a nugget. */
+export const orePouchValue = (): number => ORE_IDS.reduce((s, o) => s + oreCount(o) * ORE_PRICE[o], 0)
+
+/** Sell every nugget to a smith. Returns the gold paid (0: nothing to sell). */
+export const sellAllOre = (): number => {
+  const gold = orePouchValue()
+  if (!gold) return 0
+  profile.inv.ores = {}
+  profile.gold += gold
+  saveProfile()
+  return gold
+}
+
+// ─── Smithing (roadmap #99, D121–D123) ────────────────────────────────────────
+
+/** A smith teaches it: once, for good. */
+export const learnSmithing = (): void => {
+  if (profile.inv.smithing) return
+  profile.inv.smithing = true
+  saveProfile()
+}
+
+/** Why a recipe cannot be forged now ('' = it can). */
+export const smithBlock = (id: string): '' | 'learn' | 'metal' | 'ore' | 'gold' | 'max' => {
+  const r = RECIPE_BY_ID[id]
+  if (!r || !profile.inv.smithing) return 'learn'
+  if (!profile.inv.oresFound.includes(r.metal)) return 'metal'
+  // Both twins at the forge's top: nothing more to be had from it.
+  if (owns(r.master) && upgradeLevel(r.master) >= FORGE_MAX && owns(r.item) && upgradeLevel(r.item) >= FORGE_MAX) return 'max'
+  if (oreCount(r.metal) < r.nuggets) return 'ore'
+  if (profile.gold < r.gold) return 'gold'
+  return ''
+}
+
+/**
+ * Forge a piece at the grade the strikes earned. The nuggets and the gold are
+ * spent; a new piece goes into the bag with its forge levels, one already
+ * owned is worked up instead (at least a level). Returns what came off the
+ * anvil, or null when it could not be forged.
+ */
+export const smithForge = (id: string, grade: Grade): { id: string; levels: number; fresh: boolean } | null => {
+  const r = RECIPE_BY_ID[id]
+  if (!r || smithBlock(id)) return null
+  const made = gradeMakes(r, grade)
+  spendOres({ [r.metal]: r.nuggets })
+  profile.gold -= r.gold
+  const fresh = !owns(made.id)
+  if (fresh) {
+    profile.inv.items.push(made.id)
+    profile.inv.fresh.push(made.id)
+  }
+  const add = fresh ? made.levels : Math.max(1, made.levels)
+  const lvl = Math.min(FORGE_MAX, upgradeLevel(made.id) + add)
+  if (lvl > 0) profile.inv.upgrades[made.id] = lvl
+  saveProfile()
+  return { id: made.id, levels: lvl, fresh }
 }
 
 // ─── Elixirs (roadmap #87, D104) ──────────────────────────────────────────────

@@ -1,5 +1,34 @@
 // Romanian (ro) bundle — mirrors en.ts.
 export default {
+  smith: {
+    why: {
+      max: 'Le ai pe amândouă, lucrate la maximum.',
+      gold: 'Nu ai destul aur.',
+      ore: 'Nu ai destul minereu.',
+      metal: 'Extrage mai întâi acest minereu.',
+      learn: 'Mai întâi trebuie să te învețe un fierar.'
+    },
+    stamp: 'Făurit',
+    take: 'Ia-l',
+    worked: '{item}: îmbunătățire până la +{n}',
+    made: '{item} +{n}',
+    grade: {
+      perfect: 'Perfect!',
+      great: 'Lucru grozav!',
+      good: 'Lucru bun',
+      poor: 'Lucru grosolan'
+    },
+    hint: 'Atinge Lovește sau apasă Space cât timp strălucirea e în punctul fierbinte.',
+    strikes: 'Lovitura {n} din {max}',
+    strike: 'Lovește!',
+    forge: 'Făurește',
+    gold: '{n} aur',
+    nuggets: '{ore}: {have} din {n}',
+    master: 'O lovitură grozavă o face {item}.',
+    locked: 'Extrage mai întâi {ore} ca să-i afli piesele.',
+    lead: 'Fiecare metal pe care îl extragi își dezvăluie piesele. Lovește strălucirea acolo unde e cea mai fierbinte: trei lovituri hotărăsc piesa.',
+    talk: 'Fierul încins nu așteaptă pe nimeni.'
+  },
   gameName: 'Battlecross',
   cancel: 'Anulează',
   close: 'Închide',
@@ -1272,6 +1301,7 @@ export default {
     magic: 'Magie · crește cu {attr}'
   },
   source: {
+    smith: 'Făurit într-o fierărie.',
     mob: 'Îl lasă monștrii. Zonă: {zone}.',
     chest: 'Se găsește în cufere. Zonă: {zone}.',
     boss: 'Îl lasă șeful zonei. Zonă: {zone}.',
@@ -1339,6 +1369,150 @@ export default {
     overheatCrit: '+{n}% Daune Critice cât ești supraîncălzit'
   },
   item: {
+    smithMasterMithrilGreaves: {
+      name: 'Jambiere de Mithril de Maestru'
+    },
+    smithMithrilGreaves: {
+      name: 'Jambiere de Mithril'
+    },
+    smithMasterMithrilPlate: {
+      name: 'Platoșă de Mithril de Maestru'
+    },
+    smithMithrilPlate: {
+      name: 'Platoșă de Mithril'
+    },
+    smithMasterMithrilHelm: {
+      name: 'Coif de Mithril de Maestru'
+    },
+    smithMithrilHelm: {
+      name: 'Coif de Mithril'
+    },
+    smithMasterMithrilShield: {
+      name: 'Scut de Mithril de Maestru'
+    },
+    smithMithrilShield: {
+      name: 'Scut de Mithril'
+    },
+    smithMasterMithrilHammer: {
+      name: 'Ciocan de Mithril de Maestru'
+    },
+    smithMithrilHammer: {
+      name: 'Ciocan de Mithril'
+    },
+    smithMasterMithrilSword: {
+      name: 'Sabie de Mithril de Maestru'
+    },
+    smithMithrilSword: {
+      name: 'Sabie de Mithril'
+    },
+    smithMasterGoldGreaves: {
+      name: 'Jambiere de Aur de Maestru'
+    },
+    smithGoldGreaves: {
+      name: 'Jambiere de Aur'
+    },
+    smithMasterGoldPlate: {
+      name: 'Platoșă de Aur de Maestru'
+    },
+    smithGoldPlate: {
+      name: 'Platoșă de Aur'
+    },
+    smithMasterGoldHelm: {
+      name: 'Coif de Aur de Maestru'
+    },
+    smithGoldHelm: {
+      name: 'Coif de Aur'
+    },
+    smithMasterGoldShield: {
+      name: 'Scut de Aur de Maestru'
+    },
+    smithGoldShield: {
+      name: 'Scut de Aur'
+    },
+    smithMasterGoldHammer: {
+      name: 'Ciocan de Aur de Maestru'
+    },
+    smithGoldHammer: {
+      name: 'Ciocan de Aur'
+    },
+    smithMasterGoldSword: {
+      name: 'Sabie de Aur de Maestru'
+    },
+    smithGoldSword: {
+      name: 'Sabie de Aur'
+    },
+    smithMasterSilverGreaves: {
+      name: 'Jambiere de Argint de Maestru'
+    },
+    smithSilverGreaves: {
+      name: 'Jambiere de Argint'
+    },
+    smithMasterSilverPlate: {
+      name: 'Platoșă de Argint de Maestru'
+    },
+    smithSilverPlate: {
+      name: 'Platoșă de Argint'
+    },
+    smithMasterSilverHelm: {
+      name: 'Coif de Argint de Maestru'
+    },
+    smithSilverHelm: {
+      name: 'Coif de Argint'
+    },
+    smithMasterSilverShield: {
+      name: 'Scut de Argint de Maestru'
+    },
+    smithSilverShield: {
+      name: 'Scut de Argint'
+    },
+    smithMasterSilverHammer: {
+      name: 'Ciocan de Argint de Maestru'
+    },
+    smithSilverHammer: {
+      name: 'Ciocan de Argint'
+    },
+    smithMasterSilverSword: {
+      name: 'Sabie de Argint de Maestru'
+    },
+    smithSilverSword: {
+      name: 'Sabie de Argint'
+    },
+    smithMasterIronGreaves: {
+      name: 'Jambiere de Fier de Maestru'
+    },
+    smithIronGreaves: {
+      name: 'Jambiere de Fier'
+    },
+    smithMasterIronPlate: {
+      name: 'Platoșă de Fier de Maestru'
+    },
+    smithIronPlate: {
+      name: 'Platoșă de Fier'
+    },
+    smithMasterIronHelm: {
+      name: 'Coif de Fier de Maestru'
+    },
+    smithIronHelm: {
+      name: 'Coif de Fier'
+    },
+    smithMasterIronShield: {
+      name: 'Scut de Fier de Maestru'
+    },
+    smithIronShield: {
+      name: 'Scut de Fier'
+    },
+    smithMasterIronHammer: {
+      name: 'Ciocan de Fier de Maestru'
+    },
+    smithIronHammer: {
+      name: 'Ciocan de Fier'
+    },
+    smithMasterIronSword: {
+      name: 'Sabie de Fier de Maestru'
+    },
+    smithIronSword: {
+      name: 'Sabie de Fier'
+    },
     rustedShortsword: {
       name: 'Sabie Scurtă Ruginită'
     },
@@ -1527,6 +1701,8 @@ export default {
     }
   },
   bag: {
+    oreCount: '{ore}: {n}',
+    noOre: 'Încă nu ai minereu. Sapă aflorimentele de lângă stânci, în sălbăticie.',
     equip: 'Echipează',
     unequip: 'Scoate',
     worn: 'Porți asta. Dă-l jos ca să-l vinzi.',
@@ -1536,6 +1712,7 @@ export default {
     slotEmpty: '{slot}: gol',
     slotHolds: '{slot}: {item}',
     filter: {
+      ore: 'Minereu',
       all: 'Toate',
       weapons: 'Arme',
       armor: 'Armuri',
@@ -2095,6 +2272,9 @@ export default {
       }
     },
     hero: {
+      forge: 'Aș vrea să-ți folosesc forja.',
+      learnSmith: 'M-ai putea învăța fierăria?',
+      ore: 'Am niște minereu de vânzare.',
       bye: 'Te las să-ți vezi de treabă.',
       trade: 'Pot să văd ce ai?',
       train: 'Mă înveți?',
@@ -2107,6 +2287,19 @@ export default {
       play: 'Joc și eu.'
     },
     sunfordSmith: {
+      forge: {
+        '1': 'Forja e încinsă. Ai grijă la degete.'
+      },
+      learnSmith: {
+        '2': 'Lovește când metalul strălucește cel mai tare. Ratezi, și-i fier vechi. Hai.',
+        '1': 'Fierărie? Hm. Ține ciocanul așa, nu ca pe o bâtă.'
+      },
+      ore: {
+        '1': 'Minereu, zici? Iau tot. Greutate cinstită, bani cinstiți.'
+      },
+      forgeBack: {
+        '1': 'Nu-i rău. Nici bun. Mai încearcă.'
+      },
       hello: {
         '1': 'Nu te-am mai văzut. Tu ești cel care a curățat drumul?',
         '1__f': 'Nu te-am mai văzut. Tu ești cea care a curățat drumul?',
@@ -2527,6 +2720,19 @@ export default {
       }
     },
     oakArmorer: {
+      forge: {
+        '1': 'Nicovala e a ta. Fă ceva care să țină.'
+      },
+      learnSmith: {
+        '2': 'Urmărește strălucirea. Lovește-i inima de trei ori, și metalul ține minte.',
+        '1': 'Vrei să înveți meseria? Bine. Oakhaven are nevoie de fiecare ciocan.'
+      },
+      ore: {
+        '1': 'Minereu brut! Armeria nu are niciodată destul. Poftim plata.'
+      },
+      forgeBack: {
+        '1': 'Oțel bun. Zidurile îți mulțumesc.'
+      },
       hello: {
         '1': 'Dacă vrei o cască, îmi pare rău. Sunt toate pe zid.',
         '2': 'Odo. Fac armuri. N-am dormit prea mult în ultima vreme.'
@@ -2557,6 +2763,21 @@ export default {
       }
     },
     oakMasterArmorer: {
+      forge: {
+        '1': 'Focul e pregătit și așteaptă. Dă-i drumul.'
+      },
+      learnSmith: {
+        '2': 'Trei lovituri, fiecare în inima strălucirii. Asta-i tot secretul.',
+        '1': 'De la asediu învăț pe oricine cere. Vino, stai aici.'
+      },
+      ore: {
+        '1__f': 'Mai mult minereu pentru ziduri? Fii binecuvântată. Uite, ia asta.',
+        '1': 'Mai mult minereu pentru ziduri? Fii binecuvântat. Uite, ia asta.'
+      },
+      forgeBack: {
+        '1__f': 'Fiecare lovitură te face mai bună. Vino oricând.',
+        '1': 'Fiecare lovitură te face mai bun. Vino oricând.'
+      },
       hello: {
         '1': 'Iată-te! Intră. Camera din spate e deschisă, și e deschisă pentru tine.',
         '2': 'Meșterul Odo mi se spune acum. Ciudat ce face puțină pace pentru afaceri.'
@@ -2954,6 +3175,20 @@ export default {
       }
     },
     ironWeapons: {
+      forge: {
+        '1': 'Ai grijă la scântei și nu-mi atinge ciocanul cel bun.'
+      },
+      learnSmith: {
+        '2': 'Strălucirea îți spune când. Brațul îți spune cât de tare. Trei lovituri.',
+        '1__f': 'O locuitoare de la suprafață la nicovală? Ei, toată lumea începe de undeva.',
+        '1': 'Un locuitor de la suprafață la nicovală? Ei, toată lumea începe de undeva.'
+      },
+      ore: {
+        '1': 'Ha, minereu cinstit. Ironhold plătește mereu pentru așa ceva.'
+      },
+      forgeBack: {
+        '1': 'Hm. Un pitic ar fi făcut-o mai bine. Dar nu cu mult.'
+      },
       hello: {
         '1': 'Atenție la vitrină. Sunt ascuțite pe ambele tăișuri.',
         '2': 'Hilda Mână-de-Ciocan. Fiecare piesă de aici a fost forjată de mâini de pitic.'
@@ -3013,6 +3248,19 @@ export default {
       }
     },
     ironArmor: {
+      forge: {
+        '1': 'Forja e gata când ești și tu.'
+      },
+      learnSmith: {
+        '2': 'Încălzește, lovește, întoarce. Trei lovituri, fix în strălucire. Apoi las-o să se răcească.',
+        '1': 'Platoșa e muncă de răbdare. Îți arăt elementele de bază.'
+      },
+      ore: {
+        '1': 'Lasă-mă să-l cântăresc. Bun. Banii sunt ai tăi.'
+      },
+      forgeBack: {
+        '1': 'Las-o să se răcească înainte s-o porți.'
+      },
       hello: {
         '1': 'Garrun. Armuri pe rafturi, inele în tavă.'
       },
@@ -3042,6 +3290,19 @@ export default {
       }
     },
     ironOrderArmor: {
+      forge: {
+        '1': 'Folosește forja Ordinului cu onoare.'
+      },
+      learnSmith: {
+        '2': 'Disciplină la nicovală, ca pe câmpul de luptă. Trei lovituri, fidele strălucirii.',
+        '1': 'Ordinul își înarmează prietenii. Te voi învăța.'
+      },
+      ore: {
+        '1': 'Ordinul cumpără tot minereul pentru război. Plata ta.'
+      },
+      forgeBack: {
+        '1': 'Bine făurit. Servește cu cinste în el.'
+      },
       hello: {
         '1': 'Tu ești cel care a distrus nucleul. Ordinul ține minte asta.',
         '1__f': 'Tu ești cea care a distrus nucleul. Ordinul ține minte asta.',
@@ -3570,6 +3831,20 @@ export default {
       }
     },
     sbArmorer: {
+      forge: {
+        '1': 'Servește-te de forjă. Strigă dacă ia ceva foc.'
+      },
+      learnSmith: {
+        '2': 'Lovește când strălucește cel mai fierbinte. Trei lovituri bune fac o piesă bună.',
+        '1': 'Vrei să încerci și tu ciocanul? Nu mă deranjează să împart forja.'
+      },
+      ore: {
+        '1': 'Minereu frumos. Silverbridge plătește mereu un preț cinstit.'
+      },
+      forgeBack: {
+        '1__f': 'Ia uite! Ești născută pentru asta.',
+        '1': 'Ia uite! Ești născut pentru asta.'
+      },
       hello: {
         '1': 'Ha! Ia uite ce adâncitură. Sper că ți-ai primit banii înapoi pe armura aia.',
         '2': 'Greta Vână-de-Fier. Fac armuri care se întorc acasă cu stăpânul lor. De fiecare dată, până acum.'

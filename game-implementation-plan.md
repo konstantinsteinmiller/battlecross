@@ -822,7 +822,26 @@ All sound is synthesised (53 recipes); recorded files can override a recipe.
   or a stun no longer stop it; damage still lands). Verified: ore and level
   tests, full suite, vue-tsc --build, a real browser (prompt, swing, toast;
   SHARP); strings in all 38 locales.
-- [ ] **37 The smith and smithing** (#99).
+- [x] **37 The smith and smithing** (#99). Every town smith (seven of them)
+  buys the whole ore pouch at the flat price (iron 6, silver 15, gold 35,
+  mithril 80), teaches smithing once (two lines, then the forge), and after
+  that lends the forge: a window of its own on a drawn forge backdrop. Its
+  catalogue is fixed: sword, hammer, shield, helm, plate and greaves in each
+  metal, each with a masterwork twin a quality higher (48 pieces, plain
+  strength-and-endurance gear in step with the found pieces of their
+  quality; kept out of the shops, the drops and the gamblers). A metal's
+  pieces are known from its first nugget. A piece takes nuggets and gold
+  (more for the bigger pieces, and always more than its masterwork sells
+  for). The anvil: three strikes on a glow sweeping a bar, scored by how near
+  the hot spot's middle they land; Dexterity widens the spot (up to half
+  again), a rarer metal narrows it and sweeps faster; Poor gives the plain
+  piece, Good it +1, Great the masterwork +1, Perfect the masterwork +3, a
+  hand eight levels past the metal one grade better; forging a piece already
+  owned works it up instead. The bag has an Ore tab. Voiced: the hero's
+  three lines and each smith's five. Verified: smithing tests (catalogue,
+  no profit, grades, the shop's flow, the save), dialog tests, full suite,
+  vue-tsc --build, a real browser (forge window, the anvil game to a perfect
+  masterwork, phone landscape; SHARP); strings in all 38 locales.
 - [ ] **38 Cages and captives** (#100).
 - [ ] **39 Sound pass** (#101).
 - [ ] **40 Voice, translations, paint, final balance** (#107).

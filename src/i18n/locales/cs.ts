@@ -1,5 +1,34 @@
 // Czech (cs) bundle — mirrors en.ts.
 export default {
+  smith: {
+    why: {
+      max: 'Máš oboje, vylepšené na maximum.',
+      gold: 'Nedostatek zlata.',
+      ore: 'Nedostatek rudy.',
+      metal: 'Nejdřív vytěž tuto rudu.',
+      learn: 'Nejdřív tě to musí naučit kovář.'
+    },
+    stamp: 'Ukováno',
+    take: 'Vzít',
+    worked: '{item}: vylepšeno na +{n}',
+    made: '{item} +{n}',
+    grade: {
+      perfect: 'Dokonalé!',
+      great: 'Skvělá práce!',
+      good: 'Dobrá práce',
+      poor: 'Hrubá práce'
+    },
+    hint: 'Klepni na „Udeř“ nebo stiskni mezerník, když je žár v horkém bodě.',
+    strikes: 'Úder {n} z {max}',
+    strike: 'Udeř!',
+    forge: 'Kovat',
+    gold: '{n} zlata',
+    nuggets: '{ore}: {have} z {n}',
+    master: 'Skvělý úder a vznikne: {item}.',
+    locked: 'Nejdřív vytěž: {ore}. Pak poznáš její výrobky.',
+    lead: 'Každý vytěžený kov odhalí své výrobky. Udeř do žáru tam, kde je nejžhavější: tři údery rozhodnou o výrobku.',
+    talk: 'Žhavé železo na nikoho nečeká.'
+  },
   gameName: 'Battlecross',
   cancel: 'Zrušit',
   close: 'Zavřít',
@@ -1275,6 +1304,7 @@ export default {
     magic: 'Magie · atribut: {attr}'
   },
   source: {
+    smith: 'Ukováno v kovárně.',
     mob: 'Padá z nestvůr v zóně: {zone}.',
     chest: 'K nalezení v truhlách v zóně: {zone}.',
     boss: 'Padá z bosse zóny: {zone}.',
@@ -1342,6 +1372,150 @@ export default {
     overheatCrit: '+{n}% kritického poškození při přehřátí'
   },
   item: {
+    smithMasterMithrilGreaves: {
+      name: 'Mistrovské mithrilové holenice'
+    },
+    smithMithrilGreaves: {
+      name: 'Mithrilové holenice'
+    },
+    smithMasterMithrilPlate: {
+      name: 'Mistrovský mithrilový plát'
+    },
+    smithMithrilPlate: {
+      name: 'Mithrilový plát'
+    },
+    smithMasterMithrilHelm: {
+      name: 'Mistrovská mithrilová přilba'
+    },
+    smithMithrilHelm: {
+      name: 'Mithrilová přilba'
+    },
+    smithMasterMithrilShield: {
+      name: 'Mistrovský mithrilový štít'
+    },
+    smithMithrilShield: {
+      name: 'Mithrilový štít'
+    },
+    smithMasterMithrilHammer: {
+      name: 'Mistrovské mithrilové kladivo'
+    },
+    smithMithrilHammer: {
+      name: 'Mithrilové kladivo'
+    },
+    smithMasterMithrilSword: {
+      name: 'Mistrovský mithrilový meč'
+    },
+    smithMithrilSword: {
+      name: 'Mithrilový meč'
+    },
+    smithMasterGoldGreaves: {
+      name: 'Mistrovské zlaté holenice'
+    },
+    smithGoldGreaves: {
+      name: 'Zlaté holenice'
+    },
+    smithMasterGoldPlate: {
+      name: 'Mistrovský zlatý plát'
+    },
+    smithGoldPlate: {
+      name: 'Zlatý plát'
+    },
+    smithMasterGoldHelm: {
+      name: 'Mistrovská zlatá přilba'
+    },
+    smithGoldHelm: {
+      name: 'Zlatá přilba'
+    },
+    smithMasterGoldShield: {
+      name: 'Mistrovský zlatý štít'
+    },
+    smithGoldShield: {
+      name: 'Zlatý štít'
+    },
+    smithMasterGoldHammer: {
+      name: 'Mistrovské zlaté kladivo'
+    },
+    smithGoldHammer: {
+      name: 'Zlaté kladivo'
+    },
+    smithMasterGoldSword: {
+      name: 'Mistrovský zlatý meč'
+    },
+    smithGoldSword: {
+      name: 'Zlatý meč'
+    },
+    smithMasterSilverGreaves: {
+      name: 'Mistrovské stříbrné holenice'
+    },
+    smithSilverGreaves: {
+      name: 'Stříbrné holenice'
+    },
+    smithMasterSilverPlate: {
+      name: 'Mistrovský stříbrný plát'
+    },
+    smithSilverPlate: {
+      name: 'Stříbrný plát'
+    },
+    smithMasterSilverHelm: {
+      name: 'Mistrovská stříbrná přilba'
+    },
+    smithSilverHelm: {
+      name: 'Stříbrná přilba'
+    },
+    smithMasterSilverShield: {
+      name: 'Mistrovský stříbrný štít'
+    },
+    smithSilverShield: {
+      name: 'Stříbrný štít'
+    },
+    smithMasterSilverHammer: {
+      name: 'Mistrovské stříbrné kladivo'
+    },
+    smithSilverHammer: {
+      name: 'Stříbrné kladivo'
+    },
+    smithMasterSilverSword: {
+      name: 'Mistrovský stříbrný meč'
+    },
+    smithSilverSword: {
+      name: 'Stříbrný meč'
+    },
+    smithMasterIronGreaves: {
+      name: 'Mistrovské železné holenice'
+    },
+    smithIronGreaves: {
+      name: 'Železné holenice'
+    },
+    smithMasterIronPlate: {
+      name: 'Mistrovský železný plát'
+    },
+    smithIronPlate: {
+      name: 'Železný plát'
+    },
+    smithMasterIronHelm: {
+      name: 'Mistrovská železná přilba'
+    },
+    smithIronHelm: {
+      name: 'Železná přilba'
+    },
+    smithMasterIronShield: {
+      name: 'Mistrovský železný štít'
+    },
+    smithIronShield: {
+      name: 'Železný štít'
+    },
+    smithMasterIronHammer: {
+      name: 'Mistrovské železné kladivo'
+    },
+    smithIronHammer: {
+      name: 'Železné kladivo'
+    },
+    smithMasterIronSword: {
+      name: 'Mistrovský železný meč'
+    },
+    smithIronSword: {
+      name: 'Železný meč'
+    },
     rustedShortsword: {
       name: 'Rezavý krátký meč'
     },
@@ -1530,6 +1704,8 @@ export default {
     }
   },
   bag: {
+    oreCount: '{ore}: {n}',
+    noOre: 'Zatím nemáš žádnou rudu. Těž ji z výchozů u skal v divočině.',
     equip: 'Nasadit',
     unequip: 'Sundat',
     worn: 'Máš to na sobě. Sundej to a půjde to prodat.',
@@ -1539,6 +1715,7 @@ export default {
     slotEmpty: '{slot}: prázdno',
     slotHolds: '{slot}: {item}',
     filter: {
+      ore: 'Ruda',
       all: 'Vše',
       weapons: 'Zbraně',
       armor: 'Zbroj',
@@ -2099,6 +2276,9 @@ export default {
       }
     },
     hero: {
+      forge: 'Můžu použít tvou kovárnu?',
+      learnSmith: 'Naučíš mě kovařině?',
+      ore: 'Mám nějakou rudu na prodej.',
       bye: 'Nebudu tě zdržovat.',
       trade: 'Můžu se podívat, co máš?',
       train: 'Naučíš mě?',
@@ -2112,6 +2292,19 @@ export default {
       play: 'Jdu do toho.'
     },
     sunfordSmith: {
+      forge: {
+        '1': 'Výheň je rozpálená. Pozor na prsty.'
+      },
+      learnSmith: {
+        '2': 'Udeř, když kov září nejjasněji. Mineš, a je to šrot. Do toho.',
+        '1': 'Kovařina? Hm. Drž kladivo takhle, ne jako kyj.'
+      },
+      ore: {
+        '1': 'Ruda, jo? Beru všechno. Poctivá váha, poctivá mince.'
+      },
+      forgeBack: {
+        '1': 'Ujde to. Ale dobré to taky není. Pokračuj.'
+      },
       hello: {
         '1': 'Dřív jsem tě neviděl. Ty jsi vyčistil cestu?',
         '1__f': 'Dřív jsem tě neviděl. Ty jsi vyčistila cestu?',
@@ -2546,6 +2739,19 @@ export default {
       }
     },
     oakArmorer: {
+      forge: {
+        '1': 'Kovadlina je tvoje. Udělej něco, co vydrží.'
+      },
+      learnSmith: {
+        '2': 'Sleduj žár. Udeř do jeho srdce, třikrát, a kov si to zapamatuje.',
+        '1': 'Chceš se vyučit řemeslu? Dobře. Oakhaven potřebuje každé kladivo.'
+      },
+      ore: {
+        '1': 'Surová ruda! Zbrojnice jí nikdy nemá dost. Tady je tvá odměna.'
+      },
+      forgeBack: {
+        '1': 'Dobrá ocel. Hradby ti děkují.'
+      },
       hello: {
         '1': 'Jestli hledáš helmu, promiň. Všechny jsou na hradbách.',
         '2': 'Odo. Dělám zbroj. V poslední době moc nespím.'
@@ -2577,6 +2783,19 @@ export default {
       }
     },
     oakMasterArmorer: {
+      forge: {
+        '1': 'Oheň je přihrnutý a čeká. Pusť se do toho.'
+      },
+      learnSmith: {
+        '2': 'Tři údery, každý do srdce žáru. To je celé tajemství.',
+        '1': 'Od obléhání učím každého, kdo požádá. Pojď, stoupni si sem.'
+      },
+      ore: {
+        '1': 'Další ruda na hradby? Ať ti nebesa žehnají. Tady, vezmi si tohle.'
+      },
+      forgeBack: {
+        '1': 'S každým úderem ti to jde líp. Přijď kdykoli.'
+      },
       hello: {
         '1': 'Tady jsi! Pojď dál. Zadní místnost je otevřená, a otevřená pro tebe.',
         '2': 'Teď mi říkají mistr Odo. Legrační, co trocha míru dokáže s obchodem.'
@@ -2990,6 +3209,20 @@ export default {
       }
     },
     ironWeapons: {
+      forge: {
+        '1': 'Pozor na jiskry a nesahej na moje dobré kladivo.'
+      },
+      learnSmith: {
+        '2': 'Žár ti řekne kdy. Paže ti řekne jak silně. Tři údery.',
+        '1__f': 'Obyvatelka povrchu u kovadliny? No, každý někde začíná.',
+        '1': 'Obyvatel povrchu u kovadliny? No, každý někde začíná.'
+      },
+      ore: {
+        '1': 'Ha, poctivá ruda. Ironhold za takovou vždycky zaplatí.'
+      },
+      forgeBack: {
+        '1': 'Hm. Trpaslík by to udělal líp. Ale ne o moc.'
+      },
       hello: {
         '1': 'Opatrně s vitrínou. Jsou ostré z obou stran.',
         '2': 'Hilda Kladivoruká. Každý kus tady byl vykován trpasličíma rukama.'
@@ -3051,6 +3284,19 @@ export default {
       }
     },
     ironArmor: {
+      forge: {
+        '1': 'Výheň je připravená. Začni, kdy chceš.'
+      },
+      learnSmith: {
+        '2': 'Rozžhav, udeř, otoč. Tři údery, přesně do žáru. Pak nech vychladnout.',
+        '1': 'Plátová zbroj je trpělivá práce. Ukážu ti základy.'
+      },
+      ore: {
+        '1': 'Nech mě to zvážit. Dobře. Mince jsou tvoje.'
+      },
+      forgeBack: {
+        '1': 'Nech to vychladnout, než si to oblékneš.'
+      },
       hello: {
         '1': 'Garrun. Zbroj na stojanech, prsteny na tácu.'
       },
@@ -3080,6 +3326,19 @@ export default {
       }
     },
     ironOrderArmor: {
+      forge: {
+        '1': 'Používej výheň Řádu se ctí.'
+      },
+      learnSmith: {
+        '2': 'Kázeň u kovadliny jako na bojišti. Tři údery, věrné žáru.',
+        '1': 'Řád vyzbrojuje své přátele. Naučím tě to.'
+      },
+      ore: {
+        '1': 'Řád vykupuje všechnu rudu pro válku. Tvá platba.'
+      },
+      forgeBack: {
+        '1': 'Dobře ukováno. Nos to se ctí.'
+      },
       hello: {
         '1': 'Ty jsi ten, kdo zničil jádro. Řád si to pamatuje.',
         '1__f': 'Ty jsi ta, která zničila jádro. Řád si to pamatuje.',
@@ -3620,6 +3879,20 @@ export default {
       }
     },
     sbArmorer: {
+      forge: {
+        '1': 'Kovárna je tvoje. Křič, kdyby něco chytlo.'
+      },
+      learnSmith: {
+        '2': 'Udeř, když žár nejvíc září. Tři dobré údery dají dobrý kus.',
+        '1': 'Chceš si zkusit kladivo? Kovárnou se klidně podělím.'
+      },
+      ore: {
+        '1': 'Krásná ruda. Silverbridge vždycky platí férovou cenu.'
+      },
+      forgeBack: {
+        '1__f': 'Podívejme! Ty jsi pro to stvořená.',
+        '1': 'Podívejme! Ty jsi pro to stvořený.'
+      },
       hello: {
         '1': 'Ha! Koukni na tu promáčklinu. Doufám, že ti za tu zbroj vrátili peníze.',
         '2': 'Greta Železnožilá. Dělám zbroj, která se vrací domů i se svým majitelem. Zatím pokaždé.'

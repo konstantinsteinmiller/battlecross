@@ -1,5 +1,34 @@
 // French locale — mirrors the key shape of en.ts exactly.
 export default {
+  smith: {
+    why: {
+      max: 'Tu possèdes les deux, améliorés au maximum.',
+      gold: 'Pas assez d’or.',
+      ore: 'Pas assez de minerai.',
+      metal: 'Extrais d’abord ce minerai.',
+      learn: 'Un forgeron doit d’abord t’apprendre.'
+    },
+    stamp: 'Forgé',
+    take: 'Prendre',
+    worked: '{item} amélioré jusqu’à +{n}',
+    made: '{item} +{n}',
+    grade: {
+      perfect: 'Parfait !',
+      great: 'Excellent travail !',
+      good: 'Bon travail',
+      poor: 'Travail grossier'
+    },
+    hint: 'Touche « Frappe », ou appuie sur Espace, quand la lueur est dans la zone chaude.',
+    strikes: 'Coup {n} sur {max}',
+    strike: 'Frappe !',
+    forge: 'Forger',
+    gold: '{n} or',
+    nuggets: '{ore} : {have} sur {n}',
+    master: 'Un coup magistral en fait : {item}.',
+    locked: 'Extrais d’abord : {ore}, pour apprendre ses pièces.',
+    lead: 'Chaque métal que tu extrais te révèle ses pièces. Frappe la lueur là où elle est la plus chaude : trois coups décident de la pièce.',
+    talk: 'Le fer chaud n’attend personne.'
+  },
   gameName: 'Battlecross',
   cancel: 'Annuler',
   close: 'Fermer',
@@ -1273,6 +1302,7 @@ export default {
     magic: 'Magie · attribut : {attr}'
   },
   source: {
+    smith: 'Forgé dans une forge.',
     mob: '{zone} : butin des monstres.',
     chest: '{zone} : se trouve dans les coffres.',
     boss: '{zone} : butin du boss.',
@@ -1340,6 +1370,150 @@ export default {
     overheatCrit: '+{n} % de dégâts Critiques en surchauffe'
   },
   item: {
+    smithMasterMithrilGreaves: {
+      name: 'Jambières de mithril de maître'
+    },
+    smithMithrilGreaves: {
+      name: 'Jambières de mithril'
+    },
+    smithMasterMithrilPlate: {
+      name: 'Plastron de mithril de maître'
+    },
+    smithMithrilPlate: {
+      name: 'Plastron de mithril'
+    },
+    smithMasterMithrilHelm: {
+      name: 'Casque de mithril de maître'
+    },
+    smithMithrilHelm: {
+      name: 'Casque de mithril'
+    },
+    smithMasterMithrilShield: {
+      name: 'Bouclier de mithril de maître'
+    },
+    smithMithrilShield: {
+      name: 'Bouclier de mithril'
+    },
+    smithMasterMithrilHammer: {
+      name: 'Marteau de mithril de maître'
+    },
+    smithMithrilHammer: {
+      name: 'Marteau de mithril'
+    },
+    smithMasterMithrilSword: {
+      name: 'Épée de mithril de maître'
+    },
+    smithMithrilSword: {
+      name: 'Épée de mithril'
+    },
+    smithMasterGoldGreaves: {
+      name: 'Jambières d’or de maître'
+    },
+    smithGoldGreaves: {
+      name: 'Jambières d’or'
+    },
+    smithMasterGoldPlate: {
+      name: 'Plastron d’or de maître'
+    },
+    smithGoldPlate: {
+      name: 'Plastron d’or'
+    },
+    smithMasterGoldHelm: {
+      name: 'Casque d’or de maître'
+    },
+    smithGoldHelm: {
+      name: 'Casque d’or'
+    },
+    smithMasterGoldShield: {
+      name: 'Bouclier d’or de maître'
+    },
+    smithGoldShield: {
+      name: 'Bouclier d’or'
+    },
+    smithMasterGoldHammer: {
+      name: 'Marteau d’or de maître'
+    },
+    smithGoldHammer: {
+      name: 'Marteau d’or'
+    },
+    smithMasterGoldSword: {
+      name: 'Épée d’or de maître'
+    },
+    smithGoldSword: {
+      name: 'Épée d’or'
+    },
+    smithMasterSilverGreaves: {
+      name: 'Jambières d’argent de maître'
+    },
+    smithSilverGreaves: {
+      name: 'Jambières d’argent'
+    },
+    smithMasterSilverPlate: {
+      name: 'Plastron d’argent de maître'
+    },
+    smithSilverPlate: {
+      name: 'Plastron d’argent'
+    },
+    smithMasterSilverHelm: {
+      name: 'Casque d’argent de maître'
+    },
+    smithSilverHelm: {
+      name: 'Casque d’argent'
+    },
+    smithMasterSilverShield: {
+      name: 'Bouclier d’argent de maître'
+    },
+    smithSilverShield: {
+      name: 'Bouclier d’argent'
+    },
+    smithMasterSilverHammer: {
+      name: 'Marteau d’argent de maître'
+    },
+    smithSilverHammer: {
+      name: 'Marteau d’argent'
+    },
+    smithMasterSilverSword: {
+      name: 'Épée d’argent de maître'
+    },
+    smithSilverSword: {
+      name: 'Épée d’argent'
+    },
+    smithMasterIronGreaves: {
+      name: 'Jambières de fer de maître'
+    },
+    smithIronGreaves: {
+      name: 'Jambières de fer'
+    },
+    smithMasterIronPlate: {
+      name: 'Plastron de fer de maître'
+    },
+    smithIronPlate: {
+      name: 'Plastron de fer'
+    },
+    smithMasterIronHelm: {
+      name: 'Casque de fer de maître'
+    },
+    smithIronHelm: {
+      name: 'Casque de fer'
+    },
+    smithMasterIronShield: {
+      name: 'Bouclier de fer de maître'
+    },
+    smithIronShield: {
+      name: 'Bouclier de fer'
+    },
+    smithMasterIronHammer: {
+      name: 'Marteau de fer de maître'
+    },
+    smithIronHammer: {
+      name: 'Marteau de fer'
+    },
+    smithMasterIronSword: {
+      name: 'Épée de fer de maître'
+    },
+    smithIronSword: {
+      name: 'Épée de fer'
+    },
     rustedShortsword: {
       name: 'Épée courte rouillée'
     },
@@ -1528,6 +1702,8 @@ export default {
     }
   },
   bag: {
+    oreCount: '{ore} : {n}',
+    noOre: 'Pas encore de minerai. Extrais les filons contre la roche, dans la nature.',
     equip: 'Équiper',
     unequip: 'Enlever',
     worn: 'Tu portes cet objet. Enlève-le pour le vendre.',
@@ -1537,6 +1713,7 @@ export default {
     slotEmpty: '{slot} : vide',
     slotHolds: '{slot} : {item}',
     filter: {
+      ore: 'Minerai',
       all: 'Tout',
       weapons: 'Armes',
       armor: 'Armures',
@@ -2100,6 +2277,9 @@ export default {
       }
     },
     hero: {
+      forge: 'J’aimerais utiliser ta forge.',
+      learnSmith: 'Tu pourrais m’apprendre à forger ?',
+      ore: 'J’ai du minerai à vendre.',
       bye: 'Je te laisse à tes affaires.',
       trade: 'Je peux voir ce que tu as ?',
       train: 'Tu veux bien m’apprendre ?',
@@ -2112,6 +2292,19 @@ export default {
       play: 'J’en suis !'
     },
     sunfordSmith: {
+      forge: {
+        '1': 'La forge est chaude. Attention à tes doigts.'
+      },
+      learnSmith: {
+        '2': 'Frappe quand le métal brille le plus. Rate, et c’est de la ferraille. Vas-y.',
+        '1': 'Forger ? Hm. Tiens le marteau comme ça, pas comme un gourdin.'
+      },
+      ore: {
+        '1': 'Du minerai, hein ? Je prends tout. Juste poids, juste prix.'
+      },
+      forgeBack: {
+        '1': 'Pas mal. Pas bien non plus. Continue.'
+      },
       hello: {
         '1': 'Je ne t’ai jamais vu. C’est toi qui as dégagé la route ?',
         '1__f': 'Je ne t’ai jamais vue. C’est toi qui as dégagé la route ?',
@@ -2533,6 +2726,19 @@ export default {
       }
     },
     oakArmorer: {
+      forge: {
+        '1': 'L’enclume est à toi. Fais quelque chose de solide.'
+      },
+      learnSmith: {
+        '2': 'Observe la lueur. Frappe en son cœur, trois fois, et le métal s’en souvient.',
+        '1': 'Tu veux apprendre le métier ? Bien. Oakhaven a besoin de chaque marteau.'
+      },
+      ore: {
+        '1': 'Du minerai brut ! L’armurerie n’en a jamais assez. Voilà ta paie.'
+      },
+      forgeBack: {
+        '1': 'Du bon acier. Les remparts te remercient.'
+      },
       hello: {
         '1': 'Si tu cherches un casque, désolé. Ils sont tous sur le rempart.',
         '2': 'Odo. Je fabrique des armures. Je n’ai pas beaucoup dormi ces temps-ci.'
@@ -2563,6 +2769,20 @@ export default {
       }
     },
     oakMasterArmorer: {
+      forge: {
+        '1': 'Le feu est couvert et attend. Vas-y.'
+      },
+      learnSmith: {
+        '2': 'Trois coups, chacun au cœur de la lueur. C’est tout le secret.',
+        '1': 'Depuis le siège, j’enseigne à quiconque le demande. Viens, mets-toi là.'
+      },
+      ore: {
+        '1': 'Encore du minerai pour les remparts ? Sois béni. Tiens, prends ça.'
+      },
+      forgeBack: {
+        '1__f': 'Chaque coup te rend meilleure. Reviens quand tu veux.',
+        '1': 'Chaque coup te rend meilleur. Reviens quand tu veux.'
+      },
       hello: {
         '1': 'Te voilà ! Entre. L’arrière-boutique est ouverte, et ouverte pour toi.',
         '2': 'Maître Odo, on m’appelle maintenant. Drôle de voir ce qu’un peu de paix fait aux affaires.'
@@ -2960,6 +3180,20 @@ export default {
       }
     },
     ironWeapons: {
+      forge: {
+        '1': 'Attention aux étincelles, et ne touche pas à mon bon marteau.'
+      },
+      learnSmith: {
+        '2': 'La lueur te dit quand. Ton bras te dit avec quelle force. Trois coups.',
+        '1__f': 'Une habitante de la surface à l’enclume ? Bah, tout le monde commence quelque part.',
+        '1': 'Un habitant de la surface à l’enclume ? Bah, tout le monde commence quelque part.'
+      },
+      ore: {
+        '1': 'Ha, du minerai honnête. Ironhold paie toujours pour ça.'
+      },
+      forgeBack: {
+        '1': 'Hm. Un nain aurait fait mieux. Mais pas de beaucoup.'
+      },
       hello: {
         '1': 'Attention à la vitrine. Elles sont tranchantes des deux côtés.',
         '2': 'Hilda Hammerhand. Chaque pièce ici a été forgée par des mains naines.'
@@ -3019,6 +3253,19 @@ export default {
       }
     },
     ironArmor: {
+      forge: {
+        '1': 'La forge est prête quand tu l’es.'
+      },
+      learnSmith: {
+        '2': 'Chauffer, frapper, tourner. Trois coups, en plein dans la lueur. Puis laisser refroidir.',
+        '1': 'L’armure de plates, c’est un travail de patience. Je vais te montrer les bases.'
+      },
+      ore: {
+        '1': 'Laisse-moi peser ça. Bien. Les pièces sont à toi.'
+      },
+      forgeBack: {
+        '1': 'Laisse-la refroidir avant de la porter.'
+      },
       hello: {
         '1': 'Garrun. Des armures sur les présentoirs, des bagues dans le plateau.'
       },
@@ -3048,6 +3295,19 @@ export default {
       }
     },
     ironOrderArmor: {
+      forge: {
+        '1': 'Utilise la forge de l’Ordre avec honneur.'
+      },
+      learnSmith: {
+        '2': 'De la discipline à l’enclume comme sur le champ de bataille. Trois coups, fidèles à la lueur.',
+        '1': 'L’Ordre arme ses amis. Je vais t’enseigner.'
+      },
+      ore: {
+        '1': 'L’Ordre achète tout le minerai pour la guerre. Ton paiement.'
+      },
+      forgeBack: {
+        '1': 'Bien forgé. Sers bien sous cette armure.'
+      },
       hello: {
         '1': 'C’est toi qui as détruit le noyau. L’Ordre s’en souvient.',
         '2': 'Je suis l’intendant de l’Ordre ici. Nos arsenaux te sont ouverts.'
@@ -3574,6 +3834,20 @@ export default {
       }
     },
     sbArmorer: {
+      forge: {
+        '1': 'Sers-toi de la forge. Crie si quelque chose prend feu.'
+      },
+      learnSmith: {
+        '2': 'Frappe quand ça rougeoie le plus. Trois bons coups font une bonne pièce.',
+        '1': 'Tu veux essayer le marteau toi-même ? Ça ne me dérange pas de partager la forge.'
+      },
+      ore: {
+        '1': 'Joli minerai. Silverbridge paie toujours un prix juste.'
+      },
+      forgeBack: {
+        '1__f': 'Regarde-moi ça ! Tu es douée.',
+        '1': 'Regarde-moi ça ! Tu es doué.'
+      },
       hello: {
         '1': 'Ha ! Regarde-moi cette bosse. J’espère qu’on t’a remboursé cette armure.',
         '2': 'Greta Ironvein. Mes armures rentrent à la maison avec leur propriétaire. À chaque fois, jusqu’ici.'

@@ -1,5 +1,34 @@
 // Swedish locale — mirrors the key shape of en.ts exactly.
 export default {
+  smith: {
+    why: {
+      max: 'Du äger båda, fullt förbättrade.',
+      gold: 'Inte tillräckligt med guld.',
+      ore: 'Inte tillräckligt med malm.',
+      metal: 'Bryt den här malmen först.',
+      learn: 'En smed måste lära dig först.'
+    },
+    stamp: 'Smidd',
+    take: 'Ta den',
+    worked: '{item} förbättrad till +{n}',
+    made: '{item} +{n}',
+    grade: {
+      perfect: 'Perfekt!',
+      great: 'Utmärkt arbete!',
+      good: 'Bra arbete',
+      poor: 'Grovt arbete'
+    },
+    hint: 'Tryck på Slå, eller på mellanslag, när glöden är i den heta punkten.',
+    strikes: 'Slag {n} av {max}',
+    strike: 'Slå!',
+    forge: 'Smid',
+    gold: '{n} guld',
+    nuggets: '{ore}: {have} av {n}',
+    master: 'Ett riktigt bra slag ger: {item}.',
+    locked: 'Bryt {ore} först för att lära dig vad den kan bli.',
+    lead: 'Varje metall du bryter visar vad den kan bli. Slå på glöden där den är hetast: tre slag avgör föremålet.',
+    talk: 'Hett järn väntar inte på någon.'
+  },
   gameName: 'Battlecross',
   cancel: 'Avbryt',
   close: 'Stäng',
@@ -1272,6 +1301,7 @@ export default {
     magic: 'Magi · skalar med {attr}'
   },
   source: {
+    smith: 'Smidd i en smedja.',
     mob: 'Släpps av monster. Område: {zone}.',
     chest: 'Finns i kistor. Område: {zone}.',
     boss: 'Släpps av bossen. Område: {zone}.',
@@ -1339,6 +1369,150 @@ export default {
     overheatCrit: '+{n}% Kritisk skada medan du är överhettad'
   },
   item: {
+    smithMasterMithrilGreaves: {
+      name: 'Mästerliga mithrilbenskydd'
+    },
+    smithMithrilGreaves: {
+      name: 'Mithrilbenskydd'
+    },
+    smithMasterMithrilPlate: {
+      name: 'Mästerlig mithrilrustning'
+    },
+    smithMithrilPlate: {
+      name: 'Mithrilrustning'
+    },
+    smithMasterMithrilHelm: {
+      name: 'Mästerlig mithrilhjälm'
+    },
+    smithMithrilHelm: {
+      name: 'Mithrilhjälm'
+    },
+    smithMasterMithrilShield: {
+      name: 'Mästerlig mithrilsköld'
+    },
+    smithMithrilShield: {
+      name: 'Mithrilsköld'
+    },
+    smithMasterMithrilHammer: {
+      name: 'Mästerlig mithrilhammare'
+    },
+    smithMithrilHammer: {
+      name: 'Mithrilhammare'
+    },
+    smithMasterMithrilSword: {
+      name: 'Mästerligt mithrilsvärd'
+    },
+    smithMithrilSword: {
+      name: 'Mithrilsvärd'
+    },
+    smithMasterGoldGreaves: {
+      name: 'Mästerliga guldbenskydd'
+    },
+    smithGoldGreaves: {
+      name: 'Guldbenskydd'
+    },
+    smithMasterGoldPlate: {
+      name: 'Mästerlig guldrustning'
+    },
+    smithGoldPlate: {
+      name: 'Guldrustning'
+    },
+    smithMasterGoldHelm: {
+      name: 'Mästerlig guldhjälm'
+    },
+    smithGoldHelm: {
+      name: 'Guldhjälm'
+    },
+    smithMasterGoldShield: {
+      name: 'Mästerlig guldsköld'
+    },
+    smithGoldShield: {
+      name: 'Guldsköld'
+    },
+    smithMasterGoldHammer: {
+      name: 'Mästerlig guldhammare'
+    },
+    smithGoldHammer: {
+      name: 'Guldhammare'
+    },
+    smithMasterGoldSword: {
+      name: 'Mästerligt guldsvärd'
+    },
+    smithGoldSword: {
+      name: 'Guldsvärd'
+    },
+    smithMasterSilverGreaves: {
+      name: 'Mästerliga silverbenskydd'
+    },
+    smithSilverGreaves: {
+      name: 'Silverbenskydd'
+    },
+    smithMasterSilverPlate: {
+      name: 'Mästerlig silverrustning'
+    },
+    smithSilverPlate: {
+      name: 'Silverrustning'
+    },
+    smithMasterSilverHelm: {
+      name: 'Mästerlig silverhjälm'
+    },
+    smithSilverHelm: {
+      name: 'Silverhjälm'
+    },
+    smithMasterSilverShield: {
+      name: 'Mästerlig silversköld'
+    },
+    smithSilverShield: {
+      name: 'Silversköld'
+    },
+    smithMasterSilverHammer: {
+      name: 'Mästerlig silverhammare'
+    },
+    smithSilverHammer: {
+      name: 'Silverhammare'
+    },
+    smithMasterSilverSword: {
+      name: 'Mästerligt silversvärd'
+    },
+    smithSilverSword: {
+      name: 'Silversvärd'
+    },
+    smithMasterIronGreaves: {
+      name: 'Mästerliga järnbenskydd'
+    },
+    smithIronGreaves: {
+      name: 'Järnbenskydd'
+    },
+    smithMasterIronPlate: {
+      name: 'Mästerlig järnrustning'
+    },
+    smithIronPlate: {
+      name: 'Järnrustning'
+    },
+    smithMasterIronHelm: {
+      name: 'Mästerlig järnhjälm'
+    },
+    smithIronHelm: {
+      name: 'Järnhjälm'
+    },
+    smithMasterIronShield: {
+      name: 'Mästerlig järnsköld'
+    },
+    smithIronShield: {
+      name: 'Järnsköld'
+    },
+    smithMasterIronHammer: {
+      name: 'Mästerlig järnhammare'
+    },
+    smithIronHammer: {
+      name: 'Järnhammare'
+    },
+    smithMasterIronSword: {
+      name: 'Mästerligt järnsvärd'
+    },
+    smithIronSword: {
+      name: 'Järnsvärd'
+    },
     rustedShortsword: {
       name: 'Rostigt kortsvärd'
     },
@@ -1527,6 +1701,8 @@ export default {
     }
   },
   bag: {
+    oreCount: '{ore}: {n}',
+    noOre: 'Ingen malm än. Bryt den ur malmådrorna vid klipporna ute i vildmarken.',
     equip: 'Utrusta',
     unequip: 'Ta av',
     worn: 'Du har den här på dig. Ta av den för att sälja den.',
@@ -1536,6 +1712,7 @@ export default {
     slotEmpty: '{slot}: tom',
     slotHolds: '{slot}: {item}',
     filter: {
+      ore: 'Malm',
       all: 'Alla',
       weapons: 'Vapen',
       armor: 'Rustning',
@@ -2095,6 +2272,9 @@ export default {
       }
     },
     hero: {
+      forge: 'Jag skulle vilja använda din smedja.',
+      learnSmith: 'Kan du lära mig att smida?',
+      ore: 'Jag har lite malm att sälja.',
       bye: 'Jag låter dig hålla på.',
       trade: 'Får jag se vad du har?',
       train: 'Kan du lära mig?',
@@ -2107,6 +2287,19 @@ export default {
       play: 'Jag är med.'
     },
     sunfordSmith: {
+      forge: {
+        '1': 'Ässjan är het. Akta fingrarna.'
+      },
+      learnSmith: {
+        '2': 'Slå när metallen glöder som starkast. Missar du blir det skrot. Kör.',
+        '1': 'Smide? Hm. Håll hammaren så här, inte som en klubba.'
+      },
+      ore: {
+        '1': 'Malm, va? Jag tar alltihop. Ärlig vikt, ärligt mynt.'
+      },
+      forgeBack: {
+        '1': 'Inte dåligt. Inte bra heller. Fortsätt.'
+      },
       hello: {
         '1': 'Har inte sett dig förut. Är du den som röjde vägen?',
         '2': 'Bram. Jag sköter smedjan. Behöver du ett blad, kom till mig.'
@@ -2516,6 +2709,19 @@ export default {
       }
     },
     oakArmorer: {
+      forge: {
+        '1': 'Städet är ditt. Gör något som håller.'
+      },
+      learnSmith: {
+        '2': 'Håll ögonen på glöden. Slå i dess hjärta, tre gånger, så minns metallen.',
+        '1': 'Vill du lära dig yrket? Bra. Oakhaven behöver varenda hammare.'
+      },
+      ore: {
+        '1': 'Rå malm! Rustkammaren har aldrig nog. Här är din betalning.'
+      },
+      forgeBack: {
+        '1': 'Bra stål. Murarna tackar dig.'
+      },
       hello: {
         '1': 'Är du ute efter en hjälm, så beklagar jag. De är alla uppe på muren.',
         '2': 'Odo. Jag gör rustningar. Har inte sovit mycket på sistone.'
@@ -2546,6 +2752,19 @@ export default {
       }
     },
     oakMasterArmorer: {
+      forge: {
+        '1': 'Elden är täckt och väntar. Sätt igång.'
+      },
+      learnSmith: {
+        '2': 'Tre slag, vart och ett i glödens hjärta. Det är hela hemligheten.',
+        '1': 'Sedan belägringen lär jag alla som frågar. Kom, ställ dig här.'
+      },
+      ore: {
+        '1': 'Mer malm till murarna? Välsigne dig. Här, ta det här.'
+      },
+      forgeBack: {
+        '1': 'Varje slag gör dig bättre. Kom tillbaka när du vill.'
+      },
       hello: {
         '1': 'Där är du ju! Kom in. Bakrummet är öppet, och det är öppet för dig.',
         '2': 'Mäster Odo kallar de mig nu. Underligt vad lite fred gör för affärerna.'
@@ -2931,6 +3150,19 @@ export default {
       }
     },
     ironWeapons: {
+      forge: {
+        '1': 'Akta gnistorna, och rör inte min fina hammare.'
+      },
+      learnSmith: {
+        '2': 'Glöden säger när. Armen säger hur hårt. Tre slag.',
+        '1': 'En ytbo vid städet? Nåväl, alla börjar någonstans.'
+      },
+      ore: {
+        '1': 'Hah, ärlig malm. Ironhold betalar alltid för sådan.'
+      },
+      forgeBack: {
+        '1': 'Hm. En dvärg hade gjort det bättre. Men inte mycket.'
+      },
       hello: {
         '1': 'Försiktigt med utställningen. De är vassa på båda eggarna.',
         '2': 'Hilda Hammarhand. Varje bit här är smidd av dvärghänder.'
@@ -2990,6 +3222,19 @@ export default {
       }
     },
     ironArmor: {
+      forge: {
+        '1': 'Ässjan är redo när du är det.'
+      },
+      learnSmith: {
+        '2': 'Värm, slå, vänd. Tre slag, mitt i glöden. Låt den sedan svalna.',
+        '1': 'Plåt är tålamodsarbete. Jag visar dig grunderna.'
+      },
+      ore: {
+        '1': 'Låt mig väga den. Bra. Mynten är dina.'
+      },
+      forgeBack: {
+        '1': 'Låt den svalna innan du tar på dig den.'
+      },
       hello: {
         '1': 'Garrun. Rustningar på ställen, ringar i brickan.'
       },
@@ -3019,6 +3264,19 @@ export default {
       }
     },
     ironOrderArmor: {
+      forge: {
+        '1': 'Använd Ordens ässja med heder.'
+      },
+      learnSmith: {
+        '2': 'Disciplin vid städet, som på fältet. Tre slag, trogna glöden.',
+        '1': 'Orden beväpnar sina vänner. Jag ska lära dig.'
+      },
+      ore: {
+        '1': 'Orden köper all malm till kriget. Din betalning.'
+      },
+      forgeBack: {
+        '1': 'Väl smitt. Tjäna väl i den.'
+      },
       hello: {
         '1': 'Du är den som förstörde kärnan. Orden minns det.',
         '2': 'Jag är Ordens kvartermästare här. Våra rustkammare står öppna för dig.'
@@ -3535,6 +3793,19 @@ export default {
       }
     },
     sbArmorer: {
+      forge: {
+        '1': 'Smedjan är din. Ropa om något fattar eld.'
+      },
+      learnSmith: {
+        '2': 'Slå när glöden är som hetast. Tre bra slag ger ett bra föremål.',
+        '1': 'Vill du prova hammaren själv? Jag delar gärna smedjan.'
+      },
+      ore: {
+        '1': 'Härlig malm. Silverbridge betalar alltid ett schysst pris.'
+      },
+      forgeBack: {
+        '1': 'Titta där! Du är en naturbegåvning.'
+      },
       hello: {
         '1': 'Ha! Titta på den bucklan. Jag hoppas du fick pengarna tillbaka för den rustningen.',
         '2': 'Greta Järnåder. Jag gör rustningar som kommer hem med sin ägare. Varje gång, hittills.'

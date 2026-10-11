@@ -1,5 +1,34 @@
 // Croatian (hr) bundle — mirrors en.ts.
 export default {
+  smith: {
+    why: {
+      max: 'Imaš oba, poboljšana do vrha.',
+      gold: 'Nema dovoljno zlata.',
+      ore: 'Nema dovoljno rude.',
+      metal: 'Najprije iskopaj ovu rudu.',
+      learn: 'Najprije te mora podučiti kovač.'
+    },
+    stamp: 'Iskovano',
+    take: 'Uzmi',
+    worked: '{item}: poboljšano na +{n}',
+    made: '{item} +{n}',
+    grade: {
+      perfect: 'Savršeno!',
+      great: 'Izvrsna izrada!',
+      good: 'Dobra izrada',
+      poor: 'Gruba izrada'
+    },
+    hint: 'Dodirni „Udari” ili pritisni razmaknicu dok je sjaj na vrućoj točki.',
+    strikes: 'Udarac {n} od {max}',
+    strike: 'Udari!',
+    forge: 'Kuj',
+    gold: '{n} zlata',
+    nuggets: '{ore}: {have} od {n}',
+    master: 'Izvrstan udarac i nastaje: {item}.',
+    locked: 'Najprije iskopaj: {ore}. Tada ćeš upoznati njezine predmete.',
+    lead: 'Svaki iskopani metal otkriva svoje predmete. Udari u sjaj ondje gdje je najvreliji: tri udarca odlučuju o predmetu.',
+    talk: 'Vruće željezo nikoga ne čeka.'
+  },
   gameName: 'Battlecross',
   cancel: 'Odustani',
   close: 'Zatvori',
@@ -1275,6 +1304,7 @@ export default {
     magic: 'Magija · atribut: {attr}'
   },
   source: {
+    smith: 'Iskovano u kovačnici.',
     mob: 'Ispada iz čudovišta u zoni: {zone}.',
     chest: 'Nalazi se u škrinjama u zoni: {zone}.',
     boss: 'Ispada iz bossa zone: {zone}.',
@@ -1342,6 +1372,150 @@ export default {
     overheatCrit: '+{n}% kritične štete tijekom pregrijanosti'
   },
   item: {
+    smithMasterMithrilGreaves: {
+      name: 'Majstorske mitrilne potkoljenice'
+    },
+    smithMithrilGreaves: {
+      name: 'Mitrilne potkoljenice'
+    },
+    smithMasterMithrilPlate: {
+      name: 'Majstorski mitrilni oklop'
+    },
+    smithMithrilPlate: {
+      name: 'Mitrilni oklop'
+    },
+    smithMasterMithrilHelm: {
+      name: 'Majstorska mitrilna kaciga'
+    },
+    smithMithrilHelm: {
+      name: 'Mitrilna kaciga'
+    },
+    smithMasterMithrilShield: {
+      name: 'Majstorski mitrilni štit'
+    },
+    smithMithrilShield: {
+      name: 'Mitrilni štit'
+    },
+    smithMasterMithrilHammer: {
+      name: 'Majstorski mitrilni čekić'
+    },
+    smithMithrilHammer: {
+      name: 'Mitrilni čekić'
+    },
+    smithMasterMithrilSword: {
+      name: 'Majstorski mitrilni mač'
+    },
+    smithMithrilSword: {
+      name: 'Mitrilni mač'
+    },
+    smithMasterGoldGreaves: {
+      name: 'Majstorske zlatne potkoljenice'
+    },
+    smithGoldGreaves: {
+      name: 'Zlatne potkoljenice'
+    },
+    smithMasterGoldPlate: {
+      name: 'Majstorski zlatni oklop'
+    },
+    smithGoldPlate: {
+      name: 'Zlatni oklop'
+    },
+    smithMasterGoldHelm: {
+      name: 'Majstorska zlatna kaciga'
+    },
+    smithGoldHelm: {
+      name: 'Zlatna kaciga'
+    },
+    smithMasterGoldShield: {
+      name: 'Majstorski zlatni štit'
+    },
+    smithGoldShield: {
+      name: 'Zlatni štit'
+    },
+    smithMasterGoldHammer: {
+      name: 'Majstorski zlatni čekić'
+    },
+    smithGoldHammer: {
+      name: 'Zlatni čekić'
+    },
+    smithMasterGoldSword: {
+      name: 'Majstorski zlatni mač'
+    },
+    smithGoldSword: {
+      name: 'Zlatni mač'
+    },
+    smithMasterSilverGreaves: {
+      name: 'Majstorske srebrne potkoljenice'
+    },
+    smithSilverGreaves: {
+      name: 'Srebrne potkoljenice'
+    },
+    smithMasterSilverPlate: {
+      name: 'Majstorski srebrni oklop'
+    },
+    smithSilverPlate: {
+      name: 'Srebrni oklop'
+    },
+    smithMasterSilverHelm: {
+      name: 'Majstorska srebrna kaciga'
+    },
+    smithSilverHelm: {
+      name: 'Srebrna kaciga'
+    },
+    smithMasterSilverShield: {
+      name: 'Majstorski srebrni štit'
+    },
+    smithSilverShield: {
+      name: 'Srebrni štit'
+    },
+    smithMasterSilverHammer: {
+      name: 'Majstorski srebrni čekić'
+    },
+    smithSilverHammer: {
+      name: 'Srebrni čekić'
+    },
+    smithMasterSilverSword: {
+      name: 'Majstorski srebrni mač'
+    },
+    smithSilverSword: {
+      name: 'Srebrni mač'
+    },
+    smithMasterIronGreaves: {
+      name: 'Majstorske željezne potkoljenice'
+    },
+    smithIronGreaves: {
+      name: 'Željezne potkoljenice'
+    },
+    smithMasterIronPlate: {
+      name: 'Majstorski željezni oklop'
+    },
+    smithIronPlate: {
+      name: 'Željezni oklop'
+    },
+    smithMasterIronHelm: {
+      name: 'Majstorska željezna kaciga'
+    },
+    smithIronHelm: {
+      name: 'Željezna kaciga'
+    },
+    smithMasterIronShield: {
+      name: 'Majstorski željezni štit'
+    },
+    smithIronShield: {
+      name: 'Željezni štit'
+    },
+    smithMasterIronHammer: {
+      name: 'Majstorski željezni čekić'
+    },
+    smithIronHammer: {
+      name: 'Željezni čekić'
+    },
+    smithMasterIronSword: {
+      name: 'Majstorski željezni mač'
+    },
+    smithIronSword: {
+      name: 'Željezni mač'
+    },
     rustedShortsword: {
       name: 'Zahrđali kratki mač'
     },
@@ -1530,6 +1704,8 @@ export default {
     }
   },
   bag: {
+    oreCount: '{ore}: {n}',
+    noOre: 'Još nemaš rude. Kopaj je iz izdanaka uz stijene u divljini.',
     equip: 'Opremi',
     unequip: 'Skini',
     worn: 'Nosiš ovo. Skini da bi prodao.',
@@ -1540,6 +1716,7 @@ export default {
     slotEmpty: '{slot}: prazno',
     slotHolds: '{slot}: {item}',
     filter: {
+      ore: 'Ruda',
       all: 'Sve',
       weapons: 'Oružje',
       armor: 'Oklop',
@@ -2100,6 +2277,9 @@ export default {
       }
     },
     hero: {
+      forge: 'Mogu li koristiti tvoju kovačnicu?',
+      learnSmith: 'Možeš li me naučiti kovati?',
+      ore: 'Imam nešto rude za prodaju.',
       bye: 'Neću te zadržavati.',
       trade: 'Mogu li vidjeti što imaš?',
       train: 'Hoćeš li me naučiti?',
@@ -2113,6 +2293,19 @@ export default {
       play: 'Dijeli i meni.'
     },
     sunfordSmith: {
+      forge: {
+        '1': 'Kovačnica je užarena. Pazi na prste.'
+      },
+      learnSmith: {
+        '2': 'Udari kad metal najjače sja. Promašiš li, staro je željezo. Hajde.',
+        '1': 'Kovanje? Hm. Drži čekić ovako, ne kao toljagu.'
+      },
+      ore: {
+        '1': 'Ruda, ha? Uzimam sve. Pošteno mjerilo, pošten novac.'
+      },
+      forgeBack: {
+        '1': 'Nije loše. Ali ni dobro. Samo nastavi.'
+      },
       hello: {
         '1': 'Nisam te prije vidio. Jesi li ti očistio cestu?',
         '1__f': 'Nisam te prije vidio. Jesi li ti očistila cestu?',
@@ -2549,6 +2742,19 @@ export default {
       }
     },
     oakArmorer: {
+      forge: {
+        '1': 'Nakovanj je tvoj. Napravi nešto što drži.'
+      },
+      learnSmith: {
+        '2': 'Prati sjaj. Udari u njegovo srce, tri puta, i metal će zapamtiti.',
+        '1': 'Želiš izučiti zanat? Dobro. Oakhavenu treba svaki čekić.'
+      },
+      ore: {
+        '1': 'Sirova ruda! Oružarnici je nikad dosta. Evo tvoje plaće.'
+      },
+      forgeBack: {
+        '1': 'Dobar čelik. Zidine ti zahvaljuju.'
+      },
       hello: {
         '1': 'Ako tražiš kacigu, žao mi je. Sve su na zidu.',
         '2': 'Odo. Radim oklope. U zadnje vrijeme malo spavam.'
@@ -2580,6 +2786,19 @@ export default {
       }
     },
     oakMasterArmorer: {
+      forge: {
+        '1': 'Vatra je zagrnuta i čeka. Samo naprijed.'
+      },
+      learnSmith: {
+        '2': 'Tri udarca, svaki u srce sjaja. To je sva tajna.',
+        '1': 'Od opsade podučavam svakoga tko zamoli. Dođi, stani ovdje.'
+      },
+      ore: {
+        '1': 'Još rude za zidine? Neka te nebo blagoslovi. Evo, uzmi ovo.'
+      },
+      forgeBack: {
+        '1': 'Sa svakim udarcem ide ti bolje. Dođi kad god želiš.'
+      },
       hello: {
         '1': 'Evo te! Uđi. Stražnja soba je otvorena, i otvorena za tebe.',
         '2': 'Sada me zovu majstor Odo. Smiješno što malo mira učini za posao.'
@@ -2994,6 +3213,20 @@ export default {
       }
     },
     ironWeapons: {
+      forge: {
+        '1': 'Pazi na iskre i ne diraj moj dobar čekić.'
+      },
+      learnSmith: {
+        '2': 'Sjaj ti kaže kada. Ruka ti kaže koliko snažno. Tri udarca.',
+        '1__f': 'Stanovnica površine za nakovnjem? Pa, svatko negdje počinje.',
+        '1': 'Stanovnik površine za nakovnjem? Pa, svatko negdje počinje.'
+      },
+      ore: {
+        '1': 'Ha, poštena ruda. Ironhold za takvu uvijek plaća.'
+      },
+      forgeBack: {
+        '1': 'Hm. Patuljak bi to bolje napravio. Ali ne puno.'
+      },
       hello: {
         '1': 'Oprezno s vitrinom. Oštre su s obje strane.',
         '2': 'Hilda Čekićoruka. Svaki komad ovdje iskovan je patuljačkim rukama.'
@@ -3056,6 +3289,19 @@ export default {
       }
     },
     ironArmor: {
+      forge: {
+        '1': 'Kovačnica je spremna. Počni kad želiš.'
+      },
+      learnSmith: {
+        '2': 'Zagrij, udari, okreni. Tri udarca, točno u sjaj. Onda pusti da se ohladi.',
+        '1': 'Pločasti oklop je strpljiv posao. Pokazat ću ti osnove.'
+      },
+      ore: {
+        '1': 'Daj da izvažem. Dobro. Novac je tvoj.'
+      },
+      forgeBack: {
+        '1': 'Pusti da se ohladi prije nego što ga obučeš.'
+      },
       hello: {
         '1': 'Garrun. Oklopi na stalcima, prstenje na tacni.'
       },
@@ -3086,6 +3332,19 @@ export default {
       }
     },
     ironOrderArmor: {
+      forge: {
+        '1': 'Koristi kovačnicu Reda časno.'
+      },
+      learnSmith: {
+        '2': 'Disciplina za nakovnjem, kao i na bojnom polju. Tri udarca, vjerna sjaju.',
+        '1': 'Red naoružava svoje prijatelje. Podučit ću te.'
+      },
+      ore: {
+        '1': 'Red otkupljuje svu rudu za rat. Tvoja plaća.'
+      },
+      forgeBack: {
+        '1': 'Dobro iskovano. Nosi to časno.'
+      },
       hello: {
         '1': 'Ti si taj koji je uništio jezgru. Red to pamti.',
         '1__f': 'Ti si ta koja je uništila jezgru. Red to pamti.',
@@ -3626,6 +3885,20 @@ export default {
       }
     },
     sbArmorer: {
+      forge: {
+        '1': 'Kovačnica je tvoja. Viči ako se nešto zapali.'
+      },
+      learnSmith: {
+        '2': 'Udari kad sjaj najjače gori. Tri dobra udarca daju dobar predmet.',
+        '1': 'Želiš li probati čekić? Rado ću podijeliti kovačnicu.'
+      },
+      ore: {
+        '1': 'Divna ruda. Silverbridge uvijek plaća poštenu cijenu.'
+      },
+      forgeBack: {
+        '1__f': 'Gle ti to! Rođena si za ovo.',
+        '1': 'Gle ti to! Rođen si za ovo.'
+      },
       hello: {
         '1': 'Ha! Vidi to udubljenje. Nadam se da su ti vratili novac za taj oklop.',
         '2': 'Greta Željeznožila. Radim oklope koji se vraćaju kući zajedno s vlasnikom. Zasad uvijek.'

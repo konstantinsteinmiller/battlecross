@@ -15,6 +15,8 @@ export const SCREEN_CHUNKS = {
   teach: () => import('./trade/TeachScreen.vue'),
   healer: () => import('./trade/HealerScreen.vue'),
   alchemy: () => import('./trade/AlchemyScreen.vue'),
+  // The forge (#99).
+  smithing: () => import('./trade/SmithScreen.vue'),
   // The gamblers' tables (#91, #92).
   memory: () => import('../modals/MemoryGame.vue'),
   itemBattle: () => import('../modals/ItemBattle.vue'),

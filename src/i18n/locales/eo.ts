@@ -1,5 +1,34 @@
 // Esperanto (eo) bundle — mirrors en.ts.
 export default {
+  smith: {
+    why: {
+      max: 'Vi havas ambaŭ, plibonigitajn ĝis la pinto.',
+      gold: 'Ne sufiĉe da oro.',
+      ore: 'Ne sufiĉe da erco.',
+      metal: 'Unue minu ĉi tiun ercon.',
+      learn: 'Unue forĝisto devas instrui vin.'
+    },
+    stamp: 'Forĝita',
+    take: 'Preni',
+    worked: '{item} plibonigita ĝis +{n}',
+    made: '{item} +{n}',
+    grade: {
+      perfect: 'Perfekte!',
+      great: 'Bonega laboro!',
+      good: 'Bona laboro',
+      poor: 'Kruda laboro'
+    },
+    hint: 'Tuŝu „Frapu“ aŭ premu Spacon, dum la ardo estas en la varma zono.',
+    strikes: 'Frapo {n} el {max}',
+    strike: 'Frapu!',
+    forge: 'Forĝi',
+    gold: '{n} oro',
+    nuggets: '{ore}: {have} el {n}',
+    master: 'Bonega frapo faras el ĝi: {item}.',
+    locked: 'Unue minu: {ore}, por lerni ĝiajn pecojn.',
+    lead: 'Ĉiu metalo, kiun vi minas, konigas siajn pecojn. Frapu la ardon, kie ĝi estas plej varma: tri frapoj decidas la pecon.',
+    talk: 'Varma fero atendas neniun.'
+  },
   gameName: 'Battlecross',
   cancel: 'Nuligi',
   close: 'Fermi',
@@ -1272,6 +1301,7 @@ export default {
     magic: 'Magio · kreskas kun {attr}'
   },
   source: {
+    smith: 'Forĝita en forĝejo.',
     mob: 'Faligata de la monstroj. Zono: {zone}.',
     chest: 'Trovebla en la kestoj. Zono: {zone}.',
     boss: 'Faligata de la ĉefmalamiko. Zono: {zone}.',
@@ -1339,6 +1369,150 @@ export default {
     overheatCrit: '+{n}% da Kritika Damaĝo dum trovarmiĝo'
   },
   item: {
+    smithMasterMithrilGreaves: {
+      name: 'Majstraj Mitrilaj Tibiŝirmiloj'
+    },
+    smithMithrilGreaves: {
+      name: 'Mitrilaj Tibiŝirmiloj'
+    },
+    smithMasterMithrilPlate: {
+      name: 'Majstra Mitrila Kiraso'
+    },
+    smithMithrilPlate: {
+      name: 'Mitrila Kiraso'
+    },
+    smithMasterMithrilHelm: {
+      name: 'Majstra Mitrila Kasko'
+    },
+    smithMithrilHelm: {
+      name: 'Mitrila Kasko'
+    },
+    smithMasterMithrilShield: {
+      name: 'Majstra Mitrila Ŝildo'
+    },
+    smithMithrilShield: {
+      name: 'Mitrila Ŝildo'
+    },
+    smithMasterMithrilHammer: {
+      name: 'Majstra Mitrila Martelo'
+    },
+    smithMithrilHammer: {
+      name: 'Mitrila Martelo'
+    },
+    smithMasterMithrilSword: {
+      name: 'Majstra Mitrila Glavo'
+    },
+    smithMithrilSword: {
+      name: 'Mitrila Glavo'
+    },
+    smithMasterGoldGreaves: {
+      name: 'Majstraj Oraj Tibiŝirmiloj'
+    },
+    smithGoldGreaves: {
+      name: 'Oraj Tibiŝirmiloj'
+    },
+    smithMasterGoldPlate: {
+      name: 'Majstra Ora Kiraso'
+    },
+    smithGoldPlate: {
+      name: 'Ora Kiraso'
+    },
+    smithMasterGoldHelm: {
+      name: 'Majstra Ora Kasko'
+    },
+    smithGoldHelm: {
+      name: 'Ora Kasko'
+    },
+    smithMasterGoldShield: {
+      name: 'Majstra Ora Ŝildo'
+    },
+    smithGoldShield: {
+      name: 'Ora Ŝildo'
+    },
+    smithMasterGoldHammer: {
+      name: 'Majstra Ora Martelo'
+    },
+    smithGoldHammer: {
+      name: 'Ora Martelo'
+    },
+    smithMasterGoldSword: {
+      name: 'Majstra Ora Glavo'
+    },
+    smithGoldSword: {
+      name: 'Ora Glavo'
+    },
+    smithMasterSilverGreaves: {
+      name: 'Majstraj Arĝentaj Tibiŝirmiloj'
+    },
+    smithSilverGreaves: {
+      name: 'Arĝentaj Tibiŝirmiloj'
+    },
+    smithMasterSilverPlate: {
+      name: 'Majstra Arĝenta Kiraso'
+    },
+    smithSilverPlate: {
+      name: 'Arĝenta Kiraso'
+    },
+    smithMasterSilverHelm: {
+      name: 'Majstra Arĝenta Kasko'
+    },
+    smithSilverHelm: {
+      name: 'Arĝenta Kasko'
+    },
+    smithMasterSilverShield: {
+      name: 'Majstra Arĝenta Ŝildo'
+    },
+    smithSilverShield: {
+      name: 'Arĝenta Ŝildo'
+    },
+    smithMasterSilverHammer: {
+      name: 'Majstra Arĝenta Martelo'
+    },
+    smithSilverHammer: {
+      name: 'Arĝenta Martelo'
+    },
+    smithMasterSilverSword: {
+      name: 'Majstra Arĝenta Glavo'
+    },
+    smithSilverSword: {
+      name: 'Arĝenta Glavo'
+    },
+    smithMasterIronGreaves: {
+      name: 'Majstraj Feraj Tibiŝirmiloj'
+    },
+    smithIronGreaves: {
+      name: 'Feraj Tibiŝirmiloj'
+    },
+    smithMasterIronPlate: {
+      name: 'Majstra Fera Kiraso'
+    },
+    smithIronPlate: {
+      name: 'Fera Kiraso'
+    },
+    smithMasterIronHelm: {
+      name: 'Majstra Fera Kasko'
+    },
+    smithIronHelm: {
+      name: 'Fera Kasko'
+    },
+    smithMasterIronShield: {
+      name: 'Majstra Fera Ŝildo'
+    },
+    smithIronShield: {
+      name: 'Fera Ŝildo'
+    },
+    smithMasterIronHammer: {
+      name: 'Majstra Fera Martelo'
+    },
+    smithIronHammer: {
+      name: 'Fera Martelo'
+    },
+    smithMasterIronSword: {
+      name: 'Majstra Fera Glavo'
+    },
+    smithIronSword: {
+      name: 'Fera Glavo'
+    },
     rustedShortsword: {
       name: 'Rusta Mallonga Glavo'
     },
@@ -1527,6 +1701,8 @@ export default {
     }
   },
   bag: {
+    oreCount: '{ore}: {n}',
+    noOre: 'Ankoraŭ neniu erco. Minu la vejnojn ĉe la roko, ekstere en la sovaĝejo.',
     equip: 'Surmeti',
     unequip: 'Demeti',
     worn: 'Vi portas ĉi tion. Demetu ĝin por vendi ĝin.',
@@ -1536,6 +1712,7 @@ export default {
     slotEmpty: '{slot}: malplena',
     slotHolds: '{slot}: {item}',
     filter: {
+      ore: 'Erco',
       all: 'Ĉio',
       weapons: 'Armiloj',
       armor: 'Kirasoj',
@@ -2095,6 +2272,9 @@ export default {
       }
     },
     hero: {
+      forge: 'Mi ŝatus uzi vian forĝejon.',
+      learnSmith: 'Ĉu vi povus instrui al mi forĝi?',
+      ore: 'Mi havas iom da erco por vendi.',
       bye: 'Mi lasos vin labori.',
       trade: 'Ĉu mi povas vidi, kion vi havas?',
       train: 'Ĉu vi instruos min?',
@@ -2107,6 +2287,19 @@ export default {
       play: 'Mi partoprenas.'
     },
     sunfordSmith: {
+      forge: {
+        '1': 'La forĝejo estas varma. Atentu viajn fingrojn.'
+      },
+      learnSmith: {
+        '2': 'Frapu, kiam la metalo ardas plej hele. Maltrafu, kaj ĝi estas rubaĵo. Ek.',
+        '1': 'Forĝado? Hm. Tenu la martelon tiel, ne kiel klabon.'
+      },
+      ore: {
+        '1': 'Erco, ĉu? Mi prenos ĉion. Justa pezo, justa monero.'
+      },
+      forgeBack: {
+        '1': 'Ne malbone. Ankaŭ ne bone. Daŭrigu.'
+      },
       hello: {
         '1': 'Mi ne vidis vin antaŭe. Ĉu vi estas tiu, kiu purigis la vojon?',
         '2': 'Bram. Mi prizorgas la forĝejon. Se vi bezonas klingon, venu al mi.'
@@ -2516,6 +2709,19 @@ export default {
       }
     },
     oakArmorer: {
+      forge: {
+        '1': 'La amboso estas via. Faru ion, kio tenas.'
+      },
+      learnSmith: {
+        '2': 'Rigardu la ardon. Frapu ĝian koron, trifoje, kaj la metalo memoras.',
+        '1': 'Ĉu vi volas lerni la metion? Bone. Oakhaven bezonas ĉiun martelon.'
+      },
+      ore: {
+        '1': 'Kruda erco! La armilejo neniam havas sufiĉe. Jen via pago.'
+      },
+      forgeBack: {
+        '1': 'Bona ŝtalo. La muroj dankas vin.'
+      },
       hello: {
         '1': 'Se vi serĉas kaskon, mi bedaŭras. Ili ĉiuj estas sur la muro.',
         '2': 'Odo. Mi faras kirasojn. Mi ne multe dormis lastatempe.'
@@ -2546,6 +2752,19 @@ export default {
       }
     },
     oakMasterArmorer: {
+      forge: {
+        '1': 'La fajro estas kovrita kaj atendas. Antaŭen.'
+      },
+      learnSmith: {
+        '2': 'Tri frapoj, ĉiu en la koro de la ardo. Tio estas la tuta sekreto.',
+        '1': 'Ekde la sieĝo mi instruas ĉiun, kiu petas. Venu, staru ĉi tie.'
+      },
+      ore: {
+        '1': 'Pli da erco por la muroj? Benon al vi. Jen, prenu ĉi tion.'
+      },
+      forgeBack: {
+        '1': 'Ĉiu frapo plibonigas vin. Revenu iam ajn.'
+      },
       hello: {
         '1': 'Jen vi! Envenu. La malantaŭa ĉambro estas malferma, kaj malferma por vi.',
         '2': 'Majstro Odo, oni nomas min nun. Mirinde, kion iom da paco faras por la komerco.'
@@ -2931,6 +3150,19 @@ export default {
       }
     },
     ironWeapons: {
+      forge: {
+        '1': 'Atentu la fajrerojn, kaj ne tuŝu mian bonan martelon.'
+      },
+      learnSmith: {
+        '2': 'La ardo diras al vi kiam. Via brako diras kiom forte. Tri frapoj.',
+        '1': 'Surfaculo ĉe la amboso? Nu, ĉiu komencas ie.'
+      },
+      ore: {
+        '1': 'Ha, honesta erco. Ironhold ĉiam pagas por tio.'
+      },
+      forgeBack: {
+        '1': 'Hm. Nano farus pli bone. Sed ne multe.'
+      },
       hello: {
         '1': 'Atentu la ekspoziciaĵon. Tiuj estas akraj ambaŭflanke.',
         '2': 'Hilda Martelmano. Ĉiu peco ĉi tie estis forĝita de nanaj manoj.'
@@ -2990,6 +3222,19 @@ export default {
       }
     },
     ironArmor: {
+      forge: {
+        '1': 'La forĝejo pretas, kiam vi pretas.'
+      },
+      learnSmith: {
+        '2': 'Varmigi, frapi, turni. Tri frapoj, ĝuste en la ardo. Poste lasi malvarmiĝi.',
+        '1': 'Kiraso estas pacienca laboro. Mi montros al vi la bazojn.'
+      },
+      ore: {
+        '1': 'Lasu min pesi ĝin. Bone. La moneroj estas viaj.'
+      },
+      forgeBack: {
+        '1': 'Lasu ĝin malvarmiĝi, antaŭ ol vi surmetos ĝin.'
+      },
       hello: {
         '1': 'Garrun. Kirasoj sur la bretoj, ringoj en la pleto.'
       },
@@ -3019,6 +3264,19 @@ export default {
       }
     },
     ironOrderArmor: {
+      forge: {
+        '1': 'Uzu la forĝejon de la Ordeno honore.'
+      },
+      learnSmith: {
+        '2': 'Disciplino ĉe la amboso, kiel sur la batalkampo. Tri frapoj, fidelaj al la ardo.',
+        '1': 'La Ordeno armas siajn amikojn. Mi instruos vin.'
+      },
+      ore: {
+        '1': 'La Ordeno aĉetas ĉiun ercon por la milito. Via pago.'
+      },
+      forgeBack: {
+        '1': 'Bone forĝita. Servu bone en ĝi.'
+      },
       hello: {
         '1': 'Vi estas tiu, kiu detruis la kernon. La Ordeno memoras tion.',
         '2': 'Mi estas la provizestro de la Ordeno ĉi tie. Niaj armilejoj estas malfermaj al vi.'
@@ -3535,6 +3793,19 @@ export default {
       }
     },
     sbArmorer: {
+      forge: {
+        '1': 'Uzu la forĝejon laŭplaĉe. Kriu, se io ekbrulas.'
+      },
+      learnSmith: {
+        '2': 'Frapu, kiam ĝi ardas plej varme. Tri bonaj frapoj faras bonan pecon.',
+        '1': 'Ĉu vi volas mem provi la martelon? Mi volonte dividas la forĝejon.'
+      },
+      ore: {
+        '1': 'Bela erco. Silverbridge ĉiam pagas justan prezon.'
+      },
+      forgeBack: {
+        '1': 'Rigardu tion! Vi estas naskita talento.'
+      },
       hello: {
         '1': 'Ha! Rigardu tiun kavaĵon. Mi esperas, ke vi rericevis vian monon por tiu kiraso.',
         '2': 'Greta Ferovejno. Mi faras kirasojn, kiuj revenas hejmen kun sia posedanto. Ĉiufoje, ĝis nun.'

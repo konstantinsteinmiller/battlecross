@@ -1,5 +1,34 @@
 // Polish (pl) bundle — mirrors en.ts.
 export default {
+  smith: {
+    why: {
+      max: 'Masz oba, ulepszone do maksimum.',
+      gold: 'Za mało złota.',
+      ore: 'Za mało rudy.',
+      metal: 'Najpierw wydobądź tę rudę.',
+      learn: 'Najpierw musi cię nauczyć kowal.'
+    },
+    stamp: 'Wykute',
+    take: 'Weź',
+    worked: '{item}: ulepszono do +{n}',
+    made: '{item} +{n}',
+    grade: {
+      perfect: 'Perfekcyjnie!',
+      great: 'Świetna robota!',
+      good: 'Dobra robota',
+      poor: 'Toporna robota'
+    },
+    hint: 'Stuknij „Uderz” lub naciśnij Spację, gdy blask jest w gorącym punkcie.',
+    strikes: 'Uderzenie {n} z {max}',
+    strike: 'Uderz!',
+    forge: 'Wykuj',
+    gold: '{n} złota',
+    nuggets: '{ore}: {have} z {n}',
+    master: 'Świetne uderzenie i powstanie: {item}.',
+    locked: 'Najpierw wydobądź: {ore}. Wtedy poznasz jej wyroby.',
+    lead: 'Każdy wydobyty metal odsłania swoje wyroby. Uderzaj w blask tam, gdzie jest najgorętszy: trzy uderzenia decydują o wyrobie.',
+    talk: 'Gorące żelazo na nikogo nie czeka.'
+  },
   gameName: 'Battlecross',
   cancel: 'Anuluj',
   close: 'Zamknij',
@@ -1273,6 +1302,7 @@ export default {
     magic: 'Magia · atrybut: {attr}'
   },
   source: {
+    smith: 'Wykute w kuźni.',
     mob: 'Wypada z potworów w strefie: {zone}.',
     chest: 'Do znalezienia w skrzyniach w strefie: {zone}.',
     boss: 'Wypada z bossa strefy: {zone}.',
@@ -1340,6 +1370,150 @@ export default {
     overheatCrit: '+{n}% obrażeń krytycznych w stanie przegrzania'
   },
   item: {
+    smithMasterMithrilGreaves: {
+      name: 'Mistrzowskie mithrilowe nagolenniki'
+    },
+    smithMithrilGreaves: {
+      name: 'Mithrilowe nagolenniki'
+    },
+    smithMasterMithrilPlate: {
+      name: 'Mistrzowska mithrilowa zbroja płytowa'
+    },
+    smithMithrilPlate: {
+      name: 'Mithrilowa zbroja płytowa'
+    },
+    smithMasterMithrilHelm: {
+      name: 'Mistrzowski mithrilowy hełm'
+    },
+    smithMithrilHelm: {
+      name: 'Mithrilowy hełm'
+    },
+    smithMasterMithrilShield: {
+      name: 'Mistrzowska mithrilowa tarcza'
+    },
+    smithMithrilShield: {
+      name: 'Mithrilowa tarcza'
+    },
+    smithMasterMithrilHammer: {
+      name: 'Mistrzowski mithrilowy młot'
+    },
+    smithMithrilHammer: {
+      name: 'Mithrilowy młot'
+    },
+    smithMasterMithrilSword: {
+      name: 'Mistrzowski mithrilowy miecz'
+    },
+    smithMithrilSword: {
+      name: 'Mithrilowy miecz'
+    },
+    smithMasterGoldGreaves: {
+      name: 'Mistrzowskie złote nagolenniki'
+    },
+    smithGoldGreaves: {
+      name: 'Złote nagolenniki'
+    },
+    smithMasterGoldPlate: {
+      name: 'Mistrzowska złota zbroja płytowa'
+    },
+    smithGoldPlate: {
+      name: 'Złota zbroja płytowa'
+    },
+    smithMasterGoldHelm: {
+      name: 'Mistrzowski złoty hełm'
+    },
+    smithGoldHelm: {
+      name: 'Złoty hełm'
+    },
+    smithMasterGoldShield: {
+      name: 'Mistrzowska złota tarcza'
+    },
+    smithGoldShield: {
+      name: 'Złota tarcza'
+    },
+    smithMasterGoldHammer: {
+      name: 'Mistrzowski złoty młot'
+    },
+    smithGoldHammer: {
+      name: 'Złoty młot'
+    },
+    smithMasterGoldSword: {
+      name: 'Mistrzowski złoty miecz'
+    },
+    smithGoldSword: {
+      name: 'Złoty miecz'
+    },
+    smithMasterSilverGreaves: {
+      name: 'Mistrzowskie srebrne nagolenniki'
+    },
+    smithSilverGreaves: {
+      name: 'Srebrne nagolenniki'
+    },
+    smithMasterSilverPlate: {
+      name: 'Mistrzowska srebrna zbroja płytowa'
+    },
+    smithSilverPlate: {
+      name: 'Srebrna zbroja płytowa'
+    },
+    smithMasterSilverHelm: {
+      name: 'Mistrzowski srebrny hełm'
+    },
+    smithSilverHelm: {
+      name: 'Srebrny hełm'
+    },
+    smithMasterSilverShield: {
+      name: 'Mistrzowska srebrna tarcza'
+    },
+    smithSilverShield: {
+      name: 'Srebrna tarcza'
+    },
+    smithMasterSilverHammer: {
+      name: 'Mistrzowski srebrny młot'
+    },
+    smithSilverHammer: {
+      name: 'Srebrny młot'
+    },
+    smithMasterSilverSword: {
+      name: 'Mistrzowski srebrny miecz'
+    },
+    smithSilverSword: {
+      name: 'Srebrny miecz'
+    },
+    smithMasterIronGreaves: {
+      name: 'Mistrzowskie żelazne nagolenniki'
+    },
+    smithIronGreaves: {
+      name: 'Żelazne nagolenniki'
+    },
+    smithMasterIronPlate: {
+      name: 'Mistrzowska żelazna zbroja płytowa'
+    },
+    smithIronPlate: {
+      name: 'Żelazna zbroja płytowa'
+    },
+    smithMasterIronHelm: {
+      name: 'Mistrzowski żelazny hełm'
+    },
+    smithIronHelm: {
+      name: 'Żelazny hełm'
+    },
+    smithMasterIronShield: {
+      name: 'Mistrzowska żelazna tarcza'
+    },
+    smithIronShield: {
+      name: 'Żelazna tarcza'
+    },
+    smithMasterIronHammer: {
+      name: 'Mistrzowski żelazny młot'
+    },
+    smithIronHammer: {
+      name: 'Żelazny młot'
+    },
+    smithMasterIronSword: {
+      name: 'Mistrzowski żelazny miecz'
+    },
+    smithIronSword: {
+      name: 'Żelazny miecz'
+    },
     rustedShortsword: {
       name: 'Zardzewiały krótki miecz'
     },
@@ -1528,6 +1702,8 @@ export default {
     }
   },
   bag: {
+    oreCount: '{ore}: {n}',
+    noOre: 'Nie masz jeszcze rudy. Wydobywaj ją z wychodni przy skałach w dziczy.',
     equip: 'Załóż',
     unequip: 'Zdejmij',
     worn: 'Masz to na sobie. Zdejmij, aby sprzedać.',
@@ -1537,6 +1713,7 @@ export default {
     slotEmpty: '{slot}: pusto',
     slotHolds: '{slot}: {item}',
     filter: {
+      ore: 'Ruda',
       all: 'Wszystko',
       weapons: 'Broń',
       armor: 'Zbroja',
@@ -2097,6 +2274,9 @@ export default {
       }
     },
     hero: {
+      forge: 'Mogę skorzystać z twojej kuźni?',
+      learnSmith: 'Nauczysz mnie kowalstwa?',
+      ore: 'Mam trochę rudy na sprzedaż.',
       bye: 'Nie będę cię zatrzymywać.',
       trade: 'Mogę zobaczyć, co masz?',
       train: 'Nauczysz mnie?',
@@ -2110,6 +2290,19 @@ export default {
       play: 'Wchodzę w to.'
     },
     sunfordSmith: {
+      forge: {
+        '1': 'Kuźnia rozgrzana. Uważaj na palce.'
+      },
+      learnSmith: {
+        '2': 'Uderzaj, gdy metal świeci najjaśniej. Chybisz, i będzie złom. Dalej.',
+        '1': 'Kowalstwo? Hm. Trzymaj młot tak, a nie jak pałkę.'
+      },
+      ore: {
+        '1': 'Ruda, co? Biorę wszystko. Uczciwa waga, uczciwa moneta.'
+      },
+      forgeBack: {
+        '1': 'Nieźle. Ale i nie dobrze. Pracuj dalej.'
+      },
       hello: {
         '1': 'Nie widziałem cię wcześniej. To ty oczyściłeś drogę?',
         '1__f': 'Nie widziałem cię wcześniej. To ty oczyściłaś drogę?',
@@ -2544,6 +2737,19 @@ export default {
       }
     },
     oakArmorer: {
+      forge: {
+        '1': 'Kowadło jest twoje. Zrób coś, co wytrzyma.'
+      },
+      learnSmith: {
+        '2': 'Patrz na blask. Uderz w jego serce, trzy razy, a metal zapamięta.',
+        '1': 'Chcesz poznać fach? Dobrze. Oakhaven potrzebuje każdego młota.'
+      },
+      ore: {
+        '1': 'Surowa ruda! Zbrojowni zawsze jej brakuje. Oto twoja zapłata.'
+      },
+      forgeBack: {
+        '1': 'Dobra stal. Mury ci dziękują.'
+      },
       hello: {
         '1': 'Jeśli szukasz hełmu, przykro mi. Wszystkie są na murze.',
         '2': 'Odo. Robię zbroje. Ostatnio mało śpię.'
@@ -2576,6 +2782,19 @@ export default {
       }
     },
     oakMasterArmorer: {
+      forge: {
+        '1': 'Ogień przygaszony i czeka. Śmiało.'
+      },
+      learnSmith: {
+        '2': 'Trzy uderzenia, każde w samo serce blasku. To cały sekret.',
+        '1': 'Od oblężenia uczę każdego, kto poprosi. Chodź, stań tutaj.'
+      },
+      ore: {
+        '1': 'Więcej rudy na mury? Niech cię niebo błogosławi. Proszę, weź to.'
+      },
+      forgeBack: {
+        '1': 'Z każdym uderzeniem idzie ci lepiej. Wracaj, kiedy chcesz.'
+      },
       hello: {
         '1': 'No jesteś! Wejdź. Zaplecze otwarte, i otwarte dla ciebie.',
         '2': 'Teraz mówią na mnie Mistrz Odo. Zabawne, co odrobina pokoju robi z interesem.'
@@ -2989,6 +3208,20 @@ export default {
       }
     },
     ironWeapons: {
+      forge: {
+        '1': 'Uważaj na iskry i nie dotykaj mojego dobrego młota.'
+      },
+      learnSmith: {
+        '2': 'Blask mówi kiedy. Ręka mówi jak mocno. Trzy uderzenia.',
+        '1__f': 'Mieszkanka powierzchni przy kowadle? Cóż, każdy od czegoś zaczyna.',
+        '1': 'Mieszkaniec powierzchni przy kowadle? Cóż, każdy od czegoś zaczyna.'
+      },
+      ore: {
+        '1': 'Ha, uczciwa ruda. Ironhold zawsze za taką płaci.'
+      },
+      forgeBack: {
+        '1': 'Hm. Krasnolud zrobiłby to lepiej. Ale niewiele.'
+      },
       hello: {
         '1': 'Ostrożnie z gablotą. Są ostre z obu stron.',
         '2': 'Hilda Młotoręka. Wszystko tu wykute krasnoludzkimi rękami.'
@@ -3051,6 +3284,19 @@ export default {
       }
     },
     ironArmor: {
+      forge: {
+        '1': 'Kuźnia gotowa. Zaczynaj, kiedy chcesz.'
+      },
+      learnSmith: {
+        '2': 'Rozgrzej, uderz, obróć. Trzy uderzenia, prosto w blask. Potem daj ostygnąć.',
+        '1': 'Zbroja płytowa to cierpliwa robota. Pokażę ci podstawy.'
+      },
+      ore: {
+        '1': 'Pozwól, że zważę. Dobrze. Monety są twoje.'
+      },
+      forgeBack: {
+        '1': 'Daj mu ostygnąć, zanim założysz.'
+      },
       hello: {
         '1': 'Garrun. Zbroje na stojakach, pierścienie na tacy.'
       },
@@ -3081,6 +3327,19 @@ export default {
       }
     },
     ironOrderArmor: {
+      forge: {
+        '1': 'Korzystaj z kuźni Zakonu z honorem.'
+      },
+      learnSmith: {
+        '2': 'Dyscyplina przy kowadle, jak na polu bitwy. Trzy uderzenia, wierne blaskowi.',
+        '1': 'Zakon zbroi swoich przyjaciół. Nauczę cię.'
+      },
+      ore: {
+        '1': 'Zakon skupuje całą rudę na wojnę. Twoja zapłata.'
+      },
+      forgeBack: {
+        '1': 'Dobrze wykute. Noś to z honorem.'
+      },
       hello: {
         '1': 'To ty zniszczyłeś rdzeń. Zakon to pamięta.',
         '1__f': 'To ty zniszczyłaś rdzeń. Zakon to pamięta.',
@@ -3617,6 +3876,20 @@ export default {
       }
     },
     sbArmorer: {
+      forge: {
+        '1': 'Kuźnia do twojej dyspozycji. Krzycz, jeśli coś się zapali.'
+      },
+      learnSmith: {
+        '2': 'Uderzaj, gdy blask jest najgorętszy. Trzy dobre uderzenia to dobry wyrób.',
+        '1': 'Chcesz spróbować młota? Chętnie podzielę się kuźnią.'
+      },
+      ore: {
+        '1': 'Śliczna ruda. Silverbridge zawsze płaci uczciwą cenę.'
+      },
+      forgeBack: {
+        '1__f': 'No proszę! Jesteś do tego stworzona.',
+        '1': 'No proszę! Jesteś do tego stworzony.'
+      },
       hello: {
         '1': 'Ha! Patrz na to wgniecenie. Mam nadzieję, że odzyskałeś pieniądze za tę zbroję.',
         '2': 'Greta Żelaznożyła. Robię zbroje, które wracają do domu z właścicielem. Jak dotąd zawsze.'

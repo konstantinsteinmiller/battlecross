@@ -1,5 +1,34 @@
 // Indonesian locale — mirrors the key shape of en.ts exactly.
 export default {
+  smith: {
+    why: {
+      max: 'Kamu punya keduanya, sudah ditempa maksimal.',
+      gold: 'Emas tidak cukup.',
+      ore: 'Bijih tidak cukup.',
+      metal: 'Tambang bijih ini dulu.',
+      learn: 'Pandai besi harus mengajarimu dulu.'
+    },
+    stamp: 'Ditempa',
+    take: 'Ambil',
+    worked: '{item} ditempa hingga +{n}',
+    made: '{item} +{n}',
+    grade: {
+      perfect: 'Sempurna!',
+      great: 'Kerja hebat!',
+      good: 'Kerja bagus',
+      poor: 'Kerja kasar'
+    },
+    hint: 'Ketuk Pukul, atau tekan Spasi, saat pijarnya ada di titik panas.',
+    strikes: 'Pukulan {n} dari {max}',
+    strike: 'Pukul!',
+    forge: 'Tempa',
+    gold: '{n} emas',
+    nuggets: '{ore}: {have} dari {n}',
+    master: 'Pukulan hebat menjadikannya {item}.',
+    locked: 'Tambang {ore} dulu untuk mempelajari bendanya.',
+    lead: 'Setiap logam yang kamu tambang membuka benda-bendanya. Pukul pijarnya di titik terpanas: tiga pukulan menentukan hasilnya.',
+    talk: 'Besi panas tak menunggu siapa pun.'
+  },
   gameName: 'Battlecross',
   cancel: 'Batal',
   close: 'Tutup',
@@ -1272,6 +1301,7 @@ export default {
     magic: 'Sihir · mengikuti {attr}'
   },
   source: {
+    smith: 'Ditempa di bengkel pandai besi.',
     mob: 'Dijatuhkan monster di {zone}.',
     chest: 'Ditemukan di peti-peti di {zone}.',
     boss: 'Dijatuhkan bos di {zone}.',
@@ -1339,6 +1369,150 @@ export default {
     overheatCrit: '+{n}% Damage Kritis saat kepanasan'
   },
   item: {
+    smithMasterMithrilGreaves: {
+      name: 'Pelindung Betis Mithril Mahakarya'
+    },
+    smithMithrilGreaves: {
+      name: 'Pelindung Betis Mithril'
+    },
+    smithMasterMithrilPlate: {
+      name: 'Zirah Pelat Mithril Mahakarya'
+    },
+    smithMithrilPlate: {
+      name: 'Zirah Pelat Mithril'
+    },
+    smithMasterMithrilHelm: {
+      name: 'Helm Mithril Mahakarya'
+    },
+    smithMithrilHelm: {
+      name: 'Helm Mithril'
+    },
+    smithMasterMithrilShield: {
+      name: 'Perisai Mithril Mahakarya'
+    },
+    smithMithrilShield: {
+      name: 'Perisai Mithril'
+    },
+    smithMasterMithrilHammer: {
+      name: 'Palu Mithril Mahakarya'
+    },
+    smithMithrilHammer: {
+      name: 'Palu Mithril'
+    },
+    smithMasterMithrilSword: {
+      name: 'Pedang Mithril Mahakarya'
+    },
+    smithMithrilSword: {
+      name: 'Pedang Mithril'
+    },
+    smithMasterGoldGreaves: {
+      name: 'Pelindung Betis Emas Mahakarya'
+    },
+    smithGoldGreaves: {
+      name: 'Pelindung Betis Emas'
+    },
+    smithMasterGoldPlate: {
+      name: 'Zirah Pelat Emas Mahakarya'
+    },
+    smithGoldPlate: {
+      name: 'Zirah Pelat Emas'
+    },
+    smithMasterGoldHelm: {
+      name: 'Helm Emas Mahakarya'
+    },
+    smithGoldHelm: {
+      name: 'Helm Emas'
+    },
+    smithMasterGoldShield: {
+      name: 'Perisai Emas Mahakarya'
+    },
+    smithGoldShield: {
+      name: 'Perisai Emas'
+    },
+    smithMasterGoldHammer: {
+      name: 'Palu Emas Mahakarya'
+    },
+    smithGoldHammer: {
+      name: 'Palu Emas'
+    },
+    smithMasterGoldSword: {
+      name: 'Pedang Emas Mahakarya'
+    },
+    smithGoldSword: {
+      name: 'Pedang Emas'
+    },
+    smithMasterSilverGreaves: {
+      name: 'Pelindung Betis Perak Mahakarya'
+    },
+    smithSilverGreaves: {
+      name: 'Pelindung Betis Perak'
+    },
+    smithMasterSilverPlate: {
+      name: 'Zirah Pelat Perak Mahakarya'
+    },
+    smithSilverPlate: {
+      name: 'Zirah Pelat Perak'
+    },
+    smithMasterSilverHelm: {
+      name: 'Helm Perak Mahakarya'
+    },
+    smithSilverHelm: {
+      name: 'Helm Perak'
+    },
+    smithMasterSilverShield: {
+      name: 'Perisai Perak Mahakarya'
+    },
+    smithSilverShield: {
+      name: 'Perisai Perak'
+    },
+    smithMasterSilverHammer: {
+      name: 'Palu Perak Mahakarya'
+    },
+    smithSilverHammer: {
+      name: 'Palu Perak'
+    },
+    smithMasterSilverSword: {
+      name: 'Pedang Perak Mahakarya'
+    },
+    smithSilverSword: {
+      name: 'Pedang Perak'
+    },
+    smithMasterIronGreaves: {
+      name: 'Pelindung Betis Besi Mahakarya'
+    },
+    smithIronGreaves: {
+      name: 'Pelindung Betis Besi'
+    },
+    smithMasterIronPlate: {
+      name: 'Zirah Pelat Besi Mahakarya'
+    },
+    smithIronPlate: {
+      name: 'Zirah Pelat Besi'
+    },
+    smithMasterIronHelm: {
+      name: 'Helm Besi Mahakarya'
+    },
+    smithIronHelm: {
+      name: 'Helm Besi'
+    },
+    smithMasterIronShield: {
+      name: 'Perisai Besi Mahakarya'
+    },
+    smithIronShield: {
+      name: 'Perisai Besi'
+    },
+    smithMasterIronHammer: {
+      name: 'Palu Besi Mahakarya'
+    },
+    smithIronHammer: {
+      name: 'Palu Besi'
+    },
+    smithMasterIronSword: {
+      name: 'Pedang Besi Mahakarya'
+    },
+    smithIronSword: {
+      name: 'Pedang Besi'
+    },
     rustedShortsword: {
       name: 'Pedang Pendek Berkarat'
     },
@@ -1527,6 +1701,8 @@ export default {
     }
   },
   bag: {
+    oreCount: '{ore}: {n}',
+    noOre: 'Belum ada bijih. Tambang singkapan batu di alam liar.',
     equip: 'Pakai',
     unequip: 'Lepas',
     worn: 'Kamu sedang memakai ini. Lepas dulu untuk menjualnya.',
@@ -1536,6 +1712,7 @@ export default {
     slotEmpty: '{slot}: kosong',
     slotHolds: '{slot}: {item}',
     filter: {
+      ore: 'Bijih',
       all: 'Semua',
       weapons: 'Senjata',
       armor: 'Zirah',
@@ -2095,6 +2272,9 @@ export default {
       }
     },
     hero: {
+      forge: 'Aku ingin memakai tungkumu.',
+      learnSmith: 'Bisa ajari aku menempa?',
+      ore: 'Aku punya bijih untuk dijual.',
       bye: 'Aku tak mengganggu lagi.',
       trade: 'Boleh aku lihat daganganmu?',
       train: 'Maukah kamu mengajariku?',
@@ -2107,6 +2287,19 @@ export default {
       play: 'Aku ikut.'
     },
     sunfordSmith: {
+      forge: {
+        '1': 'Tungkunya panas. Jaga jarimu.'
+      },
+      learnSmith: {
+        '2': 'Pukul saat logamnya berpijar paling terang. Meleset, jadi rongsokan. Ayo.',
+        '1': 'Menempa? Hm. Pegang palunya begini, jangan seperti pentungan.'
+      },
+      ore: {
+        '1': 'Bijih, ya? Kuambil semuanya. Timbangan jujur, bayaran jujur.'
+      },
+      forgeBack: {
+        '1': 'Lumayan. Tapi belum bagus juga. Terus berlatih.'
+      },
       hello: {
         '1': 'Belum pernah lihat kamu. Kamu yang membersihkan jalan itu?',
         '2': 'Bram. Aku yang pegang tungku. Kalau butuh bilah, datang ke aku.'
@@ -2516,6 +2709,19 @@ export default {
       }
     },
     oakArmorer: {
+      forge: {
+        '1': 'Landasannya milikmu. Buat sesuatu yang kokoh.'
+      },
+      learnSmith: {
+        '2': 'Perhatikan pijarnya. Pukul intinya, tiga kali, dan logamnya akan ingat.',
+        '1': 'Kamu mau belajar keahlian ini? Bagus. Oakhaven butuh setiap palu.'
+      },
+      ore: {
+        '1': 'Bijih mentah! Gudang senjata tak pernah cukup. Ini bayaranmu.'
+      },
+      forgeBack: {
+        '1': 'Baja yang bagus. Tembok berterima kasih padamu.'
+      },
       hello: {
         '1': 'Kalau cari helm, maaf. Semuanya di atas tembok.',
         '2': 'Odo. Aku membuat zirah. Belakangan kurang tidur.'
@@ -2546,6 +2752,19 @@ export default {
       }
     },
     oakMasterArmorer: {
+      forge: {
+        '1': 'Apinya sudah ditimbun dan menunggu. Silakan.'
+      },
+      learnSmith: {
+        '2': 'Tiga pukulan, masing-masing di inti pijarnya. Hanya itu rahasianya.',
+        '1': 'Sejak pengepungan, aku mengajari siapa pun yang meminta. Ayo, berdiri di sini.'
+      },
+      ore: {
+        '1': 'Bijih lagi untuk tembok? Terima kasih banyak. Ini, ambillah.'
+      },
+      forgeBack: {
+        '1': 'Setiap pukulan membuatmu lebih baik. Datanglah kapan saja.'
+      },
       hello: {
         '1': 'Nah, itu kamu! Masuklah. Ruang belakang terbuka, dan terbuka untukmu.',
         '2': 'Sekarang mereka memanggilku Master Odo. Lucu apa yang dilakukan sedikit kedamaian pada bisnis.'
@@ -2931,6 +3150,19 @@ export default {
       }
     },
     ironWeapons: {
+      forge: {
+        '1': 'Hati-hati percikan apinya, dan jangan sentuh palu bagusku.'
+      },
+      learnSmith: {
+        '2': 'Pijarnya memberi tahu kapan. Lenganmu memberi tahu seberapa keras. Tiga pukulan.',
+        '1': 'Orang permukaan di depan landasan? Yah, semua orang mulai dari suatu tempat.'
+      },
+      ore: {
+        '1': 'Hah, bijih yang jujur. Ironhold selalu membayar untuk itu.'
+      },
+      forgeBack: {
+        '1': 'Hm. Kurcaci pasti lebih baik. Tapi tak jauh lebih baik.'
+      },
       hello: {
         '1': 'Hati-hati dengan pajangannya. Itu tajam di kedua sisi.',
         '2': 'Hilda Hammerhand. Setiap barang di sini ditempa tangan kurcaci.'
@@ -2990,6 +3222,19 @@ export default {
       }
     },
     ironArmor: {
+      forge: {
+        '1': 'Tungkunya siap kapan pun kamu siap.'
+      },
+      learnSmith: {
+        '2': 'Panaskan, pukul, balik. Tiga pukulan, tepat di pijarnya. Lalu biarkan dingin.',
+        '1': 'Zirah pelat itu kerja kesabaran. Akan kutunjukkan dasarnya.'
+      },
+      ore: {
+        '1': 'Biar kutimbang. Bagus. Uangnya milikmu.'
+      },
+      forgeBack: {
+        '1': 'Biarkan dingin dulu sebelum kamu pakai.'
+      },
       hello: {
         '1': 'Garrun. Zirah di rak, cincin di nampan.'
       },
@@ -3019,6 +3264,19 @@ export default {
       }
     },
     ironOrderArmor: {
+      forge: {
+        '1': 'Gunakan tungku Ordo dengan hormat.'
+      },
+      learnSmith: {
+        '2': 'Disiplin di landasan, seperti di medan perang. Tiga pukulan, setia pada pijarnya.',
+        '1': 'Ordo mempersenjatai sahabatnya. Aku akan mengajarimu.'
+      },
+      ore: {
+        '1': 'Ordo membeli semua bijih untuk perang. Ini bayaranmu.'
+      },
+      forgeBack: {
+        '1': 'Tempaan yang baik. Mengabdilah dengan baik memakainya.'
+      },
       hello: {
         '1': 'Kamu yang menghancurkan inti itu. Ordo mengingatnya.',
         '2': 'Aku juru perbekalan Ordo di sini. Gudang senjata kami terbuka untukmu.'
@@ -3535,6 +3793,19 @@ export default {
       }
     },
     sbArmorer: {
+      forge: {
+        '1': 'Pakai saja tungkunya. Teriak kalau ada yang terbakar.'
+      },
+      learnSmith: {
+        '2': 'Pukul saat pijarnya paling panas. Tiga pukulan bagus menghasilkan benda yang bagus.',
+        '1': 'Mau coba pegang palu sendiri? Aku tak keberatan berbagi tungku.'
+      },
+      ore: {
+        '1': 'Bijih yang bagus. Silverbridge selalu membayar harga yang adil.'
+      },
+      forgeBack: {
+        '1': 'Lihat itu! Kamu berbakat alami.'
+      },
       hello: {
         '1': 'Ha! Lihat penyok itu. Semoga uang zirahmu itu dikembalikan.',
         '2': 'Greta Ironvein. Aku membuat zirah yang pulang bersama pemiliknya. Selalu, sejauh ini.'

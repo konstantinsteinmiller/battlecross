@@ -1,5 +1,34 @@
 // Uzbek locale — mirrors the key shape of en.ts exactly.
 export default {
+  smith: {
+    why: {
+      max: 'Ikkalasi ham senda, oxirigacha ishlov berilgan.',
+      gold: 'Oltin yetarli emas.',
+      ore: 'Ruda yetarli emas.',
+      metal: 'Avval bu rudani qaz.',
+      learn: 'Avval biror temirchi seni oʻrgatishi kerak.'
+    },
+    stamp: 'Yasalgan',
+    take: 'Olish',
+    worked: '{item} +{n} gacha ishlov berildi',
+    made: '{item} +{n}',
+    grade: {
+      perfect: 'Mukammal!',
+      great: 'Zoʻr ish!',
+      good: 'Yaxshi ish',
+      poor: 'Qoʻpol ish'
+    },
+    hint: 'Choʻgʻ issiq nuqtada turganda «Ur» tugmasini bos yoki Probelni bos.',
+    strikes: 'Zarba {n}/{max}',
+    strike: 'Ur!',
+    forge: 'Yasash',
+    gold: '{n} oltin',
+    nuggets: '{ore}: {have}/{n}',
+    master: 'Zoʻr zarba uni {item} qiladi.',
+    locked: 'Buyumlarini oʻrganish uchun avval {ore} qaz.',
+    lead: 'Qazib olgan har bir metaling oʻz buyumlarini tanitadi. Choʻgʻni eng qizigan joyida ur: uch zarba buyumni hal qiladi.',
+    talk: 'Qizigan temir hech kimni kutmaydi.'
+  },
   gameName: 'Battlecross',
   cancel: 'Bekor qilish',
   close: 'Yopish',
@@ -1272,6 +1301,7 @@ export default {
     magic: 'Sehr · {attr} bilan oshadi'
   },
   source: {
+    smith: 'Temirchixonada yasalgan.',
     mob: '{zone} hududi maxluqlaridan tushadi.',
     chest: '{zone} hududi sandiqlaridan topiladi.',
     boss: '{zone} hududi bossidan tushadi.',
@@ -1339,6 +1369,150 @@ export default {
     overheatCrit: 'Qizib ketgan holatda +{n}% Kritik zarar'
   },
   item: {
+    smithMasterMithrilGreaves: {
+      name: 'Usta yasagan mitril boldir himoyasi'
+    },
+    smithMithrilGreaves: {
+      name: 'Mitril boldir himoyasi'
+    },
+    smithMasterMithrilPlate: {
+      name: 'Usta yasagan mitril zirh'
+    },
+    smithMithrilPlate: {
+      name: 'Mitril zirh'
+    },
+    smithMasterMithrilHelm: {
+      name: 'Usta yasagan mitril dubulgʻa'
+    },
+    smithMithrilHelm: {
+      name: 'Mitril dubulgʻa'
+    },
+    smithMasterMithrilShield: {
+      name: 'Usta yasagan mitril qalqon'
+    },
+    smithMithrilShield: {
+      name: 'Mitril qalqon'
+    },
+    smithMasterMithrilHammer: {
+      name: 'Usta yasagan mitril bolgʻa'
+    },
+    smithMithrilHammer: {
+      name: 'Mitril bolgʻa'
+    },
+    smithMasterMithrilSword: {
+      name: 'Usta yasagan mitril qilich'
+    },
+    smithMithrilSword: {
+      name: 'Mitril qilich'
+    },
+    smithMasterGoldGreaves: {
+      name: 'Usta yasagan oltin boldir himoyasi'
+    },
+    smithGoldGreaves: {
+      name: 'Oltin boldir himoyasi'
+    },
+    smithMasterGoldPlate: {
+      name: 'Usta yasagan oltin zirh'
+    },
+    smithGoldPlate: {
+      name: 'Oltin zirh'
+    },
+    smithMasterGoldHelm: {
+      name: 'Usta yasagan oltin dubulgʻa'
+    },
+    smithGoldHelm: {
+      name: 'Oltin dubulgʻa'
+    },
+    smithMasterGoldShield: {
+      name: 'Usta yasagan oltin qalqon'
+    },
+    smithGoldShield: {
+      name: 'Oltin qalqon'
+    },
+    smithMasterGoldHammer: {
+      name: 'Usta yasagan oltin bolgʻa'
+    },
+    smithGoldHammer: {
+      name: 'Oltin bolgʻa'
+    },
+    smithMasterGoldSword: {
+      name: 'Usta yasagan oltin qilich'
+    },
+    smithGoldSword: {
+      name: 'Oltin qilich'
+    },
+    smithMasterSilverGreaves: {
+      name: 'Usta yasagan kumush boldir himoyasi'
+    },
+    smithSilverGreaves: {
+      name: 'Kumush boldir himoyasi'
+    },
+    smithMasterSilverPlate: {
+      name: 'Usta yasagan kumush zirh'
+    },
+    smithSilverPlate: {
+      name: 'Kumush zirh'
+    },
+    smithMasterSilverHelm: {
+      name: 'Usta yasagan kumush dubulgʻa'
+    },
+    smithSilverHelm: {
+      name: 'Kumush dubulgʻa'
+    },
+    smithMasterSilverShield: {
+      name: 'Usta yasagan kumush qalqon'
+    },
+    smithSilverShield: {
+      name: 'Kumush qalqon'
+    },
+    smithMasterSilverHammer: {
+      name: 'Usta yasagan kumush bolgʻa'
+    },
+    smithSilverHammer: {
+      name: 'Kumush bolgʻa'
+    },
+    smithMasterSilverSword: {
+      name: 'Usta yasagan kumush qilich'
+    },
+    smithSilverSword: {
+      name: 'Kumush qilich'
+    },
+    smithMasterIronGreaves: {
+      name: 'Usta yasagan temir boldir himoyasi'
+    },
+    smithIronGreaves: {
+      name: 'Temir boldir himoyasi'
+    },
+    smithMasterIronPlate: {
+      name: 'Usta yasagan temir zirh'
+    },
+    smithIronPlate: {
+      name: 'Temir zirh'
+    },
+    smithMasterIronHelm: {
+      name: 'Usta yasagan temir dubulgʻa'
+    },
+    smithIronHelm: {
+      name: 'Temir dubulgʻa'
+    },
+    smithMasterIronShield: {
+      name: 'Usta yasagan temir qalqon'
+    },
+    smithIronShield: {
+      name: 'Temir qalqon'
+    },
+    smithMasterIronHammer: {
+      name: 'Usta yasagan temir bolgʻa'
+    },
+    smithIronHammer: {
+      name: 'Temir bolgʻa'
+    },
+    smithMasterIronSword: {
+      name: 'Usta yasagan temir qilich'
+    },
+    smithIronSword: {
+      name: 'Temir qilich'
+    },
     rustedShortsword: {
       name: 'Zanglagan kalta qilich'
     },
@@ -1527,6 +1701,8 @@ export default {
     }
   },
   bag: {
+    oreCount: '{ore}: {n}',
+    noOre: 'Hali ruda yoʻq. Yovvoyi joylarda tosh yonidagi ruda chiqindilarini qaz.',
     equip: 'Taqish',
     unequip: 'Yechish',
     worn: 'Siz buni kiyib turibsiz. Sotish uchun avval yeching.',
@@ -1536,6 +1712,7 @@ export default {
     slotEmpty: '{slot}: boʻsh',
     slotHolds: '{slot}: {item}',
     filter: {
+      ore: 'Ruda',
       all: 'Hammasi',
       weapons: 'Qurollar',
       armor: 'Zirhlar',
@@ -2095,6 +2272,9 @@ export default {
       }
     },
     hero: {
+      forge: 'Oʻchogʻingdan foydalanmoqchiman.',
+      learnSmith: 'Menga temirchilikni oʻrgatasanmi?',
+      ore: 'Sotadigan biroz rudam bor.',
       bye: 'Sizni ishingiz bilan qoldiray.',
       trade: 'Nimalaring borligini koʻrsam boʻladimi?',
       train: 'Meni oʻrgatasanmi?',
@@ -2107,6 +2287,19 @@ export default {
       play: 'Men ham oʻynayman.'
     },
     sunfordSmith: {
+      forge: {
+        '1': 'Oʻchoq qizigan. Barmoqlaringga ehtiyot boʻl.'
+      },
+      learnSmith: {
+        '2': 'Metall eng yorqin choʻgʻlanganda ur. Adashsang, lom boʻladi. Qani.',
+        '1': 'Temirchilik? Hm. Bolgʻani mana bunday ushla, toʻqmoqdek emas.'
+      },
+      ore: {
+        '1': 'Ruda, a? Hammasini olaman. Toʻgʻri tarozi, toʻgʻri pul.'
+      },
+      forgeBack: {
+        '1': 'Yomon emas. Yaxshi ham emas. Davom et.'
+      },
       hello: {
         '1': 'Seni avval koʻrmaganman. Yoʻlni tozalagan sen emasmisan?',
         '2': 'Bram. Choʻgʻxona menda. Qilich kerak boʻlsa, menga kel.'
@@ -2516,6 +2709,19 @@ export default {
       }
     },
     oakArmorer: {
+      forge: {
+        '1': 'Sandon seniki. Mustahkam narsa yasa.'
+      },
+      learnSmith: {
+        '2': 'Choʻgʻni kuzat. Uning qoq yuragiga uch marta ur, metall eslab qoladi.',
+        '1': 'Hunarni oʻrganmoqchimisan? Yaxshi. Oakhavenga har bir bolgʻa kerak.'
+      },
+      ore: {
+        '1': 'Xom ruda! Qurolxonaga hech qachon yetmaydi. Mana, haqing.'
+      },
+      forgeBack: {
+        '1': 'Yaxshi poʻlat. Devorlar senga minnatdor.'
+      },
       hello: {
         '1': 'Zarbdor dubulgʻa qidirsang, kechir. Hammasi devorda.',
         '2': 'Odo. Zirh yasayman. Oxirgi paytlarda koʻp uxlamadim.'
@@ -2546,6 +2752,19 @@ export default {
       }
     },
     oakMasterArmorer: {
+      forge: {
+        '1': 'Olov tayyor, kutib turibdi. Boshlayver.'
+      },
+      learnSmith: {
+        '2': 'Uch zarba, har biri choʻgʻning yuragiga. Butun sir shu, xolos.',
+        '1': 'Qamaldan beri soʻragan har kimga oʻrgataman. Kel, shu yerda tur.'
+      },
+      ore: {
+        '1': 'Devorlar uchun yana ruda? Barakalla. Mana, buni ol.'
+      },
+      forgeBack: {
+        '1': 'Har bir zarba seni yaxshilaydi. Xohlagan paytda kel.'
+      },
       hello: {
         '1': 'Mana, keldingku! Kir. Orqa xona ochiq, senga ochiq.',
         '2': 'Endi meni Usta Odo deyishadi. Ozgina tinchlik savdoga nima qilishi kulgili.'
@@ -2931,6 +3150,19 @@ export default {
       }
     },
     ironWeapons: {
+      forge: {
+        '1': 'Uchqunlarga ehtiyot boʻl, yaxshi bolgʻamga tegma.'
+      },
+      learnSmith: {
+        '2': 'Qachonligini choʻgʻ aytadi. Qanchalik qattiq — qoling aytadi. Uch zarba.',
+        '1': 'Sandon oldida yer usti odami? Mayli, hamma qayerdandir boshlaydi.'
+      },
+      ore: {
+        '1': 'Ha, halol ruda. Ironhold bunga doim pul toʻlaydi.'
+      },
+      forgeBack: {
+        '1': 'Hm. Gnom yaxshiroq qilardi. Lekin unchalik emas.'
+      },
       hello: {
         '1': 'Vitrinaga ehtiyot boʻl. Bular ikki tomondan ham oʻtkir.',
         '2': 'Hilda Hammerhand. Bu yerdagi har bir buyum mittilar qoʻlida yasalgan.'
@@ -2990,6 +3222,19 @@ export default {
       }
     },
     ironArmor: {
+      forge: {
+        '1': 'Sen tayyor boʻlganda oʻchoq ham tayyor.'
+      },
+      learnSmith: {
+        '2': 'Qizdir, ur, aylantir. Uch zarba, aynan choʻgʻga. Keyin sovishga qoʻy.',
+        '1': 'Zirh sabr talab qiladigan ish. Senga asoslarini koʻrsataman.'
+      },
+      ore: {
+        '1': 'Bir tortib koʻray. Yaxshi. Pul seniki.'
+      },
+      forgeBack: {
+        '1': 'Kiyishdan oldin sovib olsin.'
+      },
       hello: {
         '1': 'Garrun. Zirhlar javonda, uzuklar patnisda.'
       },
@@ -3019,6 +3264,19 @@ export default {
       }
     },
     ironOrderArmor: {
+      forge: {
+        '1': 'Ordenning oʻchogʻidan sharaf bilan foydalan.'
+      },
+      learnSmith: {
+        '2': 'Jang maydonidagidek, sandon oldida ham intizom. Uch zarba, choʻgʻga sodiq.',
+        '1': 'Orden doʻstlarini qurollantiradi. Senga oʻrgataman.'
+      },
+      ore: {
+        '1': 'Orden urush uchun barcha rudani sotib oladi. Toʻloving.'
+      },
+      forgeBack: {
+        '1': 'Yaxshi yasalgan. Uni kiyib, munosib xizmat qil.'
+      },
       hello: {
         '1': 'Yadroni yoʻq qilgan sensan. Orden buni eslaydi.',
         '2': 'Men bu yerdagi Orden taʼminotchisiman. Qurol-yarogʻ omborlarimiz senga ochiq.'
@@ -3535,6 +3793,19 @@ export default {
       }
     },
     sbArmorer: {
+      forge: {
+        '1': 'Oʻchoq ixtiyoringda. Biror narsa yonib ketsa, baqir.'
+      },
+      learnSmith: {
+        '2': 'Eng qattiq choʻgʻlanganda ur. Uchta yaxshi zarba yaxshi buyum chiqaradi.',
+        '1': 'Bolgʻani oʻzing sinab koʻrmoqchimisan? Sandonni boʻlishishga qarshi emasman.'
+      },
+      ore: {
+        '1': 'Ajoyib ruda. Silverbridge doim adolatli narx toʻlaydi.'
+      },
+      forgeBack: {
+        '1': 'Qara-ya! Sen tugʻma ustasan.'
+      },
       hello: {
         '1': 'Ha! Anavi pachoqni qara. Umid qilamanki, oʻsha zirhning pulini qaytarib olgansan.',
         '2': 'Greta Ironvein. Egasi bilan birga uyga qaytadigan zirh yasayman. Hozircha har safar.'

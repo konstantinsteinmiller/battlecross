@@ -56,7 +56,7 @@ describe('talking to a townsperson', () => {
     expect(f.flow.npc?.id).toBe('sunfordSmith')
     expect(k.talk.stage).toBe('world')
     expect(hear()).toEqual(['dlg.sunfordSmith.hello.1', 'dlg.sunfordSmith.hello.2'])
-    expect(k.talk.choices.map(c => c.id)).toEqual(['trade', 'who', 'gear', 'rumor', 'end'])
+    expect(k.talk.choices.map(c => c.id)).toEqual(['trade', 'learnSmith', 'who', 'gear', 'rumor', 'end'])
     expect(k.talk.choices[0]).toMatchObject({ icon: 'trade', text: 'dlg.hero.trade' })
 
     expect(k.talkPick('trade')).toBe(true)
@@ -229,7 +229,7 @@ describe('what was said is remembered in the save', () => {
     expect(p.profile.world.said).toEqual(expect.arrayContaining(['sunfordSmith', 'sunfordSmith.who']))
     f.talkTo('sunfordSmith')
     expect(hear()).toEqual(['dlg.sunfordSmith.again.1'])
-    expect(k.talk.choices.map(c => c.id)).toEqual(['trade', 'gear', 'rumor', 'end'])
+    expect(k.talk.choices.map(c => c.id)).toEqual(['trade', 'learnSmith', 'gear', 'rumor', 'end'])
   })
 
   it('a save from before the conversations loads with an empty memory', async () => {

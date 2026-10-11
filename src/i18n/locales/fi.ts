@@ -1,5 +1,34 @@
 // Finnish (fi) bundle — mirrors en.ts.
 export default {
+  smith: {
+    why: {
+      max: 'Omistat molemmat, täysin parannettuina.',
+      gold: 'Kultaa ei ole tarpeeksi.',
+      ore: 'Malmia ei ole tarpeeksi.',
+      metal: 'Louhi ensin tätä malmia.',
+      learn: 'Sepän täytyy ensin opettaa sinua.'
+    },
+    stamp: 'Taottu',
+    take: 'Ota',
+    worked: '{item} parannettu tasolle +{n}',
+    made: '{item} +{n}',
+    grade: {
+      perfect: 'Täydellistä!',
+      great: 'Erinomaista työtä!',
+      good: 'Hyvää työtä',
+      poor: 'Karkeaa työtä'
+    },
+    hint: 'Napauta Iske tai paina välilyöntiä, kun hehku on kuumassa kohdassa.',
+    strikes: 'Isku {n}/{max}',
+    strike: 'Iske!',
+    forge: 'Tao',
+    gold: '{n} kultaa',
+    nuggets: '{ore}: {have} / {n}',
+    master: 'Loistava isku, ja syntyy: {item}.',
+    locked: 'Louhi ensin: {ore}. Sitten opit sen esineet.',
+    lead: 'Jokainen louhimasi metalli paljastaa omat esineensä. Iske hehkuun siihen kohtaan, jossa se on kuumimmillaan: kolme iskua ratkaisee esineen.',
+    talk: 'Kuuma rauta ei odota ketään.'
+  },
   gameName: 'Battlecross',
   cancel: 'Peruuta',
   close: 'Sulje',
@@ -1272,6 +1301,7 @@ export default {
     magic: 'Taikuus · skaalautuu: {attr}'
   },
   source: {
+    smith: 'Taottu pajassa.',
     mob: 'Putoaa hirviöiltä. Alue: {zone}.',
     chest: 'Löytyy arkuista. Alue: {zone}.',
     boss: 'Putoaa pomolta. Alue: {zone}.',
@@ -1339,6 +1369,150 @@ export default {
     overheatCrit: '+{n}% kriittinen vahinko ylikuumentuneena'
   },
   item: {
+    smithMasterMithrilGreaves: {
+      name: 'Mestarin mithrilsäärystimet'
+    },
+    smithMithrilGreaves: {
+      name: 'Mithrilsäärystimet'
+    },
+    smithMasterMithrilPlate: {
+      name: 'Mestarin mithrilpanssari'
+    },
+    smithMithrilPlate: {
+      name: 'Mithrilpanssari'
+    },
+    smithMasterMithrilHelm: {
+      name: 'Mestarin mithrilkypärä'
+    },
+    smithMithrilHelm: {
+      name: 'Mithrilkypärä'
+    },
+    smithMasterMithrilShield: {
+      name: 'Mestarin mithrilkilpi'
+    },
+    smithMithrilShield: {
+      name: 'Mithrilkilpi'
+    },
+    smithMasterMithrilHammer: {
+      name: 'Mestarin mithrilvasara'
+    },
+    smithMithrilHammer: {
+      name: 'Mithrilvasara'
+    },
+    smithMasterMithrilSword: {
+      name: 'Mestarin mithrilmiekka'
+    },
+    smithMithrilSword: {
+      name: 'Mithrilmiekka'
+    },
+    smithMasterGoldGreaves: {
+      name: 'Mestarin kultasäärystimet'
+    },
+    smithGoldGreaves: {
+      name: 'Kultasäärystimet'
+    },
+    smithMasterGoldPlate: {
+      name: 'Mestarin kultapanssari'
+    },
+    smithGoldPlate: {
+      name: 'Kultapanssari'
+    },
+    smithMasterGoldHelm: {
+      name: 'Mestarin kultakypärä'
+    },
+    smithGoldHelm: {
+      name: 'Kultakypärä'
+    },
+    smithMasterGoldShield: {
+      name: 'Mestarin kultakilpi'
+    },
+    smithGoldShield: {
+      name: 'Kultakilpi'
+    },
+    smithMasterGoldHammer: {
+      name: 'Mestarin kultavasara'
+    },
+    smithGoldHammer: {
+      name: 'Kultavasara'
+    },
+    smithMasterGoldSword: {
+      name: 'Mestarin kultamiekka'
+    },
+    smithGoldSword: {
+      name: 'Kultamiekka'
+    },
+    smithMasterSilverGreaves: {
+      name: 'Mestarin hopeasäärystimet'
+    },
+    smithSilverGreaves: {
+      name: 'Hopeasäärystimet'
+    },
+    smithMasterSilverPlate: {
+      name: 'Mestarin hopeapanssari'
+    },
+    smithSilverPlate: {
+      name: 'Hopeapanssari'
+    },
+    smithMasterSilverHelm: {
+      name: 'Mestarin hopeakypärä'
+    },
+    smithSilverHelm: {
+      name: 'Hopeakypärä'
+    },
+    smithMasterSilverShield: {
+      name: 'Mestarin hopeakilpi'
+    },
+    smithSilverShield: {
+      name: 'Hopeakilpi'
+    },
+    smithMasterSilverHammer: {
+      name: 'Mestarin hopeavasara'
+    },
+    smithSilverHammer: {
+      name: 'Hopeavasara'
+    },
+    smithMasterSilverSword: {
+      name: 'Mestarin hopeamiekka'
+    },
+    smithSilverSword: {
+      name: 'Hopeamiekka'
+    },
+    smithMasterIronGreaves: {
+      name: 'Mestarin rautasäärystimet'
+    },
+    smithIronGreaves: {
+      name: 'Rautasäärystimet'
+    },
+    smithMasterIronPlate: {
+      name: 'Mestarin rautapanssari'
+    },
+    smithIronPlate: {
+      name: 'Rautapanssari'
+    },
+    smithMasterIronHelm: {
+      name: 'Mestarin rautakypärä'
+    },
+    smithIronHelm: {
+      name: 'Rautakypärä'
+    },
+    smithMasterIronShield: {
+      name: 'Mestarin rautakilpi'
+    },
+    smithIronShield: {
+      name: 'Rautakilpi'
+    },
+    smithMasterIronHammer: {
+      name: 'Mestarin rautavasara'
+    },
+    smithIronHammer: {
+      name: 'Rautavasara'
+    },
+    smithMasterIronSword: {
+      name: 'Mestarin rautamiekka'
+    },
+    smithIronSword: {
+      name: 'Rautamiekka'
+    },
     rustedShortsword: {
       name: 'Ruostunut lyhytmiekka'
     },
@@ -1527,6 +1701,8 @@ export default {
     }
   },
   bag: {
+    oreCount: '{ore}: {n}',
+    noOre: 'Ei vielä malmia. Louhi sitä erämaan kalliopaljastumista.',
     equip: 'Varusta',
     unequip: 'Riisu',
     worn: 'Sinulla on tämä yllä. Riisu se myydäksesi sen.',
@@ -1536,6 +1712,7 @@ export default {
     slotEmpty: '{slot}: tyhjä',
     slotHolds: '{slot}: {item}',
     filter: {
+      ore: 'Malmi',
       all: 'Kaikki',
       weapons: 'Aseet',
       armor: 'Panssarit',
@@ -2095,6 +2272,9 @@ export default {
       }
     },
     hero: {
+      forge: 'Haluaisin käyttää pajaasi.',
+      learnSmith: 'Voisitko opettaa minut takomaan?',
+      ore: 'Minulla on vähän malmia myytävänä.',
       bye: 'Annan sinun jatkaa.',
       trade: 'Saanko nähdä, mitä sinulla on?',
       train: 'Opetatko minulle?',
@@ -2107,6 +2287,19 @@ export default {
       play: 'Olen mukana.'
     },
     sunfordSmith: {
+      forge: {
+        '1': 'Ahjo on kuuma. Varo sormiasi.'
+      },
+      learnSmith: {
+        '2': 'Iske, kun metalli hehkuu kirkkaimmin. Jos lyöt ohi, se on romua. Anna mennä.',
+        '1': 'Takomista? Hm. Pidä vasarasta näin, älä kuin nuijasta.'
+      },
+      ore: {
+        '1': 'Malmia, vai? Otan kaiken. Reilu paino, reilu raha.'
+      },
+      forgeBack: {
+        '1': 'Ei huono. Ei hyväkään. Jatka harjoittelua.'
+      },
       hello: {
         '1': 'En ole nähnyt sinua ennen. Sinäkö raivasit tien?',
         '2': 'Bram. Minä hoidan pajaa. Jos tarvitset terän, tule luokseni.'
@@ -2516,6 +2709,19 @@ export default {
       }
     },
     oakArmorer: {
+      forge: {
+        '1': 'Alasin on sinun. Tee jotain, mikä kestää.'
+      },
+      learnSmith: {
+        '2': 'Seuraa hehkua. Iske sen sydämeen kolmesti, niin metalli muistaa.',
+        '1': 'Haluatko oppia ammatin? Hyvä. Oakhaven tarvitsee jokaisen vasaran.'
+      },
+      ore: {
+        '1': 'Raakaa malmia! Asevarastossa sitä ei ole koskaan tarpeeksi. Tässä palkkasi.'
+      },
+      forgeBack: {
+        '1': 'Hyvää terästä. Muurit kiittävät sinua.'
+      },
       hello: {
         '1': 'Jos etsit kypärää, pahoittelen. Ne ovat kaikki muurilla.',
         '2': 'Odo. Teen haarniskoja. En ole nukkunut paljon viime aikoina.'
@@ -2546,6 +2752,19 @@ export default {
       }
     },
     oakMasterArmorer: {
+      forge: {
+        '1': 'Tuli on peitelty ja odottaa. Ole hyvä.'
+      },
+      learnSmith: {
+        '2': 'Kolme iskua, jokainen hehkun sydämeen. Siinä koko salaisuus.',
+        '1': 'Piirityksen jälkeen olen opettanut jokaista, joka pyytää. Tule, seiso tässä.'
+      },
+      ore: {
+        '1': 'Lisää malmia muureille? Siunatkoon sinua. Tässä, ota tämä.'
+      },
+      forgeBack: {
+        '1': 'Jokainen isku tekee sinusta paremman. Tule takaisin milloin vain.'
+      },
       hello: {
         '1': 'Siinähän sinä! Tule sisään. Takahuone on auki, ja se on auki sinulle.',
         '2': 'Mestari Odoksi minua nyt kutsutaan. Hassua, mitä vähän rauha tekee kaupalle.'
@@ -2931,6 +3150,19 @@ export default {
       }
     },
     ironWeapons: {
+      forge: {
+        '1': 'Varo kipinöitä, äläkä koske hyvään vasaraani.'
+      },
+      learnSmith: {
+        '2': 'Hehku kertoo milloin. Käsivarsi kertoo kuinka lujaa. Kolme iskua.',
+        '1': 'Pinta-asukas alasimella? No, jostain kaikki aloittavat.'
+      },
+      ore: {
+        '1': 'Hah, rehellistä malmia. Ironhold maksaa siitä aina.'
+      },
+      forgeBack: {
+        '1': 'Hm. Kääpiö olisi tehnyt paremmin. Mutta ei paljon.'
+      },
       hello: {
         '1': 'Varovasti esillä olevien kanssa. Ne ovat teräviä molemmilta reunoilta.',
         '2': 'Hilda Vasarakäsi. Jokaisen kappaleen täällä ovat takoneet kääpiön kädet.'
@@ -2990,6 +3222,19 @@ export default {
       }
     },
     ironArmor: {
+      forge: {
+        '1': 'Ahjo on valmis, kun sinä olet.'
+      },
+      learnSmith: {
+        '2': 'Kuumenna, iske, käännä. Kolme iskua, suoraan hehkuun. Anna sitten jäähtyä.',
+        '1': 'Levypanssari on kärsivällistä työtä. Näytän sinulle perusteet.'
+      },
+      ore: {
+        '1': 'Annas kun punnitsen. Hyvä. Rahat ovat sinun.'
+      },
+      forgeBack: {
+        '1': 'Anna sen jäähtyä ennen kuin puet sen päällesi.'
+      },
       hello: {
         '1': 'Garrun. Haarniskat telineissä, sormukset tarjottimella.'
       },
@@ -3019,6 +3264,19 @@ export default {
       }
     },
     ironOrderArmor: {
+      forge: {
+        '1': 'Käytä Ritarikunnan ahjoa kunnialla.'
+      },
+      learnSmith: {
+        '2': 'Kuria alasimella, kuten taistelukentällä. Kolme iskua, uskollisina hehkulle.',
+        '1': 'Ritarikunta aseistaa ystävänsä. Minä opetan sinua.'
+      },
+      ore: {
+        '1': 'Ritarikunta ostaa kaiken malmin sotaa varten. Maksusi.'
+      },
+      forgeBack: {
+        '1': 'Hyvin taottu. Palvele hyvin siinä.'
+      },
       hello: {
         '1': 'Olet se, joka tuhosi ytimen. Ritarikunta muistaa sen.',
         '2': 'Olen Ritarikunnan varusmestari täällä. Asevarastomme ovat avoinna sinulle.'
@@ -3535,6 +3793,19 @@ export default {
       }
     },
     sbArmorer: {
+      forge: {
+        '1': 'Paja on käytössäsi. Huuda, jos jokin syttyy palamaan.'
+      },
+      learnSmith: {
+        '2': 'Iske, kun hehku on kuumimmillaan. Kolme hyvää iskua tekee hyvän esineen.',
+        '1': 'Haluatko kokeilla vasaraa itse? Jaan pajan mielelläni.'
+      },
+      ore: {
+        '1': 'Ihanaa malmia. Silverbridge maksaa aina reilun hinnan.'
+      },
+      forgeBack: {
+        '1': 'Katsopa tuota! Sinulla on luontaista lahjakkuutta.'
+      },
       hello: {
         '1': 'Hah! Katso tuota lommoa. Toivottavasti sait rahasi takaisin siitä haarniskasta.',
         '2': 'Greta Rautasuoni. Teen haarniskoja, jotka tulevat kotiin omistajansa kanssa. Joka kerta, tähän asti.'

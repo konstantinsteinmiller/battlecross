@@ -1,5 +1,34 @@
 // Turkish locale — mirrors the key shape of en.ts exactly.
 export default {
+  smith: {
+    why: {
+      max: 'İkisi de sende, sonuna kadar işlenmiş.',
+      gold: 'Yeterli altın yok.',
+      ore: 'Yeterli cevher yok.',
+      metal: 'Önce bu cevheri kaz.',
+      learn: 'Önce bir demircinin sana öğretmesi gerek.'
+    },
+    stamp: 'Dövüldü',
+    take: 'Al',
+    worked: '{item} +{n} seviyesine işlendi',
+    made: '{item} +{n}',
+    grade: {
+      perfect: 'Kusursuz!',
+      great: 'Harika iş!',
+      good: 'İyi iş',
+      poor: 'Kaba iş'
+    },
+    hint: 'Parıltı sıcak noktadayken Vur\'a dokun ya da Boşluk\'a bas.',
+    strikes: 'Vuruş {n}/{max}',
+    strike: 'Vur!',
+    forge: 'Döv',
+    gold: '{n} altın',
+    nuggets: '{ore}: {have}/{n}',
+    master: 'Harika bir vuruş onu {item} yapar.',
+    locked: 'Parçalarını öğrenmek için önce {ore} kaz.',
+    lead: 'Kazdığın her metal kendi parçalarını öğretir. Parıltıyı en kızgın yerinde döv: üç vuruş parçayı belirler.',
+    talk: 'Kızgın demir kimseyi beklemez.'
+  },
   gameName: 'Battlecross',
   cancel: 'İptal',
   close: 'Kapat',
@@ -1272,6 +1301,7 @@ export default {
     magic: 'Büyü · {attr} ile artar'
   },
   source: {
+    smith: 'Bir demirci ocağında dövüldü.',
     mob: '{zone} bölgesinin canavarlarından düşer.',
     chest: '{zone} bölgesinin sandıklarında bulunur.',
     boss: '{zone} bölgesinin patronundan düşer.',
@@ -1339,6 +1369,150 @@ export default {
     overheatCrit: 'Aşırı ısınmışken +{n}% Kritik Hasarı'
   },
   item: {
+    smithMasterMithrilGreaves: {
+      name: 'Usta İşi Mithril Dizlikler'
+    },
+    smithMithrilGreaves: {
+      name: 'Mithril Dizlikler'
+    },
+    smithMasterMithrilPlate: {
+      name: 'Usta İşi Mithril Plaka Zırh'
+    },
+    smithMithrilPlate: {
+      name: 'Mithril Plaka Zırh'
+    },
+    smithMasterMithrilHelm: {
+      name: 'Usta İşi Mithril Miğfer'
+    },
+    smithMithrilHelm: {
+      name: 'Mithril Miğfer'
+    },
+    smithMasterMithrilShield: {
+      name: 'Usta İşi Mithril Kalkan'
+    },
+    smithMithrilShield: {
+      name: 'Mithril Kalkan'
+    },
+    smithMasterMithrilHammer: {
+      name: 'Usta İşi Mithril Çekiç'
+    },
+    smithMithrilHammer: {
+      name: 'Mithril Çekiç'
+    },
+    smithMasterMithrilSword: {
+      name: 'Usta İşi Mithril Kılıç'
+    },
+    smithMithrilSword: {
+      name: 'Mithril Kılıç'
+    },
+    smithMasterGoldGreaves: {
+      name: 'Usta İşi Altın Dizlikler'
+    },
+    smithGoldGreaves: {
+      name: 'Altın Dizlikler'
+    },
+    smithMasterGoldPlate: {
+      name: 'Usta İşi Altın Plaka Zırh'
+    },
+    smithGoldPlate: {
+      name: 'Altın Plaka Zırh'
+    },
+    smithMasterGoldHelm: {
+      name: 'Usta İşi Altın Miğfer'
+    },
+    smithGoldHelm: {
+      name: 'Altın Miğfer'
+    },
+    smithMasterGoldShield: {
+      name: 'Usta İşi Altın Kalkan'
+    },
+    smithGoldShield: {
+      name: 'Altın Kalkan'
+    },
+    smithMasterGoldHammer: {
+      name: 'Usta İşi Altın Çekiç'
+    },
+    smithGoldHammer: {
+      name: 'Altın Çekiç'
+    },
+    smithMasterGoldSword: {
+      name: 'Usta İşi Altın Kılıç'
+    },
+    smithGoldSword: {
+      name: 'Altın Kılıç'
+    },
+    smithMasterSilverGreaves: {
+      name: 'Usta İşi Gümüş Dizlikler'
+    },
+    smithSilverGreaves: {
+      name: 'Gümüş Dizlikler'
+    },
+    smithMasterSilverPlate: {
+      name: 'Usta İşi Gümüş Plaka Zırh'
+    },
+    smithSilverPlate: {
+      name: 'Gümüş Plaka Zırh'
+    },
+    smithMasterSilverHelm: {
+      name: 'Usta İşi Gümüş Miğfer'
+    },
+    smithSilverHelm: {
+      name: 'Gümüş Miğfer'
+    },
+    smithMasterSilverShield: {
+      name: 'Usta İşi Gümüş Kalkan'
+    },
+    smithSilverShield: {
+      name: 'Gümüş Kalkan'
+    },
+    smithMasterSilverHammer: {
+      name: 'Usta İşi Gümüş Çekiç'
+    },
+    smithSilverHammer: {
+      name: 'Gümüş Çekiç'
+    },
+    smithMasterSilverSword: {
+      name: 'Usta İşi Gümüş Kılıç'
+    },
+    smithSilverSword: {
+      name: 'Gümüş Kılıç'
+    },
+    smithMasterIronGreaves: {
+      name: 'Usta İşi Demir Dizlikler'
+    },
+    smithIronGreaves: {
+      name: 'Demir Dizlikler'
+    },
+    smithMasterIronPlate: {
+      name: 'Usta İşi Demir Plaka Zırh'
+    },
+    smithIronPlate: {
+      name: 'Demir Plaka Zırh'
+    },
+    smithMasterIronHelm: {
+      name: 'Usta İşi Demir Miğfer'
+    },
+    smithIronHelm: {
+      name: 'Demir Miğfer'
+    },
+    smithMasterIronShield: {
+      name: 'Usta İşi Demir Kalkan'
+    },
+    smithIronShield: {
+      name: 'Demir Kalkan'
+    },
+    smithMasterIronHammer: {
+      name: 'Usta İşi Demir Çekiç'
+    },
+    smithIronHammer: {
+      name: 'Demir Çekiç'
+    },
+    smithMasterIronSword: {
+      name: 'Usta İşi Demir Kılıç'
+    },
+    smithIronSword: {
+      name: 'Demir Kılıç'
+    },
     rustedShortsword: {
       name: 'Paslı Kısa Kılıç'
     },
@@ -1527,6 +1701,8 @@ export default {
     }
   },
   bag: {
+    oreCount: '{ore}: {n}',
+    noOre: 'Henüz cevher yok. Vahşi doğada kayaların dibindeki damarları kaz.',
     equip: 'Kuşan',
     unequip: 'Çıkar',
     worn: 'Bunu giyiyorsun. Satmak için önce çıkar.',
@@ -1536,6 +1712,7 @@ export default {
     slotEmpty: '{slot}: boş',
     slotHolds: '{slot}: {item}',
     filter: {
+      ore: 'Cevher',
       all: 'Hepsi',
       weapons: 'Silahlar',
       armor: 'Zırhlar',
@@ -2095,6 +2272,9 @@ export default {
       }
     },
     hero: {
+      forge: 'Ocağını kullanmak istiyorum.',
+      learnSmith: 'Bana demircilik öğretir misin?',
+      ore: 'Satacak biraz cevherim var.',
       bye: 'Sizi işinizle baş başa bırakayım.',
       trade: 'Neler var, bir bakabilir miyim?',
       train: 'Bana öğretir misin?',
@@ -2107,6 +2287,19 @@ export default {
       play: 'Ben de varım.'
     },
     sunfordSmith: {
+      forge: {
+        '1': 'Ocak kızgın. Parmaklarına dikkat et.'
+      },
+      learnSmith: {
+        '2': 'Metal en parlak yandığında vur. Kaçırırsan hurda olur. Hadi.',
+        '1': 'Demircilik mi? Hm. Çekici böyle tut, sopa gibi değil.'
+      },
+      ore: {
+        '1': 'Cevher mi? Hepsini alırım. Doğru tartı, doğru para.'
+      },
+      forgeBack: {
+        '1': 'Fena değil. İyi de değil. Devam et.'
+      },
       hello: {
         '1': 'Seni daha önce görmedim. Yolu temizleyen sen misin?',
         '2': 'Bram. Demirhane bende. Bir kılıç lazımsa bana gel.'
@@ -2516,6 +2709,19 @@ export default {
       }
     },
     oakArmorer: {
+      forge: {
+        '1': 'Örs senin. Dayanacak bir şey yap.'
+      },
+      learnSmith: {
+        '2': 'Parıltıyı izle. Tam kalbine üç kez vur, metal unutmaz.',
+        '1': 'Zanaatı öğrenmek mi istiyorsun? Güzel. Oakhaven\'ın her çekice ihtiyacı var.'
+      },
+      ore: {
+        '1': 'Ham cevher! Cephanelikte hiç yetmez. Al, ücretin.'
+      },
+      forgeBack: {
+        '1': 'İyi çelik. Surlar sana teşekkür eder.'
+      },
       hello: {
         '1': 'Miğfer arıyorsan üzgünüm. Hepsi surlarda.',
         '2': 'Odo. Zırh yaparım. Son zamanlarda pek uyumadım.'
@@ -2546,6 +2752,19 @@ export default {
       }
     },
     oakMasterArmorer: {
+      forge: {
+        '1': 'Ateş hazır, seni bekliyor. Buyur.'
+      },
+      learnSmith: {
+        '2': 'Üç vuruş, her biri parıltının kalbine. Bütün sır bu kadar.',
+        '1': 'Kuşatmadan beri isteyen herkese öğretiyorum. Gel, şuraya dur.'
+      },
+      ore: {
+        '1': 'Surlar için daha fazla cevher mi? Sağ ol. Al, bu senin.'
+      },
+      forgeBack: {
+        '1': 'Her vuruş seni daha iyi yapıyor. Ne zaman istersen gel.'
+      },
       hello: {
         '1': 'İşte geldin! Gir içeri. Arka oda açık, hem de senin için açık.',
         '2': 'Artık bana Usta Odo diyorlar. Biraz huzurun iş için neler yaptığı komik.'
@@ -2931,6 +3150,19 @@ export default {
       }
     },
     ironWeapons: {
+      forge: {
+        '1': 'Kıvılcımlara dikkat et, iyi çekicime de dokunma.'
+      },
+      learnSmith: {
+        '2': 'Ne zaman, onu parıltı söyler. Ne kadar sert, onu kolun. Üç vuruş.',
+        '1': 'Örsün başında bir yüzeyli mi? Neyse, herkes bir yerden başlar.'
+      },
+      ore: {
+        '1': 'Hah, dürüst cevher. Ironhold buna her zaman para öder.'
+      },
+      forgeBack: {
+        '1': 'Hm. Bir cüce daha iyisini yapardı. Ama çok da değil.'
+      },
       hello: {
         '1': 'Vitrine dikkat. Bunlar iki yanı da keskin.',
         '2': 'Hilda Hammerhand. Buradaki her parça cüce elinden çıktı.'
@@ -2990,6 +3222,19 @@ export default {
       }
     },
     ironArmor: {
+      forge: {
+        '1': 'Sen hazır olunca ocak da hazır.'
+      },
+      learnSmith: {
+        '2': 'Isıt, vur, çevir. Üç vuruş, tam parıltıya. Sonra soğumaya bırak.',
+        '1': 'Zırh sabır işidir. Sana temelleri göstereyim.'
+      },
+      ore: {
+        '1': 'Bir tartayım. Güzel. Para senin.'
+      },
+      forgeBack: {
+        '1': 'Giymeden önce soğumasını bekle.'
+      },
       hello: {
         '1': 'Garrun. Zırhlar rafta, yüzükler tepside.'
       },
@@ -3019,6 +3264,19 @@ export default {
       }
     },
     ironOrderArmor: {
+      forge: {
+        '1': 'Tarikatın ocağını onurla kullan.'
+      },
+      learnSmith: {
+        '2': 'Örsün başında da, savaş alanındaki gibi disiplin. Üç vuruş, parıltıya sadık.',
+        '1': 'Tarikat dostlarını silahlandırır. Sana öğreteceğim.'
+      },
+      ore: {
+        '1': 'Tarikat savaş için bütün cevheri satın alır. Ödemen.'
+      },
+      forgeBack: {
+        '1': 'İyi dövülmüş. İçinde iyi hizmet et.'
+      },
       hello: {
         '1': 'Çekirdeği yok eden sensin. Tarikat bunu hatırlıyor.',
         '2': 'Buradaki Tarikat levazımcısıyım. Cephanelerimiz sana açık.'
@@ -3535,6 +3793,19 @@ export default {
       }
     },
     sbArmorer: {
+      forge: {
+        '1': 'Ocak senin. Bir şey alev alırsa bağır.'
+      },
+      learnSmith: {
+        '2': 'En kızgın parladığında vur. Üç iyi vuruş iyi bir parça çıkarır.',
+        '1': 'Çekici kendin denemek ister misin? Ocağı paylaşmaya razıyım.'
+      },
+      ore: {
+        '1': 'Güzel cevher. Silverbridge her zaman adil fiyat öder.'
+      },
+      forgeBack: {
+        '1': 'Şuna bak! Doğuştan yeteneklisin.'
+      },
       hello: {
         '1': 'Ha! Şu göçüğe bak. Umarım o zırhın parasını geri almışsındır.',
         '2': 'Greta Ironvein. Sahibiyle birlikte eve dönen zırhlar yaparım. Şimdiye kadar her seferinde.'

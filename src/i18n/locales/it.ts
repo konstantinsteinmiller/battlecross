@@ -1,5 +1,34 @@
 // Italian locale — mirrors the key shape of en.ts exactly.
 export default {
+  smith: {
+    why: {
+      max: 'Li possiedi entrambi, migliorati al massimo.',
+      gold: 'Oro insufficiente.',
+      ore: 'Minerale insufficiente.',
+      metal: 'Estrai prima questo minerale.',
+      learn: 'Prima un fabbro deve insegnarti.'
+    },
+    stamp: 'Forgiato',
+    take: 'Prendi',
+    worked: '{item} migliorato fino a +{n}',
+    made: '{item} +{n}',
+    grade: {
+      perfect: 'Perfetto!',
+      great: 'Ottimo lavoro!',
+      good: 'Buon lavoro',
+      poor: 'Lavoro grezzo'
+    },
+    hint: 'Tocca «Colpisci», o premi Spazio, quando il bagliore è nella zona calda.',
+    strikes: 'Colpo {n} di {max}',
+    strike: 'Colpisci!',
+    forge: 'Forgia',
+    gold: '{n} oro',
+    nuggets: '{ore}: {have} su {n}',
+    master: 'Un gran colpo lo trasforma in: {item}.',
+    locked: 'Estrai prima {ore} per imparare i suoi pezzi.',
+    lead: 'Ogni metallo che estrai ti rivela i suoi pezzi. Colpisci il bagliore dove è più caldo: tre colpi decidono il pezzo.',
+    talk: 'Il ferro caldo non aspetta nessuno.'
+  },
   gameName: 'Battlecross',
   cancel: 'Annulla',
   close: 'Chiudi',
@@ -1273,6 +1302,7 @@ export default {
     magic: 'Magia · scala con {attr}'
   },
   source: {
+    smith: 'Forgiato in una fucina.',
     mob: '{zone}: lo lasciano cadere i mostri.',
     chest: '{zone}: si trova nei forzieri.',
     boss: '{zone}: lo lascia cadere il boss.',
@@ -1340,6 +1370,150 @@ export default {
     overheatCrit: '+{n}% danno Critico da surriscaldato'
   },
   item: {
+    smithMasterMithrilGreaves: {
+      name: 'Schinieri di mithril magistrali'
+    },
+    smithMithrilGreaves: {
+      name: 'Schinieri di mithril'
+    },
+    smithMasterMithrilPlate: {
+      name: 'Corazza di mithril magistrale'
+    },
+    smithMithrilPlate: {
+      name: 'Corazza di mithril'
+    },
+    smithMasterMithrilHelm: {
+      name: 'Elmo di mithril magistrale'
+    },
+    smithMithrilHelm: {
+      name: 'Elmo di mithril'
+    },
+    smithMasterMithrilShield: {
+      name: 'Scudo di mithril magistrale'
+    },
+    smithMithrilShield: {
+      name: 'Scudo di mithril'
+    },
+    smithMasterMithrilHammer: {
+      name: 'Martello di mithril magistrale'
+    },
+    smithMithrilHammer: {
+      name: 'Martello di mithril'
+    },
+    smithMasterMithrilSword: {
+      name: 'Spada di mithril magistrale'
+    },
+    smithMithrilSword: {
+      name: 'Spada di mithril'
+    },
+    smithMasterGoldGreaves: {
+      name: 'Schinieri d’oro magistrali'
+    },
+    smithGoldGreaves: {
+      name: 'Schinieri d’oro'
+    },
+    smithMasterGoldPlate: {
+      name: 'Corazza d’oro magistrale'
+    },
+    smithGoldPlate: {
+      name: 'Corazza d’oro'
+    },
+    smithMasterGoldHelm: {
+      name: 'Elmo d’oro magistrale'
+    },
+    smithGoldHelm: {
+      name: 'Elmo d’oro'
+    },
+    smithMasterGoldShield: {
+      name: 'Scudo d’oro magistrale'
+    },
+    smithGoldShield: {
+      name: 'Scudo d’oro'
+    },
+    smithMasterGoldHammer: {
+      name: 'Martello d’oro magistrale'
+    },
+    smithGoldHammer: {
+      name: 'Martello d’oro'
+    },
+    smithMasterGoldSword: {
+      name: 'Spada d’oro magistrale'
+    },
+    smithGoldSword: {
+      name: 'Spada d’oro'
+    },
+    smithMasterSilverGreaves: {
+      name: 'Schinieri d’argento magistrali'
+    },
+    smithSilverGreaves: {
+      name: 'Schinieri d’argento'
+    },
+    smithMasterSilverPlate: {
+      name: 'Corazza d’argento magistrale'
+    },
+    smithSilverPlate: {
+      name: 'Corazza d’argento'
+    },
+    smithMasterSilverHelm: {
+      name: 'Elmo d’argento magistrale'
+    },
+    smithSilverHelm: {
+      name: 'Elmo d’argento'
+    },
+    smithMasterSilverShield: {
+      name: 'Scudo d’argento magistrale'
+    },
+    smithSilverShield: {
+      name: 'Scudo d’argento'
+    },
+    smithMasterSilverHammer: {
+      name: 'Martello d’argento magistrale'
+    },
+    smithSilverHammer: {
+      name: 'Martello d’argento'
+    },
+    smithMasterSilverSword: {
+      name: 'Spada d’argento magistrale'
+    },
+    smithSilverSword: {
+      name: 'Spada d’argento'
+    },
+    smithMasterIronGreaves: {
+      name: 'Schinieri di ferro magistrali'
+    },
+    smithIronGreaves: {
+      name: 'Schinieri di ferro'
+    },
+    smithMasterIronPlate: {
+      name: 'Corazza di ferro magistrale'
+    },
+    smithIronPlate: {
+      name: 'Corazza di ferro'
+    },
+    smithMasterIronHelm: {
+      name: 'Elmo di ferro magistrale'
+    },
+    smithIronHelm: {
+      name: 'Elmo di ferro'
+    },
+    smithMasterIronShield: {
+      name: 'Scudo di ferro magistrale'
+    },
+    smithIronShield: {
+      name: 'Scudo di ferro'
+    },
+    smithMasterIronHammer: {
+      name: 'Martello di ferro magistrale'
+    },
+    smithIronHammer: {
+      name: 'Martello di ferro'
+    },
+    smithMasterIronSword: {
+      name: 'Spada di ferro magistrale'
+    },
+    smithIronSword: {
+      name: 'Spada di ferro'
+    },
     rustedShortsword: {
       name: 'Spada corta arrugginita'
     },
@@ -1528,6 +1702,8 @@ export default {
     }
   },
   bag: {
+    oreCount: '{ore}: {n}',
+    noOre: 'Ancora nessun minerale. Estrai i filoni contro la roccia, là fuori nelle terre selvagge.',
     equip: 'Equipaggia',
     unequip: 'Togli',
     worn: 'Lo stai indossando. Toglilo per venderlo.',
@@ -1537,6 +1713,7 @@ export default {
     slotEmpty: '{slot}: vuoto',
     slotHolds: '{slot}: {item}',
     filter: {
+      ore: 'Minerale',
       all: 'Tutto',
       weapons: 'Armi',
       armor: 'Armature',
@@ -2104,6 +2281,9 @@ export default {
       }
     },
     hero: {
+      forge: 'Vorrei usare la tua fucina.',
+      learnSmith: 'Potresti insegnarmi a forgiare?',
+      ore: 'Ho del minerale da vendere.',
       bye: 'Ti lascio al tuo lavoro.',
       trade: 'Posso vedere cosa hai?',
       train: 'Mi insegni qualcosa?',
@@ -2116,6 +2296,20 @@ export default {
       play: 'Dai le carte, ci sto.'
     },
     sunfordSmith: {
+      forge: {
+        '1__f': 'La fucina è calda. Attenta alle dita.',
+        '1': 'La fucina è calda. Attento alle dita.'
+      },
+      learnSmith: {
+        '2': 'Colpisci quando il metallo brilla di più. Sbagli, ed è rottame. Forza.',
+        '1': 'Forgiare? Mh. Tieni il martello così, non come una clava.'
+      },
+      ore: {
+        '1': 'Minerale, eh? Lo prendo tutto. Peso giusto, moneta giusta.'
+      },
+      forgeBack: {
+        '1': 'Non male. Nemmeno bene, però. Continua così.'
+      },
       hello: {
         '1': 'Non ti avevo mai visto. Sei tu che hai liberato la strada?',
         '1__f': 'Non ti avevo mai vista. Sei tu che hai liberato la strada?',
@@ -2538,6 +2732,19 @@ export default {
       }
     },
     oakArmorer: {
+      forge: {
+        '1': 'L’incudine è tua. Fai qualcosa che regga.'
+      },
+      learnSmith: {
+        '2': 'Guarda il bagliore. Colpisci al suo cuore, tre volte, e il metallo ricorda.',
+        '1': 'Vuoi imparare il mestiere? Bene. Oakhaven ha bisogno di ogni martello.'
+      },
+      ore: {
+        '1': 'Minerale grezzo! L’armeria non ne ha mai abbastanza. Ecco la tua paga.'
+      },
+      forgeBack: {
+        '1': 'Buon acciaio. Le mura ti ringraziano.'
+      },
       hello: {
         '1': 'Se cerchi un elmo, mi dispiace. Sono tutti sulle mura.',
         '2': 'Odo. Faccio armature. Ultimamente ho dormito poco.'
@@ -2568,6 +2775,20 @@ export default {
       }
     },
     oakMasterArmorer: {
+      forge: {
+        '1': 'Il fuoco è coperto e aspetta. Vai pure.'
+      },
+      learnSmith: {
+        '2': 'Tre colpi, ognuno nel cuore del bagliore. Tutto il segreto è qui.',
+        '1': 'Dall’assedio insegno a chiunque lo chieda. Vieni, mettiti qui.'
+      },
+      ore: {
+        '1__f': 'Altro minerale per le mura? Che tu sia benedetta. Tieni, prendi questo.',
+        '1': 'Altro minerale per le mura? Che tu sia benedetto. Tieni, prendi questo.'
+      },
+      forgeBack: {
+        '1': 'Ogni colpo ti rende migliore. Torna quando vuoi.'
+      },
       hello: {
         '1': 'Eccoti! Entra. Il retrobottega è aperto, e aperto per te.',
         '2': 'Mastro Odo, mi chiamano ora. Strano cosa fa un po’ di pace agli affari.'
@@ -2970,6 +3191,21 @@ export default {
       }
     },
     ironWeapons: {
+      forge: {
+        '1__f': 'Attenta alle scintille, e non toccare il mio martello buono.',
+        '1': 'Attento alle scintille, e non toccare il mio martello buono.'
+      },
+      learnSmith: {
+        '2': 'Il bagliore ti dice quando. Il braccio ti dice quanto forte. Tre colpi.',
+        '1__f': 'Una di superficie all’incudine? Be’, tutti cominciano da qualche parte.',
+        '1': 'Uno di superficie all’incudine? Be’, tutti cominciano da qualche parte.'
+      },
+      ore: {
+        '1': 'Ah, minerale onesto. Ironhold paga sempre per questo.'
+      },
+      forgeBack: {
+        '1': 'Mh. Un nano avrebbe fatto meglio. Ma non di molto.'
+      },
       hello: {
         '1': 'Attento all’esposizione. Quelle sono affilate da entrambi i lati.',
         '1__f': 'Attenta all’esposizione. Quelle sono affilate da entrambi i lati.',
@@ -3033,6 +3269,19 @@ export default {
       }
     },
     ironArmor: {
+      forge: {
+        '1': 'La fucina è pronta quando lo sei tu.'
+      },
+      learnSmith: {
+        '2': 'Scalda, colpisci, gira. Tre colpi, dritti nel bagliore. Poi lascia raffreddare.',
+        '1': 'Le piastre sono un lavoro di pazienza. Ti mostro le basi.'
+      },
+      ore: {
+        '1': 'Fammi pesare. Bene. Le monete sono tue.'
+      },
+      forgeBack: {
+        '1': 'Lasciala raffreddare prima di indossarla.'
+      },
       hello: {
         '1': 'Garrun. Armature sui supporti, anelli nel vassoio.'
       },
@@ -3062,6 +3311,19 @@ export default {
       }
     },
     ironOrderArmor: {
+      forge: {
+        '1': 'Usa la fucina dell’Ordine con onore.'
+      },
+      learnSmith: {
+        '2': 'Disciplina all’incudine come sul campo. Tre colpi, fedeli al bagliore.',
+        '1': 'L’Ordine arma i suoi amici. Ti insegnerò.'
+      },
+      ore: {
+        '1': 'L’Ordine compra tutto il minerale per la guerra. Il tuo pagamento.'
+      },
+      forgeBack: {
+        '1': 'Ben forgiato. Servi bene con essa.'
+      },
       hello: {
         '1': 'Sei tu che hai distrutto il nucleo. L’Ordine lo ricorda.',
         '2': 'Sono il quartiermastro dell’Ordine qui. Le nostre armerie sono aperte per te.'
@@ -3597,6 +3859,20 @@ export default {
       }
     },
     sbArmorer: {
+      forge: {
+        '1': 'Serviti pure della fucina. Grida se prende fuoco qualcosa.'
+      },
+      learnSmith: {
+        '2': 'Colpisci quando brilla più caldo. Tre buoni colpi fanno un buon pezzo.',
+        '1__f': 'Vuoi provare il martello tu stessa? Non mi dispiace dividere la fucina.',
+        '1': 'Vuoi provare il martello tu stesso? Non mi dispiace dividere la fucina.'
+      },
+      ore: {
+        '1': 'Bel minerale. Silverbridge paga sempre un prezzo onesto.'
+      },
+      forgeBack: {
+        '1': 'Guarda qui! Sei un talento naturale.'
+      },
       hello: {
         '1': 'Ah! Guarda che ammaccatura. Spero che ti abbiano rimborsato quell’armatura.',
         '2': 'Greta Ironvein. Faccio armature che tornano a casa col loro padrone. Ogni volta, finora.'

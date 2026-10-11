@@ -77,8 +77,17 @@
                 PlantIcon(:id="h.id")
               span.herb-cell__n {{ h.n }}
               span.herb-cell__name {{ t(`plant.${h.id}.name`) }}
+        //- The ore pouch (#99): what the stone gave, for the smith.
+        template(v-else-if="filter === 'ore'")
+          p.bag__empty(v-if="ores.length === 0") {{ t('bag.noOre') }}
+          div.bag__grid
+            div.herb-cell(v-for="o in ores" :key="o.id" :aria-label="t('bag.oreCount', { ore: t(`ore.${o.id}.name`), n: o.n })")
+              span.herb-cell__icon
+                OreIcon(:id="o.id")
+              span.herb-cell__n {{ o.n }}
+              span.herb-cell__name {{ t(`ore.${o.id}.name`) }}
         p.bag__empty(v-else-if="items.length === 0") {{ t('bag.empty') }}
-        div.bag__grid(v-if="filter !== 'herbs'")
+        div.bag__grid(v-if="filter !== 'herbs' && filter !== 'ore'")
           ItemCell.cell(
             v-for="it in items"
             :key="it.id"
@@ -153,6 +162,8 @@ import { useMedia } from '@/components/game/useMedia'
 import HeroDoll from './HeroDoll.vue'
 import EquipCard from './EquipCard.vue'
 import PlantIcon from '@/components/art/PlantIcon.vue'
+import OreIcon from '@/components/art/OreIcon.vue'
+import { ORE_IDS } from '@/game/data/ores'
 import { PLANT_IDS } from '@/game/data/plants'
 
 const { t } = useI18n()
@@ -162,12 +173,14 @@ const GHOST: Record<ItemSlot, string> = { main: 'sword', off: 'shield', head: 'h
 const ORDER: readonly ItemSlot[] = ['main', 'off', 'head', 'body', 'hands', 'feet', 'trinket']
 
 // ── The bag: filtered and sorted ─────────────────────────────────────────────
-const FILTERS = ['all', 'weapons', 'armor', 'trinkets', 'herbs'] as const
+const FILTERS = ['all', 'weapons', 'armor', 'trinkets', 'herbs', 'ore'] as const
 type Filter = (typeof FILTERS)[number]
-const IN_FILTER: Record<Filter, readonly ItemSlot[] | null> = { all: null, weapons: ['main', 'off'], armor: ['head', 'body', 'hands', 'feet'], trinkets: ['trinket'], herbs: [] }
+const IN_FILTER: Record<Filter, readonly ItemSlot[] | null> = { all: null, weapons: ['main', 'off'], armor: ['head', 'body', 'hands', 'feet'], trinkets: ['trinket'], herbs: [], ore: [] }
 
 /** The pouch, in the order the plants are listed (#88). */
 const herbs = computed(() => PLANT_IDS.map(id => ({ id, n: profile.inv.herbs[id] ?? 0 })).filter(h => h.n > 0))
+/** The ore pouch, iron first (#99). */
+const ores = computed(() => ORE_IDS.map(id => ({ id, n: profile.inv.ores[id] ?? 0 })).filter(o => o.n > 0))
 const SORTS = ['slot', 'tier', 'level'] as const
 type Sort = (typeof SORTS)[number]
 

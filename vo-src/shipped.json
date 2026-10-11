@@ -779,6 +779,16 @@
     "at": "2026-10-04",
     "hash": "aa3ca7bb6c"
   },
+  "en/dlg.hero.forge": {
+    "engine": "chatterbox",
+    "at": "2026-10-11",
+    "hash": "f40c5cceed"
+  },
+  "en/dlg.hero.forge__f": {
+    "engine": "chatterbox",
+    "at": "2026-10-11",
+    "hash": "f40c5cceed"
+  },
   "en/dlg.hero.heal": {
     "engine": "chatterbox",
     "at": "2026-10-04",
@@ -789,6 +799,16 @@
     "at": "2026-10-04",
     "hash": "da51d6c1c5"
   },
+  "en/dlg.hero.learnSmith": {
+    "engine": "chatterbox",
+    "at": "2026-10-11",
+    "hash": "e9354d1a14"
+  },
+  "en/dlg.hero.learnSmith__f": {
+    "engine": "chatterbox",
+    "at": "2026-10-11",
+    "hash": "e9354d1a14"
+  },
   "en/dlg.hero.mana": {
     "engine": "chatterbox",
     "at": "2026-10-04",
@@ -798,6 +818,16 @@
     "engine": "chatterbox",
     "at": "2026-10-04",
     "hash": "67c4bb5083"
+  },
+  "en/dlg.hero.ore": {
+    "engine": "chatterbox",
+    "at": "2026-10-11",
+    "hash": "7afa0e8ad0"
+  },
+  "en/dlg.hero.ore__f": {
+    "engine": "chatterbox",
+    "at": "2026-10-11",
+    "hash": "7afa0e8ad0"
   },
   "en/dlg.hero.play": {
     "engine": "chatterbox",
@@ -919,10 +949,35 @@
     "at": "2026-10-04",
     "hash": "102bae298d"
   },
+  "en/dlg.ironArmor.forge.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-11",
+    "hash": "d4dbb65fb5"
+  },
+  "en/dlg.ironArmor.forgeBack.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-11",
+    "hash": "ffd50567be"
+  },
   "en/dlg.ironArmor.hello.1": {
     "engine": "chatterbox",
     "at": "2026-10-04",
     "hash": "1aa7d07c66"
+  },
+  "en/dlg.ironArmor.learnSmith.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-11",
+    "hash": "b44ec14741"
+  },
+  "en/dlg.ironArmor.learnSmith.2": {
+    "engine": "chatterbox",
+    "at": "2026-10-11",
+    "hash": "f47a621406"
+  },
+  "en/dlg.ironArmor.ore.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-11",
+    "hash": "73436c740d"
   },
   "en/dlg.ironArmor.quiet.1": {
     "engine": "chatterbox",
@@ -1044,6 +1099,16 @@
     "at": "2026-10-04",
     "hash": "e773eceb2e"
   },
+  "en/dlg.ironOrderArmor.forge.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-11",
+    "hash": "5e98a5bf84"
+  },
+  "en/dlg.ironOrderArmor.forgeBack.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-11",
+    "hash": "a9ddfb9dc7"
+  },
   "en/dlg.ironOrderArmor.hello.1": {
     "engine": "chatterbox",
     "at": "2026-10-04",
@@ -1053,6 +1118,16 @@
     "engine": "chatterbox",
     "at": "2026-10-04",
     "hash": "a61676f101"
+  },
+  "en/dlg.ironOrderArmor.learnSmith.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-11",
+    "hash": "0cfaec846d"
+  },
+  "en/dlg.ironOrderArmor.learnSmith.2": {
+    "engine": "chatterbox",
+    "at": "2026-10-11",
+    "hash": "84d4cffde7"
   },
   "en/dlg.ironOrderArmor.order.1": {
     "engine": "chatterbox",
@@ -1068,6 +1143,11 @@
     "engine": "chatterbox",
     "at": "2026-10-04",
     "hash": "508d51cb81"
+  },
+  "en/dlg.ironOrderArmor.ore.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-11",
+    "hash": "13fa736655"
   },
   "en/dlg.ironOrderArmor.rumor.throne.1": {
     "engine": "chatterbox",
@@ -1104,6 +1184,16 @@
     "at": "2026-10-04",
     "hash": "cfb1f1db8f"
   },
+  "en/dlg.ironWeapons.forge.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-11",
+    "hash": "5b87244aba"
+  },
+  "en/dlg.ironWeapons.forgeBack.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-11",
+    "hash": "518886b120"
+  },
   "en/dlg.ironWeapons.hello.1": {
     "engine": "chatterbox",
     "at": "2026-10-04",
@@ -1113,6 +1203,21 @@
     "engine": "chatterbox",
     "at": "2026-10-04",
     "hash": "4aeb915212"
+  },
+  "en/dlg.ironWeapons.learnSmith.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-11",
+    "hash": "12915afa41"
+  },
+  "en/dlg.ironWeapons.learnSmith.2": {
+    "engine": "chatterbox",
+    "at": "2026-10-11",
+    "hash": "d4eb545cc1"
+  },
+  "en/dlg.ironWeapons.ore.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-11",
+    "hash": "7937900bf2"
   },
   "en/dlg.ironWeapons.rumor.arm.1": {
     "engine": "chatterbox",
@@ -1279,6 +1384,16 @@
     "at": "2026-10-04",
     "hash": "afa761c4e9"
   },
+  "en/dlg.oakArmorer.forge.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-11",
+    "hash": "64cb114ae7"
+  },
+  "en/dlg.oakArmorer.forgeBack.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-11",
+    "hash": "2d5963616f"
+  },
   "en/dlg.oakArmorer.hello.1": {
     "engine": "chatterbox",
     "at": "2026-10-04",
@@ -1288,6 +1403,21 @@
     "engine": "chatterbox",
     "at": "2026-10-04",
     "hash": "566c58ab3a"
+  },
+  "en/dlg.oakArmorer.learnSmith.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-11",
+    "hash": "ffe4ca3033"
+  },
+  "en/dlg.oakArmorer.learnSmith.2": {
+    "engine": "chatterbox",
+    "at": "2026-10-11",
+    "hash": "fb9149714e"
+  },
+  "en/dlg.oakArmorer.ore.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-11",
+    "hash": "976037aeb9"
   },
   "en/dlg.oakArmorer.rumor.backRoom.1": {
     "engine": "chatterbox",
@@ -1459,6 +1589,16 @@
     "at": "2026-10-04",
     "hash": "4409900755"
   },
+  "en/dlg.oakMasterArmorer.forge.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-11",
+    "hash": "40f4861cfd"
+  },
+  "en/dlg.oakMasterArmorer.forgeBack.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-11",
+    "hash": "bf8d6c1d3a"
+  },
   "en/dlg.oakMasterArmorer.hello.1": {
     "engine": "chatterbox",
     "at": "2026-10-04",
@@ -1468,6 +1608,21 @@
     "engine": "chatterbox",
     "at": "2026-10-04",
     "hash": "40e14c68a8"
+  },
+  "en/dlg.oakMasterArmorer.learnSmith.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-11",
+    "hash": "e8fe1c1cf1"
+  },
+  "en/dlg.oakMasterArmorer.learnSmith.2": {
+    "engine": "chatterbox",
+    "at": "2026-10-11",
+    "hash": "44c5edf44d"
+  },
+  "en/dlg.oakMasterArmorer.ore.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-11",
+    "hash": "5e50e4d9da"
   },
   "en/dlg.oakMasterArmorer.rumor.mines.1": {
     "engine": "chatterbox",
@@ -2224,6 +2379,16 @@
     "at": "2026-10-07",
     "hash": "404fd20c1e"
   },
+  "en/dlg.sbArmorer.forge.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-11",
+    "hash": "8c61ec3dda"
+  },
+  "en/dlg.sbArmorer.forgeBack.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-11",
+    "hash": "2ed3a6443b"
+  },
   "en/dlg.sbArmorer.hello.1": {
     "engine": "chatterbox",
     "at": "2026-10-07",
@@ -2233,6 +2398,21 @@
     "engine": "chatterbox",
     "at": "2026-10-07",
     "hash": "d5e2b07d8e"
+  },
+  "en/dlg.sbArmorer.learnSmith.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-11",
+    "hash": "f58094e89b"
+  },
+  "en/dlg.sbArmorer.learnSmith.2": {
+    "engine": "chatterbox",
+    "at": "2026-10-11",
+    "hash": "760ac5a594"
+  },
+  "en/dlg.sbArmorer.ore.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-11",
+    "hash": "3b94c9f95f"
   },
   "en/dlg.sbArmorer.shopBack.1": {
     "engine": "chatterbox",
@@ -5094,6 +5274,16 @@
     "at": "2026-10-04",
     "hash": "0ba2383883"
   },
+  "en/dlg.sunfordSmith.forge.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-11",
+    "hash": "b847a75fe0"
+  },
+  "en/dlg.sunfordSmith.forgeBack.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-11",
+    "hash": "c33fe38c21"
+  },
   "en/dlg.sunfordSmith.gear.1": {
     "engine": "chatterbox",
     "at": "2026-10-04",
@@ -5138,6 +5328,21 @@
     "engine": "chatterbox",
     "at": "2026-10-04",
     "hash": "039a16d155"
+  },
+  "en/dlg.sunfordSmith.learnSmith.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-11",
+    "hash": "6674812a0c"
+  },
+  "en/dlg.sunfordSmith.learnSmith.2": {
+    "engine": "chatterbox",
+    "at": "2026-10-11",
+    "hash": "d1d39decb1"
+  },
+  "en/dlg.sunfordSmith.ore.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-11",
+    "hash": "5807e382a6"
   },
   "en/dlg.sunfordSmith.rumor.hollows.1": {
     "engine": "chatterbox",

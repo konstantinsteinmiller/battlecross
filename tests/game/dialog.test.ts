@@ -52,7 +52,9 @@ const fake = (over: Partial<Fake['w']> = {}): Fake => {
     open: (win: TalkWindow) => { log.push(`open:${win}`) },
     offer: id => offers[id] ?? null,
     buy: (id) => { const o = offers[id]; if (!o || o.block) return false; w.gold -= o.price; log.push(`buy:${id}`); return true },
-    errand: (id, act) => { (w.errands as Record<string, string>)[id] = act === 'start' ? 'active' : 'done'; log.push(`errand:${id}:${act}`); return true }
+    errand: (id, act) => { (w.errands as Record<string, string>)[id] = act === 'start' ? 'active' : 'done'; log.push(`errand:${id}:${act}`); return true },
+    sellOre: () => { log.push('sellOre') },
+    learnSmith: () => { w.smithing = true; log.push('learnSmith') }
   }
 }
 
@@ -378,6 +380,8 @@ const worldFor = (conv: string, ...conds: Array<Cond | undefined>): DialogWorld 
     if (c.met) h.w.said.add(conv)
     // An errand where the condition wants it (the first of a list).
     for (const id in c.errand) { const v = c.errand[id]!; (h.w.errands as Record<string, string>)[id] = typeof v === 'string' ? v : v[0]! }
+    if (c.ore !== undefined) h.w.ore = c.ore ? 5 : 0
+    if (c.smithing !== undefined) h.w.smithing = c.smithing
     if (c.any?.length) apply(c.any[0])
   }
   for (const c of conds) apply(c)
@@ -546,7 +550,8 @@ describe('every conversation in the game', () => {
     const people = [...Object.values(TOWNS).flatMap(t => t.npcs), ...MAP.filter(n => n.trainer).map(n => ({ id: n.trainer!.npc, role: 'trainer' as const, quest: undefined }))]
     for (const n of people) {
       const c = conversationOf(n.id)!
-      if (n.role === 'shop') expect(opens(c), n.id).toEqual(['shop'])
+      // A smith's shop has the forge as well (#99).
+      if (n.role === 'shop') expect([...new Set(opens(c))], n.id).toEqual(n.job === 'smith' ? ['shop', 'smithing'] : ['shop'])
       if (n.role === 'trainer') expect(opens(c), n.id).toEqual(['trainer'])
       if (n.role === 'healer') {
         expect(opens(c), n.id).toEqual(['healer'])

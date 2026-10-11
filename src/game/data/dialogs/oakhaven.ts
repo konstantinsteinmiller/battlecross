@@ -1,6 +1,6 @@
 import { conversation } from '../../dialog/build'
 import type { ConversationDef } from '../../dialog/types'
-import { foe, friend, heal, mana, news, play, ready, rumor, trade, train, who } from './shared'
+import { foe, friend, heal, mana, news, play, ready, rumor, trade, train, who, smithing } from './shared'
 
 /**
  * Oakhaven: a walled trade town under siege. Defended, it prospers; betrayed,
@@ -41,11 +41,13 @@ const oakArmorer = conversation('oakArmorer', {
   ],
   topics: [
     trade(),
+    // Ore and the forge (#99).
+    ...smithing(),
     who(),
     { id: 'armor' },
     rumor([{ id: 'backRoom' }])
   ],
-  back: { shop: [{ id: 'shopBack' }] },
+  back: { shop: [{ id: 'shopBack' }], smithing: [{ id: 'forgeBack' }] },
   bye: [{ id: 'bye' }]
 })
 
@@ -59,13 +61,15 @@ const oakMasterArmorer = conversation('oakMasterArmorer', {
   ],
   topics: [
     trade(),
+    // Ore and the forge (#99).
+    ...smithing(),
     { id: 'town', lines: 'nn', mood: 'amused' },
     rumor([
       { id: 'mines', when: { uncleared: ['mines'] } },
       { id: 'tundra' }
     ])
   ],
-  back: { shop: [{ id: 'shopBack' }] },
+  back: { shop: [{ id: 'shopBack' }], smithing: [{ id: 'forgeBack' }] },
   bye: [{ id: 'bye' }]
 })
 

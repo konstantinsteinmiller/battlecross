@@ -1,6 +1,6 @@
 import { conversation } from '../../dialog/build'
 import type { ConversationDef } from '../../dialog/types'
-import { foe, friend, heal, mana, news, ready, rumor, trade, train, who } from './shared'
+import { foe, friend, heal, mana, news, ready, rumor, trade, train, who, smithing } from './shared'
 
 /**
  * Ironhold: the mountain forge-town, and the hidden teacher of the Sunken
@@ -49,13 +49,15 @@ const ironWeapons = conversation('ironWeapons', {
   ],
   topics: [
     trade(),
+    // Ore and the forge (#99).
+    ...smithing(),
     who(),
     rumor([
       { id: 'golems', when: { quest: { core: false } }, mood: 'gruff' },
       { id: 'arm' }
     ])
   ],
-  back: { shop: [{ id: 'shopBack' }] },
+  back: { shop: [{ id: 'shopBack' }], smithing: [{ id: 'forgeBack' }] },
   bye: [{ id: 'bye' }]
 })
 
@@ -84,13 +86,15 @@ const ironArmor = conversation('ironArmor', {
   ],
   topics: [
     trade(),
+    // Ore and the forge (#99).
+    ...smithing(),
     { id: 'quiet' },
     rumor([
       { id: 'giants', when: { uncleared: ['tundra'] } },
       { id: 'demons' }
     ])
   ],
-  back: { shop: [{ id: 'shopBack' }] },
+  back: { shop: [{ id: 'shopBack' }], smithing: [{ id: 'forgeBack' }] },
   bye: [{ id: 'bye' }]
 })
 
@@ -105,10 +109,12 @@ const ironOrderArmor = conversation('ironOrderArmor', {
   ],
   topics: [
     trade(),
+    // Ore and the forge (#99).
+    ...smithing(),
     { id: 'order' },
     rumor([{ id: 'throne' }])
   ],
-  back: { shop: [{ id: 'shopBack' }] },
+  back: { shop: [{ id: 'shopBack' }], smithing: [{ id: 'forgeBack' }] },
   bye: [{ id: 'bye' }]
 })
 
