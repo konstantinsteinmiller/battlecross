@@ -393,7 +393,9 @@ export type SimEvent =
   /** A chest changes state: revealed by its door, being opened, open, or left
    *  closed again (the hero was called away). `locked`: it was asked for while
    *  its guard lives or the finale stands. */
-  | { t: 'chest'; id: number; x: number; z: number; state: 'reveal' | 'opening' | 'open' | 'closed' | 'locked'; why?: 'guard' | 'finale' }
+  | { t: 'chest'; id: number; x: number; z: number; state: 'reveal' | 'opening' | 'open' | 'closed' | 'locked'; why?: 'guard' | 'finale' | 'key' }
+  /** A cage's key picked up (#100). */
+  | { t: 'cageKey'; x: number; z: number }
   /** Something from a chest that is not gold or gear: a health potion for the
    *  belt, a full belt's potion drunk on the spot, a mana potion for the stock. */
   | { t: 'pickup'; what: 'potion' | 'heal' | 'mana'; x: number; z: number }

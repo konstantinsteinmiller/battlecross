@@ -15,6 +15,8 @@ import { abortTalk, beginTalk, talkResume, talkWaiting, type TalkStage } from '.
 import {
   clearNode, flagSet, gainItem, grantXp, hasFlag, isFreshProfile, isNodeOpen, isNodeReachable, lifetimeXp, profile, saveProfile
 } from './state/profile'
+import { freeCaptives } from './state/profile'
+import { cageOf } from './data/cages'
 import { addHerbs, addOres, addPieces, markTreasureDug, treasureFor, setElixirs, countContracts, countErrands, countTasks, finishEscortTasks, markChestsOpened, recordArenaWaves, recordMastery, setManaPotions } from './state/profile'
 import { zoneMastery, type Mastery } from './sim/route'
 import { playJingle } from './audio/music'
@@ -197,6 +199,8 @@ const setupFor = (node: NodeId): ZoneSetup => {
     dragonAlly: hasFlag('dragonPact') && (node === 'fortress' || node === 'rift'),
     // The treasure map (#89): the pieces still lying here, the X once it is whole.
     ...treasureFor(node),
+    // A cage (#100), until it has been opened.
+    cage: !!cageOf(node) && !hasFlag(cageOf(node)!.flag),
     flags
   }
 }
@@ -662,6 +666,8 @@ export const bankVisit = async (outcome: 'victory' | 'defeat' | 'retreat', node:
   // So do the map's pieces (#89); the buried chest dug up ends the errand.
   if (h.pieces?.length) addPieces(h.pieces)
   if (h.special?.some(k => k.endsWith(':treasure'))) markTreasureDug()
+  // A cage opened (#100): whoever was in it is free, and found again in town.
+  if (h.special?.some(k => k.endsWith(':cage'))) freeCaptives(h.special.find(k => k.endsWith(':cage'))!.split(':')[0]!)
   // The caravan arrived (#85): the boards' escort tasks are done, to hand in.
   if (flow.encounter?.escort && outcome === 'victory') finishEscortTasks()
   const mastery = h.mastery && !encounter ? { ...h.mastery, ...recordMastery(node, h.mastery) } : undefined

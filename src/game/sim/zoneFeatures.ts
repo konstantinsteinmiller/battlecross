@@ -49,6 +49,8 @@ export type ChestRole = 'finale' | 'secret' | 'puzzle' | 'champion' | 'guard' | 
   | 'branch'
   /** The treasure map's buried chest, under its X (roadmap #89). */
   | 'treasure'
+  /** A cage with somebody in it, locked until its key is found (roadmap #100). */
+  | 'cage'
 
 export interface ChestPlan {
   id: number

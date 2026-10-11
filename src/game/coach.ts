@@ -374,6 +374,8 @@ class Coach {
     let bd = 10
     for (const c of sim.chests) {
       if (c.state !== 'closed' || c.role === 'finale') continue
+      // A cage without its key is not a chest to point at yet (#100).
+      if (c.role === 'cage' && !sim.cageKey?.taken) continue
       // Its guard still stands: that is a fight first, not a chest.
       if (c.guard >= 0 && !sim.sideGroups[c.guard]?.cleared) continue
       const d = Math.hypot(c.x - u.x, c.z - u.z)

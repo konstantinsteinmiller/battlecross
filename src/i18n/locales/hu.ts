@@ -129,6 +129,16 @@ export default {
     chi: 'Csi'
   },
   toast: {
+    freed: {
+      lightDisciple: 'Kiszabadítva! Aurelle nővér {town} városában tanítja a Fényhozók útját.',
+      frostDisciple: 'Kiszabadítva! Ivor {town} városában tanítja a Fagyőrök útját.',
+      windDisciple: 'Kiszabadítva! Kestrel {town} városában tanítja a Szélfutók útját.',
+      freedFarmers: 'Kiszabadítva! A Toller család {town} városában talál otthonra.',
+      freedHerbalist: 'Kiszabadítva! Briar, a füvesasszony {town} városában vár rád.',
+      freedPeddler: 'Kiszabadítva! Odo, a házaló {town} városában fog kereskedni.'
+    },
+    cageLocked: 'Zárva. A kulcsnak valahol itt kell lennie.',
+    cageKey: 'Egy kulcs! Biztosan a ketrecet nyitja.',
     ore: 'Kibányászva: {n} × {ore}',
     mineBusy: 'Nem, amíg ellenség van a közelben!',
     item: 'Találtad: {item}',
@@ -1778,6 +1788,25 @@ export default {
     circle: 'Az Éterkör'
   },
   npc: {
+    frostDisciple: {
+      name: 'Ivor Hask'
+    },
+    windDisciple: {
+      name: 'Kestrel Vane'
+    },
+    freedFarmers: {
+      name: 'Jory Toller'
+    },
+    freedHerbalist: {
+      name: 'Briar Hollowell'
+    },
+    lightDisciple: {
+      name: 'Aurelle nővér'
+    },
+    freedPeddler: {
+      talk: 'Minden, ami egy utazónak kell. Majdnem új, többnyire.',
+      name: 'Odo Marrow'
+    },
     sfShadow: {
       name: 'Nettle Quickhand'
     },
@@ -2042,6 +2071,202 @@ export default {
     }
   },
   dlg: {
+    frostDisciple: {
+      bye: {
+        '1': 'Maradj melegben.'
+      },
+      who: {
+        '2': 'Ironhold kohói melegek. Jól érzem itt magam.',
+        '1': 'A tundrán vadásztam. Egy egész télre ketrecbe zártak.'
+      },
+      trainBack: {
+        '1': 'Gyakorolj. A hideg türelmes. Légy te is az.'
+      },
+      ready: {
+        weak: {
+          '1': 'Még nem. Több erő kell a karba és az elmébe.'
+        },
+        able: {
+          '1': 'Készen állsz. Következő lecke.'
+        },
+        strong: {
+          '1': 'Erősebb vagy, mint én voltam. Vidd, amire szükséged van.'
+        }
+      },
+      class: {
+        say: 'Mi az a Fagyőr?',
+        '2': 'Erő a pengéhez. Intelligencia a fagyhoz.',
+        '1': 'Hűtsd le, fagyaszd meg, aztán törd szét a jeget.'
+      },
+      train: {
+        '1': 'Állj mozdulatlanul. Hagyd, hogy a hideg jöjjön hozzád. Aztán küldd vissza.'
+      },
+      again: {
+        '1': 'Visszajöttél. Jó.'
+      },
+      hello: {
+        '2': 'Ivor Hask. Zúzmaraszív Halvard tanított a fagyra. Most én tanítom, itt.',
+        '1': 'Szabad vagyok. Jó. A hideg nem vitt el, és ők sem.'
+      }
+    },
+    windDisciple: {
+      bye: {
+        '1': 'Tartsd a szemed a szélen.'
+      },
+      who: {
+        '2': 'Megmondanád Sefának, hogy élek? Aggódik.',
+        '1': 'Úton voltam Silverbridge felé, amikor a Hamuszirteken elfogtak.'
+      },
+      trainBack: {
+        '1': 'Menj, gyakorolj. Valahol, ahol fúj a szél.'
+      },
+      ready: {
+        weak: {
+          '1': 'Még nem. Előbb légy fürgébb, aztán gyere vissza.'
+        },
+        able: {
+          '1': 'Készen állsz a következőre. Figyelj jól.'
+        },
+        strong: {
+          '1': 'Már gyorsabb vagy nálam. Vidd, amit szeretnél.'
+        }
+      },
+      class: {
+        say: 'Mit csinál egy Szélfutó?',
+        '2': 'Ügyesség a fürge lábhoz. Jártasság, hogy minden nyíl célba érjen.',
+        '1': 'Fuss, lőj, fuss újra. Soha ne ott légy, ahová céloznak.'
+      },
+      train: {
+        '1': 'Lábak szét. Fújd ki a levegőt. Hadd vigye a szél.'
+      },
+      again: {
+        '1': 'Szia! Ma jó a szél. Lövünk egyet?'
+      },
+      hello: {
+        '2': 'Kestrel Vane. Szélszárny Sefa tanított íjászatra. Megtaníthatom neked, amit tőle tanultam.',
+        '1': 'Kiszabadítottál! Mindennel tartozom neked. Na jó, sok mindennel.'
+      }
+    },
+    freedFarmers: {
+      bye: {
+        '1': 'Vigyázz magadra az úton.'
+      },
+      who: {
+        '2': 'Oakhaven befogadott minket. Kenyérrel fizetjük vissza.',
+        '1': 'Banditák hurcoltak el minket a földünkről, és az erdőben hagytak, hogy ott pusztuljunk.'
+      },
+      favorDone: {
+        say: 'A farkasok többé nem zaklatnak titeket.',
+        '2': 'Fogadd el ezt. Nem sok, de becsületes.',
+        '1': 'Újra csendesek az éjszakák. Végre alhatunk.'
+      },
+      waiting: {
+        say: 'Ami a farkasokat illeti...',
+        '1': 'A farkasok még itt kóborolnak. Múlt éjjel is hallottuk őket.'
+      },
+      favor: {
+        say: 'Segíthetek valamiben?',
+        '2': 'Megritkítanád őket? Nyolc elég lesz leckének.',
+        '1': 'A Suttogó-erdőből jött farkasok folyton elhordják a juhainkat.'
+      },
+      again: {
+        '1': 'Itt a hősünk! Eszel egy falatot?'
+      },
+      hello: {
+        '2': 'Jory Toller. Most a falakon kívül gazdálkodunk. Na, próbálunk.',
+        '1': 'Nélküled már halottak lennénk. Én is, a fiam is. Köszönjük.'
+      }
+    },
+    freedHerbalist: {
+      bye: {
+        '1': 'Óvatosan lépj. Ott élet sarjad.'
+      },
+      who: {
+        '2': 'Nem is tévedtek teljesen.',
+        '1': 'Füvesasszony vagyok a dombok közül. A goblinok boszorkánynak néztek.'
+      },
+      favorDone: {
+        say: 'Itt vannak a napszirmaid.',
+        '2': 'Tessék, a fizetséged. És újra köszönöm.',
+        '1': 'Ó, ezek tökéletesek. Szagold csak meg!'
+      },
+      waiting: {
+        say: 'Ami a napszirmokat illeti...',
+        '1': 'Még keresed? A napszirom a nyílt napfényt szereti.'
+      },
+      favor: {
+        say: 'Tehetek érted valamit?',
+        '2': 'Kint a síkságon nőnek. Jól megfizetem őket.',
+        '1': 'A készleteim odavesztek abban a ketrecben. Hoznál nekem három napszirmot?'
+      },
+      again: {
+        '1': 'Á, újra itt. A csizmád mohaillatú. Ez jó.'
+      },
+      hello: {
+        '2': 'Briar vagyok. Gyűjtöm és szárítom, ami terem. Silverbridge volt olyan kedves, hogy befogadjon.',
+        '1': 'Tudtam, hogy jön majd valaki. A goblinok sosem értettek a füvekhez. Sem a jósághoz.'
+      }
+    },
+    lightDisciple: {
+      bye: {
+        '1': 'Járj a fényben.'
+      },
+      who: {
+        '2': 'Sunford fényes és csendes. Mindkettőre szükségem volt.',
+        '1': 'Imádkozni mentem az Elsüllyedt templomba. A nagáknak más terveik voltak.'
+      },
+      trainBack: {
+        '1': 'Járj szelíden. És hadd lássák, hogy jössz.'
+      },
+      ready: {
+        weak: {
+          '1': 'Még nem. Előbb tisztább elme és melegebb szív kell.'
+        },
+        able: {
+          '1': 'Készen állsz a következő leckére. Gyere, állj a fénybe.'
+        },
+        strong: {
+          '1': 'Már fényesebben ragyogsz nálam. Vidd, amire szükséged van.'
+        }
+      },
+      class: {
+        say: 'Mit csinál egy Fényhozó?',
+        '2': 'Az Intelligencia erőssé teszi a fényt. A Karizma meleggé.',
+        '1': 'Mi visszük a hajnalt. Fény a harchoz, fény a gyógyításhoz.'
+      },
+      train: {
+        '1': 'Nyisd ki a kezed. Engedd, hogy a fény átáradjon rajta, ne belőle fakadjon.'
+      },
+      again: {
+        '1': 'Üdv újra itt. Ma kegyes a nap.'
+      },
+      hello: {
+        '2': 'Aurelle vagyok. Hajnaltó Auriel nővér tanított a fényre. Most én tanítom itt.',
+        '1': 'Fény legyen veled. A sötétben találtál rám, és ezt nem felejtem el.'
+      }
+    },
+    freedPeddler: {
+      bye: {
+        '1': 'Vigyázz a banditákkal. Nem szeretnek osztozni.'
+      },
+      shopBack: {
+        '1': 'Öröm volt veled üzletelni, barátom.'
+      },
+      who: {
+        '2': 'Most Sunfordban árulok. Itt nagyobb a biztonság. Többnyire.',
+        '1': 'Banditák elvitték a szekeremet, engem meg bezártak egy ládába. Igazán modortalan.'
+      },
+      trade: {
+        '1': 'Gyűrűk, kesztyűk, csizmák. Neked féláron. Na jó, majdnem.'
+      },
+      again: {
+        '1': 'Megmentőm! Gyere, gyere, a jó holmit neked tettem félre.'
+      },
+      hello: {
+        '2': 'Odo Marrow, szolgálatodra. Házaló, ezermester, nagyon hálás ember.',
+        '1': 'Te! Te nyitottad ki azt a ketrecet! Ott rohadtam volna meg.'
+      }
+    },
     sfShadow: {
       hello: {
         '1': 'Nem hallottam, hogy bejöttél. Ez általában az én trükköm.',
@@ -5316,6 +5541,12 @@ export default {
     prizeGold: 'Már mindegyik a tiéd, ezért helyette {n} aranyat kapsz!'
   },
   errand: {
+    farmersFavor: {
+      title: 'Tollerék farkasai'
+    },
+    herbalistFavor: {
+      title: 'Briar napszirmai'
+    },
     collectorFavor: {
       title: 'A Gyűjtő holdharangjai'
     },

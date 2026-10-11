@@ -9,6 +9,7 @@ import { fillGrid, type ZonePlan } from './zoneGen'
 import { SIDE_GROUP, type Sim } from './world'
 import { populateHerbs } from './herbs'
 import { populateOres } from './ores'
+import { populateCage } from './cages'
 import { spawnCaravan, stepCaravan } from './caravan'
 import { HASTE, SWARM_COUNT, SWARM_HP } from '../arenaWeek'
 
@@ -82,6 +83,7 @@ export const populateZone = (sim: Sim, plan: ZonePlan, zone: ZoneId, owned: Iter
   populateFeatures(sim, plan, zone, opened)
   populateHerbs(sim, plan.herbs ?? [], plan.pieces ?? [])
   populateOres(sim, plan.ores ?? [])
+  populateCage(sim, plan.cageKey)
   // An escort's caravan, at the start of its road (#85).
   if (plan.caravan) spawnCaravan(sim, plan.caravan.path)
 }

@@ -154,6 +154,7 @@ export const senseWorld = (host: SenseHost, goal: string): void => {
   let bd = 14
   for (const c of sim.chests) {
     if (c.state !== 'closed' || c.role === 'finale') continue
+    if (c.role === 'cage' && !sim.cageKey?.taken) continue
     if (c.guard >= 0 && !sim.sideGroups[c.guard]?.cleared) continue
     const d = Math.hypot(c.x - u.x, c.z - u.z)
     if (d < 4.5) s.add(c.id)

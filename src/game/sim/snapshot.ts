@@ -6,6 +6,7 @@ import type {
 } from './world'
 import type { HerbState, PieceState } from './herbs'
 import type { OreState } from './ores'
+import type { CageKeyState } from './cages'
 import type { CaravanState } from './caravan'
 
 /**
@@ -74,6 +75,8 @@ export interface SimSnapshot {
   herbs: HerbState[]
   /** The outcrops (#99); a save from before ore has none. */
   ores?: OreState[]
+  /** A cage's key (#100). */
+  cageKey?: CageKeyState | null
   pieces: PieceState[]
   caravan: CaravanState | null
   plates: PlateState[]
@@ -145,6 +148,7 @@ export const snapshotSim = (sim: Sim, base: SimBaseline): SimSnapshot => {
     chests: plain(sim.chests),
     herbs: plain(sim.herbs),
     ores: plain(sim.ores),
+    cageKey: plain(sim.cageKey),
     pieces: plain(sim.pieces),
     caravan: plain(sim.caravan),
     plates: plain(sim.plates),
@@ -195,6 +199,7 @@ export const restoreSim = (sim: Sim, base: SimBaseline, s: SimSnapshot): boolean
   sim.chests = plain(s.chests)
   sim.herbs = plain(s.herbs)
   if (s.ores) sim.ores = plain(s.ores)
+  if (s.cageKey !== undefined) sim.cageKey = plain(s.cageKey)
   sim.pieces = plain(s.pieces)
   sim.caravan = plain(s.caravan)
   sim.plates = plain(s.plates)

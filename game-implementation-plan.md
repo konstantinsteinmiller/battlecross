@@ -842,7 +842,25 @@ All sound is synthesised (53 recipes); recorded files can override a recipe.
   no profit, grades, the shop's flow, the save), dialog tests, full suite,
   vue-tsc --build, a real browser (forge window, the anvil game to a perfect
   masterwork, phone landscape; SHARP); strings in all 38 locales.
-- [ ] **38 Cages and captives** (#100).
+- [x] **38 Cages and captives** (#100). Six places hold somebody in a cage
+  until it is opened: wooden in the Plains, the Hollows and the Woods, iron in
+  the Crags, the Tundra and the Temple. Laid last on a stream of their own
+  (the place's packs, chests and herbs unchanged): the cage on open ground well
+  along the way, its key at least 14 m off, turning and glinting brighter as
+  the hero nears. The cage is a chest locked by its key ("the key must be
+  somewhere in this place"); the coach and the chest pointer leave it alone
+  until the key is found. Opened, the people in it jump and are gone, and the
+  place's cage is kept as opened for good. In town: Odo Marrow, a peddler of
+  trinkets, gloves and boots in Sunford; Briar Hollowell, a herbalist in
+  Silverbridge who asks for sunpetals; Jory Toller in Oakhaven, whose sheep the
+  wolves take; and three disciples teaching their masters' classes (Kestrel
+  Vane, Windrunner, Oakhaven; Ivor Hask, Frostwarden, Ironhold; Sister
+  Aurelle, Lightbringer, Sunford). A freed disciple opens the class at the
+  master too, and the master no longer sets the test (question 57). Six new
+  voices designed and every line voiced. Verified: cage tests (placement on
+  every seed, the lock, the key, the freeing, the towns, the masters), full
+  suite, vue-tsc --build, a real browser (the woods' cage, key, freeing, Jory
+  in Oakhaven; SHARP); strings in all 38 locales.
 - [ ] **39 Sound pass** (#101).
 - [ ] **40 Voice, translations, paint, final balance** (#107).
 

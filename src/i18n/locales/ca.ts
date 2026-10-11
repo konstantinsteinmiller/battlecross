@@ -129,6 +129,16 @@ export default {
     chi: 'Chi'
   },
   toast: {
+    freed: {
+      lightDisciple: 'Alliberada! La germana Aurelle ensenyarà el camí del Portador de Llum a {town}.',
+      frostDisciple: 'Alliberat! L’Ivor ensenyarà el camí del Guardià del Gel a {town}.',
+      windDisciple: 'Alliberat! En Kestrel ensenyarà el camí del Corredor del Vent a {town}.',
+      freedFarmers: 'Alliberats! Els Toller trobaran una llar a {town}.',
+      freedHerbalist: 'Alliberada! La Briar, l’herbolària, t’esperarà a {town}.',
+      freedPeddler: 'Alliberat! L’Odo, el quincallaire, comerciarà a {town}.'
+    },
+    cageLocked: 'Tancada amb clau. La clau ha de ser en algun lloc d’aquí.',
+    cageKey: 'Una clau! Deu obrir la gàbia.',
     ore: 'Extret: {n} × {ore}',
     mineBusy: 'No amb enemics a prop!',
     item: 'Trobat: {item}',
@@ -1779,6 +1789,25 @@ export default {
     circle: 'El Cercle de l’Èter'
   },
   npc: {
+    frostDisciple: {
+      name: 'Ivor Hask'
+    },
+    windDisciple: {
+      name: 'Kestrel Vane'
+    },
+    freedFarmers: {
+      name: 'Jory Toller'
+    },
+    freedHerbalist: {
+      name: 'Briar Hollowell'
+    },
+    lightDisciple: {
+      name: 'Germana Aurelle'
+    },
+    freedPeddler: {
+      talk: 'Tot el que necessita un viatger. Gairebé nou, en general.',
+      name: 'Odo Marrow'
+    },
     sfShadow: {
       name: 'Nettle Quickhand'
     },
@@ -2043,6 +2072,212 @@ export default {
     }
   },
   dlg: {
+    frostDisciple: {
+      bye: {
+        '1': 'Abriga’t.'
+      },
+      who: {
+        '2': 'Les fargues d’Ironhold són càlides. M’agrada ser aquí.',
+        '1': 'Caçava a la tundra. Em van engabiar durant un hivern.'
+      },
+      trainBack: {
+        '1': 'Practica. El fred és pacient. Sigues-ho tu també.'
+      },
+      ready: {
+        weak: {
+          '1': 'Encara no. Més força al braç i a la ment.'
+        },
+        able: {
+          '1__f': 'Estàs preparada. Lliçó següent.',
+          '1': 'Estàs preparat. Lliçó següent.'
+        },
+        strong: {
+          '1__f': 'Ets més forta del que jo era. Agafa el que necessitis.',
+          '1': 'Ets més fort del que jo era. Agafa el que necessitis.'
+        }
+      },
+      class: {
+        say: 'Què és un Guardià del Gel?',
+        '2': 'Força per a la fulla. Intel·ligència per al gel.',
+        '1': 'Refreda’ls, congela’ls i després trenca el gel.'
+      },
+      train: {
+        '1__f': 'Queda’t quieta. Deixa que el fred vingui a tu. Després torna-l’hi.',
+        '1': 'Queda’t quiet. Deixa que el fred vingui a tu. Després torna-l’hi.'
+      },
+      again: {
+        '1': 'Tornes. Bé.'
+      },
+      hello: {
+        '2': 'Ivor Hask. Halvard Cor de Gebre em va ensenyar el gel. Ara l’ensenyo jo, aquí.',
+        '1': 'Lliure. Bé. El fred no em va vèncer, i ells tampoc.'
+      }
+    },
+    windDisciple: {
+      bye: {
+        '1': 'No perdis de vista el vent.'
+      },
+      who: {
+        '2': 'Digues a la Sefa que soc viu, vols? Pateix.',
+        '1': 'Anava cap a Silverbridge quan els penyals em van atrapar.'
+      },
+      trainBack: {
+        '1': 'Ves a practicar. En algun lloc on faci vent.'
+      },
+      ready: {
+        weak: {
+          '1': 'Encara no. Primer guanya velocitat, i després torna.'
+        },
+        able: {
+          '1__f': 'Ja estàs preparada per a la següent. Mira-ho bé.',
+          '1': 'Ja estàs preparat per a la següent. Mira-ho bé.'
+        },
+        strong: {
+          '1__f': 'Ara ets més ràpida que jo. Agafa el que vulguis.',
+          '1': 'Ara ets més ràpid que jo. Agafa el que vulguis.'
+        }
+      },
+      class: {
+        say: 'Què fa un Corredor del Vent?',
+        '2': 'Destresa per a uns peus àgils. Perícia, perquè cada fletxa encerti.',
+        '1': 'Corre, dispara, torna a córrer. No siguis mai on apunten.'
+      },
+      train: {
+        '1': 'Peus separats. Treu l’aire. Deixa que el vent se l’emporti.'
+      },
+      again: {
+        '1': 'Ei! Avui fa bon vent. Tirem?'
+      },
+      hello: {
+        '2': 'Kestrel Vane. La Sefa Ala de Vendaval em va ensenyar l’arc. Et puc ensenyar el que ella em va ensenyar.',
+        '1': 'M’has tret d’allà! T’ho dec tot. Bé, molt.'
+      }
+    },
+    freedFarmers: {
+      bye: {
+        '1': 'Ves amb compte.'
+      },
+      who: {
+        '2': 'Oakhaven ens va acollir. Li ho tornem en pa.',
+        '1': 'Uns bandits ens van treure del nostre camp i ens van deixar podrir al bosc.'
+      },
+      favorDone: {
+        say: 'Els llops ja no us molestaran més.',
+        '2': 'Agafa això. No és gaire, però és honest.',
+        '1': 'Altre cop nits tranquil·les. Per fi podem dormir.'
+      },
+      waiting: {
+        say: 'Pel que fa a aquells llops...',
+        '1': 'Els llops encara voltegen. Els vam sentir ahir a la nit.'
+      },
+      favor: {
+        say: 'Puc ajudar en alguna cosa?',
+        '2': 'Que en podries reduir el nombre? Amb vuit n’haurien d’aprendre.',
+        '1': 'Els llops del Bosc dels Murmuris no paren d’endur-se les nostres ovelles.'
+      },
+      again: {
+        '1__f': 'Aquí tenim la nostra heroïna. Véns a menjar alguna cosa?',
+        '1': 'Aquí tenim el nostre heroi. Véns a menjar alguna cosa?'
+      },
+      hello: {
+        '2': 'Jory Toller. Ara conreem fora de les muralles. Bé, ho intentem.',
+        '1': 'Sense tu seríem morts. Jo i el meu noi. Gràcies.'
+      }
+    },
+    freedHerbalist: {
+      bye: {
+        '1': 'Trepitja amb compte. Allà hi creixen coses.'
+      },
+      who: {
+        '2': 'No anaven del tot errats.',
+        '1': 'Una herbolària dels turons. Els goblins em van prendre per una bruixa.'
+      },
+      favorDone: {
+        say: 'Aquí tens els teus pètals de sol.',
+        '2': 'Té, el teu pagament. I gràcies, un altre cop.',
+        '1': 'Oh, són perfectes. Ensuma això!'
+      },
+      waiting: {
+        say: 'Pel que fa a aquells pètals de sol...',
+        '1': 'Encara busques? Els pètals de sol estimen el sol obert.'
+      },
+      favor: {
+        say: 'Puc fer alguna cosa per tu?',
+        '2': 'Creixen a les planes. Te’ls pagaré bé.',
+        '1': 'Vaig perdre les meves reserves en aquella gàbia. Em podries portar tres pètals de sol?'
+      },
+      again: {
+        '1': 'Ah, hola de nou. Les teves botes fan olor de molsa. Bé.'
+      },
+      hello: {
+        '2': 'Soc la Briar. Cullo i asseco el que creix. Silverbridge va tenir la bondat d’acollir-me.',
+        '1': 'Sabia que vindria algú. Els goblins mai no han entès les herbes. Ni la bondat.'
+      }
+    },
+    lightDisciple: {
+      bye: {
+        '1': 'Camina en la llum.'
+      },
+      who: {
+        '2': 'Sunford és lluminós i tranquil. Necessitava totes dues coses.',
+        '1': 'Vaig anar al Temple Enfonsat a pregar. Les nagues tenien altres plans.'
+      },
+      trainBack: {
+        '1': 'Ves amb suavitat. I deixa que et vegin arribar.'
+      },
+      ready: {
+        weak: {
+          '1': 'Encara no. Primer, una ment més clara i un cor més càlid.'
+        },
+        able: {
+          '1__f': 'Ja estàs preparada per a la lliçó següent. Vine, posa’t a la llum.',
+          '1': 'Ja estàs preparat per a la lliçó següent. Vine, posa’t a la llum.'
+        },
+        strong: {
+          '1': 'Ara brilles més que jo. Agafa tot el que necessitis.'
+        }
+      },
+      class: {
+        say: 'Què fa un Portador de Llum?',
+        '2': 'La Intel·ligència fa forta la llum. El Carisma la fa càlida.',
+        '1': 'Portem l’alba. Llum per lluitar, llum per guarir.'
+      },
+      train: {
+        '1': 'Obre les mans. Deixa que la llum hi passi a través, no que en surti.'
+      },
+      again: {
+        '1__f': 'Benvinguda de nou. El sol és amable avui.',
+        '1': 'Benvingut de nou. El sol és amable avui.'
+      },
+      hello: {
+        '2': 'Soc l’Aurelle. La germana Auriel em va ensenyar la llum. Ara l’ensenyo aquí.',
+        '1': 'La llum sigui amb tu. Em vas trobar a la foscor, i no ho oblidaré.'
+      }
+    },
+    freedPeddler: {
+      bye: {
+        '1': 'Compte amb els bandits. No els agrada compartir.'
+      },
+      shopBack: {
+        '1__f': 'Un plaer fer negocis, amiga.',
+        '1': 'Un plaer fer negocis, amic.'
+      },
+      who: {
+        '2': 'Ara venc des de Sunford. Aquí és més segur. Gairebé sempre.',
+        '1': 'Uns bandits em van prendre el carro i em van ficar en una caixa. Molt maleducats.'
+      },
+      trade: {
+        '1': 'Anells, guants, botes. A meitat de preu per a tu. Bé, gairebé.'
+      },
+      again: {
+        '1__f': 'La meva salvadora! Vine, vine, t’he guardat les coses bones.',
+        '1': 'El meu salvador! Vine, vine, t’he guardat les coses bones.'
+      },
+      hello: {
+        '2': 'Odo Marrow, al teu servei. Quincallaire, llauner i home molt agraït.',
+        '1': 'Tu! Tu ets qui va obrir aquella gàbia! M’hi hauria podrit.'
+      }
+    },
     sfShadow: {
       hello: {
         '1': 'No t’he sentit entrar. Normalment aquest és el meu truc.',
@@ -5361,6 +5596,12 @@ export default {
     prizeGold: 'Ja els tens tots, així que reps {n} d’or a canvi!'
   },
   errand: {
+    farmersFavor: {
+      title: 'Els llops dels Toller'
+    },
+    herbalistFavor: {
+      title: 'Els pètals de sol de la Briar'
+    },
     collectorFavor: {
       title: 'Les campanetes lunars del Col·leccionista'
     },

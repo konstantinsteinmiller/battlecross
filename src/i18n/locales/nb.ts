@@ -129,6 +129,16 @@ export default {
     chi: 'Chi'
   },
   toast: {
+    freed: {
+      lightDisciple: 'Fri! Søster Aurelle skal lære bort Lysbringerens vei i {town}.',
+      frostDisciple: 'Fri! Ivor skal lære bort Frostvokterens vei i {town}.',
+      windDisciple: 'Fri! Kestrel skal lære bort Vindløperens vei i {town}.',
+      freedFarmers: 'Fri! Familien Toller får et hjem i {town}.',
+      freedHerbalist: 'Fri! Urtekyndige Briar venter på deg i {town}.',
+      freedPeddler: 'Fri! Kremmeren Odo skal handle i {town}.'
+    },
+    cageLocked: 'Låst. Nøkkelen må være et sted her.',
+    cageKey: 'En nøkkel! Den må åpne buret.',
     ore: 'Utvunnet: {n} × {ore}',
     mineBusy: 'Ikke med fiender i nærheten!',
     item: 'Fant: {item}',
@@ -1778,6 +1788,25 @@ export default {
     circle: 'Eterens sirkel'
   },
   npc: {
+    frostDisciple: {
+      name: 'Ivor Hask'
+    },
+    windDisciple: {
+      name: 'Kestrel Vane'
+    },
+    freedFarmers: {
+      name: 'Jory Toller'
+    },
+    freedHerbalist: {
+      name: 'Briar Hollowell'
+    },
+    lightDisciple: {
+      name: 'Søster Aurelle'
+    },
+    freedPeddler: {
+      talk: 'Alt en reisende trenger. Nesten nytt, stort sett.',
+      name: 'Odo Marrow'
+    },
     sfShadow: {
       name: 'Nettle Quickhand'
     },
@@ -2042,6 +2071,202 @@ export default {
     }
   },
   dlg: {
+    frostDisciple: {
+      bye: {
+        '1': 'Hold deg varm.'
+      },
+      who: {
+        '2': 'Smiene i Ironhold er varme. Jeg trives her.',
+        '1': 'Jeg jaktet på tundraen. De holdt meg i bur en hel vinter.'
+      },
+      trainBack: {
+        '1': 'Øv. Kulda er tålmodig. Vær det samme.'
+      },
+      ready: {
+        weak: {
+          '1': 'Ikke ennå. Mer styrke i armen og i sinnet.'
+        },
+        able: {
+          '1': 'Du er klar. Neste leksjon.'
+        },
+        strong: {
+          '1': 'Du er sterkere enn jeg var. Ta det du trenger.'
+        }
+      },
+      class: {
+        say: 'Hva er en Frostvokter?',
+        '2': 'Styrke for bladet. Intelligens for frosten.',
+        '1': 'Kjøl dem, frys dem, knus så isen.'
+      },
+      train: {
+        '1': 'Stå stille. La kulda komme til deg. Send den så tilbake.'
+      },
+      again: {
+        '1': 'Du kommer tilbake. Bra.'
+      },
+      hello: {
+        '2': 'Ivor Hask. Halvard Rimhjerte lærte meg frosten. Nå lærer jeg den bort, her.',
+        '1': 'Fri. Bra. Kulda tok meg ikke, og det gjorde ikke de heller.'
+      }
+    },
+    windDisciple: {
+      bye: {
+        '1': 'Hold øye med vinden.'
+      },
+      who: {
+        '2': 'Si til Sefa at jeg lever, vil du? Hun bekymrer seg.',
+        '1': 'Jeg var på vei til Silverbridge da klippene fanget meg.'
+      },
+      trainBack: {
+        '1': 'Gå og øv. Et sted der det blåser.'
+      },
+      ready: {
+        weak: {
+          '1': 'Ikke ennå. Bli raskere først, så kommer du tilbake.'
+        },
+        able: {
+          '1': 'Du er klar for neste. Se nøye etter.'
+        },
+        strong: {
+          '1': 'Du er raskere enn meg nå. Ta det du vil.'
+        }
+      },
+      class: {
+        say: 'Hva gjør en Vindløper?',
+        '2': 'Smidighet for raske føtter. Teknikk, så hver pil treffer.',
+        '1': 'Løp, skyt, løp igjen. Vær aldri der de sikter.'
+      },
+      train: {
+        '1': 'Føttene fra hverandre. Pust ut. La vinden bære den.'
+      },
+      again: {
+        '1': 'Hei! God vind i dag. Skal vi skyte?'
+      },
+      hello: {
+        '2': 'Kestrel Vane. Sefa Kulingvinge lærte meg buen. Jeg kan lære deg det hun lærte meg.',
+        '1': 'Du fikk meg ut! Jeg skylder deg alt. Vel, mye.'
+      }
+    },
+    freedFarmers: {
+      bye: {
+        '1': 'Ta vare på deg selv på veien.'
+      },
+      who: {
+        '2': 'Oakhaven tok oss inn. Vi betaler tilbake i brød.',
+        '1': 'Banditter tok oss fra åkeren og lot oss ligge og råtne i skogen.'
+      },
+      favorDone: {
+        say: 'Ulvene kommer ikke til å plage dere mer.',
+        '2': 'Ta dette. Det er ikke mye, men det er ærlig.',
+        '1': 'Stille netter igjen. Endelig kan vi sove.'
+      },
+      waiting: {
+        say: 'Angående de ulvene...',
+        '1': 'Ulvene streifer fortsatt rundt. Vi hørte dem i natt.'
+      },
+      favor: {
+        say: 'Kan jeg hjelpe med noe?',
+        '2': 'Kan du tynne dem ut litt? Åtte burde lære dem.',
+        '1': 'Ulver fra Den hviskende skogen tar sauene våre hele tiden.'
+      },
+      again: {
+        '1': 'Der er helten vår. Kommet for en matbit?'
+      },
+      hello: {
+        '2': 'Jory Toller. Vi driver jord utenfor murene nå. Vel, vi prøver.',
+        '1': 'Vi hadde vært døde uten deg. Både jeg og gutten min. Takk.'
+      }
+    },
+    freedHerbalist: {
+      bye: {
+        '1': 'Gå varsomt. Ting gror der.'
+      },
+      who: {
+        '2': 'De tok ikke helt feil.',
+        '1': 'En urtekyndig fra åsene. Goblinene trodde jeg var en heks.'
+      },
+      favorDone: {
+        say: 'Her er solbladene dine.',
+        '2': 'Her, betalingen din. Og takk igjen.',
+        '1': 'Å, disse er perfekte. Kjenn den duften!'
+      },
+      waiting: {
+        say: 'Angående de solbladene...',
+        '1': 'Leter du fortsatt? Solblad elsker åpen sol.'
+      },
+      favor: {
+        say: 'Er det noe jeg kan gjøre for deg?',
+        '2': 'De vokser ute på slettene. Jeg betaler godt for dem.',
+        '1': 'Forrådene mine gikk tapt i det buret. Kan du skaffe meg tre solblad?'
+      },
+      again: {
+        '1': 'Å, hei igjen. Støvlene dine lukter mose. Bra.'
+      },
+      hello: {
+        '2': 'Jeg er Briar. Jeg sanker og tørker det som gror. Silverbridge var snill nok til å ta meg inn.',
+        '1': 'Jeg visste at noen ville komme. Goblinene skjønte seg aldri på urter. Eller vennlighet.'
+      }
+    },
+    lightDisciple: {
+      bye: {
+        '1': 'Gå i lyset.'
+      },
+      who: {
+        '2': 'Sunford er lyst og stille. Jeg trengte begge deler.',
+        '1': 'Jeg dro til Det sunkne tempelet for å be. Nagaene hadde andre planer.'
+      },
+      trainBack: {
+        '1': 'Gå varsomt. Og la dem se deg komme.'
+      },
+      ready: {
+        weak: {
+          '1': 'Ikke ennå. Først et klarere sinn og et varmere hjerte.'
+        },
+        able: {
+          '1': 'Du er klar for neste leksjon. Kom, stå i lyset.'
+        },
+        strong: {
+          '1': 'Du skinner klarere enn meg nå. Ta det du trenger.'
+        }
+      },
+      class: {
+        say: 'Hva gjør en Lysbringer?',
+        '2': 'Intelligens gjør lyset sterkt. Karisma gjør det varmt.',
+        '1': 'Vi bærer daggryet. Lys å kjempe med, lys å lege med.'
+      },
+      train: {
+        '1': 'Åpne hendene. La lyset gå gjennom dem, ikke ut fra dem.'
+      },
+      again: {
+        '1': 'Velkommen tilbake. Sola er mild i dag.'
+      },
+      hello: {
+        '2': 'Jeg er Aurelle. Søster Auriel lærte meg lyset. Nå lærer jeg det bort her.',
+        '1': 'Lyset være med deg. Du fant meg i mørket, og det glemmer jeg ikke.'
+      }
+    },
+    freedPeddler: {
+      bye: {
+        '1': 'Pass deg for bandittene. De liker ikke å dele.'
+      },
+      shopBack: {
+        '1': 'En fornøyelse å gjøre forretninger, min venn.'
+      },
+      who: {
+        '2': 'Nå selger jeg i Sunford. Det er tryggere her. Stort sett.',
+        '1': 'Banditter tok kjerra mi og puttet meg i en kasse. Svært uhøflig.'
+      },
+      trade: {
+        '1': 'Ringer, hansker, støvler. Halv pris for deg. Vel, nesten.'
+      },
+      again: {
+        '1': 'Min redningsmann! Kom, kom, jeg har spart det beste til deg.'
+      },
+      hello: {
+        '2': 'Odo Marrow, til tjeneste. Kremmer, kjeleflikker og en svært takknemlig mann.',
+        '1': 'Du! Det var du som åpnet buret! Jeg hadde råtnet der inne.'
+      }
+    },
     sfShadow: {
       hello: {
         '1': 'Hørte deg ikke komme inn. Det pleier å være mitt triks.',
@@ -5316,6 +5541,12 @@ export default {
     prizeGold: 'Du har alle sammen, så du får {n} gull i stedet!'
   },
   errand: {
+    farmersFavor: {
+      title: 'Familien Tollers ulver'
+    },
+    herbalistFavor: {
+      title: 'Briars solblad'
+    },
     collectorFavor: {
       title: 'Samlerens måneklokker'
     },

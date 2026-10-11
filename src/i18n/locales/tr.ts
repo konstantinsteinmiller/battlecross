@@ -129,6 +129,16 @@ export default {
     chi: 'Çi'
   },
   toast: {
+    freed: {
+      lightDisciple: 'Kurtarıldı! Rahibe Aurelle, {town} kasabasında Işık Getiren yolunu öğretecek.',
+      frostDisciple: 'Kurtarıldı! Ivor, {town} kasabasında Ayaz Muhafızı yolunu öğretecek.',
+      windDisciple: 'Kurtarıldı! Kestrel, {town} kasabasında Rüzgâr Koşucusu yolunu öğretecek.',
+      freedFarmers: 'Kurtarıldılar! Toller ailesi {town} kasabasında kendine bir yuva bulacak.',
+      freedHerbalist: 'Kurtarıldı! Otacı Briar seni {town} kasabasında bekleyecek.',
+      freedPeddler: 'Kurtarıldı! Çerçi Odo artık {town} kasabasında ticaret yapacak.'
+    },
+    cageLocked: 'Kilitli. Anahtar buralarda bir yerde olmalı.',
+    cageKey: 'Bir anahtar! Kafesi açıyor olmalı.',
     ore: 'Kazıldı: {n} × {ore}',
     mineBusy: 'Düşmanlar yakındayken olmaz!',
     item: 'Bulundu: {item}',
@@ -1778,6 +1788,25 @@ export default {
     circle: 'Eter Çemberi'
   },
   npc: {
+    frostDisciple: {
+      name: 'Ivor Hask'
+    },
+    windDisciple: {
+      name: 'Kestrel Vane'
+    },
+    freedFarmers: {
+      name: 'Jory Toller'
+    },
+    freedHerbalist: {
+      name: 'Briar Hollowell'
+    },
+    lightDisciple: {
+      name: 'Rahibe Aurelle'
+    },
+    freedPeddler: {
+      talk: 'Bir yolcunun ihtiyacı olan her şey. Neredeyse yeni, çoğunlukla.',
+      name: 'Odo Marrow'
+    },
     sfShadow: {
       name: 'Nettle Quickhand'
     },
@@ -2042,6 +2071,202 @@ export default {
     }
   },
   dlg: {
+    frostDisciple: {
+      bye: {
+        '1': 'Sıcak kal.'
+      },
+      who: {
+        '2': 'Ironhold\'un ocakları sıcak. Burayı seviyorum.',
+        '1': 'Tundrada avlanıyordum. Bir kış boyunca beni kafeste tuttular.'
+      },
+      trainBack: {
+        '1': 'Çalış. Soğuk sabırlıdır. Sen de öyle ol.'
+      },
+      ready: {
+        weak: {
+          '1': 'Henüz değil. Hem kolda hem akılda daha fazla güç.'
+        },
+        able: {
+          '1': 'Hazırsın. Sıradaki ders.'
+        },
+        strong: {
+          '1': 'Benim olduğumdan daha güçlüsün. Neye ihtiyacın varsa al.'
+        }
+      },
+      class: {
+        say: 'Ayaz Muhafızı nedir?',
+        '2': 'Kılıç için Güç. Ayaz için Zekâ.',
+        '1': 'Üşüt, dondur, sonra buzu kır.'
+      },
+      train: {
+        '1': 'Kıpırdama. Soğuk sana gelsin. Sonra onu geri gönder.'
+      },
+      again: {
+        '1': 'Döndün. Güzel.'
+      },
+      hello: {
+        '2': 'Ivor Hask. Ayazı bana Halvard Rimeheart öğretti. Artık burada ben öğretiyorum.',
+        '1': 'Özgürüm. Güzel. Soğuk beni alamadı, onlar da alamadı.'
+      }
+    },
+    windDisciple: {
+      bye: {
+        '1': 'Gözün rüzgârda olsun.'
+      },
+      who: {
+        '2': 'Sefa\'ya yaşadığımı söyler misin? Merak eder.',
+        '1': 'Silverbridge\'e giderken Kül Kayalıkları\'nda yakalandım.'
+      },
+      trainBack: {
+        '1': 'Git, çalış. Rüzgârlı bir yerde.'
+      },
+      ready: {
+        weak: {
+          '1': 'Henüz değil. Önce biraz hızlan, sonra gel.'
+        },
+        able: {
+          '1': 'Bir sonrakine hazırsın. İyi izle.'
+        },
+        strong: {
+          '1': 'Artık benden hızlısın. Ne istersen al.'
+        }
+      },
+      class: {
+        say: 'Bir Rüzgâr Koşucusu ne yapar?',
+        '2': 'Çabuk ayaklar için Çeviklik. Her ok hedefi bulsun diye Beceri.',
+        '1': 'Koş, ateş et, yine koş. Nişan aldıkları yerde asla durma.'
+      },
+      train: {
+        '1': 'Ayaklar açık. Nefesini ver. Bırak rüzgâr taşısın.'
+      },
+      again: {
+        '1': 'Hey! Bugün rüzgâr güzel. Biraz atış yapalım mı?'
+      },
+      hello: {
+        '2': 'Kestrel Vane. Bana yayı Sefa Galewing öğretti. Onun bana öğrettiklerini sana öğretebilirim.',
+        '1': 'Beni çıkardın! Sana her şeyimi borçluyum. Yani, çok şey.'
+      }
+    },
+    freedFarmers: {
+      bye: {
+        '1': 'Yolun açık olsun.'
+      },
+      who: {
+        '2': 'Oakhaven bize kucak açtı. Borcumuzu ekmekle ödüyoruz.',
+        '1': 'Haydutlar bizi tarlamızdan kaçırıp çürüyelim diye ormanda bıraktı.'
+      },
+      favorDone: {
+        say: 'Kurtlar artık başınıza bela olmayacak.',
+        '2': 'Al bunu. Fazla değil ama helal.',
+        '1': 'Geceler yine sessiz. Sonunda uyuyabiliriz.'
+      },
+      waiting: {
+        say: 'O kurtlar hakkında...',
+        '1': 'Kurtlar hâlâ ortalıkta. Dün gece seslerini duyduk.'
+      },
+      favor: {
+        say: 'Yardım edebileceğim bir şey var mı?',
+        '2': 'Onları biraz azaltır mısın? Sekiz tanesi ders olur.',
+        '1': 'Fısıldayan Orman\'dan gelen kurtlar koyunlarımızı kapıp duruyor.'
+      },
+      again: {
+        '1': 'İşte kahramanımız! Bir lokma bir şey yer misin?'
+      },
+      hello: {
+        '2': 'Jory Toller. Artık surların dışında çiftçilik yapıyoruz. Yani, deniyoruz.',
+        '1': 'Sen olmasan ölmüştük. Hem ben hem oğlum. Sağ ol.'
+      }
+    },
+    freedHerbalist: {
+      bye: {
+        '1': 'Usulca yürü. Oralarda bir şeyler yetişiyor.'
+      },
+      who: {
+        '2': 'Pek de yanılmıyorlardı.',
+        '1': 'Tepelerden gelen bir otacıyım. Goblinler beni cadı sandı.'
+      },
+      favorDone: {
+        say: 'İşte güneşyaprakların.',
+        '2': 'Al, ücretin. Ve bir kez daha teşekkürler.',
+        '1': 'Ah, bunlar mükemmel. Şunu bir kokla!'
+      },
+      waiting: {
+        say: 'O güneşyaprakları hakkında...',
+        '1': 'Hâlâ arıyor musun? Güneşyaprakları açık güneşi sever.'
+      },
+      favor: {
+        say: 'Senin için yapabileceğim bir şey var mı?',
+        '2': 'Ovalarda yetişirler. Karşılığını iyi öderim.',
+        '1': 'Erzakım o kafeste kayboldu. Bana üç güneşyaprağı getirebilir misin?'
+      },
+      again: {
+        '1': 'Ah, yine merhaba. Çizmelerin yosun kokuyor. Güzel.'
+      },
+      hello: {
+        '2': 'Ben Briar. Yetişen ne varsa toplar, kuruturum. Silverbridge beni kabul edecek kadar iyi kalpliydi.',
+        '1': 'Birinin geleceğini biliyordum. Goblinler otlardan hiç anlamadı. İyilikten de.'
+      }
+    },
+    lightDisciple: {
+      bye: {
+        '1': 'Işıkta yürü.'
+      },
+      who: {
+        '2': 'Sunford aydınlık ve sakin. İkisine de ihtiyacım vardı.',
+        '1': 'Dua etmek için Batık Tapınak\'a gittim. Nagaların başka planları vardı.'
+      },
+      trainBack: {
+        '1': 'Nazik ol. Ve geldiğini görsünler.'
+      },
+      ready: {
+        weak: {
+          '1': 'Henüz değil. Önce daha berrak bir zihin, daha sıcak bir yürek.'
+        },
+        able: {
+          '1': 'Bir sonraki derse hazırsın. Gel, ışığın içinde dur.'
+        },
+        strong: {
+          '1': 'Artık benden daha parlak ışıldıyorsun. Neye ihtiyacın varsa al.'
+        }
+      },
+      class: {
+        say: 'Bir Işık Getiren ne yapar?',
+        '2': 'Zekâ ışığı güçlü kılar. Karizma ise onu sıcak yapar.',
+        '1': 'Şafağı biz taşırız. Savaşmak için ışık, iyileştirmek için ışık.'
+      },
+      train: {
+        '1': 'Ellerini aç. Işık onlardan doğmasın, onların içinden geçsin.'
+      },
+      again: {
+        '1': 'Tekrar hoş geldin. Güneş bugün cömert.'
+      },
+      hello: {
+        '2': 'Ben Aurelle. Işığı bana Rahibe Auriel öğretti. Şimdi burada ben öğretiyorum.',
+        '1': 'Işık seninle olsun. Beni karanlıkta buldun, bunu unutmayacağım.'
+      }
+    },
+    freedPeddler: {
+      bye: {
+        '1': 'Haydutlara dikkat et. Paylaşmayı sevmezler.'
+      },
+      shopBack: {
+        '1': 'Seninle iş yapmak bir zevkti, dostum.'
+      },
+      who: {
+        '2': 'Artık Sunford\'da satış yapıyorum. Burası daha güvenli. Çoğunlukla.',
+        '1': 'Haydutlar arabamı alıp beni bir sandığa tıktı. Çok kaba.'
+      },
+      trade: {
+        '1': 'Yüzükler, eldivenler, çizmeler. Sana yarı fiyatına. Yani, aşağı yukarı.'
+      },
+      again: {
+        '1': 'Kurtarıcım! Gel, gel, en iyi malları sana sakladım.'
+      },
+      hello: {
+        '2': 'Odo Marrow, emrindeyim. Çerçi, tamirci ve çok minnettar bir adam.',
+        '1': 'Sen! O kafesi açan sensin! Orada çürüyüp gidecektim.'
+      }
+    },
     sfShadow: {
       hello: {
         '1': 'Girdiğini duymadım. Genelde o numara benimdir.',
@@ -5316,6 +5541,12 @@ export default {
     prizeGold: 'Hepsine zaten sahipsin, bu yüzden yerine {n} altın alıyorsun!'
   },
   errand: {
+    farmersFavor: {
+      title: 'Toller ailesinin kurtları'
+    },
+    herbalistFavor: {
+      title: 'Briar\'ın güneşyaprakları'
+    },
     collectorFavor: {
       title: 'Koleksiyoncu\'nun ayçanları'
     },

@@ -129,6 +129,16 @@ export default {
     chi: 'Chi'
   },
   toast: {
+    freed: {
+      lightDisciple: 'Ozod qilindi! Rohiba Aurelle {town} shahrida Nur keltiruvchi yoʻlini oʻrgatadi.',
+      frostDisciple: 'Ozod qilindi! Ivor {town} shahrida Ayoz qoʻriqchisi yoʻlini oʻrgatadi.',
+      windDisciple: 'Ozod qilindi! Kestrel {town} shahrida Shamol chopari yoʻlini oʻrgatadi.',
+      freedFarmers: 'Ozod qilindi! Tollerlar oilasi {town} shahridan boshpana topadi.',
+      freedHerbalist: 'Ozod qilindi! Giyohchi Briar seni {town} shahrida kutadi.',
+      freedPeddler: 'Ozod qilindi! Attor Odo endi {town} shahrida savdo qiladi.'
+    },
+    cageLocked: 'Qulflangan. Kalit shu yerda bir joyda boʻlishi kerak.',
+    cageKey: 'Kalit! Qafasni shu ochsa kerak.',
     ore: 'Qazildi: {n} × {ore}',
     mineBusy: 'Dushmanlar yaqinda — mumkin emas!',
     item: 'Topildi: {item}',
@@ -1778,6 +1788,25 @@ export default {
     circle: 'Efir Doirasi'
   },
   npc: {
+    frostDisciple: {
+      name: 'Ivor Hask'
+    },
+    windDisciple: {
+      name: 'Kestrel Vane'
+    },
+    freedFarmers: {
+      name: 'Jory Toller'
+    },
+    freedHerbalist: {
+      name: 'Briar Hollowell'
+    },
+    lightDisciple: {
+      name: 'Rohiba Aurelle'
+    },
+    freedPeddler: {
+      talk: 'Sayyohga kerak bo\'lgan hamma narsa. Deyarli yangi, asosan.',
+      name: 'Odo Marrow'
+    },
     sfShadow: {
       name: 'Nettle Quickhand'
     },
@@ -2042,6 +2071,202 @@ export default {
     }
   },
   dlg: {
+    frostDisciple: {
+      bye: {
+        '1': 'Sovqotma.'
+      },
+      who: {
+        '2': 'Ironholdning temirchixonalari iliq. Bu yer menga yoqadi.',
+        '1': 'Tundrada ov qilardim. Ular meni bir qish qafasda saqlashdi.'
+      },
+      trainBack: {
+        '1': 'Mashq qil. Sovuq sabrli. Sen ham shunday boʻl.'
+      },
+      ready: {
+        weak: {
+          '1': 'Hali emas. Bilakda ham, aqlda ham koʻproq kuch kerak.'
+        },
+        able: {
+          '1': 'Tayyorsan. Keyingi dars.'
+        },
+        strong: {
+          '1': 'Sen men boʻlganimdan ham kuchlisan. Nima kerak boʻlsa, ol.'
+        }
+      },
+      class: {
+        say: 'Ayoz qoʻriqchisi kim?',
+        '2': 'Tigʻ uchun Kuch. Ayoz uchun Aql.',
+        '1': 'Sovut, muzlat, keyin muzni sindir.'
+      },
+      train: {
+        '1': 'Qimirlama. Sovuq oʻzi kelsin. Keyin uni qaytarib yubor.'
+      },
+      again: {
+        '1': 'Qaytding. Yaxshi.'
+      },
+      hello: {
+        '2': 'Ivor Hask. Menga ayozni Halvard Rimeheart oʻrgatgan. Endi uni shu yerda oʻzim oʻrgataman.',
+        '1': 'Ozodman. Yaxshi. Sovuq meni ololmadi, ular ham.'
+      }
+    },
+    windDisciple: {
+      bye: {
+        '1': 'Koʻzing shamolda boʻlsin.'
+      },
+      who: {
+        '2': 'Sefaga tirikligimni aytib qoʻy, xoʻpmi? U xavotir oladi.',
+        '1': 'Silverbridgega ketayotganimda Kul qoyalarida qoʻlga tushdim.'
+      },
+      trainBack: {
+        '1': 'Borib mashq qil. Shamolli joyda.'
+      },
+      ready: {
+        weak: {
+          '1': 'Hali emas. Avval tezroq boʻl, keyin qaytib kel.'
+        },
+        able: {
+          '1': 'Keyingisiga tayyorsan. Diqqat bilan qara.'
+        },
+        strong: {
+          '1': 'Endi sen mendan tezroqsan. Xohlaganingni ol.'
+        }
+      },
+      class: {
+        say: 'Shamol chopari nima qiladi?',
+        '2': 'Chaqqon oyoqlar uchun Chaqqonlik. Har bir oʻq nishonga tegishi uchun Mahorat.',
+        '1': 'Yugur, ot, yana yugur. Ular moʻljal olgan joyda hech qachon boʻlma.'
+      },
+      train: {
+        '1': 'Oyoqlar keng. Nafas chiqar. Shamol olib ketsin.'
+      },
+      again: {
+        '1': 'Hey! Bugun shamol yaxshi. Otamizmi?'
+      },
+      hello: {
+        '2': 'Kestrel Vane. Menga kamonni Sefa Galewing oʻrgatgan. U menga oʻrgatganini senga oʻrgata olaman.',
+        '1': 'Meni chiqarding! Senga hamma narsamni qarzdorman. Xoʻsh, koʻp narsamni.'
+      }
+    },
+    freedFarmers: {
+      bye: {
+        '1': 'Yoʻling bexatar boʻlsin.'
+      },
+      who: {
+        '2': 'Oakhaven bizni bagʻriga oldi. Qarzimizni non bilan qaytaramiz.',
+        '1': 'Qaroqchilar bizni dalamizdan olib ketib, chirishimiz uchun oʻrmonda tashlab ketishdi.'
+      },
+      favorDone: {
+        say: 'Boʻrilar sizni boshqa bezovta qilmaydi.',
+        '2': 'Buni ol. Koʻp emas, lekin halol.',
+        '1': 'Tunlar yana tinch. Nihoyat uxlay olamiz.'
+      },
+      waiting: {
+        say: 'Oʻsha boʻrilar haqida...',
+        '1': 'Boʻrilar hali ham atrofda. Kecha tunda ularni eshitdik.'
+      },
+      favor: {
+        say: 'Biror narsaga yordam bera olamanmi?',
+        '2': 'Ularni biroz siyraklashtirib berasanmi? Sakkiztasi saboq boʻladi.',
+        '1': 'Shivirlovchi oʻrmondan chiqqan boʻrilar qoʻylarimizni olib ketaveradi.'
+      },
+      again: {
+        '1': 'Mana, qahramonimiz! Bir tishlam narsa yeysanmi?'
+      },
+      hello: {
+        '2': 'Jory Toller. Endi devorlar tashqarisida dehqonchilik qilamiz. Xoʻsh, harakat qilamiz.',
+        '1': 'Sen boʻlmaganingda oʻlib ketardik. Men ham, oʻgʻlim ham. Rahmat.'
+      }
+    },
+    freedHerbalist: {
+      bye: {
+        '1': 'Ohista yur. U yerda narsalar oʻsadi.'
+      },
+      who: {
+        '2': 'Ular unchalik adashmagan edi.',
+        '1': 'Tepaliklardan kelgan giyohchiman. Goblinlar meni jodugar deb oʻylashdi.'
+      },
+      favorDone: {
+        say: 'Mana, quyoshgulbarglaring.',
+        '2': 'Mana, haqing. Va yana bir bor rahmat.',
+        '1': 'Oh, bular ajoyib. Bir hidlab koʻr!'
+      },
+      waiting: {
+        say: 'Oʻsha quyoshgulbarglar haqida...',
+        '1': 'Hali qidiryapsanmi? Quyoshgulbarglar ochiq quyoshni yaxshi koʻradi.'
+      },
+      favor: {
+        say: 'Sen uchun biror narsa qila olamanmi?',
+        '2': 'Ular tekisliklarda oʻsadi. Ular uchun yaxshi haq toʻlayman.',
+        '1': 'Zaxiralarim oʻsha qafasda yoʻqoldi. Menga uchta quyoshgulbarg olib kela olasanmi?'
+      },
+      again: {
+        '1': 'Oh, yana salom. Etiklaringdan mox hidi keladi. Yaxshi.'
+      },
+      hello: {
+        '2': 'Men Briar. Oʻsgan narsalarni yigʻib, quritaman. Silverbridge meni bagʻriga olib, mehribonlik qildi.',
+        '1': 'Kimdir kelishini bilardim. Goblinlar giyohlarni hech qachon tushunmagan. Mehribonlikni ham.'
+      }
+    },
+    lightDisciple: {
+      bye: {
+        '1': 'Nurda yur.'
+      },
+      who: {
+        '2': 'Sunford yorugʻ va sokin. Menga ikkalasi ham kerak edi.',
+        '1': 'Choʻkkan ibodatxonaga ibodat qilgani bordim. Nagalarning boshqa rejalari bor ekan.'
+      },
+      trainBack: {
+        '1': 'Ohista bor. Va kelayotganingni koʻrishsin.'
+      },
+      ready: {
+        weak: {
+          '1': 'Hali emas. Avval tiniqroq aql va iliqroq yurak.'
+        },
+        able: {
+          '1': 'Keyingi darsga tayyorsan. Kel, nur ichida tur.'
+        },
+        strong: {
+          '1': 'Endi sen mendan ham yorqinroq nur sochasan. Nima kerak boʻlsa, ol.'
+        }
+      },
+      class: {
+        say: 'Nur keltiruvchi nima qiladi?',
+        '2': 'Aql nurni kuchli qiladi. Xarizma uni iliq qiladi.',
+        '1': 'Biz tongni olib yuramiz. Jang uchun nur, shifo uchun nur.'
+      },
+      train: {
+        '1': 'Kaftlaringni och. Nur ulardan chiqmasin, ular orqali oʻtsin.'
+      },
+      again: {
+        '1': 'Yana xush kelibsan. Bugun quyosh mehribon.'
+      },
+      hello: {
+        '2': 'Men Aurelle. Menga nurni Rohiba Auriel oʻrgatgan. Endi uni shu yerda oʻzim oʻrgataman.',
+        '1': 'Nur sen bilan boʻlsin. Meni zulmatda topding, buni unutmayman.'
+      }
+    },
+    freedPeddler: {
+      bye: {
+        '1': 'Qaroqchilardan ehtiyot boʻl. Ular boʻlishishni yoqtirmaydi.'
+      },
+      shopBack: {
+        '1': 'Sen bilan savdo qilish yoqimli boʻldi, doʻstim.'
+      },
+      who: {
+        '2': 'Endi Sunfordda sotaman. Bu yer xavfsizroq. Koʻpincha.',
+        '1': 'Qaroqchilar aravamni olib, meni qutiga solib qoʻyishdi. Juda qoʻpollik.'
+      },
+      trade: {
+        '1': 'Uzuklar, qoʻlqoplar, etiklar. Senga yarim narxda. Xoʻsh, deyarli.'
+      },
+      again: {
+        '1': 'Qutqaruvchim! Kel, kel, eng yaxshi narsalarni senga saqlab qoʻydim.'
+      },
+      hello: {
+        '2': 'Odo Marrow, xizmatingdaman. Attor, usta va juda minnatdor odam.',
+        '1': 'Sen! Oʻsha qafasni ochgan sensan! Men u yerda chirib ketardim.'
+      }
+    },
     sfShadow: {
       hello: {
         '1': 'Kirib kelganingni eshitmadim. Odatda bu mening hiylam.',
@@ -5316,6 +5541,12 @@ export default {
     prizeGold: 'Ularning hammasi sizda bor, shuning uchun oʻrniga {n} oltin olasiz!'
   },
   errand: {
+    farmersFavor: {
+      title: 'Tollerlarning boʻrilari'
+    },
+    herbalistFavor: {
+      title: 'Briarning quyoshgulbarglari'
+    },
     collectorFavor: {
       title: 'Kolleksionerning oyqoʻngʻiroqlari'
     },

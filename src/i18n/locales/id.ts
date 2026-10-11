@@ -129,6 +129,16 @@ export default {
     chi: 'Chi'
   },
   toast: {
+    freed: {
+      lightDisciple: 'Dibebaskan! Suster Aurelle akan mengajarkan jalan Pembawa Cahaya di {town}.',
+      frostDisciple: 'Dibebaskan! Ivor akan mengajarkan jalan Penjaga Es di {town}.',
+      windDisciple: 'Dibebaskan! Kestrel akan mengajarkan jalan Pelari Angin di {town}.',
+      freedFarmers: 'Dibebaskan! Keluarga Toller akan menemukan rumah di {town}.',
+      freedHerbalist: 'Dibebaskan! Briar si tabib herbal akan menunggumu di {town}.',
+      freedPeddler: 'Dibebaskan! Odo si pedagang keliling akan berdagang di {town}.'
+    },
+    cageLocked: 'Terkunci. Kuncinya pasti ada di suatu tempat di sini.',
+    cageKey: 'Sebuah kunci! Pasti untuk membuka kurungan itu.',
     ore: 'Ditambang: {n} × {ore}',
     mineBusy: 'Musuh ada di dekat!',
     item: 'Ditemukan: {item}',
@@ -1778,6 +1788,25 @@ export default {
     circle: 'Lingkaran Aether'
   },
   npc: {
+    frostDisciple: {
+      name: 'Ivor Hask'
+    },
+    windDisciple: {
+      name: 'Kestrel Vane'
+    },
+    freedFarmers: {
+      name: 'Jory Toller'
+    },
+    freedHerbalist: {
+      name: 'Briar Hollowell'
+    },
+    lightDisciple: {
+      name: 'Suster Aurelle'
+    },
+    freedPeddler: {
+      talk: 'Semua yang dibutuhkan pengembara. Hampir baru, kebanyakan.',
+      name: 'Odo Marrow'
+    },
     sfShadow: {
       name: 'Nettle Quickhand'
     },
@@ -2042,6 +2071,202 @@ export default {
     }
   },
   dlg: {
+    frostDisciple: {
+      bye: {
+        '1': 'Tetaplah hangat.'
+      },
+      who: {
+        '2': 'Tempa-tempa Ironhold hangat. Aku suka di sini.',
+        '1': 'Aku berburu di tundra. Mereka mengurungku selama satu musim dingin.'
+      },
+      trainBack: {
+        '1': 'Berlatihlah. Dingin itu sabar. Jadilah sama.'
+      },
+      ready: {
+        weak: {
+          '1': 'Belum. Lebih kuat lagi, lengan dan pikiran.'
+        },
+        able: {
+          '1': 'Kamu siap. Pelajaran berikutnya.'
+        },
+        strong: {
+          '1': 'Kamu lebih kuat daripada aku dulu. Ambil yang kamu perlukan.'
+        }
+      },
+      class: {
+        say: 'Apa itu Penjaga Es?',
+        '2': 'Kekuatan untuk bilah. Kecerdasan untuk es.',
+        '1': 'Dinginkan mereka, bekukan mereka, lalu pecahkan esnya.'
+      },
+      train: {
+        '1': 'Berdiri diam. Biarkan dingin mendatangimu. Lalu kirim balik.'
+      },
+      again: {
+        '1': 'Kamu kembali. Bagus.'
+      },
+      hello: {
+        '2': 'Ivor Hask. Halvard Rimeheart mengajariku es. Kini aku yang mengajarkannya, di sini.',
+        '1': 'Bebas. Bagus. Dingin tak berhasil mengambilku, begitu pula mereka.'
+      }
+    },
+    windDisciple: {
+      bye: {
+        '1': 'Jangan lepaskan matamu dari angin.'
+      },
+      who: {
+        '2': 'Tolong bilang ke Sefa aku masih hidup, ya? Dia gampang cemas.',
+        '1': 'Aku sedang menuju Silverbridge waktu tertangkap di tebing.'
+      },
+      trainBack: {
+        '1': 'Pergi dan berlatihlah. Di tempat yang berangin.'
+      },
+      ready: {
+        weak: {
+          '1': 'Belum. Jadilah lebih gesit dulu, lalu kembali.'
+        },
+        able: {
+          '1': 'Kamu siap untuk yang berikutnya. Perhatikan baik-baik.'
+        },
+        strong: {
+          '1': 'Kamu sudah lebih cepat dariku. Ambil yang kamu suka.'
+        }
+      },
+      class: {
+        say: 'Apa yang dilakukan Pelari Angin?',
+        '2': 'Ketangkasan untuk kaki yang cepat. Keahlian, agar setiap panah kena.',
+        '1': 'Lari, tembak, lari lagi. Jangan pernah ada di tempat yang mereka bidik.'
+      },
+      train: {
+        '1': 'Kaki dibuka. Embuskan napas. Biarkan angin membawanya.'
+      },
+      again: {
+        '1': 'Hei! Anginnya bagus hari ini. Mau memanah?'
+      },
+      hello: {
+        '2': 'Kestrel Vane. Sefa Galewing mengajariku memanah. Aku bisa mengajarimu apa yang dia ajarkan padaku.',
+        '1': 'Kamu mengeluarkanku! Aku berutang segalanya padamu. Yah, banyak.'
+      }
+    },
+    freedFarmers: {
+      bye: {
+        '1': 'Hati-hati di jalan.'
+      },
+      who: {
+        '2': 'Oakhaven menampung kami. Kami membalasnya dengan roti.',
+        '1': 'Bandit menculik kami dari ladang dan meninggalkan kami di hutan sampai membusuk.'
+      },
+      favorDone: {
+        say: 'Serigala itu tak akan mengganggu kalian lagi.',
+        '2': 'Ambil ini. Tidak banyak, tapi jujur.',
+        '1': 'Malam kembali tenang. Akhirnya kami bisa tidur.'
+      },
+      waiting: {
+        say: 'Soal serigala itu...',
+        '1': 'Serigala masih berkeliaran. Kami mendengar mereka semalam.'
+      },
+      favor: {
+        say: 'Ada yang bisa kubantu?',
+        '2': 'Bisa kurangi jumlah mereka? Delapan ekor mestinya cukup jadi pelajaran.',
+        '1': 'Serigala dari Hutan Berbisik terus mengambil domba kami.'
+      },
+      again: {
+        '1': 'Itu dia pahlawan kita. Mau makan sedikit?'
+      },
+      hello: {
+        '2': 'Jory Toller. Sekarang kami bertani di luar tembok. Yah, mencoba.',
+        '1': 'Tanpamu kami sudah mati. Aku dan anakku. Terima kasih.'
+      }
+    },
+    freedHerbalist: {
+      bye: {
+        '1': 'Melangkahlah pelan-pelan. Ada yang tumbuh di sana.'
+      },
+      who: {
+        '2': 'Mereka tak sepenuhnya salah.',
+        '1': 'Tabib herbal dari perbukitan. Para goblin mengira aku penyihir.'
+      },
+      favorDone: {
+        say: 'Ini Kelopak Suryamu.',
+        '2': 'Ini, bayaranmu. Dan terima kasih, sekali lagi.',
+        '1': 'Oh, ini sempurna. Cium baunya!'
+      },
+      waiting: {
+        say: 'Soal Kelopak Surya itu...',
+        '1': 'Masih mencari? Kelopak Surya suka matahari terbuka.'
+      },
+      favor: {
+        say: 'Ada yang bisa kubantu?',
+        '2': 'Bunga itu tumbuh di padang. Akan kubayar mahal.',
+        '1': 'Persediaanku hilang di kurungan itu. Bisakah kamu bawakan tiga Kelopak Surya?'
+      },
+      again: {
+        '1': 'Ah, halo lagi. Sepatumu berbau lumut. Bagus.'
+      },
+      hello: {
+        '2': 'Aku Briar. Aku memetik dan mengeringkan apa yang tumbuh. Silverbridge berbaik hati menampungku.',
+        '1': 'Aku tahu seseorang akan datang. Goblin tak pernah paham soal tanaman obat. Atau kebaikan.'
+      }
+    },
+    lightDisciple: {
+      bye: {
+        '1': 'Berjalanlah dalam cahaya.'
+      },
+      who: {
+        '2': 'Sunford terang dan tenang. Aku butuh keduanya.',
+        '1': 'Aku pergi ke Kuil Tenggelam untuk berdoa. Para siluman ular punya rencana lain.'
+      },
+      trainBack: {
+        '1': 'Pergilah dengan lembut. Dan biarkan mereka melihatmu datang.'
+      },
+      ready: {
+        weak: {
+          '1': 'Belum. Pikiran yang lebih jernih dan hati yang lebih hangat dulu.'
+        },
+        able: {
+          '1': 'Kamu siap untuk pelajaran berikutnya. Ayo, berdirilah dalam cahaya.'
+        },
+        strong: {
+          '1': 'Sekarang kamu bersinar lebih terang dariku. Ambil apa pun yang kamu perlukan.'
+        }
+      },
+      class: {
+        say: 'Apa yang dilakukan Pembawa Cahaya?',
+        '2': 'Kecerdasan membuat cahaya kuat. Karisma membuatnya hangat.',
+        '1': 'Kami membawa fajar. Cahaya untuk bertarung, cahaya untuk menyembuhkan.'
+      },
+      train: {
+        '1': 'Buka tanganmu. Biarkan cahaya mengalir melaluinya, bukan keluar darinya.'
+      },
+      again: {
+        '1': 'Selamat datang kembali. Matahari sedang ramah hari ini.'
+      },
+      hello: {
+        '2': 'Aku Aurelle. Suster Auriel mengajariku cahaya. Kini aku mengajarkannya di sini.',
+        '1': 'Semoga cahaya menyertaimu. Kamu menemukanku dalam gelap, dan aku tak akan melupakannya.'
+      }
+    },
+    freedPeddler: {
+      bye: {
+        '1': 'Hati-hati dengan bandit. Mereka tak suka berbagi.'
+      },
+      shopBack: {
+        '1': 'Senang berbisnis denganmu, kawan.'
+      },
+      who: {
+        '2': 'Sekarang aku berdagang dari Sunford. Di sini lebih aman. Kebanyakan.',
+        '1': 'Bandit merampas gerobakku dan memasukkanku ke dalam peti. Kurang ajar sekali.'
+      },
+      trade: {
+        '1': 'Cincin, sarung tangan, sepatu bot. Setengah harga untukmu. Yah, hampir.'
+      },
+      again: {
+        '1': 'Penyelamatku! Ayo, ayo, barang bagus kusimpan untukmu.'
+      },
+      hello: {
+        '2': 'Odo Marrow, siap melayani. Pedagang keliling, tukang reparasi, dan orang yang sangat berterima kasih.',
+        '1': 'Kamu! Kamulah yang membuka kurungan itu! Aku pasti sudah membusuk di dalam sana.'
+      }
+    },
     sfShadow: {
       hello: {
         '1': 'Tak dengar kamu masuk. Biasanya itu trikku.',
@@ -5316,6 +5541,12 @@ export default {
     prizeGold: 'Kamu sudah punya semuanya, jadi kamu dapat {n} emas sebagai gantinya!'
   },
   errand: {
+    farmersFavor: {
+      title: 'Serigala keluarga Toller'
+    },
+    herbalistFavor: {
+      title: 'Kelopak Surya untuk Briar'
+    },
     collectorFavor: {
       title: 'Lonceng Bulan Sang Kolektor'
     },

@@ -129,6 +129,16 @@ export default {
     chi: 'Či'
   },
   toast: {
+    freed: {
+      lightDisciple: 'Išlaisvinta! Sesuo Aurelle mokys Šviesnešio kelio {town} mieste.',
+      frostDisciple: 'Išlaisvintas! Ivor mokys Šalčio sargo kelio {town} mieste.',
+      windDisciple: 'Išlaisvintas! Kestrel mokys Vėjo bėgiko kelio {town} mieste.',
+      freedFarmers: 'Išlaisvinti! Toller šeima ras namus {town} mieste.',
+      freedHerbalist: 'Išlaisvinta! Žolininkė Briar lauks tavęs {town} mieste.',
+      freedPeddler: 'Išlaisvintas! Prekeivis Odo prekiaus {town} mieste.'
+    },
+    cageLocked: 'Užrakinta. Raktas turi būti kažkur šioje vietoje.',
+    cageKey: 'Raktas! Jis turbūt atrakina narvą.',
     ore: 'Iškasta: {n} × {ore}',
     mineBusy: 'Ne, kai šalia priešai!',
     item: 'Rasta: {item}',
@@ -1778,6 +1788,25 @@ export default {
     circle: 'Eterio ratas'
   },
   npc: {
+    frostDisciple: {
+      name: 'Ivor Hask'
+    },
+    windDisciple: {
+      name: 'Kestrel Vane'
+    },
+    freedFarmers: {
+      name: 'Jory Toller'
+    },
+    freedHerbalist: {
+      name: 'Briar Hollowell'
+    },
+    lightDisciple: {
+      name: 'Sesuo Aurelle'
+    },
+    freedPeddler: {
+      talk: 'Viskas, ko reikia keliautojui. Beveik nauja, dažniausiai.',
+      name: 'Odo Marrow'
+    },
     sfShadow: {
       name: 'Nettle Quickhand'
     },
@@ -2042,6 +2071,212 @@ export default {
     }
   },
   dlg: {
+    frostDisciple: {
+      bye: {
+        '1': 'Nesušalk.'
+      },
+      who: {
+        '2': 'Ironholdo kalvės šiltos. Man čia patinka.',
+        '1': 'Medžiojau tundroje. Jie laikė mane narve visą žiemą.'
+      },
+      trainBack: {
+        '1__f': 'Treniruokis. Šaltis kantrus. Būk tokia pat.',
+        '1': 'Treniruokis. Šaltis kantrus. Būk toks pat.'
+      },
+      ready: {
+        weak: {
+          '1': 'Dar ne. Daugiau jėgos rankoje ir prote.'
+        },
+        able: {
+          '1__f': 'Esi pasiruošusi. Kita pamoka.',
+          '1': 'Esi pasiruošęs. Kita pamoka.'
+        },
+        strong: {
+          '1__f': 'Esi stipresnė, nei buvau aš. Imk, ko reikia.',
+          '1': 'Esi stipresnis, nei buvau aš. Imk, ko reikia.'
+        }
+      },
+      class: {
+        say: 'Kas yra Šalčio sargas?',
+        '2': 'Jėga – ašmenims. Intelektas – šalčiui.',
+        '1': 'Atvėsink juos, užšaldyk, tada sudaužyk ledą.'
+      },
+      train: {
+        '1': 'Nejudėk. Leisk šalčiui ateiti pas tave. Tada pasiųsk jį atgal.'
+      },
+      again: {
+        '1': 'Grįžai. Gerai.'
+      },
+      hello: {
+        '2': 'Ivor Hask. Šalčio mane išmokė Halvard Šarmaširdis. Dabar jo mokau aš, čia.',
+        '1': 'Laisvas. Gerai. Šaltis manęs nepasiėmė, ir jie taip pat.'
+      }
+    },
+    windDisciple: {
+      bye: {
+        '1': 'Stebėk vėją.'
+      },
+      who: {
+        '2': 'Pasakyk Sefai, kad esu gyvas, gerai? Ji nerimauja.',
+        '1': 'Keliavau į Silverbridge, kai mane sučiupo Pelenų uolose.'
+      },
+      trainBack: {
+        '1': 'Eik pasitreniruoti. Kur nors, kur vėjuota.'
+      },
+      ready: {
+        weak: {
+          '1': 'Dar ne. Pirma pagreitėk, tada grįžk.'
+        },
+        able: {
+          '1__f': 'Esi pasiruošusi kitai. Žiūrėk atidžiai.',
+          '1': 'Esi pasiruošęs kitai. Žiūrėk atidžiai.'
+        },
+        strong: {
+          '1__f': 'Dabar esi greitesnė už mane. Imk, ką nori.',
+          '1': 'Dabar esi greitesnis už mane. Imk, ką nori.'
+        }
+      },
+      class: {
+        say: 'Ką veikia Vėjo bėgikas?',
+        '2': 'Vikrumas – greitoms kojoms. Meistrystė – kad kiekviena strėlė pataikytų.',
+        '1': 'Bėk, šaudyk, vėl bėk. Niekada nebūk ten, kur jie taiko.'
+      },
+      train: {
+        '1': 'Kojos plačiau. Iškvėpk. Tegul vėjas neša.'
+      },
+      again: {
+        '1': 'Ei! Šiandien geras vėjas. Pašaudom?'
+      },
+      hello: {
+        '2': 'Kestrel Vane. Šaudyti iš lanko mane išmokė Sefa Vėjasparnė. Galiu tave išmokyti to, ko ji išmokė mane.',
+        '1': 'Ištraukei mane! Esu tau skolingas viską. Na, daug ką.'
+      }
+    },
+    freedFarmers: {
+      bye: {
+        '1': 'Laimingo kelio.'
+      },
+      who: {
+        '2': 'Oakhavenas mus priglaudė. Atsilyginame duona.',
+        '1': 'Banditai pagrobė mus iš lauko ir paliko miške supūti.'
+      },
+      favorDone: {
+        say: 'Vilkai jūsų daugiau nebetrikdys.',
+        '2': 'Imk. Nedaug, bet sąžiningai.',
+        '1': 'Vėl ramios naktys. Pagaliau galime miegoti.'
+      },
+      waiting: {
+        say: 'Dėl tų vilkų...',
+        '1': 'Vilkai vis dar čia. Girdėjome juos praėjusią naktį.'
+      },
+      favor: {
+        say: 'Ar galiu kuo nors padėti?',
+        '2': 'Gal juos praretintum? Aštuonių turėtų užtekti pamokai.',
+        '1': 'Vilkai iš Šnabždančio miško vis grobia mūsų avis.'
+      },
+      again: {
+        '1__f': 'Štai ir mūsų didvyrė! Užkąsi ko nors?',
+        '1': 'Štai ir mūsų didvyris! Užkąsi ko nors?'
+      },
+      hello: {
+        '2': 'Jory Toller. Dabar ūkininkaujame už sienų. Na, bandome.',
+        '1': 'Be tavęs būtume žuvę. Ir aš, ir mano sūnus. Ačiū.'
+      }
+    },
+    freedHerbalist: {
+      bye: {
+        '1': 'Eik atsargiai. Ten auga gyvybė.'
+      },
+      who: {
+        '2': 'Jie ne visai klydo.',
+        '1': 'Žolininkė nuo kalvų. Goblinai palaikė mane ragana.'
+      },
+      favorDone: {
+        say: 'Štai tavo saulėžiedžiai.',
+        '2': 'Še, tavo atlygis. Ir dar kartą ačiū.',
+        '1': 'O, jie tobuli. Pauostyk!'
+      },
+      waiting: {
+        say: 'Dėl tų saulėžiedžių...',
+        '1': 'Vis dar ieškai? Saulėžiedžiai mėgsta atvirą saulę.'
+      },
+      favor: {
+        say: 'Ar galiu kuo nors tau padėti?',
+        '2': 'Jie auga lygumose. Gerai už juos sumokėsiu.',
+        '1': 'Mano atsargos dingo tame narve. Gal galėtum atnešti man tris saulėžiedžius?'
+      },
+      again: {
+        '1': 'A, vėl labas. Tavo batai kvepia samanomis. Gerai.'
+      },
+      hello: {
+        '2': 'Aš Briar. Renku ir džiovinu tai, kas auga. Silverbridge buvo toks malonus, kad mane priglaudė.',
+        '1': 'Žinojau, kad kas nors ateis. Goblinai niekada nesuprato žolių. Nei gerumo.'
+      }
+    },
+    lightDisciple: {
+      bye: {
+        '1': 'Eik šviesoje.'
+      },
+      who: {
+        '2': 'Sunforde šviesu ir ramu. Man reikėjo abiejų.',
+        '1': 'Nuėjau melstis į Nuskendusią šventyklą. Nagos turėjo kitų planų.'
+      },
+      trainBack: {
+        '1': 'Eik švelniai. Ir tegul jie mato tave ateinant.'
+      },
+      ready: {
+        weak: {
+          '1': 'Dar ne. Pirma – skaidresnis protas ir šiltesnė širdis.'
+        },
+        able: {
+          '1__f': 'Esi pasiruošusi kitai pamokai. Eikš, stok į šviesą.',
+          '1': 'Esi pasiruošęs kitai pamokai. Eikš, stok į šviesą.'
+        },
+        strong: {
+          '1': 'Dabar tu švieti ryškiau už mane. Imk viską, ko reikia.'
+        }
+      },
+      class: {
+        say: 'Ką veikia Šviesnešys?',
+        '2': 'Intelektas daro šviesą stiprią. Charizma – šiltą.',
+        '1': 'Mes nešame aušrą. Šviesa kovai, šviesa gydymui.'
+      },
+      train: {
+        '1': 'Atverk delnus. Tegul šviesa eina pro juos, o ne iš jų.'
+      },
+      again: {
+        '1__f': 'Sveika sugrįžusi. Saulė šiandien maloni.',
+        '1': 'Sveikas sugrįžęs. Saulė šiandien maloni.'
+      },
+      hello: {
+        '2': 'Aš Aurelle. Šviesos mane išmokė sesuo Auriel. Dabar jos mokau čia.',
+        '1': 'Šviesa tebūnie su tavimi. Radai mane tamsoje, ir aš to nepamiršiu.'
+      }
+    },
+    freedPeddler: {
+      bye: {
+        '1': 'Saugokis banditų. Jie nemėgsta dalintis.'
+      },
+      shopBack: {
+        '1': 'Malonu su tavimi prekiauti, drauge.'
+      },
+      who: {
+        '2': 'Dabar prekiauju Sunforde. Čia saugiau. Dažniausiai.',
+        '1': 'Banditai pasiėmė mano vežimą, o mane uždarė dėžėje. Labai nemandagu.'
+      },
+      trade: {
+        '1': 'Žiedai, pirštinės, batai. Tau už pusę kainos. Na, beveik.'
+      },
+      again: {
+        '1__f': 'Mano gelbėtoja! Eikš, eikš, geriausius daiktus laikiau tau.',
+        '1': 'Mano gelbėtojau! Eikš, eikš, geriausius daiktus laikiau tau.'
+      },
+      hello: {
+        '2': 'Odo Marrow, tavo paslaugoms. Prekeivis, meistrautojas ir labai dėkingas žmogus.',
+        '1__f': 'Tu! Tu ta, kuri atidarė tą narvą! Būčiau ten supuvęs.',
+        '1': 'Tu! Tu tas, kuris atidarė tą narvą! Būčiau ten supuvęs.'
+      }
+    },
     sfShadow: {
       hello: {
         '1': 'Negirdėjau, kaip įėjai. Paprastai tai mano triukas.',
@@ -5372,6 +5607,12 @@ export default {
     prizeGold: 'Jau turi juos visus, tad vietoj to gauni {n} aukso!'
   },
   errand: {
+    farmersFavor: {
+      title: 'Toller šeimos vilkai'
+    },
+    herbalistFavor: {
+      title: 'Briar saulėžiedžiai'
+    },
     collectorFavor: {
       title: 'Kolekcininko mėnulio varpeliai'
     },

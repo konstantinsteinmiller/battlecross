@@ -338,8 +338,8 @@ const sbMasterWindrunner = conversation('sbMasterWindrunner', {
   topics: [
     train({ when: { flags: ['foundWindrunner'] } }),
     // The test (#86): asked, waited on, handed in.
-    { id: 'favor', lines: 'nn', when: { errand: { windrunnerTest: 'none' } }, fx: [{ t: 'errand', id: 'windrunnerTest', act: 'start' }] },
-    { id: 'waiting', once: false, when: { errand: { windrunnerTest: 'active' } } },
+    { id: 'favor', lines: 'nn', when: { errand: { windrunnerTest: 'none' }, not: ['foundWindrunner'] }, fx: [{ t: 'errand', id: 'windrunnerTest', act: 'start' }] },
+    { id: 'waiting', once: false, when: { errand: { windrunnerTest: 'active' }, not: ['foundWindrunner'] } },
     { id: 'favorDone', lines: 'nn', when: { errand: { windrunnerTest: 'ready' } }, fx: [{ t: 'errand', id: 'windrunnerTest', act: 'complete' }], mood: 'warm' },
     { id: 'class', lines: 'nn', when: { flags: ['foundWindrunner'] } },
     { ...ready('windrunner'), when: { flags: ['foundWindrunner'] } },
@@ -360,8 +360,8 @@ const sbMasterFrostwarden = conversation('sbMasterFrostwarden', {
   topics: [
     train({ when: { flags: ['foundFrostwarden'] } }),
     // The test (#86): asked, waited on, handed in.
-    { id: 'favor', lines: 'nn', when: { errand: { frostwardenTest: 'none' } }, fx: [{ t: 'errand', id: 'frostwardenTest', act: 'start' }] },
-    { id: 'waiting', once: false, when: { errand: { frostwardenTest: 'active' } } },
+    { id: 'favor', lines: 'nn', when: { errand: { frostwardenTest: 'none' }, not: ['foundFrostwarden'] }, fx: [{ t: 'errand', id: 'frostwardenTest', act: 'start' }] },
+    { id: 'waiting', once: false, when: { errand: { frostwardenTest: 'active' }, not: ['foundFrostwarden'] } },
     { id: 'favorDone', lines: 'nn', when: { errand: { frostwardenTest: 'ready' } }, fx: [{ t: 'errand', id: 'frostwardenTest', act: 'complete' }], mood: 'warm' },
     { id: 'class', lines: 'nn', when: { flags: ['foundFrostwarden'] } },
     { ...ready('frostwarden'), when: { flags: ['foundFrostwarden'] } },
@@ -382,8 +382,8 @@ const sbMasterLightbringer = conversation('sbMasterLightbringer', {
   topics: [
     train({ when: { flags: ['foundLightbringer'] } }),
     // The test (#86): asked, waited on, handed in.
-    { id: 'favor', lines: 'nn', when: { errand: { lightbringerTest: 'none' } }, fx: [{ t: 'errand', id: 'lightbringerTest', act: 'start' }] },
-    { id: 'waiting', once: false, when: { errand: { lightbringerTest: 'active' } }, mood: 'amused' },
+    { id: 'favor', lines: 'nn', when: { errand: { lightbringerTest: 'none' }, not: ['foundLightbringer'] }, fx: [{ t: 'errand', id: 'lightbringerTest', act: 'start' }] },
+    { id: 'waiting', once: false, when: { errand: { lightbringerTest: 'active' }, not: ['foundLightbringer'] }, mood: 'amused' },
     { id: 'favorDone', lines: 'nn', when: { errand: { lightbringerTest: 'ready' } }, fx: [{ t: 'errand', id: 'lightbringerTest', act: 'complete' }], mood: 'excited' },
     { id: 'class', lines: 'nn', when: { flags: ['foundLightbringer'] } },
     { ...ready('lightbringer'), when: { flags: ['foundLightbringer'] } },
@@ -488,7 +488,25 @@ const NEW_MASTERS: ConversationDef[] = [
   sbMasterElementalist, sbMasterSoulwarden, sbMasterIronmonk, sbMasterBard
 ]
 
+
+/** Briar Hollowell: a herbalist the goblins took for a witch (#100). Soft-spoken, earthy. */
+const freedHerbalist = conversation('freedHerbalist', {
+  name: 'npc.freedHerbalist.name', look: 'freedHerbalist', mood: 'warm',
+  greet: [
+    { id: 'hello', when: { met: false }, lines: 'nn', mood: 'warm' },
+    { id: 'again' }
+  ],
+  topics: [
+    { id: 'favor', lines: 'nn', when: { errand: { herbalistFavor: 'none' } }, fx: [{ t: 'errand', id: 'herbalistFavor', act: 'start' }] },
+    { id: 'waiting', once: false, when: { errand: { herbalistFavor: 'active' } } },
+    { id: 'favorDone', lines: 'nn', when: { errand: { herbalistFavor: 'ready' } }, fx: [{ t: 'errand', id: 'herbalistFavor', act: 'complete' }], mood: 'warm' },
+    who({ lines: 'nn' })
+  ],
+  bye: [{ id: 'bye' }]
+})
+
 export const SILVERBRIDGE_TALK: ConversationDef[] = [
+  freedHerbalist,
   mayorBrenna, sbHealer, sbAlchemist, sbGambler, sbCollector, sbFence, sbArmorer, sbWeapons, sbJeweler,
   sbMasterAegis, sbMasterPyro, sbMasterShadow, sbMasterSovereign, sbMasterGeo, sbMasterAether,
   sbMasterChrono, sbMasterBlood,

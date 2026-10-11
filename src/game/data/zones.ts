@@ -395,6 +395,9 @@ export const TOWNS: Readonly<Record<TownId, TownDef>> = {
   sunford: {
     id: 'sunford', theme: 'town', style: 'rural',
     npcs: [
+      // Freed from the cages (#100): the peddler from the plains, the disciple from the temple.
+      { id: 'freedPeddler', role: 'shop', look: 'freedPeddler', at: [0.45, 0.62], place: 'street', job: 'merchant', stock: { slots: ['trinket', 'hands', 'feet'], tiers: [1, 2] }, needs: ['freedPeddler'] },
+      { id: 'lightDisciple', role: 'trainer', look: 'lightDisciple', at: [0.86, 0.62], place: 'street', job: 'healer', cls: 'lightbringer', needs: ['freedLightDisciple'] },
       { id: 'sunfordSmith', role: 'shop', look: 'smith', at: [0.2, 0.48], place: 'porch', house: 'workshop', job: 'smith', stock: { slots: ['main', 'off', 'head', 'body', 'hands', 'feet'], tiers: [1] } },
       { id: 'sunfordPeddler', role: 'shop', look: 'peddler', at: [0.6, 0.54], place: 'street', job: 'merchant', stock: { slots: ['trinket'], tiers: [1, 2] } },
       // The knight drills in his yard; the pyromancer keeps to her books.
@@ -432,6 +435,9 @@ export const TOWNS: Readonly<Record<TownId, TownDef>> = {
   oakhaven: {
     id: 'oakhaven', theme: 'town', style: 'mercantile', fallen: 'oakhavenFallen', site: 'walled',
     npcs: [
+      // Freed from the cages (#100): the farmers from the woods, the disciple from the crags.
+      { id: 'freedFarmers', role: 'talk', look: 'freedFarmers', at: [0.4, 0.86], place: 'street', job: 'farmer', needs: ['freedFarmers'] },
+      { id: 'windDisciple', role: 'trainer', look: 'windDisciple', at: [0.62, 0.86], place: 'street', job: 'villager', cls: 'windrunner', needs: ['freedWindDisciple'] },
       { id: 'captainHale', role: 'quest', look: 'captain', at: [0.82, 0.15], place: 'yard', house: 'hall', job: 'captain', quest: 'siege', not: ['oakhavenFallen'] },
       // Defended: a prosperous trade hub with high-tier armourers.
       { id: 'oakArmorer', role: 'shop', look: 'smith', at: [0.12, 0.48], place: 'porch', house: 'workshop', job: 'smith', stock: { slots: ['head', 'body', 'hands', 'feet', 'off'], tiers: [2, 3] }, not: ['oakhavenFallen', 'oakhavenSaved'] },
@@ -475,6 +481,8 @@ export const TOWNS: Readonly<Record<TownId, TownDef>> = {
   ironhold: {
     id: 'ironhold', theme: 'town', style: 'mountain',
     npcs: [
+      // Freed from the tundra's cage (#100): a disciple of the frost.
+      { id: 'frostDisciple', role: 'trainer', look: 'frostDisciple', at: [0.5, 0.62], place: 'street', job: 'knight', cls: 'frostwarden', needs: ['freedFrostDisciple'] },
       { id: 'forgemaster', role: 'quest', look: 'dwarf', at: [0.5, 0.15], place: 'porch', house: 'workshop', job: 'smith', quest: 'core' },
       { id: 'ironWeapons', role: 'shop', look: 'dwarf', at: [0.28, 0.48], place: 'porch', house: 'workshop', job: 'smith', stock: { slots: ['main', 'off'], tiers: [3, 4] }, not: ['coreCircle'] },
       // The Circle's study of the core arms the town with aether-works.
@@ -504,6 +512,8 @@ export const TOWNS: Readonly<Record<TownId, TownDef>> = {
   silverbridge: {
     id: 'silverbridge', theme: 'town', style: 'mercantile', width: 70, site: 'bridge',
     npcs: [
+      // Freed from the Hollows' cage (#100): a herbalist with a favour to ask.
+      { id: 'freedHerbalist', role: 'talk', look: 'freedHerbalist', at: [0.5, 0.62], place: 'street', job: 'alchemist', needs: ['freedHerbalist'] },
       // The masters' halls along the north street, one beside the other.
       { id: 'sbMasterAegis', role: 'trainer', look: 'sbMasterAegis', at: [0.063, 0.15], place: 'inside', house: 'hall', job: 'knight', cls: 'aegis' },
       { id: 'sbMasterPyro', role: 'trainer', look: 'sbMasterPyro', at: [0.19, 0.15], place: 'inside', house: 'hall', job: 'scholar', cls: 'pyro' },

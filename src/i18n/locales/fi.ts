@@ -129,6 +129,16 @@ export default {
     chi: 'Chi'
   },
   toast: {
+    freed: {
+      lightDisciple: 'Vapaana! Sisar Aurelle opettaa Valontuojan tietä. Kaupunki: {town}.',
+      frostDisciple: 'Vapaana! Ivor opettaa Pakkasvartijan tietä. Kaupunki: {town}.',
+      windDisciple: 'Vapaana! Kestrel opettaa Tuulenjuoksijan tietä. Kaupunki: {town}.',
+      freedFarmers: 'Vapaana! Tollerit saavat uuden kodin. Kaupunki: {town}.',
+      freedHerbalist: 'Vapaana! Yrttitietäjä Briar odottaa sinua. Kaupunki: {town}.',
+      freedPeddler: 'Vapaana! Kulkukauppias Odo käy nyt kauppaa. Kaupunki: {town}.'
+    },
+    cageLocked: 'Lukossa. Avaimen täytyy olla jossain täällä.',
+    cageKey: 'Avain! Sen täytyy avata häkki.',
     ore: 'Louhittu: {n} × {ore}',
     mineBusy: 'Ei vihollisten lähellä!',
     item: 'Löytyi: {item}',
@@ -1778,6 +1788,25 @@ export default {
     circle: 'Eetterin piiri'
   },
   npc: {
+    frostDisciple: {
+      name: 'Ivor Hask'
+    },
+    windDisciple: {
+      name: 'Kestrel Vane'
+    },
+    freedFarmers: {
+      name: 'Jory Toller'
+    },
+    freedHerbalist: {
+      name: 'Briar Hollowell'
+    },
+    lightDisciple: {
+      name: 'Sisar Aurelle'
+    },
+    freedPeddler: {
+      talk: 'Kaikki, mitä matkalainen tarvitsee. Melkein uutta, enimmäkseen.',
+      name: 'Odo Marrow'
+    },
     sfShadow: {
       name: 'Nettle Quickhand'
     },
@@ -2042,6 +2071,202 @@ export default {
     }
   },
   dlg: {
+    frostDisciple: {
+      bye: {
+        '1': 'Pysy lämpimänä.'
+      },
+      who: {
+        '2': 'Ironholdin pajat ovat lämpimiä. Viihdyn täällä.',
+        '1': 'Metsästin tundralla. He pitivät minua häkissä kokonaisen talven.'
+      },
+      trainBack: {
+        '1': 'Harjoittele. Kylmä on kärsivällinen. Ole sinäkin.'
+      },
+      ready: {
+        weak: {
+          '1': 'Ei vielä. Lisää voimaa käsivarteen ja mieleen.'
+        },
+        able: {
+          '1': 'Olet valmis. Seuraava oppitunti.'
+        },
+        strong: {
+          '1': 'Olet vahvempi kuin minä olin. Ota mitä tarvitset.'
+        }
+      },
+      class: {
+        say: 'Mikä on Pakkasvartija?',
+        '2': 'Voima terää varten. Äly pakkasta varten.',
+        '1': 'Jäähdytä heidät, jäädytä heidät, sitten murskaa jää.'
+      },
+      train: {
+        '1': 'Seiso paikallasi. Anna kylmän tulla luoksesi. Lähetä se sitten takaisin.'
+      },
+      again: {
+        '1': 'Palaat. Hyvä.'
+      },
+      hello: {
+        '2': 'Ivor Hask. Halvard Huurresydän opetti minulle pakkasen. Nyt minä opetan sitä, täällä.',
+        '1': 'Vapaa. Hyvä. Kylmä ei vienyt minua, eivätkä hekään.'
+      }
+    },
+    windDisciple: {
+      bye: {
+        '1': 'Pidä silmät tuulessa.'
+      },
+      who: {
+        '2': 'Kertoisitko Sefalle, että olen elossa? Hän huolehtii.',
+        '1': 'Olin matkalla Silverbridgeen, kun kalliot nappasivat minut.'
+      },
+      trainBack: {
+        '1': 'Mene harjoittelemaan. Jonnekin tuuliseen paikkaan.'
+      },
+      ready: {
+        weak: {
+          '1': 'Ei vielä. Tule ensin nopeammaksi ja palaa sitten.'
+        },
+        able: {
+          '1': 'Olet valmis seuraavaan. Katso tarkkaan.'
+        },
+        strong: {
+          '1': 'Olet nyt minua nopeampi. Ota mitä haluat.'
+        }
+      },
+      class: {
+        say: 'Mitä Tuulenjuoksija tekee?',
+        '2': 'Ketteryys nopeisiin jalkoihin. Taito, jotta jokainen nuoli osuu.',
+        '1': 'Juokse, ammu, juokse taas. Älä koskaan ole siellä, minne he tähtäävät.'
+      },
+      train: {
+        '1': 'Jalat erilleen. Hengitä ulos. Anna tuulen kantaa se.'
+      },
+      again: {
+        '1': 'Hei! Hyvä tuuli tänään. Ammutaanko?'
+      },
+      hello: {
+        '2': 'Kestrel Vane. Sefa Puuskasiipi opetti minulle jousen. Voin opettaa sinulle sen, minkä hän opetti minulle.',
+        '1': 'Sait minut ulos! Olen sinulle velkaa kaiken. No, paljon.'
+      }
+    },
+    freedFarmers: {
+      bye: {
+        '1': 'Kulje varoen.'
+      },
+      who: {
+        '2': 'Oakhaven otti meidät vastaan. Maksamme takaisin leivällä.',
+        '1': 'Rosvot veivät meidät pelloltamme ja jättivät meidät metsään mätänemään.'
+      },
+      favorDone: {
+        say: 'Sudet eivät enää vaivaa teitä.',
+        '2': 'Ota tämä. Ei paljon, mutta rehellisesti ansaittu.',
+        '1': 'Taas hiljaisia öitä. Vihdoin saamme nukkua.'
+      },
+      waiting: {
+        say: 'Niistä susista...',
+        '1': 'Sudet liikkuvat yhä. Kuulimme ne viime yönä.'
+      },
+      favor: {
+        say: 'Voinko auttaa jossain?',
+        '2': 'Harventaisitko niitä? Kahdeksan riittänee opetukseksi.',
+        '1': 'Sudet Kuiskaavasta metsästä vievät lampaitamme.'
+      },
+      again: {
+        '1': 'Siinähän on sankarimme. Tulitko syömään?'
+      },
+      hello: {
+        '2': 'Jory Toller. Viljelemme nyt muurien ulkopuolella. No, yritämme.',
+        '1': 'Olisimme kuolleita ilman sinua. Minä ja poikani molemmat. Kiitos.'
+      }
+    },
+    freedHerbalist: {
+      bye: {
+        '1': 'Kulje varovasti. Siellä kasvaa asioita.'
+      },
+      who: {
+        '2': 'Eivät he täysin väärässä olleet.',
+        '1': 'Yrttitietäjä kukkuloilta. Hiidet luulivat minua noidaksi.'
+      },
+      favorDone: {
+        say: 'Tässä ovat aurinkoteräsi.',
+        '2': 'Tässä maksusi. Ja kiitos taas.',
+        '1': 'Voi, nämä ovat täydellisiä. Haista nyt!'
+      },
+      waiting: {
+        say: 'Niistä aurinkoteristä...',
+        '1': 'Vieläkö etsit? Aurinkoterät rakastavat avointa aurinkoa.'
+      },
+      favor: {
+        say: 'Voinko tehdä jotain hyväksesi?',
+        '2': 'Ne kasvavat tasangoilla. Maksan niistä hyvin.',
+        '1': 'Varastoni katosivat siinä häkissä. Voisitko tuoda minulle kolme aurinkoterää?'
+      },
+      again: {
+        '1': 'Ah, hei taas. Saappaasi tuoksuvat sammaleelta. Hyvä.'
+      },
+      hello: {
+        '2': 'Olen Briar. Kerään ja kuivaan sitä, mikä kasvaa. Silverbridge oli niin ystävällinen, että otti minut vastaan.',
+        '1': 'Tiesin, että joku tulisi. Hiidet eivät koskaan ymmärtäneet yrttejä. Eivätkä ystävällisyyttä.'
+      }
+    },
+    lightDisciple: {
+      bye: {
+        '1': 'Kulje valossa.'
+      },
+      who: {
+        '2': 'Sunford on valoisa ja hiljainen. Tarvitsin molempia.',
+        '1': 'Menin Uponneeseen temppeliin rukoilemaan. Nagoilla oli muita suunnitelmia.'
+      },
+      trainBack: {
+        '1': 'Kulje lempeästi. Ja anna heidän nähdä sinun tulevan.'
+      },
+      ready: {
+        weak: {
+          '1': 'Ei vielä. Ensin kirkkaampi mieli ja lämpimämpi sydän.'
+        },
+        able: {
+          '1': 'Olet valmis seuraavaan oppituntiin. Tule, seiso valossa.'
+        },
+        strong: {
+          '1': 'Loistat nyt kirkkaammin kuin minä. Ota mitä tarvitset.'
+        }
+      },
+      class: {
+        say: 'Mitä Valontuoja tekee?',
+        '2': 'Äly tekee valosta vahvan. Karisma tekee siitä lämpimän.',
+        '1': 'Me kannamme aamunkoittoa. Valoa taisteluun, valoa parantamiseen.'
+      },
+      train: {
+        '1': 'Avaa kätesi. Anna valon kulkea niiden läpi, ei niistä.'
+      },
+      again: {
+        '1': 'Tervetuloa takaisin. Aurinko on tänään lempeä.'
+      },
+      hello: {
+        '2': 'Olen Aurelle. Sisar Auriel opetti minulle valon. Nyt opetan sitä täällä.',
+        '1': 'Valo olkoon kanssasi. Löysit minut pimeydestä, enkä unohda sitä.'
+      }
+    },
+    freedPeddler: {
+      bye: {
+        '1': 'Varo rosvoja. He eivät tykkää jakaa.'
+      },
+      shopBack: {
+        '1': 'Ilo tehdä kauppaa, ystäväni.'
+      },
+      who: {
+        '2': 'Nyt myyn Sunfordissa. Täällä on turvallisempaa. Enimmäkseen.',
+        '1': 'Rosvot veivät kärryni ja panivat minut laatikkoon. Hyvin epäkohteliasta.'
+      },
+      trade: {
+        '1': 'Sormuksia, hansikkaita, saappaita. Sinulle puoleen hintaan. No, melkein.'
+      },
+      again: {
+        '1': 'Pelastajani! Tule, tule, säästin parhaat tavarat sinulle.'
+      },
+      hello: {
+        '2': 'Odo Marrow, palveluksessasi. Kulkukauppias, peltiseppä ja hyvin kiitollinen mies.',
+        '1': 'Sinä! Sinä avasit sen häkin! Olisin mädäntynyt sinne.'
+      }
+    },
     sfShadow: {
       hello: {
         '1': 'En kuullut sinun tulevan sisään. Se on yleensä minun temppuni.',
@@ -5316,6 +5541,12 @@ export default {
     prizeGold: 'Sinulla on jo ne kaikki, joten saat sen sijaan {n} kultaa!'
   },
   errand: {
+    farmersFavor: {
+      title: 'Tollerien sudet'
+    },
+    herbalistFavor: {
+      title: 'Briarin aurinkoterät'
+    },
     collectorFavor: {
       title: 'Keräilijän kuunkellot'
     },

@@ -114,6 +114,13 @@ export const LOOKS: Readonly<Record<string, Look>> = {
   sbMasterFrostwarden: L({ skin: '#e8c4a4', top: '#bfe0f8', bottom: '#4a6a8a', head: 'helm', headCol: '#d8eeff', hair: '#eef4fa', style: 'short', outfit: 'plate', held: 'sword', pauldrons: true, trim: '#a8d8ff', cape: '#f4f8ff', beard: '#eef4fa', metal: '#bfe6ff', glow: '#a8d8ff', bulk: 1.08 }),
   // Lightbringer: a white robe with dawn-rose trim and skirt, a golden bun, a staff and a softly glowing orb.
   sbMasterLightbringer: L({ skin: '#f0c8a8', top: '#fbf4f0', bottom: '#ffa8c8', head: 'bun', hair: '#e8c46a', outfit: 'robe', held: 'staff', off: 'orb', trim: '#ffa8c8', metal: '#e0b84a', glow: '#fff2a8' }),
+  // ── Freed from the cages (#100) ──
+  freedPeddler: L({ skin: '#e8c0a0', top: '#c87a3a', bottom: '#5a4a3a', head: 'hat', headCol: '#7a5a3a', hair: '#9a9a9a', style: 'short', outfit: 'apron', held: 'none', trim: '#f0d080', beard: '#9a9a9a', bulk: 1.1 }),
+  freedHerbalist: L({ skin: '#d8a880', top: '#4a9a6a', bottom: '#5a4a32', head: 'long', hair: '#7a4a2a', outfit: 'robe', held: 'flask', trim: '#c8e8a0' }),
+  freedFarmers: L({ skin: '#d8a078', top: '#a88a3a', bottom: '#4a5a6a', head: 'cap', headCol: '#8a6a3a', hair: '#5a3a22', style: 'short', outfit: 'tunic', held: 'none', trim: '#e8d8a0', beard: '#5a3a22' }),
+  windDisciple: L({ skin: '#e8b88e', top: '#5ac8e0', bottom: '#3a4a3a', head: 'short', hair: '#3a2a1a', outfit: 'leather', held: 'bow', trim: '#d8f8a0', cape: '#4a8a3a', metal: '#e0d0a8', glow: '#c4f05a', boots: 'leather' }),
+  frostDisciple: L({ skin: '#e0c0a8', top: '#8ab8ff', bottom: '#3a4a6a', head: 'short', hair: '#c8b890', style: 'short', outfit: 'plate', held: 'sword', trim: '#d8eeff', cape: '#c8e0f8', beard: '#c8b890', metal: '#bfe6ff', glow: '#a8d8ff' }),
+  lightDisciple: L({ skin: '#c89070', top: '#fbf0e0', bottom: '#f0d060', head: 'bun', hair: '#2a1a12', outfit: 'robe', held: 'staff', trim: '#f0d060', metal: '#e0b84a', glow: '#fff2a8' }),
   // Beastcaller: a moss-green hunting coat, a grey fur hood over long grey hair, a beard and a walking staff.
   sbMasterBeastcaller: L({ skin: '#d9a47e', top: '#4a6a34', bottom: '#5a4430', head: 'hood', headCol: '#8a8278', hair: '#c8c4bc', style: 'long', outfit: 'leather', held: 'staff', trim: '#4fb85a', cape: '#5a4a34', beard: '#c8c4bc', metal: '#7a5a34', glow: '#4fb85a', boots: 'leather' }),
   // Elementalist: a prism-orchid robe, a fiery orange ponytail, a staff and an orb that glows magenta.

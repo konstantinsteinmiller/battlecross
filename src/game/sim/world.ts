@@ -5,6 +5,7 @@ import type { ChestTier, LootKind } from '../data/loot'
 import type { BranchPlan, ChestRole } from './zoneFeatures'
 import type { HerbState, PieceState } from './herbs'
 import type { OreState } from './ores'
+import type { CageKeyState } from './cages'
 import type { CaravanState } from './caravan'
 import type {
   Action, Danger, Field, Projectile, SimEvent, Status, StatusId, Team, TempWall, Unit, UnitStats, Rank
@@ -271,6 +272,8 @@ export class Sim {
   herbs: HerbState[] = []
   /** Ore outcrops this visit (`ores.ts`, roadmap #99). */
   ores: OreState[] = []
+  /** A cage's key lying in the place (`cages.ts`, roadmap #100). */
+  cageKey: CageKeyState | null = null
   /** The treasure map's pieces lying in this zone (roadmap #89). */
   pieces: PieceState[] = []
   /** The caravan of an escort (roadmap #85, `caravan.ts`); null: none. */

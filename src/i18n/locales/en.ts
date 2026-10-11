@@ -119,6 +119,16 @@ export default {
   'toast': {
     'item': 'Found: {item}',
     'herb': 'Picked: {plant}',
+    'cageKey': 'A key! It must open the cage.',
+    'cageLocked': 'Locked. The key must be somewhere in this place.',
+    'freed': {
+      'freedPeddler': 'Freed! Odo the peddler will trade in {town}.',
+      'freedHerbalist': 'Freed! Briar the herbalist will wait for you in {town}.',
+      'freedFarmers': 'Freed! The Tollers will find a home in {town}.',
+      'windDisciple': 'Freed! Kestrel will teach the Windrunner\'s way in {town}.',
+      'frostDisciple': 'Freed! Ivor will teach the Frostwarden\'s way in {town}.',
+      'lightDisciple': 'Freed! Sister Aurelle will teach the Lightbringer\'s way in {town}.'
+    },
     'ore': 'Mined: {n} × {ore}',
     'mineBusy': 'Not with enemies about!',
     'piece': 'A piece of the treasure map!',
@@ -981,6 +991,12 @@ export default {
 
   // ─── Townsfolk ────────────────────────────────────────────────────────────
   'npc': {
+    'freedPeddler': { 'name': 'Odo Marrow', 'talk': 'Everything a traveller needs. Nearly new, mostly.' },
+    'lightDisciple': { 'name': 'Sister Aurelle' },
+    'freedHerbalist': { 'name': 'Briar Hollowell' },
+    'freedFarmers': { 'name': 'Jory Toller' },
+    'windDisciple': { 'name': 'Kestrel Vane' },
+    'frostDisciple': { 'name': 'Ivor Hask' },
     // Met on the world map's roads (a random encounter), not in a town.
     'wanderer': { 'name': 'Pip the Wanderer', 'talk': 'Long road, light purse? I carry a little of everything.' },
     'sunfordSmith': { 'name': 'Bram the Smith', 'talk': 'Plain steel, fair prices. Take your time.' },
@@ -1103,6 +1119,63 @@ export default {
   // terse and kind, Tilly chatty, Grik plain Common spoken with dignity, the
   // Keeper of Hours only slightly out of step with time.
   'dlg': {
+    // Freed from the cages (#100).
+    'freedPeddler': {
+      'hello': { '1': 'You! You\'re the one who opened that cage! I\'d have rotted in there.', '2': 'Odo Marrow, at your service. Peddler, tinker, very grateful man.' },
+      'again': { '1': 'My rescuer! Come, come, I kept the good things for you.' },
+      'trade': { '1': 'Rings, gloves, boots. Half price for you. Well, nearly.' },
+      'who': { '1': 'Bandits took my cart and put me in a box. Very rude.', '2': 'Now I sell from Sunford. It\'s safer here. Mostly.' },
+      'shopBack': { '1': 'Pleasure doing business, friend.' },
+      'bye': { '1': 'Mind the bandits. They don\'t like to share.' }
+    },
+    'lightDisciple': {
+      'hello': { '1': 'Light be with you. You found me in the dark, and I won\'t forget it.', '2': 'I\'m Aurelle. Sister Auriel taught me the light. Now I teach it here.' },
+      'again': { '1': 'Welcome back. The sun is kind today.' },
+      'train': { '1': 'Open your hands. Let the light come through them, not from them.' },
+      'class': { 'say': 'What does a Lightbringer do?', '1': 'We carry the dawn. Light to fight with, light to heal with.', '2': 'Intelligence makes the light strong. Charisma makes it warm.' },
+      'ready': { 'strong': { '1': 'You shine brighter than I do now. Take whatever you need.' }, 'able': { '1': 'You\'re ready for the next lesson. Come, stand in the light.' }, 'weak': { '1': 'Not yet. A clearer mind and a warmer heart first.' } },
+      'trainBack': { '1': 'Go gently. And let them see you coming.' },
+      'who': { '1': 'I went to the Sunken Temple to pray. The naga had other plans.', '2': 'Sunford is bright and quiet. I needed both.' },
+      'bye': { '1': 'Walk in the light.' }
+    },
+    'freedHerbalist': {
+      'hello': { '1': 'I knew someone would come. The goblins never understood herbs. Or kindness.', '2': 'I\'m Briar. I gather and dry what grows. Silverbridge was kind enough to take me in.' },
+      'again': { '1': 'Ah, hello again. Your boots smell of moss. Good.' },
+      'favor': { 'say': 'Is there anything I can do for you?', '1': 'My stores were lost in that cage. Could you bring me three sunpetals?', '2': 'They grow out on the plains. I\'ll pay well for them.' },
+      'waiting': { 'say': 'About those sunpetals...', '1': 'Still looking? Sunpetals love the open sun.' },
+      'favorDone': { 'say': 'Here are your sunpetals.', '1': 'Oh, these are perfect. Smell that!', '2': 'Here, your payment. And my thanks, again.' },
+      'who': { '1': 'A herbalist from the hills. The goblins took me for a witch.', '2': 'They weren\'t entirely wrong.' },
+      'bye': { '1': 'Walk gently. Things grow there.' }
+    },
+    'freedFarmers': {
+      'hello': { '1': 'We\'d be dead without you. Me and my boy both. Thank you.', '2': 'Jory Toller. We farm outside the walls now. Well, we try.' },
+      'again': { '1': 'There\'s our hero. Come for a bite?' },
+      'favor': { 'say': 'Can I help with anything?', '1': 'Wolves out of the Whispering Woods keep taking our sheep.', '2': 'Thin them out, would you? Eight should teach them.' },
+      'waiting': { 'say': 'About those wolves...', '1': 'The wolves are still about. We heard them last night.' },
+      'favorDone': { 'say': 'The wolves won\'t trouble you again.', '1': 'Quiet nights again. We can finally sleep.', '2': 'Take this. It\'s not much, but it\'s honest.' },
+      'who': { '1': 'Bandits took us from our field and left us in the woods to rot.', '2': 'Oakhaven took us in. We pay it back in bread.' },
+      'bye': { '1': 'Mind how you go.' }
+    },
+    'windDisciple': {
+      'hello': { '1': 'You got me out! I owe you everything. Well, a lot.', '2': 'Kestrel Vane. Sefa Galewing taught me the bow. I can teach you what she taught me.' },
+      'again': { '1': 'Hey! The wind\'s good today. Shall we practise?' },
+      'train': { '1': 'Feet apart. Breathe out. Let the wind carry it.' },
+      'class': { 'say': 'What does a Windrunner do?', '1': 'Run, shoot, run again. Never be where they aim.', '2': 'Dexterity for quick feet. Skill, so every arrow lands.' },
+      'ready': { 'strong': { '1': 'You\'re faster than me now. Take what you like.' }, 'able': { '1': 'You\'re ready for the next one. Watch closely.' }, 'weak': { '1': 'Not yet. Get quicker first, then come back.' } },
+      'trainBack': { '1': 'Go and practise. Somewhere windy.' },
+      'who': { '1': 'I was on my way to Silverbridge when the crags caught me.', '2': 'Tell Sefa I\'m alive, would you? She worries.' },
+      'bye': { '1': 'Keep your eyes on the wind.' }
+    },
+    'frostDisciple': {
+      'hello': { '1': 'Free. Good. The cold did not take me, and neither did they.', '2': 'Ivor Hask. Halvard Rimeheart taught me the frost. I teach it now, here.' },
+      'again': { '1': 'You return. Good.' },
+      'train': { '1': 'Stand still. Let the cold come to you. Then send it back.' },
+      'class': { 'say': 'What is a Frostwarden?', '1': 'Chill them, freeze them, then break the ice.', '2': 'Strength for the blade. Intelligence for the frost.' },
+      'ready': { 'strong': { '1': 'You are stronger than I was. Take what you need.' }, 'able': { '1': 'You are ready. Next lesson.' }, 'weak': { '1': 'Not yet. More strength of arm and of mind.' } },
+      'trainBack': { '1': 'Practise. The cold is patient. Be the same.' },
+      'who': { '1': 'I hunted in the tundra. They caged me for a winter.', '2': 'Ironhold\'s forges are warm. I like it here.' },
+      'bye': { '1': 'Stay warm.' }
+    },
     // Overheard small talk (`data/dialogs/smalltalk.ts`): two townsfolk chatting.
     // Ordinary talk about weather, prices, family, a sore back: a breath each.
     // ── Silverbridge ──
@@ -2805,6 +2878,8 @@ export default {
   // The errands' names in the Journal (roadmap #86).
   'errand': {
     'collectorFavor': { 'title': 'The Collector\'s moonbells' },
+    'herbalistFavor': { 'title': 'Briar\'s sunpetals' },
+    'farmersFavor': { 'title': 'The Tollers\' wolves' },
     'mirelaFavor': { 'title': 'Mirela\'s missing deliveries' },
     'treasureMap': { 'title': 'Captain Rook\'s treasure map' }
   },

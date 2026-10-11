@@ -22,6 +22,7 @@ import { DummyProp } from './dummyProp'
 import { mapPieceGeometry, plantGeometry } from './plants'
 import { PLANT_BY_ID, isPlant, type PlantId } from '../data/plants'
 import { ORE_LOOK, isOre } from '../data/ores'
+import { cageOf } from '../data/cages'
 import { markStill, splitByTile } from './cull'
 import type { Slice } from '../engine/slicer'
 
@@ -200,6 +201,13 @@ interface ChestView {
   glint: number
   x: number
   z: number
+  /** A cage (#100): the people in it, and seconds since they were freed (-1: not yet). */
+  cage?: { people: Group; freedT: number }
+}
+
+/** What the captives of each cage wear (#100). */
+const CAPTIVE_COLOUR: Record<string, string> = {
+  freedPeddler: '#c87a3a', freedHerbalist: '#4a9a6a', freedFarmers: '#a88a3a', windDisciple: '#5ac8e0', frostDisciple: '#8ab8ff', lightDisciple: '#f0d060'
 }
 
 // ─── Plates ──────────────────────────────────────────────────────────────────
@@ -304,6 +312,8 @@ export class LevelProps {
   /** Herbs in the wild (#88): a sway, a glint now and then, a pop when picked. */
   private herbs: HerbView[] = []
   private ores: OreView[] = []
+  /** A cage's key lying in the place (#100). */
+  private key: { root: Group; x: number; z: number; glint: number } | null = null
 
   /**
    * @param shake camera trauma, for the rumble of a door.
@@ -382,6 +392,7 @@ export class LevelProps {
     this.buildChests()
     this.buildHerbs()
     this.buildOres()
+    this.buildKey()
     await slice()
     scene.add(this.root)
     if (plan.dummy) {
@@ -812,6 +823,7 @@ export class LevelProps {
   private buildChests(): void {
     const geos = new Map<ChestTier, ChestGeo>()
     for (const c of this.sim.chests) {
+      if (c.role === 'cage') { this.buildCage(c); continue }
       let g = geos.get(c.tier)
       if (!g) {
         g = chestGeo(c.tier)
@@ -854,6 +866,84 @@ export class LevelProps {
       this.root.add(root)
       this.chests.push(view)
     }
+  }
+
+  /**
+   * A cage (#100): four posts, bars on three sides and a roof, the door in
+   * front hinged at the top (it swings up and out like a chest's lid), and
+   * whoever is held in it. Built at life size inside the chest's scale.
+   */
+  private buildCage(c: ChestState): void {
+    const def = cageOf(this.sim.zone)
+    const iron = def?.kind === 'iron'
+    const wood = iron ? '#4a4e58' : '#7a4c2c'
+    const bar = iron ? '#7a808c' : '#9a6a3c'
+    const k = 1 / CHEST_LOOK[c.tier].scale
+    const H = 1.7
+    const R = 0.68
+    const parts: BufferGeometry[] = []
+    for (const [px, pz] of [[-R, -R], [R, -R], [-R, R], [R, R]] as const) parts.push(xform(paint(rcyl(0.07, H + 0.2, 0.02, 8, 1), wood), [px, H / 2 - 0.1, pz]))
+    // Bars on the back and the two sides (the front is the door), a rail along the top.
+    for (let q = 1; q <= 3; q++) {
+      const t = -R + (2 * R * q) / 4
+      parts.push(xform(paint(rcyl(0.03, H, 0.01, 6, 1), bar), [t, H / 2, -R]))
+      parts.push(xform(paint(rcyl(0.03, H, 0.01, 6, 1), bar), [-R, H / 2, t]))
+      parts.push(xform(paint(rcyl(0.03, H, 0.01, 6, 1), bar), [R, H / 2, t]))
+    }
+    parts.push(xform(paint(rbox(2 * R + 0.36, 0.14, 2 * R + 0.36, 0.2, 8, 4), wood), [0, H + 0.05, 0]))
+    parts.push(xform(paint(rbox(2 * R + 0.1, 0.08, 0.1, 0.3, 6, 3), wood), [0, 0.5, -R]))
+    const body = merge(parts).scale(k, k, k)
+    this.owned.push(body)
+    const root = new Group()
+    root.position.set(c.x, groundAt(c.x, c.z), c.z)
+    root.rotation.y = Math.atan2(c.sx - c.x, c.sz - c.z)
+    root.scale.setScalar(CHEST_LOOK[c.tier].scale)
+    const bm = new Mesh(body, celVC())
+    const bo = new Mesh(body, outlineMat())
+    bo.renderOrder = -1
+    root.add(bm, bo)
+    // The door: a frame and three bars hanging from the top rail.
+    const door: BufferGeometry[] = []
+    for (let q = 0; q <= 4; q++) door.push(xform(paint(rcyl(0.03, H - 0.12, 0.01, 6, 1), q === 0 || q === 4 ? wood : bar), [-R + 0.08 + ((2 * R - 0.16) * q) / 4, -(H - 0.12) / 2, 0]))
+    door.push(xform(paint(rbox(2 * R - 0.1, 0.08, 0.08, 0.3, 6, 3), wood), [0, -0.9, 0]))
+    door.push(xform(paint(rbox(0.16, 0.2, 0.06, 0.3, 6, 3), iron ? '#c8a040' : '#3a3a3a'), [0.32, -0.95, 0.06]))
+    const dg = merge(door).scale(k, k, k)
+    this.owned.push(dg)
+    const lid = new Group()
+    lid.position.set(0, (H - 0.02) * k, (R + 0.02) * k)
+    const dm = new Mesh(dg, celVC())
+    const dl = new Mesh(dg, outlineMat())
+    dl.renderOrder = -1
+    lid.add(dm, dl)
+    root.add(lid)
+    // The people: a body and a head each, close together behind the bars.
+    const people = new Group()
+    const n = def?.count ?? 1
+    const coat = CAPTIVE_COLOUR[def?.look ?? ''] ?? '#8a7a6a'
+    const pg: BufferGeometry[] = []
+    for (let q = 0; q < n; q++) {
+      const px = n === 1 ? 0 : (q - (n - 1) / 2) * 0.5
+      const h = q === 1 ? 0.85 : 1
+      pg.push(xform(paint(sph(1, 10, 8), coat), [px, 0.55 * h, -0.05], [0, 0, 0], [0.22, 0.5 * h, 0.17]))
+      pg.push(xform(paint(sph(0.16, 10, 8), '#f0c8a0'), [px, 1.12 * h, -0.02]))
+      pg.push(xform(paint(sph(1, 8, 6), '#5a3a28'), [px, 1.2 * h, -0.06], [0, 0, 0], [0.17, 0.09, 0.17]))
+    }
+    const pgeo = merge(pg).scale(k, k, k)
+    this.owned.push(pgeo)
+    const pm = new Mesh(pgeo, celVC())
+    const po = new Mesh(pgeo, outlineMat())
+    po.renderOrder = -1
+    people.add(pm, po)
+    people.visible = c.state !== 'open'
+    root.add(people)
+    const glow = new Mesh(new BufferGeometry(), glowVC())
+    glow.visible = false
+    const open = c.state === 'open'
+    this.root.add(root)
+    this.chests.push({
+      id: c.id, tier: c.tier, root, lid, glow, open: open ? 1 : 0, aim: open ? 1 : 0, liftT: 0, popT: -1,
+      show: 1, glint: 1 + Math.random() * 3, x: c.x, z: c.z, cage: { people, freedT: -1 }
+    })
   }
 
   private buildHerbs(): void {
@@ -925,6 +1015,28 @@ export class LevelProps {
       this.root.add(root)
       this.ores.push({ id: o.id, root, vein, x: o.x, z: o.z, glow: look.glint, glint: 0.4 + o.id * 0.9, knockT: -1 })
     }
+  }
+
+  /** A cage's key (#100): an old golden key lying on the ground, turning slowly. */
+  private buildKey(): void {
+    const k = this.sim.cageKey
+    if (!k || k.taken) return
+    const g = merge([
+      xform(paint(torus(0.11, 0.035, 6, 12), '#f0c040'), [0, 0, -0.16], [Math.PI / 2, 0, 0]),
+      xform(paint(rcyl(0.03, 0.36, 0.01, 6, 1), '#f0c040'), [0, 0, 0.05], [Math.PI / 2, 0, 0]),
+      xform(paint(rbox(0.1, 0.04, 0.06, 0.3, 6, 3), '#e0a830'), [0.05, 0, 0.17]),
+      xform(paint(rbox(0.07, 0.04, 0.05, 0.3, 6, 3), '#e0a830'), [0.04, 0, 0.09])
+    ])
+    this.owned.push(g)
+    const root = new Group()
+    root.position.set(k.x, groundAt(k.x, k.z) + 0.25, k.z)
+    root.scale.setScalar(1.6)
+    const body = new Mesh(g, celVC())
+    const line = new Mesh(g, outlineMat())
+    line.renderOrder = -1
+    root.add(body, line)
+    this.root.add(root)
+    this.key = { root, x: k.x, z: k.z, glint: 0.5 }
   }
 
   /** The pickaxe: chips fly at each swing; the last one breaks the vein out. */
@@ -1017,6 +1129,14 @@ export class LevelProps {
       case 'chest': this.onChest(e); break
       case 'herb': this.onHerb(e); break
       case 'mine': this.onMine(e); break
+      case 'cageKey': {
+        if (this.key) this.key.root.visible = false
+        this.vfx.ring(e.x, e.z, 0.2, 1.6, '#ffd84a', 0.5)
+        this.vfx.orb(e.x, 0.5, e.z, this.heroX, 1.0, this.heroZ, 0.2, '#ffd84a', '#ffffff', 0.45, 1.5)
+        pushHud({ t: 'toast', key: 'toast.cageKey' })
+        sfx('uiEquip', this.pan(e.x))
+        break
+      }
       case 'piece': this.onPiece(e); break
       case 'pickup': {
         const what = e.what
@@ -1077,6 +1197,13 @@ export class LevelProps {
         v.aim = 1
         v.popT = 0
         v.glow.visible = true
+        if (v.cage) {
+          // The captives go free (#100): they will be found in town.
+          v.cage.freedT = 0
+          const def = cageOf(this.sim.zone)
+          if (def) pushHud({ t: 'toast', key: `toast.freed.${def.npc}`, params: { town: `node.${def.town}.name` } })
+          sfx('levelUp', p)
+        }
         const ring = CHEST_RING[v.tier]
         this.vfx.ring(e.x, e.z, 0.3, v.tier === 'wood' ? 2.6 : 3.6, ring, 0.55)
         this.vfx.ring(e.x, e.z, 0.2, 1.8, '#ffffff', 0.4)
@@ -1096,6 +1223,8 @@ export class LevelProps {
         // Its guard still lives (or the finale stands): a red blink and a word.
         this.vfx.ring(e.x, e.z, 1.3, 0.5, '#ff4a3a', 0.4)
         pushHud({ t: 'word', x: e.x, y: 1.5, z: e.z, key: e.why === 'guard' ? 'level.guarded' : 'level.locked', kind: 'status' })
+        // A cage without its key (#100): say where to look.
+        if (e.why === 'key') pushHud({ t: 'toast', key: 'toast.cageLocked' })
         sfx('denied', p)
         break
     }
@@ -1158,6 +1287,19 @@ export class LevelProps {
         if (!this.low && Math.hypot(v.x - this.heroX, v.z - this.heroZ) < 22) {
           this.vfx.particles.emit({ x: v.x + (Math.random() - 0.5) * 0.3, y: groundAt(v.x, v.z) + 0.55, z: v.z + (Math.random() - 0.5) * 0.3, vy: 0.5, color: '#ffffff', size: 0.3, sizeEnd: 0.02, life: 0.7 })
         }
+      }
+    }
+
+    // ── A cage's key: turning, bobbing, and a glint that grows as the hero nears ──
+    if (this.key && this.key.root.visible) {
+      const kv = this.key
+      kv.root.rotation.y += dt * 1.2
+      kv.root.position.y = groundAt(kv.x, kv.z) + 0.25 + Math.sin(this.time * 2.4) * 0.05
+      kv.glint -= dt
+      const d = Math.hypot(kv.x - this.heroX, kv.z - this.heroZ)
+      if (kv.glint <= 0 && d < 16) {
+        kv.glint = d < 8 ? 0.35 : 0.9
+        this.vfx.particles.emit({ x: kv.x + (Math.random() - 0.5) * 0.3, y: groundAt(kv.x, kv.z) + 0.5, z: kv.z, vy: 0.6, color: '#fff2a0', size: d < 8 ? 0.5 : 0.36, sizeEnd: 0.02, life: 0.7 })
       }
     }
 
@@ -1225,6 +1367,16 @@ export class LevelProps {
         }
       }
       v.lid.rotation.x = angle
+      // A cage's people (#100): they jump for joy, then are gone (to town).
+      if (v.cage && v.cage.freedT >= 0 && v.cage.people.visible) {
+        v.cage.freedT += dt
+        const t = v.cage.freedT
+        v.cage.people.position.y = Math.abs(Math.sin(t * 7)) * 0.25 * Math.max(0, 1 - t / 1.8)
+        v.cage.people.position.z = Math.max(0, t - 0.9) * 1.6
+        if (t > 1.8) v.cage.people.scale.setScalar(Math.max(0.001, 1 - (t - 1.8) / 0.4))
+        if (t > 2.2) v.cage.people.visible = false
+      }
+      if (v.cage) continue
       const pop = v.show < 1 ? 1 + Math.sin(v.show * Math.PI) * 0.25 : 1
       const s = look.scale * (v.show < 1 ? v.show * pop : 1)
       v.root.scale.set(s / Math.sqrt(squash), s * squash, s / Math.sqrt(squash))

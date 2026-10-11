@@ -19,6 +19,7 @@ import { EQUIP_SLOTS, ITEM_BY_ID, noGear, priceOf as itemPriceOf, sellValue, slo
 import { FORGE_MAX, forgeCost } from '../data/forge'
 import { HERB_CAP, isPlant } from '../data/plants'
 import { ORE_CAP, ORE_IDS, ORE_PRICE, isOre } from '../data/ores'
+import { cageOf } from '../data/cages'
 import { RECIPE_BY_ID, gradeMakes, type Grade } from '../data/smithing'
 import { ELIXIR_BY_ID, ELIXIR_CAP, ELIXIR_IDS, brewFee, isElixir, type ElixirId } from '../data/elixirs'
 import { BATTLE_MIN_ITEMS, BATTLE_ROW, MEMORY_ROW, battleFee, battleXp, gamblerTable, prizeOf } from '../gamble'
@@ -1241,6 +1242,17 @@ export const spendHerbs = (want: Readonly<Record<string, number>>): boolean => {
     else delete profile.inv.herbs[id]
   }
   return true
+}
+
+// ─── Cages (roadmap #100) ─────────────────────────────────────────────────────
+
+/** A zone's cage opened: its captives are free (their flag, and a disciple's
+ *  class found: no master's test for it, question 57). */
+export const freeCaptives = (zone: string): void => {
+  const c = cageOf(zone)
+  if (!c) return
+  for (const f of [c.flag, c.found]) if (f && !profile.world.flags.includes(f)) profile.world.flags.push(f)
+  saveProfile()
 }
 
 // ─── The ore pouch (roadmap #99) ──────────────────────────────────────────────

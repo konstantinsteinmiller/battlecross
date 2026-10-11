@@ -129,6 +129,16 @@ export default {
     chi: 'Vivenergio'
   },
   toast: {
+    freed: {
+      lightDisciple: 'Liberigita! Fratino Aurelle instruos la vojon de la Lumportanto en {town}.',
+      frostDisciple: 'Liberigita! Ivor instruos la vojon de la Frostgardisto en {town}.',
+      windDisciple: 'Liberigita! Kestrel instruos la vojon de la Ventkuranto en {town}.',
+      freedFarmers: 'Liberigitaj! La familio Toller trovos hejmon en {town}.',
+      freedHerbalist: 'Liberigita! Briar la herbistino atendos vin en {town}.',
+      freedPeddler: 'Liberigita! Odo la kolportisto komercos en {town}.'
+    },
+    cageLocked: 'Ŝlosita. La ŝlosilo devas esti ie en ĉi tiu loko.',
+    cageKey: 'Ŝlosilo! Ĝi certe malfermas la kaĝon.',
     ore: 'Elfosita: {n} × {ore}',
     mineBusy: 'Ne kun malamikoj ĉirkaŭe!',
     item: 'Trovita: {item}',
@@ -1778,6 +1788,25 @@ export default {
     circle: 'La Rondo de Etero'
   },
   npc: {
+    frostDisciple: {
+      name: 'Ivor Hask'
+    },
+    windDisciple: {
+      name: 'Kestrel Vane'
+    },
+    freedFarmers: {
+      name: 'Jory Toller'
+    },
+    freedHerbalist: {
+      name: 'Briar Hollowell'
+    },
+    lightDisciple: {
+      name: 'Fratino Aurelle'
+    },
+    freedPeddler: {
+      talk: 'Ĉio, kion vojaĝanto bezonas. Preskaŭ nova, plejparte.',
+      name: 'Odo Marrow'
+    },
     sfShadow: {
       name: 'Nettle Quickhand'
     },
@@ -2042,6 +2071,202 @@ export default {
     }
   },
   dlg: {
+    frostDisciple: {
+      bye: {
+        '1': 'Restu varma.'
+      },
+      who: {
+        '2': 'La forĝejoj de Ironhold estas varmaj. Mi ŝatas esti ĉi tie.',
+        '1': 'Mi ĉasis en la tundro. Ili kaĝigis min dum unu vintro.'
+      },
+      trainBack: {
+        '1': 'Ekzercu. La malvarmo estas pacienca. Estu same.'
+      },
+      ready: {
+        weak: {
+          '1': 'Ankoraŭ ne. Pli da forto en brako kaj en menso.'
+        },
+        able: {
+          '1': 'Vi pretas. Sekva leciono.'
+        },
+        strong: {
+          '1': 'Vi estas pli forta ol mi estis. Prenu kion vi bezonas.'
+        }
+      },
+      class: {
+        say: 'Kio estas Frostgardisto?',
+        '2': 'Forto por la klingo. Inteligento por la frosto.',
+        '1': 'Malvarmigu ilin, frostigu ilin, poste rompu la glacion.'
+      },
+      train: {
+        '1': 'Staru senmove. Lasu la malvarmon veni al vi. Poste resendu ĝin.'
+      },
+      again: {
+        '1': 'Vi revenas. Bone.'
+      },
+      hello: {
+        '2': 'Ivor Hask. Halvard Prujnokoro instruis al mi la froston. Nun mi instruas ĝin, ĉi tie.',
+        '1': 'Libera. Bone. La malvarmo ne kaptis min, nek ili.'
+      }
+    },
+    windDisciple: {
+      bye: {
+        '1': 'Tenu viajn okulojn sur la vento.'
+      },
+      who: {
+        '2': 'Diru al Sefa, ke mi vivas, ĉu? Ŝi maltrankviliĝas.',
+        '1': 'Mi estis survoje al Silverbridge, kiam la rokegoj kaptis min.'
+      },
+      trainBack: {
+        '1': 'Iru ekzerci. Ie venta.'
+      },
+      ready: {
+        weak: {
+          '1': 'Ankoraŭ ne. Unue rapidiĝu, poste revenu.'
+        },
+        able: {
+          '1': 'Vi pretas por la sekva. Rigardu atente.'
+        },
+        strong: {
+          '1': 'Vi nun estas pli rapida ol mi. Prenu kion vi volas.'
+        }
+      },
+      class: {
+        say: 'Kion faras Ventkuranto?',
+        '2': 'Lerto por rapidaj piedoj. Majstreco, por ke ĉiu sago trafu.',
+        '1': 'Kuru, pafu, kuru denove. Neniam estu tie, kien ili celas.'
+      },
+      train: {
+        '1': 'Piedojn dise. Elspiru. Lasu la venton porti ĝin.'
+      },
+      again: {
+        '1': 'Hej! La vento estas bona hodiaŭ. Ĉu ni pafu?'
+      },
+      hello: {
+        '2': 'Kestrel Vane. Sefa Ventoflugilo instruis al mi la pafarkon. Mi povas instrui al vi tion, kion ŝi instruis al mi.',
+        '1': 'Vi eligis min! Mi ŝuldas al vi ĉion. Nu, multon.'
+      }
+    },
+    freedFarmers: {
+      bye: {
+        '1': 'Gardu vin survoje.'
+      },
+      who: {
+        '2': 'Oakhaven akceptis nin. Ni repagas per pano.',
+        '1': 'Banditoj prenis nin de nia kampo kaj lasis nin putri en la arbaro.'
+      },
+      favorDone: {
+        say: 'La lupoj ne plu ĝenos vin.',
+        '2': 'Prenu ĉi tion. Ne multe, sed honeste.',
+        '1': 'Denove trankvilaj noktoj. Ni finfine povas dormi.'
+      },
+      waiting: {
+        say: 'Pri tiuj lupoj...',
+        '1': 'La lupoj ankoraŭ vagas ĉirkaŭe. Ni aŭdis ilin hieraŭ nokte.'
+      },
+      favor: {
+        say: 'Ĉu mi povas helpi pri io?',
+        '2': 'Ĉu vi maldensigus ilin? Ok devus instrui ilin.',
+        '1': 'Lupoj el la Flustranta Arbaro daŭre ŝtelas niajn ŝafojn.'
+      },
+      again: {
+        '1': 'Jen nia heroo. Ĉu vi venis por manĝeto?'
+      },
+      hello: {
+        '2': 'Jory Toller. Ni nun terkulturas ekster la muroj. Nu, ni provas.',
+        '1': 'Sen vi ni estus mortaj. Mi kaj mia knabo, ambaŭ. Dankon.'
+      }
+    },
+    freedHerbalist: {
+      bye: {
+        '1': 'Iru milde. Aferoj kreskas tie.'
+      },
+      who: {
+        '2': 'Ili ne tute eraris.',
+        '1': 'Herbistino el la montetoj. La koboldoj opiniis min sorĉistino.'
+      },
+      favorDone: {
+        say: 'Jen viaj sunpetaloj.',
+        '2': 'Jen via pago. Kaj denove mian dankon.',
+        '1': 'Ho, ili estas perfektaj. Flaru tion!'
+      },
+      waiting: {
+        say: 'Pri tiuj sunpetaloj...',
+        '1': 'Ankoraŭ serĉas? Sunpetaloj amas la malferman sunon.'
+      },
+      favor: {
+        say: 'Ĉu mi povas fari ion por vi?',
+        '2': 'Ili kreskas ekstere sur la ebenaĵoj. Mi bone pagos por ili.',
+        '1': 'Miaj provizoj perdiĝis en tiu kaĝo. Ĉu vi povus alporti al mi tri sunpetalojn?'
+      },
+      again: {
+        '1': 'Ha, saluton denove. Viaj botoj odoras je musko. Bone.'
+      },
+      hello: {
+        '2': 'Mi estas Briar. Mi kolektas kaj sekigas tion, kio kreskas. Silverbridge afable akceptis min.',
+        '1': 'Mi sciis, ke iu venos. La koboldoj neniam komprenis herbojn. Nek bonkorecon.'
+      }
+    },
+    lightDisciple: {
+      bye: {
+        '1': 'Iru en la lumo.'
+      },
+      who: {
+        '2': 'Sunford estas hela kaj trankvila. Mi bezonis ambaŭ.',
+        '1': 'Mi iris al la Dronita Templo por preĝi. La nagaoj havis aliajn planojn.'
+      },
+      trainBack: {
+        '1': 'Iru milde. Kaj lasu ilin vidi vin alveni.'
+      },
+      ready: {
+        weak: {
+          '1': 'Ankoraŭ ne. Unue pli klara menso kaj pli varma koro.'
+        },
+        able: {
+          '1': 'Vi pretas por la sekva leciono. Venu, staru en la lumo.'
+        },
+        strong: {
+          '1': 'Vi nun brilas pli hele ol mi. Prenu kion ajn vi bezonas.'
+        }
+      },
+      class: {
+        say: 'Kion faras Lumportanto?',
+        '2': 'Inteligento fortigas la lumon. Karismo varmigas ĝin.',
+        '1': 'Ni portas la aŭroron. Lumo por batali, lumo por sanigi.'
+      },
+      train: {
+        '1': 'Malfermu viajn manojn. Lasu la lumon trairi ilin, ne eliri el ili.'
+      },
+      again: {
+        '1': 'Bonvenon denove. La suno estas afabla hodiaŭ.'
+      },
+      hello: {
+        '2': 'Mi estas Aurelle. Fratino Auriel instruis al mi la lumon. Nun mi instruas ĝin ĉi tie.',
+        '1': 'La lumo estu kun vi. Vi trovis min en la mallumo, kaj mi ne forgesos tion.'
+      }
+    },
+    freedPeddler: {
+      bye: {
+        '1': 'Atentu la banditojn. Ili ne ŝatas dividi.'
+      },
+      shopBack: {
+        '1': 'Plezuro negoci kun vi, amiko.'
+      },
+      who: {
+        '2': 'Nun mi vendas el Sunford. Ĉi tie estas pli sekure. Plejparte.',
+        '1': 'Banditoj prenis mian ĉaron kaj metis min en keston. Tre malĝentile.'
+      },
+      trade: {
+        '1': 'Ringoj, gantoj, botoj. Duonprezaj por vi. Nu, preskaŭ.'
+      },
+      again: {
+        '1': 'Mia savinto! Venu, venu, mi gardis la bonajn aĵojn por vi.'
+      },
+      hello: {
+        '2': 'Odo Marrow, je via servo. Kolportisto, lad-riparisto, tre dankema viro.',
+        '1': 'Vi! Vi estas tiu, kiu malfermis tiun kaĝon! Mi estus putrinta tie interne.'
+      }
+    },
     sfShadow: {
       hello: {
         '1': 'Mi ne aŭdis vin eniri. Kutime tio estas mia lertaĵo.',
@@ -5316,6 +5541,12 @@ export default {
     prizeGold: 'Vi jam havas ĉiujn, do vi ricevas anstataŭe {n} da oro!'
   },
   errand: {
+    farmersFavor: {
+      title: 'La lupoj de la Toller-oj'
+    },
+    herbalistFavor: {
+      title: 'La sunpetaloj de Briar'
+    },
     collectorFavor: {
       title: 'La lunkampanuloj de la Kolektanto'
     },

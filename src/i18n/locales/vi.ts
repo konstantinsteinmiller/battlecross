@@ -129,6 +129,16 @@ export default {
     chi: 'Khí'
   },
   toast: {
+    freed: {
+      lightDisciple: 'Đã giải cứu! Xơ Aurelle sẽ dạy con đường Sứ Giả Ánh Sáng ở {town}.',
+      frostDisciple: 'Đã giải cứu! Ivor sẽ dạy con đường Băng Hộ Vệ ở {town}.',
+      windDisciple: 'Đã giải cứu! Kestrel sẽ dạy con đường Phong Hành Giả ở {town}.',
+      freedFarmers: 'Đã giải cứu! Nhà Toller sẽ tìm được mái nhà ở {town}.',
+      freedHerbalist: 'Đã giải cứu! Briar thầy thuốc thảo dược sẽ đợi cậu ở {town}.',
+      freedPeddler: 'Đã giải cứu! Odo người bán rong sẽ buôn bán ở {town}.'
+    },
+    cageLocked: 'Bị khóa. Chìa khóa hẳn ở đâu đó quanh đây.',
+    cageKey: 'Một chiếc chìa khóa! Chắc nó mở được cái lồng.',
     ore: 'Đã đào: {n} × {ore}',
     mineBusy: 'Kẻ thù đang ở gần!',
     item: 'Tìm thấy: {item}',
@@ -1778,6 +1788,25 @@ export default {
     circle: 'Vòng Tròn Aether'
   },
   npc: {
+    frostDisciple: {
+      name: 'Ivor Hask'
+    },
+    windDisciple: {
+      name: 'Kestrel Vane'
+    },
+    freedFarmers: {
+      name: 'Jory Toller'
+    },
+    freedHerbalist: {
+      name: 'Briar Hollowell'
+    },
+    lightDisciple: {
+      name: 'Xơ Aurelle'
+    },
+    freedPeddler: {
+      talk: 'Mọi thứ lữ khách cần. Gần như mới, phần lớn là vậy.',
+      name: 'Odo Marrow'
+    },
     sfShadow: {
       name: 'Nettle Quickhand'
     },
@@ -2042,6 +2071,202 @@ export default {
     }
   },
   dlg: {
+    frostDisciple: {
+      bye: {
+        '1': 'Giữ ấm nhé.'
+      },
+      who: {
+        '2': 'Lò rèn ở Ironhold ấm áp. Ta thích nơi này.',
+        '1': 'Ta săn bắn ở lãnh nguyên. Chúng nhốt ta suốt một mùa đông.'
+      },
+      trainBack: {
+        '1': 'Luyện tập. Cái lạnh kiên nhẫn. Cậu cũng vậy.'
+      },
+      ready: {
+        weak: {
+          '1': 'Chưa. Cần mạnh hơn cả cánh tay lẫn tâm trí.'
+        },
+        able: {
+          '1': 'Cậu đã sẵn sàng. Bài tiếp theo.'
+        },
+        strong: {
+          '1': 'Cậu mạnh hơn ta ngày trước. Cần gì cứ lấy.'
+        }
+      },
+      class: {
+        say: 'Băng Hộ Vệ là gì?',
+        '2': 'Sức mạnh cho lưỡi kiếm. Trí tuệ cho băng giá.',
+        '1': 'Làm chúng lạnh, đóng băng chúng, rồi đập vỡ lớp băng.'
+      },
+      train: {
+        '1': 'Đứng yên. Để cái lạnh tìm đến cậu. Rồi trả nó về.'
+      },
+      again: {
+        '1': 'Cậu trở lại. Tốt.'
+      },
+      hello: {
+        '2': 'Ivor Hask. Halvard Rimeheart dạy ta băng giá. Giờ ta dạy nó, ở đây.',
+        '1': 'Tự do. Tốt. Cái lạnh không bắt được ta, bọn chúng cũng vậy.'
+      }
+    },
+    windDisciple: {
+      bye: {
+        '1': 'Luôn để mắt đến gió nhé.'
+      },
+      who: {
+        '2': 'Nhắn Sefa là tôi còn sống giúp nhé? Chị ấy hay lo lắm.',
+        '1': 'Tôi đang trên đường đến Silverbridge thì bị bắt ở vách đá.'
+      },
+      trainBack: {
+        '1': 'Đi luyện tập đi. Chỗ nào nhiều gió ấy.'
+      },
+      ready: {
+        weak: {
+          '1': 'Chưa được. Nhanh hơn đã rồi quay lại.'
+        },
+        able: {
+          '1': 'Cậu sẵn sàng học chiêu tiếp theo rồi. Nhìn kỹ nhé.'
+        },
+        strong: {
+          '1': 'Giờ cậu nhanh hơn tôi rồi. Thích gì cứ lấy.'
+        }
+      },
+      class: {
+        say: 'Phong Hành Giả làm gì?',
+        '2': 'Khéo léo cho đôi chân nhanh nhẹn. Kỹ xảo để mũi tên nào cũng trúng.',
+        '1': 'Chạy, bắn, rồi lại chạy. Đừng bao giờ ở chỗ chúng ngắm.'
+      },
+      train: {
+        '1': 'Dang chân ra. Thở ra. Để gió mang nó đi.'
+      },
+      again: {
+        '1': 'Này! Hôm nay gió đẹp đấy. Bắn thử không?'
+      },
+      hello: {
+        '2': 'Kestrel Vane. Sefa Galewing dạy tôi bắn cung. Tôi có thể dạy cậu những gì chị ấy đã dạy tôi.',
+        '1': 'Cậu cứu tôi ra rồi! Tôi nợ cậu tất cả. À, nhiều lắm.'
+      }
+    },
+    freedFarmers: {
+      bye: {
+        '1': 'Đi đường cẩn thận nhé.'
+      },
+      who: {
+        '2': 'Oakhaven đã cưu mang chúng tôi. Chúng tôi đền đáp bằng bánh mì.',
+        '1': 'Bọn cướp bắt chúng tôi khỏi cánh đồng rồi bỏ lại trong rừng cho chết dần.'
+      },
+      favorDone: {
+        say: 'Lũ sói sẽ không quấy rầy các bác nữa đâu.',
+        '2': 'Cầm lấy cái này. Chẳng nhiều nhặn gì, nhưng là đồng tiền lương thiện.',
+        '1': 'Đêm lại yên tĩnh rồi. Cuối cùng cũng ngủ được.'
+      },
+      waiting: {
+        say: 'Về lũ sói...',
+        '1': 'Sói vẫn còn quanh đây. Đêm qua chúng tôi còn nghe tiếng chúng.'
+      },
+      favor: {
+        say: 'Tôi giúp được gì không?',
+        '2': 'Cậu diệt bớt chúng được không? Tám con chắc đủ cho chúng chừa.',
+        '1': 'Sói từ Rừng Thì Thầm cứ bắt cừu của chúng tôi.'
+      },
+      again: {
+        '1': 'Người hùng của chúng ta đây rồi. Ghé ăn chút gì không?'
+      },
+      hello: {
+        '2': 'Jory Toller. Giờ chúng tôi làm ruộng ngoài tường thành. À, đang cố thôi.',
+        '1': 'Không có cậu thì chúng tôi chết rồi. Cả tôi lẫn thằng con. Cảm ơn cậu.'
+      }
+    },
+    freedHerbalist: {
+      bye: {
+        '1': 'Đi nhẹ chân thôi. Có những thứ đang lớn ở đó.'
+      },
+      who: {
+        '2': 'Chúng cũng không hoàn toàn sai.',
+        '1': 'Tôi là thầy thuốc thảo dược từ vùng đồi. Bọn goblin tưởng tôi là phù thủy.'
+      },
+      favorDone: {
+        say: 'Cánh Nắng của cô đây.',
+        '2': 'Đây, tiền công của cậu. Và một lần nữa cảm ơn cậu.',
+        '1': 'Ôi, hoàn hảo quá. Ngửi thử xem!'
+      },
+      waiting: {
+        say: 'Về mấy bông Cánh Nắng...',
+        '1': 'Vẫn đang tìm à? Cánh Nắng thích nắng chỗ thoáng.'
+      },
+      favor: {
+        say: 'Có việc gì tôi giúp được không?',
+        '2': 'Chúng mọc ngoài đồng bằng. Tôi sẽ trả hậu hĩnh.',
+        '1': 'Đồ dự trữ của tôi mất hết trong cái lồng đó. Cậu mang giúp tôi ba bông Cánh Nắng được không?'
+      },
+      again: {
+        '1': 'À, lại gặp cậu. Đôi ủng của cậu có mùi rêu. Tốt lắm.'
+      },
+      hello: {
+        '2': 'Tôi là Briar. Tôi hái và phơi những thứ mọc lên. Silverbridge đã tử tế cưu mang tôi.',
+        '1': 'Tôi biết sẽ có người đến. Bọn goblin chưa bao giờ hiểu thảo dược. Hay lòng tốt.'
+      }
+    },
+    lightDisciple: {
+      bye: {
+        '1': 'Hãy bước đi trong ánh sáng.'
+      },
+      who: {
+        '2': 'Sunford sáng sủa và yên tĩnh. Tôi cần cả hai điều đó.',
+        '1': 'Tôi đến Đền Chìm để cầu nguyện. Tộc naga lại có ý khác.'
+      },
+      trainBack: {
+        '1': 'Đi nhẹ nhàng nhé. Và hãy để họ thấy cậu đang đến.'
+      },
+      ready: {
+        weak: {
+          '1': 'Chưa được. Trước hết cần một tâm trí sáng hơn và một trái tim ấm hơn.'
+        },
+        able: {
+          '1': 'Cậu đã sẵn sàng cho bài học tiếp theo. Lại đây, đứng vào ánh sáng.'
+        },
+        strong: {
+          '1': 'Giờ cậu tỏa sáng hơn cả tôi rồi. Cần gì cứ lấy.'
+        }
+      },
+      class: {
+        say: 'Sứ Giả Ánh Sáng làm gì?',
+        '2': 'Trí tuệ làm ánh sáng mạnh mẽ. Mị lực làm nó ấm áp.',
+        '1': 'Chúng tôi mang theo bình minh. Ánh sáng để chiến đấu, ánh sáng để chữa lành.'
+      },
+      train: {
+        '1': 'Mở tay ra. Để ánh sáng đi qua đôi tay, chứ không phải phát ra từ chúng.'
+      },
+      again: {
+        '1': 'Mừng cậu trở lại. Hôm nay nắng thật dịu dàng.'
+      },
+      hello: {
+        '2': 'Tôi là Aurelle. Xơ Auriel đã dạy tôi ánh sáng. Giờ tôi dạy nó ở đây.',
+        '1': 'Nguyện ánh sáng ở bên cậu. Cậu đã tìm thấy tôi trong bóng tối, tôi sẽ không quên.'
+      }
+    },
+    freedPeddler: {
+      bye: {
+        '1': 'Coi chừng bọn cướp. Chúng chẳng thích chia sẻ đâu.'
+      },
+      shopBack: {
+        '1': 'Buôn bán với cậu thật vui, bạn ạ.'
+      },
+      who: {
+        '2': 'Giờ ta bán hàng ở Sunford. Ở đây an toàn hơn. Phần lớn là vậy.',
+        '1': 'Bọn cướp lấy xe hàng của ta rồi nhét ta vào một cái hòm. Thật vô lễ.'
+      },
+      trade: {
+        '1': 'Nhẫn, găng tay, ủng. Giảm nửa giá cho cậu. À, gần như thế.'
+      },
+      again: {
+        '1': 'Ân nhân của ta! Lại đây, lại đây, đồ tốt ta để dành cho cậu cả.'
+      },
+      hello: {
+        '2': 'Odo Marrow, xin được phục vụ. Người bán rong, thợ sửa đồ, và là một người vô cùng biết ơn.',
+        '1': 'Cậu! Chính cậu đã mở cái lồng đó! Không thì ta đã mục rữa trong ấy rồi.'
+      }
+    },
     sfShadow: {
       hello: {
         '1': 'Không nghe thấy cậu vào. Đó thường là mánh của tôi.',
@@ -5316,6 +5541,12 @@ export default {
     prizeGold: 'Bạn đã có đủ cả rồi, nên nhận {n} vàng thay thế!'
   },
   errand: {
+    farmersFavor: {
+      title: 'Lũ sói của nhà Toller'
+    },
+    herbalistFavor: {
+      title: 'Cánh Nắng của Briar'
+    },
     collectorFavor: {
       title: 'Chuông Trăng của Nhà Sưu Tầm'
     },

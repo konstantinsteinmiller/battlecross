@@ -16,7 +16,9 @@ rewrites it, and a test fails when it is stale. Do not edit by hand.
 
 | Voice | Lines | EN voiced |
 | --- | --- | --- |
-| hero | 193 | 193 |
+| hero | 202 | 202 |
+| freedPeddler | 8 | 8 |
+| lightDisciple | 13 | 13 |
 | sunfordSmith | 24 | 24 |
 | sunfordPeddler | 15 | 15 |
 | trainerAegis | 18 | 18 |
@@ -27,6 +29,8 @@ rewrites it, and a test fails when it is stale. Do not edit by hand.
 | sunfordHealer | 12 | 12 |
 | goblinTrader | 11 | 11 |
 | sunfordGambler | 10 | 10 |
+| freedFarmers | 11 | 11 |
+| windDisciple | 13 | 13 |
 | captainHale | 18 | 18 |
 | oakArmorer | 30 | 30 |
 | oakWeapons | 10 | 10 |
@@ -37,6 +41,7 @@ rewrites it, and a test fails when it is stale. Do not edit by hand.
 | trainerBlood | 16 | 16 |
 | syndicateBoss | 15 | 15 |
 | oakGambler | 10 | 10 |
+| frostDisciple | 13 | 13 |
 | forgemaster | 23 | 23 |
 | ironWeapons | 15 | 15 |
 | ironAetherWorks | 8 | 8 |
@@ -46,6 +51,7 @@ rewrites it, and a test fails when it is stale. Do not edit by hand.
 | trainerAether | 16 | 16 |
 | ironHealer | 12 | 12 |
 | trainerChrono | 19 | 19 |
+| freedHerbalist | 11 | 11 |
 | mayorBrenna | 17 | 17 |
 | sbHealer | 10 | 10 |
 | sbAlchemist | 11 | 11 |
@@ -84,18 +90,44 @@ rewrites it, and a test fails when it is stale. Do not edit by hand.
 | smalltalkKids | 6 | 6 |
 | kidFriend | 4 | 4 |
 | frostJarl | 2 | 2 |
-| heroine | 193 | 193 |
-| **All** | **1295** | **1295** |
+| heroine | 202 | 202 |
+| **All** | **1382** | **1382** |
 
 ## To do (0)
 
 Nothing: every line has its recording.
 
-## Every line (1295)
+## Every line (1382)
 
 | File | Who | Scene | English | EN |
 | --- | --- | --- | --- | --- |
 | `dlg.hero.bye` | The hero (hero) | hero | I'll let you get on. | chatterbox |
+| `dlg.freedPeddler.hello.1` | Odo Marrow (freedPeddler) | freedPeddler | You! You're the one who opened that cage! I'd have rotted in there. | chatterbox |
+| `dlg.freedPeddler.hello.2` | Odo Marrow (freedPeddler) | freedPeddler | Odo Marrow, at your service. Peddler, tinker, very grateful man. | chatterbox |
+| `dlg.freedPeddler.again.1` | Odo Marrow (freedPeddler) | freedPeddler | My rescuer! Come, come, I kept the good things for you. | chatterbox |
+| `dlg.hero.trade` | The hero (hero) | hero | Can I see what you've got? | chatterbox |
+| `dlg.freedPeddler.trade.1` | Odo Marrow (freedPeddler) | freedPeddler | Rings, gloves, boots. Half price for you. Well, nearly. | chatterbox |
+| `dlg.hero.who` | The hero (hero) | hero | Who are you, if you don't mind me asking? | chatterbox |
+| `dlg.freedPeddler.who.1` | Odo Marrow (freedPeddler) | freedPeddler | Bandits took my cart and put me in a box. Very rude. | chatterbox |
+| `dlg.freedPeddler.who.2` | Odo Marrow (freedPeddler) | freedPeddler | Now I sell from Sunford. It's safer here. Mostly. | chatterbox |
+| `dlg.freedPeddler.shopBack.1` | Odo Marrow (freedPeddler) | freedPeddler | Pleasure doing business, friend. | chatterbox |
+| `dlg.freedPeddler.bye.1` | Odo Marrow (freedPeddler) | freedPeddler | Mind the bandits. They don't like to share. | chatterbox |
+| `dlg.lightDisciple.hello.1` | Sister Aurelle (lightDisciple) | lightDisciple | Light be with you. You found me in the dark, and I won't forget it. | chatterbox |
+| `dlg.lightDisciple.hello.2` | Sister Aurelle (lightDisciple) | lightDisciple | I'm Aurelle. Sister Auriel taught me the light. Now I teach it here. | chatterbox |
+| `dlg.lightDisciple.again.1` | Sister Aurelle (lightDisciple) | lightDisciple | Welcome back. The sun is kind today. | chatterbox |
+| `dlg.hero.train` | The hero (hero) | hero | Will you teach me? | chatterbox |
+| `dlg.lightDisciple.train.1` | Sister Aurelle (lightDisciple) | lightDisciple | Open your hands. Let the light come through them, not from them. | chatterbox |
+| `dlg.lightDisciple.class.say` | The hero (hero) | lightDisciple | What does a Lightbringer do? | chatterbox |
+| `dlg.lightDisciple.class.1` | Sister Aurelle (lightDisciple) | lightDisciple | We carry the dawn. Light to fight with, light to heal with. | chatterbox |
+| `dlg.lightDisciple.class.2` | Sister Aurelle (lightDisciple) | lightDisciple | Intelligence makes the light strong. Charisma makes it warm. | chatterbox |
+| `dlg.hero.ready` | The hero (hero) | hero | Do you think I'm ready for more? | chatterbox |
+| `dlg.lightDisciple.ready.strong.1` | Sister Aurelle (lightDisciple) | lightDisciple | You shine brighter than I do now. Take whatever you need. | chatterbox |
+| `dlg.lightDisciple.ready.able.1` | Sister Aurelle (lightDisciple) | lightDisciple | You're ready for the next lesson. Come, stand in the light. | chatterbox |
+| `dlg.lightDisciple.ready.weak.1` | Sister Aurelle (lightDisciple) | lightDisciple | Not yet. A clearer mind and a warmer heart first. | chatterbox |
+| `dlg.lightDisciple.who.1` | Sister Aurelle (lightDisciple) | lightDisciple | I went to the Sunken Temple to pray. The naga had other plans. | chatterbox |
+| `dlg.lightDisciple.who.2` | Sister Aurelle (lightDisciple) | lightDisciple | Sunford is bright and quiet. I needed both. | chatterbox |
+| `dlg.lightDisciple.trainBack.1` | Sister Aurelle (lightDisciple) | lightDisciple | Go gently. And let them see you coming. | chatterbox |
+| `dlg.lightDisciple.bye.1` | Sister Aurelle (lightDisciple) | lightDisciple | Walk in the light. | chatterbox |
 | `dlg.sunfordSmith.hello.1` | Bram the Smith (sunfordSmith) | sunfordSmith | Haven't seen you before. You're the one who cleared the road? | chatterbox |
 | `dlg.sunfordSmith.hello.2` | Bram the Smith (sunfordSmith) | sunfordSmith | Bram. I keep the forge. If you need a blade, come to me. | chatterbox |
 | `dlg.sunfordSmith.kingDead.1` | Bram the Smith (sunfordSmith) | sunfordSmith | Heard the Goblin King's dead. Can't say I'll miss him. | chatterbox |
@@ -103,7 +135,6 @@ Nothing: every line has its recording.
 | `dlg.sunfordSmith.kingRansom.1` | Bram the Smith (sunfordSmith) | sunfordSmith | You let the Goblin King keep his crown. He'll be back, you know. | chatterbox |
 | `dlg.sunfordSmith.ending.1` | Bram the Smith (sunfordSmith) | sunfordSmith | Whole realm's talking about you. Still need a whetstone, though? | chatterbox |
 | `dlg.sunfordSmith.again.1` | Bram the Smith (sunfordSmith) | sunfordSmith | Back again. What can I do for you? | chatterbox |
-| `dlg.hero.trade` | The hero (hero) | hero | Can I see what you've got? | chatterbox |
 | `dlg.sunfordSmith.trade.1` | Bram the Smith (sunfordSmith) | sunfordSmith | Plain steel, fair prices. Have a look. | chatterbox |
 | `dlg.hero.ore` | The hero (hero) | hero | I've got some ore to sell. | chatterbox |
 | `dlg.sunfordSmith.ore.1` | Bram the Smith (sunfordSmith) | sunfordSmith | Nuggets, eh? I'll take the lot. Fair weight, fair coin. | chatterbox |
@@ -112,7 +143,6 @@ Nothing: every line has its recording.
 | `dlg.sunfordSmith.learnSmith.2` | Bram the Smith (sunfordSmith) | sunfordSmith | Strike when the metal glows brightest. Miss, and it's scrap. Go on. | chatterbox |
 | `dlg.hero.forge` | The hero (hero) | hero | I'd like to use your forge. | chatterbox |
 | `dlg.sunfordSmith.forge.1` | Bram the Smith (sunfordSmith) | sunfordSmith | Forge is hot. Mind your fingers. | chatterbox |
-| `dlg.hero.who` | The hero (hero) | hero | Who are you, if you don't mind me asking? | chatterbox |
 | `dlg.sunfordSmith.who.1` | Bram the Smith (sunfordSmith) | sunfordSmith | Bram. Thirty years at this anvil, give or take. | chatterbox |
 | `dlg.sunfordSmith.who.2` | Bram the Smith (sunfordSmith) | sunfordSmith | Horseshoes, ploughs, the odd sword. Lately, mostly swords. | chatterbox |
 | `dlg.sunfordSmith.gear.say` | The hero (hero) | sunfordSmith | What should I take with me out there? | chatterbox |
@@ -152,12 +182,10 @@ Nothing: every line has its recording.
 | `dlg.trainerAegis.friend.1` | Ser Aldric (trainerAegis) | trainerAegis | The Order thinks well of you. For its friends, my lessons cost less. | chatterbox |
 | `dlg.trainerAegis.foe.1` | Ser Aldric (trainerAegis) | trainerAegis | The Order calls you an enemy. I'll still teach you. That's my choice, not theirs. | chatterbox |
 | `dlg.trainerAegis.again.1` | Ser Aldric (trainerAegis) | trainerAegis | Back for more drills? | chatterbox |
-| `dlg.hero.train` | The hero (hero) | hero | Will you teach me? | chatterbox |
 | `dlg.trainerAegis.train.1` | Ser Aldric (trainerAegis) | trainerAegis | Good. Watch closely, I'll only show you once. | chatterbox |
 | `dlg.trainerAegis.class.say` | The hero (hero) | trainerAegis | What does an Aegis Knight actually do? | chatterbox |
 | `dlg.trainerAegis.class.1` | Ser Aldric (trainerAegis) | trainerAegis | We take the blows meant for others. It's simple, and it's hard. | chatterbox |
 | `dlg.trainerAegis.class.2` | Ser Aldric (trainerAegis) | trainerAegis | You'll need Strength for the shield and Endurance to keep it up. | chatterbox |
-| `dlg.hero.ready` | The hero (hero) | hero | Do you think I'm ready for more? | chatterbox |
 | `dlg.trainerAegis.ready.strong.1` | Ser Aldric (trainerAegis) | trainerAegis | You're strong enough for most of what I know. Keep at your Endurance. | chatterbox |
 | `dlg.trainerAegis.ready.able.1` | Ser Aldric (trainerAegis) | trainerAegis | You're ready for the next lesson. Don't let it go to your head. | chatterbox |
 | `dlg.trainerAegis.ready.weak.1` | Ser Aldric (trainerAegis) | trainerAegis | Not yet. You'd tire before the shield did. More Strength, more Endurance. | chatterbox |
@@ -286,6 +314,34 @@ Nothing: every line has its recording.
 | `dlg.sunfordGambler.luck.1` | Dob Tumbler (sunfordGambler) | sunfordGambler | All the time! But I always go home with a new pair of boots. | chatterbox |
 | `dlg.sunfordGambler.playBack.1` | Dob Tumbler (sunfordGambler) | sunfordGambler | Good game! That stuff of yours will look lovely on my shelf. | chatterbox |
 | `dlg.sunfordGambler.bye.1` | Dob Tumbler (sunfordGambler) | sunfordGambler | Bring more junk! Junk is my favourite. | chatterbox |
+| `dlg.freedFarmers.hello.1` | Jory Toller (freedFarmers) | freedFarmers | We'd be dead without you. Me and my boy both. Thank you. | chatterbox |
+| `dlg.freedFarmers.hello.2` | Jory Toller (freedFarmers) | freedFarmers | Jory Toller. We farm outside the walls now. Well, we try. | chatterbox |
+| `dlg.freedFarmers.again.1` | Jory Toller (freedFarmers) | freedFarmers | There's our hero. Come for a bite? | chatterbox |
+| `dlg.freedFarmers.favor.say` | The hero (hero) | freedFarmers | Can I help with anything? | chatterbox |
+| `dlg.freedFarmers.favor.1` | Jory Toller (freedFarmers) | freedFarmers | Wolves out of the Whispering Woods keep taking our sheep. | chatterbox |
+| `dlg.freedFarmers.favor.2` | Jory Toller (freedFarmers) | freedFarmers | Thin them out, would you? Eight should teach them. | chatterbox |
+| `dlg.freedFarmers.waiting.say` | The hero (hero) | freedFarmers | About those wolves... | chatterbox |
+| `dlg.freedFarmers.waiting.1` | Jory Toller (freedFarmers) | freedFarmers | The wolves are still about. We heard them last night. | chatterbox |
+| `dlg.freedFarmers.favorDone.say` | The hero (hero) | freedFarmers | The wolves won't trouble you again. | chatterbox |
+| `dlg.freedFarmers.favorDone.1` | Jory Toller (freedFarmers) | freedFarmers | Quiet nights again. We can finally sleep. | chatterbox |
+| `dlg.freedFarmers.favorDone.2` | Jory Toller (freedFarmers) | freedFarmers | Take this. It's not much, but it's honest. | chatterbox |
+| `dlg.freedFarmers.who.1` | Jory Toller (freedFarmers) | freedFarmers | Bandits took us from our field and left us in the woods to rot. | chatterbox |
+| `dlg.freedFarmers.who.2` | Jory Toller (freedFarmers) | freedFarmers | Oakhaven took us in. We pay it back in bread. | chatterbox |
+| `dlg.freedFarmers.bye.1` | Jory Toller (freedFarmers) | freedFarmers | Mind how you go. | chatterbox |
+| `dlg.windDisciple.hello.1` | Kestrel Vane (windDisciple) | windDisciple | You got me out! I owe you everything. Well, a lot. | chatterbox |
+| `dlg.windDisciple.hello.2` | Kestrel Vane (windDisciple) | windDisciple | Kestrel Vane. Sefa Galewing taught me the bow. I can teach you what she taught me. | chatterbox |
+| `dlg.windDisciple.again.1` | Kestrel Vane (windDisciple) | windDisciple | Hey! The wind's good today. Shall we practise? | chatterbox |
+| `dlg.windDisciple.train.1` | Kestrel Vane (windDisciple) | windDisciple | Feet apart. Breathe out. Let the wind carry it. | chatterbox |
+| `dlg.windDisciple.class.say` | The hero (hero) | windDisciple | What does a Windrunner do? | chatterbox |
+| `dlg.windDisciple.class.1` | Kestrel Vane (windDisciple) | windDisciple | Run, shoot, run again. Never be where they aim. | chatterbox |
+| `dlg.windDisciple.class.2` | Kestrel Vane (windDisciple) | windDisciple | Dexterity for quick feet. Skill, so every arrow lands. | chatterbox |
+| `dlg.windDisciple.ready.strong.1` | Kestrel Vane (windDisciple) | windDisciple | You're faster than me now. Take what you like. | chatterbox |
+| `dlg.windDisciple.ready.able.1` | Kestrel Vane (windDisciple) | windDisciple | You're ready for the next one. Watch closely. | chatterbox |
+| `dlg.windDisciple.ready.weak.1` | Kestrel Vane (windDisciple) | windDisciple | Not yet. Get quicker first, then come back. | chatterbox |
+| `dlg.windDisciple.who.1` | Kestrel Vane (windDisciple) | windDisciple | I was on my way to Silverbridge when the crags caught me. | chatterbox |
+| `dlg.windDisciple.who.2` | Kestrel Vane (windDisciple) | windDisciple | Tell Sefa I'm alive, would you? She worries. | chatterbox |
+| `dlg.windDisciple.trainBack.1` | Kestrel Vane (windDisciple) | windDisciple | Go and practise. Somewhere windy. | chatterbox |
+| `dlg.windDisciple.bye.1` | Kestrel Vane (windDisciple) | windDisciple | Keep your eyes on the wind. | chatterbox |
 | `dlg.captainHale.hello.1` | Captain Hale (captainHale) | captainHale | Another sword. Good. We need every one we can get. | chatterbox |
 | `dlg.captainHale.hello.2` | Captain Hale (captainHale) | captainHale | Captain Hale. I command what's left of Oakhaven's watch. | chatterbox |
 | `dlg.captainHale.saved.1` | Captain Hale (captainHale) | captainHale | The gate held. Three hundred years, and one more. I owe you for that. | chatterbox |
@@ -457,6 +513,20 @@ Nothing: every line has its recording.
 | `dlg.oakGambler.collection.1` | Silky Ren (oakGambler) | oakGambler | I sort it by shine. The shiniest go on the top shelf, next to my teacups. | chatterbox |
 | `dlg.oakGambler.playBack.1` | Silky Ren (oakGambler) | oakGambler | Delightful. Do come back when your bag is heavier. | chatterbox |
 | `dlg.oakGambler.bye.1` | Silky Ren (oakGambler) | oakGambler | Mind your purse out there. Not everyone plays fair. | chatterbox |
+| `dlg.frostDisciple.hello.1` | Ivor Hask (frostDisciple) | frostDisciple | Free. Good. The cold did not take me, and neither did they. | chatterbox |
+| `dlg.frostDisciple.hello.2` | Ivor Hask (frostDisciple) | frostDisciple | Ivor Hask. Halvard Rimeheart taught me the frost. I teach it now, here. | chatterbox |
+| `dlg.frostDisciple.again.1` | Ivor Hask (frostDisciple) | frostDisciple | You return. Good. | chatterbox |
+| `dlg.frostDisciple.train.1` | Ivor Hask (frostDisciple) | frostDisciple | Stand still. Let the cold come to you. Then send it back. | chatterbox |
+| `dlg.frostDisciple.class.say` | The hero (hero) | frostDisciple | What is a Frostwarden? | chatterbox |
+| `dlg.frostDisciple.class.1` | Ivor Hask (frostDisciple) | frostDisciple | Chill them, freeze them, then break the ice. | chatterbox |
+| `dlg.frostDisciple.class.2` | Ivor Hask (frostDisciple) | frostDisciple | Strength for the blade. Intelligence for the frost. | chatterbox |
+| `dlg.frostDisciple.ready.strong.1` | Ivor Hask (frostDisciple) | frostDisciple | You are stronger than I was. Take what you need. | chatterbox |
+| `dlg.frostDisciple.ready.able.1` | Ivor Hask (frostDisciple) | frostDisciple | You are ready. Next lesson. | chatterbox |
+| `dlg.frostDisciple.ready.weak.1` | Ivor Hask (frostDisciple) | frostDisciple | Not yet. More strength of arm and of mind. | chatterbox |
+| `dlg.frostDisciple.who.1` | Ivor Hask (frostDisciple) | frostDisciple | I hunted in the tundra. They caged me for a winter. | chatterbox |
+| `dlg.frostDisciple.who.2` | Ivor Hask (frostDisciple) | frostDisciple | Ironhold's forges are warm. I like it here. | chatterbox |
+| `dlg.frostDisciple.trainBack.1` | Ivor Hask (frostDisciple) | frostDisciple | Practise. The cold is patient. Be the same. | chatterbox |
+| `dlg.frostDisciple.bye.1` | Ivor Hask (frostDisciple) | frostDisciple | Stay warm. | chatterbox |
 | `dlg.forgemaster.hello.1` | Forgemaster Dorn (forgemaster) | forgemaster | You came up through the mines. I can smell the dust on you. | chatterbox |
 | `dlg.forgemaster.hello.2` | Forgemaster Dorn (forgemaster) | forgemaster | Dorn. Forgemaster of Ironhold. And I've got a problem the size of a mountain. | chatterbox |
 | `dlg.forgemaster.destroyed.1` | Forgemaster Dorn (forgemaster) | forgemaster | The light's out and the golems are scrap. My miners sang last night. First time in a year. | chatterbox |
@@ -618,6 +688,20 @@ Nothing: every line has its recording.
 | `dlg.trainerChrono.oracle.waits.1` | The Keeper of Hours (trainerChrono) | trainerChrono | She sees every ending. It's a heavy thing to carry. Be kind to her. | chatterbox |
 | `dlg.trainerChrono.trainBack.1` | The Keeper of Hours (trainerChrono) | trainerChrono | It'll make sense later. It usually does. | chatterbox |
 | `dlg.trainerChrono.bye.1` | The Keeper of Hours (trainerChrono) | trainerChrono | Until we meet again. Or before. | chatterbox |
+| `dlg.freedHerbalist.hello.1` | Briar Hollowell (freedHerbalist) | freedHerbalist | I knew someone would come. The goblins never understood herbs. Or kindness. | chatterbox |
+| `dlg.freedHerbalist.hello.2` | Briar Hollowell (freedHerbalist) | freedHerbalist | I'm Briar. I gather and dry what grows. Silverbridge was kind enough to take me in. | chatterbox |
+| `dlg.freedHerbalist.again.1` | Briar Hollowell (freedHerbalist) | freedHerbalist | Ah, hello again. Your boots smell of moss. Good. | chatterbox |
+| `dlg.freedHerbalist.favor.say` | The hero (hero) | freedHerbalist | Is there anything I can do for you? | chatterbox |
+| `dlg.freedHerbalist.favor.1` | Briar Hollowell (freedHerbalist) | freedHerbalist | My stores were lost in that cage. Could you bring me three sunpetals? | chatterbox |
+| `dlg.freedHerbalist.favor.2` | Briar Hollowell (freedHerbalist) | freedHerbalist | They grow out on the plains. I'll pay well for them. | chatterbox |
+| `dlg.freedHerbalist.waiting.say` | The hero (hero) | freedHerbalist | About those sunpetals... | chatterbox |
+| `dlg.freedHerbalist.waiting.1` | Briar Hollowell (freedHerbalist) | freedHerbalist | Still looking? Sunpetals love the open sun. | chatterbox |
+| `dlg.freedHerbalist.favorDone.say` | The hero (hero) | freedHerbalist | Here are your sunpetals. | chatterbox |
+| `dlg.freedHerbalist.favorDone.1` | Briar Hollowell (freedHerbalist) | freedHerbalist | Oh, these are perfect. Smell that! | chatterbox |
+| `dlg.freedHerbalist.favorDone.2` | Briar Hollowell (freedHerbalist) | freedHerbalist | Here, your payment. And my thanks, again. | chatterbox |
+| `dlg.freedHerbalist.who.1` | Briar Hollowell (freedHerbalist) | freedHerbalist | A herbalist from the hills. The goblins took me for a witch. | chatterbox |
+| `dlg.freedHerbalist.who.2` | Briar Hollowell (freedHerbalist) | freedHerbalist | They weren't entirely wrong. | chatterbox |
+| `dlg.freedHerbalist.bye.1` | Briar Hollowell (freedHerbalist) | freedHerbalist | Walk gently. Things grow there. | chatterbox |
 | `dlg.mayorBrenna.hello.1` | Mayor Brenna Quill (mayorBrenna) | mayorBrenna | Mind the cart! Sorry, everything on this bridge moves. Welcome to Silverbridge. | chatterbox |
 | `dlg.mayorBrenna.hello.2` | Mayor Brenna Quill (mayorBrenna) | mayorBrenna | I'm Mayor Brenna Quill. If it's lost, broken or late, it ends up on my desk. | chatterbox |
 | `dlg.mayorBrenna.ending.1` | Mayor Brenna Quill (mayorBrenna) | mayorBrenna | The whole river's talking about you. Trade's never been better. So, thank you. | chatterbox |
@@ -1199,17 +1283,18 @@ Nothing: every line has its recording.
 | `ending.more` | The hero, telling the story (hero) | ending | The Void Rift has opened beneath the fortress. The Colosseum still takes all comers. | chatterbox |
 | `dlg.hero.bye__f` | The girl hero (heroine) | hero | I'll let you get on. | chatterbox |
 | `dlg.hero.trade__f` | The girl hero (heroine) | hero | Can I see what you've got? | chatterbox |
+| `dlg.hero.who__f` | The girl hero (heroine) | hero | Who are you, if you don't mind me asking? | chatterbox |
+| `dlg.hero.train__f` | The girl hero (heroine) | hero | Will you teach me? | chatterbox |
+| `dlg.lightDisciple.class.say__f` | The girl hero (heroine) | lightDisciple | What does a Lightbringer do? | chatterbox |
+| `dlg.hero.ready__f` | The girl hero (heroine) | hero | Do you think I'm ready for more? | chatterbox |
 | `dlg.hero.ore__f` | The girl hero (heroine) | hero | I've got some ore to sell. | chatterbox |
 | `dlg.hero.learnSmith__f` | The girl hero (heroine) | hero | Could you teach me to smith? | chatterbox |
 | `dlg.hero.forge__f` | The girl hero (heroine) | hero | I'd like to use your forge. | chatterbox |
-| `dlg.hero.who__f` | The girl hero (heroine) | hero | Who are you, if you don't mind me asking? | chatterbox |
 | `dlg.sunfordSmith.gear.say__f` | The girl hero (heroine) | sunfordSmith | What should I take with me out there? | chatterbox |
 | `dlg.hero.rumor__f` | The girl hero (heroine) | hero | Heard anything lately? | chatterbox |
 | `dlg.sunfordPeddler.trinkets.say__f` | The girl hero (heroine) | sunfordPeddler | What are trinkets actually good for? | chatterbox |
 | `dlg.sunfordPeddler.stolen.say__f` | The girl hero (heroine) | sunfordPeddler | Where did all this come from, really? | chatterbox |
-| `dlg.hero.train__f` | The girl hero (heroine) | hero | Will you teach me? | chatterbox |
 | `dlg.trainerAegis.class.say__f` | The girl hero (heroine) | trainerAegis | What does an Aegis Knight actually do? | chatterbox |
-| `dlg.hero.ready__f` | The girl hero (heroine) | hero | Do you think I'm ready for more? | chatterbox |
 | `dlg.trainerAegis.order.say__f` | The girl hero (heroine) | trainerAegis | Tell me about the Iron Order. | chatterbox |
 | `dlg.trainerPyro.class.say__f` | The girl hero (heroine) | trainerPyro | What does a pyromancer do, exactly? | chatterbox |
 | `dlg.trainerPyro.circle.say__f` | The girl hero (heroine) | trainerPyro | Who are the Circle of Aether? | chatterbox |
@@ -1232,6 +1317,10 @@ Nothing: every line has its recording.
 | `dlg.hero.play__f` | The girl hero (heroine) | hero | Deal me in. | chatterbox |
 | `dlg.sunfordGambler.rules.say__f` | The girl hero (heroine) | sunfordGambler | What are the rules? | chatterbox |
 | `dlg.sunfordGambler.luck.say__f` | The girl hero (heroine) | sunfordGambler | Do you ever lose? | chatterbox |
+| `dlg.freedFarmers.favor.say__f` | The girl hero (heroine) | freedFarmers | Can I help with anything? | chatterbox |
+| `dlg.freedFarmers.waiting.say__f` | The girl hero (heroine) | freedFarmers | About those wolves... | chatterbox |
+| `dlg.freedFarmers.favorDone.say__f` | The girl hero (heroine) | freedFarmers | The wolves won't trouble you again. | chatterbox |
+| `dlg.windDisciple.class.say__f` | The girl hero (heroine) | windDisciple | What does a Windrunner do? | chatterbox |
 | `dlg.captainHale.quest.say__f` | The girl hero (heroine) | captainHale | How bad is it? | chatterbox |
 | `dlg.captainHale.quest.2__f` | The girl hero (heroine) | captainHale | Who's paying him? | chatterbox |
 | `dlg.captainHale.siege.say__f` | The girl hero (heroine) | captainHale | About the siege... | chatterbox |
@@ -1252,6 +1341,7 @@ Nothing: every line has its recording.
 | `dlg.syndicateBoss.order.say__f` | The girl hero (heroine) | syndicateBoss | The Iron Order is after me. | chatterbox |
 | `dlg.oakGambler.rules.say__f` | The girl hero (heroine) | oakGambler | How do we play? | chatterbox |
 | `dlg.oakGambler.collection.say__f` | The girl hero (heroine) | oakGambler | What do you do with it all? | chatterbox |
+| `dlg.frostDisciple.class.say__f` | The girl hero (heroine) | frostDisciple | What is a Frostwarden? | chatterbox |
 | `dlg.forgemaster.quest.say__f` | The girl hero (heroine) | forgemaster | What happened down in the mines? | chatterbox |
 | `dlg.forgemaster.quest.2__f` | The girl hero (heroine) | forgemaster | And the golems? | chatterbox |
 | `dlg.forgemaster.core.say__f` | The girl hero (heroine) | forgemaster | About the core... | chatterbox |
@@ -1268,6 +1358,9 @@ Nothing: every line has its recording.
 | `dlg.exiledSovereign.oakhaven.say__f` | The girl hero (heroine) | exiledSovereign | About Oakhaven... | chatterbox |
 | `dlg.trainerChrono.class.say__f` | The girl hero (heroine) | trainerChrono | What is a Chrono-Weaver? | chatterbox |
 | `dlg.trainerChrono.oracle.say__f` | The girl hero (heroine) | trainerChrono | Tell me about the oracle. | chatterbox |
+| `dlg.freedHerbalist.favor.say__f` | The girl hero (heroine) | freedHerbalist | Is there anything I can do for you? | chatterbox |
+| `dlg.freedHerbalist.waiting.say__f` | The girl hero (heroine) | freedHerbalist | About those sunpetals... | chatterbox |
+| `dlg.freedHerbalist.favorDone.say__f` | The girl hero (heroine) | freedHerbalist | Here are your sunpetals. | chatterbox |
 | `dlg.mayorBrenna.town.say__f` | The girl hero (heroine) | mayorBrenna | Tell me about Silverbridge. | chatterbox |
 | `dlg.mayorBrenna.masters.say__f` | The girl hero (heroine) | mayorBrenna | Is there really a teacher for every class here? | chatterbox |
 | `dlg.mayorBrenna.river.say__f` | The girl hero (heroine) | mayorBrenna | What do people trade here? | chatterbox |

@@ -129,6 +129,16 @@ export default {
     chi: 'Chi'
   },
   toast: {
+    freed: {
+      lightDisciple: 'Liberada! A irmá Aurelle ensinará o camiño do Portador da Luz en {town}.',
+      frostDisciple: 'Liberado! Ivor ensinará o camiño do Gardián da Xeada en {town}.',
+      windDisciple: 'Liberado! Kestrel ensinará o camiño do Corredor do Vento en {town}.',
+      freedFarmers: 'Liberados! Os Toller atoparán un fogar en {town}.',
+      freedHerbalist: 'Liberada! Briar, a herbolaria, esperarate en {town}.',
+      freedPeddler: 'Liberado! Odo, o quincalleiro, comerciará en {town}.'
+    },
+    cageLocked: 'Pechada con chave. A chave ten que estar nalgún lugar de aquí.',
+    cageKey: 'Unha chave! Debe abrir a gaiola.',
     ore: 'Extraído: {n} × {ore}',
     mineBusy: 'Non con inimigos preto!',
     item: 'Atopado: {item}',
@@ -1779,6 +1789,25 @@ export default {
     circle: 'O Círculo do Éter'
   },
   npc: {
+    frostDisciple: {
+      name: 'Ivor Hask'
+    },
+    windDisciple: {
+      name: 'Kestrel Vane'
+    },
+    freedFarmers: {
+      name: 'Jory Toller'
+    },
+    freedHerbalist: {
+      name: 'Briar Hollowell'
+    },
+    lightDisciple: {
+      name: 'Irmá Aurelle'
+    },
+    freedPeddler: {
+      talk: 'Todo o que precisa un viaxeiro. Case novo, polo xeral.',
+      name: 'Odo Marrow'
+    },
     sfShadow: {
       name: 'Nettle Quickhand'
     },
@@ -2043,6 +2072,211 @@ export default {
     }
   },
   dlg: {
+    frostDisciple: {
+      bye: {
+        '1': 'Abrígate.'
+      },
+      who: {
+        '2': 'As forxas de Ironhold son cálidas. Gústame estar aquí.',
+        '1': 'Cazaba na tundra. Engaioláronme durante un inverno.'
+      },
+      trainBack: {
+        '1': 'Practica. O frío é paciente. Seno ti tamén.'
+      },
+      ready: {
+        weak: {
+          '1': 'Aínda non. Máis forza no brazo e na mente.'
+        },
+        able: {
+          '1__f': 'Estás lista. Seguinte lección.',
+          '1': 'Estás listo. Seguinte lección.'
+        },
+        strong: {
+          '1': 'Es máis forte do que eu era. Colle o que precises.'
+        }
+      },
+      class: {
+        say: 'Que é un Gardián da Xeada?',
+        '2': 'Forza para a folla. Intelixencia para a xeada.',
+        '1': 'Arrefríaos, conxélaos e logo rompe o xeo.'
+      },
+      train: {
+        '1__f': 'Queda quieta. Deixa que o frío veña a ti. Despois devólvello.',
+        '1': 'Queda quieto. Deixa que o frío veña a ti. Despois devólvello.'
+      },
+      again: {
+        '1': 'Volves. Ben.'
+      },
+      hello: {
+        '2': 'Ivor Hask. Halvard Corazón de Xeada ensinoume a xeada. Agora ensínoa eu, aquí.',
+        '1': 'Libre. Ben. O frío non me levou, e eles tampouco.'
+      }
+    },
+    windDisciple: {
+      bye: {
+        '1': 'Non lle quites o ollo ao vento.'
+      },
+      who: {
+        '2': 'Dille a Sefa que estou vivo, si? Preocúpase.',
+        '1': 'Ía camiño de Silverbridge cando os penedos me atraparon.'
+      },
+      trainBack: {
+        '1': 'Vai practicar. Nalgún sitio con vento.'
+      },
+      ready: {
+        weak: {
+          '1': 'Aínda non. Gaña velocidade primeiro e despois volve.'
+        },
+        able: {
+          '1__f': 'Xa estás lista para a seguinte. Mira ben.',
+          '1': 'Xa estás listo para a seguinte. Mira ben.'
+        },
+        strong: {
+          '1__f': 'Agora es máis rápida ca min. Colle o que queiras.',
+          '1': 'Agora es máis rápido ca min. Colle o que queiras.'
+        }
+      },
+      class: {
+        say: 'Que fai un Corredor do Vento?',
+        '2': 'Destreza para uns pés áxiles. Pericia, para que cada frecha acerte.',
+        '1': 'Corre, dispara, volve correr. Non esteas nunca onde apuntan.'
+      },
+      train: {
+        '1': 'Pés separados. Bota o aire. Deixa que o vento a leve.'
+      },
+      again: {
+        '1': 'Ei! Hoxe vai bo vento. Tiramos?'
+      },
+      hello: {
+        '2': 'Kestrel Vane. Sefa Á de Vendaval ensinoume o arco. Podo ensinarche o que ela me ensinou.',
+        '1': 'Sacáchesme de alí! Débocho todo. Bo, moito.'
+      }
+    },
+    freedFarmers: {
+      bye: {
+        '1': 'Vai con coidado.'
+      },
+      who: {
+        '2': 'Oakhaven acolleunos. Pagámoslle en pan.',
+        '1': 'Uns bandidos sacáronnos do noso campo e deixáronnos podrecer no bosque.'
+      },
+      favorDone: {
+        say: 'Os lobos non vos volverán molestar.',
+        '2': 'Colle isto. Non é moito, pero é honrado.',
+        '1': 'Noites tranquilas outra vez. Por fin podemos durmir.'
+      },
+      waiting: {
+        say: 'Sobre eses lobos...',
+        '1': 'Os lobos aínda andan por aí. Oímolos onte á noite.'
+      },
+      favor: {
+        say: 'Podo axudar nalgo?',
+        '2': 'Poderías reducirlles o número? Con oito deberían aprender.',
+        '1': 'Os lobos do Bosque dos Murmurios non paran de levarnos as ovellas.'
+      },
+      again: {
+        '1__f': 'Aí está a nosa heroína. Vés comer algo?',
+        '1': 'Aí está o noso heroe. Vés comer algo?'
+      },
+      hello: {
+        '2': 'Jory Toller. Agora cultivamos fóra das murallas. Bo, intentámolo.',
+        '1': 'Sen ti estariamos mortos. Eu e mais o meu rapaz. Grazas.'
+      }
+    },
+    freedHerbalist: {
+      bye: {
+        '1': 'Pisa con coidado. Alí medran cousas.'
+      },
+      who: {
+        '2': 'Non andaban de todo errados.',
+        '1': 'Unha herbolaria dos outeiros. Os trasnos tomáronme por meiga.'
+      },
+      favorDone: {
+        say: 'Aquí tes os teus pétalos do sol.',
+        '2': 'Toma, o teu pagamento. E grazas, outra vez.',
+        '1': 'Oh, son perfectos. Cheira isto!'
+      },
+      waiting: {
+        say: 'Sobre eses pétalos do sol...',
+        '1': 'Aínda buscando? Os pétalos do sol adoran o sol aberto.'
+      },
+      favor: {
+        say: 'Podo facer algo por ti?',
+        '2': 'Medran nas chairas. Págochos ben.',
+        '1': 'Perdín as miñas reservas naquela gaiola. Poderías traerme tres pétalos do sol?'
+      },
+      again: {
+        '1': 'Ah, ola de novo. As túas botas cheiran a musgo. Ben.'
+      },
+      hello: {
+        '2': 'Son Briar. Recollo e seco o que medra. Silverbridge tivo a bondade de acollerme.',
+        '1': 'Sabía que viría alguén. Os trasnos nunca entenderon as herbas. Nin a bondade.'
+      }
+    },
+    lightDisciple: {
+      bye: {
+        '1': 'Camiña na luz.'
+      },
+      who: {
+        '2': 'Sunford é luminosa e tranquila. Precisaba as dúas cousas.',
+        '1': 'Fun rezar ao Templo Afundido. As nagas tiñan outros plans.'
+      },
+      trainBack: {
+        '1': 'Vai con suavidade. E deixa que te vexan chegar.'
+      },
+      ready: {
+        weak: {
+          '1': 'Aínda non. Primeiro, unha mente máis clara e un corazón máis cálido.'
+        },
+        able: {
+          '1__f': 'Xa estás lista para a seguinte lección. Ven, ponte na luz.',
+          '1': 'Xa estás listo para a seguinte lección. Ven, ponte na luz.'
+        },
+        strong: {
+          '1': 'Agora brillas máis ca min. Colle todo o que precises.'
+        }
+      },
+      class: {
+        say: 'Que fai un Portador da Luz?',
+        '2': 'A Intelixencia fai forte a luz. O Carisma faina cálida.',
+        '1': 'Levamos a alba. Luz para loitar, luz para curar.'
+      },
+      train: {
+        '1': 'Abre as mans. Deixa que a luz pase a través delas, non que saia delas.'
+      },
+      again: {
+        '1__f': 'Benvida de novo. O sol está amable hoxe.',
+        '1': 'Benvido de novo. O sol está amable hoxe.'
+      },
+      hello: {
+        '2': 'Son Aurelle. A irmá Auriel ensinoume a luz. Agora ensínoa aquí.',
+        '1': 'A luz sexa contigo. Atopáchesme na escuridade, e non o esquecerei.'
+      }
+    },
+    freedPeddler: {
+      bye: {
+        '1': 'Coidado cos bandidos. Non lles gusta compartir.'
+      },
+      shopBack: {
+        '1__f': 'Un pracer facer negocios, amiga.',
+        '1': 'Un pracer facer negocios, amigo.'
+      },
+      who: {
+        '2': 'Agora vendo dende Sunford. Aquí é máis seguro. Case sempre.',
+        '1': 'Uns bandidos leváronme o carro e metéronme nunha caixa. Moi maleducados.'
+      },
+      trade: {
+        '1': 'Aneis, luvas, botas. A metade de prezo para ti. Bo, case.'
+      },
+      again: {
+        '1__f': 'A miña salvadora! Ven, ven, gardeiche as cousas boas.',
+        '1': 'O meu salvador! Ven, ven, gardeiche as cousas boas.'
+      },
+      hello: {
+        '2': 'Odo Marrow, ao teu servizo. Quincalleiro, latoeiro e home moi agradecido.',
+        '1': 'Ti! Ti es quen abriu aquela gaiola! Tería podrecido alí dentro.'
+      }
+    },
     sfShadow: {
       hello: {
         '1': 'Non te oín entrar. Adoita ser o meu truco.',
@@ -5364,6 +5598,12 @@ export default {
     prizeGold: 'Xa os tes todos, así que recibes {n} de ouro no seu lugar!'
   },
   errand: {
+    farmersFavor: {
+      title: 'Os lobos dos Toller'
+    },
+    herbalistFavor: {
+      title: 'Os pétalos do sol de Briar'
+    },
     collectorFavor: {
       title: 'As campaíñas lunares do Coleccionista'
     },

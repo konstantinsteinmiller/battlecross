@@ -129,6 +129,16 @@ export default {
     chi: 'Chi'
   },
   toast: {
+    freed: {
+      lightDisciple: 'Bevrijd! Zuster Aurelle leert de weg van de Lichtbrenger in {town}.',
+      frostDisciple: 'Bevrijd! Ivor leert de weg van de Vorstwachter in {town}.',
+      windDisciple: 'Bevrijd! Kestrel leert de weg van de Windloper in {town}.',
+      freedFarmers: 'Bevrijd! De Tollers vinden een thuis in {town}.',
+      freedHerbalist: 'Bevrijd! Briar de kruidenvrouw wacht op je in {town}.',
+      freedPeddler: 'Bevrijd! Odo de marskramer gaat handelen in {town}.'
+    },
+    cageLocked: 'Op slot. De sleutel moet hier ergens zijn.',
+    cageKey: 'Een sleutel! Die moet de kooi openen.',
     ore: 'Gedolven: {n} × {ore}',
     mineBusy: 'Niet met vijanden in de buurt!',
     item: 'Gevonden: {item}',
@@ -1779,6 +1789,25 @@ export default {
     circle: 'De Kring van Ether'
   },
   npc: {
+    frostDisciple: {
+      name: 'Ivor Hask'
+    },
+    windDisciple: {
+      name: 'Kestrel Vane'
+    },
+    freedFarmers: {
+      name: 'Jory Toller'
+    },
+    freedHerbalist: {
+      name: 'Briar Hollowell'
+    },
+    lightDisciple: {
+      name: 'Zuster Aurelle'
+    },
+    freedPeddler: {
+      talk: 'Alles wat een reiziger nodig heeft. Bijna nieuw, meestal.',
+      name: 'Odo Marrow'
+    },
     sfShadow: {
       name: 'Nettle Quickhand'
     },
@@ -2043,6 +2072,205 @@ export default {
     }
   },
   dlg: {
+    frostDisciple: {
+      bye: {
+        '1': 'Hou je warm.'
+      },
+      who: {
+        '2': 'De smidsen van Ironhold zijn warm. Ik ben hier graag.',
+        '1': 'Ik jaagde op de toendra. Ze hielden me een winter lang in een kooi.'
+      },
+      trainBack: {
+        '1': 'Oefen. De kou is geduldig. Wees dat ook.'
+      },
+      ready: {
+        weak: {
+          '1': 'Nog niet. Meer kracht in je arm en in je hoofd.'
+        },
+        able: {
+          '1': 'Je bent klaar. Volgende les.'
+        },
+        strong: {
+          '1': 'Je bent sterker dan ik was. Neem wat je nodig hebt.'
+        }
+      },
+      class: {
+        say: 'Wat is een Vorstwachter?',
+        '2': 'Kracht voor de kling. Intelligentie voor de vorst.',
+        '1': 'Koel ze af, bevries ze, breek dan het ijs.'
+      },
+      train: {
+        '1': 'Sta stil. Laat de kou naar je toe komen. Stuur hem dan terug.'
+      },
+      again: {
+        '1': 'Je komt terug. Goed.'
+      },
+      hello: {
+        '2': 'Ivor Hask. Halvard Rijphart leerde me de vorst. Nu leer ik die, hier.',
+        '1': 'Vrij. Goed. De kou kreeg me niet klein, en zij ook niet.'
+      }
+    },
+    windDisciple: {
+      bye: {
+        '1': 'Hou de wind in de gaten.'
+      },
+      who: {
+        '2': 'Zeg je tegen Sefa dat ik nog leef? Ze maakt zich zorgen.',
+        '1': 'Ik was op weg naar Silverbridge toen de kliffen me te pakken kregen.'
+      },
+      trainBack: {
+        '1': 'Ga oefenen. Ergens waar het waait.'
+      },
+      ready: {
+        weak: {
+          '1': 'Nog niet. Word eerst sneller, kom dan terug.'
+        },
+        able: {
+          '1': 'Je bent klaar voor de volgende. Let goed op.'
+        },
+        strong: {
+          '1': 'Je bent nu sneller dan ik. Neem wat je wilt.'
+        }
+      },
+      class: {
+        say: 'Wat doet een Windloper?',
+        '2': 'Behendigheid voor snelle voeten. Techniek, zodat elke pijl raak is.',
+        '1': 'Rennen, schieten, weer rennen. Wees nooit waar ze op mikken.'
+      },
+      train: {
+        '1': 'Voeten uit elkaar. Adem uit. Laat de wind hem dragen.'
+      },
+      again: {
+        '1': 'Hé! De wind is goed vandaag. Zin om te schieten?'
+      },
+      hello: {
+        '2': 'Kestrel Vane. Sefa Windvleugel leerde me de boog. Ik kan je leren wat zij mij leerde.',
+        '1': 'Je hebt me eruit gehaald! Ik heb alles aan je te danken. Nou ja, veel.'
+      }
+    },
+    freedFarmers: {
+      bye: {
+        '1': 'Pas goed op jezelf.'
+      },
+      who: {
+        '2': 'Oakhaven nam ons op. We betalen het terug in brood.',
+        '1': 'Bandieten haalden ons van ons veld en lieten ons in het bos wegrotten.'
+      },
+      favorDone: {
+        say: 'De wolven zullen jullie niet meer lastigvallen.',
+        '2': 'Neem dit. Het is niet veel, maar het is eerlijk.',
+        '1': 'Weer rustige nachten. We kunnen eindelijk slapen.'
+      },
+      waiting: {
+        say: 'Over die wolven...',
+        '1': 'De wolven zijn er nog steeds. We hoorden ze vannacht.'
+      },
+      favor: {
+        say: 'Kan ik ergens mee helpen?',
+        '2': 'Kun je ze wat uitdunnen? Acht zou ze wel een lesje moeten leren.',
+        '1': 'Wolven uit het Fluisterwoud blijven onze schapen roven.'
+      },
+      again: {
+        '1__f': 'Daar is onze heldin. Kom je een hapje eten?',
+        '1': 'Daar is onze held. Kom je een hapje eten?'
+      },
+      hello: {
+        '2': 'Jory Toller. We boeren nu buiten de muren. Nou ja, we proberen het.',
+        '1': 'Zonder jou waren we dood geweest. Ik en mijn jongen allebei. Dank je.'
+      }
+    },
+    freedHerbalist: {
+      bye: {
+        '1': 'Loop zachtjes. Daar groeien dingen.'
+      },
+      who: {
+        '2': 'Ze zaten er niet helemaal naast.',
+        '1': 'Een kruidenvrouw uit de heuvels. De goblins hielden me voor een heks.'
+      },
+      favorDone: {
+        say: 'Hier zijn je zonnebladen.',
+        '2': 'Hier, je beloning. En nogmaals bedankt.',
+        '1': 'O, deze zijn perfect. Ruik eens!'
+      },
+      waiting: {
+        say: 'Over die zonnebladen...',
+        '1': 'Nog aan het zoeken? Zonnebladen houden van de open zon.'
+      },
+      favor: {
+        say: 'Kan ik iets voor je doen?',
+        '2': 'Ze groeien op de vlakte. Ik betaal er goed voor.',
+        '1': 'Mijn voorraad is in die kooi verloren gegaan. Kun je me drie zonnebladen brengen?'
+      },
+      again: {
+        '1': 'Ah, hallo weer. Je laarzen ruiken naar mos. Goed zo.'
+      },
+      hello: {
+        '2': 'Ik ben Briar. Ik verzamel en droog wat er groeit. Silverbridge was zo vriendelijk me op te nemen.',
+        '1': 'Ik wist dat er iemand zou komen. De goblins hebben nooit iets van kruiden begrepen. Of van vriendelijkheid.'
+      }
+    },
+    lightDisciple: {
+      bye: {
+        '1': 'Wandel in het licht.'
+      },
+      who: {
+        '2': 'Sunford is licht en stil. Ik had allebei nodig.',
+        '1': 'Ik ging naar de Verzonken Tempel om te bidden. De naga hadden andere plannen.'
+      },
+      trainBack: {
+        '1': 'Ga zachtjes. En laat ze je aan zien komen.'
+      },
+      ready: {
+        weak: {
+          '1': 'Nog niet. Eerst een helderder hoofd en een warmer hart.'
+        },
+        able: {
+          '1': 'Je bent klaar voor de volgende les. Kom, ga in het licht staan.'
+        },
+        strong: {
+          '1': 'Jij straalt nu feller dan ik. Neem wat je nodig hebt.'
+        }
+      },
+      class: {
+        say: 'Wat doet een Lichtbrenger?',
+        '2': 'Intelligentie maakt het licht sterk. Charisma maakt het warm.',
+        '1': 'Wij dragen de dageraad. Licht om mee te vechten, licht om mee te helen.'
+      },
+      train: {
+        '1': 'Open je handen. Laat het licht erdoorheen gaan, niet eruit komen.'
+      },
+      again: {
+        '1': 'Welkom terug. De zon is vandaag mild.'
+      },
+      hello: {
+        '2': 'Ik ben Aurelle. Zuster Auriel leerde me het licht. Nu leer ik het hier.',
+        '1': 'Het licht zij met je. Je vond me in het donker, en dat vergeet ik niet.'
+      }
+    },
+    freedPeddler: {
+      bye: {
+        '1': 'Pas op voor de bandieten. Die delen niet graag.'
+      },
+      shopBack: {
+        '1__f': 'Prettig zakendoen, vriendin.',
+        '1': 'Prettig zakendoen, vriend.'
+      },
+      who: {
+        '2': 'Nu verkoop ik vanuit Sunford. Het is hier veiliger. Meestal.',
+        '1': 'Bandieten pakten mijn kar af en stopten mij in een kist. Heel onbeleefd.'
+      },
+      trade: {
+        '1': 'Ringen, handschoenen, laarzen. Voor jou de halve prijs. Nou ja, bijna.'
+      },
+      again: {
+        '1__f': 'Mijn redster! Kom, kom, ik heb de goede spullen voor je bewaard.',
+        '1': 'Mijn redder! Kom, kom, ik heb de goede spullen voor je bewaard.'
+      },
+      hello: {
+        '2': 'Odo Marrow, tot je dienst. Marskramer, ketellapper, zeer dankbaar man.',
+        '1': 'Jij! Jij hebt die kooi opengemaakt! Ik was erin weggerot.'
+      }
+    },
     sfShadow: {
       hello: {
         '1': 'Ik hoorde je niet binnenkomen. Dat is meestal mijn truc.',
@@ -5324,6 +5552,12 @@ export default {
     prizeGold: 'Je hebt ze al allemaal, dus je krijgt {n} goud in de plaats!'
   },
   errand: {
+    farmersFavor: {
+      title: 'De wolven van de Tollers'
+    },
+    herbalistFavor: {
+      title: 'Briars zonnebladen'
+    },
     collectorFavor: {
       title: 'De maanklokjes van de Verzamelaar'
     },

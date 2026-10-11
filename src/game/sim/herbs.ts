@@ -166,8 +166,14 @@ export const populateHerbs = (sim: Sim, herbs: readonly HerbPlan[], pieces: read
 /** The hero walks over one: it is his (this step's pick-ups). */
 export const stepPickups = (sim: Sim): void => {
   const h = sim.hero
-  if (!h || (!sim.herbs.length && !sim.pieces.length) || !h.unit.alive) return
+  if (!h || (!sim.herbs.length && !sim.pieces.length && !sim.cageKey) || !h.unit.alive) return
   const u = h.unit
+  // A cage's key (#100).
+  const key = sim.cageKey
+  if (key && !key.taken && Math.hypot(key.x - u.x, key.z - u.z) <= PICK_REACH) {
+    key.taken = true
+    sim.emit({ t: 'cageKey', x: key.x, z: key.z })
+  }
   for (const p of sim.pieces) {
     if (p.taken || Math.hypot(p.x - u.x, p.z - u.z) > PICK_REACH) continue
     p.taken = true

@@ -237,6 +237,40 @@ const sunfordGambler = conversation('sunfordGambler', {
   bye: [{ id: 'bye' }]
 })
 
+
+/** Odo Marrow: a peddler the bandits caged on the plains (#100). Chatty, grateful, never quite honest about prices. */
+const freedPeddler = conversation('freedPeddler', {
+  name: 'npc.freedPeddler.name', look: 'freedPeddler', mood: 'amused',
+  greet: [
+    { id: 'hello', when: { met: false }, lines: 'nn', mood: 'excited' },
+    { id: 'again' }
+  ],
+  topics: [
+    trade(),
+    who({ lines: 'nn' })
+  ],
+  back: { shop: [{ id: 'shopBack' }] },
+  bye: [{ id: 'bye' }]
+})
+
+/** Sister Aurelle: a Lightbringer's disciple, freed from the Sunken Temple (#100). Gentle, glad to be in the sun. */
+const lightDisciple = conversation('lightDisciple', {
+  name: 'npc.lightDisciple.name', look: 'lightDisciple', mood: 'warm',
+  greet: [
+    { id: 'hello', when: { met: false }, lines: 'nn', mood: 'warm' },
+    { id: 'again' }
+  ],
+  topics: [
+    train(),
+    { id: 'class', lines: 'nn' },
+    ready('lightbringer'),
+    who({ lines: 'nn' })
+  ],
+  back: { trainer: [{ id: 'trainBack' }] },
+  bye: [{ id: 'bye' }]
+})
+
 export const SUNFORD_TALK: ConversationDef[] = [
+  freedPeddler, lightDisciple,
   sunfordSmith, sunfordPeddler, trainerAegis, trainerPyro, sfShadow, sfGeo, elderMara, sunfordHealer, goblinTrader, sunfordGambler
 ]

@@ -12,6 +12,7 @@ import { buildRelief, buildTownRelief } from './relief'
 import { TC_DOOR, TC_FLOOR, TC_GRASS, TC_GROUND, TC_SQUARE, TC_STREET, layTown, type TownPlan } from './town'
 import { placeHerbs, placePieces, placeTreasure, type HerbPlan, type PiecePlan } from './herbs'
 import { placeOres, type OrePlan } from './ores'
+import { placeCage } from './cages'
 
 /**
  * ─── Zone layouts ────────────────────────────────────────────────────────────
@@ -130,6 +131,8 @@ export interface ZonePlan {
   herbs?: HerbPlan[]
   /** Ore outcrops against the stone (roadmap #99). */
   ores?: OrePlan[]
+  /** A cage's key lying in the place (roadmap #100); the cage is a chest. */
+  cageKey?: { x: number; z: number }
   /** The treasure map's pieces lying here (roadmap #89). */
   pieces?: PiecePlan[]
   /** An escort (roadmap #85): the caravan's road, x, z pairs from start to end. */
@@ -276,6 +279,8 @@ export interface ZoneGenOpts {
   pieces?: readonly string[]
   /** The map is whole: the buried chest is here under its X. */
   treasure?: boolean
+  /** Somebody is held here in a cage (roadmap #100). */
+  cage?: boolean
 }
 
 export const generateZone = (def: ZoneDef, seed: number, o: ZoneGenOpts = {}): ZonePlan => {
@@ -537,6 +542,9 @@ export const generateZone = (def: ZoneDef, seed: number, o: ZoneGenOpts = {}): Z
   if (x) {
     features.chests.push({ id: features.chests.length, x: x.x, z: x.z, tier: 'gold', role: 'treasure', sx: x.x, sz: x.z + 1.2, door: -1, guard: -1 })
   }
+  // A cage (#100), last of all and on its own stream.
+  const cage = o.cage && !o.tutorial && !o.bare ? placeCage(spots, [...herbs, ...pieces, ...ores, ...(x ? [x] : [])]) : null
+  if (cage) features.chests.push({ id: features.chests.length, ...cage.chest })
   // The standing wheat (the field layout): the fields and the lanes between
   // them, off the paths; the side places (corners, caves, ways off the road)
   // stay bare, and so does water, a bridge, a chest's spot.
@@ -575,6 +583,7 @@ export const generateZone = (def: ZoneDef, seed: number, o: ZoneGenOpts = {}): Z
     gates: [],
     herbs,
     ores,
+    ...(cage ? { cageKey: cage.key } : {}),
     pieces,
     // The first visit opens on a calm beat: a dummy to learn to fight on.
     ...(o.tutorial ? { dummy: placeDummy(solid, h, cs, features.chests, packs[0]!) } : {})

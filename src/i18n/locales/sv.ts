@@ -129,6 +129,16 @@ export default {
     chi: 'Chi'
   },
   toast: {
+    freed: {
+      lightDisciple: 'Fri! Syster Aurelle kommer att lära ut Ljusbringarens väg i {town}.',
+      frostDisciple: 'Fri! Ivor kommer att lära ut Frostväktarens väg i {town}.',
+      windDisciple: 'Fri! Kestrel kommer att lära ut Vindlöparens väg i {town}.',
+      freedFarmers: 'Fria! Familjen Toller får ett hem i {town}.',
+      freedHerbalist: 'Fri! Örtkunniga Briar väntar på dig i {town}.',
+      freedPeddler: 'Fri! Gårdfarihandlaren Odo kommer att handla i {town}.'
+    },
+    cageLocked: 'Låst. Nyckeln måste finnas någonstans här.',
+    cageKey: 'En nyckel! Den måste öppna buren.',
     ore: 'Brutet: {n} × {ore}',
     mineBusy: 'Inte med fiender i närheten!',
     item: 'Hittade: {item}',
@@ -1778,6 +1788,25 @@ export default {
     circle: 'Eterns cirkel'
   },
   npc: {
+    frostDisciple: {
+      name: 'Ivor Hask'
+    },
+    windDisciple: {
+      name: 'Kestrel Vane'
+    },
+    freedFarmers: {
+      name: 'Jory Toller'
+    },
+    freedHerbalist: {
+      name: 'Briar Hollowell'
+    },
+    lightDisciple: {
+      name: 'Syster Aurelle'
+    },
+    freedPeddler: {
+      talk: 'Allt en resenär behöver. Nästan nytt, för det mesta.',
+      name: 'Odo Marrow'
+    },
     sfShadow: {
       name: 'Nettle Quickhand'
     },
@@ -2042,6 +2071,202 @@ export default {
     }
   },
   dlg: {
+    frostDisciple: {
+      bye: {
+        '1': 'Håll dig varm.'
+      },
+      who: {
+        '2': 'Ironholds smedjor är varma. Jag trivs här.',
+        '1': 'Jag jagade på tundran. De höll mig i bur en hel vinter.'
+      },
+      trainBack: {
+        '1': 'Öva. Kylan är tålmodig. Var likadan.'
+      },
+      ready: {
+        weak: {
+          '1': 'Inte än. Mer styrka i armen och i sinnet.'
+        },
+        able: {
+          '1': 'Du är redo. Nästa lektion.'
+        },
+        strong: {
+          '1': 'Du är starkare än jag var. Ta vad du behöver.'
+        }
+      },
+      class: {
+        say: 'Vad är en Frostväktare?',
+        '2': 'Styrka för klingan. Intelligens för frosten.',
+        '1': 'Kyl dem, frys dem, krossa sedan isen.'
+      },
+      train: {
+        '1': 'Stå still. Låt kylan komma till dig. Skicka sedan tillbaka den.'
+      },
+      again: {
+        '1': 'Du återvänder. Bra.'
+      },
+      hello: {
+        '2': 'Ivor Hask. Halvard Rimhjärta lärde mig frosten. Nu lär jag ut den, här.',
+        '1': 'Fri. Bra. Kylan tog mig inte, och det gjorde inte de heller.'
+      }
+    },
+    windDisciple: {
+      bye: {
+        '1': 'Håll ögonen på vinden.'
+      },
+      who: {
+        '2': 'Säg till Sefa att jag lever, är du snäll? Hon oroar sig.',
+        '1': 'Jag var på väg till Silverbridge när klipporna fångade mig.'
+      },
+      trainBack: {
+        '1': 'Gå och öva. Någonstans där det blåser.'
+      },
+      ready: {
+        weak: {
+          '1': 'Inte än. Bli snabbare först, kom sedan tillbaka.'
+        },
+        able: {
+          '1': 'Du är redo för nästa. Titta noga.'
+        },
+        strong: {
+          '1': 'Du är snabbare än jag nu. Ta vad du vill.'
+        }
+      },
+      class: {
+        say: 'Vad gör en Vindlöpare?',
+        '2': 'Smidighet för snabba fötter. Teknik, så att varje pil träffar.',
+        '1': 'Spring, skjut, spring igen. Var aldrig där de siktar.'
+      },
+      train: {
+        '1': 'Fötterna isär. Andas ut. Låt vinden bära den.'
+      },
+      again: {
+        '1': 'Hej! Bra vind i dag. Ska vi skjuta?'
+      },
+      hello: {
+        '2': 'Kestrel Vane. Sefa Vindvinge lärde mig bågen. Jag kan lära dig det hon lärde mig.',
+        '1': 'Du fick ut mig! Jag är skyldig dig allt. Nåja, mycket.'
+      }
+    },
+    freedFarmers: {
+      bye: {
+        '1': 'Ta hand om dig på vägen.'
+      },
+      who: {
+        '2': 'Oakhaven tog emot oss. Vi betalar tillbaka i bröd.',
+        '1': 'Banditer tog oss från vår åker och lämnade oss att ruttna i skogen.'
+      },
+      favorDone: {
+        say: 'Vargarna kommer inte att besvära er mer.',
+        '2': 'Ta det här. Det är inte mycket, men det är ärligt.',
+        '1': 'Lugna nätter igen. Äntligen kan vi sova.'
+      },
+      waiting: {
+        say: 'Angående vargarna...',
+        '1': 'Vargarna stryker fortfarande omkring. Vi hörde dem i natt.'
+      },
+      favor: {
+        say: 'Kan jag hjälpa till med något?',
+        '2': 'Kan du tunna ut dem lite? Åtta borde lära dem.',
+        '1': 'Vargar från Viskande skogen tar våra får hela tiden.'
+      },
+      again: {
+        '1': 'Där är vår hjälte. Kommit för en bit mat?'
+      },
+      hello: {
+        '2': 'Jory Toller. Vi brukar jorden utanför murarna nu. Ja, vi försöker.',
+        '1': 'Vi hade varit döda utan dig. Både jag och min pojke. Tack.'
+      }
+    },
+    freedHerbalist: {
+      bye: {
+        '1': 'Gå varsamt. Saker växer där.'
+      },
+      who: {
+        '2': 'De hade inte helt fel.',
+        '1': 'En örtkunnig från kullarna. Goblinerna trodde att jag var en häxa.'
+      },
+      favorDone: {
+        say: 'Här är dina solblad.',
+        '2': 'Här, din betalning. Och tack igen.',
+        '1': 'Åh, de är perfekta. Känn bara doften!'
+      },
+      waiting: {
+        say: 'Angående solbladen...',
+        '1': 'Letar du fortfarande? Solblad älskar öppen sol.'
+      },
+      favor: {
+        say: 'Finns det något jag kan göra för dig?',
+        '2': 'De växer ute på slätterna. Jag betalar bra för dem.',
+        '1': 'Mina förråd försvann i den där buren. Kan du hämta tre solblad åt mig?'
+      },
+      again: {
+        '1': 'Ah, hej igen. Dina stövlar luktar mossa. Bra.'
+      },
+      hello: {
+        '2': 'Jag heter Briar. Jag samlar och torkar det som växer. Silverbridge var vänligt nog att ta emot mig.',
+        '1': 'Jag visste att någon skulle komma. Goblinerna förstod sig aldrig på örter. Eller vänlighet.'
+      }
+    },
+    lightDisciple: {
+      bye: {
+        '1': 'Vandra i ljuset.'
+      },
+      who: {
+        '2': 'Sunford är ljust och stilla. Jag behövde båda.',
+        '1': 'Jag gick till Sjunkna templet för att be. Nagorna hade andra planer.'
+      },
+      trainBack: {
+        '1': 'Gå varsamt. Och låt dem se dig komma.'
+      },
+      ready: {
+        weak: {
+          '1': 'Inte än. Först ett klarare sinne och ett varmare hjärta.'
+        },
+        able: {
+          '1': 'Du är redo för nästa lektion. Kom, ställ dig i ljuset.'
+        },
+        strong: {
+          '1': 'Du lyser starkare än jag nu. Ta vad du behöver.'
+        }
+      },
+      class: {
+        say: 'Vad gör en Ljusbringare?',
+        '2': 'Intelligens gör ljuset starkt. Karisma gör det varmt.',
+        '1': 'Vi bär gryningen. Ljus att strida med, ljus att hela med.'
+      },
+      train: {
+        '1': 'Öppna händerna. Låt ljuset gå genom dem, inte från dem.'
+      },
+      again: {
+        '1': 'Välkommen tillbaka. Solen är vänlig i dag.'
+      },
+      hello: {
+        '2': 'Jag heter Aurelle. Syster Auriel lärde mig ljuset. Nu lär jag ut det här.',
+        '1': 'Ljuset vare med dig. Du fann mig i mörkret, och det glömmer jag aldrig.'
+      }
+    },
+    freedPeddler: {
+      bye: {
+        '1': 'Akta dig för banditerna. De gillar inte att dela.'
+      },
+      shopBack: {
+        '1': 'Ett nöje att göra affärer, min vän.'
+      },
+      who: {
+        '2': 'Nu säljer jag i Sunford. Det är säkrare här. För det mesta.',
+        '1': 'Banditer tog min kärra och stoppade mig i en låda. Mycket ohyfsat.'
+      },
+      trade: {
+        '1': 'Ringar, handskar, stövlar. Halva priset för dig. Nåja, nästan.'
+      },
+      again: {
+        '1': 'Min räddare! Kom, kom, jag har sparat det bästa åt dig.'
+      },
+      hello: {
+        '2': 'Odo Marrow, till din tjänst. Gårdfarihandlare, kittelflickare och mycket tacksam man.',
+        '1': 'Du! Det var du som öppnade buren! Jag hade ruttnat där inne.'
+      }
+    },
     sfShadow: {
       hello: {
         '1': 'Hörde dig inte komma in. Det brukar vara mitt trick.',
@@ -5316,6 +5541,12 @@ export default {
     prizeGold: 'Du har redan alla, så du får {n} guld i stället!'
   },
   errand: {
+    farmersFavor: {
+      title: 'Familjen Tollers vargar'
+    },
+    herbalistFavor: {
+      title: 'Briars solblad'
+    },
     collectorFavor: {
       title: 'Samlarens månklockor'
     },

@@ -56,6 +56,17 @@ export interface ErrandDef {
 export const ERRANDS: ErrandDef[] = [
   // The secret traders of Silverbridge (roadmap #86, D108): a favour each,
   // and their better stock is open to the hero for good.
+  // Freed from the cages (#100): Briar's lost stores, the Tollers' sheep.
+  {
+    id: 'herbalistFavor', giver: 'freedHerbalist',
+    steps: [{ kind: 'gather', plant: 'sunpetal', n: 3 }],
+    reward: { gold: 120, xp: 0.2 }
+  },
+  {
+    id: 'farmersFavor', giver: 'freedFarmers',
+    steps: [{ kind: 'slay', enemy: 'wolf', place: 'woods', n: 8 }],
+    reward: { gold: 160, xp: 0.25 }
+  },
   {
     id: 'collectorFavor', giver: 'sbCollector',
     steps: [{ kind: 'slay', enemy: 'treant', place: 'woods', n: 6 }, { kind: 'gather', plant: 'moonbell', n: 3 }],

@@ -44,6 +44,8 @@ export const findChest = (sim: Sim): boolean => {
   let bd = Infinity
   for (const c of sim.chests) {
     if (c.state !== 'closed' && c.state !== 'opening') continue
+    // A cage without its key (#100) is pointed at once the key is found.
+    if (c.role === 'cage' && !sim.cageKey?.taken) continue
     const d = Math.hypot(c.x - u.x, c.z - u.z)
     if (d < bd) { bd = d; best = c.id }
   }

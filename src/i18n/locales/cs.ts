@@ -129,6 +129,16 @@ export default {
     chi: 'Čchi'
   },
   toast: {
+    freed: {
+      lightDisciple: 'Na svobodě! Sestra Aurelle bude učit cestě Nositele světla ve městě {town}.',
+      frostDisciple: 'Na svobodě! Ivor bude učit cestě Strážce mrazu ve městě {town}.',
+      windDisciple: 'Na svobodě! Kestrel bude učit cestě Větroběžce ve městě {town}.',
+      freedFarmers: 'Na svobodě! Tollerovi najdou domov ve městě {town}.',
+      freedHerbalist: 'Na svobodě! Bylinkářka Briar na tebe počká ve městě {town}.',
+      freedPeddler: 'Na svobodě! Podomní obchodník Odo bude obchodovat ve městě {town}.'
+    },
+    cageLocked: 'Zamčeno. Klíč musí být někde tady.',
+    cageKey: 'Klíč! Ten musí otevírat klec.',
     ore: 'Vytěženo: {n} × {ore}',
     mineBusy: 'Ne s nepřáteli poblíž!',
     item: 'Nalezeno: {item}',
@@ -1782,6 +1792,25 @@ export default {
     circle: 'Kruh éteru'
   },
   npc: {
+    frostDisciple: {
+      name: 'Ivor Hask'
+    },
+    windDisciple: {
+      name: 'Kestrel Vane'
+    },
+    freedFarmers: {
+      name: 'Jory Toller'
+    },
+    freedHerbalist: {
+      name: 'Briar Hollowell'
+    },
+    lightDisciple: {
+      name: 'Sestra Aurelle'
+    },
+    freedPeddler: {
+      talk: 'Všechno, co cestovatel potřebuje. Skoro nové, většinou.',
+      name: 'Odo Marrow'
+    },
     sfShadow: {
       name: 'Nettle Quickhand'
     },
@@ -2046,6 +2075,213 @@ export default {
     }
   },
   dlg: {
+    frostDisciple: {
+      bye: {
+        '1': 'Drž se v teple.'
+      },
+      who: {
+        '2': 'Kovárny Ironholdu jsou teplé. Líbí se mi tu.',
+        '1': 'Lovil jsem v tundře. Zavřeli mě do klece na celou zimu.'
+      },
+      trainBack: {
+        '1__f': 'Trénuj. Chlad je trpělivý. Buď taky taková.',
+        '1': 'Trénuj. Chlad je trpělivý. Buď taky takový.'
+      },
+      ready: {
+        weak: {
+          '1': 'Ještě ne. Víc síly v paži i v mysli.'
+        },
+        able: {
+          '1__f': 'Jsi připravená. Další lekce.',
+          '1': 'Jsi připravený. Další lekce.'
+        },
+        strong: {
+          '1': 'Jsi silnější, než jsem byl já. Vezmi si, co potřebuješ.'
+        }
+      },
+      class: {
+        say: 'Co je Strážce mrazu?',
+        '2': 'Síla pro čepel. Inteligence pro mráz.',
+        '1': 'Zchlaď je, zmraz je, pak rozbij led.'
+      },
+      train: {
+        '1': 'Stůj klidně. Nech chlad přijít k tobě. Pak ho pošli zpátky.'
+      },
+      again: {
+        '1__f': 'Vrátila ses. Dobře.',
+        '1': 'Vrátil ses. Dobře.'
+      },
+      hello: {
+        '2': 'Ivor Hask. Halvard Ledosrdý mě naučil mrazu. Teď ho tu učím já.',
+        '1': 'Volný. Dobře. Zima mě nedostala. A oni taky ne.'
+      }
+    },
+    windDisciple: {
+      bye: {
+        '1': 'Měj oči na větru.'
+      },
+      who: {
+        '2': 'Řekneš Sefě, že žiju? Dělá si starosti.',
+        '1': 'Byl jsem na cestě do Silverbridge, když mě chytili na útesech.'
+      },
+      trainBack: {
+        '1': 'Jdi trénovat. Někam, kde fouká.'
+      },
+      ready: {
+        weak: {
+          '1': 'Ještě ne. Nejdřív zrychli, pak se vrať.'
+        },
+        able: {
+          '1__f': 'Jsi připravená na další. Dívej se pozorně.',
+          '1': 'Jsi připravený na další. Dívej se pozorně.'
+        },
+        strong: {
+          '1': 'Už jsi rychlejší než já. Vezmi si, co chceš.'
+        }
+      },
+      class: {
+        say: 'Co dělá Větroběžec?',
+        '2': 'Obratnost pro rychlé nohy. Zručnost, aby každý šíp trefil.',
+        '1': 'Běž, střílej, zase běž. Nikdy nebuď tam, kam míří.'
+      },
+      train: {
+        '1': 'Nohy od sebe. Vydechni. Nech vítr, ať ji nese.'
+      },
+      again: {
+        '1': 'Hej! Vítr je dneska dobrý. Zastřílíme si?'
+      },
+      hello: {
+        '2': 'Kestrel Vane. Sefa Větrokřídlá mě naučila střílet z luku. Můžu tě naučit to, co naučila mě.',
+        '1__f': 'Dostala jsi mě ven! Dlužím ti všechno. No, hodně.',
+        '1': 'Dostal jsi mě ven! Dlužím ti všechno. No, hodně.'
+      }
+    },
+    freedFarmers: {
+      bye: {
+        '1': 'Dávej na sebe na cestě pozor.'
+      },
+      who: {
+        '2': 'Oakhaven nás přijal. Splácíme mu to chlebem.',
+        '1': 'Bandité nás odvlekli z pole a nechali nás v lese shnít.'
+      },
+      favorDone: {
+        say: 'Vlci vás už nebudou obtěžovat.',
+        '2': 'Vezmi si tohle. Není to moc, ale je to poctivé.',
+        '1': 'Zase klidné noci. Konečně se vyspíme.'
+      },
+      waiting: {
+        say: 'Co se týče těch vlků...',
+        '1': 'Vlci jsou pořád kolem. Slyšeli jsme je včera v noci.'
+      },
+      favor: {
+        say: 'Můžu s něčím pomoct?',
+        '2': 'Prořídíš je trochu? Osm by je mělo poučit.',
+        '1': 'Vlci ze Šeptajícího hvozdu nám pořád berou ovce.'
+      },
+      again: {
+        '1__f': 'Á, naše hrdinka. Přišla ses najíst?',
+        '1': 'Á, náš hrdina. Přišel ses najíst?'
+      },
+      hello: {
+        '2': 'Jory Toller. Teď hospodaříme za hradbami. No, snažíme se.',
+        '1': 'Bez tebe bychom byli mrtví. Já i můj kluk. Děkuju.'
+      }
+    },
+    freedHerbalist: {
+      bye: {
+        '1': 'Šlapej zlehka. Něco tam roste.'
+      },
+      who: {
+        '2': 'Úplně se nemýlili.',
+        '1': 'Bylinkářka z kopců. Goblini si mysleli, že jsem čarodějnice.'
+      },
+      favorDone: {
+        say: 'Tady jsou tvoje slunoplátky.',
+        '2': 'Tady máš odměnu. A ještě jednou díky.',
+        '1': 'Ó, ty jsou dokonalé. Jen přičichni!'
+      },
+      waiting: {
+        say: 'Co se týče těch slunoplátků...',
+        '1': 'Pořád hledáš? Slunoplátky milují otevřené slunce.'
+      },
+      favor: {
+        say: 'Můžu pro tebe něco udělat?',
+        '2': 'Rostou venku na pláních. Dobře ti za ně zaplatím.',
+        '1': 'Moje zásoby se v té kleci ztratily. Přineseš mi tři slunoplátky?'
+      },
+      again: {
+        '1': 'Á, zase ahoj. Tvoje boty voní mechem. Dobře.'
+      },
+      hello: {
+        '2': 'Jsem Briar. Sbírám a suším, co roste. Silverbridge byl tak laskav, že mě přijal.',
+        '1': 'Věděla jsem, že někdo přijde. Goblini nikdy nerozuměli bylinám. Ani laskavosti.'
+      }
+    },
+    lightDisciple: {
+      bye: {
+        '1': 'Kráčej ve světle.'
+      },
+      who: {
+        '2': 'Sunford je jasný a tichý. Potřebovala jsem obojí.',
+        '1': 'Šla jsem se pomodlit do Potopeného chrámu. Nagové měli jiné plány.'
+      },
+      trainBack: {
+        '1': 'Jdi jemně. A ať tě vidí přicházet.'
+      },
+      ready: {
+        weak: {
+          '1': 'Ještě ne. Nejdřív jasnější mysl a vřelejší srdce.'
+        },
+        able: {
+          '1__f': 'Jsi připravená na další lekci. Pojď, postav se do světla.',
+          '1': 'Jsi připravený na další lekci. Pojď, postav se do světla.'
+        },
+        strong: {
+          '1': 'Teď záříš jasněji než já. Vezmi si, co potřebuješ.'
+        }
+      },
+      class: {
+        say: 'Co dělá Nositel světla?',
+        '2': 'Inteligence dělá světlo silným. Charisma ho dělá teplým.',
+        '1': 'Neseme úsvit. Světlo k boji a světlo k léčení.'
+      },
+      train: {
+        '1': 'Otevři dlaně. Nech světlo procházet skrz ně, ne z nich.'
+      },
+      again: {
+        '1': 'Vítej zpátky. Slunce je dnes laskavé.'
+      },
+      hello: {
+        '2': 'Jsem Aurelle. Sestra Auriel mě naučila světlu. Teď ho tu učím já.',
+        '1__f': 'Světlo s tebou. Našla jsi mě ve tmě a to nezapomenu.',
+        '1': 'Světlo s tebou. Našel jsi mě ve tmě a to nezapomenu.'
+      }
+    },
+    freedPeddler: {
+      bye: {
+        '1': 'Dej si pozor na bandity. Neradi se dělí.'
+      },
+      shopBack: {
+        '1__f': 'Rád jsem s tebou obchodoval, přítelkyně.',
+        '1': 'Rád jsem s tebou obchodoval, příteli.'
+      },
+      who: {
+        '2': 'Teď prodávám v Sunfordu. Je to tu bezpečnější. Většinou.',
+        '1': 'Bandité mi vzali vůz a mě zavřeli do bedny. Velmi nezdvořilé.'
+      },
+      trade: {
+        '1': 'Prsteny, rukavice, boty. Pro tebe za poloviční cenu. No, skoro.'
+      },
+      again: {
+        '1__f': 'Má zachránkyně! Pojď, pojď, schoval jsem pro tebe ty nejlepší věci.',
+        '1': 'Můj zachránce! Pojď, pojď, schoval jsem pro tebe ty nejlepší věci.'
+      },
+      hello: {
+        '2': 'Odo Marrow, k tvým službám. Podomní obchodník, dráteník a velmi vděčný člověk.',
+        '1__f': 'Ty! Ty jsi ta, která otevřela tu klec! Byl bych tam shnil.',
+        '1': 'Ty! Ty jsi ten, kdo otevřel tu klec! Byl bych tam shnil.'
+      }
+    },
     sfShadow: {
       hello: {
         '1': 'Ani šust, ani krok. To je obvykle můj trik.',
@@ -5408,6 +5644,12 @@ export default {
     prizeGold: 'Všechno už máš, takže místo toho dostáváš {n} zl.!'
   },
   errand: {
+    farmersFavor: {
+      title: 'Vlci Tollerových'
+    },
+    herbalistFavor: {
+      title: 'Slunoplátky pro Briar'
+    },
     collectorFavor: {
       title: 'Sběratelovy měsíční zvonky'
     },

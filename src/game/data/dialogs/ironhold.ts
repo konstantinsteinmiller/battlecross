@@ -230,7 +230,26 @@ const trainerChrono = conversation('trainerChrono', {
   bye: [{ id: 'bye' }]
 })
 
+
+/** Ivor Hask: Halvard Rimeheart's pupil, freed from the tundra (#100). A northerner of very few words. */
+const frostDisciple = conversation('frostDisciple', {
+  name: 'npc.frostDisciple.name', look: 'frostDisciple', mood: 'neutral',
+  greet: [
+    { id: 'hello', when: { met: false }, lines: 'nn', mood: 'warm' },
+    { id: 'again' }
+  ],
+  topics: [
+    train(),
+    { id: 'class', lines: 'nn' },
+    ready('frostwarden'),
+    who({ lines: 'nn' })
+  ],
+  back: { trainer: [{ id: 'trainBack' }] },
+  bye: [{ id: 'bye' }]
+})
+
 export const IRONHOLD_TALK: ConversationDef[] = [
+  frostDisciple,
   forgemaster, ironWeapons, ironAetherWorks, ironArmor, ironOrderArmor, trainerGeo, trainerAether, ironHealer,
   exiledSovereign, trainerChrono
 ]

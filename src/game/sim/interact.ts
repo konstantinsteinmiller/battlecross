@@ -82,8 +82,10 @@ export const rollChest = (table: ChestTable, rng: Rng): LootDraw[] => {
 }
 
 /** Why a chest cannot be opened right now ('' = it can). */
-export const chestLock = (sim: Sim, c: ChestState): '' | 'guard' | 'finale' | 'gone' => {
+export const chestLock = (sim: Sim, c: ChestState): '' | 'guard' | 'finale' | 'gone' | 'key' => {
   if (c.state !== 'closed') return 'gone'
+  // A cage (#100): its key first.
+  if (c.role === 'cage' && !sim.cageKey?.taken) return 'key'
   if (c.role === 'finale' && sim.ended !== 'victory') return 'finale'
   if (c.guard >= 0 && !sim.sideGroups[c.guard]?.cleared) return 'guard'
   return ''
@@ -342,6 +344,10 @@ export const populateFeatures = (sim: Sim, plan: ZonePlan, zone: ZoneId, opened:
           draws.push({ kind: 'item', gold: 0, u: rng(), item: '' })
         }
       }
+    } else if (c.role === 'cage') {
+      // A cage (#100): nothing in it but the people, and their thanks.
+      special = specialKey(zone, c.role)
+      draws = [{ kind: 'gold', gold: Math.round(secretGold(sim.level) * 0.5), u: 0, item: '' }]
     } else if (c.role === 'treasure') {
       // The treasure map's chest (#89): a fat purse and an Epic not owned yet.
       special = specialKey(zone, c.role)

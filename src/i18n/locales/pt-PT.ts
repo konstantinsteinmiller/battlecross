@@ -129,6 +129,16 @@ export default {
     chi: 'Chi'
   },
   toast: {
+    freed: {
+      lightDisciple: 'Libertada! A Irmã Aurelle vai ensinar o caminho do Portador da Luz em {town}.',
+      frostDisciple: 'Libertado! Ivor vai ensinar o caminho do Guardião do Gelo em {town}.',
+      windDisciple: 'Libertado! Kestrel vai ensinar o caminho do Corredor do Vento em {town}.',
+      freedFarmers: 'Libertados! Os Toller vão encontrar um lar em {town}.',
+      freedHerbalist: 'Libertada! Briar, a ervanária, vai esperar-te em {town}.',
+      freedPeddler: 'Libertado! Odo, o bufarinheiro, vai negociar em {town}.'
+    },
+    cageLocked: 'Trancada. A chave tem de estar algures neste sítio.',
+    cageKey: 'Uma chave! Deve abrir a jaula.',
     ore: 'Extraíste: {n} × {ore}',
     mineBusy: 'Não com inimigos por perto!',
     item: 'Encontraste: {item}',
@@ -1779,6 +1789,25 @@ export default {
     circle: 'O Círculo do Éter'
   },
   npc: {
+    frostDisciple: {
+      name: 'Ivor Hask'
+    },
+    windDisciple: {
+      name: 'Kestrel Vane'
+    },
+    freedFarmers: {
+      name: 'Jory Toller'
+    },
+    freedHerbalist: {
+      name: 'Briar Hollowell'
+    },
+    lightDisciple: {
+      name: 'Irmã Aurelle'
+    },
+    freedPeddler: {
+      talk: 'Tudo o que um viajante precisa. Quase novo, na maior parte.',
+      name: 'Odo Marrow'
+    },
     sfShadow: {
       name: 'Nettle Quickhand'
     },
@@ -2043,6 +2072,211 @@ export default {
     }
   },
   dlg: {
+    frostDisciple: {
+      bye: {
+        '1': 'Agasalha-te.'
+      },
+      who: {
+        '2': 'As forjas de Ironhold são quentes. Gosto de estar aqui.',
+        '1': 'Eu caçava na tundra. Enjaularam-me durante um inverno.'
+      },
+      trainBack: {
+        '1': 'Pratica. O frio é paciente. Sê também.'
+      },
+      ready: {
+        weak: {
+          '1': 'Ainda não. Mais força no braço e na mente.'
+        },
+        able: {
+          '1__f': 'Estás pronta. Próxima lição.',
+          '1': 'Estás pronto. Próxima lição.'
+        },
+        strong: {
+          '1': 'És mais forte do que eu era. Leva o que precisares.'
+        }
+      },
+      class: {
+        say: 'O que é um Guardião do Gelo?',
+        '2': 'Força para a lâmina. Inteligência para o gelo.',
+        '1': 'Arrefece-os, congela-os, depois parte o gelo.'
+      },
+      train: {
+        '1__f': 'Fica quieta. Deixa o frio vir até ti. Depois manda-o de volta.',
+        '1': 'Fica quieto. Deixa o frio vir até ti. Depois manda-o de volta.'
+      },
+      again: {
+        '1': 'Voltas. Bom.'
+      },
+      hello: {
+        '2': 'Ivor Hask. Halvard Rimeheart ensinou-me o gelo. Agora ensino-o eu, aqui.',
+        '1': 'Livre. Bom. O frio não me levou, e eles também não.'
+      }
+    },
+    windDisciple: {
+      bye: {
+        '1': 'Não tires os olhos do vento.'
+      },
+      who: {
+        '2': 'Diz à Sefa que estou vivo, sim? Ela preocupa-se.',
+        '1': 'Ia a caminho de Silverbridge quando os penhascos me apanharam.'
+      },
+      trainBack: {
+        '1': 'Vai praticar. Algures onde haja vento.'
+      },
+      ready: {
+        weak: {
+          '1': 'Ainda não. Ganha velocidade primeiro e depois volta.'
+        },
+        able: {
+          '1__f': 'Estás pronta para a próxima. Olha com atenção.',
+          '1': 'Estás pronto para a próxima. Olha com atenção.'
+        },
+        strong: {
+          '1__f': 'Já és mais rápida do que eu. Leva o que quiseres.',
+          '1': 'Já és mais rápido do que eu. Leva o que quiseres.'
+        }
+      },
+      class: {
+        say: 'O que faz um Corredor do Vento?',
+        '2': 'Destreza para pés ligeiros. Técnica, para que cada flecha acerte.',
+        '1': 'Corre, dispara, corre outra vez. Nunca estejas onde eles apontam.'
+      },
+      train: {
+        '1': 'Pés afastados. Expira. Deixa o vento levá-la.'
+      },
+      again: {
+        '1': 'Olá! O vento está bom hoje. Vamos disparar?'
+      },
+      hello: {
+        '2': 'Kestrel Vane. A Sefa Galewing ensinou-me o arco. Posso ensinar-te o que ela me ensinou.',
+        '1': 'Tiraste-me de lá! Devo-te tudo. Bem, muito.'
+      }
+    },
+    freedFarmers: {
+      bye: {
+        '1': 'Vai com cuidado.'
+      },
+      who: {
+        '2': 'Oakhaven acolheu-nos. Pagamos-lhe em pão.',
+        '1': 'Uns bandidos tiraram-nos do nosso campo e deixaram-nos a apodrecer no bosque.'
+      },
+      favorDone: {
+        say: 'Os lobos não vos vão incomodar mais.',
+        '2': 'Toma isto. Não é muito, mas é honesto.',
+        '1': 'Noites calmas outra vez. Finalmente podemos dormir.'
+      },
+      waiting: {
+        say: 'Sobre aqueles lobos...',
+        '1': 'Os lobos ainda andam por aí. Ouvimo-los ontem à noite.'
+      },
+      favor: {
+        say: 'Posso ajudar nalguma coisa?',
+        '2': 'Podias reduzir-lhes o número? Oito devem servir-lhes de lição.',
+        '1': 'Os lobos do Bosque Sussurrante estão sempre a levar-nos as ovelhas.'
+      },
+      again: {
+        '1__f': 'Aí está a nossa heroína. Vens comer qualquer coisa?',
+        '1': 'Aí está o nosso herói. Vens comer qualquer coisa?'
+      },
+      hello: {
+        '2': 'Jory Toller. Agora cultivamos fora das muralhas. Bem, tentamos.',
+        '1': 'Sem ti estaríamos mortos. Eu e o meu rapaz. Obrigado.'
+      }
+    },
+    freedHerbalist: {
+      bye: {
+        '1': 'Pisa com cuidado. Há coisas a crescer por lá.'
+      },
+      who: {
+        '2': 'Não estavam totalmente enganados.',
+        '1': 'Uma ervanária das colinas. Os goblins tomaram-me por bruxa.'
+      },
+      favorDone: {
+        say: 'Aqui tens as tuas pétalas-do-sol.',
+        '2': 'Toma, o teu pagamento. E obrigada, mais uma vez.',
+        '1': 'Oh, estão perfeitas. Cheira-me isto!'
+      },
+      waiting: {
+        say: 'Sobre aquelas pétalas-do-sol...',
+        '1': 'Ainda à procura? As pétalas-do-sol adoram sol aberto.'
+      },
+      favor: {
+        say: 'Há alguma coisa que eu possa fazer por ti?',
+        '2': 'Crescem lá nas planícies. Pago-tas bem.',
+        '1': 'Perdi as minhas reservas naquela jaula. Podias trazer-me três pétalas-do-sol?'
+      },
+      again: {
+        '1': 'Ah, olá outra vez. As tuas botas cheiram a musgo. Ótimo.'
+      },
+      hello: {
+        '2': 'Sou a Briar. Apanho e seco o que cresce. Silverbridge teve a bondade de me acolher.',
+        '1': 'Eu sabia que alguém viria. Os goblins nunca perceberam nada de ervas. Nem de bondade.'
+      }
+    },
+    lightDisciple: {
+      bye: {
+        '1': 'Caminha na luz.'
+      },
+      who: {
+        '2': 'Sunford é luminosa e calma. Eu precisava das duas coisas.',
+        '1': 'Fui rezar ao Templo Submerso. As nagas tinham outros planos.'
+      },
+      trainBack: {
+        '1': 'Vai com suavidade. E deixa que te vejam chegar.'
+      },
+      ready: {
+        weak: {
+          '1': 'Ainda não. Primeiro uma mente mais clara e um coração mais caloroso.'
+        },
+        able: {
+          '1__f': 'Estás pronta para a próxima lição. Anda, põe-te na luz.',
+          '1': 'Estás pronto para a próxima lição. Anda, põe-te na luz.'
+        },
+        strong: {
+          '1': 'Agora brilhas mais do que eu. Leva o que precisares.'
+        }
+      },
+      class: {
+        say: 'O que faz um Portador da Luz?',
+        '2': 'A Inteligência torna a luz forte. O Carisma torna-a calorosa.',
+        '1': 'Trazemos a aurora. Luz para lutar, luz para curar.'
+      },
+      train: {
+        '1': 'Abre as mãos. Deixa a luz passar através delas, não sair delas.'
+      },
+      again: {
+        '1__f': 'Bem-vinda de volta. O sol está gentil hoje.',
+        '1': 'Bem-vindo de volta. O sol está gentil hoje.'
+      },
+      hello: {
+        '2': 'Sou a Aurelle. A Irmã Auriel ensinou-me a luz. Agora ensino-a aqui.',
+        '1': 'A luz esteja contigo. Encontraste-me no escuro, e não o vou esquecer.'
+      }
+    },
+    freedPeddler: {
+      bye: {
+        '1': 'Cuidado com os bandidos. Não gostam de partilhar.'
+      },
+      shopBack: {
+        '1__f': 'Foi um prazer fazer negócio, amiga.',
+        '1': 'Foi um prazer fazer negócio, amigo.'
+      },
+      who: {
+        '2': 'Agora vendo a partir de Sunford. Aqui é mais seguro. Quase sempre.',
+        '1': 'Uns bandidos levaram-me a carroça e meteram-me numa caixa. Muito mal-educados.'
+      },
+      trade: {
+        '1': 'Anéis, luvas, botas. A metade do preço para ti. Bem, quase.'
+      },
+      again: {
+        '1__f': 'A minha salvadora! Anda, anda, guardei as coisas boas para ti.',
+        '1': 'O meu salvador! Anda, anda, guardei as coisas boas para ti.'
+      },
+      hello: {
+        '2': 'Odo Marrow, ao teu dispor. Bufarinheiro, latoeiro e homem muito agradecido.',
+        '1': 'Tu! Foste tu que abriste aquela jaula! Eu teria apodrecido lá dentro.'
+      }
+    },
     sfShadow: {
       hello: {
         '1': 'Não te ouvi entrar. Normalmente esse é o meu truque.',
@@ -5362,6 +5596,12 @@ export default {
     prizeGold: 'Já os tens todos, por isso recebes {n} de ouro em vez disso!'
   },
   errand: {
+    farmersFavor: {
+      title: 'Os lobos dos Toller'
+    },
+    herbalistFavor: {
+      title: 'As pétalas-do-sol da Briar'
+    },
     collectorFavor: {
       title: 'Os sinos-lunares do Colecionador'
     },

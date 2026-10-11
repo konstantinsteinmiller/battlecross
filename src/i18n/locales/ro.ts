@@ -129,6 +129,16 @@ export default {
     chi: 'Chi'
   },
   toast: {
+    freed: {
+      lightDisciple: 'Eliberată! Sora Aurelle va preda calea Purtătorului de Lumină în {town}.',
+      frostDisciple: 'Eliberat! Ivor va preda calea Străjerului Gerului în {town}.',
+      windDisciple: 'Eliberat! Kestrel va preda calea Alergătorului Vântului în {town}.',
+      freedFarmers: 'Eliberați! Familia Toller își va găsi un cămin în {town}.',
+      freedHerbalist: 'Eliberată! Briar, culegătoarea de ierburi, te va aștepta în {town}.',
+      freedPeddler: 'Eliberat! Negustorul Odo va face negoț în {town}.'
+    },
+    cageLocked: 'Încuiat. Cheia trebuie să fie pe undeva pe aici.',
+    cageKey: 'O cheie! Trebuie să deschidă cușca.',
     ore: 'Ai minat: {n} × {ore}',
     mineBusy: 'Nu cu dușmani prin preajmă!',
     item: 'Găsit: {item}',
@@ -1778,6 +1788,25 @@ export default {
     circle: 'Cercul Eterului'
   },
   npc: {
+    frostDisciple: {
+      name: 'Ivor Hask'
+    },
+    windDisciple: {
+      name: 'Kestrel Vane'
+    },
+    freedFarmers: {
+      name: 'Jory Toller'
+    },
+    freedHerbalist: {
+      name: 'Briar Hollowell'
+    },
+    lightDisciple: {
+      name: 'Sora Aurelle'
+    },
+    freedPeddler: {
+      talk: 'Tot ce-i trebuie unui călător. Aproape nou, de cele mai multe ori.',
+      name: 'Odo Marrow'
+    },
     sfShadow: {
       name: 'Nettle Quickhand'
     },
@@ -2042,6 +2071,208 @@ export default {
     }
   },
   dlg: {
+    frostDisciple: {
+      bye: {
+        '1': 'Să nu-ți fie frig.'
+      },
+      who: {
+        '2': 'Forjele din Ironhold sunt calde. Îmi place aici.',
+        '1': 'Vânam în tundră. M-au ținut în cușcă o iarnă întreagă.'
+      },
+      trainBack: {
+        '1': 'Exersează. Frigul e răbdător. Fii și tu la fel.'
+      },
+      ready: {
+        weak: {
+          '1': 'Nu încă. Mai multă forță în braț și în minte.'
+        },
+        able: {
+          '1': 'Ești gata. Lecția următoare.'
+        },
+        strong: {
+          '1__f': 'Ești mai puternică decât eram eu. Ia ce-ți trebuie.',
+          '1': 'Ești mai puternic decât eram eu. Ia ce-ți trebuie.'
+        }
+      },
+      class: {
+        say: 'Ce este un Străjer al Gerului?',
+        '2': 'Forță pentru lamă. Inteligență pentru ger.',
+        '1': 'Răcește-i, îngheață-i, apoi sparge gheața.'
+      },
+      train: {
+        '1': 'Nu te mișca. Lasă frigul să vină la tine. Apoi trimite-l înapoi.'
+      },
+      again: {
+        '1': 'Te-ai întors. Bine.'
+      },
+      hello: {
+        '2': 'Ivor Hask. Halvard Inimă-de-Chiciură m-a învățat gerul. Acum îl predau eu, aici.',
+        '1': 'Liber. Bine. Frigul nu m-a luat, și nici ei.'
+      }
+    },
+    windDisciple: {
+      bye: {
+        '1': 'Ține ochii pe vânt.'
+      },
+      who: {
+        '2': 'Spune-i Sefei că trăiesc, bine? Își face griji.',
+        '1': 'Eram în drum spre Silverbridge când m-au prins în Stâncile de Cenușă.'
+      },
+      trainBack: {
+        '1': 'Du-te și exersează. Undeva cu vânt.'
+      },
+      ready: {
+        weak: {
+          '1': 'Nu încă. Mai lucrează la iuțeală, apoi revino.'
+        },
+        able: {
+          '1': 'Ești gata pentru următoarea. Urmărește cu atenție.'
+        },
+        strong: {
+          '1__f': 'Acum ești mai rapidă decât mine. Ia ce vrei.',
+          '1': 'Acum ești mai rapid decât mine. Ia ce vrei.'
+        }
+      },
+      class: {
+        say: 'Ce face un Alergător al Vântului?',
+        '2': 'Dexteritate pentru pași iuți. Măiestrie, ca fiecare săgeată să nimerească.',
+        '1': 'Fugi, trage, fugi din nou. Nu fi niciodată unde țintesc ei.'
+      },
+      train: {
+        '1': 'Picioarele depărtate. Expiră. Lasă vântul s-o ducă.'
+      },
+      again: {
+        '1': 'Hei! Vântul e bun azi. Tragem?'
+      },
+      hello: {
+        '2': 'Kestrel Vane. Sefa Aripă-de-Vânt m-a învățat arcul. Te pot învăța ce m-a învățat ea.',
+        '1': 'M-ai scos de acolo! Îți datorez totul. Mă rog, mult.'
+      }
+    },
+    freedFarmers: {
+      bye: {
+        '1': 'Mergi cu grijă.'
+      },
+      who: {
+        '2': 'Oakhaven ne-a primit. Îi plătim înapoi în pâine.',
+        '1': 'Bandiții ne-au luat de pe câmp și ne-au lăsat în pădure să putrezim.'
+      },
+      favorDone: {
+        say: 'Lupii nu vă vor mai necăji.',
+        '2': 'Ia asta. Nu e mult, dar e cinstit.',
+        '1': 'Iar avem nopți liniștite. În sfârșit putem dormi.'
+      },
+      waiting: {
+        say: 'Despre lupii ăia...',
+        '1': 'Lupii încă dau târcoale. I-am auzit azi-noapte.'
+      },
+      favor: {
+        say: 'Pot ajuta cu ceva?',
+        '2': 'Rărește-i, te rog. Opt ar trebui să-i învețe minte.',
+        '1': 'Lupii din Pădurea Șoaptelor ne tot iau oile.'
+      },
+      again: {
+        '1__f': 'Uite-o pe eroina noastră! Vii să mănânci ceva?',
+        '1': 'Uite-l pe eroul nostru! Vii să mănânci ceva?'
+      },
+      hello: {
+        '2': 'Jory Toller. Acum lucrăm pământul dincolo de ziduri. Mă rog, încercăm.',
+        '1': 'Fără tine am fi fost morți. Și eu, și băiatul meu. Mulțumesc.'
+      }
+    },
+    freedHerbalist: {
+      bye: {
+        '1': 'Calcă ușor. Acolo cresc lucruri.'
+      },
+      who: {
+        '2': 'Nu se înșelau de tot.',
+        '1': 'O culegătoare de ierburi de pe dealuri. Goblinii m-au luat drept vrăjitoare.'
+      },
+      favorDone: {
+        say: 'Iată petalele-de-soare.',
+        '2': 'Poftim plata. Și mulțumirile mele, încă o dată.',
+        '1': 'Oh, sunt perfecte. Ia miroase!'
+      },
+      waiting: {
+        say: 'Despre petalele-de-soare...',
+        '1': 'Încă le cauți? Petalele-de-soare iubesc soarele din plin.'
+      },
+      favor: {
+        say: 'Pot face ceva pentru tine?',
+        '2': 'Cresc afară, pe câmpie. Le plătesc bine.',
+        '1': 'Proviziile mele s-au pierdut în cușca aia. Mi-ai putea aduce trei petale-de-soare?'
+      },
+      again: {
+        '1': 'Ah, salut din nou. Cizmele tale miros a mușchi. Bine.'
+      },
+      hello: {
+        '2': 'Sunt Briar. Adun și usuc ce crește. Silverbridge a fost destul de bun să mă primească.',
+        '1': 'Știam că va veni cineva. Goblinii n-au înțeles niciodată ierburile. Nici bunătatea.'
+      }
+    },
+    lightDisciple: {
+      bye: {
+        '1': 'Umblă în lumină.'
+      },
+      who: {
+        '2': 'Sunford e luminos și liniștit. Aveam nevoie de amândouă.',
+        '1': 'M-am dus la Templul Scufundat să mă rog. Naga aveau alte planuri.'
+      },
+      trainBack: {
+        '1': 'Mergi cu blândețe. Și lasă-i să te vadă venind.'
+      },
+      ready: {
+        weak: {
+          '1': 'Nu încă. Întâi o minte mai limpede și o inimă mai caldă.'
+        },
+        able: {
+          '1': 'Ești gata pentru lecția următoare. Vino, stai în lumină.'
+        },
+        strong: {
+          '1': 'Acum strălucești mai tare decât mine. Ia orice îți trebuie.'
+        }
+      },
+      class: {
+        say: 'Ce face un Purtător de Lumină?',
+        '2': 'Inteligența face lumina puternică. Carisma o face caldă.',
+        '1': 'Noi purtăm zorii. Lumină cu care să lupți, lumină cu care să vindeci.'
+      },
+      train: {
+        '1': 'Deschide-ți mâinile. Lasă lumina să treacă prin ele, nu să vină din ele.'
+      },
+      again: {
+        '1': 'Bine ai revenit. Soarele e blând azi.'
+      },
+      hello: {
+        '2': 'Sunt Aurelle. Sora Auriel m-a învățat lumina. Acum o predau eu, aici.',
+        '1': 'Lumina să fie cu tine. M-ai găsit în întuneric și n-o să uit asta.'
+      }
+    },
+    freedPeddler: {
+      bye: {
+        '1': 'Ferește-te de bandiți. Nu le place să împartă.'
+      },
+      shopBack: {
+        '1__f': 'Plăcerea a fost de partea mea, prietenă.',
+        '1': 'Plăcerea a fost de partea mea, prietene.'
+      },
+      who: {
+        '2': 'Acum vând din Sunford. E mai sigur aici. De cele mai multe ori.',
+        '1': 'Bandiții mi-au luat căruța și m-au închis într-o ladă. Foarte nepoliticos.'
+      },
+      trade: {
+        '1': 'Inele, mănuși, cizme. Pentru tine, la jumătate de preț. Mă rog, aproape.'
+      },
+      again: {
+        '1__f': 'Salvatoarea mea! Vino, vino, ți-am păstrat lucrurile bune.',
+        '1': 'Salvatorul meu! Vino, vino, ți-am păstrat lucrurile bune.'
+      },
+      hello: {
+        '2': 'Odo Marrow, la dispoziția ta. Negustor, meșteșugar, om foarte recunoscător.',
+        '1__f': 'Tu! Tu ești cea care a deschis cușca aia! Aș fi putrezit acolo.',
+        '1': 'Tu! Tu ești cel care a deschis cușca aia! Aș fi putrezit acolo.'
+      }
+    },
     sfShadow: {
       hello: {
         '1': 'Nu te-am auzit intrând. De obicei ăsta e trucul meu.',
@@ -5359,6 +5590,12 @@ export default {
     prizeGold: 'Le ai deja pe toate, așa că primești {n} aur în schimb!'
   },
   errand: {
+    farmersFavor: {
+      title: 'Lupii familiei Toller'
+    },
+    herbalistFavor: {
+      title: 'Petalele-de-soare ale lui Briar'
+    },
     collectorFavor: {
       title: 'Clopoțeii-de-Lună ai Colecționarului'
     },

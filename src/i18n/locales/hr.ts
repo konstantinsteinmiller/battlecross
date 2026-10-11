@@ -129,6 +129,16 @@ export default {
     chi: 'Chi'
   },
   toast: {
+    freed: {
+      lightDisciple: 'Na slobodi! Sestra Aurelle poučavat će put Donositelja svjetla u gradu {town}.',
+      frostDisciple: 'Na slobodi! Ivor će poučavati put Čuvara leda u gradu {town}.',
+      windDisciple: 'Na slobodi! Kestrel će poučavati put Vjetrotrkača u gradu {town}.',
+      freedFarmers: 'Na slobodi! Tollerovi će naći dom u gradu {town}.',
+      freedHerbalist: 'Na slobodi! Travarica Briar čekat će te u gradu {town}.',
+      freedPeddler: 'Na slobodi! Torbar Odo trgovat će u gradu {town}.'
+    },
+    cageLocked: 'Zaključano. Ključ mora biti negdje ovdje.',
+    cageKey: 'Ključ! Sigurno otvara kavez.',
     ore: 'Iskopano: {n} × {ore}',
     mineBusy: 'Ne dok su neprijatelji blizu!',
     item: 'Pronađeno: {item}',
@@ -1783,6 +1793,25 @@ export default {
     circle: 'Krug etera'
   },
   npc: {
+    frostDisciple: {
+      name: 'Ivor Hask'
+    },
+    windDisciple: {
+      name: 'Kestrel Vane'
+    },
+    freedFarmers: {
+      name: 'Jory Toller'
+    },
+    freedHerbalist: {
+      name: 'Briar Hollowell'
+    },
+    lightDisciple: {
+      name: 'Sestra Aurelle'
+    },
+    freedPeddler: {
+      talk: 'Sve što putniku treba. Gotovo novo, uglavnom.',
+      name: 'Odo Marrow'
+    },
     sfShadow: {
       name: 'Nettle Quickhand'
     },
@@ -2047,6 +2076,218 @@ export default {
     }
   },
   dlg: {
+    frostDisciple: {
+      bye: {
+        '1': 'Ostani na toplom.'
+      },
+      who: {
+        '2': 'Kovačnice Ironholda su tople. Sviđa mi se ovdje.',
+        '1': 'Lovio sam u tundri. Držali su me u kavezu cijelu zimu.'
+      },
+      trainBack: {
+        '1__f': 'Vježbaj. Hladnoća je strpljiva. Budi i ti takva.',
+        '1': 'Vježbaj. Hladnoća je strpljiva. Budi i ti takav.'
+      },
+      ready: {
+        weak: {
+          '1': 'Još ne. Više snage u ruci i u umu.'
+        },
+        able: {
+          '1__f': 'Spremna si. Sljedeća lekcija.',
+          '1': 'Spreman si. Sljedeća lekcija.'
+        },
+        strong: {
+          '1__f': 'Jača si nego što sam ja bio. Uzmi što trebaš.',
+          '1': 'Jači si nego što sam ja bio. Uzmi što trebaš.'
+        }
+      },
+      class: {
+        say: 'Što je Čuvar leda?',
+        '2': 'Snaga za oštricu. Inteligencija za mraz.',
+        '1': 'Ohladi ih, zaledi ih, onda razbij led.'
+      },
+      train: {
+        '1': 'Stoj mirno. Pusti da hladnoća dođe k tebi. Onda je pošalji natrag.'
+      },
+      again: {
+        '1__f': 'Vratila si se. Dobro.',
+        '1': 'Vratio si se. Dobro.'
+      },
+      hello: {
+        '2': 'Ivor Hask. Halvard Injosrce naučio me mrazu. Sad ga ja poučavam ovdje.',
+        '1': 'Slobodan. Dobro. Hladnoća me nije uzela, a ni oni.'
+      }
+    },
+    windDisciple: {
+      bye: {
+        '1': 'Drži oči na vjetru.'
+      },
+      who: {
+        '2': 'Reci Sefi da sam živ, hoćeš li? Brine se.',
+        '1': 'Bio sam na putu za Silverbridge kad su me uhvatili u liticama.'
+      },
+      trainBack: {
+        '1': 'Idi vježbati. Negdje gdje puše.'
+      },
+      ready: {
+        weak: {
+          '1__f': 'Još ne. Najprije postani brža, pa se vrati.',
+          '1': 'Još ne. Najprije postani brži, pa se vrati.'
+        },
+        able: {
+          '1__f': 'Spremna si za sljedeću. Gledaj pažljivo.',
+          '1': 'Spreman si za sljedeću. Gledaj pažljivo.'
+        },
+        strong: {
+          '1__f': 'Sad si brža od mene. Uzmi što želiš.',
+          '1': 'Sad si brži od mene. Uzmi što želiš.'
+        }
+      },
+      class: {
+        say: 'Što radi Vjetrotrkač?',
+        '2': 'Spretnost za brze noge. Umijeće, da svaka strijela pogodi.',
+        '1': 'Trči, gađaj, opet trči. Nikad ne budi tamo kamo ciljaju.'
+      },
+      train: {
+        '1': 'Stopala razmaknuta. Izdahni. Neka je vjetar nosi.'
+      },
+      again: {
+        '1': 'Hej! Vjetar je danas dobar. Hoćemo li gađati?'
+      },
+      hello: {
+        '2': 'Kestrel Vane. Sefa Vjetrokrila naučila me luku. Mogu te naučiti ono što je ona naučila mene.',
+        '1__f': 'Izvukla si me! Dugujem ti sve. Pa, puno.',
+        '1': 'Izvukao si me! Dugujem ti sve. Pa, puno.'
+      }
+    },
+    freedFarmers: {
+      bye: {
+        '1': 'Pazi kako ideš.'
+      },
+      who: {
+        '2': 'Oakhaven nas je primio. Vraćamo mu kruhom.',
+        '1': 'Razbojnici su nas odveli s polja i ostavili u šumi da istrunemo.'
+      },
+      favorDone: {
+        say: 'Vukovi vas više neće mučiti.',
+        '2': 'Uzmi ovo. Nije mnogo, ali je pošteno.',
+        '1': 'Opet mirne noći. Napokon možemo spavati.'
+      },
+      waiting: {
+        say: 'U vezi onih vukova...',
+        '1': 'Vukovi su još uvijek tu negdje. Čuli smo ih sinoć.'
+      },
+      favor: {
+        say: 'Mogu li vam s nečim pomoći?',
+        '2': 'Prorijedi ih, hoćeš li? Osam bi ih trebalo naučiti pameti.',
+        '1': 'Vukovi iz Šaptave šume stalno nam odnose ovce.'
+      },
+      again: {
+        '1__f': 'Evo naše junakinje. Došla si nešto pojesti?',
+        '1': 'Evo našeg junaka. Došao si nešto pojesti?'
+      },
+      hello: {
+        '2': 'Jory Toller. Sad obrađujemo zemlju izvan zidina. Pa, pokušavamo.',
+        '1': 'Bez tebe bismo bili mrtvi. I ja i moj dečko. Hvala ti.'
+      }
+    },
+    freedHerbalist: {
+      bye: {
+        '1': 'Hodaj nježno. Ondje stvari rastu.'
+      },
+      who: {
+        '2': 'Nisu bili sasvim u krivu.',
+        '1': 'Travarica s brda. Goblini su me smatrali vješticom.'
+      },
+      favorDone: {
+        say: 'Evo tvojih sunčanih latica.',
+        '2': 'Evo, tvoja plaća. I opet hvala.',
+        '1': 'Oh, savršene su. Pomiriši samo!'
+      },
+      waiting: {
+        say: 'U vezi onih sunčanih latica...',
+        '1': 'Još tražiš? Sunčane latice vole otvoreno sunce.'
+      },
+      favor: {
+        say: 'Mogu li nešto učiniti za tebe?',
+        '2': 'Rastu vani na ravnicama. Dobro ću ti platiti za njih.',
+        '1__f': 'Moje zalihe nestale su u onom kavezu. Bi li mi donijela tri sunčane latice?',
+        '1': 'Moje zalihe nestale su u onom kavezu. Bi li mi donio tri sunčane latice?'
+      },
+      again: {
+        '1': 'Ah, opet pozdrav. Čizme ti mirišu na mahovinu. Dobro.'
+      },
+      hello: {
+        '2': 'Ja sam Briar. Berem i sušim ono što raste. Silverbridge je bio tako dobar da me primi.',
+        '1': 'Znala sam da će netko doći. Goblini nikad nisu razumjeli bilje. Ni dobrotu.'
+      }
+    },
+    lightDisciple: {
+      bye: {
+        '1': 'Hodaj u svjetlu.'
+      },
+      who: {
+        '2': 'Sunford je svijetao i tih. Trebalo mi je oboje.',
+        '1': 'Otišla sam u Potopljeni hram moliti. Nage su imale druge planove.'
+      },
+      trainBack: {
+        '1': 'Idi blago. I neka te vide kako dolaziš.'
+      },
+      ready: {
+        weak: {
+          '1': 'Još ne. Najprije bistriji um i toplije srce.'
+        },
+        able: {
+          '1__f': 'Spremna si za sljedeću lekciju. Dođi, stani u svjetlo.',
+          '1': 'Spreman si za sljedeću lekciju. Dođi, stani u svjetlo.'
+        },
+        strong: {
+          '1': 'Sada sjaš jače od mene. Uzmi što god trebaš.'
+        }
+      },
+      class: {
+        say: 'Što radi Donositelj svjetla?',
+        '2': 'Inteligencija čini svjetlo snažnim. Karizma ga čini toplim.',
+        '1': 'Nosimo zoru. Svjetlo za borbu, svjetlo za iscjeljenje.'
+      },
+      train: {
+        '1': 'Otvori dlanove. Neka svjetlo prolazi kroz njih, a ne iz njih.'
+      },
+      again: {
+        '1__f': 'Dobro došla natrag. Sunce je danas blago.',
+        '1': 'Dobro došao natrag. Sunce je danas blago.'
+      },
+      hello: {
+        '2': 'Ja sam Aurelle. Sestra Auriel naučila me svjetlu. Sada ga ja poučavam ovdje.',
+        '1__f': 'Svjetlo s tobom. Našla si me u tami i to neću zaboraviti.',
+        '1': 'Svjetlo s tobom. Našao si me u tami i to neću zaboraviti.'
+      }
+    },
+    freedPeddler: {
+      bye: {
+        '1': 'Čuvaj se razbojnika. Ne vole dijeliti.'
+      },
+      shopBack: {
+        '1__f': 'Zadovoljstvo je poslovati s tobom, prijateljice.',
+        '1': 'Zadovoljstvo je poslovati s tobom, prijatelju.'
+      },
+      who: {
+        '2': 'Sad prodajem u Sunfordu. Ovdje je sigurnije. Uglavnom.',
+        '1': 'Razbojnici su mi uzeli kola, a mene strpali u sanduk. Vrlo nepristojno.'
+      },
+      trade: {
+        '1': 'Prstenje, rukavice, čizme. Tebi pola cijene. Pa, skoro.'
+      },
+      again: {
+        '1__f': 'Moja spasiteljice! Dođi, dođi, čuvao sam ti najbolje stvari.',
+        '1': 'Moj spasitelju! Dođi, dođi, čuvao sam ti najbolje stvari.'
+      },
+      hello: {
+        '2': 'Odo Marrow, tebi na usluzi. Torbar, kotlokrpa i vrlo zahvalan čovjek.',
+        '1__f': 'Ti! Ti si ona koja je otvorila taj kavez! Istrunuo bih ondje.',
+        '1': 'Ti! Ti si onaj koji je otvorio taj kavez! Istrunuo bih ondje.'
+      }
+    },
     sfShadow: {
       hello: {
         '1': 'Ni šuma, ni koraka. To je obično moj trik.',
@@ -5414,6 +5655,12 @@ export default {
     prizeGold: 'Već imaš sve, pa umjesto toga dobivaš {n} zlata!'
   },
   errand: {
+    farmersFavor: {
+      title: 'Vukovi obitelji Toller'
+    },
+    herbalistFavor: {
+      title: 'Briarine sunčane latice'
+    },
     collectorFavor: {
       title: 'Kolekcionarova mjesečeva zvonca'
     },

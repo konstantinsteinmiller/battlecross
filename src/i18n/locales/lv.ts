@@ -129,6 +129,16 @@ export default {
     chi: 'Či'
   },
   toast: {
+    freed: {
+      lightDisciple: 'Atbrīvota! Māsa Aurela mācīs Gaismas nesēja ceļu šeit: {town}.',
+      frostDisciple: 'Atbrīvots! Ivors mācīs Sala sarga ceļu šeit: {town}.',
+      windDisciple: 'Atbrīvots! Kestrels mācīs Vēja skrējēja ceļu šeit: {town}.',
+      freedFarmers: 'Atbrīvoti! Tolleru ģimene atradīs mājas šeit: {town}.',
+      freedHerbalist: 'Atbrīvota! Zāļu sieva Braiera tevi gaidīs šeit: {town}.',
+      freedPeddler: 'Atbrīvots! Tirgotājs Odo tirgosies šeit: {town}.'
+    },
+    cageLocked: 'Aizslēgts. Atslēgai jābūt kaut kur šajā vietā.',
+    cageKey: 'Atslēga! Tai jāatver būris.',
     ore: 'Izrakts: {n} × {ore}',
     mineBusy: 'Ne, kad tuvumā ir ienaidnieki!',
     item: 'Atrasts: {item}',
@@ -1778,6 +1788,25 @@ export default {
     circle: 'Ētera loks'
   },
   npc: {
+    frostDisciple: {
+      name: 'Ivors Hasks'
+    },
+    windDisciple: {
+      name: 'Kestrels Veins'
+    },
+    freedFarmers: {
+      name: 'Džorijs Tollers'
+    },
+    freedHerbalist: {
+      name: 'Braiera Holovela'
+    },
+    lightDisciple: {
+      name: 'Māsa Aurela'
+    },
+    freedPeddler: {
+      talk: 'Viss, kas ceļotājam vajadzīgs. Gandrīz jauns, lielākoties.',
+      name: 'Odo Marovs'
+    },
     sfShadow: {
       name: 'Netla Kvikhenda'
     },
@@ -2042,6 +2071,213 @@ export default {
     }
   },
   dlg: {
+    frostDisciple: {
+      bye: {
+        '1': 'Nenosalsti.'
+      },
+      who: {
+        '2': 'Aironholdas kalves ir siltas. Man te patīk.',
+        '1': 'Medīju tundrā. Viņi mani turēja būrī visu ziemu.'
+      },
+      trainBack: {
+        '1__f': 'Trenējies. Aukstums ir pacietīgs. Esi tāda pati.',
+        '1': 'Trenējies. Aukstums ir pacietīgs. Esi tāds pats.'
+      },
+      ready: {
+        weak: {
+          '1': 'Vēl ne. Vairāk spēka rokā un prātā.'
+        },
+        able: {
+          '1__f': 'Tu esi gatava. Nākamā nodarbība.',
+          '1': 'Tu esi gatavs. Nākamā nodarbība.'
+        },
+        strong: {
+          '1__f': 'Tu esi stiprāka, nekā biju es. Ņem, kas vajadzīgs.',
+          '1': 'Tu esi stiprāks, nekā biju es. Ņem, kas vajadzīgs.'
+        }
+      },
+      class: {
+        say: 'Kas ir Sala sargs?',
+        '2': 'Spēks asmenim. Intelekts salam.',
+        '1': 'Atvēsini, sasaldē, tad salauz ledu.'
+      },
+      train: {
+        '1': 'Nekusties. Ļauj aukstumam nākt pie tevis. Tad sūti to atpakaļ.'
+      },
+      again: {
+        '1': 'Tu atgriezies. Labi.'
+      },
+      hello: {
+        '2': 'Ivors Hasks. Salu man iemācīja Halvards Sarmsirdis. Tagad es to mācu, šeit.',
+        '1': 'Brīvs. Labi. Aukstums mani nepaņēma, un viņi arī ne.'
+      }
+    },
+    windDisciple: {
+      bye: {
+        '1': 'Seko vējam ar acīm.'
+      },
+      who: {
+        '2': 'Pasaki Sefai, ka esmu dzīvs, labi? Viņa uztraucas.',
+        '1': 'Biju ceļā uz Silverbridžu, kad mani noķēra Pelnu klintīs.'
+      },
+      trainBack: {
+        '1': 'Ej un trenējies. Kaut kur, kur pūš vējš.'
+      },
+      ready: {
+        weak: {
+          '1__f': 'Vēl ne. Vispirms kļūsti ātrāka, tad nāc atpakaļ.',
+          '1': 'Vēl ne. Vispirms kļūsti ātrāks, tad nāc atpakaļ.'
+        },
+        able: {
+          '1__f': 'Tu esi gatava nākamajai. Skaties uzmanīgi.',
+          '1': 'Tu esi gatavs nākamajai. Skaties uzmanīgi.'
+        },
+        strong: {
+          '1__f': 'Tagad tu esi ātrāka par mani. Ņem, ko gribi.',
+          '1': 'Tagad tu esi ātrāks par mani. Ņem, ko gribi.'
+        }
+      },
+      class: {
+        say: 'Ko dara Vēja skrējējs?',
+        '2': 'Veiklība ātrām kājām. Meistarība, lai katra bulta trāpa.',
+        '1': 'Skrien, šauj, atkal skrien. Nekad neesi tur, kur viņi tēmē.'
+      },
+      train: {
+        '1': 'Kājas plati. Izelpo. Ļauj vējam to nest.'
+      },
+      again: {
+        '1': 'Ei! Šodien labs vējš. Pašausim?'
+      },
+      hello: {
+        '2': 'Kestrels Veins. Šaut ar loku man iemācīja Sefa Vējspārne. Varu tev iemācīt to, ko viņa iemācīja man.',
+        '1': 'Tu mani izvilki ārā! Esmu tev parādā visu. Nu, daudz ko.'
+      }
+    },
+    freedFarmers: {
+      bye: {
+        '1': 'Laimīgu ceļu.'
+      },
+      who: {
+        '2': 'Oukheivena mūs uzņēma. Atmaksājam ar maizi.',
+        '1': 'Laupītāji mūs aizveda no mūsu lauka un atstāja mežā sapūt.'
+      },
+      favorDone: {
+        say: 'Vilki jūs vairs netraucēs.',
+        '2': 'Ņem šo. Nav daudz, bet godīgi nopelnīts.',
+        '1': 'Atkal klusas naktis. Beidzot varam gulēt.'
+      },
+      waiting: {
+        say: 'Par tiem vilkiem...',
+        '1': 'Vilki joprojām klīst apkārt. Pagājušajā naktī tos dzirdējām.'
+      },
+      favor: {
+        say: 'Vai varu kaut kā palīdzēt?',
+        '2': 'Vai tu tos neizretinātu? Ar astoņiem vajadzētu pietikt mācībai.',
+        '1': 'Vilki no Čukstošā meža arvien nes mūsu aitas.'
+      },
+      again: {
+        '1__f': 'Lūk, mūsu varone! Ienāksi kaut ko iekost?',
+        '1': 'Lūk, mūsu varonis! Ienāksi kaut ko iekost?'
+      },
+      hello: {
+        '2': 'Džorijs Tollers. Tagad saimniekojam aiz mūriem. Nu, mēģinām.',
+        '1': 'Bez tevis mēs būtu pagalam. Gan es, gan mans puika. Paldies.'
+      }
+    },
+    freedHerbalist: {
+      bye: {
+        '1': 'Ej uzmanīgi. Tur aug dzīvība.'
+      },
+      who: {
+        '2': 'Viņi nemaz tik ļoti nekļūdījās.',
+        '1': 'Zāļu sieva no pakalniem. Goblini mani noturēja par raganu.'
+      },
+      favorDone: {
+        say: 'Te ir tavas saulziedes.',
+        '2': 'Še, tava samaksa. Un vēlreiz paldies.',
+        '1': 'Ak, tās ir lieliskas. Paož tikai!'
+      },
+      waiting: {
+        say: 'Par tām saulziedēm...',
+        '1': 'Joprojām meklē? Saulziedes mīl atklātu sauli.'
+      },
+      favor: {
+        say: 'Vai es varu kaut ko tavā labā izdarīt?',
+        '2': 'Tās aug līdzenumos. Es par tām labi samaksāšu.',
+        '1': 'Mani krājumi pazuda tajā būrī. Vai tu varētu man atnest trīs saulziedes?'
+      },
+      again: {
+        '1': 'Ā, atkal tu. Tavi zābaki smaržo pēc sūnām. Labi.'
+      },
+      hello: {
+        '2': 'Es esmu Braiera. Vācu un žāvēju to, kas aug. Silverbridža bija tik laipna, ka mani uzņēma.',
+        '1': 'Es zināju, ka kāds atnāks. Goblini nekad nesaprata zāles. Ne arī laipnību.'
+      }
+    },
+    lightDisciple: {
+      bye: {
+        '1': 'Staigā gaismā.'
+      },
+      who: {
+        '2': 'Sanforda ir gaiša un klusa. Man vajadzēja abus.',
+        '1': 'Devos uz Nogrimušo templi lūgties. Nāgām bija citi plāni.'
+      },
+      trainBack: {
+        '1': 'Ej maigi. Un ļauj viņiem redzēt tevi nākam.'
+      },
+      ready: {
+        weak: {
+          '1': 'Vēl ne. Vispirms skaidrāks prāts un siltāka sirds.'
+        },
+        able: {
+          '1__f': 'Tu esi gatava nākamajai nodarbībai. Nāc, nostājies gaismā.',
+          '1': 'Tu esi gatavs nākamajai nodarbībai. Nāc, nostājies gaismā.'
+        },
+        strong: {
+          '1': 'Tagad tu spīdi spožāk par mani. Ņem visu, kas vajadzīgs.'
+        }
+      },
+      class: {
+        say: 'Ko dara Gaismas nesējs?',
+        '2': 'Intelekts gaismu dara stipru. Harizma to dara siltu.',
+        '1': 'Mēs nesam rītausmu. Gaisma, ar ko cīnīties, gaisma, ar ko dziedināt.'
+      },
+      train: {
+        '1': 'Atver plaukstas. Lai gaisma plūst caur tām, nevis no tām.'
+      },
+      again: {
+        '1': 'Laipni lūdzam atpakaļ. Saule šodien ir laipna.'
+      },
+      hello: {
+        '2': 'Es esmu Aurela. Māsa Auriela man iemācīja gaismu. Tagad es to mācu šeit.',
+        '1': 'Gaisma lai ir ar tevi. Tu mani atradi tumsā, un es to neaizmirsīšu.'
+      }
+    },
+    freedPeddler: {
+      bye: {
+        '1': 'Uzmanies no laupītājiem. Viņiem nepatīk dalīties.'
+      },
+      shopBack: {
+        '1__f': 'Patīkami ar tevi tirgoties, draudzene.',
+        '1': 'Patīkami ar tevi tirgoties, draugs.'
+      },
+      who: {
+        '2': 'Tagad tirgojos Sanfordā. Šeit ir drošāk. Lielākoties.',
+        '1': 'Laupītāji atņēma man ratus un iesprostoja mani kastē. Ļoti nepieklājīgi.'
+      },
+      trade: {
+        '1': 'Gredzeni, cimdi, zābaki. Tev par pusi cenas. Nu, gandrīz.'
+      },
+      again: {
+        '1__f': 'Mana glābēja! Nāc, nāc, labākās lietas noliku tev.',
+        '1': 'Mans glābējs! Nāc, nāc, labākās lietas noliku tev.'
+      },
+      hello: {
+        '2': 'Odo Marovs, tavā rīcībā. Tirgotājs, amatnieks, ļoti pateicīgs vīrs.',
+        '1__f': 'Tu! Tu esi tā, kas atvēra to būri! Es tur būtu sapuvis.',
+        '1': 'Tu! Tu esi tas, kas atvēra to būri! Es tur būtu sapuvis.'
+      }
+    },
     sfShadow: {
       hello: {
         '1': 'Nedzirdēju, kā ienāci. Parasti tas ir mans triks.',
@@ -5385,6 +5621,12 @@ export default {
     prizeGold: 'Tev jau ir visi, tāpēc tā vietā saņem {n} zelta!'
   },
   errand: {
+    farmersFavor: {
+      title: 'Tolleru vilki'
+    },
+    herbalistFavor: {
+      title: 'Braieras saulziedes'
+    },
     collectorFavor: {
       title: 'Kolekcionāra mēnespulkstenītes'
     },

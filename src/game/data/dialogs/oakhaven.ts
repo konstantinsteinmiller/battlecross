@@ -240,7 +240,42 @@ const oakGambler = conversation('oakGambler', {
   bye: [{ id: 'bye' }]
 })
 
+
+/** Jory Toller: a farmer freed from the woods with his son (#100). Plain-spoken, grateful. */
+const freedFarmers = conversation('freedFarmers', {
+  name: 'npc.freedFarmers.name', look: 'freedFarmers', mood: 'neutral',
+  greet: [
+    { id: 'hello', when: { met: false }, lines: 'nn', mood: 'warm' },
+    { id: 'again' }
+  ],
+  topics: [
+    { id: 'favor', lines: 'nn', when: { errand: { farmersFavor: 'none' } }, fx: [{ t: 'errand', id: 'farmersFavor', act: 'start' }] },
+    { id: 'waiting', once: false, when: { errand: { farmersFavor: 'active' } } },
+    { id: 'favorDone', lines: 'nn', when: { errand: { farmersFavor: 'ready' } }, fx: [{ t: 'errand', id: 'farmersFavor', act: 'complete' }], mood: 'warm' },
+    who({ lines: 'nn' })
+  ],
+  bye: [{ id: 'bye' }]
+})
+
+/** Kestrel Vane: Sefa Galewing's pupil, freed from the Ashen Crags (#100). Eager, quick, a little breathless. */
+const windDisciple = conversation('windDisciple', {
+  name: 'npc.windDisciple.name', look: 'windDisciple', mood: 'excited',
+  greet: [
+    { id: 'hello', when: { met: false }, lines: 'nn', mood: 'warm' },
+    { id: 'again' }
+  ],
+  topics: [
+    train(),
+    { id: 'class', lines: 'nn' },
+    ready('windrunner'),
+    who({ lines: 'nn' })
+  ],
+  back: { trainer: [{ id: 'trainBack' }] },
+  bye: [{ id: 'bye' }]
+})
+
 export const OAKHAVEN_TALK: ConversationDef[] = [
+  freedFarmers, windDisciple,
   captainHale, oakArmorer, oakMasterArmorer, oakWeapons, trainerShadow, trainerSovereign, oakHealer, blackMarket,
   trainerBlood, syndicateBoss, oakGambler
 ]

@@ -160,6 +160,55 @@ export const CARDS: Readonly<Record<string, VoiceCard>> = {
     reference: 'Mind the rocks. Some of them are listening. Harrow Flint. I teach the old earth magic: stone, roots, a little quake. Feet flat, breathe slow.',
     notes: ''
   }),
+  // ── Freed from the cages (#100) ──
+  freedPeddler: card({
+    name: 'Odo Marrow', gender: 'male', age: 'late 50s', pitch: 'mid', pace: 'brisk',
+    timbre: 'warm, chatty, slightly nasal voice',
+    personality: 'A travelling peddler and tinker: chatty, grateful, always talking up his wares.',
+    design: 'A man in his late fifties with a warm, chatty, slightly nasal voice. Friendly and quick, the patter of a market seller who loves a bargain.',
+    reference: "You! You're the one who opened that cage! Odo Marrow, at your service. Peddler, tinker, very grateful man. Rings, gloves, boots, half price for you. Well, nearly.",
+    notes: 'Not Tilly the Peddler (a young woman): Odo is an old, talkative salesman.'
+  }),
+  freedHerbalist: card({
+    name: 'Briar Hollowell', gender: 'female', age: 'mid 40s', pitch: 'mid', pace: 'slow',
+    timbre: 'soft, earthy, calm voice',
+    personality: 'A hill herbalist the goblins took for a witch: soft-spoken, wry, kind.',
+    design: 'A woman in her mid forties with a soft, earthy, calm voice. Gentle and unhurried, with a dry little smile in it.',
+    reference: "I knew someone would come. I'm Briar. I gather and dry what grows. The goblins took me for a witch. They weren't entirely wrong. Walk gently out there.",
+    notes: ''
+  }),
+  freedFarmers: card({
+    name: 'Jory Toller', gender: 'male', age: 'mid 40s', pitch: 'low', pace: 'measured',
+    timbre: 'plain, rough, rural voice',
+    personality: 'A farmer freed with his son: plain-spoken, tired, deeply grateful.',
+    design: 'A man in his mid forties with a plain, rough country voice. Slow and honest, a working man who says what he means.',
+    reference: "We'd be dead without you. Me and my boy both. Jory Toller. We farm outside the walls now. Well, we try. The wolves keep taking our sheep.",
+    notes: ''
+  }),
+  windDisciple: card({
+    name: 'Kestrel Vane', gender: 'male', age: 'early 20s', pitch: 'mid', pace: 'fast',
+    timbre: 'light, eager, slightly breathless voice',
+    personality: "Sefa Galewing's pupil: eager, quick, cheerful, always ready to run.",
+    design: 'A young man in his early twenties with a light, eager voice, a little breathless. Quick and cheerful, words tumbling out.',
+    reference: "You got me out! I owe you everything. Well, a lot. Kestrel Vane. Sefa taught me the bow. Feet apart, breathe out, and let the wind carry it.",
+    notes: 'Not Sefa Galewing (a woman): Kestrel is her young male pupil.'
+  }),
+  frostDisciple: card({
+    name: 'Ivor Hask', gender: 'male', age: 'late 30s', pitch: 'low', pace: 'slow',
+    timbre: 'deep, quiet, cold voice with a northern edge',
+    personality: "Halvard Rimeheart's pupil: a hunter of the north, a man of very few words.",
+    design: 'A man in his late thirties with a deep, quiet voice and a northern edge. Calm and terse, every word weighed.',
+    reference: 'Free. Good. The cold did not take me, and neither did they. Ivor Hask. Stand still. Let the cold come to you. Then send it back. Stay warm.',
+    notes: 'Not Halvard Rimeheart (older, grander): Ivor is younger and even more terse.'
+  }),
+  lightDisciple: card({
+    name: 'Sister Aurelle', gender: 'female', age: 'late 20s', pitch: 'mid', pace: 'measured',
+    timbre: 'gentle, warm, clear voice',
+    personality: "A Lightbringer's disciple: gentle, sincere, glad to be back in the sun.",
+    design: 'A woman in her late twenties with a gentle, warm, clear voice. Sincere and kind, calm even when moved.',
+    reference: "Light be with you. You found me in the dark, and I won't forget it. I'm Aurelle. Open your hands, and let the light come through them, not from them.",
+    notes: 'Not Sister Auriel Dawnmere (her teacher): Aurelle is younger and quieter.'
+  }),
   captainHale: card({
     name: 'Captain Hale', gender: 'male', age: 'mid 50s', pitch: 'low', pace: 'measured',
     timbre: 'worn, husky baritone',
