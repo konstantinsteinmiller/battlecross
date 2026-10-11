@@ -4,7 +4,7 @@ A report, not a contract: it is a picture of `art-sheets/painted/` and the
 slicer's receipt at the moment it was written. Re-run `pnpm art:prompts`
 after painting or slicing anything.
 
-**42 sliced · 7 need a repaint · 0 painted, unreceipted · 17 outstanding**
+**45 sliced · 9 need a repaint · 0 painted, unreceipted · 12 outstanding**
 
 | | Sheet | Prompt block in | Reference | State |
 | --- | --- | --- | --- | --- |
@@ -14,9 +14,9 @@ after painting or slicing anything.
 | ✓ | **Item icons: trinkets** | `PROMPTS-ITEMS.md` | `sheet-items-trinkets.png` (rev `b23c5e2aa7a1`) | sliced 2026-10-03 |
 | ✓ | **Item icons: headgear and gloves** | `PROMPTS-ITEMS.md` | `sheet-items-headgear.png` (rev `f56cfdfaf5fb`) | sliced 2026-10-03 |
 | ✓ | **Item icons: boots** | `PROMPTS-ITEMS.md` | `sheet-items-boots.png` (rev `05a2d72cdd50`) | sliced 2026-10-03 |
-| ✓ | **Skill icons: Aegis Knight** | `PROMPTS-SKILLS.md` | `sheet-skills-aegis.png` (rev `0ba6202c756b`) | sliced 2026-10-11 |
+| ! | **Skill icons: Aegis Knight** | `PROMPTS-SKILLS.md` | `sheet-skills-aegis.png` (rev `0ba6202c756b`) | REPAINT — the reference changed (41ace8182dfc → 0ba6202c756b) |
 | ✓ | **Skill icons: Aegis Knight (2 of 2)** | `PROMPTS-SKILLS.md` | `sheet-skills2-aegis.png` (rev `58e4d7a026f6`) | sliced 2026-10-07 |
-| ✓ | **Skill icons: Shadowblade** | `PROMPTS-SKILLS.md` | `sheet-skills-shadow.png` (rev `085c60ddf84e`) | sliced 2026-10-11 |
+| ! | **Skill icons: Shadowblade** | `PROMPTS-SKILLS.md` | `sheet-skills-shadow.png` (rev `085c60ddf84e`) | REPAINT — the reference changed (2cfb44cfe91f → 085c60ddf84e) |
 | ✓ | **Skill icons: Shadowblade (2 of 2)** | `PROMPTS-SKILLS.md` | `sheet-skills2-shadow.png` (rev `60af38781de3`) | sliced 2026-10-07 |
 | ! | **Skill icons: Pyromancer** | `PROMPTS-SKILLS.md` | `sheet-skills-pyro.png` (rev `ffb8ed2290a0`) | REPAINT — the reference changed (11c33b95224f → ffb8ed2290a0) |
 | ✓ | **Skill icons: Pyromancer (2 of 2)** | `PROMPTS-SKILLS.md` | `sheet-skills2-pyro.png` (rev `fffff84ea918`) | sliced 2026-10-07 |
@@ -33,11 +33,11 @@ after painting or slicing anything.
 | ✓ | **Skill icons: Windrunner** | `PROMPTS-SKILLS.md` | `sheet-skills-windrunner.png` (rev `38f5ed58228f`) | sliced 2026-10-07 |
 | ✓ | **Skill icons: Windrunner (2 of 2)** | `PROMPTS-SKILLS.md` | `sheet-skills2-windrunner.png` (rev `ccd5343695eb`) | sliced 2026-10-07 |
 | ✓ | **Skill icons: Frostwarden** | `PROMPTS-SKILLS.md` | `sheet-skills-frostwarden.png` (rev `a74323ae56df`) | sliced 2026-10-11 |
-| · | **Skill icons: Frostwarden (2 of 2)** | `PROMPTS-SKILLS.md` | `sheet-skills2-frostwarden.png` (rev `b686db05604f`) | not painted yet |
-| · | **Skill icons: Lightbringer** | `PROMPTS-SKILLS.md` | `sheet-skills-lightbringer.png` (rev `b663adc59989`) | not painted yet |
-| · | **Skill icons: Lightbringer (2 of 2)** | `PROMPTS-SKILLS.md` | `sheet-skills2-lightbringer.png` (rev `c53ac606e411`) | not painted yet |
-| · | **Skill icons: Beastcaller** | `PROMPTS-SKILLS.md` | `sheet-skills-beastcaller.png` (rev `297a1ae74d6f`) | not painted yet |
-| · | **Skill icons: Beastcaller (2 of 2)** | `PROMPTS-SKILLS.md` | `sheet-skills2-beastcaller.png` (rev `50d735ef1617`) | not painted yet |
+| ✓ | **Skill icons: Frostwarden (2 of 2)** | `PROMPTS-SKILLS.md` | `sheet-skills2-frostwarden.png` (rev `b686db05604f`) | sliced 2026-10-11 |
+| ✓ | **Skill icons: Lightbringer** | `PROMPTS-SKILLS.md` | `sheet-skills-lightbringer.png` (rev `b663adc59989`) | sliced 2026-10-11 |
+| ✓ | **Skill icons: Lightbringer (2 of 2)** | `PROMPTS-SKILLS.md` | `sheet-skills2-lightbringer.png` (rev `c53ac606e411`) | sliced 2026-10-11 |
+| ✓ | **Skill icons: Beastcaller** | `PROMPTS-SKILLS.md` | `sheet-skills-beastcaller.png` (rev `297a1ae74d6f`) | sliced 2026-10-11 |
+| ✓ | **Skill icons: Beastcaller (2 of 2)** | `PROMPTS-SKILLS.md` | `sheet-skills2-beastcaller.png` (rev `b875613cce10`) | sliced 2026-10-11 |
 | · | **Skill icons: Elementalist** | `PROMPTS-SKILLS.md` | `sheet-skills-elementalist.png` (rev `dcb515f85ebe`) | not painted yet |
 | · | **Skill icons: Elementalist (2 of 2)** | `PROMPTS-SKILLS.md` | `sheet-skills2-elementalist.png` (rev `32983c7ed53c`) | not painted yet |
 | · | **Skill icons: Soul Warden** | `PROMPTS-SKILLS.md` | `sheet-skills-soulwarden.png` (rev `4f8e6a467369`) | not painted yet |

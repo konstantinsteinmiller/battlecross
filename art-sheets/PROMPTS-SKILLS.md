@@ -2334,12 +2334,12 @@ EACH PANEL IS ONE CHUNKY PAINTED OBJECT OR BURST OF ENERGY — NOT A FLAT SYMBOL
 · The game draws its own coloured frame around each one. Nothing here sits on a tile, badge, ring or disc.
 
 WHAT EACH PANEL IS:
-Panel 1 (row 1, column 1): three green paw prints in a ring around a white plus sign.
-Panel 2 (row 1, column 2): three green paw prints running to the right with speed lines below them.
-Panel 3 (row 1, column 3): a steel spearhead pointing up with a green paw print on each side. Keep this one compact, well away from its panel's four corners (the game crops it to a circle). Do NOT draw a circle, ring, disc or badge around or behind it.
-Panel 4 (row 2, column 1): a leaf-green spirit wolf's head raised to the sky in a howl, muzzle pointing up, a small white star of sound beside it.
-Panel 5 (row 2, column 2): a green paw print wearing a small gold crown. Keep this one compact, well away from its panel's four corners (the game crops it to a circle). Do NOT draw a circle, ring, disc or badge around or behind it.
-Panel 6 (row 2, column 3): a gold crescent moon over a low line of running animal shapes.
+Panel 1 (row 1, column 1): a necklace of three white wolf fangs hanging from a dark cord, two small green beads between them.
+Panel 2 (row 1, column 2): three leaf-green spirit wolves' heads charging forward side by side, the middle one in front.
+Panel 3 (row 1, column 3): a steel spearhead pointing up on a short wooden shaft, a green paw print engraved on its blade. Keep this one compact, well away from its panel's four corners (the game crops it to a circle). Do NOT draw a circle, ring, disc or badge around or behind it.
+Panel 4 (row 2, column 1): a leaf-green spirit wolf's head seen from the front, jaws wide open in a howl with white fangs showing.
+Panel 5 (row 2, column 2): a leaf-green spirit wolf's head seen from the front, wearing a small gold crown between its ears. Keep this one compact, well away from its panel's four corners (the game crops it to a circle). Do NOT draw a circle, ring, disc or badge around or behind it.
+Panel 6 (row 2, column 3): a curved hunting horn of pale bone with a gold mouthpiece, a small gold crescent moon above it.
 
 COLOUR — ONE accent for the whole sheet: leaf green (about #4fb85a). Wherever the reference uses that colour, yours does; white, gold, steel, wood, red, green and blue details keep the colours the reference gives them. Take the HUE, not the flatness.
 
@@ -2378,7 +2378,7 @@ READABLE AT 40 PIXELS — each of these is shown about 40 pixels wide in the gam
 · Hold each panel at thumbnail size: if it is not instantly recognisable as a silhouette with two or three big areas of colour, simplify it.
 
 SIZE AND PLACE — measure against the PANEL, not against the paper.
-· In the reference no drawing is wider than about 84% of its panel or taller than about 74%, and every panel keeps a clear magenta margin on all four sides.
+· In the reference no drawing is wider than about 84% of its panel or taller than about 75%, and every panel keeps a clear magenta margin on all four sides.
 · Paint each one as LARGE as the reference shows it: it takes up most of its panel, with a narrow, even margin of magenta around it. A small drawing in the middle of a big empty panel is the wrong answer.
 · Keep each one at the size and in the spot its own panel shows. If yours reaches a panel edge it is too big, and it will be cut in half by the slice.
 · Where a drawing sits in its panel is not a composition choice: do not re-centre, do not even out the spacing, do not let one lean into the next panel.

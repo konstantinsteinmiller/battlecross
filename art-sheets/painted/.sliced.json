@@ -366,6 +366,36 @@
       "rev": "a74323ae56df",
       "painting": "d4709de3c9d0",
       "at": "2026-10-11T19:57:38.993Z"
+    },
+    "sheet-skills-beastcaller.jpg": {
+      "sheet": "sheet-skills-beastcaller",
+      "rev": "297a1ae74d6f",
+      "painting": "1764fe1f0956",
+      "at": "2026-10-11T20:57:30.306Z"
+    },
+    "sheet-skills2-beastcaller.jpg": {
+      "sheet": "sheet-skills2-beastcaller",
+      "rev": "b875613cce10",
+      "painting": "bc5172feb210",
+      "at": "2026-10-11T21:00:41.642Z"
+    },
+    "sheet-skills-lightbringer.jpg": {
+      "sheet": "sheet-skills-lightbringer",
+      "rev": "b663adc59989",
+      "painting": "8fb47b377ea8",
+      "at": "2026-10-11T21:01:32.628Z"
+    },
+    "sheet-skills2-lightbringer.jpg": {
+      "sheet": "sheet-skills2-lightbringer",
+      "rev": "c53ac606e411",
+      "painting": "46491e77923e",
+      "at": "2026-10-11T21:02:58.108Z"
+    },
+    "sheet-skills2-frostwarden.jpg": {
+      "sheet": "sheet-skills2-frostwarden",
+      "rev": "b686db05604f",
+      "painting": "da42e1f917f4",
+      "at": "2026-10-11T21:04:36.244Z"
     }
   }
 }
