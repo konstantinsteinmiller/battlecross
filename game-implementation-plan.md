@@ -724,7 +724,16 @@ All sound is synthesised (53 recipes); recorded files can override a recipe.
   re-voiced; a test that the moonbell errands' plant grows where they send
   the hero. #108: the frame was reproduced on the map and in town (same
   pulse); what is wrong with it is asked.
-- [ ] **29 World map walking** (#111).
+- [x] **29 World map walking** (#111). A blocked step is tried turned up to
+  90° either way, smallest turn first, at no less than 40 % speed, so the
+  hero slides along a slanting bank instead of stopping; clearance is a
+  body's width AHEAD along the move (an axis probe hit the grid's stair
+  steps on a slanted bank), one rule for the step and the path
+  straightener, so a tapped way is walked to its end (tested from Sunford
+  to every place: no stall). Over water a road is 3.4 cells wide (the
+  bridges), and a place's bare site no longer makes its river walkable.
+  Measured on every river bank, pushing 45° into the water: 204 of 268
+  spots keep moving (71 before).
 - [ ] **30 Animal gaits** (#102).
 - [ ] **31 Balance core** (#109, #110, #104).
 - [ ] **32 Careful clear and gambler tables** (#113, #115).

@@ -3,6 +3,7 @@ import { MAP, nodeOpen, type NodeId } from '@/game/data/zones'
 import { MAP_H, MAP_W, type Pt } from '@/components/screens/map/geo'
 import { ROADS, nodeAt } from '@/components/screens/map/roads'
 import { GH, GW, ROAD, STEP, findPath, fogCells, nearestWalkable, stepWalk, walkMask } from '@/components/screens/map/walk'
+import { TERRAIN_SHAPES } from '@/components/screens/map/terrain'
 
 /**
  * Free walking on the world map (roadmap #67): the walk mask built from the
@@ -116,6 +117,91 @@ describe('stepping', () => {
     for (let i = 0; i < 200; i++) q = stepWalk(m, q, -4, -1)
     expect(m.ok(q[0], q[1])).toBe(true)
     expect(q[0]).toBeGreaterThan(30)
+  })
+
+  it('a tapped way is walked to its end: the path and the step agree on the ground (#111)', () => {
+    const from = nodeAt('sunford')
+    for (const n of MAP) {
+      const path = findPath(m, from, nodeAt(n.id))!
+      let p: Pt = from
+      let leg = 1
+      let stalls = 0
+      for (let t = 0; t < 4000 && leg < path.length; t++) {
+        const w = path[leg]!
+        const d = Math.hypot(w[0] - p[0], w[1] - p[1])
+        if (d < 4) { leg++; continue }
+        const sp = Math.min(4, d)
+        const q = stepWalk(m, p, ((w[0] - p[0]) / d) * sp, ((w[1] - p[1]) / d) * sp)
+        if (Math.hypot(q[0] - p[0], q[1] - p[1]) < 0.5) stalls++
+        p = q
+      }
+      expect(leg, `${n.id}: stopped at leg ${leg} of ${path.length}`).toBe(path.length)
+      expect(stalls, n.id).toBe(0)
+    }
+  })
+
+  it('pushing slantwise into a river slides along its bank instead of sticking (#111)', () => {
+    // The step before #111: the whole step, else one axis, probes on each axis.
+    const before = (p: Pt, dx: number, dy: number): Pt => {
+      const fits = (x: number, y: number): boolean => m.ok(x, y) && m.ok(x + Math.sign(dx) * 3, y) && m.ok(x, y + Math.sign(dy) * 3)
+      if (fits(p[0] + dx, p[1] + dy)) return [p[0] + dx, p[1] + dy]
+      if (dx && fits(p[0] + dx, p[1])) return [p[0] + dx, p[1]]
+      if (dy && fits(p[0], p[1] + dy)) return [p[0], p[1] + dy]
+      return p
+    }
+    let tried = 0
+    let moving = 0
+    let movingBefore = 0
+    for (const r of TERRAIN_SHAPES.rivers) {
+      for (let i = 1; i < r.line.length - 1; i++) {
+        const [ax, ay] = r.line[i - 1]!
+        const [bx, by] = r.line[i + 1]!
+        const len = Math.hypot(bx - ax, by - ay)
+        if (len < 1) continue
+        const tx = (bx - ax) / len
+        const ty = (by - ay) / len
+        for (const side of [1, -1]) {
+          // Stand on the bank, then push 45° into the water for 30 steps.
+          const nx = -ty * side
+          const ny = tx * side
+          const start: Pt = [r.line[i]![0] + nx * (r.w / 2 + 14), r.line[i]![1] + ny * (r.w / 2 + 14)]
+          if (!m.ok(start[0], start[1]) || m.road(start[0], start[1])) continue
+          const dx = (tx - nx) * Math.SQRT1_2 * 3
+          const dy = (ty - ny) * Math.SQRT1_2 * 3
+          let p: Pt = start
+          let q: Pt = start
+          let went = 0
+          let wentBefore = 0
+          for (let k = 0; k < 30; k++) {
+            const p2 = stepWalk(m, p, dx, dy)
+            went += Math.hypot(p2[0] - p[0], p2[1] - p[1])
+            p = p2
+            const q2 = before(q, dx, dy)
+            wentBefore += Math.hypot(q2[0] - q[0], q2[1] - q[1])
+            q = q2
+          }
+          expect(m.ok(p[0], p[1])).toBe(true)
+          tried++
+          // Still moving: at least 60 % of what sliding at the bank's slant covers.
+          if (went > 30 * 2.12 * 0.6) moving++
+          if (wentBefore > 30 * 2.12 * 0.6) movingBefore++
+        }
+      }
+    }
+    expect(tried).toBeGreaterThan(200)
+    // Measured: 204 of 268 bank points keep moving (71 with the old step).
+    expect(moving / tried).toBeGreaterThan(0.7)
+    expect(moving).toBeGreaterThan(movingBefore * 2)
+  })
+
+  it('a bridge is three cells wide; a place does not make its river walkable (#111)', () => {
+    for (const r of TERRAIN_SHAPES.rivers) {
+      for (const pt of r.line) {
+        const k = Math.floor(pt[1] / STEP) * GW + Math.floor(pt[0] / STEP)
+        if (!m.cells[k] || m.cells[k] === ROAD) continue
+        throw new Error(`river cell at ${pt} is walkable land`)
+      }
+    }
   })
 
   it('a tap on the water finds the nearest shore', () => {

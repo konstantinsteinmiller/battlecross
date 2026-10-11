@@ -28,6 +28,9 @@ const MARGIN = 38
 /** A road's walkable half-width, and how far a mountain pass opens round it. */
 const ROAD_HALF = 13
 const PASS_HALF = 30
+/** A road's half-width where it crosses water (#111): a bridge three cells
+ *  wide, so a hero coming at it a little off its line walks onto it. */
+const BRIDGE_HALF = 17
 /** The bare site round every place: always walkable once the place is open. */
 const SITE_R = 52
 
@@ -80,11 +83,13 @@ const buildBase = (): Base => {
       if (!land) continue
       const rd = roadDist(p)
       let g = LAND
-      if (inPoly(p, T.lake) || inPoly(p, T.rift)) g = BLOCKED
-      else if (T.rivers.some(r => distToLine(p, r.line) < r.w / 2 + 5)) g = BLOCKED
+      const water = inPoly(p, T.lake) || inPoly(p, T.rift) || T.rivers.some(r => distToLine(p, r.line) < r.w / 2 + 5)
+      if (water) g = BLOCKED
       else if (inPoly(p, T.regions.rock!) && rd > PASS_HALF) g = BLOCKED
-      if (rd < ROAD_HALF) g = ROAD
-      if (nd < SITE_R && g === BLOCKED) g = LAND
+      if (rd < (water ? BRIDGE_HALF : ROAD_HALF)) g = ROAD
+      // The bare site round a place is walkable — but its water stays water
+      // (#111: walking on a painted river next to a town).
+      if (nd < SITE_R && g === BLOCKED && !water) g = LAND
       ground[k] = g
     }
   }
@@ -138,16 +143,52 @@ export const fogCells = (open: (id: NodeId) => boolean): Uint8Array => {
   return out
 }
 
+/** The hero's body clearance (sheet units) ahead of him. */
+const BODY = 3
+
+/**
+ * May the hero stand at (x, y) moving along (dx, dy)? On walkable ground, with
+ * a body's width of it ahead along the way he moves. Ahead along the MOVE, not
+ * on each axis: on a bank that slants across the grid's staircase an axis
+ * probe hits a stair step while the way along the bank is open (#111). One
+ * rule for a step and for a straightened path, so a path never grazes what a
+ * step stops at.
+ */
+const fitsAt = (m: WalkMask, x: number, y: number, dx: number, dy: number): boolean => {
+  if (!m.ok(x, y)) return false
+  const d = Math.hypot(dx, dy)
+  return d < 1e-6 || m.ok(x + (dx / d) * BODY, y + (dy / d) * BODY)
+}
+
+/** Turns tried, smallest first, when the step itself is blocked (degrees).
+ *  Up to square to the push: on a bank cut into the grid's 10-unit stair
+ *  steps, getting round a step needs it. Not further: pushing into a closed
+ *  corner stops the hero rather than walking him backwards. */
+const SLIDE_TURNS = [15, 30, 45, 60, 75, 90]
+
 /**
  * One step of walking from `p` by (`dx`, `dy`): the whole step if the ground
- * allows it, else along whichever axis does (the hero slides along a coast
- * instead of sticking to it), else nowhere.
+ * allows it; else the same step turned a little either way, the smallest turn
+ * first (the hero slides along a slanting bank or coast instead of sticking to
+ * it, #111); else along whichever axis does; else nowhere.
  */
 export const stepWalk = (m: WalkMask, p: Pt, dx: number, dy: number): Pt => {
-  const fits = (x: number, y: number): boolean => m.ok(x, y) && m.ok(x + Math.sign(dx) * 3, y) && m.ok(x, y + Math.sign(dy) * 3)
-  if (fits(p[0] + dx, p[1] + dy)) return [p[0] + dx, p[1] + dy]
-  if (dx && fits(p[0] + dx, p[1])) return [p[0] + dx, p[1]]
-  if (dy && fits(p[0], p[1] + dy)) return [p[0], p[1] + dy]
+  if (fitsAt(m, p[0] + dx, p[1] + dy, dx, dy)) return [p[0] + dx, p[1] + dy]
+  for (const deg of SLIDE_TURNS) {
+    const a = (deg * Math.PI) / 180
+    const c = Math.cos(a)
+    // Turning costs speed (the hero leans along the bank), never all of it:
+    // a zero step would "fit" and leave him where he stands.
+    const k = Math.max(0.4, c)
+    for (const sgn of [1, -1]) {
+      const sn = Math.sin(a) * sgn
+      const rx = (dx * c - dy * sn) * k
+      const ry = (dx * sn + dy * c) * k
+      if (fitsAt(m, p[0] + rx, p[1] + ry, rx, ry)) return [p[0] + rx, p[1] + ry]
+    }
+  }
+  if (dx && fitsAt(m, p[0] + dx, p[1], dx, 0)) return [p[0] + dx, p[1]]
+  if (dy && fitsAt(m, p[0], p[1] + dy, 0, dy)) return [p[0], p[1] + dy]
   return p
 }
 
@@ -258,7 +299,8 @@ const clear = (m: WalkMask, a: Pt, b: Pt, roadOnly: boolean): boolean => {
   for (let s = 0; s <= n; s++) {
     const x = a[0] + ((b[0] - a[0]) * s) / n
     const y = a[1] + ((b[1] - a[1]) * s) / n
-    if (!m.ok(x, y)) return false
+    // The last sample stands at the waypoint itself: nothing ahead to probe.
+    if (s < n ? !fitsAt(m, x, y, b[0] - a[0], b[1] - a[1]) : !m.ok(x, y)) return false
     if (roadOnly && !m.road(x, y)) return false
   }
   return true
