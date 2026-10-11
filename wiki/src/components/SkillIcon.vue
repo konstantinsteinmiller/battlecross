@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { SKILL_BY_ID, CLASSES, skillIcon, skillName, classIcon } from '../data'
-import { showTip, moveTip, hideTip } from '../tip'
+import { showTip, moveTip, hoverTip, leaveTip } from '../tip'
 
 const props = withDefaults(defineProps<{ id: string; size?: number; dim?: boolean; label?: boolean }>(), { size: 52 })
 const s = computed(() => SKILL_BY_ID[props.id])
@@ -11,7 +11,7 @@ const color = computed(() => (s.value ? CLASSES[s.value.cls].color : '#888'))
 
 <template>
   <span v-if="s" class="skill" :class="{ dim, passive: s.kind === 'passive' }" :style="{ '--c': color, '--s': size + 'px' }"
-    @mouseenter="showTip('skill', id, $event)" @mousemove="moveTip" @mouseleave="hideTip">
+    @pointerenter="hoverTip('skill', id, $event)" @click="showTip('skill', id, $event)" @mousemove="moveTip" @pointerleave="leaveTip">
     <span class="frame">
       <img v-if="icon" :src="icon" :alt="skillName(s)" loading="lazy" />
       <span v-else class="glyph">

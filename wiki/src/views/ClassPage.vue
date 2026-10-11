@@ -103,6 +103,9 @@ const crossClass = computed(() => {
 .body { flex: 1; }
 .body h3 { margin: 0; }
 .body p { margin: 4px 0; }
+@media (max-width: 680px) { .head { flex-direction: column; text-align: center; } .portrait { width: 110px; height: 110px; } .node { gap: 10px; } .lv { width: 26px; font-size: 18px; } .pair { flex-wrap: wrap; } }
+.body, .pair > div { min-width: 0; }
+@media (max-width: 680px) { .head > div { width: 100%; min-width: 0; } .head { padding: 14px; } }
 .pair { display: flex; align-items: center; gap: 10px; }
 .plus { font-family: var(--display); color: var(--gold); font-size: 20px; }
 </style>

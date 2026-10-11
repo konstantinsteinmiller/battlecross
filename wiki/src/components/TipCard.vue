@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { computed } from 'vue'
-import { tip } from '../tip'
+import { computed, onMounted, onUnmounted, ref } from 'vue'
+import { tip, hideTip } from '../tip'
 import {
   SKILL_BY_ID, ITEM_BY_ID, CLASSES, TIER_COLOR, ATTR_SHORT, ATTR_NAME, className, skillName, skillDesc, scalingOf, skillCost,
   itemName, tierName, slotName, modLine, sourcesOf, teachersOf, npcName, placeName, type Attr
@@ -15,11 +15,19 @@ const pos = computed(() => {
   const y = Math.min(tip.y + 14, window.innerHeight - h)
   return { left: Math.max(8, x) + 'px', top: Math.max(8, y) + 'px' }
 })
+const narrow = ref(window.innerWidth < 700)
+const onResize = (): void => { narrow.value = window.innerWidth < 700 }
+/** A tap that is not on an icon closes the card (touch has no mouseleave). */
+const onDown = (e: PointerEvent): void => {
+  if (!(e.target as HTMLElement).closest('.skill, .item, .tipcard')) hideTip()
+}
+onMounted(() => { addEventListener('resize', onResize); addEventListener('pointerdown', onDown) })
+onUnmounted(() => { removeEventListener('resize', onResize); removeEventListener('pointerdown', onDown) })
 const firstTeacher = computed(() => (s.value ? teachersOf(s.value.cls)[0] : undefined))
 </script>
 
 <template>
-  <div v-if="s || it" class="tipcard" :style="pos">
+  <div v-if="s || it" class="tipcard" :class="{ sheet: narrow }" :style="narrow ? {} : pos" @click="narrow && hideTip()">
     <template v-if="s">
       <div class="head" :style="{ color: CLASSES[s.cls].color }">
         <div class="name display">{{ skillName(s) }}</div>
@@ -67,6 +75,8 @@ const firstTeacher = computed(() => (s.value ? teachersOf(s.value.cls)[0] : unde
   font-size: 13.5px; animation: pop .12s ease-out;
 }
 @keyframes pop { from { opacity: 0; transform: scale(.97); } }
+.tipcard.sheet { left: 8px !important; right: 8px; bottom: 8px; top: auto !important; width: auto; max-height: 62vh; overflow: auto; pointer-events: auto; border-radius: 18px; }
+.tipcard.sheet::after { content: 'Tap to close'; display: block; text-align: center; color: var(--dim); font-size: 11px; margin-top: 8px; }
 .head { text-align: center; border-bottom: 1px solid rgba(255,255,255,.08); padding-bottom: 8px; margin-bottom: 8px; }
 .name { font-size: 21px; text-shadow: 0 2px 0 rgba(0,0,0,.6); }
 .sub { color: var(--muted); font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; }

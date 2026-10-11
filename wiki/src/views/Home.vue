@@ -77,6 +77,15 @@ const PILLARS = [
 .pillar:hover { color: var(--ink); }
 .pi { font-size: 30px; margin-bottom: 6px; }
 .banners { margin-top: 34px; }
+@media (max-width: 680px) {
+  .hero-in { padding: 28px 16px 30px; }
+  .wordmark { height: 60px; }
+  .hero h1 { font-size: 42px; }
+  .lead { font-size: 16px; }
+  .hero-art::after { background: linear-gradient(0deg, var(--bg) 0%, rgba(13,11,20,.85) 60%, rgba(13,11,20,.6)); }
+  .cls { width: 38px; height: 38px; }
+  .banner { min-height: 200px; }
+}
 .banner { display: flex; align-items: flex-end; min-height: 260px; border-radius: var(--r); background-size: cover; background-position: center; border: 1px solid var(--line); position: relative; overflow: hidden; color: var(--ink); }
 .banner::before { content: ''; position: absolute; inset: 0; background: linear-gradient(0deg, rgba(13,11,20,.95), rgba(13,11,20,.1) 70%); }
 .banner > div { position: relative; padding: 22px; }

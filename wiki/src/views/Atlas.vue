@@ -65,7 +65,7 @@ const ROLE: Record<string, string> = { shop: '🛒', trainer: '📖', quest: '�
 
 <style scoped>
 .layout { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); gap: 18px; align-items: start; }
-@media (max-width: 1000px) { .layout { grid-template-columns: 1fr; } }
+@media (max-width: 1000px) { .layout { grid-template-columns: 1fr; } .detail { position: static; } .nm { display: none; } .dot { width: 26px; height: 26px; font-size: 12px; } }
 .map { position: relative; aspect-ratio: 16 / 10; background-size: cover; background-position: center; padding: 0; overflow: hidden; }
 .links { position: absolute; inset: 0; width: 100%; height: 100%; }
 .links line { stroke: rgba(80, 40, 10, .7); stroke-width: .5; stroke-dasharray: 1.2 1; }

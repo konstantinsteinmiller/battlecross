@@ -73,7 +73,7 @@ const KIND_ICON: Record<string, string> = { drop: '⚔', shop: '🛒', shelf: '�
 <style scoped>
 .lead { max-width: 900px; }
 .layout { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 18px; margin-top: 16px; align-items: start; }
-@media (max-width: 1000px) { .layout { grid-template-columns: 1fr; } }
+@media (max-width: 1000px) { .layout { grid-template-columns: 1fr; } .detail { position: static; order: -1; } .src { display: none; } .in { min-width: 0; } }
 .filters { display: grid; gap: 10px; margin-bottom: 12px; }
 .list { display: grid; gap: 6px; }
 .irow { display: flex; gap: 12px; align-items: center; text-align: left; background: var(--panel); border: 1px solid var(--line2); border-radius: 12px; padding: 7px 10px; color: var(--ink); cursor: pointer; font: inherit; }

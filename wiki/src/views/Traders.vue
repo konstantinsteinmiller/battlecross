@@ -81,5 +81,6 @@ const gamblers = towns.flatMap(town => TOWNS[town].npcs.filter(n => n.role === '
 .shop .row { align-items: flex-start; flex-wrap: nowrap; }
 .unlock { color: #ffcf7a; margin-top: 6px; }
 .quote { font-style: italic; margin-top: 4px; }
+@media (max-width: 680px) { .pt { width: 56px; height: 56px; } .shop > .row > div { min-width: 0; } .st { flex-wrap: nowrap; align-items: flex-start; } .st > div { min-width: 0; } }
 .stock { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 12px; }
 </style>

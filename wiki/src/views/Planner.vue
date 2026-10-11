@@ -217,7 +217,8 @@ watch(preset, v => { if (v) { load(v); preset.value = '' } })
 .tot { width: 28px; text-align: right; }
 .slots { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 8px; margin: 10px 0; }
 @media (max-width: 760px) { .slots { grid-template-columns: repeat(4, minmax(0, 1fr)); } .layout > * { min-width: 0; } }
-.slots.passives { grid-template-columns: repeat(4, 64px); }
+.slots.passives { grid-template-columns: repeat(4, minmax(0, 64px)); }
+@media (max-width: 760px) { .pool { grid-template-columns: 1fr; max-height: 420px; } .eq select { font-size: 14px; } }
 .slot { aspect-ratio: 1; min-width: 0; border-radius: 12px; background: rgba(0,0,0,.35); border: 1px dashed var(--line); display: grid; place-items: center; cursor: pointer; }
 .slot.round { border-radius: 50%; }
 .why { list-style: none; padding: 0; margin: 8px 0 0; color: #cfe8ff; }

@@ -118,5 +118,5 @@ const errandTitle = (id: string, giver: string): string => (t(`errand.${id}.titl
 .cl { font-weight: 800; margin-bottom: 6px; }
 .fx { list-style: none; padding-left: 0; margin: 8px 0 0; color: var(--muted); }
 .unlock { color: #ffcf7a; }
-@media (max-width: 760px) { .quest { flex-direction: column; } }
+@media (max-width: 760px) { .quest { flex-direction: column; } .qp { width: 90px; height: 90px; } }
 </style>

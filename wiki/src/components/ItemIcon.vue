@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { ITEM_BY_ID, TIER_COLOR, itemIcon, itemName } from '../data'
-import { showTip, moveTip, hideTip } from '../tip'
+import { showTip, moveTip, hoverTip, leaveTip } from '../tip'
 
 const props = withDefaults(defineProps<{ id: string; size?: number }>(), { size: 52 })
 const it = computed(() => ITEM_BY_ID[props.id])
@@ -9,7 +9,7 @@ const it = computed(() => ITEM_BY_ID[props.id])
 
 <template>
   <span v-if="it" class="item" :class="'t' + it.tier" :style="{ '--c': TIER_COLOR[it.tier], '--s': size + 'px' }"
-    @mouseenter="showTip('item', id, $event)" @mousemove="moveTip" @mouseleave="hideTip">
+    @pointerenter="hoverTip('item', id, $event)" @click="showTip('item', id, $event)" @mousemove="moveTip" @pointerleave="leaveTip">
     <img :src="itemIcon(it)" :alt="itemName(it)" loading="lazy" />
   </span>
 </template>

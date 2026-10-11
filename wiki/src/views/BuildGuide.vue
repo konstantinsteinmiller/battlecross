@@ -44,6 +44,16 @@ const maxAttr = computed(() => (b.value ? Math.max(...ATTRS.map(a => b.value!.at
       </div>
     </section>
 
+    <!-- On a phone: everything a player mid-game needs, on one screen. -->
+    <section class="panel quick">
+      <h3>Quick view</h3>
+      <div class="row"><SkillIcon v-for="id in b.actives" :key="id" :id="id" :size="40" /></div>
+      <div class="row"><SkillIcon v-for="id in b.passives" :key="id" :id="id" :size="40" /></div>
+      <div class="row qa"><span v-for="a in ATTRS" :key="a" :style="{ color: ATTR_COLOR[a] }">{{ a.toUpperCase() }} {{ b.attrs[a] }}</span></div>
+      <div class="row"><template v-for="s in EQUIP_SLOT_LIST" :key="s"><ItemIcon v-if="b.gear[s]" :id="b.gear[s]!" :size="40" /></template></div>
+      <div class="dim small">Tap any icon for details.</div>
+    </section>
+
     <div class="grid cols">
       <div class="stack">
         <section class="panel">
@@ -129,7 +139,19 @@ const maxAttr = computed(() => (b.value ? Math.max(...ATTRS.map(a => b.value!.at
 .ci { width: 18px; height: 18px; object-fit: contain; }
 .tagline { font-size: 18px; color: #efe6d6; }
 .cols { grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); align-items: start; }
-@media (max-width: 1000px) { .cols { grid-template-columns: 1fr; } .head { flex-direction: column; text-align: center; } }
+@media (max-width: 1000px) { .cols { grid-template-columns: 1fr; } .head { flex-direction: column; text-align: center; } .head .row { justify-content: center; } }
+.quick { display: none; }
+@media (max-width: 680px) {
+  .portrait { display: none; }
+  .head h1 { font-size: 32px; }
+  .head { gap: 8px; }
+  .tagline { font-size: 15px; }
+  .rot { columns: 1; }
+  .lvl { flex-direction: column; gap: 2px; }
+  .quick { display: block; }
+}
+.quick .row { gap: 8px; margin-bottom: 8px; }
+.qa { font-size: 13px; font-weight: 800; }
 .skbar { gap: 14px; margin-bottom: 8px; align-items: flex-start; }
 .rot { padding-left: 20px; columns: 2; }
 .lvl { display: flex; gap: 16px; align-items: baseline; border-bottom: 1px solid var(--line2); padding: 8px 0; }
