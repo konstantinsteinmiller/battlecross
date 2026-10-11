@@ -1,5 +1,13 @@
 // Simplified Chinese locale — mirrors the key shape of en.ts exactly.
 export default {
+  arena: {
+    allWon: '所有神话奖品都归你了。',
+    prize: '{item}归你了！',
+    milestone: '第{n}波！',
+    next: '下一个奖品在第{at}波：{item}',
+    champion: '冠军波',
+    wave: '第{n}波'
+  },
   smith: {
     why: {
       max: '两件都已拥有，且已锻到顶。',
@@ -1298,6 +1306,7 @@ export default {
     trinket: '饰品'
   },
   tier: {
+    '7': '神话',
     '1': '普通',
     '2': '优秀',
     '3': '稀有',
@@ -1311,6 +1320,7 @@ export default {
     magic: '魔法 · 随{attr}成长'
   },
   source: {
+    arena: '在斗技场的天梯中赢得。',
     smith: '在铁匠铺锻造。',
     mob: '由{zone}的怪物掉落。',
     chest: '可在{zone}的宝箱里找到。',
@@ -1379,6 +1389,24 @@ export default {
     overheatCrit: '过热时暴击伤害 +{n}%'
   },
   item: {
+    heartOfTheArena: {
+      name: '斗技场之心'
+    },
+    mantleOfTheUndefeated: {
+      name: '不败者板甲'
+    },
+    crimsonBulwark: {
+      name: '赤红壁盾'
+    },
+    sandstriderGreaves: {
+      name: '踏沙胫甲'
+    },
+    gripsOfTheGladiator: {
+      name: '角斗士护手'
+    },
+    laurelOfTheVictor: {
+      name: '胜者桂冠'
+    },
     smithMasterMithrilGreaves: {
       name: '精工秘银胫甲'
     },

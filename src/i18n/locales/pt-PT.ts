@@ -1,5 +1,13 @@
 // European Portuguese (pt-PT) bundle — mirrors en.ts.
 export default {
+  arena: {
+    allWon: 'Todos os prémios míticos são teus.',
+    prize: 'Prémio conquistado: {item}!',
+    milestone: 'Vaga {n}!',
+    next: 'Próximo prémio na vaga {at}: {item}',
+    champion: 'Vaga do campeão',
+    wave: 'Vaga {n}'
+  },
   smith: {
     why: {
       max: 'Tens os dois, melhorados ao máximo.',
@@ -1299,6 +1307,7 @@ export default {
     trinket: 'Berloque'
   },
   tier: {
+    '7': 'Mítico',
     '1': 'Comum',
     '2': 'Invulgar',
     '3': 'Raro',
@@ -1312,6 +1321,7 @@ export default {
     magic: 'Magia · escala com {attr}'
   },
   source: {
+    arena: 'Conquistado no Coliseu.',
     smith: 'Forjado numa forja.',
     mob: '{zone}: largado pelos monstros.',
     chest: '{zone}: encontra-se nas arcas.',
@@ -1380,6 +1390,24 @@ export default {
     overheatCrit: '+{n}% de dano Crítico enquanto sobreaquecido'
   },
   item: {
+    heartOfTheArena: {
+      name: 'Coração da Arena'
+    },
+    mantleOfTheUndefeated: {
+      name: 'Couraça do Invicto'
+    },
+    crimsonBulwark: {
+      name: 'Baluarte Carmesim'
+    },
+    sandstriderGreaves: {
+      name: 'Grevas do Andarilho das Areias'
+    },
+    gripsOfTheGladiator: {
+      name: 'Manoplas do Gladiador'
+    },
+    laurelOfTheVictor: {
+      name: 'Louro do Vencedor'
+    },
     smithMasterMithrilGreaves: {
       name: 'Grevas de mithril magistrais'
     },

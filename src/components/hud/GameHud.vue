@@ -8,6 +8,8 @@
     //- What a boss shouts at the big beats of its fight.
     BossBarkLayer(v-if="flow.screen === 'zone'")
     CoachLayer(v-if="(flow.screen === 'zone' || flow.screen === 'town') && !flow.modal && !flow.talk")
+    //- The colosseum's announcement: the wave, the next prize, a milestone (#117).
+    ArenaBanner(v-if="flow.screen === 'zone' && flow.node === 'arena' && !flow.modal")
     //- The "Open" prompt on the chest in reach.
     ChestPrompt(v-if="flow.screen === 'zone'")
     //- The "Read" prompt on the town square's notice board (#85).
@@ -56,6 +58,7 @@ import TouchStick from './TouchStick.vue'
 import FloatLayer from './FloatLayer.vue'
 import CoachLayer from './CoachLayer.vue'
 import ChestPrompt from './ChestPrompt.vue'
+import ArenaBanner from './ArenaBanner.vue'
 import BoardPrompt from './BoardPrompt.vue'
 import LeaveButton from './LeaveButton.vue'
 import MenuButtons from './MenuButtons.vue'

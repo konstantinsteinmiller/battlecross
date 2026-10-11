@@ -1,5 +1,13 @@
 // Italian locale — mirrors the key shape of en.ts exactly.
 export default {
+  arena: {
+    allWon: 'Tutti i premi mitici sono tuoi.',
+    prize: 'Premio conquistato: {item}!',
+    milestone: 'Ondata {n}!',
+    next: 'Prossimo premio all’ondata {at}: {item}',
+    champion: 'Ondata del campione',
+    wave: 'Ondata {n}'
+  },
   smith: {
     why: {
       max: 'Li possiedi entrambi, migliorati al massimo.',
@@ -1299,6 +1307,7 @@ export default {
     trinket: 'Ninnolo'
   },
   tier: {
+    '7': 'Mitico',
     '1': 'Comune',
     '2': 'Non comune',
     '3': 'Raro',
@@ -1312,6 +1321,7 @@ export default {
     magic: 'Magia · scala con {attr}'
   },
   source: {
+    arena: 'Vinto nel Colosseo.',
     smith: 'Forgiato in una fucina.',
     mob: '{zone}: lo lasciano cadere i mostri.',
     chest: '{zone}: si trova nei forzieri.',
@@ -1380,6 +1390,24 @@ export default {
     overheatCrit: '+{n}% danno Critico da surriscaldato'
   },
   item: {
+    heartOfTheArena: {
+      name: 'Cuore dell’Arena'
+    },
+    mantleOfTheUndefeated: {
+      name: 'Corazza dell’Imbattuto'
+    },
+    crimsonBulwark: {
+      name: 'Baluardo Cremisi'
+    },
+    sandstriderGreaves: {
+      name: 'Schinieri del Corridore delle Sabbie'
+    },
+    gripsOfTheGladiator: {
+      name: 'Manopole del Gladiatore'
+    },
+    laurelOfTheVictor: {
+      name: 'Alloro del Vincitore'
+    },
     smithMasterMithrilGreaves: {
       name: 'Schinieri di mithril magistrali'
     },

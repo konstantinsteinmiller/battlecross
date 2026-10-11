@@ -1,4 +1,6 @@
 import { AmbientLight, Frustum, Matrix4, Scene, Sphere, Vector2, type Group, type InstancedMesh, type Line, type Material, type Mesh, type Object3D, type Points, type ShaderMaterial, type SkinnedMesh } from 'three'
+import { ArenaCrowd } from '../gfx/arenaCrowd'
+import { nextMilestone } from '../data/arena'
 import type { GameMode } from '../engine/app'
 import { FollowCam, CAM_FOV, CAM_PITCH } from '../engine/camera'
 import { consumeEdges, type Input } from '../engine/input'
@@ -216,6 +218,9 @@ export class ZoneMode implements GameMode {
   private props: LevelProps | null = null
   /** A town's houses, props and life (`gfx/townView.ts`). */
   private town: TownView | null = null
+  /** The colosseum's stands, crowd and banners (#117), and the waves it has seen fall. */
+  private crowd: ArenaCrowd | null = null
+  private crowdCleared = 0
   private chest: { root: Group; lid: Object3D; dispose(): void } | null = null
   private chestOpen = 0
   private views = new Map<number, View>()
@@ -301,6 +306,8 @@ export class ZoneMode implements GameMode {
       rested: setup.kind === 'town' ? 0 : profile.meta.rested
     })
     if (setup.kind === 'zone') populateZone(sim, plan, setup.zone!, profile.inv.items, profile.world.chests)
+    // The colosseum knows what is owned: a milestone's mythic is given once (#117).
+    else if (setup.kind === 'arena') for (const id of profile.inv.items) sim.owned.add(id)
     // An encounter pays in gold and experience, never in the zone's gear.
     if (setup.encounter) { sim.dropTable.mob = []; sim.dropTable.chest = []; sim.dropTable.boss = [] }
     // The first visit's training dummy, until it has been dealt with once.
@@ -371,6 +378,10 @@ export class ZoneMode implements GameMode {
     if (setup.kind === 'town' && plan.town) {
       const { TownView } = await loadTownView()
       m.town = await TownView.build(plan, sim, m.scene, slice, m.vfx.particles)
+    }
+    if (setup.kind === 'arena') {
+      m.crowd = new ArenaCrowd(plan, m.vfx.particles, m.low)
+      m.scene.add(m.crowd.root)
     }
     if (setup.kind === 'arena' && plan.chest) {
       m.chest = buildChest()
@@ -854,9 +865,19 @@ export class ZoneMode implements GameMode {
           break
         case 'groupDone':
           break
-        case 'wave':
-          pushHud({ t: 'toast', key: 'toast.wave', params: { n: e.n } })
+        case 'wave': {
+          // The announcer's moment (#117): the wave's number big over the sand,
+          // and the next prize the ladder holds.
+          const next = nextMilestone(id => profile.inv.items.includes(id) || sim.hero.items.includes(id))
+          hud.arenaBanner = { id: (hud.arenaBanner?.id ?? 0) + 1, kind: 'wave', n: e.n, champion: e.n > ARENA_WAVES && (e.n - ARENA_WAVES) % 3 === 0, item: next?.item ?? '', at: next?.wave ?? 0 }
           sfx('alert')
+          break
+        }
+        case 'milestone':
+          // A milestone falls: the crowd roars, the mythic is in the sand.
+          hud.arenaBanner = { id: (hud.arenaBanner?.id ?? 0) + 1, kind: e.fresh ? 'prize' : 'milestone', n: e.wave, champion: false, item: e.item, at: e.wave }
+          this.crowd?.cheer(sim.hero.unit.x, sim.hero.unit.z, true)
+          sfx('crowdRoar')
           break
         case 'bark':
           sayBark(e.unit, e.key)
@@ -1068,6 +1089,15 @@ export class ZoneMode implements GameMode {
     this.vfx.update(fxDt, sim.time)
     this.walls.update(fxDt)
     this.props?.update(fxDt, hx, hz)
+    if (this.crowd) {
+      // A wave fought to its end: the crowd is on its feet (#117).
+      if (sim.wave.cleared > this.crowdCleared) {
+        this.crowdCleared = sim.wave.cleared
+        this.crowd.cheer(hx, hz)
+        sfx('crowdCheer')
+      }
+      this.crowd.update(fxDt)
+    }
     emitCrumbs(sim, this.vfx.particles, fxDt, this.low || fxLevel() >= 1)
     if (this.chestOpen > 0 && this.chest) {
       this.chestOpen = Math.min(1, this.chestOpen + dt * 2.2)
@@ -1342,6 +1372,7 @@ export class ZoneMode implements GameMode {
     this.walls.dispose()
     this.props?.dispose()
     this.town?.dispose()
+    this.crowd?.dispose()
     this.chest?.dispose()
     this.terrain.dispose()
     for (const v of this.variants) v.dispose()

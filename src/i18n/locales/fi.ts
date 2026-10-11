@@ -1,5 +1,13 @@
 // Finnish (fi) bundle — mirrors en.ts.
 export default {
+  arena: {
+    allWon: 'Kaikki myyttiset palkinnot ovat sinun.',
+    prize: '{item} on sinun!',
+    milestone: 'Aalto {n}!',
+    next: 'Seuraava palkinto aallolla {at}: {item}',
+    champion: 'Mestariaalto',
+    wave: 'Aalto {n}'
+  },
   smith: {
     why: {
       max: 'Omistat molemmat, täysin parannettuina.',
@@ -1298,6 +1306,7 @@ export default {
     trinket: 'Koru'
   },
   tier: {
+    '7': 'Myyttinen',
     '1': 'Tavallinen',
     '2': 'Epätavallinen',
     '3': 'Harvinainen',
@@ -1311,6 +1320,7 @@ export default {
     magic: 'Taikuus · skaalautuu: {attr}'
   },
   source: {
+    arena: 'Voitettu Kolosseumin aaltotaisteluissa.',
     smith: 'Taottu pajassa.',
     mob: 'Putoaa hirviöiltä. Alue: {zone}.',
     chest: 'Löytyy arkuista. Alue: {zone}.',
@@ -1379,6 +1389,24 @@ export default {
     overheatCrit: '+{n}% kriittinen vahinko ylikuumentuneena'
   },
   item: {
+    heartOfTheArena: {
+      name: 'Areenan sydän'
+    },
+    mantleOfTheUndefeated: {
+      name: 'Voittamattoman panssari'
+    },
+    crimsonBulwark: {
+      name: 'Verenpunainen kilpimuuri'
+    },
+    sandstriderGreaves: {
+      name: 'Hiekkakulkijan säärystimet'
+    },
+    gripsOfTheGladiator: {
+      name: 'Gladiaattorin rautakourat'
+    },
+    laurelOfTheVictor: {
+      name: 'Voittajan laakeri'
+    },
     smithMasterMithrilGreaves: {
       name: 'Mestarin mithrilsäärystimet'
     },

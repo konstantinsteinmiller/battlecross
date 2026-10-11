@@ -1,5 +1,13 @@
 // Japanese locale — mirrors the key shape of en.ts exactly.
 export default {
+  arena: {
+    allWon: 'ミシックの賞品をすべて手に入れた。',
+    prize: '{item}を手に入れた！',
+    milestone: 'ウェーブ{n}！',
+    next: '次の賞品はウェーブ{at}：{item}',
+    champion: 'チャンピオンウェーブ',
+    wave: 'ウェーブ {n}'
+  },
   smith: {
     why: {
       max: '両方とも所持済み、最大まで鍛えてある。',
@@ -1298,6 +1306,7 @@ export default {
     trinket: '装飾品'
   },
   tier: {
+    '7': 'ミシック',
     '1': 'コモン',
     '2': 'アンコモン',
     '3': 'レア',
@@ -1311,6 +1320,7 @@ export default {
     magic: '魔法 · {attr}で強化'
   },
   source: {
+    arena: 'コロシアムの勝ち抜き戦で勝ち取った品。',
     smith: '鍛冶場で鍛えられた品。',
     mob: '{zone}のモンスターが落とす。',
     chest: '{zone}の宝箱で見つかる。',
@@ -1379,6 +1389,24 @@ export default {
     overheatCrit: 'オーバーヒート中クリティカルダメージ+{n}%'
   },
   item: {
+    heartOfTheArena: {
+      name: '闘技場の心臓'
+    },
+    mantleOfTheUndefeated: {
+      name: '不敗の鎧'
+    },
+    crimsonBulwark: {
+      name: '真紅の大盾'
+    },
+    sandstriderGreaves: {
+      name: '砂駆けの脛当て'
+    },
+    gripsOfTheGladiator: {
+      name: '剣闘士の籠手'
+    },
+    laurelOfTheVictor: {
+      name: '勝者の月桂冠'
+    },
     smithMasterMithrilGreaves: {
       name: '名工のミスリルの脛当て'
     },

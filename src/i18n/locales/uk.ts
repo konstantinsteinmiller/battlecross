@@ -1,5 +1,13 @@
 // Ukrainian (uk) bundle — mirrors the key shape of en.ts exactly.
 export default {
+  arena: {
+    allWon: 'Усі міфічні призи здобуто.',
+    prize: 'Приз здобуто: {item}!',
+    milestone: 'Хвиля {n}!',
+    next: 'Наступний приз на хвилі {at}: {item}',
+    champion: 'Хвиля чемпіона',
+    wave: 'Хвиля {n}'
+  },
   smith: {
     why: {
       max: 'У тебе є обидва, покращені до межі.',
@@ -1299,6 +1307,7 @@ export default {
     trinket: 'Аксесуар'
   },
   tier: {
+    '7': 'Міфічне',
     '1': 'Звичайне',
     '2': 'Незвичайне',
     '3': 'Рідкісне',
@@ -1312,6 +1321,7 @@ export default {
     magic: 'Магія · зростає від: {attr}'
   },
   source: {
+    arena: 'Здобуто в Колізеї.',
     smith: 'Викувано в кузні.',
     mob: 'Випадає з монстрів. Зона: {zone}.',
     chest: 'Лежить у скринях. Зона: {zone}.',
@@ -1380,6 +1390,24 @@ export default {
     overheatCrit: '+{n}% до шкоди криту під час перегріву'
   },
   item: {
+    heartOfTheArena: {
+      name: 'Серце арени'
+    },
+    mantleOfTheUndefeated: {
+      name: 'Лати непереможеного'
+    },
+    crimsonBulwark: {
+      name: 'Багряний бастіон'
+    },
+    sandstriderGreaves: {
+      name: 'Наголінники піщаного мандрівника'
+    },
+    gripsOfTheGladiator: {
+      name: 'Рукавиці гладіатора'
+    },
+    laurelOfTheVictor: {
+      name: 'Лаври переможця'
+    },
     smithMasterMithrilGreaves: {
       name: 'Мітрилові наголінники майстерної роботи'
     },

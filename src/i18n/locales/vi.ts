@@ -1,5 +1,13 @@
 // Vietnamese locale — mirrors the key shape of en.ts exactly.
 export default {
+  arena: {
+    allWon: 'Mọi phần thưởng thần thoại đều là của bạn.',
+    prize: '{item} là của bạn!',
+    milestone: 'Đợt {n}!',
+    next: 'Phần thưởng tiếp theo ở đợt {at}: {item}',
+    champion: 'Đợt quán quân',
+    wave: 'Đợt {n}'
+  },
   smith: {
     why: {
       max: 'Bạn đã có cả hai, rèn đến mức tối đa.',
@@ -1298,6 +1306,7 @@ export default {
     trinket: 'Bùa'
   },
   tier: {
+    '7': 'Thần thoại',
     '1': 'Thường',
     '2': 'Ít gặp',
     '3': 'Hiếm',
@@ -1311,6 +1320,7 @@ export default {
     magic: 'Phép thuật · tăng theo {attr}'
   },
   source: {
+    arena: 'Giành được trên bảng xếp hạng Đấu Trường.',
     smith: 'Được rèn tại lò rèn.',
     mob: 'Rơi từ quái vật ở {zone}.',
     chest: 'Tìm thấy trong rương ở {zone}.',
@@ -1379,6 +1389,24 @@ export default {
     overheatCrit: '+{n}% Sát thương Chí mạng khi quá nhiệt'
   },
   item: {
+    heartOfTheArena: {
+      name: 'Trái Tim Đấu Trường'
+    },
+    mantleOfTheUndefeated: {
+      name: 'Giáp Tấm Bất Bại'
+    },
+    crimsonBulwark: {
+      name: 'Khiên Thành Đỏ Thẫm'
+    },
+    sandstriderGreaves: {
+      name: 'Giáp Ống Chân Lữ Khách Cát'
+    },
+    gripsOfTheGladiator: {
+      name: 'Găng Giáp Đấu Sĩ'
+    },
+    laurelOfTheVictor: {
+      name: 'Vòng Nguyệt Quế Kẻ Chiến Thắng'
+    },
     smithMasterMithrilGreaves: {
       name: 'Giáp Ống Chân Mithril Tuyệt Phẩm'
     },

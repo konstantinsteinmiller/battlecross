@@ -1,5 +1,13 @@
 // Greek (el) bundle — mirrors en.ts.
 export default {
+  arena: {
+    allWon: 'Όλα τα μυθικά έπαθλα είναι δικά σου.',
+    prize: 'Κέρδισες: {item}!',
+    milestone: 'Κύμα {n}!',
+    next: 'Επόμενο έπαθλο στο κύμα {at}: {item}',
+    champion: 'Κύμα πρωταθλητή',
+    wave: 'Κύμα {n}'
+  },
   smith: {
     why: {
       max: 'Τα έχεις και τα δύο, δουλεμένα στο έπακρο.',
@@ -1298,6 +1306,7 @@ export default {
     trinket: 'Φυλαχτό'
   },
   tier: {
+    '7': 'Μυθικό',
     '1': 'Κοινό',
     '2': 'Ασυνήθιστο',
     '3': 'Σπάνιο',
@@ -1311,6 +1320,7 @@ export default {
     magic: 'Μαγεία · βάση: {attr}'
   },
   source: {
+    arena: 'Κερδήθηκε στην κατάταξη του Κολοσσαίου.',
     smith: 'Σφυρηλατήθηκε σε σιδηρουργείο.',
     mob: 'Το ρίχνουν τα τέρατα. Περιοχή: {zone}.',
     chest: 'Βρίσκεται σε σεντούκια. Περιοχή: {zone}.',
@@ -1379,6 +1389,24 @@ export default {
     overheatCrit: '+{n}% Κρίσιμη Ζημιά σε υπερθέρμανση'
   },
   item: {
+    heartOfTheArena: {
+      name: 'Καρδιά της Αρένας'
+    },
+    mantleOfTheUndefeated: {
+      name: 'Πανοπλία του Αήττητου'
+    },
+    crimsonBulwark: {
+      name: 'Άλικος Προμαχώνας'
+    },
+    sandstriderGreaves: {
+      name: 'Περικνημίδες του Αμμοδρόμου'
+    },
+    gripsOfTheGladiator: {
+      name: 'Γάντια του Μονομάχου'
+    },
+    laurelOfTheVictor: {
+      name: 'Δάφνη του Νικητή'
+    },
     smithMasterMithrilGreaves: {
       name: 'Αριστοτεχνικές Περικνημίδες από Μίθριλ'
     },

@@ -1,5 +1,13 @@
 // Galician (gl) bundle — mirrors en.ts.
 export default {
+  arena: {
+    allWon: 'Todos os premios míticos son teus.',
+    prize: 'Premio conseguido: {item}!',
+    milestone: 'Vaga {n}!',
+    next: 'Seguinte premio na vaga {at}: {item}',
+    champion: 'Vaga do campión',
+    wave: 'Vaga {n}'
+  },
   smith: {
     why: {
       max: 'Tes os dous, mellorados ao máximo.',
@@ -1299,6 +1307,7 @@ export default {
     trinket: 'Amuleto'
   },
   tier: {
+    '7': 'Mítico',
     '1': 'Común',
     '2': 'Pouco común',
     '3': 'Raro',
@@ -1312,6 +1321,7 @@ export default {
     magic: 'Maxia · escala con {attr}'
   },
   source: {
+    arena: 'Gañado no Coliseo.',
     smith: 'Forxado nunha ferraría.',
     mob: 'Sóltano os monstros. Zona: {zone}.',
     chest: 'Atópase nos cofres. Zona: {zone}.',
@@ -1380,6 +1390,24 @@ export default {
     overheatCrit: '+{n}% de Dano Crítico mentres estás sobrequecido'
   },
   item: {
+    heartOfTheArena: {
+      name: 'Corazón do Coliseo'
+    },
+    mantleOfTheUndefeated: {
+      name: 'Coiraza do Invicto'
+    },
+    crimsonBulwark: {
+      name: 'Baluarte Carmesí'
+    },
+    sandstriderGreaves: {
+      name: 'Grebas do Camiñante da Area'
+    },
+    gripsOfTheGladiator: {
+      name: 'Manoplas do Gladiador'
+    },
+    laurelOfTheVictor: {
+      name: 'Loureiro do Vencedor'
+    },
     smithMasterMithrilGreaves: {
       name: 'Grebas de mithril magistrais'
     },

@@ -1,5 +1,13 @@
 // German locale — mirrors the key shape of en.ts exactly.
 export default {
+  arena: {
+    allWon: 'Alle mythischen Preise gehören dir.',
+    prize: '{item} gehört dir!',
+    milestone: 'Welle {n}!',
+    next: 'Nächster Preis bei Welle {at}: {item}',
+    champion: 'Champion-Welle',
+    wave: 'Welle {n}'
+  },
   smith: {
     why: {
       max: 'Du besitzt beide, bis zum Maximum verbessert.',
@@ -1299,6 +1307,7 @@ export default {
     trinket: 'Schmuck'
   },
   tier: {
+    '7': 'Mythisch',
     '1': 'Gewöhnlich',
     '2': 'Ungewöhnlich',
     '3': 'Selten',
@@ -1312,6 +1321,7 @@ export default {
     magic: 'Magie · skaliert mit {attr}'
   },
   source: {
+    arena: 'Im Kolosseum als Preis erkämpft.',
     smith: 'In einer Schmiede geschmiedet.',
     mob: 'Beute von Monstern. Gebiet: {zone}.',
     chest: 'Aus Truhen. Gebiet: {zone}.',
@@ -1380,6 +1390,24 @@ export default {
     overheatCrit: '+{n}% Kritischer Schaden, solange überhitzt'
   },
   item: {
+    heartOfTheArena: {
+      name: 'Herz der Arena'
+    },
+    mantleOfTheUndefeated: {
+      name: 'Harnisch des Unbesiegten'
+    },
+    crimsonBulwark: {
+      name: 'Purpurnes Bollwerk'
+    },
+    sandstriderGreaves: {
+      name: 'Sandläufer-Beinschienen'
+    },
+    gripsOfTheGladiator: {
+      name: 'Panzerhandschuhe des Gladiators'
+    },
+    laurelOfTheVictor: {
+      name: 'Lorbeer des Siegers'
+    },
     smithMasterMithrilGreaves: {
       name: 'Meisterhafte Mithril-Beinschienen'
     },

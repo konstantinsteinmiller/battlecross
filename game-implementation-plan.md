@@ -877,6 +877,26 @@ All sound is synthesised (53 recipes); recorded files can override a recipe.
   clipping, levels in line with the existing ones; a fireball in a fight
   sounds its fire cast and its fire impact).
 - [ ] **40 Voice, translations, paint, final balance** (#107).
+- [x] **41 The colosseum: a spectacle, and a reason to climb** (#117, asked
+  after the batch). A new quality, Mythic (deep crimson), above the
+  legendaries: six class-free pieces (head, hands, feet, off-hand, body,
+  trinket), each with a passive of existing effects, given ONLY by the
+  ladder's milestones (waves 10, 15, 20, 25, 30, 40), once each, the moment
+  the wave falls (in the sand, with a crimson beam); never dropped, sold,
+  shopped or gambled. The arena gains stone stands beyond the wall full of a
+  bobbing crowd (instanced, seated evenly; on its feet at every wave cleared
+  and roaring at a milestone), eight crimson-and-gold banners inside the
+  wall, confetti over the sand, two crowd sounds, and an announcement banner
+  (the wave, a champion wave, the next prize; at a milestone, the prize).
+  The map's arena card names the next prize. Measured reach of the reference
+  builds at level 30 under the existing ramp: most classes 8-13 waves, four
+  20+, the summoners furthest (Blood 45, Sovereign 31) — milestones spread
+  from "most builds" to "the very best"; the summoners' lead is a class
+  balance question for later. Verified: arena tests (catalogue, milestones
+  given once, coplanar check of the stands, crowd and banners), full suite,
+  vue-tsc --build, a real browser (wave banner, banners and crowd, the
+  wave-10 milestone and its mythic in the haul; SHARP); strings in all 38
+  locales. Deferred: painted icons for the mythics (the Art Desk).
 
 ### Deferred
 

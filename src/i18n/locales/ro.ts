@@ -1,5 +1,13 @@
 // Romanian (ro) bundle — mirrors en.ts.
 export default {
+  arena: {
+    allWon: 'Toate premiile mitice sunt ale tale.',
+    prize: 'Ai câștigat: {item}!',
+    milestone: 'Valul {n}!',
+    next: 'Următorul premiu la valul {at}: {item}',
+    champion: 'Val de campion',
+    wave: 'Valul {n}'
+  },
   smith: {
     why: {
       max: 'Le ai pe amândouă, lucrate la maximum.',
@@ -1298,6 +1306,7 @@ export default {
     trinket: 'Talisman'
   },
   tier: {
+    '7': 'Mitic',
     '1': 'Comun',
     '2': 'Neobișnuit',
     '3': 'Rar',
@@ -1311,6 +1320,7 @@ export default {
     magic: 'Magie · crește cu {attr}'
   },
   source: {
+    arena: 'Câștigat în clasamentul Colosseumului.',
     smith: 'Făurit într-o fierărie.',
     mob: 'Îl lasă monștrii. Zonă: {zone}.',
     chest: 'Se găsește în cufere. Zonă: {zone}.',
@@ -1379,6 +1389,24 @@ export default {
     overheatCrit: '+{n}% Daune Critice cât ești supraîncălzit'
   },
   item: {
+    heartOfTheArena: {
+      name: 'Inima Arenei'
+    },
+    mantleOfTheUndefeated: {
+      name: 'Platoșa Neînvinsului'
+    },
+    crimsonBulwark: {
+      name: 'Scutul-Bastion Stacojiu'
+    },
+    sandstriderGreaves: {
+      name: 'Jambierele Călătorului prin Nisip'
+    },
+    gripsOfTheGladiator: {
+      name: 'Mănușile Gladiatorului'
+    },
+    laurelOfTheVictor: {
+      name: 'Laurii Învingătorului'
+    },
     smithMasterMithrilGreaves: {
       name: 'Jambiere de Mithril de Maestru'
     },

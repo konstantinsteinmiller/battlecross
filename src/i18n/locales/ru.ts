@@ -1,5 +1,13 @@
 // Russian (ru) bundle — mirrors the key shape of en.ts exactly.
 export default {
+  arena: {
+    allWon: 'Все мифические призы получены.',
+    prize: 'Приз получен: {item}!',
+    milestone: 'Волна {n}!',
+    next: 'Следующий приз на волне {at}: {item}',
+    champion: 'Волна чемпиона',
+    wave: 'Волна {n}'
+  },
   smith: {
     why: {
       max: 'У тебя есть оба, улучшенные до предела.',
@@ -1299,6 +1307,7 @@ export default {
     trinket: 'Аксессуар'
   },
   tier: {
+    '7': 'Мифическое',
     '1': 'Обычное',
     '2': 'Необычное',
     '3': 'Редкое',
@@ -1312,6 +1321,7 @@ export default {
     magic: 'Магия · растёт от: {attr}'
   },
   source: {
+    arena: 'Добыто в Колизее.',
     smith: 'Выковано в кузнице.',
     mob: 'Выпадает из монстров. Зона: {zone}.',
     chest: 'Лежит в сундуках. Зона: {zone}.',
@@ -1380,6 +1390,24 @@ export default {
     overheatCrit: '+{n}% к урону крита при перегреве'
   },
   item: {
+    heartOfTheArena: {
+      name: 'Сердце арены'
+    },
+    mantleOfTheUndefeated: {
+      name: 'Латы непобеждённого'
+    },
+    crimsonBulwark: {
+      name: 'Багряный бастион'
+    },
+    sandstriderGreaves: {
+      name: 'Наголенники песчаного странника'
+    },
+    gripsOfTheGladiator: {
+      name: 'Рукавицы гладиатора'
+    },
+    laurelOfTheVictor: {
+      name: 'Лавры победителя'
+    },
     smithMasterMithrilGreaves: {
       name: 'Мифриловые наголенники мастерской работы'
     },

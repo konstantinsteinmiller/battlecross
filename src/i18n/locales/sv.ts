@@ -1,5 +1,13 @@
 // Swedish locale — mirrors the key shape of en.ts exactly.
 export default {
+  arena: {
+    allWon: 'Alla mytiska priser är dina.',
+    prize: 'Du vann {item}!',
+    milestone: 'Våg {n}!',
+    next: 'Nästa pris vid våg {at}: {item}',
+    champion: 'Mästarvåg',
+    wave: 'Våg {n}'
+  },
   smith: {
     why: {
       max: 'Du äger båda, fullt förbättrade.',
@@ -1298,6 +1306,7 @@ export default {
     trinket: 'Smycke'
   },
   tier: {
+    '7': 'Mytisk',
     '1': 'Vanlig',
     '2': 'Ovanlig',
     '3': 'Sällsynt',
@@ -1311,6 +1320,7 @@ export default {
     magic: 'Magi · skalar med {attr}'
   },
   source: {
+    arena: 'Vunnen i Colosseum.',
     smith: 'Smidd i en smedja.',
     mob: 'Släpps av monster. Område: {zone}.',
     chest: 'Finns i kistor. Område: {zone}.',
@@ -1379,6 +1389,24 @@ export default {
     overheatCrit: '+{n}% Kritisk skada medan du är överhettad'
   },
   item: {
+    heartOfTheArena: {
+      name: 'Arenans hjärta'
+    },
+    mantleOfTheUndefeated: {
+      name: 'Den obesegrades rustning'
+    },
+    crimsonBulwark: {
+      name: 'Det karmosinröda bålverket'
+    },
+    sandstriderGreaves: {
+      name: 'Sandvandrarens benskydd'
+    },
+    gripsOfTheGladiator: {
+      name: 'Gladiatorns handskar'
+    },
+    laurelOfTheVictor: {
+      name: 'Segrarens lager'
+    },
     smithMasterMithrilGreaves: {
       name: 'Mästerliga mithrilbenskydd'
     },

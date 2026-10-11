@@ -1,5 +1,13 @@
 // French locale — mirrors the key shape of en.ts exactly.
 export default {
+  arena: {
+    allWon: 'Tous les prix mythiques sont à toi.',
+    prize: '{item} est à toi !',
+    milestone: 'Vague {n} !',
+    next: 'Prochain prix à la vague {at} : {item}',
+    champion: 'Vague du champion',
+    wave: 'Vague {n}'
+  },
   smith: {
     why: {
       max: 'Tu possèdes les deux, améliorés au maximum.',
@@ -1299,6 +1307,7 @@ export default {
     trinket: 'Babiole'
   },
   tier: {
+    '7': 'Mythique',
     '1': 'Commun',
     '2': 'Peu commun',
     '3': 'Rare',
@@ -1312,6 +1321,7 @@ export default {
     magic: 'Magie · attribut : {attr}'
   },
   source: {
+    arena: 'Remporté au Colisée.',
     smith: 'Forgé dans une forge.',
     mob: '{zone} : butin des monstres.',
     chest: '{zone} : se trouve dans les coffres.',
@@ -1380,6 +1390,24 @@ export default {
     overheatCrit: '+{n} % de dégâts Critiques en surchauffe'
   },
   item: {
+    heartOfTheArena: {
+      name: 'Cœur de l’Arène'
+    },
+    mantleOfTheUndefeated: {
+      name: 'Cuirasse de l’Invaincu'
+    },
+    crimsonBulwark: {
+      name: 'Rempart Écarlate'
+    },
+    sandstriderGreaves: {
+      name: 'Jambières du Coureur des sables'
+    },
+    gripsOfTheGladiator: {
+      name: 'Gantelets du Gladiateur'
+    },
+    laurelOfTheVictor: {
+      name: 'Laurier du Vainqueur'
+    },
     smithMasterMithrilGreaves: {
       name: 'Jambières de mithril de maître'
     },

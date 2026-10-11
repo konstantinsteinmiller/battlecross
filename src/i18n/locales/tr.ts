@@ -1,5 +1,13 @@
 // Turkish locale — mirrors the key shape of en.ts exactly.
 export default {
+  arena: {
+    allWon: 'Tüm mitik ödüller artık senin.',
+    prize: '{item} artık senin!',
+    milestone: 'Dalga {n}!',
+    next: 'Sonraki ödül {at}. dalgada: {item}',
+    champion: 'Şampiyon dalgası',
+    wave: 'Dalga {n}'
+  },
   smith: {
     why: {
       max: 'İkisi de sende, sonuna kadar işlenmiş.',
@@ -1298,6 +1306,7 @@ export default {
     trinket: 'Tılsım'
   },
   tier: {
+    '7': 'Mitik',
     '1': 'Sıradan',
     '2': 'Seyrek',
     '3': 'Nadir',
@@ -1311,6 +1320,7 @@ export default {
     magic: 'Büyü · {attr} ile artar'
   },
   source: {
+    arena: 'Kolezyum sıralamasında kazanıldı.',
     smith: 'Bir demirci ocağında dövüldü.',
     mob: '{zone} bölgesinin canavarlarından düşer.',
     chest: '{zone} bölgesinin sandıklarında bulunur.',
@@ -1379,6 +1389,24 @@ export default {
     overheatCrit: 'Aşırı ısınmışken +{n}% Kritik Hasarı'
   },
   item: {
+    heartOfTheArena: {
+      name: 'Arenanın Kalbi'
+    },
+    mantleOfTheUndefeated: {
+      name: 'Yenilmezin Zırhı'
+    },
+    crimsonBulwark: {
+      name: 'Kızıl Siper Kalkanı'
+    },
+    sandstriderGreaves: {
+      name: 'Kumgezer Dizlikleri'
+    },
+    gripsOfTheGladiator: {
+      name: 'Gladyatörün Eldivenleri'
+    },
+    laurelOfTheVictor: {
+      name: 'Galibin Defne Tacı'
+    },
     smithMasterMithrilGreaves: {
       name: 'Usta İşi Mithril Dizlikler'
     },

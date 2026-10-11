@@ -331,7 +331,7 @@ const VARY: ReadonlySet<SfxName> = new Set<SfxName>([
 ])
 
 /** The big stings: the music steps back under them (seconds). */
-const DUCK_FOR: Partial<Record<SfxName, number>> = { bossIntro: 1.8, levelUp: 1.6, chest: 1.2, deathBig: 1.2, lootEpic: 1.2, lootLegend: 1.9 }
+const DUCK_FOR: Partial<Record<SfxName, number>> = { bossIntro: 1.8, levelUp: 1.6, chest: 1.2, deathBig: 1.2, lootEpic: 1.2, lootLegend: 1.9, crowdRoar: 2.2 }
 
 /** The loudest hits, trimmed 2–3 dB under the frequent ones. */
 const TRIM: Partial<Record<SfxName, number>> = { explode: 0.78, quake: 0.8, deathBig: 0.85, roar: 0.85 }
@@ -734,6 +734,27 @@ const RECIPES: Record<SfxName, (pan: number, g: number) => void> = {
     boom(120, 40, 0.42, 0.34 * g, p)
     metal(900, 0.3, 0.05 * g, p)
     crackle(8, 0.4, 0.08 * g, p, 0.05, 3000)
+  },
+  // ── The colosseum's crowd (#117) ──
+  // A wave falls: a thousand voices swelling ("yeah!") in three formant bands,
+  // drifting across the stands, and claps scattered through it.
+  crowdCheer: (p, g) => {
+    space(0.55)
+    for (const [f0, f1, v] of [[500, 900, 0.16], [1100, 1700, 0.12], [2400, 3000, 0.07]] as const) {
+      burst({ dur: 1.4, vol: v * g, type: 'bandpass', f0, fmid: f1, fmidAt: 0.3, f1: f0 * 0.8, q: 1.6, attack: 0.25, pan: p - 0.4, panTo: p + 0.4 })
+    }
+    for (let k = 0; k < 18; k++) crack(0.05 * g * (0.5 + Math.random()), p + (Math.random() - 0.5) * 1.4, 0.15 + Math.random() * 1.0, 1800 + Math.random() * 1600, 0.012)
+  },
+  // A milestone: the whole house on its feet, longer and louder, and a horn call over it.
+  crowdRoar: (p, g) => {
+    space(0.6)
+    for (const [f0, f1, v] of [[420, 1000, 0.22], [1000, 1900, 0.16], [2200, 3200, 0.1]] as const) {
+      burst({ dur: 2.4, vol: v * g, type: 'bandpass', f0, fmid: f1, fmidAt: 0.25, f1: f0 * 0.75, q: 1.4, attack: 0.3, pan: p - 0.6, panTo: p + 0.6 })
+    }
+    for (let k = 0; k < 34; k++) crack(0.05 * g * (0.5 + Math.random()), p + (Math.random() - 0.5) * 1.6, 0.2 + Math.random() * 1.8, 1800 + Math.random() * 1600, 0.012)
+    tone({ wave: 'saw', f0: midiHz(D4), dur: 0.36, vol: 0.06 * g, attack: 0.04, at: 0.1, pan: p, dirt: true })
+    tone({ wave: 'saw', f0: midiHz(A4), dur: 0.7, vol: 0.06 * g, attack: 0.04, at: 0.42, pan: p, dirt: true })
+    tone({ wave: 'saw', f0: midiHz(D5), dur: 0.9, vol: 0.05 * g, attack: 0.05, at: 0.42, pan: p, dirt: true })
   },
   // An explosion: the snap, the sub that shoves the air, the blast's roar falling away, debris raining, the ground answering.
   explode: (p, g) => {

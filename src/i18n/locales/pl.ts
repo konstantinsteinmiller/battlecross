@@ -1,5 +1,13 @@
 // Polish (pl) bundle — mirrors en.ts.
 export default {
+  arena: {
+    allWon: 'Wszystkie mityczne nagrody są twoje.',
+    prize: 'Nagroda zdobyta: {item}!',
+    milestone: 'Fala {n}!',
+    next: 'Następna nagroda na fali {at}: {item}',
+    champion: 'Fala mistrza',
+    wave: 'Fala {n}'
+  },
   smith: {
     why: {
       max: 'Masz oba, ulepszone do maksimum.',
@@ -1299,6 +1307,7 @@ export default {
     trinket: 'Błyskotka'
   },
   tier: {
+    '7': 'Mityczny',
     '1': 'Pospolity',
     '2': 'Niepospolity',
     '3': 'Rzadki',
@@ -1312,6 +1321,7 @@ export default {
     magic: 'Magia · atrybut: {attr}'
   },
   source: {
+    arena: 'Zdobyte w Koloseum.',
     smith: 'Wykute w kuźni.',
     mob: 'Wypada z potworów w strefie: {zone}.',
     chest: 'Do znalezienia w skrzyniach w strefie: {zone}.',
@@ -1380,6 +1390,24 @@ export default {
     overheatCrit: '+{n}% obrażeń krytycznych w stanie przegrzania'
   },
   item: {
+    heartOfTheArena: {
+      name: 'Serce Areny'
+    },
+    mantleOfTheUndefeated: {
+      name: 'Zbroja Niepokonanego'
+    },
+    crimsonBulwark: {
+      name: 'Szkarłatny Bastion'
+    },
+    sandstriderGreaves: {
+      name: 'Nagolenniki Piaskowego Wędrowca'
+    },
+    gripsOfTheGladiator: {
+      name: 'Rękawice Gladiatora'
+    },
+    laurelOfTheVictor: {
+      name: 'Laur Zwycięzcy'
+    },
     smithMasterMithrilGreaves: {
       name: 'Mistrzowskie mithrilowe nagolenniki'
     },

@@ -143,6 +143,8 @@
           //- The ladder's week (#10): its modifier and this week's best.
           span.card__meta(v-if="sel.kind === 'arena'" data-arena-week) {{ t('ladder.week', { mod: t(`ladder.mod.${arenaMod}`) }) }} · {{ t(`ladder.modDesc.${arenaMod}`) }}
           span.card__meta(v-if="sel.kind === 'arena' && arenaWeekBest() > 0") {{ t('ladder.weekBest', { n: arenaWeekBest() }) }}
+          //- The ladder's next mythic prize (#117), or every one won.
+          span.card__meta(v-if="sel.kind === 'arena'" data-arena-prize) {{ arenaNext ? t('arena.next', { at: arenaNext.wave, item: t(`item.${arenaNext.item}.name`) }) : t('arena.allWon') }}
           span.card__meta(v-if="sel.kind === 'town'") {{ t('map.town') }}
         p.card__desc {{ t(`node.${sel.id}.desc`) }}
         p.card__warn(v-if="sel.enterable && sel.danger > 0")
@@ -214,11 +216,14 @@ import { mapClock } from './map/session'
 import GoalTracker from '@/components/hud/GoalTracker.vue'
 import RestedNote from '@/components/hud/RestedNote.vue'
 import { arenaModOf } from '@/game/arenaWeek'
+import { nextMilestone } from '@/game/data/arena'
 
 const emit = defineEmits<{ (e: 'options'): void }>()
 const { t } = useI18n()
 /** The colosseum's modifier this week (#10). */
 const arenaMod = arenaModOf()
+/** The colosseum's next mythic prize (#117). */
+const arenaNext = computed(() => nextMilestone(id => profile.inv.items.includes(id)))
 
 /** The terrain drawing, decoded once for every visit to the map. */
 let plateLoad: Promise<HTMLImageElement> | null = null

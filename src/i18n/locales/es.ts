@@ -1,5 +1,13 @@
 // Spanish locale — mirrors the key shape of en.ts exactly.
 export default {
+  arena: {
+    allWon: 'Todos los premios míticos son tuyos.',
+    prize: '¡Premio conseguido: {item}!',
+    milestone: '¡Oleada {n}!',
+    next: 'Próximo premio en la oleada {at}: {item}',
+    champion: 'Oleada del campeón',
+    wave: 'Oleada {n}'
+  },
   smith: {
     why: {
       max: 'Tienes ambos, mejorados al máximo.',
@@ -1299,6 +1307,7 @@ export default {
     trinket: 'Abalorio'
   },
   tier: {
+    '7': 'Mítico',
     '1': 'Común',
     '2': 'Poco común',
     '3': 'Raro',
@@ -1312,6 +1321,7 @@ export default {
     magic: 'Magia · escala con {attr}'
   },
   source: {
+    arena: 'Ganado en el Coliseo.',
     smith: 'Forjado en una herrería.',
     mob: '{zone}: lo sueltan los monstruos.',
     chest: '{zone}: se encuentra en los cofres.',
@@ -1380,6 +1390,24 @@ export default {
     overheatCrit: '+{n}% de daño Crítico mientras estás sobrecalentado'
   },
   item: {
+    heartOfTheArena: {
+      name: 'Corazón de la Arena'
+    },
+    mantleOfTheUndefeated: {
+      name: 'Coraza del Invicto'
+    },
+    crimsonBulwark: {
+      name: 'Baluarte Carmesí'
+    },
+    sandstriderGreaves: {
+      name: 'Grebas del Caminante de Arena'
+    },
+    gripsOfTheGladiator: {
+      name: 'Guanteletes del Gladiador'
+    },
+    laurelOfTheVictor: {
+      name: 'Laurel del Vencedor'
+    },
     smithMasterMithrilGreaves: {
       name: 'Grebas de mithril magistrales'
     },

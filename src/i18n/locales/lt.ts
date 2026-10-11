@@ -1,5 +1,13 @@
 // Lithuanian (lt) bundle — mirrors en.ts.
 export default {
+  arena: {
+    allWon: 'Visi mitiniai prizai – tavo.',
+    prize: '{item} – tavo!',
+    milestone: 'Banga {n}!',
+    next: 'Kitas prizas bangoje {at}: {item}',
+    champion: 'Čempiono banga',
+    wave: 'Banga {n}'
+  },
   smith: {
     why: {
       max: 'Turi abu, patobulintus iki galo.',
@@ -1298,6 +1306,7 @@ export default {
     trinket: 'Niekutis'
   },
   tier: {
+    '7': 'Mitinis',
     '1': 'Paprastas',
     '2': 'Neįprastas',
     '3': 'Retas',
@@ -1311,6 +1320,7 @@ export default {
     magic: 'Magija · savybė: {attr}'
   },
   source: {
+    arena: 'Laimėta Koliziejaus reitinge.',
     smith: 'Nukaldinta kalvėje.',
     mob: 'Iškrenta iš pabaisų zonoje: {zone}.',
     chest: 'Randama skryniose zonoje: {zone}.',
@@ -1379,6 +1389,24 @@ export default {
     overheatCrit: '+{n}% kritinės žalos perkaitus'
   },
   item: {
+    heartOfTheArena: {
+      name: 'Arenos širdis'
+    },
+    mantleOfTheUndefeated: {
+      name: 'Nenugalimojo šarvai'
+    },
+    crimsonBulwark: {
+      name: 'Purpurinis skydas-bastionas'
+    },
+    sandstriderGreaves: {
+      name: 'Smėlio klajūno blauzdiniai'
+    },
+    gripsOfTheGladiator: {
+      name: 'Gladiatoriaus pirštinės'
+    },
+    laurelOfTheVictor: {
+      name: 'Nugalėtojo lauro vainikas'
+    },
     smithMasterMithrilGreaves: {
       name: 'Meistriški mitriliniai blauzdiniai'
     },

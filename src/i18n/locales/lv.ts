@@ -1,5 +1,13 @@
 // Latvian (lv) bundle — mirrors en.ts.
 export default {
+  arena: {
+    allWon: 'Visas mītiskās balvas ir tavas.',
+    prize: '{item} – tagad tavs!',
+    milestone: 'Vilnis {n}!',
+    next: 'Nākamā balva vilnī {at}: {item}',
+    champion: 'Čempiona vilnis',
+    wave: 'Vilnis {n}'
+  },
   smith: {
     why: {
       max: 'Tev ir abi, uzlaboti līdz galam.',
@@ -1298,6 +1306,7 @@ export default {
     trinket: 'Rota'
   },
   tier: {
+    '7': 'Mītisks',
     '1': 'Parasts',
     '2': 'Neparasts',
     '3': 'Rets',
@@ -1311,6 +1320,7 @@ export default {
     magic: 'Maģija · aug no: {attr}'
   },
   source: {
+    arena: 'Izcīnīts Kolizeja reitingā.',
     smith: 'Izkalts smēdē.',
     mob: 'Izkrīt no briesmoņiem. Zona: {zone}.',
     chest: 'Atrodams lādēs. Zona: {zone}.',
@@ -1379,6 +1389,24 @@ export default {
     overheatCrit: '+{n}% kritisko bojājumu, kamēr esi pārkarsis'
   },
   item: {
+    heartOfTheArena: {
+      name: 'Arēnas sirds'
+    },
+    mantleOfTheUndefeated: {
+      name: 'Neuzvaramā bruņas'
+    },
+    crimsonBulwark: {
+      name: 'Purpura bastiona vairogs'
+    },
+    sandstriderGreaves: {
+      name: 'Smilšu gājēja stilbu sargi'
+    },
+    gripsOfTheGladiator: {
+      name: 'Gladiatora cimdi'
+    },
+    laurelOfTheVictor: {
+      name: 'Uzvarētāja lauru vainags'
+    },
     smithMasterMithrilGreaves: {
       name: 'Meistara mitrila stilbu sargi'
     },

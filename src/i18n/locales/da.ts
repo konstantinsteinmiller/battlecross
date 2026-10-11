@@ -1,5 +1,13 @@
 // Danish locale — mirrors the key shape of en.ts exactly.
 export default {
+  arena: {
+    allWon: 'Alle mytiske præmier er dine.',
+    prize: 'Du vandt {item}!',
+    milestone: 'Bølge {n}!',
+    next: 'Næste præmie ved bølge {at}: {item}',
+    champion: 'Mesterbølge',
+    wave: 'Bølge {n}'
+  },
   smith: {
     why: {
       max: 'Du ejer begge, fuldt forbedret.',
@@ -1298,6 +1306,7 @@ export default {
     trinket: 'Smykke'
   },
   tier: {
+    '7': 'Mytisk',
     '1': 'Almindelig',
     '2': 'Ualmindelig',
     '3': 'Sjælden',
@@ -1311,6 +1320,7 @@ export default {
     magic: 'Magi · skalerer med {attr}'
   },
   source: {
+    arena: 'Vundet i Colosseum.',
     smith: 'Smedet i en smedje.',
     mob: 'Tabes af monstre. Område: {zone}.',
     chest: 'Findes i kister. Område: {zone}.',
@@ -1379,6 +1389,24 @@ export default {
     overheatCrit: '+{n}% Kritisk skade, mens du er overophedet'
   },
   item: {
+    heartOfTheArena: {
+      name: 'Arenaens hjerte'
+    },
+    mantleOfTheUndefeated: {
+      name: 'Den ubesejredes rustning'
+    },
+    crimsonBulwark: {
+      name: 'Det karmoisinrøde bolværk'
+    },
+    sandstriderGreaves: {
+      name: 'Sandvandrerens benskinner'
+    },
+    gripsOfTheGladiator: {
+      name: 'Gladiatorens handsker'
+    },
+    laurelOfTheVictor: {
+      name: 'Sejrherrens laurbær'
+    },
     smithMasterMithrilGreaves: {
       name: 'Mesterlige mithrilbenskinner'
     },

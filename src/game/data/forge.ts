@@ -22,7 +22,7 @@ import { priceOf, type ItemDef } from './items'
 export const FORGE_MAX = 5
 
 /** Share of an item's attributes and armour one level adds, by quality (tier). */
-export const FORGE_GAIN: Readonly<Record<ItemDef['tier'], number>> = { 1: 0.03, 2: 0.03, 3: 0.03, 4: 0.03, 5: 0.03, 6: 0.05 }
+export const FORGE_GAIN: Readonly<Record<ItemDef['tier'], number>> = { 1: 0.03, 2: 0.03, 3: 0.03, 4: 0.03, 5: 0.03, 6: 0.05, 7: 0.05 }
 
 /** The first level's price as a share of the item's own; each next one ×FORGE_STEP. */
 export const FORGE_FIRST = 0.12
@@ -57,7 +57,7 @@ export const forgedArmor = (it: ItemDef, level: number): number =>
 
 /** The gold the next level costs (`level`: the one it is at now). */
 export const forgeCost = (it: ItemDef, level: number): number =>
-  Math.round((it.tier === 6 ? LEGEND_WORTH : priceOf(it)) * FORGE_FIRST * Math.pow(FORGE_STEP, level))
+  Math.round((it.tier >= 6 ? LEGEND_WORTH : priceOf(it)) * FORGE_FIRST * Math.pow(FORGE_STEP, level))
 
 /** Every level from +0 to +5, all paid. */
 export const forgeTotal = (it: ItemDef): number => {

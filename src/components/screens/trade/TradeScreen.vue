@@ -144,7 +144,7 @@
  */
 import { computed, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { ITEMS, ITEM_BY_ID, priceOf, sellValue, type ItemDef } from '@/game/data/items'
+import { ITEMS, ITEM_BY_ID, priceOf, sellValue, sellable, type ItemDef } from '@/game/data/items'
 import {
   buyBack, buyBackItem, buyCost, buyItem, computeStats, equippedIn, markSeen, owns, profile, rareShelf, restockShelf, saveProfile,
   sellItem, shelfRefreshesLeft, unequip
@@ -202,7 +202,7 @@ const restock = async (): Promise<void> => {
   resumeMusicAfterAd()
   if (ok) { sfx('chest'); stamp('gold') }
 }
-const bag = computed<ItemDef[]>(() => profile.inv.items.map(id => ITEM_BY_ID[id]).filter((i): i is ItemDef => !!i).sort(bySlot))
+const bag = computed<ItemDef[]>(() => profile.inv.items.map(id => ITEM_BY_ID[id]).filter((i): i is ItemDef => !!i && sellable(i)).sort(bySlot))
 
 // ── The piece on the table ───────────────────────────────────────────────────
 const sel = ref<Pick | null>(null)

@@ -1,5 +1,13 @@
 // Indonesian locale — mirrors the key shape of en.ts exactly.
 export default {
+  arena: {
+    allWon: 'Semua hadiah mitis jadi milikmu.',
+    prize: '{item} jadi milikmu!',
+    milestone: 'Gelombang {n}!',
+    next: 'Hadiah berikutnya di gelombang {at}: {item}',
+    champion: 'Gelombang juara',
+    wave: 'Gelombang {n}'
+  },
   smith: {
     why: {
       max: 'Kamu punya keduanya, sudah ditempa maksimal.',
@@ -1298,6 +1306,7 @@ export default {
     trinket: 'Jimat'
   },
   tier: {
+    '7': 'Mitis',
     '1': 'Biasa',
     '2': 'Tak Biasa',
     '3': 'Langka',
@@ -1311,6 +1320,7 @@ export default {
     magic: 'Sihir · mengikuti {attr}'
   },
   source: {
+    arena: 'Dimenangkan di tangga Koloseum.',
     smith: 'Ditempa di bengkel pandai besi.',
     mob: 'Dijatuhkan monster di {zone}.',
     chest: 'Ditemukan di peti-peti di {zone}.',
@@ -1379,6 +1389,24 @@ export default {
     overheatCrit: '+{n}% Damage Kritis saat kepanasan'
   },
   item: {
+    heartOfTheArena: {
+      name: 'Jantung Arena'
+    },
+    mantleOfTheUndefeated: {
+      name: 'Zirah Pelat Tak Terkalahkan'
+    },
+    crimsonBulwark: {
+      name: 'Perisai Benteng Merah Tua'
+    },
+    sandstriderGreaves: {
+      name: 'Pelindung Betis Penjelajah Pasir'
+    },
+    gripsOfTheGladiator: {
+      name: 'Sarung Tangan Gladiator'
+    },
+    laurelOfTheVictor: {
+      name: 'Mahkota Daun Sang Pemenang'
+    },
     smithMasterMithrilGreaves: {
       name: 'Pelindung Betis Mithril Mahakarya'
     },

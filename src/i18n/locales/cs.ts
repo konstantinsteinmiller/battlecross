@@ -1,5 +1,13 @@
 // Czech (cs) bundle — mirrors en.ts.
 export default {
+  arena: {
+    allWon: 'Všechny mýtické ceny jsou tvoje.',
+    prize: 'Cena získána: {item}!',
+    milestone: 'Vlna {n}!',
+    next: 'Další cena ve vlně {at}: {item}',
+    champion: 'Vlna šampiona',
+    wave: 'Vlna {n}'
+  },
   smith: {
     why: {
       max: 'Máš oboje, vylepšené na maximum.',
@@ -1301,6 +1309,7 @@ export default {
     trinket: 'Cetka'
   },
   tier: {
+    '7': 'Mýtický',
     '1': 'Běžný',
     '2': 'Neobvyklý',
     '3': 'Vzácný',
@@ -1314,6 +1323,7 @@ export default {
     magic: 'Magie · atribut: {attr}'
   },
   source: {
+    arena: 'Vybojováno v Koloseu.',
     smith: 'Ukováno v kovárně.',
     mob: 'Padá z nestvůr v zóně: {zone}.',
     chest: 'K nalezení v truhlách v zóně: {zone}.',
@@ -1382,6 +1392,24 @@ export default {
     overheatCrit: '+{n}% kritického poškození při přehřátí'
   },
   item: {
+    heartOfTheArena: {
+      name: 'Srdce arény'
+    },
+    mantleOfTheUndefeated: {
+      name: 'Zbroj neporaženého'
+    },
+    crimsonBulwark: {
+      name: 'Šarlatová bašta'
+    },
+    sandstriderGreaves: {
+      name: 'Holenice písečného poutníka'
+    },
+    gripsOfTheGladiator: {
+      name: 'Rukavice gladiátora'
+    },
+    laurelOfTheVictor: {
+      name: 'Vavřín vítěze'
+    },
     smithMasterMithrilGreaves: {
       name: 'Mistrovské mithrilové holenice'
     },

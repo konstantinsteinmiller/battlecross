@@ -631,7 +631,8 @@ export default {
     '3': 'Rare',
     '4': 'Epic',
     '5': 'Heroic',
-    '6': 'Legendary'
+    '6': 'Legendary',
+    '7': 'Mythic'
   },
   'weapon': {
     'melee': 'Melee · scales with {attr}',
@@ -643,7 +644,8 @@ export default {
     'chest': 'Found in the chests of {zone}.',
     'boss': 'Dropped by the boss of {zone}.',
     'secret': 'Hidden in a secret chest in {zone}.',
-    'smith': 'Forged at a smithy.'
+    'smith': 'Forged at a smithy.',
+    'arena': 'Won on the colosseum\'s ladder.'
   },
   'mod': {
     'str': '+{n} Strength',
@@ -817,7 +819,14 @@ export default {
     'ringOfTheVampyre': { 'name': 'Ring of the Vampyre' },
     'sovereignsSignet': { 'name': 'Sovereign\'s Signet' },
     'heartOfTheMountain': { 'name': 'Heart of the Mountain' },
-    'ringOfAbsolutePower': { 'name': 'Ring of Absolute Power' }
+    'ringOfAbsolutePower': { 'name': 'Ring of Absolute Power' },
+    // Mythic (#117): the colosseum's milestone prizes.
+    'laurelOfTheVictor': { 'name': 'Laurel of the Victor' },
+    'gripsOfTheGladiator': { 'name': 'Grips of the Gladiator' },
+    'sandstriderGreaves': { 'name': 'Sandstrider Greaves' },
+    'crimsonBulwark': { 'name': 'Crimson Bulwark' },
+    'mantleOfTheUndefeated': { 'name': 'Mantle of the Undefeated' },
+    'heartOfTheArena': { 'name': 'Heart of the Arena' }
   },
   'bag': {
     'equip': 'Equip',
@@ -2928,6 +2937,15 @@ export default {
       'syndicate': 'Blessed: +10% gold from kills',
       'circle': 'Blessed: +10% mana regeneration'
     }
+  },
+  // The colosseum's announcements and prizes (#117).
+  'arena': {
+    'wave': 'Wave {n}',
+    'champion': 'Champion wave',
+    'next': 'Next prize at wave {at}: {item}',
+    'milestone': 'Wave {n}!',
+    'prize': '{item} is yours!',
+    'allWon': 'Every mythic prize is yours.'
   },
   'ladder': {
     'tab': 'Colosseum',

@@ -1,5 +1,13 @@
 // Catalan (ca) bundle — mirrors en.ts.
 export default {
+  arena: {
+    allWon: 'Tots els premis mítics són teus.',
+    prize: 'Premi aconseguit: {item}!',
+    milestone: 'Onada {n}!',
+    next: 'Següent premi a l’onada {at}: {item}',
+    champion: 'Onada del campió',
+    wave: 'Onada {n}'
+  },
   smith: {
     why: {
       max: 'Tens tots dos, millorats al màxim.',
@@ -1299,6 +1307,7 @@ export default {
     trinket: 'Amulet'
   },
   tier: {
+    '7': 'Mític',
     '1': 'Comú',
     '2': 'Poc comú',
     '3': 'Rar',
@@ -1312,6 +1321,7 @@ export default {
     magic: 'Màgia · escala amb {attr}'
   },
   source: {
+    arena: 'Guanyat al Colosseu.',
     smith: 'Forjat en una farga.',
     mob: 'El deixen anar els monstres. Zona: {zone}.',
     chest: 'Es troba als cofres. Zona: {zone}.',
@@ -1380,6 +1390,24 @@ export default {
     overheatCrit: '+{n}% de Dany Crític mentre estàs sobreescalfat'
   },
   item: {
+    heartOfTheArena: {
+      name: 'Cor de l’Arena'
+    },
+    mantleOfTheUndefeated: {
+      name: 'Cuirassa de l’Invicte'
+    },
+    crimsonBulwark: {
+      name: 'Baluard Carmesí'
+    },
+    sandstriderGreaves: {
+      name: 'Gamberes del Caminant de la Sorra'
+    },
+    gripsOfTheGladiator: {
+      name: 'Guanteletes del Gladiador'
+    },
+    laurelOfTheVictor: {
+      name: 'Llorer del Vencedor'
+    },
     smithMasterMithrilGreaves: {
       name: 'Gamberes de mithril magistrals'
     },

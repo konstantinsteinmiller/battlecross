@@ -401,6 +401,8 @@ export type SimEvent =
   /** Something from a chest that is not gold or gear: a health potion for the
    *  belt, a full belt's potion drunk on the spot, a mana potion for the stock. */
   | { t: 'pickup'; what: 'potion' | 'heal' | 'mana'; x: number; z: number }
+  /** A ladder milestone reached in the colosseum (#117): its mythic, and whether it is new. */
+  | { t: 'milestone'; wave: number; item: string; fresh: boolean }
   /** A herb walked over and picked (roadmap #88). */
   | { t: 'herb'; id: number; kind: string; x: number; z: number }
   /** An outcrop (roadmap #99): mining starts, is refused (enemies near), or

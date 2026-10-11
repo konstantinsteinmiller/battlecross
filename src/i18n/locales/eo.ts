@@ -1,5 +1,13 @@
 // Esperanto (eo) bundle — mirrors en.ts.
 export default {
+  arena: {
+    allWon: 'Ĉiuj mitaj premioj estas viaj.',
+    prize: '{item} estas via!',
+    milestone: 'Ondo {n}!',
+    next: 'Sekva premio ĉe ondo {at}: {item}',
+    champion: 'Ĉampiona ondo',
+    wave: 'Ondo {n}'
+  },
   smith: {
     why: {
       max: 'Vi havas ambaŭ, plibonigitajn ĝis la pinto.',
@@ -1298,6 +1306,7 @@ export default {
     trinket: 'Amuleto'
   },
   tier: {
+    '7': 'Mita',
     '1': 'Ordinara',
     '2': 'Malkutima',
     '3': 'Malofta',
@@ -1311,6 +1320,7 @@ export default {
     magic: 'Magio · kreskas kun {attr}'
   },
   source: {
+    arena: 'Gajnita en la Koloseo.',
     smith: 'Forĝita en forĝejo.',
     mob: 'Faligata de la monstroj. Zono: {zone}.',
     chest: 'Trovebla en la kestoj. Zono: {zone}.',
@@ -1379,6 +1389,24 @@ export default {
     overheatCrit: '+{n}% da Kritika Damaĝo dum trovarmiĝo'
   },
   item: {
+    heartOfTheArena: {
+      name: 'Koro de la Areno'
+    },
+    mantleOfTheUndefeated: {
+      name: 'Kiraso de la Nevenkita'
+    },
+    crimsonBulwark: {
+      name: 'Karmezina Bastiono'
+    },
+    sandstriderGreaves: {
+      name: 'Tibiŝirmiloj de la Sablopaŝanto'
+    },
+    gripsOfTheGladiator: {
+      name: 'Gantegoj de la Gladiatoro'
+    },
+    laurelOfTheVictor: {
+      name: 'Laŭro de la Venkinto'
+    },
     smithMasterMithrilGreaves: {
       name: 'Majstraj Mitrilaj Tibiŝirmiloj'
     },

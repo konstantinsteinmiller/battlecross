@@ -1,5 +1,13 @@
 // Thai locale — mirrors the key shape of en.ts exactly.
 export default {
+  arena: {
+    allWon: 'รางวัลเทพตำนานทั้งหมดเป็นของคุณแล้ว',
+    prize: '{item} เป็นของคุณแล้ว!',
+    milestone: 'ระลอก {n}!',
+    next: 'รางวัลถัดไปที่ระลอก {at}: {item}',
+    champion: 'ระลอกแชมเปี้ยน',
+    wave: 'ระลอก {n}'
+  },
   smith: {
     why: {
       max: 'มีครบทั้งสองชิ้น และตีถึงขั้นสูงสุดแล้ว',
@@ -1298,6 +1306,7 @@ export default {
     trinket: 'เครื่องประดับ'
   },
   tier: {
+    '7': 'เทพตำนาน',
     '1': 'ธรรมดา',
     '2': 'ไม่ธรรมดา',
     '3': 'หายาก',
@@ -1311,6 +1320,7 @@ export default {
     magic: 'เวท · แรงขึ้นตาม{attr}'
   },
   source: {
+    arena: 'ได้จากการไต่ระลอกในโคลอสเซียม',
     smith: 'ตีขึ้นที่โรงตีเหล็ก',
     mob: 'ดรอปจากมอนสเตอร์ใน{zone}',
     chest: 'พบในหีบของ{zone}',
@@ -1379,6 +1389,24 @@ export default {
     overheatCrit: 'ความเสียหายคริติคอล +{n}% ขณะร้อนเกิน'
   },
   item: {
+    heartOfTheArena: {
+      name: 'หัวใจแห่งสังเวียน'
+    },
+    mantleOfTheUndefeated: {
+      name: 'เกราะแผ่นแห่งผู้ไร้พ่าย'
+    },
+    crimsonBulwark: {
+      name: 'โล่ปราการสีเลือด'
+    },
+    sandstriderGreaves: {
+      name: 'เกราะแข้งผู้ท่องผืนทราย'
+    },
+    gripsOfTheGladiator: {
+      name: 'ถุงมือเกราะแห่งกลาดิเอเตอร์'
+    },
+    laurelOfTheVictor: {
+      name: 'มงกุฎลอเรลแห่งผู้ชนะ'
+    },
     smithMasterMithrilGreaves: {
       name: 'เกราะแข้งมิธริลชั้นครู'
     },

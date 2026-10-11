@@ -1,5 +1,13 @@
 // Dutch locale — mirrors the key shape of en.ts exactly.
 export default {
+  arena: {
+    allWon: 'Alle mythische prijzen zijn van jou.',
+    prize: '{item} is van jou!',
+    milestone: 'Golf {n}!',
+    next: 'Volgende prijs bij golf {at}: {item}',
+    champion: 'Kampioensgolf',
+    wave: 'Golf {n}'
+  },
   smith: {
     why: {
       max: 'Je hebt ze allebei, tot het maximum opgewerkt.',
@@ -1299,6 +1307,7 @@ export default {
     trinket: 'Sieraad'
   },
   tier: {
+    '7': 'Mythisch',
     '1': 'Gewoon',
     '2': 'Ongewoon',
     '3': 'Zeldzaam',
@@ -1312,6 +1321,7 @@ export default {
     magic: 'Magie · schaalt met {attr}'
   },
   source: {
+    arena: 'Gewonnen in het Colosseum.',
     smith: 'Gesmeed in een smidse.',
     mob: 'Buit van monsters. Gebied: {zone}.',
     chest: 'Uit kisten. Gebied: {zone}.',
@@ -1380,6 +1390,24 @@ export default {
     overheatCrit: '+{n}% Kritieke Schade terwijl je oververhit bent'
   },
   item: {
+    heartOfTheArena: {
+      name: 'Hart van de Arena'
+    },
+    mantleOfTheUndefeated: {
+      name: 'Harnas van de Onverslagene'
+    },
+    crimsonBulwark: {
+      name: 'Karmozijnen Bolwerk'
+    },
+    sandstriderGreaves: {
+      name: 'Scheenplaten van de Zandwandelaar'
+    },
+    gripsOfTheGladiator: {
+      name: 'Pantserhandschoenen van de Gladiator'
+    },
+    laurelOfTheVictor: {
+      name: 'Lauwerkrans van de Overwinnaar'
+    },
     smithMasterMithrilGreaves: {
       name: 'Meesterlijke Mithril Scheenplaten'
     },

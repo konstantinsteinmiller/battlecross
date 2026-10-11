@@ -1,5 +1,13 @@
 // Azerbaijani (az) bundle — mirrors en.ts.
 export default {
+  arena: {
+    allWon: 'Bütün mifik mükafatlar artıq sənindir.',
+    prize: '{item} artıq sənindir!',
+    milestone: 'Dalğa {n}!',
+    next: 'Növbəti mükafat — dalğa {at}: {item}',
+    champion: 'Çempion dalğası',
+    wave: 'Dalğa {n}'
+  },
   smith: {
     why: {
       max: 'İkisi də səndədir, sona qədər işlənib.',
@@ -1298,6 +1306,7 @@ export default {
     trinket: 'Tilsim'
   },
   tier: {
+    '7': 'Mifik',
     '1': 'Adi',
     '2': 'Qeyri-adi',
     '3': 'Nadir',
@@ -1311,6 +1320,7 @@ export default {
     magic: 'Sehr · {attr} ilə artır'
   },
   source: {
+    arena: 'Kolizey reytinqində qazanılıb.',
     smith: 'Dəmirçixanada döyülüb.',
     mob: '{zone} zonasının canavarlarından düşür.',
     chest: '{zone} zonasının sandıqlarında tapılır.',
@@ -1379,6 +1389,24 @@ export default {
     overheatCrit: 'Həddən artıq qızanda +{n}% Kritik Zərər'
   },
   item: {
+    heartOfTheArena: {
+      name: 'Arenanın Ürəyi'
+    },
+    mantleOfTheUndefeated: {
+      name: 'Məğlubedilməzin Zirehi'
+    },
+    crimsonBulwark: {
+      name: 'Al Qala Qalxanı'
+    },
+    sandstriderGreaves: {
+      name: 'Qumgəzən Baldırlıqları'
+    },
+    gripsOfTheGladiator: {
+      name: 'Qladiatorun Əlcəkləri'
+    },
+    laurelOfTheVictor: {
+      name: 'Qalibin Dəfnə Tacı'
+    },
     smithMasterMithrilGreaves: {
       name: 'Usta İşi Mitril Baldırlıqlar'
     },

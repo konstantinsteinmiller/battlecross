@@ -1,5 +1,13 @@
 // Hindi locale — mirrors the key shape of en.ts exactly.
 export default {
+  arena: {
+    allWon: 'सारे मिथिक इनाम तुम्हारे हैं।',
+    prize: '{item} अब तुम्हारा है!',
+    milestone: 'लहर {n}!',
+    next: 'अगला इनाम लहर {at} पर: {item}',
+    champion: 'चैंपियन लहर',
+    wave: 'लहर {n}'
+  },
   smith: {
     why: {
       max: 'दोनों आपके पास हैं, पूरी तरह गढ़े हुए।',
@@ -1299,6 +1307,7 @@ export default {
     trinket: 'तावीज़'
   },
   tier: {
+    '7': 'मिथिक',
     '1': 'साधारण',
     '2': 'असामान्य',
     '3': 'दुर्लभ',
@@ -1312,6 +1321,7 @@ export default {
     magic: 'जादू · {attr} से बढ़ता है'
   },
   source: {
+    arena: 'कोलोसियम की सीढ़ी पर जीता गया।',
     smith: 'लोहारखाने में गढ़ा गया।',
     mob: '{zone} के राक्षसों से गिरता है।',
     chest: '{zone} के संदूकों में मिलता है।',
@@ -1380,6 +1390,24 @@ export default {
     overheatCrit: 'ओवरहीट होने पर +{n}% क्रिटिकल नुकसान'
   },
   item: {
+    heartOfTheArena: {
+      name: 'अखाड़े का हृदय'
+    },
+    mantleOfTheUndefeated: {
+      name: 'अपराजित का पट्टी-कवच'
+    },
+    crimsonBulwark: {
+      name: 'रक्तिम दुर्ग-ढाल'
+    },
+    sandstriderGreaves: {
+      name: 'रेतचारी पिंडली-कवच'
+    },
+    gripsOfTheGladiator: {
+      name: 'ग्लैडिएटर के दस्ताने'
+    },
+    laurelOfTheVictor: {
+      name: 'विजेता का लॉरेल मुकुट'
+    },
     smithMasterMithrilGreaves: {
       name: 'उत्कृष्ट मिथ्रिल का पिंडली-कवच'
     },

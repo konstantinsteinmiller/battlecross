@@ -1,5 +1,13 @@
 // Hungarian (hu) bundle — mirrors en.ts.
 export default {
+  arena: {
+    allWon: 'Minden mitikus díj a tiéd.',
+    prize: 'Tiéd: {item}!',
+    milestone: '{n}. hullám!',
+    next: 'Következő díj: {at}. hullám – {item}',
+    champion: 'Bajnokhullám',
+    wave: '{n}. hullám'
+  },
   smith: {
     why: {
       max: 'Mindkettő megvan, a csúcsig feljavítva.',
@@ -1298,6 +1306,7 @@ export default {
     trinket: 'Csecsebecse'
   },
   tier: {
+    '7': 'Mitikus',
     '1': 'Gyakori',
     '2': 'Szokatlan',
     '3': 'Ritka',
@@ -1311,6 +1320,7 @@ export default {
     magic: 'Mágikus · alapja: {attr}'
   },
   source: {
+    arena: 'A Kolosszeum ranglistáján elnyerhető.',
     smith: 'Kovácsműhelyben kovácsolva.',
     mob: 'Szörnyekből esik, zóna: {zone}.',
     chest: 'Ládákban található, zóna: {zone}.',
@@ -1379,6 +1389,24 @@ export default {
     overheatCrit: '+{n}% kritikus sebzés túlhevülten'
   },
   item: {
+    heartOfTheArena: {
+      name: 'Aréna szíve'
+    },
+    mantleOfTheUndefeated: {
+      name: 'Legyőzhetetlen vértje'
+    },
+    crimsonBulwark: {
+      name: 'Bíbor bástyapajzs'
+    },
+    sandstriderGreaves: {
+      name: 'Homokjáró lábszárvédő'
+    },
+    gripsOfTheGladiator: {
+      name: 'Gladiátor-kesztyű'
+    },
+    laurelOfTheVictor: {
+      name: 'Győztes babérkoszorúja'
+    },
     smithMasterMithrilGreaves: {
       name: 'Mesteri mithril lábszárvédő'
     },

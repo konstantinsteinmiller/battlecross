@@ -1,5 +1,13 @@
 // Uzbek locale — mirrors the key shape of en.ts exactly.
 export default {
+  arena: {
+    allWon: 'Barcha mifik sovrinlar endi sizniki.',
+    prize: '{item} endi sizniki!',
+    milestone: 'Toʻlqin {n}!',
+    next: 'Keyingi sovrin: toʻlqin {at} — {item}',
+    champion: 'Chempion toʻlqini',
+    wave: 'Toʻlqin {n}'
+  },
   smith: {
     why: {
       max: 'Ikkalasi ham senda, oxirigacha ishlov berilgan.',
@@ -1298,6 +1306,7 @@ export default {
     trinket: 'Tumor'
   },
   tier: {
+    '7': 'Mifik',
     '1': 'Oddiy',
     '2': 'Noodatiy',
     '3': 'Kamyob',
@@ -1311,6 +1320,7 @@ export default {
     magic: 'Sehr · {attr} bilan oshadi'
   },
   source: {
+    arena: 'Kolizey reytingida yutib olingan.',
     smith: 'Temirchixonada yasalgan.',
     mob: '{zone} hududi maxluqlaridan tushadi.',
     chest: '{zone} hududi sandiqlaridan topiladi.',
@@ -1379,6 +1389,24 @@ export default {
     overheatCrit: 'Qizib ketgan holatda +{n}% Kritik zarar'
   },
   item: {
+    heartOfTheArena: {
+      name: 'Arena yuragi'
+    },
+    mantleOfTheUndefeated: {
+      name: 'Yengilmasning zirhi'
+    },
+    crimsonBulwark: {
+      name: 'Qirmizi qoʻrgʻon qalqoni'
+    },
+    sandstriderGreaves: {
+      name: 'Qumkezar boldir himoyasi'
+    },
+    gripsOfTheGladiator: {
+      name: 'Gladiatorning qoʻlqoplari'
+    },
+    laurelOfTheVictor: {
+      name: 'Gʻolibning dafna toji'
+    },
     smithMasterMithrilGreaves: {
       name: 'Usta yasagan mitril boldir himoyasi'
     },

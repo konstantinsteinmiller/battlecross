@@ -1,5 +1,13 @@
 // Norwegian Bokmål locale — mirrors the key shape of en.ts exactly.
 export default {
+  arena: {
+    allWon: 'Alle mytiske premier er dine.',
+    prize: 'Du vant {item}!',
+    milestone: 'Bølge {n}!',
+    next: 'Neste premie ved bølge {at}: {item}',
+    champion: 'Mesterbølge',
+    wave: 'Bølge {n}'
+  },
   smith: {
     why: {
       max: 'Du eier begge, fullt forbedret.',
@@ -1298,6 +1306,7 @@ export default {
     trinket: 'Smykke'
   },
   tier: {
+    '7': 'Mytisk',
     '1': 'Vanlig',
     '2': 'Uvanlig',
     '3': 'Sjelden',
@@ -1311,6 +1320,7 @@ export default {
     magic: 'Magi · skalerer med {attr}'
   },
   source: {
+    arena: 'Vunnet i Colosseum.',
     smith: 'Smidd i en smie.',
     mob: 'Slippes av monstre. Område: {zone}.',
     chest: 'Finnes i kister. Område: {zone}.',
@@ -1379,6 +1389,24 @@ export default {
     overheatCrit: '+{n}% Kritisk skade mens du er overopphetet'
   },
   item: {
+    heartOfTheArena: {
+      name: 'Arenaens hjerte'
+    },
+    mantleOfTheUndefeated: {
+      name: 'Den ubeseiredes rustning'
+    },
+    crimsonBulwark: {
+      name: 'Det karmosinrøde bolverket'
+    },
+    sandstriderGreaves: {
+      name: 'Sandvandrerens leggbeskyttere'
+    },
+    gripsOfTheGladiator: {
+      name: 'Gladiatorens hansker'
+    },
+    laurelOfTheVictor: {
+      name: 'Seierherrens laurbær'
+    },
     smithMasterMithrilGreaves: {
       name: 'Mesterlige mithril-leggbeskyttere'
     },

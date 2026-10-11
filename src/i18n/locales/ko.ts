@@ -1,5 +1,13 @@
 // Korean locale — mirrors the key shape of en.ts exactly.
 export default {
+  arena: {
+    allWon: '모든 신화 보상을 획득했다.',
+    prize: '{item} 획득!',
+    milestone: '{n}웨이브!',
+    next: '다음 보상은 {at}웨이브: {item}',
+    champion: '챔피언 웨이브',
+    wave: '{n}웨이브'
+  },
   smith: {
     why: {
       max: '둘 다 보유 중이며 최대까지 단련했습니다.',
@@ -1298,6 +1306,7 @@ export default {
     trinket: '장신구'
   },
   tier: {
+    '7': '신화',
     '1': '일반',
     '2': '고급',
     '3': '희귀',
@@ -1311,6 +1320,7 @@ export default {
     magic: '마법 · {attr} 비례'
   },
   source: {
+    arena: '콜로세움 연승전에서 쟁취했다.',
     smith: '대장간에서 벼려 낸 물건.',
     mob: '{zone}의 몬스터가 떨어뜨린다.',
     chest: '{zone}의 상자에서 나온다.',
@@ -1379,6 +1389,24 @@ export default {
     overheatCrit: '과열 중 치명타 피해 +{n}%'
   },
   item: {
+    heartOfTheArena: {
+      name: '투기장의 심장'
+    },
+    mantleOfTheUndefeated: {
+      name: '불패의 판금 갑옷'
+    },
+    crimsonBulwark: {
+      name: '진홍의 대방패'
+    },
+    sandstriderGreaves: {
+      name: '모래걸음 정강이갑'
+    },
+    gripsOfTheGladiator: {
+      name: '검투사의 건틀릿'
+    },
+    laurelOfTheVictor: {
+      name: '승리자의 월계관'
+    },
     smithMasterMithrilGreaves: {
       name: '장인의 미스릴 정강이갑'
     },

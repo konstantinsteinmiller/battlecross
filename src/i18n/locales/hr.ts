@@ -1,5 +1,13 @@
 // Croatian (hr) bundle — mirrors en.ts.
 export default {
+  arena: {
+    allWon: 'Sve mitske nagrade su tvoje.',
+    prize: 'Nagrada osvojena: {item}!',
+    milestone: 'Val {n}!',
+    next: 'Sljedeća nagrada na valu {at}: {item}',
+    champion: 'Val prvaka',
+    wave: 'Val {n}'
+  },
   smith: {
     why: {
       max: 'Imaš oba, poboljšana do vrha.',
@@ -1301,6 +1309,7 @@ export default {
     trinket: 'Amajlija'
   },
   tier: {
+    '7': 'Mitsko',
     '1': 'Obično',
     '2': 'Neobično',
     '3': 'Rijetko',
@@ -1314,6 +1323,7 @@ export default {
     magic: 'Magija · atribut: {attr}'
   },
   source: {
+    arena: 'Osvojeno u Koloseumu.',
     smith: 'Iskovano u kovačnici.',
     mob: 'Ispada iz čudovišta u zoni: {zone}.',
     chest: 'Nalazi se u škrinjama u zoni: {zone}.',
@@ -1382,6 +1392,24 @@ export default {
     overheatCrit: '+{n}% kritične štete tijekom pregrijanosti'
   },
   item: {
+    heartOfTheArena: {
+      name: 'Srce arene'
+    },
+    mantleOfTheUndefeated: {
+      name: 'Oklop nepobijeđenog'
+    },
+    crimsonBulwark: {
+      name: 'Grimizni bedem'
+    },
+    sandstriderGreaves: {
+      name: 'Potkoljenice pješčanog lutalice'
+    },
+    gripsOfTheGladiator: {
+      name: 'Rukavice gladijatora'
+    },
+    laurelOfTheVictor: {
+      name: 'Lovor pobjednika'
+    },
     smithMasterMithrilGreaves: {
       name: 'Majstorske mitrilne potkoljenice'
     },

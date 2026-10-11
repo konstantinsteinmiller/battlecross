@@ -1,5 +1,13 @@
 // Traditional Chinese, Taiwan (zh-TW) bundle — mirrors en.ts.
 export default {
+  arena: {
+    allWon: '所有神話獎品都歸你了。',
+    prize: '{item}歸你了！',
+    milestone: '第{n}波！',
+    next: '下一個獎品在第{at}波：{item}',
+    champion: '冠軍波',
+    wave: '第{n}波'
+  },
   smith: {
     why: {
       max: '兩件都已擁有，且已鍛到頂。',
@@ -1298,6 +1306,7 @@ export default {
     trinket: '飾品'
   },
   tier: {
+    '7': '神話',
     '1': '普通',
     '2': '優良',
     '3': '稀有',
@@ -1311,6 +1320,7 @@ export default {
     magic: '魔法 · 依{attr}加成'
   },
   source: {
+    arena: '在競技場的天梯中贏得。',
     smith: '在鐵匠鋪鍛造。',
     mob: '由{zone}的怪物掉落。',
     chest: '可在{zone}的寶箱中找到。',
@@ -1379,6 +1389,24 @@ export default {
     overheatCrit: '過熱時爆擊傷害 +{n}%'
   },
   item: {
+    heartOfTheArena: {
+      name: '競技場之心'
+    },
+    mantleOfTheUndefeated: {
+      name: '不敗者板甲'
+    },
+    crimsonBulwark: {
+      name: '赤紅壁盾'
+    },
+    sandstriderGreaves: {
+      name: '踏沙脛甲'
+    },
+    gripsOfTheGladiator: {
+      name: '角鬥士護手'
+    },
+    laurelOfTheVictor: {
+      name: '勝者桂冠'
+    },
     smithMasterMithrilGreaves: {
       name: '精工秘銀脛甲'
     },

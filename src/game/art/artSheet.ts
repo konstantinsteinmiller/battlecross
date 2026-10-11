@@ -430,7 +430,7 @@ const COIN_BLURB = 'a thick round gold coin seen flat from the front: an orange-
 
 // ─── Colour names: the hue identity a prompt hands over ──────────────────────
 
-const TIER_NAME: Readonly<Record<number, string>> = { 1: 'pale silver-grey', 2: 'green', 3: 'blue', 4: 'violet', 5: 'orange', 6: 'gold' }
+const TIER_NAME: Readonly<Record<number, string>> = { 1: 'pale silver-grey', 2: 'green', 3: 'blue', 4: 'violet', 5: 'orange', 6: 'gold', 7: 'deep crimson' }
 /** Operator-facing (headings, the desk's search). Never in a prompt. */
 const CLASS_NAME: Readonly<Record<ClassId, string>> = {
   aegis: 'Aegis Knight', shadow: 'Shadowblade', pyro: 'Pyromancer', sovereign: 'Grand Sovereign', chrono: 'Chrono-Weaver', blood: 'Blood Alchemist', aether: 'Aether-Tech', geo: 'Geomancer',

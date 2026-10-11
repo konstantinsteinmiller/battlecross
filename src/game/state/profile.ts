@@ -15,7 +15,7 @@ import { weekKey } from '../arenaWeek'
 import { ATTRS, ATTR_START, POINTS_PER_LEVEL, startAttrs, type Attr, type AttrBlock } from '../data/attributes'
 import { MAX_LEVEL, addXp, xpToNext, xpToReach } from '../data/progression'
 import { ACTIVE_SLOTS, PASSIVE_SLOTS, SKILL_BY_ID, meetsSkill, priceOf as skillPriceOf, CLASSES } from '../data/skills'
-import { EQUIP_SLOTS, ITEM_BY_ID, noGear, priceOf as itemPriceOf, sellValue, slotOf, type EquipSlot } from '../data/items'
+import { EQUIP_SLOTS, ITEM_BY_ID, noGear, priceOf as itemPriceOf, sellValue, sellable, slotOf, type EquipSlot } from '../data/items'
 import { FORGE_MAX, forgeCost } from '../data/forge'
 import { HERB_CAP, isPlant } from '../data/plants'
 import { ORE_CAP, ORE_IDS, ORE_PRICE, isOre } from '../data/ores'
@@ -1019,7 +1019,7 @@ export const buyItem = (id: string): boolean => {
 
 export const sellItem = (id: string): boolean => {
   const it = ITEM_BY_ID[id]
-  if (!it || !owns(id) || equippedIn(id)) return false
+  if (!it || !owns(id) || equippedIn(id) || !sellable(it)) return false
   profile.inv.items.splice(profile.inv.items.indexOf(id), 1)
   markSeen(id)
   delete profile.inv.upgrades[id]

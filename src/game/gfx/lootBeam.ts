@@ -77,9 +77,9 @@ export class LootBeams {
 
   constructor(private particles: Particles, private sprites: Sprites, private low: boolean) {}
 
-  /** Raise a beam for an item of `tier` (1..6) dropped at (x, z). */
+  /** Raise a beam for an item of `tier` (1..7) dropped at (x, z). */
   add(x: number, z: number, tier: number): void {
-    const t = Math.max(1, Math.min(6, Math.round(tier)))
+    const t = Math.max(1, Math.min(7, Math.round(tier)))
     let b = this.beams.find(q => !q.active)
     if (!b && this.beams.length < POOL) {
       // The glow is laid over the ground, not added to it: on bright grass or

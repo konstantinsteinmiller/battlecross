@@ -41,14 +41,16 @@ export type ZoneId =
   | 'plains' | 'hollows' | 'woods' | 'outskirts' | 'crags' | 'mines'
   | 'tundra' | 'temple' | 'citadel' | 'peak' | 'fortress' | 'rift'
 
-/** Where it comes from inside its zone ('smith': made at a forge, #99; never dropped). */
-export type DropSource = 'mob' | 'chest' | 'boss' | 'secret' | 'smith'
+/** Where it comes from inside its zone ('smith': made at a forge, #99; 'arena': a
+ *  colosseum milestone, #117; neither is ever dropped). */
+export type DropSource = 'mob' | 'chest' | 'boss' | 'secret' | 'smith' | 'arena'
 
 export interface ItemDef {
   id: string
   slot: ItemSlot
   kind: ItemKind
-  tier: 1 | 2 | 3 | 4 | 5 | 6
+  /** 1 Common … 6 Legendary, 7 Mythic (#117: only from the colosseum's milestones). */
+  tier: 1 | 2 | 3 | 4 | 5 | 6 | 7
   /** Required hero level. */
   level: number
   /** Primary stats and the unique passive, as modifiers. */
@@ -77,7 +79,7 @@ const magic = (interval = 1.05) => ({ scale: 'int' as Attr, style: 'magic' as co
  * 140 points were 47 levels' worth. Only attributes are scaled; a piece's own
  * effects (crit, cooldowns, lifesteal...) and armour are untouched.
  */
-export const GEAR_ATTR_SCALE: Readonly<Record<number, number>> = { 1: 0.5, 2: 0.4, 3: 0.32, 4: 0.28, 5: 0.25, 6: 0.22 }
+export const GEAR_ATTR_SCALE: Readonly<Record<number, number>> = { 1: 0.5, 2: 0.4, 3: 0.32, 4: 0.28, 5: 0.25, 6: 0.22, 7: 0.22 }
 const ATTR_KEYS = ['str', 'dex', 'int', 'end', 'skl', 'cha', 'allAttrs', 'strOrDex'] as const
 
 const scaled = (it: ItemDef): ItemDef => {
@@ -230,7 +232,24 @@ export const SMITHED: readonly ItemDef[] = (Object.keys(SMITH_METAL) as SmithMet
   .flatMap(metal => SMITH_PIECES.flatMap(piece => [smithDef(metal, piece, false), smithDef(metal, piece, true)]))
   .map(scaled)
 
-export const ITEM_BY_ID: Readonly<Record<string, ItemDef>> = Object.fromEntries([...ITEMS, ...SMITHED].map(i => [i.id, i]))
+/**
+ * ─── Mythic gear (roadmap #117) ──────────────────────────────────────────────
+ *
+ * The colosseum's prizes, one for each milestone of the ladder
+ * (`data/arena.ts`): never dropped, never sold, never in a shop or a
+ * gambler's pool. Class-free on purpose (every build pushes the ladder), each
+ * with a passive of its own, and a little past the legendaries.
+ */
+export const MYTHICS: readonly ItemDef[] = ([
+  { id: 'laurelOfTheVictor', slot: 'head', kind: 'circlet', tier: 7, level: 24, mods: { allAttrs: 40, cdr: 0.08, healPower: 0.2 }, unique: true, drop: { zone: 'plains', src: 'arena' } },
+  { id: 'gripsOfTheGladiator', slot: 'hands', kind: 'gauntlets', tier: 7, level: 26, mods: { strOrDex: 90, attackSpeed: 0.12, lifesteal: 0.05 }, unique: true, drop: { zone: 'plains', src: 'arena' } },
+  { id: 'sandstriderGreaves', slot: 'feet', kind: 'greaves', tier: 7, level: 28, mods: { end: 70, armor: 40, moveSpeed: 0.12, dodge: 0.08, knockbackImmune: 1 }, unique: true, drop: { zone: 'plains', src: 'arena' } },
+  { id: 'crimsonBulwark', slot: 'off', kind: 'shield', tier: 7, level: 30, mods: { end: 120, str: 60, block: 0.15, reflectOnBlock: 40, lastStand: 0.25 }, unique: true, drop: { zone: 'plains', src: 'arena' } },
+  { id: 'mantleOfTheUndefeated', slot: 'body', kind: 'plate', tier: 7, level: 30, mods: { allAttrs: 60, maxHpPct: 0.15, damageReduction: 0.08 }, armor: 200, unique: true, drop: { zone: 'plains', src: 'arena' } },
+  { id: 'heartOfTheArena', slot: 'trinket', kind: 'heart', tier: 7, level: 30, mods: { allAttrs: 60, damagePct: 0.2, critChance: 0.08, critCooldown: 0.5 }, unique: true, drop: { zone: 'plains', src: 'arena' } }
+] as ItemDef[]).map(scaled)
+
+export const ITEM_BY_ID: Readonly<Record<string, ItemDef>> = Object.fromEntries([...ITEMS, ...SMITHED, ...MYTHICS].map(i => [i.id, i]))
 
 /** Tier frame colours (icons, loot beams, names). T6 is the legendary gold. */
 export const TIER_COLOR: Record<number, string> = {
@@ -239,17 +258,22 @@ export const TIER_COLOR: Record<number, string> = {
   3: '#50aaff',
   4: '#c58cff',
   5: '#ff8a4a',
-  6: '#ffd84a'
+  6: '#ffd84a',
+  // Mythic (#117): a deep crimson, the arena's own.
+  7: '#d0283c'
 }
 
 /** What a shop charges (before the Charisma discount); legendaries are not for sale. */
-export const TIER_PRICE: Record<number, number> = { 1: 60, 2: 260, 3: 820, 4: 2300, 5: 5600, 6: 0 }
+export const TIER_PRICE: Record<number, number> = { 1: 60, 2: 260, 3: 820, 4: 2300, 5: 5600, 6: 0, 7: 0 }
 
 export const priceOf = (it: ItemDef): number => Math.round(TIER_PRICE[it.tier]! * (1 + (it.level % 5) * 0.06))
 
 /** What a merchant pays for it. Legendaries sell for a fortune they can never be bought back with. */
 export const sellValue = (it: ItemDef): number =>
-  it.tier === 6 ? 2400 : Math.max(5, Math.round(priceOf(it) * 0.25))
+  it.tier >= 7 ? 0 : it.tier === 6 ? 2400 : Math.max(5, Math.round(priceOf(it) * 0.25))
+
+/** A mythic is the colosseum's trophy: it is never sold (#117). */
+export const sellable = (it: ItemDef): boolean => it.tier < 7
 
 /** The hero's bare hands: a Novice with no main-hand item. */
 export const UNARMED = { scale: 'str' as Attr, style: 'melee' as const, range: 1.9, interval: 0.9, heavy: false }

@@ -1,5 +1,13 @@
 // Arabic locale — mirrors the key shape of en.ts exactly.
 export default {
+  arena: {
+    allWon: 'كل الجوائز الخرافية صارت لك.',
+    prize: 'صار لك: {item}!',
+    milestone: 'الموجة {n}!',
+    next: 'الجائزة التالية في الموجة {at}: {item}',
+    champion: 'موجة البطل',
+    wave: 'الموجة {n}'
+  },
   smith: {
     why: {
       max__f: 'تملكين الاثنين، مصقولين إلى أقصى حدّ.',
@@ -1370,6 +1378,7 @@ export default {
     trinket: 'حِلية'
   },
   tier: {
+    '7': 'خرافي',
     '1': 'عادي',
     '2': 'غير شائع',
     '3': 'نادر',
@@ -1383,6 +1392,7 @@ export default {
     magic: 'سحر · يعتمد على {attr}'
   },
   source: {
+    arena: 'يُنال على سلّم الكولوسيوم.',
     smith: 'طُرِق في مسبك حدّاد.',
     mob: 'تُسقطه وحوش {zone}.',
     chest: 'يوجد في صناديق {zone}.',
@@ -1451,6 +1461,24 @@ export default {
     overheatCrit: '+{n}% ضرر حرج أثناء السخونة المفرطة'
   },
   item: {
+    heartOfTheArena: {
+      name: 'قلب الحلبة'
+    },
+    mantleOfTheUndefeated: {
+      name: 'درع من لا يُهزم'
+    },
+    crimsonBulwark: {
+      name: 'الترس القرمزي الحصين'
+    },
+    sandstriderGreaves: {
+      name: 'واقيات ساق جوّاب الرمال'
+    },
+    gripsOfTheGladiator: {
+      name: 'قفّازا المجالد'
+    },
+    laurelOfTheVictor: {
+      name: 'إكليل المنتصر'
+    },
     smithMasterMithrilGreaves: {
       name: 'واقيات ساق متقنة من الميثريل'
     },

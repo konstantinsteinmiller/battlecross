@@ -91,6 +91,13 @@ export const hud = shallowReactive({
   /** An ore outcrop is in reach and no chest is (#99): its metal for the
    *  "Mine" prompt, '' for none. */
   interactOre: '',
+  /**
+   * The colosseum's announcement (#117): a wave begins (its number; a
+   * champion wave; the next prize and its wave), or a milestone falls
+   * (`prize`: its mythic is the hero's now; `milestone`: already owned).
+   * `id` changes with every announcement, so the banner plays again.
+   */
+  arenaBanner: null as null | { id: number; kind: 'wave' | 'prize' | 'milestone'; n: number; champion: boolean; item: string; at: number },
   /** The town square's notice board is in reach (#85): the "Read" prompt. */
   interactBoard: false,
   /** A won zone: the Leave button is up; the finale's chest is open; chests still closed here. */

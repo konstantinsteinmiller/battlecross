@@ -1,4 +1,6 @@
 import { ARENA_WAVES, ZONES } from '../data/zones'
+import { milestoneAt } from '../data/arena'
+import { CELL } from './grid'
 import { itemsOfZone, type ZoneId } from '../data/items'
 import { ENEMY_BY_ID } from '../data/enemies'
 import { FINALE_BEAT, LEAVE_BEAT, openChest, populateFeatures, stepPlates } from './interact'
@@ -252,6 +254,25 @@ const clearSideGroups = (sim: Sim): void => {
   for (const g of sim.sideGroups) if (!g.cleared && sideCounts[g.id - SIDE_GROUP]! === 0) g.cleared = true
 }
 
+/**
+ * A milestone of the ladder (#117): the wave that completes it hands over its
+ * mythic piece in the middle of the sand, once for good (an owned one is not
+ * given again). It goes home with the visit's haul like any find.
+ */
+const arenaMilestone = (sim: Sim, plan: ZonePlan, wave: number): void => {
+  const m = milestoneAt(wave)
+  if (!m) return
+  const h = sim.hero
+  const x = (plan.w / 2) * CELL
+  const z = (plan.h / 2) * CELL
+  const fresh = !sim.owned.has(m.item) && !h.items.includes(m.item)
+  if (fresh) {
+    h.items.push(m.item)
+    sim.emit({ t: 'loot', x, z, gold: 0, item: m.item })
+  }
+  sim.emit({ t: 'milestone', wave, item: m.item, fresh })
+}
+
 export const stepDirector = (sim: Sim, plan: ZonePlan, dt: number): void => {
   if (sim.ended) { sim.endedT += dt; stepFinale(sim); return }
   if (sim.mode === 'town') return
@@ -266,6 +287,8 @@ export const stepDirector = (sim: Sim, plan: ZonePlan, dt: number): void => {
         w.cleared = w.n
         if (w.n === ARENA_WAVES) ladderPrize(sim, plan)
         else if (w.n > ARENA_WAVES && (w.n - ARENA_WAVES) % LADDER_GOLD_EVERY === 0) ladderGold(sim, plan)
+        // A milestone of the ladder: its mythic (#117).
+        arenaMilestone(sim, plan, w.n)
         // From the eighth on, a breather long enough to choose: Leave, or on.
         if (w.n >= ARENA_WAVES) w.rest = LADDER_REST
       }

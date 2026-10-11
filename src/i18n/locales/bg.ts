@@ -1,5 +1,13 @@
 // Bulgarian (bg) bundle — mirrors en.ts.
 export default {
+  arena: {
+    allWon: 'Всички митични награди са спечелени.',
+    prize: 'Награда спечелена: {item}!',
+    milestone: 'Вълна {n}!',
+    next: 'Следваща награда на вълна {at}: {item}',
+    champion: 'Вълна на шампиона',
+    wave: 'Вълна {n}'
+  },
   smith: {
     why: {
       max: 'Имаш и двете, подобрени докрай.',
@@ -1299,6 +1307,7 @@ export default {
     trinket: 'Накит'
   },
   tier: {
+    '7': 'Митичен',
     '1': 'Обикновен',
     '2': 'Необикновен',
     '3': 'Рядък',
@@ -1312,6 +1321,7 @@ export default {
     magic: 'Магия · расте от: {attr}'
   },
   source: {
+    arena: 'Спечелено в Колизея.',
     smith: 'Изковано в ковачница.',
     mob: 'Пада от чудовищата. Зона: {zone}.',
     chest: 'Намира се в сандъците. Зона: {zone}.',
@@ -1380,6 +1390,24 @@ export default {
     overheatCrit: '+{n}% критични щети при прегряване'
   },
   item: {
+    heartOfTheArena: {
+      name: 'Сърцето на арената'
+    },
+    mantleOfTheUndefeated: {
+      name: 'Доспехи на непобедения'
+    },
+    crimsonBulwark: {
+      name: 'Пурпурен бастион'
+    },
+    sandstriderGreaves: {
+      name: 'Наколенници на пясъчния скитник'
+    },
+    gripsOfTheGladiator: {
+      name: 'Ръкавици на гладиатора'
+    },
+    laurelOfTheVictor: {
+      name: 'Лавров венец на победителя'
+    },
     smithMasterMithrilGreaves: {
       name: 'Майсторски митрилови наколенници'
     },

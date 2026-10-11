@@ -1,5 +1,13 @@
 // Portuguese (Brazil) locale — mirrors the key shape of en.ts exactly.
 export default {
+  arena: {
+    allWon: 'Todos os prêmios míticos são seus.',
+    prize: 'Prêmio conquistado: {item}!',
+    milestone: 'Onda {n}!',
+    next: 'Próximo prêmio na onda {at}: {item}',
+    champion: 'Onda do campeão',
+    wave: 'Onda {n}'
+  },
   smith: {
     why: {
       max: 'Você tem os dois, aprimorados ao máximo.',
@@ -1299,6 +1307,7 @@ export default {
     trinket: 'Berloque'
   },
   tier: {
+    '7': 'Mítico',
     '1': 'Comum',
     '2': 'Incomum',
     '3': 'Raro',
@@ -1312,6 +1321,7 @@ export default {
     magic: 'Magia · escala com {attr}'
   },
   source: {
+    arena: 'Conquistado no Coliseu.',
     smith: 'Forjado em uma ferraria.',
     mob: '{zone}: cai dos monstros.',
     chest: '{zone}: encontrado nos baús.',
@@ -1380,6 +1390,24 @@ export default {
     overheatCrit: '+{n}% de dano Crítico enquanto superaquecido'
   },
   item: {
+    heartOfTheArena: {
+      name: 'Coração da Arena'
+    },
+    mantleOfTheUndefeated: {
+      name: 'Couraça do Invicto'
+    },
+    crimsonBulwark: {
+      name: 'Baluarte Carmesim'
+    },
+    sandstriderGreaves: {
+      name: 'Grevas do Andarilho das Areias'
+    },
+    gripsOfTheGladiator: {
+      name: 'Manoplas do Gladiador'
+    },
+    laurelOfTheVictor: {
+      name: 'Louro do Vencedor'
+    },
     smithMasterMithrilGreaves: {
       name: 'Grevas de mithril magistrais'
     },

@@ -1,5 +1,13 @@
 // Kazakh (kk) bundle — mirrors the key shape of en.ts exactly.
 export default {
+  arena: {
+    allWon: 'Барлық мифтік сыйлық енді сіздікі.',
+    prize: '{item} енді сіздікі!',
+    milestone: 'Толқын {n}!',
+    next: 'Келесі сыйлық: толқын {at} — {item}',
+    champion: 'Чемпион толқыны',
+    wave: 'Толқын {n}'
+  },
   smith: {
     why: {
       max: 'Екеуі де сенде, ең жоғарыға дейін өңделген.',
@@ -1298,6 +1306,7 @@ export default {
     trinket: 'Әшекей'
   },
   tier: {
+    '7': 'Мифтік',
     '1': 'Кәдімгі',
     '2': 'Ерекше',
     '3': 'Сирек',
@@ -1311,6 +1320,7 @@ export default {
     magic: 'Сиқыр · өсетін негізі: {attr}'
   },
   source: {
+    arena: 'Колизей рейтингінде жеңіп алынған.',
     smith: 'Ұстаханада соғылған.',
     mob: 'Құбыжықтардан түседі. Аймақ: {zone}.',
     chest: 'Сандықтардан табылады. Аймақ: {zone}.',
@@ -1379,6 +1389,24 @@ export default {
     overheatCrit: 'Қызып кеткенде +{n}% сыни зақым'
   },
   item: {
+    heartOfTheArena: {
+      name: 'Арена жүрегі'
+    },
+    mantleOfTheUndefeated: {
+      name: 'Жеңілместің сауыты'
+    },
+    crimsonBulwark: {
+      name: 'Қызыл қамал қалқаны'
+    },
+    sandstriderGreaves: {
+      name: 'Құмкезердің балтыр қорғауы'
+    },
+    gripsOfTheGladiator: {
+      name: 'Гладиатордың қолғаптары'
+    },
+    laurelOfTheVictor: {
+      name: 'Жеңімпаздың лавр тәжі'
+    },
     smithMasterMithrilGreaves: {
       name: 'Шебер соққан мифрил балтыр қорғауы'
     },
