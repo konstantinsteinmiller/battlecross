@@ -16,11 +16,13 @@ rewrites it, and a test fails when it is stale. Do not edit by hand.
 
 | Voice | Lines | EN voiced |
 | --- | --- | --- |
-| hero | 186 | 186 |
+| hero | 190 | 190 |
 | sunfordSmith | 19 | 19 |
 | sunfordPeddler | 15 | 15 |
 | trainerAegis | 18 | 18 |
 | trainerPyro | 15 | 15 |
+| sfShadow | 12 | 12 |
+| sfGeo | 12 | 12 |
 | elderMara | 27 | 27 |
 | sunfordHealer | 12 | 12 |
 | goblinTrader | 11 | 11 |
@@ -82,14 +84,14 @@ rewrites it, and a test fails when it is stale. Do not edit by hand.
 | smalltalkKids | 6 | 6 |
 | kidFriend | 4 | 4 |
 | frostJarl | 2 | 2 |
-| heroine | 186 | 186 |
-| **All** | **1222** | **1222** |
+| heroine | 190 | 190 |
+| **All** | **1254** | **1254** |
 
 ## To do (0)
 
 Nothing: every line has its recording.
 
-## Every line (1222)
+## Every line (1254)
 
 | File | Who | Scene | English | EN |
 | --- | --- | --- | --- | --- |
@@ -173,6 +175,34 @@ Nothing: every line has its recording.
 | `dlg.trainerPyro.circle.1` | Ember Wren (trainerPyro) | trainerPyro | Scholars. We study what the world's made of. Some of it explodes. | chatterbox |
 | `dlg.trainerPyro.trainBack.1` | Ember Wren (trainerPyro) | trainerPyro | Go and practise. Somewhere that won't catch, please. | chatterbox |
 | `dlg.trainerPyro.bye.1` | Ember Wren (trainerPyro) | trainerPyro | Take care of yourself! | chatterbox |
+| `dlg.sfShadow.hello.1` | Nettle Quickhand (sfShadow) | sfShadow | Didn't hear you come in. That's usually my trick. | chatterbox |
+| `dlg.sfShadow.hello.2` | Nettle Quickhand (sfShadow) | sfShadow | Nettle Quickhand. I teach the quiet arts: daggers, shadows, leaving early. | chatterbox |
+| `dlg.sfShadow.again.1` | Nettle Quickhand (sfShadow) | sfShadow | Back again? Good. Nobody saw you, I hope. | chatterbox |
+| `dlg.sfShadow.train.1` | Nettle Quickhand (sfShadow) | sfShadow | Light feet, quick hands. Try not to trip over your own blade. | chatterbox |
+| `dlg.sfShadow.class.say` | The hero (hero) | sfShadow | What does a shadow do? | chatterbox |
+| `dlg.sfShadow.class.1` | Nettle Quickhand (sfShadow) | sfShadow | Strike where they aren't looking, then be somewhere else entirely. | chatterbox |
+| `dlg.sfShadow.class.2` | Nettle Quickhand (sfShadow) | sfShadow | It all runs on Dexterity. Quick hands, quick feet, quick exits. | chatterbox |
+| `dlg.sfShadow.ready.strong.1` | Nettle Quickhand (sfShadow) | sfShadow | You're quicker than me now. Take what you like, I won't even notice. | chatterbox |
+| `dlg.sfShadow.ready.able.1` | Nettle Quickhand (sfShadow) | sfShadow | You're ready for the next trick. Watch closely, I only do it once. | chatterbox |
+| `dlg.sfShadow.ready.weak.1` | Nettle Quickhand (sfShadow) | sfShadow | Not yet. Get quicker first, or the shadows trip you up. | chatterbox |
+| `dlg.sfShadow.town.say` | The hero (hero) | sfShadow | Why teach here, in Sunford? | chatterbox |
+| `dlg.sfShadow.town.1` | Nettle Quickhand (sfShadow) | sfShadow | Quiet town, honest folk. Nobody looks twice at a farmer's cloak. Perfect. | chatterbox |
+| `dlg.sfShadow.trainBack.1` | Nettle Quickhand (sfShadow) | sfShadow | Off you go. Practise where the guards can't see. | chatterbox |
+| `dlg.sfShadow.bye.1` | Nettle Quickhand (sfShadow) | sfShadow | Mind your purse. | chatterbox |
+| `dlg.sfGeo.hello.1` | Harrow Flint (sfGeo) | sfGeo | Mind the rocks. Some of them are listening. | chatterbox |
+| `dlg.sfGeo.hello.2` | Harrow Flint (sfGeo) | sfGeo | Harrow Flint. I teach the old earth magic: stone, roots, a little quake. | chatterbox |
+| `dlg.sfGeo.again.1` | Harrow Flint (sfGeo) | sfGeo | Ah, you're back. The ground told me you were coming. | chatterbox |
+| `dlg.sfGeo.train.1` | Harrow Flint (sfGeo) | sfGeo | Feet flat, breathe slow. Feel the weight under you. Good. | chatterbox |
+| `dlg.sfGeo.class.say` | The hero (hero) | sfGeo | What does a geomancer do? | chatterbox |
+| `dlg.sfGeo.class.1` | Harrow Flint (sfGeo) | sfGeo | Ask the earth for help. Walls when you need them, spikes when they don't. | chatterbox |
+| `dlg.sfGeo.class.2` | Harrow Flint (sfGeo) | sfGeo | Strength to hold the stone, Intelligence to shape it. You need both. | chatterbox |
+| `dlg.sfGeo.ready.strong.1` | Harrow Flint (sfGeo) | sfGeo | The stone answers you before I do now. Take whatever you need. | chatterbox |
+| `dlg.sfGeo.ready.able.1` | Harrow Flint (sfGeo) | sfGeo | You're ready for the next lesson. Put your hand on the ground. Listen. | chatterbox |
+| `dlg.sfGeo.ready.weak.1` | Harrow Flint (sfGeo) | sfGeo | Not yet. More strength and a clearer head, or the stone won't listen. | chatterbox |
+| `dlg.sfGeo.farms.say` | The hero (hero) | sfGeo | Does the earth help the farms too? | chatterbox |
+| `dlg.sfGeo.farms.1` | Harrow Flint (sfGeo) | sfGeo | Every spring. The barley grows a hand taller and nobody knows why. Don't tell them. | chatterbox |
+| `dlg.sfGeo.trainBack.1` | Harrow Flint (sfGeo) | sfGeo | Go on. And put that rock back where you found it. | chatterbox |
+| `dlg.sfGeo.bye.1` | Harrow Flint (sfGeo) | sfGeo | Walk softly. The ground remembers. | chatterbox |
 | `dlg.elderMara.hello.1` | Elder Mara (elderMara) | elderMara | So you're the one from the road. Come here, let me look at you. | chatterbox |
 | `dlg.elderMara.hello.2` | Elder Mara (elderMara) | elderMara | I'm Mara. I've looked after this town for... oh, forty years now. | chatterbox |
 | `dlg.elderMara.slain.1` | Elder Mara (elderMara) | elderMara | The Hollows are quiet. It was a hard thing you did, but we sleep because of it. | chatterbox |
@@ -1142,6 +1172,10 @@ Nothing: every line has its recording.
 | `dlg.trainerAegis.order.say__f` | The girl hero (heroine) | trainerAegis | Tell me about the Iron Order. | chatterbox |
 | `dlg.trainerPyro.class.say__f` | The girl hero (heroine) | trainerPyro | What does a pyromancer do, exactly? | chatterbox |
 | `dlg.trainerPyro.circle.say__f` | The girl hero (heroine) | trainerPyro | Who are the Circle of Aether? | chatterbox |
+| `dlg.sfShadow.class.say__f` | The girl hero (heroine) | sfShadow | What does a shadow do? | chatterbox |
+| `dlg.sfShadow.town.say__f` | The girl hero (heroine) | sfShadow | Why teach here, in Sunford? | chatterbox |
+| `dlg.sfGeo.class.say__f` | The girl hero (heroine) | sfGeo | What does a geomancer do? | chatterbox |
+| `dlg.sfGeo.farms.say__f` | The girl hero (heroine) | sfGeo | Does the earth help the farms too? | chatterbox |
 | `dlg.elderMara.map.say__f` | The girl hero (heroine) | elderMara | I found a piece of an old map. | chatterbox |
 | `dlg.elderMara.reward.say__f` | The girl hero (heroine) | elderMara | Someone said you wanted to see me? | chatterbox |
 | `dlg.elderMara.quest.say__f` | The girl hero (heroine) | elderMara | What's troubling Sunford? | chatterbox |

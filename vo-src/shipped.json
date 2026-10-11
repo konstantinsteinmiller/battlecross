@@ -4249,6 +4249,166 @@
     "at": "2026-10-07",
     "hash": "9dbe69070e"
   },
+  "en/dlg.sfGeo.again.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-11",
+    "hash": "f3b7313c65"
+  },
+  "en/dlg.sfGeo.bye.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-11",
+    "hash": "2da8948a8c"
+  },
+  "en/dlg.sfGeo.class.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-11",
+    "hash": "b15f621398"
+  },
+  "en/dlg.sfGeo.class.2": {
+    "engine": "chatterbox",
+    "at": "2026-10-11",
+    "hash": "f6e62a1f10"
+  },
+  "en/dlg.sfGeo.class.say": {
+    "engine": "chatterbox",
+    "at": "2026-10-11",
+    "hash": "54f8c64f6b"
+  },
+  "en/dlg.sfGeo.class.say__f": {
+    "engine": "chatterbox",
+    "at": "2026-10-11",
+    "hash": "54f8c64f6b"
+  },
+  "en/dlg.sfGeo.farms.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-11",
+    "hash": "fd67590b39"
+  },
+  "en/dlg.sfGeo.farms.say": {
+    "engine": "chatterbox",
+    "at": "2026-10-11",
+    "hash": "ad169e8674"
+  },
+  "en/dlg.sfGeo.farms.say__f": {
+    "engine": "chatterbox",
+    "at": "2026-10-11",
+    "hash": "ad169e8674"
+  },
+  "en/dlg.sfGeo.hello.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-11",
+    "hash": "b92a9cce96"
+  },
+  "en/dlg.sfGeo.hello.2": {
+    "engine": "chatterbox",
+    "at": "2026-10-11",
+    "hash": "45958fd316"
+  },
+  "en/dlg.sfGeo.ready.able.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-11",
+    "hash": "5e0a15aaf4"
+  },
+  "en/dlg.sfGeo.ready.strong.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-11",
+    "hash": "77c3075c32"
+  },
+  "en/dlg.sfGeo.ready.weak.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-11",
+    "hash": "cf23edc6c4"
+  },
+  "en/dlg.sfGeo.train.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-11",
+    "hash": "c7a52a788a"
+  },
+  "en/dlg.sfGeo.trainBack.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-11",
+    "hash": "5b05d745d0"
+  },
+  "en/dlg.sfShadow.again.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-11",
+    "hash": "019e514ad5"
+  },
+  "en/dlg.sfShadow.bye.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-11",
+    "hash": "34dc5beecd"
+  },
+  "en/dlg.sfShadow.class.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-11",
+    "hash": "a0ae20db28"
+  },
+  "en/dlg.sfShadow.class.2": {
+    "engine": "chatterbox",
+    "at": "2026-10-11",
+    "hash": "9395c9929c"
+  },
+  "en/dlg.sfShadow.class.say": {
+    "engine": "chatterbox",
+    "at": "2026-10-11",
+    "hash": "0ee6f5ea5e"
+  },
+  "en/dlg.sfShadow.class.say__f": {
+    "engine": "chatterbox",
+    "at": "2026-10-11",
+    "hash": "0ee6f5ea5e"
+  },
+  "en/dlg.sfShadow.hello.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-11",
+    "hash": "85daf9255c"
+  },
+  "en/dlg.sfShadow.hello.2": {
+    "engine": "chatterbox",
+    "at": "2026-10-11",
+    "hash": "6f516c2cf5"
+  },
+  "en/dlg.sfShadow.ready.able.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-11",
+    "hash": "d4d8299781"
+  },
+  "en/dlg.sfShadow.ready.strong.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-11",
+    "hash": "255feb7a68"
+  },
+  "en/dlg.sfShadow.ready.weak.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-11",
+    "hash": "28bcb39107"
+  },
+  "en/dlg.sfShadow.town.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-11",
+    "hash": "46082b4f40"
+  },
+  "en/dlg.sfShadow.town.say": {
+    "engine": "chatterbox",
+    "at": "2026-10-11",
+    "hash": "4e8e5bddbe"
+  },
+  "en/dlg.sfShadow.town.say__f": {
+    "engine": "chatterbox",
+    "at": "2026-10-11",
+    "hash": "4e8e5bddbe"
+  },
+  "en/dlg.sfShadow.train.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-11",
+    "hash": "20f6a8a5fe"
+  },
+  "en/dlg.sfShadow.trainBack.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-11",
+    "hash": "de09be8141"
+  },
   "en/dlg.smalltalkIronhold.beard.1": {
     "engine": "chatterbox",
     "at": "2026-10-04",

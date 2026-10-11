@@ -100,6 +100,40 @@ const trainerPyro = conversation('trainerPyro', {
   bye: [{ id: 'bye' }]
 })
 
+/** Nettle Quickhand: a retired cutpurse who teaches the quiet arts (#106). Sly, quick. */
+const sfShadow = conversation('sfShadow', {
+  name: 'npc.sfShadow.name', look: 'sfShadow', mood: 'sly',
+  greet: [
+    { id: 'hello', when: { met: false }, lines: 'nn' },
+    { id: 'again' }
+  ],
+  topics: [
+    train(),
+    { id: 'class', lines: 'nn' },
+    ready('shadow'),
+    { id: 'town' }
+  ],
+  back: { trainer: [{ id: 'trainBack' }] },
+  bye: [{ id: 'bye' }]
+})
+
+/** Harrow Flint: an old earth-mage who listens to stone (#106). Slow, warm, dry. */
+const sfGeo = conversation('sfGeo', {
+  name: 'npc.sfGeo.name', look: 'sfGeo', mood: 'warm',
+  greet: [
+    { id: 'hello', when: { met: false }, lines: 'nn' },
+    { id: 'again' }
+  ],
+  topics: [
+    train(),
+    { id: 'class', lines: 'nn' },
+    ready('geo'),
+    { id: 'farms' }
+  ],
+  back: { trainer: [{ id: 'trainBack' }] },
+  bye: [{ id: 'bye' }]
+})
+
 /** Elder Mara: forty years of Sunford's ledger and its peace. Warm, and tired. */
 const elderMara = conversation('elderMara', {
   name: 'npc.elderMara.name', look: 'elder', mood: 'warm',
@@ -202,5 +236,5 @@ const sunfordGambler = conversation('sunfordGambler', {
 })
 
 export const SUNFORD_TALK: ConversationDef[] = [
-  sunfordSmith, sunfordPeddler, trainerAegis, trainerPyro, elderMara, sunfordHealer, goblinTrader, sunfordGambler
+  sunfordSmith, sunfordPeddler, trainerAegis, trainerPyro, sfShadow, sfGeo, elderMara, sunfordHealer, goblinTrader, sunfordGambler
 ]

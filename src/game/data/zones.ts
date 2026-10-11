@@ -368,6 +368,10 @@ export const TOWNS: Readonly<Record<TownId, TownDef>> = {
       // The knight drills in his yard; the pyromancer keeps to her books.
       { id: 'trainerAegis', role: 'trainer', look: 'trainerAegis', at: [0.2, 0.15], place: 'yard', house: 'hall', cls: 'aegis' },
       { id: 'trainerPyro', role: 'trainer', look: 'trainerPyro', at: [0.8, 0.15], place: 'inside', house: 'hall', cls: 'pyro' },
+      // Two more teachers for the first town (#106): a different main attribute
+      // each (Strength, Intelligence, Dexterity, Strength + Intelligence).
+      { id: 'sfShadow', role: 'trainer', look: 'sfShadow', at: [0.66, 0.48], place: 'inside', house: 'townhouse', cls: 'shadow' },
+      { id: 'sfGeo', role: 'trainer', look: 'sfGeo', at: [0.3, 0.82], place: 'yard', house: 'cottage', cls: 'geo' },
       // The item battle (#92): a table in the street, a deck of odds and ends.
       { id: 'sunfordGambler', role: 'gambler', look: 'sunfordGambler', at: [0.72, 0.62], place: 'street', job: 'merchant', game: 'items' },
       { id: 'elderMara', role: 'quest', look: 'elder', at: [0.42, 0.36], place: 'street', job: 'elder', quest: 'goblinKing' },

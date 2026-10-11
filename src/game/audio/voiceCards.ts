@@ -143,6 +143,23 @@ export const CARDS: Readonly<Record<string, VoiceCard>> = {
     reference: "Oh, a student? Lovely! I'm Ember Wren, and I teach fire. Mostly it does what I ask. Watch my hands, keep your sleeves back, and maybe stand a little further away.",
     notes: ''
   }),
+  // ── Sunford's newer teachers (#106) ──
+  sfShadow: card({
+    name: 'Nettle Quickhand', gender: 'female', age: 'mid 30s', pitch: 'mid', pace: 'brisk',
+    timbre: 'low, wry, slightly husky voice',
+    personality: 'A retired cutpurse turned teacher: sly, dry-humoured, always half amused.',
+    design: 'A woman in her mid thirties with a low, wry, slightly husky voice. Sly and dry-humoured, speaking quickly, as if sharing a secret.',
+    reference: "Didn't hear you come in. That's usually my trick. Nettle Quickhand. I teach the quiet arts: daggers, shadows, and leaving early. Light feet, quick hands.",
+    notes: ''
+  }),
+  sfGeo: card({
+    name: 'Harrow Flint', gender: 'male', age: 'late 60s', pitch: 'low', pace: 'slow',
+    timbre: 'deep, gravelly, warm voice',
+    personality: 'An old earth-mage who talks to stone: patient, dry, kind.',
+    design: 'A man in his late sixties with a deep, gravelly, warm voice. Patient and dry-humoured, speaking slowly, like stone settling.',
+    reference: 'Mind the rocks. Some of them are listening. Harrow Flint. I teach the old earth magic: stone, roots, a little quake. Feet flat, breathe slow.',
+    notes: ''
+  }),
   captainHale: card({
     name: 'Captain Hale', gender: 'male', age: 'mid 50s', pitch: 'low', pace: 'measured',
     timbre: 'worn, husky baritone',

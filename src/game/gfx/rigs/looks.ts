@@ -95,6 +95,9 @@ export const LOOKS: Readonly<Record<string, Look>> = {
   trainerChrono: L({ skin: '#cfe0ff', top: '#3f6fd6', bottom: '#2a4a9a', head: 'bun', hair: '#5f9fff', outfit: 'robe', held: 'wand', off: 'orb', trim: '#bfe6ff', glow: '#7fd8ff' }),
   trainerBlood: L({ skin: '#f0d0c0', top: '#f0ece4', bottom: '#8a2a3a', head: 'long', hair: '#c8283a', outfit: 'robe', held: 'flask', off: 'syringe', trim: '#c8283a', glow: '#ff4a6a', ears: 'pointy' }),
   trainerAether: L({ skin: '#e2b08a', top: '#3a5a8a', bottom: '#4a4a54', head: 'goggles', hair: '#f0d04a', outfit: 'leather', held: 'gun', trim: '#4ff0c8', glow: '#4ff0c8' }),
+  // Sunford's two newer teachers (#106).
+  sfShadow: L({ skin: '#e8b894', top: '#3a4030', bottom: '#2a2a22', head: 'hood', hair: '#7a3a24', outfit: 'leather', held: 'dagger', off: 'dagger', trim: '#8ab07a', cape: '#3a4030' }),
+  sfGeo: L({ skin: '#c89a70', top: '#7a6a44', bottom: '#4a4030', head: 'bald', hair: '#d8d0c0', outfit: 'robe', held: 'staff', trim: '#a8b86a', beard: '#d8d0c0', metal: '#7a6a5a', glow: '#c8b87a' }),
   trainerGeo: L({ skin: '#b8845a', top: '#8a6a3a', bottom: '#5a4424', head: 'hood', hair: '#8a6a3a', outfit: 'robe', held: 'none', trim: '#c79a5a' }),
 
   // ── Silverbridge (river blue and bridge silver are the town's colours) ──

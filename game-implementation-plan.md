@@ -773,7 +773,15 @@ All sound is synthesised (53 recipes); recorded files can override a recipe.
   Uncommon (fee 14, three wins bring a Rare), Oakhaven opens Uncommon and
   tops at Rare (fee 40, an Epic); neither follows the hero's level. A row
   per gambler (a save's old shared row becomes Sunford's).
-- [ ] **33 Sunford teachers** (#106).
+- [x] **33 Sunford teachers** (#106). Nettle Quickhand (Shadow: a retired
+  cutpurse, in a townhouse by the square) and Harrow Flint (Geo: an old
+  earth-mage, in a cottage with a yard at the south edge) join Ser Aldric
+  and Ember Wren, so the first town teaches four classes, a different main
+  attribute each. Their looks, conversations (greeting, class, readiness,
+  a topic of their own, goodbyes), voice cards and 32 voiced lines
+  (Chatterbox, English; the heroine's variants too). Placed where every
+  house and the tavern still fit (`town.test`, `interiors.test`).
+  Portraits are drawn until painted (phase 40).
 - [ ] **34 Place-shaped layouts** (#103): peak, temple, outskirts, tundra, crags.
 - [ ] **35 Towns of their own** (#103): Silverbridge on its bridge, Oakhaven.
 - [ ] **36 Ore and mining** (#99), chests that cannot be cancelled.

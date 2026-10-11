@@ -899,6 +899,8 @@ export default {
     'sunfordPeddler': { 'name': 'Tilly the Peddler', 'talk': 'Rings, charms, bits and pieces. That one might even be lucky.' },
     'trainerAegis': { 'name': 'Ser Aldric' },
     'trainerPyro': { 'name': 'Ember Wren' },
+    'sfShadow': { 'name': 'Nettle Quickhand' },
+    'sfGeo': { 'name': 'Harrow Flint' },
     'elderMara': { 'name': 'Elder Mara' },
     'sunfordHealer': { 'name': 'Sister Lune' },
     'goblinTrader': { 'name': 'Grik the Trader', 'talk': 'My family made these. Good work, fair price.' },
@@ -1709,6 +1711,42 @@ export default {
       'circle': { 'say': 'Who are the Circle of Aether?', '1': 'Scholars. We study what the world\'s made of. Some of it explodes.' },
       'trainBack': { '1': 'Go and practise. Somewhere that won\'t catch, please.' },
       'bye': { '1': 'Take care of yourself!' }
+    },
+    'sfShadow': {
+      'hello': { '1': 'Didn\'t hear you come in. That\'s usually my trick.', '2': 'Nettle Quickhand. I teach the quiet arts: daggers, shadows, leaving early.' },
+      'again': { '1': 'Back again? Good. Nobody saw you, I hope.' },
+      'train': { '1': 'Light feet, quick hands. Try not to trip over your own blade.' },
+      'class': {
+        'say': 'What does a shadow do?',
+        '1': 'Strike where they aren\'t looking, then be somewhere else entirely.',
+        '2': 'It all runs on Dexterity. Quick hands, quick feet, quick exits.'
+      },
+      'ready': {
+        'strong': { '1': 'You\'re quicker than me now. Take what you like, I won\'t even notice.' },
+        'able': { '1': 'You\'re ready for the next trick. Watch closely, I only do it once.' },
+        'weak': { '1': 'Not yet. Get quicker first, or the shadows trip you up.' }
+      },
+      'town': { 'say': 'Why teach here, in Sunford?', '1': 'Quiet town, honest folk. Nobody looks twice at a farmer\'s cloak. Perfect.' },
+      'trainBack': { '1': 'Off you go. Practise where the guards can\'t see.' },
+      'bye': { '1': 'Mind your purse.' }
+    },
+    'sfGeo': {
+      'hello': { '1': 'Mind the rocks. Some of them are listening.', '2': 'Harrow Flint. I teach the old earth magic: stone, roots, a little quake.' },
+      'again': { '1': 'Ah, you\'re back. The ground told me you were coming.' },
+      'train': { '1': 'Feet flat, breathe slow. Feel the weight under you. Good.' },
+      'class': {
+        'say': 'What does a geomancer do?',
+        '1': 'Ask the earth for help. Walls when you need them, spikes when they don\'t.',
+        '2': 'Strength to hold the stone, Intelligence to shape it. You need both.'
+      },
+      'ready': {
+        'strong': { '1': 'The stone answers you before I do now. Take whatever you need.' },
+        'able': { '1': 'You\'re ready for the next lesson. Put your hand on the ground. Listen.' },
+        'weak': { '1': 'Not yet. More strength and a clearer head, or the stone won\'t listen.' }
+      },
+      'farms': { 'say': 'Does the earth help the farms too?', '1': 'Every spring. The barley grows a hand taller and nobody knows why. Don\'t tell them.' },
+      'trainBack': { '1': 'Go on. And put that rock back where you found it.' },
+      'bye': { '1': 'Walk softly. The ground remembers.' }
     },
     'elderMara': {
       'map': {
