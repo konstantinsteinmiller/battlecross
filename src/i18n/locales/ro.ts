@@ -1598,6 +1598,12 @@ export default {
     circle: 'Cercul Eterului'
   },
   npc: {
+    sfShadow: {
+      name: 'Nettle Quickhand'
+    },
+    sfGeo: {
+      name: 'Harrow Flint'
+    },
     wanderer: {
       name: 'Pip Hoinarul',
       talk: 'Drum lung și pungă ușoară? Am câte puțin din toate.'
@@ -1856,6 +1862,82 @@ export default {
     }
   },
   dlg: {
+    sfShadow: {
+      hello: {
+        '1': 'Nu te-am auzit intrând. De obicei ăsta e trucul meu.',
+        '2': 'Nettle Quickhand. Predau artele tăcute: pumnale, umbre, plecat devreme.'
+      },
+      again: {
+        '1': 'Iar aici? Bine. Sper că nu te-a văzut nimeni.'
+      },
+      train: {
+        '1': 'Pași ușori, mâini iuți. Încearcă să nu te împiedici de propria lamă.'
+      },
+      class: {
+        '1': 'Lovește unde nu se uită nimeni, apoi e cu totul în altă parte.',
+        '2': 'Totul merge pe Dexteritate. Mâini iuți, pași iuți, ieșiri iuți.',
+        say: 'Ce face o umbră?'
+      },
+      ready: {
+        strong: {
+          '1': 'Acum mă întreci la iuțeală. Ia ce vrei, nici n-o să observ.'
+        },
+        able: {
+          '1': 'Ești gata pentru următorul truc. Uită-te bine, îl fac o singură dată.'
+        },
+        weak: {
+          '1': 'Nu încă. Mai câștigă din iuțeală, altfel te împiedică umbrele.'
+        }
+      },
+      town: {
+        '1': 'Oraș liniștit, oameni cinstiți. Nimeni nu se uită de două ori la o mantie de fermier. Perfect.',
+        say: 'De ce predai aici, în Sunford?'
+      },
+      trainBack: {
+        '1': 'Hai, du-te. Exersează unde nu te văd străjerii.'
+      },
+      bye: {
+        '1': 'Ai grijă de pungă.'
+      }
+    },
+    sfGeo: {
+      hello: {
+        '1': 'Ai grijă la pietre. Unele ascultă.',
+        '2': 'Harrow Flint. Predau vechea magie a pământului: piatră, rădăcini, un mic cutremur.'
+      },
+      again: {
+        '1': 'Ah, te-ai întors. Pământul mi-a spus că vii.'
+      },
+      train: {
+        '1': 'Tălpile pe pământ, respiră încet. Simte greutatea de sub tine. Bine.'
+      },
+      class: {
+        '1': 'Cere ajutor pământului. Ziduri când ai nevoie de ele, țepi când ei n-au nevoie.',
+        '2': 'Forță ca să ții piatra, Inteligență ca s-o modelezi. Îți trebuie amândouă.',
+        say: 'Ce face un geomant?'
+      },
+      ready: {
+        strong: {
+          '1': 'Piatra îți răspunde acum înaintea mea. Ia ce-ți trebuie.'
+        },
+        able: {
+          '1': 'Ești gata pentru următoarea lecție. Pune mâna pe pământ. Ascultă.'
+        },
+        weak: {
+          '1': 'Nu încă. Mai multă forță și o minte mai limpede, altfel piatra nu ascultă.'
+        }
+      },
+      farms: {
+        '1': 'În fiecare primăvară. Orzul crește cu o palmă mai înalt și nimeni nu știe de ce. Nu le spune.',
+        say: 'Pământul ajută și fermele?'
+      },
+      trainBack: {
+        '1': 'Du-te. Și pune piatra aia înapoi unde ai găsit-o.'
+      },
+      bye: {
+        '1': 'Calcă ușor. Pământul ține minte.'
+      }
+    },
     smalltalkSunford: {
       weather: {
         '1': 'Plouă diseară. Mă doare genunchiul toată ziua.',

@@ -1603,6 +1603,12 @@ export default {
     circle: 'Krug etera'
   },
   npc: {
+    sfShadow: {
+      name: 'Nettle Quickhand'
+    },
+    sfGeo: {
+      name: 'Harrow Flint'
+    },
     wanderer: {
       name: 'Pip Lutalica',
       talk: 'Dug put i lagan novčanik? Nosim po malo svega.'
@@ -1861,6 +1867,82 @@ export default {
     }
   },
   dlg: {
+    sfShadow: {
+      hello: {
+        '1': 'Ni šuma, ni koraka. To je obično moj trik.',
+        '2': 'Nettle Quickhand. Učim tiha umijeća: bodeže, sjene, odlazak bez pozdrava.'
+      },
+      again: {
+        '1': 'Opet ovdje? Dobro. Nadam se da te nitko nije vidio.'
+      },
+      train: {
+        '1': 'Lagana stopala, brze ruke. Pokušaj se ne spotaknuti o vlastitu oštricu.'
+      },
+      class: {
+        '1': 'Udari gdje ne gledaju, a onda je posve negdje drugdje.',
+        '2': 'Sve počiva na Spretnosti. Brze ruke, brze noge, brzi izlasci.',
+        say: 'Što radi Sjenovita oštrica?'
+      },
+      ready: {
+        strong: {
+          '1': 'Već me prestižeš. Uzmi što želiš, neću ni primijetiti.'
+        },
+        able: {
+          '1': 'Vrijeme je za sljedeći trik. Gledaj pažljivo, pokazujem samo jednom.'
+        },
+        weak: {
+          '1': 'Još ne. Prvo skupi brzinu, inače će ti sjene podmetnuti nogu.'
+        }
+      },
+      town: {
+        '1': 'Miran grad, pošten narod. Nitko dvaput ne pogleda seljački ogrtač. Savršeno.',
+        say: 'Zašto podučavaš ovdje, u Sunfordu?'
+      },
+      trainBack: {
+        '1': 'Hajde, idi. Vježbaj gdje te straža ne vidi.'
+      },
+      bye: {
+        '1': 'Pazi na kesu.'
+      }
+    },
+    sfGeo: {
+      hello: {
+        '1': 'Pazi na stijene. Neke od njih slušaju.',
+        '2': 'Harrow Flint. Učim staru magiju zemlje: kamen, korijenje, malo potresa.'
+      },
+      again: {
+        '1': 'Ah, opet ti. Zemlja mi je rekla da dolaziš.'
+      },
+      train: {
+        '1': 'Stopala ravno, diši polako. Osjeti težinu pod sobom. Dobro.'
+      },
+      class: {
+        '1': 'Traži od zemlje pomoć. Zidove kad ti trebaju, šiljke kad neprijatelju ne trebaju.',
+        '2': 'Snaga da držiš kamen, Inteligencija da ga oblikuješ. Trebaš oboje.',
+        say: 'Što radi geomant?'
+      },
+      ready: {
+        strong: {
+          '1': 'Kamen ti sad odgovara prije mene. Uzmi što god trebaš.'
+        },
+        able: {
+          '1': 'Vrijeme je za sljedeću lekciju. Stavi ruku na zemlju. Slušaj.'
+        },
+        weak: {
+          '1': 'Još ne. Više snage i bistrija glava, inače te kamen neće poslušati.'
+        }
+      },
+      farms: {
+        '1': 'Svakog proljeća. Ječam naraste za dlan više i nitko ne zna zašto. Nemoj im reći.',
+        say: 'Pomaže li zemlja i farmama?'
+      },
+      trainBack: {
+        '1': 'Idi. I vrati taj kamen na mjesto.'
+      },
+      bye: {
+        '1': 'Hodaj tiho. Zemlja pamti.'
+      }
+    },
     smalltalkSunford: {
       weather: {
         '1': 'Večeras kiša. Koljeno me boli cijeli dan.',

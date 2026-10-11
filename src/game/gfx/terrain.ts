@@ -151,6 +151,17 @@ const flower = (petal: string) => () => ({ lit: [P(rcyl(0.02, 0.26, 0.008, 5, 1)
 const pebble = (hex: string) => () => ({ lit: [P(rock(0.16, 21, 7, 5), hex, [0, 0.07, 0])] })
 const bones = () => ({ lit: [P(cap(0.04, 0.34, 6, 2), '#e8e2cf', [0, 0.05, 0], [0, 0.4, Math.PI / 2]), P(sph(0.11, 7, 5), '#e8e2cf', [0.26, 0.1, 0.12])] })
 const ember = (hex: string) => () => ({ lit: [P(rock(0.18, 17, 7, 5), '#3a2a28', [0, 0.08, 0])], glow: [P(sph(0.07, 6, 5), hex, [0, 0.16, 0])] })
+/** A clump of standing wheat (the field layout, #103): two crossed panels of
+ *  stalks, the ears gold at the top. Cheap on purpose — a field holds
+ *  thousands of them. */
+const wheatClump = () => ({
+  lit: [
+    P(rbox(0.62, 0.62, 0.025, 0.02, 1, 1), '#b89a3e', [0, 0.31, 0]),
+    P(rbox(0.62, 0.62, 0.025, 0.02, 1, 1), '#b89a3e', [0, 0.31, 0], [0, Math.PI / 2, 0]),
+    P(rbox(0.66, 0.26, 0.03, 0.02, 1, 1), '#e8c45a', [0, 0.75, 0]),
+    P(rbox(0.66, 0.26, 0.03, 0.02, 1, 1), '#e8c45a', [0, 0.75, 0], [0, Math.PI / 2, 0])
+  ]
+})
 const shroom = (hex: string) => () => ({ lit: [P(rcyl(0.035, 0.16, 0.012, 6, 1), '#e8e2d0', [0, 0.08, 0])], glow: [P(dome(0.12, 1.5, 8, 4), hex, [0, 0.14, 0])] })
 
 export const THEMES: Readonly<Record<ThemeId, Theme>> = {
@@ -1235,6 +1246,21 @@ export const buildTerrain = async (plan: ZonePlan, themeId: ThemeId, scene: Scen
     }
   }
   for (let n = 0; n < theme.decor.length; n++) instanced(theme.decor[n]!, decorPlaces[n]!, false, root, owned)
+
+  // ── A field's standing wheat (#103): clumps over every crop cell ──
+  if (plan.crop) {
+    const wrng = mulberry32((plan.seed ^ 0x3a7e) >>> 0)
+    const per = low ? 2 : 4
+    const wheat: Place[] = []
+    for (let j = 0; j < h; j++) {
+      for (let i = 0; i < w; i++) {
+        const k = j * w + i
+        if (!plan.crop[k] || footprint.has(k)) continue
+        for (let q = 0; q < per; q++) wheat.push([(i + wrng()) * CELL, (j + wrng()) * CELL, wrng() * Math.PI, 0.85 + wrng() * 0.35])
+      }
+    }
+    instanced({ build: wheatClump, w: 1, s: [1, 1] }, wheat, false, root, owned)
+  }
   for (let n = 0; n < caveDecor.length; n++) instanced(caveDecor[n]!, caveDecorPlaces[n]!, false, root, owned)
 
   // ── The relief's tells: a stone or two on a crest, dark tufts in a hollow ──

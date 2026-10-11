@@ -1599,6 +1599,12 @@ export default {
     circle: 'El Círculo del Éter'
   },
   npc: {
+    sfShadow: {
+      name: 'Nettle Quickhand'
+    },
+    sfGeo: {
+      name: 'Harrow Flint'
+    },
     wanderer: {
       name: 'Pip el Vagabundo',
       talk: '¿Camino largo y bolsa ligera? Llevo un poco de todo.'
@@ -1857,6 +1863,85 @@ export default {
     }
   },
   dlg: {
+    sfShadow: {
+      hello: {
+        '1': 'No te oí entrar. Normalmente ese es mi truco.',
+        '2': 'Nettle Quickhand. Enseño las artes silenciosas: dagas, sombras y marcharse pronto.'
+      },
+      again: {
+        '1': '¿Otra vez por aquí? Bien. Nadie te ha visto, espero.'
+      },
+      train: {
+        '1': 'Pies ligeros, manos rápidas. Intenta no tropezar con tu propia hoja.'
+      },
+      class: {
+        '1': 'Golpear donde no miran y luego estar en otro sitio por completo.',
+        '2': 'Todo depende de la Destreza. Manos rápidas, pies rápidos, salidas rápidas.',
+        say: '¿Qué hace una Hoja Sombría?'
+      },
+      ready: {
+        strong: {
+          '1': 'Ya eres más rápido que yo. Coge lo que quieras, ni me daré cuenta.',
+          '1__f': 'Ya eres más rápida que yo. Coge lo que quieras, ni me daré cuenta.'
+        },
+        able: {
+          '1': 'Estás listo para el siguiente truco. Mira bien, solo lo hago una vez.',
+          '1__f': 'Estás lista para el siguiente truco. Mira bien, solo lo hago una vez.'
+        },
+        weak: {
+          '1': 'Aún no. Gana rapidez primero, o las sombras te harán tropezar.'
+        }
+      },
+      town: {
+        '1': 'Pueblo tranquilo, gente honrada. Nadie mira dos veces una capa de granjero. Perfecto.',
+        say: '¿Por qué enseñas aquí, en Sunford?'
+      },
+      trainBack: {
+        '1': 'Venga, vete. Practica donde los guardias no vean.'
+      },
+      bye: {
+        '1': 'Cuida tu bolsa.'
+      }
+    },
+    sfGeo: {
+      hello: {
+        '1': 'Cuidado con las rocas. Algunas están escuchando.',
+        '2': 'Harrow Flint. Enseño la vieja magia de la tierra: piedra, raíces, un pequeño temblor.'
+      },
+      again: {
+        '1': 'Ah, has vuelto. El suelo me dijo que venías.'
+      },
+      train: {
+        '1': 'Pies planos, respira despacio. Siente el peso bajo tus pies. Bien.'
+      },
+      class: {
+        '1': 'Pedir ayuda a la tierra. Muros cuando los necesitas, pinchos cuando los demás no los quieren.',
+        '2': 'Fuerza para sostener la piedra, Inteligencia para darle forma. Necesitas las dos.',
+        say: '¿Qué hace un geomante?'
+      },
+      ready: {
+        strong: {
+          '1': 'La piedra ya te responde antes que a mí. Coge lo que necesites.'
+        },
+        able: {
+          '1': 'Estás listo para la siguiente lección. Pon la mano en el suelo. Escucha.',
+          '1__f': 'Estás lista para la siguiente lección. Pon la mano en el suelo. Escucha.'
+        },
+        weak: {
+          '1': 'Aún no. Más fuerza y la mente más clara, o la piedra no te escuchará.'
+        }
+      },
+      farms: {
+        '1': 'Cada primavera. La cebada crece un palmo más y nadie sabe por qué. No se lo digas.',
+        say: '¿La tierra ayuda también a las granjas?'
+      },
+      trainBack: {
+        '1': 'Anda, ve. Y devuelve esa piedra a donde la encontraste.'
+      },
+      bye: {
+        '1': 'Camina con suavidad. El suelo recuerda.'
+      }
+    },
     smalltalkSunford: {
       weather: {
         '1': 'Esta noche llueve. Me duele la rodilla desde por la mañana.',

@@ -1598,6 +1598,12 @@ export default {
     circle: 'Efir Doirasi'
   },
   npc: {
+    sfShadow: {
+      name: 'Nettle Quickhand'
+    },
+    sfGeo: {
+      name: 'Harrow Flint'
+    },
     wanderer: {
       name: 'Sayyor Pip',
       talk: 'Yoʻl uzoq, hamyon yengilmi? Menda hamma narsadan ozgina bor.'
@@ -1856,6 +1862,82 @@ export default {
     }
   },
   dlg: {
+    sfShadow: {
+      hello: {
+        '1': 'Kirib kelganingni eshitmadim. Odatda bu mening hiylam.',
+        '2': 'Nettle Quickhand. Jim sanʼatlarni oʻrgataman: xanjarlar, soyalar, erta gʻoyib boʻlish.'
+      },
+      again: {
+        '1': 'Yana keldingmi? Yaxshi. Seni hech kim koʻrmagandir, deb umid qilaman.'
+      },
+      train: {
+        '1': 'Yengil oyoqlar, chaqqon qoʻllar. Oʻz tigʻingga qoqilib yiqilma.'
+      },
+      class: {
+        '1': 'Ular qaramagan joydan uradi, keyin butunlay boshqa joyda boʻladi.',
+        '2': 'Hammasi Chaqqonlikka bogʻliq. Chaqqon qoʻllar, chaqqon oyoqlar, tez juftakni rostlash.',
+        say: 'Soya nima qiladi?'
+      },
+      ready: {
+        strong: {
+          '1': 'Endi mendan chaqqonroqsan. Nima xohlasang ol, sezmayman ham.'
+        },
+        able: {
+          '1': 'Keyingi hiylaga tayyorsan. Diqqat bilan qara, faqat bir marta koʻrsataman.'
+        },
+        weak: {
+          '1': 'Hali emas. Avval chaqqonroq boʻl, aks holda soyalar oyogʻingga chalishadi.'
+        }
+      },
+      town: {
+        '1': 'Tinch shaharcha, halol odamlar. Dehqon plashiga hech kim ikki marta qaramaydi. Ajoyib.',
+        say: 'Nega aynan shu yerda, Sunfordda oʻrgatasan?'
+      },
+      trainBack: {
+        '1': 'Qani, bor. Soqchilar koʻrmaydigan joyda mashq qil.'
+      },
+      bye: {
+        '1': 'Hamyoningga ehtiyot boʻl.'
+      }
+    },
+    sfGeo: {
+      hello: {
+        '1': 'Qoyalarga ehtiyot boʻl. Baʼzilari tinglab turibdi.',
+        '2': 'Harrow Flint. Qadimiy yer sehrini oʻrgataman: tosh, ildizlar, ozgina zilzila.'
+      },
+      again: {
+        '1': 'Ha, qaytding. Kelayotganingni yer menga aytgandi.'
+      },
+      train: {
+        '1': 'Oyoqlar tekis, nafas sekin. Ostingdagi ogʻirlikni his qil. Yaxshi.'
+      },
+      class: {
+        '1': 'Yerdan yordam soʻraydi. Senga kerak boʻlsa devor, dushmanga kerak boʻlmasa tikan.',
+        '2': 'Toshni tutish uchun Kuch, unga shakl berish uchun Aql. Ikkalasi ham kerak.',
+        say: 'Geomant nima qiladi?'
+      },
+      ready: {
+        strong: {
+          '1': 'Tosh endi mendan oldin senga javob beradi. Nima kerak boʻlsa ol.'
+        },
+        able: {
+          '1': 'Keyingi darsga tayyorsan. Qoʻlingni yerga qoʻy. Tingla.'
+        },
+        weak: {
+          '1': 'Hali emas. Koʻproq kuch va tiniqroq fikr kerak, aks holda tosh tinglamaydi.'
+        }
+      },
+      farms: {
+        '1': 'Har bahor. Arpa bir qarich baland oʻsadi, sababini hech kim bilmaydi. Ularga aytma.',
+        say: 'Yer dalalarga ham yordam beradimi?'
+      },
+      trainBack: {
+        '1': 'Qani, bor. Anavi toshni topgan joyingga qaytarib qoʻy.'
+      },
+      bye: {
+        '1': 'Ohista yur. Yer eslab qoladi.'
+      }
+    },
     smalltalkSunford: {
       weather: {
         '1': 'Bugun kechqurun yomgʻir yogʻadi. Tizzam kun boʻyi sirqiradi.',

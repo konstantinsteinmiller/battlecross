@@ -32,18 +32,19 @@ describe('health comes from Endurance (#109)', () => {
     let sensibleHp = 0
     let glassHp = 0
     // Where enemies bite hardest (levels 6-22; the endgame bosses keep their own tuning).
-    for (const zone of ['tundra', 'temple', 'citadel', 'peak'] as const) {
+    // Four seeds: on one, a single close fight can go either way.
+    for (const seed of [77, 78, 79, 80]) for (const zone of ['tundra', 'temple', 'citadel', 'peak'] as const) {
       for (const cls of ['pyro', 'shadow', 'aether', 'chrono', 'windrunner', 'elementalist'] as const) {
         const level = Math.min(30, ZONES[zone].min + 1)
-        const a = runZone({ zone, level, cls, seed: 77 })
-        const b = runZone({ zone, level, cls, seed: 77, glass: true })
+        const a = runZone({ zone, level, cls, seed })
+        const b = runZone({ zone, level, cls, seed, glass: true })
         if (a.outcome === 'victory') { sensibleWins++; sensibleHp += a.hpLeft01 }
         if (b.outcome === 'victory') { glassWins++; glassHp += b.hpLeft01 }
       }
     }
     expect(glassWins).toBeLessThanOrEqual(sensibleWins)
     expect(glassHp).toBeLessThan(sensibleHp)
-  }, 120_000)
+  }, 480_000)
 })
 
 describe('gear adds about what the hero has earned (#110)', () => {

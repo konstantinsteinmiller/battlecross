@@ -1599,6 +1599,12 @@ export default {
     circle: 'Le Cercle de l’Éther'
   },
   npc: {
+    sfShadow: {
+      name: 'Nettle Quickhand'
+    },
+    sfGeo: {
+      name: 'Harrow Flint'
+    },
     wanderer: {
       name: 'Pip le Vagabond',
       talk: 'Longue route, bourse légère ? J’ai un peu de tout.'
@@ -1857,6 +1863,86 @@ export default {
     }
   },
   dlg: {
+    sfShadow: {
+      hello: {
+        '1': 'Je ne t’ai pas entendu entrer. D’habitude, c’est mon tour.',
+        '2': 'Nettle Quickhand. J’enseigne les arts discrets : dagues, ombres, et filer avant la fin.',
+        '1__f': 'Je ne t’ai pas entendue entrer. D’habitude, c’est mon tour.'
+      },
+      again: {
+        '1': 'Encore toi ? Bien. Personne ne t’a vu, j’espère.',
+        '1__f': 'Encore toi ? Bien. Personne ne t’a vue, j’espère.'
+      },
+      train: {
+        '1': 'Pieds légers, mains vives. Essaie de ne pas trébucher sur ta propre lame.'
+      },
+      class: {
+        '1': 'Frapper là où ils ne regardent pas, puis être tout à fait ailleurs.',
+        '2': 'Tout repose sur la Dextérité. Mains vives, pieds vifs, sorties vives.',
+        say: 'Que fait une Lame de l’ombre ?'
+      },
+      ready: {
+        strong: {
+          '1': 'Tu es plus rapide que moi maintenant. Prends ce que tu veux, je ne remarquerai même pas.'
+        },
+        able: {
+          '1': 'Tu es prêt pour le prochain tour. Regarde bien, je ne le fais qu’une fois.',
+          '1__f': 'Tu es prête pour le prochain tour. Regarde bien, je ne le fais qu’une fois.'
+        },
+        weak: {
+          '1': 'Pas encore. Gagne en vitesse d’abord, sinon les ombres te font trébucher.'
+        }
+      },
+      town: {
+        '1': 'Ville calme, gens honnêtes. Personne ne regarde deux fois une cape de fermier. Parfait.',
+        say: 'Pourquoi enseigner ici, à Sunford ?'
+      },
+      trainBack: {
+        '1': 'File. Entraîne-toi là où les gardes ne voient rien.'
+      },
+      bye: {
+        '1': 'Surveille ta bourse.'
+      }
+    },
+    sfGeo: {
+      hello: {
+        '1': 'Attention aux pierres. Certaines écoutent.',
+        '2': 'Harrow Flint. J’enseigne la vieille magie de la terre : pierre, racines, un petit séisme.'
+      },
+      again: {
+        '1': 'Ah, te revoilà. Le sol m’avait prévenu de ta venue.'
+      },
+      train: {
+        '1': 'Pieds à plat, respire lentement. Sens le poids sous toi. Bien.'
+      },
+      class: {
+        '1': 'Demander de l’aide à la terre. Des murs quand tu en as besoin, des pics quand les autres n’en veulent pas.',
+        '2': 'La Force pour tenir la pierre, l’Intelligence pour la façonner. Il te faut les deux.',
+        say: 'Que fait un géomancien ?'
+      },
+      ready: {
+        strong: {
+          '1': 'La pierre te répond avant moi maintenant. Prends tout ce qu’il te faut.'
+        },
+        able: {
+          '1': 'Tu es prêt pour la prochaine leçon. Pose ta main sur le sol. Écoute.',
+          '1__f': 'Tu es prête pour la prochaine leçon. Pose ta main sur le sol. Écoute.'
+        },
+        weak: {
+          '1': 'Pas encore. Plus de force et l’esprit plus clair, sinon la pierre ne t’écoutera pas.'
+        }
+      },
+      farms: {
+        '1': 'Chaque printemps. L’orge pousse d’une main de plus et personne ne sait pourquoi. Ne leur dis pas.',
+        say: 'La terre aide-t-elle aussi les fermes ?'
+      },
+      trainBack: {
+        '1': 'Vas-y. Et remets ce caillou là où tu l’as trouvé.'
+      },
+      bye: {
+        '1': 'Marche doucement. Le sol se souvient.'
+      }
+    },
     smalltalkSunford: {
       weather: {
         '1': 'Il va pleuvoir cette nuit. Mon genou me fait mal depuis ce matin.',

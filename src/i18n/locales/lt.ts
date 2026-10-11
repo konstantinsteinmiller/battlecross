@@ -1598,6 +1598,12 @@ export default {
     circle: 'Eterio ratas'
   },
   npc: {
+    sfShadow: {
+      name: 'Nettle Quickhand'
+    },
+    sfGeo: {
+      name: 'Harrow Flint'
+    },
     wanderer: {
       name: 'Pip Keliautojas',
       talk: 'Ilgas kelias, lengvas kapšas? Turiu po truputį visko.'
@@ -1856,6 +1862,82 @@ export default {
     }
   },
   dlg: {
+    sfShadow: {
+      hello: {
+        '1': 'Negirdėjau, kaip įėjai. Paprastai tai mano triukas.',
+        '2': 'Nettle Quickhand. Mokau tyliųjų menų: durklų, šešėlių, išėjimo anksčiau laiko.'
+      },
+      again: {
+        '1': 'Vėl čia? Gerai. Tikiuosi, niekas tavęs nematė.'
+      },
+      train: {
+        '1': 'Lengvos kojos, greitos rankos. Stenkis neužkliūti už savų ašmenų.'
+      },
+      class: {
+        '1': 'Smogia ten, kur nežiūri, o paskui jau visai kitur.',
+        '2': 'Viskas remiasi Vikrumu. Greitos rankos, greitos kojos, greiti pabėgimai.',
+        say: 'Ką veikia šešėlis?'
+      },
+      ready: {
+        strong: {
+          '1': 'Dabar mane pralenki greičiu. Imk ką nori, net nepastebėsiu.'
+        },
+        able: {
+          '1': 'Laikas kitam triukui. Žiūrėk atidžiai, rodau tik kartą.'
+        },
+        weak: {
+          '1': 'Dar ne. Pirmiau įgauk greičio, kitaip šešėliai tave pargriaus.'
+        }
+      },
+      town: {
+        '1': 'Rami vietovė, sąžiningi žmonės. Niekas dukart nežvilgteli į ūkininko apsiaustą. Puiku.',
+        say: 'Kodėl mokai čia, Sunforde?'
+      },
+      trainBack: {
+        '1': 'Na, eik. Treniruokis ten, kur sargybiniai nemato.'
+      },
+      bye: {
+        '1': 'Saugok piniginę.'
+      }
+    },
+    sfGeo: {
+      hello: {
+        '1': 'Atsargiai su uolomis. Kai kurios klausosi.',
+        '2': 'Harrow Flint. Mokau senosios žemės magijos: akmens, šaknų, nedidelio drebėjimo.'
+      },
+      again: {
+        '1': 'A, grįžai. Žemė man pasakė, kad ateini.'
+      },
+      train: {
+        '1': 'Pėdos ant žemės, kvėpuok lėtai. Pajusk svorį po savimi. Gerai.'
+      },
+      class: {
+        '1': 'Prašo žemės pagalbos. Sienos, kai jų reikia tau, spygliai, kai jų nereikia jiems.',
+        '2': 'Jėgos akmeniui išlaikyti, Intelekto jam suformuoti. Reikia abiejų.',
+        say: 'Ką veikia geomantas?'
+      },
+      ready: {
+        strong: {
+          '1': 'Akmuo dabar atsako tau anksčiau nei man. Imk, ko reikia.'
+        },
+        able: {
+          '1': 'Laikas kitai pamokai. Padėk ranką ant žemės. Klausyk.'
+        },
+        weak: {
+          '1': 'Dar ne. Daugiau jėgos ir aiškesnė galva, kitaip akmuo neklausys.'
+        }
+      },
+      farms: {
+        '1': 'Kiekvieną pavasarį. Miežiai užauga sprindžiu aukštesni, ir niekas nežino kodėl. Nesakyk jiems.',
+        say: 'Ar žemė padeda ir ūkiams?'
+      },
+      trainBack: {
+        '1': 'Eik. Ir padėk tą akmenį ten, kur radai.'
+      },
+      bye: {
+        '1': 'Žingsniuok tyliai. Žemė prisimena.'
+      }
+    },
     smalltalkSunford: {
       weather: {
         '1': 'Vakare lis. Kelis man sopa visą dieną.',

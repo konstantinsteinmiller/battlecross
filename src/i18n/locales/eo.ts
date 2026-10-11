@@ -1598,6 +1598,12 @@ export default {
     circle: 'La Rondo de Etero'
   },
   npc: {
+    sfShadow: {
+      name: 'Nettle Quickhand'
+    },
+    sfGeo: {
+      name: 'Harrow Flint'
+    },
     wanderer: {
       name: 'Pip la Vaganto',
       talk: 'Longa vojo, malpeza monujo? Mi portas iom de ĉio.'
@@ -1856,6 +1862,82 @@ export default {
     }
   },
   dlg: {
+    sfShadow: {
+      hello: {
+        '1': 'Mi ne aŭdis vin eniri. Kutime tio estas mia lertaĵo.',
+        '2': 'Nettle Quickhand. Mi instruas la kvietajn artojn: ponardojn, ombrojn, fruan foriron.'
+      },
+      again: {
+        '1': 'Denove ĉi tie? Bone. Neniu vidis vin, mi esperas.'
+      },
+      train: {
+        '1': 'Malpezaj piedoj, rapidaj manoj. Provu ne stumbli pro via propra klingo.'
+      },
+      class: {
+        '1': 'Frapi tie, kien ili ne rigardas, kaj poste esti tute aliloke.',
+        '2': 'Ĉio dependas de Lerto. Rapidaj manoj, rapidaj piedoj, rapidaj forkuroj.',
+        say: 'Kion faras ombroklingo?'
+      },
+      ready: {
+        strong: {
+          '1': 'Nun vi estas pli rapida ol mi. Prenu kion vi volas, mi eĉ ne rimarkos.'
+        },
+        able: {
+          '1': 'Vi pretas por la sekva lertaĵo. Rigardu atente, mi faras ĝin nur unufoje.'
+        },
+        weak: {
+          '1': 'Ankoraŭ ne. Unue rapidiĝu, aŭ la ombroj faligos vin.'
+        }
+      },
+      town: {
+        '1': 'Trankvila urbeto, honestaj homoj. Neniu dufoje rigardas kamparanan mantelon. Perfekte.',
+        say: 'Kial instrui ĉi tie, en Sunford?'
+      },
+      trainBack: {
+        '1': 'Iru do. Ekzercu tie, kie la gardistoj ne vidas.'
+      },
+      bye: {
+        '1': 'Gardu vian monujon.'
+      }
+    },
+    sfGeo: {
+      hello: {
+        '1': 'Atentu la ŝtonojn. Kelkaj aŭskultas.',
+        '2': 'Harrow Flint. Mi instruas la malnovan termagion: ŝtonon, radikojn, etan tertremon.'
+      },
+      again: {
+        '1': 'Ha, vi revenis. La grundo diris al mi, ke vi venos.'
+      },
+      train: {
+        '1': 'Piedoj plataj, spiru malrapide. Sentu la pezon sub vi. Bone.'
+      },
+      class: {
+        '1': 'Peti helpon de la tero. Murojn kiam vi bezonas ilin, pikilojn kiam la aliaj ne volas ilin.',
+        '2': 'Forto por teni la ŝtonon, Inteligento por formi ĝin. Vi bezonas ambaŭ.',
+        say: 'Kion faras termagiisto?'
+      },
+      ready: {
+        strong: {
+          '1': 'La ŝtono nun respondas al vi antaŭ ol al mi. Prenu kion ajn vi bezonas.'
+        },
+        able: {
+          '1': 'Vi pretas por la sekva leciono. Metu la manon sur la grundon. Aŭskultu.'
+        },
+        weak: {
+          '1': 'Ankoraŭ ne. Pli da forto kaj pli klara kapo, aŭ la ŝtono ne aŭskultos.'
+        }
+      },
+      farms: {
+        '1': 'Ĉiun printempon. La hordeo kreskas manon pli alte, kaj neniu scias kial. Ne diru al ili.',
+        say: 'Ĉu la tero helpas ankaŭ la bienojn?'
+      },
+      trainBack: {
+        '1': 'Iru. Kaj remetu tiun ŝtonon tien, kie vi trovis ĝin.'
+      },
+      bye: {
+        '1': 'Paŝu mole. La grundo memoras.'
+      }
+    },
     smalltalkSunford: {
       weather: {
         '1': 'Ŝajne pluvos ĉi-nokte. Mia genuo doloras ekde la mateno.',

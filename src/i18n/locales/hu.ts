@@ -1598,6 +1598,12 @@ export default {
     circle: 'Az Éterkör'
   },
   npc: {
+    sfShadow: {
+      name: 'Nettle Quickhand'
+    },
+    sfGeo: {
+      name: 'Harrow Flint'
+    },
     wanderer: {
       name: 'Pip, a Vándor',
       talk: 'Hosszú út, könnyű erszény? Egy kicsit mindenből van nálam.'
@@ -1856,6 +1862,82 @@ export default {
     }
   },
   dlg: {
+    sfShadow: {
+      hello: {
+        '1': 'Nem hallottam, hogy bejöttél. Ez általában az én trükköm.',
+        '2': 'Nettle Quickhand vagyok. A csendes művészeteket tanítom: tőr, árnyék, korai távozás.'
+      },
+      again: {
+        '1': 'Újra itt? Jó. Remélem, senki sem látott.'
+      },
+      train: {
+        '1': 'Könnyű láb, gyors kéz. Próbálj meg nem elesni a saját pengédben.'
+      },
+      class: {
+        '1': 'Ott üt, ahová nem néznek, aztán már egészen máshol van.',
+        '2': 'Minden az Ügyességen múlik. Gyors kéz, gyors láb, gyors távozás.',
+        say: 'Mit csinál egy árnyék?'
+      },
+      ready: {
+        strong: {
+          '1': 'Már gyorsabb vagy nálam. Vidd, amit akarsz, észre se veszem.'
+        },
+        able: {
+          '1': 'Készen állsz a következő trükkre. Figyelj jól, csak egyszer mutatom.'
+        },
+        weak: {
+          '1': 'Még nem. Előbb légy gyorsabb, különben elgáncsolnak az árnyak.'
+        }
+      },
+      town: {
+        '1': 'Csendes város, becsületes nép. Senki se néz kétszer egy paraszt köpenyére. Tökéletes.',
+        say: 'Miért pont itt, Sunfordban tanítasz?'
+      },
+      trainBack: {
+        '1': 'Indulj. Ott gyakorolj, ahol az őrök nem látnak.'
+      },
+      bye: {
+        '1': 'Vigyázz az erszényedre.'
+      }
+    },
+    sfGeo: {
+      hello: {
+        '1': 'Vigyázz a sziklákkal. Némelyik hallgatózik.',
+        '2': 'Harrow Flint vagyok. A régi földmágiát tanítom: kő, gyökér, egy kis földrengés.'
+      },
+      again: {
+        '1': 'Á, visszajöttél. A föld megsúgta, hogy jössz.'
+      },
+      train: {
+        '1': 'Talpad a földön, lassan lélegezz. Érezd magad alatt a súlyt. Jó.'
+      },
+      class: {
+        '1': 'Segítséget kér a földtől. Falat, amikor neked kell, tüskét, amikor nekik nem.',
+        '2': 'Erő, hogy megtartsd a követ, Intelligencia, hogy formáld. Mindkettő kell.',
+        say: 'Mit csinál egy geomanta?'
+      },
+      ready: {
+        strong: {
+          '1': 'A kő már előbb válaszol neked, mint nekem. Vidd, amire szükséged van.'
+        },
+        able: {
+          '1': 'Készen állsz a következő leckére. Tedd a kezed a földre. Figyelj.'
+        },
+        weak: {
+          '1': 'Még nem. Több erő és tisztább fej kell, különben a kő nem hallgat rád.'
+        }
+      },
+      farms: {
+        '1': 'Minden tavasszal. Az árpa egy arasszal magasabbra nő, és senki sem tudja, miért. Ne mondd el nekik.',
+        say: 'A föld a gazdaságoknak is segít?'
+      },
+      trainBack: {
+        '1': 'Menj csak. És tedd vissza azt a követ, ahol találtad.'
+      },
+      bye: {
+        '1': 'Lépj halkan. A föld emlékszik.'
+      }
+    },
     smalltalkSunford: {
       weather: {
         '1': 'Ma este esni fog. Egész nap fáj a térdem.',

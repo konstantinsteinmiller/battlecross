@@ -1599,6 +1599,12 @@ export default {
     circle: 'Der Zirkel des Äthers'
   },
   npc: {
+    sfShadow: {
+      name: 'Nettle Quickhand'
+    },
+    sfGeo: {
+      name: 'Harrow Flint'
+    },
     wanderer: {
       name: 'Pip der Wanderer',
       talk: 'Langer Weg, leerer Beutel? Ich habe von allem ein bisschen dabei.'
@@ -1857,6 +1863,82 @@ export default {
     }
   },
   dlg: {
+    sfShadow: {
+      hello: {
+        '1': 'Hab dich nicht reinkommen hören. Das ist sonst mein Trick.',
+        '2': 'Nettle Quickhand. Ich lehre die leisen Künste: Dolche, Schatten, früh verschwinden.'
+      },
+      again: {
+        '1': 'Schon wieder da? Gut. Hat dich hoffentlich keiner gesehen.'
+      },
+      train: {
+        '1': 'Leichte Füße, flinke Hände. Stolper nicht über deine eigene Klinge.'
+      },
+      class: {
+        '1': 'Zuschlagen, wo keiner hinschaut, und dann ganz woanders sein.',
+        '2': 'Alles läuft über Geschick. Flinke Hände, flinke Füße, flinke Abgänge.',
+        say: 'Was macht eine Schattenklinge?'
+      },
+      ready: {
+        strong: {
+          '1': 'Du bist jetzt schneller als ich. Nimm dir, was du willst, ich merk\'s eh nicht.'
+        },
+        able: {
+          '1': 'Du bist bereit für den nächsten Trick. Pass gut auf, ich zeig ihn nur einmal.'
+        },
+        weak: {
+          '1': 'Noch nicht. Werd erst schneller, sonst stellen dir die Schatten ein Bein.'
+        }
+      },
+      town: {
+        '1': 'Ruhiges Städtchen, ehrliche Leute. Keiner schaut zweimal auf einen Bauernmantel. Perfekt.',
+        say: 'Warum lehrst du hier, in Sunford?'
+      },
+      trainBack: {
+        '1': 'Ab mit dir. Üb da, wo die Wachen nicht hinsehen.'
+      },
+      bye: {
+        '1': 'Pass auf deinen Geldbeutel auf.'
+      }
+    },
+    sfGeo: {
+      hello: {
+        '1': 'Vorsicht mit den Steinen. Manche hören zu.',
+        '2': 'Harrow Flint. Ich lehre die alte Erdmagie: Stein, Wurzeln, ein kleines Beben.'
+      },
+      again: {
+        '1': 'Ah, du bist zurück. Der Boden hat mir gesagt, dass du kommst.'
+      },
+      train: {
+        '1': 'Füße flach, langsam atmen. Spür das Gewicht unter dir. Gut.'
+      },
+      class: {
+        '1': 'Die Erde um Hilfe bitten. Mauern, wenn du sie brauchst, Stacheln, wenn die anderen sie nicht wollen.',
+        '2': 'Stärke, um den Stein zu halten, Intelligenz, um ihn zu formen. Du brauchst beides.',
+        say: 'Was macht ein Geomant?'
+      },
+      ready: {
+        strong: {
+          '1': 'Der Stein antwortet dir jetzt schneller als mir. Nimm dir, was du brauchst.'
+        },
+        able: {
+          '1': 'Du bist bereit für die nächste Lektion. Leg die Hand auf den Boden. Hör zu.'
+        },
+        weak: {
+          '1': 'Noch nicht. Mehr Stärke und einen klareren Kopf, sonst hört der Stein nicht auf dich.'
+        }
+      },
+      farms: {
+        '1': 'Jeden Frühling. Die Gerste wächst eine Handbreit höher, und keiner weiß, warum. Verrat\'s ihnen nicht.',
+        say: 'Hilft die Erde auch den Höfen?'
+      },
+      trainBack: {
+        '1': 'Na los. Und leg den Stein zurück, wo du ihn gefunden hast.'
+      },
+      bye: {
+        '1': 'Geh leise. Der Boden erinnert sich.'
+      }
+    },
     smalltalkSunford: {
       weather: {
         '1': 'Heute Nacht regnet es. Mein Knie tut schon den ganzen Tag weh.',

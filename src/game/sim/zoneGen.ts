@@ -3,11 +3,11 @@ import { ENEMY_BY_ID } from '../data/enemies'
 import { CELL, SOLID_LOW, SOLID_SEALED, SOLID_TERRAIN, type Grid } from './grid'
 import { mulberry32, type Rng } from './rng'
 import {
-  K_BLOCK, K_CLIFF, K_WATER, addFeatures, noFeatures,
+  K_BLOCK, K_CLIFF, K_GROUND, K_WATER, addFeatures, noFeatures,
   type CavePlan, type ChestPlan, type CrossingPlan, type DoorPlan, type OptionalPackPlan, type PlatePlan, type PuzzlePlan,
   type RiverPlan, type SignPlan, type LedgePlan, type DaisPlan, type LobePlan, type BranchPlan, type ForkPlan
 } from './zoneFeatures'
-import { ZONE_RELIEF, type LiquidId } from '../data/zones'
+import { ZONE_RELIEF, ZONE_SHAPE, type LiquidId, type ZoneShape } from '../data/zones'
 import { buildRelief, buildTownRelief } from './relief'
 import { layTown, type TownPlan } from './town'
 import { placeHerbs, placePieces, placeTreasure, type HerbPlan, type PiecePlan } from './herbs'
@@ -131,6 +131,9 @@ export interface ZonePlan {
   pieces?: PiecePlan[]
   /** An escort (roadmap #85): the caravan's road, x, z pairs from start to end. */
   caravan?: { path: number[] }
+  /** A field's standing crop (the field layout, #103): 1 where wheat grows.
+   *  The view's alone: the cells are open ground for everything else. */
+  crop?: Uint8Array
 }
 
 /** The main chain's width (cells): the road wanders inside it. */
@@ -215,6 +218,13 @@ const carveDisc = (solid: Uint8Array, w: number, h: number, ci: number, cj: numb
   }
 }
 
+/** An open rectangle (cells, inclusive), inside the rim. */
+const carveRect = (solid: Uint8Array, w: number, h: number, i0: number, j0: number, i1: number, j1: number): void => {
+  for (let j = Math.max(2, Math.round(j0)); j <= Math.min(h - 3, Math.round(j1)); j++) {
+    for (let i = Math.max(2, Math.round(i0)); i <= Math.min(w - 3, Math.round(i1)); i++) solid[j * w + i] = 0
+  }
+}
+
 const carveLine = (solid: Uint8Array, trail: Uint8Array, w: number, h: number, ai: number, aj: number, bi: number, bj: number, half: number): void => {
   const n = Math.max(1, Math.ceil(Math.hypot(bi - ai, bj - aj) * 2))
   for (let s = 0; s <= n; s++) {
@@ -278,23 +288,104 @@ export const generateZone = (def: ZoneDef, seed: number, o: ZoneGenOpts = {}): Z
   const solid = new Uint8Array(Wd * h).fill(1)
   const trail = new Uint8Array(Wd * h)
 
+  // The place's own layout (#103); the first visit and a bare chain are always the chain.
+  const shape: ZoneShape = o.tutorial || o.bare ? 'chain' : ZONE_SHAPE[def.id] ?? 'chain'
   // Centres, from the bottom of the map (near the camera) upward, drawn in
   // the chain's own 40 columns and then set in by the margin.
   const cs: Array<{ i: number; j: number; r: number }> = []
+  /** A room's half-size (the rooms layout): its clearing's r is the larger. */
+  const rooms: Array<{ hw: number; hh: number }> = []
   let ci = W / 2 + Math.round((rng() - 0.5) * 6)
   let cj = h - 8
+  // A temple is entered on its axis: the halls line up above the entrance,
+  // their corridors running straight up (a long sideways leg would cross the
+  // rock the side ways run through).
+  if (shape === 'rooms') ci = W / 2
+  // The tundra's road starts below its lake, the peak's at the foot of the face.
+  if (shape === 'ring') ci = W / 2 - 8
   cs.push({ i: ci + M, j: cj, r: 4.2 })
+  rooms.push({ hw: 4, hh: 3.5 })
   for (let k = 1; k <= n; k++) {
     const last = k === n
-    const r = last ? (boss ? 7.4 : 6.4) : 4.6 + rng() * 1.4
-    cj -= step + (last && boss ? 2 : 0) + Math.round(rng() * 1.5)
-    ci = Math.max(Math.ceil(r) + 3, Math.min(W - Math.ceil(r) - 4, ci + Math.round((rng() - 0.5) * 16)))
-    cs.push({ i: ci + M, j: cj, r })
+    if (shape === 'gorge') {
+      // A narrow canyon: small hollows close to the middle, a wide arena at the end.
+      const r = last ? (boss ? 8.2 : 7.4) : 3.6 + rng() * 0.8
+      cj -= step + (last && boss ? 2 : 0) + Math.round(rng() * 1.5)
+      ci = last ? W / 2 : Math.max(Math.ceil(r) + 3, Math.min(W - Math.ceil(r) - 4, ci + Math.round((rng() - 0.5) * 9)))
+      cs.push({ i: ci + M, j: cj, r })
+    } else if (shape === 'switchback') {
+      // Shelves on the mountain's face, close to its middle; the path between
+      // them winds up in turns (below).
+      const r = last ? (boss ? 7.4 : 6.4) : 3.8 + rng() * 0.8
+      cj -= step + (last && boss ? 2 : 0) + Math.round(rng() * 1.5)
+      ci = Math.max(Math.ceil(r) + 3, Math.min(W - Math.ceil(r) - 4, ci + Math.round((rng() - 0.5) * 8)))
+      cs.push({ i: ci + M, j: cj, r })
+    } else if (shape === 'ring') {
+      // Round the frozen lake: up its right shore, and over its head to the end.
+      const r = last ? (boss ? 7.4 : 6.4) : 4.4 + rng() * 1
+      cj -= step + (last && boss ? 2 : 0) + Math.round(rng() * 1.5)
+      ci = last ? W / 2 - 7 : W - Math.ceil(r) - 5 - Math.round(rng() * 2)
+      cs.push({ i: ci + M, j: cj, r })
+    } else if (shape === 'field') {
+      // Wide fields of wheat, to one side and the other: the path zig-zags
+      // from field to field.
+      const r = last ? (boss ? 7.4 : 6.6) : 5.6 + rng() * 1.2
+      cj -= step + (last && boss ? 2 : 0) + Math.round(rng() * 1.5)
+      const sideI = k % 2 ? W / 2 + 5 : W / 2 - 5
+      ci = Math.max(Math.ceil(r) + 3, Math.min(W - Math.ceil(r) - 4, last ? W / 2 : sideI + Math.round((rng() - 0.5) * 4)))
+      cs.push({ i: ci + M, j: cj, r })
+    } else if (shape === 'rooms') {
+      // Halls to one side and the other of the middle, the last the great hall.
+      const hw = last ? (boss ? 8 : 7) : 4.5 + Math.round(rng() * 2)
+      const hh = last ? (boss ? 6.5 : 5.5) : 3.5 + Math.round(rng() * 1.5)
+      cj -= step + (last && boss ? 2 : 0) + Math.round(rng() * 1.5)
+      const sideI = k % 2 ? W / 2 + 2 : W / 2 - 2
+      ci = Math.max(hw + 3, Math.min(W - hw - 4, last ? W / 2 : sideI + Math.round((rng() - 0.5) * 2)))
+      cs.push({ i: ci + M, j: cj, r: Math.max(hw, hh) })
+      rooms.push({ hw, hh })
+    } else {
+      const r = last ? (boss ? 7.4 : 6.4) : 4.6 + rng() * 1.4
+      cj -= step + (last && boss ? 2 : 0) + Math.round(rng() * 1.5)
+      ci = Math.max(Math.ceil(r) + 3, Math.min(W - Math.ceil(r) - 4, ci + Math.round((rng() - 0.5) * 16)))
+      cs.push({ i: ci + M, j: cj, r })
+    }
   }
   for (let k = 0; k < cs.length; k++) {
     const c = cs[k]!
-    carveDisc(solid, Wd, h, c.i, c.j, c.r, rng)
-    if (k > 0) carveLine(solid, trail, Wd, h, cs[k - 1]!.i, cs[k - 1]!.j, c.i, c.j, 1.7)
+    if (shape === 'rooms' && k > 0) {
+      // A hall: a rectangle, entered through the passage's doorway; and the
+      // way from the last hall, straight up and then across (a corridor).
+      const { hw, hh } = rooms[k]!
+      carveRect(solid, Wd, h, c.i - hw, c.j - hh, c.i + hw, c.j + hh)
+      const p = cs[k - 1]!
+      carveLine(solid, trail, Wd, h, p.i, p.j, p.i, c.j, 1.2)
+      carveLine(solid, trail, Wd, h, p.i, c.j, c.i, c.j, 1.2)
+      // Four pillars in a hall big enough for them, clear of the doorways.
+      if (hw >= 5 && hh >= 4) {
+        for (const [di, dj] of [[-1, -1], [1, -1], [-1, 1], [1, 1]] as const) {
+          const pi = Math.round(c.i + di * (hw - 2))
+          const pj = Math.round(c.j + dj * (hh - 1.5))
+          if (Math.abs(pi - c.i) > 1.5 && Math.abs(pj - c.j) > 1.5) solid[pj * Wd + pi] = 1
+        }
+      }
+    } else {
+      carveDisc(solid, Wd, h, c.i, c.j, c.r, rng)
+      // The gorge's floor and the field's lanes are wider than a pass; the
+      // mountain's path narrower.
+      const half = shape === 'gorge' ? 2.1 : shape === 'field' ? 2.4 : shape === 'switchback' ? 1.35 : 1.7
+      if (k > 0 && shape === 'switchback') {
+        // The mountain path: up from one shelf to the next in a Z of turns,
+        // first across to one side, back across, then up to the shelf.
+        const p = cs[k - 1]!
+        const dj = c.j - p.j
+        const sgn = k % 2 ? 1 : -1
+        const a1 = { i: p.i + (c.i - p.i) * 0.3 + sgn * 3, j: p.j + dj * 0.33 }
+        const a2 = { i: p.i + (c.i - p.i) * 0.7 - sgn * 3, j: p.j + dj * 0.66 }
+        carveLine(solid, trail, Wd, h, p.i, p.j, a1.i, a1.j, half)
+        carveLine(solid, trail, Wd, h, a1.i, a1.j, a2.i, a2.j, half)
+        carveLine(solid, trail, Wd, h, a2.i, a2.j, c.i, c.j, half)
+      } else if (k > 0) carveLine(solid, trail, Wd, h, cs[k - 1]!.i, cs[k - 1]!.j, c.i, c.j, half)
+    }
   }
 
   // A side pocket for a secret chest, off one of the middle clearings.
@@ -323,8 +414,8 @@ export const generateZone = (def: ZoneDef, seed: number, o: ZoneGenOpts = {}): Z
   }
 
   // Boulders and stumps inside the clearings: cover to fight round, never on
-  // the trail and never in the middle.
-  for (let k = 1; k < cs.length; k++) {
+  // the trail and never in the middle. (A temple's halls have their pillars.)
+  for (let k = 1; k < cs.length && shape !== 'rooms'; k++) {
     const c = cs[k]!
     const count = 2 + Math.floor(rng() * 3)
     for (let q = 0; q < count; q++) {
@@ -383,15 +474,44 @@ export const generateZone = (def: ZoneDef, seed: number, o: ZoneGenOpts = {}): Z
   // A secret is not signposted: no worn path leads to it.
   trail.set(road)
 
+  // The tundra's frozen lake (the ring layout): an oval in the middle-left
+  // between the first clearing and the last, which the road curves round.
+  const lakeCells: number[] = []
+  let lake: { x: number; z: number; r: number } | null = null
+  if (shape === 'ring' && n >= 3) {
+    const lj = (cs[1]!.j + cs[n - 1]!.j) / 2
+    const li = M + W / 2 - 8
+    const ry = Math.max(5, (cs[1]!.j - cs[n - 1]!.j) / 2 + 1)
+    const rx = 7
+    for (let j = Math.floor(lj - ry); j <= Math.ceil(lj + ry); j++) {
+      for (let i = Math.floor(li - rx); i <= Math.ceil(li + rx); i++) {
+        if (i < 3 || j < 3 || i >= Wd - 3 || j >= h - 3) continue
+        const e = ((i - li) / rx) ** 2 + ((j - lj) / ry) ** 2
+        if (e > 1) continue
+        const k = j * Wd + i
+        // Two cells of shore from the road and every clearing.
+        let near = false
+        for (const c of cs) if (Math.hypot(i - c.i, j - c.j) <= c.r + 2) { near = true; break }
+        for (let dj = -2; dj <= 2 && !near; dj++) for (let di = -2; di <= 2; di++) if (trail[(j + dj) * Wd + i + di]) { near = true; break }
+        if (near) continue
+        lakeCells.push(k)
+        solid[k] = 0
+      }
+    }
+    lake = { x: (li + 0.5) * CELL, z: (lj + 0.5) * CELL, r: Math.max(rx, ry) * CELL }
+  }
+
   const fin = clearings[n]!
   // The reward chest waits behind the finale.
   const chest = { x: fin.x, z: fin.z - fin.r * 0.55 }
   const kind = new Uint8Array(Wd * h)
+  for (const k of lakeCells) kind[k] = K_WATER
   const cave = new Uint8Array(Wd * h)
   const sealed = new Uint8Array(Wd * h)
   const side = new Uint8Array(Wd * h)
   for (const k of secretCells) if (!solid[k]) side[k] = 1
   const features = addFeatures({ def, seed, w: Wd, h, solid, trail, kind, cave, sealed, side, cs, chest, secret, secretSlot, tutorial: !!o.tutorial, bare: !!o.bare, branches: M > 0 })
+  if (lake) features.ponds.push(lake)
   // The secret's pocket is a side place too: it lies a little above its clearing.
   const lobes = features.lobes.slice()
   if (secret && secretSlot) lobes.push({ x: secret.x, z: secret.z, r: 2.6 * CELL, k: secretSlot.k, lift: 0.35 })
@@ -411,7 +531,33 @@ export const generateZone = (def: ZoneDef, seed: number, o: ZoneGenOpts = {}): Z
   if (x) {
     features.chests.push({ id: features.chests.length, x: x.x, z: x.z, tier: 'gold', role: 'treasure', sx: x.x, sz: x.z + 1.2, door: -1, guard: -1 })
   }
+  // The standing wheat (the field layout): the fields and the lanes between
+  // them, off the paths; the side places (corners, caves, ways off the road)
+  // stay bare, and so does water, a bridge, a chest's spot.
+  let crop: Uint8Array | undefined
+  if (shape === 'field') {
+    crop = new Uint8Array(Wd * h)
+    for (let j = 0; j < h; j++) {
+      for (let i = 0; i < Wd; i++) {
+        const k = j * Wd + i
+        if (solid[k] || road[k] || kind[k] !== K_GROUND || side[k] || cave[k] || sealed[k]) continue
+        let inField = false
+        for (const c of cs) if (Math.hypot(i - c.i, j - c.j) <= c.r + 0.5) { inField = true; break }
+        if (!inField) {
+          for (let q = 1; q < cs.length && !inField; q++) {
+            const p = cs[q - 1]!
+            const c = cs[q]!
+            const L = Math.hypot(c.i - p.i, c.j - p.j) || 1
+            const t = Math.max(0, Math.min(1, ((i - p.i) * (c.i - p.i) + (j - p.j) * (c.j - p.j)) / (L * L)))
+            if (Math.hypot(i - (p.i + (c.i - p.i) * t), j - (p.j + (c.j - p.j) * t)) <= 2.9) inField = true
+          }
+        }
+        if (inField) crop[k] = 1
+      }
+    }
+  }
   return {
+    ...(crop ? { crop } : {}),
     seed, w: Wd, h, solid, trail, kind, cave, sealed, side, height, clearings,
     start,
     packs,

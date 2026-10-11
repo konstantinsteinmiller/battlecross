@@ -1599,6 +1599,12 @@ export default {
     circle: 'El Cercle de l’Èter'
   },
   npc: {
+    sfShadow: {
+      name: 'Nettle Quickhand'
+    },
+    sfGeo: {
+      name: 'Harrow Flint'
+    },
     wanderer: {
       name: 'Pip el Vagabund',
       talk: 'Camí llarg i bossa lleugera? Duc una mica de tot.'
@@ -1857,6 +1863,86 @@ export default {
     }
   },
   dlg: {
+    sfShadow: {
+      hello: {
+        '1': 'No t’he sentit entrar. Normalment aquest és el meu truc.',
+        '2': 'Nettle Quickhand. Ensenyo les arts silencioses: punyals, ombres i marxar d’hora.',
+        '1__f': 'No t’he sentida entrar. Normalment aquest és el meu truc.'
+      },
+      again: {
+        '1': 'Tornes a ser aquí? Bé. Ningú no t’ha vist, espero.',
+        '1__f': 'Tornes a ser aquí? Bé. Ningú no t’ha vista, espero.'
+      },
+      train: {
+        '1': 'Peus lleugers, mans ràpides. Mira de no ensopegar amb la teva pròpia fulla.'
+      },
+      class: {
+        '1': 'Colpejar on no miren, i després ser en un altre lloc del tot.',
+        '2': 'Tot depèn de la Destresa. Mans ràpides, peus ràpids, sortides ràpides.',
+        say: 'Què fa una Fulla d’Ombra?'
+      },
+      ready: {
+        strong: {
+          '1': 'Ara ets més ràpid que jo. Agafa el que vulguis, ni me n’adonaré.',
+          '1__f': 'Ara ets més ràpida que jo. Agafa el que vulguis, ni me n’adonaré.'
+        },
+        able: {
+          '1': 'Ja estàs a punt per al següent truc. Mira bé, només el faig un cop.'
+        },
+        weak: {
+          '1': 'Encara no. Primer fes-te més ràpid, o les ombres et faran ensopegar.',
+          '1__f': 'Encara no. Primer fes-te més ràpida, o les ombres et faran ensopegar.'
+        }
+      },
+      town: {
+        '1': 'Poble tranquil, gent honrada. Ningú no mira dues vegades una capa de pagès. Perfecte.',
+        say: 'Per què ensenyes aquí, a Sunford?'
+      },
+      trainBack: {
+        '1': 'Au, ves. Practica on els guardes no hi vegin.'
+      },
+      bye: {
+        '1': 'Vigila la bossa.'
+      }
+    },
+    sfGeo: {
+      hello: {
+        '1': 'Compte amb les roques. N’hi ha que escolten.',
+        '2': 'Harrow Flint. Ensenyo la vella màgia de la terra: pedra, arrels, un petit tremolor.'
+      },
+      again: {
+        '1': 'Ah, has tornat. El terra em va dir que venies.'
+      },
+      train: {
+        '1': 'Peus plans, respira a poc a poc. Sent el pes sota teu. Bé.'
+      },
+      class: {
+        '1': 'Demanar ajuda a la terra. Murs quan els necessites, punxes quan els altres no les volen.',
+        '2': 'Força per aguantar la pedra, Intel·ligència per donar-li forma. Et calen totes dues.',
+        say: 'Què fa un geomàntic?'
+      },
+      ready: {
+        strong: {
+          '1': 'Ara la pedra et respon abans que a mi. Agafa tot el que necessitis.'
+        },
+        able: {
+          '1': 'Ja estàs a punt per a la següent lliçó. Posa la mà a terra. Escolta.'
+        },
+        weak: {
+          '1': 'Encara no. Més força i el cap més clar, o la pedra no t’escoltarà.'
+        }
+      },
+      farms: {
+        '1': 'Cada primavera. L’ordi creix un pam més i ningú no sap per què. No els ho diguis.',
+        say: 'La terra també ajuda les granges?'
+      },
+      trainBack: {
+        '1': 'Vinga, ves. I torna aquesta pedra on l’has trobada.'
+      },
+      bye: {
+        '1': 'Camina amb suavitat. El terra recorda.'
+      }
+    },
     smalltalkSunford: {
       weather: {
         '1': 'Aquesta nit plourà. El genoll em fa mal des d’aquest matí.',

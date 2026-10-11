@@ -782,7 +782,21 @@ All sound is synthesised (53 recipes); recorded files can override a recipe.
   (Chatterbox, English; the heroine's variants too). Placed where every
   house and the tavern still fit (`town.test`, `interiors.test`).
   Portraits are drawn until painted (phase 40).
-- [ ] **34 Place-shaped layouts** (#103): peak, temple, outskirts, tundra, crags.
+- [x] **34 Place-shaped layouts** (#103; the towns follow in 35). `ZONE_SHAPE`
+  gives five zones a plan of their own instead of the chain of clearings:
+  the Ashen Crags a gorge (a wide floor, the finale's dais centred), the
+  Sunken Temple halls (rectangular rooms through doorways, L-shaped
+  corridors, pillars), the Oakhaven Outskirts wheat fields (wide fields left
+  and right, lanes between them, standing wheat over both: `plan.crop`, drawn
+  instanced, the packs stand in it), the Peak a mountain path (narrow, in
+  Z-turns from shelf to shelf up the face) and the Frostbite Tundra a ring
+  round a frozen lake (water cells, listed with the ponds). Every seed keeps
+  the layout tests (loops, bosses, reach, relief, herbs, fog, treasure); the
+  pack fingerprint is re-pinned. The glass-cannon balance check now sums four
+  seeds (one close fight on one seed could flip it). Phase-33 teacher lines
+  translated into all 38 locales (with feminine variants where a language
+  needs them). Verified: full suite, vue-tsc, the five zones in a real
+  browser (SHARP), z-fight tests.
 - [ ] **35 Towns of their own** (#103): Silverbridge on its bridge, Oakhaven.
 - [ ] **36 Ore and mining** (#99), chests that cannot be cancelled.
 - [ ] **37 The smith and smithing** (#99).

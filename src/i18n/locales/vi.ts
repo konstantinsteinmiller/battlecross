@@ -1598,6 +1598,12 @@ export default {
     circle: 'Vòng Tròn Aether'
   },
   npc: {
+    sfShadow: {
+      name: 'Nettle Quickhand'
+    },
+    sfGeo: {
+      name: 'Harrow Flint'
+    },
     wanderer: {
       name: 'Pip Lữ Khách',
       talk: 'Đường xa mà ví nhẹ tênh? Món gì tôi cũng mang theo một ít.'
@@ -1856,6 +1862,82 @@ export default {
     }
   },
   dlg: {
+    sfShadow: {
+      hello: {
+        '1': 'Không nghe thấy cậu vào. Đó thường là mánh của tôi.',
+        '2': 'Tôi là Nettle Quickhand. Tôi dạy những môn lặng lẽ: dao găm, bóng tối, và chuồn sớm.'
+      },
+      again: {
+        '1': 'Lại đến à? Tốt. Mong là không ai thấy cậu.'
+      },
+      train: {
+        '1': 'Chân nhẹ, tay nhanh. Cố đừng vấp phải lưỡi dao của chính mình.'
+      },
+      class: {
+        '1': 'Đánh vào chỗ họ không nhìn, rồi biến sang một nơi khác hẳn.',
+        '2': 'Tất cả đều nhờ Khéo léo. Tay nhanh, chân nhanh, chuồn cũng nhanh.',
+        say: 'Ảnh Kiếm làm gì?'
+      },
+      ready: {
+        strong: {
+          '1': 'Giờ cậu nhanh hơn tôi rồi. Thích gì cứ lấy, tôi còn chẳng nhận ra.'
+        },
+        able: {
+          '1': 'Cậu sẵn sàng cho mánh tiếp theo rồi. Nhìn kỹ nhé, tôi chỉ làm một lần.'
+        },
+        weak: {
+          '1': 'Chưa được. Nhanh hơn đã, không thì bóng tối sẽ ngáng chân cậu.'
+        }
+      },
+      town: {
+        '1': 'Thị trấn yên tĩnh, người thật thà. Chẳng ai nhìn tấm áo choàng nông dân đến lần thứ hai. Hoàn hảo.',
+        say: 'Sao lại dạy ở đây, ở Sunford?'
+      },
+      trainBack: {
+        '1': 'Đi đi. Luyện ở chỗ lính gác không thấy.'
+      },
+      bye: {
+        '1': 'Coi chừng túi tiền.'
+      }
+    },
+    sfGeo: {
+      hello: {
+        '1': 'Cẩn thận mấy hòn đá. Vài hòn đang lắng nghe đấy.',
+        '2': 'Tôi là Harrow Flint. Tôi dạy phép đất cổ xưa: đá, rễ cây, và chút động đất.'
+      },
+      again: {
+        '1': 'À, cậu quay lại rồi. Mặt đất đã báo tôi là cậu đang đến.'
+      },
+      train: {
+        '1': 'Chân đặt phẳng, thở chậm. Cảm nhận sức nặng dưới mình. Tốt.'
+      },
+      class: {
+        '1': 'Nhờ đất giúp sức. Tường khi cần, gai nhọn khi tường không đủ.',
+        '2': 'Sức mạnh để giữ đá, Trí tuệ để nặn nó. Cậu cần cả hai.',
+        say: 'Địa Pháp Sư làm gì?'
+      },
+      ready: {
+        strong: {
+          '1': 'Giờ đá đáp lời cậu trước cả tôi. Cần gì cứ lấy.'
+        },
+        able: {
+          '1': 'Cậu sẵn sàng cho bài học tiếp theo rồi. Đặt tay lên mặt đất. Lắng nghe.'
+        },
+        weak: {
+          '1': 'Chưa được. Thêm sức mạnh và đầu óc tỉnh táo hơn, không thì đá chẳng nghe đâu.'
+        }
+      },
+      farms: {
+        '1': 'Mỗi mùa xuân. Lúa mạch cao thêm một gang tay mà chẳng ai biết vì sao. Đừng nói với họ.',
+        say: 'Đất có giúp cả ruộng đồng không?'
+      },
+      trainBack: {
+        '1': 'Đi đi. Và đặt hòn đá đó lại chỗ cũ.'
+      },
+      bye: {
+        '1': 'Bước khẽ thôi. Mặt đất nhớ dai lắm.'
+      }
+    },
     smalltalkSunford: {
       weather: {
         '1': 'Tối nay trời sẽ mưa. Cái đầu gối tôi đau suốt cả ngày.',

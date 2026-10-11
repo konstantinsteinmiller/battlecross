@@ -1598,6 +1598,12 @@ export default {
     circle: 'Eetterin piiri'
   },
   npc: {
+    sfShadow: {
+      name: 'Nettle Quickhand'
+    },
+    sfGeo: {
+      name: 'Harrow Flint'
+    },
     wanderer: {
       name: 'Vaeltaja-Pip',
       talk: 'Pitkä tie, kevyt kukkaro? Mukana on vähän kaikkea.'
@@ -1856,6 +1862,82 @@ export default {
     }
   },
   dlg: {
+    sfShadow: {
+      hello: {
+        '1': 'En kuullut sinun tulevan sisään. Se on yleensä minun temppuni.',
+        '2': 'Nettle Quickhand. Opetan hiljaisia taitoja: tikareita, varjoja, ajoissa poistumista.'
+      },
+      again: {
+        '1': 'Taas täällä? Hyvä. Toivottavasti kukaan ei nähnyt sinua.'
+      },
+      train: {
+        '1': 'Kevyet jalat, nopeat kädet. Yritä olla kompastumatta omaan terääsi.'
+      },
+      class: {
+        '1': 'Iskee sinne, minne ei katsota, ja on sitten aivan muualla.',
+        '2': 'Kaikki perustuu Ketteryyteen. Nopeat kädet, nopeat jalat, nopeat poistumiset.',
+        say: 'Mitä varjoterä tekee?'
+      },
+      ready: {
+        strong: {
+          '1': 'Olet nyt minua nopeampi. Ota mitä haluat, en edes huomaa.'
+        },
+        able: {
+          '1': 'Olet valmis seuraavaan temppuun. Katso tarkkaan, teen sen vain kerran.'
+        },
+        weak: {
+          '1': 'Ei vielä. Tule ensin nopeammaksi, tai varjot kampittavat sinut.'
+        }
+      },
+      town: {
+        '1': 'Hiljainen kaupunki, rehellistä väkeä. Kukaan ei katso talonpojan viittaa kahdesti. Täydellistä.',
+        say: 'Miksi opetat täällä, Sunfordissa?'
+      },
+      trainBack: {
+        '1': 'Mene nyt. Harjoittele siellä, missä vartijat eivät näe.'
+      },
+      bye: {
+        '1': 'Pidä kukkarostasi kiinni.'
+      }
+    },
+    sfGeo: {
+      hello: {
+        '1': 'Varo kiviä. Jotkut niistä kuuntelevat.',
+        '2': 'Harrow Flint. Opetan vanhaa maan magiaa: kiveä, juuria, pientä järistystä.'
+      },
+      again: {
+        '1': 'Ah, palasit. Maa kertoi minulle, että olet tulossa.'
+      },
+      train: {
+        '1': 'Jalat tukevasti, hengitä hitaasti. Tunne paino allasi. Hyvä.'
+      },
+      class: {
+        '1': 'Pyytää maalta apua. Muureja, kun tarvitset niitä, piikkejä, kun vihollinen ei.',
+        '2': 'Voimaa kiven pitämiseen, Älyä sen muovaamiseen. Tarvitset molempia.',
+        say: 'Mitä geomantikko tekee?'
+      },
+      ready: {
+        strong: {
+          '1': 'Kivi vastaa sinulle nyt ennen minua. Ota mitä tarvitset.'
+        },
+        able: {
+          '1': 'Olet valmis seuraavaan oppituntiin. Laita kätesi maahan. Kuuntele.'
+        },
+        weak: {
+          '1': 'Ei vielä. Lisää voimaa ja selkeämpi pää, tai kivi ei kuuntele.'
+        }
+      },
+      farms: {
+        '1': 'Joka kevät. Ohra kasvaa kämmenen verran korkeammaksi, eikä kukaan tiedä miksi. Älä kerro heille.',
+        say: 'Auttaako maa myös tiloja?'
+      },
+      trainBack: {
+        '1': 'Mene vain. Ja laita se kivi takaisin sinne, mistä sen löysit.'
+      },
+      bye: {
+        '1': 'Astele hiljaa. Maa muistaa.'
+      }
+    },
     smalltalkSunford: {
       weather: {
         '1': 'Illalla sataa. Polveni on kolottanut koko päivän.',

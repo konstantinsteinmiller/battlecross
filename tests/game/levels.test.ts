@@ -194,7 +194,9 @@ describe('the plan: everything a visit holds can be walked to', () => {
     }
     // #74: the Hollows' finale is the Goblin King on Tusker now, and the old
     // bosses lead the middle pack of four zones (D85).
-    expect(h >>> 0).toBe(3136996826)
+    // #103: five zones are laid out in shapes of their own (gorge, halls,
+    // fields, switchbacks, the lake), so their packs stand elsewhere.
+    expect(h >>> 0).toBe(2148164945)
     expect(generateZone(ZONES.plains, 77).packs.map(p => p.kinds)).toEqual([
       ['goblinSlinger', 'goblin', 'goblin'], ['goblinSlinger', 'goblin'], ['banditChief', 'bandit', 'goblinSlinger']
     ])

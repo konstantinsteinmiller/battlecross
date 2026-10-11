@@ -234,6 +234,35 @@ export interface ZoneBranches {
   half: number
 }
 
+/**
+ * ─── A zone's layout (#103) ─────────────────────────────────────────────────
+ *
+ * Most zones are a chain of round clearings wandering up the map. Some places
+ * are laid out the way the place itself is:
+ *
+ *   gorge     the Ashen Crags: a narrow canyon of rock and lava, opening on a
+ *             wide arena at its end;
+ *   rooms     the Sunken Temple: halls joined by straight passages through
+ *             doorways, pillars standing in the halls;
+ *   field     the Oakhaven Outskirts: a wheat field crossed by paths, hedges
+ *             between the fields, the bandits standing in the wheat;
+ *   switchback Dragon's Peak: a path winding up the mountain's face, turn
+ *             after turn, the massif between the turns;
+ *   ring      Frostbite Tundra: the road curving round a frozen lake.
+ *
+ * Only where the clearings lie and how they are joined changes; every shape
+ * still runs from the bottom of the map up, so the features, the branches,
+ * the relief and the packs are laid as on any zone.
+ */
+export type ZoneShape = 'chain' | 'gorge' | 'rooms' | 'field' | 'switchback' | 'ring'
+export const ZONE_SHAPE: Readonly<Partial<Record<ZoneId, ZoneShape>>> = {
+  crags: 'gorge',
+  temple: 'rooms',
+  outskirts: 'field',
+  peak: 'switchback',
+  tundra: 'ring'
+}
+
 export const ZONE_BRANCHES: Readonly<Record<ZoneId, ZoneBranches>> = {
   plains: { bypasses: [1, 2], bosses: [1, 1], bossKinds: ['goblinWarchief'], style: 'wide', half: 2 },
   hollows: { bypasses: [1, 2], bosses: [1, 2], bossKinds: ['goblinWarchief', 'broodMother'], style: 'tunnel', half: 1.15 },

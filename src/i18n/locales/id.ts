@@ -1598,6 +1598,12 @@ export default {
     circle: 'Lingkaran Aether'
   },
   npc: {
+    sfShadow: {
+      name: 'Nettle Quickhand'
+    },
+    sfGeo: {
+      name: 'Harrow Flint'
+    },
     wanderer: {
       name: 'Pip si Pengembara',
       talk: 'Jalan jauh, kantong ringan? Aku bawa sedikit dari segalanya.'
@@ -1856,6 +1862,82 @@ export default {
     }
   },
   dlg: {
+    sfShadow: {
+      hello: {
+        '1': 'Tak dengar kamu masuk. Biasanya itu trikku.',
+        '2': 'Nettle Quickhand. Aku mengajar seni sunyi: belati, bayangan, dan pergi lebih awal.'
+      },
+      again: {
+        '1': 'Kembali lagi? Bagus. Semoga tak ada yang melihatmu.'
+      },
+      train: {
+        '1': 'Kaki ringan, tangan cepat. Jangan sampai tersandung bilahmu sendiri.'
+      },
+      class: {
+        '1': 'Menyerang di tempat yang tak mereka lihat, lalu sudah berada di tempat lain sama sekali.',
+        '2': 'Semuanya bergantung pada Ketangkasan. Tangan cepat, kaki cepat, kabur cepat.',
+        say: 'Apa yang dilakukan Bilah Bayangan?'
+      },
+      ready: {
+        strong: {
+          '1': 'Kamu sudah lebih cepat dariku. Ambil apa saja, aku bahkan takkan sadar.'
+        },
+        able: {
+          '1': 'Kamu siap untuk trik berikutnya. Perhatikan baik-baik, aku cuma melakukannya sekali.'
+        },
+        weak: {
+          '1': 'Belum. Jadilah lebih cepat dulu, atau bayangan akan menjegalmu.'
+        }
+      },
+      town: {
+        '1': 'Kota sepi, warganya jujur. Tak ada yang melirik dua kali jubah petani. Sempurna.',
+        say: 'Kenapa mengajar di sini, di Sunford?'
+      },
+      trainBack: {
+        '1': 'Pergilah. Berlatihlah di tempat yang tak terlihat penjaga.'
+      },
+      bye: {
+        '1': 'Jaga dompetmu.'
+      }
+    },
+    sfGeo: {
+      hello: {
+        '1': 'Awas batu-batunya. Sebagian sedang mendengarkan.',
+        '2': 'Harrow Flint. Aku mengajar sihir bumi kuno: batu, akar, dan sedikit gempa.'
+      },
+      again: {
+        '1': 'Ah, kamu kembali. Tanah sudah memberitahuku kamu akan datang.'
+      },
+      train: {
+        '1': 'Kaki rata, napas pelan. Rasakan bobot di bawahmu. Bagus.'
+      },
+      class: {
+        '1': 'Meminta bantuan bumi. Dinding saat kamu butuh, duri saat dinding tak cukup.',
+        '2': 'Kekuatan untuk menahan batu, Kecerdasan untuk membentuknya. Kamu butuh keduanya.',
+        say: 'Apa yang dilakukan Penyihir Bumi?'
+      },
+      ready: {
+        strong: {
+          '1': 'Batu kini menjawabmu lebih dulu daripada aku. Ambil apa pun yang kamu perlukan.'
+        },
+        able: {
+          '1': 'Kamu siap untuk pelajaran berikutnya. Letakkan tanganmu di tanah. Dengarkan.'
+        },
+        weak: {
+          '1': 'Belum. Tambah kekuatan dan jernihkan pikiran, atau batu takkan mendengar.'
+        }
+      },
+      farms: {
+        '1': 'Setiap musim semi. Jelai tumbuh sejengkal lebih tinggi dan tak ada yang tahu kenapa. Jangan bilang mereka.',
+        say: 'Apakah bumi juga membantu ladang?'
+      },
+      trainBack: {
+        '1': 'Pergilah. Dan kembalikan batu itu ke tempat asalnya.'
+      },
+      bye: {
+        '1': 'Melangkahlah pelan. Tanah itu ingat.'
+      }
+    },
     smalltalkSunford: {
       weather: {
         '1': 'Malam ini hujan. Lututku sakit seharian.',

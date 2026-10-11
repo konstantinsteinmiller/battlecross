@@ -1599,6 +1599,12 @@ export default {
     circle: 'O Círculo do Éter'
   },
   npc: {
+    sfShadow: {
+      name: 'Nettle Quickhand'
+    },
+    sfGeo: {
+      name: 'Harrow Flint'
+    },
     wanderer: {
       name: 'Pip o Vagabundo',
       talk: 'Camiño longo e bolsa lixeira? Levo un pouco de todo.'
@@ -1857,6 +1863,86 @@ export default {
     }
   },
   dlg: {
+    sfShadow: {
+      hello: {
+        '1': 'Non te oín entrar. Adoita ser o meu truco.',
+        '2': 'Nettle Quickhand. Ensino as artes silenciosas: puñais, sombras e marchar cedo.'
+      },
+      again: {
+        '1': 'Outra vez por aquí? Ben. Ninguén te viu, espero.'
+      },
+      train: {
+        '1': 'Pés lixeiros, mans rápidas. Tenta non tropezar coa túa propia folla.'
+      },
+      class: {
+        '1': 'Golpear onde non miran, e despois estar noutro sitio por completo.',
+        '2': 'Todo depende da Destreza. Mans rápidas, pés rápidos, saídas rápidas.',
+        say: 'Que fai unha Folla de Sombra?'
+      },
+      ready: {
+        strong: {
+          '1': 'Agora es máis rápido ca min. Colle o que queiras, nin me decatarei.',
+          '1__f': 'Agora es máis rápida ca min. Colle o que queiras, nin me decatarei.'
+        },
+        able: {
+          '1': 'Xa estás listo para o seguinte truco. Mira ben, só o fago unha vez.',
+          '1__f': 'Xa estás lista para o seguinte truco. Mira ben, só o fago unha vez.'
+        },
+        weak: {
+          '1': 'Aínda non. Primeiro faite máis rápido, ou as sombras farante tropezar.',
+          '1__f': 'Aínda non. Primeiro faite máis rápida, ou as sombras farante tropezar.'
+        }
+      },
+      town: {
+        '1': 'Vila tranquila, xente honrada. Ninguén mira dúas veces unha capa de labrego. Perfecto.',
+        say: 'Por que ensinas aquí, en Sunford?'
+      },
+      trainBack: {
+        '1': 'Veña, vai. Practica onde os gardas non vexan.'
+      },
+      bye: {
+        '1': 'Coida a bolsa.'
+      }
+    },
+    sfGeo: {
+      hello: {
+        '1': 'Coidado coas rochas. Algunhas están a escoitar.',
+        '2': 'Harrow Flint. Ensino a vella maxia da terra: pedra, raíces, un pequeno tremor.'
+      },
+      again: {
+        '1': 'Ah, volviches. O chan díxome que viñas.'
+      },
+      train: {
+        '1': 'Pés planos, respira amodo. Sente o peso debaixo de ti. Ben.'
+      },
+      class: {
+        '1': 'Pedirlle axuda á terra. Muros cando os precisas, puntas cando os demais non as queren.',
+        '2': 'Forza para soster a pedra, Intelixencia para darlle forma. Precisas as dúas.',
+        say: 'Que fai un xeomante?'
+      },
+      ready: {
+        strong: {
+          '1': 'Agora a pedra respóndeche antes ca min. Colle todo o que precises.'
+        },
+        able: {
+          '1': 'Xa estás listo para a seguinte lección. Pon a man no chan. Escoita.',
+          '1__f': 'Xa estás lista para a seguinte lección. Pon a man no chan. Escoita.'
+        },
+        weak: {
+          '1': 'Aínda non. Máis forza e a cabeza máis clara, ou a pedra non te escoitará.'
+        }
+      },
+      farms: {
+        '1': 'Cada primavera. O orxo medra un palmo máis e ninguén sabe por que. Non llelo digas.',
+        say: 'A terra tamén axuda as granxas?'
+      },
+      trainBack: {
+        '1': 'Veña, vai. E volve pór esa pedra onde a atopaches.'
+      },
+      bye: {
+        '1': 'Camiña amodo. O chan lembra.'
+      }
+    },
     smalltalkSunford: {
       weather: {
         '1': 'Esta noite choverá. O xeonllo dóeme desde esta mañá.',

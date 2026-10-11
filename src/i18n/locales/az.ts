@@ -1598,6 +1598,12 @@ export default {
     circle: 'Efir Dairəsi'
   },
   npc: {
+    sfShadow: {
+      name: 'Nettle Quickhand'
+    },
+    sfGeo: {
+      name: 'Harrow Flint'
+    },
     wanderer: {
       name: 'Səyyah Pip',
       talk: 'Yol uzun, kisə yüngül? Məndə hər şeydən azca var.'
@@ -1856,6 +1862,82 @@ export default {
     }
   },
   dlg: {
+    sfShadow: {
+      hello: {
+        '1': 'Gəldiyini eşitmədim. Adətən bu mənim fəndimdir.',
+        '2': 'Nettle Quickhand. Səssiz sənətləri öyrədirəm: xəncərlər, kölgələr, erkən aradan çıxmaq.'
+      },
+      again: {
+        '1': 'Yenə gəldin? Yaxşı. Ümid edirəm, səni heç kim görmədi.'
+      },
+      train: {
+        '1': 'Yüngül ayaqlar, cəld əllər. Öz tiyənə ilişib yıxılma.'
+      },
+      class: {
+        '1': 'Baxmadıqları yerdən vurur, sonra tamam başqa yerdə olur.',
+        '2': 'Hər şey Çevikliyə bağlıdır. Cəld əllər, cəld ayaqlar, cəld qaçış.',
+        say: 'Kölgə nə edir?'
+      },
+      ready: {
+        strong: {
+          '1': 'Artıq məndən cəldsən. İstədiyini götür, heç hiss etməyəcəyəm.'
+        },
+        able: {
+          '1': 'Növbəti fəndə hazırsan. Diqqətlə bax, yalnız bir dəfə göstərirəm.'
+        },
+        weak: {
+          '1': 'Hələ yox. Əvvəlcə cəldləş, yoxsa kölgələr ayağına dolaşar.'
+        }
+      },
+      town: {
+        '1': 'Sakit qəsəbə, düz adamlar. Heç kim fermer plaşına iki dəfə baxmır. Mükəmməl.',
+        say: 'Niyə burada, Sunfordda öyrədirsən?'
+      },
+      trainBack: {
+        '1': 'Get görüm. Mühafizəçilərin görmədiyi yerdə məşq et.'
+      },
+      bye: {
+        '1': 'Pul kisənə göz qoy.'
+      }
+    },
+    sfGeo: {
+      hello: {
+        '1': 'Qayalara diqqət et. Bəziləri qulaq asır.',
+        '2': 'Harrow Flint. Qədim torpaq sehrini öyrədirəm: daş, köklər, bir az zəlzələ.'
+      },
+      again: {
+        '1': 'Ah, qayıtdın. Torpaq gələcəyini mənə demişdi.'
+      },
+      train: {
+        '1': 'Ayaqlar düz, nəfəs yavaş. Altındakı ağırlığı hiss et. Əla.'
+      },
+      class: {
+        '1': 'Torpaqdan kömək istəyir. Sənə lazım olanda divar, düşmənə lazım olmayanda tikan.',
+        '2': 'Daşı tutmaq üçün Güc, ona forma vermək üçün Zəka. İkisi də lazımdır.',
+        say: 'Geomant nə edir?'
+      },
+      ready: {
+        strong: {
+          '1': 'Daş artıq məndən əvvəl sənə cavab verir. Nə lazımdırsa, götür.'
+        },
+        able: {
+          '1': 'Növbəti dərsə hazırsan. Əlini yerə qoy. Qulaq as.'
+        },
+        weak: {
+          '1': 'Hələ yox. Daha çox güc və daha aydın baş lazımdır, yoxsa daş qulaq asmaz.'
+        }
+      },
+      farms: {
+        '1': 'Hər yaz. Arpa bir qarış hündür boy atır, heç kim səbəbini bilmir. Onlara demə.',
+        say: 'Torpaq təsərrüfatlara da kömək edir?'
+      },
+      trainBack: {
+        '1': 'Get. O daşı da tapdığın yerə qoy.'
+      },
+      bye: {
+        '1': 'Yavaş addımla. Torpaq unutmur.'
+      }
+    },
     smalltalkSunford: {
       weather: {
         '1': 'Bu gecə yağış var. Dizim bütün gün ağrıyır.',

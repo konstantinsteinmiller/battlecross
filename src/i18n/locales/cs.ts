@@ -1602,6 +1602,12 @@ export default {
     circle: 'Kruh éteru'
   },
   npc: {
+    sfShadow: {
+      name: 'Nettle Quickhand'
+    },
+    sfGeo: {
+      name: 'Harrow Flint'
+    },
     wanderer: {
       name: 'Pip Tulák',
       talk: 'Dlouhá cesta a lehký měšec? Nosím od všeho trochu.'
@@ -1860,6 +1866,82 @@ export default {
     }
   },
   dlg: {
+    sfShadow: {
+      hello: {
+        '1': 'Ani šust, ani krok. To je obvykle můj trik.',
+        '2': 'Nettle Quickhand. Učím tichá umění: dýky, stíny, odchod po anglicku.'
+      },
+      again: {
+        '1': 'Zase tady? Dobře. Doufám, že tě nikdo neviděl.'
+      },
+      train: {
+        '1': 'Lehké nohy, rychlé ruce. Zkus nezakopnout o vlastní čepel.'
+      },
+      class: {
+        '1': 'Udeří tam, kam se nedívají, a pak je úplně jinde.',
+        '2': 'Všechno stojí na Obratnosti. Rychlé ruce, rychlé nohy, rychlé odchody.',
+        say: 'Co dělá Stínová čepel?'
+      },
+      ready: {
+        strong: {
+          '1': 'Už mě předbíháš. Vezmi si, co chceš, ani si toho nevšimnu.'
+        },
+        able: {
+          '1': 'Čas na další trik. Dívej se pozorně, ukážu ho jen jednou.'
+        },
+        weak: {
+          '1': 'Ještě ne. Nejdřív naber rychlost, jinak ti stíny podrazí nohy.'
+        }
+      },
+      town: {
+        '1': 'Tiché městečko, poctiví lidé. Na selský plášť se nikdo nepodívá dvakrát. Dokonalé.',
+        say: 'Proč učíš tady, v Sunfordu?'
+      },
+      trainBack: {
+        '1': 'Tak běž. Cvič tam, kam stráže nevidí.'
+      },
+      bye: {
+        '1': 'Hlídej si měšec.'
+      }
+    },
+    sfGeo: {
+      hello: {
+        '1': 'Pozor na kameny. Některé poslouchají.',
+        '2': 'Harrow Flint. Učím starou magii země: kámen, kořeny, trochu zemětřesení.'
+      },
+      again: {
+        '1': 'Á, zase ty. Země mi řekla, že přicházíš.'
+      },
+      train: {
+        '1': 'Chodidla naplocho, dýchej pomalu. Vnímej tu váhu pod sebou. Dobře.'
+      },
+      class: {
+        '1': 'Žádá zemi o pomoc. Zdi, když je potřebuješ, ostny, když o ně nepřítel nestojí.',
+        '2': 'Síla na udržení kamene, Inteligence na jeho tvarování. Potřebuješ obojí.',
+        say: 'Co dělá geomant?'
+      },
+      ready: {
+        strong: {
+          '1': 'Kámen ti teď odpoví dřív než já. Vezmi si, co potřebuješ.'
+        },
+        able: {
+          '1': 'Čas na další lekci. Polož ruku na zem. Poslouchej.'
+        },
+        weak: {
+          '1': 'Ještě ne. Víc síly a jasnější hlavu, jinak tě kámen neposlechne.'
+        }
+      },
+      farms: {
+        '1': 'Každé jaro. Ječmen vyroste o dlaň výš a nikdo neví proč. Neříkej jim to.',
+        say: 'Pomáhá země i statkům?'
+      },
+      trainBack: {
+        '1': 'Běž. A vrať ten kámen na místo.'
+      },
+      bye: {
+        '1': 'Šlapej zlehka. Země si pamatuje.'
+      }
+    },
     smalltalkSunford: {
       weather: {
         '1': 'Dnes v noci bude pršet. Koleno mě bolí celý den.',

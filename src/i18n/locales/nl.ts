@@ -1599,6 +1599,12 @@ export default {
     circle: 'De Kring van Ether'
   },
   npc: {
+    sfShadow: {
+      name: 'Nettle Quickhand'
+    },
+    sfGeo: {
+      name: 'Harrow Flint'
+    },
     wanderer: {
       name: 'Pip de Zwerver',
       talk: 'Lange weg, lichte buidel? Ik heb van alles een beetje bij me.'
@@ -1857,6 +1863,82 @@ export default {
     }
   },
   dlg: {
+    sfShadow: {
+      hello: {
+        '1': 'Ik hoorde je niet binnenkomen. Dat is meestal mijn truc.',
+        '2': 'Nettle Quickhand. Ik leer de stille kunsten: dolken, schaduwen, op tijd vertrekken.'
+      },
+      again: {
+        '1': 'Alweer terug? Mooi. Niemand heeft je gezien, hoop ik.'
+      },
+      train: {
+        '1': 'Lichte voeten, snelle handen. Probeer niet over je eigen kling te struikelen.'
+      },
+      class: {
+        '1': 'Toeslaan waar ze niet kijken, en dan ergens heel anders zijn.',
+        '2': 'Alles draait om Behendigheid. Snelle handen, snelle voeten, snelle aftocht.',
+        say: 'Wat doet een Schaduwkling?'
+      },
+      ready: {
+        strong: {
+          '1': 'Je bent nu sneller dan ik. Neem wat je wilt, ik merk het niet eens.'
+        },
+        able: {
+          '1': 'Je bent klaar voor de volgende truc. Let goed op, ik doe het maar één keer.'
+        },
+        weak: {
+          '1': 'Nog niet. Word eerst sneller, anders laten de schaduwen je struikelen.'
+        }
+      },
+      town: {
+        '1': 'Rustig stadje, eerlijke mensen. Niemand kijkt twee keer naar een boerenmantel. Perfect.',
+        say: 'Waarom lesgeven hier, in Sunford?'
+      },
+      trainBack: {
+        '1': 'Hup, ga maar. Oefen waar de wachters het niet zien.'
+      },
+      bye: {
+        '1': 'Let op je beurs.'
+      }
+    },
+    sfGeo: {
+      hello: {
+        '1': 'Pas op voor de stenen. Sommige luisteren mee.',
+        '2': 'Harrow Flint. Ik leer de oude aardmagie: steen, wortels, een kleine beving.'
+      },
+      again: {
+        '1': 'Ah, je bent terug. De grond vertelde me dat je eraan kwam.'
+      },
+      train: {
+        '1': 'Voeten plat, adem langzaam. Voel het gewicht onder je. Goed.'
+      },
+      class: {
+        '1': 'De aarde om hulp vragen. Muren als jij ze nodig hebt, pieken als de ander ze niet wil.',
+        '2': 'Kracht om de steen vast te houden, Intelligentie om hem te vormen. Je hebt ze allebei nodig.',
+        say: 'Wat doet een geomant?'
+      },
+      ready: {
+        strong: {
+          '1': 'De steen antwoordt jou nu eerder dan mij. Neem wat je nodig hebt.'
+        },
+        able: {
+          '1': 'Je bent klaar voor de volgende les. Leg je hand op de grond. Luister.'
+        },
+        weak: {
+          '1': 'Nog niet. Meer kracht en een helderder hoofd, anders luistert de steen niet.'
+        }
+      },
+      farms: {
+        '1': 'Elke lente. De gerst groeit een hand hoger en niemand weet waarom. Zeg het ze niet.',
+        say: 'Helpt de aarde de boerderijen ook?'
+      },
+      trainBack: {
+        '1': 'Ga maar. En leg die steen terug waar je hem vond.'
+      },
+      bye: {
+        '1': 'Loop zachtjes. De grond onthoudt alles.'
+      }
+    },
     smalltalkSunford: {
       weather: {
         '1': 'Vannacht gaat het regenen. Mijn knie doet de hele dag al zeer.',

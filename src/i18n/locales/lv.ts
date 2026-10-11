@@ -1598,6 +1598,12 @@ export default {
     circle: 'Ētera loks'
   },
   npc: {
+    sfShadow: {
+      name: 'Netla Kvikhenda'
+    },
+    sfGeo: {
+      name: 'Harovs Flints'
+    },
     wanderer: {
       name: 'Klejotājs Pip',
       talk: 'Garš ceļš, viegls maks? Man ir mazliet no visa kā.'
@@ -1856,6 +1862,82 @@ export default {
     }
   },
   dlg: {
+    sfShadow: {
+      hello: {
+        '1': 'Nedzirdēju, kā ienāci. Parasti tas ir mans triks.',
+        '2': 'Netla Kvikhenda. Es mācu klusās mākslas: dunčus, ēnas, aiziešanu laikus.'
+      },
+      again: {
+        '1': 'Atkal šeit? Labi. Ceru, ka neviens tevi neredzēja.'
+      },
+      train: {
+        '1': 'Vieglas kājas, ātras rokas. Centies nepaklupt pār savu asmeni.'
+      },
+      class: {
+        '1': 'Sit tur, kur neskatās, un tad jau ir pavisam citur.',
+        '2': 'Viss balstās uz Veiklību. Ātras rokas, ātras kājas, ātra aiziešana.',
+        say: 'Ko dara ēna?'
+      },
+      ready: {
+        strong: {
+          '1': 'Tagad tu mani apsteidz. Ņem, ko gribi, es pat nepamanīšu.'
+        },
+        able: {
+          '1': 'Laiks nākamajam trikam. Skaties uzmanīgi, es to rādu tikai vienreiz.'
+        },
+        weak: {
+          '1': 'Vēl ne. Vispirms iegūsti ātrumu, citādi ēnas tevi paklupinās.'
+        }
+      },
+      town: {
+        '1': 'Klusa pilsētiņa, godīgi ļaudis. Neviens divreiz neskatās uz zemnieka apmetni. Lieliski.',
+        say: 'Kāpēc māci tieši šeit, Sanfordā?'
+      },
+      trainBack: {
+        '1': 'Nu ej. Trenējies tur, kur sargi neredz.'
+      },
+      bye: {
+        '1': 'Uzmani maku.'
+      }
+    },
+    sfGeo: {
+      hello: {
+        '1': 'Uzmanies no akmeņiem. Daži no tiem klausās.',
+        '2': 'Harovs Flints. Es mācu seno zemes maģiju: akmeni, saknes, nelielu zemestrīci.'
+      },
+      again: {
+        '1': 'Ā, tu atkal esi klāt. Zeme man teica, ka tu nāc.'
+      },
+      train: {
+        '1': 'Pēdas uz zemes, elpo lēni. Sajūti svaru zem sevis. Labi.'
+      },
+      class: {
+        '1': 'Lūdz zemei palīdzību. Sienas, kad tev tās vajag, smailes, kad viņiem tās nevajag.',
+        '2': 'Spēks, lai noturētu akmeni, Intelekts, lai to veidotu. Vajag abus.',
+        say: 'Ko dara ģeomants?'
+      },
+      ready: {
+        strong: {
+          '1': 'Akmens tagad atbild tev ātrāk nekā man. Ņem, ko vajag.'
+        },
+        able: {
+          '1': 'Laiks nākamajai nodarbībai. Uzliec roku uz zemes. Klausies.'
+        },
+        weak: {
+          '1': 'Vēl ne. Vairāk spēka un skaidrāka galva, citādi akmens neklausīs.'
+        }
+      },
+      farms: {
+        '1': 'Katru pavasari. Mieži izaug par plaukstu garāki, un neviens nezina kāpēc. Nesaki viņiem.',
+        say: 'Vai zeme palīdz arī saimniecībām?'
+      },
+      trainBack: {
+        '1': 'Ej. Un noliec to akmeni atpakaļ, kur atradi.'
+      },
+      bye: {
+        '1': 'Ej klusi. Zeme atceras.'
+      }
+    },
     smalltalkSunford: {
       weather: {
         '1': 'Šovakar līs. Celis sāp visu dienu.',

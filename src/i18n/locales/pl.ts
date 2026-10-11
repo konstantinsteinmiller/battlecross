@@ -1600,6 +1600,12 @@ export default {
     circle: 'Krąg Eteru'
   },
   npc: {
+    sfShadow: {
+      name: 'Nettle Quickhand'
+    },
+    sfGeo: {
+      name: 'Harrow Flint'
+    },
     wanderer: {
       name: 'Pip Wędrowiec',
       talk: 'Długa droga, lekka sakiewka? Mam trochę wszystkiego.'
@@ -1858,6 +1864,82 @@ export default {
     }
   },
   dlg: {
+    sfShadow: {
+      hello: {
+        '1': 'Ani szelestu, ani kroku. To zwykle mój numer.',
+        '2': 'Nettle Quickhand. Uczę cichych sztuk: sztylety, cienie, wyjście po angielsku.'
+      },
+      again: {
+        '1': 'Znowu tutaj? Dobrze. Mam nadzieję, że nikt cię nie widział.'
+      },
+      train: {
+        '1': 'Lekkie stopy, szybkie ręce. Postaraj się nie potknąć o własne ostrze.'
+      },
+      class: {
+        '1': 'Uderza tam, gdzie nikt nie patrzy, a potem jest zupełnie gdzie indziej.',
+        '2': 'Wszystko opiera się na Zręczności. Szybkie ręce, szybkie stopy, szybkie wyjścia.',
+        say: 'Czym zajmuje się Ostrze Cienia?'
+      },
+      ready: {
+        strong: {
+          '1': 'Już mnie prześcigasz. Bierz, co chcesz, nawet nie zauważę.'
+        },
+        able: {
+          '1': 'Czas na kolejną sztuczkę. Patrz uważnie, pokazuję tylko raz.'
+        },
+        weak: {
+          '1': 'Jeszcze nie. Najpierw nabierz szybkości, bo cienie podstawią ci nogę.'
+        }
+      },
+      town: {
+        '1': 'Ciche miasteczko, uczciwi ludzie. Nikt nie spojrzy dwa razy na chłopski płaszcz. Idealnie.',
+        say: 'Czemu uczysz tutaj, w Sunford?'
+      },
+      trainBack: {
+        '1': 'No, ruszaj. Ćwicz tam, gdzie straż nie widzi.'
+      },
+      bye: {
+        '1': 'Pilnuj sakiewki.'
+      }
+    },
+    sfGeo: {
+      hello: {
+        '1': 'Uważaj na kamienie. Niektóre słuchają.',
+        '2': 'Harrow Flint. Uczę dawnej magii ziemi: kamień, korzenie, odrobina wstrząsów.'
+      },
+      again: {
+        '1': 'Ach, znowu ty. Ziemia mówiła mi, że idziesz.'
+      },
+      train: {
+        '1': 'Stopy płasko, oddychaj powoli. Poczuj ciężar pod sobą. Dobrze.'
+      },
+      class: {
+        '1': 'Prosi ziemię o pomoc. Mury, gdy ich potrzebujesz, kolce, gdy wróg ich nie potrzebuje.',
+        '2': 'Siła, by utrzymać kamień, Inteligencja, by go kształtować. Potrzebujesz obu.',
+        say: 'Czym zajmuje się geomanta?'
+      },
+      ready: {
+        strong: {
+          '1': 'Kamień odpowiada ci teraz, zanim ja zdążę. Bierz, czego potrzebujesz.'
+        },
+        able: {
+          '1': 'Czas na kolejną lekcję. Połóż dłoń na ziemi. Słuchaj.'
+        },
+        weak: {
+          '1': 'Jeszcze nie. Więcej siły i jaśniejsza głowa, inaczej kamień cię nie posłucha.'
+        }
+      },
+      farms: {
+        '1': 'Każdej wiosny. Jęczmień rośnie o dłoń wyżej i nikt nie wie czemu. Nie mów im.',
+        say: 'Czy ziemia pomaga też gospodarstwom?'
+      },
+      trainBack: {
+        '1': 'Idź. I odłóż ten kamień na miejsce.'
+      },
+      bye: {
+        '1': 'Stąpaj lekko. Ziemia pamięta.'
+      }
+    },
     smalltalkSunford: {
       weather: {
         '1': 'Dziś w nocy deszcz. Kolano boli mnie od rana.',

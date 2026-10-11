@@ -1598,6 +1598,12 @@ export default {
     circle: 'Eterns cirkel'
   },
   npc: {
+    sfShadow: {
+      name: 'Nettle Quickhand'
+    },
+    sfGeo: {
+      name: 'Harrow Flint'
+    },
     wanderer: {
       name: 'Pip Vandraren',
       talk: 'Lång väg och lätt börs? Jag har lite av varje.'
@@ -1856,6 +1862,82 @@ export default {
     }
   },
   dlg: {
+    sfShadow: {
+      hello: {
+        '1': 'Hörde dig inte komma in. Det brukar vara mitt trick.',
+        '2': 'Nettle Quickhand. Jag lär ut de tysta konsterna: dolkar, skuggor, att smita i förtid.'
+      },
+      again: {
+        '1': 'Tillbaka igen? Bra. Ingen såg dig, hoppas jag.'
+      },
+      train: {
+        '1': 'Lätta fötter, snabba händer. Försök att inte snubbla på din egen klinga.'
+      },
+      class: {
+        '1': 'Slår till där de inte tittar, och är sedan någon helt annanstans.',
+        '2': 'Allt hänger på Smidighet. Snabba händer, snabba fötter, snabba reträtter.',
+        say: 'Vad gör en skuggklinga?'
+      },
+      ready: {
+        strong: {
+          '1': 'Du är snabbare än jag nu. Ta vad du vill, jag märker inget ändå.'
+        },
+        able: {
+          '1': 'Du är redo för nästa trick. Titta noga, jag gör det bara en gång.'
+        },
+        weak: {
+          '1': 'Inte än. Bli snabbare först, annars snubblar du på skuggorna.'
+        }
+      },
+      town: {
+        '1': 'Lugn stad, ärligt folk. Ingen tittar två gånger på en bondkappa. Perfekt.',
+        say: 'Varför lär du ut här, i Sunford?'
+      },
+      trainBack: {
+        '1': 'Iväg med dig. Öva där vakterna inte ser.'
+      },
+      bye: {
+        '1': 'Akta börsen.'
+      }
+    },
+    sfGeo: {
+      hello: {
+        '1': 'Se upp för stenarna. Några av dem lyssnar.',
+        '2': 'Harrow Flint. Jag lär ut den gamla jordmagin: sten, rötter, ett litet skalv.'
+      },
+      again: {
+        '1': 'Ah, du är tillbaka. Marken sa att du var på väg.'
+      },
+      train: {
+        '1': 'Fötterna platt, andas långsamt. Känn tyngden under dig. Bra.'
+      },
+      class: {
+        '1': 'Ber jorden om hjälp. Murar när du behöver dem, taggar när fienden inte gör det.',
+        '2': 'Styrka för att hålla stenen, Intelligens för att forma den. Du behöver båda.',
+        say: 'Vad gör en geomantiker?'
+      },
+      ready: {
+        strong: {
+          '1': 'Stenen svarar dig före mig nu. Ta vad du behöver.'
+        },
+        able: {
+          '1': 'Du är redo för nästa lektion. Lägg handen på marken. Lyssna.'
+        },
+        weak: {
+          '1': 'Inte än. Mer styrka och ett klarare huvud, annars lyssnar inte stenen.'
+        }
+      },
+      farms: {
+        '1': 'Varje vår. Kornet växer en handsbredd högre och ingen vet varför. Säg inget till dem.',
+        say: 'Hjälper jorden gårdarna också?'
+      },
+      trainBack: {
+        '1': 'Gå nu. Och lägg tillbaka den där stenen där du hittade den.'
+      },
+      bye: {
+        '1': 'Gå varsamt. Marken minns.'
+      }
+    },
     smalltalkSunford: {
       weather: {
         '1': 'Det blir regn i kväll. Knät har värkt hela dagen.',

@@ -1598,6 +1598,12 @@ export default {
     circle: 'Eter Çemberi'
   },
   npc: {
+    sfShadow: {
+      name: 'Nettle Quickhand'
+    },
+    sfGeo: {
+      name: 'Harrow Flint'
+    },
     wanderer: {
       name: 'Gezgin Pip',
       talk: 'Yol uzun, kese hafif mi? Her şeyden biraz taşıyorum.'
@@ -1856,6 +1862,82 @@ export default {
     }
   },
   dlg: {
+    sfShadow: {
+      hello: {
+        '1': 'Girdiğini duymadım. Genelde o numara benimdir.',
+        '2': 'Nettle Quickhand. Sessiz sanatları öğretirim: hançerler, gölgeler, erkenden sıvışmak.'
+      },
+      again: {
+        '1': 'Yine mi geldin? Güzel. Umarım kimse seni görmedi.'
+      },
+      train: {
+        '1': 'Hafif ayaklar, çevik eller. Kendi bıçağına takılıp düşmemeye çalış.'
+      },
+      class: {
+        '1': 'Bakmadıkları yerden vurur, sonra bambaşka bir yerde olur.',
+        '2': 'Her şey Çevikliğe dayanır. Çevik eller, çevik ayaklar, çabuk kaçışlar.',
+        say: 'Bir gölge ne yapar?'
+      },
+      ready: {
+        strong: {
+          '1': 'Artık benden hızlısın. Ne istersen al, fark etmem bile.'
+        },
+        able: {
+          '1': 'Sıradaki numaraya hazırsın. İyi izle, yalnızca bir kez yaparım.'
+        },
+        weak: {
+          '1': 'Henüz değil. Önce hızlan, yoksa gölgeler ayağına dolanır.'
+        }
+      },
+      town: {
+        '1': 'Sakin kasaba, dürüst insanlar. Kimse bir çiftçi pelerinine iki kez bakmaz. Mükemmel.',
+        say: 'Neden burada, Sunford\'da öğretiyorsun?'
+      },
+      trainBack: {
+        '1': 'Hadi bakalım. Muhafızların göremediği yerde çalış.'
+      },
+      bye: {
+        '1': 'Keseni kolla.'
+      }
+    },
+    sfGeo: {
+      hello: {
+        '1': 'Kayalara dikkat et. Bazıları dinliyor.',
+        '2': 'Harrow Flint. Eski toprak büyüsünü öğretirim: taş, kökler, ufak bir sarsıntı.'
+      },
+      again: {
+        '1': 'Ah, döndün. Toprak geleceğini bana söylemişti.'
+      },
+      train: {
+        '1': 'Ayaklar düz, nefes yavaş. Altındaki ağırlığı hisset. Güzel.'
+      },
+      class: {
+        '1': 'Topraktan yardım ister. Sana gerekince duvar, düşmana gerekmeyince diken.',
+        '2': 'Taşı tutmak için Güç, ona şekil vermek için Zekâ. İkisi de gerekli.',
+        say: 'Bir Yer Büyücüsü ne yapar?'
+      },
+      ready: {
+        strong: {
+          '1': 'Taş artık benden önce sana cevap veriyor. Neye ihtiyacın varsa al.'
+        },
+        able: {
+          '1': 'Sıradaki derse hazırsın. Elini yere koy. Dinle.'
+        },
+        weak: {
+          '1': 'Henüz değil. Daha çok güç ve daha berrak bir kafa gerek, yoksa taş dinlemez.'
+        }
+      },
+      farms: {
+        '1': 'Her bahar. Arpa bir karış daha uzun boy atar, kimse nedenini bilmez. Onlara söyleme.',
+        say: 'Toprak çiftliklere de yardım eder mi?'
+      },
+      trainBack: {
+        '1': 'Haydi git. Ve o taşı bulduğun yere geri koy.'
+      },
+      bye: {
+        '1': 'Usulca yürü. Toprak unutmaz.'
+      }
+    },
     smalltalkSunford: {
       weather: {
         '1': 'Bu gece yağmur var. Dizim bütün gün sızladı.',

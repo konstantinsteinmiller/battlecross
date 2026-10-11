@@ -1599,6 +1599,12 @@ export default {
     circle: 'Il Circolo dell’Etere'
   },
   npc: {
+    sfShadow: {
+      name: 'Nettle Quickhand'
+    },
+    sfGeo: {
+      name: 'Harrow Flint'
+    },
     wanderer: {
       name: 'Pip il Vagabondo',
       talk: 'Strada lunga e borsa leggera? Ho un po’ di tutto.'
@@ -1857,6 +1863,90 @@ export default {
     }
   },
   dlg: {
+    sfShadow: {
+      hello: {
+        '1': 'Non ti ho sentito entrare. Di solito è il mio trucco.',
+        '2': 'Nettle Quickhand. Insegno le arti silenziose: pugnali, ombre e andarsene presto.',
+        '1__f': 'Non ti ho sentita entrare. Di solito è il mio trucco.'
+      },
+      again: {
+        '1': 'Di nuovo qui? Bene. Nessuno ti ha visto, spero.',
+        '1__f': 'Di nuovo qui? Bene. Nessuno ti ha vista, spero.'
+      },
+      train: {
+        '1': 'Piedi leggeri, mani svelte. Cerca di non inciampare nella tua stessa lama.'
+      },
+      class: {
+        '1': 'Colpire dove non guardano, e poi essere tutt’altrove.',
+        '2': 'Tutto si regge sulla Destrezza. Mani svelte, piedi svelti, uscite svelte.',
+        say: 'Cosa fa una Lama d’Ombra?'
+      },
+      ready: {
+        strong: {
+          '1': 'Ora sei più svelto di me. Prendi quello che vuoi, non me ne accorgerò nemmeno.',
+          '1__f': 'Ora sei più svelta di me. Prendi quello che vuoi, non me ne accorgerò nemmeno.'
+        },
+        able: {
+          '1': 'Sei pronto per il prossimo trucco. Guarda bene, lo faccio una volta sola.',
+          '1__f': 'Sei pronta per il prossimo trucco. Guarda bene, lo faccio una volta sola.'
+        },
+        weak: {
+          '1': 'Non ancora. Prima diventa più svelto, o le ombre ti fanno inciampare.',
+          '1__f': 'Non ancora. Prima diventa più svelta, o le ombre ti fanno inciampare.'
+        }
+      },
+      town: {
+        '1': 'Paese tranquillo, gente onesta. Nessuno guarda due volte un mantello da contadino. Perfetto.',
+        say: 'Perché insegni qui, a Sunford?'
+      },
+      trainBack: {
+        '1': 'Vai pure. Esercitati dove le guardie non vedono.'
+      },
+      bye: {
+        '1': 'Occhio alla borsa.'
+      }
+    },
+    sfGeo: {
+      hello: {
+        '1': 'Attento alle rocce. Alcune stanno ascoltando.',
+        '2': 'Harrow Flint. Insegno l’antica magia della terra: pietra, radici, un piccolo terremoto.',
+        '1__f': 'Attenta alle rocce. Alcune stanno ascoltando.'
+      },
+      again: {
+        '1': 'Ah, sei tornato. Il terreno mi aveva detto che stavi arrivando.',
+        '1__f': 'Ah, sei tornata. Il terreno mi aveva detto che stavi arrivando.'
+      },
+      train: {
+        '1': 'Piedi ben piantati, respira piano. Senti il peso sotto di te. Bene.'
+      },
+      class: {
+        '1': 'Chiede aiuto alla terra. Muri quando ti servono, spuntoni quando agli altri non servono.',
+        '2': 'Forza per reggere la pietra, Intelligenza per plasmarla. Ti servono entrambe.',
+        say: 'Cosa fa un geomante?'
+      },
+      ready: {
+        strong: {
+          '1': 'Ormai la pietra risponde a te prima che a me. Prendi tutto ciò che ti serve.'
+        },
+        able: {
+          '1': 'Sei pronto per la prossima lezione. Metti la mano sul terreno. Ascolta.',
+          '1__f': 'Sei pronta per la prossima lezione. Metti la mano sul terreno. Ascolta.'
+        },
+        weak: {
+          '1': 'Non ancora. Più forza e una mente più limpida, o la pietra non ti ascolterà.'
+        }
+      },
+      farms: {
+        '1': 'Ogni primavera. L’orzo cresce un palmo in più e nessuno sa perché. Non dirglielo.',
+        say: 'La terra aiuta anche le fattorie?'
+      },
+      trainBack: {
+        '1': 'Vai. E rimetti quel sasso dove l’hai trovato.'
+      },
+      bye: {
+        '1': 'Cammina piano. Il terreno ricorda.'
+      }
+    },
     smalltalkSunford: {
       weather: {
         '1': 'Stanotte piove. Il ginocchio mi fa male da stamattina.',
