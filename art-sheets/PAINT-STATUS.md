@@ -4,7 +4,7 @@ A report, not a contract: it is a picture of `art-sheets/painted/` and the
 slicer's receipt at the moment it was written. Re-run `pnpm art:prompts`
 after painting or slicing anything.
 
-**45 sliced · 9 need a repaint · 0 painted, unreceipted · 12 outstanding**
+**52 sliced · 9 need a repaint · 0 painted, unreceipted · 5 outstanding**
 
 | | Sheet | Prompt block in | Reference | State |
 | --- | --- | --- | --- | --- |
@@ -38,14 +38,14 @@ after painting or slicing anything.
 | ✓ | **Skill icons: Lightbringer (2 of 2)** | `PROMPTS-SKILLS.md` | `sheet-skills2-lightbringer.png` (rev `c53ac606e411`) | sliced 2026-10-11 |
 | ✓ | **Skill icons: Beastcaller** | `PROMPTS-SKILLS.md` | `sheet-skills-beastcaller.png` (rev `297a1ae74d6f`) | sliced 2026-10-11 |
 | ✓ | **Skill icons: Beastcaller (2 of 2)** | `PROMPTS-SKILLS.md` | `sheet-skills2-beastcaller.png` (rev `b875613cce10`) | sliced 2026-10-11 |
-| · | **Skill icons: Elementalist** | `PROMPTS-SKILLS.md` | `sheet-skills-elementalist.png` (rev `e9c017869c92`) | not painted yet |
-| · | **Skill icons: Elementalist (2 of 2)** | `PROMPTS-SKILLS.md` | `sheet-skills2-elementalist.png` (rev `32983c7ed53c`) | not painted yet |
-| · | **Skill icons: Soul Warden** | `PROMPTS-SKILLS.md` | `sheet-skills-soulwarden.png` (rev `4f8e6a467369`) | not painted yet |
-| · | **Skill icons: Soul Warden (2 of 2)** | `PROMPTS-SKILLS.md` | `sheet-skills2-soulwarden.png` (rev `97f0e4862e97`) | not painted yet |
-| · | **Skill icons: Iron Monk** | `PROMPTS-SKILLS.md` | `sheet-skills-ironmonk.png` (rev `fa36c243e7d7`) | not painted yet |
-| · | **Skill icons: Iron Monk (2 of 2)** | `PROMPTS-SKILLS.md` | `sheet-skills2-ironmonk.png` (rev `cfabe95035cf`) | not painted yet |
-| · | **Skill icons: Bard** | `PROMPTS-SKILLS.md` | `sheet-skills-bard.png` (rev `d6f4ff72caa4`) | not painted yet |
-| · | **Skill icons: Bard (2 of 2)** | `PROMPTS-SKILLS.md` | `sheet-skills2-bard.png` (rev `7c43d065f29e`) | not painted yet |
+| ✓ | **Skill icons: Elementalist** | `PROMPTS-SKILLS.md` | `sheet-skills-elementalist.png` (rev `b7422a05c6b9`) | sliced 2026-10-12 |
+| ✓ | **Skill icons: Elementalist (2 of 2)** | `PROMPTS-SKILLS.md` | `sheet-skills2-elementalist.png` (rev `e3f419fb7950`) | sliced 2026-10-12 |
+| ✓ | **Skill icons: Soul Warden** | `PROMPTS-SKILLS.md` | `sheet-skills-soulwarden.png` (rev `2cf7790c50ce`) | sliced 2026-10-12 |
+| · | **Skill icons: Soul Warden (2 of 2)** | `PROMPTS-SKILLS.md` | `sheet-skills2-soulwarden.png` (rev `47a9ff7230d0`) | not painted yet |
+| ✓ | **Skill icons: Iron Monk** | `PROMPTS-SKILLS.md` | `sheet-skills-ironmonk.png` (rev `224501743db5`) | sliced 2026-10-12 |
+| ✓ | **Skill icons: Iron Monk (2 of 2)** | `PROMPTS-SKILLS.md` | `sheet-skills2-ironmonk.png` (rev `98554357238a`) | sliced 2026-10-12 |
+| ✓ | **Skill icons: Bard** | `PROMPTS-SKILLS.md` | `sheet-skills-bard.png` (rev `f861647e7c90`) | sliced 2026-10-12 |
+| ✓ | **Skill icons: Bard (2 of 2)** | `PROMPTS-SKILLS.md` | `sheet-skills2-bard.png` (rev `42e65957cba9`) | sliced 2026-10-12 |
 | ✓ | **Portraits: townsfolk** | `PROMPTS-PORTRAITS.md` | `sheet-portraits-town.png` (rev `3732e628fe79`) | sliced 2026-10-02 |
 | ✓ | **Portraits: trainers** | `PROMPTS-PORTRAITS.md` | `sheet-portraits-trainers.png` (rev `770414fa440b`) | sliced 2026-10-02 |
 | ✓ | **Portraits: quest speakers** | `PROMPTS-PORTRAITS.md` | `sheet-portraits-speakers.png` (rev `58641c102acc`) | sliced 2026-10-03 |

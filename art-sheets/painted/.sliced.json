@@ -396,6 +396,48 @@
       "rev": "b686db05604f",
       "painting": "da42e1f917f4",
       "at": "2026-10-11T21:04:36.244Z"
+    },
+    "sheet-skills-elementalist.jpg": {
+      "sheet": "sheet-skills-elementalist",
+      "rev": "b7422a05c6b9",
+      "painting": "a1571cf6b78c",
+      "at": "2026-10-12T11:45:08.119Z"
+    },
+    "sheet-skills2-elementalist.jpg": {
+      "sheet": "sheet-skills2-elementalist",
+      "rev": "e3f419fb7950",
+      "painting": "dd1d7dcbaef7",
+      "at": "2026-10-12T11:47:50.712Z"
+    },
+    "sheet-skills-soulwarden.jpg": {
+      "sheet": "sheet-skills-soulwarden",
+      "rev": "2cf7790c50ce",
+      "painting": "310a9fb98ab6",
+      "at": "2026-10-12T11:53:56.355Z"
+    },
+    "sheet-skills-ironmonk.jpg": {
+      "sheet": "sheet-skills-ironmonk",
+      "rev": "224501743db5",
+      "painting": "9f69f7471b1f",
+      "at": "2026-10-12T12:05:17.096Z"
+    },
+    "sheet-skills2-ironmonk.jpg": {
+      "sheet": "sheet-skills2-ironmonk",
+      "rev": "98554357238a",
+      "painting": "6d6bfda75ad4",
+      "at": "2026-10-12T12:09:25.906Z"
+    },
+    "sheet-skills-bard.jpg": {
+      "sheet": "sheet-skills-bard",
+      "rev": "f861647e7c90",
+      "painting": "13943693d9e9",
+      "at": "2026-10-12T12:13:27.255Z"
+    },
+    "sheet-skills2-bard.jpg": {
+      "sheet": "sheet-skills2-bard",
+      "rev": "42e65957cba9",
+      "painting": "b8e47bc401da",
+      "at": "2026-10-12T12:16:53.297Z"
     }
   }
 }

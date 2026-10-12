@@ -3929,9 +3929,9 @@
           "target": "images/skills/elementalHarmony.webp",
           "round": true,
           "fit": {
-            "h": 0.844,
-            "w": 0.844,
-            "bottom": 0.922,
+            "h": 0.836,
+            "w": 0.836,
+            "bottom": 0.918,
             "cx": 0.5
           }
         },
@@ -3945,10 +3945,10 @@
           "h": 288,
           "target": "images/skills/frostLance.webp",
           "fit": {
-            "h": 0.227,
-            "w": 0.836,
-            "bottom": 0.613,
-            "cx": 0.5
+            "h": 0.414,
+            "w": 0.84,
+            "bottom": 0.707,
+            "cx": 0.498
           }
         },
         {
@@ -3978,9 +3978,9 @@
           "target": "images/skills/smolderingCore.webp",
           "round": true,
           "fit": {
-            "h": 0.727,
-            "w": 0.641,
-            "bottom": 0.863,
+            "h": 0.82,
+            "w": 0.656,
+            "bottom": 0.91,
             "cx": 0.5
           }
         },
@@ -3994,10 +3994,10 @@
           "h": 288,
           "target": "images/skills/rollingBoulder.webp",
           "fit": {
-            "h": 0.77,
+            "h": 0.703,
             "w": 0.84,
-            "bottom": 0.887,
-            "cx": 0.498
+            "bottom": 0.852,
+            "cx": 0.502
           }
         }
       ]
@@ -4028,9 +4028,9 @@
           "h": 288,
           "target": "images/skills/thunderSnow.webp",
           "fit": {
-            "h": 0.809,
-            "w": 0.836,
-            "bottom": 0.902,
+            "h": 0.84,
+            "w": 0.781,
+            "bottom": 0.918,
             "cx": 0.5
           }
         },
@@ -4045,9 +4045,9 @@
           "target": "images/skills/spellweave.webp",
           "round": true,
           "fit": {
-            "h": 0.578,
-            "w": 0.727,
-            "bottom": 0.789,
+            "h": 0.648,
+            "w": 0.734,
+            "bottom": 0.824,
             "cx": 0.5
           }
         },
@@ -4079,7 +4079,7 @@
           "round": true,
           "fit": {
             "h": 0.836,
-            "w": 0.766,
+            "w": 0.758,
             "bottom": 0.918,
             "cx": 0.5
           }
@@ -4094,9 +4094,9 @@
           "h": 288,
           "target": "images/skills/frostfireComet.webp",
           "fit": {
-            "h": 0.836,
-            "w": 0.836,
-            "bottom": 0.918,
+            "h": 0.801,
+            "w": 0.844,
+            "bottom": 0.902,
             "cx": 0.5
           }
         },
@@ -4110,8 +4110,8 @@
           "h": 288,
           "target": "images/skills/elementalConvergence.webp",
           "fit": {
-            "h": 0.84,
-            "w": 0.82,
+            "h": 0.836,
+            "w": 0.742,
             "bottom": 0.918,
             "cx": 0.5
           }
@@ -4144,10 +4144,10 @@
           "h": 288,
           "target": "images/skills/wispBolt.webp",
           "fit": {
-            "h": 0.836,
-            "w": 0.586,
-            "bottom": 0.918,
-            "cx": 0.5
+            "h": 0.504,
+            "w": 0.84,
+            "bottom": 0.754,
+            "cx": 0.502
           }
         },
         {
@@ -4178,7 +4178,7 @@
           "target": "images/skills/callTheFallen.webp",
           "fit": {
             "h": 0.84,
-            "w": 0.547,
+            "w": 0.695,
             "bottom": 0.918,
             "cx": 0.5
           }
@@ -4193,9 +4193,9 @@
           "h": 288,
           "target": "images/skills/soulBond.webp",
           "fit": {
-            "h": 0.719,
+            "h": 0.707,
             "w": 0.836,
-            "bottom": 0.859,
+            "bottom": 0.855,
             "cx": 0.5
           }
         },
@@ -4210,9 +4210,9 @@
           "target": "images/skills/restlessSouls.webp",
           "round": true,
           "fit": {
-            "h": 0.633,
-            "w": 0.672,
-            "bottom": 0.816,
+            "h": 0.672,
+            "w": 0.625,
+            "bottom": 0.836,
             "cx": 0.5
           }
         },
@@ -4226,9 +4226,9 @@
           "h": 288,
           "target": "images/skills/spiritLantern.webp",
           "fit": {
-            "h": 0.656,
+            "h": 0.844,
             "w": 0.844,
-            "bottom": 0.828,
+            "bottom": 0.922,
             "cx": 0.5
           }
         }
@@ -4260,9 +4260,9 @@
           "h": 288,
           "target": "images/skills/hauntingWail.webp",
           "fit": {
-            "h": 0.648,
+            "h": 0.789,
             "w": 0.84,
-            "bottom": 0.824,
+            "bottom": 0.895,
             "cx": 0.502
           }
         },
@@ -4294,8 +4294,8 @@
           "target": "images/skills/releaseSouls.webp",
           "fit": {
             "h": 0.84,
-            "w": 0.594,
-            "bottom": 0.918,
+            "w": 0.688,
+            "bottom": 0.922,
             "cx": 0.5
           }
         },
@@ -4310,9 +4310,9 @@
           "target": "images/skills/lanternKeeper.webp",
           "round": true,
           "fit": {
-            "h": 0.844,
-            "w": 0.422,
-            "bottom": 0.922,
+            "h": 0.77,
+            "w": 0.648,
+            "bottom": 0.887,
             "cx": 0.5
           }
         },
@@ -4327,7 +4327,7 @@
           "target": "images/skills/wispSwarm.webp",
           "fit": {
             "h": 0.84,
-            "w": 0.813,
+            "w": 0.805,
             "bottom": 0.918,
             "cx": 0.5
           }
@@ -4342,9 +4342,9 @@
           "h": 288,
           "target": "images/skills/processionOfSouls.webp",
           "fit": {
-            "h": 0.52,
+            "h": 0.625,
             "w": 0.844,
-            "bottom": 0.762,
+            "bottom": 0.813,
             "cx": 0.5
           }
         }
@@ -4376,9 +4376,9 @@
           "h": 288,
           "target": "images/skills/palmStrike.webp",
           "fit": {
-            "h": 0.836,
-            "w": 0.805,
-            "bottom": 0.918,
+            "h": 0.734,
+            "w": 0.844,
+            "bottom": 0.867,
             "cx": 0.5
           }
         },
@@ -4393,9 +4393,9 @@
           "target": "images/skills/ironBody.webp",
           "round": true,
           "fit": {
-            "h": 0.758,
+            "h": 0.75,
             "w": 0.68,
-            "bottom": 0.879,
+            "bottom": 0.875,
             "cx": 0.5
           }
         },
@@ -4409,9 +4409,9 @@
           "h": 288,
           "target": "images/skills/flyingKick.webp",
           "fit": {
-            "h": 0.5,
+            "h": 0.77,
             "w": 0.84,
-            "bottom": 0.75,
+            "bottom": 0.887,
             "cx": 0.502
           }
         },
@@ -4425,9 +4425,9 @@
           "h": 288,
           "target": "images/skills/tigerStance.webp",
           "fit": {
-            "h": 0.836,
-            "w": 0.813,
-            "bottom": 0.918,
+            "h": 0.844,
+            "w": 0.766,
+            "bottom": 0.922,
             "cx": 0.5
           }
         },
@@ -4458,9 +4458,9 @@
           "target": "images/skills/flowingFists.webp",
           "round": true,
           "fit": {
-            "h": 0.586,
-            "w": 0.766,
-            "bottom": 0.793,
+            "h": 0.609,
+            "w": 0.688,
+            "bottom": 0.805,
             "cx": 0.5
           }
         }
@@ -4492,10 +4492,10 @@
           "h": 288,
           "target": "images/skills/hundredFists.webp",
           "fit": {
-            "h": 0.648,
-            "w": 0.844,
-            "bottom": 0.824,
-            "cx": 0.5
+            "h": 0.84,
+            "w": 0.809,
+            "bottom": 0.922,
+            "cx": 0.498
           }
         },
         {
@@ -4509,9 +4509,9 @@
           "target": "images/skills/risingDragon.webp",
           "fit": {
             "h": 0.836,
-            "w": 0.68,
+            "w": 0.816,
             "bottom": 0.918,
-            "cx": 0.5
+            "cx": 0.502
           }
         },
         {
@@ -4525,9 +4525,9 @@
           "target": "images/skills/cranesGrace.webp",
           "round": true,
           "fit": {
-            "h": 0.738,
-            "w": 0.547,
-            "bottom": 0.871,
+            "h": 0.719,
+            "w": 0.57,
+            "bottom": 0.859,
             "cx": 0.5
           }
         },
@@ -4541,10 +4541,10 @@
           "h": 288,
           "target": "images/skills/whirlwindKick.webp",
           "fit": {
-            "h": 0.82,
-            "w": 0.84,
-            "bottom": 0.91,
-            "cx": 0.498
+            "h": 0.762,
+            "w": 0.844,
+            "bottom": 0.883,
+            "cx": 0.5
           }
         },
         {
@@ -4558,10 +4558,10 @@
           "target": "images/skills/tigersFury.webp",
           "round": true,
           "fit": {
-            "h": 0.738,
-            "w": 0.645,
-            "bottom": 0.871,
-            "cx": 0.498
+            "h": 0.711,
+            "w": 0.617,
+            "bottom": 0.855,
+            "cx": 0.5
           }
         },
         {
@@ -4575,7 +4575,7 @@
           "target": "images/skills/mountainPalm.webp",
           "fit": {
             "h": 0.84,
-            "w": 0.695,
+            "w": 0.797,
             "bottom": 0.918,
             "cx": 0.5
           }
@@ -4609,7 +4609,7 @@
           "target": "images/skills/sharpNote.webp",
           "fit": {
             "h": 0.836,
-            "w": 0.719,
+            "w": 0.758,
             "bottom": 0.918,
             "cx": 0.5
           }
@@ -4626,7 +4626,7 @@
           "round": true,
           "fit": {
             "h": 0.688,
-            "w": 0.656,
+            "w": 0.703,
             "bottom": 0.844,
             "cx": 0.5
           }
@@ -4641,8 +4641,8 @@
           "h": 288,
           "target": "images/skills/marchingSong.webp",
           "fit": {
-            "h": 0.84,
-            "w": 0.711,
+            "h": 0.836,
+            "w": 0.672,
             "bottom": 0.918,
             "cx": 0.5
           }
@@ -4658,9 +4658,9 @@
           "target": "images/skills/lullaby.webp",
           "fit": {
             "h": 0.84,
-            "w": 0.805,
+            "w": 0.809,
             "bottom": 0.922,
-            "cx": 0.5
+            "cx": 0.502
           }
         },
         {
@@ -4674,9 +4674,9 @@
           "target": "images/skills/longRefrain.webp",
           "round": true,
           "fit": {
-            "h": 0.672,
-            "w": 0.668,
-            "bottom": 0.836,
+            "h": 0.688,
+            "w": 0.699,
+            "bottom": 0.844,
             "cx": 0.502
           }
         },
@@ -4690,9 +4690,9 @@
           "h": 288,
           "target": "images/skills/balladOfValor.webp",
           "fit": {
-            "h": 0.84,
-            "w": 0.75,
-            "bottom": 0.918,
+            "h": 0.82,
+            "w": 0.844,
+            "bottom": 0.91,
             "cx": 0.5
           }
         }
@@ -4741,10 +4741,10 @@
           "target": "images/skills/virtuoso.webp",
           "round": true,
           "fit": {
-            "h": 0.75,
-            "w": 0.754,
-            "bottom": 0.875,
-            "cx": 0.498
+            "h": 0.707,
+            "w": 0.727,
+            "bottom": 0.852,
+            "cx": 0.5
           }
         },
         {
@@ -4774,7 +4774,7 @@
           "target": "images/skills/crescendo.webp",
           "fit": {
             "h": 0.766,
-            "w": 0.836,
+            "w": 0.844,
             "bottom": 0.883,
             "cx": 0.5
           }
@@ -4790,9 +4790,9 @@
           "target": "images/skills/standingOvation.webp",
           "round": true,
           "fit": {
-            "h": 0.742,
-            "w": 0.664,
-            "bottom": 0.871,
+            "h": 0.664,
+            "w": 0.773,
+            "bottom": 0.832,
             "cx": 0.5
           }
         },
@@ -4806,9 +4806,9 @@
           "h": 288,
           "target": "images/skills/grandFinale.webp",
           "fit": {
-            "h": 0.844,
-            "w": 0.797,
-            "bottom": 0.922,
+            "h": 0.797,
+            "w": 0.844,
+            "bottom": 0.898,
             "cx": 0.5
           }
         }

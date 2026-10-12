@@ -73,6 +73,26 @@ const CLOUD = (c: Cls = 'w'): string => P('M12 34a8 8 0 0 1 2-16 10 10 0 0 1 19-
 const BANNER = (c: Cls = 'a'): string => R(10, 3, 4, 42, 2, 'k') + P('M14 7h26l-6 9 6 9H14z', c)
 const TARGET = (): string => C(24, 24, 18, 'w') + C(24, 24, 11.5, 'a') + C(24, 24, 5, 'w')
 const WALL = (c: Cls = 'a'): string => R(5, 12, 17, 11, 2, c) + R(26, 12, 17, 11, 2, c) + R(5, 26, 11, 11, 2, c) + R(19, 26, 17, 11, 2, c) + R(39, 26, 4, 11, 2, c)
+/** A friendly flame-shaped spirit with two dot eyes. */
+const WISP = (c: Cls = 'b'): string =>
+  P('M24 6c7 6 12 12 12 21a12 12 0 0 1-24 0c0-5 3-8 5-11 0 3 2 5 3 5-1-6 1-10 4-15z', c) + C(19.5, 27, 2.6, 'd') + C(28.5, 27, 2.6, 'd')
+/** A hanging lantern: hook, cap, glass with a glow, base. */
+const LANTERN = (c: Cls = 'g'): string =>
+  R(21, 2, 6, 7, 3, 'k') + P('M13 15l5-7h12l5 7z', c) + R(16, 14, 16, 21, 3, 'w') + C(24, 25, 5, 'g') + R(15, 14, 4, 21, 2, c) + R(29, 14, 4, 21, 2, c) + P('M13 34h22l-4 7H17z', c)
+/** A little sheet ghost with a wavy hem. */
+const GHOST = (): string => P('M12 44V22c0-10 6-16 12-16s12 6 12 16v22l-4-4-4 4-4-4-4 4-4-4z', 'w') + C(20, 22, 2.4, 'd') + C(28, 22, 2.4, 'd')
+/** An open palm, fingers up, thumb out to the left. */
+const HAND = (c: Cls = 'a'): string =>
+  G('rotate(-35 14 32)', R(3, 28, 16, 7, 3.5, c)) + R(13, 9, 6, 18, 3, c) + R(19.5, 4, 6, 20, 3, c) + R(26, 5, 6, 19, 3, c) + R(32, 10, 5.5, 15, 2.75, c) + R(12, 20, 26, 24, 8, c)
+/** A clenched fist, knuckles up, thumb across the front. */
+const FIST = (c: Cls = 'a'): string =>
+  R(16, 32, 16, 12, 3, c) + R(10, 12, 28, 24, 8, c) + P('M17.5 13v9M24 13v9M30.5 13v9', 'i') + R(9, 23, 19, 8, 4, c)
+/** A solid eighth note: stem, flag, a tilted head. */
+const NOTE = (c: Cls = 'a'): string =>
+  R(20, 7, 5, 30, 2.5, c) + P('M22 5c7 2 15 5 15 15 0 4-2 7-4 9 1-7-3-11-11-12z', c) + G('rotate(-22 16 37)', P('M7 37a9 6.5 0 1 0 18 0a9 6.5 0 1 0-18 0z', c))
+/** A lute: a pear-shaped body, a sound hole, the neck to the upper right. */
+const LUTE = (c: Cls = 'a'): string =>
+  G('rotate(45 24 24)', R(21, -4, 6, 26, 2, 'k') + R(19.5, -6, 9, 7, 2, 'k')) + P('M14 17c8-2 15 3 16 11 1 8-5 16-14 16S2 37 3 29c1-6 6-11 11-12z', c) + C(16, 30, 4, 'd')
 const SPIRAL = (): string => `<path class="n" style="stroke-width:5" d="M24 24a3 3 0 1 1 6 0 9 9 0 1 1-18 0 15 15 0 1 1 30 0"/>`
 
 // ── The glyphs ───────────────────────────────────────────────────────────────
@@ -281,59 +301,59 @@ export const GLYPHS: Readonly<Record<string, string>> = {
 
   // ── Elementalist (#95) ──
   'skill.prismBolt': P('M24 4l14 20-14 20-14-20z', 'r') + P('M24 4l14 20-14 20z', 'u') + P('M24 4l-5 20 5 20 5-20z', 'b'),
-  'skill.elementalHarmony': C(24, 24, 16, 'n') + C(24, 8, 5, 'r') + C(40, 24, 5, 'u') + C(24, 40, 5, 'g') + C(8, 24, 5, 'm'),
-  'skill.frostLance': P('M2 27L34 19l12 5-12 5z', 'u') + P('M8 26l26-5v4z', 'w'),
+  'skill.elementalHarmony': C(24, 24, 15, 'n') + C(24, 9, 7, 'r') + C(39, 24, 7, 'u') + C(24, 39, 7, 'g') + C(9, 24, 7, 'm'),
+  'skill.frostLance': P('M10 21l3-7 3 7zM21 21l3-6 3 6zM15 27l3 7 3-7z', 'u') + R(3, 20, 30, 8, 4, 'u') + P('M28 24l8-10 10 10-10 10z', 'u') + P('M7 23h20', 'n'),
   'skill.chainSpark': P('M28 2L12 22h9l-5 12 8-6-2 18 14-24h-9l6-14z', 'g') + star(8, 12, 5, 2, 4, 'w', 0) + star(40, 38, 5, 2, 4, 'w', 0) + star(8, 36, 4, 1.6, 4, 'w', 0),
-  'skill.smolderingCore': P('M6 40l5-18 11-10 13 4 7 16-5 10H12z', 'k') + P('M14 26l7 5-3 8 6-4 5 6 1-9 7-3-8-2-2-7-4 6z', 'r') + C(24, 32, 4, 'g') + G('translate(28 -2) scale(0.4)', DROP('u')),
-  'skill.rollingBoulder': G('translate(-6 -8) scale(1.25)', ROCK('m')),
-  'skill.thunderSnow': P('M8 18c-6 0-6-10 1-10 0-6 10-8 14-3 4-5 15-3 14 3 7 0 7 10 0 10z', 'b') + star(14, 32, 7, 2.5, 6, 'u', 0) + G('translate(20 18) scale(0.5)', BOLT('g')),
-  'skill.spellweave': P('M6 10c12 8 24 20 36 28M6 38c12-8 24-20 36-28', 'n') + star(24, 24, 9, 3.5, 4, 'g', 0),
-  'skill.prismaticNova': P('M24 24L24 2M24 24L46 24M24 24L24 46M24 24L2 24', 'n') + C(24, 4, 4, 'r') + C(44, 24, 4, 'u') + C(24, 44, 4, 'g') + C(4, 24, 4, 'm') + C(24, 24, 5, 'w'),
-  'skill.prismaticWard': P('M24 4l18 10v20L24 44 6 34V14z', 'b') + P('M24 4v40M6 14l36 20M42 14L6 34', 'n'),
-  'skill.frostfireComet': C(32, 16, 8, 'w') + P('M26 20L4 42l4-14z', 'r') + P('M28 22L10 44l12-8z', 'u'),
-  'skill.elementalConvergence': R(22, 14, 4, 32, 2, 'm') + C(24, 12, 5, 'w') + C(24, 8, 5, 'r') + C(40, 24, 5, 'u') + C(24, 28, 4, 'g') + C(8, 24, 5, 'm'),
+  'skill.smolderingCore': P('M7 37c-2-8 1-16 8-20 6-3 13-3 19 0 7 4 9 12 7 20-1 4-5 7-9 7H16c-4 0-8-3-9-7z', 'k') + P('M11 27l9 2 4-7 3 7 9-3-6 7 7 5-10-1-3 7-2-7-8 2 5-6z', 'r') + C(24, 31, 4.5, 'g') + G('translate(25 -4) scale(0.4)', DROP('u')),
+  'skill.rollingBoulder': G('translate(-3 30) scale(0.4)', CLOUD('w')) + C(26, 24, 17, 'm') + P('M15 17l6 5-2 6 5 3', 'i') + P('M31 11l-2 6 5 4', 'i') + P('M29 33l4 5', 'i'),
+  'skill.thunderSnow': P('M8 18c-6 0-6-10 1-10 0-6 10-8 14-3 4-5 15-3 14 3 7 0 7 10 0 10z', 'b') + star(14, 33, 9, 3.5, 6, 'u', 0) + G('translate(19 17) scale(0.62)', BOLT('g')),
+  'skill.spellweave': G('rotate(40 24 24)', R(2, 20, 44, 8, 4, 'u')) + G('rotate(-40 24 24)', R(2, 20, 44, 8, 4, 'r')) + star(24, 24, 11, 4, 4, 'g', 0),
+  'skill.prismaticNova': (['r', 'u', 'g', 'm'] as const).map((c, i) => G(`rotate(${i * 90} 24 24)`, P('M24 2l6 14-6 8-6-8z', c))).join('') + star(24, 24, 9, 5, 8, 'w'),
+  'skill.prismaticWard': P('M24 4l18 10v20L24 44 6 34V14z', 'u') + G('translate(12 12) scale(0.5)', P('M24 4l18 10v20L24 44 6 34V14z', 'w')),
+  'skill.frostfireComet': P('M27 9C17 14 9 22 3 36c8-6 15-9 24-12z', 'r') + P('M39 21c-5 10-13 17-25 22 4-7 10-13 16-19z', 'u') + C(33, 15, 10, 'w'),
+  'skill.elementalConvergence': R(21, 20, 6, 26, 3, 'k') + C(24, 16, 7, 'w') + C(13, 6, 4.5, 'r') + C(35, 6, 4.5, 'u') + C(9, 22, 4.5, 'g') + C(39, 22, 4.5, 'm'),
 
   // ── Soul Warden (#95) ──
-  'skill.wispBolt': G('translate(-4 -4) scale(1)', P('M24 10c8 0 12 8 12 16 0 10-6 16-12 16-4 0-6-4-4-8-6 2-8-4-6-8 2-10 4-16 10-16z', 'b') + C(20, 24, 2.2, 'd') + C(28, 24, 2.2, 'd')) + P('M8 40q6 4 10-2', 'n'),
+  'skill.wispBolt': G('translate(4 0) rotate(65 24 24)', P('M24 6c7 6 12 12 12 21a12 12 0 0 1-24 0c0-5 3-8 5-11 0 3 2 5 3 5-1-6 1-10 4-15z', 'b')) + C(19, 25, 2.6, 'd') + C(27, 25, 2.6, 'd') + P('M3 20h9M3 34h9', 'n'),
   'skill.kindredSpirits': G('translate(-10 4) scale(0.75)', P('M12 44V22c0-10 6-16 12-16s12 6 12 16v22l-4-4-4 4-4-4-4 4-4-4z', 'w') + C(20, 22, 2.4, 'd') + C(28, 22, 2.4, 'd')) + G('translate(16 4) scale(0.75)', P('M12 44V22c0-10 6-16 12-16s12 6 12 16v22l-4-4-4 4-4-4-4 4-4-4z', 'w') + C(20, 22, 2.4, 'd') + C(28, 22, 2.4, 'd')) + G('translate(18 0) scale(0.3)', HEART('a')),
-  'skill.callTheFallen': P('M8 30h32v6c0 6-6 10-16 10S8 42 8 36z', 'b') + G('translate(2 -6) scale(0.4)', P('M24 10c8 0 12 8 12 16 0 10-6 16-12 16-4 0-6-4-4-8-6 2-8-4-6-8 2-10 4-16 10-16z', 'b') + C(20, 24, 2.2, 'd') + C(28, 24, 2.2, 'd')) + G('translate(14 -10) scale(0.4)', P('M24 10c8 0 12 8 12 16 0 10-6 16-12 16-4 0-6-4-4-8-6 2-8-4-6-8 2-10 4-16 10-16z', 'b') + C(20, 24, 2.2, 'd') + C(28, 24, 2.2, 'd')) + G('translate(26 -6) scale(0.4)', P('M24 10c8 0 12 8 12 16 0 10-6 16-12 16-4 0-6-4-4-8-6 2-8-4-6-8 2-10 4-16 10-16z', 'b') + C(20, 24, 2.2, 'd') + C(28, 24, 2.2, 'd')),
-  'skill.soulBond': G('translate(-8 0) scale(0.6)', P('M24 10c8 0 12 8 12 16 0 10-6 16-12 16-4 0-6-4-4-8-6 2-8-4-6-8 2-10 4-16 10-16z', 'b') + C(20, 24, 2.2, 'd') + C(28, 24, 2.2, 'd')) + G('translate(20 0) scale(0.6)', P('M24 10c8 0 12 8 12 16 0 10-6 16-12 16-4 0-6-4-4-8-6 2-8-4-6-8 2-10 4-16 10-16z', 'b') + C(20, 24, 2.2, 'd') + C(28, 24, 2.2, 'd')) + P('M12 32c6 8 18 8 24 0l-3 6c-6 4-12 4-18 0z', 'g'),
-  'skill.restlessSouls': P('M24 10c8 0 12 8 12 16 0 10-6 16-12 16-4 0-6-4-4-8-6 2-8-4-6-8 2-10 4-16 10-16z', 'b') + C(20, 24, 2.2, 'd') + C(28, 24, 2.2, 'd') + P('M4 44h6M14 44h6M24 44h6M34 44h6', 'n'),
-  'skill.spiritLantern': R(16, 14, 16, 24, 4, 'g') + R(19, 17, 10, 18, 3, 'w') + P('M24 4v10M18 10h12', 'n') + P('M8 26H2M46 26h-6M10 14l-4-4M38 14l4-4', 'n'),
-  'skill.hauntingWail': C(22, 24, 16, 'w') + C(16, 20, 2.4, 'd') + C(28, 20, 2.4, 'd') + C(22, 30, 4, 'd') + P('M40 16q6 8 0 16M44 12q8 12 0 24', 'n'),
-  'skill.wardensVigil': SHIELD('b') + G('translate(12 10) scale(0.5)', R(16, 14, 16, 24, 4, 'g') + R(19, 17, 10, 18, 3, 'w') + P('M24 4v10M18 10h12', 'n')),
-  'skill.releaseSouls': star(24, 26, 16, 6, 6, 'b') + P('M14 10v-6M24 8V2M34 10v-6', 'n') + C(24, 26, 5, 'w'),
-  'skill.lanternKeeper': R(16, 14, 16, 24, 4, 'g') + R(19, 17, 10, 18, 3, 'w') + P('M24 4v10M18 10h12', 'n') + P('M24 22v6l3 2', 'n'),
-  'skill.wispSwarm': G('translate(-6 -6) scale(0.4)', P('M24 10c8 0 12 8 12 16 0 10-6 16-12 16-4 0-6-4-4-8-6 2-8-4-6-8 2-10 4-16 10-16z', 'b') + C(20, 24, 2.2, 'd') + C(28, 24, 2.2, 'd')) + G('translate(6 -10) scale(0.4)', P('M24 10c8 0 12 8 12 16 0 10-6 16-12 16-4 0-6-4-4-8-6 2-8-4-6-8 2-10 4-16 10-16z', 'b') + C(20, 24, 2.2, 'd') + C(28, 24, 2.2, 'd')) + G('translate(18 -10) scale(0.4)', P('M24 10c8 0 12 8 12 16 0 10-6 16-12 16-4 0-6-4-4-8-6 2-8-4-6-8 2-10 4-16 10-16z', 'b') + C(20, 24, 2.2, 'd') + C(28, 24, 2.2, 'd')) + G('translate(30 -6) scale(0.4)', P('M24 10c8 0 12 8 12 16 0 10-6 16-12 16-4 0-6-4-4-8-6 2-8-4-6-8 2-10 4-16 10-16z', 'b') + C(20, 24, 2.2, 'd') + C(28, 24, 2.2, 'd')) + P('M8 26l4 14M20 22l2 16M30 22l-2 16M40 26l-4 14', 'n'),
-  'skill.processionOfSouls': G('translate(30 8) scale(0.45)', R(16, 14, 16, 24, 4, 'g') + R(19, 17, 10, 18, 3, 'w') + P('M24 4v10M18 10h12', 'n')) + G('translate(-2 12) scale(0.5)', P('M12 44V22c0-10 6-16 12-16s12 6 12 16v22l-4-4-4 4-4-4-4 4-4-4z', 'w') + C(20, 22, 2.4, 'd') + C(28, 22, 2.4, 'd')) + G('translate(10 12) scale(0.5)', P('M12 44V22c0-10 6-16 12-16s12 6 12 16v22l-4-4-4 4-4-4-4 4-4-4z', 'w') + C(20, 22, 2.4, 'd') + C(28, 22, 2.4, 'd')) + G('translate(22 12) scale(0.5)', P('M12 44V22c0-10 6-16 12-16s12 6 12 16v22l-4-4-4 4-4-4-4 4-4-4z', 'w') + C(20, 22, 2.4, 'd') + C(28, 22, 2.4, 'd')),
+  'skill.callTheFallen': P('M14 46V30a10 10 0 0 1 20 0v16z', 'm') + P('M24 31v9M20 35h8', 'i') + G('translate(-2 -4) scale(0.38)', WISP('b')) + G('translate(15 -9) scale(0.38)', WISP('b')) + G('translate(32 -4) scale(0.38)', WISP('b')),
+  'skill.soulBond': G('translate(-6 12) scale(0.66)', WISP('b')) + G('translate(22 12) scale(0.66)', WISP('b')) + G('translate(14 -2) scale(0.42)', HEART('g')),
+  'skill.restlessSouls': P('M3 46c4-8 12-11 21-11s17 3 21 11z', 'k') + G('translate(6 -4) scale(0.75)', WISP('b')),
+  'skill.spiritLantern': RAYS('w') + G('translate(5 5) scale(0.8)', LANTERN('g')),
+  'skill.hauntingWail': G('translate(-6 0)', P('M12 44V22c0-10 6-16 12-16s12 6 12 16v22l-4-4-4 4-4-4-4 4-4-4z', 'w') + C(20, 19, 2.4, 'd') + C(28, 19, 2.4, 'd') + C(24, 29, 4.5, 'd')) + P('M37 17q5 7 0 14M42 12q8 12 0 24', 'n'),
+  'skill.wardensVigil': SHIELD('b') + G('translate(12 9) scale(0.5)', LANTERN('g')),
+  'skill.releaseSouls': P('M13 26h22v13a6 6 0 0 1-6 6H19a6 6 0 0 1-6-6z', 'k') + R(11, 22, 26, 6, 3, 'k') + G('translate(-1 -2) scale(0.36)', WISP('b')) + G('translate(15 -6) scale(0.36)', WISP('b')) + G('translate(31 -2) scale(0.36)', WISP('b')),
+  'skill.lanternKeeper': G('translate(-4 2)', LANTERN('g')) + G('translate(25 25) scale(0.42)', CLOCK('w')),
+  'skill.wispSwarm': G('translate(-3 -2) scale(0.5)', WISP('b')) + G('translate(22 -4) scale(0.44)', WISP('b')) + G('translate(4 21) scale(0.44)', WISP('b')) + G('translate(23 19) scale(0.56)', WISP('b')),
+  'skill.processionOfSouls': G('translate(-4 14) scale(0.48)', GHOST()) + G('translate(8 14) scale(0.48)', GHOST()) + G('translate(20 14) scale(0.48)', GHOST()) + G('translate(27 4) scale(0.45)', LANTERN('g')),
 
   // ── Iron Monk (#95) ──
-  'skill.palmStrike': P('M14 44V22l-4-8 3-2 5 6V8h4v14V6h4v16V8h4v14l4-6 3 2-5 10v16z', 'a') + P('M40 14h6M40 22h6M40 30h6', 'n'),
-  'skill.ironBody': P('M12 8h24l4 10-4 26H12L8 18z', 'm') + C(16, 14, 1.8, 'd') + C(32, 14, 1.8, 'd') + C(16, 38, 1.8, 'd') + C(32, 38, 1.8, 'd'),
-  'skill.flyingKick': P('M6 42l12-14 6 2 12-10 8 4-2 6-8 2-10 8-8-2-8 6z', 'a') + P('M36 20l8 4-3 4-8-2z', 'k') + P('M2 28l8-4M2 36l6-2', 'b'),
-  'skill.tigerStance': C(24, 30, 9, 'g') + C(14, 18, 4, 'g') + C(22, 12, 4, 'g') + C(30, 12, 4, 'g') + C(36, 18, 4, 'g') + P('M18 30l4-4M26 34l4-4', 'n'),
+  'skill.palmStrike': G('translate(-4 2)', HAND('a')) + P('M38 14h7M39 23h7M38 32h7', 'n'),
+  'skill.ironBody': P('M10 10l8-4h12l8 4 3 10-4 24H11L7 20z', 'm') + P('M24 9v33', 'i') + R(11, 34, 26, 5, 2, 'k'),
+  'skill.flyingKick': G('rotate(-60 13 36)', R(3, 30, 22, 12, 6, 'a')) + G('rotate(-25 26 22)', R(14, 16, 26, 11, 5.5, 'a')) + G('rotate(-25 40 14)', R(36, 5, 9, 18, 3, 'k')) + P('M3 14l8-2M3 23l7-1', 'n'),
+  'skill.tigerStance': P('M24 22c8 0 14 7 14 14 0 6-5 8-9 7-3-1-3-2-5-2s-2 1-5 2c-4 1-9-1-9-7 0-7 6-14 14-14z', 'g') + C(11, 18, 4.5, 'g') + C(19, 9, 4.5, 'g') + C(29, 9, 4.5, 'g') + C(37, 18, 4.5, 'g'),
   'skill.craneStance': P('M30 6c4 0 6 3 5 6l-5 8c6 2 10 8 10 14-8 0-14-4-18-10l-12-4 12-2c2-6 4-12 8-12z', 'w') + P('M35 9l9 2-9 2z', 'g') + P('M26 30v14M26 36l-4-2', 'i') + C(32, 9, 1.4, 'd'),
-  'skill.flowingFists': G('translate(0 2) scale(0.8)', R(12, 16, 24, 20, 6, 'a') + P('M18 16v8M24 16v8M30 16v8', 'n') + R(8, 22, 8, 10, 4, 'a')) + P('M4 40c6-6 12 6 18 0s12 6 18 0', 'n'),
-  'skill.hundredFists': G('translate(-4 -2) scale(0.5)', R(12, 16, 24, 20, 6, 'a') + P('M18 16v8M24 16v8M30 16v8', 'n') + R(8, 22, 8, 10, 4, 'a')) + G('translate(16 -6) scale(0.5)', R(12, 16, 24, 20, 6, 'a') + P('M18 16v8M24 16v8M30 16v8', 'n') + R(8, 22, 8, 10, 4, 'a')) + G('translate(6 14) scale(0.5)', R(12, 16, 24, 20, 6, 'a') + P('M18 16v8M24 16v8M30 16v8', 'n') + R(8, 22, 8, 10, 4, 'a')) + G('translate(24 16) scale(0.5)', R(12, 16, 24, 20, 6, 'a') + P('M18 16v8M24 16v8M30 16v8', 'n') + R(8, 22, 8, 10, 4, 'a')),
-  'skill.risingDragon': G('translate(2 10) scale(0.7)', R(12, 16, 24, 20, 6, 'a') + R(8, 22, 8, 10, 4, 'a')) + P('M8 42c-6-10 2-22 12-22s14-8 10-16c8 2 12 10 8 18-4 6-12 6-14 12', 'b') + P('M30 4l4-4 2 6z', 'b'),
-  'skill.cranesGrace': P('M36 4C20 8 10 22 10 40l4-2c2-12 10-24 22-34z', 'w') + P('M10 40L34 6', 'n'),
-  'skill.whirlwindKick': P('M24 6a18 18 0 1 1-17 22', 'b') + P('M8 22c2 6 8 4 10 10l14-4 8 4-4 6-16 2c-8 0-12-6-12-18z', 'a') + P('M36 32l8 0-2 6z', 'k'),
-  'skill.tigersFury': G('translate(6 10) scale(0.75)', R(12, 16, 24, 20, 6, 'a') + P('M18 16v8M24 16v8M30 16v8', 'n') + R(8, 22, 8, 10, 4, 'a')) + P('M10 4l14 14M18 2l14 14M26 4l14 14', 'r'),
-  'skill.mountainPalm': P('M4 44l14-20 6 8 8-14 12 26z', 'b') + G('translate(10 -10) scale(0.6)', P('M14 44V22l-4-8 3-2 5 6V8h4v14V6h4v16V8h4v14l4-6 3 2-5 10v16z', 'a')),
+  'skill.flowingFists': G('translate(6 -2) scale(0.75)', FIST('a')) + P('M2 38c5-6 10-6 15 0s10 6 15 0 10-6 14 0v8H2z', 'u'),
+  'skill.hundredFists': G('translate(-1 -1) scale(0.5)', FIST('a')) + G('translate(23 -3) scale(0.5)', FIST('a')) + G('translate(1 22) scale(0.5)', FIST('a')) + G('translate(24 21) scale(0.5)', FIST('a')),
+  'skill.risingDragon': P('M6 44c-3-12 6-19 17-17s16-8 13-21c7 6 9 15 3 23-6 8-17 4-23 11-3 3-6 5-10 4z', 'b') + G('translate(11 4) scale(0.6)', FIST('a')),
+  'skill.cranesGrace': P('M39 4C25 6 13 18 11 34l-3 10 7-6c14-2 25-14 24-34z', 'w') + P('M9 43L36 8', 'i') + P('M20 26l-5-1M26 18l-5-1', 'i'),
+  'skill.whirlwindKick': P('M5 30A19 19 0 0 1 43 22c-5-7-11-10-19-10S9 18 5 30z', 'b') + G('rotate(-12 22 34)', R(4, 28, 28, 11, 5.5, 'a') + R(30, 25, 10, 17, 3, 'k')),
+  'skill.tigersFury': G('translate(14 14) scale(0.68)', FIST('a')) + G('translate(3 2)', P('M0 0c5 1 10 7 17 19-7-4-13-10-17-19z', 'r')) + G('translate(11 1)', P('M0 0c5 1 10 7 17 19-7-4-13-10-17-19z', 'r')) + G('translate(19 2)', P('M0 0c5 1 10 7 17 19-7-4-13-10-17-19z', 'r')),
+  'skill.mountainPalm': P('M2 46l14-20 6 6 8-14 16 28z', 'm') + P('M30 18l5 7-3-1-2 3-2-3-3 1z', 'w') + G('translate(13 -3) scale(0.48)', HAND('a')),
 
   // ── Bard (#95) ──
-  'skill.sharpNote': P('M18 36V8l18-4v8l-14 3v21', 'n') + C(14, 36, 6, 'a') + star(36, 8, 6, 2.4, 4, 'g', 0),
-  'skill.stagePresence': R(6, 34, 36, 10, 2, 'm') + star(24, 18, 12, 5, 5, 'g'),
-  'skill.marchingSong': P('M8 22a16 6 0 1 0 32 0v14a16 6 0 1 1-32 0z', 'a') + P('M8 22a16 6 0 1 0 32 0a16 6 0 1 0-32 0', 'w') + P('M14 4l10 14M34 4L24 18', 'n'),
-  'skill.lullaby': P('M30 4a12 12 0 1 0 0 20a14 14 0 0 1 0-20z', 'g') + P('M8 30h8l-8 8h8', 'n') + G('translate(18 10) scale(0.7)', P('M18 36V8l18-4v8l-14 3v21', 'n') + C(14, 36, 6, 'a')),
-  'skill.longRefrain': P('M18 36V8l18-4v8l-14 3v21', 'n') + C(14, 36, 6, 'a') + P('M20 40c6-6 10 6 16 0s8 6 10 0', 'n'),
-  'skill.balladOfValor': P('M18 24c-8 2-12 10-8 16s14 6 18-2 2-14-10-14z', 'a') + P('M22 26L40 6', 'n') + C(19, 33, 3, 'd') + G('rotate(-40 24 24) translate(4 0)', SWORD('m')),
-  'skill.charmingSerenade': HEART('a') + G('translate(10 6) scale(0.55)', P('M18 36V8l18-4v8l-14 3v21', 'n') + C(14, 36, 6, 'w')),
-  'skill.virtuoso': P('M18 24c-8 2-12 10-8 16s14 6 18-2 2-14-10-14z', 'a') + P('M22 26L40 6', 'n') + C(19, 33, 3, 'd') + star(40, 18, 5, 2, 4, 'g', 0) + star(34, 30, 4, 1.6, 4, 'g', 0) + star(44, 30, 3.5, 1.4, 4, 'g', 0),
-  'skill.hymnOfMending': R(18, 6, 12, 36, 2, 'e') + R(6, 18, 36, 12, 2, 'e') + G('translate(10 8) scale(0.55)', P('M18 36V8l18-4v8l-14 3v21', 'n') + C(14, 36, 6, 'w')),
-  'skill.crescendo': P('M4 34L26 14l4 22z', 'a') + P('M26 14l14-8v34l-10-4z', 'b') + star(40, 8, 6, 2.4, 4, 'g', 0),
-  'skill.standingOvation': P('M8 44V26c0-6 6-8 8-2l2 8V12c0-3 5-3 5 0v12V8c0-3 5-3 5 0v16V12c0-3 5-3 5 0v20l4-6c2-4 7-2 5 2l-6 14-2 6z', 'b') + star(10, 10, 5, 2, 4, 'g', 0) + star(40, 8, 4, 1.6, 4, 'g', 0),
-  'skill.grandFinale': G('translate(0 8) scale(0.8)', P('M18 24c-8 2-12 10-8 16s14 6 18-2 2-14-10-14z', 'a') + P('M22 26L40 6', 'n') + C(19, 33, 3, 'd')) + star(36, 12, 11, 4, 8, 'g', 0),
+  'skill.sharpNote': NOTE('a') + star(39, 8, 6, 2.4, 4, 'g', 0),
+  'skill.stagePresence': R(4, 33, 40, 11, 3, 'k') + R(3, 30, 42, 6, 3, 'w') + star(24, 16, 13, 5.5, 5, 'g'),
+  'skill.marchingSong': G('rotate(-35 24 14)', R(22, 0, 4, 22, 2, 'k')) + G('rotate(35 24 14)', R(22, 0, 4, 22, 2, 'k')) + C(13, 5, 3.5, 'w') + C(35, 5, 3.5, 'w') + P('M8 22a16 6 0 1 0 32 0v14a16 6 0 1 1-32 0z', 'a') + P('M8 22a16 6 0 1 0 32 0a16 6 0 1 0-32 0', 'w'),
+  'skill.lullaby': P('M26 4a14 14 0 1 0 6 26A16 16 0 0 1 26 4z', 'g') + G('translate(20 14) scale(0.62)', NOTE('a')) + star(38, 8, 4, 1.6, 4, 'w', 0) + star(8, 40, 3.5, 1.4, 4, 'w', 0),
+  'skill.longRefrain': P('M22 38c6-4 9 4 14 0s7-4 10-2v6c-3-2-5-1-9 2-6 4-9-4-15 0z', 'b') + G('translate(-4 -2)', NOTE('a')),
+  'skill.balladOfValor': LUTE('a') + G('rotate(-40 24 24) translate(4 0)', SWORD('m')),
+  'skill.charmingSerenade': HEART('a') + G('translate(12 7) scale(0.5)', NOTE('w')),
+  'skill.virtuoso': LUTE('a') + star(40, 22, 5, 2, 4, 'g', 0) + star(32, 36, 4, 1.6, 4, 'g', 0) + star(44, 36, 3.5, 1.4, 4, 'g', 0),
+  'skill.hymnOfMending': R(18, 6, 12, 36, 2, 'e') + R(6, 18, 36, 12, 2, 'e') + G('translate(12 11) scale(0.5)', NOTE('w')),
+  'skill.crescendo': G('translate(1 4) scale(0.86) rotate(-40 24 24)', R(2, 21, 24, 6, 3, 'a') + P('M22 20l20-12v32L22 28z', 'a') + P('M42 8a4 16 0 1 1 0 32a4 16 0 1 1 0-32z', 'b')) + star(41, 7, 6, 2.4, 4, 'g', 0),
+  'skill.standingOvation': G('translate(-2 9) rotate(32 24 24) scale(0.72)', HAND('w')) + G('translate(48 0) scale(-1 1) translate(-2 9) rotate(32 24 24) scale(0.72)', HAND('w')) + star(8, 8, 5, 2, 4, 'g', 0) + star(40, 7, 4, 1.6, 4, 'g', 0),
+  'skill.grandFinale': G('translate(-2 10) scale(0.8)', LUTE('a')) + star(35, 13, 12, 6.5, 8, 'g', 0) + C(35, 13, 3, 'w'),
 
   // ── Statuses ──
   'status.stun': star(24, 24, 20, 9, 5, 'g') + C(24, 24, 4, 'w'),
