@@ -137,14 +137,6 @@ export default {
     chi: 'Chi'
   },
   toast: {
-    freed: {
-      lightDisciple: 'Na slobodi! Sestra Aurelle poučavat će put Donositelja svjetla u gradu {town}.',
-      frostDisciple: 'Na slobodi! Ivor će poučavati put Čuvara leda u gradu {town}.',
-      windDisciple: 'Na slobodi! Kestrel će poučavati put Vjetrotrkača u gradu {town}.',
-      freedFarmers: 'Na slobodi! Tollerovi će naći dom u gradu {town}.',
-      freedHerbalist: 'Na slobodi! Travarica Briar čekat će te u gradu {town}.',
-      freedPeddler: 'Na slobodi! Torbar Odo trgovat će u gradu {town}.'
-    },
     cageLocked: 'Zaključano. Ključ mora biti negdje ovdje.',
     cageKey: 'Ključ! Sigurno otvara kavez.',
     ore: 'Iskopano: {n} × {ore}',
@@ -1733,6 +1725,42 @@ export default {
     },
     sovereignsSignet: {
       name: 'Suverenov pečatnjak'
+    },
+    heraldsPin: {
+      name: 'Glasnikova kopča'
+    },
+    hymnalOfTheRoad: {
+      name: 'Pjesmarica puta'
+    },
+    shepherdsCrook: {
+      name: 'Pastirski štap'
+    },
+    minstrelsHat: {
+      name: 'Svirački šešir'
+    },
+    pilgrimsSandals: {
+      name: 'Hodočasničke sandale'
+    },
+    falconersGloves: {
+      name: 'Sokolarske rukavice'
+    },
+    bellOfTheHerd: {
+      name: 'Zvono stada'
+    },
+    bannerOfTheHost: {
+      name: 'Barjak vojske'
+    },
+    heraldsTabard: {
+      name: 'Glasnikov tabard'
+    },
+    codexOfOaths: {
+      name: 'Kodeks zakletvi'
+    },
+    crownOfTheRightfulKing: {
+      name: 'Kruna zakonitog kralja'
+    },
+    scepterOfTheFirstKing: {
+      name: 'Žezlo prvog kralja'
     },
     heartOfTheMountain: {
       name: 'Srce planine'
@@ -4035,6 +4063,36 @@ export default {
       }
     },
     bark: {
+      lightDisciple: {
+        freed: {
+          '1': 'Svjetlo te poslalo. Ja sam Sestra Aurelle. Potraži me u Sunfordu, poučit ću te putu Donositelja svjetla.'
+        }
+      },
+      frostDisciple: {
+        freed: {
+          '1': 'Ovdje si zbog mene? Ivor Hask, učenik Čuvara leda. Dođi u Ironhold i poučit ću te.'
+        }
+      },
+      windDisciple: {
+        freed: {
+          '1': 'Napokon slobodan! Kestrel Vane, s puta Vjetrotrkača. Nađi me u Oakhavenu i poučit ću te.'
+        }
+      },
+      freedFarmers: {
+        freed: {
+          '1': 'Spašeni smo! Mi smo Tollerovi, ratari. Nađi nas u Oakhavenu, kod kuće su nevolje.'
+        }
+      },
+      freedHerbalist: {
+        freed: {
+          '1': 'Oh, hvala ti! Ja sam Briar, travarica. Dođi k meni u Silverbridge. Dobro bi mi došla tvoja pomoć.'
+        }
+      },
+      freedPeddler: {
+        freed: {
+          '1': 'Blagoslovljene ti čizme! Odo Marrow, torbar. Nađi me u Sunfordu, imat ću robe za tebe.'
+        }
+      },
       goblinKing: {
         charge: {
           '1': 'Pregazi ih, Tusker!'
@@ -5697,6 +5755,18 @@ export default {
     },
     treasureMap: {
       title: 'Karta s blagom kapetana Rooka'
+    },
+    windrunnerTest: {
+      title: 'Kušnja: Vjetrotrkač'
+    },
+    frostwardenTest: {
+      title: 'Kušnja: Čuvar leda'
+    },
+    lightbringerTest: {
+      title: 'Kušnja: Donositelj svjetla'
+    },
+    beastcallerTest: {
+      title: 'Kušnja: Zazivač zvijeri'
     }
   }
 }

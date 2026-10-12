@@ -137,14 +137,6 @@ export default {
     chi: '気'
   },
   toast: {
-    freed: {
-      lightDisciple: '解放した！シスター・オーレルが{town}でライトブリンガーの道を教える。',
-      frostDisciple: '解放した！アイヴァーが{town}でフロストウォーデンの道を教える。',
-      windDisciple: '解放した！ケストレルが{town}でウィンドランナーの道を教える。',
-      freedFarmers: '解放した！トーラー一家は{town}に住まいを見つける。',
-      freedHerbalist: '解放した！薬草師のブライアが{town}で待っている。',
-      freedPeddler: '解放した！行商人のオドが{town}で商いを始める。'
-    },
     cageLocked: '鍵がかかっている。鍵はこの場所のどこかにあるはずだ。',
     cageKey: '鍵だ！きっと檻の鍵だ。',
     ore: '採掘した：{n} × {ore}',
@@ -1730,6 +1722,42 @@ export default {
     },
     sovereignsSignet: {
       name: '君主の印章指輪'
+    },
+    heraldsPin: {
+      name: '伝令のピン'
+    },
+    hymnalOfTheRoad: {
+      name: '旅路の賛美歌集'
+    },
+    shepherdsCrook: {
+      name: '羊飼いの杖'
+    },
+    minstrelsHat: {
+      name: '吟遊詩人の帽子'
+    },
+    pilgrimsSandals: {
+      name: '巡礼者のサンダル'
+    },
+    falconersGloves: {
+      name: '鷹匠の手袋'
+    },
+    bellOfTheHerd: {
+      name: '群れの鈴'
+    },
+    bannerOfTheHost: {
+      name: '軍勢の旗'
+    },
+    heraldsTabard: {
+      name: '伝令の陣羽織'
+    },
+    codexOfOaths: {
+      name: '誓約の写本'
+    },
+    crownOfTheRightfulKing: {
+      name: '正統なる王の冠'
+    },
+    scepterOfTheFirstKing: {
+      name: '始まりの王の王笏'
     },
     heartOfTheMountain: {
       name: '山の心臓'
@@ -3928,6 +3956,36 @@ export default {
       }
     },
     bark: {
+      lightDisciple: {
+        freed: {
+          '1': '光があなたを導いたのですね。私はシスター・オーレル。サンフォードで待っています。ライトブリンガーの道を教えましょう。'
+        }
+      },
+      frostDisciple: {
+        freed: {
+          '1': '俺を助けに来たのか？フロストウォーデンの弟子、アイヴァー・ハスクだ。アイアンホールドに来い、教えてやる。'
+        }
+      },
+      windDisciple: {
+        freed: {
+          '1': 'ついに自由だ！ウィンドランナーの道を行く、ケストレル・ヴェインだ。オークヘイヴンで待ってる、教えてやるよ。'
+        }
+      },
+      freedFarmers: {
+        freed: {
+          '1': '助かった！わしらは農家のトーラー一家だ。オークヘイヴンに来てくれ、家で困ったことがあるんだ。'
+        }
+      },
+      freedHerbalist: {
+        freed: {
+          '1': 'まあ、ありがとう！薬草師のブライアよ。シルバーブリッジに会いに来て。あなたの力を借りたいの。'
+        }
+      },
+      freedPeddler: {
+        freed: {
+          '1': 'なんとありがたい！行商人のオド・マロウだ。サンフォードに来てくれ、いい品を用意しておくよ。'
+        }
+      },
       goblinKing: {
         charge: {
           '1': 'ひき殺せ、タスカー！'
@@ -5583,6 +5641,18 @@ export default {
     },
     treasureMap: {
       title: 'ルーク隊長の宝の地図'
+    },
+    windrunnerTest: {
+      title: 'ウィンドランナーの試練'
+    },
+    frostwardenTest: {
+      title: 'フロストウォーデンの試練'
+    },
+    lightbringerTest: {
+      title: 'ライトブリンガーの試練'
+    },
+    beastcallerTest: {
+      title: 'ビーストコーラーの試練'
     }
   }
 }

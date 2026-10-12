@@ -137,14 +137,6 @@ export default {
     chi: 'Chi'
   },
   toast: {
-    freed: {
-      lightDisciple: 'Ozod qilindi! Rohiba Aurelle {town} shahrida Nur keltiruvchi yoʻlini oʻrgatadi.',
-      frostDisciple: 'Ozod qilindi! Ivor {town} shahrida Ayoz qoʻriqchisi yoʻlini oʻrgatadi.',
-      windDisciple: 'Ozod qilindi! Kestrel {town} shahrida Shamol chopari yoʻlini oʻrgatadi.',
-      freedFarmers: 'Ozod qilindi! Tollerlar oilasi {town} shahridan boshpana topadi.',
-      freedHerbalist: 'Ozod qilindi! Giyohchi Briar seni {town} shahrida kutadi.',
-      freedPeddler: 'Ozod qilindi! Attor Odo endi {town} shahrida savdo qiladi.'
-    },
     cageLocked: 'Qulflangan. Kalit shu yerda bir joyda boʻlishi kerak.',
     cageKey: 'Kalit! Qafasni shu ochsa kerak.',
     ore: 'Qazildi: {n} × {ore}',
@@ -1730,6 +1722,42 @@ export default {
     },
     sovereignsSignet: {
       name: 'Hukmdor muhri'
+    },
+    heraldsPin: {
+      name: 'Jarchi to‘g‘nog‘ichi'
+    },
+    hymnalOfTheRoad: {
+      name: 'Yo‘l qo‘shiqlari kitobi'
+    },
+    shepherdsCrook: {
+      name: 'Cho‘pon tayog‘i'
+    },
+    minstrelsHat: {
+      name: 'Baxshi qalpog‘i'
+    },
+    pilgrimsSandals: {
+      name: 'Ziyoratchi kavushi'
+    },
+    falconersGloves: {
+      name: 'Qushboz qo‘lqoplari'
+    },
+    bellOfTheHerd: {
+      name: 'Poda qo‘ng‘irog‘i'
+    },
+    bannerOfTheHost: {
+      name: 'Lashkar bayrog‘i'
+    },
+    heraldsTabard: {
+      name: 'Jarchi to‘ni'
+    },
+    codexOfOaths: {
+      name: 'Qasamlar kodeksi'
+    },
+    crownOfTheRightfulKing: {
+      name: 'Haqiqiy shoh toji'
+    },
+    scepterOfTheFirstKing: {
+      name: 'Birinchi shoh asosi'
     },
     heartOfTheMountain: {
       name: 'Togʻ yuragi'
@@ -3928,6 +3956,36 @@ export default {
       }
     },
     bark: {
+      lightDisciple: {
+        freed: {
+          '1': 'Seni nur yubordi. Men Rohiba Aurelle. Meni Sunford shahridan izla, senga Nur keltiruvchi yoʻlini oʻrgataman.'
+        }
+      },
+      frostDisciple: {
+        freed: {
+          '1': 'Men uchun keldingmi? Men Ivor Hask, Ayoz qoʻriqchisi shogirdiman. Ironhold shahriga kel, senga oʻrgataman.'
+        }
+      },
+      windDisciple: {
+        freed: {
+          '1': 'Nihoyat ozodman! Men Kestrel Vane, Shamol chopari yoʻlidanman. Meni Oakhaven shahridan top, senga oʻrgataman.'
+        }
+      },
+      freedFarmers: {
+        freed: {
+          '1': 'Bizni qutqarding! Biz Tollerlar oilasimiz, dehqonmiz. Bizni Oakhaven shahridan top, uyda tashvish bor.'
+        }
+      },
+      freedHerbalist: {
+        freed: {
+          '1': 'Voy, rahmat! Men Briar, giyohchiman. Silverbridge shahriga, oldimga kel. Yordaming menga asqotardi.'
+        }
+      },
+      freedPeddler: {
+        freed: {
+          '1': 'Etiklaring muborak boʻlsin! Men Odo Marrow, attorman. Meni Sunford shahridan top, senga mollarim boʻladi.'
+        }
+      },
       goblinKing: {
         charge: {
           '1': 'Ularni ezib tashla, Tusker!'
@@ -5583,6 +5641,18 @@ export default {
     },
     treasureMap: {
       title: 'Kapitan Rookning xazina xaritasi'
+    },
+    windrunnerTest: {
+      title: 'Sinov: Shamol chopari'
+    },
+    frostwardenTest: {
+      title: 'Sinov: Ayoz qoʻriqchisi'
+    },
+    lightbringerTest: {
+      title: 'Sinov: Nur keltiruvchi'
+    },
+    beastcallerTest: {
+      title: 'Sinov: Hayvon chaqiruvchi'
     }
   }
 }

@@ -91,9 +91,11 @@ export interface TownGeo {
   START_J: number
   /** The well's (the fountain's) row: the middle of the square. */
   WELL_J: number
-  /** A bridge town (#103): the quay before the south row (a lane end to
-   *  end), and how far the land reaches in from each end. */
-  QUAY?: { j: number; bank: number }
+  /** A bridge town (#103): the quay before the south row (its lane, end to
+   *  end, runs down the middle of it), how far the land reaches in from each
+   *  end, and the parapet's row. Three cells wide: the folk who stand on it
+   *  stand beside the lane, never across the only way along the water. */
+  QUAY?: { j: number; bank: number; parapet: number }
 }
 
 const geoCache = new Map<string, TownGeo>()
@@ -120,7 +122,7 @@ export const townGeo = (width: number = TOWN_W, site?: TownDef['site']): TownGeo
     ],
     START_J: 28,
     WELL_J: 14,
-    ...(site === 'bridge' ? { QUAY: { j: 26, bank: 8 } } : {})
+    ...(site === 'bridge' ? { QUAY: { j: 27, bank: 8, parapet: 29 } } : {})
   }
   geoCache.set(key, g)
   return g
@@ -426,6 +428,9 @@ export const layTown = (def: TownDef, flags: ReadonlySet<string>, seed: number):
   // How many family homes are left to make walkable (see below).
   let familyLeft = 2
   for (let row = 0; row < 3; row++) {
+    // On a bridge the south row is the way down to the quay: an alley between
+    // every two of its houses, so nobody walks the whole row round.
+    const alley = site === 'bridge' && row === 2 ? 1 : 0
     for (const [s0, s1] of G.SEGMENTS[row]!) {
       const mine = homes.filter(h => h.row === row && h.ai >= s0 - 3 && h.ai <= s1 + 3).sort((a, b) => a.ai - b.ai)
       const placed: Lot[] = []
@@ -438,7 +443,7 @@ export const layTown = (def: TownDef, flags: ReadonlySet<string>, seed: number):
         const total = cw + yw
         let i0 = h.ai - Math.floor(total / 2)
         const prev = placed[placed.length - 1]
-        const lo = prev ? prev.i0 + prev.cw + prev.yw : s0
+        const lo = prev ? prev.i0 + prev.cw + prev.yw + alley : s0
         if (i0 < lo) i0 = lo
         if (i0 + total - 1 > s1) i0 = s1 - total + 1
         if (i0 < lo) {
@@ -453,10 +458,10 @@ export const layTown = (def: TownDef, flags: ReadonlySet<string>, seed: number):
       let at = s0
       const gaps: Array<[number, number]> = []
       for (const l of placed) {
-        if (l.i0 > at) gaps.push([at, l.i0 - 1])
+        if (l.i0 > at) gaps.push([at === s0 ? at : at + alley, l.i0 - 1 - alley])
         at = l.i0 + l.cw + l.yw
       }
-      if (at <= s1) gaps.push([at, s1])
+      if (at <= s1) gaps.push([at === s0 ? at : at + alley, s1])
       for (const [g0, g1] of gaps) {
         let i = g0
         // A narrow alley is left between some houses.
@@ -475,7 +480,8 @@ export const layTown = (def: TownDef, flags: ReadonlySet<string>, seed: number):
           placed.push({ home: { kind: kindA, ai: i + (cw >> 1), aj: G.FRONT[row]!, row, owners: [], yard: false, inside: family, sign: '' }, i0: i, cw, yw: 0, yardLeft: false, row })
           i += cw
           // Gaps between houses: alleys, gardens, a way through to the next street.
-          if (g1 - i + 1 >= 4 && rng() < 0.6) i += rng() < 0.3 ? 2 : 1
+          if (alley) i += alley
+          else if (g1 - i + 1 >= 4 && rng() < 0.6) i += rng() < 0.3 ? 2 : 1
         }
       }
       placed.sort((a, b) => a.i0 - b.i0)
@@ -568,7 +574,7 @@ export const layTown = (def: TownDef, flags: ReadonlySet<string>, seed: number):
     // north rows and the middle street are its upper side, the south row its
     // lower side, a quay in front of its doors and a parapet at the edge; the
     // river runs past both sides, the banks are the town's two ends.
-    const pj = G.QUAY!.j + 1
+    const pj = G.QUAY!.parapet
     const bank = G.QUAY!.bank
     for (let j = 0; j < H; j++) {
       for (let i = bank; i <= W - 1 - bank; i++) {

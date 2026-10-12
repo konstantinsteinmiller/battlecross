@@ -537,8 +537,13 @@ export const generateZone = (def: ZoneDef, seed: number, o: ZoneGenOpts = {}): Z
   const end = clearings.find(c => c.role === 'finale') ?? clearings[clearings.length - 1]!
   const x = o.treasure && !o.tutorial && !o.bare ? placeTreasure({ ...spots, end: { x: end.x, z: end.z } }, [...herbs, ...pieces]) : null
   // Ore (#99), last of all and on its own stream: against the stone, off the
-  // herbs, the pieces and the treasure.
-  const ores = o.tutorial || o.bare ? [] : placeOres(spots, def.min, [...herbs, ...pieces, ...(x ? [x] : [])])
+  // herbs, the pieces and the treasure, and (a solid rock) clear of every
+  // place one goes to: a cave and its mouth, a plate, the hint stone, a pack.
+  const named = [
+    ...features.caves.flatMap(c => [c, c.mouth]), ...features.plates, ...features.optionalPacks,
+    ...(features.puzzle ? [features.puzzle.hint] : [])
+  ]
+  const ores = o.tutorial || o.bare ? [] : placeOres({ ...spots, cave }, def.min, [...herbs, ...pieces, ...(x ? [x] : []), ...named])
   if (x) {
     features.chests.push({ id: features.chests.length, x: x.x, z: x.z, tier: 'gold', role: 'treasure', sx: x.x, sz: x.z + 1.2, door: -1, guard: -1 })
   }

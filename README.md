@@ -6,6 +6,10 @@ hero may learn from any trainer, six active and three passive skills from
 eight classes. Twelve zones, three towns, a colosseum, 44 named items, six
 permanent decisions and five endings.
 
+WIP: [Battlecross Demo](https://konstantinsteinmiller.github.io/battlecross)
+
+### [Wiki](https://konstantinsteinmiller.github.io/battlecross/wiki/) with build guides, items and quest guides
+
 The design is [`GDD.md`](./GDD.md). The build order, every decision taken
 where the GDD was silent, and the resume notes are in
 [`game-implementation-plan.md`](./game-implementation-plan.md).

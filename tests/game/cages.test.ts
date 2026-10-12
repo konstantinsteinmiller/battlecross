@@ -12,7 +12,8 @@ import { stepSim } from '@/game/sim/step'
 import { chestLock, orderOpen } from '@/game/sim/interact'
 import { PICK_REACH } from '@/game/sim/herbs'
 import { referenceBuild } from '@/game/sim/bot'
-import { conversationOf } from '@/game/data/dialogs'
+import { SPOKEN, conversationOf } from '@/game/data/dialogs'
+import { CAPTIVE_TALK, captiveLine } from '@/game/sim/cages'
 import { meets } from '@/game/dialog/conditions'
 import { startAttrs } from '@/game/data/attributes'
 
@@ -83,6 +84,53 @@ describe('opening one', () => {
     for (let t = 0; t < 2; t += 1 / 30) stepSim(sim, plan, 1 / 30)
     expect(cage.state).toBe('open')
     expect(sim.specialOpened).toContain('woods:cage')
+  })
+
+  it('the captives are people: behind the bars, out through the door, a word to the hero, and off home', () => {
+    const plan = generateZone(ZONES.woods, 3, { cage: true })
+    const sim = new Sim({ seed: 3, w: plan.w, h: plan.h, level: 7, difficulty: 1, mode: 'zone', zone: 'woods' })
+    applyPlan(sim, plan)
+    const ref = referenceBuild({ level: 7, cls: 'aegis' })
+    createHero(sim, { build: ref.build, skills: ref.skills, x: plan.start.x, z: plan.start.z, xpInto: 0, potions: 3 })
+    populateZone(sim, plan, 'woods', [])
+    const def = cageOf('woods')!
+    const cage = sim.chests.find(c => c.role === 'cage')!
+    // Two of them (a family), in the look they wear in town, inside the cage.
+    const people = sim.units.filter(u => u.rank === 'npc' && u.kind === def.look)
+    expect(people).toHaveLength(def.count)
+    for (const u of people) expect(Math.hypot(u.x - cage.x, u.z - cage.z)).toBeLessThan(0.5)
+    sim.cageKey!.taken = true
+    const h = sim.hero.unit
+    h.x = h.px = cage.sx
+    h.z = h.pz = cage.sz
+    expect(orderOpen(sim, cage.id)).toBe(true)
+    for (let t = 0; t < 4; t += 1 / 30) stepSim(sim, plan, 1 / 30)
+    const said = sim.events.filter(e => e.t === 'bark').map(e => (e as { key: string }).key)
+    // Out of the cage, beside its door, talking to the hero: one of them speaks, once.
+    for (const u of people) {
+      expect(Math.hypot(u.x - cage.x, u.z - cage.z), 'out').toBeGreaterThan(1.2)
+      expect(u.alive).toBe(true)
+    }
+    expect(said).toEqual([captiveLine(def.npc)])
+    expect(sim.captives.every(p => p.phase === 'talk')).toBe(true)
+    // Then off home, back the way the hero came; gone once out of the picture.
+    for (let t = 0; t < CAPTIVE_TALK + 1; t += 1 / 30) stepSim(sim, plan, 1 / 30)
+    expect(sim.captives.every(p => p.phase === 'leave')).toBe(true)
+    const d0 = Math.hypot(people[0]!.x - plan.start.x, people[0]!.z - plan.start.z)
+    for (let t = 0; t < 2; t += 1 / 30) stepSim(sim, plan, 1 / 30)
+    expect(Math.hypot(people[0]!.x - plan.start.x, people[0]!.z - plan.start.z)).toBeLessThan(d0 - 2)
+    for (let t = 0; t < 45 && sim.captives.length; t += 1 / 30) stepSim(sim, plan, 1 / 30)
+    expect(sim.captives).toHaveLength(0)
+    for (const u of people) expect(sim.get(u.id)).toBeUndefined()
+  })
+
+  it('every freed one has a voiced line saying who they are', () => {
+    for (const c of CAGES) {
+      const conv = SPOKEN.find(s => s.id === `bark.${c.npc}`)
+      expect(conv, c.npc).toBeTruthy()
+      expect(conv!.voice).toBe(c.npc)
+      expect(conv!.greet[0]!.lines[0]!.id).toBe(captiveLine(c.npc))
+    }
   })
 })
 

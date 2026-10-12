@@ -137,14 +137,6 @@ export default {
     chi: 'Chi'
   },
   toast: {
-    freed: {
-      lightDisciple: 'Fri! Syster Aurelle kommer att lära ut Ljusbringarens väg i {town}.',
-      frostDisciple: 'Fri! Ivor kommer att lära ut Frostväktarens väg i {town}.',
-      windDisciple: 'Fri! Kestrel kommer att lära ut Vindlöparens väg i {town}.',
-      freedFarmers: 'Fria! Familjen Toller får ett hem i {town}.',
-      freedHerbalist: 'Fri! Örtkunniga Briar väntar på dig i {town}.',
-      freedPeddler: 'Fri! Gårdfarihandlaren Odo kommer att handla i {town}.'
-    },
     cageLocked: 'Låst. Nyckeln måste finnas någonstans här.',
     cageKey: 'En nyckel! Den måste öppna buren.',
     ore: 'Brutet: {n} × {ore}',
@@ -1730,6 +1722,42 @@ export default {
     },
     sovereignsSignet: {
       name: 'Suveränens sigill'
+    },
+    heraldsPin: {
+      name: 'Härolds nål'
+    },
+    hymnalOfTheRoad: {
+      name: 'Vägens psalmbok'
+    },
+    shepherdsCrook: {
+      name: 'Herdestav'
+    },
+    minstrelsHat: {
+      name: 'Spelmanshatt'
+    },
+    pilgrimsSandals: {
+      name: 'Pilgrimssandaler'
+    },
+    falconersGloves: {
+      name: 'Falkenerarhandskar'
+    },
+    bellOfTheHerd: {
+      name: 'Hjordens bjällra'
+    },
+    bannerOfTheHost: {
+      name: 'Härskarans fana'
+    },
+    heraldsTabard: {
+      name: 'Härolds vapenrock'
+    },
+    codexOfOaths: {
+      name: 'Edernas kodex'
+    },
+    crownOfTheRightfulKing: {
+      name: 'Den rättmätige kungens krona'
+    },
+    scepterOfTheFirstKing: {
+      name: 'Den förste kungens spira'
     },
     heartOfTheMountain: {
       name: 'Bergets hjärta'
@@ -3928,6 +3956,36 @@ export default {
       }
     },
     bark: {
+      lightDisciple: {
+        freed: {
+          '1': 'Ljuset sände dig. Jag är Syster Aurelle. Sök upp mig i Sunford, så lär jag dig Ljusbringarens väg.'
+        }
+      },
+      frostDisciple: {
+        freed: {
+          '1': 'Kom du för min skull? Ivor Hask, Frostväktarens lärjunge. Kom till Ironhold så lär jag dig.'
+        }
+      },
+      windDisciple: {
+        freed: {
+          '1': 'Äntligen fri! Kestrel Vane, av Vindlöparens väg. Sök upp mig i Oakhaven så lär jag dig.'
+        }
+      },
+      freedFarmers: {
+        freed: {
+          '1': 'Du räddade oss! Vi är familjen Toller, bönder. Sök upp oss i Oakhaven, det är problem där hemma.'
+        }
+      },
+      freedHerbalist: {
+        freed: {
+          '1': 'Åh, tack! Jag är Briar, örtkunnig. Kom och hälsa på mig i Silverbridge. Jag skulle behöva din hjälp.'
+        }
+      },
+      freedPeddler: {
+        freed: {
+          '1': 'Välsignade vare dina stövlar! Odo Marrow, gårdfarihandlare. Sök upp mig i Sunford, så har jag varor åt dig.'
+        }
+      },
       goblinKing: {
         charge: {
           '1': 'Kör över dem, Tusker!'
@@ -5583,6 +5641,18 @@ export default {
     },
     treasureMap: {
       title: 'Kapten Rooks skattkarta'
+    },
+    windrunnerTest: {
+      title: 'Provet: Vindlöpare'
+    },
+    frostwardenTest: {
+      title: 'Provet: Frostväktare'
+    },
+    lightbringerTest: {
+      title: 'Provet: Ljusbringare'
+    },
+    beastcallerTest: {
+      title: 'Provet: Djurkallare'
     }
   }
 }

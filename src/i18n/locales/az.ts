@@ -137,14 +137,6 @@ export default {
     chi: 'Çi'
   },
   toast: {
-    freed: {
-      lightDisciple: 'Azad edildi! Rahibə Aurelle {town} qəsəbəsində Nur Gətirənin yolunu öyrədəcək.',
-      frostDisciple: 'Azad edildi! Ivor {town} qəsəbəsində Şaxta Keşikçisinin yolunu öyrədəcək.',
-      windDisciple: 'Azad edildi! Kestrel {town} qəsəbəsində Külək Qaçışçısının yolunu öyrədəcək.',
-      freedFarmers: 'Azad edildilər! Toller ailəsi {town} qəsəbəsində özünə yuva tapacaq.',
-      freedHerbalist: 'Azad edildi! Otaçı Briar səni {town} qəsəbəsində gözləyəcək.',
-      freedPeddler: 'Azad edildi! Çərçi Odo {town} qəsəbəsində ticarət edəcək.'
-    },
     cageLocked: 'Kilidlidir. Açar bu yerdə haradasa olmalıdır.',
     cageKey: 'Açar! Yəqin ki, qəfəsi açır.',
     ore: 'Qazıldı: {n} × {ore}',
@@ -1730,6 +1722,42 @@ export default {
     },
     sovereignsSignet: {
       name: 'Hökmdarın Möhürü'
+    },
+    heraldsPin: {
+      name: 'Carçının sancağı'
+    },
+    hymnalOfTheRoad: {
+      name: 'Yolun ilahiləri'
+    },
+    shepherdsCrook: {
+      name: 'Çoban çomağı'
+    },
+    minstrelsHat: {
+      name: 'Aşığın papağı'
+    },
+    pilgrimsSandals: {
+      name: 'Zəvvarın səndəlləri'
+    },
+    falconersGloves: {
+      name: 'Qırğıçının əlcəkləri'
+    },
+    bellOfTheHerd: {
+      name: 'Sürünün zəngi'
+    },
+    bannerOfTheHost: {
+      name: 'Ordunun bayrağı'
+    },
+    heraldsTabard: {
+      name: 'Carçının tabardı'
+    },
+    codexOfOaths: {
+      name: 'Andlar kodeksi'
+    },
+    crownOfTheRightfulKing: {
+      name: 'Haqlı kralın tacı'
+    },
+    scepterOfTheFirstKing: {
+      name: 'İlk kralın əsası'
     },
     heartOfTheMountain: {
       name: 'Dağın Ürəyi'
@@ -3928,6 +3956,36 @@ export default {
       }
     },
     bark: {
+      lightDisciple: {
+        freed: {
+          '1': 'Səni nur göndərdi. Mən Rahibə Aurelle. Məni Sunford qəsəbəsində axtar, sənə Nur Gətirənin yolunu öyrədərəm.'
+        }
+      },
+      frostDisciple: {
+        freed: {
+          '1': 'Mənim üçün gəldin? Mən Ivor Hask, Şaxta Keşikçisinin şagirdiyəm. Ironhold qəsəbəsinə gəl, sənə öyrədərəm.'
+        }
+      },
+      windDisciple: {
+        freed: {
+          '1': 'Nəhayət azadam! Mən Kestrel Vane, Külək Qaçışçısının yolundanam. Məni Oakhaven qəsəbəsində tap, sənə öyrədərəm.'
+        }
+      },
+      freedFarmers: {
+        freed: {
+          '1': 'Bizi xilas etdin! Biz Toller ailəsiyik, əkinçiyik. Bizi Oakhaven qəsəbəsində tap, evdə dərdimiz var.'
+        }
+      },
+      freedHerbalist: {
+        freed: {
+          '1': 'Ah, sağ ol! Mən Briar, otaçıyam. Silverbridge qəsəbəsinə, yanıma gəl. Sənin köməyin mənə lazım ola bilər.'
+        }
+      },
+      freedPeddler: {
+        freed: {
+          '1': 'Çəkmələrin mübarək olsun! Mən Odo Marrow, çərçiyəm. Məni Sunford qəsəbəsində tap, sənin üçün mallarım olacaq.'
+        }
+      },
       goblinKing: {
         charge: {
           '1': 'Onları əz, Tusker!'
@@ -5583,6 +5641,18 @@ export default {
     },
     treasureMap: {
       title: 'Kapitan Rookun xəzinə xəritəsi'
+    },
+    windrunnerTest: {
+      title: 'Sınaq: Külək Qaçışçısı'
+    },
+    frostwardenTest: {
+      title: 'Sınaq: Şaxta Keşikçisi'
+    },
+    lightbringerTest: {
+      title: 'Sınaq: Nur Gətirən'
+    },
+    beastcallerTest: {
+      title: 'Sınaq: Heyvan Çağıran'
     }
   }
 }

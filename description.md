@@ -7,13 +7,7 @@ classes into your own hero and make choices that reshape the realm.
 
 ## Description (482 / 500 chars)
 
-Start as a militia recruit with a rusty sword and grow into whatever you
-want: any hero can learn from any trainer. Combine a knight's shield with a
-pyromancer's fire, summon royal guards, stop time, or call a beam from the
-sky. Fight through 12 zones in six tiers, from sunny plains to the Dread
-Fortress, find 44 named weapons, armours and rings, and decide the fate of
-towns, kings and a dragon. Your choices change who trades, who teaches, who
-hunts you, and how the story ends.
+Start as a militia recruit with a rusty sword and grow into whatever you want: any hero can learn from any trainer. Combine a knight's shield with a pyromancer's fire, summon royal guards, stop time, or call a beam from the sky. Fight through 12 zones in six tiers, from sunny plains to the Dread Fortress, find 44 named weapons, armours and rings, and decide the fate of towns, kings and a dragon. Your choices change who trades, who teaches, who hunts you, and how the story ends.
 
 ## How to play
 

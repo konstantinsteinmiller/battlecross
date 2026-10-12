@@ -137,14 +137,6 @@ export default {
     chi: 'Chi'
   },
   toast: {
-    freed: {
-      lightDisciple: '¡Liberada! La hermana Aurelle enseñará la senda del Portador de Luz en {town}.',
-      frostDisciple: '¡Liberado! Ivor enseñará la senda del Guardián de Escarcha en {town}.',
-      windDisciple: '¡Liberado! Kestrel enseñará la senda del Corredor del Viento en {town}.',
-      freedFarmers: '¡Liberados! Los Toller encontrarán un hogar en {town}.',
-      freedHerbalist: '¡Liberada! Briar la herbolaria te esperará en {town}.',
-      freedPeddler: '¡Liberado! Odo el buhonero comerciará en {town}.'
-    },
     cageLocked: 'Cerrada. La llave tiene que estar en algún lugar de aquí.',
     cageKey: '¡Una llave! Debe de abrir la jaula.',
     ore: 'Extraído: {n} × {ore}',
@@ -1731,6 +1723,42 @@ export default {
     },
     sovereignsSignet: {
       name: 'Sello del Soberano'
+    },
+    heraldsPin: {
+      name: 'Broche del heraldo'
+    },
+    hymnalOfTheRoad: {
+      name: 'Himnario del camino'
+    },
+    shepherdsCrook: {
+      name: 'Cayado del pastor'
+    },
+    minstrelsHat: {
+      name: 'Sombrero del juglar'
+    },
+    pilgrimsSandals: {
+      name: 'Sandalias del peregrino'
+    },
+    falconersGloves: {
+      name: 'Guantes del cetrero'
+    },
+    bellOfTheHerd: {
+      name: 'Cencerro del rebaño'
+    },
+    bannerOfTheHost: {
+      name: 'Estandarte de la hueste'
+    },
+    heraldsTabard: {
+      name: 'Tabardo del heraldo'
+    },
+    codexOfOaths: {
+      name: 'Códice de juramentos'
+    },
+    crownOfTheRightfulKing: {
+      name: 'Corona del rey legítimo'
+    },
+    scepterOfTheFirstKing: {
+      name: 'Cetro del primer rey'
     },
     heartOfTheMountain: {
       name: 'Corazón de la montaña'
@@ -3973,6 +4001,36 @@ export default {
       }
     },
     bark: {
+      lightDisciple: {
+        freed: {
+          '1': 'La luz te ha enviado. Soy la hermana Aurelle. Búscame en Sunford, te enseñaré la senda del Portador de Luz.'
+        }
+      },
+      frostDisciple: {
+        freed: {
+          '1': '¿Viniste por mí? Ivor Hask, discípulo del Guardián de Escarcha. Ven a Ironhold y te enseñaré.'
+        }
+      },
+      windDisciple: {
+        freed: {
+          '1': '¡Libre por fin! Kestrel Vane, de la senda del Corredor del Viento. Búscame en Oakhaven y te enseñaré.'
+        }
+      },
+      freedFarmers: {
+        freed: {
+          '1': '¡Nos salvaste! Somos los Toller, granjeros. Búscanos en Oakhaven, hay problemas en casa.'
+        }
+      },
+      freedHerbalist: {
+        freed: {
+          '1': '¡Ay, gracias! Soy Briar, herbolaria. Ven a verme a Silverbridge. Me vendría bien tu ayuda.'
+        }
+      },
+      freedPeddler: {
+        freed: {
+          '1': '¡Benditas sean tus botas! Odo Marrow, buhonero. Búscame en Sunford, tendré mercancía para ti.'
+        }
+      },
       goblinKing: {
         charge: {
           '1': '¡Arrolla, Tusker!'
@@ -5634,6 +5692,18 @@ export default {
     },
     treasureMap: {
       title: 'El mapa del tesoro del capitán Rook'
+    },
+    windrunnerTest: {
+      title: 'La prueba: Corredor del Viento'
+    },
+    frostwardenTest: {
+      title: 'La prueba: Guardián de Escarcha'
+    },
+    lightbringerTest: {
+      title: 'La prueba: Portador de Luz'
+    },
+    beastcallerTest: {
+      title: 'La prueba: Domador de Bestias'
     }
   }
 }

@@ -137,14 +137,6 @@ export default {
     chi: 'Chi'
   },
   toast: {
-    freed: {
-      lightDisciple: 'Bevrijd! Zuster Aurelle leert de weg van de Lichtbrenger in {town}.',
-      frostDisciple: 'Bevrijd! Ivor leert de weg van de Vorstwachter in {town}.',
-      windDisciple: 'Bevrijd! Kestrel leert de weg van de Windloper in {town}.',
-      freedFarmers: 'Bevrijd! De Tollers vinden een thuis in {town}.',
-      freedHerbalist: 'Bevrijd! Briar de kruidenvrouw wacht op je in {town}.',
-      freedPeddler: 'Bevrijd! Odo de marskramer gaat handelen in {town}.'
-    },
     cageLocked: 'Op slot. De sleutel moet hier ergens zijn.',
     cageKey: 'Een sleutel! Die moet de kooi openen.',
     ore: 'Gedolven: {n} × {ore}',
@@ -1731,6 +1723,42 @@ export default {
     },
     sovereignsSignet: {
       name: 'Zegelring van de Soeverein'
+    },
+    heraldsPin: {
+      name: 'Herautsspeld'
+    },
+    hymnalOfTheRoad: {
+      name: 'Liedboek van de weg'
+    },
+    shepherdsCrook: {
+      name: 'Herdersstaf'
+    },
+    minstrelsHat: {
+      name: 'Minstreelhoed'
+    },
+    pilgrimsSandals: {
+      name: 'Pelgrimssandalen'
+    },
+    falconersGloves: {
+      name: 'Valkeniershandschoenen'
+    },
+    bellOfTheHerd: {
+      name: 'Bel van de kudde'
+    },
+    bannerOfTheHost: {
+      name: 'Banier van het leger'
+    },
+    heraldsTabard: {
+      name: 'Herautsmantel'
+    },
+    codexOfOaths: {
+      name: 'Codex der eden'
+    },
+    crownOfTheRightfulKing: {
+      name: 'Kroon van de rechtmatige koning'
+    },
+    scepterOfTheFirstKing: {
+      name: 'Scepter van de eerste koning'
     },
     heartOfTheMountain: {
       name: 'Hart van de Berg'
@@ -3939,6 +3967,36 @@ export default {
       }
     },
     bark: {
+      lightDisciple: {
+        freed: {
+          '1': 'Het licht heeft je gestuurd. Ik ben Zuster Aurelle. Zoek me op in Sunford, dan leer ik je de weg van de Lichtbrenger.'
+        }
+      },
+      frostDisciple: {
+        freed: {
+          '1': 'Kom je voor mij? Ivor Hask, leerling van de Vorstwachter. Kom naar Ironhold, dan leer ik het je.'
+        }
+      },
+      windDisciple: {
+        freed: {
+          '1': 'Eindelijk vrij! Kestrel Vane, van de weg van de Windloper. Zoek me op in Oakhaven, dan leer ik het je.'
+        }
+      },
+      freedFarmers: {
+        freed: {
+          '1': 'Je hebt ons gered! Wij zijn de Tollers, boeren. Zoek ons op in Oakhaven, thuis is er narigheid.'
+        }
+      },
+      freedHerbalist: {
+        freed: {
+          '1': 'O, dank je! Ik ben Briar, kruidenvrouw. Kom me opzoeken in Silverbridge. Ik kan je hulp goed gebruiken.'
+        }
+      },
+      freedPeddler: {
+        freed: {
+          '1': 'Gezegend zijn je laarzen! Odo Marrow, marskramer. Zoek me op in Sunford, dan heb ik waren voor je.'
+        }
+      },
       goblinKing: {
         charge: {
           '1': 'Verpletter ze, Tusker!'
@@ -5594,6 +5652,18 @@ export default {
     },
     treasureMap: {
       title: 'De schatkaart van kapitein Rook'
+    },
+    windrunnerTest: {
+      title: 'De proef: Windloper'
+    },
+    frostwardenTest: {
+      title: 'De proef: Vorstwachter'
+    },
+    lightbringerTest: {
+      title: 'De proef: Lichtbrenger'
+    },
+    beastcallerTest: {
+      title: 'De proef: Beestenroeper'
     }
   }
 }

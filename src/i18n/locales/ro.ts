@@ -137,14 +137,6 @@ export default {
     chi: 'Chi'
   },
   toast: {
-    freed: {
-      lightDisciple: 'Eliberată! Sora Aurelle va preda calea Purtătorului de Lumină în {town}.',
-      frostDisciple: 'Eliberat! Ivor va preda calea Străjerului Gerului în {town}.',
-      windDisciple: 'Eliberat! Kestrel va preda calea Alergătorului Vântului în {town}.',
-      freedFarmers: 'Eliberați! Familia Toller își va găsi un cămin în {town}.',
-      freedHerbalist: 'Eliberată! Briar, culegătoarea de ierburi, te va aștepta în {town}.',
-      freedPeddler: 'Eliberat! Negustorul Odo va face negoț în {town}.'
-    },
     cageLocked: 'Încuiat. Cheia trebuie să fie pe undeva pe aici.',
     cageKey: 'O cheie! Trebuie să deschidă cușca.',
     ore: 'Ai minat: {n} × {ore}',
@@ -1730,6 +1722,42 @@ export default {
     },
     sovereignsSignet: {
       name: 'Sigiliul Suveranului'
+    },
+    heraldsPin: {
+      name: 'Broșa crainicului'
+    },
+    hymnalOfTheRoad: {
+      name: 'Cântecele drumului'
+    },
+    shepherdsCrook: {
+      name: 'Toiagul păstorului'
+    },
+    minstrelsHat: {
+      name: 'Pălăria menestrelului'
+    },
+    pilgrimsSandals: {
+      name: 'Sandalele pelerinului'
+    },
+    falconersGloves: {
+      name: 'Mănușile șoimarului'
+    },
+    bellOfTheHerd: {
+      name: 'Clopotul turmei'
+    },
+    bannerOfTheHost: {
+      name: 'Stindardul oștii'
+    },
+    heraldsTabard: {
+      name: 'Tunica crainicului'
+    },
+    codexOfOaths: {
+      name: 'Codexul jurămintelor'
+    },
+    crownOfTheRightfulKing: {
+      name: 'Coroana regelui de drept'
+    },
+    scepterOfTheFirstKing: {
+      name: 'Sceptrul primului rege'
     },
     heartOfTheMountain: {
       name: 'Inima Muntelui'
@@ -3971,6 +3999,36 @@ export default {
       }
     },
     bark: {
+      lightDisciple: {
+        freed: {
+          '1': 'Lumina te-a trimis. Sunt Sora Aurelle. Caută-mă în Sunford, te voi învăța calea Purtătorului de Lumină.'
+        }
+      },
+      frostDisciple: {
+        freed: {
+          '1': 'Ai venit după mine? Ivor Hask, ucenic al Străjerului Gerului. Vino la Ironhold și te voi învăța.'
+        }
+      },
+      windDisciple: {
+        freed: {
+          '1': 'Liber, în sfârșit! Kestrel Vane, de pe calea Alergătorului Vântului. Caută-mă în Oakhaven și te voi învăța.'
+        }
+      },
+      freedFarmers: {
+        freed: {
+          '1': 'Ne-ai salvat! Suntem familia Toller, fermieri. Caută-ne în Oakhaven, avem necazuri acasă.'
+        }
+      },
+      freedHerbalist: {
+        freed: {
+          '1': 'Oh, mulțumesc! Sunt Briar, culegătoare de ierburi. Vino să mă vezi în Silverbridge. Mi-ar prinde bine ajutorul tău.'
+        }
+      },
+      freedPeddler: {
+        freed: {
+          '1': 'Binecuvântate să-ți fie cizmele! Odo Marrow, negustor ambulant. Caută-mă în Sunford, voi avea marfă pentru tine.'
+        }
+      },
       goblinKing: {
         charge: {
           '1': 'Strivește-i, Tusker!'
@@ -5632,6 +5690,18 @@ export default {
     },
     treasureMap: {
       title: 'Harta comorii căpitanului Rook'
+    },
+    windrunnerTest: {
+      title: 'Încercarea: Alergător al Vântului'
+    },
+    frostwardenTest: {
+      title: 'Încercarea: Străjer al Gerului'
+    },
+    lightbringerTest: {
+      title: 'Încercarea: Purtător de Lumină'
+    },
+    beastcallerTest: {
+      title: 'Încercarea: Chemător de Fiare'
     }
   }
 }

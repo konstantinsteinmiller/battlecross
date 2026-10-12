@@ -137,14 +137,6 @@ export default {
     chi: 'Chi'
   },
   toast: {
-    freed: {
-      lightDisciple: 'Alliberada! La germana Aurelle ensenyarà el camí del Portador de Llum a {town}.',
-      frostDisciple: 'Alliberat! L’Ivor ensenyarà el camí del Guardià del Gel a {town}.',
-      windDisciple: 'Alliberat! En Kestrel ensenyarà el camí del Corredor del Vent a {town}.',
-      freedFarmers: 'Alliberats! Els Toller trobaran una llar a {town}.',
-      freedHerbalist: 'Alliberada! La Briar, l’herbolària, t’esperarà a {town}.',
-      freedPeddler: 'Alliberat! L’Odo, el quincallaire, comerciarà a {town}.'
-    },
     cageLocked: 'Tancada amb clau. La clau ha de ser en algun lloc d’aquí.',
     cageKey: 'Una clau! Deu obrir la gàbia.',
     ore: 'Extret: {n} × {ore}',
@@ -1731,6 +1723,42 @@ export default {
     },
     sovereignsSignet: {
       name: 'Segell del Sobirà'
+    },
+    heraldsPin: {
+      name: 'Fermall de l\'herald'
+    },
+    hymnalOfTheRoad: {
+      name: 'Himnari del camí'
+    },
+    shepherdsCrook: {
+      name: 'Gaiato del pastor'
+    },
+    minstrelsHat: {
+      name: 'Barret del joglar'
+    },
+    pilgrimsSandals: {
+      name: 'Sandàlies del pelegrí'
+    },
+    falconersGloves: {
+      name: 'Guants del falconer'
+    },
+    bellOfTheHerd: {
+      name: 'Esquella del ramat'
+    },
+    bannerOfTheHost: {
+      name: 'Estendard de l\'host'
+    },
+    heraldsTabard: {
+      name: 'Tabard de l\'herald'
+    },
+    codexOfOaths: {
+      name: 'Còdex dels juraments'
+    },
+    crownOfTheRightfulKing: {
+      name: 'Corona del rei legítim'
+    },
+    scepterOfTheFirstKing: {
+      name: 'Ceptre del primer rei'
     },
     heartOfTheMountain: {
       name: 'Cor de la Muntanya'
@@ -3976,6 +4004,36 @@ export default {
       }
     },
     bark: {
+      lightDisciple: {
+        freed: {
+          '1': 'La llum t’ha enviat. Soc la germana Aurelle. Busca’m a Sunford, t’ensenyaré el camí del Portador de Llum.'
+        }
+      },
+      frostDisciple: {
+        freed: {
+          '1': 'Has vingut per mi? Soc l’Ivor Hask, deixeble del Guardià del Gel. Vine a Ironhold i t’ensenyaré.'
+        }
+      },
+      windDisciple: {
+        freed: {
+          '1': 'Lliure per fi! Soc en Kestrel Vane, del camí del Corredor del Vent. Busca’m a Oakhaven i t’ensenyaré.'
+        }
+      },
+      freedFarmers: {
+        freed: {
+          '1': 'Ens has salvat! Som els Toller, pagesos. Busca’ns a Oakhaven, tenim problemes a casa.'
+        }
+      },
+      freedHerbalist: {
+        freed: {
+          '1': 'Oh, gràcies! Soc la Briar, herbolària. Vine a veure’m a Silverbridge. M’aniria bé la teva ajuda.'
+        }
+      },
+      freedPeddler: {
+        freed: {
+          '1': 'Beneïdes siguin les teves botes! Soc l’Odo Marrow, quincallaire. Busca’m a Sunford, tindré gènere per a tu.'
+        }
+      },
       goblinKing: {
         charge: {
           '1': 'Atropella’ls, Tusker!'
@@ -5638,6 +5696,18 @@ export default {
     },
     treasureMap: {
       title: 'El mapa del tresor del capità Rook'
+    },
+    windrunnerTest: {
+      title: 'La prova: Corredor del Vent'
+    },
+    frostwardenTest: {
+      title: 'La prova: Guardià del Gel'
+    },
+    lightbringerTest: {
+      title: 'La prova: Portador de Llum'
+    },
+    beastcallerTest: {
+      title: 'La prova: Domador de Bèsties'
     }
   }
 }

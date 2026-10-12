@@ -4,7 +4,7 @@ A report, not a contract: it is a picture of `art-sheets/painted/` and the
 slicer's receipt at the moment it was written. Re-run `pnpm art:prompts`
 after painting or slicing anything.
 
-**52 sliced · 9 need a repaint · 0 painted, unreceipted · 5 outstanding**
+**52 sliced · 9 need a repaint · 0 painted, unreceipted · 6 outstanding**
 
 | | Sheet | Prompt block in | Reference | State |
 | --- | --- | --- | --- | --- |
@@ -14,6 +14,7 @@ after painting or slicing anything.
 | ✓ | **Item icons: trinkets** | `PROMPTS-ITEMS.md` | `sheet-items-trinkets.png` (rev `b23c5e2aa7a1`) | sliced 2026-10-03 |
 | ✓ | **Item icons: headgear and gloves** | `PROMPTS-ITEMS.md` | `sheet-items-headgear.png` (rev `f56cfdfaf5fb`) | sliced 2026-10-03 |
 | ✓ | **Item icons: boots** | `PROMPTS-ITEMS.md` | `sheet-items-boots.png` (rev `05a2d72cdd50`) | sliced 2026-10-03 |
+| · | **Item icons: the Charisma set** | `PROMPTS-ITEMS.md` | `sheet-items-charisma.png` — *missing, run `pnpm art:export`* | not painted yet |
 | ! | **Skill icons: Aegis Knight** | `PROMPTS-SKILLS.md` | `sheet-skills-aegis.png` (rev `0ba6202c756b`) | REPAINT — the reference changed (41ace8182dfc → 0ba6202c756b) |
 | ✓ | **Skill icons: Aegis Knight (2 of 2)** | `PROMPTS-SKILLS.md` | `sheet-skills2-aegis.png` (rev `58e4d7a026f6`) | sliced 2026-10-07 |
 | ! | **Skill icons: Shadowblade** | `PROMPTS-SKILLS.md` | `sheet-skills-shadow.png` (rev `085c60ddf84e`) | REPAINT — the reference changed (2cfb44cfe91f → 085c60ddf84e) |

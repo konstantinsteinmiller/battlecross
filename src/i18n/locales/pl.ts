@@ -137,14 +137,6 @@ export default {
     chi: 'Chi'
   },
   toast: {
-    freed: {
-      lightDisciple: 'Na wolności! Siostra Aurelle będzie uczyć drogi Niosącego Światło w mieście {town}.',
-      frostDisciple: 'Na wolności! Ivor będzie uczył drogi Strażnika Mrozu w mieście {town}.',
-      windDisciple: 'Na wolności! Kestrel będzie uczył drogi Wiatrobiegacza w mieście {town}.',
-      freedFarmers: 'Na wolności! Tollerowie znajdą dom w mieście {town}.',
-      freedHerbalist: 'Na wolności! Zielarka Briar będzie na ciebie czekać w mieście {town}.',
-      freedPeddler: 'Na wolności! Domokrążca Odo będzie handlował w mieście {town}.'
-    },
     cageLocked: 'Zamknięte. Klucz musi być gdzieś w tym miejscu.',
     cageKey: 'Klucz! Musi otwierać klatkę.',
     ore: 'Wydobyto: {n} × {ore}',
@@ -1731,6 +1723,42 @@ export default {
     },
     sovereignsSignet: {
       name: 'Sygnet Suwerena'
+    },
+    heraldsPin: {
+      name: 'Zapinka herolda'
+    },
+    hymnalOfTheRoad: {
+      name: 'Śpiewnik drogi'
+    },
+    shepherdsCrook: {
+      name: 'Pastorał pasterza'
+    },
+    minstrelsHat: {
+      name: 'Kapelusz minstrela'
+    },
+    pilgrimsSandals: {
+      name: 'Sandały pielgrzyma'
+    },
+    falconersGloves: {
+      name: 'Rękawice sokolnika'
+    },
+    bellOfTheHerd: {
+      name: 'Dzwonek stada'
+    },
+    bannerOfTheHost: {
+      name: 'Sztandar zastępu'
+    },
+    heraldsTabard: {
+      name: 'Tabard herolda'
+    },
+    codexOfOaths: {
+      name: 'Kodeks przysiąg'
+    },
+    crownOfTheRightfulKing: {
+      name: 'Korona prawowitego króla'
+    },
+    scepterOfTheFirstKing: {
+      name: 'Berło pierwszego króla'
     },
     heartOfTheMountain: {
       name: 'Serce góry'
@@ -4023,6 +4051,36 @@ export default {
       }
     },
     bark: {
+      lightDisciple: {
+        freed: {
+          '1': 'To światło cię przysłało. Jestem Siostra Aurelle. Szukaj mnie w Sunfordzie, nauczę cię drogi Niosącego Światło.'
+        }
+      },
+      frostDisciple: {
+        freed: {
+          '1': 'Jesteś tu po mnie? Ivor Hask, uczeń Strażnika Mrozu. Przyjdź do Ironholdu, a cię nauczę.'
+        }
+      },
+      windDisciple: {
+        freed: {
+          '1': 'Nareszcie wolny! Kestrel Vane, z drogi Wiatrobiegacza. Znajdź mnie w Oakhaven, a cię nauczę.'
+        }
+      },
+      freedFarmers: {
+        freed: {
+          '1': 'Jesteśmy uratowani! To my, Tollerowie, rolnicy. Znajdź nas w Oakhaven, w domu są kłopoty.'
+        }
+      },
+      freedHerbalist: {
+        freed: {
+          '1': 'Och, dziękuję! Jestem Briar, zielarka. Odwiedź mnie w Silverbridge. Przyda mi się twoja pomoc.'
+        }
+      },
+      freedPeddler: {
+        freed: {
+          '1': 'Niech będą błogosławione twoje buty! Odo Marrow, domokrążca. Znajdź mnie w Sunfordzie, będę miał dla ciebie towar.'
+        }
+      },
       goblinKing: {
         charge: {
           '1': 'Stratuj ich, Tusker!'
@@ -5685,6 +5743,18 @@ export default {
     },
     treasureMap: {
       title: 'Mapa skarbów kapitana Rooka'
+    },
+    windrunnerTest: {
+      title: 'Próba: Wiatrobiegacz'
+    },
+    frostwardenTest: {
+      title: 'Próba: Strażnik Mrozu'
+    },
+    lightbringerTest: {
+      title: 'Próba: Niosący Światło'
+    },
+    beastcallerTest: {
+      title: 'Próba: Przywoływacz Bestii'
     }
   }
 }

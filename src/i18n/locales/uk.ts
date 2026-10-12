@@ -137,14 +137,6 @@ export default {
     chi: 'Ці'
   },
   toast: {
-    freed: {
-      lightDisciple: 'Свобода! Сестра Аурель навчатиме шляху Світлоносця в місті {town}.',
-      frostDisciple: 'Свобода! Айвор навчатиме шляху Стража Криги в місті {town}.',
-      windDisciple: 'Свобода! Кестрел навчатиме шляху Вітробіга в місті {town}.',
-      freedFarmers: 'Свобода! Толлери знайдуть дім у місті {town}.',
-      freedHerbalist: 'Свобода! Травниця Браяр чекатиме на тебе в місті {town}.',
-      freedPeddler: 'Свобода! Торговець Одо торгуватиме в місті {town}.'
-    },
     cageLocked: 'Замкнено. Ключ має бути десь тут.',
     cageKey: 'Ключ! Мабуть, він відмикає клітку.',
     ore: 'Добуто: {n} × {ore}',
@@ -1731,6 +1723,42 @@ export default {
     },
     sovereignsSignet: {
       name: 'Печатка Державця'
+    },
+    heraldsPin: {
+      name: 'Брошка глашатая'
+    },
+    hymnalOfTheRoad: {
+      name: 'Співаник дороги'
+    },
+    shepherdsCrook: {
+      name: 'Палиця пастуха'
+    },
+    minstrelsHat: {
+      name: 'Капелюх менестреля'
+    },
+    pilgrimsSandals: {
+      name: 'Сандалі прочанина'
+    },
+    falconersGloves: {
+      name: 'Рукавиці сокольника'
+    },
+    bellOfTheHerd: {
+      name: 'Дзвіночок отари'
+    },
+    bannerOfTheHost: {
+      name: 'Стяг воїнства'
+    },
+    heraldsTabard: {
+      name: 'Табард глашатая'
+    },
+    codexOfOaths: {
+      name: 'Кодекс клятв'
+    },
+    crownOfTheRightfulKing: {
+      name: 'Корона законного короля'
+    },
+    scepterOfTheFirstKing: {
+      name: 'Скіпетр першого короля'
     },
     heartOfTheMountain: {
       name: 'Серце гори'
@@ -4026,6 +4054,36 @@ export default {
       }
     },
     bark: {
+      lightDisciple: {
+        freed: {
+          '1': 'Тебе послало світло. Я Сестра Аурель. Знайди мене в Санфорді, я навчу тебе шляху Світлоносця.'
+        }
+      },
+      frostDisciple: {
+        freed: {
+          '1': 'Ти по мене? Айвор Гаск, учень Стража Криги. Приходь до Айронголда, і я тебе навчу.'
+        }
+      },
+      windDisciple: {
+        freed: {
+          '1': 'Нарешті вільний! Кестрел Вейн, зі шляху Вітробіга. Знайди мене в Оукгейвені, і я тебе навчу.'
+        }
+      },
+      freedFarmers: {
+        freed: {
+          '1': 'Врятовані! Ми Толлери, фермери. Знайди нас в Оукгейвені, вдома біда.'
+        }
+      },
+      freedHerbalist: {
+        freed: {
+          '1': 'Ой, дякую! Я Браяр, травниця. Приходь до мене в Сільвербрідж. Мені б знадобилася твоя допомога.'
+        }
+      },
+      freedPeddler: {
+        freed: {
+          '1': 'Хай небо благословить твої чоботи! Одо Марроу, торговець. Знайди мене в Санфорді, матиму для тебе товар.'
+        }
+      },
       goblinKing: {
         charge: {
           '1': 'Розчави їх, Таскере!'
@@ -5688,6 +5746,18 @@ export default {
     },
     treasureMap: {
       title: 'Мапа скарбів капітана Рука'
+    },
+    windrunnerTest: {
+      title: 'Випробування: Вітробіг'
+    },
+    frostwardenTest: {
+      title: 'Випробування: Страж Криги'
+    },
+    lightbringerTest: {
+      title: 'Випробування: Світлоносець'
+    },
+    beastcallerTest: {
+      title: 'Випробування: Володар Звірів'
     }
   }
 }

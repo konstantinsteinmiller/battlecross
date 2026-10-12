@@ -5,7 +5,7 @@ import type { ChestTier, LootKind } from '../data/loot'
 import type { BranchPlan, ChestRole } from './zoneFeatures'
 import type { HerbState, PieceState } from './herbs'
 import type { OreState } from './ores'
-import type { CageKeyState } from './cages'
+import type { CageKeyState, CaptiveState } from './cages'
 import type { CaravanState } from './caravan'
 import type {
   Action, Danger, Field, Projectile, SimEvent, Status, StatusId, Team, TempWall, Unit, UnitStats, Rank
@@ -274,6 +274,8 @@ export class Sim {
   ores: OreState[] = []
   /** A cage's key lying in the place (`cages.ts`, roadmap #100). */
   cageKey: CageKeyState | null = null
+  /** The people in that cage, and once freed, on their way home (`cages.ts`). */
+  captives: CaptiveState[] = []
   /** The treasure map's pieces lying in this zone (roadmap #89). */
   pieces: PieceState[] = []
   /** The caravan of an escort (roadmap #85, `caravan.ts`); null: none. */
@@ -461,6 +463,13 @@ export class Sim {
     this.byId.set(u.id, u)
     this.emit({ t: 'spawn', unit: u.id })
     return u
+  }
+
+  /** Take a unit out of the world at once, alive (a freed captive gone home). */
+  dismiss(u: Unit): void {
+    const i = this.units.indexOf(u)
+    if (i >= 0) this.units.splice(i, 1)
+    this.byId.delete(u.id)
   }
 
   /** Drop units that have been dead long enough for their fade to finish. */

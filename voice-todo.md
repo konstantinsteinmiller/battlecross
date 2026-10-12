@@ -17,8 +17,8 @@ rewrites it, and a test fails when it is stale. Do not edit by hand.
 | Voice | Lines | EN voiced |
 | --- | --- | --- |
 | hero | 202 | 202 |
-| freedPeddler | 8 | 8 |
-| lightDisciple | 13 | 13 |
+| freedPeddler | 9 | 9 |
+| lightDisciple | 14 | 14 |
 | sunfordSmith | 24 | 24 |
 | sunfordPeddler | 15 | 15 |
 | trainerAegis | 18 | 18 |
@@ -29,8 +29,8 @@ rewrites it, and a test fails when it is stale. Do not edit by hand.
 | sunfordHealer | 12 | 12 |
 | goblinTrader | 11 | 11 |
 | sunfordGambler | 10 | 10 |
-| freedFarmers | 11 | 11 |
-| windDisciple | 13 | 13 |
+| freedFarmers | 12 | 12 |
+| windDisciple | 14 | 14 |
 | captainHale | 18 | 18 |
 | oakArmorer | 30 | 30 |
 | oakWeapons | 10 | 10 |
@@ -41,7 +41,7 @@ rewrites it, and a test fails when it is stale. Do not edit by hand.
 | trainerBlood | 16 | 16 |
 | syndicateBoss | 15 | 15 |
 | oakGambler | 10 | 10 |
-| frostDisciple | 13 | 13 |
+| frostDisciple | 14 | 14 |
 | forgemaster | 23 | 23 |
 | ironWeapons | 15 | 15 |
 | ironAetherWorks | 8 | 8 |
@@ -51,7 +51,7 @@ rewrites it, and a test fails when it is stale. Do not edit by hand.
 | trainerAether | 16 | 16 |
 | ironHealer | 12 | 12 |
 | trainerChrono | 19 | 19 |
-| freedHerbalist | 11 | 11 |
+| freedHerbalist | 12 | 12 |
 | mayorBrenna | 17 | 17 |
 | sbHealer | 10 | 10 |
 | sbAlchemist | 11 | 11 |
@@ -91,13 +91,13 @@ rewrites it, and a test fails when it is stale. Do not edit by hand.
 | kidFriend | 4 | 4 |
 | frostJarl | 2 | 2 |
 | heroine | 202 | 202 |
-| **All** | **1382** | **1382** |
+| **All** | **1388** | **1388** |
 
 ## To do (0)
 
 Nothing: every line has its recording.
 
-## Every line (1382)
+## Every line (1388)
 
 | File | Who | Scene | English | EN |
 | --- | --- | --- | --- | --- |
@@ -1263,6 +1263,12 @@ Nothing: every line has its recording.
 | `dlg.bark.archDemon.dive.1` | The Arch-Demon (archDemon) | bark.archDemon | Kneel. | chatterbox |
 | `dlg.bark.frostJarl.hammer.1` | The Frost Jarl (frostJarl) | bark.frostJarl | Stand still, little one. | chatterbox |
 | `dlg.bark.frostJarl.iceBreak.1` | The Frost Jarl (frostJarl) | bark.frostJarl | The lake will swallow you! | chatterbox |
+| `dlg.bark.freedPeddler.freed.1` | Odo Marrow (freedPeddler) | bark.freedPeddler | Bless your boots! Odo Marrow, peddler. Come find me in Sunford, I'll have wares for you. | chatterbox |
+| `dlg.bark.freedHerbalist.freed.1` | Briar Hollowell (freedHerbalist) | bark.freedHerbalist | Oh, thank you! I'm Briar, a herbalist. Come and see me in Silverbridge. I could use your help. | chatterbox |
+| `dlg.bark.freedFarmers.freed.1` | Jory Toller (freedFarmers) | bark.freedFarmers | You saved us! We're the Tollers, farmers. Find us in Oakhaven, there's trouble at home. | chatterbox |
+| `dlg.bark.windDisciple.freed.1` | Kestrel Vane (windDisciple) | bark.windDisciple | Free at last! Kestrel Vane, of the Windrunner's way. Find me in Oakhaven and I'll teach you. | chatterbox |
+| `dlg.bark.frostDisciple.freed.1` | Ivor Hask (frostDisciple) | bark.frostDisciple | You came for me? Ivor Hask, a Frostwarden's disciple. Come to Ironhold and I'll teach you. | chatterbox |
+| `dlg.bark.lightDisciple.freed.1` | Sister Aurelle (lightDisciple) | bark.lightDisciple | The light sent you. I am Sister Aurelle. Seek me in Sunford, I'll teach you the Lightbringer's way. | chatterbox |
 | `ending.order.text` | The hero, telling the story (hero) | ending | Banners of the Iron Order fly over the Dread Fortress. The roads are safe, the laws are many, and your name is carved above the gate. | chatterbox |
 | `ending.syndicate.text` | The hero, telling the story (hero) | ending | The Syndicate rules from the shadows of the fortress. Nothing in the realm is forbidden any more. It is only expensive. | chatterbox |
 | `ending.circle.text` | The hero, telling the story (hero) | ending | The Circle lights the fortress with captured void-fire. Wonders pour out of its gates, and no one asks what they cost. | chatterbox |

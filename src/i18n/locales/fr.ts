@@ -137,14 +137,6 @@ export default {
     chi: 'Chi'
   },
   toast: {
-    freed: {
-      lightDisciple: 'Libérée ! Sœur Aurelle enseignera la voie du Porte-Lumière à {town}.',
-      frostDisciple: 'Libéré ! Ivor enseignera la voie du Gardien du givre à {town}.',
-      windDisciple: 'Libéré ! Kestrel enseignera la voie du Coureur des vents à {town}.',
-      freedFarmers: 'Libérés ! Les Toller trouveront un foyer à {town}.',
-      freedHerbalist: 'Libérée ! Briar l’herboriste t’attendra à {town}.',
-      freedPeddler: 'Libéré ! Odo le colporteur fera commerce à {town}.'
-    },
     cageLocked: 'Fermée à clé. La clé doit se trouver quelque part ici.',
     cageKey: 'Une clé ! Elle doit ouvrir la cage.',
     ore: 'Extrait : {n} × {ore}',
@@ -1731,6 +1723,42 @@ export default {
     },
     sovereignsSignet: {
       name: 'Sceau du Souverain'
+    },
+    heraldsPin: {
+      name: 'Broche du héraut'
+    },
+    hymnalOfTheRoad: {
+      name: 'Hymnaire de la route'
+    },
+    shepherdsCrook: {
+      name: 'Houlette du berger'
+    },
+    minstrelsHat: {
+      name: 'Chapeau du ménestrel'
+    },
+    pilgrimsSandals: {
+      name: 'Sandales du pèlerin'
+    },
+    falconersGloves: {
+      name: 'Gants du fauconnier'
+    },
+    bellOfTheHerd: {
+      name: 'Cloche du troupeau'
+    },
+    bannerOfTheHost: {
+      name: 'Bannière de l\'armée'
+    },
+    heraldsTabard: {
+      name: 'Tabard du héraut'
+    },
+    codexOfOaths: {
+      name: 'Codex des serments'
+    },
+    crownOfTheRightfulKing: {
+      name: 'Couronne du roi légitime'
+    },
+    scepterOfTheFirstKing: {
+      name: 'Sceptre du premier roi'
     },
     heartOfTheMountain: {
       name: 'Cœur de la montagne'
@@ -3975,6 +4003,36 @@ export default {
       }
     },
     bark: {
+      lightDisciple: {
+        freed: {
+          '1': 'La lumière t’envoie. Je suis Sœur Aurelle. Cherche-moi à Sunford, je t’enseignerai la voie du Porte-Lumière.'
+        }
+      },
+      frostDisciple: {
+        freed: {
+          '1': 'C’est pour moi que tu es là ? Ivor Hask, disciple du Gardien du givre. Viens à Ironhold et je t’enseignerai.'
+        }
+      },
+      windDisciple: {
+        freed: {
+          '1': 'Enfin libre ! Kestrel Vane, de la voie du Coureur des vents. Retrouve-moi à Oakhaven et je t’enseignerai.'
+        }
+      },
+      freedFarmers: {
+        freed: {
+          '1': 'Tu nous as sauvés ! Nous sommes les Toller, fermiers. Retrouve-nous à Oakhaven, on a des ennuis à la maison.'
+        }
+      },
+      freedHerbalist: {
+        freed: {
+          '1': 'Oh, merci ! Je suis Briar, herboriste. Viens me voir à Silverbridge. J’aurais bien besoin de ton aide.'
+        }
+      },
+      freedPeddler: {
+        freed: {
+          '1': 'Que tes bottes soient bénies ! Odo Marrow, colporteur. Viens me voir à Sunford, j’aurai des marchandises pour toi.'
+        }
+      },
       goblinKing: {
         charge: {
           '1': 'Écrase-les, Tusker !'
@@ -5637,6 +5695,18 @@ export default {
     },
     treasureMap: {
       title: 'La carte au trésor du capitaine Rook'
+    },
+    windrunnerTest: {
+      title: 'L\'épreuve : Coureur des vents'
+    },
+    frostwardenTest: {
+      title: 'L\'épreuve : Gardien du givre'
+    },
+    lightbringerTest: {
+      title: 'L\'épreuve : Porte-Lumière'
+    },
+    beastcallerTest: {
+      title: 'L\'épreuve : Maître des bêtes'
     }
   }
 }

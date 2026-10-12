@@ -201,13 +201,8 @@ interface ChestView {
   glint: number
   x: number
   z: number
-  /** A cage (#100): the people in it, and seconds since they were freed (-1: not yet). */
-  cage?: { people: Group; freedT: number }
-}
-
-/** What the captives of each cage wear (#100). */
-const CAPTIVE_COLOUR: Record<string, string> = {
-  freedPeddler: '#c87a3a', freedHerbalist: '#4a9a6a', freedFarmers: '#a88a3a', windDisciple: '#5ac8e0', frostDisciple: '#8ab8ff', lightDisciple: '#f0d060'
+  /** A cage (#100). The people in it are units of their own (`sim/cages.ts`). */
+  cage?: boolean
 }
 
 // ─── Plates ──────────────────────────────────────────────────────────────────
@@ -916,33 +911,13 @@ export class LevelProps {
     dl.renderOrder = -1
     lid.add(dm, dl)
     root.add(lid)
-    // The people: a body and a head each, close together behind the bars.
-    const people = new Group()
-    const n = def?.count ?? 1
-    const coat = CAPTIVE_COLOUR[def?.look ?? ''] ?? '#8a7a6a'
-    const pg: BufferGeometry[] = []
-    for (let q = 0; q < n; q++) {
-      const px = n === 1 ? 0 : (q - (n - 1) / 2) * 0.5
-      const h = q === 1 ? 0.85 : 1
-      pg.push(xform(paint(sph(1, 10, 8), coat), [px, 0.55 * h, -0.05], [0, 0, 0], [0.22, 0.5 * h, 0.17]))
-      pg.push(xform(paint(sph(0.16, 10, 8), '#f0c8a0'), [px, 1.12 * h, -0.02]))
-      pg.push(xform(paint(sph(1, 8, 6), '#5a3a28'), [px, 1.2 * h, -0.06], [0, 0, 0], [0.17, 0.09, 0.17]))
-    }
-    const pgeo = merge(pg).scale(k, k, k)
-    this.owned.push(pgeo)
-    const pm = new Mesh(pgeo, celVC())
-    const po = new Mesh(pgeo, outlineMat())
-    po.renderOrder = -1
-    people.add(pm, po)
-    people.visible = c.state !== 'open'
-    root.add(people)
     const glow = new Mesh(new BufferGeometry(), glowVC())
     glow.visible = false
     const open = c.state === 'open'
     this.root.add(root)
     this.chests.push({
       id: c.id, tier: c.tier, root, lid, glow, open: open ? 1 : 0, aim: open ? 1 : 0, liftT: 0, popT: -1,
-      show: 1, glint: 1 + Math.random() * 3, x: c.x, z: c.z, cage: { people, freedT: -1 }
+      show: 1, glint: 1 + Math.random() * 3, x: c.x, z: c.z, cage: true
     })
   }
 
@@ -1198,10 +1173,8 @@ export class LevelProps {
         v.popT = 0
         v.glow.visible = true
         if (v.cage) {
-          // The captives go free (#100): they will be found in town.
-          v.cage.freedT = 0
-          const def = cageOf(this.sim.zone)
-          if (def) pushHud({ t: 'toast', key: `toast.freed.${def.npc}`, params: { town: `node.${def.town}.name` } })
+          // The captives go free (#100): they step out and say themselves who
+          // they are and where to find them (`sim/cages.ts`), no toast over it.
           sfx('levelUp', p)
         }
         const ring = CHEST_RING[v.tier]
@@ -1367,15 +1340,6 @@ export class LevelProps {
         }
       }
       v.lid.rotation.x = angle
-      // A cage's people (#100): they jump for joy, then are gone (to town).
-      if (v.cage && v.cage.freedT >= 0 && v.cage.people.visible) {
-        v.cage.freedT += dt
-        const t = v.cage.freedT
-        v.cage.people.position.y = Math.abs(Math.sin(t * 7)) * 0.25 * Math.max(0, 1 - t / 1.8)
-        v.cage.people.position.z = Math.max(0, t - 0.9) * 1.6
-        if (t > 1.8) v.cage.people.scale.setScalar(Math.max(0.001, 1 - (t - 1.8) / 0.4))
-        if (t > 2.2) v.cage.people.visible = false
-      }
       if (v.cage) continue
       const pop = v.show < 1 ? 1 + Math.sin(v.show * Math.PI) * 0.25 : 1
       const s = look.scale * (v.show < 1 ? v.show * pop : 1)

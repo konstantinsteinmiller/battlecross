@@ -67,7 +67,7 @@ export interface ItemDef {
 
 const melee = (scale: Attr, interval = 0.95, heavy = false) => ({ scale, style: 'melee' as const, range: 2.1, interval, heavy })
 const ranged = (scale: Attr, interval = 0.9) => ({ scale, style: 'ranged' as const, range: 9.5, interval })
-const magic = (interval = 1.05) => ({ scale: 'int' as Attr, style: 'magic' as const, range: 9, interval })
+const magic = (interval = 1.05, scale: Attr = 'int') => ({ scale, style: 'magic' as const, range: 9, interval })
 
 /**
  * ─── Gear gives attributes, but less than the hero earns (#110) ──────────────
@@ -175,8 +175,32 @@ const ITEM_TABLE: readonly ItemDef[] = [
   { id: 'ringOfTheVampyre', slot: 'trinket', kind: 'ring', tier: 4, level: 20, mods: { end: 25, lifesteal: 0.05 }, unique: true, drop: { zone: 'tundra', src: 'mob' } },
   { id: 'sovereignsSignet', slot: 'trinket', kind: 'ring', tier: 5, level: 24, mods: { cha: 30, minionDamage: 0.2 }, unique: true, drop: { zone: 'peak', src: 'mob' } },
   { id: 'heartOfTheMountain', slot: 'trinket', kind: 'heart', tier: 5, level: 25, mods: { str: 35, end: 20, knockbackImmune: 1 }, unique: true, drop: { zone: 'citadel', src: 'mob' } },
-  { id: 'ringOfAbsolutePower', slot: 'trinket', kind: 'ring', tier: 6, level: 30, mods: { allAttrs: 25, damagePct: 0.15, damageReduction: 0.15 }, unique: true, drop: { zone: 'fortress', src: 'secret' } }
+  { id: 'ringOfAbsolutePower', slot: 'trinket', kind: 'ring', tier: 6, level: 30, mods: { allAttrs: 25, damagePct: 0.15, damageReduction: 0.15 }, unique: true, drop: { zone: 'fortress', src: 'secret' } },
+
+  // ── The Charisma set ──────────────────────────────────────────────────────
+  //
+  // Four classes (Sovereign, Lightbringer, Beastcaller, Bard) scale on CHA,
+  // but the tables above only had a ring and a robe for it, both late. Twelve
+  // pieces, one sheet of icons (`CHARISMA_ITEMS`), from level 3 to 29: a
+  // weapon whose blow scales on CHA in every stage of the game, and every
+  // slot filled. Their extras feed what CHA skills do: minions, heals, songs.
+  { id: 'heraldsPin', slot: 'trinket', kind: 'charm', tier: 1, level: 3, mods: { cha: 6, hpRegen: 2 }, drop: { zone: 'hollows', src: 'chest' } },
+  { id: 'hymnalOfTheRoad', slot: 'off', kind: 'tome', tier: 1, level: 5, mods: { cha: 6, end: 2, minionHp: 0.1 }, drop: { zone: 'hollows', src: 'mob' } },
+  { id: 'shepherdsCrook', slot: 'main', kind: 'staff', tier: 2, level: 7, mods: { cha: 14, end: 6, minionDamage: 0.1 }, weapon: magic(1.05, 'cha'), drop: { zone: 'woods', src: 'chest' } },
+  { id: 'minstrelsHat', slot: 'head', kind: 'hat', tier: 2, level: 9, mods: { cha: 6, end: 2, maxMana: 20 }, drop: { zone: 'outskirts', src: 'mob' } },
+  { id: 'pilgrimsSandals', slot: 'feet', kind: 'boots', tier: 2, level: 10, mods: { cha: 5, end: 2, moveSpeed: 0.04 }, drop: { zone: 'outskirts', src: 'chest' } },
+  { id: 'falconersGloves', slot: 'hands', kind: 'gloves', tier: 3, level: 12, mods: { cha: 10, attackSpeed: 0.03 }, drop: { zone: 'crags', src: 'mob' } },
+  { id: 'bellOfTheHerd', slot: 'trinket', kind: 'charm', tier: 3, level: 14, mods: { cha: 18, minionHp: 0.15 }, drop: { zone: 'mines', src: 'chest' } },
+  { id: 'bannerOfTheHost', slot: 'main', kind: 'staff', tier: 4, level: 18, mods: { cha: 38, end: 18, minionAttackSpeed: 0.12 }, weapon: magic(1.0, 'cha'), drop: { zone: 'temple', src: 'boss' } },
+  { id: 'heraldsTabard', slot: 'body', kind: 'robe', tier: 4, level: 20, mods: { cha: 34, end: 22 }, armor: 52, drop: { zone: 'tundra', src: 'chest' } },
+  { id: 'codexOfOaths', slot: 'off', kind: 'tome', tier: 5, level: 22, mods: { cha: 48, end: 20, minionHp: 0.2 }, drop: { zone: 'citadel', src: 'chest' } },
+  { id: 'crownOfTheRightfulKing', slot: 'head', kind: 'circlet', tier: 5, level: 25, mods: { cha: 22, end: 10, cdr: 0.03 }, drop: { zone: 'peak', src: 'chest' } },
+  { id: 'scepterOfTheFirstKing', slot: 'main', kind: 'wand', tier: 6, level: 29, mods: { cha: 85, end: 45, minionDamage: 0.25 }, weapon: magic(0.95, 'cha'), drop: { zone: 'fortress', src: 'boss' } }
 ]
+
+/** The Charisma set's ids: one sheet of icons of their own. */
+export const CHARISMA_ITEMS: ReadonlySet<string> = new Set(['heraldsPin', 'hymnalOfTheRoad', 'shepherdsCrook', 'minstrelsHat', 'pilgrimsSandals', 'falconersGloves',
+  'bellOfTheHerd', 'bannerOfTheHost', 'heraldsTabard', 'codexOfOaths', 'crownOfTheRightfulKing', 'scepterOfTheFirstKing'])
 
 export const ITEMS: readonly ItemDef[] = ITEM_TABLE.map(scaled)
 

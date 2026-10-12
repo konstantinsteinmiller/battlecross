@@ -545,7 +545,8 @@ export const stepHero = (sim: Sim, dt: number): void => {
     u.repathT -= dt
     if (u.repathT <= 0 || !u.hasGoal) {
       u.repathT = 0.5
-      setGoal(sim, u, o.x, o.z)
+      // The rock is solid: to its open side (a save from before has none).
+      setGoal(sim, u, o.sx ?? o.x, o.sz ?? o.z)
     }
     walk(sim, u, dt)
     u.anim = 'walk'

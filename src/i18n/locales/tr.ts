@@ -137,14 +137,6 @@ export default {
     chi: 'Çi'
   },
   toast: {
-    freed: {
-      lightDisciple: 'Kurtarıldı! Rahibe Aurelle, {town} kasabasında Işık Getiren yolunu öğretecek.',
-      frostDisciple: 'Kurtarıldı! Ivor, {town} kasabasında Ayaz Muhafızı yolunu öğretecek.',
-      windDisciple: 'Kurtarıldı! Kestrel, {town} kasabasında Rüzgâr Koşucusu yolunu öğretecek.',
-      freedFarmers: 'Kurtarıldılar! Toller ailesi {town} kasabasında kendine bir yuva bulacak.',
-      freedHerbalist: 'Kurtarıldı! Otacı Briar seni {town} kasabasında bekleyecek.',
-      freedPeddler: 'Kurtarıldı! Çerçi Odo artık {town} kasabasında ticaret yapacak.'
-    },
     cageLocked: 'Kilitli. Anahtar buralarda bir yerde olmalı.',
     cageKey: 'Bir anahtar! Kafesi açıyor olmalı.',
     ore: 'Kazıldı: {n} × {ore}',
@@ -1730,6 +1722,42 @@ export default {
     },
     sovereignsSignet: {
       name: 'Hükümdarın Mührü'
+    },
+    heraldsPin: {
+      name: 'Habercinin iğnesi'
+    },
+    hymnalOfTheRoad: {
+      name: 'Yolun ilahileri'
+    },
+    shepherdsCrook: {
+      name: 'Çoban değneği'
+    },
+    minstrelsHat: {
+      name: 'Ozanın şapkası'
+    },
+    pilgrimsSandals: {
+      name: 'Hacının sandaletleri'
+    },
+    falconersGloves: {
+      name: 'Şahinci eldivenleri'
+    },
+    bellOfTheHerd: {
+      name: 'Sürünün çanı'
+    },
+    bannerOfTheHost: {
+      name: 'Ordunun sancağı'
+    },
+    heraldsTabard: {
+      name: 'Habercinin cübbesi'
+    },
+    codexOfOaths: {
+      name: 'Yeminler kodeksi'
+    },
+    crownOfTheRightfulKing: {
+      name: 'Meşru kralın tacı'
+    },
+    scepterOfTheFirstKing: {
+      name: 'İlk kralın asası'
     },
     heartOfTheMountain: {
       name: 'Dağın Kalbi'
@@ -3928,6 +3956,36 @@ export default {
       }
     },
     bark: {
+      lightDisciple: {
+        freed: {
+          '1': 'Seni ışık gönderdi. Ben Rahibe Aurelle. Beni Sunford’da ara, sana Işık Getiren yolunu öğreteyim.'
+        }
+      },
+      frostDisciple: {
+        freed: {
+          '1': 'Benim için mi geldin? Ben Ivor Hask, bir Ayaz Muhafızı çırağı. Ironhold’a gel, sana öğreteyim.'
+        }
+      },
+      windDisciple: {
+        freed: {
+          '1': 'Sonunda özgürüm! Ben Kestrel Vane, Rüzgâr Koşucusu yolundanım. Beni Oakhaven’da bul, sana öğreteyim.'
+        }
+      },
+      freedFarmers: {
+        freed: {
+          '1': 'Bizi kurtardın! Biz Toller ailesiyiz, çiftçiyiz. Bizi Oakhaven’da bul, evde başımız dertte.'
+        }
+      },
+      freedHerbalist: {
+        freed: {
+          '1': 'Ah, teşekkürler! Ben Briar, otacıyım. Silverbridge’e gel, beni gör. Yardımına ihtiyacım olabilir.'
+        }
+      },
+      freedPeddler: {
+        freed: {
+          '1': 'Çizmelerin kutlu olsun! Ben Odo Marrow, çerçi. Beni Sunford’da bul, sana mallarım olacak.'
+        }
+      },
       goblinKing: {
         charge: {
           '1': 'Ez geç onları, Tusker!'
@@ -5583,6 +5641,18 @@ export default {
     },
     treasureMap: {
       title: 'Kaptan Rook\'un hazine haritası'
+    },
+    windrunnerTest: {
+      title: 'Sınav: Rüzgâr Koşucusu'
+    },
+    frostwardenTest: {
+      title: 'Sınav: Ayaz Muhafızı'
+    },
+    lightbringerTest: {
+      title: 'Sınav: Işık Getiren'
+    },
+    beastcallerTest: {
+      title: 'Sınav: Yaban Çağırıcısı'
     }
   }
 }

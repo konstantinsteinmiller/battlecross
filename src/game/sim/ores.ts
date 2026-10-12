@@ -1,10 +1,10 @@
 import { ORE_NODES_MAX, oresAt, type OreId } from '../data/ores'
 import { face, stop } from './actors'
-import { centerOf } from './grid'
+import { cellOf, centerOf } from './grid'
 import { walkableFrom, type SpotPlan } from './herbs'
 import { mulberry32 } from './rng'
 import { newAction, type Sim } from './world'
-import { K_GROUND } from './zoneFeatures'
+import { K_BLOCK, K_CLIFF, K_GROUND, K_WATER } from './zoneFeatures'
 
 /**
  * ─── Mining (roadmap #99) ────────────────────────────────────────────────────
@@ -17,12 +17,20 @@ import { K_GROUND } from './zoneFeatures'
  * mines nothing stops him: no damage, no knockback, no stun, no cancel. So
  * that this is not a shield to hide behind, mining only starts with no awake
  * enemy near. The outcrop gives one or two nuggets and is spent.
+ *
+ * The rock is solid (its cell is a block, walked around like a chest), so it
+ * may never stand where it would close or narrow a way through: never in a
+ * passage between two places, only against the wall of an open place, and
+ * only where every cell reachable before is still reachable with it there.
  */
 
 export interface OrePlan {
   x: number
   z: number
   kind: OreId
+  /** Where the hero stands to swing: an open cell beside the rock. */
+  sx: number
+  sz: number
 }
 export interface OreState extends OrePlan {
   id: number
@@ -40,24 +48,109 @@ export const MINE_CLEAR = 8
 
 const ORE_SALT = 0x510e527f
 
+/** The eight neighbours, in order round the cell. */
+const RING: ReadonlyArray<readonly [number, number]> = [[1, 0], [1, 1], [0, 1], [-1, 1], [-1, 0], [-1, -1], [0, -1], [1, -1]]
+
+/** A cell anything walks on (a door's pocket counts: it opens later). */
+const openCell = (p: SpotPlan, k: number): boolean => !p.solid[k] && p.kind[k] !== K_WATER && p.kind[k] !== K_BLOCK && p.kind[k] !== K_CLIFF
+
+/** How many cells can be walked to from the start (`shut`: one more blocked). */
+const reachCount = (p: SpotPlan, shut: number): number => {
+  const { w, h } = p
+  const seen = new Uint8Array(w * h)
+  const s = cellOf(p.start.z) * w + cellOf(p.start.x)
+  if (!openCell(p, s)) return 0
+  const free = (k: number): boolean => k !== shut && openCell(p, k)
+  const q = [s]
+  seen[s] = 1
+  let n = 1
+  while (q.length) {
+    const k = q.pop()!
+    const i = k % w
+    const j = (k - i) / w
+    for (const [di, dj] of RING) {
+      const ni = i + di
+      const nj = j + dj
+      if (ni < 0 || nj < 0 || ni >= w || nj >= h) continue
+      const nk = nj * w + ni
+      if (seen[nk] || !free(nk)) continue
+      // No cutting a corner between two blocked cells (as A* walks).
+      if (di && dj && (!free(j * w + ni) || !free(nj * w + i))) continue
+      seen[nk] = 1
+      n++
+      q.push(nk)
+    }
+  }
+  return n
+}
+
+/**
+ * Against the wall of an OPEN place, not in a passage: the open cells round
+ * it form one unbroken arc (a rock there leaves no gap to squeeze through),
+ * the ground runs on at least four cells (6 m) away from the wall, and the
+ * place about it is mostly open.
+ */
+export const roomyWall = (p: SpotPlan, i: number, j: number): boolean => {
+  const { w } = p
+  let arcs = 0
+  let ax = 0
+  let az = 0
+  for (let q = 0; q < 8; q++) {
+    const [di, dj] = RING[q]!
+    const [ei, ej] = RING[(q + 1) % 8]!
+    const a = openCell(p, (j + dj) * w + i + di)
+    const b = openCell(p, (j + ej) * w + i + ei)
+    if (a && !b) arcs++
+    if (!a) { ax -= di; az -= dj }
+  }
+  if (arcs !== 1) return false
+  const l = Math.hypot(ax, az)
+  if (l < 0.5) return false
+  for (let s = 1; s <= 4; s++) {
+    const ni = Math.round(i + (ax / l) * s)
+    const nj = Math.round(j + (az / l) * s)
+    if (ni < 0 || nj < 0 || ni >= w || nj >= p.h || !openCell(p, nj * w + ni)) return false
+  }
+  let open = 0
+  for (let dj = -3; dj <= 3; dj++) {
+    for (let di = -3; di <= 3; di++) {
+      const ni = i + di
+      const nj = j + dj
+      if (ni >= 0 && nj >= 0 && ni < w && nj < p.h && openCell(p, nj * w + ni)) open++
+    }
+  }
+  return open >= 28
+}
+
 /**
  * The outcrops a visit holds: reachable ground with stone on two to five of
- * its eight sides (against a wall, not in a corridor), off the road, away
- * from the start, the chests (beyond their prompt), the herbs and each other.
+ * its eight sides against the wall of an open place (`roomyWall`), off the
+ * road and a cell clear of it, away from the start, the chests (beyond their
+ * prompt), the herbs and each other; and never cutting anything off. Each
+ * one's cell becomes a block.
  */
-export const placeOres = (p: SpotPlan & { seed: number }, level: number, avoid: ReadonlyArray<{ x: number; z: number }>): OrePlan[] => {
+export const placeOres = (p: SpotPlan & { seed: number; cave?: Uint8Array }, level: number, avoid: ReadonlyArray<{ x: number; z: number }>): OrePlan[] => {
   const pool = oresAt(level)
   if (!pool.length) return []
   const rng = mulberry32((p.seed ^ ORE_SALT) >>> 0)
   const reach = walkableFrom(p.w, p.h, p.solid, p.sealed, p.start)
   const cand: number[] = []
-  for (let j = 2; j < p.h - 2; j++) {
-    for (let i = 2; i < p.w - 2; i++) {
+  for (let j = 3; j < p.h - 3; j++) {
+    for (let i = 3; i < p.w - 3; i++) {
       const k = j * p.w + i
-      if (!reach[k] || p.kind[k] !== K_GROUND || p.trail[k]) continue
+      // Not in a cave: its ways are narrow and it is a place one goes into.
+      if (!reach[k] || p.kind[k] !== K_GROUND || p.trail[k] || p.cave?.[k]) continue
       let rock = 0
-      for (let dj = -1; dj <= 1; dj++) for (let di = -1; di <= 1; di++) if ((di || dj) && p.solid[(j + dj) * p.w + i + di]) rock++
-      if (rock < 2 || rock > 5) continue
+      let road = false
+      for (let dj = -1; dj <= 1; dj++) {
+        for (let di = -1; di <= 1; di++) {
+          const nk = (j + dj) * p.w + i + di
+          if ((di || dj) && p.solid[nk]) rock++
+          if (p.trail[nk]) road = true
+        }
+      }
+      if (rock < 2 || rock > 5 || road) continue
+      if (!roomyWall(p, i, j)) continue
       const x = centerOf(i)
       const z = centerOf(j)
       if (Math.hypot(x - p.start.x, z - p.start.z) < 8) continue
@@ -70,11 +163,13 @@ export const placeOres = (p: SpotPlan & { seed: number }, level: number, avoid: 
   const n = 1 + Math.floor(rng() * ORE_NODES_MAX)
   const total = pool.reduce((s, q) => s + q.weight, 0)
   const out: OrePlan[] = []
+  let before = -1
   for (let tries = 0; out.length < n && cand.length && tries < 300; tries++) {
     const k = cand[Math.floor(rng() * cand.length)]!
     const i = k % p.w
+    const j = (k - i) / p.w
     const x = centerOf(i)
-    const z = centerOf((k - i) / p.w)
+    const z = centerOf(j)
     if (out.some(o => Math.hypot(o.x - x, o.z - z) < 12)) continue
     let r = rng() * total
     let kind = pool[pool.length - 1]!.id
@@ -82,7 +177,20 @@ export const placeOres = (p: SpotPlan & { seed: number }, level: number, avoid: 
       r -= q.weight
       if (r <= 0) { kind = q.id; break }
     }
-    out.push({ x, z, kind })
+    // Nothing reachable before may be lost behind it.
+    if (before < 0) before = reachCount(p, -1)
+    if (reachCount(p, k) !== before - 1) continue
+    // The hero's place to swing: the open side nearest the camera.
+    let stand = -1
+    for (const [di, dj] of [[0, 1], [1, 0], [-1, 0], [0, -1]] as const) {
+      const nk = (j + dj) * p.w + i + di
+      if (openCell(p, nk) && p.kind[nk] === K_GROUND) { stand = nk; break }
+    }
+    if (stand < 0) continue
+    p.kind[k] = K_BLOCK
+    before--
+    const si = stand % p.w
+    out.push({ x, z, kind, sx: centerOf(si), sz: centerOf((stand - si) / p.w) })
   }
   return out
 }

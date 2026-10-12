@@ -137,14 +137,6 @@ export default {
     chi: 'Csi'
   },
   toast: {
-    freed: {
-      lightDisciple: 'Kiszabadítva! Aurelle nővér {town} városában tanítja a Fényhozók útját.',
-      frostDisciple: 'Kiszabadítva! Ivor {town} városában tanítja a Fagyőrök útját.',
-      windDisciple: 'Kiszabadítva! Kestrel {town} városában tanítja a Szélfutók útját.',
-      freedFarmers: 'Kiszabadítva! A Toller család {town} városában talál otthonra.',
-      freedHerbalist: 'Kiszabadítva! Briar, a füvesasszony {town} városában vár rád.',
-      freedPeddler: 'Kiszabadítva! Odo, a házaló {town} városában fog kereskedni.'
-    },
     cageLocked: 'Zárva. A kulcsnak valahol itt kell lennie.',
     cageKey: 'Egy kulcs! Biztosan a ketrecet nyitja.',
     ore: 'Kibányászva: {n} × {ore}',
@@ -1730,6 +1722,42 @@ export default {
     },
     sovereignsSignet: {
       name: 'Uralkodói pecsétgyűrű'
+    },
+    heraldsPin: {
+      name: 'Hírnök tűje'
+    },
+    hymnalOfTheRoad: {
+      name: 'Az út énekeskönyve'
+    },
+    shepherdsCrook: {
+      name: 'Pásztorbot'
+    },
+    minstrelsHat: {
+      name: 'Vándorénekes kalapja'
+    },
+    pilgrimsSandals: {
+      name: 'Zarándoksaru'
+    },
+    falconersGloves: {
+      name: 'Solymászkesztyű'
+    },
+    bellOfTheHerd: {
+      name: 'A nyáj kolompja'
+    },
+    bannerOfTheHost: {
+      name: 'A sereg zászlaja'
+    },
+    heraldsTabard: {
+      name: 'Hírnök címerköpenye'
+    },
+    codexOfOaths: {
+      name: 'Az eskük kódexe'
+    },
+    crownOfTheRightfulKing: {
+      name: 'A jogos király koronája'
+    },
+    scepterOfTheFirstKing: {
+      name: 'Az első király jogara'
     },
     heartOfTheMountain: {
       name: 'A hegy szíve'
@@ -3928,6 +3956,36 @@ export default {
       }
     },
     bark: {
+      lightDisciple: {
+        freed: {
+          '1': 'A fény küldött hozzám. Aurelle nővér vagyok. Keress meg Sunfordban, megtanítom neked a Fényhozók útját.'
+        }
+      },
+      frostDisciple: {
+        freed: {
+          '1': 'Értem jöttél? Ivor Hask, a Fagyőrök tanítványa. Gyere Ironholdba, és tanítalak.'
+        }
+      },
+      windDisciple: {
+        freed: {
+          '1': 'Végre szabad vagyok! Kestrel Vane, a Szélfutók útjáról. Keress meg Oakhavenben, és tanítalak.'
+        }
+      },
+      freedFarmers: {
+        freed: {
+          '1': 'Megmentettél minket! Mi vagyunk a Toller család, gazdák. Keress meg minket Oakhavenben, baj van otthon.'
+        }
+      },
+      freedHerbalist: {
+        freed: {
+          '1': 'Ó, köszönöm! Briar vagyok, füvesasszony. Látogass meg Silverbridge-ben. Jól jönne a segítséged.'
+        }
+      },
+      freedPeddler: {
+        freed: {
+          '1': 'Áldott legyen a csizmád! Odo Marrow, házaló. Keress meg Sunfordban, lesz számodra áru.'
+        }
+      },
       goblinKing: {
         charge: {
           '1': 'Taposd el őket, Agyar!'
@@ -5583,6 +5641,18 @@ export default {
     },
     treasureMap: {
       title: 'Rook kapitány kincses térképe'
+    },
+    windrunnerTest: {
+      title: 'Próbatétel: Szélfutó'
+    },
+    frostwardenTest: {
+      title: 'Próbatétel: Fagyőr'
+    },
+    lightbringerTest: {
+      title: 'Próbatétel: Fényhozó'
+    },
+    beastcallerTest: {
+      title: 'Próbatétel: Vadhívó'
     }
   }
 }

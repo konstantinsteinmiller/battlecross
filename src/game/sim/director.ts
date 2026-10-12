@@ -85,7 +85,7 @@ export const populateZone = (sim: Sim, plan: ZonePlan, zone: ZoneId, owned: Iter
   populateFeatures(sim, plan, zone, opened)
   populateHerbs(sim, plan.herbs ?? [], plan.pieces ?? [])
   populateOres(sim, plan.ores ?? [])
-  populateCage(sim, plan.cageKey)
+  populateCage(sim, plan.cageKey, plan.start)
   // An escort's caravan, at the start of its road (#85).
   if (plan.caravan) spawnCaravan(sim, plan.caravan.path)
 }

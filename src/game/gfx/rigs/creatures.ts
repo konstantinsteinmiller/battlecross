@@ -100,12 +100,13 @@ const BEAST: Record<BeastVariant, { fur: string; back: string; belly: string; ey
   wolf: { fur: '#8e98ac', back: '#58627a', belly: '#e4e8f0', eye: '#ffb02a', accent: '#c8ced8', nose: '#2a2430' },
   stalker: { fur: '#4a2a8a', back: '#24104a', belly: '#9a6ae8', eye: '#f0c0ff', accent: '#b06aff', nose: '#14081f' },
   howler: { fur: '#dce6f4', back: '#8ea8cc', belly: '#ffffff', eye: '#7fe8ff', accent: '#9fd8ff', nose: '#3a4a66' },
-  // The Beastcaller's companions (#86): a leaf-green wolf, a honey-brown bear (the beast rig, scaled up).
+  // The Beastcaller's companions (#86): a leaf-green wolf, a honey-brown bear (its own body, `buildBear`).
   spiritWolf: { fur: '#6fbf7a', back: '#3f7a4a', belly: '#e8f4d8', eye: '#ffe07a', accent: '#b8f0a0', nose: '#24301f' },
   spiritBear: { fur: '#a8784a', back: '#6a4a2a', belly: '#e8d0a8', eye: '#ffe07a', accent: '#d8a860', nose: '#2a1c14' }
 }
 
 export const buildBeast = (variant: BeastVariant): Rig => {
+  if (variant === 'spiritBear') return buildBear()
   const P = BEAST[variant]
   const b = new RigBuilder()
   b.bone('root', null, [0, 0, 0])
@@ -166,6 +167,50 @@ export const buildBeast = (variant: BeastVariant): Rig => {
     for (let k = 0; k < 5; k++) b.part('body', spike(0.06, 0.32 - Math.abs(k - 2) * 0.05, 5), k % 2 ? '#bfe6ff' : '#e8f8ff', { p: [(k % 2 ? 0.06 : -0.06), 0.3, 0.2 - k * 0.12], r: [-0.5, 0, (k % 2 ? -0.3 : 0.3)] })
   }
   return b.build({ height: 0.95 * big })
+}
+
+// ─── The Beastcaller's bear (#86) ──────────────────────────────────────────
+
+/**
+ * Call Bear's companion: not a wolf in brown. A heavy body with the hump of
+ * muscle over the shoulders, thick pillar legs on broad paws with long pale
+ * claws, a round head with a short muzzle and small round ears, a stub of a
+ * tail. Bone names are the wolf's, so the beast's gait and bite drive it.
+ */
+const buildBear = (): Rig => {
+  const P = BEAST.spiritBear
+  const b = new RigBuilder()
+  b.bone('root', null, [0, 0, 0])
+  b.bone('body', 'root', [0, 0.5, 0])
+  b.bone('head', 'body', [0, 0.06, 0.46])
+  b.bone('tail', 'body', [0, 0.06, -0.46])
+  // ── The body: a deep barrel, the shoulder hump standing above it ──
+  b.painted('body', coat(ell(0.34, 0.33, 0.36, 12, 9), P.belly, P.fur, P.back), { p: [0, 0.04, 0.14] })
+  b.painted('body', coat(ell(0.31, 0.3, 0.34, 12, 9), P.belly, P.fur, P.back), { p: [0, 0.0, -0.22] })
+  b.painted('body', coat(ell(0.24, 0.16, 0.22, 10, 7), P.fur, P.back, tone(P.back, 0.9)), { p: [0, 0.3, 0.2] })
+  // ── Legs: thick pillars, broad paws, long claws ──
+  for (const [n, x, z] of [['legFL', -0.21, 0.28], ['legFR', 0.21, 0.28], ['legBL', -0.2, -0.32], ['legBR', 0.2, -0.32]] as const) {
+    b.bone(n, 'body', [x, -0.16, z])
+    const hind = n[3] === 'B'
+    b.painted(n, coat(ell(0.13, hind ? 0.18 : 0.15, 0.15, 9, 6), P.belly, P.fur, P.back), { p: [0, -0.01, 0] })
+    b.painted(n, shade(limb(0.095, 0.085, 0.2, 8, 2), P.fur, 0.7, 1), { p: [0, -0.12, hind ? -0.02 : 0.02], r: [hind ? -0.15 : 0.08, 0, 0] })
+    b.painted(n, shade(ell(0.11, 0.06, 0.13, 9, 5), P.back, 0.6, 0.9), { p: [0, -0.3, 0.05] })
+    for (let t = -1.5; t <= 1.5; t++) b.part(n, spike(0.018, 0.08, 4), BONE_WHITE, { p: [t * 0.04, -0.33, 0.17], r: [1.7, 0, 0], outline: false })
+  }
+  // ── The head: round, a short broad muzzle, small round ears ──
+  b.painted('head', coat(sph(0.23, 12, 9), P.belly, P.fur, P.back), { p: [0, 0.06, 0.02] })
+  b.painted('head', coat(ell(0.13, 0.1, 0.14, 10, 7), P.belly, tone(P.belly, 0.92), P.fur), { p: [0, -0.03, 0.22] })
+  b.part('head', ell(0.06, 0.045, 0.04, 8, 5), P.nose, { p: [0, 0.03, 0.35] })
+  b.part('head', lens(0.08, 0.016, 0.03, 8, 3), DARK, { p: [0, -0.08, 0.31], outline: false })
+  b.mirror((s) => {
+    b.part('head', spike(0.02, 0.06, 4), BONE_WHITE, { p: [s * 0.05, -0.1, 0.3], r: [Math.PI, 0, 0], outline: false })
+    b.painted('head', coat(ell(0.075, 0.075, 0.04, 8, 6), P.belly, P.fur, P.back), { p: [s * 0.16, 0.25, -0.02], r: [-0.2, 0, -s * 0.35] })
+    b.part('head', ell(0.045, 0.045, 0.02, 8, 5), tone(P.belly, 0.85), { p: [s * 0.16, 0.25, 0.03], r: [-0.2, 0, -s * 0.35], outline: false })
+  })
+  glare(b, 'head', 0.09, 0.12, 0.19, 0.04, P.eye, { brow: tone(P.back, 0.9), tilt: 0.25 })
+  // ── A stub of a tail ──
+  b.painted('tail', coat(ell(0.08, 0.08, 0.07, 8, 6), P.belly, P.fur, P.back), { p: [0, 0.05, -0.02] })
+  return b.build({ height: 1.15 })
 }
 
 // ─── The war boar (Tusker, #74) ──────────────────────────────────────────────

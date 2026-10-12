@@ -137,14 +137,6 @@ export default {
     chi: 'Či'
   },
   toast: {
-    freed: {
-      lightDisciple: 'Atbrīvota! Māsa Aurela mācīs Gaismas nesēja ceļu šeit: {town}.',
-      frostDisciple: 'Atbrīvots! Ivors mācīs Sala sarga ceļu šeit: {town}.',
-      windDisciple: 'Atbrīvots! Kestrels mācīs Vēja skrējēja ceļu šeit: {town}.',
-      freedFarmers: 'Atbrīvoti! Tolleru ģimene atradīs mājas šeit: {town}.',
-      freedHerbalist: 'Atbrīvota! Zāļu sieva Braiera tevi gaidīs šeit: {town}.',
-      freedPeddler: 'Atbrīvots! Tirgotājs Odo tirgosies šeit: {town}.'
-    },
     cageLocked: 'Aizslēgts. Atslēgai jābūt kaut kur šajā vietā.',
     cageKey: 'Atslēga! Tai jāatver būris.',
     ore: 'Izrakts: {n} × {ore}',
@@ -1730,6 +1722,42 @@ export default {
     },
     sovereignsSignet: {
       name: 'Valdnieka zīmoggredzens'
+    },
+    heraldsPin: {
+      name: 'Heralda sakta'
+    },
+    hymnalOfTheRoad: {
+      name: 'Ceļa dziesmu grāmata'
+    },
+    shepherdsCrook: {
+      name: 'Gana spieķis'
+    },
+    minstrelsHat: {
+      name: 'Minstrela cepure'
+    },
+    pilgrimsSandals: {
+      name: 'Svētceļnieka sandales'
+    },
+    falconersGloves: {
+      name: 'Piekūnnieka cimdi'
+    },
+    bellOfTheHerd: {
+      name: 'Ganāmpulka zvans'
+    },
+    bannerOfTheHost: {
+      name: 'Karapulka karogs'
+    },
+    heraldsTabard: {
+      name: 'Heralda tabards'
+    },
+    codexOfOaths: {
+      name: 'Zvērestu kodekss'
+    },
+    crownOfTheRightfulKing: {
+      name: 'Likumīgā karaļa kronis'
+    },
+    scepterOfTheFirstKing: {
+      name: 'Pirmā karaļa scepteris'
     },
     heartOfTheMountain: {
       name: 'Kalna sirds'
@@ -4000,6 +4028,36 @@ export default {
       }
     },
     bark: {
+      lightDisciple: {
+        freed: {
+          '1': 'Tevi sūtīja gaisma. Es esmu Māsa Aurela. Meklē mani Sanfordā, es tev iemācīšu Gaismas nesēja ceļu.'
+        }
+      },
+      frostDisciple: {
+        freed: {
+          '1': 'Tu atnāci pēc manis? Ivors Hasks, Sala sarga māceklis. Nāc uz Aironholdu, un es tevi mācīšu.'
+        }
+      },
+      windDisciple: {
+        freed: {
+          '1': 'Beidzot brīvs! Kestrels Veins, no Vēja skrējēja ceļa. Atrodi mani Oukheivenā, un es tevi mācīšu.'
+        }
+      },
+      freedFarmers: {
+        freed: {
+          '1': 'Tu mūs izglābi! Mēs esam Tolleru ģimene, zemnieki. Atrodi mūs Oukheivenā, mājās ir nelaime.'
+        }
+      },
+      freedHerbalist: {
+        freed: {
+          '1': 'Ak, paldies! Es esmu Braiera, zāļu sieva. Atnāc pie manis uz Silverbridžu. Tava palīdzība man noderētu.'
+        }
+      },
+      freedPeddler: {
+        freed: {
+          '1': 'Lai svētīti tavi zābaki! Odo Marovs, tirgotājs. Atrodi mani Sanfordā, man būs tev preces.'
+        }
+      },
       goblinKing: {
         charge: {
           '1': 'Samini tos, Tasker!'
@@ -5663,6 +5721,18 @@ export default {
     },
     treasureMap: {
       title: 'Kapteiņa Rūka dārgumu karte'
+    },
+    windrunnerTest: {
+      title: 'Pārbaudījums: Vēja skrējējs'
+    },
+    frostwardenTest: {
+      title: 'Pārbaudījums: Sala sargs'
+    },
+    lightbringerTest: {
+      title: 'Pārbaudījums: Gaismas nesējs'
+    },
+    beastcallerTest: {
+      title: 'Pārbaudījums: Zvēru saucējs'
     }
   }
 }

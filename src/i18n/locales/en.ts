@@ -121,14 +121,6 @@ export default {
     'herb': 'Picked: {plant}',
     'cageKey': 'A key! It must open the cage.',
     'cageLocked': 'Locked. The key must be somewhere in this place.',
-    'freed': {
-      'freedPeddler': 'Freed! Odo the peddler will trade in {town}.',
-      'freedHerbalist': 'Freed! Briar the herbalist will wait for you in {town}.',
-      'freedFarmers': 'Freed! The Tollers will find a home in {town}.',
-      'windDisciple': 'Freed! Kestrel will teach the Windrunner\'s way in {town}.',
-      'frostDisciple': 'Freed! Ivor will teach the Frostwarden\'s way in {town}.',
-      'lightDisciple': 'Freed! Sister Aurelle will teach the Lightbringer\'s way in {town}.'
-    },
     'ore': 'Mined: {n} × {ore}',
     'mineBusy': 'Not with enemies about!',
     'piece': 'A piece of the treasure map!',
@@ -818,6 +810,18 @@ export default {
     'timekeepersHourglass': { 'name': 'Timekeeper\'s Hourglass' },
     'ringOfTheVampyre': { 'name': 'Ring of the Vampyre' },
     'sovereignsSignet': { 'name': 'Sovereign\'s Signet' },
+    'heraldsPin': { 'name': 'Herald\'s Pin' },
+    'hymnalOfTheRoad': { 'name': 'Hymnal of the Road' },
+    'shepherdsCrook': { 'name': 'Shepherd\'s Crook' },
+    'minstrelsHat': { 'name': 'Minstrel\'s Hat' },
+    'pilgrimsSandals': { 'name': 'Pilgrim\'s Sandals' },
+    'falconersGloves': { 'name': 'Falconer\'s Gloves' },
+    'bellOfTheHerd': { 'name': 'Bell of the Herd' },
+    'bannerOfTheHost': { 'name': 'Banner of the Host' },
+    'heraldsTabard': { 'name': 'Herald\'s Tabard' },
+    'codexOfOaths': { 'name': 'Codex of Oaths' },
+    'crownOfTheRightfulKing': { 'name': 'Crown of the Rightful King' },
+    'scepterOfTheFirstKing': { 'name': 'Scepter of the First King' },
     'heartOfTheMountain': { 'name': 'Heart of the Mountain' },
     'ringOfAbsolutePower': { 'name': 'Ring of Absolute Power' },
     // Mythic (#117): the colosseum's milestone prizes.
@@ -2554,6 +2558,36 @@ export default {
         'iceBreak': {
           '1': 'The lake will swallow you!'
         }
+      },
+      'freedPeddler': {
+        'freed': {
+          '1': 'Bless your boots! Odo Marrow, peddler. Come find me in Sunford, I\'ll have wares for you.'
+        }
+      },
+      'freedHerbalist': {
+        'freed': {
+          '1': 'Oh, thank you! I\'m Briar, a herbalist. Come and see me in Silverbridge. I could use your help.'
+        }
+      },
+      'freedFarmers': {
+        'freed': {
+          '1': 'You saved us! We\'re the Tollers, farmers. Find us in Oakhaven, there\'s trouble at home.'
+        }
+      },
+      'windDisciple': {
+        'freed': {
+          '1': 'Free at last! Kestrel Vane, of the Windrunner\'s way. Find me in Oakhaven and I\'ll teach you.'
+        }
+      },
+      'frostDisciple': {
+        'freed': {
+          '1': 'You came for me? Ivor Hask, a Frostwarden\'s disciple. Come to Ironhold and I\'ll teach you.'
+        }
+      },
+      'lightDisciple': {
+        'freed': {
+          '1': 'The light sent you. I am Sister Aurelle. Seek me in Sunford, I\'ll teach you the Lightbringer\'s way.'
+        }
       }
     }
   },
@@ -2890,7 +2924,11 @@ export default {
     'herbalistFavor': { 'title': 'Briar\'s sunpetals' },
     'farmersFavor': { 'title': 'The Tollers\' wolves' },
     'mirelaFavor': { 'title': 'Mirela\'s missing deliveries' },
-    'treasureMap': { 'title': 'Captain Rook\'s treasure map' }
+    'treasureMap': { 'title': 'Captain Rook\'s treasure map' },
+    'windrunnerTest': { 'title': 'The Windrunner\'s test' },
+    'frostwardenTest': { 'title': 'The Frostwarden\'s test' },
+    'lightbringerTest': { 'title': 'The Lightbringer\'s test' },
+    'beastcallerTest': { 'title': 'The Beastcaller\'s test' }
   },
   'journal': {
     'errands': 'Errands',

@@ -137,14 +137,6 @@ export default {
     chi: 'Čchi'
   },
   toast: {
-    freed: {
-      lightDisciple: 'Na svobodě! Sestra Aurelle bude učit cestě Nositele světla ve městě {town}.',
-      frostDisciple: 'Na svobodě! Ivor bude učit cestě Strážce mrazu ve městě {town}.',
-      windDisciple: 'Na svobodě! Kestrel bude učit cestě Větroběžce ve městě {town}.',
-      freedFarmers: 'Na svobodě! Tollerovi najdou domov ve městě {town}.',
-      freedHerbalist: 'Na svobodě! Bylinkářka Briar na tebe počká ve městě {town}.',
-      freedPeddler: 'Na svobodě! Podomní obchodník Odo bude obchodovat ve městě {town}.'
-    },
     cageLocked: 'Zamčeno. Klíč musí být někde tady.',
     cageKey: 'Klíč! Ten musí otevírat klec.',
     ore: 'Vytěženo: {n} × {ore}',
@@ -1733,6 +1725,42 @@ export default {
     },
     sovereignsSignet: {
       name: 'Suverénův pečetní prsten'
+    },
+    heraldsPin: {
+      name: 'Heroldova spona'
+    },
+    hymnalOfTheRoad: {
+      name: 'Zpěvník cesty'
+    },
+    shepherdsCrook: {
+      name: 'Pastýřská hůl'
+    },
+    minstrelsHat: {
+      name: 'Minstrelův klobouk'
+    },
+    pilgrimsSandals: {
+      name: 'Poutnické sandály'
+    },
+    falconersGloves: {
+      name: 'Sokolnické rukavice'
+    },
+    bellOfTheHerd: {
+      name: 'Zvonec stáda'
+    },
+    bannerOfTheHost: {
+      name: 'Korouhev vojska'
+    },
+    heraldsTabard: {
+      name: 'Heroldův tabard'
+    },
+    codexOfOaths: {
+      name: 'Kodex přísah'
+    },
+    crownOfTheRightfulKing: {
+      name: 'Koruna právoplatného krále'
+    },
+    scepterOfTheFirstKing: {
+      name: 'Žezlo prvního krále'
     },
     heartOfTheMountain: {
       name: 'Srdce hory'
@@ -4024,6 +4052,36 @@ export default {
       }
     },
     bark: {
+      lightDisciple: {
+        freed: {
+          '1': 'Poslalo tě světlo. Jsem Sestra Aurelle. Hledej mě v Sunfordu, naučím tě cestě Nositele světla.'
+        }
+      },
+      frostDisciple: {
+        freed: {
+          '1': 'Jsi tu kvůli mně? Ivor Hask, učedník Strážce mrazu. Přijď do Ironholdu a budu tě učit.'
+        }
+      },
+      windDisciple: {
+        freed: {
+          '1': 'Konečně volný! Kestrel Vane, z cesty Větroběžce. Najdi mě v Oakhavenu a budu tě učit.'
+        }
+      },
+      freedFarmers: {
+        freed: {
+          '1': 'Díky tobě jsme volní! Jsme Tollerovi, sedláci. Najdi nás v Oakhavenu, doma máme trable.'
+        }
+      },
+      freedHerbalist: {
+        freed: {
+          '1': 'Ach, děkuju! Jsem Briar, bylinkářka. Přijď za mnou do Silverbridge. Tvoje pomoc by se mi hodila.'
+        }
+      },
+      freedPeddler: {
+        freed: {
+          '1': 'Ať jsou tvé boty požehnané! Odo Marrow, podomní obchodník. Najdi mě v Sunfordu, budu pro tebe mít zboží.'
+        }
+      },
       goblinKing: {
         charge: {
           '1': 'Rozdupej je, Tuskere!'
@@ -5686,6 +5744,18 @@ export default {
     },
     treasureMap: {
       title: 'Mapa pokladu kapitána Rooka'
+    },
+    windrunnerTest: {
+      title: 'Zkouška: Větroběžec'
+    },
+    frostwardenTest: {
+      title: 'Zkouška: Strážce mrazu'
+    },
+    lightbringerTest: {
+      title: 'Zkouška: Nositel světla'
+    },
+    beastcallerTest: {
+      title: 'Zkouška: Vyvolávač šelem'
     }
   }
 }

@@ -280,6 +280,11 @@ export interface Beast {
  *  or squirrel beside a hero is a few pixels on a phone. */
 const SIZE: Readonly<Record<AnimalKind, number>> = { chicken: 1, cat: 1.3, dog: 1.15, squirrel: 1.7 }
 
+/** How far a planted paw stands above the ground, in metres: on top of the
+ *  street's stones (laid 2.5 cm up), with the dip of the paw ball below its
+ *  leg's end when the leg is turned. */
+const PAW_CLEAR = 0.04
+
 const WALKABLE = new Set([TC_GRASS, TC_STREET, TC_SQUARE, TC_YARD, TC_GROUND])
 
 export class TownAnimals {
@@ -461,10 +466,24 @@ export class TownAnimals {
   private stride(b: Beast, dt: number): void {
     const len = b.legs[0]!.len
     const v = b.speed / b.size
+    // Each paw stands on the ground under ITSELF, not under the body: on a
+    // street that climbs, the leading paws reach up to it instead of sinking
+    // through the cobbles (and a hair above, for the paw's own roundness).
+    const base = groundAt(b.x, b.z) + b.y
+    const s = Math.sin(b.yaw)
+    const c = Math.cos(b.yaw)
+    const rise = (ax: number, az: number): number => {
+      const px = b.x + (ax * c + az * s) * b.size
+      const pz = b.z + (-ax * s + az * c) * b.size
+      const d = (groundAt(px, pz) - base + PAW_CLEAR) / b.size
+      return Math.max(-0.3 * len, Math.min(0.3 * len, d))
+    }
     if (v < 0.05) {
+      const k = Math.min(1, dt * 10)
       for (const l of b.legs) {
-        l.obj.rotation.x *= 1 - Math.min(1, dt * 10)
-        l.obj.scale.y += (1 - l.obj.scale.y) * Math.min(1, dt * 10)
+        const q = legPose(0, rise(l.obj.position.x, l.obj.position.z), len)
+        l.obj.rotation.x += (q.pitch - l.obj.rotation.x) * k
+        l.obj.scale.y += (q.stretch - l.obj.scale.y) * k
       }
       return
     }
@@ -473,7 +492,7 @@ export class TownAnimals {
     b.cycle += (v * dt) / stride
     b.legs.forEach((l, i) => {
       const p = pawAt(g, b.cycle + g.offsets[i]!, stride, len)
-      const q = legPose(p.z, p.lift, len)
+      const q = legPose(p.z, p.lift + rise(l.obj.position.x, l.obj.position.z + p.z), len)
       l.obj.rotation.x = q.pitch
       l.obj.scale.y = q.stretch
     })

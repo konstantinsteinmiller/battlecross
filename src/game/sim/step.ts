@@ -10,6 +10,7 @@ import { stepHero } from './hero'
 import { finishOpen } from './interact'
 import { finishMine } from './ores'
 import { stepPickups } from './herbs'
+import { stepCaptives } from './cages'
 import { HERO_SKILLS } from './heroSkills'
 import { stepTownLife } from './townLife'
 import type { ZonePlan } from './zoneGen'
@@ -64,6 +65,8 @@ export const stepSim = (sim: Sim, plan: ZonePlan, dt: number): void => {
   if (!sim.ended || sim.ended === 'victory') stepHero(sim, dt)
   // What the hero walks over is his: herbs (#88), map pieces (#89).
   stepPickups(sim)
+  // A cage's freed people (#100): out, a word, and off home.
+  if (sim.captives.length) stepCaptives(sim, dt)
   // Rested (#9): the double-XP pool drains with fight time, never in town.
   const h = sim.hero
   if (h && h.rested > 0 && !sim.ended && sim.mode !== 'town') h.rested = Math.max(0, h.rested - dt)

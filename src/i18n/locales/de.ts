@@ -137,14 +137,6 @@ export default {
     chi: 'Chi'
   },
   toast: {
-    freed: {
-      lightDisciple: 'Befreit! Schwester Aurelle lehrt in {town} den Weg der Lichtbringer.',
-      frostDisciple: 'Befreit! Ivor lehrt in {town} den Weg der Frostwächter.',
-      windDisciple: 'Befreit! Kestrel lehrt in {town} den Weg der Windläufer.',
-      freedFarmers: 'Befreit! Die Tollers finden in {town} ein Zuhause.',
-      freedHerbalist: 'Befreit! Briar die Kräuterkundige wartet in {town} auf dich.',
-      freedPeddler: 'Befreit! Odo der Hausierer handelt jetzt in {town}.'
-    },
     cageLocked: 'Verschlossen. Der Schlüssel muss hier irgendwo sein.',
     cageKey: 'Ein Schlüssel! Er muss den Käfig öffnen.',
     ore: 'Abgebaut: {n} × {ore}',
@@ -1731,6 +1723,42 @@ export default {
     },
     sovereignsSignet: {
       name: 'Siegel des Souveräns'
+    },
+    heraldsPin: {
+      name: 'Heroldsnadel'
+    },
+    hymnalOfTheRoad: {
+      name: 'Gesangbuch der Straße'
+    },
+    shepherdsCrook: {
+      name: 'Hirtenstab'
+    },
+    minstrelsHat: {
+      name: 'Spielmannshut'
+    },
+    pilgrimsSandals: {
+      name: 'Pilgersandalen'
+    },
+    falconersGloves: {
+      name: 'Falknerhandschuhe'
+    },
+    bellOfTheHerd: {
+      name: 'Glocke der Herde'
+    },
+    bannerOfTheHost: {
+      name: 'Banner des Heeres'
+    },
+    heraldsTabard: {
+      name: 'Heroldsrock'
+    },
+    codexOfOaths: {
+      name: 'Kodex der Eide'
+    },
+    crownOfTheRightfulKing: {
+      name: 'Krone des rechtmäßigen Königs'
+    },
+    scepterOfTheFirstKing: {
+      name: 'Zepter des ersten Königs'
     },
     heartOfTheMountain: {
       name: 'Herz des Berges'
@@ -3948,6 +3976,36 @@ export default {
       }
     },
     bark: {
+      lightDisciple: {
+        freed: {
+          '1': 'Das Licht hat dich gesandt. Ich bin Schwester Aurelle. Such mich in Sunford auf, ich lehre dich den Weg der Lichtbringer.'
+        }
+      },
+      frostDisciple: {
+        freed: {
+          '1': 'Du bist meinetwegen gekommen? Ivor Hask, Schüler der Frostwächter. Komm nach Ironhold, dann bring ich’s dir bei.'
+        }
+      },
+      windDisciple: {
+        freed: {
+          '1': 'Endlich frei! Kestrel Vane, vom Weg der Windläufer. Such mich in Oakhaven auf, dann bring ich’s dir bei.'
+        }
+      },
+      freedFarmers: {
+        freed: {
+          '1': 'Du hast uns gerettet! Wir sind die Tollers, Bauern. Komm nach Oakhaven, daheim gibt es Ärger.'
+        }
+      },
+      freedHerbalist: {
+        freed: {
+          '1': 'Oh, danke dir! Ich bin Briar, Kräuterkundige. Besuch mich in Silverbridge. Ich könnte deine Hilfe brauchen.'
+        }
+      },
+      freedPeddler: {
+        freed: {
+          '1': 'Gesegnet seien deine Stiefel! Odo Marrow, Hausierer. Such mich in Sunford auf, ich hab Waren für dich.'
+        }
+      },
       goblinKing: {
         charge: {
           '1': 'Überrenn sie, Tusker!'
@@ -5604,6 +5662,18 @@ export default {
     },
     treasureMap: {
       title: 'Kapitän Rooks Schatzkarte'
+    },
+    windrunnerTest: {
+      title: 'Die Prüfung: Windläufer'
+    },
+    frostwardenTest: {
+      title: 'Die Prüfung: Frostwächter'
+    },
+    lightbringerTest: {
+      title: 'Die Prüfung: Lichtbringer'
+    },
+    beastcallerTest: {
+      title: 'Die Prüfung: Bestienrufer'
     }
   }
 }

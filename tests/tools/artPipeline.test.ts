@@ -21,7 +21,7 @@ import { join, resolve } from 'node:path'
 import { pathToFileURL } from 'node:url'
 import sharp from 'sharp'
 import { afterAll, beforeAll, describe, expect, it } from 'vitest'
-import { ITEMS } from '@/game/data/items'
+import { CHARISMA_ITEMS, ITEMS } from '@/game/data/items'
 import { CLASSES, CLASS_IDS, SKILLS, skillsOf } from '@/game/data/skills'
 import { heroLook } from '@/game/gfx/rigs/looks'
 import { GLYPHS } from '@/components/art/glyphs'
@@ -54,10 +54,13 @@ const fakeFits = (): Fits => Object.fromEntries([...manifestTargets().keys()]
 describe('the manifest covers the game', () => {
   const targets = manifestTargets()
 
-  it('every item has a panel: 62 ids on six 4x3 sheets, in items.ts order', () => {
-    const main = ITEMS.filter(i => i.slot === 'main').map(i => i.id)
-    const bySlot = (slot: string): string[] => ITEMS.filter(i => i.slot === slot).map(i => i.id)
-    expect(ITEMS).toHaveLength(62)
+  it('every item has a panel: 74 ids on seven 4x3 sheets, in items.ts order', () => {
+    const TABLED = ITEMS.filter(i => !CHARISMA_ITEMS.has(i.id))
+    const main = TABLED.filter(i => i.slot === 'main').map(i => i.id)
+    const bySlot = (slot: string): string[] => TABLED.filter(i => i.slot === slot).map(i => i.id)
+    expect(ITEMS).toHaveLength(74)
+    // The Charisma set: a sheet of its own, twelve panels.
+    expect(idsOf('sheet-items-charisma')).toEqual(ITEMS.filter(i => CHARISMA_ITEMS.has(i.id)).map(i => i.id))
     expect(idsOf('sheet-items-weapons')).toEqual(main.slice(0, 12))
     expect(idsOf('sheet-items-arms')).toEqual([...main.slice(12), ...bySlot('off')])
     expect(idsOf('sheet-items-armor')).toEqual(bySlot('body'))
@@ -68,7 +71,7 @@ describe('the manifest covers the game', () => {
     expect(idsOf('sheet-items-boots')).toEqual(bySlot('feet'))
     expect([blanksOf('sheet-items-headgear'), blanksOf('sheet-items-boots')]).toEqual([0, 6])
     const itemSheets = SETS.filter(x => x.kind === 'items')
-    expect(itemSheets.map(x => x.stem)).toEqual(['sheet-items-weapons', 'sheet-items-arms', 'sheet-items-armor', 'sheet-items-trinkets', 'sheet-items-headgear', 'sheet-items-boots'])
+    expect(itemSheets.map(x => x.stem)).toEqual(['sheet-items-weapons', 'sheet-items-arms', 'sheet-items-armor', 'sheet-items-trinkets', 'sheet-items-headgear', 'sheet-items-boots', 'sheet-items-charisma'])
     for (const x of itemSheets) expect([x.cols, x.rows, x.cells.length], x.stem).toEqual([4, 3, 12])
     for (const it of ITEMS) expect(targets.has(`images/items/${it.id}.webp`), it.id).toBe(true)
     expect([...ART_CATALOGUE.items].sort()).toEqual(ITEMS.map(i => i.id).sort())
@@ -225,7 +228,7 @@ describe('the manifest covers the game', () => {
     const icons = ICON_SETS.reduce((n, s) => n + s.cells.filter(c => c).length, 0)
     // ... and the logo's badge and mascot, and the painted wordmark (#76).
     // The portraits: 22 speakers, the boy hero's four and the girl hero's four.
-    expect(seen.size).toBe(62 + SKILLS.length + 22 + 4 + 4 + 1 + 2 + 3 + icons + 2 + 1)
+    expect(seen.size).toBe(74 + SKILLS.length + 22 + 4 + 4 + 1 + 2 + 3 + icons + 2 + 1)
     // The catalogue `pnpm art:status` reports on is exactly what the sheets write.
     const catalogue = Object.entries(ART_CATALOGUE).flatMap(([kind, ids]) => ids.map(id => artTarget(kind as keyof typeof ART_CATALOGUE, id)))
     expect([...catalogue].sort()).toEqual([...seen].sort())
@@ -694,9 +697,9 @@ describe('the slicer knows a painting by its name, and only by its name', () => 
 
   it('refuses an unknown stem instead of matching it by shape', () => {
     const targets = buildTargets(sheetIndex())
-    // Fourteen sheets are 1024x768 (six of items, eight of icons) and seventeen
+    // Fifteen sheets are 1024x768 (seven of items, eight of icons) and seventeen
     // are 768x576: shape says nothing.
-    expect(targets.filter(t => t.width === 1024 && t.height === 768)).toHaveLength(14)
+    expect(targets.filter(t => t.width === 1024 && t.height === 768)).toHaveLength(15)
     // (Two skill sheets for every class, and the portraits.)
     expect(targets.filter(t => t.width === 768 && t.height === 576 && t.kind === 'cells')).toHaveLength(CLASS_IDS.length * 2 + 1)
     for (const name of [

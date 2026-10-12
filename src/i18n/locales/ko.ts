@@ -137,14 +137,6 @@ export default {
     chi: '기'
   },
   toast: {
-    freed: {
-      lightDisciple: '구출했다! 오렐 수녀가 {town}에서 빛의 인도자의 길을 가르칠 거야.',
-      frostDisciple: '구출했다! 아이버가 {town}에서 서리 파수꾼의 길을 가르칠 거야.',
-      windDisciple: '구출했다! 케스트럴이 {town}에서 바람 질주자의 길을 가르칠 거야.',
-      freedFarmers: '구출했다! 톨러 가족이 {town}에 터전을 잡을 거야.',
-      freedHerbalist: '구출했다! 약초꾼 브라이어가 {town}에서 기다릴 거야.',
-      freedPeddler: '구출했다! 행상 오도가 {town}에서 장사를 할 거야.'
-    },
     cageLocked: '잠겨 있다. 열쇠가 이곳 어딘가에 있을 거야.',
     cageKey: '열쇠다! 우리를 여는 열쇠가 틀림없어.',
     ore: '채굴: {n} × {ore}',
@@ -1730,6 +1722,42 @@ export default {
     },
     sovereignsSignet: {
       name: '군주의 인장 반지'
+    },
+    heraldsPin: {
+      name: '전령의 브로치'
+    },
+    hymnalOfTheRoad: {
+      name: '길의 찬송가집'
+    },
+    shepherdsCrook: {
+      name: '목자의 지팡이'
+    },
+    minstrelsHat: {
+      name: '음유시인의 모자'
+    },
+    pilgrimsSandals: {
+      name: '순례자의 샌들'
+    },
+    falconersGloves: {
+      name: '매사냥꾼의 장갑'
+    },
+    bellOfTheHerd: {
+      name: '양떼의 방울'
+    },
+    bannerOfTheHost: {
+      name: '군세의 깃발'
+    },
+    heraldsTabard: {
+      name: '전령의 겉옷'
+    },
+    codexOfOaths: {
+      name: '맹세의 사본'
+    },
+    crownOfTheRightfulKing: {
+      name: '정통 왕의 왕관'
+    },
+    scepterOfTheFirstKing: {
+      name: '최초의 왕의 홀'
     },
     heartOfTheMountain: {
       name: '산의 심장'
@@ -3928,6 +3956,36 @@ export default {
       }
     },
     bark: {
+      lightDisciple: {
+        freed: {
+          '1': '빛이 당신을 보냈군요. 저는 오렐 수녀예요. 선포드에서 저를 찾으세요, 빛의 인도자의 길을 가르쳐 드릴게요.'
+        }
+      },
+      frostDisciple: {
+        freed: {
+          '1': '날 구하러 온 건가? 서리 파수꾼의 제자, 아이버 하스크다. 아이언홀드로 오면 가르쳐 주지.'
+        }
+      },
+      windDisciple: {
+        freed: {
+          '1': '드디어 자유다! 바람 질주자의 길을 걷는 케스트럴 베인이야. 오크헤이븐에서 날 찾아, 가르쳐 줄게.'
+        }
+      },
+      freedFarmers: {
+        freed: {
+          '1': '덕분에 살았어요! 우린 농부 톨러 가족이에요. 오크헤이븐으로 와 줘요, 집에 문제가 생겼어요.'
+        }
+      },
+      freedHerbalist: {
+        freed: {
+          '1': '어머, 고마워요! 전 약초꾼 브라이어예요. 실버브리지로 저를 보러 와요. 도움이 좀 필요하거든요.'
+        }
+      },
+      freedPeddler: {
+        freed: {
+          '1': '정말 고마워요! 행상 오도 매로예요. 선포드로 찾아와요, 좋은 물건 준비해 둘게요.'
+        }
+      },
       goblinKing: {
         charge: {
           '1': '짓밟아라, 터스커!'
@@ -5583,6 +5641,18 @@ export default {
     },
     treasureMap: {
       title: '루크 대장의 보물 지도'
+    },
+    windrunnerTest: {
+      title: '바람 질주자의 시험'
+    },
+    frostwardenTest: {
+      title: '서리 파수꾼의 시험'
+    },
+    lightbringerTest: {
+      title: '빛의 인도자의 시험'
+    },
+    beastcallerTest: {
+      title: '야수 소환사의 시험'
     }
   }
 }

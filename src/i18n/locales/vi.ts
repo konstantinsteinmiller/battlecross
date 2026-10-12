@@ -137,14 +137,6 @@ export default {
     chi: 'Khí'
   },
   toast: {
-    freed: {
-      lightDisciple: 'Đã giải cứu! Xơ Aurelle sẽ dạy con đường Sứ Giả Ánh Sáng ở {town}.',
-      frostDisciple: 'Đã giải cứu! Ivor sẽ dạy con đường Băng Hộ Vệ ở {town}.',
-      windDisciple: 'Đã giải cứu! Kestrel sẽ dạy con đường Phong Hành Giả ở {town}.',
-      freedFarmers: 'Đã giải cứu! Nhà Toller sẽ tìm được mái nhà ở {town}.',
-      freedHerbalist: 'Đã giải cứu! Briar thầy thuốc thảo dược sẽ đợi cậu ở {town}.',
-      freedPeddler: 'Đã giải cứu! Odo người bán rong sẽ buôn bán ở {town}.'
-    },
     cageLocked: 'Bị khóa. Chìa khóa hẳn ở đâu đó quanh đây.',
     cageKey: 'Một chiếc chìa khóa! Chắc nó mở được cái lồng.',
     ore: 'Đã đào: {n} × {ore}',
@@ -1730,6 +1722,42 @@ export default {
     },
     sovereignsSignet: {
       name: 'Ấn Tín Quân Vương'
+    },
+    heraldsPin: {
+      name: 'Ghim của sứ giả'
+    },
+    hymnalOfTheRoad: {
+      name: 'Thánh ca đường xa'
+    },
+    shepherdsCrook: {
+      name: 'Gậy người chăn cừu'
+    },
+    minstrelsHat: {
+      name: 'Mũ người hát rong'
+    },
+    pilgrimsSandals: {
+      name: 'Dép người hành hương'
+    },
+    falconersGloves: {
+      name: 'Găng tay người nuôi chim ưng'
+    },
+    bellOfTheHerd: {
+      name: 'Chuông bầy gia súc'
+    },
+    bannerOfTheHost: {
+      name: 'Cờ hiệu đạo quân'
+    },
+    heraldsTabard: {
+      name: 'Áo khoác sứ giả'
+    },
+    codexOfOaths: {
+      name: 'Điển ước thề nguyện'
+    },
+    crownOfTheRightfulKing: {
+      name: 'Vương miện vị vua chính danh'
+    },
+    scepterOfTheFirstKing: {
+      name: 'Quyền trượng vị vua đầu tiên'
     },
     heartOfTheMountain: {
       name: 'Trái Tim Núi'
@@ -3928,6 +3956,36 @@ export default {
       }
     },
     bark: {
+      lightDisciple: {
+        freed: {
+          '1': 'Ánh sáng đã gửi cậu đến. Tôi là Xơ Aurelle. Hãy tìm tôi ở Sunford, tôi sẽ dạy cậu con đường Sứ Giả Ánh Sáng.'
+        }
+      },
+      frostDisciple: {
+        freed: {
+          '1': 'Cậu đến vì tôi sao? Tôi là Ivor Hask, đệ tử Băng Hộ Vệ. Hãy đến Ironhold, tôi sẽ dạy cậu.'
+        }
+      },
+      windDisciple: {
+        freed: {
+          '1': 'Cuối cùng cũng tự do! Tôi là Kestrel Vane, theo con đường Phong Hành Giả. Hãy tìm tôi ở Oakhaven, tôi sẽ dạy cậu.'
+        }
+      },
+      freedFarmers: {
+        freed: {
+          '1': 'Cậu đã cứu chúng tôi! Chúng tôi là nhà Toller, làm nông. Hãy tìm chúng tôi ở Oakhaven, ở nhà đang có chuyện.'
+        }
+      },
+      freedHerbalist: {
+        freed: {
+          '1': 'Ôi, cảm ơn cậu! Tôi là Briar, thầy thuốc thảo dược. Hãy đến gặp tôi ở Silverbridge. Tôi đang cần cậu giúp.'
+        }
+      },
+      freedPeddler: {
+        freed: {
+          '1': 'Phúc cho đôi ủng của cậu! Tôi là Odo Marrow, người bán rong. Hãy tìm tôi ở Sunford, tôi sẽ có hàng cho cậu.'
+        }
+      },
       goblinKing: {
         charge: {
           '1': 'Húc bọn chúng đi, Tusker!'
@@ -5583,6 +5641,18 @@ export default {
     },
     treasureMap: {
       title: 'Bản đồ kho báu của Đội trưởng Rook'
+    },
+    windrunnerTest: {
+      title: 'Thử thách của Phong Hành Giả'
+    },
+    frostwardenTest: {
+      title: 'Thử thách của Băng Hộ Vệ'
+    },
+    lightbringerTest: {
+      title: 'Thử thách của Sứ Giả Ánh Sáng'
+    },
+    beastcallerTest: {
+      title: 'Thử thách của Triệu Thú Sư'
     }
   }
 }

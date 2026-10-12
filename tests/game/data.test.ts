@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { ITEMS, ITEM_BY_ID, GEAR_ATTR_SCALE, EQUIP_SLOTS, TIER_PRICE, itemsOfZone, noGear, priceOf, sellValue, slotOf, type ItemDef, type ItemSlot, type ZoneId } from '@/game/data/items'
+import { CHARISMA_ITEMS, ITEMS, ITEM_BY_ID, GEAR_ATTR_SCALE, EQUIP_SLOTS, TIER_PRICE, itemsOfZone, noGear, priceOf, sellValue, slotOf, type ItemDef, type ItemSlot, type ZoneId } from '@/game/data/items'
 import { ZONE_LOOT } from '@/game/data/loot'
 import { GLYPHS } from '@/components/art/glyphs'
 import { modLines } from '@/components/game/modLines'
@@ -22,12 +22,21 @@ const NEW_SLOTS = ['head', 'hands', 'feet'] as const
 describe('items (GDD §6)', () => {
   it('is the master database: the 44 named items of the tables (14 weapons, 8 off-hands, 12 armours, 10 trinkets), and nothing twice', () => {
     expect(new Set(ITEMS.map(i => i.id)).size).toBe(ITEMS.length)
-    const by = (slot: string): number => ITEMS.filter(i => i.slot === slot).length
+    const by = (slot: string): number => ITEMS.filter(i => i.slot === slot && !CHARISMA_ITEMS.has(i.id)).length
     expect([by('main'), by('off'), by('body'), by('trinket')]).toEqual([14, 8, 12, 10])
     // Every item is in a slot the hero has; what is not in the tables is head, hands or feet.
     const slots = new Set<ItemSlot>(EQUIP_SLOTS.map(slotOf))
     for (const i of ITEMS) expect(slots.has(i.slot), i.id).toBe(true)
-    expect(ITEMS).toHaveLength(44 + NEW_SLOTS.reduce((n, s) => n + by(s), 0))
+    expect(ITEMS).toHaveLength(44 + NEW_SLOTS.reduce((n, s) => n + by(s), 0) + CHARISMA_ITEMS.size)
+  })
+
+  it('a pure Charisma build has gear: a CHA weapon in every stage of the game, and every slot filled', () => {
+    const cha = ITEMS.filter(i => CHARISMA_ITEMS.has(i.id))
+    expect(cha).toHaveLength(12)
+    for (const i of cha) expect(Object.entries(i.mods).filter(([k]) => ['str', 'dex', 'int', 'end', 'skl', 'cha'].includes(k)).sort((a, b) => b[1] - a[1])[0]![0], i.id).toBe('cha')
+    expect(cha.filter(i => i.weapon?.scale === 'cha').map(i => i.level)).toEqual([7, 18, 29])
+    const slots = new Set(ITEMS.filter(i => (i.mods.cha ?? 0) > 0).map(i => i.slot))
+    for (const s of ['main', 'off', 'head', 'body', 'hands', 'feet', 'trinket']) expect(slots.has(s as ItemSlot), s).toBe(true)
   })
 
   it('has eight equipment slots: main hand, off hand, head, body, hands, feet, two trinkets (D39)', () => {
@@ -112,7 +121,8 @@ describe('items (GDD §6)', () => {
  * here is the RULE they were made by, not eighteen rows of numbers.
  */
 describe('head, hands and feet (D39)', () => {
-  const of = (slot: ItemSlot): ItemDef[] => ITEMS.filter(i => i.slot === slot)
+  // D39's eighteen pieces (the Charisma set has its own rules, above).
+  const of = (slot: ItemSlot): ItemDef[] => ITEMS.filter(i => i.slot === slot && !CHARISMA_ITEMS.has(i.id))
   const KINDS: Record<string, string[]> = {
     head: ['hood', 'cap', 'helm', 'greathelm', 'circlet', 'hat'],
     hands: ['gloves', 'gauntlets'],
@@ -138,6 +148,13 @@ describe('head, hands and feet (D39)', () => {
         expect(GLYPHS[i.kind], i.kind).toBeTruthy()
         expect(modLines(i.mods).map(l => l.id).sort(), i.id).toEqual(Object.keys(i.mods).sort())
       }
+    }
+  })
+
+  it('a flat modifier reads as its own number, not as a percent (Aegis: 20 reflected, not 2000)', () => {
+    for (const i of ITEMS) for (const l of modLines(i.mods)) {
+      const v = i.mods[l.id] ?? 0
+      if (Math.abs(v) > 1) expect(l.n, `${i.id} ${l.id}`).toBe(Math.round(v * 10) / 10)
     }
   })
 
@@ -171,7 +188,7 @@ describe('head, hands and feet (D39)', () => {
     // The most each modifier may be on these slots (a trinket built around one carries as much or more).
     const most: Record<string, number> = { moveSpeed: 0.1, dodge: 0.08, attackSpeed: 0.1, critChance: 0.04, spellCrit: 0.06, critDamage: 0.15, cdr: 0.06, stunDurationCut: 0.2 }
     for (const slot of NEW_SLOTS) {
-      for (const i of of(slot)) {
+      for (const i of ITEMS.filter(x => x.slot === slot)) {
         for (const k in i.mods) {
           if ((ATTRS as readonly string[]).includes(k) || k === 'armor' || k === 'maxMana') continue
           expect(most[k], `${i.id}: ${k} is a modifier these slots use`).toBeDefined()

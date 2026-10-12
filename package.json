@@ -1,6 +1,6 @@
 {
   "name": "battlecross",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "type": "module",
   "scripts": {
@@ -29,7 +29,7 @@
     "build-github-develop": "vite build --base=/battlecross/develop/ --outDir=dist/develop",
     "wiki:dev": "vite --config wiki/vite.config.ts",
     "wiki:build": "vite build --config wiki/vite.config.ts",
-    "deploy": "vite build && surge dist/ --domain Battlecross.surge.sh",
+    "deploy": "vite build && surge dist/ --domain battlecross.surge.sh",
     "validated-build": "vue-tsc -b && vite build",
     "type-check": "vue-tsc --build",
     "leaderboard:seed": "node scripts/leaderboard-seed.mjs",

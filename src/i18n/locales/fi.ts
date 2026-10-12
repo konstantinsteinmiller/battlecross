@@ -137,14 +137,6 @@ export default {
     chi: 'Chi'
   },
   toast: {
-    freed: {
-      lightDisciple: 'Vapaana! Sisar Aurelle opettaa Valontuojan tietä. Kaupunki: {town}.',
-      frostDisciple: 'Vapaana! Ivor opettaa Pakkasvartijan tietä. Kaupunki: {town}.',
-      windDisciple: 'Vapaana! Kestrel opettaa Tuulenjuoksijan tietä. Kaupunki: {town}.',
-      freedFarmers: 'Vapaana! Tollerit saavat uuden kodin. Kaupunki: {town}.',
-      freedHerbalist: 'Vapaana! Yrttitietäjä Briar odottaa sinua. Kaupunki: {town}.',
-      freedPeddler: 'Vapaana! Kulkukauppias Odo käy nyt kauppaa. Kaupunki: {town}.'
-    },
     cageLocked: 'Lukossa. Avaimen täytyy olla jossain täällä.',
     cageKey: 'Avain! Sen täytyy avata häkki.',
     ore: 'Louhittu: {n} × {ore}',
@@ -1730,6 +1722,42 @@ export default {
     },
     sovereignsSignet: {
       name: 'Hallitsijan sinettisormus'
+    },
+    heraldsPin: {
+      name: 'Airuen rintaneula'
+    },
+    hymnalOfTheRoad: {
+      name: 'Tien virsikirja'
+    },
+    shepherdsCrook: {
+      name: 'Paimenen sauva'
+    },
+    minstrelsHat: {
+      name: 'Laulajan hattu'
+    },
+    pilgrimsSandals: {
+      name: 'Pyhiinvaeltajan sandaalit'
+    },
+    falconersGloves: {
+      name: 'Haukkametsästäjän hanskat'
+    },
+    bellOfTheHerd: {
+      name: 'Laumankello'
+    },
+    bannerOfTheHost: {
+      name: 'Sotajoukon lippu'
+    },
+    heraldsTabard: {
+      name: 'Airuen asetakki'
+    },
+    codexOfOaths: {
+      name: 'Valojen koodeksi'
+    },
+    crownOfTheRightfulKing: {
+      name: 'Oikean kuninkaan kruunu'
+    },
+    scepterOfTheFirstKing: {
+      name: 'Ensimmäisen kuninkaan valtikka'
     },
     heartOfTheMountain: {
       name: 'Vuoren sydän'
@@ -3928,6 +3956,36 @@ export default {
       }
     },
     bark: {
+      lightDisciple: {
+        freed: {
+          '1': 'Valo lähetti sinut. Olen Sisar Aurelle. Etsi minut Sunfordista, opetan sinulle Valontuojan tien.'
+        }
+      },
+      frostDisciple: {
+        freed: {
+          '1': 'Tulitko minua hakemaan? Ivor Hask, Pakkasvartijan oppilas. Tule Ironholdiin, niin opetan sinua.'
+        }
+      },
+      windDisciple: {
+        freed: {
+          '1': 'Vihdoinkin vapaa! Kestrel Vane, Tuulenjuoksijan tieltä. Etsi minut Oakhavenista, niin opetan sinua.'
+        }
+      },
+      freedFarmers: {
+        freed: {
+          '1': 'Pelastit meidät! Olemme Tollerit, maanviljelijöitä. Etsi meidät Oakhavenista, kotona on hätä.'
+        }
+      },
+      freedHerbalist: {
+        freed: {
+          '1': 'Voi, kiitos! Olen Briar, yrttitietäjä. Tule tapaamaan minua Silverbridgeen. Apusi olisi tarpeen.'
+        }
+      },
+      freedPeddler: {
+        freed: {
+          '1': 'Siunatut olkoot saappaasi! Odo Marrow, kulkukauppias. Etsi minut Sunfordista, minulla on tavaraa sinulle.'
+        }
+      },
       goblinKing: {
         charge: {
           '1': 'Ajakaa ne yli, Tusker!'
@@ -5583,6 +5641,18 @@ export default {
     },
     treasureMap: {
       title: 'Kapteeni Rookin aarrekartta'
+    },
+    windrunnerTest: {
+      title: 'Koetus: Tuulenjuoksija'
+    },
+    frostwardenTest: {
+      title: 'Koetus: Pakkasvartija'
+    },
+    lightbringerTest: {
+      title: 'Koetus: Valontuoja'
+    },
+    beastcallerTest: {
+      title: 'Koetus: Pedonkutsuja'
     }
   }
 }

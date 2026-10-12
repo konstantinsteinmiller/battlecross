@@ -137,14 +137,6 @@ export default {
     chi: 'ची'
   },
   toast: {
-    freed: {
-      lightDisciple: 'आज़ाद! सिस्टर ऑरेल {town} में प्रकाश-वाहक की राह सिखाएगी।',
-      frostDisciple: 'आज़ाद! आइवर {town} में हिम-प्रहरी की राह सिखाएगा।',
-      windDisciple: 'आज़ाद! केस्ट्रल {town} में पवन-धावक की राह सिखाएगा।',
-      freedFarmers: 'आज़ाद! टॉलर परिवार को {town} में घर मिलेगा।',
-      freedHerbalist: 'आज़ाद! जड़ी-बूटी वाली ब्रायर {town} में तुम्हारा इंतज़ार करेगी।',
-      freedPeddler: 'आज़ाद! फेरीवाला ओडो अब {town} में व्यापार करेगा।'
-    },
     cageLocked: 'ताला लगा है। चाबी यहीं कहीं होनी चाहिए।',
     cageKey: 'एक चाबी! ज़रूर यह पिंजरा खोलेगी।',
     ore: 'खोदा: {n} × {ore}',
@@ -1731,6 +1723,42 @@ export default {
     },
     sovereignsSignet: {
       name: 'सम्राट की मुहर'
+    },
+    heraldsPin: {
+      name: 'उद्घोषक की पिन'
+    },
+    hymnalOfTheRoad: {
+      name: 'राह की भजनावली'
+    },
+    shepherdsCrook: {
+      name: 'चरवाहे की लाठी'
+    },
+    minstrelsHat: {
+      name: 'चारण की टोपी'
+    },
+    pilgrimsSandals: {
+      name: 'तीर्थयात्री की चप्पलें'
+    },
+    falconersGloves: {
+      name: 'बाज़दार के दस्ताने'
+    },
+    bellOfTheHerd: {
+      name: 'झुंड की घंटी'
+    },
+    bannerOfTheHost: {
+      name: 'सेना का ध्वज'
+    },
+    heraldsTabard: {
+      name: 'उद्घोषक का अंगरखा'
+    },
+    codexOfOaths: {
+      name: 'शपथों की संहिता'
+    },
+    crownOfTheRightfulKing: {
+      name: 'न्यायसंगत राजा का मुकुट'
+    },
+    scepterOfTheFirstKing: {
+      name: 'प्रथम राजा का राजदंड'
     },
     heartOfTheMountain: {
       name: 'पर्वत का हृदय'
@@ -4018,6 +4046,36 @@ export default {
       }
     },
     bark: {
+      lightDisciple: {
+        freed: {
+          '1': 'तुम्हें प्रकाश ने भेजा है। मैं सिस्टर ऑरेल हूँ। सनफ़ोर्ड में मुझे ढूँढना, मैं तुम्हें प्रकाश-वाहक की राह सिखाऊँगी।'
+        }
+      },
+      frostDisciple: {
+        freed: {
+          '1': 'तुम मेरे लिए यहाँ हो? मैं आइवर हास्क, हिम-प्रहरी का शिष्य। आयरनहोल्ड आना, मैं तुम्हें सिखाऊँगा।'
+        }
+      },
+      windDisciple: {
+        freed: {
+          '1': 'आख़िरकार आज़ाद! मैं केस्ट्रल वेन, पवन-धावक की राह का। ओकहेवन में मुझे ढूँढना, मैं तुम्हें सिखाऊँगा।'
+        }
+      },
+      freedFarmers: {
+        freed: {
+          '1': 'तुमने हमें बचा लिया! हम टॉलर परिवार हैं, किसान। ओकहेवन में हमें ढूँढना, घर पर मुसीबत है।'
+        }
+      },
+      freedHerbalist: {
+        freed: {
+          '1': 'अरे, शुक्रिया! मैं ब्रायर हूँ, जड़ी-बूटी वाली। सिल्वरब्रिज में मुझसे मिलने आना। मुझे तुम्हारी मदद चाहिए।'
+        }
+      },
+      freedPeddler: {
+        freed: {
+          '1': 'तुम्हारे जूतों पर आशीष हो! मैं ओडो मैरो, फेरीवाला। सनफ़ोर्ड में मुझसे मिलना, तुम्हारे लिए माल रखूँगा।'
+        }
+      },
       goblinKing: {
         charge: {
           '1': 'उन्हें कुचल दो, टस्कर!'
@@ -5679,6 +5737,18 @@ export default {
     },
     treasureMap: {
       title: 'कप्तान रूक का ख़ज़ाने का नक्शा'
+    },
+    windrunnerTest: {
+      title: 'पवन-धावक की परीक्षा'
+    },
+    frostwardenTest: {
+      title: 'हिम-प्रहरी की परीक्षा'
+    },
+    lightbringerTest: {
+      title: 'प्रकाश-वाहक की परीक्षा'
+    },
+    beastcallerTest: {
+      title: 'पशु-पुकारक की परीक्षा'
     }
   }
 }

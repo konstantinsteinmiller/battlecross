@@ -137,14 +137,6 @@ export default {
     chi: 'Chi'
   },
   toast: {
-    freed: {
-      lightDisciple: 'Dibebaskan! Suster Aurelle akan mengajarkan jalan Pembawa Cahaya di {town}.',
-      frostDisciple: 'Dibebaskan! Ivor akan mengajarkan jalan Penjaga Es di {town}.',
-      windDisciple: 'Dibebaskan! Kestrel akan mengajarkan jalan Pelari Angin di {town}.',
-      freedFarmers: 'Dibebaskan! Keluarga Toller akan menemukan rumah di {town}.',
-      freedHerbalist: 'Dibebaskan! Briar si tabib herbal akan menunggumu di {town}.',
-      freedPeddler: 'Dibebaskan! Odo si pedagang keliling akan berdagang di {town}.'
-    },
     cageLocked: 'Terkunci. Kuncinya pasti ada di suatu tempat di sini.',
     cageKey: 'Sebuah kunci! Pasti untuk membuka kurungan itu.',
     ore: 'Ditambang: {n} × {ore}',
@@ -1730,6 +1722,42 @@ export default {
     },
     sovereignsSignet: {
       name: 'Stempel Sang Penguasa'
+    },
+    heraldsPin: {
+      name: 'Bros Bentara'
+    },
+    hymnalOfTheRoad: {
+      name: 'Kidung Perjalanan'
+    },
+    shepherdsCrook: {
+      name: 'Tongkat Gembala'
+    },
+    minstrelsHat: {
+      name: 'Topi Penyanyi'
+    },
+    pilgrimsSandals: {
+      name: 'Sandal Peziarah'
+    },
+    falconersGloves: {
+      name: 'Sarung Tangan Pemburu Elang'
+    },
+    bellOfTheHerd: {
+      name: 'Lonceng Kawanan'
+    },
+    bannerOfTheHost: {
+      name: 'Panji Bala Tentara'
+    },
+    heraldsTabard: {
+      name: 'Jubah Bentara'
+    },
+    codexOfOaths: {
+      name: 'Kodeks Sumpah'
+    },
+    crownOfTheRightfulKing: {
+      name: 'Mahkota Raja Sah'
+    },
+    scepterOfTheFirstKing: {
+      name: 'Tongkat Raja Pertama'
     },
     heartOfTheMountain: {
       name: 'Jantung Gunung'
@@ -3928,6 +3956,36 @@ export default {
       }
     },
     bark: {
+      lightDisciple: {
+        freed: {
+          '1': 'Cahaya mengutusmu. Aku Suster Aurelle. Carilah aku di Sunford, akan kuajari kau jalan Pembawa Cahaya.'
+        }
+      },
+      frostDisciple: {
+        freed: {
+          '1': 'Kau datang untukku? Ivor Hask, murid Penjaga Es. Datanglah ke Ironhold dan aku akan mengajarimu.'
+        }
+      },
+      windDisciple: {
+        freed: {
+          '1': 'Akhirnya bebas! Kestrel Vane, penempuh jalan Pelari Angin. Temui aku di Oakhaven dan aku akan mengajarimu.'
+        }
+      },
+      freedFarmers: {
+        freed: {
+          '1': 'Kau menyelamatkan kami! Kami keluarga Toller, petani. Temui kami di Oakhaven, ada masalah di rumah.'
+        }
+      },
+      freedHerbalist: {
+        freed: {
+          '1': 'Oh, terima kasih! Aku Briar, tabib herbal. Datanglah menemuiku di Silverbridge. Aku butuh bantuanmu.'
+        }
+      },
+      freedPeddler: {
+        freed: {
+          '1': 'Diberkatilah sepatumu! Odo Marrow, pedagang keliling. Temui aku di Sunford, aku akan punya barang untukmu.'
+        }
+      },
       goblinKing: {
         charge: {
           '1': 'Terjang mereka, Tusker!'
@@ -5583,6 +5641,18 @@ export default {
     },
     treasureMap: {
       title: 'Peta harta karun Kapten Rook'
+    },
+    windrunnerTest: {
+      title: 'Ujian Pelari Angin'
+    },
+    frostwardenTest: {
+      title: 'Ujian Penjaga Es'
+    },
+    lightbringerTest: {
+      title: 'Ujian Pembawa Cahaya'
+    },
+    beastcallerTest: {
+      title: 'Ujian Pemanggil Binatang'
     }
   }
 }

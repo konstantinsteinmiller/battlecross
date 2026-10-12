@@ -137,14 +137,6 @@ export default {
     chi: 'Či'
   },
   toast: {
-    freed: {
-      lightDisciple: 'Išlaisvinta! Sesuo Aurelle mokys Šviesnešio kelio {town} mieste.',
-      frostDisciple: 'Išlaisvintas! Ivor mokys Šalčio sargo kelio {town} mieste.',
-      windDisciple: 'Išlaisvintas! Kestrel mokys Vėjo bėgiko kelio {town} mieste.',
-      freedFarmers: 'Išlaisvinti! Toller šeima ras namus {town} mieste.',
-      freedHerbalist: 'Išlaisvinta! Žolininkė Briar lauks tavęs {town} mieste.',
-      freedPeddler: 'Išlaisvintas! Prekeivis Odo prekiaus {town} mieste.'
-    },
     cageLocked: 'Užrakinta. Raktas turi būti kažkur šioje vietoje.',
     cageKey: 'Raktas! Jis turbūt atrakina narvą.',
     ore: 'Iškasta: {n} × {ore}',
@@ -1730,6 +1722,42 @@ export default {
     },
     sovereignsSignet: {
       name: 'Valdovo antspaudo žiedas'
+    },
+    heraldsPin: {
+      name: 'Šauklio segė'
+    },
+    hymnalOfTheRoad: {
+      name: 'Kelio giesmynas'
+    },
+    shepherdsCrook: {
+      name: 'Piemens lazda'
+    },
+    minstrelsHat: {
+      name: 'Menestrelio skrybėlė'
+    },
+    pilgrimsSandals: {
+      name: 'Piligrimo sandalai'
+    },
+    falconersGloves: {
+      name: 'Sakalininko pirštinės'
+    },
+    bellOfTheHerd: {
+      name: 'Bandos varpelis'
+    },
+    bannerOfTheHost: {
+      name: 'Kariaunos vėliava'
+    },
+    heraldsTabard: {
+      name: 'Šauklio tabardas'
+    },
+    codexOfOaths: {
+      name: 'Priesaikų kodeksas'
+    },
+    crownOfTheRightfulKing: {
+      name: 'Teisėto karaliaus karūna'
+    },
+    scepterOfTheFirstKing: {
+      name: 'Pirmojo karaliaus skeptras'
     },
     heartOfTheMountain: {
       name: 'Kalno širdis'
@@ -3987,6 +4015,36 @@ export default {
       }
     },
     bark: {
+      lightDisciple: {
+        freed: {
+          '1': 'Tave atsiuntė šviesa. Aš Sesuo Aurelle. Ieškok manęs Sunford mieste, išmokysiu tave Šviesnešio kelio.'
+        }
+      },
+      frostDisciple: {
+        freed: {
+          '1': 'Atėjai manęs išvaduoti? Ivor Hask, Šalčio sargo mokinys. Ateik į Ironhold ir aš tave mokysiu.'
+        }
+      },
+      windDisciple: {
+        freed: {
+          '1': 'Pagaliau laisvas! Kestrel Vane, einantis Vėjo bėgiko keliu. Surask mane Oakhaven mieste ir aš tave mokysiu.'
+        }
+      },
+      freedFarmers: {
+        freed: {
+          '1': 'Išgelbėjai mus! Mes Toller šeima, ūkininkai. Surask mus Oakhaven mieste, namuose bėda.'
+        }
+      },
+      freedHerbalist: {
+        freed: {
+          '1': 'O, ačiū! Aš Briar, žolininkė. Aplankyk mane Silverbridge mieste. Tavo pagalba man labai praverstų.'
+        }
+      },
+      freedPeddler: {
+        freed: {
+          '1': 'Tebūna palaiminti tavo batai! Odo Marrow, prekeivis. Surask mane Sunford mieste, turėsiu tau prekių.'
+        }
+      },
       goblinKing: {
         charge: {
           '1': 'Sutrypk juos, Tusker!'
@@ -5649,6 +5707,18 @@ export default {
     },
     treasureMap: {
       title: 'Kapitono Rooko lobių žemėlapis'
+    },
+    windrunnerTest: {
+      title: 'Išbandymas: Vėjo bėgikas'
+    },
+    frostwardenTest: {
+      title: 'Išbandymas: Šalčio sargas'
+    },
+    lightbringerTest: {
+      title: 'Išbandymas: Šviesnešys'
+    },
+    beastcallerTest: {
+      title: 'Išbandymas: Žvėrių šaukėjas'
     }
   }
 }

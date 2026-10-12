@@ -1,4 +1,5 @@
 import { ITEM_BY_ID, sellValue, type ZoneId } from '../data/items'
+import { freeCaptives } from './cages'
 import {
   POTION_BELT_MAX, POTION_HEAL, ZONE_LOOT, finaleGold, manaPotionGold, secretGold, type ChestTable, type ChestTier
 } from '../data/loot'
@@ -174,6 +175,7 @@ export const openChest = (sim: Sim, c: ChestState): void => {
   if (h.opening === c.id) h.opening = -1
   if (c.special) sim.specialOpened.push(c.special)
   sim.emit({ t: 'chest', id: c.id, x: c.x, z: c.z, state: 'open' })
+  if (c.role === 'cage') freeCaptives(sim, c)
   const at = spillOf(c)
   const pool = c.role === 'finale' ? sim.dropTable.chest.concat(sim.dropTable.mob) : ZONE_LOOT[sim.zone as ZoneId]?.items ?? []
   // Every pile in the chest is one purse (and one number over it).

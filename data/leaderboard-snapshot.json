@@ -1,8 +1,66 @@
 {
-  "source": "",
-  "fetchedAt": 0,
-  "updatedAt": 0,
-  "total": 0,
-  "entries": [],
-  "dist": []
+  "source": "https://battlecross-leaderboard.rodent-race.workers.dev",
+  "fetchedAt": 1791753476486,
+  "updatedAt": 1791753476737,
+  "total": 6,
+  "entries": [
+    {
+      "rank": 1,
+      "name": "Cannon138770",
+      "score": 75672,
+      "flair": 25
+    },
+    {
+      "rank": 2,
+      "name": "Circuit846948",
+      "score": 15555,
+      "flair": 13
+    },
+    {
+      "rank": 3,
+      "name": "Android774134",
+      "score": 3433,
+      "flair": 7
+    },
+    {
+      "rank": 4,
+      "name": "Gizmo452947",
+      "score": 446,
+      "flair": 3
+    },
+    {
+      "rank": 5,
+      "name": "Piston744420",
+      "score": 154,
+      "flair": 2
+    },
+    {
+      "rank": 5,
+      "name": "Cannon860010",
+      "score": 154,
+      "flair": 2
+    }
+  ],
+  "dist": [
+    [
+      75672,
+      1
+    ],
+    [
+      15555,
+      1
+    ],
+    [
+      3433,
+      1
+    ],
+    [
+      446,
+      1
+    ],
+    [
+      154,
+      2
+    ]
+  ]
 }

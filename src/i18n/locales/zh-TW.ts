@@ -137,14 +137,6 @@ export default {
     chi: '氣'
   },
   toast: {
-    freed: {
-      lightDisciple: '已救出！奧蕾爾修女將在{town}傳授光明使者之道。',
-      frostDisciple: '已救出！艾佛將在{town}傳授寒霜衛士之道。',
-      windDisciple: '已救出！凱斯崔爾將在{town}傳授疾風行者之道。',
-      freedFarmers: '已救出！托勒一家將在{town}安家。',
-      freedHerbalist: '已救出！草藥師布萊爾會在{town}等你。',
-      freedPeddler: '已救出！小販奧多將在{town}做買賣。'
-    },
     cageLocked: '鎖住了。鑰匙一定就在這附近某處。',
     cageKey: '一把鑰匙！一定能打開籠子。',
     ore: '採到：{n} × {ore}',
@@ -1730,6 +1722,42 @@ export default {
     },
     sovereignsSignet: {
       name: '君主印戒'
+    },
+    heraldsPin: {
+      name: '傳令官胸針'
+    },
+    hymnalOfTheRoad: {
+      name: '旅途聖歌集'
+    },
+    shepherdsCrook: {
+      name: '牧羊人之杖'
+    },
+    minstrelsHat: {
+      name: '吟遊詩人之帽'
+    },
+    pilgrimsSandals: {
+      name: '朝聖者涼鞋'
+    },
+    falconersGloves: {
+      name: '馴鷹人手套'
+    },
+    bellOfTheHerd: {
+      name: '畜群之鈴'
+    },
+    bannerOfTheHost: {
+      name: '大軍之旗'
+    },
+    heraldsTabard: {
+      name: '傳令官罩袍'
+    },
+    codexOfOaths: {
+      name: '誓約法典'
+    },
+    crownOfTheRightfulKing: {
+      name: '正統之王的王冠'
+    },
+    scepterOfTheFirstKing: {
+      name: '初代國王的權杖'
     },
     heartOfTheMountain: {
       name: '山脈之心'
@@ -3928,6 +3956,36 @@ export default {
       }
     },
     bark: {
+      lightDisciple: {
+        freed: {
+          '1': '是光指引你來的。我是奧蕾爾修女。到桑佛德來找我，我會教你光明使者之道。'
+        }
+      },
+      frostDisciple: {
+        freed: {
+          '1': '你是來救我的？我是艾佛·哈斯克，寒霜衛士的弟子。來艾恩霍德，我來教你。'
+        }
+      },
+      windDisciple: {
+        freed: {
+          '1': '終於自由了！我是凱斯崔爾·韋恩，走疾風行者之道。來奧克赫文找我，我來教你。'
+        }
+      },
+      freedFarmers: {
+        freed: {
+          '1': '你救了我們！我們是托勒一家，務農的。到奧克赫文找我們，家裡出事了。'
+        }
+      },
+      freedHerbalist: {
+        freed: {
+          '1': '哦，謝謝你！我是草藥師布萊爾。來西爾弗布里奇看看我吧，我正需要你幫忙。'
+        }
+      },
+      freedPeddler: {
+        freed: {
+          '1': '願你的靴子蒙福！我是小販奧多·馬羅。來桑佛德找我，我會幫你備好貨。'
+        }
+      },
       goblinKing: {
         charge: {
           '1': '撞垮他們，獠牙！'
@@ -5583,6 +5641,18 @@ export default {
     },
     treasureMap: {
       title: '魯克隊長的藏寶圖'
+    },
+    windrunnerTest: {
+      title: '疾風行者的試煉'
+    },
+    frostwardenTest: {
+      title: '寒霜衛士的試煉'
+    },
+    lightbringerTest: {
+      title: '光明使者的試煉'
+    },
+    beastcallerTest: {
+      title: '喚獸師的試煉'
     }
   }
 }

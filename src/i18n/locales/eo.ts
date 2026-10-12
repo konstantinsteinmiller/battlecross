@@ -137,14 +137,6 @@ export default {
     chi: 'Vivenergio'
   },
   toast: {
-    freed: {
-      lightDisciple: 'Liberigita! Fratino Aurelle instruos la vojon de la Lumportanto en {town}.',
-      frostDisciple: 'Liberigita! Ivor instruos la vojon de la Frostgardisto en {town}.',
-      windDisciple: 'Liberigita! Kestrel instruos la vojon de la Ventkuranto en {town}.',
-      freedFarmers: 'Liberigitaj! La familio Toller trovos hejmon en {town}.',
-      freedHerbalist: 'Liberigita! Briar la herbistino atendos vin en {town}.',
-      freedPeddler: 'Liberigita! Odo la kolportisto komercos en {town}.'
-    },
     cageLocked: 'Ŝlosita. La ŝlosilo devas esti ie en ĉi tiu loko.',
     cageKey: 'Ŝlosilo! Ĝi certe malfermas la kaĝon.',
     ore: 'Elfosita: {n} × {ore}',
@@ -1730,6 +1722,42 @@ export default {
     },
     sovereignsSignet: {
       name: 'Sigelringo de la Suvereno'
+    },
+    heraldsPin: {
+      name: 'Pinglo de la heroldo'
+    },
+    hymnalOfTheRoad: {
+      name: 'Kantaro de la vojo'
+    },
+    shepherdsCrook: {
+      name: 'Paŝtista bastono'
+    },
+    minstrelsHat: {
+      name: 'Ĉapelo de la menestrelo'
+    },
+    pilgrimsSandals: {
+      name: 'Sandaloj de la pilgrimanto'
+    },
+    falconersGloves: {
+      name: 'Gantoj de la falkisto'
+    },
+    bellOfTheHerd: {
+      name: 'Sonorilo de la grego'
+    },
+    bannerOfTheHost: {
+      name: 'Standardo de la armeo'
+    },
+    heraldsTabard: {
+      name: 'Tabardo de la heroldo'
+    },
+    codexOfOaths: {
+      name: 'Kodekso de la ĵuroj'
+    },
+    crownOfTheRightfulKing: {
+      name: 'Krono de la legitima reĝo'
+    },
+    scepterOfTheFirstKing: {
+      name: 'Sceptro de la unua reĝo'
     },
     heartOfTheMountain: {
       name: 'Koro de la Monto'
@@ -3928,6 +3956,36 @@ export default {
       }
     },
     bark: {
+      lightDisciple: {
+        freed: {
+          '1': 'La lumo sendis vin. Mi estas Fratino Aurelle. Serĉu min en Sunford, mi instruos al vi la vojon de la Lumportanto.'
+        }
+      },
+      frostDisciple: {
+        freed: {
+          '1': 'Ĉu vi venis por mi? Ivor Hask, disĉiplo de la Frostgardisto. Venu al Ironhold, kaj mi instruos vin.'
+        }
+      },
+      windDisciple: {
+        freed: {
+          '1': 'Fine libera! Kestrel Vane, de la vojo de la Ventkuranto. Trovu min en Oakhaven, kaj mi instruos vin.'
+        }
+      },
+      freedFarmers: {
+        freed: {
+          '1': 'Vi savis nin! Ni estas la familio Toller, farmistoj. Trovu nin en Oakhaven, hejme estas problemoj.'
+        }
+      },
+      freedHerbalist: {
+        freed: {
+          '1': 'Ho, dankon! Mi estas Briar, herbistino. Venu viziti min en Silverbridge. Via helpo utilus al mi.'
+        }
+      },
+      freedPeddler: {
+        freed: {
+          '1': 'Benataj estu viaj botoj! Odo Marrow, kolportisto. Trovu min en Sunford, mi havos varojn por vi.'
+        }
+      },
       goblinKing: {
         charge: {
           '1': 'Disbatu ilin, Dentegulo!'
@@ -5583,6 +5641,18 @@ export default {
     },
     treasureMap: {
       title: 'La trezormapo de kapitano Rook'
+    },
+    windrunnerTest: {
+      title: 'La provo: Ventkuranto'
+    },
+    frostwardenTest: {
+      title: 'La provo: Frostgardisto'
+    },
+    lightbringerTest: {
+      title: 'La provo: Lumportanto'
+    },
+    beastcallerTest: {
+      title: 'La provo: Bestovokanto'
     }
   }
 }

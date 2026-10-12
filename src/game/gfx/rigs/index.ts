@@ -173,7 +173,8 @@ const specFor = (rig: string, look: string, foe = false): Spec => {
   switch (rig) {
     case 'beast': {
       if (look === 'boar') return { key: 'beast:boar', family: 'beast', build: buildBoar, float: 0, held: 'none', ghost: false }
-      const v = look === 'stalker' ? 'stalker' : look === 'howler' ? 'howler' : 'wolf'
+      // The Beastcaller's companions (#86) have looks of their own: a green spirit wolf, a bear.
+      const v = look === 'stalker' || look === 'howler' || look === 'spiritWolf' || look === 'spiritBear' ? look : 'wolf'
       return { key: 'beast:' + v, family: 'beast', build: () => buildBeast(v), float: 0, held: 'none', ghost: false }
     }
     case 'spider': {
@@ -361,3 +362,6 @@ export const prewarmLook = (look: Look): void => {
   const s = humanoid(look)
   template(s.key, s.build)
 }
+
+/** The template a monster's or minion's rig and look are built as (tests: no look falls through to another's). */
+export const rigKeyFor = (rig: string, look: string): string => specFor(rig, look).key

@@ -145,15 +145,6 @@ export default {
     chi: 'تشي'
   },
   toast: {
-    freed: {
-      lightDisciple: 'تحرّرت! ستعلّم الأخت أوريل طريق حامل النور في {town}.',
-      frostDisciple: 'تحرّر! سيعلّم آيفور طريق حارس الصقيع في {town}.',
-      windDisciple: 'تحرّر! سيعلّم كيستريل طريق عدّاء الريح في {town}.',
-      freedFarmers: 'تحرّروا! ستجد عائلة تولر بيتاً في {town}.',
-      freedHerbalist__f: 'تحرّرت! ستنتظركِ براير العشّابة في {town}.',
-      freedHerbalist: 'تحرّرت! ستنتظرك براير العشّابة في {town}.',
-      freedPeddler: 'تحرّر! سيتاجر أودو البائع الجوّال في {town}.'
-    },
     cageLocked: 'مقفل. لا بد أن المفتاح في مكان ما هنا.',
     cageKey: 'مفتاح! لا بد أنه يفتح القفص.',
     ore: 'استخرجت: {n} × {ore}',
@@ -1802,6 +1793,42 @@ export default {
     },
     sovereignsSignet: {
       name: 'ختم العاهل'
+    },
+    heraldsPin: {
+      name: 'دبوس المنادي'
+    },
+    hymnalOfTheRoad: {
+      name: 'تراتيل الطريق'
+    },
+    shepherdsCrook: {
+      name: 'عصا الراعي'
+    },
+    minstrelsHat: {
+      name: 'قبعة المنشد'
+    },
+    pilgrimsSandals: {
+      name: 'صندل الحاج'
+    },
+    falconersGloves: {
+      name: 'قفازا الصقّار'
+    },
+    bellOfTheHerd: {
+      name: 'جرس القطيع'
+    },
+    bannerOfTheHost: {
+      name: 'راية الجيش'
+    },
+    heraldsTabard: {
+      name: 'رداء المنادي'
+    },
+    codexOfOaths: {
+      name: 'مخطوطة العهود'
+    },
+    crownOfTheRightfulKing: {
+      name: 'تاج الملك الشرعي'
+    },
+    scepterOfTheFirstKing: {
+      name: 'صولجان الملك الأول'
     },
     heartOfTheMountain: {
       name: 'قلب الجبل'
@@ -4272,6 +4299,36 @@ export default {
       }
     },
     bark: {
+      lightDisciple: {
+        freed: {
+          '1': 'النور أرسلك. أنا الأخت أوريل. أنتظرك في سانفورد، وسأعلّمك طريق حامل النور.'
+        }
+      },
+      frostDisciple: {
+        freed: {
+          '1': 'جئت من أجلي؟ أنا آيفور هاسك، تلميذ حارس الصقيع. أنتظرك في آيرنهولد وسأعلّمك.'
+        }
+      },
+      windDisciple: {
+        freed: {
+          '1': 'حرٌّ أخيراً! أنا كيستريل فين، من أتباع طريق عدّاء الريح. أنتظرك في أوكهيفن وسأعلّمك.'
+        }
+      },
+      freedFarmers: {
+        freed: {
+          '1': 'أنقذتنا! نحن عائلة تولر، مزارعون. ننتظرك في أوكهيفن، فهناك مشكلة في البيت.'
+        }
+      },
+      freedHerbalist: {
+        freed: {
+          '1': 'أوه، شكراً لك! أنا براير، عشّابة. أنتظرك في سيلفربريدج، فأنا بحاجة إلى مساعدتك.'
+        }
+      },
+      freedPeddler: {
+        freed: {
+          '1': 'بوركت قدماك! أنا أودو مارو، بائع جوّال. سأنتظرك في سانفورد، وعندي بضائع لك.'
+        }
+      },
       goblinKing: {
         charge: {
           '1': 'اسحقهم يا تاسكر!'
@@ -5938,6 +5995,18 @@ export default {
     },
     treasureMap: {
       title: 'خريطة كنز القائد روك'
+    },
+    windrunnerTest: {
+      title: 'اختبار عدّاء الريح'
+    },
+    frostwardenTest: {
+      title: 'اختبار حارس الصقيع'
+    },
+    lightbringerTest: {
+      title: 'اختبار حامل النور'
+    },
+    beastcallerTest: {
+      title: 'اختبار منادي الوحوش'
     }
   }
 }

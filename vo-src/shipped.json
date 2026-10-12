@@ -19,6 +19,26 @@
     "at": "2026-10-05",
     "hash": "64ff19100e"
   },
+  "en/dlg.bark.freedFarmers.freed.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-12",
+    "hash": "c089dbaa99"
+  },
+  "en/dlg.bark.freedHerbalist.freed.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-12",
+    "hash": "23209c82b4"
+  },
+  "en/dlg.bark.freedPeddler.freed.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-12",
+    "hash": "f35198ef8d"
+  },
+  "en/dlg.bark.frostDisciple.freed.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-12",
+    "hash": "e96a223342"
+  },
   "en/dlg.bark.frostJarl.hammer.1": {
     "engine": "chatterbox",
     "at": "2026-10-05",
@@ -48,6 +68,16 @@
     "engine": "chatterbox",
     "at": "2026-10-05",
     "hash": "c7ce2969d2"
+  },
+  "en/dlg.bark.lightDisciple.freed.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-12",
+    "hash": "25991043a0"
+  },
+  "en/dlg.bark.windDisciple.freed.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-12",
+    "hash": "fb5c80bd13"
   },
   "en/dlg.blackMarket.again.1": {
     "engine": "chatterbox",

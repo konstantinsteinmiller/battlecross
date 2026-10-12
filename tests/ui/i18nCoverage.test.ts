@@ -12,6 +12,7 @@ import { ACTIONS } from '@/game/engine/keyBindings'
 import { ALL_LESSON_IDS } from '@/game/coach'
 import { GLYPHS } from '@/components/art/glyphs'
 import { CONVERSATIONS, conversationOf, decisionOf } from '@/game/data/dialogs'
+import { ERRANDS } from '@/game/data/errands'
 import { linesOf } from '@/game/dialog/manifest'
 import { END_LINE } from '@/game/dialog/runner'
 
@@ -114,6 +115,8 @@ describe('i18n coverage', () => {
       for (const c of q.choices) need(`quest.${q.id}.${c.id}.label`)
       if (!decisionOf(q.id)) missing.push(`a decision conversation for ${q.id}`)
     }
+    // An errand's title: the journal and its taken / done toasts.
+    for (const e of ERRANDS) { need(`errand.${e.id}.title`); need(`npc.${e.giver}.name`) }
     for (const k of ['order', 'syndicate', 'circle', 'free', 'unbound']) { need(`ending.${k}.title`); need(`ending.${k}.text`) }
     for (const f of EPILOGUE_FLAGS) need(`ending.note.${f}`)
     expect(missing).toEqual([])

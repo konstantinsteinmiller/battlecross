@@ -137,14 +137,6 @@ export default {
     chi: 'Chi'
   },
   toast: {
-    freed: {
-      lightDisciple: 'Liberada! A irmá Aurelle ensinará o camiño do Portador da Luz en {town}.',
-      frostDisciple: 'Liberado! Ivor ensinará o camiño do Gardián da Xeada en {town}.',
-      windDisciple: 'Liberado! Kestrel ensinará o camiño do Corredor do Vento en {town}.',
-      freedFarmers: 'Liberados! Os Toller atoparán un fogar en {town}.',
-      freedHerbalist: 'Liberada! Briar, a herbolaria, esperarate en {town}.',
-      freedPeddler: 'Liberado! Odo, o quincalleiro, comerciará en {town}.'
-    },
     cageLocked: 'Pechada con chave. A chave ten que estar nalgún lugar de aquí.',
     cageKey: 'Unha chave! Debe abrir a gaiola.',
     ore: 'Extraído: {n} × {ore}',
@@ -1731,6 +1723,42 @@ export default {
     },
     sovereignsSignet: {
       name: 'Selo do Soberano'
+    },
+    heraldsPin: {
+      name: 'Broche do heraldo'
+    },
+    hymnalOfTheRoad: {
+      name: 'Himnario do camiño'
+    },
+    shepherdsCrook: {
+      name: 'Caxato do pastor'
+    },
+    minstrelsHat: {
+      name: 'Chapeu do xograr'
+    },
+    pilgrimsSandals: {
+      name: 'Sandalias do peregrino'
+    },
+    falconersGloves: {
+      name: 'Luvas do falcoeiro'
+    },
+    bellOfTheHerd: {
+      name: 'Chocallo do rabaño'
+    },
+    bannerOfTheHost: {
+      name: 'Estandarte da hoste'
+    },
+    heraldsTabard: {
+      name: 'Tabardo do heraldo'
+    },
+    codexOfOaths: {
+      name: 'Códice dos xuramentos'
+    },
+    crownOfTheRightfulKing: {
+      name: 'Coroa do rei lexítimo'
+    },
+    scepterOfTheFirstKing: {
+      name: 'Cetro do primeiro rei'
     },
     heartOfTheMountain: {
       name: 'Corazón da Montaña'
@@ -3979,6 +4007,36 @@ export default {
       }
     },
     bark: {
+      lightDisciple: {
+        freed: {
+          '1': 'A luz enviouche. Son a irmá Aurelle. Búscame en Sunford, ensinareiche o camiño do Portador da Luz.'
+        }
+      },
+      frostDisciple: {
+        freed: {
+          '1': 'Viñeches por min? Son Ivor Hask, discípulo do Gardián da Xeada. Ven a Ironhold e ensinareiche.'
+        }
+      },
+      windDisciple: {
+        freed: {
+          '1': 'Libre por fin! Son Kestrel Vane, do camiño do Corredor do Vento. Búscame en Oakhaven e ensinareiche.'
+        }
+      },
+      freedFarmers: {
+        freed: {
+          '1': 'Salváchesnos! Somos os Toller, labregos. Búscanos en Oakhaven, hai problemas na casa.'
+        }
+      },
+      freedHerbalist: {
+        freed: {
+          '1': 'Ai, grazas! Son Briar, herbolaria. Ven verme a Silverbridge. Viríame ben a túa axuda.'
+        }
+      },
+      freedPeddler: {
+        freed: {
+          '1': 'Benditas sexan as túas botas! Son Odo Marrow, quincalleiro. Búscame en Sunford, terei mercadoría para ti.'
+        }
+      },
       goblinKing: {
         charge: {
           '1': 'Arrasádeos, Tusker!'
@@ -5640,6 +5698,18 @@ export default {
     },
     treasureMap: {
       title: 'O mapa do tesouro do capitán Rook'
+    },
+    windrunnerTest: {
+      title: 'A proba: Corredor do Vento'
+    },
+    frostwardenTest: {
+      title: 'A proba: Gardián da Xeada'
+    },
+    lightbringerTest: {
+      title: 'A proba: Portador da Luz'
+    },
+    beastcallerTest: {
+      title: 'A proba: Domador de Bestas'
     }
   }
 }

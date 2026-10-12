@@ -1,4 +1,4 @@
-import { ITEMS, TIER_COLOR, type ItemDef } from '../data/items'
+import { CHARISMA_ITEMS, ITEMS, TIER_COLOR, type ItemDef } from '../data/items'
 import { CLASSES, CLASS_IDS, skillsOf, type ClassId } from '../data/skills'
 import { HERO_OUTFITS, heroPortraitId } from './heroPortrait'
 import { BRAND_REFS } from './brandRefs'
@@ -174,6 +174,19 @@ const ITEM_BLURBS: Readonly<Record<string, string>> = {
   timekeepersHourglass: 'a small hourglass: two glass bulbs holding coloured sand, half in the top and half in the bottom, between two flat gold end plates',
   ringOfTheVampyre: 'a heavy gold finger ring with a pointed claw-shaped setting holding one deep, dark teardrop-cut stone',
   sovereignsSignet: 'a broad gold signet ring with a flat oval face on top, engraved with three small points in a row',
+  // The Charisma set
+  heraldsPin: 'a small round brass brooch with a pin behind it and a tiny trumpet engraved on its face',
+  hymnalOfTheRoad: 'a small worn leather book with a cloth strap around it and a pale ribbon bookmark hanging out at the bottom',
+  shepherdsCrook: 'a long plain wooden staff with a wide round hook curling over at its top end',
+  minstrelsHat: 'a soft cloth cap with a floppy brim folded up at one side and one long feather standing up from the band',
+  pilgrimsSandals: 'a pair of simple flat leather sandals with crossed straps that wrap around the ankle',
+  falconersGloves: 'one thick leather glove with a long cuff reaching up the forearm and a padded patch across its back',
+  bellOfTheHerd: 'a round bronze cow bell with a wide mouth, hanging from a short loop of leather strap',
+  bannerOfTheHost: 'a tall wooden pole topped with a gold spearhead, with a long rectangular cloth flag hanging down from a crossbar',
+  heraldsTabard: 'a sleeveless cloth tunic split into four squares of two alternating colours, with a broad belt at the waist',
+  codexOfOaths: 'a thick heavy book bound in dark leather with brass corner plates and a single round gold clasp on its front',
+  crownOfTheRightfulKing: 'a gold crown with five tall points, each tipped with a small round gem, and a band of square gems around it',
+  scepterOfTheFirstKing: 'a short gold rod with a ribbed grip and a large round gem held in four curved claws at its top',
   heartOfTheMountain: 'a gemstone cut in a rounded heart outline with flat facets and one pale crack line down it: a carved stone with hard, flat faces',
   ringOfAbsolutePower: 'a thick, ornate gold finger ring with two engraved bands, set with one large brilliant-cut stone flanked by two tiny ones'
 }
@@ -567,14 +580,17 @@ const grid = (cells: SheetCell[], cols: number, rows: number): Array<SheetCell |
   return [...cells, ...Array.from({ length: cols * rows - cells.length }, () => null)]
 }
 
-const main = ITEMS.filter(i => i.slot === 'main')
-const off = ITEMS.filter(i => i.slot === 'off')
-const body = ITEMS.filter(i => i.slot === 'body')
-const trinkets = ITEMS.filter(i => i.slot === 'trinket')
+// The Charisma set has its own sheet; the slot sheets keep the tables' pieces.
+const TABLED = ITEMS.filter(i => !CHARISMA_ITEMS.has(i.id))
+const charisma = ITEMS.filter(i => CHARISMA_ITEMS.has(i.id))
+const main = TABLED.filter(i => i.slot === 'main')
+const off = TABLED.filter(i => i.slot === 'off')
+const body = TABLED.filter(i => i.slot === 'body')
+const trinkets = TABLED.filter(i => i.slot === 'trinket')
 // Helmets, gloves and boots (D39): eighteen pieces on two sheets, a slot never split across them.
-const head = ITEMS.filter(i => i.slot === 'head')
-const hands = ITEMS.filter(i => i.slot === 'hands')
-const feet = ITEMS.filter(i => i.slot === 'feet')
+const head = TABLED.filter(i => i.slot === 'head')
+const hands = TABLED.filter(i => i.slot === 'hands')
+const feet = TABLED.filter(i => i.slot === 'feet')
 
 const itemSet = (stem: string, title: string, items: ItemDef[]): ArtSet => ({
   stem, title, kind: 'items', doc: 'PROMPTS-ITEMS.md', cols: 4, rows: 3, maxEdge: 192, crop: 1, anchor: 'centre',
@@ -688,6 +704,7 @@ export const SETS: readonly ArtSet[] = [
   itemSet('sheet-items-trinkets', 'Item icons: trinkets', trinkets),
   itemSet('sheet-items-headgear', 'Item icons: headgear and gloves', [...head, ...hands]),
   itemSet('sheet-items-boots', 'Item icons: boots', feet),
+  itemSet('sheet-items-charisma', 'Item icons: the Charisma set', charisma),
   ...CLASS_IDS.flatMap(cls => (skillsOf(cls).length > 6 ? [skillSet(cls, 0), skillSet(cls, 1)] : [skillSet(cls, 0)])),
   portraitSet('sheet-portraits-town', 'Portraits: townsfolk', TOWN_LOOKS, 3, 3),
   portraitSet('sheet-portraits-trainers', 'Portraits: trainers', TRAINER_LOOKS, 3, 3),
