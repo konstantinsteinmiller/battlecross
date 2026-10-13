@@ -5,20 +5,9 @@ answered. Answered items move to the decision table in
 [`game-implementation-plan.md`](./game-implementation-plan.md) and are removed
 here.
 
-Last updated: 2026-10-11.
+Last updated: 2026-10-13.
 
 ## Needs an answer
-
-### 59. What is wrong with the yellow frame over a town (#108)
-
-#108 reads "Skill point highlight seen over the entered town", and the
-answer was "the character button that is highlighted with a yellow frame on
-the map". The frame is the attention pulse on the character button while
-attribute points are unspent; it pulses the same on the map and in a town.
-
-- **In effect:** unchanged (the pulse shows wherever points wait to be spent).
-- **Needed:** what should change: hide it in towns, place it elsewhere, or
-  stop it once the player has seen it? #108 stays open until then.
 
 ### 52. Smithed gear: fixed catalogue or rolled pieces (#99)
 

@@ -4,7 +4,7 @@ A report, not a contract: it is a picture of `art-sheets/painted/` and the
 slicer's receipt at the moment it was written. Re-run `pnpm art:prompts`
 after painting or slicing anything.
 
-**52 sliced · 9 need a repaint · 0 painted, unreceipted · 6 outstanding**
+**51 sliced · 10 need a repaint · 0 painted, unreceipted · 6 outstanding**
 
 | | Sheet | Prompt block in | Reference | State |
 | --- | --- | --- | --- | --- |
@@ -14,7 +14,7 @@ after painting or slicing anything.
 | ✓ | **Item icons: trinkets** | `PROMPTS-ITEMS.md` | `sheet-items-trinkets.png` (rev `b23c5e2aa7a1`) | sliced 2026-10-03 |
 | ✓ | **Item icons: headgear and gloves** | `PROMPTS-ITEMS.md` | `sheet-items-headgear.png` (rev `f56cfdfaf5fb`) | sliced 2026-10-03 |
 | ✓ | **Item icons: boots** | `PROMPTS-ITEMS.md` | `sheet-items-boots.png` (rev `05a2d72cdd50`) | sliced 2026-10-03 |
-| · | **Item icons: the Charisma set** | `PROMPTS-ITEMS.md` | `sheet-items-charisma.png` — *missing, run `pnpm art:export`* | not painted yet |
+| · | **Item icons: the Charisma set** | `PROMPTS-ITEMS.md` | `sheet-items-charisma.png` (rev `2564781e45f5`) | not painted yet |
 | ! | **Skill icons: Aegis Knight** | `PROMPTS-SKILLS.md` | `sheet-skills-aegis.png` (rev `0ba6202c756b`) | REPAINT — the reference changed (41ace8182dfc → 0ba6202c756b) |
 | ✓ | **Skill icons: Aegis Knight (2 of 2)** | `PROMPTS-SKILLS.md` | `sheet-skills2-aegis.png` (rev `58e4d7a026f6`) | sliced 2026-10-07 |
 | ! | **Skill icons: Shadowblade** | `PROMPTS-SKILLS.md` | `sheet-skills-shadow.png` (rev `085c60ddf84e`) | REPAINT — the reference changed (2cfb44cfe91f → 085c60ddf84e) |
@@ -53,7 +53,7 @@ after painting or slicing anything.
 | ✓ | **Portraits: the hero, per outfit** | `PROMPTS-PORTRAITS.md` | `sheet-portraits-hero.png` (rev `75c7036e6e95`) | sliced 2026-10-03 |
 | ✓ | **Portraits: the girl hero, per outfit** | `PROMPTS-PORTRAITS.md` | `sheet-portraits-girl.png` (rev `7e58d5984004`) | sliced 2026-10-04 |
 | ✓ | **Icons: class emblems (1 of 2)** | `PROMPTS-ICONS.md` | `sheet-icons-classes.png` (rev `5b8dd08575e3`) | sliced 2026-10-03 |
-| ✓ | **Icons: class emblems (2 of 2)** | `PROMPTS-ICONS.md` | `sheet-icons-crests.png` (rev `64961b383e5a`) | sliced 2026-10-07 |
+| ! | **Icons: class emblems (2 of 2)** | `PROMPTS-ICONS.md` | `sheet-icons-crests.png` (rev `ff0751a16f37`) | REPAINT — the reference changed (64961b383e5a → ff0751a16f37) |
 | ✓ | **Icons: status effects (1 of 4)** | `PROMPTS-ICONS.md` | `sheet-icons-status-1.png` (rev `3b679b490b8f`) | sliced 2026-10-03 |
 | ✓ | **Icons: status effects (2 of 4)** | `PROMPTS-ICONS.md` | `sheet-icons-status-2.png` (rev `6a52868c9374`) | sliced 2026-10-03 |
 | ✓ | **Icons: status effects (3 of 4)** | `PROMPTS-ICONS.md` | `sheet-icons-status-3.png` (rev `3021cbd7a46e`) | sliced 2026-10-07 |

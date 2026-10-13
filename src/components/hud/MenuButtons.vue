@@ -7,7 +7,7 @@
         FHudButton(tone="gold" icon="map" :aria-label="t('menu.map')" @click="open('map')")
     Transition(name="reveal")
       span.menu-buttons__item(v-if="revealed('hero')" data-coach="menu-character" :class="{ 'is-glow': glowing('hero') }")
-        FHudButton(tone="blue" icon="hero" :attention="profile.hero.points > 0" :aria-label="t('menu.character')" @click="open('character')")
+        FHudButton(tone="blue" icon="hero" :attention="unseenPoints() > 0" :aria-label="t('menu.character')" @click="open('character')")
           template(v-if="profile.hero.points > 0" #badge)
             FHudBadge(tone="red") {{ profile.hero.points }}
     Transition(name="reveal")
@@ -44,7 +44,7 @@ import FHudButton from '@/components/atoms/FHudButton.vue'
 import FHudBadge from '@/components/atoms/FHudBadge.vue'
 import LeaderboardButton from '@/components/game/LeaderboardButton.vue'
 import { flow, openMap } from '@/game/flow'
-import { contractsReady, profile } from '@/game/state/profile'
+import { contractsReady, profile, unseenPoints } from '@/game/state/profile'
 import { computed } from 'vue'
 import { glowing, revealed } from '@/game/coach/reveal'
 

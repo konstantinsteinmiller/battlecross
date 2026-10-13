@@ -34,6 +34,19 @@ describe('levels and attribute points (GDD §4.1)', () => {
     expect(p.profile.hero.attrs.dex).toBe(5)
   })
 
+  it('the character button pulses for points until the page is opened, and again at the next level (#108)', () => {
+    p.grantXp(xpToNext(1))
+    expect(p.unseenPoints()).toBe(3)
+    p.seePoints()
+    expect(p.unseenPoints()).toBe(0)
+    expect(p.profile.hero.points).toBe(3)
+    // Spending some keeps it quiet; the next level wakes it for the new points only.
+    p.spendPoint('str', 2)
+    expect(p.unseenPoints()).toBe(0)
+    p.grantXp(xpToNext(2))
+    expect(p.unseenPoints()).toBe(3)
+  })
+
   it('XP keeps counting after the cap, as lifetime XP', () => {
     p.grantXp(50_000_000)
     expect(p.profile.level).toBe(30)

@@ -707,6 +707,7 @@ All sound is synthesised (53 recipes); recorded files can override a recipe.
 | D140 | Plants (#112, #114) | A habitat (zone list) per plant; moonbells in the Woods; no sun petals in the Temple; gather errands checked against habitats | owner |
 | D141 | Careful clear (#113) | On a win: lost ≤ 15 % → ×2 purse, ≥ 50 % → ×1, linear between; lost = damage up to the HP left, heals do not refund; its own result line; the video triples only the base | owner; question 58 |
 | D142 | Gamblers (#115) | Fixed tables: Sunford ≤ Uncommon, Oakhaven ≤ Rare; streak per gambler; Sunford's prize a Rare | owner; farm guard |
+| D143 | Points pulse (#108) | The character button pulses only for points not yet seen: opening the character page quiets it; the next level wakes it for the new points | owner; question 59 |
 
 ### Phases
 

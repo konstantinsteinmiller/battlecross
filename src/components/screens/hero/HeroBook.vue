@@ -43,7 +43,7 @@
 import { computed, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { closeModal, flow, type Modal } from '@/game/flow'
-import { profile } from '@/game/state/profile'
+import { profile, seePoints } from '@/game/state/profile'
 import { sfx } from '@/game/audio/sfx'
 import FHudBadge from '@/components/atoms/FHudBadge.vue'
 import GameIcon from '@/components/icons/GameIcon.vue'
@@ -70,6 +70,9 @@ const ART: Record<Page, BackdropName> = { character: 'inventory', skills: 'skill
 
 const { t } = useI18n()
 const page = computed<Page>(() => (flow.modal === 'character' || flow.modal === 'skills' || flow.modal === 'journal' ? flow.modal : 'inventory'))
+// #108: the character page is open, so the points waiting on it are seen (the
+// button's pulse stops until the next level brings more).
+watch(() => [page.value, profile.hero.points] as const, ([p]) => { if (p === 'character') seePoints() }, { immediate: true })
 /** Errands ready to hand in: the journal's tab says how many. */
 const journalReady = computed(() => openErrands().filter(e => e.state === 'ready').length)
 

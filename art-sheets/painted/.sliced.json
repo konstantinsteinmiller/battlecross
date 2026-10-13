@@ -49,54 +49,6 @@
       "painting": "9cd4ab4c364d",
       "at": "2026-10-03T00:26:01.072Z"
     },
-    "sheet-skills-aegis.jpg": {
-      "sheet": "sheet-skills-aegis",
-      "rev": "41ace8182dfc",
-      "painting": "2629ca0d4523",
-      "at": "2026-10-03T00:29:22.652Z"
-    },
-    "sheet-skills-shadow.jpg": {
-      "sheet": "sheet-skills-shadow",
-      "rev": "2cfb44cfe91f",
-      "painting": "5fd097ebd81e",
-      "at": "2026-10-03T00:32:48.787Z"
-    },
-    "sheet-skills-pyro.jpg": {
-      "sheet": "sheet-skills-pyro",
-      "rev": "11c33b95224f",
-      "painting": "ff92866cb980",
-      "at": "2026-10-03T00:35:43.192Z"
-    },
-    "sheet-skills-sovereign.jpg": {
-      "sheet": "sheet-skills-sovereign",
-      "rev": "8f5bbb595a22",
-      "painting": "26f260c6a498",
-      "at": "2026-10-03T00:38:39.560Z"
-    },
-    "sheet-skills-chrono.jpg": {
-      "sheet": "sheet-skills-chrono",
-      "rev": "31ab3a6fd666",
-      "painting": "b3cb2754e757",
-      "at": "2026-10-03T00:41:34.733Z"
-    },
-    "sheet-skills-blood.jpg": {
-      "sheet": "sheet-skills-blood",
-      "rev": "e804ce33c01a",
-      "painting": "718d07d4683f",
-      "at": "2026-10-03T00:44:15.637Z"
-    },
-    "sheet-skills-aether.jpg": {
-      "sheet": "sheet-skills-aether",
-      "rev": "bc36381ba573",
-      "painting": "38293acb247b",
-      "at": "2026-10-03T00:47:07.631Z"
-    },
-    "sheet-skills-geo.jpg": {
-      "sheet": "sheet-skills-geo",
-      "rev": "f6c6e1ae01f5",
-      "painting": "dd2059c41b0f",
-      "at": "2026-10-03T00:50:08.366Z"
-    },
     "single-ui-coin.jpg": {
       "sheet": "single-ui-coin",
       "rev": "f360573d2c98",
@@ -295,12 +247,6 @@
       "painting": "c33da0ca34f6",
       "at": "2026-10-07T14:26:48.130Z"
     },
-    "sheet-icons-crests.jpg": {
-      "sheet": "sheet-icons-crests",
-      "rev": "64961b383e5a",
-      "painting": "a56309849906",
-      "at": "2026-10-07T14:30:08.299Z"
-    },
     "sheet-skills2-aegis.jpg": {
       "sheet": "sheet-skills2-aegis",
       "rev": "58e4d7a026f6",
@@ -438,6 +384,72 @@
       "rev": "42e65957cba9",
       "painting": "b8e47bc401da",
       "at": "2026-10-12T12:16:53.297Z"
+    },
+    "sheet-skills-aegis.jpg": {
+      "sheet": "sheet-skills-aegis",
+      "rev": "0ba6202c756b",
+      "painting": "5a907431d19c",
+      "at": "2026-10-13T13:19:09.599Z"
+    },
+    "sheet-skills-shadow.jpg": {
+      "sheet": "sheet-skills-shadow",
+      "rev": "085c60ddf84e",
+      "painting": "ddaa974c7cb9",
+      "at": "2026-10-13T13:22:13.489Z"
+    },
+    "sheet-skills-pyro.jpg": {
+      "sheet": "sheet-skills-pyro",
+      "rev": "ffb8ed2290a0",
+      "painting": "0c4766b9d7a9",
+      "at": "2026-10-13T13:24:58.932Z"
+    },
+    "sheet-skills-sovereign.jpg": {
+      "sheet": "sheet-skills-sovereign",
+      "rev": "2aa55f4832db",
+      "painting": "1a7f34f832a8",
+      "at": "2026-10-13T13:27:40.625Z"
+    },
+    "sheet-skills-chrono.jpg": {
+      "sheet": "sheet-skills-chrono",
+      "rev": "5a4f6c11ad07",
+      "painting": "6639fe635f83",
+      "at": "2026-10-13T13:30:19.220Z"
+    },
+    "sheet-skills-blood.jpg": {
+      "sheet": "sheet-skills-blood",
+      "rev": "2b91ed1ae8ed",
+      "painting": "df6eb17817e0",
+      "at": "2026-10-13T13:32:45.622Z"
+    },
+    "sheet-skills-aether.jpg": {
+      "sheet": "sheet-skills-aether",
+      "rev": "6d672439580a",
+      "painting": "69743c06ce1d",
+      "at": "2026-10-13T13:36:12.601Z"
+    },
+    "sheet-skills-geo.jpg": {
+      "sheet": "sheet-skills-geo",
+      "rev": "822030d247c9",
+      "painting": "eee66d04fca1",
+      "at": "2026-10-13T13:38:51.240Z"
+    },
+    "sheet-skills2-soulwarden.jpg": {
+      "sheet": "sheet-skills2-soulwarden",
+      "rev": "47a9ff7230d0",
+      "painting": "b8136a6003c7",
+      "at": "2026-10-13T13:42:22.474Z"
+    },
+    "sheet-items-charisma.jpg": {
+      "sheet": "sheet-items-charisma",
+      "rev": "2564781e45f5",
+      "painting": "822e53ea66ce",
+      "at": "2026-10-13T13:45:42.596Z"
+    },
+    "sheet-icons-crests.jpg": {
+      "sheet": "sheet-icons-crests",
+      "rev": "ff0751a16f37",
+      "painting": "d63261d17a36",
+      "at": "2026-10-13T13:48:44.514Z"
     }
   }
 }

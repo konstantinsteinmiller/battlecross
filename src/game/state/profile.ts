@@ -57,6 +57,10 @@ export interface HeroSave {
   attrs: AttrBlock
   /** Points not yet spent. */
   points: number
+  /** How many of them the player has already been shown on the character
+   *  page (#108): the button pulses only for points beyond these, so it goes
+   *  quiet once the page is opened and wakes again at the next level. */
+  pointsSeen: number
   /** Every skill the hero has learned. */
   learned: string[]
   /** The six active slots and the three passive slots ('' = empty). */
@@ -246,7 +250,7 @@ const defaultHero = (): HeroSave => {
   // first fight already has a button to press.
   const active = emptySlots(ACTIVE_SLOTS)
   active[0] = 'shieldSlam'
-  return { xp: 0, attrs: startAttrs(), points: 0, learned: ['shieldSlam'], active, passive: emptySlots(PASSIVE_SLOTS), gender: 'm' }
+  return { xp: 0, attrs: startAttrs(), points: 0, pointsSeen: 0, learned: ['shieldSlam'], active, passive: emptySlots(PASSIVE_SLOTS), gender: 'm' }
 }
 
 const defaultInv = (): InventorySave => ({
@@ -318,6 +322,7 @@ export const loadProfile = (): void => {
   hero.attrs = attrs
   hero.xp = Math.max(0, num(hero.xp, 0))
   hero.points = Math.max(0, Math.round(num(hero.points, 0)))
+  hero.pointsSeen = Math.min(hero.points, Math.max(0, Math.round(num(hero.pointsSeen, 0))))
   hero.learned = strs(hero.learned).filter(id => SKILL_BY_ID[id])
   const slots = (v: unknown, n: number, kind: 'active' | 'passive'): string[] => {
     const out = strs(v).slice(0, n).map(id => (SKILL_BY_ID[id]?.kind === kind && hero.learned.includes(id) ? id : ''))
@@ -626,9 +631,20 @@ export const grantXp = (amount: number): number => {
   return r.gained
 }
 
+/** Points the character button should still pulse for (#108). */
+export const unseenPoints = (): number => Math.max(0, profile.hero.points - profile.hero.pointsSeen)
+
+/** The character page is open: every point waiting is seen. */
+export const seePoints = (): void => {
+  if (profile.hero.pointsSeen === profile.hero.points) return
+  profile.hero.pointsSeen = profile.hero.points
+  saveProfile()
+}
+
 export const spendPoint = (a: Attr, n = 1): boolean => {
   if (profile.hero.points < n || n <= 0) return false
   profile.hero.points -= n
+  profile.hero.pointsSeen = Math.min(profile.hero.pointsSeen, profile.hero.points)
   profile.hero.attrs[a] += n
   saveProfile()
   return true
