@@ -2,6 +2,7 @@
 export default {
   arena: {
     allWon: 'Barcha mifik sovrinlar endi sizniki.',
+    call: 'Hikoya aytib boʻlindi. Endi buildingni isbotla: qoʻlingdan kelgancha yuqoriga koʻtaril va hech kim bera olmaydigan mifik sovrinlarni yutib ol.',
     prize: '{item} endi sizniki!',
     milestone: 'Toʻlqin {n}!',
     next: 'Keyingi sovrin: toʻlqin {at} — {item}',
@@ -141,6 +142,8 @@ export default {
     cageKey: 'Kalit! Qafasni shu ochsa kerak.',
     ore: 'Qazildi: {n} × {ore}',
     mineBusy: 'Dushmanlar yaqinda — mumkin emas!',
+    pressureUp: 'Dushmanlaring yanada shafqatsizlashdi {skulls}',
+    pressureDown: 'Dushmanlaring biroz yumshadi {skulls}',
     item: 'Topildi: {item}',
     levelUp: '{level}-daraja! +3 xususiyat ochkosi',
     boss: '{boss} paydo boʻldi',
@@ -327,6 +330,7 @@ export default {
     questDone: '{quest}: {choice}',
     trainer: 'Yashirin ustoz: {cls}',
     new: 'Yangi',
+    trueTest: 'Haqiqiy sinov',
     skip: 'Oʻtkazish uchun bosing',
     compass: {
       n: 'Sh',
@@ -4672,11 +4676,11 @@ export default {
       },
       favor: {
         '1': 'Begonalarga sotmayman. Lekin bitta iltimosimni bajar, doʻst boʻlamiz.',
-        '2': 'Shivirlovchi oʻrmondagi daraxt odamlar menga kerakli oyqoʻngʻiroqlarni qoʻriqlaydi. Oltitasini yeng va menga uchta oyqoʻngʻiroq olib kel.',
+        '2': 'Shivirlovchi oʻrmondagi daraxt odamlar menga kerakli oyqoʻngʻiroqlarni qoʻriqlaydi. Toʻrttasini yeng va menga ikkita oyqoʻngʻiroq olib kel.',
         say: 'Biror narsa sotasanmi?'
       },
       waiting: {
-        '1': 'Oltita daraxt odam, uchta oyqoʻngʻiroq. Afsuski, oyqoʻngʻiroqlar oʻzini oʻzi uzmaydi.',
+        '1': 'Toʻrtta daraxt odam, ikkita oyqoʻngʻiroq. Afsuski, oyqoʻngʻiroqlar oʻzini oʻzi uzmaydi.',
         say: 'Haligi iltimos haqida...'
       },
       favorDone: {
@@ -4748,11 +4752,11 @@ export default {
       },
       favor: {
         '1': 'Faqat ortimdan yetib kela oladiganlarga. Sen yetib kela olasanmi? Koʻramiz.',
-        '2': 'Oakhaven atrofida oʻn ikkita kamonchi qaroqchini yeng, soʻng menga uchta yelqirqquloq olib kel.',
+        '2': 'Oakhaven atrofida sakkizta kamonchi qaroqchini yeng, soʻng menga ikkita yelqirqquloq olib kel.',
         say: 'Kamon otishni oʻrgatasanmi?'
       },
       waiting: {
-        '1': 'Oʻn ikki kamonchi qaroqchi, uchta yelqirqquloq. Qani, bor! Men shu yerda boʻlaman. Sakrab turaman.',
+        '1': 'Sakkiz kamonchi qaroqchi, ikkita yelqirqquloq. Qani, bor! Men shu yerda boʻlaman. Sakrab turaman.',
         say: 'Sinoving haqida...'
       },
       favorDone: {
@@ -4803,11 +4807,11 @@ export default {
       },
       favor: {
         '1': 'Ha. Uni faqat issiq joyda boshini sovuq tuta oladiganlarga oʻrgataman.',
-        '2': 'Kul qoyalarida oʻnta olov elementalini oʻchir. Soʻng menga uch shox ayozyalpiz olib kel.',
+        '2': 'Kul qoyalarida yettita olov elementalini oʻchir. Soʻng menga ikki shox ayozyalpiz olib kel.',
         say: 'Bu qilich muzdanmi?'
       },
       waiting: {
-        '1': 'Oʻnta olov elementali. Uch shox ayozyalpiz. Shoshilma. Lekin juda choʻzma ham.',
+        '1': 'Yettita olov elementali. Ikki shox ayozyalpiz. Shoshilma. Lekin juda choʻzma ham.',
         say: 'Sinoving haqida...'
       },
       favorDone: {
@@ -4857,11 +4861,11 @@ export default {
       },
       favor: {
         '1': 'Har kimning ichida ozgina nur bor. Men odamlarga uni chiqarishni oʻrgataman, tayyor boʻlganlarida.',
-        '2': 'Kul qoyalarida oʻnta mazhabchini yeng, soʻng chirogʻim uchun beshta quyoshgulbarg olib kel.',
+        '2': 'Kul qoyalarida yettita mazhabchini yeng, soʻng chirogʻim uchun uchta quyoshgulbarg olib kel.',
         say: 'Bu chiroq sehrlimi?'
       },
       waiting: {
-        '1': 'Oʻnta mazhabchi, beshta quyoshgulbarg. Ularni muloyimlik bilan yeng. Har kim ikkinchi imkoniyatga loyiq.',
+        '1': 'Yettita mazhabchi, uchta quyoshgulbarg. Ularni muloyimlik bilan yeng. Har kim ikkinchi imkoniyatga loyiq.',
         say: 'Sinoving haqida...'
       },
       favorDone: {
@@ -4911,12 +4915,12 @@ export default {
       },
       favor: {
         '1': 'Gaplashish? Men tinglayman. Koʻp odamlar buni hech qachon oʻrganmaydi.',
-        '2': 'Shivirlovchi oʻrmonda ulkan oʻrgimchaklar hayvon soʻqmoqlarini toʻr bilan oʻrayapti. Oʻn ikkitasini tozala.',
+        '2': 'Shivirlovchi oʻrmonda ulkan oʻrgimchaklar hayvon soʻqmoqlarini toʻr bilan oʻrayapti. Sakkiztasini tozala.',
         '3': 'Soʻng uyam uchun ikkita oyqoʻngʻiroq olib kel. Bramble ular yonida yaxshiroq uxlaydi.',
         say: 'Hayvonlar bilan gaplasha olasanmi?'
       },
       waiting: {
-        '1': 'Oʻn ikki oʻrgimchak, ikkita oyqoʻngʻiroq. Hayvonlar kutyapti. Bramble ham.',
+        '1': 'Sakkiz oʻrgimchak, ikkita oyqoʻngʻiroq. Hayvonlar kutyapti. Bramble ham.',
         say: 'Sinoving haqida...'
       },
       favorDone: {
@@ -5197,7 +5201,7 @@ export default {
   },
   ending: {
     level: 'Daraja',
-    more: 'Qoʻrgʻon ostida Boʻshliq yorigʻi ochildi. Kolizey hamon har qanday kelganni qabul qiladi.',
+    more: 'Qoʻrgʻon ostida Boʻshliq yorigʻi ochildi. Ammo kuchingning haqiqiy sinovi Kolizeyda kutmoqda: uning toʻlqinlaridan oʻt va faqat chempionlarigina ega boʻlgan mifik sovrinlarni yutib ol.',
     order: {
       title: 'Temir tinchlik',
       text: 'Dahshat qoʻrgʻoni uzra Temir Orden bayroqlari hilpiraydi. Yoʻllar xavfsiz, qonunlar koʻp, ismingiz esa darvoza tepasiga oʻyib yozilgan.'

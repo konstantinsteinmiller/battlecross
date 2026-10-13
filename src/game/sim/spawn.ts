@@ -3,6 +3,7 @@ import { enemyDmg, enemyHp, heroMight, plainStats, scalePower } from './stats'
 import type { Unit } from './types'
 import { newBossState } from './bosses/kit'
 import type { Sim } from './world'
+import { pressureMul } from './pressure'
 
 /**
  * Create units from the bestiary: enemies at the zone's level, and the hero's
@@ -13,6 +14,8 @@ export const spawnEnemy = (sim: Sim, kind: string, x: number, z: number, group =
   const def: EnemyDef | undefined = ENEMY_BY_ID[kind]
   if (!def) return null
   const level = Math.max(1, sim.level + levelOffset)
+  // Adaptive pressure (#124): a hero with no trouble meets tougher foes.
+  const press = sim.pressure ? pressureMul(sim.pressure.bonus, def.rank === 'boss') : 1
   const u = sim.addUnit({
     kind,
     team: 1,
@@ -23,8 +26,8 @@ export const spawnEnemy = (sim: Sim, kind: string, x: number, z: number, group =
     r: def.r,
     h: def.h,
     s: plainStats({
-      hp: enemyHp(level) * def.hp * sim.difficulty,
-      dmg: enemyDmg(level) * def.dmg * sim.difficulty * sim.enemyDmgMul,
+      hp: enemyHp(level) * def.hp * sim.difficulty * press,
+      dmg: enemyDmg(level) * def.dmg * sim.difficulty * sim.enemyDmgMul * press,
       armor: def.armor * level,
       resist: def.resist,
       speed: def.speed,

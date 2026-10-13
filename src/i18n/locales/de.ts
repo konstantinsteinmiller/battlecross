@@ -2,6 +2,7 @@
 export default {
   arena: {
     allWon: 'Alle mythischen Preise gehören dir.',
+    call: 'Die Geschichte ist erzählt. Jetzt beweise deinen Build: Steig so weit auf, wie du kannst, und gewinn die mythischen Preise, die dir sonst niemand geben kann.',
     prize: '{item} gehört dir!',
     milestone: 'Welle {n}!',
     next: 'Nächster Preis bei Welle {at}: {item}',
@@ -141,6 +142,8 @@ export default {
     cageKey: 'Ein Schlüssel! Er muss den Käfig öffnen.',
     ore: 'Abgebaut: {n} × {ore}',
     mineBusy: 'Nicht mit Feinden in der Nähe!',
+    pressureUp: 'Deine Feinde werden grimmiger {skulls}',
+    pressureDown: 'Deine Feinde lassen nach {skulls}',
     item: 'Gefunden: {item}',
     levelUp: 'Level {level}! +3 Attributspunkte',
     boss: '{boss} erscheint',
@@ -328,6 +331,7 @@ export default {
     questDone: '{quest}: {choice}',
     trainer: 'Versteckter Lehrmeister: {cls}',
     new: 'Neu',
+    trueTest: 'Die wahre Prüfung',
     skip: 'Zum Überspringen tippen',
     compass: {
       n: 'N',
@@ -4693,11 +4697,11 @@ export default {
       },
       favor: {
         '1': 'Nicht an Fremde. Aber tu mir einen Gefallen, dann sind wir Freunde.',
-        '2': 'Treants im Flüsterwald bewachen die Mondglocken, die ich brauche. Besiege sechs davon und bring mir drei Mondglocken.',
+        '2': 'Treants im Flüsterwald bewachen die Mondglocken, die ich brauche. Besiege vier davon und bring mir zwei Mondglocken.',
         say: 'Verkaufst du auch was?'
       },
       waiting: {
-        '1': 'Sechs Treants, drei Mondglocken. Die Mondglocken pflücken sich leider nicht von selbst.',
+        '1': 'Vier Treants, zwei Mondglocken. Die Mondglocken pflücken sich leider nicht von selbst.',
         say: 'Wegen des Gefallens...'
       },
       favorDone: {
@@ -4769,11 +4773,11 @@ export default {
       },
       favor: {
         '1': 'Nur Leuten, die mithalten können. Kannst du mithalten? Finden wir\'s raus.',
-        '2': 'Besiege zwölf Banditenschützen im Umland von Oakhaven und bring mir dann drei Flinkfarne.',
+        '2': 'Besiege acht Banditenschützen im Umland von Oakhaven und bring mir dann zwei Flinkfarne.',
         say: 'Bringst du Bogenschießen bei?'
       },
       waiting: {
-        '1': 'Zwölf Banditenschützen, drei Flinkfarne. Na los! Ich bin gleich hier. Am Hüpfen.',
+        '1': 'Acht Banditenschützen, zwei Flinkfarne. Na los! Ich bin gleich hier. Am Hüpfen.',
         say: 'Wegen deiner Prüfung ...'
       },
       favorDone: {
@@ -4824,11 +4828,11 @@ export default {
       },
       favor: {
         '1': 'Ja. Ich lehre es nur denen, die an einem heißen Ort einen kühlen Kopf bewahren.',
-        '2': 'Lösch zehn Feuerelementare in den Aschenklippen. Dann bring mir drei Zweige Frostminze.',
+        '2': 'Lösch sieben Feuerelementare in den Aschenklippen. Dann bring mir zwei Zweige Frostminze.',
         say: 'Ist das Schwert aus Eis?'
       },
       waiting: {
-        '1': 'Zehn Feuerelementare. Drei Zweige Frostminze. Lass dir Zeit. Nicht zu viel Zeit.',
+        '1': 'Sieben Feuerelementare. Zwei Zweige Frostminze. Lass dir Zeit. Nicht zu viel Zeit.',
         say: 'Wegen deiner Prüfung ...'
       },
       favorDone: {
@@ -4878,11 +4882,11 @@ export default {
       },
       favor: {
         '1': 'Jeder hat ein kleines Licht in sich. Ich bringe den Leuten bei, es herauszulassen, wenn sie so weit sind.',
-        '2': 'Besiege zehn Kultisten in den Aschenklippen und bring mir dann fünf Sonnenblüten für meine Lampe.',
+        '2': 'Besiege sieben Kultisten in den Aschenklippen und bring mir dann drei Sonnenblüten für meine Lampe.',
         say: 'Ist die Lampe magisch?'
       },
       waiting: {
-        '1': 'Zehn Kultisten, fünf Sonnenblüten. Besiege sie sanft. Jeder verdient eine zweite Chance.',
+        '1': 'Sieben Kultisten, drei Sonnenblüten. Besiege sie sanft. Jeder verdient eine zweite Chance.',
         say: 'Wegen deiner Prüfung ...'
       },
       favorDone: {
@@ -4932,12 +4936,12 @@ export default {
       },
       favor: {
         '1': 'Reden? Ich höre zu. Das ist der Trick, den die meisten nie lernen.',
-        '2': 'Riesenspinnen spinnen im Flüsterwald die Tierpfade zu. Räum zwölf davon weg.',
+        '2': 'Riesenspinnen spinnen im Flüsterwald die Tierpfade zu. Räum acht davon weg.',
         '3': 'Dann bring mir zwei Mondglocken für meinen Bau. Bramble schläft besser in ihrer Nähe.',
         say: 'Kannst du mit Tieren reden?'
       },
       waiting: {
-        '1': 'Zwölf Spinnen, zwei Mondglocken. Die Tiere warten. Bramble auch.',
+        '1': 'Acht Spinnen, zwei Mondglocken. Die Tiere warten. Bramble auch.',
         say: 'Wegen deiner Prüfung ...'
       },
       favorDone: {
@@ -5218,7 +5222,7 @@ export default {
   },
   ending: {
     level: 'Level',
-    more: 'Unter der Festung hat sich der Leerenriss geöffnet. Das Kolosseum nimmt weiter jeden Herausforderer an.',
+    more: 'Unter der Festung hat sich der Leerenriss geöffnet. Doch die wahre Prüfung deiner Macht wartet im Kolosseum: Erklimm seine Wellen und gewinn die mythischen Preise, die nur seine Champions besitzen.',
     order: {
       title: 'Der Eiserne Frieden',
       text: 'Über der Schreckensfestung wehen die Banner des Eisernen Ordens. Die Straßen sind sicher, die Gesetze zahlreich, und dein Name ist über dem Tor eingemeißelt.'

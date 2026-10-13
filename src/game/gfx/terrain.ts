@@ -262,14 +262,22 @@ export interface LiquidLook {
   crust: number
   /** How fast the surface moves. */
   flow: number
+  /** Where the shallow tone begins (0 deep .. 1 bank): water's broad
+   *  shallows; a hot liquid's thin glowing line just short of its crust (#120). */
+  shallowAt: number
+  /** The bank's outline traced smooth rather than cell by cell (the Crags'
+   *  lava sea, the Rift's void: shores long enough that steps showed). */
+  smooth: boolean
 }
 
 export const LIQUIDS: Readonly<Record<LiquidId, LiquidLook>> = {
-  water: { deep: '#2a84cc', shallow: '#58bcee', glint: '#ffffff', foam: '#f6fcff', bed: '#3a6c8c', bank: '#7a6a4a', bankK: 0.42, foamAt: 0.59, wobble: 1, crust: 0, flow: 1 },
-  ice: { deep: '#3a8cc4', shallow: '#93d8f6', glint: '#ffffff', foam: '#f4fbff', bed: '#5a8cb0', bank: '#ffffff', bankK: 0.75, foamAt: 0.44, wobble: 0.25, crust: 0, flow: 0.45 },
-  lava: { deep: '#e2400c', shallow: '#ff9218', glint: '#fff0a0', foam: '#ffdc5a', bed: '#2a1410', bank: '#ff5a14', bankK: 0.5, foamAt: 0.56, wobble: 0.7, crust: 1, flow: 0.4 },
-  pool: { deep: '#11545e', shallow: '#1f9090', glint: '#a8ffe6', foam: '#bafff0', bed: '#1a3038', bank: '#2f6a66', bankK: 0.45, foamAt: 0.6, wobble: 0.6, crust: 0, flow: 0.5 },
-  void: { deep: '#3c1a92', shallow: '#7c4ee6', glint: '#f4d8ff', foam: '#dcb8ff', bed: '#1a0e30', bank: '#8a5af0', bankK: 0.45, foamAt: 0.59, wobble: 0.8, crust: 0, flow: 0.6 }
+  water: { deep: '#2a84cc', shallow: '#58bcee', glint: '#ffffff', foam: '#f6fcff', bed: '#3a6c8c', bank: '#7a6a4a', bankK: 0.42, foamAt: 0.59, wobble: 1, crust: 0, flow: 1, shallowAt: 0.2, smooth: false },
+  ice: { deep: '#3a8cc4', shallow: '#93d8f6', glint: '#ffffff', foam: '#f4fbff', bed: '#5a8cb0', bank: '#ffffff', bankK: 0.75, foamAt: 0.44, wobble: 0.25, crust: 0, flow: 0.45, shallowAt: 0.2, smooth: false },
+  // Lava meets the land at a rim of cooled, dark crust, a thin glowing line before it.
+  lava: { deep: '#e2400c', shallow: '#ffc24a', glint: '#fff0a0', foam: '#2e1c18', bed: '#2a1410', bank: '#8a2a10', bankK: 0.4, foamAt: 0.6, wobble: 0.35, crust: 1, flow: 0.4, shallowAt: 0.52, smooth: true },
+  pool: { deep: '#11545e', shallow: '#1f9090', glint: '#a8ffe6', foam: '#bafff0', bed: '#1a3038', bank: '#2f6a66', bankK: 0.45, foamAt: 0.6, wobble: 0.6, crust: 0, flow: 0.5, shallowAt: 0.2, smooth: false },
+  // The void's edge: dark broken rock, a thin violet glow before it.
+  void: { deep: '#3c1a92', shallow: '#c08aff', glint: '#f4d8ff', foam: '#22163c', bed: '#1a0e30', bank: '#5a3aa0', bankK: 0.35, foamAt: 0.6, wobble: 0.35, crust: 0, flow: 0.6, shallowAt: 0.53, smooth: true }
 }
 
 /** The water's surface, and the floor under it. */
@@ -475,6 +483,23 @@ const coping = (a: string, b: string) => () => ({
 /** One step of a built ramp (laid across the way up). */
 const tread = (a: string, b: string) => () => ({
   lit: [P(rbox(1.5, 0.34, 0.74, 0.25, 10, 6), b, [0, -0.1, 0]), P(rbox(1.52, 0.1, 0.1, 0.4, 8, 4), a, [0, 0.07, 0.34])]
+})
+/**
+ * Built walls (#120): a citadel's or a fortress's dressed stone, a temple's
+ * crumbling ruin. Each block fills its cell's width; on the near (camera's)
+ * side of a room the wall is low, so nothing in the room hides behind it.
+ */
+const builtWall = (a: string, b: string, tall: boolean) => () => ({
+  lit: tall
+    ? [P(rbox(1.5, 2.3, 1.5, 0.25, 8, 8), a, [0, 1.15, 0]), P(rbox(1.56, 0.22, 1.56, 0.3, 8, 4), b, [0, 2.38, 0]), P(rbox(0.5, 0.42, 1.0, 0.3, 6, 4), a, [-0.36, 2.68, 0]), P(rbox(0.5, 0.42, 1.0, 0.3, 6, 4), a, [0.42, 2.68, 0])]
+    : [P(rbox(1.5, 0.8, 1.5, 0.25, 8, 6), a, [0, 0.4, 0]), P(rbox(1.56, 0.2, 1.56, 0.3, 8, 4), b, [0, 0.88, 0])]
+})
+const ruinWall = (a: string, b: string, hgt: number) => () => ({
+  lit: [
+    P(rbox(1.5, hgt, 1.3, 0.25, 8, 8), b, [0, hgt / 2, 0]),
+    P(rbox(0.9, 0.4, 1.0, 0.3, 6, 4), a, [-0.2, hgt + 0.16, 0.05], [0, 0.1, 0.12]),
+    P(rock(0.3, Math.round(hgt * 10), 7, 5), b, [0.62, 0.16, 0.72])
+  ]
 })
 /** A stone that lines a ramp. */
 const kerb = (a: string, b: string) => () => ({ lit: [P(rock(0.32, 31, 8, 6), b, [0, 0.12, 0]), P(rock(0.2, 37, 7, 5), a, [0.18, 0.06, 0.12])] })
@@ -1088,6 +1113,16 @@ export const buildTerrain = async (plan: ZonePlan, themeId: ThemeId, scene: Scen
   // a mushroom), or a plain rock in its colours where it has none.
   const lowShapes: PropShape[] = anySide ? LOW_PROPS[themeId] : []
   const lowPlaces: Array<Array<[number, number, number, number]>> = lowShapes.map(() => [])
+  // Built walls round a layout's rooms (#120): dressed (tall, low) or a ruin (tall, broken, low).
+  const stone = CLIFF[themeId]
+  const wallShapes: PropShape[] = [
+    { build: builtWall(stone.a, stone.b, true), w: 1, s: [1, 1] },
+    { build: builtWall(stone.a, stone.b, false), w: 1, s: [1, 1] },
+    { build: ruinWall(stone.a, stone.b, 2.2), w: 1, s: [1, 1] },
+    { build: ruinWall(stone.a, stone.b, 1.4), w: 1, s: [1, 1] },
+    { build: ruinWall(stone.a, stone.b, 0.6), w: 1, s: [1, 1] }
+  ]
+  const wallPlaces: Place[][] = wallShapes.map(() => [])
   for (let j = -WILDS; j < h + WILDS; j++) {
     for (let i = -WILDS; i < w + WILDS; i++) {
       const inside = i >= 0 && j >= 0 && i < w && j < h
@@ -1106,6 +1141,16 @@ export const buildTerrain = async (plan: ZonePlan, themeId: ThemeId, scene: Scen
         const shape = far ? (rng() < 0.82 ? 0 : 2) : rng() < 0.8 ? 1 : 2
         const s = caveShapes[shape]!
         cavePlaces[shape]!.push([(i + 0.5 + (rng() - 0.5) * 0.4) * CELL, (j + 0.5 + (rng() - 0.5) * 0.4) * CELL, rng() * Math.PI * 2, s.s[0] + rng() * (s.s[1] - s.s[0])])
+        continue
+      }
+      if (inside && plan.masonry?.[k] && d <= 2) {
+        // A built wall: square to the grid, one block a cell. On a room's near
+        // side (open ground just up-screen of it) it stays low.
+        let near = false
+        for (let dj = 1; dj <= 2 && !near; dj++) for (let di = -1; di <= 1; di++) if (j - dj >= 0 && !solid[(j - dj) * w + i + di]) { near = true; break }
+        const ruin = plan.masonry[k] === 2
+        const shape = ruin ? (near ? 4 : rng() < 0.55 ? 2 : 3) : near ? 1 : 0
+        wallPlaces[shape]!.push([(i + 0.5) * CELL, (j + 0.5) * CELL, ruin ? (rng() - 0.5) * 0.12 : 0, 1])
         continue
       }
       if (inside && lowRing[k]) {
@@ -1134,7 +1179,8 @@ export const buildTerrain = async (plan: ZonePlan, themeId: ThemeId, scene: Scen
     ...theme.border.map((s, n): [PropShape, Place[]] => [s, borderPlaces[n]!]),
     ...theme.border.map((s, n): [PropShape, Place[]] => [s, wildPlaces[n]!]),
     ...caveShapes.map((s, n): [PropShape, Place[]] => [s, cavePlaces[n]!]),
-    ...lowShapes.map((s, n): [PropShape, Place[]] => [s, lowPlaces[n]!])
+    ...lowShapes.map((s, n): [PropShape, Place[]] => [s, lowPlaces[n]!]),
+    ...wallShapes.map((s, n): [PropShape, Place[]] => [s, wallPlaces[n]!])
   ])
   for (let n = 0; n < theme.border.length; n++) {
     instanced(theme.border[n]!, borderPlaces[n]!, true, root, owned)
@@ -1143,6 +1189,7 @@ export const buildTerrain = async (plan: ZonePlan, themeId: ThemeId, scene: Scen
   }
   for (let n = 0; n < caveShapes.length; n++) instanced(caveShapes[n]!, cavePlaces[n]!, true, root, owned)
   for (let n = 0; n < lowShapes.length; n++) instanced(lowShapes[n]!, lowPlaces[n]!, true, root, owned)
+  for (let n = 0; n < wallShapes.length; n++) instanced(wallShapes[n]!, wallPlaces[n]!, true, root, owned)
 
   // ── Ledges: a crag (or a wall of cut blocks) along each cliff edge, and the ramp's steps or kerbs ──
   if (anyCliff) {

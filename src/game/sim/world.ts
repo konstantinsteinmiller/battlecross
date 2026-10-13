@@ -226,6 +226,7 @@ export interface WaveState {
 }
 
 import type { ArenaMod } from '../arenaWeek'
+import type { PressureState } from './pressure'
 
 export interface SimOptions {
   seed: number
@@ -297,6 +298,8 @@ export class Sim {
   wave: WaveState = { n: 0, cleared: 0, rest: 0, alive: 0 }
   /** Enemy damage multiplier on top of the difficulty (the opening fight, `OPENING.dmg`). */
   enemyDmgMul = 1
+  /** Adaptive pressure (#124, `pressure.ts`): null where it never applies. */
+  pressure: PressureState | null = null
   /** XP is earned but the level-up waits for the result screen (the opening
    *  fight: a refill there would undo its tuning). */
   holdLevelUp = false

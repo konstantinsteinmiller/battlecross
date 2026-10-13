@@ -2,6 +2,7 @@
 export default {
   arena: {
     allWon: 'Alle mytiske premier er dine.',
+    call: 'Historien er fortalt. Bevis nå buildet ditt: klatre så høyt du kan, og vinn de mytiske premiene ingen andre kan gi deg.',
     prize: 'Du vant {item}!',
     milestone: 'Bølge {n}!',
     next: 'Neste premie ved bølge {at}: {item}',
@@ -141,6 +142,8 @@ export default {
     cageKey: 'En nøkkel! Den må åpne buret.',
     ore: 'Utvunnet: {n} × {ore}',
     mineBusy: 'Ikke med fiender i nærheten!',
+    pressureUp: 'Fiendene dine blir villere {skulls}',
+    pressureDown: 'Fiendene dine slakker av {skulls}',
     item: 'Fant: {item}',
     levelUp: 'Nivå {level}! +3 attributtpoeng',
     boss: '{boss} dukker opp',
@@ -327,6 +330,7 @@ export default {
     questDone: '{quest}: {choice}',
     trainer: 'Skjult læremester: {cls}',
     new: 'Ny',
+    trueTest: 'Den sanne prøven',
     skip: 'Trykk for å hoppe over',
     compass: {
       n: 'N',
@@ -4672,11 +4676,11 @@ export default {
       },
       favor: {
         '1': 'Ikke til fremmede. Men gjør meg en tjeneste, så blir vi venner.',
-        '2': 'Trevetter i Den hviskende skogen vokter måneklokkene jeg trenger. Beseir seks av dem og gi meg tre måneklokker.',
+        '2': 'Trevetter i Den hviskende skogen vokter måneklokkene jeg trenger. Beseir fire av dem og gi meg to måneklokker.',
         say: 'Selger du noe?'
       },
       waiting: {
-        '1': 'Seks trevetter, tre måneklokker. Måneklokkene plukker dessverre ikke seg selv.',
+        '1': 'Fire trevetter, to måneklokker. Måneklokkene plukker dessverre ikke seg selv.',
         say: 'Angående den tjenesten...'
       },
       favorDone: {
@@ -4748,11 +4752,11 @@ export default {
       },
       favor: {
         '1': 'Bare til folk som klarer å henge med. Klarer du det? La oss finne ut.',
-        '2': 'Slå tolv bandittbueskyttere i Oakhavens utkant, og gi meg tre kvikkbregner.',
+        '2': 'Slå åtte bandittbueskyttere i Oakhavens utkant, og gi meg to kvikkbregner.',
         say: 'Lærer du bort bueskyting?'
       },
       waiting: {
-        '1': 'Tolv bandittbueskyttere, tre kvikkbregner. Av gårde! Jeg er her. Og hopper.',
+        '1': 'Åtte bandittbueskyttere, to kvikkbregner. Av gårde! Jeg er her. Og hopper.',
         say: 'Om prøven din ...'
       },
       favorDone: {
@@ -4803,11 +4807,11 @@ export default {
       },
       favor: {
         '1': 'Det er det. Jeg lærer det bare bort til dem som holder hodet kaldt på et varmt sted.',
-        '2': 'Slukk ti ildelementarer i Askeklippene. Gi meg så tre kvister frostmynte.',
+        '2': 'Slukk sju ildelementarer i Askeklippene. Gi meg så to kvister frostmynte.',
         say: 'Er det sverdet laget av is?'
       },
       waiting: {
-        '1': 'Ti ildelementarer. Tre kvister frostmynte. Ta den tiden du trenger. Ikke for mye tid.',
+        '1': 'Sju ildelementarer. To kvister frostmynte. Ta den tiden du trenger. Ikke for mye tid.',
         say: 'Om prøven din ...'
       },
       favorDone: {
@@ -4857,11 +4861,11 @@ export default {
       },
       favor: {
         '1': 'Alle har litt lys inni seg. Jeg lærer folk å slippe det ut, når de er klare.',
-        '2': 'Slå ti kultister i Askeklippene, og gi meg fem solblad til lampa mi.',
+        '2': 'Slå sju kultister i Askeklippene, og gi meg tre solblad til lampa mi.',
         say: 'Er den lampa magisk?'
       },
       waiting: {
-        '1': 'Ti kultister, fem solblad. Slå dem forsiktig. Alle fortjener en ny sjanse.',
+        '1': 'Sju kultister, tre solblad. Slå dem forsiktig. Alle fortjener en ny sjanse.',
         say: 'Om prøven din ...'
       },
       favorDone: {
@@ -4911,12 +4915,12 @@ export default {
       },
       favor: {
         '1': 'Snakke? Jeg lytter. Det er trikset de fleste aldri lærer.',
-        '2': 'Kjempeedderkopper spinner igjen dyrestiene i Den hviskende skogen. Rydd vekk tolv.',
+        '2': 'Kjempeedderkopper spinner igjen dyrestiene i Den hviskende skogen. Rydd vekk åtte.',
         '3': 'Gi meg så to måneklokker til hiet mitt. Bramble sover bedre nær dem.',
         say: 'Kan du snakke med dyr?'
       },
       waiting: {
-        '1': 'Tolv edderkopper, to måneklokker. Dyrene venter. Det gjør Bramble også.',
+        '1': 'Åtte edderkopper, to måneklokker. Dyrene venter. Det gjør Bramble også.',
         say: 'Om prøven din ...'
       },
       favorDone: {
@@ -5197,7 +5201,7 @@ export default {
   },
   ending: {
     level: 'Nivå',
-    more: 'Tomhetsriften har åpnet seg under festningen. Colosseum tar fortsatt imot alle utfordrere.',
+    more: 'Tomhetsriften har åpnet seg under festningen. Men den sanne prøven på kraften din venter i Colosseum: klatre gjennom bølgene, og vinn de mytiske premiene bare mesterne der har.',
     order: {
       title: 'Jernfreden',
       text: 'Jernordenens bannere vaier over Redselsfestningen. Veiene er trygge, lovene mange, og navnet ditt er hugget inn over porten.'

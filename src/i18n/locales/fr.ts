@@ -2,6 +2,7 @@
 export default {
   arena: {
     allWon: 'Tous les prix mythiques sont à toi.',
+    call: 'L’histoire est racontée. Prouve maintenant la valeur de ton build : grimpe aussi loin que possible et gagne les prix mythiques que personne d’autre ne peut t’offrir.',
     prize: '{item} est à toi !',
     milestone: 'Vague {n} !',
     next: 'Prochain prix à la vague {at} : {item}',
@@ -141,6 +142,8 @@ export default {
     cageKey: 'Une clé ! Elle doit ouvrir la cage.',
     ore: 'Extrait : {n} × {ore}',
     mineBusy: 'Pas avec des ennemis dans les parages !',
+    pressureUp: 'Vos ennemis deviennent plus féroces {skulls}',
+    pressureDown: 'Vos ennemis relâchent la pression {skulls}',
     item: 'Trouvé : {item}',
     levelUp: 'Niveau {level} ! +3 points d’attribut',
     boss: '{boss} apparaît',
@@ -328,6 +331,7 @@ export default {
     questDone: '{quest} : {choice}',
     trainer: 'Maître caché : {cls}',
     new: 'Nouveau',
+    trueTest: 'La vraie épreuve',
     skip: 'Touche pour passer',
     compass: {
       n: 'N',
@@ -4721,11 +4725,11 @@ export default {
       },
       favor: {
         '1': 'Pas aux inconnus. Mais rends-moi un service, et nous serons amis.',
-        '2': 'Des tréants des Bois Murmurants gardent les cloches-de-lune dont j’ai besoin. Bats-en six et rapporte-moi trois cloches-de-lune.',
+        '2': 'Des tréants des Bois Murmurants gardent les cloches-de-lune dont j’ai besoin. Bats-en quatre et rapporte-moi deux cloches-de-lune.',
         say: 'Tu vends quelque chose ?'
       },
       waiting: {
-        '1': 'Six tréants, trois cloches-de-lune. Les cloches-de-lune ne vont pas se cueillir toutes seules, hélas.',
+        '1': 'Quatre tréants, deux cloches-de-lune. Les cloches-de-lune ne vont pas se cueillir toutes seules, hélas.',
         say: 'À propos de ce service...'
       },
       favorDone: {
@@ -4797,11 +4801,11 @@ export default {
       },
       favor: {
         '1': 'Seulement à ceux qui arrivent à suivre. Tu arrives à suivre ? On va voir.',
-        '2': 'Bats douze archers bandits aux Abords d’Oakhaven, puis rapporte-moi trois fougères-éclair.',
+        '2': 'Bats huit archers bandits aux Abords d’Oakhaven, puis rapporte-moi deux fougères-éclair.',
         say: 'Tu enseignes le tir à l’arc ?'
       },
       waiting: {
-        '1': 'Douze archers bandits, trois fougères-éclair. Vas-y ! Je reste ici. À sautiller.',
+        '1': 'Huit archers bandits, deux fougères-éclair. Vas-y ! Je reste ici. À sautiller.',
         say: 'À propos de ton épreuve...'
       },
       favorDone: {
@@ -4852,11 +4856,11 @@ export default {
       },
       favor: {
         '1': 'Oui. Je ne l’enseigne qu’à ceux qui gardent la tête froide dans un endroit brûlant.',
-        '2': 'Éteins dix élémentaires de feu dans les Rocs de Cendre. Puis rapporte-moi trois brins de menthe givrée.',
+        '2': 'Éteins sept élémentaires de feu dans les Rocs de Cendre. Puis rapporte-moi deux brins de menthe givrée.',
         say: 'Cette épée est en glace ?'
       },
       waiting: {
-        '1': 'Dix élémentaires de feu. Trois brins de menthe givrée. Prends ton temps. Pas trop de temps.',
+        '1': 'Sept élémentaires de feu. Deux brins de menthe givrée. Prends ton temps. Pas trop de temps.',
         say: 'À propos de ton épreuve...'
       },
       favorDone: {
@@ -4906,11 +4910,11 @@ export default {
       },
       favor: {
         '1': 'Tout le monde a une petite lumière en soi. J’apprends aux gens à la laisser sortir, quand ils sont prêts.',
-        '2': 'Bats dix cultistes dans les Rocs de Cendre, puis rapporte-moi cinq pétales de soleil pour ma lampe.',
+        '2': 'Bats sept cultistes dans les Rocs de Cendre, puis rapporte-moi trois pétales de soleil pour ma lampe.',
         say: 'Cette lampe est magique ?'
       },
       waiting: {
-        '1': 'Dix cultistes, cinq pétales de soleil. Bats-les gentiment. Tout le monde mérite une seconde chance.',
+        '1': 'Sept cultistes, trois pétales de soleil. Bats-les gentiment. Tout le monde mérite une seconde chance.',
         say: 'À propos de ton épreuve...'
       },
       favorDone: {
@@ -4960,12 +4964,12 @@ export default {
       },
       favor: {
         '1': 'Parler ? J’écoute. C’est le truc que la plupart des gens n’apprennent jamais.',
-        '2': 'Des araignées géantes tissent leurs toiles sur les sentiers des animaux, dans les Bois Murmurants. Élimines-en douze.',
+        '2': 'Des araignées géantes tissent leurs toiles sur les sentiers des animaux, dans les Bois Murmurants. Élimines-en huit.',
         '3': 'Puis rapporte-moi deux cloches-de-lune pour ma tanière. Bramble dort mieux à côté.',
         say: 'Tu parles aux animaux ?'
       },
       waiting: {
-        '1': 'Douze araignées, deux cloches-de-lune. Les animaux attendent. Bramble aussi.',
+        '1': 'Huit araignées, deux cloches-de-lune. Les animaux attendent. Bramble aussi.',
         say: 'À propos de ton épreuve...'
       },
       favorDone: {
@@ -5247,7 +5251,7 @@ export default {
   },
   ending: {
     level: 'Niveau',
-    more: 'La Faille du Vide s’est ouverte sous la forteresse. Le Colisée accueille toujours tous les challengers.',
+    more: 'La Faille du Vide s’est ouverte sous la forteresse. Mais la vraie épreuve de ta puissance t’attend au Colisée : franchis ses vagues et gagne les prix mythiques que seuls ses champions détiennent.',
     order: {
       title: 'La Paix de Fer',
       text: 'Les bannières de l’Ordre de Fer flottent sur la Forteresse de l’Effroi. Les routes sont sûres, les lois sont nombreuses, et ton nom est gravé au-dessus de la porte.'

@@ -53,6 +53,11 @@ export interface ReliefCtx {
   crossings: CrossingPlan[]
   relief: ZoneRelief
   tutorial: boolean
+  /** Points along a long way between two clearings, each laid the share `f`
+   *  of the way from clearing `k`'s level to the next one's: a path round a
+   *  mountain climbs steadily instead of taking the level of whatever
+   *  clearing lies nearest across the rock (#120). */
+  guides?: ReadonlyArray<{ i: number; j: number; k: number; f: number }>
 }
 
 const smooth = (a: number, b: number, x: number): number => {
@@ -86,6 +91,10 @@ export const buildRelief = (c: ReliefCtx): Float32Array => {
   }
   const discs: Array<{ x: number; z: number; r: number; y: number }> = cs.map((p, k) => ({ x: p.i + 0.5, z: p.j + 0.5, r: p.r, y: level[k]! }))
   for (const l of c.lobes) discs.push({ x: l.x / CELL, z: l.z / CELL, r: l.r / CELL, y: (level[l.k] ?? 0) + l.lift * calm })
+  for (const g of c.guides ?? []) {
+    const a = level[g.k] ?? 0
+    discs.push({ x: g.i + 0.5, z: g.j + 0.5, r: 0.9, y: a + ((level[g.k + 1] ?? a) - a) * g.f })
+  }
 
   // ── 2. Spread, blur, roll ──
   for (let cj = 0; cj < H1; cj++) {

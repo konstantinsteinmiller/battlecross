@@ -27,6 +27,26 @@ const path: number[] = []
 const walk = (g: Grid, ax: number, az: number, bx: number, bz: number): boolean =>
   (cellOf(ax) === cellOf(bx) && cellOf(az) === cellOf(bz)) || findPath(g, ax, az, bx, bz, path) > 0
 
+/** Joined at all, however long the way round (a flood, no path budget). */
+const flows = (g: Grid, ax: number, az: number, bx: number, bz: number): boolean => {
+  const { w, h } = g
+  const goal = cellOf(bz) * w + cellOf(bx)
+  const seen = new Uint8Array(w * h)
+  const q = [cellOf(az) * w + cellOf(ax)]
+  seen[q[0]!] = 1
+  while (q.length) {
+    const k = q.pop()!
+    if (k === goal) return true
+    const i = k % w
+    for (const nk of [k - 1, k + 1, k - w, k + w]) {
+      if (nk < 0 || nk >= w * h || seen[nk] || g.solid[nk] || Math.abs((nk % w) - i) > 1) continue
+      seen[nk] = 1
+      q.push(nk)
+    }
+  }
+  return false
+}
+
 const everyPlan = (fn: (plan: ZonePlan, zone: ZoneId, tag: string) => void): void => {
   for (const zone of ZONE_IDS) for (const seed of SEEDS) fn(generateZone(ZONES[zone], seed), zone, `${zone}#${seed}`)
 }
@@ -169,18 +189,51 @@ describe('the zone as a graph', () => {
         }
         return false
       }
+      // Which leg of the road each open cell lies by (the nearest stretch of
+      // the road walked from clearing to clearing, the loops walled up): a
+      // road that winds back through the same rows (round a mountain, #120)
+      // is cut only on the leg past the fork.
+      const ways: number[] = []
+      for (let k = 0; k < plan.w * plan.h; k++) if (loops.some(l => onWay(k % plan.w, Math.floor(k / plan.w), l))) ways.push(k)
+      const road = gridOf(plan)
+      for (const k of ways) road.solid[k] = SOLID_TERRAIN
+      const leg = new Int16Array(plan.w * plan.h).fill(-1)
+      const front: number[] = []
+      for (let k = 0; k + 1 < cs.length; k++) {
+        const n = findPath(road, cs[k]!.x, cs[k]!.z, cs[k + 1]!.x, cs[k + 1]!.z, path, 20000)
+        let px = cs[k]!.x
+        let pz = cs[k]!.z
+        for (let q = 0; q < n; q += 2) {
+          for (let s = 0; s < 6; s++) {
+            const c = cellOf(pz + ((path[q + 1]! - pz) * s) / 6) * plan.w + cellOf(px + ((path[q]! - px) * s) / 6)
+            if (leg[c] < 0) { leg[c] = k; front.push(c) }
+          }
+          px = path[q]!
+          pz = path[q + 1]!
+        }
+      }
+      for (let q = 0; q < front.length; q++) {
+        const c = front[q]!
+        for (const nc of [c - 1, c + 1, c - plan.w, c + plan.w]) {
+          if (nc < 0 || nc >= leg.length || leg[nc]! >= 0 || road.solid[nc]) continue
+          leg[nc] = leg[c]!
+          front.push(nc)
+        }
+      }
       for (const b of loops) {
         const g = gridOf(plan)
-        // Wall off the whole map across the middle of the road's first leg
-        // past the fork, all but the loops' own ways.
+        // Wall off the road's first leg past the fork, across the middle of
+        // it, all but the loops' own ways.
         const j0 = Math.round((cs[b.from]!.z + cs[b.from + 1]!.z) / 2 / CELL - 0.5)
+        const cut: number[] = []
         for (let j = j0 - 1; j <= j0 + 1; j++) {
-          for (let i = 0; i < plan.w; i++) if (!loops.some(l => onWay(i, j, l))) g.solid[j * plan.w + i] = SOLID_TERRAIN
+          for (let i = 0; i < plan.w; i++) if (leg[j * plan.w + i] === b.from && !loops.some(l => onWay(i, j, l))) cut.push(j * plan.w + i)
         }
+        for (const k of cut) g.solid[k] = SOLID_TERRAIN
         expect(walk(g, plan.start.x, plan.start.z, fin.x, fin.z), `${tag} loop ${b.id}`).toBe(true)
         // And the cut is real: with the loops' ways walled up too, the finale is out of reach.
-        for (let j = j0 - 1; j <= j0 + 1; j++) for (let i = 0; i < plan.w; i++) g.solid[j * plan.w + i] = SOLID_TERRAIN
-        expect(walk(g, plan.start.x, plan.start.z, fin.x, fin.z), `${tag} loop ${b.id}: the road was not cut`).toBe(false)
+        for (const k of ways) g.solid[k] = SOLID_TERRAIN
+        expect(flows(g, plan.start.x, plan.start.z, fin.x, fin.z), `${tag} loop ${b.id}: the road was not cut`).toBe(false)
       }
     })
   })

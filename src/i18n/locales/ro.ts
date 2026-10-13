@@ -2,6 +2,7 @@
 export default {
   arena: {
     allWon: 'Toate premiile mitice sunt ale tale.',
+    call: 'Povestea s-a spus. Acum dovedește-ți build-ul: urcă cât de sus poți și câștigă premiile mitice pe care nimeni altcineva nu ți le poate da.',
     prize: 'Ai câștigat: {item}!',
     milestone: 'Valul {n}!',
     next: 'Următorul premiu la valul {at}: {item}',
@@ -141,6 +142,8 @@ export default {
     cageKey: 'O cheie! Trebuie să deschidă cușca.',
     ore: 'Ai minat: {n} × {ore}',
     mineBusy: 'Nu cu dușmani prin preajmă!',
+    pressureUp: 'Dușmanii tăi devin mai feroce {skulls}',
+    pressureDown: 'Dușmanii tăi slăbesc presiunea {skulls}',
     item: 'Găsit: {item}',
     levelUp: 'Nivelul {level}! +3 puncte de atribut',
     boss: 'Apare: {boss}',
@@ -327,6 +330,7 @@ export default {
     questDone: '{quest}: {choice}',
     trainer: 'Maestru ascuns: {cls}',
     new: 'Nou',
+    trueTest: 'Adevărata probă',
     skip: 'Atinge pentru a sări peste',
     compass: {
       n: 'N',
@@ -4717,11 +4721,11 @@ export default {
       },
       favor: {
         '1': 'Nu străinilor. Dar fă-mi o favoare și o să fim prieteni.',
-        '2': 'Copacii umblători din Pădurea Șoaptelor păzesc clopoțeii-de-Lună de care am nevoie. Învinge șase dintre ei și adu-mi trei clopoței-de-Lună.',
+        '2': 'Copacii umblători din Pădurea Șoaptelor păzesc clopoțeii-de-Lună de care am nevoie. Învinge patru dintre ei și adu-mi doi clopoței-de-Lună.',
         say: 'Vinzi ceva?'
       },
       waiting: {
-        '1': 'Șase copaci umblători, trei clopoței-de-Lună. Din păcate, clopoțeii nu se culeg singuri.',
+        '1': 'Patru copaci umblători, doi clopoței-de-Lună. Din păcate, clopoțeii nu se culeg singuri.',
         say: 'Despre favoarea aceea...'
       },
       favorDone: {
@@ -4793,11 +4797,11 @@ export default {
       },
       favor: {
         '1': 'Doar celor care țin pasul cu mine. Tu poți? Hai să vedem.',
-        '2': 'Învinge doisprezece bandiți arcași în Împrejurimile Oakhaven, apoi adu-mi trei ferigi-iuți.',
+        '2': 'Învinge opt bandiți arcași în Împrejurimile Oakhaven, apoi adu-mi două ferigi-iuți.',
         say: 'Predai tirul cu arcul?'
       },
       waiting: {
-        '1': 'Doisprezece bandiți arcași, trei ferigi-iuți. Hai, du-te! Eu sunt chiar aici. Țopăind.',
+        '1': 'Opt bandiți arcași, două ferigi-iuți. Hai, du-te! Eu sunt chiar aici. Țopăind.',
         say: 'Despre proba ta...'
       },
       favorDone: {
@@ -4848,11 +4852,11 @@ export default {
       },
       favor: {
         '1': 'Da. O predau doar celor care își păstrează sângele rece într-un loc fierbinte.',
-        '2': 'Stinge zece elementali de foc în Stâncile de Cenușă. Apoi adu-mi trei fire de mentă-de-Ger.',
+        '2': 'Stinge șapte elementali de foc în Stâncile de Cenușă. Apoi adu-mi două fire de mentă-de-Ger.',
         say: 'Sabia aia e făcută din gheață?'
       },
       waiting: {
-        '1': 'Zece elementali de foc. Trei fire de mentă-de-Ger. Ia-ți timp. Nu prea mult.',
+        '1': 'Șapte elementali de foc. Două fire de mentă-de-Ger. Ia-ți timp. Nu prea mult.',
         say: 'Despre proba ta...'
       },
       favorDone: {
@@ -4902,11 +4906,11 @@ export default {
       },
       favor: {
         '1': 'Fiecare are puțină lumină înăuntru. Eu îi învăț pe oameni s-o lase să iasă, când le vine vremea.',
-        '2': 'Învinge zece cultiști în Stâncile de Cenușă, apoi adu-mi cinci petale-de-Soare pentru lampa mea.',
+        '2': 'Învinge șapte cultiști în Stâncile de Cenușă, apoi adu-mi trei petale-de-Soare pentru lampa mea.',
         say: 'Lampa aia e magică?'
       },
       waiting: {
-        '1': 'Zece cultiști, cinci petale-de-Soare. Învinge-i cu blândețe. Toată lumea merită o a doua șansă.',
+        '1': 'Șapte cultiști, trei petale-de-Soare. Învinge-i cu blândețe. Toată lumea merită o a doua șansă.',
         say: 'Despre proba ta...'
       },
       favorDone: {
@@ -4956,12 +4960,12 @@ export default {
       },
       favor: {
         '1': 'Să vorbesc? Eu ascult. Ăsta e trucul pe care majoritatea nu-l învață niciodată.',
-        '2': 'Păianjenii uriași acoperă cu pânze potecile animalelor din Pădurea Șoaptelor. Învinge doisprezece.',
+        '2': 'Păianjenii uriași acoperă cu pânze potecile animalelor din Pădurea Șoaptelor. Învinge opt.',
         '3': 'Apoi adu-mi doi clopoței-de-Lună pentru vizuina mea. Mura doarme mai bine lângă ei.',
         say: 'Poți vorbi cu animalele?'
       },
       waiting: {
-        '1': 'Doisprezece păianjeni, doi clopoței-de-Lună. Animalele așteaptă. Și Mura la fel.',
+        '1': 'Opt păianjeni, doi clopoței-de-Lună. Animalele așteaptă. Și Mura la fel.',
         say: 'Despre proba ta...'
       },
       favorDone: {
@@ -5242,7 +5246,7 @@ export default {
   },
   ending: {
     level: 'Nivel',
-    more: 'Falia Vidului s-a deschis sub fortăreață. Colosseumul primește în continuare pe oricine.',
+    more: 'Falia Vidului s-a deschis sub fortăreață. Dar adevărata probă a puterii tale te așteaptă în Colosseum: urcă prin valurile lui și câștigă premiile mitice pe care le dețin doar campionii săi.',
     order: {
       title: 'Pacea de Fier',
       text: 'Stindardele Ordinului de Fier flutură peste Fortăreața Groazei. Drumurile sunt sigure, legile sunt multe, iar numele tău e săpat deasupra porții.'

@@ -2,6 +2,7 @@
 export default {
   arena: {
     allWon: 'Alla mytiska priser är dina.',
+    call: 'Berättelsen är berättad. Bevisa nu ditt build: klättra så högt du kan och vinn de mytiska priserna som ingen annan kan ge dig.',
     prize: 'Du vann {item}!',
     milestone: 'Våg {n}!',
     next: 'Nästa pris vid våg {at}: {item}',
@@ -141,6 +142,8 @@ export default {
     cageKey: 'En nyckel! Den måste öppna buren.',
     ore: 'Brutet: {n} × {ore}',
     mineBusy: 'Inte med fiender i närheten!',
+    pressureUp: 'Dina fiender blir vildare {skulls}',
+    pressureDown: 'Dina fiender lättar på trycket {skulls}',
     item: 'Hittade: {item}',
     levelUp: 'Nivå {level}! +3 attributpoäng',
     boss: '{boss} dyker upp',
@@ -327,6 +330,7 @@ export default {
     questDone: '{quest}: {choice}',
     trainer: 'Dold läromästare: {cls}',
     new: 'Ny',
+    trueTest: 'Det sanna provet',
     skip: 'Tryck för att hoppa över',
     compass: {
       n: 'N',
@@ -4672,11 +4676,11 @@ export default {
       },
       favor: {
         '1': 'Inte till främlingar. Men gör mig en tjänst, så blir vi vänner.',
-        '2': 'Trädväsen i Viskande skogen vaktar månklockorna jag behöver. Besegra sex av dem och ge mig tre månklockor.',
+        '2': 'Trädväsen i Viskande skogen vaktar månklockorna jag behöver. Besegra fyra av dem och ge mig två månklockor.',
         say: 'Säljer du något?'
       },
       waiting: {
-        '1': 'Sex trädväsen, tre månklockor. Månklockorna plockar tyvärr inte sig själva.',
+        '1': 'Fyra trädväsen, två månklockor. Månklockorna plockar tyvärr inte sig själva.',
         say: 'Angående den där tjänsten...'
       },
       favorDone: {
@@ -4748,11 +4752,11 @@ export default {
       },
       favor: {
         '1': 'Bara till dem som hänger med. Hänger du med? Det ska vi ta reda på.',
-        '2': 'Besegra tolv banditbågskyttar i Oakhavens utkanter, och ge mig sedan tre snabbräkor.',
+        '2': 'Besegra åtta banditbågskyttar i Oakhavens utkanter, och ge mig sedan två snabbräkor.',
         say: 'Lär du ut bågskytte?'
       },
       waiting: {
-        '1': 'Tolv banditbågskyttar, tre snabbräkor. Iväg nu! Jag är kvar här. Studsande.',
+        '1': 'Åtta banditbågskyttar, två snabbräkor. Iväg nu! Jag är kvar här. Studsande.',
         say: 'Om ditt prov...'
       },
       favorDone: {
@@ -4803,11 +4807,11 @@ export default {
       },
       favor: {
         '1': 'Ja. Jag lär bara ut det till dem som håller huvudet kallt på en het plats.',
-        '2': 'Släck tio eldelementarer i Askklipporna. Ge mig sedan tre kvistar frostmynta.',
+        '2': 'Släck sju eldelementarer i Askklipporna. Ge mig sedan två kvistar frostmynta.',
         say: 'Är det där svärdet gjort av is?'
       },
       waiting: {
-        '1': 'Tio eldelementarer. Tre kvistar frostmynta. Ta den tid du behöver. Inte för mycket tid.',
+        '1': 'Sju eldelementarer. Två kvistar frostmynta. Ta den tid du behöver. Inte för mycket tid.',
         say: 'Om ditt prov...'
       },
       favorDone: {
@@ -4857,11 +4861,11 @@ export default {
       },
       favor: {
         '1': 'Alla har ett litet ljus inombords. Jag lär folk att släppa ut det, när de är redo.',
-        '2': 'Besegra tio kultister i Askklipporna, och ge mig sedan fem solblad till min lampa.',
+        '2': 'Besegra sju kultister i Askklipporna, och ge mig sedan tre solblad till min lampa.',
         say: 'Är den där lampan magisk?'
       },
       waiting: {
-        '1': 'Tio kultister, fem solblad. Besegra dem varsamt. Alla förtjänar en andra chans.',
+        '1': 'Sju kultister, tre solblad. Besegra dem varsamt. Alla förtjänar en andra chans.',
         say: 'Om ditt prov...'
       },
       favorDone: {
@@ -4911,12 +4915,12 @@ export default {
       },
       favor: {
         '1': 'Prata? Jag lyssnar. Det är knepet som de flesta aldrig lär sig.',
-        '2': 'Jättespindlar spinner igen djurstigarna i Viskande skogen. Rensa bort tolv.',
+        '2': 'Jättespindlar spinner igen djurstigarna i Viskande skogen. Rensa bort åtta.',
         '3': 'Ge mig sedan två månklockor till min lya. Björnbär sover bättre nära dem.',
         say: 'Kan du prata med djur?'
       },
       waiting: {
-        '1': 'Tolv spindlar, två månklockor. Djuren väntar. Det gör Björnbär också.',
+        '1': 'Åtta spindlar, två månklockor. Djuren väntar. Det gör Björnbär också.',
         say: 'Om ditt prov...'
       },
       favorDone: {
@@ -5197,7 +5201,7 @@ export default {
   },
   ending: {
     level: 'Nivå',
-    more: 'Tomhetsrevan har öppnats under fästningen. Colosseum tar fortfarande emot alla utmanare.',
+    more: 'Tomhetsrevan har öppnats under fästningen. Men det sanna provet på din kraft väntar i Colosseum: klättra genom vågorna och vinn de mytiska priserna som bara dess mästare har.',
     order: {
       title: 'Järnfreden',
       text: 'Järnordens baner vajar över Fasans fästning. Vägarna är trygga, lagarna många, och ditt namn är inhugget ovanför porten.'

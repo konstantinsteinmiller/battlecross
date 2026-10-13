@@ -123,6 +123,8 @@ export default {
     'cageLocked': 'Locked. The key must be somewhere in this place.',
     'ore': 'Mined: {n} × {ore}',
     'mineBusy': 'Not with enemies about!',
+    'pressureUp': 'Your foes grow fiercer {skulls}',
+    'pressureDown': 'Your foes ease off {skulls}',
     'piece': 'A piece of the treasure map!',
     'levelUp': 'Level {level}! +3 attribute points',
     'boss': '{boss} appears',
@@ -264,6 +266,7 @@ export default {
     'questDone': '{quest}: {choice}',
     'trainer': 'Hidden trainer: {cls}',
     'new': 'New',
+    'trueTest': 'The true test',
     'skip': 'Tap to skip',
     'compass': { 'n': 'N', 'e': 'E', 's': 'S', 'w': 'W' },
     'region': {
@@ -1242,9 +1245,9 @@ export default {
       'favor': {
         'say': 'Do you teach archery?',
         '1': 'Only to people who can keep up. Can you keep up? Let\'s find out.',
-        '2': 'Beat twelve bandit archers in the Oakhaven Outskirts, then bring me three swiftferns.'
+        '2': 'Beat eight bandit archers in the Oakhaven Outskirts, then bring me two swiftferns.'
       },
-      'waiting': { 'say': 'About your test...', '1': 'Twelve bandit archers, three swiftferns. Go on! I\'ll be right here. Bouncing.' },
+      'waiting': { 'say': 'About your test...', '1': 'Eight bandit archers, two swiftferns. Go on! I\'ll be right here. Bouncing.' },
       'favorDone': { 'say': 'The archers are beaten, and here are your swiftferns.', '1': 'Ha! You actually kept up! Nobody keeps up!', '2': 'Right, you\'re my pupil now. One rule: no sitting down in my lessons.' },
       'class': {
         'say': 'What does a Windrunner do?',
@@ -1268,9 +1271,9 @@ export default {
       'favor': {
         'say': 'Is that sword made of ice?',
         '1': 'It is. I teach it only to those who keep a cool head in a hot place.',
-        '2': 'Put out ten fire elementals in the Ashen Crags. Then bring me three sprigs of frostmint.'
+        '2': 'Put out seven fire elementals in the Ashen Crags. Then bring me two sprigs of frostmint.'
       },
-      'waiting': { 'say': 'About your test...', '1': 'Ten fire elementals. Three sprigs of frostmint. Take your time. Not too much time.' },
+      'waiting': { 'say': 'About your test...', '1': 'Seven fire elementals. Two sprigs of frostmint. Take your time. Not too much time.' },
       'favorDone': { 'say': 'The fire elementals are out. Here is your frostmint.', '1': 'Hm. Not even singed. Good.', '2': 'You kept a cool head. That was the first lesson. I will teach you the rest.' },
       'class': {
         'say': 'What is a Frostwarden?',
@@ -1294,9 +1297,9 @@ export default {
       'favor': {
         'say': 'Is that lamp magic?',
         '1': 'Everyone has a little light inside. I teach people to let it out, when they\'re ready.',
-        '2': 'Beat ten cultists in the Ashen Crags, then bring me five sunpetals for my lamp.'
+        '2': 'Beat seven cultists in the Ashen Crags, then bring me three sunpetals for my lamp.'
       },
-      'waiting': { 'say': 'About your test...', '1': 'Ten cultists, five sunpetals. Beat them gently. Everyone deserves a second chance.' },
+      'waiting': { 'say': 'About your test...', '1': 'Seven cultists, three sunpetals. Beat them gently. Everyone deserves a second chance.' },
       'favorDone': { 'say': 'The cultists are beaten. Here are your sunpetals.', '1': 'Oh, look at them! The lamp will glow golden for a month.', '2': 'And so will you, dear. I\'d be glad to teach you.' },
       'class': {
         'say': 'What does a Lightbringer do?',
@@ -1320,10 +1323,10 @@ export default {
       'favor': {
         'say': 'Can you talk to animals?',
         '1': 'Talk? I listen. That\'s the trick most people never learn.',
-        '2': 'Giant spiders are webbing up the animal trails in the Whispering Woods. Clear twelve.',
+        '2': 'Giant spiders are webbing up the animal trails in the Whispering Woods. Clear eight.',
         '3': 'Then bring me two moonbells for my den. Bramble sleeps better near them.'
       },
-      'waiting': { 'say': 'About your test...', '1': 'Twelve spiders, two moonbells. The animals are waiting. So is Bramble.' },
+      'waiting': { 'say': 'About your test...', '1': 'Eight spiders, two moonbells. The animals are waiting. So is Bramble.' },
       'favorDone': { 'say': 'The trails are clear, and here are your moonbells.', '1': 'Hm. The deer came down to the river this morning. Thought it might be you.', '2': 'Fine. I\'ll teach you. Don\'t make a fuss. Bramble, stop wagging.' },
       'class': {
         'say': 'What do you teach, exactly?',
@@ -1432,9 +1435,9 @@ export default {
       'favor': {
         'say': 'Do you sell anything?',
         '1': 'Not to strangers. But do me a favour and we\'ll be friends.',
-        '2': 'Treants in the Whispering Woods guard the moonbells I need. Beat six of them and bring me three moonbells.'
+        '2': 'Treants in the Whispering Woods guard the moonbells I need. Beat four of them and bring me two moonbells.'
       },
-      'waiting': { 'say': 'About that favour...', '1': 'Six treants, three moonbells. The moonbells won\'t pick themselves, sadly.' },
+      'waiting': { 'say': 'About that favour...', '1': 'Four treants, two moonbells. The moonbells won\'t pick themselves, sadly.' },
       'favorDone': { 'say': 'I brought your moonbells.', '1': 'Oh, they still smell of the woods! Wonderful.', '2': 'A deal\'s a deal. My cabinets are yours to look through, any time.' },
       'who': { '1': 'I\'ve collected since I was six. First it was buttons. Now it\'s swords that hum.' },
       'shopBack': { '1': 'Treat that one kindly. It\'s older than both of us.' },
@@ -2684,7 +2687,7 @@ export default {
   },
   'ending': {
     'level': 'Level',
-    'more': 'The Void Rift has opened beneath the fortress. The Colosseum still takes all comers.',
+    'more': 'The Void Rift has opened beneath the fortress. But the true test of your power waits in the Colosseum: climb its waves, and win the mythic prizes only its champions hold.',
     'order': { 'title': 'The Iron Peace', 'text': 'Banners of the Iron Order fly over the Dread Fortress. The roads are safe, the laws are many, and your name is carved above the gate.' },
     'syndicate': { 'title': 'The Ashen Bargain', 'text': 'The Syndicate rules from the shadows of the fortress. Nothing in the realm is forbidden any more. It is only expensive.' },
     'circle': { 'title': 'The Aether Age', 'text': 'The Circle lights the fortress with captured void-fire. Wonders pour out of its gates, and no one asks what they cost.' },
@@ -2983,7 +2986,8 @@ export default {
     'next': 'Next prize at wave {at}: {item}',
     'milestone': 'Wave {n}!',
     'prize': '{item} is yours!',
-    'allWon': 'Every mythic prize is yours.'
+    'allWon': 'Every mythic prize is yours.',
+    'call': 'The story is told. Now prove your build: climb as far as you can, and win the mythic prizes no one else can give you.'
   },
   'ladder': {
     'tab': 'Colosseum',

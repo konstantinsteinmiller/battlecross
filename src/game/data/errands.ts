@@ -69,7 +69,7 @@ export const ERRANDS: ErrandDef[] = [
   },
   {
     id: 'collectorFavor', giver: 'sbCollector',
-    steps: [{ kind: 'slay', enemy: 'treant', place: 'woods', n: 6 }, { kind: 'gather', plant: 'moonbell', n: 3 }],
+    steps: [{ kind: 'slay', enemy: 'treant', place: 'woods', n: 4 }, { kind: 'gather', plant: 'moonbell', n: 2 }],
     reward: { gold: 250, xp: 0.3, flags: ['collectorOpen'] }
   },
   // The treasure map (roadmap #89): started by the first piece found; Elder
@@ -79,25 +79,26 @@ export const ERRANDS: ErrandDef[] = [
     steps: [{ kind: 'pieces', n: 6 }, { kind: 'dig', place: 'crags', n: 1 }],
     reward: { xp: 0.5 }
   },
-  // The secret masters' tests (#86): handed in, the master teaches.
+  // The secret masters' tests (#86): handed in, the master teaches. A third
+  // lighter since #122 (a test, not a grind: moonbells are a rare find).
   {
     id: 'windrunnerTest', giver: 'sbMasterWindrunner',
-    steps: [{ kind: 'slay', enemy: 'banditArcher', place: 'outskirts', n: 12 }, { kind: 'gather', plant: 'swiftfern', n: 3 }],
+    steps: [{ kind: 'slay', enemy: 'banditArcher', place: 'outskirts', n: 8 }, { kind: 'gather', plant: 'swiftfern', n: 2 }],
     reward: { xp: 0.4, flags: ['foundWindrunner'] }
   },
   {
     id: 'frostwardenTest', giver: 'sbMasterFrostwarden',
-    steps: [{ kind: 'slay', enemy: 'fireElemental', place: 'crags', n: 10 }, { kind: 'gather', plant: 'frostmint', n: 3 }],
+    steps: [{ kind: 'slay', enemy: 'fireElemental', place: 'crags', n: 7 }, { kind: 'gather', plant: 'frostmint', n: 2 }],
     reward: { xp: 0.4, flags: ['foundFrostwarden'] }
   },
   {
     id: 'lightbringerTest', giver: 'sbMasterLightbringer',
-    steps: [{ kind: 'slay', enemy: 'cultist', place: 'crags', n: 10 }, { kind: 'gather', plant: 'sunpetal', n: 5 }],
+    steps: [{ kind: 'slay', enemy: 'cultist', place: 'crags', n: 7 }, { kind: 'gather', plant: 'sunpetal', n: 3 }],
     reward: { xp: 0.4, flags: ['foundLightbringer'] }
   },
   {
     id: 'beastcallerTest', giver: 'sbMasterBeastcaller',
-    steps: [{ kind: 'slay', enemy: 'spider', place: 'woods', n: 12 }, { kind: 'gather', plant: 'moonbell', n: 2 }],
+    steps: [{ kind: 'slay', enemy: 'spider', place: 'woods', n: 8 }, { kind: 'gather', plant: 'moonbell', n: 2 }],
     reward: { xp: 0.4, flags: ['foundBeastcaller'] }
   },
   {

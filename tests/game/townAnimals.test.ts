@@ -160,4 +160,127 @@ describe('the animals walk on their legs (#102)', () => {
     // Diagonal pairs move together in a trot or apart in a walk: never all alike.
     expect(new Set(dog.legs.map(l => Math.round(l.obj.rotation.x * 100))).size).toBeGreaterThan(1)
   })
+
+  it('a walking or trotting dog never sinks a paw or its body into the ground, at any phase (#123)', async () => {
+    const { Mesh, Vector3 } = await import('three')
+    const { groundAt } = await import('@/game/gfx/ground')
+    const { zoo } = await build('sunford')
+    const dog = zoo.beasts.find(b => b.kind === 'dog')!
+    const v = new Vector3()
+    // The lowest point of the dog's lit meshes against the ground under each vertex.
+    const lowest = (): number => {
+      dog.obj.updateMatrixWorld(true)
+      let worst = Infinity
+      dog.obj.traverseVisible(o => {
+        if (!(o instanceof Mesh) || o.renderOrder < 0) return
+        const pos = o.geometry.getAttribute('position')
+        for (let i = 0; i < pos.count; i++) {
+          v.fromBufferAttribute(pos, i).applyMatrix4(o.matrixWorld)
+          worst = Math.min(worst, v.y - groundAt(v.x, v.z))
+        }
+      })
+      return worst
+    }
+    // A stroll (the walk), then a dash to greet a far-off hero (the trot).
+    for (const [speed, hero] of [[1.3, 60], [2.8, 6]] as const) {
+      dog.mode = hero > 10 ? 'walk' : 'greet'
+      dog.cool = hero > 10 ? 99 : 0
+      dog.t = 30
+      let worst = Infinity
+      let walked = 0
+      for (let i = 0; i < 120; i++) {
+        dog.tx = dog.x + Math.cos(i * 0.01) * 4
+        dog.tz = dog.z + Math.sin(i * 0.01) * 4
+        const x0 = dog.x
+        const z0 = dog.z
+        zoo.update(1 / 60, dog.x - Math.cos(i * 0.01) * hero, dog.z - Math.sin(i * 0.01) * hero)
+        walked += Math.hypot(dog.x - x0, dog.z - z0)
+        if (dog.stand.visible) worst = Math.min(worst, lowest())
+      }
+      expect(walked, `it moved at ${speed}`).toBeGreaterThan(0.5)
+      expect(worst, `the lowest paw at ${speed} m/s`).toBeGreaterThan(-0.01)
+      // ...and it does stand on its paws, not hover over them.
+      expect(worst, `the lowest paw at ${speed} m/s`).toBeLessThan(0.06)
+    }
+  })
+
+  it('a dog sitting, sniffing about or greeting the hero rests on the ground, on grass and on the cobbles (#123)', async () => {
+    const { Mesh, Vector3 } = await import('three')
+    const { groundAt } = await import('@/game/gfx/ground')
+    const { CELL } = await import('@/game/sim/grid')
+    const { TC_GRASS, TC_STREET } = await import('@/game/sim/town')
+    const { plan, zoo } = await build('sunford')
+    const dog = zoo.beasts.find(b => b.kind === 'dog')!
+    const v = new Vector3()
+    const lowest = (): number => {
+      dog.obj.updateMatrixWorld(true)
+      let worst = Infinity
+      dog.obj.traverseVisible(o => {
+        if (!(o instanceof Mesh) || o.renderOrder < 0) return
+        const pos = o.geometry.getAttribute('position')
+        for (let i = 0; i < pos.count; i++) {
+          v.fromBufferAttribute(pos, i).applyMatrix4(o.matrixWorld)
+          worst = Math.min(worst, v.y - groundAt(v.x, v.z))
+        }
+      })
+      return worst
+    }
+    // A flat cell of each kind, its neighbours the same (no slope under the body).
+    const t = plan.town!
+    const flatCell = (kind: number): [number, number] => {
+      for (let j = 2; j < plan.h - 2; j++) {
+        for (let i = 2; i < plan.w - 2; i++) {
+          if ([[0, 0], [1, 0], [-1, 0], [0, 1], [0, -1]].every(([a, b]) => t.cell[(j + b!) * plan.w + i + a!] === kind)) {
+            const x = (i + 0.5) * CELL
+            const z = (j + 0.5) * CELL
+            if (Math.abs(groundAt(x + 0.5, z) - groundAt(x - 0.5, z)) + Math.abs(groundAt(x, z + 0.5) - groundAt(x, z - 0.5)) < 0.02) return [x, z]
+          }
+        }
+      }
+      throw new Error(`no flat ${kind}`)
+    }
+    // Cobbles lie 2.5 cm up: on the street the dog must clear them, not the ground under them.
+    for (const [kind, floor] of [[TC_GRASS, 0], [TC_STREET, 0.025]] as const) {
+      const [x, z] = flatCell(kind)
+      for (const pose of ['sit', 'idle', 'greet'] as const) {
+        dog.x = dog.hx = dog.tx = x
+        dog.z = dog.hz = dog.tz = z
+        dog.mode = pose
+        dog.t = 30
+        dog.cool = pose === 'greet' ? 0 : 99
+        // Greeting, the hero stands close by: it sits at his feet. Else he is far off.
+        const hx = pose === 'greet' ? x + 1.2 : x + 60
+        let worst = Infinity
+        for (let i = 0; i < 60; i++) {
+          zoo.update(1 / 60, hx, z)
+          worst = Math.min(worst, lowest())
+        }
+        expect(dog.sit!.visible, `${pose} sits`).toBe(pose !== 'idle')
+        expect(worst, `${pose} on ${kind}`).toBeGreaterThan(floor - 0.01)
+        expect(worst, `${pose} on ${kind}: rests, not hovers`).toBeLessThan(floor + 0.05)
+      }
+    }
+  })
+
+  it('the body vaults over its planted legs: no planted leg is ever stretched, the hips dip twice a cycle (#123)', async () => {
+    const { WALK, TROT, pawAt, legPose, strideFor, vaultDrop } = await import('@/game/gfx/townAnimals')
+    const len = 0.32
+    for (const [g, v] of [[WALK, 1.13], [TROT, 2.43]] as const) {
+      const stride = strideFor(g, len, v)
+      const drops: number[] = []
+      for (let k = 0; k < 200; k++) {
+        const cycle = k / 200
+        const drop = vaultDrop(g, cycle, stride, len)
+        drops.push(drop)
+        for (const o of g.offsets) {
+          const p = pawAt(g, cycle + o, stride, len)
+          if (p.lift > 0) continue
+          // A paw on flat ground: its leg reaches from the lowered hips, never past its length.
+          expect(legPose(p.z, drop, len).stretch).toBeLessThanOrEqual(1 + 1e-9)
+        }
+      }
+      expect(Math.max(...drops) - Math.min(...drops), 'the hips bob').toBeGreaterThan(0.005)
+      expect(Math.max(...drops), 'but only a little').toBeLessThan(0.12 * len)
+    }
+  })
 })

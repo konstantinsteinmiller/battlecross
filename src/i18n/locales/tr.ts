@@ -2,6 +2,7 @@
 export default {
   arena: {
     allWon: 'Tüm mitik ödüller artık senin.',
+    call: 'Hikâye anlatıldı. Şimdi build’ini kanıtla: tırmanabildiğin kadar yükseğe tırman ve başka kimsenin veremeyeceği mitik ödülleri kazan.',
     prize: '{item} artık senin!',
     milestone: 'Dalga {n}!',
     next: 'Sonraki ödül {at}. dalgada: {item}',
@@ -141,6 +142,8 @@ export default {
     cageKey: 'Bir anahtar! Kafesi açıyor olmalı.',
     ore: 'Kazıldı: {n} × {ore}',
     mineBusy: 'Düşmanlar yakındayken olmaz!',
+    pressureUp: 'Düşmanların daha da azgınlaşıyor {skulls}',
+    pressureDown: 'Düşmanların biraz yumuşuyor {skulls}',
     item: 'Bulundu: {item}',
     levelUp: 'Seviye {level}! +3 nitelik puanı',
     boss: '{boss} ortaya çıktı',
@@ -327,6 +330,7 @@ export default {
     questDone: '{quest}: {choice}',
     trainer: 'Gizli eğitmen: {cls}',
     new: 'Yeni',
+    trueTest: 'Asıl sınav',
     skip: 'Geçmek için dokun',
     compass: {
       n: 'K',
@@ -4672,11 +4676,11 @@ export default {
       },
       favor: {
         '1': 'Yabancılara değil. Ama bana bir iyilik yap, dost olalım.',
-        '2': 'Fısıldayan Orman\'daki ağaç adamlar ihtiyacım olan ayçanlarını koruyor. Altısını yen ve bana üç ayçanı getir.',
+        '2': 'Fısıldayan Orman\'daki ağaç adamlar ihtiyacım olan ayçanlarını koruyor. Dördünü yen ve bana iki ayçanı getir.',
         say: 'Bir şey satıyor musun?'
       },
       waiting: {
-        '1': 'Altı ağaç adam, üç ayçanı. Ne yazık ki ayçanları kendilerini toplamaz.',
+        '1': 'Dört ağaç adam, iki ayçanı. Ne yazık ki ayçanları kendilerini toplamaz.',
         say: 'Şu iyilik meselesi...'
       },
       favorDone: {
@@ -4748,11 +4752,11 @@ export default {
       },
       favor: {
         '1': 'Sadece bana yetişebilenlere. Sen yetişebilir misin? Görelim bakalım.',
-        '2': 'Oakhaven Varoşları\'nda on iki okçu haydudu yen, sonra bana üç çevikeğrelti getir.',
+        '2': 'Oakhaven Varoşları\'nda sekiz okçu haydudu yen, sonra bana iki çevikeğrelti getir.',
         say: 'Okçuluk öğretiyor musun?'
       },
       waiting: {
-        '1': 'On iki okçu haydut, üç çevikeğrelti. Hadi! Ben tam buradayım. Zıplıyorum.',
+        '1': 'Sekiz okçu haydut, iki çevikeğrelti. Hadi! Ben tam buradayım. Zıplıyorum.',
         say: 'Sınavın hakkında...'
       },
       favorDone: {
@@ -4803,11 +4807,11 @@ export default {
       },
       favor: {
         '1': 'Öyle. Bunu yalnızca sıcak bir yerde serin kalabilenlere öğretirim.',
-        '2': 'Kül Kayalıkları\'nda on ateş elementalini söndür. Sonra bana üç dal ayaznane getir.',
+        '2': 'Kül Kayalıkları\'nda yedi ateş elementalini söndür. Sonra bana iki dal ayaznane getir.',
         say: 'O kılıç buzdan mı?'
       },
       waiting: {
-        '1': 'On ateş elementali. Üç dal ayaznane. Acele etme. Ama çok da oyalanma.',
+        '1': 'Yedi ateş elementali. İki dal ayaznane. Acele etme. Ama çok da oyalanma.',
         say: 'Sınavın hakkında...'
       },
       favorDone: {
@@ -4857,11 +4861,11 @@ export default {
       },
       favor: {
         '1': 'Herkesin içinde küçük bir ışık vardır. Hazır olduklarında insanlara onu dışarı salmayı öğretirim.',
-        '2': 'Kül Kayalıkları\'nda on kültçüyü yen, sonra lambam için bana beş güneşyaprağı getir.',
+        '2': 'Kül Kayalıkları\'nda yedi kültçüyü yen, sonra lambam için bana üç güneşyaprağı getir.',
         say: 'O lamba büyülü mü?'
       },
       waiting: {
-        '1': 'On kültçü, beş güneşyaprağı. Onları nazikçe yen. Herkes ikinci bir şansı hak eder.',
+        '1': 'Yedi kültçü, üç güneşyaprağı. Onları nazikçe yen. Herkes ikinci bir şansı hak eder.',
         say: 'Sınavın hakkında...'
       },
       favorDone: {
@@ -4911,12 +4915,12 @@ export default {
       },
       favor: {
         '1': 'Konuşmak mı? Ben dinlerim. Çoğu insanın hiç öğrenemediği püf noktası bu.',
-        '2': 'Fısıldayan Orman\'da dev örümcekler hayvan patikalarını ağlarla kaplıyor. On ikisini temizle.',
+        '2': 'Fısıldayan Orman\'da dev örümcekler hayvan patikalarını ağlarla kaplıyor. Sekizini temizle.',
         '3': 'Sonra inim için bana iki ayçanı getir. Bramble onların yanında daha iyi uyur.',
         say: 'Hayvanlarla konuşabiliyor musun?'
       },
       waiting: {
-        '1': 'On iki örümcek, iki ayçanı. Hayvanlar bekliyor. Bramble da.',
+        '1': 'Sekiz örümcek, iki ayçanı. Hayvanlar bekliyor. Bramble da.',
         say: 'Sınavın hakkında...'
       },
       favorDone: {
@@ -5197,7 +5201,7 @@ export default {
   },
   ending: {
     level: 'Seviye',
-    more: 'Kalenin altında Hiçlik Yarığı açıldı. Kolezyum hâlâ her geleni kabul ediyor.',
+    more: 'Kalenin altında Hiçlik Yarığı açıldı. Ama gücünün asıl sınavı Kolezyum’da bekliyor: dalgalarını aş ve yalnızca şampiyonlarının sahip olduğu mitik ödülleri kazan.',
     order: {
       title: 'Demir Barış',
       text: 'Dehşet Kalesi’nin üstünde Demir Tarikatı’nın sancakları dalgalanıyor. Yollar güvenli, yasalar çok ve adın kapının üstüne kazındı.'

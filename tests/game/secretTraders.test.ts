@@ -52,7 +52,7 @@ describe('earning the shop', () => {
     p.addHerbs({ moonbell: 4 })
     expect(p.errandStateOf('collectorFavor')).toBe('ready')
     expect(p.completeErrand('collectorFavor')).not.toBeNull()
-    expect(p.herbCount('moonbell')).toBe(1)
+    expect(p.herbCount('moonbell')).toBe(2)
     expect(p.hasFlag('collectorOpen')).toBe(true)
     expect(talk.npcPin(def).kind).toBe('shop')
   })

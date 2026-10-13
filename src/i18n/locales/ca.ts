@@ -2,6 +2,7 @@
 export default {
   arena: {
     allWon: 'Tots els premis mítics són teus.',
+    call: 'La història ja s’ha explicat. Ara demostra el teu build: puja tan amunt com puguis i guanya els premis mítics que ningú més et pot donar.',
     prize: 'Premi aconseguit: {item}!',
     milestone: 'Onada {n}!',
     next: 'Següent premi a l’onada {at}: {item}',
@@ -141,6 +142,8 @@ export default {
     cageKey: 'Una clau! Deu obrir la gàbia.',
     ore: 'Extret: {n} × {ore}',
     mineBusy: 'No amb enemics a prop!',
+    pressureUp: 'Els teus enemics es tornen més ferotges {skulls}',
+    pressureDown: 'Els teus enemics afluixen {skulls}',
     item: 'Trobat: {item}',
     levelUp: 'Nivell {level}! +3 punts d’atribut',
     boss: 'Apareix: {boss}',
@@ -328,6 +331,7 @@ export default {
     questDone: '{quest}: {choice}',
     trainer: 'Mestre amagat: {cls}',
     new: 'Nou',
+    trueTest: 'La veritable prova',
     skip: 'Toca per saltar',
     compass: {
       n: 'N',
@@ -4722,11 +4726,11 @@ export default {
       },
       favor: {
         '1': 'A desconeguts, no. Però fes-me un favor i serem amics.',
-        '2': 'Uns arbres vivents del Bosc dels Murmuris guarden les campanetes lunars que necessito. Venç-ne sis i porta’m tres campanetes lunars.',
+        '2': 'Uns arbres vivents del Bosc dels Murmuris guarden les campanetes lunars que necessito. Venç-ne quatre i porta’m dues campanetes lunars.',
         say: 'Vens alguna cosa?'
       },
       waiting: {
-        '1': 'Sis arbres vivents, tres campanetes lunars. Les campanetes no es colliran soles, quina llàstima.',
+        '1': 'Quatre arbres vivents, dues campanetes lunars. Les campanetes no es colliran soles, quina llàstima.',
         say: 'Pel que fa a aquell favor...'
       },
       favorDone: {
@@ -4798,11 +4802,11 @@ export default {
       },
       favor: {
         '1': 'Només a qui em pot seguir el ritme. I tu, pots? Ho descobrirem.',
-        '2': 'Derrota dotze bandits arquers als Afores d’Oakhaven i després porta’m tres falgueres àgils.',
+        '2': 'Derrota vuit bandits arquers als Afores d’Oakhaven i després porta’m dues falgueres àgils.',
         say: 'Ensenyes tir amb arc?'
       },
       waiting: {
-        '1': 'Dotze bandits arquers, tres falgueres àgils. Au, vés! Jo t’espero aquí. Saltironejant.',
+        '1': 'Vuit bandits arquers, dues falgueres àgils. Au, vés! Jo t’espero aquí. Saltironejant.',
         say: 'Sobre la teva prova...'
       },
       favorDone: {
@@ -4853,11 +4857,11 @@ export default {
       },
       favor: {
         '1': 'Sí. Només l’ensenyo a qui manté el cap fred en un lloc calent.',
-        '2': 'Apaga deu elementals de foc als Penyals de Cendra. Després porta’m tres branquetes de menta gebrada.',
+        '2': 'Apaga set elementals de foc als Penyals de Cendra. Després porta’m dues branquetes de menta gebrada.',
         say: 'Aquesta espasa és de gel?'
       },
       waiting: {
-        '1': 'Deu elementals de foc. Tres branquetes de menta gebrada. Pren-t’ho amb calma. No amb massa calma.',
+        '1': 'Set elementals de foc. Dues branquetes de menta gebrada. Pren-t’ho amb calma. No amb massa calma.',
         say: 'Sobre la teva prova...'
       },
       favorDone: {
@@ -4907,11 +4911,11 @@ export default {
       },
       favor: {
         '1': 'Tothom té una mica de llum a dins. Jo ensenyo a deixar-la sortir, quan arriba el moment.',
-        '2': 'Derrota deu cultistes als Penyals de Cendra i després porta’m cinc pètals de sol per al meu llum.',
+        '2': 'Derrota set cultistes als Penyals de Cendra i després porta’m tres pètals de sol per al meu llum.',
         say: 'Aquest llum és màgic?'
       },
       waiting: {
-        '1': 'Deu cultistes, cinc pètals de sol. Derrota’ls amb suavitat. Tothom mereix una segona oportunitat.',
+        '1': 'Set cultistes, tres pètals de sol. Derrota’ls amb suavitat. Tothom mereix una segona oportunitat.',
         say: 'Sobre la teva prova...'
       },
       favorDone: {
@@ -4961,12 +4965,12 @@ export default {
       },
       favor: {
         '1': 'Parlar? Jo escolto. Aquest és el truc que la majoria no aprèn mai.',
-        '2': 'Les aranyes gegants omplen de teranyines els camins dels animals al Bosc dels Murmuris. Elimina’n dotze.',
+        '2': 'Les aranyes gegants omplen de teranyines els camins dels animals al Bosc dels Murmuris. Elimina’n vuit.',
         '3': 'Després porta’m dues campanetes lunars per al cau. La Bramble hi dorm millor a prop.',
         say: 'Pots parlar amb els animals?'
       },
       waiting: {
-        '1': 'Dotze aranyes, dues campanetes lunars. Els animals esperen. La Bramble també.',
+        '1': 'Vuit aranyes, dues campanetes lunars. Els animals esperen. La Bramble també.',
         say: 'Sobre la teva prova...'
       },
       favorDone: {
@@ -5248,7 +5252,7 @@ export default {
   },
   ending: {
     level: 'Nivell',
-    more: 'L’Esquerda del Buit s’ha obert sota la fortalesa. El Colosseu continua acceptant tothom.',
+    more: 'L’Esquerda del Buit s’ha obert sota la fortalesa. Però la veritable prova del teu poder t’espera al Colosseu: puja’n les onades i guanya els premis mítics que només tenen els seus campions.',
     order: {
       title: 'La Pau de Ferro',
       text: 'Els estendards de l’Orde de Ferro onegen sobre la Fortalesa del Terror. Els camins són segurs, les lleis són moltes, i el teu nom és gravat sobre la porta.'

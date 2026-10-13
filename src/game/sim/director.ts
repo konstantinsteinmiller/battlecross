@@ -5,6 +5,7 @@ import { itemsOfZone, type ZoneId } from '../data/items'
 import { ENEMY_BY_ID } from '../data/enemies'
 import { FINALE_BEAT, LEAVE_BEAT, openChest, populateFeatures, stepPlates } from './interact'
 import { spawnEnemy, spawnMinion } from './spawn'
+import { stepPressure } from './pressure'
 import { plainStats } from './stats'
 import { spawnTownPeople } from './townLife'
 import { fillGrid, type ZonePlan } from './zoneGen'
@@ -67,6 +68,8 @@ export const populateZone = (sim: Sim, plan: ZonePlan, zone: ZoneId, owned: Iter
   }
   plan.packs.forEach((p, gi) => {
     const group = { id: gi, x: p.x, z: p.z, members: [] as number[], awake: false, cleared: false, finale: p.finale, boss: p.boss }
+    // A pack with its camp fire (the Hollows, #120) sits round it, warming itself.
+    const fire = plan.dressing?.find(d => d.kind === 'fire' && Math.hypot(d.x - p.x, d.z - p.z) < p.r)
     sim.groups.push(group)
     p.kinds.forEach((kind, k) => {
       const leader = p.finale && k === 0
@@ -75,8 +78,8 @@ export const populateZone = (sim: Sim, plan: ZonePlan, zone: ZoneId, owned: Iter
       const d = leader ? 0 : Math.min(p.r * 0.55, 1.6 + sim.rng() * 2.2)
       const u = spawnEnemy(sim, kind, p.x + Math.cos(a) * d, p.z + Math.sin(a) * d - (leader ? p.r * 0.2 : 0), gi)
       if (!u) return
-      // Facing the way the hero will come from.
-      u.facing = 0
+      // Facing the way the hero will come from, or into the fire.
+      u.facing = fire ? Math.atan2(fire.x - u.x, fire.z - u.z) : 0
       group.members.push(u.id)
     })
   })
@@ -300,6 +303,8 @@ export const stepDirector = (sim: Sim, plan: ZonePlan, dt: number): void => {
     }
     return
   }
+  // Adaptive pressure (#124): each minute of fight time is judged.
+  stepPressure(sim, dt)
   stepPlates(sim)
   // An escort (#85): the caravan's arrival wins, its loss loses; its packs are
   // only the ambushes on the way.

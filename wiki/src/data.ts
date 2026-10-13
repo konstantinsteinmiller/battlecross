@@ -117,7 +117,7 @@ export const FLAG_HOW: Record<string, { text: string; at: number }> = {
   freedWindDisciple: { text: 'Free the iron cage in the Ashen Crags', at: 11 },
   freedFrostDisciple: { text: 'Free the iron cage in the Frostbite Tundra', at: 16 },
   freedLightDisciple: { text: 'Free the iron cage in the Sunken Temple', at: 17 },
-  collectorOpen: { text: 'Do Alder Vane\'s favour (6 Treants in the Woods + 3 Moonbells)', at: 7 },
+  collectorOpen: { text: 'Do Alder Vane\'s favour (4 Treants in the Woods + 2 Moonbells)', at: 7 },
   mirelaOpen: { text: 'Do Mirela Thorne\'s favour (15 Bandits in the Outskirts, then talk to Tam Marlow)', at: 9 },
   foundChrono: { text: 'Meet the Keeper of Hours (clear the Sunken Temple; Dragon\'s Peak if the oracle was slain)', at: 20 },
   foundBlood: { text: 'Meet Doctor Sangrel (clear the Citadel of the Void, or betray Oakhaven)', at: 21 },

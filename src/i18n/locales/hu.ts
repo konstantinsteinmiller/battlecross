@@ -2,6 +2,7 @@
 export default {
   arena: {
     allWon: 'Minden mitikus díj a tiéd.',
+    call: 'A történet véget ért. Most bizonyítsd a buildedet: juss olyan messzire, amilyen messzire csak tudsz, és nyerd el a mitikus díjakat, amiket senki más nem adhat neked.',
     prize: 'Tiéd: {item}!',
     milestone: '{n}. hullám!',
     next: 'Következő díj: {at}. hullám – {item}',
@@ -141,6 +142,8 @@ export default {
     cageKey: 'Egy kulcs! Biztosan a ketrecet nyitja.',
     ore: 'Kibányászva: {n} × {ore}',
     mineBusy: 'Nem, amíg ellenség van a közelben!',
+    pressureUp: 'Ellenfeleid vadabbak lesznek {skulls}',
+    pressureDown: 'Ellenfeleid engednek a szorításon {skulls}',
     item: 'Találtad: {item}',
     levelUp: '{level}. szint! +3 tulajdonságpont',
     boss: 'Megjelent: {boss}',
@@ -327,6 +330,7 @@ export default {
     questDone: '{quest}: {choice}',
     trainer: 'Rejtett tanító: {cls}',
     new: 'Új',
+    trueTest: 'Az igazi próba',
     skip: 'Koppints a kihagyáshoz',
     compass: {
       n: 'É',
@@ -4672,11 +4676,11 @@ export default {
       },
       favor: {
         '1': 'Idegeneknek nem. De tegyél nekem egy szívességet, és barátok leszünk.',
-        '2': 'A Suttogó-erdő élőfái őrzik a holdharangokat, amik kellenek. Győzz le hatot közülük, és hozz nekem három holdharangot.',
+        '2': 'A Suttogó-erdő élőfái őrzik a holdharangokat, amik kellenek. Győzz le négyet közülük, és hozz nekem két holdharangot.',
         say: 'Árulsz valamit?'
       },
       waiting: {
-        '1': 'Hat élőfa, három holdharang. A holdharangok sajnos nem szedik le magukat.',
+        '1': 'Négy élőfa, két holdharang. A holdharangok sajnos nem szedik le magukat.',
         say: 'A szívességről...'
       },
       favorDone: {
@@ -4748,11 +4752,11 @@ export default {
       },
       favor: {
         '1': 'Csak annak, aki lépést tud tartani velem. Te tudsz? Derítsük ki.',
-        '2': 'Győzz le tizenkét bandita íjászt Oakhaven határában, aztán hozz nekem három fürgepáfrányt.',
+        '2': 'Győzz le nyolc bandita íjászt Oakhaven határában, aztán hozz nekem két fürgepáfrányt.',
         say: 'Tanítasz íjászatot?'
       },
       waiting: {
-        '1': 'Tizenkét bandita íjász, három fürgepáfrány. Rajta! Itt leszek. Ugrálok.',
+        '1': 'Nyolc bandita íjász, két fürgepáfrány. Rajta! Itt leszek. Ugrálok.',
         say: 'A próbádról...'
       },
       favorDone: {
@@ -4803,11 +4807,11 @@ export default {
       },
       favor: {
         '1': 'Abból. Csak annak tanítom, aki forró helyen is hideg fejjel marad.',
-        '2': 'Olts ki tíz tűzelementált a Hamuszirteken. Aztán hozz nekem három szál fagymentát.',
+        '2': 'Olts ki hét tűzelementált a Hamuszirteken. Aztán hozz nekem két szál fagymentát.',
         say: 'Az a kard jégből van?'
       },
       waiting: {
-        '1': 'Tíz tűzelementál. Három szál fagymenta. Ne siess. De ne is húzd sokáig.',
+        '1': 'Hét tűzelementál. Két szál fagymenta. Ne siess. De ne is húzd sokáig.',
         say: 'A próbádról...'
       },
       favorDone: {
@@ -4857,11 +4861,11 @@ export default {
       },
       favor: {
         '1': 'Mindenkiben van egy kis fény. Én megtanítom kiengedni, amikor eljön az ideje.',
-        '2': 'Győzz le tíz kultistát a Hamuszirteken, aztán hozz öt napszirmot a lámpásomhoz.',
+        '2': 'Győzz le hét kultistát a Hamuszirteken, aztán hozz három napszirmot a lámpásomhoz.',
         say: 'Varázslámpás az ott?'
       },
       waiting: {
-        '1': 'Tíz kultista, öt napszirom. Gyengéden győzd le őket. Mindenki megérdemel egy második esélyt.',
+        '1': 'Hét kultista, három napszirom. Gyengéden győzd le őket. Mindenki megérdemel egy második esélyt.',
         say: 'A próbádról...'
       },
       favorDone: {
@@ -4911,12 +4915,12 @@ export default {
       },
       favor: {
         '1': 'Beszélni? Én hallgatok. Ezt a trükköt a legtöbben sosem tanulják meg.',
-        '2': 'Óriáspókok szövik be az állatok ösvényeit a Suttogó-erdőben. Takaríts el tizenkettőt.',
+        '2': 'Óriáspókok szövik be az állatok ösvényeit a Suttogó-erdőben. Takaríts el nyolcat.',
         '3': 'Aztán hozz két holdharangot az odúmba. Szeder jobban alszik mellettük.',
         say: 'Tudsz beszélni az állatokkal?'
       },
       waiting: {
-        '1': 'Tizenkét pók, két holdharang. Az állatok várnak. Szeder is.',
+        '1': 'Nyolc pók, két holdharang. Az állatok várnak. Szeder is.',
         say: 'A próbádról...'
       },
       favorDone: {
@@ -5197,7 +5201,7 @@ export default {
   },
   ending: {
     level: 'Szint',
-    more: 'Az erőd alatt megnyílt az Üresség hasadéka. A Kolosszeum továbbra is fogad minden kihívót.',
+    more: 'Az erőd alatt megnyílt az Üresség hasadéka. Ám erőd igazi próbája a Kolosszeumban vár: küzdd végig a hullámait, és nyerd el a mitikus díjakat, amelyek csak a bajnokainak jutnak.',
     order: {
       title: 'A vasbéke',
       text: 'A Vasrend zászlói lobognak a Rettegés erődje fölött. Az utak biztonságosak, a törvény sok, a neved pedig a kapu fölé van vésve.'

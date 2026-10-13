@@ -4,6 +4,12 @@ import { MAP_H, MAP_W, type Pt } from '@/components/screens/map/geo'
 import { ROADS, nodeAt } from '@/components/screens/map/roads'
 import { GH, GW, ROAD, STEP, findPath, fogCells, nearestWalkable, stepWalk, walkMask } from '@/components/screens/map/walk'
 import { TERRAIN_SHAPES } from '@/components/screens/map/terrain'
+import { PAINTED_GROUND } from '@/components/screens/map/paintedGround'
+import { paintedCrossings, paintedWater } from '@/components/screens/map/paintedBridges'
+import { mapBridgesSvg } from '@/components/screens/map/terrain'
+import { distToLine } from '@/components/screens/map/geo'
+// Plain Node, imported as-is: tests are not part of a tsconfig project.
+import { bakeRows, isVoid, isWater, readPainting } from '../../scripts/map-walk-bake.mjs'
 
 /**
  * Free walking on the world map (roadmap #67): the walk mask built from the
@@ -141,6 +147,8 @@ describe('stepping', () => {
   })
 
   it('pushing slantwise into a river slides along its bank instead of sticking (#111)', () => {
+    // The drawn sheet's rivers (the painted ones are measured below, #119).
+    const m = walkMask(ALL, 'drawn')
     // The step before #111: the whole step, else one axis, probes on each axis.
     const before = (p: Pt, dx: number, dy: number): Pt => {
       const fits = (x: number, y: number): boolean => m.ok(x, y) && m.ok(x + Math.sign(dx) * 3, y) && m.ok(x, y + Math.sign(dy) * 3)
@@ -195,6 +203,7 @@ describe('stepping', () => {
   })
 
   it('a bridge is three cells wide; a place does not make its river walkable (#111)', () => {
+    const m = walkMask(ALL, 'drawn')
     for (const r of TERRAIN_SHAPES.rivers) {
       for (const pt of r.line) {
         const k = Math.floor(pt[1] / STEP) * GW + Math.floor(pt[0] / STEP)
@@ -210,5 +219,175 @@ describe('stepping', () => {
     expect(m.ok(shore![0], shore![1])).toBe(true)
     expect(Math.hypot(shore![0] - 60, shore![1] - 640)).toBeLessThan(STEP * 9)
     expect(nearestWalkable(m, [MAP_W / 2, MAP_H - 5], 2)).toBeNull()
+  })
+})
+
+/**
+ * The painted sheet (#119): the hero is stopped by the water the painting
+ * shows, and by nothing else. `paintedGround.ts` is baked from the painting
+ * (`scripts/map-walk-bake.mjs`); these read the painting again.
+ */
+describe('walking the painted map (#119)', () => {
+  const m = walkMask(ALL)
+  const water = (c: string | undefined): boolean => c === '~' || c === 'x'
+
+  it('the baked water matches the painting: re-baking the painting changes nothing', async () => {
+    const rows = bakeRows(await readPainting())
+    expect(rows.length).toBe(GH)
+    for (let j = 0; j < GH; j++) expect(PAINTED_GROUND[j], `row ${j}`).toBe(rows[j])
+  })
+
+  it('a blocked cell is painted water, the rift, the frame or an islet no place reaches; every other painted ground is walked', async () => {
+    const px = await readPainting()
+    const share = (i: number, j: number): number => {
+      let n = 0
+      for (let y = j * STEP; y < (j + 1) * STEP; y++) {
+        for (let x = i * STEP; x < (i + 1) * STEP; x++) {
+          const k = (y * MAP_W + x) * 3
+          if (isWater(px[k], px[k + 1], px[k + 2]) || isVoid(px[k], px[k + 1], px[k + 2])) n++
+        }
+      }
+      return n / (STEP * STEP)
+    }
+    const drawn = walkMask(ALL, 'drawn')
+    let land = 0
+    let islet = 0
+    /** Walked cells that show mostly water or void: only specks may. */
+    const wet = new Set<number>()
+    for (let j = 0; j < GH; j++) {
+      for (let i = 0; i < GW; i++) {
+        const k = j * GW + i
+        const c = PAINTED_GROUND[j]![i]
+        const frame = (i + 0.5) * STEP < 38 || (j + 0.5) * STEP < 38 || (i + 0.5) * STEP > MAP_W - 38 || (j + 0.5) * STEP > MAP_H - 38
+        if (m.cells[k]) {
+          // Walked: ground, or a drawn bridge over the water (the temple causeway).
+          if (water(c)) {
+            const p: Pt = [(i + 0.5) * STEP, (j + 0.5) * STEP]
+            expect(paintedCrossings().some(cr => distToLine(p, [cr.a, cr.b]) < 17), `walkable water at cell ${i},${j}`).toBe(true)
+          }
+          if (m.cells[k] !== ROAD && share(i, j) >= 0.5) wet.add(k)
+          land++
+        } else if (water(c)) {
+          // Blocked water shows water (a closed diagonal corner, a little).
+          expect(share(i, j), `cell ${i},${j}`).toBeGreaterThan(0.05)
+        } else if (!frame) islet++
+      }
+    }
+    // A shade in the snow, an ice peak, a burnt tree: a speck, never a lake.
+    for (const k of wet) {
+      const patch = new Set([k])
+      for (const q of patch) {
+        for (const d of [1, -1, GW, -GW, GW + 1, GW - 1, -GW + 1, -GW - 1]) if (wet.has(q + d)) patch.add(q + d)
+      }
+      expect(patch.size, `wet patch at cell ${k % GW},${Math.floor(k / GW)}`).toBeLessThan(8)
+    }
+    // Most of the sheet is walked; the old wall over the Ironpeaks is gone.
+    expect(land).toBeGreaterThan(GW * GH * 0.5)
+    let wall = 0
+    for (let k = 0; k < m.cells.length; k++) if (drawn.cells[k] === 0 && m.cells[k]) wall++
+    expect(wall).toBeGreaterThan(300)
+    // Islets: the sand bars and rocks in the sea, a lily pad in the lake.
+    expect(islet).toBeLessThan(GW * GH * 0.05)
+  })
+
+  it('every place can be walked to from every other, over walkable ground', () => {
+    for (const a of MAP) {
+      for (const b of MAP) {
+        if (a.id >= b.id) continue
+        const path = findPath(m, nodeAt(a.id), nodeAt(b.id))
+        expect(path, `${a.id} → ${b.id}`).not.toBeNull()
+        for (const p of path!) expect(m.ok(p[0], p[1]), `${a.id} → ${b.id}`).toBe(true)
+      }
+    }
+  })
+
+  it('every painted bridge is walked across, bank to bank', () => {
+    // The three plank bridges on the painting, a bank point either side.
+    const BRIDGES: Array<[Pt, Pt, Pt]> = [
+      [[640, 280], [605, 292], [675, 270]],
+      [[960, 165], [945, 150], [975, 185]],
+      [[620, 540], [585, 545], [660, 545]]
+    ]
+    for (const [mid, a, b] of BRIDGES) {
+      // The bridge stands over the river: water on either side of its deck.
+      expect(m.ok(mid[0], mid[1]), `${mid}`).toBe(true)
+      expect(m.ok(a[0], a[1]), `${a}`).toBe(true)
+      expect(m.ok(b[0], b[1]), `${b}`).toBe(true)
+      const path = findPath(m, a, b)!
+      let len = 0
+      for (let i = 1; i < path.length; i++) len += Math.hypot(path[i]![0] - path[i - 1]![0], path[i]![1] - path[i - 1]![1])
+      // Straight over, not round by another crossing.
+      expect(len, `${mid}`).toBeLessThan(Math.hypot(b[0] - a[0], b[1] - a[1]) * 1.3)
+      // Walked with the hero's own step, he gets over.
+      let p: Pt = a
+      for (let t = 0; t < 200 && Math.hypot(b[0] - p[0], b[1] - p[1]) > 4; t++) {
+        const d = Math.hypot(b[0] - p[0], b[1] - p[1])
+        p = stepWalk(m, p, ((b[0] - p[0]) / d) * 3, ((b[1] - p[1]) / d) * 3)
+      }
+      expect(Math.hypot(b[0] - p[0], b[1] - p[1]), `${mid}`).toBeLessThanOrEqual(4)
+    }
+  })
+
+  const onBridge = (x: number, y: number): boolean => paintedCrossings().some(c => distToLine([x, y], [c.a, c.b]) < 17)
+
+  it('a painted river is never forded: crossing it takes a bridge', () => {
+    // West of the big river and east of it, away from its bridges and roads.
+    const path = findPath(m, [560, 380], [650, 380])!
+    let len = 0
+    for (let i = 1; i < path.length; i++) {
+      const a = path[i - 1]!
+      const b = path[i]!
+      len += Math.hypot(b[0] - a[0], b[1] - a[1])
+      const n = Math.ceil(Math.hypot(b[0] - a[0], b[1] - a[1]) / 2)
+      for (let t = 0; t <= n; t++) {
+        const x = a[0] + ((b[0] - a[0]) * t) / n
+        const y = a[1] + ((b[1] - a[1]) * t) / n
+        if (water(PAINTED_GROUND[Math.floor(y / STEP)]![Math.floor(x / STEP)])) expect(onBridge(x, y), `water at ${x},${y}`).toBe(true)
+      }
+    }
+    // Round by the crossing, not straight over (90 units).
+    expect(len).toBeGreaterThan(150)
+  })
+
+  it('every stretch of a road over painted water has a drawn bridge; none stands over painted ground', () => {
+    const bridges = paintedCrossings()
+    expect(bridges.length).toBeGreaterThan(0)
+    for (const r of ROADS) {
+      for (let i = 1; i < r.line.length; i++) {
+        const a = r.line[i - 1]!
+        const b = r.line[i]!
+        const n = Math.ceil(Math.hypot(b[0] - a[0], b[1] - a[1]) / 2)
+        for (let t = 0; t <= n; t++) {
+          const x = a[0] + ((b[0] - a[0]) * t) / n
+          const y = a[1] + ((b[1] - a[1]) * t) / n
+          if (paintedWater(x, y)) expect(bridges.some(c => distToLine([x, y], [c.a, c.b]) < 6), `${r.key} over water at ${x},${y}`).toBe(true)
+        }
+      }
+    }
+    for (const c of bridges) {
+      // Its middle stretch is over water (its ends rest on the banks).
+      let wet = 0
+      for (let t = 0.3; t <= 0.71; t += 0.1) if (paintedWater(c.a[0] + (c.b[0] - c.a[0]) * t, c.a[1] + (c.b[1] - c.a[1]) * t)) wet++
+      expect(wet, `bridge on ${c.road} at ${c.p}`).toBeGreaterThan(0)
+    }
+    // The screen draws exactly these: one plank bridge each.
+    expect(mapBridgesSvg(bridges).match(/<rect /g)).toHaveLength(bridges.length)
+  })
+
+  it('the Sunken Temple is reached over its causeway', () => {
+    const temple = nodeAt('temple')
+    expect(paintedCrossings().some(c => c.road.includes('temple'))).toBe(true)
+    const path = findPath(m, nodeAt('outskirts'), temple)!
+    expect(path).not.toBeNull()
+    for (let i = 1; i < path.length; i++) {
+      const a = path[i - 1]!
+      const b = path[i]!
+      const n = Math.ceil(Math.hypot(b[0] - a[0], b[1] - a[1]) / 2)
+      for (let t = 0; t <= n; t++) {
+        const x = a[0] + ((b[0] - a[0]) * t) / n
+        const y = a[1] + ((b[1] - a[1]) * t) / n
+        if (paintedWater(x, y)) expect(onBridge(x, y), `water at ${x},${y}`).toBe(true)
+      }
+    }
   })
 })

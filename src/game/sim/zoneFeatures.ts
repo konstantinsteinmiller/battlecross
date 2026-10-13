@@ -274,6 +274,10 @@ export interface FeatureCtx {
   bare: boolean
   /** Lay the branching ways (roadmap #70): there is rock beside the chain for them. */
   branches?: boolean
+  /** Where a layout of its own knows a loop fits (#120): its room's cell,
+   *  between clearings `a` and `b`, and the road's column `ri` beside it
+   *  (its chest stands on the room's far side from it). Tried first. */
+  loopSites?: ReadonlyArray<{ a: number; b: number; i: number; j: number; ri: number }>
 }
 
 const FEATURE_SALT = 0x5f3c9a17
@@ -650,10 +654,77 @@ export const addFeatures = (c: FeatureCtx): Features => {
     // ways with less rock between are tried too.
     const loops = bint(B.bypasses[0], B.bypasses[1])
     const anyLoop = (): boolean => out.branches.some(b => b.kind === 'loop')
-    for (let q = 0; q < loops || (q < loops + 2 && !anyLoop()); q++) {
+    let wall = 1.6
+    /** Well off the road: the reference walk goes by a branch's pack without waking it. */
+    const offRoad = (i: number, j: number): boolean => {
+      for (let dj = -5; dj <= 5; dj++) for (let di = -5; di <= 5; di++) {
+        if (inside(i + di, j + dj) && trail[(j + dj) * w + i + di] && Math.hypot(di, dj) * CELL <= 7) return false
+      }
+      return true
+    }
+    /** A loop from clearing `a` round through a room at (mi, mj) to `b`. */
+    const tryLoop = (a: number, b: number, mi: number, mj: number, rr: number, ri: number): boolean => {
+      const A = cs[a]!
+      const Bc = cs[b]!
+      const id = out.branches.length
+      if (!offRoad(mi, mj)) return false
+      return attempt(() => {
+        const lA = Math.hypot(mi - A.i, mj - A.j) || 1
+        const lB = Math.hypot(mi - Bc.i, mj - Bc.j) || 1
+        const pA: [number, number] = [A.i + ((mi - A.i) / lA) * (A.r - 0.6), A.j + ((mj - A.j) / lA) * (A.r - 0.6)]
+        const pB: [number, number] = [Bc.i + ((mi - Bc.i) / lB) * (Bc.r - 0.6), Bc.j + ((mj - Bc.j) / lB) * (Bc.r - 0.6)]
+        const ends = [{ i: A.i, j: A.j, r: A.r + 1.2 }, { i: Bc.i, j: Bc.j, r: Bc.r + 1.2 }, { i: mi, j: mj, r: rr + 0.5 }]
+        const legA = bends(pA[0], pA[1], mi, mj)
+        const legB = bends(mi, mj, pB[0], pB[1])
+        for (const leg of [legA, legB]) for (let e = 1; e < leg.length; e++) {
+          if (!rockLine(leg[e - 1]![0], leg[e - 1]![1], leg[e]![0], leg[e]![1], half + wall, ends)) return false
+        }
+        // Another route, not a shortcut: the road stays the short way.
+        let road = 0
+        for (let k = a; k < b; k++) road += Math.hypot(cs[k + 1]!.i - cs[k]!.i, cs[k + 1]!.j - cs[k]!.j)
+        let walk = 0
+        for (const leg of [legA, legB]) for (let e = 1; e < leg.length; e++) walk += Math.hypot(leg[e]![0] - leg[e - 1]![0], leg[e]![1] - leg[e - 1]![1])
+        if (walk + A.r + Bc.r < road * 1.3) return false
+        room(id, mi, mj, rr)
+        cut(id, legA)
+        cut(id, legB)
+        const pack = out.optionalPacks.length
+        out.optionalPacks.push({ x: cx(mi), z: cx(mj), r: rr * CELL, kinds: plainPack(), levelOffset: 0, champion: false, branch: id })
+        claimed[mj * w + mi] = 1
+        out.lobes.push({ x: cx(mi), z: cx(mj), r: rr * CELL, k: a, lift: (brng() - 0.4) * 0.9 })
+        const chest = out.chests.length
+        const tier: ChestTier = brng() < 0.6 ? 'iron' : 'wood'
+        // Out of the way of both legs: on the clearing's outer side.
+        if (!farChest(mi, mj, rr, ri, mj, tier, 'bypass', pack)) return false
+        const ux = (pA[0] - A.i) / (A.r - 0.6)
+        const uz = (pA[1] - A.j) / (A.r - 0.6)
+        out.branches.push({
+          id, kind: 'loop', from: a, to: b, x: cx(mi), z: cx(mj), r: rr * CELL,
+          way: [...legA, ...legB.slice(1)].map(([i, j]) => ({ x: cx(i), z: cx(j) })),
+          pack, chest, style: B.style
+        })
+        return fork(id, A, ux, uz, false)
+      })
+    }
+    // Where the layout says a loop fits, first (with the narrower way and
+    // the thinner wall the search falls back on).
+    half = Math.min(B.half, 1.3)
+    wall = 1
+    for (const site of c.loopSites ?? []) {
+      if (out.branches.length >= loops) break
+      for (const rr of [3.3, 3]) {
+        if (!virgin(site.i, site.j, rr + 2.5)) continue
+        if (tryLoop(site.a, site.b, site.i, site.j, rr, site.ri)) break
+      }
+    }
+    // Loops first: each takes a lot of rock. Every zone gets at least one (a
+    // second route to the finale): when the seed's tries all fail, narrower
+    // ways with less rock between are tried too, a few times over (a built
+    // place has less rock to spare than a chain of clearings).
+    for (let q = out.branches.length; q < loops || (q < loops + 5 && !anyLoop()); q++) {
       const relaxed = q >= loops
       half = relaxed ? Math.min(B.half, 1.3) : B.half
-      const wall = relaxed ? 1 : 1.6
+      wall = relaxed ? 1 : 1.6
       // A loop rejoins the road before the finale's arena when there is a
       // clearing to rejoin: the boss's floor keeps its one way in.
       const last = n > 2 ? n - 1 : n
@@ -687,45 +758,7 @@ export const addFeatures = (c: FeatureCtx): Features => {
             const angB = Math.abs(Math.atan2(mj - Bc.j, mi - Bc.i) - Math.atan2(pv.j - Bc.j, pv.i - Bc.i))
             const wrap = (x: number): number => Math.min(x, Math.PI * 2 - x)
             if (wrap(angA) < 0.6 || wrap(angB) < 0.6) continue
-            const id = out.branches.length
-            const ok = attempt(() => {
-              const lA = Math.hypot(mi - A.i, mj - A.j) || 1
-              const lB = Math.hypot(mi - Bc.i, mj - Bc.j) || 1
-              const pA: [number, number] = [A.i + ((mi - A.i) / lA) * (A.r - 0.6), A.j + ((mj - A.j) / lA) * (A.r - 0.6)]
-              const pB: [number, number] = [Bc.i + ((mi - Bc.i) / lB) * (Bc.r - 0.6), Bc.j + ((mj - Bc.j) / lB) * (Bc.r - 0.6)]
-              const ends = [{ i: A.i, j: A.j, r: A.r + 1.2 }, { i: Bc.i, j: Bc.j, r: Bc.r + 1.2 }, { i: mi, j: mj, r: rr + 0.5 }]
-              const legA = bends(pA[0], pA[1], mi, mj)
-              const legB = bends(mi, mj, pB[0], pB[1])
-              for (const leg of [legA, legB]) for (let e = 1; e < leg.length; e++) {
-                if (!rockLine(leg[e - 1]![0], leg[e - 1]![1], leg[e]![0], leg[e]![1], half + wall, ends)) return false
-              }
-              // Another route, not a shortcut: the road stays the short way.
-              let road = 0
-              for (let k = a; k < b; k++) road += Math.hypot(cs[k + 1]!.i - cs[k]!.i, cs[k + 1]!.j - cs[k]!.j)
-              let walk = 0
-              for (const leg of [legA, legB]) for (let e = 1; e < leg.length; e++) walk += Math.hypot(leg[e]![0] - leg[e - 1]![0], leg[e]![1] - leg[e - 1]![1])
-              if (walk + A.r + Bc.r < road * 1.3) return false
-              room(id, mi, mj, rr)
-              cut(id, legA)
-              cut(id, legB)
-              const pack = out.optionalPacks.length
-              out.optionalPacks.push({ x: cx(mi), z: cx(mj), r: rr * CELL, kinds: plainPack(), levelOffset: 0, champion: false, branch: id })
-              claimed[mj * w + mi] = 1
-              out.lobes.push({ x: cx(mi), z: cx(mj), r: rr * CELL, k: a, lift: (brng() - 0.4) * 0.9 })
-              const chest = out.chests.length
-              const tier: ChestTier = brng() < 0.6 ? 'iron' : 'wood'
-              // Out of the way of both legs: on the clearing's outer side.
-              if (!farChest(mi, mj, rr, ri, mj, tier, 'bypass', pack)) return false
-              const ux = (pA[0] - A.i) / (A.r - 0.6)
-              const uz = (pA[1] - A.j) / (A.r - 0.6)
-              out.branches.push({
-                id, kind: 'loop', from: a, to: b, x: cx(mi), z: cx(mj), r: rr * CELL,
-                way: [...legA, ...legB.slice(1)].map(([i, j]) => ({ x: cx(i), z: cx(j) })),
-                pack, chest, style: B.style
-              })
-              return fork(id, A, ux, uz, false)
-            })
-            if (ok) { laid = true; break }
+            if (tryLoop(a, b, mi, mj, rr, ri)) { laid = true; break }
           }
         }
       }
@@ -756,7 +789,7 @@ export const addFeatures = (c: FeatureCtx): Features => {
               const D = from.r + ra + gap
               const ai = Math.round(from.i + side * Math.cos(th) * D)
               const aj = Math.round(from.j + Math.sin(th) * D)
-              if (!virgin(ai, aj, ra + 2.5)) continue
+              if (!virgin(ai, aj, ra + 2.5) || !offRoad(ai, aj)) continue
               const id = out.branches.length
               const ok = attempt(() => {
                 const l = Math.hypot(ai - from.i, aj - from.j) || 1
@@ -1020,6 +1053,13 @@ export const addFeatures = (c: FeatureCtx): Features => {
     const rr = champion ? 3.3 : 2.6
     const s = site(1, midHi, rr, 2.4)
     if (!s) return false
+    // Well off the road (a layout's way may pass beside a clearing): the
+    // reference walk goes by without waking it.
+    for (let dj = -5; dj <= 5; dj++) for (let di = -5; di <= 5; di++) {
+      const i = s.i + di
+      const j = s.j + dj
+      if (inside(i, j) && trail[j * w + i] && Math.hypot(di, dj) * CELL <= 7) return false
+    }
     const from = cs[s.k]!
     // A champion waits on a knoll; a guard a little above the clearing.
     out.lobes.push({ x: cx(s.i), z: cx(s.j), r: rr * CELL, k: s.k, lift: champion ? 0.75 : 0.3 })
@@ -1062,6 +1102,10 @@ export const addFeatures = (c: FeatureCtx): Features => {
     const rr = 2.3
     const s = site(0, midHi, rr, 4.2)
     if (!s) return false
+    // Its guard stands well off the road too (a layout's way may pass beside a clearing).
+    for (let dj = -5; dj <= 5; dj++) for (let di = -5; di <= 5; di++) {
+      if (inside(s.i + di, s.j + dj) && trail[(s.j + dj) * w + s.i + di] && Math.hypot(di, dj) * CELL <= 7) return false
+    }
     const from = cs[s.k]!
     const ei = from.i + s.dx * (from.r - 0.6)
     const ej = from.j + s.dz * (from.r - 0.6)
@@ -1274,8 +1318,11 @@ export const addFeatures = (c: FeatureCtx): Features => {
     return false
   }
 
+  // The plate puzzle first (#120: it came up too seldom, losing its turn to
+  // the side-chest budget), with more tries where the first did not fit.
+  if (f.plates && rng() < f.puzzle) for (let t = 0; t < 3 && !puzzle(); t++) { /* another spot */ }
   const kinds: Array<[() => boolean, number]> = [
-    [() => corner(true), f.champion], [() => corner(false), f.corner], [caveFeature, f.cave], [lagoon, f.lagoon], [puzzle, f.plates ? f.puzzle : 0]
+    [() => corner(true), f.champion], [() => corner(false), f.corner], [caveFeature, f.cave], [lagoon, f.lagoon]
   ]
   for (let q = kinds.length - 1; q > 0; q--) {
     const p = Math.floor(rng() * (q + 1))

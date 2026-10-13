@@ -390,9 +390,13 @@ const water = (): string => {
   return out
 }
 
-/** Where a road crosses a river: the spot and the road's heading there. */
-const crossings = (): Array<{ p: Pt; angle: number }> => {
-  const out: Array<{ p: Pt; angle: number }> = []
+/** Where a road crosses water: the spot, the road's heading there and, when
+ *  the water is wider than a plank bridge, the span to cover (sheet units). */
+export interface Crossing { p: Pt; angle: number; span?: number }
+
+/** Where a road crosses a river of the drawn plate. */
+const crossings = (): Crossing[] => {
+  const out: Crossing[] = []
   for (const road of ROAD_LINES) {
     for (let k = 0; k < RIVER_LINES.length - 1; k++) {
       const river = RIVER_LINES[k]!
@@ -411,14 +415,22 @@ const crossings = (): Array<{ p: Pt; angle: number }> => {
   return out
 }
 
+/** A plank bridge drawn at a crossing: 38 units long, longer over wider water. */
+const bridgeSvg = (c: Crossing): string => {
+  const h = Math.max(19, Math.round((c.span ?? 0) / 2))
+  let planks = ''
+  for (let x = -h + 9; x <= h - 9; x += 10) planks += `M${x}-10V10`
+  return `<g transform="translate(${r1(c.p[0])} ${r1(c.p[1])}) rotate(${r1(c.angle)})">` +
+    `<rect x="${-h}" y="-10" width="${h * 2}" height="20" rx="3" fill="${C.wood}" stroke="${INK}" stroke-width="3"/>` +
+    line(planks, C.woodLo, 2.200) + line(`M${-h - 2}-12H${h + 2}M${-h - 2} 12H${h + 2}`, INK, 3.400) + '</g>'
+}
+
 /**
  * A plank bridge wherever a road meets a river. On the plate, and drawn again
  * by the map screen over the travelled roads, which would otherwise cover it.
+ * The screen over the painted sheet passes the painting's own crossings (#119).
  */
-export const mapBridgesSvg = (): string => crossings().map(c =>
-  `<g transform="translate(${r1(c.p[0])} ${r1(c.p[1])}) rotate(${r1(c.angle)})">` +
-  `<rect x="-19" y="-10" width="38" height="20" rx="3" fill="${C.wood}" stroke="${INK}" stroke-width="3"/>` +
-  line('M-10-10V10M0-10V10M10-10V10', C.woodLo, 2.200) + line('M-21-12H21M-21 12H21', INK, 3.400) + '</g>').join('')
+export const mapBridgesSvg = (at: readonly Crossing[] = crossings()): string => at.map(bridgeSvg).join('')
 
 const roads = (): string => {
   let out = ''

@@ -151,6 +151,16 @@ describe('the best wave in the save', () => {
 
   const tally = (waves: number) => ({ xp: 10, gold: 10, kills: 3, items: [], seconds: 60, waves })
 
+  it('calls the hero after the story, until the first mythic prize is won (#117)', () => {
+    expect(p.arenaCalling()).toBe(false)
+    p.markTip('endingSeen')
+    expect(p.arenaCalling()).toBe(true)
+    p.profile.world.arenaBest = 9
+    expect(p.arenaCalling()).toBe(true)
+    p.profile.world.arenaBest = 10
+    expect(p.arenaCalling()).toBe(false)
+  })
+
   it('a fall ends a climb without the gold toll, and still records the waves cleared', async () => {
     p.profile.gold = 1000
     await f.bankVisit('defeat', 'arena', tally(11))

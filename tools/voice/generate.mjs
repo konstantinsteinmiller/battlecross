@@ -28,7 +28,7 @@
 // Engines: tools/voice/engines/<name>.mjs. Work files: vo-src/gen/<engine>/
 // (raw takes, masters, results.json); designed voices: vo-src/refs/.
 
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs'
+import { existsSync, mkdirSync, readFileSync, statSync, writeFileSync } from 'node:fs'
 import { join, relative } from 'node:path'
 import { pathToFileURL } from 'node:url'
 import { ROOT, VO_SRC, args } from './lib.mjs'
@@ -158,8 +158,9 @@ for (const r of results) {
   // The same take of the same text already shipped there: leave the file be. An
   // Ogg stream gets a random serial number on every encode, so a re-encode
   // changes every byte of an unchanged line and fills the commit with noise.
+  // --force speaks takes again under the same numbers: a master newer than the file is new audio.
   const prev = before.find(p => p.job.id === r.job.id)
-  if (!(prev?.best === best.take && prev.job.hash === r.job.hash && prev.shipped === shipped && existsSync(out))) await encode(best.master, out)
+  if (!(prev?.best === best.take && prev.job.hash === r.job.hash && prev.shipped === shipped && existsSync(out) && statSync(best.master).mtimeMs <= statSync(out).mtimeMs)) await encode(best.master, out)
   r.shipped = shipped
 }
 

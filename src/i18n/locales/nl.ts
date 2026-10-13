@@ -2,6 +2,7 @@
 export default {
   arena: {
     allWon: 'Alle mythische prijzen zijn van jou.',
+    call: 'Het verhaal is verteld. Bewijs nu je build: klim zo ver als je kunt en win de mythische prijzen die niemand anders je kan geven.',
     prize: '{item} is van jou!',
     milestone: 'Golf {n}!',
     next: 'Volgende prijs bij golf {at}: {item}',
@@ -141,6 +142,8 @@ export default {
     cageKey: 'Een sleutel! Die moet de kooi openen.',
     ore: 'Gedolven: {n} × {ore}',
     mineBusy: 'Niet met vijanden in de buurt!',
+    pressureUp: 'Je vijanden worden feller {skulls}',
+    pressureDown: 'Je vijanden nemen gas terug {skulls}',
     item: 'Gevonden: {item}',
     levelUp: 'Level {level}! +3 attribuutpunten',
     boss: '{boss} verschijnt',
@@ -328,6 +331,7 @@ export default {
     questDone: '{quest}: {choice}',
     trainer: 'Verborgen leermeester: {cls}',
     new: 'Nieuw',
+    trueTest: 'De ware beproeving',
     skip: 'Tik om over te slaan',
     compass: {
       n: 'N',
@@ -4683,11 +4687,11 @@ export default {
       },
       favor: {
         '1': 'Niet aan vreemden. Maar bewijs me een gunst, dan worden we vrienden.',
-        '2': 'Boomreuzen in het Fluisterwoud bewaken de maanklokjes die ik nodig heb. Versla er zes en breng me drie maanklokjes.',
+        '2': 'Boomreuzen in het Fluisterwoud bewaken de maanklokjes die ik nodig heb. Versla er vier en breng me twee maanklokjes.',
         say: 'Verkoop je iets?'
       },
       waiting: {
-        '1': 'Zes boomreuzen, drie maanklokjes. De maanklokjes plukken zichzelf helaas niet.',
+        '1': 'Vier boomreuzen, twee maanklokjes. De maanklokjes plukken zichzelf helaas niet.',
         say: 'Over die gunst...'
       },
       favorDone: {
@@ -4759,11 +4763,11 @@ export default {
       },
       favor: {
         '1': 'Alleen aan wie me bij kan houden. Kun jij me bijhouden? Dat gaan we zien.',
-        '2': 'Versla twaalf bandiet-boogschutters aan de Rand van Oakhaven en breng me dan drie snelvarens.',
+        '2': 'Versla acht bandiet-boogschutters aan de Rand van Oakhaven en breng me dan twee snelvarens.',
         say: 'Geef jij boogschietles?'
       },
       waiting: {
-        '1': 'Twaalf bandiet-boogschutters, drie snelvarens. Ga maar! Ik blijf hier. Huppelend.',
+        '1': 'Acht bandiet-boogschutters, twee snelvarens. Ga maar! Ik blijf hier. Huppelend.',
         say: 'Over je test...'
       },
       favorDone: {
@@ -4814,11 +4818,11 @@ export default {
       },
       favor: {
         '1': 'Ja. Ik leer het alleen aan wie het hoofd koel houdt op een hete plek.',
-        '2': 'Doof tien vuurelementalen in de Askliffen. Breng me dan drie takjes vorstmunt.',
+        '2': 'Doof zeven vuurelementalen in de Askliffen. Breng me dan twee takjes vorstmunt.',
         say: 'Is dat zwaard van ijs?'
       },
       waiting: {
-        '1': 'Tien vuurelementalen. Drie takjes vorstmunt. Neem je tijd. Niet te veel tijd.',
+        '1': 'Zeven vuurelementalen. Twee takjes vorstmunt. Neem je tijd. Niet te veel tijd.',
         say: 'Over je test...'
       },
       favorDone: {
@@ -4868,11 +4872,11 @@ export default {
       },
       favor: {
         '1': 'Iedereen heeft een beetje licht vanbinnen. Ik leer mensen het eruit te laten, als ze er klaar voor zijn.',
-        '2': 'Versla tien cultisten in de Askliffen en breng me dan vijf zonnebladen voor mijn lamp.',
+        '2': 'Versla zeven cultisten in de Askliffen en breng me dan drie zonnebladen voor mijn lamp.',
         say: 'Is die lamp magisch?'
       },
       waiting: {
-        '1': 'Tien cultisten, vijf zonnebladen. Versla ze zachtjes. Iedereen verdient een tweede kans.',
+        '1': 'Zeven cultisten, drie zonnebladen. Versla ze zachtjes. Iedereen verdient een tweede kans.',
         say: 'Over je test...'
       },
       favorDone: {
@@ -4922,12 +4926,12 @@ export default {
       },
       favor: {
         '1': 'Praten? Ik luister. Dat trucje leren de meeste mensen nooit.',
-        '2': 'Reuzenspinnen spinnen de dierenpaden in het Fluisterwoud dicht. Ruim er twaalf op.',
+        '2': 'Reuzenspinnen spinnen de dierenpaden in het Fluisterwoud dicht. Ruim er acht op.',
         '3': 'Breng me dan twee maanklokjes voor mijn hol. Braam slaapt beter in de buurt ervan.',
         say: 'Kun jij met dieren praten?'
       },
       waiting: {
-        '1': 'Twaalf spinnen, twee maanklokjes. De dieren wachten. Braam ook.',
+        '1': 'Acht spinnen, twee maanklokjes. De dieren wachten. Braam ook.',
         say: 'Over je test...'
       },
       favorDone: {
@@ -5208,7 +5212,7 @@ export default {
   },
   ending: {
     level: 'Level',
-    more: 'Onder de burcht is de Leegtescheur opengegaan. Het Colosseum neemt nog altijd elke uitdager aan.',
+    more: 'Onder de burcht is de Leegtescheur opengegaan. Maar de ware beproeving van je kracht wacht in het Colosseum: beklim de golven en win de mythische prijzen die alleen de kampioenen bezitten.',
     order: {
       title: 'De IJzeren Vrede',
       text: 'Boven de Gruwelburcht wapperen de banieren van de IJzeren Orde. De wegen zijn veilig, de wetten talrijk, en jouw naam staat boven de poort gebeiteld.'

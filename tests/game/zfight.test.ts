@@ -197,7 +197,7 @@ describe('z-fighting: every static model', () => {
     const { Sim } = await import('@/game/sim/world')
     const { applyPlan, populateZone } = await import('@/game/sim/director')
     const bad: string[] = []
-    for (const z of ['plains', 'hollows', 'woods', 'crags', 'mines', 'temple', 'fortress'] as const) {
+    for (const z of ['plains', 'hollows', 'woods', 'outskirts', 'crags', 'mines', 'tundra', 'temple', 'citadel', 'peak', 'fortress', 'rift'] as const) {
       for (const seed of [3, 11]) {
         const plan = generateZone(ZONES[z], seed)
         setGround({ w: plan.w, h: plan.h, height: plan.height })

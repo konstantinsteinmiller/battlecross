@@ -2,6 +2,7 @@
 export default {
   arena: {
     allWon: 'Sve mitske nagrade su tvoje.',
+    call: 'Priča je ispričana. Sad dokaži svoj build: popni se koliko god možeš i osvoji mitske nagrade koje ti nitko drugi ne može dati.',
     prize: 'Nagrada osvojena: {item}!',
     milestone: 'Val {n}!',
     next: 'Sljedeća nagrada na valu {at}: {item}',
@@ -141,6 +142,8 @@ export default {
     cageKey: 'Ključ! Sigurno otvara kavez.',
     ore: 'Iskopano: {n} × {ore}',
     mineBusy: 'Ne dok su neprijatelji blizu!',
+    pressureUp: 'Tvoji neprijatelji postaju žešći {skulls}',
+    pressureDown: 'Tvoji neprijatelji popuštaju {skulls}',
     item: 'Pronađeno: {item}',
     levelUp: 'Razina {level}! +3 boda atributa',
     boss: 'Dolazi: {boss}',
@@ -330,6 +333,7 @@ export default {
     questDone: '{quest}: {choice}',
     trainer: 'Skriveni učitelj: {cls}',
     new: 'Novo',
+    trueTest: 'Pravi ispit',
     skip: 'Dodirni za preskakanje',
     compass: {
       n: 'S',
@@ -4781,11 +4785,11 @@ export default {
       },
       favor: {
         '1': 'Ne strancima. Ali učini mi uslugu i bit ćemo prijatelji.',
-        '2': 'Drvodivi u Šaptavoj šumi čuvaju mjesečeva zvonca koja trebam. Pobijedi njih šest i donesi mi tri zvonca.',
+        '2': 'Drvodivi u Šaptavoj šumi čuvaju mjesečeva zvonca koja trebam. Pobijedi njih četiri i donesi mi dva zvonca.',
         say: 'Prodaješ li nešto?'
       },
       waiting: {
-        '1': 'Šest drvodiva, tri mjesečeva zvonca. Nažalost, zvonca se neće sama ubrati.',
+        '1': 'Četiri drvodiva, dva mjesečeva zvonca. Nažalost, zvonca se neće sama ubrati.',
         say: 'Što se tiče te usluge...'
       },
       favorDone: {
@@ -4857,11 +4861,11 @@ export default {
       },
       favor: {
         '1': 'Samo one koji me mogu pratiti. Možeš li ti? Idemo provjeriti.',
-        '2': 'Pobijedi dvanaest razbojnika strijelaca u Okolici Oakhavena, pa mi donesi tri brze paprati.',
+        '2': 'Pobijedi osam razbojnika strijelaca u Okolici Oakhavena, pa mi donesi dvije brze paprati.',
         say: 'Podučavaš li streličarstvo?'
       },
       waiting: {
-        '1': 'Dvanaest razbojnika strijelaca, tri brze paprati. Hajde! Bit ću tu. Skakutat ću.',
+        '1': 'Osam razbojnika strijelaca, dvije brze paprati. Hajde! Bit ću tu. Skakutat ću.',
         say: 'Što se tiče kušnje...'
       },
       favorDone: {
@@ -4912,11 +4916,11 @@ export default {
       },
       favor: {
         '1': 'Jest. Učim ga samo one koji na vrućem mjestu ostanu hladne glave.',
-        '2': 'Ugasi deset vatrenih elementala na Pepeljastim liticama. Zatim mi donesi tri grančice mrazne metvice.',
+        '2': 'Ugasi sedam vatrenih elementala na Pepeljastim liticama. Zatim mi donesi dvije grančice mrazne metvice.',
         say: 'Je li taj mač od leda?'
       },
       waiting: {
-        '1': 'Deset vatrenih elementala. Tri grančice mrazne metvice. Ne žuri. Ali ni previše ne odugovlači.',
+        '1': 'Sedam vatrenih elementala. Dvije grančice mrazne metvice. Ne žuri. Ali ni previše ne odugovlači.',
         say: 'Što se tiče kušnje...'
       },
       favorDone: {
@@ -4966,11 +4970,11 @@ export default {
       },
       favor: {
         '1': 'Svatko u sebi ima malo svjetla. Učim ljude da ga puste van, kad za to dođe vrijeme.',
-        '2': 'Pobijedi deset kultista na Pepeljastim liticama, pa mi donesi pet sunčanih latica za moju svjetiljku.',
+        '2': 'Pobijedi sedam kultista na Pepeljastim liticama, pa mi donesi tri sunčane latice za moju svjetiljku.',
         say: 'Je li ta svjetiljka čarobna?'
       },
       waiting: {
-        '1': 'Deset kultista, pet sunčanih latica. Pobijedi ih nježno. Svatko zaslužuje drugu priliku.',
+        '1': 'Sedam kultista, tri sunčane latice. Pobijedi ih nježno. Svatko zaslužuje drugu priliku.',
         say: 'Što se tiče kušnje...'
       },
       favorDone: {
@@ -5020,12 +5024,12 @@ export default {
       },
       favor: {
         '1': 'Razgovarati? Ja slušam. To je trik koji većina nikad ne nauči.',
-        '2': 'Divovski pauci zapliću mrežama životinjske staze u Šaptavoj šumi. Očisti dvanaest.',
+        '2': 'Divovski pauci zapliću mrežama životinjske staze u Šaptavoj šumi. Očisti osam.',
         '3': 'Onda mi donesi dva mjesečeva zvonca za moju jazbinu. Kupina bolje spava uz njih.',
         say: 'Možeš li razgovarati sa životinjama?'
       },
       waiting: {
-        '1': 'Dvanaest pauka, dva mjesečeva zvonca. Životinje čekaju. I Kupina.',
+        '1': 'Osam pauka, dva mjesečeva zvonca. Životinje čekaju. I Kupina.',
         say: 'Što se tiče kušnje...'
       },
       favorDone: {
@@ -5306,7 +5310,7 @@ export default {
   },
   ending: {
     level: 'Razina',
-    more: 'Pod tvrđavom se otvorio Rascjep Praznine. Koloseum i dalje prima svakoga tko dođe.',
+    more: 'Pod tvrđavom se otvorio Rascjep Praznine. No pravi ispit tvoje snage čeka u Koloseumu: probij se kroz njegove valove i osvoji mitske nagrade koje imaju samo njegovi prvaci.',
     order: {
       title: 'Željezni mir',
       text: 'Nad Tvrđavom užasa vijore se stjegovi Željeznog reda. Ceste su sigurne, zakona je mnogo, a tvoje je ime uklesano iznad vrata.'

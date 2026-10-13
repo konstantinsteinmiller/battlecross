@@ -2,6 +2,7 @@
 export default {
   arena: {
     allWon: 'Kaikki myyttiset palkinnot ovat sinun.',
+    call: 'Tarina on kerrottu. Todista nyt buildisi: kiipeä niin pitkälle kuin pystyt ja voita myyttiset palkinnot, joita kukaan muu ei voi sinulle antaa.',
     prize: '{item} on sinun!',
     milestone: 'Aalto {n}!',
     next: 'Seuraava palkinto aallolla {at}: {item}',
@@ -141,6 +142,8 @@ export default {
     cageKey: 'Avain! Sen täytyy avata häkki.',
     ore: 'Louhittu: {n} × {ore}',
     mineBusy: 'Ei vihollisten lähellä!',
+    pressureUp: 'Vihollisesi käyvät hurjemmiksi {skulls}',
+    pressureDown: 'Vihollisesi hellittävät {skulls}',
     item: 'Löytyi: {item}',
     levelUp: 'Taso {level}! +3 ominaisuuspistettä',
     boss: '{boss} saapuu',
@@ -327,6 +330,7 @@ export default {
     questDone: '{quest}: {choice}',
     trainer: 'Piilotettu kouluttaja: {cls}',
     new: 'Uusi',
+    trueTest: 'Todellinen koetus',
     skip: 'Ohita napauttamalla',
     compass: {
       n: 'P',
@@ -4672,11 +4676,11 @@ export default {
       },
       favor: {
         '1': 'En vieraille. Mutta tee minulle palvelus, niin meistä tulee ystävät.',
-        '2': 'Puuhenget Kuiskaavassa metsässä vartioivat kuunkelloja, joita tarvitsen. Voita kuusi niistä ja tuo minulle kolme kuunkelloa.',
+        '2': 'Puuhenget Kuiskaavassa metsässä vartioivat kuunkelloja, joita tarvitsen. Voita neljä niistä ja tuo minulle kaksi kuunkelloa.',
         say: 'Myytkö mitään?'
       },
       waiting: {
-        '1': 'Kuusi puuhenkeä, kolme kuunkelloa. Valitettavasti kuunkellot eivät poimi itseään.',
+        '1': 'Neljä puuhenkeä, kaksi kuunkelloa. Valitettavasti kuunkellot eivät poimi itseään.',
         say: 'Siitä palveluksesta...'
       },
       favorDone: {
@@ -4748,11 +4752,11 @@ export default {
       },
       favor: {
         '1': 'Vain niille, jotka pysyvät perässä. Pysytkö sinä? Otetaan selvää.',
-        '2': 'Voita kaksitoista rosvojousimiestä Oakhavenin laitamilla ja tuo sitten kolme pikasaniaista.',
+        '2': 'Voita kahdeksan rosvojousimiestä Oakhavenin laitamilla ja tuo sitten kaksi pikasaniaista.',
         say: 'Opetatko jousiammuntaa?'
       },
       waiting: {
-        '1': 'Kaksitoista rosvojousimiestä, kolme pikasaniaista. Mene jo! Minä olen tässä. Pomppimassa.',
+        '1': 'Kahdeksan rosvojousimiestä, kaksi pikasaniaista. Mene jo! Minä olen tässä. Pomppimassa.',
         say: 'Siitä kokeestasi...'
       },
       favorDone: {
@@ -4803,11 +4807,11 @@ export default {
       },
       favor: {
         '1': 'On. Opetan sitä vain niille, jotka pitävät pään kylmänä kuumassa paikassa.',
-        '2': 'Sammuta kymmenen tulielementaalia Tuhkakallioilla. Tuo sitten kolme oksaa pakkasminttua.',
+        '2': 'Sammuta seitsemän tulielementaalia Tuhkakallioilla. Tuo sitten kaksi oksaa pakkasminttua.',
         say: 'Onko tuo miekka jäätä?'
       },
       waiting: {
-        '1': 'Kymmenen tulielementaalia. Kolme oksaa pakkasminttua. Ota aikaa. Ei liikaa aikaa.',
+        '1': 'Seitsemän tulielementaalia. Kaksi oksaa pakkasminttua. Ota aikaa. Ei liikaa aikaa.',
         say: 'Siitä kokeestasi...'
       },
       favorDone: {
@@ -4857,11 +4861,11 @@ export default {
       },
       favor: {
         '1': 'Jokaisen sisällä on pieni valo. Opetan ihmisiä päästämään sen esiin, kun he ovat valmiita.',
-        '2': 'Voita kymmenen kultistia Tuhkakallioilla ja tuo sitten viisi aurinkoterää lamppuuni.',
+        '2': 'Voita seitsemän kultistia Tuhkakallioilla ja tuo sitten kolme aurinkoterää lamppuuni.',
         say: 'Onko tuo lamppu taikaa?'
       },
       waiting: {
-        '1': 'Kymmenen kultistia, viisi aurinkoterää. Voita heidät lempeästi. Jokainen ansaitsee toisen mahdollisuuden.',
+        '1': 'Seitsemän kultistia, kolme aurinkoterää. Voita heidät lempeästi. Jokainen ansaitsee toisen mahdollisuuden.',
         say: 'Siitä kokeestasi...'
       },
       favorDone: {
@@ -4911,12 +4915,12 @@ export default {
       },
       favor: {
         '1': 'Puhua? Minä kuuntelen. Sitä temppua useimmat eivät koskaan opi.',
-        '2': 'Jättihämähäkit tukkivat eläinpolkuja seitillä Kuiskaavassa metsässä. Raivaa kaksitoista.',
+        '2': 'Jättihämähäkit tukkivat eläinpolkuja seitillä Kuiskaavassa metsässä. Raivaa kahdeksan.',
         '3': 'Tuo sitten kaksi kuunkelloa pesääni. Vatukka nukkuu paremmin niiden lähellä.',
         say: 'Osaatko puhua eläimille?'
       },
       waiting: {
-        '1': 'Kaksitoista hämähäkkiä, kaksi kuunkelloa. Eläimet odottavat. Niin Vatukkakin.',
+        '1': 'Kahdeksan hämähäkkiä, kaksi kuunkelloa. Eläimet odottavat. Niin Vatukkakin.',
         say: 'Siitä kokeestasi...'
       },
       favorDone: {
@@ -5197,7 +5201,7 @@ export default {
   },
   ending: {
     level: 'Taso',
-    more: 'Tyhjyyden repeämä on auennut linnoituksen alle. Kolosseum ottaa yhä vastaan kaikki tulijat.',
+    more: 'Tyhjyyden repeämä on auennut linnoituksen alle. Mutta voimasi todellinen koetus odottaa Kolosseumissa: kiipeä sen aaltojen läpi ja voita myyttiset palkinnot, jotka ovat vain sen mestareilla.',
     order: {
       title: 'Rautarauha',
       text: 'Rautaritarikunnan viirit liehuvat Kauhun linnoituksen yllä. Tiet ovat turvallisia, lakeja on paljon, ja nimesi on kaiverrettu portin ylle.'

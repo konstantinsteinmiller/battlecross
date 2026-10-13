@@ -196,7 +196,9 @@ describe('the plan: everything a visit holds can be walked to', () => {
     // bosses lead the middle pack of four zones (D85).
     // #103: five zones are laid out in shapes of their own (gorge, halls,
     // fields, switchbacks, the lake), so their packs stand elsewhere.
-    expect(h >>> 0).toBe(2148164945)
+    // #120: every zone has a layout of its own (lava tongues, the path round
+    // the Peak, galleries, courts, the castle, the Rift's islands).
+    expect(h >>> 0).toBe(1175953905)
     expect(generateZone(ZONES.plains, 77).packs.map(p => p.kinds)).toEqual([
       ['goblinSlinger', 'goblin', 'goblin'], ['goblinSlinger', 'goblin'], ['banditChief', 'bandit', 'goblinSlinger']
     ])
@@ -270,7 +272,21 @@ describe('water', () => {
   })
 
   it('blocks feet but not eyes or shots', () => {
-    const seed = seedWith('woods', p => p.rivers.length > 0)
+    // Seen across: bank to bank over the rows of water beside the bridge, at
+    // a column where both banks are open ground (a narrow woodland trail can
+    // have the trees close on either side of its bridge: a seed whose river
+    // runs out through a clearing, #120).
+    const across = (plan: ZonePlan): number | undefined => {
+      const bridge = plan.crossings.find(c => c.kind === 'bridge')
+      if (!bridge) return undefined
+      const bank = (i2: number, j2: number): boolean => !plan.solid[j2 * plan.w + i2] && plan.kind[j2 * plan.w + i2] !== K_WATER
+      const ok = (i2: number): boolean => {
+        for (let jj = bridge.j0; jj <= bridge.j1; jj++) if (plan.kind[jj * plan.w + i2] !== K_WATER) return false
+        return bank(i2, bridge.j0 - 1) && bank(i2, bridge.j1 + 1)
+      }
+      return [-1, 1, -2, 2, -3, 3, -4, 4].map(d => d < 0 ? bridge.i0 + d : bridge.i1 + d).find(ok)
+    }
+    const seed = seedWith('woods', p => p.rivers.length > 0 && across(p) !== undefined)
     const plan = generateZone(ZONES.woods, seed)
     const g = gridOf(plan)
     const r = plan.rivers[0]!
@@ -280,12 +296,8 @@ describe('water', () => {
     expect(plan.kind[j * plan.w + i]).toBe(K_WATER)
     expect(isSolidCell(g, i, j)).toBe(true)
     expect(g.solid[j * plan.w + i]).toBe(SOLID_LOW)
-    // Seen across: bank to bank over three rows of water (to a spot on the far
-    // bank beside the bridge that is open ground, not the rock by the road).
-    const x = (bridge.i0 + 1) * CELL
-    const o = [-2, 2, -3, 3].find(d => !(g.solid[(bridge.j1 + 1) * plan.w + bridge.i0 + 1 + d]! & 1))!
-    expect(o).toBeDefined()
-    expect(hasLineOfSight(g, x, (bridge.j0 - 1 + 0.5) * CELL, x + o * CELL, (bridge.j1 + 1 + 0.5) * CELL)).toBe(true)
+    const x = (across(plan)! + 0.5) * CELL
+    expect(hasLineOfSight(g, x, (bridge.j0 - 1 + 0.5) * CELL, x, (bridge.j1 + 1 + 0.5) * CELL)).toBe(true)
 
     // A strip of water between two banks: a body pushed at it stops on the
     // bank, a shot crosses it, and a rock in the same place stops both.

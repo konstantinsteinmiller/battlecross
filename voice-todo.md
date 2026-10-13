@@ -767,9 +767,9 @@ Nothing: every line has its recording.
 | `dlg.sbCollector.trade.1` | Alder Vane (sbCollector) | sbCollector | The cabinets are open. Only the best, and I remember every price. | chatterbox |
 | `dlg.sbCollector.favor.say` | The hero (hero) | sbCollector | Do you sell anything? | chatterbox |
 | `dlg.sbCollector.favor.1` | Alder Vane (sbCollector) | sbCollector | Not to strangers. But do me a favour and we'll be friends. | chatterbox |
-| `dlg.sbCollector.favor.2` | Alder Vane (sbCollector) | sbCollector | Treants in the Whispering Woods guard the moonbells I need. Beat six of them and bring me three moonbells. | chatterbox |
+| `dlg.sbCollector.favor.2` | Alder Vane (sbCollector) | sbCollector | Treants in the Whispering Woods guard the moonbells I need. Beat four of them and bring me two moonbells. | chatterbox |
 | `dlg.sbCollector.waiting.say` | The hero (hero) | sbCollector | About that favour... | chatterbox |
-| `dlg.sbCollector.waiting.1` | Alder Vane (sbCollector) | sbCollector | Six treants, three moonbells. The moonbells won't pick themselves, sadly. | chatterbox |
+| `dlg.sbCollector.waiting.1` | Alder Vane (sbCollector) | sbCollector | Four treants, two moonbells. The moonbells won't pick themselves, sadly. | chatterbox |
 | `dlg.sbCollector.favorDone.say` | The hero (hero) | sbCollector | I brought your moonbells. | chatterbox |
 | `dlg.sbCollector.favorDone.1` | Alder Vane (sbCollector) | sbCollector | Oh, they still smell of the woods! Wonderful. | chatterbox |
 | `dlg.sbCollector.favorDone.2` | Alder Vane (sbCollector) | sbCollector | A deal's a deal. My cabinets are yours to look through, any time. | chatterbox |
@@ -950,9 +950,9 @@ Nothing: every line has its recording.
 | `dlg.sbMasterWindrunner.train.1` | Sefa Galewing (sbMasterWindrunner) | sbMasterWindrunner | Feel the wind on your cheek? Aim a little left of where you think. Now let go! | chatterbox |
 | `dlg.sbMasterWindrunner.favor.say` | The hero (hero) | sbMasterWindrunner | Do you teach archery? | chatterbox |
 | `dlg.sbMasterWindrunner.favor.1` | Sefa Galewing (sbMasterWindrunner) | sbMasterWindrunner | Only to people who can keep up. Can you keep up? Let's find out. | chatterbox |
-| `dlg.sbMasterWindrunner.favor.2` | Sefa Galewing (sbMasterWindrunner) | sbMasterWindrunner | Beat twelve bandit archers in the Oakhaven Outskirts, then bring me three swiftferns. | chatterbox |
+| `dlg.sbMasterWindrunner.favor.2` | Sefa Galewing (sbMasterWindrunner) | sbMasterWindrunner | Beat eight bandit archers in the Oakhaven Outskirts, then bring me two swiftferns. | chatterbox |
 | `dlg.sbMasterWindrunner.waiting.say` | The hero (hero) | sbMasterWindrunner | About your test... | chatterbox |
-| `dlg.sbMasterWindrunner.waiting.1` | Sefa Galewing (sbMasterWindrunner) | sbMasterWindrunner | Twelve bandit archers, three swiftferns. Go on! I'll be right here. Bouncing. | chatterbox |
+| `dlg.sbMasterWindrunner.waiting.1` | Sefa Galewing (sbMasterWindrunner) | sbMasterWindrunner | Eight bandit archers, two swiftferns. Go on! I'll be right here. Bouncing. | chatterbox |
 | `dlg.sbMasterWindrunner.favorDone.say` | The hero (hero) | sbMasterWindrunner | The archers are beaten, and here are your swiftferns. | chatterbox |
 | `dlg.sbMasterWindrunner.favorDone.1` | Sefa Galewing (sbMasterWindrunner) | sbMasterWindrunner | Ha! You actually kept up! Nobody keeps up! | chatterbox |
 | `dlg.sbMasterWindrunner.favorDone.2` | Sefa Galewing (sbMasterWindrunner) | sbMasterWindrunner | Right, you're my pupil now. One rule: no sitting down in my lessons. | chatterbox |
@@ -973,9 +973,9 @@ Nothing: every line has its recording.
 | `dlg.sbMasterFrostwarden.train.1` | Halvard Rimeheart (sbMasterFrostwarden) | sbMasterFrostwarden | Breathe out slowly. See the mist? Now put it into the blade. | chatterbox |
 | `dlg.sbMasterFrostwarden.favor.say` | The hero (hero) | sbMasterFrostwarden | Is that sword made of ice? | chatterbox |
 | `dlg.sbMasterFrostwarden.favor.1` | Halvard Rimeheart (sbMasterFrostwarden) | sbMasterFrostwarden | It is. I teach it only to those who keep a cool head in a hot place. | chatterbox |
-| `dlg.sbMasterFrostwarden.favor.2` | Halvard Rimeheart (sbMasterFrostwarden) | sbMasterFrostwarden | Put out ten fire elementals in the Ashen Crags. Then bring me three sprigs of frostmint. | chatterbox |
+| `dlg.sbMasterFrostwarden.favor.2` | Halvard Rimeheart (sbMasterFrostwarden) | sbMasterFrostwarden | Put out seven fire elementals in the Ashen Crags. Then bring me two sprigs of frostmint. | chatterbox |
 | `dlg.sbMasterFrostwarden.waiting.say` | The hero (hero) | sbMasterFrostwarden | About your test... | chatterbox |
-| `dlg.sbMasterFrostwarden.waiting.1` | Halvard Rimeheart (sbMasterFrostwarden) | sbMasterFrostwarden | Ten fire elementals. Three sprigs of frostmint. Take your time. Not too much time. | chatterbox |
+| `dlg.sbMasterFrostwarden.waiting.1` | Halvard Rimeheart (sbMasterFrostwarden) | sbMasterFrostwarden | Seven fire elementals. Two sprigs of frostmint. Take your time. Not too much time. | chatterbox |
 | `dlg.sbMasterFrostwarden.favorDone.say` | The hero (hero) | sbMasterFrostwarden | The fire elementals are out. Here is your frostmint. | chatterbox |
 | `dlg.sbMasterFrostwarden.favorDone.1` | Halvard Rimeheart (sbMasterFrostwarden) | sbMasterFrostwarden | Hm. Not even singed. Good. | chatterbox |
 | `dlg.sbMasterFrostwarden.favorDone.2` | Halvard Rimeheart (sbMasterFrostwarden) | sbMasterFrostwarden | You kept a cool head. That was the first lesson. I will teach you the rest. | chatterbox |
@@ -995,9 +995,9 @@ Nothing: every line has its recording.
 | `dlg.sbMasterLightbringer.train.1` | Sister Auriel Dawnmere (sbMasterLightbringer) | sbMasterLightbringer | Hands open, chin up. Think of the best morning you ever had. There. Feel that? | chatterbox |
 | `dlg.sbMasterLightbringer.favor.say` | The hero (hero) | sbMasterLightbringer | Is that lamp magic? | chatterbox |
 | `dlg.sbMasterLightbringer.favor.1` | Sister Auriel Dawnmere (sbMasterLightbringer) | sbMasterLightbringer | Everyone has a little light inside. I teach people to let it out, when they're ready. | chatterbox |
-| `dlg.sbMasterLightbringer.favor.2` | Sister Auriel Dawnmere (sbMasterLightbringer) | sbMasterLightbringer | Beat ten cultists in the Ashen Crags, then bring me five sunpetals for my lamp. | chatterbox |
+| `dlg.sbMasterLightbringer.favor.2` | Sister Auriel Dawnmere (sbMasterLightbringer) | sbMasterLightbringer | Beat seven cultists in the Ashen Crags, then bring me three sunpetals for my lamp. | chatterbox |
 | `dlg.sbMasterLightbringer.waiting.say` | The hero (hero) | sbMasterLightbringer | About your test... | chatterbox |
-| `dlg.sbMasterLightbringer.waiting.1` | Sister Auriel Dawnmere (sbMasterLightbringer) | sbMasterLightbringer | Ten cultists, five sunpetals. Beat them gently. Everyone deserves a second chance. | chatterbox |
+| `dlg.sbMasterLightbringer.waiting.1` | Sister Auriel Dawnmere (sbMasterLightbringer) | sbMasterLightbringer | Seven cultists, three sunpetals. Beat them gently. Everyone deserves a second chance. | chatterbox |
 | `dlg.sbMasterLightbringer.favorDone.say` | The hero (hero) | sbMasterLightbringer | The cultists are beaten. Here are your sunpetals. | chatterbox |
 | `dlg.sbMasterLightbringer.favorDone.1` | Sister Auriel Dawnmere (sbMasterLightbringer) | sbMasterLightbringer | Oh, look at them! The lamp will glow golden for a month. | chatterbox |
 | `dlg.sbMasterLightbringer.favorDone.2` | Sister Auriel Dawnmere (sbMasterLightbringer) | sbMasterLightbringer | And so will you, dear. I'd be glad to teach you. | chatterbox |
@@ -1017,10 +1017,10 @@ Nothing: every line has its recording.
 | `dlg.sbMasterBeastcaller.train.1` | Old Rowan Thistlefoot (sbMasterBeastcaller) | sbMasterBeastcaller | Crouch down. Slower. Hold out your hand and let them come to you. Good. | chatterbox |
 | `dlg.sbMasterBeastcaller.favor.say` | The hero (hero) | sbMasterBeastcaller | Can you talk to animals? | chatterbox |
 | `dlg.sbMasterBeastcaller.favor.1` | Old Rowan Thistlefoot (sbMasterBeastcaller) | sbMasterBeastcaller | Talk? I listen. That's the trick most people never learn. | chatterbox |
-| `dlg.sbMasterBeastcaller.favor.2` | Old Rowan Thistlefoot (sbMasterBeastcaller) | sbMasterBeastcaller | Giant spiders are webbing up the animal trails in the Whispering Woods. Clear twelve. | chatterbox |
+| `dlg.sbMasterBeastcaller.favor.2` | Old Rowan Thistlefoot (sbMasterBeastcaller) | sbMasterBeastcaller | Giant spiders are webbing up the animal trails in the Whispering Woods. Clear eight. | chatterbox |
 | `dlg.sbMasterBeastcaller.favor.3` | Old Rowan Thistlefoot (sbMasterBeastcaller) | sbMasterBeastcaller | Then bring me two moonbells for my den. Bramble sleeps better near them. | chatterbox |
 | `dlg.sbMasterBeastcaller.waiting.say` | The hero (hero) | sbMasterBeastcaller | About your test... | chatterbox |
-| `dlg.sbMasterBeastcaller.waiting.1` | Old Rowan Thistlefoot (sbMasterBeastcaller) | sbMasterBeastcaller | Twelve spiders, two moonbells. The animals are waiting. So is Bramble. | chatterbox |
+| `dlg.sbMasterBeastcaller.waiting.1` | Old Rowan Thistlefoot (sbMasterBeastcaller) | sbMasterBeastcaller | Eight spiders, two moonbells. The animals are waiting. So is Bramble. | chatterbox |
 | `dlg.sbMasterBeastcaller.favorDone.say` | The hero (hero) | sbMasterBeastcaller | The trails are clear, and here are your moonbells. | chatterbox |
 | `dlg.sbMasterBeastcaller.favorDone.1` | Old Rowan Thistlefoot (sbMasterBeastcaller) | sbMasterBeastcaller | Hm. The deer came down to the river this morning. Thought it might be you. | chatterbox |
 | `dlg.sbMasterBeastcaller.favorDone.2` | Old Rowan Thistlefoot (sbMasterBeastcaller) | sbMasterBeastcaller | Fine. I'll teach you. Don't make a fuss. Bramble, stop wagging. | chatterbox |
@@ -1286,7 +1286,7 @@ Nothing: every line has its recording.
 | `ending.note.oracleSlain` | The hero, telling the story (hero) | ending | The Sunken Temple is silent. No one knows what comes next any more. | chatterbox |
 | `ending.note.dragonPact` | The hero, telling the story (hero) | ending | A dragon nests on the fortress roof, and answers to one name only. | chatterbox |
 | `ending.note.dragonSlain` | The hero, telling the story (hero) | ending | A dragon's skull hangs in the Order's great hall. | chatterbox |
-| `ending.more` | The hero, telling the story (hero) | ending | The Void Rift has opened beneath the fortress. The Colosseum still takes all comers. | chatterbox |
+| `ending.more` | The hero, telling the story (hero) | ending | The Void Rift has opened beneath the fortress. But the true test of your power waits in the Colosseum: climb its waves, and win the mythic prizes only its champions hold. | chatterbox |
 | `dlg.hero.bye__f` | The girl hero (heroine) | hero | I'll let you get on. | chatterbox |
 | `dlg.hero.trade__f` | The girl hero (heroine) | hero | Can I see what you've got? | chatterbox |
 | `dlg.hero.who__f` | The girl hero (heroine) | hero | Who are you, if you don't mind me asking? | chatterbox |
@@ -1488,4 +1488,4 @@ Nothing: every line has its recording.
 | `ending.note.oracleSlain__f` | The girl hero, telling the story (heroine) | ending | The Sunken Temple is silent. No one knows what comes next any more. | chatterbox |
 | `ending.note.dragonPact__f` | The girl hero, telling the story (heroine) | ending | A dragon nests on the fortress roof, and answers to one name only. | chatterbox |
 | `ending.note.dragonSlain__f` | The girl hero, telling the story (heroine) | ending | A dragon's skull hangs in the Order's great hall. | chatterbox |
-| `ending.more__f` | The girl hero, telling the story (heroine) | ending | The Void Rift has opened beneath the fortress. The Colosseum still takes all comers. | chatterbox |
+| `ending.more__f` | The girl hero, telling the story (heroine) | ending | The Void Rift has opened beneath the fortress. But the true test of your power waits in the Colosseum: climb its waves, and win the mythic prizes only its champions hold. | chatterbox |

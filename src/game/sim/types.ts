@@ -428,6 +428,8 @@ export type SimEvent =
   | { t: 'denied'; why: 'mana' | 'cooldown' | 'range' | 'target' | 'locked' | 'hp' }
   /** A potion is drunk: the health one, or (`mana`) a mana potion. */
   | { t: 'potion'; mana?: boolean; elixir?: boolean }
+  /** Adaptive pressure stepped (#124): up or down, and its skull pips now. */
+  | { t: 'pressure'; up: boolean; pips: number }
   | { t: 'victory' }
   | { t: 'defeat' }
 

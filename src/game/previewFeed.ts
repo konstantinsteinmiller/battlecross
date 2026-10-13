@@ -77,6 +77,11 @@ export interface PreviewApi {
   walk(points: Array<[number, number]>): void
   /** Every sound the game asked for since `installPreview`, on the page clock (the trailer's sound track). */
   sfxLog(): Array<{ name: string; pan: number; gain: number; t: number }>
+  /** Where things are in the live shot (world metres): the start, the main
+   *  packs (the finale last), the set pieces (#120) and the puzzle's plates. */
+  places(): { start: [number, number]; packs: Array<[number, number]>; pieces: Array<{ kind: string; x: number; z: number }> } | null
+  /** Hold the camera out at `k` times its fitted distance (1: back to normal), for a still of a whole place. */
+  zoom(k: number): void
   state(): PreviewState
 }
 
@@ -218,6 +223,22 @@ export const installPreview = (): void => {
       if (route.length) orderMove(z.sim, route[0]![0], route[0]![1])
     },
     sfxLog: () => sounds,
+
+    zoom(k) {
+      const z = zone()
+      if (z) z.cam.punchZoom(k, 0.05, k === 1 ? 0 : 1e6)
+    },
+
+    places() {
+      const z = zone()
+      if (!z) return null
+      const p = z.plan
+      return {
+        start: [p.start.x, p.start.z],
+        packs: p.packs.map(q => [q.x, q.z] as [number, number]),
+        pieces: [...(p.dressing ?? []).map(d => ({ kind: d.kind as string, x: d.x, z: d.z })), ...p.plates.map(q => ({ kind: 'plate', x: q.x, z: q.z }))]
+      }
+    },
 
     state() {
       const z = zone()

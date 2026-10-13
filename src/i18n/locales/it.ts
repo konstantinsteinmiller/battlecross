@@ -2,6 +2,7 @@
 export default {
   arena: {
     allWon: 'Tutti i premi mitici sono tuoi.',
+    call: 'La storia è raccontata. Ora dimostra il valore della tua build: sali più in alto che puoi e vinci i premi mitici che nessun altro può darti.',
     prize: 'Premio conquistato: {item}!',
     milestone: 'Ondata {n}!',
     next: 'Prossimo premio all’ondata {at}: {item}',
@@ -141,6 +142,8 @@ export default {
     cageKey: 'Una chiave! Deve aprire la gabbia.',
     ore: 'Estratto: {n} × {ore}',
     mineBusy: 'Non con nemici nei paraggi!',
+    pressureUp: 'I tuoi nemici si fanno più feroci {skulls}',
+    pressureDown: 'I tuoi nemici allentano la presa {skulls}',
     item: 'Trovato: {item}',
     levelUp: 'Livello {level}! +3 punti attributo',
     boss: 'Appare: {boss}',
@@ -328,6 +331,7 @@ export default {
     questDone: '{quest}: {choice}',
     trainer: 'Maestro nascosto: {cls}',
     new: 'Nuovo',
+    trueTest: 'La vera prova',
     skip: 'Tocca per saltare',
     compass: {
       n: 'N',
@@ -4749,11 +4753,11 @@ export default {
       },
       favor: {
         '1': 'Non agli sconosciuti. Ma fammi un favore e saremo amici.',
-        '2': 'Dei treant nel Bosco Sussurrante custodiscono le campanule lunari che mi servono. Sconfiggine sei e portami tre campanule lunari.',
+        '2': 'Dei treant nel Bosco Sussurrante custodiscono le campanule lunari che mi servono. Sconfiggine quattro e portami due campanule lunari.',
         say: 'Vendi qualcosa?'
       },
       waiting: {
-        '1': 'Sei treant, tre campanule lunari. Purtroppo le campanule non si raccolgono da sole.',
+        '1': 'Quattro treant, due campanule lunari. Purtroppo le campanule non si raccolgono da sole.',
         say: 'Riguardo a quel favore...'
       },
       favorDone: {
@@ -4825,11 +4829,11 @@ export default {
       },
       favor: {
         '1': 'Solo a chi riesce a starmi dietro. Tu ci riesci? Scopriamolo.',
-        '2': 'Sconfiggi dodici arcieri banditi nei Dintorni di Oakhaven, poi portami tre felci leste.',
+        '2': 'Sconfiggi otto arcieri banditi nei Dintorni di Oakhaven, poi portami due felci leste.',
         say: 'Insegni il tiro con l’arco?'
       },
       waiting: {
-        '1': 'Dodici arcieri banditi, tre felci leste. Vai! Io resto qui. A saltellare.',
+        '1': 'Otto arcieri banditi, due felci leste. Vai! Io resto qui. A saltellare.',
         say: 'Riguardo alla tua prova...'
       },
       favorDone: {
@@ -4880,11 +4884,11 @@ export default {
       },
       favor: {
         '1': 'Sì. La insegno solo a chi tiene la testa fredda in un posto caldo.',
-        '2': 'Spegni dieci elementali del fuoco nelle Rupi di Cenere. Poi portami tre rametti di menta gelida.',
+        '2': 'Spegni sette elementali del fuoco nelle Rupi di Cenere. Poi portami due rametti di menta gelida.',
         say: 'Quella spada è fatta di ghiaccio?'
       },
       waiting: {
-        '1': 'Dieci elementali del fuoco. Tre rametti di menta gelida. Prenditi il tuo tempo. Non troppo.',
+        '1': 'Sette elementali del fuoco. Due rametti di menta gelida. Prenditi il tuo tempo. Non troppo.',
         say: 'Riguardo alla tua prova...'
       },
       favorDone: {
@@ -4934,11 +4938,11 @@ export default {
       },
       favor: {
         '1': 'Tutti hanno un po’ di luce dentro. Io insegno a farla uscire, quando è il momento giusto.',
-        '2': 'Sconfiggi dieci cultisti nelle Rupi di Cenere, poi portami cinque petali solari per la mia lampada.',
+        '2': 'Sconfiggi sette cultisti nelle Rupi di Cenere, poi portami tre petali solari per la mia lampada.',
         say: 'Quella lampada è magica?'
       },
       waiting: {
-        '1': 'Dieci cultisti, cinque petali solari. Sconfiggili con gentilezza. Tutti meritano una seconda possibilità.',
+        '1': 'Sette cultisti, tre petali solari. Sconfiggili con gentilezza. Tutti meritano una seconda possibilità.',
         say: 'Riguardo alla tua prova...'
       },
       favorDone: {
@@ -4988,12 +4992,12 @@ export default {
       },
       favor: {
         '1': 'Parlare? Io ascolto. È il trucco che quasi nessuno impara.',
-        '2': 'I ragni giganti coprono di ragnatele i sentieri degli animali nel Bosco Sussurrante. Sconfiggine dodici.',
+        '2': 'I ragni giganti coprono di ragnatele i sentieri degli animali nel Bosco Sussurrante. Sconfiggine otto.',
         '3': 'Poi portami due campanule lunari per la mia tana. Bramble dorme meglio vicino a loro.',
         say: 'Sai parlare con gli animali?'
       },
       waiting: {
-        '1': 'Dodici ragni, due campanule lunari. Gli animali aspettano. E anche Bramble.',
+        '1': 'Otto ragni, due campanule lunari. Gli animali aspettano. E anche Bramble.',
         say: 'Riguardo alla tua prova...'
       },
       favorDone: {
@@ -5274,7 +5278,7 @@ export default {
   },
   ending: {
     level: 'Livello',
-    more: 'Lo Squarcio del Vuoto si è aperto sotto la fortezza. Il Colosseo accoglie ancora chiunque si presenti.',
+    more: 'Lo Squarcio del Vuoto si è aperto sotto la fortezza. Ma la vera prova del tuo potere ti attende nel Colosseo: supera le sue ondate e vinci i premi mitici che solo i suoi campioni possiedono.',
     order: {
       title: 'La Pace di Ferro',
       text: 'Gli stendardi dell’Ordine di Ferro sventolano sulla Fortezza del Terrore. Le strade sono sicure, le leggi sono tante, e il tuo nome è inciso sopra la porta.'

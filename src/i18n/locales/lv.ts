@@ -2,6 +2,7 @@
 export default {
   arena: {
     allWon: 'Visas mītiskās balvas ir tavas.',
+    call: 'Stāsts ir izstāstīts. Tagad pierādi savu būvējumu: kāp, cik augstu vari, un izcīni mītiskās balvas, ko neviens cits tev nevar dot.',
     prize: '{item} – tagad tavs!',
     milestone: 'Vilnis {n}!',
     next: 'Nākamā balva vilnī {at}: {item}',
@@ -141,6 +142,8 @@ export default {
     cageKey: 'Atslēga! Tai jāatver būris.',
     ore: 'Izrakts: {n} × {ore}',
     mineBusy: 'Ne, kad tuvumā ir ienaidnieki!',
+    pressureUp: 'Tavi ienaidnieki kļūst niknāki {skulls}',
+    pressureDown: 'Tavi ienaidnieki atslābst {skulls}',
     item: 'Atrasts: {item}',
     levelUp: '{level}. līmenis! +3 īpašību punkti',
     boss: 'Parādās {boss}',
@@ -327,6 +330,7 @@ export default {
     questDone: '{quest}: {choice}',
     trainer: 'Slēpts skolotājs: {cls}',
     new: 'Jauns',
+    trueTest: 'Īstais pārbaudījums',
     skip: 'Pieskaries, lai izlaistu',
     compass: {
       n: 'Z',
@@ -4747,11 +4751,11 @@ export default {
       },
       favor: {
         '1': 'Svešiniekiem ne. Bet izdari man pakalpojumu, un mēs būsim draugi.',
-        '2': 'Kokvīri Čukstošajā mežā sargā mēnespulkstenītes, kas man vajadzīgas. Uzvari sešus un atnes man trīs mēnespulkstenītes.',
+        '2': 'Kokvīri Čukstošajā mežā sargā mēnespulkstenītes, kas man vajadzīgas. Uzvari četrus un atnes man divas mēnespulkstenītes.',
         say: 'Vai tu kaut ko pārdod?'
       },
       waiting: {
-        '1': 'Seši kokvīri, trīs mēnespulkstenītes. Diemžēl tās pašas sevi neplūks.',
+        '1': 'Četri kokvīri, divas mēnespulkstenītes. Diemžēl tās pašas sevi neplūks.',
         say: 'Par to lūgumu...'
       },
       favorDone: {
@@ -4823,11 +4827,11 @@ export default {
       },
       favor: {
         '1': 'Tikai tos, kas spēj man turēt līdzi. Vai tu spēj? Paskatīsimies.',
-        '2': 'Pieveic divpadsmit laupītājus loka šāvējus Oukheivenas pievārtē, tad atnes man trīs ātrpapardes.',
+        '2': 'Pieveic astoņus laupītājus loka šāvējus Oukheivenas pievārtē, tad atnes man divas ātrpapardes.',
         say: 'Tu māci šaut ar loku?'
       },
       waiting: {
-        '1': 'Divpadsmit loka šāvēji, trīs ātrpapardes. Aiziet! Es būšu tepat. Lēkāšu.',
+        '1': 'Astoņi loka šāvēji, divas ātrpapardes. Aiziet! Es būšu tepat. Lēkāšu.',
         say: 'Par tavu pārbaudījumu...'
       },
       favorDone: {
@@ -4878,11 +4882,11 @@ export default {
       },
       favor: {
         '1': 'Jā. Es to māku tikai tiem, kas karstā vietā saglabā vēsu galvu.',
-        '2': 'Nodzēs desmit uguns elementāļus Pelnu klintīs. Tad atnes man trīs salmētras zariņus.',
+        '2': 'Nodzēs septiņus uguns elementāļus Pelnu klintīs. Tad atnes man divus salmētras zariņus.',
         say: 'Vai tas zobens ir no ledus?'
       },
       waiting: {
-        '1': 'Desmit uguns elementāļi. Trīs salmētras zariņi. Nesteidzies. Bet ne pārāk.',
+        '1': 'Septiņi uguns elementāļi. Divi salmētras zariņi. Nesteidzies. Bet ne pārāk.',
         say: 'Par tavu pārbaudījumu...'
       },
       favorDone: {
@@ -4932,11 +4936,11 @@ export default {
       },
       favor: {
         '1': 'Katrā ir mazliet gaismas. Es māku to izlaist ārā, kad pienāk laiks.',
-        '2': 'Pieveic desmit kultistus Pelnu klintīs, tad atnes man piecas saulziedes manai lampai.',
+        '2': 'Pieveic septiņus kultistus Pelnu klintīs, tad atnes man trīs saulziedes manai lampai.',
         say: 'Vai tā lampa ir burvju?'
       },
       waiting: {
-        '1': 'Desmit kultisti, piecas saulziedes. Pieveic viņus maigi. Katrs ir pelnījis otru iespēju.',
+        '1': 'Septiņi kultisti, trīs saulziedes. Pieveic viņus maigi. Katrs ir pelnījis otru iespēju.',
         say: 'Par tavu pārbaudījumu...'
       },
       favorDone: {
@@ -4986,12 +4990,12 @@ export default {
       },
       favor: {
         '1': 'Runāt? Es klausos. Tas ir triks, ko lielākā daļa nekad neiemācās.',
-        '2': 'Milzu zirnekļi apvij ar tīkliem zvēru takas Čukstošajā mežā. Iztīri divpadsmit.',
+        '2': 'Milzu zirnekļi apvij ar tīkliem zvēru takas Čukstošajā mežā. Iztīri astoņus.',
         '3': 'Tad atnes man divas mēnespulkstenītes manam midzenim. Ērkšķīte pie tām guļ labāk.',
         say: 'Vai tu proti runāt ar dzīvniekiem?'
       },
       waiting: {
-        '1': 'Divpadsmit zirnekļi, divas mēnespulkstenītes. Dzīvnieki gaida. Ērkšķīte arī.',
+        '1': 'Astoņi zirnekļi, divas mēnespulkstenītes. Dzīvnieki gaida. Ērkšķīte arī.',
         say: 'Par tavu pārbaudījumu...'
       },
       favorDone: {
@@ -5273,7 +5277,7 @@ export default {
   },
   ending: {
     level: 'Līmenis',
-    more: 'Zem cietokšņa ir atvērusies Tukšuma plaisa. Kolizejs joprojām uzņem visus, kas nāk.',
+    more: 'Zem cietokšņa ir atvērusies Tukšuma plaisa. Taču tava spēka īstais pārbaudījums gaida Kolizejā: kāp pa tā viļņiem un izcīni mītiskās balvas, kas pieder tikai tā čempioniem.',
     order: {
       title: 'Dzelzs miers',
       text: 'Virs Šausmu cietokšņa plīvo Dzelzs ordeņa karogi. Ceļi ir droši, likumu ir daudz, un tavs vārds ir iekalts virs vārtiem.'

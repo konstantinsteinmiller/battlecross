@@ -19,6 +19,8 @@ export type SfxName =
   // A skill's element: its cast and its impact (#101)
   | 'castFire' | 'castIce' | 'castShock' | 'castHoly' | 'castShadow' | 'castPoison' | 'castBlood' | 'castEarth' | 'castWind' | 'castNature' | 'castArcane' | 'castTime' | 'castSpirit' | 'castSong' | 'castTech' | 'castCommand'
   | 'impactFire' | 'impactIce' | 'impactShock' | 'impactWind' | 'impactNature' | 'impactArcane' | 'impactTime' | 'impactSpirit' | 'impactSong' | 'impactTech'
+  // Skills with a cast of their own, from the sound review (#118)
+  | 'castEarthShift' | 'castBoulder' | 'castFrostShatter' | 'castAvalancheLeap' | 'castAbsoluteZero' | 'castSmokeBomb' | 'castShadowMark' | 'castOrbitalBeam' | 'castSpark'
   // The colosseum's crowd (#117)
   | 'crowdCheer' | 'crowdRoar'
   // Abilities
@@ -35,6 +37,7 @@ export const SFX_NAMES: readonly SfxName[] = [
   'shadow', 'poison', 'blood', 'quake', 'beam', 'explode', 'teleport',
   'castFire', 'castIce', 'castShock', 'castHoly', 'castShadow', 'castPoison', 'castBlood', 'castEarth', 'castWind', 'castNature', 'castArcane', 'castTime', 'castSpirit', 'castSong', 'castTech', 'castCommand',
   'impactFire', 'impactIce', 'impactShock', 'impactWind', 'impactNature', 'impactArcane', 'impactTime', 'impactSpirit', 'impactSong', 'impactTech',
+  'castEarthShift', 'castBoulder', 'castFrostShatter', 'castAvalancheLeap', 'castAbsoluteZero', 'castSmokeBomb', 'castShadowMark', 'castOrbitalBeam', 'castSpark',
   'crowdCheer', 'crowdRoar',
   'summon', 'heal', 'shieldUp', 'roar', 'telegraph',
   'overheat', 'alert', 'bossIntro', 'death', 'deathBig', 'coin', 'loot', 'lootRare', 'lootEpic', 'lootLegend', 'chest', 'levelUp', 'potion', 'denied', 'uiClick',

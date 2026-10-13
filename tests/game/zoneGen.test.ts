@@ -46,9 +46,19 @@ describe('zones', () => {
   it('the last pack is the finale, and it is the farthest walk from the start', () => {
     for (const zone of ZONE_IDS) {
       const plan = generateZone(ZONES[zone], 5)
+      const g = gridOf(plan)
       const last = plan.packs[plan.packs.length - 1]!
       expect(last.kinds, zone).toContain(ZONES[zone].finale.leader)
-      const d = (p: { x: number; z: number }): number => Math.hypot(p.x - plan.start.x, p.z - plan.start.z)
+      // The walk, not the crow's flight: the Peak's summit stands in the
+      // middle of the path that winds round it (#120).
+      const d = (p: { x: number; z: number }): number => {
+        const n = findPath(g, plan.start.x, plan.start.z, p.x, p.z, path, 6000)
+        let len = 0
+        let x = plan.start.x
+        let z = plan.start.z
+        for (let q = 0; q < n; q += 2) { len += Math.hypot(path[q]! - x, path[q + 1]! - z); x = path[q]!; z = path[q + 1]! }
+        return len
+      }
       expect(d(last), zone).toBeGreaterThanOrEqual(Math.max(...plan.packs.map(d)) - 0.001)
     }
   })

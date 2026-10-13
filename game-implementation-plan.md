@@ -708,6 +708,7 @@ All sound is synthesised (53 recipes); recorded files can override a recipe.
 | D141 | Careful clear (#113) | On a win: lost ≤ 15 % → ×2 purse, ≥ 50 % → ×1, linear between; lost = damage up to the HP left, heals do not refund; its own result line; the video triples only the base | owner; question 58 |
 | D142 | Gamblers (#115) | Fixed tables: Sunford ≤ Uncommon, Oakhaven ≤ Rare; streak per gambler; Sunford's prize a Rare | owner; farm guard |
 | D143 | Points pulse (#108) | The character button pulses only for points not yet seen: opening the character page quiets it; the next level wakes it for the new points | owner; question 59 |
+| D144 | Adaptive pressure (#124) | Zones only (no town, colosseum or opening fight): each 60 s of fight time is judged — fought, no health potion, < 10 % health lost → +10 % enemy health and damage (cap +60 %); a zone 5+ levels above the hero: +20 % steps, cap +120 %; a potion holds it; potions two minutes running, > 50 % lost or below 25 % health → one step down; bosses take half; living enemies rescale keeping their health share; kept for the session (not saved), a death clears it; a toast with skull pips; the careful clear and rewards unchanged | owner (#124) |
 
 ### Phases
 
@@ -898,6 +899,15 @@ All sound is synthesised (53 recipes); recorded files can override a recipe.
   vue-tsc --build, a real browser (wave banner, banners and crowd, the
   wave-10 milestone and its mythic in the haul; SHARP); strings in all 38
   locales. Deferred: painted icons for the mythics (the Art Desk).
+- [x] **42 Adaptive pressure** (#124, D144). `sim/pressure.ts`: a minute of
+  zone fight time with no trouble raises enemy health and damage +10 %
+  (cap +60 %; +20 % steps to +120 % in a zone 5+ levels above the hero); a
+  potion stops the climb, repeated potions or a hard minute step it down,
+  a death clears it. New spawns and the living (health share kept) take it;
+  bosses half. Session-wide, not saved. Never in towns, the colosseum (its
+  board stays fair) or the opening fight. A toast with skull pips on each
+  step. Verified: rule tests, the reference bot at level (16 classes, one
+  zone) climbs a step at most, vue-tsc --build; strings in all 38 locales.
 
 ### Deferred
 

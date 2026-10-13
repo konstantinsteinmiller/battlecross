@@ -86,6 +86,8 @@
                 span.node__spark(v-if="n.fresh" aria-hidden="true")
                 span.node__label
                   span.node__new(v-if="n.isNew") {{ t('map.new') }}
+                  //- After the story (#117): the colosseum is the true test, until its first prize is won.
+                  span.node__new.node__new--call(v-else-if="n.call" data-arena-call) {{ t('map.trueTest') }}
                   //- A town and the colosseum say what they are; a zone is the default.
                   GameIcon.node__kind(v-if="n.kind !== 'zone'" :name="n.kind === 'town' ? 'home' : 'trophy'")
                   | {{ t(`node.${n.id}.name`) }}
@@ -147,6 +149,7 @@
           span.card__meta(v-if="sel.kind === 'arena'" data-arena-prize) {{ arenaNext ? t('arena.next', { at: arenaNext.wave, item: t(`item.${arenaNext.item}.name`) }) : t('arena.allWon') }}
           span.card__meta(v-if="sel.kind === 'town'") {{ t('map.town') }}
         p.card__desc {{ t(`node.${sel.id}.desc`) }}
+        p.card__call(v-if="sel.kind === 'arena' && arenaCall" data-arena-call-text) {{ t('arena.call') }}
         p.card__warn(v-if="sel.enterable && sel.danger > 0")
           GameIcon.card__skull(v-for="k in sel.danger" :key="k" name="skull")
           | {{ t(`map.danger.${sel.danger}`) }}
@@ -189,7 +192,7 @@ import { MAP, NODE_BY_ID, ZONES, dangerOf, levelTier, nodeOpen, nodeReachable, t
 import { itemsOfZone, type ZoneId } from '@/game/data/items'
 import { QUEST_BY_ID } from '@/game/data/quests'
 import { encountersAllowed, regionOf, rollEncounter, type EncounterSpec } from '@/game/data/encounters'
-import { arenaWeekBest, profile, flagSet, markTip, saveProfile, setMapPos } from '@/game/state/profile'
+import { arenaCalling, arenaWeekBest, profile, flagSet, markTip, saveProfile, setMapPos } from '@/game/state/profile'
 import { closeMap, flow, hiddenTrainer, meetMerchant, openFoundChest, startEncounter, travel, visitHiddenTrainer } from '@/game/flow'
 import { hud } from '@/game/state/hud'
 import { input } from '@/game/boot'
@@ -208,6 +211,7 @@ import HudMenu from '@/components/hud/HudMenu.vue'
 import MenuButtons from '@/components/hud/MenuButtons.vue'
 import { MAP_H, MAP_W, type Pt } from './map/geo'
 import { ROADS, nodeAt } from './map/roads'
+import { paintedCrossings } from './map/paintedBridges'
 import { mapBridgesSvg, mapPlateUrl } from './map/terrain'
 import { cloudCover, landmarkSvg } from './map/landmarks'
 import { MAP_REGIONS, SKY_CLOUDS, birdsSvg, decorSvg, frameSvg, skyCloudSvg, tearClip } from './map/life'
@@ -224,6 +228,9 @@ const { t } = useI18n()
 const arenaMod = arenaModOf()
 /** The colosseum's next mythic prize (#117). */
 const arenaNext = computed(() => nextMilestone(id => profile.inv.items.includes(id)))
+/** The story is over and the ladder's first prize not yet won: the map points the
+ *  hero at the colosseum, the true test of a build (#117). */
+const arenaCall = computed(() => arenaCalling())
 
 /** The terrain drawing, decoded once for every visit to the map. */
 let plateLoad: Promise<HTMLImageElement> | null = null
@@ -241,7 +248,8 @@ const low = sceneQuality() === 'low'
 const calm = typeof window !== 'undefined' && !!window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
 
 const decor = computed(() => decorSvg({ title: t('gameName'), compass: [t('map.compass.n'), t('map.compass.e'), t('map.compass.s'), t('map.compass.w')] }))
-const bridges = mapBridgesSvg()
+// Over the painting, a bridge wherever a road crosses its water (#119).
+const bridges = painted ? mapBridgesSvg(paintedCrossings()) : mapBridgesSvg()
 const skyCloud = skyCloudSvg()
 const birds5 = birdsSvg(5)
 const birds3 = birdsSvg(3)
@@ -309,6 +317,8 @@ interface NodeView {
   trainer: boolean
   /** Open and never entered. */
   isNew: boolean
+  /** The colosseum, calling after the story (#117). */
+  call: boolean
   fresh: boolean
   veil: 'wait' | 'lift' | ''
   art: string
@@ -340,6 +350,7 @@ const nodes = computed<NodeView[]>(() => MAP.map((n) => {
     decision: open && !!n.quest && !!QUEST_BY_ID[n.quest] && !profile.quests.done[n.quest],
     trainer: !!hiddenTrainer(n.id),
     isNew: open && !done && !state && !(profile.world.visits[n.id] ?? 0) && (n.kind !== 'arena' || profile.world.arenaBest === 0),
+    call: n.kind === 'arena' && arenaCall.value,
     fresh: fresh.has(n.id),
     veil: state,
     art: landmarkSvg(n.id, { locked: !isSeen(n.id), ruined: n.id === 'oakhaven' && flags.value.has('oakhavenFallen') }),
@@ -368,7 +379,8 @@ const roads = computed(() => ROADS.map(r => ({ key: r.key, d: r.d, open: isOpen(
 
 // ── The ground he may walk, and the fog over the rest ────────────────────────
 // The hero walks anywhere without a story lock; the fog lifts where he has been (#72).
-const mask = computed(() => walkMask(isReachable))
+// The water he is stopped by is the water the sheet on screen shows (#119).
+const mask = computed(() => walkMask(isReachable, painted ? 'painted' : 'drawn'))
 const fogEl = ref<HTMLCanvasElement | null>(null)
 /** Cells drawn per fog pixel block: the canvas is scaled up smooth (soft edges for free). */
 const FOG_PX = 4
@@ -1367,6 +1379,16 @@ onBeforeUnmount(() => {
   background: var(--bc-gold-hi, #ffe978)
 .is-selected .node__label
   background: var(--bc-gold, #ffc526)
+.node__new--call
+  background: linear-gradient(180deg, #e0485c, #a01e30)
+  animation: arena-call 1.6s ease-in-out infinite
+@keyframes arena-call
+  50%
+    transform: scale(1.08)
+.card__call
+  margin: 0.2rem 0 0
+  font-weight: 800
+  color: #b0202f
 .node__new
   position: absolute
   left: -1.1em

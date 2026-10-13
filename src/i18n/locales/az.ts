@@ -2,6 +2,7 @@
 export default {
   arena: {
     allWon: 'Bütün mifik mükafatlar artıq sənindir.',
+    call: 'Hekayə danışıldı. İndi qurğunu sübut et: bacardığın qədər yüksəl və heç kimin verə bilməyəcəyi mifik mükafatları qazan.',
     prize: '{item} artıq sənindir!',
     milestone: 'Dalğa {n}!',
     next: 'Növbəti mükafat — dalğa {at}: {item}',
@@ -141,6 +142,8 @@ export default {
     cageKey: 'Açar! Yəqin ki, qəfəsi açır.',
     ore: 'Qazıldı: {n} × {ore}',
     mineBusy: 'Düşmənlər yaxındaykən olmaz!',
+    pressureUp: 'Düşmənlərin daha qəddar olur {skulls}',
+    pressureDown: 'Düşmənlərin bir az yumşalır {skulls}',
     item: 'Tapıldı: {item}',
     levelUp: 'Səviyyə {level}! +3 atribut xalı',
     boss: '{boss} peyda oldu',
@@ -327,6 +330,7 @@ export default {
     questDone: '{quest}: {choice}',
     trainer: 'Gizli təlimçi: {cls}',
     new: 'Yeni',
+    trueTest: 'Əsl sınaq',
     skip: 'Keçmək üçün toxun',
     compass: {
       n: 'Ş',
@@ -4672,11 +4676,11 @@ export default {
       },
       favor: {
         '1': 'Yad adamlara yox. Amma mənim üçün bir iş gör, dost olaq.',
-        '2': 'Pıçıldayan Meşədəki ağacadamlar mənə lazım olan ayzəngləri qoruyur. Altısını məğlub et və mənə üç ayzəng gətir.',
+        '2': 'Pıçıldayan Meşədəki ağacadamlar mənə lazım olan ayzəngləri qoruyur. Dördünü məğlub et və mənə iki ayzəng gətir.',
         say: 'Bir şey satırsan?'
       },
       waiting: {
-        '1': 'Altı ağacadam, üç ayzəng. Təəssüf ki, ayzənglər özləri özlərini dərməyəcək.',
+        '1': 'Dörd ağacadam, iki ayzəng. Təəssüf ki, ayzənglər özləri özlərini dərməyəcək.',
         say: 'O xahiş barədə...'
       },
       favorDone: {
@@ -4748,11 +4752,11 @@ export default {
       },
       favor: {
         '1': 'Yalnız mənimlə ayaqlaşa bilənlərə. Sən bacararsan? Gəl görək.',
-        '2': 'Oakhaven ətrafında on iki oxatan quldurun öhdəsindən gəl, sonra mənə üç yelqıjı gətir.',
+        '2': 'Oakhaven ətrafında səkkiz oxatan quldurun öhdəsindən gəl, sonra mənə iki yelqıjı gətir.',
         say: 'Oxatma öyrədirsən?'
       },
       waiting: {
-        '1': 'On iki oxatan quldur, üç yelqıjı. Haydı! Mən elə buradayam. Hoppanaraq.',
+        '1': 'Səkkiz oxatan quldur, iki yelqıjı. Haydı! Mən elə buradayam. Hoppanaraq.',
         say: 'Sınağın barədə...'
       },
       favorDone: {
@@ -4803,11 +4807,11 @@ export default {
       },
       favor: {
         '1': 'Bəli. Onu yalnız isti yerdə başını soyuq saxlayanlara öyrədirəm.',
-        '2': 'Kül Qayalıqlarında on od elementalını söndür. Sonra mənə üç budaq şaxtananə gətir.',
+        '2': 'Kül Qayalıqlarında yeddi od elementalını söndür. Sonra mənə iki budaq şaxtananə gətir.',
         say: 'O qılınc buzdandır?'
       },
       waiting: {
-        '1': 'On od elementalı. Üç budaq şaxtananə. Tələsmə. Çox da ləngimə.',
+        '1': 'Yeddi od elementalı. İki budaq şaxtananə. Tələsmə. Çox da ləngimə.',
         say: 'Sınağın barədə...'
       },
       favorDone: {
@@ -4857,11 +4861,11 @@ export default {
       },
       favor: {
         '1': 'Hər kəsin içində bir az işıq var. Mən insanlara hazır olanda onu çölə buraxmağı öyrədirəm.',
-        '2': 'Kül Qayalıqlarında on təriqətçinin öhdəsindən gəl, sonra çırağım üçün beş günləçək gətir.',
+        '2': 'Kül Qayalıqlarında yeddi təriqətçinin öhdəsindən gəl, sonra çırağım üçün üç günləçək gətir.',
         say: 'O çıraq sehrlidir?'
       },
       waiting: {
-        '1': 'On təriqətçi, beş günləçək. Onları yumşaqca məğlub et. Hər kəs ikinci şansa layiqdir.',
+        '1': 'Yeddi təriqətçi, üç günləçək. Onları yumşaqca məğlub et. Hər kəs ikinci şansa layiqdir.',
         say: 'Sınağın barədə...'
       },
       favorDone: {
@@ -4911,12 +4915,12 @@ export default {
       },
       favor: {
         '1': 'Danışmaq? Mən qulaq asıram. Çoxları bu sirri heç vaxt öyrənmir.',
-        '2': 'Pıçıldayan Meşədə nəhəng hörümçəklər heyvan cığırlarını torla örtür. On ikisini təmizlə.',
+        '2': 'Pıçıldayan Meşədə nəhəng hörümçəklər heyvan cığırlarını torla örtür. Səkkizini təmizlə.',
         '3': 'Sonra yuvam üçün iki ayzəng gətir. Böyürtkən onların yanında daha yaxşı yatır.',
         say: 'Heyvanlarla danışa bilirsən?'
       },
       waiting: {
-        '1': 'On iki hörümçək, iki ayzəng. Heyvanlar gözləyir. Böyürtkən də.',
+        '1': 'Səkkiz hörümçək, iki ayzəng. Heyvanlar gözləyir. Böyürtkən də.',
         say: 'Sınağın barədə...'
       },
       favorDone: {
@@ -5197,7 +5201,7 @@ export default {
   },
   ending: {
     level: 'Səviyyə',
-    more: 'Qəsrin altında Heçlik Yarığı açılıb. Kolizey hələ də hər gələni qəbul edir.',
+    more: 'Qəsrin altında Heçlik Yarığı açılıb. Amma gücünün əsl sınağı Kolizeydə gözləyir: onun dalğalarında yüksəl və yalnız çempionlarının sahib olduğu mifik mükafatları qazan.',
     order: {
       title: 'Dəmir Sülh',
       text: 'Dəhşət Qəsrinin üstündə Dəmir Ordenin bayraqları dalğalanır. Yollar təhlükəsiz, qanunlar çoxdur və adın darvazanın üstünə həkk olunub.'

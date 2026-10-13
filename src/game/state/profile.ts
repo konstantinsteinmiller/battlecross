@@ -1,5 +1,6 @@
 import { reactive, ref, toRaw, watch } from 'vue'
 import { getState, setStates } from '@/use/useGameState'
+import { ARENA_MILESTONES } from '../data/arena'
 import { saveDataVersion } from '@/use/useSaveStatus'
 import {
   LEVEL_KEY, GOLD_KEY, STORY_KEY, QUESTS_DONE_KEY, HERO_KEY, INVENTORY_KEY, QUESTS_KEY, WORLD_KEY, STATS_KEY,
@@ -785,6 +786,10 @@ export const buyCost = (id: string): number => {
 // ─── The colosseum's ladder (roadmap #10) ────────────────────────────────────
 
 /** This week's best wave (0 when the week has none yet). */
+/** After the story the colosseum calls (#117): the true test of a build, until
+ *  the ladder's first prize is won. */
+export const arenaCalling = (): boolean => !!profile.tips.endingSeen && profile.world.arenaBest < ARENA_MILESTONES[0]!.wave
+
 export const arenaWeekBest = (): number => (profile.meta.arena.week === weekKey() ? profile.meta.arena.best : 0)
 
 /** Fold a climb into the bests. Returns the all-time best before it, whether

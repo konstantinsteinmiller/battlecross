@@ -2,6 +2,7 @@
 export default {
   arena: {
     allWon: 'Todos los premios míticos son tuyos.',
+    call: 'La historia ya está contada. Ahora demuestra tu build: sube todo lo que puedas y gana los premios míticos que nadie más te puede dar.',
     prize: '¡Premio conseguido: {item}!',
     milestone: '¡Oleada {n}!',
     next: 'Próximo premio en la oleada {at}: {item}',
@@ -141,6 +142,8 @@ export default {
     cageKey: '¡Una llave! Debe de abrir la jaula.',
     ore: 'Extraído: {n} × {ore}',
     mineBusy: '¡No con enemigos cerca!',
+    pressureUp: 'Tus enemigos se vuelven más feroces {skulls}',
+    pressureDown: 'Tus enemigos aflojan {skulls}',
     item: 'Encontrado: {item}',
     levelUp: '¡Nivel {level}! +3 puntos de atributo',
     boss: 'Aparece {boss}',
@@ -328,6 +331,7 @@ export default {
     questDone: '{quest}: {choice}',
     trainer: 'Maestro oculto: {cls}',
     new: 'Nuevo',
+    trueTest: 'La verdadera prueba',
     skip: 'Toca para saltar',
     compass: {
       n: 'N',
@@ -4719,11 +4723,11 @@ export default {
       },
       favor: {
         '1': 'A desconocidos, no. Pero hazme un favor y seremos amigos.',
-        '2': 'Unos ents del Bosque Susurrante protegen las campanillas lunares que necesito. Vence a seis y tráeme tres campanillas lunares.',
+        '2': 'Unos ents del Bosque Susurrante protegen las campanillas lunares que necesito. Vence a cuatro y tráeme dos campanillas lunares.',
         say: '¿Vendes algo?'
       },
       waiting: {
-        '1': 'Seis ents, tres campanillas lunares. Por desgracia, las campanillas no se recogen solas.',
+        '1': 'Cuatro ents, dos campanillas lunares. Por desgracia, las campanillas no se recogen solas.',
         say: 'Sobre ese favor...'
       },
       favorDone: {
@@ -4795,11 +4799,11 @@ export default {
       },
       favor: {
         '1': 'Solo a quien pueda seguirme el ritmo. ¿Puedes? Vamos a averiguarlo.',
-        '2': 'Derrota a doce arqueros bandidos en las Afueras de Oakhaven y luego tráeme tres helechos veloces.',
+        '2': 'Derrota a ocho arqueros bandidos en las Afueras de Oakhaven y luego tráeme dos helechos veloces.',
         say: '¿Enseñas tiro con arco?'
       },
       waiting: {
-        '1': 'Doce arqueros bandidos, tres helechos veloces. ¡Venga! Aquí te espero. Dando saltitos.',
+        '1': 'Ocho arqueros bandidos, dos helechos veloces. ¡Venga! Aquí te espero. Dando saltitos.',
         say: 'Sobre tu prueba...'
       },
       favorDone: {
@@ -4850,11 +4854,11 @@ export default {
       },
       favor: {
         '1': 'Lo es. Solo lo enseño a quien mantiene la cabeza fría en un lugar caliente.',
-        '2': 'Apaga a diez elementales de fuego en los Riscos Cenicientos. Luego tráeme tres ramitas de menta helada.',
+        '2': 'Apaga a siete elementales de fuego en los Riscos Cenicientos. Luego tráeme dos ramitas de menta helada.',
         say: '¿Esa espada es de hielo?'
       },
       waiting: {
-        '1': 'Diez elementales de fuego. Tres ramitas de menta helada. Tómate tu tiempo. No demasiado.',
+        '1': 'Siete elementales de fuego. Dos ramitas de menta helada. Tómate tu tiempo. No demasiado.',
         say: 'Sobre tu prueba...'
       },
       favorDone: {
@@ -4904,11 +4908,11 @@ export default {
       },
       favor: {
         '1': 'Todo el mundo lleva una lucecita dentro. Yo enseño a dejarla salir, cuando llega el momento.',
-        '2': 'Derrota a diez cultistas en los Riscos Cenicientos y luego tráeme cinco pétalos solares para mi lámpara.',
+        '2': 'Derrota a siete cultistas en los Riscos Cenicientos y luego tráeme tres pétalos solares para mi lámpara.',
         say: '¿Esa lámpara es mágica?'
       },
       waiting: {
-        '1': 'Diez cultistas, cinco pétalos solares. Derrótalos con cariño. Todo el mundo merece una segunda oportunidad.',
+        '1': 'Siete cultistas, tres pétalos solares. Derrótalos con cariño. Todo el mundo merece una segunda oportunidad.',
         say: 'Sobre tu prueba...'
       },
       favorDone: {
@@ -4958,12 +4962,12 @@ export default {
       },
       favor: {
         '1': '¿Hablar? Escucho. Ese es el truco que casi nadie aprende.',
-        '2': 'Las arañas gigantes están llenando de telarañas los senderos de los animales en el Bosque Susurrante. Acaba con doce.',
+        '2': 'Las arañas gigantes están llenando de telarañas los senderos de los animales en el Bosque Susurrante. Acaba con ocho.',
         '3': 'Luego tráeme dos campanillas lunares para mi guarida. Bramble duerme mejor cerca de ellas.',
         say: '¿Puedes hablar con los animales?'
       },
       waiting: {
-        '1': 'Doce arañas, dos campanillas lunares. Los animales esperan. Y Bramble también.',
+        '1': 'Ocho arañas, dos campanillas lunares. Los animales esperan. Y Bramble también.',
         say: 'Sobre tu prueba...'
       },
       favorDone: {
@@ -5244,7 +5248,7 @@ export default {
   },
   ending: {
     level: 'Nivel',
-    more: 'La Grieta del Vacío se ha abierto bajo la fortaleza. El Coliseo sigue aceptando a cualquier aspirante.',
+    more: 'La Grieta del Vacío se ha abierto bajo la fortaleza. Pero la verdadera prueba de tu poder te espera en el Coliseo: supera sus oleadas y gana los premios míticos que solo tienen sus campeones.',
     order: {
       title: 'La Paz de Hierro',
       text: 'Los estandartes de la Orden de Hierro ondean sobre la Fortaleza del Terror. Los caminos son seguros, las leyes son muchas, y tu nombre está grabado sobre la puerta.'

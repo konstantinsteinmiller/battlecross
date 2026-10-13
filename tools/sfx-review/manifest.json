@@ -1,0 +1,1675 @@
+{
+  "generated": "2026-10-13T18:43:48.911Z",
+  "count": 90,
+  "sounds": [
+    {
+      "id": "castFire",
+      "category": "Skill cast",
+      "description": "CAST sound (plays as the skill starts) of the fire skills: Pyromancer: Fireball, Flame Pillar, Firecracker, Fan the Flames, Combustion, Ring of Fire, Cataclysm, Phoenix Flight; Aether-Tech: Vent Heat; Elementalist: Frostfire Comet.",
+      "usedBy": {
+        "castOf": [
+          "fireball",
+          "flamePillar",
+          "firecracker",
+          "fanTheFlames",
+          "combustion",
+          "ringOfFire",
+          "cataclysm",
+          "phoenixFlight",
+          "ventHeat",
+          "frostfireComet"
+        ],
+        "impactOf": [],
+        "classes": [
+          "pyro",
+          "aether",
+          "elementalist"
+        ]
+      },
+      "file": "out/audio/castFire.webm",
+      "screenshot": "out/shots/class-pyro.jpg",
+      "shotContext": "class-pyro",
+      "durationMs": 1636
+    },
+    {
+      "id": "castIce",
+      "category": "Skill cast",
+      "description": "CAST sound (plays as the skill starts) of the ice skills: Frostwarden: Frost Cleave, Rime Lance, Frost Armor, Glacial Charge, Rime Field, Frost Shatter, Avalanche Leap, Absolute Zero; Elementalist: Frost Lance.",
+      "usedBy": {
+        "castOf": [
+          "frostCleave",
+          "rimeLance",
+          "frostArmor",
+          "glacialCharge",
+          "rimeField",
+          "frostShatter",
+          "avalancheLeap",
+          "absoluteZero",
+          "frostLance"
+        ],
+        "impactOf": [],
+        "classes": [
+          "frostwarden",
+          "elementalist"
+        ]
+      },
+      "file": "out/audio/castIce.webm",
+      "screenshot": "out/shots/class-frostwarden.jpg",
+      "shotContext": "class-frostwarden",
+      "durationMs": 1231
+    },
+    {
+      "id": "castShock",
+      "category": "Skill cast",
+      "description": "CAST sound (plays as the skill starts) of the shock skills: Aether-Tech: Shock Grenade, Orbital Beam, Arc Coil; Elementalist: Chain Spark, Thundersnow.",
+      "usedBy": {
+        "castOf": [
+          "shockGrenade",
+          "orbitalBeam",
+          "arcCoil",
+          "chainSpark",
+          "thunderSnow"
+        ],
+        "impactOf": [],
+        "classes": [
+          "aether",
+          "elementalist"
+        ]
+      },
+      "file": "out/audio/castShock.webm",
+      "screenshot": "out/shots/class-aether.jpg",
+      "shotContext": "class-aether",
+      "durationMs": 788
+    },
+    {
+      "id": "castHoly",
+      "category": "Skill cast",
+      "description": "CAST sound (plays as the skill starts) of the holy skills: Aegis Knight: Radiant Strike, Holy Chains, Holy Bastion, Retribution; Lightbringer: Sunbolt, Mending Light, Lance of Light, Dawn Shield, Dawn Sanctuary, Blinding Flash, Sunfall, Halo of Dawn.",
+      "usedBy": {
+        "castOf": [
+          "radiantStrike",
+          "holyChains",
+          "holyBastion",
+          "retribution",
+          "sunbolt",
+          "mendingLight",
+          "lanceOfLight",
+          "dawnShield",
+          "dawnSanctuary",
+          "blindingFlash",
+          "sunfall",
+          "haloOfDawn"
+        ],
+        "impactOf": [],
+        "classes": [
+          "aegis",
+          "lightbringer"
+        ]
+      },
+      "file": "out/audio/castHoly.webm",
+      "screenshot": "out/shots/class-aegis.jpg",
+      "shotContext": "class-aegis",
+      "durationMs": 1493
+    },
+    {
+      "id": "castShadow",
+      "category": "Skill cast",
+      "description": "CAST sound (plays as the skill starts) of the shadow skills: Shadowblade: Shadowstep, Smoke Bomb, Shadow Mark.",
+      "usedBy": {
+        "castOf": [
+          "shadowstep",
+          "smokeBomb",
+          "shadowMark"
+        ],
+        "impactOf": [],
+        "classes": [
+          "shadow"
+        ]
+      },
+      "file": "out/audio/castShadow.webm",
+      "screenshot": "out/shots/class-shadow.jpg",
+      "shotContext": "class-shadow",
+      "durationMs": 1720
+    },
+    {
+      "id": "castPoison",
+      "category": "Skill cast",
+      "description": "CAST sound (plays as the skill starts) of the poison skills: Shadowblade: Venomous Blade, Nightshade Mist; Blood Alchemist: Sanguine Flask, Enfeebling Tonic.",
+      "usedBy": {
+        "castOf": [
+          "venomousBlade",
+          "nightshadeMist",
+          "sanguineFlask",
+          "enfeeblingTonic"
+        ],
+        "impactOf": [],
+        "classes": [
+          "shadow",
+          "blood"
+        ]
+      },
+      "file": "out/audio/castPoison.webm",
+      "screenshot": "out/shots/class-shadow.jpg",
+      "shotContext": "class-shadow",
+      "durationMs": 913
+    },
+    {
+      "id": "castBlood",
+      "category": "Skill cast",
+      "description": "CAST sound (plays as the skill starts) of the blood skills: Blood Alchemist: Essence Ward, Essence Harvest, Homunculus, Mutagenic Rage, Philosopher's Crucible, Grand Transmutation.",
+      "usedBy": {
+        "castOf": [
+          "essenceWard",
+          "essenceHarvest",
+          "homunculus",
+          "mutagenicRage",
+          "philosophersCrucible",
+          "grandTransmutation"
+        ],
+        "impactOf": [],
+        "classes": [
+          "blood"
+        ]
+      },
+      "file": "out/audio/castBlood.webm",
+      "screenshot": "out/shots/class-blood.jpg",
+      "shotContext": "class-blood",
+      "durationMs": 1064
+    },
+    {
+      "id": "castEarth",
+      "category": "Skill cast",
+      "description": "CAST sound (plays as the skill starts) of the earth skills: Geomancer: Stone Spike, Boulder Roll, Earth Barrier, Seismic Shock, Sinkhole, Petrify, Geode Shell, Tectonic Rupture; Elementalist: Rolling Boulder; Iron Monk: Mountain Palm.",
+      "usedBy": {
+        "castOf": [
+          "stoneSpike",
+          "boulderRoll",
+          "earthBarrier",
+          "seismicShock",
+          "sinkhole",
+          "petrify",
+          "geodeShell",
+          "tectonicRupture",
+          "rollingBoulder",
+          "mountainPalm"
+        ],
+        "impactOf": [],
+        "classes": [
+          "geo",
+          "elementalist",
+          "ironmonk"
+        ]
+      },
+      "file": "out/audio/castEarth.webm",
+      "screenshot": "out/shots/class-geo.jpg",
+      "shotContext": "class-geo",
+      "durationMs": 1155
+    },
+    {
+      "id": "castWind",
+      "category": "Skill cast",
+      "description": "CAST sound (plays as the skill starts) of the wind skills: Windrunner: Gale Arrow, Zephyr Dash, Piercing Gale, Cyclone Snare, Updraft Leap, Arrow Storm, Gale Spirits, Skyrender; Beastcaller: Call Hawk.",
+      "usedBy": {
+        "castOf": [
+          "galeArrow",
+          "zephyrDash",
+          "piercingGale",
+          "cycloneSnare",
+          "updraftLeap",
+          "arrowStorm",
+          "galeSpirits",
+          "skyrender",
+          "callHawk"
+        ],
+        "impactOf": [],
+        "classes": [
+          "windrunner",
+          "beastcaller"
+        ]
+      },
+      "file": "out/audio/castWind.webm",
+      "screenshot": "out/shots/class-windrunner.jpg",
+      "shotContext": "class-windrunner",
+      "durationMs": 1255
+    },
+    {
+      "id": "castNature",
+      "category": "Skill cast",
+      "description": "CAST sound (plays as the skill starts) of the nature skills: Beastcaller: Call Wolf, Wolf Pounce, Call Bear, Pack Bond, Spirit Stampede, Alpha Howl, Wild Hunt.",
+      "usedBy": {
+        "castOf": [
+          "callWolf",
+          "wolfPounce",
+          "callBear",
+          "packBond",
+          "spiritStampede",
+          "alphaHowl",
+          "wildHunt"
+        ],
+        "impactOf": [],
+        "classes": [
+          "beastcaller"
+        ]
+      },
+      "file": "out/audio/castNature.webm",
+      "screenshot": "out/shots/class-beastcaller.jpg",
+      "shotContext": "class-beastcaller",
+      "durationMs": 1102
+    },
+    {
+      "id": "castArcane",
+      "category": "Skill cast",
+      "description": "CAST sound (plays as the skill starts) of the arcane skills: Elementalist: Prism Bolt, Prismatic Nova, Elemental Convergence.",
+      "usedBy": {
+        "castOf": [
+          "prismBolt",
+          "prismaticNova",
+          "elementalConvergence"
+        ],
+        "impactOf": [],
+        "classes": [
+          "elementalist"
+        ]
+      },
+      "file": "out/audio/castArcane.webm",
+      "screenshot": "out/shots/class-elementalist.jpg",
+      "shotContext": "class-elementalist",
+      "durationMs": 1109
+    },
+    {
+      "id": "castTime",
+      "category": "Skill cast",
+      "description": "CAST sound (plays as the skill starts) of the time skills: Chrono-Weaver: Temporal Stasis, Echo Bolt, Haste Field, Time Bubble, Paradox Shift, Time Loop, Chrono Rewind, Time Stop.",
+      "usedBy": {
+        "castOf": [
+          "temporalStasis",
+          "echoBolt",
+          "hasteField",
+          "timeBubble",
+          "paradoxShift",
+          "timeLoop",
+          "chronoRewind",
+          "timeStop"
+        ],
+        "impactOf": [],
+        "classes": [
+          "chrono"
+        ]
+      },
+      "file": "out/audio/castTime.webm",
+      "screenshot": "out/shots/class-chrono.jpg",
+      "shotContext": "class-chrono",
+      "durationMs": 1237
+    },
+    {
+      "id": "castSpirit",
+      "category": "Skill cast",
+      "description": "CAST sound (plays as the skill starts) of the spirit skills: Soul Warden: Wisp Bolt, Call the Fallen, Soul Bond, Spirit Lantern, Haunting Wail, Release Souls, Wisp Swarm, Procession of Souls.",
+      "usedBy": {
+        "castOf": [
+          "wispBolt",
+          "callTheFallen",
+          "soulBond",
+          "spiritLantern",
+          "hauntingWail",
+          "releaseSouls",
+          "wispSwarm",
+          "processionOfSouls"
+        ],
+        "impactOf": [],
+        "classes": [
+          "soulwarden"
+        ]
+      },
+      "file": "out/audio/castSpirit.webm",
+      "screenshot": "out/shots/class-soulwarden.jpg",
+      "shotContext": "class-soulwarden",
+      "durationMs": 1412
+    },
+    {
+      "id": "castSong",
+      "category": "Skill cast",
+      "description": "CAST sound (plays as the skill starts) of the song skills: Bard: Sharp Note, Marching Song, Lullaby, Ballad of Valor, Charming Serenade, Hymn of Mending, Crescendo, Grand Finale.",
+      "usedBy": {
+        "castOf": [
+          "sharpNote",
+          "marchingSong",
+          "lullaby",
+          "balladOfValor",
+          "charmingSerenade",
+          "hymnOfMending",
+          "crescendo",
+          "grandFinale"
+        ],
+        "impactOf": [],
+        "classes": [
+          "bard"
+        ]
+      },
+      "file": "out/audio/castSong.webm",
+      "screenshot": "out/shots/class-bard.jpg",
+      "shotContext": "class-bard",
+      "durationMs": 1252
+    },
+    {
+      "id": "castTech",
+      "category": "Skill cast",
+      "description": "CAST sound (plays as the skill starts) of the tech skills: Aether-Tech: Aether Pistol, Deploy Turret, Rocket Jump, Exo-Suit.",
+      "usedBy": {
+        "castOf": [
+          "aetherPistol",
+          "deployTurret",
+          "rocketJump",
+          "exoSuit"
+        ],
+        "impactOf": [],
+        "classes": [
+          "aether"
+        ]
+      },
+      "file": "out/audio/castTech.webm",
+      "screenshot": "out/shots/class-aether.jpg",
+      "shotContext": "class-aether",
+      "durationMs": 709
+    },
+    {
+      "id": "castCommand",
+      "category": "Skill cast",
+      "description": "CAST sound (plays as the skill starts) of the command skills: Aegis Knight: Taunting Cry; Grand Sovereign: Royal Guard, Command Focus, Call Archers, Royal Rally, Banner of Victory, Royal Decree, Army of the Realm, Summon Champion.",
+      "usedBy": {
+        "castOf": [
+          "tauntingCry",
+          "royalGuard",
+          "commandFocus",
+          "callArchers",
+          "royalRally",
+          "bannerOfVictory",
+          "royalDecree",
+          "armyOfTheRealm",
+          "summonChampion"
+        ],
+        "impactOf": [],
+        "classes": [
+          "aegis",
+          "sovereign"
+        ]
+      },
+      "file": "out/audio/castCommand.webm",
+      "screenshot": "out/shots/class-aegis.jpg",
+      "shotContext": "class-aegis",
+      "durationMs": 1186
+    },
+    {
+      "id": "castEarthShift",
+      "category": "Skill cast",
+      "description": "Not referenced by any call site found.",
+      "usedBy": {
+        "castOf": [],
+        "impactOf": [],
+        "classes": []
+      },
+      "file": "out/audio/castEarthShift.webm",
+      "screenshot": "out/shots/fight.jpg",
+      "shotContext": "fight",
+      "durationMs": 1454
+    },
+    {
+      "id": "castBoulder",
+      "category": "Skill cast",
+      "description": "Not referenced by any call site found.",
+      "usedBy": {
+        "castOf": [],
+        "impactOf": [],
+        "classes": []
+      },
+      "file": "out/audio/castBoulder.webm",
+      "screenshot": "out/shots/fight.jpg",
+      "shotContext": "fight",
+      "durationMs": 1854
+    },
+    {
+      "id": "castFrostShatter",
+      "category": "Skill cast",
+      "description": "Not referenced by any call site found.",
+      "usedBy": {
+        "castOf": [],
+        "impactOf": [],
+        "classes": []
+      },
+      "file": "out/audio/castFrostShatter.webm",
+      "screenshot": "out/shots/fight.jpg",
+      "shotContext": "fight",
+      "durationMs": 1391
+    },
+    {
+      "id": "castAvalancheLeap",
+      "category": "Skill cast",
+      "description": "Not referenced by any call site found.",
+      "usedBy": {
+        "castOf": [],
+        "impactOf": [],
+        "classes": []
+      },
+      "file": "out/audio/castAvalancheLeap.webm",
+      "screenshot": "out/shots/fight.jpg",
+      "shotContext": "fight",
+      "durationMs": 1709
+    },
+    {
+      "id": "castAbsoluteZero",
+      "category": "Skill cast",
+      "description": "Not referenced by any call site found.",
+      "usedBy": {
+        "castOf": [],
+        "impactOf": [],
+        "classes": []
+      },
+      "file": "out/audio/castAbsoluteZero.webm",
+      "screenshot": "out/shots/fight.jpg",
+      "shotContext": "fight",
+      "durationMs": 2147
+    },
+    {
+      "id": "castSmokeBomb",
+      "category": "Skill cast",
+      "description": "Not referenced by any call site found.",
+      "usedBy": {
+        "castOf": [],
+        "impactOf": [],
+        "classes": []
+      },
+      "file": "out/audio/castSmokeBomb.webm",
+      "screenshot": "out/shots/fight.jpg",
+      "shotContext": "fight",
+      "durationMs": 1393
+    },
+    {
+      "id": "castShadowMark",
+      "category": "Skill cast",
+      "description": "Not referenced by any call site found.",
+      "usedBy": {
+        "castOf": [],
+        "impactOf": [],
+        "classes": []
+      },
+      "file": "out/audio/castShadowMark.webm",
+      "screenshot": "out/shots/fight.jpg",
+      "shotContext": "fight",
+      "durationMs": 1834
+    },
+    {
+      "id": "castOrbitalBeam",
+      "category": "Skill cast",
+      "description": "Not referenced by any call site found.",
+      "usedBy": {
+        "castOf": [],
+        "impactOf": [],
+        "classes": []
+      },
+      "file": "out/audio/castOrbitalBeam.webm",
+      "screenshot": "out/shots/fight.jpg",
+      "shotContext": "fight",
+      "durationMs": 1652
+    },
+    {
+      "id": "castSpark",
+      "category": "Skill cast",
+      "description": "Not referenced by any call site found.",
+      "usedBy": {
+        "castOf": [],
+        "impactOf": [],
+        "classes": []
+      },
+      "file": "out/audio/castSpark.webm",
+      "screenshot": "out/shots/fight.jpg",
+      "shotContext": "fight",
+      "durationMs": 1071
+    },
+    {
+      "id": "holy",
+      "category": "Skill impact",
+      "description": "IMPACT sound (plays when the skill hits, layered over the weapon hit sound: hit, hitBlunt, hitPierce or crit) of the holy skills: Aegis Knight: Radiant Strike, Holy Chains, Holy Bastion, Retribution; Lightbringer: Sunbolt, Mending Light, Lance of Light, Dawn Shield, Dawn Sanctuary, Blinding Flash, Sunfall, Halo of Dawn. Impact of holy skills; also non-skill holy damage.",
+      "usedBy": {
+        "castOf": [],
+        "impactOf": [
+          "radiantStrike",
+          "holyChains",
+          "holyBastion",
+          "retribution",
+          "sunbolt",
+          "mendingLight",
+          "lanceOfLight",
+          "dawnShield",
+          "dawnSanctuary",
+          "blindingFlash",
+          "sunfall",
+          "haloOfDawn"
+        ],
+        "classes": [
+          "aegis",
+          "lightbringer"
+        ]
+      },
+      "file": "out/audio/holy.webm",
+      "screenshot": "out/shots/class-aegis.jpg",
+      "shotContext": "class-aegis",
+      "durationMs": 1674,
+      "mixFile": "out/audio/holy.mix.webm",
+      "mixNote": "As heard in a fight by a staff, wand or bare-handed hero: this impact layered over the hitBlunt hit sound."
+    },
+    {
+      "id": "shadow",
+      "category": "Skill impact",
+      "description": "IMPACT sound (plays when the skill hits, layered over the weapon hit sound: hit, hitBlunt, hitPierce or crit) of the shadow skills: Shadowblade: Shadowstep, Smoke Bomb, Shadow Mark. Impact of shadow skills; also non-skill shadow damage and curse bursts.",
+      "usedBy": {
+        "castOf": [],
+        "impactOf": [
+          "shadowstep",
+          "smokeBomb",
+          "shadowMark"
+        ],
+        "classes": [
+          "shadow"
+        ]
+      },
+      "file": "out/audio/shadow.webm",
+      "screenshot": "out/shots/class-shadow.jpg",
+      "shotContext": "class-shadow",
+      "durationMs": 1388,
+      "mixFile": "out/audio/shadow.mix.webm",
+      "mixNote": "As heard in a fight by a staff, wand or bare-handed hero: this impact layered over the hitBlunt hit sound."
+    },
+    {
+      "id": "poison",
+      "category": "Skill impact",
+      "description": "IMPACT sound (plays when the skill hits, layered over the weapon hit sound: hit, hitBlunt, hitPierce or crit) of the poison skills: Shadowblade: Venomous Blade, Nightshade Mist; Blood Alchemist: Sanguine Flask, Enfeebling Tonic. Impact of poison skills (flasks, venom); also non-skill poison/acid damage and flask/venom bursts.",
+      "usedBy": {
+        "castOf": [],
+        "impactOf": [
+          "venomousBlade",
+          "nightshadeMist",
+          "sanguineFlask",
+          "enfeeblingTonic"
+        ],
+        "classes": [
+          "shadow",
+          "blood"
+        ]
+      },
+      "file": "out/audio/poison.webm",
+      "screenshot": "out/shots/class-shadow.jpg",
+      "shotContext": "class-shadow",
+      "durationMs": 1005,
+      "mixFile": "out/audio/poison.mix.webm",
+      "mixNote": "As heard in a fight by a staff, wand or bare-handed hero: this impact layered over the hitBlunt hit sound."
+    },
+    {
+      "id": "blood",
+      "category": "Skill impact",
+      "description": "IMPACT sound (plays when the skill hits, layered over the weapon hit sound: hit, hitBlunt, hitPierce or crit) of the blood skills: Blood Alchemist: Essence Ward, Essence Harvest, Homunculus, Mutagenic Rage, Philosopher's Crucible, Grand Transmutation. Impact of blood skills; also non-skill blood damage.",
+      "usedBy": {
+        "castOf": [],
+        "impactOf": [
+          "essenceWard",
+          "essenceHarvest",
+          "homunculus",
+          "mutagenicRage",
+          "philosophersCrucible",
+          "grandTransmutation"
+        ],
+        "classes": [
+          "blood"
+        ]
+      },
+      "file": "out/audio/blood.webm",
+      "screenshot": "out/shots/class-blood.jpg",
+      "shotContext": "class-blood",
+      "durationMs": 875,
+      "mixFile": "out/audio/blood.mix.webm",
+      "mixNote": "As heard in a fight by a staff, wand or bare-handed hero: this impact layered over the hitBlunt hit sound."
+    },
+    {
+      "id": "quake",
+      "category": "Skill impact",
+      "description": "IMPACT sound (plays when the skill hits, layered over the weapon hit sound: hit, hitBlunt, hitPierce or crit) of the earth skills: Geomancer: Stone Spike, Boulder Roll, Earth Barrier, Seismic Shock, Sinkhole, Petrify, Geode Shell, Tectonic Rupture; Elementalist: Rolling Boulder; Iron Monk: Mountain Palm. Impact of earth skills; also slam, quake and spike effects, root bursts, walls rising in a level, and a pressure plate puzzle solved.",
+      "usedBy": {
+        "castOf": [],
+        "impactOf": [
+          "stoneSpike",
+          "boulderRoll",
+          "earthBarrier",
+          "seismicShock",
+          "sinkhole",
+          "petrify",
+          "geodeShell",
+          "tectonicRupture",
+          "rollingBoulder",
+          "mountainPalm"
+        ],
+        "classes": [
+          "geo",
+          "elementalist",
+          "ironmonk"
+        ]
+      },
+      "file": "out/audio/quake.webm",
+      "screenshot": "out/shots/class-geo.jpg",
+      "shotContext": "class-geo",
+      "durationMs": 1559,
+      "mixFile": "out/audio/quake.mix.webm",
+      "mixNote": "As heard in a fight by a staff, wand or bare-handed hero: this impact layered over the hitBlunt hit sound."
+    },
+    {
+      "id": "impactFire",
+      "category": "Skill impact",
+      "description": "IMPACT sound (plays when the skill hits, layered over the weapon hit sound: hit, hitBlunt, hitPierce or crit) of the fire skills: Pyromancer: Fireball, Flame Pillar, Firecracker, Fan the Flames, Combustion, Ring of Fire, Cataclysm, Phoenix Flight; Aether-Tech: Vent Heat; Elementalist: Frostfire Comet.",
+      "usedBy": {
+        "castOf": [],
+        "impactOf": [
+          "fireball",
+          "flamePillar",
+          "firecracker",
+          "fanTheFlames",
+          "combustion",
+          "ringOfFire",
+          "cataclysm",
+          "phoenixFlight",
+          "ventHeat",
+          "frostfireComet"
+        ],
+        "classes": [
+          "pyro",
+          "aether",
+          "elementalist"
+        ]
+      },
+      "file": "out/audio/impactFire.webm",
+      "screenshot": "out/shots/class-pyro.jpg",
+      "shotContext": "class-pyro",
+      "durationMs": 1538,
+      "mixFile": "out/audio/impactFire.mix.webm",
+      "mixNote": "As heard in a fight by a staff, wand or bare-handed hero: this impact layered over the hitBlunt hit sound."
+    },
+    {
+      "id": "impactIce",
+      "category": "Skill impact",
+      "description": "IMPACT sound (plays when the skill hits, layered over the weapon hit sound: hit, hitBlunt, hitPierce or crit) of the ice skills: Frostwarden: Frost Cleave, Rime Lance, Frost Armor, Glacial Charge, Rime Field, Frost Shatter, Avalanche Leap, Absolute Zero; Elementalist: Frost Lance.",
+      "usedBy": {
+        "castOf": [],
+        "impactOf": [
+          "frostCleave",
+          "rimeLance",
+          "frostArmor",
+          "glacialCharge",
+          "rimeField",
+          "frostShatter",
+          "avalancheLeap",
+          "absoluteZero",
+          "frostLance"
+        ],
+        "classes": [
+          "frostwarden",
+          "elementalist"
+        ]
+      },
+      "file": "out/audio/impactIce.webm",
+      "screenshot": "out/shots/class-frostwarden.jpg",
+      "shotContext": "class-frostwarden",
+      "durationMs": 1163,
+      "mixFile": "out/audio/impactIce.mix.webm",
+      "mixNote": "As heard in a fight by a staff, wand or bare-handed hero: this impact layered over the hitBlunt hit sound."
+    },
+    {
+      "id": "impactShock",
+      "category": "Skill impact",
+      "description": "IMPACT sound (plays when the skill hits, layered over the weapon hit sound: hit, hitBlunt, hitPierce or crit) of the shock skills: Aether-Tech: Shock Grenade, Orbital Beam, Arc Coil; Elementalist: Chain Spark, Thundersnow.",
+      "usedBy": {
+        "castOf": [],
+        "impactOf": [
+          "shockGrenade",
+          "orbitalBeam",
+          "arcCoil",
+          "chainSpark",
+          "thunderSnow"
+        ],
+        "classes": [
+          "aether",
+          "elementalist"
+        ]
+      },
+      "file": "out/audio/impactShock.webm",
+      "screenshot": "out/shots/class-aether.jpg",
+      "shotContext": "class-aether",
+      "durationMs": 1121,
+      "mixFile": "out/audio/impactShock.mix.webm",
+      "mixNote": "As heard in a fight by a staff, wand or bare-handed hero: this impact layered over the hitBlunt hit sound."
+    },
+    {
+      "id": "impactWind",
+      "category": "Skill impact",
+      "description": "IMPACT sound (plays when the skill hits, layered over the weapon hit sound: hit, hitBlunt, hitPierce or crit) of the wind skills: Windrunner: Gale Arrow, Zephyr Dash, Piercing Gale, Cyclone Snare, Updraft Leap, Arrow Storm, Gale Spirits, Skyrender; Beastcaller: Call Hawk.",
+      "usedBy": {
+        "castOf": [],
+        "impactOf": [
+          "galeArrow",
+          "zephyrDash",
+          "piercingGale",
+          "cycloneSnare",
+          "updraftLeap",
+          "arrowStorm",
+          "galeSpirits",
+          "skyrender",
+          "callHawk"
+        ],
+        "classes": [
+          "windrunner",
+          "beastcaller"
+        ]
+      },
+      "file": "out/audio/impactWind.webm",
+      "screenshot": "out/shots/class-windrunner.jpg",
+      "shotContext": "class-windrunner",
+      "durationMs": 1123,
+      "mixFile": "out/audio/impactWind.mix.webm",
+      "mixNote": "As heard in a fight by a staff, wand or bare-handed hero: this impact layered over the hitBlunt hit sound."
+    },
+    {
+      "id": "impactNature",
+      "category": "Skill impact",
+      "description": "IMPACT sound (plays when the skill hits, layered over the weapon hit sound: hit, hitBlunt, hitPierce or crit) of the nature skills: Beastcaller: Call Wolf, Wolf Pounce, Call Bear, Pack Bond, Spirit Stampede, Alpha Howl, Wild Hunt.",
+      "usedBy": {
+        "castOf": [],
+        "impactOf": [
+          "callWolf",
+          "wolfPounce",
+          "callBear",
+          "packBond",
+          "spiritStampede",
+          "alphaHowl",
+          "wildHunt"
+        ],
+        "classes": [
+          "beastcaller"
+        ]
+      },
+      "file": "out/audio/impactNature.webm",
+      "screenshot": "out/shots/class-beastcaller.jpg",
+      "shotContext": "class-beastcaller",
+      "durationMs": 1072,
+      "mixFile": "out/audio/impactNature.mix.webm",
+      "mixNote": "As heard in a fight by a staff, wand or bare-handed hero: this impact layered over the hitBlunt hit sound."
+    },
+    {
+      "id": "impactArcane",
+      "category": "Skill impact",
+      "description": "IMPACT sound (plays when the skill hits, layered over the weapon hit sound: hit, hitBlunt, hitPierce or crit) of the arcane skills: Elementalist: Prism Bolt, Prismatic Nova, Elemental Convergence.",
+      "usedBy": {
+        "castOf": [],
+        "impactOf": [
+          "prismBolt",
+          "prismaticNova",
+          "elementalConvergence"
+        ],
+        "classes": [
+          "elementalist"
+        ]
+      },
+      "file": "out/audio/impactArcane.webm",
+      "screenshot": "out/shots/class-elementalist.jpg",
+      "shotContext": "class-elementalist",
+      "durationMs": 1111,
+      "mixFile": "out/audio/impactArcane.mix.webm",
+      "mixNote": "As heard in a fight by a staff, wand or bare-handed hero: this impact layered over the hitBlunt hit sound."
+    },
+    {
+      "id": "impactTime",
+      "category": "Skill impact",
+      "description": "IMPACT sound (plays when the skill hits, layered over the weapon hit sound: hit, hitBlunt, hitPierce or crit) of the time skills: Chrono-Weaver: Temporal Stasis, Echo Bolt, Haste Field, Time Bubble, Paradox Shift, Time Loop, Chrono Rewind, Time Stop.",
+      "usedBy": {
+        "castOf": [],
+        "impactOf": [
+          "temporalStasis",
+          "echoBolt",
+          "hasteField",
+          "timeBubble",
+          "paradoxShift",
+          "timeLoop",
+          "chronoRewind",
+          "timeStop"
+        ],
+        "classes": [
+          "chrono"
+        ]
+      },
+      "file": "out/audio/impactTime.webm",
+      "screenshot": "out/shots/class-chrono.jpg",
+      "shotContext": "class-chrono",
+      "durationMs": 1122,
+      "mixFile": "out/audio/impactTime.mix.webm",
+      "mixNote": "As heard in a fight by a staff, wand or bare-handed hero: this impact layered over the hitBlunt hit sound."
+    },
+    {
+      "id": "impactSpirit",
+      "category": "Skill impact",
+      "description": "IMPACT sound (plays when the skill hits, layered over the weapon hit sound: hit, hitBlunt, hitPierce or crit) of the spirit skills: Soul Warden: Wisp Bolt, Call the Fallen, Soul Bond, Spirit Lantern, Haunting Wail, Release Souls, Wisp Swarm, Procession of Souls.",
+      "usedBy": {
+        "castOf": [],
+        "impactOf": [
+          "wispBolt",
+          "callTheFallen",
+          "soulBond",
+          "spiritLantern",
+          "hauntingWail",
+          "releaseSouls",
+          "wispSwarm",
+          "processionOfSouls"
+        ],
+        "classes": [
+          "soulwarden"
+        ]
+      },
+      "file": "out/audio/impactSpirit.webm",
+      "screenshot": "out/shots/class-soulwarden.jpg",
+      "shotContext": "class-soulwarden",
+      "durationMs": 1111,
+      "mixFile": "out/audio/impactSpirit.mix.webm",
+      "mixNote": "As heard in a fight by a staff, wand or bare-handed hero: this impact layered over the hitBlunt hit sound."
+    },
+    {
+      "id": "impactSong",
+      "category": "Skill impact",
+      "description": "IMPACT sound (plays when the skill hits, layered over the weapon hit sound: hit, hitBlunt, hitPierce or crit) of the song skills: Bard: Sharp Note, Marching Song, Lullaby, Ballad of Valor, Charming Serenade, Hymn of Mending, Crescendo, Grand Finale.",
+      "usedBy": {
+        "castOf": [],
+        "impactOf": [
+          "sharpNote",
+          "marchingSong",
+          "lullaby",
+          "balladOfValor",
+          "charmingSerenade",
+          "hymnOfMending",
+          "crescendo",
+          "grandFinale"
+        ],
+        "classes": [
+          "bard"
+        ]
+      },
+      "file": "out/audio/impactSong.webm",
+      "screenshot": "out/shots/class-bard.jpg",
+      "shotContext": "class-bard",
+      "durationMs": 976,
+      "mixFile": "out/audio/impactSong.mix.webm",
+      "mixNote": "As heard in a fight by a staff, wand or bare-handed hero: this impact layered over the hitBlunt hit sound."
+    },
+    {
+      "id": "impactTech",
+      "category": "Skill impact",
+      "description": "IMPACT sound (plays when the skill hits, layered over the weapon hit sound: hit, hitBlunt, hitPierce or crit) of the tech skills: Aether-Tech: Aether Pistol, Deploy Turret, Rocket Jump, Exo-Suit.",
+      "usedBy": {
+        "castOf": [],
+        "impactOf": [
+          "aetherPistol",
+          "deployTurret",
+          "rocketJump",
+          "exoSuit"
+        ],
+        "classes": [
+          "aether"
+        ]
+      },
+      "file": "out/audio/impactTech.webm",
+      "screenshot": "out/shots/class-aether.jpg",
+      "shotContext": "class-aether",
+      "durationMs": 1452,
+      "mixFile": "out/audio/impactTech.mix.webm",
+      "mixNote": "As heard in a fight by a staff, wand or bare-handed hero: this impact layered over the hitBlunt hit sound."
+    },
+    {
+      "id": "swing",
+      "category": "Weapon",
+      "description": "Basic attack with a sword or other edged one-hand weapon (hero and humanoid enemies; enemies play it quieter).",
+      "usedBy": {
+        "castOf": [],
+        "impactOf": [],
+        "classes": []
+      },
+      "file": "out/audio/swing.webm",
+      "screenshot": "out/shots/fight.jpg",
+      "shotContext": "fight",
+      "durationMs": 692
+    },
+    {
+      "id": "swingDagger",
+      "category": "Weapon",
+      "description": "Basic attack with a dagger; also the bite or claw of small beasts (non-humanoid enemies).",
+      "usedBy": {
+        "castOf": [],
+        "impactOf": [],
+        "classes": []
+      },
+      "file": "out/audio/swingDagger.webm",
+      "screenshot": "out/shots/fight.jpg",
+      "shotContext": "fight",
+      "durationMs": 285
+    },
+    {
+      "id": "swingHeavy",
+      "category": "Weapon",
+      "description": "CAST sound (plays as the skill starts) of the physical skills: Aegis Knight: Shield Slam, Shield Throw, Shield Shove; Shadowblade: Star Fan, Grappling Hook, Dance of Blades; Iron Monk: Palm Strike, Flying Kick, Tiger Stance, Crane Stance, Hundred Fists, Rising Dragon, Whirlwind Kick. Basic attack with a greatsword, axe or scythe, or any heavy blow. Also the cleave and dash effects, and the CAST sound of every physical skill.",
+      "usedBy": {
+        "castOf": [
+          "shieldSlam",
+          "shieldThrow",
+          "shieldShove",
+          "starFan",
+          "grapplingHook",
+          "danceOfBlades",
+          "palmStrike",
+          "flyingKick",
+          "tigerStance",
+          "craneStance",
+          "hundredFists",
+          "risingDragon",
+          "whirlwindKick"
+        ],
+        "impactOf": [],
+        "classes": [
+          "aegis",
+          "shadow",
+          "ironmonk"
+        ]
+      },
+      "file": "out/audio/swingHeavy.webm",
+      "screenshot": "out/shots/fight.jpg",
+      "shotContext": "fight",
+      "durationMs": 891
+    },
+    {
+      "id": "swingBlunt",
+      "category": "Weapon",
+      "description": "Basic attack with a hammer, club, staff, cannon or bare fists; the swipe of dragons, wyverns and big beasts.",
+      "usedBy": {
+        "castOf": [],
+        "impactOf": [],
+        "classes": []
+      },
+      "file": "out/audio/swingBlunt.webm",
+      "screenshot": "out/shots/fight.jpg",
+      "shotContext": "fight",
+      "durationMs": 1072
+    },
+    {
+      "id": "shoot",
+      "category": "Weapon",
+      "description": "Ranged basic attack with a gun, crossbow or other non-bow ranged weapon.",
+      "usedBy": {
+        "castOf": [],
+        "impactOf": [],
+        "classes": []
+      },
+      "file": "out/audio/shoot.webm",
+      "screenshot": "out/shots/fight.jpg",
+      "shotContext": "fight",
+      "durationMs": 904
+    },
+    {
+      "id": "shootBow",
+      "category": "Weapon",
+      "description": "Ranged basic attack with a bow or sling.",
+      "usedBy": {
+        "castOf": [],
+        "impactOf": [],
+        "classes": []
+      },
+      "file": "out/audio/shootBow.webm",
+      "screenshot": "out/shots/fight.jpg",
+      "shotContext": "fight",
+      "durationMs": 935
+    },
+    {
+      "id": "cast",
+      "category": "Weapon",
+      "description": "Basic attack of a magic-style attacker (staff bolts, caster enemies).",
+      "usedBy": {
+        "castOf": [],
+        "impactOf": [],
+        "classes": []
+      },
+      "file": "out/audio/cast.webm",
+      "screenshot": "out/shots/fight.jpg",
+      "shotContext": "fight",
+      "durationMs": 1190
+    },
+    {
+      "id": "hit",
+      "category": "Hit",
+      "description": "The hero lands an edged blow (sword, axe). Plays UNDER every skill impact too, layered with the element sound.",
+      "usedBy": {
+        "castOf": [],
+        "impactOf": [],
+        "classes": []
+      },
+      "file": "out/audio/hit.webm",
+      "screenshot": "out/shots/fight.jpg",
+      "shotContext": "fight",
+      "durationMs": 676
+    },
+    {
+      "id": "hitBlunt",
+      "category": "Hit",
+      "description": "The hero lands a blunt blow (hammer, club, fists, staff). Also the training dummy being knocked, and a weak forge strike at the smith. Plays under skill impacts of blunt-weapon heroes.",
+      "usedBy": {
+        "castOf": [],
+        "impactOf": [],
+        "classes": []
+      },
+      "file": "out/audio/hitBlunt.webm",
+      "screenshot": "out/shots/fight.jpg",
+      "shotContext": "fight",
+      "durationMs": 1089
+    },
+    {
+      "id": "hitPierce",
+      "category": "Hit",
+      "description": "The hero lands a piercing blow (arrows, bolts, spears, daggers). Plays under the impact of piercing skills.",
+      "usedBy": {
+        "castOf": [],
+        "impactOf": [],
+        "classes": []
+      },
+      "file": "out/audio/hitPierce.webm",
+      "screenshot": "out/shots/fight.jpg",
+      "shotContext": "fight",
+      "durationMs": 636
+    },
+    {
+      "id": "hitHeavy",
+      "category": "Hit",
+      "description": "IMPACT sound (plays when the skill hits, layered over the weapon hit sound: hit, hitBlunt, hitPierce or crit) of the physical/command skills: Aegis Knight: Shield Slam, Shield Throw, Taunting Cry, Shield Shove; Shadowblade: Star Fan, Grappling Hook, Dance of Blades; Grand Sovereign: Royal Guard, Command Focus, Call Archers, Royal Rally, Banner of Victory, Royal Decree, Army of the Realm, Summon Champion; Iron Monk: Palm Strike, Flying Kick, Tiger Stance, Crane Stance, Hundred Fists, Rising Dragon, Whirlwind Kick. A heavy blow lands. Also the IMPACT sound of every physical skill and every command skill, and a strong forge strike at the smith.",
+      "usedBy": {
+        "castOf": [],
+        "impactOf": [
+          "shieldSlam",
+          "shieldThrow",
+          "tauntingCry",
+          "shieldShove",
+          "starFan",
+          "grapplingHook",
+          "danceOfBlades",
+          "royalGuard",
+          "commandFocus",
+          "callArchers",
+          "royalRally",
+          "bannerOfVictory",
+          "royalDecree",
+          "armyOfTheRealm",
+          "summonChampion",
+          "palmStrike",
+          "flyingKick",
+          "tigerStance",
+          "craneStance",
+          "hundredFists",
+          "risingDragon",
+          "whirlwindKick"
+        ],
+        "classes": [
+          "aegis",
+          "shadow",
+          "sovereign",
+          "ironmonk"
+        ]
+      },
+      "file": "out/audio/hitHeavy.webm",
+      "screenshot": "out/shots/fight.jpg",
+      "shotContext": "fight",
+      "durationMs": 1071
+    },
+    {
+      "id": "crit",
+      "category": "Hit",
+      "description": "A critical hit by the hero (replaces the normal hit sound, under any skill impact).",
+      "usedBy": {
+        "castOf": [],
+        "impactOf": [],
+        "classes": []
+      },
+      "file": "out/audio/crit.webm",
+      "screenshot": "out/shots/fight.jpg",
+      "shotContext": "fight",
+      "durationMs": 1301
+    },
+    {
+      "id": "block",
+      "category": "Hit",
+      "description": "An attack is blocked; also the anvil clang when an item is upgraded on the equipment page.",
+      "usedBy": {
+        "castOf": [],
+        "impactOf": [],
+        "classes": []
+      },
+      "file": "out/audio/block.webm",
+      "screenshot": "out/shots/fight.jpg",
+      "shotContext": "fight",
+      "durationMs": 1290
+    },
+    {
+      "id": "dodge",
+      "category": "Hit",
+      "description": "An attack misses or is dodged.",
+      "usedBy": {
+        "castOf": [],
+        "impactOf": [],
+        "classes": []
+      },
+      "file": "out/audio/dodge.webm",
+      "screenshot": "out/shots/fight.jpg",
+      "shotContext": "fight",
+      "durationMs": 692
+    },
+    {
+      "id": "hurt",
+      "category": "Hit",
+      "description": "The hero takes damage.",
+      "usedBy": {
+        "castOf": [],
+        "impactOf": [],
+        "classes": []
+      },
+      "file": "out/audio/hurt.webm",
+      "screenshot": "out/shots/fight.jpg",
+      "shotContext": "fight",
+      "durationMs": 959
+    },
+    {
+      "id": "fire",
+      "category": "Hit",
+      "description": "A non-skill fire hit (a burning weapon, fire damage type), quieter layer; also dragon breath.",
+      "usedBy": {
+        "castOf": [],
+        "impactOf": [],
+        "classes": []
+      },
+      "file": "out/audio/fire.webm",
+      "screenshot": "out/shots/fight.jpg",
+      "shotContext": "fight",
+      "durationMs": 1140
+    },
+    {
+      "id": "ice",
+      "category": "Hit",
+      "description": "A non-skill frost hit; also icicle and geyser bursts.",
+      "usedBy": {
+        "castOf": [],
+        "impactOf": [],
+        "classes": []
+      },
+      "file": "out/audio/ice.webm",
+      "screenshot": "out/shots/fight.jpg",
+      "shotContext": "fight",
+      "durationMs": 1269
+    },
+    {
+      "id": "beam",
+      "category": "Ability",
+      "description": "A beam effect (boss and skill beams), and beam damage.",
+      "usedBy": {
+        "castOf": [],
+        "impactOf": [],
+        "classes": []
+      },
+      "file": "out/audio/beam.webm",
+      "screenshot": "out/shots/boss.jpg",
+      "shotContext": "boss",
+      "durationMs": 1210
+    },
+    {
+      "id": "explode",
+      "category": "Ability",
+      "description": "A generic burst or explosion effect (grenades, bombs, any burst without its own sound).",
+      "usedBy": {
+        "castOf": [],
+        "impactOf": [],
+        "classes": []
+      },
+      "file": "out/audio/explode.webm",
+      "screenshot": "out/shots/fight.jpg",
+      "shotContext": "fight",
+      "durationMs": 1685
+    },
+    {
+      "id": "teleport",
+      "category": "Ability",
+      "description": "Blink and rewind effects (teleports, time rewinds).",
+      "usedBy": {
+        "castOf": [],
+        "impactOf": [],
+        "classes": []
+      },
+      "file": "out/audio/teleport.webm",
+      "screenshot": "out/shots/fight.jpg",
+      "shotContext": "fight",
+      "durationMs": 1138
+    },
+    {
+      "id": "summon",
+      "category": "Ability",
+      "description": "Something is summoned or deployed (pets, turrets, minions).",
+      "usedBy": {
+        "castOf": [],
+        "impactOf": [],
+        "classes": []
+      },
+      "file": "out/audio/summon.webm",
+      "screenshot": "out/shots/fight.jpg",
+      "shotContext": "fight",
+      "durationMs": 1694
+    },
+    {
+      "id": "heal",
+      "category": "Ability",
+      "description": "A heal effect; also drinking from a healing spring in a level.",
+      "usedBy": {
+        "castOf": [],
+        "impactOf": [],
+        "classes": []
+      },
+      "file": "out/audio/heal.webm",
+      "screenshot": "out/shots/fight.jpg",
+      "shotContext": "fight",
+      "durationMs": 1578
+    },
+    {
+      "id": "shieldUp",
+      "category": "Ability",
+      "description": "A shield, bastion or buff goes up; also the fatal-save that keeps the hero alive.",
+      "usedBy": {
+        "castOf": [],
+        "impactOf": [],
+        "classes": []
+      },
+      "file": "out/audio/shieldUp.webm",
+      "screenshot": "out/shots/fight.jpg",
+      "shotContext": "fight",
+      "durationMs": 1385
+    },
+    {
+      "id": "overheat",
+      "category": "Ability",
+      "description": "The Aether-Tech overheats (heat bar full).",
+      "usedBy": {
+        "castOf": [],
+        "impactOf": [],
+        "classes": []
+      },
+      "file": "out/audio/overheat.webm",
+      "screenshot": "out/shots/fight.jpg",
+      "shotContext": "fight",
+      "durationMs": 1224
+    },
+    {
+      "id": "roar",
+      "category": "Enemy",
+      "description": "A boss enters a new phase; also roar effects.",
+      "usedBy": {
+        "castOf": [],
+        "impactOf": [],
+        "classes": []
+      },
+      "file": "out/audio/roar.webm",
+      "screenshot": "out/shots/boss.jpg",
+      "shotContext": "boss",
+      "durationMs": 1772
+    },
+    {
+      "id": "telegraph",
+      "category": "Enemy",
+      "description": "An enemy starts winding up a special move (the warning before it lands).",
+      "usedBy": {
+        "castOf": [],
+        "impactOf": [],
+        "classes": []
+      },
+      "file": "out/audio/telegraph.webm",
+      "screenshot": "out/shots/boss.jpg",
+      "shotContext": "boss",
+      "durationMs": 1274
+    },
+    {
+      "id": "alert",
+      "category": "Enemy",
+      "description": "An enemy group wakes up and notices the hero; a colosseum wave starts; the world map raises an alarm.",
+      "usedBy": {
+        "castOf": [],
+        "impactOf": [],
+        "classes": []
+      },
+      "file": "out/audio/alert.webm",
+      "screenshot": "out/shots/fight.jpg",
+      "shotContext": "fight",
+      "durationMs": 952
+    },
+    {
+      "id": "bossIntro",
+      "category": "Enemy",
+      "description": "A boss wakes up (its entrance, with slow motion and the boss banner).",
+      "usedBy": {
+        "castOf": [],
+        "impactOf": [],
+        "classes": []
+      },
+      "file": "out/audio/bossIntro.webm",
+      "screenshot": "out/shots/boss.jpg",
+      "shotContext": "boss",
+      "durationMs": 2280
+    },
+    {
+      "id": "death",
+      "category": "Enemy",
+      "description": "An ordinary enemy dies.",
+      "usedBy": {
+        "castOf": [],
+        "impactOf": [],
+        "classes": []
+      },
+      "file": "out/audio/death.webm",
+      "screenshot": "out/shots/fight.jpg",
+      "shotContext": "fight",
+      "durationMs": 1087
+    },
+    {
+      "id": "deathBig",
+      "category": "Enemy",
+      "description": "A boss dies, the hero falls, or an escorted caravan is lost.",
+      "usedBy": {
+        "castOf": [],
+        "impactOf": [],
+        "classes": []
+      },
+      "file": "out/audio/deathBig.webm",
+      "screenshot": "out/shots/boss.jpg",
+      "shotContext": "boss",
+      "durationMs": 1965
+    },
+    {
+      "id": "coin",
+      "category": "Reward",
+      "description": "Gold is gained: coins dropped in a fight, a sale, a reward from a quest, contract or minigame; also an item upgrade.",
+      "usedBy": {
+        "castOf": [],
+        "impactOf": [],
+        "classes": []
+      },
+      "file": "out/audio/coin.webm",
+      "screenshot": "out/shots/fight.jpg",
+      "shotContext": "fight",
+      "durationMs": 290
+    },
+    {
+      "id": "loot",
+      "category": "Reward",
+      "description": "A common item drops, or an item is received in a dialogue.",
+      "usedBy": {
+        "castOf": [],
+        "impactOf": [],
+        "classes": []
+      },
+      "file": "out/audio/loot.webm",
+      "screenshot": "out/shots/fight.jpg",
+      "shotContext": "fight",
+      "durationMs": 800
+    },
+    {
+      "id": "lootRare",
+      "category": "Reward",
+      "description": "A rare (tier 3) item drops.",
+      "usedBy": {
+        "castOf": [],
+        "impactOf": [],
+        "classes": []
+      },
+      "file": "out/audio/lootRare.webm",
+      "screenshot": "out/shots/fight.jpg",
+      "shotContext": "fight",
+      "durationMs": 967
+    },
+    {
+      "id": "lootEpic",
+      "category": "Reward",
+      "description": "An epic (tier 4 to 5) item drops.",
+      "usedBy": {
+        "castOf": [],
+        "impactOf": [],
+        "classes": []
+      },
+      "file": "out/audio/lootEpic.webm",
+      "screenshot": "out/shots/fight.jpg",
+      "shotContext": "fight",
+      "durationMs": 1428
+    },
+    {
+      "id": "lootLegend",
+      "category": "Reward",
+      "description": "A legendary or mythic (tier 6+) item drops.",
+      "usedBy": {
+        "castOf": [],
+        "impactOf": [],
+        "classes": []
+      },
+      "file": "out/audio/lootLegend.webm",
+      "screenshot": "out/shots/boss.jpg",
+      "shotContext": "boss",
+      "durationMs": 1867
+    },
+    {
+      "id": "chest",
+      "category": "Reward",
+      "description": "A chest opens (in a level, after a victory, on the world map, at a trader); also the training dummy breaking apart.",
+      "usedBy": {
+        "castOf": [],
+        "impactOf": [],
+        "classes": []
+      },
+      "file": "out/audio/chest.webm",
+      "screenshot": "out/shots/fight.jpg",
+      "shotContext": "fight",
+      "durationMs": 1232
+    },
+    {
+      "id": "levelUp",
+      "category": "Reward",
+      "description": "The hero levels up; also a quest or errand completed, captives freed from a cage, a caravan arriving, and a forge success.",
+      "usedBy": {
+        "castOf": [],
+        "impactOf": [],
+        "classes": []
+      },
+      "file": "out/audio/levelUp.webm",
+      "screenshot": "out/shots/fight.jpg",
+      "shotContext": "fight",
+      "durationMs": 1389
+    },
+    {
+      "id": "potion",
+      "category": "Reward",
+      "description": "A potion is drunk, or bought from the alchemist or healer.",
+      "usedBy": {
+        "castOf": [],
+        "impactOf": [],
+        "classes": []
+      },
+      "file": "out/audio/potion.webm",
+      "screenshot": "out/shots/fight.jpg",
+      "shotContext": "fight",
+      "durationMs": 710
+    },
+    {
+      "id": "crowdCheer",
+      "category": "Crowd",
+      "description": "The colosseum crowd cheers when a wave falls.",
+      "usedBy": {
+        "castOf": [],
+        "impactOf": [],
+        "classes": []
+      },
+      "file": "out/audio/crowdCheer.webm",
+      "screenshot": "out/shots/arena.jpg",
+      "shotContext": "arena",
+      "durationMs": 2115
+    },
+    {
+      "id": "crowdRoar",
+      "category": "Crowd",
+      "description": "The colosseum crowd roars (with a horn call) when a milestone wave is reached and a mythic prize appears.",
+      "usedBy": {
+        "castOf": [],
+        "impactOf": [],
+        "classes": []
+      },
+      "file": "out/audio/crowdRoar.webm",
+      "screenshot": "out/shots/arena.jpg",
+      "shotContext": "arena",
+      "durationMs": 2559
+    },
+    {
+      "id": "denied",
+      "category": "UI",
+      "description": "Anything refused: not enough gold, requirements not met, a locked cage or chest, a busy ore vein, a wrong plate in a puzzle, a lost minigame.",
+      "usedBy": {
+        "castOf": [],
+        "impactOf": [],
+        "classes": []
+      },
+      "file": "out/audio/denied.webm",
+      "screenshot": "out/shots/town.jpg",
+      "shotContext": "town",
+      "durationMs": 264
+    },
+    {
+      "id": "uiClick",
+      "category": "UI",
+      "description": "Every button press, tab, select and list tap in the menus and HUD.",
+      "usedBy": {
+        "castOf": [],
+        "impactOf": [],
+        "classes": []
+      },
+      "file": "out/audio/uiClick.webm",
+      "screenshot": "out/shots/town.jpg",
+      "shotContext": "town",
+      "durationMs": 95
+    },
+    {
+      "id": "uiOpen",
+      "category": "UI",
+      "description": "A window or screen opens; a chest starts opening; an errand is taken.",
+      "usedBy": {
+        "castOf": [],
+        "impactOf": [],
+        "classes": []
+      },
+      "file": "out/audio/uiOpen.webm",
+      "screenshot": "out/shots/town.jpg",
+      "shotContext": "town",
+      "durationMs": 190
+    },
+    {
+      "id": "uiClose",
+      "category": "UI",
+      "description": "A window or screen closes; an item is taken off.",
+      "usedBy": {
+        "castOf": [],
+        "impactOf": [],
+        "classes": []
+      },
+      "file": "out/audio/uiClose.webm",
+      "screenshot": "out/shots/town.jpg",
+      "shotContext": "town",
+      "durationMs": 166
+    },
+    {
+      "id": "uiEquip",
+      "category": "UI",
+      "description": "An item or skill is equipped; ore, herbs or a cage key picked up in a level; a small potion pickup.",
+      "usedBy": {
+        "castOf": [],
+        "impactOf": [],
+        "classes": []
+      },
+      "file": "out/audio/uiEquip.webm",
+      "screenshot": "out/shots/town.jpg",
+      "shotContext": "town",
+      "durationMs": 309
+    },
+    {
+      "id": "uiBuy",
+      "category": "UI",
+      "description": "Buying at a trader; taking a contract; a reward claimed on the results screen.",
+      "usedBy": {
+        "castOf": [],
+        "impactOf": [],
+        "classes": []
+      },
+      "file": "out/audio/uiBuy.webm",
+      "screenshot": "out/shots/town.jpg",
+      "shotContext": "town",
+      "durationMs": 420
+    },
+    {
+      "id": "uiLearn",
+      "category": "UI",
+      "description": "A skill learned at a trainer, a treatment at the healer, a lore scroll found, a puzzle solved, a minigame won.",
+      "usedBy": {
+        "castOf": [],
+        "impactOf": [],
+        "classes": []
+      },
+      "file": "out/audio/uiLearn.webm",
+      "screenshot": "out/shots/town.jpg",
+      "shotContext": "town",
+      "durationMs": 469
+    },
+    {
+      "id": "uiPoint",
+      "category": "UI",
+      "description": "An attribute point spent; a goal ticked; places revealed on the world map; a pressure plate stepped on.",
+      "usedBy": {
+        "castOf": [],
+        "impactOf": [],
+        "classes": []
+      },
+      "file": "out/audio/uiPoint.webm",
+      "screenshot": "out/shots/town.jpg",
+      "shotContext": "town",
+      "durationMs": 289
+    },
+    {
+      "id": "uiChoice",
+      "category": "UI",
+      "description": "A choice made: a dialogue answer, the class pick, a character choice.",
+      "usedBy": {
+        "castOf": [],
+        "impactOf": [],
+        "classes": []
+      },
+      "file": "out/audio/uiChoice.webm",
+      "screenshot": "out/shots/town.jpg",
+      "shotContext": "town",
+      "durationMs": 770
+    },
+    {
+      "id": "mapMove",
+      "category": "UI",
+      "description": "Selecting or travelling to a place on the world map.",
+      "usedBy": {
+        "castOf": [],
+        "impactOf": [],
+        "classes": []
+      },
+      "file": "out/audio/mapMove.webm",
+      "screenshot": "out/shots/town.jpg",
+      "shotContext": "town",
+      "durationMs": 139
+    }
+  ]
+}

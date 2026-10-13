@@ -2,6 +2,7 @@
 export default {
   arena: {
     allWon: 'Semua hadiah mitis jadi milikmu.',
+    call: 'Kisahnya telah usai. Sekarang buktikan build-mu: naiklah sejauh mungkin, dan menangkan hadiah mitis yang tak bisa diberikan siapa pun.',
     prize: '{item} jadi milikmu!',
     milestone: 'Gelombang {n}!',
     next: 'Hadiah berikutnya di gelombang {at}: {item}',
@@ -141,6 +142,8 @@ export default {
     cageKey: 'Sebuah kunci! Pasti untuk membuka kurungan itu.',
     ore: 'Ditambang: {n} × {ore}',
     mineBusy: 'Musuh ada di dekat!',
+    pressureUp: 'Musuhmu makin ganas {skulls}',
+    pressureDown: 'Musuhmu mulai mereda {skulls}',
     item: 'Ditemukan: {item}',
     levelUp: 'Level {level}! +3 poin atribut',
     boss: '{boss} muncul',
@@ -327,6 +330,7 @@ export default {
     questDone: '{quest}: {choice}',
     trainer: 'Pelatih tersembunyi: {cls}',
     new: 'Baru',
+    trueTest: 'Ujian sejati',
     skip: 'Ketuk untuk lewati',
     compass: {
       n: 'U',
@@ -4672,11 +4676,11 @@ export default {
       },
       favor: {
         '1': 'Tidak untuk orang asing. Tapi bantu aku, dan kita jadi teman.',
-        '2': 'Manusia Pohon di Hutan Berbisik menjaga Lonceng Bulan yang kubutuhkan. Kalahkan enam, lalu bawakan aku tiga Lonceng Bulan.',
+        '2': 'Manusia Pohon di Hutan Berbisik menjaga Lonceng Bulan yang kubutuhkan. Kalahkan empat, lalu bawakan aku dua Lonceng Bulan.',
         say: 'Ada yang dijual?'
       },
       waiting: {
-        '1': 'Enam Manusia Pohon, tiga Lonceng Bulan. Sayangnya, bunganya tidak bisa memetik dirinya sendiri.',
+        '1': 'Empat Manusia Pohon, dua Lonceng Bulan. Sayangnya, bunganya tidak bisa memetik dirinya sendiri.',
         say: 'Soal bantuan itu...'
       },
       favorDone: {
@@ -4748,11 +4752,11 @@ export default {
       },
       favor: {
         '1': 'Cuma untuk yang bisa mengimbangiku. Kamu bisa? Ayo kita lihat.',
-        '2': 'Kalahkan dua belas Bandit Pemanah di Pinggiran Oakhaven, lalu bawakan aku tiga Pakis Kilat.',
+        '2': 'Kalahkan delapan Bandit Pemanah di Pinggiran Oakhaven, lalu bawakan aku dua Pakis Kilat.',
         say: 'Kamu mengajar memanah?'
       },
       waiting: {
-        '1': 'Dua belas bandit pemanah, tiga Pakis Kilat. Ayo! Aku tunggu di sini. Sambil melompat-lompat.',
+        '1': 'Delapan bandit pemanah, dua Pakis Kilat. Ayo! Aku tunggu di sini. Sambil melompat-lompat.',
         say: 'Soal ujianmu...'
       },
       favorDone: {
@@ -4803,11 +4807,11 @@ export default {
       },
       favor: {
         '1': 'Ya. Aku hanya mengajarkannya pada yang tetap berkepala dingin di tempat panas.',
-        '2': 'Padamkan sepuluh Elemental Api di Tebing Abu. Lalu bawakan aku tiga tangkai Mint Beku.',
+        '2': 'Padamkan tujuh Elemental Api di Tebing Abu. Lalu bawakan aku dua tangkai Mint Beku.',
         say: 'Pedang itu terbuat dari es?'
       },
       waiting: {
-        '1': 'Sepuluh elemental api. Tiga tangkai Mint Beku. Tak usah buru-buru. Tapi jangan terlalu lama.',
+        '1': 'Tujuh elemental api. Dua tangkai Mint Beku. Tak usah buru-buru. Tapi jangan terlalu lama.',
         say: 'Soal ujianmu...'
       },
       favorDone: {
@@ -4857,11 +4861,11 @@ export default {
       },
       favor: {
         '1': 'Setiap orang punya sedikit cahaya di dalam diri. Aku mengajari mereka melepaskannya, kalau sudah siap.',
-        '2': 'Kalahkan sepuluh Pemuja di Tebing Abu, lalu bawakan aku lima Kelopak Surya untuk pelitaku.',
+        '2': 'Kalahkan tujuh Pemuja di Tebing Abu, lalu bawakan aku tiga Kelopak Surya untuk pelitaku.',
         say: 'Pelita itu ajaib?'
       },
       waiting: {
-        '1': 'Sepuluh pemuja, lima Kelopak Surya. Kalahkan mereka dengan lembut. Semua orang pantas dapat kesempatan kedua.',
+        '1': 'Tujuh pemuja, tiga Kelopak Surya. Kalahkan mereka dengan lembut. Semua orang pantas dapat kesempatan kedua.',
         say: 'Soal ujianmu...'
       },
       favorDone: {
@@ -4911,12 +4915,12 @@ export default {
       },
       favor: {
         '1': 'Bicara? Aku mendengarkan. Itu rahasia yang tak pernah dipelajari kebanyakan orang.',
-        '2': 'Laba-laba Raksasa menutupi jalur binatang di Hutan Berbisik dengan jaring. Bersihkan dua belas.',
+        '2': 'Laba-laba Raksasa menutupi jalur binatang di Hutan Berbisik dengan jaring. Bersihkan delapan.',
         '3': 'Lalu bawakan aku dua Lonceng Bulan untuk sarangku. Bramble tidur lebih nyenyak di dekatnya.',
         say: 'Kamu bisa bicara dengan binatang?'
       },
       waiting: {
-        '1': 'Dua belas laba-laba, dua Lonceng Bulan. Para binatang menunggu. Bramble juga.',
+        '1': 'Delapan laba-laba, dua Lonceng Bulan. Para binatang menunggu. Bramble juga.',
         say: 'Soal ujianmu...'
       },
       favorDone: {
@@ -5197,7 +5201,7 @@ export default {
   },
   ending: {
     level: 'Level',
-    more: 'Retakan Hampa telah terbuka di bawah benteng. Koloseum masih menerima semua penantang.',
+    more: 'Retakan Hampa telah terbuka di bawah benteng. Tapi ujian sejati kekuatanmu menanti di Koloseum: daki gelombangnya, dan menangkan hadiah mitis yang hanya dimiliki para juaranya.',
     order: {
       title: 'Kedamaian Besi',
       text: 'Panji-panji Ordo Besi berkibar di atas Benteng Kengerian. Jalanan aman, hukumnya banyak, dan namamu terukir di atas gerbang.'

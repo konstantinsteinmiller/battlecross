@@ -2,6 +2,7 @@
 export default {
   arena: {
     allWon: 'Mọi phần thưởng thần thoại đều là của bạn.',
+    call: 'Câu chuyện đã kể xong. Giờ hãy chứng minh build của bạn: leo càng xa càng tốt, và giành những phần thưởng thần thoại mà không ai khác trao được cho bạn.',
     prize: '{item} là của bạn!',
     milestone: 'Đợt {n}!',
     next: 'Phần thưởng tiếp theo ở đợt {at}: {item}',
@@ -141,6 +142,8 @@ export default {
     cageKey: 'Một chiếc chìa khóa! Chắc nó mở được cái lồng.',
     ore: 'Đã đào: {n} × {ore}',
     mineBusy: 'Kẻ thù đang ở gần!',
+    pressureUp: 'Kẻ thù của bạn trở nên hung tợn hơn {skulls}',
+    pressureDown: 'Kẻ thù của bạn đã dịu bớt {skulls}',
     item: 'Tìm thấy: {item}',
     levelUp: 'Cấp {level}! +3 điểm thuộc tính',
     boss: '{boss} xuất hiện',
@@ -327,6 +330,7 @@ export default {
     questDone: '{quest}: {choice}',
     trainer: 'Người huấn luyện ẩn: {cls}',
     new: 'Mới',
+    trueTest: 'Thử thách thật sự',
     skip: 'Chạm để bỏ qua',
     compass: {
       n: 'B',
@@ -4672,11 +4676,11 @@ export default {
       },
       favor: {
         '1': 'Ta không bán cho người lạ. Nhưng giúp ta một việc, rồi ta sẽ là bạn.',
-        '2': 'Thụ nhân ở Rừng Thì Thầm canh giữ những bông Chuông Trăng ta cần. Hạ sáu tên, rồi mang cho ta ba bông Chuông Trăng.',
+        '2': 'Thụ nhân ở Rừng Thì Thầm canh giữ những bông Chuông Trăng ta cần. Hạ bốn tên, rồi mang cho ta hai bông Chuông Trăng.',
         say: 'Ông có bán gì không?'
       },
       waiting: {
-        '1': 'Sáu thụ nhân, ba Chuông Trăng. Tiếc là hoa không tự hái mình được.',
+        '1': 'Bốn thụ nhân, hai Chuông Trăng. Tiếc là hoa không tự hái mình được.',
         say: 'Về việc ông nhờ...'
       },
       favorDone: {
@@ -4748,11 +4752,11 @@ export default {
       },
       favor: {
         '1': 'Chỉ dạy người theo kịp tôi thôi. Cậu theo kịp không? Thử xem nào.',
-        '2': 'Đánh bại mười hai Cung Thủ Thổ Phỉ ở Ngoại Ô Oakhaven, rồi mang cho tôi ba nhánh Dương Xỉ Gió.',
+        '2': 'Đánh bại tám Cung Thủ Thổ Phỉ ở Ngoại Ô Oakhaven, rồi mang cho tôi hai nhánh Dương Xỉ Gió.',
         say: 'Chị có dạy bắn cung không?'
       },
       waiting: {
-        '1': 'Mười hai cung thủ, ba nhánh Dương Xỉ Gió. Đi đi! Tôi ở ngay đây. Nhún nhảy chờ.',
+        '1': 'Tám cung thủ, hai nhánh Dương Xỉ Gió. Đi đi! Tôi ở ngay đây. Nhún nhảy chờ.',
         say: 'Về bài thử thách...'
       },
       favorDone: {
@@ -4803,11 +4807,11 @@ export default {
       },
       favor: {
         '1': 'Đúng vậy. Ta chỉ dạy nó cho ai giữ được cái đầu lạnh ở nơi nóng bức.',
-        '2': 'Dập tắt mười Tinh Linh Lửa ở Vách Đá Tro Tàn. Rồi mang cho ta ba nhánh Bạc Hà Sương.',
+        '2': 'Dập tắt bảy Tinh Linh Lửa ở Vách Đá Tro Tàn. Rồi mang cho ta hai nhánh Bạc Hà Sương.',
         say: 'Thanh kiếm đó làm bằng băng à?'
       },
       waiting: {
-        '1': 'Mười Tinh Linh Lửa. Ba nhánh Bạc Hà Sương. Cứ từ từ. Đừng quá từ từ.',
+        '1': 'Bảy Tinh Linh Lửa. Hai nhánh Bạc Hà Sương. Cứ từ từ. Đừng quá từ từ.',
         say: 'Về bài thử thách...'
       },
       favorDone: {
@@ -4857,11 +4861,11 @@ export default {
       },
       favor: {
         '1': 'Ai cũng có một chút ánh sáng bên trong. Xơ dạy mọi người thả nó ra, khi họ sẵn sàng.',
-        '2': 'Đánh bại mười Tín Đồ ở Vách Đá Tro Tàn, rồi mang cho Xơ năm bông Cánh Nắng để thắp đèn.',
+        '2': 'Đánh bại bảy Tín Đồ ở Vách Đá Tro Tàn, rồi mang cho Xơ ba bông Cánh Nắng để thắp đèn.',
         say: 'Ngọn đèn đó có phép thuật không?'
       },
       waiting: {
-        '1': 'Mười Tín Đồ, năm bông Cánh Nắng. Đánh nhẹ tay thôi nhé. Ai cũng đáng có cơ hội thứ hai.',
+        '1': 'Bảy Tín Đồ, ba bông Cánh Nắng. Đánh nhẹ tay thôi nhé. Ai cũng đáng có cơ hội thứ hai.',
         say: 'Về bài thử thách...'
       },
       favorDone: {
@@ -4911,12 +4915,12 @@ export default {
       },
       favor: {
         '1': 'Nói chuyện? Ta lắng nghe. Đó là bí quyết mà hầu hết mọi người chẳng bao giờ học được.',
-        '2': 'Nhện Khổng Lồ đang giăng tơ kín lối đi của thú ở Rừng Thì Thầm. Dọn sạch mười hai con.',
+        '2': 'Nhện Khổng Lồ đang giăng tơ kín lối đi của thú ở Rừng Thì Thầm. Dọn sạch tám con.',
         '3': 'Rồi mang cho ta hai bông Chuông Trăng để trong hang. Bramble ngủ ngon hơn khi có chúng.',
         say: 'Ông nói chuyện được với động vật à?'
       },
       waiting: {
-        '1': 'Mười hai con nhện, hai bông Chuông Trăng. Lũ thú đang chờ. Bramble cũng vậy.',
+        '1': 'Tám con nhện, hai bông Chuông Trăng. Lũ thú đang chờ. Bramble cũng vậy.',
         say: 'Về bài thử thách...'
       },
       favorDone: {
@@ -5197,7 +5201,7 @@ export default {
   },
   ending: {
     level: 'Cấp',
-    more: 'Khe Nứt Hư Không đã mở ra bên dưới pháo đài. Đấu Trường vẫn đón mọi kẻ thách đấu.',
+    more: 'Khe Nứt Hư Không đã mở ra bên dưới pháo đài. Nhưng thử thách thật sự cho sức mạnh của bạn đang chờ ở Đấu Trường: vượt qua từng đợt, và giành những phần thưởng thần thoại chỉ các nhà vô địch nơi đó mới có.',
     order: {
       title: 'Nền Hòa Bình Sắt',
       text: 'Cờ của Thiết Hội tung bay trên Pháo Đài Kinh Hoàng. Đường sá an toàn, luật lệ thì nhiều, và tên bạn được khắc phía trên cổng.'

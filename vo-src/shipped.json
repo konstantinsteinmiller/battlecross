@@ -131,7 +131,7 @@
   },
   "en/dlg.blackMarket.shopBack.1": {
     "engine": "chatterbox",
-    "at": "2026-10-04",
+    "at": "2026-10-13",
     "hash": "fd428d105b"
   },
   "en/dlg.blackMarket.trade.1": {
@@ -451,7 +451,7 @@
   },
   "en/dlg.elderMara.reward.say": {
     "engine": "chatterbox",
-    "at": "2026-10-04",
+    "at": "2026-10-13",
     "hash": "578bd1ca8e"
   },
   "en/dlg.elderMara.reward.say__f": {
@@ -926,7 +926,7 @@
   },
   "en/dlg.frostDisciple.again.1": {
     "engine": "chatterbox",
-    "at": "2026-10-11",
+    "at": "2026-10-13",
     "hash": "360fd2d8ec"
   },
   "en/dlg.frostDisciple.bye.1": {
@@ -946,7 +946,7 @@
   },
   "en/dlg.frostDisciple.class.say": {
     "engine": "chatterbox",
-    "at": "2026-10-11",
+    "at": "2026-10-13",
     "hash": "160ba396aa"
   },
   "en/dlg.frostDisciple.class.say__f": {
@@ -986,7 +986,7 @@
   },
   "en/dlg.frostDisciple.trainBack.1": {
     "engine": "chatterbox",
-    "at": "2026-10-11",
+    "at": "2026-10-13",
     "hash": "5420c21b70"
   },
   "en/dlg.frostDisciple.who.1": {
@@ -1091,7 +1091,7 @@
   },
   "en/dlg.hero.bye__f": {
     "engine": "chatterbox",
-    "at": "2026-10-04",
+    "at": "2026-10-13",
     "hash": "aa3ca7bb6c"
   },
   "en/dlg.hero.forge": {
@@ -1781,7 +1781,7 @@
   },
   "en/dlg.oakArmorer.forgeBack.1": {
     "engine": "chatterbox",
-    "at": "2026-10-11",
+    "at": "2026-10-13",
     "hash": "2d5963616f"
   },
   "en/dlg.oakArmorer.hello.1": {
@@ -2856,8 +2856,8 @@
   },
   "en/dlg.sbCollector.favor.2": {
     "engine": "chatterbox",
-    "at": "2026-10-07",
-    "hash": "484af4a5d3"
+    "at": "2026-10-13",
+    "hash": "535742fd63"
   },
   "en/dlg.sbCollector.favor.say": {
     "engine": "chatterbox",
@@ -2916,8 +2916,8 @@
   },
   "en/dlg.sbCollector.waiting.1": {
     "engine": "chatterbox",
-    "at": "2026-10-07",
-    "hash": "1bd950c82a"
+    "at": "2026-10-13",
+    "hash": "7983d4e86e"
   },
   "en/dlg.sbCollector.waiting.say": {
     "engine": "chatterbox",
@@ -3111,7 +3111,7 @@
   },
   "en/dlg.sbHealer.heal.1": {
     "engine": "chatterbox",
-    "at": "2026-10-07",
+    "at": "2026-10-13",
     "hash": "493b0bee3b"
   },
   "en/dlg.sbHealer.healBack.1": {
@@ -3516,8 +3516,8 @@
   },
   "en/dlg.sbMasterBeastcaller.favor.2": {
     "engine": "chatterbox",
-    "at": "2026-10-07",
-    "hash": "cb7e240178"
+    "at": "2026-10-13",
+    "hash": "11639d3e7a"
   },
   "en/dlg.sbMasterBeastcaller.favor.3": {
     "engine": "chatterbox",
@@ -3541,7 +3541,7 @@
   },
   "en/dlg.sbMasterBeastcaller.favorDone.2": {
     "engine": "chatterbox",
-    "at": "2026-10-07",
+    "at": "2026-10-13",
     "hash": "b518ee6a93"
   },
   "en/dlg.sbMasterBeastcaller.favorDone.say": {
@@ -3596,8 +3596,8 @@
   },
   "en/dlg.sbMasterBeastcaller.waiting.1": {
     "engine": "chatterbox",
-    "at": "2026-10-07",
-    "hash": "ab379244ab"
+    "at": "2026-10-13",
+    "hash": "647e987972"
   },
   "en/dlg.sbMasterBeastcaller.waiting.say": {
     "engine": "chatterbox",
@@ -3876,7 +3876,7 @@
   },
   "en/dlg.sbMasterFrostwarden.bye.1": {
     "engine": "chatterbox",
-    "at": "2026-10-07",
+    "at": "2026-10-13",
     "hash": "dea07be418"
   },
   "en/dlg.sbMasterFrostwarden.class.1": {
@@ -3906,8 +3906,8 @@
   },
   "en/dlg.sbMasterFrostwarden.favor.2": {
     "engine": "chatterbox",
-    "at": "2026-10-07",
-    "hash": "fdaeb9c0f5"
+    "at": "2026-10-13",
+    "hash": "c608d7f580"
   },
   "en/dlg.sbMasterFrostwarden.favor.say": {
     "engine": "chatterbox",
@@ -3946,7 +3946,7 @@
   },
   "en/dlg.sbMasterFrostwarden.hello.2": {
     "engine": "chatterbox",
-    "at": "2026-10-07",
+    "at": "2026-10-13",
     "hash": "288e6b7c6e"
   },
   "en/dlg.sbMasterFrostwarden.open.1": {
@@ -3981,8 +3981,8 @@
   },
   "en/dlg.sbMasterFrostwarden.waiting.1": {
     "engine": "chatterbox",
-    "at": "2026-10-07",
-    "hash": "efe388c54c"
+    "at": "2026-10-13",
+    "hash": "55845adc3e"
   },
   "en/dlg.sbMasterFrostwarden.waiting.say": {
     "engine": "chatterbox",
@@ -4091,7 +4091,7 @@
   },
   "en/dlg.sbMasterIronmonk.bye.1": {
     "engine": "chatterbox",
-    "at": "2026-10-07",
+    "at": "2026-10-13",
     "hash": "b0d9087cbc"
   },
   "en/dlg.sbMasterIronmonk.class.1": {
@@ -4146,7 +4146,7 @@
   },
   "en/dlg.sbMasterIronmonk.ready.able.1": {
     "engine": "chatterbox",
-    "at": "2026-10-07",
+    "at": "2026-10-13",
     "hash": "4a4e8a73f9"
   },
   "en/dlg.sbMasterIronmonk.ready.strong.1": {
@@ -4206,8 +4206,8 @@
   },
   "en/dlg.sbMasterLightbringer.favor.2": {
     "engine": "chatterbox",
-    "at": "2026-10-07",
-    "hash": "609cd4dd36"
+    "at": "2026-10-13",
+    "hash": "64d968ce8a"
   },
   "en/dlg.sbMasterLightbringer.favor.say": {
     "engine": "chatterbox",
@@ -4281,8 +4281,8 @@
   },
   "en/dlg.sbMasterLightbringer.waiting.1": {
     "engine": "chatterbox",
-    "at": "2026-10-07",
-    "hash": "620b3d266b"
+    "at": "2026-10-13",
+    "hash": "358c269709"
   },
   "en/dlg.sbMasterLightbringer.waiting.say": {
     "engine": "chatterbox",
@@ -4666,8 +4666,8 @@
   },
   "en/dlg.sbMasterWindrunner.favor.2": {
     "engine": "chatterbox",
-    "at": "2026-10-07",
-    "hash": "40ecbce73c"
+    "at": "2026-10-13",
+    "hash": "4971368a5a"
   },
   "en/dlg.sbMasterWindrunner.favor.say": {
     "engine": "chatterbox",
@@ -4691,7 +4691,7 @@
   },
   "en/dlg.sbMasterWindrunner.favorDone.say": {
     "engine": "chatterbox",
-    "at": "2026-10-07",
+    "at": "2026-10-13",
     "hash": "586f5a6066"
   },
   "en/dlg.sbMasterWindrunner.favorDone.say__f": {
@@ -4741,8 +4741,8 @@
   },
   "en/dlg.sbMasterWindrunner.waiting.1": {
     "engine": "chatterbox",
-    "at": "2026-10-07",
-    "hash": "227d141488"
+    "at": "2026-10-13",
+    "hash": "e1f5afca5e"
   },
   "en/dlg.sbMasterWindrunner.waiting.say": {
     "engine": "chatterbox",
@@ -5051,7 +5051,7 @@
   },
   "en/dlg.smalltalkIronhold.ore.2": {
     "engine": "chatterbox",
-    "at": "2026-10-04",
+    "at": "2026-10-13",
     "hash": "a9ff6d815d"
   },
   "en/dlg.smalltalkIronhold.ore.3": {
@@ -5096,7 +5096,7 @@
   },
   "en/dlg.smalltalkKids.sword.2": {
     "engine": "chatterbox",
-    "at": "2026-10-04",
+    "at": "2026-10-13",
     "hash": "b430c2e08a"
   },
   "en/dlg.smalltalkKids.tag.1": {
@@ -5406,7 +5406,7 @@
   },
   "en/dlg.smalltalkSunford.weather.2": {
     "engine": "chatterbox",
-    "at": "2026-10-04",
+    "at": "2026-10-13",
     "hash": "cdc7128194"
   },
   "en/dlg.smalltalkSunford.weather.3": {
@@ -5431,7 +5431,7 @@
   },
   "en/dlg.sunfordGambler.hello.2": {
     "engine": "chatterbox",
-    "at": "2026-10-07",
+    "at": "2026-10-13",
     "hash": "64a1f7d9ed"
   },
   "en/dlg.sunfordGambler.luck.1": {
@@ -5531,7 +5531,7 @@
   },
   "en/dlg.sunfordHealer.potions.say": {
     "engine": "chatterbox",
-    "at": "2026-10-04",
+    "at": "2026-10-13",
     "hash": "340fb0959e"
   },
   "en/dlg.sunfordHealer.potions.say__f": {
@@ -5661,7 +5661,7 @@
   },
   "en/dlg.sunfordSmith.ending.1": {
     "engine": "chatterbox",
-    "at": "2026-10-04",
+    "at": "2026-10-13",
     "hash": "0ba2383883"
   },
   "en/dlg.sunfordSmith.forge.1": {
@@ -5751,7 +5751,7 @@
   },
   "en/dlg.sunfordSmith.rumor.siege.1": {
     "engine": "chatterbox",
-    "at": "2026-10-04",
+    "at": "2026-10-13",
     "hash": "0eb3b730a0"
   },
   "en/dlg.sunfordSmith.rumor.woods.1": {
@@ -6781,13 +6781,13 @@
   },
   "en/ending.more": {
     "engine": "chatterbox",
-    "at": "2026-10-04",
-    "hash": "c8a0e88dcb"
+    "at": "2026-10-13",
+    "hash": "3cb4a11dbd"
   },
   "en/ending.more__f": {
     "engine": "chatterbox",
-    "at": "2026-10-04",
-    "hash": "c8a0e88dcb"
+    "at": "2026-10-13",
+    "hash": "3cb4a11dbd"
   },
   "en/ending.note.coreCircle": {
     "engine": "chatterbox",

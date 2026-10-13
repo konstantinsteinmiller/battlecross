@@ -2,6 +2,7 @@
 export default {
   arena: {
     allWon: 'Todos os prêmios míticos são seus.',
+    call: 'A história foi contada. Agora prove o seu build: suba o mais alto que puder e conquiste os prêmios míticos que ninguém mais pode lhe dar.',
     prize: 'Prêmio conquistado: {item}!',
     milestone: 'Onda {n}!',
     next: 'Próximo prêmio na onda {at}: {item}',
@@ -141,6 +142,8 @@ export default {
     cageKey: 'Uma chave! Ela deve abrir a jaula.',
     ore: 'Minerado: {n} × {ore}',
     mineBusy: 'Não com inimigos por perto!',
+    pressureUp: 'Seus inimigos ficam mais ferozes {skulls}',
+    pressureDown: 'Seus inimigos dão uma trégua {skulls}',
     item: 'Encontrado: {item}',
     levelUp: 'Nível {level}! +3 pontos de atributo',
     boss: 'Surge: {boss}',
@@ -328,6 +331,7 @@ export default {
     questDone: '{quest}: {choice}',
     trainer: 'Treinador oculto: {cls}',
     new: 'Novo',
+    trueTest: 'O verdadeiro teste',
     skip: 'Toque para pular',
     compass: {
       n: 'N',
@@ -4725,11 +4729,11 @@ export default {
       },
       favor: {
         '1': 'Não para estranhos. Mas me faça um favor e seremos amigos.',
-        '2': 'Ents no Bosque Sussurrante guardam os sinos-lunares de que preciso. Derrote seis deles e me traga três sinos-lunares.',
+        '2': 'Ents no Bosque Sussurrante guardam os sinos-lunares de que preciso. Derrote quatro deles e me traga dois sinos-lunares.',
         say: 'Você vende alguma coisa?'
       },
       waiting: {
-        '1': 'Seis ents, três sinos-lunares. Infelizmente, os sinos-lunares não se colhem sozinhos.',
+        '1': 'Quatro ents, dois sinos-lunares. Infelizmente, os sinos-lunares não se colhem sozinhos.',
         say: 'Sobre aquele favor...'
       },
       favorDone: {
@@ -4801,11 +4805,11 @@ export default {
       },
       favor: {
         '1': 'Só para quem consegue me acompanhar. Você consegue? Vamos descobrir.',
-        '2': 'Vença doze arqueiros bandidos nos Arredores de Oakhaven e me traga três samambaias-velozes.',
+        '2': 'Vença oito arqueiros bandidos nos Arredores de Oakhaven e me traga duas samambaias-velozes.',
         say: 'Você ensina arco e flecha?'
       },
       waiting: {
-        '1': 'Doze arqueiros bandidos, três samambaias-velozes. Vai! Estou bem aqui. Pulando.',
+        '1': 'Oito arqueiros bandidos, duas samambaias-velozes. Vai! Estou bem aqui. Pulando.',
         say: 'Sobre o seu teste...'
       },
       favorDone: {
@@ -4856,11 +4860,11 @@ export default {
       },
       favor: {
         '1': 'É. Só ensino a quem mantém a cabeça fria num lugar quente.',
-        '2': 'Apague dez elementais de fogo nos Penhascos de Cinza. Depois me traga três raminhos de menta-gelada.',
+        '2': 'Apague sete elementais de fogo nos Penhascos de Cinza. Depois me traga dois raminhos de menta-gelada.',
         say: 'Essa espada é feita de gelo?'
       },
       waiting: {
-        '1': 'Dez elementais de fogo. Três raminhos de menta-gelada. Sem pressa. Mas sem demora.',
+        '1': 'Sete elementais de fogo. Dois raminhos de menta-gelada. Sem pressa. Mas sem demora.',
         say: 'Sobre o seu teste...'
       },
       favorDone: {
@@ -4910,11 +4914,11 @@ export default {
       },
       favor: {
         '1': 'Todo mundo tem uma luzinha por dentro. Eu ensino a soltá-la, quando a pessoa está pronta.',
-        '2': 'Vença dez cultistas nos Penhascos de Cinza e me traga cinco pétalas-do-sol para minha lamparina.',
+        '2': 'Vença sete cultistas nos Penhascos de Cinza e me traga três pétalas-do-sol para minha lamparina.',
         say: 'Essa lamparina é mágica?'
       },
       waiting: {
-        '1': 'Dez cultistas, cinco pétalas-do-sol. Vença-os com gentileza. Todo mundo merece uma segunda chance.',
+        '1': 'Sete cultistas, três pétalas-do-sol. Vença-os com gentileza. Todo mundo merece uma segunda chance.',
         say: 'Sobre o seu teste...'
       },
       favorDone: {
@@ -4964,12 +4968,12 @@ export default {
       },
       favor: {
         '1': 'Falar? Eu escuto. Esse é o truque que quase ninguém aprende.',
-        '2': 'Aranhas gigantes estão enchendo de teias as trilhas dos animais no Bosque Sussurrante. Tire doze.',
+        '2': 'Aranhas gigantes estão enchendo de teias as trilhas dos animais no Bosque Sussurrante. Tire oito.',
         '3': 'Depois me traga dois sinos-lunares para a minha toca. A Amora dorme melhor perto deles.',
         say: 'Você fala com os animais?'
       },
       waiting: {
-        '1': 'Doze aranhas, dois sinos-lunares. Os animais estão esperando. A Amora também.',
+        '1': 'Oito aranhas, dois sinos-lunares. Os animais estão esperando. A Amora também.',
         say: 'Sobre o seu teste...'
       },
       favorDone: {
@@ -5250,7 +5254,7 @@ export default {
   },
   ending: {
     level: 'Nível',
-    more: 'A Fenda do Vazio se abriu debaixo da fortaleza. O Coliseu continua aceitando qualquer desafiante.',
+    more: 'A Fenda do Vazio se abriu debaixo da fortaleza. Mas o verdadeiro teste do seu poder espera no Coliseu: supere as ondas dele e conquiste os prêmios míticos que só os seus campeões têm.',
     order: {
       title: 'A Paz de Ferro',
       text: 'Os estandartes da Ordem de Ferro tremulam sobre a Fortaleza do Pavor. As estradas são seguras, as leis são muitas, e o seu nome está gravado acima do portão.'

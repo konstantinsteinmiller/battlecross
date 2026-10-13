@@ -25,6 +25,7 @@ import { ORE_LOOK, isOre } from '../data/ores'
 import { cageOf } from '../data/cages'
 import { markStill, splitByTile } from './cull'
 import type { Slice } from '../engine/slicer'
+import { piecePalette, setPiece } from './setPieces'
 
 /** Side of a tile of the merged props and the water, metres. */
 const PROP_TILE = 30
@@ -79,6 +80,7 @@ uniform vec3 uFoam;
 uniform vec3 uCrust;
 uniform vec3 uAmbient;
 uniform float uFoamAt;
+uniform float uShallowAt;
 uniform float uWobble;
 uniform float uCrustK;
 varying float vShore;
@@ -89,7 +91,7 @@ void main() {
   float a = sin(p.x * 2.3 + t * 0.9 + sin(p.y * 1.7 - t * 0.4) * 1.4);
   float b = sin(p.y * 3.1 - t * 0.7 + sin(p.x * 1.3 + t * 0.3) * 1.6);
   // Two tones: deep in the middle, shallow toward the bank, a wavy line between.
-  vec3 col = mix(uDeep, uShallow, smoothstep(0.2, 0.24, vShore + 0.05 * a));
+  vec3 col = mix(uDeep, uShallow, smoothstep(uShallowAt, uShallowAt + 0.04, vShore + 0.05 * a));
   // Slabs of cooled crust drifting on lava.
   float cr = sin(p.x * 1.9 + t * 0.22 + sin(p.y * 2.3) * 1.2) * sin(p.y * 1.7 - t * 0.16 + sin(p.x * 2.1) * 1.3);
   col = mix(col, uCrust, smoothstep(0.42, 0.47, cr) * uCrustK);
@@ -109,6 +111,38 @@ void main() {
 
 /** Past the grid a river runs on this many cells (the land sheet's own reach). */
 const RIVER_REACH = 18
+
+// ─── Mist (the Whisperwood, #120) ────────────────────────────────────────────
+//
+// A soft disc: thickest in its middle, fading to nothing at its edge, its
+// edge rippling a little so no patch is a perfect circle.
+
+const MIST_VERT = /* glsl */`
+#include <common>
+#include <fog_pars_vertex>
+varying vec2 vUv;
+void main() {
+  vUv = uv;
+  #include <begin_vertex>
+  #include <project_vertex>
+  #include <fog_vertex>
+}
+`
+
+const MIST_FRAG = /* glsl */`
+#include <common>
+#include <fog_pars_fragment>
+uniform vec3 uColor;
+uniform float uOpacity;
+varying vec2 vUv;
+void main() {
+  vec2 p = vUv - 0.5;
+  float d = length(p) * 2.0 + 0.08 * sin(atan(p.y, p.x) * 5.0);
+  gl_FragColor = vec4(uColor, uOpacity * (1.0 - smoothstep(0.15, 1.0, d)));
+  #include <colorspace_fragment>
+  #include <fog_fragment>
+}
+`
 
 // ─── Chests ──────────────────────────────────────────────────────────────────
 
@@ -210,21 +244,60 @@ interface ChestView {
 /** Each plate's own colour (and shape: colour is never the only clue). */
 const SYMBOL_COLOR = ['#ff5a5a', '#4aa8ff', '#6adf6a', '#ffd24a']
 
-/** A flat symbol facing +Z, about `r` across: ring, triangle, square, cross. */
+/** One straight stroke of a rune, from (x0, y0) to (x1, y1), `t` thick, flat facing +Z. */
+const stroke = (x0: number, y0: number, x1: number, y1: number, t: number): BufferGeometry => {
+  const g = new PlaneGeometry(Math.hypot(x1 - x0, y1 - y0) + t * 0.6, t)
+  g.rotateZ(Math.atan2(y1 - y0, x1 - x0))
+  g.translate((x0 + x1) / 2, (y0 + y1) / 2, 0)
+  return g
+}
+
+/**
+ * A rune facing +Z, about `r` across (#120: the old ring, triangle, square
+ * and cross read as a UI kit, not a temple's lock): a sun-sigil, Algiz,
+ * Othala and Tiwaz, each its own shape (colour is never the only clue).
+ * Strokes of one rune that cross are one colour in one plane: they draw the
+ * same pixels, so they never flicker.
+ */
 const symbolGeo = (n: number, r: number): BufferGeometry => {
-  if (n === 0) return new RingGeometry(r * 0.55, r, 28)
-  if (n === 1) { const g = new CircleGeometry(r * 1.12, 3); g.rotateZ(Math.PI / 2); return g }
-  if (n === 2) { const g = new CircleGeometry(r * 1.12, 4); g.rotateZ(Math.PI / 4); return g }
-  // A cross of three pieces that do not overlap (two crossing planes would
-  // fight in the depth buffer where they meet).
-  const a = new PlaneGeometry(r * 2, r * 0.56)
-  const b = new PlaneGeometry(r * 0.56, r * 0.72).translate(0, r * 0.64, 0)
-  const c = new PlaneGeometry(r * 0.56, r * 0.72).translate(0, -r * 0.64, 0)
-  const g = merge([a, b, c])
-  g.rotateZ(Math.PI / 4)
-  a.dispose()
-  b.dispose()
-  c.dispose()
+  const t = r * 0.22
+  const parts: BufferGeometry[] = []
+  if (n === 0) {
+    // The sun-sigil: a ring with four rays.
+    parts.push(new RingGeometry(r * 0.38, r * 0.58, 24))
+    for (let q = 0; q < 4; q++) {
+      const a = (q / 4) * Math.PI * 2 + Math.PI / 4
+      parts.push(stroke(Math.cos(a) * r * 0.62, Math.sin(a) * r * 0.62, Math.cos(a) * r * 1.05, Math.sin(a) * r * 1.05, t))
+    }
+  } else if (n === 1) {
+    // Algiz: a stave with two arms raised.
+    parts.push(stroke(0, -r, 0, r, t), stroke(0, 0.05 * r, -r * 0.7, r * 0.85, t), stroke(0, 0.05 * r, r * 0.7, r * 0.85, t))
+  } else if (n === 2) {
+    // Othala: a diamond on two legs.
+    const top: [number, number] = [0, r]
+    const lft: [number, number] = [-r * 0.55, r * 0.35]
+    const rgt: [number, number] = [r * 0.55, r * 0.35]
+    const bot: [number, number] = [0, -r * 0.3]
+    parts.push(stroke(...top, ...lft, t), stroke(...top, ...rgt, t), stroke(...lft, ...bot, t), stroke(...rgt, ...bot, t))
+    parts.push(stroke(...bot, -r * 0.6, -r, t), stroke(...bot, r * 0.6, -r, t))
+  } else {
+    // Tiwaz: the spear, with a bar across its shaft.
+    parts.push(stroke(0, -r, 0, r, t), stroke(0, r, -r * 0.62, r * 0.38, t), stroke(0, r, r * 0.62, r * 0.38, t), stroke(-r * 0.35, -r * 0.45, r * 0.35, -r * 0.45, t))
+  }
+  const g = merge(parts)
+  for (const p of parts) p.dispose()
+  return g
+}
+
+/** The carved marks round a plate's rim, about `r` out: eight short ticks. */
+const rimTicks = (r: number): BufferGeometry => {
+  const parts: BufferGeometry[] = []
+  for (let q = 0; q < 8; q++) {
+    const a = (q / 8) * Math.PI * 2 + Math.PI / 8
+    parts.push(stroke(Math.cos(a) * r * 0.86, Math.sin(a) * r * 0.86, Math.cos(a) * r, Math.sin(a) * r, r * 0.07))
+  }
+  const g = merge(parts)
+  for (const p of parts) p.dispose()
   return g
 }
 
@@ -307,6 +380,8 @@ export class LevelProps {
   /** Herbs in the wild (#88): a sway, a glint now and then, a pop when picked. */
   private herbs: HerbView[] = []
   private ores: OreView[] = []
+  /** Mist lying in patches (the Whisperwood, #120): each drifts and breathes. */
+  private mists: Array<{ mesh: Mesh; spin: number; ph: number }> = []
   /** A cage's key lying in the place (#100). */
   private key: { root: Group; x: number; z: number; glint: number } | null = null
 
@@ -358,6 +433,17 @@ export class LevelProps {
     for (const f of plan.forks) lift(groundAt(f.x, f.z), () => this.buildFork(f.x, f.z, f.a, f.boss, lit, glow))
     if (plan.puzzle) lift(groundAt(plan.puzzle.hint.x, plan.puzzle.hint.z), () => this.buildHint(plan, lit))
     await slice()
+    // The place's set pieces (#120): beds and fires, mills, columns, timbers…
+    if (plan.dressing?.length) {
+      const pal = piecePalette(this.theme.ground[1], this.theme.rim)
+      plan.dressing.forEach((d, q) => {
+        const g = setPiece(d.kind, pal, (q * 7 + Math.floor(d.x * 3 + d.z * 5)) >>> 0)
+        const y = groundAt(d.x, d.z)
+        for (const x of g.lit) lit.push(xform(x, [d.x, y, d.z], [0, d.a, 0]))
+        for (const x of g.glow) glow.push(xform(x, [d.x, y, d.z], [0, d.a, 0]))
+      })
+      await slice()
+    }
     // Merged, then cut into tiles that are culled by their boxes: the whole
     // zone's bridges, banks and mouths in one mesh would be drawn whole.
     if (lit.length) {
@@ -385,6 +471,7 @@ export class LevelProps {
     this.buildDoors(plan)
     await slice()
     this.buildChests()
+    this.buildDecals(plan)
     this.buildHerbs()
     this.buildOres()
     this.buildKey()
@@ -413,6 +500,23 @@ export class LevelProps {
       }
       return t / 4
     }
+    /** The wet share in a wider, tapering window: the bank's line runs
+     *  smooth across the cells instead of stepping with them. */
+    const wetSmooth = (gi: number, gj: number): number => {
+      const vx = gi / SUB
+      const vz = gj / SUB
+      let t = 0
+      let n = 0
+      for (let dj = -2; dj <= 1; dj++) for (let di = -2; di <= 1; di++) {
+        const ci = Math.floor(vx) + di
+        const cj = Math.floor(vz) + dj
+        const wt = Math.max(0, 1.6 - Math.hypot(ci + 0.5 - vx, cj + 0.5 - vz))
+        if (!wt) continue
+        n += wt
+        if (wetCell(plan, i0 + ci, cj)) t += wt
+      }
+      return n ? t / n : 0
+    }
     const vertex = (gi: number, gj: number): number => {
       const key = gj * gw + gi
       const hit = vmap.get(key)
@@ -421,7 +525,7 @@ export class LevelProps {
       const vx = (i0 + gi / SUB) * CELL
       const vz = (gj / SUB) * CELL
       pos.push(vx, groundAt(vx, vz) + WATER_Y, vz)
-      shore.push(1 - wetShare(gi, gj))
+      shore.push(1 - (look.smooth ? wetSmooth(gi, gj) : wetShare(gi, gj)))
       vmap.set(key, n)
       return n
     }
@@ -465,6 +569,7 @@ export class LevelProps {
           uCrust: { value: new Color('#3a1612') },
           uAmbient: { value: new Color(1, 1, 1) },
           uFoamAt: { value: look.foamAt },
+          uShallowAt: { value: look.shallowAt },
           uWobble: { value: look.wobble },
           uCrustK: { value: look.crust * 0.85 }
         }
@@ -545,6 +650,22 @@ export class LevelProps {
 
   /** A plank bridge over water, a stone one over lava: the deck covers the bridged cells exactly. */
   private buildBridge(plan: ZonePlan, i0: number, i1: number, j0: number, j1: number, lit: BufferGeometry[]): void {
+    if (i1 - i0 > j1 - j0) {
+      // A bridge that runs across the map (the Rift's, #120): built running
+      // along it about the same middle, then turned a quarter.
+      const mi = (i0 + i1 + 1) / 2
+      const mj = (j0 + j1 + 1) / 2
+      const hw = (j1 - j0 + 1) / 2
+      const hl = (i1 - i0 + 1) / 2
+      const n0 = lit.length
+      this.buildBridge(plan, mi - hw, mi + hw - 1, mj - hl, mj + hl - 1, lit)
+      for (let q = n0; q < lit.length; q++) {
+        lit[q]!.translate(-mi * CELL, 0, -mj * CELL)
+        lit[q]!.rotateY(Math.PI / 2)
+        lit[q]!.translate(mi * CELL, 0, mj * CELL)
+      }
+      return
+    }
     const stone = plan.liquid === 'lava' || plan.liquid === 'void'
     const x0 = i0 * CELL
     const x1 = (i1 + 1) * CELL
@@ -710,8 +831,8 @@ export class LevelProps {
       const sym = new Mesh(geo, mat)
       sym.position.set(sx, 0.78, 0.108)
       face.add(sym)
-      // Pips: the place in the order.
-      const pip = new CircleGeometry(0.055, 10)
+      // Pips: the place in the order, cut as small diamonds.
+      const pip = new CircleGeometry(0.06, 4)
       this.owned.push(pip)
       for (let d = 0; d <= q; d++) {
         const dot = new Mesh(pip, mat)
@@ -721,6 +842,74 @@ export class LevelProps {
       this.glyphs.push({ mat, color, plate: plate.id, lit: 0 })
     }
     this.root.add(face)
+  }
+
+  /**
+   * The Whisperwood's decals (#120): bloody claw marks on the ground, true
+   * decals (transparent, never writing depth, pulled toward the camera by a
+   * polygon offset: never a coplanar opaque face), and soft patches of mist.
+   */
+  private buildDecals(plan: ZonePlan): void {
+    const claws = (plan.dressing ?? []).filter(d => d.kind === 'claws')
+    if (claws.length) {
+      const strokes: BufferGeometry[] = []
+      for (const d of claws) {
+        // Four parallel rakes, a little curved, laid on the slope where they lie.
+        const gy = groundAt(d.x, d.z)
+        const sx = (groundAt(d.x + 0.4, d.z) - groundAt(d.x - 0.4, d.z)) / 0.8
+        const sz = (groundAt(d.x, d.z + 0.4) - groundAt(d.x, d.z - 0.4)) / 0.8
+        for (let q = 0; q < 4; q++) {
+          for (let p = 0; p < 3; p++) {
+            const g = new PlaneGeometry(0.34 - Math.abs(q - 1.5) * 0.05, 0.07 - p * 0.012)
+            g.rotateX(-Math.PI / 2)
+            g.rotateY(0.18 * (p - 1))
+            g.translate((q - 1.5) * 0.17 + p * 0.03, 0, (p - 1) * 0.3)
+            g.rotateY(d.a)
+            const pos = g.attributes.position!
+            for (let v = 0; v < pos.count; v++) {
+              const x = pos.getX(v)
+              const z = pos.getZ(v)
+              pos.setXYZ(v, d.x + x, gy + x * sx + z * sz + 0.03, d.z + z)
+            }
+            strokes.push(g)
+          }
+        }
+      }
+      const geo = merge(strokes)
+      for (const g of strokes) g.dispose()
+      this.owned.push(geo)
+      const mat = new MeshBasicMaterial({ color: '#6a0e14', transparent: true, opacity: 0.78, depthWrite: false, polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -2 })
+      this.mats.push(mat)
+      const mesh = markStill(new Mesh(geo, mat))
+      mesh.renderOrder = 2
+      this.root.add(mesh)
+    }
+    const mists = (plan.dressing ?? []).filter(d => d.kind === 'mist')
+    if (!mists.length) return
+    const mat = new ShaderMaterial({
+      uniforms: UniformsUtils.merge([UniformsLib.fog, { uColor: { value: new Color('#e6f2ec') }, uOpacity: { value: this.low ? 0.32 : 0.42 } }]),
+      vertexShader: MIST_VERT,
+      fragmentShader: MIST_FRAG,
+      transparent: true,
+      depthWrite: false,
+      fog: true
+    })
+    this.mats.push(mat)
+    const disc = new CircleGeometry(1, 20)
+    disc.rotateX(-Math.PI / 2)
+    this.owned.push(disc)
+    for (const d of mists) {
+      // Two or three layers, each its own height: a patch, not a sheet.
+      const gy = groundAt(d.x, d.z)
+      for (let q = 0; q < (this.low ? 2 : 3); q++) {
+        const mesh = new Mesh(disc, mat)
+        mesh.position.set(d.x + Math.cos(d.a + q * 2.1) * 0.7, gy + 0.3 + q * 0.32, d.z + Math.sin(d.a + q * 2.1) * 0.7)
+        mesh.scale.set(2.6 - q * 0.45, 1, 1.9 - q * 0.3)
+        mesh.renderOrder = 4
+        this.root.add(mesh)
+        this.mists.push({ mesh, spin: (q % 2 ? -1 : 1) * (0.05 + q * 0.02), ph: d.a + q })
+      }
+    }
   }
 
   private buildPlates(plan: ZonePlan): void {
@@ -744,7 +933,7 @@ export class LevelProps {
       const color = new Color(SYMBOL_COLOR[p.symbol % SYMBOL_COLOR.length]!)
       const mat = new MeshBasicMaterial({ color: color.clone().multiplyScalar(0.42), toneMapped: false })
       this.mats.push(mat)
-      const geo = symbolGeo(p.symbol, 0.3)
+      const geo = merge([symbolGeo(p.symbol, 0.3), rimTicks(0.54)])
       geo.rotateX(-Math.PI / 2)
       this.owned.push(geo)
       const sym = new Mesh(geo, mat)
@@ -1240,6 +1429,11 @@ export class LevelProps {
     if (!plan) return
     this.dummy?.update(dt)
     if (this.water) this.water.uniforms.uTime!.value = this.time * (this.water.userData.flow as number)
+    // Mist turns slowly where it lies, and thins and thickens.
+    for (const m of this.mists) {
+      m.mesh.rotation.y += m.spin * dt
+      m.mesh.position.y += Math.sin(this.time * 0.4 + m.ph) * 0.02 * dt
+    }
 
     // ── Herbs: a breeze in their leaves, a glint now and then (they are worth the walk) ──
     for (const v of this.herbs) {

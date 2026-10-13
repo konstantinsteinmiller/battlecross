@@ -150,17 +150,19 @@ export interface ZoneFeatures {
 
 export const ZONE_FEATURES: Readonly<Record<ZoneId, ZoneFeatures>> = {
   plains: { liquid: 'water', river: 0.55, ponds: 2, pond: 0.5, lagoon: 0.3, cave: 0.25, plates: 0, puzzle: 0, corner: 0.5, champion: 0.06, championKind: 'banditChief', championLevels: [3, 4], chests: [1, 2] },
-  hollows: { liquid: 'pool', river: 0, ponds: 1, pond: 0.5, lagoon: 0.3, cave: 0.45, plates: 3, puzzle: 0.6, corner: 0.5, champion: 0.08, championKind: 'banditChief', championLevels: [3, 4], chests: [1, 3] },
-  woods: { liquid: 'water', river: 0.7, ponds: 2, pond: 0.5, lagoon: 0.4, cave: 0.4, plates: 3, puzzle: 0.55, corner: 0.55, champion: 0.1, championKind: 'broodSpider', championLevels: [3, 5], chests: [2, 3] },
+  hollows: { liquid: 'pool', river: 0, ponds: 1, pond: 0.5, lagoon: 0.3, cave: 0.45, plates: 3, puzzle: 0.85, corner: 0.5, champion: 0.08, championKind: 'banditChief', championLevels: [3, 4], chests: [1, 3] },
+  woods: { liquid: 'water', river: 0.7, ponds: 2, pond: 0.5, lagoon: 0.4, cave: 0.4, plates: 3, puzzle: 0.8, corner: 0.55, champion: 0.1, championKind: 'broodSpider', championLevels: [3, 5], chests: [2, 3] },
   outskirts: { liquid: 'water', river: 0.6, ponds: 2, pond: 0.45, lagoon: 0.3, cave: 0.2, plates: 0, puzzle: 0, corner: 0.6, champion: 0.1, championKind: 'broodSpider', championLevels: [3, 5], chests: [1, 3] },
-  crags: { liquid: 'lava', river: 0.6, ponds: 2, pond: 0.5, lagoon: 0.25, cave: 0.4, plates: 3, puzzle: 0.5, corner: 0.5, champion: 0.1, championKind: 'outlawCaptain', championLevels: [3, 5], chests: [1, 3] },
-  mines: { liquid: 'pool', river: 0, ponds: 1, pond: 0.4, lagoon: 0.25, cave: 0.5, plates: 4, puzzle: 0.6, corner: 0.5, champion: 0.1, championKind: 'emberLord', championLevels: [3, 5], chests: [2, 3] },
+  crags: { liquid: 'lava', river: 0, ponds: 2, pond: 0.5, lagoon: 0.25, cave: 0.4, plates: 3, puzzle: 0.75, corner: 0.5, champion: 0.1, championKind: 'outlawCaptain', championLevels: [3, 5], chests: [1, 3] },
+  mines: { liquid: 'pool', river: 0, ponds: 1, pond: 0.4, lagoon: 0.25, cave: 0.5, plates: 4, puzzle: 0.85, corner: 0.5, champion: 0.1, championKind: 'emberLord', championLevels: [3, 5], chests: [2, 3] },
   tundra: { liquid: 'ice', river: 0.6, ponds: 2, pond: 0.5, lagoon: 0.35, cave: 0.35, plates: 0, puzzle: 0, corner: 0.55, champion: 0.12, championKind: 'doomKnight', championLevels: [3, 4], chests: [1, 3] },
-  temple: { liquid: 'water', river: 0.5, ponds: 2, pond: 0.6, lagoon: 0.5, cave: 0.2, plates: 4, puzzle: 0.7, corner: 0.5, champion: 0.12, championKind: 'voidWarden', championLevels: [3, 4], chests: [2, 3] },
-  citadel: { liquid: 'void', river: 0.4, ponds: 2, pond: 0.45, lagoon: 0.3, cave: 0.25, plates: 4, puzzle: 0.5, corner: 0.5, champion: 0.12, championKind: 'doomKnight', championLevels: [3, 4], chests: [2, 3] },
+  temple: { liquid: 'water', river: 0.5, ponds: 2, pond: 0.6, lagoon: 0.5, cave: 0.2, plates: 4, puzzle: 0.95, corner: 0.5, champion: 0.12, championKind: 'voidWarden', championLevels: [3, 4], chests: [2, 3] },
+  citadel: { liquid: 'void', river: 0, ponds: 2, pond: 0.45, lagoon: 0.3, cave: 0.25, plates: 4, puzzle: 0.75, corner: 0.5, champion: 0.12, championKind: 'doomKnight', championLevels: [3, 4], chests: [2, 3] },
   peak: { liquid: 'lava', river: 0.5, ponds: 2, pond: 0.5, lagoon: 0.2, cave: 0.45, plates: 0, puzzle: 0, corner: 0.5, champion: 0.14, championKind: 'voidWarden', championLevels: [3, 4], chests: [1, 3] },
-  fortress: { liquid: 'lava', river: 0.4, ponds: 1, pond: 0.4, lagoon: 0, cave: 0.3, plates: 4, puzzle: 0.5, corner: 0.5, champion: 0.14, championKind: 'voidWarden', championLevels: [2, 3], chests: [2, 3] },
-  rift: { liquid: 'lava', river: 0.5, ponds: 2, pond: 0.5, lagoon: 0.2, cave: 0.2, plates: 0, puzzle: 0, corner: 0.4, champion: 0.16, championKind: 'doomKnight', championLevels: [2, 3], chests: [1, 2] }
+  fortress: { liquid: 'lava', river: 0, ponds: 1, pond: 0.4, lagoon: 0, cave: 0.3, plates: 4, puzzle: 0.75, corner: 0.5, champion: 0.14, championKind: 'voidWarden', championLevels: [2, 3], chests: [2, 3] },
+  // The Rift's only rock is the wall behind its ledge, which its loop and
+  // its branch boss take: no champion's knoll fits beside them (#120).
+  rift: { liquid: 'void', river: 0, ponds: 2, pond: 0.5, lagoon: 0.2, cave: 0.2, plates: 0, puzzle: 0, corner: 0.4, champion: 0, championKind: 'doomKnight', championLevels: [2, 3], chests: [1, 2] }
 }
 
 /** Waves the colosseum throws before it pays out. */
@@ -199,14 +201,15 @@ export const ZONE_RELIEF: Readonly<Record<ZoneId, ZoneRelief>> = {
   hollows: { roll: 0.26, swell: 0.6, climb: [0.4, 1.0], trend: 'down', ledge: 0.55, ledges: 2, step: [1.1, 1.5], dais: 0.3 },
   woods: { roll: 0.32, swell: 1.0, climb: [0.3, 0.9], trend: 'mixed', ledge: 0.65, ledges: 1, step: [1.1, 1.4], dais: 0 },
   outskirts: { roll: 0.3, swell: 0.85, climb: [0.2, 0.6], trend: 'mixed', ledge: 0.45, ledges: 1, step: [1.0, 1.3], dais: 0.2 },
-  crags: { roll: 0.26, swell: 0.85, climb: [0.6, 1.3], trend: 'up', ledge: 0.65, ledges: 2, step: [1.3, 1.7], dais: 0.4 },
+  crags: { roll: 0.26, swell: 0.5, climb: [0.1, 0.3], trend: 'mixed', ledge: 0.65, ledges: 2, step: [1.3, 1.7], dais: 0.4 },
   mines: { roll: 0.16, swell: 0.45, climb: [0.5, 1.1], trend: 'down', ledge: 0.7, ledges: 2, step: [1.2, 1.6], dais: 0.3, stairs: true },
   tundra: { roll: 0.46, swell: 1.15, climb: [0.2, 0.8], trend: 'mixed', ledge: 0.5, ledges: 1, step: [1.1, 1.4], dais: 0.3 },
   temple: { roll: 0.1, swell: 0.35, climb: [0.4, 0.9], trend: 'up', ledge: 0.6, ledges: 2, step: [1.1, 1.4], dais: 0.7, stairs: true },
   citadel: { roll: 0.16, swell: 0.45, climb: [0.4, 1.0], trend: 'up', ledge: 0.6, ledges: 2, step: [1.2, 1.5], dais: 0.6, stairs: true },
-  peak: { roll: 0.3, swell: 1.05, climb: [0.9, 1.5], trend: 'up', ledge: 0.7, ledges: 2, step: [1.4, 1.8], dais: 0.5 },
+  // The Peak climbs by its path round the mountain: no ledge steps a shelf up (#120).
+  peak: { roll: 0.3, swell: 1.05, climb: [0.9, 1.5], trend: 'up', ledge: 0, ledges: 2, step: [1.4, 1.8], dais: 0.5 },
   fortress: { roll: 0.1, swell: 0.3, climb: [0.5, 1.0], trend: 'up', ledge: 0.7, ledges: 2, step: [1.2, 1.5], dais: 0.8, stairs: true },
-  rift: { roll: 0.22, swell: 0.75, climb: [0.3, 0.9], trend: 'mixed', ledge: 0.6, ledges: 1, step: [1.2, 1.6], dais: 0.5 }
+  rift: { roll: 0.22, swell: 0.5, climb: [0.1, 0.3], trend: 'mixed', ledge: 0.6, ledges: 1, step: [1.2, 1.6], dais: 0.5 }
 }
 
 // ─── Branching ways and their bosses (roadmap #70) ───────────────────────────
@@ -235,32 +238,49 @@ export interface ZoneBranches {
 }
 
 /**
- * ─── A zone's layout (#103) ─────────────────────────────────────────────────
+ * ─── A zone's layout (#103, #120) ───────────────────────────────────────────
  *
- * Most zones are a chain of round clearings wandering up the map. Some places
- * are laid out the way the place itself is:
+ * Every place is laid out the way the place itself is, not as a variation of
+ * one wandering chain of clearings:
  *
- *   gorge     the Ashen Crags: a narrow canyon of rock and lava, opening on a
- *             wide arena at its end;
- *   rooms     the Sunken Temple: halls joined by straight passages through
- *             doorways, pillars standing in the halls;
- *   field     the Oakhaven Outskirts: a wheat field crossed by paths, hedges
- *             between the fields, the bandits standing in the wheat;
- *   switchback Dragon's Peak: a path winding up the mountain's face, turn
- *             after turn, the massif between the turns;
- *   ring      Frostbite Tundra: the road curving round a frozen lake.
+ *   chain     Sunford Plains: round meadows joined by a wandering road;
+ *   camp      Goblin Hollows: the chain, lived in — the goblins' beds, fires,
+ *             banners and tents in every hollow (`sim/dressing.ts`);
+ *   glades    Whisperwood: glades in deep forest joined by narrow winding
+ *             trails, an old giant of a tree and fallen trunks in each;
+ *   field     the Oakhaven Outskirts: wheat fields crossed by paths, the
+ *             bandits standing in the wheat, a windmill or two;
+ *   strips    the Ashen Crags: tongues of half-cooled lava side by side, hot
+ *             lava between them, stepping stones from one to the next;
+ *   galleries the Deep Mines: galleries joined by timbered, railed drifts;
+ *   ring      Frostbite Tundra: the road round a frozen lake, floes on it;
+ *   rooms     the Sunken Temple: column-lined chambers of a ruined temple,
+ *             one pack in each, joined by straight passages;
+ *   courts    the Void Citadel: walled courts one above the next, a gate and
+ *             its towers between each two;
+ *   spiral    Dragon's Peak: one path round the mountain and up it, the
+ *             dragon on the summit in its middle;
+ *   castle    the Dread Fortress: barbican, gatehouse, bailey, inner ward, keep;
+ *   islands   the Rift: islands in the void, a bridge from each to the next.
  *
- * Only where the clearings lie and how they are joined changes; every shape
- * still runs from the bottom of the map up, so the features, the branches,
- * the relief and the packs are laid as on any zone.
+ * Every shape still runs from the start at the bottom of the map to the
+ * finale, so the features, the branches, the relief and the packs are laid
+ * over it as on any zone (`sim/layouts.ts` lays the shapes of their own).
  */
-export type ZoneShape = 'chain' | 'gorge' | 'rooms' | 'field' | 'switchback' | 'ring'
-export const ZONE_SHAPE: Readonly<Partial<Record<ZoneId, ZoneShape>>> = {
-  crags: 'gorge',
-  temple: 'rooms',
+export type ZoneShape = 'chain' | 'camp' | 'glades' | 'field' | 'strips' | 'galleries' | 'ring' | 'rooms' | 'courts' | 'spiral' | 'castle' | 'islands'
+export const ZONE_SHAPE: Readonly<Record<ZoneId, ZoneShape>> = {
+  plains: 'chain',
+  hollows: 'camp',
+  woods: 'glades',
   outskirts: 'field',
-  peak: 'switchback',
-  tundra: 'ring'
+  crags: 'strips',
+  mines: 'galleries',
+  tundra: 'ring',
+  temple: 'rooms',
+  citadel: 'courts',
+  peak: 'spiral',
+  fortress: 'castle',
+  rift: 'islands'
 }
 
 export const ZONE_BRANCHES: Readonly<Record<ZoneId, ZoneBranches>> = {
@@ -407,6 +427,11 @@ export const TOWNS: Readonly<Record<TownId, TownDef>> = {
       // each (Strength, Intelligence, Dexterity, Strength + Intelligence).
       { id: 'sfShadow', role: 'trainer', look: 'sfShadow', at: [0.66, 0.48], place: 'inside', house: 'townhouse', cls: 'shadow' },
       { id: 'sfGeo', role: 'trainer', look: 'sfGeo', at: [0.3, 0.82], place: 'yard', house: 'cottage', cls: 'geo' },
+      // Two of Silverbridge's masters keep a second school here (#121), so a
+      // first build can lean on spirits or on bare hands: the same people,
+      // their own words and voices (one id, one conversation, met once).
+      { id: 'sbMasterSoulwarden', role: 'trainer', look: 'sbMasterSoulwarden', at: [0.62, 0.82], place: 'inside', house: 'hall', job: 'scholar', cls: 'soulwarden' },
+      { id: 'sbMasterIronmonk', role: 'trainer', look: 'sbMasterIronmonk', at: [0.9, 0.82], place: 'inside', house: 'hall', job: 'knight', cls: 'ironmonk' },
       // The item battle (#92): a table in the street, a deck of odds and ends.
       { id: 'sunfordGambler', role: 'gambler', look: 'sunfordGambler', at: [0.72, 0.62], place: 'street', job: 'merchant', game: 'items' },
       { id: 'elderMara', role: 'quest', look: 'elder', at: [0.42, 0.36], place: 'street', job: 'elder', quest: 'goblinKing' },

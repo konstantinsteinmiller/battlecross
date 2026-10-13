@@ -7091,8 +7091,8 @@
       "who": "Alder Vane",
       "scene": "sbCollector",
       "emotion": "amused",
-      "text": "Treants in the Whispering Woods guard the moonbells I need. Beat six of them and bring me three moonbells.",
-      "textHash": "484af4a5d3",
+      "text": "Treants in the Whispering Woods guard the moonbells I need. Beat four of them and bring me two moonbells.",
+      "textHash": "535742fd63",
       "file": "public/audio/voice/en/dlg.sbCollector.favor.2.ogg"
     },
     {
@@ -7112,8 +7112,8 @@
       "who": "Alder Vane",
       "scene": "sbCollector",
       "emotion": "amused",
-      "text": "Six treants, three moonbells. The moonbells won't pick themselves, sadly.",
-      "textHash": "1bd950c82a",
+      "text": "Four treants, two moonbells. The moonbells won't pick themselves, sadly.",
+      "textHash": "7983d4e86e",
       "file": "public/audio/voice/en/dlg.sbCollector.waiting.1.ogg"
     },
     {
@@ -8946,8 +8946,8 @@
       "who": "Sefa Galewing",
       "scene": "sbMasterWindrunner",
       "emotion": "excited",
-      "text": "Beat twelve bandit archers in the Oakhaven Outskirts, then bring me three swiftferns.",
-      "textHash": "40ecbce73c",
+      "text": "Beat eight bandit archers in the Oakhaven Outskirts, then bring me two swiftferns.",
+      "textHash": "4971368a5a",
       "file": "public/audio/voice/en/dlg.sbMasterWindrunner.favor.2.ogg"
     },
     {
@@ -8967,8 +8967,8 @@
       "who": "Sefa Galewing",
       "scene": "sbMasterWindrunner",
       "emotion": "excited",
-      "text": "Twelve bandit archers, three swiftferns. Go on! I'll be right here. Bouncing.",
-      "textHash": "227d141488",
+      "text": "Eight bandit archers, two swiftferns. Go on! I'll be right here. Bouncing.",
+      "textHash": "e1f5afca5e",
       "file": "public/audio/voice/en/dlg.sbMasterWindrunner.waiting.1.ogg"
     },
     {
@@ -9180,8 +9180,8 @@
       "who": "Halvard Rimeheart",
       "scene": "sbMasterFrostwarden",
       "emotion": "neutral",
-      "text": "Put out ten fire elementals in the Ashen Crags. Then bring me three sprigs of frostmint.",
-      "textHash": "fdaeb9c0f5",
+      "text": "Put out seven fire elementals in the Ashen Crags. Then bring me two sprigs of frostmint.",
+      "textHash": "c608d7f580",
       "file": "public/audio/voice/en/dlg.sbMasterFrostwarden.favor.2.ogg"
     },
     {
@@ -9201,8 +9201,8 @@
       "who": "Halvard Rimeheart",
       "scene": "sbMasterFrostwarden",
       "emotion": "neutral",
-      "text": "Ten fire elementals. Three sprigs of frostmint. Take your time. Not too much time.",
-      "textHash": "efe388c54c",
+      "text": "Seven fire elementals. Two sprigs of frostmint. Take your time. Not too much time.",
+      "textHash": "55845adc3e",
       "file": "public/audio/voice/en/dlg.sbMasterFrostwarden.waiting.1.ogg"
     },
     {
@@ -9404,8 +9404,8 @@
       "who": "Sister Auriel Dawnmere",
       "scene": "sbMasterLightbringer",
       "emotion": "warm",
-      "text": "Beat ten cultists in the Ashen Crags, then bring me five sunpetals for my lamp.",
-      "textHash": "609cd4dd36",
+      "text": "Beat seven cultists in the Ashen Crags, then bring me three sunpetals for my lamp.",
+      "textHash": "64d968ce8a",
       "file": "public/audio/voice/en/dlg.sbMasterLightbringer.favor.2.ogg"
     },
     {
@@ -9425,8 +9425,8 @@
       "who": "Sister Auriel Dawnmere",
       "scene": "sbMasterLightbringer",
       "emotion": "amused",
-      "text": "Ten cultists, five sunpetals. Beat them gently. Everyone deserves a second chance.",
-      "textHash": "620b3d266b",
+      "text": "Seven cultists, three sunpetals. Beat them gently. Everyone deserves a second chance.",
+      "textHash": "358c269709",
       "file": "public/audio/voice/en/dlg.sbMasterLightbringer.waiting.1.ogg"
     },
     {
@@ -9628,8 +9628,8 @@
       "who": "Old Rowan Thistlefoot",
       "scene": "sbMasterBeastcaller",
       "emotion": "gruff",
-      "text": "Giant spiders are webbing up the animal trails in the Whispering Woods. Clear twelve.",
-      "textHash": "cb7e240178",
+      "text": "Giant spiders are webbing up the animal trails in the Whispering Woods. Clear eight.",
+      "textHash": "11639d3e7a",
       "file": "public/audio/voice/en/dlg.sbMasterBeastcaller.favor.2.ogg"
     },
     {
@@ -9659,8 +9659,8 @@
       "who": "Old Rowan Thistlefoot",
       "scene": "sbMasterBeastcaller",
       "emotion": "gruff",
-      "text": "Twelve spiders, two moonbells. The animals are waiting. So is Bramble.",
-      "textHash": "ab379244ab",
+      "text": "Eight spiders, two moonbells. The animals are waiting. So is Bramble.",
+      "textHash": "647e987972",
       "file": "public/audio/voice/en/dlg.sbMasterBeastcaller.waiting.1.ogg"
     },
     {
@@ -12475,8 +12475,8 @@
       "narrated": true,
       "scene": "ending",
       "emotion": "neutral",
-      "text": "The Void Rift has opened beneath the fortress. The Colosseum still takes all comers.",
-      "textHash": "c8a0e88dcb",
+      "text": "The Void Rift has opened beneath the fortress. But the true test of your power waits in the Colosseum: climb its waves, and win the mythic prizes only its champions hold.",
+      "textHash": "3cb4a11dbd",
       "file": "public/audio/voice/en/ending.more.ogg"
     },
     {
@@ -15081,8 +15081,8 @@
       "narrated": true,
       "scene": "ending",
       "emotion": "neutral",
-      "text": "The Void Rift has opened beneath the fortress. The Colosseum still takes all comers.",
-      "textHash": "c8a0e88dcb",
+      "text": "The Void Rift has opened beneath the fortress. But the true test of your power waits in the Colosseum: climb its waves, and win the mythic prizes only its champions hold.",
+      "textHash": "3cb4a11dbd",
       "file": "public/audio/voice/en/ending.more__f.ogg",
       "variantOf": "ending.more"
     }

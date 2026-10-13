@@ -154,7 +154,7 @@ export const animalKits = (kind: AnimalKind, coat: Coat, pose: AnimalPose = 'sta
       h.ball(0, 0.36, 0.06, 0.13, coat.fur, 7, 5)
       d.ball(0, 0.36, 0.12, 0.09, coat.belly, 6, 4)
       for (const s of [-1, 1]) h.cyl(s * 0.07, 0, 0.13, 0.042, 0.038, 0.34, 6, coat.fur)
-      for (const s of [-1, 1]) d.ball(s * 0.13, 0.05, 0.02, 0.06, coat.fur, 5, 3)
+      for (const s of [-1, 1]) d.ball(s * 0.13, 0.06, 0.02, 0.06, coat.fur, 5, 3)
       headAt = [0, 0.58, 0.12]
       tailAt = [0, 0.06, -0.22]
     } else {
@@ -211,8 +211,9 @@ export const TROT: Gait = { duty: 0.5, offsets: [0, 0.5, 0.5, 0], hz: 2.6 }
 export const BOUND: Gait = { duty: 0.4, offsets: [0, 0.08, 0.5, 0.58], hz: 4.5 }
 
 /** The longest stride a leg of `len` takes in a gait: the paw's travel under
- *  the hip (stride × duty) never more than 1.1 legs. */
-export const maxStride = (g: Gait, len: number): number => (1.1 * len) / g.duty
+ *  the hip (stride × duty) never more than 0.9 legs, so a planted leg leans
+ *  at most about 24° (#123: wider, the posts splayed like a sawhorse). */
+export const maxStride = (g: Gait, len: number): number => (0.9 * len) / g.duty
 
 /** The stride (model units a cycle) for a speed (model units a second). */
 export const strideFor = (g: Gait, len: number, speed: number): number =>
@@ -227,6 +228,19 @@ export const pawAt = (g: Gait, phase: number, stride: number, len: number): { z:
   const t = (u - g.duty) / (1 - g.duty)
   const k = t * t * (3 - 2 * t)
   return { z: -a + 2 * a * k, lift: Math.sin(Math.PI * t) * len * 0.28 }
+}
+
+/** How far the hips sink below a leg's length: the body vaults over its
+ *  planted legs (#123). A planted leg is never stretched past its length, so
+ *  the hips ride as high as the most leaning planted leg reaches: highest
+ *  with a paw under them, lowest when the paws are planted far fore and aft. */
+export const vaultDrop = (g: Gait, cycle: number, stride: number, len: number): number => {
+  let hip = len
+  for (const o of g.offsets) {
+    const p = pawAt(g, cycle + o, stride, len)
+    if (p.lift === 0) hip = Math.min(hip, Math.sqrt(Math.max(0, len * len - p.z * p.z)))
+  }
+  return len - hip
 }
 
 /** The leg's turn about its hip and its stretch, so its paw is at (z, -len + lift). */
@@ -444,7 +458,9 @@ export class TownAnimals {
   }
 
   private place(b: Beast): void {
-    b.obj.position.set(b.x, groundAt(b.x, b.z) + b.y, b.z)
+    // A sitting body rests where a planted paw does: on top of the street's stones (#123).
+    const lift = b.sit?.visible ? PAW_CLEAR : 0
+    b.obj.position.set(b.x, groundAt(b.x, b.z) + b.y + lift, b.z)
   }
 
   /** Every frame: (px, pz) is the hero. */
@@ -490,9 +506,13 @@ export class TownAnimals {
     const g = b.kind === 'squirrel' ? BOUND : v > 1.4 ? TROT : WALK
     const stride = strideFor(g, len, v)
     b.cycle += (v * dt) / stride
+    // The body rides down and up over its planted legs, two dips a cycle; the
+    // legs reach down from the lowered hips, so every planted paw stays put.
+    const drop = vaultDrop(g, b.cycle, stride, len)
+    b.obj.position.y -= drop * b.size
     b.legs.forEach((l, i) => {
       const p = pawAt(g, b.cycle + g.offsets[i]!, stride, len)
-      const q = legPose(p.z, p.lift + rise(l.obj.position.x, l.obj.position.z + p.z), len)
+      const q = legPose(p.z, p.lift + drop + rise(l.obj.position.x, l.obj.position.z + p.z), len)
       l.obj.rotation.x = q.pitch
       l.obj.scale.y = q.stretch
     })
@@ -639,7 +659,8 @@ export class TownAnimals {
       }
     }
     if (b.tail) b.tail.rotation.y = Math.sin(b.clock * (wag > 0.5 ? 16 : 5)) * 0.5 * wag
-    b.y = b.mode === 'walk' || (b.mode === 'greet' && b.stand.visible) ? Math.abs(Math.sin(b.hop)) * 0.03 : 0
+    // No hop of its own: walking, its gait carries the body (`vaultDrop`).
+    b.y = 0
     this.place(b)
     b.obj.rotation.y = b.yaw
   }

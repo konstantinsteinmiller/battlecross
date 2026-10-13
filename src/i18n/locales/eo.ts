@@ -2,6 +2,7 @@
 export default {
   arena: {
     allWon: 'Ĉiuj mitaj premioj estas viaj.',
+    call: 'La rakonto estas rakontita. Nun pruvu vian konstruon: grimpu kiel eble plej alten, kaj gajnu la mitajn premiojn, kiujn neniu alia povas doni al vi.',
     prize: '{item} estas via!',
     milestone: 'Ondo {n}!',
     next: 'Sekva premio ĉe ondo {at}: {item}',
@@ -141,6 +142,8 @@ export default {
     cageKey: 'Ŝlosilo! Ĝi certe malfermas la kaĝon.',
     ore: 'Elfosita: {n} × {ore}',
     mineBusy: 'Ne kun malamikoj ĉirkaŭe!',
+    pressureUp: 'Viaj malamikoj fariĝas pli furiozaj {skulls}',
+    pressureDown: 'Viaj malamikoj malstreĉiĝas {skulls}',
     item: 'Trovita: {item}',
     levelUp: 'Nivelo {level}! +3 atributaj poentoj',
     boss: 'Aperas: {boss}',
@@ -327,6 +330,7 @@ export default {
     questDone: '{quest}: {choice}',
     trainer: 'Kaŝita trejnisto: {cls}',
     new: 'Nova',
+    trueTest: 'La vera provo',
     skip: 'Tuŝu por preterlasi',
     compass: {
       n: 'N',
@@ -4672,11 +4676,11 @@ export default {
       },
       favor: {
         '1': 'Ne al fremduloj. Sed faru al mi komplezon, kaj ni estos amikoj.',
-        '2': 'Arbuloj en la Flustranta Arbaro gardas la lunkampanulojn, kiujn mi bezonas. Venku ses el ili kaj alportu al mi tri lunkampanulojn.',
+        '2': 'Arbuloj en la Flustranta Arbaro gardas la lunkampanulojn, kiujn mi bezonas. Venku kvar el ili kaj alportu al mi du lunkampanulojn.',
         say: 'Ĉu vi vendas ion?'
       },
       waiting: {
-        '1': 'Ses arbuloj, tri lunkampanuloj. Bedaŭrinde la lunkampanuloj ne plukos sin mem.',
+        '1': 'Kvar arbuloj, du lunkampanuloj. Bedaŭrinde la lunkampanuloj ne plukos sin mem.',
         say: 'Pri tiu komplezo...'
       },
       favorDone: {
@@ -4748,11 +4752,11 @@ export default {
       },
       favor: {
         '1': 'Nur al tiuj, kiuj povas sekvi min. Ĉu vi povas? Ni eltrovu.',
-        '2': 'Venku dek du banditajn pafarkistojn en la Ĉirkaŭaĵo de Oakhaven, poste alportu al mi tri rapidfilikojn.',
+        '2': 'Venku ok banditajn pafarkistojn en la Ĉirkaŭaĵo de Oakhaven, poste alportu al mi du rapidfilikojn.',
         say: 'Ĉu vi instruas arkpafadon?'
       },
       waiting: {
-        '1': 'Dek du banditaj pafarkistoj, tri rapidfilikoj. Ek! Mi estos ĝuste ĉi tie. Saltetante.',
+        '1': 'Ok banditaj pafarkistoj, du rapidfilikoj. Ek! Mi estos ĝuste ĉi tie. Saltetante.',
         say: 'Pri via provo...'
       },
       favorDone: {
@@ -4803,11 +4807,11 @@ export default {
       },
       favor: {
         '1': 'Jes. Mi instruas ĝin nur al tiuj, kiuj restas trankvilaj en varma loko.',
-        '2': 'Estingu dek fajrajn elementulojn en la Cindraj Rokegoj. Poste alportu al mi tri branĉetojn de frostmento.',
+        '2': 'Estingu sep fajrajn elementulojn en la Cindraj Rokegoj. Poste alportu al mi du branĉetojn de frostmento.',
         say: 'Ĉu tiu glavo estas el glacio?'
       },
       waiting: {
-        '1': 'Dek fajraj elementuloj. Tri branĉetoj de frostmento. Ne hastu. Sed ne tro malrapidu.',
+        '1': 'Sep fajraj elementuloj. Du branĉetoj de frostmento. Ne hastu. Sed ne tro malrapidu.',
         say: 'Pri via provo...'
       },
       favorDone: {
@@ -4857,11 +4861,11 @@ export default {
       },
       favor: {
         '1': 'Ĉiu havas iom da lumo interne. Mi instruas homojn ellasi ĝin, kiam ili pretas.',
-        '2': 'Venku dek kultanojn en la Cindraj Rokegoj, poste alportu al mi kvin sunpetalojn por mia lampo.',
+        '2': 'Venku sep kultanojn en la Cindraj Rokegoj, poste alportu al mi tri sunpetalojn por mia lampo.',
         say: 'Ĉu tiu lampo estas magia?'
       },
       waiting: {
-        '1': 'Dek kultanoj, kvin sunpetaloj. Venku ilin milde. Ĉiu meritas duan ŝancon.',
+        '1': 'Sep kultanoj, tri sunpetaloj. Venku ilin milde. Ĉiu meritas duan ŝancon.',
         say: 'Pri via provo...'
       },
       favorDone: {
@@ -4911,12 +4915,12 @@ export default {
       },
       favor: {
         '1': 'Paroli? Mi aŭskultas. Jen la lertaĵo, kiun plej multaj homoj neniam lernas.',
-        '2': 'Gigantaj araneoj tekskovras la bestovojojn en la Flustranta Arbaro. Forigu dek du.',
+        '2': 'Gigantaj araneoj tekskovras la bestovojojn en la Flustranta Arbaro. Forigu ok.',
         '3': 'Poste alportu al mi du lunkampanulojn por mia nesto. Rubuso dormas pli bone apud ili.',
         say: 'Ĉu vi povas paroli kun bestoj?'
       },
       waiting: {
-        '1': 'Dek du araneoj, du lunkampanuloj. La bestoj atendas. Ankaŭ Rubuso.',
+        '1': 'Ok araneoj, du lunkampanuloj. La bestoj atendas. Ankaŭ Rubuso.',
         say: 'Pri via provo...'
       },
       favorDone: {
@@ -5197,7 +5201,7 @@ export default {
   },
   ending: {
     level: 'Nivelo',
-    more: 'La Malplena Fendo malfermiĝis sub la fortikaĵo. La Koloseo plu akceptas ĉiun venanton.',
+    more: 'La Malplena Fendo malfermiĝis sub la fortikaĵo. Sed la vera provo de via forto atendas en la Koloseo: grimpu tra ĝiaj ondoj, kaj gajnu la mitajn premiojn, kiujn havas nur ĝiaj ĉampionoj.',
     order: {
       title: 'La Fera Paco',
       text: 'Standardoj de la Fera Ordeno flirtas super la Terura Fortikaĵo. La vojoj estas sekuraj, la leĝoj estas multaj, kaj via nomo estas ĉizita super la pordego.'

@@ -318,6 +318,7 @@ const GAP: Partial<Record<SfxName, number>> = {
   alert: 0.3, death: 0.05, telegraph: 0.25, uiClick: 0.03, summon: 0.1, heal: 0.15, teleport: 0.08,
   // A skill's cast and impact (#101): a volley of hits is one sound, not twenty.
   castFire: 0.08, castIce: 0.08, castShock: 0.08, castHoly: 0.08, castShadow: 0.08, castPoison: 0.08, castBlood: 0.08, castEarth: 0.08, castWind: 0.08, castNature: 0.08, castArcane: 0.08, castTime: 0.08, castSpirit: 0.08, castSong: 0.08, castTech: 0.08, castCommand: 0.08,
+  castEarthShift: 0.08, castBoulder: 0.08, castFrostShatter: 0.08, castAvalancheLeap: 0.08, castAbsoluteZero: 0.08, castSmokeBomb: 0.08, castShadowMark: 0.08, castOrbitalBeam: 0.08, castSpark: 0.08,
   impactFire: 0.07, impactIce: 0.07, impactShock: 0.07, impactWind: 0.07, impactNature: 0.07, impactArcane: 0.07, impactTime: 0.07, impactSpirit: 0.07, impactSong: 0.07, impactTech: 0.07
 }
 
@@ -334,7 +335,12 @@ const VARY: ReadonlySet<SfxName> = new Set<SfxName>([
 const DUCK_FOR: Partial<Record<SfxName, number>> = { bossIntro: 1.8, levelUp: 1.6, chest: 1.2, deathBig: 1.2, lootEpic: 1.2, lootLegend: 1.9, crowdRoar: 2.2 }
 
 /** The loudest hits, trimmed 2–3 dB under the frequent ones. */
-const TRIM: Partial<Record<SfxName, number>> = { explode: 0.78, quake: 0.8, deathBig: 0.85, roar: 0.85 }
+const TRIM: Partial<Record<SfxName, number>> = {
+  explode: 0.78, quake: 0.8, deathBig: 0.85, roar: 0.85,
+  // The review's heavier casts (#118), levelled to the other casts.
+  castEarthShift: 0.6, castAvalancheLeap: 0.6, castShadowMark: 0.75, castShadow: 0.8, castFrostShatter: 0.85,
+  shadow: 0.4, impactShock: 0.7, crowdRoar: 0.8
+}
 
 /**
  * At most this many sounds start in any `CAP_WINDOW` seconds. A big fight can
@@ -660,6 +666,16 @@ const RECIPES: Record<SfxName, (pan: number, g: number) => void> = {
     tone({ wave: 'saw', f0: midiHz(D4), dur: 0.32, vol: 0.06 * g, attack: 0.04, pan: p, dirt: true })
     tone({ wave: 'saw', f0: midiHz(A4), dur: 0.42, vol: 0.05 * g, attack: 0.04, at: 0.18, pan: p, dirt: true })
   },
+  // The skills with a cast of their own (#118): until a remake below plays, the element's.
+  castEarthShift: (p, g) => RECIPES.castEarth(p, g),
+  castBoulder: (p, g) => RECIPES.castEarth(p, g),
+  castFrostShatter: (p, g) => RECIPES.castIce(p, g),
+  castAvalancheLeap: (p, g) => RECIPES.castIce(p, g),
+  castAbsoluteZero: (p, g) => RECIPES.castIce(p, g),
+  castSmokeBomb: (p, g) => RECIPES.castShadow(p, g),
+  castShadowMark: (p, g) => RECIPES.castShadow(p, g),
+  castOrbitalBeam: (p, g) => RECIPES.castShock(p, g),
+  castSpark: (p, g) => RECIPES.castShock(p, g),
   // A fireball lands: the snap, a sub shove, the blast's roar, the flames crackling after it.
   impactFire: (p, g) => {
     space(0.4)
@@ -932,6 +948,355 @@ const RECIPES: Record<SfxName, (pan: number, g: number) => void> = {
   }
 }
 
+// ─── The sound review's remakes (roadmap #118) ───────────────────────────────
+// The owner rejected some casts in the sound review and asked for skills of
+// their own where one element's cast did not fit. Each remake has two takes:
+// A plays in the game; B is the other candidate, heard by adding its id to
+// `PLAY_B` (one line). The review page lets the owner pick.
+
+/** The remade sounds whose B take plays instead of A: the owner's picks in the
+ *  sound review (2026-10-13). Every other remake plays its A take. */
+const PLAY_B: ReadonlySet<SfxName> = new Set<SfxName>([
+  'castShadow', 'shadow', 'crowdRoar',
+  'castEarthShift', 'castBoulder', 'castFrostShatter', 'castAvalancheLeap', 'castAbsoluteZero', 'castOrbitalBeam', 'castSpark'
+])
+
+type Recipe = (pan: number, g: number) => void
+
+/** A: in the game. */
+const REMAKE_A: Partial<Record<SfxName, Recipe>> = {
+  // A fireball bursting into flame, not a fist: the air catching (a soft
+  // whoomp, no snap), a low push, and the fire brizzling on long after.
+  impactFire: (p, g) => {
+    space(0.4)
+    burst({ dur: 0.6, vol: 0.36 * g, type: 'lowpass', f0: 600, fmid: 3200, fmidAt: 0.12, f1: 300, attack: 0.03, pan: p, dirt: true })
+    boom(80, 40, 0.25, 0.22 * g, p)
+    burst({ dur: 1.0, vol: 0.08 * g, type: 'highpass', f0: 3500, f1: 2200, attack: 0.05, at: 0.08, pan: p - 0.2, panTo: p + 0.2 })
+    crackle(30, 1.0, 0.09 * g, p, 0.06, 2600)
+  },
+  // Hollow ice struck: a thunk with the body of a block, hollow resonances, a crunch.
+  impactIce: (p, g) => {
+    space(0.35)
+    tone({ wave: 'sine', f0: 260, f1: 140, dur: 0.16, vol: 0.2 * g, pan: p, attack: 0.002 })
+    burst({ dur: 0.12, vol: 0.2 * g, type: 'bandpass', f0: 650, f1: 450, q: 4, pan: p })
+    ;[420, 610, 890].forEach((hz, k) => tone({ wave: 'tri', f0: hz, f1: hz * 0.97, dur: 0.22 - k * 0.04, vol: 0.05 * g, pan: p, attack: 0.002 }))
+    crackle(10, 0.15, 0.08 * g, p, 0.01, 2000)
+    burst({ dur: 0.2, vol: 0.05 * g, type: 'highpass', f0: 5000, at: 0.02, pan: p })
+  },
+  // An arc striking home: a hard snap, the zap of the discharge, weight behind it, a hiss.
+  impactShock: (p, g) => {
+    space(0.24)
+    crack(0.5 * g, p, 0, 4500, 0.02)
+    burst({ dur: 0.12, vol: 0.22 * g, type: 'bandpass', f0: 7000, f1: 3000, q: 2, pan: p })
+    crackle(24, 0.18, 0.09 * g, p, 0, 6000)
+    boom(90, 40, 0.3, 0.3 * g, p)
+    burst({ dur: 0.4, vol: 0.06 * g, type: 'highpass', f0: 6000, f1: 4000, at: 0.05, pan: p })
+  },
+  // Darkness striking: a thud, a dark whoom falling away, a short throat, whispers after.
+  shadow: (p, g) => {
+    space(0.5)
+    boom(70, 35, 0.35, 0.3 * g, p)
+    burst({ dur: 0.55, vol: 0.26 * g, type: 'bandpass', f0: 1200, f1: 200, q: 1.6, pan: p, dirt: true })
+    growl(70, 48, 0.3, 0.14 * g, p, 0.02, 14)
+    metal(140, 0.6, 0.05 * g, p, 0, 0.4)
+    burst({ dur: 0.5, vol: 0.06 * g, type: 'bandpass', f0: 3400, f1: 2200, q: 5, attack: 0.1, at: 0.2, pan: p + 0.4, panTo: p - 0.4 })
+  },
+  // A wave falls: voice after voice shouting out of the stands, whistles, claps, the house under them.
+  crowdCheer: (p, g) => {
+    space(0.55)
+    burst({ dur: 1.5, vol: 0.12 * g, type: 'bandpass', f0: 500, fmid: 900, fmidAt: 0.3, f1: 420, q: 1.4, attack: 0.25, pan: p - 0.4, panTo: p + 0.4 })
+    for (let k = 0; k < 12; k++) {
+      const f0 = 170 + Math.random() * 220
+      growl(f0, f0 * (1.1 + Math.random() * 0.2), 0.3 + Math.random() * 0.35, (0.03 + Math.random() * 0.025) * g, p + (Math.random() - 0.5) * 1.6, Math.random() * 0.9, 18 + Math.random() * 12)
+    }
+    for (let k = 0; k < 3; k++) tone({ wave: 'sine', f0: 1700 + Math.random() * 300, f1: 2600 + Math.random() * 400, dur: 0.25, vol: 0.03 * g, attack: 0.04, at: 0.2 + Math.random() * 0.8, pan: p + (Math.random() - 0.5) * 1.4 })
+    for (let k = 0; k < 24; k++) crack(0.045 * g * (0.5 + Math.random()), p + (Math.random() - 0.5) * 1.4, 0.1 + Math.random() * 1.2, 1800 + Math.random() * 1600, 0.012)
+  },
+  // A milestone: the whole house roaring, low and wide, swelling up and holding.
+  crowdRoar: (p, g) => {
+    space(0.6)
+    burst({ dur: 2.4, vol: 0.3 * g, type: 'lowpass', f0: 500, fmid: 1400, fmidAt: 0.3, f1: 600, attack: 0.5, pan: p - 0.6, panTo: p + 0.6, dirt: true })
+    burst({ dur: 2.2, vol: 0.12 * g, type: 'bandpass', f0: 900, fmid: 1600, fmidAt: 0.35, f1: 800, q: 1.2, attack: 0.5, pan: p + 0.5, panTo: p - 0.5 })
+    for (let k = 0; k < 16; k++) {
+      const f0 = 95 + Math.random() * 110
+      growl(f0, f0 * 1.15, 1.2 + Math.random() * 0.9, (0.03 + Math.random() * 0.02) * g, p + (Math.random() - 0.5) * 1.6, Math.random() * 0.4, 20 + Math.random() * 14)
+    }
+    for (let k = 0; k < 30; k++) crack(0.04 * g * (0.5 + Math.random()), p + (Math.random() - 0.5) * 1.6, 0.3 + Math.random() * 1.8, 1800 + Math.random() * 1600, 0.012)
+  },
+  // A fireplace getting air: the flame's roar swells and brightens, licks of
+  // fire flutter through it, the crackle quickens, and it flares at the top.
+  castFire: (p, g) => {
+    space(0.22)
+    burst({ dur: 0.7, vol: 0.24 * g, type: 'lowpass', f0: 260, fmid: 2600, fmidAt: 0.8, f1: 1400, attack: 0.5, pan: p, dirt: true })
+    for (let k = 0; k < 4; k++) burst({ dur: 0.16, vol: (0.06 + k * 0.025) * g, type: 'bandpass', f0: 500 + k * 250, f1: 1400 + k * 400, q: 1.1, attack: 0.07, at: 0.1 + k * 0.12, pan: p + (k % 2 ? 0.15 : -0.15) })
+    crackle(5, 0.3, 0.05 * g, p, 0.05, 2400)
+    crackle(12, 0.3, 0.08 * g, p, 0.35, 2800)
+    boom(90, 60, 0.3, 0.14 * g, p, 0.5)
+    burst({ dur: 0.4, vol: 0.12 * g, type: 'bandpass', f0: 1800, f1: 700, q: 0.8, at: 0.52, pan: p })
+  },
+  // Darkness drawn in, deeper: a long breath pulled backwards, a sub that
+  // swells under it, a throat at the bottom of the register.
+  castShadow: (p, g) => {
+    space(0.5)
+    burst({ dur: 0.55, vol: 0.32 * g, type: 'bandpass', f0: 180, f1: 1600, q: 1.8, attack: 0.48, pan: p - 0.3, panTo: p + 0.3 })
+    tone({ wave: 'sine', f0: 48, f1: 36, dur: 0.6, vol: 0.22 * g, attack: 0.35, pan: p, dirt: true })
+    growl(52, 40, 0.55, 0.15 * g, p, 0.08, 11)
+    rumble(0.5, 0.1 * g, p, 0.15, 120)
+  },
+  // The ground reshaped: stone grinding, a lurch, gravel rattling down.
+  castEarthShift: (p, g) => {
+    space(0.28)
+    rumble(0.85, 0.26 * g, p, 0, 190)
+    burst({ dur: 0.6, vol: 0.14 * g, type: 'bandpass', f0: 260, f1: 420, q: 3, attack: 0.15, pan: p - 0.2, panTo: p + 0.2, dirt: true })
+    boom(75, 38, 0.35, 0.3 * g, p, 0.12)
+    boom(64, 34, 0.3, 0.22 * g, p, 0.42)
+    crackle(22, 0.75, 0.1 * g, p, 0.1, 900)
+    crackle(10, 0.5, 0.06 * g, p, 0.35, 1800)
+  },
+  // A boulder rolling: bump after bump of weight travelling across the field,
+  // the ground grumbling, grit crunching under it.
+  castBoulder: (p, g) => {
+    space(0.24)
+    for (let k = 0; k < 8; k++) boom(56 + (k % 3) * 6, 42, 0.14, (0.14 + k * 0.012) * g, p - 0.5 + k * 0.13, k * 0.11)
+    burst({ dur: 0.95, vol: 0.2 * g, type: 'lowpass', f0: 140, f1: 220, attack: 0.1, pan: p - 0.5, panTo: p + 0.5, dirt: true })
+    crackle(18, 0.9, 0.06 * g, p, 0, 1100)
+  },
+  // Ice cracking, then flying apart: four sharp splits, then a spray of shards.
+  castFrostShatter: (p, g) => {
+    space(0.42)
+    for (let k = 0; k < 4; k++) crack((0.12 + k * 0.03) * g, p + (k - 1.5) * 0.1, k * 0.07, 4800, 0.012)
+    for (let k = 0; k < 10; k++) metal(2400 + Math.random() * 3600, 0.25, 0.025 * g, p + (Math.random() - 0.5) * 0.9, 0.3 + Math.random() * 0.12, 0.8)
+    crack(0.3 * g, p, 0.29, 2600, 0.03)
+    burst({ dur: 0.4, vol: 0.1 * g, type: 'highpass', f0: 5000, f1: 9000, at: 0.29, pan: p })
+  },
+  // A leap into an avalanche: the jump through the air, then the snow comes
+  // down in a roar with the ground under it.
+  castAvalancheLeap: (p, g) => {
+    space(0.38)
+    whoosh(300, 1800, 600, 0.38, 0.32 * g, p)
+    burst({ dur: 0.95, vol: 0.28 * g, type: 'lowpass', f0: 1200, f1: 220, attack: 0.08, at: 0.3, pan: p - 0.3, panTo: p + 0.3, dirt: true })
+    burst({ dur: 0.7, vol: 0.1 * g, type: 'highpass', f0: 3500, f1: 2000, attack: 0.05, at: 0.32, pan: p })
+    boom(80, 34, 0.5, 0.3 * g, p, 0.32)
+    rumble(0.9, 0.18 * g, p, 0.35, 150)
+  },
+  // Absolute zero: everything slows and freezes. A tone sinking, frost
+  // creeping up over it, ice creaking, and the hard snap of the freeze.
+  castAbsoluteZero: (p, g) => {
+    space(0.6)
+    tone({ wave: 'sine', f0: 320, f1: 70, dur: 1.0, vol: 0.09 * g, attack: 0.2, pan: p, exp: true })
+    burst({ dur: 0.9, vol: 0.09 * g, type: 'highpass', f0: 3000, f1: 9000, attack: 0.7, pan: p - 0.4, panTo: p + 0.4 })
+    tone({ wave: 'tri', f0: 900, f1: 420, dur: 0.5, vol: 0.03 * g, vib: 40, vibRate: 23, at: 0.25, pan: p })
+    ;[3200, 2700, 2300].forEach((f, k) => metal(f, 0.6, 0.03 * g, p + (k - 1) * 0.3, 0.75 + k * 0.03, 0.7))
+    crack(0.32 * g, p, 0.78, 3000, 0.03)
+    boom(70, 40, 0.3, 0.18 * g, p, 0.78)
+  },
+  // A smoke bomb: a soft pop, then a big puff of air billowing out wide.
+  castSmokeBomb: (p, g) => {
+    space(0.35)
+    crack(0.2 * g, p, 0, 900, 0.02)
+    boom(130, 60, 0.18, 0.24 * g, p)
+    burst({ dur: 1.0, vol: 0.34 * g, type: 'bandpass', f0: 900, fmid: 600, fmidAt: 0.3, f1: 250, q: 0.5, attack: 0.04, pan: p - 0.5, panTo: p + 0.5 })
+    burst({ dur: 0.8, vol: 0.1 * g, type: 'highpass', f0: 2500, f1: 1200, attack: 0.03, at: 0.02, pan: p + 0.4, panTo: p - 0.4 })
+  },
+  // A mark burned on a soul: a dissonant pair of tones beating, swelling up
+  // out of the dark; a stamp as the sigil sets; a whisper after it.
+  castShadowMark: (p, g) => {
+    space(0.55)
+    tone({ wave: 'sine', f0: 220, dur: 0.5, vol: 0.07 * g, attack: 0.4, pan: p - 0.15 })
+    tone({ wave: 'sine', f0: 233, dur: 0.5, vol: 0.07 * g, attack: 0.4, pan: p + 0.15 })
+    tone({ wave: 'saw', f0: 55, dur: 0.5, vol: 0.04 * g, attack: 0.4, pan: p, dirt: true })
+    crack(0.22 * g, p, 0.45, 1200, 0.02)
+    boom(70, 45, 0.3, 0.26 * g, p, 0.45)
+    metal(310, 0.7, 0.05 * g, p, 0.45, 0.5)
+    burst({ dur: 0.45, vol: 0.07 * g, type: 'bandpass', f0: 3200, f1: 1800, q: 4, attack: 0.15, at: 0.55, pan: p - 0.3, panTo: p + 0.3 })
+  },
+  // A laser from the sky: a charge whining up, then the beam's zap and sizzle.
+  castOrbitalBeam: (p, g) => {
+    space(0.3)
+    tone({ wave: 'sine', f0: 400, f1: 2600, dur: 0.45, vol: 0.06 * g, attack: 0.2, vib: 25, vibRate: 18, pan: p })
+    tone({ wave: 'p25', f0: 200, f1: 1600, dur: 0.45, vol: 0.03 * g, attack: 0.2, pan: p })
+    tone({ wave: 'saw', f0: 1800, f1: 260, dur: 0.3, vol: 0.08 * g, at: 0.45, pan: p, dirt: true })
+    tone({ wave: 'sine', f0: 110, dur: 0.5, vol: 0.1 * g, at: 0.45, pan: p })
+    burst({ dur: 0.5, vol: 0.12 * g, type: 'highpass', f0: 5000, f1: 3000, at: 0.45, pan: p })
+  },
+  // Electricity arcing: an uneven run of zaps, each a buzz and a snap.
+  castSpark: (p, g) => {
+    space(0.16)
+    const at = [0, 0.05, 0.13, 0.16, 0.26, 0.31, 0.4]
+    at.forEach((t, k) => {
+      tone({ wave: 'saw', f0: 110 + (k % 3) * 40, dur: 0.035, vol: 0.08 * g, at: t, pan: p + (Math.random() - 0.5) * 0.6, dirt: true })
+      burst({ dur: 0.03, vol: 0.14 * g, type: 'highpass', f0: 5500, at: t, pan: p + (Math.random() - 0.5) * 0.6 })
+    })
+    burst({ dur: 0.45, vol: 0.05 * g, type: 'bandpass', f0: 4200, q: 8, attack: 0.02, pan: p })
+    crackle(14, 0.45, 0.06 * g, p, 0, 6500)
+  }
+}
+
+/** B: the other candidate (switched in by `PLAY_B`). */
+const REMAKE_B: Partial<Record<SfxName, Recipe>> = {
+  // An explosion of fire: a dull blast, the roar of flame rolling out, debris and a sizzling tail.
+  impactFire: (p, g) => {
+    space(0.45)
+    crack(0.2 * g, p, 0, 700, 0.05)
+    burst({ dur: 1.1, vol: 0.38 * g, type: 'lowpass', f0: 5000, f1: 200, attack: 0.01, pan: p, dirt: true })
+    boom(70, 30, 0.6, 0.32 * g, p)
+    crackle(20, 0.7, 0.08 * g, p, 0.05, 1500)
+    burst({ dur: 0.8, vol: 0.06 * g, type: 'bandpass', f0: 3000, q: 1, attack: 0.1, at: 0.3, pan: p })
+  },
+  // A frozen lake cracking: the ice sheet's zing, a deep thunk, a crunch.
+  impactIce: (p, g) => {
+    space(0.45)
+    crack(0.22 * g, p, 0, 2500, 0.02)
+    tone({ wave: 'sine', f0: 2200, f1: 450, dur: 0.18, vol: 0.06 * g, pan: p, exp: true })
+    tone({ wave: 'sine', f0: 1700, f1: 380, dur: 0.24, vol: 0.04 * g, at: 0.03, pan: p, exp: true })
+    boom(120, 70, 0.2, 0.22 * g, p)
+    crackle(12, 0.2, 0.08 * g, p, 0.02, 1800)
+  },
+  // A lightning strike: the crack, a short thunder rolling off, the weight in the ground.
+  impactShock: (p, g) => {
+    space(0.35)
+    crack(0.5 * g, p, 0, 3000, 0.04)
+    crackle(14, 0.12, 0.09 * g, p, 0, 5500)
+    burst({ dur: 0.7, vol: 0.24 * g, type: 'lowpass', f0: 6000, f1: 300, pan: p, dirt: true })
+    boom(70, 30, 0.45, 0.3 * g, p)
+  },
+  // An implosion of dark: drawn in for an instant, then the thud and a dark tail.
+  shadow: (p, g) => {
+    space(0.6)
+    burst({ dur: 0.14, vol: 0.2 * g, type: 'bandpass', f0: 300, f1: 2000, q: 2, attack: 0.12, pan: p })
+    boom(60, 30, 0.45, 0.32 * g, p, 0.13)
+    burst({ dur: 0.7, vol: 0.18 * g, type: 'lowpass', f0: 800, f1: 150, at: 0.13, pan: p, dirt: true })
+    tone({ wave: 'saw', f0: 46, f1: 38, dur: 0.6, vol: 0.05 * g, at: 0.13, pan: p, dirt: true })
+  },
+  // A cheer in beats: three waves of "hey!" with claps on them and a whistle.
+  crowdCheer: (p, g) => {
+    space(0.55)
+    for (const t of [0, 0.42, 0.84]) {
+      for (let k = 0; k < 7; k++) {
+        const f0 = 180 + Math.random() * 200
+        growl(f0, f0 * 1.2, 0.26, (0.03 + Math.random() * 0.02) * g, p + (Math.random() - 0.5) * 1.6, t + Math.random() * 0.05, 22)
+      }
+      for (let k = 0; k < 8; k++) crack(0.05 * g * (0.6 + Math.random() * 0.6), p + (Math.random() - 0.5) * 1.4, t + 0.2 + Math.random() * 0.04, 2000 + Math.random() * 1200, 0.012)
+    }
+    tone({ wave: 'sine', f0: 1900, f1: 2800, dur: 0.3, vol: 0.035 * g, attack: 0.05, at: 1.1, pan: p + 0.3 })
+    burst({ dur: 1.6, vol: 0.08 * g, type: 'bandpass', f0: 600, f1: 500, q: 1.2, attack: 0.3, pan: p })
+  },
+  // The roar with the house stamping under it and the horn call over it.
+  crowdRoar: (p, g) => {
+    space(0.6)
+    burst({ dur: 2.4, vol: 0.26 * g, type: 'lowpass', f0: 500, fmid: 1300, fmidAt: 0.3, f1: 600, attack: 0.4, pan: p - 0.6, panTo: p + 0.6, dirt: true })
+    for (let k = 0; k < 12; k++) {
+      const f0 = 100 + Math.random() * 120
+      growl(f0, f0 * 1.15, 1.4 + Math.random() * 0.6, 0.035 * g, p + (Math.random() - 0.5) * 1.6, Math.random() * 0.3, 24)
+    }
+    for (let k = 0; k < 6; k++) boom(60, 45, 0.15, 0.2 * g, p, 0.3 + k * 0.32)
+    tone({ wave: 'saw', f0: midiHz(D4), dur: 0.36, vol: 0.05 * g, attack: 0.04, at: 0.1, pan: p, dirt: true })
+    tone({ wave: 'saw', f0: midiHz(A4), dur: 0.8, vol: 0.05 * g, attack: 0.04, at: 0.42, pan: p, dirt: true })
+  },
+  // Bellows: two breaths of air, each one flaring the fire higher.
+  castFire: (p, g) => {
+    space(0.2)
+    for (const [t, v] of [[0, 0.7], [0.28, 1]] as const) {
+      whoosh(400, 1200, 700, 0.18, 0.18 * g * v, p, t, 1.4)
+      burst({ dur: 0.38, vol: 0.24 * g * v, type: 'lowpass', f0: 300, fmid: 2200 * v, fmidAt: 0.45, f1: 800, attack: 0.1, at: t + 0.12, pan: p, dirt: true })
+      crackle(8, 0.3, 0.08 * g * v, p, t + 0.14, 2600)
+    }
+    tone({ wave: 'saw', f0: 70, f1: 120, dur: 0.6, vol: 0.05 * g, attack: 0.3, pan: p, dirt: true })
+  },
+  // A deep pulse of dark: two sub throbs, a whisper swelling backwards, a low drone.
+  castShadow: (p, g) => {
+    space(0.55)
+    boom(50, 38, 0.3, 0.28 * g, p)
+    boom(46, 34, 0.35, 0.24 * g, p, 0.28)
+    burst({ dur: 0.6, vol: 0.12 * g, type: 'highpass', f0: 1800, f1: 5000, attack: 0.55, pan: p + 0.3, panTo: p - 0.3 })
+    tone({ wave: 'saw', f0: 41, dur: 0.6, vol: 0.06 * g, attack: 0.25, pan: p, dirt: true })
+    tone({ wave: 'saw', f0: 41.6, dur: 0.6, vol: 0.05 * g, attack: 0.25, pan: p, dirt: true })
+  },
+  // One great lurch of the ground and the debris raining after it.
+  castEarthShift: (p, g) => {
+    space(0.3)
+    crack(0.3 * g, p, 0, 700, 0.03)
+    boom(62, 28, 0.6, 0.42 * g, p)
+    rumble(1.0, 0.24 * g, p, 0.02, 170)
+    crackle(30, 0.9, 0.09 * g, p, 0.1, 850)
+    burst({ dur: 0.7, vol: 0.08 * g, type: 'bandpass', f0: 1400, f1: 500, q: 1.2, attack: 0.08, at: 0.15, pan: p })
+  },
+  // A boulder setting off: slow bumps that quicken as it gathers speed.
+  castBoulder: (p, g) => {
+    space(0.24)
+    let t = 0
+    for (let k = 0; k < 9; k++) { boom(52 + (k % 2) * 8, 40, 0.13, (0.12 + k * 0.014) * g, p - 0.5 + k * 0.12, t); t += 0.17 - k * 0.013 }
+    burst({ dur: 1.0, vol: 0.14 * g, type: 'bandpass', f0: 220, f1: 340, q: 2, attack: 0.3, pan: p - 0.5, panTo: p + 0.5, dirt: true })
+    crackle(16, 1.0, 0.06 * g, p, 0, 1000)
+  },
+  // A glassy ping building, then the ice bursting into shards.
+  castFrostShatter: (p, g) => {
+    space(0.45)
+    tone({ wave: 'sine', f0: 1200, f1: 2600, dur: 0.3, vol: 0.06 * g, attack: 0.22, pan: p })
+    crack(0.34 * g, p, 0.3, 3200, 0.025)
+    for (let k = 0; k < 14; k++) metal(1800 + Math.random() * 4500, 0.3, 0.022 * g, p + (Math.random() - 0.5) * 1.2, 0.3 + Math.random() * 0.2, 0.9)
+    crackle(14, 0.25, 0.08 * g, p, 0.3, 6000)
+  },
+  // Wind rising as the hero leaps, then a heavy thud of snow and a spray of powder.
+  castAvalancheLeap: (p, g) => {
+    space(0.35)
+    whoosh(500, 2600, 900, 0.36, 0.3 * g, p)
+    boom(85, 32, 0.6, 0.36 * g, p, 0.34)
+    crack(0.18 * g, p, 0.34, 900, 0.03)
+    burst({ dur: 0.75, vol: 0.18 * g, type: 'bandpass', f0: 2600, f1: 900, q: 0.7, attack: 0.03, at: 0.35, pan: p - 0.4, panTo: p + 0.4 })
+    rumble(0.7, 0.14 * g, p, 0.36, 130)
+  },
+  // A howling cold wind, crystals tumbling down through it, and a deep floor.
+  castAbsoluteZero: (p, g) => {
+    space(0.6)
+    burst({ dur: 1.1, vol: 0.2 * g, type: 'bandpass', f0: 700, fmid: 1150, fmidAt: 0.5, f1: 550, q: 6, attack: 0.3, pan: p - 0.5, panTo: p + 0.5 })
+    ;[4200, 3700, 3100, 2600, 2200].forEach((f, k) => metal(f, 0.5, 0.025 * g, p + (k - 2) * 0.2, 0.2 + k * 0.12, 0.7))
+    tone({ wave: 'sine', f0: 60, f1: 45, dur: 1.0, vol: 0.14 * g, attack: 0.3, pan: p, dirt: true })
+  },
+  // A fuse fizzing, then a poof of smoke.
+  castSmokeBomb: (p, g) => {
+    space(0.3)
+    burst({ dur: 0.22, vol: 0.08 * g, type: 'highpass', f0: 4500, f1: 6500, attack: 0.02, pan: p })
+    crackle(8, 0.2, 0.04 * g, p, 0, 5000)
+    boom(95, 50, 0.25, 0.26 * g, p, 0.22)
+    burst({ dur: 0.85, vol: 0.32 * g, type: 'lowpass', f0: 1600, f1: 240, attack: 0.03, at: 0.22, pan: p - 0.5, panTo: p + 0.5 })
+  },
+  // A curse spoken: detuned voices sinking, a low inharmonic ring, a heartbeat.
+  castShadowMark: (p, g) => {
+    space(0.55)
+    tone({ wave: 'saw', f0: 330, f1: 160, dur: 0.6, vol: 0.035 * g, attack: 0.1, vib: 6, vibRate: 5, pan: p - 0.2 })
+    tone({ wave: 'saw', f0: 336, f1: 158, dur: 0.6, vol: 0.035 * g, attack: 0.12, vib: 6, vibRate: 5.5, pan: p + 0.2 })
+    metal(180, 0.9, 0.06 * g, p, 0.1, 0.6)
+    boom(60, 40, 0.15, 0.22 * g, p, 0.35)
+    boom(56, 38, 0.15, 0.18 * g, p, 0.55)
+  },
+  // A classic laser: two falling zaps over a low hum.
+  castOrbitalBeam: (p, g) => {
+    space(0.25)
+    tone({ wave: 'p50', f0: 2200, f1: 180, dur: 0.22, vol: 0.06 * g, pan: p, exp: true })
+    tone({ wave: 'p50', f0: 2600, f1: 200, dur: 0.3, vol: 0.06 * g, at: 0.2, pan: p, exp: true })
+    tone({ wave: 'sine', f0: 110, dur: 0.6, vol: 0.09 * g, attack: 0.05, pan: p })
+    burst({ dur: 0.5, vol: 0.08 * g, type: 'highpass', f0: 6000, at: 0.2, pan: p })
+  },
+  // A tesla coil: a hard buzz shaking, a hissing arc, cracks snapping off it.
+  castSpark: (p, g) => {
+    space(0.15)
+    tone({ wave: 'saw', f0: 90, dur: 0.45, vol: 0.07 * g, attack: 0.02, vib: 60, vibRate: 31, pan: p, dirt: true })
+    burst({ dur: 0.45, vol: 0.1 * g, type: 'bandpass', f0: 4000, f1: 5200, q: 8, attack: 0.02, pan: p })
+    for (let k = 0; k < 5; k++) crack(0.16 * g, p + (Math.random() - 0.5) * 0.8, 0.04 + Math.random() * 0.38, 5000, 0.01)
+  }
+}
+
+/** The recipe a name plays: a remake's chosen take, else the original. */
+const recipeOf = (name: SfxName): Recipe | undefined =>
+  (PLAY_B.has(name) ? REMAKE_B[name] : REMAKE_A[name]) ?? RECIPES[name]
+
+/** The review renderer's handle on a remake's takes (`tools/sfx-review`). */
+export const remakeTakes = (name: SfxName): Partial<Record<'A' | 'B' | 'old', Recipe>> => {
+  const trim = (r: Recipe | undefined): Recipe | undefined => r && ((p, g) => r(p, g * (TRIM[name] ?? 1)))
+  return { A: trim(REMAKE_A[name]), B: trim(REMAKE_B[name]), old: RECIPES[name] }
+}
+
 // ─── Drop-in SFX files ───────────────────────────────────────────────────────
 // A file in public/audio/sfx/ named after a recipe replaces it (see
 // `game/assets/overrides.ts`). Decoded on an OfflineAudioContext, which needs
@@ -1009,7 +1374,7 @@ const play = (name: SfxName, pan: number, gain: number, muffle = 0): void => {
   try {
     const file = fileBuffers.get(name)
     if (file) playFile(file, pan, g)
-    else RECIPES[name]?.(pan, g)
+    else recipeOf(name)?.(pan, g)
   } catch { /* a voice failed to start — never fatal */ } finally {
     route = null
     pitch = 1
@@ -1023,7 +1388,7 @@ const play = (name: SfxName, pan: number, gain: number, muffle = 0): void => {
  * (`tools/sfx-render.mjs`) plays the game's own recipes into an offline context.
  */
 export const recipeFor = (name: SfxName, pan = 0, gain = 1, tune = 1): boolean => {
-  const r = RECIPES[name]
+  const r = recipeOf(name)
   if (!r) return false
   pitch = tune
   try {

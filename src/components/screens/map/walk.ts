@@ -13,9 +13,18 @@
  *
  * Whose land a cell is: the place nearest to it. A locked place's land is
  * fogged; walking toward it stops half way. Pure geometry: no DOM.
+ *
+ * Over the PAINTED sheet (`images/ui/map.webp`, roadmap #119) the water is
+ * the painting's own, baked into `paintedGround.ts`: every painted ground is
+ * walked (earth, grass, snow, the mountains, the painted bridges), only its
+ * water and the rift's void are not, but for the drawn bridges where a road
+ * crosses it (`paintedBridges.ts`, the temple's causeway among them). Ground
+ * no place can be walked to from (an islet) is closed.
  */
 import { MAP, type NodeId } from '@/game/data/zones'
 import { MAP_H, MAP_W, distToLine, inPoly, type Pt } from './geo'
+import { paintedCrossings } from './paintedBridges'
+import { PAINTED_GROUND } from './paintedGround'
 import { ROADS, nodeAt } from './roads'
 import { TERRAIN_SHAPES } from './terrain'
 
@@ -45,7 +54,10 @@ interface Base {
   owner: Uint8Array
 }
 
-let base: Base | null = null
+/** Which sheet the hero walks on: the painting, or the drawn terrain plate. */
+export type Sheet = 'painted' | 'drawn'
+
+const bases: Partial<Record<Sheet, Base>> = {}
 
 const ROAD_BOXES = ROADS.map(r => {
   let x0 = Infinity; let y0 = Infinity; let x1 = -Infinity; let y1 = -Infinity
@@ -66,7 +78,7 @@ const roadDist = (p: Pt): number => {
 const SPOTS = MAP.map(n => nodeAt(n.id))
 
 /** The terrain's own classes, once: what is land, road or water, and whose. */
-const buildBase = (): Base => {
+const buildBase = (sheet: Sheet): Base => {
   const ground = new Uint8Array(GW * GH)
   const owner = new Uint8Array(GW * GH)
   const T = TERRAIN_SHAPES
@@ -79,24 +91,65 @@ const buildBase = (): Base => {
       SPOTS.forEach((s, n) => { const d = Math.hypot(s[0] - p[0], s[1] - p[1]); if (d < nd) { nd = d; near = n } })
       owner[k] = near
       if (p[0] < MARGIN || p[1] < MARGIN || p[0] > MAP_W - MARGIN || p[1] > MAP_H - MARGIN) continue
-      const land = inPoly(p, T.land)
-      if (!land) continue
       const rd = roadDist(p)
       let g = LAND
-      const water = inPoly(p, T.lake) || inPoly(p, T.rift) || T.rivers.some(r => distToLine(p, r.line) < r.w / 2 + 5)
-      if (water) g = BLOCKED
-      else if (inPoly(p, T.regions.rock!) && rd > PASS_HALF) g = BLOCKED
-      if (rd < (water ? BRIDGE_HALF : ROAD_HALF)) g = ROAD
+      let water: boolean
+      if (sheet === 'painted') {
+        // The painting's water and void; the rest is ground, the mountains too.
+        const c = PAINTED_GROUND[j]![i]
+        water = c === '~' || c === 'x'
+        if (water) g = BLOCKED
+      } else {
+        if (!inPoly(p, T.land)) continue
+        water = inPoly(p, T.lake) || inPoly(p, T.rift) || T.rivers.some(r => distToLine(p, r.line) < r.w / 2 + 5)
+        if (water) g = BLOCKED
+        else if (inPoly(p, T.regions.rock!) && rd > PASS_HALF) g = BLOCKED
+      }
+      if (sheet === 'painted' && water) {
+        // Water is walked on a drawn bridge only, not along a road on its bank.
+        if (paintedCrossings().some(c => distToLine(p, [c.a, c.b]) < BRIDGE_HALF)) g = ROAD
+      } else if (rd < (water ? BRIDGE_HALF : ROAD_HALF)) g = ROAD
       // The bare site round a place is walkable — but its water stays water
       // (#111: walking on a painted river next to a town).
       if (nd < SITE_R && g === BLOCKED && !water) g = LAND
       ground[k] = g
     }
   }
+  if (sheet === 'painted') closeIslets(ground)
   return { ground, owner }
 }
 
-const getBase = (): Base => (base ||= buildBase())
+/** Close the ground no place can be walked to from (the painted islets, a
+ *  pocket inside a lake): walking it is a promise the map cannot keep. */
+const closeIslets = (ground: Uint8Array): void => {
+  const seen = new Uint8Array(GW * GH)
+  const todo: number[] = []
+  for (const s of SPOTS) {
+    const k = Math.floor(s[1] / STEP) * GW + Math.floor(s[0] / STEP)
+    if (ground[k] && !seen[k]) { seen[k] = 1; todo.push(k) }
+  }
+  while (todo.length) {
+    const k = todo.pop()!
+    const i = k % GW
+    const j = (k - i) / GW
+    for (let dj = -1; dj <= 1; dj++) {
+      for (let di = -1; di <= 1; di++) {
+        const ni = i + di
+        const nj = j + dj
+        if ((!di && !dj) || ni < 0 || nj < 0 || ni >= GW || nj >= GH) continue
+        const n = nj * GW + ni
+        if (seen[n] || !ground[n]) continue
+        // As the path finder walks: no slipping between two blocked cells.
+        if (di && dj && (!ground[j * GW + ni] || !ground[nj * GW + i])) continue
+        seen[n] = 1
+        todo.push(n)
+      }
+    }
+  }
+  for (let k = 0; k < ground.length; k++) if (!seen[k]) ground[k] = BLOCKED
+}
+
+const getBase = (sheet: Sheet): Base => (bases[sheet] ||= buildBase(sheet))
 
 export interface WalkMask {
   /** Per cell: `BLOCKED`, `LAND` or `ROAD` for this save's open places. */
@@ -116,8 +169,8 @@ const cellOf = (x: number, y: number): number => {
 }
 
 /** The mask for a set of open places: their land walkable, the rest fogged. */
-export const walkMask = (open: (id: NodeId) => boolean): WalkMask => {
-  const b = getBase()
+export const walkMask = (open: (id: NodeId) => boolean, sheet: Sheet = 'painted'): WalkMask => {
+  const b = getBase(sheet)
   const cells = new Uint8Array(GW * GH)
   const openAt = MAP.map(n => open(n.id))
   for (let k = 0; k < cells.length; k++) if (b.ground[k] && openAt[b.owner[k]!]) cells[k] = b.ground[k]!
@@ -131,7 +184,7 @@ export const walkMask = (open: (id: NodeId) => boolean): WalkMask => {
 
 /** The fog: cells of land (or road) that belong to a place not open yet. */
 export const fogCells = (open: (id: NodeId) => boolean): Uint8Array => {
-  const b = getBase()
+  const b = getBase('drawn')
   const out = new Uint8Array(GW * GH)
   const T = TERRAIN_SHAPES
   for (let k = 0; k < out.length; k++) {

@@ -51,6 +51,27 @@ export const CAST_SOUND: Readonly<Record<SoundElement, SfxName>> = {
   time: 'castTime', spirit: 'castSpirit', song: 'castSong', tech: 'castTech', command: 'castCommand'
 }
 
+/**
+ * The skills whose cast is their own, not their element's (the sound review,
+ * #118): the owner heard the element's cast as wrong for these. The rest of
+ * each element keeps its shared cast (Stone Spike and Tectonic Rupture the
+ * earth's, Frost Armor and Frost Cleave the frost's, Shadowstep the shadow's,
+ * Shock Grenade the shock's).
+ */
+export const SKILL_CAST: Readonly<Record<string, SfxName>> = {
+  // The ground reshaped (walls, shells, sinkholes, stone skin, the shaking palm).
+  earthBarrier: 'castEarthShift', seismicShock: 'castEarthShift', sinkhole: 'castEarthShift', petrify: 'castEarthShift', geodeShell: 'castEarthShift', mountainPalm: 'castEarthShift',
+  // A boulder that rolls.
+  boulderRoll: 'castBoulder', rollingBoulder: 'castBoulder',
+  frostShatter: 'castFrostShatter', avalancheLeap: 'castAvalancheLeap', absoluteZero: 'castAbsoluteZero',
+  smokeBomb: 'castSmokeBomb', shadowMark: 'castShadowMark',
+  orbitalBeam: 'castOrbitalBeam', arcCoil: 'castSpark', chainSpark: 'castSpark', thunderSnow: 'castSpark'
+}
+
+/** The sound a skill's cast makes: its own, else its element's. */
+export const castSoundOf = (def: Pick<SkillDef, 'id' | 'cls' | 'fire'>): SfxName =>
+  SKILL_CAST[def.id] ?? CAST_SOUND[skillElement(def)]
+
 /** What lands. */
 export const IMPACT_SOUND: Readonly<Record<SoundElement, SfxName>> = {
   physical: 'hitHeavy', fire: 'impactFire', ice: 'impactIce', shock: 'impactShock', holy: 'holy', shadow: 'shadow',

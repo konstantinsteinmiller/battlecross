@@ -2,6 +2,7 @@
 export default {
   arena: {
     allWon: 'Wszystkie mityczne nagrody są twoje.',
+    call: 'Historia została opowiedziana. Teraz udowodnij swój build: wespnij się jak najwyżej i zdobądź mityczne nagrody, których nikt inny ci nie da.',
     prize: 'Nagroda zdobyta: {item}!',
     milestone: 'Fala {n}!',
     next: 'Następna nagroda na fali {at}: {item}',
@@ -141,6 +142,8 @@ export default {
     cageKey: 'Klucz! Musi otwierać klatkę.',
     ore: 'Wydobyto: {n} × {ore}',
     mineBusy: 'Nie, gdy wrogowie są blisko!',
+    pressureUp: 'Twoi wrogowie stają się zacieklejsi {skulls}',
+    pressureDown: 'Twoi wrogowie odpuszczają {skulls}',
     item: 'Znaleziono: {item}',
     levelUp: 'Poziom {level}! +3 punkty atrybutów',
     boss: 'Nadchodzi: {boss}',
@@ -328,6 +331,7 @@ export default {
     questDone: '{quest}: {choice}',
     trainer: 'Ukryty trener: {cls}',
     new: 'Nowe',
+    trueTest: 'Prawdziwa próba',
     skip: 'Dotknij, aby pominąć',
     compass: {
       n: 'Pn',
@@ -4769,11 +4773,11 @@ export default {
       },
       favor: {
         '1': 'Nie obcym. Ale wyświadcz mi przysługę, a zostaniemy przyjaciółmi.',
-        '2': 'Drzewce w Szepczącym Lesie strzegą księżycowych dzwonków, których potrzebuję. Pokonaj sześć z nich i przynieś mi trzy dzwonki.',
+        '2': 'Drzewce w Szepczącym Lesie strzegą księżycowych dzwonków, których potrzebuję. Pokonaj cztery z nich i przynieś mi dwa dzwonki.',
         say: 'Sprzedajesz coś?'
       },
       waiting: {
-        '1': 'Sześć drzewców, trzy księżycowe dzwonki. Niestety, dzwonki same się nie zerwą.',
+        '1': 'Cztery drzewce, dwa księżycowe dzwonki. Niestety, dzwonki same się nie zerwą.',
         say: 'W sprawie tej przysługi...'
       },
       favorDone: {
@@ -4845,11 +4849,11 @@ export default {
       },
       favor: {
         '1': 'Tylko tych, którzy za mną nadążają. Dasz radę nadążyć? Zaraz się przekonamy.',
-        '2': 'Pokonaj dwunastu bandytów łuczników na Przedpolach Oakhaven, a potem przynieś mi trzy chyżopaprocie.',
+        '2': 'Pokonaj ośmiu bandytów łuczników na Przedpolach Oakhaven, a potem przynieś mi dwie chyżopaprocie.',
         say: 'Uczysz strzelania z łuku?'
       },
       waiting: {
-        '1': 'Dwunastu bandytów łuczników, trzy chyżopaprocie. No już! Będę tutaj. Podskakiwać.',
+        '1': 'Ośmiu bandytów łuczników, dwie chyżopaprocie. No już! Będę tutaj. Podskakiwać.',
         say: 'W sprawie twojej próby...'
       },
       favorDone: {
@@ -4900,11 +4904,11 @@ export default {
       },
       favor: {
         '1': 'Tak. Uczę tego tylko tych, którzy w gorącym miejscu zachowują chłodną głowę.',
-        '2': 'Zgaś dziesięć żywiołaków ognia w Popielnych Turniach. Potem przynieś mi trzy gałązki mroźnej mięty.',
+        '2': 'Zgaś siedem żywiołaków ognia w Popielnych Turniach. Potem przynieś mi dwie gałązki mroźnej mięty.',
         say: 'Ten miecz jest z lodu?'
       },
       waiting: {
-        '1': 'Dziesięć żywiołaków ognia. Trzy gałązki mroźnej mięty. Nie śpiesz się. Ale bez przesady.',
+        '1': 'Siedem żywiołaków ognia. Dwie gałązki mroźnej mięty. Nie śpiesz się. Ale bez przesady.',
         say: 'W sprawie twojej próby...'
       },
       favorDone: {
@@ -4954,11 +4958,11 @@ export default {
       },
       favor: {
         '1': 'Każdy ma w sobie odrobinę światła. Uczę, jak je wypuścić, kiedy przyjdzie pora.',
-        '2': 'Pokonaj dziesięciu kultystów w Popielnych Turniach, a potem przynieś mi pięć słonecznych płatków do lampy.',
+        '2': 'Pokonaj siedmiu kultystów w Popielnych Turniach, a potem przynieś mi trzy słoneczne płatki do lampy.',
         say: 'Ta lampa jest magiczna?'
       },
       waiting: {
-        '1': 'Dziesięciu kultystów, pięć słonecznych płatków. Pokonaj ich łagodnie. Każdy zasługuje na drugą szansę.',
+        '1': 'Siedmiu kultystów, trzy słoneczne płatki. Pokonaj ich łagodnie. Każdy zasługuje na drugą szansę.',
         say: 'W sprawie twojej próby...'
       },
       favorDone: {
@@ -5008,12 +5012,12 @@ export default {
       },
       favor: {
         '1': 'Rozmawiać? Ja słucham. Tej sztuczki większość ludzi nigdy się nie uczy.',
-        '2': 'Wielkie pająki zasnuwają siecią zwierzęce ścieżki w Szepczącym Lesie. Usuń dwanaście.',
+        '2': 'Wielkie pająki zasnuwają siecią zwierzęce ścieżki w Szepczącym Lesie. Usuń osiem.',
         '3': 'Potem przynieś mi dwa księżycowe dzwonki do mojej nory. Jeżyna lepiej przy nich śpi.',
         say: 'Umiesz rozmawiać ze zwierzętami?'
       },
       waiting: {
-        '1': 'Dwanaście pająków, dwa księżycowe dzwonki. Zwierzęta czekają. Jeżyna też.',
+        '1': 'Osiem pająków, dwa księżycowe dzwonki. Zwierzęta czekają. Jeżyna też.',
         say: 'W sprawie twojej próby...'
       },
       favorDone: {
@@ -5294,7 +5298,7 @@ export default {
   },
   ending: {
     level: 'Poziom',
-    more: 'Pod twierdzą otworzyła się Wyrwa Pustki. Koloseum wciąż przyjmuje wszystkich chętnych.',
+    more: 'Pod twierdzą otworzyła się Wyrwa Pustki. Lecz prawdziwa próba twojej siły czeka w Koloseum: pokonaj jego fale i zdobądź mityczne nagrody, które mają tylko jego czempioni.',
     order: {
       title: 'Żelazny pokój',
       text: 'Nad Twierdzą Grozy powiewają sztandary Żelaznego Zakonu. Drogi są bezpieczne, praw jest wiele, a twoje imię wykuto nad bramą.'

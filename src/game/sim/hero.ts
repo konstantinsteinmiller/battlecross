@@ -9,6 +9,7 @@ import { FREE_AIM, addHeat } from './heroSkills'
 import { CHEST_REACH, beginOpen, cancelOpen, chestLock } from './interact'
 import { MINE_REACH, beginMine, committed } from './ores'
 import { heroStats, minionMul, type HeroBuild } from './stats'
+import { notePotion } from './pressure'
 import { angleTo, atPeace, findStatus, hasStatus, newAction, type HeroState, type Sim } from './world'
 import type { Unit } from './types'
 
@@ -324,6 +325,7 @@ export const usePotion = (sim: Sim): boolean => {
   h.potionCd = POTION_CD
   heal(sim, u, u.s.maxHp * POTION_HEAL)
   cleanse(u)
+  notePotion(sim)
   sim.emit({ t: 'potion' })
   sim.emit({ t: 'fx', id: 'heal', x: u.x, z: u.z, unit: u.id, color: '#7dff8a' })
   return true

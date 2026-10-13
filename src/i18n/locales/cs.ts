@@ -2,6 +2,7 @@
 export default {
   arena: {
     allWon: 'Všechny mýtické ceny jsou tvoje.',
+    call: 'Příběh je dovyprávěn. Teď dokaž svůj build: vyšplhej, jak nejvýš dokážeš, a získej mýtické ceny, které ti nikdo jiný nedá.',
     prize: 'Cena získána: {item}!',
     milestone: 'Vlna {n}!',
     next: 'Další cena ve vlně {at}: {item}',
@@ -141,6 +142,8 @@ export default {
     cageKey: 'Klíč! Ten musí otevírat klec.',
     ore: 'Vytěženo: {n} × {ore}',
     mineBusy: 'Ne s nepřáteli poblíž!',
+    pressureUp: 'Tví nepřátelé jsou zuřivější {skulls}',
+    pressureDown: 'Tví nepřátelé polevují {skulls}',
     item: 'Nalezeno: {item}',
     levelUp: 'Úroveň {level}! +3 body atributů',
     boss: 'Přichází: {boss}',
@@ -330,6 +333,7 @@ export default {
     questDone: '{quest}: {choice}',
     trainer: 'Skrytý učitel: {cls}',
     new: 'Nové',
+    trueTest: 'Skutečná zkouška',
     skip: 'Klepni pro přeskočení',
     compass: {
       n: 'S',
@@ -4770,11 +4774,11 @@ export default {
       },
       favor: {
         '1': 'Cizím ne. Ale prokaž mi laskavost a budeme přátelé.',
-        '2': 'Stromovci v Šeptajícím hvozdu hlídají měsíční zvonky, které potřebuju. Poraz šest z nich a přines mi tři zvonky.',
+        '2': 'Stromovci v Šeptajícím hvozdu hlídají měsíční zvonky, které potřebuju. Poraz čtyři z nich a přines mi dva zvonky.',
         say: 'Prodáváš něco?'
       },
       waiting: {
-        '1': 'Šest stromovců, tři měsíční zvonky. Zvonky se bohužel samy neutrhnou.',
+        '1': 'Čtyři stromovci, dva měsíční zvonky. Zvonky se bohužel samy neutrhnou.',
         say: 'Kvůli té laskavosti...'
       },
       favorDone: {
@@ -4846,11 +4850,11 @@ export default {
       },
       favor: {
         '1': 'Jen ty, kdo se mnou udrží krok. Udržíš ho? Tak to zjistíme.',
-        '2': 'Poraz dvanáct banditů lučištníků na Předpolí Oakhavenu, pak mi přines tři rychlokapradky.',
+        '2': 'Poraz osm banditů lučištníků na Předpolí Oakhavenu, pak mi přines dvě rychlokapradky.',
         say: 'Učíš lukostřelbu?'
       },
       waiting: {
-        '1': 'Dvanáct banditů lučištníků, tři rychlokapradky. No tak, běž! Budu tady. Poskakovat.',
+        '1': 'Osm banditů lučištníků, dvě rychlokapradky. No tak, běž! Budu tady. Poskakovat.',
         say: 'Ohledně té zkoušky...'
       },
       favorDone: {
@@ -4901,11 +4905,11 @@ export default {
       },
       favor: {
         '1': 'Je. Učím to jen ty, kdo si na horkém místě zachovají chladnou hlavu.',
-        '2': 'Uhas deset ohnivých elementálů na Popelavých útesech. Pak mi přines tři snítky mrazivé máty.',
+        '2': 'Uhas sedm ohnivých elementálů na Popelavých útesech. Pak mi přines dvě snítky mrazivé máty.',
         say: 'Ten meč je z ledu?'
       },
       waiting: {
-        '1': 'Deset ohnivých elementálů. Tři snítky mrazivé máty. Nespěchej. Ale ne moc dlouho.',
+        '1': 'Sedm ohnivých elementálů. Dvě snítky mrazivé máty. Nespěchej. Ale ne moc dlouho.',
         say: 'Ohledně té zkoušky...'
       },
       favorDone: {
@@ -4955,11 +4959,11 @@ export default {
       },
       favor: {
         '1': 'Každý má v sobě trochu světla. Učím lidi pustit ho ven, až na to přijde čas.',
-        '2': 'Poraz deset kultistů na Popelavých útesech, pak mi přines pět slunoplátků pro mou lampu.',
+        '2': 'Poraz sedm kultistů na Popelavých útesech, pak mi přines tři slunoplátky pro mou lampu.',
         say: 'Je ta lampa kouzelná?'
       },
       waiting: {
-        '1': 'Deset kultistů, pět slunoplátků. Poraz je jemně. Každý si zaslouží druhou šanci.',
+        '1': 'Sedm kultistů, tři slunoplátky. Poraz je jemně. Každý si zaslouží druhou šanci.',
         say: 'Ohledně té zkoušky...'
       },
       favorDone: {
@@ -5009,12 +5013,12 @@ export default {
       },
       favor: {
         '1': 'Mluvit? Já poslouchám. To je ten trik, co se většina lidí nikdy nenaučí.',
-        '2': 'Obří pavouci zapřádají zvířecí stezky v Šeptajícím hvozdu. Vyčisti jich dvanáct.',
+        '2': 'Obří pavouci zapřádají zvířecí stezky v Šeptajícím hvozdu. Vyčisti jich osm.',
         '3': 'Pak mi přines dva měsíční zvonky do doupěte. Ostružina u nich líp spí.',
         say: 'Umíš mluvit se zvířaty?'
       },
       waiting: {
-        '1': 'Dvanáct pavouků, dva měsíční zvonky. Zvířata čekají. Ostružina taky.',
+        '1': 'Osm pavouků, dva měsíční zvonky. Zvířata čekají. Ostružina taky.',
         say: 'Ohledně té zkoušky...'
       },
       favorDone: {
@@ -5295,7 +5299,7 @@ export default {
   },
   ending: {
     level: 'Úroveň',
-    more: 'Pod pevností se otevřela Trhlina Prázdnoty. Koloseum dál přijímá každého, kdo přijde.',
+    more: 'Pod pevností se otevřela Trhlina Prázdnoty. Skutečná zkouška tvé síly ale čeká v Koloseu: probij se jeho vlnami a získej mýtické ceny, které mají jen jeho šampioni.',
     order: {
       title: 'Železný mír',
       text: 'Nad Pevností děsu vlají prapory Železného řádu. Cesty jsou bezpečné, zákonů je mnoho a tvé jméno je vytesané nad bránou.'

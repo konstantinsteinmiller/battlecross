@@ -1,0 +1,138 @@
+[
+  {
+    "id": "castFire",
+    "files": {
+      "A": "out/audio/castFire.A.webm",
+      "B": "out/audio/castFire.B.webm",
+      "old": "out/audio/castFire.old.webm"
+    }
+  },
+  {
+    "id": "castShadow",
+    "files": {
+      "A": "out/audio/castShadow.A.webm",
+      "B": "out/audio/castShadow.B.webm",
+      "old": "out/audio/castShadow.old.webm"
+    }
+  },
+  {
+    "id": "castEarthShift",
+    "files": {
+      "A": "out/audio/castEarthShift.A.webm",
+      "B": "out/audio/castEarthShift.B.webm",
+      "old": "out/audio/castEarthShift.old.webm"
+    }
+  },
+  {
+    "id": "castBoulder",
+    "files": {
+      "A": "out/audio/castBoulder.A.webm",
+      "B": "out/audio/castBoulder.B.webm",
+      "old": "out/audio/castBoulder.old.webm"
+    }
+  },
+  {
+    "id": "castFrostShatter",
+    "files": {
+      "A": "out/audio/castFrostShatter.A.webm",
+      "B": "out/audio/castFrostShatter.B.webm",
+      "old": "out/audio/castFrostShatter.old.webm"
+    }
+  },
+  {
+    "id": "castAvalancheLeap",
+    "files": {
+      "A": "out/audio/castAvalancheLeap.A.webm",
+      "B": "out/audio/castAvalancheLeap.B.webm",
+      "old": "out/audio/castAvalancheLeap.old.webm"
+    }
+  },
+  {
+    "id": "castAbsoluteZero",
+    "files": {
+      "A": "out/audio/castAbsoluteZero.A.webm",
+      "B": "out/audio/castAbsoluteZero.B.webm",
+      "old": "out/audio/castAbsoluteZero.old.webm"
+    }
+  },
+  {
+    "id": "castSmokeBomb",
+    "files": {
+      "A": "out/audio/castSmokeBomb.A.webm",
+      "B": "out/audio/castSmokeBomb.B.webm",
+      "old": "out/audio/castSmokeBomb.old.webm"
+    }
+  },
+  {
+    "id": "castShadowMark",
+    "files": {
+      "A": "out/audio/castShadowMark.A.webm",
+      "B": "out/audio/castShadowMark.B.webm",
+      "old": "out/audio/castShadowMark.old.webm"
+    }
+  },
+  {
+    "id": "castOrbitalBeam",
+    "files": {
+      "A": "out/audio/castOrbitalBeam.A.webm",
+      "B": "out/audio/castOrbitalBeam.B.webm",
+      "old": "out/audio/castOrbitalBeam.old.webm"
+    }
+  },
+  {
+    "id": "castSpark",
+    "files": {
+      "A": "out/audio/castSpark.A.webm",
+      "B": "out/audio/castSpark.B.webm",
+      "old": "out/audio/castSpark.old.webm"
+    }
+  },
+  {
+    "id": "shadow",
+    "files": {
+      "A": "out/audio/shadow.A.webm",
+      "B": "out/audio/shadow.B.webm",
+      "old": "out/audio/shadow.old.webm"
+    }
+  },
+  {
+    "id": "impactFire",
+    "files": {
+      "A": "out/audio/impactFire.A.webm",
+      "B": "out/audio/impactFire.B.webm",
+      "old": "out/audio/impactFire.old.webm"
+    }
+  },
+  {
+    "id": "impactIce",
+    "files": {
+      "A": "out/audio/impactIce.A.webm",
+      "B": "out/audio/impactIce.B.webm",
+      "old": "out/audio/impactIce.old.webm"
+    }
+  },
+  {
+    "id": "impactShock",
+    "files": {
+      "A": "out/audio/impactShock.A.webm",
+      "B": "out/audio/impactShock.B.webm",
+      "old": "out/audio/impactShock.old.webm"
+    }
+  },
+  {
+    "id": "crowdCheer",
+    "files": {
+      "A": "out/audio/crowdCheer.A.webm",
+      "B": "out/audio/crowdCheer.B.webm",
+      "old": "out/audio/crowdCheer.old.webm"
+    }
+  },
+  {
+    "id": "crowdRoar",
+    "files": {
+      "A": "out/audio/crowdRoar.A.webm",
+      "B": "out/audio/crowdRoar.B.webm",
+      "old": "out/audio/crowdRoar.old.webm"
+    }
+  }
+]

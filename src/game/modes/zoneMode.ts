@@ -10,9 +10,10 @@ import { sceneQuality } from '../engine/quality'
 import { sfx, type SfxName } from '../audio/sfx'
 import { ENEMY_BY_ID, MINIONS } from '../data/enemies'
 import { SPIRIT_COLOR } from '../sim/spawn'
+import { newPressure, sessionPressure, setSessionPressure } from '../sim/pressure'
 import { BOSS_SCRIPTS } from '../sim/bosses'
 import { ACTIVE_SLOTS, SKILL_BY_ID } from '../data/skills'
-import { CAST_SOUND, IMPACT_SOUND, skillElement } from '../data/skillSounds'
+import { IMPACT_SOUND, castSoundOf, skillElement } from '../data/skillSounds'
 import { ARENA_WAVES, OPENING, TOWNS, ZONES, unitLevelTier, type ThemeId, type TownId } from '../data/zones'
 import { ITEM_BY_ID, type ZoneId } from '../data/items'
 import { applyPlan, populateTown, populateZone, summonDragonAlly } from '../sim/director'
@@ -33,6 +34,7 @@ import type { HeightField } from '../sim/ground'
 import { blowOf, trackUnit } from '../gfx/combatFx'
 import { animate, squash, struck } from '../gfx/rigs/anim'
 import { makeRigView, prewarmKinds, prewarmLook, type RigView } from '../gfx/rigs'
+import { townLoop } from '../gfx/rigs/townClips'
 import { heroLook } from '../gfx/rigs/looks'
 import { WallRocks, buildChest, buildTerrain, setZoneFog, type Terrain } from '../gfx/terrain'
 import { Vfx } from '../gfx/vfx'
@@ -201,6 +203,8 @@ export class ZoneMode implements GameMode {
   readonly sim: Sim
   readonly plan: ZonePlan
   readonly setup: ZoneSetup
+  /** The camp fires (the Hollows, #120): a goblin asleep beside one squats by it. */
+  private fires: Array<{ x: number; z: number }> = []
   private input: Input
   private cb: ZoneCallbacks
   private terrain!: Terrain
@@ -266,6 +270,7 @@ export class ZoneMode implements GameMode {
   private constructor(setup: ZoneSetup, plan: ZonePlan, input: Input, cb: ZoneCallbacks) {
     this.setup = setup
     this.plan = plan
+    this.fires = (plan.dressing ?? []).filter(d => d.kind === 'fire').map(d => ({ x: d.x, z: d.z }))
     this.input = input
     this.cb = cb
     this.sim = new Sim({
@@ -305,6 +310,9 @@ export class ZoneMode implements GameMode {
       elixirs: setup.kind === 'town' || setup.arenaMod === 'nopotions' ? {} : profile.inv.elixirs, elixirPick: profile.inv.elixirPick,
       rested: setup.kind === 'town' ? 0 : profile.meta.rested
     })
+    // Adaptive pressure (#124, D144): zones only — never a town, the colosseum
+    // (its ladder climbs by itself, and its board stays fair) or the opening fight.
+    if (setup.kind === 'zone' && !setup.tutorial) sim.pressure = newPressure(sessionPressure())
     if (setup.kind === 'zone') populateZone(sim, plan, setup.zone!, profile.inv.items, profile.world.chests)
     // The colosseum knows what is owned: a milestone's mythic is given once (#117).
     else if (setup.kind === 'arena') for (const id of profile.inv.items) sim.owned.add(id)
@@ -424,6 +432,17 @@ export class ZoneMode implements GameMode {
     const shadow = makeBlobShadow(u.r)
     this.scene.add(v.rig.root, shadow)
     this.views.set(u.id, { v, shadow, pin: null })
+  }
+
+  /** A goblin asleep by a camp fire warms its hands at it (or huddles); woken, it is up. */
+  private restPose(v: RigView, u: Unit, dt: number): void {
+    const by = !u.awake && u.alive && u.kind.startsWith('goblin') && this.fires.some(f => Math.hypot(f.x - u.x, f.z - u.z) < 3.6)
+    if (!by) {
+      v.loop = null
+      return
+    }
+    v.loop = townLoop(v.set, u.id % 3 ? 'warm' : 'huddle')
+    v.loopT += dt
   }
 
   private dropView(id: number): void {
@@ -759,11 +778,16 @@ export class ZoneMode implements GameMode {
             }
             // It sounds like what landed: an edge, a weight or a point, and the element it carried.
             const blow = e.type === 'pierce' ? 'pierce' : blowOf(by)
-            sfx(e.crit ? 'crit' : e.heavy ? 'hitHeavy' : blow === 'blunt' ? 'hitBlunt' : blow === 'pierce' ? 'hitPierce' : 'hit', this.pan(e.x))
             // A skill's hit sounds like its element landing (#101): the fireball's
             // explosion, ice shattering. Anything else carries its damage's element.
             const sk = e.skill && !e.dot ? SKILL_BY_ID[e.skill] : undefined
-            if (sk) sfx(IMPACT_SOUND[skillElement(sk)], this.pan(e.x), 0.8)
+            const elem = sk ? skillElement(sk) : null
+            // An elemental skill is its element alone: under a staff's blunt hit a
+            // fireball sounded like a punch (#118). A crit still rings, softly.
+            const spell = !!elem && elem !== 'physical' && elem !== 'command'
+            if (!spell) sfx(e.crit ? 'crit' : e.heavy ? 'hitHeavy' : blow === 'blunt' ? 'hitBlunt' : blow === 'pierce' ? 'hitPierce' : 'hit', this.pan(e.x))
+            else if (e.crit) sfx('crit', this.pan(e.x), 0.45)
+            if (sk) sfx(IMPACT_SOUND[elem!], this.pan(e.x), spell ? 1 : 0.8)
             else {
               const elem = HIT_ELEMENT[e.type]
               if (elem) sfx(elem, this.pan(e.x), 0.45)
@@ -790,7 +814,7 @@ export class ZoneMode implements GameMode {
         case 'cast': {
           const def = SKILL_BY_ID[e.skill]
           // Each skill gathers in its element's own sound (#101).
-          if (def) sfx(CAST_SOUND[skillElement(def)], this.pan(e.x))
+          if (def) sfx(castSoundOf(def), this.pan(e.x))
           else sfx('telegraph', this.pan(e.x), 0.7)
           // The skill's colour gathers under the caster as the cast begins.
           if (def && e.src === hero.id) this.vfx.castStart(e.x, e.z, def.color, def.cast >= 0.4)
@@ -909,6 +933,12 @@ export class ZoneMode implements GameMode {
           break
         case 'defeat':
           this.cam.addTrauma(TRAUMA_HEAVY)
+          // A fallen hero starts the next visit at the designed difficulty (#124).
+          if (!sim.hero.unit.alive) setSessionPressure(0)
+          break
+        case 'pressure':
+          setSessionPressure(sim.pressure?.bonus ?? 0)
+          pushHud({ t: 'toast', key: e.up ? 'toast.pressureUp' : 'toast.pressureDown', params: { skulls: '\u2620'.repeat(e.pips) } })
           break
         case 'caravan':
           // The escort's word on its cart (#85): only the moments that matter.
@@ -1036,6 +1066,7 @@ export class ZoneMode implements GameMode {
       if (!seen) continue
       // A townsperson's loop, held prop and bubble are set before the pose is made.
       if (u.rank === 'npc') this.town?.pose(w.v, u, fxDt)
+      else if (this.fires.length && u.team === 1) this.restPose(w.v, u, fxDt)
       animate(w.v, u, x, z, this.time, fxDt)
       // Swing trails, muzzle flashes and the like are read off the pose just made.
       trackUnit(this.vfx, w.v, u)

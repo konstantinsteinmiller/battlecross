@@ -2,6 +2,7 @@
 export default {
   arena: {
     allWon: 'Visi mitiniai prizai – tavo.',
+    call: 'Istorija papasakota. Dabar įrodyk savo buildą: kilk kuo aukščiau ir laimėk mitinius prizus, kurių niekas kitas tau neduos.',
     prize: '{item} – tavo!',
     milestone: 'Banga {n}!',
     next: 'Kitas prizas bangoje {at}: {item}',
@@ -141,6 +142,8 @@ export default {
     cageKey: 'Raktas! Jis turbūt atrakina narvą.',
     ore: 'Iškasta: {n} × {ore}',
     mineBusy: 'Ne, kai šalia priešai!',
+    pressureUp: 'Tavo priešai tampa įnirtingesni {skulls}',
+    pressureDown: 'Tavo priešai atlėgsta {skulls}',
     item: 'Rasta: {item}',
     levelUp: '{level} lygis! +3 savybių taškai',
     boss: 'Pasirodo: {boss}',
@@ -327,6 +330,7 @@ export default {
     questDone: '{quest}: {choice}',
     trainer: 'Slaptas mokytojas: {cls}',
     new: 'Nauja',
+    trueTest: 'Tikrasis išbandymas',
     skip: 'Palieski, kad praleistum',
     compass: {
       n: 'Š',
@@ -4734,11 +4738,11 @@ export default {
       },
       favor: {
         '1': 'Ne nepažįstamiems. Bet padaryk man paslaugą, ir būsime draugai.',
-        '2': 'Medžmogiai Šnabždančiame miške saugo mėnulio varpelius, kurių man reikia. Įveik šešis ir atnešk man tris mėnulio varpelius.',
+        '2': 'Medžmogiai Šnabždančiame miške saugo mėnulio varpelius, kurių man reikia. Įveik keturis ir atnešk man du mėnulio varpelius.',
         say: 'Ar ką nors parduodi?'
       },
       waiting: {
-        '1': 'Šeši medžmogiai, trys mėnulio varpeliai. Deja, varpeliai patys nenusiskins.',
+        '1': 'Keturi medžmogiai, du mėnulio varpeliai. Deja, varpeliai patys nenusiskins.',
         say: 'Dėl tos paslaugos...'
       },
       favorDone: {
@@ -4810,11 +4814,11 @@ export default {
       },
       favor: {
         '1': 'Tik tuos, kurie spėja paskui mane. Ar tu spėsi? Tuoj pamatysim.',
-        '2': 'Nugalėk dvylika banditų lankininkų Oakhaveno prieigose, o tada atnešk man tris greitpapartes.',
+        '2': 'Nugalėk aštuonis banditus lankininkus Oakhaveno prieigose, o tada atnešk man dvi greitpapartes.',
         say: 'Ar moki šaudyti iš lanko?'
       },
       waiting: {
-        '1': 'Dvylika banditų lankininkų, trys greitpapartės. Pirmyn! Aš būsiu čia. Strakaliosiu.',
+        '1': 'Aštuoni banditai lankininkai, dvi greitpapartės. Pirmyn! Aš būsiu čia. Strakaliosiu.',
         say: 'Dėl tavo išbandymo...'
       },
       favorDone: {
@@ -4865,11 +4869,11 @@ export default {
       },
       favor: {
         '1': 'Taip. To moku tik tuos, kurie karštoje vietoje išlaiko šaltą galvą.',
-        '2': 'Užgesink dešimt ugnies elementalių Pelenų uolose. Tada atnešk man tris šalčiamėtės šakeles.',
+        '2': 'Užgesink septynis ugnies elementalius Pelenų uolose. Tada atnešk man dvi šalčiamėtės šakeles.',
         say: 'Ar tas kardas iš ledo?'
       },
       waiting: {
-        '1': 'Dešimt ugnies elementalių. Trys šalčiamėtės šakelės. Neskubėk. Bet ir neužtruk.',
+        '1': 'Septyni ugnies elementaliai. Dvi šalčiamėtės šakelės. Neskubėk. Bet ir neužtruk.',
         say: 'Dėl tavo išbandymo...'
       },
       favorDone: {
@@ -4919,11 +4923,11 @@ export default {
       },
       favor: {
         '1': 'Kiekviename yra truputis šviesos. Aš moku ją išleisti, kai ateina laikas.',
-        '2': 'Nugalėk dešimt kultistų Pelenų uolose, o tada atnešk man penkis saulėžiedžius mano lempai.',
+        '2': 'Nugalėk septynis kultistus Pelenų uolose, o tada atnešk man tris saulėžiedžius mano lempai.',
         say: 'Ar ta lempa stebuklinga?'
       },
       waiting: {
-        '1': 'Dešimt kultistų, penki saulėžiedžiai. Nugalėk juos švelniai. Kiekvienas nusipelno antro šanso.',
+        '1': 'Septyni kultistai, trys saulėžiedžiai. Nugalėk juos švelniai. Kiekvienas nusipelno antro šanso.',
         say: 'Dėl tavo išbandymo...'
       },
       favorDone: {
@@ -4973,12 +4977,12 @@ export default {
       },
       favor: {
         '1': 'Kalbėtis? Aš klausausi. Šito dauguma taip ir neišmoksta.',
-        '2': 'Milžiniški vorai apraizgo žvėrių takus Šnabždančiame miške. Išvalyk dvylika.',
+        '2': 'Milžiniški vorai apraizgo žvėrių takus Šnabždančiame miške. Išvalyk aštuonis.',
         '3': 'Tada atnešk man du mėnulio varpelius mano guoliui. Gervuogė prie jų geriau miega.',
         say: 'Ar moki kalbėtis su gyvūnais?'
       },
       waiting: {
-        '1': 'Dvylika vorų, du mėnulio varpeliai. Gyvūnai laukia. Ir Gervuogė.',
+        '1': 'Aštuoni vorai, du mėnulio varpeliai. Gyvūnai laukia. Ir Gervuogė.',
         say: 'Dėl tavo išbandymo...'
       },
       favorDone: {
@@ -5259,7 +5263,7 @@ export default {
   },
   ending: {
     level: 'Lygis',
-    more: 'Po tvirtove atsivėrė Tuštumos plyšys. Koliziejus vis dar priima visus norinčius.',
+    more: 'Po tvirtove atsivėrė Tuštumos plyšys. Tačiau tikrasis tavo galios išbandymas laukia Koliziejuje: įveik jo bangas ir laimėk mitinius prizus, kuriuos turi tik jo čempionai.',
     order: {
       title: 'Geležinė taika',
       text: 'Virš Siaubo tvirtovės plevėsuoja Geležinio ordino vėliavos. Keliai saugūs, įstatymų daug, o tavo vardas iškaltas virš vartų.'

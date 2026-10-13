@@ -2,6 +2,7 @@
 export default {
   arena: {
     allWon: 'Todos os premios míticos son teus.',
+    call: 'A historia xa está contada. Agora demostra o teu build: sube ata onde poidas e gaña os premios míticos que ninguén máis che pode dar.',
     prize: 'Premio conseguido: {item}!',
     milestone: 'Vaga {n}!',
     next: 'Seguinte premio na vaga {at}: {item}',
@@ -141,6 +142,8 @@ export default {
     cageKey: 'Unha chave! Debe abrir a gaiola.',
     ore: 'Extraído: {n} × {ore}',
     mineBusy: 'Non con inimigos preto!',
+    pressureUp: 'Os teus inimigos vólvense máis feroces {skulls}',
+    pressureDown: 'Os teus inimigos afrouxan {skulls}',
     item: 'Atopado: {item}',
     levelUp: 'Nivel {level}! +3 puntos de atributo',
     boss: 'Aparece: {boss}',
@@ -328,6 +331,7 @@ export default {
     questDone: '{quest}: {choice}',
     trainer: 'Mestre agochado: {cls}',
     new: 'Novo',
+    trueTest: 'A verdadeira proba',
     skip: 'Toca para saltar',
     compass: {
       n: 'N',
@@ -4725,11 +4729,11 @@ export default {
       },
       favor: {
         '1': 'A descoñecidos, non. Pero faime un favor e seremos amigos.',
-        '2': 'Unhas árbores viventes do Bosque dos Murmurios gardan as campaíñas lunares que necesito. Vence a seis e tráeme tres campaíñas lunares.',
+        '2': 'Unhas árbores viventes do Bosque dos Murmurios gardan as campaíñas lunares que necesito. Vence a catro e tráeme dúas campaíñas lunares.',
         say: 'Vendes algo?'
       },
       waiting: {
-        '1': 'Seis árbores viventes, tres campaíñas lunares. As campaíñas non se collen soas, por desgraza.',
+        '1': 'Catro árbores viventes, dúas campaíñas lunares. As campaíñas non se collen soas, por desgraza.',
         say: 'Sobre aquel favor...'
       },
       favorDone: {
@@ -4801,11 +4805,11 @@ export default {
       },
       favor: {
         '1': 'Só a quen me pode seguir o ritmo. E ti, podes? Imos descubrilo.',
-        '2': 'Derrota doce bandidos arqueiros nos Arredores de Oakhaven e despois tráeme tres fentos veloces.',
+        '2': 'Derrota oito bandidos arqueiros nos Arredores de Oakhaven e despois tráeme dous fentos veloces.',
         say: 'Ensinas tiro con arco?'
       },
       waiting: {
-        '1': 'Doce bandidos arqueiros, tres fentos veloces. Vai! Eu agardo aquí. Dando brincos.',
+        '1': 'Oito bandidos arqueiros, dous fentos veloces. Vai! Eu agardo aquí. Dando brincos.',
         say: 'Sobre a túa proba...'
       },
       favorDone: {
@@ -4856,11 +4860,11 @@ export default {
       },
       favor: {
         '1': 'É. Só lla ensino a quen mantén a cabeza fría nun sitio quente.',
-        '2': 'Apaga dez elementais de lume nos Penedos de Cinza. Despois tráeme tres ramiñas de menta xeada.',
+        '2': 'Apaga sete elementais de lume nos Penedos de Cinza. Despois tráeme dúas ramiñas de menta xeada.',
         say: 'Esa espada é de xeo?'
       },
       waiting: {
-        '1': 'Dez elementais de lume. Tres ramiñas de menta xeada. Tómao con calma. Sen demasiada calma.',
+        '1': 'Sete elementais de lume. Dúas ramiñas de menta xeada. Tómao con calma. Sen demasiada calma.',
         say: 'Sobre a túa proba...'
       },
       favorDone: {
@@ -4910,11 +4914,11 @@ export default {
       },
       favor: {
         '1': 'Todo o mundo ten un pouco de luz dentro. Eu ensino a deixala saír, cando chega o momento.',
-        '2': 'Derrota dez cultistas nos Penedos de Cinza e despois tráeme cinco pétalos do sol para a miña lámpada.',
+        '2': 'Derrota sete cultistas nos Penedos de Cinza e despois tráeme tres pétalos do sol para a miña lámpada.',
         say: 'Esa lámpada é máxica?'
       },
       waiting: {
-        '1': 'Dez cultistas, cinco pétalos do sol. Derrótaos con delicadeza. Todo o mundo merece unha segunda oportunidade.',
+        '1': 'Sete cultistas, tres pétalos do sol. Derrótaos con delicadeza. Todo o mundo merece unha segunda oportunidade.',
         say: 'Sobre a túa proba...'
       },
       favorDone: {
@@ -4964,12 +4968,12 @@ export default {
       },
       favor: {
         '1': 'Falar? Eu escoito. Ese é o truco que a maioría nunca aprende.',
-        '2': 'As arañas xigantes enchen de teas os camiños dos animais no Bosque dos Murmurios. Acaba con doce.',
+        '2': 'As arañas xigantes enchen de teas os camiños dos animais no Bosque dos Murmurios. Acaba con oito.',
         '3': 'Despois tráeme dúas campaíñas lunares para a miña toca. Bramble dorme mellor preto delas.',
         say: 'Podes falar cos animais?'
       },
       waiting: {
-        '1': 'Doce arañas, dúas campaíñas lunares. Os animais agardan. Bramble tamén.',
+        '1': 'Oito arañas, dúas campaíñas lunares. Os animais agardan. Bramble tamén.',
         say: 'Sobre a túa proba...'
       },
       favorDone: {
@@ -5250,7 +5254,7 @@ export default {
   },
   ending: {
     level: 'Nivel',
-    more: 'A Fenda do Baleiro abriuse baixo a fortaleza. O Coliseo segue aceptando a todo o que veña.',
+    more: 'A Fenda do Baleiro abriuse baixo a fortaleza. Pero a verdadeira proba do teu poder agárdate no Coliseo: supera as súas vagas e gaña os premios míticos que só teñen os seus campións.',
     order: {
       title: 'A Paz de Ferro',
       text: 'Os estandartes da Orde de Ferro ondean sobre a Fortaleza do Terror. Os camiños son seguros, as leis son moitas, e o teu nome está gravado sobre a porta.'

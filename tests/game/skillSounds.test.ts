@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { ACTIVE_ELEMENTS, CAST_SOUND, IMPACT_SOUND, type SoundElement } from '@/game/data/skillSounds'
+import { ACTIVE_ELEMENTS, CAST_SOUND, IMPACT_SOUND, SKILL_CAST, castSoundOf, type SoundElement } from '@/game/data/skillSounds'
 import { SFX_NAMES } from '@/game/audio/sfx'
 import { SKILLS } from '@/game/data/skills'
 
@@ -40,5 +40,22 @@ describe('what each skill sounds like', () => {
       byClass.set(s.cls, set)
     }
     for (const [cls, set] of byClass) if (cls !== 'ironmonk') expect([...set].some(e => e !== 'physical'), cls).toBe(true)
+  })
+
+  it('the skills the sound review singled out cast in their own sound; the ones it passed keep the shared element cast (#118)', () => {
+    const def = (id: string) => SKILLS.find(s => s.id === id)!
+    for (const [id, name] of Object.entries(SKILL_CAST)) {
+      expect(def(id), id).toBeDefined()
+      expect(def(id).kind, id).toBe('active')
+      expect(SFX_NAMES).toContain(name)
+      expect(castSoundOf(def(id))).toBe(name)
+    }
+    expect(castSoundOf(def('boulderRoll'))).toBe('castBoulder')
+    expect(castSoundOf(def('orbitalBeam'))).toBe('castOrbitalBeam')
+    for (const id of ['stoneSpike', 'tectonicRupture']) expect(castSoundOf(def(id))).toBe('castEarth')
+    for (const id of ['frostArmor', 'frostCleave']) expect(castSoundOf(def(id))).toBe('castIce')
+    expect(castSoundOf(def('shadowstep'))).toBe('castShadow')
+    expect(castSoundOf(def('shockGrenade'))).toBe('castShock')
+    expect(castSoundOf(def('fireball'))).toBe('castFire')
   })
 })

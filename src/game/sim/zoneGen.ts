@@ -3,16 +3,18 @@ import { ENEMY_BY_ID } from '../data/enemies'
 import { CELL, SOLID_LOW, SOLID_SEALED, SOLID_TERRAIN, type Grid } from './grid'
 import { mulberry32, type Rng } from './rng'
 import {
-  K_BLOCK, K_CLIFF, K_GROUND, K_WATER, addFeatures, noFeatures,
+  K_BLOCK, K_BRIDGE, K_CLIFF, K_FORD, K_GROUND, K_WATER, addFeatures, noFeatures,
   type CavePlan, type ChestPlan, type CrossingPlan, type DoorPlan, type OptionalPackPlan, type PlatePlan, type PuzzlePlan,
   type RiverPlan, type SignPlan, type LedgePlan, type DaisPlan, type LobePlan, type BranchPlan, type ForkPlan
 } from './zoneFeatures'
-import { ZONE_RELIEF, ZONE_SHAPE, type LiquidId, type ZoneShape } from '../data/zones'
+import { ZONE_BRANCHES, ZONE_RELIEF, ZONE_SHAPE, type LiquidId, type ZoneShape } from '../data/zones'
 import { buildRelief, buildTownRelief } from './relief'
 import { TC_DOOR, TC_FLOOR, TC_GRASS, TC_GROUND, TC_SQUARE, TC_STREET, layTown, type TownPlan } from './town'
 import { placeHerbs, placePieces, placeTreasure, type HerbPlan, type PiecePlan } from './herbs'
 import { placeOres, type OrePlan } from './ores'
 import { placeCage } from './cages'
+import { LAID_SHAPES, carveDisc, carveLine, carveRect, layOut, layoutHeight, wallFace, type Chamber, type Fixture, type Guide, type Laid } from './layouts'
+import { dressPlace, makeDresser, type DressPlan } from './dressing'
 
 /**
  * ─── Zone layouts ────────────────────────────────────────────────────────────
@@ -140,10 +142,17 @@ export interface ZonePlan {
   /** A field's standing crop (the field layout, #103): 1 where wheat grows.
    *  The view's alone: the cells are open ground for everything else. */
   crop?: Uint8Array
+  /** The place's set pieces (#120): beds, fires, mills, columns, timbers… */
+  dressing?: DressPlan[]
+  /** Rock that is a built wall (#120): 1 dressed stone, 2 a crumbling ruin. */
+  masonry?: Uint8Array
 }
 
 /** The main chain's width (cells): the road wanders inside it. */
 const W = 40
+/** The streams a layout and its set pieces draw from (#120). */
+const LAYOUT_SALT = 0x2c71e3b5
+const DRESS_SALT = 0x4d17a9c3
 /** Rock either side of the chain where the branches run (roadmap #70): the
  *  chain is laid exactly as in a 40-wide zone, then set this far in. */
 export const BRANCH_MARGIN = 10
@@ -205,51 +214,6 @@ export const fillGrid = (g: Grid, plan: ZonePlan, doorsOpen = false): Grid => {
   return g
 }
 
-const carveDisc = (solid: Uint8Array, w: number, h: number, ci: number, cj: number, r: number, rng: Rng): void => {
-  // A lumpy edge: the radius wobbles with the bearing, so no clearing is a
-  // perfect circle.
-  const lobes = 3 + Math.floor(rng() * 3)
-  const ph = rng() * Math.PI * 2
-  const amp = 0.1 + rng() * 0.08
-  const R = Math.ceil(r) + 1
-  for (let dj = -R; dj <= R; dj++) {
-    for (let di = -R; di <= R; di++) {
-      const i = ci + di
-      const j = cj + dj
-      if (i < 2 || j < 2 || i >= w - 2 || j >= h - 2) continue
-      const d = Math.hypot(di, dj)
-      const a = Math.atan2(dj, di)
-      if (d <= r * (1 + amp * Math.sin(a * lobes + ph))) solid[j * w + i] = 0
-    }
-  }
-}
-
-/** An open rectangle (cells, inclusive), inside the rim. */
-const carveRect = (solid: Uint8Array, w: number, h: number, i0: number, j0: number, i1: number, j1: number): void => {
-  for (let j = Math.max(2, Math.round(j0)); j <= Math.min(h - 3, Math.round(j1)); j++) {
-    for (let i = Math.max(2, Math.round(i0)); i <= Math.min(w - 3, Math.round(i1)); i++) solid[j * w + i] = 0
-  }
-}
-
-const carveLine = (solid: Uint8Array, trail: Uint8Array, w: number, h: number, ai: number, aj: number, bi: number, bj: number, half: number): void => {
-  const n = Math.max(1, Math.ceil(Math.hypot(bi - ai, bj - aj) * 2))
-  for (let s = 0; s <= n; s++) {
-    const ci = ai + ((bi - ai) * s) / n
-    const cj = aj + ((bj - aj) * s) / n
-    const R = Math.ceil(half)
-    for (let dj = -R; dj <= R; dj++) {
-      for (let di = -R; di <= R; di++) {
-        const i = Math.round(ci + di)
-        const j = Math.round(cj + dj)
-        if (i < 2 || j < 2 || i >= w - 2 || j >= h - 2) continue
-        const d = Math.hypot(i - ci, j - cj)
-        if (d <= half) solid[j * w + i] = 0
-        if (d <= 0.9) trail[j * w + i] = 1
-      }
-    }
-  }
-}
-
 const weighted = (rng: Rng, kinds: ZoneDef['kinds']): string => {
   let total = 0
   for (const k of kinds) total += k.w
@@ -288,7 +252,9 @@ export const generateZone = (def: ZoneDef, seed: number, o: ZoneGenOpts = {}): Z
   const boss = ENEMY_BY_ID[def.finale.leader]?.rank === 'boss'
   const n = def.sections
   const step = 11
-  const h = 16 + n * step + (boss ? 6 : 3)
+  // The place's own layout (#103, #120); the first visit and a bare chain are always the chain.
+  const shape: ZoneShape = o.tutorial || o.bare ? 'chain' : ZONE_SHAPE[def.id] ?? 'chain'
+  const h = layoutHeight(shape, n, boss)
   // A zone with branches has rock either side of its chain for them to run
   // through; the tutorial's single road and the bare chain do not.
   const M = o.tutorial || o.bare || o.branches === false ? 0 : BRANCH_MARGIN
@@ -296,105 +262,114 @@ export const generateZone = (def: ZoneDef, seed: number, o: ZoneGenOpts = {}): Z
   const solid = new Uint8Array(Wd * h).fill(1)
   const trail = new Uint8Array(Wd * h)
 
-  // The place's own layout (#103); the first visit and a bare chain are always the chain.
-  const shape: ZoneShape = o.tutorial || o.bare ? 'chain' : ZONE_SHAPE[def.id] ?? 'chain'
   // Centres, from the bottom of the map (near the camera) upward, drawn in
   // the chain's own 40 columns and then set in by the margin.
-  const cs: Array<{ i: number; j: number; r: number }> = []
-  /** A room's half-size (the rooms layout): its clearing's r is the larger. */
-  const rooms: Array<{ hw: number; hh: number }> = []
-  let ci = W / 2 + Math.round((rng() - 0.5) * 6)
-  let cj = h - 8
-  // A temple is entered on its axis: the halls line up above the entrance,
-  // their corridors running straight up (a long sideways leg would cross the
-  // rock the side ways run through).
-  if (shape === 'rooms') ci = W / 2
-  // The tundra's road starts below its lake, the peak's at the foot of the face.
-  if (shape === 'ring') ci = W / 2 - 8
-  cs.push({ i: ci + M, j: cj, r: 4.2 })
-  rooms.push({ hw: 4, hh: 3.5 })
-  for (let k = 1; k <= n; k++) {
-    const last = k === n
-    if (shape === 'gorge') {
-      // A narrow canyon: small hollows close to the middle, a wide arena at the end.
-      const r = last ? (boss ? 8.2 : 7.4) : 3.6 + rng() * 0.8
-      cj -= step + (last && boss ? 2 : 0) + Math.round(rng() * 1.5)
-      ci = last ? W / 2 : Math.max(Math.ceil(r) + 3, Math.min(W - Math.ceil(r) - 4, ci + Math.round((rng() - 0.5) * 9)))
-      cs.push({ i: ci + M, j: cj, r })
-    } else if (shape === 'switchback') {
-      // Shelves on the mountain's face, close to its middle; the path between
-      // them winds up in turns (below).
-      const r = last ? (boss ? 7.4 : 6.4) : 3.8 + rng() * 0.8
-      cj -= step + (last && boss ? 2 : 0) + Math.round(rng() * 1.5)
-      ci = Math.max(Math.ceil(r) + 3, Math.min(W - Math.ceil(r) - 4, ci + Math.round((rng() - 0.5) * 8)))
-      cs.push({ i: ci + M, j: cj, r })
-    } else if (shape === 'ring') {
-      // Round the frozen lake: up its right shore, and over its head to the end.
-      const r = last ? (boss ? 7.4 : 6.4) : 4.4 + rng() * 1
-      cj -= step + (last && boss ? 2 : 0) + Math.round(rng() * 1.5)
-      ci = last ? W / 2 - 7 : W - Math.ceil(r) - 5 - Math.round(rng() * 2)
-      cs.push({ i: ci + M, j: cj, r })
-    } else if (shape === 'field') {
-      // Wide fields of wheat, to one side and the other: the path zig-zags
-      // from field to field.
-      const r = last ? (boss ? 7.4 : 6.6) : 5.6 + rng() * 1.2
-      cj -= step + (last && boss ? 2 : 0) + Math.round(rng() * 1.5)
-      const sideI = k % 2 ? W / 2 + 5 : W / 2 - 5
-      ci = Math.max(Math.ceil(r) + 3, Math.min(W - Math.ceil(r) - 4, last ? W / 2 : sideI + Math.round((rng() - 0.5) * 4)))
-      cs.push({ i: ci + M, j: cj, r })
-    } else if (shape === 'rooms') {
-      // Halls to one side and the other of the middle, the last the great hall.
-      const hw = last ? (boss ? 8 : 7) : 4.5 + Math.round(rng() * 2)
-      const hh = last ? (boss ? 6.5 : 5.5) : 3.5 + Math.round(rng() * 1.5)
-      cj -= step + (last && boss ? 2 : 0) + Math.round(rng() * 1.5)
-      const sideI = k % 2 ? W / 2 + 2 : W / 2 - 2
-      ci = Math.max(hw + 3, Math.min(W - hw - 4, last ? W / 2 : sideI + Math.round((rng() - 0.5) * 2)))
-      cs.push({ i: ci + M, j: cj, r: Math.max(hw, hh) })
-      rooms.push({ hw, hh })
-    } else {
-      const r = last ? (boss ? 7.4 : 6.4) : 4.6 + rng() * 1.4
-      cj -= step + (last && boss ? 2 : 0) + Math.round(rng() * 1.5)
-      ci = Math.max(Math.ceil(r) + 3, Math.min(W - Math.ceil(r) - 4, ci + Math.round((rng() - 0.5) * 16)))
-      cs.push({ i: ci + M, j: cj, r })
-    }
-  }
-  for (let k = 0; k < cs.length; k++) {
-    const c = cs[k]!
-    if (shape === 'rooms' && k > 0) {
-      // A hall: a rectangle, entered through the passage's doorway; and the
-      // way from the last hall, straight up and then across (a corridor).
-      const { hw, hh } = rooms[k]!
-      carveRect(solid, Wd, h, c.i - hw, c.j - hh, c.i + hw, c.j + hh)
-      const p = cs[k - 1]!
-      carveLine(solid, trail, Wd, h, p.i, p.j, p.i, c.j, 1.2)
-      carveLine(solid, trail, Wd, h, p.i, c.j, c.i, c.j, 1.2)
-      // Four pillars in a hall big enough for them, clear of the doorways.
-      if (hw >= 5 && hh >= 4) {
-        for (const [di, dj] of [[-1, -1], [1, -1], [-1, 1], [1, 1]] as const) {
-          const pi = Math.round(c.i + di * (hw - 2))
-          const pj = Math.round(c.j + dj * (hh - 1.5))
-          if (Math.abs(pi - c.i) > 1.5 && Math.abs(pj - c.j) > 1.5) solid[pj * Wd + pi] = 1
-        }
+  let cs: Array<{ i: number; j: number; r: number }> = []
+  /** Each clearing's room, where it is one (a temple's chamber, a gallery, a court). */
+  let chambers: Array<Chamber | null> = []
+  /** What the layout builds in, the liquid it lies in, its crossings and walls (`layouts.ts`). */
+  let laid: Laid | null = null
+  const fixtures: Fixture[] = []
+  const guides: Guide[] = []
+  /** Rock drawn as built wall: 1 dressed, 2 a ruin. */
+  const masonry = new Uint8Array(Wd * h)
+  // The layout's own stream: what it adds draws nothing from the plan's.
+  const lrng = mulberry32((seed ^ LAYOUT_SALT) >>> 0)
+  if (LAID_SHAPES.has(shape)) {
+    laid = layOut({ shape, rng, lrng, n, boss, W, M, w: Wd, h, solid, trail })
+    cs = laid.cs
+    chambers = laid.chambers
+    fixtures.push(...laid.fixtures)
+    guides.push(...laid.guides)
+    for (const k of laid.masonry) masonry[k] = 1
+  } else {
+    /** A room's half-size (the rooms layout): its clearing's r is the larger. */
+    const rooms: Array<{ hw: number; hh: number }> = []
+    let ci = W / 2 + Math.round((rng() - 0.5) * 6)
+    let cj = h - 8
+    // A temple is entered on its axis: the halls line up above the entrance,
+    // their corridors running straight up (a long sideways leg would cross the
+    // rock the side ways run through).
+    if (shape === 'rooms') ci = W / 2
+    // The tundra's road starts below its lake.
+    if (shape === 'ring') ci = W / 2 - 8
+    cs.push({ i: ci + M, j: cj, r: 4.2 })
+    rooms.push({ hw: 4, hh: 3.5 })
+    for (let k = 1; k <= n; k++) {
+      const last = k === n
+      if (shape === 'ring') {
+        // Round the frozen lake: up its right shore, and over its head to the end.
+        const r = last ? (boss ? 7.4 : 6.4) : 4.4 + rng() * 1
+        cj -= step + (last && boss ? 2 : 0) + Math.round(rng() * 1.5)
+        ci = last ? W / 2 - 7 : W - Math.ceil(r) - 5 - Math.round(rng() * 2)
+        cs.push({ i: ci + M, j: cj, r })
+      } else if (shape === 'field') {
+        // Wide fields of wheat, to one side and the other: the path zig-zags
+        // from field to field.
+        const r = last ? (boss ? 7.4 : 6.6) : 5.6 + rng() * 1.2
+        cj -= step + (last && boss ? 2 : 0) + Math.round(rng() * 1.5)
+        const sideI = k % 2 ? W / 2 + 5 : W / 2 - 5
+        ci = Math.max(Math.ceil(r) + 3, Math.min(W - Math.ceil(r) - 4, last ? W / 2 : sideI + Math.round((rng() - 0.5) * 4)))
+        cs.push({ i: ci + M, j: cj, r })
+      } else if (shape === 'rooms') {
+        // Halls to one side and the other of the middle, the last the great hall.
+        const hw = last ? (boss ? 8 : 7) : 4.5 + Math.round(rng() * 2)
+        const hh = last ? (boss ? 6.5 : 5.5) : 3.5 + Math.round(rng() * 1.5)
+        cj -= step + (last && boss ? 2 : 0) + Math.round(rng() * 1.5)
+        const sideI = k % 2 ? W / 2 + 2 : W / 2 - 2
+        ci = Math.max(hw + 3, Math.min(W - hw - 4, last ? W / 2 : sideI + Math.round((rng() - 0.5) * 2)))
+        cs.push({ i: ci + M, j: cj, r: Math.max(hw, hh) })
+        rooms.push({ hw, hh })
+      } else {
+        const r = last ? (boss ? 7.4 : 6.4) : 4.6 + rng() * 1.4
+        cj -= step + (last && boss ? 2 : 0) + Math.round(rng() * 1.5)
+        ci = Math.max(Math.ceil(r) + 3, Math.min(W - Math.ceil(r) - 4, ci + Math.round((rng() - 0.5) * 16)))
+        cs.push({ i: ci + M, j: cj, r })
       }
-    } else {
-      carveDisc(solid, Wd, h, c.i, c.j, c.r, rng)
-      // The gorge's floor and the field's lanes are wider than a pass; the
-      // mountain's path narrower.
-      const half = shape === 'gorge' ? 2.1 : shape === 'field' ? 2.4 : shape === 'switchback' ? 1.35 : 1.7
-      if (k > 0 && shape === 'switchback') {
-        // The mountain path: up from one shelf to the next in a Z of turns,
-        // first across to one side, back across, then up to the shelf.
+    }
+    for (let k = 0; k < cs.length; k++) {
+      const c = cs[k]!
+      if (shape === 'rooms' && k > 0) {
+        // A chamber of the ruined temple: a rectangle, entered through the
+        // passage's doorway; and the way from the last one, straight up and
+        // then across.
+        const { hw, hh } = rooms[k]!
+        const room = { i0: Math.round(c.i - hw), j0: Math.round(c.j - hh), i1: Math.round(c.i + hw), j1: Math.round(c.j + hh) }
+        carveRect(solid, Wd, h, room.i0, room.j0, room.i1, room.j1)
+        chambers.push(room)
         const p = cs[k - 1]!
-        const dj = c.j - p.j
-        const sgn = k % 2 ? 1 : -1
-        const a1 = { i: p.i + (c.i - p.i) * 0.3 + sgn * 3, j: p.j + dj * 0.33 }
-        const a2 = { i: p.i + (c.i - p.i) * 0.7 - sgn * 3, j: p.j + dj * 0.66 }
-        carveLine(solid, trail, Wd, h, p.i, p.j, a1.i, a1.j, half)
-        carveLine(solid, trail, Wd, h, a1.i, a1.j, a2.i, a2.j, half)
-        carveLine(solid, trail, Wd, h, a2.i, a2.j, c.i, c.j, half)
-      } else if (k > 0) carveLine(solid, trail, Wd, h, cs[k - 1]!.i, cs[k - 1]!.j, c.i, c.j, half)
+        carveLine(solid, trail, Wd, h, p.i, p.j, p.i, c.j, 1.2)
+        carveLine(solid, trail, Wd, h, p.i, c.j, c.i, c.j, 1.2)
+        // A colonnade a step in from the walls, a column every other cell, a
+        // few of them fallen to stumps (the doorways keep clear: `dressing.ts`).
+        const at = (i: number, j: number): void => { fixtures.push({ kind: lrng() < 0.22 ? 'brokenColumn' : 'column', i, j, a: 0 }) }
+        for (let i = room.i0 + 1; i <= room.i1 - 1; i += 2) { at(i, room.j0 + 1); at(i, room.j1 - 1) }
+        for (let j = room.j0 + 3; j <= room.j1 - 3; j += 2) { at(room.i0 + 1, j); at(room.i1 - 1, j) }
+      } else {
+        chambers.push(null)
+        carveDisc(solid, Wd, h, c.i, c.j, c.r, rng)
+        // The field's lanes are wider than a pass; the woods' trails narrower.
+        const half = shape === 'field' ? 2.4 : shape === 'glades' ? 1.3 : 1.7
+        if (k > 0 && shape === 'glades') {
+          // A trail through deep forest: it winds, out to one side and back.
+          const p = cs[k - 1]!
+          const dx = c.i - p.i
+          const dz = c.j - p.j
+          const l = Math.hypot(dx, dz) || 1
+          const bend = (lrng() < 0.5 ? -1 : 1) * (3 + lrng() * 2.5)
+          const pts: Array<[number, number]> = []
+          for (let s = 0; s <= 12; s++) {
+            const t = s / 12
+            const off = bend * Math.sin(t * Math.PI) + 1.2 * Math.sin(t * Math.PI * 3)
+            pts.push([p.i + dx * t - (dz / l) * off, p.j + dz * t + (dx / l) * off])
+          }
+          for (let s = 1; s < pts.length; s++) carveLine(solid, trail, Wd, h, pts[s - 1]![0], pts[s - 1]![1], pts[s]![0], pts[s]![1], half)
+        } else if (k > 0) carveLine(solid, trail, Wd, h, cs[k - 1]!.i, cs[k - 1]!.j, c.i, c.j, half)
+      }
     }
   }
+  // The temple's chambers stand in crumbling walls.
+  if (shape === 'rooms') for (const k of wallFace(solid, Wd, h, chambers)) masonry[k] = 2
 
   // A side pocket for a secret chest, off one of the middle clearings.
   let secret: { x: number; z: number } | null = null
@@ -407,7 +382,8 @@ export const generateZone = (def: ZoneDef, seed: number, o: ZoneGenOpts = {}): Z
     role: k === 0 ? 'start' : k === n ? 'finale' : 'pack'
   }))
   if (def.secret && n >= 3) {
-    const from = cs[Math.max(1, Math.floor(n / 2))]!
+    const fromK = laid?.secretFrom ?? Math.max(1, Math.floor(n / 2))
+    const from = cs[fromK]!
     const side = from.i - M > W / 2 ? -1 : 1
     const si = M + Math.max(6, Math.min(W - 7, from.i - M + side * 10))
     const sj = from.j - 2
@@ -417,13 +393,16 @@ export const generateZone = (def: ZoneDef, seed: number, o: ZoneGenOpts = {}): Z
     // A small place off the road: the view keeps the scenery in front of it low.
     for (let k = 0; k < rock.length; k++) if (rock[k] && !solid[k]) secretCells.push(k)
     secret = { x: (si + 0.5) * CELL, z: (sj + 0.5) * CELL }
-    secretSlot = { k: Math.max(1, Math.floor(n / 2)), side }
+    secretSlot = { k: fromK, side }
     clearings.push({ x: secret.x, z: secret.z, r: 2.6 * CELL, role: 'secret' })
   }
 
   // Boulders and stumps inside the clearings: cover to fight round, never on
-  // the trail and never in the middle. (A temple's halls have their pillars.)
-  for (let k = 1; k < cs.length && shape !== 'rooms'; k++) {
+  // the trail and never in the middle. (A temple's chambers have their
+  // columns; a built place has none.)
+  const liquidAt = new Uint8Array(Wd * h)
+  if (laid) for (const k of laid.water) liquidAt[k] = 1
+  for (let k = 1; k < cs.length && shape !== 'rooms' && (!laid || laid.boulders); k++) {
     const c = cs[k]!
     const count = 2 + Math.floor(rng() * 3)
     for (let q = 0; q < count; q++) {
@@ -436,7 +415,8 @@ export const generateZone = (def: ZoneDef, seed: number, o: ZoneGenOpts = {}): Z
       for (let dj = -2; dj <= 2 && !nearTrail; dj++) {
         for (let di = -2; di <= 2; di++) if (trail[(j + dj) * Wd + i + di]) { nearTrail = true; break }
       }
-      if (!nearTrail) solid[j * Wd + i] = 1
+      // Never in the lava or the void a layout opened round its ways.
+      if (!nearTrail && !liquidAt[j * Wd + i]) solid[j * Wd + i] = 1
     }
   }
 
@@ -514,18 +494,50 @@ export const generateZone = (def: ZoneDef, seed: number, o: ZoneGenOpts = {}): Z
   const chest = { x: fin.x, z: fin.z - fin.r * 0.55 }
   const kind = new Uint8Array(Wd * h)
   for (const k of lakeCells) kind[k] = K_WATER
+  // The lava round the Crags' tongues, the void round the Rift's islands, and their crossings.
+  if (laid) {
+    for (const k of laid.water) kind[k] = K_WATER
+    for (const cr of laid.crossings) for (const k of cr.cells) kind[k] = cr.kind === 'bridge' ? K_BRIDGE : K_FORD
+  }
   const cave = new Uint8Array(Wd * h)
   const sealed = new Uint8Array(Wd * h)
   const side = new Uint8Array(Wd * h)
   for (const k of secretCells) if (!solid[k]) side[k] = 1
-  const features = addFeatures({ def, seed, w: Wd, h, solid, trail, kind, cave, sealed, side, cs, chest, secret, secretSlot, tutorial: !!o.tutorial, bare: !!o.bare, branches: M > 0 })
+  const features = addFeatures({ def, seed, w: Wd, h, solid, trail, kind, cave, sealed, side, cs, chest, secret, secretSlot, tutorial: !!o.tutorial, bare: !!o.bare, branches: M > 0, ...(laid?.loopSites.length ? { loopSites: laid.loopSites } : {}) })
   if (lake) features.ponds.push(lake)
+  if (laid) features.crossings.unshift(...laid.crossings)
+  // The place's set pieces (#120), on their own stream, before the relief
+  // (each blocking one stands on a level pad) and before the herbs and the
+  // ore (which keep off them). Clear of every place one goes to.
+  const keep: Array<{ x: number; z: number; r: number; pack?: boolean }> = []
+  for (const ch of features.chests) keep.push({ x: ch.x, z: ch.z, r: 2.4 }, { x: ch.sx, z: ch.sz, r: 1.6 })
+  for (const p of features.plates) keep.push({ x: p.x, z: p.z, r: 1.6 })
+  if (features.puzzle) keep.push({ x: features.puzzle.hint.x, z: features.puzzle.hint.z, r: 2 })
+  for (const p of packs) keep.push({ x: p.x, z: p.z, r: p.finale ? 3 : 2.3, pack: true })
+  for (const p of features.optionalPacks) keep.push({ x: p.x, z: p.z, r: 2.3, pack: true })
+  for (const cv of features.caves) keep.push({ x: cv.mouth.x, z: cv.mouth.z, r: 2 })
+  for (const f2 of [...features.forks, ...features.signs]) keep.push({ x: f2.x, z: f2.z, r: 1.4 })
+  // A way off the road is a second route: a piece across it would cut the
+  // loop and still leave every cell reachable by the road, so it keeps clear.
+  for (const br of features.branches) {
+    for (let q = 1; q < br.way.length; q++) {
+      const a = br.way[q - 1]!
+      const b = br.way[q]!
+      const steps = Math.ceil(Math.hypot(b.x - a.x, b.z - a.z) / CELL)
+      for (let s = 0; s <= steps; s++) keep.push({ x: a.x + ((b.x - a.x) * s) / steps, z: a.z + ((b.z - a.z) * s) / steps, r: ZONE_BRANCHES[def.id].half + 1.5 })
+    }
+  }
+  const dresser = makeDresser({ w: Wd, h, solid, trail, kind, sealed, side, start: { i: cs[0]!.i, j: cs[0]!.j }, keep, chests: features.chests })
+  if (!o.tutorial && !o.bare) dressPlace(dresser, { shape, rng: mulberry32((seed ^ DRESS_SALT) >>> 0), w: Wd, kind, cs, chambers, fixtures })
+  for (const k of secretCells) masonry[k] = 0
   // The secret's pocket is a side place too: it lies a little above its clearing.
   const lobes = features.lobes.slice()
   if (secret && secretSlot) lobes.push({ x: secret.x, z: secret.z, r: 2.6 * CELL, k: secretSlot.k, lift: 0.35 })
+  // The Peak's summit stands above every shelf and every way off the road.
+  if (shape === 'spiral') lobes.push({ x: fin.x, z: fin.z, r: fin.r, k: n, lift: 1.2 })
   const height = buildRelief({
     seed, w: Wd, h, kind, trail, cs, lobes, ledges: features.ledges, dais: features.dais, rivers: features.rivers, crossings: features.crossings,
-    relief: ZONE_RELIEF[def.id], tutorial: !!o.tutorial
+    relief: ZONE_RELIEF[def.id], tutorial: !!o.tutorial, guides
   })
   const start = { x: clearings[0]!.x, z: clearings[0]!.z }
   // Herbs (#88), last and on their own stream: nothing above moves for them.
@@ -575,8 +587,11 @@ export const generateZone = (def: ZoneDef, seed: number, o: ZoneGenOpts = {}): Z
       }
     }
   }
+  const anyWall = masonry.some(v => v > 0)
   return {
     ...(crop ? { crop } : {}),
+    ...(dresser.pieces.length ? { dressing: dresser.pieces } : {}),
+    ...(anyWall ? { masonry } : {}),
     seed, w: Wd, h, solid, trail, kind, cave, sealed, side, height, clearings,
     start,
     packs,
