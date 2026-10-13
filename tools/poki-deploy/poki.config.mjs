@@ -15,13 +15,13 @@ export default {
   // to hold their ids; an upload with one of them would have landed in THAT
   // game's Versions list, so both are refused outright even if pasted back in.
   // `--gates-only` (offline) needs no id.
-  gameId: '',
+  gameId: '5f6415aa-a3f3-461d-9d5a-93edf2b16b2e',
   gameName: 'Battlecross',
 
   build: 'pnpm build:poki',
   dist: 'dist',
   // What `build:poki` writes (its tail is `node tools/poki-deploy/pack.mjs`).
-  zip: 'dist/Battlecross-poki.zip',
+  zip: 'dist/battlecross-poki.zip',
 
   /** Pack `dist` into `zip` with the pipeline's own zip writer instead of
    *  trusting a shell `tar -a -cf`, which silently produces a TAR named `.zip`
