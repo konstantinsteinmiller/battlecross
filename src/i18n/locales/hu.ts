@@ -1382,7 +1382,21 @@ export default {
     entropy: 'A varázslások {n}%-kal rövidítik az újratöltést',
     bloodToMana: 'Az elszenvedett fizikai sebzés {n}%-a manaként tér vissza',
     bleedHeal: 'Vérző ellenség eltalálása {n}% életerőt gyógyít',
-    overheatCrit: '+{n}% kritikus sebzés túlhevülten'
+    overheatCrit: '+{n}% kritikus sebzés túlhevülten',
+    lowHealthDamage: 'Akár +{n}% sebzés, ahogy fogy az életerőd',
+    heatArmor: '{n}%-kal kevesebb elszenvedett sebzés, amíg a hő legalább félig van',
+    crumble: '+{n}% sebzés lelassított, leütött vagy megkövült ellenfelek ellen',
+    lastStand: '{n}%-kal kevesebb elszenvedett sebzés 30% életerő alatt',
+    wildfire: 'Egy elbukó égő ellenfél felgyújtja a {n} m-en belüli ellenségeket',
+    loyalty: 'Egy elesett szolga {n}% életerőt gyógyít rajtad',
+    chillOnHit: 'Az alaptámadások 2 mp-re {n}%-kal lassítanak',
+    chillDamage: '+{n}% sebzés lelassított vagy fagyott ellenfelek ellen',
+    healPower: 'A kapott gyógyítás {n}%-kal erősebb',
+    packDamage: '+{n}% sebzés minden élő társ után (legfeljebb 4)',
+    reactionDamage: 'Az elemi reakciók {n}%-kal erősebbek',
+    soulRise: 'A legyőzött ellenfelek {n}% eséllyel kelnek fel szellemedként',
+    chiOnHit: 'A támadások {n}% eséllyel gyűjtenek csit',
+    songLength: 'A dalok {n}%-kal tovább tartanak'
   },
   item: {
     heartOfTheArena: {

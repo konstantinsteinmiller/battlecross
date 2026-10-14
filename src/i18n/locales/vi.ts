@@ -1382,7 +1382,21 @@ export default {
     entropy: 'Thi triển rút ngắn hồi chiêu {n}%',
     bloodToMana: '{n}% sát thương vật lý nhận vào trả lại thành mana',
     bleedHeal: 'Đánh kẻ địch đang chảy máu hồi {n}% máu',
-    overheatCrit: '+{n}% Sát thương Chí mạng khi quá nhiệt'
+    overheatCrit: '+{n}% Sát thương Chí mạng khi quá nhiệt',
+    lowHealthDamage: 'Tăng tới +{n}% sát thương khi máu giảm',
+    heatArmor: 'Giảm {n}% sát thương nhận vào khi nhiệt từ một nửa trở lên',
+    crumble: '+{n}% sát thương lên kẻ địch bị làm chậm, bị quật ngã hoặc hóa đá',
+    lastStand: 'Giảm {n}% sát thương nhận vào khi máu dưới 30%',
+    wildfire: 'Kẻ địch đang cháy khi gục sẽ đốt cháy kẻ địch trong {n} m',
+    loyalty: 'Tay sai gục ngã hồi cho bạn {n}% máu',
+    chillOnHit: 'Đòn đánh thường làm chậm {n}% trong 2 giây',
+    chillDamage: '+{n}% sát thương lên kẻ địch bị làm chậm hoặc đóng băng',
+    healPower: 'Hồi máu bạn nhận được mạnh hơn {n}%',
+    packDamage: '+{n}% sát thương cho mỗi bạn đồng hành còn sống (tối đa 4)',
+    reactionDamage: 'Phản ứng nguyên tố mạnh hơn {n}%',
+    soulRise: 'Kẻ địch bị hạ có {n}% cơ hội trỗi dậy làm linh hồn của bạn',
+    chiOnHit: 'Đòn đánh có {n}% cơ hội tích khí',
+    songLength: 'Bài hát kéo dài hơn {n}%'
   },
   item: {
     heartOfTheArena: {

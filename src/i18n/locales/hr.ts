@@ -1385,7 +1385,21 @@ export default {
     entropy: 'Bacanja skraćuju čekanja za {n}%',
     bloodToMana: '{n}% primljene fizičke štete vraća se kao mana',
     bleedHeal: 'Pogodak u neprijatelja koji krvari liječi {n}% zdravlja',
-    overheatCrit: '+{n}% kritične štete tijekom pregrijanosti'
+    overheatCrit: '+{n}% kritične štete tijekom pregrijanosti',
+    lowHealthDamage: 'Do +{n}% štete kako ti zdravlje pada',
+    heatArmor: '{n}% manje primljene štete dok je vrućina na pola ili više',
+    crumble: '+{n}% štete protiv usporenih, oborenih ili okamenjenih neprijatelja',
+    lastStand: '{n}% manje primljene štete ispod 30% zdravlja',
+    wildfire: 'Goreći neprijatelj koji padne zapali neprijatelje u krugu od {n} m',
+    loyalty: 'Pali sluga liječi te za {n}% zdravlja',
+    chillOnHit: 'Obični udarci usporavaju za {n}% na 2 s',
+    chillDamage: '+{n}% štete protiv usporenih ili smrznutih neprijatelja',
+    healPower: 'Liječenje koje primaš jače je za {n}%',
+    packDamage: '+{n}% štete za svakog živog suputnika (do 4)',
+    reactionDamage: 'Elementarne reakcije jače su za {n}%',
+    soulRise: 'Poraženi neprijatelji imaju {n}% šanse ustati kao tvoj duh',
+    chiOnHit: 'Napadi imaju {n}% šanse skupiti chi',
+    songLength: 'Pjesme traju {n}% dulje'
   },
   item: {
     heartOfTheArena: {

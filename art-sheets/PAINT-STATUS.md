@@ -4,7 +4,7 @@ A report, not a contract: it is a picture of `art-sheets/painted/` and the
 slicer's receipt at the moment it was written. Re-run `pnpm art:prompts`
 after painting or slicing anything.
 
-**51 sliced · 10 need a repaint · 0 painted, unreceipted · 6 outstanding**
+**72 sliced · 0 need a repaint · 0 painted, unreceipted · 4 outstanding**
 
 | | Sheet | Prompt block in | Reference | State |
 | --- | --- | --- | --- | --- |
@@ -14,22 +14,27 @@ after painting or slicing anything.
 | ✓ | **Item icons: trinkets** | `PROMPTS-ITEMS.md` | `sheet-items-trinkets.png` (rev `b23c5e2aa7a1`) | sliced 2026-10-03 |
 | ✓ | **Item icons: headgear and gloves** | `PROMPTS-ITEMS.md` | `sheet-items-headgear.png` (rev `f56cfdfaf5fb`) | sliced 2026-10-03 |
 | ✓ | **Item icons: boots** | `PROMPTS-ITEMS.md` | `sheet-items-boots.png` (rev `05a2d72cdd50`) | sliced 2026-10-03 |
-| · | **Item icons: the Charisma set** | `PROMPTS-ITEMS.md` | `sheet-items-charisma.png` (rev `2564781e45f5`) | not painted yet |
-| ! | **Skill icons: Aegis Knight** | `PROMPTS-SKILLS.md` | `sheet-skills-aegis.png` (rev `0ba6202c756b`) | REPAINT — the reference changed (41ace8182dfc → 0ba6202c756b) |
+| ✓ | **Item icons: the Charisma set** | `PROMPTS-ITEMS.md` | `sheet-items-charisma.png` (rev `2564781e45f5`) | sliced 2026-10-13 |
+| ✓ | **Item icons: the colosseum prizes** | `PROMPTS-ITEMS.md` | `sheet-items-mythic.png` (rev `7e0751c191de`) | sliced 2026-10-14 |
+| ✓ | **Item icons: smithed iron** | `PROMPTS-ITEMS.md` | `sheet-items-smith-iron.png` (rev `ce537d394bfe`) | sliced 2026-10-13 |
+| ✓ | **Item icons: smithed silver** | `PROMPTS-ITEMS.md` | `sheet-items-smith-silver.png` (rev `516da39d0173`) | sliced 2026-10-13 |
+| ✓ | **Item icons: smithed gold** | `PROMPTS-ITEMS.md` | `sheet-items-smith-gold.png` (rev `60c4f9d0be35`) | sliced 2026-10-13 |
+| ✓ | **Item icons: smithed mithril** | `PROMPTS-ITEMS.md` | `sheet-items-smith-mithril.png` (rev `c19068d1e7ae`) | sliced 2026-10-13 |
+| ✓ | **Skill icons: Aegis Knight** | `PROMPTS-SKILLS.md` | `sheet-skills-aegis.png` (rev `0ba6202c756b`) | sliced 2026-10-13 |
 | ✓ | **Skill icons: Aegis Knight (2 of 2)** | `PROMPTS-SKILLS.md` | `sheet-skills2-aegis.png` (rev `58e4d7a026f6`) | sliced 2026-10-07 |
-| ! | **Skill icons: Shadowblade** | `PROMPTS-SKILLS.md` | `sheet-skills-shadow.png` (rev `085c60ddf84e`) | REPAINT — the reference changed (2cfb44cfe91f → 085c60ddf84e) |
+| ✓ | **Skill icons: Shadowblade** | `PROMPTS-SKILLS.md` | `sheet-skills-shadow.png` (rev `085c60ddf84e`) | sliced 2026-10-13 |
 | ✓ | **Skill icons: Shadowblade (2 of 2)** | `PROMPTS-SKILLS.md` | `sheet-skills2-shadow.png` (rev `60af38781de3`) | sliced 2026-10-07 |
-| ! | **Skill icons: Pyromancer** | `PROMPTS-SKILLS.md` | `sheet-skills-pyro.png` (rev `ffb8ed2290a0`) | REPAINT — the reference changed (11c33b95224f → ffb8ed2290a0) |
+| ✓ | **Skill icons: Pyromancer** | `PROMPTS-SKILLS.md` | `sheet-skills-pyro.png` (rev `ffb8ed2290a0`) | sliced 2026-10-13 |
 | ✓ | **Skill icons: Pyromancer (2 of 2)** | `PROMPTS-SKILLS.md` | `sheet-skills2-pyro.png` (rev `fffff84ea918`) | sliced 2026-10-07 |
-| ! | **Skill icons: Grand Sovereign** | `PROMPTS-SKILLS.md` | `sheet-skills-sovereign.png` (rev `2aa55f4832db`) | REPAINT — the reference changed (8f5bbb595a22 → 2aa55f4832db) |
+| ✓ | **Skill icons: Grand Sovereign** | `PROMPTS-SKILLS.md` | `sheet-skills-sovereign.png` (rev `2aa55f4832db`) | sliced 2026-10-13 |
 | ✓ | **Skill icons: Grand Sovereign (2 of 2)** | `PROMPTS-SKILLS.md` | `sheet-skills2-sovereign.png` (rev `14da6a244a47`) | sliced 2026-10-07 |
-| ! | **Skill icons: Chrono-Weaver** | `PROMPTS-SKILLS.md` | `sheet-skills-chrono.png` (rev `5a4f6c11ad07`) | REPAINT — the reference changed (31ab3a6fd666 → 5a4f6c11ad07) |
+| ✓ | **Skill icons: Chrono-Weaver** | `PROMPTS-SKILLS.md` | `sheet-skills-chrono.png` (rev `5a4f6c11ad07`) | sliced 2026-10-13 |
 | ✓ | **Skill icons: Chrono-Weaver (2 of 2)** | `PROMPTS-SKILLS.md` | `sheet-skills2-chrono.png` (rev `10dc842e0435`) | sliced 2026-10-07 |
-| ! | **Skill icons: Blood Alchemist** | `PROMPTS-SKILLS.md` | `sheet-skills-blood.png` (rev `2b91ed1ae8ed`) | REPAINT — the reference changed (e804ce33c01a → 2b91ed1ae8ed) |
+| ✓ | **Skill icons: Blood Alchemist** | `PROMPTS-SKILLS.md` | `sheet-skills-blood.png` (rev `2b91ed1ae8ed`) | sliced 2026-10-13 |
 | ✓ | **Skill icons: Blood Alchemist (2 of 2)** | `PROMPTS-SKILLS.md` | `sheet-skills2-blood.png` (rev `6507652f3d78`) | sliced 2026-10-07 |
-| ! | **Skill icons: Aether-Tech** | `PROMPTS-SKILLS.md` | `sheet-skills-aether.png` (rev `6d672439580a`) | REPAINT — the reference changed (bc36381ba573 → 6d672439580a) |
+| ✓ | **Skill icons: Aether-Tech** | `PROMPTS-SKILLS.md` | `sheet-skills-aether.png` (rev `6d672439580a`) | sliced 2026-10-13 |
 | ✓ | **Skill icons: Aether-Tech (2 of 2)** | `PROMPTS-SKILLS.md` | `sheet-skills2-aether.png` (rev `c1e83c7902f1`) | sliced 2026-10-07 |
-| ! | **Skill icons: Geomancer** | `PROMPTS-SKILLS.md` | `sheet-skills-geo.png` (rev `822030d247c9`) | REPAINT — the reference changed (f6c6e1ae01f5 → 822030d247c9) |
+| ✓ | **Skill icons: Geomancer** | `PROMPTS-SKILLS.md` | `sheet-skills-geo.png` (rev `822030d247c9`) | sliced 2026-10-13 |
 | ✓ | **Skill icons: Geomancer (2 of 2)** | `PROMPTS-SKILLS.md` | `sheet-skills2-geo.png` (rev `c5da2b948ee8`) | sliced 2026-10-07 |
 | ✓ | **Skill icons: Windrunner** | `PROMPTS-SKILLS.md` | `sheet-skills-windrunner.png` (rev `38f5ed58228f`) | sliced 2026-10-07 |
 | ✓ | **Skill icons: Windrunner (2 of 2)** | `PROMPTS-SKILLS.md` | `sheet-skills2-windrunner.png` (rev `ccd5343695eb`) | sliced 2026-10-07 |
@@ -42,7 +47,7 @@ after painting or slicing anything.
 | ✓ | **Skill icons: Elementalist** | `PROMPTS-SKILLS.md` | `sheet-skills-elementalist.png` (rev `b7422a05c6b9`) | sliced 2026-10-12 |
 | ✓ | **Skill icons: Elementalist (2 of 2)** | `PROMPTS-SKILLS.md` | `sheet-skills2-elementalist.png` (rev `e3f419fb7950`) | sliced 2026-10-12 |
 | ✓ | **Skill icons: Soul Warden** | `PROMPTS-SKILLS.md` | `sheet-skills-soulwarden.png` (rev `2cf7790c50ce`) | sliced 2026-10-12 |
-| · | **Skill icons: Soul Warden (2 of 2)** | `PROMPTS-SKILLS.md` | `sheet-skills2-soulwarden.png` (rev `47a9ff7230d0`) | not painted yet |
+| ✓ | **Skill icons: Soul Warden (2 of 2)** | `PROMPTS-SKILLS.md` | `sheet-skills2-soulwarden.png` (rev `47a9ff7230d0`) | sliced 2026-10-13 |
 | ✓ | **Skill icons: Iron Monk** | `PROMPTS-SKILLS.md` | `sheet-skills-ironmonk.png` (rev `224501743db5`) | sliced 2026-10-12 |
 | ✓ | **Skill icons: Iron Monk (2 of 2)** | `PROMPTS-SKILLS.md` | `sheet-skills2-ironmonk.png` (rev `98554357238a`) | sliced 2026-10-12 |
 | ✓ | **Skill icons: Bard** | `PROMPTS-SKILLS.md` | `sheet-skills-bard.png` (rev `f861647e7c90`) | sliced 2026-10-12 |
@@ -53,7 +58,7 @@ after painting or slicing anything.
 | ✓ | **Portraits: the hero, per outfit** | `PROMPTS-PORTRAITS.md` | `sheet-portraits-hero.png` (rev `75c7036e6e95`) | sliced 2026-10-03 |
 | ✓ | **Portraits: the girl hero, per outfit** | `PROMPTS-PORTRAITS.md` | `sheet-portraits-girl.png` (rev `7e58d5984004`) | sliced 2026-10-04 |
 | ✓ | **Icons: class emblems (1 of 2)** | `PROMPTS-ICONS.md` | `sheet-icons-classes.png` (rev `5b8dd08575e3`) | sliced 2026-10-03 |
-| ! | **Icons: class emblems (2 of 2)** | `PROMPTS-ICONS.md` | `sheet-icons-crests.png` (rev `ff0751a16f37`) | REPAINT — the reference changed (64961b383e5a → ff0751a16f37) |
+| ✓ | **Icons: class emblems (2 of 2)** | `PROMPTS-ICONS.md` | `sheet-icons-crests.png` (rev `ff0751a16f37`) | sliced 2026-10-13 |
 | ✓ | **Icons: status effects (1 of 4)** | `PROMPTS-ICONS.md` | `sheet-icons-status-1.png` (rev `3b679b490b8f`) | sliced 2026-10-03 |
 | ✓ | **Icons: status effects (2 of 4)** | `PROMPTS-ICONS.md` | `sheet-icons-status-2.png` (rev `6a52868c9374`) | sliced 2026-10-03 |
 | ✓ | **Icons: status effects (3 of 4)** | `PROMPTS-ICONS.md` | `sheet-icons-status-3.png` (rev `3021cbd7a46e`) | sliced 2026-10-07 |
@@ -66,11 +71,15 @@ after painting or slicing anything.
 | ✓ | **Logo: the badge (swords behind a shield)** | `PROMPTS-UI.md` | `single-logo-emblem.png` (rev `36585e1bbec8`) | sliced 2026-10-03 |
 | ✓ | **Logo: the mascot (the hero)** | `PROMPTS-UI.md` | `single-logo-mascot.png` (rev `4924603fb50a`) | sliced 2026-10-03 |
 | ✓ | **Logo: the wordmark (the pick)** | `PROMPTS-UI.md` | `single-logo-wordmark.png` (rev `3c04e7ce9c37`) | sliced 2026-10-06 |
-| ! | **UI: the world map terrain** | `PROMPTS-UI.md` | `bg-ui-map.png` (rev `c6bd38bc39ff`) | REPAINT — the reference changed (876728296704 → c6bd38bc39ff) |
-| · | **UI: the world map, top left quarter** | `PROMPTS-UI.md` | `bg-ui-terrain-nw.png` (rev `52265c20b8df`) | not painted yet |
-| · | **UI: the world map, top right quarter** | `PROMPTS-UI.md` | `bg-ui-terrain-ne.png` (rev `fa56cf61a9cd`) | not painted yet |
-| · | **UI: the world map, bottom left quarter** | `PROMPTS-UI.md` | `bg-ui-terrain-sw.png` (rev `7648db88377e`) | not painted yet |
-| · | **UI: the world map, bottom right quarter** | `PROMPTS-UI.md` | `bg-ui-terrain-se.png` (rev `f3db401f0561`) | not painted yet |
+| ✓ | **UI: the world map terrain** | `PROMPTS-UI.md` | `bg-ui-map.png` (rev `c6bd38bc39ff`) | sliced 2026-10-14 |
+| ✓ | **UI: the world map, top left quarter** | `PROMPTS-UI.md` | `bg-ui-terrain-nw.png` (rev `52265c20b8df`) | sliced 2026-10-14 |
+| ✓ | **UI: the world map, top right quarter** | `PROMPTS-UI.md` | `bg-ui-terrain-ne.png` (rev `fa56cf61a9cd`) | sliced 2026-10-14 |
+| ✓ | **UI: the world map, bottom left quarter** | `PROMPTS-UI.md` | `bg-ui-terrain-sw.png` (rev `7648db88377e`) | sliced 2026-10-14 |
+| ✓ | **UI: the world map, bottom right quarter** | `PROMPTS-UI.md` | `bg-ui-terrain-se.png` (rev `f3db401f0561`) | sliced 2026-10-14 |
+| · | **UI: the world map, top right quarter, its top left piece** | `PROMPTS-UI.md` | `bg-ui-terrain-ne-nw.png` (rev `cc120b16b8f2`) | not painted yet |
+| · | **UI: the world map, top right quarter, its top right piece** | `PROMPTS-UI.md` | `bg-ui-terrain-ne-ne.png` (rev `e771105734b7`) | not painted yet |
+| · | **UI: the world map, top right quarter, its bottom left piece** | `PROMPTS-UI.md` | `bg-ui-terrain-ne-sw.png` (rev `3bfe7f866c3b`) | not painted yet |
+| · | **UI: the world map, top right quarter, its bottom right piece** | `PROMPTS-UI.md` | `bg-ui-terrain-ne-se.png` (rev `8d61862da58d`) | not painted yet |
 | ✓ | **UI: the trade table backdrop** | `PROMPTS-UI.md` | `bg-ui-trade.png` (rev `748f6cfd871f`) | sliced 2026-10-03 |
 | ✓ | **UI: the equipment backdrop** | `PROMPTS-UI.md` | `bg-ui-inventory.png` (rev `f58e29283d5b`) | sliced 2026-10-03 |
 | ✓ | **UI: the skills backdrop** | `PROMPTS-UI.md` | `bg-ui-skills.png` (rev `c1d39c64381c`) | sliced 2026-10-03 |

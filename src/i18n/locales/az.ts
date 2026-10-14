@@ -1382,7 +1382,21 @@ export default {
     entropy: 'İstifadələr gözləmələri {n}% qısaldır',
     bloodToMana: 'Alınan fiziki zərərin {n}% qədəri mana kimi qayıdır',
     bleedHeal: 'Qanaxan düşməni vurmaq {n}% can sağaldır',
-    overheatCrit: 'Həddən artıq qızanda +{n}% Kritik Zərər'
+    overheatCrit: 'Həddən artıq qızanda +{n}% Kritik Zərər',
+    lowHealthDamage: 'Sağlamlığın azaldıqca +{n}%-ə qədər zərər',
+    heatArmor: 'İstilik yarı və ya daha çox olduqda alınan zərər {n}% az',
+    crumble: 'Yavaşladılmış, yıxılmış və ya daşlaşmış düşmənlərə +{n}% zərər',
+    lastStand: 'Sağlamlıq 30%-dən aşağı olduqda alınan zərər {n}% az',
+    wildfire: 'Yıxılan yanan düşmən {n} m daxilindəki düşmənləri alovlandırır',
+    loyalty: 'Həlak olan xidmətçi səni {n}% sağlamlıq qədər sağaldır',
+    chillOnHit: 'Adi zərbələr 2 s ərzində {n}% yavaşladır',
+    chillDamage: 'Yavaşladılmış və ya donmuş düşmənlərə +{n}% zərər',
+    healPower: 'Aldığın sağalma {n}% güclüdür',
+    packDamage: 'Hər sağ yoldaş üçün +{n}% zərər (4-ə qədər)',
+    reactionDamage: 'Element reaksiyaları {n}% güclüdür',
+    soulRise: 'Məğlub düşmənlərin {n}% şansla sənin ruhun kimi qalxır',
+    chiOnHit: 'Hücumlar {n}% şansla çi toplayır',
+    songLength: 'Mahnılar {n}% uzun sürür'
   },
   item: {
     heartOfTheArena: {

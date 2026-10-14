@@ -1383,7 +1383,21 @@ export default {
     entropy: 'Spreuken verkorten afkoeltijden met {n}%',
     bloodToMana: '{n}% van de ontvangen fysieke schade keert terug als mana',
     bleedHeal: 'Een bloedende vijand raken geneest {n}% leven',
-    overheatCrit: '+{n}% Kritieke Schade terwijl je oververhit bent'
+    overheatCrit: '+{n}% Kritieke Schade terwijl je oververhit bent',
+    lowHealthDamage: 'Tot +{n}% schade naarmate je gezondheid daalt',
+    heatArmor: '{n}% minder schade ontvangen zolang de hitte op de helft of meer staat',
+    crumble: '+{n}% schade tegen vertraagde, neergeslagen of versteende vijanden',
+    lastStand: '{n}% minder schade ontvangen onder 30% gezondheid',
+    wildfire: 'Een brandende vijand die valt, steekt vijanden binnen {n} m in brand',
+    loyalty: 'Een gevallen dienaar heelt je {n}% gezondheid',
+    chillOnHit: 'Gewone treffers vertragen {n}% gedurende 2 s',
+    chillDamage: '+{n}% schade tegen vertraagde of bevroren vijanden',
+    healPower: 'Genezing die je ontvangt is {n}% sterker',
+    packDamage: '+{n}% schade per levende metgezel (tot 4)',
+    reactionDamage: 'Elementreacties zijn {n}% sterker',
+    soulRise: 'Verslagen vijanden hebben {n}% kans om op te staan als jouw geest',
+    chiOnHit: 'Aanvallen hebben {n}% kans om chi op te bouwen',
+    songLength: 'Liederen duren {n}% langer'
   },
   item: {
     heartOfTheArena: {

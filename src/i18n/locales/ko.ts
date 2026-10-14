@@ -1382,7 +1382,21 @@ export default {
     entropy: '스킬을 쓰면 쿨타임 {n}% 감소',
     bloodToMana: '받은 물리 피해의 {n}%가 마나로 돌아온다',
     bleedHeal: '출혈 중인 적을 맞히면 체력 {n}% 회복',
-    overheatCrit: '과열 중 치명타 피해 +{n}%'
+    overheatCrit: '과열 중 치명타 피해 +{n}%',
+    lowHealthDamage: '체력이 줄수록 최대 +{n}% 피해',
+    heatArmor: '열이 절반 이상인 동안 받는 피해 {n}% 감소',
+    crumble: '둔화, 넘어짐, 석화된 적에게 +{n}% 피해',
+    lastStand: '체력 30% 미만일 때 받는 피해 {n}% 감소',
+    wildfire: '불타는 적이 쓰러지면 {n}m 안의 적에게 불이 옮겨붙음',
+    loyalty: '쓰러진 하수인이 체력을 {n}% 회복시킴',
+    chillOnHit: '기본 공격이 2초간 {n}% 둔화',
+    chillDamage: '둔화되거나 얼어붙은 적에게 +{n}% 피해',
+    healPower: '받는 치유량 {n}% 증가',
+    packDamage: '살아 있는 동료 하나당 +{n}% 피해(최대 4)',
+    reactionDamage: '원소 반응 {n}% 강화',
+    soulRise: '쓰러뜨린 적이 {n}% 확률로 당신의 영혼으로 되살아남',
+    chiOnHit: '공격 시 {n}% 확률로 기를 모음',
+    songLength: '노래 지속 시간 {n}% 증가'
   },
   item: {
     heartOfTheArena: {

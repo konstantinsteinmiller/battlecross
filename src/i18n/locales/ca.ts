@@ -1383,7 +1383,21 @@ export default {
     entropy: 'Els llançaments escurcen les recàrregues un {n}%',
     bloodToMana: 'El {n}% del dany físic rebut torna com a manà',
     bleedHeal: 'Colpejar un enemic que sagna cura el {n}% de la salut',
-    overheatCrit: '+{n}% de Dany Crític mentre estàs sobreescalfat'
+    overheatCrit: '+{n}% de Dany Crític mentre estàs sobreescalfat',
+    lowHealthDamage: 'Fins a +{n}% de dany a mesura que baixa la teva salut',
+    heatArmor: '{n}% menys de dany rebut mentre la calor sigui a la meitat o més',
+    crumble: '+{n}% de dany contra enemics alentits, tombats o petrificats',
+    lastStand: '{n}% menys de dany rebut per sota del 30% de salut',
+    wildfire: 'Un enemic en flames que cau encén els enemics a {n} m',
+    loyalty: 'Un servent caigut et cura un {n}% de salut',
+    chillOnHit: 'Els cops bàsics alenteixen un {n}% durant 2 s',
+    chillDamage: '+{n}% de dany contra enemics alentits o congelats',
+    healPower: 'La curació que reps és un {n}% més forta',
+    packDamage: '+{n}% de dany per cada company viu (fins a 4)',
+    reactionDamage: 'Les reaccions elementals són un {n}% més fortes',
+    soulRise: 'Els enemics vençuts tenen un {n}% de probabilitat d\'alçar-se com el teu esperit',
+    chiOnHit: 'Els atacs tenen un {n}% de probabilitat de generar chi',
+    songLength: 'Les cançons duren un {n}% més'
   },
   item: {
     heartOfTheArena: {

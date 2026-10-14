@@ -1382,7 +1382,21 @@ export default {
     entropy: 'Lansările scurtează reîncărcările cu {n}%',
     bloodToMana: '{n}% din daunele fizice primite se întorc ca mană',
     bleedHeal: 'Lovirea unui inamic care sângerează reface {n}% din viață',
-    overheatCrit: '+{n}% Daune Critice cât ești supraîncălzit'
+    overheatCrit: '+{n}% Daune Critice cât ești supraîncălzit',
+    lowHealthDamage: 'Până la +{n}% daune pe măsură ce viața scade',
+    heatArmor: 'Cu {n}% mai puține daune primite cât timp căldura e la jumătate sau mai mult',
+    crumble: '+{n}% daune împotriva inamicilor încetiniți, doborâți sau pietrificați',
+    lastStand: 'Cu {n}% mai puține daune primite sub 30% viață',
+    wildfire: 'Un inamic în flăcări care cade aprinde inamicii pe o rază de {n} m',
+    loyalty: 'Un slujitor căzut te vindecă cu {n}% viață',
+    chillOnHit: 'Loviturile de bază încetinesc cu {n}% timp de 2 s',
+    chillDamage: '+{n}% daune împotriva inamicilor încetiniți sau înghețați',
+    healPower: 'Vindecarea primită e cu {n}% mai puternică',
+    packDamage: '+{n}% daune pentru fiecare tovarăș în viață (până la 4)',
+    reactionDamage: 'Reacțiile elementale sunt cu {n}% mai puternice',
+    soulRise: 'Inamicii învinși au {n}% șanse să se ridice ca spiritul tău',
+    chiOnHit: 'Atacurile au {n}% șanse să adune chi',
+    songLength: 'Cântecele durează cu {n}% mai mult'
   },
   item: {
     heartOfTheArena: {

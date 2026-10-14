@@ -8,7 +8,7 @@ import type { ModId, Mods } from '@/game/data/mods'
  */
 const FLAT: ReadonlySet<string> = new Set<string>([
   ...ATTRS, 'allAttrs', 'strOrDex', 'armor', 'maxHp', 'maxMana', 'hpRegen', 'burnOnHit', 'pierce', 'critCooldown',
-  'extraBlastEvery', 'fatalSave', 'knockbackImmune', 'pyromaniac', 'reflectOnBlock'
+  'extraBlastEvery', 'fatalSave', 'wildfire', 'knockbackImmune', 'pyromaniac', 'reflectOnBlock'
 ])
 
 export interface ModLine {

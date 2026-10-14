@@ -1382,7 +1382,21 @@ export default {
     entropy: 'Loitsut lyhentävät latausaikoja {n}%',
     bloodToMana: '{n}% saadusta fyysisestä vahingosta palaa manana',
     bleedHeal: 'Osuma verta vuotavaan viholliseen parantaa {n}% terveydestä',
-    overheatCrit: '+{n}% kriittinen vahinko ylikuumentuneena'
+    overheatCrit: '+{n}% kriittinen vahinko ylikuumentuneena',
+    lowHealthDamage: 'Jopa +{n}% vahinkoa terveytesi laskiessa',
+    heatArmor: '{n}% vähemmän otettua vahinkoa, kun kuumuus on vähintään puolessa',
+    crumble: '+{n}% vahinkoa hidastettuihin, kaadettuihin tai kivettyneisiin vihollisiin',
+    lastStand: '{n}% vähemmän otettua vahinkoa alle 30% terveydellä',
+    wildfire: 'Kaatuva palava vihollinen sytyttää viholliset {n} m:n säteellä',
+    loyalty: 'Kaatunut kätyri parantaa sinua {n}% terveyttä',
+    chillOnHit: 'Perusiskut hidastavat {n}% 2 s ajan',
+    chillDamage: '+{n}% vahinkoa hidastettuihin tai jäätyneisiin vihollisiin',
+    healPower: 'Saamasi parannus on {n}% voimakkaampaa',
+    packDamage: '+{n}% vahinkoa jokaisesta elossa olevasta toverista (enintään 4)',
+    reactionDamage: 'Elementtireaktiot ovat {n}% voimakkaampia',
+    soulRise: 'Voitetuilla vihollisilla on {n}% mahdollisuus nousta henkenäsi',
+    chiOnHit: 'Hyökkäyksillä on {n}% mahdollisuus kerätä chitä',
+    songLength: 'Laulut kestävät {n}% pidempään'
   },
   item: {
     heartOfTheArena: {

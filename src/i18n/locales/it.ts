@@ -1383,7 +1383,21 @@ export default {
     entropy: 'Lanciare incantesimi accorcia le ricariche del {n}%',
     bloodToMana: 'Il {n}% del danno fisico subito ritorna come mana',
     bleedHeal: 'Colpire un nemico sanguinante cura il {n}% della salute',
-    overheatCrit: '+{n}% danno Critico da surriscaldato'
+    overheatCrit: '+{n}% danno Critico da surriscaldato',
+    lowHealthDamage: 'Fino a +{n}% di danni man mano che la salute cala',
+    heatArmor: '{n}% di danni subiti in meno finché il calore è a metà o più',
+    crumble: '+{n}% di danni ai nemici rallentati, atterrati o pietrificati',
+    lastStand: '{n}% di danni subiti in meno sotto il 30% di salute',
+    wildfire: 'Un nemico in fiamme che cade incendia i nemici entro {n} m',
+    loyalty: 'Un servitore caduto ti cura del {n}% di salute',
+    chillOnHit: 'I colpi base rallentano del {n}% per 2 s',
+    chillDamage: '+{n}% di danni ai nemici rallentati o congelati',
+    healPower: 'Le cure che ricevi sono più forti del {n}%',
+    packDamage: '+{n}% di danni per ogni compagno in vita (fino a 4)',
+    reactionDamage: 'Le reazioni elementali sono più forti del {n}%',
+    soulRise: 'I nemici sconfitti hanno il {n}% di probabilità di risorgere come tuo spirito',
+    chiOnHit: 'Gli attacchi hanno il {n}% di probabilità di generare chi',
+    songLength: 'I canti durano il {n}% in più'
   },
   item: {
     heartOfTheArena: {

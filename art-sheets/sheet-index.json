@@ -1313,6 +1313,960 @@
       ]
     },
     {
+      "id": "sheet-items-mythic",
+      "kind": "set",
+      "title": "Item icons: the colosseum prizes",
+      "files": {
+        "clean": "sheet-items-mythic.png",
+        "key": "sheet-items-mythic-key.png"
+      },
+      "width": 1024,
+      "height": 768,
+      "cols": 4,
+      "rows": 3,
+      "maxEdge": 192,
+      "crop": 1,
+      "anchor": "centre",
+      "cells": [
+        {
+          "id": "laurelOfTheVictor",
+          "label": "Laurel Of The Victor",
+          "variant": "items",
+          "x": 0,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/laurelOfTheVictor.webp",
+          "fit": {
+            "h": 0.66,
+            "w": 0.836,
+            "bottom": 0.832,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "gripsOfTheGladiator",
+          "label": "Grips Of The Gladiator",
+          "variant": "items",
+          "x": 256,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/gripsOfTheGladiator.webp",
+          "fit": {
+            "h": 0.844,
+            "w": 0.641,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "sandstriderGreaves",
+          "label": "Sandstrider Greaves",
+          "variant": "items",
+          "x": 512,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/sandstriderGreaves.webp",
+          "fit": {
+            "h": 0.844,
+            "w": 0.688,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "crimsonBulwark",
+          "label": "Crimson Bulwark",
+          "variant": "items",
+          "x": 768,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/crimsonBulwark.webp",
+          "fit": {
+            "h": 0.844,
+            "w": 0.672,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "mantleOfTheUndefeated",
+          "label": "Mantle Of The Undefeated",
+          "variant": "items",
+          "x": 0,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/mantleOfTheUndefeated.webp",
+          "fit": {
+            "h": 0.84,
+            "w": 0.789,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "heartOfTheArena",
+          "label": "Heart Of The Arena",
+          "variant": "items",
+          "x": 256,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/heartOfTheArena.webp",
+          "fit": {
+            "h": 0.789,
+            "w": 0.844,
+            "bottom": 0.895,
+            "cx": 0.5
+          }
+        }
+      ]
+    },
+    {
+      "id": "sheet-items-smith-iron",
+      "kind": "set",
+      "title": "Item icons: smithed iron",
+      "files": {
+        "clean": "sheet-items-smith-iron.png",
+        "key": "sheet-items-smith-iron-key.png"
+      },
+      "width": 1024,
+      "height": 768,
+      "cols": 4,
+      "rows": 3,
+      "maxEdge": 192,
+      "crop": 1,
+      "anchor": "centre",
+      "cells": [
+        {
+          "id": "smithIronSword",
+          "label": "Smith Iron Sword",
+          "variant": "items",
+          "x": 0,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/smithIronSword.webp",
+          "fit": {
+            "h": 0.84,
+            "w": 0.723,
+            "bottom": 0.918,
+            "cx": 0.502
+          }
+        },
+        {
+          "id": "smithMasterIronSword",
+          "label": "Smith Master Iron Sword",
+          "variant": "items",
+          "x": 256,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/smithMasterIronSword.webp",
+          "fit": {
+            "h": 0.84,
+            "w": 0.723,
+            "bottom": 0.918,
+            "cx": 0.502
+          }
+        },
+        {
+          "id": "smithIronHammer",
+          "label": "Smith Iron Hammer",
+          "variant": "items",
+          "x": 512,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/smithIronHammer.webp",
+          "fit": {
+            "h": 0.84,
+            "w": 0.664,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "smithMasterIronHammer",
+          "label": "Smith Master Iron Hammer",
+          "variant": "items",
+          "x": 768,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/smithMasterIronHammer.webp",
+          "fit": {
+            "h": 0.84,
+            "w": 0.664,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "smithIronShield",
+          "label": "Smith Iron Shield",
+          "variant": "items",
+          "x": 0,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/smithIronShield.webp",
+          "fit": {
+            "h": 0.844,
+            "w": 0.672,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "smithMasterIronShield",
+          "label": "Smith Master Iron Shield",
+          "variant": "items",
+          "x": 256,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/smithMasterIronShield.webp",
+          "fit": {
+            "h": 0.844,
+            "w": 0.672,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "smithIronHelm",
+          "label": "Smith Iron Helm",
+          "variant": "items",
+          "x": 512,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/smithIronHelm.webp",
+          "fit": {
+            "h": 0.84,
+            "w": 0.688,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "smithMasterIronHelm",
+          "label": "Smith Master Iron Helm",
+          "variant": "items",
+          "x": 768,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/smithMasterIronHelm.webp",
+          "fit": {
+            "h": 0.84,
+            "w": 0.688,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "smithIronPlate",
+          "label": "Smith Iron Plate",
+          "variant": "items",
+          "x": 0,
+          "y": 512,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/smithIronPlate.webp",
+          "fit": {
+            "h": 0.84,
+            "w": 0.789,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "smithMasterIronPlate",
+          "label": "Smith Master Iron Plate",
+          "variant": "items",
+          "x": 256,
+          "y": 512,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/smithMasterIronPlate.webp",
+          "fit": {
+            "h": 0.84,
+            "w": 0.789,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "smithIronGreaves",
+          "label": "Smith Iron Greaves",
+          "variant": "items",
+          "x": 512,
+          "y": 512,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/smithIronGreaves.webp",
+          "fit": {
+            "h": 0.844,
+            "w": 0.688,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "smithMasterIronGreaves",
+          "label": "Smith Master Iron Greaves",
+          "variant": "items",
+          "x": 768,
+          "y": 512,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/smithMasterIronGreaves.webp",
+          "fit": {
+            "h": 0.844,
+            "w": 0.688,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        }
+      ]
+    },
+    {
+      "id": "sheet-items-smith-silver",
+      "kind": "set",
+      "title": "Item icons: smithed silver",
+      "files": {
+        "clean": "sheet-items-smith-silver.png",
+        "key": "sheet-items-smith-silver-key.png"
+      },
+      "width": 1024,
+      "height": 768,
+      "cols": 4,
+      "rows": 3,
+      "maxEdge": 192,
+      "crop": 1,
+      "anchor": "centre",
+      "cells": [
+        {
+          "id": "smithSilverSword",
+          "label": "Smith Silver Sword",
+          "variant": "items",
+          "x": 0,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/smithSilverSword.webp",
+          "fit": {
+            "h": 0.84,
+            "w": 0.723,
+            "bottom": 0.918,
+            "cx": 0.502
+          }
+        },
+        {
+          "id": "smithMasterSilverSword",
+          "label": "Smith Master Silver Sword",
+          "variant": "items",
+          "x": 256,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/smithMasterSilverSword.webp",
+          "fit": {
+            "h": 0.84,
+            "w": 0.723,
+            "bottom": 0.918,
+            "cx": 0.502
+          }
+        },
+        {
+          "id": "smithSilverHammer",
+          "label": "Smith Silver Hammer",
+          "variant": "items",
+          "x": 512,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/smithSilverHammer.webp",
+          "fit": {
+            "h": 0.84,
+            "w": 0.664,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "smithMasterSilverHammer",
+          "label": "Smith Master Silver Hammer",
+          "variant": "items",
+          "x": 768,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/smithMasterSilverHammer.webp",
+          "fit": {
+            "h": 0.84,
+            "w": 0.664,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "smithSilverShield",
+          "label": "Smith Silver Shield",
+          "variant": "items",
+          "x": 0,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/smithSilverShield.webp",
+          "fit": {
+            "h": 0.844,
+            "w": 0.672,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "smithMasterSilverShield",
+          "label": "Smith Master Silver Shield",
+          "variant": "items",
+          "x": 256,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/smithMasterSilverShield.webp",
+          "fit": {
+            "h": 0.844,
+            "w": 0.672,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "smithSilverHelm",
+          "label": "Smith Silver Helm",
+          "variant": "items",
+          "x": 512,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/smithSilverHelm.webp",
+          "fit": {
+            "h": 0.84,
+            "w": 0.688,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "smithMasterSilverHelm",
+          "label": "Smith Master Silver Helm",
+          "variant": "items",
+          "x": 768,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/smithMasterSilverHelm.webp",
+          "fit": {
+            "h": 0.84,
+            "w": 0.688,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "smithSilverPlate",
+          "label": "Smith Silver Plate",
+          "variant": "items",
+          "x": 0,
+          "y": 512,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/smithSilverPlate.webp",
+          "fit": {
+            "h": 0.84,
+            "w": 0.789,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "smithMasterSilverPlate",
+          "label": "Smith Master Silver Plate",
+          "variant": "items",
+          "x": 256,
+          "y": 512,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/smithMasterSilverPlate.webp",
+          "fit": {
+            "h": 0.84,
+            "w": 0.789,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "smithSilverGreaves",
+          "label": "Smith Silver Greaves",
+          "variant": "items",
+          "x": 512,
+          "y": 512,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/smithSilverGreaves.webp",
+          "fit": {
+            "h": 0.844,
+            "w": 0.688,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "smithMasterSilverGreaves",
+          "label": "Smith Master Silver Greaves",
+          "variant": "items",
+          "x": 768,
+          "y": 512,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/smithMasterSilverGreaves.webp",
+          "fit": {
+            "h": 0.844,
+            "w": 0.688,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        }
+      ]
+    },
+    {
+      "id": "sheet-items-smith-gold",
+      "kind": "set",
+      "title": "Item icons: smithed gold",
+      "files": {
+        "clean": "sheet-items-smith-gold.png",
+        "key": "sheet-items-smith-gold-key.png"
+      },
+      "width": 1024,
+      "height": 768,
+      "cols": 4,
+      "rows": 3,
+      "maxEdge": 192,
+      "crop": 1,
+      "anchor": "centre",
+      "cells": [
+        {
+          "id": "smithGoldSword",
+          "label": "Smith Gold Sword",
+          "variant": "items",
+          "x": 0,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/smithGoldSword.webp",
+          "fit": {
+            "h": 0.84,
+            "w": 0.723,
+            "bottom": 0.918,
+            "cx": 0.502
+          }
+        },
+        {
+          "id": "smithMasterGoldSword",
+          "label": "Smith Master Gold Sword",
+          "variant": "items",
+          "x": 256,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/smithMasterGoldSword.webp",
+          "fit": {
+            "h": 0.84,
+            "w": 0.723,
+            "bottom": 0.918,
+            "cx": 0.502
+          }
+        },
+        {
+          "id": "smithGoldHammer",
+          "label": "Smith Gold Hammer",
+          "variant": "items",
+          "x": 512,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/smithGoldHammer.webp",
+          "fit": {
+            "h": 0.84,
+            "w": 0.664,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "smithMasterGoldHammer",
+          "label": "Smith Master Gold Hammer",
+          "variant": "items",
+          "x": 768,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/smithMasterGoldHammer.webp",
+          "fit": {
+            "h": 0.84,
+            "w": 0.664,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "smithGoldShield",
+          "label": "Smith Gold Shield",
+          "variant": "items",
+          "x": 0,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/smithGoldShield.webp",
+          "fit": {
+            "h": 0.844,
+            "w": 0.672,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "smithMasterGoldShield",
+          "label": "Smith Master Gold Shield",
+          "variant": "items",
+          "x": 256,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/smithMasterGoldShield.webp",
+          "fit": {
+            "h": 0.844,
+            "w": 0.672,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "smithGoldHelm",
+          "label": "Smith Gold Helm",
+          "variant": "items",
+          "x": 512,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/smithGoldHelm.webp",
+          "fit": {
+            "h": 0.84,
+            "w": 0.688,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "smithMasterGoldHelm",
+          "label": "Smith Master Gold Helm",
+          "variant": "items",
+          "x": 768,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/smithMasterGoldHelm.webp",
+          "fit": {
+            "h": 0.84,
+            "w": 0.688,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "smithGoldPlate",
+          "label": "Smith Gold Plate",
+          "variant": "items",
+          "x": 0,
+          "y": 512,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/smithGoldPlate.webp",
+          "fit": {
+            "h": 0.84,
+            "w": 0.789,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "smithMasterGoldPlate",
+          "label": "Smith Master Gold Plate",
+          "variant": "items",
+          "x": 256,
+          "y": 512,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/smithMasterGoldPlate.webp",
+          "fit": {
+            "h": 0.84,
+            "w": 0.789,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "smithGoldGreaves",
+          "label": "Smith Gold Greaves",
+          "variant": "items",
+          "x": 512,
+          "y": 512,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/smithGoldGreaves.webp",
+          "fit": {
+            "h": 0.844,
+            "w": 0.688,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "smithMasterGoldGreaves",
+          "label": "Smith Master Gold Greaves",
+          "variant": "items",
+          "x": 768,
+          "y": 512,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/smithMasterGoldGreaves.webp",
+          "fit": {
+            "h": 0.844,
+            "w": 0.688,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        }
+      ]
+    },
+    {
+      "id": "sheet-items-smith-mithril",
+      "kind": "set",
+      "title": "Item icons: smithed mithril",
+      "files": {
+        "clean": "sheet-items-smith-mithril.png",
+        "key": "sheet-items-smith-mithril-key.png"
+      },
+      "width": 1024,
+      "height": 768,
+      "cols": 4,
+      "rows": 3,
+      "maxEdge": 192,
+      "crop": 1,
+      "anchor": "centre",
+      "cells": [
+        {
+          "id": "smithMithrilSword",
+          "label": "Smith Mithril Sword",
+          "variant": "items",
+          "x": 0,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/smithMithrilSword.webp",
+          "fit": {
+            "h": 0.84,
+            "w": 0.723,
+            "bottom": 0.918,
+            "cx": 0.502
+          }
+        },
+        {
+          "id": "smithMasterMithrilSword",
+          "label": "Smith Master Mithril Sword",
+          "variant": "items",
+          "x": 256,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/smithMasterMithrilSword.webp",
+          "fit": {
+            "h": 0.84,
+            "w": 0.723,
+            "bottom": 0.918,
+            "cx": 0.502
+          }
+        },
+        {
+          "id": "smithMithrilHammer",
+          "label": "Smith Mithril Hammer",
+          "variant": "items",
+          "x": 512,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/smithMithrilHammer.webp",
+          "fit": {
+            "h": 0.84,
+            "w": 0.664,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "smithMasterMithrilHammer",
+          "label": "Smith Master Mithril Hammer",
+          "variant": "items",
+          "x": 768,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/smithMasterMithrilHammer.webp",
+          "fit": {
+            "h": 0.84,
+            "w": 0.664,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "smithMithrilShield",
+          "label": "Smith Mithril Shield",
+          "variant": "items",
+          "x": 0,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/smithMithrilShield.webp",
+          "fit": {
+            "h": 0.844,
+            "w": 0.672,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "smithMasterMithrilShield",
+          "label": "Smith Master Mithril Shield",
+          "variant": "items",
+          "x": 256,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/smithMasterMithrilShield.webp",
+          "fit": {
+            "h": 0.844,
+            "w": 0.672,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "smithMithrilHelm",
+          "label": "Smith Mithril Helm",
+          "variant": "items",
+          "x": 512,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/smithMithrilHelm.webp",
+          "fit": {
+            "h": 0.84,
+            "w": 0.688,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "smithMasterMithrilHelm",
+          "label": "Smith Master Mithril Helm",
+          "variant": "items",
+          "x": 768,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/smithMasterMithrilHelm.webp",
+          "fit": {
+            "h": 0.84,
+            "w": 0.688,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "smithMithrilPlate",
+          "label": "Smith Mithril Plate",
+          "variant": "items",
+          "x": 0,
+          "y": 512,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/smithMithrilPlate.webp",
+          "fit": {
+            "h": 0.84,
+            "w": 0.789,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "smithMasterMithrilPlate",
+          "label": "Smith Master Mithril Plate",
+          "variant": "items",
+          "x": 256,
+          "y": 512,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/smithMasterMithrilPlate.webp",
+          "fit": {
+            "h": 0.84,
+            "w": 0.789,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "smithMithrilGreaves",
+          "label": "Smith Mithril Greaves",
+          "variant": "items",
+          "x": 512,
+          "y": 512,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/smithMithrilGreaves.webp",
+          "fit": {
+            "h": 0.844,
+            "w": 0.688,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "smithMasterMithrilGreaves",
+          "label": "Smith Master Mithril Greaves",
+          "variant": "items",
+          "x": 768,
+          "y": 512,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/smithMasterMithrilGreaves.webp",
+          "fit": {
+            "h": 0.844,
+            "w": 0.688,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        }
+      ]
+    },
+    {
       "id": "sheet-skills-aegis",
       "kind": "set",
       "title": "Skill icons: Aegis Knight",
@@ -7725,6 +8679,98 @@
       "tileable": false,
       "bg": "opaque",
       "part": {
+        "name": "se",
+        "x": 0.44999999999999996,
+        "y": 0.44999999999999996,
+        "span": 0.55
+      }
+    },
+    {
+      "id": "bg-ui-terrain-ne-nw",
+      "file": "bg-ui-terrain-ne-nw.png",
+      "title": "UI: the world map, top right quarter, its top left piece",
+      "width": 1376,
+      "height": 768,
+      "target": "../art-sheets/map-parts/ne/nw.webp",
+      "maxEdge": 1376,
+      "tileable": false,
+      "bg": "opaque",
+      "part": {
+        "name": "ne",
+        "x": 0.44999999999999996,
+        "y": 0,
+        "span": 0.55
+      },
+      "sub": {
+        "name": "nw",
+        "x": 0,
+        "y": 0,
+        "span": 0.55
+      }
+    },
+    {
+      "id": "bg-ui-terrain-ne-ne",
+      "file": "bg-ui-terrain-ne-ne.png",
+      "title": "UI: the world map, top right quarter, its top right piece",
+      "width": 1376,
+      "height": 768,
+      "target": "../art-sheets/map-parts/ne/ne.webp",
+      "maxEdge": 1376,
+      "tileable": false,
+      "bg": "opaque",
+      "part": {
+        "name": "ne",
+        "x": 0.44999999999999996,
+        "y": 0,
+        "span": 0.55
+      },
+      "sub": {
+        "name": "ne",
+        "x": 0.44999999999999996,
+        "y": 0,
+        "span": 0.55
+      }
+    },
+    {
+      "id": "bg-ui-terrain-ne-sw",
+      "file": "bg-ui-terrain-ne-sw.png",
+      "title": "UI: the world map, top right quarter, its bottom left piece",
+      "width": 1376,
+      "height": 768,
+      "target": "../art-sheets/map-parts/ne/sw.webp",
+      "maxEdge": 1376,
+      "tileable": false,
+      "bg": "opaque",
+      "part": {
+        "name": "ne",
+        "x": 0.44999999999999996,
+        "y": 0,
+        "span": 0.55
+      },
+      "sub": {
+        "name": "sw",
+        "x": 0,
+        "y": 0.44999999999999996,
+        "span": 0.55
+      }
+    },
+    {
+      "id": "bg-ui-terrain-ne-se",
+      "file": "bg-ui-terrain-ne-se.png",
+      "title": "UI: the world map, top right quarter, its bottom right piece",
+      "width": 1376,
+      "height": 768,
+      "target": "../art-sheets/map-parts/ne/se.webp",
+      "maxEdge": 1376,
+      "tileable": false,
+      "bg": "opaque",
+      "part": {
+        "name": "ne",
+        "x": 0.44999999999999996,
+        "y": 0,
+        "span": 0.55
+      },
+      "sub": {
         "name": "se",
         "x": 0.44999999999999996,
         "y": 0.44999999999999996,

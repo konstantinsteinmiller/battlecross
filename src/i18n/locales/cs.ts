@@ -1385,7 +1385,21 @@ export default {
     entropy: 'Seslání zkracují dobíjení o {n}%',
     bloodToMana: '{n}% utrženého fyzického poškození se vrátí jako mana',
     bleedHeal: 'Zásah krvácejícího nepřítele vyléčí {n}% zdraví',
-    overheatCrit: '+{n}% kritického poškození při přehřátí'
+    overheatCrit: '+{n}% kritického poškození při přehřátí',
+    lowHealthDamage: 'Až +{n}% poškození, čím méně máš zdraví',
+    heatArmor: 'O {n}% menší přijaté poškození, dokud je žár alespoň v polovině',
+    crumble: '+{n}% poškození proti zpomaleným, sraženým nebo zkamenělým nepřátelům',
+    lastStand: 'O {n}% menší přijaté poškození pod 30% zdraví',
+    wildfire: 'Hořící nepřítel, který padne, zapálí nepřátele do {n} m',
+    loyalty: 'Padlý služebník tě vyléčí o {n}% zdraví',
+    chillOnHit: 'Běžné zásahy zpomalí o {n}% na 2 s',
+    chillDamage: '+{n}% poškození proti zpomaleným nebo zmrzlým nepřátelům',
+    healPower: 'Léčení, které dostáváš, je o {n}% silnější',
+    packDamage: '+{n}% poškození za každého živého společníka (až 4)',
+    reactionDamage: 'Elementální reakce jsou o {n}% silnější',
+    soulRise: 'Poražení nepřátelé mají {n}% šanci povstat jako tvůj duch',
+    chiOnHit: 'Útoky mají {n}% šanci nabrat čchi',
+    songLength: 'Písně trvají o {n}% déle'
   },
   item: {
     heartOfTheArena: {

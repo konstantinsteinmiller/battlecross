@@ -1382,7 +1382,21 @@ export default {
     entropy: 'Pemakaian skill memperpendek cooldown {n}%',
     bloodToMana: '{n}% damage fisik yang diterima kembali sebagai mana',
     bleedHeal: 'Memukul musuh yang berdarah memulihkan {n}% nyawa',
-    overheatCrit: '+{n}% Damage Kritis saat kepanasan'
+    overheatCrit: '+{n}% Damage Kritis saat kepanasan',
+    lowHealthDamage: 'Hingga +{n}% kerusakan seiring nyawamu menurun',
+    heatArmor: '{n}% lebih sedikit kerusakan diterima selama panas setengah atau lebih',
+    crumble: '+{n}% kerusakan terhadap musuh yang diperlambat, dijatuhkan, atau membatu',
+    lastStand: '{n}% lebih sedikit kerusakan diterima di bawah 30% nyawa',
+    wildfire: 'Musuh terbakar yang tumbang membakar musuh dalam jarak {n} m',
+    loyalty: 'Antek yang tumbang memulihkanmu {n}% nyawa',
+    chillOnHit: 'Serangan dasar memperlambat {n}% selama 2 dtk',
+    chillDamage: '+{n}% kerusakan terhadap musuh yang diperlambat atau membeku',
+    healPower: 'Penyembuhan yang kamu terima {n}% lebih kuat',
+    packDamage: '+{n}% kerusakan untuk tiap rekan yang hidup (hingga 4)',
+    reactionDamage: 'Reaksi elemen {n}% lebih kuat',
+    soulRise: 'Musuh yang dikalahkan berpeluang {n}% bangkit sebagai rohmu',
+    chiOnHit: 'Serangan berpeluang {n}% mengumpulkan chi',
+    songLength: 'Lagu bertahan {n}% lebih lama'
   },
   item: {
     heartOfTheArena: {

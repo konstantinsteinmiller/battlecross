@@ -1382,7 +1382,21 @@ export default {
     entropy: '施法使冷却缩短{n}%',
     bloodToMana: '受到的物理伤害有{n}%转化为法力',
     bleedHeal: '命中流血的敌人回复{n}%生命',
-    overheatCrit: '过热时暴击伤害 +{n}%'
+    overheatCrit: '过热时暴击伤害 +{n}%',
+    lowHealthDamage: '生命越低伤害越高，最多+{n}%',
+    heatArmor: '热量达到一半或以上时，受到的伤害-{n}%',
+    crumble: '对减速、击倒或石化的敌人伤害+{n}%',
+    lastStand: '生命低于30%时,受到的伤害-{n}%',
+    wildfire: '燃烧的敌人倒下时点燃{n}米内的敌人',
+    loyalty: '倒下的仆从为你恢复{n}%生命',
+    chillOnHit: '普通攻击减速{n}%，持续2秒',
+    chillDamage: '对减速或冰冻的敌人伤害+{n}%',
+    healPower: '受到的治疗+{n}%',
+    packDamage: '每有一名存活的同伴，伤害+{n}%（最多4名）',
+    reactionDamage: '元素反应+{n}%',
+    soulRise: '被击败的敌人有{n}%几率化为你的灵魂复起',
+    chiOnHit: '攻击有{n}%几率积攒气',
+    songLength: '歌曲持续时间+{n}%'
   },
   item: {
     heartOfTheArena: {

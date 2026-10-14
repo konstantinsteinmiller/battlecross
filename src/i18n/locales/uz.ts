@@ -1382,7 +1382,21 @@ export default {
     entropy: 'Qoʻllashlar kutish vaqtlarini {n}% qisqartiradi',
     bloodToMana: 'Olingan jismoniy zararning {n}% qismi mana boʻlib qaytadi',
     bleedHeal: 'Qon ketayotgan dushmanga zarba {n}% jon tiklaydi',
-    overheatCrit: 'Qizib ketgan holatda +{n}% Kritik zarar'
+    overheatCrit: 'Qizib ketgan holatda +{n}% Kritik zarar',
+    lowHealthDamage: 'Sog\'lig\'ing kamaygan sari +{n}% gacha zarar',
+    heatArmor: 'Issiqlik yarmi yoki undan ko\'p bo\'lganda olinadigan zarar {n}% kamroq',
+    crumble: 'Sekinlashgan, yiqitilgan yoki toshga aylangan dushmanlarga +{n}% zarar',
+    lastStand: 'Sog\'liq 30% dan past bo\'lganda olinadigan zarar {n}% kamroq',
+    wildfire: 'Yiqilgan yonayotgan dushman {n} m ichidagi dushmanlarni yondiradi',
+    loyalty: 'Halok bo\'lgan xizmatkor seni {n}% sog\'liqqa davolaydi',
+    chillOnHit: 'Oddiy zarbalar 2 s davomida {n}% sekinlashtiradi',
+    chillDamage: 'Sekinlashgan yoki muzlagan dushmanlarga +{n}% zarar',
+    healPower: 'Oladigan davolanishing {n}% kuchliroq',
+    packDamage: 'Har bir tirik hamroh uchun +{n}% zarar (4 tagacha)',
+    reactionDamage: 'Unsur reaksiyalari {n}% kuchliroq',
+    soulRise: 'Yengilgan dushmanlar {n}% ehtimol bilan sening ruhing bo\'lib turadi',
+    chiOnHit: 'Hujumlar {n}% ehtimol bilan chi to\'playdi',
+    songLength: 'Qo\'shiqlar {n}% uzoqroq davom etadi'
   },
   item: {
     heartOfTheArena: {

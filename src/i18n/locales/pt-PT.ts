@@ -1383,7 +1383,21 @@ export default {
     entropy: 'Lançar feitiços encurta as recargas em {n}%',
     bloodToMana: '{n}% do dano físico sofrido regressa como mana',
     bleedHeal: 'Atingir um inimigo a sangrar cura {n}% de vida',
-    overheatCrit: '+{n}% de dano Crítico enquanto sobreaquecido'
+    overheatCrit: '+{n}% de dano Crítico enquanto sobreaquecido',
+    lowHealthDamage: 'Até +{n}% de dano à medida que a tua vida desce',
+    heatArmor: '{n}% menos dano sofrido enquanto o calor estiver a metade ou mais',
+    crumble: '+{n}% de dano contra inimigos abrandados, derrubados ou petrificados',
+    lastStand: '{n}% menos dano sofrido abaixo de 30% de vida',
+    wildfire: 'Um inimigo em chamas que cai incendeia os inimigos a até {n} m',
+    loyalty: 'Um lacaio caído cura-te {n}% de vida',
+    chillOnHit: 'Os golpes básicos abrandam {n}% durante 2 s',
+    chillDamage: '+{n}% de dano contra inimigos abrandados ou congelados',
+    healPower: 'A cura que recebes é {n}% mais forte',
+    packDamage: '+{n}% de dano por cada companheiro vivo (até 4)',
+    reactionDamage: 'As reações elementais são {n}% mais fortes',
+    soulRise: 'Os inimigos derrotados têm {n}% de probabilidade de se erguer como teu espírito',
+    chiOnHit: 'Os ataques têm {n}% de probabilidade de gerar chi',
+    songLength: 'As canções duram {n}% mais'
   },
   item: {
     heartOfTheArena: {

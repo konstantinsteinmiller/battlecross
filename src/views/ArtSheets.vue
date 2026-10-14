@@ -45,7 +45,7 @@
 import { nextTick, onBeforeUnmount, onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import {
-  CELL, COVERS, MAP_PART_SPAN, ICON_FILL, ICON_FILL_ROUND, REF_SCALE, SCENERY, SETS, SINGLES, fitsOfIndex, panelHeight, promptDocs, sheetIndex, sheetSize,
+  CELL, COVERS, mapTileRect, ICON_FILL, ICON_FILL_ROUND, REF_SCALE, SCENERY, SETS, SINGLES, fitsOfIndex, panelHeight, promptDocs, sheetIndex, sheetSize,
   type ArtCover, type ArtScenery, type ArtSet, type Fit, type SheetCell
 } from '@/game/art/artSheet'
 import { CG_BANNER, COVER_SIZES, coverPlateSvg, cropBox } from '@/game/art/coverScenes'
@@ -295,11 +295,12 @@ const bakeMap = async (a: ArtScenery): Promise<View> => {
   const { width: W, height: H } = a
   // A quarter (`MAP_PARTS`): the plate at the whole map's size, cut down to
   // its corner. The plate is vector, so the crop is as sharp as the whole.
-  const span = a.part ? MAP_PART_SPAN : 1
-  const FW = W / span
-  const FH = H / span
-  const ox = (a.part?.x ?? 0) * FW
-  const oy = (a.part?.y ?? 0) * FH
+  // A piece of a subdivided quarter (`MAP_SUBDIVIDED`): the same, one level down.
+  const r = a.part ? mapTileRect(a.part, a.sub) : { x: 0, y: 0, w: 1, h: 1 }
+  const FW = W / r.w
+  const FH = H / r.h
+  const ox = r.x * FW
+  const oy = r.y * FH
   const [clean, g] = canvas(W, H)
   g.drawImage(await svgImage(mapPlateSvg()), -ox, -oy, FW, FH)
   // The key shows what the game draws over the plate, so a return can be

@@ -1382,7 +1382,21 @@ export default {
     entropy: 'Kast kutter nedkjølingen med {n}%',
     bloodToMana: '{n}% av den fysiske skaden du tar, kommer tilbake som mana',
     bleedHeal: 'Å treffe en blødende fiende leger {n}% liv',
-    overheatCrit: '+{n}% Kritisk skade mens du er overopphetet'
+    overheatCrit: '+{n}% Kritisk skade mens du er overopphetet',
+    lowHealthDamage: 'Opptil +{n}% skade jo lavere helsen din er',
+    heatArmor: '{n}% mindre skade tatt mens varmen er halvfull eller mer',
+    crumble: '+{n}% skade mot bremsede, nedslåtte eller forsteinede fiender',
+    lastStand: '{n}% mindre skade tatt under 30% helse',
+    wildfire: 'En brennende fiende som faller, setter fiender innen {n} m i brann',
+    loyalty: 'En fallen tjener helbreder deg {n}% helse',
+    chillOnHit: 'Vanlige slag bremser med {n}% i 2 s',
+    chillDamage: '+{n}% skade mot bremsede eller frosne fiender',
+    healPower: 'Helbredelse du får, er {n}% sterkere',
+    packDamage: '+{n}% skade for hver levende følgesvenn (opptil 4)',
+    reactionDamage: 'Elementreaksjoner er {n}% sterkere',
+    soulRise: 'Beseirede fiender har {n}% sjanse til å reise seg som din ånd',
+    chiOnHit: 'Angrep har {n}% sjanse til å bygge opp chi',
+    songLength: 'Sanger varer {n}% lenger'
   },
   item: {
     heartOfTheArena: {

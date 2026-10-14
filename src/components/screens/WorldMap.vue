@@ -196,6 +196,7 @@ import { arenaCalling, arenaWeekBest, profile, flagSet, markTip, saveProfile, se
 import { closeMap, flow, hiddenTrainer, meetMerchant, openFoundChest, startEncounter, travel, visitHiddenTrainer } from '@/game/flow'
 import { hud } from '@/game/state/hud'
 import { input } from '@/game/boot'
+import { watchLostInput } from '@/game/engine/lostInput'
 import { UI_ART } from '@/game/assets/overrides'
 import { sceneQuality } from '@/game/engine/quality'
 import { sfx } from '@/game/audio/sfx'
@@ -620,18 +621,26 @@ const stickMove = (e: PointerEvent): void => {
   if (!stick.on || e.pointerId !== stick.id) return
   let dx = e.clientX - stick.cx
   let dy = e.clientY - stick.cy
+  // A bad coordinate (NaN from a stale rect) must never steer.
+  if (!Number.isFinite(dx) || !Number.isFinite(dy)) { dx = 0; dy = 0 }
   const l = Math.hypot(dx, dy)
   if (l > STICK_R) { dx = (dx / l) * STICK_R; dy = (dy / l) * STICK_R }
   stick.x = dx / STICK_R
   stick.y = dy / STICK_R
 }
-const stickUp = (e: PointerEvent): void => {
-  if (e.pointerId !== stick.id) return
+/** Let go of the stick: its own pointerup, or the browser lost the finger. */
+const stickRelease = (): void => {
   stick.on = false
   stick.x = 0
   stick.y = 0
   stick.id = -1
 }
+const stickUp = (e: PointerEvent): void => {
+  if (e.pointerId === stick.id) stickRelease()
+}
+// iOS drops the finger's end on a system gesture or an app switch (see
+// `lostInput.ts`); without this the hero kept walking into a corner.
+let unwatchLost = (): void => {}
 const stickDown = (e: PointerEvent): void => {
   const el = e.currentTarget as HTMLElement
   const r = el.getBoundingClientRect()
@@ -937,6 +946,8 @@ onMounted(async () => {
   window.addEventListener('pointermove', stickMove)
   window.addEventListener('pointerup', stickUp)
   window.addEventListener('pointercancel', stickUp)
+  window.addEventListener('lostpointercapture', stickUp)
+  unwatchLost = watchLostInput({ releaseAll: stickRelease, releaseTouches: stickRelease, heldTouches: () => (stick.on ? 1 : 0) })
   frameId = requestAnimationFrame(tick)
   unveil()
 })
@@ -951,6 +962,8 @@ onBeforeUnmount(() => {
   window.removeEventListener('pointermove', stickMove)
   window.removeEventListener('pointerup', stickUp)
   window.removeEventListener('pointercancel', stickUp)
+  window.removeEventListener('lostpointercapture', stickUp)
+  unwatchLost()
   dragEnd()
 })
 </script>

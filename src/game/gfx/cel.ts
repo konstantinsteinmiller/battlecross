@@ -109,6 +109,13 @@ export const updateCelFrame = (camera: Camera, refDepth: number): void => {
   sharedRefDepth.value = Math.max(1, refDepth)
 }
 
+/** A close-up's own key light, in VIEW space (a figure on a turntable, #125):
+ *  the world light seen from the side lights every face he shows, and he
+ *  reads flat. The next `updateCelFrame` puts the world light back. */
+export const setCelViewLight = (x: number, y: number, z: number): void => {
+  sharedLightDir.value.set(x, y, z).normalize()
+}
+
 const _see = new Vector3()
 
 /**

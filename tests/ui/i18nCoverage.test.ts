@@ -2,7 +2,12 @@ import { describe, it, expect } from 'vitest'
 import { readFileSync, readdirSync, statSync } from 'node:fs'
 import { join, resolve } from 'node:path'
 import en from '@/i18n/locales/en'
-import { ITEMS } from '@/game/data/items'
+import { ITEMS, ITEM_BY_ID } from '@/game/data/items'
+import { ELIXIRS } from '@/game/data/elixirs'
+import { PLANT_IDS } from '@/game/data/plants'
+import { ORE_IDS } from '@/game/data/ores'
+import { ARENA_MODS } from '@/game/arenaWeek'
+import { LANGUAGES } from '@/utils/enums'
 import { SKILLS, CLASS_IDS } from '@/game/data/skills'
 import { ENEMIES } from '@/game/data/enemies'
 import { MAP, TOWNS } from '@/game/data/zones'
@@ -44,6 +49,59 @@ const walk = (dir: string, out: string[] = []): string[] => {
     if (statSync(p).isDirectory()) { if (name !== 'locales') walk(p, out) } else if (/\.(vue|ts)$/.test(name)) out.push(p)
   }
   return out
+}
+
+const hasIn = (msgs: unknown, key: string): boolean => {
+  let cur: unknown = msgs
+  for (const part of key.split('.')) {
+    if (cur === null || typeof cur !== 'object') return false
+    cur = (cur as Record<string, unknown>)[part]
+  }
+  return typeof cur === 'string' && cur.length > 0
+}
+
+/** Every modifier the `ModId` union names (read from its source, since a type
+ *  has no runtime list): `modLines` asks for `mod.<id>` for any of them. */
+const modIds = (): string[] => {
+  const src = readFileSync(join(ROOT, 'src/game/data/mods.ts'), 'utf8')
+  const block = src.slice(src.indexOf('export type ModId'), src.indexOf('export type Mods'))
+  return [...block.replace(/\/\*\*[\s\S]*?\*\//g, '').matchAll(/'(\w+)'/g)].map(m => m[1]!)
+}
+
+/**
+ * The keys the game BUILDS from its data tables (`mod.<id>`, `item.<id>.name`,
+ * `elixir.<id>.desc`…): one list, held against every locale, so a new item,
+ * modifier or table row without its text fails here rather than showing a raw
+ * key in some language.
+ */
+const dataKeys = (): string[] => {
+  const k = new Set<string>()
+  const add = (s: string): void => { k.add(s) }
+  for (const m of [...modIds(), ...ATTRS]) add(`mod.${m}`)
+  for (const i of Object.values(ITEM_BY_ID)) {
+    add(`item.${i.id}.name`); add(`slot.${i.slot}`); add(`tier.${i.tier}`); add(`source.${i.drop.src}`)
+    for (const m in i.mods) add(`mod.${m}`)
+    if (i.weapon) add(`weapon.${i.weapon.style}`)
+  }
+  for (const s of SKILLS) {
+    add(`skill.${s.id}.name`); add(`skill.${s.id}.desc`); add(`skill.kind.${s.kind}`)
+    for (const m in s.mods ?? {}) add(`mod.${m}`)
+  }
+  for (const c of CLASS_IDS) { add(`class.${c}.name`); add(`class.${c}.desc`) }
+  for (const a of ATTRS) { add(`attr.${a}.name`); add(`attr.${a}.short`); add(`attr.${a}.desc`) }
+  for (const f of FACTIONS) { add(`faction.${f}`); add(`rep.bless.${f}`) }
+  for (const e of ENEMIES) add(`enemy.${e.id}`)
+  for (const n of MAP) { add(`node.${n.id}.name`); add(`node.${n.id}.desc`) }
+  for (const town of Object.values(TOWNS)) for (const n of town.npcs) add(`npc.${n.id}.name`)
+  for (const q of QUESTS) { add(`quest.${q.id}.title`); for (const c of q.choices) add(`quest.${q.id}.${c.id}.label`) }
+  for (const e of ERRANDS) { add(`errand.${e.id}.title`); add(`npc.${e.giver}.name`) }
+  for (const e of ELIXIRS) { add(`elixir.${e.id}.name`); add(`elixir.${e.id}.desc`); add(`status.${e.status}`) }
+  for (const p of PLANT_IDS) add(`plant.${p}.name`)
+  for (const o of ORE_IDS) add(`ore.${o}.name`)
+  for (const m of ARENA_MODS) { add(`ladder.mod.${m}`); add(`ladder.modDesc.${m}`) }
+  for (const e of ['fight', 'elite', 'chest', 'merchant']) add(`encounter.title.${e}`)
+  for (const f of EPILOGUE_FLAGS) add(`ending.note.${f}`)
+  return [...k]
 }
 
 describe('i18n coverage', () => {
@@ -144,6 +202,15 @@ describe('i18n coverage', () => {
     // Every lesson, the controls' and the features' (roadmap #52), for both hands.
     for (const id of ALL_LESSON_IDS) { need(`coach.${id}.touch`); need(`coach.${id}.mouse`) }
     for (const a of ACTIONS) need(`options.actions.${a}`)
+    expect(missing).toEqual([])
+  })
+
+  it('every key built from a data id exists in every shipped locale', async () => {
+    const missing: string[] = []
+    for (const code of LANGUAGES) {
+      const msgs = code === 'en' ? en : (await import(`../../src/i18n/locales/${code}.ts`)).default
+      for (const k of dataKeys()) if (!hasIn(msgs, k)) missing.push(`${code}: ${k}`)
+    }
     expect(missing).toEqual([])
   })
 

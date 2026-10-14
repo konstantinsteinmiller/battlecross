@@ -156,6 +156,11 @@ describe('head, hands and feet (D39)', () => {
       const v = i.mods[l.id] ?? 0
       if (Math.abs(v) > 1) expect(l.n, `${i.id} ${l.id}`).toBe(Math.round(v * 10) / 10)
     }
+    // A passive's bag too (Wildfire: 3.5 m, not 350 %).
+    for (const s of SKILLS) for (const l of modLines(s.mods)) {
+      const v = s.mods?.[l.id] ?? 0
+      if (Math.abs(v) > 1) expect(l.n, `${s.id} ${l.id}`).toBe(Math.round(v * 10) / 10)
+    }
   })
 
   it('the slots have their identities: plate carries armour, gloves quicken or sharpen, boots move', () => {

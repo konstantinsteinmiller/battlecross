@@ -1,4 +1,4 @@
-import { CHARISMA_ITEMS, ITEMS, TIER_COLOR, type ItemDef } from '../data/items'
+import { CHARISMA_ITEMS, ITEMS, MYTHICS, SMITHED, SMITH_METAL, SMITH_PIECES, smithItemId, TIER_COLOR, type ItemDef, type SmithMetal, type SmithPiece } from '../data/items'
 import { CLASSES, CLASS_IDS, skillsOf, type ClassId } from '../data/skills'
 import { HERO_OUTFITS, heroPortraitId } from './heroPortrait'
 import { BRAND_REFS } from './brandRefs'
@@ -81,7 +81,7 @@ const HERO_F_LOOKS: readonly string[] = HERO_OUTFITS.map(o => heroPortraitId(o, 
 
 /** Every drop-in the pipeline paints, by the folder the build scans. */
 export const ART_CATALOGUE: Readonly<Record<ArtKind, readonly string[]>> = {
-  items: ITEMS.map(i => i.id),
+  items: [...ITEMS, ...SMITHED, ...MYTHICS].map(i => i.id),
   skills: CLASS_IDS.flatMap(c => skillsOf(c).map(s => s.id)),
   portraits: [...TOWN_LOOKS, ...TRAINER_LOOKS, ...SPEAKER_LOOKS, ...HERO_LOOKS, ...HERO_F_LOOKS],
   ui: ['coin', 'map', 'bg-trade', 'bg-inventory', 'bg-skills'],
@@ -188,8 +188,33 @@ const ITEM_BLURBS: Readonly<Record<string, string>> = {
   crownOfTheRightfulKing: 'a gold crown with five tall points, each tipped with a small round gem, and a band of square gems around it',
   scepterOfTheFirstKing: 'a short gold rod with a ribbed grip and a large round gem held in four curved claws at its top',
   heartOfTheMountain: 'a gemstone cut in a rounded heart outline with flat facets and one pale crack line down it: a carved stone with hard, flat faces',
-  ringOfAbsolutePower: 'a thick, ornate gold finger ring with two engraved bands, set with one large brilliant-cut stone flanked by two tiny ones'
+  ringOfAbsolutePower: 'a thick, ornate gold finger ring with two engraved bands, set with one large brilliant-cut stone flanked by two tiny ones',
+  // The colosseum's mythic prizes (#117)
+  laurelOfTheVictor: 'a gold laurel wreath seen from the front: two curving branches of pointed gold leaves meeting at the front, tied there with a small crimson ribbon',
+  gripsOfTheGladiator: 'one empty full-fingered armoured gauntlet in the reference\'s mitten shape, seen from the back: the fingers are one closed block of dark leather plates reaching to rounded leather tips, nothing pokes out of it (NOT fingerless, no open fingertips, no hand and no skin anywhere): crossed crimson straps over the back, a row of three gold knuckle studs, a separate covered thumb plate and a wide gold-banded cuff',
+  sandstriderGreaves: 'one armoured boot seen from the side, toe pointing right: sand-coloured bronze shin plates laced over leather, a rounded knee guard, crimson straps at the ankle and a thick dark sole',
+  crimsonBulwark: 'a large round shield lacquered deep crimson, with a broad gold rim, a raised gold boss in the middle and a ring of round gold rivets',
+  mantleOfTheUndefeated: 'a heavy gold-trimmed steel breastplate with large rounded shoulder plates and a short crimson cape hanging behind both shoulders',
+  heartOfTheArena: 'a large faceted crimson gemstone cut in a rounded heart outline, held in a ring of gold set with four small claws'
 }
+
+// The forge's catalogue (#99): one shape per piece, its metal and its finish said apart.
+const SMITH_SHAPE_BLURB: Readonly<Record<SmithPiece, string>> = {
+  sword: 'a straight one-handed sword: a plain double-edged blade of {m} with a central ridge, a bar crossguard, a leather-wrapped grip and a round pommel',
+  hammer: 'a one-handed war hammer: a blocky {m} head with a flat striking face, on a straight wooden haft bound with leather',
+  shield: 'a kite-shaped shield of riveted {m} plate with a raised centre rib and a rolled rim',
+  helm: 'an empty {m} helmet seen from the front: a round dome with a centre ridge, a riveted brow band and two cheek guards',
+  plate: 'a {m} breastplate with short rounded shoulder plates, two riveted bands across the belly and a plain round boss on the chest',
+  greaves: 'one armoured {m} boot seen from the side, toe pointing right: banded shin plates, a rounded knee guard, a rounded toe cap and a thick dark sole'
+}
+const SMITH_METAL_BLURB: Readonly<Record<SmithMetal, string>> = {
+  iron: 'dull grey hammered iron', silver: 'bright pale silver', gold: 'polished warm gold', mithril: 'pale blue-white gleaming mithril'
+}
+const SMITH_BLURBS: Readonly<Record<string, string>> = Object.fromEntries((Object.keys(SMITH_METAL) as SmithMetal[]).flatMap(metal => SMITH_PIECES.flatMap(piece => [false, true].map(master => [
+  smithItemId(metal, piece, master),
+  SMITH_SHAPE_BLURB[piece].replace('{m}', SMITH_METAL_BLURB[metal]) + (master ? ', finished as a masterwork: a fine engraved border line along every edge and one small round gem set in the middle' : '')
+]))))
+const ALL_ITEM_BLURBS: Readonly<Record<string, string>> = { ...ITEM_BLURBS, ...SMITH_BLURBS }
 
 const SKILL_BLURBS: Readonly<Record<string, string>> = {
   // Aegis Knight
@@ -548,6 +573,9 @@ export interface ArtScenery {
   /** One quarter of the big world map (`MAP_PARTS`): which corner of the
    *  plate it shows, as fractions of the whole. */
   part?: MapPart
+  /** One piece of a subdivided quarter (`MAP_SUBDIVIDED`): which corner of
+   *  `part` it shows, as fractions of the quarter. */
+  sub?: MapPart
   /** Finished paintings attached before the reference (see `ArtSet.styleRefs`). */
   styleRefs?: readonly string[]
   label: string
@@ -566,7 +594,7 @@ const need = (blurbs: Readonly<Record<string, string>>, id: string): string => {
 }
 
 const itemCell = (it: ItemDef): SheetCell => ({
-  id: it.id, draw: 'item', label: labelOf(it.id), blurb: need(ITEM_BLURBS, it.id), target: artTarget('items', it.id),
+  id: it.id, draw: 'item', label: labelOf(it.id), blurb: need(ALL_ITEM_BLURBS, it.id), target: artTarget('items', it.id),
   glyph: it.kind, tint: TIER_COLOR[it.tier] ?? '#c9d2e3', tintName: TIER_NAME[it.tier] ?? 'grey'
 })
 
@@ -591,6 +619,12 @@ const trinkets = TABLED.filter(i => i.slot === 'trinket')
 const head = TABLED.filter(i => i.slot === 'head')
 const hands = TABLED.filter(i => i.slot === 'hands')
 const feet = TABLED.filter(i => i.slot === 'feet')
+
+// A metal's twelve forge pieces, each plain one beside its masterwork twin.
+const smithedOf = (metal: SmithMetal): ItemDef[] => {
+  const ids = new Set(SMITH_PIECES.flatMap(p => [smithItemId(metal, p, false), smithItemId(metal, p, true)]))
+  return SMITHED.filter(i => ids.has(i.id))
+}
 
 const itemSet = (stem: string, title: string, items: ItemDef[]): ArtSet => ({
   stem, title, kind: 'items', doc: 'PROMPTS-ITEMS.md', cols: 4, rows: 3, maxEdge: 192, crop: 1, anchor: 'centre',
@@ -705,6 +739,8 @@ export const SETS: readonly ArtSet[] = [
   itemSet('sheet-items-headgear', 'Item icons: headgear and gloves', [...head, ...hands]),
   itemSet('sheet-items-boots', 'Item icons: boots', feet),
   itemSet('sheet-items-charisma', 'Item icons: the Charisma set', charisma),
+  itemSet('sheet-items-mythic', 'Item icons: the colosseum prizes', [...MYTHICS]),
+  ...(Object.keys(SMITH_METAL) as SmithMetal[]).map(metal => itemSet(`sheet-items-smith-${metal}`, `Item icons: smithed ${metal}`, smithedOf(metal))),
   ...CLASS_IDS.flatMap(cls => (skillsOf(cls).length > 6 ? [skillSet(cls, 0), skillSet(cls, 1)] : [skillSet(cls, 0)])),
   portraitSet('sheet-portraits-town', 'Portraits: townsfolk', TOWN_LOOKS, 3, 3),
   portraitSet('sheet-portraits-trainers', 'Portraits: trainers', TRAINER_LOOKS, 3, 3),
@@ -797,12 +833,43 @@ export const MAP_PARTS: readonly MapPart[] = [
 /** Where a quarter's slice goes: beside the sheets, never into a build. */
 export const mapPartTarget = (p: MapPart): string => `../art-sheets/map-parts/${p.name}.webp`
 /**
+ * Quarters painted as four smaller pieces (#94): the top right one, whose
+ * rift and edge of the realm the painter twice zoomed out of, adding a second
+ * stone ring and lake, or dropping the rift. Each piece is `MAP_PARTS` again
+ * inside its quarter (same span, so the same 16:9 plate); the rift sits whole
+ * in its bottom right piece. `pnpm art:stitch-map` joins the pieces into the
+ * quarter's own file first, then the quarters.
+ */
+export const MAP_SUBDIVIDED: readonly MapPart['name'][] = ['ne']
+/** Where a piece's slice goes: `map-parts/<quarter>/<piece>.webp`. */
+export const mapSubTarget = (p: MapPart, sub: MapPart): string => `../art-sheets/map-parts/${p.name}/${sub.name}.webp`
+/** The part of the whole plate a quarter, or a piece of one, shows, as fractions. */
+export const mapTileRect = (p: MapPart, sub?: MapPart): { x: number; y: number; w: number; h: number } => {
+  const w = sub ? MAP_PART_SPAN * MAP_PART_SPAN : MAP_PART_SPAN
+  return { x: p.x + (sub ? sub.x * MAP_PART_SPAN : 0), y: p.y + (sub ? sub.y * MAP_PART_SPAN : 0), w, h: w }
+}
+/**
  * The hand the map is painted in: the game's finished item and icon sheets
  * (#107). The earlier whole-map painting came back as flat clip-art that
  * matched nothing else in the game, so it is no longer the model for the
  * quarters; the icons are.
  */
 const MAP_STYLE_REFS: readonly string[] = ['art-sheets/painted/sheet-items-weapons.jpg', 'art-sheets/painted/sheet-icons-misc.jpg']
+/**
+ * A quarter's model: its own crop of the finished whole-map painting
+ * (`node tools/map-part-refs.mjs` cuts them), then one icon sheet. Four
+ * quarters painted from the icons alone came back in four palettes and four
+ * scales; fed the whole map, a quarter repainted the whole map shrunk into its
+ * frame. Re-detailing its own crop, each keeps the one painting's colours,
+ * light and layout, and the stitch finds no seam.
+ */
+const mapPartStyleRefs = (p: MapPart, sub?: MapPart): readonly string[] => [`art-sheets/map-parts/ref-${p.name}${sub ? `-${sub.name}` : ''}.jpg`, 'art-sheets/painted/sheet-items-weapons.jpg']
+/** Water, word for word in every map prompt: the walk grid is baked from the
+ *  painting's blue (`scripts/map-walk-bake.mjs`), so a grey or violet river
+ *  is a ford, and a river moved off the plan is a wall across a road. */
+const MAP_WATER = 'WATER — every sea, bay, river, stream and lake is SATURATED BLUE: bright turquoise to sky blue, never grey, violet, green or dark. It sits exactly where the reference has it, at its width: a river stays one unbroken band from its source to the sea (never interrupted by grass, never thinner than the reference), and the lake right of centre stays open water all round its island clearing. Water is crossed ONLY by the plank bridges the reference shows, where its roads cross; no other bridge, ford, stepping stone or causeway.'
+/** The shared hand of the four quarters, word for word in each. */
+const MAP_PART_STYLE = 'ONE MAP, FOUR PIECES — the same painter, palette, light and scale in every quarter: match the FIRST attached image (this very quarter, already painted, only blurry) exactly. Its grass green, its sand, its blue water, its outline weight, its two-step shading and the size of its trees, mountains and waves; no warmer, cooler, brighter or darker. Light from the top left everywhere. Nothing in it moves, grows, shrinks or is added: it is the first image again, only sharp. This is ONE QUARTER of the map, NOT the whole map: re-detail exactly the crop the first image shows, at the SAME scale, edge to edge. Never zoom out, never fit the whole realm into the frame, and add no ring of stones, river, lake, rift or region that the first image does not show. Nor drop one it does: the jagged black rift with its glowing hot-pink rim stays where the first image has it, and land that reaches an edge there stays land, never turned into sea or coast.'
 const PART_NAME: Readonly<Record<MapPart['name'], string>> = { nw: 'top left', ne: 'top right', sw: 'bottom left', se: 'bottom right' }
 
 export const SCENERY: readonly ArtScenery[] = [
@@ -813,8 +880,13 @@ export const SCENERY: readonly ArtScenery[] = [
   ...MAP_PARTS.map((p): ArtScenery => ({
     stem: `bg-ui-terrain-${p.name}`, title: `UI: the world map, ${PART_NAME[p.name]} quarter`, kind: 'ui', doc: 'PROMPTS-UI.md', width: 1376, height: 768,
     target: mapPartTarget(p), maxEdge: 1376, tileable: false, bg: 'opaque', plate: 'map', label: `Map ${p.name}`,
-    part: p, styleRefs: MAP_STYLE_REFS
+    part: p, styleRefs: mapPartStyleRefs(p)
   })),
+  ...MAP_PARTS.filter(p => MAP_SUBDIVIDED.includes(p.name)).flatMap(p => MAP_PARTS.map((sub): ArtScenery => ({
+    stem: `bg-ui-terrain-${p.name}-${sub.name}`, title: `UI: the world map, ${PART_NAME[p.name]} quarter, its ${PART_NAME[sub.name]} piece`, kind: 'ui', doc: 'PROMPTS-UI.md', width: 1376, height: 768,
+    target: mapSubTarget(p, sub), maxEdge: 1376, tileable: false, bg: 'opaque', plate: 'map', label: `Map ${p.name} ${sub.name}`,
+    part: p, sub, styleRefs: mapPartStyleRefs(p, sub)
+  }))),
   // The three big screens' backdrops (D38 to D40, D45). Drawn by
   // `components/game/backdrops.ts` until the file exists; shown `cover`, so the
   // middle of the sheet is always under the interface (see `screenPrompt`).
@@ -974,7 +1046,8 @@ export const sheetIndex = (fits?: Fits): SheetIndex => ({
   scenery: [
     ...SCENERY.map(a => ({
       id: a.stem, file: `${a.stem}.png`, title: a.title, width: a.width, height: a.height, target: a.target, maxEdge: a.maxEdge, tileable: a.tileable, bg: a.bg,
-      ...(a.part ? { part: { ...a.part, span: MAP_PART_SPAN } } : {})
+      ...(a.part ? { part: { ...a.part, span: MAP_PART_SPAN } } : {}),
+      ...(a.sub ? { sub: { ...a.sub, span: MAP_PART_SPAN } } : {})
     })),
     // A cover is an opaque picture to the slicer, exactly like a backdrop.
     ...COVERS.map(a => ({
@@ -1572,33 +1645,46 @@ const MAP_REGIONS: readonly string[] = [
 ]
 
 /** Which of a quarter's edges are the map's own edges, and which cut through its middle. */
-const partEdges = (p: MapPart): { outer: string; inner: string } => {
-  const outer = [p.y === 0 ? 'top' : 'bottom', p.x === 0 ? 'left' : 'right']
-  const inner = [p.y === 0 ? 'bottom' : 'top', p.x === 0 ? 'right' : 'left']
-  return { outer: outer.join(' and '), inner: inner.join(' and ') }
+const partEdges = (p: MapPart, sub?: MapPart): { outer: string; inner: string } => {
+  const r = mapTileRect(p, sub)
+  const outer: string[] = []
+  const inner: string[] = []
+  const side = (edge: string, isOuter: boolean): void => { (isOuter ? outer : inner).push(edge) }
+  side('top', r.y < 1e-6)
+  side('bottom', r.y + r.h > 1 - 1e-6)
+  side('left', r.x < 1e-6)
+  side('right', r.x + r.w > 1 - 1e-6)
+  const words = (l: string[]): string => l.join(' and ')
+  return { outer: words(outer), inner: words(inner) }
 }
 
 const mapPrompt = (a: ArtScenery): string => {
   const p = a.part
+  const sub = a.sub
   const sites = MAP.length
-  const edges = p ? partEdges(p) : null
+  const edges = p ? partEdges(p, sub) : null
+  // What one painting is: a quarter, or a piece of one.
+  const tile = sub ? 'piece' : 'quarter'
+  const where = p ? (sub ? `the ${PART_NAME[sub.name]} piece of the ${PART_NAME[p.name]} quarter` : `the ${PART_NAME[p.name]} quarter`) : ''
   return [
     heading(a.title, a.stem, a.target),
     '',
     p
-      ? `WHAT COMES BACK IS THE ${PART_NAME[p.name].toUpperCase()} QUARTER OF AN ILLUSTRATED MAP OF A FANTASY REALM, ENLARGED: ITS TERRAIN ONLY, WITH NO BUILDINGS AND NO LETTERING.`
+      ? `WHAT COMES BACK IS ${where.toUpperCase()} OF AN ILLUSTRATED MAP OF A FANTASY REALM, ENLARGED: ITS TERRAIN ONLY, WITH NO BUILDINGS AND NO LETTERING.`
       : 'WHAT COMES BACK IS ONE FULL-BLEED ILLUSTRATED MAP OF A FANTASY REALM: ITS TERRAIN ONLY, WITH NO BUILDINGS AND NO LETTERING.',
     `One ${shapeWord(a.width, a.height)} image, ${a.width} x ${a.height} pixels (${ratio(a.width, a.height)}), painted edge to edge.`,
     '',
     'ATTACHED IMAGES — there are 3, and they do two different jobs.',
-    '· The FIRST TWO are finished paintings from this same game: its item icons and its interface icons. Take from them ONLY the HAND: the thick charcoal-violet outline round every shape, the hard two-step cel shading, the small white glints, the saturated candy colours and the chunky, rounded, toy-like forms. Every mountain, tree, hill, rock, wave and bridge on the map is painted as if it were one more icon from those sheets. Nothing of their CONTENT (no swords, no icons, no panels, no magenta) goes on the map.',
     p
-      ? `· The LAST is the layout reference: the ${PART_NAME[p.name]} part of the map's plan, enlarged to fill the image. Paint EXACTLY what it shows, at its scale: every coast, region, river, bridge, road and clearing where the reference has it.`
+      ? `· The FIRST is THIS ${tile.toUpperCase()}, already painted,` + ' but enlarged and blurry: repaint it SHARP, with crisp outlines and fine detail, keeping every shape, colour and position it has. It is not to be redrawn, rearranged or zoomed out: the same picture, only sharp. The SECOND is a sheet of the game\'s item icons: only its hand (thick charcoal-violet outlines, hard two-step cel shading, small white glints, chunky rounded forms). Nothing of its CONTENT (no swords, no icons, no magenta) goes on the map.'
+      : '· The FIRST TWO are finished paintings from this same game: its item icons and its interface icons. Take from them ONLY the HAND: the thick charcoal-violet outline round every shape, the hard two-step cel shading, the small white glints, the saturated candy colours and the chunky, rounded, toy-like forms. Every mountain, tree, hill, rock, wave and bridge on the map is painted as if it were one more icon from those sheets. Nothing of their CONTENT (no swords, no icons, no panels, no magenta) goes on the map.',
+    p
+      ? `· The LAST is the layout reference: ${where} of the map's plan, enlarged to fill the image. Paint EXACTLY what it shows, at its scale: every coast, region, river, bridge, road and clearing where the reference has it.`
       : '· The LAST is the layout reference: the map\'s plan. Paint EXACTLY what it shows, at its scale: every coast, region, river, bridge, road and clearing where the reference has it.',
     '',
     ...(p
       ? [
-          `Four such quarters are painted and joined into one big map, each overlapping its neighbours by a wide strip, so they must meet without a visible join. The ${edges!.outer} edges are the edges of the whole map. The ${edges!.inner} edges cut straight through the middle of the land: the terrain simply runs on past them, cut off mid-tree and mid-field. No coast, no frame, no darkening, no fade and no empty margin along them.`,
+          `Four such ${tile}s are painted and joined into one big map, each overlapping its neighbours by a wide strip, so they must meet without a visible join. ${edges!.outer ? `The ${edges!.outer} edges are the edges of the whole map.` : 'None of its edges is an edge of the whole map.'} The ${edges!.inner} edges cut straight through the middle of the land: the terrain simply runs on past them, cut off mid-tree and mid-field. No coast, no frame, no darkening, no fade and no empty margin along them.`,
           'Because it is enlarged, give every tree, mountain, wave and field MORE crisp detail than in the first image, at the SAME size against the roads and clearings — not more of them, and not smaller ones.',
           ''
         ]
@@ -1618,7 +1704,12 @@ const mapPrompt = (a: ArtScenery): string => {
     'EVERY REGION KEEPS ITS OWN OUTLINE — the mistake to avoid above all. The mountains stand ONLY inside the mountain regions the reference marks, and no bigger and no more of them than it shows: a mountain range never spills over the green land, the fields, the forest, the coast, a road or a clearing, and never grows to cover a larger share of the map than its region does in the reference. The same holds for forest, hills, ice, lava and swamp: each fills its own region and stops at its edge. Where the reference shows open grassland, it stays open grassland.',
     '· Keep it bright and even: small landmarks and paper name tags sit on every part of it and must stay readable. No region darker or busier than the reference shows it.',
     '',
-    'COLOUR — the layout reference\'s own, region by region (so the four quarters match where they meet), in the saturation of the first two images. Take the HUES from the reference, not its flatness.',
+    p
+      ? 'COLOUR — the first image\'s own, pixel for pixel in hue (so the four quarters match where they meet).'
+      : 'COLOUR — the layout reference\'s own, region by region (so the four quarters match where they meet), in the saturation of the first two images. Take the HUES from the reference, not its flatness.',
+    '',
+    MAP_WATER,
+    ...(p ? ['', sub ? MAP_PART_STYLE.replace(/quarter/g, 'piece').replace(/QUARTER/g, 'PIECE') : MAP_PART_STYLE] : []),
     '',
     'THE VIEW — the map convention the reference uses: the ground from straight above, each mountain, tree and hill as a small upright picture on it. No horizon, no perspective, no tilt of the sheet.',
     '',
@@ -1627,6 +1718,8 @@ const mapPrompt = (a: ArtScenery): string => {
     'BEFORE YOU CALL IT FINISHED, check:',
     '· The picture reaches all four edges of the image; there is no magenta and no border.',
     `· Laid over the ${p ? 'last attached image' : 'reference'}, every coast, river, bridge, road and clearing is where it has it.`,
+    '· Every river, lake and sea is saturated blue and unbroken, where the reference has it; water is crossed only at the reference\'s bridges.',
+    ...(p ? [`· Held next to the first attached image, this ${tile} has its colours, light and scale: cut from it, it would fit back in unseen.`] : []),
     '· Each region\'s outline matches the reference: no mountains, trees or hills outside their own region, and the mountain regions are no larger than the reference makes them.',
     '· Held next to the first two attached images, the map looks painted by the same hand: the same outline weight, the same two-step shading, the same glints. Flat, outline-thin clip-art stickers are wrong.',
     `· The ${p ? '' : `${sites} `}clearings are empty, and there is not one building, figure, symbol or letter anywhere in it.`,

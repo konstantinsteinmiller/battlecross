@@ -7,8 +7,8 @@
 //
 //   trailer  40 bars, cut to the cinematic trailer's shots (its scenario lays
 //            its shots on these same bars): the walk out of Sunford, the call
-//            to arms, the montage, the loot, the walk round the well, the
-//            dragon and the fortress, the rift
+//            to arms, the build (the hero's book, #125), the montage, the
+//            loot, the dragon and the fortress, the rift
 //   game     the driving sections (montage, climax, fortress) as a loop that
 //            opens on a drum blow: the boss fight's music
 //
@@ -54,6 +54,25 @@ const SECTIONS = [
   { name: 'fortress', chords: ['Bb', 'C', 'Dm', 'Dm', 'Bb', 'C', 'A', 'A'], level: 1, parts: ['celloEighths', 'chugs', 'guitarStrum', 'pianoOctaves', 'pad', 'bongos', 'shaker', 'drums', 'taikoBeats', 'crashDown', 'fillEnd'], melody: { inst: 'violin', bars: [...M1b, ...M2], up: 12 } },
   // 36–39  the rift: the drop, and the last word
   { name: 'rift', chords: ['Dm', 'Dm', 'Bb', 'Dm'], level: 0.55, parts: ['celloDrone', 'pianoLow', 'highViolin', 'timpSoft', 'finalHit'] }
+]
+
+/**
+ * The trailer's own edit (#125): the same sections, the boss fights' (climax,
+ * fortress, rift) cut shorter, and a 'build' section for the hero's book (the
+ * loadout, the stats, the gear) in place of the walk round the well. The game
+ * edit below still plays SECTIONS as written.
+ */
+const section = (name) => SECTIONS.find(s => s.name === name)
+const TRAILER_SECTIONS = [
+  section('intro'),
+  section('call'),
+  // 10–17  the build: a lighter drive under the menus
+  { name: 'build', chords: ['Dm', 'Bb', 'F', 'C', 'Gm', 'Bb', 'C', 'A'], level: 0.74, parts: ['celloEighths', 'guitarStrum', 'pianoChords', 'pad', 'bongos', 'shaker', 'kick', 'taikoDown', 'timpRollEnd'], melody: { inst: 'violin', bars: [...M1, ...M1b] } },
+  section('montage'),
+  section('loot'),
+  { ...section('climax'), chords: ['Dm', 'Bb', 'Gm', 'A'], melody: { inst: 'violin', bars: M2, up: 12 } },
+  { ...section('fortress'), chords: ['Bb', 'C', 'Dm', 'Bb', 'A', 'A'], melody: { inst: 'violin', bars: [...M1b.slice(0, 2), ...M2], up: 12 } },
+  { ...section('rift'), chords: ['Dm', 'Dm'] }
 ]
 
 /** The bars of a section list, numbered: [{ bar, chord, level, parts, section, i (bar in section), n (bars in section) }]. */
@@ -157,12 +176,12 @@ const notes = (sections) => {
   return ev
 }
 
-/** An edit of the piece: 'trailer' (the whole, 40 bars) or 'game' (the boss fight's loop). */
+/** An edit of the piece: 'trailer' (40 bars, TRAILER_SECTIONS) or 'game' (the boss fight's loop). */
 export const score = (edit = 'trailer') => {
-  const pick = edit === 'game' ? SECTIONS.filter(s => s.name === 'montage' || s.name === 'climax' || s.name === 'fortress') : SECTIONS
+  const pick = edit === 'game' ? SECTIONS.filter(s => s.name === 'montage' || s.name === 'climax' || s.name === 'fortress') : TRAILER_SECTIONS
   const bars = pick.reduce((n, s) => n + s.chords.length, 0)
   return { bpm: BPM, beats: bars * 4, seconds: bars * 4 * BEAT_S, loop: edit === 'game', events: notes(pick) }
 }
 
 /** The trailer's bars per section, for the scenario to cut on. */
-export const TRAILER_BARS = Object.fromEntries(SECTIONS.map(s => [s.name, s.chords.length]))
+export const TRAILER_BARS = Object.fromEntries(TRAILER_SECTIONS.map(s => [s.name, s.chords.length]))

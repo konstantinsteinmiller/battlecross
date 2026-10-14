@@ -27,6 +27,7 @@
 import { mobileCheck } from '@/utils/function'
 import { actionForCode, codesFor, type Action } from './keyBindings'
 import { observeKey } from './keyLabels'
+import { watchLostInput } from './lostInput'
 
 export interface Input {
   /** Movement from the joystick or the keys, in SCREEN space: x right, y up.
@@ -172,6 +173,8 @@ export const attachInput = (surface: HTMLElement, input: Input, opts: InputOptio
   let joyId: number | null = null
   let ptrId: number | null = null
   let downAt = 0
+  /** The scene pointer is a finger (the touch list reconciles it). */
+  let ptrTouch = false
   const touchOnly = touchFirst()
 
   const rect = () => surface.getBoundingClientRect()
@@ -208,6 +211,13 @@ export const attachInput = (surface: HTMLElement, input: Input, opts: InputOptio
     }
     input.joyX = dx / joyR
     input.joyY = dy / joyR
+    // A bad coordinate (NaN from a stale rect) must never steer: centre it.
+    if (!Number.isFinite(input.joyX) || !Number.isFinite(input.joyY)) {
+      input.joyOriginX = Number.isFinite(x) ? x : input.joyHomeX
+      input.joyOriginY = Number.isFinite(y) ? y : input.joyHomeY
+      input.joyX = 0
+      input.joyY = 0
+    }
     const mag = Math.min(1, Math.hypot(input.joyX, input.joyY))
     // Small dead zone, then an ease so fine steps are possible.
     const dz = 0.14
@@ -244,6 +254,7 @@ export const attachInput = (surface: HTMLElement, input: Input, opts: InputOptio
     }
     if (ptrId !== null) return
     ptrId = e.pointerId
+    ptrTouch = e.pointerType === 'touch'
     downAt = performance.now()
     input.held = true
     input.dragging = false
@@ -353,16 +364,53 @@ export const attachInput = (surface: HTMLElement, input: Input, opts: InputOptio
     updateKeysMove()
   }
 
-  const onBlur = () => {
-    keys.clear()
-    input.moveX = 0
-    input.moveY = 0
-    input.keysMoving = false
-    input.joyActive = false
-    input.held = false
-    input.dragging = false
+  /** Let go of the stick and the scene pointer, without a tap or a drop. */
+  const releasePointers = () => {
+    if (joyId !== null) {
+      try { surface.releasePointerCapture(joyId) } catch { /* ignore */ }
+    }
+    if (ptrId !== null) {
+      try { surface.releasePointerCapture(ptrId) } catch { /* ignore */ }
+    }
     joyId = null
     ptrId = null
+    input.joyActive = false
+    input.joyX = 0
+    input.joyY = 0
+    input.held = false
+    input.dragging = false
+    input.moveX = 0
+    input.moveY = 0
+    updateKeysMove()
+  }
+
+  /**
+   * Drop EVERYTHING held. iOS (an installed PWA above all) swallows the
+   * pointerup / touchend of a finger that was down when a system gesture, a
+   * notification or an app switch took over; without this the stick kept its
+   * last push and the hero walked into a corner until the app was restored.
+   */
+  const releaseAll = () => {
+    keys.clear()
+    input.keysMoving = false
+    releasePointers()
+  }
+
+  /** The browser took the pointer away (iOS does, without a pointercancel). */
+  const onLostCapture = (e: PointerEvent) => {
+    if (e.pointerId === joyId) {
+      joyId = null
+      input.joyActive = false
+      input.joyX = 0
+      input.joyY = 0
+      input.moveX = 0
+      input.moveY = 0
+      updateKeysMove()
+    } else if (e.pointerId === ptrId) {
+      ptrId = null
+      input.held = false
+      input.dragging = false
+    }
   }
 
   const onContext = (e: Event) => e.preventDefault()
@@ -375,7 +423,12 @@ export const attachInput = (surface: HTMLElement, input: Input, opts: InputOptio
   surface.addEventListener('contextmenu', onContext)
   window.addEventListener('keydown', onKeyDown)
   window.addEventListener('keyup', onKeyUp)
-  window.addEventListener('blur', onBlur)
+  surface.addEventListener('lostpointercapture', onLostCapture)
+  const unwatchLost = watchLostInput({
+    releaseAll,
+    releaseTouches: releasePointers,
+    heldTouches: () => (joyId !== null ? 1 : 0) + (ptrId !== null && ptrTouch ? 1 : 0)
+  })
 
   return () => {
     surface.removeEventListener('pointerdown', onDown)
@@ -386,6 +439,7 @@ export const attachInput = (surface: HTMLElement, input: Input, opts: InputOptio
     surface.removeEventListener('contextmenu', onContext)
     window.removeEventListener('keydown', onKeyDown)
     window.removeEventListener('keyup', onKeyUp)
-    window.removeEventListener('blur', onBlur)
+    surface.removeEventListener('lostpointercapture', onLostCapture)
+    unwatchLost()
   }
 }

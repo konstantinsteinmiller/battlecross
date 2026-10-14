@@ -332,7 +332,7 @@ const buildZone = async (node: NodeId, onProgress: (p01: number) => void, encoun
 let buildNode: NodeBuilder = buildZone
 /** Build a place without showing it, and show a built one (the recorder cuts
  *  between prebuilt places; the game itself travels with `travel`). */
-export const buildPlace = (node: NodeId, onProgress: (p01: number) => void): Promise<BuiltPlace> => buildNode(node, onProgress)
+export const buildPlace = (node: NodeId, onProgress: (p01: number) => void, encounter?: EncounterSpec): Promise<BuiltPlace> => buildNode(node, onProgress, encounter)
 export const enterPlace = (node: NodeId, mode: BuiltPlace): void => enter(node, mode)
 /** Test seam: build places without a GPU. */
 export const setNodeBuilder = (fn: NodeBuilder | null): void => { buildNode = fn ?? buildZone }

@@ -701,7 +701,21 @@ export default {
     'entropy': 'Casts shorten cooldowns by {n}%',
     'bloodToMana': '{n}% of physical damage taken returns as mana',
     'bleedHeal': 'Hitting a bleeding enemy heals {n}% health',
-    'overheatCrit': '+{n}% Critical Damage while overheated'
+    'overheatCrit': '+{n}% Critical Damage while overheated',
+    'lowHealthDamage': 'Up to +{n}% damage as your health falls',
+    'heatArmor': '{n}% less damage taken while heat is at half or more',
+    'crumble': '+{n}% damage to slowed, knocked-down or petrified enemies',
+    'lastStand': '{n}% less damage taken below 30% health',
+    'wildfire': 'A burning enemy that falls sets foes within {n} m alight',
+    'loyalty': 'A fallen minion heals you {n}% health',
+    'chillOnHit': 'Basic hits slow by {n}% for 2s',
+    'chillDamage': '+{n}% damage to slowed or frozen enemies',
+    'healPower': 'Healing you receive is {n}% stronger',
+    'packDamage': '+{n}% damage for each companion alive (up to 4)',
+    'reactionDamage': 'Element reactions are {n}% stronger',
+    'soulRise': 'Beaten foes have a {n}% chance to rise as your spirit',
+    'chiOnHit': 'Attacks have a {n}% chance to build chi',
+    'songLength': 'Songs last {n}% longer'
   },
   'item': {
     // Smithed at a forge (#99): six pieces in each metal and their masterwork twins.

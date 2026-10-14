@@ -25,7 +25,13 @@
  *      row), kept away from the strip's own edges;
  *   3. a narrow feather across that path, so the cut has no hard step.
  * Left and right halves are joined top to bottom first, then side by side.
+ *
+ * A SUBDIVIDED QUARTER (`MAP_SUBDIVIDED`) is painted as four pieces, laid out
+ * inside it exactly as the quarters are inside the map; they are joined the
+ * same way into the quarter's own file (`map-parts/<q>/` → `map-parts/<q>.webp`)
+ * before the quarters are. `--seams x.png` also writes `x-<q>.png` for it.
  */
+import { spawnSync } from 'node:child_process'
 import { existsSync, mkdirSync, readFileSync } from 'node:fs'
 import { dirname, join, relative, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
@@ -43,7 +49,18 @@ const PARTS = opt('--parts')
 const FEATHER = 14
 
 const index = JSON.parse(readFileSync(join(ROOT, 'art-sheets', 'sheet-index.json'), 'utf8'))
-const parts = (index.scenery ?? []).filter((a) => a.part)
+const parts = (index.scenery ?? []).filter((a) => a.part && !a.sub)
+// The pieces of a subdivided quarter: joined into it first, by this same
+// script over their own folder (never from inside such a run).
+if (!PARTS) {
+  for (const q of new Set((index.scenery ?? []).filter((a) => a.sub).map((a) => a.part.name))) {
+    const dir = join(ROOT, 'art-sheets', 'map-parts', q)
+    console.log(`quarter ${q}, from its four pieces:`)
+    const r = spawnSync(process.execPath, [fileURLToPath(import.meta.url), '--parts', dir, '--out', join(ROOT, 'art-sheets', 'map-parts', `${q}.webp`),
+      ...(SEAMS ? ['--seams', SEAMS.replace(/(\.png)?$/i, `-${q}.png`)] : []), ...(DRY ? ['--dry'] : [])], { stdio: 'inherit' })
+    if (r.status !== 0) process.exit(r.status ?? 1)
+  }
+}
 if (parts.length !== 4) {
   console.error(`expected four map quarters in the index, found ${parts.length} — run pnpm art:prompts`)
   process.exit(1)

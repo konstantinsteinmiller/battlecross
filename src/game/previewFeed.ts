@@ -1,14 +1,17 @@
 import { app } from './engine/app'
 import { ZoneMode } from './modes/zoneMode'
-import { buildPlace, enterPlace, flow } from './flow'
+import { buildPlace, enterPlace, flow, npcById, type Modal } from './flow'
 import { addHudTicker } from './state/hud'
 import { profile, setSaveSandbox } from './state/profile'
 import { botThink, referenceBuild, setBotDodge } from './sim/bot'
 import { orderMove, usePotion } from './sim/hero'
+import { chestLock, orderOpen } from './sim/interact'
+import { escortPacks } from './data/encounters'
 import { ENEMY_BY_ID } from './data/enemies'
 import { ITEMS } from './data/items'
 import { SKILLS, type ClassId } from './data/skills'
 import { MAP, type NodeId } from './data/zones'
+import type { ZoneId } from './data/items'
 import { acquireAppPause } from '@/use/useGamePause'
 import { setSfxTap } from './audio/sfx'
 import { PREVIEW_FEED, PREVIEW_ON, type Feed } from './previewFlags'
@@ -54,8 +57,9 @@ export interface PreviewApi {
   /** Make the hero a level-appropriate build of one class (nothing is saved).
    *  `bare`: he owns nothing beyond what he wears, so bosses and chests drop loot on camera. */
   hero(o: { level: number; cls: ClassId; potions?: number; bare?: boolean }): void
-  /** Build a place and keep it, without showing it. Returns its shot index. */
-  build(node: NodeId): Promise<number>
+  /** Build a place and keep it, without showing it. Returns its shot index.
+   *  `escort`: the caravan's road in that zone's land instead (#85). */
+  build(node: NodeId, o?: { escort?: boolean }): Promise<number>
   /** Hard cut to a prebuilt shot. */
   cut(shot: number): void
   /** Arrange the fight in the live shot. */
@@ -75,6 +79,14 @@ export interface PreviewApi {
    * is switched off for it.
    */
   walk(points: Array<[number, number]>): void
+  /** The escort's cart pulled up beside the hero, rolling on toward the next ambush (#125's caravan shot). */
+  caravan(): boolean
+  /** The nearest chest the hero may open holds these pieces (and its gold); he walks over and opens it. */
+  chest(items: string[]): boolean
+  /** Open one of the game's own screens (a shop names its merchant), or close it (''). */
+  open(modal: Modal | '', npc?: string): void
+  /** The hero's book for a shot: gold, unspent points, the bag, the loadout ('' = an empty socket). */
+  book(o: { gold?: number; points?: number; items?: string[]; active?: string[]; passive?: string[] }): void
   /** Every sound the game asked for since `installPreview`, on the page clock (the trailer's sound track). */
   sfxLog(): Array<{ name: string; pan: number; gain: number; t: number }>
   /** Where things are in the live shot (world metres): the start, the main
@@ -146,8 +158,11 @@ export const installPreview = (): void => {
       for (const f of ['arenaOpen', 'throneDone']) if (!profile.world.flags.includes(f)) profile.world.flags.push(f)
     },
 
-    async build(node) {
-      const mode = await buildPlace(node, () => {})
+    async build(node, o = {}) {
+      const zoneId = node as ZoneId
+      const mode = o.escort
+        ? await buildPlace(node, () => {}, { kind: 'fight', zone: zoneId, level: profile.level, seed: 125, packs: escortPacks(zoneId, 125), escort: true })
+        : await buildPlace(node, () => {})
       shots.push({ node, mode })
       return shots.length - 1
     },
@@ -221,6 +236,58 @@ export const installPreview = (): void => {
       z.cam.snap()
       route = points.slice(1)
       if (route.length) orderMove(z.sim, route[0]![0], route[0]![1])
+    },
+    caravan() {
+      const z = zone()
+      const c = z?.sim.caravan
+      const cart = c ? z.sim.get(c.unit) : undefined
+      if (!z || !c || !cart) return false
+      const u = z.sim.hero.unit
+      // Beside the hero, on the road's side away from the pack he faces.
+      cart.x = cart.px = u.x - 2.2
+      cart.z = cart.pz = u.z + 1.6
+      // On to the clearing ahead: the waypoint nearest the hero's pack.
+      let best = 1
+      for (let i = 1; i < c.path.length / 2; i++) {
+        if (Math.hypot(c.path[i * 2]! - u.x, c.path[i * 2 + 1]! - u.z) < Math.hypot(c.path[best * 2]! - u.x, c.path[best * 2 + 1]! - u.z)) best = i
+      }
+      c.i = best
+      c.phase = 'rolling'
+      return true
+    },
+
+    chest(items) {
+      const z = zone()
+      if (!z) return false
+      const sim = z.sim
+      const u = sim.hero.unit
+      const open = sim.chests.filter(c => c.role !== 'cage' && !chestLock(sim, c))
+      const c = open.sort((a, b) => Math.hypot(a.x - u.x, a.z - u.z) - Math.hypot(b.x - u.x, b.z - u.z))[0]
+      if (!c) return false
+      // Named pieces, so the find is the shot's; the gold stays the chest's own.
+      c.loot = [...c.loot.filter(d => d.kind === 'gold'), ...items.map(item => ({ kind: 'item' as const, gold: 0, u: 0, item }))]
+      for (const id of items) { sim.owned.delete(id); sim.hero.items = sim.hero.items.filter(i => i !== id) }
+      // A few steps short of it, then the walk and the lid are the game's.
+      u.x = u.px = c.sx + 2.6
+      u.z = u.pz = c.sz + 2.6
+      u.hasGoal = false
+      z.cam.snap()
+      botOn = false
+      route = []
+      return orderOpen(sim, c.id)
+    },
+
+    open(modal, npc) {
+      if (npc) flow.npc = npcById(npc)
+      flow.modal = modal
+    },
+
+    book({ gold, points, items, active, passive }) {
+      if (gold !== undefined) profile.gold = gold
+      if (points !== undefined) profile.hero.points = points
+      if (items) { profile.inv.items = [...new Set([...Object.values(profile.inv.equipped).filter((id): id is string => !!id), ...items])]; profile.inv.fresh = [...items] }
+      if (active) profile.hero.active = active
+      if (passive) profile.hero.passive = passive
     },
     sfxLog: () => sounds,
 

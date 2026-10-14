@@ -1383,7 +1383,21 @@ export default {
     entropy: 'Zauber verkürzen Abklingzeiten um {n}%',
     bloodToMana: '{n}% des erlittenen physischen Schadens kehrt als Mana zurück',
     bleedHeal: 'Ein Treffer gegen einen blutenden Gegner heilt {n}% Leben',
-    overheatCrit: '+{n}% Kritischer Schaden, solange überhitzt'
+    overheatCrit: '+{n}% Kritischer Schaden, solange überhitzt',
+    lowHealthDamage: 'Bis zu +{n}% Schaden, je weiter deine Gesundheit sinkt',
+    heatArmor: '{n}% weniger erlittener Schaden, solange die Hitze mindestens halb voll ist',
+    crumble: '+{n}% Schaden gegen verlangsamte, niedergeworfene oder versteinerte Gegner',
+    lastStand: '{n}% weniger erlittener Schaden unter 30% Gesundheit',
+    wildfire: 'Ein brennender Gegner, der fällt, setzt Feinde im Umkreis von {n} m in Brand',
+    loyalty: 'Ein gefallener Diener heilt dich um {n}% Gesundheit',
+    chillOnHit: 'Normale Treffer verlangsamen 2 s lang um {n}%',
+    chillDamage: '+{n}% Schaden gegen verlangsamte oder gefrorene Gegner',
+    healPower: 'Heilung, die du erhältst, ist {n}% stärker',
+    packDamage: '+{n}% Schaden für jeden lebenden Gefährten (bis zu 4)',
+    reactionDamage: 'Elementreaktionen sind {n}% stärker',
+    soulRise: 'Besiegte Gegner erheben sich mit {n}% Chance als dein Geist',
+    chiOnHit: 'Angriffe bauen mit {n}% Chance Chi auf',
+    songLength: 'Lieder halten {n}% länger'
   },
   item: {
     heartOfTheArena: {

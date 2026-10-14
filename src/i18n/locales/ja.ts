@@ -1382,7 +1382,21 @@ export default {
     entropy: 'スキルを使うとクールダウンが{n}%縮む',
     bloodToMana: '受けた物理ダメージの{n}%がマナで戻る',
     bleedHeal: '出血中の敵に当てると体力{n}%回復',
-    overheatCrit: 'オーバーヒート中クリティカルダメージ+{n}%'
+    overheatCrit: 'オーバーヒート中クリティカルダメージ+{n}%',
+    lowHealthDamage: '体力が減るほど最大+{n}%のダメージ',
+    heatArmor: '熱が半分以上の間、受けるダメージ-{n}%',
+    crumble: '減速・転倒・石化した敵へのダメージ+{n}%',
+    lastStand: '体力30%未満で受けるダメージ-{n}%',
+    wildfire: '燃えている敵が倒れると{n}m以内の敵に延焼',
+    loyalty: '倒れた手下が体力を{n}%回復',
+    chillOnHit: '通常攻撃が2秒間{n}%減速させる',
+    chillDamage: '減速・凍結した敵へのダメージ+{n}%',
+    healPower: '受ける回復量+{n}%',
+    packDamage: '生存している仲間1体ごとにダメージ+{n}%（最大4体）',
+    reactionDamage: '元素反応+{n}%',
+    soulRise: '倒した敵が{n}%の確率であなたの霊として蘇る',
+    chiOnHit: '攻撃が{n}%の確率で気を溜める',
+    songLength: '歌の持続時間+{n}%'
   },
   item: {
     heartOfTheArena: {

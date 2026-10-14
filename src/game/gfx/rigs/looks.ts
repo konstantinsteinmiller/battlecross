@@ -196,13 +196,22 @@ const wornKind = (kind: string, tier: number, plate: string): GearKind => (kind 
 
 /** The hero as the gear makes him (or her, `gender` 'f') look. Tier colours
  *  the trim; the body armour's class decides the outfit. */
+/** Heroic and legendary steel. A deep gold: the cel light (×1.25) clips a pale
+ *  one to flat white-yellow, and a full set read as one blank figure (#125). */
+const HERO_GOLD = '#d9b04e'
+/** A tier's colour on the rig: heroic orange and legendary gold a shade
+ *  deeper than on the icons, for the same reason (the plate's breastplate and
+ *  pauldrons are lit to 1.5× their trim, and the pale ones clip flat). */
+const RIG_TIER: Record<number, string> = { 5: '#d9743c', 6: '#d9a531' }
+const tierHex = (tier: number): string => RIG_TIER[tier] ?? TIER_COLOR[tier]!
+
 export const heroLook = (equipped: Record<EquipSlot, string | null>, gender: HeroGender = 'm'): Look => {
   const who = HERO_HEAD[gender === 'f' ? 'f' : 'm']
   const main = equipped.main ? ITEM_BY_ID[equipped.main] : undefined
   const off = equipped.off ? ITEM_BY_ID[equipped.off] : undefined
   const body = equipped.body ? ITEM_BY_ID[equipped.body] : undefined
   const tier = body?.tier ?? 0
-  const trim = tier ? TIER_COLOR[tier]! : '#c9a24a'
+  const trim = tier ? tierHex(tier) : '#c9a24a'
   // Head, hands and feet: slots a newer save has and an older one does not.
   const worn = equipped as Partial<Record<string, string | null>>
   const head = ITEM_BY_ID[worn.head ?? '']
@@ -224,12 +233,12 @@ export const heroLook = (equipped: Record<EquipSlot, string | null>, gender: Her
     head: headGear ? (headGear === 'hat' && outfit === 'robe' ? 'wizard' : headGear) : who.style,
     style: who.style,
     ...(who.fem ? { fem: true } : {}),
-    headCol: head ? (headKind === 'helm' || headKind === 'greathelm' ? (head.tier >= 5 ? '#ffe9a8' : head.tier >= 3 ? '#bfe6ff' : '#c9d3e4') : HEAD_COL[headKind]) : undefined,
-    headTrim: head ? TIER_COLOR[head.tier] : undefined,
+    headCol: head ? (headKind === 'helm' || headKind === 'greathelm' ? (head.tier >= 5 ? HERO_GOLD : head.tier >= 3 ? '#bfe6ff' : '#c9d3e4') : HEAD_COL[headKind]) : undefined,
+    headTrim: head ? tierHex(head.tier) : undefined,
     gloves: hands ? wornKind(hands.kind, hands.tier, 'gauntlets') : undefined,
-    gloveTrim: hands ? TIER_COLOR[hands.tier] : undefined,
+    gloveTrim: hands ? tierHex(hands.tier) : undefined,
     boots: feet ? wornKind(feet.kind, feet.tier, 'greaves') : undefined,
-    bootTrim: feet ? TIER_COLOR[feet.tier] : undefined,
+    bootTrim: feet ? tierHex(feet.tier) : undefined,
     top: tops[outfit]!,
     bottom: outfit === 'plate' ? '#5a6a88' : '#3a4a6a',
     trim,
@@ -238,7 +247,7 @@ export const heroLook = (equipped: Record<EquipSlot, string | null>, gender: Her
     off: off ? OFF_OF[off.kind] ?? 'none' : 'none',
     pauldrons: outfit === 'plate',
     cape: tier >= 3 ? trim : '#c9483a',
-    metal: mainTier >= 5 ? '#ffe9a8' : mainTier >= 3 ? '#bfe6ff' : '#d8dde8',
+    metal: mainTier >= 5 ? HERO_GOLD : mainTier >= 3 ? '#bfe6ff' : '#d8dde8',
     glow: main ? TIER_COLOR[mainTier]! : '#7ff4ff'
   })
 }

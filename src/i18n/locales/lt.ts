@@ -1382,7 +1382,21 @@ export default {
     entropy: 'Burtai trumpina atsikrovimus {n}%',
     bloodToMana: '{n}% gaunamos fizinės žalos grįžta kaip mana',
     bleedHeal: 'Pataikymas į kraujuojantį priešą pagydo {n}% gyvybės',
-    overheatCrit: '+{n}% kritinės žalos perkaitus'
+    overheatCrit: '+{n}% kritinės žalos perkaitus',
+    lowHealthDamage: 'Iki +{n}% žalos, kai mažėja tavo sveikata',
+    heatArmor: '{n}% mažiau gaunamos žalos, kol karštis bent pusėje',
+    crumble: '+{n}% žalos sulėtintiems, parblokštiems ar suakmenėjusiems priešams',
+    lastStand: '{n}% mažiau gaunamos žalos, kai sveikata žemiau 30%',
+    wildfire: 'Krintantis degantis priešas uždega priešus {n} m spinduliu',
+    loyalty: 'Žuvęs tarnas pagydo tave {n}% sveikatos',
+    chillOnHit: 'Įprasti smūgiai 2 s sulėtina {n}%',
+    chillDamage: '+{n}% žalos sulėtintiems ar sušalusiems priešams',
+    healPower: 'Gaunamas gydymas stipresnis {n}%',
+    packDamage: '+{n}% žalos už kiekvieną gyvą bendražygį (iki 4)',
+    reactionDamage: 'Stichijų reakcijos stipresnės {n}%',
+    soulRise: 'Nugalėti priešai turi {n}% tikimybę prisikelti kaip tavo dvasia',
+    chiOnHit: 'Atakos turi {n}% tikimybę sukaupti či',
+    songLength: 'Dainos trunka {n}% ilgiau'
   },
   item: {
     heartOfTheArena: {

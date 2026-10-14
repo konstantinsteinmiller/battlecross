@@ -12,8 +12,10 @@
  *      the trailer's own score with sampled piano, strings, guitar and
  *      percussion, its sections on the trailer's acts and every cut on a bar.
  *   3. RENDER the fights' sounds: the game's own synth recipes, offline, laid
- *      at the logged times (`tools/sfx-render.mjs`). No voice-over.
- *   4. MIX: the music under the fights, a fade in and out, levelled to -15 LUFS.
+ *      at the logged times (`tools/sfx-render.mjs`).
+ *   4. MIX: the music under the fights, the hero's lines (his English voice
+ *      files, `public/audio/voice/en`, at the times the shot list gives them)
+ *      on top, a fade in and out, levelled to -15 LUFS.
  *   5. WRITE preview-videos/battlecross-cinematic-trailer.mp4 — H.264 4:2:0
  *      at 1920x1080, AAC stereo.
  *
@@ -36,6 +38,9 @@ const ffmpeg = createRequire(join(ROOT, 'package.json'))('ffmpeg-static')
 /** The fights against the music (the music is the bed, the hits sit on top). */
 const MUSIC_GAIN = 0.85
 const FIGHTS_GAIN = 0.6
+/** The hero's lines over both (the music ducks under each). */
+const VOICE_GAIN = 2.2
+const VOICE_DIR = join(ROOT, 'public', 'audio', 'voice', 'en')
 
 const argv = process.argv.slice(2)
 const skipRecord = argv.includes('--skip-record')
@@ -60,9 +65,11 @@ const picture = (() => {
 })()
 if (!picture) { console.error('no recording of the trailer found under preview-videos/'); process.exit(1) }
 if (!existsSync(SOUNDS)) { console.error(`no sound log at ${SOUNDS}: record first`); process.exit(1) }
-const { durationMs, events } = JSON.parse(readFileSync(SOUNDS, 'utf8'))
+const { durationMs, events, voices = [] } = JSON.parse(readFileSync(SOUNDS, 'utf8'))
+const lines = voices.filter(v => existsSync(join(VOICE_DIR, `${v.id}.ogg`)))
+for (const v of voices) if (!lines.includes(v)) console.warn(`no voice file for ${v.id}`)
 const seconds = durationMs / 1000
-console.log(`picture: ${picture}\nsounds: ${events.length} logged`)
+console.log(`picture: ${picture}\nsounds: ${events.length} logged, ${lines.length} lines`)
 
 // 2. The music, a little longer than the picture (the fade-out is the mix's).
 const audioDir = join(OUT_DIR, 'cinematic-audio')
@@ -76,15 +83,25 @@ run(process.execPath, [join(ROOT, 'tools/sfx-render.mjs'), SOUNDS, fights], 'ren
 
 // 4 + 5. The mix.
 const fadeOut = Math.max(0, seconds - 2.5).toFixed(2)
+// The lines: each delayed to its time, all on one bus; the music side-chained under it.
+const voiceInputs = lines.flatMap(v => ['-i', join(VOICE_DIR, `${v.id}.ogg`)])
+const voiceBus = lines.length
+  ? [
+      ...lines.map((v, k) => `[${3 + k}:a]aformat=sample_rates=44100:channel_layouts=stereo,adelay=${v.ms}|${v.ms},volume=${VOICE_GAIN}[v${k}]`),
+      `${lines.map((_, k) => `[v${k}]`).join('')}amix=inputs=${lines.length}:normalize=0:duration=longest,apad,atrim=0:${seconds.toFixed(3)},asplit=2[vo][vkey]`
+    ]
+  : []
 const graph = [
-  `[1:a]atrim=0:${seconds.toFixed(3)},asetpts=PTS-STARTPTS,aformat=sample_rates=44100:channel_layouts=stereo,volume=${MUSIC_GAIN}[mus]`,
+  `[1:a]atrim=0:${seconds.toFixed(3)},asetpts=PTS-STARTPTS,aformat=sample_rates=44100:channel_layouts=stereo,volume=${MUSIC_GAIN}${lines.length ? '[mus0]' : '[mus]'}`,
+  ...voiceBus,
+  ...(lines.length ? ['[mus0][vkey]sidechaincompress=threshold=0.05:ratio=4:attack=20:release=400[mus]'] : []),
   // The fights' bus a little compressed: a crit on an explosion would otherwise
   // be squared off by the limiter, and AAC rings past the ceiling on that.
   `[2:a]aformat=sample_rates=44100:channel_layouts=stereo,volume=${FIGHTS_GAIN},acompressor=threshold=0.2:ratio=3:attack=3:release=90[fx]`,
-  `[mus][fx]amix=inputs=2:normalize=0:duration=first,afade=t=in:st=0:d=0.4,afade=t=out:st=${fadeOut}:d=2.5,loudnorm=I=-15:TP=-1.5:LRA=11,aresample=44100,lowpass=f=16000,alimiter=limit=0.89:attack=2:level=false[aout]`
+  `[mus][fx]${lines.length ? '[vo]' : ''}amix=inputs=${lines.length ? 3 : 2}:normalize=0:duration=first,afade=t=in:st=0:d=0.4,afade=t=out:st=${fadeOut}:d=2.5,loudnorm=I=-15:TP=-1.5:LRA=11,aresample=44100,lowpass=f=16000,alimiter=limit=0.89:attack=2:level=false[aout]`
 ].join(';')
 run(ffmpeg, [
-  '-y', '-loglevel', 'error', '-i', picture, '-i', music, '-i', fights,
+  '-y', '-loglevel', 'error', '-i', picture, '-i', music, '-i', fights, ...voiceInputs,
   '-filter_complex', graph,
   '-map', '0:v', '-map', '[aout]',
   '-c:v', 'libx264', '-preset', 'slow', '-crf', '16', '-pix_fmt', 'yuv420p', '-profile:v', 'high',

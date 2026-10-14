@@ -1383,7 +1383,21 @@ export default {
     entropy: 'Lancer un sort réduit les recharges de {n} %',
     bloodToMana: '{n} % des dégâts physiques subis reviennent en mana',
     bleedHeal: 'Frapper un ennemi qui saigne rend {n} % de santé',
-    overheatCrit: '+{n} % de dégâts Critiques en surchauffe'
+    overheatCrit: '+{n} % de dégâts Critiques en surchauffe',
+    lowHealthDamage: 'Jusqu\'à +{n}% de dégâts à mesure que ta santé baisse',
+    heatArmor: '{n}% de dégâts subis en moins tant que la chaleur est à moitié ou plus',
+    crumble: '+{n}% de dégâts contre les ennemis ralentis, renversés ou pétrifiés',
+    lastStand: '{n}% de dégâts subis en moins sous 30% de santé',
+    wildfire: 'Un ennemi en feu qui tombe embrase les ennemis à {n} m autour',
+    loyalty: 'Un serviteur tombé te soigne de {n}% de santé',
+    chillOnHit: 'Les coups normaux ralentissent de {n}% pendant 2 s',
+    chillDamage: '+{n}% de dégâts contre les ennemis ralentis ou gelés',
+    healPower: 'Les soins que tu reçois sont {n}% plus forts',
+    packDamage: '+{n}% de dégâts par compagnon en vie (jusqu\'à 4)',
+    reactionDamage: 'Les réactions élémentaires sont {n}% plus fortes',
+    soulRise: 'Les ennemis vaincus ont {n}% de chances de se relever en esprit à ton service',
+    chiOnHit: 'Les attaques ont {n}% de chances de générer du chi',
+    songLength: 'Les chants durent {n}% plus longtemps'
   },
   item: {
     heartOfTheArena: {

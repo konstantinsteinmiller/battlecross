@@ -1382,7 +1382,21 @@ export default {
     entropy: '施法讓冷卻縮短{n}%',
     bloodToMana: '受到的物理傷害有{n}%轉成魔力',
     bleedHeal: '打中流血的敵人回復{n}%生命',
-    overheatCrit: '過熱時爆擊傷害 +{n}%'
+    overheatCrit: '過熱時爆擊傷害 +{n}%',
+    lowHealthDamage: '生命越低傷害越高，最多+{n}%',
+    heatArmor: '熱量達到一半或以上時，受到的傷害-{n}%',
+    crumble: '對緩速、擊倒或石化的敵人傷害+{n}%',
+    lastStand: '生命低於30%時,受到的傷害-{n}%',
+    wildfire: '燃燒的敵人倒下時點燃{n}公尺內的敵人',
+    loyalty: '倒下的僕從為你恢復{n}%生命',
+    chillOnHit: '普通攻擊緩速{n}%，持續2秒',
+    chillDamage: '對緩速或冰凍的敵人傷害+{n}%',
+    healPower: '受到的治療+{n}%',
+    packDamage: '每有一名存活的同伴，傷害+{n}%（最多4名）',
+    reactionDamage: '元素反應+{n}%',
+    soulRise: '被擊敗的敵人有{n}%機率化為你的靈魂復起',
+    chiOnHit: '攻擊有{n}%機率積攢氣',
+    songLength: '歌曲持續時間+{n}%'
   },
   item: {
     heartOfTheArena: {

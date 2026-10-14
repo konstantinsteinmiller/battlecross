@@ -19,7 +19,7 @@
  */
 import { onMounted, onUnmounted, ref, watch } from 'vue'
 import { PerspectiveCamera, Scene, SRGBColorSpace, WebGLRenderer } from 'three'
-import { updateCelFrame } from '@/game/gfx/cel'
+import { setCelViewLight, updateCelFrame } from '@/game/gfx/cel'
 import { makeBlobShadow } from '@/game/gfx/markers'
 import { makeRigView, type RigView } from '@/game/gfx/rigs'
 import { animate, squash } from '@/game/gfx/rigs/anim'
@@ -131,6 +131,9 @@ const draw = (): void => {
   camera.updateProjectionMatrix()
   camera.updateMatrixWorld()
   updateCelFrame(camera, dist)
+  // Lit from the upper left and a little in front: the side turned away
+  // falls into the cel shadow, so the armour has a form.
+  setCelViewLight(-0.62, 0.62, 0.45)
   renderer.render(scene, camera)
   verify()
 }

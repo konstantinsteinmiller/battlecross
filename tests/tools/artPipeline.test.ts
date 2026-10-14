@@ -21,7 +21,7 @@ import { join, resolve } from 'node:path'
 import { pathToFileURL } from 'node:url'
 import sharp from 'sharp'
 import { afterAll, beforeAll, describe, expect, it } from 'vitest'
-import { CHARISMA_ITEMS, ITEMS } from '@/game/data/items'
+import { CHARISMA_ITEMS, ITEMS, MYTHICS, SMITHED } from '@/game/data/items'
 import { CLASSES, CLASS_IDS, SKILLS, skillsOf } from '@/game/data/skills'
 import { heroLook } from '@/game/gfx/rigs/looks'
 import { GLYPHS } from '@/components/art/glyphs'
@@ -32,7 +32,7 @@ import { EMBLEM_BODY } from '@/game/art/brandRefs'
 import { HERO_OUTFITS, heroGenderOfId, heroOutfit, heroOutfitOf, heroOutfitOfId, heroPortraitId, heroSampleEquipped } from '@/game/art/heroPortrait'
 import {
   ART_CATALOGUE, BACKGROUND, CELL, COVERS, FINISH, GLOW, ICON_FILL, ICON_SETS, NOTATION, READABLE, READABLE_SMALL, SCENERY, SKILL_FINISH_REFS, SEE_THROUGH, SETS, SINGLES, STYLE_BACKDROP, STYLE_GREY, STYLE_PART, TALL,
-  allStems, artTarget, fitsOfIndex, manifestTargets, mapPartTarget, panelHeight, promptBlocks, promptDocs, sheetIndex, sheetSize, type Fits
+  allStems, artTarget, fitsOfIndex, manifestTargets, MAP_PARTS, MAP_PART_SPAN, mapPartTarget, mapTileRect, panelHeight, promptBlocks, promptDocs, sheetIndex, sheetSize, type Fits
 } from '@/game/art/artSheet'
 
 const ROOT = resolve(__dirname, '..', '..')
@@ -54,7 +54,7 @@ const fakeFits = (): Fits => Object.fromEntries([...manifestTargets().keys()]
 describe('the manifest covers the game', () => {
   const targets = manifestTargets()
 
-  it('every item has a panel: 74 ids on seven 4x3 sheets, in items.ts order', () => {
+  it('every item has a panel: 74 ids on seven 4x3 sheets, the 54 forged and mythic ones on five more, in items.ts order', () => {
     const TABLED = ITEMS.filter(i => !CHARISMA_ITEMS.has(i.id))
     const main = TABLED.filter(i => i.slot === 'main').map(i => i.id)
     const bySlot = (slot: string): string[] => TABLED.filter(i => i.slot === slot).map(i => i.id)
@@ -71,10 +71,21 @@ describe('the manifest covers the game', () => {
     expect(idsOf('sheet-items-boots')).toEqual(bySlot('feet'))
     expect([blanksOf('sheet-items-headgear'), blanksOf('sheet-items-boots')]).toEqual([0, 6])
     const itemSheets = SETS.filter(x => x.kind === 'items')
-    expect(itemSheets.map(x => x.stem)).toEqual(['sheet-items-weapons', 'sheet-items-arms', 'sheet-items-armor', 'sheet-items-trinkets', 'sheet-items-headgear', 'sheet-items-boots', 'sheet-items-charisma'])
+    expect(itemSheets.map(x => x.stem)).toEqual(['sheet-items-weapons', 'sheet-items-arms', 'sheet-items-armor', 'sheet-items-trinkets', 'sheet-items-headgear', 'sheet-items-boots', 'sheet-items-charisma',
+      'sheet-items-mythic', 'sheet-items-smith-iron', 'sheet-items-smith-silver', 'sheet-items-smith-gold', 'sheet-items-smith-mithril'])
+    // The colosseum's six prizes on one sheet; each ore's twelve forge pieces on its own.
+    expect(MYTHICS).toHaveLength(6)
+    expect(SMITHED).toHaveLength(48)
+    expect(idsOf('sheet-items-mythic')).toEqual(MYTHICS.map(i => i.id))
+    expect(blanksOf('sheet-items-mythic')).toBe(6)
+    for (const metal of ['Iron', 'Silver', 'Gold', 'Mithril']) {
+      const ids = idsOf(`sheet-items-smith-${metal.toLowerCase()}`)
+      expect(ids, metal).toHaveLength(12)
+      expect(ids.every(id => id.includes(metal)), metal).toBe(true)
+    }
     for (const x of itemSheets) expect([x.cols, x.rows, x.cells.length], x.stem).toEqual([4, 3, 12])
-    for (const it of ITEMS) expect(targets.has(`images/items/${it.id}.webp`), it.id).toBe(true)
-    expect([...ART_CATALOGUE.items].sort()).toEqual(ITEMS.map(i => i.id).sort())
+    for (const it of [...ITEMS, ...SMITHED, ...MYTHICS]) expect(targets.has(`images/items/${it.id}.webp`), it.id).toBe(true)
+    expect([...ART_CATALOGUE.items].sort()).toEqual([...ITEMS, ...SMITHED, ...MYTHICS].map(i => i.id).sort())
   })
 
   it('every skill has a panel: two 3x2 sheets per class (twelve skills, #95), in unlock order, in the class colour', () => {
@@ -188,12 +199,23 @@ describe('the manifest covers the game', () => {
       ['bg-ui-terrain-ne', 1376, 768, '../art-sheets/map-parts/ne.webp', 'opaque', false],
       ['bg-ui-terrain-sw', 1376, 768, '../art-sheets/map-parts/sw.webp', 'opaque', false],
       ['bg-ui-terrain-se', 1376, 768, '../art-sheets/map-parts/se.webp', 'opaque', false],
+      // #94: the top right quarter as four pieces, joined into its own file first.
+      ['bg-ui-terrain-ne-nw', 1376, 768, '../art-sheets/map-parts/ne/nw.webp', 'opaque', false],
+      ['bg-ui-terrain-ne-ne', 1376, 768, '../art-sheets/map-parts/ne/ne.webp', 'opaque', false],
+      ['bg-ui-terrain-ne-sw', 1376, 768, '../art-sheets/map-parts/ne/sw.webp', 'opaque', false],
+      ['bg-ui-terrain-ne-se', 1376, 768, '../art-sheets/map-parts/ne/se.webp', 'opaque', false],
       // D45: the trade table, the equipment and the skills screens.
       ['bg-ui-trade', 1376, 768, 'images/ui/bg-trade.webp', 'opaque', false],
       ['bg-ui-inventory', 1376, 768, 'images/ui/bg-inventory.webp', 'opaque', false],
       ['bg-ui-skills', 1376, 768, 'images/ui/bg-skills.webp', 'opaque', false],
       ['bg-ground', 512, 512, 'images/textures/ground.webp', 'opaque', true]
     ])
+    // A piece covers its corner of its quarter: the bottom right piece of the
+    // top right quarter ends at the map's right edge, where the rift is.
+    const r = mapTileRect(MAP_PARTS[1]!, MAP_PARTS[3]!)
+    expect(r.x + r.w).toBeCloseTo(1)
+    expect(r.y + r.h).toBeCloseTo(MAP_PART_SPAN)
+    expect(r.w).toBeCloseTo(MAP_PART_SPAN * MAP_PART_SPAN)
     // The screen's own name for it: what `UI_ART.get('bg-<name>')` looks up.
     expect(SCENERY.filter(a => a.plate === 'screen').map(a => [a.screen!.name, a.target])).toEqual([
       ['trade', 'images/ui/bg-trade.webp'], ['inventory', 'images/ui/bg-inventory.webp'], ['skills', 'images/ui/bg-skills.webp']
@@ -228,7 +250,7 @@ describe('the manifest covers the game', () => {
     const icons = ICON_SETS.reduce((n, s) => n + s.cells.filter(c => c).length, 0)
     // ... and the logo's badge and mascot, and the painted wordmark (#76).
     // The portraits: 22 speakers, the boy hero's four and the girl hero's four.
-    expect(seen.size).toBe(74 + SKILLS.length + 22 + 4 + 4 + 1 + 2 + 3 + icons + 2 + 1)
+    expect(seen.size).toBe(74 + 48 + 6 + SKILLS.length + 22 + 4 + 4 + 1 + 2 + 3 + icons + 2 + 1)
     // The catalogue `pnpm art:status` reports on is exactly what the sheets write.
     const catalogue = Object.entries(ART_CATALOGUE).flatMap(([kind, ids]) => ids.map(id => artTarget(kind as keyof typeof ART_CATALOGUE, id)))
     expect([...catalogue].sort()).toEqual([...seen].sort())
@@ -697,9 +719,9 @@ describe('the slicer knows a painting by its name, and only by its name', () => 
 
   it('refuses an unknown stem instead of matching it by shape', () => {
     const targets = buildTargets(sheetIndex())
-    // Fifteen sheets are 1024x768 (seven of items, eight of icons) and seventeen
+    // Twenty sheets are 1024x768 (twelve of items, eight of icons) and seventeen
     // are 768x576: shape says nothing.
-    expect(targets.filter(t => t.width === 1024 && t.height === 768)).toHaveLength(15)
+    expect(targets.filter(t => t.width === 1024 && t.height === 768)).toHaveLength(20)
     // (Two skill sheets for every class, and the portraits.)
     expect(targets.filter(t => t.width === 768 && t.height === 576 && t.kind === 'cells')).toHaveLength(CLASS_IDS.length * 2 + 1)
     for (const name of [

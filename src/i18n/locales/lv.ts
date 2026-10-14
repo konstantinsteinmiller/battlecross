@@ -1382,7 +1382,21 @@ export default {
     entropy: 'Burvestības saīsina atjaunošanās laikus par {n}%',
     bloodToMana: '{n}% saņemto fizisko bojājumu atgriežas kā mana',
     bleedHeal: 'Trāpījums asiņojošam ienaidniekam dziedina {n}% veselības',
-    overheatCrit: '+{n}% kritisko bojājumu, kamēr esi pārkarsis'
+    overheatCrit: '+{n}% kritisko bojājumu, kamēr esi pārkarsis',
+    lowHealthDamage: 'Līdz +{n}% bojājumu, veselībai sarūkot',
+    heatArmor: 'Par {n}% mazāk saņemto bojājumu, kamēr karstums ir vismaz pusē',
+    crumble: '+{n}% bojājumu pret palēninātiem, notriektiem vai pārakmeņotiem ienaidniekiem',
+    lastStand: 'Par {n}% mazāk saņemto bojājumu zem 30% veselības',
+    wildfire: 'Krītošs degošs ienaidnieks aizdedzina ienaidniekus {n} m rādiusā',
+    loyalty: 'Kritis kalps tevi dziedina par {n}% veselības',
+    chillOnHit: 'Parastie sitieni palēnina par {n}% uz 2 s',
+    chillDamage: '+{n}% bojājumu pret palēninātiem vai sasalušiem ienaidniekiem',
+    healPower: 'Saņemtā dziedināšana ir par {n}% spēcīgāka',
+    packDamage: '+{n}% bojājumu par katru dzīvu biedru (līdz 4)',
+    reactionDamage: 'Elementu reakcijas ir par {n}% spēcīgākas',
+    soulRise: 'Uzvarētiem ienaidniekiem ir {n}% iespēja celties kā tavam garam',
+    chiOnHit: 'Uzbrukumiem ir {n}% iespēja uzkrāt či',
+    songLength: 'Dziesmas ilgst par {n}% ilgāk'
   },
   item: {
     heartOfTheArena: {

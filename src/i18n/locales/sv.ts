@@ -1382,7 +1382,21 @@ export default {
     entropy: 'Kast kortar nedkylningen med {n}%',
     bloodToMana: '{n}% av den fysiska skada du tar kommer tillbaka som mana',
     bleedHeal: 'Att träffa en blödande fiende läker {n}% hälsa',
-    overheatCrit: '+{n}% Kritisk skada medan du är överhettad'
+    overheatCrit: '+{n}% Kritisk skada medan du är överhettad',
+    lowHealthDamage: 'Upp till +{n}% skada ju lägre din hälsa är',
+    heatArmor: '{n}% mindre skada tagen medan värmen är halvfull eller mer',
+    crumble: '+{n}% skada mot saktade, nedslagna eller förstenade fiender',
+    lastStand: '{n}% mindre skada tagen under 30% hälsa',
+    wildfire: 'En brinnande fiende som faller sätter fiender inom {n} m i brand',
+    loyalty: 'En fallen tjänare helar dig {n}% hälsa',
+    chillOnHit: 'Vanliga slag saktar ner med {n}% i 2 s',
+    chillDamage: '+{n}% skada mot saktade eller frusna fiender',
+    healPower: 'Helning du får är {n}% starkare',
+    packDamage: '+{n}% skada för varje levande följeslagare (upp till 4)',
+    reactionDamage: 'Elementreaktioner är {n}% starkare',
+    soulRise: 'Besegrade fiender har {n}% chans att resa sig som din ande',
+    chiOnHit: 'Attacker har {n}% chans att bygga upp chi',
+    songLength: 'Sånger varar {n}% längre'
   },
   item: {
     heartOfTheArena: {

@@ -1382,7 +1382,21 @@ export default {
     entropy: 'Sorĉoj mallongigas reŝargojn je {n}%',
     bloodToMana: '{n}% de la ricevata fizika damaĝo revenas kiel manao',
     bleedHeal: 'Trafo al sanganta malamiko sanigas {n}% de la sano',
-    overheatCrit: '+{n}% da Kritika Damaĝo dum trovarmiĝo'
+    overheatCrit: '+{n}% da Kritika Damaĝo dum trovarmiĝo',
+    lowHealthDamage: 'Ĝis +{n}% damaĝo dum via sano malkreskas',
+    heatArmor: '{n}% malpli da ricevita damaĝo dum la varmo estas duona aŭ pli',
+    crumble: '+{n}% damaĝo kontraŭ malrapidigitaj, faligitaj aŭ ŝtoniĝintaj malamikoj',
+    lastStand: '{n}% malpli da ricevita damaĝo sub 30% sano',
+    wildfire: 'Brulanta malamiko, kiu falas, ekbruligas malamikojn ene de {n} m',
+    loyalty: 'Falinta servisto sanigas vin je {n}% sano',
+    chillOnHit: 'Bazaj batoj malrapidigas je {n}% dum 2 s',
+    chillDamage: '+{n}% damaĝo kontraŭ malrapidigitaj aŭ frostigitaj malamikoj',
+    healPower: 'Sanigo, kiun vi ricevas, estas {n}% pli forta',
+    packDamage: '+{n}% damaĝo por ĉiu vivanta kunulo (ĝis 4)',
+    reactionDamage: 'Elementaj reakcioj estas {n}% pli fortaj',
+    soulRise: 'Venkitaj malamikoj havas {n}% ŝancon leviĝi kiel via spirito',
+    chiOnHit: 'Atakoj havas {n}% ŝancon kolekti ĉi',
+    songLength: 'Kantoj daŭras {n}% pli longe'
   },
   item: {
     heartOfTheArena: {

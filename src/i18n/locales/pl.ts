@@ -1383,7 +1383,21 @@ export default {
     entropy: 'Zaklęcia skracają odnowienia o {n}%',
     bloodToMana: '{n}% otrzymywanych obrażeń fizycznych wraca jako mana',
     bleedHeal: 'Trafienie krwawiącego wroga leczy {n}% zdrowia',
-    overheatCrit: '+{n}% obrażeń krytycznych w stanie przegrzania'
+    overheatCrit: '+{n}% obrażeń krytycznych w stanie przegrzania',
+    lowHealthDamage: 'Do +{n}% obrażeń w miarę spadku zdrowia',
+    heatArmor: '{n}% mniej otrzymywanych obrażeń, gdy żar jest co najmniej w połowie',
+    crumble: '+{n}% obrażeń przeciw spowolnionym, powalonym lub skamieniałym wrogom',
+    lastStand: '{n}% mniej otrzymywanych obrażeń poniżej 30% zdrowia',
+    wildfire: 'Płonący wróg, który padnie, podpala wrogów w promieniu {n} m',
+    loyalty: 'Poległy sługa leczy cię o {n}% zdrowia',
+    chillOnHit: 'Zwykłe ciosy spowalniają o {n}% na 2 s',
+    chillDamage: '+{n}% obrażeń przeciw spowolnionym lub zamrożonym wrogom',
+    healPower: 'Otrzymywane leczenie jest silniejsze o {n}%',
+    packDamage: '+{n}% obrażeń za każdego żywego towarzysza (do 4)',
+    reactionDamage: 'Reakcje żywiołów są silniejsze o {n}%',
+    soulRise: 'Pokonani wrogowie mają {n}% szans, by powstać jako twój duch',
+    chiOnHit: 'Ataki mają {n}% szans na zebranie chi',
+    songLength: 'Pieśni trwają o {n}% dłużej'
   },
   item: {
     heartOfTheArena: {
