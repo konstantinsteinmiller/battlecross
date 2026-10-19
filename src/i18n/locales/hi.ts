@@ -1,5 +1,13 @@
 // Hindi locale — mirrors the key shape of en.ts exactly.
 export default {
+  // ─── The intro (#130): its skip, and its narrator's name ───
+  intro: {
+    narrator: 'कथावाचक',
+    skip: 'छोड़ें',
+    holdKey: 'छोड़ने के लिए {key} दबाए रखें',
+    holdTouch: 'छोड़ने के लिए दबाए रखें',
+    replay: 'इंट्रो देखें'
+  },
   arena: {
     allWon: 'सारे मिथिक इनाम तुम्हारे हैं।',
     call: 'कहानी पूरी हुई। अब अपना बिल्ड साबित करो: जितना ऊपर चढ़ सको, चढ़ो, और वे मिथिक इनाम जीतो जो तुम्हें कोई और नहीं दे सकता।',
@@ -8,6 +16,20 @@ export default {
     next: 'अगला इनाम लहर {at} पर: {item}',
     champion: 'चैंपियन लहर',
     wave: 'लहर {n}'
+  },
+  sellOre: {
+    talk: 'अच्छा अयस्क, सही दाम। कितना बेचोगे?',
+    lead: 'चुनो कि हर अयस्क के कितने डले बेचने हैं। बेचें दबाने तक कुछ नहीं बिकेगा।',
+    have: 'तुम्हारे पास {n}',
+    each: '{n} सोना प्रति डला',
+    none: 'कुछ नहीं',
+    all: 'सब',
+    less: '{ore}: एक कम',
+    more: '{ore}: एक ज़्यादा',
+    total: 'तुम्हें मिलेगा: {n} सोना',
+    sell: 'बेचें',
+    selectAll: 'सब चुनें',
+    empty: 'तुम्हारे पास बेचने को अयस्क नहीं बचा।'
   },
   smith: {
     why: {
@@ -1421,38 +1443,110 @@ export default {
     smithMasterMithrilGreaves: {
       name: 'उत्कृष्ट मिथ्रिल का पिंडली-कवच'
     },
+    smithMasterAdamantGreaves: {
+      name: 'उत्कृष्ट एडामेंट का पिंडली-कवच'
+    },
+    smithMasterAetheriteGreaves: {
+      name: 'उत्कृष्ट ईथराइट का पिंडली-कवच'
+    },
     smithMithrilGreaves: {
       name: 'मिथ्रिल का पिंडली-कवच'
+    },
+    smithAdamantGreaves: {
+      name: 'एडामेंट का पिंडली-कवच'
+    },
+    smithAetheriteGreaves: {
+      name: 'ईथराइट का पिंडली-कवच'
     },
     smithMasterMithrilPlate: {
       name: 'उत्कृष्ट मिथ्रिल का पट्टी-कवच'
     },
+    smithMasterAdamantPlate: {
+      name: 'उत्कृष्ट एडामेंट का पट्टी-कवच'
+    },
+    smithMasterAetheritePlate: {
+      name: 'उत्कृष्ट ईथराइट का पट्टी-कवच'
+    },
     smithMithrilPlate: {
       name: 'मिथ्रिल का पट्टी-कवच'
+    },
+    smithAdamantPlate: {
+      name: 'एडामेंट का पट्टी-कवच'
+    },
+    smithAetheritePlate: {
+      name: 'ईथराइट का पट्टी-कवच'
     },
     smithMasterMithrilHelm: {
       name: 'उत्कृष्ट मिथ्रिल का टोप'
     },
+    smithMasterAdamantHelm: {
+      name: 'उत्कृष्ट एडामेंट का टोप'
+    },
+    smithMasterAetheriteHelm: {
+      name: 'उत्कृष्ट ईथराइट का टोप'
+    },
     smithMithrilHelm: {
       name: 'मिथ्रिल का टोप'
+    },
+    smithAdamantHelm: {
+      name: 'एडामेंट का टोप'
+    },
+    smithAetheriteHelm: {
+      name: 'ईथराइट का टोप'
     },
     smithMasterMithrilShield: {
       name: 'उत्कृष्ट मिथ्रिल की ढाल'
     },
+    smithMasterAdamantShield: {
+      name: 'उत्कृष्ट एडामेंट की ढाल'
+    },
+    smithMasterAetheriteShield: {
+      name: 'उत्कृष्ट ईथराइट की ढाल'
+    },
     smithMithrilShield: {
       name: 'मिथ्रिल की ढाल'
+    },
+    smithAdamantShield: {
+      name: 'एडामेंट की ढाल'
+    },
+    smithAetheriteShield: {
+      name: 'ईथराइट की ढाल'
     },
     smithMasterMithrilHammer: {
       name: 'उत्कृष्ट मिथ्रिल का हथौड़ा'
     },
+    smithMasterAdamantHammer: {
+      name: 'उत्कृष्ट एडामेंट का हथौड़ा'
+    },
+    smithMasterAetheriteHammer: {
+      name: 'उत्कृष्ट ईथराइट का हथौड़ा'
+    },
     smithMithrilHammer: {
       name: 'मिथ्रिल का हथौड़ा'
+    },
+    smithAdamantHammer: {
+      name: 'एडामेंट का हथौड़ा'
+    },
+    smithAetheriteHammer: {
+      name: 'ईथराइट का हथौड़ा'
     },
     smithMasterMithrilSword: {
       name: 'उत्कृष्ट मिथ्रिल की तलवार'
     },
+    smithMasterAdamantSword: {
+      name: 'उत्कृष्ट एडामेंट की तलवार'
+    },
+    smithMasterAetheriteSword: {
+      name: 'उत्कृष्ट ईथराइट की तलवार'
+    },
     smithMithrilSword: {
       name: 'मिथ्रिल की तलवार'
+    },
+    smithAdamantSword: {
+      name: 'एडामेंट की तलवार'
+    },
+    smithAetheriteSword: {
+      name: 'ईथराइट की तलवार'
     },
     smithMasterGoldGreaves: {
       name: 'उत्कृष्ट सोने का पिंडली-कवच'
@@ -1558,6 +1652,1086 @@ export default {
     },
     smithMasterIronSword: {
       name: 'उत्कृष्ट लोहे की तलवार'
+    },
+    smithMasterDexIronSword: {
+      name: 'उत्कृष्ट लोहे का खंजर · फुर्ती'
+    },
+    smithDexIronSword: {
+      name: 'लोहे का खंजर · फुर्ती'
+    },
+    smithMasterDexIronHammer: {
+      name: 'उत्कृष्ट लोहे का रेपियर · फुर्ती'
+    },
+    smithDexIronHammer: {
+      name: 'लोहे का रेपियर · फुर्ती'
+    },
+    smithMasterDexIronShield: {
+      name: 'उत्कृष्ट लोहे का छोटी ढाल · फुर्ती'
+    },
+    smithDexIronShield: {
+      name: 'लोहे का छोटी ढाल · फुर्ती'
+    },
+    smithMasterDexIronHelm: {
+      name: 'उत्कृष्ट लोहे का हुड · फुर्ती'
+    },
+    smithDexIronHelm: {
+      name: 'लोहे का हुड · फुर्ती'
+    },
+    smithMasterDexIronPlate: {
+      name: 'उत्कृष्ट लोहे का चमड़े का कवच · फुर्ती'
+    },
+    smithDexIronPlate: {
+      name: 'लोहे का चमड़े का कवच · फुर्ती'
+    },
+    smithMasterDexIronGreaves: {
+      name: 'उत्कृष्ट लोहे का जूते · फुर्ती'
+    },
+    smithDexIronGreaves: {
+      name: 'लोहे का जूते · फुर्ती'
+    },
+    smithMasterDexSilverSword: {
+      name: 'उत्कृष्ट चाँदी का खंजर · फुर्ती'
+    },
+    smithDexSilverSword: {
+      name: 'चाँदी का खंजर · फुर्ती'
+    },
+    smithMasterDexSilverHammer: {
+      name: 'उत्कृष्ट चाँदी का रेपियर · फुर्ती'
+    },
+    smithDexSilverHammer: {
+      name: 'चाँदी का रेपियर · फुर्ती'
+    },
+    smithMasterDexSilverShield: {
+      name: 'उत्कृष्ट चाँदी का छोटी ढाल · फुर्ती'
+    },
+    smithDexSilverShield: {
+      name: 'चाँदी का छोटी ढाल · फुर्ती'
+    },
+    smithMasterDexSilverHelm: {
+      name: 'उत्कृष्ट चाँदी का हुड · फुर्ती'
+    },
+    smithDexSilverHelm: {
+      name: 'चाँदी का हुड · फुर्ती'
+    },
+    smithMasterDexSilverPlate: {
+      name: 'उत्कृष्ट चाँदी का चमड़े का कवच · फुर्ती'
+    },
+    smithDexSilverPlate: {
+      name: 'चाँदी का चमड़े का कवच · फुर्ती'
+    },
+    smithMasterDexSilverGreaves: {
+      name: 'उत्कृष्ट चाँदी का जूते · फुर्ती'
+    },
+    smithDexSilverGreaves: {
+      name: 'चाँदी का जूते · फुर्ती'
+    },
+    smithMasterDexGoldSword: {
+      name: 'उत्कृष्ट सोने का खंजर · फुर्ती'
+    },
+    smithDexGoldSword: {
+      name: 'सोने का खंजर · फुर्ती'
+    },
+    smithMasterDexGoldHammer: {
+      name: 'उत्कृष्ट सोने का रेपियर · फुर्ती'
+    },
+    smithDexGoldHammer: {
+      name: 'सोने का रेपियर · फुर्ती'
+    },
+    smithMasterDexGoldShield: {
+      name: 'उत्कृष्ट सोने का छोटी ढाल · फुर्ती'
+    },
+    smithDexGoldShield: {
+      name: 'सोने का छोटी ढाल · फुर्ती'
+    },
+    smithMasterDexGoldHelm: {
+      name: 'उत्कृष्ट सोने का हुड · फुर्ती'
+    },
+    smithDexGoldHelm: {
+      name: 'सोने का हुड · फुर्ती'
+    },
+    smithMasterDexGoldPlate: {
+      name: 'उत्कृष्ट सोने का चमड़े का कवच · फुर्ती'
+    },
+    smithDexGoldPlate: {
+      name: 'सोने का चमड़े का कवच · फुर्ती'
+    },
+    smithMasterDexGoldGreaves: {
+      name: 'उत्कृष्ट सोने का जूते · फुर्ती'
+    },
+    smithDexGoldGreaves: {
+      name: 'सोने का जूते · फुर्ती'
+    },
+    smithMasterDexMithrilSword: {
+      name: 'उत्कृष्ट मिथ्रिल का खंजर · फुर्ती'
+    },
+    smithMasterDexAdamantSword: {
+      name: 'उत्कृष्ट एडामेंट का खंजर · फुर्ती'
+    },
+    smithMasterDexAetheriteSword: {
+      name: 'उत्कृष्ट ईथराइट का खंजर · फुर्ती'
+    },
+    smithDexMithrilSword: {
+      name: 'मिथ्रिल का खंजर · फुर्ती'
+    },
+    smithDexAdamantSword: {
+      name: 'एडामेंट का खंजर · फुर्ती'
+    },
+    smithDexAetheriteSword: {
+      name: 'ईथराइट का खंजर · फुर्ती'
+    },
+    smithMasterDexMithrilHammer: {
+      name: 'उत्कृष्ट मिथ्रिल का रेपियर · फुर्ती'
+    },
+    smithMasterDexAdamantHammer: {
+      name: 'उत्कृष्ट एडामेंट का रेपियर · फुर्ती'
+    },
+    smithMasterDexAetheriteHammer: {
+      name: 'उत्कृष्ट ईथराइट का रेपियर · फुर्ती'
+    },
+    smithDexMithrilHammer: {
+      name: 'मिथ्रिल का रेपियर · फुर्ती'
+    },
+    smithDexAdamantHammer: {
+      name: 'एडामेंट का रेपियर · फुर्ती'
+    },
+    smithDexAetheriteHammer: {
+      name: 'ईथराइट का रेपियर · फुर्ती'
+    },
+    smithMasterDexMithrilShield: {
+      name: 'उत्कृष्ट मिथ्रिल का छोटी ढाल · फुर्ती'
+    },
+    smithMasterDexAdamantShield: {
+      name: 'उत्कृष्ट एडामेंट का छोटी ढाल · फुर्ती'
+    },
+    smithMasterDexAetheriteShield: {
+      name: 'उत्कृष्ट ईथराइट का छोटी ढाल · फुर्ती'
+    },
+    smithDexMithrilShield: {
+      name: 'मिथ्रिल का छोटी ढाल · फुर्ती'
+    },
+    smithDexAdamantShield: {
+      name: 'एडामेंट का छोटी ढाल · फुर्ती'
+    },
+    smithDexAetheriteShield: {
+      name: 'ईथराइट का छोटी ढाल · फुर्ती'
+    },
+    smithMasterDexMithrilHelm: {
+      name: 'उत्कृष्ट मिथ्रिल का हुड · फुर्ती'
+    },
+    smithMasterDexAdamantHelm: {
+      name: 'उत्कृष्ट एडामेंट का हुड · फुर्ती'
+    },
+    smithMasterDexAetheriteHelm: {
+      name: 'उत्कृष्ट ईथराइट का हुड · फुर्ती'
+    },
+    smithDexMithrilHelm: {
+      name: 'मिथ्रिल का हुड · फुर्ती'
+    },
+    smithDexAdamantHelm: {
+      name: 'एडामेंट का हुड · फुर्ती'
+    },
+    smithDexAetheriteHelm: {
+      name: 'ईथराइट का हुड · फुर्ती'
+    },
+    smithMasterDexMithrilPlate: {
+      name: 'उत्कृष्ट मिथ्रिल का चमड़े का कवच · फुर्ती'
+    },
+    smithMasterDexAdamantPlate: {
+      name: 'उत्कृष्ट एडामेंट का चमड़े का कवच · फुर्ती'
+    },
+    smithMasterDexAetheritePlate: {
+      name: 'उत्कृष्ट ईथराइट का चमड़े का कवच · फुर्ती'
+    },
+    smithDexMithrilPlate: {
+      name: 'मिथ्रिल का चमड़े का कवच · फुर्ती'
+    },
+    smithDexAdamantPlate: {
+      name: 'एडामेंट का चमड़े का कवच · फुर्ती'
+    },
+    smithDexAetheritePlate: {
+      name: 'ईथराइट का चमड़े का कवच · फुर्ती'
+    },
+    smithMasterDexMithrilGreaves: {
+      name: 'उत्कृष्ट मिथ्रिल का जूते · फुर्ती'
+    },
+    smithMasterDexAdamantGreaves: {
+      name: 'उत्कृष्ट एडामेंट का जूते · फुर्ती'
+    },
+    smithMasterDexAetheriteGreaves: {
+      name: 'उत्कृष्ट ईथराइट का जूते · फुर्ती'
+    },
+    smithDexMithrilGreaves: {
+      name: 'मिथ्रिल का जूते · फुर्ती'
+    },
+    smithDexAdamantGreaves: {
+      name: 'एडामेंट का जूते · फुर्ती'
+    },
+    smithDexAetheriteGreaves: {
+      name: 'ईथराइट का जूते · फुर्ती'
+    },
+    smithMasterIntIronSword: {
+      name: 'उत्कृष्ट लोहे का जादुई छड़ी · बुद्धि'
+    },
+    smithIntIronSword: {
+      name: 'लोहे का जादुई छड़ी · बुद्धि'
+    },
+    smithMasterIntIronHammer: {
+      name: 'उत्कृष्ट लोहे का दंड · बुद्धि'
+    },
+    smithIntIronHammer: {
+      name: 'लोहे का दंड · बुद्धि'
+    },
+    smithMasterIntIronShield: {
+      name: 'उत्कृष्ट लोहे का ग्रंथ · बुद्धि'
+    },
+    smithIntIronShield: {
+      name: 'लोहे का ग्रंथ · बुद्धि'
+    },
+    smithMasterIntIronHelm: {
+      name: 'उत्कृष्ट लोहे का शिरोबंध · बुद्धि'
+    },
+    smithIntIronHelm: {
+      name: 'लोहे का शिरोबंध · बुद्धि'
+    },
+    smithMasterIntIronPlate: {
+      name: 'उत्कृष्ट लोहे का चोगा · बुद्धि'
+    },
+    smithIntIronPlate: {
+      name: 'लोहे का चोगा · बुद्धि'
+    },
+    smithMasterIntIronGreaves: {
+      name: 'उत्कृष्ट लोहे का जूते · बुद्धि'
+    },
+    smithIntIronGreaves: {
+      name: 'लोहे का जूते · बुद्धि'
+    },
+    smithMasterIntSilverSword: {
+      name: 'उत्कृष्ट चाँदी का जादुई छड़ी · बुद्धि'
+    },
+    smithIntSilverSword: {
+      name: 'चाँदी का जादुई छड़ी · बुद्धि'
+    },
+    smithMasterIntSilverHammer: {
+      name: 'उत्कृष्ट चाँदी का दंड · बुद्धि'
+    },
+    smithIntSilverHammer: {
+      name: 'चाँदी का दंड · बुद्धि'
+    },
+    smithMasterIntSilverShield: {
+      name: 'उत्कृष्ट चाँदी का ग्रंथ · बुद्धि'
+    },
+    smithIntSilverShield: {
+      name: 'चाँदी का ग्रंथ · बुद्धि'
+    },
+    smithMasterIntSilverHelm: {
+      name: 'उत्कृष्ट चाँदी का शिरोबंध · बुद्धि'
+    },
+    smithIntSilverHelm: {
+      name: 'चाँदी का शिरोबंध · बुद्धि'
+    },
+    smithMasterIntSilverPlate: {
+      name: 'उत्कृष्ट चाँदी का चोगा · बुद्धि'
+    },
+    smithIntSilverPlate: {
+      name: 'चाँदी का चोगा · बुद्धि'
+    },
+    smithMasterIntSilverGreaves: {
+      name: 'उत्कृष्ट चाँदी का जूते · बुद्धि'
+    },
+    smithIntSilverGreaves: {
+      name: 'चाँदी का जूते · बुद्धि'
+    },
+    smithMasterIntGoldSword: {
+      name: 'उत्कृष्ट सोने का जादुई छड़ी · बुद्धि'
+    },
+    smithIntGoldSword: {
+      name: 'सोने का जादुई छड़ी · बुद्धि'
+    },
+    smithMasterIntGoldHammer: {
+      name: 'उत्कृष्ट सोने का दंड · बुद्धि'
+    },
+    smithIntGoldHammer: {
+      name: 'सोने का दंड · बुद्धि'
+    },
+    smithMasterIntGoldShield: {
+      name: 'उत्कृष्ट सोने का ग्रंथ · बुद्धि'
+    },
+    smithIntGoldShield: {
+      name: 'सोने का ग्रंथ · बुद्धि'
+    },
+    smithMasterIntGoldHelm: {
+      name: 'उत्कृष्ट सोने का शिरोबंध · बुद्धि'
+    },
+    smithIntGoldHelm: {
+      name: 'सोने का शिरोबंध · बुद्धि'
+    },
+    smithMasterIntGoldPlate: {
+      name: 'उत्कृष्ट सोने का चोगा · बुद्धि'
+    },
+    smithIntGoldPlate: {
+      name: 'सोने का चोगा · बुद्धि'
+    },
+    smithMasterIntGoldGreaves: {
+      name: 'उत्कृष्ट सोने का जूते · बुद्धि'
+    },
+    smithIntGoldGreaves: {
+      name: 'सोने का जूते · बुद्धि'
+    },
+    smithMasterIntMithrilSword: {
+      name: 'उत्कृष्ट मिथ्रिल का जादुई छड़ी · बुद्धि'
+    },
+    smithMasterIntAdamantSword: {
+      name: 'उत्कृष्ट एडामेंट का जादुई छड़ी · बुद्धि'
+    },
+    smithMasterIntAetheriteSword: {
+      name: 'उत्कृष्ट ईथराइट का जादुई छड़ी · बुद्धि'
+    },
+    smithIntMithrilSword: {
+      name: 'मिथ्रिल का जादुई छड़ी · बुद्धि'
+    },
+    smithIntAdamantSword: {
+      name: 'एडामेंट का जादुई छड़ी · बुद्धि'
+    },
+    smithIntAetheriteSword: {
+      name: 'ईथराइट का जादुई छड़ी · बुद्धि'
+    },
+    smithMasterIntMithrilHammer: {
+      name: 'उत्कृष्ट मिथ्रिल का दंड · बुद्धि'
+    },
+    smithMasterIntAdamantHammer: {
+      name: 'उत्कृष्ट एडामेंट का दंड · बुद्धि'
+    },
+    smithMasterIntAetheriteHammer: {
+      name: 'उत्कृष्ट ईथराइट का दंड · बुद्धि'
+    },
+    smithIntMithrilHammer: {
+      name: 'मिथ्रिल का दंड · बुद्धि'
+    },
+    smithIntAdamantHammer: {
+      name: 'एडामेंट का दंड · बुद्धि'
+    },
+    smithIntAetheriteHammer: {
+      name: 'ईथराइट का दंड · बुद्धि'
+    },
+    smithMasterIntMithrilShield: {
+      name: 'उत्कृष्ट मिथ्रिल का ग्रंथ · बुद्धि'
+    },
+    smithMasterIntAdamantShield: {
+      name: 'उत्कृष्ट एडामेंट का ग्रंथ · बुद्धि'
+    },
+    smithMasterIntAetheriteShield: {
+      name: 'उत्कृष्ट ईथराइट का ग्रंथ · बुद्धि'
+    },
+    smithIntMithrilShield: {
+      name: 'मिथ्रिल का ग्रंथ · बुद्धि'
+    },
+    smithIntAdamantShield: {
+      name: 'एडामेंट का ग्रंथ · बुद्धि'
+    },
+    smithIntAetheriteShield: {
+      name: 'ईथराइट का ग्रंथ · बुद्धि'
+    },
+    smithMasterIntMithrilHelm: {
+      name: 'उत्कृष्ट मिथ्रिल का शिरोबंध · बुद्धि'
+    },
+    smithMasterIntAdamantHelm: {
+      name: 'उत्कृष्ट एडामेंट का शिरोबंध · बुद्धि'
+    },
+    smithMasterIntAetheriteHelm: {
+      name: 'उत्कृष्ट ईथराइट का शिरोबंध · बुद्धि'
+    },
+    smithIntMithrilHelm: {
+      name: 'मिथ्रिल का शिरोबंध · बुद्धि'
+    },
+    smithIntAdamantHelm: {
+      name: 'एडामेंट का शिरोबंध · बुद्धि'
+    },
+    smithIntAetheriteHelm: {
+      name: 'ईथराइट का शिरोबंध · बुद्धि'
+    },
+    smithMasterIntMithrilPlate: {
+      name: 'उत्कृष्ट मिथ्रिल का चोगा · बुद्धि'
+    },
+    smithMasterIntAdamantPlate: {
+      name: 'उत्कृष्ट एडामेंट का चोगा · बुद्धि'
+    },
+    smithMasterIntAetheritePlate: {
+      name: 'उत्कृष्ट ईथराइट का चोगा · बुद्धि'
+    },
+    smithIntMithrilPlate: {
+      name: 'मिथ्रिल का चोगा · बुद्धि'
+    },
+    smithIntAdamantPlate: {
+      name: 'एडामेंट का चोगा · बुद्धि'
+    },
+    smithIntAetheritePlate: {
+      name: 'ईथराइट का चोगा · बुद्धि'
+    },
+    smithMasterIntMithrilGreaves: {
+      name: 'उत्कृष्ट मिथ्रिल का जूते · बुद्धि'
+    },
+    smithMasterIntAdamantGreaves: {
+      name: 'उत्कृष्ट एडामेंट का जूते · बुद्धि'
+    },
+    smithMasterIntAetheriteGreaves: {
+      name: 'उत्कृष्ट ईथराइट का जूते · बुद्धि'
+    },
+    smithIntMithrilGreaves: {
+      name: 'मिथ्रिल का जूते · बुद्धि'
+    },
+    smithIntAdamantGreaves: {
+      name: 'एडामेंट का जूते · बुद्धि'
+    },
+    smithIntAetheriteGreaves: {
+      name: 'ईथराइट का जूते · बुद्धि'
+    },
+    smithMasterSklIronSword: {
+      name: 'उत्कृष्ट लोहे का पिस्तौल · हुनर'
+    },
+    smithSklIronSword: {
+      name: 'लोहे का पिस्तौल · हुनर'
+    },
+    smithMasterSklIronHammer: {
+      name: 'उत्कृष्ट लोहे का राइफल · हुनर'
+    },
+    smithSklIronHammer: {
+      name: 'लोहे का राइफल · हुनर'
+    },
+    smithMasterSklIronShield: {
+      name: 'उत्कृष्ट लोहे का बैटरी · हुनर'
+    },
+    smithSklIronShield: {
+      name: 'लोहे का बैटरी · हुनर'
+    },
+    smithMasterSklIronHelm: {
+      name: 'उत्कृष्ट लोहे का टोपी · हुनर'
+    },
+    smithSklIronHelm: {
+      name: 'लोहे का टोपी · हुनर'
+    },
+    smithMasterSklIronPlate: {
+      name: 'उत्कृष्ट लोहे का साज़ · हुनर'
+    },
+    smithSklIronPlate: {
+      name: 'लोहे का साज़ · हुनर'
+    },
+    smithMasterSklIronGreaves: {
+      name: 'उत्कृष्ट लोहे का जूते · हुनर'
+    },
+    smithSklIronGreaves: {
+      name: 'लोहे का जूते · हुनर'
+    },
+    smithMasterSklSilverSword: {
+      name: 'उत्कृष्ट चाँदी का पिस्तौल · हुनर'
+    },
+    smithSklSilverSword: {
+      name: 'चाँदी का पिस्तौल · हुनर'
+    },
+    smithMasterSklSilverHammer: {
+      name: 'उत्कृष्ट चाँदी का राइफल · हुनर'
+    },
+    smithSklSilverHammer: {
+      name: 'चाँदी का राइफल · हुनर'
+    },
+    smithMasterSklSilverShield: {
+      name: 'उत्कृष्ट चाँदी का बैटरी · हुनर'
+    },
+    smithSklSilverShield: {
+      name: 'चाँदी का बैटरी · हुनर'
+    },
+    smithMasterSklSilverHelm: {
+      name: 'उत्कृष्ट चाँदी का टोपी · हुनर'
+    },
+    smithSklSilverHelm: {
+      name: 'चाँदी का टोपी · हुनर'
+    },
+    smithMasterSklSilverPlate: {
+      name: 'उत्कृष्ट चाँदी का साज़ · हुनर'
+    },
+    smithSklSilverPlate: {
+      name: 'चाँदी का साज़ · हुनर'
+    },
+    smithMasterSklSilverGreaves: {
+      name: 'उत्कृष्ट चाँदी का जूते · हुनर'
+    },
+    smithSklSilverGreaves: {
+      name: 'चाँदी का जूते · हुनर'
+    },
+    smithMasterSklGoldSword: {
+      name: 'उत्कृष्ट सोने का पिस्तौल · हुनर'
+    },
+    smithSklGoldSword: {
+      name: 'सोने का पिस्तौल · हुनर'
+    },
+    smithMasterSklGoldHammer: {
+      name: 'उत्कृष्ट सोने का राइफल · हुनर'
+    },
+    smithSklGoldHammer: {
+      name: 'सोने का राइफल · हुनर'
+    },
+    smithMasterSklGoldShield: {
+      name: 'उत्कृष्ट सोने का बैटरी · हुनर'
+    },
+    smithSklGoldShield: {
+      name: 'सोने का बैटरी · हुनर'
+    },
+    smithMasterSklGoldHelm: {
+      name: 'उत्कृष्ट सोने का टोपी · हुनर'
+    },
+    smithSklGoldHelm: {
+      name: 'सोने का टोपी · हुनर'
+    },
+    smithMasterSklGoldPlate: {
+      name: 'उत्कृष्ट सोने का साज़ · हुनर'
+    },
+    smithSklGoldPlate: {
+      name: 'सोने का साज़ · हुनर'
+    },
+    smithMasterSklGoldGreaves: {
+      name: 'उत्कृष्ट सोने का जूते · हुनर'
+    },
+    smithSklGoldGreaves: {
+      name: 'सोने का जूते · हुनर'
+    },
+    smithMasterSklMithrilSword: {
+      name: 'उत्कृष्ट मिथ्रिल का पिस्तौल · हुनर'
+    },
+    smithMasterSklAdamantSword: {
+      name: 'उत्कृष्ट एडामेंट का पिस्तौल · हुनर'
+    },
+    smithMasterSklAetheriteSword: {
+      name: 'उत्कृष्ट ईथराइट का पिस्तौल · हुनर'
+    },
+    smithSklMithrilSword: {
+      name: 'मिथ्रिल का पिस्तौल · हुनर'
+    },
+    smithSklAdamantSword: {
+      name: 'एडामेंट का पिस्तौल · हुनर'
+    },
+    smithSklAetheriteSword: {
+      name: 'ईथराइट का पिस्तौल · हुनर'
+    },
+    smithMasterSklMithrilHammer: {
+      name: 'उत्कृष्ट मिथ्रिल का राइफल · हुनर'
+    },
+    smithMasterSklAdamantHammer: {
+      name: 'उत्कृष्ट एडामेंट का राइफल · हुनर'
+    },
+    smithMasterSklAetheriteHammer: {
+      name: 'उत्कृष्ट ईथराइट का राइफल · हुनर'
+    },
+    smithSklMithrilHammer: {
+      name: 'मिथ्रिल का राइफल · हुनर'
+    },
+    smithSklAdamantHammer: {
+      name: 'एडामेंट का राइफल · हुनर'
+    },
+    smithSklAetheriteHammer: {
+      name: 'ईथराइट का राइफल · हुनर'
+    },
+    smithMasterSklMithrilShield: {
+      name: 'उत्कृष्ट मिथ्रिल का बैटरी · हुनर'
+    },
+    smithMasterSklAdamantShield: {
+      name: 'उत्कृष्ट एडामेंट का बैटरी · हुनर'
+    },
+    smithMasterSklAetheriteShield: {
+      name: 'उत्कृष्ट ईथराइट का बैटरी · हुनर'
+    },
+    smithSklMithrilShield: {
+      name: 'मिथ्रिल का बैटरी · हुनर'
+    },
+    smithSklAdamantShield: {
+      name: 'एडामेंट का बैटरी · हुनर'
+    },
+    smithSklAetheriteShield: {
+      name: 'ईथराइट का बैटरी · हुनर'
+    },
+    smithMasterSklMithrilHelm: {
+      name: 'उत्कृष्ट मिथ्रिल का टोपी · हुनर'
+    },
+    smithMasterSklAdamantHelm: {
+      name: 'उत्कृष्ट एडामेंट का टोपी · हुनर'
+    },
+    smithMasterSklAetheriteHelm: {
+      name: 'उत्कृष्ट ईथराइट का टोपी · हुनर'
+    },
+    smithSklMithrilHelm: {
+      name: 'मिथ्रिल का टोपी · हुनर'
+    },
+    smithSklAdamantHelm: {
+      name: 'एडामेंट का टोपी · हुनर'
+    },
+    smithSklAetheriteHelm: {
+      name: 'ईथराइट का टोपी · हुनर'
+    },
+    smithMasterSklMithrilPlate: {
+      name: 'उत्कृष्ट मिथ्रिल का साज़ · हुनर'
+    },
+    smithMasterSklAdamantPlate: {
+      name: 'उत्कृष्ट एडामेंट का साज़ · हुनर'
+    },
+    smithMasterSklAetheritePlate: {
+      name: 'उत्कृष्ट ईथराइट का साज़ · हुनर'
+    },
+    smithSklMithrilPlate: {
+      name: 'मिथ्रिल का साज़ · हुनर'
+    },
+    smithSklAdamantPlate: {
+      name: 'एडामेंट का साज़ · हुनर'
+    },
+    smithSklAetheritePlate: {
+      name: 'ईथराइट का साज़ · हुनर'
+    },
+    smithMasterSklMithrilGreaves: {
+      name: 'उत्कृष्ट मिथ्रिल का जूते · हुनर'
+    },
+    smithMasterSklAdamantGreaves: {
+      name: 'उत्कृष्ट एडामेंट का जूते · हुनर'
+    },
+    smithMasterSklAetheriteGreaves: {
+      name: 'उत्कृष्ट ईथराइट का जूते · हुनर'
+    },
+    smithSklMithrilGreaves: {
+      name: 'मिथ्रिल का जूते · हुनर'
+    },
+    smithSklAdamantGreaves: {
+      name: 'एडामेंट का जूते · हुनर'
+    },
+    smithSklAetheriteGreaves: {
+      name: 'ईथराइट का जूते · हुनर'
+    },
+    smithMasterChaIronSword: {
+      name: 'उत्कृष्ट लोहे का राजदंड · करि'
+    },
+    smithChaIronSword: {
+      name: 'लोहे का राजदंड · करि'
+    },
+    smithMasterChaIronHammer: {
+      name: 'उत्कृष्ट लोहे का ध्वज · करि'
+    },
+    smithChaIronHammer: {
+      name: 'लोहे का ध्वज · करि'
+    },
+    smithMasterChaIronShield: {
+      name: 'उत्कृष्ट लोहे का संहिता · करि'
+    },
+    smithChaIronShield: {
+      name: 'लोहे का संहिता · करि'
+    },
+    smithMasterChaIronHelm: {
+      name: 'उत्कृष्ट लोहे का मुकुट · करि'
+    },
+    smithChaIronHelm: {
+      name: 'लोहे का मुकुट · करि'
+    },
+    smithMasterChaIronPlate: {
+      name: 'उत्कृष्ट लोहे का अंगरखा · करि'
+    },
+    smithChaIronPlate: {
+      name: 'लोहे का अंगरखा · करि'
+    },
+    smithMasterChaIronGreaves: {
+      name: 'उत्कृष्ट लोहे का जूते · करि'
+    },
+    smithChaIronGreaves: {
+      name: 'लोहे का जूते · करि'
+    },
+    smithMasterChaSilverSword: {
+      name: 'उत्कृष्ट चाँदी का राजदंड · करि'
+    },
+    smithChaSilverSword: {
+      name: 'चाँदी का राजदंड · करि'
+    },
+    smithMasterChaSilverHammer: {
+      name: 'उत्कृष्ट चाँदी का ध्वज · करि'
+    },
+    smithChaSilverHammer: {
+      name: 'चाँदी का ध्वज · करि'
+    },
+    smithMasterChaSilverShield: {
+      name: 'उत्कृष्ट चाँदी का संहिता · करि'
+    },
+    smithChaSilverShield: {
+      name: 'चाँदी का संहिता · करि'
+    },
+    smithMasterChaSilverHelm: {
+      name: 'उत्कृष्ट चाँदी का मुकुट · करि'
+    },
+    smithChaSilverHelm: {
+      name: 'चाँदी का मुकुट · करि'
+    },
+    smithMasterChaSilverPlate: {
+      name: 'उत्कृष्ट चाँदी का अंगरखा · करि'
+    },
+    smithChaSilverPlate: {
+      name: 'चाँदी का अंगरखा · करि'
+    },
+    smithMasterChaSilverGreaves: {
+      name: 'उत्कृष्ट चाँदी का जूते · करि'
+    },
+    smithChaSilverGreaves: {
+      name: 'चाँदी का जूते · करि'
+    },
+    smithMasterChaGoldSword: {
+      name: 'उत्कृष्ट सोने का राजदंड · करि'
+    },
+    smithChaGoldSword: {
+      name: 'सोने का राजदंड · करि'
+    },
+    smithMasterChaGoldHammer: {
+      name: 'उत्कृष्ट सोने का ध्वज · करि'
+    },
+    smithChaGoldHammer: {
+      name: 'सोने का ध्वज · करि'
+    },
+    smithMasterChaGoldShield: {
+      name: 'उत्कृष्ट सोने का संहिता · करि'
+    },
+    smithChaGoldShield: {
+      name: 'सोने का संहिता · करि'
+    },
+    smithMasterChaGoldHelm: {
+      name: 'उत्कृष्ट सोने का मुकुट · करि'
+    },
+    smithChaGoldHelm: {
+      name: 'सोने का मुकुट · करि'
+    },
+    smithMasterChaGoldPlate: {
+      name: 'उत्कृष्ट सोने का अंगरखा · करि'
+    },
+    smithChaGoldPlate: {
+      name: 'सोने का अंगरखा · करि'
+    },
+    smithMasterChaGoldGreaves: {
+      name: 'उत्कृष्ट सोने का जूते · करि'
+    },
+    smithChaGoldGreaves: {
+      name: 'सोने का जूते · करि'
+    },
+    smithMasterChaMithrilSword: {
+      name: 'उत्कृष्ट मिथ्रिल का राजदंड · करि'
+    },
+    smithMasterChaAdamantSword: {
+      name: 'उत्कृष्ट एडामेंट का राजदंड · करि'
+    },
+    smithMasterChaAetheriteSword: {
+      name: 'उत्कृष्ट ईथराइट का राजदंड · करि'
+    },
+    smithChaMithrilSword: {
+      name: 'मिथ्रिल का राजदंड · करि'
+    },
+    smithChaAdamantSword: {
+      name: 'एडामेंट का राजदंड · करि'
+    },
+    smithChaAetheriteSword: {
+      name: 'ईथराइट का राजदंड · करि'
+    },
+    smithMasterChaMithrilHammer: {
+      name: 'उत्कृष्ट मिथ्रिल का ध्वज · करि'
+    },
+    smithMasterChaAdamantHammer: {
+      name: 'उत्कृष्ट एडामेंट का ध्वज · करि'
+    },
+    smithMasterChaAetheriteHammer: {
+      name: 'उत्कृष्ट ईथराइट का ध्वज · करि'
+    },
+    smithChaMithrilHammer: {
+      name: 'मिथ्रिल का ध्वज · करि'
+    },
+    smithChaAdamantHammer: {
+      name: 'एडामेंट का ध्वज · करि'
+    },
+    smithChaAetheriteHammer: {
+      name: 'ईथराइट का ध्वज · करि'
+    },
+    smithMasterChaMithrilShield: {
+      name: 'उत्कृष्ट मिथ्रिल का संहिता · करि'
+    },
+    smithMasterChaAdamantShield: {
+      name: 'उत्कृष्ट एडामेंट का संहिता · करि'
+    },
+    smithMasterChaAetheriteShield: {
+      name: 'उत्कृष्ट ईथराइट का संहिता · करि'
+    },
+    smithChaMithrilShield: {
+      name: 'मिथ्रिल का संहिता · करि'
+    },
+    smithChaAdamantShield: {
+      name: 'एडामेंट का संहिता · करि'
+    },
+    smithChaAetheriteShield: {
+      name: 'ईथराइट का संहिता · करि'
+    },
+    smithMasterChaMithrilHelm: {
+      name: 'उत्कृष्ट मिथ्रिल का मुकुट · करि'
+    },
+    smithMasterChaAdamantHelm: {
+      name: 'उत्कृष्ट एडामेंट का मुकुट · करि'
+    },
+    smithMasterChaAetheriteHelm: {
+      name: 'उत्कृष्ट ईथराइट का मुकुट · करि'
+    },
+    smithChaMithrilHelm: {
+      name: 'मिथ्रिल का मुकुट · करि'
+    },
+    smithChaAdamantHelm: {
+      name: 'एडामेंट का मुकुट · करि'
+    },
+    smithChaAetheriteHelm: {
+      name: 'ईथराइट का मुकुट · करि'
+    },
+    smithMasterChaMithrilPlate: {
+      name: 'उत्कृष्ट मिथ्रिल का अंगरखा · करि'
+    },
+    smithMasterChaAdamantPlate: {
+      name: 'उत्कृष्ट एडामेंट का अंगरखा · करि'
+    },
+    smithMasterChaAetheritePlate: {
+      name: 'उत्कृष्ट ईथराइट का अंगरखा · करि'
+    },
+    smithChaMithrilPlate: {
+      name: 'मिथ्रिल का अंगरखा · करि'
+    },
+    smithChaAdamantPlate: {
+      name: 'एडामेंट का अंगरखा · करि'
+    },
+    smithChaAetheritePlate: {
+      name: 'ईथराइट का अंगरखा · करि'
+    },
+    smithMasterChaMithrilGreaves: {
+      name: 'उत्कृष्ट मिथ्रिल का जूते · करि'
+    },
+    smithMasterChaAdamantGreaves: {
+      name: 'उत्कृष्ट एडामेंट का जूते · करि'
+    },
+    smithMasterChaAetheriteGreaves: {
+      name: 'उत्कृष्ट ईथराइट का जूते · करि'
+    },
+    smithChaMithrilGreaves: {
+      name: 'मिथ्रिल का जूते · करि'
+    },
+    smithChaAdamantGreaves: {
+      name: 'एडामेंट का जूते · करि'
+    },
+    smithChaAetheriteGreaves: {
+      name: 'ईथराइट का जूते · करि'
+    },
+    smithMasterEndIronSword: {
+      name: 'उत्कृष्ट लोहे का गदा · सहन'
+    },
+    smithEndIronSword: {
+      name: 'लोहे का गदा · सहन'
+    },
+    smithMasterEndIronHammer: {
+      name: 'उत्कृष्ट लोहे का कुल्हाड़ी · सहन'
+    },
+    smithEndIronHammer: {
+      name: 'लोहे का कुल्हाड़ी · सहन'
+    },
+    smithMasterEndIronShield: {
+      name: 'उत्कृष्ट लोहे की ढाल · सहन'
+    },
+    smithEndIronShield: {
+      name: 'लोहे की ढाल · सहन'
+    },
+    smithMasterEndIronHelm: {
+      name: 'उत्कृष्ट लोहे का टोप · सहन'
+    },
+    smithEndIronHelm: {
+      name: 'लोहे का टोप · सहन'
+    },
+    smithMasterEndIronPlate: {
+      name: 'उत्कृष्ट लोहे का पट्टी-कवच · सहन'
+    },
+    smithEndIronPlate: {
+      name: 'लोहे का पट्टी-कवच · सहन'
+    },
+    smithMasterEndIronGreaves: {
+      name: 'उत्कृष्ट लोहे का पिंडली-कवच · सहन'
+    },
+    smithEndIronGreaves: {
+      name: 'लोहे का पिंडली-कवच · सहन'
+    },
+    smithMasterEndSilverSword: {
+      name: 'उत्कृष्ट चाँदी का गदा · सहन'
+    },
+    smithEndSilverSword: {
+      name: 'चाँदी का गदा · सहन'
+    },
+    smithMasterEndSilverHammer: {
+      name: 'उत्कृष्ट चाँदी का कुल्हाड़ी · सहन'
+    },
+    smithEndSilverHammer: {
+      name: 'चाँदी का कुल्हाड़ी · सहन'
+    },
+    smithMasterEndSilverShield: {
+      name: 'उत्कृष्ट चाँदी की ढाल · सहन'
+    },
+    smithEndSilverShield: {
+      name: 'चाँदी की ढाल · सहन'
+    },
+    smithMasterEndSilverHelm: {
+      name: 'उत्कृष्ट चाँदी का टोप · सहन'
+    },
+    smithEndSilverHelm: {
+      name: 'चाँदी का टोप · सहन'
+    },
+    smithMasterEndSilverPlate: {
+      name: 'उत्कृष्ट चाँदी का पट्टी-कवच · सहन'
+    },
+    smithEndSilverPlate: {
+      name: 'चाँदी का पट्टी-कवच · सहन'
+    },
+    smithMasterEndSilverGreaves: {
+      name: 'उत्कृष्ट चाँदी का पिंडली-कवच · सहन'
+    },
+    smithEndSilverGreaves: {
+      name: 'चाँदी का पिंडली-कवच · सहन'
+    },
+    smithMasterEndGoldSword: {
+      name: 'उत्कृष्ट सोने का गदा · सहन'
+    },
+    smithEndGoldSword: {
+      name: 'सोने का गदा · सहन'
+    },
+    smithMasterEndGoldHammer: {
+      name: 'उत्कृष्ट सोने का कुल्हाड़ी · सहन'
+    },
+    smithEndGoldHammer: {
+      name: 'सोने का कुल्हाड़ी · सहन'
+    },
+    smithMasterEndGoldShield: {
+      name: 'उत्कृष्ट सोने की ढाल · सहन'
+    },
+    smithEndGoldShield: {
+      name: 'सोने की ढाल · सहन'
+    },
+    smithMasterEndGoldHelm: {
+      name: 'उत्कृष्ट सोने का टोप · सहन'
+    },
+    smithEndGoldHelm: {
+      name: 'सोने का टोप · सहन'
+    },
+    smithMasterEndGoldPlate: {
+      name: 'उत्कृष्ट सोने का पट्टी-कवच · सहन'
+    },
+    smithEndGoldPlate: {
+      name: 'सोने का पट्टी-कवच · सहन'
+    },
+    smithMasterEndGoldGreaves: {
+      name: 'उत्कृष्ट सोने का पिंडली-कवच · सहन'
+    },
+    smithEndGoldGreaves: {
+      name: 'सोने का पिंडली-कवच · सहन'
+    },
+    smithMasterEndMithrilSword: {
+      name: 'उत्कृष्ट मिथ्रिल का गदा · सहन'
+    },
+    smithMasterEndAdamantSword: {
+      name: 'उत्कृष्ट एडामेंट का गदा · सहन'
+    },
+    smithMasterEndAetheriteSword: {
+      name: 'उत्कृष्ट ईथराइट का गदा · सहन'
+    },
+    smithEndMithrilSword: {
+      name: 'मिथ्रिल का गदा · सहन'
+    },
+    smithEndAdamantSword: {
+      name: 'एडामेंट का गदा · सहन'
+    },
+    smithEndAetheriteSword: {
+      name: 'ईथराइट का गदा · सहन'
+    },
+    smithMasterEndMithrilHammer: {
+      name: 'उत्कृष्ट मिथ्रिल का कुल्हाड़ी · सहन'
+    },
+    smithMasterEndAdamantHammer: {
+      name: 'उत्कृष्ट एडामेंट का कुल्हाड़ी · सहन'
+    },
+    smithMasterEndAetheriteHammer: {
+      name: 'उत्कृष्ट ईथराइट का कुल्हाड़ी · सहन'
+    },
+    smithEndMithrilHammer: {
+      name: 'मिथ्रिल का कुल्हाड़ी · सहन'
+    },
+    smithEndAdamantHammer: {
+      name: 'एडामेंट का कुल्हाड़ी · सहन'
+    },
+    smithEndAetheriteHammer: {
+      name: 'ईथराइट का कुल्हाड़ी · सहन'
+    },
+    smithMasterEndMithrilShield: {
+      name: 'उत्कृष्ट मिथ्रिल की ढाल · सहन'
+    },
+    smithMasterEndAdamantShield: {
+      name: 'उत्कृष्ट एडामेंट की ढाल · सहन'
+    },
+    smithMasterEndAetheriteShield: {
+      name: 'उत्कृष्ट ईथराइट की ढाल · सहन'
+    },
+    smithEndMithrilShield: {
+      name: 'मिथ्रिल की ढाल · सहन'
+    },
+    smithEndAdamantShield: {
+      name: 'एडामेंट की ढाल · सहन'
+    },
+    smithEndAetheriteShield: {
+      name: 'ईथराइट की ढाल · सहन'
+    },
+    smithMasterEndMithrilHelm: {
+      name: 'उत्कृष्ट मिथ्रिल का टोप · सहन'
+    },
+    smithMasterEndAdamantHelm: {
+      name: 'उत्कृष्ट एडामेंट का टोप · सहन'
+    },
+    smithMasterEndAetheriteHelm: {
+      name: 'उत्कृष्ट ईथराइट का टोप · सहन'
+    },
+    smithEndMithrilHelm: {
+      name: 'मिथ्रिल का टोप · सहन'
+    },
+    smithEndAdamantHelm: {
+      name: 'एडामेंट का टोप · सहन'
+    },
+    smithEndAetheriteHelm: {
+      name: 'ईथराइट का टोप · सहन'
+    },
+    smithMasterEndMithrilPlate: {
+      name: 'उत्कृष्ट मिथ्रिल का पट्टी-कवच · सहन'
+    },
+    smithMasterEndAdamantPlate: {
+      name: 'उत्कृष्ट एडामेंट का पट्टी-कवच · सहन'
+    },
+    smithMasterEndAetheritePlate: {
+      name: 'उत्कृष्ट ईथराइट का पट्टी-कवच · सहन'
+    },
+    smithEndMithrilPlate: {
+      name: 'मिथ्रिल का पट्टी-कवच · सहन'
+    },
+    smithEndAdamantPlate: {
+      name: 'एडामेंट का पट्टी-कवच · सहन'
+    },
+    smithEndAetheritePlate: {
+      name: 'ईथराइट का पट्टी-कवच · सहन'
+    },
+    smithMasterEndMithrilGreaves: {
+      name: 'उत्कृष्ट मिथ्रिल का पिंडली-कवच · सहन'
+    },
+    smithMasterEndAdamantGreaves: {
+      name: 'उत्कृष्ट एडामेंट का पिंडली-कवच · सहन'
+    },
+    smithMasterEndAetheriteGreaves: {
+      name: 'उत्कृष्ट ईथराइट का पिंडली-कवच · सहन'
+    },
+    smithEndMithrilGreaves: {
+      name: 'मिथ्रिल का पिंडली-कवच · सहन'
+    },
+    smithEndAdamantGreaves: {
+      name: 'एडामेंट का पिंडली-कवच · सहन'
+    },
+    smithEndAetheriteGreaves: {
+      name: 'ईथराइट का पिंडली-कवच · सहन'
     },
     smithIronSword: {
       name: 'लोहे की तलवार'
@@ -1778,6 +2952,414 @@ export default {
     scepterOfTheFirstKing: {
       name: 'प्रथम राजा का राजदंड'
     },
+    pickpocketsKnife: {
+      name: 'जेबकतरे का चाकू'
+    },
+    serpentsFang: {
+      name: 'सर्प की दाढ़'
+    },
+    phantomRapier: {
+      name: 'प्रेत रेपियर'
+    },
+    fangOfTheWindless: {
+      name: 'पवनहीन की दाढ़'
+    },
+    roguesBuckler: {
+      name: 'धूर्त की छोटी ढाल'
+    },
+    venomVial: {
+      name: 'विष की शीशी'
+    },
+    swiftguardBuckler: {
+      name: 'फुर्तीले रक्षक की छोटी ढाल'
+    },
+    nightshadeFlask: {
+      name: 'बेलाडोना की कुप्पी'
+    },
+    windveilTarge: {
+      name: 'वायु-पर्दे की ढाल'
+    },
+    shadowdancersBuckler: {
+      name: 'छाया-नर्तक की छोटी ढाल'
+    },
+    scoutsBandana: {
+      name: 'टोही का रूमाल'
+    },
+    nightcowl: {
+      name: 'रात्रि का हुड'
+    },
+    shadowveilHood: {
+      name: 'छाया-पर्दे का हुड'
+    },
+    windrunnersCap: {
+      name: 'पवन-धावक की टोपी'
+    },
+    maskOfTheSilentWind: {
+      name: 'मौन पवन का मुखौटा'
+    },
+    rangersJerkin: {
+      name: 'रेंजर की जैकेट'
+    },
+    nightstalkerLeathers: {
+      name: 'निशाचर शिकारी का चमड़ा'
+    },
+    windridersHarness: {
+      name: 'पवन-सवार का साज'
+    },
+    mantleOfTheShadowDancer: {
+      name: 'छाया-नर्तक का चोगा'
+    },
+    thiefsGloves: {
+      name: 'चोर के दस्ताने'
+    },
+    cutpurseGloves: {
+      name: 'जेबकतरे के दस्ताने'
+    },
+    glovesOfTheGale: {
+      name: 'आँधी के दस्ताने'
+    },
+    softSoledShoes: {
+      name: 'मुलायम तलवे के जूते'
+    },
+    catStepBoots: {
+      name: 'बिल्ली-चाल के जूते'
+    },
+    shadowstepBoots: {
+      name: 'छाया-चाल के जूते'
+    },
+    windstrideBoots: {
+      name: 'पवन-चाल के जूते'
+    },
+    luckyCoin: {
+      name: 'भाग्यशाली सिक्का'
+    },
+    shadowBand: {
+      name: 'छाया का छल्ला'
+    },
+    sandglassOfTheSwift: {
+      name: 'फुर्तीलों की रेतघड़ी'
+    },
+    talonCharm: {
+      name: 'पंजे का ताबीज़'
+    },
+    windheart: {
+      name: 'पवन-हृदय'
+    },
+    ashwallHeater: {
+      name: 'राख-दीवार की ढाल'
+    },
+    wyrmhidePavise: {
+      name: 'वायवर्न-खाल की भारी ढाल'
+    },
+    footmansKettleHat: {
+      name: 'पैदल सैनिक की कड़ाही-टोपी'
+    },
+    ironbrowSallet: {
+      name: 'लोहे की भौंहों वाला शिरस्त्राण'
+    },
+    warlordsBarbute: {
+      name: 'सेनापति का बारबुट'
+    },
+    helmOfTheSunderedThrone: {
+      name: 'टूटे सिंहासन का शिरस्त्राण'
+    },
+    recruitsCuirass: {
+      name: 'रंगरूट का कवच'
+    },
+    stonecuttersMitts: {
+      name: 'पत्थर-तराश के दस्ताने'
+    },
+    ashforgedGauntlets: {
+      name: 'राख में गढ़े कवच-दस्ताने'
+    },
+    warbringerGauntlets: {
+      name: 'युद्ध-वाहक के कवच-दस्ताने'
+    },
+    titanfistGauntlets: {
+      name: 'टाइटन-मुक्के के कवच-दस्ताने'
+    },
+    footmansGreaves: {
+      name: 'पैदल सैनिक के पिंडली-कवच'
+    },
+    ironshodGreaves: {
+      name: 'लोहे जड़े पिंडली-कवच'
+    },
+    warlordsSabatons: {
+      name: 'सेनापति के लौह-जूते'
+    },
+    greavesOfTheMountainfall: {
+      name: 'पर्वत-धसान के पिंडली-कवच'
+    },
+    sergeantsSignet: {
+      name: 'सूबेदार की मुहर-अंगूठी'
+    },
+    brawlersKnuckleRing: {
+      name: 'झगड़ालू का लोहे का पंजा'
+    },
+    bloodiedWarMedal: {
+      name: 'खून से सना युद्ध-पदक'
+    },
+    watchmansCudgel: {
+      name: 'पहरेदार का डंडा'
+    },
+    ironboundMace: {
+      name: 'लोहे की पट्टी वाली गदा'
+    },
+    stonehideCleaver: {
+      name: 'पत्थर-खाल की छुरी'
+    },
+    bulwarkMaul: {
+      name: 'गढ़ का हथौड़ा'
+    },
+    mountainsplitterAxe: {
+      name: 'पर्वत-फाड़ कुल्हाड़ी'
+    },
+    everstandWarmace: {
+      name: 'अडिग युद्ध-गदा'
+    },
+    emberwallBastion: {
+      name: 'अंगारा-दीवार का दुर्ग'
+    },
+    stonewardenHelm: {
+      name: 'पत्थर-रक्षक का शिरस्त्राण'
+    },
+    colossusVisage: {
+      name: 'विशाल का चेहरा'
+    },
+    diggersGauntlets: {
+      name: 'खोदने वाले के कवच-दस्ताने'
+    },
+    bastionGauntlets: {
+      name: 'दुर्ग के कवच-दस्ताने'
+    },
+    glacierplateGauntlets: {
+      name: 'हिमनद-पट्ट के कवच-दस्ताने'
+    },
+    gauntletsOfEndlessVigil: {
+      name: 'अनंत पहरे के कवच-दस्ताने'
+    },
+    hearthstoneCharm: {
+      name: 'चूल्हे-पत्थर का ताबीज़'
+    },
+    ironheartPendant: {
+      name: 'लौह-हृदय पदक'
+    },
+    hedgewizardsWand: {
+      name: 'बाड़ के जादूगर की छड़ी'
+    },
+    frostglassStaff: {
+      name: 'पाले के काँच की लाठी'
+    },
+    voidthreadWand: {
+      name: 'शून्य-धागे की छड़ी'
+    },
+    staffOfTheStarlessSky: {
+      name: 'तारा-रहित आकाश की लाठी'
+    },
+    studentsGrimoire: {
+      name: 'विद्यार्थी की जादुई पुस्तक'
+    },
+    frostfireOrb: {
+      name: 'पाला-अग्नि गोला'
+    },
+    orbOfTheUnwrittenHour: {
+      name: 'अलिखित घड़ी का गोला'
+    },
+    apprenticesPointedCap: {
+      name: 'शिष्य की नुकीली टोपी'
+    },
+    sagesCirclet: {
+      name: 'ज्ञानी का मुकुट'
+    },
+    cinderWizardsHat: {
+      name: 'राख-जादूगर की टोपी'
+    },
+    voidseerCirclet: {
+      name: 'शून्य-द्रष्टा का मुकुट'
+    },
+    apprenticesRobe: {
+      name: 'शिष्य का चोगा'
+    },
+    cinderthreadRobe: {
+      name: 'राख-धागे का चोगा'
+    },
+    voidwovenRobe: {
+      name: 'शून्य से बुना चोगा'
+    },
+    inkStainedGloves: {
+      name: 'स्याही-धब्बे वाले दस्ताने'
+    },
+    spellthreadGloves: {
+      name: 'मंत्र-धागे के दस्ताने'
+    },
+    frostweaveGloves: {
+      name: 'पाले-बुने दस्ताने'
+    },
+    starlitGloves: {
+      name: 'तारों की रोशनी के दस्ताने'
+    },
+    glovesOfTheLastWord: {
+      name: 'अंतिम शब्द के दस्ताने'
+    },
+    scribesSlippers: {
+      name: 'लेखक की चप्पलें'
+    },
+    moonstepSlippers: {
+      name: 'चंद्र-कदम की चप्पलें'
+    },
+    emberstepBoots: {
+      name: 'अंगारा-कदम के जूते'
+    },
+    voidwalkerBoots: {
+      name: 'शून्य-यात्री के जूते'
+    },
+    bootsOfTheWanderingStar: {
+      name: 'भटकते तारे के जूते'
+    },
+    glowstonePendant: {
+      name: 'चमकते पत्थर का पदक'
+    },
+    scholarsSeal: {
+      name: 'विद्वान की मुहर'
+    },
+    eyeOfTheArchon: {
+      name: 'आर्कन की आँख'
+    },
+    cinderRepeater: {
+      name: 'राख की बार-बार वाली बंदूक'
+    },
+    glacierMortar: {
+      name: 'हिमनद का हाथ-मोर्टार'
+    },
+    sparkCell: {
+      name: 'चिंगारी-कोश'
+    },
+    arcCapacitor: {
+      name: 'चाप संधारित्र'
+    },
+    aetherheartCell: {
+      name: 'ईथर-हृदय कोश'
+    },
+    marksmansVisor: {
+      name: 'निशानेबाज़ की नक़ाब'
+    },
+    sharpshootersCap: {
+      name: 'स्नाइपर की टोपी'
+    },
+    gunnersHarness: {
+      name: 'तोपची का पट्टा'
+    },
+    steadyhandGloves: {
+      name: 'स्थिर हाथ के दस्ताने'
+    },
+    gunsmithsGloves: {
+      name: 'बंदूकसाज़ के दस्ताने'
+    },
+    scrappersBoots: {
+      name: 'झगड़ालू के जूते'
+    },
+    sharpshooterBoots: {
+      name: 'स्नाइपर के जूते'
+    },
+    firingLineBoots: {
+      name: 'गोलीबारी-रेखा के जूते'
+    },
+    steadyfootBoots: {
+      name: 'दृढ़ कदम के जूते'
+    },
+    aetherstepBoots: {
+      name: 'ईथर-कदम के जूते'
+    },
+    bootsOfTheLastShot: {
+      name: 'अंतिम गोली के जूते'
+    },
+    brassCartridgeCharm: {
+      name: 'पीतल कारतूस का ताबीज़'
+    },
+    deadEyeLens: {
+      name: 'सटीक आँख का लेंस'
+    },
+    eagleEyeScope: {
+      name: 'बाज़-नज़र की दूरबीन'
+    },
+    criersBaton: {
+      name: 'मुनादी करने वाले की छड़ी'
+    },
+    droversStandard: {
+      name: 'चरवाहे का ध्वज'
+    },
+    marshalsSceptre: {
+      name: 'सेनापति का राजदंड'
+    },
+    balladBook: {
+      name: 'गाथा-गीतों की पुस्तक'
+    },
+    chronicleOfHeroes: {
+      name: 'वीरों का इतिवृत्त'
+    },
+    psalterOfTheHost: {
+      name: 'सेना का स्तोत्र-ग्रंथ'
+    },
+    tomeOfEternalReign: {
+      name: 'शाश्वत शासन का खंड'
+    },
+    heraldsCap: {
+      name: 'संदेशवाहक की टोपी'
+    },
+    singersCirclet: {
+      name: 'गायक का मुकुट'
+    },
+    diademOfTenThousandVoices: {
+      name: 'दस हज़ार स्वरों का मुकुट'
+    },
+    travelersWaistcoat: {
+      name: 'यात्री की सदरी'
+    },
+    minstrelsMotley: {
+      name: 'चारण की पैबंद वाली पोशाक'
+    },
+    troubadoursCoat: {
+      name: 'घुमंतू कवि का कोट'
+    },
+    marshalsGreatcoat: {
+      name: 'सेनापति का लंबा कोट'
+    },
+    buskersGloves: {
+      name: 'सड़क-संगीतकार के दस्ताने'
+    },
+    drummersGloves: {
+      name: 'ढोलकिया के दस्ताने'
+    },
+    standardBearersGloves: {
+      name: 'ध्वजवाहक के दस्ताने'
+    },
+    gildedParadeGloves: {
+      name: 'सुनहरे परेड दस्ताने'
+    },
+    glovesOfTheCrownedHand: {
+      name: 'ताज पहने हाथ के दस्ताने'
+    },
+    wayfarersShoes: {
+      name: 'पथिक के जूते'
+    },
+    troubadourBoots: {
+      name: 'घुमंतू कवि के जूते'
+    },
+    heraldsRidingBoots: {
+      name: 'संदेशवाहक के घुड़सवारी जूते'
+    },
+    paradeBoots: {
+      name: 'परेड जूते'
+    },
+    bootsOfTheLongProcession: {
+      name: 'लंबे जुलूस के जूते'
+    },
+    silverWhistle: {
+      name: 'चाँदी की सीटी'
+    },
+    gatheringHorn: {
+      name: 'एकत्र करने का सींग'
+    },
     heartOfTheMountain: {
       name: 'पर्वत का हृदय'
     },
@@ -1883,6 +3465,9 @@ export default {
     freedPeddler: {
       talk: 'मुसाफ़िर की ज़रूरत की हर चीज़। लगभग नई, ज़्यादातर।',
       name: 'ओडो मैरो'
+    },
+    sfShadowRoad: {
+      name: 'नेटल क्विकहैंड'
     },
     sfShadow: {
       name: 'नेटल क्विकहैंड'
@@ -2037,6 +3622,9 @@ export default {
     sunfordGambler: {
       name: 'डॉब कलाबाज़'
     },
+    sunfordCups: {
+      name: 'नेल तेज़उँगली'
+    },
     oakGambler: {
       name: 'रेशमी रेन'
     },
@@ -2148,6 +3736,13 @@ export default {
     }
   },
   dlg: {
+    intro: {
+      crossing: { 1: 'इस दुनिया की हर सड़क एक चौराहे पर मिलती है… और हर चौराहा एक युद्ध है।' },
+      hero: { 1: 'सनफ़ोर्ड के शांत खेतों से, एक युवा नायक निकल पड़ा।' },
+      fire: { 1: 'आग ने पुकार का जवाब दिया। फ़ौलाद ने एक नया नाम सीखा।' },
+      foes: { 1: 'गॉब्लिन राजा, हिम यार्ल, शून्य का ड्रैगन… और महा-दानव।' },
+      begin: { 1: 'तुम्हारी गाथा अब शुरू होती है।' }
+    },
     frostDisciple: {
       bye: {
         '1': 'गर्म रहना।'
@@ -2354,6 +3949,23 @@ export default {
       hello: {
         '2': 'ओडो मैरो, सेवा में हाज़िर। फेरीवाला, मरम्मत करने वाला, और बेहद एहसानमंद आदमी।',
         '1': 'तुम! तुम्हीं ने वो पिंजरा खोला था! मैं तो वहीं सड़ जाता।'
+      }
+    },
+    sfShadowRoad: {
+      hello: {
+        '1': 'टेलीपोर्ट। दिलचस्पी है?'
+      },
+      again: {
+        '1': 'एक और चाल सीखने लौटे हो?'
+      },
+      train: {
+        '1': 'ध्यान से देखो। एक कदम, और तुम कहीं और होगे।'
+      },
+      trainBack: {
+        '1': 'अच्छा। अब जाओ और कहीं और रहो।'
+      },
+      bye: {
+        '1': 'पकड़े मत जाना।'
       }
     },
     sfShadow: {
@@ -2615,9 +4227,8 @@ export default {
         '2': 'धातु जब सबसे ज़्यादा चमके, तब चोट करो। चूके तो कबाड़। चलो।',
         '1': 'लोहारी? हम्म। हथौड़ा ऐसे पकड़ो, लट्ठ की तरह नहीं।'
       },
-      ore: {
-        '1': 'डले, हाँ? सारे ले लूँगा। सही तौल, सही दाम।'
-      },
+      ore: { '1': 'अयस्क, हाँ? दिखाओ। हर डले का दाम दूँगा, खरी तौल।' },
+      sellBack: { '1': 'खरी तौल, खरा सिक्का। और मिले तो लाना।' },
       forgeBack: {
         '1': 'बुरा नहीं। अच्छा भी नहीं। लगे रहो।'
       },
@@ -2913,7 +4524,7 @@ export default {
       },
       map: {
         '1': 'कप्तान रूक का नक्शा! गॉब्लिनों के पकड़ने से पहले उसने इसे फाड़कर टुकड़े छिपा दिए थे।',
-        '2': 'छहों टुकड़े ढूँढो, तो X रास्ता दिखाएगा: राख की चट्टानों में कहीं। वहाँ खोदो, और सोना तुम्हारा।',
+        '2': 'उनमें से छह टुकड़े ढूँढो, कुछ और इधर-उधर बिखरे हैं, तो X रास्ता दिखाएगा: राख की चट्टानों में कहीं। वहाँ खोदो, और सोना तुम्हारा।',
         say: 'मुझे एक पुराने नक्शे का टुकड़ा मिला है।'
       }
     },
@@ -2930,6 +4541,9 @@ export default {
       },
       mana: {
         '1': 'यह कड़वा है। मंत्र ख़त्म हो जाएँ तब पीना।'
+      },
+      brew: {
+        '1': 'अपनी जड़ी-बूटियाँ दिखाओ। मैं कुछ ऐसा मिलाऊँगी जिसका स्वाद मेरे मैना टॉनिक से बेहतर हो।'
       },
       potions: {
         '1': 'हर लड़ाई में तुम कुछ कुप्पियाँ ले जाते हो। ज़रूरत से पहले पियो, बाद में नहीं।',
@@ -2950,6 +4564,9 @@ export default {
       },
       healBack: {
         '1': 'पेटी भरी रखो और सिर नीचा।'
+      },
+      brewBack: {
+        '1': 'सँभलकर, ये गरम हैं। सब एक साथ मत पी जाना।'
       },
       bye: {
         '1': 'बाहर अपना ख़याल रखना।'
@@ -3052,9 +4669,8 @@ export default {
         '1__f': 'हुनर सीखना चाहती हो? अच्छा। ओकहेवन को हर हथौड़े की ज़रूरत है।',
         '1': 'हुनर सीखना चाहते हो? अच्छा। ओकहेवन को हर हथौड़े की ज़रूरत है।'
       },
-      ore: {
-        '1': 'कच्चा अयस्क! शस्त्रागार में कभी पूरा नहीं पड़ता। यह लो, तुम्हारे पैसे।'
-      },
+      ore: { '1': 'कच्चा अयस्क! शस्त्रागार को कभी पूरा नहीं पड़ता। जितना दे सको, बेचो।' },
+      sellBack: { '1': 'हर डला दीवार में जाएगा। शुक्रिया।' },
       forgeBack: {
         '1': 'बढ़िया इस्पात। दीवारें तुम्हारी शुक्रगुज़ार हैं।'
       },
@@ -3097,9 +4713,8 @@ export default {
         '1__f': 'घेराबंदी के बाद से जो भी पूछे, उसे सिखाना मेरा नियम है। आओ, यहाँ खड़ी हो।',
         '1': 'घेराबंदी के बाद से जो भी पूछे, उसे सिखाना मेरा नियम है। आओ, यहाँ खड़े हो।'
       },
-      ore: {
-        '1': 'दीवारों के लिए और अयस्क? भला हो तुम्हारा। लो, यह रखो।'
-      },
+      ore: { '1': 'दीवारों के लिए और अयस्क? जितने डले दे सको, हर एक का दाम दूँगा।' },
+      sellBack: { '1': 'भगवान भला करे। दीवारों के लिए और कवच पट्टियाँ।' },
       forgeBack: {
         '1': 'हर चोट तुम्हें बेहतर बनाती है। जब चाहो आ जाना।'
       },
@@ -3517,9 +5132,8 @@ export default {
         '2': 'कब, यह चमक बताती है। कितनी ज़ोर से, यह तुम्हारी बाँह। तीन चोटें।',
         '1': 'सतह-वासी निहाई पर? ख़ैर, हर कोई कहीं से शुरू करता है।'
       },
-      ore: {
-        '1': 'बढ़िया, ईमानदार धातु। आयरनहोल्ड इसके दाम हमेशा देता है।'
-      },
+      ore: { '1': 'अच्छी, खरी धातु। यहाँ रखो, हर डले का दाम दूँगी।' },
+      sellBack: { '1': 'खरा सौदा। आयरनहोल्ड अच्छी धातु का दाम हमेशा देता है।' },
       forgeBack: {
         '1': 'कोई बौना इससे बेहतर करता। पर बहुत ज़्यादा नहीं।'
       },
@@ -3591,9 +5205,8 @@ export default {
         '2': 'गरम करो, चोट करो, पलटो। तीन चोटें, ठीक चमक में। फिर ठंडा होने दो।',
         '1': 'पट्टी-कवच धीरज का काम है। मैं बुनियादी बातें दिखाता हूँ।'
       },
-      ore: {
-        '1': 'तौलने दो। ठीक। पैसे तुम्हारे।'
-      },
+      ore: { '1': 'तौलने दो। चुनो क्या बेचोगे, सिक्के मैं गिनूँगा।' },
+      sellBack: { '1': 'तौला और चुकाया। ठीक है।' },
       forgeBack: {
         '1': 'पहनने से पहले ठंडा होने दो।'
       },
@@ -3634,9 +5247,8 @@ export default {
         '2': 'निहाई पर अनुशासन, जैसे रणभूमि में। तीन चोटें, चमक के प्रति सच्ची।',
         '1': 'संघ अपने मित्रों को हथियार देता है। मैं तुम्हें सिखाऊँगा।'
       },
-      ore: {
-        '1': 'संघ युद्ध के लिए सारा अयस्क ख़रीदता है। यह तुम्हारा भुगतान।'
-      },
+      ore: { '1': 'ऑर्डर युद्ध के लिए अयस्क खरीदता है। जितना दे सको, बेचो।' },
+      sellBack: { '1': 'तुम्हारा भुगतान दर्ज है। ऑर्डर धन्यवाद देता है।' },
       forgeBack: {
         '1': 'अच्छा गढ़ा। इसे पहनकर अच्छी सेवा करो।'
       },
@@ -4064,6 +5676,11 @@ export default {
       }
     },
     bark: {
+      banditChief: {
+        whistle: {
+          1: 'उठो, लड़कों! इन्हें काट खाओ!'
+        }
+      },
       lightDisciple: {
         freed: {
           '1': 'तुम्हें प्रकाश ने भेजा है। मैं सिस्टर ऑरेल हूँ। सनफ़ोर्ड में मुझे ढूँढना, मैं तुम्हें प्रकाश-वाहक की राह सिखाऊँगी।'
@@ -4221,9 +5838,8 @@ export default {
         '1__f': 'ख़ुद हथौड़ा चलाकर देखना चाहोगी? भट्ठी बाँटने में मुझे कोई दिक़्क़त नहीं।',
         '1': 'ख़ुद हथौड़ा चलाकर देखना चाहोगे? भट्ठी बाँटने में मुझे कोई दिक़्क़त नहीं।'
       },
-      ore: {
-        '1': 'बढ़िया अयस्क। सिल्वरब्रिज हमेशा सही दाम देता है।'
-      },
+      ore: { '1': 'बढ़िया अयस्क। दिखाओ क्या बेचोगे, हर डले का दाम दूँगी।' },
+      sellBack: { '1': 'खुशी हुई। सिल्वरब्रिज हमेशा सही दाम देता है।' },
       forgeBack: {
         '1': 'देखो तो! तुम तो जन्मजात कारीगर हो।'
       },
@@ -4665,7 +6281,7 @@ export default {
         say: 'जड़ी-बूटियाँ कहाँ मिलेंगी?'
       },
       elixirs: {
-        '1': 'हर एक लड़ाई में पूरे एक मिनट तक तुम्हें ज़्यादा ताक़तवर बनाता है। ज़ोरदार वार, सख़्त चमड़ी, तेज़ क़दम।',
+        '1': 'हर एक लड़ाई में पूरे 5 मिनट तक तुम्हें ज़्यादा ताक़तवर बनाता है। ज़ोरदार वार, सख़्त चमड़ी, तेज़ क़दम।',
         '2': 'ये तुम्हारी तीसरी कुप्पी में रहते हैं। कौन-सा पीना है, बदलने के लिए छोटे तीर पर टैप करो।',
         say: 'एलिक्सिर क्या करते हैं?'
       },
@@ -4734,6 +6350,36 @@ export default {
       },
       bye: {
         '1': 'और कबाड़ लाना! कबाड़ मुझे सबसे प्यारा है।'
+      }
+    },
+    sunfordCups: {
+      hello: {
+        1: 'पास आइए! तीन कप, एक रत्न, और पहला दौर मुफ़्त!',
+        2: 'नेल तेज़उँगली। मेरे हाथों को अभी तक कोई चकमा नहीं दे पाया। आज़माओगे?'
+      },
+      again: {
+        1: 'फिर आ गए? आँखें खुली रखना!'
+      },
+      play: {
+        1: 'रत्न पर नज़र रखो, दोस्त। पलक मत झपकाना!'
+      },
+      rules: {
+        1: 'मैं रत्न को एक कप के नीचे छिपाकर कप फेंटती हूँ। तुम उस कप पर उँगली रखते हो जिसके नीचे वह है।',
+        2: 'लगातार हर जीत ज़्यादा देती है। तीन जीत पर इनाम, पाँच पर ख़ज़ाना। दिन का पहला दौर मुफ़्त है।',
+        say: 'यह कैसे खेलते हैं?'
+      },
+      who: {
+        1: 'मैंने चलना सीखने से पहले फेंटना सीख लिया था। अम्मा कहती हैं, इससे बहुत कुछ समझ आता है।'
+      },
+      luck: {
+        1: 'कभी-कभी! तब मैं ज़ोर से कराहती हूँ और भीड़ को मुझ पर तरस आता है।',
+        say: 'क्या तुम कभी हारती हो?'
+      },
+      playBack: {
+        1: 'बढ़िया दौर! कल फिर आना, पहला हमेशा मुफ़्त है।'
+      },
+      bye: {
+        1: 'फिर मिलेंगे! बाहर आँखें खुली रखना।'
       }
     },
     oakGambler: {
@@ -5227,6 +6873,7 @@ export default {
     banditArcher: 'डाकू तीरंदाज़',
     wolf: 'भेड़िया',
     banditChief: 'डाकुओं का सरदार',
+    gnome: 'ग्नोम',
     goblinKing: 'गॉब्लिन राजा',
     treant: 'वृक्ष-दैत्य',
     spider: 'विशाल मकड़ी',
@@ -5446,6 +7093,18 @@ export default {
       firefoxColors: 'Firefox: सेटिंग → रंग → “पेज द्वारा तय किए गए रंगों को ओवरराइड करें” को कभी नहीं पर सेट करें।'
     }
   },
+  samsungFix: {
+    title: 'रंगों की त्वरित जाँच',
+    body: 'कुछ फ़ोन वेब पेजों के रंग बदल देते हैं। नीचे दिए दोनों वर्गों की तुलना करें।',
+    question: 'क्या दोनों वर्ग एक जैसे दिखते हैं?',
+    refSquare: 'संदर्भ वर्ग',
+    pageSquare: 'पेज का वर्ग',
+    yes: 'हाँ, एक जैसे हैं',
+    no: 'नहीं, अलग दिखते हैं',
+    option: 'रंग ठीक करें (Samsung डार्क मोड)',
+    optionHint: 'अगर मेनू गहरे दिखें या टेक्स्ट पढ़ना मुश्किल हो तो इसे चालू करें।',
+    recheck: 'रंगों की जाँच फिर से करें'
+  },
   saveStatus: {
     restoredTitle: 'क्लाउड सेव बहाल हुआ',
     restoredBody: 'रिकवरी के लिए +{n} बोनस सोना',
@@ -5572,7 +7231,7 @@ export default {
   },
   forge: {
     upgrade: 'अपग्रेड ({n} सोना)',
-    max: 'पूरा अपग्रेड: +{n}।',
+    next: 'अगला +{level}: स्टैट्स +{pct}%',
     town: 'किसी भी शहर का लोहार इसे अपग्रेड कर सकता है।'
   },
   ore: {
@@ -5587,6 +7246,12 @@ export default {
     },
     mithril: {
       name: 'मिथ्रिल अयस्क'
+    },
+    adamant: {
+      name: 'एडामेंट अयस्क'
+    },
+    aetherite: {
+      name: 'ईथराइट अयस्क'
     }
   },
   plant: {
@@ -5668,32 +7333,32 @@ export default {
   elixir: {
     might: {
       name: 'शक्ति एलिक्सिर',
-      desc: 'एक मिनट तक +{n}% नुकसान'
+      desc: '5 मिनट तक +{n}% नुकसान'
     },
     iron: {
       name: 'लौहत्वचा पेय',
-      desc: 'एक मिनट तक +{n}% कवच'
+      desc: '5 मिनट तक +{n}% कवच'
     },
     swift: {
       name: 'फुर्ती टॉनिक',
-      desc: 'एक मिनट तक +{n}% चलने और हमले की गति'
+      desc: '5 मिनट तक +{n}% चलने और हमले की गति'
     },
     mind: {
       name: 'साफ़ मन काढ़ा',
-      desc: 'एक मिनट तक कौशल {n}% जल्दी लौटते हैं'
+      desc: '5 मिनट तक कौशल {n}% जल्दी लौटते हैं'
     },
     vigor: {
       name: 'जोश एलिक्सिर',
-      desc: 'एक मिनट तक हर सेकंड {n}% हेल्थ भरता है'
+      desc: '5 मिनट तक हर सेकंड {n}% हेल्थ भरता है'
     },
     shadow: {
       name: 'प्यास का घूँट',
-      desc: 'एक मिनट तक आपके वार अपने नुकसान का {n}% हेल्थ लौटाते हैं'
+      desc: '5 मिनट तक आपके वार अपने नुकसान का {n}% हेल्थ लौटाते हैं'
     }
   },
   alchemy: {
     talk: 'जड़ी-बूटियाँ अंदर, एलिक्सिर बाहर। बोलो, कौन-सा बनाएँ?',
-    lead: 'हर एलिक्सिर लड़ाई में एक मिनट तक असर करता है। इसे अपनी तीसरी कुप्पी से पिएँ। हर तरह के {n} तक साथ रखे जा सकते हैं।',
+    lead: 'हर एलिक्सिर लड़ाई में 5 मिनट तक असर करता है। इसे अपनी तीसरी कुप्पी से पिएँ। हर तरह के {n} तक साथ रखे जा सकते हैं।',
     brew: 'बनाएँ · {n}',
     carry: 'इसे रखें',
     carried: 'कुप्पी में है',
@@ -5717,6 +7382,25 @@ export default {
     again: 'फिर खेलें',
     noGold: 'इस बाज़ी के लिए सोना काफ़ी नहीं है।',
     card: 'पत्ता {n}'
+  },
+  cups: {
+    title: 'कप का ठेला',
+    lead: 'रत्न देखो, उसके कप का पीछा करो, फिर उसे चुनो। लगातार हर जीत ज़्यादा देती है। तीसरी पर इनाम की चीज़, पाँचवीं पर ख़ज़ाना।',
+    free: 'मुफ़्त दौर',
+    fee: 'खेलो · {n}',
+    row: 'लगातार जीत: {n} / {max}',
+    next: 'अगली जीत: {n} सोना',
+    watch: 'रत्न देखो!',
+    follow: 'उसका पीछा करो…',
+    pick: 'एक कप चुनो!',
+    hint: 'कप को छुएँ या उसका नंबर दबाएँ।',
+    won: 'मिल गया! +{n} सोना',
+    lost: 'यह नहीं। सिलसिला फिर से शुरू।',
+    near: 'बाल-बाल चूके! वह ठीक बगल में था।',
+    timeout: 'बहुत धीमे! सिलसिला फिर से शुरू।',
+    again: 'फिर खेलो',
+    noGold: 'सोना कम है। कल पहला दौर मुफ़्त है।',
+    cup: 'कप {n}'
   },
   battle: {
     title: 'चीज़ों की टक्कर',

@@ -1,0 +1,25 @@
+{
+  "note": "The CORE voice lines (owner decision 2026-10-18). English is voiced in full; every other voiced language (de, fr, es, pt, ru, ja, zh) ships ONLY these lines, the rest stay text-only (silent bubble). Single source of truth: tools/voice/core.mjs, the todo, the tests and `voice:gen --lang` read it. A line is core when its id (without the __f girl-hero suffix) matches a pattern or is listed in `include`, and is not in `exclude`; the __f twin follows its base line. Edit here, then run `pnpm voice:script`.",
+  "max": 300,
+  "patterns": [
+    "^dlg\\.quest\\.",
+    "^ending\\.(order|syndicate|circle|free|unbound)\\.text$",
+    "^ending\\.more$",
+    "^dlg\\.bark\\.",
+    "^dlg\\.intro\\.",
+    "^dlg\\.elderMara\\.map\\.",
+    "^dlg\\.elderMara\\.(hello|quest)\\.",
+    "^dlg\\.elderMara\\.(slain|pact|ransom|saved|fallen|ending)\\.1$",
+    "^dlg\\.captainHale\\.(saved|ending)\\.1$",
+    "^dlg\\.captainHale\\.(hello|quest|siege)\\.",
+    "^dlg\\.mayorBrenna\\.hello\\.",
+    "^dlg\\.syndicateBoss\\.hello\\.",
+    "^dlg\\.exiledSovereign\\.hello\\."
+  ],
+  "include": [
+    "dlg.hero.train",
+    "dlg.hero.bye",
+    "dlg.hero.learnSmith"
+  ],
+  "exclude": []
+}

@@ -1,4 +1,5 @@
 import type { PlantId } from './plants'
+import { PIECES_NEEDED } from './treasure'
 
 /**
  * ─── Errands: things people ask of the hero (roadmap #85, #86, #89, D101) ────
@@ -76,7 +77,7 @@ export const ERRANDS: ErrandDef[] = [
   // Mara knows the old story. Handed in by itself when the chest is dug up.
   {
     id: 'treasureMap', giver: 'elderMara',
-    steps: [{ kind: 'pieces', n: 6 }, { kind: 'dig', place: 'crags', n: 1 }],
+    steps: [{ kind: 'pieces', n: PIECES_NEEDED }, { kind: 'dig', place: 'crags', n: 1 }],
     reward: { xp: 0.5 }
   },
   // The secret masters' tests (#86): handed in, the master teaches. A third

@@ -56,7 +56,7 @@ const find = (): void => { input.findChestQueued = true }
   // Under the hero's frame (its column is the positioning box).
   position: absolute
   left: 0
-  top: calc(100% + clamp(0.35rem, 1.6vmin, 0.7rem))
+  top: calc(100% + calc(clamp(0.35rem, 1.6vmin, 0.7rem) * var(--hud-s, 1)))
   display: flex
   align-items: center
   gap: 0.5rem
@@ -68,7 +68,7 @@ const find = (): void => { input.findChestQueued = true }
 .leave.is-ready .leave__btn
   animation: leave-pulse 1.4s ease-in-out infinite
 .leave__key
-  font-size: clamp(0.8rem, 2.4vmin, 1.05rem)
+  font-size: max(10px, calc(clamp(0.8rem, 2.4vmin, 1.05rem) * var(--hud-s, 1)))
   color: var(--bc-ink)
 .leave__left
   position: relative
@@ -80,8 +80,8 @@ const find = (): void => { input.findChestQueued = true }
   display: inline-flex
   align-items: center
   justify-content: center
-  width: clamp(2.3rem, 9vmin, 2.9rem)
-  height: clamp(2.3rem, 9vmin, 2.9rem)
+  width: calc(clamp(2.3rem, 9vmin, 2.9rem) * var(--hud-s, 1))
+  height: calc(clamp(2.3rem, 9vmin, 2.9rem) * var(--hud-s, 1))
   padding: 0.35rem
   box-sizing: border-box
   border: 2px solid var(--bc-ink)
@@ -104,7 +104,7 @@ const find = (): void => { input.findChestQueued = true }
   background: var(--bc-white)
   color: var(--bc-ink)
   font-family: var(--font-ui)
-  font-size: clamp(0.72rem, 2.4vmin, 0.9rem)
+  font-size: max(10px, calc(clamp(0.72rem, 2.4vmin, 0.9rem) * var(--hud-s, 1)))
   line-height: 1.15
   text-align: center
 @keyframes leave-in

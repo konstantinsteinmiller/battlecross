@@ -40,6 +40,20 @@ describe('a piece against the one worn', () => {
   })
 })
 
+describe('the numbers of the stats menu', () => {
+  it('are trimmed to two digits after the point, and none when they are zero', async () => {
+    const { fmt2 } = await import('@/utils/format')
+    expect([fmt2(5.3000000004), fmt2(12.456), fmt2(7), fmt2(0.1 + 0.2), fmt2(-1.005), fmt2(NaN)]).toEqual(['5.3', '12.46', '7', '0.3', '-1', ''])
+    // A decimal stat and its change never carry float noise.
+    const now = p.computeStats()
+    const rows = s.statRows(now, { ...now, moveSpeed: now.moveSpeed + 0.1 + 0.2, hpRegen: now.hpRegen + 1 / 3 })
+    for (const key of ['moveSpeed', 'hpRegen'] as const) {
+      const r = rows.find(x => x.key === key)!
+      for (const v of [r.text, r.next, r.deltaText]) expect(v, key).toMatch(/^[+−]?\d+([.,]\d{1,2})?$/)
+    }
+  })
+})
+
 describe('what a change would do', () => {
   it('the rows carry the new value and the difference, in the units they are shown in', () => {
     const now = p.computeStats()

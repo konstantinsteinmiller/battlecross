@@ -9,9 +9,10 @@ import type { ZoneId } from './data/items'
 import { ZoneMode, type VisitResume, type ZoneSetup } from './modes/zoneMode'
 import { setVisitSnapshotProvider, takeResumeVisit } from './state/saveSlots'
 import { hud } from './state/hud'
-import { conversationOf, decisionOf } from './data/dialogs'
+import { MENTOR_MET_TIP, MENTOR_NPC, MENTOR_SKILL, ROAD_NPCS } from './data/mentor'
 import type { ConversationDef } from './dialog/types'
-import { abortTalk, beginTalk, talkResume, talkWaiting, type TalkStage } from './talk'
+import { abortTalk, beginTalk, conversationOf, decisionOf, talkCodeReady, talkResume, talkWaiting, type TalkStage } from './talk'
+import { loadTalk } from './talkLoader'
 import {
   clearNode, flagSet, gainItem, grantXp, hasFlag, isFreshProfile, isNodeOpen, isNodeReachable, lifetimeXp, profile, saveProfile
 } from './state/profile'
@@ -39,7 +40,7 @@ import { chestReward, escortPacks, merchantTiers, type EncounterSpec } from './d
 import { dayKey } from './rareShelf'
 import { carefulMult } from './careful'
 import { BOARD } from './townTasks'
-import { mapSpot, setMapPos } from './state/profile'
+import { lesson, mapSpot, markTip, setMapPos } from './state/profile'
 
 /**
  * ─── Game flow ───────────────────────────────────────────────────────────────
@@ -55,7 +56,7 @@ import { mapSpot, setMapPos } from './state/profile'
 
 export type Screen = 'boot' | 'zone' | 'town' | 'map'
 export type Modal =
-  | '' | 'results' | 'secondWind' | 'contracts' | 'pause' | 'character' | 'skills' | 'inventory' | 'journal' | 'shop' | 'trainer' | 'healer' | 'alchemy' | 'smithing' | 'memory' | 'itemBattle' | 'ending' | 'help'
+  | '' | 'results' | 'secondWind' | 'contracts' | 'pause' | 'character' | 'skills' | 'inventory' | 'journal' | 'shop' | 'trainer' | 'healer' | 'alchemy' | 'smithing' | 'sellOre' | 'memory' | 'itemBattle' | 'cups' | 'ending' | 'help'
 /** A conversation in progress (`talk.ts`, drawn by `DialogLayer`): with a
  *  townsperson in the scene, with a trainer met on the map, or a quest's
  *  decision. It is not a window — the world keeps running under it — and it
@@ -738,6 +739,9 @@ export const leaveResults = async (): Promise<void> => {
   if (leaving) return
   const decisionNext = !!flow.quest && !profile.quests.done[flow.quest]
   await adBreak(decisionNext)
+  // The conversations' code is a lazy chunk (roadmap #142), long since loaded
+  // on the idle queue as a rule.
+  if (decisionNext) await loadTalk().catch(() => {})
   if (flow.quest && startDecision(flow.quest)) return
   afterVisit()
 }
@@ -816,7 +820,7 @@ export const npcById = (id: string): NpcDef | null => {
     const n = t.npcs.find(x => x.id === id)
     if (n) return n
   }
-  return null
+  return ROAD_NPCS.find(x => x.id === id) ?? null
 }
 
 // ─── Conversations ───────────────────────────────────────────────────────────
@@ -837,6 +841,7 @@ const startTalk = (kind: Exclude<Talk, ''>, conv: ConversationDef, stage: TalkSt
     title,
     onOpen: (w) => { flow.modal = w },
     onEnd: () => {
+      lesson.free = ''
       flow.talk = ''
       liveZone()?.setTalk(false)
       if (kind === 'decision') afterVisit()
@@ -852,7 +857,7 @@ const startTalk = (kind: Exclude<Talk, ''>, conv: ConversationDef, stage: TalkSt
 /** The window a townsperson's role opens (reached through their conversation). */
 const roleWindow = (npc: NpcDef): Modal =>
   (npc.role === 'shop' ? 'shop' : npc.role === 'trainer' ? 'trainer' : npc.role === 'healer' ? 'healer' : npc.role === 'alchemist' ? 'alchemy'
-    : npc.role === 'gambler' ? (npc.game === 'memory' ? 'memory' : 'itemBattle') : '')
+    : npc.role === 'gambler' ? (npc.game === 'memory' ? 'memory' : npc.game === 'cups' ? 'cups' : 'itemBattle') : '')
 
 /** The hero walked up to a townsperson (the scene calls this; so may a test). */
 /**
@@ -873,9 +878,15 @@ export const talkTo = (npcId: string): void => {
   if (npcId === BOARD) { flow.modal = 'contracts'; return }
   const npc = npcById(npcId)
   if (!npc) return
+  // The conversations' code is a lazy chunk (roadmap #142): a town is never
+  // entered without it, so only a road NPC met in its first seconds waits.
+  if (!talkCodeReady()) { void loadTalk().then(() => talkTo(npcId), () => {}); return }
   flow.npc = npc
   if (npc.role === 'trainer') metTeacher(npc.cls)
   flow.trainerCls = npc.cls ?? ''
+  // The road teacher (#136) teaches her one skill for nothing, once, as a gift.
+  lesson.free = npc.id === MENTOR_NPC ? MENTOR_SKILL : ''
+  if (npc.id === MENTOR_NPC) markTip(MENTOR_MET_TIP)
   const conv = conversationOf(npc.id)
   // Everyone has a conversation (a test holds the data to it); without one
   // the trade itself is still reachable.
@@ -905,6 +916,7 @@ export const visitHiddenTrainer = (node: NodeId): void => {
   const t = hiddenTrainer(node)
   if (!t) return
   if (flow.modal || flow.talk || flow.loading) return
+  if (!talkCodeReady()) { void loadTalk().then(() => visitHiddenTrainer(node), () => {}); return }
   flow.npc = { id: t.npc, role: 'trainer', look: t.npc, at: [0, 0], cls: t.cls }
   flow.trainerCls = t.cls
   metTeacher(t.cls)
@@ -926,6 +938,7 @@ export const closeModal = (): void => {
 watch(() => flow.loading, (on) => {
   if (!on || !flow.talk) return
   abortTalk()
+  lesson.free = ''
   flow.talk = ''
   flow.npc = null
   liveZone()?.setTalk(false)

@@ -350,7 +350,7 @@ export interface NpcDef {
   /** Quest givers: the quest id. */
   quest?: string
   /** Gamblers (roadmap #91, #92): the game at their table. */
-  game?: 'memory' | 'items'
+  game?: 'memory' | 'items' | 'cups'
   /** A secret trader or master (roadmap #86): no sign, no shop or lessons
    *  until this world flag is set (their errand handed in); a townsperson to
    *  talk to till then. */
@@ -434,6 +434,8 @@ export const TOWNS: Readonly<Record<TownId, TownDef>> = {
       { id: 'sbMasterIronmonk', role: 'trainer', look: 'sbMasterIronmonk', at: [0.9, 0.82], place: 'inside', house: 'hall', job: 'knight', cls: 'ironmonk' },
       // The item battle (#92): a table in the street, a deck of odds and ends.
       { id: 'sunfordGambler', role: 'gambler', look: 'sunfordGambler', at: [0.72, 0.62], place: 'street', job: 'merchant', game: 'items' },
+      // The cup stand (#136): by the square's well-trodden path, so the first stroll finds it.
+      { id: 'sunfordCups', role: 'gambler', look: 'sunfordCups', at: [0.36, 0.66], place: 'street', job: 'merchant', game: 'cups' },
       { id: 'elderMara', role: 'quest', look: 'elder', at: [0.42, 0.36], place: 'street', job: 'elder', quest: 'goblinKing' },
       { id: 'sunfordHealer', role: 'healer', look: 'healer', at: [0.84, 0.48], place: 'inside', house: 'chapel' },
       // The pact's price and prize: goblins trading rarities in the square.
@@ -731,14 +733,17 @@ export const dangerOf = (zone: ZoneDef, heroLevel: number): 0 | 1 | 2 | 3 => {
  * The opening fight (the first visit of a new save, Sunford Plains): tuned so
  * the most naive way to play it — click an enemy, let the hero swing until it
  * falls, the next, never a skill or a potion — wins with 1 to 5 health left
- * (owner, 2026-10-04; `tests/game/openingBalance.test.ts`; re-fitted for the #109 health curve). Only that visit:
+ * (owner, 2026-10-04; `tests/game/openingBalance.test.ts`; re-fitted for the #109 health curve and, at 2.84, for the Bandit Chief's arrows, spears and gnomes, #136). Only that visit:
  * a replay of the plains is the zone as tabled.
  *
  *   pack   enemies in each pack after the first (the first is the two
  *          goblins the controls are learned on)
  *   dmg    enemy damage multiplier
+ *   skillHp  enemy health multiplier once the hero knows the road teacher's
+ *          free skill (Shadowstep): the foes still standing at that moment and
+ *          every one born later (`boostOpeningFoes`); without the skill, 1
  */
-export const OPENING = { pack: 5, dmg: 3.16 } as const
+export const OPENING = { pack: 5, dmg: 2.84, skillHp: 2.1 } as const
 
 export const visitLevel = (zone: ZoneDef, heroLevel: number): number =>
   Math.max(zone.min, Math.min(zone.max, heroLevel))

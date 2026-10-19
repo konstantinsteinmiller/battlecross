@@ -1,5 +1,13 @@
 // Finnish (fi) bundle — mirrors en.ts.
 export default {
+  // ─── The intro (#130): its skip, and its narrator's name ───
+  intro: {
+    narrator: 'Kronikoitsija',
+    skip: 'Ohita',
+    holdKey: 'Ohita pitämällä {key} pohjassa',
+    holdTouch: 'Ohita pitämällä pohjassa',
+    replay: 'Katso intro'
+  },
   arena: {
     allWon: 'Kaikki myyttiset palkinnot ovat sinun.',
     call: 'Tarina on kerrottu. Todista nyt buildisi: kiipeä niin pitkälle kuin pystyt ja voita myyttiset palkinnot, joita kukaan muu ei voi sinulle antaa.',
@@ -8,6 +16,20 @@ export default {
     next: 'Seuraava palkinto aallolla {at}: {item}',
     champion: 'Mestariaalto',
     wave: 'Aalto {n}'
+  },
+  sellOre: {
+    talk: 'Hyvää malmia, reilu hinta. Paljonko myyt?',
+    lead: 'Valitse, montako kimpaletta kutakin malmia myyt. Mitään ei myydä ennen kuin painat Myy.',
+    have: 'Sinulla on {n}',
+    each: '{n} kultaa kpl',
+    none: 'Ei yhtään',
+    all: 'Kaikki',
+    less: '{ore}: yksi vähemmän',
+    more: '{ore}: yksi enemmän',
+    total: 'Saat: {n} kultaa',
+    sell: 'Myy',
+    selectAll: 'Valitse kaikki',
+    empty: 'Sinulla ei ole enää malmia myytäväksi.'
   },
   smith: {
     why: {
@@ -1420,38 +1442,110 @@ export default {
     smithMasterMithrilGreaves: {
       name: 'Mestarin mithrilsäärystimet'
     },
+    smithMasterAdamantGreaves: {
+      name: 'Mestarin adamanttisäärystimet'
+    },
+    smithMasterAetheriteGreaves: {
+      name: 'Mestarin eteriittisäärystimet'
+    },
     smithMithrilGreaves: {
       name: 'Mithrilsäärystimet'
+    },
+    smithAdamantGreaves: {
+      name: 'Adamanttisäärystimet'
+    },
+    smithAetheriteGreaves: {
+      name: 'Eteriittisäärystimet'
     },
     smithMasterMithrilPlate: {
       name: 'Mestarin mithrilpanssari'
     },
+    smithMasterAdamantPlate: {
+      name: 'Mestarin adamanttipanssari'
+    },
+    smithMasterAetheritePlate: {
+      name: 'Mestarin eteriittipanssari'
+    },
     smithMithrilPlate: {
       name: 'Mithrilpanssari'
+    },
+    smithAdamantPlate: {
+      name: 'Adamanttipanssari'
+    },
+    smithAetheritePlate: {
+      name: 'Eteriittipanssari'
     },
     smithMasterMithrilHelm: {
       name: 'Mestarin mithrilkypärä'
     },
+    smithMasterAdamantHelm: {
+      name: 'Mestarin adamanttikypärä'
+    },
+    smithMasterAetheriteHelm: {
+      name: 'Mestarin eteriittikypärä'
+    },
     smithMithrilHelm: {
       name: 'Mithrilkypärä'
+    },
+    smithAdamantHelm: {
+      name: 'Adamanttikypärä'
+    },
+    smithAetheriteHelm: {
+      name: 'Eteriittikypärä'
     },
     smithMasterMithrilShield: {
       name: 'Mestarin mithrilkilpi'
     },
+    smithMasterAdamantShield: {
+      name: 'Mestarin adamanttikilpi'
+    },
+    smithMasterAetheriteShield: {
+      name: 'Mestarin eteriittikilpi'
+    },
     smithMithrilShield: {
       name: 'Mithrilkilpi'
+    },
+    smithAdamantShield: {
+      name: 'Adamanttikilpi'
+    },
+    smithAetheriteShield: {
+      name: 'Eteriittikilpi'
     },
     smithMasterMithrilHammer: {
       name: 'Mestarin mithrilvasara'
     },
+    smithMasterAdamantHammer: {
+      name: 'Mestarin adamanttivasara'
+    },
+    smithMasterAetheriteHammer: {
+      name: 'Mestarin eteriittivasara'
+    },
     smithMithrilHammer: {
       name: 'Mithrilvasara'
+    },
+    smithAdamantHammer: {
+      name: 'Adamanttivasara'
+    },
+    smithAetheriteHammer: {
+      name: 'Eteriittivasara'
     },
     smithMasterMithrilSword: {
       name: 'Mestarin mithrilmiekka'
     },
+    smithMasterAdamantSword: {
+      name: 'Mestarin adamanttimiekka'
+    },
+    smithMasterAetheriteSword: {
+      name: 'Mestarin eteriittimiekka'
+    },
     smithMithrilSword: {
       name: 'Mithrilmiekka'
+    },
+    smithAdamantSword: {
+      name: 'Adamanttimiekka'
+    },
+    smithAetheriteSword: {
+      name: 'Eteriittimiekka'
     },
     smithMasterGoldGreaves: {
       name: 'Mestarin kultasäärystimet'
@@ -1557,6 +1651,1086 @@ export default {
     },
     smithMasterIronSword: {
       name: 'Mestarin rautamiekka'
+    },
+    smithMasterDexIronSword: {
+      name: 'Mestarin rautatikari · KET'
+    },
+    smithDexIronSword: {
+      name: 'Rautatikari · KET'
+    },
+    smithMasterDexIronHammer: {
+      name: 'Mestarin rautarapiiri · KET'
+    },
+    smithDexIronHammer: {
+      name: 'Rautarapiiri · KET'
+    },
+    smithMasterDexIronShield: {
+      name: 'Mestarin rautapyöreäkilpi · KET'
+    },
+    smithDexIronShield: {
+      name: 'Rautapyöreäkilpi · KET'
+    },
+    smithMasterDexIronHelm: {
+      name: 'Mestarin rautahuppu · KET'
+    },
+    smithDexIronHelm: {
+      name: 'Rautahuppu · KET'
+    },
+    smithMasterDexIronPlate: {
+      name: 'Mestarin rautanahkapanssari · KET'
+    },
+    smithDexIronPlate: {
+      name: 'Rautanahkapanssari · KET'
+    },
+    smithMasterDexIronGreaves: {
+      name: 'Mestarin rautasaappaat · KET'
+    },
+    smithDexIronGreaves: {
+      name: 'Rautasaappaat · KET'
+    },
+    smithMasterDexSilverSword: {
+      name: 'Mestarin hopeatikari · KET'
+    },
+    smithDexSilverSword: {
+      name: 'Hopeatikari · KET'
+    },
+    smithMasterDexSilverHammer: {
+      name: 'Mestarin hopearapiiri · KET'
+    },
+    smithDexSilverHammer: {
+      name: 'Hopearapiiri · KET'
+    },
+    smithMasterDexSilverShield: {
+      name: 'Mestarin hopeapyöreäkilpi · KET'
+    },
+    smithDexSilverShield: {
+      name: 'Hopeapyöreäkilpi · KET'
+    },
+    smithMasterDexSilverHelm: {
+      name: 'Mestarin hopeahuppu · KET'
+    },
+    smithDexSilverHelm: {
+      name: 'Hopeahuppu · KET'
+    },
+    smithMasterDexSilverPlate: {
+      name: 'Mestarin hopeanahkapanssari · KET'
+    },
+    smithDexSilverPlate: {
+      name: 'Hopeanahkapanssari · KET'
+    },
+    smithMasterDexSilverGreaves: {
+      name: 'Mestarin hopeasaappaat · KET'
+    },
+    smithDexSilverGreaves: {
+      name: 'Hopeasaappaat · KET'
+    },
+    smithMasterDexGoldSword: {
+      name: 'Mestarin kultatikari · KET'
+    },
+    smithDexGoldSword: {
+      name: 'Kultatikari · KET'
+    },
+    smithMasterDexGoldHammer: {
+      name: 'Mestarin kultarapiiri · KET'
+    },
+    smithDexGoldHammer: {
+      name: 'Kultarapiiri · KET'
+    },
+    smithMasterDexGoldShield: {
+      name: 'Mestarin kultapyöreäkilpi · KET'
+    },
+    smithDexGoldShield: {
+      name: 'Kultapyöreäkilpi · KET'
+    },
+    smithMasterDexGoldHelm: {
+      name: 'Mestarin kultahuppu · KET'
+    },
+    smithDexGoldHelm: {
+      name: 'Kultahuppu · KET'
+    },
+    smithMasterDexGoldPlate: {
+      name: 'Mestarin kultanahkapanssari · KET'
+    },
+    smithDexGoldPlate: {
+      name: 'Kultanahkapanssari · KET'
+    },
+    smithMasterDexGoldGreaves: {
+      name: 'Mestarin kultasaappaat · KET'
+    },
+    smithDexGoldGreaves: {
+      name: 'Kultasaappaat · KET'
+    },
+    smithMasterDexMithrilSword: {
+      name: 'Mestarin mithriltikari · KET'
+    },
+    smithMasterDexAdamantSword: {
+      name: 'Mestarin adamanttitikari · KET'
+    },
+    smithMasterDexAetheriteSword: {
+      name: 'Mestarin eteriittitikari · KET'
+    },
+    smithDexMithrilSword: {
+      name: 'Mithriltikari · KET'
+    },
+    smithDexAdamantSword: {
+      name: 'Adamanttitikari · KET'
+    },
+    smithDexAetheriteSword: {
+      name: 'Eteriittitikari · KET'
+    },
+    smithMasterDexMithrilHammer: {
+      name: 'Mestarin mithrilrapiiri · KET'
+    },
+    smithMasterDexAdamantHammer: {
+      name: 'Mestarin adamanttirapiiri · KET'
+    },
+    smithMasterDexAetheriteHammer: {
+      name: 'Mestarin eteriittirapiiri · KET'
+    },
+    smithDexMithrilHammer: {
+      name: 'Mithrilrapiiri · KET'
+    },
+    smithDexAdamantHammer: {
+      name: 'Adamanttirapiiri · KET'
+    },
+    smithDexAetheriteHammer: {
+      name: 'Eteriittirapiiri · KET'
+    },
+    smithMasterDexMithrilShield: {
+      name: 'Mestarin mithrilpyöreäkilpi · KET'
+    },
+    smithMasterDexAdamantShield: {
+      name: 'Mestarin adamanttipyöreäkilpi · KET'
+    },
+    smithMasterDexAetheriteShield: {
+      name: 'Mestarin eteriittipyöreäkilpi · KET'
+    },
+    smithDexMithrilShield: {
+      name: 'Mithrilpyöreäkilpi · KET'
+    },
+    smithDexAdamantShield: {
+      name: 'Adamanttipyöreäkilpi · KET'
+    },
+    smithDexAetheriteShield: {
+      name: 'Eteriittipyöreäkilpi · KET'
+    },
+    smithMasterDexMithrilHelm: {
+      name: 'Mestarin mithrilhuppu · KET'
+    },
+    smithMasterDexAdamantHelm: {
+      name: 'Mestarin adamanttihuppu · KET'
+    },
+    smithMasterDexAetheriteHelm: {
+      name: 'Mestarin eteriittihuppu · KET'
+    },
+    smithDexMithrilHelm: {
+      name: 'Mithrilhuppu · KET'
+    },
+    smithDexAdamantHelm: {
+      name: 'Adamanttihuppu · KET'
+    },
+    smithDexAetheriteHelm: {
+      name: 'Eteriittihuppu · KET'
+    },
+    smithMasterDexMithrilPlate: {
+      name: 'Mestarin mithrilnahkapanssari · KET'
+    },
+    smithMasterDexAdamantPlate: {
+      name: 'Mestarin adamanttinahkapanssari · KET'
+    },
+    smithMasterDexAetheritePlate: {
+      name: 'Mestarin eteriittinahkapanssari · KET'
+    },
+    smithDexMithrilPlate: {
+      name: 'Mithrilnahkapanssari · KET'
+    },
+    smithDexAdamantPlate: {
+      name: 'Adamanttinahkapanssari · KET'
+    },
+    smithDexAetheritePlate: {
+      name: 'Eteriittinahkapanssari · KET'
+    },
+    smithMasterDexMithrilGreaves: {
+      name: 'Mestarin mithrilsaappaat · KET'
+    },
+    smithMasterDexAdamantGreaves: {
+      name: 'Mestarin adamanttisaappaat · KET'
+    },
+    smithMasterDexAetheriteGreaves: {
+      name: 'Mestarin eteriittisaappaat · KET'
+    },
+    smithDexMithrilGreaves: {
+      name: 'Mithrilsaappaat · KET'
+    },
+    smithDexAdamantGreaves: {
+      name: 'Adamanttisaappaat · KET'
+    },
+    smithDexAetheriteGreaves: {
+      name: 'Eteriittisaappaat · KET'
+    },
+    smithMasterIntIronSword: {
+      name: 'Mestarin rautataikasauva · ÄLY'
+    },
+    smithIntIronSword: {
+      name: 'Rautataikasauva · ÄLY'
+    },
+    smithMasterIntIronHammer: {
+      name: 'Mestarin rautasauva · ÄLY'
+    },
+    smithIntIronHammer: {
+      name: 'Rautasauva · ÄLY'
+    },
+    smithMasterIntIronShield: {
+      name: 'Mestarin rautaloitsukirja · ÄLY'
+    },
+    smithIntIronShield: {
+      name: 'Rautaloitsukirja · ÄLY'
+    },
+    smithMasterIntIronHelm: {
+      name: 'Mestarin rautaotsarengas · ÄLY'
+    },
+    smithIntIronHelm: {
+      name: 'Rautaotsarengas · ÄLY'
+    },
+    smithMasterIntIronPlate: {
+      name: 'Mestarin rautakaapu · ÄLY'
+    },
+    smithIntIronPlate: {
+      name: 'Rautakaapu · ÄLY'
+    },
+    smithMasterIntIronGreaves: {
+      name: 'Mestarin rautasaappaat · ÄLY'
+    },
+    smithIntIronGreaves: {
+      name: 'Rautasaappaat · ÄLY'
+    },
+    smithMasterIntSilverSword: {
+      name: 'Mestarin hopeataikasauva · ÄLY'
+    },
+    smithIntSilverSword: {
+      name: 'Hopeataikasauva · ÄLY'
+    },
+    smithMasterIntSilverHammer: {
+      name: 'Mestarin hopeasauva · ÄLY'
+    },
+    smithIntSilverHammer: {
+      name: 'Hopeasauva · ÄLY'
+    },
+    smithMasterIntSilverShield: {
+      name: 'Mestarin hopealoitsukirja · ÄLY'
+    },
+    smithIntSilverShield: {
+      name: 'Hopealoitsukirja · ÄLY'
+    },
+    smithMasterIntSilverHelm: {
+      name: 'Mestarin hopeaotsarengas · ÄLY'
+    },
+    smithIntSilverHelm: {
+      name: 'Hopeaotsarengas · ÄLY'
+    },
+    smithMasterIntSilverPlate: {
+      name: 'Mestarin hopeakaapu · ÄLY'
+    },
+    smithIntSilverPlate: {
+      name: 'Hopeakaapu · ÄLY'
+    },
+    smithMasterIntSilverGreaves: {
+      name: 'Mestarin hopeasaappaat · ÄLY'
+    },
+    smithIntSilverGreaves: {
+      name: 'Hopeasaappaat · ÄLY'
+    },
+    smithMasterIntGoldSword: {
+      name: 'Mestarin kultataikasauva · ÄLY'
+    },
+    smithIntGoldSword: {
+      name: 'Kultataikasauva · ÄLY'
+    },
+    smithMasterIntGoldHammer: {
+      name: 'Mestarin kultasauva · ÄLY'
+    },
+    smithIntGoldHammer: {
+      name: 'Kultasauva · ÄLY'
+    },
+    smithMasterIntGoldShield: {
+      name: 'Mestarin kultaloitsukirja · ÄLY'
+    },
+    smithIntGoldShield: {
+      name: 'Kultaloitsukirja · ÄLY'
+    },
+    smithMasterIntGoldHelm: {
+      name: 'Mestarin kultaotsarengas · ÄLY'
+    },
+    smithIntGoldHelm: {
+      name: 'Kultaotsarengas · ÄLY'
+    },
+    smithMasterIntGoldPlate: {
+      name: 'Mestarin kultakaapu · ÄLY'
+    },
+    smithIntGoldPlate: {
+      name: 'Kultakaapu · ÄLY'
+    },
+    smithMasterIntGoldGreaves: {
+      name: 'Mestarin kultasaappaat · ÄLY'
+    },
+    smithIntGoldGreaves: {
+      name: 'Kultasaappaat · ÄLY'
+    },
+    smithMasterIntMithrilSword: {
+      name: 'Mestarin mithriltaikasauva · ÄLY'
+    },
+    smithMasterIntAdamantSword: {
+      name: 'Mestarin adamanttitaikasauva · ÄLY'
+    },
+    smithMasterIntAetheriteSword: {
+      name: 'Mestarin eteriittitaikasauva · ÄLY'
+    },
+    smithIntMithrilSword: {
+      name: 'Mithriltaikasauva · ÄLY'
+    },
+    smithIntAdamantSword: {
+      name: 'Adamanttitaikasauva · ÄLY'
+    },
+    smithIntAetheriteSword: {
+      name: 'Eteriittitaikasauva · ÄLY'
+    },
+    smithMasterIntMithrilHammer: {
+      name: 'Mestarin mithrilsauva · ÄLY'
+    },
+    smithMasterIntAdamantHammer: {
+      name: 'Mestarin adamanttisauva · ÄLY'
+    },
+    smithMasterIntAetheriteHammer: {
+      name: 'Mestarin eteriittisauva · ÄLY'
+    },
+    smithIntMithrilHammer: {
+      name: 'Mithrilsauva · ÄLY'
+    },
+    smithIntAdamantHammer: {
+      name: 'Adamanttisauva · ÄLY'
+    },
+    smithIntAetheriteHammer: {
+      name: 'Eteriittisauva · ÄLY'
+    },
+    smithMasterIntMithrilShield: {
+      name: 'Mestarin mithrilloitsukirja · ÄLY'
+    },
+    smithMasterIntAdamantShield: {
+      name: 'Mestarin adamanttiloitsukirja · ÄLY'
+    },
+    smithMasterIntAetheriteShield: {
+      name: 'Mestarin eteriittiloitsukirja · ÄLY'
+    },
+    smithIntMithrilShield: {
+      name: 'Mithrilloitsukirja · ÄLY'
+    },
+    smithIntAdamantShield: {
+      name: 'Adamanttiloitsukirja · ÄLY'
+    },
+    smithIntAetheriteShield: {
+      name: 'Eteriittiloitsukirja · ÄLY'
+    },
+    smithMasterIntMithrilHelm: {
+      name: 'Mestarin mithrilotsarengas · ÄLY'
+    },
+    smithMasterIntAdamantHelm: {
+      name: 'Mestarin adamanttiotsarengas · ÄLY'
+    },
+    smithMasterIntAetheriteHelm: {
+      name: 'Mestarin eteriittiotsarengas · ÄLY'
+    },
+    smithIntMithrilHelm: {
+      name: 'Mithrilotsarengas · ÄLY'
+    },
+    smithIntAdamantHelm: {
+      name: 'Adamanttiotsarengas · ÄLY'
+    },
+    smithIntAetheriteHelm: {
+      name: 'Eteriittiotsarengas · ÄLY'
+    },
+    smithMasterIntMithrilPlate: {
+      name: 'Mestarin mithrilkaapu · ÄLY'
+    },
+    smithMasterIntAdamantPlate: {
+      name: 'Mestarin adamanttikaapu · ÄLY'
+    },
+    smithMasterIntAetheritePlate: {
+      name: 'Mestarin eteriittikaapu · ÄLY'
+    },
+    smithIntMithrilPlate: {
+      name: 'Mithrilkaapu · ÄLY'
+    },
+    smithIntAdamantPlate: {
+      name: 'Adamanttikaapu · ÄLY'
+    },
+    smithIntAetheritePlate: {
+      name: 'Eteriittikaapu · ÄLY'
+    },
+    smithMasterIntMithrilGreaves: {
+      name: 'Mestarin mithrilsaappaat · ÄLY'
+    },
+    smithMasterIntAdamantGreaves: {
+      name: 'Mestarin adamanttisaappaat · ÄLY'
+    },
+    smithMasterIntAetheriteGreaves: {
+      name: 'Mestarin eteriittisaappaat · ÄLY'
+    },
+    smithIntMithrilGreaves: {
+      name: 'Mithrilsaappaat · ÄLY'
+    },
+    smithIntAdamantGreaves: {
+      name: 'Adamanttisaappaat · ÄLY'
+    },
+    smithIntAetheriteGreaves: {
+      name: 'Eteriittisaappaat · ÄLY'
+    },
+    smithMasterSklIronSword: {
+      name: 'Mestarin rautapistooli · TAI'
+    },
+    smithSklIronSword: {
+      name: 'Rautapistooli · TAI'
+    },
+    smithMasterSklIronHammer: {
+      name: 'Mestarin rautakivääri · TAI'
+    },
+    smithSklIronHammer: {
+      name: 'Rautakivääri · TAI'
+    },
+    smithMasterSklIronShield: {
+      name: 'Mestarin rautaakku · TAI'
+    },
+    smithSklIronShield: {
+      name: 'Rautaakku · TAI'
+    },
+    smithMasterSklIronHelm: {
+      name: 'Mestarin rautalakki · TAI'
+    },
+    smithSklIronHelm: {
+      name: 'Rautalakki · TAI'
+    },
+    smithMasterSklIronPlate: {
+      name: 'Mestarin rautavaljaat · TAI'
+    },
+    smithSklIronPlate: {
+      name: 'Rautavaljaat · TAI'
+    },
+    smithMasterSklIronGreaves: {
+      name: 'Mestarin rautasaappaat · TAI'
+    },
+    smithSklIronGreaves: {
+      name: 'Rautasaappaat · TAI'
+    },
+    smithMasterSklSilverSword: {
+      name: 'Mestarin hopeapistooli · TAI'
+    },
+    smithSklSilverSword: {
+      name: 'Hopeapistooli · TAI'
+    },
+    smithMasterSklSilverHammer: {
+      name: 'Mestarin hopeakivääri · TAI'
+    },
+    smithSklSilverHammer: {
+      name: 'Hopeakivääri · TAI'
+    },
+    smithMasterSklSilverShield: {
+      name: 'Mestarin hopeaakku · TAI'
+    },
+    smithSklSilverShield: {
+      name: 'Hopeaakku · TAI'
+    },
+    smithMasterSklSilverHelm: {
+      name: 'Mestarin hopealakki · TAI'
+    },
+    smithSklSilverHelm: {
+      name: 'Hopealakki · TAI'
+    },
+    smithMasterSklSilverPlate: {
+      name: 'Mestarin hopeavaljaat · TAI'
+    },
+    smithSklSilverPlate: {
+      name: 'Hopeavaljaat · TAI'
+    },
+    smithMasterSklSilverGreaves: {
+      name: 'Mestarin hopeasaappaat · TAI'
+    },
+    smithSklSilverGreaves: {
+      name: 'Hopeasaappaat · TAI'
+    },
+    smithMasterSklGoldSword: {
+      name: 'Mestarin kultapistooli · TAI'
+    },
+    smithSklGoldSword: {
+      name: 'Kultapistooli · TAI'
+    },
+    smithMasterSklGoldHammer: {
+      name: 'Mestarin kultakivääri · TAI'
+    },
+    smithSklGoldHammer: {
+      name: 'Kultakivääri · TAI'
+    },
+    smithMasterSklGoldShield: {
+      name: 'Mestarin kultaakku · TAI'
+    },
+    smithSklGoldShield: {
+      name: 'Kultaakku · TAI'
+    },
+    smithMasterSklGoldHelm: {
+      name: 'Mestarin kultalakki · TAI'
+    },
+    smithSklGoldHelm: {
+      name: 'Kultalakki · TAI'
+    },
+    smithMasterSklGoldPlate: {
+      name: 'Mestarin kultavaljaat · TAI'
+    },
+    smithSklGoldPlate: {
+      name: 'Kultavaljaat · TAI'
+    },
+    smithMasterSklGoldGreaves: {
+      name: 'Mestarin kultasaappaat · TAI'
+    },
+    smithSklGoldGreaves: {
+      name: 'Kultasaappaat · TAI'
+    },
+    smithMasterSklMithrilSword: {
+      name: 'Mestarin mithrilpistooli · TAI'
+    },
+    smithMasterSklAdamantSword: {
+      name: 'Mestarin adamanttipistooli · TAI'
+    },
+    smithMasterSklAetheriteSword: {
+      name: 'Mestarin eteriittipistooli · TAI'
+    },
+    smithSklMithrilSword: {
+      name: 'Mithrilpistooli · TAI'
+    },
+    smithSklAdamantSword: {
+      name: 'Adamanttipistooli · TAI'
+    },
+    smithSklAetheriteSword: {
+      name: 'Eteriittipistooli · TAI'
+    },
+    smithMasterSklMithrilHammer: {
+      name: 'Mestarin mithrilkivääri · TAI'
+    },
+    smithMasterSklAdamantHammer: {
+      name: 'Mestarin adamanttikivääri · TAI'
+    },
+    smithMasterSklAetheriteHammer: {
+      name: 'Mestarin eteriittikivääri · TAI'
+    },
+    smithSklMithrilHammer: {
+      name: 'Mithrilkivääri · TAI'
+    },
+    smithSklAdamantHammer: {
+      name: 'Adamanttikivääri · TAI'
+    },
+    smithSklAetheriteHammer: {
+      name: 'Eteriittikivääri · TAI'
+    },
+    smithMasterSklMithrilShield: {
+      name: 'Mestarin mithrilakku · TAI'
+    },
+    smithMasterSklAdamantShield: {
+      name: 'Mestarin adamanttiakku · TAI'
+    },
+    smithMasterSklAetheriteShield: {
+      name: 'Mestarin eteriittiakku · TAI'
+    },
+    smithSklMithrilShield: {
+      name: 'Mithrilakku · TAI'
+    },
+    smithSklAdamantShield: {
+      name: 'Adamanttiakku · TAI'
+    },
+    smithSklAetheriteShield: {
+      name: 'Eteriittiakku · TAI'
+    },
+    smithMasterSklMithrilHelm: {
+      name: 'Mestarin mithrillakki · TAI'
+    },
+    smithMasterSklAdamantHelm: {
+      name: 'Mestarin adamanttilakki · TAI'
+    },
+    smithMasterSklAetheriteHelm: {
+      name: 'Mestarin eteriittilakki · TAI'
+    },
+    smithSklMithrilHelm: {
+      name: 'Mithrillakki · TAI'
+    },
+    smithSklAdamantHelm: {
+      name: 'Adamanttilakki · TAI'
+    },
+    smithSklAetheriteHelm: {
+      name: 'Eteriittilakki · TAI'
+    },
+    smithMasterSklMithrilPlate: {
+      name: 'Mestarin mithrilvaljaat · TAI'
+    },
+    smithMasterSklAdamantPlate: {
+      name: 'Mestarin adamanttivaljaat · TAI'
+    },
+    smithMasterSklAetheritePlate: {
+      name: 'Mestarin eteriittivaljaat · TAI'
+    },
+    smithSklMithrilPlate: {
+      name: 'Mithrilvaljaat · TAI'
+    },
+    smithSklAdamantPlate: {
+      name: 'Adamanttivaljaat · TAI'
+    },
+    smithSklAetheritePlate: {
+      name: 'Eteriittivaljaat · TAI'
+    },
+    smithMasterSklMithrilGreaves: {
+      name: 'Mestarin mithrilsaappaat · TAI'
+    },
+    smithMasterSklAdamantGreaves: {
+      name: 'Mestarin adamanttisaappaat · TAI'
+    },
+    smithMasterSklAetheriteGreaves: {
+      name: 'Mestarin eteriittisaappaat · TAI'
+    },
+    smithSklMithrilGreaves: {
+      name: 'Mithrilsaappaat · TAI'
+    },
+    smithSklAdamantGreaves: {
+      name: 'Adamanttisaappaat · TAI'
+    },
+    smithSklAetheriteGreaves: {
+      name: 'Eteriittisaappaat · TAI'
+    },
+    smithMasterChaIronSword: {
+      name: 'Mestarin rautavaltikka · KAR'
+    },
+    smithChaIronSword: {
+      name: 'Rautavaltikka · KAR'
+    },
+    smithMasterChaIronHammer: {
+      name: 'Mestarin rautalippu · KAR'
+    },
+    smithChaIronHammer: {
+      name: 'Rautalippu · KAR'
+    },
+    smithMasterChaIronShield: {
+      name: 'Mestarin rautakoodeksi · KAR'
+    },
+    smithChaIronShield: {
+      name: 'Rautakoodeksi · KAR'
+    },
+    smithMasterChaIronHelm: {
+      name: 'Mestarin rautakruunu · KAR'
+    },
+    smithChaIronHelm: {
+      name: 'Rautakruunu · KAR'
+    },
+    smithMasterChaIronPlate: {
+      name: 'Mestarin rautavaakunatakki · KAR'
+    },
+    smithChaIronPlate: {
+      name: 'Rautavaakunatakki · KAR'
+    },
+    smithMasterChaIronGreaves: {
+      name: 'Mestarin rautasaappaat · KAR'
+    },
+    smithChaIronGreaves: {
+      name: 'Rautasaappaat · KAR'
+    },
+    smithMasterChaSilverSword: {
+      name: 'Mestarin hopeavaltikka · KAR'
+    },
+    smithChaSilverSword: {
+      name: 'Hopeavaltikka · KAR'
+    },
+    smithMasterChaSilverHammer: {
+      name: 'Mestarin hopealippu · KAR'
+    },
+    smithChaSilverHammer: {
+      name: 'Hopealippu · KAR'
+    },
+    smithMasterChaSilverShield: {
+      name: 'Mestarin hopeakoodeksi · KAR'
+    },
+    smithChaSilverShield: {
+      name: 'Hopeakoodeksi · KAR'
+    },
+    smithMasterChaSilverHelm: {
+      name: 'Mestarin hopeakruunu · KAR'
+    },
+    smithChaSilverHelm: {
+      name: 'Hopeakruunu · KAR'
+    },
+    smithMasterChaSilverPlate: {
+      name: 'Mestarin hopeavaakunatakki · KAR'
+    },
+    smithChaSilverPlate: {
+      name: 'Hopeavaakunatakki · KAR'
+    },
+    smithMasterChaSilverGreaves: {
+      name: 'Mestarin hopeasaappaat · KAR'
+    },
+    smithChaSilverGreaves: {
+      name: 'Hopeasaappaat · KAR'
+    },
+    smithMasterChaGoldSword: {
+      name: 'Mestarin kultavaltikka · KAR'
+    },
+    smithChaGoldSword: {
+      name: 'Kultavaltikka · KAR'
+    },
+    smithMasterChaGoldHammer: {
+      name: 'Mestarin kultalippu · KAR'
+    },
+    smithChaGoldHammer: {
+      name: 'Kultalippu · KAR'
+    },
+    smithMasterChaGoldShield: {
+      name: 'Mestarin kultakoodeksi · KAR'
+    },
+    smithChaGoldShield: {
+      name: 'Kultakoodeksi · KAR'
+    },
+    smithMasterChaGoldHelm: {
+      name: 'Mestarin kultakruunu · KAR'
+    },
+    smithChaGoldHelm: {
+      name: 'Kultakruunu · KAR'
+    },
+    smithMasterChaGoldPlate: {
+      name: 'Mestarin kultavaakunatakki · KAR'
+    },
+    smithChaGoldPlate: {
+      name: 'Kultavaakunatakki · KAR'
+    },
+    smithMasterChaGoldGreaves: {
+      name: 'Mestarin kultasaappaat · KAR'
+    },
+    smithChaGoldGreaves: {
+      name: 'Kultasaappaat · KAR'
+    },
+    smithMasterChaMithrilSword: {
+      name: 'Mestarin mithrilvaltikka · KAR'
+    },
+    smithMasterChaAdamantSword: {
+      name: 'Mestarin adamanttivaltikka · KAR'
+    },
+    smithMasterChaAetheriteSword: {
+      name: 'Mestarin eteriittivaltikka · KAR'
+    },
+    smithChaMithrilSword: {
+      name: 'Mithrilvaltikka · KAR'
+    },
+    smithChaAdamantSword: {
+      name: 'Adamanttivaltikka · KAR'
+    },
+    smithChaAetheriteSword: {
+      name: 'Eteriittivaltikka · KAR'
+    },
+    smithMasterChaMithrilHammer: {
+      name: 'Mestarin mithrillippu · KAR'
+    },
+    smithMasterChaAdamantHammer: {
+      name: 'Mestarin adamanttilippu · KAR'
+    },
+    smithMasterChaAetheriteHammer: {
+      name: 'Mestarin eteriittilippu · KAR'
+    },
+    smithChaMithrilHammer: {
+      name: 'Mithrillippu · KAR'
+    },
+    smithChaAdamantHammer: {
+      name: 'Adamanttilippu · KAR'
+    },
+    smithChaAetheriteHammer: {
+      name: 'Eteriittilippu · KAR'
+    },
+    smithMasterChaMithrilShield: {
+      name: 'Mestarin mithrilkoodeksi · KAR'
+    },
+    smithMasterChaAdamantShield: {
+      name: 'Mestarin adamanttikoodeksi · KAR'
+    },
+    smithMasterChaAetheriteShield: {
+      name: 'Mestarin eteriittikoodeksi · KAR'
+    },
+    smithChaMithrilShield: {
+      name: 'Mithrilkoodeksi · KAR'
+    },
+    smithChaAdamantShield: {
+      name: 'Adamanttikoodeksi · KAR'
+    },
+    smithChaAetheriteShield: {
+      name: 'Eteriittikoodeksi · KAR'
+    },
+    smithMasterChaMithrilHelm: {
+      name: 'Mestarin mithrilkruunu · KAR'
+    },
+    smithMasterChaAdamantHelm: {
+      name: 'Mestarin adamanttikruunu · KAR'
+    },
+    smithMasterChaAetheriteHelm: {
+      name: 'Mestarin eteriittikruunu · KAR'
+    },
+    smithChaMithrilHelm: {
+      name: 'Mithrilkruunu · KAR'
+    },
+    smithChaAdamantHelm: {
+      name: 'Adamanttikruunu · KAR'
+    },
+    smithChaAetheriteHelm: {
+      name: 'Eteriittikruunu · KAR'
+    },
+    smithMasterChaMithrilPlate: {
+      name: 'Mestarin mithrilvaakunatakki · KAR'
+    },
+    smithMasterChaAdamantPlate: {
+      name: 'Mestarin adamanttivaakunatakki · KAR'
+    },
+    smithMasterChaAetheritePlate: {
+      name: 'Mestarin eteriittivaakunatakki · KAR'
+    },
+    smithChaMithrilPlate: {
+      name: 'Mithrilvaakunatakki · KAR'
+    },
+    smithChaAdamantPlate: {
+      name: 'Adamanttivaakunatakki · KAR'
+    },
+    smithChaAetheritePlate: {
+      name: 'Eteriittivaakunatakki · KAR'
+    },
+    smithMasterChaMithrilGreaves: {
+      name: 'Mestarin mithrilsaappaat · KAR'
+    },
+    smithMasterChaAdamantGreaves: {
+      name: 'Mestarin adamanttisaappaat · KAR'
+    },
+    smithMasterChaAetheriteGreaves: {
+      name: 'Mestarin eteriittisaappaat · KAR'
+    },
+    smithChaMithrilGreaves: {
+      name: 'Mithrilsaappaat · KAR'
+    },
+    smithChaAdamantGreaves: {
+      name: 'Adamanttisaappaat · KAR'
+    },
+    smithChaAetheriteGreaves: {
+      name: 'Eteriittisaappaat · KAR'
+    },
+    smithMasterEndIronSword: {
+      name: 'Mestarin rautanuija · KES'
+    },
+    smithEndIronSword: {
+      name: 'Rautanuija · KES'
+    },
+    smithMasterEndIronHammer: {
+      name: 'Mestarin rautakirves · KES'
+    },
+    smithEndIronHammer: {
+      name: 'Rautakirves · KES'
+    },
+    smithMasterEndIronShield: {
+      name: 'Mestarin rautakilpi · KES'
+    },
+    smithEndIronShield: {
+      name: 'Rautakilpi · KES'
+    },
+    smithMasterEndIronHelm: {
+      name: 'Mestarin rautakypärä · KES'
+    },
+    smithEndIronHelm: {
+      name: 'Rautakypärä · KES'
+    },
+    smithMasterEndIronPlate: {
+      name: 'Mestarin rautapanssari · KES'
+    },
+    smithEndIronPlate: {
+      name: 'Rautapanssari · KES'
+    },
+    smithMasterEndIronGreaves: {
+      name: 'Mestarin rautasäärystimet · KES'
+    },
+    smithEndIronGreaves: {
+      name: 'Rautasäärystimet · KES'
+    },
+    smithMasterEndSilverSword: {
+      name: 'Mestarin hopeanuija · KES'
+    },
+    smithEndSilverSword: {
+      name: 'Hopeanuija · KES'
+    },
+    smithMasterEndSilverHammer: {
+      name: 'Mestarin hopeakirves · KES'
+    },
+    smithEndSilverHammer: {
+      name: 'Hopeakirves · KES'
+    },
+    smithMasterEndSilverShield: {
+      name: 'Mestarin hopeakilpi · KES'
+    },
+    smithEndSilverShield: {
+      name: 'Hopeakilpi · KES'
+    },
+    smithMasterEndSilverHelm: {
+      name: 'Mestarin hopeakypärä · KES'
+    },
+    smithEndSilverHelm: {
+      name: 'Hopeakypärä · KES'
+    },
+    smithMasterEndSilverPlate: {
+      name: 'Mestarin hopeapanssari · KES'
+    },
+    smithEndSilverPlate: {
+      name: 'Hopeapanssari · KES'
+    },
+    smithMasterEndSilverGreaves: {
+      name: 'Mestarin hopeasäärystimet · KES'
+    },
+    smithEndSilverGreaves: {
+      name: 'Hopeasäärystimet · KES'
+    },
+    smithMasterEndGoldSword: {
+      name: 'Mestarin kultanuija · KES'
+    },
+    smithEndGoldSword: {
+      name: 'Kultanuija · KES'
+    },
+    smithMasterEndGoldHammer: {
+      name: 'Mestarin kultakirves · KES'
+    },
+    smithEndGoldHammer: {
+      name: 'Kultakirves · KES'
+    },
+    smithMasterEndGoldShield: {
+      name: 'Mestarin kultakilpi · KES'
+    },
+    smithEndGoldShield: {
+      name: 'Kultakilpi · KES'
+    },
+    smithMasterEndGoldHelm: {
+      name: 'Mestarin kultakypärä · KES'
+    },
+    smithEndGoldHelm: {
+      name: 'Kultakypärä · KES'
+    },
+    smithMasterEndGoldPlate: {
+      name: 'Mestarin kultapanssari · KES'
+    },
+    smithEndGoldPlate: {
+      name: 'Kultapanssari · KES'
+    },
+    smithMasterEndGoldGreaves: {
+      name: 'Mestarin kultasäärystimet · KES'
+    },
+    smithEndGoldGreaves: {
+      name: 'Kultasäärystimet · KES'
+    },
+    smithMasterEndMithrilSword: {
+      name: 'Mestarin mithrilnuija · KES'
+    },
+    smithMasterEndAdamantSword: {
+      name: 'Mestarin adamanttinuija · KES'
+    },
+    smithMasterEndAetheriteSword: {
+      name: 'Mestarin eteriittinuija · KES'
+    },
+    smithEndMithrilSword: {
+      name: 'Mithrilnuija · KES'
+    },
+    smithEndAdamantSword: {
+      name: 'Adamanttinuija · KES'
+    },
+    smithEndAetheriteSword: {
+      name: 'Eteriittinuija · KES'
+    },
+    smithMasterEndMithrilHammer: {
+      name: 'Mestarin mithrilkirves · KES'
+    },
+    smithMasterEndAdamantHammer: {
+      name: 'Mestarin adamanttikirves · KES'
+    },
+    smithMasterEndAetheriteHammer: {
+      name: 'Mestarin eteriittikirves · KES'
+    },
+    smithEndMithrilHammer: {
+      name: 'Mithrilkirves · KES'
+    },
+    smithEndAdamantHammer: {
+      name: 'Adamanttikirves · KES'
+    },
+    smithEndAetheriteHammer: {
+      name: 'Eteriittikirves · KES'
+    },
+    smithMasterEndMithrilShield: {
+      name: 'Mestarin mithrilkilpi · KES'
+    },
+    smithMasterEndAdamantShield: {
+      name: 'Mestarin adamanttikilpi · KES'
+    },
+    smithMasterEndAetheriteShield: {
+      name: 'Mestarin eteriittikilpi · KES'
+    },
+    smithEndMithrilShield: {
+      name: 'Mithrilkilpi · KES'
+    },
+    smithEndAdamantShield: {
+      name: 'Adamanttikilpi · KES'
+    },
+    smithEndAetheriteShield: {
+      name: 'Eteriittikilpi · KES'
+    },
+    smithMasterEndMithrilHelm: {
+      name: 'Mestarin mithrilkypärä · KES'
+    },
+    smithMasterEndAdamantHelm: {
+      name: 'Mestarin adamanttikypärä · KES'
+    },
+    smithMasterEndAetheriteHelm: {
+      name: 'Mestarin eteriittikypärä · KES'
+    },
+    smithEndMithrilHelm: {
+      name: 'Mithrilkypärä · KES'
+    },
+    smithEndAdamantHelm: {
+      name: 'Adamanttikypärä · KES'
+    },
+    smithEndAetheriteHelm: {
+      name: 'Eteriittikypärä · KES'
+    },
+    smithMasterEndMithrilPlate: {
+      name: 'Mestarin mithrilpanssari · KES'
+    },
+    smithMasterEndAdamantPlate: {
+      name: 'Mestarin adamanttipanssari · KES'
+    },
+    smithMasterEndAetheritePlate: {
+      name: 'Mestarin eteriittipanssari · KES'
+    },
+    smithEndMithrilPlate: {
+      name: 'Mithrilpanssari · KES'
+    },
+    smithEndAdamantPlate: {
+      name: 'Adamanttipanssari · KES'
+    },
+    smithEndAetheritePlate: {
+      name: 'Eteriittipanssari · KES'
+    },
+    smithMasterEndMithrilGreaves: {
+      name: 'Mestarin mithrilsäärystimet · KES'
+    },
+    smithMasterEndAdamantGreaves: {
+      name: 'Mestarin adamanttisäärystimet · KES'
+    },
+    smithMasterEndAetheriteGreaves: {
+      name: 'Mestarin eteriittisäärystimet · KES'
+    },
+    smithEndMithrilGreaves: {
+      name: 'Mithrilsäärystimet · KES'
+    },
+    smithEndAdamantGreaves: {
+      name: 'Adamanttisäärystimet · KES'
+    },
+    smithEndAetheriteGreaves: {
+      name: 'Eteriittisäärystimet · KES'
     },
     smithIronSword: {
       name: 'Rautamiekka'
@@ -1777,6 +2951,414 @@ export default {
     scepterOfTheFirstKing: {
       name: 'Ensimmäisen kuninkaan valtikka'
     },
+    pickpocketsKnife: {
+      name: 'Taskuvarkaan veitsi'
+    },
+    serpentsFang: {
+      name: 'Käärmeen torahammas'
+    },
+    phantomRapier: {
+      name: 'Aavemiekka'
+    },
+    fangOfTheWindless: {
+      name: 'Tuulettomuuden torahammas'
+    },
+    roguesBuckler: {
+      name: 'Veijarin pikkukilpi'
+    },
+    venomVial: {
+      name: 'Myrkkypullo'
+    },
+    swiftguardBuckler: {
+      name: 'Nopean vartijan pikkukilpi'
+    },
+    nightshadeFlask: {
+      name: 'Yöunikkopullo'
+    },
+    windveilTarge: {
+      name: 'Tuuliharsokilpi'
+    },
+    shadowdancersBuckler: {
+      name: 'Varjotanssijan pikkukilpi'
+    },
+    scoutsBandana: {
+      name: 'Tiedustelijan huivi'
+    },
+    nightcowl: {
+      name: 'Yöhuppu'
+    },
+    shadowveilHood: {
+      name: 'Varjoharsohuppu'
+    },
+    windrunnersCap: {
+      name: 'Tuulenjuoksijan lakki'
+    },
+    maskOfTheSilentWind: {
+      name: 'Hiljaisen tuulen naamio'
+    },
+    rangersJerkin: {
+      name: 'Metsänvartijan takki'
+    },
+    nightstalkerLeathers: {
+      name: 'Yöpeijoonin nahat'
+    },
+    windridersHarness: {
+      name: 'Tuulenratsastajan valjaat'
+    },
+    mantleOfTheShadowDancer: {
+      name: 'Varjotanssijan viitta'
+    },
+    thiefsGloves: {
+      name: 'Varkaan hansikkaat'
+    },
+    cutpurseGloves: {
+      name: 'Kukkarovarkaan hansikkaat'
+    },
+    glovesOfTheGale: {
+      name: 'Myrskyn hansikkaat'
+    },
+    softSoledShoes: {
+      name: 'Pehmeäpohjaiset kengät'
+    },
+    catStepBoots: {
+      name: 'Kissanaskelsaappaat'
+    },
+    shadowstepBoots: {
+      name: 'Varjoaskelsaappaat'
+    },
+    windstrideBoots: {
+      name: 'Tuuliaskelsaappaat'
+    },
+    luckyCoin: {
+      name: 'Onnenkolikko'
+    },
+    shadowBand: {
+      name: 'Varjosormus'
+    },
+    sandglassOfTheSwift: {
+      name: 'Nopean tiimalasi'
+    },
+    talonCharm: {
+      name: 'Kynsiamuletti'
+    },
+    windheart: {
+      name: 'Tuulensydän'
+    },
+    ashwallHeater: {
+      name: 'Tuhramuurin kilpi'
+    },
+    wyrmhidePavise: {
+      name: 'Lohikäärmeennahkainen pavise'
+    },
+    footmansKettleHat: {
+      name: 'Jalkamiehen padanmuotoinen hattu'
+    },
+    ironbrowSallet: {
+      name: 'Rautakulmainen salladi'
+    },
+    warlordsBarbute: {
+      name: 'Sotapäällikön barbuutti'
+    },
+    helmOfTheSunderedThrone: {
+      name: 'Särjetyn valtaistuimen kypärä'
+    },
+    recruitsCuirass: {
+      name: 'Alokkaan rintapanssari'
+    },
+    stonecuttersMitts: {
+      name: 'Kivenhakkaajan lapaset'
+    },
+    ashforgedGauntlets: {
+      name: 'Tuhkassa taotut rautakäsineet'
+    },
+    warbringerGauntlets: {
+      name: 'Sodantuojan rautakäsineet'
+    },
+    titanfistGauntlets: {
+      name: 'Titaanin nyrkin rautakäsineet'
+    },
+    footmansGreaves: {
+      name: 'Jalkamiehen sääsuojat'
+    },
+    ironshodGreaves: {
+      name: 'Rautavahvisteiset sääsuojat'
+    },
+    warlordsSabatons: {
+      name: 'Sotapäällikön sabatonit'
+    },
+    greavesOfTheMountainfall: {
+      name: 'Vuorenvyöryn sääsuojat'
+    },
+    sergeantsSignet: {
+      name: 'Kersantin sinettisormus'
+    },
+    brawlersKnuckleRing: {
+      name: 'Tappelijan nyrkkirauta'
+    },
+    bloodiedWarMedal: {
+      name: 'Veren tahrima sotamitali'
+    },
+    watchmansCudgel: {
+      name: 'Vartijan nuija'
+    },
+    ironboundMace: {
+      name: 'Rautarenkainen nuija'
+    },
+    stonehideCleaver: {
+      name: 'Kivennahkahakkuri'
+    },
+    bulwarkMaul: {
+      name: 'Linnakkeen moukari'
+    },
+    mountainsplitterAxe: {
+      name: 'Vuorenhalkojan kirves'
+    },
+    everstandWarmace: {
+      name: 'Järkkymätön sotanuija'
+    },
+    emberwallBastion: {
+      name: 'Hehkumuurin linnake'
+    },
+    stonewardenHelm: {
+      name: 'Kivivartijan kypärä'
+    },
+    colossusVisage: {
+      name: 'Kolossin kasvot'
+    },
+    diggersGauntlets: {
+      name: 'Kaivajan rautakäsineet'
+    },
+    bastionGauntlets: {
+      name: 'Linnakkeen rautakäsineet'
+    },
+    glacierplateGauntlets: {
+      name: 'Jäätikkölevyiset rautakäsineet'
+    },
+    gauntletsOfEndlessVigil: {
+      name: 'Ikuisen valvonnan rautakäsineet'
+    },
+    hearthstoneCharm: {
+      name: 'Tulisijankivi-talismaani'
+    },
+    ironheartPendant: {
+      name: 'Rautasydän-riipus'
+    },
+    hedgewizardsWand: {
+      name: 'Pensasvelhon sauva'
+    },
+    frostglassStaff: {
+      name: 'Routalasinen sauva'
+    },
+    voidthreadWand: {
+      name: 'Tyhjyyslangasta tehty sauva'
+    },
+    staffOfTheStarlessSky: {
+      name: 'Tähdettömän taivaan sauva'
+    },
+    studentsGrimoire: {
+      name: 'Oppilaan loitsukirja'
+    },
+    frostfireOrb: {
+      name: 'Pakkastulen pallo'
+    },
+    orbOfTheUnwrittenHour: {
+      name: 'Kirjoittamattoman tunnin pallo'
+    },
+    apprenticesPointedCap: {
+      name: 'Kisällin suippo lakki'
+    },
+    sagesCirclet: {
+      name: 'Viisaan otsanauha'
+    },
+    cinderWizardsHat: {
+      name: 'Tuhkamaagin hattu'
+    },
+    voidseerCirclet: {
+      name: 'Tyhjyydennäkijän otsanauha'
+    },
+    apprenticesRobe: {
+      name: 'Kisällin kaapu'
+    },
+    cinderthreadRobe: {
+      name: 'Tuhkalangasta kudottu kaapu'
+    },
+    voidwovenRobe: {
+      name: 'Tyhjyyteen kudottu kaapu'
+    },
+    inkStainedGloves: {
+      name: 'Mustetahraiset käsineet'
+    },
+    spellthreadGloves: {
+      name: 'Loitsulangan käsineet'
+    },
+    frostweaveGloves: {
+      name: 'Pakkaskankaiset käsineet'
+    },
+    starlitGloves: {
+      name: 'Tähtivalon käsineet'
+    },
+    glovesOfTheLastWord: {
+      name: 'Viimeisen sanan käsineet'
+    },
+    scribesSlippers: {
+      name: 'Kirjurin tohvelit'
+    },
+    moonstepSlippers: {
+      name: 'Kuunaskeleen tohvelit'
+    },
+    emberstepBoots: {
+      name: 'Hehkuaskeleen saappaat'
+    },
+    voidwalkerBoots: {
+      name: 'Tyhjyydenvaeltajan saappaat'
+    },
+    bootsOfTheWanderingStar: {
+      name: 'Harhailevan tähden saappaat'
+    },
+    glowstonePendant: {
+      name: 'Hohtokivi-riipus'
+    },
+    scholarsSeal: {
+      name: 'Oppineen sinetti'
+    },
+    eyeOfTheArchon: {
+      name: 'Arkontin silmä'
+    },
+    cinderRepeater: {
+      name: 'Tuhkatoistopyssy'
+    },
+    glacierMortar: {
+      name: 'Jäätikkökäsimörssäri'
+    },
+    sparkCell: {
+      name: 'Kipinäkenno'
+    },
+    arcCapacitor: {
+      name: 'Valokaarikondensaattori'
+    },
+    aetherheartCell: {
+      name: 'Eetterisydän-kenno'
+    },
+    marksmansVisor: {
+      name: 'Ampujan visiiri'
+    },
+    sharpshootersCap: {
+      name: 'Tarkka-ampujan lippalakki'
+    },
+    gunnersHarness: {
+      name: 'Tykkimiehen valjaat'
+    },
+    steadyhandGloves: {
+      name: 'Vakaan käden käsineet'
+    },
+    gunsmithsGloves: {
+      name: 'Asesepän käsineet'
+    },
+    scrappersBoots: {
+      name: 'Tappelijan saappaat'
+    },
+    sharpshooterBoots: {
+      name: 'Tarkka-ampujan saappaat'
+    },
+    firingLineBoots: {
+      name: 'Tulilinjan saappaat'
+    },
+    steadyfootBoots: {
+      name: 'Tukevan jalan saappaat'
+    },
+    aetherstepBoots: {
+      name: 'Eetteriaskeleen saappaat'
+    },
+    bootsOfTheLastShot: {
+      name: 'Viimeisen laukauksen saappaat'
+    },
+    brassCartridgeCharm: {
+      name: 'Messinkihylsy-talismaani'
+    },
+    deadEyeLens: {
+      name: 'Tarkan silmän linssi'
+    },
+    eagleEyeScope: {
+      name: 'Kotkansilmän kaukoputki'
+    },
+    criersBaton: {
+      name: 'Kuuluttajan sauva'
+    },
+    droversStandard: {
+      name: 'Karjaajan lippu'
+    },
+    marshalsSceptre: {
+      name: 'Marsalkan valtikka'
+    },
+    balladBook: {
+      name: 'Balladikirja'
+    },
+    chronicleOfHeroes: {
+      name: 'Sankarien kronikka'
+    },
+    psalterOfTheHost: {
+      name: 'Joukon virsikirja'
+    },
+    tomeOfEternalReign: {
+      name: 'Ikuisen vallan nide'
+    },
+    heraldsCap: {
+      name: 'Heraldin lakki'
+    },
+    singersCirclet: {
+      name: 'Laulajan otsanauha'
+    },
+    diademOfTenThousandVoices: {
+      name: 'Kymmenentuhannen äänen diadeemi'
+    },
+    travelersWaistcoat: {
+      name: 'Matkaajan liivi'
+    },
+    minstrelsMotley: {
+      name: 'Kulkurimuusikon paikattu puku'
+    },
+    troubadoursCoat: {
+      name: 'Trubaduurin takki'
+    },
+    marshalsGreatcoat: {
+      name: 'Marsalkan päällystakki'
+    },
+    buskersGloves: {
+      name: 'Katumuusikon käsineet'
+    },
+    drummersGloves: {
+      name: 'Rumpalin käsineet'
+    },
+    standardBearersGloves: {
+      name: 'Lipunkantajan käsineet'
+    },
+    gildedParadeGloves: {
+      name: 'Kullatut paraatikäsineet'
+    },
+    glovesOfTheCrownedHand: {
+      name: 'Kruunatun käden käsineet'
+    },
+    wayfarersShoes: {
+      name: 'Vaeltajan kengät'
+    },
+    troubadourBoots: {
+      name: 'Trubaduurin saappaat'
+    },
+    heraldsRidingBoots: {
+      name: 'Heraldin ratsastussaappaat'
+    },
+    paradeBoots: {
+      name: 'Paraatisaappaat'
+    },
+    bootsOfTheLongProcession: {
+      name: 'Pitkän kulkueen saappaat'
+    },
+    silverWhistle: {
+      name: 'Hopeapilli'
+    },
+    gatheringHorn: {
+      name: 'Kokoontumissarvi'
+    },
     heartOfTheMountain: {
       name: 'Vuoren sydän'
     },
@@ -1880,6 +3462,9 @@ export default {
     freedPeddler: {
       talk: 'Kaikki, mitä matkalainen tarvitsee. Melkein uutta, enimmäkseen.',
       name: 'Odo Marrow'
+    },
+    sfShadowRoad: {
+      name: 'Nettle Quickhand'
     },
     sfShadow: {
       name: 'Nettle Quickhand'
@@ -2034,6 +3619,9 @@ export default {
     sunfordGambler: {
       name: 'Dob Kuperkeikka'
     },
+    sunfordCups: {
+      name: 'Nell Nimblefingers'
+    },
     oakGambler: {
       name: 'Silkki-Ren'
     },
@@ -2145,6 +3733,13 @@ export default {
     }
   },
   dlg: {
+    intro: {
+      crossing: { 1: 'Jokainen tämän maailman tie kohtaa risteyksessä… ja jokainen risteys on taistelu.' },
+      hero: { 1: 'Sunfordin hiljaisilta pelloilta nuori sankari lähti matkaan.' },
+      fire: { 1: 'Tuli vastasi kutsuun. Teräs oppi uuden nimen.' },
+      foes: { 1: 'Hiisikuninkaat, jääjaarlit, tyhjyyden lohikäärme… ja Arkkidemoni.' },
+      begin: { 1: 'Legendasi alkaa nyt.' }
+    },
     frostDisciple: {
       bye: {
         '1': 'Pysy lämpimänä.'
@@ -2339,6 +3934,23 @@ export default {
       hello: {
         '2': 'Odo Marrow, palveluksessasi. Kulkukauppias, peltiseppä ja hyvin kiitollinen mies.',
         '1': 'Sinä! Sinä avasit sen häkin! Olisin mädäntynyt sinne.'
+      }
+    },
+    sfShadowRoad: {
+      hello: {
+        '1': 'Teleportaus. Kiinnostaako?'
+      },
+      again: {
+        '1': 'Takaisin uuden tempun perään?'
+      },
+      train: {
+        '1': 'Katso tarkkaan. Yksi askel, ja olet jossain muualla.'
+      },
+      trainBack: {
+        '1': 'Hyvä. Mene nyt olemaan jossain muualla.'
+      },
+      bye: {
+        '1': 'Älä jää kiinni.'
       }
     },
     sfShadow: {
@@ -2593,9 +4205,8 @@ export default {
         '2': 'Iske, kun metalli hehkuu kirkkaimmin. Jos lyöt ohi, se on romua. Anna mennä.',
         '1': 'Takomista? Hm. Pidä vasarasta näin, älä kuin nuijasta.'
       },
-      ore: {
-        '1': 'Kimpaleita, vai? Otan kaikki. Reilu paino, reilu raha.'
-      },
+      ore: { '1': 'Malmia, vai? Näytä. Maksan kimpaleelta, reilulla painolla.' },
+      sellBack: { '1': 'Reilu paino, reilu kolikko. Tuo lisää kun löydät.' },
       forgeBack: {
         '1': 'Ei huono. Ei hyväkään. Jatka harjoittelua.'
       },
@@ -2878,7 +4489,7 @@ export default {
       },
       map: {
         '1': 'Kapteeni Rookin kartta! Hän repi sen ja piilotti palat, ennen kuin hiidet saivat hänet kiinni.',
-        '2': 'Löydä kaikki kuusi, niin X näyttää tien: jonnekin Tuhkakallioille. Kaiva sieltä, niin kulta on sinun.',
+        '2': 'Löydä niistä kuusi, muutama lisää on hajallaan ympäriinsä, niin X näyttää tien: jonnekin Tuhkakallioille. Kaiva sieltä, niin kulta on sinun.',
         say: 'Löysin palan vanhaa karttaa.'
       }
     },
@@ -2895,6 +4506,9 @@ export default {
       },
       mana: {
         '1': 'Tämä on karvasta. Juo se, kun loitsusi loppuvat.'
+      },
+      brew: {
+        '1': 'Näytä yrttisi. Sekoitan jotain, mikä maistuu paremmalta kuin manatonic-juomani.'
       },
       potions: {
         '1': 'Otat muutaman pullon jokaiseen taisteluun. Juo ennen kuin tarvitset, älä jälkeen.',
@@ -2914,6 +4528,9 @@ export default {
       },
       healBack: {
         '1': 'Pidä vyösi täynnä ja pääsi alhaalla.'
+      },
+      brewBack: {
+        '1': 'Varovasti, ne ovat kuumia. Älä juo kaikkia kerralla.'
       },
       bye: {
         '1': 'Pidä huolta itsestäsi siellä.'
@@ -3015,9 +4632,8 @@ export default {
         '2': 'Seuraa hehkua. Iske sen sydämeen kolmesti, niin metalli muistaa.',
         '1': 'Haluatko oppia ammatin? Hyvä. Oakhaven tarvitsee jokaisen vasaran.'
       },
-      ore: {
-        '1': 'Raakaa malmia! Asevarastossa sitä ei ole koskaan tarpeeksi. Tässä palkkasi.'
-      },
+      ore: { '1': 'Raakamalmia! Asevarasto ei saa koskaan tarpeeksi. Myy mitä voit.' },
+      sellBack: { '1': 'Jokainen kimpale menee muuriin. Kiitos.' },
       forgeBack: {
         '1': 'Hyvää terästä. Muurit kiittävät sinua.'
       },
@@ -3058,9 +4674,8 @@ export default {
         '2': 'Kolme iskua, jokainen hehkun sydämeen. Siinä koko salaisuus.',
         '1': 'Piirityksen jälkeen olen opettanut jokaista, joka pyytää. Tule, seiso tässä.'
       },
-      ore: {
-        '1': 'Lisää malmia muureille? Siunatkoon sinua. Tässä, ota tämä.'
-      },
+      ore: { '1': 'Lisää malmia muureihin? Maksan jokaisesta kimpaleesta.' },
+      sellBack: { '1': 'Siunausta sinulle. Siitä tulee lisää levyjä muureihin.' },
       forgeBack: {
         '1': 'Jokainen isku tekee sinusta paremman. Tule takaisin milloin vain.'
       },
@@ -3456,9 +5071,8 @@ export default {
         '2': 'Hehku kertoo milloin. Käsivarsi kertoo kuinka lujaa. Kolme iskua.',
         '1': 'Pinta-asukas alasimella? No, jostain kaikki aloittavat.'
       },
-      ore: {
-        '1': 'Hyvää, rehellistä metallia. Ironhold maksaa siitä aina.'
-      },
+      ore: { '1': 'Hyvää, rehellistä metallia. Laita esiin, maksan kimpaleelta.' },
+      sellBack: { '1': 'Reilu kauppa. Ironhold maksaa aina hyvästä metallista.' },
       forgeBack: {
         '1': 'Kääpiö olisi tehnyt paremmin. Mutta ei paljon.'
       },
@@ -3528,9 +5142,8 @@ export default {
         '2': 'Kuumenna, iske, käännä. Kolme iskua, suoraan hehkuun. Anna sitten jäähtyä.',
         '1': 'Levypanssari on kärsivällistä työtä. Näytän sinulle perusteet.'
       },
-      ore: {
-        '1': 'Annas kun punnitsen. Hyvä. Rahat ovat sinun.'
-      },
+      ore: { '1': 'Annas kun punnitsen. Valitse mitä myyt, minä lasken kolikot.' },
+      sellBack: { '1': 'Punnittu ja maksettu. Hyvä.' },
       forgeBack: {
         '1': 'Anna sen jäähtyä ennen kuin puet sen päällesi.'
       },
@@ -3570,9 +5183,8 @@ export default {
         '2': 'Kuria alasimella, kuten taistelukentällä. Kolme iskua, uskollisina hehkulle.',
         '1': 'Ritarikunta aseistaa ystävänsä. Minä opetan sinua.'
       },
-      ore: {
-        '1': 'Ritarikunta ostaa kaiken malmin sotaa varten. Maksusi.'
-      },
+      ore: { '1': 'Ritarikunta ostaa malmia sotaan. Myy mitä voit.' },
+      sellBack: { '1': 'Maksusi on kirjattu. Ritarikunta kiittää.' },
       forgeBack: {
         '1': 'Hyvin taottu. Palvele hyvin siinä.'
       },
@@ -3974,6 +5586,11 @@ export default {
       }
     },
     bark: {
+      banditChief: {
+        whistle: {
+          1: 'Ylös, pojat! Purkaa niitä!'
+        }
+      },
       lightDisciple: {
         freed: {
           '1': 'Valo lähetti sinut. Olen Sisar Aurelle. Etsi minut Sunfordista, opetan sinulle Valontuojan tien.'
@@ -4129,9 +5746,8 @@ export default {
         '2': 'Iske, kun hehku on kuumimmillaan. Kolme hyvää iskua tekee hyvän esineen.',
         '1': 'Haluatko kokeilla vasaraa itse? Jaan pajan mielelläni.'
       },
-      ore: {
-        '1': 'Ihanaa malmia. Silverbridge maksaa aina reilun hinnan.'
-      },
+      ore: { '1': 'Kaunista malmia. Näytä mitä myyt, maksan kimpaleelta.' },
+      sellBack: { '1': 'Ilo on minun. Silverbridge maksaa aina reilun hinnan.' },
       forgeBack: {
         '1': 'Katsopa tuota! Sinulla on luontaista lahjakkuutta.'
       },
@@ -4573,7 +6189,7 @@ export default {
         say: 'Mistä löydän yrttejä?'
       },
       elixirs: {
-        '1': 'Jokainen tekee sinusta vahvemman taistelussa kokonaisen minuutin ajan. Kovemmat iskut, sitkeämpi iho, nopeammat jalat.',
+        '1': 'Jokainen tekee sinusta vahvemman taistelussa kokonaiset 5 minuuttia. Kovemmat iskut, sitkeämpi iho, nopeammat jalat.',
         '2': 'Ne ovat kolmannessa pullossasi. Napauta pientä nuolta vaihtaaksesi, minkä juot.',
         say: 'Mitä eliksiirit tekevät?'
       },
@@ -4642,6 +6258,36 @@ export default {
       },
       bye: {
         '1': 'Tuo lisää romua! Romu on lempiasiani.'
+      }
+    },
+    sunfordCups: {
+      hello: {
+        1: 'Tulkaa lähemmäs! Kolme kuppia, yksi jalokivi, ja ensimmäinen kierros on ilmainen!',
+        2: 'Nell Nimblefingers. Kukaan ei ole vielä huijannut käsiäni. Haluatko yrittää?'
+      },
+      again: {
+        1: 'Taas täällä? Pidä silmät auki!'
+      },
+      play: {
+        1: 'Silmät jalokivessä, ystävä. Älä räpäytä!'
+      },
+      rules: {
+        1: 'Piilotan jalokiven kupin alle ja sekoitan kupit. Sinä osoitat kupin, jonka alla se on.',
+        2: 'Jokainen voitto putkeen maksaa enemmän. Kolme voittoa tuo palkinnon, viisi aarteen. Päivän ensimmäinen kierros on ilmainen.',
+        say: 'Miten tämä toimii?'
+      },
+      who: {
+        1: 'Osasin sekoittaa ennen kuin osasin kävellä. Äiti sanoo, että se selittää paljon.'
+      },
+      luck: {
+        1: 'Joskus! Silloin voihkin kovaa ja yleisö säälii minua.',
+        say: 'Häviätkö koskaan?'
+      },
+      playBack: {
+        1: 'Hieno kierros! Tule huomenna uudestaan, ensimmäinen on aina ilmainen.'
+      },
+      bye: {
+        1: 'Nähdään! Pidä silmät auki siellä ulkona.'
       }
     },
     oakGambler: {
@@ -5135,6 +6781,7 @@ export default {
     banditArcher: 'Rosvojousimies',
     wolf: 'Susi',
     banditChief: 'Rosvopäällikkö',
+    gnome: 'Tonttu',
     goblinKing: 'Hiisikuningas',
     treant: 'Puuhenki',
     spider: 'Jättihämähäkki',
@@ -5352,6 +6999,18 @@ export default {
       firefoxColors: 'Firefox: Asetukset → Värit → aseta «Ohita sivun määrittämät värit» arvoon Ei koskaan.'
     }
   },
+  samsungFix: {
+    title: 'Nopea värintarkistus',
+    body: 'Jotkin puhelimet muuttavat verkkosivujen värejä. Vertaa alla olevia kahta neliötä.',
+    question: 'Näyttävätkö molemmat neliöt samalta?',
+    refSquare: 'Vertailuneliö',
+    pageSquare: 'Sivun neliö',
+    yes: 'Kyllä, ne näyttävät samalta',
+    no: 'Ei, ne näyttävät erilaisilta',
+    option: 'Korjaa värit (Samsungin tumma tila)',
+    optionHint: 'Ota käyttöön, jos valikot näyttävät tummilta tai teksti on vaikea lukea.',
+    recheck: 'Tee värintarkistus uudelleen'
+  },
   saveStatus: {
     restoredTitle: 'Pilvitallennus palautettu',
     restoredBody: '+{n} bonuskultaa palautuksesta',
@@ -5476,7 +7135,7 @@ export default {
   },
   forge: {
     upgrade: 'Paranna ({n} kultaa)',
-    max: 'Täysin parannettu: +{n}.',
+    next: 'Seuraava +{level}: +{pct} % ominaisuuksiin',
     town: 'Minkä tahansa kaupungin seppä voi parantaa tämän.'
   },
   ore: {
@@ -5491,6 +7150,12 @@ export default {
     },
     mithril: {
       name: 'Mithrilmalmi'
+    },
+    adamant: {
+      name: 'Adamanttimalmi'
+    },
+    aetherite: {
+      name: 'Eteriittimalmi'
     }
   },
   plant: {
@@ -5572,32 +7237,32 @@ export default {
   elixir: {
     might: {
       name: 'Voiman eliksiiri',
-      desc: '+{n}% vahinkoa minuutin ajan'
+      desc: '+{n}% vahinkoa 5 minuutin ajan'
     },
     iron: {
       name: 'Rautaihojuoma',
-      desc: '+{n}% panssaria minuutin ajan'
+      desc: '+{n}% panssaria 5 minuutin ajan'
     },
     swift: {
       name: 'Ketteryystonikki',
-      desc: '+{n}% nopeutta ja hyökkäysnopeutta minuutin ajan'
+      desc: '+{n}% nopeutta ja hyökkäysnopeutta 5 minuutin ajan'
     },
     mind: {
       name: 'Kirkkaan mielen keitos',
-      desc: 'Kyvyt latautuvat {n}% nopeammin minuutin ajan'
+      desc: 'Kyvyt latautuvat {n}% nopeammin 5 minuutin ajan'
     },
     vigor: {
       name: 'Elinvoimaeliksiiri',
-      desc: 'Parantaa {n}% terveydestäsi joka sekunti minuutin ajan'
+      desc: 'Parantaa {n}% terveydestäsi joka sekunti 5 minuutin ajan'
     },
     shadow: {
       name: 'Janoava juoma',
-      desc: 'Iskusi parantavat sinua {n}% tekemästään vahingosta minuutin ajan'
+      desc: 'Iskusi parantavat sinua {n}% tekemästään vahingosta 5 minuutin ajan'
     }
   },
   alchemy: {
     talk: 'Yrtit sisään, eliksiirit ulos. Minkä keitämme?',
-    lead: 'Jokainen eliksiiri toimii taistelussa minuutin. Juo se kolmannesta pullostasi. Voit kantaa {n} kutakin.',
+    lead: 'Jokainen eliksiiri toimii taistelussa 5 minuuttia. Juo se kolmannesta pullostasi. Voit kantaa {n} kutakin.',
     brew: 'Keitä · {n}',
     carry: 'Ota mukaan',
     carried: 'Pullossasi',
@@ -5621,6 +7286,25 @@ export default {
     again: 'Pelaa uudelleen',
     noGold: 'Kulta ei riitä tuohon panokseen.',
     card: 'Kortti {n}'
+  },
+  cups: {
+    title: 'Kuppikoju',
+    lead: 'Katso jalokiveä, seuraa sen kuppia ja osoita sitten kuppi. Jokainen voitto putkeen maksaa enemmän. Kolmas tuo palkintoesineen, viides aarteen.',
+    free: 'Ilmainen kierros',
+    fee: 'Pelaa · {n}',
+    row: 'Voittoja putkeen: {n} / {max}',
+    next: 'Seuraava voitto: {n} kultaa',
+    watch: 'Katso jalokiveä!',
+    follow: 'Seuraa sitä…',
+    pick: 'Valitse kuppi!',
+    hint: 'Napauta kuppia tai paina sen numeroa.',
+    won: 'Löytyi! +{n} kultaa',
+    lost: 'Ei se. Putki alkaa alusta.',
+    near: 'Niin lähellä! Se oli aivan vieressä.',
+    timeout: 'Liian hidas! Putki alkaa alusta.',
+    again: 'Pelaa uudestaan',
+    noGold: 'Kultaa ei riitä. Huomenna ensimmäinen kierros on ilmainen.',
+    cup: 'Kuppi {n}'
   },
   battle: {
     title: 'Esineottelu',

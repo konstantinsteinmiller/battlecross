@@ -1,5 +1,13 @@
 // Lithuanian (lt) bundle — mirrors en.ts.
 export default {
+  // ─── The intro (#130): its skip, and its narrator's name ───
+  intro: {
+    narrator: 'Metraštininkas',
+    skip: 'Praleisti',
+    holdKey: 'Laikykite {key}, kad praleistumėte',
+    holdTouch: 'Laikykite, kad praleistumėte',
+    replay: 'Žiūrėti įžangą'
+  },
   arena: {
     allWon: 'Visi mitiniai prizai – tavo.',
     call: 'Istorija papasakota. Dabar įrodyk savo buildą: kilk kuo aukščiau ir laimėk mitinius prizus, kurių niekas kitas tau neduos.',
@@ -8,6 +16,20 @@ export default {
     next: 'Kitas prizas bangoje {at}: {item}',
     champion: 'Čempiono banga',
     wave: 'Banga {n}'
+  },
+  sellOre: {
+    talk: 'Gera rūda, teisinga kaina. Kiek parduosi?',
+    lead: 'Pasirink, kiek kiekvienos rūdos grynuolių parduoti. Niekas neparduodama, kol nepaspaudi Parduoti.',
+    have: 'Turi {n}',
+    each: '{n} aukso už vnt.',
+    none: 'Nieko',
+    all: 'Viską',
+    less: '{ore}: vienu mažiau',
+    more: '{ore}: vienu daugiau',
+    total: 'Gausi: {n} aukso',
+    sell: 'Parduoti',
+    selectAll: 'Pažymėti viską',
+    empty: 'Nebeturi rūdos pardavimui.'
   },
   smith: {
     why: {
@@ -1420,38 +1442,110 @@ export default {
     smithMasterMithrilGreaves: {
       name: 'Meistriški mitriliniai blauzdiniai'
     },
+    smithMasterAdamantGreaves: {
+      name: 'Meistriški adamantiniai blauzdiniai'
+    },
+    smithMasterAetheriteGreaves: {
+      name: 'Meistriški eteritiniai blauzdiniai'
+    },
     smithMithrilGreaves: {
       name: 'Mitriliniai blauzdiniai'
+    },
+    smithAdamantGreaves: {
+      name: 'Adamantiniai blauzdiniai'
+    },
+    smithAetheriteGreaves: {
+      name: 'Eteritiniai blauzdiniai'
     },
     smithMasterMithrilPlate: {
       name: 'Meistriški mitriliniai šarvai'
     },
+    smithMasterAdamantPlate: {
+      name: 'Meistriški adamantiniai šarvai'
+    },
+    smithMasterAetheritePlate: {
+      name: 'Meistriški eteritiniai šarvai'
+    },
     smithMithrilPlate: {
       name: 'Mitriliniai šarvai'
+    },
+    smithAdamantPlate: {
+      name: 'Adamantiniai šarvai'
+    },
+    smithAetheritePlate: {
+      name: 'Eteritiniai šarvai'
     },
     smithMasterMithrilHelm: {
       name: 'Meistriškas mitrilinis šalmas'
     },
+    smithMasterAdamantHelm: {
+      name: 'Meistriškas adamantinis šalmas'
+    },
+    smithMasterAetheriteHelm: {
+      name: 'Meistriškas eteritinis šalmas'
+    },
     smithMithrilHelm: {
       name: 'Mitrilinis šalmas'
+    },
+    smithAdamantHelm: {
+      name: 'Adamantinis šalmas'
+    },
+    smithAetheriteHelm: {
+      name: 'Eteritinis šalmas'
     },
     smithMasterMithrilShield: {
       name: 'Meistriškas mitrilinis skydas'
     },
+    smithMasterAdamantShield: {
+      name: 'Meistriškas adamantinis skydas'
+    },
+    smithMasterAetheriteShield: {
+      name: 'Meistriškas eteritinis skydas'
+    },
     smithMithrilShield: {
       name: 'Mitrilinis skydas'
+    },
+    smithAdamantShield: {
+      name: 'Adamantinis skydas'
+    },
+    smithAetheriteShield: {
+      name: 'Eteritinis skydas'
     },
     smithMasterMithrilHammer: {
       name: 'Meistriškas mitrilinis kūjis'
     },
+    smithMasterAdamantHammer: {
+      name: 'Meistriškas adamantinis kūjis'
+    },
+    smithMasterAetheriteHammer: {
+      name: 'Meistriškas eteritinis kūjis'
+    },
     smithMithrilHammer: {
       name: 'Mitrilinis kūjis'
+    },
+    smithAdamantHammer: {
+      name: 'Adamantinis kūjis'
+    },
+    smithAetheriteHammer: {
+      name: 'Eteritinis kūjis'
     },
     smithMasterMithrilSword: {
       name: 'Meistriškas mitrilinis kalavijas'
     },
+    smithMasterAdamantSword: {
+      name: 'Meistriškas adamantinis kalavijas'
+    },
+    smithMasterAetheriteSword: {
+      name: 'Meistriškas eteritinis kalavijas'
+    },
     smithMithrilSword: {
       name: 'Mitrilinis kalavijas'
+    },
+    smithAdamantSword: {
+      name: 'Adamantinis kalavijas'
+    },
+    smithAetheriteSword: {
+      name: 'Eteritinis kalavijas'
     },
     smithMasterGoldGreaves: {
       name: 'Meistriški auksiniai blauzdiniai'
@@ -1557,6 +1651,1086 @@ export default {
     },
     smithMasterIronSword: {
       name: 'Meistriškas geležinis kalavijas'
+    },
+    smithMasterDexIronSword: {
+      name: 'Meistriškas durklas iš geležies · VIK'
+    },
+    smithDexIronSword: {
+      name: 'Durklas iš geležies · VIK'
+    },
+    smithMasterDexIronHammer: {
+      name: 'Meistriškas rapyra iš geležies · VIK'
+    },
+    smithDexIronHammer: {
+      name: 'Rapyra iš geležies · VIK'
+    },
+    smithMasterDexIronShield: {
+      name: 'Meistriškas skydelis iš geležies · VIK'
+    },
+    smithDexIronShield: {
+      name: 'Skydelis iš geležies · VIK'
+    },
+    smithMasterDexIronHelm: {
+      name: 'Meistriškas gobtuvas iš geležies · VIK'
+    },
+    smithDexIronHelm: {
+      name: 'Gobtuvas iš geležies · VIK'
+    },
+    smithMasterDexIronPlate: {
+      name: 'Meistriškas odiniai šarvai iš geležies · VIK'
+    },
+    smithDexIronPlate: {
+      name: 'Odiniai šarvai iš geležies · VIK'
+    },
+    smithMasterDexIronGreaves: {
+      name: 'Meistriškas batai iš geležies · VIK'
+    },
+    smithDexIronGreaves: {
+      name: 'Batai iš geležies · VIK'
+    },
+    smithMasterDexSilverSword: {
+      name: 'Meistriškas durklas iš sidabro · VIK'
+    },
+    smithDexSilverSword: {
+      name: 'Durklas iš sidabro · VIK'
+    },
+    smithMasterDexSilverHammer: {
+      name: 'Meistriškas rapyra iš sidabro · VIK'
+    },
+    smithDexSilverHammer: {
+      name: 'Rapyra iš sidabro · VIK'
+    },
+    smithMasterDexSilverShield: {
+      name: 'Meistriškas skydelis iš sidabro · VIK'
+    },
+    smithDexSilverShield: {
+      name: 'Skydelis iš sidabro · VIK'
+    },
+    smithMasterDexSilverHelm: {
+      name: 'Meistriškas gobtuvas iš sidabro · VIK'
+    },
+    smithDexSilverHelm: {
+      name: 'Gobtuvas iš sidabro · VIK'
+    },
+    smithMasterDexSilverPlate: {
+      name: 'Meistriškas odiniai šarvai iš sidabro · VIK'
+    },
+    smithDexSilverPlate: {
+      name: 'Odiniai šarvai iš sidabro · VIK'
+    },
+    smithMasterDexSilverGreaves: {
+      name: 'Meistriškas batai iš sidabro · VIK'
+    },
+    smithDexSilverGreaves: {
+      name: 'Batai iš sidabro · VIK'
+    },
+    smithMasterDexGoldSword: {
+      name: 'Meistriškas durklas iš aukso · VIK'
+    },
+    smithDexGoldSword: {
+      name: 'Durklas iš aukso · VIK'
+    },
+    smithMasterDexGoldHammer: {
+      name: 'Meistriškas rapyra iš aukso · VIK'
+    },
+    smithDexGoldHammer: {
+      name: 'Rapyra iš aukso · VIK'
+    },
+    smithMasterDexGoldShield: {
+      name: 'Meistriškas skydelis iš aukso · VIK'
+    },
+    smithDexGoldShield: {
+      name: 'Skydelis iš aukso · VIK'
+    },
+    smithMasterDexGoldHelm: {
+      name: 'Meistriškas gobtuvas iš aukso · VIK'
+    },
+    smithDexGoldHelm: {
+      name: 'Gobtuvas iš aukso · VIK'
+    },
+    smithMasterDexGoldPlate: {
+      name: 'Meistriškas odiniai šarvai iš aukso · VIK'
+    },
+    smithDexGoldPlate: {
+      name: 'Odiniai šarvai iš aukso · VIK'
+    },
+    smithMasterDexGoldGreaves: {
+      name: 'Meistriškas batai iš aukso · VIK'
+    },
+    smithDexGoldGreaves: {
+      name: 'Batai iš aukso · VIK'
+    },
+    smithMasterDexMithrilSword: {
+      name: 'Meistriškas durklas iš mitrilo · VIK'
+    },
+    smithMasterDexAdamantSword: {
+      name: 'Meistriškas durklas iš adamanto · VIK'
+    },
+    smithMasterDexAetheriteSword: {
+      name: 'Meistriškas durklas iš eterito · VIK'
+    },
+    smithDexMithrilSword: {
+      name: 'Durklas iš mitrilo · VIK'
+    },
+    smithDexAdamantSword: {
+      name: 'Durklas iš adamanto · VIK'
+    },
+    smithDexAetheriteSword: {
+      name: 'Durklas iš eterito · VIK'
+    },
+    smithMasterDexMithrilHammer: {
+      name: 'Meistriškas rapyra iš mitrilo · VIK'
+    },
+    smithMasterDexAdamantHammer: {
+      name: 'Meistriškas rapyra iš adamanto · VIK'
+    },
+    smithMasterDexAetheriteHammer: {
+      name: 'Meistriškas rapyra iš eterito · VIK'
+    },
+    smithDexMithrilHammer: {
+      name: 'Rapyra iš mitrilo · VIK'
+    },
+    smithDexAdamantHammer: {
+      name: 'Rapyra iš adamanto · VIK'
+    },
+    smithDexAetheriteHammer: {
+      name: 'Rapyra iš eterito · VIK'
+    },
+    smithMasterDexMithrilShield: {
+      name: 'Meistriškas skydelis iš mitrilo · VIK'
+    },
+    smithMasterDexAdamantShield: {
+      name: 'Meistriškas skydelis iš adamanto · VIK'
+    },
+    smithMasterDexAetheriteShield: {
+      name: 'Meistriškas skydelis iš eterito · VIK'
+    },
+    smithDexMithrilShield: {
+      name: 'Skydelis iš mitrilo · VIK'
+    },
+    smithDexAdamantShield: {
+      name: 'Skydelis iš adamanto · VIK'
+    },
+    smithDexAetheriteShield: {
+      name: 'Skydelis iš eterito · VIK'
+    },
+    smithMasterDexMithrilHelm: {
+      name: 'Meistriškas gobtuvas iš mitrilo · VIK'
+    },
+    smithMasterDexAdamantHelm: {
+      name: 'Meistriškas gobtuvas iš adamanto · VIK'
+    },
+    smithMasterDexAetheriteHelm: {
+      name: 'Meistriškas gobtuvas iš eterito · VIK'
+    },
+    smithDexMithrilHelm: {
+      name: 'Gobtuvas iš mitrilo · VIK'
+    },
+    smithDexAdamantHelm: {
+      name: 'Gobtuvas iš adamanto · VIK'
+    },
+    smithDexAetheriteHelm: {
+      name: 'Gobtuvas iš eterito · VIK'
+    },
+    smithMasterDexMithrilPlate: {
+      name: 'Meistriškas odiniai šarvai iš mitrilo · VIK'
+    },
+    smithMasterDexAdamantPlate: {
+      name: 'Meistriškas odiniai šarvai iš adamanto · VIK'
+    },
+    smithMasterDexAetheritePlate: {
+      name: 'Meistriškas odiniai šarvai iš eterito · VIK'
+    },
+    smithDexMithrilPlate: {
+      name: 'Odiniai šarvai iš mitrilo · VIK'
+    },
+    smithDexAdamantPlate: {
+      name: 'Odiniai šarvai iš adamanto · VIK'
+    },
+    smithDexAetheritePlate: {
+      name: 'Odiniai šarvai iš eterito · VIK'
+    },
+    smithMasterDexMithrilGreaves: {
+      name: 'Meistriškas batai iš mitrilo · VIK'
+    },
+    smithMasterDexAdamantGreaves: {
+      name: 'Meistriškas batai iš adamanto · VIK'
+    },
+    smithMasterDexAetheriteGreaves: {
+      name: 'Meistriškas batai iš eterito · VIK'
+    },
+    smithDexMithrilGreaves: {
+      name: 'Batai iš mitrilo · VIK'
+    },
+    smithDexAdamantGreaves: {
+      name: 'Batai iš adamanto · VIK'
+    },
+    smithDexAetheriteGreaves: {
+      name: 'Batai iš eterito · VIK'
+    },
+    smithMasterIntIronSword: {
+      name: 'Meistriškas lazdelė iš geležies · INT'
+    },
+    smithIntIronSword: {
+      name: 'Lazdelė iš geležies · INT'
+    },
+    smithMasterIntIronHammer: {
+      name: 'Meistriškas lazda iš geležies · INT'
+    },
+    smithIntIronHammer: {
+      name: 'Lazda iš geležies · INT'
+    },
+    smithMasterIntIronShield: {
+      name: 'Meistriškas burtų knyga iš geležies · INT'
+    },
+    smithIntIronShield: {
+      name: 'Burtų knyga iš geležies · INT'
+    },
+    smithMasterIntIronHelm: {
+      name: 'Meistriškas diadema iš geležies · INT'
+    },
+    smithIntIronHelm: {
+      name: 'Diadema iš geležies · INT'
+    },
+    smithMasterIntIronPlate: {
+      name: 'Meistriškas mantija iš geležies · INT'
+    },
+    smithIntIronPlate: {
+      name: 'Mantija iš geležies · INT'
+    },
+    smithMasterIntIronGreaves: {
+      name: 'Meistriškas batai iš geležies · INT'
+    },
+    smithIntIronGreaves: {
+      name: 'Batai iš geležies · INT'
+    },
+    smithMasterIntSilverSword: {
+      name: 'Meistriškas lazdelė iš sidabro · INT'
+    },
+    smithIntSilverSword: {
+      name: 'Lazdelė iš sidabro · INT'
+    },
+    smithMasterIntSilverHammer: {
+      name: 'Meistriškas lazda iš sidabro · INT'
+    },
+    smithIntSilverHammer: {
+      name: 'Lazda iš sidabro · INT'
+    },
+    smithMasterIntSilverShield: {
+      name: 'Meistriškas burtų knyga iš sidabro · INT'
+    },
+    smithIntSilverShield: {
+      name: 'Burtų knyga iš sidabro · INT'
+    },
+    smithMasterIntSilverHelm: {
+      name: 'Meistriškas diadema iš sidabro · INT'
+    },
+    smithIntSilverHelm: {
+      name: 'Diadema iš sidabro · INT'
+    },
+    smithMasterIntSilverPlate: {
+      name: 'Meistriškas mantija iš sidabro · INT'
+    },
+    smithIntSilverPlate: {
+      name: 'Mantija iš sidabro · INT'
+    },
+    smithMasterIntSilverGreaves: {
+      name: 'Meistriškas batai iš sidabro · INT'
+    },
+    smithIntSilverGreaves: {
+      name: 'Batai iš sidabro · INT'
+    },
+    smithMasterIntGoldSword: {
+      name: 'Meistriškas lazdelė iš aukso · INT'
+    },
+    smithIntGoldSword: {
+      name: 'Lazdelė iš aukso · INT'
+    },
+    smithMasterIntGoldHammer: {
+      name: 'Meistriškas lazda iš aukso · INT'
+    },
+    smithIntGoldHammer: {
+      name: 'Lazda iš aukso · INT'
+    },
+    smithMasterIntGoldShield: {
+      name: 'Meistriškas burtų knyga iš aukso · INT'
+    },
+    smithIntGoldShield: {
+      name: 'Burtų knyga iš aukso · INT'
+    },
+    smithMasterIntGoldHelm: {
+      name: 'Meistriškas diadema iš aukso · INT'
+    },
+    smithIntGoldHelm: {
+      name: 'Diadema iš aukso · INT'
+    },
+    smithMasterIntGoldPlate: {
+      name: 'Meistriškas mantija iš aukso · INT'
+    },
+    smithIntGoldPlate: {
+      name: 'Mantija iš aukso · INT'
+    },
+    smithMasterIntGoldGreaves: {
+      name: 'Meistriškas batai iš aukso · INT'
+    },
+    smithIntGoldGreaves: {
+      name: 'Batai iš aukso · INT'
+    },
+    smithMasterIntMithrilSword: {
+      name: 'Meistriškas lazdelė iš mitrilo · INT'
+    },
+    smithMasterIntAdamantSword: {
+      name: 'Meistriškas lazdelė iš adamanto · INT'
+    },
+    smithMasterIntAetheriteSword: {
+      name: 'Meistriškas lazdelė iš eterito · INT'
+    },
+    smithIntMithrilSword: {
+      name: 'Lazdelė iš mitrilo · INT'
+    },
+    smithIntAdamantSword: {
+      name: 'Lazdelė iš adamanto · INT'
+    },
+    smithIntAetheriteSword: {
+      name: 'Lazdelė iš eterito · INT'
+    },
+    smithMasterIntMithrilHammer: {
+      name: 'Meistriškas lazda iš mitrilo · INT'
+    },
+    smithMasterIntAdamantHammer: {
+      name: 'Meistriškas lazda iš adamanto · INT'
+    },
+    smithMasterIntAetheriteHammer: {
+      name: 'Meistriškas lazda iš eterito · INT'
+    },
+    smithIntMithrilHammer: {
+      name: 'Lazda iš mitrilo · INT'
+    },
+    smithIntAdamantHammer: {
+      name: 'Lazda iš adamanto · INT'
+    },
+    smithIntAetheriteHammer: {
+      name: 'Lazda iš eterito · INT'
+    },
+    smithMasterIntMithrilShield: {
+      name: 'Meistriškas burtų knyga iš mitrilo · INT'
+    },
+    smithMasterIntAdamantShield: {
+      name: 'Meistriškas burtų knyga iš adamanto · INT'
+    },
+    smithMasterIntAetheriteShield: {
+      name: 'Meistriškas burtų knyga iš eterito · INT'
+    },
+    smithIntMithrilShield: {
+      name: 'Burtų knyga iš mitrilo · INT'
+    },
+    smithIntAdamantShield: {
+      name: 'Burtų knyga iš adamanto · INT'
+    },
+    smithIntAetheriteShield: {
+      name: 'Burtų knyga iš eterito · INT'
+    },
+    smithMasterIntMithrilHelm: {
+      name: 'Meistriškas diadema iš mitrilo · INT'
+    },
+    smithMasterIntAdamantHelm: {
+      name: 'Meistriškas diadema iš adamanto · INT'
+    },
+    smithMasterIntAetheriteHelm: {
+      name: 'Meistriškas diadema iš eterito · INT'
+    },
+    smithIntMithrilHelm: {
+      name: 'Diadema iš mitrilo · INT'
+    },
+    smithIntAdamantHelm: {
+      name: 'Diadema iš adamanto · INT'
+    },
+    smithIntAetheriteHelm: {
+      name: 'Diadema iš eterito · INT'
+    },
+    smithMasterIntMithrilPlate: {
+      name: 'Meistriškas mantija iš mitrilo · INT'
+    },
+    smithMasterIntAdamantPlate: {
+      name: 'Meistriškas mantija iš adamanto · INT'
+    },
+    smithMasterIntAetheritePlate: {
+      name: 'Meistriškas mantija iš eterito · INT'
+    },
+    smithIntMithrilPlate: {
+      name: 'Mantija iš mitrilo · INT'
+    },
+    smithIntAdamantPlate: {
+      name: 'Mantija iš adamanto · INT'
+    },
+    smithIntAetheritePlate: {
+      name: 'Mantija iš eterito · INT'
+    },
+    smithMasterIntMithrilGreaves: {
+      name: 'Meistriškas batai iš mitrilo · INT'
+    },
+    smithMasterIntAdamantGreaves: {
+      name: 'Meistriškas batai iš adamanto · INT'
+    },
+    smithMasterIntAetheriteGreaves: {
+      name: 'Meistriškas batai iš eterito · INT'
+    },
+    smithIntMithrilGreaves: {
+      name: 'Batai iš mitrilo · INT'
+    },
+    smithIntAdamantGreaves: {
+      name: 'Batai iš adamanto · INT'
+    },
+    smithIntAetheriteGreaves: {
+      name: 'Batai iš eterito · INT'
+    },
+    smithMasterSklIronSword: {
+      name: 'Meistriškas pistoletas iš geležies · MEI'
+    },
+    smithSklIronSword: {
+      name: 'Pistoletas iš geležies · MEI'
+    },
+    smithMasterSklIronHammer: {
+      name: 'Meistriškas šautuvas iš geležies · MEI'
+    },
+    smithSklIronHammer: {
+      name: 'Šautuvas iš geležies · MEI'
+    },
+    smithMasterSklIronShield: {
+      name: 'Meistriškas baterija iš geležies · MEI'
+    },
+    smithSklIronShield: {
+      name: 'Baterija iš geležies · MEI'
+    },
+    smithMasterSklIronHelm: {
+      name: 'Meistriškas kepurė iš geležies · MEI'
+    },
+    smithSklIronHelm: {
+      name: 'Kepurė iš geležies · MEI'
+    },
+    smithMasterSklIronPlate: {
+      name: 'Meistriškas pakinktai iš geležies · MEI'
+    },
+    smithSklIronPlate: {
+      name: 'Pakinktai iš geležies · MEI'
+    },
+    smithMasterSklIronGreaves: {
+      name: 'Meistriškas batai iš geležies · MEI'
+    },
+    smithSklIronGreaves: {
+      name: 'Batai iš geležies · MEI'
+    },
+    smithMasterSklSilverSword: {
+      name: 'Meistriškas pistoletas iš sidabro · MEI'
+    },
+    smithSklSilverSword: {
+      name: 'Pistoletas iš sidabro · MEI'
+    },
+    smithMasterSklSilverHammer: {
+      name: 'Meistriškas šautuvas iš sidabro · MEI'
+    },
+    smithSklSilverHammer: {
+      name: 'Šautuvas iš sidabro · MEI'
+    },
+    smithMasterSklSilverShield: {
+      name: 'Meistriškas baterija iš sidabro · MEI'
+    },
+    smithSklSilverShield: {
+      name: 'Baterija iš sidabro · MEI'
+    },
+    smithMasterSklSilverHelm: {
+      name: 'Meistriškas kepurė iš sidabro · MEI'
+    },
+    smithSklSilverHelm: {
+      name: 'Kepurė iš sidabro · MEI'
+    },
+    smithMasterSklSilverPlate: {
+      name: 'Meistriškas pakinktai iš sidabro · MEI'
+    },
+    smithSklSilverPlate: {
+      name: 'Pakinktai iš sidabro · MEI'
+    },
+    smithMasterSklSilverGreaves: {
+      name: 'Meistriškas batai iš sidabro · MEI'
+    },
+    smithSklSilverGreaves: {
+      name: 'Batai iš sidabro · MEI'
+    },
+    smithMasterSklGoldSword: {
+      name: 'Meistriškas pistoletas iš aukso · MEI'
+    },
+    smithSklGoldSword: {
+      name: 'Pistoletas iš aukso · MEI'
+    },
+    smithMasterSklGoldHammer: {
+      name: 'Meistriškas šautuvas iš aukso · MEI'
+    },
+    smithSklGoldHammer: {
+      name: 'Šautuvas iš aukso · MEI'
+    },
+    smithMasterSklGoldShield: {
+      name: 'Meistriškas baterija iš aukso · MEI'
+    },
+    smithSklGoldShield: {
+      name: 'Baterija iš aukso · MEI'
+    },
+    smithMasterSklGoldHelm: {
+      name: 'Meistriškas kepurė iš aukso · MEI'
+    },
+    smithSklGoldHelm: {
+      name: 'Kepurė iš aukso · MEI'
+    },
+    smithMasterSklGoldPlate: {
+      name: 'Meistriškas pakinktai iš aukso · MEI'
+    },
+    smithSklGoldPlate: {
+      name: 'Pakinktai iš aukso · MEI'
+    },
+    smithMasterSklGoldGreaves: {
+      name: 'Meistriškas batai iš aukso · MEI'
+    },
+    smithSklGoldGreaves: {
+      name: 'Batai iš aukso · MEI'
+    },
+    smithMasterSklMithrilSword: {
+      name: 'Meistriškas pistoletas iš mitrilo · MEI'
+    },
+    smithMasterSklAdamantSword: {
+      name: 'Meistriškas pistoletas iš adamanto · MEI'
+    },
+    smithMasterSklAetheriteSword: {
+      name: 'Meistriškas pistoletas iš eterito · MEI'
+    },
+    smithSklMithrilSword: {
+      name: 'Pistoletas iš mitrilo · MEI'
+    },
+    smithSklAdamantSword: {
+      name: 'Pistoletas iš adamanto · MEI'
+    },
+    smithSklAetheriteSword: {
+      name: 'Pistoletas iš eterito · MEI'
+    },
+    smithMasterSklMithrilHammer: {
+      name: 'Meistriškas šautuvas iš mitrilo · MEI'
+    },
+    smithMasterSklAdamantHammer: {
+      name: 'Meistriškas šautuvas iš adamanto · MEI'
+    },
+    smithMasterSklAetheriteHammer: {
+      name: 'Meistriškas šautuvas iš eterito · MEI'
+    },
+    smithSklMithrilHammer: {
+      name: 'Šautuvas iš mitrilo · MEI'
+    },
+    smithSklAdamantHammer: {
+      name: 'Šautuvas iš adamanto · MEI'
+    },
+    smithSklAetheriteHammer: {
+      name: 'Šautuvas iš eterito · MEI'
+    },
+    smithMasterSklMithrilShield: {
+      name: 'Meistriškas baterija iš mitrilo · MEI'
+    },
+    smithMasterSklAdamantShield: {
+      name: 'Meistriškas baterija iš adamanto · MEI'
+    },
+    smithMasterSklAetheriteShield: {
+      name: 'Meistriškas baterija iš eterito · MEI'
+    },
+    smithSklMithrilShield: {
+      name: 'Baterija iš mitrilo · MEI'
+    },
+    smithSklAdamantShield: {
+      name: 'Baterija iš adamanto · MEI'
+    },
+    smithSklAetheriteShield: {
+      name: 'Baterija iš eterito · MEI'
+    },
+    smithMasterSklMithrilHelm: {
+      name: 'Meistriškas kepurė iš mitrilo · MEI'
+    },
+    smithMasterSklAdamantHelm: {
+      name: 'Meistriškas kepurė iš adamanto · MEI'
+    },
+    smithMasterSklAetheriteHelm: {
+      name: 'Meistriškas kepurė iš eterito · MEI'
+    },
+    smithSklMithrilHelm: {
+      name: 'Kepurė iš mitrilo · MEI'
+    },
+    smithSklAdamantHelm: {
+      name: 'Kepurė iš adamanto · MEI'
+    },
+    smithSklAetheriteHelm: {
+      name: 'Kepurė iš eterito · MEI'
+    },
+    smithMasterSklMithrilPlate: {
+      name: 'Meistriškas pakinktai iš mitrilo · MEI'
+    },
+    smithMasterSklAdamantPlate: {
+      name: 'Meistriškas pakinktai iš adamanto · MEI'
+    },
+    smithMasterSklAetheritePlate: {
+      name: 'Meistriškas pakinktai iš eterito · MEI'
+    },
+    smithSklMithrilPlate: {
+      name: 'Pakinktai iš mitrilo · MEI'
+    },
+    smithSklAdamantPlate: {
+      name: 'Pakinktai iš adamanto · MEI'
+    },
+    smithSklAetheritePlate: {
+      name: 'Pakinktai iš eterito · MEI'
+    },
+    smithMasterSklMithrilGreaves: {
+      name: 'Meistriškas batai iš mitrilo · MEI'
+    },
+    smithMasterSklAdamantGreaves: {
+      name: 'Meistriškas batai iš adamanto · MEI'
+    },
+    smithMasterSklAetheriteGreaves: {
+      name: 'Meistriškas batai iš eterito · MEI'
+    },
+    smithSklMithrilGreaves: {
+      name: 'Batai iš mitrilo · MEI'
+    },
+    smithSklAdamantGreaves: {
+      name: 'Batai iš adamanto · MEI'
+    },
+    smithSklAetheriteGreaves: {
+      name: 'Batai iš eterito · MEI'
+    },
+    smithMasterChaIronSword: {
+      name: 'Meistriškas skeptras iš geležies · CHA'
+    },
+    smithChaIronSword: {
+      name: 'Skeptras iš geležies · CHA'
+    },
+    smithMasterChaIronHammer: {
+      name: 'Meistriškas vėliava iš geležies · CHA'
+    },
+    smithChaIronHammer: {
+      name: 'Vėliava iš geležies · CHA'
+    },
+    smithMasterChaIronShield: {
+      name: 'Meistriškas kodeksas iš geležies · CHA'
+    },
+    smithChaIronShield: {
+      name: 'Kodeksas iš geležies · CHA'
+    },
+    smithMasterChaIronHelm: {
+      name: 'Meistriškas karūna iš geležies · CHA'
+    },
+    smithChaIronHelm: {
+      name: 'Karūna iš geležies · CHA'
+    },
+    smithMasterChaIronPlate: {
+      name: 'Meistriškas tabardas iš geležies · CHA'
+    },
+    smithChaIronPlate: {
+      name: 'Tabardas iš geležies · CHA'
+    },
+    smithMasterChaIronGreaves: {
+      name: 'Meistriškas batai iš geležies · CHA'
+    },
+    smithChaIronGreaves: {
+      name: 'Batai iš geležies · CHA'
+    },
+    smithMasterChaSilverSword: {
+      name: 'Meistriškas skeptras iš sidabro · CHA'
+    },
+    smithChaSilverSword: {
+      name: 'Skeptras iš sidabro · CHA'
+    },
+    smithMasterChaSilverHammer: {
+      name: 'Meistriškas vėliava iš sidabro · CHA'
+    },
+    smithChaSilverHammer: {
+      name: 'Vėliava iš sidabro · CHA'
+    },
+    smithMasterChaSilverShield: {
+      name: 'Meistriškas kodeksas iš sidabro · CHA'
+    },
+    smithChaSilverShield: {
+      name: 'Kodeksas iš sidabro · CHA'
+    },
+    smithMasterChaSilverHelm: {
+      name: 'Meistriškas karūna iš sidabro · CHA'
+    },
+    smithChaSilverHelm: {
+      name: 'Karūna iš sidabro · CHA'
+    },
+    smithMasterChaSilverPlate: {
+      name: 'Meistriškas tabardas iš sidabro · CHA'
+    },
+    smithChaSilverPlate: {
+      name: 'Tabardas iš sidabro · CHA'
+    },
+    smithMasterChaSilverGreaves: {
+      name: 'Meistriškas batai iš sidabro · CHA'
+    },
+    smithChaSilverGreaves: {
+      name: 'Batai iš sidabro · CHA'
+    },
+    smithMasterChaGoldSword: {
+      name: 'Meistriškas skeptras iš aukso · CHA'
+    },
+    smithChaGoldSword: {
+      name: 'Skeptras iš aukso · CHA'
+    },
+    smithMasterChaGoldHammer: {
+      name: 'Meistriškas vėliava iš aukso · CHA'
+    },
+    smithChaGoldHammer: {
+      name: 'Vėliava iš aukso · CHA'
+    },
+    smithMasterChaGoldShield: {
+      name: 'Meistriškas kodeksas iš aukso · CHA'
+    },
+    smithChaGoldShield: {
+      name: 'Kodeksas iš aukso · CHA'
+    },
+    smithMasterChaGoldHelm: {
+      name: 'Meistriškas karūna iš aukso · CHA'
+    },
+    smithChaGoldHelm: {
+      name: 'Karūna iš aukso · CHA'
+    },
+    smithMasterChaGoldPlate: {
+      name: 'Meistriškas tabardas iš aukso · CHA'
+    },
+    smithChaGoldPlate: {
+      name: 'Tabardas iš aukso · CHA'
+    },
+    smithMasterChaGoldGreaves: {
+      name: 'Meistriškas batai iš aukso · CHA'
+    },
+    smithChaGoldGreaves: {
+      name: 'Batai iš aukso · CHA'
+    },
+    smithMasterChaMithrilSword: {
+      name: 'Meistriškas skeptras iš mitrilo · CHA'
+    },
+    smithMasterChaAdamantSword: {
+      name: 'Meistriškas skeptras iš adamanto · CHA'
+    },
+    smithMasterChaAetheriteSword: {
+      name: 'Meistriškas skeptras iš eterito · CHA'
+    },
+    smithChaMithrilSword: {
+      name: 'Skeptras iš mitrilo · CHA'
+    },
+    smithChaAdamantSword: {
+      name: 'Skeptras iš adamanto · CHA'
+    },
+    smithChaAetheriteSword: {
+      name: 'Skeptras iš eterito · CHA'
+    },
+    smithMasterChaMithrilHammer: {
+      name: 'Meistriškas vėliava iš mitrilo · CHA'
+    },
+    smithMasterChaAdamantHammer: {
+      name: 'Meistriškas vėliava iš adamanto · CHA'
+    },
+    smithMasterChaAetheriteHammer: {
+      name: 'Meistriškas vėliava iš eterito · CHA'
+    },
+    smithChaMithrilHammer: {
+      name: 'Vėliava iš mitrilo · CHA'
+    },
+    smithChaAdamantHammer: {
+      name: 'Vėliava iš adamanto · CHA'
+    },
+    smithChaAetheriteHammer: {
+      name: 'Vėliava iš eterito · CHA'
+    },
+    smithMasterChaMithrilShield: {
+      name: 'Meistriškas kodeksas iš mitrilo · CHA'
+    },
+    smithMasterChaAdamantShield: {
+      name: 'Meistriškas kodeksas iš adamanto · CHA'
+    },
+    smithMasterChaAetheriteShield: {
+      name: 'Meistriškas kodeksas iš eterito · CHA'
+    },
+    smithChaMithrilShield: {
+      name: 'Kodeksas iš mitrilo · CHA'
+    },
+    smithChaAdamantShield: {
+      name: 'Kodeksas iš adamanto · CHA'
+    },
+    smithChaAetheriteShield: {
+      name: 'Kodeksas iš eterito · CHA'
+    },
+    smithMasterChaMithrilHelm: {
+      name: 'Meistriškas karūna iš mitrilo · CHA'
+    },
+    smithMasterChaAdamantHelm: {
+      name: 'Meistriškas karūna iš adamanto · CHA'
+    },
+    smithMasterChaAetheriteHelm: {
+      name: 'Meistriškas karūna iš eterito · CHA'
+    },
+    smithChaMithrilHelm: {
+      name: 'Karūna iš mitrilo · CHA'
+    },
+    smithChaAdamantHelm: {
+      name: 'Karūna iš adamanto · CHA'
+    },
+    smithChaAetheriteHelm: {
+      name: 'Karūna iš eterito · CHA'
+    },
+    smithMasterChaMithrilPlate: {
+      name: 'Meistriškas tabardas iš mitrilo · CHA'
+    },
+    smithMasterChaAdamantPlate: {
+      name: 'Meistriškas tabardas iš adamanto · CHA'
+    },
+    smithMasterChaAetheritePlate: {
+      name: 'Meistriškas tabardas iš eterito · CHA'
+    },
+    smithChaMithrilPlate: {
+      name: 'Tabardas iš mitrilo · CHA'
+    },
+    smithChaAdamantPlate: {
+      name: 'Tabardas iš adamanto · CHA'
+    },
+    smithChaAetheritePlate: {
+      name: 'Tabardas iš eterito · CHA'
+    },
+    smithMasterChaMithrilGreaves: {
+      name: 'Meistriškas batai iš mitrilo · CHA'
+    },
+    smithMasterChaAdamantGreaves: {
+      name: 'Meistriškas batai iš adamanto · CHA'
+    },
+    smithMasterChaAetheriteGreaves: {
+      name: 'Meistriškas batai iš eterito · CHA'
+    },
+    smithChaMithrilGreaves: {
+      name: 'Batai iš mitrilo · CHA'
+    },
+    smithChaAdamantGreaves: {
+      name: 'Batai iš adamanto · CHA'
+    },
+    smithChaAetheriteGreaves: {
+      name: 'Batai iš eterito · CHA'
+    },
+    smithMasterEndIronSword: {
+      name: 'Meistriškas buožė iš geležies · IŠT'
+    },
+    smithEndIronSword: {
+      name: 'Buožė iš geležies · IŠT'
+    },
+    smithMasterEndIronHammer: {
+      name: 'Meistriškas kirvis iš geležies · IŠT'
+    },
+    smithEndIronHammer: {
+      name: 'Kirvis iš geležies · IŠT'
+    },
+    smithMasterEndIronShield: {
+      name: 'Meistriškas geležinis skydas · IŠT'
+    },
+    smithEndIronShield: {
+      name: 'Geležinis skydas · IŠT'
+    },
+    smithMasterEndIronHelm: {
+      name: 'Meistriškas geležinis šalmas · IŠT'
+    },
+    smithEndIronHelm: {
+      name: 'Geležinis šalmas · IŠT'
+    },
+    smithMasterEndIronPlate: {
+      name: 'Meistriški geležiniai šarvai · IŠT'
+    },
+    smithEndIronPlate: {
+      name: 'Geležiniai šarvai · IŠT'
+    },
+    smithMasterEndIronGreaves: {
+      name: 'Meistriški geležiniai blauzdiniai · IŠT'
+    },
+    smithEndIronGreaves: {
+      name: 'Geležiniai blauzdiniai · IŠT'
+    },
+    smithMasterEndSilverSword: {
+      name: 'Meistriškas buožė iš sidabro · IŠT'
+    },
+    smithEndSilverSword: {
+      name: 'Buožė iš sidabro · IŠT'
+    },
+    smithMasterEndSilverHammer: {
+      name: 'Meistriškas kirvis iš sidabro · IŠT'
+    },
+    smithEndSilverHammer: {
+      name: 'Kirvis iš sidabro · IŠT'
+    },
+    smithMasterEndSilverShield: {
+      name: 'Meistriškas sidabrinis skydas · IŠT'
+    },
+    smithEndSilverShield: {
+      name: 'Sidabrinis skydas · IŠT'
+    },
+    smithMasterEndSilverHelm: {
+      name: 'Meistriškas sidabrinis šalmas · IŠT'
+    },
+    smithEndSilverHelm: {
+      name: 'Sidabrinis šalmas · IŠT'
+    },
+    smithMasterEndSilverPlate: {
+      name: 'Meistriški sidabriniai šarvai · IŠT'
+    },
+    smithEndSilverPlate: {
+      name: 'Sidabriniai šarvai · IŠT'
+    },
+    smithMasterEndSilverGreaves: {
+      name: 'Meistriški sidabriniai blauzdiniai · IŠT'
+    },
+    smithEndSilverGreaves: {
+      name: 'Sidabriniai blauzdiniai · IŠT'
+    },
+    smithMasterEndGoldSword: {
+      name: 'Meistriškas buožė iš aukso · IŠT'
+    },
+    smithEndGoldSword: {
+      name: 'Buožė iš aukso · IŠT'
+    },
+    smithMasterEndGoldHammer: {
+      name: 'Meistriškas kirvis iš aukso · IŠT'
+    },
+    smithEndGoldHammer: {
+      name: 'Kirvis iš aukso · IŠT'
+    },
+    smithMasterEndGoldShield: {
+      name: 'Meistriškas auksinis skydas · IŠT'
+    },
+    smithEndGoldShield: {
+      name: 'Auksinis skydas · IŠT'
+    },
+    smithMasterEndGoldHelm: {
+      name: 'Meistriškas auksinis šalmas · IŠT'
+    },
+    smithEndGoldHelm: {
+      name: 'Auksinis šalmas · IŠT'
+    },
+    smithMasterEndGoldPlate: {
+      name: 'Meistriški auksiniai šarvai · IŠT'
+    },
+    smithEndGoldPlate: {
+      name: 'Auksiniai šarvai · IŠT'
+    },
+    smithMasterEndGoldGreaves: {
+      name: 'Meistriški auksiniai blauzdiniai · IŠT'
+    },
+    smithEndGoldGreaves: {
+      name: 'Auksiniai blauzdiniai · IŠT'
+    },
+    smithMasterEndMithrilSword: {
+      name: 'Meistriškas buožė iš mitrilo · IŠT'
+    },
+    smithMasterEndAdamantSword: {
+      name: 'Meistriškas buožė iš adamanto · IŠT'
+    },
+    smithMasterEndAetheriteSword: {
+      name: 'Meistriškas buožė iš eterito · IŠT'
+    },
+    smithEndMithrilSword: {
+      name: 'Buožė iš mitrilo · IŠT'
+    },
+    smithEndAdamantSword: {
+      name: 'Buožė iš adamanto · IŠT'
+    },
+    smithEndAetheriteSword: {
+      name: 'Buožė iš eterito · IŠT'
+    },
+    smithMasterEndMithrilHammer: {
+      name: 'Meistriškas kirvis iš mitrilo · IŠT'
+    },
+    smithMasterEndAdamantHammer: {
+      name: 'Meistriškas kirvis iš adamanto · IŠT'
+    },
+    smithMasterEndAetheriteHammer: {
+      name: 'Meistriškas kirvis iš eterito · IŠT'
+    },
+    smithEndMithrilHammer: {
+      name: 'Kirvis iš mitrilo · IŠT'
+    },
+    smithEndAdamantHammer: {
+      name: 'Kirvis iš adamanto · IŠT'
+    },
+    smithEndAetheriteHammer: {
+      name: 'Kirvis iš eterito · IŠT'
+    },
+    smithMasterEndMithrilShield: {
+      name: 'Meistriškas mitrilinis skydas · IŠT'
+    },
+    smithMasterEndAdamantShield: {
+      name: 'Meistriškas adamantinis skydas · IŠT'
+    },
+    smithMasterEndAetheriteShield: {
+      name: 'Meistriškas eteritinis skydas · IŠT'
+    },
+    smithEndMithrilShield: {
+      name: 'Mitrilinis skydas · IŠT'
+    },
+    smithEndAdamantShield: {
+      name: 'Adamantinis skydas · IŠT'
+    },
+    smithEndAetheriteShield: {
+      name: 'Eteritinis skydas · IŠT'
+    },
+    smithMasterEndMithrilHelm: {
+      name: 'Meistriškas mitrilinis šalmas · IŠT'
+    },
+    smithMasterEndAdamantHelm: {
+      name: 'Meistriškas adamantinis šalmas · IŠT'
+    },
+    smithMasterEndAetheriteHelm: {
+      name: 'Meistriškas eteritinis šalmas · IŠT'
+    },
+    smithEndMithrilHelm: {
+      name: 'Mitrilinis šalmas · IŠT'
+    },
+    smithEndAdamantHelm: {
+      name: 'Adamantinis šalmas · IŠT'
+    },
+    smithEndAetheriteHelm: {
+      name: 'Eteritinis šalmas · IŠT'
+    },
+    smithMasterEndMithrilPlate: {
+      name: 'Meistriški mitriliniai šarvai · IŠT'
+    },
+    smithMasterEndAdamantPlate: {
+      name: 'Meistriški adamantiniai šarvai · IŠT'
+    },
+    smithMasterEndAetheritePlate: {
+      name: 'Meistriški eteritiniai šarvai · IŠT'
+    },
+    smithEndMithrilPlate: {
+      name: 'Mitriliniai šarvai · IŠT'
+    },
+    smithEndAdamantPlate: {
+      name: 'Adamantiniai šarvai · IŠT'
+    },
+    smithEndAetheritePlate: {
+      name: 'Eteritiniai šarvai · IŠT'
+    },
+    smithMasterEndMithrilGreaves: {
+      name: 'Meistriški mitriliniai blauzdiniai · IŠT'
+    },
+    smithMasterEndAdamantGreaves: {
+      name: 'Meistriški adamantiniai blauzdiniai · IŠT'
+    },
+    smithMasterEndAetheriteGreaves: {
+      name: 'Meistriški eteritiniai blauzdiniai · IŠT'
+    },
+    smithEndMithrilGreaves: {
+      name: 'Mitriliniai blauzdiniai · IŠT'
+    },
+    smithEndAdamantGreaves: {
+      name: 'Adamantiniai blauzdiniai · IŠT'
+    },
+    smithEndAetheriteGreaves: {
+      name: 'Eteritiniai blauzdiniai · IŠT'
     },
     smithIronSword: {
       name: 'Geležinis kalavijas'
@@ -1777,6 +2951,414 @@ export default {
     scepterOfTheFirstKing: {
       name: 'Pirmojo karaliaus skeptras'
     },
+    pickpocketsKnife: {
+      name: 'Kišenvagio peilis'
+    },
+    serpentsFang: {
+      name: 'Gyvatės iltis'
+    },
+    phantomRapier: {
+      name: 'Vaiduoklio rapyra'
+    },
+    fangOfTheWindless: {
+      name: 'Bevėjiškumo iltis'
+    },
+    roguesBuckler: {
+      name: 'Sukčiaus mažasis skydas'
+    },
+    venomVial: {
+      name: 'Nuodų buteliukas'
+    },
+    swiftguardBuckler: {
+      name: 'Greitosios sargybos mažasis skydas'
+    },
+    nightshadeFlask: {
+      name: 'Nakvišos flakonas'
+    },
+    windveilTarge: {
+      name: 'Vėjo šydo skydas'
+    },
+    shadowdancersBuckler: {
+      name: 'Šešėlių šokėjo mažasis skydas'
+    },
+    scoutsBandana: {
+      name: 'Žvalgo skarelė'
+    },
+    nightcowl: {
+      name: 'Nakties gobtuvas'
+    },
+    shadowveilHood: {
+      name: 'Šešėlių šydo gobtuvas'
+    },
+    windrunnersCap: {
+      name: 'Vėjo bėgiko kepurė'
+    },
+    maskOfTheSilentWind: {
+      name: 'Tylaus vėjo kaukė'
+    },
+    rangersJerkin: {
+      name: 'Žvalgo švarkas'
+    },
+    nightstalkerLeathers: {
+      name: 'Nakties medžiotojo oda'
+    },
+    windridersHarness: {
+      name: 'Vėjo raitelio pakinktai'
+    },
+    mantleOfTheShadowDancer: {
+      name: 'Šešėlių šokėjo apsiaustas'
+    },
+    thiefsGloves: {
+      name: 'Vagies pirštinės'
+    },
+    cutpurseGloves: {
+      name: 'Kišenvagio pirštinės'
+    },
+    glovesOfTheGale: {
+      name: 'Audros pirštinės'
+    },
+    softSoledShoes: {
+      name: 'Minkštapadžiai batai'
+    },
+    catStepBoots: {
+      name: 'Katės žingsnio batai'
+    },
+    shadowstepBoots: {
+      name: 'Šešėlio žingsnio batai'
+    },
+    windstrideBoots: {
+      name: 'Vėjo žingsnio batai'
+    },
+    luckyCoin: {
+      name: 'Laimės moneta'
+    },
+    shadowBand: {
+      name: 'Šešėlio žiedas'
+    },
+    sandglassOfTheSwift: {
+      name: 'Vikriųjų smėlio laikrodis'
+    },
+    talonCharm: {
+      name: 'Nagų amuletas'
+    },
+    windheart: {
+      name: 'Vėjo širdis'
+    },
+    ashwallHeater: {
+      name: 'Pelenų sienos skydas'
+    },
+    wyrmhidePavise: {
+      name: 'Vivernos odos pavėzė'
+    },
+    footmansKettleHat: {
+      name: 'Pėstininko puodo kepurė'
+    },
+    ironbrowSallet: {
+      name: 'Geležinių antakių šalmas'
+    },
+    warlordsBarbute: {
+      name: 'Karvedžio barbutas'
+    },
+    helmOfTheSunderedThrone: {
+      name: 'Sudužusio sosto šalmas'
+    },
+    recruitsCuirass: {
+      name: 'Naujoko kirasa'
+    },
+    stonecuttersMitts: {
+      name: 'Akmentašio pirštinės'
+    },
+    ashforgedGauntlets: {
+      name: 'Pelenuose kaltos šarvinės pirštinės'
+    },
+    warbringerGauntlets: {
+      name: 'Karo nešėjo šarvinės pirštinės'
+    },
+    titanfistGauntlets: {
+      name: 'Titano kumščio šarvinės pirštinės'
+    },
+    footmansGreaves: {
+      name: 'Pėstininko blauzdinės'
+    },
+    ironshodGreaves: {
+      name: 'Geležimi apkaltos blauzdinės'
+    },
+    warlordsSabatons: {
+      name: 'Karvedžio sabatonai'
+    },
+    greavesOfTheMountainfall: {
+      name: 'Kalnų nuošliaužos blauzdinės'
+    },
+    sergeantsSignet: {
+      name: 'Seržanto antspaudinis žiedas'
+    },
+    brawlersKnuckleRing: {
+      name: 'Peštuko kastetas'
+    },
+    bloodiedWarMedal: {
+      name: 'Krauju aptaškytas karo medalis'
+    },
+    watchmansCudgel: {
+      name: 'Sargybinio lazda'
+    },
+    ironboundMace: {
+      name: 'Geležimi apjuosta buožė'
+    },
+    stonehideCleaver: {
+      name: 'Akmens odos kirtiklis'
+    },
+    bulwarkMaul: {
+      name: 'Bastiono kūjis'
+    },
+    mountainsplitterAxe: {
+      name: 'Kalnų skeldiklio kirvis'
+    },
+    everstandWarmace: {
+      name: 'Nesvyruojanti karo buožė'
+    },
+    emberwallBastion: {
+      name: 'Žarijų sienos bastionas'
+    },
+    stonewardenHelm: {
+      name: 'Akmeninio sargo šalmas'
+    },
+    colossusVisage: {
+      name: 'Kolioso veidas'
+    },
+    diggersGauntlets: {
+      name: 'Kasėjo šarvinės pirštinės'
+    },
+    bastionGauntlets: {
+      name: 'Bastiono šarvinės pirštinės'
+    },
+    glacierplateGauntlets: {
+      name: 'Ledyno plokščių šarvinės pirštinės'
+    },
+    gauntletsOfEndlessVigil: {
+      name: 'Amžinos budėjimo šarvinės pirštinės'
+    },
+    hearthstoneCharm: {
+      name: 'Židinio akmens talismanas'
+    },
+    ironheartPendant: {
+      name: 'Geležinės širdies pakabukas'
+    },
+    hedgewizardsWand: {
+      name: 'Gyvatvorės burtininko lazdelė'
+    },
+    frostglassStaff: {
+      name: 'Šalčio stiklo lazda'
+    },
+    voidthreadWand: {
+      name: 'Tuštumos siūlo lazdelė'
+    },
+    staffOfTheStarlessSky: {
+      name: 'Bežvaigždžio dangaus lazda'
+    },
+    studentsGrimoire: {
+      name: 'Mokinio grimuaras'
+    },
+    frostfireOrb: {
+      name: 'Šalčio ugnies rutulys'
+    },
+    orbOfTheUnwrittenHour: {
+      name: 'Neparašytos valandos rutulys'
+    },
+    apprenticesPointedCap: {
+      name: 'Mokinio smailus gobtuvas'
+    },
+    sagesCirclet: {
+      name: 'Išminčiaus diadema'
+    },
+    cinderWizardsHat: {
+      name: 'Pelenų magijos skrybėlė'
+    },
+    voidseerCirclet: {
+      name: 'Tuštumos regėtojo diadema'
+    },
+    apprenticesRobe: {
+      name: 'Mokinio apsiaustas'
+    },
+    cinderthreadRobe: {
+      name: 'Pelenų siūlo apsiaustas'
+    },
+    voidwovenRobe: {
+      name: 'Iš Tuštumos austas apsiaustas'
+    },
+    inkStainedGloves: {
+      name: 'Rašalu išterliotos pirštinės'
+    },
+    spellthreadGloves: {
+      name: 'Burtų siūlo pirštinės'
+    },
+    frostweaveGloves: {
+      name: 'Šalčio audinio pirštinės'
+    },
+    starlitGloves: {
+      name: 'Žvaigždžių šviesos pirštinės'
+    },
+    glovesOfTheLastWord: {
+      name: 'Paskutinio žodžio pirštinės'
+    },
+    scribesSlippers: {
+      name: 'Raštininko šlepetės'
+    },
+    moonstepSlippers: {
+      name: 'Mėnulio žingsnio šlepetės'
+    },
+    emberstepBoots: {
+      name: 'Žarijų žingsnio batai'
+    },
+    voidwalkerBoots: {
+      name: 'Tuštumos klajūno batai'
+    },
+    bootsOfTheWanderingStar: {
+      name: 'Klajojančios žvaigždės batai'
+    },
+    glowstonePendant: {
+      name: 'Švytinčio akmens pakabukas'
+    },
+    scholarsSeal: {
+      name: 'Mokslininko antspaudas'
+    },
+    eyeOfTheArchon: {
+      name: 'Archonto akis'
+    },
+    cinderRepeater: {
+      name: 'Pelenų kartotuvas'
+    },
+    glacierMortar: {
+      name: 'Ledyno rankinis mortyras'
+    },
+    sparkCell: {
+      name: 'Kibirkščių elementas'
+    },
+    arcCapacitor: {
+      name: 'Lanko kondensatorius'
+    },
+    aetherheartCell: {
+      name: 'Eterio širdies elementas'
+    },
+    marksmansVisor: {
+      name: 'Šaulio antveidis'
+    },
+    sharpshootersCap: {
+      name: 'Snaiperio kepurė'
+    },
+    gunnersHarness: {
+      name: 'Artileristo pakinktai'
+    },
+    steadyhandGloves: {
+      name: 'Tvirtos rankos pirštinės'
+    },
+    gunsmithsGloves: {
+      name: 'Ginklakalio pirštinės'
+    },
+    scrappersBoots: {
+      name: 'Peštuko batai'
+    },
+    sharpshooterBoots: {
+      name: 'Snaiperio batai'
+    },
+    firingLineBoots: {
+      name: 'Ugnies linijos batai'
+    },
+    steadyfootBoots: {
+      name: 'Tvirto žingsnio batai'
+    },
+    aetherstepBoots: {
+      name: 'Eterio žingsnio batai'
+    },
+    bootsOfTheLastShot: {
+      name: 'Paskutinio šūvio batai'
+    },
+    brassCartridgeCharm: {
+      name: 'Žalvario gilzės talismanas'
+    },
+    deadEyeLens: {
+      name: 'Taiklios akies lęšis'
+    },
+    eagleEyeScope: {
+      name: 'Erelio akies žiūronas'
+    },
+    criersBaton: {
+      name: 'Šauklio lazda'
+    },
+    droversStandard: {
+      name: 'Piemens vėliava'
+    },
+    marshalsSceptre: {
+      name: 'Maršalo skeptras'
+    },
+    balladBook: {
+      name: 'Baladžių knyga'
+    },
+    chronicleOfHeroes: {
+      name: 'Didvyrių kronika'
+    },
+    psalterOfTheHost: {
+      name: 'Kariuomenės psalmynas'
+    },
+    tomeOfEternalReign: {
+      name: 'Amžinos valdžios tomas'
+    },
+    heraldsCap: {
+      name: 'Heroldo kepurė'
+    },
+    singersCirclet: {
+      name: 'Dainininko diadema'
+    },
+    diademOfTenThousandVoices: {
+      name: 'Dešimties tūkstančių balsų diadema'
+    },
+    travelersWaistcoat: {
+      name: 'Keliautojo liemenė'
+    },
+    minstrelsMotley: {
+      name: 'Menestrelio lopytas drabužis'
+    },
+    troubadoursCoat: {
+      name: 'Trubadūro paltas'
+    },
+    marshalsGreatcoat: {
+      name: 'Maršalo apsiaustas'
+    },
+    buskersGloves: {
+      name: 'Gatvės muziko pirštinės'
+    },
+    drummersGloves: {
+      name: 'Būgnininko pirštinės'
+    },
+    standardBearersGloves: {
+      name: 'Vėliavnešio pirštinės'
+    },
+    gildedParadeGloves: {
+      name: 'Paauksuotos paradinės pirštinės'
+    },
+    glovesOfTheCrownedHand: {
+      name: 'Vainikuotos rankos pirštinės'
+    },
+    wayfarersShoes: {
+      name: 'Keliautojo batai'
+    },
+    troubadourBoots: {
+      name: 'Trubadūro batai'
+    },
+    heraldsRidingBoots: {
+      name: 'Heroldo jojimo batai'
+    },
+    paradeBoots: {
+      name: 'Paradiniai batai'
+    },
+    bootsOfTheLongProcession: {
+      name: 'Ilgos eisenos batai'
+    },
+    silverWhistle: {
+      name: 'Sidabrinis švilpukas'
+    },
+    gatheringHorn: {
+      name: 'Sukvietimo ragas'
+    },
     heartOfTheMountain: {
       name: 'Kalno širdis'
     },
@@ -1880,6 +3462,9 @@ export default {
     freedPeddler: {
       talk: 'Viskas, ko reikia keliautojui. Beveik nauja, dažniausiai.',
       name: 'Odo Marrow'
+    },
+    sfShadowRoad: {
+      name: 'Nettle Quickhand'
     },
     sfShadow: {
       name: 'Nettle Quickhand'
@@ -2034,6 +3619,9 @@ export default {
     sunfordGambler: {
       name: 'Dob Kūlvirstis'
     },
+    sunfordCups: {
+      name: 'Nell Nimblefingers'
+    },
     oakGambler: {
       name: 'Šilkinis Ren'
     },
@@ -2145,6 +3733,13 @@ export default {
     }
   },
   dlg: {
+    intro: {
+      crossing: { 1: 'Kiekvienas šio pasaulio kelias susitinka kryžkelėje… ir kiekviena kryžkelė yra mūšis.' },
+      hero: { 1: 'Iš ramių Sunfordo laukų į kelią išėjo jaunas didvyris.' },
+      fire: { 1: 'Ugnis atsiliepė į šauksmą. Plienas išmoko naują vardą.' },
+      foes: { 1: 'Goblinų karaliai, šalčio jarlai, Tuštumos drakonas… ir Arkidemonas.' },
+      begin: { 1: 'Tavo legenda prasideda dabar.' }
+    },
     frostDisciple: {
       bye: {
         '1': 'Nesušalk.'
@@ -2349,6 +3944,23 @@ export default {
         '2': 'Odo Marrow, tavo paslaugoms. Prekeivis, meistrautojas ir labai dėkingas žmogus.',
         '1__f': 'Tu! Tu ta, kuri atidarė tą narvą! Būčiau ten supuvęs.',
         '1': 'Tu! Tu tas, kuris atidarė tą narvą! Būčiau ten supuvęs.'
+      }
+    },
+    sfShadowRoad: {
+      hello: {
+        '1': 'Teleportacija. Ar domina?'
+      },
+      again: {
+        '1': 'Grįžai dar vieno triuko?'
+      },
+      train: {
+        '1': 'Žiūrėk atidžiai. Vienas žingsnis, ir jau esi kitur.'
+      },
+      trainBack: {
+        '1': 'Gerai. O dabar eik būti kitur.'
+      },
+      bye: {
+        '1': 'Neleisk savęs pagauti.'
       }
     },
     sfShadow: {
@@ -2604,9 +4216,8 @@ export default {
         '2': 'Kirsk, kai metalas žėri ryškiausiai. Prašausi – bus laužas. Pirmyn.',
         '1': 'Kalvystės? Hm. Laikyk kūjį štai taip, ne kaip vėzdą.'
       },
-      ore: {
-        '1': 'Grynuoliai, a? Imu viską. Sąžiningas svoris, sąžiningi pinigai.'
-      },
+      ore: { '1': 'Rūda, sakai? Rodyk. Moku už grynuolį, sąžiningu svoriu.' },
+      sellBack: { '1': 'Sąžiningas svoris, sąžininga moneta. Atnešk daugiau, kai rasi.' },
       forgeBack: {
         '1': 'Neblogai. Bet ir ne gerai. Dirbk toliau.'
       },
@@ -2899,7 +4510,7 @@ export default {
       },
       map: {
         '1': 'Kapitono Rooko žemėlapis! Jis jį suplėšė ir paslėpė gabalus, prieš goblinams jį sugaunant.',
-        '2': 'Surask visus šešis, ir X parodys kelią: kažkur Pelenų uolose. Kask ten, ir auksas tavo.',
+        '2': 'Surask šešis iš jų, dar keletas guli išmėtyta aplink, ir X parodys kelią: kažkur Pelenų uolose. Kask ten, ir auksas tavo.',
         say: 'Radau seno žemėlapio gabalą.'
       }
     },
@@ -2917,6 +4528,9 @@ export default {
       },
       mana: {
         '1': 'Šitas karčiai. Gerk, kai baigsis burtai.'
+      },
+      brew: {
+        '1': 'Parodyk savo žoleles. Sumaišysiu kažką skanesnio nei mano manos tonikas.'
       },
       potions: {
         '1': 'Į kiekvieną kovą pasiimi kelias kolbas. Gerk, kol dar nereikia, ne po to.',
@@ -2937,6 +4551,9 @@ export default {
       },
       healBack: {
         '1': 'Laikyk diržą pilną, o galvą nuleistą.'
+      },
+      brewBack: {
+        '1': 'Atsargiai, jie karšti. Negerk visų iš karto.'
       },
       bye: {
         '1': 'Saugok save ten lauke.'
@@ -3039,9 +4656,8 @@ export default {
         '2': 'Stebėk žėrėjimą. Kirsk į jo širdį, tris kartus, ir metalas atsimins.',
         '1': 'Nori išmokti amato? Gerai. Oakhavenui reikia kiekvieno kūjo.'
       },
-      ore: {
-        '1': 'Žalia rūda! Ginklinei jos niekada neužtenka. Štai tavo atlygis.'
-      },
+      ore: { '1': 'Žaliava! Ginklinei niekada negana. Parduok, ką gali atiduoti.' },
+      sellBack: { '1': 'Kiekvienas grynuolis eina į sieną. Ačiū.' },
       forgeBack: {
         '1': 'Geras plienas. Sienos tau dėkingos.'
       },
@@ -3083,9 +4699,8 @@ export default {
         '2': 'Trys smūgiai, kiekvienas į žėrėjimo širdį. Ir visa paslaptis.',
         '1': 'Nuo apgulties mokau kiekvieną, kas paprašo. Eik, stok čia.'
       },
-      ore: {
-        '1': 'Dar rūdos sienoms? Telaimina tave. Še, paimk.'
-      },
+      ore: { '1': 'Daugiau rūdos sienoms? Sumokėsiu už kiekvieną grynuolį.' },
+      sellBack: { '1': 'Būk palaimintas. Tai daugiau plokščių sienoms.' },
       forgeBack: {
         '1': 'Kiekvienas smūgis tave tobulina. Ateik bet kada.'
       },
@@ -3497,9 +5112,8 @@ export default {
         '1__f': 'Paviršietė prie priekalo? Na, kiekvienas kažkur pradeda.',
         '1': 'Paviršietis prie priekalo? Na, kiekvienas kažkur pradeda.'
       },
-      ore: {
-        '1': 'Geras, sąžiningas metalas. Ironhold už tokį visada sumoka.'
-      },
+      ore: { '1': 'Geras, sąžiningas metalas. Dėk čia, moku už grynuolį.' },
+      sellBack: { '1': 'Sąžiningi mainai. Ironhold visada moka už gerą metalą.' },
       forgeBack: {
         '1': 'Nykštukas būtų padaręs geriau. Bet nedaug.'
       },
@@ -3570,9 +5184,8 @@ export default {
         '2': 'Kaitink, kirsk, versk. Trys smūgiai, tiesiai į žėrėjimą. Tada leisk atvėsti.',
         '1': 'Šarvai – kantrybės darbas. Parodysiu pagrindus.'
       },
-      ore: {
-        '1': 'Leisk pasverti. Gerai. Pinigai tavo.'
-      },
+      ore: { '1': 'Leisk pasverti. Rinkis, ką parduodi, aš skaičiuoju monetas.' },
+      sellBack: { '1': 'Pasverta ir sumokėta. Gerai.' },
       forgeBack: {
         '1__f': 'Leisk jam atvėsti prieš užsidėdama.',
         '1': 'Leisk jam atvėsti prieš užsidėdamas.'
@@ -3613,9 +5226,8 @@ export default {
         '2': 'Drausmė prie priekalo, kaip ir mūšio lauke. Trys smūgiai, ištikimi žėrėjimui.',
         '1': 'Ordinas apginkluoja savo draugus. Aš tave išmokysiu.'
       },
-      ore: {
-        '1': 'Ordinas superka visą rūdą karui. Tavo užmokestis.'
-      },
+      ore: { '1': 'Ordinas perka rūdą karui. Parduok, ką gali atiduoti.' },
+      sellBack: { '1': 'Tavo mokėjimas užrašytas. Ordinas dėkoja.' },
       forgeBack: {
         '1': 'Gerai nukalta. Tarnauk juose garbingai.'
       },
@@ -4033,6 +5645,11 @@ export default {
       }
     },
     bark: {
+      banditChief: {
+        whistle: {
+          1: 'Kelkit, vyrai! Kąskit juos!'
+        }
+      },
       lightDisciple: {
         freed: {
           '1': 'Tave atsiuntė šviesa. Aš Sesuo Aurelle. Ieškok manęs Sunford mieste, išmokysiu tave Šviesnešio kelio.'
@@ -4190,9 +5807,8 @@ export default {
         '1__f': 'Nori pati pabandyti kūjį? Man negaila pasidalyti žaizdru.',
         '1': 'Nori pats pabandyti kūjį? Man negaila pasidalyti žaizdru.'
       },
-      ore: {
-        '1': 'Puiki rūda. Silverbridge visada moka sąžiningą kainą.'
-      },
+      ore: { '1': 'Graži rūda. Rodyk, ką parduodi, moku už grynuolį.' },
+      sellBack: { '1': 'Malonu. Silverbridge visada moka sąžiningai.' },
       forgeBack: {
         '1__f': 'Tik pažiūrėk! Tu gimusi tam.',
         '1': 'Tik pažiūrėk! Tu gimęs tam.'
@@ -4635,7 +6251,7 @@ export default {
         say: 'Kur rasti žolelių?'
       },
       elixirs: {
-        '1': 'Kiekvienas sustiprina tave kovoje visai minutei. Stipresni smūgiai, kietesnė oda, greitesnės kojos.',
+        '1': 'Kiekvienas sustiprina tave kovoje 5 minutėms. Stipresni smūgiai, kietesnė oda, greitesnės kojos.',
         '2': 'Jie tavo trečiojoje kolboje. Bakstelėk mažą rodyklę ir išsirink, kurį gerti.',
         say: 'Ką daro nuovirai?'
       },
@@ -4704,6 +6320,36 @@ export default {
       },
       bye: {
         '1': 'Nešk daugiau šlamšto! Šlamštas mano mėgstamiausias.'
+      }
+    },
+    sunfordCups: {
+      hello: {
+        1: 'Artėkite! Trys puodeliai, vienas brangakmenis, o pirmas ratas nemokamas!',
+        2: 'Nell Nimblefingers. Mano rankų dar niekas neapgavo. Nori pabandyti?'
+      },
+      again: {
+        1: 'Vėl čia? Laikyk akis atviras!'
+      },
+      play: {
+        1: 'Akys į brangakmenį, drauge. Nemirksėk!'
+      },
+      rules: {
+        1: 'Paslepiu brangakmenį po puodeliu ir sumaišau puodelius. Tu parodai tą, kuris jį slepia.',
+        2: 'Kiekviena pergalė iš eilės moka daugiau. Trys pergalės atneša prizą, penkios lobį. Pirmas dienos ratas nemokamas.',
+        say: 'Kaip tai veikia?'
+      },
+      who: {
+        1: 'Maišyti išmokau anksčiau nei vaikščioti. Mama sako, kad tai daug ką paaiškina.'
+      },
+      luck: {
+        1: 'Kartais! Tada garsiai dejuoju ir publika manęs gailisi.',
+        say: 'Ar kada pralaimi?'
+      },
+      playBack: {
+        1: 'Puikus ratas! Grįžk rytoj, pirmas visada nemokamas.'
+      },
+      bye: {
+        1: 'Iki! Laikyk akis atviras ten, lauke.'
       }
     },
     oakGambler: {
@@ -5197,6 +6843,7 @@ export default {
     banditArcher: 'Banditas lankininkas',
     wolf: 'Vilkas',
     banditChief: 'Banditų vadas',
+    gnome: 'Gnomas',
     goblinKing: 'Goblinų karalius',
     treant: 'Medžmogis',
     spider: 'Milžiniškas voras',
@@ -5414,6 +7061,18 @@ export default {
       firefoxColors: 'Firefox: Nustatymai → Spalvos → „Perrašyti puslapio nurodytas spalvas“ nustatyk į Niekada.'
     }
   },
+  samsungFix: {
+    title: 'Greitas spalvų patikrinimas',
+    body: 'Kai kurie telefonai pakeičia svetainių spalvas. Palygink du kvadratus žemiau.',
+    question: 'Ar abu kvadratai atrodo vienodai?',
+    refSquare: 'Etaloninis kvadratas',
+    pageSquare: 'Puslapio kvadratas',
+    yes: 'Taip, atrodo vienodai',
+    no: 'Ne, atrodo skirtingai',
+    option: 'Taisyti spalvas (Samsung tamsusis režimas)',
+    optionHint: 'Įjunk, jei meniu atrodo tamsūs arba tekstą sunku perskaityti.',
+    recheck: 'Pakartoti spalvų patikrinimą'
+  },
   saveStatus: {
     restoredTitle: 'Debesies išsaugojimas atkurtas',
     restoredBody: '+{n} premijinio aukso už atkūrimą',
@@ -5542,7 +7201,7 @@ export default {
   },
   forge: {
     upgrade: 'Patobulinti ({n} aukso)',
-    max: 'Visiškai patobulinta: +{n}.',
+    next: 'Kitas +{level}: +{pct} % savybių',
     town: 'Tai gali patobulinti bet kurio miesto kalvis.'
   },
   ore: {
@@ -5557,6 +7216,12 @@ export default {
     },
     mithril: {
       name: 'Mitrilo rūda'
+    },
+    adamant: {
+      name: 'Adamanto rūda'
+    },
+    aetherite: {
+      name: 'Eterito rūda'
     }
   },
   plant: {
@@ -5638,32 +7303,32 @@ export default {
   elixir: {
     might: {
       name: 'Galios nuoviras',
-      desc: '+{n}% žalos vieną minutę'
+      desc: '+{n}% žalos 5 minutes'
     },
     iron: {
       name: 'Geležinės odos gėrimas',
-      desc: '+{n}% šarvų vieną minutę'
+      desc: '+{n}% šarvų 5 minutes'
     },
     swift: {
       name: 'Vikrumo tonikas',
-      desc: '+{n}% greičio ir puolimo greičio vieną minutę'
+      desc: '+{n}% greičio ir puolimo greičio 5 minutes'
     },
     mind: {
       name: 'Aiškaus proto antpilas',
-      desc: 'Įgūdžiai vieną minutę atsikrauna {n}% greičiau'
+      desc: 'Įgūdžiai 5 minutes atsikrauna {n}% greičiau'
     },
     vigor: {
       name: 'Žvalumo nuoviras',
-      desc: 'Vieną minutę kas sekundę gydo {n}% tavo gyvybės'
+      desc: '5 minutes kas sekundę gydo {n}% tavo gyvybės'
     },
     shadow: {
       name: 'Ištroškęs gėrimas',
-      desc: 'Vieną minutę tavo smūgiai gydo tave {n}% jų žalos'
+      desc: '5 minutes tavo smūgiai gydo tave {n}% jų žalos'
     }
   },
   alchemy: {
     talk: 'Žolelės į vidų, nuovirai laukan. Kurį virsime?',
-    lead: 'Kiekvienas nuoviras kovoje veikia minutę. Gerk jį iš trečiosios kolbos. Kiekvieno gali nešti po {n}.',
+    lead: 'Kiekvienas nuoviras kovoje veikia 5 minutes. Gerk jį iš trečiosios kolbos. Kiekvieno gali nešti po {n}.',
     brew: 'Virti · {n}',
     carry: 'Pasiimti',
     carried: 'Tavo kolboje',
@@ -5687,6 +7352,25 @@ export default {
     again: 'Žaisti dar',
     noGold: 'Neužtenka aukso šiam statymui.',
     card: 'Korta {n}'
+  },
+  cups: {
+    title: 'Puodelių būdelė',
+    lead: 'Žiūrėk į brangakmenį, sek jo puodelį ir parodyk. Kiekviena pergalė iš eilės moka daugiau. Trečia atneša prizinį daiktą, penkta lobį.',
+    free: 'Nemokamas ratas',
+    fee: 'Žaisti · {n}',
+    row: 'Pergalės iš eilės: {n} iš {max}',
+    next: 'Kita pergalė: {n} aukso',
+    watch: 'Žiūrėk į brangakmenį!',
+    follow: 'Sek jį…',
+    pick: 'Pasirink puodelį!',
+    hint: 'Palieskite puodelį arba paspauskite jo numerį.',
+    won: 'Rastas! +{n} aukso',
+    lost: 'Ne tas. Serija prasideda iš naujo.',
+    near: 'Taip arti! Jis buvo šalia.',
+    timeout: 'Per lėtai! Serija prasideda iš naujo.',
+    again: 'Žaisti dar kartą',
+    noGold: 'Per mažai aukso. Rytoj pirmas ratas nemokamas.',
+    cup: '{n}-as puodelis'
   },
   battle: {
     title: 'Daiktų mūšis',

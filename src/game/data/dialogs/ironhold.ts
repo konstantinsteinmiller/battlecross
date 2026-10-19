@@ -57,7 +57,7 @@ const ironWeapons = conversation('ironWeapons', {
       { id: 'arm' }
     ])
   ],
-  back: { shop: [{ id: 'shopBack' }], smithing: [{ id: 'forgeBack' }] },
+  back: { shop: [{ id: 'shopBack' }], smithing: [{ id: 'forgeBack' }], sellOre: [{ id: 'sellBack' }] },
   bye: [{ id: 'bye' }]
 })
 
@@ -94,7 +94,7 @@ const ironArmor = conversation('ironArmor', {
       { id: 'demons' }
     ])
   ],
-  back: { shop: [{ id: 'shopBack' }], smithing: [{ id: 'forgeBack' }] },
+  back: { shop: [{ id: 'shopBack' }], smithing: [{ id: 'forgeBack' }], sellOre: [{ id: 'sellBack' }] },
   bye: [{ id: 'bye' }]
 })
 
@@ -114,7 +114,7 @@ const ironOrderArmor = conversation('ironOrderArmor', {
     { id: 'order' },
     rumor([{ id: 'throne' }])
   ],
-  back: { shop: [{ id: 'shopBack' }], smithing: [{ id: 'forgeBack' }] },
+  back: { shop: [{ id: 'shopBack' }], smithing: [{ id: 'forgeBack' }], sellOre: [{ id: 'sellBack' }] },
   bye: [{ id: 'bye' }]
 })
 

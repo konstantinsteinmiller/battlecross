@@ -1,5 +1,13 @@
 // Dutch locale — mirrors the key shape of en.ts exactly.
 export default {
+  // ─── The intro (#130): its skip, and its narrator's name ───
+  intro: {
+    narrator: 'De Kroniekschrijver',
+    skip: 'Overslaan',
+    holdKey: 'Houd {key} ingedrukt om over te slaan',
+    holdTouch: 'Ingedrukt houden om over te slaan',
+    replay: 'Intro bekijken'
+  },
   arena: {
     allWon: 'Alle mythische prijzen zijn van jou.',
     call: 'Het verhaal is verteld. Bewijs nu je build: klim zo ver als je kunt en win de mythische prijzen die niemand anders je kan geven.',
@@ -8,6 +16,20 @@ export default {
     next: 'Volgende prijs bij golf {at}: {item}',
     champion: 'Kampioensgolf',
     wave: 'Golf {n}'
+  },
+  sellOre: {
+    talk: 'Goed erts, eerlijke prijs. Hoeveel doe je weg?',
+    lead: 'Kies hoeveel klompjes van elk erts je verkoopt. Er wordt pas verkocht als je op Verkopen drukt.',
+    have: 'Je hebt {n}',
+    each: '{n} goud per stuk',
+    none: 'Geen',
+    all: 'Alles',
+    less: '{ore}: één minder',
+    more: '{ore}: één meer',
+    total: 'Je krijgt: {n} goud',
+    sell: 'Verkopen',
+    selectAll: 'Alles selecteren',
+    empty: 'Je hebt geen erts meer om te verkopen.'
   },
   smith: {
     why: {
@@ -1421,38 +1443,110 @@ export default {
     smithMasterMithrilGreaves: {
       name: 'Meesterlijke Mithril Scheenplaten'
     },
+    smithMasterAdamantGreaves: {
+      name: 'Meesterlijke Adamant Scheenplaten'
+    },
+    smithMasterAetheriteGreaves: {
+      name: 'Meesterlijke Aetherit Scheenplaten'
+    },
     smithMithrilGreaves: {
       name: 'Mithril Scheenplaten'
+    },
+    smithAdamantGreaves: {
+      name: 'Adamant Scheenplaten'
+    },
+    smithAetheriteGreaves: {
+      name: 'Aetherit Scheenplaten'
     },
     smithMasterMithrilPlate: {
       name: 'Meesterlijk Mithril Harnas'
     },
+    smithMasterAdamantPlate: {
+      name: 'Meesterlijk Adamant Harnas'
+    },
+    smithMasterAetheritePlate: {
+      name: 'Meesterlijk Aetherit Harnas'
+    },
     smithMithrilPlate: {
       name: 'Mithril Harnas'
+    },
+    smithAdamantPlate: {
+      name: 'Adamant Harnas'
+    },
+    smithAetheritePlate: {
+      name: 'Aetherit Harnas'
     },
     smithMasterMithrilHelm: {
       name: 'Meesterlijke Mithril Helm'
     },
+    smithMasterAdamantHelm: {
+      name: 'Meesterlijke Adamant Helm'
+    },
+    smithMasterAetheriteHelm: {
+      name: 'Meesterlijke Aetherit Helm'
+    },
     smithMithrilHelm: {
       name: 'Mithril Helm'
+    },
+    smithAdamantHelm: {
+      name: 'Adamant Helm'
+    },
+    smithAetheriteHelm: {
+      name: 'Aetherit Helm'
     },
     smithMasterMithrilShield: {
       name: 'Meesterlijk Mithril Schild'
     },
+    smithMasterAdamantShield: {
+      name: 'Meesterlijk Adamant Schild'
+    },
+    smithMasterAetheriteShield: {
+      name: 'Meesterlijk Aetherit Schild'
+    },
     smithMithrilShield: {
       name: 'Mithril Schild'
+    },
+    smithAdamantShield: {
+      name: 'Adamant Schild'
+    },
+    smithAetheriteShield: {
+      name: 'Aetherit Schild'
     },
     smithMasterMithrilHammer: {
       name: 'Meesterlijke Mithril Hamer'
     },
+    smithMasterAdamantHammer: {
+      name: 'Meesterlijke Adamant Hamer'
+    },
+    smithMasterAetheriteHammer: {
+      name: 'Meesterlijke Aetherit Hamer'
+    },
     smithMithrilHammer: {
       name: 'Mithril Hamer'
+    },
+    smithAdamantHammer: {
+      name: 'Adamant Hamer'
+    },
+    smithAetheriteHammer: {
+      name: 'Aetherit Hamer'
     },
     smithMasterMithrilSword: {
       name: 'Meesterlijk Mithril Zwaard'
     },
+    smithMasterAdamantSword: {
+      name: 'Meesterlijk Adamant Zwaard'
+    },
+    smithMasterAetheriteSword: {
+      name: 'Meesterlijk Aetherit Zwaard'
+    },
     smithMithrilSword: {
       name: 'Mithril Zwaard'
+    },
+    smithAdamantSword: {
+      name: 'Adamant Zwaard'
+    },
+    smithAetheriteSword: {
+      name: 'Aetherit Zwaard'
     },
     smithMasterGoldGreaves: {
       name: 'Meesterlijke Gouden Scheenplaten'
@@ -1558,6 +1652,1086 @@ export default {
     },
     smithMasterIronSword: {
       name: 'Meesterlijk IJzeren Zwaard'
+    },
+    smithMasterDexIronSword: {
+      name: 'Meesterlijk IJzeren dolk · BEH'
+    },
+    smithDexIronSword: {
+      name: 'IJzeren dolk · BEH'
+    },
+    smithMasterDexIronHammer: {
+      name: 'Meesterlijk IJzeren rapier · BEH'
+    },
+    smithDexIronHammer: {
+      name: 'IJzeren rapier · BEH'
+    },
+    smithMasterDexIronShield: {
+      name: 'Meesterlijk IJzeren rondas · BEH'
+    },
+    smithDexIronShield: {
+      name: 'IJzeren rondas · BEH'
+    },
+    smithMasterDexIronHelm: {
+      name: 'Meesterlijk IJzeren kap · BEH'
+    },
+    smithDexIronHelm: {
+      name: 'IJzeren kap · BEH'
+    },
+    smithMasterDexIronPlate: {
+      name: 'Meesterlijk IJzeren leren harnas · BEH'
+    },
+    smithDexIronPlate: {
+      name: 'IJzeren leren harnas · BEH'
+    },
+    smithMasterDexIronGreaves: {
+      name: 'Meesterlijk IJzeren laarzen · BEH'
+    },
+    smithDexIronGreaves: {
+      name: 'IJzeren laarzen · BEH'
+    },
+    smithMasterDexSilverSword: {
+      name: 'Meesterlijk Zilveren dolk · BEH'
+    },
+    smithDexSilverSword: {
+      name: 'Zilveren dolk · BEH'
+    },
+    smithMasterDexSilverHammer: {
+      name: 'Meesterlijk Zilveren rapier · BEH'
+    },
+    smithDexSilverHammer: {
+      name: 'Zilveren rapier · BEH'
+    },
+    smithMasterDexSilverShield: {
+      name: 'Meesterlijk Zilveren rondas · BEH'
+    },
+    smithDexSilverShield: {
+      name: 'Zilveren rondas · BEH'
+    },
+    smithMasterDexSilverHelm: {
+      name: 'Meesterlijk Zilveren kap · BEH'
+    },
+    smithDexSilverHelm: {
+      name: 'Zilveren kap · BEH'
+    },
+    smithMasterDexSilverPlate: {
+      name: 'Meesterlijk Zilveren leren harnas · BEH'
+    },
+    smithDexSilverPlate: {
+      name: 'Zilveren leren harnas · BEH'
+    },
+    smithMasterDexSilverGreaves: {
+      name: 'Meesterlijk Zilveren laarzen · BEH'
+    },
+    smithDexSilverGreaves: {
+      name: 'Zilveren laarzen · BEH'
+    },
+    smithMasterDexGoldSword: {
+      name: 'Meesterlijk Gouden dolk · BEH'
+    },
+    smithDexGoldSword: {
+      name: 'Gouden dolk · BEH'
+    },
+    smithMasterDexGoldHammer: {
+      name: 'Meesterlijk Gouden rapier · BEH'
+    },
+    smithDexGoldHammer: {
+      name: 'Gouden rapier · BEH'
+    },
+    smithMasterDexGoldShield: {
+      name: 'Meesterlijk Gouden rondas · BEH'
+    },
+    smithDexGoldShield: {
+      name: 'Gouden rondas · BEH'
+    },
+    smithMasterDexGoldHelm: {
+      name: 'Meesterlijk Gouden kap · BEH'
+    },
+    smithDexGoldHelm: {
+      name: 'Gouden kap · BEH'
+    },
+    smithMasterDexGoldPlate: {
+      name: 'Meesterlijk Gouden leren harnas · BEH'
+    },
+    smithDexGoldPlate: {
+      name: 'Gouden leren harnas · BEH'
+    },
+    smithMasterDexGoldGreaves: {
+      name: 'Meesterlijk Gouden laarzen · BEH'
+    },
+    smithDexGoldGreaves: {
+      name: 'Gouden laarzen · BEH'
+    },
+    smithMasterDexMithrilSword: {
+      name: 'Meesterlijk Mithrilen dolk · BEH'
+    },
+    smithMasterDexAdamantSword: {
+      name: 'Meesterlijk Adamanten dolk · BEH'
+    },
+    smithMasterDexAetheriteSword: {
+      name: 'Meesterlijk Aetheriten dolk · BEH'
+    },
+    smithDexMithrilSword: {
+      name: 'Mithrilen dolk · BEH'
+    },
+    smithDexAdamantSword: {
+      name: 'Adamanten dolk · BEH'
+    },
+    smithDexAetheriteSword: {
+      name: 'Aetheriten dolk · BEH'
+    },
+    smithMasterDexMithrilHammer: {
+      name: 'Meesterlijk Mithrilen rapier · BEH'
+    },
+    smithMasterDexAdamantHammer: {
+      name: 'Meesterlijk Adamanten rapier · BEH'
+    },
+    smithMasterDexAetheriteHammer: {
+      name: 'Meesterlijk Aetheriten rapier · BEH'
+    },
+    smithDexMithrilHammer: {
+      name: 'Mithrilen rapier · BEH'
+    },
+    smithDexAdamantHammer: {
+      name: 'Adamanten rapier · BEH'
+    },
+    smithDexAetheriteHammer: {
+      name: 'Aetheriten rapier · BEH'
+    },
+    smithMasterDexMithrilShield: {
+      name: 'Meesterlijk Mithrilen rondas · BEH'
+    },
+    smithMasterDexAdamantShield: {
+      name: 'Meesterlijk Adamanten rondas · BEH'
+    },
+    smithMasterDexAetheriteShield: {
+      name: 'Meesterlijk Aetheriten rondas · BEH'
+    },
+    smithDexMithrilShield: {
+      name: 'Mithrilen rondas · BEH'
+    },
+    smithDexAdamantShield: {
+      name: 'Adamanten rondas · BEH'
+    },
+    smithDexAetheriteShield: {
+      name: 'Aetheriten rondas · BEH'
+    },
+    smithMasterDexMithrilHelm: {
+      name: 'Meesterlijk Mithrilen kap · BEH'
+    },
+    smithMasterDexAdamantHelm: {
+      name: 'Meesterlijk Adamanten kap · BEH'
+    },
+    smithMasterDexAetheriteHelm: {
+      name: 'Meesterlijk Aetheriten kap · BEH'
+    },
+    smithDexMithrilHelm: {
+      name: 'Mithrilen kap · BEH'
+    },
+    smithDexAdamantHelm: {
+      name: 'Adamanten kap · BEH'
+    },
+    smithDexAetheriteHelm: {
+      name: 'Aetheriten kap · BEH'
+    },
+    smithMasterDexMithrilPlate: {
+      name: 'Meesterlijk Mithrilen leren harnas · BEH'
+    },
+    smithMasterDexAdamantPlate: {
+      name: 'Meesterlijk Adamanten leren harnas · BEH'
+    },
+    smithMasterDexAetheritePlate: {
+      name: 'Meesterlijk Aetheriten leren harnas · BEH'
+    },
+    smithDexMithrilPlate: {
+      name: 'Mithrilen leren harnas · BEH'
+    },
+    smithDexAdamantPlate: {
+      name: 'Adamanten leren harnas · BEH'
+    },
+    smithDexAetheritePlate: {
+      name: 'Aetheriten leren harnas · BEH'
+    },
+    smithMasterDexMithrilGreaves: {
+      name: 'Meesterlijk Mithrilen laarzen · BEH'
+    },
+    smithMasterDexAdamantGreaves: {
+      name: 'Meesterlijk Adamanten laarzen · BEH'
+    },
+    smithMasterDexAetheriteGreaves: {
+      name: 'Meesterlijk Aetheriten laarzen · BEH'
+    },
+    smithDexMithrilGreaves: {
+      name: 'Mithrilen laarzen · BEH'
+    },
+    smithDexAdamantGreaves: {
+      name: 'Adamanten laarzen · BEH'
+    },
+    smithDexAetheriteGreaves: {
+      name: 'Aetheriten laarzen · BEH'
+    },
+    smithMasterIntIronSword: {
+      name: 'Meesterlijk IJzeren toverstaf · INT'
+    },
+    smithIntIronSword: {
+      name: 'IJzeren toverstaf · INT'
+    },
+    smithMasterIntIronHammer: {
+      name: 'Meesterlijk IJzeren staf · INT'
+    },
+    smithIntIronHammer: {
+      name: 'IJzeren staf · INT'
+    },
+    smithMasterIntIronShield: {
+      name: 'Meesterlijk IJzeren boek · INT'
+    },
+    smithIntIronShield: {
+      name: 'IJzeren boek · INT'
+    },
+    smithMasterIntIronHelm: {
+      name: 'Meesterlijk IJzeren diadeem · INT'
+    },
+    smithIntIronHelm: {
+      name: 'IJzeren diadeem · INT'
+    },
+    smithMasterIntIronPlate: {
+      name: 'Meesterlijk IJzeren gewaad · INT'
+    },
+    smithIntIronPlate: {
+      name: 'IJzeren gewaad · INT'
+    },
+    smithMasterIntIronGreaves: {
+      name: 'Meesterlijk IJzeren laarzen · INT'
+    },
+    smithIntIronGreaves: {
+      name: 'IJzeren laarzen · INT'
+    },
+    smithMasterIntSilverSword: {
+      name: 'Meesterlijk Zilveren toverstaf · INT'
+    },
+    smithIntSilverSword: {
+      name: 'Zilveren toverstaf · INT'
+    },
+    smithMasterIntSilverHammer: {
+      name: 'Meesterlijk Zilveren staf · INT'
+    },
+    smithIntSilverHammer: {
+      name: 'Zilveren staf · INT'
+    },
+    smithMasterIntSilverShield: {
+      name: 'Meesterlijk Zilveren boek · INT'
+    },
+    smithIntSilverShield: {
+      name: 'Zilveren boek · INT'
+    },
+    smithMasterIntSilverHelm: {
+      name: 'Meesterlijk Zilveren diadeem · INT'
+    },
+    smithIntSilverHelm: {
+      name: 'Zilveren diadeem · INT'
+    },
+    smithMasterIntSilverPlate: {
+      name: 'Meesterlijk Zilveren gewaad · INT'
+    },
+    smithIntSilverPlate: {
+      name: 'Zilveren gewaad · INT'
+    },
+    smithMasterIntSilverGreaves: {
+      name: 'Meesterlijk Zilveren laarzen · INT'
+    },
+    smithIntSilverGreaves: {
+      name: 'Zilveren laarzen · INT'
+    },
+    smithMasterIntGoldSword: {
+      name: 'Meesterlijk Gouden toverstaf · INT'
+    },
+    smithIntGoldSword: {
+      name: 'Gouden toverstaf · INT'
+    },
+    smithMasterIntGoldHammer: {
+      name: 'Meesterlijk Gouden staf · INT'
+    },
+    smithIntGoldHammer: {
+      name: 'Gouden staf · INT'
+    },
+    smithMasterIntGoldShield: {
+      name: 'Meesterlijk Gouden boek · INT'
+    },
+    smithIntGoldShield: {
+      name: 'Gouden boek · INT'
+    },
+    smithMasterIntGoldHelm: {
+      name: 'Meesterlijk Gouden diadeem · INT'
+    },
+    smithIntGoldHelm: {
+      name: 'Gouden diadeem · INT'
+    },
+    smithMasterIntGoldPlate: {
+      name: 'Meesterlijk Gouden gewaad · INT'
+    },
+    smithIntGoldPlate: {
+      name: 'Gouden gewaad · INT'
+    },
+    smithMasterIntGoldGreaves: {
+      name: 'Meesterlijk Gouden laarzen · INT'
+    },
+    smithIntGoldGreaves: {
+      name: 'Gouden laarzen · INT'
+    },
+    smithMasterIntMithrilSword: {
+      name: 'Meesterlijk Mithrilen toverstaf · INT'
+    },
+    smithMasterIntAdamantSword: {
+      name: 'Meesterlijk Adamanten toverstaf · INT'
+    },
+    smithMasterIntAetheriteSword: {
+      name: 'Meesterlijk Aetheriten toverstaf · INT'
+    },
+    smithIntMithrilSword: {
+      name: 'Mithrilen toverstaf · INT'
+    },
+    smithIntAdamantSword: {
+      name: 'Adamanten toverstaf · INT'
+    },
+    smithIntAetheriteSword: {
+      name: 'Aetheriten toverstaf · INT'
+    },
+    smithMasterIntMithrilHammer: {
+      name: 'Meesterlijk Mithrilen staf · INT'
+    },
+    smithMasterIntAdamantHammer: {
+      name: 'Meesterlijk Adamanten staf · INT'
+    },
+    smithMasterIntAetheriteHammer: {
+      name: 'Meesterlijk Aetheriten staf · INT'
+    },
+    smithIntMithrilHammer: {
+      name: 'Mithrilen staf · INT'
+    },
+    smithIntAdamantHammer: {
+      name: 'Adamanten staf · INT'
+    },
+    smithIntAetheriteHammer: {
+      name: 'Aetheriten staf · INT'
+    },
+    smithMasterIntMithrilShield: {
+      name: 'Meesterlijk Mithrilen boek · INT'
+    },
+    smithMasterIntAdamantShield: {
+      name: 'Meesterlijk Adamanten boek · INT'
+    },
+    smithMasterIntAetheriteShield: {
+      name: 'Meesterlijk Aetheriten boek · INT'
+    },
+    smithIntMithrilShield: {
+      name: 'Mithrilen boek · INT'
+    },
+    smithIntAdamantShield: {
+      name: 'Adamanten boek · INT'
+    },
+    smithIntAetheriteShield: {
+      name: 'Aetheriten boek · INT'
+    },
+    smithMasterIntMithrilHelm: {
+      name: 'Meesterlijk Mithrilen diadeem · INT'
+    },
+    smithMasterIntAdamantHelm: {
+      name: 'Meesterlijk Adamanten diadeem · INT'
+    },
+    smithMasterIntAetheriteHelm: {
+      name: 'Meesterlijk Aetheriten diadeem · INT'
+    },
+    smithIntMithrilHelm: {
+      name: 'Mithrilen diadeem · INT'
+    },
+    smithIntAdamantHelm: {
+      name: 'Adamanten diadeem · INT'
+    },
+    smithIntAetheriteHelm: {
+      name: 'Aetheriten diadeem · INT'
+    },
+    smithMasterIntMithrilPlate: {
+      name: 'Meesterlijk Mithrilen gewaad · INT'
+    },
+    smithMasterIntAdamantPlate: {
+      name: 'Meesterlijk Adamanten gewaad · INT'
+    },
+    smithMasterIntAetheritePlate: {
+      name: 'Meesterlijk Aetheriten gewaad · INT'
+    },
+    smithIntMithrilPlate: {
+      name: 'Mithrilen gewaad · INT'
+    },
+    smithIntAdamantPlate: {
+      name: 'Adamanten gewaad · INT'
+    },
+    smithIntAetheritePlate: {
+      name: 'Aetheriten gewaad · INT'
+    },
+    smithMasterIntMithrilGreaves: {
+      name: 'Meesterlijk Mithrilen laarzen · INT'
+    },
+    smithMasterIntAdamantGreaves: {
+      name: 'Meesterlijk Adamanten laarzen · INT'
+    },
+    smithMasterIntAetheriteGreaves: {
+      name: 'Meesterlijk Aetheriten laarzen · INT'
+    },
+    smithIntMithrilGreaves: {
+      name: 'Mithrilen laarzen · INT'
+    },
+    smithIntAdamantGreaves: {
+      name: 'Adamanten laarzen · INT'
+    },
+    smithIntAetheriteGreaves: {
+      name: 'Aetheriten laarzen · INT'
+    },
+    smithMasterSklIronSword: {
+      name: 'Meesterlijk IJzeren pistool · TEC'
+    },
+    smithSklIronSword: {
+      name: 'IJzeren pistool · TEC'
+    },
+    smithMasterSklIronHammer: {
+      name: 'Meesterlijk IJzeren geweer · TEC'
+    },
+    smithSklIronHammer: {
+      name: 'IJzeren geweer · TEC'
+    },
+    smithMasterSklIronShield: {
+      name: 'Meesterlijk IJzeren batterij · TEC'
+    },
+    smithSklIronShield: {
+      name: 'IJzeren batterij · TEC'
+    },
+    smithMasterSklIronHelm: {
+      name: 'Meesterlijk IJzeren pet · TEC'
+    },
+    smithSklIronHelm: {
+      name: 'IJzeren pet · TEC'
+    },
+    smithMasterSklIronPlate: {
+      name: 'Meesterlijk IJzeren tuig · TEC'
+    },
+    smithSklIronPlate: {
+      name: 'IJzeren tuig · TEC'
+    },
+    smithMasterSklIronGreaves: {
+      name: 'Meesterlijk IJzeren laarzen · TEC'
+    },
+    smithSklIronGreaves: {
+      name: 'IJzeren laarzen · TEC'
+    },
+    smithMasterSklSilverSword: {
+      name: 'Meesterlijk Zilveren pistool · TEC'
+    },
+    smithSklSilverSword: {
+      name: 'Zilveren pistool · TEC'
+    },
+    smithMasterSklSilverHammer: {
+      name: 'Meesterlijk Zilveren geweer · TEC'
+    },
+    smithSklSilverHammer: {
+      name: 'Zilveren geweer · TEC'
+    },
+    smithMasterSklSilverShield: {
+      name: 'Meesterlijk Zilveren batterij · TEC'
+    },
+    smithSklSilverShield: {
+      name: 'Zilveren batterij · TEC'
+    },
+    smithMasterSklSilverHelm: {
+      name: 'Meesterlijk Zilveren pet · TEC'
+    },
+    smithSklSilverHelm: {
+      name: 'Zilveren pet · TEC'
+    },
+    smithMasterSklSilverPlate: {
+      name: 'Meesterlijk Zilveren tuig · TEC'
+    },
+    smithSklSilverPlate: {
+      name: 'Zilveren tuig · TEC'
+    },
+    smithMasterSklSilverGreaves: {
+      name: 'Meesterlijk Zilveren laarzen · TEC'
+    },
+    smithSklSilverGreaves: {
+      name: 'Zilveren laarzen · TEC'
+    },
+    smithMasterSklGoldSword: {
+      name: 'Meesterlijk Gouden pistool · TEC'
+    },
+    smithSklGoldSword: {
+      name: 'Gouden pistool · TEC'
+    },
+    smithMasterSklGoldHammer: {
+      name: 'Meesterlijk Gouden geweer · TEC'
+    },
+    smithSklGoldHammer: {
+      name: 'Gouden geweer · TEC'
+    },
+    smithMasterSklGoldShield: {
+      name: 'Meesterlijk Gouden batterij · TEC'
+    },
+    smithSklGoldShield: {
+      name: 'Gouden batterij · TEC'
+    },
+    smithMasterSklGoldHelm: {
+      name: 'Meesterlijk Gouden pet · TEC'
+    },
+    smithSklGoldHelm: {
+      name: 'Gouden pet · TEC'
+    },
+    smithMasterSklGoldPlate: {
+      name: 'Meesterlijk Gouden tuig · TEC'
+    },
+    smithSklGoldPlate: {
+      name: 'Gouden tuig · TEC'
+    },
+    smithMasterSklGoldGreaves: {
+      name: 'Meesterlijk Gouden laarzen · TEC'
+    },
+    smithSklGoldGreaves: {
+      name: 'Gouden laarzen · TEC'
+    },
+    smithMasterSklMithrilSword: {
+      name: 'Meesterlijk Mithrilen pistool · TEC'
+    },
+    smithMasterSklAdamantSword: {
+      name: 'Meesterlijk Adamanten pistool · TEC'
+    },
+    smithMasterSklAetheriteSword: {
+      name: 'Meesterlijk Aetheriten pistool · TEC'
+    },
+    smithSklMithrilSword: {
+      name: 'Mithrilen pistool · TEC'
+    },
+    smithSklAdamantSword: {
+      name: 'Adamanten pistool · TEC'
+    },
+    smithSklAetheriteSword: {
+      name: 'Aetheriten pistool · TEC'
+    },
+    smithMasterSklMithrilHammer: {
+      name: 'Meesterlijk Mithrilen geweer · TEC'
+    },
+    smithMasterSklAdamantHammer: {
+      name: 'Meesterlijk Adamanten geweer · TEC'
+    },
+    smithMasterSklAetheriteHammer: {
+      name: 'Meesterlijk Aetheriten geweer · TEC'
+    },
+    smithSklMithrilHammer: {
+      name: 'Mithrilen geweer · TEC'
+    },
+    smithSklAdamantHammer: {
+      name: 'Adamanten geweer · TEC'
+    },
+    smithSklAetheriteHammer: {
+      name: 'Aetheriten geweer · TEC'
+    },
+    smithMasterSklMithrilShield: {
+      name: 'Meesterlijk Mithrilen batterij · TEC'
+    },
+    smithMasterSklAdamantShield: {
+      name: 'Meesterlijk Adamanten batterij · TEC'
+    },
+    smithMasterSklAetheriteShield: {
+      name: 'Meesterlijk Aetheriten batterij · TEC'
+    },
+    smithSklMithrilShield: {
+      name: 'Mithrilen batterij · TEC'
+    },
+    smithSklAdamantShield: {
+      name: 'Adamanten batterij · TEC'
+    },
+    smithSklAetheriteShield: {
+      name: 'Aetheriten batterij · TEC'
+    },
+    smithMasterSklMithrilHelm: {
+      name: 'Meesterlijk Mithrilen pet · TEC'
+    },
+    smithMasterSklAdamantHelm: {
+      name: 'Meesterlijk Adamanten pet · TEC'
+    },
+    smithMasterSklAetheriteHelm: {
+      name: 'Meesterlijk Aetheriten pet · TEC'
+    },
+    smithSklMithrilHelm: {
+      name: 'Mithrilen pet · TEC'
+    },
+    smithSklAdamantHelm: {
+      name: 'Adamanten pet · TEC'
+    },
+    smithSklAetheriteHelm: {
+      name: 'Aetheriten pet · TEC'
+    },
+    smithMasterSklMithrilPlate: {
+      name: 'Meesterlijk Mithrilen tuig · TEC'
+    },
+    smithMasterSklAdamantPlate: {
+      name: 'Meesterlijk Adamanten tuig · TEC'
+    },
+    smithMasterSklAetheritePlate: {
+      name: 'Meesterlijk Aetheriten tuig · TEC'
+    },
+    smithSklMithrilPlate: {
+      name: 'Mithrilen tuig · TEC'
+    },
+    smithSklAdamantPlate: {
+      name: 'Adamanten tuig · TEC'
+    },
+    smithSklAetheritePlate: {
+      name: 'Aetheriten tuig · TEC'
+    },
+    smithMasterSklMithrilGreaves: {
+      name: 'Meesterlijk Mithrilen laarzen · TEC'
+    },
+    smithMasterSklAdamantGreaves: {
+      name: 'Meesterlijk Adamanten laarzen · TEC'
+    },
+    smithMasterSklAetheriteGreaves: {
+      name: 'Meesterlijk Aetheriten laarzen · TEC'
+    },
+    smithSklMithrilGreaves: {
+      name: 'Mithrilen laarzen · TEC'
+    },
+    smithSklAdamantGreaves: {
+      name: 'Adamanten laarzen · TEC'
+    },
+    smithSklAetheriteGreaves: {
+      name: 'Aetheriten laarzen · TEC'
+    },
+    smithMasterChaIronSword: {
+      name: 'Meesterlijk IJzeren scepter · CHA'
+    },
+    smithChaIronSword: {
+      name: 'IJzeren scepter · CHA'
+    },
+    smithMasterChaIronHammer: {
+      name: 'Meesterlijk IJzeren banier · CHA'
+    },
+    smithChaIronHammer: {
+      name: 'IJzeren banier · CHA'
+    },
+    smithMasterChaIronShield: {
+      name: 'Meesterlijk IJzeren codex · CHA'
+    },
+    smithChaIronShield: {
+      name: 'IJzeren codex · CHA'
+    },
+    smithMasterChaIronHelm: {
+      name: 'Meesterlijk IJzeren kroon · CHA'
+    },
+    smithChaIronHelm: {
+      name: 'IJzeren kroon · CHA'
+    },
+    smithMasterChaIronPlate: {
+      name: 'Meesterlijk IJzeren tabberd · CHA'
+    },
+    smithChaIronPlate: {
+      name: 'IJzeren tabberd · CHA'
+    },
+    smithMasterChaIronGreaves: {
+      name: 'Meesterlijk IJzeren laarzen · CHA'
+    },
+    smithChaIronGreaves: {
+      name: 'IJzeren laarzen · CHA'
+    },
+    smithMasterChaSilverSword: {
+      name: 'Meesterlijk Zilveren scepter · CHA'
+    },
+    smithChaSilverSword: {
+      name: 'Zilveren scepter · CHA'
+    },
+    smithMasterChaSilverHammer: {
+      name: 'Meesterlijk Zilveren banier · CHA'
+    },
+    smithChaSilverHammer: {
+      name: 'Zilveren banier · CHA'
+    },
+    smithMasterChaSilverShield: {
+      name: 'Meesterlijk Zilveren codex · CHA'
+    },
+    smithChaSilverShield: {
+      name: 'Zilveren codex · CHA'
+    },
+    smithMasterChaSilverHelm: {
+      name: 'Meesterlijk Zilveren kroon · CHA'
+    },
+    smithChaSilverHelm: {
+      name: 'Zilveren kroon · CHA'
+    },
+    smithMasterChaSilverPlate: {
+      name: 'Meesterlijk Zilveren tabberd · CHA'
+    },
+    smithChaSilverPlate: {
+      name: 'Zilveren tabberd · CHA'
+    },
+    smithMasterChaSilverGreaves: {
+      name: 'Meesterlijk Zilveren laarzen · CHA'
+    },
+    smithChaSilverGreaves: {
+      name: 'Zilveren laarzen · CHA'
+    },
+    smithMasterChaGoldSword: {
+      name: 'Meesterlijk Gouden scepter · CHA'
+    },
+    smithChaGoldSword: {
+      name: 'Gouden scepter · CHA'
+    },
+    smithMasterChaGoldHammer: {
+      name: 'Meesterlijk Gouden banier · CHA'
+    },
+    smithChaGoldHammer: {
+      name: 'Gouden banier · CHA'
+    },
+    smithMasterChaGoldShield: {
+      name: 'Meesterlijk Gouden codex · CHA'
+    },
+    smithChaGoldShield: {
+      name: 'Gouden codex · CHA'
+    },
+    smithMasterChaGoldHelm: {
+      name: 'Meesterlijk Gouden kroon · CHA'
+    },
+    smithChaGoldHelm: {
+      name: 'Gouden kroon · CHA'
+    },
+    smithMasterChaGoldPlate: {
+      name: 'Meesterlijk Gouden tabberd · CHA'
+    },
+    smithChaGoldPlate: {
+      name: 'Gouden tabberd · CHA'
+    },
+    smithMasterChaGoldGreaves: {
+      name: 'Meesterlijk Gouden laarzen · CHA'
+    },
+    smithChaGoldGreaves: {
+      name: 'Gouden laarzen · CHA'
+    },
+    smithMasterChaMithrilSword: {
+      name: 'Meesterlijk Mithrilen scepter · CHA'
+    },
+    smithMasterChaAdamantSword: {
+      name: 'Meesterlijk Adamanten scepter · CHA'
+    },
+    smithMasterChaAetheriteSword: {
+      name: 'Meesterlijk Aetheriten scepter · CHA'
+    },
+    smithChaMithrilSword: {
+      name: 'Mithrilen scepter · CHA'
+    },
+    smithChaAdamantSword: {
+      name: 'Adamanten scepter · CHA'
+    },
+    smithChaAetheriteSword: {
+      name: 'Aetheriten scepter · CHA'
+    },
+    smithMasterChaMithrilHammer: {
+      name: 'Meesterlijk Mithrilen banier · CHA'
+    },
+    smithMasterChaAdamantHammer: {
+      name: 'Meesterlijk Adamanten banier · CHA'
+    },
+    smithMasterChaAetheriteHammer: {
+      name: 'Meesterlijk Aetheriten banier · CHA'
+    },
+    smithChaMithrilHammer: {
+      name: 'Mithrilen banier · CHA'
+    },
+    smithChaAdamantHammer: {
+      name: 'Adamanten banier · CHA'
+    },
+    smithChaAetheriteHammer: {
+      name: 'Aetheriten banier · CHA'
+    },
+    smithMasterChaMithrilShield: {
+      name: 'Meesterlijk Mithrilen codex · CHA'
+    },
+    smithMasterChaAdamantShield: {
+      name: 'Meesterlijk Adamanten codex · CHA'
+    },
+    smithMasterChaAetheriteShield: {
+      name: 'Meesterlijk Aetheriten codex · CHA'
+    },
+    smithChaMithrilShield: {
+      name: 'Mithrilen codex · CHA'
+    },
+    smithChaAdamantShield: {
+      name: 'Adamanten codex · CHA'
+    },
+    smithChaAetheriteShield: {
+      name: 'Aetheriten codex · CHA'
+    },
+    smithMasterChaMithrilHelm: {
+      name: 'Meesterlijk Mithrilen kroon · CHA'
+    },
+    smithMasterChaAdamantHelm: {
+      name: 'Meesterlijk Adamanten kroon · CHA'
+    },
+    smithMasterChaAetheriteHelm: {
+      name: 'Meesterlijk Aetheriten kroon · CHA'
+    },
+    smithChaMithrilHelm: {
+      name: 'Mithrilen kroon · CHA'
+    },
+    smithChaAdamantHelm: {
+      name: 'Adamanten kroon · CHA'
+    },
+    smithChaAetheriteHelm: {
+      name: 'Aetheriten kroon · CHA'
+    },
+    smithMasterChaMithrilPlate: {
+      name: 'Meesterlijk Mithrilen tabberd · CHA'
+    },
+    smithMasterChaAdamantPlate: {
+      name: 'Meesterlijk Adamanten tabberd · CHA'
+    },
+    smithMasterChaAetheritePlate: {
+      name: 'Meesterlijk Aetheriten tabberd · CHA'
+    },
+    smithChaMithrilPlate: {
+      name: 'Mithrilen tabberd · CHA'
+    },
+    smithChaAdamantPlate: {
+      name: 'Adamanten tabberd · CHA'
+    },
+    smithChaAetheritePlate: {
+      name: 'Aetheriten tabberd · CHA'
+    },
+    smithMasterChaMithrilGreaves: {
+      name: 'Meesterlijk Mithrilen laarzen · CHA'
+    },
+    smithMasterChaAdamantGreaves: {
+      name: 'Meesterlijk Adamanten laarzen · CHA'
+    },
+    smithMasterChaAetheriteGreaves: {
+      name: 'Meesterlijk Aetheriten laarzen · CHA'
+    },
+    smithChaMithrilGreaves: {
+      name: 'Mithrilen laarzen · CHA'
+    },
+    smithChaAdamantGreaves: {
+      name: 'Adamanten laarzen · CHA'
+    },
+    smithChaAetheriteGreaves: {
+      name: 'Aetheriten laarzen · CHA'
+    },
+    smithMasterEndIronSword: {
+      name: 'Meesterlijk IJzeren strijdknots · UIT'
+    },
+    smithEndIronSword: {
+      name: 'IJzeren strijdknots · UIT'
+    },
+    smithMasterEndIronHammer: {
+      name: 'Meesterlijk IJzeren bijl · UIT'
+    },
+    smithEndIronHammer: {
+      name: 'IJzeren bijl · UIT'
+    },
+    smithMasterEndIronShield: {
+      name: 'Meesterlijk IJzeren Schild · UIT'
+    },
+    smithEndIronShield: {
+      name: 'IJzeren Schild · UIT'
+    },
+    smithMasterEndIronHelm: {
+      name: 'Meesterlijke IJzeren Helm · UIT'
+    },
+    smithEndIronHelm: {
+      name: 'IJzeren Helm · UIT'
+    },
+    smithMasterEndIronPlate: {
+      name: 'Meesterlijk IJzeren Harnas · UIT'
+    },
+    smithEndIronPlate: {
+      name: 'IJzeren Harnas · UIT'
+    },
+    smithMasterEndIronGreaves: {
+      name: 'Meesterlijke IJzeren Scheenplaten · UIT'
+    },
+    smithEndIronGreaves: {
+      name: 'IJzeren Scheenplaten · UIT'
+    },
+    smithMasterEndSilverSword: {
+      name: 'Meesterlijk Zilveren strijdknots · UIT'
+    },
+    smithEndSilverSword: {
+      name: 'Zilveren strijdknots · UIT'
+    },
+    smithMasterEndSilverHammer: {
+      name: 'Meesterlijk Zilveren bijl · UIT'
+    },
+    smithEndSilverHammer: {
+      name: 'Zilveren bijl · UIT'
+    },
+    smithMasterEndSilverShield: {
+      name: 'Meesterlijk Zilveren Schild · UIT'
+    },
+    smithEndSilverShield: {
+      name: 'Zilveren Schild · UIT'
+    },
+    smithMasterEndSilverHelm: {
+      name: 'Meesterlijke Zilveren Helm · UIT'
+    },
+    smithEndSilverHelm: {
+      name: 'Zilveren Helm · UIT'
+    },
+    smithMasterEndSilverPlate: {
+      name: 'Meesterlijk Zilveren Harnas · UIT'
+    },
+    smithEndSilverPlate: {
+      name: 'Zilveren Harnas · UIT'
+    },
+    smithMasterEndSilverGreaves: {
+      name: 'Meesterlijke Zilveren Scheenplaten · UIT'
+    },
+    smithEndSilverGreaves: {
+      name: 'Zilveren Scheenplaten · UIT'
+    },
+    smithMasterEndGoldSword: {
+      name: 'Meesterlijk Gouden strijdknots · UIT'
+    },
+    smithEndGoldSword: {
+      name: 'Gouden strijdknots · UIT'
+    },
+    smithMasterEndGoldHammer: {
+      name: 'Meesterlijk Gouden bijl · UIT'
+    },
+    smithEndGoldHammer: {
+      name: 'Gouden bijl · UIT'
+    },
+    smithMasterEndGoldShield: {
+      name: 'Meesterlijk Gouden Schild · UIT'
+    },
+    smithEndGoldShield: {
+      name: 'Gouden Schild · UIT'
+    },
+    smithMasterEndGoldHelm: {
+      name: 'Meesterlijke Gouden Helm · UIT'
+    },
+    smithEndGoldHelm: {
+      name: 'Gouden Helm · UIT'
+    },
+    smithMasterEndGoldPlate: {
+      name: 'Meesterlijk Gouden Harnas · UIT'
+    },
+    smithEndGoldPlate: {
+      name: 'Gouden Harnas · UIT'
+    },
+    smithMasterEndGoldGreaves: {
+      name: 'Meesterlijke Gouden Scheenplaten · UIT'
+    },
+    smithEndGoldGreaves: {
+      name: 'Gouden Scheenplaten · UIT'
+    },
+    smithMasterEndMithrilSword: {
+      name: 'Meesterlijk Mithrilen strijdknots · UIT'
+    },
+    smithMasterEndAdamantSword: {
+      name: 'Meesterlijk Adamanten strijdknots · UIT'
+    },
+    smithMasterEndAetheriteSword: {
+      name: 'Meesterlijk Aetheriten strijdknots · UIT'
+    },
+    smithEndMithrilSword: {
+      name: 'Mithrilen strijdknots · UIT'
+    },
+    smithEndAdamantSword: {
+      name: 'Adamanten strijdknots · UIT'
+    },
+    smithEndAetheriteSword: {
+      name: 'Aetheriten strijdknots · UIT'
+    },
+    smithMasterEndMithrilHammer: {
+      name: 'Meesterlijk Mithrilen bijl · UIT'
+    },
+    smithMasterEndAdamantHammer: {
+      name: 'Meesterlijk Adamanten bijl · UIT'
+    },
+    smithMasterEndAetheriteHammer: {
+      name: 'Meesterlijk Aetheriten bijl · UIT'
+    },
+    smithEndMithrilHammer: {
+      name: 'Mithrilen bijl · UIT'
+    },
+    smithEndAdamantHammer: {
+      name: 'Adamanten bijl · UIT'
+    },
+    smithEndAetheriteHammer: {
+      name: 'Aetheriten bijl · UIT'
+    },
+    smithMasterEndMithrilShield: {
+      name: 'Meesterlijk Mithril Schild · UIT'
+    },
+    smithMasterEndAdamantShield: {
+      name: 'Meesterlijk Adamant Schild · UIT'
+    },
+    smithMasterEndAetheriteShield: {
+      name: 'Meesterlijk Aetherit Schild · UIT'
+    },
+    smithEndMithrilShield: {
+      name: 'Mithril Schild · UIT'
+    },
+    smithEndAdamantShield: {
+      name: 'Adamant Schild · UIT'
+    },
+    smithEndAetheriteShield: {
+      name: 'Aetherit Schild · UIT'
+    },
+    smithMasterEndMithrilHelm: {
+      name: 'Meesterlijke Mithril Helm · UIT'
+    },
+    smithMasterEndAdamantHelm: {
+      name: 'Meesterlijke Adamant Helm · UIT'
+    },
+    smithMasterEndAetheriteHelm: {
+      name: 'Meesterlijke Aetherit Helm · UIT'
+    },
+    smithEndMithrilHelm: {
+      name: 'Mithril Helm · UIT'
+    },
+    smithEndAdamantHelm: {
+      name: 'Adamant Helm · UIT'
+    },
+    smithEndAetheriteHelm: {
+      name: 'Aetherit Helm · UIT'
+    },
+    smithMasterEndMithrilPlate: {
+      name: 'Meesterlijk Mithril Harnas · UIT'
+    },
+    smithMasterEndAdamantPlate: {
+      name: 'Meesterlijk Adamant Harnas · UIT'
+    },
+    smithMasterEndAetheritePlate: {
+      name: 'Meesterlijk Aetherit Harnas · UIT'
+    },
+    smithEndMithrilPlate: {
+      name: 'Mithril Harnas · UIT'
+    },
+    smithEndAdamantPlate: {
+      name: 'Adamant Harnas · UIT'
+    },
+    smithEndAetheritePlate: {
+      name: 'Aetherit Harnas · UIT'
+    },
+    smithMasterEndMithrilGreaves: {
+      name: 'Meesterlijke Mithril Scheenplaten · UIT'
+    },
+    smithMasterEndAdamantGreaves: {
+      name: 'Meesterlijke Adamant Scheenplaten · UIT'
+    },
+    smithMasterEndAetheriteGreaves: {
+      name: 'Meesterlijke Aetherit Scheenplaten · UIT'
+    },
+    smithEndMithrilGreaves: {
+      name: 'Mithril Scheenplaten · UIT'
+    },
+    smithEndAdamantGreaves: {
+      name: 'Adamant Scheenplaten · UIT'
+    },
+    smithEndAetheriteGreaves: {
+      name: 'Aetherit Scheenplaten · UIT'
     },
     smithIronSword: {
       name: 'IJzeren Zwaard'
@@ -1778,6 +2952,414 @@ export default {
     scepterOfTheFirstKing: {
       name: 'Scepter van de eerste koning'
     },
+    pickpocketsKnife: {
+      name: 'Zakkenrollersmes'
+    },
+    serpentsFang: {
+      name: 'Slangenslagtand'
+    },
+    phantomRapier: {
+      name: 'Spookrapier'
+    },
+    fangOfTheWindless: {
+      name: 'Slagtand van de Windstilte'
+    },
+    roguesBuckler: {
+      name: 'Schurkenbuckler'
+    },
+    venomVial: {
+      name: 'Gifflesje'
+    },
+    swiftguardBuckler: {
+      name: 'Snelwachtbuckler'
+    },
+    nightshadeFlask: {
+      name: 'Nachtschadeflacon'
+    },
+    windveilTarge: {
+      name: 'Windsluier-targe'
+    },
+    shadowdancersBuckler: {
+      name: 'Schaduwdanserbuckler'
+    },
+    scoutsBandana: {
+      name: 'Verkennersbandana'
+    },
+    nightcowl: {
+      name: 'Nachtkap'
+    },
+    shadowveilHood: {
+      name: 'Schaduwsluierkap'
+    },
+    windrunnersCap: {
+      name: 'Windlopermuts'
+    },
+    maskOfTheSilentWind: {
+      name: 'Masker van de Stille Wind'
+    },
+    rangersJerkin: {
+      name: 'Jagerswambuis'
+    },
+    nightstalkerLeathers: {
+      name: 'Nachtjagerleer'
+    },
+    windridersHarness: {
+      name: 'Windrijdersuitrusting'
+    },
+    mantleOfTheShadowDancer: {
+      name: 'Mantel van de Schaduwdanser'
+    },
+    thiefsGloves: {
+      name: 'Dievenhandschoenen'
+    },
+    cutpurseGloves: {
+      name: 'Beurzensnijderhandschoenen'
+    },
+    glovesOfTheGale: {
+      name: 'Handschoenen van de Rukwind'
+    },
+    softSoledShoes: {
+      name: 'Zachtzoolschoenen'
+    },
+    catStepBoots: {
+      name: 'Kattenpasbotten'
+    },
+    shadowstepBoots: {
+      name: 'Schaduwpasbotten'
+    },
+    windstrideBoots: {
+      name: 'Windstapbotten'
+    },
+    luckyCoin: {
+      name: 'Geluksmunt'
+    },
+    shadowBand: {
+      name: 'Schaduwring'
+    },
+    sandglassOfTheSwift: {
+      name: 'Zandloper van de Snelle'
+    },
+    talonCharm: {
+      name: 'Klauwamulet'
+    },
+    windheart: {
+      name: 'Windhart'
+    },
+    ashwallHeater: {
+      name: 'Askrachtmuurschild'
+    },
+    wyrmhidePavise: {
+      name: 'Drakenhuidpavees'
+    },
+    footmansKettleHat: {
+      name: 'Kookpothoed van de voetknecht'
+    },
+    ironbrowSallet: {
+      name: 'IJzerwenkbrauwsalade'
+    },
+    warlordsBarbute: {
+      name: 'Barbuut van de krijgsheer'
+    },
+    helmOfTheSunderedThrone: {
+      name: 'Helm van de gebroken troon'
+    },
+    recruitsCuirass: {
+      name: 'Rekrutenkuras'
+    },
+    stonecuttersMitts: {
+      name: 'Wanten van de steenhouwer'
+    },
+    ashforgedGauntlets: {
+      name: 'Asgesmede handschoenen'
+    },
+    warbringerGauntlets: {
+      name: 'Oorlogsbrenger-handschoenen'
+    },
+    titanfistGauntlets: {
+      name: 'Titaanvuist-handschoenen'
+    },
+    footmansGreaves: {
+      name: 'Beenplaten van de voetknecht'
+    },
+    ironshodGreaves: {
+      name: 'IJzerbeslagen beenplaten'
+    },
+    warlordsSabatons: {
+      name: 'Sabatons van de krijgsheer'
+    },
+    greavesOfTheMountainfall: {
+      name: 'Beenplaten van de bergstorting'
+    },
+    sergeantsSignet: {
+      name: 'Zegelring van de sergeant'
+    },
+    brawlersKnuckleRing: {
+      name: 'Boksbeugel van de vechtersbaas'
+    },
+    bloodiedWarMedal: {
+      name: 'Bebloede oorlogsmedaille'
+    },
+    watchmansCudgel: {
+      name: 'Knuppel van de wachter'
+    },
+    ironboundMace: {
+      name: 'IJzergebonden strijdknots'
+    },
+    stonehideCleaver: {
+      name: 'Steenhuid-hakmes'
+    },
+    bulwarkMaul: {
+      name: 'Bolwerk-moker'
+    },
+    mountainsplitterAxe: {
+      name: 'Bergkliever-bijl'
+    },
+    everstandWarmace: {
+      name: 'Onwrikbare oorlogsknots'
+    },
+    emberwallBastion: {
+      name: 'Gloedmuur-bastion'
+    },
+    stonewardenHelm: {
+      name: 'Steenwachter-helm'
+    },
+    colossusVisage: {
+      name: 'Gelaat van de kolos'
+    },
+    diggersGauntlets: {
+      name: 'Handschoenen van de graver'
+    },
+    bastionGauntlets: {
+      name: 'Bastion-handschoenen'
+    },
+    glacierplateGauntlets: {
+      name: 'Gletsjerplaat-handschoenen'
+    },
+    gauntletsOfEndlessVigil: {
+      name: 'Handschoenen van de eeuwige wake'
+    },
+    hearthstoneCharm: {
+      name: 'Haardsteen-amulet'
+    },
+    ironheartPendant: {
+      name: 'IJzerhart-hanger'
+    },
+    hedgewizardsWand: {
+      name: 'Heggentovenaarsstaf'
+    },
+    frostglassStaff: {
+      name: 'Vorstglasstaf'
+    },
+    voidthreadWand: {
+      name: 'Leegtedraadstaf'
+    },
+    staffOfTheStarlessSky: {
+      name: 'Staf van de sterrenloze hemel'
+    },
+    studentsGrimoire: {
+      name: 'Grimoire van de leerling'
+    },
+    frostfireOrb: {
+      name: 'Vorstvuurbol'
+    },
+    orbOfTheUnwrittenHour: {
+      name: 'Bol van het ongeschreven uur'
+    },
+    apprenticesPointedCap: {
+      name: 'Puntmuts van de leerling'
+    },
+    sagesCirclet: {
+      name: 'Diadeem van de wijze'
+    },
+    cinderWizardsHat: {
+      name: 'Hoed van de astovenaar'
+    },
+    voidseerCirclet: {
+      name: 'Diadeem van de leegteziener'
+    },
+    apprenticesRobe: {
+      name: 'Gewaad van de leerling'
+    },
+    cinderthreadRobe: {
+      name: 'Asdraadgewaad'
+    },
+    voidwovenRobe: {
+      name: 'Leegtegeweven gewaad'
+    },
+    inkStainedGloves: {
+      name: 'Inktbevlekte handschoenen'
+    },
+    spellthreadGloves: {
+      name: 'Spreukdraadhandschoenen'
+    },
+    frostweaveGloves: {
+      name: 'Vorstweefhandschoenen'
+    },
+    starlitGloves: {
+      name: 'Sterrenlichthandschoenen'
+    },
+    glovesOfTheLastWord: {
+      name: 'Handschoenen van het laatste woord'
+    },
+    scribesSlippers: {
+      name: 'Pantoffels van de schrijver'
+    },
+    moonstepSlippers: {
+      name: 'Maanpas-pantoffels'
+    },
+    emberstepBoots: {
+      name: 'Gloedstap-laarzen'
+    },
+    voidwalkerBoots: {
+      name: 'Leegtewandelaar-laarzen'
+    },
+    bootsOfTheWanderingStar: {
+      name: 'Laarzen van de dwaalster'
+    },
+    glowstonePendant: {
+      name: 'Gloedsteenhanger'
+    },
+    scholarsSeal: {
+      name: 'Zegel van de geleerde'
+    },
+    eyeOfTheArchon: {
+      name: 'Oog van de aartsheer'
+    },
+    cinderRepeater: {
+      name: 'Asrepeteergeweer'
+    },
+    glacierMortar: {
+      name: 'Gletsjer-handmortier'
+    },
+    sparkCell: {
+      name: 'Vonkcel'
+    },
+    arcCapacitor: {
+      name: 'Boogcondensator'
+    },
+    aetherheartCell: {
+      name: 'Etherhart-cel'
+    },
+    marksmansVisor: {
+      name: 'Vizier van de schutter'
+    },
+    sharpshootersCap: {
+      name: 'Scherpschutterspet'
+    },
+    gunnersHarness: {
+      name: 'Harnas van de kanonnier'
+    },
+    steadyhandGloves: {
+      name: 'Vaste-hand-handschoenen'
+    },
+    gunsmithsGloves: {
+      name: 'Handschoenen van de geweermaker'
+    },
+    scrappersBoots: {
+      name: 'Laarzen van de vechtersbaas'
+    },
+    sharpshooterBoots: {
+      name: 'Scherpschutterslaarzen'
+    },
+    firingLineBoots: {
+      name: 'Vuurlinie-laarzen'
+    },
+    steadyfootBoots: {
+      name: 'Vastvoet-laarzen'
+    },
+    aetherstepBoots: {
+      name: 'Etherpas-laarzen'
+    },
+    bootsOfTheLastShot: {
+      name: 'Laarzen van het laatste schot'
+    },
+    brassCartridgeCharm: {
+      name: 'Koperen patroonamulet'
+    },
+    deadEyeLens: {
+      name: 'Dodeloog-lens'
+    },
+    eagleEyeScope: {
+      name: 'Arendsoog-verrekijker'
+    },
+    criersBaton: {
+      name: 'Staf van de omroeper'
+    },
+    droversStandard: {
+      name: 'Standaard van de veedrijver'
+    },
+    marshalsSceptre: {
+      name: 'Scepter van de maarschalk'
+    },
+    balladBook: {
+      name: 'Balladeboek'
+    },
+    chronicleOfHeroes: {
+      name: 'Kroniek van de helden'
+    },
+    psalterOfTheHost: {
+      name: 'Psalmboek van de heerschaar'
+    },
+    tomeOfEternalReign: {
+      name: 'Boek van de eeuwige heerschappij'
+    },
+    heraldsCap: {
+      name: 'Pet van de heraut'
+    },
+    singersCirclet: {
+      name: 'Diadeem van de zanger'
+    },
+    diademOfTenThousandVoices: {
+      name: 'Diadeem van de tienduizend stemmen'
+    },
+    travelersWaistcoat: {
+      name: 'Vest van de reiziger'
+    },
+    minstrelsMotley: {
+      name: 'Lappenpak van de minstreel'
+    },
+    troubadoursCoat: {
+      name: 'Jas van de troubadour'
+    },
+    marshalsGreatcoat: {
+      name: 'Jas van de maarschalk'
+    },
+    buskersGloves: {
+      name: 'Handschoenen van de straatmuzikant'
+    },
+    drummersGloves: {
+      name: 'Trommelaarshandschoenen'
+    },
+    standardBearersGloves: {
+      name: 'Handschoenen van de vaandeldrager'
+    },
+    gildedParadeGloves: {
+      name: 'Vergulde paradehandschoenen'
+    },
+    glovesOfTheCrownedHand: {
+      name: 'Handschoenen van de gekroonde hand'
+    },
+    wayfarersShoes: {
+      name: 'Schoenen van de wandelaar'
+    },
+    troubadourBoots: {
+      name: 'Troubadourslaarzen'
+    },
+    heraldsRidingBoots: {
+      name: 'Rijlaarzen van de heraut'
+    },
+    paradeBoots: {
+      name: 'Paradelaarzen'
+    },
+    bootsOfTheLongProcession: {
+      name: 'Laarzen van de lange stoet'
+    },
+    silverWhistle: {
+      name: 'Zilveren fluitje'
+    },
+    gatheringHorn: {
+      name: 'Verzamelhoorn'
+    },
     heartOfTheMountain: {
       name: 'Hart van de Berg'
     },
@@ -1881,6 +3463,9 @@ export default {
     freedPeddler: {
       talk: 'Alles wat een reiziger nodig heeft. Bijna nieuw, meestal.',
       name: 'Odo Marrow'
+    },
+    sfShadowRoad: {
+      name: 'Nettle Quickhand'
     },
     sfShadow: {
       name: 'Nettle Quickhand'
@@ -2035,6 +3620,9 @@ export default {
     sunfordGambler: {
       name: 'Dob Tumbler'
     },
+    sunfordCups: {
+      name: 'Nell Nimblefingers'
+    },
     oakGambler: {
       name: 'Silky Ren'
     },
@@ -2146,6 +3734,13 @@ export default {
     }
   },
   dlg: {
+    intro: {
+      crossing: { 1: 'Elke weg in deze wereld komt samen op een kruispunt… en elk kruispunt is een veldslag.' },
+      hero: { 1: 'Vanuit de stille velden van Sunford trok een jonge held op weg.' },
+      fire: { 1: 'Het vuur beantwoordde de roep. Het staal leerde een nieuwe naam.' },
+      foes: { 1: 'Goblinkoningen, vorstjarls, een leegtedraak… en de Aartsdemon.' },
+      begin: { 1: 'Jouw legende begint nu.' }
+    },
     frostDisciple: {
       bye: {
         '1': 'Hou je warm.'
@@ -2343,6 +3938,23 @@ export default {
       hello: {
         '2': 'Odo Marrow, tot je dienst. Marskramer, ketellapper, zeer dankbaar man.',
         '1': 'Jij! Jij hebt die kooi opengemaakt! Ik was erin weggerot.'
+      }
+    },
+    sfShadowRoad: {
+      hello: {
+        '1': 'Teleporteren. Interesse?'
+      },
+      again: {
+        '1': 'Terug voor nog een truc?'
+      },
+      train: {
+        '1': 'Kijk goed. Eén stap, en je staat ergens anders.'
+      },
+      trainBack: {
+        '1': 'Goed. Ga nu maar ergens anders zijn.'
+      },
+      bye: {
+        '1': 'Laat je niet pakken.'
       }
     },
     sfShadow: {
@@ -2597,9 +4209,8 @@ export default {
         '2': 'Sla als het metaal het felst gloeit. Mis, en het is schroot. Toe maar.',
         '1': 'Smeden? Hm. Houd de hamer zo vast, niet als een knuppel.'
       },
-      ore: {
-        '1': 'Klompjes, hè? Ik neem ze allemaal. Eerlijk gewicht, eerlijke munt.'
-      },
+      ore: { '1': 'Erts, hè? Laat zien. Ik betaal per klompje, eerlijk gewicht.' },
+      sellBack: { '1': 'Eerlijk gewicht, eerlijke munt. Breng meer als je het vindt.' },
       forgeBack: {
         '1': 'Niet slecht. Ook niet goed. Ga zo door.'
       },
@@ -2883,7 +4494,7 @@ export default {
       },
       map: {
         '1': 'De kaart van kapitein Rook! Hij scheurde hem in stukken en verstopte ze voordat de goblins hem te pakken kregen.',
-        '2': 'Vind alle zes, en de X wijst de weg: ergens in de Askliffen. Graaf daar, en het goud is van jou.',
+        '2': 'Vind er zes, er liggen nog een paar meer verspreid, en de X wijst de weg: ergens in de Askliffen. Graaf daar, en het goud is van jou.',
         say: 'Ik heb een stuk van een oude kaart gevonden.'
       }
     },
@@ -2900,6 +4511,9 @@ export default {
       },
       mana: {
         '1': 'Deze is bitter. Drink hem als je spreuken opraken.'
+      },
+      brew: {
+        '1': 'Laat me je kruiden zien. Ik meng iets dat beter smaakt dan mijn manadrankje.'
       },
       potions: {
         '1': 'Je neemt een paar flessen mee in elk gevecht. Drink voordat je het nodig hebt, niet erna.',
@@ -2919,6 +4533,9 @@ export default {
       },
       healBack: {
         '1': 'Houd je riem vol en je hoofd laag.'
+      },
+      brewBack: {
+        '1': 'Voorzichtig, ze zijn heet. Drink ze niet allemaal in één keer op.'
       },
       bye: {
         '1': 'Pas goed op jezelf daarbuiten.'
@@ -3022,9 +4639,8 @@ export default {
         '2': 'Let op de gloed. Sla in het hart ervan, drie keer, en het metaal onthoudt het.',
         '1': 'Wil je het vak leren? Goed. Oakhaven heeft elke hamer nodig.'
       },
-      ore: {
-        '1': 'Ruw erts! Het arsenaal heeft nooit genoeg. Hier is je loon.'
-      },
+      ore: { '1': 'Ruw erts! De wapenkamer heeft nooit genoeg. Verkoop me wat je kunt missen.' },
+      sellBack: { '1': 'Elk klompje gaat de muur in. Dank je.' },
       forgeBack: {
         '1': 'Goed staal. De muren danken je.'
       },
@@ -3065,9 +4681,8 @@ export default {
         '2': 'Drie slagen, elk in het hart van de gloed. Meer geheim is er niet.',
         '1': 'Sinds het beleg leer ik iedereen die het vraagt. Kom, ga hier staan.'
       },
-      ore: {
-        '1': 'Nog meer erts voor de muren? Zegen je. Hier, neem dit.'
-      },
+      ore: { '1': 'Meer erts voor de muren? Ik betaal elk klompje dat je kunt missen.' },
+      sellBack: { '1': 'Zegen je. Dat is meer plaat voor de muren.' },
       forgeBack: {
         '1': 'Elke slag maakt je beter. Kom terug wanneer je wilt.'
       },
@@ -3465,9 +5080,8 @@ export default {
         '2': 'De gloed zegt je wanneer. Je arm zegt je hoe hard. Drie slagen.',
         '1': 'Een bovengronder aan het aambeeld? Nou ja, iedereen begint ergens.'
       },
-      ore: {
-        '1': 'Goed, eerlijk metaal. Daar betaalt Ironhold altijd voor.'
-      },
+      ore: { '1': 'Goed, eerlijk metaal. Leg het neer, ik betaal per klompje.' },
+      sellBack: { '1': 'Eerlijke handel. Ironhold betaalt altijd voor goed metaal.' },
       forgeBack: {
         '1': 'Een dwerg had het beter gedaan. Maar niet veel beter.'
       },
@@ -3537,9 +5151,8 @@ export default {
         '2': 'Verhitten, slaan, draaien. Drie slagen, recht in de gloed. Dan laten afkoelen.',
         '1': 'Plaatpantser is geduldwerk. Ik laat je de basis zien.'
       },
-      ore: {
-        '1': 'Laat me wegen. Goed. De munten zijn van jou.'
-      },
+      ore: { '1': 'Laat me wegen. Kies wat je verkoopt, ik tel de munten.' },
+      sellBack: { '1': 'Gewogen en betaald. Goed.' },
       forgeBack: {
         '1': 'Laat het afkoelen voor je het aantrekt.'
       },
@@ -3579,9 +5192,8 @@ export default {
         '2': 'Discipline aan het aambeeld, net als op het veld. Drie slagen, trouw aan de gloed.',
         '1': 'De Orde bewapent haar vrienden. Ik zal het je leren.'
       },
-      ore: {
-        '1': 'De Orde koopt al het erts voor de oorlog. Je betaling.'
-      },
+      ore: { '1': 'De Orde koopt erts voor de oorlog. Verkoop wat je kunt missen.' },
+      sellBack: { '1': 'Je betaling is genoteerd. De Orde dankt je.' },
       forgeBack: {
         '1': 'Goed gesmeed. Dien er goed in.'
       },
@@ -3985,6 +5597,11 @@ export default {
       }
     },
     bark: {
+      banditChief: {
+        whistle: {
+          1: 'Op, jongens! Bijt ze!'
+        }
+      },
       lightDisciple: {
         freed: {
           '1': 'Het licht heeft je gestuurd. Ik ben Zuster Aurelle. Zoek me op in Sunford, dan leer ik je de weg van de Lichtbrenger.'
@@ -4140,9 +5757,8 @@ export default {
         '2': 'Sla als het het heetst gloeit. Drie goede slagen maken een goed stuk.',
         '1': 'Wil je zelf de hamer eens proberen? Ik deel de smidse graag.'
       },
-      ore: {
-        '1': 'Mooi erts. Silverbridge betaalt altijd een eerlijke prijs.'
-      },
+      ore: { '1': 'Mooi erts. Laat zien wat je verkoopt, ik betaal per klompje.' },
+      sellBack: { '1': 'Graag gedaan. Silverbridge betaalt altijd een eerlijke prijs.' },
       forgeBack: {
         '1': 'Moet je zien! Je bent een natuurtalent.'
       },
@@ -4584,7 +6200,7 @@ export default {
         say: 'Waar vind ik kruiden?'
       },
       elixirs: {
-        '1': 'Elk elixer maakt je een hele minuut sterker in een gevecht. Hardere klappen, taaiere huid, snellere voeten.',
+        '1': 'Elk elixer maakt je 5 hele minuten sterker in een gevecht. Hardere klappen, taaiere huid, snellere voeten.',
         '2': 'Ze zitten in je derde fles. Tik op het pijltje om te wisselen welke je drinkt.',
         say: 'Wat doen de elixers?'
       },
@@ -4653,6 +6269,36 @@ export default {
       },
       bye: {
         '1': 'Breng meer rommel! Rommel is mijn favoriet.'
+      }
+    },
+    sunfordCups: {
+      hello: {
+        1: 'Kom maar dichterbij! Drie bekers, één edelsteen, en je eerste ronde is gratis!',
+        2: 'Nell Nimblefingers. Niemand heeft mijn handen nog te slim af gekund. Wil je het proberen?'
+      },
+      again: {
+        1: 'Alweer terug? Hou je ogen open!'
+      },
+      play: {
+        1: 'Ogen op de steen, vriend. Niet knipperen!'
+      },
+      rules: {
+        1: 'Ik verberg de steen onder een beker en schud ze door elkaar. Jij wijst de beker aan die hem verbergt.',
+        2: 'Elke winst op rij betaalt meer. Drie winsten brengen een prijs, vijf een schat. De eerste ronde van de dag is gratis.',
+        say: 'Hoe werkt het?'
+      },
+      who: {
+        1: 'Ik kon schudden voordat ik kon lopen. Mama zegt dat dat veel verklaart.'
+      },
+      luck: {
+        1: 'Soms! Dan kreun ik heel hard en heeft het publiek medelijden met me.',
+        say: 'Verlies je weleens?'
+      },
+      playBack: {
+        1: 'Mooie ronde! Kom morgen terug, de eerste is altijd gratis.'
+      },
+      bye: {
+        1: 'Tot ziens! Hou je ogen open daarbuiten.'
       }
     },
     oakGambler: {
@@ -5146,6 +6792,7 @@ export default {
     banditArcher: 'Bandiet-boogschutter',
     wolf: 'Wolf',
     banditChief: 'Bandietenleider',
+    gnome: 'Gnoom',
     goblinKing: 'De Goblinkoning',
     treant: 'Boomreus',
     spider: 'Reuzenspin',
@@ -5363,6 +7010,18 @@ export default {
       firefoxColors: 'Firefox: Instellingen → Kleuren → zet «Kleuren van de pagina overschrijven» op Nooit.'
     }
   },
+  samsungFix: {
+    title: 'Snelle kleurcontrole',
+    body: 'Sommige telefoons veranderen de kleuren van webpagina\'s. Vergelijk de twee vierkanten hieronder.',
+    question: 'Zien beide vierkanten er hetzelfde uit?',
+    refSquare: 'Referentievierkant',
+    pageSquare: 'Paginavierkant',
+    yes: 'Ja, ze zijn gelijk',
+    no: 'Nee, ze zien er anders uit',
+    option: 'Kleuren corrigeren (Samsung-donkere modus)',
+    optionHint: 'Zet dit aan als menu\'s donker lijken of tekst moeilijk te lezen is.',
+    recheck: 'Kleurcontrole opnieuw uitvoeren'
+  },
   saveStatus: {
     restoredTitle: 'Cloudopslag hersteld',
     restoredBody: '+{n} bonusgoud voor het herstel',
@@ -5487,7 +7146,7 @@ export default {
   },
   forge: {
     upgrade: 'Verbeteren ({n} goud)',
-    max: 'Volledig verbeterd: +{n}.',
+    next: 'Volgende +{level}: +{pct}% stats',
     town: 'Elke smid in een stad kan dit verbeteren.'
   },
   ore: {
@@ -5502,6 +7161,12 @@ export default {
     },
     mithril: {
       name: 'Mithrilerts'
+    },
+    adamant: {
+      name: 'Adamanterts'
+    },
+    aetherite: {
+      name: 'Aetheriterts'
     }
   },
   plant: {
@@ -5583,32 +7248,32 @@ export default {
   elixir: {
     might: {
       name: 'Elixer van kracht',
-      desc: '+{n}% schade, een minuut lang'
+      desc: '+{n}% schade, 5 minuten lang'
     },
     iron: {
       name: 'IJzerhuiddrank',
-      desc: '+{n}% pantser, een minuut lang'
+      desc: '+{n}% pantser, 5 minuten lang'
     },
     swift: {
       name: 'Vlugheidstonicum',
-      desc: '+{n}% snelheid en aanvalssnelheid, een minuut lang'
+      desc: '+{n}% snelheid en aanvalssnelheid, 5 minuten lang'
     },
     mind: {
       name: 'Brouwsel van heldere geest',
-      desc: 'Vaardigheden laden een minuut lang {n}% sneller op'
+      desc: 'Vaardigheden laden 5 minuten lang {n}% sneller op'
     },
     vigor: {
       name: 'Levenskrachtelixer',
-      desc: 'Herstelt een minuut lang elke seconde {n}% van je leven'
+      desc: 'Herstelt 5 minuten lang elke seconde {n}% van je leven'
     },
     shadow: {
       name: 'Dorstige drank',
-      desc: 'Je treffers genezen je een minuut lang voor {n}% van hun schade'
+      desc: 'Je treffers genezen je 5 minuten lang voor {n}% van hun schade'
     }
   },
   alchemy: {
     talk: 'Kruiden erin, elixers eruit. Welke gaan we brouwen?',
-    lead: 'Elk elixer werkt een minuut lang in een gevecht. Drink het uit je derde fles. Je kunt er {n} van elk dragen.',
+    lead: 'Elk elixer werkt 5 minuten lang in een gevecht. Drink het uit je derde fles. Je kunt er {n} van elk dragen.',
     brew: 'Brouwen · {n}',
     carry: 'Meenemen',
     carried: 'In je fles',
@@ -5632,6 +7297,25 @@ export default {
     again: 'Nog een keer',
     noGold: 'Niet genoeg goud voor die inzet.',
     card: 'Kaart {n}'
+  },
+  cups: {
+    title: 'Bekerkraam',
+    lead: 'Kijk naar de steen, volg zijn beker en wijs hem dan aan. Elke winst op rij betaalt meer. De derde brengt een prijsstuk, de vijfde een schat.',
+    free: 'Gratis ronde',
+    fee: 'Spelen · {n}',
+    row: 'Winsten op rij: {n} van {max}',
+    next: 'Volgende winst: {n} goud',
+    watch: 'Kijk naar de steen!',
+    follow: 'Volg hem…',
+    pick: 'Kies een beker!',
+    hint: 'Tik op een beker of druk op zijn nummer.',
+    won: 'Gevonden! +{n} goud',
+    lost: 'Die was het niet. De reeks begint opnieuw.',
+    near: 'Net mis! Hij zat er direct naast.',
+    timeout: 'Te langzaam! De reeks begint opnieuw.',
+    again: 'Nog een keer',
+    noGold: 'Niet genoeg goud. Morgen is je eerste ronde gratis.',
+    cup: 'Beker {n}'
   },
   battle: {
     title: 'Voorwerpenduel',

@@ -3,6 +3,9 @@ import type { ClassId } from '../data/skills'
 import { CELL, SOLID_LOW, SOLID_TERRAIN, createGrid, findPath, type Grid } from './grid'
 import { mulberry32, type Rng } from './rng'
 import { K_BLOCK, K_WATER } from './zoneFeatures'
+import { TOWN_W, TOWN_H, TC_GRASS, TC_STREET, TC_SQUARE, TC_FLOOR, TC_DOOR, TC_WALL, TC_YARD, TC_PROP, TC_FENCE, TC_GROUND, TC_RIM, TC_WATER, TC_TOWNWALL, TC_PARAPET, type TownExit, EXIT_DEPTH, townExitClear, townExitAt } from './townCells'
+
+export { TOWN_W, TOWN_H, TC_GRASS, TC_STREET, TC_SQUARE, TC_FLOOR, TC_DOOR, TC_WALL, TC_YARD, TC_PROP, TC_FENCE, TC_GROUND, TC_RIM, TC_WATER, TC_TOWNWALL, TC_PARAPET, type TownExit, EXIT_DEPTH, townExitClear, townExitAt } from './townCells'
 
 /**
  * ─── A town's plan (roadmap #41, #42) ───────────────────────────────────────
@@ -35,39 +38,7 @@ import { K_BLOCK, K_WATER } from './zoneFeatures'
  * town is the same streets, ruined); only who is in them changes.
  */
 
-// ─── Cells ───────────────────────────────────────────────────────────────────
-
-export const TOWN_W = 38
-export const TOWN_H = 36
-
-/** What a town cell is (`TownPlan.cell`). */
-export const TC_GRASS = 0
-/** A cobbled street: walkable, nothing stands in its middle lane. */
-export const TC_STREET = 1
-/** The paved square. */
-export const TC_SQUARE = 2
-/** A room's floor. */
-export const TC_FLOOR = 3
-/** A doorway: walked through, never stood in. */
-export const TC_DOOR = 4
-/** A house's wall (solid). */
-export const TC_WALL = 5
-/** A garden or backyard: kept out of (low: fences, beds, woodpiles). */
-export const TC_YARD = 6
-/** A prop in the way: a well, a stall, an anvil (low). */
-export const TC_PROP = 7
-/** A fence (low). */
-export const TC_FENCE = 8
-/** A training ground: beaten earth, walkable. */
-export const TC_GROUND = 9
-/** Out of town (the trees). */
-export const TC_RIM = 10
-/** The river under a bridge town (#103). */
-export const TC_WATER = 11
-/** A town's wall (a walled town, #103): stone, nobody passes. */
-export const TC_TOWNWALL = 12
-/** A bridge's parapet (#103): a low stone wall at the deck's edge. */
-export const TC_PARAPET = 13
+// ─── Cells (`townCells.ts`) and the geometry ─────────────────────────────────
 
 /**
  * The plan of a town, by its width: the big town (roadmap #86) is the same
@@ -89,6 +60,9 @@ export interface TownGeo {
   /** Where houses may stand in each row (inclusive column spans). */
   SEGMENTS: ReadonlyArray<ReadonlyArray<readonly [number, number]>>
   START_J: number
+  /** The ways out to the map (#131): each a corridor of open ground that runs
+   *  out to the edge of the grid, the road itself, nothing standing in it. */
+  EXITS: readonly TownExit[]
   /** The well's (the fountain's) row: the middle of the square. */
   WELL_J: number
   /** A bridge town (#103): the quay before the south row (its lane, end to
@@ -96,6 +70,22 @@ export interface TownGeo {
    *  end, and the parapet's row. Three cells wide: the folk who stand on it
    *  stand beside the lane, never across the only way along the water. */
   QUAY?: { j: number; bank: number; parapet: number }
+}
+
+/** The ways out of a town by its site: the south road runs on out of the green
+ *  (a walled market's too, with its east gate), a bridge's quay out at both banks. */
+const exitsOf = (W: number, H: number, ROAD: TownGeo['ROAD'], eastJ: number, site: TownDef['site']): TownExit[] => {
+  if (site === 'bridge') {
+    const bank = 8
+    return [
+      { i0: 0, j0: 27, i1: bank - 1, j1: 28, dx: -1, dz: 0 },
+      { i0: W - bank, j0: 27, i1: W - 1, j1: 28, dx: 1, dz: 0 }
+    ]
+  }
+  const out: TownExit[] = [{ i0: ROAD.i0, j0: ROAD.j1 + 1, i1: ROAD.i1, j1: H - 1, dx: 0, dz: 1 }]
+  // The walled market's east gate, on the middle street.
+  if (site === 'walled') out.push({ i0: W - 6, j0: eastJ - 1, i1: W - 1, j1: eastJ + 1, dx: 1, dz: 0 })
+  return out
 }
 
 const geoCache = new Map<string, TownGeo>()
@@ -121,6 +111,7 @@ export const townGeo = (width: number = TOWN_W, site?: TownDef['site']): TownGeo
       [[3, ROAD.i0 - 2], [ROAD.i1 + 2, W - 4]]
     ],
     START_J: 28,
+    EXITS: exitsOf(W, H, ROAD, 19, site),
     WELL_J: 14,
     ...(site === 'bridge' ? { QUAY: { j: 27, bank: 8, parapet: 29 } } : {})
   }
@@ -137,8 +128,10 @@ export const townLane = (i: number, j: number, width: number = TOWN_W, site?: To
   const g = townGeo(width, site)
   return ((j === g.FRONT[0] + 2 || j === g.FRONT[1] + 2) && i >= 4 && i <= g.W - 5 && (i < g.SQ.i0 || i > g.SQ.i1)) ||
     (i >= g.ROAD.i0 && i <= g.ROAD.i1 && j > g.SQ.j1 && j <= g.ROAD.j1) ||
-    (!!g.QUAY && j === g.QUAY.j && i >= g.QUAY.bank && i <= g.W - 1 - g.QUAY.bank)
+    (!!g.QUAY && j === g.QUAY.j && i >= g.QUAY.bank && i <= g.W - 1 - g.QUAY.bank) ||
+    g.EXITS.some(e => i >= e.i0 && i <= e.i1 && j >= e.j0 && j <= e.j1)
 }
+
 let site: TownDef['site']
 const isLane = (i: number, j: number): boolean => townLane(i, j, G.W, site)
 
@@ -264,6 +257,8 @@ export interface TownPlan {
   square: { i0: number; j0: number; i1: number; j1: number }
   /** Where the guards walk their round. */
   patrol: Array<[number, number]>
+  /** The ways out to the map (#131). */
+  exits: readonly TownExit[]
 }
 
 /** What `generateTown` needs from the layout. */
@@ -611,15 +606,36 @@ export const layTown = (def: TownDef, flags: ReadonlySet<string>, seed: number):
         const k = K(i, j)
         solid[k] = 0
         if (cell[k] === TC_RIM || cell[k] === TC_GRASS) cell[k] = TC_STREET
-        trail[k] = 1
+        // The paving stops short of the grid's edge: the last cells are grass.
+        trail[k] = i < W - 4 ? 1 : 0
       }
     }
     start = { x: (W - 5 + 0.5) * CELL, z: (eastJ + 0.5) * CELL }
   }
 
+  // ── The ways out (#131): the road runs on to the edge of the grid, bare ground
+  // all the way, grassy and unpaved (the trees are kept off it: `townExitClear`). Walls, houses and
+  // water stay what they are.
+  for (const e of G.EXITS) {
+    for (let j = e.j0; j <= e.j1; j++) {
+      for (let i = e.i0; i <= e.i1; i++) {
+        if (!inGrid(i, j)) continue
+        const k = K(i, j)
+        const c = cell[k]!
+        if (c !== TC_RIM && c !== TC_GRASS && c !== TC_YARD && c !== TC_TOWNWALL) continue
+        solid[k] = 0
+        // Grass, not paving: the way out is the town's own grassy ground, so no stone
+        // patch ends in a hard edge against the forest.
+        cell[k] = TC_GRASS
+        trail[k] = 0
+        room[k] = -1
+      }
+    }
+  }
+
   const plan: TownPlan = {
     id: def.id, style: def.style, ruined, w: W, cell, room, houses, props: [], spots: [], people: [],
-    square: { i0: G.SQ.i0, j0: G.SQ.j0, i1: G.SQ.i1, j1: G.SQ.j1 }, patrol: []
+    square: { i0: G.SQ.i0, j0: G.SQ.j0, i1: G.SQ.i1, j1: G.SQ.j1 }, patrol: [], exits: G.EXITS
   }
   const pr = mulberry32(seed ^ 0x7a11)
   const layout: TownLayout = {
@@ -821,7 +837,8 @@ const dress = (def: TownDef, flags: ReadonlySet<string>, L: TownLayout, rng: Rng
       z = C(wj)
       facing = west ? -Math.PI / 2 : Math.PI / 2
       room = hi
-      station = addSpot({ kind: 'work', x, z, facing, ax: C(wi), az: C(wj), room: hi, owner: n.id, prop: -1 })
+      // (Walked to at the place itself: the cell's middle can lie under the counter.)
+      station = addSpot({ kind: 'work', x, z, facing, ax: x, az: z, room: hi, owner: n.id, prop: -1 })
     } else if (h && (place === 'porch' || place === 'inside')) {
       const fj = h.j0 + h.cd - 1
       // A smith works side-on at the anvil beside him: right up to it.
@@ -914,7 +931,7 @@ const dress = (def: TownDef, flags: ReadonlySet<string>, L: TownLayout, rng: Rng
     const west = h.doorI >= h.i0 + h.cw / 2
     const bi = west ? a : b
     const s = west ? 1 : -1
-    inns.set(hi, { keeper: addSpot({ kind: 'work', x: C(bi) - s * 0.55, z: C(r1), facing: s * Math.PI / 2, ax: C(bi), az: C(r1), room: hi, owner: '', prop: -1 }), bard: -1, seats: [] })
+    inns.set(hi, { keeper: addSpot({ kind: 'work', x: C(bi) - s * 0.55, z: C(r1), facing: s * Math.PI / 2, ax: C(bi) - s * 0.55, az: C(r1), room: hi, owner: '', prop: -1 }), bard: -1, seats: [] })
     const inn = inns.get(hi)!
     // The bard by the hearth, at the back on the far side.
     const hi2 = west ? b : a
@@ -1007,7 +1024,7 @@ const dress = (def: TownDef, flags: ReadonlySet<string>, L: TownLayout, rng: Rng
   // cells were already kept clear of feet).
   for (let j = 0; j < H; j++) {
     for (let i = 0; i < W; i++) {
-      if (cell[K(i, j)] !== TC_YARD) continue
+      if (cell[K(i, j)] !== TC_YARD || townExitClear(T.exits, i, j)) continue
       const r = rng()
       if (r < 0.12) props.push({ kind: 'woodpile', x: C(i), z: C(j), rot: rng() < 0.5 ? 0 : Math.PI / 2, w: 0, v: Math.floor(rng() * 1000), cells: [] })
       else if (r < 0.3) props.push({ kind: 'garden', x: C(i), z: C(j), rot: 0, w: CELL, v: Math.floor(rng() * 1000), cells: [] })

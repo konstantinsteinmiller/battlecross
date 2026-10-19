@@ -247,13 +247,16 @@ const humanoid = (v: RigView, u: Unit, time: number, dt: number, speed: number):
   // ── 3. Crossfade when the clip changes ──
   const blendKey = clip ?? v.loop ?? null
   if (blendKey !== v.blendKey) {
+    const outOf = (v.blendKey as { blendOut?: number } | null)?.blendOut
     v.blendKey = blendKey
     v.from.set(v.pose)
     // Whole turns are not unwound (a whirl, a sling's wind-up).
     v.from[spin] = v.from[spin]! - Math.round(v.from[spin]! / TAU) * TAU
     v.from[wRx] = v.from[wRx]! - Math.round(v.from[wRx]! / TAU) * TAU
+    // ...nor is the dodge roll's somersault: it ends a full turn on and must not unwind.
+    v.from[pitch] = v.from[pitch]! - Math.round(v.from[pitch]! / TAU) * TAU
     v.blendT = 0
-    v.blendDur = clip && a ? Math.min(0.07, a.hitAt * 0.4) : v.loop ? 0.32 : 0.18
+    v.blendDur = clip && a ? Math.max(clip.blendIn ?? 0, Math.min(0.07, a.hitAt * 0.4)) : v.loop ? 0.32 : outOf ?? 0.18
   }
   if (v.blendT < v.blendDur) {
     v.blendT += dt

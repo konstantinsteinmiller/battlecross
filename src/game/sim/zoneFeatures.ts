@@ -848,6 +848,8 @@ export const addFeatures = (c: FeatureCtx): Features => {
   // The first visit of a new save: one easy chest right by the road, and
   // nothing else to take the eye off learning to fight.
   if (c.tutorial) {
+    // A three-plate puzzle off the first fight's clearing (#136), a screen or two north of the start so the opening stays calm: the stone shows the order, a gold chest waits behind the door.
+    for (let t = 0; t < 40 && !puzzle(3, 1, 1); t++) { /* another spot */ }
     const s = cs[0]!
     const lean = cs[1]!.i >= s.i ? -1 : 1
     for (const [di, dj] of [[lean * 2, -2], [-lean * 2, -2], [lean * 3, -1], [-lean * 3, -1], [lean * 2, 1], [-lean * 2, 1]] as const) {
@@ -1198,11 +1200,11 @@ export const addFeatures = (c: FeatureCtx): Features => {
     return true
   })
 
-  const puzzle = (): boolean => attempt(() => {
-    const count = f.plates
+  // `count`/`kHi`/`kLo` are given by the tutorial (3 plates, the first fight's clearing only).
+  function puzzle(count: number = f.plates, kHi: number = midHi, kLo = 0): boolean { return attempt(() => {
     if (!count || out.puzzle) return false
     const rr = 1.9
-    const s = site(0, midHi, rr, 2.4)
+    const s = site(kLo, kHi, rr, 2.4)
     if (!s) return false
     const from = cs[s.k]!
     const id = out.doors.length
@@ -1270,6 +1272,13 @@ export const addFeatures = (c: FeatureCtx): Features => {
     solid[hint] = 0
     kind[hint] = K_BLOCK
     claimed[hint] = 1
+    // Off the first screens: well north of the clearing the hero starts in.
+    if (kLo > 0) {
+      const s0 = cs[0]!
+      for (const kk of [...spots, hint, s.j * w + s.i]) {
+        if (s0.j - Math.floor(kk / w) < 7.6 || Math.hypot((kk % w) - s0.i, Math.floor(kk / w) - s0.j) < 9.4) return false
+      }
+    }
     // The order: never simply the row as it lies.
     const order = Array.from({ length: count }, (_, m) => first + m)
     for (let tries = 0; tries < 4; tries++) {
@@ -1284,7 +1293,7 @@ export const addFeatures = (c: FeatureCtx): Features => {
     out.puzzle = { order, hint: { x: cx(hint % w), z: cx(Math.floor(hint / w)) }, door: id }
     out.lobes.push({ x: cx(s.i), z: cx(s.j), r: rr * CELL, k: s.k, lift: 0.15 })
     return true
-  })
+  }) }
 
   /** A chest in an alcove off a clearing; failing that, by its far wall. */
   const nook = (): boolean => {

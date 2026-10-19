@@ -24,6 +24,7 @@ const barks = (boss: string, name: string, beats: Array<[string, Emotion]>): Con
 })
 
 export const BOSS_BARKS: readonly ConversationDef[] = [
+  barks('banditChief', 'enemy.banditChief', [['whistle', 'shout']]),
   barks('goblinKing', 'enemy.goblinKing', [['charge', 'shout'], ['horn', 'shout'], ['dismount', 'angry'], ['return', 'excited']]),
   barks('dragon', 'enemy.voidDragon', [['takeoff', 'proud'], ['flight2', 'angry']]),
   barks('archDemon', 'enemy.archDemon', [['gate', 'cold'], ['dive', 'cold']]),

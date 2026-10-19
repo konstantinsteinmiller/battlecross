@@ -1,9 +1,11 @@
 // @vitest-environment jsdom
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { drainAndResetModules, drainPersist, holdGameState } from '../stubs/drainPersist'
-import { DUG_FLAG, MAP_PIECES, TREASURE_ZONE, piecesIn } from '@/game/data/treasure'
+import { DUG_FLAG, MAP_PIECES, PIECES_NEEDED, TREASURE_ZONE, piecesIn } from '@/game/data/treasure'
 import { ZONES } from '@/game/data/zones'
 import { ITEM_BY_ID } from '@/game/data/items'
+import { walkableFrom } from '@/game/sim/herbs'
+import { cellOf } from '@/game/sim/grid'
 import { generateZone } from '@/game/sim/zoneGen'
 import { Sim } from '@/game/sim/world'
 import { applyPlan, populateZone } from '@/game/sim/director'
@@ -14,11 +16,10 @@ import { referenceBuild } from '@/game/sim/bot'
 /** The treasure map (roadmap #89, D112). */
 
 describe('the pieces', () => {
-  it('six, in the low places: Plains 1, Hollows 1, Woods 2, Outskirts 2', () => {
-    expect(MAP_PIECES).toHaveLength(6)
+  it('eight: Plains 1, Hollows 1, Woods 2, Outskirts 3, Temple 1 (two spares)', () => {
+    expect(MAP_PIECES).toHaveLength(8)
     const by = (z: string) => MAP_PIECES.filter(p => p.zone === z).length
-    expect([by('plains'), by('hollows'), by('woods'), by('outskirts')]).toEqual([1, 1, 2, 2])
-    for (const p of MAP_PIECES) expect(ZONES[p.zone].max).toBeLessThanOrEqual(10)
+    expect([by('plains'), by('hollows'), by('woods'), by('outskirts'), by('temple')]).toEqual([1, 1, 2, 3, 1])
     expect(piecesIn('woods', ['woods1'])).toEqual(['woods2'])
   })
 
@@ -85,6 +86,11 @@ describe('the errand', () => {
     expect(p.errandStateOf('treasureMap')).toBe('active')
     expect(p.treasureFor('woods').pieces).toEqual(['woods2'])
     expect(p.treasureFor('crags').treasure).toBe(false)
+    // Any six make it whole; a seventh and eighth are kept but never count past six.
+    p.addPieces(['plains1', 'hollows1', 'woods2', 'temple1'])
+    expect(p.treasureFor('crags').treasure).toBe(false)
+    p.addPieces(['outskirts3'])
+    expect(p.treasureFor('crags').treasure).toBe(true)
     p.addPieces(MAP_PIECES.map(x => x.id))
     expect(p.treasureFor('crags').treasure).toBe(true)
     expect(p.errandStateOf('treasureMap')).toBe('active')
@@ -92,5 +98,23 @@ describe('the errand', () => {
     expect(p.hasFlag(DUG_FLAG)).toBe(true)
     expect(p.errandStateOf('treasureMap')).toBe('done')
     expect(p.treasureFor('crags').treasure).toBe(false)
+  })
+})
+
+describe('every piece can be found', () => {
+  it('eight pieces, any six make the map whole; each zone lays all its pieces on walkable ground across many seeds', () => {
+    expect(MAP_PIECES).toHaveLength(8)
+    expect(new Set(MAP_PIECES.map(p => p.id)).size).toBe(8)
+    expect(PIECES_NEEDED).toBe(6)
+    for (const zone of ['plains', 'hollows', 'woods', 'outskirts', 'temple'] as const) {
+      const ids = piecesIn(zone, [])
+      expect(ids.length).toBeGreaterThan(0)
+      for (let seed = 1; seed <= 60; seed++) {
+        const plan = generateZone(ZONES[zone], seed, { pieces: ids })
+        expect(plan.pieces!.map(p => p.id), `${zone} seed ${seed}`).toEqual(ids)
+        const reach = walkableFrom(plan.w, plan.h, plan.solid, plan.sealed, plan.start)
+        for (const p of plan.pieces!) expect(reach[cellOf(p.z) * plan.w + cellOf(p.x)], `${zone} seed ${seed} ${p.id}`).toBe(1)
+      }
+    }
   })
 })

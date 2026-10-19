@@ -3,7 +3,7 @@ import type { Slice } from '../engine/slicer'
 import { sceneQuality } from '../engine/quality'
 import { CELL, setBlocks, type Block } from '../sim/grid'
 import { TC_DOOR, townRoomAt, type TownPlan } from '../sim/town'
-import { townLife, townPose, type TownPoseView } from '../sim/townLife'
+import { clearOfFurniture, townLife, townPose, type TownPoseView } from '../sim/townLife'
 import type { ZonePlan } from '../sim/zoneGen'
 import type { Sim } from '../sim/world'
 import type { Unit } from '../sim/types'
@@ -126,6 +126,7 @@ export class TownView {
     }
     // The furniture stops the hero (roadmap #84): the room layout keeps its ways open.
     setBlocks(sim.grid, blocks)
+    clearOfFurniture(sim)
     // ── Props, fences, the yards' dummies ──
     for (const p of t.props) {
       if (p.kind === 'dummy' || p.kind === 'stone') v.addDummy(p.x, p.z, p.rot, p.kind === 'stone', t.ruined)

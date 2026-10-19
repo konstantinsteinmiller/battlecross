@@ -3,7 +3,10 @@ import {
   type Scene
 } from 'three'
 import type { Action, Telegraph, Unit } from '../sim/types'
+import { CHARGED_TELE } from '../data/enemies'
 import { GROUND_GLSL, withGround } from './ground'
+
+const vec3 = (c: readonly number[]): string => `vec3(${c.map(n => n.toFixed(2)).join(', ')})`
 
 /**
  * ─── Ground attack previews ──────────────────────────────────────────────────
@@ -36,7 +39,7 @@ const VERT = /* glsl */`
 ${GROUND_GLSL}
 attribute vec4 iA;   // x, z, heading, lift
 attribute vec4 iB;   // shape (0 circle, 1 cone, 2 line), radius / length, half-angle / half-width, seed
-attribute vec4 iC;   // progress 0..1, flash 0..1, alpha, flags (1 hero's side, 2 boss)
+attribute vec4 iC;   // progress 0..1, flash 0..1, alpha, flags (1 hero's side, 2 boss, 4 charged)
 varying vec2 vP;
 varying vec4 vB;
 varying vec4 vC;
@@ -65,7 +68,7 @@ void main() {
 }
 `
 
-const FRAG = /* glsl */`
+export const FRAG = /* glsl */`
 uniform float uTime;
 varying vec2 vP;
 varying vec4 vB;
@@ -98,10 +101,17 @@ void main() {
   // of 2.0 ± an epsilon flips between the two sides' colours line by line).
   float flags = floor(vC.w + 0.5);
   bool ally = fract(flags * 0.5) > 0.25;
+  // A boss's charged blow (#147): dark red at the caster, violet at the far edge.
+  bool charged = flags > 3.5;
   bool boss = flags > 1.5;
   vec3 fillCol = ally ? vec3(0.16, 0.56, 1.0) : vec3(1.0, 0.1, 0.18);
   vec3 rimCol = ally ? vec3(1.0, 0.88, 0.5) : vec3(1.0, 0.72, 0.62);
   vec3 dark = ally ? vec3(0.02, 0.07, 0.24) : vec3(0.26, 0.0, 0.05);
+  if (charged) {
+    fillCol = mix(${vec3(CHARGED_TELE.near)}, ${vec3(CHARGED_TELE.far)}, clamp(along, 0.0, 1.0));
+    rimCol = ${vec3(CHARGED_TELE.rim)};
+    dark = ${vec3(CHARGED_TELE.dark)};
+  }
 
   float prog = vC.x;
   // The last fifth of the wait pulses.
@@ -270,7 +280,7 @@ export class Telegraphs {
     e.a = t.a
     e.r = t.r
     e.w = t.w
-    e.flags = (t.team === 0 ? 1 : 0) + (caster && caster.rank === 'boss' ? 2 : 0)
+    e.flags = (t.team === 0 ? 1 : 0) + (t.charged ? 6 : caster && caster.rank === 'boss' ? 2 : 0)
     e.t0 = now
     e.t = 0
     e.dur = Math.max(0.05, t.dur)

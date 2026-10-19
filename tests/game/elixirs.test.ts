@@ -43,7 +43,7 @@ describe('the elixirs', () => {
       expect(n, e.id).toBe(3)
       for (const p of Object.keys(e.recipe)) { expect(PLANT_BY_ID[p as 'sunpetal'], `${e.id} ${p}`).toBeDefined(); used.add(p) }
       expect(e.v, e.id).toBeGreaterThan(0)
-      expect(e.v, e.id).toBeLessThanOrEqual(0.25)
+      expect(e.v, e.id).toBeLessThanOrEqual(0.75)
       // Shown everywhere a status is: an icon, a colour, a name.
       expect(GLYPHS[`status.${e.status}`], e.status).toBeTruthy()
       expect(statusTint(e.status)).toBe(e.colour)
@@ -53,13 +53,14 @@ describe('the elixirs', () => {
     expect([...used].sort()).toEqual([...PLANT_IDS].sort())
   })
 
-  it('the third flask pours the one picked: a minute of its status, one fewer, a cooldown', () => {
+  it('the third flask pours the one picked: five minutes of its status, one fewer, a cooldown', () => {
     const sim = field({ might: 2, iron: 1 }, 'might')
     const h = sim.hero
     expect(h.elixirPick).toBe('might')
     expect(useElixir(sim)).toBe(true)
     expect(h.elixirs.might).toBe(1)
     const st = h.unit.statuses.find(s => s.id === 'elixirMight')!
+    expect(ELIXIR_TIME).toBe(300)
     expect(st.dur).toBe(ELIXIR_TIME)
     expect(st.v).toBe(ELIXIR_BY_ID.might.v)
     expect(useElixir(sim)).toBe(false)
@@ -83,19 +84,19 @@ describe('the elixirs', () => {
     const ms = moveSpeedOf(u)
     const as = attackSpeedOf(u)
     const cdr = cdrOf(u)
-    applyStatus(sim, u, 'elixirSwift', 60, 0.15, u)
-    expect(moveSpeedOf(u)).toBeCloseTo(ms * 1.15, 5)
-    expect(attackSpeedOf(u)).toBeCloseTo(as * 1.15, 5)
-    applyStatus(sim, u, 'elixirMind', 60, 0.2, u)
-    expect(cdrOf(u)).toBeCloseTo(Math.min(0.6, cdr + 0.2), 5)
+    applyStatus(sim, u, 'elixirSwift', 60, 0.75, u)
+    expect(moveSpeedOf(u)).toBeCloseTo(ms * 1.75, 5)
+    expect(attackSpeedOf(u)).toBeCloseTo(as * 1.75, 5)
+    applyStatus(sim, u, 'elixirMind', 60, 0.75, u)
+    expect(cdrOf(u)).toBeCloseTo(Math.min(0.6, cdr + 0.75), 5)
     // Might: more damage, and with a skill's damageUp they add.
     const e = spawnEnemy(sim, 'goblin', u.x + 2, u.z)!
-    const hit = (): number => { e.hp = e.s.maxHp; return dealDamage(sim, u, e, 100, { type: 'true', canCrit: false }) }
+    const hit = (): number => { e.hp = e.s.maxHp; return dealDamage(sim, u, e, 40, { type: 'true', canCrit: false }) }
     const base = hit()
-    applyStatus(sim, u, 'elixirMight', 60, 0.15, u)
-    expect(hit()).toBeCloseTo(base * 1.15, 0)
+    applyStatus(sim, u, 'elixirMight', 60, 0.75, u)
+    expect(hit()).toBeCloseTo(base * 1.75, 0)
     applyStatus(sim, u, 'damageUp', 10, 0.3, u)
-    expect(hit()).toBeCloseTo(base * 1.45, 0)
+    expect(hit()).toBeCloseTo(base * 2.05, 0)
     // Vigor: health back every second.
     u.hp = 1
     applyStatus(sim, u, 'elixirVigor', 60, 0.012, u)
@@ -164,5 +165,25 @@ describe('the alchemist', () => {
     const conv = conversationOf('sbAlchemist')!
     const brew = Object.values(conv.nodes).flatMap(n => n.choices).find(c => c.effects.some(f => f.t === 'open' && f.window === 'alchemy'))
     expect(brew).toBeTruthy()
+  })
+})
+
+describe('elixir strength (roadmap #134)', () => {
+  it('the percentage elixirs give 75 % (the mind brew the 60 % the cooldown cap allows), for five minutes', () => {
+    expect(ELIXIR_TIME).toBe(5 * 60)
+    for (const id of ['might', 'iron', 'swift', 'shadow'] as const) expect(ELIXIR_BY_ID[id].v, id).toBe(0.75)
+    expect(ELIXIR_BY_ID.mind.v).toBe(0.6)
+    // Nothing is worth less than the minute-long 15 %.
+    for (const e of ELIXIRS) if (e.id !== 'vigor') expect(e.v, e.id).toBeGreaterThanOrEqual(0.6)
+  })
+
+  it('stacked swiftness never carries the hero past two and a half times his base pace', () => {
+    const sim = field()
+    const u = sim.hero.unit
+    const ms = moveSpeedOf(u)
+    applyStatus(sim, u, 'elixirSwift', 300, 0.75, u)
+    applyStatus(sim, u, 'focus', 10, 1, u)
+    expect(moveSpeedOf(u)).toBeLessThanOrEqual(u.s.moveSpeed * 2.5 + 1e-9)
+    expect(moveSpeedOf(u)).toBeGreaterThan(ms)
   })
 })

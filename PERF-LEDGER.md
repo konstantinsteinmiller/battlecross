@@ -597,3 +597,241 @@ thresholds step down soon enough there (or too eagerly on a 120 Hz screen,
 whose frames are shorter, so it never trims there by mistake). The owner
 reads that from the Poki playtests rather than a hand-held phone test
 (2026-10-06).
+
+## 2026-10-19: critical first, the rest on an idle queue (roadmap #142)
+
+### Method
+
+Obfuscated production builds (default mode), each served by its own gzip
+server; headless Chrome, fresh context. Two saves: FRESH (the plains) and
+RETURNING (level 9, saved in Oakhaven). Normal, and a phone (CDP 1.6 Mbit/s,
+150 ms, 4x CPU). "Playable" = `boot:adopted` and the splash gone. Before
+and after interleaved, three rounds (`scratchpad/measure.mjs`). Pop-ins: each
+HUD menu opened 12 s after playable, every visible `<img>` that is undecoded or
+finished after the open (`scratchpad/walk.mjs`).
+
+### What was found
+
+- The engine-chunk `modulepreload` plugin emitted NOTHING: in the obfuscated
+  build the boot and scene chunks have a null `facadeModuleId`. The 525 kB
+  (gzip) boot chunk started only after main.ts, the App mount and BOTH
+  locales: at 375 ms on localhost, ~5 s on the phone link.
+- A non-English player downloaded English too (67 kB gzip) before the
+  loader could start, as a fallback that the parity test makes redundant.
+- The options window's chunk loaded before the first frame (always mounted).
+- After the first frame, ~36 screen requests at 1.5 s, the town code at 2.5 s
+  and the image drip at 2 s, all on timers inside the first fight.
+- In a town the drip fetched the book's art after ~60 glyphs: bag items and
+  backdrops still arriving 12 s into a visit (old build too).
+
+### Kept
+
+| Change | Effect |
+| --- | --- |
+| Preload hints match the chunk's module list; `fetchpriority=low` | the engine downloads beside the entry; at high priority it starved the entry on the phone link |
+| English fallback on the idle queue (at boot only if the active locale failed) | -1 request, -67 kB gzip before playable (non-English) |
+| Options window mounted on first open; language watch moved to the scene | -2 requests before playable |
+| `utils/idleQueue.ts`: one ranked queue, 2 lanes, idle-gated, from the first paint | the screens, the town code and English load in the order of the next likely step; one lane was too slow over a 150 ms link (it slowed the image drip) |
+| Town drip: book art before the generic glyphs | backdrops and bag items on time at 12 s (were late in both builds) |
+
+Phone link + 4x CPU, three interleaved rounds (ms to playable / requests /
+kB before):
+
+| Save | Before | After |
+| --- | --- | --- |
+| fresh | 19 189, 16 176, 13 063 / 44 / 1 258 | 20 450, 13 106, 19 683 / 40 / 1 182 |
+| returning | 27 233, 25 000, 17 198 / 53 / 1 318 | 22 316, 12 845, 14 307 / 49 / 1 242 |
+| fresh, normal | 3 059, 2 800, 2 487 | 2 801, 2 763, 2 862 |
+| returning, normal | 3 220, 3 025, 4 311 | 6 758, 2 966, 3 768 |
+
+Read: fewer bytes and requests before the first frame every time; the times
+swing by +-7 s between rounds on this shared machine, so a time gain is not
+shown (returning on the phone looks better, fresh does not). The boot stays
+CPU-bound (the build).
+
+### Not reached
+
+- Panels opened in a town's first ~12 s: a few glyphs, the book portrait and
+  the skill tree's unlearned icons still land late (answered: D149, below).
+- Splitting the town simulation / dialogue out of the boot chunk (still the
+  biggest lever; edits in the sim and the flow).
+
+## 2026-10-19: panels wait for their art, town and talk code lazy (roadmap #142, D149)
+
+### Method
+
+As the entry above (`scratchpad/measure.mjs`, three interleaved rounds,
+obfuscated builds, gzip server). Before = the tree after D148; after = D149.
+Pop-ins: `walk2.mjs`, the returning save in Oakhaven on the phone link, each
+HUD menu opened 12 s after playable, an image is late when it lands after the
+panel is SHOWN (the hold is not counted as open).
+
+### Kept
+
+| Change | Effect |
+| --- | --- |
+| `sim/townCode.ts` + `talkCode.ts` lazy (town layout/life, dialogue engine, conversations); small talk layer a chunk | engine chunk -47 kB raw / -16 kB gzip; fresh boot -36 to -42 kB before playable |
+| `useArtGate`: a panel invisible until its images decode, 300 ms cap | the close/plus/shield/play/check glyphs, the bag's items and slots and the skill tree's icons no longer pop in at 12 s |
+| Early art as QUIET idle tasks (one at a time, idle connection), to the head at a first-timer's first boss | unit-tested; not separately timed |
+
+Phone link + 4x CPU (ms to playable / requests / kB before):
+
+| Save | Before | After |
+| --- | --- | --- |
+| fresh | 30 681, 22 761, 23 482 / 45 / 1 207 | 35 957, 22 223, 18 144 / 45 / 1 165-1 171 |
+| returning (town) | 36 838, 34 008, 19 397 / 54-65 / 1 257-1 316 | 42 709, 35 458, 24 201 / 66-71 / 1 285-1 314 |
+| fresh, normal | 5 545, 4 792, 3 352 / 43 / 1 197 | 5 051, 5 776, 3 421 / 43-50 / 1 155-1 197 |
+| returning, normal | 7 199, 5 971, 3 849 / 65 / 1 316 | 5 935, 5 204, 6 732 / 71 / 1 311 |
+
+Late images at 12 s (before -> after): character 9 -> 2 (bg-inventory, a
+portrait), bag ~12 -> 1 (slot-trinket, 92 ms), skills ~30 -> ~12 (bg-skills
+and the class emblems, past the cap), contracts and map 0 -> 0.
+
+### Not reached
+
+- Booting into a town waits for the two new chunks: +6 requests (same bytes);
+  the time is within this machine's +-7 s noise.
+- Big backdrops (bg-inventory, bg-skills) and the class emblems still land
+  after the 300 ms cap on the phone link; the quiet queue had not reached the
+  emblems 12 s into a town visit (the place's own drip keeps the connection busy).
+
+### Follow-up (same day): the town's chunks at boot, the book's art first
+
+- Booting into a town starts the town-sim and conversation chunks beside the
+  renderer's start-up (`boot.ts`), not when the build asks for them.
+- A town's image drip leads with bg-inventory, bg-skills, the class emblems and
+  the whole tree of the class the skill book opens on.
+
+Phone link, before (D148 tree) -> after, three interleaved rounds:
+
+| Save | Before | After |
+| --- | --- | --- |
+| fresh | 12 292, 15 240, 10 881 / 43 / 1 197 | 13 331, 13 733, 11 226 / 39 / 1 152 |
+| returning (town) | 17 242, 15 442, 11 645 / 65 / 1 316 | 18 190, 12 708, 13 138 / 54 / 1 249 |
+
+Pop-ins at 12 s: none in any panel (character, bag, skills, contracts, map).
+Opened the instant the town is playable: the bag shows three small glyphs up
+to 105 ms late; everything else on time. #142 ticked.
+
+
+## 2026-10-19: the still world baked into a few draws per tile (roadmap #151)
+
+`gfx/stillBake.ts` (new), wired at the end of a place's build in
+`modes/zoneMode.ts`, downstream of every placement (map generation, prop
+placement and collision untouched). Every mesh a builder marked still
+(`markStill`) and that is opaque is baked: each instance's matrix applied to
+its vertices in world space, everything that shades alike merged, cut into
+15 m tiles by where each triangle lies, culled by box as before. Kinds that
+stay apart (the most a tile can draw): cel-lit (scenery, props, houses: one
+material, `celStill`, a per-vertex flag `aStill` chooses see-through and
+haze, so a plain prop does not open round the hero), scenery hulls (the
+effects ladder drops them as one), prop / house hulls, glow, ground + land
+sheet (detail map, relief), water / lava (animated shader). Blended things
+(decals, mist, smoke) and everything that moves, opens, fades or is hidden by
+the game (rigs, chests, plates, doors, house fronts, rooms, pickups) are not
+touched. Shadows are blob shadows on the rigs: unchanged. DEV arms:
+`?bake=0`, `?bakeTile=<m>|all`.
+
+Method: frozen frames (`scripts/perf-still.mjs`, now takes `<port>&flag` for
+an arm on one server), `low` unless named, phone 390 × 780, current tree
+(with the invisible-walls worker's filler props and set-piece bases).
+Pixels: 0–3 px differ per frame in every spot (float32 world maths), i.e.
+identical.
+
+Tile size, plains `low`, 5 spots, calls / triangles (unbaked 64–85 / 83–141 k):
+
+| Tile | Calls | Triangles |
+| --- | --- | --- |
+| 15 m (kept) | 39–47 | 103–142 k |
+| 20 m | 32–52 | 125–241 k |
+| 30 m | 30–47 | 168–335 k |
+| whole zone (one per kind) | 28–35 | ~700 k every spot |
+
+One mesh per location is the fewest draws (the rest of the 28–35 are rigs,
+bars, effects) but draws the whole zone's ~700 k triangles every frame:
+rejected. 15 m keeps the triangles where they were.
+
+Per location, unbaked → baked (calls; triangles):
+
+| Place | Calls | Triangles |
+| --- | --- | --- |
+| plains low | 64–85 → 39–47 | 83–141 k → 102–141 k |
+| plains full | 64–96 → 40–48 | 102–169 k → 128–169 k |
+| woods (forest) low | 69–93 → 38–72 | 110–158 k → 121–186 k |
+| tundra low | 66–107 → 26–70 | 86–198 k → 90–205 k |
+| arena (colosseum) low | 35 → 30 | 92 k → 99 k |
+| Sunford low | 52–96 → 48–90 | 47–75 k → 54–82 k |
+| Sunford full | 68–116 → 57–107 | 68–114 k → 84–124 k |
+
+Zones: −35 to −60 % draws. Towns: −2 to −20 %: most of a town's draws are
+the house fronts, rooms and folk, which the game drives and the bake leaves
+alone. Triangles rise up to ~+40 % in some spots (a baked tile's box is the
+union of what lies in it; a big prop no longer culls on its own).
+
+Frame time, one frozen spot (the first pack), 60 renders + raster wait,
+4× CPU, SwiftShader, two interleaved rounds each (p50, ms, off → on):
+phone plains 58.9/52.7 → 54.6/56.8, tundra 59.4/59.3 → 69.1/69.8, Sunford
+41.2/47.0 → 46.1/50.9, arena 39.8/40.7 → 42.0/45.8; desktop 1100 × 650
+plains 74.8/92.5 → 87.8/78.3, tundra 80.9/83.8 → 85.5/67.1, Sunford
+67.9/47.3 → 59.6/50.3, arena 38.3/39.1 → 41.8/34.7. Read: inside the noise
+everywhere but phone tundra, where both rounds are ~10 ms worse (more
+triangles to rasterise in software). SwiftShader prices triangles, not draw
+calls; a phone's driver pays per draw on the CPU. Kept on the draw-call
+count, NOT proven on frame time: the real-device answer is a Poki playtest
+(`?bake=0` is DEV only), so compare the playtest's frame numbers before and
+after this build.
+
+Guards: `tests/game/stillBake.test.ts` (six zones: the baked world triangles
+are the builders' one for one, so `zfight.test.ts` on the builders' output
+still covers what is drawn; at most 6 kinds; nothing opaque and still left
+unbaked; at least 30 % fewer draws than builder meshes).
+
+Not done (why #151 is not ticked): one draw per location (measured above:
+costs more than it saves); the town's driven meshes (fronts, rooms) stay
+per house; triangle growth in tiles could be cut by bucketing per instance
+rather than per triangle.
+
+### Follow-up, same day: whole pieces per tile (supersedes the 15 m tables above)
+
+The first cut put each TRIANGLE in the tile of its centre and merged every
+kind per 15 m tile: a tile's box became the union of all its shapes, and
+from the game's camera ~40 % more triangles passed the cull. Now:
+
+- a whole piece goes to one tile by its centre (an instance by its origin, a
+  builder's mesh by the middle of what it draws): nothing is split;
+- a piece wider than a tile (a 30 m ground tile, the land sheet, a 20 m town
+  quarter) is not merged at all: its draw and box stay as they were (merged
+  even with its own size, Sunford's start drew +40 % triangles);
+- tiles of 7.5 m. Sweep (`stillBake.test.ts`'s camera, plains + tundra +
+  temple, all spots summed, still world only; unbaked 502 draws / 1.01 M
+  triangles): 5 m 347 / 835 k; **7.5 m 298 / 784 k**; 10 m 222 / 1.09 M;
+  15 m 240 / 1.42 M.
+
+Frozen frames, unbaked → baked, pixels 0–3 differ per frame:
+
+| Place | Calls | Triangles |
+| --- | --- | --- |
+| plains (tutorial) low | 64–85 → 50–63 | 83–141 k → 79–135 k |
+| plains full | 64–96 → 50–63 | 102–169 k → 97–159 k |
+| woods low | 69–93 → 47–82 | 110–158 k → 105–138 k |
+| tundra low | 66–107 → 37–81 | 86–198 k → 75–156 k |
+| arena (colosseum) low | 35 → 36 | 91.5 k → 92.8 k |
+| Sunford low | 52–96 → 50–96 | 47–75 k → 45–71 k (spot 6 +1.6 %) |
+| Sunford full | 68–116 → 61–116 | 68–114 k → 61–102 k (spot 6 +2 %) |
+
+Frame time, 4× CPU, first pack, two interleaved rounds (p50 ms, off → on):
+phone plains 45.2/41.0 → 39.3/37.8, **tundra 47.7/44.0 → 41.1/39.4**,
+Sunford 31.3/28.9 → 27.6/28.5, arena 30.2/33.7 → 31.4/30.3; desktop
+1100 × 650 plains 55.1/58.6 → 63.6/57.5, tundra 56.1/58.6 → 57.0/75.1,
+Sunford 41.1/44.2 → 52.0/48.8, arena 36.1/34.7 → 47.6/37.2. Read: phone
+ahead in every round but arena (even); desktop rounds spread 10–20 ms
+within one arm (machine load), no call either way.
+
+The arena has almost nothing mergeable (its stands and crowd are their own
+draws): +1 call, +1.4 % triangles, i.e. held.
+
+`stillBake.test.ts` now also asserts, from the game's camera at the start
+and every pack of six zones: summed triangles drawn ≤ unbaked, summed still
+draws ≤ 70 % of unbaked, no spot more than 15 % more triangles. #151 ticked:
+one draw per kind per 7.5 m tile is the measured minimum that does not draw
+more; one draw per location is not (see above).

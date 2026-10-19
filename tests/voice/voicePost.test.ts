@@ -7,7 +7,7 @@ import { join } from 'node:path'
 import { afterAll, describe, expect, it } from 'vitest'
 import { FX_SPEAKERS, chainFor, dynamicsFor, tailFor } from '../../tools/voice/fx.mjs'
 import { ffmpeg, measure, processTake } from '../../tools/voice/post.mjs'
-import { cer, judge, pickBest, wer } from '../../tools/voice/qa.mjs'
+import { budgetFor, cer, judge, pickBest, wer } from '../../tools/voice/qa.mjs'
 
 const dir = mkdtempSync(join(tmpdir(), 'voice-post-'))
 afterAll(() => rmSync(dir, { recursive: true, force: true }))
@@ -72,6 +72,15 @@ describe('automatic QA', () => {
     expect(wer("I'll let you get on.", 'I will let you get on')).toBeCloseTo(1 / 6)
     expect(wer('Back for proper steel?', 'back for proper steel')).toBe(0)
     expect(cer('Hilda Hammerhand.', 'HILDAHAMMERHAND')).toBe(0)
+  })
+
+  it('judges Chinese and Japanese by characters, with a wider limit, and budgets them by characters', () => {
+    const zh = { text: '原来你就是从那条路来的人。', heard: '原来你就是从那条路来的人', seconds: 3, lufs: -16, peak: -3, target: { lufs: -16 }, lang: 'zh' }
+    expect(judge(zh, 3)).toMatchObject({ ok: true })
+    expect(judge({ ...zh, heard: '原来你就是从那条路来的' }, 3).ok).toBe(true)
+    expect(judge({ ...zh, heard: '今天天气很好我们去公园' }, 3).ok).toBe(false)
+    // 20 characters need ~6.7 s at a natural pace, not the one "word" the text has.
+    expect(budgetFor('一二三四五六七八九十一二三四五六七八九十', 2, 'ja')).toBeGreaterThan(6)
   })
 
   it('fails a take on words, length, level or clipping, and says why', () => {

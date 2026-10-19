@@ -367,6 +367,8 @@ export interface Telegraph {
    *  loses the action it began with (a stun, a knockdown). View only. */
   src?: number
   wind?: number
+  /** A boss's / elite's charged attack (#147): drawn dark red to violet. */
+  charged?: boolean
   /** A shadow that tracks this unit until `lock` seconds in, then stays (a dive's warning). View only. */
   follow?: number
   lock?: number

@@ -810,6 +810,8 @@ export class LevelProps {
     lit.push(P(rock(0.7, 23, 9, 7), '#7c7a84', [x, 0.3, z - 0.72], [0, 0.4, 0], [wide / 1.6, 1.1, 0.7]))
     lit.push(P(rock(0.3, 5, 8, 6), '#8a8892', [x - wide / 2 - 0.05, 0.14, z + 0.2]))
     lit.push(P(rock(0.26, 9, 8, 6), '#6e6c78', [x + wide / 2 + 0.05, 0.12, z + 0.22]))
+    // A low stone at its foot, out to the edge of what stops a body (`ROUND_R`).
+    lit.push(P(rock(0.34, 17, 8, 6), '#7c7a84', [x, 0.05, z + 0.42], [0, 0.2, 0], [1.6, 0.3, 0.8]))
     const slab = P(rbox(wide, 1.3, 0.2, 0.22, 10, 8), '#a6a4b0', [0, 0.6, 0])
     xform(slab, [0, 0, 0], [tilt, 0, 0])
     lit.push(xform(slab, [x, 0.2, z + 0.12]))

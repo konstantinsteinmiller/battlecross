@@ -242,10 +242,40 @@ let dodgeShare = BOT_DODGE
 export const setBotDodge = (share: number): void => { dodgeShare = share }
 const rollsFor = (n: number): boolean => ((Math.imul(n, 2654435761) >>> 0) / 4294967296) < dodgeShare
 
+/** Walk out of a charged attack's wide, slow warning (#147): a roll does not clear it. True: it is on its way out. */
+const leaveCharged = (sim: Sim): boolean => {
+  const u = sim.hero.unit
+  for (const d of sim.dangers) {
+    if (!d.tele.charged || d.tele.team === u.team || d.at < sim.time || dodgeShare <= 0) continue
+    // Out of it already: stand clear until it lands (the next think would walk straight back in).
+    if (!inDanger(d, u.x, u.z, u.r + 0.5)) {
+      if (Math.hypot(u.x - d.x, u.z - d.z) < d.tele.r + 4) return true
+      continue
+    }
+    // The nearest ground clear of it, with a margin, over open floor, not through the caster's body.
+    for (let dist = 3; dist <= 20; dist += 1.5) {
+      let best: [number, number] | null = null
+      let bs = Infinity
+      for (let k = 0; k < 16; k++) {
+        const a = (k / 16) * Math.PI * 2
+        const x = u.x + Math.sin(a) * dist
+        const z = u.z + Math.cos(a) * dist
+        if (isSolidAt(sim.grid, x, z) || isSolidAt(sim.grid, (x + u.x) / 2, (z + u.z) / 2) || inDanger(d, x, z, u.r + 1) || Math.hypot(x - d.x, z - d.z) < 3) continue
+        // Of the ground at this distance, the side the hero is already on.
+        const s = Math.hypot(x - u.x, z - u.z) + Math.abs(Math.atan2(x - u.x, z - u.z) - Math.atan2(u.x - d.x, u.z - d.z))
+        if (s < bs) { bs = s; best = [x, z] }
+      }
+      if (best) { orderMove(sim, best[0], best[1]); return true }
+    }
+  }
+  return false
+}
+
 /** Roll out of a foe's warning about to land. True: it rolled. */
 const dodge = (sim: Sim): boolean => {
   const h = sim.hero
   const u = h.unit
+  if (leaveCharged(sim)) return true
   if (h.rollCd > 0 || u.action?.id === 'roll') return false
   for (const d of sim.dangers) {
     if (d.tele.team === u.team) continue

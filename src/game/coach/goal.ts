@@ -56,6 +56,8 @@ export interface ZoneGoalState {
   ended: '' | 'victory' | 'defeat'
   /** The opening dummy still stands, and the pack still sleeps. */
   dummy: boolean
+  /** The road teacher stands waiting after the first pack (#136): she is the goal until he walks on. */
+  mentor?: boolean
   /** A random encounter met on the map: no place to clear, just this fight. */
   encounter?: boolean
   /** The caravan's road (#85): the cart is the goal. */
@@ -113,6 +115,7 @@ export const nextGoal = (c: GoalCtx): Goal | null => {
     if (z.ended) return null
     if (z.kind === 'arena') return { id: 'wave', n: Math.max(0, z.wave - 1), of: z.waves }
     if (z.dummy) return { id: 'dummy' }
+    if (z.mentor) return { id: 'trainer' }
     if (z.escort) return { id: 'escort' }
     if (z.encounter) return { id: 'fight', n: z.done, of: z.total }
     // A branch's boss, met off the road: beating it is the goal while it fights.

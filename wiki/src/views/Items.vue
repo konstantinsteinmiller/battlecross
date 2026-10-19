@@ -2,6 +2,7 @@
 import { computed, ref } from 'vue'
 import { ALL_ITEMS, ITEM_BY_ID, TIER_COLOR, ZONE_IDS, ATTR_NAME, itemName, tierName, slotName, modLine, sourcesOf, itemPrice, zoneName, type ItemSlot } from '../data'
 import { query, setQuery } from '../router'
+import { DEX_SET, CHA_SET, FILL_SET, SMITH_LINES, LINE_NAME, RECIPE_OF_ITEM, ORE_IDS, metalName, forgeSummary, type SmithLine } from '../smithing'
 import ItemIcon from '../components/ItemIcon.vue'
 
 const SLOTS: ItemSlot[] = ['main', 'off', 'head', 'body', 'hands', 'feet', 'trinket']
@@ -10,9 +11,14 @@ const slot = ref<ItemSlot | ''>('')
 const tier = ref(0)
 const zone = ref('')
 const smith = ref(false)
+const set = ref<'' | 'dex' | 'cha' | 'fill'>('')
+const build = ref<SmithLine | ''>('')
+const metal = ref('')
+const SETS = { dex: new Set(DEX_SET.map(i => i.id)), cha: new Set(CHA_SET.map(i => i.id)), fill: new Set(FILL_SET.map(i => i.id)) }
 const sel = computed(() => ITEM_BY_ID[query.value.get('i') ?? ''])
 const list = computed(() => ALL_ITEMS.filter(i =>
-  (smith.value || i.drop.src !== 'smith') && (!slot.value || i.slot === slot.value) && (!tier.value || i.tier === tier.value) &&
+  (smith.value || build.value || metal.value || i.drop.src !== 'smith') && (!set.value || SETS[set.value].has(i.id)) &&
+  (!build.value || RECIPE_OF_ITEM[i.id]?.recipe.line === build.value) && (!metal.value || RECIPE_OF_ITEM[i.id]?.recipe.metal === metal.value) && (!slot.value || i.slot === slot.value) && (!tier.value || i.tier === tier.value) &&
   (!zone.value || i.drop.zone === zone.value && i.drop.src !== 'smith') &&
   (!q.value || (itemName(i) + ' ' + Object.keys(i.mods).join(' ')).toLowerCase().includes(q.value.toLowerCase())))
   .sort((a, b) => a.level - b.level || a.tier - b.tier))
@@ -22,7 +28,7 @@ const KIND_ICON: Record<string, string> = { drop: '⚔', shop: '🛒', shelf: '�
 <template>
   <div class="page wrap">
     <h1 class="gold-text">Loot Finder</h1>
-    <p class="muted lead">Every item in the game — where it drops, which chests hold it, and every merchant who sells it (with what unlocks them). The ✨ rare shelf is three random pieces one tier above a merchant's own stock, re-stocked daily: the way to an epic before its zone.</p>
+    <p class="muted lead">Every item in the game — where it drops, which chests hold it, and every merchant who sells it (with what unlocks them). {{ forgeSummary(zoneName) }} See the <a href="#/smithing">Smithing guide</a>. The ✨ rare shelf is three random pieces one tier above a merchant's own stock, re-stocked daily: the way to an epic before its zone.</p>
     <div class="layout">
       <div>
         <div class="panel tight filters">
@@ -35,6 +41,13 @@ const KIND_ICON: Record<string, string> = { drop: '⚔', shop: '🛒', shelf: '�
             <button v-for="n in 6" :key="n" class="chip" :class="{ on: tier === n }" :style="{ color: TIER_COLOR[n] }" @click="tier = tier === n ? 0 : n">{{ tierName(n) }}</button>
             <select v-model="zone"><option value="">Any zone</option><option v-for="z in ZONE_IDS" :key="z" :value="z">{{ zoneName(z) }}</option></select>
             <button class="chip" :class="{ on: smith }" @click="smith = !smith">Include forged gear</button>
+          </div>
+          <div class="row">
+            <button class="chip" :class="{ on: set === 'dex' }" @click="set = set === 'dex' ? '' : 'dex'">Dexterity set ({{ DEX_SET.length }})</button>
+            <button class="chip" :class="{ on: set === 'cha' }" @click="set = set === 'cha' ? '' : 'cha'">Charisma set ({{ CHA_SET.length }})</button>
+            <button class="chip" :class="{ on: set === 'fill' }" @click="set = set === 'fill' ? '' : 'fill'">Gap-fill set ({{ FILL_SET.length }})</button>
+            <select v-model="build"><option value="">Forged: any build</option><option v-for="l in SMITH_LINES" :key="l" :value="l">{{ LINE_NAME[l] }} forge line</option></select>
+            <select v-model="metal"><option value="">Forged: any metal</option><option v-for="m in ORE_IDS" :key="m" :value="m">{{ metalName(m) }}</option></select>
           </div>
         </div>
         <div class="list">

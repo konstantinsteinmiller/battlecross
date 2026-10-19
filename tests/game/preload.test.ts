@@ -4,10 +4,10 @@ vi.mock('virtual:asset-overrides', () => ({
   default: {
     sfx: [], music: [], textures: [], voice: [], logo: [],
     items: ['rustedShortsword.webp', 'woodenBuckler.webp', 'ironBroadsword.webp'],
-    skills: ['shieldSlam.webp', 'fireball.webp', 'meteor.webp'],
+    skills: ['shieldSlam.webp', 'fireball.webp', 'meteor.webp', 'radiantStrike.webp'],
     portraits: ['hero-tunic.webp', 'hero-leather.webp', 'smith.webp', 'peddler.webp', 'captain.webp'],
     ui: ['coin.webp', 'map.webp', 'bg-inventory.webp', 'bg-skills.webp', 'bg-trade.webp'],
-    icons: ['ui-pause.webp', 'ui-bag.webp', 'mark-quest.webp', 'status-burn.webp', 'slot-head.webp', 'class-aegis.webp']
+    icons: ['ui-pause.webp', 'ui-bag.webp', 'ui-plus.webp', 'ui-close.webp', 'ui-shield.webp', 'mark-quest.webp', 'status-burn.webp', 'slot-head.webp', 'class-aegis.webp']
   }
 }))
 
@@ -58,11 +58,17 @@ describe('painted images by when they are needed', () => {
     expect(c).not.toContain('ui-bag.webp')
   })
 
-  it('in a town the people here come first, the map before the book; in a zone the book before the map', () => {
+  it('in a town the book backdrops and class emblems lead, then the people here, the map before the rest of the book; in a zone the book before the map', () => {
     const town = pre.likelyImages('sunford').map(name)
+    // The biggest files a panel shows come first (D149): they landed past its hold.
+    expect(town.slice(0, 3)).toEqual(['bg-inventory.webp', 'bg-skills.webp', 'class-aegis.webp'])
     expect(town.indexOf('smith.webp')).toBeGreaterThanOrEqual(0)
     expect(town.indexOf('smith.webp')).toBeLessThan(town.indexOf('bg-trade.webp'))
-    expect(town.indexOf('map.webp')).toBeLessThan(town.indexOf('bg-inventory.webp'))
+    expect(town.indexOf('map.webp')).toBeLessThan(town.indexOf('slot-head.webp'))
+    // The book's own art (backdrop, slot glyphs, the bag) before the other glyphs (#142).
+    expect(town.indexOf('bg-inventory.webp')).toBeLessThan(town.indexOf('status-burn.webp'))
+    expect(town.indexOf('slot-head.webp')).toBeLessThan(town.indexOf('status-burn.webp'))
+    expect(town.indexOf('rustedShortsword.webp')).toBeLessThan(town.indexOf('status-burn.webp'))
     // Not this town's people, not wares he does not own, not skills he has not learned.
     expect(town).not.toContain('captain.webp')
     expect(town).not.toContain('ironBroadsword.webp')
@@ -78,5 +84,30 @@ describe('painted images by when they are needed', () => {
     expect(pre.isWarm(pre.criticalImages()[0]!)).toBe(true)
     const zone = pre.likelyImages('plains')
     for (const u of pre.criticalImages()) expect(zone).not.toContain(u)
+  })
+
+  it('the early art: the level-up and window glyphs first, then the sheet, the bag and the whole tree of the class the book opens on', () => {
+    const e = pre.earlyImages().map(name)
+    expect(e.slice(0, 3)).toEqual(['ui-plus.webp', 'ui-close.webp', 'ui-shield.webp'])
+    expect(e).toEqual(expect.arrayContaining(['bg-inventory.webp', 'slot-head.webp', 'hero-tunic.webp', 'rustedShortsword.webp', 'bg-skills.webp', 'shieldSlam.webp', 'radiantStrike.webp', 'class-aegis.webp']))
+    // Unlearned skills of the book's class are in it (a level-up shows them);
+    // another class's are not.
+    expect(e).not.toContain('fireball.webp')
+    expect(e).not.toContain('status-burn.webp')
+    expect(e.indexOf('ui-close.webp')).toBeLessThan(e.indexOf('bg-inventory.webp'))
+  })
+
+  it('the early art goes on the idle queue as quiet tasks, and to its head at the first boss', async () => {
+    const q = await import('@/utils/idleQueue')
+    q.__resetIdleQueue()
+    pre.queueEarlyArt()
+    const before = q.idleWaiting()
+    expect(before[0]).toBe(pre.artTask(pre.earlyImages()[0]!))
+    q.idleTask('screen:x', async () => {}, 10)
+    expect(q.idleWaiting()[0]).toBe('screen:x')
+    pre.queueEarlyArt(true)
+    expect(q.idleWaiting()[0]).toBe(pre.artTask(pre.earlyImages()[0]!))
+    expect(q.idleWaiting().at(-1)).toBe('screen:x')
+    q.__resetIdleQueue()
   })
 })

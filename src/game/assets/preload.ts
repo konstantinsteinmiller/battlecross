@@ -2,6 +2,8 @@ import { ICON_ART, ITEM_ART, PORTRAIT_ART, SKILL_ART, UI_ART } from './overrides
 import { profile, isFreshProfile, needsHeroChoice } from '../state/profile'
 import { HERO_GENDERS, heroOutfit, heroPortraitId } from '../art/heroPortrait'
 import { TOWNS, type TownId } from '../data/zones'
+import { CLASS_IDS, skillsOf, type ClassId } from '../data/skills'
+import { idleTask, rerankIdle } from '@/utils/idleQueue'
 
 /**
  * ─── Painted images, by when they are needed (roadmap #36) ───────────────────
@@ -98,8 +100,8 @@ export const awaitCritical = (node: string = bootNode(), capMs = 2500): Promise<
 /**
  * What the player can reach from `node`, most likely first. In a town: the
  * people here (their portraits speak in every conversation), the trade
- * table's backdrop, the map (he leaves a town by it), then the glyphs and the
- * book. In a zone: the glyphs first (a status shows on his frame in the first
+ * table's backdrop, the map (he leaves a town by it), the book's own art,
+ * then the other glyphs and the learned skills. In a zone: the glyphs first (a status shows on his frame in the first
  * fight), the bag and the book (opened after a fight), then the map (also
  * fetched at once when the zone is won).
  */
@@ -109,8 +111,16 @@ export const likelyImages = (node: string): string[] => {
   const bag = [...new Set([...profile.inv.items, ...Object.values(profile.inv.equipped)])].filter((x): x is string => !!x).map(id => ITEM_ART.get(id))
   const glyphs = byPrefix(ICON_ART, 'ui-', 'mark-', 'status-', 'slot-', 'class-')
   const book = [UI_ART.get('bg-inventory'), ...bag, UI_ART.get('bg-skills'), ...skillArt(profile.hero.learned)]
+  // In a town the book's own art (its backdrop, the slots' glyphs, the bag, the
+  // slotted skills) comes before the rest of the glyphs: behind ~60 of them it
+  // was still arriving 12 s into a visit on a phone link (roadmap #142).
+  const bookFirst = [UI_ART.get('bg-inventory'), ...byPrefix(ICON_ART, 'slot-'), ...bag, UI_ART.get('bg-skills'), ...skillArt(profile.hero.active.filter(Boolean))]
+  // The book's two backdrops and the skill book's class emblems lead in a
+  // town, with the whole tree the skill book opens on: they landed past the panels' 300 ms
+  // hold behind the town's own pictures (D149).
+  const bookArt = [UI_ART.get('bg-inventory'), UI_ART.get('bg-skills'), ...byPrefix(ICON_ART, 'class-'), ...skillArt(skillsOf(bookClass()).map(sk => sk.id))]
   const out = town
-    ? [...people, UI_ART.get('bg-trade'), UI_ART.get('map'), ...glyphs, ...book]
+    ? [...bookArt, ...people, UI_ART.get('bg-trade'), UI_ART.get('map'), ...bookFirst, ...glyphs, ...book]
     : [...glyphs, ...book, UI_ART.get('map')]
   return [...new Set(out.filter((u): u is string => !!u))].filter(u => !warm.has(u))
 }
@@ -142,6 +152,68 @@ export const prefetchLikely = (node: string, delayMs = 2000, gapMs = 60): void =
 
 /** Put one image at the head of the queue (the map's art when a zone is won). */
 export const prefetchNow = (url: string | undefined): void => { void warmImage(url) }
+
+// ─── The early art, on the idle queue (roadmap #142, D149) ───────────────────
+
+/** The glyphs of what opens right after the first fights: the level-up chip
+ *  and the points to spend (plus, star), every window's close, the shield of
+ *  an equipped piece, the book's and the bag's own buttons. */
+const EARLY_GLYPHS = ['ui-plus', 'ui-close', 'ui-shield', 'ui-star', 'ui-check', 'ui-lock', 'ui-hero', 'ui-book', 'ui-bag', 'ui-back', 'ui-info']
+
+/** The class the skill book opens on (`SkillsPage.vue`): the one he knows most of. */
+const bookClass = (): ClassId => {
+  const known = new Set(profile.hero.learned)
+  const n = (c: ClassId): number => skillsOf(c).filter(sk => known.has(sk.id)).length
+  return [...CLASS_IDS].sort((a, b) => n(b) - n(a))[0] ?? 'aegis'
+}
+
+/**
+ * What a new hero opens right after his first fights, most needed first: the
+ * glyphs above, the character sheet (its backdrop, the slots, both portraits
+ * the sheet shows), the bag (its backdrop and what he carries), the skill
+ * book (its backdrop, the class emblems and the WHOLE tree of the class it
+ * opens on, unlearned skills included: they are what a level-up shows). The
+ * windows' ornaments are not here: `components/art/ornaments.ts` loads them
+ * before the app mounts.
+ */
+export const earlyImages = (): string[] => {
+  const bag = [...new Set([...profile.inv.items, ...Object.values(profile.inv.equipped)])].filter((x): x is string => !!x).map(id => ITEM_ART.get(id))
+  const out = [
+    ...EARLY_GLYPHS.map(g => ICON_ART.get(g)),
+    UI_ART.get('bg-inventory'),
+    ...byPrefix(ICON_ART, 'slot-'),
+    heroPortrait(),
+    ...HERO_GENDERS.map(g => PORTRAIT_ART.get(heroPortraitId(heroOutfit(profile.inv.equipped), g))),
+    ...bag,
+    UI_ART.get('bg-skills'),
+    ...skillArt(skillsOf(bookClass()).map(sk => sk.id)),
+    ...byPrefix(ICON_ART, 'class-')
+  ]
+  return [...new Set(out.filter((u): u is string => !!u))]
+}
+
+/** The idle queue's key of a warmed image. */
+export const artTask = (url: string): string => `art:${url}`
+
+/** Where the early art sits on the queue: after the screens' chunks, and at
+ *  its head once the first boss is up (`queueEarlyArt(true)`). */
+const EARLY_RANK = 40
+const BOSS_RANK = 1
+
+/**
+ * Put the early art on the background queue (`utils/idleQueue.ts`) as QUIET
+ * tasks: one image after another, only while the connection is idle, so none
+ * of it competes with what the scene or a window is loading. Called once the
+ * first frame is up, and again (`atBoss`) when a first-time player's first
+ * boss fight starts: the fight is all CPU, and what follows it (the level-up,
+ * the loot, the book) is exactly this art, so it moves to the head of the queue.
+ */
+export const queueEarlyArt = (atBoss = false): void => {
+  const rank = atBoss ? BOSS_RANK : EARLY_RANK
+  const urls = earlyImages().filter(u => !warm.has(u))
+  urls.forEach((u, i) => idleTask(artTask(u), () => warmImage(u), rank + i / 1000, { quiet: true }))
+  if (atBoss) rerankIdle(Object.fromEntries(urls.map((u, i) => [artTask(u), rank + i / 1000])))
+}
 
 /** Test seam. */
 export const __resetPreload = (): void => {

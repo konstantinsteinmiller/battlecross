@@ -45,8 +45,8 @@
               span.attr__gain-lead {{ t('sheet.next') }}
               span.attr__gain-stat(v-for="g in gains[a]" :key="g.key") {{ t(`stat.${g.key}`) }} {{ g.deltaText }}
           span.attr__val
-            span.attr__n(:key="total[a]") {{ total[a] }}
-            small(v-if="total[a] > profile.hero.attrs[a]") +{{ total[a] - profile.hero.attrs[a] }}
+            span.attr__n(:key="total[a]") {{ fmt2(total[a]) }}
+            small(v-if="total[a] > profile.hero.attrs[a]") +{{ fmt2(total[a] - profile.hero.attrs[a]) }}
           button.attr__plus(
             type="button"
             :disabled="profile.hero.points <= 0"
@@ -81,7 +81,7 @@ import { MAX_LEVEL, xpToNext } from '@/game/data/progression'
 import { computeStats, profile, setHeroGender, spendPoint, totalAttrs, xp01 } from '@/game/state/profile'
 import { HERO_GENDERS, heroOutfit, heroPortraitId, type HeroGender } from '@/game/art/heroPortrait'
 import { sfx } from '@/game/audio/sfx'
-import { fmt } from '@/utils/format'
+import { fmt, fmt2 } from '@/utils/format'
 import Portrait from '@/components/art/Portrait.vue'
 import FBar from '@/components/atoms/FBar.vue'
 import GameIcon from '@/components/icons/GameIcon.vue'

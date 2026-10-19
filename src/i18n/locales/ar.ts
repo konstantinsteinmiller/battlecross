@@ -1,5 +1,13 @@
 // Arabic locale — mirrors the key shape of en.ts exactly.
 export default {
+  // ─── The intro (#130): its skip, and its narrator's name ───
+  intro: {
+    narrator: 'الراوي',
+    skip: 'تخطٍّ',
+    holdKey: 'اضغط مطولًا على {key} للتخطي',
+    holdTouch: 'اضغط مطولًا للتخطي',
+    replay: 'شاهد المقدمة'
+  },
   arena: {
     allWon: 'كل الجوائز الخرافية صارت لك.',
     call: 'انتهت الحكاية. والآن أثبت قوة بنائك: اصعد أبعد ما تستطيع، واربح الجوائز الخرافية التي لا يمنحك إياها أحد سواه.',
@@ -8,6 +16,20 @@ export default {
     next: 'الجائزة التالية في الموجة {at}: {item}',
     champion: 'موجة البطل',
     wave: 'الموجة {n}'
+  },
+  sellOre: {
+    talk: 'خام جيد بسعر عادل. كم ستبيع؟',
+    lead: 'اختر عدد قطع كل خام تريد بيعها. لن يُباع شيء حتى تضغط بيع.',
+    have: 'لديك {n}',
+    each: '{n} ذهب للقطعة',
+    none: 'لا شيء',
+    all: 'الكل',
+    less: '{ore}: واحدة أقل',
+    more: '{ore}: واحدة أكثر',
+    total: 'ستحصل على: {n} ذهب',
+    sell: 'بيع',
+    selectAll: 'تحديد الكل',
+    empty: 'لم يبقَ لديك خام للبيع.'
   },
   smith: {
     why: {
@@ -1491,38 +1513,110 @@ export default {
     smithMasterMithrilGreaves: {
       name: 'واقيات ساق متقنة من الميثريل'
     },
+    smithMasterAdamantGreaves: {
+      name: 'واقيات ساق متقنة من الأدامانت'
+    },
+    smithMasterAetheriteGreaves: {
+      name: 'واقيات ساق متقنة من الإيثريت'
+    },
     smithMithrilGreaves: {
       name: 'واقيات ساق من الميثريل'
+    },
+    smithAdamantGreaves: {
+      name: 'واقيات ساق من الأدامانت'
+    },
+    smithAetheriteGreaves: {
+      name: 'واقيات ساق من الإيثريت'
     },
     smithMasterMithrilPlate: {
       name: 'صفائح متقنة من الميثريل'
     },
+    smithMasterAdamantPlate: {
+      name: 'صفائح متقنة من الأدامانت'
+    },
+    smithMasterAetheritePlate: {
+      name: 'صفائح متقنة من الإيثريت'
+    },
     smithMithrilPlate: {
       name: 'صفائح من الميثريل'
+    },
+    smithAdamantPlate: {
+      name: 'صفائح من الأدامانت'
+    },
+    smithAetheritePlate: {
+      name: 'صفائح من الإيثريت'
     },
     smithMasterMithrilHelm: {
       name: 'خوذة متقنة من الميثريل'
     },
+    smithMasterAdamantHelm: {
+      name: 'خوذة متقنة من الأدامانت'
+    },
+    smithMasterAetheriteHelm: {
+      name: 'خوذة متقنة من الإيثريت'
+    },
     smithMithrilHelm: {
       name: 'خوذة من الميثريل'
+    },
+    smithAdamantHelm: {
+      name: 'خوذة من الأدامانت'
+    },
+    smithAetheriteHelm: {
+      name: 'خوذة من الإيثريت'
     },
     smithMasterMithrilShield: {
       name: 'ترس متقن من الميثريل'
     },
+    smithMasterAdamantShield: {
+      name: 'ترس متقن من الأدامانت'
+    },
+    smithMasterAetheriteShield: {
+      name: 'ترس متقن من الإيثريت'
+    },
     smithMithrilShield: {
       name: 'ترس من الميثريل'
+    },
+    smithAdamantShield: {
+      name: 'ترس من الأدامانت'
+    },
+    smithAetheriteShield: {
+      name: 'ترس من الإيثريت'
     },
     smithMasterMithrilHammer: {
       name: 'مطرقة متقنة من الميثريل'
     },
+    smithMasterAdamantHammer: {
+      name: 'مطرقة متقنة من الأدامانت'
+    },
+    smithMasterAetheriteHammer: {
+      name: 'مطرقة متقنة من الإيثريت'
+    },
     smithMithrilHammer: {
       name: 'مطرقة من الميثريل'
+    },
+    smithAdamantHammer: {
+      name: 'مطرقة من الأدامانت'
+    },
+    smithAetheriteHammer: {
+      name: 'مطرقة من الإيثريت'
     },
     smithMasterMithrilSword: {
       name: 'سيف متقن من الميثريل'
     },
+    smithMasterAdamantSword: {
+      name: 'سيف متقن من الأدامانت'
+    },
+    smithMasterAetheriteSword: {
+      name: 'سيف متقن من الإيثريت'
+    },
     smithMithrilSword: {
       name: 'سيف من الميثريل'
+    },
+    smithAdamantSword: {
+      name: 'سيف من الأدامانت'
+    },
+    smithAetheriteSword: {
+      name: 'سيف من الإيثريت'
     },
     smithMasterGoldGreaves: {
       name: 'واقيات ساق ذهبية متقنة'
@@ -1628,6 +1722,1086 @@ export default {
     },
     smithMasterIronSword: {
       name: 'سيف حديدي متقن'
+    },
+    smithMasterDexIronSword: {
+      name: 'خنجر من الحديد متقن · رشا'
+    },
+    smithDexIronSword: {
+      name: 'خنجر من الحديد · رشا'
+    },
+    smithMasterDexIronHammer: {
+      name: 'سيف رشيق من الحديد متقن · رشا'
+    },
+    smithDexIronHammer: {
+      name: 'سيف رشيق من الحديد · رشا'
+    },
+    smithMasterDexIronShield: {
+      name: 'ترس صغير من الحديد متقن · رشا'
+    },
+    smithDexIronShield: {
+      name: 'ترس صغير من الحديد · رشا'
+    },
+    smithMasterDexIronHelm: {
+      name: 'قلنسوة من الحديد متقن · رشا'
+    },
+    smithDexIronHelm: {
+      name: 'قلنسوة من الحديد · رشا'
+    },
+    smithMasterDexIronPlate: {
+      name: 'درع جلدي من الحديد متقن · رشا'
+    },
+    smithDexIronPlate: {
+      name: 'درع جلدي من الحديد · رشا'
+    },
+    smithMasterDexIronGreaves: {
+      name: 'حذاء من الحديد متقن · رشا'
+    },
+    smithDexIronGreaves: {
+      name: 'حذاء من الحديد · رشا'
+    },
+    smithMasterDexSilverSword: {
+      name: 'خنجر من الفضة متقن · رشا'
+    },
+    smithDexSilverSword: {
+      name: 'خنجر من الفضة · رشا'
+    },
+    smithMasterDexSilverHammer: {
+      name: 'سيف رشيق من الفضة متقن · رشا'
+    },
+    smithDexSilverHammer: {
+      name: 'سيف رشيق من الفضة · رشا'
+    },
+    smithMasterDexSilverShield: {
+      name: 'ترس صغير من الفضة متقن · رشا'
+    },
+    smithDexSilverShield: {
+      name: 'ترس صغير من الفضة · رشا'
+    },
+    smithMasterDexSilverHelm: {
+      name: 'قلنسوة من الفضة متقن · رشا'
+    },
+    smithDexSilverHelm: {
+      name: 'قلنسوة من الفضة · رشا'
+    },
+    smithMasterDexSilverPlate: {
+      name: 'درع جلدي من الفضة متقن · رشا'
+    },
+    smithDexSilverPlate: {
+      name: 'درع جلدي من الفضة · رشا'
+    },
+    smithMasterDexSilverGreaves: {
+      name: 'حذاء من الفضة متقن · رشا'
+    },
+    smithDexSilverGreaves: {
+      name: 'حذاء من الفضة · رشا'
+    },
+    smithMasterDexGoldSword: {
+      name: 'خنجر من الذهب متقن · رشا'
+    },
+    smithDexGoldSword: {
+      name: 'خنجر من الذهب · رشا'
+    },
+    smithMasterDexGoldHammer: {
+      name: 'سيف رشيق من الذهب متقن · رشا'
+    },
+    smithDexGoldHammer: {
+      name: 'سيف رشيق من الذهب · رشا'
+    },
+    smithMasterDexGoldShield: {
+      name: 'ترس صغير من الذهب متقن · رشا'
+    },
+    smithDexGoldShield: {
+      name: 'ترس صغير من الذهب · رشا'
+    },
+    smithMasterDexGoldHelm: {
+      name: 'قلنسوة من الذهب متقن · رشا'
+    },
+    smithDexGoldHelm: {
+      name: 'قلنسوة من الذهب · رشا'
+    },
+    smithMasterDexGoldPlate: {
+      name: 'درع جلدي من الذهب متقن · رشا'
+    },
+    smithDexGoldPlate: {
+      name: 'درع جلدي من الذهب · رشا'
+    },
+    smithMasterDexGoldGreaves: {
+      name: 'حذاء من الذهب متقن · رشا'
+    },
+    smithDexGoldGreaves: {
+      name: 'حذاء من الذهب · رشا'
+    },
+    smithMasterDexMithrilSword: {
+      name: 'خنجر من الميثريل متقن · رشا'
+    },
+    smithMasterDexAdamantSword: {
+      name: 'خنجر من الأدامانت متقن · رشا'
+    },
+    smithMasterDexAetheriteSword: {
+      name: 'خنجر من الإيثريت متقن · رشا'
+    },
+    smithDexMithrilSword: {
+      name: 'خنجر من الميثريل · رشا'
+    },
+    smithDexAdamantSword: {
+      name: 'خنجر من الأدامانت · رشا'
+    },
+    smithDexAetheriteSword: {
+      name: 'خنجر من الإيثريت · رشا'
+    },
+    smithMasterDexMithrilHammer: {
+      name: 'سيف رشيق من الميثريل متقن · رشا'
+    },
+    smithMasterDexAdamantHammer: {
+      name: 'سيف رشيق من الأدامانت متقن · رشا'
+    },
+    smithMasterDexAetheriteHammer: {
+      name: 'سيف رشيق من الإيثريت متقن · رشا'
+    },
+    smithDexMithrilHammer: {
+      name: 'سيف رشيق من الميثريل · رشا'
+    },
+    smithDexAdamantHammer: {
+      name: 'سيف رشيق من الأدامانت · رشا'
+    },
+    smithDexAetheriteHammer: {
+      name: 'سيف رشيق من الإيثريت · رشا'
+    },
+    smithMasterDexMithrilShield: {
+      name: 'ترس صغير من الميثريل متقن · رشا'
+    },
+    smithMasterDexAdamantShield: {
+      name: 'ترس صغير من الأدامانت متقن · رشا'
+    },
+    smithMasterDexAetheriteShield: {
+      name: 'ترس صغير من الإيثريت متقن · رشا'
+    },
+    smithDexMithrilShield: {
+      name: 'ترس صغير من الميثريل · رشا'
+    },
+    smithDexAdamantShield: {
+      name: 'ترس صغير من الأدامانت · رشا'
+    },
+    smithDexAetheriteShield: {
+      name: 'ترس صغير من الإيثريت · رشا'
+    },
+    smithMasterDexMithrilHelm: {
+      name: 'قلنسوة من الميثريل متقن · رشا'
+    },
+    smithMasterDexAdamantHelm: {
+      name: 'قلنسوة من الأدامانت متقن · رشا'
+    },
+    smithMasterDexAetheriteHelm: {
+      name: 'قلنسوة من الإيثريت متقن · رشا'
+    },
+    smithDexMithrilHelm: {
+      name: 'قلنسوة من الميثريل · رشا'
+    },
+    smithDexAdamantHelm: {
+      name: 'قلنسوة من الأدامانت · رشا'
+    },
+    smithDexAetheriteHelm: {
+      name: 'قلنسوة من الإيثريت · رشا'
+    },
+    smithMasterDexMithrilPlate: {
+      name: 'درع جلدي من الميثريل متقن · رشا'
+    },
+    smithMasterDexAdamantPlate: {
+      name: 'درع جلدي من الأدامانت متقن · رشا'
+    },
+    smithMasterDexAetheritePlate: {
+      name: 'درع جلدي من الإيثريت متقن · رشا'
+    },
+    smithDexMithrilPlate: {
+      name: 'درع جلدي من الميثريل · رشا'
+    },
+    smithDexAdamantPlate: {
+      name: 'درع جلدي من الأدامانت · رشا'
+    },
+    smithDexAetheritePlate: {
+      name: 'درع جلدي من الإيثريت · رشا'
+    },
+    smithMasterDexMithrilGreaves: {
+      name: 'حذاء من الميثريل متقن · رشا'
+    },
+    smithMasterDexAdamantGreaves: {
+      name: 'حذاء من الأدامانت متقن · رشا'
+    },
+    smithMasterDexAetheriteGreaves: {
+      name: 'حذاء من الإيثريت متقن · رشا'
+    },
+    smithDexMithrilGreaves: {
+      name: 'حذاء من الميثريل · رشا'
+    },
+    smithDexAdamantGreaves: {
+      name: 'حذاء من الأدامانت · رشا'
+    },
+    smithDexAetheriteGreaves: {
+      name: 'حذاء من الإيثريت · رشا'
+    },
+    smithMasterIntIronSword: {
+      name: 'عصا سحرية من الحديد متقن · ذكا'
+    },
+    smithIntIronSword: {
+      name: 'عصا سحرية من الحديد · ذكا'
+    },
+    smithMasterIntIronHammer: {
+      name: 'عصا من الحديد متقن · ذكا'
+    },
+    smithIntIronHammer: {
+      name: 'عصا من الحديد · ذكا'
+    },
+    smithMasterIntIronShield: {
+      name: 'كتاب سحري من الحديد متقن · ذكا'
+    },
+    smithIntIronShield: {
+      name: 'كتاب سحري من الحديد · ذكا'
+    },
+    smithMasterIntIronHelm: {
+      name: 'إكليل من الحديد متقن · ذكا'
+    },
+    smithIntIronHelm: {
+      name: 'إكليل من الحديد · ذكا'
+    },
+    smithMasterIntIronPlate: {
+      name: 'رداء من الحديد متقن · ذكا'
+    },
+    smithIntIronPlate: {
+      name: 'رداء من الحديد · ذكا'
+    },
+    smithMasterIntIronGreaves: {
+      name: 'حذاء من الحديد متقن · ذكا'
+    },
+    smithIntIronGreaves: {
+      name: 'حذاء من الحديد · ذكا'
+    },
+    smithMasterIntSilverSword: {
+      name: 'عصا سحرية من الفضة متقن · ذكا'
+    },
+    smithIntSilverSword: {
+      name: 'عصا سحرية من الفضة · ذكا'
+    },
+    smithMasterIntSilverHammer: {
+      name: 'عصا من الفضة متقن · ذكا'
+    },
+    smithIntSilverHammer: {
+      name: 'عصا من الفضة · ذكا'
+    },
+    smithMasterIntSilverShield: {
+      name: 'كتاب سحري من الفضة متقن · ذكا'
+    },
+    smithIntSilverShield: {
+      name: 'كتاب سحري من الفضة · ذكا'
+    },
+    smithMasterIntSilverHelm: {
+      name: 'إكليل من الفضة متقن · ذكا'
+    },
+    smithIntSilverHelm: {
+      name: 'إكليل من الفضة · ذكا'
+    },
+    smithMasterIntSilverPlate: {
+      name: 'رداء من الفضة متقن · ذكا'
+    },
+    smithIntSilverPlate: {
+      name: 'رداء من الفضة · ذكا'
+    },
+    smithMasterIntSilverGreaves: {
+      name: 'حذاء من الفضة متقن · ذكا'
+    },
+    smithIntSilverGreaves: {
+      name: 'حذاء من الفضة · ذكا'
+    },
+    smithMasterIntGoldSword: {
+      name: 'عصا سحرية من الذهب متقن · ذكا'
+    },
+    smithIntGoldSword: {
+      name: 'عصا سحرية من الذهب · ذكا'
+    },
+    smithMasterIntGoldHammer: {
+      name: 'عصا من الذهب متقن · ذكا'
+    },
+    smithIntGoldHammer: {
+      name: 'عصا من الذهب · ذكا'
+    },
+    smithMasterIntGoldShield: {
+      name: 'كتاب سحري من الذهب متقن · ذكا'
+    },
+    smithIntGoldShield: {
+      name: 'كتاب سحري من الذهب · ذكا'
+    },
+    smithMasterIntGoldHelm: {
+      name: 'إكليل من الذهب متقن · ذكا'
+    },
+    smithIntGoldHelm: {
+      name: 'إكليل من الذهب · ذكا'
+    },
+    smithMasterIntGoldPlate: {
+      name: 'رداء من الذهب متقن · ذكا'
+    },
+    smithIntGoldPlate: {
+      name: 'رداء من الذهب · ذكا'
+    },
+    smithMasterIntGoldGreaves: {
+      name: 'حذاء من الذهب متقن · ذكا'
+    },
+    smithIntGoldGreaves: {
+      name: 'حذاء من الذهب · ذكا'
+    },
+    smithMasterIntMithrilSword: {
+      name: 'عصا سحرية من الميثريل متقن · ذكا'
+    },
+    smithMasterIntAdamantSword: {
+      name: 'عصا سحرية من الأدامانت متقن · ذكا'
+    },
+    smithMasterIntAetheriteSword: {
+      name: 'عصا سحرية من الإيثريت متقن · ذكا'
+    },
+    smithIntMithrilSword: {
+      name: 'عصا سحرية من الميثريل · ذكا'
+    },
+    smithIntAdamantSword: {
+      name: 'عصا سحرية من الأدامانت · ذكا'
+    },
+    smithIntAetheriteSword: {
+      name: 'عصا سحرية من الإيثريت · ذكا'
+    },
+    smithMasterIntMithrilHammer: {
+      name: 'عصا من الميثريل متقن · ذكا'
+    },
+    smithMasterIntAdamantHammer: {
+      name: 'عصا من الأدامانت متقن · ذكا'
+    },
+    smithMasterIntAetheriteHammer: {
+      name: 'عصا من الإيثريت متقن · ذكا'
+    },
+    smithIntMithrilHammer: {
+      name: 'عصا من الميثريل · ذكا'
+    },
+    smithIntAdamantHammer: {
+      name: 'عصا من الأدامانت · ذكا'
+    },
+    smithIntAetheriteHammer: {
+      name: 'عصا من الإيثريت · ذكا'
+    },
+    smithMasterIntMithrilShield: {
+      name: 'كتاب سحري من الميثريل متقن · ذكا'
+    },
+    smithMasterIntAdamantShield: {
+      name: 'كتاب سحري من الأدامانت متقن · ذكا'
+    },
+    smithMasterIntAetheriteShield: {
+      name: 'كتاب سحري من الإيثريت متقن · ذكا'
+    },
+    smithIntMithrilShield: {
+      name: 'كتاب سحري من الميثريل · ذكا'
+    },
+    smithIntAdamantShield: {
+      name: 'كتاب سحري من الأدامانت · ذكا'
+    },
+    smithIntAetheriteShield: {
+      name: 'كتاب سحري من الإيثريت · ذكا'
+    },
+    smithMasterIntMithrilHelm: {
+      name: 'إكليل من الميثريل متقن · ذكا'
+    },
+    smithMasterIntAdamantHelm: {
+      name: 'إكليل من الأدامانت متقن · ذكا'
+    },
+    smithMasterIntAetheriteHelm: {
+      name: 'إكليل من الإيثريت متقن · ذكا'
+    },
+    smithIntMithrilHelm: {
+      name: 'إكليل من الميثريل · ذكا'
+    },
+    smithIntAdamantHelm: {
+      name: 'إكليل من الأدامانت · ذكا'
+    },
+    smithIntAetheriteHelm: {
+      name: 'إكليل من الإيثريت · ذكا'
+    },
+    smithMasterIntMithrilPlate: {
+      name: 'رداء من الميثريل متقن · ذكا'
+    },
+    smithMasterIntAdamantPlate: {
+      name: 'رداء من الأدامانت متقن · ذكا'
+    },
+    smithMasterIntAetheritePlate: {
+      name: 'رداء من الإيثريت متقن · ذكا'
+    },
+    smithIntMithrilPlate: {
+      name: 'رداء من الميثريل · ذكا'
+    },
+    smithIntAdamantPlate: {
+      name: 'رداء من الأدامانت · ذكا'
+    },
+    smithIntAetheritePlate: {
+      name: 'رداء من الإيثريت · ذكا'
+    },
+    smithMasterIntMithrilGreaves: {
+      name: 'حذاء من الميثريل متقن · ذكا'
+    },
+    smithMasterIntAdamantGreaves: {
+      name: 'حذاء من الأدامانت متقن · ذكا'
+    },
+    smithMasterIntAetheriteGreaves: {
+      name: 'حذاء من الإيثريت متقن · ذكا'
+    },
+    smithIntMithrilGreaves: {
+      name: 'حذاء من الميثريل · ذكا'
+    },
+    smithIntAdamantGreaves: {
+      name: 'حذاء من الأدامانت · ذكا'
+    },
+    smithIntAetheriteGreaves: {
+      name: 'حذاء من الإيثريت · ذكا'
+    },
+    smithMasterSklIronSword: {
+      name: 'مسدس من الحديد متقن · مهر'
+    },
+    smithSklIronSword: {
+      name: 'مسدس من الحديد · مهر'
+    },
+    smithMasterSklIronHammer: {
+      name: 'بندقية من الحديد متقن · مهر'
+    },
+    smithSklIronHammer: {
+      name: 'بندقية من الحديد · مهر'
+    },
+    smithMasterSklIronShield: {
+      name: 'بطارية من الحديد متقن · مهر'
+    },
+    smithSklIronShield: {
+      name: 'بطارية من الحديد · مهر'
+    },
+    smithMasterSklIronHelm: {
+      name: 'قبعة من الحديد متقن · مهر'
+    },
+    smithSklIronHelm: {
+      name: 'قبعة من الحديد · مهر'
+    },
+    smithMasterSklIronPlate: {
+      name: 'عدة جلدية من الحديد متقن · مهر'
+    },
+    smithSklIronPlate: {
+      name: 'عدة جلدية من الحديد · مهر'
+    },
+    smithMasterSklIronGreaves: {
+      name: 'حذاء من الحديد متقن · مهر'
+    },
+    smithSklIronGreaves: {
+      name: 'حذاء من الحديد · مهر'
+    },
+    smithMasterSklSilverSword: {
+      name: 'مسدس من الفضة متقن · مهر'
+    },
+    smithSklSilverSword: {
+      name: 'مسدس من الفضة · مهر'
+    },
+    smithMasterSklSilverHammer: {
+      name: 'بندقية من الفضة متقن · مهر'
+    },
+    smithSklSilverHammer: {
+      name: 'بندقية من الفضة · مهر'
+    },
+    smithMasterSklSilverShield: {
+      name: 'بطارية من الفضة متقن · مهر'
+    },
+    smithSklSilverShield: {
+      name: 'بطارية من الفضة · مهر'
+    },
+    smithMasterSklSilverHelm: {
+      name: 'قبعة من الفضة متقن · مهر'
+    },
+    smithSklSilverHelm: {
+      name: 'قبعة من الفضة · مهر'
+    },
+    smithMasterSklSilverPlate: {
+      name: 'عدة جلدية من الفضة متقن · مهر'
+    },
+    smithSklSilverPlate: {
+      name: 'عدة جلدية من الفضة · مهر'
+    },
+    smithMasterSklSilverGreaves: {
+      name: 'حذاء من الفضة متقن · مهر'
+    },
+    smithSklSilverGreaves: {
+      name: 'حذاء من الفضة · مهر'
+    },
+    smithMasterSklGoldSword: {
+      name: 'مسدس من الذهب متقن · مهر'
+    },
+    smithSklGoldSword: {
+      name: 'مسدس من الذهب · مهر'
+    },
+    smithMasterSklGoldHammer: {
+      name: 'بندقية من الذهب متقن · مهر'
+    },
+    smithSklGoldHammer: {
+      name: 'بندقية من الذهب · مهر'
+    },
+    smithMasterSklGoldShield: {
+      name: 'بطارية من الذهب متقن · مهر'
+    },
+    smithSklGoldShield: {
+      name: 'بطارية من الذهب · مهر'
+    },
+    smithMasterSklGoldHelm: {
+      name: 'قبعة من الذهب متقن · مهر'
+    },
+    smithSklGoldHelm: {
+      name: 'قبعة من الذهب · مهر'
+    },
+    smithMasterSklGoldPlate: {
+      name: 'عدة جلدية من الذهب متقن · مهر'
+    },
+    smithSklGoldPlate: {
+      name: 'عدة جلدية من الذهب · مهر'
+    },
+    smithMasterSklGoldGreaves: {
+      name: 'حذاء من الذهب متقن · مهر'
+    },
+    smithSklGoldGreaves: {
+      name: 'حذاء من الذهب · مهر'
+    },
+    smithMasterSklMithrilSword: {
+      name: 'مسدس من الميثريل متقن · مهر'
+    },
+    smithMasterSklAdamantSword: {
+      name: 'مسدس من الأدامانت متقن · مهر'
+    },
+    smithMasterSklAetheriteSword: {
+      name: 'مسدس من الإيثريت متقن · مهر'
+    },
+    smithSklMithrilSword: {
+      name: 'مسدس من الميثريل · مهر'
+    },
+    smithSklAdamantSword: {
+      name: 'مسدس من الأدامانت · مهر'
+    },
+    smithSklAetheriteSword: {
+      name: 'مسدس من الإيثريت · مهر'
+    },
+    smithMasterSklMithrilHammer: {
+      name: 'بندقية من الميثريل متقن · مهر'
+    },
+    smithMasterSklAdamantHammer: {
+      name: 'بندقية من الأدامانت متقن · مهر'
+    },
+    smithMasterSklAetheriteHammer: {
+      name: 'بندقية من الإيثريت متقن · مهر'
+    },
+    smithSklMithrilHammer: {
+      name: 'بندقية من الميثريل · مهر'
+    },
+    smithSklAdamantHammer: {
+      name: 'بندقية من الأدامانت · مهر'
+    },
+    smithSklAetheriteHammer: {
+      name: 'بندقية من الإيثريت · مهر'
+    },
+    smithMasterSklMithrilShield: {
+      name: 'بطارية من الميثريل متقن · مهر'
+    },
+    smithMasterSklAdamantShield: {
+      name: 'بطارية من الأدامانت متقن · مهر'
+    },
+    smithMasterSklAetheriteShield: {
+      name: 'بطارية من الإيثريت متقن · مهر'
+    },
+    smithSklMithrilShield: {
+      name: 'بطارية من الميثريل · مهر'
+    },
+    smithSklAdamantShield: {
+      name: 'بطارية من الأدامانت · مهر'
+    },
+    smithSklAetheriteShield: {
+      name: 'بطارية من الإيثريت · مهر'
+    },
+    smithMasterSklMithrilHelm: {
+      name: 'قبعة من الميثريل متقن · مهر'
+    },
+    smithMasterSklAdamantHelm: {
+      name: 'قبعة من الأدامانت متقن · مهر'
+    },
+    smithMasterSklAetheriteHelm: {
+      name: 'قبعة من الإيثريت متقن · مهر'
+    },
+    smithSklMithrilHelm: {
+      name: 'قبعة من الميثريل · مهر'
+    },
+    smithSklAdamantHelm: {
+      name: 'قبعة من الأدامانت · مهر'
+    },
+    smithSklAetheriteHelm: {
+      name: 'قبعة من الإيثريت · مهر'
+    },
+    smithMasterSklMithrilPlate: {
+      name: 'عدة جلدية من الميثريل متقن · مهر'
+    },
+    smithMasterSklAdamantPlate: {
+      name: 'عدة جلدية من الأدامانت متقن · مهر'
+    },
+    smithMasterSklAetheritePlate: {
+      name: 'عدة جلدية من الإيثريت متقن · مهر'
+    },
+    smithSklMithrilPlate: {
+      name: 'عدة جلدية من الميثريل · مهر'
+    },
+    smithSklAdamantPlate: {
+      name: 'عدة جلدية من الأدامانت · مهر'
+    },
+    smithSklAetheritePlate: {
+      name: 'عدة جلدية من الإيثريت · مهر'
+    },
+    smithMasterSklMithrilGreaves: {
+      name: 'حذاء من الميثريل متقن · مهر'
+    },
+    smithMasterSklAdamantGreaves: {
+      name: 'حذاء من الأدامانت متقن · مهر'
+    },
+    smithMasterSklAetheriteGreaves: {
+      name: 'حذاء من الإيثريت متقن · مهر'
+    },
+    smithSklMithrilGreaves: {
+      name: 'حذاء من الميثريل · مهر'
+    },
+    smithSklAdamantGreaves: {
+      name: 'حذاء من الأدامانت · مهر'
+    },
+    smithSklAetheriteGreaves: {
+      name: 'حذاء من الإيثريت · مهر'
+    },
+    smithMasterChaIronSword: {
+      name: 'صولجان من الحديد متقن · جذب'
+    },
+    smithChaIronSword: {
+      name: 'صولجان من الحديد · جذب'
+    },
+    smithMasterChaIronHammer: {
+      name: 'راية من الحديد متقن · جذب'
+    },
+    smithChaIronHammer: {
+      name: 'راية من الحديد · جذب'
+    },
+    smithMasterChaIronShield: {
+      name: 'مخطوطة من الحديد متقن · جذب'
+    },
+    smithChaIronShield: {
+      name: 'مخطوطة من الحديد · جذب'
+    },
+    smithMasterChaIronHelm: {
+      name: 'تاج من الحديد متقن · جذب'
+    },
+    smithChaIronHelm: {
+      name: 'تاج من الحديد · جذب'
+    },
+    smithMasterChaIronPlate: {
+      name: 'سترة شعار من الحديد متقن · جذب'
+    },
+    smithChaIronPlate: {
+      name: 'سترة شعار من الحديد · جذب'
+    },
+    smithMasterChaIronGreaves: {
+      name: 'حذاء من الحديد متقن · جذب'
+    },
+    smithChaIronGreaves: {
+      name: 'حذاء من الحديد · جذب'
+    },
+    smithMasterChaSilverSword: {
+      name: 'صولجان من الفضة متقن · جذب'
+    },
+    smithChaSilverSword: {
+      name: 'صولجان من الفضة · جذب'
+    },
+    smithMasterChaSilverHammer: {
+      name: 'راية من الفضة متقن · جذب'
+    },
+    smithChaSilverHammer: {
+      name: 'راية من الفضة · جذب'
+    },
+    smithMasterChaSilverShield: {
+      name: 'مخطوطة من الفضة متقن · جذب'
+    },
+    smithChaSilverShield: {
+      name: 'مخطوطة من الفضة · جذب'
+    },
+    smithMasterChaSilverHelm: {
+      name: 'تاج من الفضة متقن · جذب'
+    },
+    smithChaSilverHelm: {
+      name: 'تاج من الفضة · جذب'
+    },
+    smithMasterChaSilverPlate: {
+      name: 'سترة شعار من الفضة متقن · جذب'
+    },
+    smithChaSilverPlate: {
+      name: 'سترة شعار من الفضة · جذب'
+    },
+    smithMasterChaSilverGreaves: {
+      name: 'حذاء من الفضة متقن · جذب'
+    },
+    smithChaSilverGreaves: {
+      name: 'حذاء من الفضة · جذب'
+    },
+    smithMasterChaGoldSword: {
+      name: 'صولجان من الذهب متقن · جذب'
+    },
+    smithChaGoldSword: {
+      name: 'صولجان من الذهب · جذب'
+    },
+    smithMasterChaGoldHammer: {
+      name: 'راية من الذهب متقن · جذب'
+    },
+    smithChaGoldHammer: {
+      name: 'راية من الذهب · جذب'
+    },
+    smithMasterChaGoldShield: {
+      name: 'مخطوطة من الذهب متقن · جذب'
+    },
+    smithChaGoldShield: {
+      name: 'مخطوطة من الذهب · جذب'
+    },
+    smithMasterChaGoldHelm: {
+      name: 'تاج من الذهب متقن · جذب'
+    },
+    smithChaGoldHelm: {
+      name: 'تاج من الذهب · جذب'
+    },
+    smithMasterChaGoldPlate: {
+      name: 'سترة شعار من الذهب متقن · جذب'
+    },
+    smithChaGoldPlate: {
+      name: 'سترة شعار من الذهب · جذب'
+    },
+    smithMasterChaGoldGreaves: {
+      name: 'حذاء من الذهب متقن · جذب'
+    },
+    smithChaGoldGreaves: {
+      name: 'حذاء من الذهب · جذب'
+    },
+    smithMasterChaMithrilSword: {
+      name: 'صولجان من الميثريل متقن · جذب'
+    },
+    smithMasterChaAdamantSword: {
+      name: 'صولجان من الأدامانت متقن · جذب'
+    },
+    smithMasterChaAetheriteSword: {
+      name: 'صولجان من الإيثريت متقن · جذب'
+    },
+    smithChaMithrilSword: {
+      name: 'صولجان من الميثريل · جذب'
+    },
+    smithChaAdamantSword: {
+      name: 'صولجان من الأدامانت · جذب'
+    },
+    smithChaAetheriteSword: {
+      name: 'صولجان من الإيثريت · جذب'
+    },
+    smithMasterChaMithrilHammer: {
+      name: 'راية من الميثريل متقن · جذب'
+    },
+    smithMasterChaAdamantHammer: {
+      name: 'راية من الأدامانت متقن · جذب'
+    },
+    smithMasterChaAetheriteHammer: {
+      name: 'راية من الإيثريت متقن · جذب'
+    },
+    smithChaMithrilHammer: {
+      name: 'راية من الميثريل · جذب'
+    },
+    smithChaAdamantHammer: {
+      name: 'راية من الأدامانت · جذب'
+    },
+    smithChaAetheriteHammer: {
+      name: 'راية من الإيثريت · جذب'
+    },
+    smithMasterChaMithrilShield: {
+      name: 'مخطوطة من الميثريل متقن · جذب'
+    },
+    smithMasterChaAdamantShield: {
+      name: 'مخطوطة من الأدامانت متقن · جذب'
+    },
+    smithMasterChaAetheriteShield: {
+      name: 'مخطوطة من الإيثريت متقن · جذب'
+    },
+    smithChaMithrilShield: {
+      name: 'مخطوطة من الميثريل · جذب'
+    },
+    smithChaAdamantShield: {
+      name: 'مخطوطة من الأدامانت · جذب'
+    },
+    smithChaAetheriteShield: {
+      name: 'مخطوطة من الإيثريت · جذب'
+    },
+    smithMasterChaMithrilHelm: {
+      name: 'تاج من الميثريل متقن · جذب'
+    },
+    smithMasterChaAdamantHelm: {
+      name: 'تاج من الأدامانت متقن · جذب'
+    },
+    smithMasterChaAetheriteHelm: {
+      name: 'تاج من الإيثريت متقن · جذب'
+    },
+    smithChaMithrilHelm: {
+      name: 'تاج من الميثريل · جذب'
+    },
+    smithChaAdamantHelm: {
+      name: 'تاج من الأدامانت · جذب'
+    },
+    smithChaAetheriteHelm: {
+      name: 'تاج من الإيثريت · جذب'
+    },
+    smithMasterChaMithrilPlate: {
+      name: 'سترة شعار من الميثريل متقن · جذب'
+    },
+    smithMasterChaAdamantPlate: {
+      name: 'سترة شعار من الأدامانت متقن · جذب'
+    },
+    smithMasterChaAetheritePlate: {
+      name: 'سترة شعار من الإيثريت متقن · جذب'
+    },
+    smithChaMithrilPlate: {
+      name: 'سترة شعار من الميثريل · جذب'
+    },
+    smithChaAdamantPlate: {
+      name: 'سترة شعار من الأدامانت · جذب'
+    },
+    smithChaAetheritePlate: {
+      name: 'سترة شعار من الإيثريت · جذب'
+    },
+    smithMasterChaMithrilGreaves: {
+      name: 'حذاء من الميثريل متقن · جذب'
+    },
+    smithMasterChaAdamantGreaves: {
+      name: 'حذاء من الأدامانت متقن · جذب'
+    },
+    smithMasterChaAetheriteGreaves: {
+      name: 'حذاء من الإيثريت متقن · جذب'
+    },
+    smithChaMithrilGreaves: {
+      name: 'حذاء من الميثريل · جذب'
+    },
+    smithChaAdamantGreaves: {
+      name: 'حذاء من الأدامانت · جذب'
+    },
+    smithChaAetheriteGreaves: {
+      name: 'حذاء من الإيثريت · جذب'
+    },
+    smithMasterEndIronSword: {
+      name: 'هراوة من الحديد متقن · تحمّ'
+    },
+    smithEndIronSword: {
+      name: 'هراوة من الحديد · تحمّ'
+    },
+    smithMasterEndIronHammer: {
+      name: 'فأس من الحديد متقن · تحمّ'
+    },
+    smithEndIronHammer: {
+      name: 'فأس من الحديد · تحمّ'
+    },
+    smithMasterEndIronShield: {
+      name: 'ترس حديدي متقن · تحمّ'
+    },
+    smithEndIronShield: {
+      name: 'ترس حديدي · تحمّ'
+    },
+    smithMasterEndIronHelm: {
+      name: 'خوذة حديدية متقنة · تحمّ'
+    },
+    smithEndIronHelm: {
+      name: 'خوذة حديدية · تحمّ'
+    },
+    smithMasterEndIronPlate: {
+      name: 'صفائح حديدية متقنة · تحمّ'
+    },
+    smithEndIronPlate: {
+      name: 'صفائح حديدية · تحمّ'
+    },
+    smithMasterEndIronGreaves: {
+      name: 'واقيات ساق حديدية متقنة · تحمّ'
+    },
+    smithEndIronGreaves: {
+      name: 'واقيات ساق حديدية · تحمّ'
+    },
+    smithMasterEndSilverSword: {
+      name: 'هراوة من الفضة متقن · تحمّ'
+    },
+    smithEndSilverSword: {
+      name: 'هراوة من الفضة · تحمّ'
+    },
+    smithMasterEndSilverHammer: {
+      name: 'فأس من الفضة متقن · تحمّ'
+    },
+    smithEndSilverHammer: {
+      name: 'فأس من الفضة · تحمّ'
+    },
+    smithMasterEndSilverShield: {
+      name: 'ترس فضي متقن · تحمّ'
+    },
+    smithEndSilverShield: {
+      name: 'ترس فضي · تحمّ'
+    },
+    smithMasterEndSilverHelm: {
+      name: 'خوذة فضية متقنة · تحمّ'
+    },
+    smithEndSilverHelm: {
+      name: 'خوذة فضية · تحمّ'
+    },
+    smithMasterEndSilverPlate: {
+      name: 'صفائح فضية متقنة · تحمّ'
+    },
+    smithEndSilverPlate: {
+      name: 'صفائح فضية · تحمّ'
+    },
+    smithMasterEndSilverGreaves: {
+      name: 'واقيات ساق فضية متقنة · تحمّ'
+    },
+    smithEndSilverGreaves: {
+      name: 'واقيات ساق فضية · تحمّ'
+    },
+    smithMasterEndGoldSword: {
+      name: 'هراوة من الذهب متقن · تحمّ'
+    },
+    smithEndGoldSword: {
+      name: 'هراوة من الذهب · تحمّ'
+    },
+    smithMasterEndGoldHammer: {
+      name: 'فأس من الذهب متقن · تحمّ'
+    },
+    smithEndGoldHammer: {
+      name: 'فأس من الذهب · تحمّ'
+    },
+    smithMasterEndGoldShield: {
+      name: 'ترس ذهبي متقن · تحمّ'
+    },
+    smithEndGoldShield: {
+      name: 'ترس ذهبي · تحمّ'
+    },
+    smithMasterEndGoldHelm: {
+      name: 'خوذة ذهبية متقنة · تحمّ'
+    },
+    smithEndGoldHelm: {
+      name: 'خوذة ذهبية · تحمّ'
+    },
+    smithMasterEndGoldPlate: {
+      name: 'صفائح ذهبية متقنة · تحمّ'
+    },
+    smithEndGoldPlate: {
+      name: 'صفائح ذهبية · تحمّ'
+    },
+    smithMasterEndGoldGreaves: {
+      name: 'واقيات ساق ذهبية متقنة · تحمّ'
+    },
+    smithEndGoldGreaves: {
+      name: 'واقيات ساق ذهبية · تحمّ'
+    },
+    smithMasterEndMithrilSword: {
+      name: 'هراوة من الميثريل متقن · تحمّ'
+    },
+    smithMasterEndAdamantSword: {
+      name: 'هراوة من الأدامانت متقن · تحمّ'
+    },
+    smithMasterEndAetheriteSword: {
+      name: 'هراوة من الإيثريت متقن · تحمّ'
+    },
+    smithEndMithrilSword: {
+      name: 'هراوة من الميثريل · تحمّ'
+    },
+    smithEndAdamantSword: {
+      name: 'هراوة من الأدامانت · تحمّ'
+    },
+    smithEndAetheriteSword: {
+      name: 'هراوة من الإيثريت · تحمّ'
+    },
+    smithMasterEndMithrilHammer: {
+      name: 'فأس من الميثريل متقن · تحمّ'
+    },
+    smithMasterEndAdamantHammer: {
+      name: 'فأس من الأدامانت متقن · تحمّ'
+    },
+    smithMasterEndAetheriteHammer: {
+      name: 'فأس من الإيثريت متقن · تحمّ'
+    },
+    smithEndMithrilHammer: {
+      name: 'فأس من الميثريل · تحمّ'
+    },
+    smithEndAdamantHammer: {
+      name: 'فأس من الأدامانت · تحمّ'
+    },
+    smithEndAetheriteHammer: {
+      name: 'فأس من الإيثريت · تحمّ'
+    },
+    smithMasterEndMithrilShield: {
+      name: 'ترس متقن من الميثريل · تحمّ'
+    },
+    smithMasterEndAdamantShield: {
+      name: 'ترس متقن من الأدامانت · تحمّ'
+    },
+    smithMasterEndAetheriteShield: {
+      name: 'ترس متقن من الإيثريت · تحمّ'
+    },
+    smithEndMithrilShield: {
+      name: 'ترس من الميثريل · تحمّ'
+    },
+    smithEndAdamantShield: {
+      name: 'ترس من الأدامانت · تحمّ'
+    },
+    smithEndAetheriteShield: {
+      name: 'ترس من الإيثريت · تحمّ'
+    },
+    smithMasterEndMithrilHelm: {
+      name: 'خوذة متقنة من الميثريل · تحمّ'
+    },
+    smithMasterEndAdamantHelm: {
+      name: 'خوذة متقنة من الأدامانت · تحمّ'
+    },
+    smithMasterEndAetheriteHelm: {
+      name: 'خوذة متقنة من الإيثريت · تحمّ'
+    },
+    smithEndMithrilHelm: {
+      name: 'خوذة من الميثريل · تحمّ'
+    },
+    smithEndAdamantHelm: {
+      name: 'خوذة من الأدامانت · تحمّ'
+    },
+    smithEndAetheriteHelm: {
+      name: 'خوذة من الإيثريت · تحمّ'
+    },
+    smithMasterEndMithrilPlate: {
+      name: 'صفائح متقنة من الميثريل · تحمّ'
+    },
+    smithMasterEndAdamantPlate: {
+      name: 'صفائح متقنة من الأدامانت · تحمّ'
+    },
+    smithMasterEndAetheritePlate: {
+      name: 'صفائح متقنة من الإيثريت · تحمّ'
+    },
+    smithEndMithrilPlate: {
+      name: 'صفائح من الميثريل · تحمّ'
+    },
+    smithEndAdamantPlate: {
+      name: 'صفائح من الأدامانت · تحمّ'
+    },
+    smithEndAetheritePlate: {
+      name: 'صفائح من الإيثريت · تحمّ'
+    },
+    smithMasterEndMithrilGreaves: {
+      name: 'واقيات ساق متقنة من الميثريل · تحمّ'
+    },
+    smithMasterEndAdamantGreaves: {
+      name: 'واقيات ساق متقنة من الأدامانت · تحمّ'
+    },
+    smithMasterEndAetheriteGreaves: {
+      name: 'واقيات ساق متقنة من الإيثريت · تحمّ'
+    },
+    smithEndMithrilGreaves: {
+      name: 'واقيات ساق من الميثريل · تحمّ'
+    },
+    smithEndAdamantGreaves: {
+      name: 'واقيات ساق من الأدامانت · تحمّ'
+    },
+    smithEndAetheriteGreaves: {
+      name: 'واقيات ساق من الإيثريت · تحمّ'
     },
     smithIronSword: {
       name: 'سيف حديدي'
@@ -1848,6 +3022,414 @@ export default {
     scepterOfTheFirstKing: {
       name: 'صولجان الملك الأول'
     },
+    pickpocketsKnife: {
+      name: 'سكين النشّال'
+    },
+    serpentsFang: {
+      name: 'ناب الأفعى'
+    },
+    phantomRapier: {
+      name: 'سيف الشبح الرفيع'
+    },
+    fangOfTheWindless: {
+      name: 'ناب اللاريح'
+    },
+    roguesBuckler: {
+      name: 'ترس المحتال الصغير'
+    },
+    venomVial: {
+      name: 'قارورة السم'
+    },
+    swiftguardBuckler: {
+      name: 'ترس الحارس السريع الصغير'
+    },
+    nightshadeFlask: {
+      name: 'قنينة البلادونا'
+    },
+    windveilTarge: {
+      name: 'ترس حجاب الريح'
+    },
+    shadowdancersBuckler: {
+      name: 'ترس راقص الظلال الصغير'
+    },
+    scoutsBandana: {
+      name: 'عصابة الكشّاف'
+    },
+    nightcowl: {
+      name: 'قلنسوة الليل'
+    },
+    shadowveilHood: {
+      name: 'قلنسوة حجاب الظلال'
+    },
+    windrunnersCap: {
+      name: 'قبعة عدّاء الريح'
+    },
+    maskOfTheSilentWind: {
+      name: 'قناع الريح الصامتة'
+    },
+    rangersJerkin: {
+      name: 'سترة الحارس'
+    },
+    nightstalkerLeathers: {
+      name: 'جلود صائد الليل'
+    },
+    windridersHarness: {
+      name: 'سرج فارس الريح'
+    },
+    mantleOfTheShadowDancer: {
+      name: 'عباءة راقص الظلال'
+    },
+    thiefsGloves: {
+      name: 'قفازات اللص'
+    },
+    cutpurseGloves: {
+      name: 'قفازات النشّال'
+    },
+    glovesOfTheGale: {
+      name: 'قفازات العاصفة'
+    },
+    softSoledShoes: {
+      name: 'أحذية بنعل ناعم'
+    },
+    catStepBoots: {
+      name: 'جزمة خطوة القط'
+    },
+    shadowstepBoots: {
+      name: 'جزمة خطوة الظل'
+    },
+    windstrideBoots: {
+      name: 'جزمة خطوة الريح'
+    },
+    luckyCoin: {
+      name: 'عملة الحظ'
+    },
+    shadowBand: {
+      name: 'خاتم الظل'
+    },
+    sandglassOfTheSwift: {
+      name: 'ساعة رملية للسريعين'
+    },
+    talonCharm: {
+      name: 'تميمة المخلب'
+    },
+    windheart: {
+      name: 'قلب الريح'
+    },
+    ashwallHeater: {
+      name: 'درع الجدار الرمادي'
+    },
+    wyrmhidePavise: {
+      name: 'ترس من جلد الوايفرن'
+    },
+    footmansKettleHat: {
+      name: 'قبعة قدر الجندي المشاة'
+    },
+    ironbrowSallet: {
+      name: 'خوذة بحاجبين حديديين'
+    },
+    warlordsBarbute: {
+      name: 'خوذة بربوط القائد الحربي'
+    },
+    helmOfTheSunderedThrone: {
+      name: 'خوذة العرش المحطم'
+    },
+    recruitsCuirass: {
+      name: 'درع الجندي المستجد'
+    },
+    stonecuttersMitts: {
+      name: 'قفازات النحات'
+    },
+    ashforgedGauntlets: {
+      name: 'قفازات مدرعة مطروقة في الرماد'
+    },
+    warbringerGauntlets: {
+      name: 'قفازات مدرعة لحامل الحرب'
+    },
+    titanfistGauntlets: {
+      name: 'قفازات مدرعة قبضة العملاق'
+    },
+    footmansGreaves: {
+      name: 'واقيات ساق المشاة'
+    },
+    ironshodGreaves: {
+      name: 'واقيات ساق مبطنة بالحديد'
+    },
+    warlordsSabatons: {
+      name: 'أحذية القائد الحربي المدرعة'
+    },
+    greavesOfTheMountainfall: {
+      name: 'واقيات ساق انهيار الجبل'
+    },
+    sergeantsSignet: {
+      name: 'خاتم ختم العريف'
+    },
+    brawlersKnuckleRing: {
+      name: 'قبضة المشاغب الحديدية'
+    },
+    bloodiedWarMedal: {
+      name: 'ميدالية حرب ملطخة بالدم'
+    },
+    watchmansCudgel: {
+      name: 'هراوة الحارس'
+    },
+    ironboundMace: {
+      name: 'صولجان محزّم بالحديد'
+    },
+    stonehideCleaver: {
+      name: 'ساطور جلد الصخر'
+    },
+    bulwarkMaul: {
+      name: 'مطرقة الحصن'
+    },
+    mountainsplitterAxe: {
+      name: 'فأس شاطر الجبال'
+    },
+    everstandWarmace: {
+      name: 'صولجان حرب لا يتزعزع'
+    },
+    emberwallBastion: {
+      name: 'حصن جدار الجمر'
+    },
+    stonewardenHelm: {
+      name: 'خوذة حارس الصخر'
+    },
+    colossusVisage: {
+      name: 'وجه العملاق'
+    },
+    diggersGauntlets: {
+      name: 'قفازات مدرعة للحفّار'
+    },
+    bastionGauntlets: {
+      name: 'قفازات الحصن المدرعة'
+    },
+    glacierplateGauntlets: {
+      name: 'قفازات مدرعة بألواح الجليد'
+    },
+    gauntletsOfEndlessVigil: {
+      name: 'قفازات المراقبة الأبدية المدرعة'
+    },
+    hearthstoneCharm: {
+      name: 'تعويذة حجر الموقد'
+    },
+    ironheartPendant: {
+      name: 'قلادة قلب الحديد'
+    },
+    hedgewizardsWand: {
+      name: 'عصا ساحر السياج'
+    },
+    frostglassStaff: {
+      name: 'عصا زجاج الصقيع'
+    },
+    voidthreadWand: {
+      name: 'عصا خيط الفراغ'
+    },
+    staffOfTheStarlessSky: {
+      name: 'عصا السماء بلا نجوم'
+    },
+    studentsGrimoire: {
+      name: 'كتاب سحر التلميذ'
+    },
+    frostfireOrb: {
+      name: 'كرة نار الصقيع'
+    },
+    orbOfTheUnwrittenHour: {
+      name: 'كرة الساعة غير المكتوبة'
+    },
+    apprenticesPointedCap: {
+      name: 'قبعة المتدرب المدببة'
+    },
+    sagesCirclet: {
+      name: 'تاج الحكيم'
+    },
+    cinderWizardsHat: {
+      name: 'قبعة ساحر الرماد'
+    },
+    voidseerCirclet: {
+      name: 'تاج رائي الفراغ'
+    },
+    apprenticesRobe: {
+      name: 'رداء المتدرب'
+    },
+    cinderthreadRobe: {
+      name: 'رداء خيط الرماد'
+    },
+    voidwovenRobe: {
+      name: 'رداء منسوج من الفراغ'
+    },
+    inkStainedGloves: {
+      name: 'قفازات ملطخة بالحبر'
+    },
+    spellthreadGloves: {
+      name: 'قفازات خيط التعويذة'
+    },
+    frostweaveGloves: {
+      name: 'قفازات منسوجة بالصقيع'
+    },
+    starlitGloves: {
+      name: 'قفازات ضوء النجوم'
+    },
+    glovesOfTheLastWord: {
+      name: 'قفازات الكلمة الأخيرة'
+    },
+    scribesSlippers: {
+      name: 'خفّا الكاتب'
+    },
+    moonstepSlippers: {
+      name: 'خفّا خطوة القمر'
+    },
+    emberstepBoots: {
+      name: 'حذاء خطوة الجمر'
+    },
+    voidwalkerBoots: {
+      name: 'حذاء جوّال الفراغ'
+    },
+    bootsOfTheWanderingStar: {
+      name: 'حذاء النجم التائه'
+    },
+    glowstonePendant: {
+      name: 'قلادة الحجر المتوهج'
+    },
+    scholarsSeal: {
+      name: 'ختم العالِم'
+    },
+    eyeOfTheArchon: {
+      name: 'عين الأركون'
+    },
+    cinderRepeater: {
+      name: 'بندقية الرماد المتكررة'
+    },
+    glacierMortar: {
+      name: 'هاون الجليد اليدوي'
+    },
+    sparkCell: {
+      name: 'خلية الشرر'
+    },
+    arcCapacitor: {
+      name: 'مكثف القوس'
+    },
+    aetherheartCell: {
+      name: 'خلية قلب الأثير'
+    },
+    marksmansVisor: {
+      name: 'حاجب وجه الرامي'
+    },
+    sharpshootersCap: {
+      name: 'قبعة القنّاص'
+    },
+    gunnersHarness: {
+      name: 'حزام المدفعي'
+    },
+    steadyhandGloves: {
+      name: 'قفازات اليد الثابتة'
+    },
+    gunsmithsGloves: {
+      name: 'قفازات صانع الأسلحة'
+    },
+    scrappersBoots: {
+      name: 'حذاء المشاغب'
+    },
+    sharpshooterBoots: {
+      name: 'حذاء القنّاص'
+    },
+    firingLineBoots: {
+      name: 'حذاء خط النار'
+    },
+    steadyfootBoots: {
+      name: 'حذاء القدم الثابتة'
+    },
+    aetherstepBoots: {
+      name: 'حذاء خطوة الأثير'
+    },
+    bootsOfTheLastShot: {
+      name: 'حذاء الطلقة الأخيرة'
+    },
+    brassCartridgeCharm: {
+      name: 'تعويذة خرطوشة نحاسية'
+    },
+    deadEyeLens: {
+      name: 'عدسة العين الدقيقة'
+    },
+    eagleEyeScope: {
+      name: 'منظار عين النسر'
+    },
+    criersBaton: {
+      name: 'عصا المنادي'
+    },
+    droversStandard: {
+      name: 'راية الراعي'
+    },
+    marshalsSceptre: {
+      name: 'صولجان المارشال'
+    },
+    balladBook: {
+      name: 'كتاب الأغاني الشعبية'
+    },
+    chronicleOfHeroes: {
+      name: 'سجل الأبطال'
+    },
+    psalterOfTheHost: {
+      name: 'مزامير الجيش'
+    },
+    tomeOfEternalReign: {
+      name: 'مجلّد الحكم الأبدي'
+    },
+    heraldsCap: {
+      name: 'قبعة الرسول'
+    },
+    singersCirclet: {
+      name: 'تاج المغنّي'
+    },
+    diademOfTenThousandVoices: {
+      name: 'تاج عشرة آلاف صوت'
+    },
+    travelersWaistcoat: {
+      name: 'صدرية المسافر'
+    },
+    minstrelsMotley: {
+      name: 'ثياب المنشد المرقّعة'
+    },
+    troubadoursCoat: {
+      name: 'معطف المنشد الجوال'
+    },
+    marshalsGreatcoat: {
+      name: 'معطف المارشال'
+    },
+    buskersGloves: {
+      name: 'قفازات موسيقي الشارع'
+    },
+    drummersGloves: {
+      name: 'قفازات الطبّال'
+    },
+    standardBearersGloves: {
+      name: 'قفازات حامل الراية'
+    },
+    gildedParadeGloves: {
+      name: 'قفازات العرض المذهّبة'
+    },
+    glovesOfTheCrownedHand: {
+      name: 'قفازات اليد المتوّجة'
+    },
+    wayfarersShoes: {
+      name: 'حذاء المسافر'
+    },
+    troubadourBoots: {
+      name: 'حذاء المنشد الجوال'
+    },
+    heraldsRidingBoots: {
+      name: 'حذاء ركوب الرسول'
+    },
+    paradeBoots: {
+      name: 'حذاء العرض'
+    },
+    bootsOfTheLongProcession: {
+      name: 'حذاء الموكب الطويل'
+    },
+    silverWhistle: {
+      name: 'صفارة فضية'
+    },
+    gatheringHorn: {
+      name: 'بوق التجمّع'
+    },
     heartOfTheMountain: {
       name: 'قلب الجبل'
     },
@@ -1961,6 +3543,9 @@ export default {
     freedPeddler: {
       talk: 'كل ما يحتاجه المسافر. شبه جديد، في الغالب.',
       name: 'أودو مارو'
+    },
+    sfShadowRoad: {
+      name: 'نيتل كويكهاند'
     },
     sfShadow: {
       name: 'نيتل كويكهاند'
@@ -2115,6 +3700,9 @@ export default {
     sunfordGambler: {
       name: 'دوب البهلوان'
     },
+    sunfordCups: {
+      name: 'نيل سريعة الأصابع'
+    },
     oakGambler: {
       name: 'رين الحريري'
     },
@@ -2226,6 +3814,13 @@ export default {
     }
   },
   dlg: {
+    intro: {
+      crossing: { 1: 'كل طريق في هذا العالم يلتقي عند مفترق… وكل مفترق هو معركة.' },
+      hero: { 1: 'من حقول سانفورد الهادئة، انطلق بطل شاب.' },
+      fire: { 1: 'لبّت النار النداء. وتعلّم الفولاذ اسمًا جديدًا.' },
+      foes: { 1: 'ملوك الغوبلن، يارلات الصقيع، تنين العدم… وكبير الشياطين.' },
+      begin: { 1: 'أسطورتك تبدأ الآن.' }
+    },
     frostDisciple: {
       bye: {
         '1__f': 'ابقي دافئة.',
@@ -2462,6 +4057,23 @@ export default {
         '2': 'أودو مارو، في خدمتك. بائع جوّال، ومصلّح، ورجل ممتنّ جداً.',
         '1__f': 'أنتِ! أنتِ من فتحت ذلك القفص! كنت سأتعفّن هناك.',
         '1': 'أنت! أنت من فتح ذلك القفص! كنت سأتعفّن هناك.'
+      }
+    },
+    sfShadowRoad: {
+      hello: {
+        '1': 'انتقال آني. هل يهمك الأمر؟'
+      },
+      again: {
+        '1': 'عدت من أجل حيلة أخرى؟'
+      },
+      train: {
+        '1': 'راقب جيدًا. خطوة واحدة، وتصبح في مكان آخر.'
+      },
+      trainBack: {
+        '1': 'جيد. والآن اذهب وكن في مكان آخر.'
+      },
+      bye: {
+        '1': 'لا تدع أحدًا يمسك بك.'
       }
     },
     sfShadow: {
@@ -2740,9 +4352,8 @@ export default {
         '1__f': 'الحدادة؟ همم. أمسكي المطرقة هكذا، لا كأنها هراوة.',
         '1': 'الحدادة؟ همم. أمسك المطرقة هكذا، لا كأنها هراوة.'
       },
-      ore: {
-        '1': 'قطع خام، ها؟ سآخذها كلها. وزن عادل وثمن عادل.'
-      },
+      ore: { '1': 'خام، أليس كذلك؟ أرني. أدفع عن كل قطعة، بوزن عادل.' },
+      sellBack: { '1': 'وزن عادل وعملة عادلة. أحضر المزيد حين تجده.' },
       forgeBack: {
         '1__f': 'ليس سيئاً. ولا جيداً أيضاً. واصلي.',
         '1': 'ليس سيئاً. ولا جيداً أيضاً. واصل.'
@@ -3064,7 +4675,7 @@ export default {
       },
       map: {
         '1': 'خريطة القائد روك! مزّقها وخبّأ القطع قبل أن يمسك به الغوبلن.',
-        '2': 'بالقطع الست كلها تدلّ علامة X على الطريق: إلى مكان ما في جروف الرماد. وهناك، تحت التراب، ذهبٌ ينتظرك.',
+        '2': 'اعثر على ست قطع منها، فهناك بضع قطع أخرى مبعثرة، وستدلّك علامة X على الطريق: إلى مكان ما في جروف الرماد. وهناك، تحت التراب، ذهبٌ ينتظرك.',
         say: 'وجدتُ قطعة من خريطة قديمة.'
       }
     },
@@ -3085,6 +4696,9 @@ export default {
       mana: {
         '1': 'هذه مرّة. اشربها حين تنفد تعويذاتك.',
         '1__f': 'هذه مرّة. اشربيها حين تنفد تعويذاتك.'
+      },
+      brew: {
+        '1': 'أرني أعشابك. سأخلط لك شيئاً طعمه أفضل من مقوّي المانا خاصتي.'
       },
       potions: {
         '1': 'تحمل بضع قوارير إلى كل معركة. اشرب قبل أن تحتاج، لا بعد.',
@@ -3109,6 +4723,9 @@ export default {
       healBack: {
         '1': 'أبقِ حزامك ممتلئاً ورأسك منخفضاً.',
         '1__f': 'أبقي حزامك ممتلئاً ورأسك منخفضاً.'
+      },
+      brewBack: {
+        '1': 'احذر، إنها ساخنة. لا تشربها كلها دفعة واحدة.'
       },
       bye: {
         '1': 'اعتنِ بنفسك هناك.',
@@ -3221,9 +4838,8 @@ export default {
         '1__f': 'تريدين أن تتعلّمي الصنعة؟ جيد. أوكهيفن تحتاج كل مطرقة.',
         '1': 'تريد أن تتعلّم الصنعة؟ جيد. أوكهيفن تحتاج كل مطرقة.'
       },
-      ore: {
-        '1': 'خام نيّء! مخزن السلاح لا يكتفي أبداً. هذا أجرك.'
-      },
+      ore: { '1': 'خام خام! مخزن السلاح لا يكتفي أبدًا. بعني ما تستغني عنه.' },
+      sellBack: { '1': 'كل قطعة تذهب إلى السور. شكرًا لك.' },
       forgeBack: {
         '1': 'فولاذ جيد. الأسوار تشكرك.'
       },
@@ -3270,10 +4886,8 @@ export default {
         '1__f': 'منذ الحصار وأنا أعلّم كل من يسأل. تعالي، قفي هنا.',
         '1': 'منذ الحصار وأنا أعلّم كل من يسأل. تعال، قف هنا.'
       },
-      ore: {
-        '1__f': 'مزيد من الخام للأسوار؟ بارك الله فيكِ. خذي، هذا لكِ.',
-        '1': 'مزيد من الخام للأسوار؟ بارك الله فيك. خذ، هذا لك.'
-      },
+      ore: { '1': 'مزيد من الخام للأسوار؟ أدفع عن كل قطعة تستطيع بيعها.' },
+      sellBack: { '1': 'باركك الله. هذه صفائح أكثر للأسوار.' },
       forgeBack: {
         '1__f': 'كل طرقة تجعلكِ أفضل. عودي متى شئتِ.',
         '1': 'كل طرقة تجعلك أفضل. عد متى شئت.'
@@ -3726,9 +5340,8 @@ export default {
         '1__f': 'ساكنة سطح عند السندان؟ حسناً، الكل يبدأ من مكان ما.',
         '1': 'ساكن سطح عند السندان؟ حسناً، الكل يبدأ من مكان ما.'
       },
-      ore: {
-        '1': 'معدن جيد وصادق. آيرنهولد تدفع دائماً لقاء ذلك.'
-      },
+      ore: { '1': 'معدن جيد وصادق. ضعه هنا، أدفع عن كل قطعة.' },
+      sellBack: { '1': 'صفقة عادلة. آيرنهولد تدفع دائمًا ثمن المعدن الجيد.' },
       forgeBack: {
         '1': 'كان قزمٌ سيصنع أفضل. لكن ليس بكثير.'
       },
@@ -3806,10 +5419,8 @@ export default {
         '2': 'سخّن، اطرق، اقلب. ثلاث طرقات، في قلب التوهّج تماماً. ثم دعه يبرد.',
         '1': 'الصفائح عمل يحتاج إلى صبر. سأريك الأساسيات.'
       },
-      ore: {
-        '1__f': 'دعيني أزنه. جيد. المال لكِ.',
-        '1': 'دعني أزنه. جيد. المال لك.'
-      },
+      ore: { '1': 'دعني أزنه. اختر ما ستبيع، وأنا أعدّ النقود.' },
+      sellBack: { '1': 'وُزن ودُفع. جيد.' },
       forgeBack: {
         '1__f': 'دعيها تبرد قبل أن ترتديها.',
         '1': 'دعها تبرد قبل أن ترتديها.'
@@ -3854,9 +5465,8 @@ export default {
         '2': 'الانضباط عند السندان كما في الميدان. ثلاث طرقات، وفيّة للتوهّج.',
         '1': 'الأخوية تسلّح أصدقاءها. سأعلّمك.'
       },
-      ore: {
-        '1': 'الأخوية تشتري كل الخام للحرب. هذا أجرك.'
-      },
+      ore: { '1': 'الأخوية تشتري الخام للحرب. بِع ما تستغني عنه.' },
+      sellBack: { '1': 'دفعتك مسجلة. الأخوية تشكرك.' },
       forgeBack: {
         '1__f': 'صياغة متقنة. اخدمي بها خير خدمة.',
         '1': 'صياغة متقنة. اخدم بها خير خدمة.'
@@ -4317,6 +5927,11 @@ export default {
       }
     },
     bark: {
+      banditChief: {
+        whistle: {
+          1: 'انهضوا يا رجال! عضّوهم!'
+        }
+      },
       lightDisciple: {
         freed: {
           '1': 'النور أرسلك. أنا الأخت أوريل. أنتظرك في سانفورد، وسأعلّمك طريق حامل النور.'
@@ -4477,9 +6092,8 @@ export default {
         '1__f': 'أتريدين أن تجرّبي المطرقة بنفسكِ؟ لا مانع عندي من مشاركة المسبك.',
         '1': 'أتريد أن تجرّب المطرقة بنفسك؟ لا مانع عندي من مشاركة المسبك.'
       },
-      ore: {
-        '1': 'خام جميل. سيلفربريدج تدفع دائماً سعراً عادلاً.'
-      },
+      ore: { '1': 'خام جميل. أرني ما ستبيع، أدفع عن كل قطعة.' },
+      sellBack: { '1': 'بكل سرور. سيلفربريدج تدفع دائمًا سعرًا عادلًا.' },
       forgeBack: {
         '1__f': 'انظري إلى هذا! أنتِ موهوبة بالفطرة.',
         '1': 'انظر إلى هذا! أنت موهوب بالفطرة.'
@@ -4922,7 +6536,7 @@ export default {
         say: 'أين أجد الأعشاب؟'
       },
       elixirs: {
-        '1': 'كل واحد يجعلك أقوى في القتال دقيقة كاملة. ضربات أشد، وجلد أصلب، وأقدام أسرع.',
+        '1': 'كل واحد يجعلك أقوى في القتال 5 دقائق كاملة. ضربات أشد، وجلد أصلب، وأقدام أسرع.',
         '2': 'توضع في قارورتك الثالثة. انقر السهم الصغير لتبدّل ما تشربه.',
         say: 'ماذا تفعل الإكسيرات؟'
       },
@@ -4991,6 +6605,36 @@ export default {
       },
       bye: {
         '1': 'المزيد من الخردة في المرة القادمة! الخردة هي المفضّلة عندي.'
+      }
+    },
+    sunfordCups: {
+      hello: {
+        1: 'تفضلوا! ثلاثة أكواب وجوهرة واحدة، والجولة الأولى على حسابي!',
+        2: 'نيل سريعة الأصابع. لم يخدع أحد يديّ بعد. هل تريد أن تجرب؟'
+      },
+      again: {
+        1: 'عدت مجددًا؟ أبقِ عينيك مفتوحتين!'
+      },
+      play: {
+        1: 'عيناك على الجوهرة يا صديقي. لا ترمش!'
+      },
+      rules: {
+        1: 'أخفي الجوهرة تحت كوب وأخلط الأكواب. وأنت تشير إلى الكوب الذي يخفيها.',
+        2: 'كل فوز متتالٍ يدفع أكثر. ثلاثة انتصارات تجلب جائزة وخمسة تجلب كنزًا. الجولة الأولى كل يوم مجانية.',
+        say: 'كيف تُلعب؟'
+      },
+      who: {
+        1: 'تعلمت الخلط قبل أن أتعلم المشي. تقول أمي إن هذا يفسر الكثير.'
+      },
+      luck: {
+        1: 'أحيانًا! فأئن بصوت عالٍ ويشفق عليّ الجمهور.',
+        say: 'هل تخسرين أحيانًا؟'
+      },
+      playBack: {
+        1: 'جولة رائعة! عد غدًا، الأولى مجانية دائمًا.'
+      },
+      bye: {
+        1: 'إلى اللقاء! أبقِ عينيك مفتوحتين في الخارج.'
       }
     },
     oakGambler: {
@@ -5484,6 +7128,7 @@ export default {
     banditArcher: 'قاطع طريق رامٍ',
     wolf: 'ذئب',
     banditChief: 'زعيم قطّاع الطرق',
+    gnome: 'قزم',
     goblinKing: 'ملك الغوبلن',
     treant: 'شجرة حيّة',
     spider: 'عنكبوت عملاق',
@@ -5704,6 +7349,18 @@ export default {
       firefoxColors: 'Firefox: الإعدادات → الألوان → اضبط “تجاوز الألوان التي تحددها الصفحة” على أبدًا.'
     }
   },
+  samsungFix: {
+    title: 'فحص سريع للألوان',
+    body: 'تغيّر بعض الهواتف ألوان صفحات الويب. قارن بين المربعين أدناه.',
+    question: 'هل يبدو المربعان متطابقين؟',
+    refSquare: 'المربع المرجعي',
+    pageSquare: 'مربع الصفحة',
+    yes: 'نعم، متطابقان',
+    no: 'لا، يبدوان مختلفين',
+    option: 'تصحيح الألوان (الوضع الداكن في Samsung)',
+    optionHint: 'فعّله إذا بدت القوائم داكنة أو صعب قراءة النص.',
+    recheck: 'أعد فحص الألوان'
+  },
   saveStatus: {
     restoredTitle: 'تمت استعادة الحفظ السحابي',
     restoredBody: '+{n} ذهب مكافأة للاستعادة',
@@ -5830,7 +7487,7 @@ export default {
   },
   forge: {
     upgrade: 'تطوير ({n} ذهب)',
-    max: 'مطوَّر بالكامل: +{n}.',
+    next: 'التالي +{level}: +{pct}% من الإحصائيات',
     town: 'أي حدّاد في أي بلدة يستطيع تطوير هذا.'
   },
   ore: {
@@ -5845,6 +7502,12 @@ export default {
     },
     mithril: {
       name: 'خام الميثريل'
+    },
+    adamant: {
+      name: 'خام الأدامانت'
+    },
+    aetherite: {
+      name: 'خام الإيثريت'
     }
   },
   plant: {
@@ -5926,32 +7589,32 @@ export default {
   elixir: {
     might: {
       name: 'إكسير القوة',
-      desc: '+{n}% ضرر لمدة دقيقة'
+      desc: '+{n}% ضرر لمدة 5 دقائق'
     },
     iron: {
       name: 'شراب جلد الحديد',
-      desc: '+{n}% درع لمدة دقيقة'
+      desc: '+{n}% درع لمدة 5 دقائق'
     },
     swift: {
       name: 'منشّط الخِفّة',
-      desc: '+{n}% سرعة الحركة وسرعة الهجوم لمدة دقيقة'
+      desc: '+{n}% سرعة الحركة وسرعة الهجوم لمدة 5 دقائق'
     },
     mind: {
       name: 'منقوع صفاء الذهن',
-      desc: 'تعود المهارات أسرع بنسبة {n}% لمدة دقيقة'
+      desc: 'تعود المهارات أسرع بنسبة {n}% لمدة 5 دقائق'
     },
     vigor: {
       name: 'إكسير الحيوية',
-      desc: 'يشفي {n}% من صحتك كل ثانية لمدة دقيقة'
+      desc: 'يشفي {n}% من صحتك كل ثانية لمدة 5 دقائق'
     },
     shadow: {
       name: 'شراب الظمأ',
-      desc: 'ضرباتك تشفيك بنسبة {n}% من ضررها لمدة دقيقة'
+      desc: 'ضرباتك تشفيك بنسبة {n}% من ضررها لمدة 5 دقائق'
     }
   },
   alchemy: {
     talk: 'أعشاب تدخل، وإكسيرات تخرج. أيّها نحضّر؟',
-    lead: 'كل إكسير يعمل لمدة دقيقة في القتال. اشربه من قارورتك الثالثة. يمكنك حمل {n} من كل نوع.',
+    lead: 'كل إكسير يعمل لمدة 5 دقائق في القتال. اشربه من قارورتك الثالثة. يمكنك حمل {n} من كل نوع.',
     brew: 'حضّر · {n}',
     carry: 'احمل هذا',
     carried: 'في قارورتك',
@@ -5975,6 +7638,25 @@ export default {
     again: 'جولة أخرى',
     noGold: 'الذهب لا يكفي لهذا الرهان.',
     card: 'بطاقة {n}'
+  },
+  cups: {
+    title: 'ركن الأكواب',
+    lead: 'راقب الجوهرة، وتتبّع كوبها، ثم أشِر إليه. كل فوز متتالٍ يدفع أكثر. الثالث يجلب قطعة جائزة والخامس كنزًا.',
+    free: 'جولة مجانية',
+    fee: 'العب · {n}',
+    row: 'انتصارات متتالية: {n} من {max}',
+    next: 'الفوز التالي: {n} ذهب',
+    watch: 'راقب الجوهرة!',
+    follow: 'تتبّعها…',
+    pick: 'اختر كوبًا!',
+    hint: 'المس كوبًا أو اضغط رقمه.',
+    won: 'وجدتها! +{n} ذهب',
+    lost: 'ليس هذا. تبدأ السلسلة من جديد.',
+    near: 'كدت تصيب! كانت بجواره تمامًا.',
+    timeout: 'بطيء جدًا! تبدأ السلسلة من جديد.',
+    again: 'العب مجددًا',
+    noGold: 'الذهب لا يكفي. غدًا جولتك الأولى مجانية.',
+    cup: 'الكوب {n}'
   },
   battle: {
     title: 'مبارزة الأغراض',

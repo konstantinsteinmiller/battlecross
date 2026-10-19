@@ -50,6 +50,9 @@ def main():
         tone, note = pick_tone(job)
         exag, cfg = TONE_MAP[tone]
         exag = float(job.get("exaggeration", exag))
+        # A reference in another language than the line: cfg_weight 0 keeps the reference's accent out (Resemble's advice).
+        if job.get("lang", "en") != "en":
+            cfg = 0.0
         cfg = float(job.get("cfg_weight", cfg))
         warnings = [f"tone={tone} exaggeration={exag} cfg_weight={cfg}"]
         if note:

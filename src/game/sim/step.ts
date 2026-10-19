@@ -12,7 +12,7 @@ import { finishMine } from './ores'
 import { stepPickups } from './herbs'
 import { stepCaptives } from './cages'
 import { HERO_SKILLS } from './heroSkills'
-import { stepTownLife } from './townLife'
+import { townSimReady } from './townHooks'
 import type { ZonePlan } from './zoneGen'
 import type { Unit } from './types'
 import { atPeace, type Sim } from './world'
@@ -107,7 +107,8 @@ export const stepSim = (sim: Sim, plan: ZonePlan, dt: number): void => {
     else stepAlly(sim, u, dt)
   }
 
-  if (sim.mode === 'town') stepTownLife(sim, dt)
+  // A town's life is its lazy chunk's (`townHooks.ts`): no life without it.
+  if (sim.mode === 'town') townSimReady()?.stepTownLife(sim, dt)
   separate(sim, dt)
   stepProjectiles(sim, dt)
   stepFields(sim, dt)

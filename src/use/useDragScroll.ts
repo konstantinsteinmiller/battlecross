@@ -29,7 +29,10 @@ export const revealLeft = (scrollLeft: number, viewW: number, childLeft: number,
 
 /** Scroll `child` of the strip `el` into view (only sideways, only as far as needed). */
 export const revealIn = (el: HTMLElement, child: HTMLElement, smooth = true): void => {
-  const left = revealLeft(el.scrollLeft, el.clientWidth, child.offsetLeft - el.offsetLeft, child.offsetWidth)
+  // Measured on screen, so it holds whether or not the strip is positioned.
+  const r = el.getBoundingClientRect()
+  const c = child.getBoundingClientRect()
+  const left = revealLeft(el.scrollLeft, el.clientWidth, c.left - r.left + el.scrollLeft - el.clientLeft, c.width)
   if (Math.abs(left - el.scrollLeft) < 1) return
   const calm = typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches
   el.scrollTo({ left, behavior: smooth && !calm ? 'smooth' : 'auto' })
@@ -87,9 +90,33 @@ export const useDragScroll = (strip: Ref<HTMLElement | null>): void => {
     el.scrollLeft += e.deltaY
   }
 
+  // Edge fades: .can-left / .can-right say more lies off that side.
+  let ro: ResizeObserver | undefined
+  const edges = () => {
+    const el = strip.value
+    if (!el) return
+    const max = el.scrollWidth - el.clientWidth
+    el.classList.toggle('can-left', max > 1 && el.scrollLeft > 1)
+    el.classList.toggle('can-right', max > 1 && el.scrollLeft < max - 1)
+  }
+  // Tabbing to a chip that is cut off brings it into view.
+  const focusin = (e: FocusEvent) => {
+    const el = strip.value
+    const t = e.target
+    if (el && t instanceof HTMLElement && t.parentElement === el) revealIn(el, t)
+  }
+
   onMounted(() => {
     const el = strip.value
     if (!el) return
+    el.addEventListener('scroll', edges, { passive: true })
+    el.addEventListener('focusin', focusin)
+    if (typeof ResizeObserver === 'function') {
+      ro = new ResizeObserver(edges)
+      ro.observe(el)
+      for (const c of Array.from(el.children)) ro.observe(c)
+    }
+    edges()
     el.addEventListener('pointerdown', down)
     el.addEventListener('pointermove', move)
     el.addEventListener('pointerup', up)
@@ -99,7 +126,10 @@ export const useDragScroll = (strip: Ref<HTMLElement | null>): void => {
   })
   onBeforeUnmount(() => {
     const el = strip.value
+    ro?.disconnect()
     if (!el) return
+    el.removeEventListener('scroll', edges)
+    el.removeEventListener('focusin', focusin)
     el.removeEventListener('pointerdown', down)
     el.removeEventListener('pointermove', move)
     el.removeEventListener('pointerup', up)

@@ -3,7 +3,7 @@ import type { ZoneId } from './items'
 /**
  * ─── Plants (roadmap #87, #88, D103; habitats #112, #114) ────────────────────
  *
- * Eight herbs grow in the wild places: three or four of them on every visit,
+ * Eight herbs grow in the wild places: six or seven of them on every visit,
  * picked by walking over them, carried home in a pouch and brewed by the
  * alchemist into elixirs. Each grows in the places that suit it — its
  * HABITAT, a list of zones with how common it is there — not anywhere a
@@ -46,9 +46,9 @@ export const PLANTS: readonly PlantDef[] = [
 export const PLANT_IDS: readonly PlantId[] = PLANTS.map(p => p.id)
 export const PLANT_BY_ID: Readonly<Record<PlantId, PlantDef>> = Object.fromEntries(PLANTS.map(p => [p.id, p])) as Record<PlantId, PlantDef>
 
-/** Plants found on one visit (at most). */
-export const HERBS_MIN = 3
-export const HERBS_MAX = 4
+/** Plants found on one visit. */
+export const HERBS_MIN = 6
+export const HERBS_MAX = 7
 /** The pouch holds this many of each. */
 export const HERB_CAP = 99
 

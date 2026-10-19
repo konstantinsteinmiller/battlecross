@@ -14,6 +14,11 @@
  *       water, lava, a chest, a carved stone;
  *   8 = a SEALED cell: a hidden passage behind a door that has not opened yet.
  *       It is rock until it opens, and then it is gone for the visit.
+ *  16 = ROUND: with LOW alone, a level prop (a chest, a post, an ore rock)
+ *       that is smaller than its cell. A body is stopped by a disc of
+ *       `ROUND_R` round the cell's middle — the prop's drawn footprint — not
+ *       by the whole square (whose corners were thin air). Paths and looks
+ *       still treat the cell as blocked.
  * Any bit stops a walking body. Only 1, 2 and 8 stop a line of sight or a
  * shot (`SIGHT_MASK`).
  *
@@ -29,6 +34,9 @@ export const SOLID_TERRAIN = 1
 export const SOLID_TEMP = 2
 export const SOLID_LOW = 4
 export const SOLID_SEALED = 8
+export const SOLID_ROUND = 16
+/** The radius (m) of a ROUND cell's collider: what a chest, a post or an ore rock covers. */
+export const ROUND_R = 0.6
 /** What a look or a shot cannot pass. */
 export const SIGHT_MASK = SOLID_TERRAIN | SOLID_TEMP | SOLID_SEALED
 const WALK_MASK = 0xff
@@ -255,6 +263,16 @@ export const resolveCircle = (g: Grid, x: number, z: number, r: number, out: [nu
   for (let j = j0; j <= j1; j++) {
     for (let i = i0; i <= i1; i++) {
       if (!isSolidCell(g, i, j)) continue
+      if (g.solid[j * g.w + i] === (SOLID_LOW | SOLID_ROUND) && i >= 0 && j >= 0 && i < g.w && j < g.h) {
+        // A prop smaller than its cell: a disc round its middle.
+        const dx = px - (i + 0.5) * CELL
+        const dz = pz - (j + 0.5) * CELL
+        const d = Math.hypot(dx, dz)
+        const rr = r + ROUND_R
+        if (d >= rr) continue
+        if (d > 1e-6) { px += (dx / d) * (rr - d); pz += (dz / d) * (rr - d) } else pz += rr
+        continue
+      }
       const minX = i * CELL
       const minZ = j * CELL
       const cx = Math.max(minX, Math.min(px, minX + CELL))

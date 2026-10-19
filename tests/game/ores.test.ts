@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { generateZone, fillGrid } from '@/game/sim/zoneGen'
 import { ZONES, ZONE_IDS } from '@/game/data/zones'
-import { ORE_LEVEL, ORE_NODES_MAX, oresAt } from '@/game/data/ores'
+import { LATE_ORE_LEVEL, LATE_ORE_NODES_MIN, ORE_LEVEL, ORE_NODES_MAX, oresAt } from '@/game/data/ores'
 import { MINE_REACH, MINE_TIME, mineLock, orderMine, roomyWall } from '@/game/sim/ores'
 import { CHEST_NEAR, CHEST_REACH, OPEN_TIME, beginOpen } from '@/game/sim/interact'
 import { CELL, cellOf, createGrid, findPath, isSolidAt } from '@/game/sim/grid'
@@ -136,6 +136,44 @@ describe('where ore lies', () => {
     // The richest the commonest? No: the one below it.
     const w = oresAt(14)
     expect(w.find(o => o.id === 'silver')!.weight).toBeGreaterThan(w.find(o => o.id === 'gold')!.weight)
+  })
+
+  it('the last three zones (level 24 and up) hold no iron and no silver, only the high metals (#150)', () => {
+    const late = ZONE_IDS.filter(z => ZONES[z].min >= LATE_ORE_LEVEL)
+    expect(late).toEqual(['peak', 'fortress', 'rift'])
+    for (const z of late) {
+      const ids = oresAt(ZONES[z].min).map(o => o.id)
+      expect(ids, z).not.toContain('iron')
+      expect(ids, z).not.toContain('silver')
+      expect(ids, z).toContain('mithril')
+      expect(ids.length, z).toBe(3)
+    }
+    expect(oresAt(ZONES.peak.min).map(o => o.id)).toEqual(['gold', 'mithril', 'adamant'])
+    expect(oresAt(ZONES.fortress.min).map(o => o.id)).toEqual(['mithril', 'adamant', 'aetherite'])
+    expect(oresAt(ZONES.rift.min).map(o => o.id)).toEqual(['mithril', 'adamant', 'aetherite'])
+    // The earlier zones are as they were: iron is still there.
+    for (const z of ZONE_IDS.filter(x => ZONES[x].min < LATE_ORE_LEVEL)) expect(oresAt(ZONES[z].min).map(o => o.id), z).toContain('iron')
+  })
+
+  it('mithril is a steady find in each late zone: measured over many seeds, and no iron or silver outcrop is ever laid', () => {
+    const seeds = Array.from({ length: 60 }, (_, i) => i * 7 + 1)
+    for (const z of ['peak', 'fortress', 'rift'] as const) {
+      let nodes = 0
+      let mithril = 0
+      let withMithril = 0
+      for (const seed of seeds) {
+        const ores = generateZone(ZONES[z], seed).ores ?? []
+        nodes += ores.length
+        const m = ores.filter(o => o.kind === 'mithril').length
+        mithril += m
+        if (m) withMithril++
+        for (const o of ores) expect(['iron', 'silver'], `${z}#${seed}`).not.toContain(o.kind)
+      }
+      // Two to three outcrops a visit, about four in nine of them mithril.
+      expect(nodes / seeds.length, z).toBeGreaterThanOrEqual(LATE_ORE_NODES_MIN - 0.5)
+      expect(mithril / seeds.length, `${z} mithril per visit`).toBeGreaterThanOrEqual(0.7)
+      expect(withMithril / seeds.length, `${z} visits with mithril`).toBeGreaterThanOrEqual(0.5)
+    }
   })
 
   it('none on the first visit; a seed lays the same outcrops', () => {

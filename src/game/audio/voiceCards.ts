@@ -83,6 +83,14 @@ export const CARDS: Readonly<Record<string, VoiceCard>> = {
     reference: 'The road wound north past the old mill, and the town of Sunford woke to the sound of hammers. Somewhere beyond the hills, a choice was waiting, and nobody yet knew who would make it.',
     notes: 'Kept while the manifest still has storyteller lines (they are moving to the hero voices).'
   }),
+  chronicler: card({
+    name: 'The Chronicler (intro narrator)', gender: 'male', age: 'late 60s', pitch: 'low', pace: 'slow',
+    timbre: 'deep, warm, slightly weathered bass-baritone with a smile in it',
+    personality: 'An old storyteller by the fire who has seen every road of the world and still loves telling of it: grave where it matters, charming always.',
+    design: 'An old man in his late sixties with a deep, warm, slightly weathered bass-baritone, narrating the opening of a fantasy legend. Slow and deliberate, with dramatic pauses, gravitas and a twinkle of charm, like a beloved storyteller by the hearth.',
+    reference: 'Every road in this world meets at a crossing. I have walked most of them, and I remember every battle fought where they meet. Sit a while, and I will tell you of the one who walked them all.',
+    notes: 'The intro (#130) only. The English take is meant for ElevenLabs (tools/voice/intro-elevenlabs.mjs); the other voiced languages go through the usual pipeline.'
+  }),
 
   // ── Sunford ──
   sunfordSmith: card({
@@ -365,6 +373,15 @@ export const CARDS: Readonly<Record<string, VoiceCard>> = {
     reference: 'My people raid because they are hungry. That is the truth. Let us make a deal instead. Your kind and mine. Trade, and no more raids. I swear it, on my crown.',
     notes: 'Light goblin FX (fx.mjs).'
   }),
+  // Only shouts mid-fight (#136): the whistle that calls the gnomes.
+  banditChief: card({
+    name: 'The Bandit Chief', gender: 'male', age: 'mid 40s', pitch: 'mid', pace: 'medium',
+    timbre: 'rough, cocky, a gravelly growl',
+    personality: 'A swaggering roadside bandit boss who enjoys a fight and has plenty of little helpers.',
+    design: 'A man in his mid forties with a rough, cocky growl, a swaggering bandit leader, loud and sure of himself.',
+    reference: 'Nobody walks my road for free. Hand it over, every coin and every trinket, or we will take it off you the hard way, and laugh.',
+    notes: 'No FX.'
+  }),
   warlord: card({
     name: 'Warlord Krag', gender: 'male', age: 'mid 40s', pitch: 'low', pace: 'measured',
     timbre: 'deep, hard, cold bass-baritone',
@@ -512,6 +529,14 @@ export const CARDS: Readonly<Record<string, VoiceCard>> = {
     design: 'A man of about forty with a cheerful, slightly scratchy country voice, chatty and conspiratorial, always grinning.',
     reference: "Psst. Got any junk in that bag? Old boots, bent swords? I'll play you for it. Dob Tumbler. I play for fun, mostly. And for boots.",
     notes: 'Not Bram the smith (gruff, slow): Dob is quick and giggly.'
+  }),
+  sunfordCups: card({
+    name: 'Nell Nimblefingers', gender: 'female', age: 'about 20', pitch: 'high', pace: 'fast',
+    timbre: 'bright, quick, playful voice',
+    personality: 'A fast-talking girl who runs the cup stand: cheeky, kind, cheers for every winner and groans theatrically when she loses.',
+    design: 'A young woman of about twenty with a bright, quick, playful voice, grinning as she talks, like a street performer calling over a crowd.',
+    reference: "Three cups, one gem, and a first round on the house! Keep your eyes sharp, friend. Nell Nimblefingers never loses a gem. Well, almost never.",
+    notes: 'Not Dob Tumbler (scratchy, chatty): Nell is higher, brisker and cheekier.'
   }),
   oakGambler: card({
     name: 'Silky Ren', gender: 'male', age: 'mid 30s', pitch: 'mid-low', pace: 'measured',

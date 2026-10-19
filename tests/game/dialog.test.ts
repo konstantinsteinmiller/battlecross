@@ -53,7 +53,6 @@ const fake = (over: Partial<Fake['w']> = {}): Fake => {
     offer: id => offers[id] ?? null,
     buy: (id) => { const o = offers[id]; if (!o || o.block) return false; w.gold -= o.price; log.push(`buy:${id}`); return true },
     errand: (id, act) => { (w.errands as Record<string, string>)[id] = act === 'start' ? 'active' : 'done'; log.push(`errand:${id}:${act}`); return true },
-    sellOre: () => { log.push('sellOre') },
     learnSmith: () => { w.smithing = true; log.push('learnSmith') }
   }
 }
@@ -551,10 +550,11 @@ describe('every conversation in the game', () => {
     for (const n of people) {
       const c = conversationOf(n.id)!
       // A smith's shop has the forge as well (#99).
-      if (n.role === 'shop') expect([...new Set(opens(c))], n.id).toEqual(n.job === 'smith' ? ['shop', 'smithing'] : ['shop'])
+      if (n.role === 'shop') expect([...new Set(opens(c))], n.id).toEqual(n.job === 'smith' ? ['shop', 'sellOre', 'smithing'] : ['shop'])
       if (n.role === 'trainer') expect(opens(c), n.id).toEqual(['trainer'])
       if (n.role === 'healer') {
-        expect(opens(c), n.id).toEqual(['healer'])
+        // Sister Lune also brews (the alchemist's table).
+        expect(opens(c), n.id).toEqual(n.id === 'sunfordHealer' ? ['healer', 'alchemy'] : ['healer'])
         expect(c.nodes.root!.choices.some(ch => ch.offer === MANA_OFFER), n.id).toBe(true)
       }
       if (n.role === 'talk') expect(c.nodes.root!.choices.length, n.id).toBeGreaterThanOrEqual(2)

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { CHARISMA_ITEMS, ITEMS, ITEM_BY_ID, GEAR_ATTR_SCALE, EQUIP_SLOTS, TIER_PRICE, itemsOfZone, noGear, priceOf, sellValue, slotOf, type ItemDef, type ItemSlot, type ZoneId } from '@/game/data/items'
+import { CHARISMA_ITEMS, DEXTERITY_ITEMS, GAPFILL_ITEMS, ITEMS, ITEM_BY_ID, GEAR_ATTR_SCALE, EQUIP_SLOTS, TIER_PRICE, itemsOfZone, noGear, priceOf, sellValue, slotOf, type ItemDef, type ItemSlot, type ZoneId } from '@/game/data/items'
 import { ZONE_LOOT } from '@/game/data/loot'
 import { GLYPHS } from '@/components/art/glyphs'
 import { modLines } from '@/components/game/modLines'
@@ -18,16 +18,18 @@ import { QUESTS } from '@/game/data/quests'
  */
 
 const NEW_SLOTS = ['head', 'hands', 'feet'] as const
+/** The named sets with rules of their own (Charisma, Dexterity, the gap-fill set of items-gap-audit.md, whose rules are in itemMatrix.test.ts). */
+const SETS = (id: string): boolean => CHARISMA_ITEMS.has(id) || DEXTERITY_ITEMS.has(id) || GAPFILL_ITEMS.has(id)
 
 describe('items (GDD §6)', () => {
   it('is the master database: the 44 named items of the tables (14 weapons, 8 off-hands, 12 armours, 10 trinkets), and nothing twice', () => {
     expect(new Set(ITEMS.map(i => i.id)).size).toBe(ITEMS.length)
-    const by = (slot: string): number => ITEMS.filter(i => i.slot === slot && !CHARISMA_ITEMS.has(i.id)).length
+    const by = (slot: string): number => ITEMS.filter(i => i.slot === slot && !SETS(i.id)).length
     expect([by('main'), by('off'), by('body'), by('trinket')]).toEqual([14, 8, 12, 10])
     // Every item is in a slot the hero has; what is not in the tables is head, hands or feet.
     const slots = new Set<ItemSlot>(EQUIP_SLOTS.map(slotOf))
     for (const i of ITEMS) expect(slots.has(i.slot), i.id).toBe(true)
-    expect(ITEMS).toHaveLength(44 + NEW_SLOTS.reduce((n, s) => n + by(s), 0) + CHARISMA_ITEMS.size)
+    expect(ITEMS).toHaveLength(44 + NEW_SLOTS.reduce((n, s) => n + by(s), 0) + CHARISMA_ITEMS.size + DEXTERITY_ITEMS.size + GAPFILL_ITEMS.size)
   })
 
   it('a pure Charisma build has gear: a CHA weapon in every stage of the game, and every slot filled', () => {
@@ -37,6 +39,26 @@ describe('items (GDD §6)', () => {
     expect(cha.filter(i => i.weapon?.scale === 'cha').map(i => i.level)).toEqual([7, 18, 29])
     const slots = new Set(ITEMS.filter(i => (i.mods.cha ?? 0) > 0).map(i => i.slot))
     for (const s of ['main', 'off', 'head', 'body', 'hands', 'feet', 'trinket']) expect(slots.has(s as ItemSlot), s).toBe(true)
+  })
+
+  it('a full Dexterity build exists at every tier: DEX is the top attribute of a piece in every slot, a DEX weapon swings, and every piece is placed (#133)', () => {
+    expect(DEXTERITY_ITEMS.size).toBe(31)
+    const isDex = (i: ItemDef): boolean => Object.entries(i.mods).filter(([k]) => ['str', 'dex', 'int', 'end', 'skl', 'cha'].includes(k)).sort((a, b) => b[1] - a[1])[0]?.[0] === 'dex'
+    for (const id of DEXTERITY_ITEMS) expect(isDex(ITEM_BY_ID[id]!), id).toBe(true)
+    for (let tier = 1; tier <= 6; tier++) {
+      for (const slot of ['main', 'off', 'head', 'body', 'hands', 'feet', 'trinket'] as const) {
+        const own = ITEMS.filter(i => i.tier === tier && i.slot === slot && isDex(i))
+        expect(own.length, `tier ${tier} ${slot}`).toBeGreaterThan(0)
+        // A dexterity weapon scales its blow on DEX.
+        if (slot === 'main') expect(own.some(i => i.weapon?.scale === 'dex'), `tier ${tier} weapon`).toBe(true)
+      }
+    }
+    // Found in the chests and mobs of its zone, like the rest.
+    for (const id of DEXTERITY_ITEMS) {
+      const it = ITEM_BY_ID[id]!
+      expect(['mob', 'chest']).toContain(it.drop.src)
+      expect(ZONE_LOOT[it.drop.zone].items, id).toContain(id)
+    }
   })
 
   it('has eight equipment slots: main hand, off hand, head, body, hands, feet, two trinkets (D39)', () => {
@@ -122,7 +144,7 @@ describe('items (GDD §6)', () => {
  */
 describe('head, hands and feet (D39)', () => {
   // D39's eighteen pieces (the Charisma set has its own rules, above).
-  const of = (slot: ItemSlot): ItemDef[] => ITEMS.filter(i => i.slot === slot && !CHARISMA_ITEMS.has(i.id))
+  const of = (slot: ItemSlot): ItemDef[] => ITEMS.filter(i => i.slot === slot && !SETS(i.id))
   const KINDS: Record<string, string[]> = {
     head: ['hood', 'cap', 'helm', 'greathelm', 'circlet', 'hat'],
     hands: ['gloves', 'gauntlets'],

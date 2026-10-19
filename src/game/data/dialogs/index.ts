@@ -7,6 +7,7 @@ import { DECISION_TALK } from './decisions'
 import { SMALLTALK } from './smalltalk'
 import { BOSS_BARKS } from './bosses'
 import { CAPTIVE_BARKS } from './captives'
+import { INTRO_NARRATION } from './intro'
 
 /**
  * ─── Every conversation in the game ──────────────────────────────────────────
@@ -21,8 +22,9 @@ export const CONVERSATIONS: readonly ConversationDef[] = [
 
 /** Every line the game speaks: the conversations, the small talk the hero
  *  overhears in the towns, and what the bosses shout mid-fight (neither talked
- *  through, only heard). The voice manifest and the i18n checks read this. */
-export const SPOKEN: readonly ConversationDef[] = [...CONVERSATIONS, ...SMALLTALK, ...BOSS_BARKS, ...CAPTIVE_BARKS]
+ *  through, only heard), and the intro's narration (#130). The voice manifest
+ *  and the i18n checks read this. */
+export const SPOKEN: readonly ConversationDef[] = [...CONVERSATIONS, ...SMALLTALK, ...BOSS_BARKS, ...CAPTIVE_BARKS, ...INTRO_NARRATION]
 
 export const CONVERSATION_BY_ID: Readonly<Record<string, ConversationDef>> =
   Object.fromEntries(CONVERSATIONS.map(c => [c.id, c]))

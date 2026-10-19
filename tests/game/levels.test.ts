@@ -229,12 +229,12 @@ describe('the plan: everything a visit holds can be walked to', () => {
   it('the tutorial visit is simple: one easy chest by the road, and nothing else', () => {
     for (const seed of SEEDS) {
       const plan = generateZone(ZONES.plains, seed, { tutorial: true })
-      expect(plan.chests.map(c => c.role), `#${seed}`).toEqual(['finale', 'tutorial'])
-      const c = plan.chests[1]!
+      expect(plan.chests.map(c => c.role).filter(r => r !== 'puzzle'), `#${seed}`).toEqual(['finale', 'tutorial'])
+      const c = plan.chests.find(x => x.role === 'tutorial')!
       expect(c.tier).toBe('wood')
       expect(Math.hypot(c.x - plan.start.x, c.z - plan.start.z), `#${seed}`).toBeLessThan(6)
       expect(plan.kind.includes(K_WATER)).toBe(false)
-      expect(plan.plates).toEqual([])
+      expect(plan.plates.length).toBe(3) // the tutorial puzzle (#136)
       expect(plan.optionalPacks).toEqual([])
       expect(plan.caves).toEqual([])
     }
@@ -584,13 +584,13 @@ describe('mana potions (a carried stock, drunk on demand)', () => {
     return v.sim
   }
 
-  it('restores 45 % of the mana, cleanses nothing, and has its own cooldown', () => {
+  it('refills the whole mana bar, cleanses nothing, and has its own cooldown', () => {
     const sim = field(2)
     const h = sim.hero
     h.unit.mana = 0
     h.unit.statuses.push({ id: 'slow', t: 5, dur: 5, v: 0.4, n: 1, src: 0 })
     expect(useManaPotion(sim)).toBe(true)
-    expect(h.unit.mana).toBeCloseTo(h.unit.s.maxMana * 0.45)
+    expect(h.unit.mana).toBe(h.unit.s.maxMana)
     expect(h.manaPotions).toBe(1)
     expect(h.unit.statuses).toHaveLength(1)
     expect(h.manaPotionCd).toBe(POTION_CD)

@@ -40,7 +40,7 @@ export const UI_ICONS: readonly IconDef[] = [
   { ref: 'chest', tint: '#a8733f', tintName: 'wood brown', blurb: 'a small closed wooden treasure chest seen from the front, with gold bands and a gold lock plate' },
   // The screens' buttons
   { ref: 'sound', tint: '#f4ecd8', tintName: 'cream white', blurb: 'a cream-white loudspeaker cone pointing right, with two curved sound arcs in front of it' },
-  { ref: 'sound-off', tint: '#f4ecd8', tintName: 'cream white', blurb: 'the same cream-white loudspeaker cone pointing right, with a small red cross in front of it instead of sound arcs' },
+  { ref: 'sound-off', tint: '#f4ecd8', tintName: 'cream white', blurb: 'the same cream-white loudspeaker cone pointing right, with a bold red X in front of it instead of sound arcs: two thick red strokes crossing diagonally at 45 degrees, like a close or cancel mark. NOT an upright plus, NOT a medical cross, NOT a cross with vertical and horizontal arms' },
   { ref: 'play', tint: '#f4ecd8', tintName: 'cream white', blurb: 'a thick, rounded triangle pointing right, cream-white enamel with a thin gold rim' },
   { ref: 'replay', tint: '#f4ecd8', tintName: 'cream white', blurb: 'a thick circular arrow of cream-white enamel curling almost all the way round, its arrowhead at the top' },
   { ref: 'skip-forward', tint: '#f4ecd8', tintName: 'cream white', blurb: 'a thick triangle pointing right followed by an upright bar, both cream-white enamel' },

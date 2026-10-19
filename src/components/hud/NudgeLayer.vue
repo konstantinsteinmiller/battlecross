@@ -220,7 +220,7 @@ onUnmounted(() => { cancelAnimationFrame(raf); unmark() })
   animation: nudge-road 0.8s linear infinite
 // The edge arrow: a gold disc with the goal's icon, leaning toward it.
 .nudges__edge
-  --s: clamp(2.6rem, 11vmin, 3.6rem)
+  --s: calc(clamp(2.6rem, 11vmin, 3.6rem) * var(--hud-s, 1))
   position: absolute
   left: 0
   top: 0
@@ -265,7 +265,7 @@ onUnmounted(() => { cancelAnimationFrame(raf); unmark() })
   animation: nudge-poke 1s ease-in-out infinite
 // The map: an arrow at the hero's feet.
 .nudges__way
-  --s: clamp(2.6rem, 10vmin, 3.4rem)
+  --s: calc(clamp(2.6rem, 10vmin, 3.4rem) * var(--hud-s, 1))
   position: absolute
   left: 0
   top: 0

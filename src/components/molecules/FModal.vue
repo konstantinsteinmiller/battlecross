@@ -5,8 +5,12 @@ import FTabs, { type TabOption } from '@/components/atoms/FTabs.vue'
 import GameIcon from '@/components/icons/GameIcon.vue'
 import { sfx } from '@/game/audio/sfx'
 import { acquireModalOpen } from '@/use/useModalState'
+import { artHold, useArtGate } from '@/use/useArtGate'
 
 const { t } = useI18n()
+// The window opens once its pictures are in, or after ~300 ms regardless (D149).
+const rootEl = ref<HTMLElement | null>(null)
+const held = useArtGate(rootEl)
 
 /**
  * ─── The window (D41) ────────────────────────────────────────────────────────
@@ -136,9 +140,10 @@ const handleTabChange = (val: string | number): void => emit('update:activeTab',
     )
       div.f-modal(
         v-if="modelValue"
+        ref="rootEl"
         v-bind="$attrs"
         :class="[`f-modal--${surface}`, `ribbon-${tone}`, { 'is-closable': isClosable }]"
-        :style="{ '--fmodal-header-overlap': headerOverlap + 'px' }"
+        :style="{ '--fmodal-header-overlap': headerOverlap + 'px', ...artHold(held) }"
         role="dialog"
         aria-modal="true"
       )
@@ -191,12 +196,6 @@ const handleTabChange = (val: string | number): void => emit('update:activeTab',
 
               //- The page inside the rim.
               div.f-modal__page
-                //- A flourish in each lower corner of the page.
-                svg.f-modal__flourish.is-left(viewBox="0 0 24 24" aria-hidden="true" focusable="false")
-                  path(d="M2 2v13c0 4 3 7 7 7h13M6 8c0 5 3 8 8 8M6 3.500a2 2 0 1 0 .01 0M20.500 18a2 2 0 1 0 .01 0")
-                svg.f-modal__flourish.is-right(viewBox="0 0 24 24" aria-hidden="true" focusable="false")
-                  path(d="M2 2v13c0 4 3 7 7 7h13M6 8c0 5 3 8 8 8M6 3.500a2 2 0 1 0 .01 0M20.500 18a2 2 0 1 0 .01 0")
-
                 //- Scrollable content. Top padding is the MEASURED header
                 //- overhang plus a gap — never a guess.
                 div.f-modal__content
@@ -311,8 +310,6 @@ const handleTabChange = (val: string | number): void => emit('update:activeTab',
   border-radius: clamp(0.5rem, 2.2vw, 0.85rem)
   +cel.fill(44%, 88%)
   overflow: hidden
-  &::before
-    +cel.glint(0.2em, 0.6em, min(30%, 4rem), 0.3em)
 
 .f-modal__ribbon-text
   position: relative
@@ -370,9 +367,8 @@ const handleTabChange = (val: string | number): void => emit('update:activeTab',
   z-index: 2
   width: calc(var(--fmodal-rim) + 0.3rem)
   height: calc(var(--fmodal-rim) + 0.3rem)
-  border: var(--bc-ol-thin) solid var(--bc-ink)
-  border-radius: 50%
-  background: linear-gradient(180deg, var(--bc-brass-hi) 0, var(--bc-brass-hi) 46%, var(--bc-brass-lo) 46%, var(--bc-brass-lo) 100%)
+  // The shared rivet (drawn, or painted once the owner has).
+  background: var(--orn-rivet) center / 100% 100% no-repeat
   pointer-events: none
   --at: calc(var(--fmodal-r) * 0.29 - 0.15rem)
   &.is-tl
@@ -400,6 +396,10 @@ const handleTabChange = (val: string | number): void => emit('update:activeTab',
   border: var(--bc-ol) solid var(--bc-ink)
   border-radius: calc(var(--fmodal-r) - var(--fmodal-rim) - var(--bc-ol-thick))
   overflow: hidden
+  // The page's border-inset ornaments (roadmap #127): a gilded bracket in each
+  // corner and a crest on the middle of the foot, behind the content.
+  +cel.ornate-corners(clamp(1.5rem, 6vw, 2.4rem), 0.2rem)
+  +cel.ornate-crest(clamp(1.6rem, 6vw, 2.4rem), bottom, 0.1rem)
 
 // The walnut page (windows written for light text).
 .f-modal--wood .f-modal__page
@@ -419,26 +419,6 @@ const handleTabChange = (val: string | number): void => emit('update:activeTab',
   --bc-rule: rgba(var(--bc-paper-ink-rgb), 0.24)
   background: linear-gradient(180deg, var(--bc-paper-hi) 0, var(--bc-paper-hi) 0.5rem, var(--bc-paper) 0.5rem, var(--bc-paper) calc(100% - 0.45rem), var(--bc-paper-lo) calc(100% - 0.45rem), var(--bc-paper-lo) 100%)
   color: var(--bc-paper-ink)
-
-.f-modal__flourish
-  position: absolute
-  bottom: 0.3rem
-  width: clamp(1.1rem, 4.6vw, 1.7rem)
-  height: clamp(1.1rem, 4.6vw, 1.7rem)
-  pointer-events: none
-  path
-    fill: none
-    stroke: var(--bc-paper-deep)
-    stroke-width: 2
-    stroke-linecap: round
-    stroke-linejoin: round
-  &.is-left
-    left: 0.3rem
-  &.is-right
-    right: 0.3rem
-    transform: scaleX(-1)
-.f-modal--wood .f-modal__flourish path
-  stroke: var(--bc-wood-hi)
 
 .f-modal__content
   position: relative
@@ -517,8 +497,6 @@ const handleTabChange = (val: string | number): void => emit('update:activeTab',
   color: var(--bc-text)
   overflow: hidden
   transition: transform var(--bc-t-release) var(--bc-ease-bounce), filter 120ms ease-out
-  &::before
-    +cel.glint(10%, 14%, 40%, 12%)
 
   // Nested to outrank `GameIcon`'s own `.game-icon` rule, which has the same
   // specificity a flat class selector would.

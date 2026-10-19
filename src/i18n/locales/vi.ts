@@ -1,5 +1,13 @@
 // Vietnamese locale — mirrors the key shape of en.ts exactly.
 export default {
+  // ─── The intro (#130): its skip, and its narrator's name ───
+  intro: {
+    narrator: 'Người Kể Chuyện',
+    skip: 'Bỏ qua',
+    holdKey: 'Giữ {key} để bỏ qua',
+    holdTouch: 'Giữ để bỏ qua',
+    replay: 'Xem đoạn mở đầu'
+  },
   arena: {
     allWon: 'Mọi phần thưởng thần thoại đều là của bạn.',
     call: 'Câu chuyện đã kể xong. Giờ hãy chứng minh build của bạn: leo càng xa càng tốt, và giành những phần thưởng thần thoại mà không ai khác trao được cho bạn.',
@@ -8,6 +16,20 @@ export default {
     next: 'Phần thưởng tiếp theo ở đợt {at}: {item}',
     champion: 'Đợt quán quân',
     wave: 'Đợt {n}'
+  },
+  sellOre: {
+    talk: 'Quặng tốt, giá hời. Bạn bán bao nhiêu?',
+    lead: 'Chọn số cục của mỗi loại quặng để bán. Chưa bán gì cho đến khi bạn nhấn Bán.',
+    have: 'Bạn có {n}',
+    each: '{n} vàng mỗi cục',
+    none: 'Không',
+    all: 'Tất cả',
+    less: '{ore}: bớt một',
+    more: '{ore}: thêm một',
+    total: 'Bạn nhận: {n} vàng',
+    sell: 'Bán',
+    selectAll: 'Chọn tất cả',
+    empty: 'Bạn không còn quặng để bán.'
   },
   smith: {
     why: {
@@ -1420,38 +1442,110 @@ export default {
     smithMasterMithrilGreaves: {
       name: 'Giáp Ống Chân Mithril Tuyệt Phẩm'
     },
+    smithMasterAdamantGreaves: {
+      name: 'Giáp Ống Chân Adamant Tuyệt Phẩm'
+    },
+    smithMasterAetheriteGreaves: {
+      name: 'Giáp Ống Chân Aetherit Tuyệt Phẩm'
+    },
     smithMithrilGreaves: {
       name: 'Giáp Ống Chân Mithril'
+    },
+    smithAdamantGreaves: {
+      name: 'Giáp Ống Chân Adamant'
+    },
+    smithAetheriteGreaves: {
+      name: 'Giáp Ống Chân Aetherit'
     },
     smithMasterMithrilPlate: {
       name: 'Giáp Tấm Mithril Tuyệt Phẩm'
     },
+    smithMasterAdamantPlate: {
+      name: 'Giáp Tấm Adamant Tuyệt Phẩm'
+    },
+    smithMasterAetheritePlate: {
+      name: 'Giáp Tấm Aetherit Tuyệt Phẩm'
+    },
     smithMithrilPlate: {
       name: 'Giáp Tấm Mithril'
+    },
+    smithAdamantPlate: {
+      name: 'Giáp Tấm Adamant'
+    },
+    smithAetheritePlate: {
+      name: 'Giáp Tấm Aetherit'
     },
     smithMasterMithrilHelm: {
       name: 'Mũ Giáp Mithril Tuyệt Phẩm'
     },
+    smithMasterAdamantHelm: {
+      name: 'Mũ Giáp Adamant Tuyệt Phẩm'
+    },
+    smithMasterAetheriteHelm: {
+      name: 'Mũ Giáp Aetherit Tuyệt Phẩm'
+    },
     smithMithrilHelm: {
       name: 'Mũ Giáp Mithril'
+    },
+    smithAdamantHelm: {
+      name: 'Mũ Giáp Adamant'
+    },
+    smithAetheriteHelm: {
+      name: 'Mũ Giáp Aetherit'
     },
     smithMasterMithrilShield: {
       name: 'Khiên Mithril Tuyệt Phẩm'
     },
+    smithMasterAdamantShield: {
+      name: 'Khiên Adamant Tuyệt Phẩm'
+    },
+    smithMasterAetheriteShield: {
+      name: 'Khiên Aetherit Tuyệt Phẩm'
+    },
     smithMithrilShield: {
       name: 'Khiên Mithril'
+    },
+    smithAdamantShield: {
+      name: 'Khiên Adamant'
+    },
+    smithAetheriteShield: {
+      name: 'Khiên Aetherit'
     },
     smithMasterMithrilHammer: {
       name: 'Búa Mithril Tuyệt Phẩm'
     },
+    smithMasterAdamantHammer: {
+      name: 'Búa Adamant Tuyệt Phẩm'
+    },
+    smithMasterAetheriteHammer: {
+      name: 'Búa Aetherit Tuyệt Phẩm'
+    },
     smithMithrilHammer: {
       name: 'Búa Mithril'
+    },
+    smithAdamantHammer: {
+      name: 'Búa Adamant'
+    },
+    smithAetheriteHammer: {
+      name: 'Búa Aetherit'
     },
     smithMasterMithrilSword: {
       name: 'Kiếm Mithril Tuyệt Phẩm'
     },
+    smithMasterAdamantSword: {
+      name: 'Kiếm Adamant Tuyệt Phẩm'
+    },
+    smithMasterAetheriteSword: {
+      name: 'Kiếm Aetherit Tuyệt Phẩm'
+    },
     smithMithrilSword: {
       name: 'Kiếm Mithril'
+    },
+    smithAdamantSword: {
+      name: 'Kiếm Adamant'
+    },
+    smithAetheriteSword: {
+      name: 'Kiếm Aetherit'
     },
     smithMasterGoldGreaves: {
       name: 'Giáp Ống Chân Vàng Tuyệt Phẩm'
@@ -1557,6 +1651,1086 @@ export default {
     },
     smithMasterIronSword: {
       name: 'Kiếm Sắt Tuyệt Phẩm'
+    },
+    smithMasterDexIronSword: {
+      name: 'Dao găm sắt Tuyệt Phẩm · KL'
+    },
+    smithDexIronSword: {
+      name: 'Dao găm sắt · KL'
+    },
+    smithMasterDexIronHammer: {
+      name: 'Kiếm rapier sắt Tuyệt Phẩm · KL'
+    },
+    smithDexIronHammer: {
+      name: 'Kiếm rapier sắt · KL'
+    },
+    smithMasterDexIronShield: {
+      name: 'Khiên nhỏ sắt Tuyệt Phẩm · KL'
+    },
+    smithDexIronShield: {
+      name: 'Khiên nhỏ sắt · KL'
+    },
+    smithMasterDexIronHelm: {
+      name: 'Mũ trùm sắt Tuyệt Phẩm · KL'
+    },
+    smithDexIronHelm: {
+      name: 'Mũ trùm sắt · KL'
+    },
+    smithMasterDexIronPlate: {
+      name: 'Giáp da sắt Tuyệt Phẩm · KL'
+    },
+    smithDexIronPlate: {
+      name: 'Giáp da sắt · KL'
+    },
+    smithMasterDexIronGreaves: {
+      name: 'Ủng sắt Tuyệt Phẩm · KL'
+    },
+    smithDexIronGreaves: {
+      name: 'Ủng sắt · KL'
+    },
+    smithMasterDexSilverSword: {
+      name: 'Dao găm bạc Tuyệt Phẩm · KL'
+    },
+    smithDexSilverSword: {
+      name: 'Dao găm bạc · KL'
+    },
+    smithMasterDexSilverHammer: {
+      name: 'Kiếm rapier bạc Tuyệt Phẩm · KL'
+    },
+    smithDexSilverHammer: {
+      name: 'Kiếm rapier bạc · KL'
+    },
+    smithMasterDexSilverShield: {
+      name: 'Khiên nhỏ bạc Tuyệt Phẩm · KL'
+    },
+    smithDexSilverShield: {
+      name: 'Khiên nhỏ bạc · KL'
+    },
+    smithMasterDexSilverHelm: {
+      name: 'Mũ trùm bạc Tuyệt Phẩm · KL'
+    },
+    smithDexSilverHelm: {
+      name: 'Mũ trùm bạc · KL'
+    },
+    smithMasterDexSilverPlate: {
+      name: 'Giáp da bạc Tuyệt Phẩm · KL'
+    },
+    smithDexSilverPlate: {
+      name: 'Giáp da bạc · KL'
+    },
+    smithMasterDexSilverGreaves: {
+      name: 'Ủng bạc Tuyệt Phẩm · KL'
+    },
+    smithDexSilverGreaves: {
+      name: 'Ủng bạc · KL'
+    },
+    smithMasterDexGoldSword: {
+      name: 'Dao găm vàng Tuyệt Phẩm · KL'
+    },
+    smithDexGoldSword: {
+      name: 'Dao găm vàng · KL'
+    },
+    smithMasterDexGoldHammer: {
+      name: 'Kiếm rapier vàng Tuyệt Phẩm · KL'
+    },
+    smithDexGoldHammer: {
+      name: 'Kiếm rapier vàng · KL'
+    },
+    smithMasterDexGoldShield: {
+      name: 'Khiên nhỏ vàng Tuyệt Phẩm · KL'
+    },
+    smithDexGoldShield: {
+      name: 'Khiên nhỏ vàng · KL'
+    },
+    smithMasterDexGoldHelm: {
+      name: 'Mũ trùm vàng Tuyệt Phẩm · KL'
+    },
+    smithDexGoldHelm: {
+      name: 'Mũ trùm vàng · KL'
+    },
+    smithMasterDexGoldPlate: {
+      name: 'Giáp da vàng Tuyệt Phẩm · KL'
+    },
+    smithDexGoldPlate: {
+      name: 'Giáp da vàng · KL'
+    },
+    smithMasterDexGoldGreaves: {
+      name: 'Ủng vàng Tuyệt Phẩm · KL'
+    },
+    smithDexGoldGreaves: {
+      name: 'Ủng vàng · KL'
+    },
+    smithMasterDexMithrilSword: {
+      name: 'Dao găm mithril Tuyệt Phẩm · KL'
+    },
+    smithMasterDexAdamantSword: {
+      name: 'Dao găm adamant Tuyệt Phẩm · KL'
+    },
+    smithMasterDexAetheriteSword: {
+      name: 'Dao găm aetherit Tuyệt Phẩm · KL'
+    },
+    smithDexMithrilSword: {
+      name: 'Dao găm mithril · KL'
+    },
+    smithDexAdamantSword: {
+      name: 'Dao găm adamant · KL'
+    },
+    smithDexAetheriteSword: {
+      name: 'Dao găm aetherit · KL'
+    },
+    smithMasterDexMithrilHammer: {
+      name: 'Kiếm rapier mithril Tuyệt Phẩm · KL'
+    },
+    smithMasterDexAdamantHammer: {
+      name: 'Kiếm rapier adamant Tuyệt Phẩm · KL'
+    },
+    smithMasterDexAetheriteHammer: {
+      name: 'Kiếm rapier aetherit Tuyệt Phẩm · KL'
+    },
+    smithDexMithrilHammer: {
+      name: 'Kiếm rapier mithril · KL'
+    },
+    smithDexAdamantHammer: {
+      name: 'Kiếm rapier adamant · KL'
+    },
+    smithDexAetheriteHammer: {
+      name: 'Kiếm rapier aetherit · KL'
+    },
+    smithMasterDexMithrilShield: {
+      name: 'Khiên nhỏ mithril Tuyệt Phẩm · KL'
+    },
+    smithMasterDexAdamantShield: {
+      name: 'Khiên nhỏ adamant Tuyệt Phẩm · KL'
+    },
+    smithMasterDexAetheriteShield: {
+      name: 'Khiên nhỏ aetherit Tuyệt Phẩm · KL'
+    },
+    smithDexMithrilShield: {
+      name: 'Khiên nhỏ mithril · KL'
+    },
+    smithDexAdamantShield: {
+      name: 'Khiên nhỏ adamant · KL'
+    },
+    smithDexAetheriteShield: {
+      name: 'Khiên nhỏ aetherit · KL'
+    },
+    smithMasterDexMithrilHelm: {
+      name: 'Mũ trùm mithril Tuyệt Phẩm · KL'
+    },
+    smithMasterDexAdamantHelm: {
+      name: 'Mũ trùm adamant Tuyệt Phẩm · KL'
+    },
+    smithMasterDexAetheriteHelm: {
+      name: 'Mũ trùm aetherit Tuyệt Phẩm · KL'
+    },
+    smithDexMithrilHelm: {
+      name: 'Mũ trùm mithril · KL'
+    },
+    smithDexAdamantHelm: {
+      name: 'Mũ trùm adamant · KL'
+    },
+    smithDexAetheriteHelm: {
+      name: 'Mũ trùm aetherit · KL'
+    },
+    smithMasterDexMithrilPlate: {
+      name: 'Giáp da mithril Tuyệt Phẩm · KL'
+    },
+    smithMasterDexAdamantPlate: {
+      name: 'Giáp da adamant Tuyệt Phẩm · KL'
+    },
+    smithMasterDexAetheritePlate: {
+      name: 'Giáp da aetherit Tuyệt Phẩm · KL'
+    },
+    smithDexMithrilPlate: {
+      name: 'Giáp da mithril · KL'
+    },
+    smithDexAdamantPlate: {
+      name: 'Giáp da adamant · KL'
+    },
+    smithDexAetheritePlate: {
+      name: 'Giáp da aetherit · KL'
+    },
+    smithMasterDexMithrilGreaves: {
+      name: 'Ủng mithril Tuyệt Phẩm · KL'
+    },
+    smithMasterDexAdamantGreaves: {
+      name: 'Ủng adamant Tuyệt Phẩm · KL'
+    },
+    smithMasterDexAetheriteGreaves: {
+      name: 'Ủng aetherit Tuyệt Phẩm · KL'
+    },
+    smithDexMithrilGreaves: {
+      name: 'Ủng mithril · KL'
+    },
+    smithDexAdamantGreaves: {
+      name: 'Ủng adamant · KL'
+    },
+    smithDexAetheriteGreaves: {
+      name: 'Ủng aetherit · KL'
+    },
+    smithMasterIntIronSword: {
+      name: 'Đũa phép sắt Tuyệt Phẩm · TT'
+    },
+    smithIntIronSword: {
+      name: 'Đũa phép sắt · TT'
+    },
+    smithMasterIntIronHammer: {
+      name: 'Gậy phép sắt Tuyệt Phẩm · TT'
+    },
+    smithIntIronHammer: {
+      name: 'Gậy phép sắt · TT'
+    },
+    smithMasterIntIronShield: {
+      name: 'Sách phép sắt Tuyệt Phẩm · TT'
+    },
+    smithIntIronShield: {
+      name: 'Sách phép sắt · TT'
+    },
+    smithMasterIntIronHelm: {
+      name: 'Vòng đầu sắt Tuyệt Phẩm · TT'
+    },
+    smithIntIronHelm: {
+      name: 'Vòng đầu sắt · TT'
+    },
+    smithMasterIntIronPlate: {
+      name: 'Áo choàng sắt Tuyệt Phẩm · TT'
+    },
+    smithIntIronPlate: {
+      name: 'Áo choàng sắt · TT'
+    },
+    smithMasterIntIronGreaves: {
+      name: 'Ủng sắt Tuyệt Phẩm · TT'
+    },
+    smithIntIronGreaves: {
+      name: 'Ủng sắt · TT'
+    },
+    smithMasterIntSilverSword: {
+      name: 'Đũa phép bạc Tuyệt Phẩm · TT'
+    },
+    smithIntSilverSword: {
+      name: 'Đũa phép bạc · TT'
+    },
+    smithMasterIntSilverHammer: {
+      name: 'Gậy phép bạc Tuyệt Phẩm · TT'
+    },
+    smithIntSilverHammer: {
+      name: 'Gậy phép bạc · TT'
+    },
+    smithMasterIntSilverShield: {
+      name: 'Sách phép bạc Tuyệt Phẩm · TT'
+    },
+    smithIntSilverShield: {
+      name: 'Sách phép bạc · TT'
+    },
+    smithMasterIntSilverHelm: {
+      name: 'Vòng đầu bạc Tuyệt Phẩm · TT'
+    },
+    smithIntSilverHelm: {
+      name: 'Vòng đầu bạc · TT'
+    },
+    smithMasterIntSilverPlate: {
+      name: 'Áo choàng bạc Tuyệt Phẩm · TT'
+    },
+    smithIntSilverPlate: {
+      name: 'Áo choàng bạc · TT'
+    },
+    smithMasterIntSilverGreaves: {
+      name: 'Ủng bạc Tuyệt Phẩm · TT'
+    },
+    smithIntSilverGreaves: {
+      name: 'Ủng bạc · TT'
+    },
+    smithMasterIntGoldSword: {
+      name: 'Đũa phép vàng Tuyệt Phẩm · TT'
+    },
+    smithIntGoldSword: {
+      name: 'Đũa phép vàng · TT'
+    },
+    smithMasterIntGoldHammer: {
+      name: 'Gậy phép vàng Tuyệt Phẩm · TT'
+    },
+    smithIntGoldHammer: {
+      name: 'Gậy phép vàng · TT'
+    },
+    smithMasterIntGoldShield: {
+      name: 'Sách phép vàng Tuyệt Phẩm · TT'
+    },
+    smithIntGoldShield: {
+      name: 'Sách phép vàng · TT'
+    },
+    smithMasterIntGoldHelm: {
+      name: 'Vòng đầu vàng Tuyệt Phẩm · TT'
+    },
+    smithIntGoldHelm: {
+      name: 'Vòng đầu vàng · TT'
+    },
+    smithMasterIntGoldPlate: {
+      name: 'Áo choàng vàng Tuyệt Phẩm · TT'
+    },
+    smithIntGoldPlate: {
+      name: 'Áo choàng vàng · TT'
+    },
+    smithMasterIntGoldGreaves: {
+      name: 'Ủng vàng Tuyệt Phẩm · TT'
+    },
+    smithIntGoldGreaves: {
+      name: 'Ủng vàng · TT'
+    },
+    smithMasterIntMithrilSword: {
+      name: 'Đũa phép mithril Tuyệt Phẩm · TT'
+    },
+    smithMasterIntAdamantSword: {
+      name: 'Đũa phép adamant Tuyệt Phẩm · TT'
+    },
+    smithMasterIntAetheriteSword: {
+      name: 'Đũa phép aetherit Tuyệt Phẩm · TT'
+    },
+    smithIntMithrilSword: {
+      name: 'Đũa phép mithril · TT'
+    },
+    smithIntAdamantSword: {
+      name: 'Đũa phép adamant · TT'
+    },
+    smithIntAetheriteSword: {
+      name: 'Đũa phép aetherit · TT'
+    },
+    smithMasterIntMithrilHammer: {
+      name: 'Gậy phép mithril Tuyệt Phẩm · TT'
+    },
+    smithMasterIntAdamantHammer: {
+      name: 'Gậy phép adamant Tuyệt Phẩm · TT'
+    },
+    smithMasterIntAetheriteHammer: {
+      name: 'Gậy phép aetherit Tuyệt Phẩm · TT'
+    },
+    smithIntMithrilHammer: {
+      name: 'Gậy phép mithril · TT'
+    },
+    smithIntAdamantHammer: {
+      name: 'Gậy phép adamant · TT'
+    },
+    smithIntAetheriteHammer: {
+      name: 'Gậy phép aetherit · TT'
+    },
+    smithMasterIntMithrilShield: {
+      name: 'Sách phép mithril Tuyệt Phẩm · TT'
+    },
+    smithMasterIntAdamantShield: {
+      name: 'Sách phép adamant Tuyệt Phẩm · TT'
+    },
+    smithMasterIntAetheriteShield: {
+      name: 'Sách phép aetherit Tuyệt Phẩm · TT'
+    },
+    smithIntMithrilShield: {
+      name: 'Sách phép mithril · TT'
+    },
+    smithIntAdamantShield: {
+      name: 'Sách phép adamant · TT'
+    },
+    smithIntAetheriteShield: {
+      name: 'Sách phép aetherit · TT'
+    },
+    smithMasterIntMithrilHelm: {
+      name: 'Vòng đầu mithril Tuyệt Phẩm · TT'
+    },
+    smithMasterIntAdamantHelm: {
+      name: 'Vòng đầu adamant Tuyệt Phẩm · TT'
+    },
+    smithMasterIntAetheriteHelm: {
+      name: 'Vòng đầu aetherit Tuyệt Phẩm · TT'
+    },
+    smithIntMithrilHelm: {
+      name: 'Vòng đầu mithril · TT'
+    },
+    smithIntAdamantHelm: {
+      name: 'Vòng đầu adamant · TT'
+    },
+    smithIntAetheriteHelm: {
+      name: 'Vòng đầu aetherit · TT'
+    },
+    smithMasterIntMithrilPlate: {
+      name: 'Áo choàng mithril Tuyệt Phẩm · TT'
+    },
+    smithMasterIntAdamantPlate: {
+      name: 'Áo choàng adamant Tuyệt Phẩm · TT'
+    },
+    smithMasterIntAetheritePlate: {
+      name: 'Áo choàng aetherit Tuyệt Phẩm · TT'
+    },
+    smithIntMithrilPlate: {
+      name: 'Áo choàng mithril · TT'
+    },
+    smithIntAdamantPlate: {
+      name: 'Áo choàng adamant · TT'
+    },
+    smithIntAetheritePlate: {
+      name: 'Áo choàng aetherit · TT'
+    },
+    smithMasterIntMithrilGreaves: {
+      name: 'Ủng mithril Tuyệt Phẩm · TT'
+    },
+    smithMasterIntAdamantGreaves: {
+      name: 'Ủng adamant Tuyệt Phẩm · TT'
+    },
+    smithMasterIntAetheriteGreaves: {
+      name: 'Ủng aetherit Tuyệt Phẩm · TT'
+    },
+    smithIntMithrilGreaves: {
+      name: 'Ủng mithril · TT'
+    },
+    smithIntAdamantGreaves: {
+      name: 'Ủng adamant · TT'
+    },
+    smithIntAetheriteGreaves: {
+      name: 'Ủng aetherit · TT'
+    },
+    smithMasterSklIronSword: {
+      name: 'Súng lục sắt Tuyệt Phẩm · KX'
+    },
+    smithSklIronSword: {
+      name: 'Súng lục sắt · KX'
+    },
+    smithMasterSklIronHammer: {
+      name: 'Súng trường sắt Tuyệt Phẩm · KX'
+    },
+    smithSklIronHammer: {
+      name: 'Súng trường sắt · KX'
+    },
+    smithMasterSklIronShield: {
+      name: 'Pin sắt Tuyệt Phẩm · KX'
+    },
+    smithSklIronShield: {
+      name: 'Pin sắt · KX'
+    },
+    smithMasterSklIronHelm: {
+      name: 'Mũ sắt Tuyệt Phẩm · KX'
+    },
+    smithSklIronHelm: {
+      name: 'Mũ sắt · KX'
+    },
+    smithMasterSklIronPlate: {
+      name: 'Dây đai sắt Tuyệt Phẩm · KX'
+    },
+    smithSklIronPlate: {
+      name: 'Dây đai sắt · KX'
+    },
+    smithMasterSklIronGreaves: {
+      name: 'Ủng sắt Tuyệt Phẩm · KX'
+    },
+    smithSklIronGreaves: {
+      name: 'Ủng sắt · KX'
+    },
+    smithMasterSklSilverSword: {
+      name: 'Súng lục bạc Tuyệt Phẩm · KX'
+    },
+    smithSklSilverSword: {
+      name: 'Súng lục bạc · KX'
+    },
+    smithMasterSklSilverHammer: {
+      name: 'Súng trường bạc Tuyệt Phẩm · KX'
+    },
+    smithSklSilverHammer: {
+      name: 'Súng trường bạc · KX'
+    },
+    smithMasterSklSilverShield: {
+      name: 'Pin bạc Tuyệt Phẩm · KX'
+    },
+    smithSklSilverShield: {
+      name: 'Pin bạc · KX'
+    },
+    smithMasterSklSilverHelm: {
+      name: 'Mũ bạc Tuyệt Phẩm · KX'
+    },
+    smithSklSilverHelm: {
+      name: 'Mũ bạc · KX'
+    },
+    smithMasterSklSilverPlate: {
+      name: 'Dây đai bạc Tuyệt Phẩm · KX'
+    },
+    smithSklSilverPlate: {
+      name: 'Dây đai bạc · KX'
+    },
+    smithMasterSklSilverGreaves: {
+      name: 'Ủng bạc Tuyệt Phẩm · KX'
+    },
+    smithSklSilverGreaves: {
+      name: 'Ủng bạc · KX'
+    },
+    smithMasterSklGoldSword: {
+      name: 'Súng lục vàng Tuyệt Phẩm · KX'
+    },
+    smithSklGoldSword: {
+      name: 'Súng lục vàng · KX'
+    },
+    smithMasterSklGoldHammer: {
+      name: 'Súng trường vàng Tuyệt Phẩm · KX'
+    },
+    smithSklGoldHammer: {
+      name: 'Súng trường vàng · KX'
+    },
+    smithMasterSklGoldShield: {
+      name: 'Pin vàng Tuyệt Phẩm · KX'
+    },
+    smithSklGoldShield: {
+      name: 'Pin vàng · KX'
+    },
+    smithMasterSklGoldHelm: {
+      name: 'Mũ vàng Tuyệt Phẩm · KX'
+    },
+    smithSklGoldHelm: {
+      name: 'Mũ vàng · KX'
+    },
+    smithMasterSklGoldPlate: {
+      name: 'Dây đai vàng Tuyệt Phẩm · KX'
+    },
+    smithSklGoldPlate: {
+      name: 'Dây đai vàng · KX'
+    },
+    smithMasterSklGoldGreaves: {
+      name: 'Ủng vàng Tuyệt Phẩm · KX'
+    },
+    smithSklGoldGreaves: {
+      name: 'Ủng vàng · KX'
+    },
+    smithMasterSklMithrilSword: {
+      name: 'Súng lục mithril Tuyệt Phẩm · KX'
+    },
+    smithMasterSklAdamantSword: {
+      name: 'Súng lục adamant Tuyệt Phẩm · KX'
+    },
+    smithMasterSklAetheriteSword: {
+      name: 'Súng lục aetherit Tuyệt Phẩm · KX'
+    },
+    smithSklMithrilSword: {
+      name: 'Súng lục mithril · KX'
+    },
+    smithSklAdamantSword: {
+      name: 'Súng lục adamant · KX'
+    },
+    smithSklAetheriteSword: {
+      name: 'Súng lục aetherit · KX'
+    },
+    smithMasterSklMithrilHammer: {
+      name: 'Súng trường mithril Tuyệt Phẩm · KX'
+    },
+    smithMasterSklAdamantHammer: {
+      name: 'Súng trường adamant Tuyệt Phẩm · KX'
+    },
+    smithMasterSklAetheriteHammer: {
+      name: 'Súng trường aetherit Tuyệt Phẩm · KX'
+    },
+    smithSklMithrilHammer: {
+      name: 'Súng trường mithril · KX'
+    },
+    smithSklAdamantHammer: {
+      name: 'Súng trường adamant · KX'
+    },
+    smithSklAetheriteHammer: {
+      name: 'Súng trường aetherit · KX'
+    },
+    smithMasterSklMithrilShield: {
+      name: 'Pin mithril Tuyệt Phẩm · KX'
+    },
+    smithMasterSklAdamantShield: {
+      name: 'Pin adamant Tuyệt Phẩm · KX'
+    },
+    smithMasterSklAetheriteShield: {
+      name: 'Pin aetherit Tuyệt Phẩm · KX'
+    },
+    smithSklMithrilShield: {
+      name: 'Pin mithril · KX'
+    },
+    smithSklAdamantShield: {
+      name: 'Pin adamant · KX'
+    },
+    smithSklAetheriteShield: {
+      name: 'Pin aetherit · KX'
+    },
+    smithMasterSklMithrilHelm: {
+      name: 'Mũ mithril Tuyệt Phẩm · KX'
+    },
+    smithMasterSklAdamantHelm: {
+      name: 'Mũ adamant Tuyệt Phẩm · KX'
+    },
+    smithMasterSklAetheriteHelm: {
+      name: 'Mũ aetherit Tuyệt Phẩm · KX'
+    },
+    smithSklMithrilHelm: {
+      name: 'Mũ mithril · KX'
+    },
+    smithSklAdamantHelm: {
+      name: 'Mũ adamant · KX'
+    },
+    smithSklAetheriteHelm: {
+      name: 'Mũ aetherit · KX'
+    },
+    smithMasterSklMithrilPlate: {
+      name: 'Dây đai mithril Tuyệt Phẩm · KX'
+    },
+    smithMasterSklAdamantPlate: {
+      name: 'Dây đai adamant Tuyệt Phẩm · KX'
+    },
+    smithMasterSklAetheritePlate: {
+      name: 'Dây đai aetherit Tuyệt Phẩm · KX'
+    },
+    smithSklMithrilPlate: {
+      name: 'Dây đai mithril · KX'
+    },
+    smithSklAdamantPlate: {
+      name: 'Dây đai adamant · KX'
+    },
+    smithSklAetheritePlate: {
+      name: 'Dây đai aetherit · KX'
+    },
+    smithMasterSklMithrilGreaves: {
+      name: 'Ủng mithril Tuyệt Phẩm · KX'
+    },
+    smithMasterSklAdamantGreaves: {
+      name: 'Ủng adamant Tuyệt Phẩm · KX'
+    },
+    smithMasterSklAetheriteGreaves: {
+      name: 'Ủng aetherit Tuyệt Phẩm · KX'
+    },
+    smithSklMithrilGreaves: {
+      name: 'Ủng mithril · KX'
+    },
+    smithSklAdamantGreaves: {
+      name: 'Ủng adamant · KX'
+    },
+    smithSklAetheriteGreaves: {
+      name: 'Ủng aetherit · KX'
+    },
+    smithMasterChaIronSword: {
+      name: 'Quyền trượng sắt Tuyệt Phẩm · ML'
+    },
+    smithChaIronSword: {
+      name: 'Quyền trượng sắt · ML'
+    },
+    smithMasterChaIronHammer: {
+      name: 'Cờ hiệu sắt Tuyệt Phẩm · ML'
+    },
+    smithChaIronHammer: {
+      name: 'Cờ hiệu sắt · ML'
+    },
+    smithMasterChaIronShield: {
+      name: 'Cổ thư sắt Tuyệt Phẩm · ML'
+    },
+    smithChaIronShield: {
+      name: 'Cổ thư sắt · ML'
+    },
+    smithMasterChaIronHelm: {
+      name: 'Vương miện sắt Tuyệt Phẩm · ML'
+    },
+    smithChaIronHelm: {
+      name: 'Vương miện sắt · ML'
+    },
+    smithMasterChaIronPlate: {
+      name: 'Áo chùng sắt Tuyệt Phẩm · ML'
+    },
+    smithChaIronPlate: {
+      name: 'Áo chùng sắt · ML'
+    },
+    smithMasterChaIronGreaves: {
+      name: 'Ủng sắt Tuyệt Phẩm · ML'
+    },
+    smithChaIronGreaves: {
+      name: 'Ủng sắt · ML'
+    },
+    smithMasterChaSilverSword: {
+      name: 'Quyền trượng bạc Tuyệt Phẩm · ML'
+    },
+    smithChaSilverSword: {
+      name: 'Quyền trượng bạc · ML'
+    },
+    smithMasterChaSilverHammer: {
+      name: 'Cờ hiệu bạc Tuyệt Phẩm · ML'
+    },
+    smithChaSilverHammer: {
+      name: 'Cờ hiệu bạc · ML'
+    },
+    smithMasterChaSilverShield: {
+      name: 'Cổ thư bạc Tuyệt Phẩm · ML'
+    },
+    smithChaSilverShield: {
+      name: 'Cổ thư bạc · ML'
+    },
+    smithMasterChaSilverHelm: {
+      name: 'Vương miện bạc Tuyệt Phẩm · ML'
+    },
+    smithChaSilverHelm: {
+      name: 'Vương miện bạc · ML'
+    },
+    smithMasterChaSilverPlate: {
+      name: 'Áo chùng bạc Tuyệt Phẩm · ML'
+    },
+    smithChaSilverPlate: {
+      name: 'Áo chùng bạc · ML'
+    },
+    smithMasterChaSilverGreaves: {
+      name: 'Ủng bạc Tuyệt Phẩm · ML'
+    },
+    smithChaSilverGreaves: {
+      name: 'Ủng bạc · ML'
+    },
+    smithMasterChaGoldSword: {
+      name: 'Quyền trượng vàng Tuyệt Phẩm · ML'
+    },
+    smithChaGoldSword: {
+      name: 'Quyền trượng vàng · ML'
+    },
+    smithMasterChaGoldHammer: {
+      name: 'Cờ hiệu vàng Tuyệt Phẩm · ML'
+    },
+    smithChaGoldHammer: {
+      name: 'Cờ hiệu vàng · ML'
+    },
+    smithMasterChaGoldShield: {
+      name: 'Cổ thư vàng Tuyệt Phẩm · ML'
+    },
+    smithChaGoldShield: {
+      name: 'Cổ thư vàng · ML'
+    },
+    smithMasterChaGoldHelm: {
+      name: 'Vương miện vàng Tuyệt Phẩm · ML'
+    },
+    smithChaGoldHelm: {
+      name: 'Vương miện vàng · ML'
+    },
+    smithMasterChaGoldPlate: {
+      name: 'Áo chùng vàng Tuyệt Phẩm · ML'
+    },
+    smithChaGoldPlate: {
+      name: 'Áo chùng vàng · ML'
+    },
+    smithMasterChaGoldGreaves: {
+      name: 'Ủng vàng Tuyệt Phẩm · ML'
+    },
+    smithChaGoldGreaves: {
+      name: 'Ủng vàng · ML'
+    },
+    smithMasterChaMithrilSword: {
+      name: 'Quyền trượng mithril Tuyệt Phẩm · ML'
+    },
+    smithMasterChaAdamantSword: {
+      name: 'Quyền trượng adamant Tuyệt Phẩm · ML'
+    },
+    smithMasterChaAetheriteSword: {
+      name: 'Quyền trượng aetherit Tuyệt Phẩm · ML'
+    },
+    smithChaMithrilSword: {
+      name: 'Quyền trượng mithril · ML'
+    },
+    smithChaAdamantSword: {
+      name: 'Quyền trượng adamant · ML'
+    },
+    smithChaAetheriteSword: {
+      name: 'Quyền trượng aetherit · ML'
+    },
+    smithMasterChaMithrilHammer: {
+      name: 'Cờ hiệu mithril Tuyệt Phẩm · ML'
+    },
+    smithMasterChaAdamantHammer: {
+      name: 'Cờ hiệu adamant Tuyệt Phẩm · ML'
+    },
+    smithMasterChaAetheriteHammer: {
+      name: 'Cờ hiệu aetherit Tuyệt Phẩm · ML'
+    },
+    smithChaMithrilHammer: {
+      name: 'Cờ hiệu mithril · ML'
+    },
+    smithChaAdamantHammer: {
+      name: 'Cờ hiệu adamant · ML'
+    },
+    smithChaAetheriteHammer: {
+      name: 'Cờ hiệu aetherit · ML'
+    },
+    smithMasterChaMithrilShield: {
+      name: 'Cổ thư mithril Tuyệt Phẩm · ML'
+    },
+    smithMasterChaAdamantShield: {
+      name: 'Cổ thư adamant Tuyệt Phẩm · ML'
+    },
+    smithMasterChaAetheriteShield: {
+      name: 'Cổ thư aetherit Tuyệt Phẩm · ML'
+    },
+    smithChaMithrilShield: {
+      name: 'Cổ thư mithril · ML'
+    },
+    smithChaAdamantShield: {
+      name: 'Cổ thư adamant · ML'
+    },
+    smithChaAetheriteShield: {
+      name: 'Cổ thư aetherit · ML'
+    },
+    smithMasterChaMithrilHelm: {
+      name: 'Vương miện mithril Tuyệt Phẩm · ML'
+    },
+    smithMasterChaAdamantHelm: {
+      name: 'Vương miện adamant Tuyệt Phẩm · ML'
+    },
+    smithMasterChaAetheriteHelm: {
+      name: 'Vương miện aetherit Tuyệt Phẩm · ML'
+    },
+    smithChaMithrilHelm: {
+      name: 'Vương miện mithril · ML'
+    },
+    smithChaAdamantHelm: {
+      name: 'Vương miện adamant · ML'
+    },
+    smithChaAetheriteHelm: {
+      name: 'Vương miện aetherit · ML'
+    },
+    smithMasterChaMithrilPlate: {
+      name: 'Áo chùng mithril Tuyệt Phẩm · ML'
+    },
+    smithMasterChaAdamantPlate: {
+      name: 'Áo chùng adamant Tuyệt Phẩm · ML'
+    },
+    smithMasterChaAetheritePlate: {
+      name: 'Áo chùng aetherit Tuyệt Phẩm · ML'
+    },
+    smithChaMithrilPlate: {
+      name: 'Áo chùng mithril · ML'
+    },
+    smithChaAdamantPlate: {
+      name: 'Áo chùng adamant · ML'
+    },
+    smithChaAetheritePlate: {
+      name: 'Áo chùng aetherit · ML'
+    },
+    smithMasterChaMithrilGreaves: {
+      name: 'Ủng mithril Tuyệt Phẩm · ML'
+    },
+    smithMasterChaAdamantGreaves: {
+      name: 'Ủng adamant Tuyệt Phẩm · ML'
+    },
+    smithMasterChaAetheriteGreaves: {
+      name: 'Ủng aetherit Tuyệt Phẩm · ML'
+    },
+    smithChaMithrilGreaves: {
+      name: 'Ủng mithril · ML'
+    },
+    smithChaAdamantGreaves: {
+      name: 'Ủng adamant · ML'
+    },
+    smithChaAetheriteGreaves: {
+      name: 'Ủng aetherit · ML'
+    },
+    smithMasterEndIronSword: {
+      name: 'Chùy sắt Tuyệt Phẩm · SB'
+    },
+    smithEndIronSword: {
+      name: 'Chùy sắt · SB'
+    },
+    smithMasterEndIronHammer: {
+      name: 'Rìu sắt Tuyệt Phẩm · SB'
+    },
+    smithEndIronHammer: {
+      name: 'Rìu sắt · SB'
+    },
+    smithMasterEndIronShield: {
+      name: 'Khiên Sắt Tuyệt Phẩm · SB'
+    },
+    smithEndIronShield: {
+      name: 'Khiên Sắt · SB'
+    },
+    smithMasterEndIronHelm: {
+      name: 'Mũ Giáp Sắt Tuyệt Phẩm · SB'
+    },
+    smithEndIronHelm: {
+      name: 'Mũ Giáp Sắt · SB'
+    },
+    smithMasterEndIronPlate: {
+      name: 'Giáp Tấm Sắt Tuyệt Phẩm · SB'
+    },
+    smithEndIronPlate: {
+      name: 'Giáp Tấm Sắt · SB'
+    },
+    smithMasterEndIronGreaves: {
+      name: 'Giáp Ống Chân Sắt Tuyệt Phẩm · SB'
+    },
+    smithEndIronGreaves: {
+      name: 'Giáp Ống Chân Sắt · SB'
+    },
+    smithMasterEndSilverSword: {
+      name: 'Chùy bạc Tuyệt Phẩm · SB'
+    },
+    smithEndSilverSword: {
+      name: 'Chùy bạc · SB'
+    },
+    smithMasterEndSilverHammer: {
+      name: 'Rìu bạc Tuyệt Phẩm · SB'
+    },
+    smithEndSilverHammer: {
+      name: 'Rìu bạc · SB'
+    },
+    smithMasterEndSilverShield: {
+      name: 'Khiên Bạc Tuyệt Phẩm · SB'
+    },
+    smithEndSilverShield: {
+      name: 'Khiên Bạc · SB'
+    },
+    smithMasterEndSilverHelm: {
+      name: 'Mũ Giáp Bạc Tuyệt Phẩm · SB'
+    },
+    smithEndSilverHelm: {
+      name: 'Mũ Giáp Bạc · SB'
+    },
+    smithMasterEndSilverPlate: {
+      name: 'Giáp Tấm Bạc Tuyệt Phẩm · SB'
+    },
+    smithEndSilverPlate: {
+      name: 'Giáp Tấm Bạc · SB'
+    },
+    smithMasterEndSilverGreaves: {
+      name: 'Giáp Ống Chân Bạc Tuyệt Phẩm · SB'
+    },
+    smithEndSilverGreaves: {
+      name: 'Giáp Ống Chân Bạc · SB'
+    },
+    smithMasterEndGoldSword: {
+      name: 'Chùy vàng Tuyệt Phẩm · SB'
+    },
+    smithEndGoldSword: {
+      name: 'Chùy vàng · SB'
+    },
+    smithMasterEndGoldHammer: {
+      name: 'Rìu vàng Tuyệt Phẩm · SB'
+    },
+    smithEndGoldHammer: {
+      name: 'Rìu vàng · SB'
+    },
+    smithMasterEndGoldShield: {
+      name: 'Khiên Vàng Tuyệt Phẩm · SB'
+    },
+    smithEndGoldShield: {
+      name: 'Khiên Vàng · SB'
+    },
+    smithMasterEndGoldHelm: {
+      name: 'Mũ Giáp Vàng Tuyệt Phẩm · SB'
+    },
+    smithEndGoldHelm: {
+      name: 'Mũ Giáp Vàng · SB'
+    },
+    smithMasterEndGoldPlate: {
+      name: 'Giáp Tấm Vàng Tuyệt Phẩm · SB'
+    },
+    smithEndGoldPlate: {
+      name: 'Giáp Tấm Vàng · SB'
+    },
+    smithMasterEndGoldGreaves: {
+      name: 'Giáp Ống Chân Vàng Tuyệt Phẩm · SB'
+    },
+    smithEndGoldGreaves: {
+      name: 'Giáp Ống Chân Vàng · SB'
+    },
+    smithMasterEndMithrilSword: {
+      name: 'Chùy mithril Tuyệt Phẩm · SB'
+    },
+    smithMasterEndAdamantSword: {
+      name: 'Chùy adamant Tuyệt Phẩm · SB'
+    },
+    smithMasterEndAetheriteSword: {
+      name: 'Chùy aetherit Tuyệt Phẩm · SB'
+    },
+    smithEndMithrilSword: {
+      name: 'Chùy mithril · SB'
+    },
+    smithEndAdamantSword: {
+      name: 'Chùy adamant · SB'
+    },
+    smithEndAetheriteSword: {
+      name: 'Chùy aetherit · SB'
+    },
+    smithMasterEndMithrilHammer: {
+      name: 'Rìu mithril Tuyệt Phẩm · SB'
+    },
+    smithMasterEndAdamantHammer: {
+      name: 'Rìu adamant Tuyệt Phẩm · SB'
+    },
+    smithMasterEndAetheriteHammer: {
+      name: 'Rìu aetherit Tuyệt Phẩm · SB'
+    },
+    smithEndMithrilHammer: {
+      name: 'Rìu mithril · SB'
+    },
+    smithEndAdamantHammer: {
+      name: 'Rìu adamant · SB'
+    },
+    smithEndAetheriteHammer: {
+      name: 'Rìu aetherit · SB'
+    },
+    smithMasterEndMithrilShield: {
+      name: 'Khiên Mithril Tuyệt Phẩm · SB'
+    },
+    smithMasterEndAdamantShield: {
+      name: 'Khiên Adamant Tuyệt Phẩm · SB'
+    },
+    smithMasterEndAetheriteShield: {
+      name: 'Khiên Aetherit Tuyệt Phẩm · SB'
+    },
+    smithEndMithrilShield: {
+      name: 'Khiên Mithril · SB'
+    },
+    smithEndAdamantShield: {
+      name: 'Khiên Adamant · SB'
+    },
+    smithEndAetheriteShield: {
+      name: 'Khiên Aetherit · SB'
+    },
+    smithMasterEndMithrilHelm: {
+      name: 'Mũ Giáp Mithril Tuyệt Phẩm · SB'
+    },
+    smithMasterEndAdamantHelm: {
+      name: 'Mũ Giáp Adamant Tuyệt Phẩm · SB'
+    },
+    smithMasterEndAetheriteHelm: {
+      name: 'Mũ Giáp Aetherit Tuyệt Phẩm · SB'
+    },
+    smithEndMithrilHelm: {
+      name: 'Mũ Giáp Mithril · SB'
+    },
+    smithEndAdamantHelm: {
+      name: 'Mũ Giáp Adamant · SB'
+    },
+    smithEndAetheriteHelm: {
+      name: 'Mũ Giáp Aetherit · SB'
+    },
+    smithMasterEndMithrilPlate: {
+      name: 'Giáp Tấm Mithril Tuyệt Phẩm · SB'
+    },
+    smithMasterEndAdamantPlate: {
+      name: 'Giáp Tấm Adamant Tuyệt Phẩm · SB'
+    },
+    smithMasterEndAetheritePlate: {
+      name: 'Giáp Tấm Aetherit Tuyệt Phẩm · SB'
+    },
+    smithEndMithrilPlate: {
+      name: 'Giáp Tấm Mithril · SB'
+    },
+    smithEndAdamantPlate: {
+      name: 'Giáp Tấm Adamant · SB'
+    },
+    smithEndAetheritePlate: {
+      name: 'Giáp Tấm Aetherit · SB'
+    },
+    smithMasterEndMithrilGreaves: {
+      name: 'Giáp Ống Chân Mithril Tuyệt Phẩm · SB'
+    },
+    smithMasterEndAdamantGreaves: {
+      name: 'Giáp Ống Chân Adamant Tuyệt Phẩm · SB'
+    },
+    smithMasterEndAetheriteGreaves: {
+      name: 'Giáp Ống Chân Aetherit Tuyệt Phẩm · SB'
+    },
+    smithEndMithrilGreaves: {
+      name: 'Giáp Ống Chân Mithril · SB'
+    },
+    smithEndAdamantGreaves: {
+      name: 'Giáp Ống Chân Adamant · SB'
+    },
+    smithEndAetheriteGreaves: {
+      name: 'Giáp Ống Chân Aetherit · SB'
     },
     smithIronSword: {
       name: 'Kiếm Sắt'
@@ -1777,6 +2951,414 @@ export default {
     scepterOfTheFirstKing: {
       name: 'Quyền trượng vị vua đầu tiên'
     },
+    pickpocketsKnife: {
+      name: 'Dao của kẻ móc túi'
+    },
+    serpentsFang: {
+      name: 'Nanh rắn'
+    },
+    phantomRapier: {
+      name: 'Kiếm nhọn bóng ma'
+    },
+    fangOfTheWindless: {
+      name: 'Nanh của Vô Phong'
+    },
+    roguesBuckler: {
+      name: 'Khiên nhỏ của kẻ gian'
+    },
+    venomVial: {
+      name: 'Lọ độc dược'
+    },
+    swiftguardBuckler: {
+      name: 'Khiên nhỏ của vệ binh nhanh nhẹn'
+    },
+    nightshadeFlask: {
+      name: 'Bình cà độc dược'
+    },
+    windveilTarge: {
+      name: 'Khiên màn gió'
+    },
+    shadowdancersBuckler: {
+      name: 'Khiên nhỏ của vũ công bóng tối'
+    },
+    scoutsBandana: {
+      name: 'Khăn của trinh sát'
+    },
+    nightcowl: {
+      name: 'Mũ trùm đêm'
+    },
+    shadowveilHood: {
+      name: 'Mũ trùm màn bóng'
+    },
+    windrunnersCap: {
+      name: 'Mũ của người chạy theo gió'
+    },
+    maskOfTheSilentWind: {
+      name: 'Mặt nạ của gió lặng'
+    },
+    rangersJerkin: {
+      name: 'Áo khoác kiểm lâm'
+    },
+    nightstalkerLeathers: {
+      name: 'Da thợ săn đêm'
+    },
+    windridersHarness: {
+      name: 'Dây cương kỵ sĩ gió'
+    },
+    mantleOfTheShadowDancer: {
+      name: 'Áo choàng vũ công bóng tối'
+    },
+    thiefsGloves: {
+      name: 'Găng tay của kẻ trộm'
+    },
+    cutpurseGloves: {
+      name: 'Găng tay của kẻ móc túi'
+    },
+    glovesOfTheGale: {
+      name: 'Găng tay của cuồng phong'
+    },
+    softSoledShoes: {
+      name: 'Giày đế mềm'
+    },
+    catStepBoots: {
+      name: 'Giày bước chân mèo'
+    },
+    shadowstepBoots: {
+      name: 'Giày bước chân bóng'
+    },
+    windstrideBoots: {
+      name: 'Giày bước chân gió'
+    },
+    luckyCoin: {
+      name: 'Đồng xu may mắn'
+    },
+    shadowBand: {
+      name: 'Nhẫn bóng tối'
+    },
+    sandglassOfTheSwift: {
+      name: 'Đồng hồ cát của kẻ nhanh nhẹn'
+    },
+    talonCharm: {
+      name: 'Bùa móng vuốt'
+    },
+    windheart: {
+      name: 'Tim gió'
+    },
+    ashwallHeater: {
+      name: 'Khiên Tường Tro'
+    },
+    wyrmhidePavise: {
+      name: 'Khiên Lớn Da Giao Long'
+    },
+    footmansKettleHat: {
+      name: 'Mũ Nồi Của Lính Bộ Binh'
+    },
+    ironbrowSallet: {
+      name: 'Mũ Salad Mày Sắt'
+    },
+    warlordsBarbute: {
+      name: 'Mũ Barbute Của Chiến Tướng'
+    },
+    helmOfTheSunderedThrone: {
+      name: 'Mũ Giáp Ngai Vàng Vỡ'
+    },
+    recruitsCuirass: {
+      name: 'Giáp Ngực Tân Binh'
+    },
+    stonecuttersMitts: {
+      name: 'Găng Hở Ngón Của Thợ Đá'
+    },
+    ashforgedGauntlets: {
+      name: 'Găng Tay Giáp Rèn Trong Tro'
+    },
+    warbringerGauntlets: {
+      name: 'Găng Tay Giáp Của Kẻ Mang Chiến Tranh'
+    },
+    titanfistGauntlets: {
+      name: 'Găng Tay Giáp Nắm Đấm Titan'
+    },
+    footmansGreaves: {
+      name: 'Giáp Ống Chân Của Lính Bộ Binh'
+    },
+    ironshodGreaves: {
+      name: 'Giáp Ống Chân Bịt Sắt'
+    },
+    warlordsSabatons: {
+      name: 'Giày Giáp Của Chiến Tướng'
+    },
+    greavesOfTheMountainfall: {
+      name: 'Giáp Ống Chân Núi Lở'
+    },
+    sergeantsSignet: {
+      name: 'Nhẫn Ấn Của Trung Sĩ'
+    },
+    brawlersKnuckleRing: {
+      name: 'Đấm Sắt Của Kẻ Hay Gây Gổ'
+    },
+    bloodiedWarMedal: {
+      name: 'Huy Chương Chiến Tranh Đẫm Máu'
+    },
+    watchmansCudgel: {
+      name: 'Dùi Cui Của Lính Canh'
+    },
+    ironboundMace: {
+      name: 'Chùy Đai Sắt'
+    },
+    stonehideCleaver: {
+      name: 'Dao Chặt Da Đá'
+    },
+    bulwarkMaul: {
+      name: 'Búa Tạ Thành Lũy'
+    },
+    mountainsplitterAxe: {
+      name: 'Rìu Chẻ Núi'
+    },
+    everstandWarmace: {
+      name: 'Chùy Chiến Bất Khuất'
+    },
+    emberwallBastion: {
+      name: 'Thành Lũy Tường Than'
+    },
+    stonewardenHelm: {
+      name: 'Mũ Giáp Của Người Gác Đá'
+    },
+    colossusVisage: {
+      name: 'Dung Mạo Người Khổng Lồ'
+    },
+    diggersGauntlets: {
+      name: 'Găng Tay Giáp Của Người Đào'
+    },
+    bastionGauntlets: {
+      name: 'Găng Tay Giáp Thành Lũy'
+    },
+    glacierplateGauntlets: {
+      name: 'Găng Tay Giáp Tấm Băng Hà'
+    },
+    gauntletsOfEndlessVigil: {
+      name: 'Găng Tay Giáp Của Canh Gác Vĩnh Cửu'
+    },
+    hearthstoneCharm: {
+      name: 'Bùa Hộ Mệnh Đá Lò Sưởi'
+    },
+    ironheartPendant: {
+      name: 'Mề Đay Tim Sắt'
+    },
+    hedgewizardsWand: {
+      name: 'Đũa Phép Của Phù Thủy Hàng Rào'
+    },
+    frostglassStaff: {
+      name: 'Trượng Thủy Tinh Giá Lạnh'
+    },
+    voidthreadWand: {
+      name: 'Đũa Phép Sợi Hư Vô'
+    },
+    staffOfTheStarlessSky: {
+      name: 'Trượng Bầu Trời Không Sao'
+    },
+    studentsGrimoire: {
+      name: 'Sách Phép Của Học Trò'
+    },
+    frostfireOrb: {
+      name: 'Quả Cầu Lửa Giá'
+    },
+    orbOfTheUnwrittenHour: {
+      name: 'Quả Cầu Giờ Chưa Viết'
+    },
+    apprenticesPointedCap: {
+      name: 'Mũ Nhọn Của Học Việc'
+    },
+    sagesCirclet: {
+      name: 'Vương Miện Của Hiền Giả'
+    },
+    cinderWizardsHat: {
+      name: 'Mũ Pháp Sư Tro'
+    },
+    voidseerCirclet: {
+      name: 'Vương Miện Của Nhà Tiên Tri Hư Vô'
+    },
+    apprenticesRobe: {
+      name: 'Áo Choàng Của Học Việc'
+    },
+    cinderthreadRobe: {
+      name: 'Áo Choàng Sợi Tro'
+    },
+    voidwovenRobe: {
+      name: 'Áo Choàng Dệt Từ Hư Vô'
+    },
+    inkStainedGloves: {
+      name: 'Găng Tay Dính Mực'
+    },
+    spellthreadGloves: {
+      name: 'Găng Tay Sợi Thần Chú'
+    },
+    frostweaveGloves: {
+      name: 'Găng Tay Dệt Giá Lạnh'
+    },
+    starlitGloves: {
+      name: 'Găng Tay Ánh Sao'
+    },
+    glovesOfTheLastWord: {
+      name: 'Găng Tay Lời Cuối Cùng'
+    },
+    scribesSlippers: {
+      name: 'Dép Của Người Chép Sách'
+    },
+    moonstepSlippers: {
+      name: 'Dép Bước Trăng'
+    },
+    emberstepBoots: {
+      name: 'Giày Bốt Bước Than Hồng'
+    },
+    voidwalkerBoots: {
+      name: 'Giày Bốt Của Kẻ Lang Thang Hư Vô'
+    },
+    bootsOfTheWanderingStar: {
+      name: 'Giày Bốt Ngôi Sao Lang Thang'
+    },
+    glowstonePendant: {
+      name: 'Mề Đay Đá Phát Sáng'
+    },
+    scholarsSeal: {
+      name: 'Ấn Của Học Giả'
+    },
+    eyeOfTheArchon: {
+      name: 'Mắt Của Arkhon'
+    },
+    cinderRepeater: {
+      name: 'Súng Trường Tro Nạp Nhiều Phát'
+    },
+    glacierMortar: {
+      name: 'Súng Cối Cầm Tay Băng Hà'
+    },
+    sparkCell: {
+      name: 'Tế Bào Tia Lửa'
+    },
+    arcCapacitor: {
+      name: 'Tụ Điện Hồ Quang'
+    },
+    aetherheartCell: {
+      name: 'Tế Bào Tim Ê-te'
+    },
+    marksmansVisor: {
+      name: 'Kính Che Mặt Của Xạ Thủ'
+    },
+    sharpshootersCap: {
+      name: 'Mũ Lưỡi Trai Của Xạ Thủ Bắn Tỉa'
+    },
+    gunnersHarness: {
+      name: 'Dây Đai Của Pháo Thủ'
+    },
+    steadyhandGloves: {
+      name: 'Găng Tay Bàn Tay Vững'
+    },
+    gunsmithsGloves: {
+      name: 'Găng Tay Của Thợ Súng'
+    },
+    scrappersBoots: {
+      name: 'Giày Bốt Của Kẻ Hay Gây Gổ'
+    },
+    sharpshooterBoots: {
+      name: 'Giày Bốt Của Xạ Thủ Bắn Tỉa'
+    },
+    firingLineBoots: {
+      name: 'Giày Bốt Hỏa Tuyến'
+    },
+    steadyfootBoots: {
+      name: 'Giày Bốt Chân Vững'
+    },
+    aetherstepBoots: {
+      name: 'Giày Bốt Bước Ê-te'
+    },
+    bootsOfTheLastShot: {
+      name: 'Giày Bốt Phát Bắn Cuối Cùng'
+    },
+    brassCartridgeCharm: {
+      name: 'Bùa Hộ Mệnh Vỏ Đạn Đồng'
+    },
+    deadEyeLens: {
+      name: 'Thấu Kính Mắt Chuẩn'
+    },
+    eagleEyeScope: {
+      name: 'Ống Nhòm Mắt Đại Bàng'
+    },
+    criersBaton: {
+      name: 'Gậy Của Người Rao Tin'
+    },
+    droversStandard: {
+      name: 'Cờ Hiệu Của Người Chăn Gia Súc'
+    },
+    marshalsSceptre: {
+      name: 'Quyền Trượng Của Nguyên Soái'
+    },
+    balladBook: {
+      name: 'Sách Dân Ca'
+    },
+    chronicleOfHeroes: {
+      name: 'Biên Niên Sử Các Anh Hùng'
+    },
+    psalterOfTheHost: {
+      name: 'Thánh Ca Của Quân Đoàn'
+    },
+    tomeOfEternalReign: {
+      name: 'Tập Sách Triều Đại Vĩnh Hằng'
+    },
+    heraldsCap: {
+      name: 'Mũ Của Sứ Giả'
+    },
+    singersCirclet: {
+      name: 'Vương Miện Của Ca Sĩ'
+    },
+    diademOfTenThousandVoices: {
+      name: 'Vương Miện Mười Nghìn Giọng Hát'
+    },
+    travelersWaistcoat: {
+      name: 'Áo Gi-lê Của Lữ Khách'
+    },
+    minstrelsMotley: {
+      name: 'Bộ Đồ Vá Của Nghệ Sĩ Lang Thang'
+    },
+    troubadoursCoat: {
+      name: 'Áo Khoác Của Thi Sĩ Rong'
+    },
+    marshalsGreatcoat: {
+      name: 'Áo Khoác Của Nguyên Soái'
+    },
+    buskersGloves: {
+      name: 'Găng Tay Của Nhạc Công Đường Phố'
+    },
+    drummersGloves: {
+      name: 'Găng Tay Của Tay Trống'
+    },
+    standardBearersGloves: {
+      name: 'Găng Tay Của Người Cầm Cờ'
+    },
+    gildedParadeGloves: {
+      name: 'Găng Tay Diễu Hành Mạ Vàng'
+    },
+    glovesOfTheCrownedHand: {
+      name: 'Găng Tay Của Bàn Tay Đăng Quang'
+    },
+    wayfarersShoes: {
+      name: 'Giày Của Lữ Khách'
+    },
+    troubadourBoots: {
+      name: 'Giày Bốt Của Thi Sĩ Rong'
+    },
+    heraldsRidingBoots: {
+      name: 'Giày Bốt Cưỡi Ngựa Của Sứ Giả'
+    },
+    paradeBoots: {
+      name: 'Giày Bốt Diễu Hành'
+    },
+    bootsOfTheLongProcession: {
+      name: 'Giày Bốt Của Đoàn Rước Dài'
+    },
+    silverWhistle: {
+      name: 'Còi Bạc'
+    },
+    gatheringHorn: {
+      name: 'Tù Và Triệu Tập'
+    },
     heartOfTheMountain: {
       name: 'Trái Tim Núi'
     },
@@ -1880,6 +3462,9 @@ export default {
     freedPeddler: {
       talk: 'Mọi thứ lữ khách cần. Gần như mới, phần lớn là vậy.',
       name: 'Odo Marrow'
+    },
+    sfShadowRoad: {
+      name: 'Nettle Quickhand'
     },
     sfShadow: {
       name: 'Nettle Quickhand'
@@ -2034,6 +3619,9 @@ export default {
     sunfordGambler: {
       name: 'Dob Tumbler'
     },
+    sunfordCups: {
+      name: 'Nell Nimblefingers'
+    },
     oakGambler: {
       name: 'Silky Ren'
     },
@@ -2145,6 +3733,13 @@ export default {
     }
   },
   dlg: {
+    intro: {
+      crossing: { 1: 'Mọi con đường trên thế giới này đều gặp nhau ở một ngã tư… và mỗi ngã tư là một trận chiến.' },
+      hero: { 1: 'Từ những cánh đồng yên bình của Sunford, một anh hùng trẻ tuổi đã lên đường.' },
+      fire: { 1: 'Lửa đáp lại tiếng gọi. Thép học được một cái tên mới.' },
+      foes: { 1: 'Vua goblin, thủ lĩnh băng giá, rồng hư không… và Ma Vương.' },
+      begin: { 1: 'Huyền thoại của bạn bắt đầu từ đây.' }
+    },
     frostDisciple: {
       bye: {
         '1': 'Giữ ấm nhé.'
@@ -2339,6 +3934,23 @@ export default {
       hello: {
         '2': 'Odo Marrow, xin được phục vụ. Người bán rong, thợ sửa đồ, và là một người vô cùng biết ơn.',
         '1': 'Cậu! Chính cậu đã mở cái lồng đó! Không thì ta đã mục rữa trong ấy rồi.'
+      }
+    },
+    sfShadowRoad: {
+      hello: {
+        '1': 'Dịch chuyển tức thời. Có hứng thú không?'
+      },
+      again: {
+        '1': 'Quay lại học chiêu khác à?'
+      },
+      train: {
+        '1': 'Nhìn kỹ nhé. Một bước, và bạn đã ở nơi khác.'
+      },
+      trainBack: {
+        '1': 'Tốt. Giờ hãy đến một nơi khác.'
+      },
+      bye: {
+        '1': 'Đừng để bị bắt.'
       }
     },
     sfShadow: {
@@ -2593,9 +4205,8 @@ export default {
         '2': 'Đập khi kim loại sáng rực nhất. Trượt là thành sắt vụn. Làm đi.',
         '1': 'Rèn à? Hừm. Cầm búa thế này, đừng cầm như cầm gậy.'
       },
-      ore: {
-        '1': 'Quặng cục hả? Tôi lấy hết. Cân đủ, trả đủ.'
-      },
+      ore: { '1': 'Quặng à? Cho xem nào. Ta trả theo từng cục, cân công bằng.' },
+      sellBack: { '1': 'Cân công bằng, tiền sòng phẳng. Tìm được thì mang thêm.' },
       forgeBack: {
         '1': 'Không tệ. Cũng chẳng tốt. Cứ tiếp tục.'
       },
@@ -2878,7 +4489,7 @@ export default {
       },
       map: {
         '1': 'Bản đồ của Đội trưởng Rook! Ông ấy xé nó ra và giấu các mảnh đi trước khi bị bọn goblin bắt.',
-        '2': 'Tìm đủ cả sáu mảnh, dấu X sẽ chỉ đường: đâu đó ở Vách Đá Tro Tàn. Đào ở đó, và vàng là của cháu.',
+        '2': 'Tìm sáu mảnh trong số đó, còn vài mảnh nữa rải rác quanh đây, dấu X sẽ chỉ đường: đâu đó ở Vách Đá Tro Tàn. Đào ở đó, và vàng là của cháu.',
         say: 'Cháu tìm được một mảnh của tấm bản đồ cũ.'
       }
     },
@@ -2895,6 +4506,9 @@ export default {
       },
       mana: {
         '1': 'Cái này đắng đấy. Uống khi phép thuật của cậu cạn kiệt.'
+      },
+      brew: {
+        '1': 'Cho tôi xem thảo dược của cậu nào. Tôi sẽ pha thứ gì đó ngon hơn thuốc bổ mana của tôi.'
       },
       potions: {
         '1': 'Cậu mang vài bình thuốc vào mỗi trận. Uống trước khi cần, đừng đợi đến sau.',
@@ -2914,6 +4528,9 @@ export default {
       },
       healBack: {
         '1': 'Giữ thắt lưng luôn đầy và cúi đầu thấp xuống.'
+      },
+      brewBack: {
+        '1': 'Cẩn thận, còn nóng đấy. Đừng uống hết một lúc.'
       },
       bye: {
         '1': 'Ngoài kia nhớ giữ gìn bản thân.'
@@ -3015,9 +4632,8 @@ export default {
         '2': 'Nhìn ánh lửa. Đập vào tâm nó, ba lần, và kim loại sẽ ghi nhớ.',
         '1': 'Cậu muốn học nghề à? Tốt. Oakhaven cần từng chiếc búa.'
       },
-      ore: {
-        '1': 'Quặng thô! Kho vũ khí chẳng bao giờ đủ. Tiền của cậu đây.'
-      },
+      ore: { '1': 'Quặng thô! Kho vũ khí chẳng bao giờ đủ. Bán cho ta phần ngươi dư.' },
+      sellBack: { '1': 'Mỗi cục đều vào tường thành. Cảm ơn.' },
       forgeBack: {
         '1': 'Thép tốt. Tường thành cảm ơn cậu.'
       },
@@ -3058,9 +4674,8 @@ export default {
         '2': 'Ba nhát, nhát nào cũng vào tâm ánh lửa. Bí quyết chỉ có thế.',
         '1': 'Từ sau cuộc vây hãm, ai hỏi tôi cũng dạy. Lại đây, đứng chỗ này.'
       },
-      ore: {
-        '1': 'Thêm quặng cho tường thành à? Quý hóa quá. Đây, cầm lấy.'
-      },
+      ore: { '1': 'Thêm quặng cho tường thành à? Ta trả cho từng cục ngươi bán được.' },
+      sellBack: { '1': 'Trời phù hộ ngươi. Thế là thêm giáp cho tường thành.' },
       forgeBack: {
         '1': 'Mỗi nhát lại giúp cậu giỏi hơn. Cứ quay lại bất cứ lúc nào.'
       },
@@ -3456,9 +5071,8 @@ export default {
         '2': 'Ánh lửa bảo cậu khi nào. Cánh tay bảo cậu mạnh cỡ nào. Ba nhát.',
         '1': 'Người trên mặt đất đứng bên đe à? Thôi thì ai cũng phải bắt đầu từ đâu đó.'
       },
-      ore: {
-        '1': 'Kim loại tốt, thật thà. Ironhold luôn trả tiền cho thứ đó.'
-      },
+      ore: { '1': 'Kim loại tốt, thật thà. Đặt đây, ta trả theo từng cục.' },
+      sellBack: { '1': 'Buôn bán sòng phẳng. Ironhold luôn trả giá cho kim loại tốt.' },
       forgeBack: {
         '1': 'Người lùn sẽ làm tốt hơn. Nhưng chẳng hơn bao nhiêu.'
       },
@@ -3528,9 +5142,8 @@ export default {
         '2': 'Nung, đập, lật. Ba nhát, ngay trong ánh lửa. Rồi để nguội.',
         '1': 'Giáp tấm là việc cần kiên nhẫn. Ta sẽ chỉ cậu những điều cơ bản.'
       },
-      ore: {
-        '1': 'Để ta cân. Được. Tiền là của cậu.'
-      },
+      ore: { '1': 'Để ta cân. Chọn thứ ngươi bán, ta đếm tiền.' },
+      sellBack: { '1': 'Cân xong, trả xong. Tốt.' },
       forgeBack: {
         '1': 'Để nguội rồi hẵng mặc.'
       },
@@ -3570,9 +5183,8 @@ export default {
         '2': 'Kỷ luật bên đe, như trên chiến trường. Ba nhát, đúng theo ánh lửa.',
         '1': 'Thiết Hội vũ trang cho bạn hữu. Ta sẽ dạy cậu.'
       },
-      ore: {
-        '1': 'Thiết Hội mua hết quặng cho chiến tranh. Tiền công của cậu.'
-      },
+      ore: { '1': 'Hội Kỵ Sĩ mua quặng cho chiến tranh. Bán phần ngươi dư.' },
+      sellBack: { '1': 'Khoản trả đã được ghi. Hội cảm ơn ngươi.' },
       forgeBack: {
         '1': 'Rèn tốt lắm. Hãy mặc nó mà phục vụ cho xứng.'
       },
@@ -3974,6 +5586,11 @@ export default {
       }
     },
     bark: {
+      banditChief: {
+        whistle: {
+          1: 'Dậy đi các chú! Cắn chúng!'
+        }
+      },
       lightDisciple: {
         freed: {
           '1': 'Ánh sáng đã gửi cậu đến. Tôi là Xơ Aurelle. Hãy tìm tôi ở Sunford, tôi sẽ dạy cậu con đường Sứ Giả Ánh Sáng.'
@@ -4129,9 +5746,8 @@ export default {
         '2': 'Đập khi nó rực nóng nhất. Ba nhát tốt làm nên một món tốt.',
         '1': 'Muốn tự cầm búa thử không? Tôi chẳng ngại chia lò đâu.'
       },
-      ore: {
-        '1': 'Quặng đẹp quá. Silverbridge luôn trả giá công bằng.'
-      },
+      ore: { '1': 'Quặng đẹp đấy. Cho ta xem ngươi bán gì, ta trả theo từng cục.' },
+      sellBack: { '1': 'Rất vui. Silverbridge luôn trả giá công bằng.' },
       forgeBack: {
         '1': 'Nhìn kìa! Cậu đúng là có khiếu bẩm sinh.'
       },
@@ -4573,7 +6189,7 @@ export default {
         say: 'Tìm thảo dược ở đâu?'
       },
       elixirs: {
-        '1': 'Loại nào cũng làm cậu mạnh hơn trong trận đấu suốt một phút. Đánh mạnh hơn, da cứng hơn, chân nhanh hơn.',
+        '1': 'Loại nào cũng làm cậu mạnh hơn trong trận đấu suốt 5 phút. Đánh mạnh hơn, da cứng hơn, chân nhanh hơn.',
         '2': 'Chúng nằm trong bình thứ ba của cậu. Chạm mũi tên nhỏ để đổi loại muốn uống.',
         say: 'Linh dược có tác dụng gì?'
       },
@@ -4642,6 +6258,36 @@ export default {
       },
       bye: {
         '1': 'Mang thêm đồ đồng nát nhé! Đồ đồng nát là thứ mình mê nhất.'
+      }
+    },
+    sunfordCups: {
+      hello: {
+        1: 'Lại đây nào! Ba cái cốc, một viên ngọc, và ván đầu miễn phí!',
+        2: 'Nell Nimblefingers. Chưa ai qua mặt được đôi tay của tôi. Thử không?'
+      },
+      again: {
+        1: 'Lại đến à? Mở to mắt ra!'
+      },
+      play: {
+        1: 'Nhìn chằm chằm vào viên ngọc nhé. Đừng chớp mắt!'
+      },
+      rules: {
+        1: 'Tôi giấu viên ngọc dưới một cái cốc rồi xáo trộn. Bạn chỉ vào cốc đang giấu nó.',
+        2: 'Mỗi lần thắng liên tiếp trả nhiều hơn. Ba lần thắng có phần thưởng, năm lần có kho báu. Ván đầu mỗi ngày miễn phí.',
+        say: 'Chơi thế nào?'
+      },
+      who: {
+        1: 'Tôi biết xáo trước khi biết đi. Mẹ bảo thế là hiểu hết.'
+      },
+      luck: {
+        1: 'Thỉnh thoảng! Khi đó tôi rên rất to và khán giả thương hại tôi.',
+        say: 'Bạn có bao giờ thua không?'
+      },
+      playBack: {
+        1: 'Ván hay lắm! Mai quay lại nhé, ván đầu luôn miễn phí.'
+      },
+      bye: {
+        1: 'Hẹn gặp lại! Ngoài kia nhớ mở to mắt.'
       }
     },
     oakGambler: {
@@ -5135,6 +6781,7 @@ export default {
     banditArcher: 'Cung Thủ Thổ Phỉ',
     wolf: 'Sói',
     banditChief: 'Trùm Thổ Phỉ',
+    gnome: 'Gnome',
     goblinKing: 'Vua Goblin',
     treant: 'Thụ Nhân',
     spider: 'Nhện Khổng Lồ',
@@ -5352,6 +6999,18 @@ export default {
       firefoxColors: 'Firefox: Cài đặt → Màu sắc → đặt “Ghi đè màu do trang chỉ định” thành Không bao giờ.'
     }
   },
+  samsungFix: {
+    title: 'Kiểm tra màu nhanh',
+    body: 'Một số điện thoại làm thay đổi màu của trang web. Hãy so sánh hai hình vuông bên dưới.',
+    question: 'Hai hình vuông trông có giống nhau không?',
+    refSquare: 'Hình vuông chuẩn',
+    pageSquare: 'Hình vuông của trang',
+    yes: 'Có, giống nhau',
+    no: 'Không, trông khác nhau',
+    option: 'Sửa màu (chế độ tối của Samsung)',
+    optionHint: 'Bật nếu menu trông tối hoặc chữ khó đọc.',
+    recheck: 'Kiểm tra màu lại'
+  },
   saveStatus: {
     restoredTitle: 'Đã khôi phục lưu trên đám mây',
     restoredBody: '+{n} vàng thưởng cho việc khôi phục',
@@ -5476,7 +7135,7 @@ export default {
   },
   forge: {
     upgrade: 'Nâng cấp ({n} vàng)',
-    max: 'Đã nâng cấp tối đa: +{n}.',
+    next: 'Tiếp theo +{level}: +{pct}% chỉ số',
     town: 'Thợ rèn ở thị trấn nào cũng nâng cấp được món này.'
   },
   ore: {
@@ -5491,6 +7150,12 @@ export default {
     },
     mithril: {
       name: 'Quặng mithril'
+    },
+    adamant: {
+      name: 'Quặng adamant'
+    },
+    aetherite: {
+      name: 'Quặng aetherit'
     }
   },
   plant: {
@@ -5572,32 +7237,32 @@ export default {
   elixir: {
     might: {
       name: 'Linh dược Sức mạnh',
-      desc: '+{n}% sát thương trong một phút'
+      desc: '+{n}% sát thương trong 5 phút'
     },
     iron: {
       name: 'Thuốc Da Sắt',
-      desc: '+{n}% giáp trong một phút'
+      desc: '+{n}% giáp trong 5 phút'
     },
     swift: {
       name: 'Thuốc bổ Nhanh nhẹn',
-      desc: '+{n}% tốc độ chạy và tốc độ đánh trong một phút'
+      desc: '+{n}% tốc độ chạy và tốc độ đánh trong 5 phút'
     },
     mind: {
       name: 'Thuốc sắc Minh mẫn',
-      desc: 'Kỹ năng hồi nhanh hơn {n}% trong một phút'
+      desc: 'Kỹ năng hồi nhanh hơn {n}% trong 5 phút'
     },
     vigor: {
       name: 'Linh dược Sinh lực',
-      desc: 'Hồi {n}% máu mỗi giây trong một phút'
+      desc: 'Hồi {n}% máu mỗi giây trong 5 phút'
     },
     shadow: {
       name: 'Thuốc Khát Máu',
-      desc: 'Đòn đánh hồi máu bằng {n}% sát thương gây ra, trong một phút'
+      desc: 'Đòn đánh hồi máu bằng {n}% sát thương gây ra, trong 5 phút'
     }
   },
   alchemy: {
     talk: 'Thảo dược vào, linh dược ra. Ta nấu loại nào đây?',
-    lead: 'Mỗi linh dược có tác dụng một phút khi chiến đấu. Uống từ bình thứ ba. Mỗi loại mang được {n} bình.',
+    lead: 'Mỗi linh dược có tác dụng 5 phút khi chiến đấu. Uống từ bình thứ ba. Mỗi loại mang được {n} bình.',
     brew: 'Nấu · {n}',
     carry: 'Mang theo',
     carried: 'Đang trong bình',
@@ -5621,6 +7286,25 @@ export default {
     again: 'Chơi lại',
     noGold: 'Không đủ vàng để cược mức đó.',
     card: 'Lá bài {n}'
+  },
+  cups: {
+    title: 'Quầy Úp Cốc',
+    lead: 'Nhìn viên ngọc, theo dõi cái cốc của nó rồi chọn. Mỗi lần thắng liên tiếp trả nhiều hơn. Lần thứ ba có phần thưởng, lần thứ năm có kho báu.',
+    free: 'Ván miễn phí',
+    fee: 'Chơi · {n}',
+    row: 'Thắng liên tiếp: {n}/{max}',
+    next: 'Lần thắng tới: {n} vàng',
+    watch: 'Nhìn viên ngọc!',
+    follow: 'Theo dõi nó…',
+    pick: 'Chọn một cái cốc!',
+    hint: 'Chạm vào cốc hoặc bấm số của nó.',
+    won: 'Tìm thấy rồi! +{n} vàng',
+    lost: 'Không phải cái đó. Chuỗi thắng bắt đầu lại.',
+    near: 'Suýt nữa! Nó ở ngay bên cạnh.',
+    timeout: 'Chậm quá! Chuỗi thắng bắt đầu lại.',
+    again: 'Chơi lại',
+    noGold: 'Không đủ vàng. Ngày mai ván đầu miễn phí.',
+    cup: 'Cốc {n}'
   },
   battle: {
     title: 'Đấu Vật Phẩm',

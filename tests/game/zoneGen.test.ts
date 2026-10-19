@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest'
-import { generateArena, generateTown, generateZone, type ZonePlan } from '@/game/sim/zoneGen'
+import { generateArena, generateZone, type ZonePlan } from '@/game/sim/zoneGen'
+import { generateTown } from '@/game/sim/townGen'
 import { CELL, cellOf, createGrid, findPath, isSolidAt, type Grid } from '@/game/sim/grid'
 import { TOWNS, ZONES, ZONE_IDS, townNpcs, type TownId } from '@/game/data/zones'
 import { QUESTS } from '@/game/data/quests'

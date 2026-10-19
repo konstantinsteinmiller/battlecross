@@ -1,5 +1,6 @@
 import { ATTRS } from '@/game/data/attributes'
 import type { ModId, Mods } from '@/game/data/mods'
+import { fmt2 } from '@/utils/format'
 
 /**
  * A modifier bag as lines for a tooltip: `mod.<id>` in i18n, with `{n}`.
@@ -63,5 +64,5 @@ export const compareMods = (mods: Mods | undefined, worn: Mods | undefined): Mod
   return out
 }
 
-/** A signed number for a comparison: `+3`, `−2.5`. */
-export const signed = (n: number): string => (n > 0 ? `+${n}` : n < 0 ? `−${Math.abs(n)}` : '0')
+/** A signed number for a comparison: `+3`, `−2.5` (two decimals at most, the player's decimal sign). */
+export const signed = (n: number): string => (n > 0 ? `+${fmt2(n)}` : n < 0 ? `−${fmt2(Math.abs(n))}` : '0')

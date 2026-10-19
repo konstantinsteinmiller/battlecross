@@ -1,5 +1,13 @@
 // Kazakh (kk) bundle — mirrors the key shape of en.ts exactly.
 export default {
+  // ─── The intro (#130): its skip, and its narrator's name ───
+  intro: {
+    narrator: 'Шежіреші',
+    skip: 'Өткізу',
+    holdKey: 'Өткізу үшін {key} басып тұрыңыз',
+    holdTouch: 'Өткізу үшін басып тұрыңыз',
+    replay: 'Кіріспені көру'
+  },
   arena: {
     allWon: 'Барлық мифтік сыйлық енді сіздікі.',
     call: 'Хикая айтылды. Енді билдіңді дәлелде: қолыңнан келгенше жоғары өрле де, ешкім бере алмайтын мифтік сыйлықтарды жеңіп ал.',
@@ -8,6 +16,20 @@ export default {
     next: 'Келесі сыйлық: толқын {at} — {item}',
     champion: 'Чемпион толқыны',
     wave: 'Толқын {n}'
+  },
+  sellOre: {
+    talk: 'Жақсы кен, әділ баға. Қаншасын сатасың?',
+    lead: 'Әр кеннен неше кесек сататыныңды таңда. «Сату» түймесін баспайынша ештеңе сатылмайды.',
+    have: 'Сенде {n}',
+    each: 'Әрқайсысы {n} алтын',
+    none: 'Ешқандай',
+    all: 'Барлығы',
+    less: '{ore}: біреуі кем',
+    more: '{ore}: біреуі артық',
+    total: 'Аласың: {n} алтын',
+    sell: 'Сату',
+    selectAll: 'Барлығын таңдау',
+    empty: 'Сатуға кенің қалмады.'
   },
   smith: {
     why: {
@@ -1420,38 +1442,110 @@ export default {
     smithMasterMithrilGreaves: {
       name: 'Шебер соққан мифрил балтыр қорғауы'
     },
+    smithMasterAdamantGreaves: {
+      name: 'Шебер соққан адамант балтыр қорғауы'
+    },
+    smithMasterAetheriteGreaves: {
+      name: 'Шебер соққан эфирит балтыр қорғауы'
+    },
     smithMithrilGreaves: {
       name: 'Мифрил балтыр қорғауы'
+    },
+    smithAdamantGreaves: {
+      name: 'Адамант балтыр қорғауы'
+    },
+    smithAetheriteGreaves: {
+      name: 'Эфирит балтыр қорғауы'
     },
     smithMasterMithrilPlate: {
       name: 'Шебер соққан мифрил сауыт'
     },
+    smithMasterAdamantPlate: {
+      name: 'Шебер соққан адамант сауыт'
+    },
+    smithMasterAetheritePlate: {
+      name: 'Шебер соққан эфирит сауыт'
+    },
     smithMithrilPlate: {
       name: 'Мифрил сауыт'
+    },
+    smithAdamantPlate: {
+      name: 'Адамант сауыт'
+    },
+    smithAetheritePlate: {
+      name: 'Эфирит сауыт'
     },
     smithMasterMithrilHelm: {
       name: 'Шебер соққан мифрил дулыға'
     },
+    smithMasterAdamantHelm: {
+      name: 'Шебер соққан адамант дулыға'
+    },
+    smithMasterAetheriteHelm: {
+      name: 'Шебер соққан эфирит дулыға'
+    },
     smithMithrilHelm: {
       name: 'Мифрил дулыға'
+    },
+    smithAdamantHelm: {
+      name: 'Адамант дулыға'
+    },
+    smithAetheriteHelm: {
+      name: 'Эфирит дулыға'
     },
     smithMasterMithrilShield: {
       name: 'Шебер соққан мифрил қалқан'
     },
+    smithMasterAdamantShield: {
+      name: 'Шебер соққан адамант қалқан'
+    },
+    smithMasterAetheriteShield: {
+      name: 'Шебер соққан эфирит қалқан'
+    },
     smithMithrilShield: {
       name: 'Мифрил қалқан'
+    },
+    smithAdamantShield: {
+      name: 'Адамант қалқан'
+    },
+    smithAetheriteShield: {
+      name: 'Эфирит қалқан'
     },
     smithMasterMithrilHammer: {
       name: 'Шебер соққан мифрил балға'
     },
+    smithMasterAdamantHammer: {
+      name: 'Шебер соққан адамант балға'
+    },
+    smithMasterAetheriteHammer: {
+      name: 'Шебер соққан эфирит балға'
+    },
     smithMithrilHammer: {
       name: 'Мифрил балға'
+    },
+    smithAdamantHammer: {
+      name: 'Адамант балға'
+    },
+    smithAetheriteHammer: {
+      name: 'Эфирит балға'
     },
     smithMasterMithrilSword: {
       name: 'Шебер соққан мифрил семсер'
     },
+    smithMasterAdamantSword: {
+      name: 'Шебер соққан адамант семсер'
+    },
+    smithMasterAetheriteSword: {
+      name: 'Шебер соққан эфирит семсер'
+    },
     smithMithrilSword: {
       name: 'Мифрил семсер'
+    },
+    smithAdamantSword: {
+      name: 'Адамант семсер'
+    },
+    smithAetheriteSword: {
+      name: 'Эфирит семсер'
     },
     smithMasterGoldGreaves: {
       name: 'Шебер соққан алтын балтыр қорғауы'
@@ -1557,6 +1651,1086 @@ export default {
     },
     smithMasterIronSword: {
       name: 'Шебер соққан темір семсер'
+    },
+    smithMasterDexIronSword: {
+      name: 'Шебер соққан темір қанжар · ЕПТ'
+    },
+    smithDexIronSword: {
+      name: 'Темір қанжар · ЕПТ'
+    },
+    smithMasterDexIronHammer: {
+      name: 'Шебер соққан темір рапира · ЕПТ'
+    },
+    smithDexIronHammer: {
+      name: 'Темір рапира · ЕПТ'
+    },
+    smithMasterDexIronShield: {
+      name: 'Шебер соққан темір шағын қалқан · ЕПТ'
+    },
+    smithDexIronShield: {
+      name: 'Темір шағын қалқан · ЕПТ'
+    },
+    smithMasterDexIronHelm: {
+      name: 'Шебер соққан темір қапюшон · ЕПТ'
+    },
+    smithDexIronHelm: {
+      name: 'Темір қапюшон · ЕПТ'
+    },
+    smithMasterDexIronPlate: {
+      name: 'Шебер соққан темір былғары сауыт · ЕПТ'
+    },
+    smithDexIronPlate: {
+      name: 'Темір былғары сауыт · ЕПТ'
+    },
+    smithMasterDexIronGreaves: {
+      name: 'Шебер соққан темір етік · ЕПТ'
+    },
+    smithDexIronGreaves: {
+      name: 'Темір етік · ЕПТ'
+    },
+    smithMasterDexSilverSword: {
+      name: 'Шебер соққан күміс қанжар · ЕПТ'
+    },
+    smithDexSilverSword: {
+      name: 'Күміс қанжар · ЕПТ'
+    },
+    smithMasterDexSilverHammer: {
+      name: 'Шебер соққан күміс рапира · ЕПТ'
+    },
+    smithDexSilverHammer: {
+      name: 'Күміс рапира · ЕПТ'
+    },
+    smithMasterDexSilverShield: {
+      name: 'Шебер соққан күміс шағын қалқан · ЕПТ'
+    },
+    smithDexSilverShield: {
+      name: 'Күміс шағын қалқан · ЕПТ'
+    },
+    smithMasterDexSilverHelm: {
+      name: 'Шебер соққан күміс қапюшон · ЕПТ'
+    },
+    smithDexSilverHelm: {
+      name: 'Күміс қапюшон · ЕПТ'
+    },
+    smithMasterDexSilverPlate: {
+      name: 'Шебер соққан күміс былғары сауыт · ЕПТ'
+    },
+    smithDexSilverPlate: {
+      name: 'Күміс былғары сауыт · ЕПТ'
+    },
+    smithMasterDexSilverGreaves: {
+      name: 'Шебер соққан күміс етік · ЕПТ'
+    },
+    smithDexSilverGreaves: {
+      name: 'Күміс етік · ЕПТ'
+    },
+    smithMasterDexGoldSword: {
+      name: 'Шебер соққан алтын қанжар · ЕПТ'
+    },
+    smithDexGoldSword: {
+      name: 'Алтын қанжар · ЕПТ'
+    },
+    smithMasterDexGoldHammer: {
+      name: 'Шебер соққан алтын рапира · ЕПТ'
+    },
+    smithDexGoldHammer: {
+      name: 'Алтын рапира · ЕПТ'
+    },
+    smithMasterDexGoldShield: {
+      name: 'Шебер соққан алтын шағын қалқан · ЕПТ'
+    },
+    smithDexGoldShield: {
+      name: 'Алтын шағын қалқан · ЕПТ'
+    },
+    smithMasterDexGoldHelm: {
+      name: 'Шебер соққан алтын қапюшон · ЕПТ'
+    },
+    smithDexGoldHelm: {
+      name: 'Алтын қапюшон · ЕПТ'
+    },
+    smithMasterDexGoldPlate: {
+      name: 'Шебер соққан алтын былғары сауыт · ЕПТ'
+    },
+    smithDexGoldPlate: {
+      name: 'Алтын былғары сауыт · ЕПТ'
+    },
+    smithMasterDexGoldGreaves: {
+      name: 'Шебер соққан алтын етік · ЕПТ'
+    },
+    smithDexGoldGreaves: {
+      name: 'Алтын етік · ЕПТ'
+    },
+    smithMasterDexMithrilSword: {
+      name: 'Шебер соққан митрил қанжар · ЕПТ'
+    },
+    smithMasterDexAdamantSword: {
+      name: 'Шебер соққан адамант қанжар · ЕПТ'
+    },
+    smithMasterDexAetheriteSword: {
+      name: 'Шебер соққан эфирит қанжар · ЕПТ'
+    },
+    smithDexMithrilSword: {
+      name: 'Митрил қанжар · ЕПТ'
+    },
+    smithDexAdamantSword: {
+      name: 'Адамант қанжар · ЕПТ'
+    },
+    smithDexAetheriteSword: {
+      name: 'Эфирит қанжар · ЕПТ'
+    },
+    smithMasterDexMithrilHammer: {
+      name: 'Шебер соққан митрил рапира · ЕПТ'
+    },
+    smithMasterDexAdamantHammer: {
+      name: 'Шебер соққан адамант рапира · ЕПТ'
+    },
+    smithMasterDexAetheriteHammer: {
+      name: 'Шебер соққан эфирит рапира · ЕПТ'
+    },
+    smithDexMithrilHammer: {
+      name: 'Митрил рапира · ЕПТ'
+    },
+    smithDexAdamantHammer: {
+      name: 'Адамант рапира · ЕПТ'
+    },
+    smithDexAetheriteHammer: {
+      name: 'Эфирит рапира · ЕПТ'
+    },
+    smithMasterDexMithrilShield: {
+      name: 'Шебер соққан митрил шағын қалқан · ЕПТ'
+    },
+    smithMasterDexAdamantShield: {
+      name: 'Шебер соққан адамант шағын қалқан · ЕПТ'
+    },
+    smithMasterDexAetheriteShield: {
+      name: 'Шебер соққан эфирит шағын қалқан · ЕПТ'
+    },
+    smithDexMithrilShield: {
+      name: 'Митрил шағын қалқан · ЕПТ'
+    },
+    smithDexAdamantShield: {
+      name: 'Адамант шағын қалқан · ЕПТ'
+    },
+    smithDexAetheriteShield: {
+      name: 'Эфирит шағын қалқан · ЕПТ'
+    },
+    smithMasterDexMithrilHelm: {
+      name: 'Шебер соққан митрил қапюшон · ЕПТ'
+    },
+    smithMasterDexAdamantHelm: {
+      name: 'Шебер соққан адамант қапюшон · ЕПТ'
+    },
+    smithMasterDexAetheriteHelm: {
+      name: 'Шебер соққан эфирит қапюшон · ЕПТ'
+    },
+    smithDexMithrilHelm: {
+      name: 'Митрил қапюшон · ЕПТ'
+    },
+    smithDexAdamantHelm: {
+      name: 'Адамант қапюшон · ЕПТ'
+    },
+    smithDexAetheriteHelm: {
+      name: 'Эфирит қапюшон · ЕПТ'
+    },
+    smithMasterDexMithrilPlate: {
+      name: 'Шебер соққан митрил былғары сауыт · ЕПТ'
+    },
+    smithMasterDexAdamantPlate: {
+      name: 'Шебер соққан адамант былғары сауыт · ЕПТ'
+    },
+    smithMasterDexAetheritePlate: {
+      name: 'Шебер соққан эфирит былғары сауыт · ЕПТ'
+    },
+    smithDexMithrilPlate: {
+      name: 'Митрил былғары сауыт · ЕПТ'
+    },
+    smithDexAdamantPlate: {
+      name: 'Адамант былғары сауыт · ЕПТ'
+    },
+    smithDexAetheritePlate: {
+      name: 'Эфирит былғары сауыт · ЕПТ'
+    },
+    smithMasterDexMithrilGreaves: {
+      name: 'Шебер соққан митрил етік · ЕПТ'
+    },
+    smithMasterDexAdamantGreaves: {
+      name: 'Шебер соққан адамант етік · ЕПТ'
+    },
+    smithMasterDexAetheriteGreaves: {
+      name: 'Шебер соққан эфирит етік · ЕПТ'
+    },
+    smithDexMithrilGreaves: {
+      name: 'Митрил етік · ЕПТ'
+    },
+    smithDexAdamantGreaves: {
+      name: 'Адамант етік · ЕПТ'
+    },
+    smithDexAetheriteGreaves: {
+      name: 'Эфирит етік · ЕПТ'
+    },
+    smithMasterIntIronSword: {
+      name: 'Шебер соққан темір сиқырлы таяқша · АҚЛ'
+    },
+    smithIntIronSword: {
+      name: 'Темір сиқырлы таяқша · АҚЛ'
+    },
+    smithMasterIntIronHammer: {
+      name: 'Шебер соққан темір ұзын таяқ · АҚЛ'
+    },
+    smithIntIronHammer: {
+      name: 'Темір ұзын таяқ · АҚЛ'
+    },
+    smithMasterIntIronShield: {
+      name: 'Шебер соққан темір кітап · АҚЛ'
+    },
+    smithIntIronShield: {
+      name: 'Темір кітап · АҚЛ'
+    },
+    smithMasterIntIronHelm: {
+      name: 'Шебер соққан темір диадема · АҚЛ'
+    },
+    smithIntIronHelm: {
+      name: 'Темір диадема · АҚЛ'
+    },
+    smithMasterIntIronPlate: {
+      name: 'Шебер соққан темір шапан · АҚЛ'
+    },
+    smithIntIronPlate: {
+      name: 'Темір шапан · АҚЛ'
+    },
+    smithMasterIntIronGreaves: {
+      name: 'Шебер соққан темір етік · АҚЛ'
+    },
+    smithIntIronGreaves: {
+      name: 'Темір етік · АҚЛ'
+    },
+    smithMasterIntSilverSword: {
+      name: 'Шебер соққан күміс сиқырлы таяқша · АҚЛ'
+    },
+    smithIntSilverSword: {
+      name: 'Күміс сиқырлы таяқша · АҚЛ'
+    },
+    smithMasterIntSilverHammer: {
+      name: 'Шебер соққан күміс ұзын таяқ · АҚЛ'
+    },
+    smithIntSilverHammer: {
+      name: 'Күміс ұзын таяқ · АҚЛ'
+    },
+    smithMasterIntSilverShield: {
+      name: 'Шебер соққан күміс кітап · АҚЛ'
+    },
+    smithIntSilverShield: {
+      name: 'Күміс кітап · АҚЛ'
+    },
+    smithMasterIntSilverHelm: {
+      name: 'Шебер соққан күміс диадема · АҚЛ'
+    },
+    smithIntSilverHelm: {
+      name: 'Күміс диадема · АҚЛ'
+    },
+    smithMasterIntSilverPlate: {
+      name: 'Шебер соққан күміс шапан · АҚЛ'
+    },
+    smithIntSilverPlate: {
+      name: 'Күміс шапан · АҚЛ'
+    },
+    smithMasterIntSilverGreaves: {
+      name: 'Шебер соққан күміс етік · АҚЛ'
+    },
+    smithIntSilverGreaves: {
+      name: 'Күміс етік · АҚЛ'
+    },
+    smithMasterIntGoldSword: {
+      name: 'Шебер соққан алтын сиқырлы таяқша · АҚЛ'
+    },
+    smithIntGoldSword: {
+      name: 'Алтын сиқырлы таяқша · АҚЛ'
+    },
+    smithMasterIntGoldHammer: {
+      name: 'Шебер соққан алтын ұзын таяқ · АҚЛ'
+    },
+    smithIntGoldHammer: {
+      name: 'Алтын ұзын таяқ · АҚЛ'
+    },
+    smithMasterIntGoldShield: {
+      name: 'Шебер соққан алтын кітап · АҚЛ'
+    },
+    smithIntGoldShield: {
+      name: 'Алтын кітап · АҚЛ'
+    },
+    smithMasterIntGoldHelm: {
+      name: 'Шебер соққан алтын диадема · АҚЛ'
+    },
+    smithIntGoldHelm: {
+      name: 'Алтын диадема · АҚЛ'
+    },
+    smithMasterIntGoldPlate: {
+      name: 'Шебер соққан алтын шапан · АҚЛ'
+    },
+    smithIntGoldPlate: {
+      name: 'Алтын шапан · АҚЛ'
+    },
+    smithMasterIntGoldGreaves: {
+      name: 'Шебер соққан алтын етік · АҚЛ'
+    },
+    smithIntGoldGreaves: {
+      name: 'Алтын етік · АҚЛ'
+    },
+    smithMasterIntMithrilSword: {
+      name: 'Шебер соққан митрил сиқырлы таяқша · АҚЛ'
+    },
+    smithMasterIntAdamantSword: {
+      name: 'Шебер соққан адамант сиқырлы таяқша · АҚЛ'
+    },
+    smithMasterIntAetheriteSword: {
+      name: 'Шебер соққан эфирит сиқырлы таяқша · АҚЛ'
+    },
+    smithIntMithrilSword: {
+      name: 'Митрил сиқырлы таяқша · АҚЛ'
+    },
+    smithIntAdamantSword: {
+      name: 'Адамант сиқырлы таяқша · АҚЛ'
+    },
+    smithIntAetheriteSword: {
+      name: 'Эфирит сиқырлы таяқша · АҚЛ'
+    },
+    smithMasterIntMithrilHammer: {
+      name: 'Шебер соққан митрил ұзын таяқ · АҚЛ'
+    },
+    smithMasterIntAdamantHammer: {
+      name: 'Шебер соққан адамант ұзын таяқ · АҚЛ'
+    },
+    smithMasterIntAetheriteHammer: {
+      name: 'Шебер соққан эфирит ұзын таяқ · АҚЛ'
+    },
+    smithIntMithrilHammer: {
+      name: 'Митрил ұзын таяқ · АҚЛ'
+    },
+    smithIntAdamantHammer: {
+      name: 'Адамант ұзын таяқ · АҚЛ'
+    },
+    smithIntAetheriteHammer: {
+      name: 'Эфирит ұзын таяқ · АҚЛ'
+    },
+    smithMasterIntMithrilShield: {
+      name: 'Шебер соққан митрил кітап · АҚЛ'
+    },
+    smithMasterIntAdamantShield: {
+      name: 'Шебер соққан адамант кітап · АҚЛ'
+    },
+    smithMasterIntAetheriteShield: {
+      name: 'Шебер соққан эфирит кітап · АҚЛ'
+    },
+    smithIntMithrilShield: {
+      name: 'Митрил кітап · АҚЛ'
+    },
+    smithIntAdamantShield: {
+      name: 'Адамант кітап · АҚЛ'
+    },
+    smithIntAetheriteShield: {
+      name: 'Эфирит кітап · АҚЛ'
+    },
+    smithMasterIntMithrilHelm: {
+      name: 'Шебер соққан митрил диадема · АҚЛ'
+    },
+    smithMasterIntAdamantHelm: {
+      name: 'Шебер соққан адамант диадема · АҚЛ'
+    },
+    smithMasterIntAetheriteHelm: {
+      name: 'Шебер соққан эфирит диадема · АҚЛ'
+    },
+    smithIntMithrilHelm: {
+      name: 'Митрил диадема · АҚЛ'
+    },
+    smithIntAdamantHelm: {
+      name: 'Адамант диадема · АҚЛ'
+    },
+    smithIntAetheriteHelm: {
+      name: 'Эфирит диадема · АҚЛ'
+    },
+    smithMasterIntMithrilPlate: {
+      name: 'Шебер соққан митрил шапан · АҚЛ'
+    },
+    smithMasterIntAdamantPlate: {
+      name: 'Шебер соққан адамант шапан · АҚЛ'
+    },
+    smithMasterIntAetheritePlate: {
+      name: 'Шебер соққан эфирит шапан · АҚЛ'
+    },
+    smithIntMithrilPlate: {
+      name: 'Митрил шапан · АҚЛ'
+    },
+    smithIntAdamantPlate: {
+      name: 'Адамант шапан · АҚЛ'
+    },
+    smithIntAetheritePlate: {
+      name: 'Эфирит шапан · АҚЛ'
+    },
+    smithMasterIntMithrilGreaves: {
+      name: 'Шебер соққан митрил етік · АҚЛ'
+    },
+    smithMasterIntAdamantGreaves: {
+      name: 'Шебер соққан адамант етік · АҚЛ'
+    },
+    smithMasterIntAetheriteGreaves: {
+      name: 'Шебер соққан эфирит етік · АҚЛ'
+    },
+    smithIntMithrilGreaves: {
+      name: 'Митрил етік · АҚЛ'
+    },
+    smithIntAdamantGreaves: {
+      name: 'Адамант етік · АҚЛ'
+    },
+    smithIntAetheriteGreaves: {
+      name: 'Эфирит етік · АҚЛ'
+    },
+    smithMasterSklIronSword: {
+      name: 'Шебер соққан темір тапанша · ШЕБ'
+    },
+    smithSklIronSword: {
+      name: 'Темір тапанша · ШЕБ'
+    },
+    smithMasterSklIronHammer: {
+      name: 'Шебер соққан темір мылтық · ШЕБ'
+    },
+    smithSklIronHammer: {
+      name: 'Темір мылтық · ШЕБ'
+    },
+    smithMasterSklIronShield: {
+      name: 'Шебер соққан темір батарея · ШЕБ'
+    },
+    smithSklIronShield: {
+      name: 'Темір батарея · ШЕБ'
+    },
+    smithMasterSklIronHelm: {
+      name: 'Шебер соққан темір қалпақ · ШЕБ'
+    },
+    smithSklIronHelm: {
+      name: 'Темір қалпақ · ШЕБ'
+    },
+    smithMasterSklIronPlate: {
+      name: 'Шебер соққан темір әбзел · ШЕБ'
+    },
+    smithSklIronPlate: {
+      name: 'Темір әбзел · ШЕБ'
+    },
+    smithMasterSklIronGreaves: {
+      name: 'Шебер соққан темір етік · ШЕБ'
+    },
+    smithSklIronGreaves: {
+      name: 'Темір етік · ШЕБ'
+    },
+    smithMasterSklSilverSword: {
+      name: 'Шебер соққан күміс тапанша · ШЕБ'
+    },
+    smithSklSilverSword: {
+      name: 'Күміс тапанша · ШЕБ'
+    },
+    smithMasterSklSilverHammer: {
+      name: 'Шебер соққан күміс мылтық · ШЕБ'
+    },
+    smithSklSilverHammer: {
+      name: 'Күміс мылтық · ШЕБ'
+    },
+    smithMasterSklSilverShield: {
+      name: 'Шебер соққан күміс батарея · ШЕБ'
+    },
+    smithSklSilverShield: {
+      name: 'Күміс батарея · ШЕБ'
+    },
+    smithMasterSklSilverHelm: {
+      name: 'Шебер соққан күміс қалпақ · ШЕБ'
+    },
+    smithSklSilverHelm: {
+      name: 'Күміс қалпақ · ШЕБ'
+    },
+    smithMasterSklSilverPlate: {
+      name: 'Шебер соққан күміс әбзел · ШЕБ'
+    },
+    smithSklSilverPlate: {
+      name: 'Күміс әбзел · ШЕБ'
+    },
+    smithMasterSklSilverGreaves: {
+      name: 'Шебер соққан күміс етік · ШЕБ'
+    },
+    smithSklSilverGreaves: {
+      name: 'Күміс етік · ШЕБ'
+    },
+    smithMasterSklGoldSword: {
+      name: 'Шебер соққан алтын тапанша · ШЕБ'
+    },
+    smithSklGoldSword: {
+      name: 'Алтын тапанша · ШЕБ'
+    },
+    smithMasterSklGoldHammer: {
+      name: 'Шебер соққан алтын мылтық · ШЕБ'
+    },
+    smithSklGoldHammer: {
+      name: 'Алтын мылтық · ШЕБ'
+    },
+    smithMasterSklGoldShield: {
+      name: 'Шебер соққан алтын батарея · ШЕБ'
+    },
+    smithSklGoldShield: {
+      name: 'Алтын батарея · ШЕБ'
+    },
+    smithMasterSklGoldHelm: {
+      name: 'Шебер соққан алтын қалпақ · ШЕБ'
+    },
+    smithSklGoldHelm: {
+      name: 'Алтын қалпақ · ШЕБ'
+    },
+    smithMasterSklGoldPlate: {
+      name: 'Шебер соққан алтын әбзел · ШЕБ'
+    },
+    smithSklGoldPlate: {
+      name: 'Алтын әбзел · ШЕБ'
+    },
+    smithMasterSklGoldGreaves: {
+      name: 'Шебер соққан алтын етік · ШЕБ'
+    },
+    smithSklGoldGreaves: {
+      name: 'Алтын етік · ШЕБ'
+    },
+    smithMasterSklMithrilSword: {
+      name: 'Шебер соққан митрил тапанша · ШЕБ'
+    },
+    smithMasterSklAdamantSword: {
+      name: 'Шебер соққан адамант тапанша · ШЕБ'
+    },
+    smithMasterSklAetheriteSword: {
+      name: 'Шебер соққан эфирит тапанша · ШЕБ'
+    },
+    smithSklMithrilSword: {
+      name: 'Митрил тапанша · ШЕБ'
+    },
+    smithSklAdamantSword: {
+      name: 'Адамант тапанша · ШЕБ'
+    },
+    smithSklAetheriteSword: {
+      name: 'Эфирит тапанша · ШЕБ'
+    },
+    smithMasterSklMithrilHammer: {
+      name: 'Шебер соққан митрил мылтық · ШЕБ'
+    },
+    smithMasterSklAdamantHammer: {
+      name: 'Шебер соққан адамант мылтық · ШЕБ'
+    },
+    smithMasterSklAetheriteHammer: {
+      name: 'Шебер соққан эфирит мылтық · ШЕБ'
+    },
+    smithSklMithrilHammer: {
+      name: 'Митрил мылтық · ШЕБ'
+    },
+    smithSklAdamantHammer: {
+      name: 'Адамант мылтық · ШЕБ'
+    },
+    smithSklAetheriteHammer: {
+      name: 'Эфирит мылтық · ШЕБ'
+    },
+    smithMasterSklMithrilShield: {
+      name: 'Шебер соққан митрил батарея · ШЕБ'
+    },
+    smithMasterSklAdamantShield: {
+      name: 'Шебер соққан адамант батарея · ШЕБ'
+    },
+    smithMasterSklAetheriteShield: {
+      name: 'Шебер соққан эфирит батарея · ШЕБ'
+    },
+    smithSklMithrilShield: {
+      name: 'Митрил батарея · ШЕБ'
+    },
+    smithSklAdamantShield: {
+      name: 'Адамант батарея · ШЕБ'
+    },
+    smithSklAetheriteShield: {
+      name: 'Эфирит батарея · ШЕБ'
+    },
+    smithMasterSklMithrilHelm: {
+      name: 'Шебер соққан митрил қалпақ · ШЕБ'
+    },
+    smithMasterSklAdamantHelm: {
+      name: 'Шебер соққан адамант қалпақ · ШЕБ'
+    },
+    smithMasterSklAetheriteHelm: {
+      name: 'Шебер соққан эфирит қалпақ · ШЕБ'
+    },
+    smithSklMithrilHelm: {
+      name: 'Митрил қалпақ · ШЕБ'
+    },
+    smithSklAdamantHelm: {
+      name: 'Адамант қалпақ · ШЕБ'
+    },
+    smithSklAetheriteHelm: {
+      name: 'Эфирит қалпақ · ШЕБ'
+    },
+    smithMasterSklMithrilPlate: {
+      name: 'Шебер соққан митрил әбзел · ШЕБ'
+    },
+    smithMasterSklAdamantPlate: {
+      name: 'Шебер соққан адамант әбзел · ШЕБ'
+    },
+    smithMasterSklAetheritePlate: {
+      name: 'Шебер соққан эфирит әбзел · ШЕБ'
+    },
+    smithSklMithrilPlate: {
+      name: 'Митрил әбзел · ШЕБ'
+    },
+    smithSklAdamantPlate: {
+      name: 'Адамант әбзел · ШЕБ'
+    },
+    smithSklAetheritePlate: {
+      name: 'Эфирит әбзел · ШЕБ'
+    },
+    smithMasterSklMithrilGreaves: {
+      name: 'Шебер соққан митрил етік · ШЕБ'
+    },
+    smithMasterSklAdamantGreaves: {
+      name: 'Шебер соққан адамант етік · ШЕБ'
+    },
+    smithMasterSklAetheriteGreaves: {
+      name: 'Шебер соққан эфирит етік · ШЕБ'
+    },
+    smithSklMithrilGreaves: {
+      name: 'Митрил етік · ШЕБ'
+    },
+    smithSklAdamantGreaves: {
+      name: 'Адамант етік · ШЕБ'
+    },
+    smithSklAetheriteGreaves: {
+      name: 'Эфирит етік · ШЕБ'
+    },
+    smithMasterChaIronSword: {
+      name: 'Шебер соққан темір скипетр · ХАР'
+    },
+    smithChaIronSword: {
+      name: 'Темір скипетр · ХАР'
+    },
+    smithMasterChaIronHammer: {
+      name: 'Шебер соққан темір ту · ХАР'
+    },
+    smithChaIronHammer: {
+      name: 'Темір ту · ХАР'
+    },
+    smithMasterChaIronShield: {
+      name: 'Шебер соққан темір кодекс · ХАР'
+    },
+    smithChaIronShield: {
+      name: 'Темір кодекс · ХАР'
+    },
+    smithMasterChaIronHelm: {
+      name: 'Шебер соққан темір тәж · ХАР'
+    },
+    smithChaIronHelm: {
+      name: 'Темір тәж · ХАР'
+    },
+    smithMasterChaIronPlate: {
+      name: 'Шебер соққан темір табард · ХАР'
+    },
+    smithChaIronPlate: {
+      name: 'Темір табард · ХАР'
+    },
+    smithMasterChaIronGreaves: {
+      name: 'Шебер соққан темір етік · ХАР'
+    },
+    smithChaIronGreaves: {
+      name: 'Темір етік · ХАР'
+    },
+    smithMasterChaSilverSword: {
+      name: 'Шебер соққан күміс скипетр · ХАР'
+    },
+    smithChaSilverSword: {
+      name: 'Күміс скипетр · ХАР'
+    },
+    smithMasterChaSilverHammer: {
+      name: 'Шебер соққан күміс ту · ХАР'
+    },
+    smithChaSilverHammer: {
+      name: 'Күміс ту · ХАР'
+    },
+    smithMasterChaSilverShield: {
+      name: 'Шебер соққан күміс кодекс · ХАР'
+    },
+    smithChaSilverShield: {
+      name: 'Күміс кодекс · ХАР'
+    },
+    smithMasterChaSilverHelm: {
+      name: 'Шебер соққан күміс тәж · ХАР'
+    },
+    smithChaSilverHelm: {
+      name: 'Күміс тәж · ХАР'
+    },
+    smithMasterChaSilverPlate: {
+      name: 'Шебер соққан күміс табард · ХАР'
+    },
+    smithChaSilverPlate: {
+      name: 'Күміс табард · ХАР'
+    },
+    smithMasterChaSilverGreaves: {
+      name: 'Шебер соққан күміс етік · ХАР'
+    },
+    smithChaSilverGreaves: {
+      name: 'Күміс етік · ХАР'
+    },
+    smithMasterChaGoldSword: {
+      name: 'Шебер соққан алтын скипетр · ХАР'
+    },
+    smithChaGoldSword: {
+      name: 'Алтын скипетр · ХАР'
+    },
+    smithMasterChaGoldHammer: {
+      name: 'Шебер соққан алтын ту · ХАР'
+    },
+    smithChaGoldHammer: {
+      name: 'Алтын ту · ХАР'
+    },
+    smithMasterChaGoldShield: {
+      name: 'Шебер соққан алтын кодекс · ХАР'
+    },
+    smithChaGoldShield: {
+      name: 'Алтын кодекс · ХАР'
+    },
+    smithMasterChaGoldHelm: {
+      name: 'Шебер соққан алтын тәж · ХАР'
+    },
+    smithChaGoldHelm: {
+      name: 'Алтын тәж · ХАР'
+    },
+    smithMasterChaGoldPlate: {
+      name: 'Шебер соққан алтын табард · ХАР'
+    },
+    smithChaGoldPlate: {
+      name: 'Алтын табард · ХАР'
+    },
+    smithMasterChaGoldGreaves: {
+      name: 'Шебер соққан алтын етік · ХАР'
+    },
+    smithChaGoldGreaves: {
+      name: 'Алтын етік · ХАР'
+    },
+    smithMasterChaMithrilSword: {
+      name: 'Шебер соққан митрил скипетр · ХАР'
+    },
+    smithMasterChaAdamantSword: {
+      name: 'Шебер соққан адамант скипетр · ХАР'
+    },
+    smithMasterChaAetheriteSword: {
+      name: 'Шебер соққан эфирит скипетр · ХАР'
+    },
+    smithChaMithrilSword: {
+      name: 'Митрил скипетр · ХАР'
+    },
+    smithChaAdamantSword: {
+      name: 'Адамант скипетр · ХАР'
+    },
+    smithChaAetheriteSword: {
+      name: 'Эфирит скипетр · ХАР'
+    },
+    smithMasterChaMithrilHammer: {
+      name: 'Шебер соққан митрил ту · ХАР'
+    },
+    smithMasterChaAdamantHammer: {
+      name: 'Шебер соққан адамант ту · ХАР'
+    },
+    smithMasterChaAetheriteHammer: {
+      name: 'Шебер соққан эфирит ту · ХАР'
+    },
+    smithChaMithrilHammer: {
+      name: 'Митрил ту · ХАР'
+    },
+    smithChaAdamantHammer: {
+      name: 'Адамант ту · ХАР'
+    },
+    smithChaAetheriteHammer: {
+      name: 'Эфирит ту · ХАР'
+    },
+    smithMasterChaMithrilShield: {
+      name: 'Шебер соққан митрил кодекс · ХАР'
+    },
+    smithMasterChaAdamantShield: {
+      name: 'Шебер соққан адамант кодекс · ХАР'
+    },
+    smithMasterChaAetheriteShield: {
+      name: 'Шебер соққан эфирит кодекс · ХАР'
+    },
+    smithChaMithrilShield: {
+      name: 'Митрил кодекс · ХАР'
+    },
+    smithChaAdamantShield: {
+      name: 'Адамант кодекс · ХАР'
+    },
+    smithChaAetheriteShield: {
+      name: 'Эфирит кодекс · ХАР'
+    },
+    smithMasterChaMithrilHelm: {
+      name: 'Шебер соққан митрил тәж · ХАР'
+    },
+    smithMasterChaAdamantHelm: {
+      name: 'Шебер соққан адамант тәж · ХАР'
+    },
+    smithMasterChaAetheriteHelm: {
+      name: 'Шебер соққан эфирит тәж · ХАР'
+    },
+    smithChaMithrilHelm: {
+      name: 'Митрил тәж · ХАР'
+    },
+    smithChaAdamantHelm: {
+      name: 'Адамант тәж · ХАР'
+    },
+    smithChaAetheriteHelm: {
+      name: 'Эфирит тәж · ХАР'
+    },
+    smithMasterChaMithrilPlate: {
+      name: 'Шебер соққан митрил табард · ХАР'
+    },
+    smithMasterChaAdamantPlate: {
+      name: 'Шебер соққан адамант табард · ХАР'
+    },
+    smithMasterChaAetheritePlate: {
+      name: 'Шебер соққан эфирит табард · ХАР'
+    },
+    smithChaMithrilPlate: {
+      name: 'Митрил табард · ХАР'
+    },
+    smithChaAdamantPlate: {
+      name: 'Адамант табард · ХАР'
+    },
+    smithChaAetheritePlate: {
+      name: 'Эфирит табард · ХАР'
+    },
+    smithMasterChaMithrilGreaves: {
+      name: 'Шебер соққан митрил етік · ХАР'
+    },
+    smithMasterChaAdamantGreaves: {
+      name: 'Шебер соққан адамант етік · ХАР'
+    },
+    smithMasterChaAetheriteGreaves: {
+      name: 'Шебер соққан эфирит етік · ХАР'
+    },
+    smithChaMithrilGreaves: {
+      name: 'Митрил етік · ХАР'
+    },
+    smithChaAdamantGreaves: {
+      name: 'Адамант етік · ХАР'
+    },
+    smithChaAetheriteGreaves: {
+      name: 'Эфирит етік · ХАР'
+    },
+    smithMasterEndIronSword: {
+      name: 'Шебер соққан темір шоқпар · ТӨЗ'
+    },
+    smithEndIronSword: {
+      name: 'Темір шоқпар · ТӨЗ'
+    },
+    smithMasterEndIronHammer: {
+      name: 'Шебер соққан темір балта · ТӨЗ'
+    },
+    smithEndIronHammer: {
+      name: 'Темір балта · ТӨЗ'
+    },
+    smithMasterEndIronShield: {
+      name: 'Шебер соққан темір қалқан · ТӨЗ'
+    },
+    smithEndIronShield: {
+      name: 'Темір қалқан · ТӨЗ'
+    },
+    smithMasterEndIronHelm: {
+      name: 'Шебер соққан темір дулыға · ТӨЗ'
+    },
+    smithEndIronHelm: {
+      name: 'Темір дулыға · ТӨЗ'
+    },
+    smithMasterEndIronPlate: {
+      name: 'Шебер соққан темір сауыт · ТӨЗ'
+    },
+    smithEndIronPlate: {
+      name: 'Темір сауыт · ТӨЗ'
+    },
+    smithMasterEndIronGreaves: {
+      name: 'Шебер соққан темір балтыр қорғауы · ТӨЗ'
+    },
+    smithEndIronGreaves: {
+      name: 'Темір балтыр қорғауы · ТӨЗ'
+    },
+    smithMasterEndSilverSword: {
+      name: 'Шебер соққан күміс шоқпар · ТӨЗ'
+    },
+    smithEndSilverSword: {
+      name: 'Күміс шоқпар · ТӨЗ'
+    },
+    smithMasterEndSilverHammer: {
+      name: 'Шебер соққан күміс балта · ТӨЗ'
+    },
+    smithEndSilverHammer: {
+      name: 'Күміс балта · ТӨЗ'
+    },
+    smithMasterEndSilverShield: {
+      name: 'Шебер соққан күміс қалқан · ТӨЗ'
+    },
+    smithEndSilverShield: {
+      name: 'Күміс қалқан · ТӨЗ'
+    },
+    smithMasterEndSilverHelm: {
+      name: 'Шебер соққан күміс дулыға · ТӨЗ'
+    },
+    smithEndSilverHelm: {
+      name: 'Күміс дулыға · ТӨЗ'
+    },
+    smithMasterEndSilverPlate: {
+      name: 'Шебер соққан күміс сауыт · ТӨЗ'
+    },
+    smithEndSilverPlate: {
+      name: 'Күміс сауыт · ТӨЗ'
+    },
+    smithMasterEndSilverGreaves: {
+      name: 'Шебер соққан күміс балтыр қорғауы · ТӨЗ'
+    },
+    smithEndSilverGreaves: {
+      name: 'Күміс балтыр қорғауы · ТӨЗ'
+    },
+    smithMasterEndGoldSword: {
+      name: 'Шебер соққан алтын шоқпар · ТӨЗ'
+    },
+    smithEndGoldSword: {
+      name: 'Алтын шоқпар · ТӨЗ'
+    },
+    smithMasterEndGoldHammer: {
+      name: 'Шебер соққан алтын балта · ТӨЗ'
+    },
+    smithEndGoldHammer: {
+      name: 'Алтын балта · ТӨЗ'
+    },
+    smithMasterEndGoldShield: {
+      name: 'Шебер соққан алтын қалқан · ТӨЗ'
+    },
+    smithEndGoldShield: {
+      name: 'Алтын қалқан · ТӨЗ'
+    },
+    smithMasterEndGoldHelm: {
+      name: 'Шебер соққан алтын дулыға · ТӨЗ'
+    },
+    smithEndGoldHelm: {
+      name: 'Алтын дулыға · ТӨЗ'
+    },
+    smithMasterEndGoldPlate: {
+      name: 'Шебер соққан алтын сауыт · ТӨЗ'
+    },
+    smithEndGoldPlate: {
+      name: 'Алтын сауыт · ТӨЗ'
+    },
+    smithMasterEndGoldGreaves: {
+      name: 'Шебер соққан алтын балтыр қорғауы · ТӨЗ'
+    },
+    smithEndGoldGreaves: {
+      name: 'Алтын балтыр қорғауы · ТӨЗ'
+    },
+    smithMasterEndMithrilSword: {
+      name: 'Шебер соққан митрил шоқпар · ТӨЗ'
+    },
+    smithMasterEndAdamantSword: {
+      name: 'Шебер соққан адамант шоқпар · ТӨЗ'
+    },
+    smithMasterEndAetheriteSword: {
+      name: 'Шебер соққан эфирит шоқпар · ТӨЗ'
+    },
+    smithEndMithrilSword: {
+      name: 'Митрил шоқпар · ТӨЗ'
+    },
+    smithEndAdamantSword: {
+      name: 'Адамант шоқпар · ТӨЗ'
+    },
+    smithEndAetheriteSword: {
+      name: 'Эфирит шоқпар · ТӨЗ'
+    },
+    smithMasterEndMithrilHammer: {
+      name: 'Шебер соққан митрил балта · ТӨЗ'
+    },
+    smithMasterEndAdamantHammer: {
+      name: 'Шебер соққан адамант балта · ТӨЗ'
+    },
+    smithMasterEndAetheriteHammer: {
+      name: 'Шебер соққан эфирит балта · ТӨЗ'
+    },
+    smithEndMithrilHammer: {
+      name: 'Митрил балта · ТӨЗ'
+    },
+    smithEndAdamantHammer: {
+      name: 'Адамант балта · ТӨЗ'
+    },
+    smithEndAetheriteHammer: {
+      name: 'Эфирит балта · ТӨЗ'
+    },
+    smithMasterEndMithrilShield: {
+      name: 'Шебер соққан мифрил қалқан · ТӨЗ'
+    },
+    smithMasterEndAdamantShield: {
+      name: 'Шебер соққан адамант қалқан · ТӨЗ'
+    },
+    smithMasterEndAetheriteShield: {
+      name: 'Шебер соққан эфирит қалқан · ТӨЗ'
+    },
+    smithEndMithrilShield: {
+      name: 'Мифрил қалқан · ТӨЗ'
+    },
+    smithEndAdamantShield: {
+      name: 'Адамант қалқан · ТӨЗ'
+    },
+    smithEndAetheriteShield: {
+      name: 'Эфирит қалқан · ТӨЗ'
+    },
+    smithMasterEndMithrilHelm: {
+      name: 'Шебер соққан мифрил дулыға · ТӨЗ'
+    },
+    smithMasterEndAdamantHelm: {
+      name: 'Шебер соққан адамант дулыға · ТӨЗ'
+    },
+    smithMasterEndAetheriteHelm: {
+      name: 'Шебер соққан эфирит дулыға · ТӨЗ'
+    },
+    smithEndMithrilHelm: {
+      name: 'Мифрил дулыға · ТӨЗ'
+    },
+    smithEndAdamantHelm: {
+      name: 'Адамант дулыға · ТӨЗ'
+    },
+    smithEndAetheriteHelm: {
+      name: 'Эфирит дулыға · ТӨЗ'
+    },
+    smithMasterEndMithrilPlate: {
+      name: 'Шебер соққан мифрил сауыт · ТӨЗ'
+    },
+    smithMasterEndAdamantPlate: {
+      name: 'Шебер соққан адамант сауыт · ТӨЗ'
+    },
+    smithMasterEndAetheritePlate: {
+      name: 'Шебер соққан эфирит сауыт · ТӨЗ'
+    },
+    smithEndMithrilPlate: {
+      name: 'Мифрил сауыт · ТӨЗ'
+    },
+    smithEndAdamantPlate: {
+      name: 'Адамант сауыт · ТӨЗ'
+    },
+    smithEndAetheritePlate: {
+      name: 'Эфирит сауыт · ТӨЗ'
+    },
+    smithMasterEndMithrilGreaves: {
+      name: 'Шебер соққан мифрил балтыр қорғауы · ТӨЗ'
+    },
+    smithMasterEndAdamantGreaves: {
+      name: 'Шебер соққан адамант балтыр қорғауы · ТӨЗ'
+    },
+    smithMasterEndAetheriteGreaves: {
+      name: 'Шебер соққан эфирит балтыр қорғауы · ТӨЗ'
+    },
+    smithEndMithrilGreaves: {
+      name: 'Мифрил балтыр қорғауы · ТӨЗ'
+    },
+    smithEndAdamantGreaves: {
+      name: 'Адамант балтыр қорғауы · ТӨЗ'
+    },
+    smithEndAetheriteGreaves: {
+      name: 'Эфирит балтыр қорғауы · ТӨЗ'
     },
     smithIronSword: {
       name: 'Темір семсер'
@@ -1777,6 +2951,414 @@ export default {
     scepterOfTheFirstKing: {
       name: 'Алғашқы патша асасы'
     },
+    pickpocketsKnife: {
+      name: 'Қалта ұрысының пышағы'
+    },
+    serpentsFang: {
+      name: 'Жылан азу тісі'
+    },
+    phantomRapier: {
+      name: 'Елес рапирасы'
+    },
+    fangOfTheWindless: {
+      name: 'Желсіздің азу тісі'
+    },
+    roguesBuckler: {
+      name: 'Қаскөйдің шағын қалқаны'
+    },
+    venomVial: {
+      name: 'У құтысы'
+    },
+    swiftguardBuckler: {
+      name: 'Шапшаң күзетшінің шағын қалқаны'
+    },
+    nightshadeFlask: {
+      name: 'Беладонна құтысы'
+    },
+    windveilTarge: {
+      name: 'Жел перде қалқаны'
+    },
+    shadowdancersBuckler: {
+      name: 'Көлеңке биші шағын қалқаны'
+    },
+    scoutsBandana: {
+      name: 'Барлаушының орамалы'
+    },
+    nightcowl: {
+      name: 'Түнгі бөрік'
+    },
+    shadowveilHood: {
+      name: 'Көлеңке перде қасаңы'
+    },
+    windrunnersCap: {
+      name: 'Жел жүгірушісінің бөркі'
+    },
+    maskOfTheSilentWind: {
+      name: 'Үнсіз жел маскасы'
+    },
+    rangersJerkin: {
+      name: 'Аңшының күртесі'
+    },
+    nightstalkerLeathers: {
+      name: 'Түнгі аңшының терілері'
+    },
+    windridersHarness: {
+      name: 'Жел салтшысының әбзелі'
+    },
+    mantleOfTheShadowDancer: {
+      name: 'Көлеңке биші мантиясы'
+    },
+    thiefsGloves: {
+      name: 'Ұрының қолғабы'
+    },
+    cutpurseGloves: {
+      name: 'Қалта ұрысының қолғабы'
+    },
+    glovesOfTheGale: {
+      name: 'Дауылдың қолғабы'
+    },
+    softSoledShoes: {
+      name: 'Жұмсақ табанды аяқкиім'
+    },
+    catStepBoots: {
+      name: 'Мысық қадамы етіктері'
+    },
+    shadowstepBoots: {
+      name: 'Көлеңке қадамы етіктері'
+    },
+    windstrideBoots: {
+      name: 'Жел қадамы етіктері'
+    },
+    luckyCoin: {
+      name: 'Сәттілік тиыны'
+    },
+    shadowBand: {
+      name: 'Көлеңке сақинасы'
+    },
+    sandglassOfTheSwift: {
+      name: 'Шапшаңдардың құм сағаты'
+    },
+    talonCharm: {
+      name: 'Тырнақ тұмары'
+    },
+    windheart: {
+      name: 'Жел жүрегі'
+    },
+    ashwallHeater: {
+      name: 'Күл қабырғасы қалқаны'
+    },
+    wyrmhidePavise: {
+      name: 'Айдаһар терісінен жасалған павеза'
+    },
+    footmansKettleHat: {
+      name: 'Жаяу сарбаздың қазан қалпағы'
+    },
+    ironbrowSallet: {
+      name: 'Темір қасты дулыға'
+    },
+    warlordsBarbute: {
+      name: 'Қолбасшының барбуты'
+    },
+    helmOfTheSunderedThrone: {
+      name: 'Быт-шыт болған тақтың дулығасы'
+    },
+    recruitsCuirass: {
+      name: 'Жаңа сарбаздың кирасы'
+    },
+    stonecuttersMitts: {
+      name: 'Тас қалаушының қолғаптары'
+    },
+    ashforgedGauntlets: {
+      name: 'Күлде соғылған сауыт қолғаптар'
+    },
+    warbringerGauntlets: {
+      name: 'Соғыс әкелушінің сауыт қолғаптары'
+    },
+    titanfistGauntlets: {
+      name: 'Титан жұдырығының сауыт қолғаптары'
+    },
+    footmansGreaves: {
+      name: 'Жаяу сарбаздың балтыр сауыттары'
+    },
+    ironshodGreaves: {
+      name: 'Темірмен қапталған балтыр сауыттар'
+    },
+    warlordsSabatons: {
+      name: 'Қолбасшының сабатондары'
+    },
+    greavesOfTheMountainfall: {
+      name: 'Тау көшкінінің балтыр сауыттары'
+    },
+    sergeantsSignet: {
+      name: 'Сержанттың мөрлі жүзігі'
+    },
+    brawlersKnuckleRing: {
+      name: 'Төбелескіштің жұдырық темірі'
+    },
+    bloodiedWarMedal: {
+      name: 'Қанды соғыс медалі'
+    },
+    watchmansCudgel: {
+      name: 'Күзетшінің таяғы'
+    },
+    ironboundMace: {
+      name: 'Темір бұғалы шоқпар'
+    },
+    stonehideCleaver: {
+      name: 'Тас терілі айыр'
+    },
+    bulwarkMaul: {
+      name: 'Бекіністің балғасы'
+    },
+    mountainsplitterAxe: {
+      name: 'Тауды жарған балта'
+    },
+    everstandWarmace: {
+      name: 'Мығым соғыс шоқпары'
+    },
+    emberwallBastion: {
+      name: 'Шоқ қабырғасы бекінісі'
+    },
+    stonewardenHelm: {
+      name: 'Тас күзетшінің дулығасы'
+    },
+    colossusVisage: {
+      name: 'Алыптың жүзі'
+    },
+    diggersGauntlets: {
+      name: 'Қазушының сауыт қолғаптары'
+    },
+    bastionGauntlets: {
+      name: 'Бекіністің сауыт қолғаптары'
+    },
+    glacierplateGauntlets: {
+      name: 'Мұздық тақталы сауыт қолғаптар'
+    },
+    gauntletsOfEndlessVigil: {
+      name: 'Мәңгілік күзеттің сауыт қолғаптары'
+    },
+    hearthstoneCharm: {
+      name: 'Ошақ тасы тұмары'
+    },
+    ironheartPendant: {
+      name: 'Темір жүрек алқасы'
+    },
+    hedgewizardsWand: {
+      name: 'Шарбақ сиқыршысының таяқшасы'
+    },
+    frostglassStaff: {
+      name: 'Аяз әйнегінен жасалған таяқ'
+    },
+    voidthreadWand: {
+      name: 'Бостық жібінен жасалған таяқша'
+    },
+    staffOfTheStarlessSky: {
+      name: 'Жұлдызсыз аспан таяғы'
+    },
+    studentsGrimoire: {
+      name: 'Оқушының сиқыр кітабы'
+    },
+    frostfireOrb: {
+      name: 'Аяз оты шары'
+    },
+    orbOfTheUnwrittenHour: {
+      name: 'Жазылмаған сағат шары'
+    },
+    apprenticesPointedCap: {
+      name: 'Шәкірттің шошақ бөркі'
+    },
+    sagesCirclet: {
+      name: 'Данышпанның тәжі'
+    },
+    cinderWizardsHat: {
+      name: 'Күл сиқыршысының қалпағы'
+    },
+    voidseerCirclet: {
+      name: 'Бостық көрегенінің тәжі'
+    },
+    apprenticesRobe: {
+      name: 'Шәкірттің шапаны'
+    },
+    cinderthreadRobe: {
+      name: 'Күл жібінен тоқылған шапан'
+    },
+    voidwovenRobe: {
+      name: 'Бостықтан тоқылған шапан'
+    },
+    inkStainedGloves: {
+      name: 'Сия дақты қолғаптар'
+    },
+    spellthreadGloves: {
+      name: 'Сиқыр жібінен қолғаптар'
+    },
+    frostweaveGloves: {
+      name: 'Аяз маталы қолғаптар'
+    },
+    starlitGloves: {
+      name: 'Жұлдыз нұрлы қолғаптар'
+    },
+    glovesOfTheLastWord: {
+      name: 'Соңғы сөздің қолғаптары'
+    },
+    scribesSlippers: {
+      name: 'Хатшының тәпішкелері'
+    },
+    moonstepSlippers: {
+      name: 'Ай қадамы тәпішкелері'
+    },
+    emberstepBoots: {
+      name: 'Шоқ қадамы етіктері'
+    },
+    voidwalkerBoots: {
+      name: 'Бостық саяхатшысының етіктері'
+    },
+    bootsOfTheWanderingStar: {
+      name: 'Адасқан жұлдыз етіктері'
+    },
+    glowstonePendant: {
+      name: 'Жарқыраған тас алқасы'
+    },
+    scholarsSeal: {
+      name: 'Ғалымның мөрі'
+    },
+    eyeOfTheArchon: {
+      name: 'Архонтың көзі'
+    },
+    cinderRepeater: {
+      name: 'Күл қайталама мылтығы'
+    },
+    glacierMortar: {
+      name: 'Мұздық қол миномёті'
+    },
+    sparkCell: {
+      name: 'Ұшқын ұяшығы'
+    },
+    arcCapacitor: {
+      name: 'Доға конденсаторы'
+    },
+    aetherheartCell: {
+      name: 'Эфир жүрегі ұяшығы'
+    },
+    marksmansVisor: {
+      name: 'Атқыштың бетперде қалқаны'
+    },
+    sharpshootersCap: {
+      name: 'Мергеннің кепкасы'
+    },
+    gunnersHarness: {
+      name: 'Артиллеристің бау-жабдығы'
+    },
+    steadyhandGloves: {
+      name: 'Мығым қол қолғаптары'
+    },
+    gunsmithsGloves: {
+      name: 'Қару ұстасының қолғаптары'
+    },
+    scrappersBoots: {
+      name: 'Төбелескіштің етіктері'
+    },
+    sharpshooterBoots: {
+      name: 'Мергеннің етіктері'
+    },
+    firingLineBoots: {
+      name: 'Атыс сызығы етіктері'
+    },
+    steadyfootBoots: {
+      name: 'Мығым қадам етіктері'
+    },
+    aetherstepBoots: {
+      name: 'Эфир қадамы етіктері'
+    },
+    bootsOfTheLastShot: {
+      name: 'Соңғы оқтың етіктері'
+    },
+    brassCartridgeCharm: {
+      name: 'Жез гильза тұмары'
+    },
+    deadEyeLens: {
+      name: 'Дәл көз линзасы'
+    },
+    eagleEyeScope: {
+      name: 'Бүркіт көзі дүрбісі'
+    },
+    criersBaton: {
+      name: 'Жарияшының таяғы'
+    },
+    droversStandard: {
+      name: 'Малшының туы'
+    },
+    marshalsSceptre: {
+      name: 'Маршалдың таяғы'
+    },
+    balladBook: {
+      name: 'Балладалар кітабы'
+    },
+    chronicleOfHeroes: {
+      name: 'Батырлар шежіресі'
+    },
+    psalterOfTheHost: {
+      name: 'Әскердің жыр кітабы'
+    },
+    tomeOfEternalReign: {
+      name: 'Мәңгілік билік томы'
+    },
+    heraldsCap: {
+      name: 'Хабаршының қалпағы'
+    },
+    singersCirclet: {
+      name: 'Әншінің тәжі'
+    },
+    diademOfTenThousandVoices: {
+      name: 'Он мың дауыс тәжі'
+    },
+    travelersWaistcoat: {
+      name: 'Жолаушының жилеті'
+    },
+    minstrelsMotley: {
+      name: 'Жыршының жамау киімі'
+    },
+    troubadoursCoat: {
+      name: 'Трубадурдың пальтосы'
+    },
+    marshalsGreatcoat: {
+      name: 'Маршалдың пальтосы'
+    },
+    buskersGloves: {
+      name: 'Көше музыканттың қолғаптары'
+    },
+    drummersGloves: {
+      name: 'Барабаншының қолғаптары'
+    },
+    standardBearersGloves: {
+      name: 'Тулы адамның қолғаптары'
+    },
+    gildedParadeGloves: {
+      name: 'Алтындатылған парад қолғаптары'
+    },
+    glovesOfTheCrownedHand: {
+      name: 'Тәж киген қолдың қолғаптары'
+    },
+    wayfarersShoes: {
+      name: 'Жолаушының аяқ киімі'
+    },
+    troubadourBoots: {
+      name: 'Трубадурдың етіктері'
+    },
+    heraldsRidingBoots: {
+      name: 'Хабаршының мінген етіктері'
+    },
+    paradeBoots: {
+      name: 'Парад етіктері'
+    },
+    bootsOfTheLongProcession: {
+      name: 'Ұзақ шеру етіктері'
+    },
+    silverWhistle: {
+      name: 'Күміс ысқырық'
+    },
+    gatheringHorn: {
+      name: 'Жинау мүйізі'
+    },
     heartOfTheMountain: {
       name: 'Тау жүрегі'
     },
@@ -1880,6 +3462,9 @@ export default {
     freedPeddler: {
       talk: 'Жолаушыға керектің бәрі бар. Жаңаға жуық, көбінесе.',
       name: 'Одо Марроу'
+    },
+    sfShadowRoad: {
+      name: 'Нетл Квикхенд'
     },
     sfShadow: {
       name: 'Нетл Квикхенд'
@@ -2034,6 +3619,9 @@ export default {
     sunfordGambler: {
       name: 'Домалақ Доб'
     },
+    sunfordCups: {
+      name: 'Нелл Епті Саусақ'
+    },
     oakGambler: {
       name: 'Жібек Рен'
     },
@@ -2145,6 +3733,13 @@ export default {
     }
   },
   dlg: {
+    intro: {
+      crossing: { 1: 'Бұл әлемнің барлық жолы бір жол айрығында тоғысады… әр жол айрығы — шайқас.' },
+      hero: { 1: 'Санфордтың тыныш егістігінен жас батыр жолға шықты.' },
+      fire: { 1: 'От шақыруға жауап берді. Болат жаңа есімді білді.' },
+      foes: { 1: 'Гоблин патшалары, аяз ярлдары, бостық айдаһары… және Бас жын.' },
+      begin: { 1: 'Сенің аңызың қазір басталады.' }
+    },
     frostDisciple: {
       bye: {
         '1': 'Жылы жүр.'
@@ -2339,6 +3934,23 @@ export default {
       hello: {
         '2': 'Одо Марроу, қызметіңе дайынмын. Саудагер, шебер әрі өте риза адам.',
         '1': 'Сен! Әлгі торды ашқан сенсің ғой! Мен онда шіріп қалатын едім.'
+      }
+    },
+    sfShadowRoad: {
+      hello: {
+        '1': 'Телепортация. Қызық па?'
+      },
+      again: {
+        '1': 'Тағы бір айла үшін қайттың ба?'
+      },
+      train: {
+        '1': 'Мұқият қара. Бір қадам, сен басқа жердесің.'
+      },
+      trainBack: {
+        '1': 'Жақсы. Енді барып, басқа жерде бол.'
+      },
+      bye: {
+        '1': 'Ұсталып қалма.'
       }
     },
     sfShadow: {
@@ -2593,9 +4205,8 @@ export default {
         '2': 'Металл ең жарқын жанғанда соқ. Қапы қалсаң, сынық болады. Ал кәне.',
         '1': 'Ұсталық па? Һм. Балғаны былай ұста, шоқпар секілді емес.'
       },
-      ore: {
-        '1': 'Кесектер ме? Бәрін аламын. Әділ салмақ, әділ ақша.'
-      },
+      ore: { '1': 'Кен бе? Көрсет. Әр кесегіне төлеймін, әділ салмақ.' },
+      sellBack: { '1': 'Әділ салмақ, әділ теңге. Тапсаң, тағы әкел.' },
       forgeBack: {
         '1': 'Жаман емес. Жақсы да емес. Жалғастыра бер.'
       },
@@ -2878,7 +4489,7 @@ export default {
       },
       map: {
         '1': 'Капитан Руктың картасы! Гоблиндер ұстап алмай тұрып, ол картаны жыртып, бөліктерін жасырып қойған.',
-        '2': 'Алтауын да тап, сонда X жолды көрсетеді: Күлді жартастардың бір жерінде. Сол жерді қаз, алтын сенікі болады.',
+        '2': 'Солардың алтауын тап, айналада тағы бірнешеуі шашылып жатыр, сонда X жолды көрсетеді: Күлді жартастардың бір жерінде. Сол жерді қаз, алтын сенікі болады.',
         say: 'Ескі картаның бір бөлігін таптым.'
       }
     },
@@ -2895,6 +4506,9 @@ export default {
       },
       mana: {
         '1': 'Мынау ащы. Сиқырың таусылғанда іш.'
+      },
+      brew: {
+        '1': 'Шөптеріңді көрсет. Менің мана тоникімнен дәмдірек бір нәрсе араластырайын.'
       },
       potions: {
         '1': 'Әр шайқасқа бірнеше құты алып барасың. Керек болмай тұрып іш, кейін емес.',
@@ -2914,6 +4528,9 @@ export default {
       },
       healBack: {
         '1': 'Белбеуіңді толы, басыңды төмен ұста.'
+      },
+      brewBack: {
+        '1': 'Абайла, ыстық. Бәрін бірден ішіп қойма.'
       },
       bye: {
         '1': 'Сыртта өзіңе қара.'
@@ -3015,9 +4632,8 @@ export default {
         '2': 'Жарқылды бақыла. Дәл жүрегіне үш рет соқ, металл есте сақтайды.',
         '1': 'Кәсіпті үйренгің келе ме? Жақсы. Оукхейвенге әр балға керек.'
       },
-      ore: {
-        '1': 'Шикі кен! Қару қоймасына ешқашан жетпейді. Міне, ақың.'
-      },
+      ore: { '1': 'Шикі кен! Қару қоймасына ешқашан жетпейді. Артығын маған сат.' },
+      sellBack: { '1': 'Әр кесек қабырғаға кетеді. Рақмет.' },
       forgeBack: {
         '1': 'Жақсы болат. Қамал қабырғалары саған риза.'
       },
@@ -3058,9 +4674,8 @@ export default {
         '2': 'Үш соққы, әрқайсысы жарқылдың жүрегіне. Бар құпия осы ғана.',
         '1': 'Қоршаудан бері сұраған әркімге үйретемін. Кел, мына жерге тұр.'
       },
-      ore: {
-        '1': 'Қабырғаларға тағы кен бе? Жарайсың. Мә, мынаны ал.'
-      },
+      ore: { '1': 'Қабырғаға тағы кен бе? Бере алатын әр кесегіңе төлеймін.' },
+      sellBack: { '1': 'Жарылқасын. Бұл қабырғаға тағы сауыт тақта.' },
       forgeBack: {
         '1': 'Әр соққы сені шыңдайды. Кез келген уақытта кел.'
       },
@@ -3456,9 +5071,8 @@ export default {
         '2': 'Қашан соғуды жарқыл айтады. Қаншалық қатты, оны білегің айтады. Үш соққы.',
         '1': 'Төстің басында жер беті тұрғыны ма? Мейлі, бәрі бір жерден бастайды.'
       },
-      ore: {
-        '1': 'Жақсы, адал металл. Айронхолд бұған әрқашан төлейді.'
-      },
+      ore: { '1': 'Жақсы, адал металл. Қой мұнда, әр кесегіне төлеймін.' },
+      sellBack: { '1': 'Әділ сауда. Айронхолд жақсы металға әрдайым төлейді.' },
       forgeBack: {
         '1': 'Гном мұны жақсырақ жасар еді. Бірақ онша да емес.'
       },
@@ -3528,9 +5142,8 @@ export default {
         '2': 'Қыздыр, соқ, аудар. Үш соққы, дәл жарқылға. Сосын суыт.',
         '1': 'Сауыт — шыдамды жұмыс. Негіздерін көрсетейін.'
       },
-      ore: {
-        '1': 'Өлшеп көрейін. Жақсы. Ақша сенікі.'
-      },
+      ore: { '1': 'Өлшеп көрейін. Не сататыныңды таңда, мен теңге санаймын.' },
+      sellBack: { '1': 'Өлшенді, төленді. Жақсы.' },
       forgeBack: {
         '1': 'Кимес бұрын суысын.'
       },
@@ -3570,9 +5183,8 @@ export default {
         '2': 'Ұрыс даласындағыдай, төс басында да тәртіп. Үш соққы, жарқылға адал.',
         '1': 'Орден достарын қаруландырады. Мен саған үйретемін.'
       },
-      ore: {
-        '1': 'Орден соғыс үшін барлық кенді сатып алады. Төлемің.'
-      },
+      ore: { '1': 'Орден соғыс үшін кен сатып алады. Артығын сат.' },
+      sellBack: { '1': 'Төлемің жазылды. Орден саған алғыс айтады.' },
       forgeBack: {
         '1': 'Жақсы соғылған. Оны киіп, адал қызмет ет.'
       },
@@ -3974,6 +5586,11 @@ export default {
       }
     },
     bark: {
+      banditChief: {
+        whistle: {
+          1: 'Тұрыңдар, жігіттер! Тістеңдер оларды!'
+        }
+      },
       lightDisciple: {
         freed: {
           '1': 'Сені нұр жіберді. Мен Аурель әпкемін. Мені Санфордтан ізде, саған Нұр әкелушінің жолын үйретемін.'
@@ -4129,9 +5746,8 @@ export default {
         '2': 'Ең қатты жарқыраған сәтте соқ. Үш жақсы соққы жақсы бұйым шығарады.',
         '1': 'Балғаны өзің байқап көргің келе ме? Көрікті бөлісуге қарсы емеспін.'
       },
-      ore: {
-        '1': 'Тамаша кен. Сильвербридж әрқашан әділ баға береді.'
-      },
+      ore: { '1': 'Әдемі кен. Не сататыныңды көрсет, әр кесегіне төлеймін.' },
+      sellBack: { '1': 'Қуаныштымын. Сильвербридж әрдайым әділ баға төлейді.' },
       forgeBack: {
         '1': 'Қарашы! Сен туа біткен шебер екенсің.'
       },
@@ -4573,7 +6189,7 @@ export default {
         say: 'Шөпті қайдан табамын?'
       },
       elixirs: {
-        '1': 'Әрқайсысы сені шайқаста тұтас бір минут күштірек етеді. Қаттырақ соққы, берік тері, жылдам аяқ.',
+        '1': 'Әрқайсысы сені шайқаста тұтас 5 минут күштірек етеді. Қаттырақ соққы, берік тері, жылдам аяқ.',
         '2': 'Олар үшінші құтыңда тұрады. Қайсысын ішетініңді ауыстыру үшін кішкентай нұсқарды түрт.',
         say: 'Эликсирлер не істейді?'
       },
@@ -4642,6 +6258,36 @@ export default {
       },
       bye: {
         '1': 'Тағы ескі-құсқы әкел! Ескі-құсқы — менің ең жақсы көретінім.'
+      }
+    },
+    sunfordCups: {
+      hello: {
+        1: 'Жақынырақ кел! Үш кесе, бір асыл тас, ал бірінші раунд тегін!',
+        2: 'Нелл Епті Саусақ. Менің қолымды әлі ешкім алдаған жоқ. Байқап көресің бе?'
+      },
+      again: {
+        1: 'Тағы келдің бе? Көзіңді ашып жүр!'
+      },
+      play: {
+        1: 'Көзіңді асыл тастан алма, досым. Жыпылықтама!'
+      },
+      rules: {
+        1: 'Тасты кесенің астына жасырып, кеселерді араластырамын. Сен оны жасырған кесені көрсетесің.',
+        2: 'Қатарынан әр жеңіс көбірек төлейді. Үш жеңіс сыйлық, бес жеңіс қазына әкеледі. Күннің бірінші раунды тегін.',
+        say: 'Бұл қалай ойналады?'
+      },
+      who: {
+        1: 'Жүруді үйренбей тұрып араластыруды үйрендім. Анам бұл көп нәрсені түсіндіреді дейді.'
+      },
+      luck: {
+        1: 'Кейде! Сонда қатты ыңылдаймын, көрермендер мені аяйды.',
+        say: 'Сен ұтылып көрдің бе?'
+      },
+      playBack: {
+        1: 'Тамаша раунд! Ертең кел, бірінші әрқашан тегін.'
+      },
+      bye: {
+        1: 'Сау бол! Сыртта көзіңді ашық ұста.'
       }
     },
     oakGambler: {
@@ -5135,6 +6781,7 @@ export default {
     banditArcher: 'Садақшы қарақшы',
     wolf: 'Қасқыр',
     banditChief: 'Қарақшылар басшысы',
+    gnome: 'Гном',
     goblinKing: 'Гоблин патшасы',
     treant: 'Ағаш алып',
     spider: 'Алып өрмекші',
@@ -5352,6 +6999,18 @@ export default {
       firefoxColors: 'Firefox: Параметрлер → Түстер → «Бет көрсеткен түстерді басып өту» параметрін Ешқашан етіп орнатыңыз.'
     }
   },
+  samsungFix: {
+    title: 'Түсті жылдам тексеру',
+    body: 'Кейбір телефондар веб-беттердің түстерін өзгертеді. Төмендегі екі шаршыны салыстыр.',
+    question: 'Екі шаршы да бірдей көрінеді ме?',
+    refSquare: 'Эталон шаршы',
+    pageSquare: 'Бет шаршысы',
+    yes: 'Иә, бірдей',
+    no: 'Жоқ, әртүрлі',
+    option: 'Түстерді түзету (Samsung қараңғы режимі)',
+    optionHint: 'Мәзірлер қараңғы көрінсе немесе мәтінді оқу қиын болса, қос.',
+    recheck: 'Түсті тексеруді қайталау'
+  },
   saveStatus: {
     restoredTitle: 'Бұлттық сақтау қалпына келтірілді',
     restoredBody: 'Қалпына келтіру үшін +{n} бонус алтын',
@@ -5476,7 +7135,7 @@ export default {
   },
   forge: {
     upgrade: 'Жетілдіру ({n} алтын)',
-    max: 'Толық жетілдірілген: +{n}.',
+    next: 'Келесі +{level}: сипаттамалар +{pct}%',
     town: 'Кез келген қаланың ұстасы мұны жетілдіре алады.'
   },
   ore: {
@@ -5491,6 +7150,12 @@ export default {
     },
     mithril: {
       name: 'Мифрил кені'
+    },
+    adamant: {
+      name: 'Адамант кені'
+    },
+    aetherite: {
+      name: 'Эфирит кені'
     }
   },
   plant: {
@@ -5572,32 +7237,32 @@ export default {
   elixir: {
     might: {
       name: 'Күш эликсирі',
-      desc: 'Бір минутқа +{n}% зақым'
+      desc: '5 минутқа +{n}% зақым'
     },
     iron: {
       name: 'Темір тері тұнбасы',
-      desc: 'Бір минутқа +{n}% сауыт'
+      desc: '5 минутқа +{n}% сауыт'
     },
     swift: {
       name: 'Шапшаңдық тонигі',
-      desc: 'Бір минутқа +{n}% жылдамдық пен шабуыл жылдамдығы'
+      desc: '5 минутқа +{n}% жылдамдық пен шабуыл жылдамдығы'
     },
     mind: {
       name: 'Ашық ақыл қайнатпасы',
-      desc: 'Бір минут бойы дағдылар {n}% жылдамырақ толады'
+      desc: '5 минут бойы дағдылар {n}% жылдамырақ толады'
     },
     vigor: {
       name: 'Қуат эликсирі',
-      desc: 'Бір минут бойы әр секунд сайын денсаулығыңыздың {n}% қалпына келтіреді'
+      desc: '5 минут бойы әр секунд сайын денсаулығыңыздың {n}% қалпына келтіреді'
     },
     shadow: {
       name: 'Шөлдеген тұнба',
-      desc: 'Бір минут бойы соққыларыңыз зақымының {n}% мөлшерінде денсаулығыңызды қалпына келтіреді'
+      desc: '5 минут бойы соққыларыңыз зақымының {n}% мөлшерінде денсаулығыңызды қалпына келтіреді'
     }
   },
   alchemy: {
     talk: 'Шөп кіреді, эликсир шығады. Қайсысын қайнатамыз?',
-    lead: 'Әр эликсир шайқаста бір минут әсер етеді. Оны үшінші құтыңыздан ішіңіз. Әрқайсысынан {n} дана алып жүре аласыз.',
+    lead: 'Әр эликсир шайқаста 5 минут әсер етеді. Оны үшінші құтыңыздан ішіңіз. Әрқайсысынан {n} дана алып жүре аласыз.',
     brew: 'Қайнату · {n}',
     carry: 'Алып жүру',
     carried: 'Құтыңызда',
@@ -5621,6 +7286,25 @@ export default {
     again: 'Қайта ойнау',
     noGold: 'Бұл бәске алтын жетпейді.',
     card: 'Карта {n}'
+  },
+  cups: {
+    title: 'Кесе дүңгіршегі',
+    lead: 'Тасқа қара, оның кесесін бақыла, сосын көрсет. Қатарынан әр жеңіс көбірек төлейді. Үшіншісі сыйлық зат, бесіншісі қазына әкеледі.',
+    free: 'Тегін раунд',
+    fee: 'Ойна · {n}',
+    row: 'Қатарынан жеңіс: {n} / {max}',
+    next: 'Келесі жеңіс: {n} алтын',
+    watch: 'Тасқа қара!',
+    follow: 'Бақыла…',
+    pick: 'Кесені таңда!',
+    hint: 'Кесеге түрт немесе нөмірін бас.',
+    won: 'Таптың! +{n} алтын',
+    lost: 'Бұл емес. Серия басынан басталады.',
+    near: 'Сәл қалды! Дәл қасында болды.',
+    timeout: 'Тым баяу! Серия басынан басталады.',
+    again: 'Қайта ойна',
+    noGold: 'Алтын жетпейді. Ертең бірінші раунд тегін.',
+    cup: '{n}-кесе'
   },
   battle: {
     title: 'Заттар жекпе-жегі',

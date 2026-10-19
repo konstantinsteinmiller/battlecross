@@ -17,14 +17,14 @@ import { ATTRS, ATTR_START, POINTS_PER_LEVEL, startAttrs, type Attr, type AttrBl
 import { MAX_LEVEL, addXp, xpToNext, xpToReach } from '../data/progression'
 import { ACTIVE_SLOTS, PASSIVE_SLOTS, SKILL_BY_ID, meetsSkill, priceOf as skillPriceOf, CLASSES } from '../data/skills'
 import { EQUIP_SLOTS, ITEM_BY_ID, noGear, priceOf as itemPriceOf, sellValue, sellable, slotOf, type EquipSlot } from '../data/items'
-import { FORGE_MAX, forgeCost } from '../data/forge'
+import { FORGE_MAX, MAX_FORGE_LEVEL, clampForgeLevel, forgeCost } from '../data/forge'
 import { HERB_CAP, isPlant } from '../data/plants'
-import { ORE_CAP, ORE_IDS, ORE_PRICE, isOre } from '../data/ores'
+import { ORE_CAP, ORE_IDS, ORE_PRICE, isOre, type OreId } from '../data/ores'
 import { cageOf } from '../data/cages'
 import { RECIPE_BY_ID, gradeMakes, type Grade } from '../data/smithing'
 import { ELIXIR_BY_ID, ELIXIR_CAP, ELIXIR_IDS, brewFee, isElixir, type ElixirId } from '../data/elixirs'
-import { BATTLE_MIN_ITEMS, BATTLE_ROW, MEMORY_ROW, battleFee, battleXp, gamblerTable, prizeOf } from '../gamble'
-import { DUG_FLAG, MAP_PIECES, TREASURE_ERRAND, TREASURE_ZONE, isPiece, piecesIn } from '../data/treasure'
+import { BATTLE_MIN_ITEMS, BATTLE_ROW, CUPS_ANTE, CUPS_BONUS_ROW, CUPS_ROW, MEMORY_ROW, battleFee, cupsPayout, battleXp, gamblerTable, prizeOf } from '../gamble'
+import { DUG_FLAG, PIECES_NEEDED, TREASURE_ERRAND, TREASURE_ZONE, isPiece, piecesIn } from '../data/treasure'
 import { ESCORT_PAY, TASK_XP, countTaskDeeds, postTasks, taskGold, type TaskDeeds, type TownTask } from '../townTasks'
 import { errandDef, type ErrandDef, type ErrandReward } from '../data/errands'
 import { countTalk, countVisit, errandState, handInCost, settle, type ErrandDeeds, type ErrandSave, type ErrandState, type ErrandWorld } from '../errands'
@@ -194,6 +194,9 @@ export interface ArenaWeekSave {
   best: number
 }
 
+/** The cup stand (#136): wins in a row, the day (`dayKey`) of the last free round, and whether the very first round was played. */
+export interface CupsState { row: number; day: string; seen: boolean }
+
 export interface MetaSave {
   shelf: ShelfSave
   arena: ArenaWeekSave
@@ -214,7 +217,7 @@ export interface MetaSave {
    *  the memory stand and at the item battle. */
   /** Wins in a row: at the memory stand, and at each item-battle table (by
    *  gambler, #115). `battle` is the old shared row, read once into Sunford's. */
-  gamble: { memory: number; battle: number; rows: Record<string, number> }
+  gamble: { memory: number; battle: number; rows: Record<string, number>; cups: CupsState }
 }
 
 /** What the last absence added to the rested pool, in seconds (0: nothing
@@ -281,7 +284,7 @@ const defaults = (): Profile => ({
   world: { cleared: [], flags: [], at: 'plains', pos: mapSpot('plains'), visits: {}, arenaBest: 0, chests: [], mastery: {}, said: [], pieces: [] },
   stats: { kills: 0, deaths: 0, runs: 0, playSeconds: 0, bestLevel: 1, xpEarned: 0 },
   tips: {},
-  meta: { shelf: { day: '', wares: {}, rolls: {}, used: 0 }, arena: { week: '', best: 0 }, contracts: { day: '', list: [] }, repGifts: [], presets: [null, null], lastSeen: 0, rested: 0, respecs: 0, tasks: { day: '', towns: {} }, gamble: { memory: 0, battle: 0, rows: {} } }
+  meta: { shelf: { day: '', wares: {}, rolls: {}, used: 0 }, arena: { week: '', best: 0 }, contracts: { day: '', list: [] }, repGifts: [], presets: [null, null], lastSeen: 0, rested: 0, respecs: 0, tasks: { day: '', towns: {} }, gamble: { memory: 0, battle: 0, rows: {}, cups: { row: 0, day: '', seen: false } } }
 })
 
 const num = (v: unknown, d: number): number => (typeof v === 'number' && Number.isFinite(v) ? v : typeof v === 'string' && Number.isFinite(Number(v)) ? Number(v) : d)
@@ -354,13 +357,13 @@ export const loadProfile = (): void => {
   inv.potions = Math.max(1, Math.min(5, Math.round(num(inv.potions, 3))))
   // A save from before mana potions has none.
   inv.manaPotions = Math.max(0, Math.min(inv.potions, Math.round(num(inv.manaPotions, 0))))
-  // A save from before upgrades has none; a level out of range or of a piece
-  // no longer owned is dropped.
+  // A save from before upgrades has none; a level out of range (there is no
+  // top, only the maths' own ceiling) or of a piece no longer owned is dropped.
   const ups = obj(inv.upgrades, {}) as Record<string, unknown>
   inv.upgrades = {}
   for (const [id, v] of Object.entries(ups)) {
     const lvl = Math.round(num(v, 0))
-    if (inv.items.includes(id) && lvl >= 1) inv.upgrades[id] = Math.min(FORGE_MAX, lvl)
+    if (inv.items.includes(id) && lvl >= 1) inv.upgrades[id] = clampForgeLevel(lvl)
   }
   // A save from before the herb pouch has none; only plants the game knows.
   const herbs = obj(inv.herbs, {}) as Record<string, unknown>
@@ -480,6 +483,7 @@ export const loadProfile = (): void => {
   meta.tasks = { day: typeof ts.day === 'string' ? ts.day : '', towns }
   // A save from before the gamblers has no winning rows.
   const gm = obj(meta.gamble, d.meta.gamble) as Record<string, unknown>
+  const cu = obj(gm.cups, d.meta.gamble.cups as unknown as Record<string, unknown>) as Record<string, unknown>
   const rows: Record<string, number> = {}
   const rawRows = gm.rows && typeof gm.rows === 'object' ? gm.rows as Record<string, unknown> : {}
   for (const [k, v] of Object.entries(rawRows)) rows[k] = Math.max(0, Math.min(BATTLE_ROW - 1, Math.round(num(v, 0))))
@@ -489,7 +493,12 @@ export const loadProfile = (): void => {
   meta.gamble = {
     memory: Math.max(0, Math.min(MEMORY_ROW - 1, Math.round(num(gm.memory, 0)))),
     battle: 0,
-    rows
+    rows,
+    cups: {
+      row: Math.max(0, Math.min(CUPS_ROW - 1, Math.round(num(cu.row, 0)))),
+      day: typeof cu.day === 'string' ? cu.day : '',
+      seen: cu.seen === true
+    }
   }
   // Rested (#9): the absence since the last save fills the pool. The new
   // last-seen is written by the next save; a reload before it reads the same
@@ -505,8 +514,9 @@ export const loadProfile = (): void => {
 }
 
 /**
- * DEV ONLY: a sandboxed run writes nothing (the model bench, a probe that jumps
- * to a late zone with a made-up build). Folds out of every build.
+ * A sandboxed run writes nothing: the intro's made-up hero (#130, `intro/runner.ts`)
+ * and, in DEV, the model bench or a probe that jumps to a late zone with a
+ * made-up build.
  */
 let saveSandbox = false
 export const setSaveSandbox = (on: boolean): void => {
@@ -527,7 +537,7 @@ export const freezeProfile = (): void => {
 /** Persist the whole profile (a checkpoint). Cheap: one debounced blob write.
  *  The blob gets copies, so play after a checkpoint waits for the next one. */
 export const saveProfile = (): void => {
-  if (import.meta.env.DEV && saveSandbox) return
+  if (saveSandbox) return
   if (profileReplaced) return
   profile.meta.lastSeen = Date.now()
   setStates({
@@ -655,10 +665,14 @@ export const spendPoint = (a: Attr, n = 1): boolean => {
 
 export const knows = (id: string): boolean => profile.hero.learned.includes(id)
 
+/** The lesson being given away right now ('' none): the road teacher's gift (#136). Not saved. */
+export const lesson = reactive({ free: '' })
+
 /** What a trainer charges this hero: Charisma haggles, a friendly faction gives a discount. */
 export const skillCost = (id: string): number => {
   const s = SKILL_BY_ID[id]
   if (!s) return 0
+  if (lesson.free === id) return 0
   const f = CLASSES[s.cls].faction
   const friend = f !== 'none' && profile.quests.rep[f] >= REP_FRIEND ? FRIEND_DISCOUNT : 0
   return Math.max(1, Math.round(skillPriceOf(s) * (1 - shopDiscount(totalAttrs().cha)) * (1 - friend)))
@@ -1074,7 +1088,7 @@ export const markTreasureDug = (): void => {
 /** What a zone visit lays of the map: its pieces still lying, and the X once the map is whole. */
 export const treasureFor = (zone: string): { pieces: string[]; treasure: boolean } => ({
   pieces: piecesIn(zone, profile.world.pieces),
-  treasure: zone === TREASURE_ZONE && profile.world.pieces.length >= MAP_PIECES.length && !profile.world.flags.includes(DUG_FLAG)
+  treasure: zone === TREASURE_ZONE && profile.world.pieces.length >= PIECES_NEEDED && !profile.world.flags.includes(DUG_FLAG)
 })
 
 // ─── The gamblers (roadmap #91, #92, D110, D111, D113) ──────────────────────
@@ -1155,6 +1169,41 @@ export const settleBattle = (won: boolean, gambler: string): { xp: number; prize
   } else rows[gambler] = 0
   saveProfile()
   return { xp, prize, row: rows[gambler] ?? 0 }
+}
+
+/** Why a round at the cup stand cannot start ('' when it can): the day's first is free. */
+export const cupsBlock = (): '' | 'gold' => (cupsFree() || profile.gold >= CUPS_ANTE ? '' : 'gold')
+
+/** The day's first round is on the house. */
+export const cupsFree = (): boolean => profile.meta.gamble.cups.day !== dayKey()
+
+/** Sit down at the cup stand: the ante (nothing on the day's first round). False: not the gold. */
+export const startCups = (): { free: boolean; first: boolean } | null => {
+  if (cupsBlock()) return null
+  const c = profile.meta.gamble.cups
+  const free = cupsFree()
+  const first = !c.seen
+  if (free) c.day = dayKey()
+  else profile.gold -= CUPS_ANTE
+  c.seen = true
+  saveProfile()
+  return { free, first }
+}
+
+/** A round decided: a win pays by the row and adds to it (a piece on the third, a dearer one on the fifth); a loss starts the row over. */
+export const settleCups = (won: boolean): { gold: number; prize: { item: string; gold: number } | null; row: number } => {
+  const c = profile.meta.gamble.cups
+  let prize: { item: string; gold: number } | null = null
+  let gold = 0
+  if (won) {
+    gold = cupsPayout(c.row)
+    profile.gold += gold
+    c.row++
+    if (c.row >= CUPS_ROW) { prize = givePrize(4); c.row = 0 }
+    else if (c.row === CUPS_BONUS_ROW) prize = givePrize(3)
+  } else c.row = 0
+  saveProfile()
+  return { gold, prize, row: c.row }
 }
 
 // ─── Errands (roadmap #85, #86, #89, D101) ───────────────────────────────────
@@ -1304,11 +1353,21 @@ export const spendOres = (want: Readonly<Record<string, number>>): boolean => {
 /** What the smith pays for the whole pouch (#99, D120): a flat price a nugget. */
 export const orePouchValue = (): number => ORE_IDS.reduce((s, o) => s + oreCount(o) * ORE_PRICE[o], 0)
 
-/** Sell every nugget to a smith. Returns the gold paid (0: nothing to sell). */
-export const sellAllOre = (): number => {
-  const gold = orePouchValue()
-  if (!gold) return 0
-  profile.inv.ores = {}
+/**
+ * Sell some nuggets to a smith (the sell window): how many of each ore. Whole,
+ * positive counts only, never more than the pouch holds; all or nothing.
+ * Returns the gold paid (0: nothing sold).
+ */
+export const sellOres = (want: Readonly<Partial<Record<OreId, number>>>): number => {
+  const take: Partial<Record<OreId, number>> = {}
+  let gold = 0
+  for (const [id, n] of Object.entries(want)) {
+    if (!isOre(id) || n === undefined || n === 0) continue
+    if (!Number.isInteger(n) || n < 0 || n > oreCount(id)) return 0
+    take[id] = n
+    gold += n * ORE_PRICE[id]
+  }
+  if (!gold || !spendOres(take as Record<string, number>)) return 0
   profile.gold += gold
   saveProfile()
   return gold
@@ -1353,7 +1412,9 @@ export const smithForge = (id: string, grade: Grade): { id: string; levels: numb
     profile.inv.fresh.push(made.id)
   }
   const add = fresh ? made.levels : Math.max(1, made.levels)
-  const lvl = Math.min(FORGE_MAX, upgradeLevel(made.id) + add)
+  // Smithing stops at its own top, but never takes a piece the smith has taken further back down.
+  const had = upgradeLevel(made.id)
+  const lvl = Math.max(had, Math.min(FORGE_MAX, had + add))
   if (lvl > 0) profile.inv.upgrades[made.id] = lvl
   saveProfile()
   return { id: made.id, levels: lvl, fresh }
@@ -1409,15 +1470,15 @@ export const setElixirs = (have: Readonly<Record<string, number>>, pick: string)
 /** The level a piece is upgraded to (0: as found). */
 export const upgradeLevel = (id: string): number => profile.inv.upgrades[id] ?? 0
 
-/** What the next level of a piece costs (0: it is at the top). */
+/** What the next level of a piece costs (0: not a piece of the game). */
 export const upgradeCost = (id: string): number => {
   const it = ITEM_BY_ID[id]
   const lvl = upgradeLevel(id)
-  return it && lvl < FORGE_MAX ? forgeCost(it, lvl) : 0
+  return it && lvl < MAX_FORGE_LEVEL ? forgeCost(it, lvl) : 0
 }
 
 /** Can a worn piece go up a level now (gold aside: `upgradeCost` says that)? */
-export const canUpgrade = (id: string): boolean => !!ITEM_BY_ID[id] && !!equippedIn(id) && upgradeLevel(id) < FORGE_MAX
+export const canUpgrade = (id: string): boolean => !!ITEM_BY_ID[id] && !!equippedIn(id) && upgradeLevel(id) < MAX_FORGE_LEVEL
 
 /** The smith's work: a worn piece one level up, for its price. A town's
  *  business: the screens offer it only there. */

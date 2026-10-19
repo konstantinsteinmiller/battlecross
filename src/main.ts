@@ -1,5 +1,6 @@
 import { createApp, watch } from 'vue'
 import router from '@/router'
+import { installOrnaments } from '@/components/art/ornaments'
 import '@/assets/css/tailwind.css'
 import '@/assets/css/index.sass'
 import { createI18n } from 'vue-i18n'
@@ -17,9 +18,11 @@ import useUser, { clearLanguageChoice, hasLanguageChoice, isCrazyWeb, isWaveDash
 import { followPortalLanguage, notePortalLanguageChange } from '@/i18n/portalLanguage'
 import { PLURAL_RULES } from '@/i18n/plural'
 import { resolveGendered } from '@/i18n/gendered'
+import { installNumberParams } from '@/i18n/numberParams'
 import { isDebug } from '@/use/useMatch.ts'
 import { hasState, reloadGameState, flushPersist, STATE_KEY, STATE_FIELD_PREFIX } from '@/use/useGameState'
 import { LANGUAGE_KEY } from '@/keys'
+import { idleTask } from '@/utils/idleQueue'
 import { setSdkNameSource } from '@/use/usePlayerIdentity'
 import { SaveManager } from '@/utils/save/SaveManager'
 import { resolveSaveStrategy } from '@/platforms/resolveSaveStrategy'
@@ -28,6 +31,7 @@ import { bootstrapVConsoleFromUrl } from '@/use/useVConsole'
 import { installPerfProbe } from '@/use/usePerfProbe'
 import { activeVariants } from '@/use/perfVariants'
 import { startForcedDarkModeGuard } from '@/use/useForcedDarkModeGuard'
+import { installSamsungFix } from '@/use/useSamsungFix'
 
 // Build-config self-check moved inline below — the previous top-level
 // `looksLikeCrazyGamesPortal` helper baked `crazygames.com` /
@@ -51,6 +55,10 @@ const bootstrap = async () => {
     subscribeRecheck: (recheck) => onPauseChange((paused) => { if (!paused) recheck() }),
     onDetected: (r) => console.info(`[forced-dark-guard] ${r.kind} (${r.confidence}, ${r.browser})`)
   })
+
+  // Samsung Internet's forced dark mode is invisible to JS, so its colour fix is opt-in: a one-time check card
+  // (Samsung UA only) or the Options toggle. Idle everywhere else; `?samsungfix=1|0` forces it for testing.
+  installSamsungFix()
 
   // Wire the universal pause gate → audio mute before anything can show an
   // ad. One subscriber, every build: rewarded / interstitial ads, tab-hide,
@@ -456,22 +464,22 @@ const bootstrap = async () => {
   const { default: App } = await import('@/App.vue')
 
   // Resolve and LOAD just the initial locale bundle before creating the
-  // i18n instance. The English fallback is loaded in parallel so missing
-  // keys are never undefined while the active locale's chunk is still
-  // in flight. If the initial locale IS English we only fetch once.
+  // i18n instance. The English fallback is NOT on the boot's path (roadmap
+  // #142): every shipped locale carries every English key
+  // (`tests/i18nParity.test.ts`), so it is a safety net only, fetched on the
+  // background queue once the first frame is up. Only a locale that failed to
+  // load waits for English here.
   const initial = resolveInitialLocale(bootLocaleHint)
   const needsFallback = initial !== 'en'
-  const [initialMsgs, fallbackMsgs] = await Promise.all([
-    loadLocaleMessages(initial).catch(() => ({})),
-    needsFallback ? loadLocaleMessages('en').catch(() => ({})) : Promise.resolve(null)
-  ])
+  const initialMsgs = await loadLocaleMessages(initial).catch(() => null)
+  const fallbackMsgs = needsFallback && !initialMsgs ? await loadLocaleMessages('en').catch(() => ({})) : null
 
   const i18n: any = createI18n({
     locale: initial,
     fallbackLocale: 'en',
     messages: needsFallback
-      ? { [initial]: initialMsgs, en: fallbackMsgs ?? {} }
-      : { en: initialMsgs },
+      ? { [initial]: initialMsgs ?? {}, ...(fallbackMsgs ? { en: fallbackMsgs } : {}) }
+      : { en: initialMsgs ?? {} },
     missingWarn: false,
     fallbackWarn: false,
     // Three forms for ru/uk/pl, six for ar (`i18n/plural.ts`).
@@ -479,6 +487,17 @@ const bootstrap = async () => {
     // A line's feminine variant (`<key>__f`) for the girl hero (`i18n/gendered.ts`).
     messageResolver: resolveGendered as never
   })
+  // Fractional numbers in a line show two decimals at most (`i18n/numberParams.ts`).
+  installNumberParams(i18n.global)
+  // The English safety net, last on the background queue (it starts once the
+  // first frame is up; `utils/idleQueue.ts`).
+  if (needsFallback && !fallbackMsgs) {
+    idleTask('locale:en', async () => {
+      const en = await loadLocaleMessages('en')
+      const g: any = i18n.global
+      if (!g.availableLocales.includes('en')) g.setLocaleMessage('en', en)
+    }, 90)
+  }
 
   // Mirror the active locale onto <html lang>: screen readers and `:lang()`
   // font fallbacks read it, and Arabic text blocks key their bidi rule off it
@@ -583,6 +602,9 @@ const bootstrap = async () => {
   // trigger a runtime locale switch (e.g. OptionsModal) can resolve the
   // active i18n without prop-drilling.
   ;(window as any).__i18n = i18n
+
+  // The interface's ornaments (cel.sass mixins read them as custom properties).
+  installOrnaments()
 
   const app = createApp(App)
 

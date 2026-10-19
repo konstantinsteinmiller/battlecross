@@ -80,8 +80,8 @@ const open = (): void => { input.interactQueued = true }
   display: flex
   align-items: center
   justify-content: center
-  min-width: max(2.75rem, 44px)
-  min-height: max(2.75rem, 44px)
+  min-width: max(36px, calc(max(2.75rem, 44px) * var(--hud-s, 1)))
+  min-height: max(36px, calc(max(2.75rem, 44px) * var(--hud-s, 1)))
   margin: 0
   padding: 0
   border: 0
@@ -102,7 +102,7 @@ const open = (): void => { input.interactQueued = true }
   display: inline-flex
   align-items: center
   gap: 0.4em
-  min-height: max(2.2rem, 36px)
+  min-height: max(28px, calc(max(2.2rem, 36px) * var(--hud-s, 1)))
   padding: 0.2em 0.85em 0.26em 0.6em
   border: var(--bc-ol) solid var(--bc-ink)
   border-radius: var(--bc-r-pill)
@@ -120,12 +120,14 @@ const open = (): void => { input.interactQueued = true }
   --c-hi: var(--bc-stone-hi)
   --c: var(--bc-stone)
   --c-lo: var(--bc-stone-lo)
-.chest-prompt__pin--iron .chest-prompt__btn
-  color: var(--bc-white)
-.chest-prompt__pin--iron .chest-prompt__label
-  text-shadow: var(--bc-text-outline)
-.chest-prompt__pin--iron .chest-prompt__glyph
-  filter: drop-shadow(0 1px 0 var(--bc-ink))
+// Iron and ore plates are dark: white outlined text, ink would vanish.
+.chest-prompt__pin--iron, .chest-prompt__pin--ore
+  .chest-prompt__btn
+    color: var(--bc-white)
+  .chest-prompt__label
+    text-shadow: var(--bc-text-outline)
+  .chest-prompt__glyph
+    filter: drop-shadow(0 1px 0 var(--bc-ink))
 .chest-prompt__key
   font-size: 0.95em
   color: var(--bc-ink)

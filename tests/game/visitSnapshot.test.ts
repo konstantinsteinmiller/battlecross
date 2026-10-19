@@ -19,7 +19,7 @@ const DT = 1 / 30
 
 const quiet = (sim: Sim): boolean =>
   sim.core().timers === 0 && !sim.projectiles.some(p => p.active) && !sim.fields.some(f => f.active) &&
-  sim.walls.length === 0 && sim.dangers.length === 0
+  sim.walls.length === 0 && sim.dangers.every(d => d.at < sim.time)
 
 /** Play with the reference player until `until`, then on to a quiet moment
  *  (nothing in flight: what a save made from the pause menu sees). */

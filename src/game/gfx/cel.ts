@@ -145,6 +145,24 @@ export const setCelMood = (opts: { light?: [number, number, number]; ambient?: s
 
 // ─── The cel material ───────────────────────────────────────────────────────
 
+/**
+ * A BAKED still mesh (`gfx/stillBake.ts`) holds scenery that opens round the
+ * hero and sinks into the edge haze beside props that do neither, in one
+ * draw: per vertex, `aStill` = (see-through on, haze on, outline scale: the
+ * scale its instance had, which pushed its hull out in proportion). Without
+ * `STILL` every term is the constant it always was.
+ */
+const STILL_FRAG = /* glsl */`
+#ifdef STILL
+varying vec2 vStill;
+#define STILL_SEE (vStill.x > 0.5)
+#define STILL_FOG vStill.y
+#else
+#define STILL_SEE true
+#define STILL_FOG 1.0
+#endif
+`
+
 const CEL_VERT = /* glsl */`
 #include <common>
 #include <uv_pars_vertex>
@@ -164,7 +182,14 @@ varying float vSeeY;
 uniform vec4 uEdgeXf;
 varying vec2 vEdgeUv;
 #endif
+#ifdef STILL
+attribute vec3 aStill;
+varying vec2 vStill;
+#endif
 void main() {
+  #ifdef STILL
+  vStill = aStill.xy;
+  #endif
   #include <color_vertex>
   #include <beginnormal_vertex>
   #include <skinbase_vertex>
@@ -234,11 +259,12 @@ uniform vec4 uEdgeK;
 uniform vec3 uEdgeCol;
 varying vec2 vEdgeUv;
 #endif
+${STILL_FRAG}
 void main() {
   #ifdef SEE_THROUGH
   // In front of the hero (nearer the camera), above their knees, round them on
   // screen: an ordered dither takes most of it away (no sorting, no blending).
-  if (uSee.w > 0.5 && vSeeDepth < uSee.z - 0.8 && vSeeY > uSeeR.z) {
+  if (STILL_SEE && uSee.w > 0.5 && vSeeDepth < uSee.z - 0.8 && vSeeY > uSeeR.z) {
     vec2 seeD = (vSeeClip.xy / vSeeClip.w - uSee.xy) * vec2(uSeeR.y, 1.0);
     float seeK = 1.0 - smoothstep(uSeeR.x * 0.5, uSeeR.x, length(seeD));
     if (seeK * 0.8 > seeBayer4(gl_FragCoord.xy)) discard;
@@ -262,7 +288,7 @@ void main() {
   col = mix(col, base, uUnlit);
   col = mix(col, uFlash, uFlashK);
   #ifdef EDGE_FOG
-  col = mix(col, uEdgeCol, ${EDGE_FOG_K});
+  col = mix(col, uEdgeCol, STILL_FOG * ${EDGE_FOG_K});
   #endif
   gl_FragColor = vec4(col, uOpacity);
   #include <colorspace_fragment>
@@ -447,7 +473,14 @@ varying float vSeeY;
 uniform vec4 uEdgeXf;
 varying vec2 vEdgeUv;
 #endif
+#ifdef STILL
+attribute vec3 aStill;
+varying vec2 vStill;
+#endif
 void main() {
+  #ifdef STILL
+  vStill = aStill.xy;
+  #endif
   #include <skinbase_vertex>
   #include <beginnormal_vertex>
   #include <skinnormal_vertex>
@@ -458,7 +491,11 @@ void main() {
   celPos = instanceMatrix * celPos;
   #endif
   float celDepth = max(0.5, -(modelViewMatrix * celPos).z);
+  #ifdef STILL
+  transformed += normalize(objectNormal) * uThickness * celDepth / uRefDepth * aStill.z;
+  #else
   transformed += normalize(objectNormal) * uThickness * celDepth / uRefDepth;
+  #endif
   #include <project_vertex>
   #ifdef EDGE_FOG
   vec4 edgeW = vec4(transformed, 1.0);
@@ -500,11 +537,12 @@ varying float vSeeY;
 float seeBayer2(vec2 a) { a = floor(a); return fract(a.x / 2.0 + a.y * a.y * 0.75); }
 float seeBayer4(vec2 a) { return seeBayer2(0.5 * a) * 0.25 + seeBayer2(a); }
 #endif
+${STILL_FRAG}
 void main() {
   #ifdef SEE_THROUGH
   // In front of the hero (nearer the camera), above their knees, round them on
   // screen: an ordered dither takes most of it away (no sorting, no blending).
-  if (uSee.w > 0.5 && vSeeDepth < uSee.z - 0.8 && vSeeY > uSeeR.z) {
+  if (STILL_SEE && uSee.w > 0.5 && vSeeDepth < uSee.z - 0.8 && vSeeY > uSeeR.z) {
     vec2 seeD = (vSeeClip.xy / vSeeClip.w - uSee.xy) * vec2(uSeeR.y, 1.0);
     float seeK = 1.0 - smoothstep(uSeeR.x * 0.55, uSeeR.x, length(seeD));
     if (seeK * 0.85 > seeBayer4(gl_FragCoord.xy)) discard;
@@ -513,7 +551,7 @@ void main() {
   vec3 ink = uColor;
   #ifdef EDGE_FOG
   // The ink fades into the haze with what it outlines.
-  ink = mix(ink, uEdgeCol, ${EDGE_FOG_K});
+  ink = mix(ink, uEdgeCol, STILL_FOG * ${EDGE_FOG_K});
   #endif
   gl_FragColor = vec4(ink, uOpacity);
   #include <colorspace_fragment>
@@ -559,6 +597,57 @@ export const outlineMat = (thickness = OUTLINE_WIDTH, color: Color = OUTLINE_COL
   }
   outlineCache.set(key, m)
   return m
+}
+
+// ─── Baked still meshes (`gfx/stillBake.ts`) ─────────────────────────────────
+
+let stillShared: CelMaterial | null = null
+/** One cel material for every baked still mesh: the scenery's see-through and
+ *  haze, and the plain props' neither, chosen per vertex (`aStill`). */
+export const celStill = (): CelMaterial => {
+  if (stillShared) return stillShared
+  const m = edgeFog(seeThrough(makeCel()))
+  m.defines.STILL = ''
+  return (stillShared = m)
+}
+
+const stillOutlineCache = new Map<string, ShaderMaterial>()
+/** The baked hulls of a thickness and colour; `scenery`: the ones the effects
+ *  ladder switches off together (`setSceneryOutlines`). */
+export const outlineStill = (thickness: number, color: Color, scenery: boolean): ShaderMaterial => {
+  const key = `${thickness.toFixed(4)}|${color.getHexString()}|${scenery ? 's' : 'p'}`
+  const hit = stillOutlineCache.get(key)
+  if (hit) return hit
+  const m = outlineMat(thickness, color).clone()
+  m.uniforms.uRefDepth = sharedRefDepth
+  edgeFog(seeThrough(m))
+  m.defines.STILL = ''
+  if (scenery) {
+    sceneryOutlines.add(m)
+    m.visible = sceneryOutlinesOn
+  }
+  stillOutlineCache.set(key, m)
+  return m
+}
+
+/** What a still mesh's material becomes when it is baked: the material, its
+ *  see-through and haze flags, the flat colour it painted with (a `cel(hex)`),
+ *  and whether it is a hull (pushed out by its instance's scale). Null: not a
+ *  shared material this file knows (the baker keeps it as it is). */
+export interface StillTarget { mat: Material; see: number; fog: number; tint: Color | null; hull: boolean }
+
+export const stillTarget = (m: Material): StillTarget | null => {
+  if (m === vcShared) return { mat: celStill(), see: 0, fog: 0, tint: null, hull: false }
+  if (m === vcInstShared) return { mat: celStill(), see: 1, fog: 1, tint: null, hull: false }
+  for (const f of flatCache.values()) if (f === m) return { mat: celStill(), see: 0, fog: 0, tint: (f.uniforms.uTint!.value as Color), hull: false }
+  if (m === glowShared || m === glowInstShared) return { mat: glowVC(), see: 0, fog: 0, tint: null, hull: false }
+  for (const o of outlineCache.values()) {
+    if (o !== m) continue
+    const scenery = sceneryOutlines.has(o)
+    const k = scenery ? 1 : 0
+    return { mat: outlineStill(o.uniforms.uThickness!.value as number, o.uniforms.uColor!.value as Color, scenery), see: k, fog: k, tint: null, hull: true }
+  }
+  return null
 }
 
 /** A rig's OWN outline material (so it can fade with the rig). */

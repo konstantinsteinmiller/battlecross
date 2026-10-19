@@ -966,6 +966,54 @@ export const BUILDS: GuideBuild[] = [
       { range: '10–17', text: 'Shield Throw, Taunting Cry, Sinkhole, Earthen Skin. Mine gold ore and forge.' },
       { range: '17–30', text: 'Masterwork gold plate, then upgrade it to +5 at a smith.' }
     ]
+  },
+  {
+    id: 'hymnkeeper-warden',
+    name: 'Hymnkeeper Warden',
+    tagline: 'Shields, mending light and a hymn that wipes every curse. The healer of a one-hero game keeps the court alive.',
+    roles: ['Support', 'Healer', 'Minion Support'],
+    difficulty: 2,
+    classes: ['lightbringer', 'bard', 'sovereign'],
+    attrs: A(5, 5, 10, 37, 15, 45),
+    actives: ['mendingLight', 'dawnShield', 'dawnSanctuary', 'hymnOfMending', 'royalRally', 'royalGuard', 'callArchers', 'sharpNote'],
+    passives: ['kindledHope', 'guardianLight', 'loyalHearts', 'inspiringPresence'],
+    gear: { main: 'scepterOfTheFirstKing', off: 'codexOfOaths', head: 'laurelOfTheVictor', body: 'vestmentsOfSovereign', hands: 'falconersGloves', feet: 'smithMasterChaAetheriteGreaves', trinket1: 'sovereignsSignet', trinket2: 'ringOfAbsolutePower' },
+    choices: ['Defend Oakhaven: Lord Castellan teaches the Sovereign skills in town', 'Free Sister Aurelle from the Sunken Temple cage (or pass Sister Auriel\'s test) for the Lightbringer line', 'Lark Merriweather in Silverbridge teaches the Bard openly'],
+    intro: 'The healing build for a game with one hero. Nobody else on the field can be healed except your court, so this build heals YOU and everything that fights for you: Mending Light and Dawn Shield (cleanse + shield) for yourself, Dawn Sanctuary and Hymn of Mending as areas that mend you, the guards and the archers together, Royal Rally to pull the court to your side and heal them 35%. Everything that scales does so on Charisma, which the gear (Scepter, Vestments, Codex) supplies in bulk, so your own points go to Endurance for the health pool. Be honest with yourself: this is one of the safest builds in the guide to stand in a fight with, not the fastest to clear one. In the reference player of the game (the balance bot) (level 30, Frozen Tundra to the Rift, 15 runs) it won all 15 without a potion and never fell below full health, but a run took 40 to 75 seconds where the Necropolis Legion needs about 41 on average and the Nightblade about 28.',
+    playstyle: ['Open with Royal Guard and Call Archers, then Dawn Shield: you hold the front with the guards while the archers shoot.', 'Dawn Sanctuary and Hymn of Mending overlap: stand in both and the court is mended every half second while Hymn lifts every bad effect from you and the guards.', 'Royal Rally when the court is scattered or low: it teleports every minion to you and heals them 35%.', 'Sharp Note is the only real damage button: it weakens its target, so the elite hits softer while the court kills it.'],
+    rotation: ['Royal Guard', 'Call Archers', 'Dawn Shield', 'Dawn Sanctuary', 'Hymn of Mending', 'Sharp Note (filler)', 'Mending Light when hurt', 'Royal Rally when the court is low'],
+    strengths: ['Very hard to burst down: shield, death save and two heal fields', 'Cleanses every curse, burn and slow on you', 'Keeps the court alive through whole zones', 'Needed no potions in the reference runs at level 30'],
+    weaknesses: ['Slow: the court, one filler spell and the Sanctuary light do all the killing', 'Weak on a boss that ignores the court (area attacks wipe the guards)', 'Mana comes from gear (Vestments, Circlet-class pieces): with 10 Intelligence of your own the pool is about 290, so do not chain-cast the whole bar'],
+    leveling: [
+      { range: '1–10', text: 'Royal Guard from a Sovereign trainer, Sharp Note from Lark Merriweather in Silverbridge. CHA first, then END.' },
+      { range: '10–20', text: 'Mending Light, Dawn Shield and Dawn Sanctuary from the Lightbringer once found; Royal Rally and Call Archers from the Sovereign.' },
+      { range: '20–30', text: 'Hymn of Mending, Guardian Light, Loyal Hearts, Inspiring Presence. Win the Laurel of the Victor in the colosseum (or wear the Crown of the Rightful King).' }
+    ],
+    variants: ['Swap Sharp Note for Crescendo (Bard) if you keep Hymn of Mending running: it adds 80% per song playing.', 'Swap Inspiring Presence for Standing Ovation once you can raise Skill to 22: +10% damage and 8% less damage taken.']
+  },
+  {
+    id: 'choirmaster-warlord',
+    name: 'Choirmaster Warlord',
+    tagline: 'You do not fight. You conduct: every song, banner, howl and order lands on an army that hits twice as hard.',
+    roles: ['Buffer', 'Army', 'Aura'],
+    difficulty: 2,
+    classes: ['sovereign', 'bard', 'beastcaller'],
+    attrs: A(5, 5, 5, 30, 20, 52),
+    actives: ['commandFocus', 'bannerOfVictory', 'marchingSong', 'alphaHowl', 'armyOfTheRealm', 'royalGuard', 'callArchers', 'grandFinale'],
+    passives: ['warMarshal', 'leaderOfThePack', 'inspiringPresence', 'longRefrain'],
+    gear: { main: 'scepterOfTheFirstKing', off: 'codexOfOaths', head: 'crownOfTheRightfulKing', body: 'vestmentsOfSovereign', hands: 'falconersGloves', feet: 'smithMasterChaAetheriteGreaves', trinket1: 'sovereignsSignet', trinket2: 'ringOfAbsolutePower' },
+    choices: ['Defend Oakhaven (Lord Castellan teaches the Sovereign skills)', 'Pass Old Rowan\'s test in Silverbridge for Alpha Howl (Beastcaller)', 'Lark Merriweather in Silverbridge teaches the Bard openly'],
+    intro: 'The buff stack. Different buffs stack with each other, but two buffs of the same kind do not (the stronger one wins), so this build is chosen to give every distinct kind: Command Focus (+50% damage, speed and a shared target) and Banner of Victory (+35% damage, regeneration) for damage, Alpha Howl\'s enrage (+40% damage, +24% attack speed) on top of them, Marching Song for speed, and four passives that make every minion hit harder and faster for good. Army of the Realm and the permanent guards and archers are the hands that use it; Grand Finale ends big fights with every buff at once and a 560% charm blast. It does not solo before roughly level 24: below that the court is too thin and a zone takes minutes.',
+    playstyle: ['Open with the permanent court (Royal Guard, Call Archers), then Army of the Realm for five more bodies.', 'Alpha Howl, Marching Song, then drop the Banner on the pack\'s doorstep: fight inside its circle.', 'Command Focus on the biggest enemy sends the whole court at it at +50% damage.', 'Grand Finale as the closer: everyone near you gets haste, damage and defence for 10 s, and the pack charms itself.'],
+    rotation: ['Royal Guard', 'Call Archers', 'Army of the Realm', 'Alpha Howl', 'Marching Song', 'Banner of Victory', 'Command Focus on the elite', 'Grand Finale'],
+    strengths: ['Fast for a summoner: the reference player cleared the level-30 zones in about 21 to 58 seconds, and a version without the five buff skills was about 25% slower', 'Charisma also lowers shop prices', 'Every buff is a different kind, so none cancels another', 'The court tanks while you stay at the back'],
+    weaknesses: ['Zero damage of your own between Finales', 'Songs last 13 s on an 18 s cooldown, so there are gaps', 'Three trainers, one behind a gather quest', 'Area bosses delete the whole court'],
+    leveling: [
+      { range: '1–10', text: 'Royal Guard and Command Focus from a Sovereign trainer; Marching Song from Lark in Silverbridge. Pure CHA.' },
+      { range: '10–20', text: 'Call Archers, Banner of Victory, Inspiring Presence, War Marshal; pass Old Rowan\'s test for the Beastcaller.' },
+      { range: '20–30', text: 'Alpha Howl, Army of the Realm, Leader of the Pack, then Grand Finale at 27.' }
+    ],
+    variants: ['Swap Call Archers for Haste Field (Chrono-Weaver: a Skill 9 bar) to speed yourself as well; the field stays where you cast it and speeds only you.', 'Swap Long Refrain for Pack Tactics if you also run Call Wolf and Call Bear.']
   }
 ]
 

@@ -10,8 +10,10 @@ import { audio, canPlay, duckMusic } from './engine'
  * is PLAYED (on the voice bus, the music ducking under it); a line without one
  * is a text-paced bubble with a soft per-speaker blip. The folder is listed at
  * build time (`virtual:asset-overrides`), so a missing recording is never a
- * request, let alone a 404. A language with no recording of a line falls back
- * to the English one: a voice with translated subtitles beats silence.
+ * request, let alone a 404. A language with NO recordings at all (Indonesian,
+ * Vietnamese …) falls back to the English ones: a voice with translated
+ * subtitles beats silence. A language that is voiced never hears English: a
+ * line it lacks stays a text-paced bubble.
  *
  * Everything goes through `voiceBus` (`engine.ts`): the volume slider, the
  * mute buttons and the ad / pause gates hold for speech exactly as for SFX.
@@ -20,8 +22,16 @@ import { audio, canPlay, duckMusic } from './engine'
 /** The recording of a line for a language ('' = none). For the girl hero a
  *  line's own feminine take (`<id>__f`, roadmap #71) comes first. */
 export const voiceUrl = (lang: string, id: string): string => {
-  const own = genderedId(id, (v) => VOICE_FILES.has(`${lang}/${v}`) || VOICE_FILES.has(`en/${v}`))
-  return VOICE_FILES.get(`${lang}/${own}`) ?? VOICE_FILES.get(`en/${own}`) ?? ''
+  const tongue = isVoiced(lang) ? lang : 'en'
+  const own = genderedId(id, (v) => VOICE_FILES.has(`${tongue}/${v}`))
+  return VOICE_FILES.get(`${tongue}/${own}`) ?? ''
+}
+
+let voicedLangs: Set<string> | null = null
+/** Does the language have a recording folder of its own? */
+const isVoiced = (lang: string): boolean => {
+  if (!voicedLangs) voicedLangs = new Set([...VOICE_FILES.keys()].map(k => k.slice(0, k.indexOf('/'))))
+  return voicedLangs.has(lang)
 }
 
 const buffers = new Map<string, Promise<AudioBuffer | null>>()

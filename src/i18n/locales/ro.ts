@@ -1,5 +1,13 @@
 // Romanian (ro) bundle — mirrors en.ts.
 export default {
+  // ─── The intro (#130): its skip, and its narrator's name ───
+  intro: {
+    narrator: 'Cronicarul',
+    skip: 'Sari peste',
+    holdKey: 'Ține apăsat {key} pentru a sări',
+    holdTouch: 'Ține apăsat pentru a sări',
+    replay: 'Vezi introducerea'
+  },
   arena: {
     allWon: 'Toate premiile mitice sunt ale tale.',
     call: 'Povestea s-a spus. Acum dovedește-ți build-ul: urcă cât de sus poți și câștigă premiile mitice pe care nimeni altcineva nu ți le poate da.',
@@ -8,6 +16,20 @@ export default {
     next: 'Următorul premiu la valul {at}: {item}',
     champion: 'Val de campion',
     wave: 'Valul {n}'
+  },
+  sellOre: {
+    talk: 'Minereu bun, preț corect. Cât vinzi?',
+    lead: 'Alege câte pepite din fiecare minereu vinzi. Nu se vinde nimic până nu apeși Vinde.',
+    have: 'Ai {n}',
+    each: '{n} aur bucata',
+    none: 'Nimic',
+    all: 'Tot',
+    less: '{ore}: unul mai puțin',
+    more: '{ore}: unul mai mult',
+    total: 'Primești: {n} aur',
+    sell: 'Vinde',
+    selectAll: 'Selectează tot',
+    empty: 'Nu mai ai minereu de vândut.'
   },
   smith: {
     why: {
@@ -1420,38 +1442,110 @@ export default {
     smithMasterMithrilGreaves: {
       name: 'Jambiere de Mithril de Maestru'
     },
+    smithMasterAdamantGreaves: {
+      name: 'Jambiere de Adamant de Maestru'
+    },
+    smithMasterAetheriteGreaves: {
+      name: 'Jambiere de Eterit de Maestru'
+    },
     smithMithrilGreaves: {
       name: 'Jambiere de Mithril'
+    },
+    smithAdamantGreaves: {
+      name: 'Jambiere de Adamant'
+    },
+    smithAetheriteGreaves: {
+      name: 'Jambiere de Eterit'
     },
     smithMasterMithrilPlate: {
       name: 'Platoșă de Mithril de Maestru'
     },
+    smithMasterAdamantPlate: {
+      name: 'Platoșă de Adamant de Maestru'
+    },
+    smithMasterAetheritePlate: {
+      name: 'Platoșă de Eterit de Maestru'
+    },
     smithMithrilPlate: {
       name: 'Platoșă de Mithril'
+    },
+    smithAdamantPlate: {
+      name: 'Platoșă de Adamant'
+    },
+    smithAetheritePlate: {
+      name: 'Platoșă de Eterit'
     },
     smithMasterMithrilHelm: {
       name: 'Coif de Mithril de Maestru'
     },
+    smithMasterAdamantHelm: {
+      name: 'Coif de Adamant de Maestru'
+    },
+    smithMasterAetheriteHelm: {
+      name: 'Coif de Eterit de Maestru'
+    },
     smithMithrilHelm: {
       name: 'Coif de Mithril'
+    },
+    smithAdamantHelm: {
+      name: 'Coif de Adamant'
+    },
+    smithAetheriteHelm: {
+      name: 'Coif de Eterit'
     },
     smithMasterMithrilShield: {
       name: 'Scut de Mithril de Maestru'
     },
+    smithMasterAdamantShield: {
+      name: 'Scut de Adamant de Maestru'
+    },
+    smithMasterAetheriteShield: {
+      name: 'Scut de Eterit de Maestru'
+    },
     smithMithrilShield: {
       name: 'Scut de Mithril'
+    },
+    smithAdamantShield: {
+      name: 'Scut de Adamant'
+    },
+    smithAetheriteShield: {
+      name: 'Scut de Eterit'
     },
     smithMasterMithrilHammer: {
       name: 'Ciocan de Mithril de Maestru'
     },
+    smithMasterAdamantHammer: {
+      name: 'Ciocan de Adamant de Maestru'
+    },
+    smithMasterAetheriteHammer: {
+      name: 'Ciocan de Eterit de Maestru'
+    },
     smithMithrilHammer: {
       name: 'Ciocan de Mithril'
+    },
+    smithAdamantHammer: {
+      name: 'Ciocan de Adamant'
+    },
+    smithAetheriteHammer: {
+      name: 'Ciocan de Eterit'
     },
     smithMasterMithrilSword: {
       name: 'Sabie de Mithril de Maestru'
     },
+    smithMasterAdamantSword: {
+      name: 'Sabie de Adamant de Maestru'
+    },
+    smithMasterAetheriteSword: {
+      name: 'Sabie de Eterit de Maestru'
+    },
     smithMithrilSword: {
       name: 'Sabie de Mithril'
+    },
+    smithAdamantSword: {
+      name: 'Sabie de Adamant'
+    },
+    smithAetheriteSword: {
+      name: 'Sabie de Eterit'
     },
     smithMasterGoldGreaves: {
       name: 'Jambiere de Aur de Maestru'
@@ -1557,6 +1651,1086 @@ export default {
     },
     smithMasterIronSword: {
       name: 'Sabie de Fier de Maestru'
+    },
+    smithMasterDexIronSword: {
+      name: 'Pumnal din fier de Maestru · DEX'
+    },
+    smithDexIronSword: {
+      name: 'Pumnal din fier · DEX'
+    },
+    smithMasterDexIronHammer: {
+      name: 'Rapieră din fier de Maestru · DEX'
+    },
+    smithDexIronHammer: {
+      name: 'Rapieră din fier · DEX'
+    },
+    smithMasterDexIronShield: {
+      name: 'Scut mic din fier de Maestru · DEX'
+    },
+    smithDexIronShield: {
+      name: 'Scut mic din fier · DEX'
+    },
+    smithMasterDexIronHelm: {
+      name: 'Glugă din fier de Maestru · DEX'
+    },
+    smithDexIronHelm: {
+      name: 'Glugă din fier · DEX'
+    },
+    smithMasterDexIronPlate: {
+      name: 'Armură de piele din fier de Maestru · DEX'
+    },
+    smithDexIronPlate: {
+      name: 'Armură de piele din fier · DEX'
+    },
+    smithMasterDexIronGreaves: {
+      name: 'Cizme din fier de Maestru · DEX'
+    },
+    smithDexIronGreaves: {
+      name: 'Cizme din fier · DEX'
+    },
+    smithMasterDexSilverSword: {
+      name: 'Pumnal din argint de Maestru · DEX'
+    },
+    smithDexSilverSword: {
+      name: 'Pumnal din argint · DEX'
+    },
+    smithMasterDexSilverHammer: {
+      name: 'Rapieră din argint de Maestru · DEX'
+    },
+    smithDexSilverHammer: {
+      name: 'Rapieră din argint · DEX'
+    },
+    smithMasterDexSilverShield: {
+      name: 'Scut mic din argint de Maestru · DEX'
+    },
+    smithDexSilverShield: {
+      name: 'Scut mic din argint · DEX'
+    },
+    smithMasterDexSilverHelm: {
+      name: 'Glugă din argint de Maestru · DEX'
+    },
+    smithDexSilverHelm: {
+      name: 'Glugă din argint · DEX'
+    },
+    smithMasterDexSilverPlate: {
+      name: 'Armură de piele din argint de Maestru · DEX'
+    },
+    smithDexSilverPlate: {
+      name: 'Armură de piele din argint · DEX'
+    },
+    smithMasterDexSilverGreaves: {
+      name: 'Cizme din argint de Maestru · DEX'
+    },
+    smithDexSilverGreaves: {
+      name: 'Cizme din argint · DEX'
+    },
+    smithMasterDexGoldSword: {
+      name: 'Pumnal din aur de Maestru · DEX'
+    },
+    smithDexGoldSword: {
+      name: 'Pumnal din aur · DEX'
+    },
+    smithMasterDexGoldHammer: {
+      name: 'Rapieră din aur de Maestru · DEX'
+    },
+    smithDexGoldHammer: {
+      name: 'Rapieră din aur · DEX'
+    },
+    smithMasterDexGoldShield: {
+      name: 'Scut mic din aur de Maestru · DEX'
+    },
+    smithDexGoldShield: {
+      name: 'Scut mic din aur · DEX'
+    },
+    smithMasterDexGoldHelm: {
+      name: 'Glugă din aur de Maestru · DEX'
+    },
+    smithDexGoldHelm: {
+      name: 'Glugă din aur · DEX'
+    },
+    smithMasterDexGoldPlate: {
+      name: 'Armură de piele din aur de Maestru · DEX'
+    },
+    smithDexGoldPlate: {
+      name: 'Armură de piele din aur · DEX'
+    },
+    smithMasterDexGoldGreaves: {
+      name: 'Cizme din aur de Maestru · DEX'
+    },
+    smithDexGoldGreaves: {
+      name: 'Cizme din aur · DEX'
+    },
+    smithMasterDexMithrilSword: {
+      name: 'Pumnal din mithril de Maestru · DEX'
+    },
+    smithMasterDexAdamantSword: {
+      name: 'Pumnal din adamant de Maestru · DEX'
+    },
+    smithMasterDexAetheriteSword: {
+      name: 'Pumnal din eterit de Maestru · DEX'
+    },
+    smithDexMithrilSword: {
+      name: 'Pumnal din mithril · DEX'
+    },
+    smithDexAdamantSword: {
+      name: 'Pumnal din adamant · DEX'
+    },
+    smithDexAetheriteSword: {
+      name: 'Pumnal din eterit · DEX'
+    },
+    smithMasterDexMithrilHammer: {
+      name: 'Rapieră din mithril de Maestru · DEX'
+    },
+    smithMasterDexAdamantHammer: {
+      name: 'Rapieră din adamant de Maestru · DEX'
+    },
+    smithMasterDexAetheriteHammer: {
+      name: 'Rapieră din eterit de Maestru · DEX'
+    },
+    smithDexMithrilHammer: {
+      name: 'Rapieră din mithril · DEX'
+    },
+    smithDexAdamantHammer: {
+      name: 'Rapieră din adamant · DEX'
+    },
+    smithDexAetheriteHammer: {
+      name: 'Rapieră din eterit · DEX'
+    },
+    smithMasterDexMithrilShield: {
+      name: 'Scut mic din mithril de Maestru · DEX'
+    },
+    smithMasterDexAdamantShield: {
+      name: 'Scut mic din adamant de Maestru · DEX'
+    },
+    smithMasterDexAetheriteShield: {
+      name: 'Scut mic din eterit de Maestru · DEX'
+    },
+    smithDexMithrilShield: {
+      name: 'Scut mic din mithril · DEX'
+    },
+    smithDexAdamantShield: {
+      name: 'Scut mic din adamant · DEX'
+    },
+    smithDexAetheriteShield: {
+      name: 'Scut mic din eterit · DEX'
+    },
+    smithMasterDexMithrilHelm: {
+      name: 'Glugă din mithril de Maestru · DEX'
+    },
+    smithMasterDexAdamantHelm: {
+      name: 'Glugă din adamant de Maestru · DEX'
+    },
+    smithMasterDexAetheriteHelm: {
+      name: 'Glugă din eterit de Maestru · DEX'
+    },
+    smithDexMithrilHelm: {
+      name: 'Glugă din mithril · DEX'
+    },
+    smithDexAdamantHelm: {
+      name: 'Glugă din adamant · DEX'
+    },
+    smithDexAetheriteHelm: {
+      name: 'Glugă din eterit · DEX'
+    },
+    smithMasterDexMithrilPlate: {
+      name: 'Armură de piele din mithril de Maestru · DEX'
+    },
+    smithMasterDexAdamantPlate: {
+      name: 'Armură de piele din adamant de Maestru · DEX'
+    },
+    smithMasterDexAetheritePlate: {
+      name: 'Armură de piele din eterit de Maestru · DEX'
+    },
+    smithDexMithrilPlate: {
+      name: 'Armură de piele din mithril · DEX'
+    },
+    smithDexAdamantPlate: {
+      name: 'Armură de piele din adamant · DEX'
+    },
+    smithDexAetheritePlate: {
+      name: 'Armură de piele din eterit · DEX'
+    },
+    smithMasterDexMithrilGreaves: {
+      name: 'Cizme din mithril de Maestru · DEX'
+    },
+    smithMasterDexAdamantGreaves: {
+      name: 'Cizme din adamant de Maestru · DEX'
+    },
+    smithMasterDexAetheriteGreaves: {
+      name: 'Cizme din eterit de Maestru · DEX'
+    },
+    smithDexMithrilGreaves: {
+      name: 'Cizme din mithril · DEX'
+    },
+    smithDexAdamantGreaves: {
+      name: 'Cizme din adamant · DEX'
+    },
+    smithDexAetheriteGreaves: {
+      name: 'Cizme din eterit · DEX'
+    },
+    smithMasterIntIronSword: {
+      name: 'Baghetă din fier de Maestru · INT'
+    },
+    smithIntIronSword: {
+      name: 'Baghetă din fier · INT'
+    },
+    smithMasterIntIronHammer: {
+      name: 'Toiag din fier de Maestru · INT'
+    },
+    smithIntIronHammer: {
+      name: 'Toiag din fier · INT'
+    },
+    smithMasterIntIronShield: {
+      name: 'Tom din fier de Maestru · INT'
+    },
+    smithIntIronShield: {
+      name: 'Tom din fier · INT'
+    },
+    smithMasterIntIronHelm: {
+      name: 'Diademă din fier de Maestru · INT'
+    },
+    smithIntIronHelm: {
+      name: 'Diademă din fier · INT'
+    },
+    smithMasterIntIronPlate: {
+      name: 'Robă din fier de Maestru · INT'
+    },
+    smithIntIronPlate: {
+      name: 'Robă din fier · INT'
+    },
+    smithMasterIntIronGreaves: {
+      name: 'Cizme din fier de Maestru · INT'
+    },
+    smithIntIronGreaves: {
+      name: 'Cizme din fier · INT'
+    },
+    smithMasterIntSilverSword: {
+      name: 'Baghetă din argint de Maestru · INT'
+    },
+    smithIntSilverSword: {
+      name: 'Baghetă din argint · INT'
+    },
+    smithMasterIntSilverHammer: {
+      name: 'Toiag din argint de Maestru · INT'
+    },
+    smithIntSilverHammer: {
+      name: 'Toiag din argint · INT'
+    },
+    smithMasterIntSilverShield: {
+      name: 'Tom din argint de Maestru · INT'
+    },
+    smithIntSilverShield: {
+      name: 'Tom din argint · INT'
+    },
+    smithMasterIntSilverHelm: {
+      name: 'Diademă din argint de Maestru · INT'
+    },
+    smithIntSilverHelm: {
+      name: 'Diademă din argint · INT'
+    },
+    smithMasterIntSilverPlate: {
+      name: 'Robă din argint de Maestru · INT'
+    },
+    smithIntSilverPlate: {
+      name: 'Robă din argint · INT'
+    },
+    smithMasterIntSilverGreaves: {
+      name: 'Cizme din argint de Maestru · INT'
+    },
+    smithIntSilverGreaves: {
+      name: 'Cizme din argint · INT'
+    },
+    smithMasterIntGoldSword: {
+      name: 'Baghetă din aur de Maestru · INT'
+    },
+    smithIntGoldSword: {
+      name: 'Baghetă din aur · INT'
+    },
+    smithMasterIntGoldHammer: {
+      name: 'Toiag din aur de Maestru · INT'
+    },
+    smithIntGoldHammer: {
+      name: 'Toiag din aur · INT'
+    },
+    smithMasterIntGoldShield: {
+      name: 'Tom din aur de Maestru · INT'
+    },
+    smithIntGoldShield: {
+      name: 'Tom din aur · INT'
+    },
+    smithMasterIntGoldHelm: {
+      name: 'Diademă din aur de Maestru · INT'
+    },
+    smithIntGoldHelm: {
+      name: 'Diademă din aur · INT'
+    },
+    smithMasterIntGoldPlate: {
+      name: 'Robă din aur de Maestru · INT'
+    },
+    smithIntGoldPlate: {
+      name: 'Robă din aur · INT'
+    },
+    smithMasterIntGoldGreaves: {
+      name: 'Cizme din aur de Maestru · INT'
+    },
+    smithIntGoldGreaves: {
+      name: 'Cizme din aur · INT'
+    },
+    smithMasterIntMithrilSword: {
+      name: 'Baghetă din mithril de Maestru · INT'
+    },
+    smithMasterIntAdamantSword: {
+      name: 'Baghetă din adamant de Maestru · INT'
+    },
+    smithMasterIntAetheriteSword: {
+      name: 'Baghetă din eterit de Maestru · INT'
+    },
+    smithIntMithrilSword: {
+      name: 'Baghetă din mithril · INT'
+    },
+    smithIntAdamantSword: {
+      name: 'Baghetă din adamant · INT'
+    },
+    smithIntAetheriteSword: {
+      name: 'Baghetă din eterit · INT'
+    },
+    smithMasterIntMithrilHammer: {
+      name: 'Toiag din mithril de Maestru · INT'
+    },
+    smithMasterIntAdamantHammer: {
+      name: 'Toiag din adamant de Maestru · INT'
+    },
+    smithMasterIntAetheriteHammer: {
+      name: 'Toiag din eterit de Maestru · INT'
+    },
+    smithIntMithrilHammer: {
+      name: 'Toiag din mithril · INT'
+    },
+    smithIntAdamantHammer: {
+      name: 'Toiag din adamant · INT'
+    },
+    smithIntAetheriteHammer: {
+      name: 'Toiag din eterit · INT'
+    },
+    smithMasterIntMithrilShield: {
+      name: 'Tom din mithril de Maestru · INT'
+    },
+    smithMasterIntAdamantShield: {
+      name: 'Tom din adamant de Maestru · INT'
+    },
+    smithMasterIntAetheriteShield: {
+      name: 'Tom din eterit de Maestru · INT'
+    },
+    smithIntMithrilShield: {
+      name: 'Tom din mithril · INT'
+    },
+    smithIntAdamantShield: {
+      name: 'Tom din adamant · INT'
+    },
+    smithIntAetheriteShield: {
+      name: 'Tom din eterit · INT'
+    },
+    smithMasterIntMithrilHelm: {
+      name: 'Diademă din mithril de Maestru · INT'
+    },
+    smithMasterIntAdamantHelm: {
+      name: 'Diademă din adamant de Maestru · INT'
+    },
+    smithMasterIntAetheriteHelm: {
+      name: 'Diademă din eterit de Maestru · INT'
+    },
+    smithIntMithrilHelm: {
+      name: 'Diademă din mithril · INT'
+    },
+    smithIntAdamantHelm: {
+      name: 'Diademă din adamant · INT'
+    },
+    smithIntAetheriteHelm: {
+      name: 'Diademă din eterit · INT'
+    },
+    smithMasterIntMithrilPlate: {
+      name: 'Robă din mithril de Maestru · INT'
+    },
+    smithMasterIntAdamantPlate: {
+      name: 'Robă din adamant de Maestru · INT'
+    },
+    smithMasterIntAetheritePlate: {
+      name: 'Robă din eterit de Maestru · INT'
+    },
+    smithIntMithrilPlate: {
+      name: 'Robă din mithril · INT'
+    },
+    smithIntAdamantPlate: {
+      name: 'Robă din adamant · INT'
+    },
+    smithIntAetheritePlate: {
+      name: 'Robă din eterit · INT'
+    },
+    smithMasterIntMithrilGreaves: {
+      name: 'Cizme din mithril de Maestru · INT'
+    },
+    smithMasterIntAdamantGreaves: {
+      name: 'Cizme din adamant de Maestru · INT'
+    },
+    smithMasterIntAetheriteGreaves: {
+      name: 'Cizme din eterit de Maestru · INT'
+    },
+    smithIntMithrilGreaves: {
+      name: 'Cizme din mithril · INT'
+    },
+    smithIntAdamantGreaves: {
+      name: 'Cizme din adamant · INT'
+    },
+    smithIntAetheriteGreaves: {
+      name: 'Cizme din eterit · INT'
+    },
+    smithMasterSklIronSword: {
+      name: 'Pistol din fier de Maestru · MĂI'
+    },
+    smithSklIronSword: {
+      name: 'Pistol din fier · MĂI'
+    },
+    smithMasterSklIronHammer: {
+      name: 'Pușcă din fier de Maestru · MĂI'
+    },
+    smithSklIronHammer: {
+      name: 'Pușcă din fier · MĂI'
+    },
+    smithMasterSklIronShield: {
+      name: 'Baterie din fier de Maestru · MĂI'
+    },
+    smithSklIronShield: {
+      name: 'Baterie din fier · MĂI'
+    },
+    smithMasterSklIronHelm: {
+      name: 'Șapcă din fier de Maestru · MĂI'
+    },
+    smithSklIronHelm: {
+      name: 'Șapcă din fier · MĂI'
+    },
+    smithMasterSklIronPlate: {
+      name: 'Ham din fier de Maestru · MĂI'
+    },
+    smithSklIronPlate: {
+      name: 'Ham din fier · MĂI'
+    },
+    smithMasterSklIronGreaves: {
+      name: 'Cizme din fier de Maestru · MĂI'
+    },
+    smithSklIronGreaves: {
+      name: 'Cizme din fier · MĂI'
+    },
+    smithMasterSklSilverSword: {
+      name: 'Pistol din argint de Maestru · MĂI'
+    },
+    smithSklSilverSword: {
+      name: 'Pistol din argint · MĂI'
+    },
+    smithMasterSklSilverHammer: {
+      name: 'Pușcă din argint de Maestru · MĂI'
+    },
+    smithSklSilverHammer: {
+      name: 'Pușcă din argint · MĂI'
+    },
+    smithMasterSklSilverShield: {
+      name: 'Baterie din argint de Maestru · MĂI'
+    },
+    smithSklSilverShield: {
+      name: 'Baterie din argint · MĂI'
+    },
+    smithMasterSklSilverHelm: {
+      name: 'Șapcă din argint de Maestru · MĂI'
+    },
+    smithSklSilverHelm: {
+      name: 'Șapcă din argint · MĂI'
+    },
+    smithMasterSklSilverPlate: {
+      name: 'Ham din argint de Maestru · MĂI'
+    },
+    smithSklSilverPlate: {
+      name: 'Ham din argint · MĂI'
+    },
+    smithMasterSklSilverGreaves: {
+      name: 'Cizme din argint de Maestru · MĂI'
+    },
+    smithSklSilverGreaves: {
+      name: 'Cizme din argint · MĂI'
+    },
+    smithMasterSklGoldSword: {
+      name: 'Pistol din aur de Maestru · MĂI'
+    },
+    smithSklGoldSword: {
+      name: 'Pistol din aur · MĂI'
+    },
+    smithMasterSklGoldHammer: {
+      name: 'Pușcă din aur de Maestru · MĂI'
+    },
+    smithSklGoldHammer: {
+      name: 'Pușcă din aur · MĂI'
+    },
+    smithMasterSklGoldShield: {
+      name: 'Baterie din aur de Maestru · MĂI'
+    },
+    smithSklGoldShield: {
+      name: 'Baterie din aur · MĂI'
+    },
+    smithMasterSklGoldHelm: {
+      name: 'Șapcă din aur de Maestru · MĂI'
+    },
+    smithSklGoldHelm: {
+      name: 'Șapcă din aur · MĂI'
+    },
+    smithMasterSklGoldPlate: {
+      name: 'Ham din aur de Maestru · MĂI'
+    },
+    smithSklGoldPlate: {
+      name: 'Ham din aur · MĂI'
+    },
+    smithMasterSklGoldGreaves: {
+      name: 'Cizme din aur de Maestru · MĂI'
+    },
+    smithSklGoldGreaves: {
+      name: 'Cizme din aur · MĂI'
+    },
+    smithMasterSklMithrilSword: {
+      name: 'Pistol din mithril de Maestru · MĂI'
+    },
+    smithMasterSklAdamantSword: {
+      name: 'Pistol din adamant de Maestru · MĂI'
+    },
+    smithMasterSklAetheriteSword: {
+      name: 'Pistol din eterit de Maestru · MĂI'
+    },
+    smithSklMithrilSword: {
+      name: 'Pistol din mithril · MĂI'
+    },
+    smithSklAdamantSword: {
+      name: 'Pistol din adamant · MĂI'
+    },
+    smithSklAetheriteSword: {
+      name: 'Pistol din eterit · MĂI'
+    },
+    smithMasterSklMithrilHammer: {
+      name: 'Pușcă din mithril de Maestru · MĂI'
+    },
+    smithMasterSklAdamantHammer: {
+      name: 'Pușcă din adamant de Maestru · MĂI'
+    },
+    smithMasterSklAetheriteHammer: {
+      name: 'Pușcă din eterit de Maestru · MĂI'
+    },
+    smithSklMithrilHammer: {
+      name: 'Pușcă din mithril · MĂI'
+    },
+    smithSklAdamantHammer: {
+      name: 'Pușcă din adamant · MĂI'
+    },
+    smithSklAetheriteHammer: {
+      name: 'Pușcă din eterit · MĂI'
+    },
+    smithMasterSklMithrilShield: {
+      name: 'Baterie din mithril de Maestru · MĂI'
+    },
+    smithMasterSklAdamantShield: {
+      name: 'Baterie din adamant de Maestru · MĂI'
+    },
+    smithMasterSklAetheriteShield: {
+      name: 'Baterie din eterit de Maestru · MĂI'
+    },
+    smithSklMithrilShield: {
+      name: 'Baterie din mithril · MĂI'
+    },
+    smithSklAdamantShield: {
+      name: 'Baterie din adamant · MĂI'
+    },
+    smithSklAetheriteShield: {
+      name: 'Baterie din eterit · MĂI'
+    },
+    smithMasterSklMithrilHelm: {
+      name: 'Șapcă din mithril de Maestru · MĂI'
+    },
+    smithMasterSklAdamantHelm: {
+      name: 'Șapcă din adamant de Maestru · MĂI'
+    },
+    smithMasterSklAetheriteHelm: {
+      name: 'Șapcă din eterit de Maestru · MĂI'
+    },
+    smithSklMithrilHelm: {
+      name: 'Șapcă din mithril · MĂI'
+    },
+    smithSklAdamantHelm: {
+      name: 'Șapcă din adamant · MĂI'
+    },
+    smithSklAetheriteHelm: {
+      name: 'Șapcă din eterit · MĂI'
+    },
+    smithMasterSklMithrilPlate: {
+      name: 'Ham din mithril de Maestru · MĂI'
+    },
+    smithMasterSklAdamantPlate: {
+      name: 'Ham din adamant de Maestru · MĂI'
+    },
+    smithMasterSklAetheritePlate: {
+      name: 'Ham din eterit de Maestru · MĂI'
+    },
+    smithSklMithrilPlate: {
+      name: 'Ham din mithril · MĂI'
+    },
+    smithSklAdamantPlate: {
+      name: 'Ham din adamant · MĂI'
+    },
+    smithSklAetheritePlate: {
+      name: 'Ham din eterit · MĂI'
+    },
+    smithMasterSklMithrilGreaves: {
+      name: 'Cizme din mithril de Maestru · MĂI'
+    },
+    smithMasterSklAdamantGreaves: {
+      name: 'Cizme din adamant de Maestru · MĂI'
+    },
+    smithMasterSklAetheriteGreaves: {
+      name: 'Cizme din eterit de Maestru · MĂI'
+    },
+    smithSklMithrilGreaves: {
+      name: 'Cizme din mithril · MĂI'
+    },
+    smithSklAdamantGreaves: {
+      name: 'Cizme din adamant · MĂI'
+    },
+    smithSklAetheriteGreaves: {
+      name: 'Cizme din eterit · MĂI'
+    },
+    smithMasterChaIronSword: {
+      name: 'Sceptru din fier de Maestru · CAR'
+    },
+    smithChaIronSword: {
+      name: 'Sceptru din fier · CAR'
+    },
+    smithMasterChaIronHammer: {
+      name: 'Stindard din fier de Maestru · CAR'
+    },
+    smithChaIronHammer: {
+      name: 'Stindard din fier · CAR'
+    },
+    smithMasterChaIronShield: {
+      name: 'Codex din fier de Maestru · CAR'
+    },
+    smithChaIronShield: {
+      name: 'Codex din fier · CAR'
+    },
+    smithMasterChaIronHelm: {
+      name: 'Coroană din fier de Maestru · CAR'
+    },
+    smithChaIronHelm: {
+      name: 'Coroană din fier · CAR'
+    },
+    smithMasterChaIronPlate: {
+      name: 'Tabard din fier de Maestru · CAR'
+    },
+    smithChaIronPlate: {
+      name: 'Tabard din fier · CAR'
+    },
+    smithMasterChaIronGreaves: {
+      name: 'Cizme din fier de Maestru · CAR'
+    },
+    smithChaIronGreaves: {
+      name: 'Cizme din fier · CAR'
+    },
+    smithMasterChaSilverSword: {
+      name: 'Sceptru din argint de Maestru · CAR'
+    },
+    smithChaSilverSword: {
+      name: 'Sceptru din argint · CAR'
+    },
+    smithMasterChaSilverHammer: {
+      name: 'Stindard din argint de Maestru · CAR'
+    },
+    smithChaSilverHammer: {
+      name: 'Stindard din argint · CAR'
+    },
+    smithMasterChaSilverShield: {
+      name: 'Codex din argint de Maestru · CAR'
+    },
+    smithChaSilverShield: {
+      name: 'Codex din argint · CAR'
+    },
+    smithMasterChaSilverHelm: {
+      name: 'Coroană din argint de Maestru · CAR'
+    },
+    smithChaSilverHelm: {
+      name: 'Coroană din argint · CAR'
+    },
+    smithMasterChaSilverPlate: {
+      name: 'Tabard din argint de Maestru · CAR'
+    },
+    smithChaSilverPlate: {
+      name: 'Tabard din argint · CAR'
+    },
+    smithMasterChaSilverGreaves: {
+      name: 'Cizme din argint de Maestru · CAR'
+    },
+    smithChaSilverGreaves: {
+      name: 'Cizme din argint · CAR'
+    },
+    smithMasterChaGoldSword: {
+      name: 'Sceptru din aur de Maestru · CAR'
+    },
+    smithChaGoldSword: {
+      name: 'Sceptru din aur · CAR'
+    },
+    smithMasterChaGoldHammer: {
+      name: 'Stindard din aur de Maestru · CAR'
+    },
+    smithChaGoldHammer: {
+      name: 'Stindard din aur · CAR'
+    },
+    smithMasterChaGoldShield: {
+      name: 'Codex din aur de Maestru · CAR'
+    },
+    smithChaGoldShield: {
+      name: 'Codex din aur · CAR'
+    },
+    smithMasterChaGoldHelm: {
+      name: 'Coroană din aur de Maestru · CAR'
+    },
+    smithChaGoldHelm: {
+      name: 'Coroană din aur · CAR'
+    },
+    smithMasterChaGoldPlate: {
+      name: 'Tabard din aur de Maestru · CAR'
+    },
+    smithChaGoldPlate: {
+      name: 'Tabard din aur · CAR'
+    },
+    smithMasterChaGoldGreaves: {
+      name: 'Cizme din aur de Maestru · CAR'
+    },
+    smithChaGoldGreaves: {
+      name: 'Cizme din aur · CAR'
+    },
+    smithMasterChaMithrilSword: {
+      name: 'Sceptru din mithril de Maestru · CAR'
+    },
+    smithMasterChaAdamantSword: {
+      name: 'Sceptru din adamant de Maestru · CAR'
+    },
+    smithMasterChaAetheriteSword: {
+      name: 'Sceptru din eterit de Maestru · CAR'
+    },
+    smithChaMithrilSword: {
+      name: 'Sceptru din mithril · CAR'
+    },
+    smithChaAdamantSword: {
+      name: 'Sceptru din adamant · CAR'
+    },
+    smithChaAetheriteSword: {
+      name: 'Sceptru din eterit · CAR'
+    },
+    smithMasterChaMithrilHammer: {
+      name: 'Stindard din mithril de Maestru · CAR'
+    },
+    smithMasterChaAdamantHammer: {
+      name: 'Stindard din adamant de Maestru · CAR'
+    },
+    smithMasterChaAetheriteHammer: {
+      name: 'Stindard din eterit de Maestru · CAR'
+    },
+    smithChaMithrilHammer: {
+      name: 'Stindard din mithril · CAR'
+    },
+    smithChaAdamantHammer: {
+      name: 'Stindard din adamant · CAR'
+    },
+    smithChaAetheriteHammer: {
+      name: 'Stindard din eterit · CAR'
+    },
+    smithMasterChaMithrilShield: {
+      name: 'Codex din mithril de Maestru · CAR'
+    },
+    smithMasterChaAdamantShield: {
+      name: 'Codex din adamant de Maestru · CAR'
+    },
+    smithMasterChaAetheriteShield: {
+      name: 'Codex din eterit de Maestru · CAR'
+    },
+    smithChaMithrilShield: {
+      name: 'Codex din mithril · CAR'
+    },
+    smithChaAdamantShield: {
+      name: 'Codex din adamant · CAR'
+    },
+    smithChaAetheriteShield: {
+      name: 'Codex din eterit · CAR'
+    },
+    smithMasterChaMithrilHelm: {
+      name: 'Coroană din mithril de Maestru · CAR'
+    },
+    smithMasterChaAdamantHelm: {
+      name: 'Coroană din adamant de Maestru · CAR'
+    },
+    smithMasterChaAetheriteHelm: {
+      name: 'Coroană din eterit de Maestru · CAR'
+    },
+    smithChaMithrilHelm: {
+      name: 'Coroană din mithril · CAR'
+    },
+    smithChaAdamantHelm: {
+      name: 'Coroană din adamant · CAR'
+    },
+    smithChaAetheriteHelm: {
+      name: 'Coroană din eterit · CAR'
+    },
+    smithMasterChaMithrilPlate: {
+      name: 'Tabard din mithril de Maestru · CAR'
+    },
+    smithMasterChaAdamantPlate: {
+      name: 'Tabard din adamant de Maestru · CAR'
+    },
+    smithMasterChaAetheritePlate: {
+      name: 'Tabard din eterit de Maestru · CAR'
+    },
+    smithChaMithrilPlate: {
+      name: 'Tabard din mithril · CAR'
+    },
+    smithChaAdamantPlate: {
+      name: 'Tabard din adamant · CAR'
+    },
+    smithChaAetheritePlate: {
+      name: 'Tabard din eterit · CAR'
+    },
+    smithMasterChaMithrilGreaves: {
+      name: 'Cizme din mithril de Maestru · CAR'
+    },
+    smithMasterChaAdamantGreaves: {
+      name: 'Cizme din adamant de Maestru · CAR'
+    },
+    smithMasterChaAetheriteGreaves: {
+      name: 'Cizme din eterit de Maestru · CAR'
+    },
+    smithChaMithrilGreaves: {
+      name: 'Cizme din mithril · CAR'
+    },
+    smithChaAdamantGreaves: {
+      name: 'Cizme din adamant · CAR'
+    },
+    smithChaAetheriteGreaves: {
+      name: 'Cizme din eterit · CAR'
+    },
+    smithMasterEndIronSword: {
+      name: 'Buzdugan din fier de Maestru · AND'
+    },
+    smithEndIronSword: {
+      name: 'Buzdugan din fier · AND'
+    },
+    smithMasterEndIronHammer: {
+      name: 'Topor din fier de Maestru · AND'
+    },
+    smithEndIronHammer: {
+      name: 'Topor din fier · AND'
+    },
+    smithMasterEndIronShield: {
+      name: 'Scut de Fier de Maestru · AND'
+    },
+    smithEndIronShield: {
+      name: 'Scut de Fier · AND'
+    },
+    smithMasterEndIronHelm: {
+      name: 'Coif de Fier de Maestru · AND'
+    },
+    smithEndIronHelm: {
+      name: 'Coif de Fier · AND'
+    },
+    smithMasterEndIronPlate: {
+      name: 'Platoșă de Fier de Maestru · AND'
+    },
+    smithEndIronPlate: {
+      name: 'Platoșă de Fier · AND'
+    },
+    smithMasterEndIronGreaves: {
+      name: 'Jambiere de Fier de Maestru · AND'
+    },
+    smithEndIronGreaves: {
+      name: 'Jambiere de Fier · AND'
+    },
+    smithMasterEndSilverSword: {
+      name: 'Buzdugan din argint de Maestru · AND'
+    },
+    smithEndSilverSword: {
+      name: 'Buzdugan din argint · AND'
+    },
+    smithMasterEndSilverHammer: {
+      name: 'Topor din argint de Maestru · AND'
+    },
+    smithEndSilverHammer: {
+      name: 'Topor din argint · AND'
+    },
+    smithMasterEndSilverShield: {
+      name: 'Scut de Argint de Maestru · AND'
+    },
+    smithEndSilverShield: {
+      name: 'Scut de Argint · AND'
+    },
+    smithMasterEndSilverHelm: {
+      name: 'Coif de Argint de Maestru · AND'
+    },
+    smithEndSilverHelm: {
+      name: 'Coif de Argint · AND'
+    },
+    smithMasterEndSilverPlate: {
+      name: 'Platoșă de Argint de Maestru · AND'
+    },
+    smithEndSilverPlate: {
+      name: 'Platoșă de Argint · AND'
+    },
+    smithMasterEndSilverGreaves: {
+      name: 'Jambiere de Argint de Maestru · AND'
+    },
+    smithEndSilverGreaves: {
+      name: 'Jambiere de Argint · AND'
+    },
+    smithMasterEndGoldSword: {
+      name: 'Buzdugan din aur de Maestru · AND'
+    },
+    smithEndGoldSword: {
+      name: 'Buzdugan din aur · AND'
+    },
+    smithMasterEndGoldHammer: {
+      name: 'Topor din aur de Maestru · AND'
+    },
+    smithEndGoldHammer: {
+      name: 'Topor din aur · AND'
+    },
+    smithMasterEndGoldShield: {
+      name: 'Scut de Aur de Maestru · AND'
+    },
+    smithEndGoldShield: {
+      name: 'Scut de Aur · AND'
+    },
+    smithMasterEndGoldHelm: {
+      name: 'Coif de Aur de Maestru · AND'
+    },
+    smithEndGoldHelm: {
+      name: 'Coif de Aur · AND'
+    },
+    smithMasterEndGoldPlate: {
+      name: 'Platoșă de Aur de Maestru · AND'
+    },
+    smithEndGoldPlate: {
+      name: 'Platoșă de Aur · AND'
+    },
+    smithMasterEndGoldGreaves: {
+      name: 'Jambiere de Aur de Maestru · AND'
+    },
+    smithEndGoldGreaves: {
+      name: 'Jambiere de Aur · AND'
+    },
+    smithMasterEndMithrilSword: {
+      name: 'Buzdugan din mithril de Maestru · AND'
+    },
+    smithMasterEndAdamantSword: {
+      name: 'Buzdugan din adamant de Maestru · AND'
+    },
+    smithMasterEndAetheriteSword: {
+      name: 'Buzdugan din eterit de Maestru · AND'
+    },
+    smithEndMithrilSword: {
+      name: 'Buzdugan din mithril · AND'
+    },
+    smithEndAdamantSword: {
+      name: 'Buzdugan din adamant · AND'
+    },
+    smithEndAetheriteSword: {
+      name: 'Buzdugan din eterit · AND'
+    },
+    smithMasterEndMithrilHammer: {
+      name: 'Topor din mithril de Maestru · AND'
+    },
+    smithMasterEndAdamantHammer: {
+      name: 'Topor din adamant de Maestru · AND'
+    },
+    smithMasterEndAetheriteHammer: {
+      name: 'Topor din eterit de Maestru · AND'
+    },
+    smithEndMithrilHammer: {
+      name: 'Topor din mithril · AND'
+    },
+    smithEndAdamantHammer: {
+      name: 'Topor din adamant · AND'
+    },
+    smithEndAetheriteHammer: {
+      name: 'Topor din eterit · AND'
+    },
+    smithMasterEndMithrilShield: {
+      name: 'Scut de Mithril de Maestru · AND'
+    },
+    smithMasterEndAdamantShield: {
+      name: 'Scut de Adamant de Maestru · AND'
+    },
+    smithMasterEndAetheriteShield: {
+      name: 'Scut de Eterit de Maestru · AND'
+    },
+    smithEndMithrilShield: {
+      name: 'Scut de Mithril · AND'
+    },
+    smithEndAdamantShield: {
+      name: 'Scut de Adamant · AND'
+    },
+    smithEndAetheriteShield: {
+      name: 'Scut de Eterit · AND'
+    },
+    smithMasterEndMithrilHelm: {
+      name: 'Coif de Mithril de Maestru · AND'
+    },
+    smithMasterEndAdamantHelm: {
+      name: 'Coif de Adamant de Maestru · AND'
+    },
+    smithMasterEndAetheriteHelm: {
+      name: 'Coif de Eterit de Maestru · AND'
+    },
+    smithEndMithrilHelm: {
+      name: 'Coif de Mithril · AND'
+    },
+    smithEndAdamantHelm: {
+      name: 'Coif de Adamant · AND'
+    },
+    smithEndAetheriteHelm: {
+      name: 'Coif de Eterit · AND'
+    },
+    smithMasterEndMithrilPlate: {
+      name: 'Platoșă de Mithril de Maestru · AND'
+    },
+    smithMasterEndAdamantPlate: {
+      name: 'Platoșă de Adamant de Maestru · AND'
+    },
+    smithMasterEndAetheritePlate: {
+      name: 'Platoșă de Eterit de Maestru · AND'
+    },
+    smithEndMithrilPlate: {
+      name: 'Platoșă de Mithril · AND'
+    },
+    smithEndAdamantPlate: {
+      name: 'Platoșă de Adamant · AND'
+    },
+    smithEndAetheritePlate: {
+      name: 'Platoșă de Eterit · AND'
+    },
+    smithMasterEndMithrilGreaves: {
+      name: 'Jambiere de Mithril de Maestru · AND'
+    },
+    smithMasterEndAdamantGreaves: {
+      name: 'Jambiere de Adamant de Maestru · AND'
+    },
+    smithMasterEndAetheriteGreaves: {
+      name: 'Jambiere de Eterit de Maestru · AND'
+    },
+    smithEndMithrilGreaves: {
+      name: 'Jambiere de Mithril · AND'
+    },
+    smithEndAdamantGreaves: {
+      name: 'Jambiere de Adamant · AND'
+    },
+    smithEndAetheriteGreaves: {
+      name: 'Jambiere de Eterit · AND'
     },
     smithIronSword: {
       name: 'Sabie de Fier'
@@ -1777,6 +2951,414 @@ export default {
     scepterOfTheFirstKing: {
       name: 'Sceptrul primului rege'
     },
+    pickpocketsKnife: {
+      name: 'Cuțitul hoțului de buzunare'
+    },
+    serpentsFang: {
+      name: 'Colțul șarpelui'
+    },
+    phantomRapier: {
+      name: 'Spadă fantomă'
+    },
+    fangOfTheWindless: {
+      name: 'Colțul Fărăvânt'
+    },
+    roguesBuckler: {
+      name: 'Scut mic al pungașului'
+    },
+    venomVial: {
+      name: 'Fiolă cu venin'
+    },
+    swiftguardBuckler: {
+      name: 'Scut mic al gărzii iuți'
+    },
+    nightshadeFlask: {
+      name: 'Sticlă de mătrăgună'
+    },
+    windveilTarge: {
+      name: 'Targa vălului de vânt'
+    },
+    shadowdancersBuckler: {
+      name: 'Scut mic al dansatorului umbrelor'
+    },
+    scoutsBandana: {
+      name: 'Bandană de iscoadă'
+    },
+    nightcowl: {
+      name: 'Glugă nocturnă'
+    },
+    shadowveilHood: {
+      name: 'Gluga vălului de umbră'
+    },
+    windrunnersCap: {
+      name: 'Șapcă de alergător al vântului'
+    },
+    maskOfTheSilentWind: {
+      name: 'Masca vântului tăcut'
+    },
+    rangersJerkin: {
+      name: 'Jachetă de ranger'
+    },
+    nightstalkerLeathers: {
+      name: 'Pieile hăituitorului nocturn'
+    },
+    windridersHarness: {
+      name: 'Hamul călărețului vântului'
+    },
+    mantleOfTheShadowDancer: {
+      name: 'Mantia dansatorului umbrelor'
+    },
+    thiefsGloves: {
+      name: 'Mănuși de hoț'
+    },
+    cutpurseGloves: {
+      name: 'Mănuși de pungaș'
+    },
+    glovesOfTheGale: {
+      name: 'Mănuși ale vijeliei'
+    },
+    softSoledShoes: {
+      name: 'Pantofi cu talpă moale'
+    },
+    catStepBoots: {
+      name: 'Cizme cu pas de pisică'
+    },
+    shadowstepBoots: {
+      name: 'Cizme cu pas de umbră'
+    },
+    windstrideBoots: {
+      name: 'Cizme cu pas de vânt'
+    },
+    luckyCoin: {
+      name: 'Monedă norocoasă'
+    },
+    shadowBand: {
+      name: 'Inel al umbrei'
+    },
+    sandglassOfTheSwift: {
+      name: 'Clepsidra celui iute'
+    },
+    talonCharm: {
+      name: 'Talisman de gheară'
+    },
+    windheart: {
+      name: 'Inima vântului'
+    },
+    ashwallHeater: {
+      name: 'Scutul Zidului de Cenușă'
+    },
+    wyrmhidePavise: {
+      name: 'Pavăză din piele de viperă-zmeu'
+    },
+    footmansKettleHat: {
+      name: 'Pălăria-ceaun a pedestrașului'
+    },
+    ironbrowSallet: {
+      name: 'Sallet cu sprâncene de fier'
+    },
+    warlordsBarbute: {
+      name: 'Barbuta căpetenie de război'
+    },
+    helmOfTheSunderedThrone: {
+      name: 'Coiful tronului sfărâmat'
+    },
+    recruitsCuirass: {
+      name: 'Cuirasa recrutului'
+    },
+    stonecuttersMitts: {
+      name: 'Mănușile pietrarului'
+    },
+    ashforgedGauntlets: {
+      name: 'Mănuși de zale forjate în cenușă'
+    },
+    warbringerGauntlets: {
+      name: 'Mănuși de zale ale aducătorului de război'
+    },
+    titanfistGauntlets: {
+      name: 'Mănuși de zale Pumnul Titanului'
+    },
+    footmansGreaves: {
+      name: 'Pulpare de pedestraș'
+    },
+    ironshodGreaves: {
+      name: 'Pulpare întărite cu fier'
+    },
+    warlordsSabatons: {
+      name: 'Sabatoni de căpetenie de război'
+    },
+    greavesOfTheMountainfall: {
+      name: 'Pulpare ale prăbușirii muntelui'
+    },
+    sergeantsSignet: {
+      name: 'Inelul cu sigiliu al sergentului'
+    },
+    brawlersKnuckleRing: {
+      name: 'Pumnul de fier al scandalagiului'
+    },
+    bloodiedWarMedal: {
+      name: 'Medalie de război însângerată'
+    },
+    watchmansCudgel: {
+      name: 'Bâta paznicului'
+    },
+    ironboundMace: {
+      name: 'Buzdugan cu inele de fier'
+    },
+    stonehideCleaver: {
+      name: 'Satârul din piele de piatră'
+    },
+    bulwarkMaul: {
+      name: 'Ciocanul bastionului'
+    },
+    mountainsplitterAxe: {
+      name: 'Securea Spărgătorul de Munți'
+    },
+    everstandWarmace: {
+      name: 'Buzdugan de război nezdruncinat'
+    },
+    emberwallBastion: {
+      name: 'Bastionul Zidului de Jar'
+    },
+    stonewardenHelm: {
+      name: 'Coiful paznicului de piatră'
+    },
+    colossusVisage: {
+      name: 'Chipul colosului'
+    },
+    diggersGauntlets: {
+      name: 'Mănuși de zale ale săpătorului'
+    },
+    bastionGauntlets: {
+      name: 'Mănuși de zale ale bastionului'
+    },
+    glacierplateGauntlets: {
+      name: 'Mănuși de zale din plăci de ghețar'
+    },
+    gauntletsOfEndlessVigil: {
+      name: 'Mănuși de zale ale veghii eterne'
+    },
+    hearthstoneCharm: {
+      name: 'Talisman din piatra vetrei'
+    },
+    ironheartPendant: {
+      name: 'Pandantiv Inimă de Fier'
+    },
+    hedgewizardsWand: {
+      name: 'Bagheta vrăjitorului de gard viu'
+    },
+    frostglassStaff: {
+      name: 'Toiag din sticlă de ger'
+    },
+    voidthreadWand: {
+      name: 'Baghetă din fire ale Golului'
+    },
+    staffOfTheStarlessSky: {
+      name: 'Toiagul cerului fără stele'
+    },
+    studentsGrimoire: {
+      name: 'Grimoarul elevului'
+    },
+    frostfireOrb: {
+      name: 'Sfera focului de ger'
+    },
+    orbOfTheUnwrittenHour: {
+      name: 'Sfera orei nescrise'
+    },
+    apprenticesPointedCap: {
+      name: 'Căciula ascuțită a ucenicului'
+    },
+    sagesCirclet: {
+      name: 'Diadema înțeleptului'
+    },
+    cinderWizardsHat: {
+      name: 'Pălăria magului de cenușă'
+    },
+    voidseerCirclet: {
+      name: 'Diadema văzătorului Golului'
+    },
+    apprenticesRobe: {
+      name: 'Rasa ucenicului'
+    },
+    cinderthreadRobe: {
+      name: 'Rasă din fire de cenușă'
+    },
+    voidwovenRobe: {
+      name: 'Rasă țesută din Gol'
+    },
+    inkStainedGloves: {
+      name: 'Mănuși pătate de cerneală'
+    },
+    spellthreadGloves: {
+      name: 'Mănuși din fire de vrajă'
+    },
+    frostweaveGloves: {
+      name: 'Mănuși din țesătură de ger'
+    },
+    starlitGloves: {
+      name: 'Mănuși înstelate'
+    },
+    glovesOfTheLastWord: {
+      name: 'Mănușile ultimului cuvânt'
+    },
+    scribesSlippers: {
+      name: 'Papucii scribului'
+    },
+    moonstepSlippers: {
+      name: 'Papuci pas-de-lună'
+    },
+    emberstepBoots: {
+      name: 'Cizme pas-de-jar'
+    },
+    voidwalkerBoots: {
+      name: 'Cizmele rătăcitorului Golului'
+    },
+    bootsOfTheWanderingStar: {
+      name: 'Cizmele stelei rătăcitoare'
+    },
+    glowstonePendant: {
+      name: 'Pandantiv cu piatră strălucitoare'
+    },
+    scholarsSeal: {
+      name: 'Sigiliul cărturarului'
+    },
+    eyeOfTheArchon: {
+      name: 'Ochiul arhontelui'
+    },
+    cinderRepeater: {
+      name: 'Armă cu repetiție de cenușă'
+    },
+    glacierMortar: {
+      name: 'Mortier de mână de ghețar'
+    },
+    sparkCell: {
+      name: 'Celulă de scântei'
+    },
+    arcCapacitor: {
+      name: 'Condensator cu arc'
+    },
+    aetherheartCell: {
+      name: 'Celula Inimii de Eter'
+    },
+    marksmansVisor: {
+      name: 'Vizora trăgătorului'
+    },
+    sharpshootersCap: {
+      name: 'Șapca lunetistului'
+    },
+    gunnersHarness: {
+      name: 'Hamul tunarului'
+    },
+    steadyhandGloves: {
+      name: 'Mănuși de mână sigură'
+    },
+    gunsmithsGloves: {
+      name: 'Mănușile armurierului'
+    },
+    scrappersBoots: {
+      name: 'Cizmele scandalagiului'
+    },
+    sharpshooterBoots: {
+      name: 'Cizmele lunetistului'
+    },
+    firingLineBoots: {
+      name: 'Cizmele liniei de foc'
+    },
+    steadyfootBoots: {
+      name: 'Cizme de picior ferm'
+    },
+    aetherstepBoots: {
+      name: 'Cizme pas-de-eter'
+    },
+    bootsOfTheLastShot: {
+      name: 'Cizmele ultimului foc'
+    },
+    brassCartridgeCharm: {
+      name: 'Talisman din cartuș de alamă'
+    },
+    deadEyeLens: {
+      name: 'Lentila ochiului sigur'
+    },
+    eagleEyeScope: {
+      name: 'Luneta ochiului de vultur'
+    },
+    criersBaton: {
+      name: 'Bastonul crainicului'
+    },
+    droversStandard: {
+      name: 'Stindardul văcarului'
+    },
+    marshalsSceptre: {
+      name: 'Sceptrul mareșalului'
+    },
+    balladBook: {
+      name: 'Cartea baladelor'
+    },
+    chronicleOfHeroes: {
+      name: 'Cronica eroilor'
+    },
+    psalterOfTheHost: {
+      name: 'Psaltirea oastei'
+    },
+    tomeOfEternalReign: {
+      name: 'Tomul domniei veșnice'
+    },
+    heraldsCap: {
+      name: 'Șapca crainicului'
+    },
+    singersCirclet: {
+      name: 'Diadema cântărețului'
+    },
+    diademOfTenThousandVoices: {
+      name: 'Diadema celor zece mii de glasuri'
+    },
+    travelersWaistcoat: {
+      name: 'Vesta călătorului'
+    },
+    minstrelsMotley: {
+      name: 'Costumul petic al menestrelului'
+    },
+    troubadoursCoat: {
+      name: 'Haina trubadurului'
+    },
+    marshalsGreatcoat: {
+      name: 'Mantaua mareșalului'
+    },
+    buskersGloves: {
+      name: 'Mănușile muzicantului stradal'
+    },
+    drummersGloves: {
+      name: 'Mănușile toboșarului'
+    },
+    standardBearersGloves: {
+      name: 'Mănușile purtătorului de stindard'
+    },
+    gildedParadeGloves: {
+      name: 'Mănuși de paradă aurite'
+    },
+    glovesOfTheCrownedHand: {
+      name: 'Mănușile mâinii încoronate'
+    },
+    wayfarersShoes: {
+      name: 'Pantofii drumețului'
+    },
+    troubadourBoots: {
+      name: 'Cizmele trubadurului'
+    },
+    heraldsRidingBoots: {
+      name: 'Cizmele de călărie ale crainicului'
+    },
+    paradeBoots: {
+      name: 'Cizme de paradă'
+    },
+    bootsOfTheLongProcession: {
+      name: 'Cizmele alaiului lung'
+    },
+    silverWhistle: {
+      name: 'Fluier de argint'
+    },
+    gatheringHorn: {
+      name: 'Cornul de adunare'
+    },
     heartOfTheMountain: {
       name: 'Inima Muntelui'
     },
@@ -1880,6 +3462,9 @@ export default {
     freedPeddler: {
       talk: 'Tot ce-i trebuie unui călător. Aproape nou, de cele mai multe ori.',
       name: 'Odo Marrow'
+    },
+    sfShadowRoad: {
+      name: 'Nettle Quickhand'
     },
     sfShadow: {
       name: 'Nettle Quickhand'
@@ -2034,6 +3619,9 @@ export default {
     sunfordGambler: {
       name: 'Dob Tumbler'
     },
+    sunfordCups: {
+      name: 'Nell Nimblefingers'
+    },
     oakGambler: {
       name: 'Silky Ren'
     },
@@ -2145,6 +3733,13 @@ export default {
     }
   },
   dlg: {
+    intro: {
+      crossing: { 1: 'Fiecare drum al acestei lumi se întâlnește la o răscruce… și fiecare răscruce e o bătălie.' },
+      hero: { 1: 'Din câmpurile liniștite ale Sunfordului, un tânăr erou a pornit la drum.' },
+      fire: { 1: 'Focul a răspuns chemării. Oțelul a învățat un nume nou.' },
+      foes: { 1: 'Regi goblini, jarli ai gerului, un dragon al vidului… și Arhidemonul.' },
+      begin: { 1: 'Legenda ta începe acum.' }
+    },
     frostDisciple: {
       bye: {
         '1': 'Să nu-ți fie frig.'
@@ -2345,6 +3940,23 @@ export default {
         '2': 'Odo Marrow, la dispoziția ta. Negustor, meșteșugar, om foarte recunoscător.',
         '1__f': 'Tu! Tu ești cea care a deschis cușca aia! Aș fi putrezit acolo.',
         '1': 'Tu! Tu ești cel care a deschis cușca aia! Aș fi putrezit acolo.'
+      }
+    },
+    sfShadowRoad: {
+      hello: {
+        '1': 'Teleportare. Te interesează?'
+      },
+      again: {
+        '1': 'Te-ai întors după un alt truc?'
+      },
+      train: {
+        '1': 'Privește atent. Un pas, și ești în altă parte.'
+      },
+      trainBack: {
+        '1': 'Bine. Acum du-te și fii în altă parte.'
+      },
+      bye: {
+        '1': 'Să nu te prindă nimeni.'
       }
     },
     sfShadow: {
@@ -2599,9 +4211,8 @@ export default {
         '2': 'Lovește când metalul strălucește cel mai tare. Ratezi, și-i fier vechi. Hai.',
         '1': 'Fierărie? Hm. Ține ciocanul așa, nu ca pe o bâtă.'
       },
-      ore: {
-        '1': 'Pepite, zici? Le iau pe toate. Greutate cinstită, bani cinstiți.'
-      },
+      ore: { '1': 'Minereu, zici? Arată-mi. Plătesc pe pepită, greutate cinstită.' },
+      sellBack: { '1': 'Greutate cinstită, monedă cinstită. Adu mai mult când găsești.' },
       forgeBack: {
         '1': 'Nu-i rău. Nici bun. Mai încearcă.'
       },
@@ -2890,7 +4501,7 @@ export default {
       },
       map: {
         '1': 'Harta căpitanului Rook! A rupt-o și a ascuns bucățile înainte să-l prindă goblinii.',
-        '2': 'Găsește-le pe toate șase și X-ul îți arată drumul: undeva în Stâncile de Cenușă. Sapă acolo și aurul e al tău.',
+        '2': 'Găsește șase dintre ele, mai sunt câteva împrăștiate prin jur, și X-ul îți arată drumul: undeva în Stâncile de Cenușă. Sapă acolo și aurul e al tău.',
         say: 'Am găsit o bucată dintr-o hartă veche.'
       }
     },
@@ -2910,6 +4521,9 @@ export default {
       mana: {
         '1': 'Ăsta e amar. Bea-l când ți se termină vrăjile.'
       },
+      brew: {
+        '1': 'Arată-mi plantele tale. Voi amesteca ceva cu gust mai bun decât tonicul meu de mană.'
+      },
       potions: {
         '1': 'Iei câteva flacoane în fiecare luptă. Bea înainte să ai nevoie, nu după.',
         '2': 'Dacă vrei să porți mai multe, îți pot vinde o centură mai mare.',
@@ -2928,6 +4542,9 @@ export default {
       },
       healBack: {
         '1': 'Ține centura plină și capul jos.'
+      },
+      brewBack: {
+        '1': 'Atenție, sunt fierbinți. Nu le bea pe toate deodată.'
       },
       bye: {
         '1': 'Ai grijă de tine acolo afară.'
@@ -3032,9 +4649,8 @@ export default {
         '2': 'Urmărește strălucirea. Lovește-i inima de trei ori, și metalul ține minte.',
         '1': 'Vrei să înveți meseria? Bine. Oakhaven are nevoie de fiecare ciocan.'
       },
-      ore: {
-        '1': 'Minereu brut! Armeria nu are niciodată destul. Poftim plata.'
-      },
+      ore: { '1': 'Minereu brut! Armurăriei nu-i ajunge niciodată. Vinde-mi ce poți.' },
+      sellBack: { '1': 'Fiecare pepită intră în zid. Mulțumesc.' },
       forgeBack: {
         '1': 'Oțel bun. Zidurile îți mulțumesc.'
       },
@@ -3075,10 +4691,8 @@ export default {
         '2': 'Trei lovituri, fiecare în inima strălucirii. Asta-i tot secretul.',
         '1': 'De la asediu învăț pe oricine cere. Vino, stai aici.'
       },
-      ore: {
-        '1__f': 'Mai mult minereu pentru ziduri? Fii binecuvântată. Uite, ia asta.',
-        '1': 'Mai mult minereu pentru ziduri? Fii binecuvântat. Uite, ia asta.'
-      },
+      ore: { '1': 'Mai mult minereu pentru ziduri? Plătesc fiecare pepită pe care o dai.' },
+      sellBack: { '1': 'Fii binecuvântat. Asta înseamnă mai multe plăci pentru ziduri.' },
       forgeBack: {
         '1__f': 'Fiecare lovitură te face mai bună. Vino oricând.',
         '1': 'Fiecare lovitură te face mai bun. Vino oricând.'
@@ -3488,9 +5102,8 @@ export default {
         '1__f': 'O locuitoare de la suprafață la nicovală? Ei, toată lumea începe de undeva.',
         '1': 'Un locuitor de la suprafață la nicovală? Ei, toată lumea începe de undeva.'
       },
-      ore: {
-        '1': 'Metal bun, cinstit. Ironhold plătește mereu pentru așa ceva.'
-      },
+      ore: { '1': 'Metal bun, cinstit. Pune-l aici, plătesc pe pepită.' },
+      sellBack: { '1': 'Târg cinstit. Ironhold plătește mereu metalul bun.' },
       forgeBack: {
         '1': 'Un pitic ar fi făcut-o mai bine. Dar nu cu mult.'
       },
@@ -3560,9 +5173,8 @@ export default {
         '2': 'Încălzește, lovește, întoarce. Trei lovituri, fix în strălucire. Apoi las-o să se răcească.',
         '1': 'Platoșa e muncă de răbdare. Îți arăt elementele de bază.'
       },
-      ore: {
-        '1': 'Lasă-mă să-l cântăresc. Bun. Banii sunt ai tăi.'
-      },
+      ore: { '1': 'Lasă-mă să-l cântăresc. Alege ce vinzi, eu număr banii.' },
+      sellBack: { '1': 'Cântărit și plătit. Bine.' },
       forgeBack: {
         '1': 'Las-o să se răcească înainte s-o porți.'
       },
@@ -3602,9 +5214,8 @@ export default {
         '2': 'Disciplină la nicovală, ca pe câmpul de luptă. Trei lovituri, fidele strălucirii.',
         '1': 'Ordinul își înarmează prietenii. Te voi învăța.'
       },
-      ore: {
-        '1': 'Ordinul cumpără tot minereul pentru război. Plata ta.'
-      },
+      ore: { '1': 'Ordinul cumpără minereu pentru război. Vinde ce poți.' },
+      sellBack: { '1': 'Plata ta e consemnată. Ordinul îți mulțumește.' },
       forgeBack: {
         '1': 'Bine făurit. Servește cu cinste în el.'
       },
@@ -4017,6 +5628,11 @@ export default {
       }
     },
     bark: {
+      banditChief: {
+        whistle: {
+          1: 'Sus, băieți! Mușcați-i!'
+        }
+      },
       lightDisciple: {
         freed: {
           '1': 'Lumina te-a trimis. Sunt Sora Aurelle. Caută-mă în Sunford, te voi învăța calea Purtătorului de Lumină.'
@@ -4173,9 +5789,8 @@ export default {
         '2': 'Lovește când strălucește cel mai fierbinte. Trei lovituri bune fac o piesă bună.',
         '1': 'Vrei să încerci și tu ciocanul? Nu mă deranjează să împart forja.'
       },
-      ore: {
-        '1': 'Minereu frumos. Silverbridge plătește mereu un preț cinstit.'
-      },
+      ore: { '1': 'Minereu frumos. Arată-mi ce vinzi, plătesc pe pepită.' },
+      sellBack: { '1': 'Plăcerea e a mea. Silverbridge plătește mereu un preț cinstit.' },
       forgeBack: {
         '1__f': 'Ia uite! Ești născută pentru asta.',
         '1': 'Ia uite! Ești născut pentru asta.'
@@ -4618,7 +6233,7 @@ export default {
         say: 'Unde găsesc ierburi?'
       },
       elixirs: {
-        '1': 'Fiecare îți dă mai multă putere în luptă, un minut întreg. Lovituri mai tari, piele mai dură, picioare mai iuți.',
+        '1': 'Fiecare îți dă mai multă putere în luptă, 5 minute întregi. Lovituri mai tari, piele mai dură, picioare mai iuți.',
         '2': 'Stau în al treilea flacon. Atinge săgeata mică ca să schimbi pe care îl bei.',
         say: 'Ce fac elixirele?'
       },
@@ -4687,6 +6302,36 @@ export default {
       },
       bye: {
         '1': 'Adu mai multe vechituri! Vechiturile sunt preferatele mele.'
+      }
+    },
+    sunfordCups: {
+      hello: {
+        1: 'Apropiați-vă! Trei pahare, o piatră prețioasă, iar prima rundă e pe casa mea!',
+        2: 'Nell Nimblefingers. Nimeni nu mi-a păcălit încă mâinile. Vrei să încerci?'
+      },
+      again: {
+        1: 'Iar aici? Ține ochii deschiși!'
+      },
+      play: {
+        1: 'Ochii pe piatră, prietene. Nu clipi!'
+      },
+      rules: {
+        1: 'Ascund piatra sub un pahar și le amestec. Tu arăți paharul care o ascunde.',
+        2: 'Fiecare victorie la rând plătește mai mult. Trei victorii aduc un premiu, cinci o comoară. Prima rundă din zi e gratis.',
+        say: 'Cum merge?'
+      },
+      who: {
+        1: 'Am învățat să amestec înainte să merg. Mama zice că asta explică multe.'
+      },
+      luck: {
+        1: 'Uneori! Atunci gem foarte tare și lumea mă compătimește.',
+        say: 'Pierzi vreodată?'
+      },
+      playBack: {
+        1: 'Rundă grozavă! Revino mâine, prima e mereu gratis.'
+      },
+      bye: {
+        1: 'Pe curând! Ține ochii deschiși pe-afară.'
       }
     },
     oakGambler: {
@@ -5180,6 +6825,7 @@ export default {
     banditArcher: 'Bandit Arcaș',
     wolf: 'Lup',
     banditChief: 'Șeful Bandiților',
+    gnome: 'Gnom',
     goblinKing: 'Regele Goblin',
     treant: 'Copac Umblător',
     spider: 'Păianjen Uriaș',
@@ -5397,6 +7043,18 @@ export default {
       firefoxColors: 'Firefox: Setări → Culori → setează „Suprascrie culorile specificate de pagină” pe Niciodată.'
     }
   },
+  samsungFix: {
+    title: 'Test rapid de culori',
+    body: 'Unele telefoane schimbă culorile paginilor web. Compară cele două pătrate de mai jos.',
+    question: 'Arată la fel cele două pătrate?',
+    refSquare: 'Pătrat de referință',
+    pageSquare: 'Pătratul paginii',
+    yes: 'Da, arată la fel',
+    no: 'Nu, arată diferit',
+    option: 'Corectează culorile (modul întunecat Samsung)',
+    optionHint: 'Activează dacă meniurile arată închis sau textul se citește greu.',
+    recheck: 'Repetă testul de culori'
+  },
   saveStatus: {
     restoredTitle: 'Salvare din cloud restaurată',
     restoredBody: '+{n} aur bonus pentru recuperare',
@@ -5525,7 +7183,7 @@ export default {
   },
   forge: {
     upgrade: 'Îmbunătățește ({n} aur)',
-    max: 'Complet îmbunătățit: +{n}.',
+    next: 'Următorul +{level}: +{pct}% la statistici',
     town: 'Fierarul din orice oraș poate îmbunătăți asta.'
   },
   ore: {
@@ -5540,6 +7198,12 @@ export default {
     },
     mithril: {
       name: 'Minereu de mithril'
+    },
+    adamant: {
+      name: 'Minereu de adamant'
+    },
+    aetherite: {
+      name: 'Minereu de eterit'
     }
   },
   plant: {
@@ -5621,32 +7285,32 @@ export default {
   elixir: {
     might: {
       name: 'Elixirul Puterii',
-      desc: '+{n}% daune timp de un minut'
+      desc: '+{n}% daune timp de 5 minute'
     },
     iron: {
       name: 'Licoare de piele de fier',
-      desc: '+{n}% armură timp de un minut'
+      desc: '+{n}% armură timp de 5 minute'
     },
     swift: {
       name: 'Tonic de iuțeală',
-      desc: '+{n}% viteză și viteză de atac timp de un minut'
+      desc: '+{n}% viteză și viteză de atac timp de 5 minute'
     },
     mind: {
       name: 'Fiertură de minte limpede',
-      desc: 'Abilitățile se reîncarcă cu {n}% mai repede timp de un minut'
+      desc: 'Abilitățile se reîncarcă cu {n}% mai repede timp de 5 minute'
     },
     vigor: {
       name: 'Elixir de vigoare',
-      desc: 'Vindecă {n}% din viața ta în fiecare secundă, timp de un minut'
+      desc: 'Vindecă {n}% din viața ta în fiecare secundă, timp de 5 minute'
     },
     shadow: {
       name: 'Licoare însetată',
-      desc: 'Loviturile tale te vindecă cu {n}% din daunele lor, timp de un minut'
+      desc: 'Loviturile tale te vindecă cu {n}% din daunele lor, timp de 5 minute'
     }
   },
   alchemy: {
     talk: 'Intră ierburi, ies elixire. Pe care îl preparăm?',
-    lead: 'Fiecare elixir ține un minut în luptă. Bea-l din al treilea flacon. Poți căra {n} din fiecare.',
+    lead: 'Fiecare elixir ține 5 minute în luptă. Bea-l din al treilea flacon. Poți căra {n} din fiecare.',
     brew: 'Prepară · {n}',
     carry: 'Ia-l cu tine',
     carried: 'În flaconul tău',
@@ -5670,6 +7334,25 @@ export default {
     again: 'Mai joacă o dată',
     noGold: 'Nu ai destul aur pentru miza asta.',
     card: 'Carte {n}'
+  },
+  cups: {
+    title: 'Tejgheaua cu pahare',
+    lead: 'Urmărește piatra, ține minte paharul ei, apoi alege-l. Fiecare victorie la rând plătește mai mult. A treia aduce o piesă premiu, a cincea o comoară.',
+    free: 'Rundă gratis',
+    fee: 'Joacă · {n}',
+    row: 'Victorii la rând: {n} din {max}',
+    next: 'Următoarea victorie: {n} aur',
+    watch: 'Privește piatra!',
+    follow: 'Urmărește-o…',
+    pick: 'Alege un pahar!',
+    hint: 'Atinge un pahar sau apasă numărul lui.',
+    won: 'Ai găsit-o! +{n} aur',
+    lost: 'Nu acela. Seria o ia de la capăt.',
+    near: 'Aproape! Era chiar alături.',
+    timeout: 'Prea încet! Seria o ia de la capăt.',
+    again: 'Joacă din nou',
+    noGold: 'Aur insuficient. Mâine prima rundă e gratis.',
+    cup: 'Paharul {n}'
   },
   battle: {
     title: 'Duelul obiectelor',

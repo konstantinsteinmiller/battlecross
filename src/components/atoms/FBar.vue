@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue'
 import { UI_ART } from '@/game/assets/overrides'
+import { CREST_BOX, CROWN_BOX, FINIAL_BOX, GEM_BOX, THEME_PALETTE, WING_BOX, crestBody, crownBody, finialBody, gemBody, wingBody } from '@/game/art/barFrameRefs'
 import { LEVEL_TIER_COLORS, type LevelTier } from '@/game/data/zones'
 
 /**
@@ -83,8 +84,14 @@ const shield01 = computed(() => round(clamp01(props.shield)))
 /** The shield hangs off the end of the fill; on a full bar it lies over its end. */
 const shieldAt = computed(() => round(Math.min(v01.value, 1 - shield01.value)))
 
+/**
+ * Off while the painted frames do not register with the live well (the first paintings
+ * did not: an 8:1 well in a square file). The drawn frame shows instead; a caller can
+ * still pass `art` to try a file.
+ */
+const PAINTED_FRAMES_FIT = true
 /** The experience bar is never painted: it has no frame to paint (D42). */
-const frameArt = computed(() => props.art ?? (props.frame === 'xp' ? '' : UI_ART.get(`bar-frame-${props.frame}`) ?? ''))
+const frameArt = computed(() => props.art ?? (props.frame === 'xp' || !PAINTED_FRAMES_FIT ? '' : UI_ART.get(`bar-frame-${props.frame}`) ?? ''))
 
 // ── The ghost and the hit flash ──────────────────────────────────────────────
 /** True while the last change was a gain: the ghost then follows at once. */
@@ -103,6 +110,14 @@ watch(v01, (now, was) => {
     }
   }
 }, { flush: 'sync' })
+
+// The ornaments' markup: built once, coloured by the frame's CSS variables.
+const wing = wingBody(THEME_PALETTE)
+const gem = gemBody(THEME_PALETTE, true)
+const starGem = gemBody(THEME_PALETTE)
+const crown = crownBody(THEME_PALETTE)
+const crest = crestBody(THEME_PALETTE)
+const finial = finialBody(THEME_PALETTE)
 
 const winged = computed(() => props.frame === 'elite' || props.frame === 'boss')
 const badge = computed(() => (props.level > 0 ? LEVEL_TIER_COLORS[props.tier] : null))
@@ -130,66 +145,34 @@ const phaseMarks = computed(() => (props.marks ?? []).filter(m => m > 0.01 && m 
       span.f-bar__phases(v-else-if="phaseMarks.length" aria-hidden="true")
         i(v-for="m in phaseMarks" :key="m" :style="{ left: `${Math.round(m * 1000) / 10}%` }")
       span.f-bar__flash(ref="flash" aria-hidden="true")
-    //- A painted frame, three-sliced: the caps keep their shape, the middle stretches.
-    span.f-bar__art(v-if="frameArt" aria-hidden="true" :style="{ borderImageSource: `url(${frameArt})` }")
-    //- The code-drawn ornaments. Decoration only: the box already reserves their room.
+    //- A painted frame, five-sliced: the caps and the middle ornament (crest, crown, stones)
+    //- keep their shape, only the plain stretches of rim between them stretch.
+    span.f-bar__art(v-if="frameArt" aria-hidden="true" :style="{ '--art': `url(${frameArt})` }")
+      i.is-cap-l
+      i.is-rim-l
+      i.is-mid
+      i.is-rim-r
+      i.is-cap-r
+    //- The code-drawn ornaments (the shapes live in `game/art/barFrameRefs.ts`, which
+    //- is also what the painter is shown). Decoration only: the box already reserves their room.
     template(v-else)
       //- Wings: an elite's and a boss's.
       template(v-if="winged")
-        svg.f-bar__orn.f-bar__wing.is-left(viewBox="0 0 30 24" aria-hidden="true" focusable="false")
-          path.o-base(d="M29 15C22 15 13 12 2 2c1 6 4 10 8 12-3 0-5-.5-7-1.500 2 4.500 6 7 11 7.500-2.500.6-4.500.6-6 .2 4 2.800 13 3.300 21 .8z")
-          path.o-shade(d="M29 21c-8 2.500-17 2-21-.8 1.500.4 3.500.4 6-.2 5 0 10-1 15-2z")
-          path.o-line(d="M10 14c5 2 11 2.500 17 2.500M14 20c5 0 10-1 14-1.500")
-          path.o-edge(d="M29 15C22 15 13 12 2 2c1 6 4 10 8 12-3 0-5-.5-7-1.500 2 4.500 6 7 11 7.500-2.500.6-4.500.6-6 .2 4 2.800 13 3.300 21 .8z")
-        svg.f-bar__orn.f-bar__wing.is-right(viewBox="0 0 30 24" aria-hidden="true" focusable="false")
-          path.o-base(d="M29 15C22 15 13 12 2 2c1 6 4 10 8 12-3 0-5-.5-7-1.500 2 4.500 6 7 11 7.500-2.500.6-4.500.6-6 .2 4 2.800 13 3.300 21 .8z")
-          path.o-shade(d="M29 21c-8 2.500-17 2-21-.8 1.500.4 3.500.4 6-.2 5 0 10-1 15-2z")
-          path.o-line(d="M10 14c5 2 11 2.500 17 2.500M14 20c5 0 10-1 14-1.500")
-          path.o-edge(d="M29 15C22 15 13 12 2 2c1 6 4 10 8 12-3 0-5-.5-7-1.500 2 4.500 6 7 11 7.500-2.500.6-4.500.6-6 .2 4 2.800 13 3.300 21 .8z")
+        svg.f-bar__orn.f-bar__wing.is-left(:viewBox="WING_BOX" aria-hidden="true" focusable="false" v-html="wing")
+        svg.f-bar__orn.f-bar__wing.is-right(:viewBox="WING_BOX" aria-hidden="true" focusable="false" v-html="wing")
       //- A gem at each end: a boss's (purple) and an elite's (amber); the level badge is the right one's place.
       template(v-if="frame === 'boss' || frame === 'elite'")
-        svg.f-bar__orn.f-bar__gem.is-left(viewBox="0 0 16 16" aria-hidden="true" focusable="false")
-          path.g-base(d="M8 1l7 7-7 7-7-7z")
-          path.g-hi(d="M8 1L1 8h7z")
-          path.g-lo(d="M8 15l7-7H8z")
-          path.o-edge(d="M8 1l7 7-7 7-7-7z")
-        svg.f-bar__orn.f-bar__gem.is-right(v-if="!badge" viewBox="0 0 16 16" aria-hidden="true" focusable="false")
-          path.g-base(d="M8 1l7 7-7 7-7-7z")
-          path.g-hi(d="M8 1L1 8h7z")
-          path.g-lo(d="M8 15l7-7H8z")
-          path.o-edge(d="M8 1l7 7-7 7-7-7z")
+        svg.f-bar__orn.f-bar__gem.is-left(:viewBox="GEM_BOX" aria-hidden="true" focusable="false" v-html="gem")
+        svg.f-bar__orn.f-bar__gem.is-right(v-if="!badge" :viewBox="GEM_BOX" aria-hidden="true" focusable="false" v-html="gem")
         //- The crown between its horns.
-        svg.f-bar__orn.f-bar__crown(v-if="frame === 'boss'" viewBox="0 0 72 26" aria-hidden="true" focusable="false")
-          path.h-base(d="M22 24C12 24 4 17 3 3c5 7 10 10 18 11z")
-          path.h-shade(d="M22 24C13 24 6 18.500 4 9c3 6 9 10 17.500 11.500z")
-          path.o-edge(d="M22 24C12 24 4 17 3 3c5 7 10 10 18 11z")
-          path.h-base(d="M50 24c10 0 18-7 19-21-5 7-10 10-18 11z")
-          path.h-shade(d="M50 24c9 0 16-5.500 18-15-3 6-9 10-17.500 11.500z")
-          path.o-edge(d="M50 24c10 0 18-7 19-21-5 7-10 10-18 11z")
-          path.o-base(d="M24 24L21 9l8 6 7-11 7 11 8-6-3 15z")
-          path.o-shade(d="M24 24l-1-5h26l-1 5z")
-          path.o-edge(d="M24 24L21 9l8 6 7-11 7 11 8-6-3 15z")
-          circle.g-base(cx="36" cy="18.500" r="2.600")
-          circle.o-dot(cx="36" cy="4.500" r="2.200")
-          circle.o-dot(cx="21" cy="9" r="1.800")
-          circle.o-dot(cx="51" cy="9" r="1.800")
-      //- A champion's crest and pointed end caps.
+        svg.f-bar__orn.f-bar__crown(v-if="frame === 'boss'" :viewBox="CROWN_BOX" aria-hidden="true" focusable="false" v-html="crown")
+        //- An elite's small star over the middle.
+        svg.f-bar__orn.f-bar__star(v-else :viewBox="GEM_BOX" aria-hidden="true" focusable="false" v-html="starGem")
+      //- A champion's winged crest and gilded scroll-and-gem end caps.
       template(v-else-if="frame === 'champion'")
-        svg.f-bar__orn.f-bar__crest(viewBox="0 0 28 24" aria-hidden="true" focusable="false")
-          path.o-base(d="M14 2l10 3v7c0 5-4 9-10 11C8 21 4 17 4 12V5z")
-          path.o-shade(d="M14 2l10 3v7c0 5-4 9-10 11z")
-          path.o-edge(d="M14 2l10 3v7c0 5-4 9-10 11C8 21 4 17 4 12V5z")
-          path.g-base(d="M14 7l4.500 5-4.500 6-4.500-6z")
-          path.g-hi(d="M14 7l-4.500 5H14z")
-          path.o-thin(d="M14 7l4.500 5-4.500 6-4.500-6z")
-        svg.f-bar__orn.f-bar__finial.is-left(viewBox="0 0 12 16" aria-hidden="true" focusable="false")
-          path.o-base(d="M11 2L1.500 8 11 14z")
-          path.o-shade(d="M11 8v6L1.500 8z")
-          path.o-edge(d="M11 2L1.500 8 11 14z")
-        svg.f-bar__orn.f-bar__finial.is-right(viewBox="0 0 12 16" aria-hidden="true" focusable="false")
-          path.o-base(d="M11 2L1.500 8 11 14z")
-          path.o-shade(d="M11 8v6L1.500 8z")
-          path.o-edge(d="M11 2L1.500 8 11 14z")
+        svg.f-bar__orn.f-bar__crest(:viewBox="CREST_BOX" aria-hidden="true" focusable="false" v-html="crest")
+        svg.f-bar__orn.f-bar__finial.is-left(:viewBox="FINIAL_BOX" aria-hidden="true" focusable="false" v-html="finial")
+        svg.f-bar__orn.f-bar__finial.is-right(:viewBox="FINIAL_BOX" aria-hidden="true" focusable="false" v-html="finial")
       //- The hero's own: a heart (or a drop of mana) in a medallion, a finial on the far end.
       template(v-else-if="frame === 'hero' || frame === 'mana'")
         svg.f-bar__orn.f-bar__cap(viewBox="0 0 24 24" aria-hidden="true" focusable="false")
@@ -201,10 +184,7 @@ const phaseMarks = computed(() => (props.marks ?? []).filter(m => m > 0.01 && m 
           path.g-base(v-else d="M12 5.200c2.400 3.600 4.600 5.800 4.600 8.400a4.600 4.600 0 0 1-9.200 0c0-2.600 2.200-4.800 4.600-8.400z")
           path.g-glint(v-if="frame === 'hero'" d="M8.600 9.800c.5-.9 1.300-1.200 2-.9")
           path.g-glint(v-else d="M10.200 11.200c.4-1 .9-1.700 1.400-2.400")
-        svg.f-bar__orn.f-bar__finial.is-right(viewBox="0 0 12 16" aria-hidden="true" focusable="false")
-          path.o-base(d="M11 2L1.500 8 11 14z")
-          path.o-shade(d="M11 8v6L1.500 8z")
-          path.o-edge(d="M11 2L1.500 8 11 14z")
+        svg.f-bar__orn.f-bar__finial.is-right(:viewBox="FINIAL_BOX" aria-hidden="true" focusable="false" v-html="finial")
     //- The level: a round framed badge, the bar's right end (not an ornament: it carries the number).
     span.f-bar__lvl(v-if="badge" :style="{ '--lv-bg': badge.bg, '--lv-ink': badge.ink }" :class="`is-${tier}`" data-level)
       span.f-bar__lvl-n {{ level }}
@@ -242,6 +222,9 @@ const phaseMarks = computed(() => (props.marks ?? []).filter(m => m > 0.01 && m 
 // ── What it measures ─────────────────────────────────────────────────────────
 .tone-mana
   +cel.tone('blue')
+// Health reads as the heart on its cap does: the light reddish ramp (never green, never the boss's blood).
+.tone-health
+  +cel.tone('red')
 .tone-xp
   +cel.tone('purple')
 .tone-heat
@@ -249,7 +232,7 @@ const phaseMarks = computed(() => (props.marks ?? []).filter(m => m > 0.01 && m 
 .tone-enemy
   +cel.tone('red')
 .tone-boss
-  +cel.tone('pink')
+  +cel.tone('blood')
 .tone-gold
   +cel.tone('gold')
 .is-low
@@ -408,6 +391,15 @@ const phaseMarks = computed(() => (props.marks ?? []).filter(m => m > 0.01 && m 
   background: linear-gradient(180deg, var(--o-hi) 0, var(--o-hi) 46%, var(--o-lo) 46%, var(--o-lo) 100%)
   box-shadow: 0 0 0 var(--bc-ol-thin) var(--bc-ink), 0 calc(var(--bc-press-sm) + 1px) 0 var(--bc-ol-thin) var(--bc-ink)
 
+// A rank shows in the metal's outer ring: an elite's cold white, a champion's gold,
+// a boss's blood red between two lines of ink.
+.f-bar--elite .f-bar__bezel
+  box-shadow: 0 0 0 var(--bc-ol-thin) var(--bc-ink), 0 0 0 calc(var(--bc-ol-thin) + 2px) var(--bc-white), 0 0 0 calc(var(--bc-ol-thin) * 2 + 2px) var(--bc-ink), 0 calc(var(--bc-press-sm) + 3px) 0 var(--bc-ol-thin) var(--bc-ink)
+.f-bar--champion .f-bar__bezel
+  box-shadow: 0 0 0 var(--bc-ol-thin) var(--bc-ink), 0 0 0 calc(var(--bc-ol-thin) + 2px) var(--bc-gold-hi), 0 0 0 calc(var(--bc-ol-thin) * 2 + 2px) var(--bc-ink), 0 calc(var(--bc-press-sm) + 3px) 0 var(--bc-ol-thin) var(--bc-ink)
+.f-bar--boss .f-bar__bezel
+  box-shadow: 0 0 0 var(--bc-ol-thin) var(--bc-ink), 0 0 0 calc(var(--bc-ol-thin) + 3px) var(--bc-blood-hi, var(--bc-red)), 0 0 0 calc(var(--bc-ol-thin) * 2 + 3px) var(--bc-ink), 0 calc(var(--bc-press-sm) + 4px) 0 var(--bc-ol-thin) var(--bc-ink)
+
 .f-bar--hero, .f-bar--mana, .f-bar--elite, .f-bar--champion, .f-bar--boss
   --bz: 3px
   .f-bar__track
@@ -433,21 +425,21 @@ const phaseMarks = computed(() => (props.marks ?? []).filter(m => m > 0.01 && m 
     padding-bottom: 0
 
 .f-bar--elite
-  --pad-l: calc(var(--u) * 2.4)
-  --pad-r: calc(var(--u) * 2.4)
-  --pad-t: calc(var(--u) * 0.5)
+  --pad-l: calc(var(--u) * 3.5)
+  --pad-r: calc(var(--u) * 3.5)
+  --pad-t: calc(var(--u) * 0.7)
   --gem: var(--bc-orange)
   --gem-hi: var(--bc-gold-hi)
   --gem-lo: var(--bc-orange-lo)
 .f-bar--champion
-  --pad-l: calc(var(--u) * 0.7)
-  --pad-r: calc(var(--u) * 0.7)
-  --pad-t: calc(var(--u) * 1.05)
+  --pad-l: calc(var(--u) * 1.1)
+  --pad-r: calc(var(--u) * 1.1)
+  --pad-t: calc(var(--u) * 1.5)
 .f-bar--boss
   --bz: 4px
-  --pad-l: calc(var(--u) * 3)
-  --pad-r: calc(var(--u) * 3)
-  --pad-t: calc(var(--u) * 1.6)
+  --pad-l: calc(var(--u) * 4.5)
+  --pad-r: calc(var(--u) * 4.5)
+  --pad-t: calc(var(--u) * 2.5)
   --gem: var(--bc-purple)
   --gem-hi: var(--bc-purple-hi)
   --gem-lo: var(--bc-purple-lo)
@@ -501,77 +493,97 @@ const phaseMarks = computed(() => (props.marks ?? []).filter(m => m > 0.01 && m 
     stroke-width: 1.5
 
 // Wings end under the gem at the bar's end (or under the level badge), never over the well.
+// 46 x 30: five feathers, the root (right edge) tucked under the end gem.
 .f-bar__wing
-  width: calc(var(--u) * 2.1)
-  height: calc(var(--u) * 1.7)
-  top: calc(var(--mid) - var(--u) * 1.15)
+  width: calc(var(--u) * 3.3)
+  height: calc(var(--u) * 2.15)
+  top: calc(var(--mid) - var(--u) * 1.45)
   &.is-left
-    left: calc(var(--pad-l) - var(--u) * 2.3)
+    left: calc(var(--pad-l) - var(--u) * 3.4)
   &.is-right
-    right: calc(var(--pad-r) - var(--u) * 2.3)
+    right: calc(var(--pad-r) - var(--u) * 3.4)
     transform: scaleX(-1)
 .f-bar--boss .f-bar__wing
-  width: calc(var(--u) * 2.6)
-  height: calc(var(--u) * 2.1)
-  top: calc(var(--mid) - var(--u) * 1.4)
+  width: calc(var(--u) * 4.6)
+  height: calc(var(--u) * 3)
+  top: calc(var(--mid) - var(--u) * 2)
   &.is-left
-    left: calc(var(--pad-l) - var(--u) * 2.95)
+    left: calc(var(--pad-l) - var(--u) * 4.7)
   &.is-right
-    right: calc(var(--pad-r) - var(--u) * 2.95)
+    right: calc(var(--pad-r) - var(--u) * 4.7)
 // With a level badge the right wing grows out from behind it.
 .has-level .f-bar__wing.is-right
-  right: calc(var(--pad-r) - var(--u) * 1.9)
+  right: calc(var(--pad-r) - var(--u) * 2.6)
 .has-level.f-bar--boss .f-bar__wing.is-right
-  right: calc(var(--pad-r) - var(--u) * 2.4)
+  right: calc(var(--pad-r) - var(--u) * 3.7)
 
 // A gem caps each end, its inner point just over the bezel.
+// 18 x 22: a cut stone, taller than wide.
 .f-bar__gem
-  width: calc(var(--u) * 1.4)
-  height: calc(var(--u) * 1.4)
-  top: calc(var(--mid) - var(--u) * 0.7)
+  width: calc(var(--u) * 1.5)
+  height: calc(var(--u) * 1.83)
+  top: calc(var(--mid) - var(--u) * 0.92)
   &.is-left
     left: calc(var(--pad-l) - var(--u) * 1.25)
   &.is-right
     right: calc(var(--pad-r) - var(--u) * 1.25)
 .f-bar--elite .f-bar__gem
-  width: calc(var(--u) * 1.1)
-  height: calc(var(--u) * 1.1)
-  top: calc(var(--mid) - var(--u) * 0.55)
+  width: calc(var(--u) * 1.15)
+  height: calc(var(--u) * 1.4)
+  top: calc(var(--mid) - var(--u) * 0.7)
   &.is-left
     left: calc(var(--pad-l) - var(--u) * 1)
   &.is-right
     right: calc(var(--pad-r) - var(--u) * 1)
 
 // The crown stands ON the bezel: its base just meets the metal, never the well.
+// 96 x 34: horns sweep out to both sides, five jewelled points rise between them.
 .f-bar__crown
   left: 50%
-  width: calc(var(--u) * 4.7)
-  height: calc(var(--u) * 1.7)
-  margin-left: calc(var(--u) * -2.35)
-  top: calc(var(--pad-t) - var(--u) * 1.6)
+  width: calc(var(--u) * 8)
+  height: calc(var(--u) * 2.83)
+  margin-left: calc(var(--u) * -4)
+  top: calc(var(--pad-t) - var(--u) * 2.45)
+// An elite's star: a small stone on the bezel's middle.
+.f-bar__star
+  left: 50%
+  width: calc(var(--u) * 0.9)
+  height: calc(var(--u) * 1.1)
+  margin-left: calc(var(--u) * -0.45)
+  top: calc(var(--pad-t) - var(--u) * 0.75)
+// The stones' halo: an opacity pulse, nothing else moves.
+.f-bar__orn :deep(.g-glow)
+  opacity: 0.32
+  animation: fbar-gem 2.4s ease-in-out infinite alternate
 
+// 52 x 30: a shield between two swept blades.
 .f-bar__crest
   left: 50%
-  width: calc(var(--u) * 1.75)
-  height: calc(var(--u) * 1.5)
-  margin-left: calc(var(--u) * -0.875)
-  top: calc(var(--pad-t) - var(--u) * 1.05)
+  width: calc(var(--u) * 3.3)
+  height: calc(var(--u) * 1.9)
+  margin-left: calc(var(--u) * -1.65)
+  top: calc(var(--pad-t) - var(--u) * 1.5)
 
 .f-bar__finial
   width: calc(var(--u) * 0.72)
   height: calc(var(--u) * 0.96)
   top: calc(var(--mid) - var(--u) * 0.48)
+.f-bar--champion .f-bar__finial
+  width: calc(var(--u) * 1.1)
+  height: calc(var(--u) * 1.57)
+  top: calc(var(--mid) - var(--u) * 0.78)
   &.is-left
     left: calc(var(--pad-l) - var(--u) * 0.62)
   &.is-right
     right: calc(var(--pad-r) - var(--u) * 0.62)
     transform: scaleX(-1)
 .f-bar--hero .f-bar__finial, .f-bar--mana .f-bar__finial
-  width: calc(var(--u) * 0.6)
-  height: calc(var(--u) * 0.8)
-  top: calc(var(--mid) - var(--u) * 0.4)
+  width: calc(var(--u) * 1.1)
+  height: calc(var(--u) * 1.57)
+  top: calc(var(--mid) - var(--u) * 0.78)
   &.is-right
-    right: calc(var(--pad-r) - var(--u) * 0.5)
+    right: calc(var(--pad-r) - var(--u) * 0.45)
+    transform: scaleX(-1)
 
 .f-bar__cap
   left: 0
@@ -580,8 +592,8 @@ const phaseMarks = computed(() => (props.marks ?? []).filter(m => m > 0.01 && m 
   top: calc(var(--mid) - var(--u) * 0.8)
 
 // ── A painted frame ──────────────────────────────────────────────────────────
-// 512 × 128, the well's window 384 × 32 in the middle: the 64 px caps keep
-// their shape (two bar-heights wide), the middle stretches.
+// The frame is the file: a 4:1 strip, 512 × 128, the well's window 384 × 32 (12:1) in
+// the middle. The 64 px caps keep their shape (two bar-heights wide), the middle stretches.
 .has-art
   --bz: 0px
   --pad-l: calc(var(--u) * 2)
@@ -599,19 +611,46 @@ const phaseMarks = computed(() => (props.marks ?? []).filter(m => m > 0.01 && m 
   right: 0
   top: calc(var(--pad-t) - var(--u) * 1.5)
   height: calc(var(--u) * 4)
-  box-sizing: border-box
-  border-style: solid
-  border-width: 0 calc(var(--u) * 2)
-  border-image-slice: 0 64 fill
-  border-image-width: 0 calc(var(--u) * 2)
-  border-image-repeat: stretch
+  display: flex
   pointer-events: none
+  // Five slices of the strip (16 bar-heights wide at its own height): the 12.5 % caps
+  // and the middle 30 % (35 %..65 %, where the crest or crown stands) are drawn at their
+  // own size, the two plain stretches of rim between them take up the rest of the bar's
+  // length. A bar wider than 16 heights then grows by its rim, and the ornament keeps its shape.
+  i
+    display: block
+    flex: none
+    height: 100%
+    background-image: var(--art)
+    background-repeat: no-repeat
+    background-size: calc(var(--u) * 16) 100%
+  .is-cap-l, .is-cap-r
+    width: calc(var(--u) * 2)
+  .is-cap-r
+    background-position: 100% 0
+  .is-mid
+    width: calc(var(--u) * 4.8)
+    background-position: calc(var(--u) * -5.6) 0
+  .is-rim-l, .is-rim-r
+    flex: 1 1 0
+    min-width: 0
+    // 22.5 % of the strip stretched over the rim's own length.
+    background-size: 444.444% 100%
+  .is-rim-l
+    background-position: 16.129% 0
+  .is-rim-r
+    background-position: 83.871% 0
 
 @keyframes fbar-low
   from
     opacity: 0
   to
     opacity: 0.42
+@keyframes fbar-gem
+  from
+    opacity: 0.12
+  to
+    opacity: 0.5
 @keyframes fbar-shine
   0%, 55%
     transform: translateX(-100%)
@@ -619,7 +658,7 @@ const phaseMarks = computed(() => (props.marks ?? []).filter(m => m > 0.01 && m 
     transform: translateX(100%)
 
 @media (prefers-reduced-motion: reduce)
-  .is-low .f-bar__fill::after, .f-bar--boss .f-bar__fill::before
+  .is-low .f-bar__fill::after, .f-bar--boss .f-bar__fill::before, .f-bar__orn :deep(.g-glow)
     animation: none
   .f-bar__ghost
     transition: none

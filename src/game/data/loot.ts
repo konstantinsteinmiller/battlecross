@@ -65,8 +65,8 @@ export interface ZoneLoot {
 export const POTION_BELT_MAX = 5
 /** A health potion heals this share of the hero's health. */
 export const POTION_HEAL = 0.45
-/** A mana potion restores this share of the hero's mana. */
-export const MANA_POTION = 0.45
+/** A mana potion refills the hero's mana bar completely (#129). */
+export const MANA_POTION = 1
 /** What a mana potion is worth when the stock is already full. */
 export const manaPotionGold = (level: number): number => 8 + level * 3
 

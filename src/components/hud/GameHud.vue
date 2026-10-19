@@ -2,12 +2,12 @@
   div.hud(:class="[`hud--${hud.device}`, `hud--${flow.screen}`, { 'hud--talk': flow.talk }]")
     FloatLayer
     //- The townspeople's markers, and the "Talk" prompt on the one in reach.
-    NpcPins(v-if="flow.screen === 'town'")
+    NpcPins(v-if="flow.screen === 'town' || flow.screen === 'zone'")
     //- What two chatting townsfolk say as the hero passes them.
     OverheardLayer(v-if="flow.screen === 'town'")
     //- What a boss shouts at the big beats of its fight.
     BossBarkLayer(v-if="flow.screen === 'zone'")
-    CoachLayer(v-if="(flow.screen === 'zone' || flow.screen === 'town') && !flow.modal && !flow.talk")
+    CoachLayer(v-if="(flow.screen === 'zone' || flow.screen === 'town') && !flow.modal && !flow.talk && !isAnyModalOpen")
     //- The colosseum's announcement: the wave, the next prize, a milestone (#117).
     ArenaBanner(v-if="flow.screen === 'zone' && flow.node === 'arena' && !flow.modal")
     //- The "Open" prompt on the chest in reach.
@@ -17,6 +17,8 @@
     div.hud__top
       div.hud__tl
         HeroFrame
+        //- Where he is, and how far the clearing has come.
+        ZoneBadge(v-if="flow.screen === 'zone' || flow.screen === 'town'")
         //- After the finale falls: how the hero goes home, under his frame
         //- (roadmap #80: out of the field he still explores and fights in).
         LeaveButton(v-if="flow.screen === 'zone'")
@@ -47,16 +49,21 @@
 import { hud } from '@/game/state/hud'
 import { flow } from '@/game/flow'
 import { recallHere } from '@/game/coach/onboarding'
+import { defineAsyncComponent } from 'vue'
+import { SCREEN_CHUNKS } from '@/components/screens/chunks'
 import NpcPins from '@/components/dialog/NpcPins.vue'
-import OverheardLayer from '@/components/dialog/OverheardLayer.vue'
 import BossBarkLayer from './BossBarkLayer.vue'
 import HeroFrame from './HeroFrame.vue'
+import ZoneBadge from './ZoneBadge.vue'
 import TopStatus from './TopStatus.vue'
 import HudMenu from './HudMenu.vue'
 import SkillBar from './SkillBar.vue'
 import TouchStick from './TouchStick.vue'
 import FloatLayer from './FloatLayer.vue'
 import CoachLayer from './CoachLayer.vue'
+import { isAnyModalOpen } from '@/use/useModalState'
+// Town-only, and it reads the town's life: a chunk of its own (roadmap #142).
+const OverheardLayer = defineAsyncComponent(SCREEN_CHUNKS.overheard)
 import ChestPrompt from './ChestPrompt.vue'
 import ArenaBanner from './ArenaBanner.vue'
 import BoardPrompt from './BoardPrompt.vue'
@@ -76,7 +83,7 @@ const help = (): void => {
 
 <style scoped lang="sass">
 .hud
-  --pad: clamp(0.5rem, 2.2vmin, 1rem)
+  --pad: calc(clamp(0.5rem, 2.2vmin, 1rem) * var(--hud-s, 1))
   position: absolute
   inset: 0
   pointer-events: none
@@ -92,7 +99,7 @@ const help = (): void => {
   grid-template-columns: auto minmax(0, 1fr) auto
   grid-template-areas: "tl tc tr"
   align-items: start
-  gap: clamp(0.3rem, 1.4vmin, 0.8rem)
+  gap: calc(clamp(0.3rem, 1.4vmin, 0.8rem) * var(--hud-s, 1))
 .hud__tl
   grid-area: tl
   position: relative
@@ -109,11 +116,11 @@ const help = (): void => {
     padding-top: 0
 .hud__bl, .hud__br
   position: absolute
-  bottom: calc(env(safe-area-inset-bottom, 0px) + var(--pad) + clamp(0.4rem, 3vmin, 1.4rem))
+  bottom: calc(env(safe-area-inset-bottom, 0px) + var(--pad) + calc(clamp(0.4rem, 3vmin, 1.4rem) * var(--hud-s, 1)))
 .hud__bl
-  left: calc(env(safe-area-inset-left, 0px) + var(--pad) + clamp(0.3rem, 2.4vmin, 1.4rem))
+  left: calc(env(safe-area-inset-left, 0px) + var(--pad) + calc(clamp(0.3rem, 2.4vmin, 1.4rem) * var(--hud-s, 1)))
 .hud__br
-  right: calc(env(safe-area-inset-right, 0px) + var(--pad) + clamp(0.1rem, 1.2vmin, 0.8rem))
+  right: calc(env(safe-area-inset-right, 0px) + var(--pad) + calc(clamp(0.1rem, 1.2vmin, 0.8rem) * var(--hud-s, 1)))
 // Mouse and keys: the skills sit bottom centre, in key order.
 .hud--mouse.hud--zone .hud__br
   right: auto

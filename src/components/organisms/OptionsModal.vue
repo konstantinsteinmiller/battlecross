@@ -13,6 +13,9 @@ import { hapticsAvailable, hapticsEnabled, setHapticsEnabled } from '@/use/useHa
 import { touchFirst } from '@/game/engine/input'
 import { ACTIONS, bindKey, bindingsChanged, isBindable, primaryCode, resetBindings, type Action } from '@/game/engine/keyBindings'
 import { keyboard, keyLabel, LAYOUTS, setAutoLayout, setManualLayout, type Layout } from '@/game/engine/keyLabels'
+import { resetSamsungFixCheck, samsungFixOffered, samsungFixOn, setSamsungFixChoice } from '@/use/useSamsungFix'
+import { INTRO_ENABLED } from '@/game/intro/state'
+import { flow } from '@/game/flow'
 
 defineProps<{
   isOpen: boolean
@@ -20,6 +23,8 @@ defineProps<{
 
 const emit = defineEmits<{
   (e: 'close'): void
+  /** "Watch the intro" (#130): the scene plays it over the place it is in. */
+  (e: 'intro'): void
 }>()
 
 // Global scope so the Options UI strings resolve from the shared locale
@@ -29,7 +34,6 @@ const appI18n: any = (window as any).__i18n
 
 const {
   setSettingValue,
-  userLanguage,
   userDifficulty,
   userSoundVolume,
   userMusicVolume,
@@ -48,13 +52,8 @@ const chooseLanguage = (code: string): void => {
   else locale.value = code
 }
 
-watch(userLanguage, async (newValue: string) => {
-  if (appI18n) {
-    await setI18nLocale(appI18n, newValue)
-  } else {
-    locale.value = newValue
-  }
-})
+// A stored language changing mid-session is applied by the scene
+// (`GameScene.vue`): this window is only mounted once first opened.
 
 const isMobile = computed(() => {
   return typeof window !== 'undefined' && ('ontouchstart' in window || navigator.maxTouchPoints > 0)
@@ -111,6 +110,19 @@ const hapticsList = computed(() => [
   { value: 'on', label: t('options.on') },
   { value: 'off', label: t('options.off') }
 ])
+
+// ─── Samsung dark-mode colour fix ───────────────────────────────────────────
+//
+// Offered on Samsung Internet only (`samsungFixOffered`): its forced dark mode recolours the menus and no script
+// can see it, so the player decides. The same on/off select as the other toggles; "run the check again" clears the
+// stored answer and the two-squares card returns at the next calm moment, so this window closes first.
+// The intro (#130), again: over a field or a town (the map has no scene to borrow).
+const canReplayIntro = computed(() => INTRO_ENABLED && flow.screen !== 'map')
+
+const rerunColourCheck = (): void => {
+  resetSamsungFixCheck()
+  emit('close')
+}
 
 // ─── Controls: keyboard layout + key rebinding ──────────────────────────────
 //
@@ -179,6 +191,16 @@ onUnmounted(stopCapture)
             :model-value="userMusicTrack"
             @update:model-value="setSettingValue('musicTrack', $event)"
           )
+        div(v-if="samsungFixOffered" class="z-[1] flex flex-col gap-1")
+          FSelect(
+            :label="t('samsungFix.option')"
+            :options="hapticsList"
+            :model-value="samsungFixOn ? 'on' : 'off'"
+            @update:model-value="setSamsungFixChoice($event === 'on' ? 'on' : 'off')"
+          )
+          p.opt-hint {{ t('samsungFix.optionHint') }}
+          button.reset-keys.opt-recheck(type="button" @click="rerunColourCheck") {{ t('samsungFix.recheck') }}
+        button.reset-keys.opt-recheck(v-if="canReplayIntro" type="button" data-intro-replay @click="emit('intro')") {{ t('intro.replay') }}
 
     div(v-else-if="currentTab === 'gameplay'").flex.flex-col.gap-2.p-2
       div(class="z-[20] flex flex-col gap-1")
@@ -316,6 +338,10 @@ onUnmounted(stopCapture)
     +cel.tone('off')
     opacity: 0.7
     cursor: default
+.opt-recheck
+  align-self: flex-start
+  min-height: 44px
+  padding: 0.4rem 1rem
 @keyframes key-wait
   50%
     transform: scale(1.08)

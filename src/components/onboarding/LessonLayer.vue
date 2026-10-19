@@ -68,6 +68,7 @@ import ItemIcon from '@/components/art/ItemIcon.vue'
 import SkillIcon from '@/components/art/SkillIcon.vue'
 import GameIcon from '@/components/icons/GameIcon.vue'
 import NudgeLayer from '@/components/hud/NudgeLayer.vue'
+import { isAnyModalOpen } from '@/use/useModalState'
 import { ICON_ART } from '@/game/assets/overrides'
 import { MARKS } from '@/components/icons/marks'
 
@@ -121,11 +122,22 @@ const clippers = (el: HTMLElement): HTMLElement[] => {
   }
   return list
 }
+/** Behind an open window: a ring or hand over a thing a modal covers drew ON
+ *  TOP of the modal (the layer sits above modals so it can teach inside them).
+ *  Only things inside the topmost open modal may be pointed at. */
+const coveredByModal = (el: HTMLElement): boolean => {
+  if (!isAnyModalOpen.value) return false
+  const modals = document.querySelectorAll<HTMLElement>('.f-modal')
+  const top = modals[modals.length - 1]
+  return !!top && !top.contains(el)
+}
+
 /** Seen, and not scrolled out of the box it lives in: its middle shows. A ring
  *  round a map node scrolled out of the map's window hung over the buttons
  *  below it (roadmap #82). */
 const shown = (el: HTMLElement, r: DOMRect): boolean => {
   if (!onScreen(r)) return false
+  if (coveredByModal(el)) return false
   const x = r.left + r.width / 2
   const y = r.top + r.height / 2
   for (const p of clippers(el)) {
@@ -225,7 +237,7 @@ const draw = (step: Step | null): void => {
   if (step.kind === 'tap') {
     const el = pick(step.at, step.last)
     const r = el?.getBoundingClientRect() ?? null
-    if (!el || !r || !shown(el, r)) { if (el) bringIntoView(el); hide(); return }
+    if (!el || !r || !shown(el, r)) { if (el && !coveredByModal(el)) bringIntoView(el); hide(); return }
     if (r.top < 0 || r.bottom > innerHeight || r.left < 0 || r.right > innerWidth) bringIntoView(el)
     // Every match breathes (the six "+"), the first is tapped.
     if (step.rings) {
@@ -249,7 +261,7 @@ const draw = (step: Step | null): void => {
   const b = pick(step.to)
   const ra = a?.getBoundingClientRect() ?? null
   const rb = b?.getBoundingClientRect() ?? null
-  if (!a || !b || !ra || !rb || !shown(a, ra) || !shown(b, rb)) { if (a) bringIntoView(a); hide(); return }
+  if (!a || !b || !ra || !rb || !shown(a, ra) || !shown(b, rb)) { if (a && !coveredByModal(a)) bringIntoView(a); hide(); return }
   placeRing(rings[0]!, b, rb)
   placeRing(rings[1]!, a, ra, true)
   for (let i = 2; i < RING_POOL; i++) placeRing(rings[i]!, null, null)
@@ -327,7 +339,7 @@ onUnmounted(() => {
 
 <style scoped lang="sass">
 .lessons
-  --g: clamp(3rem, 13vmin, 4.75rem)
+  --g: calc(clamp(3rem, 13vmin, 4.75rem) * var(--hud-s, 1))
   position: fixed
   inset: 0
   z-index: calc(var(--bc-z-modal) + 5)
@@ -469,8 +481,8 @@ onUnmounted(() => {
   top: calc(var(--g) * 0.98)
   i
     display: block
-    width: clamp(0.5rem, 2vmin, 0.7rem)
-    height: clamp(0.5rem, 2vmin, 0.7rem)
+    width: calc(clamp(0.5rem, 2vmin, 0.7rem) * var(--hud-s, 1))
+    height: calc(clamp(0.5rem, 2vmin, 0.7rem) * var(--hud-s, 1))
     border-radius: 50%
     border: 2px solid #0f1a30
     background: rgba(255, 255, 255, 0.6)

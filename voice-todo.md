@@ -4,9 +4,9 @@ Generated from data/voice-manifest.json, the voice files and
 vo-src/shipped.json by `pnpm voice:script`; every `pnpm voice:gen` run
 rewrites it, and a test fails when it is stale. Do not edit by hand.
 
-- **Files:** `public/audio/voice/en/<id>.ogg`. Every language plays the
-  English recording under its own subtitle; a line with no file is
-  text-paced.
+- **Files:** `public/audio/voice/<lang>/<id>.ogg`. A language with
+  recordings plays only its own (a line with no file is text-paced); a
+  language with none (id, vi) plays the English ones under its subtitle.
 - **Stale** means the line's text changed after it was voiced: the next
   `voice:gen` run voices it again.
 - **Make the missing and stale ones:** `pnpm voice:manifest`, `pnpm
@@ -16,23 +16,24 @@ rewrites it, and a test fails when it is stale. Do not edit by hand.
 
 | Voice | Lines | EN voiced |
 | --- | --- | --- |
-| hero | 202 | 202 |
+| hero | 204 | 204 |
 | freedPeddler | 9 | 9 |
 | lightDisciple | 14 | 14 |
-| sunfordSmith | 24 | 24 |
+| sfShadow | 17 | 17 |
+| sunfordSmith | 25 | 25 |
 | sunfordPeddler | 15 | 15 |
 | trainerAegis | 18 | 18 |
 | trainerPyro | 15 | 15 |
-| sfShadow | 12 | 12 |
 | sfGeo | 12 | 12 |
 | elderMara | 27 | 27 |
-| sunfordHealer | 12 | 12 |
+| sunfordHealer | 14 | 14 |
 | goblinTrader | 11 | 11 |
 | sunfordGambler | 10 | 10 |
+| sunfordCups | 10 | 10 |
 | freedFarmers | 12 | 12 |
 | windDisciple | 14 | 14 |
 | captainHale | 18 | 18 |
-| oakArmorer | 30 | 30 |
+| oakArmorer | 32 | 32 |
 | oakWeapons | 10 | 10 |
 | trainerShadow | 15 | 15 |
 | trainerSovereign | 29 | 29 |
@@ -43,10 +44,10 @@ rewrites it, and a test fails when it is stale. Do not edit by hand.
 | oakGambler | 10 | 10 |
 | frostDisciple | 14 | 14 |
 | forgemaster | 23 | 23 |
-| ironWeapons | 15 | 15 |
+| ironWeapons | 16 | 16 |
 | ironAetherWorks | 8 | 8 |
-| ironArmor | 13 | 13 |
-| ironOrderArmor | 15 | 15 |
+| ironArmor | 14 | 14 |
+| ironOrderArmor | 16 | 16 |
 | trainerGeo | 14 | 14 |
 | trainerAether | 16 | 16 |
 | ironHealer | 12 | 12 |
@@ -58,7 +59,7 @@ rewrites it, and a test fails when it is stale. Do not edit by hand.
 | sbGambler | 10 | 10 |
 | sbCollector | 13 | 13 |
 | sbFence | 13 | 13 |
-| sbArmorer | 14 | 14 |
+| sbArmorer | 15 | 15 |
 | sbWeapons | 9 | 9 |
 | sbJeweler | 9 | 9 |
 | sbMasterAegis | 13 | 13 |
@@ -89,15 +90,38 @@ rewrites it, and a test fails when it is stale. Do not edit by hand.
 | smalltalkSilverbridge | 10 | 10 |
 | smalltalkKids | 6 | 6 |
 | kidFriend | 4 | 4 |
+| banditChief | 1 | 1 |
 | frostJarl | 2 | 2 |
-| heroine | 202 | 202 |
-| **All** | **1388** | **1388** |
+| chronicler | 5 | 5 |
+| heroine | 204 | 204 |
+| **All** | **1422** | **1422** |
+
+## Other languages: the core lines only
+
+English is voiced in full. Every other voiced language ships only the **core**: 196 of 1422 lines (60 of them the girl hero's `__f` twins, limit 300), set in data/voice-core.json by id pattern plus an explicit list. Core: the hero's "Will you teach me?" and goodbye lines, the main quest decisions with their boss monologues (Goblin King, Krag, the Colossus core, the oracle, the dragon, the Arch-Demon's throne), the five endings, and the story beats of Elder Mara, Captain Hale, Mayor Brenna, Madam Ash and the exiled Sovereign. Not core: smalltalk, shops, gamblers, barks, trainer and master Q&A, trade and heal chatter. A non-core line is a silent bubble; a test fails when a language folder holds a file outside the core.
+Make them with `voice:gen --engine chatterbox --lang <code>` (then `--retry 2`); `voice:collect` builds jobs for the core lines only.
+Indonesian (id) and Vietnamese (vi) are not voiced: Chatterbox cannot speak them. pt-PT keeps English too.
+
+| Language | Core voiced | Core lines |
+| --- | --- | --- |
+| de | 196 | 196 |
+| fr | 188 | 196 |
+| es | 196 | 196 |
+| ru | 195 | 196 |
+| ja | 191 | 196 |
+| pt | 196 | 196 |
+| zh | 194 | 196 |
+
+## Parked takes (decision 2026-10-18)
+
+About 1,400 files per language is too large for CrazyGames (50 MB), so only English ships complete and the others ship the core. The earlier full Chatterbox runs are kept out of the build in `vo-src/parked/<lang>/` (git-ignored): German has 1,366 of 1,410 lines (the girl hero's short lines with invented class names, such as the Aether and Chrono masters, still fail the Whisper check), French about 1,000, and ja, zh, es, pt and ru only pilot files. Only the core takes were moved back to `public/audio/voice/<lang>/`.
+To widen a language beyond the core, change data/voice-core.json and settle the size budget or a per-portal language filter first. A half-voiced core is silent on its missing lines, so finish it before shipping.
 
 ## To do (0)
 
 Nothing: every line has its recording.
 
-## Every line (1388)
+## Every line (1422)
 
 | File | Who | Scene | English | EN |
 | --- | --- | --- | --- | --- |
@@ -128,6 +152,11 @@ Nothing: every line has its recording.
 | `dlg.lightDisciple.who.2` | Sister Aurelle (lightDisciple) | lightDisciple | Sunford is bright and quiet. I needed both. | chatterbox |
 | `dlg.lightDisciple.trainBack.1` | Sister Aurelle (lightDisciple) | lightDisciple | Go gently. And let them see you coming. | chatterbox |
 | `dlg.lightDisciple.bye.1` | Sister Aurelle (lightDisciple) | lightDisciple | Walk in the light. | chatterbox |
+| `dlg.sfShadowRoad.hello.1` | Nettle Quickhand (sfShadow) | sfShadowRoad | Teleports. Interested? | chatterbox |
+| `dlg.sfShadowRoad.again.1` | Nettle Quickhand (sfShadow) | sfShadowRoad | Back for another trick? | chatterbox |
+| `dlg.sfShadowRoad.train.1` | Nettle Quickhand (sfShadow) | sfShadowRoad | Watch closely. One step, and you're somewhere else. | chatterbox |
+| `dlg.sfShadowRoad.trainBack.1` | Nettle Quickhand (sfShadow) | sfShadowRoad | Good. Now go be somewhere else. | chatterbox |
+| `dlg.sfShadowRoad.bye.1` | Nettle Quickhand (sfShadow) | sfShadowRoad | Don't get caught. | chatterbox |
 | `dlg.sunfordSmith.hello.1` | Bram the Smith (sunfordSmith) | sunfordSmith | Haven't seen you before. You're the one who cleared the road? | chatterbox |
 | `dlg.sunfordSmith.hello.2` | Bram the Smith (sunfordSmith) | sunfordSmith | Bram. I keep the forge. If you need a blade, come to me. | chatterbox |
 | `dlg.sunfordSmith.kingDead.1` | Bram the Smith (sunfordSmith) | sunfordSmith | Heard the Goblin King's dead. Can't say I'll miss him. | chatterbox |
@@ -137,7 +166,7 @@ Nothing: every line has its recording.
 | `dlg.sunfordSmith.again.1` | Bram the Smith (sunfordSmith) | sunfordSmith | Back again. What can I do for you? | chatterbox |
 | `dlg.sunfordSmith.trade.1` | Bram the Smith (sunfordSmith) | sunfordSmith | Plain steel, fair prices. Have a look. | chatterbox |
 | `dlg.hero.ore` | The hero (hero) | hero | I've got some ore to sell. | chatterbox |
-| `dlg.sunfordSmith.ore.1` | Bram the Smith (sunfordSmith) | sunfordSmith | Nuggets, eh? I'll take the lot. Fair weight, fair coin. | chatterbox |
+| `dlg.sunfordSmith.ore.1` | Bram the Smith (sunfordSmith) | sunfordSmith | Ore, eh? Show me. I pay by the nugget, fair weight. | chatterbox |
 | `dlg.hero.learnSmith` | The hero (hero) | hero | Could you teach me to smith? | chatterbox |
 | `dlg.sunfordSmith.learnSmith.1` | Bram the Smith (sunfordSmith) | sunfordSmith | Smithing? Hm. Hold the hammer like this, not like a club. | chatterbox |
 | `dlg.sunfordSmith.learnSmith.2` | Bram the Smith (sunfordSmith) | sunfordSmith | Strike when the metal glows brightest. Miss, and it's scrap. Go on. | chatterbox |
@@ -156,6 +185,7 @@ Nothing: every line has its recording.
 | `dlg.sunfordSmith.rumor.north.1` | Bram the Smith (sunfordSmith) | sunfordSmith | Ironhold steel's coming down the road again. Better than mine, if I'm honest. | chatterbox |
 | `dlg.sunfordSmith.shopBack.1` | Bram the Smith (sunfordSmith) | sunfordSmith | Look after it and it'll look after you. | chatterbox |
 | `dlg.sunfordSmith.forgeBack.1` | Bram the Smith (sunfordSmith) | sunfordSmith | Not bad. Not good either. Keep at it. | chatterbox |
+| `dlg.sunfordSmith.sellBack.1` | Bram the Smith (sunfordSmith) | sunfordSmith | Fair weight, fair coin. Bring more when you find it. | chatterbox |
 | `dlg.sunfordSmith.bye.1` | Bram the Smith (sunfordSmith) | sunfordSmith | Mind how you go. | chatterbox |
 | `dlg.sunfordPeddler.hello.1` | Tilly the Peddler (sunfordPeddler) | sunfordPeddler | Oh, hello! Are you buying, or just looking? Both are fine. | chatterbox |
 | `dlg.sunfordPeddler.hello.2` | Tilly the Peddler (sunfordPeddler) | sunfordPeddler | I'm Tilly. Rings, charms, bits and pieces from all over. | chatterbox |
@@ -250,7 +280,7 @@ Nothing: every line has its recording.
 | `dlg.elderMara.again.1` | Elder Mara (elderMara) | elderMara | Sit for a moment. The road will still be there. | chatterbox |
 | `dlg.elderMara.map.say` | The hero (hero) | elderMara | I found a piece of an old map. | chatterbox |
 | `dlg.elderMara.map.1` | Elder Mara (elderMara) | elderMara | Captain Rook's map! He tore it up and hid the pieces before the goblins caught him. | chatterbox |
-| `dlg.elderMara.map.2` | Elder Mara (elderMara) | elderMara | Find all six and the X shows the way: somewhere in the Ashen Crags. Dig there, and the gold is yours. | chatterbox |
+| `dlg.elderMara.map.2` | Elder Mara (elderMara) | elderMara | Find six of them, though a few more are scattered about, and the X shows the way: somewhere in the Ashen Crags. Dig there, and the gold is yours. | chatterbox |
 | `dlg.elderMara.reward.say` | The hero (hero) | elderMara | Someone said you wanted to see me? | chatterbox |
 | `dlg.elderMara.reward.1` | Elder Mara (elderMara) | elderMara | You held the road when our militia couldn't. The town put a little together. | chatterbox |
 | `dlg.elderMara.reward.2` | Elder Mara (elderMara) | elderMara | It isn't much. It's what we could spare. | chatterbox |
@@ -280,6 +310,8 @@ Nothing: every line has its recording.
 | `dlg.sunfordHealer.heal.1` | Sister Lune (sunfordHealer) | sunfordHealer | Sit, rest a while. I'll fill your flasks before you go. | chatterbox |
 | `dlg.hero.mana` | The hero (hero) | hero | Do you have anything for mana? | chatterbox |
 | `dlg.sunfordHealer.mana.1` | Sister Lune (sunfordHealer) | sunfordHealer | This one's bitter. Drink it when your spells run dry. | chatterbox |
+| `dlg.hero.brew` | The hero (hero) | hero | Could you brew me something? | chatterbox |
+| `dlg.sunfordHealer.brew.1` | Sister Lune (sunfordHealer) | sunfordHealer | Let me see your herbs. I'll mix something that tastes better than my mana tonic. | chatterbox |
 | `dlg.sunfordHealer.potions.say` | The hero (hero) | sunfordHealer | How do the potions work? | chatterbox |
 | `dlg.sunfordHealer.potions.1` | Sister Lune (sunfordHealer) | sunfordHealer | You take a few flasks into every fight. Drink before you need to, not after. | chatterbox |
 | `dlg.sunfordHealer.potions.2` | Sister Lune (sunfordHealer) | sunfordHealer | If you want to carry more, I can sell you a bigger belt. | chatterbox |
@@ -287,6 +319,7 @@ Nothing: every line has its recording.
 | `dlg.sunfordHealer.rumor.spiders.1` | Sister Lune (sunfordHealer) | sunfordHealer | I've treated three spider bites from the Woods this week. Watch your step there. | chatterbox |
 | `dlg.sunfordHealer.rumor.burns.1` | Sister Lune (sunfordHealer) | sunfordHealer | Soldiers keep coming down from the north with burns. The Ashen Crags, they say. | chatterbox |
 | `dlg.sunfordHealer.healBack.1` | Sister Lune (sunfordHealer) | sunfordHealer | Keep your belt full and your head down. | chatterbox |
+| `dlg.sunfordHealer.brewBack.1` | Sister Lune (sunfordHealer) | sunfordHealer | Careful, they're hot. Don't drink them all at once. | chatterbox |
 | `dlg.sunfordHealer.bye.1` | Sister Lune (sunfordHealer) | sunfordHealer | Look after yourself out there. | chatterbox |
 | `dlg.goblinTrader.hello.1` | Grik the Trader (goblinTrader) | goblinTrader | You are the one who made the pact. My king says you are welcome here. | chatterbox |
 | `dlg.goblinTrader.hello.2` | Grik the Trader (goblinTrader) | goblinTrader | I am Grik. I sell what goblins make. Good work, fair price. | chatterbox |
@@ -314,6 +347,18 @@ Nothing: every line has its recording.
 | `dlg.sunfordGambler.luck.1` | Dob Tumbler (sunfordGambler) | sunfordGambler | All the time! But I always go home with a new pair of boots. | chatterbox |
 | `dlg.sunfordGambler.playBack.1` | Dob Tumbler (sunfordGambler) | sunfordGambler | Good game! That stuff of yours will look lovely on my shelf. | chatterbox |
 | `dlg.sunfordGambler.bye.1` | Dob Tumbler (sunfordGambler) | sunfordGambler | Bring more junk! Junk is my favourite. | chatterbox |
+| `dlg.sunfordCups.hello.1` | Nell Nimblefingers (sunfordCups) | sunfordCups | Step right up! Three cups, one gem, and your first round is on the house! | chatterbox |
+| `dlg.sunfordCups.hello.2` | Nell Nimblefingers (sunfordCups) | sunfordCups | They call me Nell Nimblefingers. Nobody has fooled my hands yet. Want to try? | chatterbox |
+| `dlg.sunfordCups.again.1` | Nell Nimblefingers (sunfordCups) | sunfordCups | Back for more? Keep your eyes sharp! | chatterbox |
+| `dlg.sunfordCups.play.1` | Nell Nimblefingers (sunfordCups) | sunfordCups | Eyes on the gem, friend. Don't blink! | chatterbox |
+| `dlg.sunfordCups.rules.say` | The hero (hero) | sunfordCups | How does it work? | chatterbox |
+| `dlg.sunfordCups.rules.1` | Nell Nimblefingers (sunfordCups) | sunfordCups | I hide the gem under a cup and shuffle. You point at the cup that hides it. | chatterbox |
+| `dlg.sunfordCups.rules.2` | Nell Nimblefingers (sunfordCups) | sunfordCups | Every win in a row pays more. Three wins bring a prize, five bring a treasure. The first round each day is free. | chatterbox |
+| `dlg.sunfordCups.who.1` | Nell Nimblefingers (sunfordCups) | sunfordCups | I learned to shuffle before I could walk. Mum says that explains a lot. | chatterbox |
+| `dlg.sunfordCups.luck.say` | The hero (hero) | sunfordCups | Do you ever lose? | chatterbox |
+| `dlg.sunfordCups.luck.1` | Nell Nimblefingers (sunfordCups) | sunfordCups | Sometimes! Then I groan very loudly and the crowd feels sorry for me. | chatterbox |
+| `dlg.sunfordCups.playBack.1` | Nell Nimblefingers (sunfordCups) | sunfordCups | Great round! Come back tomorrow, the first one is always free. | chatterbox |
+| `dlg.sunfordCups.bye.1` | Nell Nimblefingers (sunfordCups) | sunfordCups | See you! Keep your eyes sharp out there. | chatterbox |
 | `dlg.freedFarmers.hello.1` | Jory Toller (freedFarmers) | freedFarmers | We'd be dead without you. Me and my boy both. Thank you. | chatterbox |
 | `dlg.freedFarmers.hello.2` | Jory Toller (freedFarmers) | freedFarmers | Jory Toller. We farm outside the walls now. Well, we try. | chatterbox |
 | `dlg.freedFarmers.again.1` | Jory Toller (freedFarmers) | freedFarmers | There's our hero. Come for a bite? | chatterbox |
@@ -369,7 +414,7 @@ Nothing: every line has its recording.
 | `dlg.oakArmorer.hello.2` | Odo the Armorer (oakArmorer) | oakArmorer | Odo. I make armour. Haven't slept much lately. | chatterbox |
 | `dlg.oakArmorer.again.1` | Odo the Armorer (oakArmorer) | oakArmorer | Still here. Still short of nearly everything. | chatterbox |
 | `dlg.oakArmorer.trade.1` | Odo the Armorer (oakArmorer) | oakArmorer | Half my stock went to the wall. Take what's left, if it fits. | chatterbox |
-| `dlg.oakArmorer.ore.1` | Odo the Armorer (oakArmorer) | oakArmorer | Raw ore! The armoury never has enough. Here's your pay. | chatterbox |
+| `dlg.oakArmorer.ore.1` | Odo the Armorer (oakArmorer) | oakArmorer | Raw ore! The armoury never has enough. Sell me what you can spare. | chatterbox |
 | `dlg.oakArmorer.learnSmith.1` | Odo the Armorer (oakArmorer) | oakArmorer | You want to learn the trade? Good. Oakhaven needs every hammer. | chatterbox |
 | `dlg.oakArmorer.learnSmith.2` | Odo the Armorer (oakArmorer) | oakArmorer | Watch the glow. Strike at its heart, three times, and the metal remembers. | chatterbox |
 | `dlg.oakArmorer.forge.1` | Odo the Armorer (oakArmorer) | oakArmorer | The anvil's yours. Make something that holds. | chatterbox |
@@ -379,13 +424,14 @@ Nothing: every line has its recording.
 | `dlg.oakArmorer.rumor.backRoom.1` | Odo the Armorer (oakArmorer) | oakArmorer | If the siege breaks, I'll open the back room. The good plate's in there. | chatterbox |
 | `dlg.oakArmorer.shopBack.1` | Odo the Armorer (oakArmorer) | oakArmorer | It'll hold. It's held so far. | chatterbox |
 | `dlg.oakArmorer.forgeBack.1` | Odo the Armorer (oakArmorer) | oakArmorer | Good steel. The walls thank you. | chatterbox |
+| `dlg.oakArmorer.sellBack.1` | Odo the Armorer (oakArmorer) | oakArmorer | Every nugget goes into the wall. Thank you. | chatterbox |
 | `dlg.oakArmorer.bye.1` | Odo the Armorer (oakArmorer) | oakArmorer | Keep your head down out there. | chatterbox |
 | `dlg.oakMasterArmorer.hello.1` | Master Odo (oakArmorer) | oakMasterArmorer | There you are! Come in. The back room's open, and it's open for you. | chatterbox |
 | `dlg.oakMasterArmorer.hello.2` | Master Odo (oakArmorer) | oakMasterArmorer | Master Odo, they call me now. Funny what a little peace does for business. | chatterbox |
 | `dlg.oakMasterArmorer.ending.1` | Master Odo (oakArmorer) | oakMasterArmorer | From our gate to the Dread Fortress. I tell everyone I fitted your armour. | chatterbox |
 | `dlg.oakMasterArmorer.again.1` | Master Odo (oakArmorer) | oakMasterArmorer | Good to see you. What'll it be today? | chatterbox |
 | `dlg.oakMasterArmorer.trade.1` | Master Odo (oakArmorer) | oakMasterArmorer | The good plate's out. You've more than earned a look at it. | chatterbox |
-| `dlg.oakMasterArmorer.ore.1` | Master Odo (oakArmorer) | oakMasterArmorer | More ore for the walls? Bless you. Here, take this. | chatterbox |
+| `dlg.oakMasterArmorer.ore.1` | Master Odo (oakArmorer) | oakMasterArmorer | More ore for the walls? I pay for every nugget you can spare. | chatterbox |
 | `dlg.oakMasterArmorer.learnSmith.1` | Master Odo (oakArmorer) | oakMasterArmorer | Since the siege I teach anyone who asks. Come, stand here. | chatterbox |
 | `dlg.oakMasterArmorer.learnSmith.2` | Master Odo (oakArmorer) | oakMasterArmorer | Three strikes, each in the heart of the glow. That's all the secret there is. | chatterbox |
 | `dlg.oakMasterArmorer.forge.1` | Master Odo (oakArmorer) | oakMasterArmorer | Fire's banked and waiting. Go ahead. | chatterbox |
@@ -396,6 +442,7 @@ Nothing: every line has its recording.
 | `dlg.oakMasterArmorer.rumor.tundra.1` | Master Odo (oakArmorer) | oakMasterArmorer | Best ore I ever worked came out of the tundra. The men who found it didn't go back. | chatterbox |
 | `dlg.oakMasterArmorer.shopBack.1` | Master Odo (oakArmorer) | oakMasterArmorer | If it doesn't sit right, bring it back. I'll fix it. | chatterbox |
 | `dlg.oakMasterArmorer.forgeBack.1` | Master Odo (oakArmorer) | oakMasterArmorer | Every strike makes you better. Come back anytime. | chatterbox |
+| `dlg.oakMasterArmorer.sellBack.1` | Master Odo (oakArmorer) | oakMasterArmorer | Bless you. That is more plate for the walls. | chatterbox |
 | `dlg.oakMasterArmorer.bye.1` | Master Odo (oakArmorer) | oakMasterArmorer | You're always welcome here. | chatterbox |
 | `dlg.oakWeapons.hello.1` | Senna Blades (oakWeapons) | oakWeapons | Looking or buying? Either's fine. Just don't touch the edges. | chatterbox |
 | `dlg.oakWeapons.hello.2` | Senna Blades (oakWeapons) | oakWeapons | Senna. I sell blades. What you do with them is your business. | chatterbox |
@@ -555,7 +602,7 @@ Nothing: every line has its recording.
 | `dlg.ironWeapons.dragon.1` | Hilda Hammerhand (ironWeapons) | ironWeapons | You killed the dragon? I hope it was with one of my blades. | chatterbox |
 | `dlg.ironWeapons.again.1` | Hilda Hammerhand (ironWeapons) | ironWeapons | Back for proper steel? | chatterbox |
 | `dlg.ironWeapons.trade.1` | Hilda Hammerhand (ironWeapons) | ironWeapons | Dwarf-forged. If one of these breaks, I'll want to know how. | chatterbox |
-| `dlg.ironWeapons.ore.1` | Hilda Hammerhand (ironWeapons) | ironWeapons | Good, honest metal. Ironhold always pays for that. | chatterbox |
+| `dlg.ironWeapons.ore.1` | Hilda Hammerhand (ironWeapons) | ironWeapons | Good, honest metal. Lay it out, I pay by the nugget. | chatterbox |
 | `dlg.ironWeapons.learnSmith.1` | Hilda Hammerhand (ironWeapons) | ironWeapons | A surface-dweller at the anvil? Well, everyone starts somewhere. | chatterbox |
 | `dlg.ironWeapons.learnSmith.2` | Hilda Hammerhand (ironWeapons) | ironWeapons | The glow tells you when. Your arm tells you how hard. Three strikes. | chatterbox |
 | `dlg.ironWeapons.forge.1` | Hilda Hammerhand (ironWeapons) | ironWeapons | Mind the sparks, and don't touch my good hammer. | chatterbox |
@@ -564,6 +611,7 @@ Nothing: every line has its recording.
 | `dlg.ironWeapons.rumor.arm.1` | Hilda Hammerhand (ironWeapons) | ironWeapons | A good blade does half the work. Your Strength has to do the rest. | chatterbox |
 | `dlg.ironWeapons.shopBack.1` | Hilda Hammerhand (ironWeapons) | ironWeapons | Bring it back blunt and I'll know you've used it well. | chatterbox |
 | `dlg.ironWeapons.forgeBack.1` | Hilda Hammerhand (ironWeapons) | ironWeapons | A dwarf would've done better. But not by much. | chatterbox |
+| `dlg.ironWeapons.sellBack.1` | Hilda Hammerhand (ironWeapons) | ironWeapons | Fair trade. Ironhold always pays for good metal. | chatterbox |
 | `dlg.ironWeapons.bye.1` | Hilda Hammerhand (ironWeapons) | ironWeapons | Strike hard. | chatterbox |
 | `dlg.ironAetherWorks.hello.1` | Tinker Voss (ironAetherWorks) | ironAetherWorks | Careful, that one's loaded. Most of them are, actually. | chatterbox |
 | `dlg.ironAetherWorks.hello.2` | Tinker Voss (ironAetherWorks) | ironAetherWorks | Tinker Voss. The Circle sent me to study the core. It's taught us so much. | chatterbox |
@@ -577,7 +625,7 @@ Nothing: every line has its recording.
 | `dlg.ironArmor.hello.1` | Garrun Ironside (ironArmor) | ironArmor | Garrun. Armour on the racks, rings in the tray. | chatterbox |
 | `dlg.ironArmor.again.1` | Garrun Ironside (ironArmor) | ironArmor | Back. What do you need? | chatterbox |
 | `dlg.ironArmor.trade.1` | Garrun Ironside (ironArmor) | ironArmor | That plate will turn a giant's club. Have a look. | chatterbox |
-| `dlg.ironArmor.ore.1` | Garrun Ironside (ironArmor) | ironArmor | Let me weigh it. Good. The coin's yours. | chatterbox |
+| `dlg.ironArmor.ore.1` | Garrun Ironside (ironArmor) | ironArmor | Let me weigh it. Pick what you will sell, I count the coin. | chatterbox |
 | `dlg.ironArmor.learnSmith.1` | Garrun Ironside (ironArmor) | ironArmor | Plate is patient work. I'll show you the basics. | chatterbox |
 | `dlg.ironArmor.learnSmith.2` | Garrun Ironside (ironArmor) | ironArmor | Heat, strike, turn. Three strikes, right in the glow. Then let it cool. | chatterbox |
 | `dlg.ironArmor.forge.1` | Garrun Ironside (ironArmor) | ironArmor | The forge is ready when you are. | chatterbox |
@@ -587,6 +635,7 @@ Nothing: every line has its recording.
 | `dlg.ironArmor.rumor.demons.1` | Garrun Ironside (ironArmor) | ironArmor | Demons up north. Fire and claws. I'd take the heavy plate. | chatterbox |
 | `dlg.ironArmor.shopBack.1` | Garrun Ironside (ironArmor) | ironArmor | Good choice. | chatterbox |
 | `dlg.ironArmor.forgeBack.1` | Garrun Ironside (ironArmor) | ironArmor | Let it cool before you wear it. | chatterbox |
+| `dlg.ironArmor.sellBack.1` | Garrun Ironside (ironArmor) | ironArmor | Weighed and paid. Good. | chatterbox |
 | `dlg.ironArmor.bye.1` | Garrun Ironside (ironArmor) | ironArmor | Take care. | chatterbox |
 | `dlg.ironOrderArmor.hello.1` | Order Quartermaster (ironOrderArmor) | ironOrderArmor | You're the one who destroyed the core. The Order remembers that. | chatterbox |
 | `dlg.ironOrderArmor.hello.2` | Order Quartermaster (ironOrderArmor) | ironOrderArmor | I'm the Order's quartermaster here. Our armouries are open to you. | chatterbox |
@@ -594,7 +643,7 @@ Nothing: every line has its recording.
 | `dlg.ironOrderArmor.foe.1` | Order Quartermaster (ironOrderArmor) | ironOrderArmor | The Order has you on a list. My orders say to sell to you anyway. I'll follow them. | chatterbox |
 | `dlg.ironOrderArmor.again.1` | Order Quartermaster (ironOrderArmor) | ironOrderArmor | What do you need? | chatterbox |
 | `dlg.ironOrderArmor.trade.1` | Order Quartermaster (ironOrderArmor) | ironOrderArmor | Take what you need. The Order looks after its own. | chatterbox |
-| `dlg.ironOrderArmor.ore.1` | Order Quartermaster (ironOrderArmor) | ironOrderArmor | The Order buys all ore for the war. Your payment. | chatterbox |
+| `dlg.ironOrderArmor.ore.1` | Order Quartermaster (ironOrderArmor) | ironOrderArmor | The Order buys ore for the war. Sell what you can spare. | chatterbox |
 | `dlg.ironOrderArmor.learnSmith.1` | Order Quartermaster (ironOrderArmor) | ironOrderArmor | The Order arms its friends. I will teach you. | chatterbox |
 | `dlg.ironOrderArmor.learnSmith.2` | Order Quartermaster (ironOrderArmor) | ironOrderArmor | Discipline at the anvil, as on the field. Three strikes, true to the glow. | chatterbox |
 | `dlg.ironOrderArmor.forge.1` | Order Quartermaster (ironOrderArmor) | ironOrderArmor | Use the Order's forge with honour. | chatterbox |
@@ -603,6 +652,7 @@ Nothing: every line has its recording.
 | `dlg.ironOrderArmor.rumor.throne.1` | Order Quartermaster (ironOrderArmor) | ironOrderArmor | The Order will want the throne in the Dread Fortress. It'll remember who helped. | chatterbox |
 | `dlg.ironOrderArmor.shopBack.1` | Order Quartermaster (ironOrderArmor) | ironOrderArmor | Look after it. It's Order property until you've bled in it. | chatterbox |
 | `dlg.ironOrderArmor.forgeBack.1` | Order Quartermaster (ironOrderArmor) | ironOrderArmor | Well forged. Serve well in it. | chatterbox |
+| `dlg.ironOrderArmor.sellBack.1` | Order Quartermaster (ironOrderArmor) | ironOrderArmor | Your payment is recorded. The Order thanks you. | chatterbox |
 | `dlg.ironOrderArmor.bye.1` | Order Quartermaster (ironOrderArmor) | ironOrderArmor | Carry on. | chatterbox |
 | `dlg.trainerGeo.hello.1` | Old Stonefoot (trainerGeo) | trainerGeo | Slow down. The mountain isn't going anywhere. | chatterbox |
 | `dlg.trainerGeo.hello.2` | Old Stonefoot (trainerGeo) | trainerGeo | They call me Old Stonefoot. I listen to the ground. Sometimes it answers. | chatterbox |
@@ -737,14 +787,13 @@ Nothing: every line has its recording.
 | `dlg.sbAlchemist.hello.1` | Odile Fernwhistle (sbAlchemist) | sbAlchemist | Oh! Mind the jars. That one bites. Well, it nibbles. | chatterbox |
 | `dlg.sbAlchemist.hello.2` | Odile Fernwhistle (sbAlchemist) | sbAlchemist | Odile Fernwhistle, alchemist. Bring me herbs and I'll bottle you a little courage. | chatterbox |
 | `dlg.sbAlchemist.again.1` | Odile Fernwhistle (sbAlchemist) | sbAlchemist | You're back! Did you bring me anything green? | chatterbox |
-| `dlg.hero.brew` | The hero (hero) | hero | Could you brew me something? | chatterbox |
 | `dlg.sbAlchemist.brew.1` | Odile Fernwhistle (sbAlchemist) | sbAlchemist | Let's see your pouch. Ooh, lovely. Pick what you want and I'll get the kettle on. | chatterbox |
 | `dlg.sbAlchemist.who.1` | Odile Fernwhistle (sbAlchemist) | sbAlchemist | I set my mum's garden on fire with a daisy. Nobody could explain it, so I had to learn. | chatterbox |
 | `dlg.sbAlchemist.herbs.say` | The hero (hero) | sbAlchemist | Where do I find herbs? | chatterbox |
 | `dlg.sbAlchemist.herbs.1` | Odile Fernwhistle (sbAlchemist) | sbAlchemist | Out in the wild, everywhere you fight. Just walk over a plant and it's yours. | chatterbox |
 | `dlg.sbAlchemist.herbs.2` | Odile Fernwhistle (sbAlchemist) | sbAlchemist | The rare ones are choosy. Moonbells open in the Whispering Woods; shadowthorn wants the dark places. | chatterbox |
 | `dlg.sbAlchemist.elixirs.say` | The hero (hero) | sbAlchemist | What do the elixirs do? | chatterbox |
-| `dlg.sbAlchemist.elixirs.1` | Odile Fernwhistle (sbAlchemist) | sbAlchemist | Each one makes you stronger in a fight for a whole minute. Harder hits, tougher skin, quicker feet. | chatterbox |
+| `dlg.sbAlchemist.elixirs.1` | Odile Fernwhistle (sbAlchemist) | sbAlchemist | Each one makes you stronger in a fight for a full 5 minutes. Harder hits, tougher skin, quicker feet. | chatterbox |
 | `dlg.sbAlchemist.elixirs.2` | Odile Fernwhistle (sbAlchemist) | sbAlchemist | They sit in your third flask. Tap the little arrow to swap which one you drink. | chatterbox |
 | `dlg.sbAlchemist.brewBack.1` | Odile Fernwhistle (sbAlchemist) | sbAlchemist | Careful with those, they're still warm. Come back when your pouch is full! | chatterbox |
 | `dlg.sbAlchemist.bye.1` | Odile Fernwhistle (sbAlchemist) | sbAlchemist | Bye now! If you see a purple flower, pick two. One for me. | chatterbox |
@@ -796,7 +845,7 @@ Nothing: every line has its recording.
 | `dlg.sbArmorer.hello.2` | Greta Ironvein (sbArmorer) | sbArmorer | Greta Ironvein. I make armour that comes home with its owner. Every time, so far. | chatterbox |
 | `dlg.sbArmorer.again.1` | Greta Ironvein (sbArmorer) | sbArmorer | You again! Still in one piece. My favourite kind of customer. | chatterbox |
 | `dlg.sbArmorer.trade.1` | Greta Ironvein (sbArmorer) | sbArmorer | Go on, knock on it. Hard as you like. | chatterbox |
-| `dlg.sbArmorer.ore.1` | Greta Ironvein (sbArmorer) | sbArmorer | Lovely ore. Silverbridge always pays a fair price. | chatterbox |
+| `dlg.sbArmorer.ore.1` | Greta Ironvein (sbArmorer) | sbArmorer | Lovely ore. Show me what you will sell, I pay per nugget. | chatterbox |
 | `dlg.sbArmorer.learnSmith.1` | Greta Ironvein (sbArmorer) | sbArmorer | Want to try the hammer yourself? I don't mind sharing the forge. | chatterbox |
 | `dlg.sbArmorer.learnSmith.2` | Greta Ironvein (sbArmorer) | sbArmorer | Strike when it glows hottest. Three good strikes make a good piece. | chatterbox |
 | `dlg.sbArmorer.forge.1` | Greta Ironvein (sbArmorer) | sbArmorer | Help yourself to the forge. Shout if anything catches fire. | chatterbox |
@@ -806,6 +855,7 @@ Nothing: every line has its recording.
 | `dlg.sbArmorer.steel.2` | Greta Ironvein (sbArmorer) | sbArmorer | Heavy plate wants Strength, mind. Wear it without and you'll waddle like a duck. | chatterbox |
 | `dlg.sbArmorer.shopBack.1` | Greta Ironvein (sbArmorer) | sbArmorer | Wear it well. Bring me the dents, I like a good story. | chatterbox |
 | `dlg.sbArmorer.forgeBack.1` | Greta Ironvein (sbArmorer) | sbArmorer | Look at that! You're a natural. | chatterbox |
+| `dlg.sbArmorer.sellBack.1` | Greta Ironvein (sbArmorer) | sbArmorer | A pleasure. Silverbridge always pays a fair price. | chatterbox |
 | `dlg.sbArmorer.bye.1` | Greta Ironvein (sbArmorer) | sbArmorer | Off you go. Don't get hit anywhere I haven't covered. | chatterbox |
 | `dlg.sbWeapons.hello.1` | Corvin Ashby (sbWeapons) | sbWeapons | Ah, a customer with taste. I can always tell. It's in the way you walk in. | chatterbox |
 | `dlg.sbWeapons.hello.2` | Corvin Ashby (sbWeapons) | sbWeapons | Corvin Ashby, of Ashby's Fine Blades. Yes, that Ashby. You've heard of me, surely. | chatterbox |
@@ -1253,6 +1303,7 @@ Nothing: every line has its recording.
 | `dlg.smalltalkKids.frog.1` | Townsfolk (smalltalkKids) | smalltalkKids | There's a frog down by the well. | chatterbox |
 | `dlg.smalltalkKids.frog.2` | Townsfolk (kidFriend) | smalltalkKids | Can we keep it? | chatterbox |
 | `dlg.smalltalkKids.frog.3` | Townsfolk (smalltalkKids) | smalltalkKids | Mum said no more frogs. | chatterbox |
+| `dlg.bark.banditChief.whistle.1` | Bandit Chief (banditChief) | bark.banditChief | Up, lads! Bite them! | chatterbox |
 | `dlg.bark.goblinKing.charge.1` | The Goblin King (goblinKing) | bark.goblinKing | Run them down, Tusker! | chatterbox |
 | `dlg.bark.goblinKing.horn.1` | The Goblin King (goblinKing) | bark.goblinKing | To me, lads! Goblins, to me! | chatterbox |
 | `dlg.bark.goblinKing.dismount.1` | The Goblin King (goblinKing) | bark.goblinKing | Go on, Tusker, run! I'll finish this myself! | chatterbox |
@@ -1269,6 +1320,11 @@ Nothing: every line has its recording.
 | `dlg.bark.windDisciple.freed.1` | Kestrel Vane (windDisciple) | bark.windDisciple | Free at last! Kestrel Vane, of the Windrunner's way. Find me in Oakhaven and I'll teach you. | chatterbox |
 | `dlg.bark.frostDisciple.freed.1` | Ivor Hask (frostDisciple) | bark.frostDisciple | You came for me? Ivor Hask, a Frostwarden's disciple. Come to Ironhold and I'll teach you. | chatterbox |
 | `dlg.bark.lightDisciple.freed.1` | Sister Aurelle (lightDisciple) | bark.lightDisciple | The light sent you. I am Sister Aurelle. Seek me in Sunford, I'll teach you the Lightbringer's way. | chatterbox |
+| `dlg.intro.crossing.1` | The Chronicler (chronicler) | intro | Every road in this world meets at a crossing… and every crossing is a battle. | elevenlabs |
+| `dlg.intro.hero.1` | The Chronicler (chronicler) | intro | From the quiet fields of Sunford, a young hero set out. | elevenlabs |
+| `dlg.intro.fire.1` | The Chronicler (chronicler) | intro | Fire answered the call. Steel learned a new name. | elevenlabs |
+| `dlg.intro.foes.1` | The Chronicler (chronicler) | intro | Goblin kings, frost jarls, a void dragon… and the Arch-Demon. | elevenlabs |
+| `dlg.intro.begin.1` | The Chronicler (chronicler) | intro | Your legend begins now. | elevenlabs |
 | `ending.order.text` | The hero, telling the story (hero) | ending | Banners of the Iron Order fly over the Dread Fortress. The roads are safe, the laws are many, and your name is carved above the gate. | chatterbox |
 | `ending.syndicate.text` | The hero, telling the story (hero) | ending | The Syndicate rules from the shadows of the fortress. Nothing in the realm is forbidden any more. It is only expensive. | chatterbox |
 | `ending.circle.text` | The hero, telling the story (hero) | ending | The Circle lights the fortress with captured void-fire. Wonders pour out of its gates, and no one asks what they cost. | chatterbox |
@@ -1317,12 +1373,15 @@ Nothing: every line has its recording.
 | `dlg.elderMara.next.say__f` | The girl hero (heroine) | elderMara | Where should I go next? | chatterbox |
 | `dlg.hero.heal__f` | The girl hero (heroine) | hero | Could you patch me up? | chatterbox |
 | `dlg.hero.mana__f` | The girl hero (heroine) | hero | Do you have anything for mana? | chatterbox |
+| `dlg.hero.brew__f` | The girl hero (heroine) | hero | Could you brew me something? | chatterbox |
 | `dlg.sunfordHealer.potions.say__f` | The girl hero (heroine) | sunfordHealer | How do the potions work? | chatterbox |
 | `dlg.goblinTrader.king.say__f` | The girl hero (heroine) | goblinTrader | How is your king? | chatterbox |
 | `dlg.goblinTrader.town.say__f` | The girl hero (heroine) | goblinTrader | How do you like Sunford? | chatterbox |
 | `dlg.hero.play__f` | The girl hero (heroine) | hero | Deal me in. | chatterbox |
 | `dlg.sunfordGambler.rules.say__f` | The girl hero (heroine) | sunfordGambler | What are the rules? | chatterbox |
 | `dlg.sunfordGambler.luck.say__f` | The girl hero (heroine) | sunfordGambler | Do you ever lose? | chatterbox |
+| `dlg.sunfordCups.rules.say__f` | The girl hero (heroine) | sunfordCups | How does it work? | chatterbox |
+| `dlg.sunfordCups.luck.say__f` | The girl hero (heroine) | sunfordCups | Do you ever lose? | chatterbox |
 | `dlg.freedFarmers.favor.say__f` | The girl hero (heroine) | freedFarmers | Can I help with anything? | chatterbox |
 | `dlg.freedFarmers.waiting.say__f` | The girl hero (heroine) | freedFarmers | About those wolves... | chatterbox |
 | `dlg.freedFarmers.favorDone.say__f` | The girl hero (heroine) | freedFarmers | The wolves won't trouble you again. | chatterbox |
@@ -1372,7 +1431,6 @@ Nothing: every line has its recording.
 | `dlg.mayorBrenna.river.say__f` | The girl hero (heroine) | mayorBrenna | What do people trade here? | chatterbox |
 | `dlg.sbHealer.potions.say__f` | The girl hero (heroine) | sbHealer | Any advice on potions? | chatterbox |
 | `dlg.sbHealer.sleep.say__f` | The girl hero (heroine) | sbHealer | Do you ever actually sleep? | chatterbox |
-| `dlg.hero.brew__f` | The girl hero (heroine) | hero | Could you brew me something? | chatterbox |
 | `dlg.sbAlchemist.herbs.say__f` | The girl hero (heroine) | sbAlchemist | Where do I find herbs? | chatterbox |
 | `dlg.sbAlchemist.elixirs.say__f` | The girl hero (heroine) | sbAlchemist | What do the elixirs do? | chatterbox |
 | `dlg.sbGambler.rules.say__f` | The girl hero (heroine) | sbGambler | How does it work? | chatterbox |

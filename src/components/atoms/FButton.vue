@@ -77,6 +77,17 @@ const props = withDefaults(defineProps<Props>(), {
   emphasis: 1
 })
 
+/**
+ * The border-inset ornaments (roadmap #127): none on a small or glyph-only
+ * button (too little room), corner brackets from `md`, brackets plus a leaf
+ * scroll at each end on the wide sizes. The scrolls live in the padding, whose
+ * floor grows with the size, so a label never runs under one.
+ */
+const ornament = computed<'none' | 'corners' | 'wings'>(() => {
+  if (props.iconOnly || props.size === 'sm') return 'none'
+  return props.size === 'md' ? 'corners' : 'wings'
+})
+
 const emit = defineEmits(['click'])
 /** Every button answers with a click (#114: buttons were silent). */
 const onClick = (): void => {
@@ -191,7 +202,8 @@ const styleVars = computed(() => {
       block ? 'is-block' : '',\
       attention ? 'attention-bounce' : '',\
       isDisabled ? 'is-disabled' : '',\
-      iconOnly ? 'is-icon-only' : ''\
+      iconOnly ? 'is-icon-only' : '',\
+      ornament === 'none' ? '' : `is-ornate-${ornament}`\
     ]"
     :aria-label="resolvedAriaLabel"
     :disabled="isDisabled"
@@ -200,8 +212,6 @@ const styleVars = computed(() => {
     //- The depth plate the body stands on (and sinks onto when pressed).
     span.f-button__shadow(aria-hidden="true")
     span.f-button__body
-      //- The hard cel glint.
-      span.f-button__shine(aria-hidden="true")
       //- Glyph-only. A separate `v-if` rather than a `v-else` on the label, so
       //- an icon-only button that was passed no icon still renders its slot
       //- instead of an empty box.
@@ -249,15 +259,13 @@ const styleVars = computed(() => {
     transition-timing-function: ease-out
     transform: translateY(var(--bc-press)) scale(1.015, 0.95)
 
-  // Switched off: no hue, no depth, no glint — it sits pressed flat.
+  // Switched off: no hue, no depth — it sits pressed flat.
   &.is-disabled
     +cel.tone('off')
     cursor: not-allowed
 
     .f-button__body
       transform: translateY(var(--bc-press))
-    .f-button__shine
-      display: none
     .f-button__text, .f-button__glyph
       opacity: 0.7
 
@@ -316,16 +324,10 @@ const styleVars = computed(() => {
   overflow: hidden
   transition: transform var(--bc-t-release) var(--bc-ease-bounce), filter 120ms ease-out
 
-// The glint: a hard-edged lit window, top left, like the icons' gloss.
-.f-button__shine
-  position: absolute
-  top: 0.22em
-  left: 0.45em
-  width: min(38%, 3.2em)
-  height: 0.3em
-  border-radius: var(--bc-r-pill)
-  background-color: rgba(var(--bc-white-rgb), 0.62)
-  pointer-events: none
+.is-ornate-corners .f-button__body
+  +cel.ornate-button
+.is-ornate-wings .f-button__body
+  +cel.ornate-button(0.62em, 0.16em, true)
 
 // Nested rather than written flat, and that is load-bearing: `GameIcon`'s own
 // scoped rule is `.game-icon[data-v-…]` — one class plus one attribute, exactly

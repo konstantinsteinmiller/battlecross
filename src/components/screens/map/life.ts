@@ -51,7 +51,7 @@ const esc = (t: string): string => t.replace(/&/g, '&amp;').replace(/</g, '&lt;'
 const windmill = (): string =>
   s('M-12 0L-8-34H8L12 0z', '#fff4dc') + f('M2-34H8L12 0H5z', '#e3d2ae') + l('M-12 0L-8-34H8L12 0z', INK, 2.6) +
   s('M-11-34Q0-50 11-34z', '#ff6a4f') + s('M-4 0V-10a4 4 0 0 1 8 0V0z', '#8f5d36', 2) + s('M-3-24h6v6h-6z', '#8fdcff', 1.8) +
-  `<g transform="translate(0 -38)"><g class="lf-spin">${[0, 90, 180, 270].map(a => `<g transform="rotate(${a})">${l('M0 0V-27', INK, 3)}${s('M1.500-7h9v19h-9z', '#fff8e3', 2)}${l('M1.500-1h9M1.500 5h9', '#d9b87a', 1.4)}</g>`).join('')}</g>` +
+  `<g transform="translate(0 -38)"><g class="lf-spin">${[0, 90, 180, 270].map(a => `<g transform="rotate(${a})">${l('M0 0V-27', INK, 3)}${s('M1.500-26h8v18h-8z', '#fff8e3', 2)}${l('M1.500-20h8M1.500-14h8', '#d9b87a', 1.4)}</g>`).join('')}</g>` +
   `<circle r="3.400" fill="#ffc526" stroke="${INK}" stroke-width="2"/></g>`
 
 const lighthouse = (): string =>

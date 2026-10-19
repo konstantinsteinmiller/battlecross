@@ -132,20 +132,20 @@ onUnmounted(() => clearTimeout(popTimer))
 
 .hero-frame
   // The two framed bars' thicknesses; the rest lines up on them.
-  --hp-h: clamp(0.78rem, 3.1vmin, 1.1rem)
-  --mp-h: clamp(0.64rem, 2.5vmin, 0.9rem)
+  --hp-h: max(12px, calc(clamp(0.78rem, 3.1vmin, 1.1rem) * var(--hud-s, 1)))
+  --mp-h: max(9px, calc(clamp(0.64rem, 2.5vmin, 0.9rem) * var(--hud-s, 1)))
   // Where the health bar's well starts and ends inside its frame (`FBar`:
   // the cap, the finial and the bezel), so the plainer bars sit under it.
   --well-l: calc(var(--hp-h) * 1.25 + 3px)
   --well-r: calc(var(--hp-h) * 0.5 + 3px)
   display: flex
   align-items: flex-start
-  gap: clamp(0.25rem, 1.2vmin, 0.5rem)
+  gap: calc(clamp(0.25rem, 1.2vmin, 0.5rem) * var(--hud-s, 1))
   pointer-events: none
 
 // ── The medallion ────────────────────────────────────────────────────────────
 .hero-frame__face
-  --face: clamp(2.9rem, 13vmin, 4.6rem)
+  --face: max(36px, calc(clamp(2.9rem, 13vmin, 4.6rem) * var(--hud-s, 1)))
   position: relative
   width: var(--face)
   flex: 0 0 auto
@@ -197,7 +197,7 @@ onUnmounted(() => clearTimeout(popTimer))
   place-items: center
   width: 2.5em
   height: 2.5em
-  font-size: clamp(0.66rem, 2.7vmin, 0.94rem)
+  font-size: max(10px, calc(clamp(0.66rem, 2.7vmin, 0.94rem) * var(--hud-s, 1)))
 .crest
   position: absolute
   inset: 0
@@ -260,8 +260,8 @@ onUnmounted(() => clearTimeout(popTimer))
 .hero-frame__bars
   display: flex
   flex-direction: column
-  gap: clamp(1px, 0.4vmin, 3px)
-  width: clamp(6.2rem, 34vmin, 12.5rem)
+  gap: calc(clamp(1px, 0.4vmin, 3px) * var(--hud-s, 1))
+  width: calc(clamp(6.2rem, 34vmin, 12.5rem) * var(--hud-s, 1))
 .hero-frame__hp
   --fbar-h: var(--hp-h)
 // Mana is the slimmer of the two; its well starts where health's does.
@@ -270,14 +270,14 @@ onUnmounted(() => clearTimeout(popTimer))
   margin-left: calc((var(--hp-h) - var(--mp-h)) * 1.25)
   margin-right: calc(var(--hp-h) * 0.5 + (var(--hp-h) - var(--mp-h)) * 2.2)
 .hero-frame__heat
-  --fbar-h: clamp(0.5rem, 2vmin, 0.72rem)
+  --fbar-h: calc(clamp(0.5rem, 2vmin, 0.72rem) * var(--hud-s, 1))
   margin-left: var(--well-l)
   margin-right: calc(var(--well-r) + var(--hp-h) * 1.6)
   &.is-over
     animation: heat-over 0.3s linear infinite alternate
 // Experience: tall enough to read, as long as the health well.
 .hero-frame__xp
-  --fbar-h: clamp(0.5rem, 2vmin, 0.72rem)
+  --fbar-h: calc(clamp(0.5rem, 2vmin, 0.72rem) * var(--hud-s, 1))
   margin-left: var(--well-l)
   margin-right: var(--well-r)
 
@@ -287,7 +287,7 @@ onUnmounted(() => clearTimeout(popTimer))
   border-radius: var(--bc-r-sm)
   background: var(--bc-purple)
   color: var(--bc-text)
-  font-size: clamp(0.6rem, 2.4vmin, 0.8rem)
+  font-size: max(10px, calc(clamp(0.6rem, 2.4vmin, 0.8rem) * var(--hud-s, 1)))
   font-weight: 900
 .hero-frame__row
   display: flex
@@ -298,6 +298,7 @@ onUnmounted(() => clearTimeout(popTimer))
   margin-left: var(--well-l)
 // The purse: gold on a dark plate.
 .gold
+  position: relative
   pointer-events: auto
   touch-action: manipulation
   display: inline-flex
@@ -308,9 +309,14 @@ onUnmounted(() => clearTimeout(popTimer))
   border-radius: var(--bc-r-pill)
   background: linear-gradient(180deg, var(--bc-slate) 0, var(--bc-slate) 46%, var(--bc-slate-deep) 46%, var(--bc-slate-deep) 100%)
   color: var(--bc-text-gold)
-  font-size: clamp(0.7rem, 2.8vmin, 0.98rem)
+  font-size: max(10px, calc(clamp(0.7rem, 2.8vmin, 0.98rem) * var(--hud-s, 1)))
   line-height: 1
   text-shadow: var(--bc-text-outline-thin)
+  // A small purse keeps a 28 px tap: an invisible halo round the chip.
+  &::before
+    content: ''
+    position: absolute
+    inset: -6px -4px
 .gold__icon
   width: 1.1em
   height: 1.1em
@@ -320,7 +326,7 @@ onUnmounted(() => clearTimeout(popTimer))
   display: inline-flex
   gap: 2px
 .statuses__icon
-  width: clamp(0.95rem, 4vmin, 1.4rem)
+  width: calc(clamp(0.95rem, 4vmin, 1.4rem) * var(--hud-s, 1))
 @keyframes level-pop
   0%
     transform: scale(1)

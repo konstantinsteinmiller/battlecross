@@ -122,6 +122,7 @@ const SHOTS: Record<string, ShotLook> = {
   bolt: { color: '#b8a8ff', size: 0.3, trail: '#8a6aff', spark: '#e8e0ff', body: 'energy', wake: ['arcane'], hit: 'beam', spin: SHAPE.star },
   bullet: { color: '#fff0c0', size: 0.2, trail: '#ffd27a', spark: '#ffffff', body: 'point', wake: ['air'], hit: 'pierce', blow: 'pierce' },
   arrow: { color: '#f4e8d0', size: 0.2, trail: '#e8dcc0', spark: '#ffffff', body: 'point', wake: ['air'], hit: 'pierce', blow: 'pierce' },
+  spear: { color: '#d8c8a0', size: 0.3, trail: '#b8a878', spark: '#ffffff', body: 'point', wake: ['air'], hit: 'pierce', blow: 'pierce' },
   rock: { color: '#b8b0a4', size: 0.28, trail: '#8a8278', spark: '#e8e2d8', body: 'matter', wake: ['dust'], hit: 'physical', blow: 'blunt' },
   ember: { color: '#ff8a2a', size: 0.36, trail: '#ff5a1a', spark: '#ffd27a', body: 'energy', wake: ['fire'], hit: 'fire' },
   shadow: { color: '#b06aff', size: 0.34, trail: '#6a2ad0', spark: '#e0b8ff', body: 'energy', wake: ['shadow'], hit: 'shadow', spin: SHAPE.claw },

@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { BUILDS } from '../builds'
-import { CLASS_IDS, CLASSES, SKILLS, ALL_ITEMS, QUESTS, IMG, className, classIcon } from '../data'
+import { CLASS_IDS, CLASSES, SKILLS, ALL_ITEMS, ITEMS, QUESTS, IMG, className, classIcon } from '../data'
 import BuildCard from '../components/BuildCard.vue'
 
 const featured = BUILDS.slice(0, 6)
+const LEGENDARIES = ITEMS.filter(i => i.tier === 6).length
 const PILLARS = [
   { to: '/planner', icon: '⚒', title: 'Character Planner', text: 'Spend 117 attribute points, slot 8 actives and 4 passives from ANY class, gear up, and see your real stats — the game\'s own formulas.' },
   { to: '/builds', icon: '📜', title: `${BUILDS.length} Build Guides`, text: 'Glass cannons, legions of minions, immortal tanks, time-lords. Full skill paths: which skill, which level, which trainer.' },
@@ -50,7 +51,7 @@ const PILLARS = [
 
       <div class="grid g2 banners">
         <a href="#/items" class="banner hover-lift" :style="{ backgroundImage: `url(${IMG}covers/cover-loot.webp)` }">
-          <div><h2 class="gold-text">Hunt the Legendaries</h2><p>Six legendary pieces, one secret chest, and the traders who sell epics before you are supposed to have them.</p></div>
+          <div><h2 class="gold-text">Hunt the Legendaries</h2><p>{{ LEGENDARIES }} legendary pieces, one secret chest, the forge for six builds, and the traders who sell epics before you are supposed to have them.</p></div>
         </a>
         <a href="#/quests" class="banner hover-lift" :style="{ backgroundImage: `url(${IMG}covers/cover-dragon.webp)` }">
           <div><h2 class="gold-text">Slay — or Bargain?</h2><p>The Void Dragon, the Oracle, the Siege of Oakhaven. Every choice reshapes towns, trainers and shops.</p></div>

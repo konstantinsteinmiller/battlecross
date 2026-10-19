@@ -21,18 +21,20 @@ import { join, resolve } from 'node:path'
 import { pathToFileURL } from 'node:url'
 import sharp from 'sharp'
 import { afterAll, beforeAll, describe, expect, it } from 'vitest'
-import { CHARISMA_ITEMS, ITEMS, MYTHICS, SMITHED } from '@/game/data/items'
+import { CHARISMA_ITEMS, DEXTERITY_ITEMS, GAPFILL_ITEMS, ITEMS, MYTHICS, SMITHED } from '@/game/data/items'
 import { CLASSES, CLASS_IDS, SKILLS, skillsOf } from '@/game/data/skills'
 import { heroLook } from '@/game/gfx/rigs/looks'
 import { GLYPHS } from '@/components/art/glyphs'
 import { isGameIconName } from '@/components/icons/iconNames'
 import { MARKS } from '@/components/icons/marks'
 import { SLOT_GLYPH, UI_ICONS, VECTOR_ONLY } from '@/game/art/iconBlurbs'
+import { ORNAMENTS } from '@/game/art/ornamentRefs'
+import { BAR_FRAME_REFS } from '@/game/art/barFrameRefs'
 import { EMBLEM_BODY } from '@/game/art/brandRefs'
 import { HERO_OUTFITS, heroGenderOfId, heroOutfit, heroOutfitOf, heroOutfitOfId, heroPortraitId, heroSampleEquipped } from '@/game/art/heroPortrait'
 import {
   ART_CATALOGUE, BACKGROUND, CELL, COVERS, FINISH, GLOW, ICON_FILL, ICON_SETS, NOTATION, READABLE, READABLE_SMALL, SCENERY, SKILL_FINISH_REFS, SEE_THROUGH, SETS, SINGLES, STYLE_BACKDROP, STYLE_GREY, STYLE_PART, TALL,
-  allStems, artTarget, fitsOfIndex, manifestTargets, MAP_PARTS, MAP_PART_SPAN, mapPartTarget, mapTileRect, panelHeight, promptBlocks, promptDocs, sheetIndex, sheetSize, type Fits
+  allStems, artTarget, fitsOfIndex, manifestTargets, MAP_PARTS, MAP_PART_SPAN, mapPartTarget, mapSubTarget, mapTileRect, panelHeight, panelWidth, promptBlocks, promptDocs, sheetIndex, sheetSize, type Fits
 } from '@/game/art/artSheet'
 
 const ROOT = resolve(__dirname, '..', '..')
@@ -54,13 +56,24 @@ const fakeFits = (): Fits => Object.fromEntries([...manifestTargets().keys()]
 describe('the manifest covers the game', () => {
   const targets = manifestTargets()
 
-  it('every item has a panel: 74 ids on seven 4x3 sheets, the 54 forged and mythic ones on five more, in items.ts order', () => {
-    const TABLED = ITEMS.filter(i => !CHARISMA_ITEMS.has(i.id))
+  it('every item has a panel: 210 ids on nineteen 4x3 sheets (105 of them, the gap-fill set, on nine of their own), the 438 forged and mythic ones on the rest, in items.ts order', () => {
+    const TABLED = ITEMS.filter(i => !CHARISMA_ITEMS.has(i.id) && !DEXTERITY_ITEMS.has(i.id) && !GAPFILL_ITEMS.has(i.id))
     const main = TABLED.filter(i => i.slot === 'main').map(i => i.id)
     const bySlot = (slot: string): string[] => TABLED.filter(i => i.slot === slot).map(i => i.id)
-    expect(ITEMS).toHaveLength(74)
+    expect(ITEMS).toHaveLength(210)
+    // The gap-fill set (items-gap-audit.md): nine sheets, 105 panels in the audit's order, three blank.
+    const fill = ITEMS.filter(i => GAPFILL_ITEMS.has(i.id)).map(i => i.id)
+    expect(fill).toHaveLength(105)
+    for (let n = 0; n < 9; n++) expect(idsOf(`sheet-items-fill-${n + 1}`), `fill ${n + 1}`).toEqual(fill.slice(n * 12, n * 12 + 12))
+    expect(blanksOf('sheet-items-fill-9')).toBe(3)
     // The Charisma set: a sheet of its own, twelve panels.
     expect(idsOf('sheet-items-charisma')).toEqual(ITEMS.filter(i => CHARISMA_ITEMS.has(i.id)).map(i => i.id))
+    // The Dexterity set: three sheets, 31 panels, by slot.
+    const dex = (...slots: string[]): string[] => slots.flatMap(sl => ITEMS.filter(i => DEXTERITY_ITEMS.has(i.id) && i.slot === sl).map(i => i.id))
+    expect(DEXTERITY_ITEMS.size).toBe(31)
+    expect(idsOf('sheet-items-dexterity-arms')).toEqual(dex('main', 'off'))
+    expect(idsOf('sheet-items-dexterity-armor')).toEqual(dex('head', 'body', 'hands'))
+    expect(idsOf('sheet-items-dexterity-boots')).toEqual(dex('feet', 'trinket'))
     expect(idsOf('sheet-items-weapons')).toEqual(main.slice(0, 12))
     expect(idsOf('sheet-items-arms')).toEqual([...main.slice(12), ...bySlot('off')])
     expect(idsOf('sheet-items-armor')).toEqual(bySlot('body'))
@@ -72,16 +85,24 @@ describe('the manifest covers the game', () => {
     expect([blanksOf('sheet-items-headgear'), blanksOf('sheet-items-boots')]).toEqual([0, 6])
     const itemSheets = SETS.filter(x => x.kind === 'items')
     expect(itemSheets.map(x => x.stem)).toEqual(['sheet-items-weapons', 'sheet-items-arms', 'sheet-items-armor', 'sheet-items-trinkets', 'sheet-items-headgear', 'sheet-items-boots', 'sheet-items-charisma',
-      'sheet-items-mythic', 'sheet-items-smith-iron', 'sheet-items-smith-silver', 'sheet-items-smith-gold', 'sheet-items-smith-mithril'])
+      'sheet-items-dexterity-arms', 'sheet-items-dexterity-armor', 'sheet-items-dexterity-boots',
+      ...Array.from({ length: 9 }, (_, n) => `sheet-items-fill-${n + 1}`), 'sheet-items-mythic', 'sheet-items-smith-iron', 'sheet-items-smith-silver', 'sheet-items-smith-gold', 'sheet-items-smith-mithril', 'sheet-items-smith-adamant', 'sheet-items-smith-aetherite',
+      ...['dex', 'int', 'skl', 'cha', 'end'].flatMap(l => ['iron', 'silver', 'gold', 'mithril', 'adamant', 'aetherite'].map(m => `sheet-items-smith-${l}-${m}`))])
     // The colosseum's six prizes on one sheet; each ore's twelve forge pieces on its own.
     expect(MYTHICS).toHaveLength(6)
-    expect(SMITHED).toHaveLength(48)
+    expect(SMITHED).toHaveLength(432)
     expect(idsOf('sheet-items-mythic')).toEqual(MYTHICS.map(i => i.id))
     expect(blanksOf('sheet-items-mythic')).toBe(6)
-    for (const metal of ['Iron', 'Silver', 'Gold', 'Mithril']) {
+    for (const metal of ['Iron', 'Silver', 'Gold', 'Mithril', 'Adamant', 'Aetherite']) {
       const ids = idsOf(`sheet-items-smith-${metal.toLowerCase()}`)
       expect(ids, metal).toHaveLength(12)
       expect(ids.every(id => id.includes(metal)), metal).toBe(true)
+      // The other builds (#148): a sheet each, the attribute in the ids.
+      for (const line of ['Dex', 'Int', 'Skl', 'Cha', 'End']) {
+        const own = idsOf(`sheet-items-smith-${line.toLowerCase()}-${metal.toLowerCase()}`)
+        expect(own, `${line} ${metal}`).toHaveLength(12)
+        expect(own.every(id => id.includes(line + metal)), `${line} ${metal}`).toBe(true)
+      }
     }
     for (const x of itemSheets) expect([x.cols, x.rows, x.cells.length], x.stem).toEqual([4, 3, 12])
     for (const it of [...ITEMS, ...SMITHED, ...MYTHICS]) expect(targets.has(`images/items/${it.id}.webp`), it.id).toBe(true)
@@ -121,7 +142,7 @@ describe('the manifest covers the game', () => {
     for (const o of HERO_OUTFITS) expect(targets.has(`images/portraits/hero-f-${o}.webp`), o).toBe(true)
     // voidLord never speaks.
     for (const id of ['hero', 'voidLord']) expect(targets.has(`images/portraits/${id}.webp`), id).toBe(false)
-    expect(ART_CATALOGUE.portraits).toHaveLength(30)
+    expect(ART_CATALOGUE.portraits).toHaveLength(51)
   })
 
   it('the hero sheet is one character four times: the prompt says so before the style, and only the clothes change', () => {
@@ -200,14 +221,16 @@ describe('the manifest covers the game', () => {
       ['bg-ui-terrain-sw', 1376, 768, '../art-sheets/map-parts/sw.webp', 'opaque', false],
       ['bg-ui-terrain-se', 1376, 768, '../art-sheets/map-parts/se.webp', 'opaque', false],
       // #94: the top right quarter as four pieces, joined into its own file first.
-      ['bg-ui-terrain-ne-nw', 1376, 768, '../art-sheets/map-parts/ne/nw.webp', 'opaque', false],
-      ['bg-ui-terrain-ne-ne', 1376, 768, '../art-sheets/map-parts/ne/ne.webp', 'opaque', false],
-      ['bg-ui-terrain-ne-sw', 1376, 768, '../art-sheets/map-parts/ne/sw.webp', 'opaque', false],
-      ['bg-ui-terrain-ne-se', 1376, 768, '../art-sheets/map-parts/ne/se.webp', 'opaque', false],
+      ['bg-ui-terrain-piece-ne-nw', 1376, 768, '../art-sheets/map-parts/ne/nw.webp', 'opaque', false],
+      ['bg-ui-terrain-piece-ne-ne', 1376, 768, '../art-sheets/map-parts/ne/ne.webp', 'opaque', false],
+      ['bg-ui-terrain-piece-ne-sw', 1376, 768, '../art-sheets/map-parts/ne/sw.webp', 'opaque', false],
+      ['bg-ui-terrain-piece-ne-se', 1376, 768, '../art-sheets/map-parts/ne/se.webp', 'opaque', false],
       // D45: the trade table, the equipment and the skills screens.
       ['bg-ui-trade', 1376, 768, 'images/ui/bg-trade.webp', 'opaque', false],
       ['bg-ui-inventory', 1376, 768, 'images/ui/bg-inventory.webp', 'opaque', false],
       ['bg-ui-skills', 1376, 768, 'images/ui/bg-skills.webp', 'opaque', false],
+      ['bg-ui-forge', 1376, 768, 'images/ui/bg-forge.webp', 'opaque', false],
+      ['bg-ui-alchemy', 1376, 768, 'images/ui/bg-alchemy.webp', 'opaque', false],
       ['bg-ground', 512, 512, 'images/textures/ground.webp', 'opaque', true]
     ])
     // A piece covers its corner of its quarter: the bottom right piece of the
@@ -218,7 +241,8 @@ describe('the manifest covers the game', () => {
     expect(r.w).toBeCloseTo(MAP_PART_SPAN * MAP_PART_SPAN)
     // The screen's own name for it: what `UI_ART.get('bg-<name>')` looks up.
     expect(SCENERY.filter(a => a.plate === 'screen').map(a => [a.screen!.name, a.target])).toEqual([
-      ['trade', 'images/ui/bg-trade.webp'], ['inventory', 'images/ui/bg-inventory.webp'], ['skills', 'images/ui/bg-skills.webp']
+      ['trade', 'images/ui/bg-trade.webp'], ['inventory', 'images/ui/bg-inventory.webp'], ['skills', 'images/ui/bg-skills.webp'],
+      ['forge', 'images/ui/bg-forge.webp'], ['alchemy', 'images/ui/bg-alchemy.webp']
     ])
   })
 
@@ -249,8 +273,9 @@ describe('the manifest covers the game', () => {
     // screen backdrops; and every other icon (`ICON_SETS`).
     const icons = ICON_SETS.reduce((n, s) => n + s.cells.filter(c => c).length, 0)
     // ... and the logo's badge and mascot, and the painted wordmark (#76).
-    // The portraits: 22 speakers, the boy hero's four and the girl hero's four.
-    expect(seen.size).toBe(74 + 48 + 6 + SKILLS.length + 22 + 4 + 4 + 1 + 2 + 3 + icons + 2 + 1)
+    // ... and the wooden cup of the cup stand (the last +1).
+    // The portraits: 43 speakers (21 of them teachers), the boy hero's four and the girl hero's four.
+    expect(seen.size).toBe(210 + SMITHED.length + 6 + SKILLS.length + 43 + 4 + 4 + 1 + 2 + 5 + ORNAMENTS.length + Object.keys(BAR_FRAME_REFS).length + icons + 2 + 1 + 1)
     // The catalogue `pnpm art:status` reports on is exactly what the sheets write.
     const catalogue = Object.entries(ART_CATALOGUE).flatMap(([kind, ids]) => ids.map(id => artTarget(kind as keyof typeof ART_CATALOGUE, id)))
     expect([...catalogue].sort()).toEqual([...seen].sort())
@@ -259,7 +284,7 @@ describe('the manifest covers the game', () => {
     for (const a of COVERS) expect(a.target).toBe(`../store-art/covers/masters/${a.stem}.webp`)
     // So are the world map's quarters: the stitcher's input, not the game's.
     const parts = SCENERY.filter(a => a.part)
-    for (const a of parts) expect(a.target).toBe(mapPartTarget(a.part!))
+    for (const a of parts) expect(a.target).toBe(a.sub ? mapSubTarget(a.part!, a.sub) : mapPartTarget(a.part!))
     expect(targets.size).toBe(seen.size + COVERS.length + parts.length)
   })
 
@@ -305,11 +330,15 @@ describe('the manifest covers the game', () => {
       const set = [...SETS, ...SINGLES].find(x => x.stem === s.id)!
       // A three-by-two sheet has taller panels, so that it is 4:3; every
       // other panel is the square the drawing is measured on.
+      // The strips' sheets (the bar frames, the rule and the crest) have WIDE panels:
+      // 640 x 360 (one 4:1 strip each) on a 16:9 canvas, 512 x 192 on a 4:3 one.
       const tall = set.cols === 3 && set.rows === 2
-      expect(panelHeight(set), s.id).toBe(tall ? TALL : CELL)
-      expect([s.width, s.height]).toEqual([s.cols * CELL, s.rows * panelHeight(set)])
+      const wide = set.panelW !== undefined
+      if (wide) expect(panelWidth(set), s.id).toBeGreaterThan(panelHeight(set))
+      else expect(panelHeight(set), s.id).toBe(tall ? TALL : CELL)
+      expect([s.width, s.height]).toEqual([s.cols * panelWidth(set), s.rows * panelHeight(set)])
       for (const c of s.cells) {
-        expect([c.w, c.h]).toEqual([CELL, panelHeight(set)])
+        expect([c.w, c.h]).toEqual([panelWidth(set), panelHeight(set)])
         expect(c.x % c.w).toBe(0)
         expect(c.y % c.h).toBe(0)
         expect(c.x + c.w).toBeLessThanOrEqual(s.width)
@@ -319,8 +348,10 @@ describe('the manifest covers the game', () => {
       const icon = s.id === 'sheet-icons-classes' || s.id === 'sheet-icons-crests' || s.id === 'sheet-icons-misc' ? 128 : s.id.startsWith('sheet-icons-') ? 96 : null
       // The logo's badge and mascot are written at 512 whatever the default (`exact`), the painted titles at 1024 (#76).
       const brand = s.id.startsWith('single-logo-title-') || s.id === 'single-logo-wordmark' ? 1024 : s.id.startsWith('single-logo-') ? 512 : null
-      expect(s.maxEdge, s.id).toBe(brand ?? icon ?? (s.id.startsWith('sheet-portraits') ? 256 : s.id === 'single-ui-coin' ? 64 : 192))
-      expect(!!s.exact, s.id).toBe(brand !== null)
+      // The rank frames of the bars (#137) are 4:1 strips, written at 1024 x 256 (`exact`).
+      const bars = s.id.startsWith('sheet-ui-bar-frame-') ? 1024 : null
+      expect(s.maxEdge, s.id).toBe(brand ?? bars ?? icon ?? (s.id.startsWith('sheet-portraits') ? 256 : s.id === 'single-ui-coin' ? 64 : s.id === 'single-ui-cup' ? 256 : 192))
+      expect(!!s.exact, s.id).toBe(brand !== null || bars !== null)
     }
   })
 
@@ -487,13 +518,15 @@ describe('what a prompt says', () => {
       expect(text, s.stem).toContain(BACKGROUND)
       expect(text, s.stem).toContain(GLOW)
       // Effects, and the icon sheets (signs and symbols have no material of their own to shade).
-      const effect = s.kind === 'skills' || s.kind === 'icons'
+      // The ornament sheet (#128) is gilded metalwork: it carries them and the 16 px readable clause.
+      const ornament = s.stem === 'sheet-ui-ornaments' || s.stem === 'sheet-ui-rule-crest' || s.stem.startsWith('sheet-ui-bar-frame-') // the bar frames (#137) are metalwork too
+      const effect = s.kind === 'skills' || s.kind === 'icons' || ornament
       // The logo's badge and mascot carry the volume block but not the effects' notation clauses (their own test).
       if (s.kind === 'logo') { expect(text, s.stem).toContain(FINISH); continue }
       for (const clause of [NOTATION, FINISH, SEE_THROUGH]) expect(text.includes(clause), `${s.stem}: ${clause.slice(0, 24)}`).toBe(effect)
       // Icons are seen at 40 px, and say so; a bust is shown larger.
       // (The icon sheets carry the 24 px version of it instead: their own test.)
-      expect(text.includes(READABLE), `${s.stem}: readable at 40 px`).toBe(s.kind !== 'portraits' && s.kind !== 'icons')
+      expect(text.includes(READABLE), `${s.stem}: readable at 40 px`).toBe(s.kind !== 'portraits' && s.kind !== 'icons' && !ornament)
       // Shape first, and repeated last.
       expect(text.split('\n')[2], s.stem).toMatch(/^WHAT COMES BACK IS /)
       expect(text.split('\n').at(-1), s.stem).toMatch(/^OUTPUT: /)
@@ -558,7 +591,7 @@ describe('what a prompt says', () => {
     for (const f of SKILL_FINISH_REFS) expect(manifestTargets().has(f.replace(/^public\//, '')), f).toBe(true)
     // Nothing else is sent with more than its own reference.
     // (The icon sheets borrow the same finish references; see their own test.)
-    for (const b of blocks) if (!b.stem.startsWith('sheet-skills-') && !b.stem.startsWith('sheet-skills2-') && !b.stem.startsWith('sheet-icons-') && b.stem !== 'single-logo-mascot' && !b.stem.startsWith('single-logo-title-') && b.stem !== 'single-logo-wordmark' && b.stem !== 'sheet-portraits-girl' && !b.stem.startsWith('cover-') && !b.stem.startsWith('bg-ui-terrain-') && b.stem !== 'bg-ui-map') expect(b.styleRefs, b.stem).toBeUndefined()
+    for (const b of blocks) if (!b.stem.startsWith('sheet-skills-') && !b.stem.startsWith('sheet-skills2-') && !b.stem.startsWith('sheet-icons-') && b.stem !== 'sheet-ui-ornaments' && b.stem !== 'sheet-ui-rule-crest' && !b.stem.startsWith('sheet-ui-bar-frame-') && b.stem !== 'single-logo-mascot' && !b.stem.startsWith('single-logo-title-') && b.stem !== 'single-logo-wordmark' && b.stem !== 'sheet-portraits-girl' && !b.stem.startsWith('cover-') && !b.stem.startsWith('bg-ui-terrain-') && b.stem !== 'bg-ui-map') expect(b.styleRefs, b.stem).toBeUndefined()
   })
 
   it('a sheet says its own grid, its blanks and its measured size', () => {
@@ -642,7 +675,7 @@ describe('the prompt documents', () => {
             mine++
             // The last parenthesis ties the block to its reference image (a
             // backdrop's file name may carry a dash: `images/ui/bg-trade.webp`).
-            expect(line, name).toMatch(/\((?:(?:sheet|single|bg)-[a-z0-9-]+\.png → images\/|cover-[a-z0-9-]+\.png → \.\.\/store-art\/covers\/masters\/|bg-ui-terrain-[a-z]+\.png → \.\.\/art-sheets\/map-parts\/)[A-Za-z0-9/.-]+\)$/)
+            expect(line, name).toMatch(/\((?:(?:sheet|single|bg)-[a-z0-9-]+\.png → images\/|cover-[a-z0-9-]+\.png → \.\.\/store-art\/covers\/masters\/|bg-ui-terrain-[a-z-]+\.png → \.\.\/art-sheets\/map-parts\/)[A-Za-z0-9/.-]+\)$/)
             continue
           }
           const m = /^(`{3,})text$/.exec(line)
@@ -719,11 +752,11 @@ describe('the slicer knows a painting by its name, and only by its name', () => 
 
   it('refuses an unknown stem instead of matching it by shape', () => {
     const targets = buildTargets(sheetIndex())
-    // Twenty sheets are 1024x768 (twelve of items, eight of icons) and seventeen
+    // Sixty-five sheets are 1024x768 (fifty-six of items, eight of icons) and seventeen
     // are 768x576: shape says nothing.
-    expect(targets.filter(t => t.width === 1024 && t.height === 768)).toHaveLength(20)
-    // (Two skill sheets for every class, and the portraits.)
-    expect(targets.filter(t => t.width === 768 && t.height === 576 && t.kind === 'cells')).toHaveLength(CLASS_IDS.length * 2 + 1)
+    expect(targets.filter(t => t.width === 1024 && t.height === 768)).toHaveLength(65)
+    // (Two skill sheets for every class, the portraits, and the ornaments.)
+    expect(targets.filter(t => t.width === 768 && t.height === 576 && t.kind === 'cells')).toHaveLength(CLASS_IDS.length * 2 + 2)
     for (const name of [
       'Gemini_Generated_Image_abc123.png', // a download nobody renamed
       'sheet-items-shields.png',           // a sheet the index does not know (yet, or any more)
@@ -1047,5 +1080,60 @@ describe('the store covers', () => {
         }
       }
     }
+  })
+})
+
+describe('the strips: bar frames and the rule and crest are never squeezed into a square', () => {
+  const bars = SETS.filter(s => s.stem.startsWith('sheet-ui-bar-frame-'))
+
+  it('each bar frame has a 16:9 sheet of its own, the 4:1 strip filling 95 % of its width, written at 1024 x 256', () => {
+    expect(bars.map(s => s.stem)).toEqual(['sheet-ui-bar-frame-elite', 'sheet-ui-bar-frame-champion', 'sheet-ui-bar-frame-boss'])
+    for (const s of bars) {
+      expect([s.cols, s.rows], s.stem).toEqual([1, 1])
+      expect(sheetSize(s), s.stem).toEqual({ width: 640, height: 360 })
+      const st = s.strip!
+      expect(st.w / st.h).toBe(4)
+      expect(st.outW / st.outH).toBe(4)
+      // Wide enough for a DPR-3 phone: 1300 painted px across on a 1376 px canvas.
+      expect(st.w / panelWidth(s)).toBeGreaterThanOrEqual(0.95)
+      expect(st.outW).toBeGreaterThanOrEqual(1024)
+      // Centred, with a lane of ground above and below and a thin margin each side.
+      expect(st.x).toBeGreaterThan(0)
+      expect(st.x + st.w).toBeLessThan(panelWidth(s))
+      expect(st.y).toBeGreaterThan(0)
+      expect(st.y + st.h).toBeLessThan(panelHeight(s))
+      expect(s.cells).toHaveLength(1)
+      for (const c of sheetIndex().sheets.find(x => x.id === s.stem)!.cells) expect(c.strip, c.id).toEqual(st)
+    }
+  })
+
+  it('every reference is the 512 x 128 strip with the live 12:1 well, its ornaments inside the strip', () => {
+    for (const [id, svg] of Object.entries(BAR_FRAME_REFS)) {
+      expect(svg, id).toContain('viewBox="0 0 512 128"')
+      expect(svg, id).toContain('<rect x="64" y="48" width="384" height="32" rx="16"')
+    }
+    // The elite's stones touch the strip's top and bottom edge (the strip is trimmed to its paint): no gap to the rim.
+    expect(BAR_FRAME_REFS['bar-frame-elite']).toContain('translate(238 0)')
+    expect(BAR_FRAME_REFS['bar-frame-elite']).toContain('translate(238 128) scale(2 -2)')
+  })
+
+  it('the prompt states the slot size, that nothing overlaps it and that the stretches are plain', () => {
+    for (const s of bars) {
+      const text = promptBlocks().find(b => b.stem === s.stem)!.text
+      expect(text).toContain('TWELVE TIMES AS WIDE AS IT IS TALL (12:1)')
+      expect(text).toContain('NOTHING OVERLAPS THE SLOT')
+      expect(text).toContain('THE LONG STRETCHES ARE PLAIN')
+      expect(text).toMatch(/16:9/)
+    }
+  })
+
+  it('the rule and the crest have a sheet of their own, two wide panels, and the first sheet keeps its other four', () => {
+    const pair = SETS.find(s => s.stem === 'sheet-ui-rule-crest')!
+    expect(pair.cells.map(c => c!.id)).toEqual(['orn-rule', 'orn-crest'])
+    expect(sheetSize(pair)).toEqual({ width: 512, height: 384 })
+    expect(promptBlocks().find(b => b.stem === pair.stem)!.text).toContain('NEVER SPANS TWO PANELS')
+    const first = SETS.find(s => s.stem === 'sheet-ui-ornaments')!
+    expect(first.cells.flatMap(c => (c ? [c.id] : [])).sort()).toEqual(['orn-corner', 'orn-corner-sm', 'orn-rivet', 'orn-wing'])
+    expect(first.cells[5]!.id).toBe('orn-wing')
   })
 })

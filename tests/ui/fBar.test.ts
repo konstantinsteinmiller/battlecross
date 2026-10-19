@@ -66,7 +66,7 @@ describe('FBar', () => {
     expect(orn('xp')).toBe(0)
     expect(orn('hero')).toBe(2) // the heart cap and a finial
     expect(orn('mana')).toBe(2)
-    expect(orn('elite')).toBe(4) // two wings, an amber gem at each end (#77)
+    expect(orn('elite')).toBe(5) // two wings, an amber gem at each end and a small star over the middle (#77, #137)
     expect(orn('champion')).toBe(3) // a crest and two finials
     expect(orn('boss')).toBe(5) // two wings, two gems, the crown between its horns
     const boss = mount(FBar, { props: { value: 1, frame: 'boss' } })
@@ -105,7 +105,9 @@ describe('FBar', () => {
     expect(w.findAll('.f-bar__orn')).toHaveLength(0)
     expect(w.find('.f-bar__bezel').exists()).toBe(false)
     const art = w.find('.f-bar__art').element as HTMLElement
-    expect(art.style.borderImageSource).toContain('bar-frame-boss.webp')
+    expect(art.style.getPropertyValue('--art')).toContain('bar-frame-boss.webp')
+    // Five slices: caps and the middle ornament keep their shape, the rim between them stretches.
+    expect(Array.from(art.children).map(c => c.className)).toEqual(['is-cap-l', 'is-rim-l', 'is-mid', 'is-rim-r', 'is-cap-r'])
     // No file dropped in (the test stub has none): the drawn frame stands.
     expect(mount(FBar, { props: { value: 1, frame: 'boss' } }).find('.f-bar__art').exists()).toBe(false)
   })

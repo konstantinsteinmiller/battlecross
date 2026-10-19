@@ -3,7 +3,7 @@ import { describe, expect, it } from 'vitest'
 import { buildHouse } from '@/game/gfx/houses'
 import { newKit, type Kit } from '@/game/gfx/archKit'
 import { CLASS_IDS } from '@/game/data/skills'
-import { generateTown } from '@/game/sim/zoneGen'
+import { generateTown } from '@/game/sim/townGen'
 import { TOWNS, type TownId } from '@/game/data/zones'
 
 /**

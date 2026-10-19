@@ -46,10 +46,15 @@ export const letterEdits = (ref, hyp) => distance([...words(ref).join('')], [...
  *  past the budget itself it passes with a warning. The budget is the line's
  *  max (a guide written for actors; the game's bubble waits for the file) or
  *  what its words need at a natural pace, whichever is longer. */
-export const LIMITS = { wer: 0.1, cer: 0.06, lufs: 1.5, peak: -1, overMax: 1.5, wordsPerSecond: 2.6 }
+export const LIMITS = { wer: 0.1, cer: 0.06, lufs: 1.5, peak: -1, overMax: 1.5, wordsPerSecond: 2.6, charsPerSecond: 3.2, cjkWer: 0.2 }
 
 /** How long a line may take: its max, or its words at a natural pace (+0.5 s). */
-export const budgetFor = (text, max) => Math.max(max ?? 0, words(text).length / LIMITS.wordsPerSecond + 0.5)
+export const budgetFor = (text, max, lang = 'en') => Math.max(max ?? 0, (CJK.has(lang) ? [...words(text).join('')].length / LIMITS.charsPerSecond : words(text).length / LIMITS.wordsPerSecond) + 0.5)
+
+/** Chinese and Japanese have no spaces: a "word" is a character, and Whisper's kanji/kana and
+ *  homophone choices differ from the script's more often, so the character error limit is wider. */
+const CJK = new Set(['zh', 'ja'])
+const spaced = (s) => [...words(s).join('')].join(' ')
 
 /** Whisper's spellings a TTS read cannot help: the cast's names, and homophones it picks the other way. */
 // ADAPT from real failures only, each with a test (tests/voice/voicePost.test.ts).
@@ -97,6 +102,8 @@ export const judge = (take, max) => {
   const read = take.heard == null ? null : HEARD.reduce((s, [re, to]) => s.replace(re, to), take.heard)
   let heard = read == null ? null : words(normalize(read, lang).text).map(named).map(w => sounded(w, lang)).join(' ')
   let text = words(take.text).map(w => sounded(w, lang)).join(' ')
+  const cjk = CJK.has(lang)
+  if (cjk) { text = spaced(text); if (heard != null) heard = spaced(heard) }
   // A line cut off mid-word on purpose ("something's in the—"): its last word is whatever was left of it.
   if (heard != null && /[—-]\s*$/.test(text)) {
     text = words(text).slice(0, -1).join(' ')
@@ -107,10 +114,10 @@ export const judge = (take, max) => {
   if (take.loose) {
     // A bark or a laugh is a sound, not words: Whisper cannot read "Nnngh!" back. Only added speech fails it.
     if (heard != null && words(heard).length > n + 1) reasons.push(`words: heard "${take.heard}" (more than the sound)`)
-  } else if (e != null && e > Math.max(LIMITS.wer, n <= 3 ? 1 / n : 0) && cer(text, heard) > LIMITS.cer && letterEdits(text, heard) > 1 && !oneWordAdded(text, heard) && !onlyOpenerDiffers(text, heard)) {
+  } else if (e != null && e > Math.max(cjk ? LIMITS.cjkWer : LIMITS.wer, n <= 3 ? 1 / n : 0) && cer(text, heard) > LIMITS.cer && letterEdits(text, heard) > 1 && !oneWordAdded(text, heard) && !onlyOpenerDiffers(text, heard)) {
     reasons.push(`words: heard "${take.heard}" (${Math.round(e * 100)} % off)`)
   }
-  const budget = budgetFor(take.text, max)
+  const budget = budgetFor(take.text, max, lang)
   if (max && take.seconds > budget * LIMITS.overMax + 0.001) reasons.push(`length ${take.seconds.toFixed(2)} s > ${LIMITS.overMax}× ${budget.toFixed(1)} s`)
   if (take.target?.lufs != null && take.lufs != null && Math.abs(take.lufs - take.target.lufs) > LIMITS.lufs) reasons.push(`loudness ${take.lufs} LUFS (target ${take.target.lufs})`)
   if (take.peak > LIMITS.peak) reasons.push(`peak ${take.peak} dBFS`)

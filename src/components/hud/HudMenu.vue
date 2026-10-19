@@ -23,10 +23,18 @@ const { t } = useI18n()
   display: flex
   flex-direction: row-reverse
   align-items: flex-start
-  gap: clamp(0.3rem, 1.4vmin, 0.55rem)
+  // The pictures shrink to 30 px; an invisible 3 px halo keeps the tap at 36,
+  // and the gap keeps neighbouring halos apart.
+  gap: max(6px, calc(clamp(0.3rem, 1.4vmin, 0.55rem) * var(--hud-s, 1)))
   pointer-events: none
   // A step below the play buttons: these are touched rarely.
   :deep(.f-hud-button)
-    width: clamp(2.5rem, 9.5vmin, 3.1rem)
-    height: clamp(2.5rem, 9.5vmin, 3.1rem)
+    min-width: 0
+    min-height: 0
+    width: max(30px, calc(clamp(2.5rem, 9.5vmin, 3.1rem) * var(--hud-s, 1)))
+    height: max(30px, calc(clamp(2.5rem, 9.5vmin, 3.1rem) * var(--hud-s, 1)))
+    &::after
+      content: ''
+      position: absolute
+      inset: -3px
 </style>

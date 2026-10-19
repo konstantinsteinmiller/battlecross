@@ -1,5 +1,13 @@
 // Bulgarian (bg) bundle — mirrors en.ts.
 export default {
+  // ─── The intro (#130): its skip, and its narrator's name ───
+  intro: {
+    narrator: 'Летописецът',
+    skip: 'Пропусни',
+    holdKey: 'Задръж {key}, за да пропуснеш',
+    holdTouch: 'Задръж, за да пропуснеш',
+    replay: 'Гледай въведението'
+  },
   arena: {
     allWon: 'Всички митични награди са спечелени.',
     call: 'Историята е разказана. Сега докажи билда си: изкачи се колкото можеш по-високо и спечели митичните награди, които никой друг не може да ти даде.',
@@ -8,6 +16,20 @@ export default {
     next: 'Следваща награда на вълна {at}: {item}',
     champion: 'Вълна на шампиона',
     wave: 'Вълна {n}'
+  },
+  sellOre: {
+    talk: 'Добра руда, честна цена. Колко ще продадеш?',
+    lead: 'Избери колко къса от всяка руда да продадеш. Нищо не се продава, докато не натиснеш Продай.',
+    have: 'Имаш {n}',
+    each: '{n} злато за брой',
+    none: 'Нищо',
+    all: 'Всичко',
+    less: '{ore}: с един по-малко',
+    more: '{ore}: с един повече',
+    total: 'Получаваш: {n} злато',
+    sell: 'Продай',
+    selectAll: 'Избери всичко',
+    empty: 'Нямаш повече руда за продан.'
   },
   smith: {
     why: {
@@ -1421,38 +1443,110 @@ export default {
     smithMasterMithrilGreaves: {
       name: 'Майсторски митрилови наколенници'
     },
+    smithMasterAdamantGreaves: {
+      name: 'Майсторски адамантови наколенници'
+    },
+    smithMasterAetheriteGreaves: {
+      name: 'Майсторски етеритови наколенници'
+    },
     smithMithrilGreaves: {
       name: 'Митрилови наколенници'
+    },
+    smithAdamantGreaves: {
+      name: 'Адамантови наколенници'
+    },
+    smithAetheriteGreaves: {
+      name: 'Етеритови наколенници'
     },
     smithMasterMithrilPlate: {
       name: 'Майсторски митрилови доспехи'
     },
+    smithMasterAdamantPlate: {
+      name: 'Майсторски адамантови доспехи'
+    },
+    smithMasterAetheritePlate: {
+      name: 'Майсторски етеритови доспехи'
+    },
     smithMithrilPlate: {
       name: 'Митрилови доспехи'
+    },
+    smithAdamantPlate: {
+      name: 'Адамантови доспехи'
+    },
+    smithAetheritePlate: {
+      name: 'Етеритови доспехи'
     },
     smithMasterMithrilHelm: {
       name: 'Майсторски митрилов шлем'
     },
+    smithMasterAdamantHelm: {
+      name: 'Майсторски адамантов шлем'
+    },
+    smithMasterAetheriteHelm: {
+      name: 'Майсторски етеритов шлем'
+    },
     smithMithrilHelm: {
       name: 'Митрилов шлем'
+    },
+    smithAdamantHelm: {
+      name: 'Адамантов шлем'
+    },
+    smithAetheriteHelm: {
+      name: 'Етеритов шлем'
     },
     smithMasterMithrilShield: {
       name: 'Майсторски митрилов щит'
     },
+    smithMasterAdamantShield: {
+      name: 'Майсторски адамантов щит'
+    },
+    smithMasterAetheriteShield: {
+      name: 'Майсторски етеритов щит'
+    },
     smithMithrilShield: {
       name: 'Митрилов щит'
+    },
+    smithAdamantShield: {
+      name: 'Адамантов щит'
+    },
+    smithAetheriteShield: {
+      name: 'Етеритов щит'
     },
     smithMasterMithrilHammer: {
       name: 'Майсторски митрилов чук'
     },
+    smithMasterAdamantHammer: {
+      name: 'Майсторски адамантов чук'
+    },
+    smithMasterAetheriteHammer: {
+      name: 'Майсторски етеритов чук'
+    },
     smithMithrilHammer: {
       name: 'Митрилов чук'
+    },
+    smithAdamantHammer: {
+      name: 'Адамантов чук'
+    },
+    smithAetheriteHammer: {
+      name: 'Етеритов чук'
     },
     smithMasterMithrilSword: {
       name: 'Майсторски митрилов меч'
     },
+    smithMasterAdamantSword: {
+      name: 'Майсторски адамантов меч'
+    },
+    smithMasterAetheriteSword: {
+      name: 'Майсторски етеритов меч'
+    },
     smithMithrilSword: {
       name: 'Митрилов меч'
+    },
+    smithAdamantSword: {
+      name: 'Адамантов меч'
+    },
+    smithAetheriteSword: {
+      name: 'Етеритов меч'
     },
     smithMasterGoldGreaves: {
       name: 'Майсторски златни наколенници'
@@ -1558,6 +1652,1086 @@ export default {
     },
     smithMasterIronSword: {
       name: 'Майсторски железен меч'
+    },
+    smithMasterDexIronSword: {
+      name: 'Майсторски кама от желязо · ЛОВ'
+    },
+    smithDexIronSword: {
+      name: 'Кама от желязо · ЛОВ'
+    },
+    smithMasterDexIronHammer: {
+      name: 'Майсторски рапира от желязо · ЛОВ'
+    },
+    smithDexIronHammer: {
+      name: 'Рапира от желязо · ЛОВ'
+    },
+    smithMasterDexIronShield: {
+      name: 'Майсторски малък щит от желязо · ЛОВ'
+    },
+    smithDexIronShield: {
+      name: 'Малък щит от желязо · ЛОВ'
+    },
+    smithMasterDexIronHelm: {
+      name: 'Майсторски качулка от желязо · ЛОВ'
+    },
+    smithDexIronHelm: {
+      name: 'Качулка от желязо · ЛОВ'
+    },
+    smithMasterDexIronPlate: {
+      name: 'Майсторски кожена броня от желязо · ЛОВ'
+    },
+    smithDexIronPlate: {
+      name: 'Кожена броня от желязо · ЛОВ'
+    },
+    smithMasterDexIronGreaves: {
+      name: 'Майсторски ботуши от желязо · ЛОВ'
+    },
+    smithDexIronGreaves: {
+      name: 'Ботуши от желязо · ЛОВ'
+    },
+    smithMasterDexSilverSword: {
+      name: 'Майсторски кама от сребро · ЛОВ'
+    },
+    smithDexSilverSword: {
+      name: 'Кама от сребро · ЛОВ'
+    },
+    smithMasterDexSilverHammer: {
+      name: 'Майсторски рапира от сребро · ЛОВ'
+    },
+    smithDexSilverHammer: {
+      name: 'Рапира от сребро · ЛОВ'
+    },
+    smithMasterDexSilverShield: {
+      name: 'Майсторски малък щит от сребро · ЛОВ'
+    },
+    smithDexSilverShield: {
+      name: 'Малък щит от сребро · ЛОВ'
+    },
+    smithMasterDexSilverHelm: {
+      name: 'Майсторски качулка от сребро · ЛОВ'
+    },
+    smithDexSilverHelm: {
+      name: 'Качулка от сребро · ЛОВ'
+    },
+    smithMasterDexSilverPlate: {
+      name: 'Майсторски кожена броня от сребро · ЛОВ'
+    },
+    smithDexSilverPlate: {
+      name: 'Кожена броня от сребро · ЛОВ'
+    },
+    smithMasterDexSilverGreaves: {
+      name: 'Майсторски ботуши от сребро · ЛОВ'
+    },
+    smithDexSilverGreaves: {
+      name: 'Ботуши от сребро · ЛОВ'
+    },
+    smithMasterDexGoldSword: {
+      name: 'Майсторски кама от злато · ЛОВ'
+    },
+    smithDexGoldSword: {
+      name: 'Кама от злато · ЛОВ'
+    },
+    smithMasterDexGoldHammer: {
+      name: 'Майсторски рапира от злато · ЛОВ'
+    },
+    smithDexGoldHammer: {
+      name: 'Рапира от злато · ЛОВ'
+    },
+    smithMasterDexGoldShield: {
+      name: 'Майсторски малък щит от злато · ЛОВ'
+    },
+    smithDexGoldShield: {
+      name: 'Малък щит от злато · ЛОВ'
+    },
+    smithMasterDexGoldHelm: {
+      name: 'Майсторски качулка от злато · ЛОВ'
+    },
+    smithDexGoldHelm: {
+      name: 'Качулка от злато · ЛОВ'
+    },
+    smithMasterDexGoldPlate: {
+      name: 'Майсторски кожена броня от злато · ЛОВ'
+    },
+    smithDexGoldPlate: {
+      name: 'Кожена броня от злато · ЛОВ'
+    },
+    smithMasterDexGoldGreaves: {
+      name: 'Майсторски ботуши от злато · ЛОВ'
+    },
+    smithDexGoldGreaves: {
+      name: 'Ботуши от злато · ЛОВ'
+    },
+    smithMasterDexMithrilSword: {
+      name: 'Майсторски кама от митрил · ЛОВ'
+    },
+    smithMasterDexAdamantSword: {
+      name: 'Майсторски кама от адамант · ЛОВ'
+    },
+    smithMasterDexAetheriteSword: {
+      name: 'Майсторски кама от етерит · ЛОВ'
+    },
+    smithDexMithrilSword: {
+      name: 'Кама от митрил · ЛОВ'
+    },
+    smithDexAdamantSword: {
+      name: 'Кама от адамант · ЛОВ'
+    },
+    smithDexAetheriteSword: {
+      name: 'Кама от етерит · ЛОВ'
+    },
+    smithMasterDexMithrilHammer: {
+      name: 'Майсторски рапира от митрил · ЛОВ'
+    },
+    smithMasterDexAdamantHammer: {
+      name: 'Майсторски рапира от адамант · ЛОВ'
+    },
+    smithMasterDexAetheriteHammer: {
+      name: 'Майсторски рапира от етерит · ЛОВ'
+    },
+    smithDexMithrilHammer: {
+      name: 'Рапира от митрил · ЛОВ'
+    },
+    smithDexAdamantHammer: {
+      name: 'Рапира от адамант · ЛОВ'
+    },
+    smithDexAetheriteHammer: {
+      name: 'Рапира от етерит · ЛОВ'
+    },
+    smithMasterDexMithrilShield: {
+      name: 'Майсторски малък щит от митрил · ЛОВ'
+    },
+    smithMasterDexAdamantShield: {
+      name: 'Майсторски малък щит от адамант · ЛОВ'
+    },
+    smithMasterDexAetheriteShield: {
+      name: 'Майсторски малък щит от етерит · ЛОВ'
+    },
+    smithDexMithrilShield: {
+      name: 'Малък щит от митрил · ЛОВ'
+    },
+    smithDexAdamantShield: {
+      name: 'Малък щит от адамант · ЛОВ'
+    },
+    smithDexAetheriteShield: {
+      name: 'Малък щит от етерит · ЛОВ'
+    },
+    smithMasterDexMithrilHelm: {
+      name: 'Майсторски качулка от митрил · ЛОВ'
+    },
+    smithMasterDexAdamantHelm: {
+      name: 'Майсторски качулка от адамант · ЛОВ'
+    },
+    smithMasterDexAetheriteHelm: {
+      name: 'Майсторски качулка от етерит · ЛОВ'
+    },
+    smithDexMithrilHelm: {
+      name: 'Качулка от митрил · ЛОВ'
+    },
+    smithDexAdamantHelm: {
+      name: 'Качулка от адамант · ЛОВ'
+    },
+    smithDexAetheriteHelm: {
+      name: 'Качулка от етерит · ЛОВ'
+    },
+    smithMasterDexMithrilPlate: {
+      name: 'Майсторски кожена броня от митрил · ЛОВ'
+    },
+    smithMasterDexAdamantPlate: {
+      name: 'Майсторски кожена броня от адамант · ЛОВ'
+    },
+    smithMasterDexAetheritePlate: {
+      name: 'Майсторски кожена броня от етерит · ЛОВ'
+    },
+    smithDexMithrilPlate: {
+      name: 'Кожена броня от митрил · ЛОВ'
+    },
+    smithDexAdamantPlate: {
+      name: 'Кожена броня от адамант · ЛОВ'
+    },
+    smithDexAetheritePlate: {
+      name: 'Кожена броня от етерит · ЛОВ'
+    },
+    smithMasterDexMithrilGreaves: {
+      name: 'Майсторски ботуши от митрил · ЛОВ'
+    },
+    smithMasterDexAdamantGreaves: {
+      name: 'Майсторски ботуши от адамант · ЛОВ'
+    },
+    smithMasterDexAetheriteGreaves: {
+      name: 'Майсторски ботуши от етерит · ЛОВ'
+    },
+    smithDexMithrilGreaves: {
+      name: 'Ботуши от митрил · ЛОВ'
+    },
+    smithDexAdamantGreaves: {
+      name: 'Ботуши от адамант · ЛОВ'
+    },
+    smithDexAetheriteGreaves: {
+      name: 'Ботуши от етерит · ЛОВ'
+    },
+    smithMasterIntIronSword: {
+      name: 'Майсторски вълшебна пръчка от желязо · ИНТ'
+    },
+    smithIntIronSword: {
+      name: 'Вълшебна пръчка от желязо · ИНТ'
+    },
+    smithMasterIntIronHammer: {
+      name: 'Майсторски тояга от желязо · ИНТ'
+    },
+    smithIntIronHammer: {
+      name: 'Тояга от желязо · ИНТ'
+    },
+    smithMasterIntIronShield: {
+      name: 'Майсторски книга от желязо · ИНТ'
+    },
+    smithIntIronShield: {
+      name: 'Книга от желязо · ИНТ'
+    },
+    smithMasterIntIronHelm: {
+      name: 'Майсторски диадема от желязо · ИНТ'
+    },
+    smithIntIronHelm: {
+      name: 'Диадема от желязо · ИНТ'
+    },
+    smithMasterIntIronPlate: {
+      name: 'Майсторски роба от желязо · ИНТ'
+    },
+    smithIntIronPlate: {
+      name: 'Роба от желязо · ИНТ'
+    },
+    smithMasterIntIronGreaves: {
+      name: 'Майсторски ботуши от желязо · ИНТ'
+    },
+    smithIntIronGreaves: {
+      name: 'Ботуши от желязо · ИНТ'
+    },
+    smithMasterIntSilverSword: {
+      name: 'Майсторски вълшебна пръчка от сребро · ИНТ'
+    },
+    smithIntSilverSword: {
+      name: 'Вълшебна пръчка от сребро · ИНТ'
+    },
+    smithMasterIntSilverHammer: {
+      name: 'Майсторски тояга от сребро · ИНТ'
+    },
+    smithIntSilverHammer: {
+      name: 'Тояга от сребро · ИНТ'
+    },
+    smithMasterIntSilverShield: {
+      name: 'Майсторски книга от сребро · ИНТ'
+    },
+    smithIntSilverShield: {
+      name: 'Книга от сребро · ИНТ'
+    },
+    smithMasterIntSilverHelm: {
+      name: 'Майсторски диадема от сребро · ИНТ'
+    },
+    smithIntSilverHelm: {
+      name: 'Диадема от сребро · ИНТ'
+    },
+    smithMasterIntSilverPlate: {
+      name: 'Майсторски роба от сребро · ИНТ'
+    },
+    smithIntSilverPlate: {
+      name: 'Роба от сребро · ИНТ'
+    },
+    smithMasterIntSilverGreaves: {
+      name: 'Майсторски ботуши от сребро · ИНТ'
+    },
+    smithIntSilverGreaves: {
+      name: 'Ботуши от сребро · ИНТ'
+    },
+    smithMasterIntGoldSword: {
+      name: 'Майсторски вълшебна пръчка от злато · ИНТ'
+    },
+    smithIntGoldSword: {
+      name: 'Вълшебна пръчка от злато · ИНТ'
+    },
+    smithMasterIntGoldHammer: {
+      name: 'Майсторски тояга от злато · ИНТ'
+    },
+    smithIntGoldHammer: {
+      name: 'Тояга от злато · ИНТ'
+    },
+    smithMasterIntGoldShield: {
+      name: 'Майсторски книга от злато · ИНТ'
+    },
+    smithIntGoldShield: {
+      name: 'Книга от злато · ИНТ'
+    },
+    smithMasterIntGoldHelm: {
+      name: 'Майсторски диадема от злато · ИНТ'
+    },
+    smithIntGoldHelm: {
+      name: 'Диадема от злато · ИНТ'
+    },
+    smithMasterIntGoldPlate: {
+      name: 'Майсторски роба от злато · ИНТ'
+    },
+    smithIntGoldPlate: {
+      name: 'Роба от злато · ИНТ'
+    },
+    smithMasterIntGoldGreaves: {
+      name: 'Майсторски ботуши от злато · ИНТ'
+    },
+    smithIntGoldGreaves: {
+      name: 'Ботуши от злато · ИНТ'
+    },
+    smithMasterIntMithrilSword: {
+      name: 'Майсторски вълшебна пръчка от митрил · ИНТ'
+    },
+    smithMasterIntAdamantSword: {
+      name: 'Майсторски вълшебна пръчка от адамант · ИНТ'
+    },
+    smithMasterIntAetheriteSword: {
+      name: 'Майсторски вълшебна пръчка от етерит · ИНТ'
+    },
+    smithIntMithrilSword: {
+      name: 'Вълшебна пръчка от митрил · ИНТ'
+    },
+    smithIntAdamantSword: {
+      name: 'Вълшебна пръчка от адамант · ИНТ'
+    },
+    smithIntAetheriteSword: {
+      name: 'Вълшебна пръчка от етерит · ИНТ'
+    },
+    smithMasterIntMithrilHammer: {
+      name: 'Майсторски тояга от митрил · ИНТ'
+    },
+    smithMasterIntAdamantHammer: {
+      name: 'Майсторски тояга от адамант · ИНТ'
+    },
+    smithMasterIntAetheriteHammer: {
+      name: 'Майсторски тояга от етерит · ИНТ'
+    },
+    smithIntMithrilHammer: {
+      name: 'Тояга от митрил · ИНТ'
+    },
+    smithIntAdamantHammer: {
+      name: 'Тояга от адамант · ИНТ'
+    },
+    smithIntAetheriteHammer: {
+      name: 'Тояга от етерит · ИНТ'
+    },
+    smithMasterIntMithrilShield: {
+      name: 'Майсторски книга от митрил · ИНТ'
+    },
+    smithMasterIntAdamantShield: {
+      name: 'Майсторски книга от адамант · ИНТ'
+    },
+    smithMasterIntAetheriteShield: {
+      name: 'Майсторски книга от етерит · ИНТ'
+    },
+    smithIntMithrilShield: {
+      name: 'Книга от митрил · ИНТ'
+    },
+    smithIntAdamantShield: {
+      name: 'Книга от адамант · ИНТ'
+    },
+    smithIntAetheriteShield: {
+      name: 'Книга от етерит · ИНТ'
+    },
+    smithMasterIntMithrilHelm: {
+      name: 'Майсторски диадема от митрил · ИНТ'
+    },
+    smithMasterIntAdamantHelm: {
+      name: 'Майсторски диадема от адамант · ИНТ'
+    },
+    smithMasterIntAetheriteHelm: {
+      name: 'Майсторски диадема от етерит · ИНТ'
+    },
+    smithIntMithrilHelm: {
+      name: 'Диадема от митрил · ИНТ'
+    },
+    smithIntAdamantHelm: {
+      name: 'Диадема от адамант · ИНТ'
+    },
+    smithIntAetheriteHelm: {
+      name: 'Диадема от етерит · ИНТ'
+    },
+    smithMasterIntMithrilPlate: {
+      name: 'Майсторски роба от митрил · ИНТ'
+    },
+    smithMasterIntAdamantPlate: {
+      name: 'Майсторски роба от адамант · ИНТ'
+    },
+    smithMasterIntAetheritePlate: {
+      name: 'Майсторски роба от етерит · ИНТ'
+    },
+    smithIntMithrilPlate: {
+      name: 'Роба от митрил · ИНТ'
+    },
+    smithIntAdamantPlate: {
+      name: 'Роба от адамант · ИНТ'
+    },
+    smithIntAetheritePlate: {
+      name: 'Роба от етерит · ИНТ'
+    },
+    smithMasterIntMithrilGreaves: {
+      name: 'Майсторски ботуши от митрил · ИНТ'
+    },
+    smithMasterIntAdamantGreaves: {
+      name: 'Майсторски ботуши от адамант · ИНТ'
+    },
+    smithMasterIntAetheriteGreaves: {
+      name: 'Майсторски ботуши от етерит · ИНТ'
+    },
+    smithIntMithrilGreaves: {
+      name: 'Ботуши от митрил · ИНТ'
+    },
+    smithIntAdamantGreaves: {
+      name: 'Ботуши от адамант · ИНТ'
+    },
+    smithIntAetheriteGreaves: {
+      name: 'Ботуши от етерит · ИНТ'
+    },
+    smithMasterSklIronSword: {
+      name: 'Майсторски пистолет от желязо · МАЙ'
+    },
+    smithSklIronSword: {
+      name: 'Пистолет от желязо · МАЙ'
+    },
+    smithMasterSklIronHammer: {
+      name: 'Майсторски пушка от желязо · МАЙ'
+    },
+    smithSklIronHammer: {
+      name: 'Пушка от желязо · МАЙ'
+    },
+    smithMasterSklIronShield: {
+      name: 'Майсторски батерия от желязо · МАЙ'
+    },
+    smithSklIronShield: {
+      name: 'Батерия от желязо · МАЙ'
+    },
+    smithMasterSklIronHelm: {
+      name: 'Майсторски шапка от желязо · МАЙ'
+    },
+    smithSklIronHelm: {
+      name: 'Шапка от желязо · МАЙ'
+    },
+    smithMasterSklIronPlate: {
+      name: 'Майсторски сбруя от желязо · МАЙ'
+    },
+    smithSklIronPlate: {
+      name: 'Сбруя от желязо · МАЙ'
+    },
+    smithMasterSklIronGreaves: {
+      name: 'Майсторски ботуши от желязо · МАЙ'
+    },
+    smithSklIronGreaves: {
+      name: 'Ботуши от желязо · МАЙ'
+    },
+    smithMasterSklSilverSword: {
+      name: 'Майсторски пистолет от сребро · МАЙ'
+    },
+    smithSklSilverSword: {
+      name: 'Пистолет от сребро · МАЙ'
+    },
+    smithMasterSklSilverHammer: {
+      name: 'Майсторски пушка от сребро · МАЙ'
+    },
+    smithSklSilverHammer: {
+      name: 'Пушка от сребро · МАЙ'
+    },
+    smithMasterSklSilverShield: {
+      name: 'Майсторски батерия от сребро · МАЙ'
+    },
+    smithSklSilverShield: {
+      name: 'Батерия от сребро · МАЙ'
+    },
+    smithMasterSklSilverHelm: {
+      name: 'Майсторски шапка от сребро · МАЙ'
+    },
+    smithSklSilverHelm: {
+      name: 'Шапка от сребро · МАЙ'
+    },
+    smithMasterSklSilverPlate: {
+      name: 'Майсторски сбруя от сребро · МАЙ'
+    },
+    smithSklSilverPlate: {
+      name: 'Сбруя от сребро · МАЙ'
+    },
+    smithMasterSklSilverGreaves: {
+      name: 'Майсторски ботуши от сребро · МАЙ'
+    },
+    smithSklSilverGreaves: {
+      name: 'Ботуши от сребро · МАЙ'
+    },
+    smithMasterSklGoldSword: {
+      name: 'Майсторски пистолет от злато · МАЙ'
+    },
+    smithSklGoldSword: {
+      name: 'Пистолет от злато · МАЙ'
+    },
+    smithMasterSklGoldHammer: {
+      name: 'Майсторски пушка от злато · МАЙ'
+    },
+    smithSklGoldHammer: {
+      name: 'Пушка от злато · МАЙ'
+    },
+    smithMasterSklGoldShield: {
+      name: 'Майсторски батерия от злато · МАЙ'
+    },
+    smithSklGoldShield: {
+      name: 'Батерия от злато · МАЙ'
+    },
+    smithMasterSklGoldHelm: {
+      name: 'Майсторски шапка от злато · МАЙ'
+    },
+    smithSklGoldHelm: {
+      name: 'Шапка от злато · МАЙ'
+    },
+    smithMasterSklGoldPlate: {
+      name: 'Майсторски сбруя от злато · МАЙ'
+    },
+    smithSklGoldPlate: {
+      name: 'Сбруя от злато · МАЙ'
+    },
+    smithMasterSklGoldGreaves: {
+      name: 'Майсторски ботуши от злато · МАЙ'
+    },
+    smithSklGoldGreaves: {
+      name: 'Ботуши от злато · МАЙ'
+    },
+    smithMasterSklMithrilSword: {
+      name: 'Майсторски пистолет от митрил · МАЙ'
+    },
+    smithMasterSklAdamantSword: {
+      name: 'Майсторски пистолет от адамант · МАЙ'
+    },
+    smithMasterSklAetheriteSword: {
+      name: 'Майсторски пистолет от етерит · МАЙ'
+    },
+    smithSklMithrilSword: {
+      name: 'Пистолет от митрил · МАЙ'
+    },
+    smithSklAdamantSword: {
+      name: 'Пистолет от адамант · МАЙ'
+    },
+    smithSklAetheriteSword: {
+      name: 'Пистолет от етерит · МАЙ'
+    },
+    smithMasterSklMithrilHammer: {
+      name: 'Майсторски пушка от митрил · МАЙ'
+    },
+    smithMasterSklAdamantHammer: {
+      name: 'Майсторски пушка от адамант · МАЙ'
+    },
+    smithMasterSklAetheriteHammer: {
+      name: 'Майсторски пушка от етерит · МАЙ'
+    },
+    smithSklMithrilHammer: {
+      name: 'Пушка от митрил · МАЙ'
+    },
+    smithSklAdamantHammer: {
+      name: 'Пушка от адамант · МАЙ'
+    },
+    smithSklAetheriteHammer: {
+      name: 'Пушка от етерит · МАЙ'
+    },
+    smithMasterSklMithrilShield: {
+      name: 'Майсторски батерия от митрил · МАЙ'
+    },
+    smithMasterSklAdamantShield: {
+      name: 'Майсторски батерия от адамант · МАЙ'
+    },
+    smithMasterSklAetheriteShield: {
+      name: 'Майсторски батерия от етерит · МАЙ'
+    },
+    smithSklMithrilShield: {
+      name: 'Батерия от митрил · МАЙ'
+    },
+    smithSklAdamantShield: {
+      name: 'Батерия от адамант · МАЙ'
+    },
+    smithSklAetheriteShield: {
+      name: 'Батерия от етерит · МАЙ'
+    },
+    smithMasterSklMithrilHelm: {
+      name: 'Майсторски шапка от митрил · МАЙ'
+    },
+    smithMasterSklAdamantHelm: {
+      name: 'Майсторски шапка от адамант · МАЙ'
+    },
+    smithMasterSklAetheriteHelm: {
+      name: 'Майсторски шапка от етерит · МАЙ'
+    },
+    smithSklMithrilHelm: {
+      name: 'Шапка от митрил · МАЙ'
+    },
+    smithSklAdamantHelm: {
+      name: 'Шапка от адамант · МАЙ'
+    },
+    smithSklAetheriteHelm: {
+      name: 'Шапка от етерит · МАЙ'
+    },
+    smithMasterSklMithrilPlate: {
+      name: 'Майсторски сбруя от митрил · МАЙ'
+    },
+    smithMasterSklAdamantPlate: {
+      name: 'Майсторски сбруя от адамант · МАЙ'
+    },
+    smithMasterSklAetheritePlate: {
+      name: 'Майсторски сбруя от етерит · МАЙ'
+    },
+    smithSklMithrilPlate: {
+      name: 'Сбруя от митрил · МАЙ'
+    },
+    smithSklAdamantPlate: {
+      name: 'Сбруя от адамант · МАЙ'
+    },
+    smithSklAetheritePlate: {
+      name: 'Сбруя от етерит · МАЙ'
+    },
+    smithMasterSklMithrilGreaves: {
+      name: 'Майсторски ботуши от митрил · МАЙ'
+    },
+    smithMasterSklAdamantGreaves: {
+      name: 'Майсторски ботуши от адамант · МАЙ'
+    },
+    smithMasterSklAetheriteGreaves: {
+      name: 'Майсторски ботуши от етерит · МАЙ'
+    },
+    smithSklMithrilGreaves: {
+      name: 'Ботуши от митрил · МАЙ'
+    },
+    smithSklAdamantGreaves: {
+      name: 'Ботуши от адамант · МАЙ'
+    },
+    smithSklAetheriteGreaves: {
+      name: 'Ботуши от етерит · МАЙ'
+    },
+    smithMasterChaIronSword: {
+      name: 'Майсторски скиптър от желязо · ХАР'
+    },
+    smithChaIronSword: {
+      name: 'Скиптър от желязо · ХАР'
+    },
+    smithMasterChaIronHammer: {
+      name: 'Майсторски знаме от желязо · ХАР'
+    },
+    smithChaIronHammer: {
+      name: 'Знаме от желязо · ХАР'
+    },
+    smithMasterChaIronShield: {
+      name: 'Майсторски кодекс от желязо · ХАР'
+    },
+    smithChaIronShield: {
+      name: 'Кодекс от желязо · ХАР'
+    },
+    smithMasterChaIronHelm: {
+      name: 'Майсторски корона от желязо · ХАР'
+    },
+    smithChaIronHelm: {
+      name: 'Корона от желязо · ХАР'
+    },
+    smithMasterChaIronPlate: {
+      name: 'Майсторски табард от желязо · ХАР'
+    },
+    smithChaIronPlate: {
+      name: 'Табард от желязо · ХАР'
+    },
+    smithMasterChaIronGreaves: {
+      name: 'Майсторски ботуши от желязо · ХАР'
+    },
+    smithChaIronGreaves: {
+      name: 'Ботуши от желязо · ХАР'
+    },
+    smithMasterChaSilverSword: {
+      name: 'Майсторски скиптър от сребро · ХАР'
+    },
+    smithChaSilverSword: {
+      name: 'Скиптър от сребро · ХАР'
+    },
+    smithMasterChaSilverHammer: {
+      name: 'Майсторски знаме от сребро · ХАР'
+    },
+    smithChaSilverHammer: {
+      name: 'Знаме от сребро · ХАР'
+    },
+    smithMasterChaSilverShield: {
+      name: 'Майсторски кодекс от сребро · ХАР'
+    },
+    smithChaSilverShield: {
+      name: 'Кодекс от сребро · ХАР'
+    },
+    smithMasterChaSilverHelm: {
+      name: 'Майсторски корона от сребро · ХАР'
+    },
+    smithChaSilverHelm: {
+      name: 'Корона от сребро · ХАР'
+    },
+    smithMasterChaSilverPlate: {
+      name: 'Майсторски табард от сребро · ХАР'
+    },
+    smithChaSilverPlate: {
+      name: 'Табард от сребро · ХАР'
+    },
+    smithMasterChaSilverGreaves: {
+      name: 'Майсторски ботуши от сребро · ХАР'
+    },
+    smithChaSilverGreaves: {
+      name: 'Ботуши от сребро · ХАР'
+    },
+    smithMasterChaGoldSword: {
+      name: 'Майсторски скиптър от злато · ХАР'
+    },
+    smithChaGoldSword: {
+      name: 'Скиптър от злато · ХАР'
+    },
+    smithMasterChaGoldHammer: {
+      name: 'Майсторски знаме от злато · ХАР'
+    },
+    smithChaGoldHammer: {
+      name: 'Знаме от злато · ХАР'
+    },
+    smithMasterChaGoldShield: {
+      name: 'Майсторски кодекс от злато · ХАР'
+    },
+    smithChaGoldShield: {
+      name: 'Кодекс от злато · ХАР'
+    },
+    smithMasterChaGoldHelm: {
+      name: 'Майсторски корона от злато · ХАР'
+    },
+    smithChaGoldHelm: {
+      name: 'Корона от злато · ХАР'
+    },
+    smithMasterChaGoldPlate: {
+      name: 'Майсторски табард от злато · ХАР'
+    },
+    smithChaGoldPlate: {
+      name: 'Табард от злато · ХАР'
+    },
+    smithMasterChaGoldGreaves: {
+      name: 'Майсторски ботуши от злато · ХАР'
+    },
+    smithChaGoldGreaves: {
+      name: 'Ботуши от злато · ХАР'
+    },
+    smithMasterChaMithrilSword: {
+      name: 'Майсторски скиптър от митрил · ХАР'
+    },
+    smithMasterChaAdamantSword: {
+      name: 'Майсторски скиптър от адамант · ХАР'
+    },
+    smithMasterChaAetheriteSword: {
+      name: 'Майсторски скиптър от етерит · ХАР'
+    },
+    smithChaMithrilSword: {
+      name: 'Скиптър от митрил · ХАР'
+    },
+    smithChaAdamantSword: {
+      name: 'Скиптър от адамант · ХАР'
+    },
+    smithChaAetheriteSword: {
+      name: 'Скиптър от етерит · ХАР'
+    },
+    smithMasterChaMithrilHammer: {
+      name: 'Майсторски знаме от митрил · ХАР'
+    },
+    smithMasterChaAdamantHammer: {
+      name: 'Майсторски знаме от адамант · ХАР'
+    },
+    smithMasterChaAetheriteHammer: {
+      name: 'Майсторски знаме от етерит · ХАР'
+    },
+    smithChaMithrilHammer: {
+      name: 'Знаме от митрил · ХАР'
+    },
+    smithChaAdamantHammer: {
+      name: 'Знаме от адамант · ХАР'
+    },
+    smithChaAetheriteHammer: {
+      name: 'Знаме от етерит · ХАР'
+    },
+    smithMasterChaMithrilShield: {
+      name: 'Майсторски кодекс от митрил · ХАР'
+    },
+    smithMasterChaAdamantShield: {
+      name: 'Майсторски кодекс от адамант · ХАР'
+    },
+    smithMasterChaAetheriteShield: {
+      name: 'Майсторски кодекс от етерит · ХАР'
+    },
+    smithChaMithrilShield: {
+      name: 'Кодекс от митрил · ХАР'
+    },
+    smithChaAdamantShield: {
+      name: 'Кодекс от адамант · ХАР'
+    },
+    smithChaAetheriteShield: {
+      name: 'Кодекс от етерит · ХАР'
+    },
+    smithMasterChaMithrilHelm: {
+      name: 'Майсторски корона от митрил · ХАР'
+    },
+    smithMasterChaAdamantHelm: {
+      name: 'Майсторски корона от адамант · ХАР'
+    },
+    smithMasterChaAetheriteHelm: {
+      name: 'Майсторски корона от етерит · ХАР'
+    },
+    smithChaMithrilHelm: {
+      name: 'Корона от митрил · ХАР'
+    },
+    smithChaAdamantHelm: {
+      name: 'Корона от адамант · ХАР'
+    },
+    smithChaAetheriteHelm: {
+      name: 'Корона от етерит · ХАР'
+    },
+    smithMasterChaMithrilPlate: {
+      name: 'Майсторски табард от митрил · ХАР'
+    },
+    smithMasterChaAdamantPlate: {
+      name: 'Майсторски табард от адамант · ХАР'
+    },
+    smithMasterChaAetheritePlate: {
+      name: 'Майсторски табард от етерит · ХАР'
+    },
+    smithChaMithrilPlate: {
+      name: 'Табард от митрил · ХАР'
+    },
+    smithChaAdamantPlate: {
+      name: 'Табард от адамант · ХАР'
+    },
+    smithChaAetheritePlate: {
+      name: 'Табард от етерит · ХАР'
+    },
+    smithMasterChaMithrilGreaves: {
+      name: 'Майсторски ботуши от митрил · ХАР'
+    },
+    smithMasterChaAdamantGreaves: {
+      name: 'Майсторски ботуши от адамант · ХАР'
+    },
+    smithMasterChaAetheriteGreaves: {
+      name: 'Майсторски ботуши от етерит · ХАР'
+    },
+    smithChaMithrilGreaves: {
+      name: 'Ботуши от митрил · ХАР'
+    },
+    smithChaAdamantGreaves: {
+      name: 'Ботуши от адамант · ХАР'
+    },
+    smithChaAetheriteGreaves: {
+      name: 'Ботуши от етерит · ХАР'
+    },
+    smithMasterEndIronSword: {
+      name: 'Майсторски боздуган от желязо · ИЗД'
+    },
+    smithEndIronSword: {
+      name: 'Боздуган от желязо · ИЗД'
+    },
+    smithMasterEndIronHammer: {
+      name: 'Майсторски брадва от желязо · ИЗД'
+    },
+    smithEndIronHammer: {
+      name: 'Брадва от желязо · ИЗД'
+    },
+    smithMasterEndIronShield: {
+      name: 'Майсторски железен щит · ИЗД'
+    },
+    smithEndIronShield: {
+      name: 'Железен щит · ИЗД'
+    },
+    smithMasterEndIronHelm: {
+      name: 'Майсторски железен шлем · ИЗД'
+    },
+    smithEndIronHelm: {
+      name: 'Железен шлем · ИЗД'
+    },
+    smithMasterEndIronPlate: {
+      name: 'Майсторски железни доспехи · ИЗД'
+    },
+    smithEndIronPlate: {
+      name: 'Железни доспехи · ИЗД'
+    },
+    smithMasterEndIronGreaves: {
+      name: 'Майсторски железни наколенници · ИЗД'
+    },
+    smithEndIronGreaves: {
+      name: 'Железни наколенници · ИЗД'
+    },
+    smithMasterEndSilverSword: {
+      name: 'Майсторски боздуган от сребро · ИЗД'
+    },
+    smithEndSilverSword: {
+      name: 'Боздуган от сребро · ИЗД'
+    },
+    smithMasterEndSilverHammer: {
+      name: 'Майсторски брадва от сребро · ИЗД'
+    },
+    smithEndSilverHammer: {
+      name: 'Брадва от сребро · ИЗД'
+    },
+    smithMasterEndSilverShield: {
+      name: 'Майсторски сребърен щит · ИЗД'
+    },
+    smithEndSilverShield: {
+      name: 'Сребърен щит · ИЗД'
+    },
+    smithMasterEndSilverHelm: {
+      name: 'Майсторски сребърен шлем · ИЗД'
+    },
+    smithEndSilverHelm: {
+      name: 'Сребърен шлем · ИЗД'
+    },
+    smithMasterEndSilverPlate: {
+      name: 'Майсторски сребърни доспехи · ИЗД'
+    },
+    smithEndSilverPlate: {
+      name: 'Сребърни доспехи · ИЗД'
+    },
+    smithMasterEndSilverGreaves: {
+      name: 'Майсторски сребърни наколенници · ИЗД'
+    },
+    smithEndSilverGreaves: {
+      name: 'Сребърни наколенници · ИЗД'
+    },
+    smithMasterEndGoldSword: {
+      name: 'Майсторски боздуган от злато · ИЗД'
+    },
+    smithEndGoldSword: {
+      name: 'Боздуган от злато · ИЗД'
+    },
+    smithMasterEndGoldHammer: {
+      name: 'Майсторски брадва от злато · ИЗД'
+    },
+    smithEndGoldHammer: {
+      name: 'Брадва от злато · ИЗД'
+    },
+    smithMasterEndGoldShield: {
+      name: 'Майсторски златен щит · ИЗД'
+    },
+    smithEndGoldShield: {
+      name: 'Златен щит · ИЗД'
+    },
+    smithMasterEndGoldHelm: {
+      name: 'Майсторски златен шлем · ИЗД'
+    },
+    smithEndGoldHelm: {
+      name: 'Златен шлем · ИЗД'
+    },
+    smithMasterEndGoldPlate: {
+      name: 'Майсторски златни доспехи · ИЗД'
+    },
+    smithEndGoldPlate: {
+      name: 'Златни доспехи · ИЗД'
+    },
+    smithMasterEndGoldGreaves: {
+      name: 'Майсторски златни наколенници · ИЗД'
+    },
+    smithEndGoldGreaves: {
+      name: 'Златни наколенници · ИЗД'
+    },
+    smithMasterEndMithrilSword: {
+      name: 'Майсторски боздуган от митрил · ИЗД'
+    },
+    smithMasterEndAdamantSword: {
+      name: 'Майсторски боздуган от адамант · ИЗД'
+    },
+    smithMasterEndAetheriteSword: {
+      name: 'Майсторски боздуган от етерит · ИЗД'
+    },
+    smithEndMithrilSword: {
+      name: 'Боздуган от митрил · ИЗД'
+    },
+    smithEndAdamantSword: {
+      name: 'Боздуган от адамант · ИЗД'
+    },
+    smithEndAetheriteSword: {
+      name: 'Боздуган от етерит · ИЗД'
+    },
+    smithMasterEndMithrilHammer: {
+      name: 'Майсторски брадва от митрил · ИЗД'
+    },
+    smithMasterEndAdamantHammer: {
+      name: 'Майсторски брадва от адамант · ИЗД'
+    },
+    smithMasterEndAetheriteHammer: {
+      name: 'Майсторски брадва от етерит · ИЗД'
+    },
+    smithEndMithrilHammer: {
+      name: 'Брадва от митрил · ИЗД'
+    },
+    smithEndAdamantHammer: {
+      name: 'Брадва от адамант · ИЗД'
+    },
+    smithEndAetheriteHammer: {
+      name: 'Брадва от етерит · ИЗД'
+    },
+    smithMasterEndMithrilShield: {
+      name: 'Майсторски митрилов щит · ИЗД'
+    },
+    smithMasterEndAdamantShield: {
+      name: 'Майсторски адамантов щит · ИЗД'
+    },
+    smithMasterEndAetheriteShield: {
+      name: 'Майсторски етеритов щит · ИЗД'
+    },
+    smithEndMithrilShield: {
+      name: 'Митрилов щит · ИЗД'
+    },
+    smithEndAdamantShield: {
+      name: 'Адамантов щит · ИЗД'
+    },
+    smithEndAetheriteShield: {
+      name: 'Етеритов щит · ИЗД'
+    },
+    smithMasterEndMithrilHelm: {
+      name: 'Майсторски митрилов шлем · ИЗД'
+    },
+    smithMasterEndAdamantHelm: {
+      name: 'Майсторски адамантов шлем · ИЗД'
+    },
+    smithMasterEndAetheriteHelm: {
+      name: 'Майсторски етеритов шлем · ИЗД'
+    },
+    smithEndMithrilHelm: {
+      name: 'Митрилов шлем · ИЗД'
+    },
+    smithEndAdamantHelm: {
+      name: 'Адамантов шлем · ИЗД'
+    },
+    smithEndAetheriteHelm: {
+      name: 'Етеритов шлем · ИЗД'
+    },
+    smithMasterEndMithrilPlate: {
+      name: 'Майсторски митрилови доспехи · ИЗД'
+    },
+    smithMasterEndAdamantPlate: {
+      name: 'Майсторски адамантови доспехи · ИЗД'
+    },
+    smithMasterEndAetheritePlate: {
+      name: 'Майсторски етеритови доспехи · ИЗД'
+    },
+    smithEndMithrilPlate: {
+      name: 'Митрилови доспехи · ИЗД'
+    },
+    smithEndAdamantPlate: {
+      name: 'Адамантови доспехи · ИЗД'
+    },
+    smithEndAetheritePlate: {
+      name: 'Етеритови доспехи · ИЗД'
+    },
+    smithMasterEndMithrilGreaves: {
+      name: 'Майсторски митрилови наколенници · ИЗД'
+    },
+    smithMasterEndAdamantGreaves: {
+      name: 'Майсторски адамантови наколенници · ИЗД'
+    },
+    smithMasterEndAetheriteGreaves: {
+      name: 'Майсторски етеритови наколенници · ИЗД'
+    },
+    smithEndMithrilGreaves: {
+      name: 'Митрилови наколенници · ИЗД'
+    },
+    smithEndAdamantGreaves: {
+      name: 'Адамантови наколенници · ИЗД'
+    },
+    smithEndAetheriteGreaves: {
+      name: 'Етеритови наколенници · ИЗД'
     },
     smithIronSword: {
       name: 'Железен меч'
@@ -1778,6 +2952,414 @@ export default {
     scepterOfTheFirstKing: {
       name: 'Скиптърът на първия крал'
     },
+    pickpocketsKnife: {
+      name: 'Нож на джебчията'
+    },
+    serpentsFang: {
+      name: 'Зъб на змия'
+    },
+    phantomRapier: {
+      name: 'Призрачна рапира'
+    },
+    fangOfTheWindless: {
+      name: 'Зъбът на Безветрието'
+    },
+    roguesBuckler: {
+      name: 'Бъклер на мошеника'
+    },
+    venomVial: {
+      name: 'Флакон с отрова'
+    },
+    swiftguardBuckler: {
+      name: 'Бъклер на бързия страж'
+    },
+    nightshadeFlask: {
+      name: 'Бутилка беладона'
+    },
+    windveilTarge: {
+      name: 'Тарч на вятърната завеса'
+    },
+    shadowdancersBuckler: {
+      name: 'Бъклер на танцьора на сенките'
+    },
+    scoutsBandana: {
+      name: 'Бандана на разузнавача'
+    },
+    nightcowl: {
+      name: 'Нощна качулка'
+    },
+    shadowveilHood: {
+      name: 'Качулка на сенчестата завеса'
+    },
+    windrunnersCap: {
+      name: 'Шапка на бегача по вятъра'
+    },
+    maskOfTheSilentWind: {
+      name: 'Маска на тихия вятър'
+    },
+    rangersJerkin: {
+      name: 'Елек на следотърсача'
+    },
+    nightstalkerLeathers: {
+      name: 'Кожите на нощния ловец'
+    },
+    windridersHarness: {
+      name: 'Сбруя на ездача на вятъра'
+    },
+    mantleOfTheShadowDancer: {
+      name: 'Мантия на танцьора на сенките'
+    },
+    thiefsGloves: {
+      name: 'Ръкавици на крадеца'
+    },
+    cutpurseGloves: {
+      name: 'Ръкавици на джебчията'
+    },
+    glovesOfTheGale: {
+      name: 'Ръкавици на бурята'
+    },
+    softSoledShoes: {
+      name: 'Обувки с мека подметка'
+    },
+    catStepBoots: {
+      name: 'Ботуши на котешката стъпка'
+    },
+    shadowstepBoots: {
+      name: 'Ботуши на сенчестата стъпка'
+    },
+    windstrideBoots: {
+      name: 'Ботуши на вятърната стъпка'
+    },
+    luckyCoin: {
+      name: 'Късметлийска монета'
+    },
+    shadowBand: {
+      name: 'Пръстен на сенките'
+    },
+    sandglassOfTheSwift: {
+      name: 'Пясъчен часовник на бързите'
+    },
+    talonCharm: {
+      name: 'Амулет от нокът'
+    },
+    windheart: {
+      name: 'Сърце на вятъра'
+    },
+    ashwallHeater: {
+      name: 'Щит на Пепелната стена'
+    },
+    wyrmhidePavise: {
+      name: 'Павеза от кожа на вивер'
+    },
+    footmansKettleHat: {
+      name: 'Котле на пехотинеца'
+    },
+    ironbrowSallet: {
+      name: 'Салад с железни вежди'
+    },
+    warlordsBarbute: {
+      name: 'Барбют на военачалника'
+    },
+    helmOfTheSunderedThrone: {
+      name: 'Шлем на разцепения трон'
+    },
+    recruitsCuirass: {
+      name: 'Кираса на новобранеца'
+    },
+    stonecuttersMitts: {
+      name: 'Ръкавици на каменоделеца'
+    },
+    ashforgedGauntlets: {
+      name: 'Ръкавици, ковани в пепел'
+    },
+    warbringerGauntlets: {
+      name: 'Ръкавици на носителя на война'
+    },
+    titanfistGauntlets: {
+      name: 'Ръкавици Юмрук на титана'
+    },
+    footmansGreaves: {
+      name: 'Наколенки на пехотинеца'
+    },
+    ironshodGreaves: {
+      name: 'Обковани наколенки'
+    },
+    warlordsSabatons: {
+      name: 'Сабатони на военачалника'
+    },
+    greavesOfTheMountainfall: {
+      name: 'Наколенки на свлачището'
+    },
+    sergeantsSignet: {
+      name: 'Печат на сержанта'
+    },
+    brawlersKnuckleRing: {
+      name: 'Боксов на побойника'
+    },
+    bloodiedWarMedal: {
+      name: 'Окървавен бойен медал'
+    },
+    watchmansCudgel: {
+      name: 'Палка на стражаря'
+    },
+    ironboundMace: {
+      name: 'Боздуган с железни обръчи'
+    },
+    stonehideCleaver: {
+      name: 'Сечиво от каменна кожа'
+    },
+    bulwarkMaul: {
+      name: 'Чук на бастиона'
+    },
+    mountainsplitterAxe: {
+      name: 'Брадва Планинораздробител'
+    },
+    everstandWarmace: {
+      name: 'Непоклатим боен боздуган'
+    },
+    emberwallBastion: {
+      name: 'Бастион на Жарава стена'
+    },
+    stonewardenHelm: {
+      name: 'Шлем на каменния страж'
+    },
+    colossusVisage: {
+      name: 'Лик на колоса'
+    },
+    diggersGauntlets: {
+      name: 'Ръкавици на копача'
+    },
+    bastionGauntlets: {
+      name: 'Ръкавици на бастиона'
+    },
+    glacierplateGauntlets: {
+      name: 'Ръкавици от ледникови плочи'
+    },
+    gauntletsOfEndlessVigil: {
+      name: 'Ръкавици на вечното бдение'
+    },
+    hearthstoneCharm: {
+      name: 'Талисман от камък на огнището'
+    },
+    ironheartPendant: {
+      name: 'Висулка Желязно сърце'
+    },
+    hedgewizardsWand: {
+      name: 'Пръчица на самоукия магьосник'
+    },
+    frostglassStaff: {
+      name: 'Жезъл от ледено стъкло'
+    },
+    voidthreadWand: {
+      name: 'Пръчица от нишки на Бездната'
+    },
+    staffOfTheStarlessSky: {
+      name: 'Жезъл на беззвездното небе'
+    },
+    studentsGrimoire: {
+      name: 'Гримоар на ученика'
+    },
+    frostfireOrb: {
+      name: 'Сфера на ледения огън'
+    },
+    orbOfTheUnwrittenHour: {
+      name: 'Сфера на ненаписания час'
+    },
+    apprenticesPointedCap: {
+      name: 'Островърха шапка на чирака'
+    },
+    sagesCirclet: {
+      name: 'Диадема на мъдреца'
+    },
+    cinderWizardsHat: {
+      name: 'Шапка на пепелния маг'
+    },
+    voidseerCirclet: {
+      name: 'Диадема на провидеца на Бездната'
+    },
+    apprenticesRobe: {
+      name: 'Роба на чирака'
+    },
+    cinderthreadRobe: {
+      name: 'Роба от пепелни нишки'
+    },
+    voidwovenRobe: {
+      name: 'Роба, изтъкана от Бездната'
+    },
+    inkStainedGloves: {
+      name: 'Ръкавици с мастилени петна'
+    },
+    spellthreadGloves: {
+      name: 'Ръкавици от нишки на заклинания'
+    },
+    frostweaveGloves: {
+      name: 'Ръкавици от ледена тъкан'
+    },
+    starlitGloves: {
+      name: 'Звездни ръкавици'
+    },
+    glovesOfTheLastWord: {
+      name: 'Ръкавици на последната дума'
+    },
+    scribesSlippers: {
+      name: 'Чехли на писаря'
+    },
+    moonstepSlippers: {
+      name: 'Чехли на лунната стъпка'
+    },
+    emberstepBoots: {
+      name: 'Ботуши на жарката стъпка'
+    },
+    voidwalkerBoots: {
+      name: 'Ботуши на странника на Бездната'
+    },
+    bootsOfTheWanderingStar: {
+      name: 'Ботуши на блуждаещата звезда'
+    },
+    glowstonePendant: {
+      name: 'Висулка със светещ камък'
+    },
+    scholarsSeal: {
+      name: 'Печат на учения'
+    },
+    eyeOfTheArchon: {
+      name: 'Окото на архонта'
+    },
+    cinderRepeater: {
+      name: 'Пепелна многозарядна пушка'
+    },
+    glacierMortar: {
+      name: 'Ледникова ръчна мортира'
+    },
+    sparkCell: {
+      name: 'Искрова клетка'
+    },
+    arcCapacitor: {
+      name: 'Дъгов кондензатор'
+    },
+    aetherheartCell: {
+      name: 'Клетка Сърце на етера'
+    },
+    marksmansVisor: {
+      name: 'Визьор на стрелеца'
+    },
+    sharpshootersCap: {
+      name: 'Шапка на снайпериста'
+    },
+    gunnersHarness: {
+      name: 'Хамути на артилериста'
+    },
+    steadyhandGloves: {
+      name: 'Ръкавици на твърдата ръка'
+    },
+    gunsmithsGloves: {
+      name: 'Ръкавици на оръжейника'
+    },
+    scrappersBoots: {
+      name: 'Ботуши на побойника'
+    },
+    sharpshooterBoots: {
+      name: 'Ботуши на снайпериста'
+    },
+    firingLineBoots: {
+      name: 'Ботуши на огневата линия'
+    },
+    steadyfootBoots: {
+      name: 'Ботуши на твърдия крак'
+    },
+    aetherstepBoots: {
+      name: 'Ботуши на етерната стъпка'
+    },
+    bootsOfTheLastShot: {
+      name: 'Ботуши на последния изстрел'
+    },
+    brassCartridgeCharm: {
+      name: 'Талисман от месингова гилза'
+    },
+    deadEyeLens: {
+      name: 'Леща на меткото око'
+    },
+    eagleEyeScope: {
+      name: 'Мерник на орловото око'
+    },
+    criersBaton: {
+      name: 'Жезъл на глашатая'
+    },
+    droversStandard: {
+      name: 'Знаме на пастира'
+    },
+    marshalsSceptre: {
+      name: 'Скиптър на маршала'
+    },
+    balladBook: {
+      name: 'Книга на баладите'
+    },
+    chronicleOfHeroes: {
+      name: 'Хроника на героите'
+    },
+    psalterOfTheHost: {
+      name: 'Псалтир на войнството'
+    },
+    tomeOfEternalReign: {
+      name: 'Том на вечното царуване'
+    },
+    heraldsCap: {
+      name: 'Шапка на херолда'
+    },
+    singersCirclet: {
+      name: 'Диадема на певеца'
+    },
+    diademOfTenThousandVoices: {
+      name: 'Диадема на десетте хиляди гласа'
+    },
+    travelersWaistcoat: {
+      name: 'Жилетка на пътника'
+    },
+    minstrelsMotley: {
+      name: 'Шарена премяна на менестрела'
+    },
+    troubadoursCoat: {
+      name: 'Палто на трубадура'
+    },
+    marshalsGreatcoat: {
+      name: 'Шинел на маршала'
+    },
+    buskersGloves: {
+      name: 'Ръкавици на уличния музикант'
+    },
+    drummersGloves: {
+      name: 'Ръкавици на барабанчика'
+    },
+    standardBearersGloves: {
+      name: 'Ръкавици на знаменосеца'
+    },
+    gildedParadeGloves: {
+      name: 'Позлатени парадни ръкавици'
+    },
+    glovesOfTheCrownedHand: {
+      name: 'Ръкавици на увенчаната ръка'
+    },
+    wayfarersShoes: {
+      name: 'Обувки на странника'
+    },
+    troubadourBoots: {
+      name: 'Ботуши на трубадура'
+    },
+    heraldsRidingBoots: {
+      name: 'Конни ботуши на херолда'
+    },
+    paradeBoots: {
+      name: 'Парадни ботуши'
+    },
+    bootsOfTheLongProcession: {
+      name: 'Ботуши на дългото шествие'
+    },
+    silverWhistle: {
+      name: 'Сребърна свирка'
+    },
+    gatheringHorn: {
+      name: 'Свиквателен рог'
+    },
     heartOfTheMountain: {
       name: 'Сърцето на планината'
     },
@@ -1881,6 +3463,9 @@ export default {
     freedPeddler: {
       talk: 'Всичко, което му трябва на пътника. Почти ново, в повечето случаи.',
       name: 'Одо Мароу'
+    },
+    sfShadowRoad: {
+      name: 'Нетъл Куикхенд'
     },
     sfShadow: {
       name: 'Нетъл Куикхенд'
@@ -2035,6 +3620,9 @@ export default {
     sunfordGambler: {
       name: 'Доб Търкулчо'
     },
+    sunfordCups: {
+      name: 'Нел Пъргавите Пръсти'
+    },
     oakGambler: {
       name: 'Рен Копринения'
     },
@@ -2146,6 +3734,13 @@ export default {
     }
   },
   dlg: {
+    intro: {
+      crossing: { 1: 'Всеки път в този свят води до кръстопът… и всеки кръстопът е битка.' },
+      hero: { 1: 'От тихите поля на Сънфорд на път потегли млад герой.' },
+      fire: { 1: 'Огънят отвърна на зова. Стоманата научи ново име.' },
+      foes: { 1: 'Крале на гоблините, ледени ярли, дракон на Пустотата… и Архидемонът.' },
+      begin: { 1: 'Твоята легенда започва сега.' }
+    },
     frostDisciple: {
       bye: {
         '1': 'Пази се на топло.'
@@ -2352,6 +3947,23 @@ export default {
         '2': 'Одо Мароу, на твоите услуги. Търговец, калайджия и много признателен човек.',
         '1__f': 'Ти! Ти си тази, която отвори клетката! Щях да изгния там.',
         '1': 'Ти! Ти си този, който отвори клетката! Щях да изгния там.'
+      }
+    },
+    sfShadowRoad: {
+      hello: {
+        '1': 'Телепортиране. Интересува ли те?'
+      },
+      again: {
+        '1': 'Пак ли за нов трик?'
+      },
+      train: {
+        '1': 'Гледай внимателно. Една крачка и си на друго място.'
+      },
+      trainBack: {
+        '1': 'Добре. Сега иди и бъди на друго място.'
+      },
+      bye: {
+        '1': 'Не се давай да те хванат.'
       }
     },
     sfShadow: {
@@ -2607,9 +4219,8 @@ export default {
         '2': 'Удряй, когато металът свети най-ярко. Пропуснеш ли, става за скрап. Хайде.',
         '1': 'Ковачество? Хм. Дръж чука ей така, не като тояга.'
       },
-      ore: {
-        '1': 'Късове, а? Взимам ги всичките. Честно тегло, честни пари.'
-      },
+      ore: { '1': 'Руда, а? Покажи. Плащам на къс, честно тегло.' },
+      sellBack: { '1': 'Честно тегло, честна монета. Донеси още, като намериш.' },
       forgeBack: {
         '1': 'Не е зле. Но не е и добре. Продължавай.'
       },
@@ -2907,7 +4518,7 @@ export default {
       },
       map: {
         '1': 'Картата на капитан Рук! Скъсал я е и е скрил парчетата, преди гоблините да го хванат.',
-        '2': 'Намери и шестте и кръстчето ще ти покаже пътя: някъде в Пепелните зъбери. Копай там и златото е твое.',
+        '2': 'Намери шест от тях, има още няколко разпръснати наоколо, и кръстчето ще ти покаже пътя: някъде в Пепелните зъбери. Копай там и златото е твое.',
         say: 'Намерих парче от стара карта.'
       }
     },
@@ -2925,6 +4536,9 @@ export default {
       },
       mana: {
         '1': 'Този е горчив. Пий го, когато заклинанията ти свършат.'
+      },
+      brew: {
+        '1': 'Покажи ми билките си. Ще забъркам нещо с по-добър вкус от моя тоник за мана.'
       },
       potions: {
         '1': 'Взимаш по няколко флакона във всяка битка. Пий преди да ти потрябват, не след това.',
@@ -2944,6 +4558,9 @@ export default {
       },
       healBack: {
         '1': 'Дръж колана пълен, а главата ниско.'
+      },
+      brewBack: {
+        '1': 'Внимавай, горещи са. Не ги пий всичките наведнъж.'
       },
       bye: {
         '1': 'Пази се там навън.'
@@ -3049,9 +4666,8 @@ export default {
         '2': 'Гледай сиянието. Удряй в сърцето му, три пъти, и металът ще запомни.',
         '1': 'Искаш да научиш занаята? Добре. На Оукхейвън му трябва всеки чук.'
       },
-      ore: {
-        '1': 'Сурова руда! На оръжейната все не ѝ стига. Ето ти заплащането.'
-      },
+      ore: { '1': 'Сурова руда! На оръжейната никога не ѝ стига. Продай ми каквото можеш.' },
+      sellBack: { '1': 'Всеки къс отива в стената. Благодаря.' },
       forgeBack: {
         '1': 'Добра стомана. Стените ти благодарят.'
       },
@@ -3093,9 +4709,8 @@ export default {
         '2': 'Три удара, всеки в сърцето на сиянието. Това е цялата тайна.',
         '1': 'След обсадата уча всеки, който поиска. Ела, застани тук.'
       },
-      ore: {
-        '1': 'Още руда за стените? Небето да те пази. Ето, вземи това.'
-      },
+      ore: { '1': 'Още руда за стените? Плащам всеки къс, който можеш да дадеш.' },
+      sellBack: { '1': 'Благословен да си. Това са още плочи за стените.' },
       forgeBack: {
         '1': 'С всеки удар напредваш. Ела пак, когато поискаш.'
       },
@@ -3508,9 +5123,8 @@ export default {
         '1__f': 'Жителка на повърхността при наковалнята? Е, всеки започва отнякъде.',
         '1': 'Жител на повърхността при наковалнята? Е, всеки започва отнякъде.'
       },
-      ore: {
-        '1': 'Хубав, честен метал. Айрънхолд винаги плаща за такъв.'
-      },
+      ore: { '1': 'Добър, честен метал. Сложи го тук, плащам на къс.' },
+      sellBack: { '1': 'Честна сделка. Айрънхолд винаги плаща добрия метал.' },
       forgeBack: {
         '1': 'Едно джудже би се справило по-добре. Но не с много.'
       },
@@ -3582,9 +5196,8 @@ export default {
         '2': 'Нагрей, удари, обърни. Три удара, точно в сиянието. После остави да изстине.',
         '1': 'Доспехите са търпелива работа. Ще ти покажа основите.'
       },
-      ore: {
-        '1': 'Дай да го претегля. Добре. Парите са твои.'
-      },
+      ore: { '1': 'Дай да претегля. Избери какво продаваш, аз броя монетите.' },
+      sellBack: { '1': 'Претеглено и платено. Добре.' },
       forgeBack: {
         '1': 'Остави го да изстине, преди да го облечеш.'
       },
@@ -3624,9 +5237,8 @@ export default {
         '2': 'Дисциплина при наковалнята, както и на бойното поле. Три удара, верни на сиянието.',
         '1': 'Орденът въоръжава приятелите си. Ще те науча.'
       },
-      ore: {
-        '1': 'Орденът изкупува цялата руда за войната. Твоето заплащане.'
-      },
+      ore: { '1': 'Орденът купува руда за войната. Продай каквото можеш.' },
+      sellBack: { '1': 'Плащането ти е записано. Орденът ти благодари.' },
       forgeBack: {
         '1': 'Добре изковано. Носи го с чест.'
       },
@@ -4047,6 +5659,11 @@ export default {
       }
     },
     bark: {
+      banditChief: {
+        whistle: {
+          1: 'Ставайте, момчета! Хапете ги!'
+        }
+      },
       lightDisciple: {
         freed: {
           '1': 'Светлината те изпрати. Аз съм Сестра Аурел. Потърси ме в Сънфорд, ще те науча на пътя на Светлоносеца.'
@@ -4202,9 +5819,8 @@ export default {
         '2': 'Удряй, когато сиянието е най-горещо. Три добри удара правят добро изделие.',
         '1': 'Искаш ли да опиташ с чука? Нямам нищо против да споделя огнището.'
       },
-      ore: {
-        '1': 'Прекрасна руда. Силвърбридж винаги плаща честна цена.'
-      },
+      ore: { '1': 'Хубава руда. Покажи какво продаваш, плащам на къс.' },
+      sellBack: { '1': 'Удоволствие. Силвърбридж винаги плаща честна цена.' },
       forgeBack: {
         '1__f': 'Виж ти! Родена си за това.',
         '1': 'Виж ти! Роден си за това.'
@@ -4647,7 +6263,7 @@ export default {
         say: 'Къде да намеря билки?'
       },
       elixirs: {
-        '1': 'Всеки ти дава сила в бой за цяла минута. По-силни удари, по-здрава кожа, по-бързи крака.',
+        '1': 'Всеки ти дава сила в бой за 5 минути. По-силни удари, по-здрава кожа, по-бързи крака.',
         '2': 'Стоят в третия ти флакон. Докосни малката стрелка, за да избереш кой да изпиеш.',
         say: 'Какво правят еликсирите?'
       },
@@ -4716,6 +6332,36 @@ export default {
       },
       bye: {
         '1': 'Носи още боклуци! Боклуците са ми любими.'
+      }
+    },
+    sunfordCups: {
+      hello: {
+        1: 'Елате по-близо! Три чаши, един скъпоценен камък и първият рунд е безплатен!',
+        2: 'Нел Пъргавите Пръсти. Ръцете ми още никой не е надхитрил. Искаш ли да опиташ?'
+      },
+      again: {
+        1: 'Пак ли си тук? Гледай внимателно!'
+      },
+      play: {
+        1: 'Не откъсвай очи от камъка, приятел. Не мигай!'
+      },
+      rules: {
+        1: 'Скривам камъка под чаша и разбърквам чашите. Ти посочваш онази, която го крие.',
+        2: 'Всяка победа поред плаща повече. Три победи носят награда, пет — съкровище. Първият рунд за деня е безплатен.',
+        say: 'Как се играе?'
+      },
+      who: {
+        1: 'Умеех да бъркам, преди да умея да ходя. Мама казва, че това обяснява много.'
+      },
+      luck: {
+        1: 'Понякога! Тогава стена силно и публиката ме съжалява.',
+        say: 'Губиш ли някога?'
+      },
+      playBack: {
+        1: 'Страхотен рунд! Върни се утре, първият винаги е безплатен.'
+      },
+      bye: {
+        1: 'Дочуване! Гледай внимателно навън.'
       }
     },
     oakGambler: {
@@ -5209,6 +6855,7 @@ export default {
     banditArcher: 'Разбойник стрелец',
     wolf: 'Вълк',
     banditChief: 'Главатар на разбойниците',
+    gnome: 'Гном',
     goblinKing: 'Кралят на гоблините',
     treant: 'Ент',
     spider: 'Гигантски паяк',
@@ -5426,6 +7073,18 @@ export default {
       firefoxColors: 'Firefox: Настройки → Цветове → задай «Замени цветовете, зададени от страницата» на Никога.'
     }
   },
+  samsungFix: {
+    title: 'Бърза проверка на цветовете',
+    body: 'Някои телефони променят цветовете на уеб страниците. Сравни двата квадрата по-долу.',
+    question: 'Изглеждат ли двата квадрата еднакво?',
+    refSquare: 'Еталонен квадрат',
+    pageSquare: 'Квадрат на страницата',
+    yes: 'Да, изглеждат еднакво',
+    no: 'Не, изглеждат различно',
+    option: 'Поправи цветовете (тъмен режим на Samsung)',
+    optionHint: 'Включи, ако менютата изглеждат тъмни или текстът се чете трудно.',
+    recheck: 'Повтори проверката на цветовете'
+  },
   saveStatus: {
     restoredTitle: 'Облачният запис е възстановен',
     restoredBody: '+{n} бонус злато за възстановяването',
@@ -5554,7 +7213,7 @@ export default {
   },
   forge: {
     upgrade: 'Подобри ({n} злато)',
-    max: 'Напълно подобрено: +{n}.',
+    next: 'Следващо +{level}: +{pct}% към показателите',
     town: 'Ковачът във всеки град може да го подобри.'
   },
   ore: {
@@ -5569,6 +7228,12 @@ export default {
     },
     mithril: {
       name: 'Митрилова руда'
+    },
+    adamant: {
+      name: 'Адамантова руда'
+    },
+    aetherite: {
+      name: 'Етеритова руда'
     }
   },
   plant: {
@@ -5650,32 +7315,32 @@ export default {
   elixir: {
     might: {
       name: 'Еликсир на мощта',
-      desc: '+{n}% щета за една минута'
+      desc: '+{n}% щета за 5 минути'
     },
     iron: {
       name: 'Отвара „Желязна кожа“',
-      desc: '+{n}% броня за една минута'
+      desc: '+{n}% броня за 5 минути'
     },
     swift: {
       name: 'Тоник на пъргавината',
-      desc: '+{n}% скорост и скорост на атака за една минута'
+      desc: '+{n}% скорост и скорост на атака за 5 минути'
     },
     mind: {
       name: 'Настойка „Ясен ум“',
-      desc: 'Уменията се презареждат с {n}% по-бързо за една минута'
+      desc: 'Уменията се презареждат с {n}% по-бързо за 5 минути'
     },
     vigor: {
       name: 'Еликсир на бодростта',
-      desc: 'Лекува {n}% от здравето ти всяка секунда за една минута'
+      desc: 'Лекува {n}% от здравето ти всяка секунда за 5 минути'
     },
     shadow: {
       name: 'Жадна отвара',
-      desc: 'Ударите ти те лекуват с {n}% от щетата им за една минута'
+      desc: 'Ударите ти те лекуват с {n}% от щетата им за 5 минути'
     }
   },
   alchemy: {
     talk: 'Билки вътре, еликсири навън. Кой да сварим?',
-    lead: 'Всеки еликсир действа една минута в бой. Пий го от третия си флакон. Можеш да носиш по {n} от всеки.',
+    lead: 'Всеки еликсир действа 5 минути в бой. Пий го от третия си флакон. Можеш да носиш по {n} от всеки.',
     brew: 'Свари · {n}',
     carry: 'Вземи го',
     carried: 'Във флакона ти',
@@ -5699,6 +7364,25 @@ export default {
     again: 'Играй пак',
     noGold: 'Нямаш достатъчно злато за този залог.',
     card: 'Карта {n}'
+  },
+  cups: {
+    title: 'Сергия с чаши',
+    lead: 'Гледай камъка, следвай чашата му и после я посочи. Всяка победа поред плаща повече. Третата носи награден предмет, петата съкровище.',
+    free: 'Безплатен рунд',
+    fee: 'Играй · {n}',
+    row: 'Победи поред: {n} от {max}',
+    next: 'Следваща победа: {n} злато',
+    watch: 'Гледай камъка!',
+    follow: 'Следвай го…',
+    pick: 'Избери чаша!',
+    hint: 'Докосни чаша или натисни нейния номер.',
+    won: 'Намери го! +{n} злато',
+    lost: 'Не е тя. Серията започва отначало.',
+    near: 'Толкова близо! Беше съвсем до нея.',
+    timeout: 'Твърде бавно! Серията започва отначало.',
+    again: 'Играй пак',
+    noGold: 'Няма достатъчно злато. Утре първият рунд е безплатен.',
+    cup: 'Чаша {n}'
   },
   battle: {
     title: 'Битка на предмети',

@@ -4,7 +4,8 @@
       div.veil__card
         span.veil__kicker {{ flow.encounter ? t('encounter.kicker') : t('travel.to') }}
         span.veil__name {{ flow.encounter ? t(`encounter.title.${flow.encounter.kind}`) : flow.loadingNode ? t(`node.${flow.loadingNode}.name`) : '' }}
-        FBar.veil__bar(:value="Math.max(0.04, flow.loadProgress)" tone="gold" frame="champion" :ticks="false")
+        FBar.veil__bar(:value="Math.max(0.04, flow.loadProgress)" tone="gold" frame="boss" :ticks="false")
+        LoadingClicker.veil__play
 </template>
 
 <script setup lang="ts">
@@ -13,6 +14,7 @@
 import { useI18n } from 'vue-i18n'
 import { flow } from '@/game/flow'
 import FBar from '@/components/atoms/FBar.vue'
+import LoadingClicker from '@/components/atoms/LoadingClicker.vue'
 
 const { t } = useI18n()
 </script>
@@ -45,6 +47,9 @@ const { t } = useI18n()
 .veil__bar
   --fbar-h: clamp(0.8rem, 3vmin, 1.1rem)
   align-self: stretch
+  margin-top: 0.3rem
+.veil__play
+  width: min(92vw, 52vh)
   margin-top: 0.3rem
 .veil-enter-active, .veil-leave-active
   transition: opacity 200ms ease-out

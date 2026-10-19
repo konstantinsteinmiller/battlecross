@@ -41,7 +41,7 @@ export const brew = (over: Partial<TopicSpec> = {}): TopicSpec =>
   ({ id: 'brew', say: HERO.brew, once: false, icon: 'brew', fx: [{ t: 'open', window: 'alchemy' }], ...over })
 
 /** "Deal me in." → the answer, then the gambler's table (#91, #92). */
-export const play = (window: 'memory' | 'itemBattle', over: Partial<TopicSpec> = {}): TopicSpec =>
+export const play = (window: 'memory' | 'itemBattle' | 'cups', over: Partial<TopicSpec> = {}): TopicSpec =>
   ({ id: 'play', say: HERO.play, once: false, icon: 'buy', fx: [{ t: 'open', window }], ...over })
 
 /** The offer a healer's mana potion is (`DialogHost.offer`). */
@@ -54,12 +54,12 @@ export const mana = (over: Partial<TopicSpec> = {}): TopicSpec =>
 
 /**
  * A smith's trade in ore and the forge (#99): "I've got ore to sell" while the
- * pouch holds any (the whole pouch at the flat price); "Teach me to smith"
+ * pouch holds any (the sell window: as many nuggets as the player picks); "Teach me to smith"
  * until he has, the lesson and then the forge; after that "Let me use your
  * forge".
  */
 export const smithing = (): TopicSpec[] => [
-  { id: 'ore', say: HERO.ore, once: false, icon: 'trade', when: { ore: true }, fx: [{ t: 'sellOre' }] },
+  { id: 'ore', say: HERO.ore, once: false, icon: 'trade', when: { ore: true }, fx: [{ t: 'open', window: 'sellOre' }] },
   { id: 'learnSmith', say: HERO.learnSmith, once: false, icon: 'train', lines: 'nn', when: { smithing: false }, fx: [{ t: 'learnSmith' }, { t: 'open', window: 'smithing' }] },
   { id: 'forge', say: HERO.forge, once: false, icon: 'train', when: { smithing: true }, fx: [{ t: 'open', window: 'smithing' }] }
 ]

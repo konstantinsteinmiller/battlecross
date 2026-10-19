@@ -2,6 +2,7 @@
 import { computed } from 'vue'
 import { SHOPS, ITEMS, TOWNS, TIER_COLOR, ELIXIRS, npcName, npcPortrait, zoneName, slotName, tierName, t, plantName, IMG, type TownId } from '../data'
 import { shelfTier } from '@/game/rareShelf'
+import { forgeSummary, FORGE_GAIN, FORGE_KNEE, FORGE_STEP, FORGE_STEP_LATE } from '../smithing'
 import ItemIcon from '../components/ItemIcon.vue'
 
 const towns = Object.keys(TOWNS) as TownId[]
@@ -67,7 +68,7 @@ const gamblers = towns.flatMap(town => TOWNS[town].npcs.filter(n => n.role === '
       </div>
       <div class="panel">
         <h3 class="display">⚒ Smiths & the forge</h3>
-        <p class="small">Every town smith upgrades what you wear up to +5 (+3% attributes and armour per level, +5% for legendaries). Ironhold and Silverbridge smiths also buy ore and forge 48 metal pieces — iron, silver, gold, mithril, each with a masterwork twin.</p>
+        <p class="small">{{ forgeSummary(zoneName) }} Every town smith also upgrades what you wear with no level cap (+{{ FORGE_GAIN[1] * 100 }}% attributes and armour per level up to +{{ FORGE_KNEE }}, +{{ FORGE_GAIN[6] * 100 }}% for legendaries; each level costs ×{{ FORGE_STEP }}, then ×{{ FORGE_STEP_LATE }} past +{{ FORGE_KNEE }}). <a href="#/smithing">Full smithing guide →</a></p>
       </div>
     </div>
   </div>

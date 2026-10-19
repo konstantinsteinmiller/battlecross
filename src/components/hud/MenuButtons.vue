@@ -72,11 +72,11 @@ const open = (panel: 'map' | 'character' | 'skills' | 'inventory'): void => {
 .menu-buttons
   display: flex
   align-items: center
-  gap: clamp(0.35rem, 1.6vmin, 0.7rem)
+  gap: calc(clamp(0.35rem, 1.6vmin, 0.7rem) * var(--hud-s, 1))
   pointer-events: none
   :deep(.f-hud-button)
-    width: clamp(2.9rem, 13vmin, 4rem)
-    height: clamp(2.9rem, 13vmin, 4rem)
+    width: max(36px, calc(clamp(2.9rem, 13vmin, 4rem) * var(--hud-s, 1)))
+    height: max(36px, calc(clamp(2.9rem, 13vmin, 4rem) * var(--hud-s, 1)))
 .menu-buttons__item
   position: relative
   display: block

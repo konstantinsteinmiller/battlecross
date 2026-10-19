@@ -65,7 +65,7 @@ onUnmounted(() => { if (timer) clearTimeout(timer) })
   margin: 0
   +cel.label
   color: var(--bc-gold-hi)
-  font-size: clamp(2rem, 9vmin, 4.2rem)
+  font-size: max(10px, calc(clamp(2rem, 9vmin, 4.2rem) * var(--hud-s, 1)))
   line-height: 1
   text-shadow: var(--bc-text-outline)
 .is-prize .arena-banner__big, .is-milestone .arena-banner__big
@@ -74,7 +74,7 @@ onUnmounted(() => { if (timer) clearTimeout(timer) })
   margin: 0
   +cel.label
   color: var(--bc-orange)
-  font-size: clamp(0.9rem, 3.6vmin, 1.4rem)
+  font-size: max(10px, calc(clamp(0.9rem, 3.6vmin, 1.4rem) * var(--hud-s, 1)))
   text-shadow: var(--bc-text-outline)
 .arena-banner__next, .arena-banner__prize
   display: inline-flex
@@ -86,9 +86,9 @@ onUnmounted(() => { if (timer) clearTimeout(timer) })
   border-radius: var(--bc-r-pill)
   background: var(--bc-paper)
   color: var(--bc-ink)
-  font-size: clamp(0.72rem, 2.9vmin, 1rem)
+  font-size: max(10px, calc(clamp(0.72rem, 2.9vmin, 1rem) * var(--hud-s, 1)))
 .arena-banner__prize
-  font-size: clamp(0.9rem, 3.6vmin, 1.25rem)
+  font-size: max(10px, calc(clamp(0.9rem, 3.6vmin, 1.25rem) * var(--hud-s, 1)))
 .arena-banner__icon
   display: block
   width: 1.6em

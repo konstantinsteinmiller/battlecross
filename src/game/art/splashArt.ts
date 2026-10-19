@@ -2,26 +2,26 @@
  * ─── The painted logo on the boot splash ─────────────────────────────────────
  *
  * The static splash in `index.html` paints before any script, so it cannot
- * ask at run time whether the painted badge and mascot exist. The build can:
+ * ask at run time whether the painted badge exists. The build can:
  * `vite.config.ts` lists `public/images/logo/` and, when the files are there,
- * this writes them into the splash markup — two `<img>` in the lockup's box
+ * this writes them into the splash markup — an `<img>` in the lockup's box
  * (positioned over it, so nothing moves when they decode) and a preload for
  * each, high in `<head>`, so they arrive with the HTML rather than after the
- * stylesheet. `FLogoProgress.vue` draws the same two from `LOGO_ART`.
+ * stylesheet. `FLogoProgress.vue` draws the same from `LOGO_ART`. (The painted mascot is no longer on the loading screens: the mini-game plays there.)
  *
  * Without the files nothing changes: the code-drawn lockup is the splash.
  * The painted WORDMARK (roadmap #76: the title, the shield, the sword and the
  * staff in one painting) replaces the whole drawn lockup when it is there;
- * the badge alone is not shown then, the mascot still is.
+ * the badge alone is not shown then.
  *
  * Pure (strings in, string out), so the splash test can drive it.
  */
 
 /** The painted pieces, by file stem in `public/images/logo/`. */
-export const SPLASH_ART = ['emblem', 'mascot', 'wordmark'] as const
+export const SPLASH_ART = ['emblem', 'wordmark'] as const
 export type SplashArt = (typeof SPLASH_ART)[number]
 
-/** Their intrinsic size: the badge and the mascot are written square at 512 by the art pipeline, the wordmark at 1024. */
+/** Their intrinsic size: the badge is written square at 512 by the art pipeline, the wordmark at 1024. */
 export const SPLASH_ART_PX = 512
 export const WORDMARK_PX = 1024
 
@@ -43,7 +43,7 @@ export const splashArtFiles = (files: readonly string[]): Partial<Record<SplashA
  */
 export const injectSplashArt = (html: string, files: readonly string[], base = '/'): string => {
   const art = splashArtFiles(files)
-  if (!art.emblem && !art.mascot && !art.wordmark) return html
+  if (!art.emblem && !art.wordmark) return html
   // The painted wordmark is the whole logo: the badge alone is not needed.
   if (art.wordmark) delete art.emblem
   const url = (f: string): string => `${base}images/logo/${f}`
@@ -52,8 +52,7 @@ export const injectSplashArt = (html: string, files: readonly string[], base = '
     .join('\n  ')
   const imgs = [
     art.wordmark ? `<img class="s-wordmark" src="${url(art.wordmark)}" width="${WORDMARK_PX}" height="${WORDMARK_PX}" alt="" decoding="async" draggable="false">` : '',
-    art.emblem ? `<img class="s-emblem" src="${url(art.emblem)}" width="${SPLASH_ART_PX}" height="${SPLASH_ART_PX}" alt="" decoding="async" draggable="false">` : '',
-    art.mascot ? `<img class="s-mascot" src="${url(art.mascot)}" width="${SPLASH_ART_PX}" height="${SPLASH_ART_PX}" alt="" decoding="async" draggable="false">` : ''
+    art.emblem ? `<img class="s-emblem" src="${url(art.emblem)}" width="${SPLASH_ART_PX}" height="${SPLASH_ART_PX}" alt="" decoding="async" draggable="false">` : ''
   ].join('')
   const box = '<div class="s-logo" role="img" aria-label="Battlecross">'
   if (!html.includes(box)) throw new Error('splashArt: the splash lockup box was not found in index.html')

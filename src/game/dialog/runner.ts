@@ -187,7 +187,6 @@ export class DialogRunner {
       else if (e.t === 'item') this.host.give(0, e.id)
       else if (e.t === 'hint') this.host.hint(e.quest)
       else if (e.t === 'errand') this.host.errand(e.id, e.act)
-      else if (e.t === 'sellOre') this.host.sellOre()
       else if (e.t === 'learnSmith') this.host.learnSmith()
       else if (e.t === 'open') open = e.window
     }

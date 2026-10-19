@@ -92,7 +92,7 @@ export const trackUnit = (vfx: Vfx, v: RigView, u: Unit): void => {
     } else if (a.ability >= 0) {
       // An enemy's ability that is thrown, shot or called down.
       const k = a.id
-      if ((k === 'shot' || k === 'volley' || k === 'lob' || k === 'line' || k === 'barrage' || k === 'smash' || k === 'summon' || k === 'heal') && tipOf(v, k === 'lob' || k === 'smash', _p)) {
+      if ((k === 'shot' || k === 'volley' || k === 'lob' || k === 'line' || k === 'barrage' || k === 'rain' || k === 'spears' || k === 'smash' || k === 'summon' || k === 'heal') && tipOf(v, k === 'lob' || k === 'smash', _p)) {
         const def = ENEMY_BY_ID[u.kind]
         const col = def?.abilities[a.ability]?.color ?? def?.color ?? v.color
         if ((k === 'shot' || k === 'volley') && (v.held === 'bow' || v.held === 'sling')) vfx.wind(_p.x, _p.z, _p.x + dx * 1.2, _p.z + dz * 1.2, '#ffffff')

@@ -262,7 +262,9 @@ const artSheetsExportPlugin = (): Plugin => ({
 // loader — seconds of waiting on a slow network with an idle pipe. These
 // `modulepreload` hints start the download alongside the entry chunk. Preload
 // only fetches and parses; nothing is evaluated before the app asks for it, so
-// the save hydrate still runs before any game module reads state.
+// the save hydrate still runs before any game module reads state. Low fetch
+// priority: on a phone link they must not starve the entry chunk and the
+// locale, which the loader needs first (roadmap #142).
 const ENGINE_CHUNKS = [/src[\\/]game[\\/]boot\.ts$/, /src[\\/]views[\\/]GameScene\.vue$/]
 const preloadEngineChunksPlugin = (): Plugin => {
   let base = '/'
@@ -282,12 +284,17 @@ const preloadEngineChunksPlugin = (): Plugin => {
           files.add(name)
           c.imports.forEach(add)
         }
+        // By the module list, not `facadeModuleId`: in the shipped build both
+        // chunks come out with a null facade (the obfuscator's chunk pass), and
+        // matching the facade alone emitted no hint at all, so the engine only
+        // started downloading after the loader had mounted and both locales
+        // were in (roadmap #142, PERF-LEDGER.md).
         for (const c of Object.values(bundle)) {
-          if (c.type === 'chunk' && c.facadeModuleId && ENGINE_CHUNKS.some(r => r.test(c.facadeModuleId!))) add(c.fileName)
+          if (c.type === 'chunk' && ENGINE_CHUNKS.some(r => (c.facadeModuleId != null && r.test(c.facadeModuleId)) || c.moduleIds.some(id => r.test(id)))) add(c.fileName)
         }
         return [...files]
           .filter(f => !html.includes(f))
-          .map(f => ({ tag: 'link', attrs: { rel: 'modulepreload', crossorigin: '', href: base + f }, injectTo: 'head' as const }))
+          .map(f => ({ tag: 'link', attrs: { rel: 'modulepreload', crossorigin: '', href: base + f, fetchpriority: 'low' }, injectTo: 'head' as const }))
       }
     }
   }
@@ -373,6 +380,7 @@ import VueI18nPlugin from '@intlify/unplugin-vue-i18n/vite'
 import javascriptObfuscator from 'vite-plugin-javascript-obfuscator'
 import { viteSingleFile } from 'vite-plugin-singlefile'
 import { buildCsp } from './src/platforms/csp'
+import { clickerInline, injectClicker } from './scripts/clickerInline.mjs'
 import { injectSplashArt } from './src/game/art/splashArt'
 import { buildPlaygamaBridgeConfig, playgamaLeaderboardEnv } from './src/platforms/playgama/bridgeConfig'
 import { PLAYGAMA_BRIDGE_CHUNK, PLAYGAMA_OUT_DIR } from './src/platforms/playgama/release'
@@ -526,6 +534,11 @@ export default defineConfig(({ mode, command }) => {
           // path so both the raw `.vue` file AND the script-block
           // virtual module are excluded.
           /components[\\/]atoms[\\/]FLogoProgress\.vue/,
+          // The loading mini-game: `early.ts` and the component hold dynamic imports (same
+          // constraint), and the drawing code has nothing to hide, so it skips the stringArray
+          // bloat too (the whole folder; the component with no `$` anchor, like the SFCs above).
+          /utils[\\/]loadingClicker[\\/]/,
+          /components[\\/]atoms[\\/]LoadingClicker\.vue/,
           // The scene lazy-loads the recorder seam (`?preview=1`, dev only). Same
           // obfuscator-vs-dynamic-import constraint.
           /views[\\/]GameScene\.vue/,
@@ -535,6 +548,9 @@ export default defineConfig(({ mode, command }) => {
           // stringArray rewrite would inline the chunks back or break the
           // specifiers. No `$` anchor on the .vue one (SFC virtual paths).
           /game[\\/]gfx[\\/]townLoader\.ts$/,
+          // The town's simulation and the conversations' code (roadmap #142).
+          /game[\\/]sim[\\/]townSimLoader\.ts$/,
+          /game[\\/]talkLoader\.ts$/,
           /components[\\/]screens[\\/]chunks\.ts$/,
           /components[\\/]modals[\\/]GameModals\.vue/,
           // useMawCampaign lazy-loads the heavy `useStageBuilder`
@@ -688,7 +704,14 @@ export default defineConfig(({ mode, command }) => {
   // reviewer grepping the archive finds all of them there and nowhere else.
   // Dropping the tag takes those strings out with it.
   const skipCspMeta = isYandexBuild || isGamepixBuild || isPokiBuild || isPlaygamaBuild
-  const cspValue = buildCsp(env)
+  // The loading mini-game is an inline script in index.html (a cold load makes no second request
+  // for it); the policy names its hash wherever script-src has no 'unsafe-inline'.
+  const clicker = clickerInline(fileURLToPath(new URL('.', import.meta.url)))
+  plugins.push({
+    name: 'inline-clicker',
+    transformIndexHtml: { order: 'pre', handler: (html: string) => injectClicker(html, clicker) }
+  })
+  const cspValue = buildCsp(env, [clicker.hash])
 
   plugins.push({
     name: 'inject-csp',

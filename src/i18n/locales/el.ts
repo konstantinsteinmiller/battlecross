@@ -1,5 +1,13 @@
 // Greek (el) bundle — mirrors en.ts.
 export default {
+  // ─── The intro (#130): its skip, and its narrator's name ───
+  intro: {
+    narrator: 'Ο Χρονικογράφος',
+    skip: 'Παράλειψη',
+    holdKey: 'Κράτα πατημένο το {key} για παράλειψη',
+    holdTouch: 'Κράτα πατημένο για παράλειψη',
+    replay: 'Δες την εισαγωγή'
+  },
   arena: {
     allWon: 'Όλα τα μυθικά έπαθλα είναι δικά σου.',
     call: 'Η ιστορία ειπώθηκε. Τώρα απόδειξε το build σου: ανέβα όσο πιο ψηλά μπορείς και κέρδισε τα μυθικά έπαθλα που κανείς άλλος δεν μπορεί να σου δώσει.',
@@ -8,6 +16,20 @@ export default {
     next: 'Επόμενο έπαθλο στο κύμα {at}: {item}',
     champion: 'Κύμα πρωταθλητή',
     wave: 'Κύμα {n}'
+  },
+  sellOre: {
+    talk: 'Καλό μετάλλευμα, τίμια τιμή. Πόσο θα πουλήσεις;',
+    lead: 'Διάλεξε πόσα ψήγματα από κάθε μετάλλευμα θα πουλήσεις. Τίποτα δεν πουλιέται μέχρι να πατήσεις Πώληση.',
+    have: 'Έχεις {n}',
+    each: '{n} χρυσά το ένα',
+    none: 'Κανένα',
+    all: 'Όλα',
+    less: '{ore}: ένα λιγότερο',
+    more: '{ore}: ένα παραπάνω',
+    total: 'Παίρνεις: {n} χρυσά',
+    sell: 'Πώληση',
+    selectAll: 'Επιλογή όλων',
+    empty: 'Δεν σου έμεινε μετάλλευμα για πώληση.'
   },
   smith: {
     why: {
@@ -1420,38 +1442,110 @@ export default {
     smithMasterMithrilGreaves: {
       name: 'Αριστοτεχνικές Περικνημίδες από Μίθριλ'
     },
+    smithMasterAdamantGreaves: {
+      name: 'Αριστοτεχνικές Περικνημίδες από Αδαμάντιο'
+    },
+    smithMasterAetheriteGreaves: {
+      name: 'Αριστοτεχνικές Περικνημίδες από Αιθερίτη'
+    },
     smithMithrilGreaves: {
       name: 'Περικνημίδες από Μίθριλ'
+    },
+    smithAdamantGreaves: {
+      name: 'Περικνημίδες από Αδαμάντιο'
+    },
+    smithAetheriteGreaves: {
+      name: 'Περικνημίδες από Αιθερίτη'
     },
     smithMasterMithrilPlate: {
       name: 'Αριστοτεχνική Πανοπλία από Μίθριλ'
     },
+    smithMasterAdamantPlate: {
+      name: 'Αριστοτεχνική Πανοπλία από Αδαμάντιο'
+    },
+    smithMasterAetheritePlate: {
+      name: 'Αριστοτεχνική Πανοπλία από Αιθερίτη'
+    },
     smithMithrilPlate: {
       name: 'Πανοπλία από Μίθριλ'
+    },
+    smithAdamantPlate: {
+      name: 'Πανοπλία από Αδαμάντιο'
+    },
+    smithAetheritePlate: {
+      name: 'Πανοπλία από Αιθερίτη'
     },
     smithMasterMithrilHelm: {
       name: 'Αριστοτεχνικό Κράνος από Μίθριλ'
     },
+    smithMasterAdamantHelm: {
+      name: 'Αριστοτεχνικό Κράνος από Αδαμάντιο'
+    },
+    smithMasterAetheriteHelm: {
+      name: 'Αριστοτεχνικό Κράνος από Αιθερίτη'
+    },
     smithMithrilHelm: {
       name: 'Κράνος από Μίθριλ'
+    },
+    smithAdamantHelm: {
+      name: 'Κράνος από Αδαμάντιο'
+    },
+    smithAetheriteHelm: {
+      name: 'Κράνος από Αιθερίτη'
     },
     smithMasterMithrilShield: {
       name: 'Αριστοτεχνική Ασπίδα από Μίθριλ'
     },
+    smithMasterAdamantShield: {
+      name: 'Αριστοτεχνική Ασπίδα από Αδαμάντιο'
+    },
+    smithMasterAetheriteShield: {
+      name: 'Αριστοτεχνική Ασπίδα από Αιθερίτη'
+    },
     smithMithrilShield: {
       name: 'Ασπίδα από Μίθριλ'
+    },
+    smithAdamantShield: {
+      name: 'Ασπίδα από Αδαμάντιο'
+    },
+    smithAetheriteShield: {
+      name: 'Ασπίδα από Αιθερίτη'
     },
     smithMasterMithrilHammer: {
       name: 'Αριστοτεχνικό Σφυρί από Μίθριλ'
     },
+    smithMasterAdamantHammer: {
+      name: 'Αριστοτεχνικό Σφυρί από Αδαμάντιο'
+    },
+    smithMasterAetheriteHammer: {
+      name: 'Αριστοτεχνικό Σφυρί από Αιθερίτη'
+    },
     smithMithrilHammer: {
       name: 'Σφυρί από Μίθριλ'
+    },
+    smithAdamantHammer: {
+      name: 'Σφυρί από Αδαμάντιο'
+    },
+    smithAetheriteHammer: {
+      name: 'Σφυρί από Αιθερίτη'
     },
     smithMasterMithrilSword: {
       name: 'Αριστοτεχνικό Σπαθί από Μίθριλ'
     },
+    smithMasterAdamantSword: {
+      name: 'Αριστοτεχνικό Σπαθί από Αδαμάντιο'
+    },
+    smithMasterAetheriteSword: {
+      name: 'Αριστοτεχνικό Σπαθί από Αιθερίτη'
+    },
     smithMithrilSword: {
       name: 'Σπαθί από Μίθριλ'
+    },
+    smithAdamantSword: {
+      name: 'Σπαθί από Αδαμάντιο'
+    },
+    smithAetheriteSword: {
+      name: 'Σπαθί από Αιθερίτη'
     },
     smithMasterGoldGreaves: {
       name: 'Αριστοτεχνικές Χρυσές Περικνημίδες'
@@ -1557,6 +1651,1086 @@ export default {
     },
     smithMasterIronSword: {
       name: 'Αριστοτεχνικό Σιδερένιο Σπαθί'
+    },
+    smithMasterDexIronSword: {
+      name: 'Αριστοτεχνικό Στιλέτο από σίδερο · ΕΥΚ'
+    },
+    smithDexIronSword: {
+      name: 'Στιλέτο από σίδερο · ΕΥΚ'
+    },
+    smithMasterDexIronHammer: {
+      name: 'Αριστοτεχνικό Ραπιέρα από σίδερο · ΕΥΚ'
+    },
+    smithDexIronHammer: {
+      name: 'Ραπιέρα από σίδερο · ΕΥΚ'
+    },
+    smithMasterDexIronShield: {
+      name: 'Αριστοτεχνικό Μικρή ασπίδα από σίδερο · ΕΥΚ'
+    },
+    smithDexIronShield: {
+      name: 'Μικρή ασπίδα από σίδερο · ΕΥΚ'
+    },
+    smithMasterDexIronHelm: {
+      name: 'Αριστοτεχνικό Κουκούλα από σίδερο · ΕΥΚ'
+    },
+    smithDexIronHelm: {
+      name: 'Κουκούλα από σίδερο · ΕΥΚ'
+    },
+    smithMasterDexIronPlate: {
+      name: 'Αριστοτεχνικό Δερμάτινη πανοπλία από σίδερο · ΕΥΚ'
+    },
+    smithDexIronPlate: {
+      name: 'Δερμάτινη πανοπλία από σίδερο · ΕΥΚ'
+    },
+    smithMasterDexIronGreaves: {
+      name: 'Αριστοτεχνικό Μπότες από σίδερο · ΕΥΚ'
+    },
+    smithDexIronGreaves: {
+      name: 'Μπότες από σίδερο · ΕΥΚ'
+    },
+    smithMasterDexSilverSword: {
+      name: 'Αριστοτεχνικό Στιλέτο από ασήμι · ΕΥΚ'
+    },
+    smithDexSilverSword: {
+      name: 'Στιλέτο από ασήμι · ΕΥΚ'
+    },
+    smithMasterDexSilverHammer: {
+      name: 'Αριστοτεχνικό Ραπιέρα από ασήμι · ΕΥΚ'
+    },
+    smithDexSilverHammer: {
+      name: 'Ραπιέρα από ασήμι · ΕΥΚ'
+    },
+    smithMasterDexSilverShield: {
+      name: 'Αριστοτεχνικό Μικρή ασπίδα από ασήμι · ΕΥΚ'
+    },
+    smithDexSilverShield: {
+      name: 'Μικρή ασπίδα από ασήμι · ΕΥΚ'
+    },
+    smithMasterDexSilverHelm: {
+      name: 'Αριστοτεχνικό Κουκούλα από ασήμι · ΕΥΚ'
+    },
+    smithDexSilverHelm: {
+      name: 'Κουκούλα από ασήμι · ΕΥΚ'
+    },
+    smithMasterDexSilverPlate: {
+      name: 'Αριστοτεχνικό Δερμάτινη πανοπλία από ασήμι · ΕΥΚ'
+    },
+    smithDexSilverPlate: {
+      name: 'Δερμάτινη πανοπλία από ασήμι · ΕΥΚ'
+    },
+    smithMasterDexSilverGreaves: {
+      name: 'Αριστοτεχνικό Μπότες από ασήμι · ΕΥΚ'
+    },
+    smithDexSilverGreaves: {
+      name: 'Μπότες από ασήμι · ΕΥΚ'
+    },
+    smithMasterDexGoldSword: {
+      name: 'Αριστοτεχνικό Στιλέτο από χρυσό · ΕΥΚ'
+    },
+    smithDexGoldSword: {
+      name: 'Στιλέτο από χρυσό · ΕΥΚ'
+    },
+    smithMasterDexGoldHammer: {
+      name: 'Αριστοτεχνικό Ραπιέρα από χρυσό · ΕΥΚ'
+    },
+    smithDexGoldHammer: {
+      name: 'Ραπιέρα από χρυσό · ΕΥΚ'
+    },
+    smithMasterDexGoldShield: {
+      name: 'Αριστοτεχνικό Μικρή ασπίδα από χρυσό · ΕΥΚ'
+    },
+    smithDexGoldShield: {
+      name: 'Μικρή ασπίδα από χρυσό · ΕΥΚ'
+    },
+    smithMasterDexGoldHelm: {
+      name: 'Αριστοτεχνικό Κουκούλα από χρυσό · ΕΥΚ'
+    },
+    smithDexGoldHelm: {
+      name: 'Κουκούλα από χρυσό · ΕΥΚ'
+    },
+    smithMasterDexGoldPlate: {
+      name: 'Αριστοτεχνικό Δερμάτινη πανοπλία από χρυσό · ΕΥΚ'
+    },
+    smithDexGoldPlate: {
+      name: 'Δερμάτινη πανοπλία από χρυσό · ΕΥΚ'
+    },
+    smithMasterDexGoldGreaves: {
+      name: 'Αριστοτεχνικό Μπότες από χρυσό · ΕΥΚ'
+    },
+    smithDexGoldGreaves: {
+      name: 'Μπότες από χρυσό · ΕΥΚ'
+    },
+    smithMasterDexMithrilSword: {
+      name: 'Αριστοτεχνικό Στιλέτο από μιθρίλ · ΕΥΚ'
+    },
+    smithMasterDexAdamantSword: {
+      name: 'Αριστοτεχνικό Στιλέτο από αδαμάντιο · ΕΥΚ'
+    },
+    smithMasterDexAetheriteSword: {
+      name: 'Αριστοτεχνικό Στιλέτο από αιθερίτη · ΕΥΚ'
+    },
+    smithDexMithrilSword: {
+      name: 'Στιλέτο από μιθρίλ · ΕΥΚ'
+    },
+    smithDexAdamantSword: {
+      name: 'Στιλέτο από αδαμάντιο · ΕΥΚ'
+    },
+    smithDexAetheriteSword: {
+      name: 'Στιλέτο από αιθερίτη · ΕΥΚ'
+    },
+    smithMasterDexMithrilHammer: {
+      name: 'Αριστοτεχνικό Ραπιέρα από μιθρίλ · ΕΥΚ'
+    },
+    smithMasterDexAdamantHammer: {
+      name: 'Αριστοτεχνικό Ραπιέρα από αδαμάντιο · ΕΥΚ'
+    },
+    smithMasterDexAetheriteHammer: {
+      name: 'Αριστοτεχνικό Ραπιέρα από αιθερίτη · ΕΥΚ'
+    },
+    smithDexMithrilHammer: {
+      name: 'Ραπιέρα από μιθρίλ · ΕΥΚ'
+    },
+    smithDexAdamantHammer: {
+      name: 'Ραπιέρα από αδαμάντιο · ΕΥΚ'
+    },
+    smithDexAetheriteHammer: {
+      name: 'Ραπιέρα από αιθερίτη · ΕΥΚ'
+    },
+    smithMasterDexMithrilShield: {
+      name: 'Αριστοτεχνικό Μικρή ασπίδα από μιθρίλ · ΕΥΚ'
+    },
+    smithMasterDexAdamantShield: {
+      name: 'Αριστοτεχνικό Μικρή ασπίδα από αδαμάντιο · ΕΥΚ'
+    },
+    smithMasterDexAetheriteShield: {
+      name: 'Αριστοτεχνικό Μικρή ασπίδα από αιθερίτη · ΕΥΚ'
+    },
+    smithDexMithrilShield: {
+      name: 'Μικρή ασπίδα από μιθρίλ · ΕΥΚ'
+    },
+    smithDexAdamantShield: {
+      name: 'Μικρή ασπίδα από αδαμάντιο · ΕΥΚ'
+    },
+    smithDexAetheriteShield: {
+      name: 'Μικρή ασπίδα από αιθερίτη · ΕΥΚ'
+    },
+    smithMasterDexMithrilHelm: {
+      name: 'Αριστοτεχνικό Κουκούλα από μιθρίλ · ΕΥΚ'
+    },
+    smithMasterDexAdamantHelm: {
+      name: 'Αριστοτεχνικό Κουκούλα από αδαμάντιο · ΕΥΚ'
+    },
+    smithMasterDexAetheriteHelm: {
+      name: 'Αριστοτεχνικό Κουκούλα από αιθερίτη · ΕΥΚ'
+    },
+    smithDexMithrilHelm: {
+      name: 'Κουκούλα από μιθρίλ · ΕΥΚ'
+    },
+    smithDexAdamantHelm: {
+      name: 'Κουκούλα από αδαμάντιο · ΕΥΚ'
+    },
+    smithDexAetheriteHelm: {
+      name: 'Κουκούλα από αιθερίτη · ΕΥΚ'
+    },
+    smithMasterDexMithrilPlate: {
+      name: 'Αριστοτεχνικό Δερμάτινη πανοπλία από μιθρίλ · ΕΥΚ'
+    },
+    smithMasterDexAdamantPlate: {
+      name: 'Αριστοτεχνικό Δερμάτινη πανοπλία από αδαμάντιο · ΕΥΚ'
+    },
+    smithMasterDexAetheritePlate: {
+      name: 'Αριστοτεχνικό Δερμάτινη πανοπλία από αιθερίτη · ΕΥΚ'
+    },
+    smithDexMithrilPlate: {
+      name: 'Δερμάτινη πανοπλία από μιθρίλ · ΕΥΚ'
+    },
+    smithDexAdamantPlate: {
+      name: 'Δερμάτινη πανοπλία από αδαμάντιο · ΕΥΚ'
+    },
+    smithDexAetheritePlate: {
+      name: 'Δερμάτινη πανοπλία από αιθερίτη · ΕΥΚ'
+    },
+    smithMasterDexMithrilGreaves: {
+      name: 'Αριστοτεχνικό Μπότες από μιθρίλ · ΕΥΚ'
+    },
+    smithMasterDexAdamantGreaves: {
+      name: 'Αριστοτεχνικό Μπότες από αδαμάντιο · ΕΥΚ'
+    },
+    smithMasterDexAetheriteGreaves: {
+      name: 'Αριστοτεχνικό Μπότες από αιθερίτη · ΕΥΚ'
+    },
+    smithDexMithrilGreaves: {
+      name: 'Μπότες από μιθρίλ · ΕΥΚ'
+    },
+    smithDexAdamantGreaves: {
+      name: 'Μπότες από αδαμάντιο · ΕΥΚ'
+    },
+    smithDexAetheriteGreaves: {
+      name: 'Μπότες από αιθερίτη · ΕΥΚ'
+    },
+    smithMasterIntIronSword: {
+      name: 'Αριστοτεχνικό Ραβδί από σίδερο · ΝΟΗ'
+    },
+    smithIntIronSword: {
+      name: 'Ραβδί από σίδερο · ΝΟΗ'
+    },
+    smithMasterIntIronHammer: {
+      name: 'Αριστοτεχνικό Μαγικό ραβδί από σίδερο · ΝΟΗ'
+    },
+    smithIntIronHammer: {
+      name: 'Μαγικό ραβδί από σίδερο · ΝΟΗ'
+    },
+    smithMasterIntIronShield: {
+      name: 'Αριστοτεχνικό Βιβλίο ξορκιών από σίδερο · ΝΟΗ'
+    },
+    smithIntIronShield: {
+      name: 'Βιβλίο ξορκιών από σίδερο · ΝΟΗ'
+    },
+    smithMasterIntIronHelm: {
+      name: 'Αριστοτεχνικό Διάδημα από σίδερο · ΝΟΗ'
+    },
+    smithIntIronHelm: {
+      name: 'Διάδημα από σίδερο · ΝΟΗ'
+    },
+    smithMasterIntIronPlate: {
+      name: 'Αριστοτεχνικό Ρόμπα από σίδερο · ΝΟΗ'
+    },
+    smithIntIronPlate: {
+      name: 'Ρόμπα από σίδερο · ΝΟΗ'
+    },
+    smithMasterIntIronGreaves: {
+      name: 'Αριστοτεχνικό Μπότες από σίδερο · ΝΟΗ'
+    },
+    smithIntIronGreaves: {
+      name: 'Μπότες από σίδερο · ΝΟΗ'
+    },
+    smithMasterIntSilverSword: {
+      name: 'Αριστοτεχνικό Ραβδί από ασήμι · ΝΟΗ'
+    },
+    smithIntSilverSword: {
+      name: 'Ραβδί από ασήμι · ΝΟΗ'
+    },
+    smithMasterIntSilverHammer: {
+      name: 'Αριστοτεχνικό Μαγικό ραβδί από ασήμι · ΝΟΗ'
+    },
+    smithIntSilverHammer: {
+      name: 'Μαγικό ραβδί από ασήμι · ΝΟΗ'
+    },
+    smithMasterIntSilverShield: {
+      name: 'Αριστοτεχνικό Βιβλίο ξορκιών από ασήμι · ΝΟΗ'
+    },
+    smithIntSilverShield: {
+      name: 'Βιβλίο ξορκιών από ασήμι · ΝΟΗ'
+    },
+    smithMasterIntSilverHelm: {
+      name: 'Αριστοτεχνικό Διάδημα από ασήμι · ΝΟΗ'
+    },
+    smithIntSilverHelm: {
+      name: 'Διάδημα από ασήμι · ΝΟΗ'
+    },
+    smithMasterIntSilverPlate: {
+      name: 'Αριστοτεχνικό Ρόμπα από ασήμι · ΝΟΗ'
+    },
+    smithIntSilverPlate: {
+      name: 'Ρόμπα από ασήμι · ΝΟΗ'
+    },
+    smithMasterIntSilverGreaves: {
+      name: 'Αριστοτεχνικό Μπότες από ασήμι · ΝΟΗ'
+    },
+    smithIntSilverGreaves: {
+      name: 'Μπότες από ασήμι · ΝΟΗ'
+    },
+    smithMasterIntGoldSword: {
+      name: 'Αριστοτεχνικό Ραβδί από χρυσό · ΝΟΗ'
+    },
+    smithIntGoldSword: {
+      name: 'Ραβδί από χρυσό · ΝΟΗ'
+    },
+    smithMasterIntGoldHammer: {
+      name: 'Αριστοτεχνικό Μαγικό ραβδί από χρυσό · ΝΟΗ'
+    },
+    smithIntGoldHammer: {
+      name: 'Μαγικό ραβδί από χρυσό · ΝΟΗ'
+    },
+    smithMasterIntGoldShield: {
+      name: 'Αριστοτεχνικό Βιβλίο ξορκιών από χρυσό · ΝΟΗ'
+    },
+    smithIntGoldShield: {
+      name: 'Βιβλίο ξορκιών από χρυσό · ΝΟΗ'
+    },
+    smithMasterIntGoldHelm: {
+      name: 'Αριστοτεχνικό Διάδημα από χρυσό · ΝΟΗ'
+    },
+    smithIntGoldHelm: {
+      name: 'Διάδημα από χρυσό · ΝΟΗ'
+    },
+    smithMasterIntGoldPlate: {
+      name: 'Αριστοτεχνικό Ρόμπα από χρυσό · ΝΟΗ'
+    },
+    smithIntGoldPlate: {
+      name: 'Ρόμπα από χρυσό · ΝΟΗ'
+    },
+    smithMasterIntGoldGreaves: {
+      name: 'Αριστοτεχνικό Μπότες από χρυσό · ΝΟΗ'
+    },
+    smithIntGoldGreaves: {
+      name: 'Μπότες από χρυσό · ΝΟΗ'
+    },
+    smithMasterIntMithrilSword: {
+      name: 'Αριστοτεχνικό Ραβδί από μιθρίλ · ΝΟΗ'
+    },
+    smithMasterIntAdamantSword: {
+      name: 'Αριστοτεχνικό Ραβδί από αδαμάντιο · ΝΟΗ'
+    },
+    smithMasterIntAetheriteSword: {
+      name: 'Αριστοτεχνικό Ραβδί από αιθερίτη · ΝΟΗ'
+    },
+    smithIntMithrilSword: {
+      name: 'Ραβδί από μιθρίλ · ΝΟΗ'
+    },
+    smithIntAdamantSword: {
+      name: 'Ραβδί από αδαμάντιο · ΝΟΗ'
+    },
+    smithIntAetheriteSword: {
+      name: 'Ραβδί από αιθερίτη · ΝΟΗ'
+    },
+    smithMasterIntMithrilHammer: {
+      name: 'Αριστοτεχνικό Μαγικό ραβδί από μιθρίλ · ΝΟΗ'
+    },
+    smithMasterIntAdamantHammer: {
+      name: 'Αριστοτεχνικό Μαγικό ραβδί από αδαμάντιο · ΝΟΗ'
+    },
+    smithMasterIntAetheriteHammer: {
+      name: 'Αριστοτεχνικό Μαγικό ραβδί από αιθερίτη · ΝΟΗ'
+    },
+    smithIntMithrilHammer: {
+      name: 'Μαγικό ραβδί από μιθρίλ · ΝΟΗ'
+    },
+    smithIntAdamantHammer: {
+      name: 'Μαγικό ραβδί από αδαμάντιο · ΝΟΗ'
+    },
+    smithIntAetheriteHammer: {
+      name: 'Μαγικό ραβδί από αιθερίτη · ΝΟΗ'
+    },
+    smithMasterIntMithrilShield: {
+      name: 'Αριστοτεχνικό Βιβλίο ξορκιών από μιθρίλ · ΝΟΗ'
+    },
+    smithMasterIntAdamantShield: {
+      name: 'Αριστοτεχνικό Βιβλίο ξορκιών από αδαμάντιο · ΝΟΗ'
+    },
+    smithMasterIntAetheriteShield: {
+      name: 'Αριστοτεχνικό Βιβλίο ξορκιών από αιθερίτη · ΝΟΗ'
+    },
+    smithIntMithrilShield: {
+      name: 'Βιβλίο ξορκιών από μιθρίλ · ΝΟΗ'
+    },
+    smithIntAdamantShield: {
+      name: 'Βιβλίο ξορκιών από αδαμάντιο · ΝΟΗ'
+    },
+    smithIntAetheriteShield: {
+      name: 'Βιβλίο ξορκιών από αιθερίτη · ΝΟΗ'
+    },
+    smithMasterIntMithrilHelm: {
+      name: 'Αριστοτεχνικό Διάδημα από μιθρίλ · ΝΟΗ'
+    },
+    smithMasterIntAdamantHelm: {
+      name: 'Αριστοτεχνικό Διάδημα από αδαμάντιο · ΝΟΗ'
+    },
+    smithMasterIntAetheriteHelm: {
+      name: 'Αριστοτεχνικό Διάδημα από αιθερίτη · ΝΟΗ'
+    },
+    smithIntMithrilHelm: {
+      name: 'Διάδημα από μιθρίλ · ΝΟΗ'
+    },
+    smithIntAdamantHelm: {
+      name: 'Διάδημα από αδαμάντιο · ΝΟΗ'
+    },
+    smithIntAetheriteHelm: {
+      name: 'Διάδημα από αιθερίτη · ΝΟΗ'
+    },
+    smithMasterIntMithrilPlate: {
+      name: 'Αριστοτεχνικό Ρόμπα από μιθρίλ · ΝΟΗ'
+    },
+    smithMasterIntAdamantPlate: {
+      name: 'Αριστοτεχνικό Ρόμπα από αδαμάντιο · ΝΟΗ'
+    },
+    smithMasterIntAetheritePlate: {
+      name: 'Αριστοτεχνικό Ρόμπα από αιθερίτη · ΝΟΗ'
+    },
+    smithIntMithrilPlate: {
+      name: 'Ρόμπα από μιθρίλ · ΝΟΗ'
+    },
+    smithIntAdamantPlate: {
+      name: 'Ρόμπα από αδαμάντιο · ΝΟΗ'
+    },
+    smithIntAetheritePlate: {
+      name: 'Ρόμπα από αιθερίτη · ΝΟΗ'
+    },
+    smithMasterIntMithrilGreaves: {
+      name: 'Αριστοτεχνικό Μπότες από μιθρίλ · ΝΟΗ'
+    },
+    smithMasterIntAdamantGreaves: {
+      name: 'Αριστοτεχνικό Μπότες από αδαμάντιο · ΝΟΗ'
+    },
+    smithMasterIntAetheriteGreaves: {
+      name: 'Αριστοτεχνικό Μπότες από αιθερίτη · ΝΟΗ'
+    },
+    smithIntMithrilGreaves: {
+      name: 'Μπότες από μιθρίλ · ΝΟΗ'
+    },
+    smithIntAdamantGreaves: {
+      name: 'Μπότες από αδαμάντιο · ΝΟΗ'
+    },
+    smithIntAetheriteGreaves: {
+      name: 'Μπότες από αιθερίτη · ΝΟΗ'
+    },
+    smithMasterSklIronSword: {
+      name: 'Αριστοτεχνικό Πιστόλι από σίδερο · ΔΕΞ'
+    },
+    smithSklIronSword: {
+      name: 'Πιστόλι από σίδερο · ΔΕΞ'
+    },
+    smithMasterSklIronHammer: {
+      name: 'Αριστοτεχνικό Τουφέκι από σίδερο · ΔΕΞ'
+    },
+    smithSklIronHammer: {
+      name: 'Τουφέκι από σίδερο · ΔΕΞ'
+    },
+    smithMasterSklIronShield: {
+      name: 'Αριστοτεχνικό Μπαταρία από σίδερο · ΔΕΞ'
+    },
+    smithSklIronShield: {
+      name: 'Μπαταρία από σίδερο · ΔΕΞ'
+    },
+    smithMasterSklIronHelm: {
+      name: 'Αριστοτεχνικό Σκούφος από σίδερο · ΔΕΞ'
+    },
+    smithSklIronHelm: {
+      name: 'Σκούφος από σίδερο · ΔΕΞ'
+    },
+    smithMasterSklIronPlate: {
+      name: 'Αριστοτεχνικό Λουριά από σίδερο · ΔΕΞ'
+    },
+    smithSklIronPlate: {
+      name: 'Λουριά από σίδερο · ΔΕΞ'
+    },
+    smithMasterSklIronGreaves: {
+      name: 'Αριστοτεχνικό Μπότες από σίδερο · ΔΕΞ'
+    },
+    smithSklIronGreaves: {
+      name: 'Μπότες από σίδερο · ΔΕΞ'
+    },
+    smithMasterSklSilverSword: {
+      name: 'Αριστοτεχνικό Πιστόλι από ασήμι · ΔΕΞ'
+    },
+    smithSklSilverSword: {
+      name: 'Πιστόλι από ασήμι · ΔΕΞ'
+    },
+    smithMasterSklSilverHammer: {
+      name: 'Αριστοτεχνικό Τουφέκι από ασήμι · ΔΕΞ'
+    },
+    smithSklSilverHammer: {
+      name: 'Τουφέκι από ασήμι · ΔΕΞ'
+    },
+    smithMasterSklSilverShield: {
+      name: 'Αριστοτεχνικό Μπαταρία από ασήμι · ΔΕΞ'
+    },
+    smithSklSilverShield: {
+      name: 'Μπαταρία από ασήμι · ΔΕΞ'
+    },
+    smithMasterSklSilverHelm: {
+      name: 'Αριστοτεχνικό Σκούφος από ασήμι · ΔΕΞ'
+    },
+    smithSklSilverHelm: {
+      name: 'Σκούφος από ασήμι · ΔΕΞ'
+    },
+    smithMasterSklSilverPlate: {
+      name: 'Αριστοτεχνικό Λουριά από ασήμι · ΔΕΞ'
+    },
+    smithSklSilverPlate: {
+      name: 'Λουριά από ασήμι · ΔΕΞ'
+    },
+    smithMasterSklSilverGreaves: {
+      name: 'Αριστοτεχνικό Μπότες από ασήμι · ΔΕΞ'
+    },
+    smithSklSilverGreaves: {
+      name: 'Μπότες από ασήμι · ΔΕΞ'
+    },
+    smithMasterSklGoldSword: {
+      name: 'Αριστοτεχνικό Πιστόλι από χρυσό · ΔΕΞ'
+    },
+    smithSklGoldSword: {
+      name: 'Πιστόλι από χρυσό · ΔΕΞ'
+    },
+    smithMasterSklGoldHammer: {
+      name: 'Αριστοτεχνικό Τουφέκι από χρυσό · ΔΕΞ'
+    },
+    smithSklGoldHammer: {
+      name: 'Τουφέκι από χρυσό · ΔΕΞ'
+    },
+    smithMasterSklGoldShield: {
+      name: 'Αριστοτεχνικό Μπαταρία από χρυσό · ΔΕΞ'
+    },
+    smithSklGoldShield: {
+      name: 'Μπαταρία από χρυσό · ΔΕΞ'
+    },
+    smithMasterSklGoldHelm: {
+      name: 'Αριστοτεχνικό Σκούφος από χρυσό · ΔΕΞ'
+    },
+    smithSklGoldHelm: {
+      name: 'Σκούφος από χρυσό · ΔΕΞ'
+    },
+    smithMasterSklGoldPlate: {
+      name: 'Αριστοτεχνικό Λουριά από χρυσό · ΔΕΞ'
+    },
+    smithSklGoldPlate: {
+      name: 'Λουριά από χρυσό · ΔΕΞ'
+    },
+    smithMasterSklGoldGreaves: {
+      name: 'Αριστοτεχνικό Μπότες από χρυσό · ΔΕΞ'
+    },
+    smithSklGoldGreaves: {
+      name: 'Μπότες από χρυσό · ΔΕΞ'
+    },
+    smithMasterSklMithrilSword: {
+      name: 'Αριστοτεχνικό Πιστόλι από μιθρίλ · ΔΕΞ'
+    },
+    smithMasterSklAdamantSword: {
+      name: 'Αριστοτεχνικό Πιστόλι από αδαμάντιο · ΔΕΞ'
+    },
+    smithMasterSklAetheriteSword: {
+      name: 'Αριστοτεχνικό Πιστόλι από αιθερίτη · ΔΕΞ'
+    },
+    smithSklMithrilSword: {
+      name: 'Πιστόλι από μιθρίλ · ΔΕΞ'
+    },
+    smithSklAdamantSword: {
+      name: 'Πιστόλι από αδαμάντιο · ΔΕΞ'
+    },
+    smithSklAetheriteSword: {
+      name: 'Πιστόλι από αιθερίτη · ΔΕΞ'
+    },
+    smithMasterSklMithrilHammer: {
+      name: 'Αριστοτεχνικό Τουφέκι από μιθρίλ · ΔΕΞ'
+    },
+    smithMasterSklAdamantHammer: {
+      name: 'Αριστοτεχνικό Τουφέκι από αδαμάντιο · ΔΕΞ'
+    },
+    smithMasterSklAetheriteHammer: {
+      name: 'Αριστοτεχνικό Τουφέκι από αιθερίτη · ΔΕΞ'
+    },
+    smithSklMithrilHammer: {
+      name: 'Τουφέκι από μιθρίλ · ΔΕΞ'
+    },
+    smithSklAdamantHammer: {
+      name: 'Τουφέκι από αδαμάντιο · ΔΕΞ'
+    },
+    smithSklAetheriteHammer: {
+      name: 'Τουφέκι από αιθερίτη · ΔΕΞ'
+    },
+    smithMasterSklMithrilShield: {
+      name: 'Αριστοτεχνικό Μπαταρία από μιθρίλ · ΔΕΞ'
+    },
+    smithMasterSklAdamantShield: {
+      name: 'Αριστοτεχνικό Μπαταρία από αδαμάντιο · ΔΕΞ'
+    },
+    smithMasterSklAetheriteShield: {
+      name: 'Αριστοτεχνικό Μπαταρία από αιθερίτη · ΔΕΞ'
+    },
+    smithSklMithrilShield: {
+      name: 'Μπαταρία από μιθρίλ · ΔΕΞ'
+    },
+    smithSklAdamantShield: {
+      name: 'Μπαταρία από αδαμάντιο · ΔΕΞ'
+    },
+    smithSklAetheriteShield: {
+      name: 'Μπαταρία από αιθερίτη · ΔΕΞ'
+    },
+    smithMasterSklMithrilHelm: {
+      name: 'Αριστοτεχνικό Σκούφος από μιθρίλ · ΔΕΞ'
+    },
+    smithMasterSklAdamantHelm: {
+      name: 'Αριστοτεχνικό Σκούφος από αδαμάντιο · ΔΕΞ'
+    },
+    smithMasterSklAetheriteHelm: {
+      name: 'Αριστοτεχνικό Σκούφος από αιθερίτη · ΔΕΞ'
+    },
+    smithSklMithrilHelm: {
+      name: 'Σκούφος από μιθρίλ · ΔΕΞ'
+    },
+    smithSklAdamantHelm: {
+      name: 'Σκούφος από αδαμάντιο · ΔΕΞ'
+    },
+    smithSklAetheriteHelm: {
+      name: 'Σκούφος από αιθερίτη · ΔΕΞ'
+    },
+    smithMasterSklMithrilPlate: {
+      name: 'Αριστοτεχνικό Λουριά από μιθρίλ · ΔΕΞ'
+    },
+    smithMasterSklAdamantPlate: {
+      name: 'Αριστοτεχνικό Λουριά από αδαμάντιο · ΔΕΞ'
+    },
+    smithMasterSklAetheritePlate: {
+      name: 'Αριστοτεχνικό Λουριά από αιθερίτη · ΔΕΞ'
+    },
+    smithSklMithrilPlate: {
+      name: 'Λουριά από μιθρίλ · ΔΕΞ'
+    },
+    smithSklAdamantPlate: {
+      name: 'Λουριά από αδαμάντιο · ΔΕΞ'
+    },
+    smithSklAetheritePlate: {
+      name: 'Λουριά από αιθερίτη · ΔΕΞ'
+    },
+    smithMasterSklMithrilGreaves: {
+      name: 'Αριστοτεχνικό Μπότες από μιθρίλ · ΔΕΞ'
+    },
+    smithMasterSklAdamantGreaves: {
+      name: 'Αριστοτεχνικό Μπότες από αδαμάντιο · ΔΕΞ'
+    },
+    smithMasterSklAetheriteGreaves: {
+      name: 'Αριστοτεχνικό Μπότες από αιθερίτη · ΔΕΞ'
+    },
+    smithSklMithrilGreaves: {
+      name: 'Μπότες από μιθρίλ · ΔΕΞ'
+    },
+    smithSklAdamantGreaves: {
+      name: 'Μπότες από αδαμάντιο · ΔΕΞ'
+    },
+    smithSklAetheriteGreaves: {
+      name: 'Μπότες από αιθερίτη · ΔΕΞ'
+    },
+    smithMasterChaIronSword: {
+      name: 'Αριστοτεχνικό Σκήπτρο από σίδερο · ΧΑΡ'
+    },
+    smithChaIronSword: {
+      name: 'Σκήπτρο από σίδερο · ΧΑΡ'
+    },
+    smithMasterChaIronHammer: {
+      name: 'Αριστοτεχνικό Λάβαρο από σίδερο · ΧΑΡ'
+    },
+    smithChaIronHammer: {
+      name: 'Λάβαρο από σίδερο · ΧΑΡ'
+    },
+    smithMasterChaIronShield: {
+      name: 'Αριστοτεχνικό Κώδικας από σίδερο · ΧΑΡ'
+    },
+    smithChaIronShield: {
+      name: 'Κώδικας από σίδερο · ΧΑΡ'
+    },
+    smithMasterChaIronHelm: {
+      name: 'Αριστοτεχνικό Στέμμα από σίδερο · ΧΑΡ'
+    },
+    smithChaIronHelm: {
+      name: 'Στέμμα από σίδερο · ΧΑΡ'
+    },
+    smithMasterChaIronPlate: {
+      name: 'Αριστοτεχνικό Χλαμύδα από σίδερο · ΧΑΡ'
+    },
+    smithChaIronPlate: {
+      name: 'Χλαμύδα από σίδερο · ΧΑΡ'
+    },
+    smithMasterChaIronGreaves: {
+      name: 'Αριστοτεχνικό Μπότες από σίδερο · ΧΑΡ'
+    },
+    smithChaIronGreaves: {
+      name: 'Μπότες από σίδερο · ΧΑΡ'
+    },
+    smithMasterChaSilverSword: {
+      name: 'Αριστοτεχνικό Σκήπτρο από ασήμι · ΧΑΡ'
+    },
+    smithChaSilverSword: {
+      name: 'Σκήπτρο από ασήμι · ΧΑΡ'
+    },
+    smithMasterChaSilverHammer: {
+      name: 'Αριστοτεχνικό Λάβαρο από ασήμι · ΧΑΡ'
+    },
+    smithChaSilverHammer: {
+      name: 'Λάβαρο από ασήμι · ΧΑΡ'
+    },
+    smithMasterChaSilverShield: {
+      name: 'Αριστοτεχνικό Κώδικας από ασήμι · ΧΑΡ'
+    },
+    smithChaSilverShield: {
+      name: 'Κώδικας από ασήμι · ΧΑΡ'
+    },
+    smithMasterChaSilverHelm: {
+      name: 'Αριστοτεχνικό Στέμμα από ασήμι · ΧΑΡ'
+    },
+    smithChaSilverHelm: {
+      name: 'Στέμμα από ασήμι · ΧΑΡ'
+    },
+    smithMasterChaSilverPlate: {
+      name: 'Αριστοτεχνικό Χλαμύδα από ασήμι · ΧΑΡ'
+    },
+    smithChaSilverPlate: {
+      name: 'Χλαμύδα από ασήμι · ΧΑΡ'
+    },
+    smithMasterChaSilverGreaves: {
+      name: 'Αριστοτεχνικό Μπότες από ασήμι · ΧΑΡ'
+    },
+    smithChaSilverGreaves: {
+      name: 'Μπότες από ασήμι · ΧΑΡ'
+    },
+    smithMasterChaGoldSword: {
+      name: 'Αριστοτεχνικό Σκήπτρο από χρυσό · ΧΑΡ'
+    },
+    smithChaGoldSword: {
+      name: 'Σκήπτρο από χρυσό · ΧΑΡ'
+    },
+    smithMasterChaGoldHammer: {
+      name: 'Αριστοτεχνικό Λάβαρο από χρυσό · ΧΑΡ'
+    },
+    smithChaGoldHammer: {
+      name: 'Λάβαρο από χρυσό · ΧΑΡ'
+    },
+    smithMasterChaGoldShield: {
+      name: 'Αριστοτεχνικό Κώδικας από χρυσό · ΧΑΡ'
+    },
+    smithChaGoldShield: {
+      name: 'Κώδικας από χρυσό · ΧΑΡ'
+    },
+    smithMasterChaGoldHelm: {
+      name: 'Αριστοτεχνικό Στέμμα από χρυσό · ΧΑΡ'
+    },
+    smithChaGoldHelm: {
+      name: 'Στέμμα από χρυσό · ΧΑΡ'
+    },
+    smithMasterChaGoldPlate: {
+      name: 'Αριστοτεχνικό Χλαμύδα από χρυσό · ΧΑΡ'
+    },
+    smithChaGoldPlate: {
+      name: 'Χλαμύδα από χρυσό · ΧΑΡ'
+    },
+    smithMasterChaGoldGreaves: {
+      name: 'Αριστοτεχνικό Μπότες από χρυσό · ΧΑΡ'
+    },
+    smithChaGoldGreaves: {
+      name: 'Μπότες από χρυσό · ΧΑΡ'
+    },
+    smithMasterChaMithrilSword: {
+      name: 'Αριστοτεχνικό Σκήπτρο από μιθρίλ · ΧΑΡ'
+    },
+    smithMasterChaAdamantSword: {
+      name: 'Αριστοτεχνικό Σκήπτρο από αδαμάντιο · ΧΑΡ'
+    },
+    smithMasterChaAetheriteSword: {
+      name: 'Αριστοτεχνικό Σκήπτρο από αιθερίτη · ΧΑΡ'
+    },
+    smithChaMithrilSword: {
+      name: 'Σκήπτρο από μιθρίλ · ΧΑΡ'
+    },
+    smithChaAdamantSword: {
+      name: 'Σκήπτρο από αδαμάντιο · ΧΑΡ'
+    },
+    smithChaAetheriteSword: {
+      name: 'Σκήπτρο από αιθερίτη · ΧΑΡ'
+    },
+    smithMasterChaMithrilHammer: {
+      name: 'Αριστοτεχνικό Λάβαρο από μιθρίλ · ΧΑΡ'
+    },
+    smithMasterChaAdamantHammer: {
+      name: 'Αριστοτεχνικό Λάβαρο από αδαμάντιο · ΧΑΡ'
+    },
+    smithMasterChaAetheriteHammer: {
+      name: 'Αριστοτεχνικό Λάβαρο από αιθερίτη · ΧΑΡ'
+    },
+    smithChaMithrilHammer: {
+      name: 'Λάβαρο από μιθρίλ · ΧΑΡ'
+    },
+    smithChaAdamantHammer: {
+      name: 'Λάβαρο από αδαμάντιο · ΧΑΡ'
+    },
+    smithChaAetheriteHammer: {
+      name: 'Λάβαρο από αιθερίτη · ΧΑΡ'
+    },
+    smithMasterChaMithrilShield: {
+      name: 'Αριστοτεχνικό Κώδικας από μιθρίλ · ΧΑΡ'
+    },
+    smithMasterChaAdamantShield: {
+      name: 'Αριστοτεχνικό Κώδικας από αδαμάντιο · ΧΑΡ'
+    },
+    smithMasterChaAetheriteShield: {
+      name: 'Αριστοτεχνικό Κώδικας από αιθερίτη · ΧΑΡ'
+    },
+    smithChaMithrilShield: {
+      name: 'Κώδικας από μιθρίλ · ΧΑΡ'
+    },
+    smithChaAdamantShield: {
+      name: 'Κώδικας από αδαμάντιο · ΧΑΡ'
+    },
+    smithChaAetheriteShield: {
+      name: 'Κώδικας από αιθερίτη · ΧΑΡ'
+    },
+    smithMasterChaMithrilHelm: {
+      name: 'Αριστοτεχνικό Στέμμα από μιθρίλ · ΧΑΡ'
+    },
+    smithMasterChaAdamantHelm: {
+      name: 'Αριστοτεχνικό Στέμμα από αδαμάντιο · ΧΑΡ'
+    },
+    smithMasterChaAetheriteHelm: {
+      name: 'Αριστοτεχνικό Στέμμα από αιθερίτη · ΧΑΡ'
+    },
+    smithChaMithrilHelm: {
+      name: 'Στέμμα από μιθρίλ · ΧΑΡ'
+    },
+    smithChaAdamantHelm: {
+      name: 'Στέμμα από αδαμάντιο · ΧΑΡ'
+    },
+    smithChaAetheriteHelm: {
+      name: 'Στέμμα από αιθερίτη · ΧΑΡ'
+    },
+    smithMasterChaMithrilPlate: {
+      name: 'Αριστοτεχνικό Χλαμύδα από μιθρίλ · ΧΑΡ'
+    },
+    smithMasterChaAdamantPlate: {
+      name: 'Αριστοτεχνικό Χλαμύδα από αδαμάντιο · ΧΑΡ'
+    },
+    smithMasterChaAetheritePlate: {
+      name: 'Αριστοτεχνικό Χλαμύδα από αιθερίτη · ΧΑΡ'
+    },
+    smithChaMithrilPlate: {
+      name: 'Χλαμύδα από μιθρίλ · ΧΑΡ'
+    },
+    smithChaAdamantPlate: {
+      name: 'Χλαμύδα από αδαμάντιο · ΧΑΡ'
+    },
+    smithChaAetheritePlate: {
+      name: 'Χλαμύδα από αιθερίτη · ΧΑΡ'
+    },
+    smithMasterChaMithrilGreaves: {
+      name: 'Αριστοτεχνικό Μπότες από μιθρίλ · ΧΑΡ'
+    },
+    smithMasterChaAdamantGreaves: {
+      name: 'Αριστοτεχνικό Μπότες από αδαμάντιο · ΧΑΡ'
+    },
+    smithMasterChaAetheriteGreaves: {
+      name: 'Αριστοτεχνικό Μπότες από αιθερίτη · ΧΑΡ'
+    },
+    smithChaMithrilGreaves: {
+      name: 'Μπότες από μιθρίλ · ΧΑΡ'
+    },
+    smithChaAdamantGreaves: {
+      name: 'Μπότες από αδαμάντιο · ΧΑΡ'
+    },
+    smithChaAetheriteGreaves: {
+      name: 'Μπότες από αιθερίτη · ΧΑΡ'
+    },
+    smithMasterEndIronSword: {
+      name: 'Αριστοτεχνικό Ρόπαλο από σίδερο · ΑΝΤ'
+    },
+    smithEndIronSword: {
+      name: 'Ρόπαλο από σίδερο · ΑΝΤ'
+    },
+    smithMasterEndIronHammer: {
+      name: 'Αριστοτεχνικό Τσεκούρι από σίδερο · ΑΝΤ'
+    },
+    smithEndIronHammer: {
+      name: 'Τσεκούρι από σίδερο · ΑΝΤ'
+    },
+    smithMasterEndIronShield: {
+      name: 'Αριστοτεχνική Σιδερένια Ασπίδα · ΑΝΤ'
+    },
+    smithEndIronShield: {
+      name: 'Σιδερένια Ασπίδα · ΑΝΤ'
+    },
+    smithMasterEndIronHelm: {
+      name: 'Αριστοτεχνικό Σιδερένιο Κράνος · ΑΝΤ'
+    },
+    smithEndIronHelm: {
+      name: 'Σιδερένιο Κράνος · ΑΝΤ'
+    },
+    smithMasterEndIronPlate: {
+      name: 'Αριστοτεχνική Σιδερένια Πανοπλία · ΑΝΤ'
+    },
+    smithEndIronPlate: {
+      name: 'Σιδερένια Πανοπλία · ΑΝΤ'
+    },
+    smithMasterEndIronGreaves: {
+      name: 'Αριστοτεχνικές Σιδερένιες Περικνημίδες · ΑΝΤ'
+    },
+    smithEndIronGreaves: {
+      name: 'Σιδερένιες Περικνημίδες · ΑΝΤ'
+    },
+    smithMasterEndSilverSword: {
+      name: 'Αριστοτεχνικό Ρόπαλο από ασήμι · ΑΝΤ'
+    },
+    smithEndSilverSword: {
+      name: 'Ρόπαλο από ασήμι · ΑΝΤ'
+    },
+    smithMasterEndSilverHammer: {
+      name: 'Αριστοτεχνικό Τσεκούρι από ασήμι · ΑΝΤ'
+    },
+    smithEndSilverHammer: {
+      name: 'Τσεκούρι από ασήμι · ΑΝΤ'
+    },
+    smithMasterEndSilverShield: {
+      name: 'Αριστοτεχνική Ασημένια Ασπίδα · ΑΝΤ'
+    },
+    smithEndSilverShield: {
+      name: 'Ασημένια Ασπίδα · ΑΝΤ'
+    },
+    smithMasterEndSilverHelm: {
+      name: 'Αριστοτεχνικό Ασημένιο Κράνος · ΑΝΤ'
+    },
+    smithEndSilverHelm: {
+      name: 'Ασημένιο Κράνος · ΑΝΤ'
+    },
+    smithMasterEndSilverPlate: {
+      name: 'Αριστοτεχνική Ασημένια Πανοπλία · ΑΝΤ'
+    },
+    smithEndSilverPlate: {
+      name: 'Ασημένια Πανοπλία · ΑΝΤ'
+    },
+    smithMasterEndSilverGreaves: {
+      name: 'Αριστοτεχνικές Ασημένιες Περικνημίδες · ΑΝΤ'
+    },
+    smithEndSilverGreaves: {
+      name: 'Ασημένιες Περικνημίδες · ΑΝΤ'
+    },
+    smithMasterEndGoldSword: {
+      name: 'Αριστοτεχνικό Ρόπαλο από χρυσό · ΑΝΤ'
+    },
+    smithEndGoldSword: {
+      name: 'Ρόπαλο από χρυσό · ΑΝΤ'
+    },
+    smithMasterEndGoldHammer: {
+      name: 'Αριστοτεχνικό Τσεκούρι από χρυσό · ΑΝΤ'
+    },
+    smithEndGoldHammer: {
+      name: 'Τσεκούρι από χρυσό · ΑΝΤ'
+    },
+    smithMasterEndGoldShield: {
+      name: 'Αριστοτεχνική Χρυσή Ασπίδα · ΑΝΤ'
+    },
+    smithEndGoldShield: {
+      name: 'Χρυσή Ασπίδα · ΑΝΤ'
+    },
+    smithMasterEndGoldHelm: {
+      name: 'Αριστοτεχνικό Χρυσό Κράνος · ΑΝΤ'
+    },
+    smithEndGoldHelm: {
+      name: 'Χρυσό Κράνος · ΑΝΤ'
+    },
+    smithMasterEndGoldPlate: {
+      name: 'Αριστοτεχνική Χρυσή Πανοπλία · ΑΝΤ'
+    },
+    smithEndGoldPlate: {
+      name: 'Χρυσή Πανοπλία · ΑΝΤ'
+    },
+    smithMasterEndGoldGreaves: {
+      name: 'Αριστοτεχνικές Χρυσές Περικνημίδες · ΑΝΤ'
+    },
+    smithEndGoldGreaves: {
+      name: 'Χρυσές Περικνημίδες · ΑΝΤ'
+    },
+    smithMasterEndMithrilSword: {
+      name: 'Αριστοτεχνικό Ρόπαλο από μιθρίλ · ΑΝΤ'
+    },
+    smithMasterEndAdamantSword: {
+      name: 'Αριστοτεχνικό Ρόπαλο από αδαμάντιο · ΑΝΤ'
+    },
+    smithMasterEndAetheriteSword: {
+      name: 'Αριστοτεχνικό Ρόπαλο από αιθερίτη · ΑΝΤ'
+    },
+    smithEndMithrilSword: {
+      name: 'Ρόπαλο από μιθρίλ · ΑΝΤ'
+    },
+    smithEndAdamantSword: {
+      name: 'Ρόπαλο από αδαμάντιο · ΑΝΤ'
+    },
+    smithEndAetheriteSword: {
+      name: 'Ρόπαλο από αιθερίτη · ΑΝΤ'
+    },
+    smithMasterEndMithrilHammer: {
+      name: 'Αριστοτεχνικό Τσεκούρι από μιθρίλ · ΑΝΤ'
+    },
+    smithMasterEndAdamantHammer: {
+      name: 'Αριστοτεχνικό Τσεκούρι από αδαμάντιο · ΑΝΤ'
+    },
+    smithMasterEndAetheriteHammer: {
+      name: 'Αριστοτεχνικό Τσεκούρι από αιθερίτη · ΑΝΤ'
+    },
+    smithEndMithrilHammer: {
+      name: 'Τσεκούρι από μιθρίλ · ΑΝΤ'
+    },
+    smithEndAdamantHammer: {
+      name: 'Τσεκούρι από αδαμάντιο · ΑΝΤ'
+    },
+    smithEndAetheriteHammer: {
+      name: 'Τσεκούρι από αιθερίτη · ΑΝΤ'
+    },
+    smithMasterEndMithrilShield: {
+      name: 'Αριστοτεχνική Ασπίδα από Μίθριλ · ΑΝΤ'
+    },
+    smithMasterEndAdamantShield: {
+      name: 'Αριστοτεχνική Ασπίδα από Αδαμάντιο · ΑΝΤ'
+    },
+    smithMasterEndAetheriteShield: {
+      name: 'Αριστοτεχνική Ασπίδα από Αιθερίτη · ΑΝΤ'
+    },
+    smithEndMithrilShield: {
+      name: 'Ασπίδα από Μίθριλ · ΑΝΤ'
+    },
+    smithEndAdamantShield: {
+      name: 'Ασπίδα από Αδαμάντιο · ΑΝΤ'
+    },
+    smithEndAetheriteShield: {
+      name: 'Ασπίδα από Αιθερίτη · ΑΝΤ'
+    },
+    smithMasterEndMithrilHelm: {
+      name: 'Αριστοτεχνικό Κράνος από Μίθριλ · ΑΝΤ'
+    },
+    smithMasterEndAdamantHelm: {
+      name: 'Αριστοτεχνικό Κράνος από Αδαμάντιο · ΑΝΤ'
+    },
+    smithMasterEndAetheriteHelm: {
+      name: 'Αριστοτεχνικό Κράνος από Αιθερίτη · ΑΝΤ'
+    },
+    smithEndMithrilHelm: {
+      name: 'Κράνος από Μίθριλ · ΑΝΤ'
+    },
+    smithEndAdamantHelm: {
+      name: 'Κράνος από Αδαμάντιο · ΑΝΤ'
+    },
+    smithEndAetheriteHelm: {
+      name: 'Κράνος από Αιθερίτη · ΑΝΤ'
+    },
+    smithMasterEndMithrilPlate: {
+      name: 'Αριστοτεχνική Πανοπλία από Μίθριλ · ΑΝΤ'
+    },
+    smithMasterEndAdamantPlate: {
+      name: 'Αριστοτεχνική Πανοπλία από Αδαμάντιο · ΑΝΤ'
+    },
+    smithMasterEndAetheritePlate: {
+      name: 'Αριστοτεχνική Πανοπλία από Αιθερίτη · ΑΝΤ'
+    },
+    smithEndMithrilPlate: {
+      name: 'Πανοπλία από Μίθριλ · ΑΝΤ'
+    },
+    smithEndAdamantPlate: {
+      name: 'Πανοπλία από Αδαμάντιο · ΑΝΤ'
+    },
+    smithEndAetheritePlate: {
+      name: 'Πανοπλία από Αιθερίτη · ΑΝΤ'
+    },
+    smithMasterEndMithrilGreaves: {
+      name: 'Αριστοτεχνικές Περικνημίδες από Μίθριλ · ΑΝΤ'
+    },
+    smithMasterEndAdamantGreaves: {
+      name: 'Αριστοτεχνικές Περικνημίδες από Αδαμάντιο · ΑΝΤ'
+    },
+    smithMasterEndAetheriteGreaves: {
+      name: 'Αριστοτεχνικές Περικνημίδες από Αιθερίτη · ΑΝΤ'
+    },
+    smithEndMithrilGreaves: {
+      name: 'Περικνημίδες από Μίθριλ · ΑΝΤ'
+    },
+    smithEndAdamantGreaves: {
+      name: 'Περικνημίδες από Αδαμάντιο · ΑΝΤ'
+    },
+    smithEndAetheriteGreaves: {
+      name: 'Περικνημίδες από Αιθερίτη · ΑΝΤ'
     },
     smithIronSword: {
       name: 'Σιδερένιο Σπαθί'
@@ -1777,6 +2951,414 @@ export default {
     scepterOfTheFirstKing: {
       name: 'Σκήπτρο του πρώτου βασιλιά'
     },
+    pickpocketsKnife: {
+      name: 'Μαχαίρι του πορτοφολά'
+    },
+    serpentsFang: {
+      name: 'Δόντι φιδιού'
+    },
+    phantomRapier: {
+      name: 'Φάντασμα-ξίφος'
+    },
+    fangOfTheWindless: {
+      name: 'Δόντι της Άνεμης Νηνεμίας'
+    },
+    roguesBuckler: {
+      name: 'Μικρή ασπίδα του κατεργάρη'
+    },
+    venomVial: {
+      name: 'Φιαλίδιο δηλητηρίου'
+    },
+    swiftguardBuckler: {
+      name: 'Μικρή ασπίδα της γρήγορης φρουράς'
+    },
+    nightshadeFlask: {
+      name: 'Φιάλη μπελαντόνας'
+    },
+    windveilTarge: {
+      name: 'Θυρεός του πέπλου του ανέμου'
+    },
+    shadowdancersBuckler: {
+      name: 'Μικρή ασπίδα του χορευτή των σκιών'
+    },
+    scoutsBandana: {
+      name: 'Μαντήλι του ανιχνευτή'
+    },
+    nightcowl: {
+      name: 'Νυχτερινή κουκούλα'
+    },
+    shadowveilHood: {
+      name: 'Κουκούλα του πέπλου των σκιών'
+    },
+    windrunnersCap: {
+      name: 'Σκούφος του δρομέα του ανέμου'
+    },
+    maskOfTheSilentWind: {
+      name: 'Μάσκα του σιωπηλού ανέμου'
+    },
+    rangersJerkin: {
+      name: 'Σακάκι του ρέιντζερ'
+    },
+    nightstalkerLeathers: {
+      name: 'Δέρματα του νυχτερινού καταδιώκτη'
+    },
+    windridersHarness: {
+      name: 'Λουριά του καβαλάρη του ανέμου'
+    },
+    mantleOfTheShadowDancer: {
+      name: 'Μανδύας του χορευτή των σκιών'
+    },
+    thiefsGloves: {
+      name: 'Γάντια του κλέφτη'
+    },
+    cutpurseGloves: {
+      name: 'Γάντια του πορτοφολά'
+    },
+    glovesOfTheGale: {
+      name: 'Γάντια της ανεμοθύελλας'
+    },
+    softSoledShoes: {
+      name: 'Παπούτσια με μαλακή σόλα'
+    },
+    catStepBoots: {
+      name: 'Μπότες του γατίσιου βήματος'
+    },
+    shadowstepBoots: {
+      name: 'Μπότες του βήματος της σκιάς'
+    },
+    windstrideBoots: {
+      name: 'Μπότες του βήματος του ανέμου'
+    },
+    luckyCoin: {
+      name: 'Γουρλίδικο νόμισμα'
+    },
+    shadowBand: {
+      name: 'Δαχτυλίδι της σκιάς'
+    },
+    sandglassOfTheSwift: {
+      name: 'Κλεψύδρα των γοργών'
+    },
+    talonCharm: {
+      name: 'Φυλαχτό νυχιού'
+    },
+    windheart: {
+      name: 'Καρδιά του ανέμου'
+    },
+    ashwallHeater: {
+      name: 'Ασπίδα του Τείχους της Στάχτης'
+    },
+    wyrmhidePavise: {
+      name: 'Παβέζα από δέρμα βίβερν'
+    },
+    footmansKettleHat: {
+      name: 'Καπέλο-τσουκάλι του πεζικάριου'
+    },
+    ironbrowSallet: {
+      name: 'Σαλάντ με σιδερένια φρύδια'
+    },
+    warlordsBarbute: {
+      name: 'Μπαρμπούτα του πολεμάρχου'
+    },
+    helmOfTheSunderedThrone: {
+      name: 'Κράνος του κατεστραμμένου θρόνου'
+    },
+    recruitsCuirass: {
+      name: 'Θώρακας του νεοσύλλεκτου'
+    },
+    stonecuttersMitts: {
+      name: 'Γάντια του λιθοξόου'
+    },
+    ashforgedGauntlets: {
+      name: 'Σιδερένια γάντια σφυρηλατημένα στη στάχτη'
+    },
+    warbringerGauntlets: {
+      name: 'Σιδερένια γάντια του πολεμοφόρου'
+    },
+    titanfistGauntlets: {
+      name: 'Σιδερένια γάντια Γροθιά του Τιτάνα'
+    },
+    footmansGreaves: {
+      name: 'Κνημίδες του πεζικάριου'
+    },
+    ironshodGreaves: {
+      name: 'Σιδεροδεμένες κνημίδες'
+    },
+    warlordsSabatons: {
+      name: 'Σαμπατόνια του πολεμάρχου'
+    },
+    greavesOfTheMountainfall: {
+      name: 'Κνημίδες της κατολίσθησης'
+    },
+    sergeantsSignet: {
+      name: 'Δαχτυλίδι-σφραγίδα του λοχία'
+    },
+    brawlersKnuckleRing: {
+      name: 'Γροθιά του καβγατζή'
+    },
+    bloodiedWarMedal: {
+      name: 'Ματωμένο μετάλλιο πολέμου'
+    },
+    watchmansCudgel: {
+      name: 'Ρόπαλο του φρουρού'
+    },
+    ironboundMace: {
+      name: 'Σιδεροδεμένο ρόπαλο'
+    },
+    stonehideCleaver: {
+      name: 'Μαχαίρι από πέτρινο δέρμα'
+    },
+    bulwarkMaul: {
+      name: 'Βαριοπούλα του προμαχώνα'
+    },
+    mountainsplitterAxe: {
+      name: 'Τσεκούρι Σχίστης Βουνών'
+    },
+    everstandWarmace: {
+      name: 'Ακλόνητο πολεμικό ρόπαλο'
+    },
+    emberwallBastion: {
+      name: 'Προμαχώνας του Τείχους της Ανθρακιάς'
+    },
+    stonewardenHelm: {
+      name: 'Κράνος του πέτρινου φρουρού'
+    },
+    colossusVisage: {
+      name: 'Όψη του κολοσσού'
+    },
+    diggersGauntlets: {
+      name: 'Σιδερένια γάντια του σκαφτιά'
+    },
+    bastionGauntlets: {
+      name: 'Σιδερένια γάντια του προμαχώνα'
+    },
+    glacierplateGauntlets: {
+      name: 'Σιδερένια γάντια από πάγους παγετώνα'
+    },
+    gauntletsOfEndlessVigil: {
+      name: 'Σιδερένια γάντια της αιώνιας αγρυπνίας'
+    },
+    hearthstoneCharm: {
+      name: 'Φυλαχτό από πέτρα εστίας'
+    },
+    ironheartPendant: {
+      name: 'Μενταγιόν Σιδερόκαρδο'
+    },
+    hedgewizardsWand: {
+      name: 'Ραβδί του μάγου των φρακτών'
+    },
+    frostglassStaff: {
+      name: 'Ραβδί από πάγο-γυαλί'
+    },
+    voidthreadWand: {
+      name: 'Ραβδάκι από νήματα του Κενού'
+    },
+    staffOfTheStarlessSky: {
+      name: 'Ραβδί του ουρανού χωρίς άστρα'
+    },
+    studentsGrimoire: {
+      name: 'Γκριμουάρ του μαθητή'
+    },
+    frostfireOrb: {
+      name: 'Σφαίρα της παγωμένης φωτιάς'
+    },
+    orbOfTheUnwrittenHour: {
+      name: 'Σφαίρα της άγραφης ώρας'
+    },
+    apprenticesPointedCap: {
+      name: 'Μυτερό καπέλο του μαθητευόμενου'
+    },
+    sagesCirclet: {
+      name: 'Στέμμα του σοφού'
+    },
+    cinderWizardsHat: {
+      name: 'Καπέλο του μάγου της στάχτης'
+    },
+    voidseerCirclet: {
+      name: 'Στέμμα του μάντη του Κενού'
+    },
+    apprenticesRobe: {
+      name: 'Ρόμπα του μαθητευόμενου'
+    },
+    cinderthreadRobe: {
+      name: 'Ρόμπα από νήματα στάχτης'
+    },
+    voidwovenRobe: {
+      name: 'Ρόμπα υφασμένη από το Κενό'
+    },
+    inkStainedGloves: {
+      name: 'Γάντια λερωμένα με μελάνι'
+    },
+    spellthreadGloves: {
+      name: 'Γάντια από νήματα ξορκιών'
+    },
+    frostweaveGloves: {
+      name: 'Γάντια από παγωμένο ύφασμα'
+    },
+    starlitGloves: {
+      name: 'Γάντια με αστρόφωτο'
+    },
+    glovesOfTheLastWord: {
+      name: 'Γάντια της τελευταίας λέξης'
+    },
+    scribesSlippers: {
+      name: 'Παντόφλες του γραφέα'
+    },
+    moonstepSlippers: {
+      name: 'Παντόφλες του βήματος της σελήνης'
+    },
+    emberstepBoots: {
+      name: 'Μπότες του βήματος της ανθρακιάς'
+    },
+    voidwalkerBoots: {
+      name: 'Μπότες του περιπλανώμενου του Κενού'
+    },
+    bootsOfTheWanderingStar: {
+      name: 'Μπότες του πλανόδιου άστρου'
+    },
+    glowstonePendant: {
+      name: 'Μενταγιόν με λαμπερή πέτρα'
+    },
+    scholarsSeal: {
+      name: 'Σφραγίδα του σοφού'
+    },
+    eyeOfTheArchon: {
+      name: 'Μάτι του άρχοντα'
+    },
+    cinderRepeater: {
+      name: 'Περίστροφο της στάχτης'
+    },
+    glacierMortar: {
+      name: 'Χειροκίνητος όλμος παγετώνα'
+    },
+    sparkCell: {
+      name: 'Κύτταρο σπινθήρων'
+    },
+    arcCapacitor: {
+      name: 'Πυκνωτής τόξου'
+    },
+    aetherheartCell: {
+      name: 'Κύτταρο Καρδιά του Αιθέρα'
+    },
+    marksmansVisor: {
+      name: 'Προσωπίδα του σκοπευτή'
+    },
+    sharpshootersCap: {
+      name: 'Τραγιάσκα του ελεύθερου σκοπευτή'
+    },
+    gunnersHarness: {
+      name: 'Ιμάντες του πυροβολητή'
+    },
+    steadyhandGloves: {
+      name: 'Γάντια του σταθερού χεριού'
+    },
+    gunsmithsGloves: {
+      name: 'Γάντια του οπλουργού'
+    },
+    scrappersBoots: {
+      name: 'Μπότες του καβγατζή'
+    },
+    sharpshooterBoots: {
+      name: 'Μπότες του ελεύθερου σκοπευτή'
+    },
+    firingLineBoots: {
+      name: 'Μπότες της γραμμής πυρός'
+    },
+    steadyfootBoots: {
+      name: 'Μπότες του σταθερού βήματος'
+    },
+    aetherstepBoots: {
+      name: 'Μπότες του αιθέριου βήματος'
+    },
+    bootsOfTheLastShot: {
+      name: 'Μπότες της τελευταίας βολής'
+    },
+    brassCartridgeCharm: {
+      name: 'Φυλαχτό από ορειχάλκινο φυσίγγιο'
+    },
+    deadEyeLens: {
+      name: 'Φακός του διαπεραστικού ματιού'
+    },
+    eagleEyeScope: {
+      name: 'Τηλεσκόπιο του αετομάτη'
+    },
+    criersBaton: {
+      name: 'Ράβδος του κήρυκα'
+    },
+    droversStandard: {
+      name: 'Λάβαρο του κτηνοτρόφου'
+    },
+    marshalsSceptre: {
+      name: 'Σκήπτρο του στρατάρχη'
+    },
+    balladBook: {
+      name: 'Βιβλίο των μπαλαντών'
+    },
+    chronicleOfHeroes: {
+      name: 'Χρονικό των ηρώων'
+    },
+    psalterOfTheHost: {
+      name: 'Ψαλτήρι του στρατού'
+    },
+    tomeOfEternalReign: {
+      name: 'Τόμος της αιώνιας βασιλείας'
+    },
+    heraldsCap: {
+      name: 'Σκουφί του κήρυκα'
+    },
+    singersCirclet: {
+      name: 'Στέμμα του τραγουδιστή'
+    },
+    diademOfTenThousandVoices: {
+      name: 'Στέμμα των δέκα χιλιάδων φωνών'
+    },
+    travelersWaistcoat: {
+      name: 'Γιλέκο του ταξιδιώτη'
+    },
+    minstrelsMotley: {
+      name: 'Μπαλωμένη φορεσιά του τροβαδούρου'
+    },
+    troubadoursCoat: {
+      name: 'Σακάκι του τροβαδούρου'
+    },
+    marshalsGreatcoat: {
+      name: 'Πανωφόρι του στρατάρχη'
+    },
+    buskersGloves: {
+      name: 'Γάντια του πλανόδιου μουσικού'
+    },
+    drummersGloves: {
+      name: 'Γάντια του ντράμερ'
+    },
+    standardBearersGloves: {
+      name: 'Γάντια του σημαιοφόρου'
+    },
+    gildedParadeGloves: {
+      name: 'Επιχρυσωμένα γάντια παρέλασης'
+    },
+    glovesOfTheCrownedHand: {
+      name: 'Γάντια του στεφανωμένου χεριού'
+    },
+    wayfarersShoes: {
+      name: 'Παπούτσια του οδοιπόρου'
+    },
+    troubadourBoots: {
+      name: 'Μπότες του τροβαδούρου'
+    },
+    heraldsRidingBoots: {
+      name: 'Ιππευτικές μπότες του κήρυκα'
+    },
+    paradeBoots: {
+      name: 'Μπότες παρέλασης'
+    },
+    bootsOfTheLongProcession: {
+      name: 'Μπότες της μεγάλης πομπής'
+    },
+    silverWhistle: {
+      name: 'Ασημένια σφυρίχτρα'
+    },
+    gatheringHorn: {
+      name: 'Κέρας συγκέντρωσης'
+    },
     heartOfTheMountain: {
       name: 'Καρδιά του Βουνού'
     },
@@ -1880,6 +3462,9 @@ export default {
     freedPeddler: {
       talk: 'Ό,τι χρειάζεται ένας ταξιδιώτης. Σχεδόν καινούργια, ως επί το πλείστον.',
       name: 'Όντο Μάροου'
+    },
+    sfShadowRoad: {
+      name: 'Νέτλ Κουίκχαντ'
     },
     sfShadow: {
       name: 'Νέτλ Κουίκχαντ'
@@ -2034,6 +3619,9 @@ export default {
     sunfordGambler: {
       name: 'Ντομπ ο Κουτρουβάλας'
     },
+    sunfordCups: {
+      name: 'Νελ Σβέλτα Δάχτυλα'
+    },
     oakGambler: {
       name: 'Ρεν ο Μεταξένιος'
     },
@@ -2145,6 +3733,13 @@ export default {
     }
   },
   dlg: {
+    intro: {
+      crossing: { 1: 'Κάθε δρόμος αυτού του κόσμου συναντιέται σε ένα σταυροδρόμι… και κάθε σταυροδρόμι είναι μια μάχη.' },
+      hero: { 1: 'Από τα ήσυχα χωράφια του Σάνφορντ, ένας νεαρός ήρωας ξεκίνησε.' },
+      fire: { 1: 'Η φωτιά απάντησε στο κάλεσμα. Το ατσάλι έμαθε ένα νέο όνομα.' },
+      foes: { 1: 'Βασιλιάδες γκόμπλιν, γιαρλ του παγετού, ένας δράκος του κενού… και ο Αρχιδαίμονας.' },
+      begin: { 1: 'Ο θρύλος σου αρχίζει τώρα.' }
+    },
     frostDisciple: {
       bye: {
         '1': 'Να μην κρυώνεις.'
@@ -2349,6 +3944,23 @@ export default {
         '2': 'Όντο Μάροου, στις διαταγές σου. Πραματευτής, μάστορας, πολύ ευγνώμων άνθρωπος.',
         '1__f': 'Εσύ! Εσύ είσαι αυτή που άνοιξε εκείνο το κλουβί! Θα είχα σαπίσει εκεί μέσα.',
         '1': 'Εσύ! Εσύ είσαι αυτός που άνοιξε εκείνο το κλουβί! Θα είχα σαπίσει εκεί μέσα.'
+      }
+    },
+    sfShadowRoad: {
+      hello: {
+        '1': 'Τηλεμεταφορά. Σε ενδιαφέρει;'
+      },
+      again: {
+        '1': 'Ξαναήρθες για άλλο κόλπο;'
+      },
+      train: {
+        '1': 'Κοίτα προσεκτικά. Ένα βήμα, και βρίσκεσαι αλλού.'
+      },
+      trainBack: {
+        '1': 'Καλά. Τώρα πήγαινε να βρεθείς αλλού.'
+      },
+      bye: {
+        '1': 'Μην σε πιάσουν.'
       }
     },
     sfShadow: {
@@ -2604,9 +4216,8 @@ export default {
         '2': 'Χτύπα όταν το μέταλλο λάμπει πιο έντονα. Αν αστοχήσεις, γίνεται παλιοσίδερο. Εμπρός.',
         '1': 'Σιδηρουργική; Χμ. Κράτα το σφυρί έτσι, όχι σαν ρόπαλο.'
       },
-      ore: {
-        '1': 'Ψήγματα, ε; Τα παίρνω όλα. Τίμιο ζύγι, τίμιο νόμισμα.'
-      },
+      ore: { '1': 'Μετάλλευμα, ε; Δείξε. Πληρώνω ανά ψήγμα, τίμιο ζύγι.' },
+      sellBack: { '1': 'Τίμιο ζύγι, τίμιο νόμισμα. Φέρε κι άλλο όταν βρεις.' },
       forgeBack: {
         '1': 'Όχι κακό. Ούτε καλό όμως. Συνέχισε.'
       },
@@ -2896,7 +4507,7 @@ export default {
       },
       map: {
         '1': 'Ο χάρτης του Καπετάν Ρουκ! Τον έσκισε κι έκρυψε τα κομμάτια πριν τον πιάσουν οι γκόμπλιν.',
-        '2': 'Βρες και τα έξι και το X θα σου δείξει τον δρόμο: κάπου στα Βράχια της Στάχτης. Σκάψε εκεί, και το χρυσάφι είναι δικό σου.',
+        '2': 'Βρες έξι από αυτά, υπάρχουν κι άλλα διάσπαρτα τριγύρω, και το X θα σου δείξει τον δρόμο: κάπου στα Βράχια της Στάχτης. Σκάψε εκεί, και το χρυσάφι είναι δικό σου.',
         say: 'Βρήκα ένα κομμάτι από έναν παλιό χάρτη.'
       }
     },
@@ -2916,6 +4527,9 @@ export default {
       mana: {
         '1': 'Αυτό είναι πικρό. Πιες το όταν στερέψουν τα ξόρκια σου.'
       },
+      brew: {
+        '1': 'Δείξε μου τα βότανά σου. Θα φτιάξω κάτι με καλύτερη γεύση από το τονωτικό μάνα μου.'
+      },
       potions: {
         '1': 'Παίρνεις μερικές φιάλες σε κάθε μάχη. Πιες πριν τις χρειαστείς, όχι μετά.',
         '2': 'Αν θέλεις να κουβαλάς περισσότερες, μπορώ να σου πουλήσω μια μεγαλύτερη ζώνη.',
@@ -2934,6 +4548,9 @@ export default {
       },
       healBack: {
         '1': 'Κράτα τη ζώνη γεμάτη και το κεφάλι χαμηλά.'
+      },
+      brewBack: {
+        '1': 'Πρόσεχε, είναι καυτά. Μην τα πιεις όλα μονομιάς.'
       },
       bye: {
         '1': 'Φρόντισε τον εαυτό σου εκεί έξω.'
@@ -3038,9 +4655,8 @@ export default {
         '2': 'Πρόσεχε τη λάμψη. Χτύπα στην καρδιά της, τρεις φορές, και το μέταλλο θυμάται.',
         '1': 'Θες να μάθεις την τέχνη; Ωραία. Το Όουκχεϊβεν χρειάζεται κάθε σφυρί.'
       },
-      ore: {
-        '1': 'Ακατέργαστο μετάλλευμα! Το οπλοστάσιο ποτέ δεν έχει αρκετό. Ορίστε η πληρωμή σου.'
-      },
+      ore: { '1': 'Ακατέργαστο μετάλλευμα! Στο οπλοστάσιο ποτέ δεν φτάνει. Πούλα μου ό,τι περισσεύει.' },
+      sellBack: { '1': 'Κάθε ψήγμα πάει στο τείχος. Ευχαριστώ.' },
       forgeBack: {
         '1': 'Καλό ατσάλι. Τα τείχη σ\' ευχαριστούν.'
       },
@@ -3082,9 +4698,8 @@ export default {
         '2': 'Τρία χτυπήματα, το καθένα στην καρδιά της λάμψης. Αυτό είναι όλο το μυστικό.',
         '1': 'Από την πολιορκία διδάσκω όποιον ρωτήσει. Έλα, στάσου εδώ.'
       },
-      ore: {
-        '1': 'Κι άλλο μετάλλευμα για τα τείχη; Να \'σαι καλά. Ορίστε, πάρε αυτό.'
-      },
+      ore: { '1': 'Κι άλλο μετάλλευμα για τα τείχη; Πληρώνω κάθε ψήγμα που μπορείς να δώσεις.' },
+      sellBack: { '1': 'Να είσαι ευλογημένος. Αυτό σημαίνει κι άλλες πλάκες για τα τείχη.' },
       forgeBack: {
         '1__f': 'Κάθε χτύπημα σε κάνει καλύτερη. Έλα όποτε θες.',
         '1': 'Κάθε χτύπημα σε κάνει καλύτερο. Έλα όποτε θες.'
@@ -3495,9 +5110,8 @@ export default {
         '1__f': 'Μια της επιφάνειας στο αμόνι; Ε, όλοι από κάπου ξεκινάνε.',
         '1': 'Ένας της επιφάνειας στο αμόνι; Ε, όλοι από κάπου ξεκινάνε.'
       },
-      ore: {
-        '1': 'Καλό, τίμιο μέταλλο. Το Άιρονχολντ πάντα πληρώνει γι\' αυτό.'
-      },
+      ore: { '1': 'Καλό, τίμιο μέταλλο. Βάλ\' το εδώ, πληρώνω ανά ψήγμα.' },
+      sellBack: { '1': 'Τίμια συναλλαγή. Το Άιρονχολντ πάντα πληρώνει το καλό μέταλλο.' },
       forgeBack: {
         '1': 'Ένας νάνος θα τα πήγαινε καλύτερα. Αλλά όχι πολύ.'
       },
@@ -3567,9 +5181,8 @@ export default {
         '2': 'Ζέστανε, χτύπα, γύρνα. Τρία χτυπήματα, μέσα στη λάμψη. Μετά άφησέ το να κρυώσει.',
         '1': 'Η πανοπλία θέλει υπομονή. Θα σου δείξω τα βασικά.'
       },
-      ore: {
-        '1': 'Άσε με να το ζυγίσω. Καλό. Το νόμισμα είναι δικό σου.'
-      },
+      ore: { '1': 'Άσε με να το ζυγίσω. Διάλεξε τι πουλάς, εγώ μετράω τα νομίσματα.' },
+      sellBack: { '1': 'Ζυγίστηκε και πληρώθηκε. Καλά.' },
       forgeBack: {
         '1': 'Άφησέ το να κρυώσει πριν το φορέσεις.'
       },
@@ -3609,9 +5222,8 @@ export default {
         '2': 'Πειθαρχία στο αμόνι, όπως και στο πεδίο. Τρία χτυπήματα, πιστά στη λάμψη.',
         '1': 'Το Τάγμα οπλίζει τους φίλους του. Θα σε διδάξω.'
       },
-      ore: {
-        '1': 'Το Τάγμα αγοράζει όλο το μετάλλευμα για τον πόλεμο. Η πληρωμή σου.'
-      },
+      ore: { '1': 'Το Τάγμα αγοράζει μετάλλευμα για τον πόλεμο. Πούλα ό,τι περισσεύει.' },
+      sellBack: { '1': 'Η πληρωμή σου καταγράφηκε. Το Τάγμα σε ευχαριστεί.' },
       forgeBack: {
         '1': 'Καλοσφυρηλατημένο. Υπηρέτησε άξια μ\' αυτό.'
       },
@@ -4028,6 +5640,11 @@ export default {
       }
     },
     bark: {
+      banditChief: {
+        whistle: {
+          1: 'Πάνω, παιδιά! Δαγκώστε τους!'
+        }
+      },
       lightDisciple: {
         freed: {
           '1': 'Το φως σε έστειλε. Είμαι η Αδελφή Αουρέλ. Αναζήτησέ με στο Σάνφορντ, θα σου διδάξω τον δρόμο του Φωτοφόρου.'
@@ -4185,9 +5802,8 @@ export default {
         '1__f': 'Θες να δοκιμάσεις το σφυρί μόνη σου; Δεν με πειράζει να μοιραστούμε το καμίνι.',
         '1': 'Θες να δοκιμάσεις το σφυρί μόνος σου; Δεν με πειράζει να μοιραστούμε το καμίνι.'
       },
-      ore: {
-        '1': 'Υπέροχο μετάλλευμα. Η Σίλβερμπριτζ πάντα πληρώνει τίμια.'
-      },
+      ore: { '1': 'Ωραίο μετάλλευμα. Δείξε μου τι πουλάς, πληρώνω ανά ψήγμα.' },
+      sellBack: { '1': 'Χαρά μου. Η Σίλβερμπριτζ πάντα πληρώνει τίμια τιμή.' },
       forgeBack: {
         '1__f': 'Για κοίτα! Γεννημένη τεχνίτρια είσαι.',
         '1': 'Για κοίτα! Γεννημένος τεχνίτης είσαι.'
@@ -4630,7 +6246,7 @@ export default {
         say: 'Πού βρίσκω βότανα;'
       },
       elixirs: {
-        '1': 'Το καθένα σου δίνει δύναμη στη μάχη για ένα ολόκληρο λεπτό. Πιο σκληρά χτυπήματα, πιο γερό δέρμα, πιο γρήγορα πόδια.',
+        '1': 'Το καθένα σου δίνει δύναμη στη μάχη για 5 ολόκληρα λεπτά. Πιο σκληρά χτυπήματα, πιο γερό δέρμα, πιο γρήγορα πόδια.',
         '2': 'Βρίσκονται στην τρίτη σου φιάλη. Πάτα το μικρό βελάκι για να διαλέξεις ποιο θα πιεις.',
         say: 'Τι κάνουν τα ελιξίρια;'
       },
@@ -4699,6 +6315,36 @@ export default {
       },
       bye: {
         '1': 'Φέρε κι άλλες παλιατζούρες! Οι παλιατζούρες είναι οι αγαπημένες μου.'
+      }
+    },
+    sunfordCups: {
+      hello: {
+        1: 'Ελάτε κοντά! Τρία κύπελλα, ένα πετράδι και ο πρώτος γύρος είναι δωρεάν!',
+        2: 'Νελ Σβέλτα Δάχτυλα. Κανείς δεν έχει ξεγελάσει ακόμη τα χέρια μου. Θες να δοκιμάσεις;'
+      },
+      again: {
+        1: 'Πάλι εδώ; Κράτα τα μάτια ανοιχτά!'
+      },
+      play: {
+        1: 'Μάτια στο πετράδι, φίλε. Μην ανοιγοκλείνεις!'
+      },
+      rules: {
+        1: 'Κρύβω το πετράδι κάτω από ένα κύπελλο και τα ανακατεύω. Εσύ δείχνεις αυτό που το κρύβει.',
+        2: 'Κάθε νίκη στη σειρά πληρώνει περισσότερα. Τρεις νίκες φέρνουν έπαθλο, πέντε θησαυρό. Ο πρώτος γύρος της ημέρας είναι δωρεάν.',
+        say: 'Πώς παίζεται;'
+      },
+      who: {
+        1: 'Έμαθα να ανακατεύω πριν μάθω να περπατάω. Η μαμά λέει ότι αυτό εξηγεί πολλά.'
+      },
+      luck: {
+        1: 'Καμιά φορά! Τότε βογκάω δυνατά και το κοινό με λυπάται.',
+        say: 'Χάνεις ποτέ;'
+      },
+      playBack: {
+        1: 'Υπέροχος γύρος! Έλα αύριο, ο πρώτος είναι πάντα δωρεάν.'
+      },
+      bye: {
+        1: 'Τα λέμε! Κράτα τα μάτια ανοιχτά εκεί έξω.'
       }
     },
     oakGambler: {
@@ -5192,6 +6838,7 @@ export default {
     banditArcher: 'Ληστής Τοξότης',
     wolf: 'Λύκος',
     banditChief: 'Αρχηγός Ληστών',
+    gnome: 'Γκνομ',
     goblinKing: 'Ο Βασιλιάς των Γκόμπλιν',
     treant: 'Δεντράνθρωπος',
     spider: 'Γιγάντια Αράχνη',
@@ -5410,6 +7057,18 @@ export default {
       firefoxColors: 'Firefox: Ρυθμίσεις → Χρώματα → όρισε το «Παράκαμψη των χρωμάτων που ορίζει η σελίδα» σε Ποτέ.'
     }
   },
+  samsungFix: {
+    title: 'Γρήγορος έλεγχος χρωμάτων',
+    body: 'Ορισμένα τηλέφωνα αλλάζουν τα χρώματα των ιστοσελίδων. Σύγκρινε τα δύο τετράγωνα παρακάτω.',
+    question: 'Φαίνονται τα δύο τετράγωνα ίδια;',
+    refSquare: 'Τετράγωνο αναφοράς',
+    pageSquare: 'Τετράγωνο σελίδας',
+    yes: 'Ναι, είναι ίδια',
+    no: 'Όχι, διαφέρουν',
+    option: 'Διόρθωση χρωμάτων (σκούρα λειτουργία Samsung)',
+    optionHint: 'Ενεργοποίησέ το αν τα μενού φαίνονται σκοτεινά ή το κείμενο διαβάζεται δύσκολα.',
+    recheck: 'Επανάληψη ελέγχου χρωμάτων'
+  },
   saveStatus: {
     restoredTitle: 'Η αποθήκευση στο νέφος επανήλθε',
     restoredBody: '+{n} χρυσός μπόνους για την ανάκτηση',
@@ -5538,7 +7197,7 @@ export default {
   },
   forge: {
     upgrade: 'Αναβάθμιση ({n} χρυσός)',
-    max: 'Πλήρως αναβαθμισμένο: +{n}.',
+    next: 'Επόμενο +{level}: +{pct}% στατιστικά',
     town: 'Ο σιδεράς κάθε πόλης μπορεί να το αναβαθμίσει.'
   },
   ore: {
@@ -5553,6 +7212,12 @@ export default {
     },
     mithril: {
       name: 'Μετάλλευμα μίθριλ'
+    },
+    adamant: {
+      name: 'Μετάλλευμα αδαμάντιο'
+    },
+    aetherite: {
+      name: 'Μετάλλευμα αιθερίτη'
     }
   },
   plant: {
@@ -5634,32 +7299,32 @@ export default {
   elixir: {
     might: {
       name: 'Ελιξίριο Ισχύος',
-      desc: '+{n}% ζημιά για ένα λεπτό'
+      desc: '+{n}% ζημιά για 5 λεπτά'
     },
     iron: {
       name: 'Αφέψημα Σιδερένιου Δέρματος',
-      desc: '+{n}% θωράκιση για ένα λεπτό'
+      desc: '+{n}% θωράκιση για 5 λεπτά'
     },
     swift: {
       name: 'Τονωτικό Ευκινησίας',
-      desc: '+{n}% ταχύτητα και ταχύτητα επίθεσης για ένα λεπτό'
+      desc: '+{n}% ταχύτητα και ταχύτητα επίθεσης για 5 λεπτά'
     },
     mind: {
       name: 'Ρόφημα Καθαρού Μυαλού',
-      desc: 'Οι ικανότητες επανέρχονται {n}% πιο γρήγορα για ένα λεπτό'
+      desc: 'Οι ικανότητες επανέρχονται {n}% πιο γρήγορα για 5 λεπτά'
     },
     vigor: {
       name: 'Ελιξίριο Ζωντάνιας',
-      desc: 'Θεραπεύει το {n}% της υγείας σου κάθε δευτερόλεπτο για ένα λεπτό'
+      desc: 'Θεραπεύει το {n}% της υγείας σου κάθε δευτερόλεπτο για 5 λεπτά'
     },
     shadow: {
       name: 'Διψασμένο Αφέψημα',
-      desc: 'Τα χτυπήματά σου σε θεραπεύουν κατά {n}% της ζημιάς τους για ένα λεπτό'
+      desc: 'Τα χτυπήματά σου σε θεραπεύουν κατά {n}% της ζημιάς τους για 5 λεπτά'
     }
   },
   alchemy: {
     talk: 'Βότανα μέσα, ελιξίρια έξω. Ποιο θα φτιάξουμε;',
-    lead: 'Κάθε ελιξίριο δρα για ένα λεπτό στη μάχη. Πιες το από την τρίτη σου φιάλη. Μπορείς να έχεις {n} από το καθένα.',
+    lead: 'Κάθε ελιξίριο δρα για 5 λεπτά στη μάχη. Πιες το από την τρίτη σου φιάλη. Μπορείς να έχεις {n} από το καθένα.',
     brew: 'Βράσε · {n}',
     carry: 'Πάρ’ το μαζί',
     carried: 'Στη φιάλη σου',
@@ -5683,6 +7348,25 @@ export default {
     again: 'Παίξε ξανά',
     noGold: 'Δεν έχεις αρκετό χρυσό γι\' αυτό το πόνταρισμα.',
     card: 'Κάρτα {n}'
+  },
+  cups: {
+    title: 'Πάγκος με κύπελλα',
+    lead: 'Δες το πετράδι, ακολούθησε το κύπελλό του και μετά δείξ’ το. Κάθε νίκη στη σειρά πληρώνει περισσότερα. Η τρίτη φέρνει έπαθλο, η πέμπτη θησαυρό.',
+    free: 'Δωρεάν γύρος',
+    fee: 'Παίξε · {n}',
+    row: 'Νίκες στη σειρά: {n} από {max}',
+    next: 'Επόμενη νίκη: {n} χρυσό',
+    watch: 'Δες το πετράδι!',
+    follow: 'Ακολούθησέ το…',
+    pick: 'Διάλεξε κύπελλο!',
+    hint: 'Άγγιξε ένα κύπελλο ή πάτα τον αριθμό του.',
+    won: 'Το βρήκες! +{n} χρυσό',
+    lost: 'Όχι αυτό. Η σειρά ξεκινά απ’ την αρχή.',
+    near: 'Παρά τρίχα! Ήταν ακριβώς δίπλα.',
+    timeout: 'Πολύ αργά! Η σειρά ξεκινά απ’ την αρχή.',
+    again: 'Παίξε ξανά',
+    noGold: 'Δεν έχεις αρκετό χρυσό. Αύριο ο πρώτος γύρος είναι δωρεάν.',
+    cup: 'Κύπελλο {n}'
   },
   battle: {
     title: 'Μάχη αντικειμένων',

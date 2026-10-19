@@ -5,82 +5,9 @@ answered. Answered items move to the decision table in
 [`game-implementation-plan.md`](./game-implementation-plan.md) and are removed
 here.
 
-Last updated: 2026-10-13.
+Last updated: 2026-10-19 (63 answered: D149).
 
 ## Needs an answer
-
-### 52. Smithed gear: fixed catalogue or rolled pieces (#99)
-
-Items are fixed named pieces owned once; nothing is rolled.
-
-- **In effect:** a fixed catalogue (6 recipes × 4 ores, each with a masterwork
-  twin); the mini-game grade picks the twin and +0..+3 forge levels.
-- **Recommended:** the catalogue; rolled pieces touch the save, the item card,
-  selling, the item battle and art.
-
-### 53. Spell sounds: synthesis or generated files (#101)
-
-- **In effect:** layered synthesis per element and skill family.
-- **Recommended:** synthesis; generated files (+1–3 MB) only if wanted.
-
-### 54. Painting through the owner's Gemini (#107)
-
-- **In effect:** the Art Desk queue runs at the end of the batch; a login
-  prompt stops it and the painting is deferred.
-- **Recommended:** be logged in to gemini.google.com in the Art Desk browser.
-
-### 57. A freed disciple skips the master's test (#100)
-
-- **In effect:** yes; freeing them counts as finding the class.
-- **Recommended:** yes.
-
-### 58. Careful-clear bonus and the ad's ×3 (#113)
-
-- **In effect:** the bonus is added to the purse; the video triples only the
-  base purse.
-- **Recommended:** keep (no ×6).
-
-The decision report for the batch:
-https://claude.ai/artifact/FoU5cUbJPLUspNd4YpoytW
-
-### 1. Portrait crop
-
-Painted portraits are cut to the bust with no margin under it. Keep that, or
-ship them with a 10 % margin?
-
-- **In effect:** cut to the bust.
-- **Recommended:** keep; look at `/#/models` → Painted vs drawn if in doubt.
-
-### 2. Painted item details
-
-Rust, rivets and buckles are what tell four swords apart, but they can vary
-between re-rolls.
-
-- **In effect:** accepted.
-- **Recommended:** accept; fix a drifting item in its prompt.
-
-### 3. A test row on the predecessor's live leaderboard
-
-"Servo773490", score 328, written by an early dev run of this repo. Delete it
-from the old game's database?
-
-- **In effect:** left in place.
-- **Recommended:** delete it.
-
-### 4. `VITE_GEMINI_API_KEY` in the local `.env`
-
-Nothing in this repo reads it and it does not reach the bundle. Remove it?
-
-- **In effect:** left in place.
-- **Recommended:** remove it, or rename it without the `VITE_` prefix.
-
-### 5. The predecessor's git history
-
-The repository carries it. Keep it, or restart the history at the Battlecross
-baseline?
-
-- **In effect:** kept.
-- **Recommended:** keep unless the repo goes public.
 
 ### 8. Weak builds
 
@@ -211,17 +138,6 @@ about 2500 px.
 - **In effect:** an Upgrade button on the equipment page, in any town.
 - **Recommended:** keep (a blacksmith to walk up to is the alternative).
 
-### 51. #95's four classes: more, or the secret four?
-
-#95 (queued after #94, as asked) wants four more classes, two of them mage
-classes (an Elementalist, a Soul Warden), 12 skills for every class and 8 + 4
-skill slots.
-
-- **Answered (2026-10-07):** eight new classes: the secret four of #86
-  (bow, ice blade, holy, beasts) and #95's four (Elementalist, Soul Warden
-  and two more), every class (the eight existing ones too) with 12 skills,
-  8 active and 4 passive slots.
-
 Decision report for #78–#94: https://claude.ai/artifact/QkADooVg1f8ndUYurrpaYi
 
 ## Defaults taken in the playtest pass, overrule any
@@ -306,6 +222,94 @@ satchel.
 - **In effect:** three.
 - **Recommended:** keep.
 
+### 60. The first minute: five features that could make it addictive (#136)
+
+Built for #136 now (the minimum you asked for): the three-plate puzzle, a new
+gambler with a fast mini-game, the Shadowblade teacher stepping in after the
+first two goblins, and the tutorial boss's arrow rain, spear line and gnome
+helpers. Five bigger features that fit this game are proposed; none is built.
+Pick any.
+
+1. **The Lucky Stranger (a rolling first-hour "next reward" ladder).** A
+   visible five-rung track in the HUD (kill 2 goblins, open the chest, pull
+   the plates, win a round at the gambler, learn Shadowstep). Each rung pays at
+   once and the next one is always in sight, so the first minute never has a
+   dead stretch. *Why it fits:* the game already has goals, a coach and
+   contracts; this chains them into one hook. *Cost:* medium; no new art
+   beyond rung icons. *Risk:* feels like a checklist if the rewards are flat.
+2. **Fishing with a lent rod (your idea, made a loop).** An NPC angler hands
+   over a pre-given rod and shows one cast. Fishing is a timing mini-game
+   (tension ring, three bite types); fish are visible only in the fish
+   trader's window, sell for coins or trade for gear one tier above the zone.
+   A "fish of the day" gives a first-hour bonus. *Why it fits:* Silverbridge
+   has a river and quay; a calm counterweight to combat. *Cost:* high (new
+   window, 12 fish, 12 icons, 2 NPCs, voice). *Risk:* must stay out of the
+   tutorial's first 30 s or it splits attention.
+3. **The Wager Totem (a risk-it streak on every pack).** After a pack dies, a
+   totem offers "double or nothing": keep the loot, or fight a harder
+   mirror-pack for twice the drops. Three wins in a row pay a chest of the
+   next tier. *Why it fits:* the combat already has telegraphs and packs;
+   it adds a choice per fight without a new system. *Cost:* medium. *Risk:*
+   a loss must feel fair, so the harder pack needs its own preview.
+4. **A companion egg in the tutorial.** A cracked egg lies behind the chest;
+   it hatches after the boss into a small pet that fights beside the hero
+   and grows with the number of zones cleared. *Why it fits:* the game has
+   a mystery-egg idea in the playbook and strong creature art. *Cost:* high
+   (pet rig, AI, save). *Risk:* a pet that blocks lanes or dies annoys.
+5. **A dungeon-in-a-minute preview ("Glimpse of the Deep").** After the
+   boss, a 60-second scripted run with every class's best skill unlocked
+   (a taste of the late game), ending on a locked door that opens at level 10.
+   *Why it fits:* #130's trailer-style intro shows the same idea in play;
+   it answers "what is the rest of the game?" directly. *Cost:* medium;
+   reuses skills and a fixed arena. *Risk:* power fantasy then a drop; keep
+   it short and clearly labelled.
+
+- **In effect:** none of the five; only the minimum set above.
+- **Recommended:** 1 first (cheap, lifts retention at once), then 3, then 2.
+
+### 61. Buffs do not stack, and the hero cannot buff anyone but himself and his minions (wiki support and buffer builds)
+
+Found while measuring the Hymnkeeper Warden and Choirmaster Warlord guide
+builds. Two gaps cap what a support or buffer build can be:
+
+1. **Same-kind buffs take the strongest, they do not add.** Ballad of Valor
+   (+30% damage), Banner of Victory (+35%), Command Focus (+50%) and Grand
+   Finale (+15%) are all "damage up": a second one only refreshes the first.
+   Only different kinds add (damage up plus Alpha Howl's enrage, attack speed,
+   haste, defence). Songs are 13 s long on 18-22 s cooldowns, so the aura has
+   gaps. The Choirmaster build works around it, but a "stack every buff" fantasy
+   is mostly one buff.
+2. **There is nobody to heal.** Heals and shields (Mending Light, Dawn Shield,
+   Healing Power) only reach the hero; the area heals reach his minions. A
+   support build is a self-healer with a court, not a team healer.
+
+- **In effect:** as is; the guide says so in both entries.
+- **Recommended:** let each buff kind stack to a cap (for example two sources,
+  second at half strength) and add one party-wide cooldown skill that makes a
+  minion untargetable or immune for a few seconds.
+
+### 62. The item gap-fill: 105 new pieces, drop tables and strength versus endurance (items-gap-audit.md)
+
+The audit found 105 empty cells in the line x slot x quality matrix and filled
+each with a fixed piece (nine icon sheets, `sheet-items-fill-1` to `-9`, still
+to be painted; the procedural icons stand in). Three things are the owner's:
+
+1. **Bigger tables.** Every zone's chest table roughly doubled (7-10 pieces to
+   15-19); the first finds are unchanged (a chest draws something the hero
+   does not own yet), but collecting a whole zone takes longer. The Dread
+   Fortress's boss now pays one of eight legendaries (it was four), so a full
+   set takes eight finale kills. The Void Rift is untouched.
+2. **Strength and endurance share heavy gear.** A plate that leads with
+   endurance and carries strength serves both builds (as it always did); only
+   weapons are split by what the blow scales on (END now has maces and axes at
+   every quality). Strictly separate lines would need a twin of each heavy piece.
+3. **Shops list more.** Armourers and weaponsmiths read the catalogue, so each
+   shelf of a quality shows about twice as many pieces.
+
+- **In effect:** as built.
+- **Recommended:** keep; move a few Fortress boss legendaries to the Rift's
+  boss if eight kills feels long.
+
 ## Needs an action from the owner before a submission
 
 ### A. Portal ids
@@ -325,3 +329,28 @@ Playgama storage path, and CrazyGames / Playgama / Poki arms for
 - **Why it waits:** deferred work, listed in the plan.
 
 Cover images for every portal (roadmap #1) are being painted.
+
+
+## Samsung dark mode fix: what to verify on the phone
+
+The fix is built and covered by tests, but only a Samsung phone can show whether it works on the real game. Deploy a
+test build (not a portal), then on the Samsung phone with the browser's dark mode ON:
+
+1. Open the build with `?samsungfix=0`. Take full screenshots of each screen below. This is the "before".
+2. Open it with no query on a fresh profile (or Options > "Run the colour check again"). Play past the first fight; on
+   the map or in the town the card "Quick colour check" appears after about 2.5 seconds. The two squares must look
+   different (that is what dark mode does to the right one): tap "No, they look different". If they look the same on
+   your phone, dark mode is not recolouring the page and the fix is not needed.
+3. Open it with `?samsungfix=1` (forces the fix on and skips the card). Take the same screenshots. This is the "after".
+4. Screens to capture, before and after: the hero choice; the opening fight HUD (health, skill bar, goal, top status);
+   the pause menu and Options (the "Fix colours (Samsung dark mode)" select is there); the results screen; the world
+   map and a place card; the town; a conversation bubble; the shop, the smith (forge), the alchemist, the bag, the
+   skills page, the character page, the trainer; a toast; a tooltip (long-press an item).
+5. What "after" should look like: identical to the game on a normal phone: cream pages with dark brown text, gold
+   rims, blue ribbons, red and green buttons, bars with their real colours, shadows under panels and outlines round
+   HUD text, icons and item art at their normal brightness.
+6. Report anything still wrong with the screen name. Known gaps to look at first: inline SVG glyphs that follow the
+   text colour (a few small icons), text underlines, anything shown in a video, and the colours of items that change
+   while an animation runs (they are repainted when the animation ends).
+7. Performance: play the opening fight for a minute with the fix on. If the frame rate drops compared with step 1, say
+   so; the counter can be switched off in Options at any time.

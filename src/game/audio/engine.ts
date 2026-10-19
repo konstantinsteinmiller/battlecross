@@ -13,9 +13,11 @@ import { isPlatformAudioMuted } from '@/use/useGamePauseAudio'
  * suspended context stops every oscillator and freezes the music clock.
  *
  *   sfx voices ─► sfxBus ─► sfxTone (low-pass) ─┐
- *   voice lines ─► voiceBus ────────────────────┼─► master (compressor) ─► limiter ─► destination
- *   music voices ► musicBus ─► duck ─────────────┘
+ *   voice lines ─► voiceBus ────────────────────┴─► master (compressor) ─► limiter ─► destination
+ *   music voices ► musicBus ─► duck ────────────────────────────────────────┘
  *
+ * The music bypasses the compressor so the combat cannot pump it down
+ * (a playtester heard the music "knocked away" by the effects).
  * The voice lines have their own bus so they sit above the combat instead of
  * fighting it, and the music ducks under them and under the big stings
  * (`duckMusic`). The SFX low-pass takes the fizz off the bright pulse-wave
@@ -82,7 +84,9 @@ export const audio = (): AudioGraph | null => {
   voiceBus.connect(master)
   musicBus = c.createGain()
   duck = c.createGain()
-  musicBus.connect(duck).connect(master)
+  // The music skips the compressor: a loud hit must not pump it down (only the
+  // limiter's safety net and the deliberate duck move it).
+  musicBus.connect(duck).connect(limiter)
   applyVolumes()
   if (!watching) {
     watching = true

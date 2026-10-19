@@ -1,6 +1,6 @@
 {
   "name": "battlecross",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "private": true,
   "type": "module",
   "scripts": {
@@ -46,6 +46,7 @@
     "preview:video": "node tools/preview-video/record.mjs",
     "art:desk": "node tools/art-desk/server.mjs",
     "art:prompts": "node --import ./tools/ts-resolve.mjs tools/art-prompts.mjs",
+    "sound:spells": "node tools/spell-sounds.mjs",
     "art:status": "node --import ./tools/ts-resolve.mjs tools/art-status.mjs",
     "art:export": "node tools/export-sheets.mjs",
     "art:slice": "node tools/slice-sheets.mjs",
@@ -57,6 +58,8 @@
     "voice:gen": "node --experimental-strip-types --no-warnings tools/voice/generate.mjs",
     "voice:compare": "node --experimental-strip-types --no-warnings tools/voice/compare.mjs",
     "voice:setup": "node --experimental-strip-types --no-warnings tools/voice/setup.mjs",
+    "voice:intro": "node --experimental-strip-types --no-warnings tools/voice/intro-elevenlabs.mjs",
+    "voice:intro:fit": "node --experimental-strip-types --no-warnings tools/voice/intro-fit.mjs",
     "test": "vitest run",
     "test:watch": "vitest",
     "icons": "node store-art/brand/logo-final.mjs && node scripts/render-icons.mjs",

@@ -28,6 +28,7 @@ import { mobileCheck } from '@/utils/function'
 import { actionForCode, codesFor, type Action } from './keyBindings'
 import { observeKey } from './keyLabels'
 import { watchLostInput } from './lostInput'
+import { inStickZone, isTabletViewport, stickAnchor, stickZone } from './stickZone'
 
 export interface Input {
   /** Movement from the joystick or the keys, in SCREEN space: x right, y up.
@@ -92,6 +93,11 @@ export interface Input {
   joyHomeX: number
   joyHomeY: number
   joyHomeR: number
+  /** The knob's travel in px (the HUD sets it, scaled by `--hud-s`); 0 = the default. */
+  joyTravel: number
+  /** Safe-area insets at the left / bottom edge (px), for the floating start zone. */
+  joyInsetL: number
+  joyInsetB: number
   /** True once the player has provided any real input (onboarding, Poki gate). */
   touched: boolean
   /** Last input device family, for control hints. */
@@ -128,6 +134,7 @@ export const createInput = (): Input => ({
   rollQueued: false, potionQueued: false, manaPotionQueued: false, elixirQueued: false, elixirNextQueued: false, leaveQueued: false, findChestQueued: false, interactQueued: false, targetQueued: false, pauseQueued: false, panelQueued: '',
   anyPressed: false,
   joyActive: false, joyOriginX: 0, joyOriginY: 0, joyX: 0, joyY: 0, joyHomeX: 0, joyHomeY: 0, joyHomeR: 0,
+  joyTravel: 0, joyInsetL: 0, joyInsetB: 0,
   touched: false, device: guessDevice(), keysMoving: false
 })
 
@@ -169,8 +176,12 @@ const SKILL_ACTIONS: Partial<Record<Action, number>> = {
 
 export const attachInput = (surface: HTMLElement, input: Input, opts: InputOptions = {}): (() => void) => {
   const keys = new Set<string>()
-  const joyR = opts.joyRadius ?? 52
+  const joyDefault = opts.joyRadius ?? 52
+  /** The travel radius now: the HUD's (scaled) measure, else the default. */
+  const radius = (): number => (input.joyTravel > 0 ? input.joyTravel : joyDefault)
   let joyId: number | null = null
+  /** The scene pointer went down in the start zone: it may become the stick. */
+  let zoneStart = false
   let ptrId: number | null = null
   let downAt = 0
   /** The scene pointer is a finger (the touch list reconciles it). */
@@ -197,6 +208,7 @@ export const attachInput = (surface: HTMLElement, input: Input, opts: InputOptio
 
   /** Point the stick at a finger position (surface px). */
   const stickTo = (x: number, y: number) => {
+    const joyR = radius()
     let dx = x - input.joyOriginX
     let dy = y - input.joyOriginY
     const l = Math.hypot(dx, dy)
@@ -228,6 +240,28 @@ export const attachInput = (surface: HTMLElement, input: Input, opts: InputOptio
     input.moveY = -ny * eased
   }
 
+  const coarse = (): boolean => typeof matchMedia === 'function' && matchMedia('(pointer: coarse)').matches
+  const zoneFor = (w: number, h: number) =>
+    stickZone(w, h, radius(), isTabletViewport(w, h, coarse() || touchOnly), input.joyInsetL, input.joyInsetB)
+  const inZone = (w: number, h: number, x: number, y: number): boolean => inStickZone(zoneFor(w, h), w, h, x, y)
+
+  /** A zone press travelled: it is the stick now, anchored where it went down. */
+  const promoteToStick = (id: number, x: number, y: number) => {
+    const r = rect()
+    const a = stickAnchor(zoneFor(r.width, r.height), r.width, r.height, input.ptrX0, input.ptrY0)
+    zoneStart = false
+    ptrId = null
+    input.held = false
+    input.dragging = false
+    joyId = id
+    input.joyActive = true
+    input.joyOriginX = a.x
+    input.joyOriginY = a.y
+    input.joyX = 0
+    input.joyY = 0
+    stickTo(x, y)
+  }
+
   const onDown = (e: PointerEvent) => {
     if (e.pointerType === 'mouse' && e.button !== 0) return
     const touch = e.pointerType !== 'mouse' || touchOnly
@@ -255,6 +289,7 @@ export const attachInput = (surface: HTMLElement, input: Input, opts: InputOptio
     if (ptrId !== null) return
     ptrId = e.pointerId
     ptrTouch = e.pointerType === 'touch'
+    zoneStart = touch && joyId === null && input.joyHomeR > 0 && inZone(r.width, r.height, x, y)
     downAt = performance.now()
     input.held = true
     input.dragging = false
@@ -282,7 +317,10 @@ export const attachInput = (surface: HTMLElement, input: Input, opts: InputOptio
     input.ptrY = y
     if (!input.dragging) {
       const lim = e.pointerType === 'mouse' ? DRAG_MOUSE : DRAG_TOUCH
-      if (Math.hypot(x - input.ptrX0, y - input.ptrY0) > lim) input.dragging = true
+      if (Math.hypot(x - input.ptrX0, y - input.ptrY0) > lim) {
+        if (zoneStart && joyId === null) { promoteToStick(e.pointerId, x, y); e.preventDefault(); return }
+        input.dragging = true
+      }
     }
     e.preventDefault()
   }
@@ -298,6 +336,7 @@ export const attachInput = (surface: HTMLElement, input: Input, opts: InputOptio
     }
     if (e.pointerId !== ptrId) return
     ptrId = null
+    zoneStart = false
     const r = rect()
     const x = e.clientX - r.left
     const y = e.clientY - r.top
@@ -374,6 +413,7 @@ export const attachInput = (surface: HTMLElement, input: Input, opts: InputOptio
     }
     joyId = null
     ptrId = null
+    zoneStart = false
     input.joyActive = false
     input.joyX = 0
     input.joyY = 0

@@ -7,7 +7,7 @@ import { FINALE_BEAT, LEAVE_BEAT, openChest, populateFeatures, stepPlates } from
 import { spawnEnemy, spawnMinion } from './spawn'
 import { stepPressure } from './pressure'
 import { plainStats } from './stats'
-import { spawnTownPeople } from './townLife'
+import { townSim } from './townHooks'
 import { fillGrid, type ZonePlan } from './zoneGen'
 import { SIDE_GROUP, type Sim } from './world'
 import { populateHerbs } from './herbs'
@@ -96,7 +96,7 @@ export const populateZone = (sim: Sim, plan: ZonePlan, zone: ZoneId, owned: Iter
 /** Put a town's people on the map (they never fight). */
 export const populateTown = (sim: Sim, plan: ZonePlan, o: { lite?: boolean; visit?: number } = {}): void => {
   // A town's people go about their day (`townLife.ts`).
-  if (plan.town) { spawnTownPeople(sim, plan.town, o); return }
+  if (plan.town) { townSim().spawnTownPeople(sim, plan.town, o); return }
   for (const n of plan.npcs) {
     sim.addUnit({
       kind: n.look, team: 0, rank: 'npc', level: 1, x: n.x, z: n.z, r: 0.5, h: 1.45,

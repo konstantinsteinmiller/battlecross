@@ -1,5 +1,13 @@
 // Turkish locale — mirrors the key shape of en.ts exactly.
 export default {
+  // ─── The intro (#130): its skip, and its narrator's name ───
+  intro: {
+    narrator: 'Vakanüvis',
+    skip: 'Geç',
+    holdKey: 'Geçmek için {key} tuşunu basılı tut',
+    holdTouch: 'Geçmek için basılı tut',
+    replay: 'Girişi izle'
+  },
   arena: {
     allWon: 'Tüm mitik ödüller artık senin.',
     call: 'Hikâye anlatıldı. Şimdi build’ini kanıtla: tırmanabildiğin kadar yükseğe tırman ve başka kimsenin veremeyeceği mitik ödülleri kazan.',
@@ -8,6 +16,20 @@ export default {
     next: 'Sonraki ödül {at}. dalgada: {item}',
     champion: 'Şampiyon dalgası',
     wave: 'Dalga {n}'
+  },
+  sellOre: {
+    talk: 'İyi cevher, adil fiyat. Ne kadarını satacaksın?',
+    lead: 'Her cevherden kaç parça satacağını seç. Sat\'a basana kadar hiçbir şey satılmaz.',
+    have: '{n} tane var',
+    each: 'Tanesi {n} altın',
+    none: 'Hiç',
+    all: 'Tümü',
+    less: '{ore}: bir eksik',
+    more: '{ore}: bir fazla',
+    total: 'Alacağın: {n} altın',
+    sell: 'Sat',
+    selectAll: 'Tümünü seç',
+    empty: 'Satacak cevherin kalmadı.'
   },
   smith: {
     why: {
@@ -1420,38 +1442,110 @@ export default {
     smithMasterMithrilGreaves: {
       name: 'Usta İşi Mithril Dizlikler'
     },
+    smithMasterAdamantGreaves: {
+      name: 'Usta İşi Adamant Dizlikler'
+    },
+    smithMasterAetheriteGreaves: {
+      name: 'Usta İşi Eterit Dizlikler'
+    },
     smithMithrilGreaves: {
       name: 'Mithril Dizlikler'
+    },
+    smithAdamantGreaves: {
+      name: 'Adamant Dizlikler'
+    },
+    smithAetheriteGreaves: {
+      name: 'Eterit Dizlikler'
     },
     smithMasterMithrilPlate: {
       name: 'Usta İşi Mithril Plaka Zırh'
     },
+    smithMasterAdamantPlate: {
+      name: 'Usta İşi Adamant Plaka Zırh'
+    },
+    smithMasterAetheritePlate: {
+      name: 'Usta İşi Eterit Plaka Zırh'
+    },
     smithMithrilPlate: {
       name: 'Mithril Plaka Zırh'
+    },
+    smithAdamantPlate: {
+      name: 'Adamant Plaka Zırh'
+    },
+    smithAetheritePlate: {
+      name: 'Eterit Plaka Zırh'
     },
     smithMasterMithrilHelm: {
       name: 'Usta İşi Mithril Miğfer'
     },
+    smithMasterAdamantHelm: {
+      name: 'Usta İşi Adamant Miğfer'
+    },
+    smithMasterAetheriteHelm: {
+      name: 'Usta İşi Eterit Miğfer'
+    },
     smithMithrilHelm: {
       name: 'Mithril Miğfer'
+    },
+    smithAdamantHelm: {
+      name: 'Adamant Miğfer'
+    },
+    smithAetheriteHelm: {
+      name: 'Eterit Miğfer'
     },
     smithMasterMithrilShield: {
       name: 'Usta İşi Mithril Kalkan'
     },
+    smithMasterAdamantShield: {
+      name: 'Usta İşi Adamant Kalkan'
+    },
+    smithMasterAetheriteShield: {
+      name: 'Usta İşi Eterit Kalkan'
+    },
     smithMithrilShield: {
       name: 'Mithril Kalkan'
+    },
+    smithAdamantShield: {
+      name: 'Adamant Kalkan'
+    },
+    smithAetheriteShield: {
+      name: 'Eterit Kalkan'
     },
     smithMasterMithrilHammer: {
       name: 'Usta İşi Mithril Çekiç'
     },
+    smithMasterAdamantHammer: {
+      name: 'Usta İşi Adamant Çekiç'
+    },
+    smithMasterAetheriteHammer: {
+      name: 'Usta İşi Eterit Çekiç'
+    },
     smithMithrilHammer: {
       name: 'Mithril Çekiç'
+    },
+    smithAdamantHammer: {
+      name: 'Adamant Çekiç'
+    },
+    smithAetheriteHammer: {
+      name: 'Eterit Çekiç'
     },
     smithMasterMithrilSword: {
       name: 'Usta İşi Mithril Kılıç'
     },
+    smithMasterAdamantSword: {
+      name: 'Usta İşi Adamant Kılıç'
+    },
+    smithMasterAetheriteSword: {
+      name: 'Usta İşi Eterit Kılıç'
+    },
     smithMithrilSword: {
       name: 'Mithril Kılıç'
+    },
+    smithAdamantSword: {
+      name: 'Adamant Kılıç'
+    },
+    smithAetheriteSword: {
+      name: 'Eterit Kılıç'
     },
     smithMasterGoldGreaves: {
       name: 'Usta İşi Altın Dizlikler'
@@ -1557,6 +1651,1086 @@ export default {
     },
     smithMasterIronSword: {
       name: 'Usta İşi Demir Kılıç'
+    },
+    smithMasterDexIronSword: {
+      name: 'Usta İşi Demir hançer · ÇEV'
+    },
+    smithDexIronSword: {
+      name: 'Demir hançer · ÇEV'
+    },
+    smithMasterDexIronHammer: {
+      name: 'Usta İşi Demir rapier · ÇEV'
+    },
+    smithDexIronHammer: {
+      name: 'Demir rapier · ÇEV'
+    },
+    smithMasterDexIronShield: {
+      name: 'Usta İşi Demir küçük kalkan · ÇEV'
+    },
+    smithDexIronShield: {
+      name: 'Demir küçük kalkan · ÇEV'
+    },
+    smithMasterDexIronHelm: {
+      name: 'Usta İşi Demir kukuleta · ÇEV'
+    },
+    smithDexIronHelm: {
+      name: 'Demir kukuleta · ÇEV'
+    },
+    smithMasterDexIronPlate: {
+      name: 'Usta İşi Demir deri zırh · ÇEV'
+    },
+    smithDexIronPlate: {
+      name: 'Demir deri zırh · ÇEV'
+    },
+    smithMasterDexIronGreaves: {
+      name: 'Usta İşi Demir çizme · ÇEV'
+    },
+    smithDexIronGreaves: {
+      name: 'Demir çizme · ÇEV'
+    },
+    smithMasterDexSilverSword: {
+      name: 'Usta İşi Gümüş hançer · ÇEV'
+    },
+    smithDexSilverSword: {
+      name: 'Gümüş hançer · ÇEV'
+    },
+    smithMasterDexSilverHammer: {
+      name: 'Usta İşi Gümüş rapier · ÇEV'
+    },
+    smithDexSilverHammer: {
+      name: 'Gümüş rapier · ÇEV'
+    },
+    smithMasterDexSilverShield: {
+      name: 'Usta İşi Gümüş küçük kalkan · ÇEV'
+    },
+    smithDexSilverShield: {
+      name: 'Gümüş küçük kalkan · ÇEV'
+    },
+    smithMasterDexSilverHelm: {
+      name: 'Usta İşi Gümüş kukuleta · ÇEV'
+    },
+    smithDexSilverHelm: {
+      name: 'Gümüş kukuleta · ÇEV'
+    },
+    smithMasterDexSilverPlate: {
+      name: 'Usta İşi Gümüş deri zırh · ÇEV'
+    },
+    smithDexSilverPlate: {
+      name: 'Gümüş deri zırh · ÇEV'
+    },
+    smithMasterDexSilverGreaves: {
+      name: 'Usta İşi Gümüş çizme · ÇEV'
+    },
+    smithDexSilverGreaves: {
+      name: 'Gümüş çizme · ÇEV'
+    },
+    smithMasterDexGoldSword: {
+      name: 'Usta İşi Altın hançer · ÇEV'
+    },
+    smithDexGoldSword: {
+      name: 'Altın hançer · ÇEV'
+    },
+    smithMasterDexGoldHammer: {
+      name: 'Usta İşi Altın rapier · ÇEV'
+    },
+    smithDexGoldHammer: {
+      name: 'Altın rapier · ÇEV'
+    },
+    smithMasterDexGoldShield: {
+      name: 'Usta İşi Altın küçük kalkan · ÇEV'
+    },
+    smithDexGoldShield: {
+      name: 'Altın küçük kalkan · ÇEV'
+    },
+    smithMasterDexGoldHelm: {
+      name: 'Usta İşi Altın kukuleta · ÇEV'
+    },
+    smithDexGoldHelm: {
+      name: 'Altın kukuleta · ÇEV'
+    },
+    smithMasterDexGoldPlate: {
+      name: 'Usta İşi Altın deri zırh · ÇEV'
+    },
+    smithDexGoldPlate: {
+      name: 'Altın deri zırh · ÇEV'
+    },
+    smithMasterDexGoldGreaves: {
+      name: 'Usta İşi Altın çizme · ÇEV'
+    },
+    smithDexGoldGreaves: {
+      name: 'Altın çizme · ÇEV'
+    },
+    smithMasterDexMithrilSword: {
+      name: 'Usta İşi Mithril hançer · ÇEV'
+    },
+    smithMasterDexAdamantSword: {
+      name: 'Usta İşi Adamant hançer · ÇEV'
+    },
+    smithMasterDexAetheriteSword: {
+      name: 'Usta İşi Eterit hançer · ÇEV'
+    },
+    smithDexMithrilSword: {
+      name: 'Mithril hançer · ÇEV'
+    },
+    smithDexAdamantSword: {
+      name: 'Adamant hançer · ÇEV'
+    },
+    smithDexAetheriteSword: {
+      name: 'Eterit hançer · ÇEV'
+    },
+    smithMasterDexMithrilHammer: {
+      name: 'Usta İşi Mithril rapier · ÇEV'
+    },
+    smithMasterDexAdamantHammer: {
+      name: 'Usta İşi Adamant rapier · ÇEV'
+    },
+    smithMasterDexAetheriteHammer: {
+      name: 'Usta İşi Eterit rapier · ÇEV'
+    },
+    smithDexMithrilHammer: {
+      name: 'Mithril rapier · ÇEV'
+    },
+    smithDexAdamantHammer: {
+      name: 'Adamant rapier · ÇEV'
+    },
+    smithDexAetheriteHammer: {
+      name: 'Eterit rapier · ÇEV'
+    },
+    smithMasterDexMithrilShield: {
+      name: 'Usta İşi Mithril küçük kalkan · ÇEV'
+    },
+    smithMasterDexAdamantShield: {
+      name: 'Usta İşi Adamant küçük kalkan · ÇEV'
+    },
+    smithMasterDexAetheriteShield: {
+      name: 'Usta İşi Eterit küçük kalkan · ÇEV'
+    },
+    smithDexMithrilShield: {
+      name: 'Mithril küçük kalkan · ÇEV'
+    },
+    smithDexAdamantShield: {
+      name: 'Adamant küçük kalkan · ÇEV'
+    },
+    smithDexAetheriteShield: {
+      name: 'Eterit küçük kalkan · ÇEV'
+    },
+    smithMasterDexMithrilHelm: {
+      name: 'Usta İşi Mithril kukuleta · ÇEV'
+    },
+    smithMasterDexAdamantHelm: {
+      name: 'Usta İşi Adamant kukuleta · ÇEV'
+    },
+    smithMasterDexAetheriteHelm: {
+      name: 'Usta İşi Eterit kukuleta · ÇEV'
+    },
+    smithDexMithrilHelm: {
+      name: 'Mithril kukuleta · ÇEV'
+    },
+    smithDexAdamantHelm: {
+      name: 'Adamant kukuleta · ÇEV'
+    },
+    smithDexAetheriteHelm: {
+      name: 'Eterit kukuleta · ÇEV'
+    },
+    smithMasterDexMithrilPlate: {
+      name: 'Usta İşi Mithril deri zırh · ÇEV'
+    },
+    smithMasterDexAdamantPlate: {
+      name: 'Usta İşi Adamant deri zırh · ÇEV'
+    },
+    smithMasterDexAetheritePlate: {
+      name: 'Usta İşi Eterit deri zırh · ÇEV'
+    },
+    smithDexMithrilPlate: {
+      name: 'Mithril deri zırh · ÇEV'
+    },
+    smithDexAdamantPlate: {
+      name: 'Adamant deri zırh · ÇEV'
+    },
+    smithDexAetheritePlate: {
+      name: 'Eterit deri zırh · ÇEV'
+    },
+    smithMasterDexMithrilGreaves: {
+      name: 'Usta İşi Mithril çizme · ÇEV'
+    },
+    smithMasterDexAdamantGreaves: {
+      name: 'Usta İşi Adamant çizme · ÇEV'
+    },
+    smithMasterDexAetheriteGreaves: {
+      name: 'Usta İşi Eterit çizme · ÇEV'
+    },
+    smithDexMithrilGreaves: {
+      name: 'Mithril çizme · ÇEV'
+    },
+    smithDexAdamantGreaves: {
+      name: 'Adamant çizme · ÇEV'
+    },
+    smithDexAetheriteGreaves: {
+      name: 'Eterit çizme · ÇEV'
+    },
+    smithMasterIntIronSword: {
+      name: 'Usta İşi Demir büyü değneği · ZEK'
+    },
+    smithIntIronSword: {
+      name: 'Demir büyü değneği · ZEK'
+    },
+    smithMasterIntIronHammer: {
+      name: 'Usta İşi Demir büyücü asası · ZEK'
+    },
+    smithIntIronHammer: {
+      name: 'Demir büyücü asası · ZEK'
+    },
+    smithMasterIntIronShield: {
+      name: 'Usta İşi Demir büyü kitabı · ZEK'
+    },
+    smithIntIronShield: {
+      name: 'Demir büyü kitabı · ZEK'
+    },
+    smithMasterIntIronHelm: {
+      name: 'Usta İşi Demir diadem · ZEK'
+    },
+    smithIntIronHelm: {
+      name: 'Demir diadem · ZEK'
+    },
+    smithMasterIntIronPlate: {
+      name: 'Usta İşi Demir cüppe · ZEK'
+    },
+    smithIntIronPlate: {
+      name: 'Demir cüppe · ZEK'
+    },
+    smithMasterIntIronGreaves: {
+      name: 'Usta İşi Demir çizme · ZEK'
+    },
+    smithIntIronGreaves: {
+      name: 'Demir çizme · ZEK'
+    },
+    smithMasterIntSilverSword: {
+      name: 'Usta İşi Gümüş büyü değneği · ZEK'
+    },
+    smithIntSilverSword: {
+      name: 'Gümüş büyü değneği · ZEK'
+    },
+    smithMasterIntSilverHammer: {
+      name: 'Usta İşi Gümüş büyücü asası · ZEK'
+    },
+    smithIntSilverHammer: {
+      name: 'Gümüş büyücü asası · ZEK'
+    },
+    smithMasterIntSilverShield: {
+      name: 'Usta İşi Gümüş büyü kitabı · ZEK'
+    },
+    smithIntSilverShield: {
+      name: 'Gümüş büyü kitabı · ZEK'
+    },
+    smithMasterIntSilverHelm: {
+      name: 'Usta İşi Gümüş diadem · ZEK'
+    },
+    smithIntSilverHelm: {
+      name: 'Gümüş diadem · ZEK'
+    },
+    smithMasterIntSilverPlate: {
+      name: 'Usta İşi Gümüş cüppe · ZEK'
+    },
+    smithIntSilverPlate: {
+      name: 'Gümüş cüppe · ZEK'
+    },
+    smithMasterIntSilverGreaves: {
+      name: 'Usta İşi Gümüş çizme · ZEK'
+    },
+    smithIntSilverGreaves: {
+      name: 'Gümüş çizme · ZEK'
+    },
+    smithMasterIntGoldSword: {
+      name: 'Usta İşi Altın büyü değneği · ZEK'
+    },
+    smithIntGoldSword: {
+      name: 'Altın büyü değneği · ZEK'
+    },
+    smithMasterIntGoldHammer: {
+      name: 'Usta İşi Altın büyücü asası · ZEK'
+    },
+    smithIntGoldHammer: {
+      name: 'Altın büyücü asası · ZEK'
+    },
+    smithMasterIntGoldShield: {
+      name: 'Usta İşi Altın büyü kitabı · ZEK'
+    },
+    smithIntGoldShield: {
+      name: 'Altın büyü kitabı · ZEK'
+    },
+    smithMasterIntGoldHelm: {
+      name: 'Usta İşi Altın diadem · ZEK'
+    },
+    smithIntGoldHelm: {
+      name: 'Altın diadem · ZEK'
+    },
+    smithMasterIntGoldPlate: {
+      name: 'Usta İşi Altın cüppe · ZEK'
+    },
+    smithIntGoldPlate: {
+      name: 'Altın cüppe · ZEK'
+    },
+    smithMasterIntGoldGreaves: {
+      name: 'Usta İşi Altın çizme · ZEK'
+    },
+    smithIntGoldGreaves: {
+      name: 'Altın çizme · ZEK'
+    },
+    smithMasterIntMithrilSword: {
+      name: 'Usta İşi Mithril büyü değneği · ZEK'
+    },
+    smithMasterIntAdamantSword: {
+      name: 'Usta İşi Adamant büyü değneği · ZEK'
+    },
+    smithMasterIntAetheriteSword: {
+      name: 'Usta İşi Eterit büyü değneği · ZEK'
+    },
+    smithIntMithrilSword: {
+      name: 'Mithril büyü değneği · ZEK'
+    },
+    smithIntAdamantSword: {
+      name: 'Adamant büyü değneği · ZEK'
+    },
+    smithIntAetheriteSword: {
+      name: 'Eterit büyü değneği · ZEK'
+    },
+    smithMasterIntMithrilHammer: {
+      name: 'Usta İşi Mithril büyücü asası · ZEK'
+    },
+    smithMasterIntAdamantHammer: {
+      name: 'Usta İşi Adamant büyücü asası · ZEK'
+    },
+    smithMasterIntAetheriteHammer: {
+      name: 'Usta İşi Eterit büyücü asası · ZEK'
+    },
+    smithIntMithrilHammer: {
+      name: 'Mithril büyücü asası · ZEK'
+    },
+    smithIntAdamantHammer: {
+      name: 'Adamant büyücü asası · ZEK'
+    },
+    smithIntAetheriteHammer: {
+      name: 'Eterit büyücü asası · ZEK'
+    },
+    smithMasterIntMithrilShield: {
+      name: 'Usta İşi Mithril büyü kitabı · ZEK'
+    },
+    smithMasterIntAdamantShield: {
+      name: 'Usta İşi Adamant büyü kitabı · ZEK'
+    },
+    smithMasterIntAetheriteShield: {
+      name: 'Usta İşi Eterit büyü kitabı · ZEK'
+    },
+    smithIntMithrilShield: {
+      name: 'Mithril büyü kitabı · ZEK'
+    },
+    smithIntAdamantShield: {
+      name: 'Adamant büyü kitabı · ZEK'
+    },
+    smithIntAetheriteShield: {
+      name: 'Eterit büyü kitabı · ZEK'
+    },
+    smithMasterIntMithrilHelm: {
+      name: 'Usta İşi Mithril diadem · ZEK'
+    },
+    smithMasterIntAdamantHelm: {
+      name: 'Usta İşi Adamant diadem · ZEK'
+    },
+    smithMasterIntAetheriteHelm: {
+      name: 'Usta İşi Eterit diadem · ZEK'
+    },
+    smithIntMithrilHelm: {
+      name: 'Mithril diadem · ZEK'
+    },
+    smithIntAdamantHelm: {
+      name: 'Adamant diadem · ZEK'
+    },
+    smithIntAetheriteHelm: {
+      name: 'Eterit diadem · ZEK'
+    },
+    smithMasterIntMithrilPlate: {
+      name: 'Usta İşi Mithril cüppe · ZEK'
+    },
+    smithMasterIntAdamantPlate: {
+      name: 'Usta İşi Adamant cüppe · ZEK'
+    },
+    smithMasterIntAetheritePlate: {
+      name: 'Usta İşi Eterit cüppe · ZEK'
+    },
+    smithIntMithrilPlate: {
+      name: 'Mithril cüppe · ZEK'
+    },
+    smithIntAdamantPlate: {
+      name: 'Adamant cüppe · ZEK'
+    },
+    smithIntAetheritePlate: {
+      name: 'Eterit cüppe · ZEK'
+    },
+    smithMasterIntMithrilGreaves: {
+      name: 'Usta İşi Mithril çizme · ZEK'
+    },
+    smithMasterIntAdamantGreaves: {
+      name: 'Usta İşi Adamant çizme · ZEK'
+    },
+    smithMasterIntAetheriteGreaves: {
+      name: 'Usta İşi Eterit çizme · ZEK'
+    },
+    smithIntMithrilGreaves: {
+      name: 'Mithril çizme · ZEK'
+    },
+    smithIntAdamantGreaves: {
+      name: 'Adamant çizme · ZEK'
+    },
+    smithIntAetheriteGreaves: {
+      name: 'Eterit çizme · ZEK'
+    },
+    smithMasterSklIronSword: {
+      name: 'Usta İşi Demir tabanca · BEC'
+    },
+    smithSklIronSword: {
+      name: 'Demir tabanca · BEC'
+    },
+    smithMasterSklIronHammer: {
+      name: 'Usta İşi Demir tüfek · BEC'
+    },
+    smithSklIronHammer: {
+      name: 'Demir tüfek · BEC'
+    },
+    smithMasterSklIronShield: {
+      name: 'Usta İşi Demir pil · BEC'
+    },
+    smithSklIronShield: {
+      name: 'Demir pil · BEC'
+    },
+    smithMasterSklIronHelm: {
+      name: 'Usta İşi Demir kep · BEC'
+    },
+    smithSklIronHelm: {
+      name: 'Demir kep · BEC'
+    },
+    smithMasterSklIronPlate: {
+      name: 'Usta İşi Demir koşum · BEC'
+    },
+    smithSklIronPlate: {
+      name: 'Demir koşum · BEC'
+    },
+    smithMasterSklIronGreaves: {
+      name: 'Usta İşi Demir çizme · BEC'
+    },
+    smithSklIronGreaves: {
+      name: 'Demir çizme · BEC'
+    },
+    smithMasterSklSilverSword: {
+      name: 'Usta İşi Gümüş tabanca · BEC'
+    },
+    smithSklSilverSword: {
+      name: 'Gümüş tabanca · BEC'
+    },
+    smithMasterSklSilverHammer: {
+      name: 'Usta İşi Gümüş tüfek · BEC'
+    },
+    smithSklSilverHammer: {
+      name: 'Gümüş tüfek · BEC'
+    },
+    smithMasterSklSilverShield: {
+      name: 'Usta İşi Gümüş pil · BEC'
+    },
+    smithSklSilverShield: {
+      name: 'Gümüş pil · BEC'
+    },
+    smithMasterSklSilverHelm: {
+      name: 'Usta İşi Gümüş kep · BEC'
+    },
+    smithSklSilverHelm: {
+      name: 'Gümüş kep · BEC'
+    },
+    smithMasterSklSilverPlate: {
+      name: 'Usta İşi Gümüş koşum · BEC'
+    },
+    smithSklSilverPlate: {
+      name: 'Gümüş koşum · BEC'
+    },
+    smithMasterSklSilverGreaves: {
+      name: 'Usta İşi Gümüş çizme · BEC'
+    },
+    smithSklSilverGreaves: {
+      name: 'Gümüş çizme · BEC'
+    },
+    smithMasterSklGoldSword: {
+      name: 'Usta İşi Altın tabanca · BEC'
+    },
+    smithSklGoldSword: {
+      name: 'Altın tabanca · BEC'
+    },
+    smithMasterSklGoldHammer: {
+      name: 'Usta İşi Altın tüfek · BEC'
+    },
+    smithSklGoldHammer: {
+      name: 'Altın tüfek · BEC'
+    },
+    smithMasterSklGoldShield: {
+      name: 'Usta İşi Altın pil · BEC'
+    },
+    smithSklGoldShield: {
+      name: 'Altın pil · BEC'
+    },
+    smithMasterSklGoldHelm: {
+      name: 'Usta İşi Altın kep · BEC'
+    },
+    smithSklGoldHelm: {
+      name: 'Altın kep · BEC'
+    },
+    smithMasterSklGoldPlate: {
+      name: 'Usta İşi Altın koşum · BEC'
+    },
+    smithSklGoldPlate: {
+      name: 'Altın koşum · BEC'
+    },
+    smithMasterSklGoldGreaves: {
+      name: 'Usta İşi Altın çizme · BEC'
+    },
+    smithSklGoldGreaves: {
+      name: 'Altın çizme · BEC'
+    },
+    smithMasterSklMithrilSword: {
+      name: 'Usta İşi Mithril tabanca · BEC'
+    },
+    smithMasterSklAdamantSword: {
+      name: 'Usta İşi Adamant tabanca · BEC'
+    },
+    smithMasterSklAetheriteSword: {
+      name: 'Usta İşi Eterit tabanca · BEC'
+    },
+    smithSklMithrilSword: {
+      name: 'Mithril tabanca · BEC'
+    },
+    smithSklAdamantSword: {
+      name: 'Adamant tabanca · BEC'
+    },
+    smithSklAetheriteSword: {
+      name: 'Eterit tabanca · BEC'
+    },
+    smithMasterSklMithrilHammer: {
+      name: 'Usta İşi Mithril tüfek · BEC'
+    },
+    smithMasterSklAdamantHammer: {
+      name: 'Usta İşi Adamant tüfek · BEC'
+    },
+    smithMasterSklAetheriteHammer: {
+      name: 'Usta İşi Eterit tüfek · BEC'
+    },
+    smithSklMithrilHammer: {
+      name: 'Mithril tüfek · BEC'
+    },
+    smithSklAdamantHammer: {
+      name: 'Adamant tüfek · BEC'
+    },
+    smithSklAetheriteHammer: {
+      name: 'Eterit tüfek · BEC'
+    },
+    smithMasterSklMithrilShield: {
+      name: 'Usta İşi Mithril pil · BEC'
+    },
+    smithMasterSklAdamantShield: {
+      name: 'Usta İşi Adamant pil · BEC'
+    },
+    smithMasterSklAetheriteShield: {
+      name: 'Usta İşi Eterit pil · BEC'
+    },
+    smithSklMithrilShield: {
+      name: 'Mithril pil · BEC'
+    },
+    smithSklAdamantShield: {
+      name: 'Adamant pil · BEC'
+    },
+    smithSklAetheriteShield: {
+      name: 'Eterit pil · BEC'
+    },
+    smithMasterSklMithrilHelm: {
+      name: 'Usta İşi Mithril kep · BEC'
+    },
+    smithMasterSklAdamantHelm: {
+      name: 'Usta İşi Adamant kep · BEC'
+    },
+    smithMasterSklAetheriteHelm: {
+      name: 'Usta İşi Eterit kep · BEC'
+    },
+    smithSklMithrilHelm: {
+      name: 'Mithril kep · BEC'
+    },
+    smithSklAdamantHelm: {
+      name: 'Adamant kep · BEC'
+    },
+    smithSklAetheriteHelm: {
+      name: 'Eterit kep · BEC'
+    },
+    smithMasterSklMithrilPlate: {
+      name: 'Usta İşi Mithril koşum · BEC'
+    },
+    smithMasterSklAdamantPlate: {
+      name: 'Usta İşi Adamant koşum · BEC'
+    },
+    smithMasterSklAetheritePlate: {
+      name: 'Usta İşi Eterit koşum · BEC'
+    },
+    smithSklMithrilPlate: {
+      name: 'Mithril koşum · BEC'
+    },
+    smithSklAdamantPlate: {
+      name: 'Adamant koşum · BEC'
+    },
+    smithSklAetheritePlate: {
+      name: 'Eterit koşum · BEC'
+    },
+    smithMasterSklMithrilGreaves: {
+      name: 'Usta İşi Mithril çizme · BEC'
+    },
+    smithMasterSklAdamantGreaves: {
+      name: 'Usta İşi Adamant çizme · BEC'
+    },
+    smithMasterSklAetheriteGreaves: {
+      name: 'Usta İşi Eterit çizme · BEC'
+    },
+    smithSklMithrilGreaves: {
+      name: 'Mithril çizme · BEC'
+    },
+    smithSklAdamantGreaves: {
+      name: 'Adamant çizme · BEC'
+    },
+    smithSklAetheriteGreaves: {
+      name: 'Eterit çizme · BEC'
+    },
+    smithMasterChaIronSword: {
+      name: 'Usta İşi Demir saltanat asası · KAR'
+    },
+    smithChaIronSword: {
+      name: 'Demir saltanat asası · KAR'
+    },
+    smithMasterChaIronHammer: {
+      name: 'Usta İşi Demir sancak · KAR'
+    },
+    smithChaIronHammer: {
+      name: 'Demir sancak · KAR'
+    },
+    smithMasterChaIronShield: {
+      name: 'Usta İşi Demir kodeks · KAR'
+    },
+    smithChaIronShield: {
+      name: 'Demir kodeks · KAR'
+    },
+    smithMasterChaIronHelm: {
+      name: 'Usta İşi Demir taç · KAR'
+    },
+    smithChaIronHelm: {
+      name: 'Demir taç · KAR'
+    },
+    smithMasterChaIronPlate: {
+      name: 'Usta İşi Demir tabard · KAR'
+    },
+    smithChaIronPlate: {
+      name: 'Demir tabard · KAR'
+    },
+    smithMasterChaIronGreaves: {
+      name: 'Usta İşi Demir çizme · KAR'
+    },
+    smithChaIronGreaves: {
+      name: 'Demir çizme · KAR'
+    },
+    smithMasterChaSilverSword: {
+      name: 'Usta İşi Gümüş saltanat asası · KAR'
+    },
+    smithChaSilverSword: {
+      name: 'Gümüş saltanat asası · KAR'
+    },
+    smithMasterChaSilverHammer: {
+      name: 'Usta İşi Gümüş sancak · KAR'
+    },
+    smithChaSilverHammer: {
+      name: 'Gümüş sancak · KAR'
+    },
+    smithMasterChaSilverShield: {
+      name: 'Usta İşi Gümüş kodeks · KAR'
+    },
+    smithChaSilverShield: {
+      name: 'Gümüş kodeks · KAR'
+    },
+    smithMasterChaSilverHelm: {
+      name: 'Usta İşi Gümüş taç · KAR'
+    },
+    smithChaSilverHelm: {
+      name: 'Gümüş taç · KAR'
+    },
+    smithMasterChaSilverPlate: {
+      name: 'Usta İşi Gümüş tabard · KAR'
+    },
+    smithChaSilverPlate: {
+      name: 'Gümüş tabard · KAR'
+    },
+    smithMasterChaSilverGreaves: {
+      name: 'Usta İşi Gümüş çizme · KAR'
+    },
+    smithChaSilverGreaves: {
+      name: 'Gümüş çizme · KAR'
+    },
+    smithMasterChaGoldSword: {
+      name: 'Usta İşi Altın saltanat asası · KAR'
+    },
+    smithChaGoldSword: {
+      name: 'Altın saltanat asası · KAR'
+    },
+    smithMasterChaGoldHammer: {
+      name: 'Usta İşi Altın sancak · KAR'
+    },
+    smithChaGoldHammer: {
+      name: 'Altın sancak · KAR'
+    },
+    smithMasterChaGoldShield: {
+      name: 'Usta İşi Altın kodeks · KAR'
+    },
+    smithChaGoldShield: {
+      name: 'Altın kodeks · KAR'
+    },
+    smithMasterChaGoldHelm: {
+      name: 'Usta İşi Altın taç · KAR'
+    },
+    smithChaGoldHelm: {
+      name: 'Altın taç · KAR'
+    },
+    smithMasterChaGoldPlate: {
+      name: 'Usta İşi Altın tabard · KAR'
+    },
+    smithChaGoldPlate: {
+      name: 'Altın tabard · KAR'
+    },
+    smithMasterChaGoldGreaves: {
+      name: 'Usta İşi Altın çizme · KAR'
+    },
+    smithChaGoldGreaves: {
+      name: 'Altın çizme · KAR'
+    },
+    smithMasterChaMithrilSword: {
+      name: 'Usta İşi Mithril saltanat asası · KAR'
+    },
+    smithMasterChaAdamantSword: {
+      name: 'Usta İşi Adamant saltanat asası · KAR'
+    },
+    smithMasterChaAetheriteSword: {
+      name: 'Usta İşi Eterit saltanat asası · KAR'
+    },
+    smithChaMithrilSword: {
+      name: 'Mithril saltanat asası · KAR'
+    },
+    smithChaAdamantSword: {
+      name: 'Adamant saltanat asası · KAR'
+    },
+    smithChaAetheriteSword: {
+      name: 'Eterit saltanat asası · KAR'
+    },
+    smithMasterChaMithrilHammer: {
+      name: 'Usta İşi Mithril sancak · KAR'
+    },
+    smithMasterChaAdamantHammer: {
+      name: 'Usta İşi Adamant sancak · KAR'
+    },
+    smithMasterChaAetheriteHammer: {
+      name: 'Usta İşi Eterit sancak · KAR'
+    },
+    smithChaMithrilHammer: {
+      name: 'Mithril sancak · KAR'
+    },
+    smithChaAdamantHammer: {
+      name: 'Adamant sancak · KAR'
+    },
+    smithChaAetheriteHammer: {
+      name: 'Eterit sancak · KAR'
+    },
+    smithMasterChaMithrilShield: {
+      name: 'Usta İşi Mithril kodeks · KAR'
+    },
+    smithMasterChaAdamantShield: {
+      name: 'Usta İşi Adamant kodeks · KAR'
+    },
+    smithMasterChaAetheriteShield: {
+      name: 'Usta İşi Eterit kodeks · KAR'
+    },
+    smithChaMithrilShield: {
+      name: 'Mithril kodeks · KAR'
+    },
+    smithChaAdamantShield: {
+      name: 'Adamant kodeks · KAR'
+    },
+    smithChaAetheriteShield: {
+      name: 'Eterit kodeks · KAR'
+    },
+    smithMasterChaMithrilHelm: {
+      name: 'Usta İşi Mithril taç · KAR'
+    },
+    smithMasterChaAdamantHelm: {
+      name: 'Usta İşi Adamant taç · KAR'
+    },
+    smithMasterChaAetheriteHelm: {
+      name: 'Usta İşi Eterit taç · KAR'
+    },
+    smithChaMithrilHelm: {
+      name: 'Mithril taç · KAR'
+    },
+    smithChaAdamantHelm: {
+      name: 'Adamant taç · KAR'
+    },
+    smithChaAetheriteHelm: {
+      name: 'Eterit taç · KAR'
+    },
+    smithMasterChaMithrilPlate: {
+      name: 'Usta İşi Mithril tabard · KAR'
+    },
+    smithMasterChaAdamantPlate: {
+      name: 'Usta İşi Adamant tabard · KAR'
+    },
+    smithMasterChaAetheritePlate: {
+      name: 'Usta İşi Eterit tabard · KAR'
+    },
+    smithChaMithrilPlate: {
+      name: 'Mithril tabard · KAR'
+    },
+    smithChaAdamantPlate: {
+      name: 'Adamant tabard · KAR'
+    },
+    smithChaAetheritePlate: {
+      name: 'Eterit tabard · KAR'
+    },
+    smithMasterChaMithrilGreaves: {
+      name: 'Usta İşi Mithril çizme · KAR'
+    },
+    smithMasterChaAdamantGreaves: {
+      name: 'Usta İşi Adamant çizme · KAR'
+    },
+    smithMasterChaAetheriteGreaves: {
+      name: 'Usta İşi Eterit çizme · KAR'
+    },
+    smithChaMithrilGreaves: {
+      name: 'Mithril çizme · KAR'
+    },
+    smithChaAdamantGreaves: {
+      name: 'Adamant çizme · KAR'
+    },
+    smithChaAetheriteGreaves: {
+      name: 'Eterit çizme · KAR'
+    },
+    smithMasterEndIronSword: {
+      name: 'Usta İşi Demir gürz · DAY'
+    },
+    smithEndIronSword: {
+      name: 'Demir gürz · DAY'
+    },
+    smithMasterEndIronHammer: {
+      name: 'Usta İşi Demir balta · DAY'
+    },
+    smithEndIronHammer: {
+      name: 'Demir balta · DAY'
+    },
+    smithMasterEndIronShield: {
+      name: 'Usta İşi Demir Kalkan · DAY'
+    },
+    smithEndIronShield: {
+      name: 'Demir Kalkan · DAY'
+    },
+    smithMasterEndIronHelm: {
+      name: 'Usta İşi Demir Miğfer · DAY'
+    },
+    smithEndIronHelm: {
+      name: 'Demir Miğfer · DAY'
+    },
+    smithMasterEndIronPlate: {
+      name: 'Usta İşi Demir Plaka Zırh · DAY'
+    },
+    smithEndIronPlate: {
+      name: 'Demir Plaka Zırh · DAY'
+    },
+    smithMasterEndIronGreaves: {
+      name: 'Usta İşi Demir Dizlikler · DAY'
+    },
+    smithEndIronGreaves: {
+      name: 'Demir Dizlikler · DAY'
+    },
+    smithMasterEndSilverSword: {
+      name: 'Usta İşi Gümüş gürz · DAY'
+    },
+    smithEndSilverSword: {
+      name: 'Gümüş gürz · DAY'
+    },
+    smithMasterEndSilverHammer: {
+      name: 'Usta İşi Gümüş balta · DAY'
+    },
+    smithEndSilverHammer: {
+      name: 'Gümüş balta · DAY'
+    },
+    smithMasterEndSilverShield: {
+      name: 'Usta İşi Gümüş Kalkan · DAY'
+    },
+    smithEndSilverShield: {
+      name: 'Gümüş Kalkan · DAY'
+    },
+    smithMasterEndSilverHelm: {
+      name: 'Usta İşi Gümüş Miğfer · DAY'
+    },
+    smithEndSilverHelm: {
+      name: 'Gümüş Miğfer · DAY'
+    },
+    smithMasterEndSilverPlate: {
+      name: 'Usta İşi Gümüş Plaka Zırh · DAY'
+    },
+    smithEndSilverPlate: {
+      name: 'Gümüş Plaka Zırh · DAY'
+    },
+    smithMasterEndSilverGreaves: {
+      name: 'Usta İşi Gümüş Dizlikler · DAY'
+    },
+    smithEndSilverGreaves: {
+      name: 'Gümüş Dizlikler · DAY'
+    },
+    smithMasterEndGoldSword: {
+      name: 'Usta İşi Altın gürz · DAY'
+    },
+    smithEndGoldSword: {
+      name: 'Altın gürz · DAY'
+    },
+    smithMasterEndGoldHammer: {
+      name: 'Usta İşi Altın balta · DAY'
+    },
+    smithEndGoldHammer: {
+      name: 'Altın balta · DAY'
+    },
+    smithMasterEndGoldShield: {
+      name: 'Usta İşi Altın Kalkan · DAY'
+    },
+    smithEndGoldShield: {
+      name: 'Altın Kalkan · DAY'
+    },
+    smithMasterEndGoldHelm: {
+      name: 'Usta İşi Altın Miğfer · DAY'
+    },
+    smithEndGoldHelm: {
+      name: 'Altın Miğfer · DAY'
+    },
+    smithMasterEndGoldPlate: {
+      name: 'Usta İşi Altın Plaka Zırh · DAY'
+    },
+    smithEndGoldPlate: {
+      name: 'Altın Plaka Zırh · DAY'
+    },
+    smithMasterEndGoldGreaves: {
+      name: 'Usta İşi Altın Dizlikler · DAY'
+    },
+    smithEndGoldGreaves: {
+      name: 'Altın Dizlikler · DAY'
+    },
+    smithMasterEndMithrilSword: {
+      name: 'Usta İşi Mithril gürz · DAY'
+    },
+    smithMasterEndAdamantSword: {
+      name: 'Usta İşi Adamant gürz · DAY'
+    },
+    smithMasterEndAetheriteSword: {
+      name: 'Usta İşi Eterit gürz · DAY'
+    },
+    smithEndMithrilSword: {
+      name: 'Mithril gürz · DAY'
+    },
+    smithEndAdamantSword: {
+      name: 'Adamant gürz · DAY'
+    },
+    smithEndAetheriteSword: {
+      name: 'Eterit gürz · DAY'
+    },
+    smithMasterEndMithrilHammer: {
+      name: 'Usta İşi Mithril balta · DAY'
+    },
+    smithMasterEndAdamantHammer: {
+      name: 'Usta İşi Adamant balta · DAY'
+    },
+    smithMasterEndAetheriteHammer: {
+      name: 'Usta İşi Eterit balta · DAY'
+    },
+    smithEndMithrilHammer: {
+      name: 'Mithril balta · DAY'
+    },
+    smithEndAdamantHammer: {
+      name: 'Adamant balta · DAY'
+    },
+    smithEndAetheriteHammer: {
+      name: 'Eterit balta · DAY'
+    },
+    smithMasterEndMithrilShield: {
+      name: 'Usta İşi Mithril Kalkan · DAY'
+    },
+    smithMasterEndAdamantShield: {
+      name: 'Usta İşi Adamant Kalkan · DAY'
+    },
+    smithMasterEndAetheriteShield: {
+      name: 'Usta İşi Eterit Kalkan · DAY'
+    },
+    smithEndMithrilShield: {
+      name: 'Mithril Kalkan · DAY'
+    },
+    smithEndAdamantShield: {
+      name: 'Adamant Kalkan · DAY'
+    },
+    smithEndAetheriteShield: {
+      name: 'Eterit Kalkan · DAY'
+    },
+    smithMasterEndMithrilHelm: {
+      name: 'Usta İşi Mithril Miğfer · DAY'
+    },
+    smithMasterEndAdamantHelm: {
+      name: 'Usta İşi Adamant Miğfer · DAY'
+    },
+    smithMasterEndAetheriteHelm: {
+      name: 'Usta İşi Eterit Miğfer · DAY'
+    },
+    smithEndMithrilHelm: {
+      name: 'Mithril Miğfer · DAY'
+    },
+    smithEndAdamantHelm: {
+      name: 'Adamant Miğfer · DAY'
+    },
+    smithEndAetheriteHelm: {
+      name: 'Eterit Miğfer · DAY'
+    },
+    smithMasterEndMithrilPlate: {
+      name: 'Usta İşi Mithril Plaka Zırh · DAY'
+    },
+    smithMasterEndAdamantPlate: {
+      name: 'Usta İşi Adamant Plaka Zırh · DAY'
+    },
+    smithMasterEndAetheritePlate: {
+      name: 'Usta İşi Eterit Plaka Zırh · DAY'
+    },
+    smithEndMithrilPlate: {
+      name: 'Mithril Plaka Zırh · DAY'
+    },
+    smithEndAdamantPlate: {
+      name: 'Adamant Plaka Zırh · DAY'
+    },
+    smithEndAetheritePlate: {
+      name: 'Eterit Plaka Zırh · DAY'
+    },
+    smithMasterEndMithrilGreaves: {
+      name: 'Usta İşi Mithril Dizlikler · DAY'
+    },
+    smithMasterEndAdamantGreaves: {
+      name: 'Usta İşi Adamant Dizlikler · DAY'
+    },
+    smithMasterEndAetheriteGreaves: {
+      name: 'Usta İşi Eterit Dizlikler · DAY'
+    },
+    smithEndMithrilGreaves: {
+      name: 'Mithril Dizlikler · DAY'
+    },
+    smithEndAdamantGreaves: {
+      name: 'Adamant Dizlikler · DAY'
+    },
+    smithEndAetheriteGreaves: {
+      name: 'Eterit Dizlikler · DAY'
     },
     smithIronSword: {
       name: 'Demir Kılıç'
@@ -1777,6 +2951,414 @@ export default {
     scepterOfTheFirstKing: {
       name: 'İlk kralın asası'
     },
+    pickpocketsKnife: {
+      name: 'Yankesicinin Bıçağı'
+    },
+    serpentsFang: {
+      name: 'Yılan Dişi'
+    },
+    phantomRapier: {
+      name: 'Hayalet Meç'
+    },
+    fangOfTheWindless: {
+      name: 'Rüzgârsızın Dişi'
+    },
+    roguesBuckler: {
+      name: 'Düzenbazın Küçük Kalkanı'
+    },
+    venomVial: {
+      name: 'Zehir Şişesi'
+    },
+    swiftguardBuckler: {
+      name: 'Çevik Muhafızın Küçük Kalkanı'
+    },
+    nightshadeFlask: {
+      name: 'Güzelavrat Şişesi'
+    },
+    windveilTarge: {
+      name: 'Rüzgâr Peçesi Kalkanı'
+    },
+    shadowdancersBuckler: {
+      name: 'Gölge Dansçısının Küçük Kalkanı'
+    },
+    scoutsBandana: {
+      name: 'Gözcünün Bandanası'
+    },
+    nightcowl: {
+      name: 'Gece Başlığı'
+    },
+    shadowveilHood: {
+      name: 'Gölge Peçesi Kukuletası'
+    },
+    windrunnersCap: {
+      name: 'Rüzgâr Koşucusunun Şapkası'
+    },
+    maskOfTheSilentWind: {
+      name: 'Sessiz Rüzgârın Maskesi'
+    },
+    rangersJerkin: {
+      name: 'Korucunun Ceketi'
+    },
+    nightstalkerLeathers: {
+      name: 'Gece Avcısının Derileri'
+    },
+    windridersHarness: {
+      name: 'Rüzgâr Binicisinin Koşumu'
+    },
+    mantleOfTheShadowDancer: {
+      name: 'Gölge Dansçısının Pelerini'
+    },
+    thiefsGloves: {
+      name: 'Hırsızın Eldivenleri'
+    },
+    cutpurseGloves: {
+      name: 'Yankesici Eldivenleri'
+    },
+    glovesOfTheGale: {
+      name: 'Fırtınanın Eldivenleri'
+    },
+    softSoledShoes: {
+      name: 'Yumuşak Tabanlı Ayakkabılar'
+    },
+    catStepBoots: {
+      name: 'Kedi Adımı Çizmeleri'
+    },
+    shadowstepBoots: {
+      name: 'Gölge Adımı Çizmeleri'
+    },
+    windstrideBoots: {
+      name: 'Rüzgâr Adımı Çizmeleri'
+    },
+    luckyCoin: {
+      name: 'Şans Parası'
+    },
+    shadowBand: {
+      name: 'Gölge Yüzüğü'
+    },
+    sandglassOfTheSwift: {
+      name: 'Çevikin Kum Saati'
+    },
+    talonCharm: {
+      name: 'Pençe Tılsımı'
+    },
+    windheart: {
+      name: 'Rüzgâr Kalbi'
+    },
+    ashwallHeater: {
+      name: 'Kül Duvarı Kalkanı'
+    },
+    wyrmhidePavise: {
+      name: 'Ejderha Derisi Savaş Kalkanı'
+    },
+    footmansKettleHat: {
+      name: 'Piyadenin Kazan Şapkası'
+    },
+    ironbrowSallet: {
+      name: 'Demir Kaşlı Salad'
+    },
+    warlordsBarbute: {
+      name: 'Savaş Beyinin Barbutu'
+    },
+    helmOfTheSunderedThrone: {
+      name: 'Parçalanmış Tahtın Miğferi'
+    },
+    recruitsCuirass: {
+      name: 'Acemi Er Zırhı'
+    },
+    stonecuttersMitts: {
+      name: 'Taş Yontucunun Eldivenleri'
+    },
+    ashforgedGauntlets: {
+      name: 'Kül İçinde Dövülmüş Zırh Eldivenler'
+    },
+    warbringerGauntlets: {
+      name: 'Savaş Getirenin Zırh Eldivenleri'
+    },
+    titanfistGauntlets: {
+      name: 'Titan Yumruğu Zırh Eldivenleri'
+    },
+    footmansGreaves: {
+      name: 'Piyadenin Dizlikleri'
+    },
+    ironshodGreaves: {
+      name: 'Demir Kaplı Dizlikler'
+    },
+    warlordsSabatons: {
+      name: 'Savaş Beyinin Çelik Ayakkabıları'
+    },
+    greavesOfTheMountainfall: {
+      name: 'Dağ Çığının Dizlikleri'
+    },
+    sergeantsSignet: {
+      name: 'Çavuşun Mühür Yüzüğü'
+    },
+    brawlersKnuckleRing: {
+      name: 'Kavgacının Muşta'
+    },
+    bloodiedWarMedal: {
+      name: 'Kanlı Savaş Madalyası'
+    },
+    watchmansCudgel: {
+      name: 'Bekçinin Sopası'
+    },
+    ironboundMace: {
+      name: 'Demir Çemberli Gürz'
+    },
+    stonehideCleaver: {
+      name: 'Taş Derili Satır'
+    },
+    bulwarkMaul: {
+      name: 'Kalenin Balyozu'
+    },
+    mountainsplitterAxe: {
+      name: 'Dağ Yaran Balta'
+    },
+    everstandWarmace: {
+      name: 'Sarsılmaz Savaş Gürzü'
+    },
+    emberwallBastion: {
+      name: 'Közduvar Kalesi'
+    },
+    stonewardenHelm: {
+      name: 'Taş Muhafızın Miğferi'
+    },
+    colossusVisage: {
+      name: 'Devin Çehresi'
+    },
+    diggersGauntlets: {
+      name: 'Kazıcının Zırh Eldivenleri'
+    },
+    bastionGauntlets: {
+      name: 'Kalenin Zırh Eldivenleri'
+    },
+    glacierplateGauntlets: {
+      name: 'Buzul Plakalı Zırh Eldivenler'
+    },
+    gauntletsOfEndlessVigil: {
+      name: 'Sonsuz Nöbetin Zırh Eldivenleri'
+    },
+    hearthstoneCharm: {
+      name: 'Ocak Taşı Tılsımı'
+    },
+    ironheartPendant: {
+      name: 'Demirkalp Kolyesi'
+    },
+    hedgewizardsWand: {
+      name: 'Çit Büyücüsünün Asası'
+    },
+    frostglassStaff: {
+      name: 'Don Camı Asa'
+    },
+    voidthreadWand: {
+      name: 'Boşluk İpliği Asa'
+    },
+    staffOfTheStarlessSky: {
+      name: 'Yıldızsız Göğün Asası'
+    },
+    studentsGrimoire: {
+      name: 'Öğrencinin Büyü Kitabı'
+    },
+    frostfireOrb: {
+      name: 'Don Ateşi Küresi'
+    },
+    orbOfTheUnwrittenHour: {
+      name: 'Yazılmamış Saatin Küresi'
+    },
+    apprenticesPointedCap: {
+      name: 'Çırağın Sivri Başlığı'
+    },
+    sagesCirclet: {
+      name: 'Bilgenin Tacı'
+    },
+    cinderWizardsHat: {
+      name: 'Kül Büyücüsünün Şapkası'
+    },
+    voidseerCirclet: {
+      name: 'Boşluk Görücünün Tacı'
+    },
+    apprenticesRobe: {
+      name: 'Çırağın Cübbesi'
+    },
+    cinderthreadRobe: {
+      name: 'Kül İplikli Cübbe'
+    },
+    voidwovenRobe: {
+      name: 'Boşlukla Dokunmuş Cübbe'
+    },
+    inkStainedGloves: {
+      name: 'Mürekkep Lekeli Eldivenler'
+    },
+    spellthreadGloves: {
+      name: 'Büyü İplikli Eldivenler'
+    },
+    frostweaveGloves: {
+      name: 'Don Dokumalı Eldivenler'
+    },
+    starlitGloves: {
+      name: 'Yıldız Işıklı Eldivenler'
+    },
+    glovesOfTheLastWord: {
+      name: 'Son Sözün Eldivenleri'
+    },
+    scribesSlippers: {
+      name: 'Kâtibin Terlikleri'
+    },
+    moonstepSlippers: {
+      name: 'Ay Adımı Terlikleri'
+    },
+    emberstepBoots: {
+      name: 'Köz Adımı Çizmeleri'
+    },
+    voidwalkerBoots: {
+      name: 'Boşluk Gezginin Çizmeleri'
+    },
+    bootsOfTheWanderingStar: {
+      name: 'Gezgin Yıldızın Çizmeleri'
+    },
+    glowstonePendant: {
+      name: 'Parlak Taş Kolyesi'
+    },
+    scholarsSeal: {
+      name: 'Âlimin Mührü'
+    },
+    eyeOfTheArchon: {
+      name: 'Arkonun Gözü'
+    },
+    cinderRepeater: {
+      name: 'Kül Tekrarlı Tüfek'
+    },
+    glacierMortar: {
+      name: 'Buzul El Havanı'
+    },
+    sparkCell: {
+      name: 'Kıvılcım Hücresi'
+    },
+    arcCapacitor: {
+      name: 'Ark Kondansatörü'
+    },
+    aetherheartCell: {
+      name: 'Esir Kalbi Hücresi'
+    },
+    marksmansVisor: {
+      name: 'Nişancının Siperliği'
+    },
+    sharpshootersCap: {
+      name: 'Keskin Nişancı Kasketi'
+    },
+    gunnersHarness: {
+      name: 'Topçunun Koşumu'
+    },
+    steadyhandGloves: {
+      name: 'Sağlam El Eldivenleri'
+    },
+    gunsmithsGloves: {
+      name: 'Silahçının Eldivenleri'
+    },
+    scrappersBoots: {
+      name: 'Kavgacının Çizmeleri'
+    },
+    sharpshooterBoots: {
+      name: 'Keskin Nişancının Çizmeleri'
+    },
+    firingLineBoots: {
+      name: 'Ateş Hattı Çizmeleri'
+    },
+    steadyfootBoots: {
+      name: 'Sağlam Basış Çizmeleri'
+    },
+    aetherstepBoots: {
+      name: 'Esir Adımı Çizmeleri'
+    },
+    bootsOfTheLastShot: {
+      name: 'Son Atışın Çizmeleri'
+    },
+    brassCartridgeCharm: {
+      name: 'Pirinç Kovan Tılsımı'
+    },
+    deadEyeLens: {
+      name: 'İsabetli Gözün Merceği'
+    },
+    eagleEyeScope: {
+      name: 'Kartal Gözü Dürbünü'
+    },
+    criersBaton: {
+      name: 'Tellalın Değneği'
+    },
+    droversStandard: {
+      name: 'Çobanın Sancağı'
+    },
+    marshalsSceptre: {
+      name: 'Mareşalin Asası'
+    },
+    balladBook: {
+      name: 'Ağıt Kitabı'
+    },
+    chronicleOfHeroes: {
+      name: 'Kahramanlar Vakayinamesi'
+    },
+    psalterOfTheHost: {
+      name: 'Ordunun Mezmur Kitabı'
+    },
+    tomeOfEternalReign: {
+      name: 'Ebedi Hükümranlığın Cildi'
+    },
+    heraldsCap: {
+      name: 'Haberci Kasketi'
+    },
+    singersCirclet: {
+      name: 'Şarkıcının Tacı'
+    },
+    diademOfTenThousandVoices: {
+      name: 'On Bin Sesin Tacı'
+    },
+    travelersWaistcoat: {
+      name: 'Yolcunun Yeleği'
+    },
+    minstrelsMotley: {
+      name: 'Ozanın Yamalı Giysisi'
+    },
+    troubadoursCoat: {
+      name: 'Ozanın Ceketi'
+    },
+    marshalsGreatcoat: {
+      name: 'Mareşalin Paltosu'
+    },
+    buskersGloves: {
+      name: 'Sokak Müzisyeninin Eldivenleri'
+    },
+    drummersGloves: {
+      name: 'Davulcunun Eldivenleri'
+    },
+    standardBearersGloves: {
+      name: 'Sancaktarın Eldivenleri'
+    },
+    gildedParadeGloves: {
+      name: 'Yaldızlı Tören Eldivenleri'
+    },
+    glovesOfTheCrownedHand: {
+      name: 'Tacı Takmış Elin Eldivenleri'
+    },
+    wayfarersShoes: {
+      name: 'Gezginin Ayakkabıları'
+    },
+    troubadourBoots: {
+      name: 'Ozanın Çizmeleri'
+    },
+    heraldsRidingBoots: {
+      name: 'Habercinin Binici Çizmeleri'
+    },
+    paradeBoots: {
+      name: 'Tören Çizmeleri'
+    },
+    bootsOfTheLongProcession: {
+      name: 'Uzun Alayın Çizmeleri'
+    },
+    silverWhistle: {
+      name: 'Gümüş Düdük'
+    },
+    gatheringHorn: {
+      name: 'Toplanma Borusu'
+    },
     heartOfTheMountain: {
       name: 'Dağın Kalbi'
     },
@@ -1880,6 +3462,9 @@ export default {
     freedPeddler: {
       talk: 'Bir yolcunun ihtiyacı olan her şey. Neredeyse yeni, çoğunlukla.',
       name: 'Odo Marrow'
+    },
+    sfShadowRoad: {
+      name: 'Nettle Quickhand'
     },
     sfShadow: {
       name: 'Nettle Quickhand'
@@ -2034,6 +3619,9 @@ export default {
     sunfordGambler: {
       name: 'Dob Tumbler'
     },
+    sunfordCups: {
+      name: 'Nell Nimblefingers'
+    },
     oakGambler: {
       name: 'Silky Ren'
     },
@@ -2145,6 +3733,13 @@ export default {
     }
   },
   dlg: {
+    intro: {
+      crossing: { 1: 'Bu dünyanın her yolu bir kavşakta buluşur… ve her kavşak bir savaştır.' },
+      hero: { 1: 'Sunford’un sakin tarlalarından genç bir kahraman yola çıktı.' },
+      fire: { 1: 'Ateş çağrıya karşılık verdi. Çelik yeni bir isim öğrendi.' },
+      foes: { 1: 'Goblin kralları, ayaz beyleri, bir hiçlik ejderhası… ve Baş İblis.' },
+      begin: { 1: 'Efsanen şimdi başlıyor.' }
+    },
     frostDisciple: {
       bye: {
         '1': 'Sıcak kal.'
@@ -2339,6 +3934,23 @@ export default {
       hello: {
         '2': 'Odo Marrow, emrindeyim. Çerçi, tamirci ve çok minnettar bir adam.',
         '1': 'Sen! O kafesi açan sensin! Orada çürüyüp gidecektim.'
+      }
+    },
+    sfShadowRoad: {
+      hello: {
+        '1': 'Işınlanma. İlgin var mı?'
+      },
+      again: {
+        '1': 'Başka bir numara için mi döndün?'
+      },
+      train: {
+        '1': 'İyi izle. Bir adım, ve başka bir yerdesin.'
+      },
+      trainBack: {
+        '1': 'İyi. Şimdi git, başka bir yerde ol.'
+      },
+      bye: {
+        '1': 'Yakalanma.'
       }
     },
     sfShadow: {
@@ -2593,9 +4205,8 @@ export default {
         '2': 'Metal en parlak yandığında vur. Kaçırırsan hurda olur. Hadi.',
         '1': 'Demircilik mi? Hm. Çekici böyle tut, sopa gibi değil.'
       },
-      ore: {
-        '1': 'Külçeler mi? Hepsini alırım. Doğru tartı, doğru para.'
-      },
+      ore: { '1': 'Cevher mi? Göster bakalım. Parça başı öderim, dürüst tartı.' },
+      sellBack: { '1': 'Dürüst tartı, dürüst para. Buldukça getir.' },
       forgeBack: {
         '1': 'Fena değil. İyi de değil. Devam et.'
       },
@@ -2878,7 +4489,7 @@ export default {
       },
       map: {
         '1': 'Kaptan Rook\'un haritası! Goblinler onu yakalamadan önce haritayı yırtıp parçaları saklamış.',
-        '2': 'Altısını da bul, X sana yolu gösterecek: Kül Kayalıkları\'nda bir yerde. Orayı kaz, altın senin olsun.',
+        '2': 'Aralarından altısını bul, etrafa saçılmış birkaç parça daha var, X sana yolu gösterecek: Kül Kayalıkları\'nda bir yerde. Orayı kaz, altın senin olsun.',
         say: 'Eski bir haritanın parçasını buldum.'
       }
     },
@@ -2895,6 +4506,9 @@ export default {
       },
       mana: {
         '1': 'Bu acıdır. Büyülerin tükenince iç.'
+      },
+      brew: {
+        '1': 'Otlarını göster. Mana tonikimden daha lezzetli bir şey karıştırayım.'
       },
       potions: {
         '1': 'Her savaşa birkaç şişe götürürsün. İhtiyacın olmadan önce iç, sonra değil.',
@@ -2914,6 +4528,9 @@ export default {
       },
       healBack: {
         '1': 'Kemerini dolu, başını eğik tut.'
+      },
+      brewBack: {
+        '1': 'Dikkat et, sıcaklar. Hepsini bir anda içme.'
       },
       bye: {
         '1': 'Dışarıda kendine bak.'
@@ -3015,9 +4632,8 @@ export default {
         '2': 'Parıltıyı izle. Tam kalbine üç kez vur, metal unutmaz.',
         '1': 'Zanaatı öğrenmek mi istiyorsun? Güzel. Oakhaven\'ın her çekice ihtiyacı var.'
       },
-      ore: {
-        '1': 'Ham cevher! Cephanelikte hiç yetmez. Al, ücretin.'
-      },
+      ore: { '1': 'Ham cevher! Cephaneliğe hiç yetmez. Ayırabildiğini bana sat.' },
+      sellBack: { '1': 'Her parça surlara gidiyor. Sağ ol.' },
       forgeBack: {
         '1': 'İyi çelik. Surlar sana teşekkür eder.'
       },
@@ -3058,9 +4674,8 @@ export default {
         '2': 'Üç vuruş, her biri parıltının kalbine. Bütün sır bu kadar.',
         '1': 'Kuşatmadan beri isteyen herkese öğretiyorum. Gel, şuraya dur.'
       },
-      ore: {
-        '1': 'Surlar için daha fazla cevher mi? Sağ ol. Al, bu senin.'
-      },
+      ore: { '1': 'Surlar için daha fazla cevher mi? Verebildiğin her parçayı öderim.' },
+      sellBack: { '1': 'Tanrı seni korusun. Bu, surlar için daha çok plaka demek.' },
       forgeBack: {
         '1': 'Her vuruş seni daha iyi yapıyor. Ne zaman istersen gel.'
       },
@@ -3456,9 +5071,8 @@ export default {
         '2': 'Ne zaman, onu parıltı söyler. Ne kadar sert, onu kolun. Üç vuruş.',
         '1': 'Örsün başında bir yüzeyli mi? Neyse, herkes bir yerden başlar.'
       },
-      ore: {
-        '1': 'İyi, dürüst metal. Ironhold buna her zaman para öder.'
-      },
+      ore: { '1': 'İyi, dürüst metal. Koy şuraya, parça başı öderim.' },
+      sellBack: { '1': 'Adil alışveriş. Ironhold iyi metale hep öder.' },
       forgeBack: {
         '1': 'Bir cüce daha iyisini yapardı. Ama çok da değil.'
       },
@@ -3528,9 +5142,8 @@ export default {
         '2': 'Isıt, vur, çevir. Üç vuruş, tam parıltıya. Sonra soğumaya bırak.',
         '1': 'Zırh sabır işidir. Sana temelleri göstereyim.'
       },
-      ore: {
-        '1': 'Bir tartayım. Güzel. Para senin.'
-      },
+      ore: { '1': 'Bir tartayım. Ne satacağını seç, paraları ben sayarım.' },
+      sellBack: { '1': 'Tartıldı, ödendi. İyi.' },
       forgeBack: {
         '1': 'Giymeden önce soğumasını bekle.'
       },
@@ -3570,9 +5183,8 @@ export default {
         '2': 'Örsün başında da, savaş alanındaki gibi disiplin. Üç vuruş, parıltıya sadık.',
         '1': 'Tarikat dostlarını silahlandırır. Sana öğreteceğim.'
       },
-      ore: {
-        '1': 'Tarikat savaş için bütün cevheri satın alır. Ödemen.'
-      },
+      ore: { '1': 'Tarikat savaş için cevher alır. Ayırabildiğini sat.' },
+      sellBack: { '1': 'Ödemen kaydedildi. Tarikat sana teşekkür eder.' },
       forgeBack: {
         '1': 'İyi dövülmüş. İçinde iyi hizmet et.'
       },
@@ -3974,6 +5586,11 @@ export default {
       }
     },
     bark: {
+      banditChief: {
+        whistle: {
+          1: 'Kalkın evlatlar! Isırın onları!'
+        }
+      },
       lightDisciple: {
         freed: {
           '1': 'Seni ışık gönderdi. Ben Rahibe Aurelle. Beni Sunford’da ara, sana Işık Getiren yolunu öğreteyim.'
@@ -4129,9 +5746,8 @@ export default {
         '2': 'En kızgın parladığında vur. Üç iyi vuruş iyi bir parça çıkarır.',
         '1': 'Çekici kendin denemek ister misin? Ocağı paylaşmaya razıyım.'
       },
-      ore: {
-        '1': 'Güzel cevher. Silverbridge her zaman adil fiyat öder.'
-      },
+      ore: { '1': 'Güzel cevher. Ne satacağını göster, parça başı öderim.' },
+      sellBack: { '1': 'Memnun oldum. Silverbridge hep adil fiyat öder.' },
       forgeBack: {
         '1': 'Şuna bak! Doğuştan yeteneklisin.'
       },
@@ -4573,7 +6189,7 @@ export default {
         say: 'Otları nerede bulurum?'
       },
       elixirs: {
-        '1': 'Her biri seni bir savaşta tam bir dakika güçlendirir. Daha sert vuruşlar, daha sağlam deri, daha çevik ayaklar.',
+        '1': 'Her biri seni bir savaşta tam 5 dakika güçlendirir. Daha sert vuruşlar, daha sağlam deri, daha çevik ayaklar.',
         '2': 'Üçüncü şişende dururlar. Hangisini içeceğini değiştirmek için küçük oka dokun.',
         say: 'Eliksirler ne işe yarar?'
       },
@@ -4642,6 +6258,36 @@ export default {
       },
       bye: {
         '1': 'Daha çok hurda getir! Hurda en sevdiğim şey.'
+      }
+    },
+    sunfordCups: {
+      hello: {
+        1: 'Yaklaşın! Üç fincan, bir mücevher ve ilk tur bizden!',
+        2: 'Nell Nimblefingers. Ellerimi henüz kimse kandıramadı. Denemek ister misin?'
+      },
+      again: {
+        1: 'Yine mi sen? Gözlerini aç!'
+      },
+      play: {
+        1: 'Gözün mücevherde olsun dostum. Göz kırpma!'
+      },
+      rules: {
+        1: 'Mücevheri bir fincanın altına saklayıp fincanları karıştırırım. Sen onu saklayan fincanı gösterirsin.',
+        2: 'Üst üste her galibiyet daha çok öder. Üç galibiyet ödül, beş galibiyet hazine getirir. Günün ilk turu bedava.',
+        say: 'Nasıl oynanıyor?'
+      },
+      who: {
+        1: 'Yürümeden önce karıştırmayı öğrendim. Annem bunun çok şeyi açıkladığını söyler.'
+      },
+      luck: {
+        1: 'Bazen! O zaman çok yüksek sesle inlerim, kalabalık bana acır.',
+        say: 'Hiç kaybeder misin?'
+      },
+      playBack: {
+        1: 'Harika tur! Yarın gel, ilk tur hep bedava.'
+      },
+      bye: {
+        1: 'Görüşürüz! Dışarıda gözlerini açık tut.'
       }
     },
     oakGambler: {
@@ -5135,6 +6781,7 @@ export default {
     banditArcher: 'Okçu Haydut',
     wolf: 'Kurt',
     banditChief: 'Haydut Reisi',
+    gnome: 'Cüce',
     goblinKing: 'Goblin Kralı',
     treant: 'Ağaç Adam',
     spider: 'Dev Örümcek',
@@ -5352,6 +6999,18 @@ export default {
       firefoxColors: 'Firefox: Ayarlar → Renkler → “Sayfanın belirttiği renkleri geçersiz kıl” seçeneğini Hiçbir zaman yap.'
     }
   },
+  samsungFix: {
+    title: 'Hızlı renk kontrolü',
+    body: 'Bazı telefonlar web sayfalarının renklerini değiştirir. Aşağıdaki iki kareyi karşılaştır.',
+    question: 'İki kare de aynı görünüyor mu?',
+    refSquare: 'Referans kare',
+    pageSquare: 'Sayfa karesi',
+    yes: 'Evet, aynı görünüyorlar',
+    no: 'Hayır, farklı görünüyorlar',
+    option: 'Renkleri düzelt (Samsung karanlık modu)',
+    optionHint: 'Menüler karanlık görünüyorsa veya yazı zor okunuyorsa aç.',
+    recheck: 'Renk kontrolünü tekrarla'
+  },
   saveStatus: {
     restoredTitle: 'Bulut kaydı geri yüklendi',
     restoredBody: 'Kurtarma için +{n} bonus altın',
@@ -5476,7 +7135,7 @@ export default {
   },
   forge: {
     upgrade: 'Geliştir ({n} altın)',
-    max: 'Tamamen geliştirildi: +{n}.',
+    next: 'Sonraki +{level}: istatistikler +{pct}%',
     town: 'Her kasabanın demircisi bunu geliştirebilir.'
   },
   ore: {
@@ -5491,6 +7150,12 @@ export default {
     },
     mithril: {
       name: 'Mithril cevheri'
+    },
+    adamant: {
+      name: 'Adamant cevheri'
+    },
+    aetherite: {
+      name: 'Eterit cevheri'
     }
   },
   plant: {
@@ -5572,32 +7237,32 @@ export default {
   elixir: {
     might: {
       name: 'Kudret Eliksiri',
-      desc: 'Bir dakika boyunca +{n}% hasar'
+      desc: '5 dakika boyunca +{n}% hasar'
     },
     iron: {
       name: 'Demirderi Şerbeti',
-      desc: 'Bir dakika boyunca +{n}% zırh'
+      desc: '5 dakika boyunca +{n}% zırh'
     },
     swift: {
       name: 'Çeviklik Toniği',
-      desc: 'Bir dakika boyunca +{n}% hız ve saldırı hızı'
+      desc: '5 dakika boyunca +{n}% hız ve saldırı hızı'
     },
     mind: {
       name: 'Berrak Zihin Karışımı',
-      desc: 'Yetenekler bir dakika boyunca {n}% daha hızlı dolar'
+      desc: 'Yetenekler 5 dakika boyunca {n}% daha hızlı dolar'
     },
     vigor: {
       name: 'Dinçlik Eliksiri',
-      desc: 'Bir dakika boyunca her saniye canının {n}% kadarını yeniler'
+      desc: '5 dakika boyunca her saniye canının {n}% kadarını yeniler'
     },
     shadow: {
       name: 'Susamış Şerbet',
-      desc: 'Bir dakika boyunca vuruşların, verdikleri hasarın {n}% kadar canını yeniler'
+      desc: '5 dakika boyunca vuruşların, verdikleri hasarın {n}% kadar canını yeniler'
     }
   },
   alchemy: {
     talk: 'Otlar girer, eliksirler çıkar. Hangisini kaynatalım?',
-    lead: 'Her eliksir bir savaşta bir dakika etki eder. Onu üçüncü şişenden iç. Her birinden {n} tane taşıyabilirsin.',
+    lead: 'Her eliksir bir savaşta 5 dakika etki eder. Onu üçüncü şişenden iç. Her birinden {n} tane taşıyabilirsin.',
     brew: 'Kaynat · {n}',
     carry: 'Bunu taşı',
     carried: 'Şişende',
@@ -5621,6 +7286,25 @@ export default {
     again: 'Tekrar oyna',
     noGold: 'Bu bahis için yeterli altının yok.',
     card: 'Kart {n}'
+  },
+  cups: {
+    title: 'Fincan Tezgâhı',
+    lead: 'Mücevhere bak, fincanını takip et, sonra göster. Üst üste her galibiyet daha çok öder. Üçüncüsü ödül parçası, beşincisi hazine getirir.',
+    free: 'Bedava tur',
+    fee: 'Oyna · {n}',
+    row: 'Üst üste galibiyet: {n} / {max}',
+    next: 'Sonraki galibiyet: {n} altın',
+    watch: 'Mücevhere bak!',
+    follow: 'Takip et…',
+    pick: 'Bir fincan seç!',
+    hint: 'Bir fincana dokun ya da numarasına bas.',
+    won: 'Buldun! +{n} altın',
+    lost: 'O değildi. Seri baştan başlıyor.',
+    near: 'Ucu ucuna! Hemen yanındaydı.',
+    timeout: 'Çok yavaş! Seri baştan başlıyor.',
+    again: 'Tekrar oyna',
+    noGold: 'Yeterli altın yok. Yarın ilk tur bedava.',
+    cup: '{n}. fincan'
   },
   battle: {
     title: 'Eşya Düellosu',

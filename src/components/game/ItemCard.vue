@@ -87,6 +87,8 @@ const attrColor = (id: string): string => ATTR_COLOR[id as Attr]
   box-shadow: var(--bc-drop)
   color: var(--bc-paper-ink)
   text-align: start
+  // Border-inset ornaments (roadmap #127).
+  +cel.ornate-corners(clamp(0.95rem, 4vmin, 1.3rem), 0.18rem)
 .item-card__head
   display: flex
   align-items: center

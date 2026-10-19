@@ -3,6 +3,7 @@ import { ArenaCrowd } from '../gfx/arenaCrowd'
 import { nextMilestone } from '../data/arena'
 import type { GameMode } from '../engine/app'
 import { FollowCam, CAM_FOV, CAM_PITCH } from '../engine/camera'
+import { ShakeBudget, critTrauma } from '../engine/shakeBudget'
 import { consumeEdges, type Input } from '../engine/input'
 import { getRenderer } from '../engine/renderer'
 import { createSlicer, yieldToBrowser, type Slice } from '../engine/slicer'
@@ -19,10 +20,11 @@ import { ITEM_BY_ID, type ZoneId } from '../data/items'
 import { applyPlan, populateTown, populateZone, summonDragonAlly } from '../sim/director'
 import { arenaKinds, leaveLadder, leaveVisit } from '../sim/director'
 import type { ArenaMod } from '../arenaWeek'
+import { cellOf } from '../sim/grid'
 import { castSkill, createHero, cycleTarget, orderAttack, orderMove, setStick, slotState, usePotion } from '../sim/hero'
 import { stepSim } from '../sim/step'
 import { reviveHero } from '../sim/combat'
-import { generateArena, generateEncounter, generateTown, generateZone, type ZonePlan } from '../sim/zoneGen'
+import { generateArena, generateEncounter, generateZone, type ZonePlan } from '../sim/zoneGen'
 import { Sim } from '../sim/world'
 import { captureBaseline, restoreSim, snapshotSim, type SimBaseline, type SimSnapshot } from '../sim/snapshot'
 import type { DamageType, SimEvent, Unit } from '../sim/types'
@@ -42,20 +44,26 @@ import { SLOW_MO, slowMoScale } from '../gfx/slowMo'
 import { LevelProps } from '../gfx/levelProps'
 import type { TownView } from '../gfx/townView'
 import { loadTownView } from '../gfx/townLoader'
-import { prefetchLikely, prefetchNow } from '../assets/preload'
+import { prefetchLikely, prefetchNow, queueEarlyArt } from '../assets/preload'
+import { idleTask } from '@/utils/idleQueue'
 import { UI_ART } from '../assets/overrides'
 import { StillCull } from '../gfx/cull'
-import { townCanTalk } from '../sim/town'
-import { townAddress, townGreet } from '../sim/townLife'
+import { BAKE_TILE, StillBake } from '../gfx/stillBake'
+import { townExitAt } from '../sim/townCells'
+import { townSim, townSimReady } from '../sim/townHooks'
+import { loadTownSim } from '../sim/townSimLoader'
+import { loadTalk } from '../talkLoader'
 import { POTION_CD, ROLL_CD, cycleElixir, rollHero, useElixir, useManaPotion } from '../sim/hero'
 import { nearChest, orderOpen, pickChest } from '../sim/interact'
 import { nearOre, orderMine, pickOre } from '../sim/ores'
 import { hud, hudLive, pushHud, sayBark, tickHud, type SkillSlotView, type TextKind } from '../state/hud'
 import { heroBuild, loadoutActive, markTip, profile } from '../state/profile'
-import { coach } from '../coach'
+import { coach, hintGeo, hintPath } from '../coach'
 import { emitCrumbs, findChest, finder, peekOffset } from '../coach/nudgeFx'
 import { BOARD, BOARD_REACH } from '../townTasks'
 import { isDummy, spawnDummy, stepDummy } from '../coach/dummy'
+import { armMentor, boostOpeningFoes, stepMentor, syncHeroSkills } from '../coach/mentor'
+import { MENTOR_SKILL } from '../data/mentor'
 import { markRevealUsed } from '../coach/reveal'
 import { PREVIEW_FEED } from '../previewFlags'
 import { setBossMusic } from '@/use/useSound'
@@ -209,11 +217,14 @@ export class ZoneMode implements GameMode {
   private cb: ZoneCallbacks
   private terrain!: Terrain
   private vfx!: Vfx
+  private critShakes = new ShakeBudget()
   private markers!: Markers
   private bars!: HealthBars
   private walls = new WallRocks()
   /** The still world (scenery tiles, ground, props, houses), culled by its boxes. */
   private still = new StillCull()
+  /** The still world merged into a few draws per tile (`gfx/stillBake.ts`, roadmap #151). */
+  private baked = new StillBake()
   /** See-through copies of materials, held so their programs stay compiled (`warmUp`). */
   private variants: Material[] = []
   /** The height of this place's ground. */
@@ -249,6 +260,8 @@ export class ZoneMode implements GameMode {
   private low = sceneQuality() === 'low'
   /** A conversation is on (`setTalk`): input locked, speakers turned, camera framing them. */
   private talkOn = false
+  /** A town's way out may take the hero to the map (#131): armed once he has stood outside it, so coming back from the map in the gateway does not send him again. */
+  private exitArmed = false
   /** The townsperson spoken to (unit id; 0: the speaker is not in the scene). */
   private talkNpc = 0
   /** Where they were looking before they turned to the hero. */
@@ -266,6 +279,10 @@ export class ZoneMode implements GameMode {
   private baseline: SimBaseline | null = null
   /** The training dummy was set up in this visit. */
   private dummy = false
+  /** The early art was moved up for this visit's first boss. */
+  private bossArt = false
+  /** Skills the hero knew when the loadout was last copied into the scene. */
+  private learnedN = profile.hero.learned.length
 
   private constructor(setup: ZoneSetup, plan: ZonePlan, input: Input, cb: ZoneCallbacks) {
     this.setup = setup
@@ -282,8 +299,11 @@ export class ZoneMode implements GameMode {
   /** Build a visit, time-sliced so the loader keeps painting. */
   static async create(setup: ZoneSetup, input: Input, cb: ZoneCallbacks, onProgress: (p01: number) => void = () => {}, resume?: VisitResume): Promise<ZoneMode> {
     const slice: Slice = createSlicer(12)
+    // A town's simulation and its people's conversations are chunks of their
+    // own (roadmap #142), usually fetched long before on the idle queue.
+    if (setup.kind === 'town') await Promise.all([loadTownSim(), loadTalk()])
     const plan = setup.kind === 'town'
-      ? generateTown(TOWNS[setup.town!], setup.flags, setup.seed)
+      ? townSim().generateTown(TOWNS[setup.town!], setup.flags, setup.seed)
       : setup.kind === 'arena'
         ? generateArena(setup.seed)
         : setup.encounter
@@ -298,7 +318,12 @@ export class ZoneMode implements GameMode {
     const sim = m.sim
     if (setup.arenaMod) sim.arenaMod = setup.arenaMod
     // The opening fight's own tuning (`OPENING`): harder blows, the level-up on the result screen.
-    if (setup.kind === 'zone' && setup.tutorial) { sim.enemyDmgMul = OPENING.dmg; sim.holdLevelUp = true }
+    if (setup.kind === 'zone' && setup.tutorial) {
+      sim.enemyDmgMul = OPENING.dmg
+      sim.holdLevelUp = true
+      // A hero who already knows the teacher's skill meets foes that carry it in (a saved visit regenerates the same).
+      if (profile.hero.learned.includes(MENTOR_SKILL)) sim.enemyHpMul = OPENING.skillHp
+    }
     applyPlan(sim, plan)
     createHero(sim, {
       build: heroBuild(), skills: loadoutActive(), x: plan.start.x, z: plan.start.z, xpInto: profile.hero.xp,
@@ -326,6 +351,8 @@ export class ZoneMode implements GameMode {
     else if (setup.kind === 'town') populateTown(sim, plan, { lite: sceneQuality() === 'low', visit: profile.world.visits[setup.town!] ?? 0 })
     else sim.wave.rest = 1.6
     if (setup.dragonAlly) summonDragonAlly(sim)
+    // The road teacher (#136) walks into the opening fight once its first pack is down.
+    if (setup.kind === 'zone' && setup.tutorial && !profile.hero.learned.includes(MENTOR_SKILL)) armMentor(sim)
     // An escort (#85): what the visit is about, said once at the start.
     if (setup.escort) pushHud({ t: 'toast', key: 'escort.start' })
     sim.events.length = 0
@@ -400,6 +427,13 @@ export class ZoneMode implements GameMode {
     for (const u of sim.units) {
       m.addView(u)
       if ((u.id & 3) === 3) await slice()
+    }
+    // DEV: `?bake=0` keeps the builders' meshes, `?bakeTile=<m>|all` sizes the
+    // baked tiles (the A/B arms of roadmap #151).
+    const q = import.meta.env.DEV && typeof location !== 'undefined' ? new URLSearchParams(location.search) : null
+    if (q?.get('bake') !== '0') {
+      const t = q?.get('bakeTile')
+      await m.baked.bake(m.scene, t === 'all' ? Infinity : t ? Number(t) : BAKE_TILE, slice)
     }
     m.still.collect(m.scene)
     onProgress(0.95)
@@ -548,8 +582,14 @@ export class ZoneMode implements GameMode {
 
   enter(): void {
     this.entered = true
-    // The town's code, fetched while the player is busy here (see `townLoader.ts`).
-    if (!this.town) setTimeout(() => { void loadTownView() }, 2500)
+    // The town's code, fetched while the player is busy here (see `townLoader.ts`):
+    // on the background queue, after the field's own screens (`screens/chunks.ts`).
+    if (!this.town) {
+      idleTask('town-sim', loadTownSim, 13.4)
+      idleTask('town-view', loadTownView, 13.5)
+    }
+    // The conversations' code (a mentor on the road, a quest's decision).
+    idleTask('talk', loadTalk, 12.5)
     // The art of what can be reached from here, on a slow drip (`assets/preload.ts`).
     prefetchLikely(this.setup.zone ?? this.setup.town ?? 'arena')
     hud.phase = this.setup.kind === 'town' ? 'town' : 'play'
@@ -664,7 +704,7 @@ export class ZoneMode implements GameMode {
       for (const n of sim.units) {
         if (n.rank !== 'npc' || !n.npc) continue
         // Not through a wall: in the same room, or either side of a doorway.
-        if (this.plan.town && !townCanTalk(this.plan.town, u.x, u.z, n.x, n.z)) continue
+        if (this.plan.town && !townSim().townCanTalk(this.plan.town, u.x, u.z, n.x, n.z)) continue
         const d = Math.hypot(n.x - u.x, n.z - u.z)
         if (d < bd) { bd = d; best = n }
       }
@@ -771,7 +811,8 @@ export class ZoneMode implements GameMode {
               this.cam.addTrauma(TRAUMA_HEAVY)
             } else if (e.crit || e.heavy) {
               this.hitStop(HIT_STOP_HEAVY)
-              this.cam.addTrauma(e.crit ? TRAUMA_HEAVY : TRAUMA_LIGHT * 1.6)
+              // A crit shakes at half strength and only a few times per 5 s (#140).
+              this.cam.addTrauma(e.crit ? critTrauma(this.critShakes, sim.time, TRAUMA_HEAVY) : TRAUMA_LIGHT * 1.6)
             } else {
               this.hitStop(HIT_STOP_LIGHT)
               this.cam.addTrauma(TRAUMA_LIGHT)
@@ -825,7 +866,7 @@ export class ZoneMode implements GameMode {
             const npc = e.unit ? sim.get(e.unit)?.npc : undefined
             if (npc) this.cb.onInteract(npc)
             // One of the folk, walked up to: a wave and a bubble.
-            else if (e.unit) townGreet(sim, e.unit)
+            else if (e.unit) townSimReady()?.townGreet(sim, e.unit)
             break
           }
           this.vfx.play(e, id => sim.get(id)?.h ?? 1.2)
@@ -985,6 +1026,14 @@ export class ZoneMode implements GameMode {
     stepSim(this.sim, this.plan, simDt)
     // The dummy knocked apart (or walked past): the opening beat is done for good.
     if (stepDummy(this.sim)) markTip('dummy')
+    stepMentor(this.sim, simDt)
+    // A skill learned on the way (hers) joins the hero in the scene at once.
+    if (profile.hero.learned.length !== this.learnedN) {
+      this.learnedN = profile.hero.learned.length
+      syncHeroSkills(this.sim, loadoutActive())
+      // Learned mid-fight in the opening: the foes still standing toughen to match.
+      if (this.setup.kind === 'zone' && this.setup.tutorial && profile.hero.learned.includes(MENTOR_SKILL)) boostOpeningFoes(this.sim, OPENING.skillHp)
+    }
     this.drain()
     coach.step(this, simDt)
     if (first) consumeEdges(this.input)
@@ -1114,6 +1163,7 @@ export class ZoneMode implements GameMode {
         this.markers.aim(true, hx, hz, def.range, ax, az, def.target === 'dir' ? 0 : def.radius ?? (def.target === 'enemy' ? 0.9 : 0), def.color, inRange)
       } else this.markers.aim(false)
     } else this.markers.aim(false)
+    this.markers.way(dt, hintGeo.talk.on, hx, hz, hintPath.world, hintPath.world.length >> 1)
     this.markers.update(dt)
 
     this.vfx.syncProjectiles(sim.projectiles, a, fxDt)
@@ -1241,6 +1291,9 @@ export class ZoneMode implements GameMode {
       const d = Math.hypot(e.x - u.x, e.z - u.z)
       if (d < bossD) { bossD = d; boss = e }
     }
+    // A first-timer's first boss: what follows the fight (the level-up, the
+    // loot, the book) has its art moved to the head of the idle queue (D149).
+    if (boss && !hud.bossKey && !this.bossArt && profile.stats.runs === 0) { this.bossArt = true; queueEarlyArt(true) }
     hud.bossKey = boss ? 'enemy.' + boss.kind : ''
     hud.bossHp01 = boss ? boss.hp / boss.s.maxHp : 0
     hud.bossLevel = boss?.level ?? 0
@@ -1258,16 +1311,21 @@ export class ZoneMode implements GameMode {
     hud.zoneLevel = sim.level
     // The townsperson within reach.
     let near = ''
-    if (this.setup.kind === 'town') {
+    if (this.setup.kind !== 'arena') {
       let bd = 3.2
       for (const n of sim.units) {
         if (n.rank !== 'npc' || !n.npc) continue
-        if (this.plan.town && !townCanTalk(this.plan.town, u.x, u.z, n.x, n.z)) continue
+        if (this.plan.town && !townSim().townCanTalk(this.plan.town, u.x, u.z, n.x, n.z)) continue
         const d = Math.hypot(n.x - u.x, n.z - u.z)
         if (d < bd) { bd = d; near = n.npc }
       }
     }
     hud.interactKey = near
+    // Walking into the town's way out leaves for the map (#131).
+    if (this.setup.kind === 'town' && this.plan.town && u.alive) {
+      if (!townExitAt(this.plan.town.exits, cellOf(u.x), cellOf(u.z))) this.exitArmed = true
+      else if (this.exitArmed && !this.talkOn) { this.exitArmed = false; this.cb.onPanel('map') }
+    }
     // The notice board in the square (#85), when nobody nearer has the word.
     const board = this.boardSpot()
     hud.interactBoard = !near && !!board && Math.hypot(board.x - u.x, board.z - u.z) < BOARD_REACH
@@ -1305,11 +1363,11 @@ export class ZoneMode implements GameMode {
     if (was) was.facing = this.talkFace
     this.talkNpc = 0
     this.talkOn = on
-    if (!on) { this.talkHold = 0.3; townAddress(sim, 0); return }
+    if (!on) { this.talkHold = 0.3; townSimReady()?.townAddress(sim, 0); return }
     const npc = npcId ? sim.units.find(u => u.npc === npcId) : undefined
     if (npc) { this.talkNpc = npc.id; this.talkFace = npc.facing }
     // They stop what they are doing and turn to him (`sim/townLife.ts`).
-    townAddress(sim, npc ? npc.id : 0)
+    townSimReady()?.townAddress(sim, npc ? npc.id : 0)
     // Whatever he was on his way to, he stands and listens.
     const h = sim.hero
     h.order.kind = 'none'
@@ -1406,6 +1464,7 @@ export class ZoneMode implements GameMode {
     this.crowd?.dispose()
     this.chest?.dispose()
     this.terrain.dispose()
+    this.baked.dispose()
     for (const v of this.variants) v.dispose()
     clearGround(this.field)
     this.scene.clear()

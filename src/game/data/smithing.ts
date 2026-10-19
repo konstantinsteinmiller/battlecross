@@ -1,8 +1,8 @@
-import { ITEM_BY_ID, SMITH_METAL, SMITH_PIECES, sellValue, smithItemId, type SmithMetal, type SmithPiece } from './items'
+import { ITEM_BY_ID, SMITH_LINES, SMITH_METAL, SMITH_PIECES, sellValue, smithItemId, type SmithLine, type SmithMetal, type SmithPiece } from './items'
 import { ORE_IDS } from './ores'
 
 /**
- * ─── Smithing (roadmap #99, D121–D123) ──────────────────────────────────────
+ * ─── Smithing (roadmap #99, #150, D121–D123) ──────────────────────────────────────
  *
  * A town smith teaches it once; the first nugget of a metal makes its six
  * pieces known. A piece takes nuggets and gold (never less gold than the
@@ -13,6 +13,10 @@ import { ORE_IDS } from './ores'
  *   good     the plain piece, one forge level up
  *   great    the masterwork twin (a quality higher), one level up
  *   perfect  the masterwork twin, three levels up
+ *
+ * The smith forges for any of the six attributes (roadmap #148): each recipe
+ * is a piece of one build's line, at the same price and in the same grades as
+ * its strength sibling.
  *
  * A hand long past the metal (eight levels above the piece) strikes a grade
  * better. Forging a piece already owned works it up instead (its levels, at
@@ -26,6 +30,8 @@ export interface Recipe {
   id: string
   metal: SmithMetal
   piece: SmithPiece
+  /** The attribute the piece is built around. */
+  line: SmithLine
   nuggets: number
   gold: number
   /** The plain piece and its masterwork twin. */
@@ -36,15 +42,19 @@ export interface Recipe {
 
 const NUGGETS: Readonly<Record<SmithPiece, number>> = { sword: 3, hammer: 4, shield: 3, helm: 2, plate: 5, greaves: 2 }
 
-export const RECIPES: readonly Recipe[] = ORE_IDS.flatMap(metal => SMITH_PIECES.map(piece => {
-  const master = smithItemId(metal, piece, true)
+/** A recipe's id: strength's is the original `iron:sword`, the others add their attribute. */
+export const recipeId = (metal: SmithMetal, piece: SmithPiece, line: SmithLine = 'str'): string =>
+  line === 'str' ? `${metal}:${piece}` : `${metal}:${piece}:${line}`
+
+export const RECIPES: readonly Recipe[] = SMITH_LINES.flatMap(line => ORE_IDS.flatMap(metal => SMITH_PIECES.map(piece => {
+  const master = smithItemId(metal, piece, true, line)
   return {
-    id: `${metal}:${piece}`, metal, piece, nuggets: NUGGETS[piece],
+    id: recipeId(metal, piece, line), metal, piece, line, nuggets: NUGGETS[piece],
     // A bigger piece costs more; never so little that forging pays.
     gold: Math.round(sellValue(ITEM_BY_ID[master]!) * (0.8 + 0.1 * NUGGETS[piece])),
-    item: smithItemId(metal, piece, false), master, level: SMITH_METAL[metal].level
+    item: smithItemId(metal, piece, false, line), master, level: SMITH_METAL[metal].level
   }
-}))
+})))
 export const RECIPE_BY_ID: Readonly<Record<string, Recipe>> = Object.fromEntries(RECIPES.map(r => [r.id, r]))
 
 // ─── The forge's mini-game (D123) ───────────────────────────────────────────
@@ -52,9 +62,9 @@ export const RECIPE_BY_ID: Readonly<Record<string, Recipe>> = Object.fromEntries
 /** Strikes a piece takes. */
 export const STRIKES = 3
 /** How fast the glow sweeps the bar (lengths a second), by metal: the rarer the quicker. */
-export const SWEEP: Readonly<Record<SmithMetal, number>> = { iron: 0.7, silver: 0.85, gold: 1.0, mithril: 1.15 }
+export const SWEEP: Readonly<Record<SmithMetal, number>> = { iron: 0.7, silver: 0.85, gold: 1.0, mithril: 1.15, adamant: 1.28, aetherite: 1.4 }
 /** The hot spot's half width (a share of the bar), by metal: the rarer the narrower. */
-const SPOT: Readonly<Record<SmithMetal, number>> = { iron: 0.12, silver: 0.1, gold: 0.085, mithril: 0.07 }
+const SPOT: Readonly<Record<SmithMetal, number>> = { iron: 0.12, silver: 0.1, gold: 0.085, mithril: 0.07, adamant: 0.062, aetherite: 0.055 }
 
 /** The hot spot's half width for a smith of this Dexterity: a steady hand widens it (up to half again). */
 export const spotHalf = (metal: SmithMetal, dex: number): number => SPOT[metal] * (1 + Math.min(0.5, Math.max(0, dex) / 120))

@@ -113,6 +113,9 @@ export const MUSIC_TRACK_KEY = 'bc_user_music_track'
 export const MOBILE_MUTE_KEY = 'bc_mobile_mute'
 /** Vibration on / off (boolean). Absent means ON — see `useHaptics.ts`. */
 export const HAPTICS_KEY = 'bc_user_haptics'
+/** Samsung dark-mode colour fix: 'on' | 'off' | 'unneeded' (string). Absent means the player has not been asked yet.
+ *  See `useSamsungFix.ts`. */
+export const SAMSUNG_FIX_KEY = 'bc_samsung_fix'
 /** Rebound main keys, action → `KeyboardEvent.code` (`engine/keyBindings.ts`). */
 export const KEY_BINDINGS_KEY = 'bc_user_key_bindings'
 /** Keyboard layout: auto-detect on / off, the manual pick, the layout last

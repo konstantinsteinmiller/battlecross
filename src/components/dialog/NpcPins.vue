@@ -26,6 +26,9 @@
 
 <script setup lang="ts">
 /**
+ * (In a fight it marks the road teacher of the opening visit, #136, who walks
+ * in after the first pack and has her mark over her head from then on.)
+ *
  * The markers over the townspeople: a quest mark while their quest is
  * undecided, else their trade (anvil or gem, book, flask) or a speech bubble —
  * with a dot when they have something new to say. The one in reach turns into
@@ -40,7 +43,8 @@ import { useI18n } from 'vue-i18n'
 import { addHudTicker, hud } from '@/game/state/hud'
 import { flow, npcById } from '@/game/flow'
 import { currentZone, input } from '@/game/boot'
-import { dialogWorld, npcPin, type NpcPin } from '@/game/talk'
+import { dialogWorld, npcPin, talkCodeReady, type NpcPin } from '@/game/talk'
+import { loadTalk } from '@/game/talkLoader'
 import { DEFAULT_BINDINGS } from '@/game/engine/keyBindings'
 import type { ZoneMode } from '@/game/modes/zoneMode'
 import type { GameIconName } from '@/components/icons/iconNames'
@@ -62,12 +66,18 @@ const setEl = (el: Element | ComponentPublicInstance | null, id: string): void =
 
 const ICON: Record<NpcPin, GameIconName> = { quest: 'chat', shop: 'anvil', trainer: 'book', healer: 'flask', alchemist: 'flask', gambler: 'coin', talk: 'chat' }
 
+const npcCount = (zone: ZoneMode): number => {
+  let n = 0
+  for (const u of zone.sim.units) if (u.npc && u.alive) n++
+  return n
+}
+
 let seen: ZoneMode | null = null
 const rebuild = (): void => {
   const zone = currentZone()
   seen = zone
   const out: Pin[] = []
-  if (zone && zone.setup.kind === 'town') {
+  if (zone && (zone.setup.kind === 'town' || zone.setup.kind === 'zone')) {
     const w = dialogWorld()
     for (const u of zone.sim.units) {
       const def = u.npc ? npcById(u.npc) : null
@@ -79,6 +89,9 @@ const rebuild = (): void => {
     }
   }
   pins.value = out
+  // Whether they have news is the conversations' (a lazy chunk, roadmap #142):
+  // asked again once it is here.
+  if (out.length && !talkCodeReady()) void loadTalk().then(rebuild, () => {})
 }
 
 const p = { x: 0, y: 0 }
@@ -87,7 +100,8 @@ onMounted(() => {
   rebuild()
   remove = addHudTicker(() => {
     const zone = currentZone()
-    if (zone !== seen) rebuild()
+    // A teacher who walks into a fight has no pin until she is there.
+    if (zone !== seen || (!!zone && zone.setup.kind === 'zone' && npcCount(zone) !== pins.value.length)) rebuild()
     if (!zone) return
     for (const pin of pins.value) {
       const el = els.get(pin.id)

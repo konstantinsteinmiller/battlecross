@@ -1,7 +1,9 @@
-import { CHARISMA_ITEMS, ITEMS, MYTHICS, SMITHED, SMITH_METAL, SMITH_PIECES, smithItemId, TIER_COLOR, type ItemDef, type SmithMetal, type SmithPiece } from '../data/items'
+import { CHARISMA_ITEMS, DEXTERITY_ITEMS, GAPFILL_ITEMS, ITEMS, MYTHICS, SMITHED, SMITH_LINES, SMITH_METAL, SMITH_PIECES, smithItemId, TIER_COLOR, type ItemDef, type SmithLine, type SmithMetal, type SmithPiece } from '../data/items'
 import { CLASSES, CLASS_IDS, skillsOf, type ClassId } from '../data/skills'
 import { HERO_OUTFITS, heroPortraitId } from './heroPortrait'
 import { BRAND_REFS } from './brandRefs'
+import { ORNAMENTS } from './ornamentRefs'
+import { BAR_FRAME_REFS } from './barFrameRefs'
 import { CG_BANNER, COVER_RECOMPOSED, COVER_SCENES, FAMILY_SIZE, VOID_DRAGON, type CoverScene } from './coverScenes'
 import { CLASS_EMBLEM_BLURBS, MARK_ICONS, SLOT_BLURBS, SLOT_GLYPH, STATUS_BLURBS, UI_ICONS } from './iconBlurbs'
 import { GLYPHS } from '../../components/art/glyphs'
@@ -73,6 +75,9 @@ export type ArtKind = 'items' | 'skills' | 'portraits' | 'ui' | 'textures' | 'ic
 /** Town and quest speakers, as the brief sets them out. */
 const TOWN_LOOKS = ['smith', 'peddler', 'elder', 'healer', 'goblinTrader', 'captain', 'fence', 'dwarf', 'tinker'] as const
 const TRAINER_LOOKS = ['trainerAegis', 'trainerShadow', 'trainerPyro', 'trainerSovereign', 'trainerChrono', 'trainerBlood', 'trainerAether', 'trainerGeo'] as const
+/** The other teachers: the class disciples and the masters of the skill UI, in two sheets. */
+const MASTER_LOOKS_A = ['sfShadow', 'sfGeo', 'lightDisciple', 'windDisciple', 'frostDisciple', 'sbMasterAegis', 'sbMasterPyro', 'sbMasterShadow', 'sbMasterSovereign', 'sbMasterGeo', 'sbMasterAether', 'sbMasterChrono'] as const
+const MASTER_LOOKS_B = ['sbMasterBlood', 'sbMasterWindrunner', 'sbMasterFrostwarden', 'sbMasterLightbringer', 'sbMasterBeastcaller', 'sbMasterElementalist', 'sbMasterSoulwarden', 'sbMasterIronmonk', 'sbMasterBard'] as const
 const SPEAKER_LOOKS = ['goblinKing', 'warlord', 'oracle', 'dragon', 'archDemon'] as const
 /** The hero, once per outfit family: `hero-tunic` … `hero-plate`. */
 const HERO_LOOKS: readonly string[] = HERO_OUTFITS.map(o => heroPortraitId(o))
@@ -83,8 +88,9 @@ const HERO_F_LOOKS: readonly string[] = HERO_OUTFITS.map(o => heroPortraitId(o, 
 export const ART_CATALOGUE: Readonly<Record<ArtKind, readonly string[]>> = {
   items: [...ITEMS, ...SMITHED, ...MYTHICS].map(i => i.id),
   skills: CLASS_IDS.flatMap(c => skillsOf(c).map(s => s.id)),
-  portraits: [...TOWN_LOOKS, ...TRAINER_LOOKS, ...SPEAKER_LOOKS, ...HERO_LOOKS, ...HERO_F_LOOKS],
-  ui: ['coin', 'map', 'bg-trade', 'bg-inventory', 'bg-skills'],
+  portraits: [...TOWN_LOOKS, ...TRAINER_LOOKS, ...MASTER_LOOKS_A, ...MASTER_LOOKS_B, ...SPEAKER_LOOKS, ...HERO_LOOKS, ...HERO_F_LOOKS],
+  // ... and the border-inset ornaments of the cel interface (`ORNAMENTS`).
+  ui: ['coin', 'cup', 'map', 'bg-trade', 'bg-inventory', 'bg-skills', 'bg-forge', 'bg-alchemy', ...ORNAMENTS.map(o => o.id), ...Object.keys(BAR_FRAME_REFS)],
   textures: ['ground'],
   // Defined below with their sheets (`ICON_CELLS`); a getter, because the
   // cells are built after this table.
@@ -174,6 +180,38 @@ const ITEM_BLURBS: Readonly<Record<string, string>> = {
   timekeepersHourglass: 'a small hourglass: two glass bulbs holding coloured sand, half in the top and half in the bottom, between two flat gold end plates',
   ringOfTheVampyre: 'a heavy gold finger ring with a pointed claw-shaped setting holding one deep, dark teardrop-cut stone',
   sovereignsSignet: 'a broad gold signet ring with a flat oval face on top, engraved with three small points in a row',
+  // The Dexterity set
+  pickpocketsKnife: 'a short plain dagger with a stubby single-edged blade, a bare iron crossguard and a wrapped cord grip',
+  serpentsFang: 'a slim curved dagger whose blade bends like a snake fang, with a thin groove down its middle and a small green stone in the pommel',
+  phantomRapier: 'a long thin rapier with a pale blade, a swept basket guard of fine silver wire and a narrow dark grip',
+  fangOfTheWindless: 'a slim silver dagger with a gently curved blade etched with three swirling wind lines, a small gold wing-shaped crossguard and a pale blue gem in the pommel',
+  roguesBuckler: 'a small round dark-leather buckler with a plain iron rim and a single iron stud in the middle',
+  venomVial: 'a small round-bellied glass bottle with a long thin neck and a cork stopper, half full of bright green liquid',
+  swiftguardBuckler: 'a small round steel buckler with a raised centre boss and two curved blade-like fins on its rim',
+  nightshadeFlask: 'a tall slim brass-and-glass syringe held diagonally: a clear barrel filled with dark purple liquid, a flat brass plunger on top and a long thin steel nozzle',
+  windveilTarge: 'a light round targe of pale wood edged with silver, painted with three swirling wind curls around a small silver boss',
+  shadowdancersBuckler: 'a small round shield of dark blackened steel with a thin gold rim and a gold crescent moon inlaid across its face',
+  scoutsBandana: 'an empty soft cloth hood seen from the front, short and rounded, in dull green, with a deep dark oval opening and two short ties at the bottom',
+  nightcowl: 'an empty dark grey cloth hood seen from the front: a pointed peak, a deep dark oval opening and a narrow band of stitched leather across the brow',
+  shadowveilHood: 'an empty deep purple cloth hood seen from the front: a pointed peak, a long draped cape collar around the bottom and a small silver clasp at the throat',
+  windrunnersCap: 'a snug pale leather cap with a short curved brim at the front, two small silver wing shapes on its sides and a thin chin strap',
+  maskOfTheSilentWind: 'an empty black hood seen from the front with a pale half-mask sewn onto it: a smooth plain mask with two narrow eye slits, and swirling silver wind lines stitched along the edge',
+  rangersJerkin: 'a fitted green leather jerkin with short shoulder flaps, laced ties down the front and a wide brown belt with a small pouch',
+  nightstalkerLeathers: 'a fitted dark leather tunic with overlapping scale-like plates on the chest, a high collar, dark straps across the front and a wide belt',
+  windridersHarness: 'a light pale leather vest with crossed leather harness straps over the chest, small silver buckles and short shoulder flaps',
+  mantleOfTheShadowDancer: 'a fitted black leather jacket with silver stitching and a high collar, two crossed gold-buckled straps over the chest and a short split cape hanging behind',
+  thiefsGloves: 'one empty fitted glove of dark brown leather seen from the back, fingers up: a rounded hand, a separate thumb and a short plain cuff',
+  cutpurseGloves: 'one empty fitted glove of black leather seen from the back, fingers up: a rounded hand with the fingertips cut open at the ends and a narrow buckled wrist strap',
+  glovesOfTheGale: 'one empty fitted glove of pale grey leather seen from the back, fingers up: a rounded hand with a padded knuckle strip, a separate thumb and a flared silver-edged cuff shaped like a wing',
+  softSoledShoes: 'one pair of low soft leather shoes seen from the side, toe pointing right: thin flexible soles, a simple lace across the top and no heel',
+  catStepBoots: 'one soft calf-high dark boot seen from the side, toe pointing right: a folded cuff, a thin sole and a single small buckle at the ankle',
+  shadowstepBoots: 'one calf-high purple-black leather boot seen from the side, toe pointing right: a close fit, a row of small silver buckles up the outside and a thin sole',
+  windstrideBoots: 'one tall pale leather boot seen from the side, toe pointing right: a folded cuff, a small silver wing shape on the ankle and a thin grey sole',
+  luckyCoin: 'a round gold coin on a short loop of cord with a square hole cut through its middle and a small star engraved above the hole',
+  shadowBand: 'a thin dark steel finger ring with a flat black stone set on top and a thin silver line running around the band',
+  sandglassOfTheSwift: 'a small hourglass: two glass bulbs holding pale silver sand, half in the top and half in the bottom, between two flat steel end plates each with a small wing shape',
+  talonCharm: 'a single curved dark claw on a short loop of cord, capped at its base with a small gold ring and a red bead',
+  windheart: 'a gemstone cut in a rounded heart outline with flat facets, pale blue with swirling white streaks inside it: a carved stone with hard, flat faces, set in a thin silver rim',
   // The Charisma set
   heraldsPin: 'a small round brass brooch with a pin behind it and a tiny trumpet engraved on its face',
   hymnalOfTheRoad: 'a small worn leather book with a cloth strap around it and a pale ribbon bookmark hanging out at the bottom',
@@ -198,23 +236,180 @@ const ITEM_BLURBS: Readonly<Record<string, string>> = {
   heartOfTheArena: 'a large faceted crimson gemstone cut in a rounded heart outline, held in a ring of gold set with four small claws'
 }
 
-// The forge's catalogue (#99): one shape per piece, its metal and its finish said apart.
-const SMITH_SHAPE_BLURB: Readonly<Record<SmithPiece, string>> = {
-  sword: 'a straight one-handed sword: a plain double-edged blade of {m} with a central ridge, a bar crossguard, a leather-wrapped grip and a round pommel',
-  hammer: 'a one-handed war hammer: a blocky {m} head with a flat striking face, on a straight wooden haft bound with leather',
-  shield: 'a kite-shaped shield of riveted {m} plate with a raised centre rib and a rolled rim',
-  helm: 'an empty {m} helmet seen from the front: a round dome with a centre ridge, a riveted brow band and two cheek guards',
-  plate: 'a {m} breastplate with short rounded shoulder plates, two riveted bands across the belly and a plain round boss on the chest',
-  greaves: 'one armoured {m} boot seen from the side, toe pointing right: banded shin plates, a rounded knee guard, a rounded toe cap and a thick dark sole'
+// The forge's catalogue (#99, #148): one shape per piece and build, its metal and its finish said apart.
+const SMITH_SHAPE_BLURB: Readonly<Record<SmithLine, Record<SmithPiece, string>>> = {
+  str: {
+    sword: 'a straight one-handed sword: a plain double-edged blade of {m} with a central ridge, a bar crossguard, a leather-wrapped grip and a round pommel',
+    hammer: 'a one-handed war hammer: a blocky {m} head with a flat striking face, on a straight wooden haft bound with leather',
+    shield: 'a kite-shaped shield of riveted {m} plate with a raised centre rib and a rolled rim',
+    helm: 'an empty {m} helmet seen from the front: a round dome with a centre ridge, a riveted brow band and two cheek guards',
+    plate: 'a {m} breastplate with short rounded shoulder plates, two riveted bands across the belly and a plain round boss on the chest',
+    greaves: 'one armoured {m} boot seen from the side, toe pointing right: banded shin plates, a rounded knee guard, a rounded toe cap and a thick dark sole'
+  },
+  dex: {
+    sword: 'a slim {m} dagger: a short narrow double-edged blade, a small curved guard, a thin leather-wrapped grip and a ring pommel',
+    hammer: 'a light {m} rapier: a long thin blade with a swept hilt of curved bars around the hand, a thin grip and a round pommel',
+    shield: 'a small round {m} buckler with a raised centre boss and a thin rolled rim, light and handy, a leather grip strap showing',
+    helm: 'an empty leather hood with a pointed {m}-studded brow band, seen from the front, with a narrow face opening',
+    plate: 'a fitted leather jerkin seen from the front, with overlapping {m} scale plates on the chest and shoulders, laced at the sides',
+    greaves: 'one light leather boot seen from the side, toe pointing right: a {m} shin band, a buckled strap at the ankle and a thin dark sole'
+  },
+  int: {
+    sword: 'a short magic wand: a slim dark rod with a {m} cap at each end and a small round blue gem floating above the tip',
+    hammer: "a tall mage's staff: a straight dark wooden shaft bound with {m} rings, a {m} crown of three curved prongs holding a round blue gem",
+    shield: 'a closed spellbook bound in dark blue leather with {m} corner plates and a {m} clasp, a round blue gem set in the cover',
+    helm: 'a {m} circlet seen from the front: a thin band with a pointed centre peak holding one round blue gem',
+    plate: "a flowing scholar's robe seen from the front, dark blue cloth with a {m} thread hem, a {m} clasp at the collar and wide sleeves",
+    greaves: 'one soft cloth boot seen from the side, toe pointing right: dark blue cloth with a {m} cuff, a {m} buckle and a thin dark sole'
+  },
+  skl: {
+    sword: 'a compact one-handed pistol seen from the side, muzzle pointing right: a short {m} barrel, a dark wooden grip and a small round sight on top',
+    hammer: 'a long-barrelled rifle seen from the side, muzzle pointing right: a {m} barrel with a ribbed jacket, a dark wooden stock and a small round scope',
+    shield: 'a boxy aether battery: a squat dark case with {m} corner plates, two {m} terminals on top and a glowing violet gem window in the front',
+    helm: 'a close-fitting leather cap with a short {m}-trimmed brim, seen from the front, and a small round violet gem at the brow',
+    plate: 'a fitted leather harness seen from the front, with crossed straps, {m} buckles, a row of small pouches and a violet gem at the chest',
+    greaves: 'one practical leather boot seen from the side, toe pointing right: {m} shin strap buckles, a small pouch at the ankle and a thick dark sole'
+  },
+  cha: {
+    sword: 'a short ceremonial sceptre: a gold-ribbed rod, a {m} grip and a large round gold gem held in four curved {m} claws at the top',
+    hammer: "a tall standard-bearer's staff: a straight dark shaft topped by a {m} crossbar from which hangs a small gold-trimmed banner",
+    shield: 'a heavy codex bound in dark red leather with {m} corner plates and a single round gold clasp on its front',
+    helm: 'a {m} crown seen from the front: a band with five tall points, each tipped with a small round gold gem',
+    plate: "a herald's tabard seen from the front: a long dark red cloth with a {m} embroidered border and a large {m} sun emblem on the chest",
+    greaves: 'one fine boot seen from the side, toe pointing right: soft dark red leather with a {m} cuff, a {m} buckle and a thin dark sole'
+  },
+  end: {
+    sword: 'a heavy flanged mace: a round {m} head with six raised ridges, on a short thick haft bound with leather and a flared pommel',
+    hammer: 'a broad single-bladed battle axe: a wide {m} blade with a rounded edge and a thick back, on a straight wooden haft bound with leather',
+    shield: 'a tall heavy tower shield of riveted {m} plate with a thick rolled rim, a raised centre boss and two bands across it',
+    helm: 'an empty heavy {m} helmet seen from the front: a rounded dome, a broad riveted brow band, a nose guard and deep cheek guards',
+    plate: 'a thick {m} cuirass with broad rounded shoulder plates, three riveted bands across the belly and a wide belt',
+    greaves: 'one heavy armoured {m} boot seen from the side, toe pointing right: broad banded shin plates, a large knee guard, a steel toe cap and a thick dark sole'
+  }
 }
 const SMITH_METAL_BLURB: Readonly<Record<SmithMetal, string>> = {
-  iron: 'dull grey hammered iron', silver: 'bright pale silver', gold: 'polished warm gold', mithril: 'pale blue-white gleaming mithril'
+  iron: 'dull grey hammered iron', silver: 'bright pale silver', gold: 'polished warm gold', mithril: 'pale blue-white gleaming mithril',
+  adamant: 'dark gunmetal-charcoal adamant, a dense near-black grey metal (NOT red, NOT crimson), with a thin red glow only along its edges and a few small red rivets or gems',
+  aetherite: 'glowing violet aetherite, a luminous crystalline metal with pale lilac light running along its edges'
 }
-const SMITH_BLURBS: Readonly<Record<string, string>> = Object.fromEntries((Object.keys(SMITH_METAL) as SmithMetal[]).flatMap(metal => SMITH_PIECES.flatMap(piece => [false, true].map(master => [
-  smithItemId(metal, piece, master),
-  SMITH_SHAPE_BLURB[piece].replace('{m}', SMITH_METAL_BLURB[metal]) + (master ? ', finished as a masterwork: a fine engraved border line along every edge and one small round gem set in the middle' : '')
-]))))
-const ALL_ITEM_BLURBS: Readonly<Record<string, string>> = { ...ITEM_BLURBS, ...SMITH_BLURBS }
+const SMITH_BLURBS: Readonly<Record<string, string>> = Object.fromEntries(SMITH_LINES.flatMap(line => (Object.keys(SMITH_METAL) as SmithMetal[]).flatMap(metal => SMITH_PIECES.flatMap(piece => [false, true].map(master => [
+  smithItemId(metal, piece, master, line),
+  SMITH_SHAPE_BLURB[line][piece].split('{m}').join(SMITH_METAL_BLURB[metal]) + (master ? ', finished as a masterwork: a fine engraved border line along every edge and one small round gem set in the middle' : '')
+])))))
+/** The gap-fill set's blurbs (the audit's hundred and five pieces), by line. Same rules as above. */
+const GAPFILL_BLURBS: Readonly<Record<string, string>> = {
+  // Strength
+  ashwallHeater: 'a kite-shaped shield of soot-black steel with a pale riveted rim and a raised ash-grey cross rib',
+  wyrmhidePavise: 'a tall shield faced with rows of overlapping dull green rounded scales, an iron rim and a short curved horn standing out of its centre boss',
+  footmansKettleHat: 'an empty round iron bowl of a helmet seen from the front, with a broad flat brim all the way round and a simple leather chin strap',
+  ironbrowSallet: 'an empty steel helmet seen from the front: a smooth rounded dome that sweeps down at the back, a heavy riveted brow ridge and a narrow eye slit',
+  warlordsBarbute: 'an empty steel helmet seen from the front with a deep T-shaped face opening, a high rounded crown, a short red horsehair crest and a pair of bronze cheek rivets',
+  helmOfTheSunderedThrone: 'an empty heavy gold-edged steel helmet seen from the front: a tall domed crown split by one deep crack, a gold band across the brow, a narrow T-shaped slit and two short curved gold horns',
+  recruitsCuirass: 'a plain dull steel cuirass with short strap shoulders, a single riveted band across the belly and a patched leather belt',
+  stonecuttersMitts: 'one empty stubby gauntlet of thick brown leather with riveted iron knuckle plates, seen from the back, fingers up: a rounded mitten shape with a short cuff',
+  ashforgedGauntlets: 'one empty heavy gauntlet of soot-dark steel seen from the back, fingers up: a rounded mitten shape of overlapping plates, a pale ember-orange seam along the knuckles and a flared cuff',
+  warbringerGauntlets: 'one empty gauntlet of dark steel seen from the back, fingers up: a rounded mitten shape with three short spikes across the knuckles, a crimson cloth wrap at the wrist and a broad flared cuff',
+  titanfistGauntlets: 'one empty massive gauntlet of gold-edged steel seen from the back, fingers up: a rounded mitten shape of thick plates, a large round gold boss on the back of the hand and a broad gold cuff',
+  footmansGreaves: 'one plain armoured boot seen from the side, toe pointing right: a single dull iron shin plate strapped over brown leather, a rounded toe and a thick sole',
+  ironshodGreaves: 'one armoured boot seen from the side, toe pointing right: two riveted iron shin bands, a small round knee guard, a heavy iron toe cap and a thick dark sole',
+  warlordsSabatons: 'one heavy armoured boot seen from the side, toe pointing right: overlapping dark steel plates over the foot, a pointed toe, a crimson strap at the ankle and a broad rounded knee guard',
+  greavesOfTheMountainfall: 'one massive armoured boot seen from the side, toe pointing right: thick gold-edged steel shin plates, a large rounded knee guard shaped like a boulder and a heavy stone-grey sole',
+  sergeantsSignet: 'a thick plain iron finger ring with a flat square top engraved with two crossed swords',
+  brawlersKnuckleRing: 'a heavy steel ring made as a short row of four blunt knuckle studs, with a dull ember-orange line along its inside',
+  bloodiedWarMedal: 'a round bronze medal hanging from a short red ribbon, a sword pointing down stamped on its face and a dark red stain along one edge',
+  // Endurance
+  watchmansCudgel: 'a short thick wooden cudgel with a rounded knobbed head bound by two iron bands and a leather wrist loop on its handle',
+  ironboundMace: 'a heavy flanged mace: a round iron head with six raised ridges on a short thick wooden haft bound with leather and a flared iron pommel',
+  stonehideCleaver: 'a broad single-bladed axe: a wide, thick blade of grey stone-dull steel with a notched back, on a short thick haft wrapped in rough hide',
+  bulwarkMaul: 'a heavy one-handed maul: a squat blocky steel head with a wide flat face and a thick back spike, a broad steel plate guard above the grip and a wrapped haft',
+  mountainsplitterAxe: 'a huge single-bladed battle axe: a wide curved blade of dark steel with a pale frost-blue edge and a heavy hammer-like back, on a long thick haft with a steel cap',
+  everstandWarmace: 'a grand war mace: a large round gold-and-steel head with eight raised flanges and a gold ring around its middle, on a thick haft wrapped in dark leather with a round gold pommel',
+  emberwallBastion: 'a tall heavy tower shield of dark steel plate with a thick rolled rim, a broad band across its middle and a raised round boss glowing a faint orange',
+  stonewardenHelm: 'an empty heavy grey stone-coloured steel helmet seen from the front: a rounded dome, a thick riveted brow band, a flat nose guard and deep cheek guards',
+  colossusVisage: 'an empty enormous gold-trimmed steel helmet seen from the front: a flat-topped barrel shape, a gold band round the middle, one long dark slit and a thick rounded neck guard',
+  diggersGauntlets: 'one empty plain gauntlet of thick grey leather with a hard rounded cap over the knuckles, seen from the back, fingers up: a stubby mitten shape with a wide cuff',
+  bastionGauntlets: 'one empty heavy gauntlet of banded steel seen from the back, fingers up: a rounded mitten shape with three riveted bands across the back of the hand and a deep flared cuff',
+  glacierplateGauntlets: 'one empty gauntlet of pale blue-white steel seen from the back, fingers up: a rounded mitten shape with a frosty ridge down its back and a thick fur-lined cuff',
+  gauntletsOfEndlessVigil: 'one empty massive gauntlet of gold-edged dark steel seen from the back, fingers up: a rounded mitten shape with a large round open eye engraved in gold on the back of the hand',
+  hearthstoneCharm: 'a small smooth round brown pebble with a warm orange glow in its middle, held in a loop of coarse cord',
+  ironheartPendant: 'a heart-shaped lump of dark riveted iron on a thick chain, with a small round steel plate bolted onto its middle',
+  // Intelligence
+  hedgewizardsWand: 'a slim crooked twig of a wand with a bundle of dried herbs tied at its handle, and a small pale blue gem set in its tip',
+  frostglassStaff: 'a tall slender staff of pale wood topped with a jagged cluster of clear ice-blue crystal held in a silver cage',
+  voidthreadWand: 'a slim dark wand with thin violet threads wrapped along it and a hovering teardrop of deep violet crystal above the tip',
+  staffOfTheStarlessSky: 'a tall black staff with a gold crescent at its top holding a dark sphere speckled with tiny pale stars, and a ring of gold runes around the shaft',
+  studentsGrimoire: 'a thin closed book seen from the front: a worn blue cloth cover, a leather spine down its left side and a single small ink-stained star on the cover',
+  frostfireOrb: 'a smooth glass sphere on a small silver foot, with a swirl of pale blue flame inside it that turns white at its centre',
+  orbOfTheUnwrittenHour: 'a large clear sphere held between two gold crescent arms on a stepped gold foot, with a tiny pale clock face floating in its centre',
+  apprenticesPointedCap: 'a plain pointed blue cloth hat with a floppy tip, a narrow brim and one small pale star stitched on the cone',
+  sagesCirclet: 'a thin silver headband seen from the front, with one small round blue stone set in its middle and a fine engraved line running along it',
+  cinderWizardsHat: 'a tall pointed charcoal-grey cloth hat with a wide curled brim, a band of dull orange embroidery at its base and a scorched tip',
+  voidseerCirclet: 'a dark metal headband seen from the front, rising to a point in the middle that holds one tall violet crystal, with two thin curved prongs on each side',
+  apprenticesRobe: 'a plain long blue cloth robe with wide short sleeves, a round neck and a simple rope belt',
+  cinderthreadRobe: 'a long charcoal-grey cloth robe with wide short sleeves, a deep V collar and orange ember-coloured thread stitched along the hem and cuffs',
+  voidwovenRobe: 'a long robe of deep violet cloth shot with fine silver threads, wide short sleeves, a deep V collar and a high stiff dark collar behind',
+  inkStainedGloves: 'one empty plain cloth glove seen from the back, fingers up: a rounded hand and a separate thumb, with dark ink stains on the fingertips and a short cuff',
+  spellthreadGloves: 'one empty soft blue cloth glove seen from the back, fingers up: a rounded hand and a separate thumb, with a silver thread spiral stitched on the back and a short cuff',
+  frostweaveGloves: 'one empty pale blue-white woven glove seen from the back, fingers up: a rounded hand and a separate thumb, a fluffy white fur cuff and a tiny snowflake on the back',
+  starlitGloves: 'one empty dark indigo cloth glove seen from the back, fingers up: a rounded hand and a separate thumb, with a scatter of tiny silver stars across the back and a flared cuff',
+  glovesOfTheLastWord: 'one empty fine black silk glove seen from the back, fingers up: a rounded hand and a separate thumb, with a gold rune ring around each knuckle and a long gold-edged cuff',
+  scribesSlippers: 'one soft cloth slipper seen from the side, toe pointing right: plain blue cloth, a thin flat sole and a small ribbon bow at the ankle',
+  moonstepSlippers: 'one soft ankle-high cloth boot seen from the side, toe pointing right: pale blue cloth, a turned-up pointed toe, a tiny silver crescent on the side and a thin sole',
+  emberstepBoots: 'one calf-high charcoal cloth boot seen from the side, toe pointing right: a folded cuff edged with orange thread, a single small brass buckle and a thin dark sole',
+  voidwalkerBoots: 'one tall dark violet cloth boot seen from the side, toe pointing right: a close fit, a silver-trimmed folded cuff, a small glowing violet gem at the ankle and a thin dark sole',
+  bootsOfTheWanderingStar: 'one tall black cloth boot seen from the side, toe pointing right: gold star shapes of three sizes stitched up the outside, a gold-edged cuff and a thin dark sole',
+  glowstonePendant: 'a small rough pale stone with a soft blue glow in its middle, hanging from a thin cord',
+  scholarsSeal: 'a silver finger ring with a flat round top engraved with a tiny open book',
+  eyeOfTheArchon: 'a round violet glass lens like an eye with a dark slit pupil, held in a ring of thin gold rays on a short gold chain',
+  // Skill
+  cinderRepeater: 'a long-barrelled repeating pistol: a dark steel barrel with an orange-tinted brass tube underneath, a notched wooden grip and a ring of small brass cooling fins',
+  glacierMortar: 'a stubby hand mortar: a thick pale blue-grey barrel with a flared muzzle, a ring of frosty ridges, a short wooden grip and a brass pressure dial on its side',
+  sparkCell: 'a small squat power cell seen from the front: a copper case with rounded corners, one terminal cap on top and a small zigzag mark on its face',
+  arcCapacitor: 'a tall boxy capacitor seen from the front: a steel case with brass corner plates, two terminal coils on top and a bright violet arc of light behind a glass window',
+  aetherheartCell: 'a large ornate power cell seen from the front: a gold-and-steel casing with rounded corners, a big glowing violet crystal in a glass window and three gold terminal rods on top',
+  marksmansVisor: 'a snug dark leather cap with a long stiff brim, seen from the front, with a small round brass lens clipped to one side of the brim',
+  sharpshootersCap: 'a snug grey leather cap with a short folded brim, seen from the front, a small silver target mark on the front and two narrow ear flaps tied up on top',
+  gunnersHarness: 'a fitted brown leather harness vest with two crossed bandolier straps over the chest holding small brass cartridges, and a wide belt',
+  steadyhandGloves: 'one empty fitted glove of grey leather seen from the back, fingers up: a rounded hand and a separate thumb, a grippy stitched pad on the palm edge and a narrow buckled wrist strap',
+  gunsmithsGloves: 'one empty fitted glove of oiled dark leather seen from the back, fingers up: a rounded hand with brass-capped fingertips, a separate thumb and a tooled cuff with a small brass gear',
+  scrappersBoots: 'one worn ankle-high brown leather boot seen from the side, toe pointing right: a patched toe, a crooked lace and a thick scuffed sole',
+  sharpshooterBoots: 'one calf-high grey leather boot seen from the side, toe pointing right: a close fit, two buckled straps across the shin and a small brass spur plate at the heel',
+  firingLineBoots: 'one sturdy calf-high leather boot seen from the side, toe pointing right: a thick sole with deep grip lines, a row of brass eyelets up the front and a small pouch at the ankle',
+  steadyfootBoots: 'one calf-high leather boot seen from the side, toe pointing right: a wide thick sole, a reinforced dark steel toe cap, a folded cuff and a violet gem stud at the ankle',
+  aetherstepBoots: 'one tall leather boot seen from the side, toe pointing right: pale grey with thin glowing violet lines running up the outside and a brass cuff',
+  bootsOfTheLastShot: 'one tall black leather boot seen from the side, toe pointing right: gold-buckled straps up the shin, a gold heel plate shaped like a bullet casing and a thick dark sole',
+  brassCartridgeCharm: 'a single small brass cartridge case hanging on a short loop of cord, with a bright copper cap at its base',
+  deadEyeLens: 'a round glass lens in a thin brass ring with a short loop of leather cord and a tiny cross-hair line engraved in the glass',
+  eagleEyeScope: 'a short brass telescope tube with a clear glass lens at each end and a violet gem in its middle band, hanging from a loop of gold chain',
+  // Charisma
+  criersBaton: 'a short wooden baton with a leather-wrapped grip and a small brass bell-shaped flare at its top end',
+  droversStandard: 'a tall wooden pole topped with a small iron hook and a short green pennant hanging from a crossbar',
+  marshalsSceptre: 'a short silver rod with a ribbed grip and a large rounded orange gem held in a ring of eight small silver rays at its top',
+  balladBook: 'a thin closed book seen from the front: a red cloth cover with a brass musical-note mark in the middle and a leather strap round its middle',
+  chronicleOfHeroes: 'a thick closed book seen from the front: a deep green leather cover with brass corner plates and a gold sword stamped in the middle',
+  psalterOfTheHost: 'a heavy closed book seen from the front: a dark blue leather cover edged in gold, a large round gold sun stamped in the middle and a silver clasp',
+  tomeOfEternalReign: 'a huge closed book seen from the front: a deep red leather cover with broad gold corner plates, a gold crown stamped in the middle and a large gold clasp set with a round gem',
+  heraldsCap: 'a soft round red cloth cap with a narrow turned-up brim and a small brass trumpet badge pinned on the front',
+  singersCirclet: 'a thin silver headband seen from the front with three small round pale gems along it and a tiny silver note shape at its middle',
+  diademOfTenThousandVoices: 'a tall gold diadem seen from the front: a band rising in a wide arch of many thin gold rays, each tipped with a small pearl, and one large round gem in the middle',
+  travelersWaistcoat: 'a sleeveless cloth waistcoat in dull red with a row of small round buttons down the front and a plain cloth belt',
+  minstrelsMotley: 'a short cloth tunic made of patches in two bright colours, a ruffled collar, a belt with a small tin bell hanging from it',
+  troubadoursCoat: 'a long fitted dark green cloth coat with brass buttons down the front, a stiff turned-up collar and a pale gold trim round the cuffs and hem',
+  marshalsGreatcoat: 'a long deep red cloth greatcoat with two rows of gold buttons, a wide turned-over collar, gold braid on the shoulders and a gold sash at the waist',
+  buskersGloves: 'one empty worn brown glove with the fingertips cut open, seen from the back, fingers up: a rounded hand, a separate thumb and a small stitched patch on the back',
+  drummersGloves: 'one empty padded red leather glove seen from the back, fingers up: a rounded hand and a separate thumb with a thick padded strip across the knuckles and a short cuff',
+  standardBearersGloves: 'one empty thick cream leather glove seen from the back, fingers up: a rounded hand and a separate thumb with a wide red stripe across the cuff and a small brass clasp',
+  gildedParadeGloves: 'one empty white glove seen from the back, fingers up: a rounded hand and a separate thumb, with gold thread along every finger seam and a tall flared gold-trimmed cuff',
+  glovesOfTheCrownedHand: 'one empty fine white glove seen from the back, fingers up: a rounded hand and a separate thumb, with a small gold crown embroidered on the back and a long gold cuff set with tiny gems',
+  wayfarersShoes: 'one simple low leather shoe seen from the side, toe pointing right: a rounded toe, a plain lace across the top and a thin worn sole',
+  troubadourBoots: 'one soft calf-high dark green boot seen from the side, toe pointing right: a wide folded cuff trimmed with a thin gold band, a pointed toe and a thin sole',
+  heraldsRidingBoots: 'one tall polished red-brown riding boot seen from the side, toe pointing right: a smooth shaft, a small brass spur at the heel and a brass buckle strap at the top',
+  paradeBoots: 'one tall gleaming black boot seen from the side, toe pointing right: a gold band at the top, a row of small gold buttons down the outside and a thick polished sole',
+  bootsOfTheLongProcession: 'one tall white boot seen from the side, toe pointing right: gold-edged fold-over cuff, a gold sun emblem on the shin and a thin pale gold sole',
+  silverWhistle: 'a small silver whistle with a short curved mouthpiece and a tiny loop on top, hanging from a thin cord',
+  gatheringHorn: 'a short curved ivory horn banded in gold at the mouth and the tip, hanging from a loop of red cord'
+}
+const ALL_ITEM_BLURBS: Readonly<Record<string, string>> = { ...ITEM_BLURBS, ...GAPFILL_BLURBS, ...SMITH_BLURBS }
 
 const SKILL_BLURBS: Readonly<Record<string, string>> = {
   // Aegis Knight
@@ -445,6 +640,28 @@ const PORTRAIT_BLURBS: Readonly<Record<string, string>> = {
   trainerBlood: 'an alchemist with long crimson hair, pale skin, small pointed ears and a cream-white robe with a crimson collar line',
   trainerAether: 'an engineer with blond hair, round glass goggles on a teal strap pushed up on the forehead, fair skin and a steel-blue jacket with a teal collar line',
   trainerGeo: 'an earth mage with a sand-brown hood up, brown skin and a sand-brown robe',
+  // The other teachers of the skill screen: disciples and masters.
+  sfShadow: 'a rogue with a dark olive hood up, fair skin and dark olive leather with a pale green collar line',
+  sfGeo: 'an old earth sage with a bald head, a long ash-white beard, tan-brown skin and a dusty olive-brown robe with a lime collar line',
+  lightDisciple: 'a light disciple with dark hair in a round bun on top, brown skin and a cream-white robe with a gold collar line',
+  windDisciple: 'a wind disciple with short dark-brown hair, fair skin, a sky-teal leather jerkin with a pale lime collar line and a green cape at the shoulders',
+  frostDisciple: 'a frost disciple with short sandy hair and a short sandy beard, pale skin and pale blue plate armour with an icy white collar line and a pale blue cape at the shoulders',
+  sbMasterAegis: 'a master knight in an open-faced steel helmet with long silver hair, fair skin, silver plate with a blue collar line and a deep blue cape at the shoulders',
+  sbMasterPyro: 'a master fire mage in a tall wizard hat, fair skin, a grey beard and a burnt-orange robe with a gold collar line',
+  sbMasterShadow: 'a master rogue with a deep teal-black hood up, fair skin and dark teal leather with a bright turquoise collar line',
+  sbMasterSovereign: 'a master monarch with a gold circlet, short golden hair, fair skin, a royal-blue robe with a gold collar line and a crimson cape at the shoulders',
+  sbMasterGeo: 'a master earth mage with white hair in a round bun on top, tan skin and an olive-green robe with a sand collar line',
+  sbMasterAether: 'a master engineer in round brass goggles, white hair and a white beard, tan skin and a brown leather jacket with an amber collar line',
+  sbMasterChrono: 'a master time mage with a gold circlet, short silver hair and a short silver beard, pale skin and a deep blue robe with a gold collar line',
+  sbMasterBlood: 'a master alchemist with long near-black hair, very pale skin and a dark wine-red leather coat with a pink collar line and a darker red cape at the shoulders',
+  sbMasterWindrunner: 'a master ranger with a leaf-green hood up, an orange ponytail, tan skin and a green leather jerkin with a lime collar line',
+  sbMasterFrostwarden: 'a master frost knight in an icy white-blue open-faced helmet, a white beard, pale skin, pale blue plate with an ice-blue collar line and a white cape at the shoulders',
+  sbMasterLightbringer: 'a master priestess with golden hair in a round bun on top, fair skin and a white robe with a rose-pink collar line',
+  sbMasterBeastcaller: 'a master beast caller with a grey-green hood up, long grey hair and a grey beard, tan skin and a forest-green leather coat with a brown cape at the shoulders',
+  sbMasterElementalist: 'a master elementalist with an orange ponytail tied with a cyan ribbon, fair skin and a violet robe with a bright magenta collar line',
+  sbMasterSoulwarden: 'a master soul warden with a dark indigo hood up, long pale silver hair, fair skin and a periwinkle-blue robe with a light blue collar line',
+  sbMasterIronmonk: 'a master monk with a bald head, a white beard, tan skin and a plain jade-green tunic with a dark green collar line, no weapon',
+  sbMasterBard: 'a master bard in a plum wide-brimmed hat with a gold band, short ginger hair, fair skin, a bright pink tunic with a gold collar line and a sky-blue cape at the shoulders',
   goblinKing: 'a goblin chief with bright green skin, large pointed ears sticking out sideways, a gold crown set with one red jewel, a purple robe with a gold collar line and a red cape at the shoulders',
   warlord: 'a warlord whose whole head is inside a closed steel great helm with a T-shaped slit, no face showing, in dark red armour with a red cape at the shoulders',
   oracle: 'a sea-green-skinned seer with small pointed ears, teal hair, a gold crown set with one red jewel, solid pale-gold eyes with no pupils and a teal robe',
@@ -523,6 +740,18 @@ export interface ArtSet {
    * is still measured on that square, so nothing else changes with the shape.
    */
   panelH?: number
+  /**
+   * The panel's width when it is not a square `CELL` (a wide strip's sheet). The
+   * drawing is then placed inside the whole panel, not a square in its middle.
+   */
+  panelW?: number
+  /**
+   * A STRIP: a drawing of fixed proportions (a bar frame, 4:1) that is not a square
+   * file. `x, y, w, h` is its box inside the panel, px; `outW x outH` the file the
+   * slicer writes. The slicer trims the painting to its paint and stretches that
+   * onto the file, so the drawing must touch all four edges of its box.
+   */
+  strip?: { x: number; y: number; w: number; h: number; outW: number; outH: number }
   /** Longest edge a sliced file is written at, px. */
   maxEdge: number
   /**
@@ -581,7 +810,7 @@ export interface ArtScenery {
   label: string
   /** A screen's backdrop (`components/game/backdrops.ts`): which one, and
    *  what is in it, left, right and in the calm middle, for its prompt. */
-  screen?: { name: 'trade' | 'inventory' | 'skills'; what: string; left: string; right: string; middle: string }
+  screen?: { name: 'trade' | 'inventory' | 'skills' | 'forge' | 'alchemy'; what: string; left: string; right: string; middle: string }
 }
 
 /** `rustedShortsword` → `Rusted Shortsword`. */
@@ -609,8 +838,16 @@ const grid = (cells: SheetCell[], cols: number, rows: number): Array<SheetCell |
 }
 
 // The Charisma set has its own sheet; the slot sheets keep the tables' pieces.
-const TABLED = ITEMS.filter(i => !CHARISMA_ITEMS.has(i.id))
+const TABLED = ITEMS.filter(i => !CHARISMA_ITEMS.has(i.id) && !DEXTERITY_ITEMS.has(i.id) && !GAPFILL_ITEMS.has(i.id))
 const charisma = ITEMS.filter(i => CHARISMA_ITEMS.has(i.id))
+// The Dexterity set: ten weapons and off-hands, twelve head, body and hands, nine boots and trinkets.
+const dexterity = ITEMS.filter(i => DEXTERITY_ITEMS.has(i.id))
+// The gap-fill set: a hundred and five pieces on nine sheets of twelve (three panels blank), in the audit's order (line, slot, quality).
+const gapfill = ITEMS.filter(i => GAPFILL_ITEMS.has(i.id))
+const GAPFILL_SHEETS = Math.ceil(gapfill.length / 12)
+const gapfillSet = (n: number): ArtSet =>
+  itemSet(`sheet-items-fill-${n + 1}`, `Item icons: the gap-fill set, ${n + 1} of ${GAPFILL_SHEETS}`, gapfill.slice(n * 12, n * 12 + 12))
+const dexOf = (...slots: string[]): ItemDef[] => slots.flatMap(sl => dexterity.filter(i => i.slot === sl))
 const main = TABLED.filter(i => i.slot === 'main')
 const off = TABLED.filter(i => i.slot === 'off')
 const body = TABLED.filter(i => i.slot === 'body')
@@ -620,9 +857,9 @@ const head = TABLED.filter(i => i.slot === 'head')
 const hands = TABLED.filter(i => i.slot === 'hands')
 const feet = TABLED.filter(i => i.slot === 'feet')
 
-// A metal's twelve forge pieces, each plain one beside its masterwork twin.
-const smithedOf = (metal: SmithMetal): ItemDef[] => {
-  const ids = new Set(SMITH_PIECES.flatMap(p => [smithItemId(metal, p, false), smithItemId(metal, p, true)]))
+// A metal's twelve forge pieces of one build, each plain one beside its masterwork twin.
+const smithedOf = (metal: SmithMetal, line: SmithLine): ItemDef[] => {
+  const ids = new Set(SMITH_PIECES.flatMap(p => [smithItemId(metal, p, false, line), smithItemId(metal, p, true, line)]))
   return SMITHED.filter(i => ids.has(i.id))
 }
 
@@ -731,6 +968,96 @@ export const ICON_SETS: readonly ArtSet[] = [
 ]
 const ICON_CELLS: readonly SheetCell[] = ICON_SETS.flatMap(s => s.cells.flatMap(c => (c ? [c] : [])))
 
+// ─── The interface ornaments (roadmaps #127, #128) ───────────────────────────
+//
+// The gilded corner brackets, rivet, rule, crest and leaf scroll that the cel
+// mixins lay inside the border of every button, card and window. One sheet, 3
+// across and 2 down on tall panels (exactly 4:3). The game draws each as a
+// vector (`ornamentRefs.ts`) until `images/ui/orn-<name>.webp` exists; the
+// corners and the scroll are painted ONCE, in one orientation, and mirrored by
+// the game (`components/art/ornaments.ts`).
+
+const ORNAMENT_BLURBS: Readonly<Record<string, { label: string; blurb: string }>> = {
+  'orn-corner': { label: 'Ornament: window corner', blurb: 'a gilded corner bracket for the TOP LEFT corner of a window: two thick gold arms, one running down the left edge of the panel and one along its top edge, meeting in a rounded corner with a small curled scroll tucked into the angle, and a round gold bead at the tip of each arm. The arms reach the left and top edges of the drawing, so it can be laid in the corner of a frame' },
+  'orn-corner-sm': { label: 'Ornament: button corner', blurb: 'a small plain gilded corner bracket for the TOP LEFT corner of a button: two short thick gold arms, one down the left and one along the top, meeting in a rounded corner, and a round gold bead at the tip of each arm. No scroll, nothing else' },
+  'orn-rivet': { label: 'Ornament: rivet', blurb: 'one round domed brass rivet stud seen from the front: a darker orange-gold rim, a lighter gold dome, and one small bright highlight at the upper left' },
+  'orn-rule': { label: 'Ornament: rule', blurb: 'a wide, low, left-right SYMMETRIC gold filigree rule: a lozenge-shaped gem in the middle, a thin tapering leaf-blade of gold running out to each side, and a round gold bead at each far end' },
+  'orn-crest': { label: 'Ornament: crest', blurb: 'a small left-right SYMMETRIC gold cartouche: a diamond-shaped gem in the middle with a lighter diamond inside it, and a small pointed gold leaf curling out to each side of it' },
+  'orn-wing': { label: 'Ornament: button scroll', blurb: 'a small gold leaf scroll for the LEFT end of a button, its pointed leaf at the LEFT and a short stem running to a round gold bead at the RIGHT; wide and low' }
+}
+
+const ORNAMENT_TINT = { tint: '#ffc526', tintName: 'warm gold' }
+
+/** The ornaments painted on the second sheet. */
+const ORNAMENTS_2: ReadonlySet<string> = new Set(['orn-rule', 'orn-crest'])
+
+const ornamentCell = (id: string): SheetCell => {
+  const t = ORNAMENT_BLURBS[id]
+  if (!t) throw new Error(`artSheet: no blurb for ornament "${id}"`)
+  return { id, draw: 'svg' as const, glyph: id, label: t.label, blurb: t.blurb, target: artTarget('ui', id), ...ORNAMENT_TINT }
+}
+
+const ornamentSet: ArtSet = {
+  stem: 'sheet-ui-ornaments', title: 'UI: the border-inset ornaments (windows, cards, buttons)', kind: 'ui', doc: 'PROMPTS-UI.md',
+  cols: 3, rows: 2, panelH: TALL, maxEdge: 192, crop: 1, anchor: 'centre',
+  styleRefs: SKILL_FINISH_REFS,
+  // The rule and the crest are on `sheet-ui-rule-crest`; their panels stay BLANK here so the other four keep their places.
+  cells: ORNAMENTS.map(o => (ORNAMENTS_2.has(o.id) ? null : ornamentCell(o.id)))
+}
+
+// The rule and the crest, on a sheet of their own (roadmap #128): the first sheet's
+// painter drew the rule across two panels and left half of it in the crest's. Two wide
+// panels (2.67:1, a 4:3 canvas) so that each ornament has a room of its own.
+const ornamentSet2: ArtSet = {
+  stem: 'sheet-ui-rule-crest', title: 'UI: the border-inset ornaments, the rule and the crest', kind: 'ui', doc: 'PROMPTS-UI.md',
+  cols: 1, rows: 2, panelW: 512, panelH: 192, maxEdge: 192, crop: 1, anchor: 'centre',
+  styleRefs: SKILL_FINISH_REFS,
+  cells: ORNAMENTS.filter(o => ORNAMENTS_2.has(o.id)).map(o => ornamentCell(o.id))
+}
+
+// ─── The rank frames of the health bars (roadmap #137) ───────────────────────
+//
+// An elite's, a champion's and a boss's bar are framed in ornaments (`FBar.vue`
+// draws them from `barFrameRefs.ts`). `images/ui/bar-frame-<rank>.webp`
+// replaces the drawn frame when it exists; the drawing stays the fallback.
+// Each reference is the 4:1 STRIP (512 x 128, the bar's window 384 x 32, 12:1, in its
+// middle) in a wide panel of its own: one column of three panels on a 16:9 canvas, so
+// that a strip is never squeezed into a square. The slicer trims the return to its
+// paint and writes it at 512 x 128, so the file is the strip, edge to edge: exactly
+// what `FBar`'s three-slice cuts (12.5 % / 75 % / 12.5 % of its width).
+
+const BAR_FRAME_BLURBS: Readonly<Record<string, { label: string; blurb: string; tint: string; tintName: string }>> = {
+  'bar-frame-elite': {
+    label: 'Bar frame: elite', tint: '#e3ecfa', tintName: 'silver',
+    blurb: 'a silver frame, 4:1, left-right SYMMETRIC: a long rounded metal band with a DARK EMPTY slot (12:1) in its middle, one small spread five-feather silver wing in each end cap sweeping up and out (no taller than one and a half slots), a cut amber stone on the root of each wing (in the cap, never on the slot), and one small amber stone over the middle of the top edge and its twin upside down under the bottom edge'
+  },
+  'bar-frame-champion': {
+    label: 'Bar frame: champion', tint: '#ffd266', tintName: 'gold',
+    blurb: 'a gold frame, 4:1, left-right SYMMETRIC: a long rounded metal band with a DARK EMPTY slot (12:1) in its middle, a small gold winged crest over the middle of the top edge (a shield with a red gem in it, a swept blade-like wing on each side) and the same crest upside down under the bottom edge, and in each end cap a gilded scroll finial: two small gold curls rolling away from the bar round a round red gem set in a gold bead (round and curled, NEVER a pointed triangle or spearhead)'
+  },
+  'bar-frame-boss': {
+    label: 'Bar frame: boss', tint: '#8a3fd1', tintName: 'royal violet and gold',
+    blurb: 'a gold frame, 4:1, for a boss, the grandest of the three, left-right SYMMETRIC: a long rounded thick metal band with a DARK EMPTY slot (12:1) in its middle, a jewelled gold crown with five points over the middle of the top edge between two sweeping pale-bone horns (the same crown and horns upside down under the bottom edge), a small spread five-feather gold wing in each end cap (no taller than one and a half slots) and a cut violet gem on the root of each wing (in the cap, never on the slot)'
+  }
+}
+
+// One sheet per frame (roadmap #137): a strip shares its sheet with nothing, so the painter
+// spends the whole canvas width on it (608 of 640 px, 95 %), and the file is cut from about
+// 1300 painted pixels across. Three strips on one 16:9 canvas got only 400 of 640 (860 px),
+// which a DPR-3 phone shows soft. 640 x 360 (16:9): the strip is 608 x 152 (4:1), 104 px of ground above and below.
+const barFrameSet = (id: string): ArtSet => {
+  const t = BAR_FRAME_BLURBS[id]
+  if (!t) throw new Error(`artSheet: no blurb for bar frame "${id}"`)
+  return {
+    stem: `sheet-ui-${id}`, title: `UI: the ${id.slice(10)} bar frame`, kind: 'ui', doc: 'PROMPTS-UI.md',
+    cols: 1, rows: 1, panelW: 640, panelH: 360, strip: { x: 16, y: 104, w: 608, h: 152, outW: 1024, outH: 256 },
+    maxEdge: 1024, exact: true, crop: 1, anchor: 'centre',
+    styleRefs: SKILL_FINISH_REFS,
+    cells: [{ id, draw: 'svg' as const, glyph: id, label: t.label, blurb: t.blurb, target: artTarget('ui', id), tint: t.tint, tintName: t.tintName }]
+  }
+}
+const barFrameSets: readonly ArtSet[] = Object.keys(BAR_FRAME_REFS).map(barFrameSet)
+
 export const SETS: readonly ArtSet[] = [
   itemSet('sheet-items-weapons', 'Item icons: weapons', main.slice(0, 12)),
   itemSet('sheet-items-arms', 'Item icons: top weapons and off-hands', [...main.slice(12), ...off]),
@@ -739,11 +1066,20 @@ export const SETS: readonly ArtSet[] = [
   itemSet('sheet-items-headgear', 'Item icons: headgear and gloves', [...head, ...hands]),
   itemSet('sheet-items-boots', 'Item icons: boots', feet),
   itemSet('sheet-items-charisma', 'Item icons: the Charisma set', charisma),
+  itemSet('sheet-items-dexterity-arms', 'Item icons: the Dexterity set, weapons and off-hands', dexOf('main', 'off')),
+  itemSet('sheet-items-dexterity-armor', 'Item icons: the Dexterity set, head, body and hands', dexOf('head', 'body', 'hands')),
+  itemSet('sheet-items-dexterity-boots', 'Item icons: the Dexterity set, boots and trinkets', dexOf('feet', 'trinket')),
+  ...Array.from({ length: GAPFILL_SHEETS }, (_, n) => gapfillSet(n)),
   itemSet('sheet-items-mythic', 'Item icons: the colosseum prizes', [...MYTHICS]),
-  ...(Object.keys(SMITH_METAL) as SmithMetal[]).map(metal => itemSet(`sheet-items-smith-${metal}`, `Item icons: smithed ${metal}`, smithedOf(metal))),
+  // The strength line keeps its sheets' names; every other build's (#148) carries the attribute.
+  ...SMITH_LINES.flatMap(line => (Object.keys(SMITH_METAL) as SmithMetal[]).map(metal => line === 'str'
+    ? itemSet(`sheet-items-smith-${metal}`, `Item icons: smithed ${metal}`, smithedOf(metal, line))
+    : itemSet(`sheet-items-smith-${line}-${metal}`, `Item icons: smithed ${metal}, ${line} build`, smithedOf(metal, line)))),
   ...CLASS_IDS.flatMap(cls => (skillsOf(cls).length > 6 ? [skillSet(cls, 0), skillSet(cls, 1)] : [skillSet(cls, 0)])),
   portraitSet('sheet-portraits-town', 'Portraits: townsfolk', TOWN_LOOKS, 3, 3),
   portraitSet('sheet-portraits-trainers', 'Portraits: trainers', TRAINER_LOOKS, 3, 3),
+  portraitSet('sheet-portraits-masters-1', 'Portraits: masters and disciples, 1', MASTER_LOOKS_A, 4, 3),
+  portraitSet('sheet-portraits-masters-2', 'Portraits: masters and disciples, 2', MASTER_LOOKS_B, 3, 3),
   portraitSet('sheet-portraits-speakers', 'Portraits: quest speakers', SPEAKER_LOOKS, 3, 2),
   {
     ...portraitSet('sheet-portraits-hero', 'Portraits: the hero, per outfit', HERO_LOOKS, 2, 2),
@@ -777,6 +1113,9 @@ export const SETS: readonly ArtSet[] = [
       'ATTACHED IMAGES — the first 2 are finished portraits of the BOY hero of this same game. She is his counterpart, a different person: take from them ONLY the finish and the hand — the outline, the hard-edged shading, the head size, the age, the proportions, the way the bust is cut. Never his face, never his short brown hair. The LAST image is the layout reference.'
     ].join('\n')
   },
+  ornamentSet,
+  ornamentSet2,
+  ...barFrameSets,
   ...ICON_SETS
 ]
 
@@ -785,6 +1124,12 @@ export const SINGLES: readonly ArtSet[] = [
   {
     stem: 'single-ui-coin', title: 'UI: the gold coin', kind: 'ui', doc: 'PROMPTS-UI.md', cols: 1, rows: 1, maxEdge: 64, crop: 1, anchor: 'centre',
     cells: [{ id: 'coin', draw: 'coin', label: 'Coin', blurb: COIN_BLURB, target: artTarget('ui', 'coin') }]
+  },
+  // The shell-game cup of the cup stand: wood, not a striped dome. The number
+  // on it is the stand's own text, so the painting leaves the middle plain.
+  {
+    stem: 'single-ui-cup', title: 'UI: the wooden cup', kind: 'ui', doc: 'PROMPTS-UI.md', cols: 1, rows: 1, maxEdge: 256, crop: 1, anchor: 'centre',
+    cells: [{ id: 'cup', draw: 'svg', glyph: 'cup', label: 'Wooden cup', target: artTarget('ui', 'cup'), tint: '#b9793a', tintName: 'warm wood brown', blurb: 'a wooden shell-game cup seen from the side, standing upside down on the table: a tapered tumbler, narrow flat closed base on top and the wide open rim at the bottom, built of vertical wooden staves with visible wood grain and plank seams, two dark grey iron hoop bands around it and a lighter turned wooden disc on top; the broad middle between the hoops is plain wood with NO number, NO letters and NO marking' }]
   },
   // ── The brand (roadmap #65): the logo's badge and the loader's mascot ──
   // Written at 512 (`exact`): the splash shows them large, the store art and
@@ -883,7 +1228,7 @@ export const SCENERY: readonly ArtScenery[] = [
     part: p, styleRefs: mapPartStyleRefs(p)
   })),
   ...MAP_PARTS.filter(p => MAP_SUBDIVIDED.includes(p.name)).flatMap(p => MAP_PARTS.map((sub): ArtScenery => ({
-    stem: `bg-ui-terrain-${p.name}-${sub.name}`, title: `UI: the world map, ${PART_NAME[p.name]} quarter, its ${PART_NAME[sub.name]} piece`, kind: 'ui', doc: 'PROMPTS-UI.md', width: 1376, height: 768,
+    stem: `bg-ui-terrain-piece-${p.name}-${sub.name}`, title: `UI: the world map, ${PART_NAME[p.name]} quarter, its ${PART_NAME[sub.name]} piece`, kind: 'ui', doc: 'PROMPTS-UI.md', width: 1376, height: 768,
     target: mapSubTarget(p, sub), maxEdge: 1376, tileable: false, bg: 'opaque', plate: 'map', label: `Map ${p.name} ${sub.name}`,
     part: p, sub, styleRefs: mapPartStyleRefs(p, sub)
   }))),
@@ -921,6 +1266,28 @@ export const SCENERY: readonly ArtScenery[] = [
       left: 'two constellations of four-pointed stars joined by dotted lines (one shaped like a sword in pale blue, one like a flame in orange), a shooting star, and many small stars.',
       right: 'two more constellations (a shield in pale gold, an hourglass in lilac), a shooting star near the bottom, and many small stars.',
       middle: 'the dark sky with the faint rings and tick marks of an astrolabe, and only a few faint stars.'
+    }
+  },
+  {
+    stem: 'bg-ui-forge', title: 'UI: the smithy backdrop', kind: 'ui', doc: 'PROMPTS-UI.md', width: 1376, height: 768,
+    target: artTarget('ui', 'bg-forge'), maxEdge: 1376, tileable: false, bg: 'opaque', plate: 'screen', label: 'Smithy',
+    screen: {
+      name: 'forge',
+      what: 'the inside wall of a blacksmith’s forge: courses of dark grey dressed stone blocks filling the picture, every other course offset, a warm orange glow from the hearth washing over the left of the wall, and iron tongs hanging from a hook near the top of the wall.',
+      left: 'a tall red-brick arched hearth with a black iron hood above it: inside the arch a roaring fire of orange and yellow flames on a bed of glowing coals, a few sparks rising.',
+      right: 'a steel anvil standing on a thick wooden block, a hammer with a wooden handle lying across it, a glowing orange bar of hot iron on its face, and a few sparks around it.',
+      middle: 'the plain grey stone wall, slightly darker and smoke-stained, nothing on it.'
+    }
+  },
+  {
+    stem: 'bg-ui-alchemy', title: 'UI: the alchemist’s workroom backdrop', kind: 'ui', doc: 'PROMPTS-UI.md', width: 1376, height: 768,
+    target: artTarget('ui', 'bg-alchemy'), maxEdge: 1376, tileable: false, bg: 'opaque', plate: 'screen', label: 'Alchemy',
+    screen: {
+      name: 'alchemy',
+      what: 'a herbalist’s workroom wall: upright dark green wooden boards filling the picture, bunches of dried herbs hanging from the top edge on strings, warm lamplight from the right.',
+      left: 'three wooden shelves one above another, each holding a row of corked glass bottles of coloured liquid (red, blue, green, purple, yellow) in different sizes, with small white glints on the glass.',
+      right: 'a round black iron cauldron on a low fire of orange flames, bubbling bright green liquid, pale steam curling up, and a wooden ledge below with a stone mortar and an open book.',
+      middle: 'the plain dark green boards, slightly darker and quiet, nothing on them.'
     }
   },
   {
@@ -967,7 +1334,10 @@ export const COVERS: readonly ArtCover[] = [...COVER_SCENES, ...COVER_RECOMPOSED
 /** A panel's height, px: `CELL` unless the set says otherwise. */
 export const panelHeight = (s: ArtSet): number => s.panelH ?? CELL
 
-export const sheetSize = (s: ArtSet): { width: number; height: number } => ({ width: s.cols * CELL, height: s.rows * panelHeight(s) })
+/** A panel's width, px: `CELL` unless the set says otherwise. */
+export const panelWidth = (s: ArtSet): number => s.panelW ?? CELL
+
+export const sheetSize = (s: ArtSet): { width: number; height: number } => ({ width: s.cols * panelWidth(s), height: s.rows * panelHeight(s) })
 
 /** Every stem a painted file may be filed under. */
 export const allStems = (): string[] => [...SETS, ...SINGLES, ...SCENERY, ...COVERS].map(s => s.stem)
@@ -998,7 +1368,7 @@ export interface Fit { h: number; w: number; bottom: number; cx: number }
 /** Measured fits, keyed by TARGET: the one name no two panels share. */
 export type Fits = Readonly<Record<string, Fit>>
 
-export interface IndexCell { id: string; label: string; variant: string; x: number; y: number; w: number; h: number; target: string; round?: true; fit?: Fit }
+export interface IndexCell { id: string; label: string; variant: string; x: number; y: number; w: number; h: number; target: string; round?: true; fit?: Fit; strip?: NonNullable<ArtSet['strip']> }
 export interface IndexSheet {
   id: string
   kind: 'set' | 'single'
@@ -1037,7 +1407,8 @@ export const sheetIndex = (fits?: Fits): SheetIndex => ({
       ? [{
           // The PANEL's rect. The slicer cuts the square in its middle, and a
           // fit is a fraction of that square, never of the taller panel.
-          id: c.id, label: c.label, variant: s.kind, x: (i % s.cols) * CELL, y: Math.floor(i / s.cols) * panelHeight(s), w: CELL, h: panelHeight(s),
+          id: c.id, label: c.label, variant: s.kind, x: (i % s.cols) * panelWidth(s), y: Math.floor(i / s.cols) * panelHeight(s), w: panelWidth(s), h: panelHeight(s),
+          ...(s.strip ? { strip: s.strip } : {}),
           // `round`: shown in a round frame, so the slicer fits it inside the circle.
           target: c.target, ...(c.round ? { round: true as const } : {}), ...(fits?.[c.target] ? { fit: fits[c.target] } : {})
         }]
@@ -1210,7 +1581,8 @@ const comesBack = (s: ArtSet, noun: string): string[] => {
     // Written after a return that did exactly this: "magenta included" was
     // read as the pure colour only, and the grid came back in a paler shade.
     '· That rule covers every SHADE of the ground too. An earlier attempt came back with a thin, lighter pink line around each panel, and it could not be used. The magenta is ONE unbroken field from one edge of the canvas to the other: where one panel ends and the next begins there is no lighter line, no darker line, no tint and no seam. Looking at the finished image, nobody should be able to tell where the panels are except by where the drawings sit.',
-    ...(panelHeight(s) !== CELL ? [`· The panels are NOT square: each is a little taller than it is wide (${ratio(CELL, panelHeight(s))}), because the canvas divides into ${s.cols} equal columns and ${s.rows} equal rows. Each drawing sits in the MIDDLE of its panel, with plain magenta above and below it: do not stretch a drawing to fill the extra height.`] : []),
+    ...(panelWidth(s) > panelHeight(s) ? [`· The panels are WIDE, not square: each is ${panelWidth(s)} x ${panelHeight(s)} (${ratio(panelWidth(s), panelHeight(s))}), because the canvas divides into ${s.cols} equal column${s.cols > 1 ? 's' : ''} and ${s.rows} equal rows. Each drawing sits in the MIDDLE of its own panel, with plain magenta on every side of it: it never reaches the panel's edge, never crosses into the next panel, and never needs a second panel's room. Do not stretch a drawing to fill the panel.`] : []),
+    ...(panelHeight(s) > panelWidth(s) ? [`· The panels are NOT square: each is a little taller than it is wide (${ratio(panelWidth(s), panelHeight(s))}), because the canvas divides into ${s.cols} equal columns and ${s.rows} equal rows. Each drawing sits in the MIDDLE of its panel, with plain magenta above and below it: do not stretch a drawing to fill the extra height.`] : []),
     ...(blanks ? [`· ${blanks} panel${blanks > 1 ? 's are' : ' is'} BLANK in the reference. Leave ${blanks > 1 ? 'them' : 'it'} flat magenta: do not invent anything for ${blanks > 1 ? 'them' : 'it'}.`] : [])
   ]
 }
@@ -1446,6 +1818,140 @@ const portraitPrompt = (s: ArtSet, fits?: Fits): string => {
  * app icons), so the brief is about appeal and finish rather than 24 px. The
  * badge carries NO letters; the mascot is the same hero as the portraits.
  */
+/** How much of its wide panel an ornament takes in the reference (the bench fits it in `ICON_FILL` of the panel), as fractions. */
+const ornamentRoom = (s: ArtSet, id: string): { w: number; h: number } => {
+  const o = ORNAMENTS.find(x => x.id === id)
+  if (!o) throw new Error(`artSheet: no ornament "${id}"`)
+  const k = ICON_FILL * Math.min(panelWidth(s) / o.w, panelHeight(s) / o.h)
+  return { w: (k * o.w) / panelWidth(s), h: (k * o.h) / panelHeight(s) }
+}
+
+/** The size clause of a sheet of wide panels: the drawings are measured against their own wide room. */
+const wideSizeClause = (s: ArtSet, noun: string): string[] => [
+  'SIZE AND PLACE — measure against the PANEL, not against the paper.',
+  `· Each panel is ${panelWidth(s)} x ${panelHeight(s)} (${ratio(panelWidth(s), panelHeight(s))}). Its ${noun} is centred in it, with a clear magenta margin on all four sides.`,
+  ...(s.strip ? [`· The ${noun} is ${pct(s.strip.w / panelWidth(s))}% of the panel's width and ${pct(s.strip.h / panelHeight(s))}% of its height, exactly 4:1, centred: a lane of magenta about ${pct(s.strip.y / panelHeight(s))}% of the panel's height lies above it and below it.`] : []),
+  '· Keep each one at the size and in the spot its own panel shows. If yours reaches a panel edge it is too big, and it will be cut in half by the slice.',
+  '· Where a drawing sits in its panel is not a composition choice: do not re-centre, do not even out the spacing, do not let one lean into the next panel.'
+]
+
+/** The border-inset ornaments: gilded pieces the game lays on its own frames, so nothing here is a frame. */
+const ornamentPrompt = (s: ArtSet, fits?: Fits): string => {
+  const { width, height } = sheetSize(s)
+  const pair = s.stem === 'sheet-ui-rule-crest'
+  const rule = ornamentRoom(s, 'orn-rule')
+  const crest = ornamentRoom(s, 'orn-crest')
+  return [
+    heading(s.title, s.stem, 'images/ui/'),
+    '',
+    ...comesBack(s, 'ornament'),
+    ...attached(s),
+    '',
+    'EACH PANEL IS ONE PAINTED GILDED ORNAMENT FOR A MEDIEVAL LOW-FANTASY INTERFACE — A PIECE OF METALWORK, NOT A PICTURE.',
+    '· Hammered and gilded brass-gold, like the fittings on an old leather-bound book or a knight shield: chunky scrolls, round beads, pointed leaves.',
+    '· Paint ONLY what the reference shows in that panel, in the same orientation and at the same size. No frame, border, card, button, plate, ground or shadow behind it, no leather, parchment or wood, no scene.',
+    ...(pair
+      ? [
+          '· The game lays these two pieces INSIDE the borders of its own cards and windows. Each is ONE small, complete, free-standing shape, drawn once, exactly as the reference has it.',
+          '· EACH PIECE LIVES IN ITS OWN PANEL AND NEVER SPANS TWO PANELS. The rule is wholly inside panel 1 (the upper one) and the crest wholly inside panel 2 (the lower one). Panel 2 holds the crest and NOTHING ELSE: no half of the rule, no leaf, bead or scrap of metal from the panel above. Panel 1 holds the rule and nothing else. A piece that is longer than the reference shows it, or that runs off the edge of its panel, is wrong.',
+          `· In the reference the rule takes up about ${pct(rule.w)}% of its panel's width and ${pct(rule.h)}% of its height; the crest about ${pct(crest.w)}% of its width and ${pct(crest.h)}% of its height. Keep those sizes and keep each exactly centred.`
+        ]
+      : [
+          '· The game lays these pieces INSIDE the borders of its own buttons, cards and windows, and mirrors the corner and the scroll for the other corners and the other end. So the piece is drawn exactly one way, as the reference has it, and is never drawn as a pair or a full frame.',
+          '· A corner bracket keeps its two arms running to the left and top edges of its drawing, exactly as the reference does: an arm that stops short, or a bracket drawn in another corner, cannot be mirrored into place.'
+        ]),
+    ...(pair ? ['· Both pieces are exactly left-right symmetric.'] : []),
+    '',
+    'WHAT EACH PANEL IS:',
+    ...panelList(s, 'main'),
+    '',
+    'COLOUR — warm gold: a bright lit side (about #ffe978), the base (about #ffc526) and a deeper shade (about #f09410) on the shadow side, with a charcoal-violet outline. Take the HUE, not the flatness. The gold must stay readable on blue, green, red and brown fills.',
+    '',
+    'THE VIEW — flat and front-on, the way the reference shows it. No three-quarter view, no perspective, no foreshortening.',
+    '',
+    `ONE HAND — all ${s.cells.filter(c => c).length} are painted by the same artist in the same sitting: the same line weight, the same two-step shading, the same light from the upper left. They are one set of fittings and must look like one.`,
+    '',
+    FINISH,
+    '',
+    STYLE_PART,
+    NOTATION,
+    '',
+    READABLE_SMALL.replace('READABLE AT 24 PIXELS — each of these is shown between 24 and 40 pixels wide', 'READABLE AT 16 PIXELS — each of these is shown between 16 and 40 pixels wide'),
+    '',
+    ...(pair ? wideSizeClause(s, 'ornament') : sizeClause(s, fits)),
+    '',
+    BACKGROUND,
+    '',
+    GLOW,
+    '',
+    SEE_THROUGH,
+    '',
+    ...checks(s, [
+      '· Each panel holds exactly one ornament, in the reference orientation, and nothing sits around or behind it.',
+      pair ? '· The rule is entirely in panel 1 and the crest entirely in panel 2; both are exactly left-right symmetric.' : '· The two corner pieces keep their arms on the left and top.',
+      '· Every piece is warm gold with a lit side and a shadow side: not one of them is a single flat colour.'
+    ]),
+    '',
+    output(width, height)
+  ].join('\n')
+}
+
+/** One rank frame of the health bars: a wide, low, symmetric piece of metalwork round an EMPTY slot. */
+const barFramePrompt = (s: ArtSet, fits?: Fits): string => {
+  const { width, height } = sheetSize(s)
+  const st = s.strip!
+  const rank = s.cells[0]!.id.slice(10)
+  return [
+    heading(s.title, s.stem, 'images/ui'),
+    '',
+    'WHAT COMES BACK IS ONE IMAGE WITH ONE VERY WIDE, LOW OBJECT IN IT.',
+    `One ${shapeWord(width, height)} image, ${width} x ${height} pixels (${ratio(width, height)}), holding exactly ONE painted frame, laid out as the attached reference lays it out: a long horizontal strip across the middle of the canvas, with flat magenta above it and below it.`,
+    '· ONE object. Not a sheet, not a set, not three frames, no second copy, no preview, no mock-up. A canvas of any other shape is wrong.',
+    '· Do NOT draw any border, box, guide or number around the canvas.',
+    ...attached(s),
+    '',
+    `THIS IS THE ${rank.toUpperCase()} HEALTH-BAR FRAME OF A MEDIEVAL LOW-FANTASY INTERFACE — A VERY WIDE, LOW PIECE OF METALWORK, NOT A PICTURE. It is one of a family of three (silver elite, gold champion, gold-and-violet boss) painted by the same artist.`,
+    `· The frame is a STRIP exactly FOUR TIMES AS WIDE AS IT IS TALL (4:1), as the reference shows it: ${pct(st.w / panelWidth(s))}% of the canvas's width and ${pct(st.h / panelHeight(s))}% of its height, centred, with a lane of magenta (about ${pct(st.y / panelHeight(s))}% of the canvas's height) above and below it and a thin margin of magenta left and right. It is BIG: it runs almost from one side of the canvas to the other. Do not make it smaller, do not make it taller, do not make it square, do not rotate it.`,
+    '· THE SLOT. In the middle of the strip is a LONG, LOW, ROUNDED SLOT, TWELVE TIMES AS WIDE AS IT IS TALL (12:1): three quarters (75%) of the strip\'s length and only a quarter (25%) of its height, exactly centred. It is EMPTY: a plain, flat, very dark violet-black fill with a thin dark outline, no liquid, no bar, no gauge, no text, no pattern. The game puts a live bar in it, so it must stay plain and keep exactly this size and place. A slot that is shorter, taller, rounder or smaller than the reference is wrong.',
+    '· NOTHING OVERLAPS THE SLOT. Only the strip\'s own metal rim touches it. Wings, gems, scroll finials, horns, crowns and crests all sit OUTSIDE it: wings, gems and scroll finials only in the two END CAPS (the left and right eighth of the strip, beside the slot\'s ends), and a crown, crest or stone only over the very middle of the TOP edge (with its upside-down twin under the BOTTOM edge), in the middle 30% of the strip\'s length. The strip has three bands of height: 37.5% above the slot, 25% the slot, 37.5% under it.',
+    '· THE LONG STRETCHES ARE PLAIN. The game stretches the metal between the end caps and the middle ornament to fit bars of different lengths, so on each side of the slot, between the cap and the middle 30%, the rim is only smooth, evenly lit metal band: an engraved line or a row of small rivets that looks the same all the way along is fine, but no gem, figure, scroll or any one-off detail there.',
+    '· KEEP THE ORNAMENTS IN SCALE. A wing is small: at most one and a half times as tall as the slot (about 38% of the strip\'s height) and no wider than the end cap. A crown or crest is at most as tall as the band above the slot (37% of the strip). A wing that towers over the slot, or a crest that hangs down into it, is wrong.',
+    '· Hammered metal with gems, wings, horns and crowns, like the fittings on ceremonial plate armour: chunky, pointed, rich, glinting. Paint it richer than the reference drawing, with more feathers, facets, rivets and engraving, as long as the silhouette, the sizes, the slot and the symmetry stay. Spectacular, but sharp: crisp edges and clean hard-edged shading, no blur, no soft glow, no noise.',
+    '· Paint ONLY what the reference shows, in the same place and at the same size. No ground, shadow, table, card, scene or background behind it.',
+    '· The frame is exactly LEFT-RIGHT symmetric, and what is over the slot is repeated, upside down, under it. It reaches all four edges of its strip (left and right at the end caps, top and bottom at the crown, crest or stones), as the reference does, and not one pixel beyond.',
+    '',
+    'WHAT IT IS:',
+    ...panelList(s, 'main'),
+    '',
+    'COLOUR — the frame keeps the metal and the gem colour the reference gives it, with a bright lit side, a base and a deeper shade, and a charcoal-violet outline. Horns, where there are any, are pale bone. The metal must stay readable against dark red, green and blue bar fills.',
+    '',
+    'THE VIEW — flat and front-on, exactly as the reference shows it. No three-quarter view, no perspective.',
+    '',
+    FINISH,
+    '',
+    STYLE_PART,
+    NOTATION,
+    '',
+    ...wideSizeClause(s, 'frame'),
+    '',
+    BACKGROUND,
+    '',
+    GLOW,
+    '',
+    SEE_THROUGH,
+    '',
+    'BEFORE YOU CALL IT FINISHED, count and check:',
+    `· The canvas is ${shapeWord(width, height)}, ${ratio(width, height)}, with exactly one frame in it, four times as wide as tall, with an empty dark slot (12:1) in its middle.`,
+    '· Nothing overlaps the slot; every wing is at most one and a half slot-heights tall; crown and crest are mirrored under the strip; the rim between the caps and the middle is plain.',
+    '· The frame is symmetric left to right, and the slot is the size and place the reference gives it.',
+    '· The frame does not touch the canvas edge.',
+    '· No line of any kind, in any shade, runs round the canvas: the ground is one flat field.',
+    '· Every pixel that is not the object is flat, vivid #FF00FF — hold it against a pure magenta swatch, not against your memory of one.',
+    '',
+    output(width, height)
+  ].join('\n')
+}
+
 const brandPrompt = (s: ArtSet, fits?: Fits): string => {
   const c = s.cells[0]
   if (!c) throw new Error(`artSheet: ${s.stem} has no panel`)
@@ -1831,7 +2337,7 @@ export interface PromptBlock {
 }
 
 const setPrompt = (s: ArtSet, fits?: Fits): string =>
-  s.kind === 'items' ? itemPrompt(s, fits) : s.kind === 'skills' ? skillPrompt(s, fits) : s.kind === 'icons' ? iconPrompt(s, fits) : portraitPrompt(s, fits)
+  s.kind === 'items' ? itemPrompt(s, fits) : s.kind === 'skills' ? skillPrompt(s, fits) : s.kind === 'icons' ? iconPrompt(s, fits) : s.kind === 'ui' ? (s.stem.startsWith('sheet-ui-bar-frame-') ? barFramePrompt(s, fits) : ornamentPrompt(s, fits)) : portraitPrompt(s, fits)
 
 /** One block per reference, in document order. `text` is `# heading`, a blank line, the prompt. */
 export const promptBlocks = (fits?: Fits): PromptBlock[] => [

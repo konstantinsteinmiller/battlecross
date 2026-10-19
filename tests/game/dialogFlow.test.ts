@@ -1,6 +1,7 @@
 // @vitest-environment jsdom
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { drainAndResetModules, drainPersist, holdGameState } from '../stubs/drainPersist'
+import { installLazyCode } from '../stubs/lazyCode'
 
 /**
  * Conversations in the game: what `flow.ts` does around one (the windows it
@@ -31,6 +32,8 @@ const boot = async (): Promise<void> => {
   p = await import('@/game/state/profile')
   f = await import('@/game/flow')
   k = await import('@/game/talk')
+  // The conversations' code is a lazy chunk in the game (roadmap #142).
+  await installLazyCode()
   p.initProfile()
 }
 

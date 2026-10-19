@@ -1,7 +1,7 @@
 <template lang="pug">
   TradeFrame(
     ref="frame"
-    art="trade"
+    art="alchemy"
     :look="npc ? npc.look : 'sbAlchemist'"
     :name="npc ? t(`npc.${npc.id}.name`) : ''"
     :line="t('alchemy.talk')"

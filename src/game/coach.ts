@@ -121,10 +121,11 @@ const geo = (slot = -1): HintGeo => ({ x0: 0, y0: 0, x1: 0, y1: 0, x2: 0, y2: 0,
  * doors), in surface px: `n` points in `pts` (x, y pairs), hero first.
  * Rewritten every frame from a path found a few times a second.
  */
-export const hintPath = { n: 0, pts: new Float32Array(96) }
+export const hintPath = { n: 0, pts: new Float32Array(96), world: [] as number[] }
 /** Whom the way leads to (a look id), for the badge at the screen edge. Reactive. */
 export const hintTalk = shallowReactive({ look: '' })
-const wayWorld: number[] = []
+/** The same way in world metres (x, z pairs, the hero's spot not among them): drawn on the ground. */
+const wayWorld = hintPath.world
 const wayScratch: number[] = []
 const wayOpen: [number, number] = [0, 0]
 let wayAge = 1e9

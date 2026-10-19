@@ -5,8 +5,9 @@
 import { existsSync, readFileSync, readdirSync, writeFileSync } from 'node:fs'
 import { join, relative } from 'node:path'
 import { pathToFileURL } from 'node:url'
-import { MANIFEST, ROOT, VOICE_OUT, VO_SRC, voiceOf } from './lib.mjs'
+import { LANGS, MANIFEST, ROOT, VOICE_OUT, VO_SRC, voiceOf } from './lib.mjs'
 import { textHashOf } from './stale.mjs'
+import { CORE_IDS, CORE_SPEC } from './core.mjs'
 
 const { renderVoiceTodo, todoLinesOf, voiceFileId } = await import(pathToFileURL(join(ROOT, 'src/game/audio/voiceTodo.ts')).href)
 
@@ -22,7 +23,10 @@ export const writeVoiceTodo = () => {
   const md = renderVoiceTodo({
     lines,
     shipped: existsSync(shippedFile) ? JSON.parse(readFileSync(shippedFile, 'utf8')) : {},
-    files: voiceFilesOf('en')
+    files: voiceFilesOf('en'),
+    others: LANGS.filter(l => l !== 'en').map(lang => ({ lang, files: voiceFilesOf(lang) })),
+    core: CORE_IDS,
+    coreMax: CORE_SPEC.max
   })
   const out = join(ROOT, 'voice-todo.md')
   writeFileSync(out, md)

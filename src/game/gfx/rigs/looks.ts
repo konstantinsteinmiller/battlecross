@@ -21,6 +21,8 @@ export const LOOKS: Readonly<Record<string, Look>> = {
   goblinSlinger: L({ skin: '#9bd45a', top: '#7a4f2e', bottom: '#5d4128', head: 'bandana', hair: '#c9483a', ears: 'goblin', outfit: 'rags', held: 'sling' }),
   bandit: L({ skin: '#e2b08a', top: '#8c4a3a', bottom: '#4a3b34', head: 'bandana', hair: '#c9483a', outfit: 'leather', held: 'sword', trim: '#3b2f2a' }),
   banditArcher: L({ skin: '#d9a47e', top: '#5f7a4a', bottom: '#4a3b34', head: 'hood', hair: '#4f6a3a', outfit: 'leather', held: 'bow', trim: '#3b2f2a' }),
+  // The whistle's gnomes (#136): a red pointed cap, a white beard, a small blade.
+  gnome: L({ skin: '#e8b890', top: '#4f8a4a', bottom: '#6b4a2c', head: 'wizard', hair: '#d8483a', outfit: 'tunic', held: 'dagger', beard: '#f0ece4', trim: '#c9a24a', metal: '#b9c4d6' }),
   banditChief: L({ skin: '#d9a47e', top: '#a03a2c', bottom: '#3b2f2a', head: 'horns', hair: '#e8e2cf', outfit: 'leather', held: 'axe', pauldrons: true, trim: '#5a4a44', bulk: 1.12, beard: '#3b2a22', cape: '#5a1f1a' }),
   goblinKing: L({ skin: '#58c23f', top: '#7a2f8a', bottom: '#4a2c5a', head: 'crown', hair: '#58c23f', ears: 'goblin', outfit: 'robe', held: 'club', trim: '#ffd24a', bulk: 1.2, cape: '#c9483a' }),
 
@@ -137,6 +139,8 @@ export const LOOKS: Readonly<Record<string, Look>> = {
   sbFence: L({ skin: '#d9a47e', top: '#1f5a5a', bottom: '#2a2a30', head: 'hood', hair: '#1f5a5a', outfit: 'leather', held: 'dagger', trim: '#c9a24a', cape: '#16303a' }),
   sbGambler: L({ skin: '#e8b890', top: '#7a2a8a', bottom: '#2a1c3a', head: 'hat', hair: '#1c1418', outfit: 'robe', held: 'none', off: 'orb', trim: '#ffd24a', cape: '#3a1c4a', glow: '#ffd24a' }),
   sunfordGambler: L({ skin: '#d9a47e', top: '#8a5f3a', bottom: '#4a3a2a', head: 'bandana', hair: '#5a3a24', outfit: 'tunic', held: 'none', off: 'tome', trim: '#e0a84a', beard: '#5a3a24' }),
+  // The cup stand (#136): a quick-fingered girl in a yellow hood and a green apron, a bright orb for the gem.
+  sunfordCups: L({ skin: '#e8b890', top: '#4a9a5a', bottom: '#3a3a52', head: 'hood', headCol: '#e8c23a', hair: '#c9783a', style: 'ponytail', outfit: 'apron', held: 'none', off: 'orb', trim: '#f0d060', glow: '#ff6a8a' }),
   oakGambler: L({ skin: '#f0c8a8', top: '#1f2a5a', bottom: '#141a3a', head: 'leathercap', hair: '#c9a24a', headCol: '#2a1f4a', outfit: 'leather', held: 'none', off: 'orb', trim: '#c9a24a', glow: '#8fd8ff' }),
   sbAlchemist: L({ skin: '#f2c8a0', top: '#8a6ab8', bottom: '#4a6a3a', head: 'bun', hair: '#d8583a', outfit: 'apron', held: 'flask', off: 'tome', trim: '#9ef06a', glow: '#9ef06a' }),
   sbHealer: L({ skin: '#e2b08a', top: '#e8eef4', bottom: '#9fb4c8', head: 'bald', outfit: 'robe', held: 'none', off: 'orb', trim: '#4f9fd6', beard: '#7a5a3a', glow: '#8dff9a' }),

@@ -105,9 +105,12 @@ describe('the opening fight for a player who plays it', () => {
     expect(r.hp / r.maxHp).toBeGreaterThanOrEqual(0.25)
   })
 
-  it('how fast the player clicks does not change it (the hero takes the next enemy on his own)', () => {
-    const hp = [0.1, 0.25, 0.5].map(r => Math.round(naiveRun(r).hp))
-    expect(new Set(hp).size).toBe(1)
+  it('how fast the player clicks never makes it harder (the hero takes the next enemy on his own)', () => {
+    // The Bandit Chief's gnomes (#136) are enemies too: a quicker clicker picks the next one sooner and ends with a little more.
+    const [fast, mid, slow] = [0.1, 0.25, 0.5].map(r => naiveRun(r))
+    for (const r of [fast!, mid!, slow!]) expect(r.outcome).toBe('victory')
+    expect(Math.round(slow!.hp)).toBe(Math.round(mid!.hp))
+    expect(fast!.hp).toBeGreaterThanOrEqual(mid!.hp)
   })
 
   it('the first level-up waits for the result screen: nothing refills the fight', () => {

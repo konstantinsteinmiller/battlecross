@@ -1,6 +1,6 @@
 import { conversation } from '../../dialog/build'
 import type { ConversationDef } from '../../dialog/types'
-import { foe, friend, heal, mana, news, play, ready, rumor, trade, train, who, smithing } from './shared'
+import { foe, friend, brew, heal, mana, news, play, ready, rumor, trade, train, who, smithing } from './shared'
 
 /**
  * Sunford: the farming town the hero comes home to. Its people talk about the
@@ -32,7 +32,7 @@ const sunfordSmith = conversation('sunfordSmith', {
       { id: 'north' }
     ])
   ],
-  back: { shop: [{ id: 'shopBack' }], smithing: [{ id: 'forgeBack' }] },
+  back: { shop: [{ id: 'shopBack' }], smithing: [{ id: 'forgeBack' }], sellOre: [{ id: 'sellBack' }] },
   bye: [{ id: 'bye' }]
 })
 
@@ -189,6 +189,7 @@ const sunfordHealer = conversation('sunfordHealer', {
   topics: [
     heal(),
     mana(),
+    brew(),
     { id: 'potions', lines: 'nn' },
     rumor([
       { id: 'goblins', when: { uncleared: ['hollows'] } },
@@ -196,7 +197,7 @@ const sunfordHealer = conversation('sunfordHealer', {
       { id: 'burns' }
     ])
   ],
-  back: { healer: [{ id: 'healBack' }] },
+  back: { healer: [{ id: 'healBack' }], alchemy: [{ id: 'brewBack' }] },
   bye: [{ id: 'bye', mood: 'amused' }]
 })
 
@@ -237,6 +238,23 @@ const sunfordGambler = conversation('sunfordGambler', {
   bye: [{ id: 'bye' }]
 })
 
+/** Nell Nimblefingers: runs the cup stand, a gem and a few cups and a very quick pair of hands (#136). */
+const sunfordCups = conversation('sunfordCups', {
+  name: 'npc.sunfordCups.name', look: 'sunfordCups', mood: 'excited',
+  greet: [
+    { id: 'hello', when: { met: false }, lines: 'nn' },
+    { id: 'again' }
+  ],
+  topics: [
+    play('cups'),
+    { id: 'rules', lines: 'nn' },
+    who(),
+    { id: 'luck', mood: 'sly' }
+  ],
+  back: { cups: [{ id: 'playBack' }] },
+  bye: [{ id: 'bye' }]
+})
+
 
 /** Odo Marrow: a peddler the bandits caged on the plains (#100). Chatty, grateful, never quite honest about prices. */
 const freedPeddler = conversation('freedPeddler', {
@@ -270,7 +288,23 @@ const lightDisciple = conversation('lightDisciple', {
   bye: [{ id: 'bye' }]
 })
 
+/**
+ * Nettle Quickhand on the plains road (#136): she walks into the opening fight
+ * to teach the teleport. Her talk is the lesson and nothing else: one hook, the
+ * trainer's window, a parting word. Her voice is the one she has in town.
+ */
+const sfShadowRoad = conversation('sfShadowRoad', {
+  name: 'npc.sfShadowRoad.name', look: 'sfShadow', voice: 'sfShadow', mood: 'sly',
+  greet: [
+    { id: 'hello', when: { met: false } },
+    { id: 'again' }
+  ],
+  topics: [train()],
+  back: { trainer: [{ id: 'trainBack' }] },
+  bye: [{ id: 'bye' }]
+})
+
 export const SUNFORD_TALK: ConversationDef[] = [
-  freedPeddler, lightDisciple,
-  sunfordSmith, sunfordPeddler, trainerAegis, trainerPyro, sfShadow, sfGeo, elderMara, sunfordHealer, goblinTrader, sunfordGambler
+  freedPeddler, lightDisciple, sfShadowRoad,
+  sunfordSmith, sunfordPeddler, trainerAegis, trainerPyro, sfShadow, sfGeo, elderMara, sunfordHealer, goblinTrader, sunfordGambler, sunfordCups
 ]

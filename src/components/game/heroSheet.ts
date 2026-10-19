@@ -3,7 +3,7 @@ import type { AttrBlock } from '@/game/data/attributes'
 import { heroStats } from '@/game/sim/stats'
 import type { UnitStats } from '@/game/sim/types'
 import { heroBuild, profile } from '@/game/state/profile'
-import { fmt } from '@/utils/format'
+import { fmt, fmt2 } from '@/utils/format'
 
 /**
  * ─── The hero's numbers, and what a change would make of them ────────────────
@@ -42,9 +42,9 @@ export const STATS: readonly StatDef[] = [
 /** The six shown beside the paper-doll, where there is room for six. */
 export const KEY_STATS: readonly StatKey[] = ['damage', 'armor', 'health', 'mana', 'crit', 'moveSpeed']
 
-/** A stat's value in the units it is shown in (whole, percent points, one decimal). */
-const unit = (kind: Kind, v: number): number => (kind === 'int' ? Math.round(v) : kind === 'pct' ? Math.round(v * 100) : Math.round(v * 10) / 10)
-const text = (kind: Kind, n: number): string => (kind === 'int' ? fmt(n) : kind === 'pct' ? `${n}%` : n.toFixed(1))
+/** A stat's value in the units it is shown in (whole, percent points, two decimals at most). */
+const unit = (kind: Kind, v: number): number => (kind === 'int' ? Math.round(v) : kind === 'pct' ? Math.round(v * 100) : Math.round(v * 100) / 100)
+const text = (kind: Kind, n: number): string => (kind === 'int' ? fmt(n) : kind === 'pct' ? `${n}%` : fmt2(n))
 
 export interface StatRow {
   key: StatKey
@@ -63,7 +63,7 @@ export const statRows = (now: UnitStats, next: UnitStats = now, keys?: readonly 
   STATS.filter(d => !keys || keys.includes(d.key)).map((d) => {
     const a = unit(d.kind, d.get(now))
     const b = unit(d.kind, d.get(next))
-    const delta = Math.round((b - a) * 10) / 10
+    const delta = Math.round((b - a) * 100) / 100
     const abs = text(d.kind, Math.abs(delta))
     return { key: d.key, text: text(d.kind, a), next: text(d.kind, b), delta, deltaText: delta > 0 ? `+${abs}` : delta < 0 ? `−${abs}` : '' }
   })

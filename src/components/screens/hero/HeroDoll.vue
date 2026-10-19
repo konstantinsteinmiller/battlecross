@@ -1,7 +1,5 @@
 <template lang="pug">
   div.hero-doll(ref="root" :class="{ 'is-3d': live }")
-    //- The stand he is on: a round plinth, lit from above.
-    span.hero-doll__plinth(aria-hidden="true")
     HeroTurntable.hero-doll__live(v-if="live" ref="turntable" @fail="live = false")
     div.hero-doll__figure(v-else ref="figure")
       Portrait(look="hero")
@@ -70,22 +68,6 @@ defineExpose({
 .hero-doll__live
   position: absolute
   inset: 0 0 6% 0
-.hero-doll__plinth
-  position: absolute
-  left: 50%
-  bottom: 3%
-  width: min(96cqw, 84cqh)
-  height: 16%
-  translate: -50% 0
-  border: var(--bc-ol) solid var(--bc-ink)
-  border-radius: 50%
-  background: linear-gradient(180deg, var(--bc-brass-hi) 0, var(--bc-brass-hi) 30%, var(--bc-brass-lo) 30%, var(--bc-brass-lo) 100%)
-  box-shadow: 0 0.3rem 0 var(--bc-ink)
-// Under a live figure the plinth is a low round stage, not a frame.
-.is-3d .hero-doll__plinth
-  bottom: 4%
-  width: min(80cqw, 70cqh)
-  height: 13%
 .hero-doll__level
   +screen.tag('blue')
   position: absolute

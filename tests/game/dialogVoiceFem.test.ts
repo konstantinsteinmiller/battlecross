@@ -22,8 +22,8 @@ describe('the girl hero\'s recordings', () => {
     setHeroForm('f')
     expect(voiceUrl('en', 'dlg.hero.bye')).toMatch(/en\/dlg\.hero\.bye__f\.ogg$/)
     expect(voiceUrl('de', 'dlg.hero.trade')).toMatch(/de\/dlg\.hero\.trade__f\.ogg$/)
-    // German has no take of this one: the English take of hers.
-    expect(voiceUrl('de', 'dlg.hero.bye')).toMatch(/en\/dlg\.hero\.bye__f\.ogg$/)
+    // German is voiced but has no take of this one: silence, not English.
+    expect(voiceUrl('de', 'dlg.hero.bye')).toBe('')
     // No take of hers at all: the line's own recording.
     expect(voiceUrl('fr', 'dlg.hero.trade')).toMatch(/en\/dlg\.hero\.trade\.ogg$/)
   })

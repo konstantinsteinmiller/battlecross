@@ -147,7 +147,8 @@ it('rooms', async () => {
 
 it('whole towns and zones', async () => {
   const out: string[] = []
-  const { generateTown, generateZone } = await import('@/game/sim/zoneGen')
+  const { generateTown } = await import('@/game/sim/townGen')
+  const { generateZone } = await import('@/game/sim/zoneGen')
   const { TOWNS, ZONES } = await import('@/game/data/zones')
   const { buildTerrain } = await import('@/game/gfx/terrain')
   const { TownView } = await import('@/game/gfx/townView')

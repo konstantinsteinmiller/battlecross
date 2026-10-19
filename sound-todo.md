@@ -19,6 +19,12 @@ for music and jingles (0.35). Adjust the one that matches for a whole recorded
 set. Music loops must loop seamlessly. Keep the total small: the synth set
 costs zero bytes.
 
+Generated files for the spells (decision 53, #101): the synthesis stays the
+shipped sound, and `sound-src/generated-spells/` holds the same elements and
+skill families rendered to `.ogg` (46 files, 0.4 MB, not in `public/`). Moving
+them into `public/audio/sfx/` is the drop-in; see its README. Regenerate with
+`npm run sound:spells`.
+
 ## Sound effects (48)
 
 | Group | Names |

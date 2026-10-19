@@ -5,6 +5,8 @@ import { app } from '../engine/app'
 import { ARENA_WAVES } from '../data/zones'
 import { ZoneMode } from '../modes/zoneMode'
 import { dummyBeat } from './dummy'
+import { mentorCue } from './mentor'
+import { MENTOR_SKILL } from '../data/mentor'
 import { GOAL_LESSON, bossOf, goalSig, nextGoal, type Goal, type GoalCtx } from './goal'
 import { talk } from '../talk'
 import { hud } from '../state/hud'
@@ -69,6 +71,7 @@ export const liveGoalCtx = (): GoalCtx => {
           escort: !!flow.encounter?.escort,
           ended: z.sim.ended || '',
           dummy: dummyBeat(z.sim) === 'on',
+          mentor: mentorCue(z.sim) && !profile.hero.learned.includes(MENTOR_SKILL),
           wave: hud.wave,
           // The ladder (#10): eight waves to start with, then the hero's own best to beat.
           waves: Math.max(ARENA_WAVES, profile.world.arenaBest + 1, hud.wave)
@@ -178,7 +181,7 @@ const nudgeCands = (): Array<NudgeCand & { sel: string; place: string }> => {
   if (flow.screen === 'zone') {
     if (g?.id === 'exit') add('bounce:leave', 'bounce', '[data-coach="leave"]')
     if (hud.interactChest) add('bounce:chest', 'bounce', '.chest-prompt__btn')
-    if (g && (g.id === 'clear' || g.id === 'boss' || g.id === 'dummy') && w.has) {
+    if (g && (g.id === 'clear' || g.id === 'boss' || g.id === 'dummy' || g.id === 'trainer') && w.has) {
       if (!w.onScreen) add('edge:goal', 'edge')
       if (w.dist > 6) add('crumbs:goal', 'crumbs')
     }

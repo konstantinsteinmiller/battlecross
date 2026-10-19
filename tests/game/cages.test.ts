@@ -99,6 +99,8 @@ describe('opening one', () => {
     const people = sim.units.filter(u => u.rank === 'npc' && u.kind === def.look)
     expect(people).toHaveLength(def.count)
     for (const u of people) expect(Math.hypot(u.x - cage.x, u.z - cage.z)).toBeLessThan(0.5)
+    // A tap on the cage reaches the cage (its door), not the person behind the bars.
+    expect(sim.pick(-1, cage.x, cage.z, 0.7)).toBeUndefined()
     sim.cageKey!.taken = true
     const h = sim.hero.unit
     h.x = h.px = cage.sx

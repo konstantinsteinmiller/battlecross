@@ -47,7 +47,7 @@ const oakArmorer = conversation('oakArmorer', {
     { id: 'armor' },
     rumor([{ id: 'backRoom' }])
   ],
-  back: { shop: [{ id: 'shopBack' }], smithing: [{ id: 'forgeBack' }] },
+  back: { shop: [{ id: 'shopBack' }], smithing: [{ id: 'forgeBack' }], sellOre: [{ id: 'sellBack' }] },
   bye: [{ id: 'bye' }]
 })
 
@@ -69,7 +69,7 @@ const oakMasterArmorer = conversation('oakMasterArmorer', {
       { id: 'tundra' }
     ])
   ],
-  back: { shop: [{ id: 'shopBack' }], smithing: [{ id: 'forgeBack' }] },
+  back: { shop: [{ id: 'shopBack' }], smithing: [{ id: 'forgeBack' }], sellOre: [{ id: 'sellBack' }] },
   bye: [{ id: 'bye' }]
 })
 

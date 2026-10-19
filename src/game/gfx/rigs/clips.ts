@@ -109,6 +109,8 @@ interface Meta {
   heavy?: boolean
   tense?: number
   hop?: number
+  blendIn?: number
+  blendOut?: number
 }
 
 const clip = (keys: Key[], m: Meta = {}): Clip => ({
@@ -119,7 +121,9 @@ const clip = (keys: Key[], m: Meta = {}): Clip => ({
   trailOff: m.trailOff,
   heavy: !!m.heavy,
   tense: m.tense ?? 0,
-  hop: m.hop ?? 0
+  hop: m.hop ?? 0,
+  blendIn: m.blendIn,
+  blendOut: m.blendOut
 })
 
 interface Beats {
@@ -413,7 +417,7 @@ const CASTS: Record<CastName, (st: Pose) => Clip> = {
     { at: 1.75, p: mk(st, { ...SQUAT, ...GRIM, pitch: 4.71, rootY: 0.42, headRx: 0.5, aRx: -1.4, aRy: 0, eR: 1.7, aLx: -1.4, aLy: 0, eL: 1.7 }), e: lin },
     { at: 1.92, p: mk(st, { ...HALF_SQUAT, pitch: 6.05, rootY: 0.04 }), e: lin },
     { at: 2, p: mk(st, { pitch: 6.283 }), e: easeOut }
-  ], { tail: 0.28, trail: null, strike: 0 }),
+  ], { tail: 0.28, trail: null, strike: 0, blendIn: 0.09, blendOut: 0.12 }),
 
   // Thrown with the free hand: the weapon stays where it is.
   throw: st => swing(st, {
@@ -697,5 +701,5 @@ export const SKILL_CAST: Readonly<Record<string, CastName>> = {
 /** Enemy abilities (`AbilityKind`), each to its cast. A cone is a cleave unless it is breathed. */
 export const ABILITY_CAST: Readonly<Record<string, CastName>> = {
   slam: 'slam', smash: 'call', cone: 'cleave', charge: 'charge', line: 'line', shot: 'beam', volley: 'beam',
-  lob: 'throw', barrage: 'channel', leap: 'leap', blink: 'strike', summon: 'summon', heal: 'raise', enrage: 'shout'
+  lob: 'throw', barrage: 'channel', rain: 'call', spears: 'throw', leap: 'leap', blink: 'strike', summon: 'summon', heal: 'raise', enrage: 'shout'
 }

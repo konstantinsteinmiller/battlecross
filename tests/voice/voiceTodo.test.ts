@@ -10,6 +10,7 @@ import { existsSync, readFileSync, readdirSync } from 'node:fs'
 import { resolve } from 'node:path'
 import { renderVoiceTodo, todoLinesOf, voiceFileId } from '@/game/audio/voiceTodo'
 import { voiceOf } from '@/game/audio/voiceCards'
+import { coreIdsOf, type VoiceCoreSpec } from '@/game/audio/voiceCore'
 import { textHashOf } from '../../tools/voice/stale.mjs'
 
 const ROOT = resolve(__dirname, '../..')
@@ -19,9 +20,15 @@ const files = new Set(existsSync(dir) ? readdirSync(dir).filter(f => /\.(ogg|mp3
 const shippedFile = resolve(ROOT, 'vo-src/shipped.json')
 const shipped = existsSync(shippedFile) ? JSON.parse(readFileSync(shippedFile, 'utf8')) : {}
 const lines = todoLinesOf(manifest.lines, voiceOf, textHashOf)
+const coreSpec: VoiceCoreSpec = JSON.parse(readFileSync(resolve(ROOT, 'data/voice-core.json'), 'utf8'))
+const core = new Set(coreIdsOf(coreSpec, lines.map(l => l.id)))
+const others = ['de', 'fr', 'es', 'ru', 'ja', 'pt', 'zh'].map((lang) => {
+  const d = resolve(ROOT, 'public/audio/voice', lang)
+  return { lang, files: new Set(existsSync(d) ? readdirSync(d).filter(f => /\.(ogg|mp3|m4a)$/i.test(f)).map(voiceFileId) : []) }
+})
 
 describe('voice-todo.md', () => {
-  const md = renderVoiceTodo({ lines, shipped, files })
+  const md = renderVoiceTodo({ lines, shipped, files, others, core, coreMax: coreSpec.max })
 
   it('is current (run `pnpm voice:script` when it is not)', () => {
     const file = readFileSync(resolve(ROOT, 'voice-todo.md'), 'utf8').replace(/\r\n/g, '\n')

@@ -161,8 +161,6 @@ const takePurse = async (): Promise<void> => { if (await triplePurse()) { sfx('c
   +cel.label
   overflow: hidden
   animation: levelup 520ms var(--bc-ease-bounce)
-  &::before
-    +cel.glint(0.3em, 0.7em, 30%, 0.32em)
 .results__level
   position: relative
   font-size: clamp(1.1rem, 4.8vmin, 1.6rem)

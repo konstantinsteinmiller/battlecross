@@ -5,16 +5,18 @@ import {
 import type { LiquidId, ThemeId } from '../data/zones'
 import { CELL } from '../sim/grid'
 import { mulberry32 } from '../sim/rng'
+import { townExitClear } from '../sim/townCells'
 import type { ZonePlan } from '../sim/zoneGen'
 import { K_BLOCK, K_BRIDGE, K_CLIFF, K_FORD, K_GROUND, K_RAMP, K_WATER, riverRow } from '../sim/zoneFeatures'
 import { groundAt } from './ground'
 import type { Slice } from '../engine/slicer'
 import { sceneQuality } from '../engine/quality'
-import { EDGE_FOG_K, celVC, celVCInst, celVCMap, celVCMapEdge, clearEdgeFog, edgeFog, glowVC, glowVCInst, outlineMat, setCelMood, setEdgeFog } from './cel'
+import { EDGE_FOG_K, celVC, celVCInst, celVCMap, clearEdgeFog, edgeFog, glowVC, glowVCInst, outlineMat, setCelMood, setEdgeFog } from './cel'
 import { EDGE_FROM, EDGE_MAX, EDGE_STRENGTH, EDGE_TO, edgeColour, edgeField, edgeTexture } from './edgeFog'
 import { cap, dome, ell, merge, paint, rbox, rcone, rcyl, rock, sph, xform } from './kit'
 import { groundDetail } from './textures'
 import { markStill, splitByTile } from './cull'
+import { COVER_TOL, FootIndex, cellSamples, footOf, footedDist, type Foot } from './footprint'
 
 /**
  * ─── The ground and what stands on it ────────────────────────────────────────
@@ -47,7 +49,7 @@ import { markStill, splitByTile } from './cull'
  * plates) is `levelProps.ts`.
  */
 
-interface PropShape {
+export interface PropShape {
   /** Lit parts and glowing parts, already painted. */
   build: () => { lit: BufferGeometry[]; glow?: BufferGeometry[] }
   /** Relative frequency among the theme's shapes. */
@@ -343,6 +345,14 @@ const LOW_PROPS: Readonly<Record<ThemeId, PropShape[]>> = {
   arena: [{ build: boulder('#b8a078', '#d0b890'), w: 4, s: [0.7, 1.1] }]
 }
 
+/**
+ * What fills a cell the scenery left bare (`layScenery`): the theme's own
+ * low bush or boulder, big enough to cover a whole cell. Built once.
+ */
+const FILLER: Readonly<Record<ThemeId, PropShape>> = Object.fromEntries(
+  (Object.keys(LOW_PROPS) as ThemeId[]).map(id => [id, { ...LOW_PROPS[id][0]!, s: [1, 1.2] as [number, number] }])
+) as Record<ThemeId, PropShape>
+
 // ── The ground's own material ────────────────────────────────────────────────
 //
 // The cel material's ramp and mood (it shares their uniforms, so a cave's dark
@@ -529,6 +539,27 @@ const noise = (x: number, y: number, seed: number): number => {
 const LAND = 18
 /** Cells of scenery past the grid. */
 const WILDS = 13
+/** Cells inside the grid where the rim colour starts to ease in, and cells past it where it is full: the blend straddles the grid's edge. */
+export const LAND_RIM_IN = 5
+export const LAND_RIM_OUT = 10
+/**
+ * 0 (the open ground's colour) to 1 (the rim): by a cell's distance to walkable
+ * ground inside the grid (`dIn`) and its signed distance past the grid's edge
+ * in cells (`s`, negative inside), so the blend has no start line anywhere.
+ */
+export const landRimK = (dIn: number, s: number): number => {
+  const k = Math.min(1, Math.max(0, dIn / 3, (s + LAND_RIM_IN) / (LAND_RIM_IN + LAND_RIM_OUT)))
+  return k * k * (3 - 2 * k)
+}
+/** Signed distance (cells) of a vertex at cell coordinates (x, z) past the grid's edge: negative inside. */
+/** Cells of the walkable region's surround the detailed ground covers (past it the rim colour is full: the sheet beyond starts under the haze). */
+export const GROUND_NEAR = 9
+export const gridEdgeDist = (x: number, z: number, w: number, h: number): number => {
+  const ox = Math.max(-x, x - w, 0)
+  const oz = Math.max(-z, z - h, 0)
+  if (ox > 0 || oz > 0) return Math.hypot(ox, oz)
+  return -Math.min(x, z, w - x, h - z)
+}
 
 export interface Terrain {
   root: Group
@@ -550,7 +581,7 @@ const _nrm = new Vector3()
 const TILE = 15
 
 /** x, z, turn, scale, and (optionally) the height to stand at. */
-type Place = [number, number, number, number, number?]
+export type Place = [number, number, number, number, number?]
 
 /** The flat, upward faces of a shape (a plinth's top, a slab): their heights,
  *  and how far from its foot they reach. */
@@ -665,6 +696,15 @@ const instanced = (shape: PropShape, places: Place[], outline: boolean, root: Gr
   add(built.glow ?? [], false)
 }
 
+const memo = <T>(fn: (id: ThemeId) => T): ((id: ThemeId) => T) => {
+  const m = new Map<ThemeId, T>()
+  return (id) => {
+    let v = m.get(id)
+    if (v === undefined) { v = fn(id); m.set(id, v) }
+    return v
+  }
+}
+
 const pickShape = (shapes: PropShape[], r: number): number => {
   let total = 0
   for (const s of shapes) total += s.w
@@ -722,6 +762,232 @@ export const lowRingOf = (plan: ZonePlan): { ring: Uint8Array; any: boolean } =>
   return { ring, any }
 }
 
+/** Distance from each cell to the nearest walkable one (0 = walkable), in
+ *  rings, up to 11 (it once stopped at 4 and jumped to 9: a step a player saw). */
+export const nearWalk = (plan: Pick<ZonePlan, 'w' | 'h' | 'solid'>): Uint8Array => {
+  const { w, h, solid } = plan
+  const near = new Uint8Array(w * h).fill(12)
+  for (let k = 0; k < w * h; k++) if (!solid[k]) near[k] = 0
+  for (let pass = 1; pass <= 11; pass++) {
+    for (let j = 0; j < h; j++) {
+      for (let i = 0; i < w; i++) {
+        const k = j * w + i
+        if (near[k]! <= pass) continue
+        let hit = false
+        for (let dj = -1; dj <= 1 && !hit; dj++) {
+          for (let di = -1; di <= 1; di++) {
+            const ni = i + di
+            const nj = j + dj
+            if (ni >= 0 && nj >= 0 && ni < w && nj < h && near[nj * w + ni] === pass - 1) { hit = true; break }
+          }
+        }
+        if (hit) near[k] = pass
+      }
+    }
+  }
+  return near
+}
+
+/** Solid cells within two of a cave's floor carry cave rock, not the zone's own. */
+export const caveRingOf = (plan: ZonePlan): Uint8Array => {
+  const { w, h, solid } = plan
+  const caveRing = new Uint8Array(w * h)
+  if (plan.caves.length) {
+    for (let j = 2; j < h - 2; j++) {
+      for (let i = 2; i < w - 2; i++) {
+        if (!plan.cave[j * w + i]) continue
+        for (let dj = -2; dj <= 2; dj++) for (let di = -2; di <= 2; di++) {
+          const k = (j + dj) * w + i + di
+          if (solid[k]) caveRing[k] = 1
+        }
+      }
+    }
+  }
+  return caveRing
+}
+
+/** The cells round a building (its footprint and one more): no scenery grows there. */
+const footprintOf = (plan: ZonePlan): Set<number> => {
+  const w = plan.w
+  const footprint = new Set<number>()
+  for (const b of plan.buildings) {
+    const i0 = Math.floor((b.x - b.w / 2) / CELL)
+    const i1 = Math.floor((b.x + b.w / 2) / CELL)
+    const j0 = Math.floor((b.z - b.d / 2) / CELL)
+    const j1 = Math.floor((b.z + b.d / 2) / CELL)
+    for (let j = j0 - 1; j <= j1 + 1; j++) for (let i = i0 - 1; i <= i1 + 1; i++) footprint.add(j * w + i)
+  }
+  return footprint
+}
+
+/** One kind of scenery and where each of it stands. `slice`: yield after building it. */
+export interface SceneryGroup { shape: PropShape; places: Place[]; outline: boolean; slice?: boolean }
+
+/** The scenery shapes that are the theme's own and not a palette swap: built once per theme. */
+const caveShapesOf = memo((themeId: ThemeId): PropShape[] => [
+  { build: caveWall('#4a4458', '#5e586e', '#3c3848'), w: 1, s: [0.95, 1.25] },
+  { build: boulder('#4a4458', '#5e586e'), w: 1, s: [0.85, 1.25] },
+  { build: caveGlow('#3c3848', THEMES[themeId].mote), w: 1, s: [0.8, 1.2] }
+])
+const wallShapesOf = memo((themeId: ThemeId): PropShape[] => {
+  const stone = CLIFF[themeId]
+  return [
+    { build: builtWall(stone.a, stone.b, true), w: 1, s: [1, 1] },
+    { build: builtWall(stone.a, stone.b, false), w: 1, s: [1, 1] },
+    { build: ruinWall(stone.a, stone.b, 2.2), w: 1, s: [1, 1] },
+    { build: ruinWall(stone.a, stone.b, 1.4), w: 1, s: [1, 1] },
+    { build: ruinWall(stone.a, stone.b, 0.6), w: 1, s: [1, 1] }
+  ]
+})
+
+/** A shape's footprint from above (`footprint.ts`), built once. */
+const feet = new WeakMap<PropShape, Foot>()
+export const shapeFoot = (shape: PropShape): Foot => {
+  let f = feet.get(shape)
+  if (!f) {
+    const b = shape.build()
+    f = footOf([...b.lit, ...(b.glow ?? [])])
+    for (const g of [...b.lit, ...(b.glow ?? [])]) g.dispose()
+    feet.set(shape, f)
+  }
+  return f
+}
+
+/**
+ * Where the scenery of a zone's solid cells stands. Every solid cell the hero
+ * can touch (one that faces walkable ground) carries something drawn over the
+ * whole of it, within `COVER_TOL`: a cell the thinning or a small prop left
+ * bare gets a filler (the theme's own low bush or boulder) at its middle.
+ * A blocked cell with nothing on it is an invisible wall (playtest, the
+ * Whisperwood: the hem of low props in front of a chest skipped a cell in
+ * five, and its ember or mushroom covered a third of one).
+ */
+export const layScenery = (
+  plan: ZonePlan, themeId: ThemeId, rng: () => number, low: boolean,
+  near = nearWalk(plan), caveRing = caveRingOf(plan), lowRing = lowRingOf(plan).ring
+): SceneryGroup[] => {
+  const theme = THEMES[themeId]
+  const { w, h, solid } = plan
+  let anyWet = false
+  for (let j = 0; j < h && !anyWet; j++) for (let i = 0; i < w; i++) if (wetCell(plan, i, j)) { anyWet = true; break }
+  const footprint = footprintOf(plan)
+  const anySide = lowRing.some(v => v > 0)
+  const borderPlaces: Array<Array<[number, number, number, number]>> = theme.border.map(() => [])
+  // Past the two rings that face the player, the same scenery carries on,
+  // thinner and without outlines: woods behind the trees, rock behind the
+  // rocks, out to `WILDS` cells beyond the grid.
+  const wildPlaces: Array<Array<[number, number, number, number]>> = theme.border.map(() => [])
+  const wildDensity = low ? 0.12 : 0.3
+  // Round a cave: tall rock on the far (up-screen) side, low rock on the near
+  // side, and a glowing cluster now and then. The camera has no way to look
+  // through a wall, so nothing tall ever stands between it and the cave floor.
+  const caveShapes = caveShapesOf(themeId)
+  const cavePlaces: Array<Array<[number, number, number, number]>> = caveShapes.map(() => [])
+  // In front of a side pocket: the theme's own low shapes (a bush, a boulder,
+  // a mushroom), or a plain rock in its colours where it has none.
+  const lowShapes: PropShape[] = anySide ? LOW_PROPS[themeId] : []
+  const lowPlaces: Array<Array<[number, number, number, number]>> = lowShapes.map(() => [])
+  // Built walls round a layout's rooms (#120): dressed (tall, low) or a ruin (tall, broken, low).
+  const wallShapes = wallShapesOf(themeId)
+  const wallPlaces: Place[][] = wallShapes.map(() => [])
+  const townExits = plan.town?.exits
+  for (let j = -WILDS; j < h + WILDS; j++) {
+    for (let i = -WILDS; i < w + WILDS; i++) {
+      const inside = i >= 0 && j >= 0 && i < w && j < h
+      const k = j * w + i
+      // The way out of a town (#131) is open ground out to the horizon: no tree in front of it.
+      if (townExits && townExitClear(townExits, i, j)) continue
+      const d = inside ? near[k]! : 9
+      if (d === 0 || (inside && footprint.has(k))) continue
+      // A river runs on past the grid; a level prop has its cell to itself.
+      if (anyWet && wetCell(plan, i, j)) continue
+      if (inside && plan.kind[k] === K_BLOCK) continue
+      if (inside && caveRing[k]) {
+        if (d === 2 && rng() < 0.4) continue
+        // Far side: a cave cell lies just down-screen of this one (never in
+        // front of a pocket or a chest: that rock stays low).
+        let far = false
+        if (!lowRing[k]) for (let dj = 1; dj <= 2 && !far; dj++) for (let di = -1; di <= 1; di++) if (plan.cave[(j + dj) * w + i + di]) { far = true; break }
+        const shape = far ? (rng() < 0.82 ? 0 : 2) : rng() < 0.8 ? 1 : 2
+        const s = caveShapes[shape]!
+        cavePlaces[shape]!.push([(i + 0.5 + (rng() - 0.5) * 0.4) * CELL, (j + 0.5 + (rng() - 0.5) * 0.4) * CELL, rng() * Math.PI * 2, s.s[0] + rng() * (s.s[1] - s.s[0])])
+        continue
+      }
+      if (inside && plan.masonry?.[k] && d <= 2) {
+        // A built wall: square to the grid, one block a cell. On a room's near
+        // side (open ground just up-screen of it) it stays low.
+        let near = false
+        for (let dj = 1; dj <= 2 && !near; dj++) for (let di = -1; di <= 1; di++) if (j - dj >= 0 && !solid[(j - dj) * w + i + di]) { near = true; break }
+        const ruin = plan.masonry[k] === 2
+        const shape = ruin ? (near ? 4 : rng() < 0.55 ? 2 : 3) : near ? 1 : 0
+        wallPlaces[shape]!.push([(i + 0.5) * CELL, (j + 0.5) * CELL, ruin ? (rng() - 0.5) * 0.12 : 0, 1])
+        continue
+      }
+      if (inside && lowRing[k]) {
+        // Thick along the pocket's edge, thinning away from it: a hem, not a
+        // field. A cell that faces walkable ground is never left out (the hero
+        // can touch it); the thinning is for the rows behind.
+        if (d > 1 && rng() > (lowRing[k] === 1 ? 0.8 : lowRing[k] === 2 ? 0.42 : 0.2)) continue
+        const shape = pickShape(lowShapes, rng())
+        const s = lowShapes[shape]!
+        lowPlaces[shape]!.push([(i + 0.5 + (rng() - 0.5) * 0.5) * CELL, (j + 0.5 + (rng() - 0.5) * 0.5) * CELL, rng() * Math.PI * 2, s.s[0] + rng() * (s.s[1] - s.s[0])])
+        continue
+      }
+      const facing = d <= (low ? 1 : 2)
+      if (facing) {
+        // The second ring is thinned: it only has to close the gaps of the first.
+        if (d === 2 && rng() < 0.45) continue
+      } else if (rng() > wildDensity) continue
+      const shape = pickShape(theme.border, rng())
+      const s = theme.border[shape]!
+      const jitter = facing ? 0.5 : 0.9
+      ;(facing ? borderPlaces : wildPlaces)[shape]!.push([
+        (i + 0.5 + (rng() - 0.5) * jitter) * CELL, (j + 0.5 + (rng() - 0.5) * jitter) * CELL, rng() * Math.PI * 2,
+        (s.s[0] + rng() * (s.s[1] - s.s[0])) * (facing ? 1 : 1.12)
+      ])
+    }
+  }
+  const groups: SceneryGroup[] = [
+    ...theme.border.flatMap((s, n): SceneryGroup[] => [{ shape: s, places: borderPlaces[n]!, outline: true }, { shape: s, places: wildPlaces[n]!, outline: false, slice: true }]),
+    ...caveShapes.map((s, n): SceneryGroup => ({ shape: s, places: cavePlaces[n]!, outline: true })),
+    ...lowShapes.map((s, n): SceneryGroup => ({ shape: s, places: lowPlaces[n]!, outline: true })),
+    ...wallShapes.map((s, n): SceneryGroup => ({ shape: s, places: wallPlaces[n]!, outline: true }))
+  ]
+
+  // ── The cover pass: no cell the hero can touch is left bare ──
+  const index = new FootIndex()
+  for (const g of groups) {
+    const f = shapeFoot(g.shape)
+    for (const p of g.places) index.add({ foot: f, x: p[0], z: p[1], rot: p[2], sc: p[3] })
+  }
+  const filler = FILLER[themeId]
+  const fillFoot = shapeFoot(filler)
+  const fills: Place[] = []
+  // On a stream of its own: the scenery above lies exactly as it always did.
+  const frng = mulberry32((plan.seed ^ 0x6c0f3) >>> 0)
+  for (let j = 0; j < h; j++) {
+    for (let i = 0; i < w; i++) {
+      const k = j * w + i
+      if (!solid[k] || near[k] !== 1 || footprint.has(k) || plan.kind[k] === K_BLOCK) continue
+      if (townExits && townExitClear(townExits, i, j)) continue
+      if (anyWet && wetCell(plan, i, j)) continue
+      const pts = cellSamples(i, j, CELL)
+      if (pts.every(([x, z]) => index.covered(x, z))) continue
+      // At the cell's middle, as large as it takes to cover the whole cell alone.
+      const x = (i + 0.5) * CELL
+      const z = (j + 0.5) * CELL
+      const rot = frng() * Math.PI * 2
+      let sc = filler.s[0]
+      while (sc < filler.s[1] * 1.6 && !pts.every(([px, pz]) => footedDist({ foot: fillFoot, x, z, rot, sc }, px, pz) <= COVER_TOL)) sc += 0.05
+      const p: Place = [x, z, rot, sc]
+      fills.push(p)
+      index.add({ foot: fillFoot, x, z, rot, sc })
+    }
+  }
+  if (fills.length) groups.push({ shape: filler, places: fills, outline: true })
+  return groups
+}
+
 export const buildTerrain = async (plan: ZonePlan, themeId: ThemeId, scene: Scene, slice: Slice): Promise<Terrain> => {
   const theme = THEMES[themeId]
   const root = new Group()
@@ -749,44 +1015,12 @@ export const buildTerrain = async (plan: ZonePlan, themeId: ThemeId, scene: Scen
     }
   }
   const { ring: lowRing, any: anySide } = lowRingOf(plan)
-  // Solid cells within two of a cave's floor carry cave rock, not the zone's own.
-  const caveRing = new Uint8Array(w * h)
-  if (plan.caves.length) {
-    for (let j = 2; j < h - 2; j++) {
-      for (let i = 2; i < w - 2; i++) {
-        if (!plan.cave[j * w + i]) continue
-        for (let dj = -2; dj <= 2; dj++) for (let di = -2; di <= 2; di++) {
-          const k = (j + dj) * w + i + di
-          if (solid[k]) caveRing[k] = 1
-        }
-      }
-    }
-  }
+  const caveRing = caveRingOf(plan)
 
   setCelMood({ ambient: theme.ambient, shadowTint: theme.shadow })
   scene.background = new Color(theme.sky)
 
-  // Distance from each cell to the nearest walkable one (0 = walkable), in
-  // rings, up to 11 (it once stopped at 4 and jumped to 9: a step a player saw).
-  const near = new Uint8Array(w * h).fill(12)
-  for (let k = 0; k < w * h; k++) if (!solid[k]) near[k] = 0
-  for (let pass = 1; pass <= 11; pass++) {
-    for (let j = 0; j < h; j++) {
-      for (let i = 0; i < w; i++) {
-        const k = j * w + i
-        if (near[k]! <= pass) continue
-        let hit = false
-        for (let dj = -1; dj <= 1 && !hit; dj++) {
-          for (let di = -1; di <= 1; di++) {
-            const ni = i + di
-            const nj = j + dj
-            if (ni >= 0 && nj >= 0 && ni < w && nj < h && near[nj * w + ni] === pass - 1) { hit = true; break }
-          }
-        }
-        if (hit) near[k] = pass
-      }
-    }
-  }
+  const near = nearWalk(plan)
   await slice()
 
   // The haze past the walkable edge (roadmap #83): one soft field every
@@ -806,7 +1040,11 @@ export const buildTerrain = async (plan: ZonePlan, themeId: ThemeId, scene: Scen
   const relief: number[] = []
   const nor: number[] = []
   const idx: number[] = []
-  const vmap = new Int32Array(gw * gh).fill(-1)
+  // The ground reaches past the grid by the blend's width (`LAND_RIM_OUT`), so every exit looks out over ONE mesh.
+  const E = LAND_RIM_OUT
+  const gwE = (w + 2 * E) * SUB + 1
+  const ghE = (h + 2 * E) * SUB + 1
+  const vmap = new Int32Array(gwE * ghE).fill(-1)
   const cA = new Color(theme.ground[0])
   const cB = new Color(theme.ground[1])
   const cT = new Color(theme.trail)
@@ -882,29 +1120,37 @@ export const buildTerrain = async (plan: ZonePlan, themeId: ThemeId, scene: Scen
     return n ? t / n : 0
   }
   const vertex = (gi: number, gj: number): number => {
-    const key = gj * gw + gi
+    const key = (gj + E * SUB) * gwE + gi + E * SUB
     if (vmap[key]! >= 0) return vmap[key]!
     const x = (gi / SUB) * CELL
     const z = (gj / SUB) * CELL
+    // Past the grid, the walkable cells' own edge values carry on (clamped); a place's water, cliffs and caves do not.
+    const inV = gi >= 0 && gj >= 0 && gi < gw && gj < gh
+    const qi = Math.min(gw - 1, Math.max(0, gi))
+    const qj = Math.min(gh - 1, Math.max(0, gj))
+    const sEdge = gridEdgeDist(gi / SUB, gj / SUB, w, h)
+    const d = cellNear(qi, qj)
+    const plain = !inV || d > 3
     const n = noise(x * 0.22, z * 0.22, plan.seed) * 0.65 + noise(x * 0.7, z * 0.7, plan.seed + 7) * 0.35
     c.copy(cA).lerp(cB, n)
-    const t = trailAt(gi, gj)
+    const t = trailAt(qi, qj) * (sEdge > 0 ? Math.max(0, 1 - sEdge / 2) : 1)
     if (t > 0) c.lerp(cT, Math.min(0.85, t * (0.7 + 0.3 * n)))
     // The road is worn into the ground (`sim/relief.ts` lowers it): its edges
     // are a darker rut.
     if (t > 0.12 && t < 0.62) c.multiplyScalar(0.88)
     // Inside a cave the ground is the cave's own, whatever grows outside.
-    const cv = plan.caves.length ? shareAt(plan.cave, gi, gj) : 0
+    const cv = plan.caves.length && !plain ? shareAt(plan.cave, gi, gj) : 0
     if (cv > 0) c.lerp(c2.copy(cCaveA).lerp(cCaveB, n), cv)
-    const d = cellNear(gi, gj)
-    if (d > 0) {
-      const ci = Math.min(w - 1, Math.floor(gi / SUB))
-      const cj = Math.min(h - 1, Math.floor(gj / SUB))
-      const k = Math.min(1, d / 3)
-      c.lerp(caveRing[cj * w + ci] ? cCaveR : cR, k * k * (3 - 2 * k))
+    // The rim: by the distance to walkable ground, and eased in from a few cells
+    // inside the grid's edge (see `landRimK`), one blend the land beyond shares.
+    const kRim = landRimK(d, sEdge)
+    if (kRim > 0) {
+      const ci = Math.min(w - 1, Math.floor(qi / SUB))
+      const cj = Math.min(h - 1, Math.floor(qj / SUB))
+      c.lerp(caveRing[cj * w + ci] ? cCaveR : cR, kRim)
     }
     // A cliff is banded stone; a ramp is worn like a trail.
-    if (anyCliff) {
+    if ((anyCliff && !plain)) {
       const cl = shareAt(cliffMask, gi, gj)
       if (cl > 0) c.lerp(c2.copy(cRockA).lerp(cRockB, n > 0.5 ? 0.85 : 0.25), Math.min(1, cl * 1.6))
       const rp = shareAt(rampMask, gi, gj)
@@ -924,8 +1170,8 @@ export const buildTerrain = async (plan: ZonePlan, themeId: ThemeId, scene: Scen
     // Where the ground shader may draw its relief tones and contours (open
     // ground: not water, a cliff's rock, the worn road or a cave's floor).
     let open = 1
-    if (anyWet) open -= shareAt(wet, gi, gj) * 2
-    if (anyCliff) open -= shareAt(cliffMask, gi, gj) * 2
+    if ((anyWet && !plain)) open -= shareAt(wet, gi, gj) * 2
+    if ((anyCliff && !plain)) open -= shareAt(cliffMask, gi, gj) * 2
     if (t > 0) open -= t * 0.7
     if (cv > 0) open -= cv
     relief.push(Math.max(0, Math.min(1, open)))
@@ -933,20 +1179,20 @@ export const buildTerrain = async (plan: ZonePlan, themeId: ThemeId, scene: Scen
     // Higher ground a touch lighter, lower a touch darker: a terrace reads as a level.
     c.multiplyScalar(1 + Math.max(-0.12, Math.min(0.12, (gy - meanH) * 0.06)))
     // At a cliff's foot the ground lies in its shadow.
-    if (anyCliff) {
+    if ((anyCliff && !plain)) {
       const cl = shareAt(cliffMask, gi, gj)
       if (cl > 0 && cl < 1) {
-        const ci = Math.min(w - 1, Math.floor(gi / SUB))
-        const cj = Math.min(h - 1, Math.floor(gj / SUB))
+        const ci = Math.min(w - 1, Math.floor(qi / SUB))
+        const cj = Math.min(h - 1, Math.floor(qj / SUB))
         const near0 = groundAt((ci + 0.5) * CELL, (cj + 0.5) * CELL)
         if (gy <= near0 + 0.05) c.multiplyScalar(0.8)
       }
     }
     // Inside a cliff cell the face is steep, not a ramp: its own vertices are
     // drawn toward its foot or its brow, and it is dark stone with a light brow.
-    if (anyCliff && shareAt(cliffMask, gi, gj) >= 1) {
-      const ci = Math.min(w - 1, Math.floor(gi / SUB))
-      const cj = Math.min(h - 1, Math.floor(gj / SUB))
+    if ((anyCliff && !plain) && shareAt(cliffMask, gi, gj) >= 1) {
+      const ci = Math.min(w - 1, Math.floor(qi / SUB))
+      const cj = Math.min(h - 1, Math.floor(qj / SUB))
       const W1 = w + 1
       const hs = plan.height
       const lo = Math.min(hs[cj * W1 + ci]!, hs[cj * W1 + ci + 1]!, hs[(cj + 1) * W1 + ci]!, hs[(cj + 1) * W1 + ci + 1]!)
@@ -962,7 +1208,7 @@ export const buildTerrain = async (plan: ZonePlan, themeId: ThemeId, scene: Scen
     // Water: the ground dips to the bed (the slope is the bank), the bank
     // takes the liquid's tint and the bed its colour.
     let y = 0
-    if (anyWet) {
+    if ((anyWet && !plain)) {
       const f = shareAt(wet, gi, gj)
       const by = shareAt(damp, gi, gj)
       if (by > 0 && liquid) c.lerp(cBank, Math.min(1, by * 1.8) * liquid.bankK)
@@ -981,9 +1227,12 @@ export const buildTerrain = async (plan: ZonePlan, themeId: ThemeId, scene: Scen
   // No ground under a building: its own pad (`gfx/houses.ts`) is the floor
   // there, so the street can never show through a room or a forge.
   const built = builtCells(plan)
-  for (let j = 0; j < h; j++) {
-    for (let i = 0; i < w; i++) {
-      if (near[j * w + i]! > 3 || built[j * w + i]) continue
+  /** Cells the detailed ground spans (built ones aside): the walkable region's surround and a ring past the grid. */
+  const inGround = (i: number, j: number): boolean =>
+    i >= 0 && j >= 0 && i < w && j < h ? near[j * w + i]! <= GROUND_NEAR : i >= -E && j >= -E && i < w + E && j < h + E
+  for (let j = -E; j < h + E; j++) {
+    for (let i = -E; i < w + E; i++) {
+      if (inGround(i, j) && (i < 0 || j < 0 || i >= w || j >= h || !built[j * w + i])) {} else continue
       for (let sj = 0; sj < SUB; sj++) {
         for (let si = 0; si < SUB; si++) {
           const gi = i * SUB + si
@@ -1024,10 +1273,17 @@ export const buildTerrain = async (plan: ZonePlan, themeId: ThemeId, scene: Scen
   {
     const fw = w + LAND * 2 + 1
     const fh = h + LAND * 2 + 1
+    // Under the detailed ground the sheet is never seen, yet drawn first it
+    // was shaded under every pixel of it: a whole screen of fragments twice.
+    // Those quads are left out; the sheet starts exactly where the ground ends,
+    // at the same height along the shared edge (no overlap, so nothing to fight).
+    const inner = inGround
+    const covered = (ci: number, cj: number): boolean => inner(ci, cj) && !(ci >= 0 && cj >= 0 && ci < w && cj < h && built[cj * w + ci])
     const fpos = new Float32Array(fw * fh * 3)
     const fcol = new Float32Array(fw * fh * 3)
     const fuv = new Float32Array(fw * fh * 2)
     const fnor = new Float32Array(fw * fh * 3)
+    const frel = new Float32Array(fw * fh)
     for (let j = 0; j < fh; j++) {
       for (let i = 0; i < fw; i++) {
         const ci = i - LAND
@@ -1037,48 +1293,94 @@ export const buildTerrain = async (plan: ZonePlan, themeId: ThemeId, scene: Scen
         const n = noise(x * 0.11, z * 0.11, plan.seed + 3)
         // The rim's colour, mottled; the haze does the darkening (same as the
         // detailed ground's, so the two meet without a line).
-        c.copy(cR).multiplyScalar(0.9 + 0.14 * n)
+        // Past the grid it carries the detailed ground's own mottle and trail
+        // on, easing into the rim over `landRimK` (a flat rim colour from the
+        // grid's very edge drew a hard line below an exit).
+        const gx = Math.min(w - 1, Math.max(0, ci))
+        const gy = Math.min(h - 1, Math.max(0, cj))
+        const dOut = Math.hypot(ci - gx, cj - gy)
+        const kRim = landRimK(near[gy * w + gx]!, gridEdgeDist(ci, cj, w, h))
+        const nb = noise(x * 0.22, z * 0.22, plan.seed) * 0.65 + noise(x * 0.7, z * 0.7, plan.seed + 7) * 0.35
+        c.copy(cA).lerp(cB, nb)
+        const tr = trail[gy * w + gx]! * Math.max(0, 1 - dOut / 2)
+        if (tr > 0) c.lerp(cT, Math.min(0.85, tr * (0.7 + 0.3 * nb)))
+        c.lerp(c2.copy(cR).multiplyScalar(0.9 + 0.14 * n), kRim)
+        // The detailed ground's own relief tones, so the two read as one surface.
+        const fgy = groundAt(x, z)
+        const fgx = (groundAt(x + 0.4, z) - groundAt(x - 0.4, z)) / 0.8
+        const fgz = (groundAt(x, z + 0.4) - groundAt(x, z - 0.4)) / 0.8
+        const lap = groundAt(x + 1.5, z) + groundAt(x - 1.5, z) + groundAt(x, z + 1.5) + groundAt(x, z - 1.5) - 4 * fgy
+        if (lap < -0.05) c.lerp(cCrest, lap < -0.14 ? 0.5 : 0.3)
+        else if (lap > 0.05) c.lerp(cShade, lap > 0.14 ? 0.48 : 0.28)
+        c.multiplyScalar(1 + Math.max(-0.12, Math.min(0.12, (fgy - meanH) * 0.06)))
+        _nrm.set(-fgx, 1, -fgz).normalize()
+        frel[j * fw + i] = Math.max(0, 1 - tr * 0.7)
         const k = j * fw + i
         // Under water the sheet drops below the bed, so it never shows through;
         // under the detailed ground it keeps a hand's breadth below it (a
         // bilinear cell and the sheet's flat halves never cross).
         const sunk = anyWet && (wetCell(plan, ci, cj) || wetCell(plan, ci - 1, cj) || wetCell(plan, ci, cj - 1) || wetCell(plan, ci - 1, cj - 1))
-        const inGrid = ci >= 0 && cj >= 0 && ci <= w && cj <= h
-        const under = inGrid && near[Math.min(h - 1, cj) * w + Math.min(w - 1, ci)]! <= 3
-        fpos[k * 3] = x; fpos[k * 3 + 1] = groundAt(x, z) + (sunk ? BED_Y - 0.3 : under ? -0.14 : -0.03); fpos[k * 3 + 2] = z
+            // The sheet meets the detailed ground exactly ON it along the seam (the same
+        // plane, so the texture does not shift and no crack opens), then is
+        // lowered beneath it: a vertex touching any cell outside the town stays on the
+        // ground, one wholly inside it drops (nothing coplanar under the ground).
+        const edge = !(inner(ci - 1, cj - 1) && inner(ci, cj - 1) && inner(ci - 1, cj) && inner(ci, cj))
+        fpos[k * 3] = x; fpos[k * 3 + 1] = fgy + (sunk ? BED_Y - 0.3 : edge ? 0 : -0.14); fpos[k * 3 + 2] = z
         fcol[k * 3] = c.r; fcol[k * 3 + 1] = c.g; fcol[k * 3 + 2] = c.b
         fuv[k * 2] = x / 5; fuv[k * 2 + 1] = z / 5
-        fnor[k * 3 + 1] = 1
+        fnor[k * 3] = _nrm.x; fnor[k * 3 + 1] = _nrm.y; fnor[k * 3 + 2] = _nrm.z
       }
     }
-    // Under the detailed ground the sheet is never seen, yet drawn first it
-    // was shaded under every pixel of it: a whole screen of fragments twice.
-    // Those quads are left out, all but a cell's margin round the ground's
-    // edge, where the sheet still closes the step down to it.
-    const covered = (ci: number, cj: number): boolean =>
-      ci >= 0 && cj >= 0 && ci < w && cj < h && near[cj * w + ci]! <= 3 && !built[cj * w + ci]
     const fidx: number[] = []
     for (let j = 0; j < fh - 1; j++) {
       for (let i = 0; i < fw - 1; i++) {
         const ci = i - LAND
         const cj = j - LAND
-        let hidden = true
-        for (let dj = -1; dj <= 1 && hidden; dj++) for (let di = -1; di <= 1; di++) if (!covered(ci + di, cj + dj)) { hidden = false; break }
-        if (hidden) continue
+        if (covered(ci, cj)) continue
         const a = j * fw + i
         fidx.push(a, a + fw, a + 1, a + 1, a + fw, a + fw + 1)
       }
     }
+    // A skirt: down from every seam edge, so the hairline between the ground's
+    // edge and the sheet's shows the sheet's own colour, never the sky.
+    const skirt = (a: number, b: number): void => {
+      const vs = [a, b]
+      const lo: number[] = []
+      for (const v of vs) {
+        const n = fpos.length / 3 + extra.length / 3
+        extra.push(fpos[v * 3]!, fpos[v * 3 + 1]! - 0.3, fpos[v * 3 + 2]!)
+        extraCol.push(fcol[v * 3]!, fcol[v * 3 + 1]!, fcol[v * 3 + 2]!)
+        extraUv.push(fuv[v * 2]!, fuv[v * 2 + 1]!)
+        extraNor.push(fnor[v * 3]!, fnor[v * 3 + 1]!, fnor[v * 3 + 2]!)
+        lo.push(n)
+      }
+      fidx.push(a, b, lo[0]!, b, lo[1]!, lo[0]!, a, lo[0]!, b, b, lo[0]!, lo[1]!)
+    }
+    const extra: number[] = []
+    const extraCol: number[] = []
+    const extraUv: number[] = []
+    const extraNor: number[] = []
+    const fv = (ci: number, cj: number): number => (cj + LAND) * fw + ci + LAND
+    for (let cj = -E - 1; cj <= h + E; cj++) {
+      for (let ci = -E - 1; ci <= w + E; ci++) {
+        if (!covered(ci, cj)) continue
+        if (!inner(ci - 1, cj)) skirt(fv(ci, cj), fv(ci, cj + 1))
+        if (!inner(ci + 1, cj)) skirt(fv(ci + 1, cj), fv(ci + 1, cj + 1))
+        if (!inner(ci, cj - 1)) skirt(fv(ci, cj), fv(ci + 1, cj))
+        if (!inner(ci, cj + 1)) skirt(fv(ci, cj + 1), fv(ci + 1, cj + 1))
+      }
+    }
     const far = new BufferGeometry()
-    far.setAttribute('position', new Float32BufferAttribute(fpos, 3))
-    far.setAttribute('normal', new Float32BufferAttribute(fnor, 3))
-    far.setAttribute('color', new Float32BufferAttribute(fcol, 3))
-    far.setAttribute('uv', new Float32BufferAttribute(fuv, 2))
+    far.setAttribute('position', new Float32BufferAttribute([...fpos, ...extra], 3))
+    far.setAttribute('normal', new Float32BufferAttribute([...fnor, ...extraNor], 3))
+    far.setAttribute('color', new Float32BufferAttribute([...fcol, ...extraCol], 3))
+    far.setAttribute('uv', new Float32BufferAttribute([...fuv, ...extraUv], 2))
+    far.setAttribute('aRelief', new Float32BufferAttribute([...frel, ...extra.filter((_, k) => k % 3 === 0).map(() => 0)], 1))
     far.setIndex(fidx)
     owned.push(far)
     for (const g of splitByTile(far, TILE * 4)) {
       if (g !== far) owned.push(g)
-      const farMesh = markStill(new Mesh(g, celVCMapEdge(groundDetail())))
+      const farMesh = markStill(new Mesh(g, groundMaterial(groundDetail())))
       farMesh.renderOrder = -3
       root.add(farMesh)
     }
@@ -1086,110 +1388,14 @@ export const buildTerrain = async (plan: ZonePlan, themeId: ThemeId, scene: Scen
   }
 
   // ── Border props on the solid cells that face the walkable ground ──
-  const borderPlaces: Array<Array<[number, number, number, number]>> = theme.border.map(() => [])
-  const footprint = new Set<number>()
-  for (const b of plan.buildings) {
-    const i0 = Math.floor((b.x - b.w / 2) / CELL)
-    const i1 = Math.floor((b.x + b.w / 2) / CELL)
-    const j0 = Math.floor((b.z - b.d / 2) / CELL)
-    const j1 = Math.floor((b.z + b.d / 2) / CELL)
-    for (let j = j0 - 1; j <= j1 + 1; j++) for (let i = i0 - 1; i <= i1 + 1; i++) footprint.add(j * w + i)
+  const footprint = footprintOf(plan)
+  const townExits = plan.town?.exits
+  const scenery = layScenery(plan, themeId, rng, low, near, caveRing, lowRing)
+  separateFlats(scenery.map((g): [PropShape, Place[]] => [g.shape, g.places]))
+  for (const g of scenery) {
+    instanced(g.shape, g.places, g.outline, root, owned)
+    if (g.slice) await slice()
   }
-  // Past the two rings that face the player, the same scenery carries on,
-  // thinner and without outlines: woods behind the trees, rock behind the
-  // rocks, out to `WILDS` cells beyond the grid.
-  const wildPlaces: Array<Array<[number, number, number, number]>> = theme.border.map(() => [])
-  const wildDensity = low ? 0.12 : 0.3
-  // Round a cave: tall rock on the far (up-screen) side, low rock on the near
-  // side, and a glowing cluster now and then. The camera has no way to look
-  // through a wall, so nothing tall ever stands between it and the cave floor.
-  const caveShapes: PropShape[] = [
-    { build: caveWall('#4a4458', '#5e586e', '#3c3848'), w: 1, s: [0.95, 1.25] },
-    { build: boulder('#4a4458', '#5e586e'), w: 1, s: [0.85, 1.25] },
-    { build: caveGlow('#3c3848', theme.mote), w: 1, s: [0.8, 1.2] }
-  ]
-  const cavePlaces: Array<Array<[number, number, number, number]>> = caveShapes.map(() => [])
-  // In front of a side pocket: the theme's own low shapes (a bush, a boulder,
-  // a mushroom), or a plain rock in its colours where it has none.
-  const lowShapes: PropShape[] = anySide ? LOW_PROPS[themeId] : []
-  const lowPlaces: Array<Array<[number, number, number, number]>> = lowShapes.map(() => [])
-  // Built walls round a layout's rooms (#120): dressed (tall, low) or a ruin (tall, broken, low).
-  const stone = CLIFF[themeId]
-  const wallShapes: PropShape[] = [
-    { build: builtWall(stone.a, stone.b, true), w: 1, s: [1, 1] },
-    { build: builtWall(stone.a, stone.b, false), w: 1, s: [1, 1] },
-    { build: ruinWall(stone.a, stone.b, 2.2), w: 1, s: [1, 1] },
-    { build: ruinWall(stone.a, stone.b, 1.4), w: 1, s: [1, 1] },
-    { build: ruinWall(stone.a, stone.b, 0.6), w: 1, s: [1, 1] }
-  ]
-  const wallPlaces: Place[][] = wallShapes.map(() => [])
-  for (let j = -WILDS; j < h + WILDS; j++) {
-    for (let i = -WILDS; i < w + WILDS; i++) {
-      const inside = i >= 0 && j >= 0 && i < w && j < h
-      const k = j * w + i
-      const d = inside ? near[k]! : 9
-      if (d === 0 || (inside && footprint.has(k))) continue
-      // A river runs on past the grid; a level prop has its cell to itself.
-      if (anyWet && wetCell(plan, i, j)) continue
-      if (inside && plan.kind[k] === K_BLOCK) continue
-      if (inside && caveRing[k]) {
-        if (d === 2 && rng() < 0.4) continue
-        // Far side: a cave cell lies just down-screen of this one (never in
-        // front of a pocket or a chest: that rock stays low).
-        let far = false
-        if (!lowRing[k]) for (let dj = 1; dj <= 2 && !far; dj++) for (let di = -1; di <= 1; di++) if (plan.cave[(j + dj) * w + i + di]) { far = true; break }
-        const shape = far ? (rng() < 0.82 ? 0 : 2) : rng() < 0.8 ? 1 : 2
-        const s = caveShapes[shape]!
-        cavePlaces[shape]!.push([(i + 0.5 + (rng() - 0.5) * 0.4) * CELL, (j + 0.5 + (rng() - 0.5) * 0.4) * CELL, rng() * Math.PI * 2, s.s[0] + rng() * (s.s[1] - s.s[0])])
-        continue
-      }
-      if (inside && plan.masonry?.[k] && d <= 2) {
-        // A built wall: square to the grid, one block a cell. On a room's near
-        // side (open ground just up-screen of it) it stays low.
-        let near = false
-        for (let dj = 1; dj <= 2 && !near; dj++) for (let di = -1; di <= 1; di++) if (j - dj >= 0 && !solid[(j - dj) * w + i + di]) { near = true; break }
-        const ruin = plan.masonry[k] === 2
-        const shape = ruin ? (near ? 4 : rng() < 0.55 ? 2 : 3) : near ? 1 : 0
-        wallPlaces[shape]!.push([(i + 0.5) * CELL, (j + 0.5) * CELL, ruin ? (rng() - 0.5) * 0.12 : 0, 1])
-        continue
-      }
-      if (inside && lowRing[k]) {
-        // Thick along the pocket's edge, thinning away from it: a hem, not a field.
-        if (rng() > (lowRing[k] === 1 ? 0.8 : lowRing[k] === 2 ? 0.42 : 0.2)) continue
-        const shape = pickShape(lowShapes, rng())
-        const s = lowShapes[shape]!
-        lowPlaces[shape]!.push([(i + 0.5 + (rng() - 0.5) * 0.5) * CELL, (j + 0.5 + (rng() - 0.5) * 0.5) * CELL, rng() * Math.PI * 2, s.s[0] + rng() * (s.s[1] - s.s[0])])
-        continue
-      }
-      const facing = d <= (low ? 1 : 2)
-      if (facing) {
-        // The second ring is thinned: it only has to close the gaps of the first.
-        if (d === 2 && rng() < 0.45) continue
-      } else if (rng() > wildDensity) continue
-      const shape = pickShape(theme.border, rng())
-      const s = theme.border[shape]!
-      const jitter = facing ? 0.5 : 0.9
-      ;(facing ? borderPlaces : wildPlaces)[shape]!.push([
-        (i + 0.5 + (rng() - 0.5) * jitter) * CELL, (j + 0.5 + (rng() - 0.5) * jitter) * CELL, rng() * Math.PI * 2,
-        (s.s[0] + rng() * (s.s[1] - s.s[0])) * (facing ? 1 : 1.12)
-      ])
-    }
-  }
-  separateFlats([
-    ...theme.border.map((s, n): [PropShape, Place[]] => [s, borderPlaces[n]!]),
-    ...theme.border.map((s, n): [PropShape, Place[]] => [s, wildPlaces[n]!]),
-    ...caveShapes.map((s, n): [PropShape, Place[]] => [s, cavePlaces[n]!]),
-    ...lowShapes.map((s, n): [PropShape, Place[]] => [s, lowPlaces[n]!]),
-    ...wallShapes.map((s, n): [PropShape, Place[]] => [s, wallPlaces[n]!])
-  ])
-  for (let n = 0; n < theme.border.length; n++) {
-    instanced(theme.border[n]!, borderPlaces[n]!, true, root, owned)
-    instanced(theme.border[n]!, wildPlaces[n]!, false, root, owned)
-    await slice()
-  }
-  for (let n = 0; n < caveShapes.length; n++) instanced(caveShapes[n]!, cavePlaces[n]!, true, root, owned)
-  for (let n = 0; n < lowShapes.length; n++) instanced(lowShapes[n]!, lowPlaces[n]!, true, root, owned)
-  for (let n = 0; n < wallShapes.length; n++) instanced(wallShapes[n]!, wallPlaces[n]!, true, root, owned)
 
   // ── Ledges: a crag (or a wall of cut blocks) along each cliff edge, and the ramp's steps or kerbs ──
   if (anyCliff) {
@@ -1279,6 +1485,7 @@ export const buildTerrain = async (plan: ZonePlan, themeId: ThemeId, scene: Scen
     for (let i = 0; i < w; i++) {
       const k = j * w + i
       if (solid[k] || trail[k] || footprint.has(k) || rng() > density) continue
+      if (townExits && townExitClear(townExits, i, j)) continue
       // Nothing grows in water, on a bridge, under a chest or on a plate.
       if (plan.kind[k] !== K_GROUND) continue
       if (plan.cave[k]) {
@@ -1319,6 +1526,7 @@ export const buildTerrain = async (plan: ZonePlan, themeId: ThemeId, scene: Scen
       for (let i = 1; i < w - 1; i++) {
         const k = j * w + i
         if (solid[k] || trail[k] || footprint.has(k) || plan.kind[k] !== K_GROUND || plan.cave[k]) continue
+        if (townExits && townExitClear(townExits, i, j)) continue
         const x = (i + 0.5) * CELL
         const z = (j + 0.5) * CELL
         const gy = groundAt(x, z)

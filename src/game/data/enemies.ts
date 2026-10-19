@@ -34,6 +34,10 @@ export type AbilityKind =
   | 'leap'
   /** A step through shadow to behind the target, then a strike. */
   | 'blink'
+  /** A circle on the target's position that stays under a rain of arrows: several hits, one after another (#136). */
+  | 'rain'
+  /** Spears thrown one after another down a lane (#136). */
+  | 'spears'
   | 'summon'
   | 'heal'
   | 'enrage'
@@ -70,7 +74,19 @@ export interface AbilityDef {
   /** Projectile / effect look. */
   fx?: string
   color?: string
+  /** A CHARGED attack (#147): a long wind-up under a dark-red-to-violet preview, and a blow worth `pct` of the target's whole health. */
+  charged?: boolean
+  /** Share of the target's max health the blow takes (true damage: nothing but a dodge or a shield softens it). */
+  pct?: number
+  /** Rain / spears: how many hits (waves of arrows, spears in the lane), and the seconds between them. */
+  hits?: number
+  gap?: number
+  /** A beat the caster shouts at the start of the wind-up (`data/dialogs/bosses`), the first time only. */
+  bark?: string
 }
+
+/** A creature that wears itself out (#136): after `life` seconds it is gone, losing `pct` of its health every `every` seconds. */
+export interface Fleeting { life: number; every: number; pct: number }
 
 export interface EnemyDef {
   id: string
@@ -113,6 +129,8 @@ export interface EnemyDef {
   phase2?: number
   /** A scripted fight (#74, `sim/bosses`): the script runs its phases and signature moves. */
   script?: string
+  /** A helper that burns out: it loses a share of its health on a beat and dies when its time is up. */
+  fleeting?: Fleeting
   /** A mount's rider (a look in `gfx/rigs/looks`), drawn in its saddle until it leaps off. */
   rider?: string
   /** A branch boss (roadmap #70): guards the end of a side way. It shows a
@@ -123,12 +141,15 @@ export interface EnemyDef {
 
 const D = (e: EnemyDef): EnemyDef => e
 
+/** The whistle's gnomes (#136): five seconds to live, a tenth of their health gone every half second. */
+export const GNOME_FLEETING: Fleeting = { life: 5, every: 0.5, pct: 0.1 }
+
 /** Rank multipliers for XP and gold (the def's own `reward` multiplies these). */
 export const RANK_REWARD: Record<Rank, number> = {
   hero: 0, minion: 0, turret: 0, npc: 0, weak: 0.5, normal: 1, elite: 3.5, boss: 14
 }
 
-export const ENEMIES: readonly EnemyDef[] = [
+const BASE_ENEMIES: readonly EnemyDef[] = [
   // ── Tier 1: Sunford Plains, Goblin Hollows ───────────────────────────────
   D({
     id: 'goblin', rank: 'normal', rig: 'humanoid', look: 'goblin', scale: 0.82, r: 0.42, h: 1.15,
@@ -158,11 +179,21 @@ export const ENEMIES: readonly EnemyDef[] = [
     aggro: 10, reward: 0.9, color: '#9aa4b8',
     abilities: [{ kind: 'leap', cd: 6, first: 1.5, range: 7, min: 3, windup: 0.5, recover: 0.4, dmg: 1.3, r: 1.5 }]
   }),
+  // The whistle's helpers (#136): small, quick, nearly harmless, and gone in five seconds.
+  D({
+    id: 'gnome', rank: 'weak', rig: 'humanoid', look: 'gnome', scale: 0.6, r: 0.3, h: 0.85,
+    hp: 0.5, dmg: 0.3, armor: 0, speed: 4.2, style: 'melee', type: 'physical', range: 1.3, interval: 1.1, windup: 0.3,
+    aggro: 14, reward: 0, color: '#d8604a', abilities: [], fleeting: GNOME_FLEETING
+  }),
   D({
     id: 'banditChief', rank: 'elite', rig: 'humanoid', look: 'banditChief', scale: 1.22, r: 0.58, h: 1.7,
     hp: 2.6, dmg: 1.25, armor: 2, speed: 3.3, style: 'melee', type: 'physical', range: 2.2, interval: 1.4, windup: 0.42, heavy: true,
     aggro: 10, reward: 1, color: '#e0563a',
     abilities: [
+      // The first boss's show (#136): a whistle for gnome helpers, a rain of arrows on the spot you stand on, spears thrown down a lane.
+      { kind: 'summon', cd: 22, first: 3, range: 20, windup: 0.9, recover: 0.5, spawn: 'gnome', count: 3, max: 4, pose: 1, bark: 'whistle' },
+      { kind: 'rain', cd: 12, first: 6, range: 11, windup: 1.1, recover: 0.6, dmg: 0.35, r: 3, hits: 4, gap: 0.5, fx: 'arrow', type: 'pierce', pose: 1 },
+      { kind: 'spears', cd: 10, first: 9, range: 10, min: 3, windup: 0.9, recover: 0.6, dmg: 0.6, r: 10, w: 0.9, hits: 3, gap: 0.3, fx: 'spear', type: 'pierce', pose: 1 },
       { kind: 'cone', cd: 6, first: 2.5, range: 3, windup: 0.7, recover: 0.5, dmg: 1.7, r: 3.4, w: 55, pose: 1 },
       { kind: 'charge', cd: 11, first: 6, range: 9, min: 3.5, windup: 0.8, recover: 0.7, dmg: 1.9, r: 8, w: 0.9, status: { id: 'knockdown', dur: 0.8, v: 1 } }
     ]
@@ -604,6 +635,47 @@ export const ENEMIES: readonly EnemyDef[] = [
     ]
   })
 ]
+
+// ─── Charged attacks (#147) ─────────────────────────────────────────────────
+
+/** Share of the hero's health a boss's / an elite's charged blow takes (a margin over the 50 % / 35 % floor). */
+export const CHARGED_PCT = { boss: 0.55, elite: 0.4 } as const
+/** The floors the design promises. */
+export const CHARGED_FLOOR = { boss: 0.5, elite: 0.35 } as const
+/** An elite's charged area is this much of a boss's (about 40 % smaller). */
+export const CHARGED_ELITE_AREA = 0.6
+/** A charged attack comes this many times as seldom as the unit's normal specials. */
+export const CHARGED_RARITY = 3
+/** The preview's colours, dark red at the caster to violet at the far edge (read by `gfx/telegraphs`). */
+export const CHARGED_TELE = { near: [0.5, 0, 0.12], far: [0.55, 0.12, 0.95], rim: [0.85, 0.55, 1], dark: [0.12, 0, 0.2] } as const
+const CHARGED_HALF_ANGLE = 50
+const CHARGED_COLOR = '#b04cff'
+
+/** Ground area of a cone ability (m²). */
+export const coneArea = (a: AbilityDef): number => 0.5 * (a.r ?? 0) ** 2 * 2 * ((a.w ?? 30) * Math.PI / 180)
+
+const SPECIAL_KINDS: ReadonlySet<AbilityKind> = new Set<AbilityKind>(['slam', 'smash', 'cone', 'line', 'charge', 'shot', 'volley', 'lob', 'barrage', 'leap', 'blink'])
+
+/** A boss or elite gets a charged cone ahead of its other abilities (the first one ready is the one used). */
+export const chargedFor = (e: EnemyDef, rank: 'boss' | 'elite' = e.rank as 'boss' | 'elite'): AbilityDef => {
+  const boss = rank === 'boss'
+  const specials = e.abilities.filter(a => !a.charged && SPECIAL_KINDS.has(a.kind))
+  const mean = specials.length ? specials.reduce((n, a) => n + a.cd, 0) / specials.length : 10
+  const reach = Math.max(0, ...e.abilities.filter(a => !a.charged).map(a => (a.kind === 'cone' || a.kind === 'slam' || a.kind === 'smash' || a.kind === 'leap' ? a.r ?? 0 : 0)))
+  // A boss's cone reaches well past its biggest normal area; an elite's has 40 % less ground in it.
+  const bossR = Math.max(11, reach * 1.7)
+  const r = Math.round((boss ? bossR : bossR * Math.sqrt(CHARGED_ELITE_AREA)) * 100) / 100
+  const cd = Math.round(mean * CHARGED_RARITY * 10) / 10
+  return {
+    kind: 'cone', cd, first: Math.round(cd * 0.5 * 10) / 10, range: r * 0.75, windup: boss ? 2.8 : 2.2, recover: 0.9,
+    dmg: 1, type: 'true', r, w: CHARGED_HALF_ANGLE, fx: 'breath', color: CHARGED_COLOR, pose: 2, charged: true, pct: boss ? CHARGED_PCT.boss : CHARGED_PCT.elite
+  }
+}
+
+const withCharged = (e: EnemyDef): EnemyDef =>
+  (e.rank !== 'boss' && e.rank !== 'elite') || e.script === 'tuskerCameo' ? e : { ...e, abilities: [chargedFor(e), ...e.abilities] }
+
+export const ENEMIES: readonly EnemyDef[] = BASE_ENEMIES.map(withCharged)
 
 export const ENEMY_BY_ID: Readonly<Record<string, EnemyDef>> = Object.fromEntries(ENEMIES.map(e => [e.id, e]))
 

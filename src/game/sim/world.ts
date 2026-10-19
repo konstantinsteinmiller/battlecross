@@ -298,6 +298,8 @@ export class Sim {
   wave: WaveState = { n: 0, cleared: 0, rest: 0, alive: 0 }
   /** Enemy damage multiplier on top of the difficulty (the opening fight, `OPENING.dmg`). */
   enemyDmgMul = 1
+  /** Enemy health multiplier (the opening fight once the hero knows the road teacher's skill, `OPENING.skillHp`). */
+  enemyHpMul = 1
   /** Adaptive pressure (#124, `pressure.ts`): null where it never applies. */
   pressure: PressureState | null = null
   /** XP is earned but the level-up waits for the result screen (the opening
@@ -564,6 +566,8 @@ export class Sim {
       const u = this.units[i]!
       if (!u.alive || (team !== -1 && u.team !== team)) continue
       if (u.rank === 'hero' || outOfReach(u)) continue
+      // Someone still behind the bars is the cage's to answer (a tap opens it).
+      if (u.rank === 'npc' && this.captives.some(p => p.unit === u.id && p.phase === 'caged')) continue
       const d = Math.hypot(u.x - x, u.z - z)
       if (d <= u.r + pad && d < bd) { bd = d; best = u }
     }

@@ -1,18 +1,9 @@
 import { shallowReactive } from 'vue'
-import { DialogRunner, hasNews, type ChoiceView, type Phase } from './dialog/runner'
-import type { ConversationDef, DialogHost, DialogWorld, LineDef, Offer, TalkWindow } from './dialog/types'
-import { conversationOf } from './data/dialogs'
-import { MANA_OFFER } from './data/dialogs/shared'
-import { QUEST_BY_ID, type ChoiceDef as QuestChoice } from './data/quests'
+import type { ChoiceView, Phase } from './dialog/runner'
+import type { ConversationDef, DialogWorld, LineDef, TalkWindow } from './dialog/types'
+import type { ChoiceDef as QuestChoice } from './data/quests'
 import type { NpcDef } from './data/zones'
-import {
-  buyManaPotion, completeErrand, decideQuest, errandStateOf, errandTalk, flagSet, gainItem, manaPotionCost, manaPotionRoom, profile, saveProfile,
-  startErrand, totalAttrs,
-  learnSmithing, sellAllOre
-} from './state/profile'
-import { pushHud } from './state/hud'
-import { sfx } from './audio/sfx'
-import { flushSaveNow } from '@/use/useSaveStatus'
+import { errandStateOf, flagSet, profile, totalAttrs } from './state/profile'
 
 /**
  * ─── The conversation on screen ──────────────────────────────────────────────
@@ -24,6 +15,10 @@ import { flushSaveNow } from '@/use/useSaveStatus'
  *
  * `flow.ts` decides WHEN a conversation starts and what follows it; this file
  * never opens a window or travels by itself — it is handed `onOpen` / `onEnd`.
+ *
+ * The engine, the conversations and the host are a lazy chunk (`talkCode.ts`,
+ * roadmap #142): what is here is the state and the calls the game makes, each
+ * passed on to the chunk once `talkLoader.ts` has installed it.
  */
 
 /** `world`: bubbles over the speakers' heads. `portrait`: the speaker is not
@@ -66,24 +61,6 @@ export const dialogWorld = (): DialogWorld => ({
   smithing: profile.inv.smithing
 })
 
-/** Remember a dialogue key in the save (a checkpoint, like any purchase). */
-const remember = (key: string): void => {
-  if (profile.world.said.includes(key)) return
-  profile.world.said.push(key)
-  saveProfile()
-}
-
-/**
- * The healers' mana potion. The rule is `state/profile.ts`'s (the price grows
- * with the hero's level; the stock holds as many as the health belt): this
- * only asks it, so the choice shows the price and locks when the stock is full
- * or the purse too light.
- */
-const manaOffer = (): Offer => {
-  const price = manaPotionCost()
-  return { price, block: manaPotionRoom() <= 0 ? 'full' : profile.gold < price ? 'gold' : '' }
-}
-
 // ─── A conversation ──────────────────────────────────────────────────────────
 
 export interface TalkOptions {
@@ -95,160 +72,44 @@ export interface TalkOptions {
   onEnd(): void
 }
 
-let runner: DialogRunner | null = null
-let opts: TalkOptions | null = null
+type TalkCode = typeof import('./talkCode')
 
-const host: DialogHost = {
-  world: dialogWorld,
-  remember,
-  give(gold, item) {
-    if (gold > 0) {
-      profile.gold += gold
-      pushHud({ t: 'toast', key: 'dlg.ui.gotGold', params: { n: gold } })
-      sfx('coin')
-    }
-    if (item) {
-      gainItem(item)
-      pushHud({ t: 'toast', key: 'dlg.ui.gotItem', params: { item: `item.${item}.name` }, icon: item })
-      sfx('loot')
-    }
-    saveProfile()
-  },
-  hint(quest) {
-    const q = QUEST_BY_ID[quest]
-    if (!q || profile.world.said.includes(`hint.${quest}`)) return
-    remember(`hint.${quest}`)
-    pushHud({ t: 'toast', key: 'dlg.ui.hint', params: { zone: `node.${q.node}.name` } })
-  },
-  decide(quest, choice) {
-    // The rule, and the save on the device at once: a decision is permanent.
-    if (!decideQuest(quest, choice)) return false
-    void flushSaveNow()
-    talk.outcome = QUEST_BY_ID[quest]?.choices.find(c => c.id === choice) ?? null
-    return true
-  },
-  open(window) {
-    opts?.onOpen(window)
-  },
-  errand(id, act) {
-    if (act === 'start') {
-      if (!startErrand(id)) return false
-      pushHud({ t: 'toast', key: 'journal.taken', params: { title: `errand.${id}.title` } })
-      sfx('uiOpen')
-      return true
-    }
-    const r = completeErrand(id)
-    if (!r) return false
-    pushHud({ t: 'toast', key: 'journal.done', params: { title: `errand.${id}.title` } })
-    if (r.gold) { pushHud({ t: 'toast', key: 'dlg.ui.gotGold', params: { n: r.gold } }); sfx('coin') }
-    if (r.item) pushHud({ t: 'toast', key: 'dlg.ui.gotItem', params: { item: `item.${r.item}.name` }, icon: r.item })
-    sfx('levelUp')
-    return true
-  },
-  sellOre() {
-    const gold = sellAllOre()
-    if (!gold) return
-    pushHud({ t: 'toast', key: 'dlg.ui.gotGold', params: { n: gold } })
-    sfx('coin')
-  },
-  learnSmith() {
-    learnSmithing()
-  },
-  offer: id => (id === MANA_OFFER ? manaOffer() : null),
-  buy: (id) => {
-    if (id !== MANA_OFFER || !buyManaPotion()) return false
-    sfx('potion')
-    return true
-  }
-}
+let code: TalkCode | null = null
 
-/** Mirror the runner into the reactive state; finish when it has ended. */
-const sync = (): void => {
-  if (!runner) return
-  const v = runner.view()
-  if (v.line !== talk.line && v.line) talk.beat++
-  talk.phase = v.phase
-  talk.line = v.line
-  talk.more = v.more
-  talk.choices = v.choices
-  talk.final = v.final
-  talk.leaving = v.leaving
-  if (v.phase === 'ended') finish()
-}
+/** The conversations' code, once loaded (null before). */
+export const talkCodeReady = (): TalkCode | null => code
 
-const finish = (): void => {
-  const o = opts
-  runner = null
-  opts = null
-  talk.on = false
-  talk.phase = 'idle'
-  talk.line = null
-  talk.choices = []
-  talk.final = false
-  talk.leaving = false
-  talk.more = false
-  talk.outcome = null
-  talk.conv = null
-  o?.onEnd()
-}
+/** Hand the loaded chunk over (`talkLoader.ts`; a test's setup). */
+export const installTalkCode = (c: TalkCode): void => { code = c }
 
-/** Start a conversation. False when one is already running. */
-export const beginTalk = (conv: ConversationDef, o: TalkOptions): boolean => {
-  if (runner) return false
-  // A word with this person may be a step of an errand (#86).
-  errandTalk(conv.id)
-  runner = new DialogRunner(conv, host)
-  opts = o
-  talk.on = true
-  talk.conv = conv
-  talk.stage = o.stage
-  talk.title = o.title ?? ''
-  talk.outcome = null
-  talk.line = null
-  runner.start()
-  sync()
-  return true
-}
+/** The conversation of a townsperson (or a hidden trainer); undefined while
+ *  the conversations' code is not loaded. */
+export const conversationOf = (npcId: string): ConversationDef | undefined => code?.conversationOf(npcId)
+
+/** The decision conversation of a quest (as `conversationOf`). */
+export const decisionOf = (questId: string): ConversationDef | undefined => code?.decisionOf(questId)
+
+/** Start a conversation. False when one is already running (or its code is
+ *  not loaded: the caller loads it first). */
+export const beginTalk = (conv: ConversationDef, o: TalkOptions): boolean => (code ? code.beginTalk(conv, o) : false)
 
 /** The line was heard (a tap, Space, Enter, the end of its recording). */
-export const talkNext = (): void => {
-  runner?.next()
-  sync()
-}
+export const talkNext = (): void => { code?.talkNext() }
 
 /** The hero says something. False when he cannot (locked, gone, refused). */
-export const talkPick = (id: string): boolean => {
-  if (!runner) return false
-  const ok = runner.pick(id)
-  sfx(ok ? 'uiChoice' : 'denied')
-  sync()
-  return ok
-}
+export const talkPick = (id: string): boolean => (code ? code.talkPick(id) : false)
 
 /** End it politely (Esc, the close button). False inside a decision. */
-export const talkLeave = (): boolean => {
-  if (!runner) return false
-  const ok = runner.leave()
-  if (!ok) sfx('denied')
-  sync()
-  return ok
-}
+export const talkLeave = (): boolean => (code ? code.talkLeave() : false)
 
 /** The window a topic opened has closed: the talk goes on. */
-export const talkResume = (): void => {
-  runner?.resume()
-  sync()
-}
+export const talkResume = (): void => { code?.talkResume() }
 
 /** Is the conversation waiting behind a window? */
 export const talkWaiting = (): boolean => talk.on && talk.phase === 'window'
 
 /** Drop the conversation without a word (the place is being left). */
-export const abortTalk = (): void => {
-  if (!runner) return
-  opts = null
-  finish()
-}
+export const abortTalk = (): void => { code?.abortTalk() }
 
 // ─── The marker over a townsperson's head ────────────────────────────────────
 
@@ -265,5 +126,5 @@ export const npcPin = (npc: NpcDef, w: DialogWorld = dialogWorld()): { kind: Npc
   const hidden = !!npc.secret && !w.flags.has(npc.secret)
   const shop = npc.role === 'shop' && !hidden
   const kind: NpcPin = open ? 'quest' : hidden ? 'talk' : shop ? 'shop' : npc.role === 'trainer' ? 'trainer' : npc.role === 'healer' ? 'healer' : npc.role === 'alchemist' ? 'alchemist' : npc.role === 'gambler' ? 'gambler' : 'talk'
-  return { kind, news: !!conv && hasNews(conv, w) }
+  return { kind, news: !!conv && !!code && code.hasNews(conv, w) }
 }

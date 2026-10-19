@@ -760,7 +760,7 @@ EACH PANEL IS ONE CHUNKY PAINTED OBJECT OR SIGN — NOT A FLAT SYMBOL, AND NOT A
 
 WHAT EACH PANEL IS:
 Panel 1 (row 1, column 1): a cream-white loudspeaker cone pointing right, with two curved sound arcs in front of it. Main colour: cream white (about #f4ecd8).
-Panel 2 (row 1, column 2): the same cream-white loudspeaker cone pointing right, with a small red cross in front of it instead of sound arcs. Main colour: cream white (about #f4ecd8).
+Panel 2 (row 1, column 2): the same cream-white loudspeaker cone pointing right, with a bold red X in front of it instead of sound arcs: two thick red strokes crossing diagonally at 45 degrees, like a close or cancel mark. NOT an upright plus, NOT a medical cross, NOT a cross with vertical and horizontal arms. Main colour: cream white (about #f4ecd8).
 Panel 3 (row 1, column 3): a thick, rounded triangle pointing right, cream-white enamel with a thin gold rim. Main colour: cream white (about #f4ecd8).
 Panel 4 (row 1, column 4): a thick circular arrow of cream-white enamel curling almost all the way round, its arrowhead at the top. Main colour: cream white (about #f4ecd8).
 Panel 5 (row 2, column 1): a thick triangle pointing right followed by an upright bar, both cream-white enamel. Main colour: cream white (about #f4ecd8).

@@ -1,5 +1,13 @@
 // Latvian (lv) bundle — mirrors en.ts.
 export default {
+  // ─── The intro (#130): its skip, and its narrator's name ───
+  intro: {
+    narrator: 'Hronists',
+    skip: 'Izlaist',
+    holdKey: 'Turiet {key}, lai izlaistu',
+    holdTouch: 'Turiet nospiestu, lai izlaistu',
+    replay: 'Skatīt ievadu'
+  },
   arena: {
     allWon: 'Visas mītiskās balvas ir tavas.',
     call: 'Stāsts ir izstāstīts. Tagad pierādi savu būvējumu: kāp, cik augstu vari, un izcīni mītiskās balvas, ko neviens cits tev nevar dot.',
@@ -8,6 +16,20 @@ export default {
     next: 'Nākamā balva vilnī {at}: {item}',
     champion: 'Čempiona vilnis',
     wave: 'Vilnis {n}'
+  },
+  sellOre: {
+    talk: 'Laba rūda, godīga cena. Cik pārdosi?',
+    lead: 'Izvēlies, cik katras rūdas tīrradņu pārdot. Nekas netiek pārdots, kamēr nenospied Pārdot.',
+    have: 'Tev ir {n}',
+    each: '{n} zelta gabalā',
+    none: 'Neko',
+    all: 'Visu',
+    less: '{ore}: par vienu mazāk',
+    more: '{ore}: par vienu vairāk',
+    total: 'Saņemsi: {n} zelta',
+    sell: 'Pārdot',
+    selectAll: 'Atlasīt visu',
+    empty: 'Tev vairs nav rūdas, ko pārdot.'
   },
   smith: {
     why: {
@@ -1420,38 +1442,110 @@ export default {
     smithMasterMithrilGreaves: {
       name: 'Meistara mitrila stilbu sargi'
     },
+    smithMasterAdamantGreaves: {
+      name: 'Meistara adamanta stilbu sargi'
+    },
+    smithMasterAetheriteGreaves: {
+      name: 'Meistara etērīta stilbu sargi'
+    },
     smithMithrilGreaves: {
       name: 'Mitrila stilbu sargi'
+    },
+    smithAdamantGreaves: {
+      name: 'Adamanta stilbu sargi'
+    },
+    smithAetheriteGreaves: {
+      name: 'Etērīta stilbu sargi'
     },
     smithMasterMithrilPlate: {
       name: 'Meistara mitrila bruņas'
     },
+    smithMasterAdamantPlate: {
+      name: 'Meistara adamanta bruņas'
+    },
+    smithMasterAetheritePlate: {
+      name: 'Meistara etērīta bruņas'
+    },
     smithMithrilPlate: {
       name: 'Mitrila bruņas'
+    },
+    smithAdamantPlate: {
+      name: 'Adamanta bruņas'
+    },
+    smithAetheritePlate: {
+      name: 'Etērīta bruņas'
     },
     smithMasterMithrilHelm: {
       name: 'Meistara mitrila ķivere'
     },
+    smithMasterAdamantHelm: {
+      name: 'Meistara adamanta ķivere'
+    },
+    smithMasterAetheriteHelm: {
+      name: 'Meistara etērīta ķivere'
+    },
     smithMithrilHelm: {
       name: 'Mitrila ķivere'
+    },
+    smithAdamantHelm: {
+      name: 'Adamanta ķivere'
+    },
+    smithAetheriteHelm: {
+      name: 'Etērīta ķivere'
     },
     smithMasterMithrilShield: {
       name: 'Meistara mitrila vairogs'
     },
+    smithMasterAdamantShield: {
+      name: 'Meistara adamanta vairogs'
+    },
+    smithMasterAetheriteShield: {
+      name: 'Meistara etērīta vairogs'
+    },
     smithMithrilShield: {
       name: 'Mitrila vairogs'
+    },
+    smithAdamantShield: {
+      name: 'Adamanta vairogs'
+    },
+    smithAetheriteShield: {
+      name: 'Etērīta vairogs'
     },
     smithMasterMithrilHammer: {
       name: 'Meistara mitrila āmurs'
     },
+    smithMasterAdamantHammer: {
+      name: 'Meistara adamanta āmurs'
+    },
+    smithMasterAetheriteHammer: {
+      name: 'Meistara etērīta āmurs'
+    },
     smithMithrilHammer: {
       name: 'Mitrila āmurs'
+    },
+    smithAdamantHammer: {
+      name: 'Adamanta āmurs'
+    },
+    smithAetheriteHammer: {
+      name: 'Etērīta āmurs'
     },
     smithMasterMithrilSword: {
       name: 'Meistara mitrila zobens'
     },
+    smithMasterAdamantSword: {
+      name: 'Meistara adamanta zobens'
+    },
+    smithMasterAetheriteSword: {
+      name: 'Meistara etērīta zobens'
+    },
     smithMithrilSword: {
       name: 'Mitrila zobens'
+    },
+    smithAdamantSword: {
+      name: 'Adamanta zobens'
+    },
+    smithAetheriteSword: {
+      name: 'Etērīta zobens'
     },
     smithMasterGoldGreaves: {
       name: 'Meistara zelta stilbu sargi'
@@ -1557,6 +1651,1086 @@ export default {
     },
     smithMasterIronSword: {
       name: 'Meistara dzelzs zobens'
+    },
+    smithMasterDexIronSword: {
+      name: 'Meistara dzelzs duncis · VEI'
+    },
+    smithDexIronSword: {
+      name: 'Dzelzs duncis · VEI'
+    },
+    smithMasterDexIronHammer: {
+      name: 'Meistara dzelzs rapīra · VEI'
+    },
+    smithDexIronHammer: {
+      name: 'Dzelzs rapīra · VEI'
+    },
+    smithMasterDexIronShield: {
+      name: 'Meistara dzelzs mazs vairogs · VEI'
+    },
+    smithDexIronShield: {
+      name: 'Dzelzs mazs vairogs · VEI'
+    },
+    smithMasterDexIronHelm: {
+      name: 'Meistara dzelzs kapuce · VEI'
+    },
+    smithDexIronHelm: {
+      name: 'Dzelzs kapuce · VEI'
+    },
+    smithMasterDexIronPlate: {
+      name: 'Meistara dzelzs ādas bruņas · VEI'
+    },
+    smithDexIronPlate: {
+      name: 'Dzelzs ādas bruņas · VEI'
+    },
+    smithMasterDexIronGreaves: {
+      name: 'Meistara dzelzs zābaki · VEI'
+    },
+    smithDexIronGreaves: {
+      name: 'Dzelzs zābaki · VEI'
+    },
+    smithMasterDexSilverSword: {
+      name: 'Meistara sudraba duncis · VEI'
+    },
+    smithDexSilverSword: {
+      name: 'Sudraba duncis · VEI'
+    },
+    smithMasterDexSilverHammer: {
+      name: 'Meistara sudraba rapīra · VEI'
+    },
+    smithDexSilverHammer: {
+      name: 'Sudraba rapīra · VEI'
+    },
+    smithMasterDexSilverShield: {
+      name: 'Meistara sudraba mazs vairogs · VEI'
+    },
+    smithDexSilverShield: {
+      name: 'Sudraba mazs vairogs · VEI'
+    },
+    smithMasterDexSilverHelm: {
+      name: 'Meistara sudraba kapuce · VEI'
+    },
+    smithDexSilverHelm: {
+      name: 'Sudraba kapuce · VEI'
+    },
+    smithMasterDexSilverPlate: {
+      name: 'Meistara sudraba ādas bruņas · VEI'
+    },
+    smithDexSilverPlate: {
+      name: 'Sudraba ādas bruņas · VEI'
+    },
+    smithMasterDexSilverGreaves: {
+      name: 'Meistara sudraba zābaki · VEI'
+    },
+    smithDexSilverGreaves: {
+      name: 'Sudraba zābaki · VEI'
+    },
+    smithMasterDexGoldSword: {
+      name: 'Meistara zelta duncis · VEI'
+    },
+    smithDexGoldSword: {
+      name: 'Zelta duncis · VEI'
+    },
+    smithMasterDexGoldHammer: {
+      name: 'Meistara zelta rapīra · VEI'
+    },
+    smithDexGoldHammer: {
+      name: 'Zelta rapīra · VEI'
+    },
+    smithMasterDexGoldShield: {
+      name: 'Meistara zelta mazs vairogs · VEI'
+    },
+    smithDexGoldShield: {
+      name: 'Zelta mazs vairogs · VEI'
+    },
+    smithMasterDexGoldHelm: {
+      name: 'Meistara zelta kapuce · VEI'
+    },
+    smithDexGoldHelm: {
+      name: 'Zelta kapuce · VEI'
+    },
+    smithMasterDexGoldPlate: {
+      name: 'Meistara zelta ādas bruņas · VEI'
+    },
+    smithDexGoldPlate: {
+      name: 'Zelta ādas bruņas · VEI'
+    },
+    smithMasterDexGoldGreaves: {
+      name: 'Meistara zelta zābaki · VEI'
+    },
+    smithDexGoldGreaves: {
+      name: 'Zelta zābaki · VEI'
+    },
+    smithMasterDexMithrilSword: {
+      name: 'Meistara mitrila duncis · VEI'
+    },
+    smithMasterDexAdamantSword: {
+      name: 'Meistara adamanta duncis · VEI'
+    },
+    smithMasterDexAetheriteSword: {
+      name: 'Meistara etērīta duncis · VEI'
+    },
+    smithDexMithrilSword: {
+      name: 'Mitrila duncis · VEI'
+    },
+    smithDexAdamantSword: {
+      name: 'Adamanta duncis · VEI'
+    },
+    smithDexAetheriteSword: {
+      name: 'Etērīta duncis · VEI'
+    },
+    smithMasterDexMithrilHammer: {
+      name: 'Meistara mitrila rapīra · VEI'
+    },
+    smithMasterDexAdamantHammer: {
+      name: 'Meistara adamanta rapīra · VEI'
+    },
+    smithMasterDexAetheriteHammer: {
+      name: 'Meistara etērīta rapīra · VEI'
+    },
+    smithDexMithrilHammer: {
+      name: 'Mitrila rapīra · VEI'
+    },
+    smithDexAdamantHammer: {
+      name: 'Adamanta rapīra · VEI'
+    },
+    smithDexAetheriteHammer: {
+      name: 'Etērīta rapīra · VEI'
+    },
+    smithMasterDexMithrilShield: {
+      name: 'Meistara mitrila mazs vairogs · VEI'
+    },
+    smithMasterDexAdamantShield: {
+      name: 'Meistara adamanta mazs vairogs · VEI'
+    },
+    smithMasterDexAetheriteShield: {
+      name: 'Meistara etērīta mazs vairogs · VEI'
+    },
+    smithDexMithrilShield: {
+      name: 'Mitrila mazs vairogs · VEI'
+    },
+    smithDexAdamantShield: {
+      name: 'Adamanta mazs vairogs · VEI'
+    },
+    smithDexAetheriteShield: {
+      name: 'Etērīta mazs vairogs · VEI'
+    },
+    smithMasterDexMithrilHelm: {
+      name: 'Meistara mitrila kapuce · VEI'
+    },
+    smithMasterDexAdamantHelm: {
+      name: 'Meistara adamanta kapuce · VEI'
+    },
+    smithMasterDexAetheriteHelm: {
+      name: 'Meistara etērīta kapuce · VEI'
+    },
+    smithDexMithrilHelm: {
+      name: 'Mitrila kapuce · VEI'
+    },
+    smithDexAdamantHelm: {
+      name: 'Adamanta kapuce · VEI'
+    },
+    smithDexAetheriteHelm: {
+      name: 'Etērīta kapuce · VEI'
+    },
+    smithMasterDexMithrilPlate: {
+      name: 'Meistara mitrila ādas bruņas · VEI'
+    },
+    smithMasterDexAdamantPlate: {
+      name: 'Meistara adamanta ādas bruņas · VEI'
+    },
+    smithMasterDexAetheritePlate: {
+      name: 'Meistara etērīta ādas bruņas · VEI'
+    },
+    smithDexMithrilPlate: {
+      name: 'Mitrila ādas bruņas · VEI'
+    },
+    smithDexAdamantPlate: {
+      name: 'Adamanta ādas bruņas · VEI'
+    },
+    smithDexAetheritePlate: {
+      name: 'Etērīta ādas bruņas · VEI'
+    },
+    smithMasterDexMithrilGreaves: {
+      name: 'Meistara mitrila zābaki · VEI'
+    },
+    smithMasterDexAdamantGreaves: {
+      name: 'Meistara adamanta zābaki · VEI'
+    },
+    smithMasterDexAetheriteGreaves: {
+      name: 'Meistara etērīta zābaki · VEI'
+    },
+    smithDexMithrilGreaves: {
+      name: 'Mitrila zābaki · VEI'
+    },
+    smithDexAdamantGreaves: {
+      name: 'Adamanta zābaki · VEI'
+    },
+    smithDexAetheriteGreaves: {
+      name: 'Etērīta zābaki · VEI'
+    },
+    smithMasterIntIronSword: {
+      name: 'Meistara dzelzs burvju nūjiņa · INT'
+    },
+    smithIntIronSword: {
+      name: 'Dzelzs burvju nūjiņa · INT'
+    },
+    smithMasterIntIronHammer: {
+      name: 'Meistara dzelzs zizlis · INT'
+    },
+    smithIntIronHammer: {
+      name: 'Dzelzs zizlis · INT'
+    },
+    smithMasterIntIronShield: {
+      name: 'Meistara dzelzs grāmata · INT'
+    },
+    smithIntIronShield: {
+      name: 'Dzelzs grāmata · INT'
+    },
+    smithMasterIntIronHelm: {
+      name: 'Meistara dzelzs diadēma · INT'
+    },
+    smithIntIronHelm: {
+      name: 'Dzelzs diadēma · INT'
+    },
+    smithMasterIntIronPlate: {
+      name: 'Meistara dzelzs mantija · INT'
+    },
+    smithIntIronPlate: {
+      name: 'Dzelzs mantija · INT'
+    },
+    smithMasterIntIronGreaves: {
+      name: 'Meistara dzelzs zābaki · INT'
+    },
+    smithIntIronGreaves: {
+      name: 'Dzelzs zābaki · INT'
+    },
+    smithMasterIntSilverSword: {
+      name: 'Meistara sudraba burvju nūjiņa · INT'
+    },
+    smithIntSilverSword: {
+      name: 'Sudraba burvju nūjiņa · INT'
+    },
+    smithMasterIntSilverHammer: {
+      name: 'Meistara sudraba zizlis · INT'
+    },
+    smithIntSilverHammer: {
+      name: 'Sudraba zizlis · INT'
+    },
+    smithMasterIntSilverShield: {
+      name: 'Meistara sudraba grāmata · INT'
+    },
+    smithIntSilverShield: {
+      name: 'Sudraba grāmata · INT'
+    },
+    smithMasterIntSilverHelm: {
+      name: 'Meistara sudraba diadēma · INT'
+    },
+    smithIntSilverHelm: {
+      name: 'Sudraba diadēma · INT'
+    },
+    smithMasterIntSilverPlate: {
+      name: 'Meistara sudraba mantija · INT'
+    },
+    smithIntSilverPlate: {
+      name: 'Sudraba mantija · INT'
+    },
+    smithMasterIntSilverGreaves: {
+      name: 'Meistara sudraba zābaki · INT'
+    },
+    smithIntSilverGreaves: {
+      name: 'Sudraba zābaki · INT'
+    },
+    smithMasterIntGoldSword: {
+      name: 'Meistara zelta burvju nūjiņa · INT'
+    },
+    smithIntGoldSword: {
+      name: 'Zelta burvju nūjiņa · INT'
+    },
+    smithMasterIntGoldHammer: {
+      name: 'Meistara zelta zizlis · INT'
+    },
+    smithIntGoldHammer: {
+      name: 'Zelta zizlis · INT'
+    },
+    smithMasterIntGoldShield: {
+      name: 'Meistara zelta grāmata · INT'
+    },
+    smithIntGoldShield: {
+      name: 'Zelta grāmata · INT'
+    },
+    smithMasterIntGoldHelm: {
+      name: 'Meistara zelta diadēma · INT'
+    },
+    smithIntGoldHelm: {
+      name: 'Zelta diadēma · INT'
+    },
+    smithMasterIntGoldPlate: {
+      name: 'Meistara zelta mantija · INT'
+    },
+    smithIntGoldPlate: {
+      name: 'Zelta mantija · INT'
+    },
+    smithMasterIntGoldGreaves: {
+      name: 'Meistara zelta zābaki · INT'
+    },
+    smithIntGoldGreaves: {
+      name: 'Zelta zābaki · INT'
+    },
+    smithMasterIntMithrilSword: {
+      name: 'Meistara mitrila burvju nūjiņa · INT'
+    },
+    smithMasterIntAdamantSword: {
+      name: 'Meistara adamanta burvju nūjiņa · INT'
+    },
+    smithMasterIntAetheriteSword: {
+      name: 'Meistara etērīta burvju nūjiņa · INT'
+    },
+    smithIntMithrilSword: {
+      name: 'Mitrila burvju nūjiņa · INT'
+    },
+    smithIntAdamantSword: {
+      name: 'Adamanta burvju nūjiņa · INT'
+    },
+    smithIntAetheriteSword: {
+      name: 'Etērīta burvju nūjiņa · INT'
+    },
+    smithMasterIntMithrilHammer: {
+      name: 'Meistara mitrila zizlis · INT'
+    },
+    smithMasterIntAdamantHammer: {
+      name: 'Meistara adamanta zizlis · INT'
+    },
+    smithMasterIntAetheriteHammer: {
+      name: 'Meistara etērīta zizlis · INT'
+    },
+    smithIntMithrilHammer: {
+      name: 'Mitrila zizlis · INT'
+    },
+    smithIntAdamantHammer: {
+      name: 'Adamanta zizlis · INT'
+    },
+    smithIntAetheriteHammer: {
+      name: 'Etērīta zizlis · INT'
+    },
+    smithMasterIntMithrilShield: {
+      name: 'Meistara mitrila grāmata · INT'
+    },
+    smithMasterIntAdamantShield: {
+      name: 'Meistara adamanta grāmata · INT'
+    },
+    smithMasterIntAetheriteShield: {
+      name: 'Meistara etērīta grāmata · INT'
+    },
+    smithIntMithrilShield: {
+      name: 'Mitrila grāmata · INT'
+    },
+    smithIntAdamantShield: {
+      name: 'Adamanta grāmata · INT'
+    },
+    smithIntAetheriteShield: {
+      name: 'Etērīta grāmata · INT'
+    },
+    smithMasterIntMithrilHelm: {
+      name: 'Meistara mitrila diadēma · INT'
+    },
+    smithMasterIntAdamantHelm: {
+      name: 'Meistara adamanta diadēma · INT'
+    },
+    smithMasterIntAetheriteHelm: {
+      name: 'Meistara etērīta diadēma · INT'
+    },
+    smithIntMithrilHelm: {
+      name: 'Mitrila diadēma · INT'
+    },
+    smithIntAdamantHelm: {
+      name: 'Adamanta diadēma · INT'
+    },
+    smithIntAetheriteHelm: {
+      name: 'Etērīta diadēma · INT'
+    },
+    smithMasterIntMithrilPlate: {
+      name: 'Meistara mitrila mantija · INT'
+    },
+    smithMasterIntAdamantPlate: {
+      name: 'Meistara adamanta mantija · INT'
+    },
+    smithMasterIntAetheritePlate: {
+      name: 'Meistara etērīta mantija · INT'
+    },
+    smithIntMithrilPlate: {
+      name: 'Mitrila mantija · INT'
+    },
+    smithIntAdamantPlate: {
+      name: 'Adamanta mantija · INT'
+    },
+    smithIntAetheritePlate: {
+      name: 'Etērīta mantija · INT'
+    },
+    smithMasterIntMithrilGreaves: {
+      name: 'Meistara mitrila zābaki · INT'
+    },
+    smithMasterIntAdamantGreaves: {
+      name: 'Meistara adamanta zābaki · INT'
+    },
+    smithMasterIntAetheriteGreaves: {
+      name: 'Meistara etērīta zābaki · INT'
+    },
+    smithIntMithrilGreaves: {
+      name: 'Mitrila zābaki · INT'
+    },
+    smithIntAdamantGreaves: {
+      name: 'Adamanta zābaki · INT'
+    },
+    smithIntAetheriteGreaves: {
+      name: 'Etērīta zābaki · INT'
+    },
+    smithMasterSklIronSword: {
+      name: 'Meistara dzelzs pistole · MEI'
+    },
+    smithSklIronSword: {
+      name: 'Dzelzs pistole · MEI'
+    },
+    smithMasterSklIronHammer: {
+      name: 'Meistara dzelzs šautene · MEI'
+    },
+    smithSklIronHammer: {
+      name: 'Dzelzs šautene · MEI'
+    },
+    smithMasterSklIronShield: {
+      name: 'Meistara dzelzs akumulators · MEI'
+    },
+    smithSklIronShield: {
+      name: 'Dzelzs akumulators · MEI'
+    },
+    smithMasterSklIronHelm: {
+      name: 'Meistara dzelzs cepure · MEI'
+    },
+    smithSklIronHelm: {
+      name: 'Dzelzs cepure · MEI'
+    },
+    smithMasterSklIronPlate: {
+      name: 'Meistara dzelzs iejūgs · MEI'
+    },
+    smithSklIronPlate: {
+      name: 'Dzelzs iejūgs · MEI'
+    },
+    smithMasterSklIronGreaves: {
+      name: 'Meistara dzelzs zābaki · MEI'
+    },
+    smithSklIronGreaves: {
+      name: 'Dzelzs zābaki · MEI'
+    },
+    smithMasterSklSilverSword: {
+      name: 'Meistara sudraba pistole · MEI'
+    },
+    smithSklSilverSword: {
+      name: 'Sudraba pistole · MEI'
+    },
+    smithMasterSklSilverHammer: {
+      name: 'Meistara sudraba šautene · MEI'
+    },
+    smithSklSilverHammer: {
+      name: 'Sudraba šautene · MEI'
+    },
+    smithMasterSklSilverShield: {
+      name: 'Meistara sudraba akumulators · MEI'
+    },
+    smithSklSilverShield: {
+      name: 'Sudraba akumulators · MEI'
+    },
+    smithMasterSklSilverHelm: {
+      name: 'Meistara sudraba cepure · MEI'
+    },
+    smithSklSilverHelm: {
+      name: 'Sudraba cepure · MEI'
+    },
+    smithMasterSklSilverPlate: {
+      name: 'Meistara sudraba iejūgs · MEI'
+    },
+    smithSklSilverPlate: {
+      name: 'Sudraba iejūgs · MEI'
+    },
+    smithMasterSklSilverGreaves: {
+      name: 'Meistara sudraba zābaki · MEI'
+    },
+    smithSklSilverGreaves: {
+      name: 'Sudraba zābaki · MEI'
+    },
+    smithMasterSklGoldSword: {
+      name: 'Meistara zelta pistole · MEI'
+    },
+    smithSklGoldSword: {
+      name: 'Zelta pistole · MEI'
+    },
+    smithMasterSklGoldHammer: {
+      name: 'Meistara zelta šautene · MEI'
+    },
+    smithSklGoldHammer: {
+      name: 'Zelta šautene · MEI'
+    },
+    smithMasterSklGoldShield: {
+      name: 'Meistara zelta akumulators · MEI'
+    },
+    smithSklGoldShield: {
+      name: 'Zelta akumulators · MEI'
+    },
+    smithMasterSklGoldHelm: {
+      name: 'Meistara zelta cepure · MEI'
+    },
+    smithSklGoldHelm: {
+      name: 'Zelta cepure · MEI'
+    },
+    smithMasterSklGoldPlate: {
+      name: 'Meistara zelta iejūgs · MEI'
+    },
+    smithSklGoldPlate: {
+      name: 'Zelta iejūgs · MEI'
+    },
+    smithMasterSklGoldGreaves: {
+      name: 'Meistara zelta zābaki · MEI'
+    },
+    smithSklGoldGreaves: {
+      name: 'Zelta zābaki · MEI'
+    },
+    smithMasterSklMithrilSword: {
+      name: 'Meistara mitrila pistole · MEI'
+    },
+    smithMasterSklAdamantSword: {
+      name: 'Meistara adamanta pistole · MEI'
+    },
+    smithMasterSklAetheriteSword: {
+      name: 'Meistara etērīta pistole · MEI'
+    },
+    smithSklMithrilSword: {
+      name: 'Mitrila pistole · MEI'
+    },
+    smithSklAdamantSword: {
+      name: 'Adamanta pistole · MEI'
+    },
+    smithSklAetheriteSword: {
+      name: 'Etērīta pistole · MEI'
+    },
+    smithMasterSklMithrilHammer: {
+      name: 'Meistara mitrila šautene · MEI'
+    },
+    smithMasterSklAdamantHammer: {
+      name: 'Meistara adamanta šautene · MEI'
+    },
+    smithMasterSklAetheriteHammer: {
+      name: 'Meistara etērīta šautene · MEI'
+    },
+    smithSklMithrilHammer: {
+      name: 'Mitrila šautene · MEI'
+    },
+    smithSklAdamantHammer: {
+      name: 'Adamanta šautene · MEI'
+    },
+    smithSklAetheriteHammer: {
+      name: 'Etērīta šautene · MEI'
+    },
+    smithMasterSklMithrilShield: {
+      name: 'Meistara mitrila akumulators · MEI'
+    },
+    smithMasterSklAdamantShield: {
+      name: 'Meistara adamanta akumulators · MEI'
+    },
+    smithMasterSklAetheriteShield: {
+      name: 'Meistara etērīta akumulators · MEI'
+    },
+    smithSklMithrilShield: {
+      name: 'Mitrila akumulators · MEI'
+    },
+    smithSklAdamantShield: {
+      name: 'Adamanta akumulators · MEI'
+    },
+    smithSklAetheriteShield: {
+      name: 'Etērīta akumulators · MEI'
+    },
+    smithMasterSklMithrilHelm: {
+      name: 'Meistara mitrila cepure · MEI'
+    },
+    smithMasterSklAdamantHelm: {
+      name: 'Meistara adamanta cepure · MEI'
+    },
+    smithMasterSklAetheriteHelm: {
+      name: 'Meistara etērīta cepure · MEI'
+    },
+    smithSklMithrilHelm: {
+      name: 'Mitrila cepure · MEI'
+    },
+    smithSklAdamantHelm: {
+      name: 'Adamanta cepure · MEI'
+    },
+    smithSklAetheriteHelm: {
+      name: 'Etērīta cepure · MEI'
+    },
+    smithMasterSklMithrilPlate: {
+      name: 'Meistara mitrila iejūgs · MEI'
+    },
+    smithMasterSklAdamantPlate: {
+      name: 'Meistara adamanta iejūgs · MEI'
+    },
+    smithMasterSklAetheritePlate: {
+      name: 'Meistara etērīta iejūgs · MEI'
+    },
+    smithSklMithrilPlate: {
+      name: 'Mitrila iejūgs · MEI'
+    },
+    smithSklAdamantPlate: {
+      name: 'Adamanta iejūgs · MEI'
+    },
+    smithSklAetheritePlate: {
+      name: 'Etērīta iejūgs · MEI'
+    },
+    smithMasterSklMithrilGreaves: {
+      name: 'Meistara mitrila zābaki · MEI'
+    },
+    smithMasterSklAdamantGreaves: {
+      name: 'Meistara adamanta zābaki · MEI'
+    },
+    smithMasterSklAetheriteGreaves: {
+      name: 'Meistara etērīta zābaki · MEI'
+    },
+    smithSklMithrilGreaves: {
+      name: 'Mitrila zābaki · MEI'
+    },
+    smithSklAdamantGreaves: {
+      name: 'Adamanta zābaki · MEI'
+    },
+    smithSklAetheriteGreaves: {
+      name: 'Etērīta zābaki · MEI'
+    },
+    smithMasterChaIronSword: {
+      name: 'Meistara dzelzs scepteris · HAR'
+    },
+    smithChaIronSword: {
+      name: 'Dzelzs scepteris · HAR'
+    },
+    smithMasterChaIronHammer: {
+      name: 'Meistara dzelzs karogs · HAR'
+    },
+    smithChaIronHammer: {
+      name: 'Dzelzs karogs · HAR'
+    },
+    smithMasterChaIronShield: {
+      name: 'Meistara dzelzs kodekss · HAR'
+    },
+    smithChaIronShield: {
+      name: 'Dzelzs kodekss · HAR'
+    },
+    smithMasterChaIronHelm: {
+      name: 'Meistara dzelzs kronis · HAR'
+    },
+    smithChaIronHelm: {
+      name: 'Dzelzs kronis · HAR'
+    },
+    smithMasterChaIronPlate: {
+      name: 'Meistara dzelzs tabards · HAR'
+    },
+    smithChaIronPlate: {
+      name: 'Dzelzs tabards · HAR'
+    },
+    smithMasterChaIronGreaves: {
+      name: 'Meistara dzelzs zābaki · HAR'
+    },
+    smithChaIronGreaves: {
+      name: 'Dzelzs zābaki · HAR'
+    },
+    smithMasterChaSilverSword: {
+      name: 'Meistara sudraba scepteris · HAR'
+    },
+    smithChaSilverSword: {
+      name: 'Sudraba scepteris · HAR'
+    },
+    smithMasterChaSilverHammer: {
+      name: 'Meistara sudraba karogs · HAR'
+    },
+    smithChaSilverHammer: {
+      name: 'Sudraba karogs · HAR'
+    },
+    smithMasterChaSilverShield: {
+      name: 'Meistara sudraba kodekss · HAR'
+    },
+    smithChaSilverShield: {
+      name: 'Sudraba kodekss · HAR'
+    },
+    smithMasterChaSilverHelm: {
+      name: 'Meistara sudraba kronis · HAR'
+    },
+    smithChaSilverHelm: {
+      name: 'Sudraba kronis · HAR'
+    },
+    smithMasterChaSilverPlate: {
+      name: 'Meistara sudraba tabards · HAR'
+    },
+    smithChaSilverPlate: {
+      name: 'Sudraba tabards · HAR'
+    },
+    smithMasterChaSilverGreaves: {
+      name: 'Meistara sudraba zābaki · HAR'
+    },
+    smithChaSilverGreaves: {
+      name: 'Sudraba zābaki · HAR'
+    },
+    smithMasterChaGoldSword: {
+      name: 'Meistara zelta scepteris · HAR'
+    },
+    smithChaGoldSword: {
+      name: 'Zelta scepteris · HAR'
+    },
+    smithMasterChaGoldHammer: {
+      name: 'Meistara zelta karogs · HAR'
+    },
+    smithChaGoldHammer: {
+      name: 'Zelta karogs · HAR'
+    },
+    smithMasterChaGoldShield: {
+      name: 'Meistara zelta kodekss · HAR'
+    },
+    smithChaGoldShield: {
+      name: 'Zelta kodekss · HAR'
+    },
+    smithMasterChaGoldHelm: {
+      name: 'Meistara zelta kronis · HAR'
+    },
+    smithChaGoldHelm: {
+      name: 'Zelta kronis · HAR'
+    },
+    smithMasterChaGoldPlate: {
+      name: 'Meistara zelta tabards · HAR'
+    },
+    smithChaGoldPlate: {
+      name: 'Zelta tabards · HAR'
+    },
+    smithMasterChaGoldGreaves: {
+      name: 'Meistara zelta zābaki · HAR'
+    },
+    smithChaGoldGreaves: {
+      name: 'Zelta zābaki · HAR'
+    },
+    smithMasterChaMithrilSword: {
+      name: 'Meistara mitrila scepteris · HAR'
+    },
+    smithMasterChaAdamantSword: {
+      name: 'Meistara adamanta scepteris · HAR'
+    },
+    smithMasterChaAetheriteSword: {
+      name: 'Meistara etērīta scepteris · HAR'
+    },
+    smithChaMithrilSword: {
+      name: 'Mitrila scepteris · HAR'
+    },
+    smithChaAdamantSword: {
+      name: 'Adamanta scepteris · HAR'
+    },
+    smithChaAetheriteSword: {
+      name: 'Etērīta scepteris · HAR'
+    },
+    smithMasterChaMithrilHammer: {
+      name: 'Meistara mitrila karogs · HAR'
+    },
+    smithMasterChaAdamantHammer: {
+      name: 'Meistara adamanta karogs · HAR'
+    },
+    smithMasterChaAetheriteHammer: {
+      name: 'Meistara etērīta karogs · HAR'
+    },
+    smithChaMithrilHammer: {
+      name: 'Mitrila karogs · HAR'
+    },
+    smithChaAdamantHammer: {
+      name: 'Adamanta karogs · HAR'
+    },
+    smithChaAetheriteHammer: {
+      name: 'Etērīta karogs · HAR'
+    },
+    smithMasterChaMithrilShield: {
+      name: 'Meistara mitrila kodekss · HAR'
+    },
+    smithMasterChaAdamantShield: {
+      name: 'Meistara adamanta kodekss · HAR'
+    },
+    smithMasterChaAetheriteShield: {
+      name: 'Meistara etērīta kodekss · HAR'
+    },
+    smithChaMithrilShield: {
+      name: 'Mitrila kodekss · HAR'
+    },
+    smithChaAdamantShield: {
+      name: 'Adamanta kodekss · HAR'
+    },
+    smithChaAetheriteShield: {
+      name: 'Etērīta kodekss · HAR'
+    },
+    smithMasterChaMithrilHelm: {
+      name: 'Meistara mitrila kronis · HAR'
+    },
+    smithMasterChaAdamantHelm: {
+      name: 'Meistara adamanta kronis · HAR'
+    },
+    smithMasterChaAetheriteHelm: {
+      name: 'Meistara etērīta kronis · HAR'
+    },
+    smithChaMithrilHelm: {
+      name: 'Mitrila kronis · HAR'
+    },
+    smithChaAdamantHelm: {
+      name: 'Adamanta kronis · HAR'
+    },
+    smithChaAetheriteHelm: {
+      name: 'Etērīta kronis · HAR'
+    },
+    smithMasterChaMithrilPlate: {
+      name: 'Meistara mitrila tabards · HAR'
+    },
+    smithMasterChaAdamantPlate: {
+      name: 'Meistara adamanta tabards · HAR'
+    },
+    smithMasterChaAetheritePlate: {
+      name: 'Meistara etērīta tabards · HAR'
+    },
+    smithChaMithrilPlate: {
+      name: 'Mitrila tabards · HAR'
+    },
+    smithChaAdamantPlate: {
+      name: 'Adamanta tabards · HAR'
+    },
+    smithChaAetheritePlate: {
+      name: 'Etērīta tabards · HAR'
+    },
+    smithMasterChaMithrilGreaves: {
+      name: 'Meistara mitrila zābaki · HAR'
+    },
+    smithMasterChaAdamantGreaves: {
+      name: 'Meistara adamanta zābaki · HAR'
+    },
+    smithMasterChaAetheriteGreaves: {
+      name: 'Meistara etērīta zābaki · HAR'
+    },
+    smithChaMithrilGreaves: {
+      name: 'Mitrila zābaki · HAR'
+    },
+    smithChaAdamantGreaves: {
+      name: 'Adamanta zābaki · HAR'
+    },
+    smithChaAetheriteGreaves: {
+      name: 'Etērīta zābaki · HAR'
+    },
+    smithMasterEndIronSword: {
+      name: 'Meistara dzelzs vāle · IZT'
+    },
+    smithEndIronSword: {
+      name: 'Dzelzs vāle · IZT'
+    },
+    smithMasterEndIronHammer: {
+      name: 'Meistara dzelzs cirvis · IZT'
+    },
+    smithEndIronHammer: {
+      name: 'Dzelzs cirvis · IZT'
+    },
+    smithMasterEndIronShield: {
+      name: 'Meistara dzelzs vairogs · IZT'
+    },
+    smithEndIronShield: {
+      name: 'Dzelzs vairogs · IZT'
+    },
+    smithMasterEndIronHelm: {
+      name: 'Meistara dzelzs ķivere · IZT'
+    },
+    smithEndIronHelm: {
+      name: 'Dzelzs ķivere · IZT'
+    },
+    smithMasterEndIronPlate: {
+      name: 'Meistara dzelzs bruņas · IZT'
+    },
+    smithEndIronPlate: {
+      name: 'Dzelzs bruņas · IZT'
+    },
+    smithMasterEndIronGreaves: {
+      name: 'Meistara dzelzs stilbu sargi · IZT'
+    },
+    smithEndIronGreaves: {
+      name: 'Dzelzs stilbu sargi · IZT'
+    },
+    smithMasterEndSilverSword: {
+      name: 'Meistara sudraba vāle · IZT'
+    },
+    smithEndSilverSword: {
+      name: 'Sudraba vāle · IZT'
+    },
+    smithMasterEndSilverHammer: {
+      name: 'Meistara sudraba cirvis · IZT'
+    },
+    smithEndSilverHammer: {
+      name: 'Sudraba cirvis · IZT'
+    },
+    smithMasterEndSilverShield: {
+      name: 'Meistara sudraba vairogs · IZT'
+    },
+    smithEndSilverShield: {
+      name: 'Sudraba vairogs · IZT'
+    },
+    smithMasterEndSilverHelm: {
+      name: 'Meistara sudraba ķivere · IZT'
+    },
+    smithEndSilverHelm: {
+      name: 'Sudraba ķivere · IZT'
+    },
+    smithMasterEndSilverPlate: {
+      name: 'Meistara sudraba bruņas · IZT'
+    },
+    smithEndSilverPlate: {
+      name: 'Sudraba bruņas · IZT'
+    },
+    smithMasterEndSilverGreaves: {
+      name: 'Meistara sudraba stilbu sargi · IZT'
+    },
+    smithEndSilverGreaves: {
+      name: 'Sudraba stilbu sargi · IZT'
+    },
+    smithMasterEndGoldSword: {
+      name: 'Meistara zelta vāle · IZT'
+    },
+    smithEndGoldSword: {
+      name: 'Zelta vāle · IZT'
+    },
+    smithMasterEndGoldHammer: {
+      name: 'Meistara zelta cirvis · IZT'
+    },
+    smithEndGoldHammer: {
+      name: 'Zelta cirvis · IZT'
+    },
+    smithMasterEndGoldShield: {
+      name: 'Meistara zelta vairogs · IZT'
+    },
+    smithEndGoldShield: {
+      name: 'Zelta vairogs · IZT'
+    },
+    smithMasterEndGoldHelm: {
+      name: 'Meistara zelta ķivere · IZT'
+    },
+    smithEndGoldHelm: {
+      name: 'Zelta ķivere · IZT'
+    },
+    smithMasterEndGoldPlate: {
+      name: 'Meistara zelta bruņas · IZT'
+    },
+    smithEndGoldPlate: {
+      name: 'Zelta bruņas · IZT'
+    },
+    smithMasterEndGoldGreaves: {
+      name: 'Meistara zelta stilbu sargi · IZT'
+    },
+    smithEndGoldGreaves: {
+      name: 'Zelta stilbu sargi · IZT'
+    },
+    smithMasterEndMithrilSword: {
+      name: 'Meistara mitrila vāle · IZT'
+    },
+    smithMasterEndAdamantSword: {
+      name: 'Meistara adamanta vāle · IZT'
+    },
+    smithMasterEndAetheriteSword: {
+      name: 'Meistara etērīta vāle · IZT'
+    },
+    smithEndMithrilSword: {
+      name: 'Mitrila vāle · IZT'
+    },
+    smithEndAdamantSword: {
+      name: 'Adamanta vāle · IZT'
+    },
+    smithEndAetheriteSword: {
+      name: 'Etērīta vāle · IZT'
+    },
+    smithMasterEndMithrilHammer: {
+      name: 'Meistara mitrila cirvis · IZT'
+    },
+    smithMasterEndAdamantHammer: {
+      name: 'Meistara adamanta cirvis · IZT'
+    },
+    smithMasterEndAetheriteHammer: {
+      name: 'Meistara etērīta cirvis · IZT'
+    },
+    smithEndMithrilHammer: {
+      name: 'Mitrila cirvis · IZT'
+    },
+    smithEndAdamantHammer: {
+      name: 'Adamanta cirvis · IZT'
+    },
+    smithEndAetheriteHammer: {
+      name: 'Etērīta cirvis · IZT'
+    },
+    smithMasterEndMithrilShield: {
+      name: 'Meistara mitrila vairogs · IZT'
+    },
+    smithMasterEndAdamantShield: {
+      name: 'Meistara adamanta vairogs · IZT'
+    },
+    smithMasterEndAetheriteShield: {
+      name: 'Meistara etērīta vairogs · IZT'
+    },
+    smithEndMithrilShield: {
+      name: 'Mitrila vairogs · IZT'
+    },
+    smithEndAdamantShield: {
+      name: 'Adamanta vairogs · IZT'
+    },
+    smithEndAetheriteShield: {
+      name: 'Etērīta vairogs · IZT'
+    },
+    smithMasterEndMithrilHelm: {
+      name: 'Meistara mitrila ķivere · IZT'
+    },
+    smithMasterEndAdamantHelm: {
+      name: 'Meistara adamanta ķivere · IZT'
+    },
+    smithMasterEndAetheriteHelm: {
+      name: 'Meistara etērīta ķivere · IZT'
+    },
+    smithEndMithrilHelm: {
+      name: 'Mitrila ķivere · IZT'
+    },
+    smithEndAdamantHelm: {
+      name: 'Adamanta ķivere · IZT'
+    },
+    smithEndAetheriteHelm: {
+      name: 'Etērīta ķivere · IZT'
+    },
+    smithMasterEndMithrilPlate: {
+      name: 'Meistara mitrila bruņas · IZT'
+    },
+    smithMasterEndAdamantPlate: {
+      name: 'Meistara adamanta bruņas · IZT'
+    },
+    smithMasterEndAetheritePlate: {
+      name: 'Meistara etērīta bruņas · IZT'
+    },
+    smithEndMithrilPlate: {
+      name: 'Mitrila bruņas · IZT'
+    },
+    smithEndAdamantPlate: {
+      name: 'Adamanta bruņas · IZT'
+    },
+    smithEndAetheritePlate: {
+      name: 'Etērīta bruņas · IZT'
+    },
+    smithMasterEndMithrilGreaves: {
+      name: 'Meistara mitrila stilbu sargi · IZT'
+    },
+    smithMasterEndAdamantGreaves: {
+      name: 'Meistara adamanta stilbu sargi · IZT'
+    },
+    smithMasterEndAetheriteGreaves: {
+      name: 'Meistara etērīta stilbu sargi · IZT'
+    },
+    smithEndMithrilGreaves: {
+      name: 'Mitrila stilbu sargi · IZT'
+    },
+    smithEndAdamantGreaves: {
+      name: 'Adamanta stilbu sargi · IZT'
+    },
+    smithEndAetheriteGreaves: {
+      name: 'Etērīta stilbu sargi · IZT'
     },
     smithIronSword: {
       name: 'Dzelzs zobens'
@@ -1777,6 +2951,414 @@ export default {
     scepterOfTheFirstKing: {
       name: 'Pirmā karaļa scepteris'
     },
+    pickpocketsKnife: {
+      name: 'Kabatzagļa nazis'
+    },
+    serpentsFang: {
+      name: 'Čūskas ilknis'
+    },
+    phantomRapier: {
+      name: 'Spoku rapīra'
+    },
+    fangOfTheWindless: {
+      name: 'Bezvēja ilknis'
+    },
+    roguesBuckler: {
+      name: 'Blēža mazais vairogs'
+    },
+    venomVial: {
+      name: 'Indes pudelīte'
+    },
+    swiftguardBuckler: {
+      name: 'Ātrās sardzes mazais vairogs'
+    },
+    nightshadeFlask: {
+      name: 'Beladonnas pudele'
+    },
+    windveilTarge: {
+      name: 'Vēja plīvura vairogs'
+    },
+    shadowdancersBuckler: {
+      name: 'Ēnu dejotāja mazais vairogs'
+    },
+    scoutsBandana: {
+      name: 'Izlūka lakats'
+    },
+    nightcowl: {
+      name: 'Nakts kapuce'
+    },
+    shadowveilHood: {
+      name: 'Ēnu plīvura kapuce'
+    },
+    windrunnersCap: {
+      name: 'Vēja skrējēja cepure'
+    },
+    maskOfTheSilentWind: {
+      name: 'Klusā vēja maska'
+    },
+    rangersJerkin: {
+      name: 'Mežsarga svārki'
+    },
+    nightstalkerLeathers: {
+      name: 'Nakts mednieka āda'
+    },
+    windridersHarness: {
+      name: 'Vēja jātnieka iejūgs'
+    },
+    mantleOfTheShadowDancer: {
+      name: 'Ēnu dejotāja apmetnis'
+    },
+    thiefsGloves: {
+      name: 'Zagļa cimdi'
+    },
+    cutpurseGloves: {
+      name: 'Kabatzagļa cimdi'
+    },
+    glovesOfTheGale: {
+      name: 'Vētras cimdi'
+    },
+    softSoledShoes: {
+      name: 'Mīkstzoļu kurpes'
+    },
+    catStepBoots: {
+      name: 'Kaķa soļa zābaki'
+    },
+    shadowstepBoots: {
+      name: 'Ēnas soļa zābaki'
+    },
+    windstrideBoots: {
+      name: 'Vēja soļa zābaki'
+    },
+    luckyCoin: {
+      name: 'Laimes monēta'
+    },
+    shadowBand: {
+      name: 'Ēnas gredzens'
+    },
+    sandglassOfTheSwift: {
+      name: 'Veiklo smilšu pulkstenis'
+    },
+    talonCharm: {
+      name: 'Nagu amulets'
+    },
+    windheart: {
+      name: 'Vēja sirds'
+    },
+    ashwallHeater: {
+      name: 'Pelnu sienas vairogs'
+    },
+    wyrmhidePavise: {
+      name: 'Pavēze no vivernas ādas'
+    },
+    footmansKettleHat: {
+      name: 'Kājnieka katla cepure'
+    },
+    ironbrowSallet: {
+      name: 'Dzelzs uzaču salāda'
+    },
+    warlordsBarbute: {
+      name: 'Karavadoņa barbuts'
+    },
+    helmOfTheSunderedThrone: {
+      name: 'Sašķeltā troņa ķivere'
+    },
+    recruitsCuirass: {
+      name: 'Jauniesaucamā kirass'
+    },
+    stonecuttersMitts: {
+      name: 'Akmeņkaļa cimdi'
+    },
+    ashforgedGauntlets: {
+      name: 'Pelnos kaltas bruņu cimdi'
+    },
+    warbringerGauntlets: {
+      name: 'Kara nesēja bruņu cimdi'
+    },
+    titanfistGauntlets: {
+      name: 'Titāna dūres bruņu cimdi'
+    },
+    footmansGreaves: {
+      name: 'Kājnieka stilbu sargi'
+    },
+    ironshodGreaves: {
+      name: 'Dzelzs apkalti stilbu sargi'
+    },
+    warlordsSabatons: {
+      name: 'Karavadoņa sabatoni'
+    },
+    greavesOfTheMountainfall: {
+      name: 'Kalnu nogruvuma stilbu sargi'
+    },
+    sergeantsSignet: {
+      name: 'Seržanta zīmoggredzens'
+    },
+    brawlersKnuckleRing: {
+      name: 'Kautiņnieka dūrainis'
+    },
+    bloodiedWarMedal: {
+      name: 'Asiņota kara medaļa'
+    },
+    watchmansCudgel: {
+      name: 'Sarga steks'
+    },
+    ironboundMace: {
+      name: 'Ar dzelzi apjozta vāle'
+    },
+    stonehideCleaver: {
+      name: 'Akmens ādas cirtējs'
+    },
+    bulwarkMaul: {
+      name: 'Bastiona veseris'
+    },
+    mountainsplitterAxe: {
+      name: 'Kalnu skēlēja cirvis'
+    },
+    everstandWarmace: {
+      name: 'Neatlaidīgā kara vāle'
+    },
+    emberwallBastion: {
+      name: 'Kvēlojošās sienas bastions'
+    },
+    stonewardenHelm: {
+      name: 'Akmens sarga ķivere'
+    },
+    colossusVisage: {
+      name: 'Kolosa vaigs'
+    },
+    diggersGauntlets: {
+      name: 'Racēja bruņu cimdi'
+    },
+    bastionGauntlets: {
+      name: 'Bastiona bruņu cimdi'
+    },
+    glacierplateGauntlets: {
+      name: 'Ledāja plākšņu bruņu cimdi'
+    },
+    gauntletsOfEndlessVigil: {
+      name: 'Mūžīgās sardzes bruņu cimdi'
+    },
+    hearthstoneCharm: {
+      name: 'Pavarda akmens talismans'
+    },
+    ironheartPendant: {
+      name: 'Dzelzs sirds kulons'
+    },
+    hedgewizardsWand: {
+      name: 'Dzīvžoga burvja zizlis'
+    },
+    frostglassStaff: {
+      name: 'Sala stikla zizlis'
+    },
+    voidthreadWand: {
+      name: 'Tukšuma diegu zizlītis'
+    },
+    staffOfTheStarlessSky: {
+      name: 'Bezzvaigžņu debesu zizlis'
+    },
+    studentsGrimoire: {
+      name: 'Skolnieka grimuārs'
+    },
+    frostfireOrb: {
+      name: 'Sala uguns lode'
+    },
+    orbOfTheUnwrittenHour: {
+      name: 'Neuzrakstītās stundas lode'
+    },
+    apprenticesPointedCap: {
+      name: 'Mācekļa smailā cepure'
+    },
+    sagesCirclet: {
+      name: 'Gudrā diadēma'
+    },
+    cinderWizardsHat: {
+      name: 'Pelnu burvja cepure'
+    },
+    voidseerCirclet: {
+      name: 'Tukšuma redzētāja diadēma'
+    },
+    apprenticesRobe: {
+      name: 'Mācekļa mantija'
+    },
+    cinderthreadRobe: {
+      name: 'Pelnu diegu mantija'
+    },
+    voidwovenRobe: {
+      name: 'No Tukšuma austa mantija'
+    },
+    inkStainedGloves: {
+      name: 'Ar tinti notraipīti cimdi'
+    },
+    spellthreadGloves: {
+      name: 'Buramvārdu diegu cimdi'
+    },
+    frostweaveGloves: {
+      name: 'Sala auduma cimdi'
+    },
+    starlitGloves: {
+      name: 'Zvaigžņu gaismas cimdi'
+    },
+    glovesOfTheLastWord: {
+      name: 'Pēdējā vārda cimdi'
+    },
+    scribesSlippers: {
+      name: 'Rakstveža čības'
+    },
+    moonstepSlippers: {
+      name: 'Mēness soļa čības'
+    },
+    emberstepBoots: {
+      name: 'Kvēles soļa zābaki'
+    },
+    voidwalkerBoots: {
+      name: 'Tukšuma klejotāja zābaki'
+    },
+    bootsOfTheWanderingStar: {
+      name: 'Klejojošās zvaigznes zābaki'
+    },
+    glowstonePendant: {
+      name: 'Mirdzoša akmens kulons'
+    },
+    scholarsSeal: {
+      name: 'Zinātnieka zīmogs'
+    },
+    eyeOfTheArchon: {
+      name: 'Arhonta acs'
+    },
+    cinderRepeater: {
+      name: 'Pelnu atkārtotājšaujamais'
+    },
+    glacierMortar: {
+      name: 'Ledāja rokas mīnmetējs'
+    },
+    sparkCell: {
+      name: 'Dzirksteļu šūna'
+    },
+    arcCapacitor: {
+      name: 'Loka kondensators'
+    },
+    aetherheartCell: {
+      name: 'Ētera sirds šūna'
+    },
+    marksmansVisor: {
+      name: 'Šāvēja sejsegs'
+    },
+    sharpshootersCap: {
+      name: 'Snaipera naģene'
+    },
+    gunnersHarness: {
+      name: 'Artilērista iejūgs'
+    },
+    steadyhandGloves: {
+      name: 'Stingras rokas cimdi'
+    },
+    gunsmithsGloves: {
+      name: 'Ieroču kalēja cimdi'
+    },
+    scrappersBoots: {
+      name: 'Kautiņnieka zābaki'
+    },
+    sharpshooterBoots: {
+      name: 'Snaipera zābaki'
+    },
+    firingLineBoots: {
+      name: 'Uguns līnijas zābaki'
+    },
+    steadyfootBoots: {
+      name: 'Stingrā soļa zābaki'
+    },
+    aetherstepBoots: {
+      name: 'Ētera soļa zābaki'
+    },
+    bootsOfTheLastShot: {
+      name: 'Pēdējā šāviena zābaki'
+    },
+    brassCartridgeCharm: {
+      name: 'Misiņa patronas talismans'
+    },
+    deadEyeLens: {
+      name: 'Trāpīgās acs lēca'
+    },
+    eagleEyeScope: {
+      name: 'Ērgļa acs tālskatis'
+    },
+    criersBaton: {
+      name: 'Pasludinātāja zizlis'
+    },
+    droversStandard: {
+      name: 'Gotiņu dzinēja karogs'
+    },
+    marshalsSceptre: {
+      name: 'Maršala scepteris'
+    },
+    balladBook: {
+      name: 'Balāžu grāmata'
+    },
+    chronicleOfHeroes: {
+      name: 'Varoņu hronika'
+    },
+    psalterOfTheHost: {
+      name: 'Karaspēka psalmu grāmata'
+    },
+    tomeOfEternalReign: {
+      name: 'Mūžīgās valdīšanas sējums'
+    },
+    heraldsCap: {
+      name: 'Herolda cepure'
+    },
+    singersCirclet: {
+      name: 'Dziedātāja diadēma'
+    },
+    diademOfTenThousandVoices: {
+      name: 'Desmit tūkstoš balsu diadēma'
+    },
+    travelersWaistcoat: {
+      name: 'Ceļotāja veste'
+    },
+    minstrelsMotley: {
+      name: 'Menestrela lāpītais tērps'
+    },
+    troubadoursCoat: {
+      name: 'Trubadūra mētelis'
+    },
+    marshalsGreatcoat: {
+      name: 'Maršala mētelis'
+    },
+    buskersGloves: {
+      name: 'Ielu mūziķa cimdi'
+    },
+    drummersGloves: {
+      name: 'Bundzinieka cimdi'
+    },
+    standardBearersGloves: {
+      name: 'Karognesēja cimdi'
+    },
+    gildedParadeGloves: {
+      name: 'Apzeltīti parādes cimdi'
+    },
+    glovesOfTheCrownedHand: {
+      name: 'Kronētās rokas cimdi'
+    },
+    wayfarersShoes: {
+      name: 'Ceļinieka kurpes'
+    },
+    troubadourBoots: {
+      name: 'Trubadūra zābaki'
+    },
+    heraldsRidingBoots: {
+      name: 'Herolda jātnieka zābaki'
+    },
+    paradeBoots: {
+      name: 'Parādes zābaki'
+    },
+    bootsOfTheLongProcession: {
+      name: 'Garā gājiena zābaki'
+    },
+    silverWhistle: {
+      name: 'Sudraba svilpe'
+    },
+    gatheringHorn: {
+      name: 'Sapulcināšanas rags'
+    },
     heartOfTheMountain: {
       name: 'Kalna sirds'
     },
@@ -1880,6 +3462,9 @@ export default {
     freedPeddler: {
       talk: 'Viss, kas ceļotājam vajadzīgs. Gandrīz jauns, lielākoties.',
       name: 'Odo Marovs'
+    },
+    sfShadowRoad: {
+      name: 'Netla Kvikhenda'
     },
     sfShadow: {
       name: 'Netla Kvikhenda'
@@ -2034,6 +3619,9 @@ export default {
     sunfordGambler: {
       name: 'Dobs Kūlenis'
     },
+    sunfordCups: {
+      name: 'Nell Nimblefingers'
+    },
     oakGambler: {
       name: 'Zīdainais Rens'
     },
@@ -2145,6 +3733,13 @@ export default {
     }
   },
   dlg: {
+    intro: {
+      crossing: { 1: 'Katrs šīs pasaules ceļš satiekas krustcelēs… un katras krustceles ir kauja.' },
+      hero: { 1: 'No Sanfordas klusajiem laukiem ceļā devās jauns varonis.' },
+      fire: { 1: 'Uguns atsaucās aicinājumam. Tērauds iemācījās jaunu vārdu.' },
+      foes: { 1: 'Goblinu karaļi, sala jarli, Tukšuma pūķis… un Arhidēmons.' },
+      begin: { 1: 'Tava leģenda sākas tagad.' }
+    },
     frostDisciple: {
       bye: {
         '1': 'Nenosalsti.'
@@ -2350,6 +3945,23 @@ export default {
         '2': 'Odo Marovs, tavā rīcībā. Tirgotājs, amatnieks, ļoti pateicīgs vīrs.',
         '1__f': 'Tu! Tu esi tā, kas atvēra to būri! Es tur būtu sapuvis.',
         '1': 'Tu! Tu esi tas, kas atvēra to būri! Es tur būtu sapuvis.'
+      }
+    },
+    sfShadowRoad: {
+      hello: {
+        '1': 'Teleportācija. Vai interesē?'
+      },
+      again: {
+        '1': 'Atkal atnāci pēc cita trika?'
+      },
+      train: {
+        '1': 'Skaties uzmanīgi. Viens solis, un tu jau esi citur.'
+      },
+      trainBack: {
+        '1': 'Labi. Tagad ej un esi kaut kur citur.'
+      },
+      bye: {
+        '1': 'Neļauj sevi noķert.'
       }
     },
     sfShadow: {
@@ -2605,9 +4217,8 @@ export default {
         '2': 'Sit, kad metāls kvēlo visspožāk. Netrāpīsi, un tie ir lūžņi. Aiziet.',
         '1': 'Kalšana? Hm. Turi āmuru šādi, nevis kā vāli.'
       },
-      ore: {
-        '1': 'Tīradņi, ko? Ņemšu visus. Godīgs svars, godīga nauda.'
-      },
+      ore: { '1': 'Rūda, ko? Rādi. Maksāju par tīrradni, godīgs svars.' },
+      sellBack: { '1': 'Godīgs svars, godīga monēta. Atnes vēl, kad atrodi.' },
       forgeBack: {
         '1': 'Nav slikti. Bet arī ne labi. Turpini.'
       },
@@ -2903,7 +4514,7 @@ export default {
       },
       map: {
         '1': 'Kapteiņa Rūka karte! Viņš to saplēsa un paslēpa gabalus, pirms goblini viņu noķēra.',
-        '2': 'Atrodi visus sešus, un X parādīs ceļu: kaut kur Pelnu klintīs. Roc tur, un zelts būs tavs.',
+        '2': 'Atrodi sešus no tiem, vēl daži ir izmētāti apkārt, un X parādīs ceļu: kaut kur Pelnu klintīs. Roc tur, un zelts būs tavs.',
         say: 'Atradu vecas kartes gabalu.'
       }
     },
@@ -2921,6 +4532,9 @@ export default {
       },
       mana: {
         '1': 'Šī ir rūgta. Dzer, kad beidzas burvestības.'
+      },
+      brew: {
+        '1': 'Parādi savus augus. Sajaukšu kaut ko, kas garšo labāk par manu mana tonizējošo dzērienu.'
       },
       potions: {
         '1': 'Tu uz katru cīņu ņem dažas kolbas. Dzer, pirms vajag, nevis pēc.',
@@ -2940,6 +4554,9 @@ export default {
       },
       healBack: {
         '1': 'Tur jostu pilnu un galvu nolaistu.'
+      },
+      brewBack: {
+        '1': 'Uzmanīgi, tie ir karsti. Nedzer visus uzreiz.'
       },
       bye: {
         '1': 'Pieskati sevi tur ārā.'
@@ -3044,9 +4661,8 @@ export default {
         '2': 'Vēro kvēli. Sit tās sirdī trīs reizes, un metāls atcerēsies.',
         '1': 'Gribi apgūt amatu? Labi. Oakhaven ir vajadzīgs katrs āmurs.'
       },
-      ore: {
-        '1': 'Neapstrādāta rūda! Ieroču noliktavai tās nekad nepietiek. Še tava samaksa.'
-      },
+      ore: { '1': 'Neapstrādāta rūda! Ieroču noliktavai nekad nepietiek. Pārdod, ko vari atdot.' },
+      sellBack: { '1': 'Katrs tīrradnis aiziet mūrī. Paldies.' },
       forgeBack: {
         '1': 'Labs tērauds. Mūri tev pateicas.'
       },
@@ -3088,9 +4704,8 @@ export default {
         '2': 'Trīs sitieni, katrs kvēles sirdī. Tas ir viss noslēpums.',
         '1': 'Kopš aplenkuma es mācu ikvienu, kas lūdz. Nāc, nostājies šeit.'
       },
-      ore: {
-        '1': 'Vēl rūda mūriem? Lai tevi svētī. Še, ņem šo.'
-      },
+      ore: { '1': 'Vēl rūda mūriem? Samaksāšu par katru tīrradni, ko vari atdot.' },
+      sellBack: { '1': 'Lai tevi svētī. Tās ir vēl plāksnes mūriem.' },
       forgeBack: {
         '1': 'Katrs sitiens tevi padara labāku. Nāc jebkurā laikā.'
       },
@@ -3508,9 +5123,8 @@ export default {
         '1__f': 'Virszemiete pie laktas? Nu, katrs kaut kur sāk.',
         '1': 'Virszemietis pie laktas? Nu, katrs kaut kur sāk.'
       },
-      ore: {
-        '1': 'Labs, godīgs metāls. Ironhold par tādu vienmēr maksā.'
-      },
+      ore: { '1': 'Labs, godīgs metāls. Liec šeit, maksāju par tīrradni.' },
+      sellBack: { '1': 'Godīgs darījums. Ironhold vienmēr maksā par labu metālu.' },
       forgeBack: {
         '1': 'Rūķis būtu izdarījis labāk. Bet ne par daudz.'
       },
@@ -3582,9 +5196,8 @@ export default {
         '2': 'Karsē, sit, apgriez. Trīs sitieni, tieši kvēlē. Tad ļauj atdzist.',
         '1': 'Bruņas ir pacietīgs darbs. Parādīšu tev pamatus.'
       },
-      ore: {
-        '1': 'Ļauj nosvērt. Labi. Nauda ir tava.'
-      },
+      ore: { '1': 'Ļauj nosvērt. Izvēlies, ko pārdod, es skaitu monētas.' },
+      sellBack: { '1': 'Nosvērts un samaksāts. Labi.' },
       forgeBack: {
         '1': 'Ļauj tam atdzist, pirms uzvelc.'
       },
@@ -3625,9 +5238,8 @@ export default {
         '2': 'Disciplīna pie laktas, tāpat kā kaujas laukā. Trīs sitieni, uzticīgi kvēlei.',
         '1': 'Ordenis apbruņo savus draugus. Es tevi apmācīšu.'
       },
-      ore: {
-        '1': 'Ordenis iepērk visu rūdu karam. Tava samaksa.'
-      },
+      ore: { '1': 'Ordenis pērk rūdu karam. Pārdod, ko vari atdot.' },
+      sellBack: { '1': 'Tavs maksājums ir pierakstīts. Ordenis pateicas.' },
       forgeBack: {
         '1': 'Labi izkalts. Kalpo tajās godam.'
       },
@@ -4046,6 +5658,11 @@ export default {
       }
     },
     bark: {
+      banditChief: {
+        whistle: {
+          1: 'Augšā, puiši! Kodiet viņus!'
+        }
+      },
       lightDisciple: {
         freed: {
           '1': 'Tevi sūtīja gaisma. Es esmu Māsa Aurela. Meklē mani Sanfordā, es tev iemācīšu Gaismas nesēja ceļu.'
@@ -4203,9 +5820,8 @@ export default {
         '1__f': 'Gribi pati pamēģināt āmuru? Man nav žēl dalīties ar ēzi.',
         '1': 'Gribi pats pamēģināt āmuru? Man nav žēl dalīties ar ēzi.'
       },
-      ore: {
-        '1': 'Jauka rūda. Silverbridge vienmēr maksā godīgu cenu.'
-      },
+      ore: { '1': 'Skaista rūda. Rādi, ko pārdod, maksāju par tīrradni.' },
+      sellBack: { '1': 'Prieks. Silverbridge vienmēr maksā godīgu cenu.' },
       forgeBack: {
         '1__f': 'Paskat tik! Tu esi dzimusi šim darbam.',
         '1': 'Paskat tik! Tu esi dzimis šim darbam.'
@@ -4648,7 +6264,7 @@ export default {
         say: 'Kur atrast zāles?'
       },
       elixirs: {
-        '1': 'Katrs dod tev spēku cīņā uz veselu minūti. Stiprāki sitieni, cietāka āda, ātrākas kājas.',
+        '1': 'Katrs dod tev spēku cīņā uz 5 minūtēm. Stiprāki sitieni, cietāka āda, ātrākas kājas.',
         '2': 'Tie ir tavā trešajā kolbā. Pieskaries mazajai bultiņai, lai izvēlētos, kuru dzert.',
         say: 'Ko dara eliksīri?'
       },
@@ -4717,6 +6333,36 @@ export default {
       },
       bye: {
         '1': 'Nes vēl grabažus! Grabaži ir mani mīļākie.'
+      }
+    },
+    sunfordCups: {
+      hello: {
+        1: 'Nāciet tuvāk! Trīs krūzes, viens dārgakmens, un pirmā kārta ir bezmaksas!',
+        2: 'Nell Nimblefingers. Manas rokas vēl neviens nav pārspējis. Gribi pamēģināt?'
+      },
+      again: {
+        1: 'Atkal šeit? Turi acis vaļā!'
+      },
+      play: {
+        1: 'Acis uz dārgakmeni, draugs. Nemirkšķini!'
+      },
+      rules: {
+        1: 'Es paslēpju dārgakmeni zem krūzes un sajaucu krūzes. Tu norādi uz to, kas to slēpj.',
+        2: 'Katra uzvara pēc kārtas maksā vairāk. Trīs uzvaras atnes balvu, piecas dārgumu. Dienas pirmā kārta ir bezmaksas.',
+        say: 'Kā tas darbojas?'
+      },
+      who: {
+        1: 'Jaukt prast iemācījos agrāk nekā staigāt. Mamma saka, ka tas daudz ko izskaidro.'
+      },
+      luck: {
+        1: 'Dažreiz! Tad skaļi nopūšos un publika man piedod.',
+        say: 'Vai tu kādreiz zaudē?'
+      },
+      playBack: {
+        1: 'Lieliska kārta! Atgriezies rīt, pirmā vienmēr ir bezmaksas.'
+      },
+      bye: {
+        1: 'Uz tikšanos! Turi acis vaļā tur ārā.'
       }
     },
     oakGambler: {
@@ -5210,6 +6856,7 @@ export default {
     banditArcher: 'Laupītājs loka šāvējs',
     wolf: 'Vilks',
     banditChief: 'Laupītāju vadonis',
+    gnome: 'Gnoms',
     goblinKing: 'Goblinu karalis',
     treant: 'Kokvīrs',
     spider: 'Milzu zirneklis',
@@ -5428,6 +7075,18 @@ export default {
       firefoxColors: 'Firefox: Iestatījumi → Krāsas → iestati „Aizstāt lapas norādītās krāsas” uz Nekad.'
     }
   },
+  samsungFix: {
+    title: 'Ātra krāsu pārbaude',
+    body: 'Daži tālruņi maina tīmekļa lapu krāsas. Salīdzini abus kvadrātus zemāk.',
+    question: 'Vai abi kvadrāti izskatās vienādi?',
+    refSquare: 'Atsauces kvadrāts',
+    pageSquare: 'Lapas kvadrāts',
+    yes: 'Jā, izskatās vienādi',
+    no: 'Nē, izskatās atšķirīgi',
+    option: 'Labot krāsas (Samsung tumšais režīms)',
+    optionHint: 'Ieslēdz, ja izvēlnes izskatās tumšas vai tekstu grūti lasīt.',
+    recheck: 'Atkārtot krāsu pārbaudi'
+  },
   saveStatus: {
     restoredTitle: 'Mākoņa saglabājums atjaunots',
     restoredBody: '+{n} bonusa zelta par atgūšanu',
@@ -5556,7 +7215,7 @@ export default {
   },
   forge: {
     upgrade: 'Uzlabot ({n} zelta)',
-    max: 'Pilnībā uzlabots: +{n}.',
+    next: 'Nākamais +{level}: +{pct}% rādītājiem',
     town: 'To var uzlabot jebkuras pilsētas kalējs.'
   },
   ore: {
@@ -5571,6 +7230,12 @@ export default {
     },
     mithril: {
       name: 'Mitrila rūda'
+    },
+    adamant: {
+      name: 'Adamanta rūda'
+    },
+    aetherite: {
+      name: 'Etērīta rūda'
     }
   },
   plant: {
@@ -5652,32 +7317,32 @@ export default {
   elixir: {
     might: {
       name: 'Spēka eliksīrs',
-      desc: '+{n}% kaitējuma uz minūti'
+      desc: '+{n}% kaitējuma uz 5 minūtēm'
     },
     iron: {
       name: 'Dzelzs ādas novārījums',
-      desc: '+{n}% bruņu uz minūti'
+      desc: '+{n}% bruņu uz 5 minūtēm'
     },
     swift: {
       name: 'Veiklības toniks',
-      desc: '+{n}% ātruma un uzbrukuma ātruma uz minūti'
+      desc: '+{n}% ātruma un uzbrukuma ātruma uz 5 minūtēm'
     },
     mind: {
       name: 'Skaidra prāta uzlējums',
-      desc: 'Prasmes minūti atjaunojas par {n}% ātrāk'
+      desc: 'Prasmes 5 minūtes atjaunojas par {n}% ātrāk'
     },
     vigor: {
       name: 'Možuma eliksīrs',
-      desc: 'Minūti katru sekundi dziedē {n}% tavas veselības'
+      desc: '5 minūtes katru sekundi dziedē {n}% tavas veselības'
     },
     shadow: {
       name: 'Izslāpušais novārījums',
-      desc: 'Minūti tavi sitieni dziedē tevi par {n}% no to kaitējuma'
+      desc: '5 minūtes tavi sitieni dziedē tevi par {n}% no to kaitējuma'
     }
   },
   alchemy: {
     talk: 'Zāles iekšā, eliksīri ārā. Kuru vārīsim?',
-    lead: 'Katrs eliksīrs cīņā darbojas minūti. Dzer to no savas trešās kolbas. No katra vari nest {n}.',
+    lead: 'Katrs eliksīrs cīņā darbojas 5 minūtes. Dzer to no savas trešās kolbas. No katra vari nest {n}.',
     brew: 'Vārīt · {n}',
     carry: 'Ņemt līdzi',
     carried: 'Tavā kolbā',
@@ -5701,6 +7366,25 @@ export default {
     again: 'Spēlēt vēlreiz',
     noGold: 'Nepietiek zelta šai likmei.',
     card: 'Kārts {n}'
+  },
+  cups: {
+    title: 'Krūzīšu bode',
+    lead: 'Skaties uz dārgakmeni, seko tā krūzei un tad norādi uz to. Katra uzvara pēc kārtas maksā vairāk. Trešā atnes balvas priekšmetu, piektā dārgumu.',
+    free: 'Bezmaksas kārta',
+    fee: 'Spēlēt · {n}',
+    row: 'Uzvaras pēc kārtas: {n} no {max}',
+    next: 'Nākamā uzvara: {n} zelta',
+    watch: 'Skaties uz dārgakmeni!',
+    follow: 'Seko tam…',
+    pick: 'Izvēlies krūzi!',
+    hint: 'Pieskaries krūzei vai nospied tās numuru.',
+    won: 'Atrasts! +{n} zelta',
+    lost: 'Ne šī. Sērija sākas no jauna.',
+    near: 'Tik tuvu! Tas bija blakus.',
+    timeout: 'Par lēnu! Sērija sākas no jauna.',
+    again: 'Spēlēt vēlreiz',
+    noGold: 'Nepietiek zelta. Rīt pirmā kārta ir bezmaksas.',
+    cup: '{n}. krūze'
   },
   battle: {
     title: 'Priekšmetu kauja',

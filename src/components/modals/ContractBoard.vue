@@ -5,7 +5,7 @@
       template(v-if="town")
         p.board__lead {{ t('board.lead') }}
         ul.board__list(data-tasks)
-          li.job.job--task(v-for="(k, i) in tasks" :key="i" :data-task="i" :class="{ 'is-done': k.done, 'is-ready': taskReady(k) }")
+          li.card.job.job--task(v-for="(k, i) in tasks" :key="i" :data-task="i" :class="{ 'is-done': k.done, 'is-ready': taskReady(k) }")
             span.job__who {{ t(`board.kind.${k.kind}`) }}
             span.job__what {{ taskWhat(k) }}
             span.job__count {{ taskHave(k) }} / {{ k.n }}
@@ -21,7 +21,7 @@
         h4.board__cap(v-if="town") {{ t('contract.title') }}
         p.board__lead {{ t('contract.lead') }}
       ul.board__list(v-if="contractsOpen")
-        li.job(v-for="(c, i) in list" :key="c.faction" :data-contract="i" :class="{ 'is-done': c.done, 'is-ready': !c.done && c.have >= c.n }" :style="{ '--tone': FACTION_COLOR[c.faction] }")
+        li.card.job(v-for="(c, i) in list" :key="c.faction" :data-contract="i" :class="{ 'is-done': c.done, 'is-ready': !c.done && c.have >= c.n }" :style="{ '--tone': FACTION_COLOR[c.faction] }")
           span.job__who {{ t(`faction.${c.faction}`) }}
           span.job__what {{ what(c) }}
           span.job__count {{ c.have }} / {{ c.n }}
@@ -32,9 +32,10 @@
             span.job__done(v-if="c.done") {{ t('contract.handed') }}
             FButton(v-else :label="t('contract.handIn')" type="success" size="sm" :is-disabled="c.have < c.n" @click="handIn(i)")
       h4.board__cap(v-if="contractsOpen") {{ t('rep.title') }}
-      RepTrack(v-if="contractsOpen")
+      div.card.board__rep(v-if="contractsOpen" data-rep-card)
+        RepTrack
       ul.board__rewards(v-if="contractsOpen")
-        li.reward(v-for="f in FACTIONS" :key="f" :style="{ '--tone': FACTION_COLOR[f] }")
+        li.card.reward(v-for="f in FACTIONS" :key="f" :style="{ '--tone': FACTION_COLOR[f] }")
           span.reward__who {{ t(`faction.${f}`) }}
           span.reward__gift
             FButton(v-if="giftReady(f)" :label="t('rep.giftClaim')" type="warning" size="sm" icon="gift" @click="gift(f)")
@@ -144,22 +145,47 @@ const gift = (f: FactionId): void => {
   display: flex
   flex-direction: column
   gap: 0.4rem
+// A pinned parchment note: aged grain, scorched edges, a wax pin in the faction's colour.
+$grain: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' seed='7'/><feColorMatrix values='0 0 0 0 0.35  0 0 0 0 0.22  0 0 0 0 0.1  0 0 0 0.5 0'/></filter><rect width='160' height='160' filter='url(%23n)'/></svg>")
+.card
+  position: relative
+  color: var(--bc-paper-ink)
+  border: var(--bc-ol-thin) solid var(--bc-paper-ink)
+  border-radius: 0.25rem 0.6rem 0.3rem 0.55rem / 0.5rem 0.25rem 0.55rem 0.3rem
+  background: $grain, radial-gradient(ellipse at 30% 20%, var(--bc-paper-hi) 0%, var(--bc-paper-lo) 60%, var(--bc-paper-deep) 120%)
+  box-shadow: inset 0 0 1rem 0.15rem rgba(120, 70, 25, 0.5), 0.12rem 0.2rem 0 rgba(var(--bc-paper-ink-rgb), 0.35)
+  text-align: start
 .job
   display: grid
   grid-template-columns: minmax(0, 1fr) auto
   grid-template-areas: "who count" "what what" "pay act"
   align-items: center
   gap: 0.15rem 0.5rem
-  padding: 0.4rem 0.6rem
-  border: var(--bc-ol-thin) solid var(--bc-ink)
-  border-inline-start: 0.4rem solid var(--tone)
-  border-radius: var(--bc-r-md)
-  background: var(--bc-paper-hi)
-  text-align: start
+  margin-top: 0.35rem
+  padding: 0.7rem 0.8rem 0.5rem
+  // Border-inset ornaments (roadmap #127), on the pseudo the grain does not use.
+  +cel.ornate-corners(clamp(0.9rem, 3.6vmin, 1.2rem), 0.16rem, 'corner', 'after')
+  transform: rotate(-0.35deg)
+  &:nth-child(even)
+    transform: rotate(0.3deg)
+  // The pin.
+  &::before
+    content: ''
+    position: absolute
+    top: -0.4rem
+    inset-inline-start: 50%
+    width: 0.8rem
+    height: 0.8rem
+    margin-inline-start: -0.4rem
+    border-radius: 50%
+    background: radial-gradient(circle at 35% 30%, #fff8 0 12%, transparent 14%), var(--tone)
+    border: var(--bc-ol-thin) solid var(--bc-paper-ink)
+    box-shadow: 0.1rem 0.15rem 0 rgba(var(--bc-paper-ink-rgb), 0.4)
   &.is-ready
-    box-shadow: 0 0 0 2px var(--bc-gold)
+    box-shadow: inset 0 0 0.9rem 0.1rem rgba(var(--bc-paper-ink-rgb), 0.3), 0 0 0 2px var(--bc-gold), 0.12rem 0.2rem 0 rgba(var(--bc-paper-ink-rgb), 0.35)
   &.is-done
-    opacity: 0.6
+    opacity: 0.7
+    filter: sepia(0.5) saturate(0.7)
 // The town's own tasks wear the board's gold.
 .job--task
   --tone: var(--bc-gold)
@@ -167,10 +193,16 @@ const gift = (f: FactionId): void => {
   grid-area: who
   font-size: clamp(0.64rem, 2.6vmin, 0.82rem)
   font-weight: 900
+  letter-spacing: 0.06em
+  text-transform: uppercase
+  color: var(--bc-paper-ink-soft)
 .job__what
   grid-area: what
   font-size: clamp(0.8rem, 3.3vmin, 1.02rem)
   line-height: 1.2
+  font-style: italic
+  padding-block: 0.1rem 0.25rem
+  border-bottom: 1px dashed rgba(var(--bc-paper-ink-rgb), 0.4)
 .job__count
   grid-area: count
   font-weight: 900
@@ -180,7 +212,8 @@ const gift = (f: FactionId): void => {
   display: inline-flex
   align-items: center
   gap: 0.2em
-  color: var(--bc-on-accent)
+  color: var(--bc-paper-ink)
+  font-weight: 700
   font-size: clamp(0.66rem, 2.7vmin, 0.84rem)
 .job__coin
   width: 1em
@@ -189,8 +222,13 @@ const gift = (f: FactionId): void => {
   grid-area: act
   justify-self: end
 .job__done
-  color: var(--bc-on-good)
+  color: #8a1f1a
   font-weight: 900
+  padding: 0.05rem 0.4rem
+  border: 2px solid currentColor
+  border-radius: 0.3rem
+  transform: rotate(-5deg)
+  text-transform: uppercase
   font-size: clamp(0.66rem, 2.7vmin, 0.84rem)
 .reward
   display: grid
@@ -198,8 +236,8 @@ const gift = (f: FactionId): void => {
   grid-template-areas: "who gift" "bless bless"
   align-items: center
   gap: 0.1rem 0.5rem
-  padding: 0.25rem 0.5rem
-  border-inline-start: 0.3rem solid var(--tone)
+  padding: 0.35rem 0.6rem
+  border-inline-start: 0.35rem solid var(--tone)
   font-size: clamp(0.66rem, 2.7vmin, 0.84rem)
   text-align: start
 .reward__who
@@ -209,10 +247,16 @@ const gift = (f: FactionId): void => {
   grid-area: gift
 .reward__bless
   grid-area: bless
-  color: var(--bc-on-soft)
+  color: var(--bc-paper-ink-soft)
   &.is-on
-    color: var(--bc-on-good)
+    color: var(--bc-green-deep)
     font-weight: 900
 .reward__dim
-  color: var(--bc-on-soft)
+  color: var(--bc-paper-ink-soft)
+.board__rep
+  padding: 0.5rem 0.7rem
+// Keep the page's corner brackets clear of the cards.
+.board
+  padding-block-end: clamp(0.5rem, 2.4vw, 1rem)
+  padding-inline: clamp(0.3rem, 1.6vw, 0.8rem)
 </style>

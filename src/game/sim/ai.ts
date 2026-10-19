@@ -1,9 +1,9 @@
-import { ENEMY_BY_ID, MINIONS } from '../data/enemies'
+import { ENEMY_BY_ID, MINIONS, type Fleeting } from '../data/enemies'
 import { hasLineOfSight } from './grid'
 import { abilityReady, startAbility } from './abilities'
 import { stepBoss } from './bosses'
 import { face, inAttackRange, setGoal, startAttack, stop, stride, walk } from './actors'
-import { isControlled, wakeGroup } from './combat'
+import { dealDamage, isControlled, wakeGroup } from './combat'
 import { SIDE_AGGRO, SIDE_LEASH } from './interact'
 import { SIDE_GROUP } from './world'
 import { atPeace, findStatus, hasStatus, type Sim } from './world'
@@ -48,6 +48,25 @@ const pickTarget = (sim: Sim, u: Unit): Unit | null => {
   return sim.nearest(foe, u.x, u.z, 30) ?? null
 }
 
+/**
+ * A fleeting helper (#136): every `every` seconds it loses `pct` of its health, and
+ * when its `life` runs out nothing is left of it. True when it is gone.
+ */
+export const fadeAway = (sim: Sim, u: Unit, f: Fleeting, dt: number): boolean => {
+  // The beats are read off the clock (`icd` timers are run down by the step itself).
+  const beat = (): number => Math.floor((f.life - u.life) / f.every + 1e-6)
+  const before = beat()
+  u.life -= dt
+  for (let k = before, to = u.life > 1e-6 ? beat() : Math.round(f.life / f.every); k < to; k++) {
+    dealDamage(sim, null, u, u.s.maxHp * f.pct, { type: 'true', canCrit: false, dot: true })
+    if (!u.alive) return true
+  }
+  // With the one that whistled them up gone, they scatter.
+  const owner = u.ownerId ? sim.get(u.ownerId) : undefined
+  if (u.life <= 1e-6 || (owner && !owner.alive)) dealDamage(sim, null, u, u.hp + u.s.maxHp, { type: 'true', canCrit: false, dot: true })
+  return !u.alive
+}
+
 /** One enemy's turn. */
 export const stepEnemy = (sim: Sim, u: Unit, dt: number): void => {
   const def = ENEMY_BY_ID[u.kind]
@@ -65,6 +84,7 @@ export const stepEnemy = (sim: Sim, u: Unit, dt: number): void => {
   }
   for (let i = 0; i < u.cds.length; i++) if (u.cds[i]! > 0) u.cds[i]! -= dt
   if (u.aiT > 0) u.aiT -= dt
+  if (def.fleeting && fadeAway(sim, u, def.fleeting, dt)) return
   // A scripted boss (#74): its script runs its phases and its moves; when it
   // lets the turn go, the generic fight below goes on with the def's abilities.
   if (u.boss && stepBoss(sim, u, dt, pickTarget(sim, u))) return

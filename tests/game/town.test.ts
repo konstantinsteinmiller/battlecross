@@ -1,5 +1,8 @@
 import { describe, expect, it } from 'vitest'
-import { generateTown, fillGrid, type ZonePlan } from '@/game/sim/zoneGen'
+// The town's simulation is a lazy chunk in the game (roadmap #142).
+import '../stubs/lazyCode'
+import { fillGrid, type ZonePlan } from '@/game/sim/zoneGen'
+import { generateTown } from '@/game/sim/townGen'
 import { CELL, cellOf, createGrid, findPath, isSolidAt, type Grid } from '@/game/sim/grid'
 import { TOWNS, townNpcs, type TownId } from '@/game/data/zones'
 import { QUESTS } from '@/game/data/quests'

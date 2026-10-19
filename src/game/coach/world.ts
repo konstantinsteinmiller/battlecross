@@ -4,6 +4,8 @@ import { TOWNS } from '../data/zones'
 import type { ClassId } from '../data/skills'
 import { canLearnFrom } from './goal'
 import { dummyBeat, dummyOf } from './dummy'
+import { mentorCue, mentorUnit } from './mentor'
+import { MENTOR_NPC, ROAD_NPCS } from '../data/mentor'
 import { nextObjective, openBranches } from '../sim/route'
 
 /**
@@ -23,6 +25,7 @@ export interface Objective { x: number; z: number; kind: 'dummy' | 'pack' | 'bos
 
 const TEACHERS = new Map<string, ClassId | undefined>()
 for (const t of Object.values(TOWNS)) for (const n of t.npcs) if (n.role === 'trainer') TEACHERS.set(n.id, n.cls)
+for (const n of ROAD_NPCS) TEACHERS.set(n.id, n.cls)
 
 /** The trainer in this scene nearest the hero who can teach him something now. */
 export const teacherNear = (sim: Sim, u: Unit): Unit | null => {
@@ -46,6 +49,9 @@ export const objectiveOf = (sim: Sim, goal: string): Objective | null => {
     return d ? { x: d.x, z: d.z, kind: 'dummy' } : null
   }
   if (goal === 'trainer') {
+    // The road teacher's lesson is a gift: she is the goal while she waits (#136).
+    const m = mentorCue(sim) ? mentorUnit(sim) : null
+    if (m) return { x: m.x, z: m.z, kind: 'trainer', npc: MENTOR_NPC }
     const t = teacherNear(sim, u)
     return t ? { x: t.x, z: t.z, kind: 'trainer', npc: t.npc } : null
   }
@@ -102,7 +108,7 @@ const seen = new WeakMap<Sim, Set<number>>()
 
 export interface SenseHost {
   sim: Sim
-  setup: { kind: 'zone' | 'town' | 'arena' }
+  setup: { kind: 'zone' | 'town' | 'arena'; tutorial?: boolean }
   project(x: number, y: number, z: number, out: { x: number; y: number }): boolean
 }
 
@@ -156,6 +162,8 @@ export const senseWorld = (host: SenseHost, goal: string): void => {
     if (c.state !== 'closed' || c.role === 'finale') continue
     if (c.role === 'cage' && !sim.cageKey?.taken) continue
     if (c.guard >= 0 && !sim.sideGroups[c.guard]?.cleared) continue
+    // The opening's puzzle chest is not pointed at before the first fight is won.
+    if (c.role === 'puzzle' && host.setup.tutorial && !sim.groups[0]?.cleared) continue
     const d = Math.hypot(c.x - u.x, c.z - u.z)
     if (d < 4.5) s.add(c.id)
     if (s.has(c.id) || d < 5 || d > bd) continue

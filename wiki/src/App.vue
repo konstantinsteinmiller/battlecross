@@ -13,6 +13,7 @@ import Combos from './views/Combos.vue'
 import Path from './views/Path.vue'
 import Items from './views/Items.vue'
 import Traders from './views/Traders.vue'
+import Smithing from './views/Smithing.vue'
 import Quests from './views/Quests.vue'
 import Secrets from './views/Secrets.vue'
 import Atlas from './views/Atlas.vue'
@@ -26,6 +27,7 @@ const NAV = [
   { to: '/combos', label: 'Combo Lab' },
   { to: '/path', label: 'Leveling' },
   { to: '/items', label: 'Items' },
+  { to: '/smithing', label: 'Smithing' },
   { to: '/traders', label: 'Traders' },
   { to: '/quests', label: 'Quests' },
   { to: '/secrets', label: 'Secrets' },
@@ -42,6 +44,7 @@ const view = computed(() => {
     case 'combos': return Combos
     case 'path': return Path
     case 'items': return Items
+    case 'smithing': return Smithing
     case 'traders': return Traders
     case 'quests': return Quests
     case 'secrets': return Secrets

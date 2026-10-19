@@ -67,8 +67,8 @@ const read = (): void => { input.interactQueued = true }
   display: flex
   align-items: center
   justify-content: center
-  min-width: max(2.75rem, 44px)
-  min-height: max(2.75rem, 44px)
+  min-width: max(36px, calc(max(2.75rem, 44px) * var(--hud-s, 1)))
+  min-height: max(36px, calc(max(2.75rem, 44px) * var(--hud-s, 1)))
   margin: 0
   padding: 0
   border: 0
@@ -89,7 +89,7 @@ const read = (): void => { input.interactQueued = true }
   display: inline-flex
   align-items: center
   gap: 0.4em
-  min-height: max(2.2rem, 36px)
+  min-height: max(28px, calc(max(2.2rem, 36px) * var(--hud-s, 1)))
   padding: 0.2em 0.85em 0.26em 0.6em
   border: var(--bc-ol) solid var(--bc-ink)
   border-radius: var(--bc-r-pill)

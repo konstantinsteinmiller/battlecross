@@ -110,13 +110,6 @@ const shown = computed(() => heroChoiceShown({
 // pays for one DOM check, once.
 if (needsHeroChoice()) poll()
 
-watch(shown, (on) => {
-  if (on && stage.value === 'wait') open()
-  // An ad (or the dark-mode notice) took the screen, or a cloud save landed
-  // and this is a returning player after all: step aside.
-  else if (!on && stage.value === 'open') stage.value = needsHeroChoice() ? 'wait' : 'done'
-}, { immediate: true })
-
 // ── The pause it holds ───────────────────────────────────────────────────────
 let release: (() => void) | null = null
 watch(stage, (s) => {
@@ -138,6 +131,15 @@ const open = (): void => {
     try { prewarmLook(heroLook(profile.inv.equipped, 'f')) } catch { /* built on the pick instead */ }
   }, 250)
 }
+
+// After `open` and the pause watch: shown at mount already (a new save that
+// sat through the intro, #130), it opens at once and holds the pause.
+watch(shown, (on) => {
+  if (on && stage.value === 'wait') open()
+  // An ad (or the dark-mode notice) took the screen, or a cloud save landed
+  // and this is a returning player after all: step aside.
+  else if (!on && stage.value === 'open') stage.value = needsHeroChoice() ? 'wait' : 'done'
+}, { immediate: true })
 
 let doneTimer = 0
 const choose = (g: HeroGender): void => {

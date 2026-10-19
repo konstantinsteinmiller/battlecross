@@ -83,32 +83,35 @@ export interface ClassDef {
   color: string
   /** GDD §5: a reimagined classic or a novel archetype. */
   novel: boolean
+  /** Share of a skill's table mana cost this class pays (#129). Mana recovery grows
+   *  with Intelligence, so a class that does not scale with it pays less. */
+  manaCost: number
 }
 
 export const CLASSES: Record<ClassId, ClassDef> = {
-  aegis: { id: 'aegis', faction: 'order', color: '#ffd84a', novel: false },
-  shadow: { id: 'shadow', faction: 'syndicate', color: '#9c7bff', novel: false },
-  pyro: { id: 'pyro', faction: 'circle', color: '#ff7a3a', novel: false },
-  sovereign: { id: 'sovereign', faction: 'order', color: '#ffb04a', novel: false },
-  chrono: { id: 'chrono', faction: 'circle', color: '#5fd8ff', novel: true },
-  blood: { id: 'blood', faction: 'syndicate', color: '#ff4a6a', novel: true },
-  aether: { id: 'aether', faction: 'circle', color: '#4ff0c8', novel: true },
-  geo: { id: 'geo', faction: 'none', color: '#c79a5a', novel: true },
-  windrunner: { id: 'windrunner', faction: 'none', color: '#c4f05a', novel: true },
-  frostwarden: { id: 'frostwarden', faction: 'circle', color: '#a8d8ff', novel: true },
-  lightbringer: { id: 'lightbringer', faction: 'order', color: '#ffa8c8', novel: true },
-  beastcaller: { id: 'beastcaller', faction: 'none', color: '#4fb85a', novel: true },
-  elementalist: { id: 'elementalist', faction: 'circle', color: '#e86bff', novel: true },
-  soulwarden: { id: 'soulwarden', faction: 'none', color: '#7f9cff', novel: true },
-  ironmonk: { id: 'ironmonk', faction: 'order', color: '#5fd08a', novel: true },
-  bard: { id: 'bard', faction: 'syndicate', color: '#ff8ad8', novel: true }
+  aegis: { id: 'aegis', faction: 'order', color: '#ffd84a', novel: false, manaCost: 0.6 },
+  shadow: { id: 'shadow', faction: 'syndicate', color: '#9c7bff', novel: false, manaCost: 0.6 },
+  pyro: { id: 'pyro', faction: 'circle', color: '#ff7a3a', novel: false, manaCost: 1 },
+  sovereign: { id: 'sovereign', faction: 'order', color: '#ffb04a', novel: false, manaCost: 0.6 },
+  chrono: { id: 'chrono', faction: 'circle', color: '#5fd8ff', novel: true, manaCost: 1 },
+  blood: { id: 'blood', faction: 'syndicate', color: '#ff4a6a', novel: true, manaCost: 0.8 },
+  aether: { id: 'aether', faction: 'circle', color: '#4ff0c8', novel: true, manaCost: 0.6 },
+  geo: { id: 'geo', faction: 'none', color: '#c79a5a', novel: true, manaCost: 0.6 },
+  windrunner: { id: 'windrunner', faction: 'none', color: '#c4f05a', novel: true, manaCost: 0.6 },
+  frostwarden: { id: 'frostwarden', faction: 'circle', color: '#a8d8ff', novel: true, manaCost: 0.8 },
+  lightbringer: { id: 'lightbringer', faction: 'order', color: '#ffa8c8', novel: true, manaCost: 0.8 },
+  beastcaller: { id: 'beastcaller', faction: 'none', color: '#4fb85a', novel: true, manaCost: 0.6 },
+  elementalist: { id: 'elementalist', faction: 'circle', color: '#e86bff', novel: true, manaCost: 1 },
+  soulwarden: { id: 'soulwarden', faction: 'none', color: '#7f9cff', novel: true, manaCost: 1 },
+  ironmonk: { id: 'ironmonk', faction: 'order', color: '#5fd08a', novel: true, manaCost: 0.6 },
+  bard: { id: 'bard', faction: 'syndicate', color: '#ff8ad8', novel: true, manaCost: 0.6 }
 }
 
 const A = (
   id: string, cls: ClassId, level: number, req: Partial<AttrBlock>, cd: number, mana: number,
   target: TargetMode, range: number, scales: Attr, p: Record<string, number>, extra: Partial<SkillDef> = {}
 ): SkillDef => ({
-  id, cls, kind: 'active', level, req, cd, mana, target, range, cast: 0.22, scales, p, color: CLASSES[cls].color, ...extra
+  id, cls, kind: 'active', level, req, cd, mana: Math.max(1, Math.round(mana * CLASSES[cls].manaCost)), target, range, cast: 0.22, scales, p, color: CLASSES[cls].color, ...extra
 })
 
 const P = (

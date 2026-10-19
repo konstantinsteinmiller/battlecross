@@ -163,6 +163,7 @@ import { sceneQuality } from '@/game/engine/quality'
 import FSocket from '@/components/atoms/FSocket.vue'
 import GameIcon from '@/components/icons/GameIcon.vue'
 import { ICON_ART } from '@/game/assets/overrides'
+import { fmt2 } from '@/utils/format'
 import { MARKS } from '@/components/icons/marks'
 import SkillIcon from '@/components/art/SkillIcon.vue'
 import KeyCap from '@/components/glyphs/KeyCap.vue'
@@ -249,7 +250,7 @@ const paint = (cd: HTMLElement | null, num: HTMLElement | null, left: number, ma
     cd.style.setProperty('--cd', String(Math.min(1, left / Math.max(0.01, max))))
     if (q === 0 && last > 0) pop(cd)
   }
-  if (num) num.textContent = left <= 0 ? '' : left < 3 ? left.toFixed(1) : String(Math.ceil(left))
+  if (num) num.textContent = left <= 0 ? '' : left < 3 ? fmt2(Math.round(left * 10) / 10) : String(Math.ceil(left))
   return q
 }
 
@@ -360,8 +361,8 @@ const onElixirNext = (e: PointerEvent): void => {
 @use '@/assets/css/cel'
 
 .skill-bar
-  --btn: clamp(2.9rem, 14.5vmin, 4.9rem)
-  --gap: clamp(0.3rem, 1.5vmin, 0.6rem)
+  --btn: max(36px, calc(clamp(2.9rem, 14.5vmin, 4.9rem) * var(--hud-s, 1)))
+  --gap: max(4px, calc(clamp(0.3rem, 1.5vmin, 0.6rem) * var(--hud-s, 1)))
   // Thumb reach on a phone: three across, filled from the bottom-right corner
   // — the first skills nearest the thumb, the belt on the row above them.
   display: flex
@@ -371,11 +372,11 @@ const onElixirNext = (e: PointerEvent): void => {
   gap: var(--gap)
   pointer-events: none
   &.is-wide
-    --btn: clamp(2.7rem, 13.5vmin, 4.6rem)
+    --btn: max(36px, calc(clamp(2.7rem, 13.5vmin, 4.6rem) * var(--hud-s, 1)))
     width: calc(var(--btn) * 4 + var(--gap) * 3)
   // Desktop: one row, read left to right like its keys — the belt first.
   &.is-mouse
-    --btn: clamp(3.3rem, 7.6vmin, 4.8rem)
+    --btn: max(36px, calc(clamp(3.3rem, 7.6vmin, 4.8rem) * var(--hud-s, 1)))
     flex-flow: row nowrap
     align-items: flex-end
     width: auto

@@ -119,3 +119,72 @@ export const prizeOf = (tier: number, owned: ReadonlySet<string>, seed: number):
   if (!pool.length) return null
   return pool[Math.floor(mulberry32(seed)() * pool.length)]!
 }
+
+// ─── The cup stand (roadmap #136) ────────────────────────────────────────────
+
+/**
+ * A gem under one of a few cups, the cups swap places faster and faster, the
+ * hero points at the one that hides it. A round is seconds long, the row of wins
+ * pays more each time, and the first round of every day is on the house. Coins
+ * only: the ante is gold, the prizes are gold and a piece from the bag's tiers.
+ *
+ *   cups    cups on the table
+ *   swaps   pairs of cups that trade places
+ *   ms      how long one swap takes
+ */
+export interface CupsRound { cups: number; swaps: number; ms: number }
+/** The rounds of a winning row, the fifth the hardest. */
+export const CUPS_ROUNDS: ReadonlyArray<CupsRound> = [
+  { cups: 3, swaps: 5, ms: 480 },
+  { cups: 3, swaps: 7, ms: 400 },
+  { cups: 3, swaps: 9, ms: 340 },
+  { cups: 4, swaps: 9, ms: 320 },
+  { cups: 4, swaps: 11, ms: 280 }
+]
+/** The very first round the hero ever plays: slow and short, so it is won. */
+export const CUPS_FIRST_ROUND: CupsRound = { cups: 3, swaps: 3, ms: 620 }
+/** Wins in a row for the top prize (the row then starts over). */
+export const CUPS_ROW = CUPS_ROUNDS.length
+/** The win in a row that brings the first prize piece. */
+export const CUPS_BONUS_ROW = 3
+/** Gold to sit down (the day's first round is free). */
+export const CUPS_ANTE = 10
+/** What a win pays, as a multiple of the ante, by the wins already in the row. */
+export const CUPS_PAYOUT: ReadonlyArray<number> = [3, 4, 6, 9, 15]
+/** Seconds to point at a cup once the cups stop. */
+export const CUPS_PICK_SECONDS = 6
+/** Seconds the gem shows before the cups cover it. */
+export const CUPS_PEEK = 1
+
+/** The round a winning row of `row` plays next (the hero's very first is the easy one). */
+export const cupsRound = (row: number, first = false): CupsRound =>
+  first ? CUPS_FIRST_ROUND : CUPS_ROUNDS[Math.max(0, Math.min(CUPS_ROUNDS.length - 1, Math.floor(row)))]!
+
+/** Gold a win pays with `row` wins already in the row. */
+export const cupsPayout = (row: number): number =>
+  CUPS_ANTE * CUPS_PAYOUT[Math.max(0, Math.min(CUPS_PAYOUT.length - 1, Math.floor(row)))]!
+
+/** A round dealt: the slot the gem starts in, the swaps (pairs of slots, never the same pair twice running) and the slot it ends in. */
+export const dealCups = (round: CupsRound, seed: number): { gem: number; swaps: Array<[number, number]>; end: number } => {
+  const rng = mulberry32(seed)
+  const gem = Math.floor(rng() * round.cups)
+  const swaps: Array<[number, number]> = []
+  let at = gem
+  for (let i = 0; i < round.swaps; i++) {
+    let a = 0
+    let b = 0
+    do {
+      a = Math.floor(rng() * round.cups)
+      b = Math.floor(rng() * round.cups)
+      // Half the swaps touch the gem's cup, so the eye has something to follow.
+      if (i % 2 === 0 && a !== at && b !== at) a = at
+    } while (a === b || (swaps.length > 0 && swaps[swaps.length - 1]!.includes(a) && swaps[swaps.length - 1]!.includes(b)))
+    swaps.push([a, b])
+    if (at === a) at = b
+    else if (at === b) at = a
+  }
+  return { gem, swaps, end: at }
+}
+
+/** A wrong pick one slot from the gem: the near miss. */
+export const cupsNearMiss = (pick: number, end: number): boolean => pick !== end && Math.abs(pick - end) === 1

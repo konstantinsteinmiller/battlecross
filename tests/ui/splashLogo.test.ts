@@ -199,7 +199,7 @@ describe('the backdrop is the scrolling tile of the game\'s things (#64)', () =>
 
   it('stops for players who ask for less motion', () => {
     expect(html).toMatch(/@media \(prefers-reduced-motion: reduce\) \{[^}]*\.s-grid \{ animation: none; \}/)
-    expect(vue).toMatch(/@media \(prefers-reduced-motion: reduce\)\n {2}\.backdrop-grid, \.mascot\n {4}animation: none/)
+    expect(vue).toMatch(/@media \(prefers-reduced-motion: reduce\)\n {2}\.backdrop-grid\n {4}animation: none/)
   })
 })
 
@@ -243,42 +243,41 @@ describe('the store copy describes this game', () => {
   })
 })
 
-// The painted badge and mascot (#65) are written into the static splash by the
+// The painted badge (#65) are written into the static splash by the
 // build when public/images/logo/ has them (the source page keeps the drawn
 // lockup, which stays the fallback), and drawn by FLogoProgress from LOGO_ART.
 // The letters are always the code-drawn ones.
-describe('the painted badge and mascot (#65)', () => {
+describe('the painted badge (#65)', () => {
   const files = ['emblem.webp', 'mascot.webp', 'logo_512x512.png']
 
   it('changes nothing until the paintings exist', () => {
     expect(injectSplashArt(html, ['logo_512x512.png'])).toBe(html)
   })
 
-  it('preloads both in <head> and lays them in the lockup box at their real size', () => {
+  it('preloads the badge in <head> and lays it in the lockup box at its real size; the mascot is gone from the loading screens', () => {
     const out = injectSplashArt(html, files)
     const head = out.slice(0, out.indexOf('<style>'))
     expect(head).toContain('<link rel="preload" as="image" href="/images/logo/emblem.webp" fetchpriority="high">')
-    expect(head).toContain('<link rel="preload" as="image" href="/images/logo/mascot.webp" fetchpriority="high">')
+    expect(head).not.toContain('mascot')
+    expect(out).not.toContain('s-mascot')
     expect(out).toContain('<div class="s-logo has-art" role="img" aria-label="Battlecross"><img class="s-emblem" src="/images/logo/emblem.webp"')
-    for (const img of out.match(/<img class="s-(emblem|mascot)"[^>]*>/g) ?? []) {
+    for (const img of out.match(/<img class="s-emblem"[^>]*>/g) ?? []) {
       expect(img).toContain(`width="${SPLASH_ART_PX}" height="${SPLASH_ART_PX}"`)
       expect(img).toContain('alt=""')
     }
-    expect(out.match(/<img class="s-/g)).toHaveLength(2)
+    expect(out.match(/<img class="s-/g)).toHaveLength(1)
     // The drawn lockup is still there: the letters, and the badge as fallback.
     expect(out).toContain(staticSvg)
   })
 
-  it('keeps the drawn badge when only the mascot is painted', () => {
-    expect(injectSplashArt(html, ['mascot.webp'])).toContain('<div class="s-logo" role="img"')
+  it('ignores a painted mascot: the mini-game plays there now', () => {
+    expect(injectSplashArt(html, ['mascot.webp'])).toBe(html)
+    expect(vue).not.toMatch(/mascot/i)
+    expect(html).not.toMatch(/mascot/i)
   })
 
   it('places them identically in both copies', () => {
     expect(sassRule('.emblem')).toEqual(cssRule('.s-emblem'))
-    // Same rule but the keyframes' name (each file names its own).
-    const unnamed = (rule: Record<string, string>) => ({ ...rule, animation: rule.animation?.replace(/^\S+ /, '') })
-    expect(unnamed(sassRule('.mascot'))).toEqual(unnamed(cssRule('.s-mascot')))
-    expect(sassRule('.emblem, .mascot')).toEqual(cssRule('.s-emblem, .s-mascot'))
     expect(cssRule('.s-logo')).toMatchObject({ position: 'relative' })
     expect(html).toContain('.s-logo.has-art svg > g > :nth-child(-n+6) {')
     expect(vue).toContain('.logo.has-art :deep(svg > g > :nth-child(-n+6))')
@@ -293,12 +292,17 @@ describe('the painted badge and mascot (#65)', () => {
     expect(shapes[6]).toContain('matrix(1 0 -.213 1')
   })
 
-  it('the mascot bobs by transform alone, and rests for less motion', () => {
-    expect(cssRule('.s-mascot')).toMatchObject({ 'will-change': 'transform' })
-    const keys = /@keyframes s-bob \{([^\n]*)\}\n/.exec(html)?.[1] ?? ''
-    expect(keys).toMatch(/transform:/)
-    expect(keys.replace(/transform: [^;]*;/g, '')).not.toMatch(/[a-z-]+:/)
-    expect(html).toMatch(/@media \(prefers-reduced-motion: reduce\) \{(\s*\.[a-z-]+ \{[^}]*\})*\s*\.s-mascot \{ animation: none; \}/)
+  it('draws the bar frame the same, and keeps the place of the mini-game under it', () => {
+    for (const [v, h] of [['.bar::before', '.s-bar::before'], ['.bar::after', '.s-bar::after'], ['.track::after', '.s-track::after'], ['.lit::after', '.s-lit::after'], ['.rail', '.s-rail'], ['.gem', '.s-gem']] as const) {
+      const keys = ['position', 'inset', 'border', 'border-bottom-color', 'border-radius', 'box-shadow', 'background', 'height', 'width', 'aspect-ratio', 'right', 'top']
+      const flat = (r: Record<string, string>) => Object.fromEntries(Object.entries(only(r, keys)).map(([k, x]) => [k, x?.replace(/\s+/g, ' ')]))
+      expect(flat(sassRule(v))).toEqual(flat(cssRule(h)))
+    }
+    expect(sassRule('.play').width).toBe(cssRule('.s-play').width)
+    expect(cssRule('.s-play')['aspect-ratio']).toBe('4 / 3')
+    expect(staticSvg).toBeTruthy()
+    expect(html).toContain('<canvas class="s-play" id="s-play" aria-hidden="true"></canvas>')
+    expect(vue).toContain('LoadingClicker.play(first-load)')
   })
 
   it('pans the tile on a promoted layer in both copies', () => {

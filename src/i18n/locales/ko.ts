@@ -1,5 +1,13 @@
 // Korean locale — mirrors the key shape of en.ts exactly.
 export default {
+  // ─── The intro (#130): its skip, and its narrator's name ───
+  intro: {
+    narrator: '이야기꾼',
+    skip: '건너뛰기',
+    holdKey: '{key} 길게 눌러 건너뛰기',
+    holdTouch: '길게 눌러 건너뛰기',
+    replay: '인트로 보기'
+  },
   arena: {
     allWon: '모든 신화 보상을 획득했다.',
     call: '이야기는 끝났다. 이제 네 빌드를 증명해라: 최대한 높이 올라가, 누구도 줄 수 없는 신화 보상을 손에 넣어라.',
@@ -8,6 +16,20 @@ export default {
     next: '다음 보상은 {at}웨이브: {item}',
     champion: '챔피언 웨이브',
     wave: '{n}웨이브'
+  },
+  sellOre: {
+    talk: '좋은 광석, 정당한 값이지. 얼마나 팔 텐가?',
+    lead: '광석마다 팔 개수를 고르세요. 판매를 누르기 전에는 아무것도 팔리지 않습니다.',
+    have: '보유 {n}',
+    each: '개당 {n} 골드',
+    none: '없음',
+    all: '전부',
+    less: '{ore} 하나 빼기',
+    more: '{ore} 하나 더',
+    total: '받을 금액: {n} 골드',
+    sell: '판매',
+    selectAll: '모두 선택',
+    empty: '팔 광석이 더 없습니다.'
   },
   smith: {
     why: {
@@ -1420,38 +1442,110 @@ export default {
     smithMasterMithrilGreaves: {
       name: '장인의 미스릴 정강이갑'
     },
+    smithMasterAdamantGreaves: {
+      name: '장인의 아다만트 정강이갑'
+    },
+    smithMasterAetheriteGreaves: {
+      name: '장인의 에테라이트 정강이갑'
+    },
     smithMithrilGreaves: {
       name: '미스릴 정강이갑'
+    },
+    smithAdamantGreaves: {
+      name: '아다만트 정강이갑'
+    },
+    smithAetheriteGreaves: {
+      name: '에테라이트 정강이갑'
     },
     smithMasterMithrilPlate: {
       name: '장인의 미스릴 판금 갑옷'
     },
+    smithMasterAdamantPlate: {
+      name: '장인의 아다만트 판금 갑옷'
+    },
+    smithMasterAetheritePlate: {
+      name: '장인의 에테라이트 판금 갑옷'
+    },
     smithMithrilPlate: {
       name: '미스릴 판금 갑옷'
+    },
+    smithAdamantPlate: {
+      name: '아다만트 판금 갑옷'
+    },
+    smithAetheritePlate: {
+      name: '에테라이트 판금 갑옷'
     },
     smithMasterMithrilHelm: {
       name: '장인의 미스릴 투구'
     },
+    smithMasterAdamantHelm: {
+      name: '장인의 아다만트 투구'
+    },
+    smithMasterAetheriteHelm: {
+      name: '장인의 에테라이트 투구'
+    },
     smithMithrilHelm: {
       name: '미스릴 투구'
+    },
+    smithAdamantHelm: {
+      name: '아다만트 투구'
+    },
+    smithAetheriteHelm: {
+      name: '에테라이트 투구'
     },
     smithMasterMithrilShield: {
       name: '장인의 미스릴 방패'
     },
+    smithMasterAdamantShield: {
+      name: '장인의 아다만트 방패'
+    },
+    smithMasterAetheriteShield: {
+      name: '장인의 에테라이트 방패'
+    },
     smithMithrilShield: {
       name: '미스릴 방패'
+    },
+    smithAdamantShield: {
+      name: '아다만트 방패'
+    },
+    smithAetheriteShield: {
+      name: '에테라이트 방패'
     },
     smithMasterMithrilHammer: {
       name: '장인의 미스릴 망치'
     },
+    smithMasterAdamantHammer: {
+      name: '장인의 아다만트 망치'
+    },
+    smithMasterAetheriteHammer: {
+      name: '장인의 에테라이트 망치'
+    },
     smithMithrilHammer: {
       name: '미스릴 망치'
+    },
+    smithAdamantHammer: {
+      name: '아다만트 망치'
+    },
+    smithAetheriteHammer: {
+      name: '에테라이트 망치'
     },
     smithMasterMithrilSword: {
       name: '장인의 미스릴 검'
     },
+    smithMasterAdamantSword: {
+      name: '장인의 아다만트 검'
+    },
+    smithMasterAetheriteSword: {
+      name: '장인의 에테라이트 검'
+    },
     smithMithrilSword: {
       name: '미스릴 검'
+    },
+    smithAdamantSword: {
+      name: '아다만트 검'
+    },
+    smithAetheriteSword: {
+      name: '에테라이트 검'
     },
     smithMasterGoldGreaves: {
       name: '장인의 금 정강이갑'
@@ -1557,6 +1651,1086 @@ export default {
     },
     smithMasterIronSword: {
       name: '장인의 철검'
+    },
+    smithMasterDexIronSword: {
+      name: '장인의 철제 단검 · 민첩'
+    },
+    smithDexIronSword: {
+      name: '철제 단검 · 민첩'
+    },
+    smithMasterDexIronHammer: {
+      name: '장인의 철제 레이피어 · 민첩'
+    },
+    smithDexIronHammer: {
+      name: '철제 레이피어 · 민첩'
+    },
+    smithMasterDexIronShield: {
+      name: '장인의 철제 버클러 · 민첩'
+    },
+    smithDexIronShield: {
+      name: '철제 버클러 · 민첩'
+    },
+    smithMasterDexIronHelm: {
+      name: '장인의 철제 후드 · 민첩'
+    },
+    smithDexIronHelm: {
+      name: '철제 후드 · 민첩'
+    },
+    smithMasterDexIronPlate: {
+      name: '장인의 철제 가죽 갑옷 · 민첩'
+    },
+    smithDexIronPlate: {
+      name: '철제 가죽 갑옷 · 민첩'
+    },
+    smithMasterDexIronGreaves: {
+      name: '장인의 철제 부츠 · 민첩'
+    },
+    smithDexIronGreaves: {
+      name: '철제 부츠 · 민첩'
+    },
+    smithMasterDexSilverSword: {
+      name: '장인의 은제 단검 · 민첩'
+    },
+    smithDexSilverSword: {
+      name: '은제 단검 · 민첩'
+    },
+    smithMasterDexSilverHammer: {
+      name: '장인의 은제 레이피어 · 민첩'
+    },
+    smithDexSilverHammer: {
+      name: '은제 레이피어 · 민첩'
+    },
+    smithMasterDexSilverShield: {
+      name: '장인의 은제 버클러 · 민첩'
+    },
+    smithDexSilverShield: {
+      name: '은제 버클러 · 민첩'
+    },
+    smithMasterDexSilverHelm: {
+      name: '장인의 은제 후드 · 민첩'
+    },
+    smithDexSilverHelm: {
+      name: '은제 후드 · 민첩'
+    },
+    smithMasterDexSilverPlate: {
+      name: '장인의 은제 가죽 갑옷 · 민첩'
+    },
+    smithDexSilverPlate: {
+      name: '은제 가죽 갑옷 · 민첩'
+    },
+    smithMasterDexSilverGreaves: {
+      name: '장인의 은제 부츠 · 민첩'
+    },
+    smithDexSilverGreaves: {
+      name: '은제 부츠 · 민첩'
+    },
+    smithMasterDexGoldSword: {
+      name: '장인의 금제 단검 · 민첩'
+    },
+    smithDexGoldSword: {
+      name: '금제 단검 · 민첩'
+    },
+    smithMasterDexGoldHammer: {
+      name: '장인의 금제 레이피어 · 민첩'
+    },
+    smithDexGoldHammer: {
+      name: '금제 레이피어 · 민첩'
+    },
+    smithMasterDexGoldShield: {
+      name: '장인의 금제 버클러 · 민첩'
+    },
+    smithDexGoldShield: {
+      name: '금제 버클러 · 민첩'
+    },
+    smithMasterDexGoldHelm: {
+      name: '장인의 금제 후드 · 민첩'
+    },
+    smithDexGoldHelm: {
+      name: '금제 후드 · 민첩'
+    },
+    smithMasterDexGoldPlate: {
+      name: '장인의 금제 가죽 갑옷 · 민첩'
+    },
+    smithDexGoldPlate: {
+      name: '금제 가죽 갑옷 · 민첩'
+    },
+    smithMasterDexGoldGreaves: {
+      name: '장인의 금제 부츠 · 민첩'
+    },
+    smithDexGoldGreaves: {
+      name: '금제 부츠 · 민첩'
+    },
+    smithMasterDexMithrilSword: {
+      name: '장인의 미스릴 단검 · 민첩'
+    },
+    smithMasterDexAdamantSword: {
+      name: '장인의 아다만트 단검 · 민첩'
+    },
+    smithMasterDexAetheriteSword: {
+      name: '장인의 에테라이트 단검 · 민첩'
+    },
+    smithDexMithrilSword: {
+      name: '미스릴 단검 · 민첩'
+    },
+    smithDexAdamantSword: {
+      name: '아다만트 단검 · 민첩'
+    },
+    smithDexAetheriteSword: {
+      name: '에테라이트 단검 · 민첩'
+    },
+    smithMasterDexMithrilHammer: {
+      name: '장인의 미스릴 레이피어 · 민첩'
+    },
+    smithMasterDexAdamantHammer: {
+      name: '장인의 아다만트 레이피어 · 민첩'
+    },
+    smithMasterDexAetheriteHammer: {
+      name: '장인의 에테라이트 레이피어 · 민첩'
+    },
+    smithDexMithrilHammer: {
+      name: '미스릴 레이피어 · 민첩'
+    },
+    smithDexAdamantHammer: {
+      name: '아다만트 레이피어 · 민첩'
+    },
+    smithDexAetheriteHammer: {
+      name: '에테라이트 레이피어 · 민첩'
+    },
+    smithMasterDexMithrilShield: {
+      name: '장인의 미스릴 버클러 · 민첩'
+    },
+    smithMasterDexAdamantShield: {
+      name: '장인의 아다만트 버클러 · 민첩'
+    },
+    smithMasterDexAetheriteShield: {
+      name: '장인의 에테라이트 버클러 · 민첩'
+    },
+    smithDexMithrilShield: {
+      name: '미스릴 버클러 · 민첩'
+    },
+    smithDexAdamantShield: {
+      name: '아다만트 버클러 · 민첩'
+    },
+    smithDexAetheriteShield: {
+      name: '에테라이트 버클러 · 민첩'
+    },
+    smithMasterDexMithrilHelm: {
+      name: '장인의 미스릴 후드 · 민첩'
+    },
+    smithMasterDexAdamantHelm: {
+      name: '장인의 아다만트 후드 · 민첩'
+    },
+    smithMasterDexAetheriteHelm: {
+      name: '장인의 에테라이트 후드 · 민첩'
+    },
+    smithDexMithrilHelm: {
+      name: '미스릴 후드 · 민첩'
+    },
+    smithDexAdamantHelm: {
+      name: '아다만트 후드 · 민첩'
+    },
+    smithDexAetheriteHelm: {
+      name: '에테라이트 후드 · 민첩'
+    },
+    smithMasterDexMithrilPlate: {
+      name: '장인의 미스릴 가죽 갑옷 · 민첩'
+    },
+    smithMasterDexAdamantPlate: {
+      name: '장인의 아다만트 가죽 갑옷 · 민첩'
+    },
+    smithMasterDexAetheritePlate: {
+      name: '장인의 에테라이트 가죽 갑옷 · 민첩'
+    },
+    smithDexMithrilPlate: {
+      name: '미스릴 가죽 갑옷 · 민첩'
+    },
+    smithDexAdamantPlate: {
+      name: '아다만트 가죽 갑옷 · 민첩'
+    },
+    smithDexAetheritePlate: {
+      name: '에테라이트 가죽 갑옷 · 민첩'
+    },
+    smithMasterDexMithrilGreaves: {
+      name: '장인의 미스릴 부츠 · 민첩'
+    },
+    smithMasterDexAdamantGreaves: {
+      name: '장인의 아다만트 부츠 · 민첩'
+    },
+    smithMasterDexAetheriteGreaves: {
+      name: '장인의 에테라이트 부츠 · 민첩'
+    },
+    smithDexMithrilGreaves: {
+      name: '미스릴 부츠 · 민첩'
+    },
+    smithDexAdamantGreaves: {
+      name: '아다만트 부츠 · 민첩'
+    },
+    smithDexAetheriteGreaves: {
+      name: '에테라이트 부츠 · 민첩'
+    },
+    smithMasterIntIronSword: {
+      name: '장인의 철제 완드 · 지능'
+    },
+    smithIntIronSword: {
+      name: '철제 완드 · 지능'
+    },
+    smithMasterIntIronHammer: {
+      name: '장인의 철제 지팡이 · 지능'
+    },
+    smithIntIronHammer: {
+      name: '철제 지팡이 · 지능'
+    },
+    smithMasterIntIronShield: {
+      name: '장인의 철제 마법서 · 지능'
+    },
+    smithIntIronShield: {
+      name: '철제 마법서 · 지능'
+    },
+    smithMasterIntIronHelm: {
+      name: '장인의 철제 서클릿 · 지능'
+    },
+    smithIntIronHelm: {
+      name: '철제 서클릿 · 지능'
+    },
+    smithMasterIntIronPlate: {
+      name: '장인의 철제 로브 · 지능'
+    },
+    smithIntIronPlate: {
+      name: '철제 로브 · 지능'
+    },
+    smithMasterIntIronGreaves: {
+      name: '장인의 철제 부츠 · 지능'
+    },
+    smithIntIronGreaves: {
+      name: '철제 부츠 · 지능'
+    },
+    smithMasterIntSilverSword: {
+      name: '장인의 은제 완드 · 지능'
+    },
+    smithIntSilverSword: {
+      name: '은제 완드 · 지능'
+    },
+    smithMasterIntSilverHammer: {
+      name: '장인의 은제 지팡이 · 지능'
+    },
+    smithIntSilverHammer: {
+      name: '은제 지팡이 · 지능'
+    },
+    smithMasterIntSilverShield: {
+      name: '장인의 은제 마법서 · 지능'
+    },
+    smithIntSilverShield: {
+      name: '은제 마법서 · 지능'
+    },
+    smithMasterIntSilverHelm: {
+      name: '장인의 은제 서클릿 · 지능'
+    },
+    smithIntSilverHelm: {
+      name: '은제 서클릿 · 지능'
+    },
+    smithMasterIntSilverPlate: {
+      name: '장인의 은제 로브 · 지능'
+    },
+    smithIntSilverPlate: {
+      name: '은제 로브 · 지능'
+    },
+    smithMasterIntSilverGreaves: {
+      name: '장인의 은제 부츠 · 지능'
+    },
+    smithIntSilverGreaves: {
+      name: '은제 부츠 · 지능'
+    },
+    smithMasterIntGoldSword: {
+      name: '장인의 금제 완드 · 지능'
+    },
+    smithIntGoldSword: {
+      name: '금제 완드 · 지능'
+    },
+    smithMasterIntGoldHammer: {
+      name: '장인의 금제 지팡이 · 지능'
+    },
+    smithIntGoldHammer: {
+      name: '금제 지팡이 · 지능'
+    },
+    smithMasterIntGoldShield: {
+      name: '장인의 금제 마법서 · 지능'
+    },
+    smithIntGoldShield: {
+      name: '금제 마법서 · 지능'
+    },
+    smithMasterIntGoldHelm: {
+      name: '장인의 금제 서클릿 · 지능'
+    },
+    smithIntGoldHelm: {
+      name: '금제 서클릿 · 지능'
+    },
+    smithMasterIntGoldPlate: {
+      name: '장인의 금제 로브 · 지능'
+    },
+    smithIntGoldPlate: {
+      name: '금제 로브 · 지능'
+    },
+    smithMasterIntGoldGreaves: {
+      name: '장인의 금제 부츠 · 지능'
+    },
+    smithIntGoldGreaves: {
+      name: '금제 부츠 · 지능'
+    },
+    smithMasterIntMithrilSword: {
+      name: '장인의 미스릴 완드 · 지능'
+    },
+    smithMasterIntAdamantSword: {
+      name: '장인의 아다만트 완드 · 지능'
+    },
+    smithMasterIntAetheriteSword: {
+      name: '장인의 에테라이트 완드 · 지능'
+    },
+    smithIntMithrilSword: {
+      name: '미스릴 완드 · 지능'
+    },
+    smithIntAdamantSword: {
+      name: '아다만트 완드 · 지능'
+    },
+    smithIntAetheriteSword: {
+      name: '에테라이트 완드 · 지능'
+    },
+    smithMasterIntMithrilHammer: {
+      name: '장인의 미스릴 지팡이 · 지능'
+    },
+    smithMasterIntAdamantHammer: {
+      name: '장인의 아다만트 지팡이 · 지능'
+    },
+    smithMasterIntAetheriteHammer: {
+      name: '장인의 에테라이트 지팡이 · 지능'
+    },
+    smithIntMithrilHammer: {
+      name: '미스릴 지팡이 · 지능'
+    },
+    smithIntAdamantHammer: {
+      name: '아다만트 지팡이 · 지능'
+    },
+    smithIntAetheriteHammer: {
+      name: '에테라이트 지팡이 · 지능'
+    },
+    smithMasterIntMithrilShield: {
+      name: '장인의 미스릴 마법서 · 지능'
+    },
+    smithMasterIntAdamantShield: {
+      name: '장인의 아다만트 마법서 · 지능'
+    },
+    smithMasterIntAetheriteShield: {
+      name: '장인의 에테라이트 마법서 · 지능'
+    },
+    smithIntMithrilShield: {
+      name: '미스릴 마법서 · 지능'
+    },
+    smithIntAdamantShield: {
+      name: '아다만트 마법서 · 지능'
+    },
+    smithIntAetheriteShield: {
+      name: '에테라이트 마법서 · 지능'
+    },
+    smithMasterIntMithrilHelm: {
+      name: '장인의 미스릴 서클릿 · 지능'
+    },
+    smithMasterIntAdamantHelm: {
+      name: '장인의 아다만트 서클릿 · 지능'
+    },
+    smithMasterIntAetheriteHelm: {
+      name: '장인의 에테라이트 서클릿 · 지능'
+    },
+    smithIntMithrilHelm: {
+      name: '미스릴 서클릿 · 지능'
+    },
+    smithIntAdamantHelm: {
+      name: '아다만트 서클릿 · 지능'
+    },
+    smithIntAetheriteHelm: {
+      name: '에테라이트 서클릿 · 지능'
+    },
+    smithMasterIntMithrilPlate: {
+      name: '장인의 미스릴 로브 · 지능'
+    },
+    smithMasterIntAdamantPlate: {
+      name: '장인의 아다만트 로브 · 지능'
+    },
+    smithMasterIntAetheritePlate: {
+      name: '장인의 에테라이트 로브 · 지능'
+    },
+    smithIntMithrilPlate: {
+      name: '미스릴 로브 · 지능'
+    },
+    smithIntAdamantPlate: {
+      name: '아다만트 로브 · 지능'
+    },
+    smithIntAetheritePlate: {
+      name: '에테라이트 로브 · 지능'
+    },
+    smithMasterIntMithrilGreaves: {
+      name: '장인의 미스릴 부츠 · 지능'
+    },
+    smithMasterIntAdamantGreaves: {
+      name: '장인의 아다만트 부츠 · 지능'
+    },
+    smithMasterIntAetheriteGreaves: {
+      name: '장인의 에테라이트 부츠 · 지능'
+    },
+    smithIntMithrilGreaves: {
+      name: '미스릴 부츠 · 지능'
+    },
+    smithIntAdamantGreaves: {
+      name: '아다만트 부츠 · 지능'
+    },
+    smithIntAetheriteGreaves: {
+      name: '에테라이트 부츠 · 지능'
+    },
+    smithMasterSklIronSword: {
+      name: '장인의 철제 권총 · 숙련'
+    },
+    smithSklIronSword: {
+      name: '철제 권총 · 숙련'
+    },
+    smithMasterSklIronHammer: {
+      name: '장인의 철제 소총 · 숙련'
+    },
+    smithSklIronHammer: {
+      name: '철제 소총 · 숙련'
+    },
+    smithMasterSklIronShield: {
+      name: '장인의 철제 배터리 · 숙련'
+    },
+    smithSklIronShield: {
+      name: '철제 배터리 · 숙련'
+    },
+    smithMasterSklIronHelm: {
+      name: '장인의 철제 모자 · 숙련'
+    },
+    smithSklIronHelm: {
+      name: '철제 모자 · 숙련'
+    },
+    smithMasterSklIronPlate: {
+      name: '장인의 철제 하네스 · 숙련'
+    },
+    smithSklIronPlate: {
+      name: '철제 하네스 · 숙련'
+    },
+    smithMasterSklIronGreaves: {
+      name: '장인의 철제 부츠 · 숙련'
+    },
+    smithSklIronGreaves: {
+      name: '철제 부츠 · 숙련'
+    },
+    smithMasterSklSilverSword: {
+      name: '장인의 은제 권총 · 숙련'
+    },
+    smithSklSilverSword: {
+      name: '은제 권총 · 숙련'
+    },
+    smithMasterSklSilverHammer: {
+      name: '장인의 은제 소총 · 숙련'
+    },
+    smithSklSilverHammer: {
+      name: '은제 소총 · 숙련'
+    },
+    smithMasterSklSilverShield: {
+      name: '장인의 은제 배터리 · 숙련'
+    },
+    smithSklSilverShield: {
+      name: '은제 배터리 · 숙련'
+    },
+    smithMasterSklSilverHelm: {
+      name: '장인의 은제 모자 · 숙련'
+    },
+    smithSklSilverHelm: {
+      name: '은제 모자 · 숙련'
+    },
+    smithMasterSklSilverPlate: {
+      name: '장인의 은제 하네스 · 숙련'
+    },
+    smithSklSilverPlate: {
+      name: '은제 하네스 · 숙련'
+    },
+    smithMasterSklSilverGreaves: {
+      name: '장인의 은제 부츠 · 숙련'
+    },
+    smithSklSilverGreaves: {
+      name: '은제 부츠 · 숙련'
+    },
+    smithMasterSklGoldSword: {
+      name: '장인의 금제 권총 · 숙련'
+    },
+    smithSklGoldSword: {
+      name: '금제 권총 · 숙련'
+    },
+    smithMasterSklGoldHammer: {
+      name: '장인의 금제 소총 · 숙련'
+    },
+    smithSklGoldHammer: {
+      name: '금제 소총 · 숙련'
+    },
+    smithMasterSklGoldShield: {
+      name: '장인의 금제 배터리 · 숙련'
+    },
+    smithSklGoldShield: {
+      name: '금제 배터리 · 숙련'
+    },
+    smithMasterSklGoldHelm: {
+      name: '장인의 금제 모자 · 숙련'
+    },
+    smithSklGoldHelm: {
+      name: '금제 모자 · 숙련'
+    },
+    smithMasterSklGoldPlate: {
+      name: '장인의 금제 하네스 · 숙련'
+    },
+    smithSklGoldPlate: {
+      name: '금제 하네스 · 숙련'
+    },
+    smithMasterSklGoldGreaves: {
+      name: '장인의 금제 부츠 · 숙련'
+    },
+    smithSklGoldGreaves: {
+      name: '금제 부츠 · 숙련'
+    },
+    smithMasterSklMithrilSword: {
+      name: '장인의 미스릴 권총 · 숙련'
+    },
+    smithMasterSklAdamantSword: {
+      name: '장인의 아다만트 권총 · 숙련'
+    },
+    smithMasterSklAetheriteSword: {
+      name: '장인의 에테라이트 권총 · 숙련'
+    },
+    smithSklMithrilSword: {
+      name: '미스릴 권총 · 숙련'
+    },
+    smithSklAdamantSword: {
+      name: '아다만트 권총 · 숙련'
+    },
+    smithSklAetheriteSword: {
+      name: '에테라이트 권총 · 숙련'
+    },
+    smithMasterSklMithrilHammer: {
+      name: '장인의 미스릴 소총 · 숙련'
+    },
+    smithMasterSklAdamantHammer: {
+      name: '장인의 아다만트 소총 · 숙련'
+    },
+    smithMasterSklAetheriteHammer: {
+      name: '장인의 에테라이트 소총 · 숙련'
+    },
+    smithSklMithrilHammer: {
+      name: '미스릴 소총 · 숙련'
+    },
+    smithSklAdamantHammer: {
+      name: '아다만트 소총 · 숙련'
+    },
+    smithSklAetheriteHammer: {
+      name: '에테라이트 소총 · 숙련'
+    },
+    smithMasterSklMithrilShield: {
+      name: '장인의 미스릴 배터리 · 숙련'
+    },
+    smithMasterSklAdamantShield: {
+      name: '장인의 아다만트 배터리 · 숙련'
+    },
+    smithMasterSklAetheriteShield: {
+      name: '장인의 에테라이트 배터리 · 숙련'
+    },
+    smithSklMithrilShield: {
+      name: '미스릴 배터리 · 숙련'
+    },
+    smithSklAdamantShield: {
+      name: '아다만트 배터리 · 숙련'
+    },
+    smithSklAetheriteShield: {
+      name: '에테라이트 배터리 · 숙련'
+    },
+    smithMasterSklMithrilHelm: {
+      name: '장인의 미스릴 모자 · 숙련'
+    },
+    smithMasterSklAdamantHelm: {
+      name: '장인의 아다만트 모자 · 숙련'
+    },
+    smithMasterSklAetheriteHelm: {
+      name: '장인의 에테라이트 모자 · 숙련'
+    },
+    smithSklMithrilHelm: {
+      name: '미스릴 모자 · 숙련'
+    },
+    smithSklAdamantHelm: {
+      name: '아다만트 모자 · 숙련'
+    },
+    smithSklAetheriteHelm: {
+      name: '에테라이트 모자 · 숙련'
+    },
+    smithMasterSklMithrilPlate: {
+      name: '장인의 미스릴 하네스 · 숙련'
+    },
+    smithMasterSklAdamantPlate: {
+      name: '장인의 아다만트 하네스 · 숙련'
+    },
+    smithMasterSklAetheritePlate: {
+      name: '장인의 에테라이트 하네스 · 숙련'
+    },
+    smithSklMithrilPlate: {
+      name: '미스릴 하네스 · 숙련'
+    },
+    smithSklAdamantPlate: {
+      name: '아다만트 하네스 · 숙련'
+    },
+    smithSklAetheritePlate: {
+      name: '에테라이트 하네스 · 숙련'
+    },
+    smithMasterSklMithrilGreaves: {
+      name: '장인의 미스릴 부츠 · 숙련'
+    },
+    smithMasterSklAdamantGreaves: {
+      name: '장인의 아다만트 부츠 · 숙련'
+    },
+    smithMasterSklAetheriteGreaves: {
+      name: '장인의 에테라이트 부츠 · 숙련'
+    },
+    smithSklMithrilGreaves: {
+      name: '미스릴 부츠 · 숙련'
+    },
+    smithSklAdamantGreaves: {
+      name: '아다만트 부츠 · 숙련'
+    },
+    smithSklAetheriteGreaves: {
+      name: '에테라이트 부츠 · 숙련'
+    },
+    smithMasterChaIronSword: {
+      name: '장인의 철제 홀 · 매력'
+    },
+    smithChaIronSword: {
+      name: '철제 홀 · 매력'
+    },
+    smithMasterChaIronHammer: {
+      name: '장인의 철제 깃발 · 매력'
+    },
+    smithChaIronHammer: {
+      name: '철제 깃발 · 매력'
+    },
+    smithMasterChaIronShield: {
+      name: '장인의 철제 코덱스 · 매력'
+    },
+    smithChaIronShield: {
+      name: '철제 코덱스 · 매력'
+    },
+    smithMasterChaIronHelm: {
+      name: '장인의 철제 왕관 · 매력'
+    },
+    smithChaIronHelm: {
+      name: '철제 왕관 · 매력'
+    },
+    smithMasterChaIronPlate: {
+      name: '장인의 철제 태버드 · 매력'
+    },
+    smithChaIronPlate: {
+      name: '철제 태버드 · 매력'
+    },
+    smithMasterChaIronGreaves: {
+      name: '장인의 철제 부츠 · 매력'
+    },
+    smithChaIronGreaves: {
+      name: '철제 부츠 · 매력'
+    },
+    smithMasterChaSilverSword: {
+      name: '장인의 은제 홀 · 매력'
+    },
+    smithChaSilverSword: {
+      name: '은제 홀 · 매력'
+    },
+    smithMasterChaSilverHammer: {
+      name: '장인의 은제 깃발 · 매력'
+    },
+    smithChaSilverHammer: {
+      name: '은제 깃발 · 매력'
+    },
+    smithMasterChaSilverShield: {
+      name: '장인의 은제 코덱스 · 매력'
+    },
+    smithChaSilverShield: {
+      name: '은제 코덱스 · 매력'
+    },
+    smithMasterChaSilverHelm: {
+      name: '장인의 은제 왕관 · 매력'
+    },
+    smithChaSilverHelm: {
+      name: '은제 왕관 · 매력'
+    },
+    smithMasterChaSilverPlate: {
+      name: '장인의 은제 태버드 · 매력'
+    },
+    smithChaSilverPlate: {
+      name: '은제 태버드 · 매력'
+    },
+    smithMasterChaSilverGreaves: {
+      name: '장인의 은제 부츠 · 매력'
+    },
+    smithChaSilverGreaves: {
+      name: '은제 부츠 · 매력'
+    },
+    smithMasterChaGoldSword: {
+      name: '장인의 금제 홀 · 매력'
+    },
+    smithChaGoldSword: {
+      name: '금제 홀 · 매력'
+    },
+    smithMasterChaGoldHammer: {
+      name: '장인의 금제 깃발 · 매력'
+    },
+    smithChaGoldHammer: {
+      name: '금제 깃발 · 매력'
+    },
+    smithMasterChaGoldShield: {
+      name: '장인의 금제 코덱스 · 매력'
+    },
+    smithChaGoldShield: {
+      name: '금제 코덱스 · 매력'
+    },
+    smithMasterChaGoldHelm: {
+      name: '장인의 금제 왕관 · 매력'
+    },
+    smithChaGoldHelm: {
+      name: '금제 왕관 · 매력'
+    },
+    smithMasterChaGoldPlate: {
+      name: '장인의 금제 태버드 · 매력'
+    },
+    smithChaGoldPlate: {
+      name: '금제 태버드 · 매력'
+    },
+    smithMasterChaGoldGreaves: {
+      name: '장인의 금제 부츠 · 매력'
+    },
+    smithChaGoldGreaves: {
+      name: '금제 부츠 · 매력'
+    },
+    smithMasterChaMithrilSword: {
+      name: '장인의 미스릴 홀 · 매력'
+    },
+    smithMasterChaAdamantSword: {
+      name: '장인의 아다만트 홀 · 매력'
+    },
+    smithMasterChaAetheriteSword: {
+      name: '장인의 에테라이트 홀 · 매력'
+    },
+    smithChaMithrilSword: {
+      name: '미스릴 홀 · 매력'
+    },
+    smithChaAdamantSword: {
+      name: '아다만트 홀 · 매력'
+    },
+    smithChaAetheriteSword: {
+      name: '에테라이트 홀 · 매력'
+    },
+    smithMasterChaMithrilHammer: {
+      name: '장인의 미스릴 깃발 · 매력'
+    },
+    smithMasterChaAdamantHammer: {
+      name: '장인의 아다만트 깃발 · 매력'
+    },
+    smithMasterChaAetheriteHammer: {
+      name: '장인의 에테라이트 깃발 · 매력'
+    },
+    smithChaMithrilHammer: {
+      name: '미스릴 깃발 · 매력'
+    },
+    smithChaAdamantHammer: {
+      name: '아다만트 깃발 · 매력'
+    },
+    smithChaAetheriteHammer: {
+      name: '에테라이트 깃발 · 매력'
+    },
+    smithMasterChaMithrilShield: {
+      name: '장인의 미스릴 코덱스 · 매력'
+    },
+    smithMasterChaAdamantShield: {
+      name: '장인의 아다만트 코덱스 · 매력'
+    },
+    smithMasterChaAetheriteShield: {
+      name: '장인의 에테라이트 코덱스 · 매력'
+    },
+    smithChaMithrilShield: {
+      name: '미스릴 코덱스 · 매력'
+    },
+    smithChaAdamantShield: {
+      name: '아다만트 코덱스 · 매력'
+    },
+    smithChaAetheriteShield: {
+      name: '에테라이트 코덱스 · 매력'
+    },
+    smithMasterChaMithrilHelm: {
+      name: '장인의 미스릴 왕관 · 매력'
+    },
+    smithMasterChaAdamantHelm: {
+      name: '장인의 아다만트 왕관 · 매력'
+    },
+    smithMasterChaAetheriteHelm: {
+      name: '장인의 에테라이트 왕관 · 매력'
+    },
+    smithChaMithrilHelm: {
+      name: '미스릴 왕관 · 매력'
+    },
+    smithChaAdamantHelm: {
+      name: '아다만트 왕관 · 매력'
+    },
+    smithChaAetheriteHelm: {
+      name: '에테라이트 왕관 · 매력'
+    },
+    smithMasterChaMithrilPlate: {
+      name: '장인의 미스릴 태버드 · 매력'
+    },
+    smithMasterChaAdamantPlate: {
+      name: '장인의 아다만트 태버드 · 매력'
+    },
+    smithMasterChaAetheritePlate: {
+      name: '장인의 에테라이트 태버드 · 매력'
+    },
+    smithChaMithrilPlate: {
+      name: '미스릴 태버드 · 매력'
+    },
+    smithChaAdamantPlate: {
+      name: '아다만트 태버드 · 매력'
+    },
+    smithChaAetheritePlate: {
+      name: '에테라이트 태버드 · 매력'
+    },
+    smithMasterChaMithrilGreaves: {
+      name: '장인의 미스릴 부츠 · 매력'
+    },
+    smithMasterChaAdamantGreaves: {
+      name: '장인의 아다만트 부츠 · 매력'
+    },
+    smithMasterChaAetheriteGreaves: {
+      name: '장인의 에테라이트 부츠 · 매력'
+    },
+    smithChaMithrilGreaves: {
+      name: '미스릴 부츠 · 매력'
+    },
+    smithChaAdamantGreaves: {
+      name: '아다만트 부츠 · 매력'
+    },
+    smithChaAetheriteGreaves: {
+      name: '에테라이트 부츠 · 매력'
+    },
+    smithMasterEndIronSword: {
+      name: '장인의 철제 철퇴 · 지구'
+    },
+    smithEndIronSword: {
+      name: '철제 철퇴 · 지구'
+    },
+    smithMasterEndIronHammer: {
+      name: '장인의 철제 도끼 · 지구'
+    },
+    smithEndIronHammer: {
+      name: '철제 도끼 · 지구'
+    },
+    smithMasterEndIronShield: {
+      name: '장인의 철 방패 · 지구'
+    },
+    smithEndIronShield: {
+      name: '철 방패 · 지구'
+    },
+    smithMasterEndIronHelm: {
+      name: '장인의 철 투구 · 지구'
+    },
+    smithEndIronHelm: {
+      name: '철 투구 · 지구'
+    },
+    smithMasterEndIronPlate: {
+      name: '장인의 철 판금 갑옷 · 지구'
+    },
+    smithEndIronPlate: {
+      name: '철 판금 갑옷 · 지구'
+    },
+    smithMasterEndIronGreaves: {
+      name: '장인의 철 정강이갑 · 지구'
+    },
+    smithEndIronGreaves: {
+      name: '철 정강이갑 · 지구'
+    },
+    smithMasterEndSilverSword: {
+      name: '장인의 은제 철퇴 · 지구'
+    },
+    smithEndSilverSword: {
+      name: '은제 철퇴 · 지구'
+    },
+    smithMasterEndSilverHammer: {
+      name: '장인의 은제 도끼 · 지구'
+    },
+    smithEndSilverHammer: {
+      name: '은제 도끼 · 지구'
+    },
+    smithMasterEndSilverShield: {
+      name: '장인의 은 방패 · 지구'
+    },
+    smithEndSilverShield: {
+      name: '은 방패 · 지구'
+    },
+    smithMasterEndSilverHelm: {
+      name: '장인의 은 투구 · 지구'
+    },
+    smithEndSilverHelm: {
+      name: '은 투구 · 지구'
+    },
+    smithMasterEndSilverPlate: {
+      name: '장인의 은 판금 갑옷 · 지구'
+    },
+    smithEndSilverPlate: {
+      name: '은 판금 갑옷 · 지구'
+    },
+    smithMasterEndSilverGreaves: {
+      name: '장인의 은 정강이갑 · 지구'
+    },
+    smithEndSilverGreaves: {
+      name: '은 정강이갑 · 지구'
+    },
+    smithMasterEndGoldSword: {
+      name: '장인의 금제 철퇴 · 지구'
+    },
+    smithEndGoldSword: {
+      name: '금제 철퇴 · 지구'
+    },
+    smithMasterEndGoldHammer: {
+      name: '장인의 금제 도끼 · 지구'
+    },
+    smithEndGoldHammer: {
+      name: '금제 도끼 · 지구'
+    },
+    smithMasterEndGoldShield: {
+      name: '장인의 금 방패 · 지구'
+    },
+    smithEndGoldShield: {
+      name: '금 방패 · 지구'
+    },
+    smithMasterEndGoldHelm: {
+      name: '장인의 금 투구 · 지구'
+    },
+    smithEndGoldHelm: {
+      name: '금 투구 · 지구'
+    },
+    smithMasterEndGoldPlate: {
+      name: '장인의 금 판금 갑옷 · 지구'
+    },
+    smithEndGoldPlate: {
+      name: '금 판금 갑옷 · 지구'
+    },
+    smithMasterEndGoldGreaves: {
+      name: '장인의 금 정강이갑 · 지구'
+    },
+    smithEndGoldGreaves: {
+      name: '금 정강이갑 · 지구'
+    },
+    smithMasterEndMithrilSword: {
+      name: '장인의 미스릴 철퇴 · 지구'
+    },
+    smithMasterEndAdamantSword: {
+      name: '장인의 아다만트 철퇴 · 지구'
+    },
+    smithMasterEndAetheriteSword: {
+      name: '장인의 에테라이트 철퇴 · 지구'
+    },
+    smithEndMithrilSword: {
+      name: '미스릴 철퇴 · 지구'
+    },
+    smithEndAdamantSword: {
+      name: '아다만트 철퇴 · 지구'
+    },
+    smithEndAetheriteSword: {
+      name: '에테라이트 철퇴 · 지구'
+    },
+    smithMasterEndMithrilHammer: {
+      name: '장인의 미스릴 도끼 · 지구'
+    },
+    smithMasterEndAdamantHammer: {
+      name: '장인의 아다만트 도끼 · 지구'
+    },
+    smithMasterEndAetheriteHammer: {
+      name: '장인의 에테라이트 도끼 · 지구'
+    },
+    smithEndMithrilHammer: {
+      name: '미스릴 도끼 · 지구'
+    },
+    smithEndAdamantHammer: {
+      name: '아다만트 도끼 · 지구'
+    },
+    smithEndAetheriteHammer: {
+      name: '에테라이트 도끼 · 지구'
+    },
+    smithMasterEndMithrilShield: {
+      name: '장인의 미스릴 방패 · 지구'
+    },
+    smithMasterEndAdamantShield: {
+      name: '장인의 아다만트 방패 · 지구'
+    },
+    smithMasterEndAetheriteShield: {
+      name: '장인의 에테라이트 방패 · 지구'
+    },
+    smithEndMithrilShield: {
+      name: '미스릴 방패 · 지구'
+    },
+    smithEndAdamantShield: {
+      name: '아다만트 방패 · 지구'
+    },
+    smithEndAetheriteShield: {
+      name: '에테라이트 방패 · 지구'
+    },
+    smithMasterEndMithrilHelm: {
+      name: '장인의 미스릴 투구 · 지구'
+    },
+    smithMasterEndAdamantHelm: {
+      name: '장인의 아다만트 투구 · 지구'
+    },
+    smithMasterEndAetheriteHelm: {
+      name: '장인의 에테라이트 투구 · 지구'
+    },
+    smithEndMithrilHelm: {
+      name: '미스릴 투구 · 지구'
+    },
+    smithEndAdamantHelm: {
+      name: '아다만트 투구 · 지구'
+    },
+    smithEndAetheriteHelm: {
+      name: '에테라이트 투구 · 지구'
+    },
+    smithMasterEndMithrilPlate: {
+      name: '장인의 미스릴 판금 갑옷 · 지구'
+    },
+    smithMasterEndAdamantPlate: {
+      name: '장인의 아다만트 판금 갑옷 · 지구'
+    },
+    smithMasterEndAetheritePlate: {
+      name: '장인의 에테라이트 판금 갑옷 · 지구'
+    },
+    smithEndMithrilPlate: {
+      name: '미스릴 판금 갑옷 · 지구'
+    },
+    smithEndAdamantPlate: {
+      name: '아다만트 판금 갑옷 · 지구'
+    },
+    smithEndAetheritePlate: {
+      name: '에테라이트 판금 갑옷 · 지구'
+    },
+    smithMasterEndMithrilGreaves: {
+      name: '장인의 미스릴 정강이갑 · 지구'
+    },
+    smithMasterEndAdamantGreaves: {
+      name: '장인의 아다만트 정강이갑 · 지구'
+    },
+    smithMasterEndAetheriteGreaves: {
+      name: '장인의 에테라이트 정강이갑 · 지구'
+    },
+    smithEndMithrilGreaves: {
+      name: '미스릴 정강이갑 · 지구'
+    },
+    smithEndAdamantGreaves: {
+      name: '아다만트 정강이갑 · 지구'
+    },
+    smithEndAetheriteGreaves: {
+      name: '에테라이트 정강이갑 · 지구'
     },
     smithIronSword: {
       name: '철검'
@@ -1777,6 +2951,414 @@ export default {
     scepterOfTheFirstKing: {
       name: '최초의 왕의 홀'
     },
+    pickpocketsKnife: {
+      name: '소매치기의 단검'
+    },
+    serpentsFang: {
+      name: '뱀의 송곳니'
+    },
+    phantomRapier: {
+      name: '유령 레이피어'
+    },
+    fangOfTheWindless: {
+      name: '무풍의 송곳니'
+    },
+    roguesBuckler: {
+      name: '악당의 작은 방패'
+    },
+    venomVial: {
+      name: '독약 병'
+    },
+    swiftguardBuckler: {
+      name: '날쌘 경비병의 작은 방패'
+    },
+    nightshadeFlask: {
+      name: '벨라도나 플라스크'
+    },
+    windveilTarge: {
+      name: '바람 장막 방패'
+    },
+    shadowdancersBuckler: {
+      name: '그림자 무희의 작은 방패'
+    },
+    scoutsBandana: {
+      name: '정찰병의 두건'
+    },
+    nightcowl: {
+      name: '밤의 두건'
+    },
+    shadowveilHood: {
+      name: '그림자 장막 후드'
+    },
+    windrunnersCap: {
+      name: '바람 달리미의 모자'
+    },
+    maskOfTheSilentWind: {
+      name: '고요한 바람의 가면'
+    },
+    rangersJerkin: {
+      name: '레인저의 조끼'
+    },
+    nightstalkerLeathers: {
+      name: '밤 사냥꾼의 가죽'
+    },
+    windridersHarness: {
+      name: '바람 기수의 마구'
+    },
+    mantleOfTheShadowDancer: {
+      name: '그림자 무희의 망토'
+    },
+    thiefsGloves: {
+      name: '도둑의 장갑'
+    },
+    cutpurseGloves: {
+      name: '소매치기의 장갑'
+    },
+    glovesOfTheGale: {
+      name: '질풍의 장갑'
+    },
+    softSoledShoes: {
+      name: '부드러운 밑창 신발'
+    },
+    catStepBoots: {
+      name: '고양이 걸음 부츠'
+    },
+    shadowstepBoots: {
+      name: '그림자 걸음 부츠'
+    },
+    windstrideBoots: {
+      name: '바람 걸음 부츠'
+    },
+    luckyCoin: {
+      name: '행운의 동전'
+    },
+    shadowBand: {
+      name: '그림자 반지'
+    },
+    sandglassOfTheSwift: {
+      name: '날쌘 자의 모래시계'
+    },
+    talonCharm: {
+      name: '발톱 부적'
+    },
+    windheart: {
+      name: '바람의 심장'
+    },
+    ashwallHeater: {
+      name: '잿벽 히터 실드'
+    },
+    wyrmhidePavise: {
+      name: '와이번 가죽 파비스'
+    },
+    footmansKettleHat: {
+      name: '보병의 냄비 모자'
+    },
+    ironbrowSallet: {
+      name: '쇠 눈썹 살레트'
+    },
+    warlordsBarbute: {
+      name: '군벌의 바르뷔트'
+    },
+    helmOfTheSunderedThrone: {
+      name: '부서진 왕좌의 투구'
+    },
+    recruitsCuirass: {
+      name: '신병의 흉갑'
+    },
+    stonecuttersMitts: {
+      name: '석공의 벙어리장갑'
+    },
+    ashforgedGauntlets: {
+      name: '재 속에서 벼린 건틀릿'
+    },
+    warbringerGauntlets: {
+      name: '전쟁을 부르는 자의 건틀릿'
+    },
+    titanfistGauntlets: {
+      name: '타이탄 주먹 건틀릿'
+    },
+    footmansGreaves: {
+      name: '보병의 정강이받이'
+    },
+    ironshodGreaves: {
+      name: '쇠로 덧댄 정강이받이'
+    },
+    warlordsSabatons: {
+      name: '군벌의 사바톤'
+    },
+    greavesOfTheMountainfall: {
+      name: '산사태의 정강이받이'
+    },
+    sergeantsSignet: {
+      name: '하사관의 인장 반지'
+    },
+    brawlersKnuckleRing: {
+      name: '싸움꾼의 너클'
+    },
+    bloodiedWarMedal: {
+      name: '피 묻은 전공 훈장'
+    },
+    watchmansCudgel: {
+      name: '파수꾼의 곤봉'
+    },
+    ironboundMace: {
+      name: '쇠테 철퇴'
+    },
+    stonehideCleaver: {
+      name: '돌가죽 식칼'
+    },
+    bulwarkMaul: {
+      name: '보루의 대형 망치'
+    },
+    mountainsplitterAxe: {
+      name: '산 쪼개기 도끼'
+    },
+    everstandWarmace: {
+      name: '불굴의 전쟁 철퇴'
+    },
+    emberwallBastion: {
+      name: '불씨 장벽 보루'
+    },
+    stonewardenHelm: {
+      name: '돌 수호자의 투구'
+    },
+    colossusVisage: {
+      name: '거상의 얼굴'
+    },
+    diggersGauntlets: {
+      name: '땅 파는 자의 건틀릿'
+    },
+    bastionGauntlets: {
+      name: '보루의 건틀릿'
+    },
+    glacierplateGauntlets: {
+      name: '빙하 판금 건틀릿'
+    },
+    gauntletsOfEndlessVigil: {
+      name: '끝없는 불침번의 건틀릿'
+    },
+    hearthstoneCharm: {
+      name: '화덕 돌 부적'
+    },
+    ironheartPendant: {
+      name: '강철 심장 펜던트'
+    },
+    hedgewizardsWand: {
+      name: '울타리 마법사의 지팡이'
+    },
+    frostglassStaff: {
+      name: '서리 유리 지팡이'
+    },
+    voidthreadWand: {
+      name: '공허 실 지팡이'
+    },
+    staffOfTheStarlessSky: {
+      name: '별 없는 하늘의 지팡이'
+    },
+    studentsGrimoire: {
+      name: '학생의 마법서'
+    },
+    frostfireOrb: {
+      name: '서리불꽃 오브'
+    },
+    orbOfTheUnwrittenHour: {
+      name: '쓰이지 않은 시간의 오브'
+    },
+    apprenticesPointedCap: {
+      name: '견습생의 뾰족 모자'
+    },
+    sagesCirclet: {
+      name: '현자의 서클릿'
+    },
+    cinderWizardsHat: {
+      name: '잿빛 마법사의 모자'
+    },
+    voidseerCirclet: {
+      name: '공허 예지자의 서클릿'
+    },
+    apprenticesRobe: {
+      name: '견습생의 로브'
+    },
+    cinderthreadRobe: {
+      name: '재실 로브'
+    },
+    voidwovenRobe: {
+      name: '공허로 짠 로브'
+    },
+    inkStainedGloves: {
+      name: '잉크 얼룩 장갑'
+    },
+    spellthreadGloves: {
+      name: '주문 실 장갑'
+    },
+    frostweaveGloves: {
+      name: '서리 직물 장갑'
+    },
+    starlitGloves: {
+      name: '별빛 장갑'
+    },
+    glovesOfTheLastWord: {
+      name: '마지막 말의 장갑'
+    },
+    scribesSlippers: {
+      name: '서기의 슬리퍼'
+    },
+    moonstepSlippers: {
+      name: '달걸음 슬리퍼'
+    },
+    emberstepBoots: {
+      name: '불씨 걸음 부츠'
+    },
+    voidwalkerBoots: {
+      name: '공허 방랑자의 부츠'
+    },
+    bootsOfTheWanderingStar: {
+      name: '떠도는 별의 부츠'
+    },
+    glowstonePendant: {
+      name: '빛나는 돌 펜던트'
+    },
+    scholarsSeal: {
+      name: '학자의 인장'
+    },
+    eyeOfTheArchon: {
+      name: '아르콘의 눈'
+    },
+    cinderRepeater: {
+      name: '재의 연발총'
+    },
+    glacierMortar: {
+      name: '빙하 휴대 박격포'
+    },
+    sparkCell: {
+      name: '불꽃 셀'
+    },
+    arcCapacitor: {
+      name: '아크 축전기'
+    },
+    aetherheartCell: {
+      name: '에테르 심장 셀'
+    },
+    marksmansVisor: {
+      name: '사수의 면갑'
+    },
+    sharpshootersCap: {
+      name: '저격수의 모자'
+    },
+    gunnersHarness: {
+      name: '포병의 마구'
+    },
+    steadyhandGloves: {
+      name: '안정된 손의 장갑'
+    },
+    gunsmithsGloves: {
+      name: '총기공의 장갑'
+    },
+    scrappersBoots: {
+      name: '싸움꾼의 부츠'
+    },
+    sharpshooterBoots: {
+      name: '저격수의 부츠'
+    },
+    firingLineBoots: {
+      name: '사선의 부츠'
+    },
+    steadyfootBoots: {
+      name: '굳건한 발 부츠'
+    },
+    aetherstepBoots: {
+      name: '에테르 걸음 부츠'
+    },
+    bootsOfTheLastShot: {
+      name: '마지막 한 발의 부츠'
+    },
+    brassCartridgeCharm: {
+      name: '황동 탄피 부적'
+    },
+    deadEyeLens: {
+      name: '정확한 눈의 렌즈'
+    },
+    eagleEyeScope: {
+      name: '독수리 눈 망원경'
+    },
+    criersBaton: {
+      name: '포고꾼의 지팡이'
+    },
+    droversStandard: {
+      name: '목동의 깃발'
+    },
+    marshalsSceptre: {
+      name: '원수의 홀'
+    },
+    balladBook: {
+      name: '발라드 책'
+    },
+    chronicleOfHeroes: {
+      name: '영웅 연대기'
+    },
+    psalterOfTheHost: {
+      name: '군세의 시편'
+    },
+    tomeOfEternalReign: {
+      name: '영원한 치세의 책'
+    },
+    heraldsCap: {
+      name: '전령의 모자'
+    },
+    singersCirclet: {
+      name: '가수의 서클릿'
+    },
+    diademOfTenThousandVoices: {
+      name: '만 개의 목소리 다이아뎀'
+    },
+    travelersWaistcoat: {
+      name: '여행자의 조끼'
+    },
+    minstrelsMotley: {
+      name: '음유시인의 누더기 옷'
+    },
+    troubadoursCoat: {
+      name: '트루바두르의 코트'
+    },
+    marshalsGreatcoat: {
+      name: '원수의 외투'
+    },
+    buskersGloves: {
+      name: '거리 악사의 장갑'
+    },
+    drummersGloves: {
+      name: '드러머의 장갑'
+    },
+    standardBearersGloves: {
+      name: '기수의 장갑'
+    },
+    gildedParadeGloves: {
+      name: '금도금 행진 장갑'
+    },
+    glovesOfTheCrownedHand: {
+      name: '관 쓴 손의 장갑'
+    },
+    wayfarersShoes: {
+      name: '나그네의 신발'
+    },
+    troubadourBoots: {
+      name: '트루바두르의 부츠'
+    },
+    heraldsRidingBoots: {
+      name: '전령의 승마 부츠'
+    },
+    paradeBoots: {
+      name: '행진 부츠'
+    },
+    bootsOfTheLongProcession: {
+      name: '긴 행렬의 부츠'
+    },
+    silverWhistle: {
+      name: '은 호루라기'
+    },
+    gatheringHorn: {
+      name: '소집의 뿔나팔'
+    },
     heartOfTheMountain: {
       name: '산의 심장'
     },
@@ -1880,6 +3462,9 @@ export default {
     freedPeddler: {
       talk: '여행자에게 필요한 건 다 있지. 거의 새것이야, 대부분은.',
       name: '오도 매로'
+    },
+    sfShadowRoad: {
+      name: '네틀 퀵핸드'
     },
     sfShadow: {
       name: '네틀 퀵핸드'
@@ -2034,6 +3619,9 @@ export default {
     sunfordGambler: {
       name: '재주꾼 도브'
     },
+    sunfordCups: {
+      name: '날쌘손 넬'
+    },
     oakGambler: {
       name: '비단결 렌'
     },
@@ -2145,6 +3733,13 @@ export default {
     }
   },
   dlg: {
+    intro: {
+      crossing: { 1: '이 세계의 모든 길은 하나의 갈림길에서 만난다… 그리고 모든 갈림길은 전장이다.' },
+      hero: { 1: '선포드의 고요한 들판에서, 한 젊은 영웅이 길을 나섰다.' },
+      fire: { 1: '불꽃이 부름에 답했다. 강철은 새로운 이름을 배웠다.' },
+      foes: { 1: '고블린 왕, 서리 족장, 공허의 용… 그리고 대악마.' },
+      begin: { 1: '당신의 전설이 지금 시작된다.' }
+    },
     frostDisciple: {
       bye: {
         '1': '몸 따뜻하게 해라.'
@@ -2339,6 +3934,23 @@ export default {
       hello: {
         '2': '오도 매로, 분부만 내리게. 행상이자 땜장이, 그리고 아주 고마워하는 사람이지.',
         '1': '자네! 자네가 그 우리를 열어 준 사람이로군! 하마터면 거기서 썩을 뻔했지.'
+      }
+    },
+    sfShadowRoad: {
+      hello: {
+        '1': '순간이동. 관심 있어?'
+      },
+      again: {
+        '1': '또 다른 기술 배우러 왔어?'
+      },
+      train: {
+        '1': '잘 봐. 한 걸음이면, 넌 이미 다른 곳에 있어.'
+      },
+      trainBack: {
+        '1': '좋아. 이제 다른 곳으로 가 봐.'
+      },
+      bye: {
+        '1': '잡히지 마.'
       }
     },
     sfShadow: {
@@ -2593,9 +4205,8 @@ export default {
         '2': '쇠가 가장 밝게 빛날 때 내리쳐. 놓치면 고철이야. 해 봐.',
         '1': '대장일? 흠. 망치는 이렇게 쥐어. 몽둥이처럼 말고.'
       },
-      ore: {
-        '1': '광석 덩어리라? 몽땅 사지. 정확한 무게, 정확한 값.'
-      },
+      ore: { '1': '광석이라고? 보여 줘. 덩어리마다 값을 치르지, 정직한 무게로.' },
+      sellBack: { '1': '정직한 무게, 정직한 돈. 찾으면 또 가져와.' },
       forgeBack: {
         '1': '나쁘진 않군. 좋지도 않고. 계속해.'
       },
@@ -2878,7 +4489,7 @@ export default {
       },
       map: {
         '1': '루크 대장의 지도로군! 고블린에게 잡히기 전에 지도를 찢어서 조각들을 숨겨 뒀지.',
-        '2': '여섯 조각을 다 찾으면 X가 길을 알려 줄 걸세. 잿빛 바위산 어딘가지. 거기를 파면 금은 자네 것이네.',
+        '2': '여섯 조각을 찾으면 X가 길을 알려 줄 걸세. 그보다 몇 조각 더 흩어져 있긴 하네만. 잿빛 바위산 어딘가지. 거기를 파면 금은 자네 것이네.',
         say: '오래된 지도 조각을 찾았어요.'
       }
     },
@@ -2895,6 +4506,9 @@ export default {
       },
       mana: {
         '1': '이건 써요. 주문이 바닥나면 마시세요.'
+      },
+      brew: {
+        '1': '약초를 보여 주세요. 제 마나 강장제보다 맛있는 걸 섞어 드릴게요.'
       },
       potions: {
         '1': '싸움마다 물약병을 몇 개 들고 가죠. 필요해지기 전에 마셔요, 후가 아니라.',
@@ -2914,6 +4528,9 @@ export default {
       },
       healBack: {
         '1': '벨트는 가득 채우고, 머리는 낮추고요.'
+      },
+      brewBack: {
+        '1': '조심해요, 뜨거워요. 한꺼번에 다 마시지 말아요.'
       },
       bye: {
         '1': '밖에서 몸조심하세요.'
@@ -3015,9 +4632,8 @@ export default {
         '2': '빛을 보세요. 그 중심을 세 번 치면, 쇠가 기억해요.',
         '1': '기술을 배우고 싶다고요? 좋아요. 오크헤이븐엔 망치 하나하나가 필요해요.'
       },
-      ore: {
-        '1': '원광석이군요! 무기고는 늘 모자라요. 여기 값이요.'
-      },
+      ore: { '1': '원광이로군! 무기고는 늘 모자라. 내줄 수 있는 만큼 팔아 주게.' },
+      sellBack: { '1': '덩어리 하나하나가 성벽이 되지. 고맙네.' },
       forgeBack: {
         '1': '좋은 강철이네요. 성벽이 고마워할 거예요.'
       },
@@ -3058,9 +4674,8 @@ export default {
         '2': '세 번의 타격, 매번 빛의 중심에. 비결은 그게 전부예요.',
         '1': '포위전 이후로는 청하는 누구에게나 가르쳐요. 이리 와서 여기 서요.'
       },
-      ore: {
-        '1': '성벽에 쓸 광석을 또요? 고마워라. 자, 이거 받아요.'
-      },
+      ore: { '1': '성벽에 쓸 광석이 더 있나? 내줄 수 있는 덩어리마다 값을 치르겠네.' },
+      sellBack: { '1': '복 받을 걸세. 성벽에 판갑이 더 생기겠군.' },
       forgeBack: {
         '1': '칠 때마다 실력이 늘어요. 언제든 다시 와요.'
       },
@@ -3456,9 +5071,8 @@ export default {
         '2': '언제 칠지는 빛이 알려 줘. 얼마나 세게 칠지는 팔이 알려 주고. 세 번이다.',
         '1': '지상 사람이 모루 앞에? 뭐, 누구나 처음은 있지.'
       },
-      ore: {
-        '1': '좋은, 정직한 금속이군. 아이언홀드는 이런 건 꼭 값을 쳐 주지.'
-      },
+      ore: { '1': '좋은, 정직한 금속이야. 내놔 봐, 덩어리마다 값을 줄게.' },
+      sellBack: { '1': '공정한 거래야. 아이언홀드는 좋은 금속엔 늘 값을 치르지.' },
       forgeBack: {
         '1': '드워프라면 더 잘했겠지. 그래도 큰 차이는 없어.'
       },
@@ -3528,9 +5142,8 @@ export default {
         '2': '달구고, 치고, 뒤집고. 빛 한가운데에 세 번. 그다음엔 식혀.',
         '1': '판금은 인내가 필요한 일이야. 기초를 보여 주지.'
       },
-      ore: {
-        '1': '무게 좀 달아 보지. 좋아. 값은 네 거다.'
-      },
+      ore: { '1': '무게를 달아 보지. 팔 걸 골라, 돈은 내가 세지.' },
+      sellBack: { '1': '달았고, 치렀다. 좋아.' },
       forgeBack: {
         '1': '입기 전에 식혀.'
       },
@@ -3570,9 +5183,8 @@ export default {
         '2': '전장에서처럼 모루 앞에서도 규율이다. 빛에 충실하게, 세 번.',
         '1': '기사단은 벗을 무장시킨다. 내가 가르치지.'
       },
-      ore: {
-        '1': '기사단은 전쟁을 위해 모든 광석을 사들인다. 네 보수다.'
-      },
+      ore: { '1': '기사단은 전쟁을 위해 광석을 산다. 내줄 수 있는 만큼 팔게.' },
+      sellBack: { '1': '지급이 기록되었다. 기사단이 감사한다.' },
       forgeBack: {
         '1': '잘 벼렸군. 그걸 입고 충실히 복무하라.'
       },
@@ -3974,6 +5586,11 @@ export default {
       }
     },
     bark: {
+      banditChief: {
+        whistle: {
+          1: '일어나라, 녀석들아! 물어뜯어!'
+        }
+      },
       lightDisciple: {
         freed: {
           '1': '빛이 당신을 보냈군요. 저는 오렐 수녀예요. 선포드에서 저를 찾으세요, 빛의 인도자의 길을 가르쳐 드릴게요.'
@@ -4129,9 +5746,8 @@ export default {
         '2': '가장 뜨겁게 빛날 때 내리쳐. 좋은 타격 세 번이면 좋은 물건이 나와.',
         '1': '직접 망치를 쥐어 볼래? 화덕 같이 쓰는 건 괜찮아.'
       },
-      ore: {
-        '1': '좋은 광석이야. 실버브리지는 언제나 제값을 쳐 줘.'
-      },
+      ore: { '1': '예쁜 광석이네. 팔 걸 보여 줘, 덩어리마다 값을 쳐 줄게.' },
+      sellBack: { '1': '즐거웠어. 실버브리지는 늘 공정한 값을 치러.' },
       forgeBack: {
         '1': '이것 봐! 타고난 솜씨네.'
       },
@@ -4573,7 +6189,7 @@ export default {
         say: '약초는 어디서 찾아요?'
       },
       elixirs: {
-        '1': '전부 전투에서 꼬박 1분 동안 더 강하게 해 줘요. 더 센 공격, 더 단단한 피부, 더 빠른 발.',
+        '1': '전부 전투에서 꼬박 5분 동안 더 강하게 해 줘요. 더 센 공격, 더 단단한 피부, 더 빠른 발.',
         '2': '세 번째 물약병에 들어가요. 작은 화살표를 누르면 마실 걸 바꿀 수 있어요.',
         say: '엘릭서는 무슨 효과가 있어요?'
       },
@@ -4642,6 +6258,36 @@ export default {
       },
       bye: {
         '1': '잡동사니 더 가져와! 잡동사니가 제일 좋아.'
+      }
+    },
+    sunfordCups: {
+      hello: {
+        1: '어서 와요! 컵 세 개, 보석 하나, 첫 판은 공짜예요!',
+        2: '날쌘손 넬이에요. 아직 아무도 제 손을 속이지 못했죠. 해볼래요?'
+      },
+      again: {
+        1: '또 왔어요? 눈 크게 뜨세요!'
+      },
+      play: {
+        1: '보석에서 눈 떼지 마요, 친구. 깜빡이지 말고!'
+      },
+      rules: {
+        1: '보석을 컵 밑에 숨기고 컵을 섞어요. 보석이 숨은 컵을 가리키면 돼요.',
+        2: '연속으로 이길수록 더 많이 줘요. 3연승엔 상품, 5연승엔 보물이에요. 하루의 첫 판은 공짜예요.',
+        say: '어떻게 하는 거예요?'
+      },
+      who: {
+        1: '걷기도 전에 섞는 법부터 배웠어요. 엄마가 그래서 이해가 된대요.'
+      },
+      luck: {
+        1: '가끔요! 그럼 크게 신음하고, 구경꾼들이 불쌍해해요.',
+        say: '져 본 적 있어요?'
+      },
+      playBack: {
+        1: '멋진 판이었어요! 내일 또 와요, 첫 판은 언제나 공짜예요.'
+      },
+      bye: {
+        1: '또 봐요! 밖에서도 눈 크게 뜨고요.'
       }
     },
     oakGambler: {
@@ -5135,6 +6781,7 @@ export default {
     banditArcher: '도적 궁수',
     wolf: '늑대',
     banditChief: '도적 두목',
+    gnome: '노움',
     goblinKing: '고블린 왕',
     treant: '트렌트',
     spider: '거대 거미',
@@ -5352,6 +6999,18 @@ export default {
       firefoxColors: 'Firefox: 설정 → 색 → “페이지에서 지정한 색 무시”를 “안 함”으로 바꿔 주세요.'
     }
   },
+  samsungFix: {
+    title: '간단한 색상 확인',
+    body: '일부 휴대폰은 웹페이지 색상을 바꿉니다. 아래 두 사각형을 비교해 보세요.',
+    question: '두 사각형이 같아 보이나요?',
+    refSquare: '기준 사각형',
+    pageSquare: '페이지 사각형',
+    yes: '네, 같아 보여요',
+    no: '아니요, 달라 보여요',
+    option: '색상 보정 (삼성 다크 모드)',
+    optionHint: '메뉴가 어둡게 보이거나 글자를 읽기 어려우면 켜세요.',
+    recheck: '색상 확인 다시 하기'
+  },
   saveStatus: {
     restoredTitle: '클라우드 저장이 복원되었습니다',
     restoredBody: '복구 보너스 +{n} 골드',
@@ -5476,7 +7135,7 @@ export default {
   },
   forge: {
     upgrade: '강화 ({n} 골드)',
-    max: '최대 강화: +{n}.',
+    next: '다음 +{level}: 능력치 +{pct}%',
     town: '어느 마을 대장장이든 강화해 줄 수 있어요.'
   },
   ore: {
@@ -5491,6 +7150,12 @@ export default {
     },
     mithril: {
       name: '미스릴 광석'
+    },
+    adamant: {
+      name: '아다만트 광석'
+    },
+    aetherite: {
+      name: '에테라이트 광석'
     }
   },
   plant: {
@@ -5572,32 +7237,32 @@ export default {
   elixir: {
     might: {
       name: '힘의 엘릭서',
-      desc: '1분 동안 피해량 +{n}%'
+      desc: '5분 동안 피해량 +{n}%'
     },
     iron: {
       name: '무쇠 피부 물약',
-      desc: '1분 동안 방어도 +{n}%'
+      desc: '5분 동안 방어도 +{n}%'
     },
     swift: {
       name: '신속의 강장제',
-      desc: '1분 동안 이동 속도와 공격 속도 +{n}%'
+      desc: '5분 동안 이동 속도와 공격 속도 +{n}%'
     },
     mind: {
       name: '맑은 정신의 탕약',
-      desc: '1분 동안 스킬이 {n}% 더 빨리 돌아옴'
+      desc: '5분 동안 스킬이 {n}% 더 빨리 돌아옴'
     },
     vigor: {
       name: '활력의 엘릭서',
-      desc: '1분 동안 매초 체력의 {n}% 회복'
+      desc: '5분 동안 매초 체력의 {n}% 회복'
     },
     shadow: {
       name: '갈망의 물약',
-      desc: '1분 동안 준 피해의 {n}%만큼 체력 회복'
+      desc: '5분 동안 준 피해의 {n}%만큼 체력 회복'
     }
   },
   alchemy: {
     talk: '약초를 넣으면 엘릭서가 나와요. 뭘 만들어 볼까요?',
-    lead: '엘릭서는 전투에서 1분 동안 효과가 있어요. 세 번째 물약병으로 마셔요. 종류마다 {n}개까지 들 수 있어요.',
+    lead: '엘릭서는 전투에서 5분 동안 효과가 있어요. 세 번째 물약병으로 마셔요. 종류마다 {n}개까지 들 수 있어요.',
     brew: '제조 · {n}',
     carry: '이걸로 챙기기',
     carried: '물약병에 있음',
@@ -5621,6 +7286,25 @@ export default {
     again: '다시 하기',
     noGold: '걸 골드가 부족해요.',
     card: '카드 {n}'
+  },
+  cups: {
+    title: '컵 가판대',
+    lead: '보석을 보고, 그 컵을 따라가서 골라 보세요. 연속으로 이길수록 더 많이 줘요. 3연승엔 상품, 5연승엔 보물이에요.',
+    free: '무료 한 판',
+    fee: '시작 · {n}',
+    row: '연승: {n} / {max}',
+    next: '다음 승리: {n} 골드',
+    watch: '보석을 보세요!',
+    follow: '따라가세요…',
+    pick: '컵을 고르세요!',
+    hint: '컵을 탭하거나 번호 키를 누르세요.',
+    won: '찾았다! +{n} 골드',
+    lost: '그 컵이 아니에요. 연승이 초기화돼요.',
+    near: '아깝다! 바로 옆이었어요.',
+    timeout: '너무 느려요! 연승이 초기화돼요.',
+    again: '다시 하기',
+    noGold: '골드가 부족해요. 내일 첫 판은 공짜예요.',
+    cup: '컵 {n}'
   },
   battle: {
     title: '아이템 대결',

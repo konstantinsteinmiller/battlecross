@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest'
-import { fillGrid, generateArena, generateTown, generateZone, type ZonePlan } from '@/game/sim/zoneGen'
+import { fillGrid, generateArena, generateZone, type ZonePlan } from '@/game/sim/zoneGen'
+import { generateTown } from '@/game/sim/townGen'
 import { K_BRIDGE, K_CLIFF, K_FORD, K_RAMP, K_WATER } from '@/game/sim/zoneFeatures'
 import { CELL, cellOf, createGrid, findPath, isSolidAt, nearestOpen } from '@/game/sim/grid'
 import { groundY, type HeightField } from '@/game/sim/ground'

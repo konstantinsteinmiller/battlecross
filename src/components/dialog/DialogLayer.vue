@@ -2,6 +2,7 @@
   div.dialog(
     v-show="active"
     ref="root"
+    :style="artHold(held)"
     :class="[`dialog--${talk.stage}`, { 'has-list': listUp, 'has-close': canLeave }]"
   )
     div.dialog__shade(aria-hidden="true")
@@ -73,6 +74,7 @@
  * is paced by its text, with a soft blip.
  */
 import { computed, nextTick, onMounted, onUnmounted, ref, watch } from 'vue'
+import { artHold, useArtGate } from '@/use/useArtGate'
 import { useI18n } from 'vue-i18n'
 import { flow } from '@/game/flow'
 import { talk, talkLeave, talkNext, talkPick } from '@/game/talk'
@@ -98,6 +100,8 @@ const bubble = ref<InstanceType<typeof SpeechBubble> | null>(null)
 /** The conversation has the screen: no window over it (the shop it opened,
  *  the controls page, Options). */
 const active = computed(() => !!flow.talk && talk.on && !flow.modal && !isAnyModalOpen.value)
+// Each time it comes up, the conversation waits for its portraits, ~300 ms at most (D149).
+const held = useArtGate(computed(() => (active.value ? root.value : null)))
 
 const who = computed<'npc' | 'hero' | 'narrator'>(() => {
   const by = talk.line?.by
@@ -245,10 +249,13 @@ const place = (): void => {
   if (top < 0) top = 0
   el.style.transform = `translate3d(${Math.round(left)}px, ${Math.round(top)}px, 0)`
   el.style.setProperty('--tail-x', `${Math.round(Math.max(TAIL_MIN, Math.min(bw - TAIL_MIN, ax - left)))}px`)
-  el.classList.toggle('tail-up', under)
+  // Data attributes, not classes: the bubble's root has a Vue-bound `class`, and a
+  // re-render of it (the cue, the emotion) resets `className`, which would drop
+  // `placed` for a frame and make the bubble blink out.
+  el.toggleAttribute('data-tail-up', under)
   // The tail only when the bubble really is clear of whoever it points at.
-  el.classList.toggle('no-tail', !has || (under ? top < ay - 2 : top + bh > ay + 2))
-  el.classList.add('is-placed')
+  el.toggleAttribute('data-no-tail', !has || (under ? top < ay - 2 : top + bh > ay + 2))
+  el.setAttribute('data-placed', '')
 }
 
 /** The list is longer than its box (a short screen, long words): it scrolls,
@@ -424,9 +431,9 @@ onUnmounted(() => {
   max-width: min(21rem, 100%)
   visibility: hidden
   will-change: transform
-  &.is-placed
+  &[data-placed]
     visibility: visible
-  &.no-tail :deep(.bubble__tail)
+  &[data-no-tail] :deep(.bubble__tail)
     display: none
 
 // ── The speaker is not in the scene ──

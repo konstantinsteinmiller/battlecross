@@ -1,5 +1,13 @@
 // Danish locale — mirrors the key shape of en.ts exactly.
 export default {
+  // ─── The intro (#130): its skip, and its narrator's name ───
+  intro: {
+    narrator: 'Krønikeskriveren',
+    skip: 'Spring over',
+    holdKey: 'Hold {key} for at springe over',
+    holdTouch: 'Hold nede for at springe over',
+    replay: 'Se introen'
+  },
   arena: {
     allWon: 'Alle mytiske præmier er dine.',
     call: 'Historien er fortalt. Bevis nu dit build: klatr så højt du kan, og vind de mytiske præmier, ingen andre kan give dig.',
@@ -8,6 +16,20 @@ export default {
     next: 'Næste præmie ved bølge {at}: {item}',
     champion: 'Mesterbølge',
     wave: 'Bølge {n}'
+  },
+  sellOre: {
+    talk: 'God malm, fair pris. Hvor meget vil du af med?',
+    lead: 'Vælg hvor mange klumper af hver malm du sælger. Intet sælges, før du trykker på Sælg.',
+    have: 'Du har {n}',
+    each: '{n} guld stykket',
+    none: 'Ingen',
+    all: 'Alle',
+    less: '{ore}: én mindre',
+    more: '{ore}: én mere',
+    total: 'Du får: {n} guld',
+    sell: 'Sælg',
+    selectAll: 'Vælg alle',
+    empty: 'Du har ingen malm tilbage at sælge.'
   },
   smith: {
     why: {
@@ -1420,38 +1442,110 @@ export default {
     smithMasterMithrilGreaves: {
       name: 'Mesterlige mithrilbenskinner'
     },
+    smithMasterAdamantGreaves: {
+      name: 'Mesterlige adamantbenskinner'
+    },
+    smithMasterAetheriteGreaves: {
+      name: 'Mesterlige aetheritbenskinner'
+    },
     smithMithrilGreaves: {
       name: 'Mithrilbenskinner'
+    },
+    smithAdamantGreaves: {
+      name: 'Adamantbenskinner'
+    },
+    smithAetheriteGreaves: {
+      name: 'Aetheritbenskinner'
     },
     smithMasterMithrilPlate: {
       name: 'Mesterlig mithrilrustning'
     },
+    smithMasterAdamantPlate: {
+      name: 'Mesterlig adamantrustning'
+    },
+    smithMasterAetheritePlate: {
+      name: 'Mesterlig aetheritrustning'
+    },
     smithMithrilPlate: {
       name: 'Mithrilrustning'
+    },
+    smithAdamantPlate: {
+      name: 'Adamantrustning'
+    },
+    smithAetheritePlate: {
+      name: 'Aetheritrustning'
     },
     smithMasterMithrilHelm: {
       name: 'Mesterlig mithrilhjelm'
     },
+    smithMasterAdamantHelm: {
+      name: 'Mesterlig adamanthjelm'
+    },
+    smithMasterAetheriteHelm: {
+      name: 'Mesterlig aetherithjelm'
+    },
     smithMithrilHelm: {
       name: 'Mithrilhjelm'
+    },
+    smithAdamantHelm: {
+      name: 'Adamanthjelm'
+    },
+    smithAetheriteHelm: {
+      name: 'Aetherithjelm'
     },
     smithMasterMithrilShield: {
       name: 'Mesterligt mithrilskjold'
     },
+    smithMasterAdamantShield: {
+      name: 'Mesterligt adamantskjold'
+    },
+    smithMasterAetheriteShield: {
+      name: 'Mesterligt aetheritskjold'
+    },
     smithMithrilShield: {
       name: 'Mithrilskjold'
+    },
+    smithAdamantShield: {
+      name: 'Adamantskjold'
+    },
+    smithAetheriteShield: {
+      name: 'Aetheritskjold'
     },
     smithMasterMithrilHammer: {
       name: 'Mesterlig mithrilhammer'
     },
+    smithMasterAdamantHammer: {
+      name: 'Mesterlig adamanthammer'
+    },
+    smithMasterAetheriteHammer: {
+      name: 'Mesterlig aetherithammer'
+    },
     smithMithrilHammer: {
       name: 'Mithrilhammer'
+    },
+    smithAdamantHammer: {
+      name: 'Adamanthammer'
+    },
+    smithAetheriteHammer: {
+      name: 'Aetherithammer'
     },
     smithMasterMithrilSword: {
       name: 'Mesterligt mithrilsværd'
     },
+    smithMasterAdamantSword: {
+      name: 'Mesterligt adamantsværd'
+    },
+    smithMasterAetheriteSword: {
+      name: 'Mesterligt aetheritsværd'
+    },
     smithMithrilSword: {
       name: 'Mithrilsværd'
+    },
+    smithAdamantSword: {
+      name: 'Adamantsværd'
+    },
+    smithAetheriteSword: {
+      name: 'Aetheritsværd'
     },
     smithMasterGoldGreaves: {
       name: 'Mesterlige guldbenskinner'
@@ -1557,6 +1651,1086 @@ export default {
     },
     smithMasterIronSword: {
       name: 'Mesterligt jernsværd'
+    },
+    smithMasterDexIronSword: {
+      name: 'Mesterligt jerndolk · SMI'
+    },
+    smithDexIronSword: {
+      name: 'Jerndolk · SMI'
+    },
+    smithMasterDexIronHammer: {
+      name: 'Mesterligt jernrapir · SMI'
+    },
+    smithDexIronHammer: {
+      name: 'Jernrapir · SMI'
+    },
+    smithMasterDexIronShield: {
+      name: 'Mesterligt jernrundskjold · SMI'
+    },
+    smithDexIronShield: {
+      name: 'Jernrundskjold · SMI'
+    },
+    smithMasterDexIronHelm: {
+      name: 'Mesterligt jernhætte · SMI'
+    },
+    smithDexIronHelm: {
+      name: 'Jernhætte · SMI'
+    },
+    smithMasterDexIronPlate: {
+      name: 'Mesterligt jernlæderrustning · SMI'
+    },
+    smithDexIronPlate: {
+      name: 'Jernlæderrustning · SMI'
+    },
+    smithMasterDexIronGreaves: {
+      name: 'Mesterligt jernstøvler · SMI'
+    },
+    smithDexIronGreaves: {
+      name: 'Jernstøvler · SMI'
+    },
+    smithMasterDexSilverSword: {
+      name: 'Mesterligt sølvdolk · SMI'
+    },
+    smithDexSilverSword: {
+      name: 'Sølvdolk · SMI'
+    },
+    smithMasterDexSilverHammer: {
+      name: 'Mesterligt sølvrapir · SMI'
+    },
+    smithDexSilverHammer: {
+      name: 'Sølvrapir · SMI'
+    },
+    smithMasterDexSilverShield: {
+      name: 'Mesterligt sølvrundskjold · SMI'
+    },
+    smithDexSilverShield: {
+      name: 'Sølvrundskjold · SMI'
+    },
+    smithMasterDexSilverHelm: {
+      name: 'Mesterligt sølvhætte · SMI'
+    },
+    smithDexSilverHelm: {
+      name: 'Sølvhætte · SMI'
+    },
+    smithMasterDexSilverPlate: {
+      name: 'Mesterligt sølvlæderrustning · SMI'
+    },
+    smithDexSilverPlate: {
+      name: 'Sølvlæderrustning · SMI'
+    },
+    smithMasterDexSilverGreaves: {
+      name: 'Mesterligt sølvstøvler · SMI'
+    },
+    smithDexSilverGreaves: {
+      name: 'Sølvstøvler · SMI'
+    },
+    smithMasterDexGoldSword: {
+      name: 'Mesterligt gulddolk · SMI'
+    },
+    smithDexGoldSword: {
+      name: 'Gulddolk · SMI'
+    },
+    smithMasterDexGoldHammer: {
+      name: 'Mesterligt guldrapir · SMI'
+    },
+    smithDexGoldHammer: {
+      name: 'Guldrapir · SMI'
+    },
+    smithMasterDexGoldShield: {
+      name: 'Mesterligt guldrundskjold · SMI'
+    },
+    smithDexGoldShield: {
+      name: 'Guldrundskjold · SMI'
+    },
+    smithMasterDexGoldHelm: {
+      name: 'Mesterligt guldhætte · SMI'
+    },
+    smithDexGoldHelm: {
+      name: 'Guldhætte · SMI'
+    },
+    smithMasterDexGoldPlate: {
+      name: 'Mesterligt guldlæderrustning · SMI'
+    },
+    smithDexGoldPlate: {
+      name: 'Guldlæderrustning · SMI'
+    },
+    smithMasterDexGoldGreaves: {
+      name: 'Mesterligt guldstøvler · SMI'
+    },
+    smithDexGoldGreaves: {
+      name: 'Guldstøvler · SMI'
+    },
+    smithMasterDexMithrilSword: {
+      name: 'Mesterligt mithrildolk · SMI'
+    },
+    smithMasterDexAdamantSword: {
+      name: 'Mesterligt adamantdolk · SMI'
+    },
+    smithMasterDexAetheriteSword: {
+      name: 'Mesterligt aetheritdolk · SMI'
+    },
+    smithDexMithrilSword: {
+      name: 'Mithrildolk · SMI'
+    },
+    smithDexAdamantSword: {
+      name: 'Adamantdolk · SMI'
+    },
+    smithDexAetheriteSword: {
+      name: 'Aetheritdolk · SMI'
+    },
+    smithMasterDexMithrilHammer: {
+      name: 'Mesterligt mithrilrapir · SMI'
+    },
+    smithMasterDexAdamantHammer: {
+      name: 'Mesterligt adamantrapir · SMI'
+    },
+    smithMasterDexAetheriteHammer: {
+      name: 'Mesterligt aetheritrapir · SMI'
+    },
+    smithDexMithrilHammer: {
+      name: 'Mithrilrapir · SMI'
+    },
+    smithDexAdamantHammer: {
+      name: 'Adamantrapir · SMI'
+    },
+    smithDexAetheriteHammer: {
+      name: 'Aetheritrapir · SMI'
+    },
+    smithMasterDexMithrilShield: {
+      name: 'Mesterligt mithrilrundskjold · SMI'
+    },
+    smithMasterDexAdamantShield: {
+      name: 'Mesterligt adamantrundskjold · SMI'
+    },
+    smithMasterDexAetheriteShield: {
+      name: 'Mesterligt aetheritrundskjold · SMI'
+    },
+    smithDexMithrilShield: {
+      name: 'Mithrilrundskjold · SMI'
+    },
+    smithDexAdamantShield: {
+      name: 'Adamantrundskjold · SMI'
+    },
+    smithDexAetheriteShield: {
+      name: 'Aetheritrundskjold · SMI'
+    },
+    smithMasterDexMithrilHelm: {
+      name: 'Mesterligt mithrilhætte · SMI'
+    },
+    smithMasterDexAdamantHelm: {
+      name: 'Mesterligt adamanthætte · SMI'
+    },
+    smithMasterDexAetheriteHelm: {
+      name: 'Mesterligt aetherithætte · SMI'
+    },
+    smithDexMithrilHelm: {
+      name: 'Mithrilhætte · SMI'
+    },
+    smithDexAdamantHelm: {
+      name: 'Adamanthætte · SMI'
+    },
+    smithDexAetheriteHelm: {
+      name: 'Aetherithætte · SMI'
+    },
+    smithMasterDexMithrilPlate: {
+      name: 'Mesterligt mithrillæderrustning · SMI'
+    },
+    smithMasterDexAdamantPlate: {
+      name: 'Mesterligt adamantlæderrustning · SMI'
+    },
+    smithMasterDexAetheritePlate: {
+      name: 'Mesterligt aetheritlæderrustning · SMI'
+    },
+    smithDexMithrilPlate: {
+      name: 'Mithrillæderrustning · SMI'
+    },
+    smithDexAdamantPlate: {
+      name: 'Adamantlæderrustning · SMI'
+    },
+    smithDexAetheritePlate: {
+      name: 'Aetheritlæderrustning · SMI'
+    },
+    smithMasterDexMithrilGreaves: {
+      name: 'Mesterligt mithrilstøvler · SMI'
+    },
+    smithMasterDexAdamantGreaves: {
+      name: 'Mesterligt adamantstøvler · SMI'
+    },
+    smithMasterDexAetheriteGreaves: {
+      name: 'Mesterligt aetheritstøvler · SMI'
+    },
+    smithDexMithrilGreaves: {
+      name: 'Mithrilstøvler · SMI'
+    },
+    smithDexAdamantGreaves: {
+      name: 'Adamantstøvler · SMI'
+    },
+    smithDexAetheriteGreaves: {
+      name: 'Aetheritstøvler · SMI'
+    },
+    smithMasterIntIronSword: {
+      name: 'Mesterligt jerntryllestav · INT'
+    },
+    smithIntIronSword: {
+      name: 'Jerntryllestav · INT'
+    },
+    smithMasterIntIronHammer: {
+      name: 'Mesterligt jernstav · INT'
+    },
+    smithIntIronHammer: {
+      name: 'Jernstav · INT'
+    },
+    smithMasterIntIronShield: {
+      name: 'Mesterligt jernbog · INT'
+    },
+    smithIntIronShield: {
+      name: 'Jernbog · INT'
+    },
+    smithMasterIntIronHelm: {
+      name: 'Mesterligt jerndiadem · INT'
+    },
+    smithIntIronHelm: {
+      name: 'Jerndiadem · INT'
+    },
+    smithMasterIntIronPlate: {
+      name: 'Mesterligt jernkåbe · INT'
+    },
+    smithIntIronPlate: {
+      name: 'Jernkåbe · INT'
+    },
+    smithMasterIntIronGreaves: {
+      name: 'Mesterligt jernstøvler · INT'
+    },
+    smithIntIronGreaves: {
+      name: 'Jernstøvler · INT'
+    },
+    smithMasterIntSilverSword: {
+      name: 'Mesterligt sølvtryllestav · INT'
+    },
+    smithIntSilverSword: {
+      name: 'Sølvtryllestav · INT'
+    },
+    smithMasterIntSilverHammer: {
+      name: 'Mesterligt sølvstav · INT'
+    },
+    smithIntSilverHammer: {
+      name: 'Sølvstav · INT'
+    },
+    smithMasterIntSilverShield: {
+      name: 'Mesterligt sølvbog · INT'
+    },
+    smithIntSilverShield: {
+      name: 'Sølvbog · INT'
+    },
+    smithMasterIntSilverHelm: {
+      name: 'Mesterligt sølvdiadem · INT'
+    },
+    smithIntSilverHelm: {
+      name: 'Sølvdiadem · INT'
+    },
+    smithMasterIntSilverPlate: {
+      name: 'Mesterligt sølvkåbe · INT'
+    },
+    smithIntSilverPlate: {
+      name: 'Sølvkåbe · INT'
+    },
+    smithMasterIntSilverGreaves: {
+      name: 'Mesterligt sølvstøvler · INT'
+    },
+    smithIntSilverGreaves: {
+      name: 'Sølvstøvler · INT'
+    },
+    smithMasterIntGoldSword: {
+      name: 'Mesterligt guldtryllestav · INT'
+    },
+    smithIntGoldSword: {
+      name: 'Guldtryllestav · INT'
+    },
+    smithMasterIntGoldHammer: {
+      name: 'Mesterligt guldstav · INT'
+    },
+    smithIntGoldHammer: {
+      name: 'Guldstav · INT'
+    },
+    smithMasterIntGoldShield: {
+      name: 'Mesterligt guldbog · INT'
+    },
+    smithIntGoldShield: {
+      name: 'Guldbog · INT'
+    },
+    smithMasterIntGoldHelm: {
+      name: 'Mesterligt gulddiadem · INT'
+    },
+    smithIntGoldHelm: {
+      name: 'Gulddiadem · INT'
+    },
+    smithMasterIntGoldPlate: {
+      name: 'Mesterligt guldkåbe · INT'
+    },
+    smithIntGoldPlate: {
+      name: 'Guldkåbe · INT'
+    },
+    smithMasterIntGoldGreaves: {
+      name: 'Mesterligt guldstøvler · INT'
+    },
+    smithIntGoldGreaves: {
+      name: 'Guldstøvler · INT'
+    },
+    smithMasterIntMithrilSword: {
+      name: 'Mesterligt mithriltryllestav · INT'
+    },
+    smithMasterIntAdamantSword: {
+      name: 'Mesterligt adamanttryllestav · INT'
+    },
+    smithMasterIntAetheriteSword: {
+      name: 'Mesterligt aetherittryllestav · INT'
+    },
+    smithIntMithrilSword: {
+      name: 'Mithriltryllestav · INT'
+    },
+    smithIntAdamantSword: {
+      name: 'Adamanttryllestav · INT'
+    },
+    smithIntAetheriteSword: {
+      name: 'Aetherittryllestav · INT'
+    },
+    smithMasterIntMithrilHammer: {
+      name: 'Mesterligt mithrilstav · INT'
+    },
+    smithMasterIntAdamantHammer: {
+      name: 'Mesterligt adamantstav · INT'
+    },
+    smithMasterIntAetheriteHammer: {
+      name: 'Mesterligt aetheritstav · INT'
+    },
+    smithIntMithrilHammer: {
+      name: 'Mithrilstav · INT'
+    },
+    smithIntAdamantHammer: {
+      name: 'Adamantstav · INT'
+    },
+    smithIntAetheriteHammer: {
+      name: 'Aetheritstav · INT'
+    },
+    smithMasterIntMithrilShield: {
+      name: 'Mesterligt mithrilbog · INT'
+    },
+    smithMasterIntAdamantShield: {
+      name: 'Mesterligt adamantbog · INT'
+    },
+    smithMasterIntAetheriteShield: {
+      name: 'Mesterligt aetheritbog · INT'
+    },
+    smithIntMithrilShield: {
+      name: 'Mithrilbog · INT'
+    },
+    smithIntAdamantShield: {
+      name: 'Adamantbog · INT'
+    },
+    smithIntAetheriteShield: {
+      name: 'Aetheritbog · INT'
+    },
+    smithMasterIntMithrilHelm: {
+      name: 'Mesterligt mithrildiadem · INT'
+    },
+    smithMasterIntAdamantHelm: {
+      name: 'Mesterligt adamantdiadem · INT'
+    },
+    smithMasterIntAetheriteHelm: {
+      name: 'Mesterligt aetheritdiadem · INT'
+    },
+    smithIntMithrilHelm: {
+      name: 'Mithrildiadem · INT'
+    },
+    smithIntAdamantHelm: {
+      name: 'Adamantdiadem · INT'
+    },
+    smithIntAetheriteHelm: {
+      name: 'Aetheritdiadem · INT'
+    },
+    smithMasterIntMithrilPlate: {
+      name: 'Mesterligt mithrilkåbe · INT'
+    },
+    smithMasterIntAdamantPlate: {
+      name: 'Mesterligt adamantkåbe · INT'
+    },
+    smithMasterIntAetheritePlate: {
+      name: 'Mesterligt aetheritkåbe · INT'
+    },
+    smithIntMithrilPlate: {
+      name: 'Mithrilkåbe · INT'
+    },
+    smithIntAdamantPlate: {
+      name: 'Adamantkåbe · INT'
+    },
+    smithIntAetheritePlate: {
+      name: 'Aetheritkåbe · INT'
+    },
+    smithMasterIntMithrilGreaves: {
+      name: 'Mesterligt mithrilstøvler · INT'
+    },
+    smithMasterIntAdamantGreaves: {
+      name: 'Mesterligt adamantstøvler · INT'
+    },
+    smithMasterIntAetheriteGreaves: {
+      name: 'Mesterligt aetheritstøvler · INT'
+    },
+    smithIntMithrilGreaves: {
+      name: 'Mithrilstøvler · INT'
+    },
+    smithIntAdamantGreaves: {
+      name: 'Adamantstøvler · INT'
+    },
+    smithIntAetheriteGreaves: {
+      name: 'Aetheritstøvler · INT'
+    },
+    smithMasterSklIronSword: {
+      name: 'Mesterligt jernpistol · TEK'
+    },
+    smithSklIronSword: {
+      name: 'Jernpistol · TEK'
+    },
+    smithMasterSklIronHammer: {
+      name: 'Mesterligt jernriffel · TEK'
+    },
+    smithSklIronHammer: {
+      name: 'Jernriffel · TEK'
+    },
+    smithMasterSklIronShield: {
+      name: 'Mesterligt jernbatteri · TEK'
+    },
+    smithSklIronShield: {
+      name: 'Jernbatteri · TEK'
+    },
+    smithMasterSklIronHelm: {
+      name: 'Mesterligt jernkasket · TEK'
+    },
+    smithSklIronHelm: {
+      name: 'Jernkasket · TEK'
+    },
+    smithMasterSklIronPlate: {
+      name: 'Mesterligt jernsele · TEK'
+    },
+    smithSklIronPlate: {
+      name: 'Jernsele · TEK'
+    },
+    smithMasterSklIronGreaves: {
+      name: 'Mesterligt jernstøvler · TEK'
+    },
+    smithSklIronGreaves: {
+      name: 'Jernstøvler · TEK'
+    },
+    smithMasterSklSilverSword: {
+      name: 'Mesterligt sølvpistol · TEK'
+    },
+    smithSklSilverSword: {
+      name: 'Sølvpistol · TEK'
+    },
+    smithMasterSklSilverHammer: {
+      name: 'Mesterligt sølvriffel · TEK'
+    },
+    smithSklSilverHammer: {
+      name: 'Sølvriffel · TEK'
+    },
+    smithMasterSklSilverShield: {
+      name: 'Mesterligt sølvbatteri · TEK'
+    },
+    smithSklSilverShield: {
+      name: 'Sølvbatteri · TEK'
+    },
+    smithMasterSklSilverHelm: {
+      name: 'Mesterligt sølvkasket · TEK'
+    },
+    smithSklSilverHelm: {
+      name: 'Sølvkasket · TEK'
+    },
+    smithMasterSklSilverPlate: {
+      name: 'Mesterligt sølvsele · TEK'
+    },
+    smithSklSilverPlate: {
+      name: 'Sølvsele · TEK'
+    },
+    smithMasterSklSilverGreaves: {
+      name: 'Mesterligt sølvstøvler · TEK'
+    },
+    smithSklSilverGreaves: {
+      name: 'Sølvstøvler · TEK'
+    },
+    smithMasterSklGoldSword: {
+      name: 'Mesterligt guldpistol · TEK'
+    },
+    smithSklGoldSword: {
+      name: 'Guldpistol · TEK'
+    },
+    smithMasterSklGoldHammer: {
+      name: 'Mesterligt guldriffel · TEK'
+    },
+    smithSklGoldHammer: {
+      name: 'Guldriffel · TEK'
+    },
+    smithMasterSklGoldShield: {
+      name: 'Mesterligt guldbatteri · TEK'
+    },
+    smithSklGoldShield: {
+      name: 'Guldbatteri · TEK'
+    },
+    smithMasterSklGoldHelm: {
+      name: 'Mesterligt guldkasket · TEK'
+    },
+    smithSklGoldHelm: {
+      name: 'Guldkasket · TEK'
+    },
+    smithMasterSklGoldPlate: {
+      name: 'Mesterligt guldsele · TEK'
+    },
+    smithSklGoldPlate: {
+      name: 'Guldsele · TEK'
+    },
+    smithMasterSklGoldGreaves: {
+      name: 'Mesterligt guldstøvler · TEK'
+    },
+    smithSklGoldGreaves: {
+      name: 'Guldstøvler · TEK'
+    },
+    smithMasterSklMithrilSword: {
+      name: 'Mesterligt mithrilpistol · TEK'
+    },
+    smithMasterSklAdamantSword: {
+      name: 'Mesterligt adamantpistol · TEK'
+    },
+    smithMasterSklAetheriteSword: {
+      name: 'Mesterligt aetheritpistol · TEK'
+    },
+    smithSklMithrilSword: {
+      name: 'Mithrilpistol · TEK'
+    },
+    smithSklAdamantSword: {
+      name: 'Adamantpistol · TEK'
+    },
+    smithSklAetheriteSword: {
+      name: 'Aetheritpistol · TEK'
+    },
+    smithMasterSklMithrilHammer: {
+      name: 'Mesterligt mithrilriffel · TEK'
+    },
+    smithMasterSklAdamantHammer: {
+      name: 'Mesterligt adamantriffel · TEK'
+    },
+    smithMasterSklAetheriteHammer: {
+      name: 'Mesterligt aetheritriffel · TEK'
+    },
+    smithSklMithrilHammer: {
+      name: 'Mithrilriffel · TEK'
+    },
+    smithSklAdamantHammer: {
+      name: 'Adamantriffel · TEK'
+    },
+    smithSklAetheriteHammer: {
+      name: 'Aetheritriffel · TEK'
+    },
+    smithMasterSklMithrilShield: {
+      name: 'Mesterligt mithrilbatteri · TEK'
+    },
+    smithMasterSklAdamantShield: {
+      name: 'Mesterligt adamantbatteri · TEK'
+    },
+    smithMasterSklAetheriteShield: {
+      name: 'Mesterligt aetheritbatteri · TEK'
+    },
+    smithSklMithrilShield: {
+      name: 'Mithrilbatteri · TEK'
+    },
+    smithSklAdamantShield: {
+      name: 'Adamantbatteri · TEK'
+    },
+    smithSklAetheriteShield: {
+      name: 'Aetheritbatteri · TEK'
+    },
+    smithMasterSklMithrilHelm: {
+      name: 'Mesterligt mithrilkasket · TEK'
+    },
+    smithMasterSklAdamantHelm: {
+      name: 'Mesterligt adamantkasket · TEK'
+    },
+    smithMasterSklAetheriteHelm: {
+      name: 'Mesterligt aetheritkasket · TEK'
+    },
+    smithSklMithrilHelm: {
+      name: 'Mithrilkasket · TEK'
+    },
+    smithSklAdamantHelm: {
+      name: 'Adamantkasket · TEK'
+    },
+    smithSklAetheriteHelm: {
+      name: 'Aetheritkasket · TEK'
+    },
+    smithMasterSklMithrilPlate: {
+      name: 'Mesterligt mithrilsele · TEK'
+    },
+    smithMasterSklAdamantPlate: {
+      name: 'Mesterligt adamantsele · TEK'
+    },
+    smithMasterSklAetheritePlate: {
+      name: 'Mesterligt aetheritsele · TEK'
+    },
+    smithSklMithrilPlate: {
+      name: 'Mithrilsele · TEK'
+    },
+    smithSklAdamantPlate: {
+      name: 'Adamantsele · TEK'
+    },
+    smithSklAetheritePlate: {
+      name: 'Aetheritsele · TEK'
+    },
+    smithMasterSklMithrilGreaves: {
+      name: 'Mesterligt mithrilstøvler · TEK'
+    },
+    smithMasterSklAdamantGreaves: {
+      name: 'Mesterligt adamantstøvler · TEK'
+    },
+    smithMasterSklAetheriteGreaves: {
+      name: 'Mesterligt aetheritstøvler · TEK'
+    },
+    smithSklMithrilGreaves: {
+      name: 'Mithrilstøvler · TEK'
+    },
+    smithSklAdamantGreaves: {
+      name: 'Adamantstøvler · TEK'
+    },
+    smithSklAetheriteGreaves: {
+      name: 'Aetheritstøvler · TEK'
+    },
+    smithMasterChaIronSword: {
+      name: 'Mesterligt jernscepter · KAR'
+    },
+    smithChaIronSword: {
+      name: 'Jernscepter · KAR'
+    },
+    smithMasterChaIronHammer: {
+      name: 'Mesterligt jernbanner · KAR'
+    },
+    smithChaIronHammer: {
+      name: 'Jernbanner · KAR'
+    },
+    smithMasterChaIronShield: {
+      name: 'Mesterligt jernkodeks · KAR'
+    },
+    smithChaIronShield: {
+      name: 'Jernkodeks · KAR'
+    },
+    smithMasterChaIronHelm: {
+      name: 'Mesterligt jernkrone · KAR'
+    },
+    smithChaIronHelm: {
+      name: 'Jernkrone · KAR'
+    },
+    smithMasterChaIronPlate: {
+      name: 'Mesterligt jerntabard · KAR'
+    },
+    smithChaIronPlate: {
+      name: 'Jerntabard · KAR'
+    },
+    smithMasterChaIronGreaves: {
+      name: 'Mesterligt jernstøvler · KAR'
+    },
+    smithChaIronGreaves: {
+      name: 'Jernstøvler · KAR'
+    },
+    smithMasterChaSilverSword: {
+      name: 'Mesterligt sølvscepter · KAR'
+    },
+    smithChaSilverSword: {
+      name: 'Sølvscepter · KAR'
+    },
+    smithMasterChaSilverHammer: {
+      name: 'Mesterligt sølvbanner · KAR'
+    },
+    smithChaSilverHammer: {
+      name: 'Sølvbanner · KAR'
+    },
+    smithMasterChaSilverShield: {
+      name: 'Mesterligt sølvkodeks · KAR'
+    },
+    smithChaSilverShield: {
+      name: 'Sølvkodeks · KAR'
+    },
+    smithMasterChaSilverHelm: {
+      name: 'Mesterligt sølvkrone · KAR'
+    },
+    smithChaSilverHelm: {
+      name: 'Sølvkrone · KAR'
+    },
+    smithMasterChaSilverPlate: {
+      name: 'Mesterligt sølvtabard · KAR'
+    },
+    smithChaSilverPlate: {
+      name: 'Sølvtabard · KAR'
+    },
+    smithMasterChaSilverGreaves: {
+      name: 'Mesterligt sølvstøvler · KAR'
+    },
+    smithChaSilverGreaves: {
+      name: 'Sølvstøvler · KAR'
+    },
+    smithMasterChaGoldSword: {
+      name: 'Mesterligt guldscepter · KAR'
+    },
+    smithChaGoldSword: {
+      name: 'Guldscepter · KAR'
+    },
+    smithMasterChaGoldHammer: {
+      name: 'Mesterligt guldbanner · KAR'
+    },
+    smithChaGoldHammer: {
+      name: 'Guldbanner · KAR'
+    },
+    smithMasterChaGoldShield: {
+      name: 'Mesterligt guldkodeks · KAR'
+    },
+    smithChaGoldShield: {
+      name: 'Guldkodeks · KAR'
+    },
+    smithMasterChaGoldHelm: {
+      name: 'Mesterligt guldkrone · KAR'
+    },
+    smithChaGoldHelm: {
+      name: 'Guldkrone · KAR'
+    },
+    smithMasterChaGoldPlate: {
+      name: 'Mesterligt guldtabard · KAR'
+    },
+    smithChaGoldPlate: {
+      name: 'Guldtabard · KAR'
+    },
+    smithMasterChaGoldGreaves: {
+      name: 'Mesterligt guldstøvler · KAR'
+    },
+    smithChaGoldGreaves: {
+      name: 'Guldstøvler · KAR'
+    },
+    smithMasterChaMithrilSword: {
+      name: 'Mesterligt mithrilscepter · KAR'
+    },
+    smithMasterChaAdamantSword: {
+      name: 'Mesterligt adamantscepter · KAR'
+    },
+    smithMasterChaAetheriteSword: {
+      name: 'Mesterligt aetheritscepter · KAR'
+    },
+    smithChaMithrilSword: {
+      name: 'Mithrilscepter · KAR'
+    },
+    smithChaAdamantSword: {
+      name: 'Adamantscepter · KAR'
+    },
+    smithChaAetheriteSword: {
+      name: 'Aetheritscepter · KAR'
+    },
+    smithMasterChaMithrilHammer: {
+      name: 'Mesterligt mithrilbanner · KAR'
+    },
+    smithMasterChaAdamantHammer: {
+      name: 'Mesterligt adamantbanner · KAR'
+    },
+    smithMasterChaAetheriteHammer: {
+      name: 'Mesterligt aetheritbanner · KAR'
+    },
+    smithChaMithrilHammer: {
+      name: 'Mithrilbanner · KAR'
+    },
+    smithChaAdamantHammer: {
+      name: 'Adamantbanner · KAR'
+    },
+    smithChaAetheriteHammer: {
+      name: 'Aetheritbanner · KAR'
+    },
+    smithMasterChaMithrilShield: {
+      name: 'Mesterligt mithrilkodeks · KAR'
+    },
+    smithMasterChaAdamantShield: {
+      name: 'Mesterligt adamantkodeks · KAR'
+    },
+    smithMasterChaAetheriteShield: {
+      name: 'Mesterligt aetheritkodeks · KAR'
+    },
+    smithChaMithrilShield: {
+      name: 'Mithrilkodeks · KAR'
+    },
+    smithChaAdamantShield: {
+      name: 'Adamantkodeks · KAR'
+    },
+    smithChaAetheriteShield: {
+      name: 'Aetheritkodeks · KAR'
+    },
+    smithMasterChaMithrilHelm: {
+      name: 'Mesterligt mithrilkrone · KAR'
+    },
+    smithMasterChaAdamantHelm: {
+      name: 'Mesterligt adamantkrone · KAR'
+    },
+    smithMasterChaAetheriteHelm: {
+      name: 'Mesterligt aetheritkrone · KAR'
+    },
+    smithChaMithrilHelm: {
+      name: 'Mithrilkrone · KAR'
+    },
+    smithChaAdamantHelm: {
+      name: 'Adamantkrone · KAR'
+    },
+    smithChaAetheriteHelm: {
+      name: 'Aetheritkrone · KAR'
+    },
+    smithMasterChaMithrilPlate: {
+      name: 'Mesterligt mithriltabard · KAR'
+    },
+    smithMasterChaAdamantPlate: {
+      name: 'Mesterligt adamanttabard · KAR'
+    },
+    smithMasterChaAetheritePlate: {
+      name: 'Mesterligt aetherittabard · KAR'
+    },
+    smithChaMithrilPlate: {
+      name: 'Mithriltabard · KAR'
+    },
+    smithChaAdamantPlate: {
+      name: 'Adamanttabard · KAR'
+    },
+    smithChaAetheritePlate: {
+      name: 'Aetherittabard · KAR'
+    },
+    smithMasterChaMithrilGreaves: {
+      name: 'Mesterligt mithrilstøvler · KAR'
+    },
+    smithMasterChaAdamantGreaves: {
+      name: 'Mesterligt adamantstøvler · KAR'
+    },
+    smithMasterChaAetheriteGreaves: {
+      name: 'Mesterligt aetheritstøvler · KAR'
+    },
+    smithChaMithrilGreaves: {
+      name: 'Mithrilstøvler · KAR'
+    },
+    smithChaAdamantGreaves: {
+      name: 'Adamantstøvler · KAR'
+    },
+    smithChaAetheriteGreaves: {
+      name: 'Aetheritstøvler · KAR'
+    },
+    smithMasterEndIronSword: {
+      name: 'Mesterligt jernstridskølle · UDH'
+    },
+    smithEndIronSword: {
+      name: 'Jernstridskølle · UDH'
+    },
+    smithMasterEndIronHammer: {
+      name: 'Mesterligt jernøkse · UDH'
+    },
+    smithEndIronHammer: {
+      name: 'Jernøkse · UDH'
+    },
+    smithMasterEndIronShield: {
+      name: 'Mesterligt jernskjold · UDH'
+    },
+    smithEndIronShield: {
+      name: 'Jernskjold · UDH'
+    },
+    smithMasterEndIronHelm: {
+      name: 'Mesterlig jernhjelm · UDH'
+    },
+    smithEndIronHelm: {
+      name: 'Jernhjelm · UDH'
+    },
+    smithMasterEndIronPlate: {
+      name: 'Mesterlig jernrustning · UDH'
+    },
+    smithEndIronPlate: {
+      name: 'Jernrustning · UDH'
+    },
+    smithMasterEndIronGreaves: {
+      name: 'Mesterlige jernbenskinner · UDH'
+    },
+    smithEndIronGreaves: {
+      name: 'Jernbenskinner · UDH'
+    },
+    smithMasterEndSilverSword: {
+      name: 'Mesterligt sølvstridskølle · UDH'
+    },
+    smithEndSilverSword: {
+      name: 'Sølvstridskølle · UDH'
+    },
+    smithMasterEndSilverHammer: {
+      name: 'Mesterligt sølvøkse · UDH'
+    },
+    smithEndSilverHammer: {
+      name: 'Sølvøkse · UDH'
+    },
+    smithMasterEndSilverShield: {
+      name: 'Mesterligt sølvskjold · UDH'
+    },
+    smithEndSilverShield: {
+      name: 'Sølvskjold · UDH'
+    },
+    smithMasterEndSilverHelm: {
+      name: 'Mesterlig sølvhjelm · UDH'
+    },
+    smithEndSilverHelm: {
+      name: 'Sølvhjelm · UDH'
+    },
+    smithMasterEndSilverPlate: {
+      name: 'Mesterlig sølvrustning · UDH'
+    },
+    smithEndSilverPlate: {
+      name: 'Sølvrustning · UDH'
+    },
+    smithMasterEndSilverGreaves: {
+      name: 'Mesterlige sølvbenskinner · UDH'
+    },
+    smithEndSilverGreaves: {
+      name: 'Sølvbenskinner · UDH'
+    },
+    smithMasterEndGoldSword: {
+      name: 'Mesterligt guldstridskølle · UDH'
+    },
+    smithEndGoldSword: {
+      name: 'Guldstridskølle · UDH'
+    },
+    smithMasterEndGoldHammer: {
+      name: 'Mesterligt guldøkse · UDH'
+    },
+    smithEndGoldHammer: {
+      name: 'Guldøkse · UDH'
+    },
+    smithMasterEndGoldShield: {
+      name: 'Mesterligt guldskjold · UDH'
+    },
+    smithEndGoldShield: {
+      name: 'Guldskjold · UDH'
+    },
+    smithMasterEndGoldHelm: {
+      name: 'Mesterlig guldhjelm · UDH'
+    },
+    smithEndGoldHelm: {
+      name: 'Guldhjelm · UDH'
+    },
+    smithMasterEndGoldPlate: {
+      name: 'Mesterlig guldrustning · UDH'
+    },
+    smithEndGoldPlate: {
+      name: 'Guldrustning · UDH'
+    },
+    smithMasterEndGoldGreaves: {
+      name: 'Mesterlige guldbenskinner · UDH'
+    },
+    smithEndGoldGreaves: {
+      name: 'Guldbenskinner · UDH'
+    },
+    smithMasterEndMithrilSword: {
+      name: 'Mesterligt mithrilstridskølle · UDH'
+    },
+    smithMasterEndAdamantSword: {
+      name: 'Mesterligt adamantstridskølle · UDH'
+    },
+    smithMasterEndAetheriteSword: {
+      name: 'Mesterligt aetheritstridskølle · UDH'
+    },
+    smithEndMithrilSword: {
+      name: 'Mithrilstridskølle · UDH'
+    },
+    smithEndAdamantSword: {
+      name: 'Adamantstridskølle · UDH'
+    },
+    smithEndAetheriteSword: {
+      name: 'Aetheritstridskølle · UDH'
+    },
+    smithMasterEndMithrilHammer: {
+      name: 'Mesterligt mithriløkse · UDH'
+    },
+    smithMasterEndAdamantHammer: {
+      name: 'Mesterligt adamantøkse · UDH'
+    },
+    smithMasterEndAetheriteHammer: {
+      name: 'Mesterligt aetheritøkse · UDH'
+    },
+    smithEndMithrilHammer: {
+      name: 'Mithriløkse · UDH'
+    },
+    smithEndAdamantHammer: {
+      name: 'Adamantøkse · UDH'
+    },
+    smithEndAetheriteHammer: {
+      name: 'Aetheritøkse · UDH'
+    },
+    smithMasterEndMithrilShield: {
+      name: 'Mesterligt mithrilskjold · UDH'
+    },
+    smithMasterEndAdamantShield: {
+      name: 'Mesterligt adamantskjold · UDH'
+    },
+    smithMasterEndAetheriteShield: {
+      name: 'Mesterligt aetheritskjold · UDH'
+    },
+    smithEndMithrilShield: {
+      name: 'Mithrilskjold · UDH'
+    },
+    smithEndAdamantShield: {
+      name: 'Adamantskjold · UDH'
+    },
+    smithEndAetheriteShield: {
+      name: 'Aetheritskjold · UDH'
+    },
+    smithMasterEndMithrilHelm: {
+      name: 'Mesterlig mithrilhjelm · UDH'
+    },
+    smithMasterEndAdamantHelm: {
+      name: 'Mesterlig adamanthjelm · UDH'
+    },
+    smithMasterEndAetheriteHelm: {
+      name: 'Mesterlig aetherithjelm · UDH'
+    },
+    smithEndMithrilHelm: {
+      name: 'Mithrilhjelm · UDH'
+    },
+    smithEndAdamantHelm: {
+      name: 'Adamanthjelm · UDH'
+    },
+    smithEndAetheriteHelm: {
+      name: 'Aetherithjelm · UDH'
+    },
+    smithMasterEndMithrilPlate: {
+      name: 'Mesterlig mithrilrustning · UDH'
+    },
+    smithMasterEndAdamantPlate: {
+      name: 'Mesterlig adamantrustning · UDH'
+    },
+    smithMasterEndAetheritePlate: {
+      name: 'Mesterlig aetheritrustning · UDH'
+    },
+    smithEndMithrilPlate: {
+      name: 'Mithrilrustning · UDH'
+    },
+    smithEndAdamantPlate: {
+      name: 'Adamantrustning · UDH'
+    },
+    smithEndAetheritePlate: {
+      name: 'Aetheritrustning · UDH'
+    },
+    smithMasterEndMithrilGreaves: {
+      name: 'Mesterlige mithrilbenskinner · UDH'
+    },
+    smithMasterEndAdamantGreaves: {
+      name: 'Mesterlige adamantbenskinner · UDH'
+    },
+    smithMasterEndAetheriteGreaves: {
+      name: 'Mesterlige aetheritbenskinner · UDH'
+    },
+    smithEndMithrilGreaves: {
+      name: 'Mithrilbenskinner · UDH'
+    },
+    smithEndAdamantGreaves: {
+      name: 'Adamantbenskinner · UDH'
+    },
+    smithEndAetheriteGreaves: {
+      name: 'Aetheritbenskinner · UDH'
     },
     smithIronSword: {
       name: 'Jernsværd'
@@ -1777,6 +2951,414 @@ export default {
     scepterOfTheFirstKing: {
       name: 'Den første konges scepter'
     },
+    pickpocketsKnife: {
+      name: 'Lommetyvens kniv'
+    },
+    serpentsFang: {
+      name: 'Slangetand'
+    },
+    phantomRapier: {
+      name: 'Spøgelsesrapir'
+    },
+    fangOfTheWindless: {
+      name: 'Vindstillens hugtand'
+    },
+    roguesBuckler: {
+      name: 'Slyngelens buckler'
+    },
+    venomVial: {
+      name: 'Giftflaske'
+    },
+    swiftguardBuckler: {
+      name: 'Hurtigvagtens buckler'
+    },
+    nightshadeFlask: {
+      name: 'Natskyggeflaske'
+    },
+    windveilTarge: {
+      name: 'Vindslørets targe'
+    },
+    shadowdancersBuckler: {
+      name: 'Skyggedanserens buckler'
+    },
+    scoutsBandana: {
+      name: 'Spejderens bandana'
+    },
+    nightcowl: {
+      name: 'Natkappe'
+    },
+    shadowveilHood: {
+      name: 'Skyggeslørets hætte'
+    },
+    windrunnersCap: {
+      name: 'Vindløberens kasket'
+    },
+    maskOfTheSilentWind: {
+      name: 'Den tavse vinds maske'
+    },
+    rangersJerkin: {
+      name: 'Rangerens trøje'
+    },
+    nightstalkerLeathers: {
+      name: 'Natjægerens læder'
+    },
+    windridersHarness: {
+      name: 'Vindrytterens seletøj'
+    },
+    mantleOfTheShadowDancer: {
+      name: 'Skyggedanserens kappe'
+    },
+    thiefsGloves: {
+      name: 'Tyvehandsker'
+    },
+    cutpurseGloves: {
+      name: 'Pungskærerhandsker'
+    },
+    glovesOfTheGale: {
+      name: 'Stormens handsker'
+    },
+    softSoledShoes: {
+      name: 'Blødsolede sko'
+    },
+    catStepBoots: {
+      name: 'Kattetrinsstøvler'
+    },
+    shadowstepBoots: {
+      name: 'Skyggetrinsstøvler'
+    },
+    windstrideBoots: {
+      name: 'Vindtrinsstøvler'
+    },
+    luckyCoin: {
+      name: 'Lykkemønt'
+    },
+    shadowBand: {
+      name: 'Skyggering'
+    },
+    sandglassOfTheSwift: {
+      name: 'De hurtiges timeglas'
+    },
+    talonCharm: {
+      name: 'Kloamulet'
+    },
+    windheart: {
+      name: 'Vindhjerte'
+    },
+    ashwallHeater: {
+      name: 'Askemurskjold'
+    },
+    wyrmhidePavise: {
+      name: 'Drageskindspaves'
+    },
+    footmansKettleHat: {
+      name: 'Fodfolkets kogehat'
+    },
+    ironbrowSallet: {
+      name: 'Jernbrynsalade'
+    },
+    warlordsBarbute: {
+      name: 'Krigsherrens barbut'
+    },
+    helmOfTheSunderedThrone: {
+      name: 'Den knuste trones hjelm'
+    },
+    recruitsCuirass: {
+      name: 'Rekruttens kyrads'
+    },
+    stonecuttersMitts: {
+      name: 'Stenhuggerens vanter'
+    },
+    ashforgedGauntlets: {
+      name: 'Askesmedede panserhandsker'
+    },
+    warbringerGauntlets: {
+      name: 'Krigsbringerens panserhandsker'
+    },
+    titanfistGauntlets: {
+      name: 'Titanneveens panserhandsker'
+    },
+    footmansGreaves: {
+      name: 'Fodsoldatens benskinner'
+    },
+    ironshodGreaves: {
+      name: 'Jernbeslåede benskinner'
+    },
+    warlordsSabatons: {
+      name: 'Krigsherrens sabatoner'
+    },
+    greavesOfTheMountainfall: {
+      name: 'Bjergskredets benskinner'
+    },
+    sergeantsSignet: {
+      name: 'Sergentens signetring'
+    },
+    brawlersKnuckleRing: {
+      name: 'Slagsbrodrens knojern'
+    },
+    bloodiedWarMedal: {
+      name: 'Blodplettet krigsmedalje'
+    },
+    watchmansCudgel: {
+      name: 'Vogterens knippel'
+    },
+    ironboundMace: {
+      name: 'Jernbundet stridskølle'
+    },
+    stonehideCleaver: {
+      name: 'Stenhudskløver'
+    },
+    bulwarkMaul: {
+      name: 'Bastionens hammer'
+    },
+    mountainsplitterAxe: {
+      name: 'Bjergkløverøkse'
+    },
+    everstandWarmace: {
+      name: 'Urokkelig krigskølle'
+    },
+    emberwallBastion: {
+      name: 'Gløddmursbastion'
+    },
+    stonewardenHelm: {
+      name: 'Stenvogterens hjelm'
+    },
+    colossusVisage: {
+      name: 'Kolossens ansigt'
+    },
+    diggersGauntlets: {
+      name: 'Graverens panserhandsker'
+    },
+    bastionGauntlets: {
+      name: 'Bastionens panserhandsker'
+    },
+    glacierplateGauntlets: {
+      name: 'Gletsjerpladens panserhandsker'
+    },
+    gauntletsOfEndlessVigil: {
+      name: 'Den evige vagts panserhandsker'
+    },
+    hearthstoneCharm: {
+      name: 'Arnestenstalisman'
+    },
+    ironheartPendant: {
+      name: 'Jernhjertevedhæng'
+    },
+    hedgewizardsWand: {
+      name: 'Hegnstrylleres tryllestav'
+    },
+    frostglassStaff: {
+      name: 'Frostglasstav'
+    },
+    voidthreadWand: {
+      name: 'Tomhedstrådens tryllestav'
+    },
+    staffOfTheStarlessSky: {
+      name: 'Den stjerneløse himmels stav'
+    },
+    studentsGrimoire: {
+      name: 'Elevens grimoire'
+    },
+    frostfireOrb: {
+      name: 'Frostildskugle'
+    },
+    orbOfTheUnwrittenHour: {
+      name: 'Den uskrevne times kugle'
+    },
+    apprenticesPointedCap: {
+      name: 'Lærlingens spidse hue'
+    },
+    sagesCirclet: {
+      name: 'Vismandens diadem'
+    },
+    cinderWizardsHat: {
+      name: 'Askemagikerens hat'
+    },
+    voidseerCirclet: {
+      name: 'Tomhedsseerens diadem'
+    },
+    apprenticesRobe: {
+      name: 'Lærlingens kåbe'
+    },
+    cinderthreadRobe: {
+      name: 'Askestrådskåbe'
+    },
+    voidwovenRobe: {
+      name: 'Tomhedsvævet kåbe'
+    },
+    inkStainedGloves: {
+      name: 'Blækplettede handsker'
+    },
+    spellthreadGloves: {
+      name: 'Trylleformelshandsker'
+    },
+    frostweaveGloves: {
+      name: 'Frostvævede handsker'
+    },
+    starlitGloves: {
+      name: 'Stjernelyshandsker'
+    },
+    glovesOfTheLastWord: {
+      name: 'Det sidste ords handsker'
+    },
+    scribesSlippers: {
+      name: 'Skriverens tøfler'
+    },
+    moonstepSlippers: {
+      name: 'Månetrintstøfler'
+    },
+    emberstepBoots: {
+      name: 'Gløddetrinsstøvler'
+    },
+    voidwalkerBoots: {
+      name: 'Tomhedsvandrerens støvler'
+    },
+    bootsOfTheWanderingStar: {
+      name: 'Den vandrende stjernes støvler'
+    },
+    glowstonePendant: {
+      name: 'Gløddestenshængende'
+    },
+    scholarsSeal: {
+      name: 'Den lærdes segl'
+    },
+    eyeOfTheArchon: {
+      name: 'Arkontens øje'
+    },
+    cinderRepeater: {
+      name: 'Askerepetergevær'
+    },
+    glacierMortar: {
+      name: 'Gletsjerhåndmorter'
+    },
+    sparkCell: {
+      name: 'Gnistcelle'
+    },
+    arcCapacitor: {
+      name: 'Lysbuekondensator'
+    },
+    aetherheartCell: {
+      name: 'Eterhjertecelle'
+    },
+    marksmansVisor: {
+      name: 'Skyttens visir'
+    },
+    sharpshootersCap: {
+      name: 'Snigskyttens kasket'
+    },
+    gunnersHarness: {
+      name: 'Artilleristens sele'
+    },
+    steadyhandGloves: {
+      name: 'Den rolige hånds handsker'
+    },
+    gunsmithsGloves: {
+      name: 'Bøssemagerens handsker'
+    },
+    scrappersBoots: {
+      name: 'Slagsbrodrens støvler'
+    },
+    sharpshooterBoots: {
+      name: 'Snigskyttens støvler'
+    },
+    firingLineBoots: {
+      name: 'Ildlinjens støvler'
+    },
+    steadyfootBoots: {
+      name: 'Fastfodens støvler'
+    },
+    aetherstepBoots: {
+      name: 'Eterskridtsstøvler'
+    },
+    bootsOfTheLastShot: {
+      name: 'Sidste skuds støvler'
+    },
+    brassCartridgeCharm: {
+      name: 'Messingpatronstalisman'
+    },
+    deadEyeLens: {
+      name: 'Dødsblikkets linse'
+    },
+    eagleEyeScope: {
+      name: 'Ørneøjets kikkert'
+    },
+    criersBaton: {
+      name: 'Udråberens stav'
+    },
+    droversStandard: {
+      name: 'Driverens standar'
+    },
+    marshalsSceptre: {
+      name: 'Marskalkens scepter'
+    },
+    balladBook: {
+      name: 'Balladebog'
+    },
+    chronicleOfHeroes: {
+      name: 'Heltenes krønike'
+    },
+    psalterOfTheHost: {
+      name: 'Hærens salmebog'
+    },
+    tomeOfEternalReign: {
+      name: 'Det evige herredømmes bind'
+    },
+    heraldsCap: {
+      name: 'Heroldens kasket'
+    },
+    singersCirclet: {
+      name: 'Sangerens diadem'
+    },
+    diademOfTenThousandVoices: {
+      name: 'De ti tusinde stemmers diadem'
+    },
+    travelersWaistcoat: {
+      name: 'Rejsendes vest'
+    },
+    minstrelsMotley: {
+      name: 'Spillemandens lappede dragt'
+    },
+    troubadoursCoat: {
+      name: 'Troubadourens frakke'
+    },
+    marshalsGreatcoat: {
+      name: 'Marskalkens frakke'
+    },
+    buskersGloves: {
+      name: 'Gademusikantens handsker'
+    },
+    drummersGloves: {
+      name: 'Trommeslagerens handsker'
+    },
+    standardBearersGloves: {
+      name: 'Fanebærerens handsker'
+    },
+    gildedParadeGloves: {
+      name: 'Forgyldte paradehandsker'
+    },
+    glovesOfTheCrownedHand: {
+      name: 'Den kronede hånds handsker'
+    },
+    wayfarersShoes: {
+      name: 'Vandrerens sko'
+    },
+    troubadourBoots: {
+      name: 'Troubadourens støvler'
+    },
+    heraldsRidingBoots: {
+      name: 'Heroldens ridestøvler'
+    },
+    paradeBoots: {
+      name: 'Paradestøvler'
+    },
+    bootsOfTheLongProcession: {
+      name: 'Den lange procession støvler'
+    },
+    silverWhistle: {
+      name: 'Sølvfløjte'
+    },
+    gatheringHorn: {
+      name: 'Samlingshorn'
+    },
     heartOfTheMountain: {
       name: 'Bjergets hjerte'
     },
@@ -1880,6 +3462,9 @@ export default {
     freedPeddler: {
       talk: 'Alt, hvad en rejsende har brug for. Næsten nyt, for det meste.',
       name: 'Odo Marrow'
+    },
+    sfShadowRoad: {
+      name: 'Nettle Quickhand'
     },
     sfShadow: {
       name: 'Nettle Quickhand'
@@ -2034,6 +3619,9 @@ export default {
     sunfordGambler: {
       name: 'Dob Kolbøtte'
     },
+    sunfordCups: {
+      name: 'Nell Nimblefingers'
+    },
     oakGambler: {
       name: 'Silkebløde Ren'
     },
@@ -2145,6 +3733,13 @@ export default {
     }
   },
   dlg: {
+    intro: {
+      crossing: { 1: 'Hver vej i denne verden mødes ved en korsvej… og hver korsvej er et slag.' },
+      hero: { 1: 'Fra Sunfords stille marker drog en ung helt af sted.' },
+      fire: { 1: 'Ilden svarede på kaldet. Stålet lærte et nyt navn.' },
+      foes: { 1: 'Goblinkonger, frostjarler, en tomhedens drage… og Ærkedæmonen.' },
+      begin: { 1: 'Din legende begynder nu.' }
+    },
     frostDisciple: {
       bye: {
         '1': 'Hold dig varm.'
@@ -2339,6 +3934,23 @@ export default {
       hello: {
         '2': 'Odo Marrow, til tjeneste. Kræmmer, kedelflikker og en meget taknemmelig mand.',
         '1': 'Dig! Det var dig, der åbnede buret! Jeg var rådnet op derinde.'
+      }
+    },
+    sfShadowRoad: {
+      hello: {
+        '1': 'Teleportering. Interesseret?'
+      },
+      again: {
+        '1': 'Tilbage efter endnu et trick?'
+      },
+      train: {
+        '1': 'Se godt efter. Ét skridt, og du er et andet sted.'
+      },
+      trainBack: {
+        '1': 'Godt. Gå nu og vær et andet sted.'
+      },
+      bye: {
+        '1': 'Lad dig ikke fange.'
       }
     },
     sfShadow: {
@@ -2593,9 +4205,8 @@ export default {
         '2': 'Slå, når metallet gløder klarest. Rammer du ved siden af, er det skrot. Kom så.',
         '1': 'Smedning? Hm. Hold hammeren sådan her, ikke som en kølle.'
       },
-      ore: {
-        '1': 'Klumper, hva\'? Jeg tager dem alle. Ærlig vægt, ærlig mønt.'
-      },
+      ore: { '1': 'Malm, hva? Vis mig. Jeg betaler per klump, ærlig vægt.' },
+      sellBack: { '1': 'Ærlig vægt, ærlig mønt. Kom med mere, når du finder det.' },
       forgeBack: {
         '1': 'Ikke dårligt. Heller ikke godt. Bliv ved.'
       },
@@ -2878,7 +4489,7 @@ export default {
       },
       map: {
         '1': 'Kaptajn Rooks kort! Han rev det i stykker og gemte stykkerne, før goblins fik fat i ham.',
-        '2': 'Find alle seks, så viser krydset vejen: et sted i Askeklipperne. Grav der, så er guldet dit.',
+        '2': 'Find seks af dem, der ligger et par stykker mere rundt omkring, så viser krydset vejen: et sted i Askeklipperne. Grav der, så er guldet dit.',
         say: 'Jeg har fundet et stykke af et gammelt kort.'
       }
     },
@@ -2895,6 +4506,9 @@ export default {
       },
       mana: {
         '1': 'Den her er bitter. Drik den, når dine besværgelser løber tør.'
+      },
+      brew: {
+        '1': 'Lad mig se dine urter. Jeg blander noget, der smager bedre end min mana-tonic.'
       },
       potions: {
         '1': 'Du tager et par flasker med ind i hver kamp. Drik, før du har brug for det, ikke bagefter.',
@@ -2914,6 +4528,9 @@ export default {
       },
       healBack: {
         '1': 'Hold bæltet fyldt og hovedet nede.'
+      },
+      brewBack: {
+        '1': 'Pas på, de er varme. Drik dem ikke alle på én gang.'
       },
       bye: {
         '1': 'Pas på dig selv derude.'
@@ -3015,9 +4632,8 @@ export default {
         '2': 'Hold øje med gløden. Slå i dens hjerte, tre gange, så husker metallet.',
         '1': 'Vil du lære faget? Godt. Oakhaven har brug for hver en hammer.'
       },
-      ore: {
-        '1': 'Rå malm! Rustkammeret har aldrig nok. Her er din betaling.'
-      },
+      ore: { '1': 'Rå malm! Våbenkammeret har aldrig nok. Sælg mig, hvad du kan undvære.' },
+      sellBack: { '1': 'Hver klump går i muren. Tak.' },
       forgeBack: {
         '1': 'Godt stål. Murene takker dig.'
       },
@@ -3058,9 +4674,8 @@ export default {
         '2': 'Tre slag, hvert i hjertet af gløden. Det er hele hemmeligheden.',
         '1': 'Siden belejringen lærer jeg alle, der spørger. Kom, stil dig her.'
       },
-      ore: {
-        '1': 'Mere malm til murene? Velsigne dig. Her, tag det her.'
-      },
+      ore: { '1': 'Mere malm til murene? Jeg betaler for hver klump, du kan undvære.' },
+      sellBack: { '1': 'Velsignet være du. Det er flere plader til murene.' },
       forgeBack: {
         '1': 'Hvert slag gør dig bedre. Kom igen når som helst.'
       },
@@ -3456,9 +5071,8 @@ export default {
         '2': 'Gløden siger hvornår. Armen siger hvor hårdt. Tre slag.',
         '1': 'En overfladebo ved ambolten? Nå, alle starter et sted.'
       },
-      ore: {
-        '1': 'Godt, ærligt metal. Ironhold betaler altid for den slags.'
-      },
+      ore: { '1': 'Godt, ærligt metal. Læg det frem, jeg betaler per klump.' },
+      sellBack: { '1': 'Fair handel. Ironhold betaler altid for godt metal.' },
       forgeBack: {
         '1': 'En dværg ville have gjort det bedre. Men ikke meget.'
       },
@@ -3528,9 +5142,8 @@ export default {
         '2': 'Varm, slå, vend. Tre slag, lige i gløden. Lad den så køle af.',
         '1': 'Plade er tålmodigt arbejde. Jeg viser dig det grundlæggende.'
       },
-      ore: {
-        '1': 'Lad mig veje den. Godt. Mønterne er dine.'
-      },
+      ore: { '1': 'Lad mig veje det. Vælg, hvad du sælger, så tæller jeg mønterne.' },
+      sellBack: { '1': 'Vejet og betalt. Godt.' },
       forgeBack: {
         '1': 'Lad den køle af, før du tager den på.'
       },
@@ -3570,9 +5183,8 @@ export default {
         '2': 'Disciplin ved ambolten, som på slagmarken. Tre slag, tro mod gløden.',
         '1': 'Ordenen væbner sine venner. Jeg vil lære dig det.'
       },
-      ore: {
-        '1': 'Ordenen køber al malm til krigen. Din betaling.'
-      },
+      ore: { '1': 'Ordenen køber malm til krigen. Sælg, hvad du kan undvære.' },
+      sellBack: { '1': 'Din betaling er noteret. Ordenen takker dig.' },
       forgeBack: {
         '1': 'Godt smedet. Tjen godt i den.'
       },
@@ -3974,6 +5586,11 @@ export default {
       }
     },
     bark: {
+      banditChief: {
+        whistle: {
+          1: 'Op, drenge! Bid dem!'
+        }
+      },
       lightDisciple: {
         freed: {
           '1': 'Lyset sendte dig. Jeg er Søster Aurelle. Find mig i Sunford, så lærer jeg dig Lysbringerens vej.'
@@ -4129,9 +5746,8 @@ export default {
         '2': 'Slå, når gløden er varmest. Tre gode slag giver et godt stykke.',
         '1': 'Vil du selv prøve hammeren? Jeg deler gerne smedjen.'
       },
-      ore: {
-        '1': 'Dejlig malm. Silverbridge betaler altid en fair pris.'
-      },
+      ore: { '1': 'Dejlig malm. Vis mig, hvad du sælger, jeg betaler per klump.' },
+      sellBack: { '1': 'Fornøjelsen er min. Silverbridge betaler altid en fair pris.' },
       forgeBack: {
         '1': 'Se lige der! Du er et naturtalent.'
       },
@@ -4573,7 +6189,7 @@ export default {
         say: 'Hvor finder jeg urter?'
       },
       elixirs: {
-        '1': 'Hver af dem gør dig stærkere i en kamp i et helt minut. Hårdere slag, sejere hud, kvikkere fødder.',
+        '1': 'Hver af dem gør dig stærkere i en kamp i 5 hele minutter. Hårdere slag, sejere hud, kvikkere fødder.',
         '2': 'De sidder i din tredje flaske. Tryk på den lille pil for at skifte, hvilken du drikker.',
         say: 'Hvad gør eliksirerne?'
       },
@@ -4642,6 +6258,36 @@ export default {
       },
       bye: {
         '1': 'Kom med mere skrammel! Skrammel er det bedste, jeg ved.'
+      }
+    },
+    sunfordCups: {
+      hello: {
+        1: 'Kom nærmere! Tre bægre, en ædelsten, og din første runde er gratis!',
+        2: 'Nell Nimblefingers. Ingen har endnu snydt mine hænder. Vil du prøve?'
+      },
+      again: {
+        1: 'Tilbage igen? Hold øjnene åbne!'
+      },
+      play: {
+        1: 'Øjnene på stenen, ven. Du må ikke blinke!'
+      },
+      rules: {
+        1: 'Jeg gemmer stenen under et bæger og blander dem. Du peger på det bæger, der gemmer den.',
+        2: 'Hver sejr i træk giver mere. Tre sejre giver en præmie, fem en skat. Dagens første runde er gratis.',
+        say: 'Hvordan virker det?'
+      },
+      who: {
+        1: 'Jeg kunne blande, før jeg kunne gå. Mor siger, det forklarer meget.'
+      },
+      luck: {
+        1: 'Nogle gange! Så stønner jeg højt, og publikum får ondt af mig.',
+        say: 'Taber du nogensinde?'
+      },
+      playBack: {
+        1: 'Fin runde! Kom igen i morgen, den første er altid gratis.'
+      },
+      bye: {
+        1: 'Vi ses! Hold øjnene åbne derude.'
       }
     },
     oakGambler: {
@@ -5135,6 +6781,7 @@ export default {
     banditArcher: 'Banditbueskytte',
     wolf: 'Ulv',
     banditChief: 'Bandithøvding',
+    gnome: 'Nisse',
     goblinKing: 'Goblinkongen',
     treant: 'Trævæsen',
     spider: 'Kæmpeedderkop',
@@ -5352,6 +6999,18 @@ export default {
       firefoxColors: 'Firefox: Indstillinger → Farver → sæt «Tilsidesæt farverne angivet af siden» til Aldrig.'
     }
   },
+  samsungFix: {
+    title: 'Hurtig farvetest',
+    body: 'Nogle telefoner ændrer farverne på websider. Sammenlign de to firkanter nedenfor.',
+    question: 'Ser begge firkanter ens ud?',
+    refSquare: 'Referencefirkant',
+    pageSquare: 'Sidens firkant',
+    yes: 'Ja, de ser ens ud',
+    no: 'Nej, de ser forskellige ud',
+    option: 'Ret farver (Samsungs mørke tilstand)',
+    optionHint: 'Slå til, hvis menuerne ser mørke ud, eller teksten er svær at læse.',
+    recheck: 'Kør farvetesten igen'
+  },
   saveStatus: {
     restoredTitle: 'Skygemning gendannet',
     restoredBody: '+{n} bonusguld for gendannelsen',
@@ -5476,7 +7135,7 @@ export default {
   },
   forge: {
     upgrade: 'Opgrader ({n} guld)',
-    max: 'Fuldt opgraderet: +{n}.',
+    next: 'Næste +{level}: +{pct}% stats',
     town: 'Smeden i enhver by kan opgradere den.'
   },
   ore: {
@@ -5491,6 +7150,12 @@ export default {
     },
     mithril: {
       name: 'Mithrilmalm'
+    },
+    adamant: {
+      name: 'Adamantmalm'
+    },
+    aetherite: {
+      name: 'Aetheritmalm'
     }
   },
   plant: {
@@ -5572,32 +7237,32 @@ export default {
   elixir: {
     might: {
       name: 'Styrkeeliksir',
-      desc: '+{n}% skade i et minut'
+      desc: '+{n}% skade i 5 minutter'
     },
     iron: {
       name: 'Jernhudsdrik',
-      desc: '+{n}% rustning i et minut'
+      desc: '+{n}% rustning i 5 minutter'
     },
     swift: {
       name: 'Hurtighedstonic',
-      desc: '+{n}% fart og angrebsfart i et minut'
+      desc: '+{n}% fart og angrebsfart i 5 minutter'
     },
     mind: {
       name: 'Klarsindsbryg',
-      desc: 'Evner kommer {n}% hurtigere tilbage i et minut'
+      desc: 'Evner kommer {n}% hurtigere tilbage i 5 minutter'
     },
     vigor: {
       name: 'Livskraftseliksir',
-      desc: 'Heler {n}% af dit liv hvert sekund i et minut'
+      desc: 'Heler {n}% af dit liv hvert sekund i 5 minutter'
     },
     shadow: {
       name: 'Tørstende drik',
-      desc: 'Dine slag heler dig for {n}% af deres skade i et minut'
+      desc: 'Dine slag heler dig for {n}% af deres skade i 5 minutter'
     }
   },
   alchemy: {
     talk: 'Urter ind, eliksirer ud. Hvilken skal vi brygge?',
-    lead: 'Hver eliksir virker i et minut i en kamp. Drik den fra din tredje flaske. Du kan bære {n} af hver.',
+    lead: 'Hver eliksir virker i 5 minutter i en kamp. Drik den fra din tredje flaske. Du kan bære {n} af hver.',
     brew: 'Bryg · {n}',
     carry: 'Bær denne',
     carried: 'I din flaske',
@@ -5621,6 +7286,25 @@ export default {
     again: 'Spil igen',
     noGold: 'Ikke nok guld til den indsats.',
     card: 'Kort {n}'
+  },
+  cups: {
+    title: 'Bægerboden',
+    lead: 'Se på stenen, følg dens bæger og peg så på det. Hver sejr i træk giver mere. Den tredje giver en præmiegenstand, den femte en skat.',
+    free: 'Gratis runde',
+    fee: 'Spil · {n}',
+    row: 'Sejre i træk: {n} af {max}',
+    next: 'Næste sejr: {n} guld',
+    watch: 'Se på stenen!',
+    follow: 'Følg den…',
+    pick: 'Vælg et bæger!',
+    hint: 'Tryk på et bæger, eller tryk på dets nummer.',
+    won: 'Fundet! +{n} guld',
+    lost: 'Ikke det. Rækken starter forfra.',
+    near: 'Så tæt på! Den lå lige ved siden af.',
+    timeout: 'For langsomt! Rækken starter forfra.',
+    again: 'Spil igen',
+    noGold: 'Ikke nok guld. I morgen er din første runde gratis.',
+    cup: 'Bæger {n}'
   },
   battle: {
     title: 'Tingduel',

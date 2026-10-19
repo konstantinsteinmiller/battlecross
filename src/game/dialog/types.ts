@@ -101,7 +101,7 @@ export interface BlockDef {
 }
 
 /** The windows a conversation hands over to (and comes back from). */
-export type TalkWindow = 'shop' | 'trainer' | 'healer' | 'alchemy' | 'memory' | 'itemBattle' | 'smithing'
+export type TalkWindow = 'shop' | 'trainer' | 'healer' | 'alchemy' | 'memory' | 'itemBattle' | 'cups' | 'smithing' | 'sellOre'
 
 export type Effect =
   /** Remember something beyond the topic itself. */
@@ -116,8 +116,7 @@ export type Effect =
   | { t: 'decide'; quest: string; choice: string }
   /** An errand taken on, or handed in (roadmap #85, #86, #89). */
   | { t: 'errand'; id: string; act: 'start' | 'complete' }
-  /** A smith buys the whole ore pouch (#99), and teaches smithing. */
-  | { t: 'sellOre' }
+  /** A smith teaches smithing (#99). */
   | { t: 'learnSmith' }
 
 /** Something sold inside a conversation (a mana potion): the game's rule says
@@ -213,7 +212,6 @@ export interface DialogHost {
   buy(id: string): boolean
   /** Take an errand on, or hand it in. False when the rules refuse. */
   errand(id: string, act: 'start' | 'complete'): boolean
-  /** Sell the ore pouch to the smith (#99); learn smithing. */
-  sellOre(): void
+  /** Learn smithing from a smith (#99). */
   learnSmith(): void
 }

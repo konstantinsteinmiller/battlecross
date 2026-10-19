@@ -1,5 +1,13 @@
 // Ukrainian (uk) bundle — mirrors the key shape of en.ts exactly.
 export default {
+  // ─── The intro (#130): its skip, and its narrator's name ───
+  intro: {
+    narrator: 'Літописець',
+    skip: 'Пропустити',
+    holdKey: 'Утримуйте {key}, щоб пропустити',
+    holdTouch: 'Утримуйте, щоб пропустити',
+    replay: 'Переглянути вступ'
+  },
   arena: {
     allWon: 'Усі міфічні призи здобуто.',
     call: 'Історію розказано. Тепер доведи свій білд: піднімися якомога вище й здобудь міфічні призи, яких тобі більше ніхто не дасть.',
@@ -8,6 +16,20 @@ export default {
     next: 'Наступний приз на хвилі {at}: {item}',
     champion: 'Хвиля чемпіона',
     wave: 'Хвиля {n}'
+  },
+  sellOre: {
+    talk: 'Добра руда, чесна ціна. Скільки продаси?',
+    lead: 'Обери, скільки самородків кожної руди продати. Нічого не продається, доки не натиснеш «Продати».',
+    have: 'У тебе {n}',
+    each: '{n} зол. за штуку',
+    none: 'Нічого',
+    all: 'Усе',
+    less: '{ore}: на один менше',
+    more: '{ore}: на один більше',
+    total: 'Отримаєш: {n} зол.',
+    sell: 'Продати',
+    selectAll: 'Вибрати все',
+    empty: 'У тебе не лишилося руди на продаж.'
   },
   smith: {
     why: {
@@ -1421,38 +1443,110 @@ export default {
     smithMasterMithrilGreaves: {
       name: 'Мітрилові наголінники майстерної роботи'
     },
+    smithMasterAdamantGreaves: {
+      name: 'Адамантові наголінники майстерної роботи'
+    },
+    smithMasterAetheriteGreaves: {
+      name: 'Ефіритові наголінники майстерної роботи'
+    },
     smithMithrilGreaves: {
       name: 'Мітрилові наголінники'
+    },
+    smithAdamantGreaves: {
+      name: 'Адамантові наголінники'
+    },
+    smithAetheriteGreaves: {
+      name: 'Ефіритові наголінники'
     },
     smithMasterMithrilPlate: {
       name: 'Мітрилові лати майстерної роботи'
     },
+    smithMasterAdamantPlate: {
+      name: 'Адамантові лати майстерної роботи'
+    },
+    smithMasterAetheritePlate: {
+      name: 'Ефіритові лати майстерної роботи'
+    },
     smithMithrilPlate: {
       name: 'Мітрилові лати'
+    },
+    smithAdamantPlate: {
+      name: 'Адамантові лати'
+    },
+    smithAetheritePlate: {
+      name: 'Ефіритові лати'
     },
     smithMasterMithrilHelm: {
       name: 'Мітриловий шолом майстерної роботи'
     },
+    smithMasterAdamantHelm: {
+      name: 'Адамантовий шолом майстерної роботи'
+    },
+    smithMasterAetheriteHelm: {
+      name: 'Ефіритовий шолом майстерної роботи'
+    },
     smithMithrilHelm: {
       name: 'Мітриловий шолом'
+    },
+    smithAdamantHelm: {
+      name: 'Адамантовий шолом'
+    },
+    smithAetheriteHelm: {
+      name: 'Ефіритовий шолом'
     },
     smithMasterMithrilShield: {
       name: 'Мітриловий щит майстерної роботи'
     },
+    smithMasterAdamantShield: {
+      name: 'Адамантовий щит майстерної роботи'
+    },
+    smithMasterAetheriteShield: {
+      name: 'Ефіритовий щит майстерної роботи'
+    },
     smithMithrilShield: {
       name: 'Мітриловий щит'
+    },
+    smithAdamantShield: {
+      name: 'Адамантовий щит'
+    },
+    smithAetheriteShield: {
+      name: 'Ефіритовий щит'
     },
     smithMasterMithrilHammer: {
       name: 'Мітриловий молот майстерної роботи'
     },
+    smithMasterAdamantHammer: {
+      name: 'Адамантовий молот майстерної роботи'
+    },
+    smithMasterAetheriteHammer: {
+      name: 'Ефіритовий молот майстерної роботи'
+    },
     smithMithrilHammer: {
       name: 'Мітриловий молот'
+    },
+    smithAdamantHammer: {
+      name: 'Адамантовий молот'
+    },
+    smithAetheriteHammer: {
+      name: 'Ефіритовий молот'
     },
     smithMasterMithrilSword: {
       name: 'Мітриловий меч майстерної роботи'
     },
+    smithMasterAdamantSword: {
+      name: 'Адамантовий меч майстерної роботи'
+    },
+    smithMasterAetheriteSword: {
+      name: 'Ефіритовий меч майстерної роботи'
+    },
     smithMithrilSword: {
       name: 'Мітриловий меч'
+    },
+    smithAdamantSword: {
+      name: 'Адамантовий меч'
+    },
+    smithAetheriteSword: {
+      name: 'Ефіритовий меч'
     },
     smithMasterGoldGreaves: {
       name: 'Золоті наголінники майстерної роботи'
@@ -1558,6 +1652,1086 @@ export default {
     },
     smithMasterIronSword: {
       name: 'Залізний меч майстерної роботи'
+    },
+    smithMasterDexIronSword: {
+      name: 'Кинджал із заліза майстерної роботи · СПР'
+    },
+    smithDexIronSword: {
+      name: 'Кинджал із заліза · СПР'
+    },
+    smithMasterDexIronHammer: {
+      name: 'Рапіра із заліза майстерної роботи · СПР'
+    },
+    smithDexIronHammer: {
+      name: 'Рапіра із заліза · СПР'
+    },
+    smithMasterDexIronShield: {
+      name: 'Баклер із заліза майстерної роботи · СПР'
+    },
+    smithDexIronShield: {
+      name: 'Баклер із заліза · СПР'
+    },
+    smithMasterDexIronHelm: {
+      name: 'Каптур із заліза майстерної роботи · СПР'
+    },
+    smithDexIronHelm: {
+      name: 'Каптур із заліза · СПР'
+    },
+    smithMasterDexIronPlate: {
+      name: 'Шкіряна броня із заліза майстерної роботи · СПР'
+    },
+    smithDexIronPlate: {
+      name: 'Шкіряна броня із заліза · СПР'
+    },
+    smithMasterDexIronGreaves: {
+      name: 'Чоботи із заліза майстерної роботи · СПР'
+    },
+    smithDexIronGreaves: {
+      name: 'Чоботи із заліза · СПР'
+    },
+    smithMasterDexSilverSword: {
+      name: 'Кинджал зі срібла майстерної роботи · СПР'
+    },
+    smithDexSilverSword: {
+      name: 'Кинджал зі срібла · СПР'
+    },
+    smithMasterDexSilverHammer: {
+      name: 'Рапіра зі срібла майстерної роботи · СПР'
+    },
+    smithDexSilverHammer: {
+      name: 'Рапіра зі срібла · СПР'
+    },
+    smithMasterDexSilverShield: {
+      name: 'Баклер зі срібла майстерної роботи · СПР'
+    },
+    smithDexSilverShield: {
+      name: 'Баклер зі срібла · СПР'
+    },
+    smithMasterDexSilverHelm: {
+      name: 'Каптур зі срібла майстерної роботи · СПР'
+    },
+    smithDexSilverHelm: {
+      name: 'Каптур зі срібла · СПР'
+    },
+    smithMasterDexSilverPlate: {
+      name: 'Шкіряна броня зі срібла майстерної роботи · СПР'
+    },
+    smithDexSilverPlate: {
+      name: 'Шкіряна броня зі срібла · СПР'
+    },
+    smithMasterDexSilverGreaves: {
+      name: 'Чоботи зі срібла майстерної роботи · СПР'
+    },
+    smithDexSilverGreaves: {
+      name: 'Чоботи зі срібла · СПР'
+    },
+    smithMasterDexGoldSword: {
+      name: 'Кинджал із золота майстерної роботи · СПР'
+    },
+    smithDexGoldSword: {
+      name: 'Кинджал із золота · СПР'
+    },
+    smithMasterDexGoldHammer: {
+      name: 'Рапіра із золота майстерної роботи · СПР'
+    },
+    smithDexGoldHammer: {
+      name: 'Рапіра із золота · СПР'
+    },
+    smithMasterDexGoldShield: {
+      name: 'Баклер із золота майстерної роботи · СПР'
+    },
+    smithDexGoldShield: {
+      name: 'Баклер із золота · СПР'
+    },
+    smithMasterDexGoldHelm: {
+      name: 'Каптур із золота майстерної роботи · СПР'
+    },
+    smithDexGoldHelm: {
+      name: 'Каптур із золота · СПР'
+    },
+    smithMasterDexGoldPlate: {
+      name: 'Шкіряна броня із золота майстерної роботи · СПР'
+    },
+    smithDexGoldPlate: {
+      name: 'Шкіряна броня із золота · СПР'
+    },
+    smithMasterDexGoldGreaves: {
+      name: 'Чоботи із золота майстерної роботи · СПР'
+    },
+    smithDexGoldGreaves: {
+      name: 'Чоботи із золота · СПР'
+    },
+    smithMasterDexMithrilSword: {
+      name: 'Кинджал з міфрилу майстерної роботи · СПР'
+    },
+    smithMasterDexAdamantSword: {
+      name: 'Кинджал з адаманту майстерної роботи · СПР'
+    },
+    smithMasterDexAetheriteSword: {
+      name: 'Кинджал з ефіриту майстерної роботи · СПР'
+    },
+    smithDexMithrilSword: {
+      name: 'Кинджал з міфрилу · СПР'
+    },
+    smithDexAdamantSword: {
+      name: 'Кинджал з адаманту · СПР'
+    },
+    smithDexAetheriteSword: {
+      name: 'Кинджал з ефіриту · СПР'
+    },
+    smithMasterDexMithrilHammer: {
+      name: 'Рапіра з міфрилу майстерної роботи · СПР'
+    },
+    smithMasterDexAdamantHammer: {
+      name: 'Рапіра з адаманту майстерної роботи · СПР'
+    },
+    smithMasterDexAetheriteHammer: {
+      name: 'Рапіра з ефіриту майстерної роботи · СПР'
+    },
+    smithDexMithrilHammer: {
+      name: 'Рапіра з міфрилу · СПР'
+    },
+    smithDexAdamantHammer: {
+      name: 'Рапіра з адаманту · СПР'
+    },
+    smithDexAetheriteHammer: {
+      name: 'Рапіра з ефіриту · СПР'
+    },
+    smithMasterDexMithrilShield: {
+      name: 'Баклер з міфрилу майстерної роботи · СПР'
+    },
+    smithMasterDexAdamantShield: {
+      name: 'Баклер з адаманту майстерної роботи · СПР'
+    },
+    smithMasterDexAetheriteShield: {
+      name: 'Баклер з ефіриту майстерної роботи · СПР'
+    },
+    smithDexMithrilShield: {
+      name: 'Баклер з міфрилу · СПР'
+    },
+    smithDexAdamantShield: {
+      name: 'Баклер з адаманту · СПР'
+    },
+    smithDexAetheriteShield: {
+      name: 'Баклер з ефіриту · СПР'
+    },
+    smithMasterDexMithrilHelm: {
+      name: 'Каптур з міфрилу майстерної роботи · СПР'
+    },
+    smithMasterDexAdamantHelm: {
+      name: 'Каптур з адаманту майстерної роботи · СПР'
+    },
+    smithMasterDexAetheriteHelm: {
+      name: 'Каптур з ефіриту майстерної роботи · СПР'
+    },
+    smithDexMithrilHelm: {
+      name: 'Каптур з міфрилу · СПР'
+    },
+    smithDexAdamantHelm: {
+      name: 'Каптур з адаманту · СПР'
+    },
+    smithDexAetheriteHelm: {
+      name: 'Каптур з ефіриту · СПР'
+    },
+    smithMasterDexMithrilPlate: {
+      name: 'Шкіряна броня з міфрилу майстерної роботи · СПР'
+    },
+    smithMasterDexAdamantPlate: {
+      name: 'Шкіряна броня з адаманту майстерної роботи · СПР'
+    },
+    smithMasterDexAetheritePlate: {
+      name: 'Шкіряна броня з ефіриту майстерної роботи · СПР'
+    },
+    smithDexMithrilPlate: {
+      name: 'Шкіряна броня з міфрилу · СПР'
+    },
+    smithDexAdamantPlate: {
+      name: 'Шкіряна броня з адаманту · СПР'
+    },
+    smithDexAetheritePlate: {
+      name: 'Шкіряна броня з ефіриту · СПР'
+    },
+    smithMasterDexMithrilGreaves: {
+      name: 'Чоботи з міфрилу майстерної роботи · СПР'
+    },
+    smithMasterDexAdamantGreaves: {
+      name: 'Чоботи з адаманту майстерної роботи · СПР'
+    },
+    smithMasterDexAetheriteGreaves: {
+      name: 'Чоботи з ефіриту майстерної роботи · СПР'
+    },
+    smithDexMithrilGreaves: {
+      name: 'Чоботи з міфрилу · СПР'
+    },
+    smithDexAdamantGreaves: {
+      name: 'Чоботи з адаманту · СПР'
+    },
+    smithDexAetheriteGreaves: {
+      name: 'Чоботи з ефіриту · СПР'
+    },
+    smithMasterIntIronSword: {
+      name: 'Чарівна паличка із заліза майстерної роботи · ІНТ'
+    },
+    smithIntIronSword: {
+      name: 'Чарівна паличка із заліза · ІНТ'
+    },
+    smithMasterIntIronHammer: {
+      name: 'Посох із заліза майстерної роботи · ІНТ'
+    },
+    smithIntIronHammer: {
+      name: 'Посох із заліза · ІНТ'
+    },
+    smithMasterIntIronShield: {
+      name: 'Фоліант із заліза майстерної роботи · ІНТ'
+    },
+    smithIntIronShield: {
+      name: 'Фоліант із заліза · ІНТ'
+    },
+    smithMasterIntIronHelm: {
+      name: 'Діадема із заліза майстерної роботи · ІНТ'
+    },
+    smithIntIronHelm: {
+      name: 'Діадема із заліза · ІНТ'
+    },
+    smithMasterIntIronPlate: {
+      name: 'Мантія із заліза майстерної роботи · ІНТ'
+    },
+    smithIntIronPlate: {
+      name: 'Мантія із заліза · ІНТ'
+    },
+    smithMasterIntIronGreaves: {
+      name: 'Чоботи із заліза майстерної роботи · ІНТ'
+    },
+    smithIntIronGreaves: {
+      name: 'Чоботи із заліза · ІНТ'
+    },
+    smithMasterIntSilverSword: {
+      name: 'Чарівна паличка зі срібла майстерної роботи · ІНТ'
+    },
+    smithIntSilverSword: {
+      name: 'Чарівна паличка зі срібла · ІНТ'
+    },
+    smithMasterIntSilverHammer: {
+      name: 'Посох зі срібла майстерної роботи · ІНТ'
+    },
+    smithIntSilverHammer: {
+      name: 'Посох зі срібла · ІНТ'
+    },
+    smithMasterIntSilverShield: {
+      name: 'Фоліант зі срібла майстерної роботи · ІНТ'
+    },
+    smithIntSilverShield: {
+      name: 'Фоліант зі срібла · ІНТ'
+    },
+    smithMasterIntSilverHelm: {
+      name: 'Діадема зі срібла майстерної роботи · ІНТ'
+    },
+    smithIntSilverHelm: {
+      name: 'Діадема зі срібла · ІНТ'
+    },
+    smithMasterIntSilverPlate: {
+      name: 'Мантія зі срібла майстерної роботи · ІНТ'
+    },
+    smithIntSilverPlate: {
+      name: 'Мантія зі срібла · ІНТ'
+    },
+    smithMasterIntSilverGreaves: {
+      name: 'Чоботи зі срібла майстерної роботи · ІНТ'
+    },
+    smithIntSilverGreaves: {
+      name: 'Чоботи зі срібла · ІНТ'
+    },
+    smithMasterIntGoldSword: {
+      name: 'Чарівна паличка із золота майстерної роботи · ІНТ'
+    },
+    smithIntGoldSword: {
+      name: 'Чарівна паличка із золота · ІНТ'
+    },
+    smithMasterIntGoldHammer: {
+      name: 'Посох із золота майстерної роботи · ІНТ'
+    },
+    smithIntGoldHammer: {
+      name: 'Посох із золота · ІНТ'
+    },
+    smithMasterIntGoldShield: {
+      name: 'Фоліант із золота майстерної роботи · ІНТ'
+    },
+    smithIntGoldShield: {
+      name: 'Фоліант із золота · ІНТ'
+    },
+    smithMasterIntGoldHelm: {
+      name: 'Діадема із золота майстерної роботи · ІНТ'
+    },
+    smithIntGoldHelm: {
+      name: 'Діадема із золота · ІНТ'
+    },
+    smithMasterIntGoldPlate: {
+      name: 'Мантія із золота майстерної роботи · ІНТ'
+    },
+    smithIntGoldPlate: {
+      name: 'Мантія із золота · ІНТ'
+    },
+    smithMasterIntGoldGreaves: {
+      name: 'Чоботи із золота майстерної роботи · ІНТ'
+    },
+    smithIntGoldGreaves: {
+      name: 'Чоботи із золота · ІНТ'
+    },
+    smithMasterIntMithrilSword: {
+      name: 'Чарівна паличка з міфрилу майстерної роботи · ІНТ'
+    },
+    smithMasterIntAdamantSword: {
+      name: 'Чарівна паличка з адаманту майстерної роботи · ІНТ'
+    },
+    smithMasterIntAetheriteSword: {
+      name: 'Чарівна паличка з ефіриту майстерної роботи · ІНТ'
+    },
+    smithIntMithrilSword: {
+      name: 'Чарівна паличка з міфрилу · ІНТ'
+    },
+    smithIntAdamantSword: {
+      name: 'Чарівна паличка з адаманту · ІНТ'
+    },
+    smithIntAetheriteSword: {
+      name: 'Чарівна паличка з ефіриту · ІНТ'
+    },
+    smithMasterIntMithrilHammer: {
+      name: 'Посох з міфрилу майстерної роботи · ІНТ'
+    },
+    smithMasterIntAdamantHammer: {
+      name: 'Посох з адаманту майстерної роботи · ІНТ'
+    },
+    smithMasterIntAetheriteHammer: {
+      name: 'Посох з ефіриту майстерної роботи · ІНТ'
+    },
+    smithIntMithrilHammer: {
+      name: 'Посох з міфрилу · ІНТ'
+    },
+    smithIntAdamantHammer: {
+      name: 'Посох з адаманту · ІНТ'
+    },
+    smithIntAetheriteHammer: {
+      name: 'Посох з ефіриту · ІНТ'
+    },
+    smithMasterIntMithrilShield: {
+      name: 'Фоліант з міфрилу майстерної роботи · ІНТ'
+    },
+    smithMasterIntAdamantShield: {
+      name: 'Фоліант з адаманту майстерної роботи · ІНТ'
+    },
+    smithMasterIntAetheriteShield: {
+      name: 'Фоліант з ефіриту майстерної роботи · ІНТ'
+    },
+    smithIntMithrilShield: {
+      name: 'Фоліант з міфрилу · ІНТ'
+    },
+    smithIntAdamantShield: {
+      name: 'Фоліант з адаманту · ІНТ'
+    },
+    smithIntAetheriteShield: {
+      name: 'Фоліант з ефіриту · ІНТ'
+    },
+    smithMasterIntMithrilHelm: {
+      name: 'Діадема з міфрилу майстерної роботи · ІНТ'
+    },
+    smithMasterIntAdamantHelm: {
+      name: 'Діадема з адаманту майстерної роботи · ІНТ'
+    },
+    smithMasterIntAetheriteHelm: {
+      name: 'Діадема з ефіриту майстерної роботи · ІНТ'
+    },
+    smithIntMithrilHelm: {
+      name: 'Діадема з міфрилу · ІНТ'
+    },
+    smithIntAdamantHelm: {
+      name: 'Діадема з адаманту · ІНТ'
+    },
+    smithIntAetheriteHelm: {
+      name: 'Діадема з ефіриту · ІНТ'
+    },
+    smithMasterIntMithrilPlate: {
+      name: 'Мантія з міфрилу майстерної роботи · ІНТ'
+    },
+    smithMasterIntAdamantPlate: {
+      name: 'Мантія з адаманту майстерної роботи · ІНТ'
+    },
+    smithMasterIntAetheritePlate: {
+      name: 'Мантія з ефіриту майстерної роботи · ІНТ'
+    },
+    smithIntMithrilPlate: {
+      name: 'Мантія з міфрилу · ІНТ'
+    },
+    smithIntAdamantPlate: {
+      name: 'Мантія з адаманту · ІНТ'
+    },
+    smithIntAetheritePlate: {
+      name: 'Мантія з ефіриту · ІНТ'
+    },
+    smithMasterIntMithrilGreaves: {
+      name: 'Чоботи з міфрилу майстерної роботи · ІНТ'
+    },
+    smithMasterIntAdamantGreaves: {
+      name: 'Чоботи з адаманту майстерної роботи · ІНТ'
+    },
+    smithMasterIntAetheriteGreaves: {
+      name: 'Чоботи з ефіриту майстерної роботи · ІНТ'
+    },
+    smithIntMithrilGreaves: {
+      name: 'Чоботи з міфрилу · ІНТ'
+    },
+    smithIntAdamantGreaves: {
+      name: 'Чоботи з адаманту · ІНТ'
+    },
+    smithIntAetheriteGreaves: {
+      name: 'Чоботи з ефіриту · ІНТ'
+    },
+    smithMasterSklIronSword: {
+      name: 'Пістолет із заліза майстерної роботи · МАЙ'
+    },
+    smithSklIronSword: {
+      name: 'Пістолет із заліза · МАЙ'
+    },
+    smithMasterSklIronHammer: {
+      name: 'Гвинтівка із заліза майстерної роботи · МАЙ'
+    },
+    smithSklIronHammer: {
+      name: 'Гвинтівка із заліза · МАЙ'
+    },
+    smithMasterSklIronShield: {
+      name: 'Акумулятор із заліза майстерної роботи · МАЙ'
+    },
+    smithSklIronShield: {
+      name: 'Акумулятор із заліза · МАЙ'
+    },
+    smithMasterSklIronHelm: {
+      name: 'Шапка із заліза майстерної роботи · МАЙ'
+    },
+    smithSklIronHelm: {
+      name: 'Шапка із заліза · МАЙ'
+    },
+    smithMasterSklIronPlate: {
+      name: 'Збруя із заліза майстерної роботи · МАЙ'
+    },
+    smithSklIronPlate: {
+      name: 'Збруя із заліза · МАЙ'
+    },
+    smithMasterSklIronGreaves: {
+      name: 'Чоботи із заліза майстерної роботи · МАЙ'
+    },
+    smithSklIronGreaves: {
+      name: 'Чоботи із заліза · МАЙ'
+    },
+    smithMasterSklSilverSword: {
+      name: 'Пістолет зі срібла майстерної роботи · МАЙ'
+    },
+    smithSklSilverSword: {
+      name: 'Пістолет зі срібла · МАЙ'
+    },
+    smithMasterSklSilverHammer: {
+      name: 'Гвинтівка зі срібла майстерної роботи · МАЙ'
+    },
+    smithSklSilverHammer: {
+      name: 'Гвинтівка зі срібла · МАЙ'
+    },
+    smithMasterSklSilverShield: {
+      name: 'Акумулятор зі срібла майстерної роботи · МАЙ'
+    },
+    smithSklSilverShield: {
+      name: 'Акумулятор зі срібла · МАЙ'
+    },
+    smithMasterSklSilverHelm: {
+      name: 'Шапка зі срібла майстерної роботи · МАЙ'
+    },
+    smithSklSilverHelm: {
+      name: 'Шапка зі срібла · МАЙ'
+    },
+    smithMasterSklSilverPlate: {
+      name: 'Збруя зі срібла майстерної роботи · МАЙ'
+    },
+    smithSklSilverPlate: {
+      name: 'Збруя зі срібла · МАЙ'
+    },
+    smithMasterSklSilverGreaves: {
+      name: 'Чоботи зі срібла майстерної роботи · МАЙ'
+    },
+    smithSklSilverGreaves: {
+      name: 'Чоботи зі срібла · МАЙ'
+    },
+    smithMasterSklGoldSword: {
+      name: 'Пістолет із золота майстерної роботи · МАЙ'
+    },
+    smithSklGoldSword: {
+      name: 'Пістолет із золота · МАЙ'
+    },
+    smithMasterSklGoldHammer: {
+      name: 'Гвинтівка із золота майстерної роботи · МАЙ'
+    },
+    smithSklGoldHammer: {
+      name: 'Гвинтівка із золота · МАЙ'
+    },
+    smithMasterSklGoldShield: {
+      name: 'Акумулятор із золота майстерної роботи · МАЙ'
+    },
+    smithSklGoldShield: {
+      name: 'Акумулятор із золота · МАЙ'
+    },
+    smithMasterSklGoldHelm: {
+      name: 'Шапка із золота майстерної роботи · МАЙ'
+    },
+    smithSklGoldHelm: {
+      name: 'Шапка із золота · МАЙ'
+    },
+    smithMasterSklGoldPlate: {
+      name: 'Збруя із золота майстерної роботи · МАЙ'
+    },
+    smithSklGoldPlate: {
+      name: 'Збруя із золота · МАЙ'
+    },
+    smithMasterSklGoldGreaves: {
+      name: 'Чоботи із золота майстерної роботи · МАЙ'
+    },
+    smithSklGoldGreaves: {
+      name: 'Чоботи із золота · МАЙ'
+    },
+    smithMasterSklMithrilSword: {
+      name: 'Пістолет з міфрилу майстерної роботи · МАЙ'
+    },
+    smithMasterSklAdamantSword: {
+      name: 'Пістолет з адаманту майстерної роботи · МАЙ'
+    },
+    smithMasterSklAetheriteSword: {
+      name: 'Пістолет з ефіриту майстерної роботи · МАЙ'
+    },
+    smithSklMithrilSword: {
+      name: 'Пістолет з міфрилу · МАЙ'
+    },
+    smithSklAdamantSword: {
+      name: 'Пістолет з адаманту · МАЙ'
+    },
+    smithSklAetheriteSword: {
+      name: 'Пістолет з ефіриту · МАЙ'
+    },
+    smithMasterSklMithrilHammer: {
+      name: 'Гвинтівка з міфрилу майстерної роботи · МАЙ'
+    },
+    smithMasterSklAdamantHammer: {
+      name: 'Гвинтівка з адаманту майстерної роботи · МАЙ'
+    },
+    smithMasterSklAetheriteHammer: {
+      name: 'Гвинтівка з ефіриту майстерної роботи · МАЙ'
+    },
+    smithSklMithrilHammer: {
+      name: 'Гвинтівка з міфрилу · МАЙ'
+    },
+    smithSklAdamantHammer: {
+      name: 'Гвинтівка з адаманту · МАЙ'
+    },
+    smithSklAetheriteHammer: {
+      name: 'Гвинтівка з ефіриту · МАЙ'
+    },
+    smithMasterSklMithrilShield: {
+      name: 'Акумулятор з міфрилу майстерної роботи · МАЙ'
+    },
+    smithMasterSklAdamantShield: {
+      name: 'Акумулятор з адаманту майстерної роботи · МАЙ'
+    },
+    smithMasterSklAetheriteShield: {
+      name: 'Акумулятор з ефіриту майстерної роботи · МАЙ'
+    },
+    smithSklMithrilShield: {
+      name: 'Акумулятор з міфрилу · МАЙ'
+    },
+    smithSklAdamantShield: {
+      name: 'Акумулятор з адаманту · МАЙ'
+    },
+    smithSklAetheriteShield: {
+      name: 'Акумулятор з ефіриту · МАЙ'
+    },
+    smithMasterSklMithrilHelm: {
+      name: 'Шапка з міфрилу майстерної роботи · МАЙ'
+    },
+    smithMasterSklAdamantHelm: {
+      name: 'Шапка з адаманту майстерної роботи · МАЙ'
+    },
+    smithMasterSklAetheriteHelm: {
+      name: 'Шапка з ефіриту майстерної роботи · МАЙ'
+    },
+    smithSklMithrilHelm: {
+      name: 'Шапка з міфрилу · МАЙ'
+    },
+    smithSklAdamantHelm: {
+      name: 'Шапка з адаманту · МАЙ'
+    },
+    smithSklAetheriteHelm: {
+      name: 'Шапка з ефіриту · МАЙ'
+    },
+    smithMasterSklMithrilPlate: {
+      name: 'Збруя з міфрилу майстерної роботи · МАЙ'
+    },
+    smithMasterSklAdamantPlate: {
+      name: 'Збруя з адаманту майстерної роботи · МАЙ'
+    },
+    smithMasterSklAetheritePlate: {
+      name: 'Збруя з ефіриту майстерної роботи · МАЙ'
+    },
+    smithSklMithrilPlate: {
+      name: 'Збруя з міфрилу · МАЙ'
+    },
+    smithSklAdamantPlate: {
+      name: 'Збруя з адаманту · МАЙ'
+    },
+    smithSklAetheritePlate: {
+      name: 'Збруя з ефіриту · МАЙ'
+    },
+    smithMasterSklMithrilGreaves: {
+      name: 'Чоботи з міфрилу майстерної роботи · МАЙ'
+    },
+    smithMasterSklAdamantGreaves: {
+      name: 'Чоботи з адаманту майстерної роботи · МАЙ'
+    },
+    smithMasterSklAetheriteGreaves: {
+      name: 'Чоботи з ефіриту майстерної роботи · МАЙ'
+    },
+    smithSklMithrilGreaves: {
+      name: 'Чоботи з міфрилу · МАЙ'
+    },
+    smithSklAdamantGreaves: {
+      name: 'Чоботи з адаманту · МАЙ'
+    },
+    smithSklAetheriteGreaves: {
+      name: 'Чоботи з ефіриту · МАЙ'
+    },
+    smithMasterChaIronSword: {
+      name: 'Скіпетр із заліза майстерної роботи · ХАР'
+    },
+    smithChaIronSword: {
+      name: 'Скіпетр із заліза · ХАР'
+    },
+    smithMasterChaIronHammer: {
+      name: 'Прапор із заліза майстерної роботи · ХАР'
+    },
+    smithChaIronHammer: {
+      name: 'Прапор із заліза · ХАР'
+    },
+    smithMasterChaIronShield: {
+      name: 'Кодекс із заліза майстерної роботи · ХАР'
+    },
+    smithChaIronShield: {
+      name: 'Кодекс із заліза · ХАР'
+    },
+    smithMasterChaIronHelm: {
+      name: 'Корона із заліза майстерної роботи · ХАР'
+    },
+    smithChaIronHelm: {
+      name: 'Корона із заліза · ХАР'
+    },
+    smithMasterChaIronPlate: {
+      name: 'Табард із заліза майстерної роботи · ХАР'
+    },
+    smithChaIronPlate: {
+      name: 'Табард із заліза · ХАР'
+    },
+    smithMasterChaIronGreaves: {
+      name: 'Чоботи із заліза майстерної роботи · ХАР'
+    },
+    smithChaIronGreaves: {
+      name: 'Чоботи із заліза · ХАР'
+    },
+    smithMasterChaSilverSword: {
+      name: 'Скіпетр зі срібла майстерної роботи · ХАР'
+    },
+    smithChaSilverSword: {
+      name: 'Скіпетр зі срібла · ХАР'
+    },
+    smithMasterChaSilverHammer: {
+      name: 'Прапор зі срібла майстерної роботи · ХАР'
+    },
+    smithChaSilverHammer: {
+      name: 'Прапор зі срібла · ХАР'
+    },
+    smithMasterChaSilverShield: {
+      name: 'Кодекс зі срібла майстерної роботи · ХАР'
+    },
+    smithChaSilverShield: {
+      name: 'Кодекс зі срібла · ХАР'
+    },
+    smithMasterChaSilverHelm: {
+      name: 'Корона зі срібла майстерної роботи · ХАР'
+    },
+    smithChaSilverHelm: {
+      name: 'Корона зі срібла · ХАР'
+    },
+    smithMasterChaSilverPlate: {
+      name: 'Табард зі срібла майстерної роботи · ХАР'
+    },
+    smithChaSilverPlate: {
+      name: 'Табард зі срібла · ХАР'
+    },
+    smithMasterChaSilverGreaves: {
+      name: 'Чоботи зі срібла майстерної роботи · ХАР'
+    },
+    smithChaSilverGreaves: {
+      name: 'Чоботи зі срібла · ХАР'
+    },
+    smithMasterChaGoldSword: {
+      name: 'Скіпетр із золота майстерної роботи · ХАР'
+    },
+    smithChaGoldSword: {
+      name: 'Скіпетр із золота · ХАР'
+    },
+    smithMasterChaGoldHammer: {
+      name: 'Прапор із золота майстерної роботи · ХАР'
+    },
+    smithChaGoldHammer: {
+      name: 'Прапор із золота · ХАР'
+    },
+    smithMasterChaGoldShield: {
+      name: 'Кодекс із золота майстерної роботи · ХАР'
+    },
+    smithChaGoldShield: {
+      name: 'Кодекс із золота · ХАР'
+    },
+    smithMasterChaGoldHelm: {
+      name: 'Корона із золота майстерної роботи · ХАР'
+    },
+    smithChaGoldHelm: {
+      name: 'Корона із золота · ХАР'
+    },
+    smithMasterChaGoldPlate: {
+      name: 'Табард із золота майстерної роботи · ХАР'
+    },
+    smithChaGoldPlate: {
+      name: 'Табард із золота · ХАР'
+    },
+    smithMasterChaGoldGreaves: {
+      name: 'Чоботи із золота майстерної роботи · ХАР'
+    },
+    smithChaGoldGreaves: {
+      name: 'Чоботи із золота · ХАР'
+    },
+    smithMasterChaMithrilSword: {
+      name: 'Скіпетр з міфрилу майстерної роботи · ХАР'
+    },
+    smithMasterChaAdamantSword: {
+      name: 'Скіпетр з адаманту майстерної роботи · ХАР'
+    },
+    smithMasterChaAetheriteSword: {
+      name: 'Скіпетр з ефіриту майстерної роботи · ХАР'
+    },
+    smithChaMithrilSword: {
+      name: 'Скіпетр з міфрилу · ХАР'
+    },
+    smithChaAdamantSword: {
+      name: 'Скіпетр з адаманту · ХАР'
+    },
+    smithChaAetheriteSword: {
+      name: 'Скіпетр з ефіриту · ХАР'
+    },
+    smithMasterChaMithrilHammer: {
+      name: 'Прапор з міфрилу майстерної роботи · ХАР'
+    },
+    smithMasterChaAdamantHammer: {
+      name: 'Прапор з адаманту майстерної роботи · ХАР'
+    },
+    smithMasterChaAetheriteHammer: {
+      name: 'Прапор з ефіриту майстерної роботи · ХАР'
+    },
+    smithChaMithrilHammer: {
+      name: 'Прапор з міфрилу · ХАР'
+    },
+    smithChaAdamantHammer: {
+      name: 'Прапор з адаманту · ХАР'
+    },
+    smithChaAetheriteHammer: {
+      name: 'Прапор з ефіриту · ХАР'
+    },
+    smithMasterChaMithrilShield: {
+      name: 'Кодекс з міфрилу майстерної роботи · ХАР'
+    },
+    smithMasterChaAdamantShield: {
+      name: 'Кодекс з адаманту майстерної роботи · ХАР'
+    },
+    smithMasterChaAetheriteShield: {
+      name: 'Кодекс з ефіриту майстерної роботи · ХАР'
+    },
+    smithChaMithrilShield: {
+      name: 'Кодекс з міфрилу · ХАР'
+    },
+    smithChaAdamantShield: {
+      name: 'Кодекс з адаманту · ХАР'
+    },
+    smithChaAetheriteShield: {
+      name: 'Кодекс з ефіриту · ХАР'
+    },
+    smithMasterChaMithrilHelm: {
+      name: 'Корона з міфрилу майстерної роботи · ХАР'
+    },
+    smithMasterChaAdamantHelm: {
+      name: 'Корона з адаманту майстерної роботи · ХАР'
+    },
+    smithMasterChaAetheriteHelm: {
+      name: 'Корона з ефіриту майстерної роботи · ХАР'
+    },
+    smithChaMithrilHelm: {
+      name: 'Корона з міфрилу · ХАР'
+    },
+    smithChaAdamantHelm: {
+      name: 'Корона з адаманту · ХАР'
+    },
+    smithChaAetheriteHelm: {
+      name: 'Корона з ефіриту · ХАР'
+    },
+    smithMasterChaMithrilPlate: {
+      name: 'Табард з міфрилу майстерної роботи · ХАР'
+    },
+    smithMasterChaAdamantPlate: {
+      name: 'Табард з адаманту майстерної роботи · ХАР'
+    },
+    smithMasterChaAetheritePlate: {
+      name: 'Табард з ефіриту майстерної роботи · ХАР'
+    },
+    smithChaMithrilPlate: {
+      name: 'Табард з міфрилу · ХАР'
+    },
+    smithChaAdamantPlate: {
+      name: 'Табард з адаманту · ХАР'
+    },
+    smithChaAetheritePlate: {
+      name: 'Табард з ефіриту · ХАР'
+    },
+    smithMasterChaMithrilGreaves: {
+      name: 'Чоботи з міфрилу майстерної роботи · ХАР'
+    },
+    smithMasterChaAdamantGreaves: {
+      name: 'Чоботи з адаманту майстерної роботи · ХАР'
+    },
+    smithMasterChaAetheriteGreaves: {
+      name: 'Чоботи з ефіриту майстерної роботи · ХАР'
+    },
+    smithChaMithrilGreaves: {
+      name: 'Чоботи з міфрилу · ХАР'
+    },
+    smithChaAdamantGreaves: {
+      name: 'Чоботи з адаманту · ХАР'
+    },
+    smithChaAetheriteGreaves: {
+      name: 'Чоботи з ефіриту · ХАР'
+    },
+    smithMasterEndIronSword: {
+      name: 'Булава із заліза майстерної роботи · ВИТ'
+    },
+    smithEndIronSword: {
+      name: 'Булава із заліза · ВИТ'
+    },
+    smithMasterEndIronHammer: {
+      name: 'Сокира із заліза майстерної роботи · ВИТ'
+    },
+    smithEndIronHammer: {
+      name: 'Сокира із заліза · ВИТ'
+    },
+    smithMasterEndIronShield: {
+      name: 'Залізний щит майстерної роботи · ВИТ'
+    },
+    smithEndIronShield: {
+      name: 'Залізний щит · ВИТ'
+    },
+    smithMasterEndIronHelm: {
+      name: 'Залізний шолом майстерної роботи · ВИТ'
+    },
+    smithEndIronHelm: {
+      name: 'Залізний шолом · ВИТ'
+    },
+    smithMasterEndIronPlate: {
+      name: 'Залізні лати майстерної роботи · ВИТ'
+    },
+    smithEndIronPlate: {
+      name: 'Залізні лати · ВИТ'
+    },
+    smithMasterEndIronGreaves: {
+      name: 'Залізні наголінники майстерної роботи · ВИТ'
+    },
+    smithEndIronGreaves: {
+      name: 'Залізні наголінники · ВИТ'
+    },
+    smithMasterEndSilverSword: {
+      name: 'Булава зі срібла майстерної роботи · ВИТ'
+    },
+    smithEndSilverSword: {
+      name: 'Булава зі срібла · ВИТ'
+    },
+    smithMasterEndSilverHammer: {
+      name: 'Сокира зі срібла майстерної роботи · ВИТ'
+    },
+    smithEndSilverHammer: {
+      name: 'Сокира зі срібла · ВИТ'
+    },
+    smithMasterEndSilverShield: {
+      name: 'Срібний щит майстерної роботи · ВИТ'
+    },
+    smithEndSilverShield: {
+      name: 'Срібний щит · ВИТ'
+    },
+    smithMasterEndSilverHelm: {
+      name: 'Срібний шолом майстерної роботи · ВИТ'
+    },
+    smithEndSilverHelm: {
+      name: 'Срібний шолом · ВИТ'
+    },
+    smithMasterEndSilverPlate: {
+      name: 'Срібні лати майстерної роботи · ВИТ'
+    },
+    smithEndSilverPlate: {
+      name: 'Срібні лати · ВИТ'
+    },
+    smithMasterEndSilverGreaves: {
+      name: 'Срібні наголінники майстерної роботи · ВИТ'
+    },
+    smithEndSilverGreaves: {
+      name: 'Срібні наголінники · ВИТ'
+    },
+    smithMasterEndGoldSword: {
+      name: 'Булава із золота майстерної роботи · ВИТ'
+    },
+    smithEndGoldSword: {
+      name: 'Булава із золота · ВИТ'
+    },
+    smithMasterEndGoldHammer: {
+      name: 'Сокира із золота майстерної роботи · ВИТ'
+    },
+    smithEndGoldHammer: {
+      name: 'Сокира із золота · ВИТ'
+    },
+    smithMasterEndGoldShield: {
+      name: 'Золотий щит майстерної роботи · ВИТ'
+    },
+    smithEndGoldShield: {
+      name: 'Золотий щит · ВИТ'
+    },
+    smithMasterEndGoldHelm: {
+      name: 'Золотий шолом майстерної роботи · ВИТ'
+    },
+    smithEndGoldHelm: {
+      name: 'Золотий шолом · ВИТ'
+    },
+    smithMasterEndGoldPlate: {
+      name: 'Золоті лати майстерної роботи · ВИТ'
+    },
+    smithEndGoldPlate: {
+      name: 'Золоті лати · ВИТ'
+    },
+    smithMasterEndGoldGreaves: {
+      name: 'Золоті наголінники майстерної роботи · ВИТ'
+    },
+    smithEndGoldGreaves: {
+      name: 'Золоті наголінники · ВИТ'
+    },
+    smithMasterEndMithrilSword: {
+      name: 'Булава з міфрилу майстерної роботи · ВИТ'
+    },
+    smithMasterEndAdamantSword: {
+      name: 'Булава з адаманту майстерної роботи · ВИТ'
+    },
+    smithMasterEndAetheriteSword: {
+      name: 'Булава з ефіриту майстерної роботи · ВИТ'
+    },
+    smithEndMithrilSword: {
+      name: 'Булава з міфрилу · ВИТ'
+    },
+    smithEndAdamantSword: {
+      name: 'Булава з адаманту · ВИТ'
+    },
+    smithEndAetheriteSword: {
+      name: 'Булава з ефіриту · ВИТ'
+    },
+    smithMasterEndMithrilHammer: {
+      name: 'Сокира з міфрилу майстерної роботи · ВИТ'
+    },
+    smithMasterEndAdamantHammer: {
+      name: 'Сокира з адаманту майстерної роботи · ВИТ'
+    },
+    smithMasterEndAetheriteHammer: {
+      name: 'Сокира з ефіриту майстерної роботи · ВИТ'
+    },
+    smithEndMithrilHammer: {
+      name: 'Сокира з міфрилу · ВИТ'
+    },
+    smithEndAdamantHammer: {
+      name: 'Сокира з адаманту · ВИТ'
+    },
+    smithEndAetheriteHammer: {
+      name: 'Сокира з ефіриту · ВИТ'
+    },
+    smithMasterEndMithrilShield: {
+      name: 'Мітриловий щит майстерної роботи · ВИТ'
+    },
+    smithMasterEndAdamantShield: {
+      name: 'Адамантовий щит майстерної роботи · ВИТ'
+    },
+    smithMasterEndAetheriteShield: {
+      name: 'Ефіритовий щит майстерної роботи · ВИТ'
+    },
+    smithEndMithrilShield: {
+      name: 'Мітриловий щит · ВИТ'
+    },
+    smithEndAdamantShield: {
+      name: 'Адамантовий щит · ВИТ'
+    },
+    smithEndAetheriteShield: {
+      name: 'Ефіритовий щит · ВИТ'
+    },
+    smithMasterEndMithrilHelm: {
+      name: 'Мітриловий шолом майстерної роботи · ВИТ'
+    },
+    smithMasterEndAdamantHelm: {
+      name: 'Адамантовий шолом майстерної роботи · ВИТ'
+    },
+    smithMasterEndAetheriteHelm: {
+      name: 'Ефіритовий шолом майстерної роботи · ВИТ'
+    },
+    smithEndMithrilHelm: {
+      name: 'Мітриловий шолом · ВИТ'
+    },
+    smithEndAdamantHelm: {
+      name: 'Адамантовий шолом · ВИТ'
+    },
+    smithEndAetheriteHelm: {
+      name: 'Ефіритовий шолом · ВИТ'
+    },
+    smithMasterEndMithrilPlate: {
+      name: 'Мітрилові лати майстерної роботи · ВИТ'
+    },
+    smithMasterEndAdamantPlate: {
+      name: 'Адамантові лати майстерної роботи · ВИТ'
+    },
+    smithMasterEndAetheritePlate: {
+      name: 'Ефіритові лати майстерної роботи · ВИТ'
+    },
+    smithEndMithrilPlate: {
+      name: 'Мітрилові лати · ВИТ'
+    },
+    smithEndAdamantPlate: {
+      name: 'Адамантові лати · ВИТ'
+    },
+    smithEndAetheritePlate: {
+      name: 'Ефіритові лати · ВИТ'
+    },
+    smithMasterEndMithrilGreaves: {
+      name: 'Мітрилові наголінники майстерної роботи · ВИТ'
+    },
+    smithMasterEndAdamantGreaves: {
+      name: 'Адамантові наголінники майстерної роботи · ВИТ'
+    },
+    smithMasterEndAetheriteGreaves: {
+      name: 'Ефіритові наголінники майстерної роботи · ВИТ'
+    },
+    smithEndMithrilGreaves: {
+      name: 'Мітрилові наголінники · ВИТ'
+    },
+    smithEndAdamantGreaves: {
+      name: 'Адамантові наголінники · ВИТ'
+    },
+    smithEndAetheriteGreaves: {
+      name: 'Ефіритові наголінники · ВИТ'
     },
     smithIronSword: {
       name: 'Залізний меч'
@@ -1778,6 +2952,414 @@ export default {
     scepterOfTheFirstKing: {
       name: 'Скіпетр першого короля'
     },
+    pickpocketsKnife: {
+      name: 'Ніж кишенькового злодія'
+    },
+    serpentsFang: {
+      name: 'Ікло змії'
+    },
+    phantomRapier: {
+      name: 'Примарна рапіра'
+    },
+    fangOfTheWindless: {
+      name: 'Ікло Безвітря'
+    },
+    roguesBuckler: {
+      name: 'Баклер шахрая'
+    },
+    venomVial: {
+      name: 'Флакон отрути'
+    },
+    swiftguardBuckler: {
+      name: 'Баклер швидкого вартового'
+    },
+    nightshadeFlask: {
+      name: 'Фляга беладони'
+    },
+    windveilTarge: {
+      name: 'Тарч вітряної завіси'
+    },
+    shadowdancersBuckler: {
+      name: 'Баклер танцюриста тіней'
+    },
+    scoutsBandana: {
+      name: 'Бандана розвідника'
+    },
+    nightcowl: {
+      name: 'Нічний каптур'
+    },
+    shadowveilHood: {
+      name: 'Каптур тіньової завіси'
+    },
+    windrunnersCap: {
+      name: 'Кашкет бігуна за вітром'
+    },
+    maskOfTheSilentWind: {
+      name: 'Маска тихого вітру'
+    },
+    rangersJerkin: {
+      name: 'Куртка слідопита'
+    },
+    nightstalkerLeathers: {
+      name: 'Шкіра нічного мисливця'
+    },
+    windridersHarness: {
+      name: 'Збруя вершника вітру'
+    },
+    mantleOfTheShadowDancer: {
+      name: 'Плащ танцюриста тіней'
+    },
+    thiefsGloves: {
+      name: 'Рукавиці злодія'
+    },
+    cutpurseGloves: {
+      name: 'Рукавиці кишенькового'
+    },
+    glovesOfTheGale: {
+      name: 'Рукавиці урагану'
+    },
+    softSoledShoes: {
+      name: 'Черевики з м\'якою підошвою'
+    },
+    catStepBoots: {
+      name: 'Чоботи котячої ходи'
+    },
+    shadowstepBoots: {
+      name: 'Чоботи тіньової ходи'
+    },
+    windstrideBoots: {
+      name: 'Чоботи вітряної ходи'
+    },
+    luckyCoin: {
+      name: 'Щаслива монета'
+    },
+    shadowBand: {
+      name: 'Перстень тіней'
+    },
+    sandglassOfTheSwift: {
+      name: 'Пісочний годинник моторних'
+    },
+    talonCharm: {
+      name: 'Амулет пазура'
+    },
+    windheart: {
+      name: 'Серце вітру'
+    },
+    ashwallHeater: {
+      name: 'Щит Попелястої стіни'
+    },
+    wyrmhidePavise: {
+      name: 'Павеза зі шкіри віверни'
+    },
+    footmansKettleHat: {
+      name: 'Казанок піхотинця'
+    },
+    ironbrowSallet: {
+      name: 'Салад із залізними бровами'
+    },
+    warlordsBarbute: {
+      name: 'Барбют полководця'
+    },
+    helmOfTheSunderedThrone: {
+      name: 'Шолом розколотого трону'
+    },
+    recruitsCuirass: {
+      name: 'Кіраса новобранця'
+    },
+    stonecuttersMitts: {
+      name: 'Рукавиці каменотеса'
+    },
+    ashforgedGauntlets: {
+      name: 'Рукавиці, кувані в попелі'
+    },
+    warbringerGauntlets: {
+      name: 'Рукавиці носія війни'
+    },
+    titanfistGauntlets: {
+      name: 'Рукавиці Кулака титана'
+    },
+    footmansGreaves: {
+      name: 'Наголінники піхотинця'
+    },
+    ironshodGreaves: {
+      name: 'Окуті наголінники'
+    },
+    warlordsSabatons: {
+      name: 'Сабатони полководця'
+    },
+    greavesOfTheMountainfall: {
+      name: 'Наголінники гірського обвалу'
+    },
+    sergeantsSignet: {
+      name: 'Печатка сержанта'
+    },
+    brawlersKnuckleRing: {
+      name: 'Кастет бешкетника'
+    },
+    bloodiedWarMedal: {
+      name: 'Закривавлена бойова медаль'
+    },
+    watchmansCudgel: {
+      name: 'Кийок вартового'
+    },
+    ironboundMace: {
+      name: 'Булава в залізних обручах'
+    },
+    stonehideCleaver: {
+      name: 'Тесак із кам\'яної шкіри'
+    },
+    bulwarkMaul: {
+      name: 'Молот оплоту'
+    },
+    mountainsplitterAxe: {
+      name: 'Сокира Гороколь'
+    },
+    everstandWarmace: {
+      name: 'Незламна бойова булава'
+    },
+    emberwallBastion: {
+      name: 'Бастіон Жаринової стіни'
+    },
+    stonewardenHelm: {
+      name: 'Шолом кам\'яного вартового'
+    },
+    colossusVisage: {
+      name: 'Лик колоса'
+    },
+    diggersGauntlets: {
+      name: 'Рукавиці землекопа'
+    },
+    bastionGauntlets: {
+      name: 'Рукавиці бастіону'
+    },
+    glacierplateGauntlets: {
+      name: 'Рукавиці з льодовикових пластин'
+    },
+    gauntletsOfEndlessVigil: {
+      name: 'Рукавиці вічної варти'
+    },
+    hearthstoneCharm: {
+      name: 'Оберіг-камінь вогнища'
+    },
+    ironheartPendant: {
+      name: 'Підвіска «Залізне серце»'
+    },
+    hedgewizardsWand: {
+      name: 'Паличка чаклуна-самоуки'
+    },
+    frostglassStaff: {
+      name: 'Посох із крижаного скла'
+    },
+    voidthreadWand: {
+      name: 'Паличка з ниток Порожнечі'
+    },
+    staffOfTheStarlessSky: {
+      name: 'Посох беззоряного неба'
+    },
+    studentsGrimoire: {
+      name: 'Гримуар учня'
+    },
+    frostfireOrb: {
+      name: 'Куля морозного вогню'
+    },
+    orbOfTheUnwrittenHour: {
+      name: 'Куля ненаписаної години'
+    },
+    apprenticesPointedCap: {
+      name: 'Гостроверхий ковпак учня'
+    },
+    sagesCirclet: {
+      name: 'Вінець мудреця'
+    },
+    cinderWizardsHat: {
+      name: 'Капелюх попелястого мага'
+    },
+    voidseerCirclet: {
+      name: 'Вінець провидця Порожнечі'
+    },
+    apprenticesRobe: {
+      name: 'Ряса учня'
+    },
+    cinderthreadRobe: {
+      name: 'Ряса з попелястих ниток'
+    },
+    voidwovenRobe: {
+      name: 'Ряса, виткана з Порожнечі'
+    },
+    inkStainedGloves: {
+      name: 'Рукавички в чорнильних плямах'
+    },
+    spellthreadGloves: {
+      name: 'Рукавички з ниток заклять'
+    },
+    frostweaveGloves: {
+      name: 'Рукавички з морозної тканини'
+    },
+    starlitGloves: {
+      name: 'Зоряні рукавички'
+    },
+    glovesOfTheLastWord: {
+      name: 'Рукавички останнього слова'
+    },
+    scribesSlippers: {
+      name: 'Капці писаря'
+    },
+    moonstepSlippers: {
+      name: 'Капці місячної ходи'
+    },
+    emberstepBoots: {
+      name: 'Чоботи жаринової ходи'
+    },
+    voidwalkerBoots: {
+      name: 'Чоботи мандрівника Порожнечі'
+    },
+    bootsOfTheWanderingStar: {
+      name: 'Чоботи блукаючої зорі'
+    },
+    glowstonePendant: {
+      name: 'Підвіска зі світним каменем'
+    },
+    scholarsSeal: {
+      name: 'Печать науковця'
+    },
+    eyeOfTheArchon: {
+      name: 'Око архонта'
+    },
+    cinderRepeater: {
+      name: 'Попелястий багатозарядник'
+    },
+    glacierMortar: {
+      name: 'Льодовикова ручна мортира'
+    },
+    sparkCell: {
+      name: 'Іскрова комірка'
+    },
+    arcCapacitor: {
+      name: 'Дуговий конденсатор'
+    },
+    aetherheartCell: {
+      name: 'Комірка «Серце ефіру»'
+    },
+    marksmansVisor: {
+      name: 'Забрало стрільця'
+    },
+    sharpshootersCap: {
+      name: 'Кашкет снайпера'
+    },
+    gunnersHarness: {
+      name: 'Збруя канонера'
+    },
+    steadyhandGloves: {
+      name: 'Рукавички твердої руки'
+    },
+    gunsmithsGloves: {
+      name: 'Рукавички зброяра'
+    },
+    scrappersBoots: {
+      name: 'Чоботи забіяки'
+    },
+    sharpshooterBoots: {
+      name: 'Чоботи снайпера'
+    },
+    firingLineBoots: {
+      name: 'Чоботи вогневого рубежу'
+    },
+    steadyfootBoots: {
+      name: 'Чоботи твердої стійки'
+    },
+    aetherstepBoots: {
+      name: 'Чоботи ефірної ходи'
+    },
+    bootsOfTheLastShot: {
+      name: 'Чоботи останнього пострілу'
+    },
+    brassCartridgeCharm: {
+      name: 'Оберіг із латунної гільзи'
+    },
+    deadEyeLens: {
+      name: 'Лінза влучного ока'
+    },
+    eagleEyeScope: {
+      name: 'Приціл орлиного ока'
+    },
+    criersBaton: {
+      name: 'Жезл глашатая'
+    },
+    droversStandard: {
+      name: 'Прапор погонича'
+    },
+    marshalsSceptre: {
+      name: 'Скіпетр маршала'
+    },
+    balladBook: {
+      name: 'Книга балад'
+    },
+    chronicleOfHeroes: {
+      name: 'Хроніка героїв'
+    },
+    psalterOfTheHost: {
+      name: 'Псалтир війська'
+    },
+    tomeOfEternalReign: {
+      name: 'Фоліант вічного правління'
+    },
+    heraldsCap: {
+      name: 'Шапка герольда'
+    },
+    singersCirclet: {
+      name: 'Вінець співака'
+    },
+    diademOfTenThousandVoices: {
+      name: 'Діадема десяти тисяч голосів'
+    },
+    travelersWaistcoat: {
+      name: 'Жилет мандрівника'
+    },
+    minstrelsMotley: {
+      name: 'Строкатий вбір менестреля'
+    },
+    troubadoursCoat: {
+      name: 'Каптан трубадура'
+    },
+    marshalsGreatcoat: {
+      name: 'Шинеля маршала'
+    },
+    buskersGloves: {
+      name: 'Рукавички вуличного музиканта'
+    },
+    drummersGloves: {
+      name: 'Рукавички барабанщика'
+    },
+    standardBearersGloves: {
+      name: 'Рукавички прапороносця'
+    },
+    gildedParadeGloves: {
+      name: 'Позолочені парадні рукавички'
+    },
+    glovesOfTheCrownedHand: {
+      name: 'Рукавички коронованої руки'
+    },
+    wayfarersShoes: {
+      name: 'Черевики мандрівника'
+    },
+    troubadourBoots: {
+      name: 'Чоботи трубадура'
+    },
+    heraldsRidingBoots: {
+      name: 'Верхові чоботи герольда'
+    },
+    paradeBoots: {
+      name: 'Парадні чоботи'
+    },
+    bootsOfTheLongProcession: {
+      name: 'Чоботи довгої ході'
+    },
+    silverWhistle: {
+      name: 'Срібний свисток'
+    },
+    gatheringHorn: {
+      name: 'Збірний ріг'
+    },
     heartOfTheMountain: {
       name: 'Серце гори'
     },
@@ -1882,6 +3464,9 @@ export default {
     freedPeddler: {
       talk: 'Усе, що треба мандрівникові. Майже нове, здебільшого.',
       name: 'Одо Марроу'
+    },
+    sfShadowRoad: {
+      name: 'Неттл Квікгенд'
     },
     sfShadow: {
       name: 'Неттл Квікгенд'
@@ -2036,6 +3621,9 @@ export default {
     sunfordGambler: {
       name: 'Доб Перекид'
     },
+    sunfordCups: {
+      name: 'Нел Спритні Пальці'
+    },
     oakGambler: {
       name: 'Шовковий Рен'
     },
@@ -2147,6 +3735,13 @@ export default {
     }
   },
   dlg: {
+    intro: {
+      crossing: { 1: 'Усі дороги цього світу сходяться на роздоріжжі… і кожне роздоріжжя — це битва.' },
+      hero: { 1: 'З тихих полів Санфорда в дорогу вирушив юний герой.' },
+      fire: { 1: 'Вогонь відгукнувся на поклик. Сталь дізналася нове ім’я.' },
+      foes: { 1: 'Королі гоблінів, крижані ярли, дракон Порожнечі… і Архідемон.' },
+      begin: { 1: 'Твоя легенда починається зараз.' }
+    },
     frostDisciple: {
       bye: {
         '1': 'Не замерзни.'
@@ -2355,6 +3950,23 @@ export default {
         '2': 'Одо Марроу, до твоїх послуг. Торговець, лудильник і дуже вдячна людина.',
         '1__f': 'Ти! Це ж ти відчинила ту клітку! Я б там згнив.',
         '1': 'Ти! Це ж ти відчинив ту клітку! Я б там згнив.'
+      }
+    },
+    sfShadowRoad: {
+      hello: {
+        '1': 'Телепортація. Цікаво?'
+      },
+      again: {
+        '1': 'Знову за новим фокусом?'
+      },
+      train: {
+        '1': 'Дивись уважно. Один крок, і ти вже деінде.'
+      },
+      trainBack: {
+        '1': 'Добре. А тепер іди бути деінде.'
+      },
+      bye: {
+        '1': 'Не дай себе піймати.'
       }
     },
     sfShadow: {
@@ -2610,9 +4222,8 @@ export default {
         '2': 'Бий, коли метал сяє найяскравіше. Схибиш — піде на брухт. Давай.',
         '1': 'Кувати? Гм. Тримай молот отак, а не як палицю.'
       },
-      ore: {
-        '1': 'Самородки, га? Беру всі. Чесна вага, чесна монета.'
-      },
+      ore: { '1': 'Руда, еге? Показуй. Плачу за самородок, чесна вага.' },
+      sellBack: { '1': 'Чесна вага, чесна монета. Принось ще, як знайдеш.' },
       forgeBack: {
         '1': 'Непогано. Але й не добре. Не зупиняйся.'
       },
@@ -2916,7 +4527,7 @@ export default {
       },
       map: {
         '1': 'Мапа капітана Рука! Він порвав її та сховав шматки, поки його не схопили гобліни.',
-        '2': 'Знайди всі шість, і хрестик покаже шлях: десь у Попелястих скелях. Копай там, і золото твоє.',
+        '2': 'Знайди шість із них, ще кілька розкидано навколо, і хрестик покаже шлях: десь у Попелястих скелях. Копай там, і золото твоє.',
         say: 'У мене шматок якоїсь старої мапи.'
       }
     },
@@ -2936,6 +4547,9 @@ export default {
       mana: {
         '1': 'Ця гірка. Пий, коли закляття вичерпаються.'
       },
+      brew: {
+        '1': 'Покажи свої трави. Я намішаю щось смачніше за мій тонік мани.'
+      },
       potions: {
         '1': 'Ти береш у кожен бій кілька флаконів. Пий заздалегідь, а не потім.',
         '2': 'Якщо хочеш носити більше, можу продати більший пояс.',
@@ -2954,6 +4568,9 @@ export default {
       },
       healBack: {
         '1': 'Тримай пояс повним, а голову нижче.'
+      },
+      brewBack: {
+        '1': 'Обережно, гаряче. Не пий усе одразу.'
       },
       bye: {
         '1': 'Бережи себе там.'
@@ -3060,9 +4677,8 @@ export default {
         '2': 'Стеж за сяйвом. Бий у саме серце, тричі, і метал запам\'ятає.',
         '1': 'Хочеш опанувати ремесло? Добре. Оукгейвену потрібен кожен молот.'
       },
-      ore: {
-        '1': 'Сира руда! Зброярні її завжди бракує. Ось твоя плата.'
-      },
+      ore: { '1': 'Сира руда! Збройні завжди мало. Продай, скільки не шкода.' },
+      sellBack: { '1': 'Кожен самородок піде в стіну. Дякую.' },
       forgeBack: {
         '1': 'Добра сталь. Мури тобі дякують.'
       },
@@ -3104,9 +4720,8 @@ export default {
         '2': 'Три удари, кожен у саме серце сяйва. Ось і весь секрет.',
         '1': 'Після облоги я навчаю кожного, хто попросить. Ходи, стань тут.'
       },
-      ore: {
-        '1': 'Ще руда для мурів? Хай береже тебе небо. Ось, візьми.'
-      },
+      ore: { '1': 'Ще руда для стін? Заплачу за кожен самородок, що віддаси.' },
+      sellBack: { '1': 'Благослови тебе небо. Це ще пластини для стін.' },
       forgeBack: {
         '1': 'З кожним ударом у тебе виходить краще. Приходь будь-коли.'
       },
@@ -3529,9 +5144,8 @@ export default {
         '1__f': 'Мешканка поверхні біля ковадла? Що ж, усі з чогось починають.',
         '1': 'Мешканець поверхні біля ковадла? Що ж, усі з чогось починають.'
       },
-      ore: {
-        '1': 'Добрий, чесний метал. Айронголд за такий завжди платить.'
-      },
+      ore: { '1': 'Добрий, чесний метал. Викладай, плачу за самородок.' },
+      sellBack: { '1': 'Чесна угода. Айронголд завжди платить за добрий метал.' },
       forgeBack: {
         '1': 'Гном зробив би краще. Але ненабагато.'
       },
@@ -3603,9 +5217,8 @@ export default {
         '2': 'Нагрій, удар, переверни. Три удари, точно в сяйво. Потім дай охолонути.',
         '1': 'Лати — терпляча робота. Покажу тобі основи.'
       },
-      ore: {
-        '1': 'Дай-но зважу. Добре. Монети твої.'
-      },
+      ore: { '1': 'Дай-но зважу. Обери, що продаєш, а я порахую монети.' },
+      sellBack: { '1': 'Зважено й оплачено. Добре.' },
       forgeBack: {
         '1': 'Дай охолонути, перш ніж одягати.'
       },
@@ -3646,9 +5259,8 @@ export default {
         '2': 'Дисципліна біля ковадла, як і в полі. Три удари, вірні сяйву.',
         '1': 'Орден озброює своїх друзів. Я навчу тебе.'
       },
-      ore: {
-        '1': 'Орден скуповує всю руду для війни. Твоя плата.'
-      },
+      ore: { '1': 'Орден купує руду для війни. Продай, скільки не шкода.' },
+      sellBack: { '1': 'Оплату записано. Орден дякує тобі.' },
       forgeBack: {
         '1': 'Добре викувано. Носи з честю.'
       },
@@ -4072,6 +5684,11 @@ export default {
       }
     },
     bark: {
+      banditChief: {
+        whistle: {
+          1: 'Вставайте, хлопці! Кусайте їх!'
+        }
+      },
       lightDisciple: {
         freed: {
           '1': 'Тебе послало світло. Я Сестра Аурель. Знайди мене в Санфорді, я навчу тебе шляху Світлоносця.'
@@ -4228,9 +5845,8 @@ export default {
         '2': 'Бий, коли сяйво найгарячіше. Три добрі удари — добра річ.',
         '1': 'Хочеш узятися за молот? Мені не шкода поділитися горном.'
       },
-      ore: {
-        '1': 'Чудова руда. Сільвербрідж завжди платить чесну ціну.'
-      },
+      ore: { '1': 'Гарна руда. Покажи, що продаєш, плачу за самородок.' },
+      sellBack: { '1': 'Рада угоді. Сільвербрідж завжди платить чесно.' },
       forgeBack: {
         '1__f': 'Оце так! Ти просто створена для цього.',
         '1': 'Оце так! Ти просто створений для цього.'
@@ -4673,7 +6289,7 @@ export default {
         say: 'Де мені знайти трави?'
       },
       elixirs: {
-        '1': 'Кожен додає тобі сили в бою на цілу хвилину. Удари міцніші, шкіра товща, ноги швидші.',
+        '1': 'Кожен додає тобі сили в бою на цілих 5 хвилин. Удари міцніші, шкіра товща, ноги швидші.',
         '2': 'Вони лежать у третьому флаконі. Натисни маленьку стрілку, щоб вибрати, який випити.',
         say: 'Що роблять еліксири?'
       },
@@ -4742,6 +6358,36 @@ export default {
       },
       bye: {
         '1': 'Неси ще мотлоху! Мотлох — моє улюблене.'
+      }
+    },
+    sunfordCups: {
+      hello: {
+        1: 'Підходь! Три чарки, один самоцвіт, а перший кон за мій рахунок!',
+        2: 'Нел Спритні Пальці. Мої руки ще ніхто не обдурив. Хочеш спробувати?'
+      },
+      again: {
+        1: 'Знову ти? Дивись уважно!'
+      },
+      play: {
+        1: 'Очей не зводь із самоцвіту, друже. Не кліпай!'
+      },
+      rules: {
+        1: 'Я ховаю самоцвіт під чарку й перемішую. Ти вказуєш на ту, під якою він лежить.',
+        2: 'Кожна перемога поспіль платить більше. Три перемоги дають приз, п\'ять — скарб. Перший кон дня безкоштовний.',
+        say: 'Як це працює?'
+      },
+      who: {
+        1: 'Я вміла перемішувати, ще не вміючи ходити. Мама каже, це багато що пояснює.'
+      },
+      luck: {
+        1: 'Буває! Тоді я голосно стогну, і публіка мене шкодує.',
+        say: 'А ти коли-небудь програєш?'
+      },
+      playBack: {
+        1: 'Чудовий кон! Приходь завтра, перший завжди безкоштовний.'
+      },
+      bye: {
+        1: 'Бувай! Дивись уважно там, надворі.'
       }
     },
     oakGambler: {
@@ -5235,6 +6881,7 @@ export default {
     banditArcher: 'Розбійник-лучник',
     wolf: 'Вовк',
     banditChief: 'Ватажок розбійників',
+    gnome: 'Гном',
     goblinKing: 'Король гоблінів',
     treant: 'Древень',
     spider: 'Велетенський павук',
@@ -5452,6 +7099,18 @@ export default {
       firefoxColors: 'Firefox: Налаштування → Кольори → обери «Перевизначати кольори сторінки»: Ніколи.'
     }
   },
+  samsungFix: {
+    title: 'Швидка перевірка кольорів',
+    body: 'Деякі телефони змінюють кольори вебсторінок. Порівняй два квадрати нижче.',
+    question: 'Чи виглядають обидва квадрати однаково?',
+    refSquare: 'Еталонний квадрат',
+    pageSquare: 'Квадрат сторінки',
+    yes: 'Так, вони однакові',
+    no: 'Ні, вони різні',
+    option: 'Виправити кольори (темний режим Samsung)',
+    optionHint: 'Увімкни, якщо меню виглядають темними або текст важко читати.',
+    recheck: 'Повторити перевірку кольорів'
+  },
   saveStatus: {
     restoredTitle: 'Хмарне збереження відновлено',
     restoredBody: '+{n} бонусного золота за відновлення',
@@ -5581,7 +7240,7 @@ export default {
   },
   forge: {
     upgrade: 'Покращити ({n} золота)',
-    max: 'Повністю покращено: +{n}.',
+    next: 'Далі +{level}: +{pct}% до статів',
     town: 'Покращити це може коваль у будь-якому місті.'
   },
   ore: {
@@ -5596,6 +7255,12 @@ export default {
     },
     mithril: {
       name: 'Мітрилова руда'
+    },
+    adamant: {
+      name: 'Адамантова руда'
+    },
+    aetherite: {
+      name: 'Ефіритова руда'
     }
   },
   plant: {
@@ -5677,32 +7342,32 @@ export default {
   elixir: {
     might: {
       name: 'Еліксир могутності',
-      desc: '+{n}% до шкоди на хвилину'
+      desc: '+{n}% до шкоди на 5 хвилин'
     },
     iron: {
       name: 'Відвар залізної шкіри',
-      desc: '+{n}% до броні на хвилину'
+      desc: '+{n}% до броні на 5 хвилин'
     },
     swift: {
       name: 'Тонік прудкості',
-      desc: '+{n}% до швидкості та швидкості атаки на хвилину'
+      desc: '+{n}% до швидкості та швидкості атаки на 5 хвилин'
     },
     mind: {
       name: 'Настій ясного розуму',
-      desc: 'Навички перезаряджаються на {n}% швидше протягом хвилини'
+      desc: 'Навички перезаряджаються на {n}% швидше протягом 5 хвилин'
     },
     vigor: {
       name: 'Еліксир бадьорості',
-      desc: 'Лікує {n}% здоров’я щосекунди протягом хвилини'
+      desc: 'Лікує {n}% здоров’я щосекунди протягом 5 хвилин'
     },
     shadow: {
       name: 'Спраглий відвар',
-      desc: 'Твої удари лікують тебе на {n}% від шкоди протягом хвилини'
+      desc: 'Твої удари лікують тебе на {n}% від шкоди протягом 5 хвилин'
     }
   },
   alchemy: {
     talk: 'Трави всередину, еліксири назовні. Що будемо варити?',
-    lead: 'Кожен еліксир діє хвилину в бою. Пий його з третього флакона. Кожного можна нести не більше {n}.',
+    lead: 'Кожен еліксир діє 5 хвилин в бою. Пий його з третього флакона. Кожного можна нести не більше {n}.',
     brew: 'Зварити · {n}',
     carry: 'Взяти з собою',
     carried: 'У твоєму флаконі',
@@ -5726,6 +7391,25 @@ export default {
     again: 'Зіграти ще',
     noGold: 'Бракує золота на цю ставку.',
     card: 'Карта {n}'
+  },
+  cups: {
+    title: 'Лавка з чарками',
+    lead: 'Стеж за самоцвітом, іди за його чаркою і вкажи на неї. Кожна перемога поспіль платить більше. Третя дає призову річ, п\'ята — скарб.',
+    free: 'Безкоштовний кон',
+    fee: 'Грати · {n}',
+    row: 'Перемог поспіль: {n} із {max}',
+    next: 'Наступна перемога: {n} золота',
+    watch: 'Стеж за самоцвітом!',
+    follow: 'Йди за ним…',
+    pick: 'Обери чарку!',
+    hint: 'Торкнися чарки або натисни її номер.',
+    won: 'Знайшов! +{n} золота',
+    lost: 'Не та. Серія починається спочатку.',
+    near: 'Так близько! Він був поруч.',
+    timeout: 'Надто повільно! Серія починається спочатку.',
+    again: 'Зіграти ще',
+    noGold: 'Не вистачає золота. Завтра перший кон безкоштовний.',
+    cup: 'Чарка {n}'
   },
   battle: {
     title: 'Битва предметів',

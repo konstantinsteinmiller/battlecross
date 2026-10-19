@@ -189,3 +189,26 @@ describe('the character page', () => {
     expect(plus.every(b => b.disabled)).toBe(true)
   })
 })
+
+describe('the codex scroll', () => {
+  it('tapping a class scrolls its skills into view and offers the way back', async () => {
+    await openBook('skills')
+    const scrollTo = vi.fn()
+    // jsdom has no layout: make the codex the scroller and the skills fall below it.
+    const codex = $('.codex') as HTMLElement
+    codex.style.overflowY = 'auto'
+    codex.scrollTo = scrollTo as unknown as typeof codex.scrollTo
+    codex.getBoundingClientRect = () => ({ top: 0, bottom: 200, left: 0, right: 100, width: 100, height: 200, x: 0, y: 0, toJSON() {} })
+    ;($('.codex__head') as HTMLElement).getBoundingClientRect = () => ({ top: 180, bottom: 220, left: 0, right: 100, width: 100, height: 40, x: 0, y: 180, toJSON() {} })
+    ;($('.codex__path') as HTMLElement).getBoundingClientRect = () => ({ top: 220, bottom: 500, left: 0, right: 100, width: 100, height: 280, x: 0, y: 220, toJSON() {} })
+    const emblem = $$('.emblem').find(e => !e.classList.contains('is-active'))!
+    await click(emblem)
+    await nextTick()
+    expect(emblem.classList.contains('is-active')).toBe(true)
+    expect(scrollTo).toHaveBeenCalledTimes(1)
+    expect(scrollTo.mock.calls[0]![0].top).toBeGreaterThan(100)
+    // The way back scrolls to the top.
+    await click($('.codex__up'))
+    expect(scrollTo).toHaveBeenLastCalledWith(expect.objectContaining({ top: 0 }))
+  })
+})

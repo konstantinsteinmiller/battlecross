@@ -145,9 +145,6 @@ const resolvedAriaLabel = computed<string | undefined>(
   overflow: hidden
   transition: transform var(--bc-t-release) var(--bc-ease-bounce), filter 120ms ease-out
 
-  // The cel glint.
-  &::before
-    +cel.glint(9%, 12%, 42%, 13%)
 
   // The glyph fills a consistent fraction of the chip regardless of chip size,
   // so a row of mixed icons reads as one set. A bitmap needs the larger box to

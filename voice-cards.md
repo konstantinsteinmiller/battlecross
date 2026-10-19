@@ -20,7 +20,7 @@ A friendly, brave boy on his first big adventure: polite, curious, quick to help
 - **Accent:** Neutral, clear English
 - **Design prompt:** A thirteen-year-old boy whose voice has not broken yet: bright, clear and friendly, with a brave, eager energy. He speaks naturally and politely, curious about everyone he meets. Clean, close-miked studio recording, no reverb, no background noise.
 - **Reference text:** Hello! I'm new around here, but I cleared the road on my way in. If anyone needs help, I'm happy to lend a hand. Can you tell me where to find the blacksmith?
-- **Lines:** 202 (neutral 174, deadpan 13, calm 8, urgent 4, warm 3)
+- **Lines:** 204 (neutral 176, deadpan 13, calm 8, urgent 4, warm 3)
 - **Notes:** Every line of his also has a girl take (heroine). Never cartoonish, never an adult doing a kid.
 
 ## The hero (girl) (`heroine`)
@@ -34,7 +34,7 @@ A warm, determined girl on her first big adventure: kind, curious, steady when i
 - **Accent:** Neutral, clear English
 - **Design prompt:** A thirteen-year-old girl with a warm, clear voice and a calm, determined confidence. Friendly and curious, she speaks naturally and kindly, never squeaky. Clean, close-miked studio recording, no reverb, no background noise.
 - **Reference text:** Hello! I'm new around here, but I cleared the road on my way in. If anyone needs help, I'm happy to lend a hand. Can you tell me where to find the blacksmith?
-- **Lines:** 202 (neutral 174, deadpan 13, calm 8, urgent 4, warm 3)
+- **Lines:** 204 (neutral 176, deadpan 13, calm 8, urgent 4, warm 3)
 - **Notes:** Says the same lines as the hero (`__f` takes): the same reference text keeps the two comparable.
 
 ## The storyteller (`narrator`)
@@ -50,6 +50,20 @@ Tells what the hero's choices did to the world, like reading a good book aloud.
 - **Reference text:** The road wound north past the old mill, and the town of Sunford woke to the sound of hammers. Somewhere beyond the hills, a choice was waiting, and nobody yet knew who would make it.
 - **Lines:** 0
 - **Notes:** Kept while the manifest still has storyteller lines (they are moving to the hero voices).
+
+## The Chronicler (intro narrator) (`chronicler`)
+
+| Gender | Age | Pitch | Pace | Timbre |
+| --- | --- | --- | --- | --- |
+| male | late 60s | low | slow | deep, warm, slightly weathered bass-baritone with a smile in it |
+
+An old storyteller by the fire who has seen every road of the world and still loves telling of it: grave where it matters, charming always.
+
+- **Accent:** Neutral, clear English
+- **Design prompt:** An old man in his late sixties with a deep, warm, slightly weathered bass-baritone, narrating the opening of a fantasy legend. Slow and deliberate, with dramatic pauses, gravitas and a twinkle of charm, like a beloved storyteller by the hearth. Clean, close-miked studio recording, no reverb, no background noise.
+- **Reference text:** Every road in this world meets at a crossing. I have walked most of them, and I remember every battle fought where they meet. Sit a while, and I will tell you of the one who walked them all.
+- **Lines:** 5 (warm 3, calm 2)
+- **Notes:** The intro (#130) only. The English take is meant for ElevenLabs (tools/voice/intro-elevenlabs.mjs); the other voiced languages go through the usual pipeline.
 
 ## Bram the Smith (`sunfordSmith`)
 
@@ -102,7 +116,7 @@ A kind village healer, caring by habit, quietly funny.
 - **Accent:** Neutral, clear English
 - **Design prompt:** A woman in her early thirties with a gentle, soft and clear voice. Caring and calm like a kind nurse, with a quiet sense of humour. Clean, close-miked studio recording, no reverb, no background noise.
 - **Reference text:** Hold still a moment. There, you're fine. Sit, rest a while, and I'll fill your flasks before you go. Drink before you need to, not after.
-- **Lines:** 12 (warm 10, cheeky 2)
+- **Lines:** 14 (warm 12, cheeky 2)
 
 ## Grik the Trader (`goblinTrader`)
 
@@ -155,7 +169,7 @@ A retired cutpurse turned teacher: sly, dry-humoured, always half amused.
 - **Accent:** Neutral, clear English
 - **Design prompt:** A woman in her mid thirties with a low, wry, slightly husky voice. Sly and dry-humoured, speaking quickly, as if sharing a secret. Clean, close-miked studio recording, no reverb, no background noise.
 - **Reference text:** Didn't hear you come in. That's usually my trick. Nettle Quickhand. I teach the quiet arts: daggers, shadows, and leaving early. Light feet, quick hands.
-- **Lines:** 12 (cheeky 12)
+- **Lines:** 17 (cheeky 17)
 
 ## Harrow Flint (`sfGeo`)
 
@@ -181,7 +195,7 @@ A travelling peddler and tinker: chatty, grateful, always talking up his wares.
 - **Accent:** Neutral, clear English
 - **Design prompt:** A man in his late fifties with a warm, chatty, slightly nasal voice. Friendly and quick, the patter of a market seller who loves a bargain. Clean, close-miked studio recording, no reverb, no background noise.
 - **Reference text:** You! You're the one who opened that cage! Odo Marrow, at your service. Peddler, tinker, very grateful man. Rings, gloves, boots, half price for you. Well, nearly.
-- **Lines:** 8 (cheeky 6, excited 2)
+- **Lines:** 9 (cheeky 6, excited 3)
 - **Notes:** Not Tilly the Peddler (a young woman): Odo is an old, talkative salesman.
 
 ## Briar Hollowell (`freedHerbalist`)
@@ -195,7 +209,7 @@ A hill herbalist the goblins took for a witch: soft-spoken, wry, kind.
 - **Accent:** Neutral, clear English
 - **Design prompt:** A woman in her mid forties with a soft, earthy, calm voice. Gentle and unhurried, with a dry little smile in it. Clean, close-miked studio recording, no reverb, no background noise.
 - **Reference text:** I knew someone would come. I'm Briar. I gather and dry what grows. The goblins took me for a witch. They weren't entirely wrong. Walk gently out there.
-- **Lines:** 11 (warm 11)
+- **Lines:** 12 (warm 12)
 
 ## Jory Toller (`freedFarmers`)
 
@@ -208,7 +222,7 @@ A farmer freed with his son: plain-spoken, tired, deeply grateful.
 - **Accent:** Neutral, clear English
 - **Design prompt:** A man in his mid forties with a plain, rough country voice. Slow and honest, a working man who says what he means. Clean, close-miked studio recording, no reverb, no background noise.
 - **Reference text:** We'd be dead without you. Me and my boy both. Jory Toller. We farm outside the walls now. Well, we try. The wolves keep taking our sheep.
-- **Lines:** 11 (neutral 7, warm 4)
+- **Lines:** 12 (neutral 7, warm 4, excited 1)
 
 ## Kestrel Vane (`windDisciple`)
 
@@ -221,7 +235,7 @@ Sefa Galewing's pupil: eager, quick, cheerful, always ready to run.
 - **Accent:** Neutral, clear English
 - **Design prompt:** A young man in his early twenties with a light, eager voice, a little breathless. Quick and cheerful, words tumbling out. Clean, close-miked studio recording, no reverb, no background noise.
 - **Reference text:** You got me out! I owe you everything. Well, a lot. Kestrel Vane. Sefa taught me the bow. Feet apart, breathe out, and let the wind carry it.
-- **Lines:** 13 (excited 11, warm 2)
+- **Lines:** 14 (excited 11, warm 3)
 - **Notes:** Not Sefa Galewing (a woman): Kestrel is her young male pupil.
 
 ## Ivor Hask (`frostDisciple`)
@@ -235,7 +249,7 @@ Halvard Rimeheart's pupil: a hunter of the north, a man of very few words.
 - **Accent:** Neutral, clear English
 - **Design prompt:** A man in his late thirties with a deep, quiet voice and a northern edge. Calm and terse, every word weighed. Clean, close-miked studio recording, no reverb, no background noise.
 - **Reference text:** Free. Good. The cold did not take me, and neither did they. Ivor Hask. Stand still. Let the cold come to you. Then send it back. Stay warm.
-- **Lines:** 13 (neutral 11, warm 2)
+- **Lines:** 14 (neutral 11, warm 2, calm 1)
 - **Notes:** Not Halvard Rimeheart (older, grander): Ivor is younger and even more terse.
 
 ## Sister Aurelle (`lightDisciple`)
@@ -249,7 +263,7 @@ A Lightbringer's disciple: gentle, sincere, glad to be back in the sun.
 - **Accent:** Neutral, clear English
 - **Design prompt:** A woman in her late twenties with a gentle, warm, clear voice. Sincere and kind, calm even when moved. Clean, close-miked studio recording, no reverb, no background noise.
 - **Reference text:** Light be with you. You found me in the dark, and I won't forget it. I'm Aurelle. Open your hands, and let the light come through them, not from them.
-- **Lines:** 13 (warm 13)
+- **Lines:** 14 (warm 14)
 - **Notes:** Not Sister Auriel Dawnmere (her teacher): Aurelle is younger and quieter.
 
 ## Captain Hale (`captainHale`)
@@ -504,6 +518,20 @@ A defeated goblin king, frightened, bargaining for his hungry people.
 - **Lines:** 9 (urgent 6, shout 2, excited 1)
 - **Notes:** Light goblin FX (fx.mjs).
 
+## The Bandit Chief (`banditChief`)
+
+| Gender | Age | Pitch | Pace | Timbre |
+| --- | --- | --- | --- | --- |
+| male | mid 40s | mid | medium | rough, cocky, a gravelly growl |
+
+A swaggering roadside bandit boss who enjoys a fight and has plenty of little helpers.
+
+- **Accent:** Neutral, clear English
+- **Design prompt:** A man in his mid forties with a rough, cocky growl, a swaggering bandit leader, loud and sure of himself. Clean, close-miked studio recording, no reverb, no background noise.
+- **Reference text:** Nobody walks my road for free. Hand it over, every coin and every trinket, or we will take it off you the hard way, and laugh.
+- **Lines:** 1 (shout 1)
+- **Notes:** No FX.
+
 ## Warlord Krag (`warlord`)
 
 | Gender | Age | Pitch | Pace | Timbre |
@@ -753,6 +781,20 @@ A cheerful village gambler who plays for junk and laughs at his own losses.
 - **Reference text:** Psst. Got any junk in that bag? Old boots, bent swords? I'll play you for it. Dob Tumbler. I play for fun, mostly. And for boots.
 - **Lines:** 10 (cheeky 10)
 - **Notes:** Not Bram the smith (gruff, slow): Dob is quick and giggly.
+
+## Nell Nimblefingers (`sunfordCups`)
+
+| Gender | Age | Pitch | Pace | Timbre |
+| --- | --- | --- | --- | --- |
+| female | about 20 | high | fast | bright, quick, playful voice |
+
+A fast-talking girl who runs the cup stand: cheeky, kind, cheers for every winner and groans theatrically when she loses.
+
+- **Accent:** Neutral, clear English
+- **Design prompt:** A young woman of about twenty with a bright, quick, playful voice, grinning as she talks, like a street performer calling over a crowd. Clean, close-miked studio recording, no reverb, no background noise.
+- **Reference text:** Three cups, one gem, and a first round on the house! Keep your eyes sharp, friend. Nell Nimblefingers never loses a gem. Well, almost never.
+- **Lines:** 10 (excited 9, cheeky 1)
+- **Notes:** Not Dob Tumbler (scratchy, chatty): Nell is higher, brisker and cheekier.
 
 ## Silky Ren (`oakGambler`)
 

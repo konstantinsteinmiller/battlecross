@@ -5,6 +5,7 @@ import {
 import { barGlyphs, softDisc } from './textures'
 import { LEVEL_TIERS, LEVEL_TIER_COLORS, type LevelTier } from '../data/zones'
 import { GROUND_GLSL, groundAt, groundSlopeAt, withGround } from './ground'
+import { WayMarks } from './wayMarks'
 
 /**
  * ─── World-space UI ──────────────────────────────────────────────────────────
@@ -15,6 +16,7 @@ import { GROUND_GLSL, groundAt, groundSlopeAt, withGround } from './ground'
  *   • the hero's ring and the locked target's ring (framed by the target's rank);
  *   • the drag line from the hero to the pointer (GDD §7), gold over an enemy;
  *   • the tap marker where a move order landed;
+ *   • the coach's chevrons on the ground, leading to a townsperson (`wayMarks.ts`);
  *   • a skill's aim preview (range ring + area disc) while its button is dragged;
  *   • blob shadows, and every health bar in one instanced draw.
  *
@@ -198,6 +200,7 @@ export class Markers {
   private aimLine: Mesh
   private all: Mesh[]
   private time = 0
+  private wayMarks = new WayMarks()
 
   constructor(scene: Scene) {
     this.heroRing = mark(this.quad, 0, '#5fe8ff', 0.035)
@@ -212,7 +215,7 @@ export class Markers {
     this.aimDisc = mark(this.quad, 4, '#ffd24a', 0.055)
     this.aimLine = mark(this.quad, 5, '#ffd24a', 0.052)
     this.all = [this.heroRing, this.targetRing, this.tap, this.line, this.lineTip, this.rangeRing, this.aimDisc, this.aimLine]
-    this.root.add(...this.all)
+    this.root.add(...this.all, this.wayMarks.mesh)
     scene.add(this.root)
   }
 
@@ -296,6 +299,11 @@ export class Markers {
     this.segment(this.aimLine, hx, hz, x, z, 0.16)
   }
 
+  /** The coach's chevrons along the walked way (x, z pairs) from the hero; `on` false hides them. */
+  way(dt: number, on: boolean, hx: number, hz: number, pts: ArrayLike<number>, n: number): void {
+    this.wayMarks.update(dt, on, hx, hz, pts, n)
+  }
+
   update(dt: number): void {
     this.time += dt
     for (const m of this.all) uni(m).uTime!.value = this.time
@@ -314,6 +322,7 @@ export class Markers {
 
   dispose(): void {
     this.quad.dispose()
+    this.wayMarks.dispose()
     for (const m of this.all) (m.material as ShaderMaterial).dispose()
     this.root.removeFromParent()
   }

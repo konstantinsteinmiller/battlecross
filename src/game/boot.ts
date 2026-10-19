@@ -9,7 +9,10 @@ import { hud } from './state/hud'
 import { bootAdopted, bootStarting, createBootMode, gameInput, setPrecompile } from './flow'
 import { installSynth, loadSfxOverrides } from './audio/synth'
 import { fmt } from '@/utils/format'
-import { awaitCritical } from './assets/preload'
+import { awaitCritical, bootNode } from './assets/preload'
+import { TOWNS } from './data/zones'
+import { loadTownSim } from './sim/townSimLoader'
+import { loadTalk } from './talkLoader'
 
 /**
  * ─── Boot priming ────────────────────────────────────────────────────────────
@@ -45,7 +48,7 @@ hud.device = input.device
  * and readiness is polled directly rather than through a final `compileAsync`,
  * which would re-derive everything in one task again.
  */
-const precompile = async (mode: GameMode, onProgress: (f01: number) => void = () => {}): Promise<void> => {
+export const precompile = async (mode: GameMode, onProgress: (f01: number) => void = () => {}): Promise<void> => {
   try {
     const slice = createSlicer(12)
     const renderer = getRenderer()
@@ -127,6 +130,10 @@ export const primeGame = (onProgress: (p01: number) => void): Promise<void> => {
     // would otherwise build it inside the task that mounts it.
     fmt(0)
     await yieldToBrowser()
+    // Booting into a town: its simulation and its people's conversations
+    // (lazy chunks, D149) download now, beside the renderer's start-up, not
+    // after the build has asked for them.
+    if (bootNode() in TOWNS) { void loadTownSim().catch(() => {}); void loadTalk().catch(() => {}) }
     getRenderer()
     onProgress(0.07)
     await loadTextureOverrides()

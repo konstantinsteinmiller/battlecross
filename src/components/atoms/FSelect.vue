@@ -157,8 +157,6 @@ onUnmounted(() => document.removeEventListener('click', handleClickOutside))
   +cel.fill
   overflow: hidden
   transition: transform var(--bc-t-release) var(--bc-ease-bounce), filter 120ms ease-out
-  &::before
-    +cel.glint(0.22em, 0.5em, min(34%, 3rem), 0.28em)
 
 .f-select__value
   position: relative

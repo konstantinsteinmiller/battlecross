@@ -4,7 +4,7 @@
   Create 4 different new cover image scenarios (like the current non-painted ones), paint them once in Gemini and compare them with the old cover images(not painted) for the CTR value. Go with the best results that would potentially and based on web-search evidence yield the best CTR results on web game platforms and Steam.
 
 - [ ] #35 Let's start on using the voice-over pipeline to create VOs for each NPC. 
-  DON'T START WITHOUT MY WON INITIATED REQUEST TO START IT. 
+  DON'T START WITHOUT MY WON INITIATED REQUEST TO START IT.
 
 - [ ] #36 let's do another round of optimizing hot-path loading during start up, postponing non-critical assets to lazy loading after all critical assets were loaded for the current scene based on player progress and level position.  
   That should make the game startup faster and happier players (should not create asset pop-ins)
@@ -119,7 +119,7 @@ Build order and the decisions taken are in `game-implementation-plan.md`
 - [x] #91 ✅ A memory-game gambler (inspired by the bow and slingshot stands of Zelda: Ocarina of Time): bet gold on a memory game against a timer; finishing in time doubles the bet. Each win leaves less time; after 5 wins (the hardest time limit) the player also gets a random legendary piece of equipment.
 - [x] #92 ✅ An item-battle gambler, always in Sunford and Oakhaven: player and gambler each stake an item, the higher coin value wins a point, 2 points win a game. The gambler stakes ever more expensive items; the player's staked items are gone whether they win or lose, so the entry fee is low. Needs at least 3 unequipped items in the bag. Each won game gives a little XP; after 3 wins the player gets a random epic piece of equipment.
 - [x] #93 ✅ English Chatterbox VOs for all new character dialogues (#85-#92).
-- [ ] #94 Paint all missing icons of the game with the art pipeline, then continue with the world map art.
+- [x] #94 ✅ Paint all missing icons of the game with the art pipeline, then continue with the world map art.
 - [x] #95 ✅ The game needs 4 more classes (at least 2 more mage classes like an elementalist: intelligence based attacks, uses a mix of elemental magic to conquer the battlefield. another could be a "soul warden": uses soul magic, intelligence based attack and can revive enemies mob and elite level to fight alongside him, can convert a soul living soul to fight for him, but low chance). Each class gets a total of 12 skills, so a player can better mix and match skills. The player has 8 skill slots he can fill and rearrange freely with learnt skills. 4 passive skills, same.
 - [x] #96 ✅ Each skill in the skills tab must show clearly as a badge which stat its effect or damage scales with, otherwise it's hard for the player to craft a build and become obsessively invested in the game.
 - [x] #97 ✅ add some cats, dogs, squirrels to the towns (each of the animals must have realistic pet walk, run and idle animations, this is crucial, simple robot like movement is not enough, do a web-search on how each of the pets move and take references from cat-video, dog-videos and squirrel videos)
@@ -132,7 +132,7 @@ Build order and the decisions taken are in `game-implementation-plan.md`
 - [x] #104 ✅ Mana not needed, bad scaling. 
 - [x] #105 ✅ Don't show scaling badge if the skill does not have any scaling or stat dependence on the skill
 - [x] #106 ✅ More base teachers in sunford for variety of builds early.
-- [ ] #107 paint spell icons, remaining map painted
+- [x] #107 ✅ paint spell icons, remaining map painted
 - [x] #108 ✅ Skill point highlight seen over the entered town
 - [x] #109 ✅ player gets so much hp per level, he never needs to skill endurance,even glass cannon build is though, rebalance this.
 - [x] #110 ✅ Equipment gives way much more stats than a level up and therefore makes stats distribution almost irrelevant, better to have lower stats gains from equipment, especially legendary weapons, so that stats skilling actually have a stronger impact.
@@ -152,15 +152,72 @@ Build order and the decisions taken are in `game-implementation-plan.md`
 - [x] #123 ✅ Dogs Walkcycle not correctly animated (dog is clipped into the ground), improve it
 - [x] #124 ✅ The game needs an adaptive enemy difficulty scaler, if the player is having zero trouble (almost not loosing any hp and never having to use an hp potion), the difficulty is raised(resets on death) by giving the enemies higher damage and more hp(gradually), difficulty is reassessed every 1 minute of playtime and can change by up to 10% more damage/hp to make the game more challenging to the player, if the player starts using hp potions, the game does not increase difficulty further and might even reduce it back step by step. This is especially important if the player goes to a location taht is too high for the player level, there the increase should be more radical(e.g. player has op equipment or op build and is not having trouble clearing an area 5+ levels higher than the players hero level) 
 - [x] #125 ✅ Recreate the cinematic trailer with more variations, instead of mostly show boss fights, add one item shop, add one 8 seconds screen with building active skills and passive skills into your loadout, add a 4 seconds scene with stats upgrading, add equipment equipping and finding legendary and heroic items from chests. Add a 3-4 seconds caravan defend scene where the player clears bandits.
-- [ ] #126
-- [ ] #127
-- [ ] #128
-- [ ] #129
-- [ ] #130
+- [x] #126 ✅ Keyboard layout detection and automatic button text label switch out for consistent play.
+- [x] #127 ✅ design more fancy buttons with ornaments and decorations fitting the games theme. Do the same for all cards, modals, badges(if the badge is not too small), use border inset ornaments.
+- [x] #128 ✅ Paint the ornaments and inset decorations, so it looks consistent with the other painted map and icon art.
+- [x] #129 ✅ The color of the button text is black on a blue background which is bad contrast, change the text to white. The skills of non-intelligence classes should use less mana as they have almost no mana recovery through intelligence. Also mana potions should fully fill the mana bar always.
+- [x] #130 ✅ Create an Intro that shows off a full built character with 5 skills in the belt and shows off some of the coolest skills with the most action coolness an awesomeness, choose wisely, this Intro is supposed to peak the players interest to go beyond just clearing the first sunford-plains area and drop off. The Intro should be at max 25 seconds long with an easy to see skip button and a hold space 1.5seconds keyboard shortcut (show a progressbar while holding Space like Red Dead Redemption 2 does it).
+  use a story explanation voice-over like in this reference trailer https://www.reddit.com/r/aigamedev/comments/1x6ql3o/2_weeks_of_work_now_im_fully_committed_on_the/
+  an oldish narrator with a deep but charming voice with elevenlabs to emotionally introduce the hero and his quest in the battlecross world.
+  I have a new account on koststone@gmail.com for elevenlabs that has enough voice over credits.
+- [x] #131 ✅ The towns have trees in front of the town exits, remove those and make the player leave to the map when the player walks into the exit zone. Some traders are standing in their selling table/desk, the desks should have collision and the traders should never clip inside.
+  The values in the stats menu should be trimmed to 2 digits after the comma/dot, only 2 fractional digits
+- [ ] #132 The game is too short, it should have a demon invasion afterplay once the demon king was killed. 
+ Some new big and super strong bosses need to be added with new fighting styles and challenges.
+ Story-wise that could be explained with: "The demons broke free after the Demon king was defeated and infested the locations of the battlecross world and the player hero now has to help everybody". Some towns might be overrun by demons and mobs and the surviving teachers, traders and gamblers and story npcs now sit in a small fort that is the last line of defense against the hordes of demons and mythical creatures like chimeras, hydras, cyclopses, sphynxes, centaurs, dragons, leviathans.
+ This should double the amount of gameplay and the target level for the last endboss would be 55-60.
+- [x] #133 ✅ there are also too few dexterity items, add dexterity items for all tier level, so a full dexterity build is possible.
+- [x] #134 ✅ Increase the effects of craftable potions to 75 percent and 5 minutes duration, otherwise they are not worth crafting and searching for as plants are quite rate, increase the amount of plants spawned per location to 6-7, so it's easier to find plants your searching for.
+- [x] #135 Add german, French, spanish, indonesian, vietnamese, russian, japanese and brazil portuguese and chinese (simplified) chatterbox VOs and link them in the game (not found VOs fallback to no VO like always).
+  - Done 2026-10-19: core lines voiced in de, es, pt (191/191), zh 189, ru 190, fr 183, ja 186 (id, vi: Chatterbox cannot speak them). Accepted as silent bubbles (no take passed Whisper QA after respellings and retries):
+    - fr: dlg.quest.dragon.ask.1, dlg.quest.throne.circle.say, dlg.bark.goblinKing.charge.1, dlg.elderMara.quest.say__f, dlg.quest.goblinKing.slay.say__f, dlg.quest.goblinKing.slay.2__f, dlg.quest.goblinKing.pact.say__f, dlg.quest.throne.claim.2__f
+    - ja: dlg.mayorBrenna.hello.2, dlg.quest.dragon.slay.say(__f), dlg.quest.throne.circle.2(__f)
+    - zh: dlg.quest.throne.syndicate.say(__f)
+    - ru: dlg.bark.freedFarmers.freed.1
+- [x] #136 the game is missing a small spectacle in the first 20-30 seconds of gameplay, so that the game reads quite boring with always the same enemies to kill and just 1 skill to use on a fairly big cooldown with 5 seconds. That doesnt excite most playtesters and therefore 9/10 drop off the game latest after killing the sunford-plains tutorial boss, but some even after killing the second mob pack in the tutorial level. Lets at the very minimum add a 3 button puzzle in the first 30 seconds and a new gambler with a super addictive fast mini-game with a good early coin or item reward that keeps the player engaged. I am also open to other ideas, how to make the first 1 minute of gameplay so addictive, that players want to explore the rest of the world. Give me 5 ultra-high quality decisions, dont just give me the standard success stories, but very elaborate features that fit this game. Maybe a possibility to fish at lakes with a pre-given angle rod could be one of them? (fully optional, but another npc shows by example how to fish in the game, must be easy and fun and addictive to fishing lovers. Fish caught can be sold for coins or exchanged for stronger equipment, fish is only visisble in the fish traders UI).
+ I have seen players play for 50+ minutes in one run, which is great, but they have to overcome the boring start first. Also introduce the first new teacher with only the teaching dialog in the tutorial level (probably shadowblade teacher is best as the first skill teleports and reads cool, appears walking in to the screen from the top side first after the first 2 goblins where defeated and keeps standing at the place the first 2 goblins where defeated.)
+ the first boss also is not that exciting to fight, he should have some fancy attacks, like e.g. a arrow rain cast on an area and spawning some spear throws in a line (a bit like the dragons fly attack). the boss should also whistle for some small gnome helpers that die after 5 seconds by loosing 10% of their hp every 0.5 seconds after spawn, but doing also just little damage to the player to not crash the balance.
+ 
+- [x] #137 The boss health bars of bosses should be dark reddish and not rosa/pink. Make the frame ornaments of elites and bosses more spectacular and outstanding. Paint the frames and ornaments for a consistent look with the icons and background images
+- [x] #138 ✅ The portraits in a teachers skill teaching UI are not painted and look very low-effort right now. Paint them all on 1-2 sheets.
+- [ ] #139 The dodge roll animations is not perfect yet, it feels it ends in a weird position and then snaps to the standing position without an interpolation of the animation steps.
+- [x] #140 ✅ The screenshake on crits is a bit too heavy, especially a dexterity heavy champion can trigger quite some of them in a short span making the screen shake all the time. Reduce intensity by 50%, so it is less heavy and add a throttle how many screenshakes can happen in a 5 second frame.
+- [ ] #141 The game is already great for the action rpg fantasy, but its lacking stuff to do outside of it. you can do some gambling and memory mini-game, but I think there is more that would fit it. I played till the end with my geomancer build and it worked well. I just wish there was more to do aside from the late game colloseum.
+  Maybe something like a castle rush or castle siege event or other events or more mini-games that reward unique items or even unlock more unique class builds?
+  I mean the overall cuteness look of the game is awesome and the english voice-overs are the cherry on top of the cake, but its lacking a bit of content for a more immersive overall long-term feel.
+- [x] #142 ✅ let's do another round of optimizing hot-path loading during start up, postponing non-critical assets to lazy loading after all critical assets were loaded for the current scene based on player progress and level position.  
+  That should make the game startup faster and happier players (should not create asset pop-ins)
+  DON'T START WITHOUT MY OWN INITIATED REQUEST TO START IT.
+  Done 2026-10-19 (D148, D149, PERF-LEDGER.md): phone link, before -> after: fresh 43 -> 39 requests / 1197 -> 1152 kB before playable, returning in a town 65 -> 54 / 1316 -> 1249 kB; the town simulation and the conversations out of the engine chunk; panels hold up to 300 ms for their art; no late image in any panel opened 12 s into a town visit (was up to ~30 per panel). Left: a bag opened the very instant a town becomes playable still shows three small glyphs up to ~0.1 s late.
+- [x] #143 ✅ On mobile landscape(check all viewport orientations) the greenish "item is and upgrade badge" and the "item equipped badge" are stretched and not round. these 2 badges also look too similar, make the equipped item badge more distinct, maybe a small shield crest item, indicating its equipped or a better icon, if you have a more solid idea.
+- [x] #144 ✅ Redesign the quest-board UI, add parchment background for the cards that list each mission/task instead of the current clean business UI design. the game UI needs more character and game genre fit (medieval low-fantasy)
+- [x] #145 ✅ The yellow chevron leading is rendered over objects and not on the ground, I saw it rendering above(z-index higher) the wayfinder post in sunford.
+- [x] #146 ✅ On mobile (seen on landscape, maybe even on portrait) the level requirement in the skill UI is cut off by the skill icons badges, so its hard to read.
+- [x] #147 ✅ Each boss needs a very strong charged attack that is clearly distinguishable from their other attacks with e.g. some darkreddish to violetish damage area previewer and significantly bigger area, more like the dragons breath attack. Since these attacks are charged and the player has more time to prepare for the big hit and gets more time to get out of the damage zone, the attacks must hit hard, e.g. for min 50% of the players life, these attacks are 3 times as rare as the normal special attacks of each boss. Elites get a weaker version of such charged attacks with ~40% smaller damage area and min 35% of the players hp damage instead of the bosses 50%. 
+- [x] #148 ✅ Currently the forge only allows to smith weapons for a mainly strenght based build with the e.g. gold sword giving +12 strenght and only 5.8 dex on a +5 upgrade. But what about the other builds like an intelligence, an skill based, a charisma based or a endurance based character build? they have no chance to get a well smithed weapon. Therefore extend the weapons and armors to be smithed based on the primary stat you want on the weapon (taking the base model from the normal items).
+- [x] #149 ✅ Currently the player can only upgrade any item up to +10, but why limit it, instead please add unlimited upgrades which are getting increasingly more expensive to upgrade but also give a little more stats per upgrade beyond level 10 as it costs ways more to upgrade beyond there. Overall I feel the +1...+10 progression in stats is marginal, its ~15% more stats value, which is very low I feel, raise it a bit, so upgrading feels valuable and impactful to have the player chase upgrades for more ingame time spent. 
+- [x] #150 ✅ Smithing is becoming very useless in the endgame with mithril beeing very rare to farm (no iron and silver nodes in the last 3 locations with level > 24 please), the highest smithable items are epic tier, but the player can find heroic and legendary items in the last 3 locations, which is a disconnect, even though smithing is a cool way to get your gear pre-upgraded and you can smith your target gear.
+- [x] #151 Do another draw call pass and put all static assets in one draw call per location, so it is super efficient in terms of performance for all players, even on low-end mobile devices.
+- [ ] #152
+- [ ] #153
+- [ ] #154
+- [ ] #155
+- [ ] #156
+- [ ] #157
+- [ ] #158
+- [ ] #159
+
+
+- [x] #Mini1 Please add a minimalistic charged and normal shot mini-game to kill red rotor drones where each click makes one sword slash at the monster and     
+  when the machine is dead with a tiny spectacle (like bolts sprinkling up), the next stronger machine appears. Its important that this mini-game is super small in code size and doesnt need any image, so that the player can play this mini-game during loading times and during the first-load
+  to waste some time with a funny and dumb, yet time-bridging mini-game, e.g. like the chrome 404 dino game, but during the loading times as a quick distraction and fun entertainment. The hero is Flux shooting at rotor drone, then hard hat, guarddroid, crate golem, then rotate from the beginning.
+  This mini-game must be already integrated in the first html page, so it instantly loads to entertain the player. Keep the detail quality high on the Flux and machines models.
+  There are no labels or counters or health bars and the mini-game shows as a small mini-game blow the loading bar, so the player does not stare at the loading bar waiting for it to finish.
 
 
 - [x] #X1 ✅ Create a cinematic trailer using the gameplay-preview-pipeline (but use a separate package.json script called "cinematic-trailer" with the file name called trailer to battlecross-cinematic-trailer.mp4) which shows off the correct in game behaviour to the watching audience and make it epic with epic fights and win scenarios and epic loot findings, the most actionable scenes with edgy video cuts to make it appeal to a 10-15 year old. Let the player speak a few of his cool lines in english(no text bubbles in the video). Show of the coolest features of the game and the coolest enemies and locations, all enemies and the player must behave like in the game.
-
+- [ ] #X2 Recreate the cinematic trailer, shorten the menu passages by ~30% in time and add the intro narrator to give the cinematic trailers an epic and atmospheric story and gameplay overview.
+  you can reuse some or most of the older boss fight scenes as they have not changed and looked good already in the trailer.
 
 
 

@@ -1,5 +1,13 @@
 // Esperanto (eo) bundle — mirrors en.ts.
 export default {
+  // ─── The intro (#130): its skip, and its narrator's name ───
+  intro: {
+    narrator: 'La Kronikisto',
+    skip: 'Preterlasi',
+    holdKey: 'Tenu {key} por preterlasi',
+    holdTouch: 'Tenu premite por preterlasi',
+    replay: 'Spekti la enkondukon'
+  },
   arena: {
     allWon: 'Ĉiuj mitaj premioj estas viaj.',
     call: 'La rakonto estas rakontita. Nun pruvu vian konstruon: grimpu kiel eble plej alten, kaj gajnu la mitajn premiojn, kiujn neniu alia povas doni al vi.',
@@ -8,6 +16,20 @@ export default {
     next: 'Sekva premio ĉe ondo {at}: {item}',
     champion: 'Ĉampiona ondo',
     wave: 'Ondo {n}'
+  },
+  sellOre: {
+    talk: 'Bona erco, justa prezo. Kiom vi vendos?',
+    lead: 'Elektu kiom da pecoj de ĉiu erco vendi. Nenio vendiĝas antaŭ ol vi premas Vendi.',
+    have: 'Vi havas {n}',
+    each: '{n} oro po unu',
+    none: 'Neniom',
+    all: 'Ĉiujn',
+    less: '{ore}: unu malpli',
+    more: '{ore}: unu pli',
+    total: 'Vi ricevos: {n} oron',
+    sell: 'Vendi',
+    selectAll: 'Elekti ĉiujn',
+    empty: 'Vi ne plu havas ercon por vendi.'
   },
   smith: {
     why: {
@@ -1420,38 +1442,110 @@ export default {
     smithMasterMithrilGreaves: {
       name: 'Majstraj Mitrilaj Tibiŝirmiloj'
     },
+    smithMasterAdamantGreaves: {
+      name: 'Majstraj Adamantaj Tibiŝirmiloj'
+    },
+    smithMasterAetheriteGreaves: {
+      name: 'Majstraj Eteritaj Tibiŝirmiloj'
+    },
     smithMithrilGreaves: {
       name: 'Mitrilaj Tibiŝirmiloj'
+    },
+    smithAdamantGreaves: {
+      name: 'Adamantaj Tibiŝirmiloj'
+    },
+    smithAetheriteGreaves: {
+      name: 'Eteritaj Tibiŝirmiloj'
     },
     smithMasterMithrilPlate: {
       name: 'Majstra Mitrila Kiraso'
     },
+    smithMasterAdamantPlate: {
+      name: 'Majstra Adamanta Kiraso'
+    },
+    smithMasterAetheritePlate: {
+      name: 'Majstra Eterita Kiraso'
+    },
     smithMithrilPlate: {
       name: 'Mitrila Kiraso'
+    },
+    smithAdamantPlate: {
+      name: 'Adamanta Kiraso'
+    },
+    smithAetheritePlate: {
+      name: 'Eterita Kiraso'
     },
     smithMasterMithrilHelm: {
       name: 'Majstra Mitrila Kasko'
     },
+    smithMasterAdamantHelm: {
+      name: 'Majstra Adamanta Kasko'
+    },
+    smithMasterAetheriteHelm: {
+      name: 'Majstra Eterita Kasko'
+    },
     smithMithrilHelm: {
       name: 'Mitrila Kasko'
+    },
+    smithAdamantHelm: {
+      name: 'Adamanta Kasko'
+    },
+    smithAetheriteHelm: {
+      name: 'Eterita Kasko'
     },
     smithMasterMithrilShield: {
       name: 'Majstra Mitrila Ŝildo'
     },
+    smithMasterAdamantShield: {
+      name: 'Majstra Adamanta Ŝildo'
+    },
+    smithMasterAetheriteShield: {
+      name: 'Majstra Eterita Ŝildo'
+    },
     smithMithrilShield: {
       name: 'Mitrila Ŝildo'
+    },
+    smithAdamantShield: {
+      name: 'Adamanta Ŝildo'
+    },
+    smithAetheriteShield: {
+      name: 'Eterita Ŝildo'
     },
     smithMasterMithrilHammer: {
       name: 'Majstra Mitrila Martelo'
     },
+    smithMasterAdamantHammer: {
+      name: 'Majstra Adamanta Martelo'
+    },
+    smithMasterAetheriteHammer: {
+      name: 'Majstra Eterita Martelo'
+    },
     smithMithrilHammer: {
       name: 'Mitrila Martelo'
+    },
+    smithAdamantHammer: {
+      name: 'Adamanta Martelo'
+    },
+    smithAetheriteHammer: {
+      name: 'Eterita Martelo'
     },
     smithMasterMithrilSword: {
       name: 'Majstra Mitrila Glavo'
     },
+    smithMasterAdamantSword: {
+      name: 'Majstra Adamanta Glavo'
+    },
+    smithMasterAetheriteSword: {
+      name: 'Majstra Eterita Glavo'
+    },
     smithMithrilSword: {
       name: 'Mitrila Glavo'
+    },
+    smithAdamantSword: {
+      name: 'Adamanta Glavo'
+    },
+    smithAetheriteSword: {
+      name: 'Eterita Glavo'
     },
     smithMasterGoldGreaves: {
       name: 'Majstraj Oraj Tibiŝirmiloj'
@@ -1557,6 +1651,1086 @@ export default {
     },
     smithMasterIronSword: {
       name: 'Majstra Fera Glavo'
+    },
+    smithMasterDexIronSword: {
+      name: 'Majstra Fera ponardo · LER'
+    },
+    smithDexIronSword: {
+      name: 'Fera ponardo · LER'
+    },
+    smithMasterDexIronHammer: {
+      name: 'Majstra Fera rapiro · LER'
+    },
+    smithDexIronHammer: {
+      name: 'Fera rapiro · LER'
+    },
+    smithMasterDexIronShield: {
+      name: 'Majstra Fera ŝildeto · LER'
+    },
+    smithDexIronShield: {
+      name: 'Fera ŝildeto · LER'
+    },
+    smithMasterDexIronHelm: {
+      name: 'Majstra Fera kapuĉo · LER'
+    },
+    smithDexIronHelm: {
+      name: 'Fera kapuĉo · LER'
+    },
+    smithMasterDexIronPlate: {
+      name: 'Majstra Fera ledvesto · LER'
+    },
+    smithDexIronPlate: {
+      name: 'Fera ledvesto · LER'
+    },
+    smithMasterDexIronGreaves: {
+      name: 'Majstra Fera botoj · LER'
+    },
+    smithDexIronGreaves: {
+      name: 'Fera botoj · LER'
+    },
+    smithMasterDexSilverSword: {
+      name: 'Majstra Arĝenta ponardo · LER'
+    },
+    smithDexSilverSword: {
+      name: 'Arĝenta ponardo · LER'
+    },
+    smithMasterDexSilverHammer: {
+      name: 'Majstra Arĝenta rapiro · LER'
+    },
+    smithDexSilverHammer: {
+      name: 'Arĝenta rapiro · LER'
+    },
+    smithMasterDexSilverShield: {
+      name: 'Majstra Arĝenta ŝildeto · LER'
+    },
+    smithDexSilverShield: {
+      name: 'Arĝenta ŝildeto · LER'
+    },
+    smithMasterDexSilverHelm: {
+      name: 'Majstra Arĝenta kapuĉo · LER'
+    },
+    smithDexSilverHelm: {
+      name: 'Arĝenta kapuĉo · LER'
+    },
+    smithMasterDexSilverPlate: {
+      name: 'Majstra Arĝenta ledvesto · LER'
+    },
+    smithDexSilverPlate: {
+      name: 'Arĝenta ledvesto · LER'
+    },
+    smithMasterDexSilverGreaves: {
+      name: 'Majstra Arĝenta botoj · LER'
+    },
+    smithDexSilverGreaves: {
+      name: 'Arĝenta botoj · LER'
+    },
+    smithMasterDexGoldSword: {
+      name: 'Majstra Ora ponardo · LER'
+    },
+    smithDexGoldSword: {
+      name: 'Ora ponardo · LER'
+    },
+    smithMasterDexGoldHammer: {
+      name: 'Majstra Ora rapiro · LER'
+    },
+    smithDexGoldHammer: {
+      name: 'Ora rapiro · LER'
+    },
+    smithMasterDexGoldShield: {
+      name: 'Majstra Ora ŝildeto · LER'
+    },
+    smithDexGoldShield: {
+      name: 'Ora ŝildeto · LER'
+    },
+    smithMasterDexGoldHelm: {
+      name: 'Majstra Ora kapuĉo · LER'
+    },
+    smithDexGoldHelm: {
+      name: 'Ora kapuĉo · LER'
+    },
+    smithMasterDexGoldPlate: {
+      name: 'Majstra Ora ledvesto · LER'
+    },
+    smithDexGoldPlate: {
+      name: 'Ora ledvesto · LER'
+    },
+    smithMasterDexGoldGreaves: {
+      name: 'Majstra Ora botoj · LER'
+    },
+    smithDexGoldGreaves: {
+      name: 'Ora botoj · LER'
+    },
+    smithMasterDexMithrilSword: {
+      name: 'Majstra Mitrila ponardo · LER'
+    },
+    smithMasterDexAdamantSword: {
+      name: 'Majstra Adamanta ponardo · LER'
+    },
+    smithMasterDexAetheriteSword: {
+      name: 'Majstra Eterita ponardo · LER'
+    },
+    smithDexMithrilSword: {
+      name: 'Mitrila ponardo · LER'
+    },
+    smithDexAdamantSword: {
+      name: 'Adamanta ponardo · LER'
+    },
+    smithDexAetheriteSword: {
+      name: 'Eterita ponardo · LER'
+    },
+    smithMasterDexMithrilHammer: {
+      name: 'Majstra Mitrila rapiro · LER'
+    },
+    smithMasterDexAdamantHammer: {
+      name: 'Majstra Adamanta rapiro · LER'
+    },
+    smithMasterDexAetheriteHammer: {
+      name: 'Majstra Eterita rapiro · LER'
+    },
+    smithDexMithrilHammer: {
+      name: 'Mitrila rapiro · LER'
+    },
+    smithDexAdamantHammer: {
+      name: 'Adamanta rapiro · LER'
+    },
+    smithDexAetheriteHammer: {
+      name: 'Eterita rapiro · LER'
+    },
+    smithMasterDexMithrilShield: {
+      name: 'Majstra Mitrila ŝildeto · LER'
+    },
+    smithMasterDexAdamantShield: {
+      name: 'Majstra Adamanta ŝildeto · LER'
+    },
+    smithMasterDexAetheriteShield: {
+      name: 'Majstra Eterita ŝildeto · LER'
+    },
+    smithDexMithrilShield: {
+      name: 'Mitrila ŝildeto · LER'
+    },
+    smithDexAdamantShield: {
+      name: 'Adamanta ŝildeto · LER'
+    },
+    smithDexAetheriteShield: {
+      name: 'Eterita ŝildeto · LER'
+    },
+    smithMasterDexMithrilHelm: {
+      name: 'Majstra Mitrila kapuĉo · LER'
+    },
+    smithMasterDexAdamantHelm: {
+      name: 'Majstra Adamanta kapuĉo · LER'
+    },
+    smithMasterDexAetheriteHelm: {
+      name: 'Majstra Eterita kapuĉo · LER'
+    },
+    smithDexMithrilHelm: {
+      name: 'Mitrila kapuĉo · LER'
+    },
+    smithDexAdamantHelm: {
+      name: 'Adamanta kapuĉo · LER'
+    },
+    smithDexAetheriteHelm: {
+      name: 'Eterita kapuĉo · LER'
+    },
+    smithMasterDexMithrilPlate: {
+      name: 'Majstra Mitrila ledvesto · LER'
+    },
+    smithMasterDexAdamantPlate: {
+      name: 'Majstra Adamanta ledvesto · LER'
+    },
+    smithMasterDexAetheritePlate: {
+      name: 'Majstra Eterita ledvesto · LER'
+    },
+    smithDexMithrilPlate: {
+      name: 'Mitrila ledvesto · LER'
+    },
+    smithDexAdamantPlate: {
+      name: 'Adamanta ledvesto · LER'
+    },
+    smithDexAetheritePlate: {
+      name: 'Eterita ledvesto · LER'
+    },
+    smithMasterDexMithrilGreaves: {
+      name: 'Majstra Mitrila botoj · LER'
+    },
+    smithMasterDexAdamantGreaves: {
+      name: 'Majstra Adamanta botoj · LER'
+    },
+    smithMasterDexAetheriteGreaves: {
+      name: 'Majstra Eterita botoj · LER'
+    },
+    smithDexMithrilGreaves: {
+      name: 'Mitrila botoj · LER'
+    },
+    smithDexAdamantGreaves: {
+      name: 'Adamanta botoj · LER'
+    },
+    smithDexAetheriteGreaves: {
+      name: 'Eterita botoj · LER'
+    },
+    smithMasterIntIronSword: {
+      name: 'Majstra Fera vergo · INT'
+    },
+    smithIntIronSword: {
+      name: 'Fera vergo · INT'
+    },
+    smithMasterIntIronHammer: {
+      name: 'Majstra Fera bastono · INT'
+    },
+    smithIntIronHammer: {
+      name: 'Fera bastono · INT'
+    },
+    smithMasterIntIronShield: {
+      name: 'Majstra Fera libro · INT'
+    },
+    smithIntIronShield: {
+      name: 'Fera libro · INT'
+    },
+    smithMasterIntIronHelm: {
+      name: 'Majstra Fera diademo · INT'
+    },
+    smithIntIronHelm: {
+      name: 'Fera diademo · INT'
+    },
+    smithMasterIntIronPlate: {
+      name: 'Majstra Fera robo · INT'
+    },
+    smithIntIronPlate: {
+      name: 'Fera robo · INT'
+    },
+    smithMasterIntIronGreaves: {
+      name: 'Majstra Fera botoj · INT'
+    },
+    smithIntIronGreaves: {
+      name: 'Fera botoj · INT'
+    },
+    smithMasterIntSilverSword: {
+      name: 'Majstra Arĝenta vergo · INT'
+    },
+    smithIntSilverSword: {
+      name: 'Arĝenta vergo · INT'
+    },
+    smithMasterIntSilverHammer: {
+      name: 'Majstra Arĝenta bastono · INT'
+    },
+    smithIntSilverHammer: {
+      name: 'Arĝenta bastono · INT'
+    },
+    smithMasterIntSilverShield: {
+      name: 'Majstra Arĝenta libro · INT'
+    },
+    smithIntSilverShield: {
+      name: 'Arĝenta libro · INT'
+    },
+    smithMasterIntSilverHelm: {
+      name: 'Majstra Arĝenta diademo · INT'
+    },
+    smithIntSilverHelm: {
+      name: 'Arĝenta diademo · INT'
+    },
+    smithMasterIntSilverPlate: {
+      name: 'Majstra Arĝenta robo · INT'
+    },
+    smithIntSilverPlate: {
+      name: 'Arĝenta robo · INT'
+    },
+    smithMasterIntSilverGreaves: {
+      name: 'Majstra Arĝenta botoj · INT'
+    },
+    smithIntSilverGreaves: {
+      name: 'Arĝenta botoj · INT'
+    },
+    smithMasterIntGoldSword: {
+      name: 'Majstra Ora vergo · INT'
+    },
+    smithIntGoldSword: {
+      name: 'Ora vergo · INT'
+    },
+    smithMasterIntGoldHammer: {
+      name: 'Majstra Ora bastono · INT'
+    },
+    smithIntGoldHammer: {
+      name: 'Ora bastono · INT'
+    },
+    smithMasterIntGoldShield: {
+      name: 'Majstra Ora libro · INT'
+    },
+    smithIntGoldShield: {
+      name: 'Ora libro · INT'
+    },
+    smithMasterIntGoldHelm: {
+      name: 'Majstra Ora diademo · INT'
+    },
+    smithIntGoldHelm: {
+      name: 'Ora diademo · INT'
+    },
+    smithMasterIntGoldPlate: {
+      name: 'Majstra Ora robo · INT'
+    },
+    smithIntGoldPlate: {
+      name: 'Ora robo · INT'
+    },
+    smithMasterIntGoldGreaves: {
+      name: 'Majstra Ora botoj · INT'
+    },
+    smithIntGoldGreaves: {
+      name: 'Ora botoj · INT'
+    },
+    smithMasterIntMithrilSword: {
+      name: 'Majstra Mitrila vergo · INT'
+    },
+    smithMasterIntAdamantSword: {
+      name: 'Majstra Adamanta vergo · INT'
+    },
+    smithMasterIntAetheriteSword: {
+      name: 'Majstra Eterita vergo · INT'
+    },
+    smithIntMithrilSword: {
+      name: 'Mitrila vergo · INT'
+    },
+    smithIntAdamantSword: {
+      name: 'Adamanta vergo · INT'
+    },
+    smithIntAetheriteSword: {
+      name: 'Eterita vergo · INT'
+    },
+    smithMasterIntMithrilHammer: {
+      name: 'Majstra Mitrila bastono · INT'
+    },
+    smithMasterIntAdamantHammer: {
+      name: 'Majstra Adamanta bastono · INT'
+    },
+    smithMasterIntAetheriteHammer: {
+      name: 'Majstra Eterita bastono · INT'
+    },
+    smithIntMithrilHammer: {
+      name: 'Mitrila bastono · INT'
+    },
+    smithIntAdamantHammer: {
+      name: 'Adamanta bastono · INT'
+    },
+    smithIntAetheriteHammer: {
+      name: 'Eterita bastono · INT'
+    },
+    smithMasterIntMithrilShield: {
+      name: 'Majstra Mitrila libro · INT'
+    },
+    smithMasterIntAdamantShield: {
+      name: 'Majstra Adamanta libro · INT'
+    },
+    smithMasterIntAetheriteShield: {
+      name: 'Majstra Eterita libro · INT'
+    },
+    smithIntMithrilShield: {
+      name: 'Mitrila libro · INT'
+    },
+    smithIntAdamantShield: {
+      name: 'Adamanta libro · INT'
+    },
+    smithIntAetheriteShield: {
+      name: 'Eterita libro · INT'
+    },
+    smithMasterIntMithrilHelm: {
+      name: 'Majstra Mitrila diademo · INT'
+    },
+    smithMasterIntAdamantHelm: {
+      name: 'Majstra Adamanta diademo · INT'
+    },
+    smithMasterIntAetheriteHelm: {
+      name: 'Majstra Eterita diademo · INT'
+    },
+    smithIntMithrilHelm: {
+      name: 'Mitrila diademo · INT'
+    },
+    smithIntAdamantHelm: {
+      name: 'Adamanta diademo · INT'
+    },
+    smithIntAetheriteHelm: {
+      name: 'Eterita diademo · INT'
+    },
+    smithMasterIntMithrilPlate: {
+      name: 'Majstra Mitrila robo · INT'
+    },
+    smithMasterIntAdamantPlate: {
+      name: 'Majstra Adamanta robo · INT'
+    },
+    smithMasterIntAetheritePlate: {
+      name: 'Majstra Eterita robo · INT'
+    },
+    smithIntMithrilPlate: {
+      name: 'Mitrila robo · INT'
+    },
+    smithIntAdamantPlate: {
+      name: 'Adamanta robo · INT'
+    },
+    smithIntAetheritePlate: {
+      name: 'Eterita robo · INT'
+    },
+    smithMasterIntMithrilGreaves: {
+      name: 'Majstra Mitrila botoj · INT'
+    },
+    smithMasterIntAdamantGreaves: {
+      name: 'Majstra Adamanta botoj · INT'
+    },
+    smithMasterIntAetheriteGreaves: {
+      name: 'Majstra Eterita botoj · INT'
+    },
+    smithIntMithrilGreaves: {
+      name: 'Mitrila botoj · INT'
+    },
+    smithIntAdamantGreaves: {
+      name: 'Adamanta botoj · INT'
+    },
+    smithIntAetheriteGreaves: {
+      name: 'Eterita botoj · INT'
+    },
+    smithMasterSklIronSword: {
+      name: 'Majstra Fera pistolo · MAJ'
+    },
+    smithSklIronSword: {
+      name: 'Fera pistolo · MAJ'
+    },
+    smithMasterSklIronHammer: {
+      name: 'Majstra Fera fusilo · MAJ'
+    },
+    smithSklIronHammer: {
+      name: 'Fera fusilo · MAJ'
+    },
+    smithMasterSklIronShield: {
+      name: 'Majstra Fera baterio · MAJ'
+    },
+    smithSklIronShield: {
+      name: 'Fera baterio · MAJ'
+    },
+    smithMasterSklIronHelm: {
+      name: 'Majstra Fera ĉapo · MAJ'
+    },
+    smithSklIronHelm: {
+      name: 'Fera ĉapo · MAJ'
+    },
+    smithMasterSklIronPlate: {
+      name: 'Majstra Fera jungilaro · MAJ'
+    },
+    smithSklIronPlate: {
+      name: 'Fera jungilaro · MAJ'
+    },
+    smithMasterSklIronGreaves: {
+      name: 'Majstra Fera botoj · MAJ'
+    },
+    smithSklIronGreaves: {
+      name: 'Fera botoj · MAJ'
+    },
+    smithMasterSklSilverSword: {
+      name: 'Majstra Arĝenta pistolo · MAJ'
+    },
+    smithSklSilverSword: {
+      name: 'Arĝenta pistolo · MAJ'
+    },
+    smithMasterSklSilverHammer: {
+      name: 'Majstra Arĝenta fusilo · MAJ'
+    },
+    smithSklSilverHammer: {
+      name: 'Arĝenta fusilo · MAJ'
+    },
+    smithMasterSklSilverShield: {
+      name: 'Majstra Arĝenta baterio · MAJ'
+    },
+    smithSklSilverShield: {
+      name: 'Arĝenta baterio · MAJ'
+    },
+    smithMasterSklSilverHelm: {
+      name: 'Majstra Arĝenta ĉapo · MAJ'
+    },
+    smithSklSilverHelm: {
+      name: 'Arĝenta ĉapo · MAJ'
+    },
+    smithMasterSklSilverPlate: {
+      name: 'Majstra Arĝenta jungilaro · MAJ'
+    },
+    smithSklSilverPlate: {
+      name: 'Arĝenta jungilaro · MAJ'
+    },
+    smithMasterSklSilverGreaves: {
+      name: 'Majstra Arĝenta botoj · MAJ'
+    },
+    smithSklSilverGreaves: {
+      name: 'Arĝenta botoj · MAJ'
+    },
+    smithMasterSklGoldSword: {
+      name: 'Majstra Ora pistolo · MAJ'
+    },
+    smithSklGoldSword: {
+      name: 'Ora pistolo · MAJ'
+    },
+    smithMasterSklGoldHammer: {
+      name: 'Majstra Ora fusilo · MAJ'
+    },
+    smithSklGoldHammer: {
+      name: 'Ora fusilo · MAJ'
+    },
+    smithMasterSklGoldShield: {
+      name: 'Majstra Ora baterio · MAJ'
+    },
+    smithSklGoldShield: {
+      name: 'Ora baterio · MAJ'
+    },
+    smithMasterSklGoldHelm: {
+      name: 'Majstra Ora ĉapo · MAJ'
+    },
+    smithSklGoldHelm: {
+      name: 'Ora ĉapo · MAJ'
+    },
+    smithMasterSklGoldPlate: {
+      name: 'Majstra Ora jungilaro · MAJ'
+    },
+    smithSklGoldPlate: {
+      name: 'Ora jungilaro · MAJ'
+    },
+    smithMasterSklGoldGreaves: {
+      name: 'Majstra Ora botoj · MAJ'
+    },
+    smithSklGoldGreaves: {
+      name: 'Ora botoj · MAJ'
+    },
+    smithMasterSklMithrilSword: {
+      name: 'Majstra Mitrila pistolo · MAJ'
+    },
+    smithMasterSklAdamantSword: {
+      name: 'Majstra Adamanta pistolo · MAJ'
+    },
+    smithMasterSklAetheriteSword: {
+      name: 'Majstra Eterita pistolo · MAJ'
+    },
+    smithSklMithrilSword: {
+      name: 'Mitrila pistolo · MAJ'
+    },
+    smithSklAdamantSword: {
+      name: 'Adamanta pistolo · MAJ'
+    },
+    smithSklAetheriteSword: {
+      name: 'Eterita pistolo · MAJ'
+    },
+    smithMasterSklMithrilHammer: {
+      name: 'Majstra Mitrila fusilo · MAJ'
+    },
+    smithMasterSklAdamantHammer: {
+      name: 'Majstra Adamanta fusilo · MAJ'
+    },
+    smithMasterSklAetheriteHammer: {
+      name: 'Majstra Eterita fusilo · MAJ'
+    },
+    smithSklMithrilHammer: {
+      name: 'Mitrila fusilo · MAJ'
+    },
+    smithSklAdamantHammer: {
+      name: 'Adamanta fusilo · MAJ'
+    },
+    smithSklAetheriteHammer: {
+      name: 'Eterita fusilo · MAJ'
+    },
+    smithMasterSklMithrilShield: {
+      name: 'Majstra Mitrila baterio · MAJ'
+    },
+    smithMasterSklAdamantShield: {
+      name: 'Majstra Adamanta baterio · MAJ'
+    },
+    smithMasterSklAetheriteShield: {
+      name: 'Majstra Eterita baterio · MAJ'
+    },
+    smithSklMithrilShield: {
+      name: 'Mitrila baterio · MAJ'
+    },
+    smithSklAdamantShield: {
+      name: 'Adamanta baterio · MAJ'
+    },
+    smithSklAetheriteShield: {
+      name: 'Eterita baterio · MAJ'
+    },
+    smithMasterSklMithrilHelm: {
+      name: 'Majstra Mitrila ĉapo · MAJ'
+    },
+    smithMasterSklAdamantHelm: {
+      name: 'Majstra Adamanta ĉapo · MAJ'
+    },
+    smithMasterSklAetheriteHelm: {
+      name: 'Majstra Eterita ĉapo · MAJ'
+    },
+    smithSklMithrilHelm: {
+      name: 'Mitrila ĉapo · MAJ'
+    },
+    smithSklAdamantHelm: {
+      name: 'Adamanta ĉapo · MAJ'
+    },
+    smithSklAetheriteHelm: {
+      name: 'Eterita ĉapo · MAJ'
+    },
+    smithMasterSklMithrilPlate: {
+      name: 'Majstra Mitrila jungilaro · MAJ'
+    },
+    smithMasterSklAdamantPlate: {
+      name: 'Majstra Adamanta jungilaro · MAJ'
+    },
+    smithMasterSklAetheritePlate: {
+      name: 'Majstra Eterita jungilaro · MAJ'
+    },
+    smithSklMithrilPlate: {
+      name: 'Mitrila jungilaro · MAJ'
+    },
+    smithSklAdamantPlate: {
+      name: 'Adamanta jungilaro · MAJ'
+    },
+    smithSklAetheritePlate: {
+      name: 'Eterita jungilaro · MAJ'
+    },
+    smithMasterSklMithrilGreaves: {
+      name: 'Majstra Mitrila botoj · MAJ'
+    },
+    smithMasterSklAdamantGreaves: {
+      name: 'Majstra Adamanta botoj · MAJ'
+    },
+    smithMasterSklAetheriteGreaves: {
+      name: 'Majstra Eterita botoj · MAJ'
+    },
+    smithSklMithrilGreaves: {
+      name: 'Mitrila botoj · MAJ'
+    },
+    smithSklAdamantGreaves: {
+      name: 'Adamanta botoj · MAJ'
+    },
+    smithSklAetheriteGreaves: {
+      name: 'Eterita botoj · MAJ'
+    },
+    smithMasterChaIronSword: {
+      name: 'Majstra Fera sceptro · KAR'
+    },
+    smithChaIronSword: {
+      name: 'Fera sceptro · KAR'
+    },
+    smithMasterChaIronHammer: {
+      name: 'Majstra Fera standardo · KAR'
+    },
+    smithChaIronHammer: {
+      name: 'Fera standardo · KAR'
+    },
+    smithMasterChaIronShield: {
+      name: 'Majstra Fera kodekso · KAR'
+    },
+    smithChaIronShield: {
+      name: 'Fera kodekso · KAR'
+    },
+    smithMasterChaIronHelm: {
+      name: 'Majstra Fera krono · KAR'
+    },
+    smithChaIronHelm: {
+      name: 'Fera krono · KAR'
+    },
+    smithMasterChaIronPlate: {
+      name: 'Majstra Fera tabardo · KAR'
+    },
+    smithChaIronPlate: {
+      name: 'Fera tabardo · KAR'
+    },
+    smithMasterChaIronGreaves: {
+      name: 'Majstra Fera botoj · KAR'
+    },
+    smithChaIronGreaves: {
+      name: 'Fera botoj · KAR'
+    },
+    smithMasterChaSilverSword: {
+      name: 'Majstra Arĝenta sceptro · KAR'
+    },
+    smithChaSilverSword: {
+      name: 'Arĝenta sceptro · KAR'
+    },
+    smithMasterChaSilverHammer: {
+      name: 'Majstra Arĝenta standardo · KAR'
+    },
+    smithChaSilverHammer: {
+      name: 'Arĝenta standardo · KAR'
+    },
+    smithMasterChaSilverShield: {
+      name: 'Majstra Arĝenta kodekso · KAR'
+    },
+    smithChaSilverShield: {
+      name: 'Arĝenta kodekso · KAR'
+    },
+    smithMasterChaSilverHelm: {
+      name: 'Majstra Arĝenta krono · KAR'
+    },
+    smithChaSilverHelm: {
+      name: 'Arĝenta krono · KAR'
+    },
+    smithMasterChaSilverPlate: {
+      name: 'Majstra Arĝenta tabardo · KAR'
+    },
+    smithChaSilverPlate: {
+      name: 'Arĝenta tabardo · KAR'
+    },
+    smithMasterChaSilverGreaves: {
+      name: 'Majstra Arĝenta botoj · KAR'
+    },
+    smithChaSilverGreaves: {
+      name: 'Arĝenta botoj · KAR'
+    },
+    smithMasterChaGoldSword: {
+      name: 'Majstra Ora sceptro · KAR'
+    },
+    smithChaGoldSword: {
+      name: 'Ora sceptro · KAR'
+    },
+    smithMasterChaGoldHammer: {
+      name: 'Majstra Ora standardo · KAR'
+    },
+    smithChaGoldHammer: {
+      name: 'Ora standardo · KAR'
+    },
+    smithMasterChaGoldShield: {
+      name: 'Majstra Ora kodekso · KAR'
+    },
+    smithChaGoldShield: {
+      name: 'Ora kodekso · KAR'
+    },
+    smithMasterChaGoldHelm: {
+      name: 'Majstra Ora krono · KAR'
+    },
+    smithChaGoldHelm: {
+      name: 'Ora krono · KAR'
+    },
+    smithMasterChaGoldPlate: {
+      name: 'Majstra Ora tabardo · KAR'
+    },
+    smithChaGoldPlate: {
+      name: 'Ora tabardo · KAR'
+    },
+    smithMasterChaGoldGreaves: {
+      name: 'Majstra Ora botoj · KAR'
+    },
+    smithChaGoldGreaves: {
+      name: 'Ora botoj · KAR'
+    },
+    smithMasterChaMithrilSword: {
+      name: 'Majstra Mitrila sceptro · KAR'
+    },
+    smithMasterChaAdamantSword: {
+      name: 'Majstra Adamanta sceptro · KAR'
+    },
+    smithMasterChaAetheriteSword: {
+      name: 'Majstra Eterita sceptro · KAR'
+    },
+    smithChaMithrilSword: {
+      name: 'Mitrila sceptro · KAR'
+    },
+    smithChaAdamantSword: {
+      name: 'Adamanta sceptro · KAR'
+    },
+    smithChaAetheriteSword: {
+      name: 'Eterita sceptro · KAR'
+    },
+    smithMasterChaMithrilHammer: {
+      name: 'Majstra Mitrila standardo · KAR'
+    },
+    smithMasterChaAdamantHammer: {
+      name: 'Majstra Adamanta standardo · KAR'
+    },
+    smithMasterChaAetheriteHammer: {
+      name: 'Majstra Eterita standardo · KAR'
+    },
+    smithChaMithrilHammer: {
+      name: 'Mitrila standardo · KAR'
+    },
+    smithChaAdamantHammer: {
+      name: 'Adamanta standardo · KAR'
+    },
+    smithChaAetheriteHammer: {
+      name: 'Eterita standardo · KAR'
+    },
+    smithMasterChaMithrilShield: {
+      name: 'Majstra Mitrila kodekso · KAR'
+    },
+    smithMasterChaAdamantShield: {
+      name: 'Majstra Adamanta kodekso · KAR'
+    },
+    smithMasterChaAetheriteShield: {
+      name: 'Majstra Eterita kodekso · KAR'
+    },
+    smithChaMithrilShield: {
+      name: 'Mitrila kodekso · KAR'
+    },
+    smithChaAdamantShield: {
+      name: 'Adamanta kodekso · KAR'
+    },
+    smithChaAetheriteShield: {
+      name: 'Eterita kodekso · KAR'
+    },
+    smithMasterChaMithrilHelm: {
+      name: 'Majstra Mitrila krono · KAR'
+    },
+    smithMasterChaAdamantHelm: {
+      name: 'Majstra Adamanta krono · KAR'
+    },
+    smithMasterChaAetheriteHelm: {
+      name: 'Majstra Eterita krono · KAR'
+    },
+    smithChaMithrilHelm: {
+      name: 'Mitrila krono · KAR'
+    },
+    smithChaAdamantHelm: {
+      name: 'Adamanta krono · KAR'
+    },
+    smithChaAetheriteHelm: {
+      name: 'Eterita krono · KAR'
+    },
+    smithMasterChaMithrilPlate: {
+      name: 'Majstra Mitrila tabardo · KAR'
+    },
+    smithMasterChaAdamantPlate: {
+      name: 'Majstra Adamanta tabardo · KAR'
+    },
+    smithMasterChaAetheritePlate: {
+      name: 'Majstra Eterita tabardo · KAR'
+    },
+    smithChaMithrilPlate: {
+      name: 'Mitrila tabardo · KAR'
+    },
+    smithChaAdamantPlate: {
+      name: 'Adamanta tabardo · KAR'
+    },
+    smithChaAetheritePlate: {
+      name: 'Eterita tabardo · KAR'
+    },
+    smithMasterChaMithrilGreaves: {
+      name: 'Majstra Mitrila botoj · KAR'
+    },
+    smithMasterChaAdamantGreaves: {
+      name: 'Majstra Adamanta botoj · KAR'
+    },
+    smithMasterChaAetheriteGreaves: {
+      name: 'Majstra Eterita botoj · KAR'
+    },
+    smithChaMithrilGreaves: {
+      name: 'Mitrila botoj · KAR'
+    },
+    smithChaAdamantGreaves: {
+      name: 'Adamanta botoj · KAR'
+    },
+    smithChaAetheriteGreaves: {
+      name: 'Eterita botoj · KAR'
+    },
+    smithMasterEndIronSword: {
+      name: 'Majstra Fera klabo · ELT'
+    },
+    smithEndIronSword: {
+      name: 'Fera klabo · ELT'
+    },
+    smithMasterEndIronHammer: {
+      name: 'Majstra Fera hakilo · ELT'
+    },
+    smithEndIronHammer: {
+      name: 'Fera hakilo · ELT'
+    },
+    smithMasterEndIronShield: {
+      name: 'Majstra Fera Ŝildo · ELT'
+    },
+    smithEndIronShield: {
+      name: 'Fera Ŝildo · ELT'
+    },
+    smithMasterEndIronHelm: {
+      name: 'Majstra Fera Kasko · ELT'
+    },
+    smithEndIronHelm: {
+      name: 'Fera Kasko · ELT'
+    },
+    smithMasterEndIronPlate: {
+      name: 'Majstra Fera Kiraso · ELT'
+    },
+    smithEndIronPlate: {
+      name: 'Fera Kiraso · ELT'
+    },
+    smithMasterEndIronGreaves: {
+      name: 'Majstraj Feraj Tibiŝirmiloj · ELT'
+    },
+    smithEndIronGreaves: {
+      name: 'Feraj Tibiŝirmiloj · ELT'
+    },
+    smithMasterEndSilverSword: {
+      name: 'Majstra Arĝenta klabo · ELT'
+    },
+    smithEndSilverSword: {
+      name: 'Arĝenta klabo · ELT'
+    },
+    smithMasterEndSilverHammer: {
+      name: 'Majstra Arĝenta hakilo · ELT'
+    },
+    smithEndSilverHammer: {
+      name: 'Arĝenta hakilo · ELT'
+    },
+    smithMasterEndSilverShield: {
+      name: 'Majstra Arĝenta Ŝildo · ELT'
+    },
+    smithEndSilverShield: {
+      name: 'Arĝenta Ŝildo · ELT'
+    },
+    smithMasterEndSilverHelm: {
+      name: 'Majstra Arĝenta Kasko · ELT'
+    },
+    smithEndSilverHelm: {
+      name: 'Arĝenta Kasko · ELT'
+    },
+    smithMasterEndSilverPlate: {
+      name: 'Majstra Arĝenta Kiraso · ELT'
+    },
+    smithEndSilverPlate: {
+      name: 'Arĝenta Kiraso · ELT'
+    },
+    smithMasterEndSilverGreaves: {
+      name: 'Majstraj Arĝentaj Tibiŝirmiloj · ELT'
+    },
+    smithEndSilverGreaves: {
+      name: 'Arĝentaj Tibiŝirmiloj · ELT'
+    },
+    smithMasterEndGoldSword: {
+      name: 'Majstra Ora klabo · ELT'
+    },
+    smithEndGoldSword: {
+      name: 'Ora klabo · ELT'
+    },
+    smithMasterEndGoldHammer: {
+      name: 'Majstra Ora hakilo · ELT'
+    },
+    smithEndGoldHammer: {
+      name: 'Ora hakilo · ELT'
+    },
+    smithMasterEndGoldShield: {
+      name: 'Majstra Ora Ŝildo · ELT'
+    },
+    smithEndGoldShield: {
+      name: 'Ora Ŝildo · ELT'
+    },
+    smithMasterEndGoldHelm: {
+      name: 'Majstra Ora Kasko · ELT'
+    },
+    smithEndGoldHelm: {
+      name: 'Ora Kasko · ELT'
+    },
+    smithMasterEndGoldPlate: {
+      name: 'Majstra Ora Kiraso · ELT'
+    },
+    smithEndGoldPlate: {
+      name: 'Ora Kiraso · ELT'
+    },
+    smithMasterEndGoldGreaves: {
+      name: 'Majstraj Oraj Tibiŝirmiloj · ELT'
+    },
+    smithEndGoldGreaves: {
+      name: 'Oraj Tibiŝirmiloj · ELT'
+    },
+    smithMasterEndMithrilSword: {
+      name: 'Majstra Mitrila klabo · ELT'
+    },
+    smithMasterEndAdamantSword: {
+      name: 'Majstra Adamanta klabo · ELT'
+    },
+    smithMasterEndAetheriteSword: {
+      name: 'Majstra Eterita klabo · ELT'
+    },
+    smithEndMithrilSword: {
+      name: 'Mitrila klabo · ELT'
+    },
+    smithEndAdamantSword: {
+      name: 'Adamanta klabo · ELT'
+    },
+    smithEndAetheriteSword: {
+      name: 'Eterita klabo · ELT'
+    },
+    smithMasterEndMithrilHammer: {
+      name: 'Majstra Mitrila hakilo · ELT'
+    },
+    smithMasterEndAdamantHammer: {
+      name: 'Majstra Adamanta hakilo · ELT'
+    },
+    smithMasterEndAetheriteHammer: {
+      name: 'Majstra Eterita hakilo · ELT'
+    },
+    smithEndMithrilHammer: {
+      name: 'Mitrila hakilo · ELT'
+    },
+    smithEndAdamantHammer: {
+      name: 'Adamanta hakilo · ELT'
+    },
+    smithEndAetheriteHammer: {
+      name: 'Eterita hakilo · ELT'
+    },
+    smithMasterEndMithrilShield: {
+      name: 'Majstra Mitrila Ŝildo · ELT'
+    },
+    smithMasterEndAdamantShield: {
+      name: 'Majstra Adamanta Ŝildo · ELT'
+    },
+    smithMasterEndAetheriteShield: {
+      name: 'Majstra Eterita Ŝildo · ELT'
+    },
+    smithEndMithrilShield: {
+      name: 'Mitrila Ŝildo · ELT'
+    },
+    smithEndAdamantShield: {
+      name: 'Adamanta Ŝildo · ELT'
+    },
+    smithEndAetheriteShield: {
+      name: 'Eterita Ŝildo · ELT'
+    },
+    smithMasterEndMithrilHelm: {
+      name: 'Majstra Mitrila Kasko · ELT'
+    },
+    smithMasterEndAdamantHelm: {
+      name: 'Majstra Adamanta Kasko · ELT'
+    },
+    smithMasterEndAetheriteHelm: {
+      name: 'Majstra Eterita Kasko · ELT'
+    },
+    smithEndMithrilHelm: {
+      name: 'Mitrila Kasko · ELT'
+    },
+    smithEndAdamantHelm: {
+      name: 'Adamanta Kasko · ELT'
+    },
+    smithEndAetheriteHelm: {
+      name: 'Eterita Kasko · ELT'
+    },
+    smithMasterEndMithrilPlate: {
+      name: 'Majstra Mitrila Kiraso · ELT'
+    },
+    smithMasterEndAdamantPlate: {
+      name: 'Majstra Adamanta Kiraso · ELT'
+    },
+    smithMasterEndAetheritePlate: {
+      name: 'Majstra Eterita Kiraso · ELT'
+    },
+    smithEndMithrilPlate: {
+      name: 'Mitrila Kiraso · ELT'
+    },
+    smithEndAdamantPlate: {
+      name: 'Adamanta Kiraso · ELT'
+    },
+    smithEndAetheritePlate: {
+      name: 'Eterita Kiraso · ELT'
+    },
+    smithMasterEndMithrilGreaves: {
+      name: 'Majstraj Mitrilaj Tibiŝirmiloj · ELT'
+    },
+    smithMasterEndAdamantGreaves: {
+      name: 'Majstraj Adamantaj Tibiŝirmiloj · ELT'
+    },
+    smithMasterEndAetheriteGreaves: {
+      name: 'Majstraj Eteritaj Tibiŝirmiloj · ELT'
+    },
+    smithEndMithrilGreaves: {
+      name: 'Mitrilaj Tibiŝirmiloj · ELT'
+    },
+    smithEndAdamantGreaves: {
+      name: 'Adamantaj Tibiŝirmiloj · ELT'
+    },
+    smithEndAetheriteGreaves: {
+      name: 'Eteritaj Tibiŝirmiloj · ELT'
     },
     smithIronSword: {
       name: 'Fera Glavo'
@@ -1777,6 +2951,414 @@ export default {
     scepterOfTheFirstKing: {
       name: 'Sceptro de la unua reĝo'
     },
+    pickpocketsKnife: {
+      name: 'Poŝŝtelisto-tranĉilo'
+    },
+    serpentsFang: {
+      name: 'Serpenta dento'
+    },
+    phantomRapier: {
+      name: 'Fantoma rapiro'
+    },
+    fangOfTheWindless: {
+      name: 'Dento de la Senvento'
+    },
+    roguesBuckler: {
+      name: 'Malica malgranda ŝildo'
+    },
+    venomVial: {
+      name: 'Veneno-flakono'
+    },
+    swiftguardBuckler: {
+      name: 'Malgranda ŝildo de la rapida gardisto'
+    },
+    nightshadeFlask: {
+      name: 'Beladono-flakono'
+    },
+    windveilTarge: {
+      name: 'Ŝildo de la ventvelo'
+    },
+    shadowdancersBuckler: {
+      name: 'Malgranda ŝildo de la ombrodancisto'
+    },
+    scoutsBandana: {
+      name: 'Skolta kaptuko'
+    },
+    nightcowl: {
+      name: 'Nokta kapuĉo'
+    },
+    shadowveilHood: {
+      name: 'Kapuĉo de la ombrovelo'
+    },
+    windrunnersCap: {
+      name: 'Ĉapo de la ventkuristo'
+    },
+    maskOfTheSilentWind: {
+      name: 'Masko de la silenta vento'
+    },
+    rangersJerkin: {
+      name: 'Gardistara jako'
+    },
+    nightstalkerLeathers: {
+      name: 'Ledo de la nokta ĉasisto'
+    },
+    windridersHarness: {
+      name: 'Jungilaro de la ventrajdanto'
+    },
+    mantleOfTheShadowDancer: {
+      name: 'Mantelo de la ombrodancisto'
+    },
+    thiefsGloves: {
+      name: 'Ŝtelistaj gantoj'
+    },
+    cutpurseGloves: {
+      name: 'Gantoj de la poŝŝtelisto'
+    },
+    glovesOfTheGale: {
+      name: 'Gantoj de la ventego'
+    },
+    softSoledShoes: {
+      name: 'Molsolaj ŝuoj'
+    },
+    catStepBoots: {
+      name: 'Botoj de kata paŝo'
+    },
+    shadowstepBoots: {
+      name: 'Botoj de ombra paŝo'
+    },
+    windstrideBoots: {
+      name: 'Botoj de venta paŝo'
+    },
+    luckyCoin: {
+      name: 'Bonŝanca monero'
+    },
+    shadowBand: {
+      name: 'Ombra ringo'
+    },
+    sandglassOfTheSwift: {
+      name: 'Sablohorloĝo de la rapidaj'
+    },
+    talonCharm: {
+      name: 'Ungego-amuleto'
+    },
+    windheart: {
+      name: 'Ventkoro'
+    },
+    ashwallHeater: {
+      name: 'Ŝildo de la Cindra Muro'
+    },
+    wyrmhidePavise: {
+      name: 'Pavezo el drakhaŭto'
+    },
+    footmansKettleHat: {
+      name: 'Kaldrona ĉapelo de la piedsoldato'
+    },
+    ironbrowSallet: {
+      name: 'Salado kun feraj brovoj'
+    },
+    warlordsBarbute: {
+      name: 'Barbuto de la militestro'
+    },
+    helmOfTheSunderedThrone: {
+      name: 'Kasko de la frakasita trono'
+    },
+    recruitsCuirass: {
+      name: 'Kiraso de la rekruto'
+    },
+    stonecuttersMitts: {
+      name: 'Gantoj de la ŝtonhakisto'
+    },
+    ashforgedGauntlets: {
+      name: 'Gantoj el ŝtalo forĝitaj en cindro'
+    },
+    warbringerGauntlets: {
+      name: 'Ŝtalaj gantoj de la militportanto'
+    },
+    titanfistGauntlets: {
+      name: 'Ŝtalaj gantoj de la Pugno de Titano'
+    },
+    footmansGreaves: {
+      name: 'Tibioŝirmiloj de la piedsoldato'
+    },
+    ironshodGreaves: {
+      name: 'Feraj tibioŝirmiloj'
+    },
+    warlordsSabatons: {
+      name: 'Sabatonoj de la militestro'
+    },
+    greavesOfTheMountainfall: {
+      name: 'Tibioŝirmiloj de la monteroto'
+    },
+    sergeantsSignet: {
+      name: 'Sigelringo de la serĝento'
+    },
+    brawlersKnuckleRing: {
+      name: 'Fera pugnoŝirmilo de la kverelulo'
+    },
+    bloodiedWarMedal: {
+      name: 'Sangmakulita milita medalo'
+    },
+    watchmansCudgel: {
+      name: 'Bastono de la gardisto'
+    },
+    ironboundMace: {
+      name: 'Fer-bendita maĝo'
+    },
+    stonehideCleaver: {
+      name: 'Haŭt-ŝtona hakilo'
+    },
+    bulwarkMaul: {
+      name: 'Martelo de la fortikaĵo'
+    },
+    mountainsplitterAxe: {
+      name: 'Hakilo Montofendo'
+    },
+    everstandWarmace: {
+      name: 'Neskuebla milita maĝo'
+    },
+    emberwallBastion: {
+      name: 'Bastiono de la Brasa Muro'
+    },
+    stonewardenHelm: {
+      name: 'Kasko de la ŝtona gardisto'
+    },
+    colossusVisage: {
+      name: 'Vizaĝo de la kolosto'
+    },
+    diggersGauntlets: {
+      name: 'Ŝtalaj gantoj de la fosisto'
+    },
+    bastionGauntlets: {
+      name: 'Ŝtalaj gantoj de la bastiono'
+    },
+    glacierplateGauntlets: {
+      name: 'Ŝtalaj gantoj el glaĉeraj plankoj'
+    },
+    gauntletsOfEndlessVigil: {
+      name: 'Ŝtalaj gantoj de la eterna gardado'
+    },
+    hearthstoneCharm: {
+      name: 'Talismano el fajrujŝtono'
+    },
+    ironheartPendant: {
+      name: 'Pendaĵo Fera Koro'
+    },
+    hedgewizardsWand: {
+      name: 'Vergo de la heĝa sorĉisto'
+    },
+    frostglassStaff: {
+      name: 'Bastono el glacivitro'
+    },
+    voidthreadWand: {
+      name: 'Vergo el fadenoj de la Vakuo'
+    },
+    staffOfTheStarlessSky: {
+      name: 'Bastono de la senstela ĉielo'
+    },
+    studentsGrimoire: {
+      name: 'Grimuaro de la lernanto'
+    },
+    frostfireOrb: {
+      name: 'Globo de glacifajro'
+    },
+    orbOfTheUnwrittenHour: {
+      name: 'Globo de la nekrita horo'
+    },
+    apprenticesPointedCap: {
+      name: 'Pinta ĉapo de la metilernanto'
+    },
+    sagesCirclet: {
+      name: 'Diademo de la saĝulo'
+    },
+    cinderWizardsHat: {
+      name: 'Ĉapelo de la cindra magiisto'
+    },
+    voidseerCirclet: {
+      name: 'Diademo de la vakuo-vidanto'
+    },
+    apprenticesRobe: {
+      name: 'Robo de la metilernanto'
+    },
+    cinderthreadRobe: {
+      name: 'Robo el cindra fadeno'
+    },
+    voidwovenRobe: {
+      name: 'Robo teksita el la Vakuo'
+    },
+    inkStainedGloves: {
+      name: 'Inkmakulitaj gantoj'
+    },
+    spellthreadGloves: {
+      name: 'Gantoj el sorĉfadeno'
+    },
+    frostweaveGloves: {
+      name: 'Gantoj el glacitekaĵo'
+    },
+    starlitGloves: {
+      name: 'Gantoj de stellumo'
+    },
+    glovesOfTheLastWord: {
+      name: 'Gantoj de la lasta vorto'
+    },
+    scribesSlippers: {
+      name: 'Pantofloj de la skribisto'
+    },
+    moonstepSlippers: {
+      name: 'Pantofloj de lunpaŝo'
+    },
+    emberstepBoots: {
+      name: 'Botoj de brasopaŝo'
+    },
+    voidwalkerBoots: {
+      name: 'Botoj de la vakuo-vaganto'
+    },
+    bootsOfTheWanderingStar: {
+      name: 'Botoj de la vaganta stelo'
+    },
+    glowstonePendant: {
+      name: 'Pendaĵo kun lumanta ŝtono'
+    },
+    scholarsSeal: {
+      name: 'Sigelo de la erudiciulo'
+    },
+    eyeOfTheArchon: {
+      name: 'Okulo de la arkonto'
+    },
+    cinderRepeater: {
+      name: 'Cindra ripetpafilo'
+    },
+    glacierMortar: {
+      name: 'Glaĉera manmortero'
+    },
+    sparkCell: {
+      name: 'Ŝpruc-ĉelo'
+    },
+    arcCapacitor: {
+      name: 'Arka kondensilo'
+    },
+    aetherheartCell: {
+      name: 'Ĉelo Etera Koro'
+    },
+    marksmansVisor: {
+      name: 'Viziero de la pafisto'
+    },
+    sharpshootersCap: {
+      name: 'Ĉapo de la lerta pafisto'
+    },
+    gunnersHarness: {
+      name: 'Jungilaro de la artileriisto'
+    },
+    steadyhandGloves: {
+      name: 'Gantoj de ferma mano'
+    },
+    gunsmithsGloves: {
+      name: 'Gantoj de la armilfaristo'
+    },
+    scrappersBoots: {
+      name: 'Botoj de la kverelulo'
+    },
+    sharpshooterBoots: {
+      name: 'Botoj de la lerta pafisto'
+    },
+    firingLineBoots: {
+      name: 'Botoj de la fajrolinio'
+    },
+    steadyfootBoots: {
+      name: 'Botoj de ferma paŝo'
+    },
+    aetherstepBoots: {
+      name: 'Botoj de etera paŝo'
+    },
+    bootsOfTheLastShot: {
+      name: 'Botoj de la lasta pafo'
+    },
+    brassCartridgeCharm: {
+      name: 'Talismano el latuna kartoĉo'
+    },
+    deadEyeLens: {
+      name: 'Lenso de la preciza okulo'
+    },
+    eagleEyeScope: {
+      name: 'Teleskopo de agloj okulo'
+    },
+    criersBaton: {
+      name: 'Bastono de la anoncisto'
+    },
+    droversStandard: {
+      name: 'Standardo de la brutpaŝtisto'
+    },
+    marshalsSceptre: {
+      name: 'Sceptro de la marŝalo'
+    },
+    balladBook: {
+      name: 'Libro de baladoj'
+    },
+    chronicleOfHeroes: {
+      name: 'Kroniko de la herooj'
+    },
+    psalterOfTheHost: {
+      name: 'Psalmaro de la armeo'
+    },
+    tomeOfEternalReign: {
+      name: 'Volumo de la eterna regado'
+    },
+    heraldsCap: {
+      name: 'Ĉapo de la heroldo'
+    },
+    singersCirclet: {
+      name: 'Diademo de la kantisto'
+    },
+    diademOfTenThousandVoices: {
+      name: 'Diademo de la dek mil voĉoj'
+    },
+    travelersWaistcoat: {
+      name: 'Veŝto de la vojaĝanto'
+    },
+    minstrelsMotley: {
+      name: 'Flikvesto de la menestrelo'
+    },
+    troubadoursCoat: {
+      name: 'Mantelo de la trubadoro'
+    },
+    marshalsGreatcoat: {
+      name: 'Mantelo de la marŝalo'
+    },
+    buskersGloves: {
+      name: 'Gantoj de la stratmuzikisto'
+    },
+    drummersGloves: {
+      name: 'Gantoj de la tamburisto'
+    },
+    standardBearersGloves: {
+      name: 'Gantoj de la standardportanto'
+    },
+    gildedParadeGloves: {
+      name: 'Orumitaj paradgantoj'
+    },
+    glovesOfTheCrownedHand: {
+      name: 'Gantoj de la kronita mano'
+    },
+    wayfarersShoes: {
+      name: 'Ŝuoj de la migranto'
+    },
+    troubadourBoots: {
+      name: 'Botoj de la trubadoro'
+    },
+    heraldsRidingBoots: {
+      name: 'Rajdbotoj de la heroldo'
+    },
+    paradeBoots: {
+      name: 'Paradbotoj'
+    },
+    bootsOfTheLongProcession: {
+      name: 'Botoj de la longa procesio'
+    },
+    silverWhistle: {
+      name: 'Arĝenta fajfilo'
+    },
+    gatheringHorn: {
+      name: 'Kolekta korno'
+    },
     heartOfTheMountain: {
       name: 'Koro de la Monto'
     },
@@ -1880,6 +3462,9 @@ export default {
     freedPeddler: {
       talk: 'Ĉio, kion vojaĝanto bezonas. Preskaŭ nova, plejparte.',
       name: 'Odo Marrow'
+    },
+    sfShadowRoad: {
+      name: 'Nettle Quickhand'
     },
     sfShadow: {
       name: 'Nettle Quickhand'
@@ -2034,6 +3619,9 @@ export default {
     sunfordGambler: {
       name: 'Dob Kapriolo'
     },
+    sunfordCups: {
+      name: 'Nell Nimblefingers'
+    },
     oakGambler: {
       name: 'Silka Ren'
     },
@@ -2145,6 +3733,13 @@ export default {
     }
   },
   dlg: {
+    intro: {
+      crossing: { 1: 'Ĉiu vojo de ĉi tiu mondo renkontiĝas ĉe vojkruciĝo… kaj ĉiu vojkruciĝo estas batalo.' },
+      hero: { 1: 'El la trankvilaj kampoj de Sunford ekiris juna heroo.' },
+      fire: { 1: 'Fajro respondis al la voko. Ŝtalo lernis novan nomon.' },
+      foes: { 1: 'Koboldaj reĝoj, frostjarloj, drako de la malpleno… kaj la Ĉefdemono.' },
+      begin: { 1: 'Via legendo komenciĝas nun.' }
+    },
     frostDisciple: {
       bye: {
         '1': 'Restu varma.'
@@ -2339,6 +3934,23 @@ export default {
       hello: {
         '2': 'Odo Marrow, je via servo. Kolportisto, lad-riparisto, tre dankema viro.',
         '1': 'Vi! Vi estas tiu, kiu malfermis tiun kaĝon! Mi estus putrinta tie interne.'
+      }
+    },
+    sfShadowRoad: {
+      hello: {
+        '1': 'Teleportado. Ĉu vi interesiĝas?'
+      },
+      again: {
+        '1': 'Ĉu vi revenis por alia lertaĵo?'
+      },
+      train: {
+        '1': 'Rigardu atente. Unu paŝo, kaj vi estas aliloke.'
+      },
+      trainBack: {
+        '1': 'Bone. Nun iru esti aliloke.'
+      },
+      bye: {
+        '1': 'Ne lasu vin kapti.'
       }
     },
     sfShadow: {
@@ -2593,9 +4205,8 @@ export default {
         '2': 'Frapu, kiam la metalo ardas plej hele. Maltrafu, kaj ĝi estas rubaĵo. Ek.',
         '1': 'Forĝado? Hm. Tenu la martelon tiel, ne kiel klabon.'
       },
-      ore: {
-        '1': 'Ercbuloj, ĉu? Mi prenos ĉiujn. Justa pezo, justa monero.'
-      },
+      ore: { '1': 'Erco, ĉu? Montru. Mi pagas po peco, justa pezo.' },
+      sellBack: { '1': 'Justa pezo, justa monero. Alportu pli, kiam vi trovos.' },
       forgeBack: {
         '1': 'Ne malbone. Ankaŭ ne bone. Daŭrigu.'
       },
@@ -2878,7 +4489,7 @@ export default {
       },
       map: {
         '1': 'La mapo de kapitano Rook! Li disŝiris ĝin kaj kaŝis la pecojn, antaŭ ol la koboldoj kaptis lin.',
-        '2': 'Trovu ĉiujn ses, kaj la X montros al vi la vojon: ie en la Cindraj Rokegoj. Fosu tie, kaj la oro estos via.',
+        '2': 'Trovu ses el ili, kelkaj pliaj estas disĵetitaj ĉirkaŭe, kaj la X montros al vi la vojon: ie en la Cindraj Rokegoj. Fosu tie, kaj la oro estos via.',
         say: 'Mi trovis pecon de malnova mapo.'
       }
     },
@@ -2895,6 +4506,9 @@ export default {
       },
       mana: {
         '1': 'Ĉi tiu estas maldolĉa. Trinku ĝin, kiam viaj sorĉoj elĉerpiĝos.'
+      },
+      brew: {
+        '1': 'Montru al mi viajn herbojn. Mi miksos ion, kio gustas pli bone ol mia mana toniko.'
       },
       potions: {
         '1': 'Vi prenas kelkajn flakonojn en ĉiun batalon. Trinku antaŭ ol vi bezonas, ne poste.',
@@ -2914,6 +4528,9 @@ export default {
       },
       healBack: {
         '1': 'Tenu vian zonon plena kaj vian kapon malalta.'
+      },
+      brewBack: {
+        '1': 'Atentu, ili estas varmaj. Ne trinku ĉiujn samtempe.'
       },
       bye: {
         '1': 'Zorgu pri vi tie ekstere.'
@@ -3015,9 +4632,8 @@ export default {
         '2': 'Rigardu la ardon. Frapu ĝian koron, trifoje, kaj la metalo memoras.',
         '1': 'Ĉu vi volas lerni la metion? Bone. Oakhaven bezonas ĉiun martelon.'
       },
-      ore: {
-        '1': 'Kruda erco! La armilejo neniam havas sufiĉe. Jen via pago.'
-      },
+      ore: { '1': 'Kruda erco! La armilejo neniam havas sufiĉe. Vendu al mi kion vi povas.' },
+      sellBack: { '1': 'Ĉiu peco iras en la muron. Dankon.' },
       forgeBack: {
         '1': 'Bona ŝtalo. La muroj dankas vin.'
       },
@@ -3058,9 +4674,8 @@ export default {
         '2': 'Tri frapoj, ĉiu en la koro de la ardo. Tio estas la tuta sekreto.',
         '1': 'Ekde la sieĝo mi instruas ĉiun, kiu petas. Venu, staru ĉi tie.'
       },
-      ore: {
-        '1': 'Pli da erco por la muroj? Benon al vi. Jen, prenu ĉi tion.'
-      },
+      ore: { '1': 'Pli da erco por la muroj? Mi pagas ĉiun pecon, kiun vi povas doni.' },
+      sellBack: { '1': 'Benata vi estu. Tio estas pli da platoj por la muroj.' },
       forgeBack: {
         '1': 'Ĉiu frapo plibonigas vin. Revenu iam ajn.'
       },
@@ -3456,9 +5071,8 @@ export default {
         '2': 'La ardo diras al vi kiam. Via brako diras kiom forte. Tri frapoj.',
         '1': 'Surfaculo ĉe la amboso? Nu, ĉiu komencas ie.'
       },
-      ore: {
-        '1': 'Bona, honesta metalo. Ironhold ĉiam pagas por tio.'
-      },
+      ore: { '1': 'Bona, honesta metalo. Metu ĝin ĉi tien, mi pagas po peco.' },
+      sellBack: { '1': 'Justa negoco. Ironhold ĉiam pagas por bona metalo.' },
       forgeBack: {
         '1': 'Nano farus pli bone. Sed ne multe.'
       },
@@ -3528,9 +5142,8 @@ export default {
         '2': 'Varmigi, frapi, turni. Tri frapoj, ĝuste en la ardo. Poste lasi malvarmiĝi.',
         '1': 'Kiraso estas pacienca laboro. Mi montros al vi la bazojn.'
       },
-      ore: {
-        '1': 'Lasu min pesi ĝin. Bone. La moneroj estas viaj.'
-      },
+      ore: { '1': 'Lasu min pesi. Elektu kion vi vendas, mi kalkulas la monerojn.' },
+      sellBack: { '1': 'Pesita kaj pagita. Bone.' },
       forgeBack: {
         '1': 'Lasu ĝin malvarmiĝi, antaŭ ol vi surmetos ĝin.'
       },
@@ -3570,9 +5183,8 @@ export default {
         '2': 'Disciplino ĉe la amboso, kiel sur la batalkampo. Tri frapoj, fidelaj al la ardo.',
         '1': 'La Ordeno armas siajn amikojn. Mi instruos vin.'
       },
-      ore: {
-        '1': 'La Ordeno aĉetas ĉiun ercon por la milito. Via pago.'
-      },
+      ore: { '1': 'La Ordeno aĉetas ercon por la milito. Vendu kion vi povas.' },
+      sellBack: { '1': 'Via pago estas notita. La Ordeno dankas vin.' },
       forgeBack: {
         '1': 'Bone forĝita. Servu bone en ĝi.'
       },
@@ -3974,6 +5586,11 @@ export default {
       }
     },
     bark: {
+      banditChief: {
+        whistle: {
+          1: 'Supren, knaboj! Mordu ilin!'
+        }
+      },
       lightDisciple: {
         freed: {
           '1': 'La lumo sendis vin. Mi estas Fratino Aurelle. Serĉu min en Sunford, mi instruos al vi la vojon de la Lumportanto.'
@@ -4129,9 +5746,8 @@ export default {
         '2': 'Frapu, kiam ĝi ardas plej varme. Tri bonaj frapoj faras bonan pecon.',
         '1': 'Ĉu vi volas mem provi la martelon? Mi volonte dividas la forĝejon.'
       },
-      ore: {
-        '1': 'Bela erco. Silverbridge ĉiam pagas justan prezon.'
-      },
+      ore: { '1': 'Bela erco. Montru kion vi vendas, mi pagas po peco.' },
+      sellBack: { '1': 'Plezuro. Silverbridge ĉiam pagas justan prezon.' },
       forgeBack: {
         '1': 'Rigardu tion! Vi estas naskita talento.'
       },
@@ -4573,7 +6189,7 @@ export default {
         say: 'Kie mi trovas herbojn?'
       },
       elixirs: {
-        '1': 'Ĉiu fortigas vin en batalo dum tuta minuto. Pli fortaj batoj, pli dura haŭto, pli rapidaj piedoj.',
+        '1': 'Ĉiu fortigas vin en batalo dum 5 tutaj minutoj. Pli fortaj batoj, pli dura haŭto, pli rapidaj piedoj.',
         '2': 'Ili estas en via tria flakono. Tuŝu la malgrandan sagon por elekti, kiun vi trinkos.',
         say: 'Kion faras la eliksiroj?'
       },
@@ -4642,6 +6258,36 @@ export default {
       },
       bye: {
         '1': 'Alportu pli da rubaĵoj! Rubaĵoj estas miaj plej ŝatataj.'
+      }
+    },
+    sunfordCups: {
+      hello: {
+        1: 'Proksimiĝu! Tri pokaloj, unu gemo, kaj la unua ĉirkaŭo estas senpaga!',
+        2: 'Nell Nimblefingers. Neniu ankoraŭ trompis miajn manojn. Ĉu vi provos?'
+      },
+      again: {
+        1: 'Denove ĉi tie? Tenu la okulojn malfermitaj!'
+      },
+      play: {
+        1: 'Okuloj sur la gemo, amiko. Ne palpebrumu!'
+      },
+      rules: {
+        1: 'Mi kaŝas la gemon sub pokalo kaj miksas la pokalojn. Vi montras tiun, kiu kaŝas ĝin.',
+        2: 'Ĉiu venko sinsekve pagas pli. Tri venkoj donas premion, kvin trezoron. La unua ĉirkaŭo de la tago estas senpaga.',
+        say: 'Kiel ĝi funkcias?'
+      },
+      who: {
+        1: 'Mi scipovis miksi antaŭ ol marŝi. Panjo diras, ke tio klarigas multon.'
+      },
+      luck: {
+        1: 'Foje! Tiam mi laŭte ĝemas kaj la publiko kompatas min.',
+        say: 'Ĉu vi iam perdas?'
+      },
+      playBack: {
+        1: 'Bonega ĉirkaŭo! Revenu morgaŭ, la unua ĉiam estas senpaga.'
+      },
+      bye: {
+        1: 'Ĝis! Tenu la okulojn malfermitaj tie ekstere.'
       }
     },
     oakGambler: {
@@ -5135,6 +6781,7 @@ export default {
     banditArcher: 'Bandita Pafarkisto',
     wolf: 'Lupo',
     banditChief: 'Banditestro',
+    gnome: 'Gnomo',
     goblinKing: 'La Kobolda Reĝo',
     treant: 'Arbulo',
     spider: 'Giganta Araneo',
@@ -5352,6 +6999,18 @@ export default {
       firefoxColors: 'Firefox: Agordoj → Koloroj → agordu “Anstataŭigi la kolorojn specifitajn de la paĝo” al Neniam.'
     }
   },
+  samsungFix: {
+    title: 'Rapida kolorkontrolo',
+    body: 'Kelkaj telefonoj ŝanĝas la kolorojn de retpaĝoj. Komparu la du kvadratojn sube.',
+    question: 'Ĉu ambaŭ kvadratoj aspektas same?',
+    refSquare: 'Referenca kvadrato',
+    pageSquare: 'Paĝa kvadrato',
+    yes: 'Jes, ili aspektas same',
+    no: 'Ne, ili aspektas malsame',
+    option: 'Korekti kolorojn (malluma reĝimo de Samsung)',
+    optionHint: 'Ŝaltu se menuoj aspektas malhelaj aŭ teksto malfacile legeblas.',
+    recheck: 'Ripeti la kolorkontrolon'
+  },
   saveStatus: {
     restoredTitle: 'Nuba konservo restarigita',
     restoredBody: '+{n} da bonusa oro pro la restarigo',
@@ -5476,7 +7135,7 @@ export default {
   },
   forge: {
     upgrade: 'Plibonigi ({n} da oro)',
-    max: 'Plene plibonigita: +{n}.',
+    next: 'Sekva +{level}: +{pct}% de statoj',
     town: 'Ĉiu urba forĝisto povas plibonigi ĝin.'
   },
   ore: {
@@ -5491,6 +7150,12 @@ export default {
     },
     mithril: {
       name: 'Mitrila erco'
+    },
+    adamant: {
+      name: 'Adamanta erco'
+    },
+    aetherite: {
+      name: 'Eterita erco'
     }
   },
   plant: {
@@ -5572,32 +7237,32 @@ export default {
   elixir: {
     might: {
       name: 'Eliksiro de Forto',
-      desc: '+{n}% da damaĝo dum unu minuto'
+      desc: '+{n}% da damaĝo dum 5 minutoj'
     },
     iron: {
       name: 'Ferhaŭta Trinkaĵo',
-      desc: '+{n}% da kiraso dum unu minuto'
+      desc: '+{n}% da kiraso dum 5 minutoj'
     },
     swift: {
       name: 'Rapideca Toniko',
-      desc: '+{n}% da rapido kaj atakrapido dum unu minuto'
+      desc: '+{n}% da rapido kaj atakrapido dum 5 minutoj'
     },
     mind: {
       name: 'Klarmensa Infuzaĵo',
-      desc: 'Kapabloj reŝargiĝas {n}% pli rapide dum unu minuto'
+      desc: 'Kapabloj reŝargiĝas {n}% pli rapide dum 5 minutoj'
     },
     vigor: {
       name: 'Eliksiro de Vigleco',
-      desc: 'Resanigas {n}% de via sano ĉiun sekundon dum unu minuto'
+      desc: 'Resanigas {n}% de via sano ĉiun sekundon dum 5 minutoj'
     },
     shadow: {
       name: 'Soifa Trinkaĵo',
-      desc: 'Viaj batoj resanigas vin je {n}% de sia damaĝo dum unu minuto'
+      desc: 'Viaj batoj resanigas vin je {n}% de sia damaĝo dum 5 minutoj'
     }
   },
   alchemy: {
     talk: 'Herboj enen, eliksiroj elen. Kiun ni preparu?',
-    lead: 'Ĉiu eliksiro efikas dum unu minuto en batalo. Trinku ĝin el via tria flakono. Vi povas porti {n} de ĉiu.',
+    lead: 'Ĉiu eliksiro efikas dum 5 minutoj en batalo. Trinku ĝin el via tria flakono. Vi povas porti {n} de ĉiu.',
     brew: 'Prepari · {n}',
     carry: 'Porti ĉi tiun',
     carried: 'En via flakono',
@@ -5621,6 +7286,25 @@ export default {
     again: 'Ludi denove',
     noGold: 'Ne sufiĉas oro por tiu veto.',
     card: 'Karto {n}'
+  },
+  cups: {
+    title: 'Pokala budo',
+    lead: 'Rigardu la gemon, sekvu ĝian pokalon, poste elektu ĝin. Ĉiu venko sinsekve pagas pli. La tria donas premian pecon, la kvina trezoron.',
+    free: 'Senpaga ĉirkaŭo',
+    fee: 'Ludi · {n}',
+    row: 'Venkoj sinsekve: {n} el {max}',
+    next: 'Sekva venko: {n} oro',
+    watch: 'Rigardu la gemon!',
+    follow: 'Sekvu ĝin…',
+    pick: 'Elektu pokalon!',
+    hint: 'Tuŝu pokalon aŭ premu ĝian numeron.',
+    won: 'Trovita! +{n} oro',
+    lost: 'Ne tiu. La serio rekomencas.',
+    near: 'Tiel proksime! Ĝi estis tuj apude.',
+    timeout: 'Tro malrapide! La serio rekomencas.',
+    again: 'Ludi denove',
+    noGold: 'Ne sufiĉe da oro. Morgaŭ via unua ĉirkaŭo estas senpaga.',
+    cup: 'Pokalo {n}'
   },
   battle: {
     title: 'Objekta Batalo',

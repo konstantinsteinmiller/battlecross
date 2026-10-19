@@ -1,5 +1,13 @@
 // Hungarian (hu) bundle — mirrors en.ts.
 export default {
+  // ─── The intro (#130): its skip, and its narrator's name ───
+  intro: {
+    narrator: 'A Krónikás',
+    skip: 'Kihagyás',
+    holdKey: 'A kihagyáshoz tartsd lenyomva: {key}',
+    holdTouch: 'Tartsd lenyomva a kihagyáshoz',
+    replay: 'Intró megtekintése'
+  },
   arena: {
     allWon: 'Minden mitikus díj a tiéd.',
     call: 'A történet véget ért. Most bizonyítsd a buildedet: juss olyan messzire, amilyen messzire csak tudsz, és nyerd el a mitikus díjakat, amiket senki más nem adhat neked.',
@@ -8,6 +16,20 @@ export default {
     next: 'Következő díj: {at}. hullám – {item}',
     champion: 'Bajnokhullám',
     wave: '{n}. hullám'
+  },
+  sellOre: {
+    talk: 'Jó érc, tisztességes ár. Mennyit adsz el?',
+    lead: 'Válaszd ki, hány rögöt adsz el az egyes ércekből. Semmit nem adsz el, amíg meg nem nyomod az Eladás gombot.',
+    have: 'Van {n}',
+    each: 'darabja {n} arany',
+    none: 'Semennyi',
+    all: 'Mind',
+    less: '{ore}: eggyel kevesebb',
+    more: '{ore}: eggyel több',
+    total: 'Kapsz: {n} aranyat',
+    sell: 'Eladás',
+    selectAll: 'Összes kijelölése',
+    empty: 'Nincs több eladható érced.'
   },
   smith: {
     why: {
@@ -1420,38 +1442,110 @@ export default {
     smithMasterMithrilGreaves: {
       name: 'Mesteri mithril lábszárvédő'
     },
+    smithMasterAdamantGreaves: {
+      name: 'Mesteri adamant lábszárvédő'
+    },
+    smithMasterAetheriteGreaves: {
+      name: 'Mesteri aetherit lábszárvédő'
+    },
     smithMithrilGreaves: {
       name: 'Mithril lábszárvédő'
+    },
+    smithAdamantGreaves: {
+      name: 'Adamant lábszárvédő'
+    },
+    smithAetheriteGreaves: {
+      name: 'Aetherit lábszárvédő'
     },
     smithMasterMithrilPlate: {
       name: 'Mesteri mithrillemezvért'
     },
+    smithMasterAdamantPlate: {
+      name: 'Mesteri adamantlemezvért'
+    },
+    smithMasterAetheritePlate: {
+      name: 'Mesteri aetheritlemezvért'
+    },
     smithMithrilPlate: {
       name: 'Mithrillemezvért'
+    },
+    smithAdamantPlate: {
+      name: 'Adamantlemezvért'
+    },
+    smithAetheritePlate: {
+      name: 'Aetheritlemezvért'
     },
     smithMasterMithrilHelm: {
       name: 'Mesteri mithrilsisak'
     },
+    smithMasterAdamantHelm: {
+      name: 'Mesteri adamantsisak'
+    },
+    smithMasterAetheriteHelm: {
+      name: 'Mesteri aetheritsisak'
+    },
     smithMithrilHelm: {
       name: 'Mithrilsisak'
+    },
+    smithAdamantHelm: {
+      name: 'Adamantsisak'
+    },
+    smithAetheriteHelm: {
+      name: 'Aetheritsisak'
     },
     smithMasterMithrilShield: {
       name: 'Mesteri mithrilpajzs'
     },
+    smithMasterAdamantShield: {
+      name: 'Mesteri adamantpajzs'
+    },
+    smithMasterAetheriteShield: {
+      name: 'Mesteri aetheritpajzs'
+    },
     smithMithrilShield: {
       name: 'Mithrilpajzs'
+    },
+    smithAdamantShield: {
+      name: 'Adamantpajzs'
+    },
+    smithAetheriteShield: {
+      name: 'Aetheritpajzs'
     },
     smithMasterMithrilHammer: {
       name: 'Mesteri mithrilkalapács'
     },
+    smithMasterAdamantHammer: {
+      name: 'Mesteri adamantkalapács'
+    },
+    smithMasterAetheriteHammer: {
+      name: 'Mesteri aetheritkalapács'
+    },
     smithMithrilHammer: {
       name: 'Mithrilkalapács'
+    },
+    smithAdamantHammer: {
+      name: 'Adamantkalapács'
+    },
+    smithAetheriteHammer: {
+      name: 'Aetheritkalapács'
     },
     smithMasterMithrilSword: {
       name: 'Mesteri mithrilkard'
     },
+    smithMasterAdamantSword: {
+      name: 'Mesteri adamantkard'
+    },
+    smithMasterAetheriteSword: {
+      name: 'Mesteri aetheritkard'
+    },
     smithMithrilSword: {
       name: 'Mithrilkard'
+    },
+    smithAdamantSword: {
+      name: 'Adamantkard'
+    },
+    smithAetheriteSword: {
+      name: 'Aetheritkard'
     },
     smithMasterGoldGreaves: {
       name: 'Mesteri arany lábszárvédő'
@@ -1557,6 +1651,1086 @@ export default {
     },
     smithMasterIronSword: {
       name: 'Mesteri vaskard'
+    },
+    smithMasterDexIronSword: {
+      name: 'Mesteri vas tőr · ÜGY'
+    },
+    smithDexIronSword: {
+      name: 'Vas tőr · ÜGY'
+    },
+    smithMasterDexIronHammer: {
+      name: 'Mesteri vas párbajtőr · ÜGY'
+    },
+    smithDexIronHammer: {
+      name: 'Vas párbajtőr · ÜGY'
+    },
+    smithMasterDexIronShield: {
+      name: 'Mesteri vas kis pajzs · ÜGY'
+    },
+    smithDexIronShield: {
+      name: 'Vas kis pajzs · ÜGY'
+    },
+    smithMasterDexIronHelm: {
+      name: 'Mesteri vas csuklya · ÜGY'
+    },
+    smithDexIronHelm: {
+      name: 'Vas csuklya · ÜGY'
+    },
+    smithMasterDexIronPlate: {
+      name: 'Mesteri vas bőrvért · ÜGY'
+    },
+    smithDexIronPlate: {
+      name: 'Vas bőrvért · ÜGY'
+    },
+    smithMasterDexIronGreaves: {
+      name: 'Mesteri vas csizma · ÜGY'
+    },
+    smithDexIronGreaves: {
+      name: 'Vas csizma · ÜGY'
+    },
+    smithMasterDexSilverSword: {
+      name: 'Mesteri ezüst tőr · ÜGY'
+    },
+    smithDexSilverSword: {
+      name: 'Ezüst tőr · ÜGY'
+    },
+    smithMasterDexSilverHammer: {
+      name: 'Mesteri ezüst párbajtőr · ÜGY'
+    },
+    smithDexSilverHammer: {
+      name: 'Ezüst párbajtőr · ÜGY'
+    },
+    smithMasterDexSilverShield: {
+      name: 'Mesteri ezüst kis pajzs · ÜGY'
+    },
+    smithDexSilverShield: {
+      name: 'Ezüst kis pajzs · ÜGY'
+    },
+    smithMasterDexSilverHelm: {
+      name: 'Mesteri ezüst csuklya · ÜGY'
+    },
+    smithDexSilverHelm: {
+      name: 'Ezüst csuklya · ÜGY'
+    },
+    smithMasterDexSilverPlate: {
+      name: 'Mesteri ezüst bőrvért · ÜGY'
+    },
+    smithDexSilverPlate: {
+      name: 'Ezüst bőrvért · ÜGY'
+    },
+    smithMasterDexSilverGreaves: {
+      name: 'Mesteri ezüst csizma · ÜGY'
+    },
+    smithDexSilverGreaves: {
+      name: 'Ezüst csizma · ÜGY'
+    },
+    smithMasterDexGoldSword: {
+      name: 'Mesteri arany tőr · ÜGY'
+    },
+    smithDexGoldSword: {
+      name: 'Arany tőr · ÜGY'
+    },
+    smithMasterDexGoldHammer: {
+      name: 'Mesteri arany párbajtőr · ÜGY'
+    },
+    smithDexGoldHammer: {
+      name: 'Arany párbajtőr · ÜGY'
+    },
+    smithMasterDexGoldShield: {
+      name: 'Mesteri arany kis pajzs · ÜGY'
+    },
+    smithDexGoldShield: {
+      name: 'Arany kis pajzs · ÜGY'
+    },
+    smithMasterDexGoldHelm: {
+      name: 'Mesteri arany csuklya · ÜGY'
+    },
+    smithDexGoldHelm: {
+      name: 'Arany csuklya · ÜGY'
+    },
+    smithMasterDexGoldPlate: {
+      name: 'Mesteri arany bőrvért · ÜGY'
+    },
+    smithDexGoldPlate: {
+      name: 'Arany bőrvért · ÜGY'
+    },
+    smithMasterDexGoldGreaves: {
+      name: 'Mesteri arany csizma · ÜGY'
+    },
+    smithDexGoldGreaves: {
+      name: 'Arany csizma · ÜGY'
+    },
+    smithMasterDexMithrilSword: {
+      name: 'Mesteri mithril tőr · ÜGY'
+    },
+    smithMasterDexAdamantSword: {
+      name: 'Mesteri adamant tőr · ÜGY'
+    },
+    smithMasterDexAetheriteSword: {
+      name: 'Mesteri aetherit tőr · ÜGY'
+    },
+    smithDexMithrilSword: {
+      name: 'Mithril tőr · ÜGY'
+    },
+    smithDexAdamantSword: {
+      name: 'Adamant tőr · ÜGY'
+    },
+    smithDexAetheriteSword: {
+      name: 'Aetherit tőr · ÜGY'
+    },
+    smithMasterDexMithrilHammer: {
+      name: 'Mesteri mithril párbajtőr · ÜGY'
+    },
+    smithMasterDexAdamantHammer: {
+      name: 'Mesteri adamant párbajtőr · ÜGY'
+    },
+    smithMasterDexAetheriteHammer: {
+      name: 'Mesteri aetherit párbajtőr · ÜGY'
+    },
+    smithDexMithrilHammer: {
+      name: 'Mithril párbajtőr · ÜGY'
+    },
+    smithDexAdamantHammer: {
+      name: 'Adamant párbajtőr · ÜGY'
+    },
+    smithDexAetheriteHammer: {
+      name: 'Aetherit párbajtőr · ÜGY'
+    },
+    smithMasterDexMithrilShield: {
+      name: 'Mesteri mithril kis pajzs · ÜGY'
+    },
+    smithMasterDexAdamantShield: {
+      name: 'Mesteri adamant kis pajzs · ÜGY'
+    },
+    smithMasterDexAetheriteShield: {
+      name: 'Mesteri aetherit kis pajzs · ÜGY'
+    },
+    smithDexMithrilShield: {
+      name: 'Mithril kis pajzs · ÜGY'
+    },
+    smithDexAdamantShield: {
+      name: 'Adamant kis pajzs · ÜGY'
+    },
+    smithDexAetheriteShield: {
+      name: 'Aetherit kis pajzs · ÜGY'
+    },
+    smithMasterDexMithrilHelm: {
+      name: 'Mesteri mithril csuklya · ÜGY'
+    },
+    smithMasterDexAdamantHelm: {
+      name: 'Mesteri adamant csuklya · ÜGY'
+    },
+    smithMasterDexAetheriteHelm: {
+      name: 'Mesteri aetherit csuklya · ÜGY'
+    },
+    smithDexMithrilHelm: {
+      name: 'Mithril csuklya · ÜGY'
+    },
+    smithDexAdamantHelm: {
+      name: 'Adamant csuklya · ÜGY'
+    },
+    smithDexAetheriteHelm: {
+      name: 'Aetherit csuklya · ÜGY'
+    },
+    smithMasterDexMithrilPlate: {
+      name: 'Mesteri mithril bőrvért · ÜGY'
+    },
+    smithMasterDexAdamantPlate: {
+      name: 'Mesteri adamant bőrvért · ÜGY'
+    },
+    smithMasterDexAetheritePlate: {
+      name: 'Mesteri aetherit bőrvért · ÜGY'
+    },
+    smithDexMithrilPlate: {
+      name: 'Mithril bőrvért · ÜGY'
+    },
+    smithDexAdamantPlate: {
+      name: 'Adamant bőrvért · ÜGY'
+    },
+    smithDexAetheritePlate: {
+      name: 'Aetherit bőrvért · ÜGY'
+    },
+    smithMasterDexMithrilGreaves: {
+      name: 'Mesteri mithril csizma · ÜGY'
+    },
+    smithMasterDexAdamantGreaves: {
+      name: 'Mesteri adamant csizma · ÜGY'
+    },
+    smithMasterDexAetheriteGreaves: {
+      name: 'Mesteri aetherit csizma · ÜGY'
+    },
+    smithDexMithrilGreaves: {
+      name: 'Mithril csizma · ÜGY'
+    },
+    smithDexAdamantGreaves: {
+      name: 'Adamant csizma · ÜGY'
+    },
+    smithDexAetheriteGreaves: {
+      name: 'Aetherit csizma · ÜGY'
+    },
+    smithMasterIntIronSword: {
+      name: 'Mesteri vas varázspálca · INT'
+    },
+    smithIntIronSword: {
+      name: 'Vas varázspálca · INT'
+    },
+    smithMasterIntIronHammer: {
+      name: 'Mesteri vas varázsbot · INT'
+    },
+    smithIntIronHammer: {
+      name: 'Vas varázsbot · INT'
+    },
+    smithMasterIntIronShield: {
+      name: 'Mesteri vas könyv · INT'
+    },
+    smithIntIronShield: {
+      name: 'Vas könyv · INT'
+    },
+    smithMasterIntIronHelm: {
+      name: 'Mesteri vas diadém · INT'
+    },
+    smithIntIronHelm: {
+      name: 'Vas diadém · INT'
+    },
+    smithMasterIntIronPlate: {
+      name: 'Mesteri vas talár · INT'
+    },
+    smithIntIronPlate: {
+      name: 'Vas talár · INT'
+    },
+    smithMasterIntIronGreaves: {
+      name: 'Mesteri vas csizma · INT'
+    },
+    smithIntIronGreaves: {
+      name: 'Vas csizma · INT'
+    },
+    smithMasterIntSilverSword: {
+      name: 'Mesteri ezüst varázspálca · INT'
+    },
+    smithIntSilverSword: {
+      name: 'Ezüst varázspálca · INT'
+    },
+    smithMasterIntSilverHammer: {
+      name: 'Mesteri ezüst varázsbot · INT'
+    },
+    smithIntSilverHammer: {
+      name: 'Ezüst varázsbot · INT'
+    },
+    smithMasterIntSilverShield: {
+      name: 'Mesteri ezüst könyv · INT'
+    },
+    smithIntSilverShield: {
+      name: 'Ezüst könyv · INT'
+    },
+    smithMasterIntSilverHelm: {
+      name: 'Mesteri ezüst diadém · INT'
+    },
+    smithIntSilverHelm: {
+      name: 'Ezüst diadém · INT'
+    },
+    smithMasterIntSilverPlate: {
+      name: 'Mesteri ezüst talár · INT'
+    },
+    smithIntSilverPlate: {
+      name: 'Ezüst talár · INT'
+    },
+    smithMasterIntSilverGreaves: {
+      name: 'Mesteri ezüst csizma · INT'
+    },
+    smithIntSilverGreaves: {
+      name: 'Ezüst csizma · INT'
+    },
+    smithMasterIntGoldSword: {
+      name: 'Mesteri arany varázspálca · INT'
+    },
+    smithIntGoldSword: {
+      name: 'Arany varázspálca · INT'
+    },
+    smithMasterIntGoldHammer: {
+      name: 'Mesteri arany varázsbot · INT'
+    },
+    smithIntGoldHammer: {
+      name: 'Arany varázsbot · INT'
+    },
+    smithMasterIntGoldShield: {
+      name: 'Mesteri arany könyv · INT'
+    },
+    smithIntGoldShield: {
+      name: 'Arany könyv · INT'
+    },
+    smithMasterIntGoldHelm: {
+      name: 'Mesteri arany diadém · INT'
+    },
+    smithIntGoldHelm: {
+      name: 'Arany diadém · INT'
+    },
+    smithMasterIntGoldPlate: {
+      name: 'Mesteri arany talár · INT'
+    },
+    smithIntGoldPlate: {
+      name: 'Arany talár · INT'
+    },
+    smithMasterIntGoldGreaves: {
+      name: 'Mesteri arany csizma · INT'
+    },
+    smithIntGoldGreaves: {
+      name: 'Arany csizma · INT'
+    },
+    smithMasterIntMithrilSword: {
+      name: 'Mesteri mithril varázspálca · INT'
+    },
+    smithMasterIntAdamantSword: {
+      name: 'Mesteri adamant varázspálca · INT'
+    },
+    smithMasterIntAetheriteSword: {
+      name: 'Mesteri aetherit varázspálca · INT'
+    },
+    smithIntMithrilSword: {
+      name: 'Mithril varázspálca · INT'
+    },
+    smithIntAdamantSword: {
+      name: 'Adamant varázspálca · INT'
+    },
+    smithIntAetheriteSword: {
+      name: 'Aetherit varázspálca · INT'
+    },
+    smithMasterIntMithrilHammer: {
+      name: 'Mesteri mithril varázsbot · INT'
+    },
+    smithMasterIntAdamantHammer: {
+      name: 'Mesteri adamant varázsbot · INT'
+    },
+    smithMasterIntAetheriteHammer: {
+      name: 'Mesteri aetherit varázsbot · INT'
+    },
+    smithIntMithrilHammer: {
+      name: 'Mithril varázsbot · INT'
+    },
+    smithIntAdamantHammer: {
+      name: 'Adamant varázsbot · INT'
+    },
+    smithIntAetheriteHammer: {
+      name: 'Aetherit varázsbot · INT'
+    },
+    smithMasterIntMithrilShield: {
+      name: 'Mesteri mithril könyv · INT'
+    },
+    smithMasterIntAdamantShield: {
+      name: 'Mesteri adamant könyv · INT'
+    },
+    smithMasterIntAetheriteShield: {
+      name: 'Mesteri aetherit könyv · INT'
+    },
+    smithIntMithrilShield: {
+      name: 'Mithril könyv · INT'
+    },
+    smithIntAdamantShield: {
+      name: 'Adamant könyv · INT'
+    },
+    smithIntAetheriteShield: {
+      name: 'Aetherit könyv · INT'
+    },
+    smithMasterIntMithrilHelm: {
+      name: 'Mesteri mithril diadém · INT'
+    },
+    smithMasterIntAdamantHelm: {
+      name: 'Mesteri adamant diadém · INT'
+    },
+    smithMasterIntAetheriteHelm: {
+      name: 'Mesteri aetherit diadém · INT'
+    },
+    smithIntMithrilHelm: {
+      name: 'Mithril diadém · INT'
+    },
+    smithIntAdamantHelm: {
+      name: 'Adamant diadém · INT'
+    },
+    smithIntAetheriteHelm: {
+      name: 'Aetherit diadém · INT'
+    },
+    smithMasterIntMithrilPlate: {
+      name: 'Mesteri mithril talár · INT'
+    },
+    smithMasterIntAdamantPlate: {
+      name: 'Mesteri adamant talár · INT'
+    },
+    smithMasterIntAetheritePlate: {
+      name: 'Mesteri aetherit talár · INT'
+    },
+    smithIntMithrilPlate: {
+      name: 'Mithril talár · INT'
+    },
+    smithIntAdamantPlate: {
+      name: 'Adamant talár · INT'
+    },
+    smithIntAetheritePlate: {
+      name: 'Aetherit talár · INT'
+    },
+    smithMasterIntMithrilGreaves: {
+      name: 'Mesteri mithril csizma · INT'
+    },
+    smithMasterIntAdamantGreaves: {
+      name: 'Mesteri adamant csizma · INT'
+    },
+    smithMasterIntAetheriteGreaves: {
+      name: 'Mesteri aetherit csizma · INT'
+    },
+    smithIntMithrilGreaves: {
+      name: 'Mithril csizma · INT'
+    },
+    smithIntAdamantGreaves: {
+      name: 'Adamant csizma · INT'
+    },
+    smithIntAetheriteGreaves: {
+      name: 'Aetherit csizma · INT'
+    },
+    smithMasterSklIronSword: {
+      name: 'Mesteri vas pisztoly · JÁR'
+    },
+    smithSklIronSword: {
+      name: 'Vas pisztoly · JÁR'
+    },
+    smithMasterSklIronHammer: {
+      name: 'Mesteri vas puska · JÁR'
+    },
+    smithSklIronHammer: {
+      name: 'Vas puska · JÁR'
+    },
+    smithMasterSklIronShield: {
+      name: 'Mesteri vas akkumulátor · JÁR'
+    },
+    smithSklIronShield: {
+      name: 'Vas akkumulátor · JÁR'
+    },
+    smithMasterSklIronHelm: {
+      name: 'Mesteri vas sapka · JÁR'
+    },
+    smithSklIronHelm: {
+      name: 'Vas sapka · JÁR'
+    },
+    smithMasterSklIronPlate: {
+      name: 'Mesteri vas hám · JÁR'
+    },
+    smithSklIronPlate: {
+      name: 'Vas hám · JÁR'
+    },
+    smithMasterSklIronGreaves: {
+      name: 'Mesteri vas csizma · JÁR'
+    },
+    smithSklIronGreaves: {
+      name: 'Vas csizma · JÁR'
+    },
+    smithMasterSklSilverSword: {
+      name: 'Mesteri ezüst pisztoly · JÁR'
+    },
+    smithSklSilverSword: {
+      name: 'Ezüst pisztoly · JÁR'
+    },
+    smithMasterSklSilverHammer: {
+      name: 'Mesteri ezüst puska · JÁR'
+    },
+    smithSklSilverHammer: {
+      name: 'Ezüst puska · JÁR'
+    },
+    smithMasterSklSilverShield: {
+      name: 'Mesteri ezüst akkumulátor · JÁR'
+    },
+    smithSklSilverShield: {
+      name: 'Ezüst akkumulátor · JÁR'
+    },
+    smithMasterSklSilverHelm: {
+      name: 'Mesteri ezüst sapka · JÁR'
+    },
+    smithSklSilverHelm: {
+      name: 'Ezüst sapka · JÁR'
+    },
+    smithMasterSklSilverPlate: {
+      name: 'Mesteri ezüst hám · JÁR'
+    },
+    smithSklSilverPlate: {
+      name: 'Ezüst hám · JÁR'
+    },
+    smithMasterSklSilverGreaves: {
+      name: 'Mesteri ezüst csizma · JÁR'
+    },
+    smithSklSilverGreaves: {
+      name: 'Ezüst csizma · JÁR'
+    },
+    smithMasterSklGoldSword: {
+      name: 'Mesteri arany pisztoly · JÁR'
+    },
+    smithSklGoldSword: {
+      name: 'Arany pisztoly · JÁR'
+    },
+    smithMasterSklGoldHammer: {
+      name: 'Mesteri arany puska · JÁR'
+    },
+    smithSklGoldHammer: {
+      name: 'Arany puska · JÁR'
+    },
+    smithMasterSklGoldShield: {
+      name: 'Mesteri arany akkumulátor · JÁR'
+    },
+    smithSklGoldShield: {
+      name: 'Arany akkumulátor · JÁR'
+    },
+    smithMasterSklGoldHelm: {
+      name: 'Mesteri arany sapka · JÁR'
+    },
+    smithSklGoldHelm: {
+      name: 'Arany sapka · JÁR'
+    },
+    smithMasterSklGoldPlate: {
+      name: 'Mesteri arany hám · JÁR'
+    },
+    smithSklGoldPlate: {
+      name: 'Arany hám · JÁR'
+    },
+    smithMasterSklGoldGreaves: {
+      name: 'Mesteri arany csizma · JÁR'
+    },
+    smithSklGoldGreaves: {
+      name: 'Arany csizma · JÁR'
+    },
+    smithMasterSklMithrilSword: {
+      name: 'Mesteri mithril pisztoly · JÁR'
+    },
+    smithMasterSklAdamantSword: {
+      name: 'Mesteri adamant pisztoly · JÁR'
+    },
+    smithMasterSklAetheriteSword: {
+      name: 'Mesteri aetherit pisztoly · JÁR'
+    },
+    smithSklMithrilSword: {
+      name: 'Mithril pisztoly · JÁR'
+    },
+    smithSklAdamantSword: {
+      name: 'Adamant pisztoly · JÁR'
+    },
+    smithSklAetheriteSword: {
+      name: 'Aetherit pisztoly · JÁR'
+    },
+    smithMasterSklMithrilHammer: {
+      name: 'Mesteri mithril puska · JÁR'
+    },
+    smithMasterSklAdamantHammer: {
+      name: 'Mesteri adamant puska · JÁR'
+    },
+    smithMasterSklAetheriteHammer: {
+      name: 'Mesteri aetherit puska · JÁR'
+    },
+    smithSklMithrilHammer: {
+      name: 'Mithril puska · JÁR'
+    },
+    smithSklAdamantHammer: {
+      name: 'Adamant puska · JÁR'
+    },
+    smithSklAetheriteHammer: {
+      name: 'Aetherit puska · JÁR'
+    },
+    smithMasterSklMithrilShield: {
+      name: 'Mesteri mithril akkumulátor · JÁR'
+    },
+    smithMasterSklAdamantShield: {
+      name: 'Mesteri adamant akkumulátor · JÁR'
+    },
+    smithMasterSklAetheriteShield: {
+      name: 'Mesteri aetherit akkumulátor · JÁR'
+    },
+    smithSklMithrilShield: {
+      name: 'Mithril akkumulátor · JÁR'
+    },
+    smithSklAdamantShield: {
+      name: 'Adamant akkumulátor · JÁR'
+    },
+    smithSklAetheriteShield: {
+      name: 'Aetherit akkumulátor · JÁR'
+    },
+    smithMasterSklMithrilHelm: {
+      name: 'Mesteri mithril sapka · JÁR'
+    },
+    smithMasterSklAdamantHelm: {
+      name: 'Mesteri adamant sapka · JÁR'
+    },
+    smithMasterSklAetheriteHelm: {
+      name: 'Mesteri aetherit sapka · JÁR'
+    },
+    smithSklMithrilHelm: {
+      name: 'Mithril sapka · JÁR'
+    },
+    smithSklAdamantHelm: {
+      name: 'Adamant sapka · JÁR'
+    },
+    smithSklAetheriteHelm: {
+      name: 'Aetherit sapka · JÁR'
+    },
+    smithMasterSklMithrilPlate: {
+      name: 'Mesteri mithril hám · JÁR'
+    },
+    smithMasterSklAdamantPlate: {
+      name: 'Mesteri adamant hám · JÁR'
+    },
+    smithMasterSklAetheritePlate: {
+      name: 'Mesteri aetherit hám · JÁR'
+    },
+    smithSklMithrilPlate: {
+      name: 'Mithril hám · JÁR'
+    },
+    smithSklAdamantPlate: {
+      name: 'Adamant hám · JÁR'
+    },
+    smithSklAetheritePlate: {
+      name: 'Aetherit hám · JÁR'
+    },
+    smithMasterSklMithrilGreaves: {
+      name: 'Mesteri mithril csizma · JÁR'
+    },
+    smithMasterSklAdamantGreaves: {
+      name: 'Mesteri adamant csizma · JÁR'
+    },
+    smithMasterSklAetheriteGreaves: {
+      name: 'Mesteri aetherit csizma · JÁR'
+    },
+    smithSklMithrilGreaves: {
+      name: 'Mithril csizma · JÁR'
+    },
+    smithSklAdamantGreaves: {
+      name: 'Adamant csizma · JÁR'
+    },
+    smithSklAetheriteGreaves: {
+      name: 'Aetherit csizma · JÁR'
+    },
+    smithMasterChaIronSword: {
+      name: 'Mesteri vas jogar · KAR'
+    },
+    smithChaIronSword: {
+      name: 'Vas jogar · KAR'
+    },
+    smithMasterChaIronHammer: {
+      name: 'Mesteri vas zászló · KAR'
+    },
+    smithChaIronHammer: {
+      name: 'Vas zászló · KAR'
+    },
+    smithMasterChaIronShield: {
+      name: 'Mesteri vas kódex · KAR'
+    },
+    smithChaIronShield: {
+      name: 'Vas kódex · KAR'
+    },
+    smithMasterChaIronHelm: {
+      name: 'Mesteri vas korona · KAR'
+    },
+    smithChaIronHelm: {
+      name: 'Vas korona · KAR'
+    },
+    smithMasterChaIronPlate: {
+      name: 'Mesteri vas tabard · KAR'
+    },
+    smithChaIronPlate: {
+      name: 'Vas tabard · KAR'
+    },
+    smithMasterChaIronGreaves: {
+      name: 'Mesteri vas csizma · KAR'
+    },
+    smithChaIronGreaves: {
+      name: 'Vas csizma · KAR'
+    },
+    smithMasterChaSilverSword: {
+      name: 'Mesteri ezüst jogar · KAR'
+    },
+    smithChaSilverSword: {
+      name: 'Ezüst jogar · KAR'
+    },
+    smithMasterChaSilverHammer: {
+      name: 'Mesteri ezüst zászló · KAR'
+    },
+    smithChaSilverHammer: {
+      name: 'Ezüst zászló · KAR'
+    },
+    smithMasterChaSilverShield: {
+      name: 'Mesteri ezüst kódex · KAR'
+    },
+    smithChaSilverShield: {
+      name: 'Ezüst kódex · KAR'
+    },
+    smithMasterChaSilverHelm: {
+      name: 'Mesteri ezüst korona · KAR'
+    },
+    smithChaSilverHelm: {
+      name: 'Ezüst korona · KAR'
+    },
+    smithMasterChaSilverPlate: {
+      name: 'Mesteri ezüst tabard · KAR'
+    },
+    smithChaSilverPlate: {
+      name: 'Ezüst tabard · KAR'
+    },
+    smithMasterChaSilverGreaves: {
+      name: 'Mesteri ezüst csizma · KAR'
+    },
+    smithChaSilverGreaves: {
+      name: 'Ezüst csizma · KAR'
+    },
+    smithMasterChaGoldSword: {
+      name: 'Mesteri arany jogar · KAR'
+    },
+    smithChaGoldSword: {
+      name: 'Arany jogar · KAR'
+    },
+    smithMasterChaGoldHammer: {
+      name: 'Mesteri arany zászló · KAR'
+    },
+    smithChaGoldHammer: {
+      name: 'Arany zászló · KAR'
+    },
+    smithMasterChaGoldShield: {
+      name: 'Mesteri arany kódex · KAR'
+    },
+    smithChaGoldShield: {
+      name: 'Arany kódex · KAR'
+    },
+    smithMasterChaGoldHelm: {
+      name: 'Mesteri arany korona · KAR'
+    },
+    smithChaGoldHelm: {
+      name: 'Arany korona · KAR'
+    },
+    smithMasterChaGoldPlate: {
+      name: 'Mesteri arany tabard · KAR'
+    },
+    smithChaGoldPlate: {
+      name: 'Arany tabard · KAR'
+    },
+    smithMasterChaGoldGreaves: {
+      name: 'Mesteri arany csizma · KAR'
+    },
+    smithChaGoldGreaves: {
+      name: 'Arany csizma · KAR'
+    },
+    smithMasterChaMithrilSword: {
+      name: 'Mesteri mithril jogar · KAR'
+    },
+    smithMasterChaAdamantSword: {
+      name: 'Mesteri adamant jogar · KAR'
+    },
+    smithMasterChaAetheriteSword: {
+      name: 'Mesteri aetherit jogar · KAR'
+    },
+    smithChaMithrilSword: {
+      name: 'Mithril jogar · KAR'
+    },
+    smithChaAdamantSword: {
+      name: 'Adamant jogar · KAR'
+    },
+    smithChaAetheriteSword: {
+      name: 'Aetherit jogar · KAR'
+    },
+    smithMasterChaMithrilHammer: {
+      name: 'Mesteri mithril zászló · KAR'
+    },
+    smithMasterChaAdamantHammer: {
+      name: 'Mesteri adamant zászló · KAR'
+    },
+    smithMasterChaAetheriteHammer: {
+      name: 'Mesteri aetherit zászló · KAR'
+    },
+    smithChaMithrilHammer: {
+      name: 'Mithril zászló · KAR'
+    },
+    smithChaAdamantHammer: {
+      name: 'Adamant zászló · KAR'
+    },
+    smithChaAetheriteHammer: {
+      name: 'Aetherit zászló · KAR'
+    },
+    smithMasterChaMithrilShield: {
+      name: 'Mesteri mithril kódex · KAR'
+    },
+    smithMasterChaAdamantShield: {
+      name: 'Mesteri adamant kódex · KAR'
+    },
+    smithMasterChaAetheriteShield: {
+      name: 'Mesteri aetherit kódex · KAR'
+    },
+    smithChaMithrilShield: {
+      name: 'Mithril kódex · KAR'
+    },
+    smithChaAdamantShield: {
+      name: 'Adamant kódex · KAR'
+    },
+    smithChaAetheriteShield: {
+      name: 'Aetherit kódex · KAR'
+    },
+    smithMasterChaMithrilHelm: {
+      name: 'Mesteri mithril korona · KAR'
+    },
+    smithMasterChaAdamantHelm: {
+      name: 'Mesteri adamant korona · KAR'
+    },
+    smithMasterChaAetheriteHelm: {
+      name: 'Mesteri aetherit korona · KAR'
+    },
+    smithChaMithrilHelm: {
+      name: 'Mithril korona · KAR'
+    },
+    smithChaAdamantHelm: {
+      name: 'Adamant korona · KAR'
+    },
+    smithChaAetheriteHelm: {
+      name: 'Aetherit korona · KAR'
+    },
+    smithMasterChaMithrilPlate: {
+      name: 'Mesteri mithril tabard · KAR'
+    },
+    smithMasterChaAdamantPlate: {
+      name: 'Mesteri adamant tabard · KAR'
+    },
+    smithMasterChaAetheritePlate: {
+      name: 'Mesteri aetherit tabard · KAR'
+    },
+    smithChaMithrilPlate: {
+      name: 'Mithril tabard · KAR'
+    },
+    smithChaAdamantPlate: {
+      name: 'Adamant tabard · KAR'
+    },
+    smithChaAetheritePlate: {
+      name: 'Aetherit tabard · KAR'
+    },
+    smithMasterChaMithrilGreaves: {
+      name: 'Mesteri mithril csizma · KAR'
+    },
+    smithMasterChaAdamantGreaves: {
+      name: 'Mesteri adamant csizma · KAR'
+    },
+    smithMasterChaAetheriteGreaves: {
+      name: 'Mesteri aetherit csizma · KAR'
+    },
+    smithChaMithrilGreaves: {
+      name: 'Mithril csizma · KAR'
+    },
+    smithChaAdamantGreaves: {
+      name: 'Adamant csizma · KAR'
+    },
+    smithChaAetheriteGreaves: {
+      name: 'Aetherit csizma · KAR'
+    },
+    smithMasterEndIronSword: {
+      name: 'Mesteri vas buzogány · ÁLL'
+    },
+    smithEndIronSword: {
+      name: 'Vas buzogány · ÁLL'
+    },
+    smithMasterEndIronHammer: {
+      name: 'Mesteri vas balta · ÁLL'
+    },
+    smithEndIronHammer: {
+      name: 'Vas balta · ÁLL'
+    },
+    smithMasterEndIronShield: {
+      name: 'Mesteri vaspajzs · ÁLL'
+    },
+    smithEndIronShield: {
+      name: 'Vaspajzs · ÁLL'
+    },
+    smithMasterEndIronHelm: {
+      name: 'Mesteri vassisak · ÁLL'
+    },
+    smithEndIronHelm: {
+      name: 'Vassisak · ÁLL'
+    },
+    smithMasterEndIronPlate: {
+      name: 'Mesteri vaslemezvért · ÁLL'
+    },
+    smithEndIronPlate: {
+      name: 'Vaslemezvért · ÁLL'
+    },
+    smithMasterEndIronGreaves: {
+      name: 'Mesteri vas lábszárvédő · ÁLL'
+    },
+    smithEndIronGreaves: {
+      name: 'Vas lábszárvédő · ÁLL'
+    },
+    smithMasterEndSilverSword: {
+      name: 'Mesteri ezüst buzogány · ÁLL'
+    },
+    smithEndSilverSword: {
+      name: 'Ezüst buzogány · ÁLL'
+    },
+    smithMasterEndSilverHammer: {
+      name: 'Mesteri ezüst balta · ÁLL'
+    },
+    smithEndSilverHammer: {
+      name: 'Ezüst balta · ÁLL'
+    },
+    smithMasterEndSilverShield: {
+      name: 'Mesteri ezüstpajzs · ÁLL'
+    },
+    smithEndSilverShield: {
+      name: 'Ezüstpajzs · ÁLL'
+    },
+    smithMasterEndSilverHelm: {
+      name: 'Mesteri ezüstsisak · ÁLL'
+    },
+    smithEndSilverHelm: {
+      name: 'Ezüstsisak · ÁLL'
+    },
+    smithMasterEndSilverPlate: {
+      name: 'Mesteri ezüstlemezvért · ÁLL'
+    },
+    smithEndSilverPlate: {
+      name: 'Ezüstlemezvért · ÁLL'
+    },
+    smithMasterEndSilverGreaves: {
+      name: 'Mesteri ezüst lábszárvédő · ÁLL'
+    },
+    smithEndSilverGreaves: {
+      name: 'Ezüst lábszárvédő · ÁLL'
+    },
+    smithMasterEndGoldSword: {
+      name: 'Mesteri arany buzogány · ÁLL'
+    },
+    smithEndGoldSword: {
+      name: 'Arany buzogány · ÁLL'
+    },
+    smithMasterEndGoldHammer: {
+      name: 'Mesteri arany balta · ÁLL'
+    },
+    smithEndGoldHammer: {
+      name: 'Arany balta · ÁLL'
+    },
+    smithMasterEndGoldShield: {
+      name: 'Mesteri aranypajzs · ÁLL'
+    },
+    smithEndGoldShield: {
+      name: 'Aranypajzs · ÁLL'
+    },
+    smithMasterEndGoldHelm: {
+      name: 'Mesteri aranysisak · ÁLL'
+    },
+    smithEndGoldHelm: {
+      name: 'Aranysisak · ÁLL'
+    },
+    smithMasterEndGoldPlate: {
+      name: 'Mesteri aranylemezvért · ÁLL'
+    },
+    smithEndGoldPlate: {
+      name: 'Aranylemezvért · ÁLL'
+    },
+    smithMasterEndGoldGreaves: {
+      name: 'Mesteri arany lábszárvédő · ÁLL'
+    },
+    smithEndGoldGreaves: {
+      name: 'Arany lábszárvédő · ÁLL'
+    },
+    smithMasterEndMithrilSword: {
+      name: 'Mesteri mithril buzogány · ÁLL'
+    },
+    smithMasterEndAdamantSword: {
+      name: 'Mesteri adamant buzogány · ÁLL'
+    },
+    smithMasterEndAetheriteSword: {
+      name: 'Mesteri aetherit buzogány · ÁLL'
+    },
+    smithEndMithrilSword: {
+      name: 'Mithril buzogány · ÁLL'
+    },
+    smithEndAdamantSword: {
+      name: 'Adamant buzogány · ÁLL'
+    },
+    smithEndAetheriteSword: {
+      name: 'Aetherit buzogány · ÁLL'
+    },
+    smithMasterEndMithrilHammer: {
+      name: 'Mesteri mithril balta · ÁLL'
+    },
+    smithMasterEndAdamantHammer: {
+      name: 'Mesteri adamant balta · ÁLL'
+    },
+    smithMasterEndAetheriteHammer: {
+      name: 'Mesteri aetherit balta · ÁLL'
+    },
+    smithEndMithrilHammer: {
+      name: 'Mithril balta · ÁLL'
+    },
+    smithEndAdamantHammer: {
+      name: 'Adamant balta · ÁLL'
+    },
+    smithEndAetheriteHammer: {
+      name: 'Aetherit balta · ÁLL'
+    },
+    smithMasterEndMithrilShield: {
+      name: 'Mesteri mithrilpajzs · ÁLL'
+    },
+    smithMasterEndAdamantShield: {
+      name: 'Mesteri adamantpajzs · ÁLL'
+    },
+    smithMasterEndAetheriteShield: {
+      name: 'Mesteri aetheritpajzs · ÁLL'
+    },
+    smithEndMithrilShield: {
+      name: 'Mithrilpajzs · ÁLL'
+    },
+    smithEndAdamantShield: {
+      name: 'Adamantpajzs · ÁLL'
+    },
+    smithEndAetheriteShield: {
+      name: 'Aetheritpajzs · ÁLL'
+    },
+    smithMasterEndMithrilHelm: {
+      name: 'Mesteri mithrilsisak · ÁLL'
+    },
+    smithMasterEndAdamantHelm: {
+      name: 'Mesteri adamantsisak · ÁLL'
+    },
+    smithMasterEndAetheriteHelm: {
+      name: 'Mesteri aetheritsisak · ÁLL'
+    },
+    smithEndMithrilHelm: {
+      name: 'Mithrilsisak · ÁLL'
+    },
+    smithEndAdamantHelm: {
+      name: 'Adamantsisak · ÁLL'
+    },
+    smithEndAetheriteHelm: {
+      name: 'Aetheritsisak · ÁLL'
+    },
+    smithMasterEndMithrilPlate: {
+      name: 'Mesteri mithrillemezvért · ÁLL'
+    },
+    smithMasterEndAdamantPlate: {
+      name: 'Mesteri adamantlemezvért · ÁLL'
+    },
+    smithMasterEndAetheritePlate: {
+      name: 'Mesteri aetheritlemezvért · ÁLL'
+    },
+    smithEndMithrilPlate: {
+      name: 'Mithrillemezvért · ÁLL'
+    },
+    smithEndAdamantPlate: {
+      name: 'Adamantlemezvért · ÁLL'
+    },
+    smithEndAetheritePlate: {
+      name: 'Aetheritlemezvért · ÁLL'
+    },
+    smithMasterEndMithrilGreaves: {
+      name: 'Mesteri mithril lábszárvédő · ÁLL'
+    },
+    smithMasterEndAdamantGreaves: {
+      name: 'Mesteri adamant lábszárvédő · ÁLL'
+    },
+    smithMasterEndAetheriteGreaves: {
+      name: 'Mesteri aetherit lábszárvédő · ÁLL'
+    },
+    smithEndMithrilGreaves: {
+      name: 'Mithril lábszárvédő · ÁLL'
+    },
+    smithEndAdamantGreaves: {
+      name: 'Adamant lábszárvédő · ÁLL'
+    },
+    smithEndAetheriteGreaves: {
+      name: 'Aetherit lábszárvédő · ÁLL'
     },
     smithIronSword: {
       name: 'Vaskard'
@@ -1777,6 +2951,414 @@ export default {
     scepterOfTheFirstKing: {
       name: 'Az első király jogara'
     },
+    pickpocketsKnife: {
+      name: 'Zsebtolvaj kése'
+    },
+    serpentsFang: {
+      name: 'Kígyóagyar'
+    },
+    phantomRapier: {
+      name: 'Fantomrapír'
+    },
+    fangOfTheWindless: {
+      name: 'A Szélcsend agyara'
+    },
+    roguesBuckler: {
+      name: 'Gazfickó kis pajzsa'
+    },
+    venomVial: {
+      name: 'Méregfiola'
+    },
+    swiftguardBuckler: {
+      name: 'Gyors őr kis pajzsa'
+    },
+    nightshadeFlask: {
+      name: 'Nadragulya-palack'
+    },
+    windveilTarge: {
+      name: 'Szélfátyol-tárcsa'
+    },
+    shadowdancersBuckler: {
+      name: 'Árnyéktáncos kis pajzsa'
+    },
+    scoutsBandana: {
+      name: 'Felderítő kendője'
+    },
+    nightcowl: {
+      name: 'Éjkámzsa'
+    },
+    shadowveilHood: {
+      name: 'Árnyékfátyol csuklya'
+    },
+    windrunnersCap: {
+      name: 'Szélfutó sapkája'
+    },
+    maskOfTheSilentWind: {
+      name: 'A néma szél álarca'
+    },
+    rangersJerkin: {
+      name: 'Vadász mellénye'
+    },
+    nightstalkerLeathers: {
+      name: 'Éji vadász bőrei'
+    },
+    windridersHarness: {
+      name: 'Szélovas hámja'
+    },
+    mantleOfTheShadowDancer: {
+      name: 'Az Árnyéktáncos köpenye'
+    },
+    thiefsGloves: {
+      name: 'Tolvajkesztyű'
+    },
+    cutpurseGloves: {
+      name: 'Zsebmetsző kesztyűi'
+    },
+    glovesOfTheGale: {
+      name: 'A vihar kesztyűi'
+    },
+    softSoledShoes: {
+      name: 'Puhatalpú cipő'
+    },
+    catStepBoots: {
+      name: 'Macskalépés-csizma'
+    },
+    shadowstepBoots: {
+      name: 'Árnyéklépés-csizma'
+    },
+    windstrideBoots: {
+      name: 'Széllépés-csizma'
+    },
+    luckyCoin: {
+      name: 'Szerencsepénz'
+    },
+    shadowBand: {
+      name: 'Árnyékgyűrű'
+    },
+    sandglassOfTheSwift: {
+      name: 'A fürgék homokórája'
+    },
+    talonCharm: {
+      name: 'Karommedál'
+    },
+    windheart: {
+      name: 'Szélszív'
+    },
+    ashwallHeater: {
+      name: 'Hamufal pajzs'
+    },
+    wyrmhidePavise: {
+      name: 'Sárkányhéj pavé'
+    },
+    footmansKettleHat: {
+      name: 'Gyalogos fazékkalapja'
+    },
+    ironbrowSallet: {
+      name: 'Vasszemöldökű szalád'
+    },
+    warlordsBarbute: {
+      name: 'A hadúr barbutája'
+    },
+    helmOfTheSunderedThrone: {
+      name: 'A széttört trón sisakja'
+    },
+    recruitsCuirass: {
+      name: 'Újonc mellvértje'
+    },
+    stonecuttersMitts: {
+      name: 'Kőfaragó kesztyűje'
+    },
+    ashforgedGauntlets: {
+      name: 'Hamuban kovácsolt vaskesztyű'
+    },
+    warbringerGauntlets: {
+      name: 'A háborúhozó vaskesztyűje'
+    },
+    titanfistGauntlets: {
+      name: 'Titánököl vaskesztyű'
+    },
+    footmansGreaves: {
+      name: 'Gyalogos lábszárvédői'
+    },
+    ironshodGreaves: {
+      name: 'Vasalt lábszárvédő'
+    },
+    warlordsSabatons: {
+      name: 'A hadúr vaslábai'
+    },
+    greavesOfTheMountainfall: {
+      name: 'A hegyomlás lábszárvédői'
+    },
+    sergeantsSignet: {
+      name: 'Őrmester pecsétgyűrűje'
+    },
+    brawlersKnuckleRing: {
+      name: 'Verekedő bokszere'
+    },
+    bloodiedWarMedal: {
+      name: 'Vérfoltos háborús érem'
+    },
+    watchmansCudgel: {
+      name: 'Őr dorongja'
+    },
+    ironboundMace: {
+      name: 'Vasabroncsos buzogány'
+    },
+    stonehideCleaver: {
+      name: 'Kőbőr hasító'
+    },
+    bulwarkMaul: {
+      name: 'Bástya kalapácsa'
+    },
+    mountainsplitterAxe: {
+      name: 'Hegyhasító bárd'
+    },
+    everstandWarmace: {
+      name: 'Rendíthetetlen harci buzogány'
+    },
+    emberwallBastion: {
+      name: 'Izzófal bástya'
+    },
+    stonewardenHelm: {
+      name: 'Kőőr sisakja'
+    },
+    colossusVisage: {
+      name: 'A kolosszus arca'
+    },
+    diggersGauntlets: {
+      name: 'Ásó vaskesztyűje'
+    },
+    bastionGauntlets: {
+      name: 'Bástya vaskesztyűje'
+    },
+    glacierplateGauntlets: {
+      name: 'Gleccserlemezes vaskesztyű'
+    },
+    gauntletsOfEndlessVigil: {
+      name: 'Az örök virrasztás vaskesztyűje'
+    },
+    hearthstoneCharm: {
+      name: 'Tűzhelykő talizmán'
+    },
+    ironheartPendant: {
+      name: 'Vasszív medál'
+    },
+    hedgewizardsWand: {
+      name: 'Sövényvarázsló pálcája'
+    },
+    frostglassStaff: {
+      name: 'Fagyüveg bot'
+    },
+    voidthreadWand: {
+      name: 'Üresség-fonalas pálca'
+    },
+    staffOfTheStarlessSky: {
+      name: 'A csillagtalan ég botja'
+    },
+    studentsGrimoire: {
+      name: 'Tanuló varázskönyve'
+    },
+    frostfireOrb: {
+      name: 'Fagytűz gömb'
+    },
+    orbOfTheUnwrittenHour: {
+      name: 'A meg nem írt óra gömbje'
+    },
+    apprenticesPointedCap: {
+      name: 'Tanonc hegyes sapkája'
+    },
+    sagesCirclet: {
+      name: 'Bölcs diadémja'
+    },
+    cinderWizardsHat: {
+      name: 'Hamumágus kalapja'
+    },
+    voidseerCirclet: {
+      name: 'Ürességlátó diadémja'
+    },
+    apprenticesRobe: {
+      name: 'Tanonc köpenye'
+    },
+    cinderthreadRobe: {
+      name: 'Hamufonalas köpeny'
+    },
+    voidwovenRobe: {
+      name: 'Ürességből szőtt köpeny'
+    },
+    inkStainedGloves: {
+      name: 'Tintafoltos kesztyű'
+    },
+    spellthreadGloves: {
+      name: 'Varázsfonalas kesztyű'
+    },
+    frostweaveGloves: {
+      name: 'Fagyszövetű kesztyű'
+    },
+    starlitGloves: {
+      name: 'Csillagfényes kesztyű'
+    },
+    glovesOfTheLastWord: {
+      name: 'Az utolsó szó kesztyűje'
+    },
+    scribesSlippers: {
+      name: 'Író papucsa'
+    },
+    moonstepSlippers: {
+      name: 'Holdlépés papucs'
+    },
+    emberstepBoots: {
+      name: 'Izzólépés csizma'
+    },
+    voidwalkerBoots: {
+      name: 'Ürességvándor csizmája'
+    },
+    bootsOfTheWanderingStar: {
+      name: 'A vándorcsillag csizmája'
+    },
+    glowstonePendant: {
+      name: 'Fénykő medál'
+    },
+    scholarsSeal: {
+      name: 'Tudós pecsétje'
+    },
+    eyeOfTheArchon: {
+      name: 'Az arkhón szeme'
+    },
+    cinderRepeater: {
+      name: 'Hamu ismétlőpuska'
+    },
+    glacierMortar: {
+      name: 'Gleccser kézi mozsár'
+    },
+    sparkCell: {
+      name: 'Szikracella'
+    },
+    arcCapacitor: {
+      name: 'Ívkondenzátor'
+    },
+    aetherheartCell: {
+      name: 'Éterszív cella'
+    },
+    marksmansVisor: {
+      name: 'Lövész sisakrostélya'
+    },
+    sharpshootersCap: {
+      name: 'Mesterlövész sapkája'
+    },
+    gunnersHarness: {
+      name: 'Ágyús hámja'
+    },
+    steadyhandGloves: {
+      name: 'Biztos kéz kesztyűje'
+    },
+    gunsmithsGloves: {
+      name: 'Fegyverkovács kesztyűje'
+    },
+    scrappersBoots: {
+      name: 'Verekedő csizmája'
+    },
+    sharpshooterBoots: {
+      name: 'Mesterlövész csizmája'
+    },
+    firingLineBoots: {
+      name: 'Tűzvonal csizma'
+    },
+    steadyfootBoots: {
+      name: 'Szilárd láb csizma'
+    },
+    aetherstepBoots: {
+      name: 'Éterlépés csizma'
+    },
+    bootsOfTheLastShot: {
+      name: 'Az utolsó lövés csizmája'
+    },
+    brassCartridgeCharm: {
+      name: 'Sárgaréz töltényhüvely talizmán'
+    },
+    deadEyeLens: {
+      name: 'Pontos szem lencséje'
+    },
+    eagleEyeScope: {
+      name: 'Sasszem távcső'
+    },
+    criersBaton: {
+      name: 'Kikiáltó botja'
+    },
+    droversStandard: {
+      name: 'Terelő zászlaja'
+    },
+    marshalsSceptre: {
+      name: 'Marsall jogara'
+    },
+    balladBook: {
+      name: 'Balladáskönyv'
+    },
+    chronicleOfHeroes: {
+      name: 'Hősök krónikája'
+    },
+    psalterOfTheHost: {
+      name: 'A sereg zsoltároskönyve'
+    },
+    tomeOfEternalReign: {
+      name: 'Az örök uralom kötete'
+    },
+    heraldsCap: {
+      name: 'Hírnök sapkája'
+    },
+    singersCirclet: {
+      name: 'Énekes diadémja'
+    },
+    diademOfTenThousandVoices: {
+      name: 'A tízezer hang diadémja'
+    },
+    travelersWaistcoat: {
+      name: 'Utazó mellénye'
+    },
+    minstrelsMotley: {
+      name: 'Vándorénekes foltozott ruhája'
+    },
+    troubadoursCoat: {
+      name: 'Trubadúr kabátja'
+    },
+    marshalsGreatcoat: {
+      name: 'Marsall köpenye'
+    },
+    buskersGloves: {
+      name: 'Utcazenész kesztyűje'
+    },
+    drummersGloves: {
+      name: 'Dobos kesztyűje'
+    },
+    standardBearersGloves: {
+      name: 'Zászlóvivő kesztyűje'
+    },
+    gildedParadeGloves: {
+      name: 'Aranyozott díszkesztyű'
+    },
+    glovesOfTheCrownedHand: {
+      name: 'A megkoronázott kéz kesztyűje'
+    },
+    wayfarersShoes: {
+      name: 'Vándor cipője'
+    },
+    troubadourBoots: {
+      name: 'Trubadúr csizmája'
+    },
+    heraldsRidingBoots: {
+      name: 'Hírnök lovaglócsizmája'
+    },
+    paradeBoots: {
+      name: 'Díszcsizma'
+    },
+    bootsOfTheLongProcession: {
+      name: 'A hosszú menet csizmája'
+    },
+    silverWhistle: {
+      name: 'Ezüst síp'
+    },
+    gatheringHorn: {
+      name: 'Gyülekező kürt'
+    },
     heartOfTheMountain: {
       name: 'A hegy szíve'
     },
@@ -1880,6 +3462,9 @@ export default {
     freedPeddler: {
       talk: 'Minden, ami egy utazónak kell. Majdnem új, többnyire.',
       name: 'Odo Marrow'
+    },
+    sfShadowRoad: {
+      name: 'Nettle Quickhand'
     },
     sfShadow: {
       name: 'Nettle Quickhand'
@@ -2034,6 +3619,9 @@ export default {
     sunfordGambler: {
       name: 'Bukfenc Dob'
     },
+    sunfordCups: {
+      name: 'Nell Nimblefingers'
+    },
     oakGambler: {
       name: 'Selymes Ren'
     },
@@ -2145,6 +3733,13 @@ export default {
     }
   },
   dlg: {
+    intro: {
+      crossing: { 1: 'E világ minden útja egy keresztútnál találkozik… és minden keresztút egy csata.' },
+      hero: { 1: 'Sunford csendes földjeiről egy ifjú hős indult útnak.' },
+      fire: { 1: 'A tűz felelt a hívásra. Az acél új nevet tanult.' },
+      foes: { 1: 'Goblinkirályok, fagyjarlok, az Üresség sárkánya… és az Ősdémon.' },
+      begin: { 1: 'A legendád most kezdődik.' }
+    },
     frostDisciple: {
       bye: {
         '1': 'Maradj melegben.'
@@ -2339,6 +3934,23 @@ export default {
       hello: {
         '2': 'Odo Marrow, szolgálatodra. Házaló, ezermester, nagyon hálás ember.',
         '1': 'Te! Te nyitottad ki azt a ketrecet! Ott rohadtam volna meg.'
+      }
+    },
+    sfShadowRoad: {
+      hello: {
+        '1': 'Teleportálás. Érdekel?'
+      },
+      again: {
+        '1': 'Újabb trükkért jöttél vissza?'
+      },
+      train: {
+        '1': 'Figyelj jól. Egy lépés, és máshol vagy.'
+      },
+      trainBack: {
+        '1': 'Jó. Most menj, és légy máshol.'
+      },
+      bye: {
+        '1': 'Ne kapjanak el.'
       }
     },
     sfShadow: {
@@ -2593,9 +4205,8 @@ export default {
         '2': 'Akkor üss, amikor a fém a legfényesebben izzik. Ha mellé, selejt. Rajta.',
         '1': 'Kovácsolás? Hm. Így fogd a kalapácsot, ne úgy, mint egy bunkót.'
       },
-      ore: {
-        '1': 'Rögök, mi? Az egészet viszem. Becsületes súly, becsületes pénz.'
-      },
+      ore: { '1': 'Érc, mi? Mutasd. Rögönként fizetek, tisztességes súlyra.' },
+      sellBack: { '1': 'Tisztes súly, tisztes pénz. Hozz még, ha találsz.' },
       forgeBack: {
         '1': 'Nem rossz. Jó se. Csináld tovább.'
       },
@@ -2878,7 +4489,7 @@ export default {
       },
       map: {
         '1': 'Rook kapitány térképe! Széttépte, és elrejtette a darabokat, mielőtt a goblinok elkapták.',
-        '2': 'Keresd meg mind a hatot, és az X megmutatja az utat: valahol a Hamuszirteken. Áss ott, és az arany a tiéd.',
+        '2': 'Keress meg hatot közülük, néhány még szanaszét hever, és az X megmutatja az utat: valahol a Hamuszirteken. Áss ott, és az arany a tiéd.',
         say: 'Találtam egy darabot egy régi térképből.'
       }
     },
@@ -2895,6 +4506,9 @@ export default {
       },
       mana: {
         '1': 'Ez keserű. Idd meg, ha kifogynak a varázslataid.'
+      },
+      brew: {
+        '1': 'Mutasd a füveidet. Keverek valamit, ami jobb ízű, mint a manatonikom.'
       },
       potions: {
         '1': 'Minden harcba viszel pár fiolát. Igyál, mielőtt szükséged van rá, ne utána.',
@@ -2914,6 +4528,9 @@ export default {
       },
       healBack: {
         '1': 'Tartsd tele az öved, és hajtsd le a fejed.'
+      },
+      brewBack: {
+        '1': 'Vigyázz, forrók. Ne idd meg mindet egyszerre.'
       },
       bye: {
         '1': 'Vigyázz magadra odakint.'
@@ -3015,9 +4632,8 @@ export default {
         '2': 'Figyeld az izzást. Üss a szívébe háromszor, és a fém emlékezni fog.',
         '1': 'Ki akarod tanulni a mesterséget? Jó. Oakhavennek minden kalapács kell.'
       },
-      ore: {
-        '1': 'Nyers érc! A fegyvertárban sosem elég. Itt a fizetséged.'
-      },
+      ore: { '1': 'Nyers érc! A fegyvertárnak sosem elég. Add el, amit nélkülözni tudsz.' },
+      sellBack: { '1': 'Minden rög a falba kerül. Köszönöm.' },
       forgeBack: {
         '1': 'Jó acél. A falak hálásak érte.'
       },
@@ -3058,9 +4674,8 @@ export default {
         '2': 'Három ütés, mindegyik az izzás szívébe. Ennyi az egész titok.',
         '1': 'Az ostrom óta bárkit tanítok, aki kéri. Gyere, állj ide.'
       },
-      ore: {
-        '1': 'Még érc a falakhoz? Áldjon meg az ég. Tessék, ezt fogadd el.'
-      },
+      ore: { '1': 'Még érc a falakhoz? Minden rögért fizetek, amit adni tudsz.' },
+      sellBack: { '1': 'Áldjon meg az ég. Ez több vértlemez a falakra.' },
       forgeBack: {
         '1': 'Minden ütéssel jobb leszel. Gyere bármikor.'
       },
@@ -3456,9 +5071,8 @@ export default {
         '2': 'Az izzás megmondja, mikor. A karod, hogy milyen erősen. Három ütés.',
         '1': 'Egy felszíni az üllőnél? Hát, mindenki kezdi valahol.'
       },
-      ore: {
-        '1': 'Jó, becsületes fém. Ironhold mindig fizet érte.'
-      },
+      ore: { '1': 'Jó, becsületes fém. Tedd ide, rögönként fizetek.' },
+      sellBack: { '1': 'Tisztességes alku. Ironhold mindig megfizeti a jó fémet.' },
       forgeBack: {
         '1': 'Egy törp jobban csinálta volna. De nem sokkal.'
       },
@@ -3528,9 +5142,8 @@ export default {
         '2': 'Hevítsd, üsd, fordítsd. Három ütés, pont az izzásba. Aztán hagyd kihűlni.',
         '1': 'A páncél türelmes munka. Megmutatom az alapokat.'
       },
-      ore: {
-        '1': 'Hadd mérjem meg. Jó. Tiéd a pénz.'
-      },
+      ore: { '1': 'Hadd mérjem meg. Válaszd ki, mit adsz el, én számolom a pénzt.' },
+      sellBack: { '1': 'Lemérve, kifizetve. Jó.' },
       forgeBack: {
         '1': 'Hagyd kihűlni, mielőtt felveszed.'
       },
@@ -3570,9 +5183,8 @@ export default {
         '2': 'Fegyelem az üllőnél, akár a csatamezőn. Három ütés, hűen az izzáshoz.',
         '1': 'A Rend felfegyverzi a barátait. Megtanítalak.'
       },
-      ore: {
-        '1': 'A Rend minden ércet felvásárol a háborúhoz. A fizetséged.'
-      },
+      ore: { '1': 'A Rend ércet vesz a háborúhoz. Add el, amit nélkülözni tudsz.' },
+      sellBack: { '1': 'A fizetséged feljegyezve. A Rend köszöni.' },
       forgeBack: {
         '1': 'Jól kovácsolt. Szolgálj benne becsülettel.'
       },
@@ -3974,6 +5586,11 @@ export default {
       }
     },
     bark: {
+      banditChief: {
+        whistle: {
+          1: 'Fel, fiúk! Harapjátok meg őket!'
+        }
+      },
       lightDisciple: {
         freed: {
           '1': 'A fény küldött hozzám. Aurelle nővér vagyok. Keress meg Sunfordban, megtanítom neked a Fényhozók útját.'
@@ -4129,9 +5746,8 @@ export default {
         '2': 'Akkor üss, amikor a legforróbban izzik. Három jó ütés jó darabot ad.',
         '1': 'Kipróbálnád magad is a kalapácsot? Szívesen megosztom a kohót.'
       },
-      ore: {
-        '1': 'Gyönyörű érc. Silverbridge mindig tisztességes árat fizet.'
-      },
+      ore: { '1': 'Szép érc. Mutasd, mit adsz el, rögönként fizetek.' },
+      sellBack: { '1': 'Örömömre szolgált. Silverbridge mindig tisztes árat fizet.' },
       forgeBack: {
         '1': 'Nézd csak! Neked ez a véredben van.'
       },
@@ -4573,7 +6189,7 @@ export default {
         say: 'Hol találok füveket?'
       },
       elixirs: {
-        '1': 'Mindegyik egy teljes percre erősebbé tesz harcban. Keményebb ütés, szívósabb bőr, fürgébb láb.',
+        '1': 'Mindegyik 5 teljes percre erősebbé tesz harcban. Keményebb ütés, szívósabb bőr, fürgébb láb.',
         '2': 'A harmadik fiolában vannak. Koppints a kis nyílra, és válaszd ki, melyiket iszod.',
         say: 'Mit csinálnak az elixírek?'
       },
@@ -4642,6 +6258,36 @@ export default {
       },
       bye: {
         '1': 'Hozz még lim-lomot! A lim-lom a kedvencem.'
+      }
+    },
+    sunfordCups: {
+      hello: {
+        1: 'Gyertek közelebb! Három pohár, egy ékkő, és az első kör ingyen van!',
+        2: 'Nell Nimblefingers. A kezeimet még senki sem verte át. Kipróbálod?'
+      },
+      again: {
+        1: 'Már megint itt? Tartsd nyitva a szemed!'
+      },
+      play: {
+        1: 'Szemet az ékkövön, barátom. Ne pislants!'
+      },
+      rules: {
+        1: 'Elrejtem az ékkövet egy pohár alatt, és megkeverem a poharakat. Te rámutatsz arra, amelyik rejti.',
+        2: 'Minden egymás utáni győzelem többet fizet. Három győzelem díjat hoz, öt kincset. A nap első köre ingyen van.',
+        say: 'Hogy megy ez?'
+      },
+      who: {
+        1: 'Előbb tudtam keverni, mint járni. Anya szerint ez sok mindent megmagyaráz.'
+      },
+      luck: {
+        1: 'Néha! Akkor hangosan nyögök, és a közönség megsajnál.',
+        say: 'Veszítesz valaha?'
+      },
+      playBack: {
+        1: 'Remek kör! Gyere vissza holnap, az első mindig ingyen van.'
+      },
+      bye: {
+        1: 'Viszlát! Tartsd nyitva a szemed odakint.'
       }
     },
     oakGambler: {
@@ -5135,6 +6781,7 @@ export default {
     banditArcher: 'Bandita íjász',
     wolf: 'Farkas',
     banditChief: 'Banditavezér',
+    gnome: 'Gnóm',
     goblinKing: 'A Goblinkirály',
     treant: 'Élőfa',
     spider: 'Óriáspók',
@@ -5352,6 +6999,18 @@ export default {
       firefoxColors: 'Firefox: Beállítások → Színek → állítsd az «Oldal által megadott színek felülbírálása» értékét Soha-ra.'
     }
   },
+  samsungFix: {
+    title: 'Gyors színellenőrzés',
+    body: 'Egyes telefonok megváltoztatják a weboldalak színeit. Hasonlítsd össze az alábbi két négyzetet.',
+    question: 'Egyformának látszik a két négyzet?',
+    refSquare: 'Referencia négyzet',
+    pageSquare: 'Az oldal négyzete',
+    yes: 'Igen, egyformák',
+    no: 'Nem, különbözőek',
+    option: 'Színek javítása (Samsung sötét mód)',
+    optionHint: 'Kapcsold be, ha a menük sötétnek tűnnek, vagy a szöveg nehezen olvasható.',
+    recheck: 'Színellenőrzés újrafuttatása'
+  },
   saveStatus: {
     restoredTitle: 'Felhőmentés visszaállítva',
     restoredBody: '+{n} bónuszarany a helyreállításért',
@@ -5476,7 +7135,7 @@ export default {
   },
   forge: {
     upgrade: 'Fejlesztés ({n} arany)',
-    max: 'Teljesen fejlesztve: +{n}.',
+    next: 'Következő +{level}: +{pct}% értékekhez',
     town: 'Bármelyik város kovácsa fejlesztheti.'
   },
   ore: {
@@ -5491,6 +7150,12 @@ export default {
     },
     mithril: {
       name: 'Mithrilérc'
+    },
+    adamant: {
+      name: 'Adamantérc'
+    },
+    aetherite: {
+      name: 'Aetheritérc'
     }
   },
   plant: {
@@ -5572,32 +7237,32 @@ export default {
   elixir: {
     might: {
       name: 'Erő elixírje',
-      desc: '+{n}% sebzés egy percig'
+      desc: '+{n}% sebzés 5 percig'
     },
     iron: {
       name: 'Vasbőr-főzet',
-      desc: '+{n}% páncél egy percig'
+      desc: '+{n}% páncél 5 percig'
     },
     swift: {
       name: 'Fürgeség-tonik',
-      desc: '+{n}% sebesség és támadási sebesség egy percig'
+      desc: '+{n}% sebesség és támadási sebesség 5 percig'
     },
     mind: {
       name: 'Tiszta elme főzete',
-      desc: 'A képességek {n}%-kal gyorsabban töltődnek egy percig'
+      desc: 'A képességek {n}%-kal gyorsabban töltődnek 5 percig'
     },
     vigor: {
       name: 'Életerő elixírje',
-      desc: 'Másodpercenként {n}% életerőt gyógyít egy percig'
+      desc: 'Másodpercenként {n}% életerőt gyógyít 5 percig'
     },
     shadow: {
       name: 'Szomjas főzet',
-      desc: 'Az ütéseid sebzésük {n}%-ával gyógyítanak egy percig'
+      desc: 'Az ütéseid sebzésük {n}%-ával gyógyítanak 5 percig'
     }
   },
   alchemy: {
     talk: 'Fű be, elixír ki. Melyiket főzzük?',
-    lead: 'Minden elixír egy percig hat harcban. A harmadik fiolából idd. Mindegyikből {n} lehet nálad.',
+    lead: 'Minden elixír 5 percig hat harcban. A harmadik fiolából idd. Mindegyikből {n} lehet nálad.',
     brew: 'Főzés · {n}',
     carry: 'Viszem',
     carried: 'A fioládban',
@@ -5621,6 +7286,25 @@ export default {
     again: 'Még egy kör',
     noGold: 'Nincs elég aranyad ehhez a téthez.',
     card: '{n}. kártya'
+  },
+  cups: {
+    title: 'Pohárbódé',
+    lead: 'Nézd az ékkövet, kövesd a poharát, aztán mutass rá. Minden egymás utáni győzelem többet fizet. A harmadik díjtárgyat hoz, az ötödik kincset.',
+    free: 'Ingyenes kör',
+    fee: 'Játék · {n}',
+    row: 'Győzelmek egymás után: {n} / {max}',
+    next: 'Következő győzelem: {n} arany',
+    watch: 'Nézd az ékkövet!',
+    follow: 'Kövesd…',
+    pick: 'Válassz poharat!',
+    hint: 'Koppints egy pohárra, vagy nyomd meg a számát.',
+    won: 'Megvan! +{n} arany',
+    lost: 'Nem az volt. A sorozat újraindul.',
+    near: 'Majdnem! Közvetlenül mellette volt.',
+    timeout: 'Túl lassú! A sorozat újraindul.',
+    again: 'Újra',
+    noGold: 'Nincs elég arany. Holnap az első kör ingyen van.',
+    cup: '{n}. pohár'
   },
   battle: {
     title: 'Tárgycsata',

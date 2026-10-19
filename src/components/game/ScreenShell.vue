@@ -3,7 +3,7 @@
   //- transform (the HUD layer scales).
   Teleport(to="body")
     Transition(name="screen" appear)
-      div.screen(:class="`screen--${art}`" role="dialog" aria-modal="true" :aria-label="label")
+      div.screen(ref="rootEl" :class="`screen--${art}`" :style="artHold(held)" role="dialog" aria-modal="true" :aria-label="label")
         ScreenBackdrop(:name="art")
         header.screen__bar
           div.screen__lead
@@ -31,11 +31,12 @@
  * (`acquireModalOpen`: the game loop stands still behind it), plays the
  * window's open and close sounds, and Esc closes it.
  */
-import { onMounted, onUnmounted } from 'vue'
+import { onMounted, onUnmounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import GameIcon from '@/components/icons/GameIcon.vue'
 import { sfx } from '@/game/audio/sfx'
 import { acquireModalOpen } from '@/use/useModalState'
+import { artHold, useArtGate } from '@/use/useArtGate'
 import ScreenBackdrop from './ScreenBackdrop.vue'
 import type { BackdropName } from './backdrops'
 
@@ -47,6 +48,9 @@ defineProps<{
 }>()
 const emit = defineEmits<{ (e: 'close'): void }>()
 const { t } = useI18n()
+// Opens once its pictures are in, or after ~300 ms regardless (D149).
+const rootEl = ref<HTMLElement | null>(null)
+const held = useArtGate(rootEl)
 
 const onClose = (): void => {
   sfx('uiClick')
@@ -162,8 +166,6 @@ onUnmounted(() => {
   color: var(--bc-text)
   overflow: hidden
   transition: transform var(--bc-t-release) var(--bc-ease-bounce), filter 120ms ease-out
-  &::before
-    +cel.glint(10%, 14%, 40%, 12%)
   .screen__close-icon
     position: relative
     width: 46%

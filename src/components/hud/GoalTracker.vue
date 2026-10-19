@@ -51,12 +51,16 @@ const ICON: Record<GoalId, GameIconName> = {
   trainer: 'chat', learn: 'book', points: 'plus', leave: 'map', travel: 'map', decide: 'chat', explore: 'map'
 }
 
+/** Goals that are done on one of the hero's sheets: the tap opens it. */
+const GOAL_PANEL: Partial<Record<GoalId, 'character' | 'skills'>> = { points: 'character', learn: 'skills' }
+
 const goal = computed(() => onboard.goal)
 /** Which goal it is (its progress aside): a new one pops in, a count only bumps. */
 const who = computed(() => (goal.value ? `${goal.value.id}|${goal.value.place ?? ''}|${goal.value.foe ?? ''}` : ''))
 // After a win the Leave button (with its chest count) is the goal on screen
 // itself: the chip steps aside rather than stand beside it.
-const visible = computed(() => !flow.talk && !flow.modal && !flow.loading && !isAdShowing.value && goal.value?.id !== 'exit')
+// A zone's "clear" goal is the zone badge's own count: the chip steps aside for it too.
+const visible = computed(() => !flow.talk && !flow.modal && !flow.loading && !isAdShowing.value && goal.value?.id !== 'exit' && !(goal.value?.id === 'clear' && flow.screen === 'zone'))
 
 const text = computed(() => {
   const g = goal.value
@@ -87,6 +91,13 @@ watch(() => onboard.goalDoneN, () => {
 
 const show = (): void => {
   sfx('uiClick')
+  // A goal that is a screen ("spend your points") opens that screen: a tap is a
+  // yes, where the lesson's pointer alone left the badge looking dead.
+  const panel = goal.value ? GOAL_PANEL[goal.value.id] : undefined
+  if (panel && !flow.loading && !flow.modal && !flow.talk) {
+    flow.modal = panel
+    return
+  }
   pointToGoal()
 }
 </script>
@@ -98,7 +109,7 @@ const show = (): void => {
   align-items: center
   gap: 0.4em
   max-width: min(100%, 22rem)
-  min-height: clamp(2.2rem, 8.6vmin, 2.6rem)
+  min-height: max(28px, calc(clamp(2.2rem, 8.6vmin, 2.6rem) * var(--hud-s, 1)))
   margin: 0
   padding: 0.15em 0.75em 0.15em 0.25em
   border: var(--bc-ol-thin) solid var(--bc-ink)
@@ -107,7 +118,7 @@ const show = (): void => {
   box-shadow: var(--bc-drop)
   color: var(--bc-paper-ink)
   font-family: var(--font-ui)
-  font-size: clamp(0.68rem, 2.9vmin, 0.98rem)
+  font-size: max(10px, calc(clamp(0.68rem, 2.9vmin, 0.98rem) * var(--hud-s, 1)))
   line-height: 1.1
   text-align: start
   cursor: pointer
@@ -120,7 +131,7 @@ const show = (): void => {
   &::before
     content: ''
     position: absolute
-    inset: -0.35rem -0.2rem
+    inset: -6px -0.2rem
   &:active
     transition-duration: var(--bc-t-press)
     transform: scale(0.95)
@@ -132,8 +143,8 @@ const show = (): void => {
   flex: 0 0 auto
   display: grid
   place-items: center
-  width: clamp(1.7rem, 6.6vmin, 2.05rem)
-  height: clamp(1.7rem, 6.6vmin, 2.05rem)
+  width: max(20px, calc(clamp(1.7rem, 6.6vmin, 2.05rem) * var(--hud-s, 1)))
+  height: max(20px, calc(clamp(1.7rem, 6.6vmin, 2.05rem) * var(--hud-s, 1)))
   border: var(--bc-ol-thin) solid var(--bc-ink)
   border-radius: 50%
   background: linear-gradient(180deg, var(--bc-gold-hi) 0, var(--bc-gold-hi) 46%, var(--bc-gold) 46%, var(--bc-gold) 100%)

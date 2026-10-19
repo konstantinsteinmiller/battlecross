@@ -137,7 +137,7 @@ const sbArmorer = conversation('sbArmorer', {
     who(),
     { id: 'steel', lines: 'nn' }
   ],
-  back: { shop: [{ id: 'shopBack' }], smithing: [{ id: 'forgeBack' }] },
+  back: { shop: [{ id: 'shopBack' }], smithing: [{ id: 'forgeBack' }], sellOre: [{ id: 'sellBack' }] },
   bye: [{ id: 'bye' }]
 })
 

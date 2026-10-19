@@ -1,3 +1,6 @@
+import { ORNAMENT_REFS } from './ornamentRefs'
+import { BAR_FRAME_REFS } from './barFrameRefs'
+
 /**
  * ─── The brand's reference drawings ──────────────────────────────────────────
  *
@@ -85,5 +88,43 @@ export const LOGO_D_SVG = [
   '</svg>'
 ].join('')
 
+// ─── The shell-game cup (the cup stand) ───────────────────────────────────
+//
+// A wooden beaker stood UPSIDE DOWN on the table, as in the shell game: the flat
+// closed base on top, the open rim at the table, wider than the base. Vertical
+// staves, two iron hoops, a lighter turned base. The number the player taps is
+// written over the plain middle in code, so the painting leaves it blank. It is
+// also the drawing the stand shows until `images/ui/cup.webp` is painted.
+
+const CUP_INK = '#3a2010'
+/** The stave seams: from the base's width at the top to the rim's at the foot. */
+const CUP_STAVES = [1, 2, 3, 4, 5].map(k => `<path d="M${22 + (56 * k) / 6} 15L${8 + (84 * k) / 6} 93" stroke="#7a4420" stroke-width="1.6" fill="none"/>`).join('')
+const CUP_GRAIN = [
+  'M30 24q2 5 0 10', 'M44 22q-2 6 0 12', 'M60 24q2 5 0 9', 'M72 22q-1 6 1 11',
+  'M22 50q2 4 0 9', 'M40 52q-2 5 0 10', 'M56 50q2 6 0 11', 'M76 52q-1 5 1 9',
+  'M18 66q2 3 0 6', 'M64 64q-2 4 0 7', 'M84 66q1 3 0 6'
+].map(d => `<path d="${d}" stroke="#8a5428" stroke-width="1.4" stroke-linecap="round" fill="none"/>`).join('')
+
+export const CUP_SVG = [
+  '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" stroke-linejoin="round">',
+  // The body: a tapered tumbler, wider at the rim.
+  `<path d="M22 14L8.500 88Q8 96 16 96H84Q92 96 91.500 88L78 14Z" fill="#c07f3e" stroke="${CUP_INK}" stroke-width="3.500"/>`,
+  // The shaded right flank and the lit left edge.
+  '<path d="M64 14L78 14L91.500 88Q92 96 84 96H76Z" fill="#9a5f2c"/>',
+  '<path d="M24 16L12 84" stroke="#e0a45a" stroke-width="3" stroke-linecap="round" fill="none"/>',
+  CUP_STAVES, CUP_GRAIN,
+  // The open rim's dark lip at the table.
+  `<path d="M8.700 86Q8 96 16 96H84Q92 96 91.300 86Q50 93 8.700 86Z" fill="#6e3d1c" stroke="${CUP_INK}" stroke-width="3"/>`,
+  // Two iron hoops.
+  `<path d="M19.300 31L18 41Q50 46 82 41L80.700 31Q50 36 19.300 31Z" fill="#8f98a8" stroke="${CUP_INK}" stroke-width="2.800"/>`,
+  '<path d="M21 34Q50 39 79 34" stroke="#d3dae6" stroke-width="1.600" stroke-linecap="round" fill="none"/>',
+  `<path d="M11.700 73L10.400 83Q50 89 89.600 83L88.300 73Q50 79 11.700 73Z" fill="#8f98a8" stroke="${CUP_INK}" stroke-width="2.800"/>`,
+  '<path d="M13 76Q50 82 87 76" stroke="#d3dae6" stroke-width="1.600" stroke-linecap="round" fill="none"/>',
+  // The closed base on top: a lighter turned disc.
+  `<ellipse cx="50" cy="14" rx="28" ry="7" fill="#dcA668" stroke="${CUP_INK}" stroke-width="3.500"/>`,
+  '<ellipse cx="50" cy="14" rx="18" ry="3.800" fill="none" stroke="#a8692f" stroke-width="1.600"/>',
+  '</svg>'
+].join('')
+
 /** By the id the manifest names in a panel's `glyph`. */
-export const BRAND_REFS: Readonly<Record<string, string>> = { emblem: EMBLEM_SVG, mascot: MASCOT_POSE_SVG, 'logo-d': LOGO_D_SVG }
+export const BRAND_REFS: Readonly<Record<string, string>> = { emblem: EMBLEM_SVG, mascot: MASCOT_POSE_SVG, 'logo-d': LOGO_D_SVG, cup: CUP_SVG, ...ORNAMENT_REFS, ...BAR_FRAME_REFS }

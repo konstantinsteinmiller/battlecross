@@ -1,9 +1,11 @@
 <template lang="pug">
   div.wmap(
+    ref="root"
+    :style="artHold(held)"
     :class="{ 'is-paused': isGamePaused, 'is-rushing': rushing, 'is-moving': moving, 'is-alarm': alarm, 'wmap--low': low, 'wmap--tiny': scale < 0.47, 'wmap--full': touch }"
     @pointerdown.capture="skipWalk"
   )
-    div.wmap__top
+    div.wmap__top(ref="topEl")
       div.wmap__hero-chip
         span.wmap__face
           //- No rim on the map: a ring round the hero reads as the fight's experience ring (#72).
@@ -120,7 +122,7 @@
                 span.sky-birds.sky-birds--1
                   svg(viewBox="-60 -36 76 72" focusable="false" v-html="birds3")
           svg.wmap__layer.wmap__frame(:viewBox="VIEW" aria-hidden="true" focusable="false" v-html="frame")
-    div.wmap__bottom
+    div.wmap__bottom(ref="bottomEl")
       FButton(v-if="canReturn" :label="t('map.back')" type="secondary" size="sm" icon="back" icon-position="left" @click="closeMap")
       MenuButtons(board)
     Transition(name="hint")
@@ -128,7 +130,7 @@
     Transition(name="hint")
       span.wmap__skip.wmap__hint(v-if="hint && !rushing && !showCard") {{ t(touch ? 'map.walkTouch' : 'map.walkMouse') }}
     //- Steering on a touch screen: a stick in the corner of the sheet.
-    div.mstick(v-if="touch" aria-hidden="true" :class="{ 'is-on': stick.on }" @pointerdown.prevent="stickDown")
+    div.mstick(v-if="touch" ref="stickEl" aria-hidden="true" :class="{ 'is-on': stick.on, 'is-away': !!sel && cardOpen }" @pointerdown.prevent="stickDown")
       span.mstick__knob(:style="{ transform: `translate(${stick.x * 72}%, ${stick.y * 72}%)` }")
     //- The beat before an encounter.
     span.wmap__flash(v-if="alarm" aria-hidden="true")
@@ -160,6 +162,8 @@
         div.card__actions
           FButton(v-if="trainer" :label="t('map.trainer', { cls: t(`class.${trainer.cls}.name`) })" type="secondary" size="sm" icon="book" @click="visitHiddenTrainer(sel.id)")
           FButton(v-if="sel.enterable" :label="t(sel.kind === 'town' ? 'map.enter' : sel.kind === 'arena' ? 'map.fight' : sel.cleared ? 'map.again' : 'map.travel')" type="success" size="md" :icon="sel.kind === 'town' ? 'home' : 'sword'" attention @click="go(sel.id)")
+            | {{ t(sel.kind === 'town' ? 'map.enter' : sel.kind === 'arena' ? 'map.fight' : sel.cleared ? 'map.again' : 'map.travel') }}
+            KeyCap.card__key(v-if="hud.device === 'mouse'" :code="interactCode")
           p.card__locked(v-else)
             GameIcon.card__lock(name="lock")
             | {{ t(sel.id === 'arena' ? 'map.lockedArena' : sel.id === 'rift' ? 'map.lockedRift' : 'map.locked') }}
@@ -202,10 +206,13 @@ import { sceneQuality } from '@/game/engine/quality'
 import { sfx } from '@/game/audio/sfx'
 import { registerQaAdTap } from '@/use/useQaAdTrigger'
 import { isGamePaused } from '@/use/useGamePause'
+import { artHold, useArtGate } from '@/use/useArtGate'
 import { fmt } from '@/utils/format'
 import GameIcon from '@/components/icons/GameIcon.vue'
 import IconCoin from '@/components/icons/IconCoin.vue'
 import FButton from '@/components/atoms/FButton.vue'
+import KeyCap from '@/components/glyphs/KeyCap.vue'
+import { DEFAULT_BINDINGS } from '@/game/engine/keyBindings'
 import Portrait from '@/components/art/Portrait.vue'
 import ItemIcon from '@/components/art/ItemIcon.vue'
 import HudMenu from '@/components/hud/HudMenu.vue'
@@ -436,6 +443,12 @@ const bakePlate = async (): Promise<void> => {
 
 // ── The sheet on the table ───────────────────────────────────────────────────
 const sheet = ref<HTMLElement | null>(null)
+const topEl = ref<HTMLElement | null>(null)
+const bottomEl = ref<HTMLElement | null>(null)
+const stickEl = ref<HTMLElement | null>(null)
+const root = ref<HTMLElement | null>(null)
+// The map opens once its pictures are in, or after ~300 ms regardless (D149).
+const held = useArtGate(root)
 const mapEl = ref<HTMLElement | null>(null)
 const heroEl = ref<HTMLElement | null>(null)
 /** Screen px per sheet unit. */
@@ -447,9 +460,33 @@ const side = ref(false)
 const MIN_FIT = 0.5
 const MAX_ZOOM = 1.05
 
+/** On a phone the top row, the bottom row and the stick float over the screen: the
+ *  sheet is the window between their strips, so a place is never panned under a button.
+ *  The top row's lower edge also goes to the card (`--band-t`), which docks below it. */
+const clearOfControls = (): { l: number; t: number; b: number } => {
+  const at = root.value?.getBoundingClientRect()
+  if (!at || !topEl.value) return { l: 0, t: 0, b: 0 }
+  // The rows' own controls, not the soft shade that stands under them.
+  const kids = (row: HTMLElement | null): DOMRect[] => [...(row?.children ?? [])].map(c => c.getBoundingClientRect())
+  const band = Math.ceil(Math.max(...kids(topEl.value).map(r => r.bottom)) - at.top)
+  root.value!.style.setProperty('--band-t', `${band}px`)
+  const bottom = kids(bottomEl.value)
+  const low = bottom.length ? Math.max(0, Math.ceil(at.bottom - Math.min(...bottom.map(r => r.top)))) : 0
+  root.value!.style.setProperty('--band-b', `${low}px`)
+  if (!touch.value) return { l: 0, t: 0, b: 0 }
+  const stick = stickEl.value?.getBoundingClientRect()
+  return {
+    t: band,
+    b: low,
+    l: stick ? Math.max(0, Math.ceil(stick.right - at.left)) : 0
+  }
+}
+
 const fit = (): void => {
   const el = sheet.value
   if (!el || !el.clientWidth || !el.clientHeight) return
+  const pad = clearOfControls()
+  el.style.inset = touch.value ? `${pad.t}px 0 ${pad.b}px ${pad.l}px` : ''
   const w = el.clientWidth
   const h = el.clientHeight
   const contain = Math.min(w / MAP_W, h / MAP_H)
@@ -902,7 +939,10 @@ const go = async (id: NodeId): Promise<void> => {
 const onKey = (e: KeyboardEvent): void => {
   if (rushing.value) { skipWalk(); return }
   if (e.code === 'Escape' && selected.value) { selected.value = ''; cardOpen.value = false }
+  // The interact key (E) takes the card's main button, like the prompts in the world.
+  else if (DEFAULT_BINDINGS.interact.includes(e.code) && !e.repeat && showCard.value && sel.value?.enterable) void go(sel.value.id)
 }
+const interactCode = DEFAULT_BINDINGS.interact[0]!
 /**
  * Tab walks the focus from place to place here. In a fight it is the "next
  * target" key, and the game's key handler (on the window) cancels it: so the
@@ -940,6 +980,8 @@ onMounted(async () => {
       void nextTick(() => centreOn(selected.value ? nodeAt(selected.value) : [hero.x, hero.y], cardless))
     })
     observer.observe(sheet.value)
+    // The top row grows when a long name or a wide font wraps: the strips follow.
+    if (topEl.value) observer.observe(topEl.value)
   }
   window.addEventListener('keydown', onKey)
   window.addEventListener('keydown', onTab, true)
@@ -1592,6 +1634,10 @@ onBeforeUnmount(() => {
   border-radius: 50%
   background: radial-gradient(circle, rgba(255, 248, 227, 0.4) 0 55%, rgba(255, 248, 227, 0.22) 56% 100%)
   touch-action: none
+  // A card is open: the stick gives its corner up (its strip stays reserved).
+  &.is-away
+    visibility: hidden
+    pointer-events: none
   &.is-on
     background: radial-gradient(circle, rgba(255, 248, 227, 0.55) 0 55%, rgba(255, 248, 227, 0.32) 56% 100%)
 .mstick__knob
@@ -1809,6 +1855,10 @@ onBeforeUnmount(() => {
   width: clamp(2rem, 8.6vmin, 2.7rem)
   &.owned
     filter: drop-shadow(0 0 0.25rem var(--bc-green-lo, #27a648))
+.card__key
+  margin-left: 0.4em
+  font-size: 0.9em
+  color: var(--bc-ink)
 .card__actions
   display: flex
   flex-wrap: wrap
@@ -1824,7 +1874,7 @@ onBeforeUnmount(() => {
   gap: 0.4em
   color: var(--m-paper-ink-soft)
 .card--top
-  top: calc(env(safe-area-inset-top, 0px) + var(--pad) + clamp(3rem, 13vmin, 4.4rem))
+  top: max(calc(env(safe-area-inset-top, 0px) + var(--pad) + clamp(3rem, 13vmin, 4.4rem)), calc(var(--band-t, 0px) + var(--pad) * 0.5))
   bottom: auto
   max-height: 46%
 // On a short, wide screen there is no room above or below the picked place:
@@ -1832,8 +1882,8 @@ onBeforeUnmount(() => {
 .card--side
   left: auto
   right: calc(env(safe-area-inset-right, 0px) + var(--pad))
-  top: calc(env(safe-area-inset-top, 0px) + var(--pad))
-  bottom: calc(env(safe-area-inset-bottom, 0px) + var(--pad))
+  top: max(calc(env(safe-area-inset-top, 0px) + var(--pad)), calc(var(--band-t, 0px) + var(--pad) * 0.5))
+  bottom: max(calc(env(safe-area-inset-bottom, 0px) + var(--pad)), calc(var(--band-b, 0px) + var(--pad) * 0.5))
   transform: none
   width: min(46%, 23rem)
   max-height: none

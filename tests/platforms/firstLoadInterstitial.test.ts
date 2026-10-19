@@ -115,6 +115,22 @@ describe('useFirstLoadInterstitial', () => {
     expect(markInterstitialShown).toHaveBeenCalledTimes(1)
   })
 
+  // Ads never play over the intro (#130): held while it is on screen, fired
+  // the moment it ends (skipped or watched).
+  it('holds while the intro plays and fires once it ends', async () => {
+    const { mod } = await load()
+    const { introPlaying } = await import('@/game/intro/state')
+    introPlaying.value = true
+    mod.armFirstLoadInterstitial()
+    mod.notifySplashGone()
+    await settle()
+    expect(showMidgameAd).not.toHaveBeenCalled()
+
+    introPlaying.value = false
+    await settle()
+    expect(showMidgameAd).toHaveBeenCalledTimes(1)
+  })
+
   it('does not restart music when no ad was ever shown', async () => {
     const { mod } = await load(false)
     mod.armFirstLoadInterstitial()

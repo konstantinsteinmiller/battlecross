@@ -45,7 +45,7 @@
 import { nextTick, onBeforeUnmount, onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import {
-  CELL, COVERS, mapTileRect, ICON_FILL, ICON_FILL_ROUND, REF_SCALE, SCENERY, SETS, SINGLES, fitsOfIndex, panelHeight, promptDocs, sheetIndex, sheetSize,
+  CELL, COVERS, mapTileRect, ICON_FILL, ICON_FILL_ROUND, REF_SCALE, SCENERY, SETS, SINGLES, fitsOfIndex, panelHeight, panelWidth, promptDocs, sheetIndex, sheetSize,
   type ArtCover, type ArtScenery, type ArtSet, type Fit, type SheetCell
 } from '@/game/art/artSheet'
 import { CG_BANNER, COVER_SIZES, coverPlateSvg, cropBox } from '@/game/art/coverScenes'
@@ -174,7 +174,7 @@ const placeOf = (c: SheetCell, img: HTMLImageElement): [number, number, number] 
 }
 
 /** The drawing in one stage cell, as an image. Gives up after 20 s and names it. */
-const drawingOf = async (c: SheetCell): Promise<HTMLImageElement> => {
+const drawingOf = async (c: SheetCell, strip = false): Promise<HTMLImageElement> => {
   const target = c.target
   const svg = stage.value?.querySelector(`[data-target="${target}"] svg`)
   if (!svg) throw new Error(`no drawing for ${target}`)
@@ -186,7 +186,11 @@ const drawingOf = async (c: SheetCell): Promise<HTMLImageElement> => {
     for (const p of PAINT) to[i]?.style.setProperty(p, cs.getPropertyValue(p))
   })
   copy.setAttribute('xmlns', 'http://www.w3.org/2000/svg')
-  if (c.draw !== 'portrait') {
+  if (strip) {
+    // A strip is drawn as it is (its viewBox is its box, 4:1): no margin round it.
+    copy.setAttribute('width', '2048')
+    copy.setAttribute('height', '512')
+  } else if (c.draw !== 'portrait') {
     // The whole panel in the drawing's own units: its box, plus the margin.
     const [x = 0, y = 0, w = 48, h = 48] = (copy.getAttribute('viewBox') ?? '0 0 48 48').trim().split(/[\s,]+/).map(Number)
     const mx = (w / REF_SCALE - w) / 2
@@ -194,8 +198,10 @@ const drawingOf = async (c: SheetCell): Promise<HTMLImageElement> => {
     copy.setAttribute('viewBox', `${x - mx} ${y - my} ${w + mx * 2} ${h + my * 2}`)
   }
   // Twice the drawn size, so the downsample is clean.
-  copy.setAttribute('width', String(CELL * 2))
-  copy.setAttribute('height', String(CELL * 2))
+  if (!strip) {
+    copy.setAttribute('width', String(CELL * 2))
+    copy.setAttribute('height', String(CELL * 2))
+  }
   const img = new Image()
   img.src = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(new XMLSerializer().serializeToString(copy))}`
   await Promise.race([
@@ -240,8 +246,41 @@ const caption = (g: CanvasRenderingContext2D, text: string, x: number, y: number
   g.fillText(text, x + 6, y - 11, w - 12)
 }
 
+/**
+ * A drawing in a WIDE panel (not a square): scaled about its own solid box until
+ * it takes `ICON_FILL` of the panel on its tighter axis, centred. `[x, y, w, h]`, px.
+ */
+const placeWide = (img: HTMLImageElement, pw: number, ph: number): [number, number, number, number] => {
+  // The image is a square in the drawing's own units; measured at twice `CELL`.
+  const R = CELL * 2
+  const [, g] = canvas(R, R)
+  g.drawImage(img, 0, 0, R, R)
+  const d = g.getImageData(0, 0, R, R).data
+  let x0 = R
+  let y0 = R
+  let x1 = -1
+  let y1 = -1
+  for (let y = 0; y < R; y++) {
+    for (let x = 0; x < R; x++) {
+      if ((d[(y * R + x) * 4 + 3] ?? 0) <= 140) continue
+      if (x < x0) x0 = x
+      if (x > x1) x1 = x
+      if (y < y0) y0 = y
+      if (y > y1) y1 = y
+    }
+  }
+  if (x1 < 0) return [0, 0, CELL, CELL]
+  const bw = (x1 - x0 + 1) / 2
+  const bh = (y1 - y0 + 1) / 2
+  const k = ICON_FILL * Math.min(pw / bw, ph / bh)
+  const cx = (x0 + x1 + 1) / 4
+  const cy = (y0 + y1 + 1) / 4
+  return [pw / 2 - cx * k, ph / 2 - cy * k, CELL * k, CELL * k]
+}
+
 const bakeSet = async (s: ArtSet): Promise<View> => {
   const { width, height } = sheetSize(s)
+  const pw = panelWidth(s)
   // A panel may be taller than the drawing's square (`TALL` in the manifest):
   // the square sits in its middle, and the fit is still measured on it.
   const ph = panelHeight(s)
@@ -252,11 +291,24 @@ const bakeSet = async (s: ArtSet): Promise<View> => {
   let n = 0
   for (const [i, c] of s.cells.entries()) {
     if (!c) continue
-    const img = await drawingOf(c)
-    const [x, y, size] = placeOf(c, img)
-    g.drawImage(img, (i % s.cols) * CELL + x, Math.floor(i / s.cols) * ph + lift + y, size, size)
-    const fit = measure(img, x, y, size)
-    if (fit) fits[c.target] = fit
+    const ox = (i % s.cols) * pw
+    const oy = Math.floor(i / s.cols) * ph
+    if (s.strip) {
+      // A bar frame: the 4:1 strip in its box, nothing measured (the slicer trims the return to its paint).
+      const img = await drawingOf(c, true)
+      g.drawImage(img, ox + s.strip.x, oy + s.strip.y, s.strip.w, s.strip.h)
+    } else if (pw !== CELL) {
+      const img = await drawingOf(c)
+      // The wide panel is its own canvas: the image is a square in the drawing's own units, so it is placed square, then centred.
+      const [x, y, w, h] = placeWide(img, pw, ph)
+      g.drawImage(img, ox + x, oy + y, w, h)
+    } else {
+      const img = await drawingOf(c)
+      const [x, y, size] = placeOf(c, img)
+      g.drawImage(img, ox + x, oy + lift + y, size, size)
+      const fit = measure(img, x, y, size)
+      if (fit) fits[c.target] = fit
+    }
     n++
   }
   // Captions live on a SEPARATE sheet: text inside a panel is text an image
@@ -266,12 +318,12 @@ const bakeSet = async (s: ArtSet): Promise<View> => {
   k.strokeStyle = INK
   k.lineWidth = 2
   for (const [i, c] of s.cells.entries()) {
-    const x = (i % s.cols) * CELL
+    const x = (i % s.cols) * pw
     const y = Math.floor(i / s.cols) * ph
-    k.strokeRect(x + 1, y + 1, CELL - 2, ph - 2)
-    caption(k, c ? `${i + 1}. ${c.id}` : `${i + 1}. (blank)`, x + 2, y + ph - 2, CELL - 4)
+    k.strokeRect(x + 1, y + 1, pw - 2, ph - 2)
+    caption(k, c ? `${i + 1}. ${c.id}` : `${i + 1}. (blank)`, x + 2, y + ph - 2, pw - 4)
   }
-  return { stem: s.stem, title: s.title, width, height, note: `${n} panel${n === 1 ? '' : 's'}, ${s.cols} × ${s.rows}${ph === CELL ? '' : `, panels ${CELL} × ${ph}`}`, clean: clean.toDataURL('image/png'), key: key.toDataURL('image/png') }
+  return { stem: s.stem, title: s.title, width, height, note: `${n} panel${n === 1 ? '' : 's'}, ${s.cols} × ${s.rows}${ph === CELL && pw === CELL ? '' : `, panels ${pw} × ${ph}`}`, clean: clean.toDataURL('image/png'), key: key.toDataURL('image/png') }
 }
 
 /** A standalone SVG document as an image. */

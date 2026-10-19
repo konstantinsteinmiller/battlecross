@@ -163,7 +163,7 @@ defineExpose({ el: root, reveal, length: (): number => chars.length })
 
 // Hanging UNDER its speaker (the layer adds the class): the tail points up
 // from the top edge, and the name moves to the bottom one.
-.bubble.tail-up
+.bubble[data-tail-up]
   .bubble__body
     transform-origin: var(--tail-x) 0
   .bubble__tail

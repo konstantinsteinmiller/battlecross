@@ -91,7 +91,7 @@ Shown round, in dialogues, shops, trainers and the hero frame.
 | `bg-skills` | The skills page's backdrop: a star codex, indigo sky in a brass frame with the eight class gems down its sides; constellations at the sides, faint astrolabe rings in the middle. Reference `art-sheets/bg-ui-skills.png` | as `bg-trade` |
 | `skill-frame` | The frame of a battle skill button (`FSocket`, square): an ornate metal-and-gem socket drawn OVER the skill's icon. The centre window is transparent (the icon, the cooldown sweep and the glass highlight show through it); the gem on the crown may stand up to 5 % above the square. Neutral metal: the class colour stays in the icon | 256 × 256, transparent; window = the centre 70 % (a rounded square, corner radius 16 % of the frame) |
 | `skill-frame-potion` | The frame of the two belt flasks (`FSocket`, round): a round glass-and-metal socket with a corked neck on top, drawn over the liquid. Used for both the health and the mana flask (the liquid and the emblem carry the colour) | 256 × 256, transparent; window = a centred circle, 70 % of the frame |
-| `bar-frame-plain` | A plain bar's frame (a normal enemy's health, the travel bar). Three-sliced: the two 64 px end caps keep their shape, the 384 px middle stretches to the bar's length. The bar itself shows through the window; keep the paint within 16 px above and below it | 512 × 128, transparent; window = 384 × 32, centred |
+| `bar-frame-plain` | A plain bar's frame (a normal enemy's health, the travel bar). Five-sliced (FBar): caps and the middle 30 % keep their shape, only the plain rim between stretches to the bar's length. The bar itself shows through the window; keep the paint within 16 px above and below it | A SQUARE transparent file (512) with the 512 × 128 frame across its middle quarter, edge to edge; window = 384 × 32, centred. Painted via `sheet-ui-bar-frames` (elite, champion, boss), which slices to exactly this |
 | `bar-frame-hero` | The hero's health frame: gold, a heart on the left cap, a finial on the right | as `bar-frame-plain` |
 | `bar-frame-mana` | The hero's mana frame: silver, a drop on the left cap | as `bar-frame-plain` |
 | `bar-frame-elite` | A locked elite's frame: silver, a wing on each cap | as `bar-frame-plain` |
@@ -131,3 +131,9 @@ ticks or the icon. The experience bar has no frame to paint (ticks only).
 
 Cover images and thumbnails per portal are tracked in `roadmap.md` (#1, #21).
 The gameplay clips come from `pnpm preview:video`.
+
+## Endgame metals (roadmap #150)
+
+Adamant (rose-crimson) and aetherite (violet) are new. Both still use the procedural nugget icon and the recoloured outcrop meshes until painted:
+- 12 new item sheets (run `pnpm art:prompts`, paint in the Art Desk): `sheet-items-smith-adamant`, `sheet-items-smith-aetherite` and `sheet-items-smith-{dex,int,skl,cha,end}-{adamant,aetherite}`.
+- Ore nugget icons for adamant and aetherite (`OreIcon`, now drawn per `ORE_LOOK`) and, optionally, their own outcrop veins in the world.

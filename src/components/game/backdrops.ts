@@ -24,8 +24,8 @@ export const BACKDROP_H = 768
 /** The calm middle, as fractions of the sheet's width. */
 export const BACKDROP_SAFE: readonly [number, number] = [0.28, 0.72]
 
-export type BackdropName = 'trade' | 'inventory' | 'skills' | 'forge'
-export const BACKDROPS: readonly BackdropName[] = ['trade', 'inventory', 'skills', 'forge']
+export type BackdropName = 'trade' | 'inventory' | 'skills' | 'forge' | 'alchemy'
+export const BACKDROPS: readonly BackdropName[] = ['trade', 'inventory', 'skills', 'forge', 'alchemy']
 
 const W = BACKDROP_W
 const H = BACKDROP_H
@@ -414,7 +414,54 @@ const forgeSvg = (): string => {
   return wrap(s)
 }
 
-const BUILDERS: Record<BackdropName, () => string> = { trade: tradeSvg, inventory: inventorySvg, skills: skillsSvg, forge: forgeSvg }
+// ═══════════════════════════════════════════════════════════
+// Alchemy: a herbalist's workroom
+// ═══════════════════════════════════════════════════════════
+const ALCH_WALL = { base: '#2d4a3e', lo: '#223a31', hi: '#3b5e4f', seam: '#14261f' }
+const POTION = ['#ff5a4f', '#4f8fd6', '#5fd86a', '#b04ac8', '#ffc526']
+
+const alchemySvg = (): string => {
+  const rnd = seeded(87)
+  let s = `<rect width="${W}" height="${H}" fill="${ALCH_WALL.base}"/>`
+  // The wall: upright boards, every other one a shade darker.
+  for (let x = 0; x < W; x += 86) {
+    if ((x / 86) % 2) s += `<rect x="${x}" y="0" width="86" height="${H}" fill="${ALCH_WALL.lo}"/>`
+    s += L(`M${x} 0V${H}`, ALCH_WALL.seam, 4)
+  }
+  // The calm middle: a darker band, nothing on it.
+  s += `<rect x="385" y="0" width="606" height="${H}" fill="${ALCH_WALL.seam}" opacity="0.2"/>`
+
+  // ── Shelves (left): three planks of bottles ──
+  for (const y of [230, 420, 610]) {
+    s += R(30, y, 330, 16, 4, LEATHER.base) + F(`M34 ${y + 4}H356`, LEATHER.hi, 0.7)
+    for (let k = 0; k < 5; k++) {
+      const x = 62 + k * 62 + rnd() * 8
+      const h = 50 + rnd() * 30
+      const c = POTION[Math.floor(rnd() * POTION.length)]!
+      s += S(`M${n1(x)} ${y}V${n1(y - h)}H${n1(x + 14)}V${n1(y - h - 18)}H${n1(x + 28)}V${n1(y - h)}H${n1(x + 42)}V${y}Z`, c, 4)
+      s += R(x + 12, y - h - 28, 18, 12, 3, LEATHER.lo, 3)
+      s += L(`M${n1(x + 8)} ${n1(y - h + 12)}V${n1(y - 14)}`, '#ffffff', 3)
+    }
+  }
+
+  // ── The cauldron (right): on a low fire, steam, herbs hanging above ──
+  s += E(1170, 700, 170, 40, '#2a1810', 4)
+  s += S('M1030 520Q1030 700 1170 700Q1310 700 1310 520Z', '#3a3a4c')
+  s += E(1170, 520, 140, 34, '#2a2a38', 5) + E(1170, 522, 118, 24, '#5fd86a', 0)
+  s += S('M1010 508H1330V532H1010Z', '#4c5580', 4)
+  s += S('M1110 710Q1100 650 1140 620Q1140 670 1170 690Q1180 640 1220 618Q1220 670 1240 710Z', '#f09410', 4)
+  for (let k = 0; k < 5; k++) s += C(1120 + rnd() * 100, 440 - k * 50, 12 + rnd() * 10, '#e8f4e8', 0, 0.35)
+  for (let k = 0; k < 5; k++) {
+    const x = 1010 + k * 70
+    s += L(`M${x} 0V${70 + rnd() * 50}`, LEATHER.deep, 4)
+    s += S(`M${x} 130Q${x - 26} 170 ${x - 8} 220Q${x} 190 ${x + 8} 220Q${x + 26} 170 ${x} 130Z`, '#5fb86a', 4)
+  }
+  // A book and a mortar on a ledge, bottom right.
+  s += R(1000, 730, 340, 24, 4, LEATHER.base)
+  return wrap(s)
+}
+
+const BUILDERS: Record<BackdropName, () => string> = { trade: tradeSvg, inventory: inventorySvg, skills: skillsSvg, forge: forgeSvg, alchemy: alchemySvg }
 const cache: Partial<Record<BackdropName, string>> = {}
 
 /** The drawn backdrop, as one standalone SVG document. */

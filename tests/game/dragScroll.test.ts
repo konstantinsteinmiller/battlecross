@@ -76,3 +76,51 @@ describe('useDragScroll', () => {
     w.unmount()
   })
 })
+
+describe('useDragScroll: wheel, edge fades, focus', () => {
+  const setup = async () => {
+    const { mount } = await import('@vue/test-utils')
+    const { defineComponent, h, ref } = await import('vue')
+    const { useDragScroll } = await import('@/use/useDragScroll')
+    const w = mount(defineComponent({
+      setup() {
+        const strip = ref<HTMLElement | null>(null)
+        useDragScroll(strip)
+        return () => h('div', { ref: strip }, [h('button')])
+      }
+    }), { attachTo: document.body })
+    const el = w.element as HTMLElement
+    return { w, el }
+  }
+
+  it('maps a vertical wheel to sideways scroll only when the row overflows', async () => {
+    const { w, el } = await setup()
+    Object.defineProperty(el, 'scrollWidth', { value: 300, configurable: true })
+    Object.defineProperty(el, 'clientWidth', { value: 300, configurable: true })
+    const fit = new WheelEvent('wheel', { deltaY: 40, cancelable: true })
+    el.dispatchEvent(fit)
+    expect(fit.defaultPrevented).toBe(false)
+    expect(el.scrollLeft).toBe(0)
+    Object.defineProperty(el, 'scrollWidth', { value: 1000, configurable: true })
+    const over = new WheelEvent('wheel', { deltaY: 40, cancelable: true })
+    el.dispatchEvent(over)
+    expect(over.defaultPrevented).toBe(true)
+    expect(el.scrollLeft).toBe(40)
+    w.unmount()
+  })
+
+  it('marks the sides that hold more chips', async () => {
+    const { w, el } = await setup()
+    Object.defineProperty(el, 'scrollWidth', { value: 1000, configurable: true })
+    Object.defineProperty(el, 'clientWidth', { value: 300, configurable: true })
+    el.scrollLeft = 0
+    el.dispatchEvent(new Event('scroll'))
+    expect(el.classList.contains('can-right')).toBe(true)
+    expect(el.classList.contains('can-left')).toBe(false)
+    el.scrollLeft = 400
+    el.dispatchEvent(new Event('scroll'))
+    expect(el.classList.contains('can-left')).toBe(true)
+    expect(el.classList.contains('can-right')).toBe(true)
+    w.unmount()
+  })
+})

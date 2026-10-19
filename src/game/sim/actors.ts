@@ -31,7 +31,7 @@ export const setGoal = (sim: Sim, u: Unit, x: number, z: number): void => {
   }
   // The hero walks round the furniture of a room (roadmap #84): a goal on a
   // table is the floor beside it, and a leg across a piece bends round its corner.
-  const furnished = u.rank === 'hero' && !!sim.grid.blocks?.length
+  const furnished = bodyBlocks(u) && !!sim.grid.blocks?.length
   if (furnished) {
     resolveCircle(sim.grid, gx, gz, 0, out2, true)
     gx = out2[0]
@@ -56,8 +56,8 @@ export const setGoal = (sim: Sim, u: Unit, x: number, z: number): void => {
   }
 }
 
-/** Does furniture stop this body? Only the hero's (`Grid.blocks`). */
-const bodyBlocks = (u: Unit): boolean => u.rank === 'hero'
+/** Does furniture stop this body? The hero's and a townsperson's (`Grid.blocks`): a keeper never walks through his own counter. */
+const bodyBlocks = (u: Unit): boolean => u.rank === 'hero' || u.rank === 'npc'
 
 export const stop = (u: Unit): void => {
   u.hasGoal = false

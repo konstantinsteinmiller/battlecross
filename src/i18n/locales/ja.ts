@@ -1,5 +1,13 @@
 // Japanese locale — mirrors the key shape of en.ts exactly.
 export default {
+  // ─── The intro (#130): its skip, and its narrator's name ───
+  intro: {
+    narrator: '語り部',
+    skip: 'スキップ',
+    holdKey: '{key}長押しでスキップ',
+    holdTouch: '長押しでスキップ',
+    replay: 'イントロを見る'
+  },
   arena: {
     allWon: 'ミシックの賞品をすべて手に入れた。',
     call: '物語は語り終えた。今こそビルドを証明しよう。どこまでも勝ち上がり、ここでしか手に入らないミシックの賞品を勝ち取れ。',
@@ -8,6 +16,20 @@ export default {
     next: '次の賞品はウェーブ{at}：{item}',
     champion: 'チャンピオンウェーブ',
     wave: 'ウェーブ {n}'
+  },
+  sellOre: {
+    talk: '良い鉱石だ、値は公正だよ。どれだけ売る？',
+    lead: '鉱石ごとに売る数を選んでください。「売る」を押すまで何も売られません。',
+    have: '所持 {n}',
+    each: '1個 {n}ゴールド',
+    none: 'なし',
+    all: '全部',
+    less: '{ore}を1つ減らす',
+    more: '{ore}を1つ増やす',
+    total: '受け取り：{n}ゴールド',
+    sell: '売る',
+    selectAll: 'すべて選択',
+    empty: '売れる鉱石がもうありません。'
   },
   smith: {
     why: {
@@ -1420,38 +1442,110 @@ export default {
     smithMasterMithrilGreaves: {
       name: '名工のミスリルの脛当て'
     },
+    smithMasterAdamantGreaves: {
+      name: '名工のアダマントの脛当て'
+    },
+    smithMasterAetheriteGreaves: {
+      name: '名工のエーテライトの脛当て'
+    },
     smithMithrilGreaves: {
       name: 'ミスリルの脛当て'
+    },
+    smithAdamantGreaves: {
+      name: 'アダマントの脛当て'
+    },
+    smithAetheriteGreaves: {
+      name: 'エーテライトの脛当て'
     },
     smithMasterMithrilPlate: {
       name: '名工のミスリルのプレート'
     },
+    smithMasterAdamantPlate: {
+      name: '名工のアダマントのプレート'
+    },
+    smithMasterAetheritePlate: {
+      name: '名工のエーテライトのプレート'
+    },
     smithMithrilPlate: {
       name: 'ミスリルのプレート'
+    },
+    smithAdamantPlate: {
+      name: 'アダマントのプレート'
+    },
+    smithAetheritePlate: {
+      name: 'エーテライトのプレート'
     },
     smithMasterMithrilHelm: {
       name: '名工のミスリルの兜'
     },
+    smithMasterAdamantHelm: {
+      name: '名工のアダマントの兜'
+    },
+    smithMasterAetheriteHelm: {
+      name: '名工のエーテライトの兜'
+    },
     smithMithrilHelm: {
       name: 'ミスリルの兜'
+    },
+    smithAdamantHelm: {
+      name: 'アダマントの兜'
+    },
+    smithAetheriteHelm: {
+      name: 'エーテライトの兜'
     },
     smithMasterMithrilShield: {
       name: '名工のミスリルの盾'
     },
+    smithMasterAdamantShield: {
+      name: '名工のアダマントの盾'
+    },
+    smithMasterAetheriteShield: {
+      name: '名工のエーテライトの盾'
+    },
     smithMithrilShield: {
       name: 'ミスリルの盾'
+    },
+    smithAdamantShield: {
+      name: 'アダマントの盾'
+    },
+    smithAetheriteShield: {
+      name: 'エーテライトの盾'
     },
     smithMasterMithrilHammer: {
       name: '名工のミスリルの戦鎚'
     },
+    smithMasterAdamantHammer: {
+      name: '名工のアダマントの戦鎚'
+    },
+    smithMasterAetheriteHammer: {
+      name: '名工のエーテライトの戦鎚'
+    },
     smithMithrilHammer: {
       name: 'ミスリルの戦鎚'
+    },
+    smithAdamantHammer: {
+      name: 'アダマントの戦鎚'
+    },
+    smithAetheriteHammer: {
+      name: 'エーテライトの戦鎚'
     },
     smithMasterMithrilSword: {
       name: '名工のミスリルの剣'
     },
+    smithMasterAdamantSword: {
+      name: '名工のアダマントの剣'
+    },
+    smithMasterAetheriteSword: {
+      name: '名工のエーテライトの剣'
+    },
     smithMithrilSword: {
       name: 'ミスリルの剣'
+    },
+    smithAdamantSword: {
+      name: 'アダマントの剣'
+    },
+    smithAetheriteSword: {
+      name: 'エーテライトの剣'
     },
     smithMasterGoldGreaves: {
       name: '名工の金の脛当て'
@@ -1557,6 +1651,1086 @@ export default {
     },
     smithMasterIronSword: {
       name: '名工の鉄の剣'
+    },
+    smithMasterDexIronSword: {
+      name: '名工の鉄のダガー · 器用'
+    },
+    smithDexIronSword: {
+      name: '鉄のダガー · 器用'
+    },
+    smithMasterDexIronHammer: {
+      name: '名工の鉄のレイピア · 器用'
+    },
+    smithDexIronHammer: {
+      name: '鉄のレイピア · 器用'
+    },
+    smithMasterDexIronShield: {
+      name: '名工の鉄のバックラー · 器用'
+    },
+    smithDexIronShield: {
+      name: '鉄のバックラー · 器用'
+    },
+    smithMasterDexIronHelm: {
+      name: '名工の鉄のフード · 器用'
+    },
+    smithDexIronHelm: {
+      name: '鉄のフード · 器用'
+    },
+    smithMasterDexIronPlate: {
+      name: '名工の鉄の革鎧 · 器用'
+    },
+    smithDexIronPlate: {
+      name: '鉄の革鎧 · 器用'
+    },
+    smithMasterDexIronGreaves: {
+      name: '名工の鉄のブーツ · 器用'
+    },
+    smithDexIronGreaves: {
+      name: '鉄のブーツ · 器用'
+    },
+    smithMasterDexSilverSword: {
+      name: '名工の銀のダガー · 器用'
+    },
+    smithDexSilverSword: {
+      name: '銀のダガー · 器用'
+    },
+    smithMasterDexSilverHammer: {
+      name: '名工の銀のレイピア · 器用'
+    },
+    smithDexSilverHammer: {
+      name: '銀のレイピア · 器用'
+    },
+    smithMasterDexSilverShield: {
+      name: '名工の銀のバックラー · 器用'
+    },
+    smithDexSilverShield: {
+      name: '銀のバックラー · 器用'
+    },
+    smithMasterDexSilverHelm: {
+      name: '名工の銀のフード · 器用'
+    },
+    smithDexSilverHelm: {
+      name: '銀のフード · 器用'
+    },
+    smithMasterDexSilverPlate: {
+      name: '名工の銀の革鎧 · 器用'
+    },
+    smithDexSilverPlate: {
+      name: '銀の革鎧 · 器用'
+    },
+    smithMasterDexSilverGreaves: {
+      name: '名工の銀のブーツ · 器用'
+    },
+    smithDexSilverGreaves: {
+      name: '銀のブーツ · 器用'
+    },
+    smithMasterDexGoldSword: {
+      name: '名工の金のダガー · 器用'
+    },
+    smithDexGoldSword: {
+      name: '金のダガー · 器用'
+    },
+    smithMasterDexGoldHammer: {
+      name: '名工の金のレイピア · 器用'
+    },
+    smithDexGoldHammer: {
+      name: '金のレイピア · 器用'
+    },
+    smithMasterDexGoldShield: {
+      name: '名工の金のバックラー · 器用'
+    },
+    smithDexGoldShield: {
+      name: '金のバックラー · 器用'
+    },
+    smithMasterDexGoldHelm: {
+      name: '名工の金のフード · 器用'
+    },
+    smithDexGoldHelm: {
+      name: '金のフード · 器用'
+    },
+    smithMasterDexGoldPlate: {
+      name: '名工の金の革鎧 · 器用'
+    },
+    smithDexGoldPlate: {
+      name: '金の革鎧 · 器用'
+    },
+    smithMasterDexGoldGreaves: {
+      name: '名工の金のブーツ · 器用'
+    },
+    smithDexGoldGreaves: {
+      name: '金のブーツ · 器用'
+    },
+    smithMasterDexMithrilSword: {
+      name: '名工のミスリルのダガー · 器用'
+    },
+    smithMasterDexAdamantSword: {
+      name: '名工のアダマントのダガー · 器用'
+    },
+    smithMasterDexAetheriteSword: {
+      name: '名工のエーテライトのダガー · 器用'
+    },
+    smithDexMithrilSword: {
+      name: 'ミスリルのダガー · 器用'
+    },
+    smithDexAdamantSword: {
+      name: 'アダマントのダガー · 器用'
+    },
+    smithDexAetheriteSword: {
+      name: 'エーテライトのダガー · 器用'
+    },
+    smithMasterDexMithrilHammer: {
+      name: '名工のミスリルのレイピア · 器用'
+    },
+    smithMasterDexAdamantHammer: {
+      name: '名工のアダマントのレイピア · 器用'
+    },
+    smithMasterDexAetheriteHammer: {
+      name: '名工のエーテライトのレイピア · 器用'
+    },
+    smithDexMithrilHammer: {
+      name: 'ミスリルのレイピア · 器用'
+    },
+    smithDexAdamantHammer: {
+      name: 'アダマントのレイピア · 器用'
+    },
+    smithDexAetheriteHammer: {
+      name: 'エーテライトのレイピア · 器用'
+    },
+    smithMasterDexMithrilShield: {
+      name: '名工のミスリルのバックラー · 器用'
+    },
+    smithMasterDexAdamantShield: {
+      name: '名工のアダマントのバックラー · 器用'
+    },
+    smithMasterDexAetheriteShield: {
+      name: '名工のエーテライトのバックラー · 器用'
+    },
+    smithDexMithrilShield: {
+      name: 'ミスリルのバックラー · 器用'
+    },
+    smithDexAdamantShield: {
+      name: 'アダマントのバックラー · 器用'
+    },
+    smithDexAetheriteShield: {
+      name: 'エーテライトのバックラー · 器用'
+    },
+    smithMasterDexMithrilHelm: {
+      name: '名工のミスリルのフード · 器用'
+    },
+    smithMasterDexAdamantHelm: {
+      name: '名工のアダマントのフード · 器用'
+    },
+    smithMasterDexAetheriteHelm: {
+      name: '名工のエーテライトのフード · 器用'
+    },
+    smithDexMithrilHelm: {
+      name: 'ミスリルのフード · 器用'
+    },
+    smithDexAdamantHelm: {
+      name: 'アダマントのフード · 器用'
+    },
+    smithDexAetheriteHelm: {
+      name: 'エーテライトのフード · 器用'
+    },
+    smithMasterDexMithrilPlate: {
+      name: '名工のミスリルの革鎧 · 器用'
+    },
+    smithMasterDexAdamantPlate: {
+      name: '名工のアダマントの革鎧 · 器用'
+    },
+    smithMasterDexAetheritePlate: {
+      name: '名工のエーテライトの革鎧 · 器用'
+    },
+    smithDexMithrilPlate: {
+      name: 'ミスリルの革鎧 · 器用'
+    },
+    smithDexAdamantPlate: {
+      name: 'アダマントの革鎧 · 器用'
+    },
+    smithDexAetheritePlate: {
+      name: 'エーテライトの革鎧 · 器用'
+    },
+    smithMasterDexMithrilGreaves: {
+      name: '名工のミスリルのブーツ · 器用'
+    },
+    smithMasterDexAdamantGreaves: {
+      name: '名工のアダマントのブーツ · 器用'
+    },
+    smithMasterDexAetheriteGreaves: {
+      name: '名工のエーテライトのブーツ · 器用'
+    },
+    smithDexMithrilGreaves: {
+      name: 'ミスリルのブーツ · 器用'
+    },
+    smithDexAdamantGreaves: {
+      name: 'アダマントのブーツ · 器用'
+    },
+    smithDexAetheriteGreaves: {
+      name: 'エーテライトのブーツ · 器用'
+    },
+    smithMasterIntIronSword: {
+      name: '名工の鉄のワンド · 知力'
+    },
+    smithIntIronSword: {
+      name: '鉄のワンド · 知力'
+    },
+    smithMasterIntIronHammer: {
+      name: '名工の鉄のスタッフ · 知力'
+    },
+    smithIntIronHammer: {
+      name: '鉄のスタッフ · 知力'
+    },
+    smithMasterIntIronShield: {
+      name: '名工の鉄の魔導書 · 知力'
+    },
+    smithIntIronShield: {
+      name: '鉄の魔導書 · 知力'
+    },
+    smithMasterIntIronHelm: {
+      name: '名工の鉄のサークレット · 知力'
+    },
+    smithIntIronHelm: {
+      name: '鉄のサークレット · 知力'
+    },
+    smithMasterIntIronPlate: {
+      name: '名工の鉄のローブ · 知力'
+    },
+    smithIntIronPlate: {
+      name: '鉄のローブ · 知力'
+    },
+    smithMasterIntIronGreaves: {
+      name: '名工の鉄のブーツ · 知力'
+    },
+    smithIntIronGreaves: {
+      name: '鉄のブーツ · 知力'
+    },
+    smithMasterIntSilverSword: {
+      name: '名工の銀のワンド · 知力'
+    },
+    smithIntSilverSword: {
+      name: '銀のワンド · 知力'
+    },
+    smithMasterIntSilverHammer: {
+      name: '名工の銀のスタッフ · 知力'
+    },
+    smithIntSilverHammer: {
+      name: '銀のスタッフ · 知力'
+    },
+    smithMasterIntSilverShield: {
+      name: '名工の銀の魔導書 · 知力'
+    },
+    smithIntSilverShield: {
+      name: '銀の魔導書 · 知力'
+    },
+    smithMasterIntSilverHelm: {
+      name: '名工の銀のサークレット · 知力'
+    },
+    smithIntSilverHelm: {
+      name: '銀のサークレット · 知力'
+    },
+    smithMasterIntSilverPlate: {
+      name: '名工の銀のローブ · 知力'
+    },
+    smithIntSilverPlate: {
+      name: '銀のローブ · 知力'
+    },
+    smithMasterIntSilverGreaves: {
+      name: '名工の銀のブーツ · 知力'
+    },
+    smithIntSilverGreaves: {
+      name: '銀のブーツ · 知力'
+    },
+    smithMasterIntGoldSword: {
+      name: '名工の金のワンド · 知力'
+    },
+    smithIntGoldSword: {
+      name: '金のワンド · 知力'
+    },
+    smithMasterIntGoldHammer: {
+      name: '名工の金のスタッフ · 知力'
+    },
+    smithIntGoldHammer: {
+      name: '金のスタッフ · 知力'
+    },
+    smithMasterIntGoldShield: {
+      name: '名工の金の魔導書 · 知力'
+    },
+    smithIntGoldShield: {
+      name: '金の魔導書 · 知力'
+    },
+    smithMasterIntGoldHelm: {
+      name: '名工の金のサークレット · 知力'
+    },
+    smithIntGoldHelm: {
+      name: '金のサークレット · 知力'
+    },
+    smithMasterIntGoldPlate: {
+      name: '名工の金のローブ · 知力'
+    },
+    smithIntGoldPlate: {
+      name: '金のローブ · 知力'
+    },
+    smithMasterIntGoldGreaves: {
+      name: '名工の金のブーツ · 知力'
+    },
+    smithIntGoldGreaves: {
+      name: '金のブーツ · 知力'
+    },
+    smithMasterIntMithrilSword: {
+      name: '名工のミスリルのワンド · 知力'
+    },
+    smithMasterIntAdamantSword: {
+      name: '名工のアダマントのワンド · 知力'
+    },
+    smithMasterIntAetheriteSword: {
+      name: '名工のエーテライトのワンド · 知力'
+    },
+    smithIntMithrilSword: {
+      name: 'ミスリルのワンド · 知力'
+    },
+    smithIntAdamantSword: {
+      name: 'アダマントのワンド · 知力'
+    },
+    smithIntAetheriteSword: {
+      name: 'エーテライトのワンド · 知力'
+    },
+    smithMasterIntMithrilHammer: {
+      name: '名工のミスリルのスタッフ · 知力'
+    },
+    smithMasterIntAdamantHammer: {
+      name: '名工のアダマントのスタッフ · 知力'
+    },
+    smithMasterIntAetheriteHammer: {
+      name: '名工のエーテライトのスタッフ · 知力'
+    },
+    smithIntMithrilHammer: {
+      name: 'ミスリルのスタッフ · 知力'
+    },
+    smithIntAdamantHammer: {
+      name: 'アダマントのスタッフ · 知力'
+    },
+    smithIntAetheriteHammer: {
+      name: 'エーテライトのスタッフ · 知力'
+    },
+    smithMasterIntMithrilShield: {
+      name: '名工のミスリルの魔導書 · 知力'
+    },
+    smithMasterIntAdamantShield: {
+      name: '名工のアダマントの魔導書 · 知力'
+    },
+    smithMasterIntAetheriteShield: {
+      name: '名工のエーテライトの魔導書 · 知力'
+    },
+    smithIntMithrilShield: {
+      name: 'ミスリルの魔導書 · 知力'
+    },
+    smithIntAdamantShield: {
+      name: 'アダマントの魔導書 · 知力'
+    },
+    smithIntAetheriteShield: {
+      name: 'エーテライトの魔導書 · 知力'
+    },
+    smithMasterIntMithrilHelm: {
+      name: '名工のミスリルのサークレット · 知力'
+    },
+    smithMasterIntAdamantHelm: {
+      name: '名工のアダマントのサークレット · 知力'
+    },
+    smithMasterIntAetheriteHelm: {
+      name: '名工のエーテライトのサークレット · 知力'
+    },
+    smithIntMithrilHelm: {
+      name: 'ミスリルのサークレット · 知力'
+    },
+    smithIntAdamantHelm: {
+      name: 'アダマントのサークレット · 知力'
+    },
+    smithIntAetheriteHelm: {
+      name: 'エーテライトのサークレット · 知力'
+    },
+    smithMasterIntMithrilPlate: {
+      name: '名工のミスリルのローブ · 知力'
+    },
+    smithMasterIntAdamantPlate: {
+      name: '名工のアダマントのローブ · 知力'
+    },
+    smithMasterIntAetheritePlate: {
+      name: '名工のエーテライトのローブ · 知力'
+    },
+    smithIntMithrilPlate: {
+      name: 'ミスリルのローブ · 知力'
+    },
+    smithIntAdamantPlate: {
+      name: 'アダマントのローブ · 知力'
+    },
+    smithIntAetheritePlate: {
+      name: 'エーテライトのローブ · 知力'
+    },
+    smithMasterIntMithrilGreaves: {
+      name: '名工のミスリルのブーツ · 知力'
+    },
+    smithMasterIntAdamantGreaves: {
+      name: '名工のアダマントのブーツ · 知力'
+    },
+    smithMasterIntAetheriteGreaves: {
+      name: '名工のエーテライトのブーツ · 知力'
+    },
+    smithIntMithrilGreaves: {
+      name: 'ミスリルのブーツ · 知力'
+    },
+    smithIntAdamantGreaves: {
+      name: 'アダマントのブーツ · 知力'
+    },
+    smithIntAetheriteGreaves: {
+      name: 'エーテライトのブーツ · 知力'
+    },
+    smithMasterSklIronSword: {
+      name: '名工の鉄のピストル · 技量'
+    },
+    smithSklIronSword: {
+      name: '鉄のピストル · 技量'
+    },
+    smithMasterSklIronHammer: {
+      name: '名工の鉄のライフル · 技量'
+    },
+    smithSklIronHammer: {
+      name: '鉄のライフル · 技量'
+    },
+    smithMasterSklIronShield: {
+      name: '名工の鉄のバッテリー · 技量'
+    },
+    smithSklIronShield: {
+      name: '鉄のバッテリー · 技量'
+    },
+    smithMasterSklIronHelm: {
+      name: '名工の鉄のキャップ · 技量'
+    },
+    smithSklIronHelm: {
+      name: '鉄のキャップ · 技量'
+    },
+    smithMasterSklIronPlate: {
+      name: '名工の鉄のハーネス · 技量'
+    },
+    smithSklIronPlate: {
+      name: '鉄のハーネス · 技量'
+    },
+    smithMasterSklIronGreaves: {
+      name: '名工の鉄のブーツ · 技量'
+    },
+    smithSklIronGreaves: {
+      name: '鉄のブーツ · 技量'
+    },
+    smithMasterSklSilverSword: {
+      name: '名工の銀のピストル · 技量'
+    },
+    smithSklSilverSword: {
+      name: '銀のピストル · 技量'
+    },
+    smithMasterSklSilverHammer: {
+      name: '名工の銀のライフル · 技量'
+    },
+    smithSklSilverHammer: {
+      name: '銀のライフル · 技量'
+    },
+    smithMasterSklSilverShield: {
+      name: '名工の銀のバッテリー · 技量'
+    },
+    smithSklSilverShield: {
+      name: '銀のバッテリー · 技量'
+    },
+    smithMasterSklSilverHelm: {
+      name: '名工の銀のキャップ · 技量'
+    },
+    smithSklSilverHelm: {
+      name: '銀のキャップ · 技量'
+    },
+    smithMasterSklSilverPlate: {
+      name: '名工の銀のハーネス · 技量'
+    },
+    smithSklSilverPlate: {
+      name: '銀のハーネス · 技量'
+    },
+    smithMasterSklSilverGreaves: {
+      name: '名工の銀のブーツ · 技量'
+    },
+    smithSklSilverGreaves: {
+      name: '銀のブーツ · 技量'
+    },
+    smithMasterSklGoldSword: {
+      name: '名工の金のピストル · 技量'
+    },
+    smithSklGoldSword: {
+      name: '金のピストル · 技量'
+    },
+    smithMasterSklGoldHammer: {
+      name: '名工の金のライフル · 技量'
+    },
+    smithSklGoldHammer: {
+      name: '金のライフル · 技量'
+    },
+    smithMasterSklGoldShield: {
+      name: '名工の金のバッテリー · 技量'
+    },
+    smithSklGoldShield: {
+      name: '金のバッテリー · 技量'
+    },
+    smithMasterSklGoldHelm: {
+      name: '名工の金のキャップ · 技量'
+    },
+    smithSklGoldHelm: {
+      name: '金のキャップ · 技量'
+    },
+    smithMasterSklGoldPlate: {
+      name: '名工の金のハーネス · 技量'
+    },
+    smithSklGoldPlate: {
+      name: '金のハーネス · 技量'
+    },
+    smithMasterSklGoldGreaves: {
+      name: '名工の金のブーツ · 技量'
+    },
+    smithSklGoldGreaves: {
+      name: '金のブーツ · 技量'
+    },
+    smithMasterSklMithrilSword: {
+      name: '名工のミスリルのピストル · 技量'
+    },
+    smithMasterSklAdamantSword: {
+      name: '名工のアダマントのピストル · 技量'
+    },
+    smithMasterSklAetheriteSword: {
+      name: '名工のエーテライトのピストル · 技量'
+    },
+    smithSklMithrilSword: {
+      name: 'ミスリルのピストル · 技量'
+    },
+    smithSklAdamantSword: {
+      name: 'アダマントのピストル · 技量'
+    },
+    smithSklAetheriteSword: {
+      name: 'エーテライトのピストル · 技量'
+    },
+    smithMasterSklMithrilHammer: {
+      name: '名工のミスリルのライフル · 技量'
+    },
+    smithMasterSklAdamantHammer: {
+      name: '名工のアダマントのライフル · 技量'
+    },
+    smithMasterSklAetheriteHammer: {
+      name: '名工のエーテライトのライフル · 技量'
+    },
+    smithSklMithrilHammer: {
+      name: 'ミスリルのライフル · 技量'
+    },
+    smithSklAdamantHammer: {
+      name: 'アダマントのライフル · 技量'
+    },
+    smithSklAetheriteHammer: {
+      name: 'エーテライトのライフル · 技量'
+    },
+    smithMasterSklMithrilShield: {
+      name: '名工のミスリルのバッテリー · 技量'
+    },
+    smithMasterSklAdamantShield: {
+      name: '名工のアダマントのバッテリー · 技量'
+    },
+    smithMasterSklAetheriteShield: {
+      name: '名工のエーテライトのバッテリー · 技量'
+    },
+    smithSklMithrilShield: {
+      name: 'ミスリルのバッテリー · 技量'
+    },
+    smithSklAdamantShield: {
+      name: 'アダマントのバッテリー · 技量'
+    },
+    smithSklAetheriteShield: {
+      name: 'エーテライトのバッテリー · 技量'
+    },
+    smithMasterSklMithrilHelm: {
+      name: '名工のミスリルのキャップ · 技量'
+    },
+    smithMasterSklAdamantHelm: {
+      name: '名工のアダマントのキャップ · 技量'
+    },
+    smithMasterSklAetheriteHelm: {
+      name: '名工のエーテライトのキャップ · 技量'
+    },
+    smithSklMithrilHelm: {
+      name: 'ミスリルのキャップ · 技量'
+    },
+    smithSklAdamantHelm: {
+      name: 'アダマントのキャップ · 技量'
+    },
+    smithSklAetheriteHelm: {
+      name: 'エーテライトのキャップ · 技量'
+    },
+    smithMasterSklMithrilPlate: {
+      name: '名工のミスリルのハーネス · 技量'
+    },
+    smithMasterSklAdamantPlate: {
+      name: '名工のアダマントのハーネス · 技量'
+    },
+    smithMasterSklAetheritePlate: {
+      name: '名工のエーテライトのハーネス · 技量'
+    },
+    smithSklMithrilPlate: {
+      name: 'ミスリルのハーネス · 技量'
+    },
+    smithSklAdamantPlate: {
+      name: 'アダマントのハーネス · 技量'
+    },
+    smithSklAetheritePlate: {
+      name: 'エーテライトのハーネス · 技量'
+    },
+    smithMasterSklMithrilGreaves: {
+      name: '名工のミスリルのブーツ · 技量'
+    },
+    smithMasterSklAdamantGreaves: {
+      name: '名工のアダマントのブーツ · 技量'
+    },
+    smithMasterSklAetheriteGreaves: {
+      name: '名工のエーテライトのブーツ · 技量'
+    },
+    smithSklMithrilGreaves: {
+      name: 'ミスリルのブーツ · 技量'
+    },
+    smithSklAdamantGreaves: {
+      name: 'アダマントのブーツ · 技量'
+    },
+    smithSklAetheriteGreaves: {
+      name: 'エーテライトのブーツ · 技量'
+    },
+    smithMasterChaIronSword: {
+      name: '名工の鉄のセプター · 魅力'
+    },
+    smithChaIronSword: {
+      name: '鉄のセプター · 魅力'
+    },
+    smithMasterChaIronHammer: {
+      name: '名工の鉄のバナー · 魅力'
+    },
+    smithChaIronHammer: {
+      name: '鉄のバナー · 魅力'
+    },
+    smithMasterChaIronShield: {
+      name: '名工の鉄の法典 · 魅力'
+    },
+    smithChaIronShield: {
+      name: '鉄の法典 · 魅力'
+    },
+    smithMasterChaIronHelm: {
+      name: '名工の鉄の王冠 · 魅力'
+    },
+    smithChaIronHelm: {
+      name: '鉄の王冠 · 魅力'
+    },
+    smithMasterChaIronPlate: {
+      name: '名工の鉄のタバード · 魅力'
+    },
+    smithChaIronPlate: {
+      name: '鉄のタバード · 魅力'
+    },
+    smithMasterChaIronGreaves: {
+      name: '名工の鉄のブーツ · 魅力'
+    },
+    smithChaIronGreaves: {
+      name: '鉄のブーツ · 魅力'
+    },
+    smithMasterChaSilverSword: {
+      name: '名工の銀のセプター · 魅力'
+    },
+    smithChaSilverSword: {
+      name: '銀のセプター · 魅力'
+    },
+    smithMasterChaSilverHammer: {
+      name: '名工の銀のバナー · 魅力'
+    },
+    smithChaSilverHammer: {
+      name: '銀のバナー · 魅力'
+    },
+    smithMasterChaSilverShield: {
+      name: '名工の銀の法典 · 魅力'
+    },
+    smithChaSilverShield: {
+      name: '銀の法典 · 魅力'
+    },
+    smithMasterChaSilverHelm: {
+      name: '名工の銀の王冠 · 魅力'
+    },
+    smithChaSilverHelm: {
+      name: '銀の王冠 · 魅力'
+    },
+    smithMasterChaSilverPlate: {
+      name: '名工の銀のタバード · 魅力'
+    },
+    smithChaSilverPlate: {
+      name: '銀のタバード · 魅力'
+    },
+    smithMasterChaSilverGreaves: {
+      name: '名工の銀のブーツ · 魅力'
+    },
+    smithChaSilverGreaves: {
+      name: '銀のブーツ · 魅力'
+    },
+    smithMasterChaGoldSword: {
+      name: '名工の金のセプター · 魅力'
+    },
+    smithChaGoldSword: {
+      name: '金のセプター · 魅力'
+    },
+    smithMasterChaGoldHammer: {
+      name: '名工の金のバナー · 魅力'
+    },
+    smithChaGoldHammer: {
+      name: '金のバナー · 魅力'
+    },
+    smithMasterChaGoldShield: {
+      name: '名工の金の法典 · 魅力'
+    },
+    smithChaGoldShield: {
+      name: '金の法典 · 魅力'
+    },
+    smithMasterChaGoldHelm: {
+      name: '名工の金の王冠 · 魅力'
+    },
+    smithChaGoldHelm: {
+      name: '金の王冠 · 魅力'
+    },
+    smithMasterChaGoldPlate: {
+      name: '名工の金のタバード · 魅力'
+    },
+    smithChaGoldPlate: {
+      name: '金のタバード · 魅力'
+    },
+    smithMasterChaGoldGreaves: {
+      name: '名工の金のブーツ · 魅力'
+    },
+    smithChaGoldGreaves: {
+      name: '金のブーツ · 魅力'
+    },
+    smithMasterChaMithrilSword: {
+      name: '名工のミスリルのセプター · 魅力'
+    },
+    smithMasterChaAdamantSword: {
+      name: '名工のアダマントのセプター · 魅力'
+    },
+    smithMasterChaAetheriteSword: {
+      name: '名工のエーテライトのセプター · 魅力'
+    },
+    smithChaMithrilSword: {
+      name: 'ミスリルのセプター · 魅力'
+    },
+    smithChaAdamantSword: {
+      name: 'アダマントのセプター · 魅力'
+    },
+    smithChaAetheriteSword: {
+      name: 'エーテライトのセプター · 魅力'
+    },
+    smithMasterChaMithrilHammer: {
+      name: '名工のミスリルのバナー · 魅力'
+    },
+    smithMasterChaAdamantHammer: {
+      name: '名工のアダマントのバナー · 魅力'
+    },
+    smithMasterChaAetheriteHammer: {
+      name: '名工のエーテライトのバナー · 魅力'
+    },
+    smithChaMithrilHammer: {
+      name: 'ミスリルのバナー · 魅力'
+    },
+    smithChaAdamantHammer: {
+      name: 'アダマントのバナー · 魅力'
+    },
+    smithChaAetheriteHammer: {
+      name: 'エーテライトのバナー · 魅力'
+    },
+    smithMasterChaMithrilShield: {
+      name: '名工のミスリルの法典 · 魅力'
+    },
+    smithMasterChaAdamantShield: {
+      name: '名工のアダマントの法典 · 魅力'
+    },
+    smithMasterChaAetheriteShield: {
+      name: '名工のエーテライトの法典 · 魅力'
+    },
+    smithChaMithrilShield: {
+      name: 'ミスリルの法典 · 魅力'
+    },
+    smithChaAdamantShield: {
+      name: 'アダマントの法典 · 魅力'
+    },
+    smithChaAetheriteShield: {
+      name: 'エーテライトの法典 · 魅力'
+    },
+    smithMasterChaMithrilHelm: {
+      name: '名工のミスリルの王冠 · 魅力'
+    },
+    smithMasterChaAdamantHelm: {
+      name: '名工のアダマントの王冠 · 魅力'
+    },
+    smithMasterChaAetheriteHelm: {
+      name: '名工のエーテライトの王冠 · 魅力'
+    },
+    smithChaMithrilHelm: {
+      name: 'ミスリルの王冠 · 魅力'
+    },
+    smithChaAdamantHelm: {
+      name: 'アダマントの王冠 · 魅力'
+    },
+    smithChaAetheriteHelm: {
+      name: 'エーテライトの王冠 · 魅力'
+    },
+    smithMasterChaMithrilPlate: {
+      name: '名工のミスリルのタバード · 魅力'
+    },
+    smithMasterChaAdamantPlate: {
+      name: '名工のアダマントのタバード · 魅力'
+    },
+    smithMasterChaAetheritePlate: {
+      name: '名工のエーテライトのタバード · 魅力'
+    },
+    smithChaMithrilPlate: {
+      name: 'ミスリルのタバード · 魅力'
+    },
+    smithChaAdamantPlate: {
+      name: 'アダマントのタバード · 魅力'
+    },
+    smithChaAetheritePlate: {
+      name: 'エーテライトのタバード · 魅力'
+    },
+    smithMasterChaMithrilGreaves: {
+      name: '名工のミスリルのブーツ · 魅力'
+    },
+    smithMasterChaAdamantGreaves: {
+      name: '名工のアダマントのブーツ · 魅力'
+    },
+    smithMasterChaAetheriteGreaves: {
+      name: '名工のエーテライトのブーツ · 魅力'
+    },
+    smithChaMithrilGreaves: {
+      name: 'ミスリルのブーツ · 魅力'
+    },
+    smithChaAdamantGreaves: {
+      name: 'アダマントのブーツ · 魅力'
+    },
+    smithChaAetheriteGreaves: {
+      name: 'エーテライトのブーツ · 魅力'
+    },
+    smithMasterEndIronSword: {
+      name: '名工の鉄のメイス · 耐久'
+    },
+    smithEndIronSword: {
+      name: '鉄のメイス · 耐久'
+    },
+    smithMasterEndIronHammer: {
+      name: '名工の鉄の斧 · 耐久'
+    },
+    smithEndIronHammer: {
+      name: '鉄の斧 · 耐久'
+    },
+    smithMasterEndIronShield: {
+      name: '名工の鉄の盾 · 耐久'
+    },
+    smithEndIronShield: {
+      name: '鉄の盾 · 耐久'
+    },
+    smithMasterEndIronHelm: {
+      name: '名工の鉄の兜 · 耐久'
+    },
+    smithEndIronHelm: {
+      name: '鉄の兜 · 耐久'
+    },
+    smithMasterEndIronPlate: {
+      name: '名工の鉄のプレート · 耐久'
+    },
+    smithEndIronPlate: {
+      name: '鉄のプレート · 耐久'
+    },
+    smithMasterEndIronGreaves: {
+      name: '名工の鉄の脛当て · 耐久'
+    },
+    smithEndIronGreaves: {
+      name: '鉄の脛当て · 耐久'
+    },
+    smithMasterEndSilverSword: {
+      name: '名工の銀のメイス · 耐久'
+    },
+    smithEndSilverSword: {
+      name: '銀のメイス · 耐久'
+    },
+    smithMasterEndSilverHammer: {
+      name: '名工の銀の斧 · 耐久'
+    },
+    smithEndSilverHammer: {
+      name: '銀の斧 · 耐久'
+    },
+    smithMasterEndSilverShield: {
+      name: '名工の銀の盾 · 耐久'
+    },
+    smithEndSilverShield: {
+      name: '銀の盾 · 耐久'
+    },
+    smithMasterEndSilverHelm: {
+      name: '名工の銀の兜 · 耐久'
+    },
+    smithEndSilverHelm: {
+      name: '銀の兜 · 耐久'
+    },
+    smithMasterEndSilverPlate: {
+      name: '名工の銀のプレート · 耐久'
+    },
+    smithEndSilverPlate: {
+      name: '銀のプレート · 耐久'
+    },
+    smithMasterEndSilverGreaves: {
+      name: '名工の銀の脛当て · 耐久'
+    },
+    smithEndSilverGreaves: {
+      name: '銀の脛当て · 耐久'
+    },
+    smithMasterEndGoldSword: {
+      name: '名工の金のメイス · 耐久'
+    },
+    smithEndGoldSword: {
+      name: '金のメイス · 耐久'
+    },
+    smithMasterEndGoldHammer: {
+      name: '名工の金の斧 · 耐久'
+    },
+    smithEndGoldHammer: {
+      name: '金の斧 · 耐久'
+    },
+    smithMasterEndGoldShield: {
+      name: '名工の金の盾 · 耐久'
+    },
+    smithEndGoldShield: {
+      name: '金の盾 · 耐久'
+    },
+    smithMasterEndGoldHelm: {
+      name: '名工の金の兜 · 耐久'
+    },
+    smithEndGoldHelm: {
+      name: '金の兜 · 耐久'
+    },
+    smithMasterEndGoldPlate: {
+      name: '名工の金のプレート · 耐久'
+    },
+    smithEndGoldPlate: {
+      name: '金のプレート · 耐久'
+    },
+    smithMasterEndGoldGreaves: {
+      name: '名工の金の脛当て · 耐久'
+    },
+    smithEndGoldGreaves: {
+      name: '金の脛当て · 耐久'
+    },
+    smithMasterEndMithrilSword: {
+      name: '名工のミスリルのメイス · 耐久'
+    },
+    smithMasterEndAdamantSword: {
+      name: '名工のアダマントのメイス · 耐久'
+    },
+    smithMasterEndAetheriteSword: {
+      name: '名工のエーテライトのメイス · 耐久'
+    },
+    smithEndMithrilSword: {
+      name: 'ミスリルのメイス · 耐久'
+    },
+    smithEndAdamantSword: {
+      name: 'アダマントのメイス · 耐久'
+    },
+    smithEndAetheriteSword: {
+      name: 'エーテライトのメイス · 耐久'
+    },
+    smithMasterEndMithrilHammer: {
+      name: '名工のミスリルの斧 · 耐久'
+    },
+    smithMasterEndAdamantHammer: {
+      name: '名工のアダマントの斧 · 耐久'
+    },
+    smithMasterEndAetheriteHammer: {
+      name: '名工のエーテライトの斧 · 耐久'
+    },
+    smithEndMithrilHammer: {
+      name: 'ミスリルの斧 · 耐久'
+    },
+    smithEndAdamantHammer: {
+      name: 'アダマントの斧 · 耐久'
+    },
+    smithEndAetheriteHammer: {
+      name: 'エーテライトの斧 · 耐久'
+    },
+    smithMasterEndMithrilShield: {
+      name: '名工のミスリルの盾 · 耐久'
+    },
+    smithMasterEndAdamantShield: {
+      name: '名工のアダマントの盾 · 耐久'
+    },
+    smithMasterEndAetheriteShield: {
+      name: '名工のエーテライトの盾 · 耐久'
+    },
+    smithEndMithrilShield: {
+      name: 'ミスリルの盾 · 耐久'
+    },
+    smithEndAdamantShield: {
+      name: 'アダマントの盾 · 耐久'
+    },
+    smithEndAetheriteShield: {
+      name: 'エーテライトの盾 · 耐久'
+    },
+    smithMasterEndMithrilHelm: {
+      name: '名工のミスリルの兜 · 耐久'
+    },
+    smithMasterEndAdamantHelm: {
+      name: '名工のアダマントの兜 · 耐久'
+    },
+    smithMasterEndAetheriteHelm: {
+      name: '名工のエーテライトの兜 · 耐久'
+    },
+    smithEndMithrilHelm: {
+      name: 'ミスリルの兜 · 耐久'
+    },
+    smithEndAdamantHelm: {
+      name: 'アダマントの兜 · 耐久'
+    },
+    smithEndAetheriteHelm: {
+      name: 'エーテライトの兜 · 耐久'
+    },
+    smithMasterEndMithrilPlate: {
+      name: '名工のミスリルのプレート · 耐久'
+    },
+    smithMasterEndAdamantPlate: {
+      name: '名工のアダマントのプレート · 耐久'
+    },
+    smithMasterEndAetheritePlate: {
+      name: '名工のエーテライトのプレート · 耐久'
+    },
+    smithEndMithrilPlate: {
+      name: 'ミスリルのプレート · 耐久'
+    },
+    smithEndAdamantPlate: {
+      name: 'アダマントのプレート · 耐久'
+    },
+    smithEndAetheritePlate: {
+      name: 'エーテライトのプレート · 耐久'
+    },
+    smithMasterEndMithrilGreaves: {
+      name: '名工のミスリルの脛当て · 耐久'
+    },
+    smithMasterEndAdamantGreaves: {
+      name: '名工のアダマントの脛当て · 耐久'
+    },
+    smithMasterEndAetheriteGreaves: {
+      name: '名工のエーテライトの脛当て · 耐久'
+    },
+    smithEndMithrilGreaves: {
+      name: 'ミスリルの脛当て · 耐久'
+    },
+    smithEndAdamantGreaves: {
+      name: 'アダマントの脛当て · 耐久'
+    },
+    smithEndAetheriteGreaves: {
+      name: 'エーテライトの脛当て · 耐久'
     },
     smithIronSword: {
       name: '鉄の剣'
@@ -1777,6 +2951,414 @@ export default {
     scepterOfTheFirstKing: {
       name: '始まりの王の王笏'
     },
+    pickpocketsKnife: {
+      name: 'スリのナイフ'
+    },
+    serpentsFang: {
+      name: '蛇の牙'
+    },
+    phantomRapier: {
+      name: '幻影のレイピア'
+    },
+    fangOfTheWindless: {
+      name: '無風の牙'
+    },
+    roguesBuckler: {
+      name: 'ならず者の小盾'
+    },
+    venomVial: {
+      name: '毒の小瓶'
+    },
+    swiftguardBuckler: {
+      name: '俊敏な衛兵の小盾'
+    },
+    nightshadeFlask: {
+      name: 'ベラドンナの小瓶'
+    },
+    windveilTarge: {
+      name: '風のヴェールの盾'
+    },
+    shadowdancersBuckler: {
+      name: '影舞い手の小盾'
+    },
+    scoutsBandana: {
+      name: '斥候のバンダナ'
+    },
+    nightcowl: {
+      name: '夜のずきん'
+    },
+    shadowveilHood: {
+      name: '影のヴェールのフード'
+    },
+    windrunnersCap: {
+      name: '風走りの帽子'
+    },
+    maskOfTheSilentWind: {
+      name: '静かな風の仮面'
+    },
+    rangersJerkin: {
+      name: 'レンジャーのジャーキン'
+    },
+    nightstalkerLeathers: {
+      name: '夜行狩人の革鎧'
+    },
+    windridersHarness: {
+      name: '風乗りの馬具'
+    },
+    mantleOfTheShadowDancer: {
+      name: '影舞い手のマント'
+    },
+    thiefsGloves: {
+      name: '盗賊の手袋'
+    },
+    cutpurseGloves: {
+      name: 'スリの手袋'
+    },
+    glovesOfTheGale: {
+      name: '疾風の手袋'
+    },
+    softSoledShoes: {
+      name: '柔らかい靴'
+    },
+    catStepBoots: {
+      name: '猫足のブーツ'
+    },
+    shadowstepBoots: {
+      name: '影歩きのブーツ'
+    },
+    windstrideBoots: {
+      name: '風歩きのブーツ'
+    },
+    luckyCoin: {
+      name: '幸運のコイン'
+    },
+    shadowBand: {
+      name: '影の指輪'
+    },
+    sandglassOfTheSwift: {
+      name: '俊足の砂時計'
+    },
+    talonCharm: {
+      name: '鉤爪のお守り'
+    },
+    windheart: {
+      name: '風の心臓'
+    },
+    ashwallHeater: {
+      name: '灰壁のヒーターシールド'
+    },
+    wyrmhidePavise: {
+      name: 'ワイバーン皮の大盾'
+    },
+    footmansKettleHat: {
+      name: '歩兵の鍋帽子'
+    },
+    ironbrowSallet: {
+      name: '鉄眉のサレット'
+    },
+    warlordsBarbute: {
+      name: '軍団長のバルビュート'
+    },
+    helmOfTheSunderedThrone: {
+      name: '砕けた玉座の兜'
+    },
+    recruitsCuirass: {
+      name: '新兵の胸当て'
+    },
+    stonecuttersMitts: {
+      name: '石工のミトン'
+    },
+    ashforgedGauntlets: {
+      name: '灰で鍛えた籠手'
+    },
+    warbringerGauntlets: {
+      name: '戦を運ぶ者の籠手'
+    },
+    titanfistGauntlets: {
+      name: '巨人の拳の籠手'
+    },
+    footmansGreaves: {
+      name: '歩兵の脛当て'
+    },
+    ironshodGreaves: {
+      name: '鉄張りの脛当て'
+    },
+    warlordsSabatons: {
+      name: '軍団長のサバトン'
+    },
+    greavesOfTheMountainfall: {
+      name: '山崩れの脛当て'
+    },
+    sergeantsSignet: {
+      name: '軍曹の印章指輪'
+    },
+    brawlersKnuckleRing: {
+      name: '喧嘩屋のメリケンサック'
+    },
+    bloodiedWarMedal: {
+      name: '血に濡れた戦功章'
+    },
+    watchmansCudgel: {
+      name: '番人の警棒'
+    },
+    ironboundMace: {
+      name: '鉄輪のメイス'
+    },
+    stonehideCleaver: {
+      name: '石肌の鉈'
+    },
+    bulwarkMaul: {
+      name: '防壁の大槌'
+    },
+    mountainsplitterAxe: {
+      name: '山割りの斧'
+    },
+    everstandWarmace: {
+      name: '不動の戦鎚'
+    },
+    emberwallBastion: {
+      name: '熾火壁の砦盾'
+    },
+    stonewardenHelm: {
+      name: '石の番人の兜'
+    },
+    colossusVisage: {
+      name: '巨像の面'
+    },
+    diggersGauntlets: {
+      name: '穴掘りの籠手'
+    },
+    bastionGauntlets: {
+      name: '砦の籠手'
+    },
+    glacierplateGauntlets: {
+      name: '氷河板の籠手'
+    },
+    gauntletsOfEndlessVigil: {
+      name: '終わりなき見張りの籠手'
+    },
+    hearthstoneCharm: {
+      name: '炉石のお守り'
+    },
+    ironheartPendant: {
+      name: '鉄心のペンダント'
+    },
+    hedgewizardsWand: {
+      name: '生垣魔術師の杖'
+    },
+    frostglassStaff: {
+      name: '霜ガラスの杖'
+    },
+    voidthreadWand: {
+      name: '虚無糸の杖'
+    },
+    staffOfTheStarlessSky: {
+      name: '星なき空の杖'
+    },
+    studentsGrimoire: {
+      name: '生徒の魔導書'
+    },
+    frostfireOrb: {
+      name: '霜炎のオーブ'
+    },
+    orbOfTheUnwrittenHour: {
+      name: '書かれざる刻のオーブ'
+    },
+    apprenticesPointedCap: {
+      name: '見習いのとんがり帽子'
+    },
+    sagesCirclet: {
+      name: '賢者のサークレット'
+    },
+    cinderWizardsHat: {
+      name: '灰の魔術師の帽子'
+    },
+    voidseerCirclet: {
+      name: '虚無視者のサークレット'
+    },
+    apprenticesRobe: {
+      name: '見習いのローブ'
+    },
+    cinderthreadRobe: {
+      name: '灰糸のローブ'
+    },
+    voidwovenRobe: {
+      name: '虚無織りのローブ'
+    },
+    inkStainedGloves: {
+      name: 'インク染みの手袋'
+    },
+    spellthreadGloves: {
+      name: '呪文糸の手袋'
+    },
+    frostweaveGloves: {
+      name: '霜織りの手袋'
+    },
+    starlitGloves: {
+      name: '星明かりの手袋'
+    },
+    glovesOfTheLastWord: {
+      name: '最後の言葉の手袋'
+    },
+    scribesSlippers: {
+      name: '書記のスリッパ'
+    },
+    moonstepSlippers: {
+      name: '月歩きのスリッパ'
+    },
+    emberstepBoots: {
+      name: '熾火歩きのブーツ'
+    },
+    voidwalkerBoots: {
+      name: '虚無の放浪者のブーツ'
+    },
+    bootsOfTheWanderingStar: {
+      name: 'さまよう星のブーツ'
+    },
+    glowstonePendant: {
+      name: '光る石のペンダント'
+    },
+    scholarsSeal: {
+      name: '学者の印章'
+    },
+    eyeOfTheArchon: {
+      name: 'アルコンの瞳'
+    },
+    cinderRepeater: {
+      name: '灰の連発銃'
+    },
+    glacierMortar: {
+      name: '氷河の手持ち迫撃砲'
+    },
+    sparkCell: {
+      name: '火花セル'
+    },
+    arcCapacitor: {
+      name: 'アークコンデンサ'
+    },
+    aetherheartCell: {
+      name: 'エーテル心臓セル'
+    },
+    marksmansVisor: {
+      name: '射手のバイザー'
+    },
+    sharpshootersCap: {
+      name: '狙撃手の帽子'
+    },
+    gunnersHarness: {
+      name: '砲手のハーネス'
+    },
+    steadyhandGloves: {
+      name: '安定の手の手袋'
+    },
+    gunsmithsGloves: {
+      name: '銃職人の手袋'
+    },
+    scrappersBoots: {
+      name: '喧嘩屋のブーツ'
+    },
+    sharpshooterBoots: {
+      name: '狙撃手のブーツ'
+    },
+    firingLineBoots: {
+      name: '射線のブーツ'
+    },
+    steadyfootBoots: {
+      name: '不動足のブーツ'
+    },
+    aetherstepBoots: {
+      name: 'エーテル歩きのブーツ'
+    },
+    bootsOfTheLastShot: {
+      name: '最後の一発のブーツ'
+    },
+    brassCartridgeCharm: {
+      name: '真鍮薬莢のお守り'
+    },
+    deadEyeLens: {
+      name: '鋭き目のレンズ'
+    },
+    eagleEyeScope: {
+      name: '鷹の目の望遠鏡'
+    },
+    criersBaton: {
+      name: '触れ役の警棒'
+    },
+    droversStandard: {
+      name: '牧童の旗標'
+    },
+    marshalsSceptre: {
+      name: '元帥の笏'
+    },
+    balladBook: {
+      name: 'バラッドの書'
+    },
+    chronicleOfHeroes: {
+      name: '英雄年代記'
+    },
+    psalterOfTheHost: {
+      name: '軍勢の詩篇'
+    },
+    tomeOfEternalReign: {
+      name: '永遠の治世の書'
+    },
+    heraldsCap: {
+      name: '伝令の帽子'
+    },
+    singersCirclet: {
+      name: '歌い手のサークレット'
+    },
+    diademOfTenThousandVoices: {
+      name: '一万の声のディアデム'
+    },
+    travelersWaistcoat: {
+      name: '旅人のベスト'
+    },
+    minstrelsMotley: {
+      name: '吟遊詩人の継ぎ接ぎ服'
+    },
+    troubadoursCoat: {
+      name: 'トルバドゥールのコート'
+    },
+    marshalsGreatcoat: {
+      name: '元帥のグレートコート'
+    },
+    buskersGloves: {
+      name: '大道芸人の手袋'
+    },
+    drummersGloves: {
+      name: 'ドラマーの手袋'
+    },
+    standardBearersGloves: {
+      name: '旗手の手袋'
+    },
+    gildedParadeGloves: {
+      name: '金張りの式典手袋'
+    },
+    glovesOfTheCrownedHand: {
+      name: '戴冠の手の手袋'
+    },
+    wayfarersShoes: {
+      name: '旅人の靴'
+    },
+    troubadourBoots: {
+      name: 'トルバドゥールのブーツ'
+    },
+    heraldsRidingBoots: {
+      name: '伝令の乗馬ブーツ'
+    },
+    paradeBoots: {
+      name: '式典ブーツ'
+    },
+    bootsOfTheLongProcession: {
+      name: '長き行列のブーツ'
+    },
+    silverWhistle: {
+      name: '銀の笛'
+    },
+    gatheringHorn: {
+      name: '召集の角笛'
+    },
     heartOfTheMountain: {
       name: '山の心臓'
     },
@@ -1880,6 +3462,9 @@ export default {
     freedPeddler: {
       talk: '旅人に要るものは何でもそろってるよ。ほぼ新品さ、だいたいはね。',
       name: 'オド・マロウ'
+    },
+    sfShadowRoad: {
+      name: 'ネトル・クイックハンド'
     },
     sfShadow: {
       name: 'ネトル・クイックハンド'
@@ -2034,6 +3619,9 @@ export default {
     sunfordGambler: {
       name: 'ころがし屋のドッブ'
     },
+    sunfordCups: {
+      name: 'すばやい指のネル'
+    },
     oakGambler: {
       name: '絹のレン'
     },
@@ -2145,6 +3733,13 @@ export default {
     }
   },
   dlg: {
+    intro: {
+      crossing: { 1: 'すべての道は十字路で交わる…そして十字路は戦場となる。' },
+      hero: { 1: 'サンフォードの静かな畑から、ひとりの若き英雄が旅立った。' },
+      fire: { 1: '炎は呼び声に応え、鋼は新たな名を知った。' },
+      foes: { 1: 'ゴブリンの王、霜の族長、虚無の竜…そしてアークデーモン。' },
+      begin: { 1: '君の伝説は、いま始まる。' }
+    },
     frostDisciple: {
       bye: {
         '1': '体を冷やすな。'
@@ -2339,6 +3934,23 @@ export default {
       hello: {
         '2': 'オド・マロウ、何なりとお申しつけを。行商人で、修理屋で、大いに感謝しとる男じゃ。',
         '1': 'おお、あんたか！あの檻を開けてくれたのは！あのままじゃ朽ち果てとったわい。'
+      }
+    },
+    sfShadowRoad: {
+      hello: {
+        '1': 'テレポート。興味ある？'
+      },
+      again: {
+        '1': 'また新しい技を覚えに来たの？'
+      },
+      train: {
+        '1': 'よく見てて。一歩で、もう別の場所よ。'
+      },
+      trainBack: {
+        '1': 'いいわ。じゃあ、どこか別の場所へ行きなさい。'
+      },
+      bye: {
+        '1': '捕まらないようにね。'
       }
     },
     sfShadow: {
@@ -2593,9 +4205,8 @@ export default {
         '2': '金属が一番明るく光ったときに打て。外せばくず鉄だ。さあ、やれ。',
         '1': '鍛冶だと？ふむ。ハンマーはこう持て。棍棒みたいに握るな。'
       },
-      ore: {
-        '1': '鉱石の塊か。全部もらおう。正しい目方に、正しい代金だ。'
-      },
+      ore: { '1': '鉱石か。見せてみろ。一個ずつ、正直な目方で買う。' },
+      sellBack: { '1': '正直な目方に正直な金だ。見つけたらまた持ってこい。' },
       forgeBack: {
         '1': '悪くない。良くもないがな。続けろ。'
       },
@@ -2878,7 +4489,7 @@ export default {
       },
       map: {
         '1': 'ルーク隊長の地図だよ！ゴブリンに捕まる前に、地図を破いてかけらを隠したのさ。',
-        '2': '六つ全部見つければ、Xが道を教えてくれる。灰の岩山のどこかだよ。そこを掘れば、金はあんたのものさ。',
+        '2': '六つ見つければ、Xが道を教えてくれる。ほかにも、まだ少し散らばっているがね。灰の岩山のどこかだよ。そこを掘れば、金はあんたのものさ。',
         say: '古い地図のかけらを見つけたんだ。'
       }
     },
@@ -2895,6 +4506,9 @@ export default {
       },
       mana: {
         '1': 'これは苦いわよ。呪文が尽きたときに飲んでね。'
+      },
+      brew: {
+        '1': '薬草を見せて。私のマナ・トニックよりおいしいものを調合してあげるわ。'
       },
       potions: {
         '1': 'どの戦いにも何本かフラスコを持っていくでしょう。必要になる前に飲むの、後じゃなくてね。',
@@ -2914,6 +4528,9 @@ export default {
       },
       healBack: {
         '1': 'ベルトはいっぱいにして、頭は低くね。'
+      },
+      brewBack: {
+        '1': '気をつけて、熱いわよ。一度に全部飲まないでね。'
       },
       bye: {
         '1': '外では気をつけてね。'
@@ -3015,9 +4632,8 @@ export default {
         '2': '輝きを見て。その芯を三度打てば、金属が覚えてくれる。',
         '1': '技を学びたいって？いいね。オークヘイヴンにはハンマーが一本でも多く要る。'
       },
-      ore: {
-        '1': '生の鉱石！武器庫はいつも足りないんだ。はい、代金だよ。'
-      },
+      ore: { '1': '原鉱だ！武具庫はいつも足りない。譲れる分だけ売ってくれ。' },
+      sellBack: { '1': '一つ残らず城壁になる。ありがとう。' },
       forgeBack: {
         '1': 'いい鋼だ。城壁が礼を言うよ。'
       },
@@ -3058,9 +4674,8 @@ export default {
         '2': '三打、どれも輝きの芯に。秘訣はそれだけさ。',
         '1': '包囲戦のあとは、頼まれれば誰にでも教えてるよ。さあ、ここにお立ち。'
       },
-      ore: {
-        '1': '城壁のための鉱石をまた？ありがたいねえ。ほら、これをお取り。'
-      },
+      ore: { '1': '城壁のための鉱石かね？譲れる分は一つずつ買い取ろう。' },
+      sellBack: { '1': 'ありがたい。城壁の鎧板がまた増える。' },
       forgeBack: {
         '1': '打つたびに腕が上がるね。いつでもおいで。'
       },
@@ -3456,9 +5071,8 @@ export default {
         '2': 'いつ打つかは輝きが教える。どれだけ強くかは腕が教える。三打だ。',
         '1': '地上の者が金床に？まあ、誰にでも最初はあるもんだ。'
       },
-      ore: {
-        '1': 'いい、正直な金属だ。アイアンホールドはそういうものには必ず払う。'
-      },
+      ore: { '1': 'いい、正直な金属だ。並べな、一個ずつ払う。' },
+      sellBack: { '1': '公正な取引だ。アイアンホールドはいい金属に必ず払う。' },
       forgeBack: {
         '1': 'ドワーフならもっとうまくやった。だが大差はない。'
       },
@@ -3528,9 +5142,8 @@ export default {
         '2': '熱し、打ち、返す。輝きのど真ん中に三打。それから冷ます。',
         '1': '板金は根気の仕事だ。基本を教えよう。'
       },
-      ore: {
-        '1': '量らせてくれ。よし。代金はお前のものだ。'
-      },
+      ore: { '1': '量らせてくれ。売る分を選べ、金は俺が数える。' },
+      sellBack: { '1': '量って、払った。よし。' },
       forgeBack: {
         '1': '身につける前に冷ませ。'
       },
@@ -3570,9 +5183,8 @@ export default {
         '2': '戦場と同じく、金床でも規律だ。輝きに忠実に、三打。',
         '1': '騎士団は友を武装させる。君に教えよう。'
       },
-      ore: {
-        '1': '騎士団は戦のため、鉱石をすべて買い上げる。君の報酬だ。'
-      },
+      ore: { '1': '騎士団は戦のために鉱石を買う。譲れる分を売ってくれ。' },
+      sellBack: { '1': '支払いは記録した。騎士団が感謝する。' },
       forgeBack: {
         '1': '見事な鍛えだ。それを着て立派に務めよ。'
       },
@@ -3974,6 +5586,11 @@ export default {
       }
     },
     bark: {
+      banditChief: {
+        whistle: {
+          1: '行け、野郎ども！噛みついてやれ！'
+        }
+      },
       lightDisciple: {
         freed: {
           '1': '光があなたを導いたのですね。私はシスター・オーレル。サンフォードで待っています。ライトブリンガーの道を教えましょう。'
@@ -4129,9 +5746,8 @@ export default {
         '2': '一番熱く光ったときに打つんだ。いい三打で、いい品ができる。',
         '1': '自分でハンマーを振ってみたいかい？炉なら喜んで貸すよ。'
       },
-      ore: {
-        '1': 'いい鉱石だね。シルバーブリッジはいつだって公正な値で買うよ。'
-      },
+      ore: { '1': 'きれいな鉱石ね。売る分を見せて、一個ずつ払うわ。' },
+      sellBack: { '1': 'ありがとう。シルバーブリッジはいつも公正な値を払うわ。' },
       forgeBack: {
         '1': '見てごらん！あんた、筋がいいよ。'
       },
@@ -4573,7 +6189,7 @@ export default {
         say: '薬草はどこで見つかる？'
       },
       elixirs: {
-        '1': 'どれも戦いの間、まる1分強くしてくれるの。重い一撃、硬い肌、速い足。',
+        '1': 'どれも戦いの間、まる5分強くしてくれるの。重い一撃、硬い肌、速い足。',
         '2': '3本目のフラスコに入ってるわ。小さな矢印をタップすれば、飲むのを切り替えられるの。',
         say: 'エリクサーにはどんな効果があるの？'
       },
@@ -4642,6 +6258,36 @@ export default {
       },
       bye: {
         '1': 'もっとガラクタを持ってきてくれよ！ガラクタは大好物なんだ。'
+      }
+    },
+    sunfordCups: {
+      hello: {
+        1: 'いらっしゃい！カップ三つ、宝石ひとつ、最初の一回はサービスだよ！',
+        2: 'すばやい指のネル。私の手を騙せた人はまだいないの。やってみる？'
+      },
+      again: {
+        1: 'また来たの？目をしっかり開けてね！'
+      },
+      play: {
+        1: '宝石から目を離さないでね。まばたき禁止！'
+      },
+      rules: {
+        1: '宝石をカップの下に隠してシャッフルするよ。隠れているカップを指さしてね。',
+        2: '連勝するほど払いが増えるよ。三連勝で賞品、五連勝で宝物。一日の最初の一回は無料。',
+        say: 'どうやって遊ぶの？'
+      },
+      who: {
+        1: '歩くより先にシャッフルを覚えたの。お母さんは、それで色々納得だって。'
+      },
+      luck: {
+        1: 'たまにね！そしたら大声でうめくの。お客さんが同情してくれるのよ。',
+        say: '負けることもあるの？'
+      },
+      playBack: {
+        1: 'いい勝負だった！明日も来てね、最初の一回はいつも無料よ。'
+      },
+      bye: {
+        1: 'またね！外でも目をしっかり開けてね。'
       }
     },
     oakGambler: {
@@ -5135,6 +6781,7 @@ export default {
     banditArcher: '山賊の弓兵',
     wolf: '狼',
     banditChief: '山賊の頭',
+    gnome: 'ノーム',
     goblinKing: 'ゴブリンキング',
     treant: 'トレント',
     spider: '大グモ',
@@ -5352,6 +6999,18 @@ export default {
       firefoxColors: 'Firefox：設定 → 色 → 「ページが指定した色を上書きする」を「しない」にしてください。'
     }
   },
+  samsungFix: {
+    title: 'かんたんな色チェック',
+    body: '一部のスマートフォンはウェブページの色を変えてしまいます。下の2つの四角を見比べてください。',
+    question: '2つの四角は同じに見えますか？',
+    refSquare: '基準の四角',
+    pageSquare: 'ページの四角',
+    yes: 'はい、同じです',
+    no: 'いいえ、違って見えます',
+    option: '色を補正する（Samsungのダークモード）',
+    optionHint: 'メニューが暗く見えたり、文字が読みにくいときはオンにしてください。',
+    recheck: '色チェックをもう一度行う'
+  },
   saveStatus: {
     restoredTitle: 'クラウドセーブを復元しました',
     restoredBody: '復元ボーナス +{n} ゴールド',
@@ -5476,7 +7135,7 @@ export default {
   },
   forge: {
     upgrade: '強化（{n} ゴールド）',
-    max: '最大まで強化済み：+{n}。',
+    next: '次の+{level}：ステータス+{pct}%',
     town: 'どの町の鍛冶屋でも強化できます。'
   },
   ore: {
@@ -5491,6 +7150,12 @@ export default {
     },
     mithril: {
       name: 'ミスリル鉱石'
+    },
+    adamant: {
+      name: 'アダマント鉱石'
+    },
+    aetherite: {
+      name: 'エーテライト鉱石'
     }
   },
   plant: {
@@ -5572,32 +7237,32 @@ export default {
   elixir: {
     might: {
       name: '力のエリクサー',
-      desc: '1分間ダメージ+{n}%'
+      desc: '5分間ダメージ+{n}%'
     },
     iron: {
       name: '鉄肌の薬',
-      desc: '1分間アーマー+{n}%'
+      desc: '5分間アーマー+{n}%'
     },
     swift: {
       name: '俊足のトニック',
-      desc: '1分間、移動速度と攻撃速度+{n}%'
+      desc: '5分間、移動速度と攻撃速度+{n}%'
     },
     mind: {
       name: '明晰の薬湯',
-      desc: '1分間、スキルの回復が{n}%速くなる'
+      desc: '5分間、スキルの回復が{n}%速くなる'
     },
     vigor: {
       name: '活力のエリクサー',
-      desc: '1分間、毎秒体力の{n}%を回復'
+      desc: '5分間、毎秒体力の{n}%を回復'
     },
     shadow: {
       name: '渇きの薬',
-      desc: '1分間、与えたダメージの{n}%ぶん体力を回復'
+      desc: '5分間、与えたダメージの{n}%ぶん体力を回復'
     }
   },
   alchemy: {
     talk: '薬草を入れれば、エリクサーのできあがり。どれを作る？',
-    lead: 'エリクサーは戦闘中1分間効きます。3本目のフラスコから飲みます。各種{n}個まで持てます。',
+    lead: 'エリクサーは戦闘中5分間効きます。3本目のフラスコから飲みます。各種{n}個まで持てます。',
     brew: '調合 · {n}',
     carry: 'これを持つ',
     carried: 'フラスコにセット中',
@@ -5621,6 +7286,25 @@ export default {
     again: 'もう一度',
     noGold: '賭けるゴールドが足りない。',
     card: 'カード{n}'
+  },
+  cups: {
+    title: 'カップ屋台',
+    lead: '宝石を見て、そのカップを目で追って、選ぼう。連勝するほど払いが増える。三連勝で賞品、五連勝で宝物。',
+    free: '無料の一回',
+    fee: '遊ぶ · {n}',
+    row: '連勝：{n} / {max}',
+    next: '次の勝ち：{n} ゴールド',
+    watch: '宝石を見て！',
+    follow: '目で追って…',
+    pick: 'カップを選んで！',
+    hint: 'カップをタップするか、番号キーを押そう。',
+    won: '見つけた！ +{n} ゴールド',
+    lost: '外れ。連勝はリセットだよ。',
+    near: '惜しい！ちょうど隣だったよ。',
+    timeout: '遅すぎ！連勝はリセットだよ。',
+    again: 'もう一回',
+    noGold: 'ゴールドが足りません。明日の最初の一回は無料です。',
+    cup: 'カップ {n}'
   },
   battle: {
     title: 'アイテムバトル',

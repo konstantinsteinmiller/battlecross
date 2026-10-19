@@ -58,6 +58,7 @@ import { isInterstitialReady, showMidgameAd } from '@/use/useAds'
 import { markInterstitialShown } from '@/use/useAdGate'
 import { resumeMusicAfterAd } from '@/use/useSound'
 import { isForcedDarkBlocking } from '@/use/useForcedDarkModeGuard'
+import { introPlaying } from '@/game/intro/state'
 
 let armed = false
 let splashGone = false
@@ -67,6 +68,8 @@ const tryFire = (): void => {
   if (!armed || !splashGone || fired) return
   if (!isInterstitialReady.value) return
   if (isForcedDarkBlocking.value) return
+  // Never over the intro (#130): held, and fired the moment it ends.
+  if (introPlaying.value) return
   fired = true
   // A User Timing mark, like the boot marks: `scripts/portal-qa.mjs` reads it
   // on the BUILT bundle to prove the ad was requested before the first fight
@@ -99,7 +102,7 @@ const tryFire = (): void => {
 export const armFirstLoadInterstitial = (): void => {
   if (armed) return
   armed = true
-  watch([isInterstitialReady, isForcedDarkBlocking], () => tryFire(), { immediate: true })
+  watch([isInterstitialReady, isForcedDarkBlocking, introPlaying], () => tryFire(), { immediate: true })
 }
 
 /** Mark the splash as gone. Triggers the fire if the SDK is already

@@ -1,6 +1,7 @@
 {
   "port": 5180,
   "gemini": {
+    "profileDir": "C:/Users/konst/.art-desk/profiles/battlecross",
     "gapSeconds": 90,
     "jitterSeconds": 60,
     "dailyCap": 40,

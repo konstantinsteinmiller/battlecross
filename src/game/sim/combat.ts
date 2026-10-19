@@ -131,7 +131,8 @@ export const isControlled = (u: Unit): boolean => {
 
 export const moveSpeedOf = (u: Unit): number => {
   const slow = Math.min(0.8, statusV(u, 'slow'))
-  return u.s.moveSpeed * (1 + statusV(u, 'haste') + statusV(u, 'focus') * 2 + statusV(u, 'elixirSwift')) * (1 - slow)
+  // Haste, focus and the swiftness elixir add up, but never past two and a half times the base.
+  return u.s.moveSpeed * Math.min(2.5, 1 + statusV(u, 'haste') + statusV(u, 'focus') * 2 + statusV(u, 'elixirSwift')) * (1 - slow)
 }
 
 export const attackSpeedOf = (u: Unit): number =>

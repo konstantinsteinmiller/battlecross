@@ -41,14 +41,17 @@ const designRefs = async (designer, wanted) => {
  * (VoxCPM2's "(style)text"), so it gets only the line's own direction, in the
  * line's language: a long or English prefix can tip German words into English.
  */
-export const makeLocal = ({ name, label, designer = name, shortStyle = false }) => ({
+export const makeLocal = ({ name, label, designer = name, shortStyle = false, refLang = null }) => ({
   name,
   label,
   /** Batch: every speaker × language at once (one model load). */
   async voices(wanted) {
-    await designRefs(designer, wanted)
+    // `refLang`: one reference per speaker for every language (Chatterbox clones the
+    // English clip and speaks it in the line's language: the SAME voice in each).
+    const refs = refLang ? [...new Map(wanted.map(w => [w.speaker, { ...w, lang: refLang }])).values()] : wanted
+    await designRefs(designer, refs)
     return Object.fromEntries(wanted.map(w => {
-      const ref = refOf(w.speaker, w.lang, designer)
+      const ref = refOf(w.speaker, refLang ?? w.lang, designer)
       return [`${w.speaker}:${w.lang}`, { ref: ref.wav, refText: readFileSync(ref.txt, 'utf8') }]
     }))
   },

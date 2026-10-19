@@ -1,5 +1,5 @@
 import type { TownJob } from '../data/zones'
-import { CELL, cellOf, isSolidCell, moveCircle } from './grid'
+import { CELL, cellOf, isSolidCell, moveCircle, resolveCircle } from './grid'
 import { setGoal, stop, turnToward, walk } from './actors'
 import { hashSeed, mulberry32, type Rng } from './rng'
 import { plainStats } from './stats'
@@ -180,6 +180,24 @@ export const spawnTownPeople = (sim: Sim, plan: TownPlan, o: { lite?: boolean; v
   lives.set(sim, life)
 }
 
+/**
+ * The rooms' furniture is laid when the houses are drawn (`Grid.blocks`, after
+ * the people stand): whoever stands in a counter or a desk is moved out of it,
+ * to the nearer side, and keeps that as home. (The plan puts a keeper's work
+ * place clear of it; this catches a home on a cell's middle.)
+ */
+export const clearOfFurniture = (sim: Sim): void => {
+  const life = lives.get(sim)
+  if (!life || !sim.grid.blocks?.length) return
+  for (const p of life.people) {
+    const u = p.unit
+    resolveCircle(sim.grid, u.x, u.z, 0, out2, true)
+    if (out2[0] === u.x && out2[1] === u.z) continue
+    u.x = u.px = p.sx = p.lastX = p.def.x = out2[0]
+    u.z = u.pz = p.sz = p.lastZ = p.def.z = out2[1]
+  }
+}
+
 /** What the view needs to pose a townsperson. */
 export interface TownPoseView {
   pose: TownPose
@@ -352,7 +370,7 @@ export const stepTownLife = (sim: Sim, dt: number): void => {
       const d2 = dx * dx + dz * dz
       if (d2 >= rr * rr || d2 < 1e-6) continue
       const d = Math.sqrt(d2)
-      moveCircle(sim.grid, u.x, u.z, (dx / d) * (rr - d + 0.02), (dz / d) * (rr - d + 0.02), u.r, out2)
+      moveCircle(sim.grid, u.x, u.z, (dx / d) * (rr - d + 0.02), (dz / d) * (rr - d + 0.02), u.r, out2, true)
       u.x = out2[0]
       u.z = out2[1]
     }
@@ -372,7 +390,7 @@ export const stepTownLife = (sim: Sim, dt: number): void => {
       const d2 = dx * dx + dz * dz
       if (d2 >= rr * rr || d2 < 1e-6) continue
       const d = Math.sqrt(d2)
-      moveCircle(sim.grid, ua.x, ua.z, (dx / d) * (rr - d) * 0.5, (dz / d) * (rr - d) * 0.5, ua.r, out2)
+      moveCircle(sim.grid, ua.x, ua.z, (dx / d) * (rr - d) * 0.5, (dz / d) * (rr - d) * 0.5, ua.r, out2, true)
       ua.x = out2[0]
       ua.z = out2[1]
     }

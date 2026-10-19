@@ -73,7 +73,7 @@
               :style="{ '--c': ATTR_COLOR[a] }"
             )
               span.teach__attr-name {{ t(`attr.${a}.short`) }}
-              span.teach__attr-val {{ total[a] }}
+              span.teach__attr-val {{ fmt2(total[a]) }}
                 small(v-if="needOf(a) > 0") / {{ needOf(a) }}
           h4.teach__cap {{ t('skills.active') }}
           div.teach__slots
@@ -120,6 +120,7 @@ import PriceTag from '@/components/game/PriceTag.vue'
 import DealStamp from '@/components/game/DealStamp.vue'
 import { burst, shake, thunk } from '@/components/game/fx'
 import { useMedia } from '@/components/game/useMedia'
+import { fmt2 } from '@/utils/format'
 import TradeFrame from './TradeFrame.vue'
 
 const { t } = useI18n()

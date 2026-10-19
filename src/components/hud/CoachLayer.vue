@@ -2,12 +2,6 @@
   div.coach-layer(aria-live="polite")
     svg.coach-layer__lines(aria-hidden="true")
       line(v-for="h in hud.hints" v-show="isDrag(h.id) && h.id !== 'talk'" :key="h.id" :ref="(el) => setLine(el, h.id)" :class="['trail', `trail--${h.id}`]")
-      //- The way to a trainer, along the streets (`hintPath`): arrows that
-      //- flow toward them, so it reads as "go this way", not as a line.
-      g.way(v-show="hud.hints.some(h => h.id === 'talk')" ref="wayEl")
-        g.way__arrow(v-for="n in WAY_ARROWS" :key="n")
-          path.way__ink(d="M-5 -7 L3 0 L-5 7")
-          path.way__gold(d="M-5 -7 L3 0 L-5 7")
     div.coach(
       v-for="h in hud.hints"
       :key="h.id"
@@ -55,10 +49,10 @@
  * the HUD ticker as transforms; the reactive part is only which glyphs are up
  * and their pips.
  */
-import { onMounted, onUnmounted, ref, type ComponentPublicInstance } from 'vue'
+import { onMounted, onUnmounted, type ComponentPublicInstance } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { addHudTicker, hud } from '@/game/state/hud'
-import { hintGeo, hintPath, hintTalk, type LessonId } from '@/game/coach'
+import { hintGeo, hintTalk, type LessonId } from '@/game/coach'
 import Portrait from '@/components/art/Portrait.vue'
 import { DEFAULT_BINDINGS } from '@/game/engine/keyBindings'
 import InputGlyph from '@/components/glyphs/InputGlyph.vue'
@@ -134,53 +128,6 @@ const clampIn = (x: number, y: number, m: number): [number, number] => {
 /** The glyph's size in px, as `--g` sizes it. */
 const glyphPx = (): number => Math.max(51.2, Math.min(80, Math.min(innerWidth, innerHeight) * 0.15))
 
-const WAY_ARROWS = 28
-const WAY_GAP = 34
-const wayEl = ref<SVGGElement | null>(null)
-const wayX: number[] = []
-const wayY: number[] = []
-/**
- * The walked way (else the straight line) as arrows every `WAY_GAP` px that
- * drift toward the goal. It starts a little ahead of the hero and stops short
- * of the glyph at the end, so neither is covered.
- */
-const setWay = (x: number, y: number, g: { x0: number; y0: number }): void => {
-  const root = wayEl.value
-  if (!root) return
-  const pts = hintPath.pts
-  wayX.length = 0
-  wayY.length = 0
-  wayX.push(g.x0); wayY.push(g.y0)
-  for (let i = 1; i < hintPath.n - 1; i++) { wayX.push(pts[i * 2]!); wayY.push(pts[i * 2 + 1]!) }
-  wayX.push(x); wayY.push(y)
-  let total = 0
-  for (let i = 1; i < wayX.length; i++) total += Math.hypot(wayX[i]! - wayX[i - 1]!, wayY[i]! - wayY[i - 1]!)
-  const start = 28
-  const stop = total - glyphPx() * 0.45
-  const phase = (clock * 46) % WAY_GAP
-  const arrows = root.children
-  let seg = 1
-  let segStart = 0
-  let segLen = wayX.length > 1 ? Math.hypot(wayX[1]! - wayX[0]!, wayY[1]! - wayY[0]!) : 0
-  for (let k = 0; k < arrows.length; k++) {
-    const a = arrows[k] as SVGGElement
-    const at = start + phase + k * WAY_GAP
-    if (at > stop || wayX.length < 2) { a.setAttribute('opacity', '0'); continue }
-    while (seg < wayX.length - 1 && at > segStart + segLen) {
-      segStart += segLen
-      seg++
-      segLen = Math.hypot(wayX[seg]! - wayX[seg - 1]!, wayY[seg]! - wayY[seg - 1]!)
-    }
-    const u = segLen > 0 ? (at - segStart) / segLen : 0
-    const ax = wayX[seg - 1]! + (wayX[seg]! - wayX[seg - 1]!) * u
-    const ay = wayY[seg - 1]! + (wayY[seg]! - wayY[seg - 1]!) * u
-    const deg = (Math.atan2(wayY[seg]! - wayY[seg - 1]!, wayX[seg]! - wayX[seg - 1]!) * 180) / Math.PI
-    // Fade in at the start and out toward the end.
-    const fade = Math.min(1, (at - start) / 40, (stop - at) / 60)
-    a.setAttribute('opacity', Math.max(0, fade).toFixed(2))
-    a.setAttribute('transform', `translate(${ax.toFixed(1)} ${ay.toFixed(1)}) rotate(${deg.toFixed(1)})`)
-  }
-}
 const setLineXY = (ln: SVGLineElement | undefined, x0: number, y0: number, x1: number, y1: number): void => {
   if (!ln) return
   ln.setAttribute('x1', x0.toFixed(1))
@@ -231,7 +178,6 @@ onMounted(() => {
       } else if (id === 'talk') {
         // The way there, drawn whole; the finger waits on the trainer.
         ;[x, y] = clampIn(g.x1, g.y1, edge)
-        setWay(x, y, g)
         if (beacon) {
           // Over their head while they are in view; off screen, the glyph at
           // the edge says the way alone.
@@ -273,19 +219,6 @@ onUnmounted(() => removeTicker?.())
   stroke-dasharray: 2 12
   opacity: 0.9
   filter: drop-shadow(0 2px 0 #0f1a30)
-// The way to a trainer: footprints of light that walk toward them.
-.way__ink
-  fill: none
-  stroke: #0f1a30
-  stroke-width: 7
-  stroke-linecap: round
-  stroke-linejoin: round
-.way__gold
-  fill: none
-  stroke: #ffd84a
-  stroke-width: 3.5
-  stroke-linecap: round
-  stroke-linejoin: round
 .trail--talk
   fill: none
   stroke-linejoin: round
@@ -294,7 +227,7 @@ onUnmounted(() => removeTicker?.())
   stroke-dasharray: 3 14
   animation: coach-walk 0.9s linear infinite
 .coach
-  --g: clamp(3.2rem, 15vmin, 5rem)
+  --g: calc(clamp(3.2rem, 15vmin, 5rem) * var(--hud-s, 1))
   position: absolute
   left: 0
   top: 0
@@ -432,8 +365,8 @@ onUnmounted(() => removeTicker?.())
   justify-content: center
   gap: 4px
   i
-    width: clamp(0.4rem, 1.8vmin, 0.6rem)
-    height: clamp(0.4rem, 1.8vmin, 0.6rem)
+    width: calc(clamp(0.4rem, 1.8vmin, 0.6rem) * var(--hud-s, 1))
+    height: calc(clamp(0.4rem, 1.8vmin, 0.6rem) * var(--hud-s, 1))
     border-radius: 50%
     border: 2px solid #0f1a30
     background: rgba(255, 255, 255, 0.55)

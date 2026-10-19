@@ -10,10 +10,6 @@ WIP: [Battlecross Demo](https://konstantinsteinmiller.github.io/battlecross)
 
 ### [Wiki](https://konstantinsteinmiller.github.io/battlecross/wiki/) with build guides, items and quest guides
 
-The design is [`GDD.md`](./GDD.md). The build order, every decision taken
-where the GDD was silent, and the resume notes are in
-[`game-implementation-plan.md`](./game-implementation-plan.md).
-
 Built with Vue 3 + TypeScript + three.js + Vite (pug, Tailwind, SASS). One
 codebase ships to CrazyGames, Playgama (and YouTube Playables through it),
 Poki, GamePix, GameMonetize, GameDistribution, Yandex, Glitch, itch.io and
@@ -38,6 +34,32 @@ The game starts right in the first fight. There is no menu.
 
 `pnpm dev` never talks to the live leaderboard (`.env.development` blanks the
 URL), so test sessions put no rows on the players' board.
+
+### The intro (`VITE_INTRO_ENABLED`)
+
+A 25-second in-engine intro (roadmap #130) for a brand-new save: a level-30
+Pyromancer with five skills in the belt fights the Frost Jarl's folk on the
+tundra, and an old narrator (the Chronicler) introduces the world. Hold
+Space, or hold the Skip button, for 1.5 s to skip it. Subtitles are always
+on. "Watch the intro" in the options plays it again.
+
+- **Off by default.** `VITE_INTRO_ENABLED=false` sits in `.env`,
+  `.env.example` and every portal's env file. Set it to `true` in the env
+  file of the build you want it in. A portal's `.env.<mode>` file overrides
+  `.env`, so switching `.env` alone does not turn it on there.
+- **Off costs nothing.** The flag is a literal `import.meta.env` comparison.
+  With it off, the build drops the intro's code and never fetches it. With it
+  on, the intro is two lazy chunks (`src/game/intro/runner.ts`,
+  `IntroLayer.vue`), fetched only when it plays.
+- **Nothing it does is kept.** The intro's hero is a made-up one and saving is
+  sandboxed while it plays. It never opens the portal gameplay bracket, and
+  the first-load ad waits until it ends. The save remembers only
+  `tips.introSeen`, set when it ends or is skipped.
+- **The narration** is `dlg.intro.*` in every locale, voiced by `chronicler`
+  (`src/game/audio/voiceCards.ts`). The English ElevenLabs take comes from
+  `pnpm voice:intro`, which needs `ELEVENLABS_API_KEY` in `.env.voice.local`.
+  The other voiced languages go through the usual `pnpm voice:gen --engine
+  chatterbox` pipeline.
 
 ## How it is built
 
@@ -112,82 +134,16 @@ URL), so test sessions put no rows on the players' board.
 
 ## Pipelines
 
-- **Art:** `pnpm art:export` cuts reference sheets and prompts from the
-  game's own drawings into `art-sheets/`; `pnpm art:desk` runs the painting
-  round trip; `pnpm art:slice` cuts a painted sheet into the drop-in files;
-  `pnpm art:status` says what is painted. Then
-  `pnpm compress-folder-with-backup` (backups go to `public-backup/`, never
-  into `public/`, where they would ship). See `art-sheets/README.md` and
-  `art-todo.md`; compare painted and drawn at `/#/models` in dev.
-- **Gameplay video:** `pnpm preview:video` (`tools/preview-video`): scripted
-  win and fail takes at 10 s, 30 s and the CrazyGames / Poki lengths, in
-  landscape and portrait.
 - **Poki:** `pnpm build:poki`, `pnpm deploy:poki` (`tools/poki-deploy`; it
   refuses to run until this game's own P4D id is in `poki.config.mjs`).
 - **Playgama / YouTube Playables:** `pnpm build:playgama` writes
   `dist-playgama/` behind release gates; `pnpm playgama:audit`.
 - **Logo and icons:** `pnpm icons` (generated from
   `store-art/brand/logo-final.mjs`).
-- **GameMonetize:** see the section below.
-
-## GameMonetize release
-
-GameMonetize is an ad network: one HTML5 archive, its SDK
-(`api.gamemonetize.com/sdk.js`, loaded lazily by `src/utils/gameMonetizePlugin.ts`),
-interstitials only, no cloud save, no mute or language signal.
-
-1. **Once:** create Battlecross on gamemonetize.com and paste its game id into
-   `.env.gamemonetize.local` (`VITE_GAME_ID=`). Until then the build refuses to
-   pack: with no id the SDK never loads, the game shows no ads, and
-   GameMonetize rejects that ("Ads should be shown the first time after the
-   game loads").
-2. **Build:** `pnpm build:gamemonetize`. It builds `dist/` (obfuscated, no
-   source maps, relative paths), runs the release gate
-   (`scripts/gamemonetize-release.mjs`: the game id, this platform's SDK in the
-   bundle, no other portal's SDK or service, no child-directed ad flag, no
-   leaderboard request, a CSP that names GameMonetize only, size), and only
-   then writes **`dist/Battlecross-gamemonetize.zip`** with `index.html` at its
-   root. That zip is the upload.
-3. **Audit the readable twin:** `pnpm gamemonetize:audit` builds the same
-   bundle unobfuscated into `dist-gamemonetize-clear/` and runs the gate on it
-   (on the obfuscated bundle a missing string proves little).
-4. **QA the built bundle:** `pnpm qa:gamemonetize` (`scripts/portal-qa.mjs`).
-   It serves `dist/` as `local.gamemonetize.com`, answers the real SDK request
-   with a stub that reports ready after 1.2 s, and checks: the first-load
-   interstitial fires once, after the loader and before any input, with the
-   world frozen and every sound stopped (also past the 6 s cap), and the music
-   back afterwards; the same with the SDK delayed to 9 s over a running fight
-   (music playing before the ad as the control); the SDK's pause / resume
-   outside an ad; tab away and back; the pause menu; retreat → result screen
-   → Continue → the midgame ad, with the result screen closed before the ad;
-   no external request but the SDK; zero console errors. To QA before the
-   real id exists: `VITE_GAME_ID=qa-placeholder npx vite build --mode gamemonetize --base=./`
-   (never upload that build).
-
-How ads run on this build: the first-load interstitial when the loader
-clears (`useFirstLoadInterstitial`, held while the forced-dark-mode notice is
-up), then one interstitial on Continue / Retry behind a closed result screen,
-at most every 121 s (`useAdGate`; GameMonetize has no ad-free start, its
-first-load ad starts the gap). No rewarded placements. The leaderboard is the
-baked board (no request to our Worker from GameMonetize's partner sites).
-
-Listing copy (from [`description.md`](./description.md)):
-
-- **Title:** Battlecross
-- **Short description:** Fight goblins, demons and dragons in a cute action
-  RPG. Mix skills from 8 classes into your own hero and make choices that
-  reshape the realm.
-- **Description, How to play, Controls, Tags:** the matching sections of
-  `description.md`. Category: Action / RPG. Mobile: yes (portrait and
-  landscape).
 
 ## Docs
 
 - [`GDD.md`](./GDD.md): the design.
-- [`outstanding-decisions.md`](./outstanding-decisions.md): what is waiting
-  for the owner's answer.
-- [`game-implementation-plan.md`](./game-implementation-plan.md): decisions,
-  phases, status log.
 - [`roadmap.md`](./roadmap.md): what to build next for retention, playtime
   and conversion.
 - [`description.md`](./description.md): store copy.

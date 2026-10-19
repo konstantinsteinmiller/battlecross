@@ -62,7 +62,9 @@ export const transcribe = async (items) => {
   }
   // The cast's names and places as a spelling hint (Whisper misspells a name it has never seen).
   const prompt = 'Bram, Tilly, Ser Aldric, Ember Wren, Mara, Sister Lune, Grik, Captain Hale, Odo, Senna, Castellan, Brother Fenn, Sangrel, Madam Ash, Dorn, Hilda Hammerhand, Voss, Garrun, Stonefoot, Pim, Brynja, Krag, Sunford, Oakhaven, Ironhold.'
-  const payload = { jobs: items.map(i => ({ ...i, prompt })) }
+  // The names help the Latin-script languages; Chinese gets a prompt that keeps Whisper in Simplified characters.
+  const promptOf = (lang) => (lang === 'zh' ? '以下是普通话的句子。' : ['ru', 'ja'].includes(lang) ? '' : prompt)
+  const payload = { jobs: items.map(i => ({ ...i, prompt: promptOf(i.lang) })) }
   // A hung run is killed by the watchdog; one fresh start usually goes through.
   const r = await runPython('whisper', 'run_whisper.py', payload, { label: 'whisper' }).catch((e) => {
     if (!/hung/.test(e.message)) throw e

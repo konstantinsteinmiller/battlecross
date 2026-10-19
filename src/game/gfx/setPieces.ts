@@ -90,10 +90,12 @@ const banner = (seed: number): PieceGeo => {
   // tribe's daubed skull, horns lashed on top.
   const lit: BufferGeometry[] = []
   const hide = seed % 3 === 0 ? '#9a3a1e' : seed % 3 === 1 ? '#6a7a2a' : '#8a5a1e'
-  for (let q = 0; q < 4; q++) {
-    const a = (q / 4) * Math.PI * 2 + seed
-    lit.push(P(rock(0.2, 60 + q + seed, 7, 5), '#6a625c', [Math.cos(a) * 0.24, 0.1, Math.sin(a) * 0.24]))
+  // The cairn fills the banner's cell: the hero is stopped by stones he can see.
+  for (let q = 0; q < 7; q++) {
+    const a = (q / 7) * Math.PI * 2 + seed
+    lit.push(P(rock(0.34, 60 + q + seed, 7, 5), q % 2 ? '#6a625c' : '#7a7068', [Math.cos(a) * 0.5, 0.14, Math.sin(a) * 0.5]))
   }
+  lit.push(P(rock(0.3, 70 + seed, 7, 5), '#5e5650', [0, 0.2, 0]))
   lit.push(P(rcyl(0.06, 3.0, 0.02, 7, 1), '#5a3e26', [0, 1.5, 0], [0, 0, 0.03]))
   lit.push(P(rcyl(0.04, 1.2, 0.02, 6, 1), '#5a3e26', [0.02, 2.75, 0.06], [0, 0, Math.PI / 2]))
   lit.push(P(rbox(1.0, 1.3, 0.04, 0.3, 8, 6), hide, [0.02, 2.05, 0.09]))
@@ -110,16 +112,16 @@ const banner = (seed: number): PieceGeo => {
 const tent = (seed: number): PieceGeo => {
   // A goblin's hide tent: a cone of patched hides on poles that stick out
   // of its top, the door flap thrown back.
-  const lit: BufferGeometry[] = [P(rcone(1.35, 0.12, 2.1, 0.04, 7), seed % 2 ? '#8a6440' : '#7a5a3c', [0, 1.05, 0])]
+  const lit: BufferGeometry[] = [P(rcone(1.64, 0.12, 2.1, 0.04, 16), seed % 2 ? '#8a6440' : '#7a5a3c', [0, 1.05, 0])]
   for (let q = 0; q < 3; q++) {
     const a = (q / 3) * Math.PI * 2
     lit.push(P(rcyl(0.04, 0.8, 0.01, 5, 1), '#5a3e26', [Math.cos(a) * 0.12, 2.3, Math.sin(a) * 0.12], [Math.sin(a) * 0.35, 0, -Math.cos(a) * 0.35]))
   }
   // Patches sewn on (proud of the hide by a few centimetres).
-  lit.push(P(ell(0.3, 0.26, 0.06, 7, 5), '#a07a4a', [0.62, 0.95, 0.72], [0.2, 0.75, 0]))
-  lit.push(P(ell(0.26, 0.22, 0.06, 7, 5), '#5e4630', [-0.75, 0.75, 0.55], [0.15, -0.95, 0]))
+  lit.push(P(ell(0.3, 0.26, 0.06, 7, 5), '#a07a4a', [0.75, 0.95, 0.87], [0.2, 0.75, 0]))
+  lit.push(P(ell(0.26, 0.22, 0.06, 7, 5), '#5e4630', [-0.91, 0.75, 0.67], [0.15, -0.95, 0]))
   // The dark doorway and its flap on the camera's side.
-  lit.push(P(rcone(0.42, 0.05, 0.95, 0.02, 3), '#2a1e16', [0, 0.47, 1.06], [-0.25, Math.PI, 0], [1, 1, 0.35]))
+  lit.push(P(rcone(0.42, 0.05, 0.95, 0.02, 3), '#2a1e16', [0, 0.47, 1.28], [-0.25, Math.PI, 0], [1, 1, 0.35]))
   return { lit, glow: [] }
 }
 
@@ -127,6 +129,8 @@ const mill = (): PieceGeo => {
   // A windmill: a whitewashed stone tower, a thatched cap, a door and two
   // windows, and four latticed sails turned to the road.
   const lit: BufferGeometry[] = []
+  // Its cobbled yard covers the three cells it blocks, corner to corner.
+  lit.push(P(rbox(4.3, 0.22, 4.3, 0.12, 6, 3), '#9a8e7a', [0, 0.11, 0]))
   lit.push(P(rcone(1.65, 1.2, 4.4, 0.08, 14), '#e2dccc', [0, 2.2, 0]))
   lit.push(P(rcyl(1.78, 0.36, 0.08, 14, 1), '#a89c88', [0, 0.18, 0]))
   lit.push(P(rcone(1.5, 0.08, 1.6, 0.05, 14), '#b4743a', [0, 5.2, 0]))
@@ -162,7 +166,9 @@ const scarecrow = (): PieceGeo => ({
     P(rcone(0.3, 0.12, 0.08, 0.02, 10), '#5a4a30', [0, 2.0, 0]),
     P(rcone(0.13, 0.08, 0.2, 0.02, 10), '#5a4a30', [0, 2.13, 0]),
     P(rcone(0.07, 0.01, 0.26, 0.01, 5), '#e8c860', [0.66, 1.42, 0], [0, 0, -1.4]),
-    P(rcone(0.07, 0.01, 0.26, 0.01, 5), '#e8c860', [-0.66, 1.42, 0], [0, 0, 1.4])
+    P(rcone(0.07, 0.01, 0.26, 0.01, 5), '#e8c860', [-0.66, 1.42, 0], [0, 0, 1.4]),
+    // Fallen straw heaped round its post: the cell it blocks is all drawn.
+    ...[0, 1, 2, 3, 4].map(q => P(rock(0.42, 90 + q, 7, 5), q % 2 ? '#c8a850' : '#b89440', [Math.cos(q * 1.257 + 0.4) * 0.42, 0.1, Math.sin(q * 1.257 + 0.4) * 0.42], [0, 0, 0], [1, 0.45, 1]))
   ],
   glow: []
 })
@@ -196,7 +202,10 @@ const rubble = (seed: number): PieceGeo => ({
   lit: [
     P(rcyl(0.42, 0.62, 0.05, 12, 1), MARBLE, [0, 0.42, 0], [Math.PI / 2, 0.4 + seed, 0]),
     P(rbox(0.6, 0.42, 0.5, 0.3, 6, 4), MARBLE2, [0.42, 0.21, -0.38], [0, 0.5, 0]),
-    P(rbox(0.42, 0.3, 0.38, 0.3, 6, 4), MARBLE, [-0.45, 0.15, 0.42], [0, -0.3, 0.12])
+    P(rbox(0.42, 0.3, 0.38, 0.3, 6, 4), MARBLE, [-0.45, 0.15, 0.42], [0, -0.3, 0.12]),
+    // Chips lying round them: the cell the rubble blocks is all drawn.
+    P(rock(0.32, 41 + seed, 7, 5), MARBLE2, [-0.48, 0.12, -0.46]),
+    P(rock(0.3, 43 + seed, 7, 5), MARBLE, [0.5, 0.11, 0.48])
   ],
   glow: []
 })
@@ -279,7 +288,10 @@ const crates = (seed: number): PieceGeo => ({
     P(rbox(0.82, 0.74, 0.8, 0.3, 6, 6), '#8a6238', [-0.12, 0.37, -0.1], [0, 0.2, 0]),
     P(rbox(0.6, 0.56, 0.58, 0.3, 6, 6), '#a07444', [-0.06, 1.02, -0.05], [0, -0.3 + seed * 0.1, 0]),
     P(rcyl(0.3, 0.8, 0.06, 10, 2), '#6a4428', [0.48, 0.4, 0.4]),
-    P(torus(0.3, 0.03, 4, 12), '#3a3a3a', [0.48, 0.62, 0.4], [Math.PI / 2, 0, 0])
+    P(torus(0.3, 0.03, 4, 12), '#3a3a3a', [0.48, 0.62, 0.4], [Math.PI / 2, 0, 0]),
+    // A sack and a small crate in the corners the stack leaves: the cell is all drawn.
+    P(ell(0.36, 0.3, 0.34, 8, 6), '#b89a6a', [-0.46, 0.28, 0.46]),
+    P(rbox(0.56, 0.5, 0.56, 0.3, 6, 6), '#7a5430', [0.46, 0.25, -0.46], [0, 0.5, 0])
   ],
   glow: []
 })
@@ -320,7 +332,9 @@ const warBanner = (seed: number): PieceGeo => ({
   // The fortress's colours: a black pole, a long crimson banner with its
   // brazen sigil, a spike on top.
   lit: [
-    P(rbox(0.5, 0.3, 0.5, 0.3, 6, 4), '#2a2026', [0, 0.15, 0]),
+    // A stepped plinth that fills its cell.
+    P(rbox(1.4, 0.22, 1.4, 0.2, 6, 4), '#2a2026', [0, 0.11, 0]),
+    P(rbox(0.6, 0.36, 0.6, 0.3, 6, 4), '#36292f', [0, 0.18, 0]),
     P(rcyl(0.06, 3.4, 0.02, 7, 1), '#1e161c', [0, 1.85, 0]),
     P(rcyl(0.04, 1.1, 0.02, 6, 1), '#1e161c', [0, 3.3, 0.06], [0, 0, Math.PI / 2]),
     P(rbox(0.9, 2.0, 0.04, 0.3, 8, 6), seed % 2 ? '#7a1420' : '#5a0e1a', [0, 2.25, 0.1]),

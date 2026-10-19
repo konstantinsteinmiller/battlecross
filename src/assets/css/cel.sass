@@ -28,19 +28,6 @@
 @mixin ink($w: var(--bc-ol))
   border: $w solid var(--bc-ink)
 
-/// A hard-edged glint: the small lit window on a glossy cel surface. Put it on
-/// a pseudo-element of an `overflow: hidden` face.
-@mixin glint($top: 12%, $left: 8%, $w: 34%, $h: 22%)
-  content: ''
-  position: absolute
-  top: $top
-  left: $left
-  width: $w
-  height: $h
-  border-radius: var(--bc-r-pill)
-  background: rgba(var(--bc-white-rgb), 0.6)
-  pointer-events: none
-
 /// The bouncy press. The element squashes down quickly and overshoots on the
 /// way back. `$down` is how far it sinks (its depth plate stays put).
 @mixin press($down: var(--bc-press), $squash: 0.96)
@@ -79,3 +66,73 @@
     border: 2px solid transparent
     border-radius: var(--bc-r-pill)
     background: var(--bc-leather) padding-box
+
+// ─── Border-inset ornaments (roadmap #127) ───────────────────────────────────
+//
+// Gilded corner brackets, a rivet, a crest and leaf scrolls laid INSIDE the
+// border of a button, card or window. The pictures are custom properties on
+// `:root` (`components/art/ornaments.ts`): the vector drawing, or the painting
+// at `images/ui/orn-*.webp` once the owner has painted it.
+//
+// They are one background-image pseudo-element each, absolutely placed, behind
+// the host's own content (`isolation` + `z-index: -1`) and with no pointer
+// events, so they take no room, cannot move the layout and cannot eat a tap.
+// The host must be positioned (`position: relative`, as every card and button
+// here already is) and must not use the pseudo-element named `$pseudo` itself.
+// Sizes are `em`/`rem`/`clamp` terms of the host, so they follow the phone-to-4K
+// scale the host already has; vectors stay sharp at any device pixel ratio.
+
+/// Four corner brackets: `$set` is `corner` (cards, windows) or `corner-sm` (buttons).
+@mixin ornate-corners($size: clamp(1.1rem, 4.6vw, 1.7rem), $inset: 0.25rem, $set: 'corner', $pseudo: 'before')
+  isolation: isolate
+  &::#{$pseudo}
+    content: ''
+    position: absolute
+    inset: $inset
+    z-index: -1
+    pointer-events: none
+    background-repeat: no-repeat
+    background-image: var(--orn-#{$set}-tl), var(--orn-#{$set}-tr), var(--orn-#{$set}-bl), var(--orn-#{$set}-br)
+    background-position: left top, right top, left bottom, right bottom
+    background-size: $size $size
+
+/// A crest sitting on the middle of the host's bottom (or top) edge, inside it.
+@mixin ornate-crest($w: clamp(1.8rem, 7vw, 2.8rem), $edge: bottom, $gap: 0.2rem, $pseudo: 'after')
+  isolation: isolate
+  &::#{$pseudo}
+    content: ''
+    position: absolute
+    #{$edge}: $gap
+    left: 50%
+    width: $w
+    aspect-ratio: 40 / 24
+    translate: -50% 0
+    z-index: -1
+    pointer-events: none
+    background: var(--orn-crest) center / 100% 100% no-repeat
+
+/// A button: small corner brackets, plus a leaf scroll at each end when `$wings`
+/// (the wide sizes, whose padding has room for them).
+@mixin ornate-button($size: 0.62em, $inset: 0.16em, $wings: false)
+  isolation: isolate
+  &::before
+    content: ''
+    position: absolute
+    inset: $inset
+    z-index: -1
+    pointer-events: none
+    background-repeat: no-repeat
+    background-image: var(--orn-corner-sm-tl), var(--orn-corner-sm-tr), var(--orn-corner-sm-bl), var(--orn-corner-sm-br)
+    background-position: left top, right top, left bottom, right bottom
+    background-size: $size $size
+  @if $wings
+    &::after
+      content: ''
+      position: absolute
+      inset: 0
+      z-index: -1
+      pointer-events: none
+      background-repeat: no-repeat
+      background-image: var(--orn-wing-l), var(--orn-wing-r)
+      background-position: left 0.34em center, right 0.34em center
+      background-size: 0.74em auto

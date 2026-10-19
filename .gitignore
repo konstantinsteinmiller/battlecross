@@ -32,6 +32,8 @@ coverage
 *.env
 .env
 .env.*
+# The shareable switches (no secrets): the documented template.
+!.env.example
 # Non-secret build state checked in so multiple dev machines stay in
 # sync (Android versionCode counter — Play Console rejects re-uploads
 # of the same code, so the latest value MUST be committed).
@@ -113,3 +115,6 @@ __screenshots__/
 /zf.txt*
 /store-art/covers-backup/
 /tools/score-render/.samples/
+
+# Voice takes parked out of the build (only English ships)
+/vo-src/parked/

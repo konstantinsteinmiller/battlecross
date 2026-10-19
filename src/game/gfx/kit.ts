@@ -152,10 +152,15 @@ export const rboxSplit = (
   return out
 }
 
+/** A coordinate rounded for welding; `+ 0` folds -0 into 0. */
+const weldKey = (v: number): number => Math.round(v * 1000) + 0
+
 /**
  * A rounded rock: a low sphere with seeded bumps, a little flattened so it
  * lies like a stone. Smooth normals (a boulder, never a gem). Coincident seam
- * and pole vertices get the same bump, so the surface cannot crack open.
+ * and pole vertices get the same bump, so the surface cannot crack open (the
+ * weld key rounds to integers: a seam point at -1e-16 printed by toFixed reads
+ * "-0.000" against its twin's "0.000", and the rock split along the seam).
  * Same seed, same rock.
  */
 export const rock = (r: number, seed = 1, ws = 9, hs = 7): BufferGeometry => {
@@ -168,7 +173,7 @@ export const rock = (r: number, seed = 1, ws = 9, hs = 7): BufferGeometry => {
     const x = pos.getX(i)
     const y = pos.getY(i)
     const z = pos.getZ(i)
-    const key = `${x.toFixed(3)},${y.toFixed(3)},${z.toFixed(3)}`
+    const key = `${weldKey(x)},${weldKey(y)},${weldKey(z)}`
     keys.push(key)
     let k = bumps.get(key)
     if (k === undefined) {

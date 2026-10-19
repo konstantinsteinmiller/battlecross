@@ -24,6 +24,23 @@
             OreIcon(:id="m")
           span.smith__metal-name {{ t(`ore.${m}.name`) }}
           span.smith__metal-n {{ oreCount(m) }}
+      div.smith__lines(role="tablist")
+        button.smith__line(
+          v-for="l in SMITH_LINES"
+          :key="l"
+          type="button"
+          role="tab"
+          :data-line="l"
+          :title="t(`attr.${l}.name`)"
+          :aria-label="t(`attr.${l}.name`)"
+          :aria-selected="line === l"
+          :class="{ 'is-on': line === l }"
+          :style="{ '--attr': ATTR_COLOR[l] }"
+          @click="pickLine(l)"
+        )
+          span.smith__line-icon
+            ItemIcon(:id="smithItemId(metal, 'sword', false, l)")
+          span.smith__line-name {{ t(`attr.${l}.short`) }}
       p.smith__locked(v-if="!known(metal)") {{ t('smith.locked', { ore: t(`ore.${metal}.name`) }) }}
       div.smith__grid(v-else)
         section.piece(v-for="r in recipes" :key="r.id" :data-recipe="r.id")
@@ -86,6 +103,8 @@ import { computed, nextTick, onUnmounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { oreCount, profile, smithBlock, smithForge, totalAttrs } from '@/game/state/profile'
 import { ORE_IDS, ORE_LOOK, type OreId } from '@/game/data/ores'
+import { ATTR_COLOR, ATTRS, type Attr } from '@/game/data/attributes'
+import { SMITH_LINES, smithItemId } from '@/game/data/items'
 import { RECIPES, RECIPE_BY_ID, STRIKES, SWEEP, gradeOf, spotHalf, strikeScore, type Grade } from '@/game/data/smithing'
 import { flow } from '@/game/flow'
 import { sfx } from '@/game/audio/sfx'
@@ -105,7 +124,10 @@ const stamps = ref(0)
 const known = (m: OreId): boolean => profile.inv.oresFound.includes(m)
 const metal = ref<OreId>(ORE_IDS.slice().reverse().find(known) ?? 'iron')
 const pick = (m: OreId): void => { metal.value = m; sfx('uiClick') }
-const recipes = computed(() => RECIPES.filter(r => r.metal === metal.value))
+// The build to forge for: the hero's strongest attribute until another is picked.
+const line = ref<Attr>(ATTRS.reduce((best, a) => (totalAttrs()[a] > totalAttrs()[best] ? a : best), 'str' as Attr))
+const pickLine = (l: Attr): void => { line.value = l; sfx('uiClick') }
+const recipes = computed(() => RECIPES.filter(r => r.metal === metal.value && r.line === line.value))
 
 interface Game {
   recipe: string
@@ -209,7 +231,7 @@ onUnmounted(() => {
   text-align: center
 .smith__metals
   display: grid
-  grid-template-columns: repeat(4, minmax(0, 1fr))
+  grid-template-columns: repeat(6, minmax(0, 1fr))
   gap: var(--gap)
 .smith__metal
   +screen.plate('leather')
@@ -229,6 +251,33 @@ onUnmounted(() => {
     box-shadow: 0 0 0 3px var(--bc-orange)
   &.is-locked
     opacity: 0.55
+.smith__lines
+  display: grid
+  grid-template-columns: repeat(6, minmax(0, 1fr))
+  gap: calc(var(--gap) * 0.6)
+.smith__line
+  +screen.plate('leather')
+  display: flex
+  align-items: center
+  justify-content: center
+  gap: 0.2em
+  min-height: max(2.75rem, 44px)
+  padding: 0.2em 0.3em
+  border: 0
+  color: var(--attr)
+  font: inherit
+  cursor: pointer
+  touch-action: manipulation
+  &.is-on
+    box-shadow: 0 0 0 3px var(--attr)
+.smith__line-icon
+  flex: 0 0 auto
+  width: clamp(1.4rem, 5.4vmin, 2rem)
+  height: clamp(1.4rem, 5.4vmin, 2rem)
+.smith__line-name
+  +cel.label
+  font-size: clamp(0.6rem, 2.5vmin, 0.8rem)
+  text-shadow: var(--bc-text-outline-thin)
 .smith__metal-icon
   flex: 0 0 auto
   width: clamp(1.3rem, 5vmin, 1.8rem)
@@ -376,7 +425,11 @@ onUnmounted(() => {
 @media (max-aspect-ratio: 1/1)
   .smith__grid
     grid-template-columns: repeat(2, minmax(0, 1fr))
-@media (max-width: 26rem)
+// Six metals: two rows of three unless the screen is wide.
+@media (max-aspect-ratio: 1/1), (max-width: 40rem)
   .smith__metals
-    grid-template-columns: repeat(2, minmax(0, 1fr))
+    grid-template-columns: repeat(3, minmax(0, 1fr))
+@media (max-width: 26rem)
+  .smith__lines
+    grid-template-columns: repeat(3, minmax(0, 1fr))
 </style>

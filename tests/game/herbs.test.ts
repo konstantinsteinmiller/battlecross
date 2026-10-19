@@ -18,7 +18,7 @@ import { stepSim } from '@/game/sim/step'
 import { referenceBuild } from '@/game/sim/bot'
 
 /**
- * Herbs in the wild (roadmap #88): three or four a visit, of what grows in
+ * Herbs in the wild (roadmap #88): six or seven a visit, of what grows in
  * the place, where the hero can walk to them; picked by walking over them,
  * into the pouch at the end of the visit.
  */
@@ -27,7 +27,7 @@ stubCanvas()
 const SEEDS = [1, 2, 3, 7, 11, 42, 77, 1234]
 
 describe('where herbs grow', () => {
-  it('every zone holds 3 or 4 a visit, of its own plants, on ground the hero walks to, apart', () => {
+  it('every zone holds 6 or 7 a visit, of its own plants, on ground the hero walks to, apart', () => {
     for (const zone of ZONE_IDS) {
       const def = ZONES[zone]
       const kinds = new Set(plantsOf(def.id).map(p => p.id))
@@ -37,6 +37,7 @@ describe('where herbs grow', () => {
         const herbs = plan.herbs ?? []
         const tag = `${zone}#${seed}`
         expect(herbs.length, tag).toBeGreaterThanOrEqual(HERBS_MIN)
+        expect([HERBS_MIN, HERBS_MAX], tag).toEqual([6, 7])
         expect(herbs.length, tag).toBeLessThanOrEqual(HERBS_MAX)
         const g = fillGrid(createGrid(plan.w, plan.h), plan)
         const path: number[] = []

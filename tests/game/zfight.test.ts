@@ -114,7 +114,7 @@ describe('z-fighting: every static model', () => {
   }, 120_000)
 
   it('every town as built, rooms open; and no ground drawn under a building', async () => {
-    const { generateTown } = await import('@/game/sim/zoneGen')
+    const { generateTown } = await import('@/game/sim/townGen')
     const { TOWNS } = await import('@/game/data/zones')
     const { buildTerrain } = await import('@/game/gfx/terrain')
     const { TownView } = await import('@/game/gfx/townView')

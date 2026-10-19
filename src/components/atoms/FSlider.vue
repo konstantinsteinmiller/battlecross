@@ -151,8 +151,6 @@ const updateValue = (event: Event) => {
   +cel.fill(46%, 86%)
   overflow: hidden
   transition: transform var(--bc-t-release) var(--bc-ease-bounce)
-  &::before
-    +cel.glint(10%, 14%, 40%, 12%)
 
 // The grip: two ink notches.
 .thumb-visual__grip

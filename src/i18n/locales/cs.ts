@@ -1,5 +1,13 @@
 // Czech (cs) bundle — mirrors en.ts.
 export default {
+  // ─── The intro (#130): its skip, and its narrator's name ───
+  intro: {
+    narrator: 'Kronikář',
+    skip: 'Přeskočit',
+    holdKey: 'Podrž {key} pro přeskočení',
+    holdTouch: 'Podrž pro přeskočení',
+    replay: 'Přehrát intro'
+  },
   arena: {
     allWon: 'Všechny mýtické ceny jsou tvoje.',
     call: 'Příběh je dovyprávěn. Teď dokaž svůj build: vyšplhej, jak nejvýš dokážeš, a získej mýtické ceny, které ti nikdo jiný nedá.',
@@ -8,6 +16,20 @@ export default {
     next: 'Další cena ve vlně {at}: {item}',
     champion: 'Vlna šampiona',
     wave: 'Vlna {n}'
+  },
+  sellOre: {
+    talk: 'Dobrá ruda, férová cena. Kolik prodáš?',
+    lead: 'Vyber, kolik kousků každé rudy prodáš. Nic se neprodá, dokud nestiskneš Prodat.',
+    have: 'Máš {n}',
+    each: '{n} zlata za kus',
+    none: 'Nic',
+    all: 'Vše',
+    less: '{ore}: o jednu méně',
+    more: '{ore}: o jednu více',
+    total: 'Dostaneš: {n} zlata',
+    sell: 'Prodat',
+    selectAll: 'Vybrat vše',
+    empty: 'Už nemáš žádnou rudu na prodej.'
   },
   smith: {
     why: {
@@ -1423,38 +1445,110 @@ export default {
     smithMasterMithrilGreaves: {
       name: 'Mistrovské mithrilové holenice'
     },
+    smithMasterAdamantGreaves: {
+      name: 'Mistrovské adamantové holenice'
+    },
+    smithMasterAetheriteGreaves: {
+      name: 'Mistrovské eteritové holenice'
+    },
     smithMithrilGreaves: {
       name: 'Mithrilové holenice'
+    },
+    smithAdamantGreaves: {
+      name: 'Adamantové holenice'
+    },
+    smithAetheriteGreaves: {
+      name: 'Eteritové holenice'
     },
     smithMasterMithrilPlate: {
       name: 'Mistrovský mithrilový plát'
     },
+    smithMasterAdamantPlate: {
+      name: 'Mistrovský adamantový plát'
+    },
+    smithMasterAetheritePlate: {
+      name: 'Mistrovský eteritový plát'
+    },
     smithMithrilPlate: {
       name: 'Mithrilový plát'
+    },
+    smithAdamantPlate: {
+      name: 'Adamantový plát'
+    },
+    smithAetheritePlate: {
+      name: 'Eteritový plát'
     },
     smithMasterMithrilHelm: {
       name: 'Mistrovská mithrilová přilba'
     },
+    smithMasterAdamantHelm: {
+      name: 'Mistrovská adamantová přilba'
+    },
+    smithMasterAetheriteHelm: {
+      name: 'Mistrovská eteritová přilba'
+    },
     smithMithrilHelm: {
       name: 'Mithrilová přilba'
+    },
+    smithAdamantHelm: {
+      name: 'Adamantová přilba'
+    },
+    smithAetheriteHelm: {
+      name: 'Eteritová přilba'
     },
     smithMasterMithrilShield: {
       name: 'Mistrovský mithrilový štít'
     },
+    smithMasterAdamantShield: {
+      name: 'Mistrovský adamantový štít'
+    },
+    smithMasterAetheriteShield: {
+      name: 'Mistrovský eteritový štít'
+    },
     smithMithrilShield: {
       name: 'Mithrilový štít'
+    },
+    smithAdamantShield: {
+      name: 'Adamantový štít'
+    },
+    smithAetheriteShield: {
+      name: 'Eteritový štít'
     },
     smithMasterMithrilHammer: {
       name: 'Mistrovské mithrilové kladivo'
     },
+    smithMasterAdamantHammer: {
+      name: 'Mistrovské adamantové kladivo'
+    },
+    smithMasterAetheriteHammer: {
+      name: 'Mistrovské eteritové kladivo'
+    },
     smithMithrilHammer: {
       name: 'Mithrilové kladivo'
+    },
+    smithAdamantHammer: {
+      name: 'Adamantové kladivo'
+    },
+    smithAetheriteHammer: {
+      name: 'Eteritové kladivo'
     },
     smithMasterMithrilSword: {
       name: 'Mistrovský mithrilový meč'
     },
+    smithMasterAdamantSword: {
+      name: 'Mistrovský adamantový meč'
+    },
+    smithMasterAetheriteSword: {
+      name: 'Mistrovský eteritový meč'
+    },
     smithMithrilSword: {
       name: 'Mithrilový meč'
+    },
+    smithAdamantSword: {
+      name: 'Adamantový meč'
+    },
+    smithAetheriteSword: {
+      name: 'Eteritový meč'
     },
     smithMasterGoldGreaves: {
       name: 'Mistrovské zlaté holenice'
@@ -1560,6 +1654,1086 @@ export default {
     },
     smithMasterIronSword: {
       name: 'Mistrovský železný meč'
+    },
+    smithMasterDexIronSword: {
+      name: 'Mistrovský dýka ze železa · OBR'
+    },
+    smithDexIronSword: {
+      name: 'Dýka ze železa · OBR'
+    },
+    smithMasterDexIronHammer: {
+      name: 'Mistrovský rapír ze železa · OBR'
+    },
+    smithDexIronHammer: {
+      name: 'Rapír ze železa · OBR'
+    },
+    smithMasterDexIronShield: {
+      name: 'Mistrovský malý štít ze železa · OBR'
+    },
+    smithDexIronShield: {
+      name: 'Malý štít ze železa · OBR'
+    },
+    smithMasterDexIronHelm: {
+      name: 'Mistrovský kapuce ze železa · OBR'
+    },
+    smithDexIronHelm: {
+      name: 'Kapuce ze železa · OBR'
+    },
+    smithMasterDexIronPlate: {
+      name: 'Mistrovský kožená zbroj ze železa · OBR'
+    },
+    smithDexIronPlate: {
+      name: 'Kožená zbroj ze železa · OBR'
+    },
+    smithMasterDexIronGreaves: {
+      name: 'Mistrovský boty ze železa · OBR'
+    },
+    smithDexIronGreaves: {
+      name: 'Boty ze železa · OBR'
+    },
+    smithMasterDexSilverSword: {
+      name: 'Mistrovský dýka ze stříbra · OBR'
+    },
+    smithDexSilverSword: {
+      name: 'Dýka ze stříbra · OBR'
+    },
+    smithMasterDexSilverHammer: {
+      name: 'Mistrovský rapír ze stříbra · OBR'
+    },
+    smithDexSilverHammer: {
+      name: 'Rapír ze stříbra · OBR'
+    },
+    smithMasterDexSilverShield: {
+      name: 'Mistrovský malý štít ze stříbra · OBR'
+    },
+    smithDexSilverShield: {
+      name: 'Malý štít ze stříbra · OBR'
+    },
+    smithMasterDexSilverHelm: {
+      name: 'Mistrovský kapuce ze stříbra · OBR'
+    },
+    smithDexSilverHelm: {
+      name: 'Kapuce ze stříbra · OBR'
+    },
+    smithMasterDexSilverPlate: {
+      name: 'Mistrovský kožená zbroj ze stříbra · OBR'
+    },
+    smithDexSilverPlate: {
+      name: 'Kožená zbroj ze stříbra · OBR'
+    },
+    smithMasterDexSilverGreaves: {
+      name: 'Mistrovský boty ze stříbra · OBR'
+    },
+    smithDexSilverGreaves: {
+      name: 'Boty ze stříbra · OBR'
+    },
+    smithMasterDexGoldSword: {
+      name: 'Mistrovský dýka ze zlata · OBR'
+    },
+    smithDexGoldSword: {
+      name: 'Dýka ze zlata · OBR'
+    },
+    smithMasterDexGoldHammer: {
+      name: 'Mistrovský rapír ze zlata · OBR'
+    },
+    smithDexGoldHammer: {
+      name: 'Rapír ze zlata · OBR'
+    },
+    smithMasterDexGoldShield: {
+      name: 'Mistrovský malý štít ze zlata · OBR'
+    },
+    smithDexGoldShield: {
+      name: 'Malý štít ze zlata · OBR'
+    },
+    smithMasterDexGoldHelm: {
+      name: 'Mistrovský kapuce ze zlata · OBR'
+    },
+    smithDexGoldHelm: {
+      name: 'Kapuce ze zlata · OBR'
+    },
+    smithMasterDexGoldPlate: {
+      name: 'Mistrovský kožená zbroj ze zlata · OBR'
+    },
+    smithDexGoldPlate: {
+      name: 'Kožená zbroj ze zlata · OBR'
+    },
+    smithMasterDexGoldGreaves: {
+      name: 'Mistrovský boty ze zlata · OBR'
+    },
+    smithDexGoldGreaves: {
+      name: 'Boty ze zlata · OBR'
+    },
+    smithMasterDexMithrilSword: {
+      name: 'Mistrovský dýka z mithrilu · OBR'
+    },
+    smithMasterDexAdamantSword: {
+      name: 'Mistrovský dýka z adamantu · OBR'
+    },
+    smithMasterDexAetheriteSword: {
+      name: 'Mistrovský dýka z eteritu · OBR'
+    },
+    smithDexMithrilSword: {
+      name: 'Dýka z mithrilu · OBR'
+    },
+    smithDexAdamantSword: {
+      name: 'Dýka z adamantu · OBR'
+    },
+    smithDexAetheriteSword: {
+      name: 'Dýka z eteritu · OBR'
+    },
+    smithMasterDexMithrilHammer: {
+      name: 'Mistrovský rapír z mithrilu · OBR'
+    },
+    smithMasterDexAdamantHammer: {
+      name: 'Mistrovský rapír z adamantu · OBR'
+    },
+    smithMasterDexAetheriteHammer: {
+      name: 'Mistrovský rapír z eteritu · OBR'
+    },
+    smithDexMithrilHammer: {
+      name: 'Rapír z mithrilu · OBR'
+    },
+    smithDexAdamantHammer: {
+      name: 'Rapír z adamantu · OBR'
+    },
+    smithDexAetheriteHammer: {
+      name: 'Rapír z eteritu · OBR'
+    },
+    smithMasterDexMithrilShield: {
+      name: 'Mistrovský malý štít z mithrilu · OBR'
+    },
+    smithMasterDexAdamantShield: {
+      name: 'Mistrovský malý štít z adamantu · OBR'
+    },
+    smithMasterDexAetheriteShield: {
+      name: 'Mistrovský malý štít z eteritu · OBR'
+    },
+    smithDexMithrilShield: {
+      name: 'Malý štít z mithrilu · OBR'
+    },
+    smithDexAdamantShield: {
+      name: 'Malý štít z adamantu · OBR'
+    },
+    smithDexAetheriteShield: {
+      name: 'Malý štít z eteritu · OBR'
+    },
+    smithMasterDexMithrilHelm: {
+      name: 'Mistrovský kapuce z mithrilu · OBR'
+    },
+    smithMasterDexAdamantHelm: {
+      name: 'Mistrovský kapuce z adamantu · OBR'
+    },
+    smithMasterDexAetheriteHelm: {
+      name: 'Mistrovský kapuce z eteritu · OBR'
+    },
+    smithDexMithrilHelm: {
+      name: 'Kapuce z mithrilu · OBR'
+    },
+    smithDexAdamantHelm: {
+      name: 'Kapuce z adamantu · OBR'
+    },
+    smithDexAetheriteHelm: {
+      name: 'Kapuce z eteritu · OBR'
+    },
+    smithMasterDexMithrilPlate: {
+      name: 'Mistrovský kožená zbroj z mithrilu · OBR'
+    },
+    smithMasterDexAdamantPlate: {
+      name: 'Mistrovský kožená zbroj z adamantu · OBR'
+    },
+    smithMasterDexAetheritePlate: {
+      name: 'Mistrovský kožená zbroj z eteritu · OBR'
+    },
+    smithDexMithrilPlate: {
+      name: 'Kožená zbroj z mithrilu · OBR'
+    },
+    smithDexAdamantPlate: {
+      name: 'Kožená zbroj z adamantu · OBR'
+    },
+    smithDexAetheritePlate: {
+      name: 'Kožená zbroj z eteritu · OBR'
+    },
+    smithMasterDexMithrilGreaves: {
+      name: 'Mistrovský boty z mithrilu · OBR'
+    },
+    smithMasterDexAdamantGreaves: {
+      name: 'Mistrovský boty z adamantu · OBR'
+    },
+    smithMasterDexAetheriteGreaves: {
+      name: 'Mistrovský boty z eteritu · OBR'
+    },
+    smithDexMithrilGreaves: {
+      name: 'Boty z mithrilu · OBR'
+    },
+    smithDexAdamantGreaves: {
+      name: 'Boty z adamantu · OBR'
+    },
+    smithDexAetheriteGreaves: {
+      name: 'Boty z eteritu · OBR'
+    },
+    smithMasterIntIronSword: {
+      name: 'Mistrovský hůlka ze železa · INT'
+    },
+    smithIntIronSword: {
+      name: 'Hůlka ze železa · INT'
+    },
+    smithMasterIntIronHammer: {
+      name: 'Mistrovský berla ze železa · INT'
+    },
+    smithIntIronHammer: {
+      name: 'Berla ze železa · INT'
+    },
+    smithMasterIntIronShield: {
+      name: 'Mistrovský kniha kouzel ze železa · INT'
+    },
+    smithIntIronShield: {
+      name: 'Kniha kouzel ze železa · INT'
+    },
+    smithMasterIntIronHelm: {
+      name: 'Mistrovský čelenka ze železa · INT'
+    },
+    smithIntIronHelm: {
+      name: 'Čelenka ze železa · INT'
+    },
+    smithMasterIntIronPlate: {
+      name: 'Mistrovský róba ze železa · INT'
+    },
+    smithIntIronPlate: {
+      name: 'Róba ze železa · INT'
+    },
+    smithMasterIntIronGreaves: {
+      name: 'Mistrovský boty ze železa · INT'
+    },
+    smithIntIronGreaves: {
+      name: 'Boty ze železa · INT'
+    },
+    smithMasterIntSilverSword: {
+      name: 'Mistrovský hůlka ze stříbra · INT'
+    },
+    smithIntSilverSword: {
+      name: 'Hůlka ze stříbra · INT'
+    },
+    smithMasterIntSilverHammer: {
+      name: 'Mistrovský berla ze stříbra · INT'
+    },
+    smithIntSilverHammer: {
+      name: 'Berla ze stříbra · INT'
+    },
+    smithMasterIntSilverShield: {
+      name: 'Mistrovský kniha kouzel ze stříbra · INT'
+    },
+    smithIntSilverShield: {
+      name: 'Kniha kouzel ze stříbra · INT'
+    },
+    smithMasterIntSilverHelm: {
+      name: 'Mistrovský čelenka ze stříbra · INT'
+    },
+    smithIntSilverHelm: {
+      name: 'Čelenka ze stříbra · INT'
+    },
+    smithMasterIntSilverPlate: {
+      name: 'Mistrovský róba ze stříbra · INT'
+    },
+    smithIntSilverPlate: {
+      name: 'Róba ze stříbra · INT'
+    },
+    smithMasterIntSilverGreaves: {
+      name: 'Mistrovský boty ze stříbra · INT'
+    },
+    smithIntSilverGreaves: {
+      name: 'Boty ze stříbra · INT'
+    },
+    smithMasterIntGoldSword: {
+      name: 'Mistrovský hůlka ze zlata · INT'
+    },
+    smithIntGoldSword: {
+      name: 'Hůlka ze zlata · INT'
+    },
+    smithMasterIntGoldHammer: {
+      name: 'Mistrovský berla ze zlata · INT'
+    },
+    smithIntGoldHammer: {
+      name: 'Berla ze zlata · INT'
+    },
+    smithMasterIntGoldShield: {
+      name: 'Mistrovský kniha kouzel ze zlata · INT'
+    },
+    smithIntGoldShield: {
+      name: 'Kniha kouzel ze zlata · INT'
+    },
+    smithMasterIntGoldHelm: {
+      name: 'Mistrovský čelenka ze zlata · INT'
+    },
+    smithIntGoldHelm: {
+      name: 'Čelenka ze zlata · INT'
+    },
+    smithMasterIntGoldPlate: {
+      name: 'Mistrovský róba ze zlata · INT'
+    },
+    smithIntGoldPlate: {
+      name: 'Róba ze zlata · INT'
+    },
+    smithMasterIntGoldGreaves: {
+      name: 'Mistrovský boty ze zlata · INT'
+    },
+    smithIntGoldGreaves: {
+      name: 'Boty ze zlata · INT'
+    },
+    smithMasterIntMithrilSword: {
+      name: 'Mistrovský hůlka z mithrilu · INT'
+    },
+    smithMasterIntAdamantSword: {
+      name: 'Mistrovský hůlka z adamantu · INT'
+    },
+    smithMasterIntAetheriteSword: {
+      name: 'Mistrovský hůlka z eteritu · INT'
+    },
+    smithIntMithrilSword: {
+      name: 'Hůlka z mithrilu · INT'
+    },
+    smithIntAdamantSword: {
+      name: 'Hůlka z adamantu · INT'
+    },
+    smithIntAetheriteSword: {
+      name: 'Hůlka z eteritu · INT'
+    },
+    smithMasterIntMithrilHammer: {
+      name: 'Mistrovský berla z mithrilu · INT'
+    },
+    smithMasterIntAdamantHammer: {
+      name: 'Mistrovský berla z adamantu · INT'
+    },
+    smithMasterIntAetheriteHammer: {
+      name: 'Mistrovský berla z eteritu · INT'
+    },
+    smithIntMithrilHammer: {
+      name: 'Berla z mithrilu · INT'
+    },
+    smithIntAdamantHammer: {
+      name: 'Berla z adamantu · INT'
+    },
+    smithIntAetheriteHammer: {
+      name: 'Berla z eteritu · INT'
+    },
+    smithMasterIntMithrilShield: {
+      name: 'Mistrovský kniha kouzel z mithrilu · INT'
+    },
+    smithMasterIntAdamantShield: {
+      name: 'Mistrovský kniha kouzel z adamantu · INT'
+    },
+    smithMasterIntAetheriteShield: {
+      name: 'Mistrovský kniha kouzel z eteritu · INT'
+    },
+    smithIntMithrilShield: {
+      name: 'Kniha kouzel z mithrilu · INT'
+    },
+    smithIntAdamantShield: {
+      name: 'Kniha kouzel z adamantu · INT'
+    },
+    smithIntAetheriteShield: {
+      name: 'Kniha kouzel z eteritu · INT'
+    },
+    smithMasterIntMithrilHelm: {
+      name: 'Mistrovský čelenka z mithrilu · INT'
+    },
+    smithMasterIntAdamantHelm: {
+      name: 'Mistrovský čelenka z adamantu · INT'
+    },
+    smithMasterIntAetheriteHelm: {
+      name: 'Mistrovský čelenka z eteritu · INT'
+    },
+    smithIntMithrilHelm: {
+      name: 'Čelenka z mithrilu · INT'
+    },
+    smithIntAdamantHelm: {
+      name: 'Čelenka z adamantu · INT'
+    },
+    smithIntAetheriteHelm: {
+      name: 'Čelenka z eteritu · INT'
+    },
+    smithMasterIntMithrilPlate: {
+      name: 'Mistrovský róba z mithrilu · INT'
+    },
+    smithMasterIntAdamantPlate: {
+      name: 'Mistrovský róba z adamantu · INT'
+    },
+    smithMasterIntAetheritePlate: {
+      name: 'Mistrovský róba z eteritu · INT'
+    },
+    smithIntMithrilPlate: {
+      name: 'Róba z mithrilu · INT'
+    },
+    smithIntAdamantPlate: {
+      name: 'Róba z adamantu · INT'
+    },
+    smithIntAetheritePlate: {
+      name: 'Róba z eteritu · INT'
+    },
+    smithMasterIntMithrilGreaves: {
+      name: 'Mistrovský boty z mithrilu · INT'
+    },
+    smithMasterIntAdamantGreaves: {
+      name: 'Mistrovský boty z adamantu · INT'
+    },
+    smithMasterIntAetheriteGreaves: {
+      name: 'Mistrovský boty z eteritu · INT'
+    },
+    smithIntMithrilGreaves: {
+      name: 'Boty z mithrilu · INT'
+    },
+    smithIntAdamantGreaves: {
+      name: 'Boty z adamantu · INT'
+    },
+    smithIntAetheriteGreaves: {
+      name: 'Boty z eteritu · INT'
+    },
+    smithMasterSklIronSword: {
+      name: 'Mistrovský pistole ze železa · ZRU'
+    },
+    smithSklIronSword: {
+      name: 'Pistole ze železa · ZRU'
+    },
+    smithMasterSklIronHammer: {
+      name: 'Mistrovský puška ze železa · ZRU'
+    },
+    smithSklIronHammer: {
+      name: 'Puška ze železa · ZRU'
+    },
+    smithMasterSklIronShield: {
+      name: 'Mistrovský baterie ze železa · ZRU'
+    },
+    smithSklIronShield: {
+      name: 'Baterie ze železa · ZRU'
+    },
+    smithMasterSklIronHelm: {
+      name: 'Mistrovský čapka ze železa · ZRU'
+    },
+    smithSklIronHelm: {
+      name: 'Čapka ze železa · ZRU'
+    },
+    smithMasterSklIronPlate: {
+      name: 'Mistrovský postroj ze železa · ZRU'
+    },
+    smithSklIronPlate: {
+      name: 'Postroj ze železa · ZRU'
+    },
+    smithMasterSklIronGreaves: {
+      name: 'Mistrovský boty ze železa · ZRU'
+    },
+    smithSklIronGreaves: {
+      name: 'Boty ze železa · ZRU'
+    },
+    smithMasterSklSilverSword: {
+      name: 'Mistrovský pistole ze stříbra · ZRU'
+    },
+    smithSklSilverSword: {
+      name: 'Pistole ze stříbra · ZRU'
+    },
+    smithMasterSklSilverHammer: {
+      name: 'Mistrovský puška ze stříbra · ZRU'
+    },
+    smithSklSilverHammer: {
+      name: 'Puška ze stříbra · ZRU'
+    },
+    smithMasterSklSilverShield: {
+      name: 'Mistrovský baterie ze stříbra · ZRU'
+    },
+    smithSklSilverShield: {
+      name: 'Baterie ze stříbra · ZRU'
+    },
+    smithMasterSklSilverHelm: {
+      name: 'Mistrovský čapka ze stříbra · ZRU'
+    },
+    smithSklSilverHelm: {
+      name: 'Čapka ze stříbra · ZRU'
+    },
+    smithMasterSklSilverPlate: {
+      name: 'Mistrovský postroj ze stříbra · ZRU'
+    },
+    smithSklSilverPlate: {
+      name: 'Postroj ze stříbra · ZRU'
+    },
+    smithMasterSklSilverGreaves: {
+      name: 'Mistrovský boty ze stříbra · ZRU'
+    },
+    smithSklSilverGreaves: {
+      name: 'Boty ze stříbra · ZRU'
+    },
+    smithMasterSklGoldSword: {
+      name: 'Mistrovský pistole ze zlata · ZRU'
+    },
+    smithSklGoldSword: {
+      name: 'Pistole ze zlata · ZRU'
+    },
+    smithMasterSklGoldHammer: {
+      name: 'Mistrovský puška ze zlata · ZRU'
+    },
+    smithSklGoldHammer: {
+      name: 'Puška ze zlata · ZRU'
+    },
+    smithMasterSklGoldShield: {
+      name: 'Mistrovský baterie ze zlata · ZRU'
+    },
+    smithSklGoldShield: {
+      name: 'Baterie ze zlata · ZRU'
+    },
+    smithMasterSklGoldHelm: {
+      name: 'Mistrovský čapka ze zlata · ZRU'
+    },
+    smithSklGoldHelm: {
+      name: 'Čapka ze zlata · ZRU'
+    },
+    smithMasterSklGoldPlate: {
+      name: 'Mistrovský postroj ze zlata · ZRU'
+    },
+    smithSklGoldPlate: {
+      name: 'Postroj ze zlata · ZRU'
+    },
+    smithMasterSklGoldGreaves: {
+      name: 'Mistrovský boty ze zlata · ZRU'
+    },
+    smithSklGoldGreaves: {
+      name: 'Boty ze zlata · ZRU'
+    },
+    smithMasterSklMithrilSword: {
+      name: 'Mistrovský pistole z mithrilu · ZRU'
+    },
+    smithMasterSklAdamantSword: {
+      name: 'Mistrovský pistole z adamantu · ZRU'
+    },
+    smithMasterSklAetheriteSword: {
+      name: 'Mistrovský pistole z eteritu · ZRU'
+    },
+    smithSklMithrilSword: {
+      name: 'Pistole z mithrilu · ZRU'
+    },
+    smithSklAdamantSword: {
+      name: 'Pistole z adamantu · ZRU'
+    },
+    smithSklAetheriteSword: {
+      name: 'Pistole z eteritu · ZRU'
+    },
+    smithMasterSklMithrilHammer: {
+      name: 'Mistrovský puška z mithrilu · ZRU'
+    },
+    smithMasterSklAdamantHammer: {
+      name: 'Mistrovský puška z adamantu · ZRU'
+    },
+    smithMasterSklAetheriteHammer: {
+      name: 'Mistrovský puška z eteritu · ZRU'
+    },
+    smithSklMithrilHammer: {
+      name: 'Puška z mithrilu · ZRU'
+    },
+    smithSklAdamantHammer: {
+      name: 'Puška z adamantu · ZRU'
+    },
+    smithSklAetheriteHammer: {
+      name: 'Puška z eteritu · ZRU'
+    },
+    smithMasterSklMithrilShield: {
+      name: 'Mistrovský baterie z mithrilu · ZRU'
+    },
+    smithMasterSklAdamantShield: {
+      name: 'Mistrovský baterie z adamantu · ZRU'
+    },
+    smithMasterSklAetheriteShield: {
+      name: 'Mistrovský baterie z eteritu · ZRU'
+    },
+    smithSklMithrilShield: {
+      name: 'Baterie z mithrilu · ZRU'
+    },
+    smithSklAdamantShield: {
+      name: 'Baterie z adamantu · ZRU'
+    },
+    smithSklAetheriteShield: {
+      name: 'Baterie z eteritu · ZRU'
+    },
+    smithMasterSklMithrilHelm: {
+      name: 'Mistrovský čapka z mithrilu · ZRU'
+    },
+    smithMasterSklAdamantHelm: {
+      name: 'Mistrovský čapka z adamantu · ZRU'
+    },
+    smithMasterSklAetheriteHelm: {
+      name: 'Mistrovský čapka z eteritu · ZRU'
+    },
+    smithSklMithrilHelm: {
+      name: 'Čapka z mithrilu · ZRU'
+    },
+    smithSklAdamantHelm: {
+      name: 'Čapka z adamantu · ZRU'
+    },
+    smithSklAetheriteHelm: {
+      name: 'Čapka z eteritu · ZRU'
+    },
+    smithMasterSklMithrilPlate: {
+      name: 'Mistrovský postroj z mithrilu · ZRU'
+    },
+    smithMasterSklAdamantPlate: {
+      name: 'Mistrovský postroj z adamantu · ZRU'
+    },
+    smithMasterSklAetheritePlate: {
+      name: 'Mistrovský postroj z eteritu · ZRU'
+    },
+    smithSklMithrilPlate: {
+      name: 'Postroj z mithrilu · ZRU'
+    },
+    smithSklAdamantPlate: {
+      name: 'Postroj z adamantu · ZRU'
+    },
+    smithSklAetheritePlate: {
+      name: 'Postroj z eteritu · ZRU'
+    },
+    smithMasterSklMithrilGreaves: {
+      name: 'Mistrovský boty z mithrilu · ZRU'
+    },
+    smithMasterSklAdamantGreaves: {
+      name: 'Mistrovský boty z adamantu · ZRU'
+    },
+    smithMasterSklAetheriteGreaves: {
+      name: 'Mistrovský boty z eteritu · ZRU'
+    },
+    smithSklMithrilGreaves: {
+      name: 'Boty z mithrilu · ZRU'
+    },
+    smithSklAdamantGreaves: {
+      name: 'Boty z adamantu · ZRU'
+    },
+    smithSklAetheriteGreaves: {
+      name: 'Boty z eteritu · ZRU'
+    },
+    smithMasterChaIronSword: {
+      name: 'Mistrovský žezlo ze železa · CHA'
+    },
+    smithChaIronSword: {
+      name: 'Žezlo ze železa · CHA'
+    },
+    smithMasterChaIronHammer: {
+      name: 'Mistrovský korouhev ze železa · CHA'
+    },
+    smithChaIronHammer: {
+      name: 'Korouhev ze železa · CHA'
+    },
+    smithMasterChaIronShield: {
+      name: 'Mistrovský kodex ze železa · CHA'
+    },
+    smithChaIronShield: {
+      name: 'Kodex ze železa · CHA'
+    },
+    smithMasterChaIronHelm: {
+      name: 'Mistrovský koruna ze železa · CHA'
+    },
+    smithChaIronHelm: {
+      name: 'Koruna ze železa · CHA'
+    },
+    smithMasterChaIronPlate: {
+      name: 'Mistrovský tabard ze železa · CHA'
+    },
+    smithChaIronPlate: {
+      name: 'Tabard ze železa · CHA'
+    },
+    smithMasterChaIronGreaves: {
+      name: 'Mistrovský boty ze železa · CHA'
+    },
+    smithChaIronGreaves: {
+      name: 'Boty ze železa · CHA'
+    },
+    smithMasterChaSilverSword: {
+      name: 'Mistrovský žezlo ze stříbra · CHA'
+    },
+    smithChaSilverSword: {
+      name: 'Žezlo ze stříbra · CHA'
+    },
+    smithMasterChaSilverHammer: {
+      name: 'Mistrovský korouhev ze stříbra · CHA'
+    },
+    smithChaSilverHammer: {
+      name: 'Korouhev ze stříbra · CHA'
+    },
+    smithMasterChaSilverShield: {
+      name: 'Mistrovský kodex ze stříbra · CHA'
+    },
+    smithChaSilverShield: {
+      name: 'Kodex ze stříbra · CHA'
+    },
+    smithMasterChaSilverHelm: {
+      name: 'Mistrovský koruna ze stříbra · CHA'
+    },
+    smithChaSilverHelm: {
+      name: 'Koruna ze stříbra · CHA'
+    },
+    smithMasterChaSilverPlate: {
+      name: 'Mistrovský tabard ze stříbra · CHA'
+    },
+    smithChaSilverPlate: {
+      name: 'Tabard ze stříbra · CHA'
+    },
+    smithMasterChaSilverGreaves: {
+      name: 'Mistrovský boty ze stříbra · CHA'
+    },
+    smithChaSilverGreaves: {
+      name: 'Boty ze stříbra · CHA'
+    },
+    smithMasterChaGoldSword: {
+      name: 'Mistrovský žezlo ze zlata · CHA'
+    },
+    smithChaGoldSword: {
+      name: 'Žezlo ze zlata · CHA'
+    },
+    smithMasterChaGoldHammer: {
+      name: 'Mistrovský korouhev ze zlata · CHA'
+    },
+    smithChaGoldHammer: {
+      name: 'Korouhev ze zlata · CHA'
+    },
+    smithMasterChaGoldShield: {
+      name: 'Mistrovský kodex ze zlata · CHA'
+    },
+    smithChaGoldShield: {
+      name: 'Kodex ze zlata · CHA'
+    },
+    smithMasterChaGoldHelm: {
+      name: 'Mistrovský koruna ze zlata · CHA'
+    },
+    smithChaGoldHelm: {
+      name: 'Koruna ze zlata · CHA'
+    },
+    smithMasterChaGoldPlate: {
+      name: 'Mistrovský tabard ze zlata · CHA'
+    },
+    smithChaGoldPlate: {
+      name: 'Tabard ze zlata · CHA'
+    },
+    smithMasterChaGoldGreaves: {
+      name: 'Mistrovský boty ze zlata · CHA'
+    },
+    smithChaGoldGreaves: {
+      name: 'Boty ze zlata · CHA'
+    },
+    smithMasterChaMithrilSword: {
+      name: 'Mistrovský žezlo z mithrilu · CHA'
+    },
+    smithMasterChaAdamantSword: {
+      name: 'Mistrovský žezlo z adamantu · CHA'
+    },
+    smithMasterChaAetheriteSword: {
+      name: 'Mistrovský žezlo z eteritu · CHA'
+    },
+    smithChaMithrilSword: {
+      name: 'Žezlo z mithrilu · CHA'
+    },
+    smithChaAdamantSword: {
+      name: 'Žezlo z adamantu · CHA'
+    },
+    smithChaAetheriteSword: {
+      name: 'Žezlo z eteritu · CHA'
+    },
+    smithMasterChaMithrilHammer: {
+      name: 'Mistrovský korouhev z mithrilu · CHA'
+    },
+    smithMasterChaAdamantHammer: {
+      name: 'Mistrovský korouhev z adamantu · CHA'
+    },
+    smithMasterChaAetheriteHammer: {
+      name: 'Mistrovský korouhev z eteritu · CHA'
+    },
+    smithChaMithrilHammer: {
+      name: 'Korouhev z mithrilu · CHA'
+    },
+    smithChaAdamantHammer: {
+      name: 'Korouhev z adamantu · CHA'
+    },
+    smithChaAetheriteHammer: {
+      name: 'Korouhev z eteritu · CHA'
+    },
+    smithMasterChaMithrilShield: {
+      name: 'Mistrovský kodex z mithrilu · CHA'
+    },
+    smithMasterChaAdamantShield: {
+      name: 'Mistrovský kodex z adamantu · CHA'
+    },
+    smithMasterChaAetheriteShield: {
+      name: 'Mistrovský kodex z eteritu · CHA'
+    },
+    smithChaMithrilShield: {
+      name: 'Kodex z mithrilu · CHA'
+    },
+    smithChaAdamantShield: {
+      name: 'Kodex z adamantu · CHA'
+    },
+    smithChaAetheriteShield: {
+      name: 'Kodex z eteritu · CHA'
+    },
+    smithMasterChaMithrilHelm: {
+      name: 'Mistrovský koruna z mithrilu · CHA'
+    },
+    smithMasterChaAdamantHelm: {
+      name: 'Mistrovský koruna z adamantu · CHA'
+    },
+    smithMasterChaAetheriteHelm: {
+      name: 'Mistrovský koruna z eteritu · CHA'
+    },
+    smithChaMithrilHelm: {
+      name: 'Koruna z mithrilu · CHA'
+    },
+    smithChaAdamantHelm: {
+      name: 'Koruna z adamantu · CHA'
+    },
+    smithChaAetheriteHelm: {
+      name: 'Koruna z eteritu · CHA'
+    },
+    smithMasterChaMithrilPlate: {
+      name: 'Mistrovský tabard z mithrilu · CHA'
+    },
+    smithMasterChaAdamantPlate: {
+      name: 'Mistrovský tabard z adamantu · CHA'
+    },
+    smithMasterChaAetheritePlate: {
+      name: 'Mistrovský tabard z eteritu · CHA'
+    },
+    smithChaMithrilPlate: {
+      name: 'Tabard z mithrilu · CHA'
+    },
+    smithChaAdamantPlate: {
+      name: 'Tabard z adamantu · CHA'
+    },
+    smithChaAetheritePlate: {
+      name: 'Tabard z eteritu · CHA'
+    },
+    smithMasterChaMithrilGreaves: {
+      name: 'Mistrovský boty z mithrilu · CHA'
+    },
+    smithMasterChaAdamantGreaves: {
+      name: 'Mistrovský boty z adamantu · CHA'
+    },
+    smithMasterChaAetheriteGreaves: {
+      name: 'Mistrovský boty z eteritu · CHA'
+    },
+    smithChaMithrilGreaves: {
+      name: 'Boty z mithrilu · CHA'
+    },
+    smithChaAdamantGreaves: {
+      name: 'Boty z adamantu · CHA'
+    },
+    smithChaAetheriteGreaves: {
+      name: 'Boty z eteritu · CHA'
+    },
+    smithMasterEndIronSword: {
+      name: 'Mistrovský palcát ze železa · VÝD'
+    },
+    smithEndIronSword: {
+      name: 'Palcát ze železa · VÝD'
+    },
+    smithMasterEndIronHammer: {
+      name: 'Mistrovský sekera ze železa · VÝD'
+    },
+    smithEndIronHammer: {
+      name: 'Sekera ze železa · VÝD'
+    },
+    smithMasterEndIronShield: {
+      name: 'Mistrovský železný štít · VÝD'
+    },
+    smithEndIronShield: {
+      name: 'Železný štít · VÝD'
+    },
+    smithMasterEndIronHelm: {
+      name: 'Mistrovská železná přilba · VÝD'
+    },
+    smithEndIronHelm: {
+      name: 'Železná přilba · VÝD'
+    },
+    smithMasterEndIronPlate: {
+      name: 'Mistrovský železný plát · VÝD'
+    },
+    smithEndIronPlate: {
+      name: 'Železný plát · VÝD'
+    },
+    smithMasterEndIronGreaves: {
+      name: 'Mistrovské železné holenice · VÝD'
+    },
+    smithEndIronGreaves: {
+      name: 'Železné holenice · VÝD'
+    },
+    smithMasterEndSilverSword: {
+      name: 'Mistrovský palcát ze stříbra · VÝD'
+    },
+    smithEndSilverSword: {
+      name: 'Palcát ze stříbra · VÝD'
+    },
+    smithMasterEndSilverHammer: {
+      name: 'Mistrovský sekera ze stříbra · VÝD'
+    },
+    smithEndSilverHammer: {
+      name: 'Sekera ze stříbra · VÝD'
+    },
+    smithMasterEndSilverShield: {
+      name: 'Mistrovský stříbrný štít · VÝD'
+    },
+    smithEndSilverShield: {
+      name: 'Stříbrný štít · VÝD'
+    },
+    smithMasterEndSilverHelm: {
+      name: 'Mistrovská stříbrná přilba · VÝD'
+    },
+    smithEndSilverHelm: {
+      name: 'Stříbrná přilba · VÝD'
+    },
+    smithMasterEndSilverPlate: {
+      name: 'Mistrovský stříbrný plát · VÝD'
+    },
+    smithEndSilverPlate: {
+      name: 'Stříbrný plát · VÝD'
+    },
+    smithMasterEndSilverGreaves: {
+      name: 'Mistrovské stříbrné holenice · VÝD'
+    },
+    smithEndSilverGreaves: {
+      name: 'Stříbrné holenice · VÝD'
+    },
+    smithMasterEndGoldSword: {
+      name: 'Mistrovský palcát ze zlata · VÝD'
+    },
+    smithEndGoldSword: {
+      name: 'Palcát ze zlata · VÝD'
+    },
+    smithMasterEndGoldHammer: {
+      name: 'Mistrovský sekera ze zlata · VÝD'
+    },
+    smithEndGoldHammer: {
+      name: 'Sekera ze zlata · VÝD'
+    },
+    smithMasterEndGoldShield: {
+      name: 'Mistrovský zlatý štít · VÝD'
+    },
+    smithEndGoldShield: {
+      name: 'Zlatý štít · VÝD'
+    },
+    smithMasterEndGoldHelm: {
+      name: 'Mistrovská zlatá přilba · VÝD'
+    },
+    smithEndGoldHelm: {
+      name: 'Zlatá přilba · VÝD'
+    },
+    smithMasterEndGoldPlate: {
+      name: 'Mistrovský zlatý plát · VÝD'
+    },
+    smithEndGoldPlate: {
+      name: 'Zlatý plát · VÝD'
+    },
+    smithMasterEndGoldGreaves: {
+      name: 'Mistrovské zlaté holenice · VÝD'
+    },
+    smithEndGoldGreaves: {
+      name: 'Zlaté holenice · VÝD'
+    },
+    smithMasterEndMithrilSword: {
+      name: 'Mistrovský palcát z mithrilu · VÝD'
+    },
+    smithMasterEndAdamantSword: {
+      name: 'Mistrovský palcát z adamantu · VÝD'
+    },
+    smithMasterEndAetheriteSword: {
+      name: 'Mistrovský palcát z eteritu · VÝD'
+    },
+    smithEndMithrilSword: {
+      name: 'Palcát z mithrilu · VÝD'
+    },
+    smithEndAdamantSword: {
+      name: 'Palcát z adamantu · VÝD'
+    },
+    smithEndAetheriteSword: {
+      name: 'Palcát z eteritu · VÝD'
+    },
+    smithMasterEndMithrilHammer: {
+      name: 'Mistrovský sekera z mithrilu · VÝD'
+    },
+    smithMasterEndAdamantHammer: {
+      name: 'Mistrovský sekera z adamantu · VÝD'
+    },
+    smithMasterEndAetheriteHammer: {
+      name: 'Mistrovský sekera z eteritu · VÝD'
+    },
+    smithEndMithrilHammer: {
+      name: 'Sekera z mithrilu · VÝD'
+    },
+    smithEndAdamantHammer: {
+      name: 'Sekera z adamantu · VÝD'
+    },
+    smithEndAetheriteHammer: {
+      name: 'Sekera z eteritu · VÝD'
+    },
+    smithMasterEndMithrilShield: {
+      name: 'Mistrovský mithrilový štít · VÝD'
+    },
+    smithMasterEndAdamantShield: {
+      name: 'Mistrovský adamantový štít · VÝD'
+    },
+    smithMasterEndAetheriteShield: {
+      name: 'Mistrovský eteritový štít · VÝD'
+    },
+    smithEndMithrilShield: {
+      name: 'Mithrilový štít · VÝD'
+    },
+    smithEndAdamantShield: {
+      name: 'Adamantový štít · VÝD'
+    },
+    smithEndAetheriteShield: {
+      name: 'Eteritový štít · VÝD'
+    },
+    smithMasterEndMithrilHelm: {
+      name: 'Mistrovská mithrilová přilba · VÝD'
+    },
+    smithMasterEndAdamantHelm: {
+      name: 'Mistrovská adamantová přilba · VÝD'
+    },
+    smithMasterEndAetheriteHelm: {
+      name: 'Mistrovská eteritová přilba · VÝD'
+    },
+    smithEndMithrilHelm: {
+      name: 'Mithrilová přilba · VÝD'
+    },
+    smithEndAdamantHelm: {
+      name: 'Adamantová přilba · VÝD'
+    },
+    smithEndAetheriteHelm: {
+      name: 'Eteritová přilba · VÝD'
+    },
+    smithMasterEndMithrilPlate: {
+      name: 'Mistrovský mithrilový plát · VÝD'
+    },
+    smithMasterEndAdamantPlate: {
+      name: 'Mistrovský adamantový plát · VÝD'
+    },
+    smithMasterEndAetheritePlate: {
+      name: 'Mistrovský eteritový plát · VÝD'
+    },
+    smithEndMithrilPlate: {
+      name: 'Mithrilový plát · VÝD'
+    },
+    smithEndAdamantPlate: {
+      name: 'Adamantový plát · VÝD'
+    },
+    smithEndAetheritePlate: {
+      name: 'Eteritový plát · VÝD'
+    },
+    smithMasterEndMithrilGreaves: {
+      name: 'Mistrovské mithrilové holenice · VÝD'
+    },
+    smithMasterEndAdamantGreaves: {
+      name: 'Mistrovské adamantové holenice · VÝD'
+    },
+    smithMasterEndAetheriteGreaves: {
+      name: 'Mistrovské eteritové holenice · VÝD'
+    },
+    smithEndMithrilGreaves: {
+      name: 'Mithrilové holenice · VÝD'
+    },
+    smithEndAdamantGreaves: {
+      name: 'Adamantové holenice · VÝD'
+    },
+    smithEndAetheriteGreaves: {
+      name: 'Eteritové holenice · VÝD'
     },
     smithIronSword: {
       name: 'Železný meč'
@@ -1780,6 +2954,414 @@ export default {
     scepterOfTheFirstKing: {
       name: 'Žezlo prvního krále'
     },
+    pickpocketsKnife: {
+      name: 'Kapesníkův nůž'
+    },
+    serpentsFang: {
+      name: 'Hadí tesák'
+    },
+    phantomRapier: {
+      name: 'Přízračný rapír'
+    },
+    fangOfTheWindless: {
+      name: 'Tesák Bezvětří'
+    },
+    roguesBuckler: {
+      name: 'Lotrův malý štít'
+    },
+    venomVial: {
+      name: 'Lahvička s jedem'
+    },
+    swiftguardBuckler: {
+      name: 'Malý štít hbité stráže'
+    },
+    nightshadeFlask: {
+      name: 'Lahev rulíku'
+    },
+    windveilTarge: {
+      name: 'Targe závoje větru'
+    },
+    shadowdancersBuckler: {
+      name: 'Malý štít stínového tanečníka'
+    },
+    scoutsBandana: {
+      name: 'Zvědova šátek'
+    },
+    nightcowl: {
+      name: 'Noční kapuce'
+    },
+    shadowveilHood: {
+      name: 'Kapuce stínového závoje'
+    },
+    windrunnersCap: {
+      name: 'Čepice běžce větru'
+    },
+    maskOfTheSilentWind: {
+      name: 'Maska tichého větru'
+    },
+    rangersJerkin: {
+      name: 'Hraničářův kabátec'
+    },
+    nightstalkerLeathers: {
+      name: 'Kůže nočního stopaře'
+    },
+    windridersHarness: {
+      name: 'Postroj jezdce větru'
+    },
+    mantleOfTheShadowDancer: {
+      name: 'Plášť stínového tanečníka'
+    },
+    thiefsGloves: {
+      name: 'Zlodějské rukavice'
+    },
+    cutpurseGloves: {
+      name: 'Rukavice kapsáře'
+    },
+    glovesOfTheGale: {
+      name: 'Rukavice vichru'
+    },
+    softSoledShoes: {
+      name: 'Boty s měkkou podrážkou'
+    },
+    catStepBoots: {
+      name: 'Boty kočičího kroku'
+    },
+    shadowstepBoots: {
+      name: 'Boty stínového kroku'
+    },
+    windstrideBoots: {
+      name: 'Boty větrného kroku'
+    },
+    luckyCoin: {
+      name: 'Šťastná mince'
+    },
+    shadowBand: {
+      name: 'Stínový prsten'
+    },
+    sandglassOfTheSwift: {
+      name: 'Přesýpací hodiny hbitých'
+    },
+    talonCharm: {
+      name: 'Amulet drápu'
+    },
+    windheart: {
+      name: 'Srdce větru'
+    },
+    ashwallHeater: {
+      name: 'Štít Popelné zdi'
+    },
+    wyrmhidePavise: {
+      name: 'Pavéza z kůže dráčka'
+    },
+    footmansKettleHat: {
+      name: 'Kotlík pěšáka'
+    },
+    ironbrowSallet: {
+      name: 'Šalíř se železnými obočími'
+    },
+    warlordsBarbute: {
+      name: 'Barbuta vojevůdce'
+    },
+    helmOfTheSunderedThrone: {
+      name: 'Přilba rozbitého trůnu'
+    },
+    recruitsCuirass: {
+      name: 'Kyrys nováčka'
+    },
+    stonecuttersMitts: {
+      name: 'Palčáky kameníka'
+    },
+    ashforgedGauntlets: {
+      name: 'Rukavice kované v popelu'
+    },
+    warbringerGauntlets: {
+      name: 'Rukavice nositele války'
+    },
+    titanfistGauntlets: {
+      name: 'Rukavice Pěsti titána'
+    },
+    footmansGreaves: {
+      name: 'Holeně pěšáka'
+    },
+    ironshodGreaves: {
+      name: 'Okované holeně'
+    },
+    warlordsSabatons: {
+      name: 'Sabatony vojevůdce'
+    },
+    greavesOfTheMountainfall: {
+      name: 'Holeně horského sesuvu'
+    },
+    sergeantsSignet: {
+      name: 'Pečetní prsten setníka'
+    },
+    brawlersKnuckleRing: {
+      name: 'Boxer rváče'
+    },
+    bloodiedWarMedal: {
+      name: 'Zakrvácená válečná medaile'
+    },
+    watchmansCudgel: {
+      name: 'Obušek strážného'
+    },
+    ironboundMace: {
+      name: 'Palcát v železných obručích'
+    },
+    stonehideCleaver: {
+      name: 'Sekáč z kamenné kůže'
+    },
+    bulwarkMaul: {
+      name: 'Palice bašty'
+    },
+    mountainsplitterAxe: {
+      name: 'Sekera Horoštěp'
+    },
+    everstandWarmace: {
+      name: 'Nezlomný válečný palcát'
+    },
+    emberwallBastion: {
+      name: 'Bašta Žhavé zdi'
+    },
+    stonewardenHelm: {
+      name: 'Přilba kamenného strážce'
+    },
+    colossusVisage: {
+      name: 'Tvář kolosu'
+    },
+    diggersGauntlets: {
+      name: 'Rukavice kopáče'
+    },
+    bastionGauntlets: {
+      name: 'Rukavice bašty'
+    },
+    glacierplateGauntlets: {
+      name: 'Rukavice z ledovcových plátů'
+    },
+    gauntletsOfEndlessVigil: {
+      name: 'Rukavice věčné hlídky'
+    },
+    hearthstoneCharm: {
+      name: 'Amulet z kamene krbu'
+    },
+    ironheartPendant: {
+      name: 'Přívěsek Železné srdce'
+    },
+    hedgewizardsWand: {
+      name: 'Hůlka křovinářského kouzelníka'
+    },
+    frostglassStaff: {
+      name: 'Hůl z ledového skla'
+    },
+    voidthreadWand: {
+      name: 'Hůlka z nití Prázdnoty'
+    },
+    staffOfTheStarlessSky: {
+      name: 'Hůl bezhvězdné oblohy'
+    },
+    studentsGrimoire: {
+      name: 'Grimoár žáka'
+    },
+    frostfireOrb: {
+      name: 'Koule mrazivého ohně'
+    },
+    orbOfTheUnwrittenHour: {
+      name: 'Koule nenapsané hodiny'
+    },
+    apprenticesPointedCap: {
+      name: 'Špičatá čepice učně'
+    },
+    sagesCirclet: {
+      name: 'Diadém mudrce'
+    },
+    cinderWizardsHat: {
+      name: 'Klobouk popelného mága'
+    },
+    voidseerCirclet: {
+      name: 'Diadém vidoucího Prázdnoty'
+    },
+    apprenticesRobe: {
+      name: 'Hábit učně'
+    },
+    cinderthreadRobe: {
+      name: 'Hábit z popelných nití'
+    },
+    voidwovenRobe: {
+      name: 'Hábit utkaný z Prázdnoty'
+    },
+    inkStainedGloves: {
+      name: 'Rukavice potřísněné inkoustem'
+    },
+    spellthreadGloves: {
+      name: 'Rukavice z nití kouzel'
+    },
+    frostweaveGloves: {
+      name: 'Rukavice z mrazivé látky'
+    },
+    starlitGloves: {
+      name: 'Hvězdné rukavice'
+    },
+    glovesOfTheLastWord: {
+      name: 'Rukavice posledního slova'
+    },
+    scribesSlippers: {
+      name: 'Pantofle písaře'
+    },
+    moonstepSlippers: {
+      name: 'Pantofle měsíčního kroku'
+    },
+    emberstepBoots: {
+      name: 'Boty žhavého kroku'
+    },
+    voidwalkerBoots: {
+      name: 'Boty poutníka Prázdnoty'
+    },
+    bootsOfTheWanderingStar: {
+      name: 'Boty bloudící hvězdy'
+    },
+    glowstonePendant: {
+      name: 'Přívěsek se svítícím kamenem'
+    },
+    scholarsSeal: {
+      name: 'Pečeť učence'
+    },
+    eyeOfTheArchon: {
+      name: 'Oko archonta'
+    },
+    cinderRepeater: {
+      name: 'Popelná opakovačka'
+    },
+    glacierMortar: {
+      name: 'Ledovcový ruční minomet'
+    },
+    sparkCell: {
+      name: 'Jiskrový článek'
+    },
+    arcCapacitor: {
+      name: 'Obloukový kondenzátor'
+    },
+    aetherheartCell: {
+      name: 'Článek Srdce éteru'
+    },
+    marksmansVisor: {
+      name: 'Hledí střelce'
+    },
+    sharpshootersCap: {
+      name: 'Čepice ostřelovače'
+    },
+    gunnersHarness: {
+      name: 'Postroj dělostřelce'
+    },
+    steadyhandGloves: {
+      name: 'Rukavice pevné ruky'
+    },
+    gunsmithsGloves: {
+      name: 'Rukavice puškaře'
+    },
+    scrappersBoots: {
+      name: 'Boty rváče'
+    },
+    sharpshooterBoots: {
+      name: 'Boty ostřelovače'
+    },
+    firingLineBoots: {
+      name: 'Boty palebné čáry'
+    },
+    steadyfootBoots: {
+      name: 'Boty pevného stoje'
+    },
+    aetherstepBoots: {
+      name: 'Boty éterického kroku'
+    },
+    bootsOfTheLastShot: {
+      name: 'Boty posledního výstřelu'
+    },
+    brassCartridgeCharm: {
+      name: 'Amulet z mosazné nábojnice'
+    },
+    deadEyeLens: {
+      name: 'Čočka přesného oka'
+    },
+    eagleEyeScope: {
+      name: 'Orlí dalekohled'
+    },
+    criersBaton: {
+      name: 'Hůl hlasatele'
+    },
+    droversStandard: {
+      name: 'Standarta honáka'
+    },
+    marshalsSceptre: {
+      name: 'Žezlo maršála'
+    },
+    balladBook: {
+      name: 'Kniha balad'
+    },
+    chronicleOfHeroes: {
+      name: 'Kronika hrdinů'
+    },
+    psalterOfTheHost: {
+      name: 'Žaltář vojska'
+    },
+    tomeOfEternalReign: {
+      name: 'Svazek věčné vlády'
+    },
+    heraldsCap: {
+      name: 'Čepice herolda'
+    },
+    singersCirclet: {
+      name: 'Diadém zpěváka'
+    },
+    diademOfTenThousandVoices: {
+      name: 'Diadém deseti tisíc hlasů'
+    },
+    travelersWaistcoat: {
+      name: 'Vesta poutníka'
+    },
+    minstrelsMotley: {
+      name: 'Šaškovský oděv potulného pěvce'
+    },
+    troubadoursCoat: {
+      name: 'Kabát trubadúra'
+    },
+    marshalsGreatcoat: {
+      name: 'Plášť maršála'
+    },
+    buskersGloves: {
+      name: 'Rukavice pouličního hudebníka'
+    },
+    drummersGloves: {
+      name: 'Rukavice bubeníka'
+    },
+    standardBearersGloves: {
+      name: 'Rukavice korouhevníka'
+    },
+    gildedParadeGloves: {
+      name: 'Pozlacené přehlídkové rukavice'
+    },
+    glovesOfTheCrownedHand: {
+      name: 'Rukavice korunované ruky'
+    },
+    wayfarersShoes: {
+      name: 'Střevíce poutníka'
+    },
+    troubadourBoots: {
+      name: 'Boty trubadúra'
+    },
+    heraldsRidingBoots: {
+      name: 'Jezdecké boty herolda'
+    },
+    paradeBoots: {
+      name: 'Přehlídkové boty'
+    },
+    bootsOfTheLongProcession: {
+      name: 'Boty dlouhého průvodu'
+    },
+    silverWhistle: {
+      name: 'Stříbrná píšťalka'
+    },
+    gatheringHorn: {
+      name: 'Svolávací roh'
+    },
     heartOfTheMountain: {
       name: 'Srdce hory'
     },
@@ -1884,6 +3466,9 @@ export default {
     freedPeddler: {
       talk: 'Všechno, co cestovatel potřebuje. Skoro nové, většinou.',
       name: 'Odo Marrow'
+    },
+    sfShadowRoad: {
+      name: 'Nettle Quickhand'
     },
     sfShadow: {
       name: 'Nettle Quickhand'
@@ -2038,6 +3623,9 @@ export default {
     sunfordGambler: {
       name: 'Dob Kotrmelec'
     },
+    sunfordCups: {
+      name: 'Nell Nimblefingers'
+    },
     oakGambler: {
       name: 'Hedvábný Ren'
     },
@@ -2149,6 +3737,13 @@ export default {
     }
   },
   dlg: {
+    intro: {
+      crossing: { 1: 'Každá cesta tohoto světa se setkává na křižovatce… a každá křižovatka je bitva.' },
+      hero: { 1: 'Z tichých polí Sunfordu se vydal na cestu mladý hrdina.' },
+      fire: { 1: 'Oheň odpověděl na volání. Ocel poznala nové jméno.' },
+      foes: { 1: 'Králové goblinů, mraziví jarlové, drak Prázdnoty… a Arcidémon.' },
+      begin: { 1: 'Tvoje legenda začíná teď.' }
+    },
     frostDisciple: {
       bye: {
         '1': 'Drž se v teple.'
@@ -2354,6 +3949,23 @@ export default {
         '2': 'Odo Marrow, k tvým službám. Podomní obchodník, dráteník a velmi vděčný člověk.',
         '1__f': 'Ty! Ty jsi ta, která otevřela tu klec! Byl bych tam shnil.',
         '1': 'Ty! Ty jsi ten, kdo otevřel tu klec! Byl bych tam shnil.'
+      }
+    },
+    sfShadowRoad: {
+      hello: {
+        '1': 'Teleportace. Zajímá tě to?'
+      },
+      again: {
+        '1': 'Zase tu pro další trik?'
+      },
+      train: {
+        '1': 'Dobře se dívej. Jeden krok a jsi někde jinde.'
+      },
+      trainBack: {
+        '1': 'Dobře. A teď jdi být někde jinde.'
+      },
+      bye: {
+        '1': 'Nenech se chytit.'
       }
     },
     sfShadow: {
@@ -2609,9 +4221,8 @@ export default {
         '2': 'Udeř, když kov září nejjasněji. Mineš, a je to šrot. Do toho.',
         '1': 'Kovařina? Hm. Drž kladivo takhle, ne jako kyj.'
       },
-      ore: {
-        '1': 'Hroudy, jo? Beru všechny. Poctivá váha, poctivá mince.'
-      },
+      ore: { '1': 'Ruda, jo? Ukaž. Platím za kousek, poctivá váha.' },
+      sellBack: { '1': 'Poctivá váha, poctivá mince. Přines víc, až najdeš.' },
       forgeBack: {
         '1': 'Ujde to. Ale dobré to taky není. Pokračuj.'
       },
@@ -2915,7 +4526,7 @@ export default {
       },
       map: {
         '1': 'Mapa kapitána Rooka! Roztrhal ji a kusy schoval, než ho goblini chytili.',
-        '2': 'Najdi všech šest a X ti ukáže cestu: někde v Popelavých útesech. Tam kopej a zlato je tvoje.',
+        '2': 'Najdi jich šest, pár dalších se jich válí kolem, a X ti ukáže cestu: někde v Popelavých útesech. Tam kopej a zlato je tvoje.',
         say: 'Mám tu kus nějaké staré mapy.'
       }
     },
@@ -2932,6 +4543,9 @@ export default {
       },
       mana: {
         '1': 'Tenhle je hořký. Pij ho, když ti dojdou kouzla.'
+      },
+      brew: {
+        '1': 'Ukaž mi své bylinky. Namíchám něco, co chutná líp než můj tonik na manu.'
       },
       potions: {
         '1': 'Do každého boje bereš pár lahviček. Pij dřív, než je potřebuješ, ne potom.',
@@ -2951,6 +4565,9 @@ export default {
       },
       healBack: {
         '1': 'Měj opasek plný a hlavu skloněnou.'
+      },
+      brewBack: {
+        '1': 'Pozor, jsou horké. Nepij je všechny naráz.'
       },
       bye: {
         '1': 'Opatruj se tam venku.'
@@ -3056,9 +4673,8 @@ export default {
         '2': 'Sleduj žár. Udeř do jeho srdce, třikrát, a kov si to zapamatuje.',
         '1': 'Chceš se vyučit řemeslu? Dobře. Oakhaven potřebuje každé kladivo.'
       },
-      ore: {
-        '1': 'Surová ruda! Zbrojnice jí nikdy nemá dost. Tady je tvá odměna.'
-      },
+      ore: { '1': 'Surová ruda! Zbrojnice nemá nikdy dost. Prodej mi, co postrádáš.' },
+      sellBack: { '1': 'Každý kousek jde do hradby. Díky.' },
       forgeBack: {
         '1': 'Dobrá ocel. Hradby ti děkují.'
       },
@@ -3100,9 +4716,8 @@ export default {
         '2': 'Tři údery, každý do srdce žáru. To je celé tajemství.',
         '1': 'Od obléhání učím každého, kdo požádá. Pojď, stoupni si sem.'
       },
-      ore: {
-        '1': 'Další ruda na hradby? Ať ti nebesa žehnají. Tady, vezmi si tohle.'
-      },
+      ore: { '1': 'Další ruda na hradby? Zaplatím za každý kousek, který dáš.' },
+      sellBack: { '1': 'Buď požehnán. To je víc plátů na hradby.' },
       forgeBack: {
         '1': 'S každým úderem ti to jde líp. Přijď kdykoli.'
       },
@@ -3527,9 +5142,8 @@ export default {
         '1__f': 'Obyvatelka povrchu u kovadliny? No, každý někde začíná.',
         '1': 'Obyvatel povrchu u kovadliny? No, každý někde začíná.'
       },
-      ore: {
-        '1': 'Dobrý, poctivý kov. Ironhold za takový vždycky zaplatí.'
-      },
+      ore: { '1': 'Dobrý, poctivý kov. Polož ho sem, platím za kousek.' },
+      sellBack: { '1': 'Férový obchod. Ironhold vždy platí za dobrý kov.' },
       forgeBack: {
         '1': 'Trpaslík by to udělal líp. Ale ne o moc.'
       },
@@ -3601,9 +5215,8 @@ export default {
         '2': 'Rozžhav, udeř, otoč. Tři údery, přesně do žáru. Pak nech vychladnout.',
         '1': 'Plátová zbroj je trpělivá práce. Ukážu ti základy.'
       },
-      ore: {
-        '1': 'Nech mě to zvážit. Dobře. Mince jsou tvoje.'
-      },
+      ore: { '1': 'Nech mě zvážit. Vyber, co prodáš, já spočítám mince.' },
+      sellBack: { '1': 'Zváženo a zaplaceno. Dobře.' },
       forgeBack: {
         '1': 'Nech to vychladnout, než si to oblékneš.'
       },
@@ -3643,9 +5256,8 @@ export default {
         '2': 'Kázeň u kovadliny jako na bojišti. Tři údery, věrné žáru.',
         '1': 'Řád vyzbrojuje své přátele. Naučím tě to.'
       },
-      ore: {
-        '1': 'Řád vykupuje všechnu rudu pro válku. Tvá platba.'
-      },
+      ore: { '1': 'Řád kupuje rudu pro válku. Prodej, co postrádáš.' },
+      sellBack: { '1': 'Tvá platba je zapsána. Řád ti děkuje.' },
       forgeBack: {
         '1': 'Dobře ukováno. Nos to se ctí.'
       },
@@ -4070,6 +5682,11 @@ export default {
       }
     },
     bark: {
+      banditChief: {
+        whistle: {
+          1: 'Vzhůru, chlapci! Kousejte je!'
+        }
+      },
       lightDisciple: {
         freed: {
           '1': 'Poslalo tě světlo. Jsem Sestra Aurelle. Hledej mě v Sunfordu, naučím tě cestě Nositele světla.'
@@ -4226,9 +5843,8 @@ export default {
         '2': 'Udeř, když žár nejvíc září. Tři dobré údery dají dobrý kus.',
         '1': 'Chceš si zkusit kladivo? Kovárnou se klidně podělím.'
       },
-      ore: {
-        '1': 'Krásná ruda. Silverbridge vždycky platí férovou cenu.'
-      },
+      ore: { '1': 'Krásná ruda. Ukaž, co prodáš, platím za kousek.' },
+      sellBack: { '1': 'Rádo se stalo. Silverbridge vždy platí férovou cenu.' },
       forgeBack: {
         '1__f': 'Podívejme! Ty jsi pro to stvořená.',
         '1': 'Podívejme! Ty jsi pro to stvořený.'
@@ -4671,7 +6287,7 @@ export default {
         say: 'Kde najdu byliny?'
       },
       elixirs: {
-        '1': 'Každý tě v boji posílí na celou minutu. Tvrdší rány, tužší kůže, rychlejší nohy.',
+        '1': 'Každý tě v boji posílí na celých 5 minut. Tvrdší rány, tužší kůže, rychlejší nohy.',
         '2': 'Jsou ve tvé třetí lahvičce. Ťukni na malou šipku a vyber, který vypiješ.',
         say: 'Co dělají elixíry?'
       },
@@ -4740,6 +6356,36 @@ export default {
       },
       bye: {
         '1': 'Přines další harampádí! Harampádí mám nejradši.'
+      }
+    },
+    sunfordCups: {
+      hello: {
+        1: 'Pojďte blíž! Tři kelímky, jeden drahokam a první kolo je zdarma!',
+        2: 'Nell Nimblefingers. Moje ruce ještě nikdo neoblafl. Chceš to zkusit?'
+      },
+      again: {
+        1: 'Zase tady? Měj oči na stopkách!'
+      },
+      play: {
+        1: 'Oči na drahokamu, kamaráde. Nemrkej!'
+      },
+      rules: {
+        1: 'Schovám drahokam pod kelímek a promíchám je. Ty ukážeš na ten, který ho skrývá.',
+        2: 'Každá výhra v řadě platí víc. Tři výhry přinesou cenu, pět poklad. První kolo dne je zdarma.',
+        say: 'Jak to funguje?'
+      },
+      who: {
+        1: 'Míchat jsem uměla dřív, než jsem uměla chodit. Máma říká, že to hodně vysvětluje.'
+      },
+      luck: {
+        1: 'Někdy! Pak nahlas sténám a publikum mě lituje.',
+        say: 'Prohráváš někdy?'
+      },
+      playBack: {
+        1: 'Skvělé kolo! Přijď zítra, první je vždycky zdarma.'
+      },
+      bye: {
+        1: 'Měj se! Mějte venku oči otevřené.'
       }
     },
     oakGambler: {
@@ -5233,6 +6879,7 @@ export default {
     banditArcher: 'Bandita lučištník',
     wolf: 'Vlk',
     banditChief: 'Náčelník banditů',
+    gnome: 'Trpaslík',
     goblinKing: 'Král goblinů',
     treant: 'Stromovec',
     spider: 'Obří pavouk',
@@ -5450,6 +7097,18 @@ export default {
       firefoxColors: 'Firefox: Nastavení → Barvy → nastav «Přepsat barvy určené stránkou» na Nikdy.'
     }
   },
+  samsungFix: {
+    title: 'Rychlá kontrola barev',
+    body: 'Některé telefony mění barvy webových stránek. Porovnej dva čtverce níže.',
+    question: 'Vypadají oba čtverce stejně?',
+    refSquare: 'Referenční čtverec',
+    pageSquare: 'Čtverec stránky',
+    yes: 'Ano, vypadají stejně',
+    no: 'Ne, vypadají jinak',
+    option: 'Opravit barvy (tmavý režim Samsung)',
+    optionHint: 'Zapni, pokud jsou nabídky tmavé nebo se text špatně čte.',
+    recheck: 'Spustit kontrolu barev znovu'
+  },
   saveStatus: {
     restoredTitle: 'Uložení v cloudu obnoveno',
     restoredBody: 'Bonus za obnovu: +{n} zl.',
@@ -5579,7 +7238,7 @@ export default {
   },
   forge: {
     upgrade: 'Vylepšit ({n} zl.)',
-    max: 'Plně vylepšeno: +{n}.',
+    next: 'Další +{level}: +{pct} % k vlastnostem',
     town: 'Vylepšit to může kovář v kterémkoli městě.'
   },
   ore: {
@@ -5594,6 +7253,12 @@ export default {
     },
     mithril: {
       name: 'Mithrilová ruda'
+    },
+    adamant: {
+      name: 'Adamantová ruda'
+    },
+    aetherite: {
+      name: 'Eteritová ruda'
     }
   },
   plant: {
@@ -5675,32 +7340,32 @@ export default {
   elixir: {
     might: {
       name: 'Elixír síly',
-      desc: '+{n}% poškození na minutu'
+      desc: '+{n}% poškození na 5 minut'
     },
     iron: {
       name: 'Odvar železné kůže',
-      desc: '+{n}% brnění na minutu'
+      desc: '+{n}% brnění na 5 minut'
     },
     swift: {
       name: 'Tonikum hbitosti',
-      desc: '+{n}% rychlosti a rychlosti útoku na minutu'
+      desc: '+{n}% rychlosti a rychlosti útoku na 5 minut'
     },
     mind: {
       name: 'Nálev jasné mysli',
-      desc: 'Dovednosti se na minutu dobíjejí o {n}% rychleji'
+      desc: 'Dovednosti se na 5 minut dobíjejí o {n}% rychleji'
     },
     vigor: {
       name: 'Elixír elánu',
-      desc: 'Léčí {n}% zdraví každou sekundu po dobu minuty'
+      desc: 'Léčí {n}% zdraví každou sekundu po dobu 5 minut'
     },
     shadow: {
       name: 'Žíznivý odvar',
-      desc: 'Tvé zásahy tě na minutu léčí o {n}% způsobeného poškození'
+      desc: 'Tvé zásahy tě na 5 minut léčí o {n}% způsobeného poškození'
     }
   },
   alchemy: {
     talk: 'Byliny dovnitř, elixíry ven. Který uvaříme?',
-    lead: 'Každý elixír působí v boji minutu. Pij ho ze své třetí lahvičky. Od každého uneseš {n}.',
+    lead: 'Každý elixír působí v boji 5 minut. Pij ho ze své třetí lahvičky. Od každého uneseš {n}.',
     brew: 'Uvařit · {n}',
     carry: 'Vzít s sebou',
     carried: 'Ve tvé lahvičce',
@@ -5724,6 +7389,25 @@ export default {
     again: 'Hrát znovu',
     noGold: 'Na tuhle sázku nemáš dost zlata.',
     card: 'Karta {n}'
+  },
+  cups: {
+    title: 'Stánek s kelímky',
+    lead: 'Sleduj drahokam, jdi za jeho kelímkem a pak ukaž. Každá výhra v řadě platí víc. Třetí přinese cenu, pátá poklad.',
+    free: 'Kolo zdarma',
+    fee: 'Hrát · {n}',
+    row: 'Výhry v řadě: {n} z {max}',
+    next: 'Další výhra: {n} zlata',
+    watch: 'Sleduj drahokam!',
+    follow: 'Jdi za ním…',
+    pick: 'Vyber kelímek!',
+    hint: 'Klepni na kelímek nebo stiskni jeho číslo.',
+    won: 'Našel jsi ho! +{n} zlata',
+    lost: 'Ten ne. Série začíná znovu.',
+    near: 'Těsně! Byl hned vedle.',
+    timeout: 'Moc pomalu! Série začíná znovu.',
+    again: 'Hrát znovu',
+    noGold: 'Nedostatek zlata. Zítra je první kolo zdarma.',
+    cup: 'Kelímek {n}'
   },
   battle: {
     title: 'Souboj předmětů',

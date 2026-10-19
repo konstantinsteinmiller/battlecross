@@ -17,6 +17,8 @@ import { ENEMY_BY_ID } from '@/game/data/enemies'
 import { merchantTiers } from '@/game/data/encounters'
 import { MAX_LEVEL, xpToReach, skillPrice } from '@/game/data/progression'
 import { shelfTier } from '@/game/rareShelf'
+import { ORE_LEVEL } from '@/game/data/ores'
+import { RECIPE_OF_ITEM, metalName } from './smithing'
 import { BLESSING } from '@/game/contracts'
 
 export { CLASSES, CLASS_IDS, SKILLS, SKILL_BY_ID, ACTIVE_SLOTS, PASSIVE_SLOTS, ATTRS, ATTR_COLOR, ATTR_START, POINTS_PER_LEVEL,
@@ -209,7 +211,8 @@ const SRC_WORD: Record<string, string> = { mob: 'Monster drop', chest: 'Chests',
 export const sourcesOf = (i: ItemDef): Source[] => {
   const out: Source[] = []
   if (i.drop.src === 'smith') {
-    out.push({ kind: 'smith', text: 'Forged at a smithy from ore (any town smith)', at: i.level })
+    const r = RECIPE_OF_ITEM[i.id]
+    out.push({ kind: 'smith', text: r ? `Forged at any town smith: ${r.recipe.nuggets} ${metalName(r.recipe.metal)} nuggets + ${r.recipe.gold} gold (${r.master ? 'masterwork, from a great or perfect strike' : 'plain piece, from a poor or good strike'})` : 'Forged at a smithy from ore (any town smith)', at: i.level, how: r ? `Teach-me-to-smith lesson at any town smith, then the first ${metalName(r.recipe.metal)} nugget (mined from level ${ORE_LEVEL[r.recipe.metal]} zones)` : undefined })
   } else {
     const z = i.drop.zone
     out.push({ kind: 'drop', text: `${SRC_WORD[i.drop.src]} — ${zoneName(z)}`, place: z, at: Math.max(ZONES[z].min, i.drop.src === 'boss' ? ZONES[z].max : ZONES[z].min) })

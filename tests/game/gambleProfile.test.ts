@@ -92,7 +92,7 @@ describe('where they sit', () => {
     for (const t of Object.values(TOWNS)) for (const n of t.npcs.filter(x => x.role === 'gambler')) {
       expect(n.not, n.id).toBeUndefined()
       const conv = conversationOf(n.id)!
-      const open = Object.values(conv.nodes).flatMap(x => x.choices).some(c => c.effects.some(f => f.t === 'open' && f.window === (n.game === 'memory' ? 'memory' : 'itemBattle')))
+      const open = Object.values(conv.nodes).flatMap(x => x.choices).some(c => c.effects.some(f => f.t === 'open' && f.window === (n.game === 'memory' ? 'memory' : n.game === 'cups' ? 'cups' : 'itemBattle')))
       expect(open, n.id).toBe(true)
     }
   })

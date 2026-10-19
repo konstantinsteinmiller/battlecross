@@ -1,5 +1,13 @@
 // Croatian (hr) bundle — mirrors en.ts.
 export default {
+  // ─── The intro (#130): its skip, and its narrator's name ───
+  intro: {
+    narrator: 'Kroničar',
+    skip: 'Preskoči',
+    holdKey: 'Drži {key} za preskakanje',
+    holdTouch: 'Drži za preskakanje',
+    replay: 'Pogledaj uvod'
+  },
   arena: {
     allWon: 'Sve mitske nagrade su tvoje.',
     call: 'Priča je ispričana. Sad dokaži svoj build: popni se koliko god možeš i osvoji mitske nagrade koje ti nitko drugi ne može dati.',
@@ -8,6 +16,20 @@ export default {
     next: 'Sljedeća nagrada na valu {at}: {item}',
     champion: 'Val prvaka',
     wave: 'Val {n}'
+  },
+  sellOre: {
+    talk: 'Dobra ruda, poštena cijena. Koliko prodaješ?',
+    lead: 'Odaberi koliko grumena svake rude prodaješ. Ništa se ne prodaje dok ne pritisneš Prodaj.',
+    have: 'Imaš {n}',
+    each: '{n} zlata po komadu',
+    none: 'Ništa',
+    all: 'Sve',
+    less: '{ore}: jedna manje',
+    more: '{ore}: jedna više',
+    total: 'Dobivaš: {n} zlata',
+    sell: 'Prodaj',
+    selectAll: 'Odaberi sve',
+    empty: 'Nemaš više rude za prodaju.'
   },
   smith: {
     why: {
@@ -1423,38 +1445,110 @@ export default {
     smithMasterMithrilGreaves: {
       name: 'Majstorske mitrilne potkoljenice'
     },
+    smithMasterAdamantGreaves: {
+      name: 'Majstorske adamantne potkoljenice'
+    },
+    smithMasterAetheriteGreaves: {
+      name: 'Majstorske eteritne potkoljenice'
+    },
     smithMithrilGreaves: {
       name: 'Mitrilne potkoljenice'
+    },
+    smithAdamantGreaves: {
+      name: 'Adamantne potkoljenice'
+    },
+    smithAetheriteGreaves: {
+      name: 'Eteritne potkoljenice'
     },
     smithMasterMithrilPlate: {
       name: 'Majstorski mitrilni oklop'
     },
+    smithMasterAdamantPlate: {
+      name: 'Majstorski adamantni oklop'
+    },
+    smithMasterAetheritePlate: {
+      name: 'Majstorski eteritni oklop'
+    },
     smithMithrilPlate: {
       name: 'Mitrilni oklop'
+    },
+    smithAdamantPlate: {
+      name: 'Adamantni oklop'
+    },
+    smithAetheritePlate: {
+      name: 'Eteritni oklop'
     },
     smithMasterMithrilHelm: {
       name: 'Majstorska mitrilna kaciga'
     },
+    smithMasterAdamantHelm: {
+      name: 'Majstorska adamantna kaciga'
+    },
+    smithMasterAetheriteHelm: {
+      name: 'Majstorska eteritna kaciga'
+    },
     smithMithrilHelm: {
       name: 'Mitrilna kaciga'
+    },
+    smithAdamantHelm: {
+      name: 'Adamantna kaciga'
+    },
+    smithAetheriteHelm: {
+      name: 'Eteritna kaciga'
     },
     smithMasterMithrilShield: {
       name: 'Majstorski mitrilni štit'
     },
+    smithMasterAdamantShield: {
+      name: 'Majstorski adamantni štit'
+    },
+    smithMasterAetheriteShield: {
+      name: 'Majstorski eteritni štit'
+    },
     smithMithrilShield: {
       name: 'Mitrilni štit'
+    },
+    smithAdamantShield: {
+      name: 'Adamantni štit'
+    },
+    smithAetheriteShield: {
+      name: 'Eteritni štit'
     },
     smithMasterMithrilHammer: {
       name: 'Majstorski mitrilni čekić'
     },
+    smithMasterAdamantHammer: {
+      name: 'Majstorski adamantni čekić'
+    },
+    smithMasterAetheriteHammer: {
+      name: 'Majstorski eteritni čekić'
+    },
     smithMithrilHammer: {
       name: 'Mitrilni čekić'
+    },
+    smithAdamantHammer: {
+      name: 'Adamantni čekić'
+    },
+    smithAetheriteHammer: {
+      name: 'Eteritni čekić'
     },
     smithMasterMithrilSword: {
       name: 'Majstorski mitrilni mač'
     },
+    smithMasterAdamantSword: {
+      name: 'Majstorski adamantni mač'
+    },
+    smithMasterAetheriteSword: {
+      name: 'Majstorski eteritni mač'
+    },
     smithMithrilSword: {
       name: 'Mitrilni mač'
+    },
+    smithAdamantSword: {
+      name: 'Adamantni mač'
+    },
+    smithAetheriteSword: {
+      name: 'Eteritni mač'
     },
     smithMasterGoldGreaves: {
       name: 'Majstorske zlatne potkoljenice'
@@ -1560,6 +1654,1086 @@ export default {
     },
     smithMasterIronSword: {
       name: 'Majstorski željezni mač'
+    },
+    smithMasterDexIronSword: {
+      name: 'Majstorski bodež od željeza · SPR'
+    },
+    smithDexIronSword: {
+      name: 'Bodež od željeza · SPR'
+    },
+    smithMasterDexIronHammer: {
+      name: 'Majstorski rapir od željeza · SPR'
+    },
+    smithDexIronHammer: {
+      name: 'Rapir od željeza · SPR'
+    },
+    smithMasterDexIronShield: {
+      name: 'Majstorski mali štit od željeza · SPR'
+    },
+    smithDexIronShield: {
+      name: 'Mali štit od željeza · SPR'
+    },
+    smithMasterDexIronHelm: {
+      name: 'Majstorski kapuljača od željeza · SPR'
+    },
+    smithDexIronHelm: {
+      name: 'Kapuljača od željeza · SPR'
+    },
+    smithMasterDexIronPlate: {
+      name: 'Majstorski kožni oklop od željeza · SPR'
+    },
+    smithDexIronPlate: {
+      name: 'Kožni oklop od željeza · SPR'
+    },
+    smithMasterDexIronGreaves: {
+      name: 'Majstorski čizme od željeza · SPR'
+    },
+    smithDexIronGreaves: {
+      name: 'Čizme od željeza · SPR'
+    },
+    smithMasterDexSilverSword: {
+      name: 'Majstorski bodež od srebra · SPR'
+    },
+    smithDexSilverSword: {
+      name: 'Bodež od srebra · SPR'
+    },
+    smithMasterDexSilverHammer: {
+      name: 'Majstorski rapir od srebra · SPR'
+    },
+    smithDexSilverHammer: {
+      name: 'Rapir od srebra · SPR'
+    },
+    smithMasterDexSilverShield: {
+      name: 'Majstorski mali štit od srebra · SPR'
+    },
+    smithDexSilverShield: {
+      name: 'Mali štit od srebra · SPR'
+    },
+    smithMasterDexSilverHelm: {
+      name: 'Majstorski kapuljača od srebra · SPR'
+    },
+    smithDexSilverHelm: {
+      name: 'Kapuljača od srebra · SPR'
+    },
+    smithMasterDexSilverPlate: {
+      name: 'Majstorski kožni oklop od srebra · SPR'
+    },
+    smithDexSilverPlate: {
+      name: 'Kožni oklop od srebra · SPR'
+    },
+    smithMasterDexSilverGreaves: {
+      name: 'Majstorski čizme od srebra · SPR'
+    },
+    smithDexSilverGreaves: {
+      name: 'Čizme od srebra · SPR'
+    },
+    smithMasterDexGoldSword: {
+      name: 'Majstorski bodež od zlata · SPR'
+    },
+    smithDexGoldSword: {
+      name: 'Bodež od zlata · SPR'
+    },
+    smithMasterDexGoldHammer: {
+      name: 'Majstorski rapir od zlata · SPR'
+    },
+    smithDexGoldHammer: {
+      name: 'Rapir od zlata · SPR'
+    },
+    smithMasterDexGoldShield: {
+      name: 'Majstorski mali štit od zlata · SPR'
+    },
+    smithDexGoldShield: {
+      name: 'Mali štit od zlata · SPR'
+    },
+    smithMasterDexGoldHelm: {
+      name: 'Majstorski kapuljača od zlata · SPR'
+    },
+    smithDexGoldHelm: {
+      name: 'Kapuljača od zlata · SPR'
+    },
+    smithMasterDexGoldPlate: {
+      name: 'Majstorski kožni oklop od zlata · SPR'
+    },
+    smithDexGoldPlate: {
+      name: 'Kožni oklop od zlata · SPR'
+    },
+    smithMasterDexGoldGreaves: {
+      name: 'Majstorski čizme od zlata · SPR'
+    },
+    smithDexGoldGreaves: {
+      name: 'Čizme od zlata · SPR'
+    },
+    smithMasterDexMithrilSword: {
+      name: 'Majstorski bodež od mithrila · SPR'
+    },
+    smithMasterDexAdamantSword: {
+      name: 'Majstorski bodež od adamanta · SPR'
+    },
+    smithMasterDexAetheriteSword: {
+      name: 'Majstorski bodež od eterita · SPR'
+    },
+    smithDexMithrilSword: {
+      name: 'Bodež od mithrila · SPR'
+    },
+    smithDexAdamantSword: {
+      name: 'Bodež od adamanta · SPR'
+    },
+    smithDexAetheriteSword: {
+      name: 'Bodež od eterita · SPR'
+    },
+    smithMasterDexMithrilHammer: {
+      name: 'Majstorski rapir od mithrila · SPR'
+    },
+    smithMasterDexAdamantHammer: {
+      name: 'Majstorski rapir od adamanta · SPR'
+    },
+    smithMasterDexAetheriteHammer: {
+      name: 'Majstorski rapir od eterita · SPR'
+    },
+    smithDexMithrilHammer: {
+      name: 'Rapir od mithrila · SPR'
+    },
+    smithDexAdamantHammer: {
+      name: 'Rapir od adamanta · SPR'
+    },
+    smithDexAetheriteHammer: {
+      name: 'Rapir od eterita · SPR'
+    },
+    smithMasterDexMithrilShield: {
+      name: 'Majstorski mali štit od mithrila · SPR'
+    },
+    smithMasterDexAdamantShield: {
+      name: 'Majstorski mali štit od adamanta · SPR'
+    },
+    smithMasterDexAetheriteShield: {
+      name: 'Majstorski mali štit od eterita · SPR'
+    },
+    smithDexMithrilShield: {
+      name: 'Mali štit od mithrila · SPR'
+    },
+    smithDexAdamantShield: {
+      name: 'Mali štit od adamanta · SPR'
+    },
+    smithDexAetheriteShield: {
+      name: 'Mali štit od eterita · SPR'
+    },
+    smithMasterDexMithrilHelm: {
+      name: 'Majstorski kapuljača od mithrila · SPR'
+    },
+    smithMasterDexAdamantHelm: {
+      name: 'Majstorski kapuljača od adamanta · SPR'
+    },
+    smithMasterDexAetheriteHelm: {
+      name: 'Majstorski kapuljača od eterita · SPR'
+    },
+    smithDexMithrilHelm: {
+      name: 'Kapuljača od mithrila · SPR'
+    },
+    smithDexAdamantHelm: {
+      name: 'Kapuljača od adamanta · SPR'
+    },
+    smithDexAetheriteHelm: {
+      name: 'Kapuljača od eterita · SPR'
+    },
+    smithMasterDexMithrilPlate: {
+      name: 'Majstorski kožni oklop od mithrila · SPR'
+    },
+    smithMasterDexAdamantPlate: {
+      name: 'Majstorski kožni oklop od adamanta · SPR'
+    },
+    smithMasterDexAetheritePlate: {
+      name: 'Majstorski kožni oklop od eterita · SPR'
+    },
+    smithDexMithrilPlate: {
+      name: 'Kožni oklop od mithrila · SPR'
+    },
+    smithDexAdamantPlate: {
+      name: 'Kožni oklop od adamanta · SPR'
+    },
+    smithDexAetheritePlate: {
+      name: 'Kožni oklop od eterita · SPR'
+    },
+    smithMasterDexMithrilGreaves: {
+      name: 'Majstorski čizme od mithrila · SPR'
+    },
+    smithMasterDexAdamantGreaves: {
+      name: 'Majstorski čizme od adamanta · SPR'
+    },
+    smithMasterDexAetheriteGreaves: {
+      name: 'Majstorski čizme od eterita · SPR'
+    },
+    smithDexMithrilGreaves: {
+      name: 'Čizme od mithrila · SPR'
+    },
+    smithDexAdamantGreaves: {
+      name: 'Čizme od adamanta · SPR'
+    },
+    smithDexAetheriteGreaves: {
+      name: 'Čizme od eterita · SPR'
+    },
+    smithMasterIntIronSword: {
+      name: 'Majstorski štapić od željeza · INT'
+    },
+    smithIntIronSword: {
+      name: 'Štapić od željeza · INT'
+    },
+    smithMasterIntIronHammer: {
+      name: 'Majstorski štap od željeza · INT'
+    },
+    smithIntIronHammer: {
+      name: 'Štap od željeza · INT'
+    },
+    smithMasterIntIronShield: {
+      name: 'Majstorski knjiga čarolija od željeza · INT'
+    },
+    smithIntIronShield: {
+      name: 'Knjiga čarolija od željeza · INT'
+    },
+    smithMasterIntIronHelm: {
+      name: 'Majstorski dijadem od željeza · INT'
+    },
+    smithIntIronHelm: {
+      name: 'Dijadem od željeza · INT'
+    },
+    smithMasterIntIronPlate: {
+      name: 'Majstorski haljina od željeza · INT'
+    },
+    smithIntIronPlate: {
+      name: 'Haljina od željeza · INT'
+    },
+    smithMasterIntIronGreaves: {
+      name: 'Majstorski čizme od željeza · INT'
+    },
+    smithIntIronGreaves: {
+      name: 'Čizme od željeza · INT'
+    },
+    smithMasterIntSilverSword: {
+      name: 'Majstorski štapić od srebra · INT'
+    },
+    smithIntSilverSword: {
+      name: 'Štapić od srebra · INT'
+    },
+    smithMasterIntSilverHammer: {
+      name: 'Majstorski štap od srebra · INT'
+    },
+    smithIntSilverHammer: {
+      name: 'Štap od srebra · INT'
+    },
+    smithMasterIntSilverShield: {
+      name: 'Majstorski knjiga čarolija od srebra · INT'
+    },
+    smithIntSilverShield: {
+      name: 'Knjiga čarolija od srebra · INT'
+    },
+    smithMasterIntSilverHelm: {
+      name: 'Majstorski dijadem od srebra · INT'
+    },
+    smithIntSilverHelm: {
+      name: 'Dijadem od srebra · INT'
+    },
+    smithMasterIntSilverPlate: {
+      name: 'Majstorski haljina od srebra · INT'
+    },
+    smithIntSilverPlate: {
+      name: 'Haljina od srebra · INT'
+    },
+    smithMasterIntSilverGreaves: {
+      name: 'Majstorski čizme od srebra · INT'
+    },
+    smithIntSilverGreaves: {
+      name: 'Čizme od srebra · INT'
+    },
+    smithMasterIntGoldSword: {
+      name: 'Majstorski štapić od zlata · INT'
+    },
+    smithIntGoldSword: {
+      name: 'Štapić od zlata · INT'
+    },
+    smithMasterIntGoldHammer: {
+      name: 'Majstorski štap od zlata · INT'
+    },
+    smithIntGoldHammer: {
+      name: 'Štap od zlata · INT'
+    },
+    smithMasterIntGoldShield: {
+      name: 'Majstorski knjiga čarolija od zlata · INT'
+    },
+    smithIntGoldShield: {
+      name: 'Knjiga čarolija od zlata · INT'
+    },
+    smithMasterIntGoldHelm: {
+      name: 'Majstorski dijadem od zlata · INT'
+    },
+    smithIntGoldHelm: {
+      name: 'Dijadem od zlata · INT'
+    },
+    smithMasterIntGoldPlate: {
+      name: 'Majstorski haljina od zlata · INT'
+    },
+    smithIntGoldPlate: {
+      name: 'Haljina od zlata · INT'
+    },
+    smithMasterIntGoldGreaves: {
+      name: 'Majstorski čizme od zlata · INT'
+    },
+    smithIntGoldGreaves: {
+      name: 'Čizme od zlata · INT'
+    },
+    smithMasterIntMithrilSword: {
+      name: 'Majstorski štapić od mithrila · INT'
+    },
+    smithMasterIntAdamantSword: {
+      name: 'Majstorski štapić od adamanta · INT'
+    },
+    smithMasterIntAetheriteSword: {
+      name: 'Majstorski štapić od eterita · INT'
+    },
+    smithIntMithrilSword: {
+      name: 'Štapić od mithrila · INT'
+    },
+    smithIntAdamantSword: {
+      name: 'Štapić od adamanta · INT'
+    },
+    smithIntAetheriteSword: {
+      name: 'Štapić od eterita · INT'
+    },
+    smithMasterIntMithrilHammer: {
+      name: 'Majstorski štap od mithrila · INT'
+    },
+    smithMasterIntAdamantHammer: {
+      name: 'Majstorski štap od adamanta · INT'
+    },
+    smithMasterIntAetheriteHammer: {
+      name: 'Majstorski štap od eterita · INT'
+    },
+    smithIntMithrilHammer: {
+      name: 'Štap od mithrila · INT'
+    },
+    smithIntAdamantHammer: {
+      name: 'Štap od adamanta · INT'
+    },
+    smithIntAetheriteHammer: {
+      name: 'Štap od eterita · INT'
+    },
+    smithMasterIntMithrilShield: {
+      name: 'Majstorski knjiga čarolija od mithrila · INT'
+    },
+    smithMasterIntAdamantShield: {
+      name: 'Majstorski knjiga čarolija od adamanta · INT'
+    },
+    smithMasterIntAetheriteShield: {
+      name: 'Majstorski knjiga čarolija od eterita · INT'
+    },
+    smithIntMithrilShield: {
+      name: 'Knjiga čarolija od mithrila · INT'
+    },
+    smithIntAdamantShield: {
+      name: 'Knjiga čarolija od adamanta · INT'
+    },
+    smithIntAetheriteShield: {
+      name: 'Knjiga čarolija od eterita · INT'
+    },
+    smithMasterIntMithrilHelm: {
+      name: 'Majstorski dijadem od mithrila · INT'
+    },
+    smithMasterIntAdamantHelm: {
+      name: 'Majstorski dijadem od adamanta · INT'
+    },
+    smithMasterIntAetheriteHelm: {
+      name: 'Majstorski dijadem od eterita · INT'
+    },
+    smithIntMithrilHelm: {
+      name: 'Dijadem od mithrila · INT'
+    },
+    smithIntAdamantHelm: {
+      name: 'Dijadem od adamanta · INT'
+    },
+    smithIntAetheriteHelm: {
+      name: 'Dijadem od eterita · INT'
+    },
+    smithMasterIntMithrilPlate: {
+      name: 'Majstorski haljina od mithrila · INT'
+    },
+    smithMasterIntAdamantPlate: {
+      name: 'Majstorski haljina od adamanta · INT'
+    },
+    smithMasterIntAetheritePlate: {
+      name: 'Majstorski haljina od eterita · INT'
+    },
+    smithIntMithrilPlate: {
+      name: 'Haljina od mithrila · INT'
+    },
+    smithIntAdamantPlate: {
+      name: 'Haljina od adamanta · INT'
+    },
+    smithIntAetheritePlate: {
+      name: 'Haljina od eterita · INT'
+    },
+    smithMasterIntMithrilGreaves: {
+      name: 'Majstorski čizme od mithrila · INT'
+    },
+    smithMasterIntAdamantGreaves: {
+      name: 'Majstorski čizme od adamanta · INT'
+    },
+    smithMasterIntAetheriteGreaves: {
+      name: 'Majstorski čizme od eterita · INT'
+    },
+    smithIntMithrilGreaves: {
+      name: 'Čizme od mithrila · INT'
+    },
+    smithIntAdamantGreaves: {
+      name: 'Čizme od adamanta · INT'
+    },
+    smithIntAetheriteGreaves: {
+      name: 'Čizme od eterita · INT'
+    },
+    smithMasterSklIronSword: {
+      name: 'Majstorski pištolj od željeza · UMI'
+    },
+    smithSklIronSword: {
+      name: 'Pištolj od željeza · UMI'
+    },
+    smithMasterSklIronHammer: {
+      name: 'Majstorski puška od željeza · UMI'
+    },
+    smithSklIronHammer: {
+      name: 'Puška od željeza · UMI'
+    },
+    smithMasterSklIronShield: {
+      name: 'Majstorski baterija od željeza · UMI'
+    },
+    smithSklIronShield: {
+      name: 'Baterija od željeza · UMI'
+    },
+    smithMasterSklIronHelm: {
+      name: 'Majstorski kapa od željeza · UMI'
+    },
+    smithSklIronHelm: {
+      name: 'Kapa od željeza · UMI'
+    },
+    smithMasterSklIronPlate: {
+      name: 'Majstorski remenje od željeza · UMI'
+    },
+    smithSklIronPlate: {
+      name: 'Remenje od željeza · UMI'
+    },
+    smithMasterSklIronGreaves: {
+      name: 'Majstorski čizme od željeza · UMI'
+    },
+    smithSklIronGreaves: {
+      name: 'Čizme od željeza · UMI'
+    },
+    smithMasterSklSilverSword: {
+      name: 'Majstorski pištolj od srebra · UMI'
+    },
+    smithSklSilverSword: {
+      name: 'Pištolj od srebra · UMI'
+    },
+    smithMasterSklSilverHammer: {
+      name: 'Majstorski puška od srebra · UMI'
+    },
+    smithSklSilverHammer: {
+      name: 'Puška od srebra · UMI'
+    },
+    smithMasterSklSilverShield: {
+      name: 'Majstorski baterija od srebra · UMI'
+    },
+    smithSklSilverShield: {
+      name: 'Baterija od srebra · UMI'
+    },
+    smithMasterSklSilverHelm: {
+      name: 'Majstorski kapa od srebra · UMI'
+    },
+    smithSklSilverHelm: {
+      name: 'Kapa od srebra · UMI'
+    },
+    smithMasterSklSilverPlate: {
+      name: 'Majstorski remenje od srebra · UMI'
+    },
+    smithSklSilverPlate: {
+      name: 'Remenje od srebra · UMI'
+    },
+    smithMasterSklSilverGreaves: {
+      name: 'Majstorski čizme od srebra · UMI'
+    },
+    smithSklSilverGreaves: {
+      name: 'Čizme od srebra · UMI'
+    },
+    smithMasterSklGoldSword: {
+      name: 'Majstorski pištolj od zlata · UMI'
+    },
+    smithSklGoldSword: {
+      name: 'Pištolj od zlata · UMI'
+    },
+    smithMasterSklGoldHammer: {
+      name: 'Majstorski puška od zlata · UMI'
+    },
+    smithSklGoldHammer: {
+      name: 'Puška od zlata · UMI'
+    },
+    smithMasterSklGoldShield: {
+      name: 'Majstorski baterija od zlata · UMI'
+    },
+    smithSklGoldShield: {
+      name: 'Baterija od zlata · UMI'
+    },
+    smithMasterSklGoldHelm: {
+      name: 'Majstorski kapa od zlata · UMI'
+    },
+    smithSklGoldHelm: {
+      name: 'Kapa od zlata · UMI'
+    },
+    smithMasterSklGoldPlate: {
+      name: 'Majstorski remenje od zlata · UMI'
+    },
+    smithSklGoldPlate: {
+      name: 'Remenje od zlata · UMI'
+    },
+    smithMasterSklGoldGreaves: {
+      name: 'Majstorski čizme od zlata · UMI'
+    },
+    smithSklGoldGreaves: {
+      name: 'Čizme od zlata · UMI'
+    },
+    smithMasterSklMithrilSword: {
+      name: 'Majstorski pištolj od mithrila · UMI'
+    },
+    smithMasterSklAdamantSword: {
+      name: 'Majstorski pištolj od adamanta · UMI'
+    },
+    smithMasterSklAetheriteSword: {
+      name: 'Majstorski pištolj od eterita · UMI'
+    },
+    smithSklMithrilSword: {
+      name: 'Pištolj od mithrila · UMI'
+    },
+    smithSklAdamantSword: {
+      name: 'Pištolj od adamanta · UMI'
+    },
+    smithSklAetheriteSword: {
+      name: 'Pištolj od eterita · UMI'
+    },
+    smithMasterSklMithrilHammer: {
+      name: 'Majstorski puška od mithrila · UMI'
+    },
+    smithMasterSklAdamantHammer: {
+      name: 'Majstorski puška od adamanta · UMI'
+    },
+    smithMasterSklAetheriteHammer: {
+      name: 'Majstorski puška od eterita · UMI'
+    },
+    smithSklMithrilHammer: {
+      name: 'Puška od mithrila · UMI'
+    },
+    smithSklAdamantHammer: {
+      name: 'Puška od adamanta · UMI'
+    },
+    smithSklAetheriteHammer: {
+      name: 'Puška od eterita · UMI'
+    },
+    smithMasterSklMithrilShield: {
+      name: 'Majstorski baterija od mithrila · UMI'
+    },
+    smithMasterSklAdamantShield: {
+      name: 'Majstorski baterija od adamanta · UMI'
+    },
+    smithMasterSklAetheriteShield: {
+      name: 'Majstorski baterija od eterita · UMI'
+    },
+    smithSklMithrilShield: {
+      name: 'Baterija od mithrila · UMI'
+    },
+    smithSklAdamantShield: {
+      name: 'Baterija od adamanta · UMI'
+    },
+    smithSklAetheriteShield: {
+      name: 'Baterija od eterita · UMI'
+    },
+    smithMasterSklMithrilHelm: {
+      name: 'Majstorski kapa od mithrila · UMI'
+    },
+    smithMasterSklAdamantHelm: {
+      name: 'Majstorski kapa od adamanta · UMI'
+    },
+    smithMasterSklAetheriteHelm: {
+      name: 'Majstorski kapa od eterita · UMI'
+    },
+    smithSklMithrilHelm: {
+      name: 'Kapa od mithrila · UMI'
+    },
+    smithSklAdamantHelm: {
+      name: 'Kapa od adamanta · UMI'
+    },
+    smithSklAetheriteHelm: {
+      name: 'Kapa od eterita · UMI'
+    },
+    smithMasterSklMithrilPlate: {
+      name: 'Majstorski remenje od mithrila · UMI'
+    },
+    smithMasterSklAdamantPlate: {
+      name: 'Majstorski remenje od adamanta · UMI'
+    },
+    smithMasterSklAetheritePlate: {
+      name: 'Majstorski remenje od eterita · UMI'
+    },
+    smithSklMithrilPlate: {
+      name: 'Remenje od mithrila · UMI'
+    },
+    smithSklAdamantPlate: {
+      name: 'Remenje od adamanta · UMI'
+    },
+    smithSklAetheritePlate: {
+      name: 'Remenje od eterita · UMI'
+    },
+    smithMasterSklMithrilGreaves: {
+      name: 'Majstorski čizme od mithrila · UMI'
+    },
+    smithMasterSklAdamantGreaves: {
+      name: 'Majstorski čizme od adamanta · UMI'
+    },
+    smithMasterSklAetheriteGreaves: {
+      name: 'Majstorski čizme od eterita · UMI'
+    },
+    smithSklMithrilGreaves: {
+      name: 'Čizme od mithrila · UMI'
+    },
+    smithSklAdamantGreaves: {
+      name: 'Čizme od adamanta · UMI'
+    },
+    smithSklAetheriteGreaves: {
+      name: 'Čizme od eterita · UMI'
+    },
+    smithMasterChaIronSword: {
+      name: 'Majstorski žezlo od željeza · KAR'
+    },
+    smithChaIronSword: {
+      name: 'Žezlo od željeza · KAR'
+    },
+    smithMasterChaIronHammer: {
+      name: 'Majstorski zastava od željeza · KAR'
+    },
+    smithChaIronHammer: {
+      name: 'Zastava od željeza · KAR'
+    },
+    smithMasterChaIronShield: {
+      name: 'Majstorski kodeks od željeza · KAR'
+    },
+    smithChaIronShield: {
+      name: 'Kodeks od željeza · KAR'
+    },
+    smithMasterChaIronHelm: {
+      name: 'Majstorski kruna od željeza · KAR'
+    },
+    smithChaIronHelm: {
+      name: 'Kruna od željeza · KAR'
+    },
+    smithMasterChaIronPlate: {
+      name: 'Majstorski tabard od željeza · KAR'
+    },
+    smithChaIronPlate: {
+      name: 'Tabard od željeza · KAR'
+    },
+    smithMasterChaIronGreaves: {
+      name: 'Majstorski čizme od željeza · KAR'
+    },
+    smithChaIronGreaves: {
+      name: 'Čizme od željeza · KAR'
+    },
+    smithMasterChaSilverSword: {
+      name: 'Majstorski žezlo od srebra · KAR'
+    },
+    smithChaSilverSword: {
+      name: 'Žezlo od srebra · KAR'
+    },
+    smithMasterChaSilverHammer: {
+      name: 'Majstorski zastava od srebra · KAR'
+    },
+    smithChaSilverHammer: {
+      name: 'Zastava od srebra · KAR'
+    },
+    smithMasterChaSilverShield: {
+      name: 'Majstorski kodeks od srebra · KAR'
+    },
+    smithChaSilverShield: {
+      name: 'Kodeks od srebra · KAR'
+    },
+    smithMasterChaSilverHelm: {
+      name: 'Majstorski kruna od srebra · KAR'
+    },
+    smithChaSilverHelm: {
+      name: 'Kruna od srebra · KAR'
+    },
+    smithMasterChaSilverPlate: {
+      name: 'Majstorski tabard od srebra · KAR'
+    },
+    smithChaSilverPlate: {
+      name: 'Tabard od srebra · KAR'
+    },
+    smithMasterChaSilverGreaves: {
+      name: 'Majstorski čizme od srebra · KAR'
+    },
+    smithChaSilverGreaves: {
+      name: 'Čizme od srebra · KAR'
+    },
+    smithMasterChaGoldSword: {
+      name: 'Majstorski žezlo od zlata · KAR'
+    },
+    smithChaGoldSword: {
+      name: 'Žezlo od zlata · KAR'
+    },
+    smithMasterChaGoldHammer: {
+      name: 'Majstorski zastava od zlata · KAR'
+    },
+    smithChaGoldHammer: {
+      name: 'Zastava od zlata · KAR'
+    },
+    smithMasterChaGoldShield: {
+      name: 'Majstorski kodeks od zlata · KAR'
+    },
+    smithChaGoldShield: {
+      name: 'Kodeks od zlata · KAR'
+    },
+    smithMasterChaGoldHelm: {
+      name: 'Majstorski kruna od zlata · KAR'
+    },
+    smithChaGoldHelm: {
+      name: 'Kruna od zlata · KAR'
+    },
+    smithMasterChaGoldPlate: {
+      name: 'Majstorski tabard od zlata · KAR'
+    },
+    smithChaGoldPlate: {
+      name: 'Tabard od zlata · KAR'
+    },
+    smithMasterChaGoldGreaves: {
+      name: 'Majstorski čizme od zlata · KAR'
+    },
+    smithChaGoldGreaves: {
+      name: 'Čizme od zlata · KAR'
+    },
+    smithMasterChaMithrilSword: {
+      name: 'Majstorski žezlo od mithrila · KAR'
+    },
+    smithMasterChaAdamantSword: {
+      name: 'Majstorski žezlo od adamanta · KAR'
+    },
+    smithMasterChaAetheriteSword: {
+      name: 'Majstorski žezlo od eterita · KAR'
+    },
+    smithChaMithrilSword: {
+      name: 'Žezlo od mithrila · KAR'
+    },
+    smithChaAdamantSword: {
+      name: 'Žezlo od adamanta · KAR'
+    },
+    smithChaAetheriteSword: {
+      name: 'Žezlo od eterita · KAR'
+    },
+    smithMasterChaMithrilHammer: {
+      name: 'Majstorski zastava od mithrila · KAR'
+    },
+    smithMasterChaAdamantHammer: {
+      name: 'Majstorski zastava od adamanta · KAR'
+    },
+    smithMasterChaAetheriteHammer: {
+      name: 'Majstorski zastava od eterita · KAR'
+    },
+    smithChaMithrilHammer: {
+      name: 'Zastava od mithrila · KAR'
+    },
+    smithChaAdamantHammer: {
+      name: 'Zastava od adamanta · KAR'
+    },
+    smithChaAetheriteHammer: {
+      name: 'Zastava od eterita · KAR'
+    },
+    smithMasterChaMithrilShield: {
+      name: 'Majstorski kodeks od mithrila · KAR'
+    },
+    smithMasterChaAdamantShield: {
+      name: 'Majstorski kodeks od adamanta · KAR'
+    },
+    smithMasterChaAetheriteShield: {
+      name: 'Majstorski kodeks od eterita · KAR'
+    },
+    smithChaMithrilShield: {
+      name: 'Kodeks od mithrila · KAR'
+    },
+    smithChaAdamantShield: {
+      name: 'Kodeks od adamanta · KAR'
+    },
+    smithChaAetheriteShield: {
+      name: 'Kodeks od eterita · KAR'
+    },
+    smithMasterChaMithrilHelm: {
+      name: 'Majstorski kruna od mithrila · KAR'
+    },
+    smithMasterChaAdamantHelm: {
+      name: 'Majstorski kruna od adamanta · KAR'
+    },
+    smithMasterChaAetheriteHelm: {
+      name: 'Majstorski kruna od eterita · KAR'
+    },
+    smithChaMithrilHelm: {
+      name: 'Kruna od mithrila · KAR'
+    },
+    smithChaAdamantHelm: {
+      name: 'Kruna od adamanta · KAR'
+    },
+    smithChaAetheriteHelm: {
+      name: 'Kruna od eterita · KAR'
+    },
+    smithMasterChaMithrilPlate: {
+      name: 'Majstorski tabard od mithrila · KAR'
+    },
+    smithMasterChaAdamantPlate: {
+      name: 'Majstorski tabard od adamanta · KAR'
+    },
+    smithMasterChaAetheritePlate: {
+      name: 'Majstorski tabard od eterita · KAR'
+    },
+    smithChaMithrilPlate: {
+      name: 'Tabard od mithrila · KAR'
+    },
+    smithChaAdamantPlate: {
+      name: 'Tabard od adamanta · KAR'
+    },
+    smithChaAetheritePlate: {
+      name: 'Tabard od eterita · KAR'
+    },
+    smithMasterChaMithrilGreaves: {
+      name: 'Majstorski čizme od mithrila · KAR'
+    },
+    smithMasterChaAdamantGreaves: {
+      name: 'Majstorski čizme od adamanta · KAR'
+    },
+    smithMasterChaAetheriteGreaves: {
+      name: 'Majstorski čizme od eterita · KAR'
+    },
+    smithChaMithrilGreaves: {
+      name: 'Čizme od mithrila · KAR'
+    },
+    smithChaAdamantGreaves: {
+      name: 'Čizme od adamanta · KAR'
+    },
+    smithChaAetheriteGreaves: {
+      name: 'Čizme od eterita · KAR'
+    },
+    smithMasterEndIronSword: {
+      name: 'Majstorski buzdovan od željeza · IZD'
+    },
+    smithEndIronSword: {
+      name: 'Buzdovan od željeza · IZD'
+    },
+    smithMasterEndIronHammer: {
+      name: 'Majstorski sjekira od željeza · IZD'
+    },
+    smithEndIronHammer: {
+      name: 'Sjekira od željeza · IZD'
+    },
+    smithMasterEndIronShield: {
+      name: 'Majstorski željezni štit · IZD'
+    },
+    smithEndIronShield: {
+      name: 'Željezni štit · IZD'
+    },
+    smithMasterEndIronHelm: {
+      name: 'Majstorska željezna kaciga · IZD'
+    },
+    smithEndIronHelm: {
+      name: 'Željezna kaciga · IZD'
+    },
+    smithMasterEndIronPlate: {
+      name: 'Majstorski željezni oklop · IZD'
+    },
+    smithEndIronPlate: {
+      name: 'Željezni oklop · IZD'
+    },
+    smithMasterEndIronGreaves: {
+      name: 'Majstorske željezne potkoljenice · IZD'
+    },
+    smithEndIronGreaves: {
+      name: 'Željezne potkoljenice · IZD'
+    },
+    smithMasterEndSilverSword: {
+      name: 'Majstorski buzdovan od srebra · IZD'
+    },
+    smithEndSilverSword: {
+      name: 'Buzdovan od srebra · IZD'
+    },
+    smithMasterEndSilverHammer: {
+      name: 'Majstorski sjekira od srebra · IZD'
+    },
+    smithEndSilverHammer: {
+      name: 'Sjekira od srebra · IZD'
+    },
+    smithMasterEndSilverShield: {
+      name: 'Majstorski srebrni štit · IZD'
+    },
+    smithEndSilverShield: {
+      name: 'Srebrni štit · IZD'
+    },
+    smithMasterEndSilverHelm: {
+      name: 'Majstorska srebrna kaciga · IZD'
+    },
+    smithEndSilverHelm: {
+      name: 'Srebrna kaciga · IZD'
+    },
+    smithMasterEndSilverPlate: {
+      name: 'Majstorski srebrni oklop · IZD'
+    },
+    smithEndSilverPlate: {
+      name: 'Srebrni oklop · IZD'
+    },
+    smithMasterEndSilverGreaves: {
+      name: 'Majstorske srebrne potkoljenice · IZD'
+    },
+    smithEndSilverGreaves: {
+      name: 'Srebrne potkoljenice · IZD'
+    },
+    smithMasterEndGoldSword: {
+      name: 'Majstorski buzdovan od zlata · IZD'
+    },
+    smithEndGoldSword: {
+      name: 'Buzdovan od zlata · IZD'
+    },
+    smithMasterEndGoldHammer: {
+      name: 'Majstorski sjekira od zlata · IZD'
+    },
+    smithEndGoldHammer: {
+      name: 'Sjekira od zlata · IZD'
+    },
+    smithMasterEndGoldShield: {
+      name: 'Majstorski zlatni štit · IZD'
+    },
+    smithEndGoldShield: {
+      name: 'Zlatni štit · IZD'
+    },
+    smithMasterEndGoldHelm: {
+      name: 'Majstorska zlatna kaciga · IZD'
+    },
+    smithEndGoldHelm: {
+      name: 'Zlatna kaciga · IZD'
+    },
+    smithMasterEndGoldPlate: {
+      name: 'Majstorski zlatni oklop · IZD'
+    },
+    smithEndGoldPlate: {
+      name: 'Zlatni oklop · IZD'
+    },
+    smithMasterEndGoldGreaves: {
+      name: 'Majstorske zlatne potkoljenice · IZD'
+    },
+    smithEndGoldGreaves: {
+      name: 'Zlatne potkoljenice · IZD'
+    },
+    smithMasterEndMithrilSword: {
+      name: 'Majstorski buzdovan od mithrila · IZD'
+    },
+    smithMasterEndAdamantSword: {
+      name: 'Majstorski buzdovan od adamanta · IZD'
+    },
+    smithMasterEndAetheriteSword: {
+      name: 'Majstorski buzdovan od eterita · IZD'
+    },
+    smithEndMithrilSword: {
+      name: 'Buzdovan od mithrila · IZD'
+    },
+    smithEndAdamantSword: {
+      name: 'Buzdovan od adamanta · IZD'
+    },
+    smithEndAetheriteSword: {
+      name: 'Buzdovan od eterita · IZD'
+    },
+    smithMasterEndMithrilHammer: {
+      name: 'Majstorski sjekira od mithrila · IZD'
+    },
+    smithMasterEndAdamantHammer: {
+      name: 'Majstorski sjekira od adamanta · IZD'
+    },
+    smithMasterEndAetheriteHammer: {
+      name: 'Majstorski sjekira od eterita · IZD'
+    },
+    smithEndMithrilHammer: {
+      name: 'Sjekira od mithrila · IZD'
+    },
+    smithEndAdamantHammer: {
+      name: 'Sjekira od adamanta · IZD'
+    },
+    smithEndAetheriteHammer: {
+      name: 'Sjekira od eterita · IZD'
+    },
+    smithMasterEndMithrilShield: {
+      name: 'Majstorski mitrilni štit · IZD'
+    },
+    smithMasterEndAdamantShield: {
+      name: 'Majstorski adamantni štit · IZD'
+    },
+    smithMasterEndAetheriteShield: {
+      name: 'Majstorski eteritni štit · IZD'
+    },
+    smithEndMithrilShield: {
+      name: 'Mitrilni štit · IZD'
+    },
+    smithEndAdamantShield: {
+      name: 'Adamantni štit · IZD'
+    },
+    smithEndAetheriteShield: {
+      name: 'Eteritni štit · IZD'
+    },
+    smithMasterEndMithrilHelm: {
+      name: 'Majstorska mitrilna kaciga · IZD'
+    },
+    smithMasterEndAdamantHelm: {
+      name: 'Majstorska adamantna kaciga · IZD'
+    },
+    smithMasterEndAetheriteHelm: {
+      name: 'Majstorska eteritna kaciga · IZD'
+    },
+    smithEndMithrilHelm: {
+      name: 'Mitrilna kaciga · IZD'
+    },
+    smithEndAdamantHelm: {
+      name: 'Adamantna kaciga · IZD'
+    },
+    smithEndAetheriteHelm: {
+      name: 'Eteritna kaciga · IZD'
+    },
+    smithMasterEndMithrilPlate: {
+      name: 'Majstorski mitrilni oklop · IZD'
+    },
+    smithMasterEndAdamantPlate: {
+      name: 'Majstorski adamantni oklop · IZD'
+    },
+    smithMasterEndAetheritePlate: {
+      name: 'Majstorski eteritni oklop · IZD'
+    },
+    smithEndMithrilPlate: {
+      name: 'Mitrilni oklop · IZD'
+    },
+    smithEndAdamantPlate: {
+      name: 'Adamantni oklop · IZD'
+    },
+    smithEndAetheritePlate: {
+      name: 'Eteritni oklop · IZD'
+    },
+    smithMasterEndMithrilGreaves: {
+      name: 'Majstorske mitrilne potkoljenice · IZD'
+    },
+    smithMasterEndAdamantGreaves: {
+      name: 'Majstorske adamantne potkoljenice · IZD'
+    },
+    smithMasterEndAetheriteGreaves: {
+      name: 'Majstorske eteritne potkoljenice · IZD'
+    },
+    smithEndMithrilGreaves: {
+      name: 'Mitrilne potkoljenice · IZD'
+    },
+    smithEndAdamantGreaves: {
+      name: 'Adamantne potkoljenice · IZD'
+    },
+    smithEndAetheriteGreaves: {
+      name: 'Eteritne potkoljenice · IZD'
     },
     smithIronSword: {
       name: 'Željezni mač'
@@ -1780,6 +2954,414 @@ export default {
     scepterOfTheFirstKing: {
       name: 'Žezlo prvog kralja'
     },
+    pickpocketsKnife: {
+      name: 'Džeparošev nož'
+    },
+    serpentsFang: {
+      name: 'Zmijski očnjak'
+    },
+    phantomRapier: {
+      name: 'Sablasni rapir'
+    },
+    fangOfTheWindless: {
+      name: 'Očnjak Bezvjetra'
+    },
+    roguesBuckler: {
+      name: 'Lopovski mali štit'
+    },
+    venomVial: {
+      name: 'Bočica otrova'
+    },
+    swiftguardBuckler: {
+      name: 'Mali štit brze straže'
+    },
+    nightshadeFlask: {
+      name: 'Boca velebilja'
+    },
+    windveilTarge: {
+      name: 'Tarča vjetrovitog vela'
+    },
+    shadowdancersBuckler: {
+      name: 'Mali štit plesača sjena'
+    },
+    scoutsBandana: {
+      name: 'Izviđačeva marama'
+    },
+    nightcowl: {
+      name: 'Noćna kapuljača'
+    },
+    shadowveilHood: {
+      name: 'Kapuljača vela sjena'
+    },
+    windrunnersCap: {
+      name: 'Kapa trkača vjetra'
+    },
+    maskOfTheSilentWind: {
+      name: 'Maska tihog vjetra'
+    },
+    rangersJerkin: {
+      name: 'Šumarev kaput'
+    },
+    nightstalkerLeathers: {
+      name: 'Koža noćnog progonitelja'
+    },
+    windridersHarness: {
+      name: 'Opruga jahača vjetra'
+    },
+    mantleOfTheShadowDancer: {
+      name: 'Plašt plesača sjena'
+    },
+    thiefsGloves: {
+      name: 'Lopovske rukavice'
+    },
+    cutpurseGloves: {
+      name: 'Džeparoške rukavice'
+    },
+    glovesOfTheGale: {
+      name: 'Rukavice orkana'
+    },
+    softSoledShoes: {
+      name: 'Cipele s mekim đonom'
+    },
+    catStepBoots: {
+      name: 'Čizme mačjeg koraka'
+    },
+    shadowstepBoots: {
+      name: 'Čizme koraka sjene'
+    },
+    windstrideBoots: {
+      name: 'Čizme koraka vjetra'
+    },
+    luckyCoin: {
+      name: 'Sretni novčić'
+    },
+    shadowBand: {
+      name: 'Prsten sjene'
+    },
+    sandglassOfTheSwift: {
+      name: 'Pješčani sat brzih'
+    },
+    talonCharm: {
+      name: 'Amulet pandže'
+    },
+    windheart: {
+      name: 'Srce vjetra'
+    },
+    ashwallHeater: {
+      name: 'Štit Pepeljastog zida'
+    },
+    wyrmhidePavise: {
+      name: 'Pavez od kože vivrena'
+    },
+    footmansKettleHat: {
+      name: 'Kotlić pješaka'
+    },
+    ironbrowSallet: {
+      name: 'Salada sa željeznim obrvama'
+    },
+    warlordsBarbute: {
+      name: 'Barbuta vojskovođe'
+    },
+    helmOfTheSunderedThrone: {
+      name: 'Kaciga razbijenog prijestolja'
+    },
+    recruitsCuirass: {
+      name: 'Kirasa novaka'
+    },
+    stonecuttersMitts: {
+      name: 'Rukavice klesara'
+    },
+    ashforgedGauntlets: {
+      name: 'Rukavice kovane u pepelu'
+    },
+    warbringerGauntlets: {
+      name: 'Rukavice nositelja rata'
+    },
+    titanfistGauntlets: {
+      name: 'Rukavice Šaka titana'
+    },
+    footmansGreaves: {
+      name: 'Potkoljenice pješaka'
+    },
+    ironshodGreaves: {
+      name: 'Okovane potkoljenice'
+    },
+    warlordsSabatons: {
+      name: 'Sabatoni vojskovođe'
+    },
+    greavesOfTheMountainfall: {
+      name: 'Potkoljenice planinskog odrona'
+    },
+    sergeantsSignet: {
+      name: 'Pečatnjak narednika'
+    },
+    brawlersKnuckleRing: {
+      name: 'Boksač razbijača'
+    },
+    bloodiedWarMedal: {
+      name: 'Okrvavljena ratna medalja'
+    },
+    watchmansCudgel: {
+      name: 'Palica stražara'
+    },
+    ironboundMace: {
+      name: 'Buzdovan sa željeznim obručima'
+    },
+    stonehideCleaver: {
+      name: 'Sjekač od kamene kože'
+    },
+    bulwarkMaul: {
+      name: 'Malj bedema'
+    },
+    mountainsplitterAxe: {
+      name: 'Sjekira Razbijač planina'
+    },
+    everstandWarmace: {
+      name: 'Nesalomivi ratni buzdovan'
+    },
+    emberwallBastion: {
+      name: 'Bedem Žarkog zida'
+    },
+    stonewardenHelm: {
+      name: 'Kaciga kamenog čuvara'
+    },
+    colossusVisage: {
+      name: 'Lik kolosa'
+    },
+    diggersGauntlets: {
+      name: 'Rukavice kopača'
+    },
+    bastionGauntlets: {
+      name: 'Rukavice bedema'
+    },
+    glacierplateGauntlets: {
+      name: 'Rukavice od ledenjačkih ploča'
+    },
+    gauntletsOfEndlessVigil: {
+      name: 'Rukavice vječne straže'
+    },
+    hearthstoneCharm: {
+      name: 'Amulet od kamena ognjišta'
+    },
+    ironheartPendant: {
+      name: 'Privjesak Željezno srce'
+    },
+    hedgewizardsWand: {
+      name: 'Štapić živičarskog čarobnjaka'
+    },
+    frostglassStaff: {
+      name: 'Štap od ledenog stakla'
+    },
+    voidthreadWand: {
+      name: 'Štapić od niti Praznine'
+    },
+    staffOfTheStarlessSky: {
+      name: 'Štap bezzvjezdanog neba'
+    },
+    studentsGrimoire: {
+      name: 'Grimoar učenika'
+    },
+    frostfireOrb: {
+      name: 'Kugla ledene vatre'
+    },
+    orbOfTheUnwrittenHour: {
+      name: 'Kugla nenapisanog sata'
+    },
+    apprenticesPointedCap: {
+      name: 'Šiljata kapa šegrta'
+    },
+    sagesCirclet: {
+      name: 'Dijadem mudraca'
+    },
+    cinderWizardsHat: {
+      name: 'Šešir pepeljastog maga'
+    },
+    voidseerCirclet: {
+      name: 'Dijadem vidovnjaka Praznine'
+    },
+    apprenticesRobe: {
+      name: 'Haljina šegrta'
+    },
+    cinderthreadRobe: {
+      name: 'Haljina od pepeljastih niti'
+    },
+    voidwovenRobe: {
+      name: 'Haljina satkana od Praznine'
+    },
+    inkStainedGloves: {
+      name: 'Rukavice poprskane tintom'
+    },
+    spellthreadGloves: {
+      name: 'Rukavice od niti čarolija'
+    },
+    frostweaveGloves: {
+      name: 'Rukavice od ledene tkanine'
+    },
+    starlitGloves: {
+      name: 'Zvjezdane rukavice'
+    },
+    glovesOfTheLastWord: {
+      name: 'Rukavice posljednje riječi'
+    },
+    scribesSlippers: {
+      name: 'Papuče pisara'
+    },
+    moonstepSlippers: {
+      name: 'Papuče mjesečevog koraka'
+    },
+    emberstepBoots: {
+      name: 'Čizme žarkog koraka'
+    },
+    voidwalkerBoots: {
+      name: 'Čizme lutalice Praznine'
+    },
+    bootsOfTheWanderingStar: {
+      name: 'Čizme lutajuće zvijezde'
+    },
+    glowstonePendant: {
+      name: 'Privjesak sa sjajnim kamenom'
+    },
+    scholarsSeal: {
+      name: 'Pečat učenjaka'
+    },
+    eyeOfTheArchon: {
+      name: 'Oko arhonta'
+    },
+    cinderRepeater: {
+      name: 'Pepeljasta repetirka'
+    },
+    glacierMortar: {
+      name: 'Ledenjački ručni minobacač'
+    },
+    sparkCell: {
+      name: 'Iskrena ćelija'
+    },
+    arcCapacitor: {
+      name: 'Lučni kondenzator'
+    },
+    aetherheartCell: {
+      name: 'Ćelija Srce etera'
+    },
+    marksmansVisor: {
+      name: 'Vizir strijelca'
+    },
+    sharpshootersCap: {
+      name: 'Kapa snajperista'
+    },
+    gunnersHarness: {
+      name: 'Remenje topnika'
+    },
+    steadyhandGloves: {
+      name: 'Rukavice čvrste ruke'
+    },
+    gunsmithsGloves: {
+      name: 'Rukavice oružara'
+    },
+    scrappersBoots: {
+      name: 'Čizme razbijača'
+    },
+    sharpshooterBoots: {
+      name: 'Čizme snajperista'
+    },
+    firingLineBoots: {
+      name: 'Čizme vatrene linije'
+    },
+    steadyfootBoots: {
+      name: 'Čizme čvrstog koraka'
+    },
+    aetherstepBoots: {
+      name: 'Čizme eterskog koraka'
+    },
+    bootsOfTheLastShot: {
+      name: 'Čizme posljednjeg metka'
+    },
+    brassCartridgeCharm: {
+      name: 'Amulet od mjedene čahure'
+    },
+    deadEyeLens: {
+      name: 'Leća točnog oka'
+    },
+    eagleEyeScope: {
+      name: 'Durbin orlovog oka'
+    },
+    criersBaton: {
+      name: 'Štap glasnika'
+    },
+    droversStandard: {
+      name: 'Stijeg stočara'
+    },
+    marshalsSceptre: {
+      name: 'Žezlo maršala'
+    },
+    balladBook: {
+      name: 'Knjiga balada'
+    },
+    chronicleOfHeroes: {
+      name: 'Kronika junaka'
+    },
+    psalterOfTheHost: {
+      name: 'Psaltir vojske'
+    },
+    tomeOfEternalReign: {
+      name: 'Svezak vječne vladavine'
+    },
+    heraldsCap: {
+      name: 'Kapa vjesnika'
+    },
+    singersCirclet: {
+      name: 'Dijadem pjevača'
+    },
+    diademOfTenThousandVoices: {
+      name: 'Dijadem deset tisuća glasova'
+    },
+    travelersWaistcoat: {
+      name: 'Prsluk putnika'
+    },
+    minstrelsMotley: {
+      name: 'Šareno odijelo menestrela'
+    },
+    troubadoursCoat: {
+      name: 'Kaput trubadura'
+    },
+    marshalsGreatcoat: {
+      name: 'Kaput maršala'
+    },
+    buskersGloves: {
+      name: 'Rukavice uličnog glazbenika'
+    },
+    drummersGloves: {
+      name: 'Rukavice bubnjara'
+    },
+    standardBearersGloves: {
+      name: 'Rukavice zastavnika'
+    },
+    gildedParadeGloves: {
+      name: 'Pozlaćene svečane rukavice'
+    },
+    glovesOfTheCrownedHand: {
+      name: 'Rukavice okrunjene ruke'
+    },
+    wayfarersShoes: {
+      name: 'Cipele putnika'
+    },
+    troubadourBoots: {
+      name: 'Čizme trubadura'
+    },
+    heraldsRidingBoots: {
+      name: 'Jahaće čizme vjesnika'
+    },
+    paradeBoots: {
+      name: 'Svečane čizme'
+    },
+    bootsOfTheLongProcession: {
+      name: 'Čizme dugog mimohoda'
+    },
+    silverWhistle: {
+      name: 'Srebrna zviždaljka'
+    },
+    gatheringHorn: {
+      name: 'Saborni rog'
+    },
     heartOfTheMountain: {
       name: 'Srce planine'
     },
@@ -1885,6 +3467,9 @@ export default {
     freedPeddler: {
       talk: 'Sve što putniku treba. Gotovo novo, uglavnom.',
       name: 'Odo Marrow'
+    },
+    sfShadowRoad: {
+      name: 'Nettle Quickhand'
     },
     sfShadow: {
       name: 'Nettle Quickhand'
@@ -2039,6 +3624,9 @@ export default {
     sunfordGambler: {
       name: 'Dob Kolutić'
     },
+    sunfordCups: {
+      name: 'Nell Nimblefingers'
+    },
     oakGambler: {
       name: 'Svileni Ren'
     },
@@ -2150,6 +3738,13 @@ export default {
     }
   },
   dlg: {
+    intro: {
+      crossing: { 1: 'Svaki put ovoga svijeta susreće se na raskrižju… a svako raskrižje je bitka.' },
+      hero: { 1: 'S mirnih polja Sunforda na put je krenuo mladi junak.' },
+      fire: { 1: 'Vatra se odazvala pozivu. Čelik je naučio novo ime.' },
+      foes: { 1: 'Kraljevi goblina, ledeni jarlovi, zmaj Praznine… i Arhidemon.' },
+      begin: { 1: 'Tvoja legenda počinje sada.' }
+    },
     frostDisciple: {
       bye: {
         '1': 'Ostani na toplom.'
@@ -2360,6 +3955,23 @@ export default {
         '2': 'Odo Marrow, tebi na usluzi. Torbar, kotlokrpa i vrlo zahvalan čovjek.',
         '1__f': 'Ti! Ti si ona koja je otvorila taj kavez! Istrunuo bih ondje.',
         '1': 'Ti! Ti si onaj koji je otvorio taj kavez! Istrunuo bih ondje.'
+      }
+    },
+    sfShadowRoad: {
+      hello: {
+        '1': 'Teleportacija. Zanima te?'
+      },
+      again: {
+        '1': 'Opet si ovdje po novi trik?'
+      },
+      train: {
+        '1': 'Pozorno gledaj. Jedan korak i već si negdje drugdje.'
+      },
+      trainBack: {
+        '1': 'Dobro. Sad idi biti negdje drugdje.'
+      },
+      bye: {
+        '1': 'Nemoj se dati uhvatiti.'
       }
     },
     sfShadow: {
@@ -2615,9 +4227,8 @@ export default {
         '2': 'Udari kad metal najjače sja. Promašiš li, staro je željezo. Hajde.',
         '1': 'Kovanje? Hm. Drži čekić ovako, ne kao toljagu.'
       },
-      ore: {
-        '1': 'Grumeni, ha? Uzimam sve. Pošteno mjerilo, pošten novac.'
-      },
+      ore: { '1': 'Ruda, ha? Pokaži. Plaćam po grumenu, pošteno vagano.' },
+      sellBack: { '1': 'Poštena vaga, pošten novac. Donesi još kad nađeš.' },
       forgeBack: {
         '1': 'Nije loše. Ali ni dobro. Samo nastavi.'
       },
@@ -2922,7 +4533,7 @@ export default {
       },
       map: {
         '1': 'Karta kapetana Rooka! Poderao ju je i sakrio komade prije nego što su ga goblini uhvatili.',
-        '2': 'Pronađi svih šest i X će ti pokazati put: negdje u Pepeljastim liticama. Kopaj ondje i zlato je tvoje.',
+        '2': 'Pronađi šest od njih, još ih je nekoliko razbacanih naokolo, i X će ti pokazati put: negdje u Pepeljastim liticama. Kopaj ondje i zlato je tvoje.',
         say: 'Imam komad neke stare karte.'
       }
     },
@@ -2940,6 +4551,9 @@ export default {
       },
       mana: {
         '1': 'Ovaj je gorak. Popij ga kad ti čarolije presuše.'
+      },
+      brew: {
+        '1': 'Pokaži mi svoje bilje. Umiješat ću nešto što ima bolji okus od mog tonika za manu.'
       },
       potions: {
         '1': 'U svaku borbu nosiš nekoliko bočica. Pij prije nego trebaš, ne poslije.',
@@ -2959,6 +4573,9 @@ export default {
       },
       healBack: {
         '1': 'Drži pojas pun, a glavu nisko.'
+      },
+      brewBack: {
+        '1': 'Pazi, vruće su. Nemoj ih popiti sve odjednom.'
       },
       bye: {
         '1': 'Pazi na sebe tamo vani.'
@@ -3064,9 +4681,8 @@ export default {
         '2': 'Prati sjaj. Udari u njegovo srce, tri puta, i metal će zapamtiti.',
         '1': 'Želiš izučiti zanat? Dobro. Oakhavenu treba svaki čekić.'
       },
-      ore: {
-        '1': 'Sirova ruda! Oružarnici je nikad dosta. Evo tvoje plaće.'
-      },
+      ore: { '1': 'Sirova ruda! Oružarnici nikad dosta. Prodaj mi što možeš.' },
+      sellBack: { '1': 'Svaki grumen ide u zid. Hvala.' },
       forgeBack: {
         '1': 'Dobar čelik. Zidine ti zahvaljuju.'
       },
@@ -3108,9 +4724,8 @@ export default {
         '2': 'Tri udarca, svaki u srce sjaja. To je sva tajna.',
         '1': 'Od opsade podučavam svakoga tko zamoli. Dođi, stani ovdje.'
       },
-      ore: {
-        '1': 'Još rude za zidine? Neka te nebo blagoslovi. Evo, uzmi ovo.'
-      },
+      ore: { '1': 'Još rude za zidine? Platit ću svaki grumen koji možeš dati.' },
+      sellBack: { '1': 'Blagoslovljen bio. To je više ploča za zidine.' },
       forgeBack: {
         '1': 'Sa svakim udarcem ide ti bolje. Dođi kad god želiš.'
       },
@@ -3536,9 +5151,8 @@ export default {
         '1__f': 'Stanovnica površine za nakovnjem? Pa, svatko negdje počinje.',
         '1': 'Stanovnik površine za nakovnjem? Pa, svatko negdje počinje.'
       },
-      ore: {
-        '1': 'Dobar, pošten metal. Ironhold za takav uvijek plaća.'
-      },
+      ore: { '1': 'Dobar, pošten metal. Stavi ga ovdje, plaćam po grumenu.' },
+      sellBack: { '1': 'Pošten posao. Ironhold uvijek plaća dobar metal.' },
       forgeBack: {
         '1': 'Patuljak bi to bolje napravio. Ali ne puno.'
       },
@@ -3611,9 +5225,8 @@ export default {
         '2': 'Zagrij, udari, okreni. Tri udarca, točno u sjaj. Onda pusti da se ohladi.',
         '1': 'Pločasti oklop je strpljiv posao. Pokazat ću ti osnove.'
       },
-      ore: {
-        '1': 'Daj da izvažem. Dobro. Novac je tvoj.'
-      },
+      ore: { '1': 'Daj da izvažem. Odaberi što prodaješ, ja brojim novčiće.' },
+      sellBack: { '1': 'Izvagano i plaćeno. Dobro.' },
       forgeBack: {
         '1': 'Pusti da se ohladi prije nego što ga obučeš.'
       },
@@ -3654,9 +5267,8 @@ export default {
         '2': 'Disciplina za nakovnjem, kao i na bojnom polju. Tri udarca, vjerna sjaju.',
         '1': 'Red naoružava svoje prijatelje. Podučit ću te.'
       },
-      ore: {
-        '1': 'Red otkupljuje svu rudu za rat. Tvoja plaća.'
-      },
+      ore: { '1': 'Red kupuje rudu za rat. Prodaj što možeš.' },
+      sellBack: { '1': 'Tvoja je isplata zabilježena. Red ti zahvaljuje.' },
       forgeBack: {
         '1': 'Dobro iskovano. Nosi to časno.'
       },
@@ -4081,6 +5693,11 @@ export default {
       }
     },
     bark: {
+      banditChief: {
+        whistle: {
+          1: 'Gore, momci! Ugrizite ih!'
+        }
+      },
       lightDisciple: {
         freed: {
           '1': 'Svjetlo te poslalo. Ja sam Sestra Aurelle. Potraži me u Sunfordu, poučit ću te putu Donositelja svjetla.'
@@ -4237,9 +5854,8 @@ export default {
         '2': 'Udari kad sjaj najjače gori. Tri dobra udarca daju dobar predmet.',
         '1': 'Želiš li probati čekić? Rado ću podijeliti kovačnicu.'
       },
-      ore: {
-        '1': 'Divna ruda. Silverbridge uvijek plaća poštenu cijenu.'
-      },
+      ore: { '1': 'Lijepa ruda. Pokaži što prodaješ, plaćam po grumenu.' },
+      sellBack: { '1': 'Zadovoljstvo. Silverbridge uvijek plaća poštenu cijenu.' },
       forgeBack: {
         '1__f': 'Gle ti to! Rođena si za ovo.',
         '1': 'Gle ti to! Rođen si za ovo.'
@@ -4682,7 +6298,7 @@ export default {
         say: 'Gdje mogu naći bilje?'
       },
       elixirs: {
-        '1': 'Svaki te u borbi ojača na cijelu minutu. Jači udarci, tvrđa koža, brže noge.',
+        '1': 'Svaki te u borbi ojača na punih 5 minuta. Jači udarci, tvrđa koža, brže noge.',
         '2': 'Stoje u tvojoj trećoj bočici. Dodirni malu strelicu da odabereš koji ćeš popiti.',
         say: 'Što rade eliksiri?'
       },
@@ -4751,6 +6367,36 @@ export default {
       },
       bye: {
         '1': 'Donesi još krame! Krama mi je najdraža.'
+      }
+    },
+    sunfordCups: {
+      hello: {
+        1: 'Samo naprijed! Tri čaše, jedan dragulj, a prvi krug je besplatan!',
+        2: 'Nell Nimblefingers. Moje ruke još nitko nije nasamario. Želiš probati?'
+      },
+      again: {
+        1: 'Opet ovdje? Drži oči otvorene!'
+      },
+      play: {
+        1: 'Oči na dragulju, prijatelju. Ne trepći!'
+      },
+      rules: {
+        1: 'Sakrijem dragulj ispod čaše i izmiješam čaše. Ti pokažeš onu koja ga skriva.',
+        2: 'Svaka pobjeda zaredom plaća više. Tri pobjede donose nagradu, pet blago. Prvi krug dana je besplatan.',
+        say: 'Kako to ide?'
+      },
+      who: {
+        1: 'Miješati sam znala prije nego što sam prohodala. Mama kaže da to puno objašnjava.'
+      },
+      luck: {
+        1: 'Ponekad! Tada glasno stenjem i publika me žali.',
+        say: 'Gubiš li ikad?'
+      },
+      playBack: {
+        1: 'Odličan krug! Vrati se sutra, prvi je uvijek besplatan.'
+      },
+      bye: {
+        1: 'Vidimo se! Drži oči otvorene vani.'
       }
     },
     oakGambler: {
@@ -5244,6 +6890,7 @@ export default {
     banditArcher: 'Razbojnik strijelac',
     wolf: 'Vuk',
     banditChief: 'Razbojnički poglavica',
+    gnome: 'Gnom',
     goblinKing: 'Kralj goblina',
     treant: 'Drvodiv',
     spider: 'Divovski pauk',
@@ -5461,6 +7108,18 @@ export default {
       firefoxColors: 'Firefox: Postavke → Boje → postavi «Zamijeni boje koje određuje stranica» na Nikad.'
     }
   },
+  samsungFix: {
+    title: 'Brza provjera boja',
+    body: 'Neki telefoni mijenjaju boje web-stranica. Usporedi dva kvadrata ispod.',
+    question: 'Izgledaju li oba kvadrata isto?',
+    refSquare: 'Referentni kvadrat',
+    pageSquare: 'Kvadrat stranice',
+    yes: 'Da, izgledaju isto',
+    no: 'Ne, izgledaju različito',
+    option: 'Ispravi boje (Samsungov tamni način)',
+    optionHint: 'Uključi ako izbornici izgledaju tamno ili se tekst teško čita.',
+    recheck: 'Ponovi provjeru boja'
+  },
   saveStatus: {
     restoredTitle: 'Spremanje u oblaku vraćeno',
     restoredBody: 'Bonus za oporavak: +{n} zlata',
@@ -5590,7 +7249,7 @@ export default {
   },
   forge: {
     upgrade: 'Poboljšaj ({n} zlata)',
-    max: 'Potpuno poboljšano: +{n}.',
+    next: 'Sljedeće +{level}: +{pct} % statistike',
     town: 'Ovo može poboljšati kovač u bilo kojem gradu.'
   },
   ore: {
@@ -5605,6 +7264,12 @@ export default {
     },
     mithril: {
       name: 'Mitrilna ruda'
+    },
+    adamant: {
+      name: 'Adamantna ruda'
+    },
+    aetherite: {
+      name: 'Eteritna ruda'
     }
   },
   plant: {
@@ -5686,32 +7351,32 @@ export default {
   elixir: {
     might: {
       name: 'Eliksir moći',
-      desc: '+{n}% štete na minutu'
+      desc: '+{n}% štete na 5 minuta'
     },
     iron: {
       name: 'Napoj željezne kože',
-      desc: '+{n}% oklopa na minutu'
+      desc: '+{n}% oklopa na 5 minuta'
     },
     swift: {
       name: 'Tonik hitrine',
-      desc: '+{n}% brzine i brzine napada na minutu'
+      desc: '+{n}% brzine i brzine napada na 5 minuta'
     },
     mind: {
       name: 'Čaj bistrog uma',
-      desc: 'Vještine se na minutu vraćaju {n}% brže'
+      desc: 'Vještine se na 5 minuta vraćaju {n}% brže'
     },
     vigor: {
       name: 'Eliksir snage',
-      desc: 'Liječi {n}% tvog zdravlja svake sekunde tijekom minute'
+      desc: 'Liječi {n}% tvog zdravlja svake sekunde tijekom 5 minuta'
     },
     shadow: {
       name: 'Žedni napoj',
-      desc: 'Tvoji udarci liječe te za {n}% svoje štete tijekom minute'
+      desc: 'Tvoji udarci liječe te za {n}% svoje štete tijekom 5 minuta'
     }
   },
   alchemy: {
     talk: 'Bilje unutra, eliksiri van. Koji ćemo skuhati?',
-    lead: 'Svaki eliksir djeluje minutu u borbi. Pij ga iz svoje treće bočice. Možeš nositi po {n} od svakog.',
+    lead: 'Svaki eliksir djeluje 5 minuta u borbi. Pij ga iz svoje treće bočice. Možeš nositi po {n} od svakog.',
     brew: 'Skuhaj · {n}',
     carry: 'Ponesi ovo',
     carried: 'U tvojoj bočici',
@@ -5735,6 +7400,25 @@ export default {
     again: 'Igraj opet',
     noGold: 'Nemaš dovoljno zlata za taj ulog.',
     card: 'Karta {n}'
+  },
+  cups: {
+    title: 'Štand s čašama',
+    lead: 'Gledaj dragulj, prati njegovu čašu i onda je pokaži. Svaka pobjeda zaredom plaća više. Treća donosi nagradni predmet, peta blago.',
+    free: 'Besplatan krug',
+    fee: 'Igraj · {n}',
+    row: 'Pobjede zaredom: {n} od {max}',
+    next: 'Sljedeća pobjeda: {n} zlata',
+    watch: 'Gledaj dragulj!',
+    follow: 'Prati ga…',
+    pick: 'Odaberi čašu!',
+    hint: 'Dodirni čašu ili pritisni njezin broj.',
+    won: 'Pronađen! +{n} zlata',
+    lost: 'Nije ta. Niz počinje iznova.',
+    near: 'Tako blizu! Bio je odmah do nje.',
+    timeout: 'Prespor si! Niz počinje iznova.',
+    again: 'Igraj opet',
+    noGold: 'Nema dovoljno zlata. Sutra je prvi krug besplatan.',
+    cup: 'Čaša {n}'
   },
   battle: {
     title: 'Bitka predmeta',

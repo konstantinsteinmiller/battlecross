@@ -54,7 +54,7 @@
     //- ── The bag ─────────────────────────────────────────────────────────────
     section.equip__bag.bag(data-drop="bag" :class="{ 'is-target': drag.state.active && drag.state.payload && drag.state.payload.from !== 'bag' }")
       div.bag__tools
-        div.bag__filters(role="tablist" :aria-label="t('menu.inventory')")
+        div.bag__filters(ref="filtersEl" role="tablist" :aria-label="t('menu.inventory')")
           button.bag__filter(
             v-for="f in FILTERS"
             :key="f"
@@ -141,10 +141,11 @@
  * follows the rules if a slot is ever added or dropped. Every change goes
  * through `equipItem` / `unequip`; the page only asks and shows.
  */
-import { computed, nextTick, ref } from 'vue'
+import { computed, nextTick, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { EQUIP_SLOTS, ITEM_BY_ID, TIER_COLOR, slotOf, type EquipSlot, type ItemDef, type ItemSlot } from '@/game/data/items'
 import { isUpgrade, slotHasUpgrade } from '@/game/data/upgrade'
+import { forgeStep } from '@/game/data/forge'
 import { canEquip, computeStats, equipItem, equippedIn, fitsSlot, markSeen, owns, profile, saveProfile, unequip, upgradeCost, upgradeItem, upgradeLevel } from '@/game/state/profile'
 import { flow } from '@/game/flow'
 import { sfx } from '@/game/audio/sfx'
@@ -159,6 +160,7 @@ import { KEY_STATS, slotFor, statRows, statsWith, wornAgainst } from '@/componen
 import { burst, shake, thunk } from '@/components/game/fx'
 import { useDrag } from '@/components/game/useDrag'
 import { useMedia } from '@/components/game/useMedia'
+import { revealIn, useDragScroll } from '@/use/useDragScroll'
 import HeroDoll from './HeroDoll.vue'
 import EquipCard from './EquipCard.vue'
 import PlantIcon from '@/components/art/PlantIcon.vue'
@@ -196,6 +198,14 @@ const BY: Record<Sort, (a: ItemDef, b: ItemDef) => number> = {
 const items = computed<ItemDef[]>(() => {
   const only = IN_FILTER[filter.value]
   return profile.inv.items.map(id => ITEM_BY_ID[id]).filter((i): i is ItemDef => !!i && (!only || only.includes(i.slot))).sort(BY[sort.value])
+})
+const filtersEl = ref<HTMLElement | null>(null)
+useDragScroll(filtersEl)
+// The chosen chip is always whole in the row.
+watch(filter, async () => {
+  await nextTick()
+  const on = filtersEl.value?.querySelector<HTMLElement>('.is-active')
+  if (filtersEl.value && on) revealIn(filtersEl.value, on)
 })
 const setFilter = (f: Filter): void => { filter.value = f; sfx('uiClick') }
 const nextSort = (): void => { sort.value = SORTS[(SORTS.indexOf(sort.value) + 1) % SORTS.length]!; sfx('uiClick') }
@@ -266,7 +276,9 @@ const plusOf = (id: string): number => upgradeLevel(id)
 const forge = computed(() => {
   if (!sel.value || !wornSlot.value) return null
   const cost = upgradeCost(sel.value)
-  return { level: upgradeLevel(sel.value), cost, town: flow.screen === 'town', affordable: cost > 0 && profile.gold >= cost }
+  const it = ITEM_BY_ID[sel.value]
+  const level = upgradeLevel(sel.value)
+  return { level, cost, pct: it ? forgeStep(it, level + 1) * 100 : 0, town: flow.screen === 'town', affordable: cost > 0 && profile.gold >= cost }
 })
 const doUpgrade = (): void => {
   const id = sel.value
@@ -367,7 +379,8 @@ const portrait = useMedia('(max-aspect-ratio: 1/1)')
   gap: clamp(0.15rem, 0.8vmin, 0.5rem) var(--gap)
   min-height: 0
   max-height: 34rem
-  padding-inline: clamp(0rem, 1vmin, 0.5rem)
+  // Head room: the "better in the bag" arrow and the gem hang above the top row.
+  padding: calc(var(--sock) * 0.16) clamp(0rem, 1vmin, 0.5rem) 0
   font-size: clamp(0.56rem, 2.2vmin, 0.74rem)
 .doll__figure
   grid-area: fig
@@ -493,9 +506,21 @@ const portrait = useMedia('(max-aspect-ratio: 1/1)')
   gap: 0.25rem
   min-width: 0
   overflow-x: auto
+  overscroll-behavior-x: contain
+  touch-action: pan-x
   scrollbar-width: none
   &::-webkit-scrollbar
     display: none
+  &.dragging
+    cursor: grabbing
+    user-select: none
+  // A fade on the side where more chips wait.
+  &.can-right
+    mask-image: linear-gradient(90deg, black calc(100% - 1.6rem), transparent)
+  &.can-left
+    mask-image: linear-gradient(90deg, transparent, black 1.6rem)
+  &.can-left.can-right
+    mask-image: linear-gradient(90deg, transparent, black 1.6rem, black calc(100% - 1.6rem), transparent)
 .bag__filter, .bag__sort
   +screen.bare-button
   +cel.tone('leather')

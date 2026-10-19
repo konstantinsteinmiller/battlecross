@@ -11,16 +11,20 @@
         //- no ids (the two copies share the document during the hand-over).
         h1.logo(:aria-label="t('gameName')" :class="{ 'has-art': !!LOGO_ART.get('emblem') && !LOGO_ART.get('wordmark'), 'has-wordmark': !!LOGO_ART.get('wordmark') }")
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 262" aria-hidden="true" focusable="false"><g stroke-linejoin="round"><g transform="rotate(-42 150 80)"><path d="M150 -20l9 13v82h-18V-7z" fill="#e6ebf5" stroke="#141a33" stroke-width="6"/><path d="M150 -6v76" stroke="#aeb9cf" stroke-width="3" stroke-linecap="round"/><path d="M128 75h44v10h-44z" fill="#ffd24a" stroke="#141a33" stroke-width="6"/><path d="M144 86h12v36h-12z" fill="#a8733f" stroke="#141a33" stroke-width="6"/><circle cx="150" cy="128" r="7" fill="#ffd24a" stroke="#141a33" stroke-width="6"/></g><g transform="rotate(42 150 80)"><path d="M150 -20l9 13v82h-18V-7z" fill="#e6ebf5" stroke="#141a33" stroke-width="6"/><path d="M150 -6v76" stroke="#aeb9cf" stroke-width="3" stroke-linecap="round"/><path d="M128 75h44v10h-44z" fill="#ffd24a" stroke="#141a33" stroke-width="6"/><path d="M144 86h12v36h-12z" fill="#a8733f" stroke="#141a33" stroke-width="6"/><circle cx="150" cy="128" r="7" fill="#ffd24a" stroke="#141a33" stroke-width="6"/></g><path d="M150 24l40 13v32c0 27-16 45-40 56c-24-11-40-29-40-56V37z" fill="#3f7fd6" stroke="#141a33" stroke-width="8"/><path d="M150 34l31 10v25c0 21-12 36-31 45z" fill="#2f63b8"/><path d="M150 34l31 10v25c0 21-12 36-31 45c-19-9-31-24-31-45V44z" fill="none" stroke="#ffd24a" stroke-width="3.4"/><path d="M150 48l6.5 15 15 6.5-15 6.5-6.5 15-6.5-15-15-6.5 15-6.5z" fill="#fff" stroke="#141a33" stroke-width="4"/><path d="M26.5 146V191.6M26.5 146H44.7Q56.9 146 56.9 157.4Q56.9 168.8 44.7 168.8H26.5M44.7 168.8Q56.9 168.8 56.9 180.2Q56.9 191.6 44.7 191.6H26.5M69.8 191.6L85 146L100.2 191.6M76.7 176.4H93.4M113.1 146H143.5M128.3 146V191.6M156.5 146H186.9M171.7 146V191.6M199.8 146V191.6H230.2M273.5 146H243.1V191.6H273.5M243.1 168.8H265.9" transform="matrix(1 0 -.213 1 40 0)" fill="none" stroke="#141a33" stroke-width="17" stroke-linecap="round"/><path d="M26.5 146V191.6M26.5 146H44.7Q56.9 146 56.9 157.4Q56.9 168.8 44.7 168.8H26.5M44.7 168.8Q56.9 168.8 56.9 180.2Q56.9 191.6 44.7 191.6H26.5M69.8 191.6L85 146L100.2 191.6M76.7 176.4H93.4M113.1 146H143.5M128.3 146V191.6M156.5 146H186.9M171.7 146V191.6M199.8 146V191.6H230.2M273.5 146H243.1V191.6H273.5M243.1 168.8H265.9" transform="matrix(1 0 -.213 1 40 -4)" fill="none" stroke="#ffffff" stroke-width="8.6" stroke-linecap="round"/><path d="M78.6 215.1Q78.6 206 67.9 206H59.6Q48.2 206 48.2 217.4V240.2Q48.2 251.6 59.6 251.6H67.9Q78.6 251.6 78.6 242.5M91.5 251.6V206H109.7Q121.9 206 121.9 217.4Q121.9 228.8 109.7 228.8H91.5M108.2 228.8L121.9 251.6M146.2 206H153.8Q165.2 206 165.2 217.4V240.2Q165.2 251.6 153.8 251.6H146.2Q134.8 251.6 134.8 240.2V217.4Q134.8 206 146.2 206ZM208.5 215.1Q208.5 206 197.9 206H189.5Q178.1 206 178.1 217.4Q178.1 228.8 189.5 228.8H197.1Q208.5 228.8 208.5 240.2Q208.5 251.6 197.1 251.6H188.8Q178.1 251.6 178.1 242.5M251.8 215.1Q251.8 206 241.2 206H232.8Q221.4 206 221.4 217.4Q221.4 228.8 232.8 228.8H240.4Q251.8 228.8 251.8 240.2Q251.8 251.6 240.4 251.6H232.1Q221.4 251.6 221.4 242.5" transform="matrix(1 0 -.213 1 40 0)" fill="none" stroke="#141a33" stroke-width="17" stroke-linecap="round"/><path d="M78.6 215.1Q78.6 206 67.9 206H59.6Q48.2 206 48.2 217.4V240.2Q48.2 251.6 59.6 251.6H67.9Q78.6 251.6 78.6 242.5M91.5 251.6V206H109.7Q121.9 206 121.9 217.4Q121.9 228.8 109.7 228.8H91.5M108.2 228.8L121.9 251.6M146.2 206H153.8Q165.2 206 165.2 217.4V240.2Q165.2 251.6 153.8 251.6H146.2Q134.8 251.6 134.8 240.2V217.4Q134.8 206 146.2 206ZM208.5 215.1Q208.5 206 197.9 206H189.5Q178.1 206 178.1 217.4Q178.1 228.8 189.5 228.8H197.1Q208.5 228.8 208.5 240.2Q208.5 251.6 197.1 251.6H188.8Q178.1 251.6 178.1 242.5M251.8 215.1Q251.8 206 241.2 206H232.8Q221.4 206 221.4 217.4Q221.4 228.8 232.8 228.8H240.4Q251.8 228.8 251.8 240.2Q251.8 251.6 240.4 251.6H232.1Q221.4 251.6 221.4 242.5" transform="matrix(1 0 -.213 1 40 -4)" fill="none" stroke="#ffa733" stroke-width="8.6" stroke-linecap="round"/></g></svg>
-          //- The painted badge and mascot, when the build found them (the static
+          //- The painted badge, when the build found them (the static
           //- splash has the same two, written in by the build). Positioned, so
-          //- they lie over the lockup; below the SVG line so `pnpm icons` finds it.
+          //- it lies over the lockup; below the SVG line so `pnpm icons` finds it.
           img.wordmark(v-if="LOGO_ART.get('wordmark')" :src="LOGO_ART.get('wordmark')" :width="WORDMARK_PX" :height="WORDMARK_PX" alt="" decoding="async" draggable="false")
           img.emblem(v-else-if="LOGO_ART.get('emblem')" :src="LOGO_ART.get('emblem')" :width="SPLASH_ART_PX" :height="SPLASH_ART_PX" alt="" decoding="async" draggable="false")
-          img.mascot(v-if="LOGO_ART.get('mascot')" ref="mascotEl" :src="LOGO_ART.get('mascot')" :width="SPLASH_ART_PX" :height="SPLASH_ART_PX" alt="" decoding="async" draggable="false")
         div.bar(role="progressbar" :aria-valuenow="Math.round(progress)" aria-valuemin="0" aria-valuemax="100")
           div.track(aria-hidden="true")
           div.lit(aria-hidden="true")
             div.fill(:style="fillStyle")
+          //- The crystal on the fill's head rides a rail the width of the bar (a transform, like the fill).
+          div.rail(aria-hidden="true" :style="railStyle")
+            <svg class="gem" viewBox="0 0 14 20" aria-hidden="true" focusable="false"><path d="M7 1L13 10L7 19L1 10Z" fill="#fff0cc" stroke="#141a33" stroke-width="2.2" stroke-linejoin="round"/><path d="M7 5L10 10L7 15Z" fill="#ffa733"/><path d="M4.5 9L7 4.5" fill="none" stroke="#fff" stroke-width="1.4" stroke-linecap="round"/></svg>
+        //- Under the bar, its room kept by the static splash's `.s-play`.
+        LoadingClicker.play(first-load)
         Transition(name="hint-fade")
           div.stuck-hint(v-if="showStuckHint") {{ t('loading.tooLong') }}
 </template>
@@ -28,6 +32,7 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, onUnmounted, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
+import LoadingClicker from '@/components/atoms/LoadingClicker.vue'
 import useAssets from '@/use/useAssets'
 import { stopLoading } from '@/use/useCrazyGames'
 import { armFirstLoadInterstitial, notifySplashGone } from '@/use/useFirstLoadInterstitial'
@@ -80,6 +85,15 @@ const fillStyle = computed(() => {
   }
 })
 
+// The gem rides the same position as the fill's edge: a rail as wide as the bar, slid
+// left by the share still to fill (percent of its own width), on the same timing.
+const railStyle = computed(() => {
+  const s = fillStyle.value
+  // The crystal stays 7 px inside each end of the well (over the studs at 0 and 100 %, never colliding with them).
+  const p = parseFloat(s.transform.slice(7))
+  return { transform: `translateX(calc(${((p - 1) * 100).toFixed(2)}% + ${(7 - 14 * p).toFixed(2)}px))`, transitionDuration: s.transitionDuration }
+})
+
 void preloadAssets()
 
 // First-load interstitial (GameMonetize / GameDistribution / GamePix
@@ -105,9 +119,6 @@ let settleFallbackId: number | null = null
 // start time, it is at the same point of the same loop, so the cross-fade
 // below never shows two grids sliding against each other.
 const gridEl = ref<HTMLElement | null>(null)
-// The mascot's bob, likewise: two heroes bouncing out of step would show as
-// a double image while the static one fades.
-const mascotEl = ref<HTMLElement | null>(null)
 const continuePan = (from: Element | null, to: Element | null): void => {
   if (!from || !to || typeof from.getAnimations !== 'function') return
   const [a] = from.getAnimations()
@@ -122,7 +133,6 @@ onMounted(() => {
   const staticSplash = document.getElementById('static-splash')
   if (staticSplash) {
     continuePan(staticSplash.querySelector('.s-grid'), gridEl.value)
-    continuePan(staticSplash.querySelector('.s-mascot'), mascotEl.value)
     staticSplash.classList.add('hidden')
     setTimeout(() => staticSplash.remove(), 500)
   }
@@ -278,7 +288,7 @@ const onBackdropGone = (): void => {
   flex-direction: column
   align-items: center
   gap: clamp(10px, 3vmin, 20px)
-  width: min(84vw, 70vh, 420px)
+  width: min(84vw, 46vh, 420px)
 
 // ── The lockup: one inline SVG, sized by its box ──
 .logo
@@ -291,8 +301,8 @@ const onBackdropGone = (): void => {
     width: 100%
     height: 100%
 
-// The painted badge and mascot, laid over the lockup exactly as in
-// index.html (.s-emblem, .s-mascot): the code-drawn badge steps aside.
+// The painted badge, laid over the lockup exactly as in
+// index.html (.s-emblem): the code-drawn badge steps aside.
 .logo.has-art :deep(svg > g > :nth-child(-n+6))
   display: none
 
@@ -307,35 +317,14 @@ const onBackdropGone = (): void => {
   width: 100%
   height: auto
   pointer-events: none
-.logo.has-wordmark .mascot
-  right: -14%
-  top: -30%
-  width: 38%
-
-.emblem, .mascot
+.emblem
   position: absolute
   display: block
   height: auto
   pointer-events: none
-
-.emblem
   left: 17%
   top: -18%
   width: 66%
-
-.mascot
-  right: -11%
-  top: -20%
-  width: 54%
-  transform-origin: 50% 90%
-  animation: bob 0.9s ease-in-out infinite alternate
-  will-change: transform
-
-@keyframes bob
-  from
-    transform: translateY(0) scale(1.03, 0.97)
-  to
-    transform: translateY(-5%) scale(0.98, 1.02)
 
 // ── The loading bar ──
 // An amber fill in a graphite capsule, leaning with the wordmark. ONE fill
@@ -355,6 +344,63 @@ const onBackdropGone = (): void => {
   position: absolute
   inset: 1px
   border-radius: 2px
+// The frame (the static splash draws the same): a gold rim between two ink lines, a stud at each
+// corner, a pale line in the well, notches at the quarters, a shine over the fill, the crystal on its head.
+.bar::before, .bar::after
+  content: ''
+  position: absolute
+  inset: -4px
+  pointer-events: none
+.bar::before
+  border: 2px solid #ffc768
+  border-bottom-color: #e8962a
+  border-radius: 7px
+  box-shadow: 0 0 0 2px #141a33, inset 0 0 0 2px #141a33
+.bar::after
+  background: radial-gradient(circle at 5px 5px, #fff0cc 0 1px, #e8962a 1.2px 2.4px, #141a33 2.6px 3.6px, transparent 3.8px) left top / 10px 10px no-repeat, radial-gradient(circle at 5px 5px, #fff0cc 0 1px, #e8962a 1.2px 2.4px, #141a33 2.6px 3.6px, transparent 3.8px) right top / 10px 10px no-repeat, radial-gradient(circle at 5px 5px, #fff0cc 0 1px, #e8962a 1.2px 2.4px, #141a33 2.6px 3.6px, transparent 3.8px) left bottom / 10px 10px no-repeat, radial-gradient(circle at 5px 5px, #fff0cc 0 1px, #e8962a 1.2px 2.4px, #141a33 2.6px 3.6px, transparent 3.8px) right bottom / 10px 10px no-repeat
+.track::after
+  content: ''
+  position: absolute
+  inset: 0
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18)
+.lit::after
+  content: ''
+  position: absolute
+  inset: 0
+  background: linear-gradient(rgba(20, 26, 51, 0.45), rgba(20, 26, 51, 0.45)) 25% 0 / 2px 100% no-repeat, linear-gradient(rgba(20, 26, 51, 0.45), rgba(20, 26, 51, 0.45)) 50% 0 / 2px 100% no-repeat, linear-gradient(rgba(20, 26, 51, 0.45), rgba(20, 26, 51, 0.45)) 75% 0 / 2px 100% no-repeat
+.fill::after
+  content: ''
+  position: absolute
+  inset: 0
+  background: linear-gradient(100deg, transparent 0, transparent 40%, rgba(255, 255, 255, 0.5) 48%, transparent 56%, transparent 100%)
+  transform: translateX(-100%)
+  animation: sweep 2.4s ease-in-out infinite
+.rail
+  position: absolute
+  inset: 1px
+  pointer-events: none
+  // Over the frame, studs and notches (the pseudo-elements paint after their siblings).
+  z-index: 2
+  transition-property: transform
+  transition-timing-function: cubic-bezier(0.2, 0.7, 0.3, 1)
+  will-change: transform
+.gem
+  position: absolute
+  right: 0
+  top: 50%
+  height: 300%
+  width: auto
+  aspect-ratio: 14 / 20
+  overflow: visible
+  transform: translate(50%, -50%) skewX(12deg)
+@keyframes sweep
+  0%, 35%
+    transform: translateX(-100%)
+  100%
+    transform: translateX(100%)
+// The mini-game's place under the bar.
+.play
+  width: min(92vw, 58vh)
 .track
   background: linear-gradient(#232936, #161a22)
 .lit
@@ -386,6 +432,8 @@ const onBackdropGone = (): void => {
   opacity: 0
 
 @media (prefers-reduced-motion: reduce)
-  .backdrop-grid, .mascot
+  .backdrop-grid
+    animation: none
+  .fill::after
     animation: none
 </style>

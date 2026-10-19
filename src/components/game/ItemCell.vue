@@ -8,9 +8,9 @@
   )
     span.item-cell__icon
       ItemIcon(:id="id" :dim="dim")
-    //- Worn right now: a green tick on the corner.
+    //- Worn right now: a blue shield crest on the corner.
     span.item-cell__worn(v-if="worn" aria-hidden="true")
-      GameIcon(name="check")
+      GameIcon(name="shield")
     //- Better than what is worn in its slot (`data/upgrade.ts`): a green arrow.
     span.item-cell__up(v-if="better" aria-hidden="true")
       GameIcon(name="up")
@@ -76,28 +76,33 @@ const { t } = useI18n()
   position: absolute
   z-index: 1
   pointer-events: none
-// Worn: a tick, top left.
+  // Round at any cell size: border-box, so the padding and the outline stay
+  // inside the square the aspect ratio makes, and never shrink or stretch.
+  box-sizing: border-box
+  display: flex
+  align-items: center
+  justify-content: center
+// Worn: a blue shield crest, top left.
 .item-cell__worn
   left: -5%
   top: -5%
   width: 36%
-  aspect-ratio: 1
-  padding: 5%
+  aspect-ratio: 1 / 1
+  padding: 7%
   border: var(--bc-ol-thin) solid var(--bc-ink)
   border-radius: 50%
-  background: var(--bc-green-lo)
+  background: var(--bc-blue)
   color: var(--bc-text)
   :deep(svg)
     display: block
     width: 100%
     height: 100%
-    height: 0.9em
 // Better: a green arrow, bottom right.
 .item-cell__up
   right: -5%
   bottom: -5%
   width: 36%
-  aspect-ratio: 1
+  aspect-ratio: 1 / 1
   padding: 5%
   border: var(--bc-ol-thin) solid var(--bc-ink)
   border-radius: 50%
@@ -113,7 +118,7 @@ const { t } = useI18n()
   right: -6%
   top: -6%
   width: 32%
-  aspect-ratio: 1
+  aspect-ratio: 1 / 1
   border: var(--bc-ol-thin) solid var(--bc-ink)
   border-radius: 50%
   background: var(--bc-red)

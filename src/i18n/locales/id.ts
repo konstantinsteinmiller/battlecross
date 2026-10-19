@@ -1,5 +1,13 @@
 // Indonesian locale — mirrors the key shape of en.ts exactly.
 export default {
+  // ─── The intro (#130): its skip, and its narrator's name ───
+  intro: {
+    narrator: 'Sang Pencerita',
+    skip: 'Lewati',
+    holdKey: 'Tahan {key} untuk melewati',
+    holdTouch: 'Tahan untuk melewati',
+    replay: 'Tonton intro'
+  },
   arena: {
     allWon: 'Semua hadiah mitis jadi milikmu.',
     call: 'Kisahnya telah usai. Sekarang buktikan build-mu: naiklah sejauh mungkin, dan menangkan hadiah mitis yang tak bisa diberikan siapa pun.',
@@ -8,6 +16,20 @@ export default {
     next: 'Hadiah berikutnya di gelombang {at}: {item}',
     champion: 'Gelombang juara',
     wave: 'Gelombang {n}'
+  },
+  sellOre: {
+    talk: 'Bijih bagus, harga adil. Berapa yang mau kamu jual?',
+    lead: 'Pilih berapa bongkah tiap bijih yang dijual. Tidak ada yang terjual sampai kamu menekan Jual.',
+    have: 'Kamu punya {n}',
+    each: '{n} emas per buah',
+    none: 'Tidak ada',
+    all: 'Semua',
+    less: '{ore}: kurangi satu',
+    more: '{ore}: tambah satu',
+    total: 'Kamu dapat: {n} emas',
+    sell: 'Jual',
+    selectAll: 'Pilih semua',
+    empty: 'Bijihmu sudah habis untuk dijual.'
   },
   smith: {
     why: {
@@ -1420,38 +1442,110 @@ export default {
     smithMasterMithrilGreaves: {
       name: 'Pelindung Betis Mithril Mahakarya'
     },
+    smithMasterAdamantGreaves: {
+      name: 'Pelindung Betis Adamant Mahakarya'
+    },
+    smithMasterAetheriteGreaves: {
+      name: 'Pelindung Betis Eterit Mahakarya'
+    },
     smithMithrilGreaves: {
       name: 'Pelindung Betis Mithril'
+    },
+    smithAdamantGreaves: {
+      name: 'Pelindung Betis Adamant'
+    },
+    smithAetheriteGreaves: {
+      name: 'Pelindung Betis Eterit'
     },
     smithMasterMithrilPlate: {
       name: 'Zirah Pelat Mithril Mahakarya'
     },
+    smithMasterAdamantPlate: {
+      name: 'Zirah Pelat Adamant Mahakarya'
+    },
+    smithMasterAetheritePlate: {
+      name: 'Zirah Pelat Eterit Mahakarya'
+    },
     smithMithrilPlate: {
       name: 'Zirah Pelat Mithril'
+    },
+    smithAdamantPlate: {
+      name: 'Zirah Pelat Adamant'
+    },
+    smithAetheritePlate: {
+      name: 'Zirah Pelat Eterit'
     },
     smithMasterMithrilHelm: {
       name: 'Helm Mithril Mahakarya'
     },
+    smithMasterAdamantHelm: {
+      name: 'Helm Adamant Mahakarya'
+    },
+    smithMasterAetheriteHelm: {
+      name: 'Helm Eterit Mahakarya'
+    },
     smithMithrilHelm: {
       name: 'Helm Mithril'
+    },
+    smithAdamantHelm: {
+      name: 'Helm Adamant'
+    },
+    smithAetheriteHelm: {
+      name: 'Helm Eterit'
     },
     smithMasterMithrilShield: {
       name: 'Perisai Mithril Mahakarya'
     },
+    smithMasterAdamantShield: {
+      name: 'Perisai Adamant Mahakarya'
+    },
+    smithMasterAetheriteShield: {
+      name: 'Perisai Eterit Mahakarya'
+    },
     smithMithrilShield: {
       name: 'Perisai Mithril'
+    },
+    smithAdamantShield: {
+      name: 'Perisai Adamant'
+    },
+    smithAetheriteShield: {
+      name: 'Perisai Eterit'
     },
     smithMasterMithrilHammer: {
       name: 'Palu Mithril Mahakarya'
     },
+    smithMasterAdamantHammer: {
+      name: 'Palu Adamant Mahakarya'
+    },
+    smithMasterAetheriteHammer: {
+      name: 'Palu Eterit Mahakarya'
+    },
     smithMithrilHammer: {
       name: 'Palu Mithril'
+    },
+    smithAdamantHammer: {
+      name: 'Palu Adamant'
+    },
+    smithAetheriteHammer: {
+      name: 'Palu Eterit'
     },
     smithMasterMithrilSword: {
       name: 'Pedang Mithril Mahakarya'
     },
+    smithMasterAdamantSword: {
+      name: 'Pedang Adamant Mahakarya'
+    },
+    smithMasterAetheriteSword: {
+      name: 'Pedang Eterit Mahakarya'
+    },
     smithMithrilSword: {
       name: 'Pedang Mithril'
+    },
+    smithAdamantSword: {
+      name: 'Pedang Adamant'
+    },
+    smithAetheriteSword: {
+      name: 'Pedang Eterit'
     },
     smithMasterGoldGreaves: {
       name: 'Pelindung Betis Emas Mahakarya'
@@ -1557,6 +1651,1086 @@ export default {
     },
     smithMasterIronSword: {
       name: 'Pedang Besi Mahakarya'
+    },
+    smithMasterDexIronSword: {
+      name: 'Belati Besi Mahakarya · DEX'
+    },
+    smithDexIronSword: {
+      name: 'Belati Besi · DEX'
+    },
+    smithMasterDexIronHammer: {
+      name: 'Rapier Besi Mahakarya · DEX'
+    },
+    smithDexIronHammer: {
+      name: 'Rapier Besi · DEX'
+    },
+    smithMasterDexIronShield: {
+      name: 'Perisai kecil Besi Mahakarya · DEX'
+    },
+    smithDexIronShield: {
+      name: 'Perisai kecil Besi · DEX'
+    },
+    smithMasterDexIronHelm: {
+      name: 'Tudung Besi Mahakarya · DEX'
+    },
+    smithDexIronHelm: {
+      name: 'Tudung Besi · DEX'
+    },
+    smithMasterDexIronPlate: {
+      name: 'Zirah kulit Besi Mahakarya · DEX'
+    },
+    smithDexIronPlate: {
+      name: 'Zirah kulit Besi · DEX'
+    },
+    smithMasterDexIronGreaves: {
+      name: 'Sepatu bot Besi Mahakarya · DEX'
+    },
+    smithDexIronGreaves: {
+      name: 'Sepatu bot Besi · DEX'
+    },
+    smithMasterDexSilverSword: {
+      name: 'Belati Perak Mahakarya · DEX'
+    },
+    smithDexSilverSword: {
+      name: 'Belati Perak · DEX'
+    },
+    smithMasterDexSilverHammer: {
+      name: 'Rapier Perak Mahakarya · DEX'
+    },
+    smithDexSilverHammer: {
+      name: 'Rapier Perak · DEX'
+    },
+    smithMasterDexSilverShield: {
+      name: 'Perisai kecil Perak Mahakarya · DEX'
+    },
+    smithDexSilverShield: {
+      name: 'Perisai kecil Perak · DEX'
+    },
+    smithMasterDexSilverHelm: {
+      name: 'Tudung Perak Mahakarya · DEX'
+    },
+    smithDexSilverHelm: {
+      name: 'Tudung Perak · DEX'
+    },
+    smithMasterDexSilverPlate: {
+      name: 'Zirah kulit Perak Mahakarya · DEX'
+    },
+    smithDexSilverPlate: {
+      name: 'Zirah kulit Perak · DEX'
+    },
+    smithMasterDexSilverGreaves: {
+      name: 'Sepatu bot Perak Mahakarya · DEX'
+    },
+    smithDexSilverGreaves: {
+      name: 'Sepatu bot Perak · DEX'
+    },
+    smithMasterDexGoldSword: {
+      name: 'Belati Emas Mahakarya · DEX'
+    },
+    smithDexGoldSword: {
+      name: 'Belati Emas · DEX'
+    },
+    smithMasterDexGoldHammer: {
+      name: 'Rapier Emas Mahakarya · DEX'
+    },
+    smithDexGoldHammer: {
+      name: 'Rapier Emas · DEX'
+    },
+    smithMasterDexGoldShield: {
+      name: 'Perisai kecil Emas Mahakarya · DEX'
+    },
+    smithDexGoldShield: {
+      name: 'Perisai kecil Emas · DEX'
+    },
+    smithMasterDexGoldHelm: {
+      name: 'Tudung Emas Mahakarya · DEX'
+    },
+    smithDexGoldHelm: {
+      name: 'Tudung Emas · DEX'
+    },
+    smithMasterDexGoldPlate: {
+      name: 'Zirah kulit Emas Mahakarya · DEX'
+    },
+    smithDexGoldPlate: {
+      name: 'Zirah kulit Emas · DEX'
+    },
+    smithMasterDexGoldGreaves: {
+      name: 'Sepatu bot Emas Mahakarya · DEX'
+    },
+    smithDexGoldGreaves: {
+      name: 'Sepatu bot Emas · DEX'
+    },
+    smithMasterDexMithrilSword: {
+      name: 'Belati Mithril Mahakarya · DEX'
+    },
+    smithMasterDexAdamantSword: {
+      name: 'Belati Adamant Mahakarya · DEX'
+    },
+    smithMasterDexAetheriteSword: {
+      name: 'Belati Eterit Mahakarya · DEX'
+    },
+    smithDexMithrilSword: {
+      name: 'Belati Mithril · DEX'
+    },
+    smithDexAdamantSword: {
+      name: 'Belati Adamant · DEX'
+    },
+    smithDexAetheriteSword: {
+      name: 'Belati Eterit · DEX'
+    },
+    smithMasterDexMithrilHammer: {
+      name: 'Rapier Mithril Mahakarya · DEX'
+    },
+    smithMasterDexAdamantHammer: {
+      name: 'Rapier Adamant Mahakarya · DEX'
+    },
+    smithMasterDexAetheriteHammer: {
+      name: 'Rapier Eterit Mahakarya · DEX'
+    },
+    smithDexMithrilHammer: {
+      name: 'Rapier Mithril · DEX'
+    },
+    smithDexAdamantHammer: {
+      name: 'Rapier Adamant · DEX'
+    },
+    smithDexAetheriteHammer: {
+      name: 'Rapier Eterit · DEX'
+    },
+    smithMasterDexMithrilShield: {
+      name: 'Perisai kecil Mithril Mahakarya · DEX'
+    },
+    smithMasterDexAdamantShield: {
+      name: 'Perisai kecil Adamant Mahakarya · DEX'
+    },
+    smithMasterDexAetheriteShield: {
+      name: 'Perisai kecil Eterit Mahakarya · DEX'
+    },
+    smithDexMithrilShield: {
+      name: 'Perisai kecil Mithril · DEX'
+    },
+    smithDexAdamantShield: {
+      name: 'Perisai kecil Adamant · DEX'
+    },
+    smithDexAetheriteShield: {
+      name: 'Perisai kecil Eterit · DEX'
+    },
+    smithMasterDexMithrilHelm: {
+      name: 'Tudung Mithril Mahakarya · DEX'
+    },
+    smithMasterDexAdamantHelm: {
+      name: 'Tudung Adamant Mahakarya · DEX'
+    },
+    smithMasterDexAetheriteHelm: {
+      name: 'Tudung Eterit Mahakarya · DEX'
+    },
+    smithDexMithrilHelm: {
+      name: 'Tudung Mithril · DEX'
+    },
+    smithDexAdamantHelm: {
+      name: 'Tudung Adamant · DEX'
+    },
+    smithDexAetheriteHelm: {
+      name: 'Tudung Eterit · DEX'
+    },
+    smithMasterDexMithrilPlate: {
+      name: 'Zirah kulit Mithril Mahakarya · DEX'
+    },
+    smithMasterDexAdamantPlate: {
+      name: 'Zirah kulit Adamant Mahakarya · DEX'
+    },
+    smithMasterDexAetheritePlate: {
+      name: 'Zirah kulit Eterit Mahakarya · DEX'
+    },
+    smithDexMithrilPlate: {
+      name: 'Zirah kulit Mithril · DEX'
+    },
+    smithDexAdamantPlate: {
+      name: 'Zirah kulit Adamant · DEX'
+    },
+    smithDexAetheritePlate: {
+      name: 'Zirah kulit Eterit · DEX'
+    },
+    smithMasterDexMithrilGreaves: {
+      name: 'Sepatu bot Mithril Mahakarya · DEX'
+    },
+    smithMasterDexAdamantGreaves: {
+      name: 'Sepatu bot Adamant Mahakarya · DEX'
+    },
+    smithMasterDexAetheriteGreaves: {
+      name: 'Sepatu bot Eterit Mahakarya · DEX'
+    },
+    smithDexMithrilGreaves: {
+      name: 'Sepatu bot Mithril · DEX'
+    },
+    smithDexAdamantGreaves: {
+      name: 'Sepatu bot Adamant · DEX'
+    },
+    smithDexAetheriteGreaves: {
+      name: 'Sepatu bot Eterit · DEX'
+    },
+    smithMasterIntIronSword: {
+      name: 'Tongkat sihir Besi Mahakarya · INT'
+    },
+    smithIntIronSword: {
+      name: 'Tongkat sihir Besi · INT'
+    },
+    smithMasterIntIronHammer: {
+      name: 'Tongkat Besi Mahakarya · INT'
+    },
+    smithIntIronHammer: {
+      name: 'Tongkat Besi · INT'
+    },
+    smithMasterIntIronShield: {
+      name: 'Kitab Besi Mahakarya · INT'
+    },
+    smithIntIronShield: {
+      name: 'Kitab Besi · INT'
+    },
+    smithMasterIntIronHelm: {
+      name: 'Mahkota kecil Besi Mahakarya · INT'
+    },
+    smithIntIronHelm: {
+      name: 'Mahkota kecil Besi · INT'
+    },
+    smithMasterIntIronPlate: {
+      name: 'Jubah Besi Mahakarya · INT'
+    },
+    smithIntIronPlate: {
+      name: 'Jubah Besi · INT'
+    },
+    smithMasterIntIronGreaves: {
+      name: 'Sepatu bot Besi Mahakarya · INT'
+    },
+    smithIntIronGreaves: {
+      name: 'Sepatu bot Besi · INT'
+    },
+    smithMasterIntSilverSword: {
+      name: 'Tongkat sihir Perak Mahakarya · INT'
+    },
+    smithIntSilverSword: {
+      name: 'Tongkat sihir Perak · INT'
+    },
+    smithMasterIntSilverHammer: {
+      name: 'Tongkat Perak Mahakarya · INT'
+    },
+    smithIntSilverHammer: {
+      name: 'Tongkat Perak · INT'
+    },
+    smithMasterIntSilverShield: {
+      name: 'Kitab Perak Mahakarya · INT'
+    },
+    smithIntSilverShield: {
+      name: 'Kitab Perak · INT'
+    },
+    smithMasterIntSilverHelm: {
+      name: 'Mahkota kecil Perak Mahakarya · INT'
+    },
+    smithIntSilverHelm: {
+      name: 'Mahkota kecil Perak · INT'
+    },
+    smithMasterIntSilverPlate: {
+      name: 'Jubah Perak Mahakarya · INT'
+    },
+    smithIntSilverPlate: {
+      name: 'Jubah Perak · INT'
+    },
+    smithMasterIntSilverGreaves: {
+      name: 'Sepatu bot Perak Mahakarya · INT'
+    },
+    smithIntSilverGreaves: {
+      name: 'Sepatu bot Perak · INT'
+    },
+    smithMasterIntGoldSword: {
+      name: 'Tongkat sihir Emas Mahakarya · INT'
+    },
+    smithIntGoldSword: {
+      name: 'Tongkat sihir Emas · INT'
+    },
+    smithMasterIntGoldHammer: {
+      name: 'Tongkat Emas Mahakarya · INT'
+    },
+    smithIntGoldHammer: {
+      name: 'Tongkat Emas · INT'
+    },
+    smithMasterIntGoldShield: {
+      name: 'Kitab Emas Mahakarya · INT'
+    },
+    smithIntGoldShield: {
+      name: 'Kitab Emas · INT'
+    },
+    smithMasterIntGoldHelm: {
+      name: 'Mahkota kecil Emas Mahakarya · INT'
+    },
+    smithIntGoldHelm: {
+      name: 'Mahkota kecil Emas · INT'
+    },
+    smithMasterIntGoldPlate: {
+      name: 'Jubah Emas Mahakarya · INT'
+    },
+    smithIntGoldPlate: {
+      name: 'Jubah Emas · INT'
+    },
+    smithMasterIntGoldGreaves: {
+      name: 'Sepatu bot Emas Mahakarya · INT'
+    },
+    smithIntGoldGreaves: {
+      name: 'Sepatu bot Emas · INT'
+    },
+    smithMasterIntMithrilSword: {
+      name: 'Tongkat sihir Mithril Mahakarya · INT'
+    },
+    smithMasterIntAdamantSword: {
+      name: 'Tongkat sihir Adamant Mahakarya · INT'
+    },
+    smithMasterIntAetheriteSword: {
+      name: 'Tongkat sihir Eterit Mahakarya · INT'
+    },
+    smithIntMithrilSword: {
+      name: 'Tongkat sihir Mithril · INT'
+    },
+    smithIntAdamantSword: {
+      name: 'Tongkat sihir Adamant · INT'
+    },
+    smithIntAetheriteSword: {
+      name: 'Tongkat sihir Eterit · INT'
+    },
+    smithMasterIntMithrilHammer: {
+      name: 'Tongkat Mithril Mahakarya · INT'
+    },
+    smithMasterIntAdamantHammer: {
+      name: 'Tongkat Adamant Mahakarya · INT'
+    },
+    smithMasterIntAetheriteHammer: {
+      name: 'Tongkat Eterit Mahakarya · INT'
+    },
+    smithIntMithrilHammer: {
+      name: 'Tongkat Mithril · INT'
+    },
+    smithIntAdamantHammer: {
+      name: 'Tongkat Adamant · INT'
+    },
+    smithIntAetheriteHammer: {
+      name: 'Tongkat Eterit · INT'
+    },
+    smithMasterIntMithrilShield: {
+      name: 'Kitab Mithril Mahakarya · INT'
+    },
+    smithMasterIntAdamantShield: {
+      name: 'Kitab Adamant Mahakarya · INT'
+    },
+    smithMasterIntAetheriteShield: {
+      name: 'Kitab Eterit Mahakarya · INT'
+    },
+    smithIntMithrilShield: {
+      name: 'Kitab Mithril · INT'
+    },
+    smithIntAdamantShield: {
+      name: 'Kitab Adamant · INT'
+    },
+    smithIntAetheriteShield: {
+      name: 'Kitab Eterit · INT'
+    },
+    smithMasterIntMithrilHelm: {
+      name: 'Mahkota kecil Mithril Mahakarya · INT'
+    },
+    smithMasterIntAdamantHelm: {
+      name: 'Mahkota kecil Adamant Mahakarya · INT'
+    },
+    smithMasterIntAetheriteHelm: {
+      name: 'Mahkota kecil Eterit Mahakarya · INT'
+    },
+    smithIntMithrilHelm: {
+      name: 'Mahkota kecil Mithril · INT'
+    },
+    smithIntAdamantHelm: {
+      name: 'Mahkota kecil Adamant · INT'
+    },
+    smithIntAetheriteHelm: {
+      name: 'Mahkota kecil Eterit · INT'
+    },
+    smithMasterIntMithrilPlate: {
+      name: 'Jubah Mithril Mahakarya · INT'
+    },
+    smithMasterIntAdamantPlate: {
+      name: 'Jubah Adamant Mahakarya · INT'
+    },
+    smithMasterIntAetheritePlate: {
+      name: 'Jubah Eterit Mahakarya · INT'
+    },
+    smithIntMithrilPlate: {
+      name: 'Jubah Mithril · INT'
+    },
+    smithIntAdamantPlate: {
+      name: 'Jubah Adamant · INT'
+    },
+    smithIntAetheritePlate: {
+      name: 'Jubah Eterit · INT'
+    },
+    smithMasterIntMithrilGreaves: {
+      name: 'Sepatu bot Mithril Mahakarya · INT'
+    },
+    smithMasterIntAdamantGreaves: {
+      name: 'Sepatu bot Adamant Mahakarya · INT'
+    },
+    smithMasterIntAetheriteGreaves: {
+      name: 'Sepatu bot Eterit Mahakarya · INT'
+    },
+    smithIntMithrilGreaves: {
+      name: 'Sepatu bot Mithril · INT'
+    },
+    smithIntAdamantGreaves: {
+      name: 'Sepatu bot Adamant · INT'
+    },
+    smithIntAetheriteGreaves: {
+      name: 'Sepatu bot Eterit · INT'
+    },
+    smithMasterSklIronSword: {
+      name: 'Pistol Besi Mahakarya · SKL'
+    },
+    smithSklIronSword: {
+      name: 'Pistol Besi · SKL'
+    },
+    smithMasterSklIronHammer: {
+      name: 'Senapan Besi Mahakarya · SKL'
+    },
+    smithSklIronHammer: {
+      name: 'Senapan Besi · SKL'
+    },
+    smithMasterSklIronShield: {
+      name: 'Baterai Besi Mahakarya · SKL'
+    },
+    smithSklIronShield: {
+      name: 'Baterai Besi · SKL'
+    },
+    smithMasterSklIronHelm: {
+      name: 'Topi Besi Mahakarya · SKL'
+    },
+    smithSklIronHelm: {
+      name: 'Topi Besi · SKL'
+    },
+    smithMasterSklIronPlate: {
+      name: 'Harnes Besi Mahakarya · SKL'
+    },
+    smithSklIronPlate: {
+      name: 'Harnes Besi · SKL'
+    },
+    smithMasterSklIronGreaves: {
+      name: 'Sepatu bot Besi Mahakarya · SKL'
+    },
+    smithSklIronGreaves: {
+      name: 'Sepatu bot Besi · SKL'
+    },
+    smithMasterSklSilverSword: {
+      name: 'Pistol Perak Mahakarya · SKL'
+    },
+    smithSklSilverSword: {
+      name: 'Pistol Perak · SKL'
+    },
+    smithMasterSklSilverHammer: {
+      name: 'Senapan Perak Mahakarya · SKL'
+    },
+    smithSklSilverHammer: {
+      name: 'Senapan Perak · SKL'
+    },
+    smithMasterSklSilverShield: {
+      name: 'Baterai Perak Mahakarya · SKL'
+    },
+    smithSklSilverShield: {
+      name: 'Baterai Perak · SKL'
+    },
+    smithMasterSklSilverHelm: {
+      name: 'Topi Perak Mahakarya · SKL'
+    },
+    smithSklSilverHelm: {
+      name: 'Topi Perak · SKL'
+    },
+    smithMasterSklSilverPlate: {
+      name: 'Harnes Perak Mahakarya · SKL'
+    },
+    smithSklSilverPlate: {
+      name: 'Harnes Perak · SKL'
+    },
+    smithMasterSklSilverGreaves: {
+      name: 'Sepatu bot Perak Mahakarya · SKL'
+    },
+    smithSklSilverGreaves: {
+      name: 'Sepatu bot Perak · SKL'
+    },
+    smithMasterSklGoldSword: {
+      name: 'Pistol Emas Mahakarya · SKL'
+    },
+    smithSklGoldSword: {
+      name: 'Pistol Emas · SKL'
+    },
+    smithMasterSklGoldHammer: {
+      name: 'Senapan Emas Mahakarya · SKL'
+    },
+    smithSklGoldHammer: {
+      name: 'Senapan Emas · SKL'
+    },
+    smithMasterSklGoldShield: {
+      name: 'Baterai Emas Mahakarya · SKL'
+    },
+    smithSklGoldShield: {
+      name: 'Baterai Emas · SKL'
+    },
+    smithMasterSklGoldHelm: {
+      name: 'Topi Emas Mahakarya · SKL'
+    },
+    smithSklGoldHelm: {
+      name: 'Topi Emas · SKL'
+    },
+    smithMasterSklGoldPlate: {
+      name: 'Harnes Emas Mahakarya · SKL'
+    },
+    smithSklGoldPlate: {
+      name: 'Harnes Emas · SKL'
+    },
+    smithMasterSklGoldGreaves: {
+      name: 'Sepatu bot Emas Mahakarya · SKL'
+    },
+    smithSklGoldGreaves: {
+      name: 'Sepatu bot Emas · SKL'
+    },
+    smithMasterSklMithrilSword: {
+      name: 'Pistol Mithril Mahakarya · SKL'
+    },
+    smithMasterSklAdamantSword: {
+      name: 'Pistol Adamant Mahakarya · SKL'
+    },
+    smithMasterSklAetheriteSword: {
+      name: 'Pistol Eterit Mahakarya · SKL'
+    },
+    smithSklMithrilSword: {
+      name: 'Pistol Mithril · SKL'
+    },
+    smithSklAdamantSword: {
+      name: 'Pistol Adamant · SKL'
+    },
+    smithSklAetheriteSword: {
+      name: 'Pistol Eterit · SKL'
+    },
+    smithMasterSklMithrilHammer: {
+      name: 'Senapan Mithril Mahakarya · SKL'
+    },
+    smithMasterSklAdamantHammer: {
+      name: 'Senapan Adamant Mahakarya · SKL'
+    },
+    smithMasterSklAetheriteHammer: {
+      name: 'Senapan Eterit Mahakarya · SKL'
+    },
+    smithSklMithrilHammer: {
+      name: 'Senapan Mithril · SKL'
+    },
+    smithSklAdamantHammer: {
+      name: 'Senapan Adamant · SKL'
+    },
+    smithSklAetheriteHammer: {
+      name: 'Senapan Eterit · SKL'
+    },
+    smithMasterSklMithrilShield: {
+      name: 'Baterai Mithril Mahakarya · SKL'
+    },
+    smithMasterSklAdamantShield: {
+      name: 'Baterai Adamant Mahakarya · SKL'
+    },
+    smithMasterSklAetheriteShield: {
+      name: 'Baterai Eterit Mahakarya · SKL'
+    },
+    smithSklMithrilShield: {
+      name: 'Baterai Mithril · SKL'
+    },
+    smithSklAdamantShield: {
+      name: 'Baterai Adamant · SKL'
+    },
+    smithSklAetheriteShield: {
+      name: 'Baterai Eterit · SKL'
+    },
+    smithMasterSklMithrilHelm: {
+      name: 'Topi Mithril Mahakarya · SKL'
+    },
+    smithMasterSklAdamantHelm: {
+      name: 'Topi Adamant Mahakarya · SKL'
+    },
+    smithMasterSklAetheriteHelm: {
+      name: 'Topi Eterit Mahakarya · SKL'
+    },
+    smithSklMithrilHelm: {
+      name: 'Topi Mithril · SKL'
+    },
+    smithSklAdamantHelm: {
+      name: 'Topi Adamant · SKL'
+    },
+    smithSklAetheriteHelm: {
+      name: 'Topi Eterit · SKL'
+    },
+    smithMasterSklMithrilPlate: {
+      name: 'Harnes Mithril Mahakarya · SKL'
+    },
+    smithMasterSklAdamantPlate: {
+      name: 'Harnes Adamant Mahakarya · SKL'
+    },
+    smithMasterSklAetheritePlate: {
+      name: 'Harnes Eterit Mahakarya · SKL'
+    },
+    smithSklMithrilPlate: {
+      name: 'Harnes Mithril · SKL'
+    },
+    smithSklAdamantPlate: {
+      name: 'Harnes Adamant · SKL'
+    },
+    smithSklAetheritePlate: {
+      name: 'Harnes Eterit · SKL'
+    },
+    smithMasterSklMithrilGreaves: {
+      name: 'Sepatu bot Mithril Mahakarya · SKL'
+    },
+    smithMasterSklAdamantGreaves: {
+      name: 'Sepatu bot Adamant Mahakarya · SKL'
+    },
+    smithMasterSklAetheriteGreaves: {
+      name: 'Sepatu bot Eterit Mahakarya · SKL'
+    },
+    smithSklMithrilGreaves: {
+      name: 'Sepatu bot Mithril · SKL'
+    },
+    smithSklAdamantGreaves: {
+      name: 'Sepatu bot Adamant · SKL'
+    },
+    smithSklAetheriteGreaves: {
+      name: 'Sepatu bot Eterit · SKL'
+    },
+    smithMasterChaIronSword: {
+      name: 'Tongkat kebesaran Besi Mahakarya · CHA'
+    },
+    smithChaIronSword: {
+      name: 'Tongkat kebesaran Besi · CHA'
+    },
+    smithMasterChaIronHammer: {
+      name: 'Panji Besi Mahakarya · CHA'
+    },
+    smithChaIronHammer: {
+      name: 'Panji Besi · CHA'
+    },
+    smithMasterChaIronShield: {
+      name: 'Kodeks Besi Mahakarya · CHA'
+    },
+    smithChaIronShield: {
+      name: 'Kodeks Besi · CHA'
+    },
+    smithMasterChaIronHelm: {
+      name: 'Mahkota Besi Mahakarya · CHA'
+    },
+    smithChaIronHelm: {
+      name: 'Mahkota Besi · CHA'
+    },
+    smithMasterChaIronPlate: {
+      name: 'Tabard Besi Mahakarya · CHA'
+    },
+    smithChaIronPlate: {
+      name: 'Tabard Besi · CHA'
+    },
+    smithMasterChaIronGreaves: {
+      name: 'Sepatu bot Besi Mahakarya · CHA'
+    },
+    smithChaIronGreaves: {
+      name: 'Sepatu bot Besi · CHA'
+    },
+    smithMasterChaSilverSword: {
+      name: 'Tongkat kebesaran Perak Mahakarya · CHA'
+    },
+    smithChaSilverSword: {
+      name: 'Tongkat kebesaran Perak · CHA'
+    },
+    smithMasterChaSilverHammer: {
+      name: 'Panji Perak Mahakarya · CHA'
+    },
+    smithChaSilverHammer: {
+      name: 'Panji Perak · CHA'
+    },
+    smithMasterChaSilverShield: {
+      name: 'Kodeks Perak Mahakarya · CHA'
+    },
+    smithChaSilverShield: {
+      name: 'Kodeks Perak · CHA'
+    },
+    smithMasterChaSilverHelm: {
+      name: 'Mahkota Perak Mahakarya · CHA'
+    },
+    smithChaSilverHelm: {
+      name: 'Mahkota Perak · CHA'
+    },
+    smithMasterChaSilverPlate: {
+      name: 'Tabard Perak Mahakarya · CHA'
+    },
+    smithChaSilverPlate: {
+      name: 'Tabard Perak · CHA'
+    },
+    smithMasterChaSilverGreaves: {
+      name: 'Sepatu bot Perak Mahakarya · CHA'
+    },
+    smithChaSilverGreaves: {
+      name: 'Sepatu bot Perak · CHA'
+    },
+    smithMasterChaGoldSword: {
+      name: 'Tongkat kebesaran Emas Mahakarya · CHA'
+    },
+    smithChaGoldSword: {
+      name: 'Tongkat kebesaran Emas · CHA'
+    },
+    smithMasterChaGoldHammer: {
+      name: 'Panji Emas Mahakarya · CHA'
+    },
+    smithChaGoldHammer: {
+      name: 'Panji Emas · CHA'
+    },
+    smithMasterChaGoldShield: {
+      name: 'Kodeks Emas Mahakarya · CHA'
+    },
+    smithChaGoldShield: {
+      name: 'Kodeks Emas · CHA'
+    },
+    smithMasterChaGoldHelm: {
+      name: 'Mahkota Emas Mahakarya · CHA'
+    },
+    smithChaGoldHelm: {
+      name: 'Mahkota Emas · CHA'
+    },
+    smithMasterChaGoldPlate: {
+      name: 'Tabard Emas Mahakarya · CHA'
+    },
+    smithChaGoldPlate: {
+      name: 'Tabard Emas · CHA'
+    },
+    smithMasterChaGoldGreaves: {
+      name: 'Sepatu bot Emas Mahakarya · CHA'
+    },
+    smithChaGoldGreaves: {
+      name: 'Sepatu bot Emas · CHA'
+    },
+    smithMasterChaMithrilSword: {
+      name: 'Tongkat kebesaran Mithril Mahakarya · CHA'
+    },
+    smithMasterChaAdamantSword: {
+      name: 'Tongkat kebesaran Adamant Mahakarya · CHA'
+    },
+    smithMasterChaAetheriteSword: {
+      name: 'Tongkat kebesaran Eterit Mahakarya · CHA'
+    },
+    smithChaMithrilSword: {
+      name: 'Tongkat kebesaran Mithril · CHA'
+    },
+    smithChaAdamantSword: {
+      name: 'Tongkat kebesaran Adamant · CHA'
+    },
+    smithChaAetheriteSword: {
+      name: 'Tongkat kebesaran Eterit · CHA'
+    },
+    smithMasterChaMithrilHammer: {
+      name: 'Panji Mithril Mahakarya · CHA'
+    },
+    smithMasterChaAdamantHammer: {
+      name: 'Panji Adamant Mahakarya · CHA'
+    },
+    smithMasterChaAetheriteHammer: {
+      name: 'Panji Eterit Mahakarya · CHA'
+    },
+    smithChaMithrilHammer: {
+      name: 'Panji Mithril · CHA'
+    },
+    smithChaAdamantHammer: {
+      name: 'Panji Adamant · CHA'
+    },
+    smithChaAetheriteHammer: {
+      name: 'Panji Eterit · CHA'
+    },
+    smithMasterChaMithrilShield: {
+      name: 'Kodeks Mithril Mahakarya · CHA'
+    },
+    smithMasterChaAdamantShield: {
+      name: 'Kodeks Adamant Mahakarya · CHA'
+    },
+    smithMasterChaAetheriteShield: {
+      name: 'Kodeks Eterit Mahakarya · CHA'
+    },
+    smithChaMithrilShield: {
+      name: 'Kodeks Mithril · CHA'
+    },
+    smithChaAdamantShield: {
+      name: 'Kodeks Adamant · CHA'
+    },
+    smithChaAetheriteShield: {
+      name: 'Kodeks Eterit · CHA'
+    },
+    smithMasterChaMithrilHelm: {
+      name: 'Mahkota Mithril Mahakarya · CHA'
+    },
+    smithMasterChaAdamantHelm: {
+      name: 'Mahkota Adamant Mahakarya · CHA'
+    },
+    smithMasterChaAetheriteHelm: {
+      name: 'Mahkota Eterit Mahakarya · CHA'
+    },
+    smithChaMithrilHelm: {
+      name: 'Mahkota Mithril · CHA'
+    },
+    smithChaAdamantHelm: {
+      name: 'Mahkota Adamant · CHA'
+    },
+    smithChaAetheriteHelm: {
+      name: 'Mahkota Eterit · CHA'
+    },
+    smithMasterChaMithrilPlate: {
+      name: 'Tabard Mithril Mahakarya · CHA'
+    },
+    smithMasterChaAdamantPlate: {
+      name: 'Tabard Adamant Mahakarya · CHA'
+    },
+    smithMasterChaAetheritePlate: {
+      name: 'Tabard Eterit Mahakarya · CHA'
+    },
+    smithChaMithrilPlate: {
+      name: 'Tabard Mithril · CHA'
+    },
+    smithChaAdamantPlate: {
+      name: 'Tabard Adamant · CHA'
+    },
+    smithChaAetheritePlate: {
+      name: 'Tabard Eterit · CHA'
+    },
+    smithMasterChaMithrilGreaves: {
+      name: 'Sepatu bot Mithril Mahakarya · CHA'
+    },
+    smithMasterChaAdamantGreaves: {
+      name: 'Sepatu bot Adamant Mahakarya · CHA'
+    },
+    smithMasterChaAetheriteGreaves: {
+      name: 'Sepatu bot Eterit Mahakarya · CHA'
+    },
+    smithChaMithrilGreaves: {
+      name: 'Sepatu bot Mithril · CHA'
+    },
+    smithChaAdamantGreaves: {
+      name: 'Sepatu bot Adamant · CHA'
+    },
+    smithChaAetheriteGreaves: {
+      name: 'Sepatu bot Eterit · CHA'
+    },
+    smithMasterEndIronSword: {
+      name: 'Gada Besi Mahakarya · END'
+    },
+    smithEndIronSword: {
+      name: 'Gada Besi · END'
+    },
+    smithMasterEndIronHammer: {
+      name: 'Kapak Besi Mahakarya · END'
+    },
+    smithEndIronHammer: {
+      name: 'Kapak Besi · END'
+    },
+    smithMasterEndIronShield: {
+      name: 'Perisai Besi Mahakarya · END'
+    },
+    smithEndIronShield: {
+      name: 'Perisai Besi · END'
+    },
+    smithMasterEndIronHelm: {
+      name: 'Helm Besi Mahakarya · END'
+    },
+    smithEndIronHelm: {
+      name: 'Helm Besi · END'
+    },
+    smithMasterEndIronPlate: {
+      name: 'Zirah Pelat Besi Mahakarya · END'
+    },
+    smithEndIronPlate: {
+      name: 'Zirah Pelat Besi · END'
+    },
+    smithMasterEndIronGreaves: {
+      name: 'Pelindung Betis Besi Mahakarya · END'
+    },
+    smithEndIronGreaves: {
+      name: 'Pelindung Betis Besi · END'
+    },
+    smithMasterEndSilverSword: {
+      name: 'Gada Perak Mahakarya · END'
+    },
+    smithEndSilverSword: {
+      name: 'Gada Perak · END'
+    },
+    smithMasterEndSilverHammer: {
+      name: 'Kapak Perak Mahakarya · END'
+    },
+    smithEndSilverHammer: {
+      name: 'Kapak Perak · END'
+    },
+    smithMasterEndSilverShield: {
+      name: 'Perisai Perak Mahakarya · END'
+    },
+    smithEndSilverShield: {
+      name: 'Perisai Perak · END'
+    },
+    smithMasterEndSilverHelm: {
+      name: 'Helm Perak Mahakarya · END'
+    },
+    smithEndSilverHelm: {
+      name: 'Helm Perak · END'
+    },
+    smithMasterEndSilverPlate: {
+      name: 'Zirah Pelat Perak Mahakarya · END'
+    },
+    smithEndSilverPlate: {
+      name: 'Zirah Pelat Perak · END'
+    },
+    smithMasterEndSilverGreaves: {
+      name: 'Pelindung Betis Perak Mahakarya · END'
+    },
+    smithEndSilverGreaves: {
+      name: 'Pelindung Betis Perak · END'
+    },
+    smithMasterEndGoldSword: {
+      name: 'Gada Emas Mahakarya · END'
+    },
+    smithEndGoldSword: {
+      name: 'Gada Emas · END'
+    },
+    smithMasterEndGoldHammer: {
+      name: 'Kapak Emas Mahakarya · END'
+    },
+    smithEndGoldHammer: {
+      name: 'Kapak Emas · END'
+    },
+    smithMasterEndGoldShield: {
+      name: 'Perisai Emas Mahakarya · END'
+    },
+    smithEndGoldShield: {
+      name: 'Perisai Emas · END'
+    },
+    smithMasterEndGoldHelm: {
+      name: 'Helm Emas Mahakarya · END'
+    },
+    smithEndGoldHelm: {
+      name: 'Helm Emas · END'
+    },
+    smithMasterEndGoldPlate: {
+      name: 'Zirah Pelat Emas Mahakarya · END'
+    },
+    smithEndGoldPlate: {
+      name: 'Zirah Pelat Emas · END'
+    },
+    smithMasterEndGoldGreaves: {
+      name: 'Pelindung Betis Emas Mahakarya · END'
+    },
+    smithEndGoldGreaves: {
+      name: 'Pelindung Betis Emas · END'
+    },
+    smithMasterEndMithrilSword: {
+      name: 'Gada Mithril Mahakarya · END'
+    },
+    smithMasterEndAdamantSword: {
+      name: 'Gada Adamant Mahakarya · END'
+    },
+    smithMasterEndAetheriteSword: {
+      name: 'Gada Eterit Mahakarya · END'
+    },
+    smithEndMithrilSword: {
+      name: 'Gada Mithril · END'
+    },
+    smithEndAdamantSword: {
+      name: 'Gada Adamant · END'
+    },
+    smithEndAetheriteSword: {
+      name: 'Gada Eterit · END'
+    },
+    smithMasterEndMithrilHammer: {
+      name: 'Kapak Mithril Mahakarya · END'
+    },
+    smithMasterEndAdamantHammer: {
+      name: 'Kapak Adamant Mahakarya · END'
+    },
+    smithMasterEndAetheriteHammer: {
+      name: 'Kapak Eterit Mahakarya · END'
+    },
+    smithEndMithrilHammer: {
+      name: 'Kapak Mithril · END'
+    },
+    smithEndAdamantHammer: {
+      name: 'Kapak Adamant · END'
+    },
+    smithEndAetheriteHammer: {
+      name: 'Kapak Eterit · END'
+    },
+    smithMasterEndMithrilShield: {
+      name: 'Perisai Mithril Mahakarya · END'
+    },
+    smithMasterEndAdamantShield: {
+      name: 'Perisai Adamant Mahakarya · END'
+    },
+    smithMasterEndAetheriteShield: {
+      name: 'Perisai Eterit Mahakarya · END'
+    },
+    smithEndMithrilShield: {
+      name: 'Perisai Mithril · END'
+    },
+    smithEndAdamantShield: {
+      name: 'Perisai Adamant · END'
+    },
+    smithEndAetheriteShield: {
+      name: 'Perisai Eterit · END'
+    },
+    smithMasterEndMithrilHelm: {
+      name: 'Helm Mithril Mahakarya · END'
+    },
+    smithMasterEndAdamantHelm: {
+      name: 'Helm Adamant Mahakarya · END'
+    },
+    smithMasterEndAetheriteHelm: {
+      name: 'Helm Eterit Mahakarya · END'
+    },
+    smithEndMithrilHelm: {
+      name: 'Helm Mithril · END'
+    },
+    smithEndAdamantHelm: {
+      name: 'Helm Adamant · END'
+    },
+    smithEndAetheriteHelm: {
+      name: 'Helm Eterit · END'
+    },
+    smithMasterEndMithrilPlate: {
+      name: 'Zirah Pelat Mithril Mahakarya · END'
+    },
+    smithMasterEndAdamantPlate: {
+      name: 'Zirah Pelat Adamant Mahakarya · END'
+    },
+    smithMasterEndAetheritePlate: {
+      name: 'Zirah Pelat Eterit Mahakarya · END'
+    },
+    smithEndMithrilPlate: {
+      name: 'Zirah Pelat Mithril · END'
+    },
+    smithEndAdamantPlate: {
+      name: 'Zirah Pelat Adamant · END'
+    },
+    smithEndAetheritePlate: {
+      name: 'Zirah Pelat Eterit · END'
+    },
+    smithMasterEndMithrilGreaves: {
+      name: 'Pelindung Betis Mithril Mahakarya · END'
+    },
+    smithMasterEndAdamantGreaves: {
+      name: 'Pelindung Betis Adamant Mahakarya · END'
+    },
+    smithMasterEndAetheriteGreaves: {
+      name: 'Pelindung Betis Eterit Mahakarya · END'
+    },
+    smithEndMithrilGreaves: {
+      name: 'Pelindung Betis Mithril · END'
+    },
+    smithEndAdamantGreaves: {
+      name: 'Pelindung Betis Adamant · END'
+    },
+    smithEndAetheriteGreaves: {
+      name: 'Pelindung Betis Eterit · END'
     },
     smithIronSword: {
       name: 'Pedang Besi'
@@ -1777,6 +2951,414 @@ export default {
     scepterOfTheFirstKing: {
       name: 'Tongkat Raja Pertama'
     },
+    pickpocketsKnife: {
+      name: 'Pisau Pencopet'
+    },
+    serpentsFang: {
+      name: 'Taring Ular'
+    },
+    phantomRapier: {
+      name: 'Rapier Hantu'
+    },
+    fangOfTheWindless: {
+      name: 'Taring Tanpa Angin'
+    },
+    roguesBuckler: {
+      name: 'Perisai Kecil Penjahat'
+    },
+    venomVial: {
+      name: 'Botol Racun'
+    },
+    swiftguardBuckler: {
+      name: 'Perisai Kecil Penjaga Gesit'
+    },
+    nightshadeFlask: {
+      name: 'Botol Belladona'
+    },
+    windveilTarge: {
+      name: 'Perisai Tabir Angin'
+    },
+    shadowdancersBuckler: {
+      name: 'Perisai Kecil Penari Bayangan'
+    },
+    scoutsBandana: {
+      name: 'Bandana Pengintai'
+    },
+    nightcowl: {
+      name: 'Tudung Malam'
+    },
+    shadowveilHood: {
+      name: 'Tudung Tabir Bayangan'
+    },
+    windrunnersCap: {
+      name: 'Topi Pelari Angin'
+    },
+    maskOfTheSilentWind: {
+      name: 'Topeng Angin Sunyi'
+    },
+    rangersJerkin: {
+      name: 'Rompi Penjaga Hutan'
+    },
+    nightstalkerLeathers: {
+      name: 'Kulit Pemburu Malam'
+    },
+    windridersHarness: {
+      name: 'Pelana Penunggang Angin'
+    },
+    mantleOfTheShadowDancer: {
+      name: 'Jubah Penari Bayangan'
+    },
+    thiefsGloves: {
+      name: 'Sarung Tangan Pencuri'
+    },
+    cutpurseGloves: {
+      name: 'Sarung Tangan Pencopet'
+    },
+    glovesOfTheGale: {
+      name: 'Sarung Tangan Badai'
+    },
+    softSoledShoes: {
+      name: 'Sepatu Sol Lembut'
+    },
+    catStepBoots: {
+      name: 'Sepatu Bot Langkah Kucing'
+    },
+    shadowstepBoots: {
+      name: 'Sepatu Bot Langkah Bayangan'
+    },
+    windstrideBoots: {
+      name: 'Sepatu Bot Langkah Angin'
+    },
+    luckyCoin: {
+      name: 'Koin Keberuntungan'
+    },
+    shadowBand: {
+      name: 'Cincin Bayangan'
+    },
+    sandglassOfTheSwift: {
+      name: 'Jam Pasir si Gesit'
+    },
+    talonCharm: {
+      name: 'Jimat Cakar'
+    },
+    windheart: {
+      name: 'Jantung Angin'
+    },
+    ashwallHeater: {
+      name: 'Perisai Tembok Abu'
+    },
+    wyrmhidePavise: {
+      name: 'Pavis Kulit Wyrm'
+    },
+    footmansKettleHat: {
+      name: 'Topi Panci Prajurit'
+    },
+    ironbrowSallet: {
+      name: 'Salad Alis Besi'
+    },
+    warlordsBarbute: {
+      name: 'Barbute Panglima Perang'
+    },
+    helmOfTheSunderedThrone: {
+      name: 'Helm Takhta yang Hancur'
+    },
+    recruitsCuirass: {
+      name: 'Zirah Rekrut'
+    },
+    stonecuttersMitts: {
+      name: 'Sarung Tangan Pemahat Batu'
+    },
+    ashforgedGauntlets: {
+      name: 'Sarung Tangan Baja Tempaan Abu'
+    },
+    warbringerGauntlets: {
+      name: 'Sarung Tangan Baja Pembawa Perang'
+    },
+    titanfistGauntlets: {
+      name: 'Sarung Tangan Baja Kepalan Titan'
+    },
+    footmansGreaves: {
+      name: 'Pelindung Tulang Kering Prajurit'
+    },
+    ironshodGreaves: {
+      name: 'Pelindung Tulang Kering Berpaku Besi'
+    },
+    warlordsSabatons: {
+      name: 'Sabaton Panglima Perang'
+    },
+    greavesOfTheMountainfall: {
+      name: 'Pelindung Tulang Kering Longsor Gunung'
+    },
+    sergeantsSignet: {
+      name: 'Cincin Meterai Sersan'
+    },
+    brawlersKnuckleRing: {
+      name: 'Tinju Besi Si Jagoan Berkelahi'
+    },
+    bloodiedWarMedal: {
+      name: 'Medali Perang Berdarah'
+    },
+    watchmansCudgel: {
+      name: 'Pentungan Penjaga'
+    },
+    ironboundMace: {
+      name: 'Gada Berpita Besi'
+    },
+    stonehideCleaver: {
+      name: 'Kapak Pembelah Kulit Batu'
+    },
+    bulwarkMaul: {
+      name: 'Palu Benteng'
+    },
+    mountainsplitterAxe: {
+      name: 'Kapak Pembelah Gunung'
+    },
+    everstandWarmace: {
+      name: 'Gada Perang Teguh'
+    },
+    emberwallBastion: {
+      name: 'Benteng Tembok Bara'
+    },
+    stonewardenHelm: {
+      name: 'Helm Penjaga Batu'
+    },
+    colossusVisage: {
+      name: 'Wajah Sang Raksasa'
+    },
+    diggersGauntlets: {
+      name: 'Sarung Tangan Baja Penggali'
+    },
+    bastionGauntlets: {
+      name: 'Sarung Tangan Baja Benteng'
+    },
+    glacierplateGauntlets: {
+      name: 'Sarung Tangan Baja Pelat Gletser'
+    },
+    gauntletsOfEndlessVigil: {
+      name: 'Sarung Tangan Baja Jaga Abadi'
+    },
+    hearthstoneCharm: {
+      name: 'Jimat Batu Perapian'
+    },
+    ironheartPendant: {
+      name: 'Liontin Hati Besi'
+    },
+    hedgewizardsWand: {
+      name: 'Tongkat Penyihir Pagar'
+    },
+    frostglassStaff: {
+      name: 'Tongkat Kaca Beku'
+    },
+    voidthreadWand: {
+      name: 'Tongkat Benang Kehampaan'
+    },
+    staffOfTheStarlessSky: {
+      name: 'Tongkat Langit Tanpa Bintang'
+    },
+    studentsGrimoire: {
+      name: 'Grimoar Murid'
+    },
+    frostfireOrb: {
+      name: 'Bola Api Beku'
+    },
+    orbOfTheUnwrittenHour: {
+      name: 'Bola Jam yang Tak Tertulis'
+    },
+    apprenticesPointedCap: {
+      name: 'Topi Runcing Magang'
+    },
+    sagesCirclet: {
+      name: 'Mahkota Sang Bijak'
+    },
+    cinderWizardsHat: {
+      name: 'Topi Penyihir Abu'
+    },
+    voidseerCirclet: {
+      name: 'Mahkota Peramal Kehampaan'
+    },
+    apprenticesRobe: {
+      name: 'Jubah Magang'
+    },
+    cinderthreadRobe: {
+      name: 'Jubah Benang Abu'
+    },
+    voidwovenRobe: {
+      name: 'Jubah Tenunan Kehampaan'
+    },
+    inkStainedGloves: {
+      name: 'Sarung Tangan Bernoda Tinta'
+    },
+    spellthreadGloves: {
+      name: 'Sarung Tangan Benang Mantra'
+    },
+    frostweaveGloves: {
+      name: 'Sarung Tangan Tenun Beku'
+    },
+    starlitGloves: {
+      name: 'Sarung Tangan Cahaya Bintang'
+    },
+    glovesOfTheLastWord: {
+      name: 'Sarung Tangan Kata Terakhir'
+    },
+    scribesSlippers: {
+      name: 'Sandal Juru Tulis'
+    },
+    moonstepSlippers: {
+      name: 'Sandal Langkah Bulan'
+    },
+    emberstepBoots: {
+      name: 'Sepatu Bot Langkah Bara'
+    },
+    voidwalkerBoots: {
+      name: 'Sepatu Bot Pengembara Kehampaan'
+    },
+    bootsOfTheWanderingStar: {
+      name: 'Sepatu Bot Bintang Pengembara'
+    },
+    glowstonePendant: {
+      name: 'Liontin Batu Berpendar'
+    },
+    scholarsSeal: {
+      name: 'Segel Sang Cendekia'
+    },
+    eyeOfTheArchon: {
+      name: 'Mata Sang Arkon'
+    },
+    cinderRepeater: {
+      name: 'Senapan Ulang Abu'
+    },
+    glacierMortar: {
+      name: 'Mortir Tangan Gletser'
+    },
+    sparkCell: {
+      name: 'Sel Percikan'
+    },
+    arcCapacitor: {
+      name: 'Kapasitor Busur'
+    },
+    aetherheartCell: {
+      name: 'Sel Hati Eter'
+    },
+    marksmansVisor: {
+      name: 'Visor Penembak'
+    },
+    sharpshootersCap: {
+      name: 'Topi Penembak Jitu'
+    },
+    gunnersHarness: {
+      name: 'Harnes Juru Meriam'
+    },
+    steadyhandGloves: {
+      name: 'Sarung Tangan Tangan Mantap'
+    },
+    gunsmithsGloves: {
+      name: 'Sarung Tangan Pandai Senjata'
+    },
+    scrappersBoots: {
+      name: 'Sepatu Bot Si Jagoan Berkelahi'
+    },
+    sharpshooterBoots: {
+      name: 'Sepatu Bot Penembak Jitu'
+    },
+    firingLineBoots: {
+      name: 'Sepatu Bot Garis Tembak'
+    },
+    steadyfootBoots: {
+      name: 'Sepatu Bot Pijakan Kokoh'
+    },
+    aetherstepBoots: {
+      name: 'Sepatu Bot Langkah Eter'
+    },
+    bootsOfTheLastShot: {
+      name: 'Sepatu Bot Tembakan Terakhir'
+    },
+    brassCartridgeCharm: {
+      name: 'Jimat Selongsong Kuningan'
+    },
+    deadEyeLens: {
+      name: 'Lensa Mata Tajam'
+    },
+    eagleEyeScope: {
+      name: 'Teropong Mata Elang'
+    },
+    criersBaton: {
+      name: 'Tongkat Juru Umum'
+    },
+    droversStandard: {
+      name: 'Panji Penggembala'
+    },
+    marshalsSceptre: {
+      name: 'Tongkat Kebesaran Marsekal'
+    },
+    balladBook: {
+      name: 'Buku Balada'
+    },
+    chronicleOfHeroes: {
+      name: 'Babad Para Pahlawan'
+    },
+    psalterOfTheHost: {
+      name: 'Kitab Mazmur Pasukan'
+    },
+    tomeOfEternalReign: {
+      name: 'Jilid Pemerintahan Abadi'
+    },
+    heraldsCap: {
+      name: 'Topi Pembawa Pesan'
+    },
+    singersCirclet: {
+      name: 'Mahkota Sang Penyanyi'
+    },
+    diademOfTenThousandVoices: {
+      name: 'Mahkota Sepuluh Ribu Suara'
+    },
+    travelersWaistcoat: {
+      name: 'Rompi Pengelana'
+    },
+    minstrelsMotley: {
+      name: 'Pakaian Tambal Penyanyi Keliling'
+    },
+    troubadoursCoat: {
+      name: 'Mantel Penyair Troubadour'
+    },
+    marshalsGreatcoat: {
+      name: 'Mantel Marsekal'
+    },
+    buskersGloves: {
+      name: 'Sarung Tangan Pemusik Jalanan'
+    },
+    drummersGloves: {
+      name: 'Sarung Tangan Penabuh Drum'
+    },
+    standardBearersGloves: {
+      name: 'Sarung Tangan Pembawa Panji'
+    },
+    gildedParadeGloves: {
+      name: 'Sarung Tangan Parade Berlapis Emas'
+    },
+    glovesOfTheCrownedHand: {
+      name: 'Sarung Tangan Tangan Bermahkota'
+    },
+    wayfarersShoes: {
+      name: 'Sepatu Pengelana'
+    },
+    troubadourBoots: {
+      name: 'Sepatu Bot Troubadour'
+    },
+    heraldsRidingBoots: {
+      name: 'Sepatu Bot Berkuda Pembawa Pesan'
+    },
+    paradeBoots: {
+      name: 'Sepatu Bot Parade'
+    },
+    bootsOfTheLongProcession: {
+      name: 'Sepatu Bot Arak-arakan Panjang'
+    },
+    silverWhistle: {
+      name: 'Peluit Perak'
+    },
+    gatheringHorn: {
+      name: 'Terompet Pengumpul'
+    },
     heartOfTheMountain: {
       name: 'Jantung Gunung'
     },
@@ -1880,6 +3462,9 @@ export default {
     freedPeddler: {
       talk: 'Semua yang dibutuhkan pengembara. Hampir baru, kebanyakan.',
       name: 'Odo Marrow'
+    },
+    sfShadowRoad: {
+      name: 'Nettle Quickhand'
     },
     sfShadow: {
       name: 'Nettle Quickhand'
@@ -2034,6 +3619,9 @@ export default {
     sunfordGambler: {
       name: 'Dob Tumbler'
     },
+    sunfordCups: {
+      name: 'Nell Nimblefingers'
+    },
     oakGambler: {
       name: 'Silky Ren'
     },
@@ -2145,6 +3733,13 @@ export default {
     }
   },
   dlg: {
+    intro: {
+      crossing: { 1: 'Setiap jalan di dunia ini bertemu di sebuah persimpangan… dan setiap persimpangan adalah pertempuran.' },
+      hero: { 1: 'Dari ladang Sunford yang tenang, seorang pahlawan muda berangkat.' },
+      fire: { 1: 'Api menjawab panggilan. Baja mengenal nama baru.' },
+      foes: { 1: 'Raja goblin, jarl es, naga hampa… dan Iblis Agung.' },
+      begin: { 1: 'Legendamu dimulai sekarang.' }
+    },
     frostDisciple: {
       bye: {
         '1': 'Tetaplah hangat.'
@@ -2339,6 +3934,23 @@ export default {
       hello: {
         '2': 'Odo Marrow, siap melayani. Pedagang keliling, tukang reparasi, dan orang yang sangat berterima kasih.',
         '1': 'Kamu! Kamulah yang membuka kurungan itu! Aku pasti sudah membusuk di dalam sana.'
+      }
+    },
+    sfShadowRoad: {
+      hello: {
+        '1': 'Teleportasi. Tertarik?'
+      },
+      again: {
+        '1': 'Kembali untuk trik lain?'
+      },
+      train: {
+        '1': 'Perhatikan baik-baik. Satu langkah, dan kau sudah di tempat lain.'
+      },
+      trainBack: {
+        '1': 'Bagus. Sekarang pergilah ke tempat lain.'
+      },
+      bye: {
+        '1': 'Jangan sampai tertangkap.'
       }
     },
     sfShadow: {
@@ -2593,9 +4205,8 @@ export default {
         '2': 'Pukul saat logamnya berpijar paling terang. Meleset, jadi rongsokan. Ayo.',
         '1': 'Menempa? Hm. Pegang palunya begini, jangan seperti pentungan.'
       },
-      ore: {
-        '1': 'Bongkahan, ya? Kuambil semuanya. Timbangan jujur, bayaran jujur.'
-      },
+      ore: { '1': 'Bijih, ya? Tunjukkan. Kubayar per bongkah, timbangan jujur.' },
+      sellBack: { '1': 'Timbangan jujur, koin jujur. Bawa lagi kalau ketemu.' },
       forgeBack: {
         '1': 'Lumayan. Tapi belum bagus juga. Terus berlatih.'
       },
@@ -2878,7 +4489,7 @@ export default {
       },
       map: {
         '1': 'Peta Kapten Rook! Dia merobeknya dan menyembunyikan potongannya sebelum para goblin menangkapnya.',
-        '2': 'Temukan keenamnya, dan tanda X akan menunjukkan jalan: di suatu tempat di Tebing Abu. Galilah di sana, dan emasnya milikmu.',
+        '2': 'Temukan enam di antaranya, masih ada beberapa lagi yang tersebar di sekitar, dan tanda X akan menunjukkan jalan: di suatu tempat di Tebing Abu. Galilah di sana, dan emasnya milikmu.',
         say: 'Aku menemukan sepotong peta tua.'
       }
     },
@@ -2895,6 +4506,9 @@ export default {
       },
       mana: {
         '1': 'Yang ini pahit. Minum saat mantramu habis.'
+      },
+      brew: {
+        '1': 'Coba lihat ramuanmu. Aku akan meracik sesuatu yang rasanya lebih enak daripada tonik manaku.'
       },
       potions: {
         '1': 'Kamu membawa beberapa botol ke tiap pertempuran. Minum sebelum butuh, bukan sesudahnya.',
@@ -2914,6 +4528,9 @@ export default {
       },
       healBack: {
         '1': 'Jaga sabukmu tetap penuh dan kepalamu tetap rendah.'
+      },
+      brewBack: {
+        '1': 'Hati-hati, masih panas. Jangan diminum semuanya sekaligus.'
       },
       bye: {
         '1': 'Jaga dirimu di luar sana.'
@@ -3015,9 +4632,8 @@ export default {
         '2': 'Perhatikan pijarnya. Pukul intinya, tiga kali, dan logamnya akan ingat.',
         '1': 'Kamu mau belajar keahlian ini? Bagus. Oakhaven butuh setiap palu.'
       },
-      ore: {
-        '1': 'Bijih mentah! Gudang senjata tak pernah cukup. Ini bayaranmu.'
-      },
+      ore: { '1': 'Bijih mentah! Gudang senjata tak pernah cukup. Jual yang bisa kamu lepas.' },
+      sellBack: { '1': 'Tiap bongkah masuk ke tembok. Terima kasih.' },
       forgeBack: {
         '1': 'Baja yang bagus. Tembok berterima kasih padamu.'
       },
@@ -3058,9 +4674,8 @@ export default {
         '2': 'Tiga pukulan, masing-masing di inti pijarnya. Hanya itu rahasianya.',
         '1': 'Sejak pengepungan, aku mengajari siapa pun yang meminta. Ayo, berdiri di sini.'
       },
-      ore: {
-        '1': 'Bijih lagi untuk tembok? Terima kasih banyak. Ini, ambillah.'
-      },
+      ore: { '1': 'Bijih lagi untuk tembok? Kubayar tiap bongkah yang bisa kamu beri.' },
+      sellBack: { '1': 'Diberkatilah kamu. Itu lebih banyak pelat untuk tembok.' },
       forgeBack: {
         '1': 'Setiap pukulan membuatmu lebih baik. Datanglah kapan saja.'
       },
@@ -3456,9 +5071,8 @@ export default {
         '2': 'Pijarnya memberi tahu kapan. Lenganmu memberi tahu seberapa keras. Tiga pukulan.',
         '1': 'Orang permukaan di depan landasan? Yah, semua orang mulai dari suatu tempat.'
       },
-      ore: {
-        '1': 'Logam yang bagus dan jujur. Ironhold selalu membayar untuk itu.'
-      },
+      ore: { '1': 'Logam bagus dan jujur. Taruh di sini, kubayar per bongkah.' },
+      sellBack: { '1': 'Dagang yang adil. Ironhold selalu membayar logam bagus.' },
       forgeBack: {
         '1': 'Kurcaci pasti lebih baik. Tapi tak jauh lebih baik.'
       },
@@ -3528,9 +5142,8 @@ export default {
         '2': 'Panaskan, pukul, balik. Tiga pukulan, tepat di pijarnya. Lalu biarkan dingin.',
         '1': 'Zirah pelat itu kerja kesabaran. Akan kutunjukkan dasarnya.'
       },
-      ore: {
-        '1': 'Biar kutimbang. Bagus. Uangnya milikmu.'
-      },
+      ore: { '1': 'Biar kutimbang. Pilih yang mau dijual, aku hitung koinnya.' },
+      sellBack: { '1': 'Ditimbang dan dibayar. Bagus.' },
       forgeBack: {
         '1': 'Biarkan dingin dulu sebelum kamu pakai.'
       },
@@ -3570,9 +5183,8 @@ export default {
         '2': 'Disiplin di landasan, seperti di medan perang. Tiga pukulan, setia pada pijarnya.',
         '1': 'Ordo mempersenjatai sahabatnya. Aku akan mengajarimu.'
       },
-      ore: {
-        '1': 'Ordo membeli semua bijih untuk perang. Ini bayaranmu.'
-      },
+      ore: { '1': 'Ordo membeli bijih untuk perang. Jual yang bisa kamu lepas.' },
+      sellBack: { '1': 'Pembayaranmu dicatat. Ordo berterima kasih.' },
       forgeBack: {
         '1': 'Tempaan yang baik. Mengabdilah dengan baik memakainya.'
       },
@@ -3974,6 +5586,11 @@ export default {
       }
     },
     bark: {
+      banditChief: {
+        whistle: {
+          1: 'Bangun, anak-anak! Gigit mereka!'
+        }
+      },
       lightDisciple: {
         freed: {
           '1': 'Cahaya mengutusmu. Aku Suster Aurelle. Carilah aku di Sunford, akan kuajari kau jalan Pembawa Cahaya.'
@@ -4129,9 +5746,8 @@ export default {
         '2': 'Pukul saat pijarnya paling panas. Tiga pukulan bagus menghasilkan benda yang bagus.',
         '1': 'Mau coba pegang palu sendiri? Aku tak keberatan berbagi tungku.'
       },
-      ore: {
-        '1': 'Bijih yang bagus. Silverbridge selalu membayar harga yang adil.'
-      },
+      ore: { '1': 'Bijih yang indah. Tunjukkan yang mau dijual, kubayar per bongkah.' },
+      sellBack: { '1': 'Senang berdagang. Silverbridge selalu membayar harga adil.' },
       forgeBack: {
         '1': 'Lihat itu! Kamu berbakat alami.'
       },
@@ -4573,7 +6189,7 @@ export default {
         say: 'Di mana aku bisa menemukan herbal?'
       },
       elixirs: {
-        '1': 'Setiap eliksir membuatmu lebih kuat dalam pertempuran selama satu menit penuh. Pukulan lebih keras, kulit lebih tangguh, kaki lebih cepat.',
+        '1': 'Setiap eliksir membuatmu lebih kuat dalam pertempuran selama 5 menit penuh. Pukulan lebih keras, kulit lebih tangguh, kaki lebih cepat.',
         '2': 'Eliksir ada di botol ketigamu. Ketuk panah kecil untuk mengganti yang mau kamu minum.',
         say: 'Apa gunanya eliksir?'
       },
@@ -4642,6 +6258,36 @@ export default {
       },
       bye: {
         '1': 'Bawa rongsokan lagi! Rongsokan itu kesukaanku.'
+      }
+    },
+    sunfordCups: {
+      hello: {
+        1: 'Mendekatlah! Tiga cangkir, satu permata, dan putaran pertamamu gratis!',
+        2: 'Nell Nimblefingers. Belum ada yang bisa menipu tanganku. Mau coba?'
+      },
+      again: {
+        1: 'Balik lagi? Buka matamu lebar-lebar!'
+      },
+      play: {
+        1: 'Awasi permatanya, Kawan. Jangan berkedip!'
+      },
+      rules: {
+        1: 'Aku sembunyikan permata di bawah cangkir lalu mengocoknya. Kamu tunjuk cangkir yang menyembunyikannya.',
+        2: 'Setiap kemenangan beruntun membayar lebih. Tiga kemenangan membawa hadiah, lima membawa harta. Putaran pertama setiap hari gratis.',
+        say: 'Bagaimana cara mainnya?'
+      },
+      who: {
+        1: 'Aku bisa mengocok sebelum bisa berjalan. Kata Ibu, itu menjelaskan banyak hal.'
+      },
+      luck: {
+        1: 'Kadang! Lalu aku mengerang keras dan penonton kasihan padaku.',
+        say: 'Kamu pernah kalah?'
+      },
+      playBack: {
+        1: 'Putaran bagus! Kembali besok, yang pertama selalu gratis.'
+      },
+      bye: {
+        1: 'Sampai jumpa! Tetap waspada di luar sana.'
       }
     },
     oakGambler: {
@@ -5135,6 +6781,7 @@ export default {
     banditArcher: 'Bandit Pemanah',
     wolf: 'Serigala',
     banditChief: 'Kepala Bandit',
+    gnome: 'Gnome',
     goblinKing: 'Raja Goblin',
     treant: 'Manusia Pohon',
     spider: 'Laba-laba Raksasa',
@@ -5352,6 +6999,18 @@ export default {
       firefoxColors: 'Firefox: Pengaturan → Warna → atur “Timpa warna yang ditentukan halaman” ke Jangan pernah.'
     }
   },
+  samsungFix: {
+    title: 'Cek warna cepat',
+    body: 'Beberapa ponsel mengubah warna halaman web. Bandingkan dua kotak di bawah.',
+    question: 'Apakah kedua kotak terlihat sama?',
+    refSquare: 'Kotak acuan',
+    pageSquare: 'Kotak halaman',
+    yes: 'Ya, sama',
+    no: 'Tidak, terlihat berbeda',
+    option: 'Perbaiki warna (mode gelap Samsung)',
+    optionHint: 'Aktifkan jika menu tampak gelap atau teks sulit dibaca.',
+    recheck: 'Ulangi cek warna'
+  },
   saveStatus: {
     restoredTitle: 'Simpanan cloud dipulihkan',
     restoredBody: '+{n} emas bonus untuk pemulihan',
@@ -5476,7 +7135,7 @@ export default {
   },
   forge: {
     upgrade: 'Tingkatkan ({n} emas)',
-    max: 'Sudah maksimal: +{n}.',
+    next: 'Berikutnya +{level}: +{pct}% statistik',
     town: 'Pandai besi di kota mana pun bisa meningkatkan ini.'
   },
   ore: {
@@ -5491,6 +7150,12 @@ export default {
     },
     mithril: {
       name: 'Bijih mithril'
+    },
+    adamant: {
+      name: 'Bijih adamant'
+    },
+    aetherite: {
+      name: 'Bijih eterit'
     }
   },
   plant: {
@@ -5572,32 +7237,32 @@ export default {
   elixir: {
     might: {
       name: 'Eliksir Kekuatan',
-      desc: '+{n}% damage selama satu menit'
+      desc: '+{n}% damage selama 5 menit'
     },
     iron: {
       name: 'Ramuan Kulit Besi',
-      desc: '+{n}% zirah selama satu menit'
+      desc: '+{n}% zirah selama 5 menit'
     },
     swift: {
       name: 'Tonik Lincah',
-      desc: '+{n}% kecepatan gerak dan kecepatan serang selama satu menit'
+      desc: '+{n}% kecepatan gerak dan kecepatan serang selama 5 menit'
     },
     mind: {
       name: 'Seduhan Pikiran Jernih',
-      desc: 'Skill kembali {n}% lebih cepat selama satu menit'
+      desc: 'Skill kembali {n}% lebih cepat selama 5 menit'
     },
     vigor: {
       name: 'Eliksir Bugar',
-      desc: 'Memulihkan {n}% nyawamu tiap detik selama satu menit'
+      desc: 'Memulihkan {n}% nyawamu tiap detik selama 5 menit'
     },
     shadow: {
       name: 'Ramuan Dahaga',
-      desc: 'Seranganmu memulihkan {n}% dari damage-nya selama satu menit'
+      desc: 'Seranganmu memulihkan {n}% dari damage-nya selama 5 menit'
     }
   },
   alchemy: {
     talk: 'Herbal masuk, eliksir keluar. Mau kita seduh yang mana?',
-    lead: 'Tiap eliksir bekerja satu menit dalam pertempuran. Minum dari botol ketigamu. Kamu bisa membawa {n} dari tiap jenis.',
+    lead: 'Tiap eliksir bekerja 5 menit dalam pertempuran. Minum dari botol ketigamu. Kamu bisa membawa {n} dari tiap jenis.',
     brew: 'Seduh · {n}',
     carry: 'Bawa ini',
     carried: 'Di botolmu',
@@ -5621,6 +7286,25 @@ export default {
     again: 'Main lagi',
     noGold: 'Emasmu tidak cukup untuk taruhan itu.',
     card: 'Kartu {n}'
+  },
+  cups: {
+    title: 'Kios Cangkir',
+    lead: 'Lihat permata, ikuti cangkirnya, lalu tunjuk. Setiap kemenangan beruntun membayar lebih. Yang ketiga membawa hadiah, yang kelima harta.',
+    free: 'Putaran gratis',
+    fee: 'Main · {n}',
+    row: 'Menang beruntun: {n} dari {max}',
+    next: 'Kemenangan berikutnya: {n} emas',
+    watch: 'Lihat permatanya!',
+    follow: 'Ikuti…',
+    pick: 'Pilih cangkir!',
+    hint: 'Ketuk cangkir atau tekan nomornya.',
+    won: 'Ketemu! +{n} emas',
+    lost: 'Bukan itu. Rentetan mulai dari awal.',
+    near: 'Sedikit lagi! Tepat di sebelahnya.',
+    timeout: 'Terlalu lambat! Rentetan mulai dari awal.',
+    again: 'Main lagi',
+    noGold: 'Emas tidak cukup. Besok putaran pertamamu gratis.',
+    cup: 'Cangkir {n}'
   },
   battle: {
     title: 'Adu Barang',

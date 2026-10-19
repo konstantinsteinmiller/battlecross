@@ -39,8 +39,12 @@
 
     div.skills__rest
       //- ── The codex: eight classes, six skills each ─────────────────────────
-      section.skills__book.codex(data-drop="tree" :style="{ '--tint': CLASSES[cls].color }")
-        div.codex__classes(role="tablist")
+      section.skills__book.codex(ref="codexEl" data-drop="tree" :style="{ '--tint': CLASSES[cls].color }")
+        //- Back to the class grid once it has scrolled away; takes no room.
+        div.codex__nav(aria-hidden="false")
+          button.codex__up(v-show="away" type="button" :aria-label="t('ui.back')" @click="toClasses")
+            GameIcon(name="up")
+        div.codex__classes(ref="gridEl" role="tablist")
           button.emblem(
             v-for="c in CLASS_IDS"
             :key="c"
@@ -51,17 +55,17 @@
             :class="{ 'is-active': cls === c, 'is-bare': learnedOf(c) === 0 }"
             :style="{ '--tint': CLASSES[c].color }"
             :data-cls="c"
-            @click="pickClass(c)"
+            @click="pickClass(c, $event)"
           )
             span.emblem__disc
               ArtIcon(:glyph="`skill.${skillsOf(c)[0].id}`" :tint="CLASSES[c].color" :src="ICON_ART.get(`class-${c}`)" frame="none")
             span.emblem__pips(aria-hidden="true")
               span.emblem__pip(v-for="s in skillsOf(c)" :key="s.id" :class="{ on: knows(s.id) }")
-        header.codex__head
+        header.codex__head(ref="headEl")
           h3.codex__name {{ t(`class.${cls}.name`) }}
           p.codex__desc {{ t(`class.${cls}.desc`) }}
         //- The class's six skills as a path, in the order they are learned.
-        div.codex__path
+        div.codex__path(ref="pathEl")
           button.node(
             v-for="s in skillsOf(cls)"
             :key="s.id"
@@ -81,6 +85,10 @@
             span.node__used(v-else-if="slotted(s.id)" aria-hidden="true")
               GameIcon(name="check")
             span.node__lvl(:class="{ bad: profile.level < s.level }") {{ t('hud.level', { n: s.level }) }}
+        //- A faint cue that the skills lie below the fold.
+        div.codex__cue(aria-hidden="true")
+          span.codex__cue-arrow(v-show="below")
+            GameIcon(name="down")
 
       //- ── The skill in hand ─────────────────────────────────────────────────
       section.skills__card
@@ -118,7 +126,7 @@
  * its kind. Every change goes through `setSlot`, which checks the
  * requirements again.
  */
-import { computed, nextTick, reactive, ref } from 'vue'
+import { computed, nextTick, onBeforeUnmount, onMounted, reactive, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { CLASSES, CLASS_IDS, SKILL_BY_ID, meetsSkill, skillsOf, type ClassId } from '@/game/data/skills'
 import { knows, profile, setSlot, totalAttrs } from '@/game/state/profile'
@@ -173,9 +181,73 @@ const slotClass = (kind: Kind, i: number, id: string): Record<string, boolean> =
   }
 }
 
-const pickClass = (c: ClassId): void => {
+const codexEl = ref<HTMLElement | null>(null)
+const gridEl = ref<HTMLElement | null>(null)
+const headEl = ref<HTMLElement | null>(null)
+const pathEl = ref<HTMLElement | null>(null)
+/** The class grid has scrolled out of sight: offer the way back. */
+const away = ref(false)
+/** The skills run past the bottom of the panel and it still sits at the top. */
+const below = ref(false)
+
+/** The nearest ancestor that scrolls: the codex itself side by side, the
+ *  page's rest column in portrait. */
+const scrollerOf = (el: HTMLElement | null): HTMLElement | null => {
+  for (let n = el; n; n = n.parentElement) {
+    const o = getComputedStyle(n).overflowY
+    if (o === 'auto' || o === 'scroll') return n
+  }
+  return null
+}
+const reduced = (): boolean => typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches
+
+const measure = (): void => {
+  const sc = scrollerOf(codexEl.value)
+  if (!sc || !gridEl.value || !pathEl.value) { away.value = false; below.value = false; return }
+  const box = sc.getBoundingClientRect()
+  away.value = gridEl.value.getBoundingClientRect().bottom < box.top + 4
+  below.value = sc.scrollTop < 4 && pathEl.value.getBoundingClientRect().bottom > box.bottom + 4
+}
+
+/** Bring the open class's header and skills into view, unless they already are. */
+const showSkills = (focus: boolean): void => {
+  const sc = scrollerOf(codexEl.value)
+  const head = headEl.value
+  const path = pathEl.value
+  if (sc && head && path) {
+    const box = sc.getBoundingClientRect()
+    const hr = head.getBoundingClientRect()
+    const fits = hr.top >= box.top && path.getBoundingClientRect().bottom <= box.bottom
+    if (!fits) sc.scrollTo({ top: sc.scrollTop + hr.top - box.top - 4, behavior: reduced() ? 'auto' : 'smooth' })
+  }
+  if (focus) path?.querySelector<HTMLElement>('.node')?.focus({ preventScroll: true })
+  window.setTimeout(measure, reduced() ? 0 : 450)
+}
+
+const toClasses = (): void => {
+  const sc = scrollerOf(codexEl.value)
+  sc?.scrollTo({ top: 0, behavior: reduced() ? 'auto' : 'smooth' })
+  gridEl.value?.querySelector<HTMLElement>('.emblem.is-active')?.focus({ preventScroll: true })
+  sfx('uiClick')
+}
+
+let watched: HTMLElement | null = null
+onMounted(() => {
+  watched = scrollerOf(codexEl.value)
+  watched?.addEventListener('scroll', measure, { passive: true })
+  window.addEventListener('resize', measure)
+  void nextTick(measure)
+})
+onBeforeUnmount(() => {
+  watched?.removeEventListener('scroll', measure)
+  window.removeEventListener('resize', measure)
+})
+
+const pickClass = (c: ClassId, e?: MouseEvent): void => {
   cls.value = c
   sfx('uiClick')
+  // detail 0: a keyboard activation, which also moves on to the first skill.
+  void nextTick(() => showSkills(!!e && e.detail === 0))
 }
 
 /** Put a skill in a slot, with the thunk it deserves. */
@@ -371,6 +443,58 @@ const drag = useDrag<Held>({
   +screen.page
   container-type: inline-size
   +screen.scroller
+.codex
+  --cgap: clamp(0.4rem, 1.8vmin, 0.8rem)
+  gap: var(--cgap)
+// Zero-height sticky rails: the back button and the scroll cue take no room.
+.codex__nav, .codex__cue
+  position: sticky
+  z-index: 3
+  height: 0
+  pointer-events: none
+.codex__nav
+  top: 0
+  margin-bottom: calc(var(--cgap) * -1)
+.codex__cue
+  bottom: 0
+  margin-top: calc(var(--cgap) * -1)
+.codex__up
+  +screen.bare-button
+  position: absolute
+  top: 0.1rem
+  right: 0.1rem
+  width: 2.25rem
+  height: 2.25rem
+  padding: 0.4rem
+  border: var(--bc-ol-thin) solid var(--bc-ink)
+  border-radius: 50%
+  background: var(--bc-paper)
+  color: var(--bc-ink)
+  box-shadow: var(--bc-drop)
+  pointer-events: auto
+  :deep(svg)
+    display: block
+    width: 100%
+    height: 100%
+.codex__cue-arrow
+  position: absolute
+  left: 50%
+  bottom: 0.1rem
+  width: 1.6rem
+  height: 1.6rem
+  margin-left: -0.8rem
+  color: var(--bc-ink)
+  opacity: 0.45
+  animation: cue-bob 1.4s ease-in-out infinite alternate
+  :deep(svg)
+    display: block
+    width: 100%
+    height: 100%
+@keyframes cue-bob
+  from
+    transform: translateY(0)
+  to
+    transform: translateY(0.25rem)
 .codex__classes
   display: grid
   grid-template-columns: repeat(4, minmax(0, 1fr))
@@ -419,6 +543,8 @@ const drag = useDrag<Held>({
 
 .codex__head
   display: flex
+  // Room for the back button that sits on this corner once the grid has scrolled away.
+  padding-inline-end: 2.4rem
   flex-direction: column
   gap: 0.15rem
   text-align: start
@@ -521,6 +647,10 @@ const drag = useDrag<Held>({
 .is-locked .node__mark
   background: var(--bc-off-lo)
 .node__lvl
+  // The stat badge hangs below the icon (-8%); clear it so it never covers this.
+  position: relative
+  z-index: 2
+  margin-top: 0.35rem
   color: var(--bc-on-soft)
   font-size: clamp(0.6rem, 2.4vmin, 0.76rem)
   line-height: 1
@@ -615,6 +745,8 @@ const drag = useDrag<Held>({
     transform: scale(1.08)
     filter: drop-shadow(0 0 0.55rem var(--bc-gold-hi))
 @media (prefers-reduced-motion: reduce)
+  .codex__cue-arrow
+    animation: none
   .slot.is-target :deep(.f-socket)
     animation: none
     filter: drop-shadow(0 0 0.45rem var(--bc-gold-hi))

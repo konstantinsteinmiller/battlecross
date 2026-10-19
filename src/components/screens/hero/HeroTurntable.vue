@@ -18,7 +18,7 @@
  * hands over to the drawn portrait: no WebGL to spare, or a lost context.
  */
 import { onMounted, onUnmounted, ref, watch } from 'vue'
-import { PerspectiveCamera, Scene, SRGBColorSpace, WebGLRenderer } from 'three'
+import { Box3, PerspectiveCamera, Scene, SRGBColorSpace, WebGLRenderer } from 'three'
 import { setCelViewLight, updateCelFrame } from '@/game/gfx/cel'
 import { makeBlobShadow } from '@/game/gfx/markers'
 import { makeRigView, type RigView } from '@/game/gfx/rigs'
@@ -54,12 +54,17 @@ let time = 0
 let yaw = -0.35
 let spin = 0.45
 let idleAt = 0
+/** What of him is to be framed, measured on the rig as built (so a tall helmet,
+ *  a hat or a plume is inside it): his height, and how far he reaches round. */
+let fitTop = 1.5
+let fitReach = 0.5
+const box = new Box3()
 
 const FRAME = 1 / 30
 
 /**
  * Proof that he is really on screen. Some GPU / driver pairs give a second
- * WebGL context that draws nothing and raises no error (an empty plinth on
+ * WebGL context that draws nothing and raises no error (an empty panel on
  * the owner's machine). Right after a frame — in the same task, so the
  * drawing buffer is still there — the canvas is read back; if a few frames in
  * a row came out empty, the drawn portrait takes over.
@@ -95,6 +100,14 @@ const verify = (): boolean => {
   return true
 }
 
+const measure = (v: RigView): void => {
+  v.rig.root.updateMatrixWorld(true)
+  box.setFromObject(v.rig.root)
+  if (box.isEmpty()) return
+  fitTop = Math.max(1.2, box.max.y)
+  fitReach = Math.hypot(Math.max(-box.min.x, box.max.x), Math.max(-box.min.z, box.max.z))
+}
+
 const build = (): void => {
   if (!scene) return
   if (view) { scene.remove(view.rig.root); view.rig.material.dispose() }
@@ -105,6 +118,7 @@ const build = (): void => {
   scene.add(view.rig.root)
   // A breath of standing first, so the springs are settled when he appears.
   for (let i = 0; i < 20; i++) animate(view, unit, 0, 0, i / 60, 1 / 60)
+  measure(view)
 }
 
 const draw = (): void => {
@@ -119,14 +133,16 @@ const draw = (): void => {
     renderer.setPixelRatio(dpr)
     renderer.setSize(w, h, false)
   }
-  // Frame the whole figure (1.5 m with his headgear) with room for a weapon
-  // held out as he turns, his feet on the plinth near the bottom.
+  // Frame the whole figure, the top of his headgear to his feet, with a
+  // margin all round and room for a weapon held out as he turns; centred in
+  // the canvas, looking down on him a little.
   camera.aspect = w / h
   const tan = Math.tan((camera.fov * Math.PI) / 360)
-  const dist = Math.max(2 / (2 * tan), 0.95 / (2 * tan * camera.aspect))
-  const seen = 2 * dist * tan
-  const aim = seen * 0.38
-  camera.position.set(0, aim + dist * 0.16, dist)
+  const high = fitTop * 1.22
+  const wide = Math.min(1.25, Math.max(0.95, fitReach * 2))
+  const dist = Math.max(high / (2 * tan), wide / (2 * tan * camera.aspect))
+  const aim = fitTop * 0.5 - 0.02
+  camera.position.set(0, aim + dist * 0.12, dist)
   camera.lookAt(0, aim, 0)
   camera.updateProjectionMatrix()
   camera.updateMatrixWorld()

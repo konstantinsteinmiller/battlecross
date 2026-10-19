@@ -1,5 +1,13 @@
 // Traditional Chinese, Taiwan (zh-TW) bundle — mirrors en.ts.
 export default {
+  // ─── The intro (#130): its skip, and its narrator's name ───
+  intro: {
+    narrator: '說書人',
+    skip: '跳過',
+    holdKey: '按住{key}跳過',
+    holdTouch: '按住跳過',
+    replay: '觀看開場'
+  },
   arena: {
     allWon: '所有神話獎品都歸你了。',
     call: '故事已經說完。現在證明你的配置吧：盡你所能往上爬，贏得別處無人能給你的神話獎品。',
@@ -8,6 +16,20 @@ export default {
     next: '下一個獎品在第{at}波：{item}',
     champion: '冠軍波',
     wave: '第{n}波'
+  },
+  sellOre: {
+    talk: '好礦石，公道價。你要賣多少？',
+    lead: '選擇每種礦石要賣幾塊。按下「出售」前不會賣出任何東西。',
+    have: '擁有 {n}',
+    each: '每塊 {n} 金幣',
+    none: '不賣',
+    all: '全部',
+    less: '{ore}減一塊',
+    more: '{ore}加一塊',
+    total: '你將獲得：{n} 金幣',
+    sell: '出售',
+    selectAll: '全選',
+    empty: '你沒有可賣的礦石了。'
   },
   smith: {
     why: {
@@ -1420,38 +1442,110 @@ export default {
     smithMasterMithrilGreaves: {
       name: '精工秘銀脛甲'
     },
+    smithMasterAdamantGreaves: {
+      name: '精工艾達曼脛甲'
+    },
+    smithMasterAetheriteGreaves: {
+      name: '精工以太晶脛甲'
+    },
     smithMithrilGreaves: {
       name: '秘銀脛甲'
+    },
+    smithAdamantGreaves: {
+      name: '艾達曼脛甲'
+    },
+    smithAetheriteGreaves: {
+      name: '以太晶脛甲'
     },
     smithMasterMithrilPlate: {
       name: '精工秘銀板甲'
     },
+    smithMasterAdamantPlate: {
+      name: '精工艾達曼板甲'
+    },
+    smithMasterAetheritePlate: {
+      name: '精工以太晶板甲'
+    },
     smithMithrilPlate: {
       name: '秘銀板甲'
+    },
+    smithAdamantPlate: {
+      name: '艾達曼板甲'
+    },
+    smithAetheritePlate: {
+      name: '以太晶板甲'
     },
     smithMasterMithrilHelm: {
       name: '精工秘銀盔'
     },
+    smithMasterAdamantHelm: {
+      name: '精工艾達曼盔'
+    },
+    smithMasterAetheriteHelm: {
+      name: '精工以太晶盔'
+    },
     smithMithrilHelm: {
       name: '秘銀盔'
+    },
+    smithAdamantHelm: {
+      name: '艾達曼盔'
+    },
+    smithAetheriteHelm: {
+      name: '以太晶盔'
     },
     smithMasterMithrilShield: {
       name: '精工秘銀盾'
     },
+    smithMasterAdamantShield: {
+      name: '精工艾達曼盾'
+    },
+    smithMasterAetheriteShield: {
+      name: '精工以太晶盾'
+    },
     smithMithrilShield: {
       name: '秘銀盾'
+    },
+    smithAdamantShield: {
+      name: '艾達曼盾'
+    },
+    smithAetheriteShield: {
+      name: '以太晶盾'
     },
     smithMasterMithrilHammer: {
       name: '精工秘銀錘'
     },
+    smithMasterAdamantHammer: {
+      name: '精工艾達曼錘'
+    },
+    smithMasterAetheriteHammer: {
+      name: '精工以太晶錘'
+    },
     smithMithrilHammer: {
       name: '秘銀錘'
+    },
+    smithAdamantHammer: {
+      name: '艾達曼錘'
+    },
+    smithAetheriteHammer: {
+      name: '以太晶錘'
     },
     smithMasterMithrilSword: {
       name: '精工秘銀劍'
     },
+    smithMasterAdamantSword: {
+      name: '精工艾達曼劍'
+    },
+    smithMasterAetheriteSword: {
+      name: '精工以太晶劍'
+    },
     smithMithrilSword: {
       name: '秘銀劍'
+    },
+    smithAdamantSword: {
+      name: '艾達曼劍'
+    },
+    smithAetheriteSword: {
+      name: '以太晶劍'
     },
     smithMasterGoldGreaves: {
       name: '精工金脛甲'
@@ -1557,6 +1651,1086 @@ export default {
     },
     smithMasterIronSword: {
       name: '精工鐵劍'
+    },
+    smithMasterDexIronSword: {
+      name: '精工鐵匕首 · 敏捷'
+    },
+    smithDexIronSword: {
+      name: '鐵匕首 · 敏捷'
+    },
+    smithMasterDexIronHammer: {
+      name: '精工鐵細劍 · 敏捷'
+    },
+    smithDexIronHammer: {
+      name: '鐵細劍 · 敏捷'
+    },
+    smithMasterDexIronShield: {
+      name: '精工鐵小圓盾 · 敏捷'
+    },
+    smithDexIronShield: {
+      name: '鐵小圓盾 · 敏捷'
+    },
+    smithMasterDexIronHelm: {
+      name: '精工鐵兜帽 · 敏捷'
+    },
+    smithDexIronHelm: {
+      name: '鐵兜帽 · 敏捷'
+    },
+    smithMasterDexIronPlate: {
+      name: '精工鐵皮甲 · 敏捷'
+    },
+    smithDexIronPlate: {
+      name: '鐵皮甲 · 敏捷'
+    },
+    smithMasterDexIronGreaves: {
+      name: '精工鐵靴子 · 敏捷'
+    },
+    smithDexIronGreaves: {
+      name: '鐵靴子 · 敏捷'
+    },
+    smithMasterDexSilverSword: {
+      name: '精工銀匕首 · 敏捷'
+    },
+    smithDexSilverSword: {
+      name: '銀匕首 · 敏捷'
+    },
+    smithMasterDexSilverHammer: {
+      name: '精工銀細劍 · 敏捷'
+    },
+    smithDexSilverHammer: {
+      name: '銀細劍 · 敏捷'
+    },
+    smithMasterDexSilverShield: {
+      name: '精工銀小圓盾 · 敏捷'
+    },
+    smithDexSilverShield: {
+      name: '銀小圓盾 · 敏捷'
+    },
+    smithMasterDexSilverHelm: {
+      name: '精工銀兜帽 · 敏捷'
+    },
+    smithDexSilverHelm: {
+      name: '銀兜帽 · 敏捷'
+    },
+    smithMasterDexSilverPlate: {
+      name: '精工銀皮甲 · 敏捷'
+    },
+    smithDexSilverPlate: {
+      name: '銀皮甲 · 敏捷'
+    },
+    smithMasterDexSilverGreaves: {
+      name: '精工銀靴子 · 敏捷'
+    },
+    smithDexSilverGreaves: {
+      name: '銀靴子 · 敏捷'
+    },
+    smithMasterDexGoldSword: {
+      name: '精工金匕首 · 敏捷'
+    },
+    smithDexGoldSword: {
+      name: '金匕首 · 敏捷'
+    },
+    smithMasterDexGoldHammer: {
+      name: '精工金細劍 · 敏捷'
+    },
+    smithDexGoldHammer: {
+      name: '金細劍 · 敏捷'
+    },
+    smithMasterDexGoldShield: {
+      name: '精工金小圓盾 · 敏捷'
+    },
+    smithDexGoldShield: {
+      name: '金小圓盾 · 敏捷'
+    },
+    smithMasterDexGoldHelm: {
+      name: '精工金兜帽 · 敏捷'
+    },
+    smithDexGoldHelm: {
+      name: '金兜帽 · 敏捷'
+    },
+    smithMasterDexGoldPlate: {
+      name: '精工金皮甲 · 敏捷'
+    },
+    smithDexGoldPlate: {
+      name: '金皮甲 · 敏捷'
+    },
+    smithMasterDexGoldGreaves: {
+      name: '精工金靴子 · 敏捷'
+    },
+    smithDexGoldGreaves: {
+      name: '金靴子 · 敏捷'
+    },
+    smithMasterDexMithrilSword: {
+      name: '精工秘銀匕首 · 敏捷'
+    },
+    smithMasterDexAdamantSword: {
+      name: '精工艾達曼匕首 · 敏捷'
+    },
+    smithMasterDexAetheriteSword: {
+      name: '精工以太晶匕首 · 敏捷'
+    },
+    smithDexMithrilSword: {
+      name: '秘銀匕首 · 敏捷'
+    },
+    smithDexAdamantSword: {
+      name: '艾達曼匕首 · 敏捷'
+    },
+    smithDexAetheriteSword: {
+      name: '以太晶匕首 · 敏捷'
+    },
+    smithMasterDexMithrilHammer: {
+      name: '精工秘銀細劍 · 敏捷'
+    },
+    smithMasterDexAdamantHammer: {
+      name: '精工艾達曼細劍 · 敏捷'
+    },
+    smithMasterDexAetheriteHammer: {
+      name: '精工以太晶細劍 · 敏捷'
+    },
+    smithDexMithrilHammer: {
+      name: '秘銀細劍 · 敏捷'
+    },
+    smithDexAdamantHammer: {
+      name: '艾達曼細劍 · 敏捷'
+    },
+    smithDexAetheriteHammer: {
+      name: '以太晶細劍 · 敏捷'
+    },
+    smithMasterDexMithrilShield: {
+      name: '精工秘銀小圓盾 · 敏捷'
+    },
+    smithMasterDexAdamantShield: {
+      name: '精工艾達曼小圓盾 · 敏捷'
+    },
+    smithMasterDexAetheriteShield: {
+      name: '精工以太晶小圓盾 · 敏捷'
+    },
+    smithDexMithrilShield: {
+      name: '秘銀小圓盾 · 敏捷'
+    },
+    smithDexAdamantShield: {
+      name: '艾達曼小圓盾 · 敏捷'
+    },
+    smithDexAetheriteShield: {
+      name: '以太晶小圓盾 · 敏捷'
+    },
+    smithMasterDexMithrilHelm: {
+      name: '精工秘銀兜帽 · 敏捷'
+    },
+    smithMasterDexAdamantHelm: {
+      name: '精工艾達曼兜帽 · 敏捷'
+    },
+    smithMasterDexAetheriteHelm: {
+      name: '精工以太晶兜帽 · 敏捷'
+    },
+    smithDexMithrilHelm: {
+      name: '秘銀兜帽 · 敏捷'
+    },
+    smithDexAdamantHelm: {
+      name: '艾達曼兜帽 · 敏捷'
+    },
+    smithDexAetheriteHelm: {
+      name: '以太晶兜帽 · 敏捷'
+    },
+    smithMasterDexMithrilPlate: {
+      name: '精工秘銀皮甲 · 敏捷'
+    },
+    smithMasterDexAdamantPlate: {
+      name: '精工艾達曼皮甲 · 敏捷'
+    },
+    smithMasterDexAetheritePlate: {
+      name: '精工以太晶皮甲 · 敏捷'
+    },
+    smithDexMithrilPlate: {
+      name: '秘銀皮甲 · 敏捷'
+    },
+    smithDexAdamantPlate: {
+      name: '艾達曼皮甲 · 敏捷'
+    },
+    smithDexAetheritePlate: {
+      name: '以太晶皮甲 · 敏捷'
+    },
+    smithMasterDexMithrilGreaves: {
+      name: '精工秘銀靴子 · 敏捷'
+    },
+    smithMasterDexAdamantGreaves: {
+      name: '精工艾達曼靴子 · 敏捷'
+    },
+    smithMasterDexAetheriteGreaves: {
+      name: '精工以太晶靴子 · 敏捷'
+    },
+    smithDexMithrilGreaves: {
+      name: '秘銀靴子 · 敏捷'
+    },
+    smithDexAdamantGreaves: {
+      name: '艾達曼靴子 · 敏捷'
+    },
+    smithDexAetheriteGreaves: {
+      name: '以太晶靴子 · 敏捷'
+    },
+    smithMasterIntIronSword: {
+      name: '精工鐵魔杖 · 智力'
+    },
+    smithIntIronSword: {
+      name: '鐵魔杖 · 智力'
+    },
+    smithMasterIntIronHammer: {
+      name: '精工鐵法杖 · 智力'
+    },
+    smithIntIronHammer: {
+      name: '鐵法杖 · 智力'
+    },
+    smithMasterIntIronShield: {
+      name: '精工鐵魔法書 · 智力'
+    },
+    smithIntIronShield: {
+      name: '鐵魔法書 · 智力'
+    },
+    smithMasterIntIronHelm: {
+      name: '精工鐵頭環 · 智力'
+    },
+    smithIntIronHelm: {
+      name: '鐵頭環 · 智力'
+    },
+    smithMasterIntIronPlate: {
+      name: '精工鐵長袍 · 智力'
+    },
+    smithIntIronPlate: {
+      name: '鐵長袍 · 智力'
+    },
+    smithMasterIntIronGreaves: {
+      name: '精工鐵靴子 · 智力'
+    },
+    smithIntIronGreaves: {
+      name: '鐵靴子 · 智力'
+    },
+    smithMasterIntSilverSword: {
+      name: '精工銀魔杖 · 智力'
+    },
+    smithIntSilverSword: {
+      name: '銀魔杖 · 智力'
+    },
+    smithMasterIntSilverHammer: {
+      name: '精工銀法杖 · 智力'
+    },
+    smithIntSilverHammer: {
+      name: '銀法杖 · 智力'
+    },
+    smithMasterIntSilverShield: {
+      name: '精工銀魔法書 · 智力'
+    },
+    smithIntSilverShield: {
+      name: '銀魔法書 · 智力'
+    },
+    smithMasterIntSilverHelm: {
+      name: '精工銀頭環 · 智力'
+    },
+    smithIntSilverHelm: {
+      name: '銀頭環 · 智力'
+    },
+    smithMasterIntSilverPlate: {
+      name: '精工銀長袍 · 智力'
+    },
+    smithIntSilverPlate: {
+      name: '銀長袍 · 智力'
+    },
+    smithMasterIntSilverGreaves: {
+      name: '精工銀靴子 · 智力'
+    },
+    smithIntSilverGreaves: {
+      name: '銀靴子 · 智力'
+    },
+    smithMasterIntGoldSword: {
+      name: '精工金魔杖 · 智力'
+    },
+    smithIntGoldSword: {
+      name: '金魔杖 · 智力'
+    },
+    smithMasterIntGoldHammer: {
+      name: '精工金法杖 · 智力'
+    },
+    smithIntGoldHammer: {
+      name: '金法杖 · 智力'
+    },
+    smithMasterIntGoldShield: {
+      name: '精工金魔法書 · 智力'
+    },
+    smithIntGoldShield: {
+      name: '金魔法書 · 智力'
+    },
+    smithMasterIntGoldHelm: {
+      name: '精工金頭環 · 智力'
+    },
+    smithIntGoldHelm: {
+      name: '金頭環 · 智力'
+    },
+    smithMasterIntGoldPlate: {
+      name: '精工金長袍 · 智力'
+    },
+    smithIntGoldPlate: {
+      name: '金長袍 · 智力'
+    },
+    smithMasterIntGoldGreaves: {
+      name: '精工金靴子 · 智力'
+    },
+    smithIntGoldGreaves: {
+      name: '金靴子 · 智力'
+    },
+    smithMasterIntMithrilSword: {
+      name: '精工秘銀魔杖 · 智力'
+    },
+    smithMasterIntAdamantSword: {
+      name: '精工艾達曼魔杖 · 智力'
+    },
+    smithMasterIntAetheriteSword: {
+      name: '精工以太晶魔杖 · 智力'
+    },
+    smithIntMithrilSword: {
+      name: '秘銀魔杖 · 智力'
+    },
+    smithIntAdamantSword: {
+      name: '艾達曼魔杖 · 智力'
+    },
+    smithIntAetheriteSword: {
+      name: '以太晶魔杖 · 智力'
+    },
+    smithMasterIntMithrilHammer: {
+      name: '精工秘銀法杖 · 智力'
+    },
+    smithMasterIntAdamantHammer: {
+      name: '精工艾達曼法杖 · 智力'
+    },
+    smithMasterIntAetheriteHammer: {
+      name: '精工以太晶法杖 · 智力'
+    },
+    smithIntMithrilHammer: {
+      name: '秘銀法杖 · 智力'
+    },
+    smithIntAdamantHammer: {
+      name: '艾達曼法杖 · 智力'
+    },
+    smithIntAetheriteHammer: {
+      name: '以太晶法杖 · 智力'
+    },
+    smithMasterIntMithrilShield: {
+      name: '精工秘銀魔法書 · 智力'
+    },
+    smithMasterIntAdamantShield: {
+      name: '精工艾達曼魔法書 · 智力'
+    },
+    smithMasterIntAetheriteShield: {
+      name: '精工以太晶魔法書 · 智力'
+    },
+    smithIntMithrilShield: {
+      name: '秘銀魔法書 · 智力'
+    },
+    smithIntAdamantShield: {
+      name: '艾達曼魔法書 · 智力'
+    },
+    smithIntAetheriteShield: {
+      name: '以太晶魔法書 · 智力'
+    },
+    smithMasterIntMithrilHelm: {
+      name: '精工秘銀頭環 · 智力'
+    },
+    smithMasterIntAdamantHelm: {
+      name: '精工艾達曼頭環 · 智力'
+    },
+    smithMasterIntAetheriteHelm: {
+      name: '精工以太晶頭環 · 智力'
+    },
+    smithIntMithrilHelm: {
+      name: '秘銀頭環 · 智力'
+    },
+    smithIntAdamantHelm: {
+      name: '艾達曼頭環 · 智力'
+    },
+    smithIntAetheriteHelm: {
+      name: '以太晶頭環 · 智力'
+    },
+    smithMasterIntMithrilPlate: {
+      name: '精工秘銀長袍 · 智力'
+    },
+    smithMasterIntAdamantPlate: {
+      name: '精工艾達曼長袍 · 智力'
+    },
+    smithMasterIntAetheritePlate: {
+      name: '精工以太晶長袍 · 智力'
+    },
+    smithIntMithrilPlate: {
+      name: '秘銀長袍 · 智力'
+    },
+    smithIntAdamantPlate: {
+      name: '艾達曼長袍 · 智力'
+    },
+    smithIntAetheritePlate: {
+      name: '以太晶長袍 · 智力'
+    },
+    smithMasterIntMithrilGreaves: {
+      name: '精工秘銀靴子 · 智力'
+    },
+    smithMasterIntAdamantGreaves: {
+      name: '精工艾達曼靴子 · 智力'
+    },
+    smithMasterIntAetheriteGreaves: {
+      name: '精工以太晶靴子 · 智力'
+    },
+    smithIntMithrilGreaves: {
+      name: '秘銀靴子 · 智力'
+    },
+    smithIntAdamantGreaves: {
+      name: '艾達曼靴子 · 智力'
+    },
+    smithIntAetheriteGreaves: {
+      name: '以太晶靴子 · 智力'
+    },
+    smithMasterSklIronSword: {
+      name: '精工鐵手槍 · 技巧'
+    },
+    smithSklIronSword: {
+      name: '鐵手槍 · 技巧'
+    },
+    smithMasterSklIronHammer: {
+      name: '精工鐵步槍 · 技巧'
+    },
+    smithSklIronHammer: {
+      name: '鐵步槍 · 技巧'
+    },
+    smithMasterSklIronShield: {
+      name: '精工鐵能量電池 · 技巧'
+    },
+    smithSklIronShield: {
+      name: '鐵能量電池 · 技巧'
+    },
+    smithMasterSklIronHelm: {
+      name: '精工鐵軟帽 · 技巧'
+    },
+    smithSklIronHelm: {
+      name: '鐵軟帽 · 技巧'
+    },
+    smithMasterSklIronPlate: {
+      name: '精工鐵皮具 · 技巧'
+    },
+    smithSklIronPlate: {
+      name: '鐵皮具 · 技巧'
+    },
+    smithMasterSklIronGreaves: {
+      name: '精工鐵靴子 · 技巧'
+    },
+    smithSklIronGreaves: {
+      name: '鐵靴子 · 技巧'
+    },
+    smithMasterSklSilverSword: {
+      name: '精工銀手槍 · 技巧'
+    },
+    smithSklSilverSword: {
+      name: '銀手槍 · 技巧'
+    },
+    smithMasterSklSilverHammer: {
+      name: '精工銀步槍 · 技巧'
+    },
+    smithSklSilverHammer: {
+      name: '銀步槍 · 技巧'
+    },
+    smithMasterSklSilverShield: {
+      name: '精工銀能量電池 · 技巧'
+    },
+    smithSklSilverShield: {
+      name: '銀能量電池 · 技巧'
+    },
+    smithMasterSklSilverHelm: {
+      name: '精工銀軟帽 · 技巧'
+    },
+    smithSklSilverHelm: {
+      name: '銀軟帽 · 技巧'
+    },
+    smithMasterSklSilverPlate: {
+      name: '精工銀皮具 · 技巧'
+    },
+    smithSklSilverPlate: {
+      name: '銀皮具 · 技巧'
+    },
+    smithMasterSklSilverGreaves: {
+      name: '精工銀靴子 · 技巧'
+    },
+    smithSklSilverGreaves: {
+      name: '銀靴子 · 技巧'
+    },
+    smithMasterSklGoldSword: {
+      name: '精工金手槍 · 技巧'
+    },
+    smithSklGoldSword: {
+      name: '金手槍 · 技巧'
+    },
+    smithMasterSklGoldHammer: {
+      name: '精工金步槍 · 技巧'
+    },
+    smithSklGoldHammer: {
+      name: '金步槍 · 技巧'
+    },
+    smithMasterSklGoldShield: {
+      name: '精工金能量電池 · 技巧'
+    },
+    smithSklGoldShield: {
+      name: '金能量電池 · 技巧'
+    },
+    smithMasterSklGoldHelm: {
+      name: '精工金軟帽 · 技巧'
+    },
+    smithSklGoldHelm: {
+      name: '金軟帽 · 技巧'
+    },
+    smithMasterSklGoldPlate: {
+      name: '精工金皮具 · 技巧'
+    },
+    smithSklGoldPlate: {
+      name: '金皮具 · 技巧'
+    },
+    smithMasterSklGoldGreaves: {
+      name: '精工金靴子 · 技巧'
+    },
+    smithSklGoldGreaves: {
+      name: '金靴子 · 技巧'
+    },
+    smithMasterSklMithrilSword: {
+      name: '精工秘銀手槍 · 技巧'
+    },
+    smithMasterSklAdamantSword: {
+      name: '精工艾達曼手槍 · 技巧'
+    },
+    smithMasterSklAetheriteSword: {
+      name: '精工以太晶手槍 · 技巧'
+    },
+    smithSklMithrilSword: {
+      name: '秘銀手槍 · 技巧'
+    },
+    smithSklAdamantSword: {
+      name: '艾達曼手槍 · 技巧'
+    },
+    smithSklAetheriteSword: {
+      name: '以太晶手槍 · 技巧'
+    },
+    smithMasterSklMithrilHammer: {
+      name: '精工秘銀步槍 · 技巧'
+    },
+    smithMasterSklAdamantHammer: {
+      name: '精工艾達曼步槍 · 技巧'
+    },
+    smithMasterSklAetheriteHammer: {
+      name: '精工以太晶步槍 · 技巧'
+    },
+    smithSklMithrilHammer: {
+      name: '秘銀步槍 · 技巧'
+    },
+    smithSklAdamantHammer: {
+      name: '艾達曼步槍 · 技巧'
+    },
+    smithSklAetheriteHammer: {
+      name: '以太晶步槍 · 技巧'
+    },
+    smithMasterSklMithrilShield: {
+      name: '精工秘銀能量電池 · 技巧'
+    },
+    smithMasterSklAdamantShield: {
+      name: '精工艾達曼能量電池 · 技巧'
+    },
+    smithMasterSklAetheriteShield: {
+      name: '精工以太晶能量電池 · 技巧'
+    },
+    smithSklMithrilShield: {
+      name: '秘銀能量電池 · 技巧'
+    },
+    smithSklAdamantShield: {
+      name: '艾達曼能量電池 · 技巧'
+    },
+    smithSklAetheriteShield: {
+      name: '以太晶能量電池 · 技巧'
+    },
+    smithMasterSklMithrilHelm: {
+      name: '精工秘銀軟帽 · 技巧'
+    },
+    smithMasterSklAdamantHelm: {
+      name: '精工艾達曼軟帽 · 技巧'
+    },
+    smithMasterSklAetheriteHelm: {
+      name: '精工以太晶軟帽 · 技巧'
+    },
+    smithSklMithrilHelm: {
+      name: '秘銀軟帽 · 技巧'
+    },
+    smithSklAdamantHelm: {
+      name: '艾達曼軟帽 · 技巧'
+    },
+    smithSklAetheriteHelm: {
+      name: '以太晶軟帽 · 技巧'
+    },
+    smithMasterSklMithrilPlate: {
+      name: '精工秘銀皮具 · 技巧'
+    },
+    smithMasterSklAdamantPlate: {
+      name: '精工艾達曼皮具 · 技巧'
+    },
+    smithMasterSklAetheritePlate: {
+      name: '精工以太晶皮具 · 技巧'
+    },
+    smithSklMithrilPlate: {
+      name: '秘銀皮具 · 技巧'
+    },
+    smithSklAdamantPlate: {
+      name: '艾達曼皮具 · 技巧'
+    },
+    smithSklAetheritePlate: {
+      name: '以太晶皮具 · 技巧'
+    },
+    smithMasterSklMithrilGreaves: {
+      name: '精工秘銀靴子 · 技巧'
+    },
+    smithMasterSklAdamantGreaves: {
+      name: '精工艾達曼靴子 · 技巧'
+    },
+    smithMasterSklAetheriteGreaves: {
+      name: '精工以太晶靴子 · 技巧'
+    },
+    smithSklMithrilGreaves: {
+      name: '秘銀靴子 · 技巧'
+    },
+    smithSklAdamantGreaves: {
+      name: '艾達曼靴子 · 技巧'
+    },
+    smithSklAetheriteGreaves: {
+      name: '以太晶靴子 · 技巧'
+    },
+    smithMasterChaIronSword: {
+      name: '精工鐵權杖 · 魅力'
+    },
+    smithChaIronSword: {
+      name: '鐵權杖 · 魅力'
+    },
+    smithMasterChaIronHammer: {
+      name: '精工鐵戰旗 · 魅力'
+    },
+    smithChaIronHammer: {
+      name: '鐵戰旗 · 魅力'
+    },
+    smithMasterChaIronShield: {
+      name: '精工鐵法典 · 魅力'
+    },
+    smithChaIronShield: {
+      name: '鐵法典 · 魅力'
+    },
+    smithMasterChaIronHelm: {
+      name: '精工鐵王冠 · 魅力'
+    },
+    smithChaIronHelm: {
+      name: '鐵王冠 · 魅力'
+    },
+    smithMasterChaIronPlate: {
+      name: '精工鐵戰袍 · 魅力'
+    },
+    smithChaIronPlate: {
+      name: '鐵戰袍 · 魅力'
+    },
+    smithMasterChaIronGreaves: {
+      name: '精工鐵靴子 · 魅力'
+    },
+    smithChaIronGreaves: {
+      name: '鐵靴子 · 魅力'
+    },
+    smithMasterChaSilverSword: {
+      name: '精工銀權杖 · 魅力'
+    },
+    smithChaSilverSword: {
+      name: '銀權杖 · 魅力'
+    },
+    smithMasterChaSilverHammer: {
+      name: '精工銀戰旗 · 魅力'
+    },
+    smithChaSilverHammer: {
+      name: '銀戰旗 · 魅力'
+    },
+    smithMasterChaSilverShield: {
+      name: '精工銀法典 · 魅力'
+    },
+    smithChaSilverShield: {
+      name: '銀法典 · 魅力'
+    },
+    smithMasterChaSilverHelm: {
+      name: '精工銀王冠 · 魅力'
+    },
+    smithChaSilverHelm: {
+      name: '銀王冠 · 魅力'
+    },
+    smithMasterChaSilverPlate: {
+      name: '精工銀戰袍 · 魅力'
+    },
+    smithChaSilverPlate: {
+      name: '銀戰袍 · 魅力'
+    },
+    smithMasterChaSilverGreaves: {
+      name: '精工銀靴子 · 魅力'
+    },
+    smithChaSilverGreaves: {
+      name: '銀靴子 · 魅力'
+    },
+    smithMasterChaGoldSword: {
+      name: '精工金權杖 · 魅力'
+    },
+    smithChaGoldSword: {
+      name: '金權杖 · 魅力'
+    },
+    smithMasterChaGoldHammer: {
+      name: '精工金戰旗 · 魅力'
+    },
+    smithChaGoldHammer: {
+      name: '金戰旗 · 魅力'
+    },
+    smithMasterChaGoldShield: {
+      name: '精工金法典 · 魅力'
+    },
+    smithChaGoldShield: {
+      name: '金法典 · 魅力'
+    },
+    smithMasterChaGoldHelm: {
+      name: '精工金王冠 · 魅力'
+    },
+    smithChaGoldHelm: {
+      name: '金王冠 · 魅力'
+    },
+    smithMasterChaGoldPlate: {
+      name: '精工金戰袍 · 魅力'
+    },
+    smithChaGoldPlate: {
+      name: '金戰袍 · 魅力'
+    },
+    smithMasterChaGoldGreaves: {
+      name: '精工金靴子 · 魅力'
+    },
+    smithChaGoldGreaves: {
+      name: '金靴子 · 魅力'
+    },
+    smithMasterChaMithrilSword: {
+      name: '精工秘銀權杖 · 魅力'
+    },
+    smithMasterChaAdamantSword: {
+      name: '精工艾達曼權杖 · 魅力'
+    },
+    smithMasterChaAetheriteSword: {
+      name: '精工以太晶權杖 · 魅力'
+    },
+    smithChaMithrilSword: {
+      name: '秘銀權杖 · 魅力'
+    },
+    smithChaAdamantSword: {
+      name: '艾達曼權杖 · 魅力'
+    },
+    smithChaAetheriteSword: {
+      name: '以太晶權杖 · 魅力'
+    },
+    smithMasterChaMithrilHammer: {
+      name: '精工秘銀戰旗 · 魅力'
+    },
+    smithMasterChaAdamantHammer: {
+      name: '精工艾達曼戰旗 · 魅力'
+    },
+    smithMasterChaAetheriteHammer: {
+      name: '精工以太晶戰旗 · 魅力'
+    },
+    smithChaMithrilHammer: {
+      name: '秘銀戰旗 · 魅力'
+    },
+    smithChaAdamantHammer: {
+      name: '艾達曼戰旗 · 魅力'
+    },
+    smithChaAetheriteHammer: {
+      name: '以太晶戰旗 · 魅力'
+    },
+    smithMasterChaMithrilShield: {
+      name: '精工秘銀法典 · 魅力'
+    },
+    smithMasterChaAdamantShield: {
+      name: '精工艾達曼法典 · 魅力'
+    },
+    smithMasterChaAetheriteShield: {
+      name: '精工以太晶法典 · 魅力'
+    },
+    smithChaMithrilShield: {
+      name: '秘銀法典 · 魅力'
+    },
+    smithChaAdamantShield: {
+      name: '艾達曼法典 · 魅力'
+    },
+    smithChaAetheriteShield: {
+      name: '以太晶法典 · 魅力'
+    },
+    smithMasterChaMithrilHelm: {
+      name: '精工秘銀王冠 · 魅力'
+    },
+    smithMasterChaAdamantHelm: {
+      name: '精工艾達曼王冠 · 魅力'
+    },
+    smithMasterChaAetheriteHelm: {
+      name: '精工以太晶王冠 · 魅力'
+    },
+    smithChaMithrilHelm: {
+      name: '秘銀王冠 · 魅力'
+    },
+    smithChaAdamantHelm: {
+      name: '艾達曼王冠 · 魅力'
+    },
+    smithChaAetheriteHelm: {
+      name: '以太晶王冠 · 魅力'
+    },
+    smithMasterChaMithrilPlate: {
+      name: '精工秘銀戰袍 · 魅力'
+    },
+    smithMasterChaAdamantPlate: {
+      name: '精工艾達曼戰袍 · 魅力'
+    },
+    smithMasterChaAetheritePlate: {
+      name: '精工以太晶戰袍 · 魅力'
+    },
+    smithChaMithrilPlate: {
+      name: '秘銀戰袍 · 魅力'
+    },
+    smithChaAdamantPlate: {
+      name: '艾達曼戰袍 · 魅力'
+    },
+    smithChaAetheritePlate: {
+      name: '以太晶戰袍 · 魅力'
+    },
+    smithMasterChaMithrilGreaves: {
+      name: '精工秘銀靴子 · 魅力'
+    },
+    smithMasterChaAdamantGreaves: {
+      name: '精工艾達曼靴子 · 魅力'
+    },
+    smithMasterChaAetheriteGreaves: {
+      name: '精工以太晶靴子 · 魅力'
+    },
+    smithChaMithrilGreaves: {
+      name: '秘銀靴子 · 魅力'
+    },
+    smithChaAdamantGreaves: {
+      name: '艾達曼靴子 · 魅力'
+    },
+    smithChaAetheriteGreaves: {
+      name: '以太晶靴子 · 魅力'
+    },
+    smithMasterEndIronSword: {
+      name: '精工鐵釘頭錘 · 耐力'
+    },
+    smithEndIronSword: {
+      name: '鐵釘頭錘 · 耐力'
+    },
+    smithMasterEndIronHammer: {
+      name: '精工鐵戰斧 · 耐力'
+    },
+    smithEndIronHammer: {
+      name: '鐵戰斧 · 耐力'
+    },
+    smithMasterEndIronShield: {
+      name: '精工鐵盾 · 耐力'
+    },
+    smithEndIronShield: {
+      name: '鐵盾 · 耐力'
+    },
+    smithMasterEndIronHelm: {
+      name: '精工鐵盔 · 耐力'
+    },
+    smithEndIronHelm: {
+      name: '鐵盔 · 耐力'
+    },
+    smithMasterEndIronPlate: {
+      name: '精工鐵板甲 · 耐力'
+    },
+    smithEndIronPlate: {
+      name: '鐵板甲 · 耐力'
+    },
+    smithMasterEndIronGreaves: {
+      name: '精工鐵脛甲 · 耐力'
+    },
+    smithEndIronGreaves: {
+      name: '鐵脛甲 · 耐力'
+    },
+    smithMasterEndSilverSword: {
+      name: '精工銀釘頭錘 · 耐力'
+    },
+    smithEndSilverSword: {
+      name: '銀釘頭錘 · 耐力'
+    },
+    smithMasterEndSilverHammer: {
+      name: '精工銀戰斧 · 耐力'
+    },
+    smithEndSilverHammer: {
+      name: '銀戰斧 · 耐力'
+    },
+    smithMasterEndSilverShield: {
+      name: '精工銀盾 · 耐力'
+    },
+    smithEndSilverShield: {
+      name: '銀盾 · 耐力'
+    },
+    smithMasterEndSilverHelm: {
+      name: '精工銀盔 · 耐力'
+    },
+    smithEndSilverHelm: {
+      name: '銀盔 · 耐力'
+    },
+    smithMasterEndSilverPlate: {
+      name: '精工銀板甲 · 耐力'
+    },
+    smithEndSilverPlate: {
+      name: '銀板甲 · 耐力'
+    },
+    smithMasterEndSilverGreaves: {
+      name: '精工銀脛甲 · 耐力'
+    },
+    smithEndSilverGreaves: {
+      name: '銀脛甲 · 耐力'
+    },
+    smithMasterEndGoldSword: {
+      name: '精工金釘頭錘 · 耐力'
+    },
+    smithEndGoldSword: {
+      name: '金釘頭錘 · 耐力'
+    },
+    smithMasterEndGoldHammer: {
+      name: '精工金戰斧 · 耐力'
+    },
+    smithEndGoldHammer: {
+      name: '金戰斧 · 耐力'
+    },
+    smithMasterEndGoldShield: {
+      name: '精工金盾 · 耐力'
+    },
+    smithEndGoldShield: {
+      name: '金盾 · 耐力'
+    },
+    smithMasterEndGoldHelm: {
+      name: '精工金盔 · 耐力'
+    },
+    smithEndGoldHelm: {
+      name: '金盔 · 耐力'
+    },
+    smithMasterEndGoldPlate: {
+      name: '精工金板甲 · 耐力'
+    },
+    smithEndGoldPlate: {
+      name: '金板甲 · 耐力'
+    },
+    smithMasterEndGoldGreaves: {
+      name: '精工金脛甲 · 耐力'
+    },
+    smithEndGoldGreaves: {
+      name: '金脛甲 · 耐力'
+    },
+    smithMasterEndMithrilSword: {
+      name: '精工秘銀釘頭錘 · 耐力'
+    },
+    smithMasterEndAdamantSword: {
+      name: '精工艾達曼釘頭錘 · 耐力'
+    },
+    smithMasterEndAetheriteSword: {
+      name: '精工以太晶釘頭錘 · 耐力'
+    },
+    smithEndMithrilSword: {
+      name: '秘銀釘頭錘 · 耐力'
+    },
+    smithEndAdamantSword: {
+      name: '艾達曼釘頭錘 · 耐力'
+    },
+    smithEndAetheriteSword: {
+      name: '以太晶釘頭錘 · 耐力'
+    },
+    smithMasterEndMithrilHammer: {
+      name: '精工秘銀戰斧 · 耐力'
+    },
+    smithMasterEndAdamantHammer: {
+      name: '精工艾達曼戰斧 · 耐力'
+    },
+    smithMasterEndAetheriteHammer: {
+      name: '精工以太晶戰斧 · 耐力'
+    },
+    smithEndMithrilHammer: {
+      name: '秘銀戰斧 · 耐力'
+    },
+    smithEndAdamantHammer: {
+      name: '艾達曼戰斧 · 耐力'
+    },
+    smithEndAetheriteHammer: {
+      name: '以太晶戰斧 · 耐力'
+    },
+    smithMasterEndMithrilShield: {
+      name: '精工秘銀盾 · 耐力'
+    },
+    smithMasterEndAdamantShield: {
+      name: '精工艾達曼盾 · 耐力'
+    },
+    smithMasterEndAetheriteShield: {
+      name: '精工以太晶盾 · 耐力'
+    },
+    smithEndMithrilShield: {
+      name: '秘銀盾 · 耐力'
+    },
+    smithEndAdamantShield: {
+      name: '艾達曼盾 · 耐力'
+    },
+    smithEndAetheriteShield: {
+      name: '以太晶盾 · 耐力'
+    },
+    smithMasterEndMithrilHelm: {
+      name: '精工秘銀盔 · 耐力'
+    },
+    smithMasterEndAdamantHelm: {
+      name: '精工艾達曼盔 · 耐力'
+    },
+    smithMasterEndAetheriteHelm: {
+      name: '精工以太晶盔 · 耐力'
+    },
+    smithEndMithrilHelm: {
+      name: '秘銀盔 · 耐力'
+    },
+    smithEndAdamantHelm: {
+      name: '艾達曼盔 · 耐力'
+    },
+    smithEndAetheriteHelm: {
+      name: '以太晶盔 · 耐力'
+    },
+    smithMasterEndMithrilPlate: {
+      name: '精工秘銀板甲 · 耐力'
+    },
+    smithMasterEndAdamantPlate: {
+      name: '精工艾達曼板甲 · 耐力'
+    },
+    smithMasterEndAetheritePlate: {
+      name: '精工以太晶板甲 · 耐力'
+    },
+    smithEndMithrilPlate: {
+      name: '秘銀板甲 · 耐力'
+    },
+    smithEndAdamantPlate: {
+      name: '艾達曼板甲 · 耐力'
+    },
+    smithEndAetheritePlate: {
+      name: '以太晶板甲 · 耐力'
+    },
+    smithMasterEndMithrilGreaves: {
+      name: '精工秘銀脛甲 · 耐力'
+    },
+    smithMasterEndAdamantGreaves: {
+      name: '精工艾達曼脛甲 · 耐力'
+    },
+    smithMasterEndAetheriteGreaves: {
+      name: '精工以太晶脛甲 · 耐力'
+    },
+    smithEndMithrilGreaves: {
+      name: '秘銀脛甲 · 耐力'
+    },
+    smithEndAdamantGreaves: {
+      name: '艾達曼脛甲 · 耐力'
+    },
+    smithEndAetheriteGreaves: {
+      name: '以太晶脛甲 · 耐力'
     },
     smithIronSword: {
       name: '鐵劍'
@@ -1777,6 +2951,414 @@ export default {
     scepterOfTheFirstKing: {
       name: '初代國王的權杖'
     },
+    pickpocketsKnife: {
+      name: '扒手之刀'
+    },
+    serpentsFang: {
+      name: '蛇牙'
+    },
+    phantomRapier: {
+      name: '幻影細劍'
+    },
+    fangOfTheWindless: {
+      name: '無風之牙'
+    },
+    roguesBuckler: {
+      name: '惡棍小圓盾'
+    },
+    venomVial: {
+      name: '毒藥瓶'
+    },
+    swiftguardBuckler: {
+      name: '迅捷衛士小圓盾'
+    },
+    nightshadeFlask: {
+      name: '顛茄瓶'
+    },
+    windveilTarge: {
+      name: '風幕盾'
+    },
+    shadowdancersBuckler: {
+      name: '影舞者小圓盾'
+    },
+    scoutsBandana: {
+      name: '斥候頭巾'
+    },
+    nightcowl: {
+      name: '夜之兜帽'
+    },
+    shadowveilHood: {
+      name: '影幕兜帽'
+    },
+    windrunnersCap: {
+      name: '逐風者便帽'
+    },
+    maskOfTheSilentWind: {
+      name: '靜風面具'
+    },
+    rangersJerkin: {
+      name: '遊俠皮甲'
+    },
+    nightstalkerLeathers: {
+      name: '夜獵者皮革'
+    },
+    windridersHarness: {
+      name: '馭風者束帶'
+    },
+    mantleOfTheShadowDancer: {
+      name: '影舞者斗篷'
+    },
+    thiefsGloves: {
+      name: '盜賊手套'
+    },
+    cutpurseGloves: {
+      name: '扒手手套'
+    },
+    glovesOfTheGale: {
+      name: '疾風手套'
+    },
+    softSoledShoes: {
+      name: '軟底鞋'
+    },
+    catStepBoots: {
+      name: '貓步靴'
+    },
+    shadowstepBoots: {
+      name: '影步靴'
+    },
+    windstrideBoots: {
+      name: '風步靴'
+    },
+    luckyCoin: {
+      name: '幸運硬幣'
+    },
+    shadowBand: {
+      name: '暗影指環'
+    },
+    sandglassOfTheSwift: {
+      name: '迅捷者的沙漏'
+    },
+    talonCharm: {
+      name: '利爪護符'
+    },
+    windheart: {
+      name: '風之心'
+    },
+    ashwallHeater: {
+      name: '灰壁鳶盾'
+    },
+    wyrmhidePavise: {
+      name: '飛龍皮重盾'
+    },
+    footmansKettleHat: {
+      name: '步兵鍋盔'
+    },
+    ironbrowSallet: {
+      name: '鐵眉輕盔'
+    },
+    warlordsBarbute: {
+      name: '軍閥巴比特盔'
+    },
+    helmOfTheSunderedThrone: {
+      name: '破碎王座之盔'
+    },
+    recruitsCuirass: {
+      name: '新兵胸甲'
+    },
+    stonecuttersMitts: {
+      name: '石匠手套'
+    },
+    ashforgedGauntlets: {
+      name: '灰燼鍛造護手'
+    },
+    warbringerGauntlets: {
+      name: '引戰者護手'
+    },
+    titanfistGauntlets: {
+      name: '泰坦之拳護手'
+    },
+    footmansGreaves: {
+      name: '步兵脛甲'
+    },
+    ironshodGreaves: {
+      name: '鐵釘脛甲'
+    },
+    warlordsSabatons: {
+      name: '軍閥鐵靴'
+    },
+    greavesOfTheMountainfall: {
+      name: '山崩脛甲'
+    },
+    sergeantsSignet: {
+      name: '軍士印戒'
+    },
+    brawlersKnuckleRing: {
+      name: '鬥毆者指虎'
+    },
+    bloodiedWarMedal: {
+      name: '染血戰功章'
+    },
+    watchmansCudgel: {
+      name: '守衛警棍'
+    },
+    ironboundMace: {
+      name: '鐵箍釘頭錘'
+    },
+    stonehideCleaver: {
+      name: '石膚砍刀'
+    },
+    bulwarkMaul: {
+      name: '壁壘重錘'
+    },
+    mountainsplitterAxe: {
+      name: '裂山斧'
+    },
+    everstandWarmace: {
+      name: '不動戰錘'
+    },
+    emberwallBastion: {
+      name: '餘燼之牆堡壘盾'
+    },
+    stonewardenHelm: {
+      name: '石衛頭盔'
+    },
+    colossusVisage: {
+      name: '巨像之容'
+    },
+    diggersGauntlets: {
+      name: '掘地者護手'
+    },
+    bastionGauntlets: {
+      name: '堡壘護手'
+    },
+    glacierplateGauntlets: {
+      name: '冰川板護手'
+    },
+    gauntletsOfEndlessVigil: {
+      name: '永夜守望護手'
+    },
+    hearthstoneCharm: {
+      name: '爐石護符'
+    },
+    ironheartPendant: {
+      name: '鐵心吊墜'
+    },
+    hedgewizardsWand: {
+      name: '籬笆術士之杖'
+    },
+    frostglassStaff: {
+      name: '霜玻璃法杖'
+    },
+    voidthreadWand: {
+      name: '虛空絲線之杖'
+    },
+    staffOfTheStarlessSky: {
+      name: '無星天空之杖'
+    },
+    studentsGrimoire: {
+      name: '學徒魔典'
+    },
+    frostfireOrb: {
+      name: '霜火寶珠'
+    },
+    orbOfTheUnwrittenHour: {
+      name: '未書之時寶珠'
+    },
+    apprenticesPointedCap: {
+      name: '學徒尖帽'
+    },
+    sagesCirclet: {
+      name: '賢者額環'
+    },
+    cinderWizardsHat: {
+      name: '灰燼法師之帽'
+    },
+    voidseerCirclet: {
+      name: '虛空先知額環'
+    },
+    apprenticesRobe: {
+      name: '學徒長袍'
+    },
+    cinderthreadRobe: {
+      name: '灰絲長袍'
+    },
+    voidwovenRobe: {
+      name: '虛空織造長袍'
+    },
+    inkStainedGloves: {
+      name: '墨漬手套'
+    },
+    spellthreadGloves: {
+      name: '咒線手套'
+    },
+    frostweaveGloves: {
+      name: '霜織手套'
+    },
+    starlitGloves: {
+      name: '星光手套'
+    },
+    glovesOfTheLastWord: {
+      name: '最後之言手套'
+    },
+    scribesSlippers: {
+      name: '書記員拖鞋'
+    },
+    moonstepSlippers: {
+      name: '月步拖鞋'
+    },
+    emberstepBoots: {
+      name: '餘燼步靴'
+    },
+    voidwalkerBoots: {
+      name: '虛空漫行者之靴'
+    },
+    bootsOfTheWanderingStar: {
+      name: '流浪星辰之靴'
+    },
+    glowstonePendant: {
+      name: '輝石吊墜'
+    },
+    scholarsSeal: {
+      name: '學者印章'
+    },
+    eyeOfTheArchon: {
+      name: '執政官之眼'
+    },
+    cinderRepeater: {
+      name: '灰燼連發槍'
+    },
+    glacierMortar: {
+      name: '冰川手持迫擊砲'
+    },
+    sparkCell: {
+      name: '火花電池'
+    },
+    arcCapacitor: {
+      name: '電弧電容器'
+    },
+    aetherheartCell: {
+      name: '以太之心電池'
+    },
+    marksmansVisor: {
+      name: '射手面甲'
+    },
+    sharpshootersCap: {
+      name: '狙擊手帽'
+    },
+    gunnersHarness: {
+      name: '砲手背帶'
+    },
+    steadyhandGloves: {
+      name: '穩手手套'
+    },
+    gunsmithsGloves: {
+      name: '槍匠手套'
+    },
+    scrappersBoots: {
+      name: '鬥毆者之靴'
+    },
+    sharpshooterBoots: {
+      name: '狙擊手之靴'
+    },
+    firingLineBoots: {
+      name: '射擊線之靴'
+    },
+    steadyfootBoots: {
+      name: '穩足之靴'
+    },
+    aetherstepBoots: {
+      name: '以太步靴'
+    },
+    bootsOfTheLastShot: {
+      name: '最後一槍之靴'
+    },
+    brassCartridgeCharm: {
+      name: '黃銅彈殼護符'
+    },
+    deadEyeLens: {
+      name: '準眼透鏡'
+    },
+    eagleEyeScope: {
+      name: '鷹眼望遠鏡'
+    },
+    criersBaton: {
+      name: '傳令官短杖'
+    },
+    droversStandard: {
+      name: '牧人旗幟'
+    },
+    marshalsSceptre: {
+      name: '元帥權杖'
+    },
+    balladBook: {
+      name: '歌謠集'
+    },
+    chronicleOfHeroes: {
+      name: '英雄編年史'
+    },
+    psalterOfTheHost: {
+      name: '軍團聖詠集'
+    },
+    tomeOfEternalReign: {
+      name: '永恆統治之卷'
+    },
+    heraldsCap: {
+      name: '傳令官帽'
+    },
+    singersCirclet: {
+      name: '歌者額環'
+    },
+    diademOfTenThousandVoices: {
+      name: '萬聲王冠'
+    },
+    travelersWaistcoat: {
+      name: '旅人背心'
+    },
+    minstrelsMotley: {
+      name: '吟遊詩人補丁衣'
+    },
+    troubadoursCoat: {
+      name: '遊吟詩人外套'
+    },
+    marshalsGreatcoat: {
+      name: '元帥大衣'
+    },
+    buskersGloves: {
+      name: '街頭樂手手套'
+    },
+    drummersGloves: {
+      name: '鼓手手套'
+    },
+    standardBearersGloves: {
+      name: '旗手手套'
+    },
+    gildedParadeGloves: {
+      name: '鍍金閱兵手套'
+    },
+    glovesOfTheCrownedHand: {
+      name: '加冕之手手套'
+    },
+    wayfarersShoes: {
+      name: '旅人之鞋'
+    },
+    troubadourBoots: {
+      name: '遊吟詩人之靴'
+    },
+    heraldsRidingBoots: {
+      name: '傳令官馬靴'
+    },
+    paradeBoots: {
+      name: '閱兵靴'
+    },
+    bootsOfTheLongProcession: {
+      name: '長行列之靴'
+    },
+    silverWhistle: {
+      name: '銀哨'
+    },
+    gatheringHorn: {
+      name: '集結號角'
+    },
     heartOfTheMountain: {
       name: '山脈之心'
     },
@@ -1880,6 +3462,9 @@ export default {
     freedPeddler: {
       talk: '旅人需要的，這兒應有盡有。幾乎全新，大多是啦。',
       name: '奧多·馬羅'
+    },
+    sfShadowRoad: {
+      name: '妮特爾·奎克漢德'
     },
     sfShadow: {
       name: '妮特爾·奎克漢德'
@@ -2034,6 +3619,9 @@ export default {
     sunfordGambler: {
       name: '「筋斗」多布'
     },
+    sunfordCups: {
+      name: '「快手」奈爾'
+    },
     oakGambler: {
       name: '「絲絨」倫'
     },
@@ -2145,6 +3733,13 @@ export default {
     }
   },
   dlg: {
+    intro: {
+      crossing: { 1: '這個世界的每條道路都交會於十字路口……而每個十字路口，都是一場戰鬥。' },
+      hero: { 1: '從桑佛德寧靜的田野，一位年輕的英雄踏上了旅程。' },
+      fire: { 1: '烈火回應了召喚。鋼鐵記住了新的名字。' },
+      foes: { 1: '哥布林王，冰霜領主，虛空巨龍……還有大惡魔。' },
+      begin: { 1: '你的傳奇，此刻開始。' }
+    },
     frostDisciple: {
       bye: {
         '1': '注意保暖。'
@@ -2339,6 +3934,23 @@ export default {
       hello: {
         '2': '奧多·馬羅，樂意效勞。小販、補鍋匠，還是個感激不盡的人。',
         '1': '你！就是你打開了那個籠子！不然我早就爛在裡面了。'
+      }
+    },
+    sfShadowRoad: {
+      hello: {
+        '1': '瞬間移動。有興趣嗎？'
+      },
+      again: {
+        '1': '又來學新把戲了？'
+      },
+      train: {
+        '1': '看仔細。一步，你就已經在別處了。'
+      },
+      trainBack: {
+        '1': '很好。現在去別的地方吧。'
+      },
+      bye: {
+        '1': '別被抓到了。'
       }
     },
     sfShadow: {
@@ -2593,9 +4205,8 @@ export default {
         '2': '金屬最亮的時候敲。敲偏了就是廢鐵。去吧。',
         '1': '打鐵？哼。鎚子要這樣握，別像握棍子。'
       },
-      ore: {
-        '1': '礦塊，嗯？我全收了。分量足，錢也足。'
-      },
+      ore: { '1': '礦石，嗯？給我看看。按塊付錢，分量公道。' },
+      sellBack: { '1': '分量公道，錢也公道。再找到就拿來。' },
       forgeBack: {
         '1': '不壞。也不算好。繼續練。'
       },
@@ -2878,7 +4489,7 @@ export default {
       },
       map: {
         '1': '這是魯克隊長的地圖！他在被哥布林抓住之前，把它撕碎，把碎片藏了起來。',
-        '2': '六塊全找齊，X就會指路：就在灰燼峭壁的某處。在那裡挖下去，金子就是你的了。',
+        '2': '找到其中六塊就行，四周還散落著更多，X就會指路：就在灰燼峭壁的某處。在那裡挖下去，金子就是你的了。',
         say: '我找到了一塊舊地圖的碎片。'
       }
     },
@@ -2895,6 +4506,9 @@ export default {
       },
       mana: {
         '1': '這瓶滿苦的。法術用完的時候再喝。'
+      },
+      brew: {
+        '1': '讓我看看你的草藥。我來調一點比我的魔力補藥好喝的東西。'
       },
       potions: {
         '1': '每場戰鬥你都帶幾瓶藥。要在需要之前喝，別等到之後。',
@@ -2914,6 +4528,9 @@ export default {
       },
       healBack: {
         '1': '腰帶裝滿，頭低一點。'
+      },
+      brewBack: {
+        '1': '小心，很燙。別一次全喝光。'
       },
       bye: {
         '1': '在外面照顧好自己。'
@@ -3015,9 +4632,8 @@ export default {
         '2': '盯著光芒。敲它的中心，敲三次，金屬就會記住。',
         '1': '想學這門手藝？好。奧克赫文需要每一把鎚子。'
       },
-      ore: {
-        '1': '生礦！軍械庫永遠不夠用。這是你的報酬。'
-      },
+      ore: { '1': '原礦！軍械庫從來不夠用。能勻多少就賣多少。' },
+      sellBack: { '1': '每一塊都會砌進城牆。謝謝你。' },
       forgeBack: {
         '1': '好鋼。城牆謝謝你。'
       },
@@ -3058,9 +4674,8 @@ export default {
         '2': '三擊，每一擊都落在光芒中心。祕訣就這麼多。',
         '1': '自從圍城之後，誰來問我都教。來，站這兒。'
       },
-      ore: {
-        '1': '又給城牆送礦石來了？真是謝天謝地。來，拿著這個。'
-      },
+      ore: { '1': '還有礦石給城牆？你能勻出的每一塊我都買。' },
+      sellBack: { '1': '願你得福。城牆又能多幾塊甲板了。' },
       forgeBack: {
         '1': '每一擊都讓你更進一步。隨時再來。'
       },
@@ -3456,9 +5071,8 @@ export default {
         '2': '光芒告訴你何時敲。手臂告訴你多用力。三擊。',
         '1': '地面上的人來打鐵？好吧，誰都得有個開頭。'
       },
-      ore: {
-        '1': '好金屬，實實在在。艾恩霍德向來為這種東西付錢。'
-      },
+      ore: { '1': '好金屬，實在貨。擺出來，按塊付錢。' },
+      sellBack: { '1': '公平交易。艾恩霍德從不虧待好金屬。' },
       forgeBack: {
         '1': '換個矮人會做得更好。不過也好不了多少。'
       },
@@ -3528,9 +5142,8 @@ export default {
         '2': '加熱，敲擊，翻面。三擊，正落在光芒裡。然後讓它冷卻。',
         '1': '板甲是耐心活。我教你些基礎。'
       },
-      ore: {
-        '1': '我秤一下。好。錢歸你了。'
-      },
+      ore: { '1': '讓我秤一秤。選好要賣的，錢我來數。' },
+      sellBack: { '1': '秤好了，付清了。好。' },
       forgeBack: {
         '1': '先放涼再穿。'
       },
@@ -3570,9 +5183,8 @@ export default {
         '2': '鐵砧前要守紀律，如同在戰場上。三擊，緊隨光芒。',
         '1': '騎士團為朋友提供武裝。我來教你。'
       },
-      ore: {
-        '1': '騎士團為戰事收購所有礦石。這是你的報酬。'
-      },
+      ore: { '1': '騎士團為戰爭收購礦石。能勻多少就賣多少。' },
+      sellBack: { '1': '你的報酬已記錄。騎士團感謝你。' },
       forgeBack: {
         '1': '鍛得好。穿上它好好效力。'
       },
@@ -3974,6 +5586,11 @@ export default {
       }
     },
     bark: {
+      banditChief: {
+        whistle: {
+          1: '起來，小子們！咬他們！'
+        }
+      },
       lightDisciple: {
         freed: {
           '1': '是光指引你來的。我是奧蕾爾修女。到桑佛德來找我，我會教你光明使者之道。'
@@ -4129,9 +5746,8 @@ export default {
         '2': '在它最亮最熱時敲。三下好的敲擊，就是一件好東西。',
         '1': '想自己試試鎚子嗎？我不介意和你共用熔爐。'
       },
-      ore: {
-        '1': '好礦石。西爾弗布里奇向來給公道價。'
-      },
+      ore: { '1': '漂亮的礦石。給我看看你要賣什麼，按塊付錢。' },
+      sellBack: { '1': '很高興。西爾弗布里奇向來出價公道。' },
       forgeBack: {
         '1': '瞧瞧！你真是天生的好手。'
       },
@@ -4573,7 +6189,7 @@ export default {
         say: '去哪裡找草藥？'
       },
       elixirs: {
-        '1': '每一種都能讓你在戰鬥中變強整整一分鐘。打得更狠，皮更硬，腳更快。',
+        '1': '每一種都能讓你在戰鬥中變強整整五分鐘。打得更狠，皮更硬，腳更快。',
         '2': '它們放在你的第三個藥瓶裡。點一下小箭頭，就能換要喝的那種。',
         say: '靈藥有什麼用？'
       },
@@ -4642,6 +6258,36 @@ export default {
       },
       bye: {
         '1': '多帶點破爛來！破爛是我的最愛。'
+      }
+    },
+    sunfordCups: {
+      hello: {
+        1: '快來看！三個杯子，一顆寶石，第一局免費！',
+        2: '「快手」奈爾。還沒人騙得過我的手。想試試嗎？'
+      },
+      again: {
+        1: '又來啦？眼睛放亮一點！'
+      },
+      play: {
+        1: '盯緊寶石，朋友。別眨眼！'
+      },
+      rules: {
+        1: '我把寶石藏在一個杯子下面，然後換來換去。你指出藏著它的杯子就行。',
+        2: '連勝越多贏得越多。三連勝有獎品，五連勝有寶藏。每天第一局免費。',
+        say: '怎麼玩？'
+      },
+      who: {
+        1: '我還不會走路就會洗牌了。我媽說這能解釋很多事。'
+      },
+      luck: {
+        1: '偶爾！那我就大聲哀嘆，觀眾就會同情我。',
+        say: '你也會輸嗎？'
+      },
+      playBack: {
+        1: '這一局真棒！明天再來，第一局永遠免費。'
+      },
+      bye: {
+        1: '回見！在外面也要眼觀四面。'
       }
     },
     oakGambler: {
@@ -5135,6 +6781,7 @@ export default {
     banditArcher: '盜賊弓手',
     wolf: '野狼',
     banditChief: '盜賊頭子',
+    gnome: '地精',
     goblinKing: '哥布林王',
     treant: '樹人',
     spider: '巨型蜘蛛',
@@ -5352,6 +6999,18 @@ export default {
       firefoxColors: 'Firefox：設定 → 色彩 → 把「覆寫頁面指定的色彩」設為「永不」。'
     }
   },
+  samsungFix: {
+    title: '快速顏色檢查',
+    body: '部分手機會改變網頁的顏色。請比較下面兩個方塊。',
+    question: '兩個方塊看起來一樣嗎？',
+    refSquare: '參考方塊',
+    pageSquare: '頁面方塊',
+    yes: '是，一樣',
+    no: '不，看起來不同',
+    option: '修正顏色（三星深色模式）',
+    optionHint: '如果選單看起來很暗或文字難以閱讀，請開啟。',
+    recheck: '重新進行顏色檢查'
+  },
   saveStatus: {
     restoredTitle: '雲端存檔已還原',
     restoredBody: '還原獎勵 +{n} 金幣',
@@ -5476,7 +7135,7 @@ export default {
   },
   forge: {
     upgrade: '升級（{n} 金幣）',
-    max: '已滿級：+{n}。',
+    next: '下一級 +{level}：屬性 +{pct}%',
     town: '任何城鎮的鐵匠都能升級它。'
   },
   ore: {
@@ -5491,6 +7150,12 @@ export default {
     },
     mithril: {
       name: '秘銀礦石'
+    },
+    adamant: {
+      name: '艾達曼礦石'
+    },
+    aetherite: {
+      name: '以太晶礦石'
     }
   },
   plant: {
@@ -5572,32 +7237,32 @@ export default {
   elixir: {
     might: {
       name: '力量靈藥',
-      desc: '一分鐘內傷害 +{n}%'
+      desc: '五分鐘內傷害 +{n}%'
     },
     iron: {
       name: '鐵膚藥劑',
-      desc: '一分鐘內護甲 +{n}%'
+      desc: '五分鐘內護甲 +{n}%'
     },
     swift: {
       name: '迅捷補劑',
-      desc: '一分鐘內移動速度和攻擊速度 +{n}%'
+      desc: '五分鐘內移動速度和攻擊速度 +{n}%'
     },
     mind: {
       name: '清心藥湯',
-      desc: '一分鐘內技能冷卻加快 {n}%'
+      desc: '五分鐘內技能冷卻加快 {n}%'
     },
     vigor: {
       name: '活力靈藥',
-      desc: '一分鐘內每秒恢復 {n}% 生命'
+      desc: '五分鐘內每秒恢復 {n}% 生命'
     },
     shadow: {
       name: '渴血藥劑',
-      desc: '一分鐘內攻擊按傷害的 {n}% 為你回血'
+      desc: '五分鐘內攻擊按傷害的 {n}% 為你回血'
     }
   },
   alchemy: {
     talk: '草藥放進去，靈藥倒出來。我們來熬哪一種？',
-    lead: '每種靈藥在戰鬥中生效一分鐘。用第三個藥瓶來喝。每種最多帶 {n} 瓶。',
+    lead: '每種靈藥在戰鬥中生效五分鐘。用第三個藥瓶來喝。每種最多帶 {n} 瓶。',
     brew: '熬製 · {n}',
     carry: '帶上這個',
     carried: '已裝進藥瓶',
@@ -5621,6 +7286,25 @@ export default {
     again: '再玩一次',
     noGold: '金幣不夠下這個注。',
     card: '卡牌 {n}'
+  },
+  cups: {
+    title: '杯子攤',
+    lead: '看著寶石，跟住它的杯子，然後選出來。連勝越多贏得越多。第三勝有獎品，第五勝有寶藏。',
+    free: '免費一局',
+    fee: '開始 · {n}',
+    row: '連勝：{n} / {max}',
+    next: '下一勝：{n} 金幣',
+    watch: '看好寶石！',
+    follow: '跟住它……',
+    pick: '選一個杯子！',
+    hint: '點一下杯子，或按它的數字鍵。',
+    won: '找到了！+{n} 金幣',
+    lost: '不是這個。連勝重新計算。',
+    near: '好可惜！就在旁邊。',
+    timeout: '太慢了！連勝重新計算。',
+    again: '再來一局',
+    noGold: '金幣不夠。明天的第一局免費。',
+    cup: '杯子 {n}'
   },
   battle: {
     title: '物品對決',

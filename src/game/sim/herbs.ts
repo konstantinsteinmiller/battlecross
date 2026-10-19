@@ -120,7 +120,7 @@ export const pickSpots = (p: SpotPlan, rng: Rng, n: number, apart = 7, avoid: Re
   return out
 }
 
-/** The herbs a visit holds: 3–4 of what grows in this zone (its habitats). */
+/** The herbs a visit holds: 6–7 of what grows in this zone (its habitats). */
 export const placeHerbs = (p: SpotPlan & { seed: number }, zone: ZoneId): HerbPlan[] => {
   const pool = plantsOf(zone)
   if (!pool.length) return []

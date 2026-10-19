@@ -1,9 +1,12 @@
 // @vitest-environment jsdom
 import { describe, expect, it } from 'vitest'
+// The town's simulation is a lazy chunk in the game (roadmap #142).
+import '../stubs/lazyCode'
 import { buildHouse, roomPropsOf } from '@/game/gfx/houses'
 import { newKit } from '@/game/gfx/archKit'
 import { AGENT, furnitureBlocks } from '@/game/gfx/roomLayout'
-import { generateTown, type ZonePlan } from '@/game/sim/zoneGen'
+import { type ZonePlan } from '@/game/sim/zoneGen'
+import { generateTown } from '@/game/sim/townGen'
 import { CELL, FURNITURE_R, createGrid, moveCircle, setBlocks, type Block } from '@/game/sim/grid'
 import { TOWNS, type TownId } from '@/game/data/zones'
 import { Sim } from '@/game/sim/world'

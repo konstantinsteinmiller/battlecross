@@ -32,7 +32,7 @@ if (!pa || !pb || !place) {
   console.log('usage: node scripts/perf-still.mjs <portA> <portB> <node> [low|full] [w h]')
   process.exit(1)
 }
-const OUT = join(tmpdir(), 'bc-perf-still')
+const OUT = process.env.OUT || join(tmpdir(), 'bc-perf-still')
 mkdirSync(OUT, { recursive: true })
 const w = Number(W)
 const h = Number(H)
@@ -50,9 +50,11 @@ const grab = async (port) => {
     const page = ctx.pages()[0] ?? await ctx.newPage()
     // Other work in the tree must not reload the page mid-run.
     await page.routeWebSocket(/.*/, () => {})
-    await page.goto(`http://127.0.0.1:${port}/?preview=1&scenery=${q}`, { waitUntil: 'load', timeout: 180000 })
+    // `<port>&flag=x`: an A/B arm on the same server (a DEV flag, e.g. `5408&bake=0`).
+    const [at, ...arm] = String(port).split('&')
+    await page.goto(`http://127.0.0.1:${at}/?preview=1&scenery=${q}${arm.map(s => `&${s}`).join('')}`, { waitUntil: 'load', timeout: 180000 })
     const title = await page.title()
-    if (title !== 'Battlecross') throw new Error(`port ${port} serves "${title}", not the game`)
+    if (title !== 'Battlecross') throw new Error(`port ${at} serves "${title}", not the game`)
     await page.waitForFunction(() => !!window.__preview && window.__game?.app.mode, null, { timeout: 180000 })
     return await page.evaluate(async (place) => {
       Math.random = () => 0.9999
@@ -105,6 +107,7 @@ for (let k = 0; k < Math.min(A.length, B.length); k++) {
   const { w: bw, h: bh } = A[k]
   const diff = Buffer.alloc(bw * bh * 4)
   const img = Buffer.alloc(bw * bh * 4)
+  const imgA = Buffer.alloc(bw * bh * 4)
   let n = 0
   for (let i = 0; i < a.length; i += 4) {
     const d = Math.abs(a[i] - b[i]) + Math.abs(a[i + 1] - b[i + 1]) + Math.abs(a[i + 2] - b[i + 2])
@@ -115,9 +118,11 @@ for (let k = 0; k < Math.min(A.length, B.length); k++) {
     if (d > 24) { n++; diff[o] = 255 } else diff[o] = diff[o + 1] = diff[o + 2] = a[i] >> 2
     diff[o + 3] = 255
     b.copy(img, o, i, i + 4)
+    a.copy(imgA, o, i, i + 4)
   }
   differ += n
   await sharp(diff, { raw: { width: bw, height: bh, channels: 4 } }).png().toFile(join(OUT, `diff-${place}-${q}-${k}.png`))
+  await sharp(imgA, { raw: { width: bw, height: bh, channels: 4 } }).png().toFile(join(OUT, `before-${place}-${q}-${k}.png`))
   await sharp(img, { raw: { width: bw, height: bh, channels: 4 } }).png().toFile(join(OUT, `still-${place}-${q}-${k}.png`))
   console.log(`${place} ${q} spot ${k}: calls ${A[k].calls} -> ${B[k].calls}   tris ${A[k].tris} -> ${B[k].tris}   ${n} px differ (${(n / (bw * bh) * 100).toFixed(3)} %)`)
 }

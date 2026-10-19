@@ -93,6 +93,10 @@ export interface Clip {
   tense: number
   /** The body leaves the ground: height of the arc at its top, metres. */
   hop: number
+  /** Least crossfade into the clip, seconds (a very short action still eases in). */
+  blendIn?: number
+  /** Crossfade out of the clip into whatever follows, seconds (default 0.18). */
+  blendOut?: number
 }
 
 const _a: Key = { at: 0, p: new Float32Array(N), e: lin }

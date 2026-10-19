@@ -11,7 +11,7 @@
 import { readFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { fileURLToPath, pathToFileURL } from 'node:url'
-import { textHashOf } from './stale.mjs'
+import { hashText, textHashOf } from './stale.mjs'
 
 export const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..', '..')
 const load = async (rel) => import(pathToFileURL(join(ROOT, rel)).href)
@@ -23,13 +23,20 @@ const load = async (rel) => import(pathToFileURL(join(ROOT, rel)).href)
 const PATHS = {
   manifest: 'data/voice-manifest.json',
   cards: 'src/game/audio/voiceCards.ts',
-  langs: ['en'],
+  // English first; the others are voiced from the game's own locale files
+  // (src/i18n/locales/<lang>.ts, same code as the game's: pt = Brazil, zh =
+  // simplified). Chatterbox cannot speak Indonesian (id) or Vietnamese (vi):
+  // they are not listed, and the game stays silent in them.
+  langs: ['en', 'de', 'fr', 'es', 'ru', 'ja', 'pt', 'zh'],
+  localeDir: 'src/i18n/locales',
   work: 'vo-src',
   out: 'public/audio/voice'
 }
 
 export const { CARDS, TONES, toneOf, directionOf, voiceOf } = await load(PATHS.cards)
 export const LANGS = PATHS.langs
+/** Languages written without spaces between words: QA compares characters, lengths count characters. */
+export const CJK = new Set(['zh', 'ja'])
 /** The manifest as `voice:manifest` wrote it (`lines`: id, speaker, who, scene, to, emotion, text, textHash…). */
 export const MANIFEST = JSON.parse(readFileSync(join(ROOT, PATHS.manifest), 'utf8'))
 
@@ -41,6 +48,7 @@ const placeOf = (scene) => {
   if (scene === 'hero') return 'in any conversation'
   if (scene.startsWith('quest.')) return `at the end of the ${scene.slice(6).replace(/([A-Z])/g, ' $1').toLowerCase()} quest, a big story choice`
   if (scene.startsWith('smalltalk')) return 'overheard: two townspeople chatting in the street as the hero walks by'
+  if (scene === 'intro') return 'narrating the game\'s opening: a legend told over a hero\'s battle, like a film trailer\'s storyteller'
   return 'talking with the hero in town'
 }
 
@@ -85,8 +93,41 @@ export const VO_SRC = join(ROOT, PATHS.work)
 /** Where the game reads the finished files (`src/game/audio/speech.ts`). */
 export const VOICE_OUT = join(ROOT, PATHS.out)
 
-/** The line's text in `lang`, or null when that language has none (English only for now). */
-export const textOf = (line, lang) => (lang === 'en' && typeof line.text === 'string' && line.text.trim() ? line.text : null)
+const LOCALES = new Map()
+/** A language's messages (src/i18n/locales/<lang>.ts: plain data, read with type stripping). */
+const localeOf = async (lang) => {
+  if (!LOCALES.has(lang)) LOCALES.set(lang, (await load(`${PATHS.localeDir}/${lang}.ts`)).default)
+  return LOCALES.get(lang)
+}
+for (const l of LANGS) if (l !== 'en') await localeOf(l)
+const walk = (o, path) => {
+  let cur = o
+  for (const k of path.split('.')) { if (cur == null || typeof cur !== 'object') return null; cur = cur[k] }
+  return typeof cur === 'string' && cur.trim() ? cur : null
+}
+
+/**
+ * The line's text in `lang`: English is the manifest's; any other language
+ * reads its own locale file at the line's key (a girl-hero take `<id>__f`
+ * falls back to the base line, like the game's resolver). Null when the
+ * locale has none or the text still holds a {placeholder} (nothing to voice).
+ */
+export const textOf = (line, lang) => {
+  if (lang === 'en') return typeof line.text === 'string' && line.text.trim() ? line.text : null
+  const m = LOCALES.get(lang)
+  const t = m ? (walk(m, line.key) ?? (line.variantOf ? walk(m, line.variantOf) : null)) : null
+  return t && !/[{]/.test(t) ? t : null
+}
+
+/** The hash of the text a take of `lang` says: English keeps the manifest's `textHash`. */
+export const hashFor = (line, lang, shown) => (lang === 'en' ? line.hash : hashText(shown))
+
+/** The seconds a line should take at an easy pace, from its words (or characters in Chinese and Japanese). */
+export const maxFor = (line, lang, shown) => {
+  if (lang === 'en') return line.max
+  const n = CJK.has(lang) ? [...shown.replace(/[\s\p{P}]/gu, '')].length / 3.2 : shown.split(/\s+/).filter(Boolean).length / 2.6
+  return Math.round((n + 0.8) * 10) / 10
+}
 
 /** `--name value` / `--flag` from argv. */
 export const args = (argv = process.argv.slice(2)) => {

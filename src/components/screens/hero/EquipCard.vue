@@ -6,12 +6,12 @@
     div.equip-card__paper
       ItemCard(:id="id" :against="against" show-source)
     //- The smith (roadmap #90): a worn piece goes up a level, in a town.
-    p.equip-card__note.is-forge(v-if="worn && forge && forge.level >= forgeMax") {{ t('forge.max', { n: forgeMax }) }}
-    p.equip-card__note.is-forge(v-else-if="worn && forge && !forge.town") {{ t('forge.town') }}
+    p.equip-card__note.is-forge(v-if="worn && forge && !forge.town") {{ t('forge.town') }}
+    p.equip-card__note.is-forge(v-else-if="worn && forge && forge.cost") {{ t('forge.next', { level: fmt(forge.level + 1), pct: fmt2(forge.pct) }) }}
     div.bag__actions
       FButton(
-        v-if="worn && forge && forge.town && forge.level < forgeMax"
-        :label="t('forge.upgrade', { n: forge.cost })"
+        v-if="worn && forge && forge.town && forge.cost"
+        :label="t('forge.upgrade', { n: fmtBig(forge.cost) })"
         type="primary"
         size="sm"
         icon="up"
@@ -34,9 +34,7 @@ import { useI18n } from 'vue-i18n'
 import FButton from '@/components/atoms/FButton.vue'
 import GameIcon from '@/components/icons/GameIcon.vue'
 import ItemCard from '@/components/game/ItemCard.vue'
-import { FORGE_MAX } from '@/game/data/forge'
-
-const forgeMax = FORGE_MAX
+import { fmt, fmt2, fmtBig } from '@/utils/format'
 
 defineProps<{
   id: string
@@ -46,9 +44,10 @@ defineProps<{
   worn: boolean
   /** The hero owns it, so he can put it on. */
   canWear: boolean
-  /** A worn piece's upgrade: its level, the next level's price, whether the
-   *  hero is in a town and has the gold. */
-  forge?: { level: number; cost: number; town: boolean; affordable: boolean } | null
+  /** A worn piece's upgrade: its level, the next level's price and gain (in
+   *  percent of the piece's own numbers), whether the hero is in a town and
+   *  has the gold. There is no top level. */
+  forge?: { level: number; cost: number; pct: number; town: boolean; affordable: boolean } | null
 }>()
 const emit = defineEmits<{ (e: 'equip'): void; (e: 'unequip'): void; (e: 'close'): void; (e: 'upgrade'): void }>()
 const { t } = useI18n()

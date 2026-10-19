@@ -14,6 +14,8 @@ import AdsBlockedModal from '@/components/atoms/AdsBlockedModal.vue'
 import VConsoleHideButton from '@/components/atoms/VConsoleHideButton.vue'
 import GlLostVeil from '@/components/atoms/GlLostVeil.vue'
 import ForcedDarkModeModal from '@/components/organisms/ForcedDarkModeModal.vue'
+import SamsungColorCheck from '@/components/organisms/SamsungColorCheck.vue'
+import { samsungCheckDue } from '@/use/useSamsungFix'
 import { isPortalAdOpen, pauseGame, resumeGame } from '@/use/useGamePause'
 import { useCrazyMuteSync } from '@/use/useCrazyMuteSync'
 import useCheats, { installDebugUnlock } from '@/use/useCheats'
@@ -168,6 +170,7 @@ const VConsoleHide = import.meta.env.VITE_APP_NATIVE === 'true' || import.meta.e
     AdsBlockedModal
     GlLostVeil
     ForcedDarkModeModal
+    SamsungColorCheck(v-if="samsungCheckDue")
     component(v-if="VConsoleHide" :is="VConsoleHide")
     RouterView
 

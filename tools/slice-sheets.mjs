@@ -626,6 +626,27 @@ function pageCut(plan, o) {
     const box = { x0: (x0 - OX) / SW, y0: (y0 - OY) / SH, x1: (x1 + 1 - OX) / SW, y1: (y1 + 1 - OY) / SH }
     const bboxFill = opaque / ((x1 - x0 + 1) * (y1 - y0 + 1))
 
+    // ── A STRIP (a bar frame): trimmed to its paint, written at its own shape ──
+    //
+    // A 4:1 drawing in a wide panel. The reference touches all four edges of
+    // its box, so the painting's solid box IS the strip, whatever size and place
+    // the painter gave it; that box is stretched onto the file (which also undoes
+    // a slight squash). A box that is not close to the strip's proportions is
+    // reported: the painter re-composed the frame, and the well will not line up.
+    if (p.strip) {
+      const bw = x1 - x0 + 1
+      const bh = y1 - y0 + 1
+      const [dst, dc] = mk(p.strip.outW, p.strip.outH)
+      dc.drawImage(cell, x0, y0, bw, bh, 0, 0, p.strip.outW, p.strip.outH)
+      res.cells.push({
+        id: p.id, target: p.target, w: p.strip.outW, h: p.strip.outH,
+        keyed: keyed / N, shade: shade / N, strays: strays / N, coverage: opaque / N, bboxFill, onFrame,
+        stripNote: { aspect: +(bw / bh).toFixed(2), want: +(p.strip.outW / p.strip.outH).toFixed(2), w: bw, h: bh },
+        dataUrl: dst.toDataURL('image/webp', o.quality)
+      })
+      continue
+    }
+
     // ── An ICON fills its square ──
     //
     // The first nine painted sheets were registered onto the drawing's
@@ -858,11 +879,12 @@ const main = async () => {
     const full = resolve(OUT_ROOT, target)
     const rel = relative(OUT_ROOT, full)
     if (rel && !rel.startsWith('..') && !rel.startsWith(sep)) return full
-    const inside = (dir) => {
+    const inside = (dir, deep) => {
       const r = relative(dir, full)
-      return r && !r.startsWith('..') && !r.startsWith(sep) && !r.includes(sep)
+      return r && !r.startsWith('..') && !r.startsWith(sep) && (deep || !r.includes(sep))
     }
-    return inside(COVER_OUT) || inside(PARTS_OUT) ? full : null
+    // The map's pieces sit one folder down (`map-parts/ne/nw.webp`).
+    return inside(COVER_OUT) || inside(PARTS_OUT, true) ? full : null
   }
 
   // ─── The receipt: what each painting was cut against ──────────────────────
@@ -1154,6 +1176,7 @@ const main = async () => {
             crop: sheet.crop,
             // Shown in a round frame (a passive skill): fitted inside the circle.
             round: !!c.round,
+            strip: c.strip ?? null,
             fit: flag('--no-fit') ? null : (c.fit ?? null),
             // Never upsample: a return buys file size and no detail above what it came back at.
             out: SIZE_FORCED ? SIZE : Math.max(1, Math.min(edgeCap(sheet), Math.round(Math.min(sw, sh) * sheet.crop)))
@@ -1217,6 +1240,11 @@ const main = async () => {
           console.log(`    · ${r.id}: ${r.fill.long} px of paint ${r.fill.k >= 1 ? 'enlarged' : 'reduced'} to ${(r.fill.k * 100).toFixed(0)}%`
             + (r.fill.round ? ', inside the round frame' : '')
             + (r.fill.capped ? ' — CAPPED: it was painted small, so it does not fill its square. A re-roll would.' : '.'))
+        }
+        if (r.stripNote) {
+          const off = Math.abs(r.stripNote.aspect / r.stripNote.want - 1)
+          console.log(`    · ${r.id}: strip trimmed to its paint (${r.stripNote.w} x ${r.stripNote.h}, ${r.stripNote.aspect}:1) and written at ${r.w} x ${r.h}.`)
+          if (off > 0.12) console.warn(`    ! ${r.id}: the paint is ${r.stripNote.aspect}:1, not ${r.stripNote.want}:1 — the frame was re-composed (a taller or shorter strip); the well will not line up. Re-roll it.`)
         }
         if (r.fitNote?.wild) {
           console.warn(`    ! ${r.id} measured ${r.fitNote.wild}x off its reference — too wild to trust, left as painted. Check it.`)

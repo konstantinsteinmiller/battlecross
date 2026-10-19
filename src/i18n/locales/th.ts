@@ -1,5 +1,13 @@
 // Thai locale — mirrors the key shape of en.ts exactly.
 export default {
+  // ─── The intro (#130): its skip, and its narrator's name ───
+  intro: {
+    narrator: 'ผู้เล่าตำนาน',
+    skip: 'ข้าม',
+    holdKey: 'กด {key} ค้างไว้เพื่อข้าม',
+    holdTouch: 'กดค้างไว้เพื่อข้าม',
+    replay: 'ดูบทนำ'
+  },
   arena: {
     allWon: 'รางวัลเทพตำนานทั้งหมดเป็นของคุณแล้ว',
     call: 'เรื่องราวจบลงแล้ว ถึงเวลาพิสูจน์บิลด์ของคุณ ไต่ให้ไกลที่สุดเท่าที่ทำได้ และคว้ารางวัลเทพตำนานที่ไม่มีใครอื่นมอบให้ได้',
@@ -8,6 +16,20 @@ export default {
     next: 'รางวัลถัดไปที่ระลอก {at}: {item}',
     champion: 'ระลอกแชมเปี้ยน',
     wave: 'ระลอก {n}'
+  },
+  sellOre: {
+    talk: 'แร่ดี ราคายุติธรรม จะขายเท่าไร?',
+    lead: 'เลือกจำนวนก้อนของแร่แต่ละชนิดที่จะขาย จะยังไม่ขายจนกว่าจะกดขาย',
+    have: 'คุณมี {n}',
+    each: 'ก้อนละ {n} ทอง',
+    none: 'ไม่มี',
+    all: 'ทั้งหมด',
+    less: '{ore}: ลดหนึ่ง',
+    more: '{ore}: เพิ่มหนึ่ง',
+    total: 'คุณได้รับ: {n} ทอง',
+    sell: 'ขาย',
+    selectAll: 'เลือกทั้งหมด',
+    empty: 'คุณไม่มีแร่เหลือให้ขายแล้ว'
   },
   smith: {
     why: {
@@ -1420,38 +1442,110 @@ export default {
     smithMasterMithrilGreaves: {
       name: 'เกราะแข้งมิธริลชั้นครู'
     },
+    smithMasterAdamantGreaves: {
+      name: 'เกราะแข้งอดามันต์ชั้นครู'
+    },
+    smithMasterAetheriteGreaves: {
+      name: 'เกราะแข้งอีเธอร์ไรต์ชั้นครู'
+    },
     smithMithrilGreaves: {
       name: 'เกราะแข้งมิธริล'
+    },
+    smithAdamantGreaves: {
+      name: 'เกราะแข้งอดามันต์'
+    },
+    smithAetheriteGreaves: {
+      name: 'เกราะแข้งอีเธอร์ไรต์'
     },
     smithMasterMithrilPlate: {
       name: 'เกราะแผ่นมิธริลชั้นครู'
     },
+    smithMasterAdamantPlate: {
+      name: 'เกราะแผ่นอดามันต์ชั้นครู'
+    },
+    smithMasterAetheritePlate: {
+      name: 'เกราะแผ่นอีเธอร์ไรต์ชั้นครู'
+    },
     smithMithrilPlate: {
       name: 'เกราะแผ่นมิธริล'
+    },
+    smithAdamantPlate: {
+      name: 'เกราะแผ่นอดามันต์'
+    },
+    smithAetheritePlate: {
+      name: 'เกราะแผ่นอีเธอร์ไรต์'
     },
     smithMasterMithrilHelm: {
       name: 'หมวกเกราะมิธริลชั้นครู'
     },
+    smithMasterAdamantHelm: {
+      name: 'หมวกเกราะอดามันต์ชั้นครู'
+    },
+    smithMasterAetheriteHelm: {
+      name: 'หมวกเกราะอีเธอร์ไรต์ชั้นครู'
+    },
     smithMithrilHelm: {
       name: 'หมวกเกราะมิธริล'
+    },
+    smithAdamantHelm: {
+      name: 'หมวกเกราะอดามันต์'
+    },
+    smithAetheriteHelm: {
+      name: 'หมวกเกราะอีเธอร์ไรต์'
     },
     smithMasterMithrilShield: {
       name: 'โล่มิธริลชั้นครู'
     },
+    smithMasterAdamantShield: {
+      name: 'โล่อดามันต์ชั้นครู'
+    },
+    smithMasterAetheriteShield: {
+      name: 'โล่อีเธอร์ไรต์ชั้นครู'
+    },
     smithMithrilShield: {
       name: 'โล่มิธริล'
+    },
+    smithAdamantShield: {
+      name: 'โล่อดามันต์'
+    },
+    smithAetheriteShield: {
+      name: 'โล่อีเธอร์ไรต์'
     },
     smithMasterMithrilHammer: {
       name: 'ค้อนมิธริลชั้นครู'
     },
+    smithMasterAdamantHammer: {
+      name: 'ค้อนอดามันต์ชั้นครู'
+    },
+    smithMasterAetheriteHammer: {
+      name: 'ค้อนอีเธอร์ไรต์ชั้นครู'
+    },
     smithMithrilHammer: {
       name: 'ค้อนมิธริล'
+    },
+    smithAdamantHammer: {
+      name: 'ค้อนอดามันต์'
+    },
+    smithAetheriteHammer: {
+      name: 'ค้อนอีเธอร์ไรต์'
     },
     smithMasterMithrilSword: {
       name: 'ดาบมิธริลชั้นครู'
     },
+    smithMasterAdamantSword: {
+      name: 'ดาบอดามันต์ชั้นครู'
+    },
+    smithMasterAetheriteSword: {
+      name: 'ดาบอีเธอร์ไรต์ชั้นครู'
+    },
     smithMithrilSword: {
       name: 'ดาบมิธริล'
+    },
+    smithAdamantSword: {
+      name: 'ดาบอดามันต์'
+    },
+    smithAetheriteSword: {
+      name: 'ดาบอีเธอร์ไรต์'
     },
     smithMasterGoldGreaves: {
       name: 'เกราะแข้งทองชั้นครู'
@@ -1557,6 +1651,1086 @@ export default {
     },
     smithMasterIronSword: {
       name: 'ดาบเหล็กชั้นครู'
+    },
+    smithMasterDexIronSword: {
+      name: 'มีดสั้นเหล็กชั้นครู · DEX'
+    },
+    smithDexIronSword: {
+      name: 'มีดสั้นเหล็ก · DEX'
+    },
+    smithMasterDexIronHammer: {
+      name: 'ดาบเรเพียร์เหล็กชั้นครู · DEX'
+    },
+    smithDexIronHammer: {
+      name: 'ดาบเรเพียร์เหล็ก · DEX'
+    },
+    smithMasterDexIronShield: {
+      name: 'โล่เล็กเหล็กชั้นครู · DEX'
+    },
+    smithDexIronShield: {
+      name: 'โล่เล็กเหล็ก · DEX'
+    },
+    smithMasterDexIronHelm: {
+      name: 'ฮู้ดเหล็กชั้นครู · DEX'
+    },
+    smithDexIronHelm: {
+      name: 'ฮู้ดเหล็ก · DEX'
+    },
+    smithMasterDexIronPlate: {
+      name: 'เกราะหนังเหล็กชั้นครู · DEX'
+    },
+    smithDexIronPlate: {
+      name: 'เกราะหนังเหล็ก · DEX'
+    },
+    smithMasterDexIronGreaves: {
+      name: 'รองเท้าบู๊ตเหล็กชั้นครู · DEX'
+    },
+    smithDexIronGreaves: {
+      name: 'รองเท้าบู๊ตเหล็ก · DEX'
+    },
+    smithMasterDexSilverSword: {
+      name: 'มีดสั้นเงินชั้นครู · DEX'
+    },
+    smithDexSilverSword: {
+      name: 'มีดสั้นเงิน · DEX'
+    },
+    smithMasterDexSilverHammer: {
+      name: 'ดาบเรเพียร์เงินชั้นครู · DEX'
+    },
+    smithDexSilverHammer: {
+      name: 'ดาบเรเพียร์เงิน · DEX'
+    },
+    smithMasterDexSilverShield: {
+      name: 'โล่เล็กเงินชั้นครู · DEX'
+    },
+    smithDexSilverShield: {
+      name: 'โล่เล็กเงิน · DEX'
+    },
+    smithMasterDexSilverHelm: {
+      name: 'ฮู้ดเงินชั้นครู · DEX'
+    },
+    smithDexSilverHelm: {
+      name: 'ฮู้ดเงิน · DEX'
+    },
+    smithMasterDexSilverPlate: {
+      name: 'เกราะหนังเงินชั้นครู · DEX'
+    },
+    smithDexSilverPlate: {
+      name: 'เกราะหนังเงิน · DEX'
+    },
+    smithMasterDexSilverGreaves: {
+      name: 'รองเท้าบู๊ตเงินชั้นครู · DEX'
+    },
+    smithDexSilverGreaves: {
+      name: 'รองเท้าบู๊ตเงิน · DEX'
+    },
+    smithMasterDexGoldSword: {
+      name: 'มีดสั้นทองชั้นครู · DEX'
+    },
+    smithDexGoldSword: {
+      name: 'มีดสั้นทอง · DEX'
+    },
+    smithMasterDexGoldHammer: {
+      name: 'ดาบเรเพียร์ทองชั้นครู · DEX'
+    },
+    smithDexGoldHammer: {
+      name: 'ดาบเรเพียร์ทอง · DEX'
+    },
+    smithMasterDexGoldShield: {
+      name: 'โล่เล็กทองชั้นครู · DEX'
+    },
+    smithDexGoldShield: {
+      name: 'โล่เล็กทอง · DEX'
+    },
+    smithMasterDexGoldHelm: {
+      name: 'ฮู้ดทองชั้นครู · DEX'
+    },
+    smithDexGoldHelm: {
+      name: 'ฮู้ดทอง · DEX'
+    },
+    smithMasterDexGoldPlate: {
+      name: 'เกราะหนังทองชั้นครู · DEX'
+    },
+    smithDexGoldPlate: {
+      name: 'เกราะหนังทอง · DEX'
+    },
+    smithMasterDexGoldGreaves: {
+      name: 'รองเท้าบู๊ตทองชั้นครู · DEX'
+    },
+    smithDexGoldGreaves: {
+      name: 'รองเท้าบู๊ตทอง · DEX'
+    },
+    smithMasterDexMithrilSword: {
+      name: 'มีดสั้นมิธริลชั้นครู · DEX'
+    },
+    smithMasterDexAdamantSword: {
+      name: 'มีดสั้นอดามันต์ชั้นครู · DEX'
+    },
+    smithMasterDexAetheriteSword: {
+      name: 'มีดสั้นอีเธอร์ไรต์ชั้นครู · DEX'
+    },
+    smithDexMithrilSword: {
+      name: 'มีดสั้นมิธริล · DEX'
+    },
+    smithDexAdamantSword: {
+      name: 'มีดสั้นอดามันต์ · DEX'
+    },
+    smithDexAetheriteSword: {
+      name: 'มีดสั้นอีเธอร์ไรต์ · DEX'
+    },
+    smithMasterDexMithrilHammer: {
+      name: 'ดาบเรเพียร์มิธริลชั้นครู · DEX'
+    },
+    smithMasterDexAdamantHammer: {
+      name: 'ดาบเรเพียร์อดามันต์ชั้นครู · DEX'
+    },
+    smithMasterDexAetheriteHammer: {
+      name: 'ดาบเรเพียร์อีเธอร์ไรต์ชั้นครู · DEX'
+    },
+    smithDexMithrilHammer: {
+      name: 'ดาบเรเพียร์มิธริล · DEX'
+    },
+    smithDexAdamantHammer: {
+      name: 'ดาบเรเพียร์อดามันต์ · DEX'
+    },
+    smithDexAetheriteHammer: {
+      name: 'ดาบเรเพียร์อีเธอร์ไรต์ · DEX'
+    },
+    smithMasterDexMithrilShield: {
+      name: 'โล่เล็กมิธริลชั้นครู · DEX'
+    },
+    smithMasterDexAdamantShield: {
+      name: 'โล่เล็กอดามันต์ชั้นครู · DEX'
+    },
+    smithMasterDexAetheriteShield: {
+      name: 'โล่เล็กอีเธอร์ไรต์ชั้นครู · DEX'
+    },
+    smithDexMithrilShield: {
+      name: 'โล่เล็กมิธริล · DEX'
+    },
+    smithDexAdamantShield: {
+      name: 'โล่เล็กอดามันต์ · DEX'
+    },
+    smithDexAetheriteShield: {
+      name: 'โล่เล็กอีเธอร์ไรต์ · DEX'
+    },
+    smithMasterDexMithrilHelm: {
+      name: 'ฮู้ดมิธริลชั้นครู · DEX'
+    },
+    smithMasterDexAdamantHelm: {
+      name: 'ฮู้ดอดามันต์ชั้นครู · DEX'
+    },
+    smithMasterDexAetheriteHelm: {
+      name: 'ฮู้ดอีเธอร์ไรต์ชั้นครู · DEX'
+    },
+    smithDexMithrilHelm: {
+      name: 'ฮู้ดมิธริล · DEX'
+    },
+    smithDexAdamantHelm: {
+      name: 'ฮู้ดอดามันต์ · DEX'
+    },
+    smithDexAetheriteHelm: {
+      name: 'ฮู้ดอีเธอร์ไรต์ · DEX'
+    },
+    smithMasterDexMithrilPlate: {
+      name: 'เกราะหนังมิธริลชั้นครู · DEX'
+    },
+    smithMasterDexAdamantPlate: {
+      name: 'เกราะหนังอดามันต์ชั้นครู · DEX'
+    },
+    smithMasterDexAetheritePlate: {
+      name: 'เกราะหนังอีเธอร์ไรต์ชั้นครู · DEX'
+    },
+    smithDexMithrilPlate: {
+      name: 'เกราะหนังมิธริล · DEX'
+    },
+    smithDexAdamantPlate: {
+      name: 'เกราะหนังอดามันต์ · DEX'
+    },
+    smithDexAetheritePlate: {
+      name: 'เกราะหนังอีเธอร์ไรต์ · DEX'
+    },
+    smithMasterDexMithrilGreaves: {
+      name: 'รองเท้าบู๊ตมิธริลชั้นครู · DEX'
+    },
+    smithMasterDexAdamantGreaves: {
+      name: 'รองเท้าบู๊ตอดามันต์ชั้นครู · DEX'
+    },
+    smithMasterDexAetheriteGreaves: {
+      name: 'รองเท้าบู๊ตอีเธอร์ไรต์ชั้นครู · DEX'
+    },
+    smithDexMithrilGreaves: {
+      name: 'รองเท้าบู๊ตมิธริล · DEX'
+    },
+    smithDexAdamantGreaves: {
+      name: 'รองเท้าบู๊ตอดามันต์ · DEX'
+    },
+    smithDexAetheriteGreaves: {
+      name: 'รองเท้าบู๊ตอีเธอร์ไรต์ · DEX'
+    },
+    smithMasterIntIronSword: {
+      name: 'ไม้กายสิทธิ์เหล็กชั้นครู · INT'
+    },
+    smithIntIronSword: {
+      name: 'ไม้กายสิทธิ์เหล็ก · INT'
+    },
+    smithMasterIntIronHammer: {
+      name: 'ไม้เท้าเหล็กชั้นครู · INT'
+    },
+    smithIntIronHammer: {
+      name: 'ไม้เท้าเหล็ก · INT'
+    },
+    smithMasterIntIronShield: {
+      name: 'คัมภีร์เหล็กชั้นครู · INT'
+    },
+    smithIntIronShield: {
+      name: 'คัมภีร์เหล็ก · INT'
+    },
+    smithMasterIntIronHelm: {
+      name: 'เกี้ยวเหล็กชั้นครู · INT'
+    },
+    smithIntIronHelm: {
+      name: 'เกี้ยวเหล็ก · INT'
+    },
+    smithMasterIntIronPlate: {
+      name: 'ชุดคลุมเหล็กชั้นครู · INT'
+    },
+    smithIntIronPlate: {
+      name: 'ชุดคลุมเหล็ก · INT'
+    },
+    smithMasterIntIronGreaves: {
+      name: 'รองเท้าบู๊ตเหล็กชั้นครู · INT'
+    },
+    smithIntIronGreaves: {
+      name: 'รองเท้าบู๊ตเหล็ก · INT'
+    },
+    smithMasterIntSilverSword: {
+      name: 'ไม้กายสิทธิ์เงินชั้นครู · INT'
+    },
+    smithIntSilverSword: {
+      name: 'ไม้กายสิทธิ์เงิน · INT'
+    },
+    smithMasterIntSilverHammer: {
+      name: 'ไม้เท้าเงินชั้นครู · INT'
+    },
+    smithIntSilverHammer: {
+      name: 'ไม้เท้าเงิน · INT'
+    },
+    smithMasterIntSilverShield: {
+      name: 'คัมภีร์เงินชั้นครู · INT'
+    },
+    smithIntSilverShield: {
+      name: 'คัมภีร์เงิน · INT'
+    },
+    smithMasterIntSilverHelm: {
+      name: 'เกี้ยวเงินชั้นครู · INT'
+    },
+    smithIntSilverHelm: {
+      name: 'เกี้ยวเงิน · INT'
+    },
+    smithMasterIntSilverPlate: {
+      name: 'ชุดคลุมเงินชั้นครู · INT'
+    },
+    smithIntSilverPlate: {
+      name: 'ชุดคลุมเงิน · INT'
+    },
+    smithMasterIntSilverGreaves: {
+      name: 'รองเท้าบู๊ตเงินชั้นครู · INT'
+    },
+    smithIntSilverGreaves: {
+      name: 'รองเท้าบู๊ตเงิน · INT'
+    },
+    smithMasterIntGoldSword: {
+      name: 'ไม้กายสิทธิ์ทองชั้นครู · INT'
+    },
+    smithIntGoldSword: {
+      name: 'ไม้กายสิทธิ์ทอง · INT'
+    },
+    smithMasterIntGoldHammer: {
+      name: 'ไม้เท้าทองชั้นครู · INT'
+    },
+    smithIntGoldHammer: {
+      name: 'ไม้เท้าทอง · INT'
+    },
+    smithMasterIntGoldShield: {
+      name: 'คัมภีร์ทองชั้นครู · INT'
+    },
+    smithIntGoldShield: {
+      name: 'คัมภีร์ทอง · INT'
+    },
+    smithMasterIntGoldHelm: {
+      name: 'เกี้ยวทองชั้นครู · INT'
+    },
+    smithIntGoldHelm: {
+      name: 'เกี้ยวทอง · INT'
+    },
+    smithMasterIntGoldPlate: {
+      name: 'ชุดคลุมทองชั้นครู · INT'
+    },
+    smithIntGoldPlate: {
+      name: 'ชุดคลุมทอง · INT'
+    },
+    smithMasterIntGoldGreaves: {
+      name: 'รองเท้าบู๊ตทองชั้นครู · INT'
+    },
+    smithIntGoldGreaves: {
+      name: 'รองเท้าบู๊ตทอง · INT'
+    },
+    smithMasterIntMithrilSword: {
+      name: 'ไม้กายสิทธิ์มิธริลชั้นครู · INT'
+    },
+    smithMasterIntAdamantSword: {
+      name: 'ไม้กายสิทธิ์อดามันต์ชั้นครู · INT'
+    },
+    smithMasterIntAetheriteSword: {
+      name: 'ไม้กายสิทธิ์อีเธอร์ไรต์ชั้นครู · INT'
+    },
+    smithIntMithrilSword: {
+      name: 'ไม้กายสิทธิ์มิธริล · INT'
+    },
+    smithIntAdamantSword: {
+      name: 'ไม้กายสิทธิ์อดามันต์ · INT'
+    },
+    smithIntAetheriteSword: {
+      name: 'ไม้กายสิทธิ์อีเธอร์ไรต์ · INT'
+    },
+    smithMasterIntMithrilHammer: {
+      name: 'ไม้เท้ามิธริลชั้นครู · INT'
+    },
+    smithMasterIntAdamantHammer: {
+      name: 'ไม้เท้าอดามันต์ชั้นครู · INT'
+    },
+    smithMasterIntAetheriteHammer: {
+      name: 'ไม้เท้าอีเธอร์ไรต์ชั้นครู · INT'
+    },
+    smithIntMithrilHammer: {
+      name: 'ไม้เท้ามิธริล · INT'
+    },
+    smithIntAdamantHammer: {
+      name: 'ไม้เท้าอดามันต์ · INT'
+    },
+    smithIntAetheriteHammer: {
+      name: 'ไม้เท้าอีเธอร์ไรต์ · INT'
+    },
+    smithMasterIntMithrilShield: {
+      name: 'คัมภีร์มิธริลชั้นครู · INT'
+    },
+    smithMasterIntAdamantShield: {
+      name: 'คัมภีร์อดามันต์ชั้นครู · INT'
+    },
+    smithMasterIntAetheriteShield: {
+      name: 'คัมภีร์อีเธอร์ไรต์ชั้นครู · INT'
+    },
+    smithIntMithrilShield: {
+      name: 'คัมภีร์มิธริล · INT'
+    },
+    smithIntAdamantShield: {
+      name: 'คัมภีร์อดามันต์ · INT'
+    },
+    smithIntAetheriteShield: {
+      name: 'คัมภีร์อีเธอร์ไรต์ · INT'
+    },
+    smithMasterIntMithrilHelm: {
+      name: 'เกี้ยวมิธริลชั้นครู · INT'
+    },
+    smithMasterIntAdamantHelm: {
+      name: 'เกี้ยวอดามันต์ชั้นครู · INT'
+    },
+    smithMasterIntAetheriteHelm: {
+      name: 'เกี้ยวอีเธอร์ไรต์ชั้นครู · INT'
+    },
+    smithIntMithrilHelm: {
+      name: 'เกี้ยวมิธริล · INT'
+    },
+    smithIntAdamantHelm: {
+      name: 'เกี้ยวอดามันต์ · INT'
+    },
+    smithIntAetheriteHelm: {
+      name: 'เกี้ยวอีเธอร์ไรต์ · INT'
+    },
+    smithMasterIntMithrilPlate: {
+      name: 'ชุดคลุมมิธริลชั้นครู · INT'
+    },
+    smithMasterIntAdamantPlate: {
+      name: 'ชุดคลุมอดามันต์ชั้นครู · INT'
+    },
+    smithMasterIntAetheritePlate: {
+      name: 'ชุดคลุมอีเธอร์ไรต์ชั้นครู · INT'
+    },
+    smithIntMithrilPlate: {
+      name: 'ชุดคลุมมิธริล · INT'
+    },
+    smithIntAdamantPlate: {
+      name: 'ชุดคลุมอดามันต์ · INT'
+    },
+    smithIntAetheritePlate: {
+      name: 'ชุดคลุมอีเธอร์ไรต์ · INT'
+    },
+    smithMasterIntMithrilGreaves: {
+      name: 'รองเท้าบู๊ตมิธริลชั้นครู · INT'
+    },
+    smithMasterIntAdamantGreaves: {
+      name: 'รองเท้าบู๊ตอดามันต์ชั้นครู · INT'
+    },
+    smithMasterIntAetheriteGreaves: {
+      name: 'รองเท้าบู๊ตอีเธอร์ไรต์ชั้นครู · INT'
+    },
+    smithIntMithrilGreaves: {
+      name: 'รองเท้าบู๊ตมิธริล · INT'
+    },
+    smithIntAdamantGreaves: {
+      name: 'รองเท้าบู๊ตอดามันต์ · INT'
+    },
+    smithIntAetheriteGreaves: {
+      name: 'รองเท้าบู๊ตอีเธอร์ไรต์ · INT'
+    },
+    smithMasterSklIronSword: {
+      name: 'ปืนพกเหล็กชั้นครู · SKL'
+    },
+    smithSklIronSword: {
+      name: 'ปืนพกเหล็ก · SKL'
+    },
+    smithMasterSklIronHammer: {
+      name: 'ปืนยาวเหล็กชั้นครู · SKL'
+    },
+    smithSklIronHammer: {
+      name: 'ปืนยาวเหล็ก · SKL'
+    },
+    smithMasterSklIronShield: {
+      name: 'แบตเตอรี่เหล็กชั้นครู · SKL'
+    },
+    smithSklIronShield: {
+      name: 'แบตเตอรี่เหล็ก · SKL'
+    },
+    smithMasterSklIronHelm: {
+      name: 'หมวกเหล็กชั้นครู · SKL'
+    },
+    smithSklIronHelm: {
+      name: 'หมวกเหล็ก · SKL'
+    },
+    smithMasterSklIronPlate: {
+      name: 'สายรัดเหล็กชั้นครู · SKL'
+    },
+    smithSklIronPlate: {
+      name: 'สายรัดเหล็ก · SKL'
+    },
+    smithMasterSklIronGreaves: {
+      name: 'รองเท้าบู๊ตเหล็กชั้นครู · SKL'
+    },
+    smithSklIronGreaves: {
+      name: 'รองเท้าบู๊ตเหล็ก · SKL'
+    },
+    smithMasterSklSilverSword: {
+      name: 'ปืนพกเงินชั้นครู · SKL'
+    },
+    smithSklSilverSword: {
+      name: 'ปืนพกเงิน · SKL'
+    },
+    smithMasterSklSilverHammer: {
+      name: 'ปืนยาวเงินชั้นครู · SKL'
+    },
+    smithSklSilverHammer: {
+      name: 'ปืนยาวเงิน · SKL'
+    },
+    smithMasterSklSilverShield: {
+      name: 'แบตเตอรี่เงินชั้นครู · SKL'
+    },
+    smithSklSilverShield: {
+      name: 'แบตเตอรี่เงิน · SKL'
+    },
+    smithMasterSklSilverHelm: {
+      name: 'หมวกเงินชั้นครู · SKL'
+    },
+    smithSklSilverHelm: {
+      name: 'หมวกเงิน · SKL'
+    },
+    smithMasterSklSilverPlate: {
+      name: 'สายรัดเงินชั้นครู · SKL'
+    },
+    smithSklSilverPlate: {
+      name: 'สายรัดเงิน · SKL'
+    },
+    smithMasterSklSilverGreaves: {
+      name: 'รองเท้าบู๊ตเงินชั้นครู · SKL'
+    },
+    smithSklSilverGreaves: {
+      name: 'รองเท้าบู๊ตเงิน · SKL'
+    },
+    smithMasterSklGoldSword: {
+      name: 'ปืนพกทองชั้นครู · SKL'
+    },
+    smithSklGoldSword: {
+      name: 'ปืนพกทอง · SKL'
+    },
+    smithMasterSklGoldHammer: {
+      name: 'ปืนยาวทองชั้นครู · SKL'
+    },
+    smithSklGoldHammer: {
+      name: 'ปืนยาวทอง · SKL'
+    },
+    smithMasterSklGoldShield: {
+      name: 'แบตเตอรี่ทองชั้นครู · SKL'
+    },
+    smithSklGoldShield: {
+      name: 'แบตเตอรี่ทอง · SKL'
+    },
+    smithMasterSklGoldHelm: {
+      name: 'หมวกทองชั้นครู · SKL'
+    },
+    smithSklGoldHelm: {
+      name: 'หมวกทอง · SKL'
+    },
+    smithMasterSklGoldPlate: {
+      name: 'สายรัดทองชั้นครู · SKL'
+    },
+    smithSklGoldPlate: {
+      name: 'สายรัดทอง · SKL'
+    },
+    smithMasterSklGoldGreaves: {
+      name: 'รองเท้าบู๊ตทองชั้นครู · SKL'
+    },
+    smithSklGoldGreaves: {
+      name: 'รองเท้าบู๊ตทอง · SKL'
+    },
+    smithMasterSklMithrilSword: {
+      name: 'ปืนพกมิธริลชั้นครู · SKL'
+    },
+    smithMasterSklAdamantSword: {
+      name: 'ปืนพกอดามันต์ชั้นครู · SKL'
+    },
+    smithMasterSklAetheriteSword: {
+      name: 'ปืนพกอีเธอร์ไรต์ชั้นครู · SKL'
+    },
+    smithSklMithrilSword: {
+      name: 'ปืนพกมิธริล · SKL'
+    },
+    smithSklAdamantSword: {
+      name: 'ปืนพกอดามันต์ · SKL'
+    },
+    smithSklAetheriteSword: {
+      name: 'ปืนพกอีเธอร์ไรต์ · SKL'
+    },
+    smithMasterSklMithrilHammer: {
+      name: 'ปืนยาวมิธริลชั้นครู · SKL'
+    },
+    smithMasterSklAdamantHammer: {
+      name: 'ปืนยาวอดามันต์ชั้นครู · SKL'
+    },
+    smithMasterSklAetheriteHammer: {
+      name: 'ปืนยาวอีเธอร์ไรต์ชั้นครู · SKL'
+    },
+    smithSklMithrilHammer: {
+      name: 'ปืนยาวมิธริล · SKL'
+    },
+    smithSklAdamantHammer: {
+      name: 'ปืนยาวอดามันต์ · SKL'
+    },
+    smithSklAetheriteHammer: {
+      name: 'ปืนยาวอีเธอร์ไรต์ · SKL'
+    },
+    smithMasterSklMithrilShield: {
+      name: 'แบตเตอรี่มิธริลชั้นครู · SKL'
+    },
+    smithMasterSklAdamantShield: {
+      name: 'แบตเตอรี่อดามันต์ชั้นครู · SKL'
+    },
+    smithMasterSklAetheriteShield: {
+      name: 'แบตเตอรี่อีเธอร์ไรต์ชั้นครู · SKL'
+    },
+    smithSklMithrilShield: {
+      name: 'แบตเตอรี่มิธริล · SKL'
+    },
+    smithSklAdamantShield: {
+      name: 'แบตเตอรี่อดามันต์ · SKL'
+    },
+    smithSklAetheriteShield: {
+      name: 'แบตเตอรี่อีเธอร์ไรต์ · SKL'
+    },
+    smithMasterSklMithrilHelm: {
+      name: 'หมวกมิธริลชั้นครู · SKL'
+    },
+    smithMasterSklAdamantHelm: {
+      name: 'หมวกอดามันต์ชั้นครู · SKL'
+    },
+    smithMasterSklAetheriteHelm: {
+      name: 'หมวกอีเธอร์ไรต์ชั้นครู · SKL'
+    },
+    smithSklMithrilHelm: {
+      name: 'หมวกมิธริล · SKL'
+    },
+    smithSklAdamantHelm: {
+      name: 'หมวกอดามันต์ · SKL'
+    },
+    smithSklAetheriteHelm: {
+      name: 'หมวกอีเธอร์ไรต์ · SKL'
+    },
+    smithMasterSklMithrilPlate: {
+      name: 'สายรัดมิธริลชั้นครู · SKL'
+    },
+    smithMasterSklAdamantPlate: {
+      name: 'สายรัดอดามันต์ชั้นครู · SKL'
+    },
+    smithMasterSklAetheritePlate: {
+      name: 'สายรัดอีเธอร์ไรต์ชั้นครู · SKL'
+    },
+    smithSklMithrilPlate: {
+      name: 'สายรัดมิธริล · SKL'
+    },
+    smithSklAdamantPlate: {
+      name: 'สายรัดอดามันต์ · SKL'
+    },
+    smithSklAetheritePlate: {
+      name: 'สายรัดอีเธอร์ไรต์ · SKL'
+    },
+    smithMasterSklMithrilGreaves: {
+      name: 'รองเท้าบู๊ตมิธริลชั้นครู · SKL'
+    },
+    smithMasterSklAdamantGreaves: {
+      name: 'รองเท้าบู๊ตอดามันต์ชั้นครู · SKL'
+    },
+    smithMasterSklAetheriteGreaves: {
+      name: 'รองเท้าบู๊ตอีเธอร์ไรต์ชั้นครู · SKL'
+    },
+    smithSklMithrilGreaves: {
+      name: 'รองเท้าบู๊ตมิธริล · SKL'
+    },
+    smithSklAdamantGreaves: {
+      name: 'รองเท้าบู๊ตอดามันต์ · SKL'
+    },
+    smithSklAetheriteGreaves: {
+      name: 'รองเท้าบู๊ตอีเธอร์ไรต์ · SKL'
+    },
+    smithMasterChaIronSword: {
+      name: 'คฑาเหล็กชั้นครู · CHA'
+    },
+    smithChaIronSword: {
+      name: 'คฑาเหล็ก · CHA'
+    },
+    smithMasterChaIronHammer: {
+      name: 'ธงเหล็กชั้นครู · CHA'
+    },
+    smithChaIronHammer: {
+      name: 'ธงเหล็ก · CHA'
+    },
+    smithMasterChaIronShield: {
+      name: 'โคเด็กซ์เหล็กชั้นครู · CHA'
+    },
+    smithChaIronShield: {
+      name: 'โคเด็กซ์เหล็ก · CHA'
+    },
+    smithMasterChaIronHelm: {
+      name: 'มงกุฎเหล็กชั้นครู · CHA'
+    },
+    smithChaIronHelm: {
+      name: 'มงกุฎเหล็ก · CHA'
+    },
+    smithMasterChaIronPlate: {
+      name: 'เสื้อคลุมตราเหล็กชั้นครู · CHA'
+    },
+    smithChaIronPlate: {
+      name: 'เสื้อคลุมตราเหล็ก · CHA'
+    },
+    smithMasterChaIronGreaves: {
+      name: 'รองเท้าบู๊ตเหล็กชั้นครู · CHA'
+    },
+    smithChaIronGreaves: {
+      name: 'รองเท้าบู๊ตเหล็ก · CHA'
+    },
+    smithMasterChaSilverSword: {
+      name: 'คฑาเงินชั้นครู · CHA'
+    },
+    smithChaSilverSword: {
+      name: 'คฑาเงิน · CHA'
+    },
+    smithMasterChaSilverHammer: {
+      name: 'ธงเงินชั้นครู · CHA'
+    },
+    smithChaSilverHammer: {
+      name: 'ธงเงิน · CHA'
+    },
+    smithMasterChaSilverShield: {
+      name: 'โคเด็กซ์เงินชั้นครู · CHA'
+    },
+    smithChaSilverShield: {
+      name: 'โคเด็กซ์เงิน · CHA'
+    },
+    smithMasterChaSilverHelm: {
+      name: 'มงกุฎเงินชั้นครู · CHA'
+    },
+    smithChaSilverHelm: {
+      name: 'มงกุฎเงิน · CHA'
+    },
+    smithMasterChaSilverPlate: {
+      name: 'เสื้อคลุมตราเงินชั้นครู · CHA'
+    },
+    smithChaSilverPlate: {
+      name: 'เสื้อคลุมตราเงิน · CHA'
+    },
+    smithMasterChaSilverGreaves: {
+      name: 'รองเท้าบู๊ตเงินชั้นครู · CHA'
+    },
+    smithChaSilverGreaves: {
+      name: 'รองเท้าบู๊ตเงิน · CHA'
+    },
+    smithMasterChaGoldSword: {
+      name: 'คฑาทองชั้นครู · CHA'
+    },
+    smithChaGoldSword: {
+      name: 'คฑาทอง · CHA'
+    },
+    smithMasterChaGoldHammer: {
+      name: 'ธงทองชั้นครู · CHA'
+    },
+    smithChaGoldHammer: {
+      name: 'ธงทอง · CHA'
+    },
+    smithMasterChaGoldShield: {
+      name: 'โคเด็กซ์ทองชั้นครู · CHA'
+    },
+    smithChaGoldShield: {
+      name: 'โคเด็กซ์ทอง · CHA'
+    },
+    smithMasterChaGoldHelm: {
+      name: 'มงกุฎทองชั้นครู · CHA'
+    },
+    smithChaGoldHelm: {
+      name: 'มงกุฎทอง · CHA'
+    },
+    smithMasterChaGoldPlate: {
+      name: 'เสื้อคลุมตราทองชั้นครู · CHA'
+    },
+    smithChaGoldPlate: {
+      name: 'เสื้อคลุมตราทอง · CHA'
+    },
+    smithMasterChaGoldGreaves: {
+      name: 'รองเท้าบู๊ตทองชั้นครู · CHA'
+    },
+    smithChaGoldGreaves: {
+      name: 'รองเท้าบู๊ตทอง · CHA'
+    },
+    smithMasterChaMithrilSword: {
+      name: 'คฑามิธริลชั้นครู · CHA'
+    },
+    smithMasterChaAdamantSword: {
+      name: 'คฑาอดามันต์ชั้นครู · CHA'
+    },
+    smithMasterChaAetheriteSword: {
+      name: 'คฑาอีเธอร์ไรต์ชั้นครู · CHA'
+    },
+    smithChaMithrilSword: {
+      name: 'คฑามิธริล · CHA'
+    },
+    smithChaAdamantSword: {
+      name: 'คฑาอดามันต์ · CHA'
+    },
+    smithChaAetheriteSword: {
+      name: 'คฑาอีเธอร์ไรต์ · CHA'
+    },
+    smithMasterChaMithrilHammer: {
+      name: 'ธงมิธริลชั้นครู · CHA'
+    },
+    smithMasterChaAdamantHammer: {
+      name: 'ธงอดามันต์ชั้นครู · CHA'
+    },
+    smithMasterChaAetheriteHammer: {
+      name: 'ธงอีเธอร์ไรต์ชั้นครู · CHA'
+    },
+    smithChaMithrilHammer: {
+      name: 'ธงมิธริล · CHA'
+    },
+    smithChaAdamantHammer: {
+      name: 'ธงอดามันต์ · CHA'
+    },
+    smithChaAetheriteHammer: {
+      name: 'ธงอีเธอร์ไรต์ · CHA'
+    },
+    smithMasterChaMithrilShield: {
+      name: 'โคเด็กซ์มิธริลชั้นครู · CHA'
+    },
+    smithMasterChaAdamantShield: {
+      name: 'โคเด็กซ์อดามันต์ชั้นครู · CHA'
+    },
+    smithMasterChaAetheriteShield: {
+      name: 'โคเด็กซ์อีเธอร์ไรต์ชั้นครู · CHA'
+    },
+    smithChaMithrilShield: {
+      name: 'โคเด็กซ์มิธริล · CHA'
+    },
+    smithChaAdamantShield: {
+      name: 'โคเด็กซ์อดามันต์ · CHA'
+    },
+    smithChaAetheriteShield: {
+      name: 'โคเด็กซ์อีเธอร์ไรต์ · CHA'
+    },
+    smithMasterChaMithrilHelm: {
+      name: 'มงกุฎมิธริลชั้นครู · CHA'
+    },
+    smithMasterChaAdamantHelm: {
+      name: 'มงกุฎอดามันต์ชั้นครู · CHA'
+    },
+    smithMasterChaAetheriteHelm: {
+      name: 'มงกุฎอีเธอร์ไรต์ชั้นครู · CHA'
+    },
+    smithChaMithrilHelm: {
+      name: 'มงกุฎมิธริล · CHA'
+    },
+    smithChaAdamantHelm: {
+      name: 'มงกุฎอดามันต์ · CHA'
+    },
+    smithChaAetheriteHelm: {
+      name: 'มงกุฎอีเธอร์ไรต์ · CHA'
+    },
+    smithMasterChaMithrilPlate: {
+      name: 'เสื้อคลุมตรามิธริลชั้นครู · CHA'
+    },
+    smithMasterChaAdamantPlate: {
+      name: 'เสื้อคลุมตราอดามันต์ชั้นครู · CHA'
+    },
+    smithMasterChaAetheritePlate: {
+      name: 'เสื้อคลุมตราอีเธอร์ไรต์ชั้นครู · CHA'
+    },
+    smithChaMithrilPlate: {
+      name: 'เสื้อคลุมตรามิธริล · CHA'
+    },
+    smithChaAdamantPlate: {
+      name: 'เสื้อคลุมตราอดามันต์ · CHA'
+    },
+    smithChaAetheritePlate: {
+      name: 'เสื้อคลุมตราอีเธอร์ไรต์ · CHA'
+    },
+    smithMasterChaMithrilGreaves: {
+      name: 'รองเท้าบู๊ตมิธริลชั้นครู · CHA'
+    },
+    smithMasterChaAdamantGreaves: {
+      name: 'รองเท้าบู๊ตอดามันต์ชั้นครู · CHA'
+    },
+    smithMasterChaAetheriteGreaves: {
+      name: 'รองเท้าบู๊ตอีเธอร์ไรต์ชั้นครู · CHA'
+    },
+    smithChaMithrilGreaves: {
+      name: 'รองเท้าบู๊ตมิธริล · CHA'
+    },
+    smithChaAdamantGreaves: {
+      name: 'รองเท้าบู๊ตอดามันต์ · CHA'
+    },
+    smithChaAetheriteGreaves: {
+      name: 'รองเท้าบู๊ตอีเธอร์ไรต์ · CHA'
+    },
+    smithMasterEndIronSword: {
+      name: 'กระบองเหล็กชั้นครู · END'
+    },
+    smithEndIronSword: {
+      name: 'กระบองเหล็ก · END'
+    },
+    smithMasterEndIronHammer: {
+      name: 'ขวานเหล็กชั้นครู · END'
+    },
+    smithEndIronHammer: {
+      name: 'ขวานเหล็ก · END'
+    },
+    smithMasterEndIronShield: {
+      name: 'โล่เหล็กชั้นครู · END'
+    },
+    smithEndIronShield: {
+      name: 'โล่เหล็ก · END'
+    },
+    smithMasterEndIronHelm: {
+      name: 'หมวกเกราะเหล็กชั้นครู · END'
+    },
+    smithEndIronHelm: {
+      name: 'หมวกเกราะเหล็ก · END'
+    },
+    smithMasterEndIronPlate: {
+      name: 'เกราะแผ่นเหล็กชั้นครู · END'
+    },
+    smithEndIronPlate: {
+      name: 'เกราะแผ่นเหล็ก · END'
+    },
+    smithMasterEndIronGreaves: {
+      name: 'เกราะแข้งเหล็กชั้นครู · END'
+    },
+    smithEndIronGreaves: {
+      name: 'เกราะแข้งเหล็ก · END'
+    },
+    smithMasterEndSilverSword: {
+      name: 'กระบองเงินชั้นครู · END'
+    },
+    smithEndSilverSword: {
+      name: 'กระบองเงิน · END'
+    },
+    smithMasterEndSilverHammer: {
+      name: 'ขวานเงินชั้นครู · END'
+    },
+    smithEndSilverHammer: {
+      name: 'ขวานเงิน · END'
+    },
+    smithMasterEndSilverShield: {
+      name: 'โล่เงินชั้นครู · END'
+    },
+    smithEndSilverShield: {
+      name: 'โล่เงิน · END'
+    },
+    smithMasterEndSilverHelm: {
+      name: 'หมวกเกราะเงินชั้นครู · END'
+    },
+    smithEndSilverHelm: {
+      name: 'หมวกเกราะเงิน · END'
+    },
+    smithMasterEndSilverPlate: {
+      name: 'เกราะแผ่นเงินชั้นครู · END'
+    },
+    smithEndSilverPlate: {
+      name: 'เกราะแผ่นเงิน · END'
+    },
+    smithMasterEndSilverGreaves: {
+      name: 'เกราะแข้งเงินชั้นครู · END'
+    },
+    smithEndSilverGreaves: {
+      name: 'เกราะแข้งเงิน · END'
+    },
+    smithMasterEndGoldSword: {
+      name: 'กระบองทองชั้นครู · END'
+    },
+    smithEndGoldSword: {
+      name: 'กระบองทอง · END'
+    },
+    smithMasterEndGoldHammer: {
+      name: 'ขวานทองชั้นครู · END'
+    },
+    smithEndGoldHammer: {
+      name: 'ขวานทอง · END'
+    },
+    smithMasterEndGoldShield: {
+      name: 'โล่ทองชั้นครู · END'
+    },
+    smithEndGoldShield: {
+      name: 'โล่ทอง · END'
+    },
+    smithMasterEndGoldHelm: {
+      name: 'หมวกเกราะทองชั้นครู · END'
+    },
+    smithEndGoldHelm: {
+      name: 'หมวกเกราะทอง · END'
+    },
+    smithMasterEndGoldPlate: {
+      name: 'เกราะแผ่นทองชั้นครู · END'
+    },
+    smithEndGoldPlate: {
+      name: 'เกราะแผ่นทอง · END'
+    },
+    smithMasterEndGoldGreaves: {
+      name: 'เกราะแข้งทองชั้นครู · END'
+    },
+    smithEndGoldGreaves: {
+      name: 'เกราะแข้งทอง · END'
+    },
+    smithMasterEndMithrilSword: {
+      name: 'กระบองมิธริลชั้นครู · END'
+    },
+    smithMasterEndAdamantSword: {
+      name: 'กระบองอดามันต์ชั้นครู · END'
+    },
+    smithMasterEndAetheriteSword: {
+      name: 'กระบองอีเธอร์ไรต์ชั้นครู · END'
+    },
+    smithEndMithrilSword: {
+      name: 'กระบองมิธริล · END'
+    },
+    smithEndAdamantSword: {
+      name: 'กระบองอดามันต์ · END'
+    },
+    smithEndAetheriteSword: {
+      name: 'กระบองอีเธอร์ไรต์ · END'
+    },
+    smithMasterEndMithrilHammer: {
+      name: 'ขวานมิธริลชั้นครู · END'
+    },
+    smithMasterEndAdamantHammer: {
+      name: 'ขวานอดามันต์ชั้นครู · END'
+    },
+    smithMasterEndAetheriteHammer: {
+      name: 'ขวานอีเธอร์ไรต์ชั้นครู · END'
+    },
+    smithEndMithrilHammer: {
+      name: 'ขวานมิธริล · END'
+    },
+    smithEndAdamantHammer: {
+      name: 'ขวานอดามันต์ · END'
+    },
+    smithEndAetheriteHammer: {
+      name: 'ขวานอีเธอร์ไรต์ · END'
+    },
+    smithMasterEndMithrilShield: {
+      name: 'โล่มิธริลชั้นครู · END'
+    },
+    smithMasterEndAdamantShield: {
+      name: 'โล่อดามันต์ชั้นครู · END'
+    },
+    smithMasterEndAetheriteShield: {
+      name: 'โล่อีเธอร์ไรต์ชั้นครู · END'
+    },
+    smithEndMithrilShield: {
+      name: 'โล่มิธริล · END'
+    },
+    smithEndAdamantShield: {
+      name: 'โล่อดามันต์ · END'
+    },
+    smithEndAetheriteShield: {
+      name: 'โล่อีเธอร์ไรต์ · END'
+    },
+    smithMasterEndMithrilHelm: {
+      name: 'หมวกเกราะมิธริลชั้นครู · END'
+    },
+    smithMasterEndAdamantHelm: {
+      name: 'หมวกเกราะอดามันต์ชั้นครู · END'
+    },
+    smithMasterEndAetheriteHelm: {
+      name: 'หมวกเกราะอีเธอร์ไรต์ชั้นครู · END'
+    },
+    smithEndMithrilHelm: {
+      name: 'หมวกเกราะมิธริล · END'
+    },
+    smithEndAdamantHelm: {
+      name: 'หมวกเกราะอดามันต์ · END'
+    },
+    smithEndAetheriteHelm: {
+      name: 'หมวกเกราะอีเธอร์ไรต์ · END'
+    },
+    smithMasterEndMithrilPlate: {
+      name: 'เกราะแผ่นมิธริลชั้นครู · END'
+    },
+    smithMasterEndAdamantPlate: {
+      name: 'เกราะแผ่นอดามันต์ชั้นครู · END'
+    },
+    smithMasterEndAetheritePlate: {
+      name: 'เกราะแผ่นอีเธอร์ไรต์ชั้นครู · END'
+    },
+    smithEndMithrilPlate: {
+      name: 'เกราะแผ่นมิธริล · END'
+    },
+    smithEndAdamantPlate: {
+      name: 'เกราะแผ่นอดามันต์ · END'
+    },
+    smithEndAetheritePlate: {
+      name: 'เกราะแผ่นอีเธอร์ไรต์ · END'
+    },
+    smithMasterEndMithrilGreaves: {
+      name: 'เกราะแข้งมิธริลชั้นครู · END'
+    },
+    smithMasterEndAdamantGreaves: {
+      name: 'เกราะแข้งอดามันต์ชั้นครู · END'
+    },
+    smithMasterEndAetheriteGreaves: {
+      name: 'เกราะแข้งอีเธอร์ไรต์ชั้นครู · END'
+    },
+    smithEndMithrilGreaves: {
+      name: 'เกราะแข้งมิธริล · END'
+    },
+    smithEndAdamantGreaves: {
+      name: 'เกราะแข้งอดามันต์ · END'
+    },
+    smithEndAetheriteGreaves: {
+      name: 'เกราะแข้งอีเธอร์ไรต์ · END'
     },
     smithIronSword: {
       name: 'ดาบเหล็ก'
@@ -1777,6 +2951,414 @@ export default {
     scepterOfTheFirstKing: {
       name: 'คทาแห่งราชาองค์แรก'
     },
+    pickpocketsKnife: {
+      name: 'มีดของนักล้วงกระเป๋า'
+    },
+    serpentsFang: {
+      name: 'เขี้ยวงู'
+    },
+    phantomRapier: {
+      name: 'ดาบเรเปียร์ผี'
+    },
+    fangOfTheWindless: {
+      name: 'เขี้ยวแห่งความไร้ลม'
+    },
+    roguesBuckler: {
+      name: 'โล่เล็กของนักต้มตุ๋น'
+    },
+    venomVial: {
+      name: 'ขวดพิษ'
+    },
+    swiftguardBuckler: {
+      name: 'โล่เล็กของยามคล่องแคล่ว'
+    },
+    nightshadeFlask: {
+      name: 'ขวดเบลลาดอนนา'
+    },
+    windveilTarge: {
+      name: 'โล่ม่านลม'
+    },
+    shadowdancersBuckler: {
+      name: 'โล่เล็กของนักเต้นเงา'
+    },
+    scoutsBandana: {
+      name: 'ผ้าโพกหัวของสอดแนม'
+    },
+    nightcowl: {
+      name: 'ฮู้ดแห่งราตรี'
+    },
+    shadowveilHood: {
+      name: 'ฮู้ดม่านเงา'
+    },
+    windrunnersCap: {
+      name: 'หมวกของนักวิ่งลม'
+    },
+    maskOfTheSilentWind: {
+      name: 'หน้ากากลมเงียบ'
+    },
+    rangersJerkin: {
+      name: 'เสื้อแจ็กเก็ตของพราน'
+    },
+    nightstalkerLeathers: {
+      name: 'หนังของนักล่ายามราตรี'
+    },
+    windridersHarness: {
+      name: 'สายรัดของผู้ขี่ลม'
+    },
+    mantleOfTheShadowDancer: {
+      name: 'เสื้อคลุมของนักเต้นเงา'
+    },
+    thiefsGloves: {
+      name: 'ถุงมือของโจร'
+    },
+    cutpurseGloves: {
+      name: 'ถุงมือของนักล้วงกระเป๋า'
+    },
+    glovesOfTheGale: {
+      name: 'ถุงมือแห่งพายุ'
+    },
+    softSoledShoes: {
+      name: 'รองเท้าพื้นนิ่ม'
+    },
+    catStepBoots: {
+      name: 'รองเท้าบูทก้าวแมว'
+    },
+    shadowstepBoots: {
+      name: 'รองเท้าบูทก้าวเงา'
+    },
+    windstrideBoots: {
+      name: 'รองเท้าบูทก้าวลม'
+    },
+    luckyCoin: {
+      name: 'เหรียญนำโชค'
+    },
+    shadowBand: {
+      name: 'แหวนเงา'
+    },
+    sandglassOfTheSwift: {
+      name: 'นาฬิกาทรายของผู้ว่องไว'
+    },
+    talonCharm: {
+      name: 'เครื่องรางกรงเล็บ'
+    },
+    windheart: {
+      name: 'หัวใจแห่งลม'
+    },
+    ashwallHeater: {
+      name: 'โล่กำแพงเถ้า'
+    },
+    wyrmhidePavise: {
+      name: 'โล่ใหญ่หนังไวเวิร์น'
+    },
+    footmansKettleHat: {
+      name: 'หมวกหม้อของทหารราบ'
+    },
+    ironbrowSallet: {
+      name: 'หมวกซาลาดคิ้วเหล็ก'
+    },
+    warlordsBarbute: {
+      name: 'หมวกบาร์บูตของจอมทัพ'
+    },
+    helmOfTheSunderedThrone: {
+      name: 'หมวกเกราะแห่งบัลลังก์ที่แตกสลาย'
+    },
+    recruitsCuirass: {
+      name: 'เกราะอกทหารใหม่'
+    },
+    stonecuttersMitts: {
+      name: 'ถุงมือช่างหิน'
+    },
+    ashforgedGauntlets: {
+      name: 'ถุงมือเกราะตีด้วยเถ้า'
+    },
+    warbringerGauntlets: {
+      name: 'ถุงมือเกราะผู้นำสงคราม'
+    },
+    titanfistGauntlets: {
+      name: 'ถุงมือเกราะกำปั้นไททัน'
+    },
+    footmansGreaves: {
+      name: 'เกราะหน้าแข้งทหารราบ'
+    },
+    ironshodGreaves: {
+      name: 'เกราะหน้าแข้งหุ้มเหล็ก'
+    },
+    warlordsSabatons: {
+      name: 'รองเท้าเกราะจอมทัพ'
+    },
+    greavesOfTheMountainfall: {
+      name: 'เกราะหน้าแข้งภูเขาถล่ม'
+    },
+    sergeantsSignet: {
+      name: 'แหวนตราของสิบเอก'
+    },
+    brawlersKnuckleRing: {
+      name: 'สนับมือนักเลง'
+    },
+    bloodiedWarMedal: {
+      name: 'เหรียญสงครามเปื้อนเลือด'
+    },
+    watchmansCudgel: {
+      name: 'กระบองยาม'
+    },
+    ironboundMace: {
+      name: 'กระบองรัดห่วงเหล็ก'
+    },
+    stonehideCleaver: {
+      name: 'มีดปังตอหนังหิน'
+    },
+    bulwarkMaul: {
+      name: 'ค้อนใหญ่แห่งป้อม'
+    },
+    mountainsplitterAxe: {
+      name: 'ขวานผ่าภูเขา'
+    },
+    everstandWarmace: {
+      name: 'กระบองศึกไม่ย่อท้อ'
+    },
+    emberwallBastion: {
+      name: 'ป้อมกำแพงถ่านแดง'
+    },
+    stonewardenHelm: {
+      name: 'หมวกเกราะผู้พิทักษ์หิน'
+    },
+    colossusVisage: {
+      name: 'ใบหน้ายักษ์'
+    },
+    diggersGauntlets: {
+      name: 'ถุงมือเกราะนักขุด'
+    },
+    bastionGauntlets: {
+      name: 'ถุงมือเกราะแห่งป้อม'
+    },
+    glacierplateGauntlets: {
+      name: 'ถุงมือเกราะแผ่นธารน้ำแข็ง'
+    },
+    gauntletsOfEndlessVigil: {
+      name: 'ถุงมือเกราะแห่งการเฝ้ายามนิรันดร์'
+    },
+    hearthstoneCharm: {
+      name: 'เครื่องรางหินเตาไฟ'
+    },
+    ironheartPendant: {
+      name: 'จี้หัวใจเหล็ก'
+    },
+    hedgewizardsWand: {
+      name: 'ไม้กายสิทธิ์พ่อมดรั้วไม้'
+    },
+    frostglassStaff: {
+      name: 'ไม้เท้าแก้วน้ำแข็ง'
+    },
+    voidthreadWand: {
+      name: 'ไม้กายสิทธิ์เส้นด้ายความว่างเปล่า'
+    },
+    staffOfTheStarlessSky: {
+      name: 'ไม้เท้าท้องฟ้าไร้ดาว'
+    },
+    studentsGrimoire: {
+      name: 'คัมภีร์เวทของนักเรียน'
+    },
+    frostfireOrb: {
+      name: 'ลูกแก้วเพลิงน้ำแข็ง'
+    },
+    orbOfTheUnwrittenHour: {
+      name: 'ลูกแก้วแห่งชั่วโมงที่ไม่เคยเขียน'
+    },
+    apprenticesPointedCap: {
+      name: 'หมวกแหลมของลูกศิษย์'
+    },
+    sagesCirclet: {
+      name: 'มงกุฎของผู้ทรงปัญญา'
+    },
+    cinderWizardsHat: {
+      name: 'หมวกพ่อมดเถ้า'
+    },
+    voidseerCirclet: {
+      name: 'มงกุฎผู้มองเห็นความว่างเปล่า'
+    },
+    apprenticesRobe: {
+      name: 'เสื้อคลุมลูกศิษย์'
+    },
+    cinderthreadRobe: {
+      name: 'เสื้อคลุมด้ายเถ้า'
+    },
+    voidwovenRobe: {
+      name: 'เสื้อคลุมทอจากความว่างเปล่า'
+    },
+    inkStainedGloves: {
+      name: 'ถุงมือเปื้อนหมึก'
+    },
+    spellthreadGloves: {
+      name: 'ถุงมือด้ายคาถา'
+    },
+    frostweaveGloves: {
+      name: 'ถุงมือทอน้ำแข็ง'
+    },
+    starlitGloves: {
+      name: 'ถุงมือแสงดาว'
+    },
+    glovesOfTheLastWord: {
+      name: 'ถุงมือคำสุดท้าย'
+    },
+    scribesSlippers: {
+      name: 'รองเท้าแตะของเสมียน'
+    },
+    moonstepSlippers: {
+      name: 'รองเท้าแตะก้าวจันทร์'
+    },
+    emberstepBoots: {
+      name: 'รองเท้าบูทก้าวถ่านแดง'
+    },
+    voidwalkerBoots: {
+      name: 'รองเท้าบูทผู้พเนจรความว่างเปล่า'
+    },
+    bootsOfTheWanderingStar: {
+      name: 'รองเท้าบูทดาวพเนจร'
+    },
+    glowstonePendant: {
+      name: 'จี้หินเรืองแสง'
+    },
+    scholarsSeal: {
+      name: 'ตราประทับของนักปราชญ์'
+    },
+    eyeOfTheArchon: {
+      name: 'ดวงตาของอาร์คอน'
+    },
+    cinderRepeater: {
+      name: 'ปืนยิงซ้ำเถ้า'
+    },
+    glacierMortar: {
+      name: 'ปืนครกมือธารน้ำแข็ง'
+    },
+    sparkCell: {
+      name: 'เซลล์ประกายไฟ'
+    },
+    arcCapacitor: {
+      name: 'ตัวเก็บประจุอาร์ก'
+    },
+    aetherheartCell: {
+      name: 'เซลล์หัวใจอีเธอร์'
+    },
+    marksmansVisor: {
+      name: 'กระบังหน้าพลแม่นปืน'
+    },
+    sharpshootersCap: {
+      name: 'หมวกแก๊ปมือปืนซุ่มยิง'
+    },
+    gunnersHarness: {
+      name: 'สายรัดพลปืนใหญ่'
+    },
+    steadyhandGloves: {
+      name: 'ถุงมือมือนิ่ง'
+    },
+    gunsmithsGloves: {
+      name: 'ถุงมือช่างปืน'
+    },
+    scrappersBoots: {
+      name: 'รองเท้าบูทนักเลง'
+    },
+    sharpshooterBoots: {
+      name: 'รองเท้าบูทมือปืนซุ่มยิง'
+    },
+    firingLineBoots: {
+      name: 'รองเท้าบูทแนวยิง'
+    },
+    steadyfootBoots: {
+      name: 'รองเท้าบูทเท้าหนักแน่น'
+    },
+    aetherstepBoots: {
+      name: 'รองเท้าบูทก้าวอีเธอร์'
+    },
+    bootsOfTheLastShot: {
+      name: 'รองเท้าบูทนัดสุดท้าย'
+    },
+    brassCartridgeCharm: {
+      name: 'เครื่องรางปลอกกระสุนทองเหลือง'
+    },
+    deadEyeLens: {
+      name: 'เลนส์ตาแม่นยำ'
+    },
+    eagleEyeScope: {
+      name: 'กล้องส่องตาเหยี่ยว'
+    },
+    criersBaton: {
+      name: 'ไม้เท้าผู้ประกาศ'
+    },
+    droversStandard: {
+      name: 'ธงของคนเลี้ยงสัตว์'
+    },
+    marshalsSceptre: {
+      name: 'คทาจอมพล'
+    },
+    balladBook: {
+      name: 'หนังสือบัลลาด'
+    },
+    chronicleOfHeroes: {
+      name: 'บันทึกวีรบุรุษ'
+    },
+    psalterOfTheHost: {
+      name: 'คัมภีร์สดุดีของกองทัพ'
+    },
+    tomeOfEternalReign: {
+      name: 'เล่มแห่งการครองราชย์นิรันดร์'
+    },
+    heraldsCap: {
+      name: 'หมวกผู้ประกาศ'
+    },
+    singersCirclet: {
+      name: 'มงกุฎนักร้อง'
+    },
+    diademOfTenThousandVoices: {
+      name: 'มงกุฎหมื่นเสียง'
+    },
+    travelersWaistcoat: {
+      name: 'เสื้อกั๊กนักเดินทาง'
+    },
+    minstrelsMotley: {
+      name: 'ชุดปะของนักร้องพเนจร'
+    },
+    troubadoursCoat: {
+      name: 'เสื้อคลุมทรูบาดูร์'
+    },
+    marshalsGreatcoat: {
+      name: 'เสื้อคลุมจอมพล'
+    },
+    buskersGloves: {
+      name: 'ถุงมือนักดนตรีข้างถนน'
+    },
+    drummersGloves: {
+      name: 'ถุงมือมือกลอง'
+    },
+    standardBearersGloves: {
+      name: 'ถุงมือผู้ถือธง'
+    },
+    gildedParadeGloves: {
+      name: 'ถุงมือสวนสนามปิดทอง'
+    },
+    glovesOfTheCrownedHand: {
+      name: 'ถุงมือแห่งมือที่สวมมงกุฎ'
+    },
+    wayfarersShoes: {
+      name: 'รองเท้านักเดินทาง'
+    },
+    troubadourBoots: {
+      name: 'รองเท้าบูททรูบาดูร์'
+    },
+    heraldsRidingBoots: {
+      name: 'รองเท้าบูทขี่ม้าของผู้ประกาศ'
+    },
+    paradeBoots: {
+      name: 'รองเท้าบูทสวนสนาม'
+    },
+    bootsOfTheLongProcession: {
+      name: 'รองเท้าบูทขบวนยาว'
+    },
+    silverWhistle: {
+      name: 'ปี่เงิน'
+    },
+    gatheringHorn: {
+      name: 'แตรเรียกรวมพล'
+    },
     heartOfTheMountain: {
       name: 'หัวใจแห่งขุนเขา'
     },
@@ -1880,6 +3462,9 @@ export default {
     freedPeddler: {
       talk: 'ของที่นักเดินทางต้องใช้ มีครบหมด เกือบใหม่ ส่วนใหญ่นะ',
       name: 'โอโด แมร์โรว์'
+    },
+    sfShadowRoad: {
+      name: 'เนตเทิล ควิกแฮนด์'
     },
     sfShadow: {
       name: 'เนตเทิล ควิกแฮนด์'
@@ -2034,6 +3619,9 @@ export default {
     sunfordGambler: {
       name: 'ด็อบตีลังกา'
     },
+    sunfordCups: {
+      name: 'เนลนิ้วว่อง'
+    },
     oakGambler: {
       name: 'เรนแพรไหม'
     },
@@ -2145,6 +3733,13 @@ export default {
     }
   },
   dlg: {
+    intro: {
+      crossing: { 1: 'ทุกเส้นทางในโลกนี้มาบรรจบกันที่ทางแยก… และทุกทางแยกคือสนามรบ' },
+      hero: { 1: 'จากทุ่งนาอันเงียบสงบของซันฟอร์ด วีรบุรุษหนุ่มได้ออกเดินทาง' },
+      fire: { 1: 'เปลวไฟตอบรับเสียงเรียก เหล็กกล้าได้รู้จักชื่อใหม่' },
+      foes: { 1: 'ราชาก๊อบลิน ยาร์ลน้ำแข็ง มังกรแห่งความว่างเปล่า… และจอมปีศาจ' },
+      begin: { 1: 'ตำนานของเจ้าเริ่มต้นขึ้นแล้ว' }
+    },
     frostDisciple: {
       bye: {
         '1': 'รักษาตัวให้อุ่นไว้'
@@ -2339,6 +3934,23 @@ export default {
       hello: {
         '2': 'โอโด แมร์โรว์ ยินดีรับใช้ พ่อค้าเร่ ช่างซ่อม และชายผู้สำนึกบุญคุณสุดๆ',
         '1': 'เจ้า! เจ้านั่นเองที่เปิดกรงนั่น! ไม่งั้นข้าคงเน่าตายอยู่ในนั้นแล้ว'
+      }
+    },
+    sfShadowRoad: {
+      hello: {
+        '1': 'วาร์ป สนใจไหม'
+      },
+      again: {
+        '1': 'กลับมาเรียนกลอุบายใหม่หรือ'
+      },
+      train: {
+        '1': 'ดูให้ดีนะ ก้าวเดียว แล้วเจ้าก็อยู่อีกที่หนึ่ง'
+      },
+      trainBack: {
+        '1': 'ดี ทีนี้ไปอยู่ที่อื่นซะ'
+      },
+      bye: {
+        '1': 'อย่าให้ถูกจับได้'
       }
     },
     sfShadow: {
@@ -2593,9 +4205,8 @@ export default {
         '2': 'ตีตอนโลหะเรืองสว่างที่สุด พลาดก็เป็นเศษเหล็ก ลงมือเลย',
         '1': 'ตีเหล็กเหรอ อืม จับค้อนแบบนี้ ไม่ใช่จับเหมือนกระบอง'
       },
-      ore: {
-        '1': 'ก้อนแร่เหรอ เหมาหมดเลย ชั่งตรง จ่ายตรง'
-      },
+      ore: { '1': 'แร่เหรอ ขอดูหน่อย ข้าจ่ายเป็นก้อน ชั่งตรง' },
+      sellBack: { '1': 'ชั่งตรง จ่ายตรง เจออีกก็เอามาอีกนะ' },
       forgeBack: {
         '1': 'ไม่เลว แต่ก็ไม่ดี ฝึกต่อไป'
       },
@@ -2878,7 +4489,7 @@ export default {
       },
       map: {
         '1': 'แผนที่ของกัปตันรุก! เขาฉีกมันแล้วซ่อนชิ้นส่วนไว้ก่อนที่พวกก๊อบลินจะจับตัวเขาได้',
-        '2': 'หาให้ครบทั้งหกชิ้น แล้วเครื่องหมาย X จะบอกทาง ที่ไหนสักแห่งในผาเถ้าถ่าน ขุดตรงนั้น แล้วทองก็จะเป็นของเธอ',
+        '2': 'หามาให้ได้หกชิ้น ยังมีอีกหลายชิ้นกระจายอยู่รอบ ๆ แล้วเครื่องหมาย X จะบอกทาง ที่ไหนสักแห่งในผาเถ้าถ่าน ขุดตรงนั้น แล้วทองก็จะเป็นของเธอ',
         say: 'ฉันเจอชิ้นส่วนของแผนที่เก่า'
       }
     },
@@ -2895,6 +4506,9 @@ export default {
       },
       mana: {
         '1': 'อันนี้ขมนะ ดื่มตอนคาถาของเธอหมดเกลี้ยง'
+      },
+      brew: {
+        '1': 'ขอดูสมุนไพรหน่อย เดี๋ยวฉันผสมอะไรที่รสชาติดีกว่ายาบำรุงมานาของฉัน'
       },
       potions: {
         '1': 'เธอพกขวดยาไปทุกการต่อสู้ ดื่มก่อนที่จะจำเป็น อย่ารอให้หลังจากนั้น',
@@ -2914,6 +4528,9 @@ export default {
       },
       healBack: {
         '1': 'เก็บเข็มขัดให้เต็มแล้วก้มหัวต่ำๆ ไว้'
+      },
+      brewBack: {
+        '1': 'ระวังนะ ร้อนอยู่ อย่าดื่มหมดทีเดียว'
       },
       bye: {
         '1': 'ดูแลตัวเองข้างนอกนั่นด้วยนะ'
@@ -3015,9 +4632,8 @@ export default {
         '2': 'ดูแสงไว้ ตีที่ใจกลางของมันสามครั้ง แล้วโลหะจะจดจำ',
         '1': 'อยากเรียนวิชานี้เหรอ ดี โอ๊คเฮเวนต้องการค้อนทุกด้าม'
       },
-      ore: {
-        '1': 'แร่ดิบ! คลังอาวุธไม่เคยมีพอ นี่ค่าตอบแทน'
-      },
+      ore: { '1': 'แร่ดิบ! คลังอาวุธไม่เคยพอ ขายเท่าที่เจ้าแบ่งได้' },
+      sellBack: { '1': 'ทุกก้อนจะไปเป็นกำแพง ขอบใจ' },
       forgeBack: {
         '1': 'เหล็กกล้าดี กำแพงขอบคุณคุณ'
       },
@@ -3058,9 +4674,8 @@ export default {
         '2': 'ตีสามครั้ง ทุกครั้งตรงใจกลางแสง ความลับมีแค่นั้นแหละ',
         '1': 'ตั้งแต่ถูกล้อมเมือง ใครขอก็สอนหมด มาสิ ยืนตรงนี้'
       },
-      ore: {
-        '1': 'แร่มาเพิ่มให้กำแพงอีกแล้วเหรอ ขอบใจจริงๆ นี่ รับไว้นะ'
-      },
+      ore: { '1': 'แร่เพิ่มสำหรับกำแพงเหรอ ข้าจ่ายทุกก้อนที่เจ้าแบ่งได้' },
+      sellBack: { '1': 'ขอพรจงมีแด่เจ้า นั่นคือเกราะเพิ่มให้กำแพง' },
       forgeBack: {
         '1': 'ทุกครั้งที่ตีทำให้คุณเก่งขึ้น แวะมาได้ทุกเมื่อนะ'
       },
@@ -3456,9 +5071,8 @@ export default {
         '2': 'แสงบอกว่าเมื่อไร แขนบอกว่าแรงแค่ไหน สามครั้ง',
         '1': 'คนโลกบนมายืนที่ทั่งเหรอ ก็นะ ทุกคนต้องเริ่มจากที่ไหนสักแห่ง'
       },
-      ore: {
-        '1': 'โลหะดี ของแท้ ไอรอนโฮลด์จ่ายให้ของแบบนี้เสมอ'
-      },
+      ore: { '1': 'โลหะดี ซื่อตรง วางไว้เลย ข้าจ่ายเป็นก้อน' },
+      sellBack: { '1': 'ค้าขายยุติธรรม ไอรอนโฮลด์จ่ายให้โลหะดีเสมอ' },
       forgeBack: {
         '1': 'คนแคระคงทำได้ดีกว่า แต่ก็ไม่มากหรอก'
       },
@@ -3528,9 +5142,8 @@ export default {
         '2': 'เผา ตี พลิก สามครั้ง ตรงกลางแสง แล้วปล่อยให้เย็น',
         '1': 'เกราะแผ่นเป็นงานที่ต้องใจเย็น ข้าจะสอนพื้นฐานให้'
       },
-      ore: {
-        '1': 'ขอชั่งก่อน ดี เงินเป็นของเจ้า'
-      },
+      ore: { '1': 'ขอชั่งก่อน เลือกว่าจะขายอะไร ข้านับเหรียญเอง' },
+      sellBack: { '1': 'ชั่งแล้ว จ่ายแล้ว ดี' },
       forgeBack: {
         '1': 'ปล่อยให้เย็นก่อนค่อยใส่'
       },
@@ -3570,9 +5183,8 @@ export default {
         '2': 'วินัยที่ทั่งก็เหมือนในสนามรบ สามครั้ง ตรงตามแสง',
         '1': 'ภาคีติดอาวุธให้มิตรของตน ข้าจะสอนเธอ'
       },
-      ore: {
-        '1': 'ภาคีซื้อแร่ทั้งหมดเพื่อสงคราม นี่ค่าตอบแทนของเธอ'
-      },
+      ore: { '1': 'ภาคีซื้อแร่ไว้ใช้ในสงคราม ขายเท่าที่เจ้าแบ่งได้' },
+      sellBack: { '1': 'บันทึกการจ่ายของเจ้าแล้ว ภาคีขอบคุณ' },
       forgeBack: {
         '1': 'ตีได้ดี จงรับใช้อย่างดีในชุดนี้'
       },
@@ -3974,6 +5586,11 @@ export default {
       }
     },
     bark: {
+      banditChief: {
+        whistle: {
+          1: 'ลุกขึ้น พวกเรา! กัดมัน!'
+        }
+      },
       lightDisciple: {
         freed: {
           '1': 'แสงสว่างส่งเธอมา ฉันคือซิสเตอร์ออแรล มาหาฉันที่ซันฟอร์ดนะ ฉันจะสอนวิถีผู้นำแสงให้เธอ'
@@ -4129,9 +5746,8 @@ export default {
         '2': 'ตีตอนที่มันเรืองร้อนที่สุด ตีดีสามครั้งก็ได้ของดีหนึ่งชิ้น',
         '1': 'อยากลองจับค้อนเองไหม แบ่งเตาให้ใช้ได้ไม่ว่ากัน'
       },
-      ore: {
-        '1': 'แร่สวยจัง ซิลเวอร์บริดจ์จ่ายราคายุติธรรมเสมอ'
-      },
+      ore: { '1': 'แร่สวยดี ให้ดูว่าจะขายอะไร ข้าจ่ายเป็นก้อน' },
+      sellBack: { '1': 'ยินดี ซิลเวอร์บริดจ์จ่ายราคายุติธรรมเสมอ' },
       forgeBack: {
         '1': 'ดูสิ! เธอมีพรสวรรค์นะเนี่ย'
       },
@@ -4573,7 +6189,7 @@ export default {
         say: 'หาสมุนไพรได้ที่ไหน'
       },
       elixirs: {
-        '1': 'ทุกขวดทำให้เธอแข็งแกร่งขึ้นในการต่อสู้ตลอดหนึ่งนาทีเต็ม ตีแรงขึ้น ผิวทนขึ้น เท้าไวขึ้น',
+        '1': 'ทุกขวดทำให้เธอแข็งแกร่งขึ้นในการต่อสู้ตลอดห้านาทีเต็ม ตีแรงขึ้น ผิวทนขึ้น เท้าไวขึ้น',
         '2': 'มันอยู่ในขวดยาขวดที่สามของเธอ แตะลูกศรเล็กๆ เพื่อสลับขวดที่จะดื่ม',
         say: 'ยาวิเศษทำอะไรได้บ้าง'
       },
@@ -4642,6 +6258,36 @@ export default {
       },
       bye: {
         '1': 'เอาของเก่ามาอีกนะ! ของเก่าคือของโปรดของฉัน'
+      }
+    },
+    sunfordCups: {
+      hello: {
+        1: 'เข้ามาเลย! ถ้วยสามใบ อัญมณีหนึ่งเม็ด และรอบแรกฟรี!',
+        2: 'เนลนิ้วว่อง ยังไม่มีใครหลอกมือฉันได้เลย อยากลองไหม'
+      },
+      again: {
+        1: 'กลับมาอีกแล้วเหรอ ตาต้องไวนะ!'
+      },
+      play: {
+        1: 'จับตาดูอัญมณีไว้นะเพื่อน อย่ากะพริบตา!'
+      },
+      rules: {
+        1: 'ฉันซ่อนอัญมณีไว้ใต้ถ้วยแล้วสลับถ้วย ส่วนเธอชี้ถ้วยที่ซ่อนมันอยู่',
+        2: 'ชนะติดต่อกันยิ่งจ่ายมาก ชนะสามครั้งได้รางวัล ห้าครั้งได้ขุมทรัพย์ รอบแรกของวันฟรี',
+        say: 'เล่นยังไง'
+      },
+      who: {
+        1: 'ฉันสลับของเป็นก่อนเดินได้ แม่บอกว่านั่นอธิบายได้หลายอย่าง'
+      },
+      luck: {
+        1: 'บางที! แล้วฉันก็ครางเสียงดัง คนดูก็สงสารฉัน',
+        say: 'เธอเคยแพ้ไหม'
+      },
+      playBack: {
+        1: 'รอบเยี่ยมมาก! พรุ่งนี้มาอีกนะ รอบแรกฟรีเสมอ'
+      },
+      bye: {
+        1: 'แล้วเจอกัน! ข้างนอกตาต้องไวนะ'
       }
     },
     oakGambler: {
@@ -5135,6 +6781,7 @@ export default {
     banditArcher: 'โจรพลธนู',
     wolf: 'หมาป่า',
     banditChief: 'หัวหน้าโจร',
+    gnome: 'โนม',
     goblinKing: 'ราชาก๊อบลิน',
     treant: 'ทรีแอนท์',
     spider: 'แมงมุมยักษ์',
@@ -5352,6 +6999,18 @@ export default {
       firefoxColors: 'Firefox: การตั้งค่า → สี → ตั้ง “เขียนทับสีที่หน้าเว็บกำหนด” เป็น ไม่เคย'
     }
   },
+  samsungFix: {
+    title: 'ตรวจสอบสีอย่างรวดเร็ว',
+    body: 'โทรศัพท์บางรุ่นเปลี่ยนสีของหน้าเว็บ ลองเปรียบเทียบสี่เหลี่ยมสองอันด้านล่าง',
+    question: 'สี่เหลี่ยมทั้งสองดูเหมือนกันไหม',
+    refSquare: 'สี่เหลี่ยมอ้างอิง',
+    pageSquare: 'สี่เหลี่ยมของหน้าเว็บ',
+    yes: 'ใช่ ดูเหมือนกัน',
+    no: 'ไม่ ดูต่างกัน',
+    option: 'แก้ไขสี (โหมดมืดของ Samsung)',
+    optionHint: 'เปิดเมื่อเมนูดูมืดหรืออ่านข้อความยาก',
+    recheck: 'ตรวจสอบสีอีกครั้ง'
+  },
   saveStatus: {
     restoredTitle: 'กู้คืนเซฟบนคลาวด์แล้ว',
     restoredBody: '+{n} ทองโบนัสสำหรับการกู้คืน',
@@ -5476,7 +7135,7 @@ export default {
   },
   forge: {
     upgrade: 'อัปเกรด ({n} ทอง)',
-    max: 'อัปเกรดเต็มแล้ว: +{n}',
+    next: 'ถัดไป +{level}: ค่าสถานะ +{pct}%',
     town: 'ช่างตีเหล็กในเมืองไหนก็อัปเกรดให้ได้'
   },
   ore: {
@@ -5491,6 +7150,12 @@ export default {
     },
     mithril: {
       name: 'แร่มิธริล'
+    },
+    adamant: {
+      name: 'แร่อดามันต์'
+    },
+    aetherite: {
+      name: 'แร่อีเธอร์ไรต์'
     }
   },
   plant: {
@@ -5572,32 +7237,32 @@ export default {
   elixir: {
     might: {
       name: 'ยาวิเศษแห่งพลัง',
-      desc: 'ความเสียหาย +{n}% นาน 1 นาที'
+      desc: 'ความเสียหาย +{n}% นาน 5 นาที'
     },
     iron: {
       name: 'ยาผิวเหล็ก',
-      desc: 'เกราะ +{n}% นาน 1 นาที'
+      desc: 'เกราะ +{n}% นาน 5 นาที'
     },
     swift: {
       name: 'ยาบำรุงว่องไว',
-      desc: 'ความเร็วเคลื่อนที่และความเร็วโจมตี +{n}% นาน 1 นาที'
+      desc: 'ความเร็วเคลื่อนที่และความเร็วโจมตี +{n}% นาน 5 นาที'
     },
     mind: {
       name: 'ยาต้มจิตแจ่มใส',
-      desc: 'สกิลกลับมาเร็วขึ้น {n}% นาน 1 นาที'
+      desc: 'สกิลกลับมาเร็วขึ้น {n}% นาน 5 นาที'
     },
     vigor: {
       name: 'ยาวิเศษกระปรี้กระเปร่า',
-      desc: 'ฟื้นพลังชีวิต {n}% ทุกวินาที นาน 1 นาที'
+      desc: 'ฟื้นพลังชีวิต {n}% ทุกวินาที นาน 5 นาที'
     },
     shadow: {
       name: 'ยากระหายเลือด',
-      desc: 'การโจมตีฟื้นพลังชีวิต {n}% ของความเสียหาย นาน 1 นาที'
+      desc: 'การโจมตีฟื้นพลังชีวิต {n}% ของความเสียหาย นาน 5 นาที'
     }
   },
   alchemy: {
     talk: 'ใส่สมุนไพรลงไป ได้ยาวิเศษออกมา จะต้มขวดไหนดีจ๊ะ',
-    lead: 'ยาวิเศษแต่ละขวดใช้ได้ 1 นาทีในการต่อสู้ ดื่มจากขวดยาขวดที่สาม พกได้ชนิดละ {n} ขวด',
+    lead: 'ยาวิเศษแต่ละขวดใช้ได้ 5 นาทีในการต่อสู้ ดื่มจากขวดยาขวดที่สาม พกได้ชนิดละ {n} ขวด',
     brew: 'ต้ม · {n}',
     carry: 'พกขวดนี้',
     carried: 'อยู่ในขวดยา',
@@ -5621,6 +7286,25 @@ export default {
     again: 'เล่นอีกครั้ง',
     noGold: 'ทองไม่พอสำหรับเดิมพันนี้',
     card: 'ไพ่ {n}'
+  },
+  cups: {
+    title: 'แผงถ้วย',
+    lead: 'ดูอัญมณี ตามถ้วยของมัน แล้วชี้เลือก ชนะติดต่อกันยิ่งจ่ายมาก ครั้งที่สามได้ชิ้นรางวัล ครั้งที่ห้าได้ขุมทรัพย์',
+    free: 'รอบฟรี',
+    fee: 'เล่น · {n}',
+    row: 'ชนะติดต่อกัน: {n} จาก {max}',
+    next: 'ชนะครั้งต่อไป: {n} ทอง',
+    watch: 'ดูอัญมณี!',
+    follow: 'ตามมันไป…',
+    pick: 'เลือกถ้วย!',
+    hint: 'แตะถ้วย หรือกดเลขของถ้วย',
+    won: 'เจอแล้ว! +{n} ทอง',
+    lost: 'ไม่ใช่ใบนี้ สถิติเริ่มใหม่',
+    near: 'เฉียดไปนิดเดียว! อยู่ข้างๆ เลย',
+    timeout: 'ช้าไป! สถิติเริ่มใหม่',
+    again: 'เล่นอีกครั้ง',
+    noGold: 'ทองไม่พอ พรุ่งนี้รอบแรกฟรี',
+    cup: 'ถ้วย {n}'
   },
   battle: {
     title: 'ประลองไอเทม',

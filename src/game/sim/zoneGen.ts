@@ -1,6 +1,6 @@
-import type { TownDef, ZoneDef } from '../data/zones'
+import type { ZoneDef } from '../data/zones'
 import { ENEMY_BY_ID } from '../data/enemies'
-import { CELL, SOLID_LOW, SOLID_SEALED, SOLID_TERRAIN, type Grid } from './grid'
+import { CELL, SOLID_LOW, SOLID_ROUND, SOLID_SEALED, SOLID_TERRAIN, type Grid } from './grid'
 import { mulberry32, type Rng } from './rng'
 import {
   K_BLOCK, K_BRIDGE, K_CLIFF, K_FORD, K_GROUND, K_WATER, addFeatures, noFeatures,
@@ -8,13 +8,14 @@ import {
   type RiverPlan, type SignPlan, type LedgePlan, type DaisPlan, type LobePlan, type BranchPlan, type ForkPlan
 } from './zoneFeatures'
 import { ZONE_BRANCHES, ZONE_RELIEF, ZONE_SHAPE, type LiquidId, type ZoneShape } from '../data/zones'
-import { buildRelief, buildTownRelief } from './relief'
-import { TC_DOOR, TC_FLOOR, TC_GRASS, TC_GROUND, TC_SQUARE, TC_STREET, layTown, type TownPlan } from './town'
+import { buildRelief } from './relief'
+import type { TownPlan } from './town'
 import { placeHerbs, placePieces, placeTreasure, type HerbPlan, type PiecePlan } from './herbs'
 import { placeOres, type OrePlan } from './ores'
 import { placeCage } from './cages'
 import { LAID_SHAPES, carveDisc, carveLine, carveRect, layOut, layoutHeight, wallFace, type Chamber, type Fixture, type Guide, type Laid } from './layouts'
 import { dressPlace, makeDresser, type DressPlan } from './dressing'
+import { widenWays, type Target } from './widen'
 
 /**
  * ─── Zone layouts ────────────────────────────────────────────────────────────
@@ -201,18 +202,40 @@ const placeDummy = (solid: Uint8Array, h: number, cs: Array<{ i: number; j: numb
 /**
  * Write a plan into a walk grid: terrain, water and level props (walked
  * around, seen over) and the sealed pockets (`doorsOpen`: as if every door had
- * opened). The sim's grid is this with the doors shut.
+ * opened). The sim's grid is this with the doors shut. A level prop that is
+ * not a set piece (a chest, a post, an ore rock) stops a body by its round
+ * footprint (`SOLID_ROUND`); a set piece covers its cells and stops by them.
  */
 export const fillGrid = (g: Grid, plan: ZonePlan, doorsOpen = false): Grid => {
+  const round = new Uint8Array(plan.solid.length)
+  const at = (p: { x: number; z: number }): void => { round[Math.floor(p.z / CELL) * plan.w + Math.floor(p.x / CELL)] = 1 }
+  plan.chests.forEach(at)
+  plan.signs.forEach(at)
+  plan.forks.forEach(at)
+  plan.ores?.forEach(at)
+  if (plan.puzzle) at(plan.puzzle.hint)
+  for (const d of plan.dressing ?? []) for (const k of d.cells) round[k] = 0
   for (let k = 0; k < plan.solid.length; k++) {
     let v = plan.solid[k]! ? SOLID_TERRAIN : 0
     const kd = plan.kind[k]!
     if (kd === K_WATER || kd === K_BLOCK || kd === K_CLIFF) v |= SOLID_LOW
+    if (kd === K_BLOCK && round[k]) v |= SOLID_ROUND
     if (plan.sealed[k]! && !doorsOpen) v |= SOLID_SEALED
     g.solid[k] = v
   }
   return g
 }
+
+/** Every place one goes to in a plan (`widen.ts`): packs, chests (where one
+ *  stands to open them), plates, caves, posts, herbs, ore, map pieces, a key. */
+export const waysTo = (p: Pick<ZonePlan, 'packs' | 'optionalPacks' | 'chests' | 'plates' | 'puzzle' | 'caves' | 'signs' | 'forks' | 'herbs' | 'ores' | 'pieces' | 'cageKey'>): Target[] => [
+  ...p.packs, ...p.optionalPacks, ...p.chests.map(c => ({ x: c.sx, z: c.sz })), ...p.plates,
+  ...(p.puzzle ? [p.puzzle.hint] : []),
+  ...p.caves.flatMap(c => [c.mouth, c]),
+  ...p.signs, ...p.forks,
+  ...(p.herbs ?? []), ...(p.ores ?? []).map(o => ({ x: o.sx, z: o.sz })), ...(p.pieces ?? []),
+  ...(p.cageKey ? [p.cageKey] : [])
+]
 
 const weighted = (rng: Rng, kinds: ZoneDef['kinds']): string => {
   let total = 0
@@ -535,12 +558,8 @@ export const generateZone = (def: ZoneDef, seed: number, o: ZoneGenOpts = {}): Z
   if (secret && secretSlot) lobes.push({ x: secret.x, z: secret.z, r: 2.6 * CELL, k: secretSlot.k, lift: 0.35 })
   // The Peak's summit stands above every shelf and every way off the road.
   if (shape === 'spiral') lobes.push({ x: fin.x, z: fin.z, r: fin.r, k: n, lift: 1.2 })
-  const height = buildRelief({
-    seed, w: Wd, h, kind, trail, cs, lobes, ledges: features.ledges, dais: features.dais, rivers: features.rivers, crossings: features.crossings,
-    relief: ZONE_RELIEF[def.id], tutorial: !!o.tutorial, guides
-  })
   const start = { x: clearings[0]!.x, z: clearings[0]!.z }
-  // Herbs (#88), last and on their own stream: nothing above moves for them.
+  // Herbs (#88), on their own stream: nothing above moves for them.
   // Not on the very first visit (one thing at a time) nor on a bare chain.
   const spots = { seed, w: Wd, h, solid, sealed, trail, kind, start, chests: features.chests }
   const herbs = o.tutorial || o.bare ? [] : placeHerbs(spots, def.id)
@@ -553,7 +572,9 @@ export const generateZone = (def: ZoneDef, seed: number, o: ZoneGenOpts = {}): Z
   // place one goes to: a cave and its mouth, a plate, the hint stone, a pack.
   const named = [
     ...features.caves.flatMap(c => [c, c.mouth]), ...features.plates, ...features.optionalPacks,
-    ...(features.puzzle ? [features.puzzle.hint] : [])
+    ...(features.puzzle ? [features.puzzle.hint] : []),
+    // The top of a ledge is reached by its ramp: no ore stands on either.
+    ...features.ledges.flatMap(l => [{ x: l.x, z: l.z }, { x: ((l.probe % Wd) + 0.5) * CELL, z: (Math.floor(l.probe / Wd) + 0.5) * CELL }])
   ]
   const ores = o.tutorial || o.bare ? [] : placeOres({ ...spots, cave }, def.min, [...herbs, ...pieces, ...(x ? [x] : []), ...named])
   if (x) {
@@ -562,6 +583,14 @@ export const generateZone = (def: ZoneDef, seed: number, o: ZoneGenOpts = {}): Z
   // A cage (#100), last of all and on its own stream.
   const cage = o.cage && !o.tutorial && !o.bare ? placeCage(spots, [...herbs, ...pieces, ...ores, ...(x ? [x] : [])]) : null
   if (cage) features.chests.push({ id: features.chests.length, ...cage.chest })
+  // A way two cells across from the start to every place one goes to, cut
+  // through the rock where the layout left only a gap (`widen.ts`).
+  // It runs before the relief is raised: a cliff it turns to ramp is ramp in the ground too.
+  widenWays({ w: Wd, h, solid, kind, sealed, masonry, doors: features.doors, pieces: dresser.pieces, crossings: features.crossings, anchored: ores.map(q => Math.floor(q.z / CELL) * Wd + Math.floor(q.x / CELL)) }, start, waysTo({ ...features, packs, herbs, pieces, ores, ...(cage ? { cageKey: cage.key } : {}) }))
+  const height = buildRelief({
+    seed, w: Wd, h, kind, trail, cs, lobes, ledges: features.ledges, dais: features.dais, rivers: features.rivers, crossings: features.crossings,
+    relief: ZONE_RELIEF[def.id], tutorial: !!o.tutorial, guides
+  })
   // The standing wheat (the field layout): the fields and the lanes between
   // them, off the paths; the side places (corners, caves, ways off the road)
   // stay bare, and so does water, a bridge, a chest's spot.
@@ -607,62 +636,6 @@ export const generateZone = (def: ZoneDef, seed: number, o: ZoneGenOpts = {}): Z
     pieces,
     // The first visit opens on a calm beat: a dummy to learn to fight on.
     ...(o.tutorial ? { dummy: placeDummy(solid, h, cs, features.chests, packs[0]!) } : {})
-  }
-}
-
-/**
- * A town: rows of houses facing the camera along two streets, a square in the
- * middle, the green the road comes in by (`town.ts` lays it out and dresses
- * it). Its people are `npcs` (the cast) and `town.people` (everybody).
- */
-export const generateTown = (def: TownDef, flags: ReadonlySet<string>, seed: number): ZonePlan => {
-  const t = layTown(def, flags, seed)
-  const { w, h } = t
-  // Everyone's spot and every house stands level on the gentle slope.
-  const level: Array<{ x: number; z: number }> = t.town.people.map(p => ({ x: p.x, z: p.z }))
-  for (const s of t.town.spots) level.push({ x: s.x, z: s.z })
-  for (const p of t.town.props) if (p.cells.length) level.push({ x: p.x, z: p.z })
-  // A gentle slope, with every house and every townsperson on level ground.
-  const height = buildTownRelief(w, h, seed, t.buildings, level)
-  // A river under a bridge town (#103) lies level: every corner of its cells
-  // at the lowest of them (the ground dips under the water by itself) — but
-  // not a corner of ground somebody walks on: the parapet, a garden or the
-  // water's own edge takes the fall.
-  let wet = false
-  for (let k = 0; k < w * h; k++) if (t.kind[k] === K_WATER) { wet = true; break }
-  if (wet) {
-    const W1 = w + 1
-    const walked = (c: number): boolean => c === TC_GRASS || c === TC_STREET || c === TC_SQUARE || c === TC_GROUND || c === TC_FLOOR || c === TC_DOOR
-    const touches = (ci: number, cj: number): boolean => {
-      let wetHere = false
-      for (let dj = -1; dj <= 0; dj++) for (let di = -1; di <= 0; di++) {
-        const i = ci + di
-        const j = cj + dj
-        if (i < 0 || j < 0 || i >= w || j >= h) continue
-        if (t.kind[j * w + i] === K_WATER) wetHere = true
-        else if (walked(t.town.cell[j * w + i]!)) return false
-      }
-      return wetHere
-    }
-    let low = Infinity
-    for (let cj = 0; cj <= h; cj++) for (let ci = 0; ci <= w; ci++) if (touches(ci, cj)) low = Math.min(low, height[cj * W1 + ci]!)
-    for (let cj = 0; cj <= h; cj++) for (let ci = 0; ci <= w; ci++) if (touches(ci, cj)) height[cj * W1 + ci] = low
-  }
-  return {
-    seed, w, h, solid: t.solid, trail: t.trail, kind: t.kind, cave: new Uint8Array(w * h), sealed: new Uint8Array(w * h),
-    side: new Uint8Array(w * h),
-    height,
-    ...noFeatures(),
-    ...(wet ? { liquid: 'water' as const } : {}),
-    clearings: [{ x: (w / 2) * CELL, z: (h / 2) * CELL, r: Math.min(w, h) * 0.45 * CELL, role: 'start' }],
-    start: t.start,
-    packs: [],
-    chest: null,
-    secret: null,
-    buildings: t.buildings,
-    npcs: t.npcs,
-    gates: [],
-    town: t.town
   }
 }
 
@@ -721,6 +694,7 @@ export const generateEncounter = (packs: ReadonlyArray<readonly string[]>, seed:
     const side = o.escort ? (k % 2 ? 1 : -1) * c.r * 0.45 : 0
     plans.push({ x: c.x + side, z: c.z, r: c.r, kinds, finale: k === n, boss: '' })
   }
+  widenWays({ w, h, solid, kind: new Uint8Array(w * h), sealed: new Uint8Array(w * h) }, clearings[0]!, plans)
   // The caravan's road: the start, then through each clearing to the far end.
   const caravan = o.escort ? { path: clearings.flatMap(c => [c.x, c.z]) } : undefined
   return {

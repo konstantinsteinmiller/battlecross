@@ -1,5 +1,13 @@
 // French locale — mirrors the key shape of en.ts exactly.
 export default {
+  // ─── The intro (#130): its skip, and its narrator's name ───
+  intro: {
+    narrator: 'Le Chroniqueur',
+    skip: 'Passer',
+    holdKey: 'Maintenez {key} pour passer',
+    holdTouch: 'Maintenez pour passer',
+    replay: 'Revoir l’intro'
+  },
   arena: {
     allWon: 'Tous les prix mythiques sont à toi.',
     call: 'L’histoire est racontée. Prouve maintenant la valeur de ton build : grimpe aussi loin que possible et gagne les prix mythiques que personne d’autre ne peut t’offrir.',
@@ -8,6 +16,20 @@ export default {
     next: 'Prochain prix à la vague {at} : {item}',
     champion: 'Vague du champion',
     wave: 'Vague {n}'
+  },
+  sellOre: {
+    talk: 'Bon minerai, juste prix. Combien m\'en cèdes-tu ?',
+    lead: 'Choisis combien de pépites de chaque minerai vendre. Rien n\'est vendu avant d\'appuyer sur Vendre.',
+    have: 'Tu en as {n}',
+    each: '{n} or pièce',
+    none: 'Aucun',
+    all: 'Tout',
+    less: '{ore} : un de moins',
+    more: '{ore} : un de plus',
+    total: 'Tu reçois : {n} or',
+    sell: 'Vendre',
+    selectAll: 'Tout sélectionner',
+    empty: 'Tu n\'as plus de minerai à vendre.'
   },
   smith: {
     why: {
@@ -1421,38 +1443,110 @@ export default {
     smithMasterMithrilGreaves: {
       name: 'Jambières de mithril de maître'
     },
+    smithMasterAdamantGreaves: {
+      name: 'Jambières d\'adamantite de maître'
+    },
+    smithMasterAetheriteGreaves: {
+      name: 'Jambières d\'éthérite de maître'
+    },
     smithMithrilGreaves: {
       name: 'Jambières de mithril'
+    },
+    smithAdamantGreaves: {
+      name: 'Jambières d\'adamantite'
+    },
+    smithAetheriteGreaves: {
+      name: 'Jambières d\'éthérite'
     },
     smithMasterMithrilPlate: {
       name: 'Plastron de mithril de maître'
     },
+    smithMasterAdamantPlate: {
+      name: 'Plastron d\'adamantite de maître'
+    },
+    smithMasterAetheritePlate: {
+      name: 'Plastron d\'éthérite de maître'
+    },
     smithMithrilPlate: {
       name: 'Plastron de mithril'
+    },
+    smithAdamantPlate: {
+      name: 'Plastron d\'adamantite'
+    },
+    smithAetheritePlate: {
+      name: 'Plastron d\'éthérite'
     },
     smithMasterMithrilHelm: {
       name: 'Casque de mithril de maître'
     },
+    smithMasterAdamantHelm: {
+      name: 'Casque d\'adamantite de maître'
+    },
+    smithMasterAetheriteHelm: {
+      name: 'Casque d\'éthérite de maître'
+    },
     smithMithrilHelm: {
       name: 'Casque de mithril'
+    },
+    smithAdamantHelm: {
+      name: 'Casque d\'adamantite'
+    },
+    smithAetheriteHelm: {
+      name: 'Casque d\'éthérite'
     },
     smithMasterMithrilShield: {
       name: 'Bouclier de mithril de maître'
     },
+    smithMasterAdamantShield: {
+      name: 'Bouclier d\'adamantite de maître'
+    },
+    smithMasterAetheriteShield: {
+      name: 'Bouclier d\'éthérite de maître'
+    },
     smithMithrilShield: {
       name: 'Bouclier de mithril'
+    },
+    smithAdamantShield: {
+      name: 'Bouclier d\'adamantite'
+    },
+    smithAetheriteShield: {
+      name: 'Bouclier d\'éthérite'
     },
     smithMasterMithrilHammer: {
       name: 'Marteau de mithril de maître'
     },
+    smithMasterAdamantHammer: {
+      name: 'Marteau d\'adamantite de maître'
+    },
+    smithMasterAetheriteHammer: {
+      name: 'Marteau d\'éthérite de maître'
+    },
     smithMithrilHammer: {
       name: 'Marteau de mithril'
+    },
+    smithAdamantHammer: {
+      name: 'Marteau d\'adamantite'
+    },
+    smithAetheriteHammer: {
+      name: 'Marteau d\'éthérite'
     },
     smithMasterMithrilSword: {
       name: 'Épée de mithril de maître'
     },
+    smithMasterAdamantSword: {
+      name: 'Épée d\'adamantite de maître'
+    },
+    smithMasterAetheriteSword: {
+      name: 'Épée d\'éthérite de maître'
+    },
     smithMithrilSword: {
       name: 'Épée de mithril'
+    },
+    smithAdamantSword: {
+      name: 'Épée d\'adamantite'
+    },
+    smithAetheriteSword: {
+      name: 'Épée d\'éthérite'
     },
     smithMasterGoldGreaves: {
       name: 'Jambières d’or de maître'
@@ -1558,6 +1652,1086 @@ export default {
     },
     smithMasterIronSword: {
       name: 'Épée de fer de maître'
+    },
+    smithMasterDexIronSword: {
+      name: 'Dague en fer de maître · DEX'
+    },
+    smithDexIronSword: {
+      name: 'Dague en fer · DEX'
+    },
+    smithMasterDexIronHammer: {
+      name: 'Rapière en fer de maître · DEX'
+    },
+    smithDexIronHammer: {
+      name: 'Rapière en fer · DEX'
+    },
+    smithMasterDexIronShield: {
+      name: 'Rondache en fer de maître · DEX'
+    },
+    smithDexIronShield: {
+      name: 'Rondache en fer · DEX'
+    },
+    smithMasterDexIronHelm: {
+      name: 'Capuche en fer de maître · DEX'
+    },
+    smithDexIronHelm: {
+      name: 'Capuche en fer · DEX'
+    },
+    smithMasterDexIronPlate: {
+      name: 'Pourpoint en fer de maître · DEX'
+    },
+    smithDexIronPlate: {
+      name: 'Pourpoint en fer · DEX'
+    },
+    smithMasterDexIronGreaves: {
+      name: 'Bottes en fer de maître · DEX'
+    },
+    smithDexIronGreaves: {
+      name: 'Bottes en fer · DEX'
+    },
+    smithMasterDexSilverSword: {
+      name: 'Dague en argent de maître · DEX'
+    },
+    smithDexSilverSword: {
+      name: 'Dague en argent · DEX'
+    },
+    smithMasterDexSilverHammer: {
+      name: 'Rapière en argent de maître · DEX'
+    },
+    smithDexSilverHammer: {
+      name: 'Rapière en argent · DEX'
+    },
+    smithMasterDexSilverShield: {
+      name: 'Rondache en argent de maître · DEX'
+    },
+    smithDexSilverShield: {
+      name: 'Rondache en argent · DEX'
+    },
+    smithMasterDexSilverHelm: {
+      name: 'Capuche en argent de maître · DEX'
+    },
+    smithDexSilverHelm: {
+      name: 'Capuche en argent · DEX'
+    },
+    smithMasterDexSilverPlate: {
+      name: 'Pourpoint en argent de maître · DEX'
+    },
+    smithDexSilverPlate: {
+      name: 'Pourpoint en argent · DEX'
+    },
+    smithMasterDexSilverGreaves: {
+      name: 'Bottes en argent de maître · DEX'
+    },
+    smithDexSilverGreaves: {
+      name: 'Bottes en argent · DEX'
+    },
+    smithMasterDexGoldSword: {
+      name: 'Dague en or de maître · DEX'
+    },
+    smithDexGoldSword: {
+      name: 'Dague en or · DEX'
+    },
+    smithMasterDexGoldHammer: {
+      name: 'Rapière en or de maître · DEX'
+    },
+    smithDexGoldHammer: {
+      name: 'Rapière en or · DEX'
+    },
+    smithMasterDexGoldShield: {
+      name: 'Rondache en or de maître · DEX'
+    },
+    smithDexGoldShield: {
+      name: 'Rondache en or · DEX'
+    },
+    smithMasterDexGoldHelm: {
+      name: 'Capuche en or de maître · DEX'
+    },
+    smithDexGoldHelm: {
+      name: 'Capuche en or · DEX'
+    },
+    smithMasterDexGoldPlate: {
+      name: 'Pourpoint en or de maître · DEX'
+    },
+    smithDexGoldPlate: {
+      name: 'Pourpoint en or · DEX'
+    },
+    smithMasterDexGoldGreaves: {
+      name: 'Bottes en or de maître · DEX'
+    },
+    smithDexGoldGreaves: {
+      name: 'Bottes en or · DEX'
+    },
+    smithMasterDexMithrilSword: {
+      name: 'Dague en mithril de maître · DEX'
+    },
+    smithMasterDexAdamantSword: {
+      name: 'Dague en adamantite de maître · DEX'
+    },
+    smithMasterDexAetheriteSword: {
+      name: 'Dague en éthérite de maître · DEX'
+    },
+    smithDexMithrilSword: {
+      name: 'Dague en mithril · DEX'
+    },
+    smithDexAdamantSword: {
+      name: 'Dague en adamantite · DEX'
+    },
+    smithDexAetheriteSword: {
+      name: 'Dague en éthérite · DEX'
+    },
+    smithMasterDexMithrilHammer: {
+      name: 'Rapière en mithril de maître · DEX'
+    },
+    smithMasterDexAdamantHammer: {
+      name: 'Rapière en adamantite de maître · DEX'
+    },
+    smithMasterDexAetheriteHammer: {
+      name: 'Rapière en éthérite de maître · DEX'
+    },
+    smithDexMithrilHammer: {
+      name: 'Rapière en mithril · DEX'
+    },
+    smithDexAdamantHammer: {
+      name: 'Rapière en adamantite · DEX'
+    },
+    smithDexAetheriteHammer: {
+      name: 'Rapière en éthérite · DEX'
+    },
+    smithMasterDexMithrilShield: {
+      name: 'Rondache en mithril de maître · DEX'
+    },
+    smithMasterDexAdamantShield: {
+      name: 'Rondache en adamantite de maître · DEX'
+    },
+    smithMasterDexAetheriteShield: {
+      name: 'Rondache en éthérite de maître · DEX'
+    },
+    smithDexMithrilShield: {
+      name: 'Rondache en mithril · DEX'
+    },
+    smithDexAdamantShield: {
+      name: 'Rondache en adamantite · DEX'
+    },
+    smithDexAetheriteShield: {
+      name: 'Rondache en éthérite · DEX'
+    },
+    smithMasterDexMithrilHelm: {
+      name: 'Capuche en mithril de maître · DEX'
+    },
+    smithMasterDexAdamantHelm: {
+      name: 'Capuche en adamantite de maître · DEX'
+    },
+    smithMasterDexAetheriteHelm: {
+      name: 'Capuche en éthérite de maître · DEX'
+    },
+    smithDexMithrilHelm: {
+      name: 'Capuche en mithril · DEX'
+    },
+    smithDexAdamantHelm: {
+      name: 'Capuche en adamantite · DEX'
+    },
+    smithDexAetheriteHelm: {
+      name: 'Capuche en éthérite · DEX'
+    },
+    smithMasterDexMithrilPlate: {
+      name: 'Pourpoint en mithril de maître · DEX'
+    },
+    smithMasterDexAdamantPlate: {
+      name: 'Pourpoint en adamantite de maître · DEX'
+    },
+    smithMasterDexAetheritePlate: {
+      name: 'Pourpoint en éthérite de maître · DEX'
+    },
+    smithDexMithrilPlate: {
+      name: 'Pourpoint en mithril · DEX'
+    },
+    smithDexAdamantPlate: {
+      name: 'Pourpoint en adamantite · DEX'
+    },
+    smithDexAetheritePlate: {
+      name: 'Pourpoint en éthérite · DEX'
+    },
+    smithMasterDexMithrilGreaves: {
+      name: 'Bottes en mithril de maître · DEX'
+    },
+    smithMasterDexAdamantGreaves: {
+      name: 'Bottes en adamantite de maître · DEX'
+    },
+    smithMasterDexAetheriteGreaves: {
+      name: 'Bottes en éthérite de maître · DEX'
+    },
+    smithDexMithrilGreaves: {
+      name: 'Bottes en mithril · DEX'
+    },
+    smithDexAdamantGreaves: {
+      name: 'Bottes en adamantite · DEX'
+    },
+    smithDexAetheriteGreaves: {
+      name: 'Bottes en éthérite · DEX'
+    },
+    smithMasterIntIronSword: {
+      name: 'Baguette en fer de maître · INT'
+    },
+    smithIntIronSword: {
+      name: 'Baguette en fer · INT'
+    },
+    smithMasterIntIronHammer: {
+      name: 'Bâton en fer de maître · INT'
+    },
+    smithIntIronHammer: {
+      name: 'Bâton en fer · INT'
+    },
+    smithMasterIntIronShield: {
+      name: 'Grimoire en fer de maître · INT'
+    },
+    smithIntIronShield: {
+      name: 'Grimoire en fer · INT'
+    },
+    smithMasterIntIronHelm: {
+      name: 'Diadème en fer de maître · INT'
+    },
+    smithIntIronHelm: {
+      name: 'Diadème en fer · INT'
+    },
+    smithMasterIntIronPlate: {
+      name: 'Robe en fer de maître · INT'
+    },
+    smithIntIronPlate: {
+      name: 'Robe en fer · INT'
+    },
+    smithMasterIntIronGreaves: {
+      name: 'Bottes en fer de maître · INT'
+    },
+    smithIntIronGreaves: {
+      name: 'Bottes en fer · INT'
+    },
+    smithMasterIntSilverSword: {
+      name: 'Baguette en argent de maître · INT'
+    },
+    smithIntSilverSword: {
+      name: 'Baguette en argent · INT'
+    },
+    smithMasterIntSilverHammer: {
+      name: 'Bâton en argent de maître · INT'
+    },
+    smithIntSilverHammer: {
+      name: 'Bâton en argent · INT'
+    },
+    smithMasterIntSilverShield: {
+      name: 'Grimoire en argent de maître · INT'
+    },
+    smithIntSilverShield: {
+      name: 'Grimoire en argent · INT'
+    },
+    smithMasterIntSilverHelm: {
+      name: 'Diadème en argent de maître · INT'
+    },
+    smithIntSilverHelm: {
+      name: 'Diadème en argent · INT'
+    },
+    smithMasterIntSilverPlate: {
+      name: 'Robe en argent de maître · INT'
+    },
+    smithIntSilverPlate: {
+      name: 'Robe en argent · INT'
+    },
+    smithMasterIntSilverGreaves: {
+      name: 'Bottes en argent de maître · INT'
+    },
+    smithIntSilverGreaves: {
+      name: 'Bottes en argent · INT'
+    },
+    smithMasterIntGoldSword: {
+      name: 'Baguette en or de maître · INT'
+    },
+    smithIntGoldSword: {
+      name: 'Baguette en or · INT'
+    },
+    smithMasterIntGoldHammer: {
+      name: 'Bâton en or de maître · INT'
+    },
+    smithIntGoldHammer: {
+      name: 'Bâton en or · INT'
+    },
+    smithMasterIntGoldShield: {
+      name: 'Grimoire en or de maître · INT'
+    },
+    smithIntGoldShield: {
+      name: 'Grimoire en or · INT'
+    },
+    smithMasterIntGoldHelm: {
+      name: 'Diadème en or de maître · INT'
+    },
+    smithIntGoldHelm: {
+      name: 'Diadème en or · INT'
+    },
+    smithMasterIntGoldPlate: {
+      name: 'Robe en or de maître · INT'
+    },
+    smithIntGoldPlate: {
+      name: 'Robe en or · INT'
+    },
+    smithMasterIntGoldGreaves: {
+      name: 'Bottes en or de maître · INT'
+    },
+    smithIntGoldGreaves: {
+      name: 'Bottes en or · INT'
+    },
+    smithMasterIntMithrilSword: {
+      name: 'Baguette en mithril de maître · INT'
+    },
+    smithMasterIntAdamantSword: {
+      name: 'Baguette en adamantite de maître · INT'
+    },
+    smithMasterIntAetheriteSword: {
+      name: 'Baguette en éthérite de maître · INT'
+    },
+    smithIntMithrilSword: {
+      name: 'Baguette en mithril · INT'
+    },
+    smithIntAdamantSword: {
+      name: 'Baguette en adamantite · INT'
+    },
+    smithIntAetheriteSword: {
+      name: 'Baguette en éthérite · INT'
+    },
+    smithMasterIntMithrilHammer: {
+      name: 'Bâton en mithril de maître · INT'
+    },
+    smithMasterIntAdamantHammer: {
+      name: 'Bâton en adamantite de maître · INT'
+    },
+    smithMasterIntAetheriteHammer: {
+      name: 'Bâton en éthérite de maître · INT'
+    },
+    smithIntMithrilHammer: {
+      name: 'Bâton en mithril · INT'
+    },
+    smithIntAdamantHammer: {
+      name: 'Bâton en adamantite · INT'
+    },
+    smithIntAetheriteHammer: {
+      name: 'Bâton en éthérite · INT'
+    },
+    smithMasterIntMithrilShield: {
+      name: 'Grimoire en mithril de maître · INT'
+    },
+    smithMasterIntAdamantShield: {
+      name: 'Grimoire en adamantite de maître · INT'
+    },
+    smithMasterIntAetheriteShield: {
+      name: 'Grimoire en éthérite de maître · INT'
+    },
+    smithIntMithrilShield: {
+      name: 'Grimoire en mithril · INT'
+    },
+    smithIntAdamantShield: {
+      name: 'Grimoire en adamantite · INT'
+    },
+    smithIntAetheriteShield: {
+      name: 'Grimoire en éthérite · INT'
+    },
+    smithMasterIntMithrilHelm: {
+      name: 'Diadème en mithril de maître · INT'
+    },
+    smithMasterIntAdamantHelm: {
+      name: 'Diadème en adamantite de maître · INT'
+    },
+    smithMasterIntAetheriteHelm: {
+      name: 'Diadème en éthérite de maître · INT'
+    },
+    smithIntMithrilHelm: {
+      name: 'Diadème en mithril · INT'
+    },
+    smithIntAdamantHelm: {
+      name: 'Diadème en adamantite · INT'
+    },
+    smithIntAetheriteHelm: {
+      name: 'Diadème en éthérite · INT'
+    },
+    smithMasterIntMithrilPlate: {
+      name: 'Robe en mithril de maître · INT'
+    },
+    smithMasterIntAdamantPlate: {
+      name: 'Robe en adamantite de maître · INT'
+    },
+    smithMasterIntAetheritePlate: {
+      name: 'Robe en éthérite de maître · INT'
+    },
+    smithIntMithrilPlate: {
+      name: 'Robe en mithril · INT'
+    },
+    smithIntAdamantPlate: {
+      name: 'Robe en adamantite · INT'
+    },
+    smithIntAetheritePlate: {
+      name: 'Robe en éthérite · INT'
+    },
+    smithMasterIntMithrilGreaves: {
+      name: 'Bottes en mithril de maître · INT'
+    },
+    smithMasterIntAdamantGreaves: {
+      name: 'Bottes en adamantite de maître · INT'
+    },
+    smithMasterIntAetheriteGreaves: {
+      name: 'Bottes en éthérite de maître · INT'
+    },
+    smithIntMithrilGreaves: {
+      name: 'Bottes en mithril · INT'
+    },
+    smithIntAdamantGreaves: {
+      name: 'Bottes en adamantite · INT'
+    },
+    smithIntAetheriteGreaves: {
+      name: 'Bottes en éthérite · INT'
+    },
+    smithMasterSklIronSword: {
+      name: 'Pistolet en fer de maître · TEC'
+    },
+    smithSklIronSword: {
+      name: 'Pistolet en fer · TEC'
+    },
+    smithMasterSklIronHammer: {
+      name: 'Fusil en fer de maître · TEC'
+    },
+    smithSklIronHammer: {
+      name: 'Fusil en fer · TEC'
+    },
+    smithMasterSklIronShield: {
+      name: 'Batterie en fer de maître · TEC'
+    },
+    smithSklIronShield: {
+      name: 'Batterie en fer · TEC'
+    },
+    smithMasterSklIronHelm: {
+      name: 'Bonnet en fer de maître · TEC'
+    },
+    smithSklIronHelm: {
+      name: 'Bonnet en fer · TEC'
+    },
+    smithMasterSklIronPlate: {
+      name: 'Harnais en fer de maître · TEC'
+    },
+    smithSklIronPlate: {
+      name: 'Harnais en fer · TEC'
+    },
+    smithMasterSklIronGreaves: {
+      name: 'Bottes en fer de maître · TEC'
+    },
+    smithSklIronGreaves: {
+      name: 'Bottes en fer · TEC'
+    },
+    smithMasterSklSilverSword: {
+      name: 'Pistolet en argent de maître · TEC'
+    },
+    smithSklSilverSword: {
+      name: 'Pistolet en argent · TEC'
+    },
+    smithMasterSklSilverHammer: {
+      name: 'Fusil en argent de maître · TEC'
+    },
+    smithSklSilverHammer: {
+      name: 'Fusil en argent · TEC'
+    },
+    smithMasterSklSilverShield: {
+      name: 'Batterie en argent de maître · TEC'
+    },
+    smithSklSilverShield: {
+      name: 'Batterie en argent · TEC'
+    },
+    smithMasterSklSilverHelm: {
+      name: 'Bonnet en argent de maître · TEC'
+    },
+    smithSklSilverHelm: {
+      name: 'Bonnet en argent · TEC'
+    },
+    smithMasterSklSilverPlate: {
+      name: 'Harnais en argent de maître · TEC'
+    },
+    smithSklSilverPlate: {
+      name: 'Harnais en argent · TEC'
+    },
+    smithMasterSklSilverGreaves: {
+      name: 'Bottes en argent de maître · TEC'
+    },
+    smithSklSilverGreaves: {
+      name: 'Bottes en argent · TEC'
+    },
+    smithMasterSklGoldSword: {
+      name: 'Pistolet en or de maître · TEC'
+    },
+    smithSklGoldSword: {
+      name: 'Pistolet en or · TEC'
+    },
+    smithMasterSklGoldHammer: {
+      name: 'Fusil en or de maître · TEC'
+    },
+    smithSklGoldHammer: {
+      name: 'Fusil en or · TEC'
+    },
+    smithMasterSklGoldShield: {
+      name: 'Batterie en or de maître · TEC'
+    },
+    smithSklGoldShield: {
+      name: 'Batterie en or · TEC'
+    },
+    smithMasterSklGoldHelm: {
+      name: 'Bonnet en or de maître · TEC'
+    },
+    smithSklGoldHelm: {
+      name: 'Bonnet en or · TEC'
+    },
+    smithMasterSklGoldPlate: {
+      name: 'Harnais en or de maître · TEC'
+    },
+    smithSklGoldPlate: {
+      name: 'Harnais en or · TEC'
+    },
+    smithMasterSklGoldGreaves: {
+      name: 'Bottes en or de maître · TEC'
+    },
+    smithSklGoldGreaves: {
+      name: 'Bottes en or · TEC'
+    },
+    smithMasterSklMithrilSword: {
+      name: 'Pistolet en mithril de maître · TEC'
+    },
+    smithMasterSklAdamantSword: {
+      name: 'Pistolet en adamantite de maître · TEC'
+    },
+    smithMasterSklAetheriteSword: {
+      name: 'Pistolet en éthérite de maître · TEC'
+    },
+    smithSklMithrilSword: {
+      name: 'Pistolet en mithril · TEC'
+    },
+    smithSklAdamantSword: {
+      name: 'Pistolet en adamantite · TEC'
+    },
+    smithSklAetheriteSword: {
+      name: 'Pistolet en éthérite · TEC'
+    },
+    smithMasterSklMithrilHammer: {
+      name: 'Fusil en mithril de maître · TEC'
+    },
+    smithMasterSklAdamantHammer: {
+      name: 'Fusil en adamantite de maître · TEC'
+    },
+    smithMasterSklAetheriteHammer: {
+      name: 'Fusil en éthérite de maître · TEC'
+    },
+    smithSklMithrilHammer: {
+      name: 'Fusil en mithril · TEC'
+    },
+    smithSklAdamantHammer: {
+      name: 'Fusil en adamantite · TEC'
+    },
+    smithSklAetheriteHammer: {
+      name: 'Fusil en éthérite · TEC'
+    },
+    smithMasterSklMithrilShield: {
+      name: 'Batterie en mithril de maître · TEC'
+    },
+    smithMasterSklAdamantShield: {
+      name: 'Batterie en adamantite de maître · TEC'
+    },
+    smithMasterSklAetheriteShield: {
+      name: 'Batterie en éthérite de maître · TEC'
+    },
+    smithSklMithrilShield: {
+      name: 'Batterie en mithril · TEC'
+    },
+    smithSklAdamantShield: {
+      name: 'Batterie en adamantite · TEC'
+    },
+    smithSklAetheriteShield: {
+      name: 'Batterie en éthérite · TEC'
+    },
+    smithMasterSklMithrilHelm: {
+      name: 'Bonnet en mithril de maître · TEC'
+    },
+    smithMasterSklAdamantHelm: {
+      name: 'Bonnet en adamantite de maître · TEC'
+    },
+    smithMasterSklAetheriteHelm: {
+      name: 'Bonnet en éthérite de maître · TEC'
+    },
+    smithSklMithrilHelm: {
+      name: 'Bonnet en mithril · TEC'
+    },
+    smithSklAdamantHelm: {
+      name: 'Bonnet en adamantite · TEC'
+    },
+    smithSklAetheriteHelm: {
+      name: 'Bonnet en éthérite · TEC'
+    },
+    smithMasterSklMithrilPlate: {
+      name: 'Harnais en mithril de maître · TEC'
+    },
+    smithMasterSklAdamantPlate: {
+      name: 'Harnais en adamantite de maître · TEC'
+    },
+    smithMasterSklAetheritePlate: {
+      name: 'Harnais en éthérite de maître · TEC'
+    },
+    smithSklMithrilPlate: {
+      name: 'Harnais en mithril · TEC'
+    },
+    smithSklAdamantPlate: {
+      name: 'Harnais en adamantite · TEC'
+    },
+    smithSklAetheritePlate: {
+      name: 'Harnais en éthérite · TEC'
+    },
+    smithMasterSklMithrilGreaves: {
+      name: 'Bottes en mithril de maître · TEC'
+    },
+    smithMasterSklAdamantGreaves: {
+      name: 'Bottes en adamantite de maître · TEC'
+    },
+    smithMasterSklAetheriteGreaves: {
+      name: 'Bottes en éthérite de maître · TEC'
+    },
+    smithSklMithrilGreaves: {
+      name: 'Bottes en mithril · TEC'
+    },
+    smithSklAdamantGreaves: {
+      name: 'Bottes en adamantite · TEC'
+    },
+    smithSklAetheriteGreaves: {
+      name: 'Bottes en éthérite · TEC'
+    },
+    smithMasterChaIronSword: {
+      name: 'Sceptre en fer de maître · CHA'
+    },
+    smithChaIronSword: {
+      name: 'Sceptre en fer · CHA'
+    },
+    smithMasterChaIronHammer: {
+      name: 'Bannière en fer de maître · CHA'
+    },
+    smithChaIronHammer: {
+      name: 'Bannière en fer · CHA'
+    },
+    smithMasterChaIronShield: {
+      name: 'Codex en fer de maître · CHA'
+    },
+    smithChaIronShield: {
+      name: 'Codex en fer · CHA'
+    },
+    smithMasterChaIronHelm: {
+      name: 'Couronne en fer de maître · CHA'
+    },
+    smithChaIronHelm: {
+      name: 'Couronne en fer · CHA'
+    },
+    smithMasterChaIronPlate: {
+      name: 'Tabard en fer de maître · CHA'
+    },
+    smithChaIronPlate: {
+      name: 'Tabard en fer · CHA'
+    },
+    smithMasterChaIronGreaves: {
+      name: 'Bottes en fer de maître · CHA'
+    },
+    smithChaIronGreaves: {
+      name: 'Bottes en fer · CHA'
+    },
+    smithMasterChaSilverSword: {
+      name: 'Sceptre en argent de maître · CHA'
+    },
+    smithChaSilverSword: {
+      name: 'Sceptre en argent · CHA'
+    },
+    smithMasterChaSilverHammer: {
+      name: 'Bannière en argent de maître · CHA'
+    },
+    smithChaSilverHammer: {
+      name: 'Bannière en argent · CHA'
+    },
+    smithMasterChaSilverShield: {
+      name: 'Codex en argent de maître · CHA'
+    },
+    smithChaSilverShield: {
+      name: 'Codex en argent · CHA'
+    },
+    smithMasterChaSilverHelm: {
+      name: 'Couronne en argent de maître · CHA'
+    },
+    smithChaSilverHelm: {
+      name: 'Couronne en argent · CHA'
+    },
+    smithMasterChaSilverPlate: {
+      name: 'Tabard en argent de maître · CHA'
+    },
+    smithChaSilverPlate: {
+      name: 'Tabard en argent · CHA'
+    },
+    smithMasterChaSilverGreaves: {
+      name: 'Bottes en argent de maître · CHA'
+    },
+    smithChaSilverGreaves: {
+      name: 'Bottes en argent · CHA'
+    },
+    smithMasterChaGoldSword: {
+      name: 'Sceptre en or de maître · CHA'
+    },
+    smithChaGoldSword: {
+      name: 'Sceptre en or · CHA'
+    },
+    smithMasterChaGoldHammer: {
+      name: 'Bannière en or de maître · CHA'
+    },
+    smithChaGoldHammer: {
+      name: 'Bannière en or · CHA'
+    },
+    smithMasterChaGoldShield: {
+      name: 'Codex en or de maître · CHA'
+    },
+    smithChaGoldShield: {
+      name: 'Codex en or · CHA'
+    },
+    smithMasterChaGoldHelm: {
+      name: 'Couronne en or de maître · CHA'
+    },
+    smithChaGoldHelm: {
+      name: 'Couronne en or · CHA'
+    },
+    smithMasterChaGoldPlate: {
+      name: 'Tabard en or de maître · CHA'
+    },
+    smithChaGoldPlate: {
+      name: 'Tabard en or · CHA'
+    },
+    smithMasterChaGoldGreaves: {
+      name: 'Bottes en or de maître · CHA'
+    },
+    smithChaGoldGreaves: {
+      name: 'Bottes en or · CHA'
+    },
+    smithMasterChaMithrilSword: {
+      name: 'Sceptre en mithril de maître · CHA'
+    },
+    smithMasterChaAdamantSword: {
+      name: 'Sceptre en adamantite de maître · CHA'
+    },
+    smithMasterChaAetheriteSword: {
+      name: 'Sceptre en éthérite de maître · CHA'
+    },
+    smithChaMithrilSword: {
+      name: 'Sceptre en mithril · CHA'
+    },
+    smithChaAdamantSword: {
+      name: 'Sceptre en adamantite · CHA'
+    },
+    smithChaAetheriteSword: {
+      name: 'Sceptre en éthérite · CHA'
+    },
+    smithMasterChaMithrilHammer: {
+      name: 'Bannière en mithril de maître · CHA'
+    },
+    smithMasterChaAdamantHammer: {
+      name: 'Bannière en adamantite de maître · CHA'
+    },
+    smithMasterChaAetheriteHammer: {
+      name: 'Bannière en éthérite de maître · CHA'
+    },
+    smithChaMithrilHammer: {
+      name: 'Bannière en mithril · CHA'
+    },
+    smithChaAdamantHammer: {
+      name: 'Bannière en adamantite · CHA'
+    },
+    smithChaAetheriteHammer: {
+      name: 'Bannière en éthérite · CHA'
+    },
+    smithMasterChaMithrilShield: {
+      name: 'Codex en mithril de maître · CHA'
+    },
+    smithMasterChaAdamantShield: {
+      name: 'Codex en adamantite de maître · CHA'
+    },
+    smithMasterChaAetheriteShield: {
+      name: 'Codex en éthérite de maître · CHA'
+    },
+    smithChaMithrilShield: {
+      name: 'Codex en mithril · CHA'
+    },
+    smithChaAdamantShield: {
+      name: 'Codex en adamantite · CHA'
+    },
+    smithChaAetheriteShield: {
+      name: 'Codex en éthérite · CHA'
+    },
+    smithMasterChaMithrilHelm: {
+      name: 'Couronne en mithril de maître · CHA'
+    },
+    smithMasterChaAdamantHelm: {
+      name: 'Couronne en adamantite de maître · CHA'
+    },
+    smithMasterChaAetheriteHelm: {
+      name: 'Couronne en éthérite de maître · CHA'
+    },
+    smithChaMithrilHelm: {
+      name: 'Couronne en mithril · CHA'
+    },
+    smithChaAdamantHelm: {
+      name: 'Couronne en adamantite · CHA'
+    },
+    smithChaAetheriteHelm: {
+      name: 'Couronne en éthérite · CHA'
+    },
+    smithMasterChaMithrilPlate: {
+      name: 'Tabard en mithril de maître · CHA'
+    },
+    smithMasterChaAdamantPlate: {
+      name: 'Tabard en adamantite de maître · CHA'
+    },
+    smithMasterChaAetheritePlate: {
+      name: 'Tabard en éthérite de maître · CHA'
+    },
+    smithChaMithrilPlate: {
+      name: 'Tabard en mithril · CHA'
+    },
+    smithChaAdamantPlate: {
+      name: 'Tabard en adamantite · CHA'
+    },
+    smithChaAetheritePlate: {
+      name: 'Tabard en éthérite · CHA'
+    },
+    smithMasterChaMithrilGreaves: {
+      name: 'Bottes en mithril de maître · CHA'
+    },
+    smithMasterChaAdamantGreaves: {
+      name: 'Bottes en adamantite de maître · CHA'
+    },
+    smithMasterChaAetheriteGreaves: {
+      name: 'Bottes en éthérite de maître · CHA'
+    },
+    smithChaMithrilGreaves: {
+      name: 'Bottes en mithril · CHA'
+    },
+    smithChaAdamantGreaves: {
+      name: 'Bottes en adamantite · CHA'
+    },
+    smithChaAetheriteGreaves: {
+      name: 'Bottes en éthérite · CHA'
+    },
+    smithMasterEndIronSword: {
+      name: 'Masse en fer de maître · END'
+    },
+    smithEndIronSword: {
+      name: 'Masse en fer · END'
+    },
+    smithMasterEndIronHammer: {
+      name: 'Hache en fer de maître · END'
+    },
+    smithEndIronHammer: {
+      name: 'Hache en fer · END'
+    },
+    smithMasterEndIronShield: {
+      name: 'Bouclier de fer de maître · END'
+    },
+    smithEndIronShield: {
+      name: 'Bouclier de fer · END'
+    },
+    smithMasterEndIronHelm: {
+      name: 'Casque de fer de maître · END'
+    },
+    smithEndIronHelm: {
+      name: 'Casque de fer · END'
+    },
+    smithMasterEndIronPlate: {
+      name: 'Plastron de fer de maître · END'
+    },
+    smithEndIronPlate: {
+      name: 'Plastron de fer · END'
+    },
+    smithMasterEndIronGreaves: {
+      name: 'Jambières de fer de maître · END'
+    },
+    smithEndIronGreaves: {
+      name: 'Jambières de fer · END'
+    },
+    smithMasterEndSilverSword: {
+      name: 'Masse en argent de maître · END'
+    },
+    smithEndSilverSword: {
+      name: 'Masse en argent · END'
+    },
+    smithMasterEndSilverHammer: {
+      name: 'Hache en argent de maître · END'
+    },
+    smithEndSilverHammer: {
+      name: 'Hache en argent · END'
+    },
+    smithMasterEndSilverShield: {
+      name: 'Bouclier d’argent de maître · END'
+    },
+    smithEndSilverShield: {
+      name: 'Bouclier d’argent · END'
+    },
+    smithMasterEndSilverHelm: {
+      name: 'Casque d’argent de maître · END'
+    },
+    smithEndSilverHelm: {
+      name: 'Casque d’argent · END'
+    },
+    smithMasterEndSilverPlate: {
+      name: 'Plastron d’argent de maître · END'
+    },
+    smithEndSilverPlate: {
+      name: 'Plastron d’argent · END'
+    },
+    smithMasterEndSilverGreaves: {
+      name: 'Jambières d’argent de maître · END'
+    },
+    smithEndSilverGreaves: {
+      name: 'Jambières d’argent · END'
+    },
+    smithMasterEndGoldSword: {
+      name: 'Masse en or de maître · END'
+    },
+    smithEndGoldSword: {
+      name: 'Masse en or · END'
+    },
+    smithMasterEndGoldHammer: {
+      name: 'Hache en or de maître · END'
+    },
+    smithEndGoldHammer: {
+      name: 'Hache en or · END'
+    },
+    smithMasterEndGoldShield: {
+      name: 'Bouclier d’or de maître · END'
+    },
+    smithEndGoldShield: {
+      name: 'Bouclier d’or · END'
+    },
+    smithMasterEndGoldHelm: {
+      name: 'Casque d’or de maître · END'
+    },
+    smithEndGoldHelm: {
+      name: 'Casque d’or · END'
+    },
+    smithMasterEndGoldPlate: {
+      name: 'Plastron d’or de maître · END'
+    },
+    smithEndGoldPlate: {
+      name: 'Plastron d’or · END'
+    },
+    smithMasterEndGoldGreaves: {
+      name: 'Jambières d’or de maître · END'
+    },
+    smithEndGoldGreaves: {
+      name: 'Jambières d’or · END'
+    },
+    smithMasterEndMithrilSword: {
+      name: 'Masse en mithril de maître · END'
+    },
+    smithMasterEndAdamantSword: {
+      name: 'Masse en adamantite de maître · END'
+    },
+    smithMasterEndAetheriteSword: {
+      name: 'Masse en éthérite de maître · END'
+    },
+    smithEndMithrilSword: {
+      name: 'Masse en mithril · END'
+    },
+    smithEndAdamantSword: {
+      name: 'Masse en adamantite · END'
+    },
+    smithEndAetheriteSword: {
+      name: 'Masse en éthérite · END'
+    },
+    smithMasterEndMithrilHammer: {
+      name: 'Hache en mithril de maître · END'
+    },
+    smithMasterEndAdamantHammer: {
+      name: 'Hache en adamantite de maître · END'
+    },
+    smithMasterEndAetheriteHammer: {
+      name: 'Hache en éthérite de maître · END'
+    },
+    smithEndMithrilHammer: {
+      name: 'Hache en mithril · END'
+    },
+    smithEndAdamantHammer: {
+      name: 'Hache en adamantite · END'
+    },
+    smithEndAetheriteHammer: {
+      name: 'Hache en éthérite · END'
+    },
+    smithMasterEndMithrilShield: {
+      name: 'Bouclier de mithril de maître · END'
+    },
+    smithMasterEndAdamantShield: {
+      name: 'Bouclier d\'adamantite de maître · END'
+    },
+    smithMasterEndAetheriteShield: {
+      name: 'Bouclier d\'éthérite de maître · END'
+    },
+    smithEndMithrilShield: {
+      name: 'Bouclier de mithril · END'
+    },
+    smithEndAdamantShield: {
+      name: 'Bouclier d\'adamantite · END'
+    },
+    smithEndAetheriteShield: {
+      name: 'Bouclier d\'éthérite · END'
+    },
+    smithMasterEndMithrilHelm: {
+      name: 'Casque de mithril de maître · END'
+    },
+    smithMasterEndAdamantHelm: {
+      name: 'Casque d\'adamantite de maître · END'
+    },
+    smithMasterEndAetheriteHelm: {
+      name: 'Casque d\'éthérite de maître · END'
+    },
+    smithEndMithrilHelm: {
+      name: 'Casque de mithril · END'
+    },
+    smithEndAdamantHelm: {
+      name: 'Casque d\'adamantite · END'
+    },
+    smithEndAetheriteHelm: {
+      name: 'Casque d\'éthérite · END'
+    },
+    smithMasterEndMithrilPlate: {
+      name: 'Plastron de mithril de maître · END'
+    },
+    smithMasterEndAdamantPlate: {
+      name: 'Plastron d\'adamantite de maître · END'
+    },
+    smithMasterEndAetheritePlate: {
+      name: 'Plastron d\'éthérite de maître · END'
+    },
+    smithEndMithrilPlate: {
+      name: 'Plastron de mithril · END'
+    },
+    smithEndAdamantPlate: {
+      name: 'Plastron d\'adamantite · END'
+    },
+    smithEndAetheritePlate: {
+      name: 'Plastron d\'éthérite · END'
+    },
+    smithMasterEndMithrilGreaves: {
+      name: 'Jambières de mithril de maître · END'
+    },
+    smithMasterEndAdamantGreaves: {
+      name: 'Jambières d\'adamantite de maître · END'
+    },
+    smithMasterEndAetheriteGreaves: {
+      name: 'Jambières d\'éthérite de maître · END'
+    },
+    smithEndMithrilGreaves: {
+      name: 'Jambières de mithril · END'
+    },
+    smithEndAdamantGreaves: {
+      name: 'Jambières d\'adamantite · END'
+    },
+    smithEndAetheriteGreaves: {
+      name: 'Jambières d\'éthérite · END'
     },
     smithIronSword: {
       name: 'Épée de fer'
@@ -1778,6 +2952,414 @@ export default {
     scepterOfTheFirstKing: {
       name: 'Sceptre du premier roi'
     },
+    pickpocketsKnife: {
+      name: 'Couteau du pickpocket'
+    },
+    serpentsFang: {
+      name: 'Croc de serpent'
+    },
+    phantomRapier: {
+      name: 'Rapière fantôme'
+    },
+    fangOfTheWindless: {
+      name: 'Croc du Sans-Vent'
+    },
+    roguesBuckler: {
+      name: 'Targe du voleur'
+    },
+    venomVial: {
+      name: 'Fiole de venin'
+    },
+    swiftguardBuckler: {
+      name: 'Targe de la garde vive'
+    },
+    nightshadeFlask: {
+      name: 'Flasque de belladone'
+    },
+    windveilTarge: {
+      name: 'Rondache du voile de vent'
+    },
+    shadowdancersBuckler: {
+      name: 'Targe du danseur d\'ombre'
+    },
+    scoutsBandana: {
+      name: 'Bandana d\'éclaireur'
+    },
+    nightcowl: {
+      name: 'Capuche de nuit'
+    },
+    shadowveilHood: {
+      name: 'Capuche du voile d\'ombre'
+    },
+    windrunnersCap: {
+      name: 'Casquette du coureur de vent'
+    },
+    maskOfTheSilentWind: {
+      name: 'Masque du vent silencieux'
+    },
+    rangersJerkin: {
+      name: 'Pourpoint de rôdeur'
+    },
+    nightstalkerLeathers: {
+      name: 'Cuirs du traqueur nocturne'
+    },
+    windridersHarness: {
+      name: 'Harnais du cavalier des vents'
+    },
+    mantleOfTheShadowDancer: {
+      name: 'Manteau du danseur d\'ombre'
+    },
+    thiefsGloves: {
+      name: 'Gants de voleur'
+    },
+    cutpurseGloves: {
+      name: 'Gants de coupe-bourse'
+    },
+    glovesOfTheGale: {
+      name: 'Gants de la bourrasque'
+    },
+    softSoledShoes: {
+      name: 'Souliers à semelle souple'
+    },
+    catStepBoots: {
+      name: 'Bottes pas de chat'
+    },
+    shadowstepBoots: {
+      name: 'Bottes pas d\'ombre'
+    },
+    windstrideBoots: {
+      name: 'Bottes foulée de vent'
+    },
+    luckyCoin: {
+      name: 'Pièce porte-bonheur'
+    },
+    shadowBand: {
+      name: 'Anneau d\'ombre'
+    },
+    sandglassOfTheSwift: {
+      name: 'Sablier du preste'
+    },
+    talonCharm: {
+      name: 'Amulette de serre'
+    },
+    windheart: {
+      name: 'Cœur de vent'
+    },
+    ashwallHeater: {
+      name: 'Écu de Murcendre'
+    },
+    wyrmhidePavise: {
+      name: 'Pavois en peau de wyrm'
+    },
+    footmansKettleHat: {
+      name: 'Chapeau de fer du fantassin'
+    },
+    ironbrowSallet: {
+      name: 'Salade à sourcils de fer'
+    },
+    warlordsBarbute: {
+      name: 'Barbute du seigneur de guerre'
+    },
+    helmOfTheSunderedThrone: {
+      name: 'Heaume du trône brisé'
+    },
+    recruitsCuirass: {
+      name: 'Cuirasse de recrue'
+    },
+    stonecuttersMitts: {
+      name: 'Moufles du tailleur de pierre'
+    },
+    ashforgedGauntlets: {
+      name: 'Gantelets forgés dans la cendre'
+    },
+    warbringerGauntlets: {
+      name: 'Gantelets du porte-guerre'
+    },
+    titanfistGauntlets: {
+      name: 'Gantelets poing-de-titan'
+    },
+    footmansGreaves: {
+      name: 'Jambières du fantassin'
+    },
+    ironshodGreaves: {
+      name: 'Jambières ferrées'
+    },
+    warlordsSabatons: {
+      name: 'Solerets du seigneur de guerre'
+    },
+    greavesOfTheMountainfall: {
+      name: 'Jambières de l\'éboulement'
+    },
+    sergeantsSignet: {
+      name: 'Chevalière du sergent'
+    },
+    brawlersKnuckleRing: {
+      name: 'Poing américain du bagarreur'
+    },
+    bloodiedWarMedal: {
+      name: 'Médaille de guerre ensanglantée'
+    },
+    watchmansCudgel: {
+      name: 'Gourdin du guetteur'
+    },
+    ironboundMace: {
+      name: 'Masse cerclée de fer'
+    },
+    stonehideCleaver: {
+      name: 'Fendoir en peau de pierre'
+    },
+    bulwarkMaul: {
+      name: 'Maillet du rempart'
+    },
+    mountainsplitterAxe: {
+      name: 'Hache fend-montagne'
+    },
+    everstandWarmace: {
+      name: 'Masse de guerre inébranlable'
+    },
+    emberwallBastion: {
+      name: 'Bastion du mur de braise'
+    },
+    stonewardenHelm: {
+      name: 'Heaume du gardien de pierre'
+    },
+    colossusVisage: {
+      name: 'Visage du colosse'
+    },
+    diggersGauntlets: {
+      name: 'Gantelets du terrassier'
+    },
+    bastionGauntlets: {
+      name: 'Gantelets du bastion'
+    },
+    glacierplateGauntlets: {
+      name: 'Gantelets en plaques de glacier'
+    },
+    gauntletsOfEndlessVigil: {
+      name: 'Gantelets de la veille éternelle'
+    },
+    hearthstoneCharm: {
+      name: 'Amulette de pierre du foyer'
+    },
+    ironheartPendant: {
+      name: 'Pendentif cœur-de-fer'
+    },
+    hedgewizardsWand: {
+      name: 'Baguette du sorcier de haie'
+    },
+    frostglassStaff: {
+      name: 'Bâton de verre de givre'
+    },
+    voidthreadWand: {
+      name: 'Baguette de fil du vide'
+    },
+    staffOfTheStarlessSky: {
+      name: 'Bâton du ciel sans étoiles'
+    },
+    studentsGrimoire: {
+      name: 'Grimoire de l\'élève'
+    },
+    frostfireOrb: {
+      name: 'Orbe de givre-feu'
+    },
+    orbOfTheUnwrittenHour: {
+      name: 'Orbe de l\'heure non écrite'
+    },
+    apprenticesPointedCap: {
+      name: 'Bonnet pointu de l\'apprenti'
+    },
+    sagesCirclet: {
+      name: 'Diadème du sage'
+    },
+    cinderWizardsHat: {
+      name: 'Chapeau du mage de cendre'
+    },
+    voidseerCirclet: {
+      name: 'Diadème du voyant du vide'
+    },
+    apprenticesRobe: {
+      name: 'Robe de l\'apprenti'
+    },
+    cinderthreadRobe: {
+      name: 'Robe en fil de cendre'
+    },
+    voidwovenRobe: {
+      name: 'Robe tissée de vide'
+    },
+    inkStainedGloves: {
+      name: 'Gants tachés d\'encre'
+    },
+    spellthreadGloves: {
+      name: 'Gants de fil de sort'
+    },
+    frostweaveGloves: {
+      name: 'Gants de tissage de givre'
+    },
+    starlitGloves: {
+      name: 'Gants étoilés'
+    },
+    glovesOfTheLastWord: {
+      name: 'Gants du dernier mot'
+    },
+    scribesSlippers: {
+      name: 'Pantoufles du scribe'
+    },
+    moonstepSlippers: {
+      name: 'Pantoufles pas-de-lune'
+    },
+    emberstepBoots: {
+      name: 'Bottes pas-de-braise'
+    },
+    voidwalkerBoots: {
+      name: 'Bottes du marcheur du vide'
+    },
+    bootsOfTheWanderingStar: {
+      name: 'Bottes de l\'étoile errante'
+    },
+    glowstonePendant: {
+      name: 'Pendentif de pierre lumineuse'
+    },
+    scholarsSeal: {
+      name: 'Sceau de l\'érudit'
+    },
+    eyeOfTheArchon: {
+      name: 'Œil de l\'archonte'
+    },
+    cinderRepeater: {
+      name: 'Répétiteur de cendre'
+    },
+    glacierMortar: {
+      name: 'Mortier de poing glaciaire'
+    },
+    sparkCell: {
+      name: 'Cellule d\'étincelles'
+    },
+    arcCapacitor: {
+      name: 'Condensateur à arc'
+    },
+    aetherheartCell: {
+      name: 'Cellule cœur-d\'éther'
+    },
+    marksmansVisor: {
+      name: 'Visière du tireur d\'élite'
+    },
+    sharpshootersCap: {
+      name: 'Casquette du tireur d\'élite'
+    },
+    gunnersHarness: {
+      name: 'Harnais du canonnier'
+    },
+    steadyhandGloves: {
+      name: 'Gants à main sûre'
+    },
+    gunsmithsGloves: {
+      name: 'Gants de l\'armurier'
+    },
+    scrappersBoots: {
+      name: 'Bottes du bagarreur'
+    },
+    sharpshooterBoots: {
+      name: 'Bottes du tireur d\'élite'
+    },
+    firingLineBoots: {
+      name: 'Bottes de ligne de tir'
+    },
+    steadyfootBoots: {
+      name: 'Bottes pied-ferme'
+    },
+    aetherstepBoots: {
+      name: 'Bottes pas-d\'éther'
+    },
+    bootsOfTheLastShot: {
+      name: 'Bottes du dernier tir'
+    },
+    brassCartridgeCharm: {
+      name: 'Amulette de cartouche en laiton'
+    },
+    deadEyeLens: {
+      name: 'Lentille de l\'œil mort'
+    },
+    eagleEyeScope: {
+      name: 'Lunette de l\'œil d\'aigle'
+    },
+    criersBaton: {
+      name: 'Bâton du crieur'
+    },
+    droversStandard: {
+      name: 'Étendard du bouvier'
+    },
+    marshalsSceptre: {
+      name: 'Sceptre du maréchal'
+    },
+    balladBook: {
+      name: 'Livre de ballades'
+    },
+    chronicleOfHeroes: {
+      name: 'Chronique des héros'
+    },
+    psalterOfTheHost: {
+      name: 'Psautier de l\'armée'
+    },
+    tomeOfEternalReign: {
+      name: 'Tome du règne éternel'
+    },
+    heraldsCap: {
+      name: 'Calot du héraut'
+    },
+    singersCirclet: {
+      name: 'Diadème du chanteur'
+    },
+    diademOfTenThousandVoices: {
+      name: 'Diadème des dix mille voix'
+    },
+    travelersWaistcoat: {
+      name: 'Gilet du voyageur'
+    },
+    minstrelsMotley: {
+      name: 'Habit bigarré du ménestrel'
+    },
+    troubadoursCoat: {
+      name: 'Manteau du troubadour'
+    },
+    marshalsGreatcoat: {
+      name: 'Grand manteau du maréchal'
+    },
+    buskersGloves: {
+      name: 'Gants du saltimbanque'
+    },
+    drummersGloves: {
+      name: 'Gants du tambour'
+    },
+    standardBearersGloves: {
+      name: 'Gants du porte-étendard'
+    },
+    gildedParadeGloves: {
+      name: 'Gants de parade dorés'
+    },
+    glovesOfTheCrownedHand: {
+      name: 'Gants de la main couronnée'
+    },
+    wayfarersShoes: {
+      name: 'Souliers du voyageur'
+    },
+    troubadourBoots: {
+      name: 'Bottes du troubadour'
+    },
+    heraldsRidingBoots: {
+      name: 'Bottes de cavalier du héraut'
+    },
+    paradeBoots: {
+      name: 'Bottes de parade'
+    },
+    bootsOfTheLongProcession: {
+      name: 'Bottes de la longue procession'
+    },
+    silverWhistle: {
+      name: 'Sifflet d\'argent'
+    },
+    gatheringHorn: {
+      name: 'Cor de ralliement'
+    },
     heartOfTheMountain: {
       name: 'Cœur de la montagne'
     },
@@ -1881,6 +3463,9 @@ export default {
     freedPeddler: {
       talk: 'Tout ce qu\'il faut au voyageur. Presque neuf, en général.',
       name: 'Odo Marrow'
+    },
+    sfShadowRoad: {
+      name: 'Nettle Quickhand'
     },
     sfShadow: {
       name: 'Nettle Quickhand'
@@ -2035,6 +3620,9 @@ export default {
     sunfordGambler: {
       name: 'Dob Tumbler'
     },
+    sunfordCups: {
+      name: 'Nell Nimblefingers'
+    },
     oakGambler: {
       name: 'Silky Ren'
     },
@@ -2146,6 +3734,13 @@ export default {
     }
   },
   dlg: {
+    intro: {
+      crossing: { 1: 'Chaque route de ce monde mène à un carrefour… et chaque carrefour est une bataille.' },
+      hero: { 1: 'Des champs de Sunford, un jeune héros partit.' },
+      fire: { 1: 'Le feu répondit à l’appel. L’acier apprit un nouveau nom.' },
+      foes: { 1: 'Rois gobelins, jarls du givre, un dragon du vide… et l’Archidémon.' },
+      begin: { 1: 'Ta légende commence maintenant.' }
+    },
     frostDisciple: {
       bye: {
         '1': 'Reste au chaud.'
@@ -2347,6 +3942,23 @@ export default {
       hello: {
         '2': 'Odo Marrow, à ton service. Colporteur, rétameur, et homme très reconnaissant.',
         '1': 'Toi ! C’est toi qui as ouvert cette cage ! J’y aurais pourri.'
+      }
+    },
+    sfShadowRoad: {
+      hello: {
+        '1': 'Téléportation. Ça t\'intéresse ?'
+      },
+      again: {
+        '1': 'Déjà de retour pour un autre tour ?'
+      },
+      train: {
+        '1': 'Regarde bien. Un pas, et te voilà ailleurs.'
+      },
+      trainBack: {
+        '1': 'Bien. Maintenant, va être ailleurs.'
+      },
+      bye: {
+        '1': 'Ne te fais pas prendre.'
       }
     },
     sfShadow: {
@@ -2605,9 +4217,8 @@ export default {
         '2': 'Frappe quand le métal brille le plus. Rate, et c’est de la ferraille. Vas-y.',
         '1': 'Forger ? Hm. Tiens le marteau comme ça, pas comme un gourdin.'
       },
-      ore: {
-        '1': 'Des pépites, hein ? Je prends tout. Juste poids, juste prix.'
-      },
+      ore: { '1': 'Du minerai ? Montre. Je paie à la pépite, au juste poids.' },
+      sellBack: { '1': 'Juste poids, juste prix. Rapporte-m\'en quand tu en trouves.' },
       forgeBack: {
         '1': 'Pas mal. Pas bien non plus. Continue.'
       },
@@ -2899,7 +4510,7 @@ export default {
       },
       map: {
         '1': 'La carte du capitaine Rook ! Il l’a déchirée et a caché les morceaux avant que les gobelins ne l’attrapent.',
-        '2': 'Trouve les six, et le X te montrera le chemin : quelque part dans les Rocs de Cendre. Creuse là-bas, et l’or est à toi.',
+        '2': 'Trouves-en six, quelques autres traînent encore çà et là, et le X te montrera le chemin : quelque part dans les Rocs de Cendre. Creuse là-bas, et l’or est à toi.',
         say: 'J’ai trouvé un morceau d’une vieille carte.'
       }
     },
@@ -2916,6 +4527,9 @@ export default {
       },
       mana: {
         '1': 'Celle-ci est amère. Bois-la quand tes sorts s’épuisent.'
+      },
+      brew: {
+        '1': 'Montre-moi tes herbes. Je vais préparer quelque chose de meilleur que mon tonique de mana.'
       },
       potions: {
         '1': 'Tu emportes quelques fioles à chaque combat. Bois avant d’en avoir besoin, pas après.',
@@ -2935,6 +4549,9 @@ export default {
       },
       healBack: {
         '1': 'Garde ta ceinture pleine et la tête basse.'
+      },
+      brewBack: {
+        '1': 'Attention, c\'est chaud. Ne les bois pas tous d\'un coup.'
       },
       bye: {
         '1': 'Prends soin de toi, là-bas.'
@@ -3039,9 +4656,8 @@ export default {
         '2': 'Observe la lueur. Frappe en son cœur, trois fois, et le métal s’en souvient.',
         '1': 'Tu veux apprendre le métier ? Bien. Oakhaven a besoin de chaque marteau.'
       },
-      ore: {
-        '1': 'Du minerai brut ! L’armurerie n’en a jamais assez. Voilà ta paie.'
-      },
+      ore: { '1': 'Du minerai brut ! L\'armurerie n\'en a jamais assez. Vends-moi ce que tu peux.' },
+      sellBack: { '1': 'Chaque pépite va dans le rempart. Merci.' },
       forgeBack: {
         '1': 'Du bon acier. Les remparts te remercient.'
       },
@@ -3082,9 +4698,8 @@ export default {
         '2': 'Trois coups, chacun au cœur de la lueur. C’est tout le secret.',
         '1': 'Depuis le siège, j’enseigne à quiconque le demande. Viens, mets-toi là.'
       },
-      ore: {
-        '1': 'Encore du minerai pour les remparts ? Sois béni. Tiens, prends ça.'
-      },
+      ore: { '1': 'Encore du minerai pour les remparts ? Je paie chaque pépite que tu peux céder.' },
+      sellBack: { '1': 'Sois béni. Ça fera plus de plaques pour les remparts.' },
       forgeBack: {
         '1__f': 'Chaque coup te rend meilleure. Reviens quand tu veux.',
         '1': 'Chaque coup te rend meilleur. Reviens quand tu veux.'
@@ -3494,9 +5109,8 @@ export default {
         '1__f': 'Une habitante de la surface à l’enclume ? Bah, tout le monde commence quelque part.',
         '1': 'Un habitant de la surface à l’enclume ? Bah, tout le monde commence quelque part.'
       },
-      ore: {
-        '1': 'Du bon métal, honnête. Ironhold paie toujours pour ça.'
-      },
+      ore: { '1': 'Du bon métal honnête. Pose-le là, je paie à la pépite.' },
+      sellBack: { '1': 'Marché honnête. Ironhold paie toujours le bon métal.' },
       forgeBack: {
         '1': 'Un nain aurait fait mieux. Mais pas de beaucoup.'
       },
@@ -3566,9 +5180,8 @@ export default {
         '2': 'Chauffer, frapper, tourner. Trois coups, en plein dans la lueur. Puis laisser refroidir.',
         '1': 'L’armure de plates, c’est un travail de patience. Je vais te montrer les bases.'
       },
-      ore: {
-        '1': 'Laisse-moi peser ça. Bien. Les pièces sont à toi.'
-      },
+      ore: { '1': 'Laisse-moi peser. Choisis ce que tu vends, je compte les pièces.' },
+      sellBack: { '1': 'Pesé et payé. Bien.' },
       forgeBack: {
         '1': 'Laisse-la refroidir avant de la porter.'
       },
@@ -3608,9 +5221,8 @@ export default {
         '2': 'De la discipline à l’enclume comme sur le champ de bataille. Trois coups, fidèles à la lueur.',
         '1': 'L’Ordre arme ses amis. Je vais t’enseigner.'
       },
-      ore: {
-        '1': 'L’Ordre achète tout le minerai pour la guerre. Ton paiement.'
-      },
+      ore: { '1': 'L\'Ordre achète du minerai pour la guerre. Vends ce que tu peux céder.' },
+      sellBack: { '1': 'Ton paiement est noté. L\'Ordre te remercie.' },
       forgeBack: {
         '1': 'Bien forgé. Sers bien sous cette armure.'
       },
@@ -4021,6 +5633,11 @@ export default {
       }
     },
     bark: {
+      banditChief: {
+        whistle: {
+          1: 'Debout, les gars ! Mordez-les !'
+        }
+      },
       lightDisciple: {
         freed: {
           '1': 'La lumière t’envoie. Je suis Sœur Aurelle. Cherche-moi à Sunford, je t’enseignerai la voie du Porte-Lumière.'
@@ -4177,9 +5794,8 @@ export default {
         '2': 'Frappe quand ça rougeoie le plus. Trois bons coups font une bonne pièce.',
         '1': 'Tu veux essayer le marteau toi-même ? Ça ne me dérange pas de partager la forge.'
       },
-      ore: {
-        '1': 'Joli minerai. Silverbridge paie toujours un prix juste.'
-      },
+      ore: { '1': 'Joli minerai. Montre-moi ce que tu vends, je paie à la pépite.' },
+      sellBack: { '1': 'Avec plaisir. Silverbridge paie toujours un juste prix.' },
       forgeBack: {
         '1__f': 'Regarde-moi ça ! Tu es douée.',
         '1': 'Regarde-moi ça ! Tu es doué.'
@@ -4622,7 +6238,7 @@ export default {
         say: 'Où trouver des herbes ?'
       },
       elixirs: {
-        '1': 'Chacun te donne plus de force en combat pendant une minute entière. Des coups plus durs, une peau plus solide, des pieds plus vifs.',
+        '1': 'Chacun te donne plus de force en combat pendant 5 minutes entières. Des coups plus durs, une peau plus solide, des pieds plus vifs.',
         '2': 'Ils sont dans ta troisième fiole. Touche la petite flèche pour choisir celui que tu bois.',
         say: 'À quoi servent les élixirs ?'
       },
@@ -4691,6 +6307,36 @@ export default {
       },
       bye: {
         '1': 'Rapporte de la camelote ! La camelote, c’est ce que je préfère.'
+      }
+    },
+    sunfordCups: {
+      hello: {
+        1: 'Approchez ! Trois gobelets, une gemme, et votre première partie est offerte !',
+        2: 'Nell Nimblefingers. Personne n\'a encore trompé mes mains. Un essai ?'
+      },
+      again: {
+        1: 'Déjà de retour ? Gardez l\'œil ouvert !'
+      },
+      play: {
+        1: 'Les yeux sur la gemme, l\'ami. Ne clignez pas !'
+      },
+      rules: {
+        1: 'Je cache la gemme sous un gobelet et je mélange. Vous désignez celui qui la cache.',
+        2: 'Chaque victoire d\'affilée rapporte plus. Trois victoires donnent un prix, cinq un trésor. La première partie du jour est gratuite.',
+        say: 'Comment ça marche ?'
+      },
+      who: {
+        1: 'Je savais mélanger avant de savoir marcher. Maman dit que ça explique beaucoup.'
+      },
+      luck: {
+        1: 'Parfois ! Alors je gémis très fort et la foule me plaint.',
+        say: 'Vous perdez parfois ?'
+      },
+      playBack: {
+        1: 'Belle partie ! Revenez demain, la première est toujours gratuite.'
+      },
+      bye: {
+        1: 'À bientôt ! Gardez l\'œil ouvert là-dehors.'
       }
     },
     oakGambler: {
@@ -5184,6 +6830,7 @@ export default {
     banditArcher: 'Archer bandit',
     wolf: 'Loup',
     banditChief: 'Chef des bandits',
+    gnome: 'Gnome',
     goblinKing: 'Le Roi gobelin',
     treant: 'Tréant',
     spider: 'Araignée géante',
@@ -5402,6 +7049,18 @@ export default {
       firefoxColors: 'Firefox : Paramètres → Couleurs → mets « Remplacer les couleurs spécifiées par la page » sur Jamais.'
     }
   },
+  samsungFix: {
+    title: 'Petit test de couleurs',
+    body: 'Certains téléphones modifient les couleurs des pages web. Compare les deux carrés ci-dessous.',
+    question: 'Les deux carrés sont-ils identiques ?',
+    refSquare: 'Carré de référence',
+    pageSquare: 'Carré de la page',
+    yes: 'Oui, ils sont identiques',
+    no: 'Non, ils sont différents',
+    option: 'Corriger les couleurs (mode sombre Samsung)',
+    optionHint: 'Active cette option si les menus paraissent sombres ou si le texte est difficile à lire.',
+    recheck: 'Relancer le test de couleurs'
+  },
   saveStatus: {
     restoredTitle: 'Sauvegarde cloud restaurée',
     restoredBody: '+{n} pièces d’or bonus pour la récupération',
@@ -5530,7 +7189,7 @@ export default {
   },
   forge: {
     upgrade: 'Améliorer ({n} pièces d’or)',
-    max: 'Amélioré au maximum : +{n}.',
+    next: 'Suivant +{level} : +{pct} % de stats',
     town: 'Le forgeron de n’importe quelle ville peut l’améliorer.'
   },
   ore: {
@@ -5545,6 +7204,12 @@ export default {
     },
     mithril: {
       name: 'Minerai de mithril'
+    },
+    adamant: {
+      name: 'Minerai d\'adamantite'
+    },
+    aetherite: {
+      name: 'Minerai d\'éthérite'
     }
   },
   plant: {
@@ -5626,32 +7291,32 @@ export default {
   elixir: {
     might: {
       name: 'Élixir de puissance',
-      desc: '+{n} % de dégâts pendant une minute'
+      desc: '+{n} % de dégâts pendant 5 minutes'
     },
     iron: {
       name: 'Breuvage peau de fer',
-      desc: '+{n} % d’armure pendant une minute'
+      desc: '+{n} % d’armure pendant 5 minutes'
     },
     swift: {
       name: 'Tonique de célérité',
-      desc: '+{n} % de vitesse et de vitesse d’attaque pendant une minute'
+      desc: '+{n} % de vitesse et de vitesse d’attaque pendant 5 minutes'
     },
     mind: {
       name: 'Infusion d’esprit clair',
-      desc: 'Tes compétences se rechargent {n} % plus vite pendant une minute'
+      desc: 'Tes compétences se rechargent {n} % plus vite pendant 5 minutes'
     },
     vigor: {
       name: 'Élixir de vigueur',
-      desc: 'Rend {n} % de ta santé chaque seconde pendant une minute'
+      desc: 'Rend {n} % de ta santé chaque seconde pendant 5 minutes'
     },
     shadow: {
       name: 'Breuvage assoiffé',
-      desc: 'Tes coups te soignent de {n} % de leurs dégâts pendant une minute'
+      desc: 'Tes coups te soignent de {n} % de leurs dégâts pendant 5 minutes'
     }
   },
   alchemy: {
     talk: 'Des herbes d’un côté, des élixirs de l’autre. Lequel on prépare ?',
-    lead: 'Chaque élixir agit pendant une minute en combat. Bois-le dans ta troisième fiole. Tu peux en porter {n} de chaque.',
+    lead: 'Chaque élixir agit pendant 5 minutes en combat. Bois-le dans ta troisième fiole. Tu peux en porter {n} de chaque.',
     brew: 'Préparer · {n}',
     carry: 'Emporter',
     carried: 'Dans ta fiole',
@@ -5675,6 +7340,25 @@ export default {
     again: 'Rejouer',
     noGold: 'Pas assez d’or pour cette mise.',
     card: 'Carte {n}'
+  },
+  cups: {
+    title: 'Le jeu des gobelets',
+    lead: 'Regardez la gemme, suivez son gobelet, puis désignez-le. Chaque victoire d\'affilée rapporte plus. La troisième donne une pièce de prix, la cinquième un trésor.',
+    free: 'Partie gratuite',
+    fee: 'Jouer · {n}',
+    row: 'Victoires d\'affilée : {n} sur {max}',
+    next: 'Prochaine victoire : {n} or',
+    watch: 'Regardez la gemme !',
+    follow: 'Suivez-la…',
+    pick: 'Choisissez un gobelet !',
+    hint: 'Touchez un gobelet ou appuyez sur son numéro.',
+    won: 'Trouvé ! +{n} or',
+    lost: 'Pas celui-là. La série repart de zéro.',
+    near: 'Si près ! Elle était juste à côté.',
+    timeout: 'Trop lent ! La série repart de zéro.',
+    again: 'Rejouer',
+    noGold: 'Pas assez d\'or. Demain, votre première partie est gratuite.',
+    cup: 'Gobelet {n}'
   },
   battle: {
     title: 'Duel d’objets',

@@ -3,6 +3,7 @@ import { hasLineOfSight, isSolidAt, nearestOpen } from './grid'
 import { addField, face, fire, stop } from './actors'
 import { applyStatus, dealDamage, heal, knockback } from './combat'
 import { spawnEnemy } from './spawn'
+import { barkKey } from '../data/dialogs/bosses'
 import { angleTo, newAction, type Sim } from './world'
 import type { Action, Team, Unit } from './types'
 
@@ -30,7 +31,7 @@ export const abilityReady = (sim: Sim, u: Unit, a: AbilityDef, idx: number, tgt:
   if (!tgt) return false
   const d = Math.hypot(tgt.x - u.x, tgt.z - u.z)
   if (d > a.range + tgt.r || (a.min !== undefined && d < a.min)) return false
-  if (a.kind === 'shot' || a.kind === 'volley' || a.kind === 'line' || a.kind === 'charge') {
+  if (a.kind === 'shot' || a.kind === 'volley' || a.kind === 'line' || a.kind === 'charge' || a.kind === 'spears') {
     return hasLineOfSight(sim.grid, u.x, u.z, tgt.x, tgt.z)
   }
   return true
@@ -62,8 +63,23 @@ export const startAbility = (sim: Sim, u: Unit, a: AbilityDef, idx: number, tgt:
       // The warning stays until the lob lands, a beat after the throw.
       sim.emit({ t: 'tele', tele: { shape: 'circle', x: tx, z: tz, r, w: 0, a: 0, dur: a.windup + LOB_FLIGHT, team, src: u.id, wind: a.windup } })
       break
+    case 'rain':
+      // The circle stays down for the whole rain: what is lit is what is hit, every time.
+      sim.emit({ t: 'tele', tele: { shape: 'circle', x: tx, z: tz, r, w: 0, a: 0, dur: a.windup + rainSpan(a), team, src: u.id, wind: a.windup } })
+      break
+    case 'spears':
+      sim.emit({ t: 'tele', tele: { shape: 'line', x: u.x, z: u.z, r, w: a.w ?? 1, a: act.a, dur: a.windup + spearSpan(a), team, src: u.id, wind: a.windup } })
+      break
+    case 'summon':
+      // A whistle: the shout comes with the wind-up, the gnomes with its end.
+      sim.emit({ t: 'fx', id: 'roar', x: u.x, z: u.z, r: 3, color: a.color ?? ENEMY_BY_ID[u.kind]?.color })
+      if (a.bark && u.icd['bark:' + a.bark] === undefined) {
+        u.icd['bark:' + a.bark] = 1e9 // a cooldown that never runs out
+        sim.emit({ t: 'bark', unit: u.id, key: barkKey(u.kind, a.bark) })
+      }
+      break
     case 'cone':
-      sim.emit({ t: 'tele', tele: { shape: 'cone', x: u.x, z: u.z, r, w: rad(a.w ?? 30), a: act.a, dur: a.windup, team, src: u.id, wind: a.windup } })
+      sim.emit({ t: 'tele', tele: { shape: 'cone', x: u.x, z: u.z, r, w: rad(a.w ?? 30), a: act.a, dur: a.windup, team, src: u.id, wind: a.windup, charged: a.charged } })
       break
     case 'charge':
     case 'line':
@@ -90,11 +106,19 @@ export const startAbility = (sim: Sim, u: Unit, a: AbilityDef, idx: number, tgt:
 }
 
 const LOB_FLIGHT = 0.65
+/** A rain's arrows take this long to fall; a spear lane stays lit this much past the last throw. */
+const RAIN_FALL = 0.3
+const SPEAR_LINGER = 0.2
+/** Seconds from the end of the wind-up to the last arrow's landing / the last spear's throw. */
+export const rainSpan = (a: AbilityDef): number => ((a.hits ?? 4) - 1) * (a.gap ?? 0.5) + RAIN_FALL
+export const spearSpan = (a: AbilityDef): number => ((a.hits ?? 3) - 1) * (a.gap ?? 0.3) + SPEAR_LINGER
 const BARRAGE_GAP = 0.22
 const BARRAGE_WARN = 0.95
 
 const strike = (sim: Sim, u: Unit, a: AbilityDef, t: Unit, mul = 1): void => {
-  const dealt = dealDamage(sim, u, t, u.s.baseDmg * (a.dmg ?? 1) * mul, { type: a.type ?? 'physical', heavy: true, canCrit: false })
+  // A charged blow is a share of the target's health, not of the attacker's hit (#147).
+  const base = a.pct ? t.s.maxHp * a.pct * mul : u.s.baseDmg * (a.dmg ?? 1) * mul
+  const dealt = dealDamage(sim, u, t, base, { type: a.type ?? 'physical', heavy: true, canCrit: false })
   if (dealt > 0 && a.status && t.alive) {
     const v = a.status.id === 'burn' || a.status.id === 'poison' || a.status.id === 'bleed' ? u.s.baseDmg * a.status.v : a.status.v
     applyStatus(sim, t, a.status.id, a.status.dur, v, u, { type: a.status.type })
@@ -159,6 +183,45 @@ export const resolveAbility = (sim: Sim, u: Unit, act: Action): void => {
         type: a.type ?? 'physical', color, heavy: true,
         status: a.status ? { ...a.status, v: a.status.id === 'poison' || a.status.id === 'burn' ? u.s.baseDmg * a.status.v : a.status.v } : undefined
       })
+      break
+    }
+    case 'rain': {
+      // Several waves on the same ground: arrows fall all over the circle, then it is hit (a little each time).
+      const n = a.hits ?? 4
+      for (let k = 0; k < n; k++) {
+        sim.after(k * (a.gap ?? 0.5), () => {
+          if (!u.alive) return
+          // A sunflower spread, no dice: the arrows are looks, and the fight's own rolls are not theirs to spend.
+          for (let i = 0; i < 4; i++) {
+            const j = k * 4 + i
+            const ang = j * 2.399963
+            const d = Math.sqrt((j + 0.5) / (n * 4)) * r * 0.9
+            sim.emit({ t: 'fx', id: 'fall:' + (a.fx ?? 'arrow'), x: act.x + Math.cos(ang) * d, z: act.z + Math.sin(ang) * d, dur: RAIN_FALL, color })
+          }
+        })
+        sim.after(k * (a.gap ?? 0.5) + RAIN_FALL, () => {
+          if (!u.alive) return
+          sim.emit({ t: 'fx', id: 'burst:' + (a.fx ?? 'arrow'), x: act.x, z: act.z, r, color })
+          for (const v of sim.inCircle(foe, act.x, act.z, r, hits)) strike(sim, u, a, v)
+        })
+      }
+      break
+    }
+    case 'spears': {
+      // One spear after another down the lane the warning showed; each stops at the first body it meets.
+      const n = a.hits ?? 3
+      const sx = u.x
+      const sz = u.z
+      const speed = 17
+      for (let k = 0; k < n; k++) {
+        sim.after(k * (a.gap ?? 0.3), () => {
+          if (!u.alive) return
+          fire(sim, {
+            fx: a.fx ?? 'spear', src: u, x: sx, z: sz, tx: sx + Math.sin(act.a) * 12, tz: sz + Math.cos(act.a) * 12, speed,
+            dmg: u.s.baseDmg * (a.dmg ?? 1), type: a.type ?? 'pierce', life: r / speed, r: Math.max(0.3, (a.w ?? 1) - 0.4), color, heavy: true
+          })
+        })
+      }
       break
     }
     case 'barrage': {

@@ -26,7 +26,7 @@ export const spawnEnemy = (sim: Sim, kind: string, x: number, z: number, group =
     r: def.r,
     h: def.h,
     s: plainStats({
-      hp: enemyHp(level) * def.hp * sim.difficulty * press,
+      hp: enemyHp(level) * def.hp * sim.difficulty * sim.enemyHpMul * press,
       dmg: enemyDmg(level) * def.dmg * sim.difficulty * sim.enemyDmgMul * press,
       armor: def.armor * level,
       resist: def.resist,
@@ -45,6 +45,8 @@ export const spawnEnemy = (sim: Sim, kind: string, x: number, z: number, group =
   for (let i = 0; i < def.abilities.length; i++) u.cds[i] = def.abilities[i]!.first ?? def.abilities[i]!.cd * 0.5
   // A scripted boss (#74) carries its script's state.
   if (def.script) u.boss = newBossState(def.script)
+  // A helper that burns out (the whistle's gnomes, #136): its time is its `life`.
+  if (def.fleeting) u.life = def.fleeting.life
   // Called in by something already fighting: it joins the fight at once.
   if (owner) {
     u.awake = true

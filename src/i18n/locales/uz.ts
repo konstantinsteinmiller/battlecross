@@ -1,5 +1,13 @@
 // Uzbek locale — mirrors the key shape of en.ts exactly.
 export default {
+  // ─── The intro (#130): its skip, and its narrator's name ───
+  intro: {
+    narrator: 'Solnomachi',
+    skip: 'Oʻtkazib yuborish',
+    holdKey: 'Oʻtkazib yuborish uchun {key} ni bosib turing',
+    holdTouch: 'Oʻtkazib yuborish uchun bosib turing',
+    replay: 'Kirishni koʻrish'
+  },
   arena: {
     allWon: 'Barcha mifik sovrinlar endi sizniki.',
     call: 'Hikoya aytib boʻlindi. Endi buildingni isbotla: qoʻlingdan kelgancha yuqoriga koʻtaril va hech kim bera olmaydigan mifik sovrinlarni yutib ol.',
@@ -8,6 +16,20 @@ export default {
     next: 'Keyingi sovrin: toʻlqin {at} — {item}',
     champion: 'Chempion toʻlqini',
     wave: 'Toʻlqin {n}'
+  },
+  sellOre: {
+    talk: 'Yaxshi ruda, adolatli narx. Qanchasini sotasan?',
+    lead: 'Har bir rudadan nechta bo‘lak sotishni tanla. «Sotish»ni bosmaguningcha hech narsa sotilmaydi.',
+    have: 'Senda {n}',
+    each: 'Har biri {n} oltin',
+    none: 'Hech biri',
+    all: 'Hammasi',
+    less: '{ore}: bitta kam',
+    more: '{ore}: bitta ko‘p',
+    total: 'Olasan: {n} oltin',
+    sell: 'Sotish',
+    selectAll: 'Hammasini tanlash',
+    empty: 'Sotishga rudang qolmadi.'
   },
   smith: {
     why: {
@@ -1420,38 +1442,110 @@ export default {
     smithMasterMithrilGreaves: {
       name: 'Usta yasagan mitril boldir himoyasi'
     },
+    smithMasterAdamantGreaves: {
+      name: 'Usta yasagan adamant boldir himoyasi'
+    },
+    smithMasterAetheriteGreaves: {
+      name: 'Usta yasagan efirit boldir himoyasi'
+    },
     smithMithrilGreaves: {
       name: 'Mitril boldir himoyasi'
+    },
+    smithAdamantGreaves: {
+      name: 'Adamant boldir himoyasi'
+    },
+    smithAetheriteGreaves: {
+      name: 'Efirit boldir himoyasi'
     },
     smithMasterMithrilPlate: {
       name: 'Usta yasagan mitril zirh'
     },
+    smithMasterAdamantPlate: {
+      name: 'Usta yasagan adamant zirh'
+    },
+    smithMasterAetheritePlate: {
+      name: 'Usta yasagan efirit zirh'
+    },
     smithMithrilPlate: {
       name: 'Mitril zirh'
+    },
+    smithAdamantPlate: {
+      name: 'Adamant zirh'
+    },
+    smithAetheritePlate: {
+      name: 'Efirit zirh'
     },
     smithMasterMithrilHelm: {
       name: 'Usta yasagan mitril dubulgʻa'
     },
+    smithMasterAdamantHelm: {
+      name: 'Usta yasagan adamant dubulgʻa'
+    },
+    smithMasterAetheriteHelm: {
+      name: 'Usta yasagan efirit dubulgʻa'
+    },
     smithMithrilHelm: {
       name: 'Mitril dubulgʻa'
+    },
+    smithAdamantHelm: {
+      name: 'Adamant dubulgʻa'
+    },
+    smithAetheriteHelm: {
+      name: 'Efirit dubulgʻa'
     },
     smithMasterMithrilShield: {
       name: 'Usta yasagan mitril qalqon'
     },
+    smithMasterAdamantShield: {
+      name: 'Usta yasagan adamant qalqon'
+    },
+    smithMasterAetheriteShield: {
+      name: 'Usta yasagan efirit qalqon'
+    },
     smithMithrilShield: {
       name: 'Mitril qalqon'
+    },
+    smithAdamantShield: {
+      name: 'Adamant qalqon'
+    },
+    smithAetheriteShield: {
+      name: 'Efirit qalqon'
     },
     smithMasterMithrilHammer: {
       name: 'Usta yasagan mitril bolgʻa'
     },
+    smithMasterAdamantHammer: {
+      name: 'Usta yasagan adamant bolgʻa'
+    },
+    smithMasterAetheriteHammer: {
+      name: 'Usta yasagan efirit bolgʻa'
+    },
     smithMithrilHammer: {
       name: 'Mitril bolgʻa'
+    },
+    smithAdamantHammer: {
+      name: 'Adamant bolgʻa'
+    },
+    smithAetheriteHammer: {
+      name: 'Efirit bolgʻa'
     },
     smithMasterMithrilSword: {
       name: 'Usta yasagan mitril qilich'
     },
+    smithMasterAdamantSword: {
+      name: 'Usta yasagan adamant qilich'
+    },
+    smithMasterAetheriteSword: {
+      name: 'Usta yasagan efirit qilich'
+    },
     smithMithrilSword: {
       name: 'Mitril qilich'
+    },
+    smithAdamantSword: {
+      name: 'Adamant qilich'
+    },
+    smithAetheriteSword: {
+      name: 'Efirit qilich'
     },
     smithMasterGoldGreaves: {
       name: 'Usta yasagan oltin boldir himoyasi'
@@ -1557,6 +1651,1086 @@ export default {
     },
     smithMasterIronSword: {
       name: 'Usta yasagan temir qilich'
+    },
+    smithMasterDexIronSword: {
+      name: 'Usta yasagan temir xanjar · CHQ'
+    },
+    smithDexIronSword: {
+      name: 'Temir xanjar · CHQ'
+    },
+    smithMasterDexIronHammer: {
+      name: 'Usta yasagan temir rapira · CHQ'
+    },
+    smithDexIronHammer: {
+      name: 'Temir rapira · CHQ'
+    },
+    smithMasterDexIronShield: {
+      name: 'Usta yasagan temir kichik qalqon · CHQ'
+    },
+    smithDexIronShield: {
+      name: 'Temir kichik qalqon · CHQ'
+    },
+    smithMasterDexIronHelm: {
+      name: 'Usta yasagan temir kapyushon · CHQ'
+    },
+    smithDexIronHelm: {
+      name: 'Temir kapyushon · CHQ'
+    },
+    smithMasterDexIronPlate: {
+      name: 'Usta yasagan temir charm zirh · CHQ'
+    },
+    smithDexIronPlate: {
+      name: 'Temir charm zirh · CHQ'
+    },
+    smithMasterDexIronGreaves: {
+      name: 'Usta yasagan temir etik · CHQ'
+    },
+    smithDexIronGreaves: {
+      name: 'Temir etik · CHQ'
+    },
+    smithMasterDexSilverSword: {
+      name: 'Usta yasagan kumush xanjar · CHQ'
+    },
+    smithDexSilverSword: {
+      name: 'Kumush xanjar · CHQ'
+    },
+    smithMasterDexSilverHammer: {
+      name: 'Usta yasagan kumush rapira · CHQ'
+    },
+    smithDexSilverHammer: {
+      name: 'Kumush rapira · CHQ'
+    },
+    smithMasterDexSilverShield: {
+      name: 'Usta yasagan kumush kichik qalqon · CHQ'
+    },
+    smithDexSilverShield: {
+      name: 'Kumush kichik qalqon · CHQ'
+    },
+    smithMasterDexSilverHelm: {
+      name: 'Usta yasagan kumush kapyushon · CHQ'
+    },
+    smithDexSilverHelm: {
+      name: 'Kumush kapyushon · CHQ'
+    },
+    smithMasterDexSilverPlate: {
+      name: 'Usta yasagan kumush charm zirh · CHQ'
+    },
+    smithDexSilverPlate: {
+      name: 'Kumush charm zirh · CHQ'
+    },
+    smithMasterDexSilverGreaves: {
+      name: 'Usta yasagan kumush etik · CHQ'
+    },
+    smithDexSilverGreaves: {
+      name: 'Kumush etik · CHQ'
+    },
+    smithMasterDexGoldSword: {
+      name: 'Usta yasagan oltin xanjar · CHQ'
+    },
+    smithDexGoldSword: {
+      name: 'Oltin xanjar · CHQ'
+    },
+    smithMasterDexGoldHammer: {
+      name: 'Usta yasagan oltin rapira · CHQ'
+    },
+    smithDexGoldHammer: {
+      name: 'Oltin rapira · CHQ'
+    },
+    smithMasterDexGoldShield: {
+      name: 'Usta yasagan oltin kichik qalqon · CHQ'
+    },
+    smithDexGoldShield: {
+      name: 'Oltin kichik qalqon · CHQ'
+    },
+    smithMasterDexGoldHelm: {
+      name: 'Usta yasagan oltin kapyushon · CHQ'
+    },
+    smithDexGoldHelm: {
+      name: 'Oltin kapyushon · CHQ'
+    },
+    smithMasterDexGoldPlate: {
+      name: 'Usta yasagan oltin charm zirh · CHQ'
+    },
+    smithDexGoldPlate: {
+      name: 'Oltin charm zirh · CHQ'
+    },
+    smithMasterDexGoldGreaves: {
+      name: 'Usta yasagan oltin etik · CHQ'
+    },
+    smithDexGoldGreaves: {
+      name: 'Oltin etik · CHQ'
+    },
+    smithMasterDexMithrilSword: {
+      name: 'Usta yasagan mitril xanjar · CHQ'
+    },
+    smithMasterDexAdamantSword: {
+      name: 'Usta yasagan adamant xanjar · CHQ'
+    },
+    smithMasterDexAetheriteSword: {
+      name: 'Usta yasagan efirit xanjar · CHQ'
+    },
+    smithDexMithrilSword: {
+      name: 'Mitril xanjar · CHQ'
+    },
+    smithDexAdamantSword: {
+      name: 'Adamant xanjar · CHQ'
+    },
+    smithDexAetheriteSword: {
+      name: 'Efirit xanjar · CHQ'
+    },
+    smithMasterDexMithrilHammer: {
+      name: 'Usta yasagan mitril rapira · CHQ'
+    },
+    smithMasterDexAdamantHammer: {
+      name: 'Usta yasagan adamant rapira · CHQ'
+    },
+    smithMasterDexAetheriteHammer: {
+      name: 'Usta yasagan efirit rapira · CHQ'
+    },
+    smithDexMithrilHammer: {
+      name: 'Mitril rapira · CHQ'
+    },
+    smithDexAdamantHammer: {
+      name: 'Adamant rapira · CHQ'
+    },
+    smithDexAetheriteHammer: {
+      name: 'Efirit rapira · CHQ'
+    },
+    smithMasterDexMithrilShield: {
+      name: 'Usta yasagan mitril kichik qalqon · CHQ'
+    },
+    smithMasterDexAdamantShield: {
+      name: 'Usta yasagan adamant kichik qalqon · CHQ'
+    },
+    smithMasterDexAetheriteShield: {
+      name: 'Usta yasagan efirit kichik qalqon · CHQ'
+    },
+    smithDexMithrilShield: {
+      name: 'Mitril kichik qalqon · CHQ'
+    },
+    smithDexAdamantShield: {
+      name: 'Adamant kichik qalqon · CHQ'
+    },
+    smithDexAetheriteShield: {
+      name: 'Efirit kichik qalqon · CHQ'
+    },
+    smithMasterDexMithrilHelm: {
+      name: 'Usta yasagan mitril kapyushon · CHQ'
+    },
+    smithMasterDexAdamantHelm: {
+      name: 'Usta yasagan adamant kapyushon · CHQ'
+    },
+    smithMasterDexAetheriteHelm: {
+      name: 'Usta yasagan efirit kapyushon · CHQ'
+    },
+    smithDexMithrilHelm: {
+      name: 'Mitril kapyushon · CHQ'
+    },
+    smithDexAdamantHelm: {
+      name: 'Adamant kapyushon · CHQ'
+    },
+    smithDexAetheriteHelm: {
+      name: 'Efirit kapyushon · CHQ'
+    },
+    smithMasterDexMithrilPlate: {
+      name: 'Usta yasagan mitril charm zirh · CHQ'
+    },
+    smithMasterDexAdamantPlate: {
+      name: 'Usta yasagan adamant charm zirh · CHQ'
+    },
+    smithMasterDexAetheritePlate: {
+      name: 'Usta yasagan efirit charm zirh · CHQ'
+    },
+    smithDexMithrilPlate: {
+      name: 'Mitril charm zirh · CHQ'
+    },
+    smithDexAdamantPlate: {
+      name: 'Adamant charm zirh · CHQ'
+    },
+    smithDexAetheritePlate: {
+      name: 'Efirit charm zirh · CHQ'
+    },
+    smithMasterDexMithrilGreaves: {
+      name: 'Usta yasagan mitril etik · CHQ'
+    },
+    smithMasterDexAdamantGreaves: {
+      name: 'Usta yasagan adamant etik · CHQ'
+    },
+    smithMasterDexAetheriteGreaves: {
+      name: 'Usta yasagan efirit etik · CHQ'
+    },
+    smithDexMithrilGreaves: {
+      name: 'Mitril etik · CHQ'
+    },
+    smithDexAdamantGreaves: {
+      name: 'Adamant etik · CHQ'
+    },
+    smithDexAetheriteGreaves: {
+      name: 'Efirit etik · CHQ'
+    },
+    smithMasterIntIronSword: {
+      name: 'Usta yasagan temir sehrli tayoqcha · AQL'
+    },
+    smithIntIronSword: {
+      name: 'Temir sehrli tayoqcha · AQL'
+    },
+    smithMasterIntIronHammer: {
+      name: 'Usta yasagan temir tayoq · AQL'
+    },
+    smithIntIronHammer: {
+      name: 'Temir tayoq · AQL'
+    },
+    smithMasterIntIronShield: {
+      name: 'Usta yasagan temir kitob · AQL'
+    },
+    smithIntIronShield: {
+      name: 'Temir kitob · AQL'
+    },
+    smithMasterIntIronHelm: {
+      name: 'Usta yasagan temir diadema · AQL'
+    },
+    smithIntIronHelm: {
+      name: 'Temir diadema · AQL'
+    },
+    smithMasterIntIronPlate: {
+      name: 'Usta yasagan temir xalat · AQL'
+    },
+    smithIntIronPlate: {
+      name: 'Temir xalat · AQL'
+    },
+    smithMasterIntIronGreaves: {
+      name: 'Usta yasagan temir etik · AQL'
+    },
+    smithIntIronGreaves: {
+      name: 'Temir etik · AQL'
+    },
+    smithMasterIntSilverSword: {
+      name: 'Usta yasagan kumush sehrli tayoqcha · AQL'
+    },
+    smithIntSilverSword: {
+      name: 'Kumush sehrli tayoqcha · AQL'
+    },
+    smithMasterIntSilverHammer: {
+      name: 'Usta yasagan kumush tayoq · AQL'
+    },
+    smithIntSilverHammer: {
+      name: 'Kumush tayoq · AQL'
+    },
+    smithMasterIntSilverShield: {
+      name: 'Usta yasagan kumush kitob · AQL'
+    },
+    smithIntSilverShield: {
+      name: 'Kumush kitob · AQL'
+    },
+    smithMasterIntSilverHelm: {
+      name: 'Usta yasagan kumush diadema · AQL'
+    },
+    smithIntSilverHelm: {
+      name: 'Kumush diadema · AQL'
+    },
+    smithMasterIntSilverPlate: {
+      name: 'Usta yasagan kumush xalat · AQL'
+    },
+    smithIntSilverPlate: {
+      name: 'Kumush xalat · AQL'
+    },
+    smithMasterIntSilverGreaves: {
+      name: 'Usta yasagan kumush etik · AQL'
+    },
+    smithIntSilverGreaves: {
+      name: 'Kumush etik · AQL'
+    },
+    smithMasterIntGoldSword: {
+      name: 'Usta yasagan oltin sehrli tayoqcha · AQL'
+    },
+    smithIntGoldSword: {
+      name: 'Oltin sehrli tayoqcha · AQL'
+    },
+    smithMasterIntGoldHammer: {
+      name: 'Usta yasagan oltin tayoq · AQL'
+    },
+    smithIntGoldHammer: {
+      name: 'Oltin tayoq · AQL'
+    },
+    smithMasterIntGoldShield: {
+      name: 'Usta yasagan oltin kitob · AQL'
+    },
+    smithIntGoldShield: {
+      name: 'Oltin kitob · AQL'
+    },
+    smithMasterIntGoldHelm: {
+      name: 'Usta yasagan oltin diadema · AQL'
+    },
+    smithIntGoldHelm: {
+      name: 'Oltin diadema · AQL'
+    },
+    smithMasterIntGoldPlate: {
+      name: 'Usta yasagan oltin xalat · AQL'
+    },
+    smithIntGoldPlate: {
+      name: 'Oltin xalat · AQL'
+    },
+    smithMasterIntGoldGreaves: {
+      name: 'Usta yasagan oltin etik · AQL'
+    },
+    smithIntGoldGreaves: {
+      name: 'Oltin etik · AQL'
+    },
+    smithMasterIntMithrilSword: {
+      name: 'Usta yasagan mitril sehrli tayoqcha · AQL'
+    },
+    smithMasterIntAdamantSword: {
+      name: 'Usta yasagan adamant sehrli tayoqcha · AQL'
+    },
+    smithMasterIntAetheriteSword: {
+      name: 'Usta yasagan efirit sehrli tayoqcha · AQL'
+    },
+    smithIntMithrilSword: {
+      name: 'Mitril sehrli tayoqcha · AQL'
+    },
+    smithIntAdamantSword: {
+      name: 'Adamant sehrli tayoqcha · AQL'
+    },
+    smithIntAetheriteSword: {
+      name: 'Efirit sehrli tayoqcha · AQL'
+    },
+    smithMasterIntMithrilHammer: {
+      name: 'Usta yasagan mitril tayoq · AQL'
+    },
+    smithMasterIntAdamantHammer: {
+      name: 'Usta yasagan adamant tayoq · AQL'
+    },
+    smithMasterIntAetheriteHammer: {
+      name: 'Usta yasagan efirit tayoq · AQL'
+    },
+    smithIntMithrilHammer: {
+      name: 'Mitril tayoq · AQL'
+    },
+    smithIntAdamantHammer: {
+      name: 'Adamant tayoq · AQL'
+    },
+    smithIntAetheriteHammer: {
+      name: 'Efirit tayoq · AQL'
+    },
+    smithMasterIntMithrilShield: {
+      name: 'Usta yasagan mitril kitob · AQL'
+    },
+    smithMasterIntAdamantShield: {
+      name: 'Usta yasagan adamant kitob · AQL'
+    },
+    smithMasterIntAetheriteShield: {
+      name: 'Usta yasagan efirit kitob · AQL'
+    },
+    smithIntMithrilShield: {
+      name: 'Mitril kitob · AQL'
+    },
+    smithIntAdamantShield: {
+      name: 'Adamant kitob · AQL'
+    },
+    smithIntAetheriteShield: {
+      name: 'Efirit kitob · AQL'
+    },
+    smithMasterIntMithrilHelm: {
+      name: 'Usta yasagan mitril diadema · AQL'
+    },
+    smithMasterIntAdamantHelm: {
+      name: 'Usta yasagan adamant diadema · AQL'
+    },
+    smithMasterIntAetheriteHelm: {
+      name: 'Usta yasagan efirit diadema · AQL'
+    },
+    smithIntMithrilHelm: {
+      name: 'Mitril diadema · AQL'
+    },
+    smithIntAdamantHelm: {
+      name: 'Adamant diadema · AQL'
+    },
+    smithIntAetheriteHelm: {
+      name: 'Efirit diadema · AQL'
+    },
+    smithMasterIntMithrilPlate: {
+      name: 'Usta yasagan mitril xalat · AQL'
+    },
+    smithMasterIntAdamantPlate: {
+      name: 'Usta yasagan adamant xalat · AQL'
+    },
+    smithMasterIntAetheritePlate: {
+      name: 'Usta yasagan efirit xalat · AQL'
+    },
+    smithIntMithrilPlate: {
+      name: 'Mitril xalat · AQL'
+    },
+    smithIntAdamantPlate: {
+      name: 'Adamant xalat · AQL'
+    },
+    smithIntAetheritePlate: {
+      name: 'Efirit xalat · AQL'
+    },
+    smithMasterIntMithrilGreaves: {
+      name: 'Usta yasagan mitril etik · AQL'
+    },
+    smithMasterIntAdamantGreaves: {
+      name: 'Usta yasagan adamant etik · AQL'
+    },
+    smithMasterIntAetheriteGreaves: {
+      name: 'Usta yasagan efirit etik · AQL'
+    },
+    smithIntMithrilGreaves: {
+      name: 'Mitril etik · AQL'
+    },
+    smithIntAdamantGreaves: {
+      name: 'Adamant etik · AQL'
+    },
+    smithIntAetheriteGreaves: {
+      name: 'Efirit etik · AQL'
+    },
+    smithMasterSklIronSword: {
+      name: 'Usta yasagan temir to\'pponcha · MHR'
+    },
+    smithSklIronSword: {
+      name: 'Temir to\'pponcha · MHR'
+    },
+    smithMasterSklIronHammer: {
+      name: 'Usta yasagan temir miltiq · MHR'
+    },
+    smithSklIronHammer: {
+      name: 'Temir miltiq · MHR'
+    },
+    smithMasterSklIronShield: {
+      name: 'Usta yasagan temir batareya · MHR'
+    },
+    smithSklIronShield: {
+      name: 'Temir batareya · MHR'
+    },
+    smithMasterSklIronHelm: {
+      name: 'Usta yasagan temir kepka · MHR'
+    },
+    smithSklIronHelm: {
+      name: 'Temir kepka · MHR'
+    },
+    smithMasterSklIronPlate: {
+      name: 'Usta yasagan temir jabduq · MHR'
+    },
+    smithSklIronPlate: {
+      name: 'Temir jabduq · MHR'
+    },
+    smithMasterSklIronGreaves: {
+      name: 'Usta yasagan temir etik · MHR'
+    },
+    smithSklIronGreaves: {
+      name: 'Temir etik · MHR'
+    },
+    smithMasterSklSilverSword: {
+      name: 'Usta yasagan kumush to\'pponcha · MHR'
+    },
+    smithSklSilverSword: {
+      name: 'Kumush to\'pponcha · MHR'
+    },
+    smithMasterSklSilverHammer: {
+      name: 'Usta yasagan kumush miltiq · MHR'
+    },
+    smithSklSilverHammer: {
+      name: 'Kumush miltiq · MHR'
+    },
+    smithMasterSklSilverShield: {
+      name: 'Usta yasagan kumush batareya · MHR'
+    },
+    smithSklSilverShield: {
+      name: 'Kumush batareya · MHR'
+    },
+    smithMasterSklSilverHelm: {
+      name: 'Usta yasagan kumush kepka · MHR'
+    },
+    smithSklSilverHelm: {
+      name: 'Kumush kepka · MHR'
+    },
+    smithMasterSklSilverPlate: {
+      name: 'Usta yasagan kumush jabduq · MHR'
+    },
+    smithSklSilverPlate: {
+      name: 'Kumush jabduq · MHR'
+    },
+    smithMasterSklSilverGreaves: {
+      name: 'Usta yasagan kumush etik · MHR'
+    },
+    smithSklSilverGreaves: {
+      name: 'Kumush etik · MHR'
+    },
+    smithMasterSklGoldSword: {
+      name: 'Usta yasagan oltin to\'pponcha · MHR'
+    },
+    smithSklGoldSword: {
+      name: 'Oltin to\'pponcha · MHR'
+    },
+    smithMasterSklGoldHammer: {
+      name: 'Usta yasagan oltin miltiq · MHR'
+    },
+    smithSklGoldHammer: {
+      name: 'Oltin miltiq · MHR'
+    },
+    smithMasterSklGoldShield: {
+      name: 'Usta yasagan oltin batareya · MHR'
+    },
+    smithSklGoldShield: {
+      name: 'Oltin batareya · MHR'
+    },
+    smithMasterSklGoldHelm: {
+      name: 'Usta yasagan oltin kepka · MHR'
+    },
+    smithSklGoldHelm: {
+      name: 'Oltin kepka · MHR'
+    },
+    smithMasterSklGoldPlate: {
+      name: 'Usta yasagan oltin jabduq · MHR'
+    },
+    smithSklGoldPlate: {
+      name: 'Oltin jabduq · MHR'
+    },
+    smithMasterSklGoldGreaves: {
+      name: 'Usta yasagan oltin etik · MHR'
+    },
+    smithSklGoldGreaves: {
+      name: 'Oltin etik · MHR'
+    },
+    smithMasterSklMithrilSword: {
+      name: 'Usta yasagan mitril to\'pponcha · MHR'
+    },
+    smithMasterSklAdamantSword: {
+      name: 'Usta yasagan adamant to\'pponcha · MHR'
+    },
+    smithMasterSklAetheriteSword: {
+      name: 'Usta yasagan efirit to\'pponcha · MHR'
+    },
+    smithSklMithrilSword: {
+      name: 'Mitril to\'pponcha · MHR'
+    },
+    smithSklAdamantSword: {
+      name: 'Adamant to\'pponcha · MHR'
+    },
+    smithSklAetheriteSword: {
+      name: 'Efirit to\'pponcha · MHR'
+    },
+    smithMasterSklMithrilHammer: {
+      name: 'Usta yasagan mitril miltiq · MHR'
+    },
+    smithMasterSklAdamantHammer: {
+      name: 'Usta yasagan adamant miltiq · MHR'
+    },
+    smithMasterSklAetheriteHammer: {
+      name: 'Usta yasagan efirit miltiq · MHR'
+    },
+    smithSklMithrilHammer: {
+      name: 'Mitril miltiq · MHR'
+    },
+    smithSklAdamantHammer: {
+      name: 'Adamant miltiq · MHR'
+    },
+    smithSklAetheriteHammer: {
+      name: 'Efirit miltiq · MHR'
+    },
+    smithMasterSklMithrilShield: {
+      name: 'Usta yasagan mitril batareya · MHR'
+    },
+    smithMasterSklAdamantShield: {
+      name: 'Usta yasagan adamant batareya · MHR'
+    },
+    smithMasterSklAetheriteShield: {
+      name: 'Usta yasagan efirit batareya · MHR'
+    },
+    smithSklMithrilShield: {
+      name: 'Mitril batareya · MHR'
+    },
+    smithSklAdamantShield: {
+      name: 'Adamant batareya · MHR'
+    },
+    smithSklAetheriteShield: {
+      name: 'Efirit batareya · MHR'
+    },
+    smithMasterSklMithrilHelm: {
+      name: 'Usta yasagan mitril kepka · MHR'
+    },
+    smithMasterSklAdamantHelm: {
+      name: 'Usta yasagan adamant kepka · MHR'
+    },
+    smithMasterSklAetheriteHelm: {
+      name: 'Usta yasagan efirit kepka · MHR'
+    },
+    smithSklMithrilHelm: {
+      name: 'Mitril kepka · MHR'
+    },
+    smithSklAdamantHelm: {
+      name: 'Adamant kepka · MHR'
+    },
+    smithSklAetheriteHelm: {
+      name: 'Efirit kepka · MHR'
+    },
+    smithMasterSklMithrilPlate: {
+      name: 'Usta yasagan mitril jabduq · MHR'
+    },
+    smithMasterSklAdamantPlate: {
+      name: 'Usta yasagan adamant jabduq · MHR'
+    },
+    smithMasterSklAetheritePlate: {
+      name: 'Usta yasagan efirit jabduq · MHR'
+    },
+    smithSklMithrilPlate: {
+      name: 'Mitril jabduq · MHR'
+    },
+    smithSklAdamantPlate: {
+      name: 'Adamant jabduq · MHR'
+    },
+    smithSklAetheritePlate: {
+      name: 'Efirit jabduq · MHR'
+    },
+    smithMasterSklMithrilGreaves: {
+      name: 'Usta yasagan mitril etik · MHR'
+    },
+    smithMasterSklAdamantGreaves: {
+      name: 'Usta yasagan adamant etik · MHR'
+    },
+    smithMasterSklAetheriteGreaves: {
+      name: 'Usta yasagan efirit etik · MHR'
+    },
+    smithSklMithrilGreaves: {
+      name: 'Mitril etik · MHR'
+    },
+    smithSklAdamantGreaves: {
+      name: 'Adamant etik · MHR'
+    },
+    smithSklAetheriteGreaves: {
+      name: 'Efirit etik · MHR'
+    },
+    smithMasterChaIronSword: {
+      name: 'Usta yasagan temir skipetr · XRZ'
+    },
+    smithChaIronSword: {
+      name: 'Temir skipetr · XRZ'
+    },
+    smithMasterChaIronHammer: {
+      name: 'Usta yasagan temir bayroq · XRZ'
+    },
+    smithChaIronHammer: {
+      name: 'Temir bayroq · XRZ'
+    },
+    smithMasterChaIronShield: {
+      name: 'Usta yasagan temir kodeks · XRZ'
+    },
+    smithChaIronShield: {
+      name: 'Temir kodeks · XRZ'
+    },
+    smithMasterChaIronHelm: {
+      name: 'Usta yasagan temir toj · XRZ'
+    },
+    smithChaIronHelm: {
+      name: 'Temir toj · XRZ'
+    },
+    smithMasterChaIronPlate: {
+      name: 'Usta yasagan temir tabard · XRZ'
+    },
+    smithChaIronPlate: {
+      name: 'Temir tabard · XRZ'
+    },
+    smithMasterChaIronGreaves: {
+      name: 'Usta yasagan temir etik · XRZ'
+    },
+    smithChaIronGreaves: {
+      name: 'Temir etik · XRZ'
+    },
+    smithMasterChaSilverSword: {
+      name: 'Usta yasagan kumush skipetr · XRZ'
+    },
+    smithChaSilverSword: {
+      name: 'Kumush skipetr · XRZ'
+    },
+    smithMasterChaSilverHammer: {
+      name: 'Usta yasagan kumush bayroq · XRZ'
+    },
+    smithChaSilverHammer: {
+      name: 'Kumush bayroq · XRZ'
+    },
+    smithMasterChaSilverShield: {
+      name: 'Usta yasagan kumush kodeks · XRZ'
+    },
+    smithChaSilverShield: {
+      name: 'Kumush kodeks · XRZ'
+    },
+    smithMasterChaSilverHelm: {
+      name: 'Usta yasagan kumush toj · XRZ'
+    },
+    smithChaSilverHelm: {
+      name: 'Kumush toj · XRZ'
+    },
+    smithMasterChaSilverPlate: {
+      name: 'Usta yasagan kumush tabard · XRZ'
+    },
+    smithChaSilverPlate: {
+      name: 'Kumush tabard · XRZ'
+    },
+    smithMasterChaSilverGreaves: {
+      name: 'Usta yasagan kumush etik · XRZ'
+    },
+    smithChaSilverGreaves: {
+      name: 'Kumush etik · XRZ'
+    },
+    smithMasterChaGoldSword: {
+      name: 'Usta yasagan oltin skipetr · XRZ'
+    },
+    smithChaGoldSword: {
+      name: 'Oltin skipetr · XRZ'
+    },
+    smithMasterChaGoldHammer: {
+      name: 'Usta yasagan oltin bayroq · XRZ'
+    },
+    smithChaGoldHammer: {
+      name: 'Oltin bayroq · XRZ'
+    },
+    smithMasterChaGoldShield: {
+      name: 'Usta yasagan oltin kodeks · XRZ'
+    },
+    smithChaGoldShield: {
+      name: 'Oltin kodeks · XRZ'
+    },
+    smithMasterChaGoldHelm: {
+      name: 'Usta yasagan oltin toj · XRZ'
+    },
+    smithChaGoldHelm: {
+      name: 'Oltin toj · XRZ'
+    },
+    smithMasterChaGoldPlate: {
+      name: 'Usta yasagan oltin tabard · XRZ'
+    },
+    smithChaGoldPlate: {
+      name: 'Oltin tabard · XRZ'
+    },
+    smithMasterChaGoldGreaves: {
+      name: 'Usta yasagan oltin etik · XRZ'
+    },
+    smithChaGoldGreaves: {
+      name: 'Oltin etik · XRZ'
+    },
+    smithMasterChaMithrilSword: {
+      name: 'Usta yasagan mitril skipetr · XRZ'
+    },
+    smithMasterChaAdamantSword: {
+      name: 'Usta yasagan adamant skipetr · XRZ'
+    },
+    smithMasterChaAetheriteSword: {
+      name: 'Usta yasagan efirit skipetr · XRZ'
+    },
+    smithChaMithrilSword: {
+      name: 'Mitril skipetr · XRZ'
+    },
+    smithChaAdamantSword: {
+      name: 'Adamant skipetr · XRZ'
+    },
+    smithChaAetheriteSword: {
+      name: 'Efirit skipetr · XRZ'
+    },
+    smithMasterChaMithrilHammer: {
+      name: 'Usta yasagan mitril bayroq · XRZ'
+    },
+    smithMasterChaAdamantHammer: {
+      name: 'Usta yasagan adamant bayroq · XRZ'
+    },
+    smithMasterChaAetheriteHammer: {
+      name: 'Usta yasagan efirit bayroq · XRZ'
+    },
+    smithChaMithrilHammer: {
+      name: 'Mitril bayroq · XRZ'
+    },
+    smithChaAdamantHammer: {
+      name: 'Adamant bayroq · XRZ'
+    },
+    smithChaAetheriteHammer: {
+      name: 'Efirit bayroq · XRZ'
+    },
+    smithMasterChaMithrilShield: {
+      name: 'Usta yasagan mitril kodeks · XRZ'
+    },
+    smithMasterChaAdamantShield: {
+      name: 'Usta yasagan adamant kodeks · XRZ'
+    },
+    smithMasterChaAetheriteShield: {
+      name: 'Usta yasagan efirit kodeks · XRZ'
+    },
+    smithChaMithrilShield: {
+      name: 'Mitril kodeks · XRZ'
+    },
+    smithChaAdamantShield: {
+      name: 'Adamant kodeks · XRZ'
+    },
+    smithChaAetheriteShield: {
+      name: 'Efirit kodeks · XRZ'
+    },
+    smithMasterChaMithrilHelm: {
+      name: 'Usta yasagan mitril toj · XRZ'
+    },
+    smithMasterChaAdamantHelm: {
+      name: 'Usta yasagan adamant toj · XRZ'
+    },
+    smithMasterChaAetheriteHelm: {
+      name: 'Usta yasagan efirit toj · XRZ'
+    },
+    smithChaMithrilHelm: {
+      name: 'Mitril toj · XRZ'
+    },
+    smithChaAdamantHelm: {
+      name: 'Adamant toj · XRZ'
+    },
+    smithChaAetheriteHelm: {
+      name: 'Efirit toj · XRZ'
+    },
+    smithMasterChaMithrilPlate: {
+      name: 'Usta yasagan mitril tabard · XRZ'
+    },
+    smithMasterChaAdamantPlate: {
+      name: 'Usta yasagan adamant tabard · XRZ'
+    },
+    smithMasterChaAetheritePlate: {
+      name: 'Usta yasagan efirit tabard · XRZ'
+    },
+    smithChaMithrilPlate: {
+      name: 'Mitril tabard · XRZ'
+    },
+    smithChaAdamantPlate: {
+      name: 'Adamant tabard · XRZ'
+    },
+    smithChaAetheritePlate: {
+      name: 'Efirit tabard · XRZ'
+    },
+    smithMasterChaMithrilGreaves: {
+      name: 'Usta yasagan mitril etik · XRZ'
+    },
+    smithMasterChaAdamantGreaves: {
+      name: 'Usta yasagan adamant etik · XRZ'
+    },
+    smithMasterChaAetheriteGreaves: {
+      name: 'Usta yasagan efirit etik · XRZ'
+    },
+    smithChaMithrilGreaves: {
+      name: 'Mitril etik · XRZ'
+    },
+    smithChaAdamantGreaves: {
+      name: 'Adamant etik · XRZ'
+    },
+    smithChaAetheriteGreaves: {
+      name: 'Efirit etik · XRZ'
+    },
+    smithMasterEndIronSword: {
+      name: 'Usta yasagan temir gurz · CHD'
+    },
+    smithEndIronSword: {
+      name: 'Temir gurz · CHD'
+    },
+    smithMasterEndIronHammer: {
+      name: 'Usta yasagan temir bolta · CHD'
+    },
+    smithEndIronHammer: {
+      name: 'Temir bolta · CHD'
+    },
+    smithMasterEndIronShield: {
+      name: 'Usta yasagan temir qalqon · CHD'
+    },
+    smithEndIronShield: {
+      name: 'Temir qalqon · CHD'
+    },
+    smithMasterEndIronHelm: {
+      name: 'Usta yasagan temir dubulgʻa · CHD'
+    },
+    smithEndIronHelm: {
+      name: 'Temir dubulgʻa · CHD'
+    },
+    smithMasterEndIronPlate: {
+      name: 'Usta yasagan temir zirh · CHD'
+    },
+    smithEndIronPlate: {
+      name: 'Temir zirh · CHD'
+    },
+    smithMasterEndIronGreaves: {
+      name: 'Usta yasagan temir boldir himoyasi · CHD'
+    },
+    smithEndIronGreaves: {
+      name: 'Temir boldir himoyasi · CHD'
+    },
+    smithMasterEndSilverSword: {
+      name: 'Usta yasagan kumush gurz · CHD'
+    },
+    smithEndSilverSword: {
+      name: 'Kumush gurz · CHD'
+    },
+    smithMasterEndSilverHammer: {
+      name: 'Usta yasagan kumush bolta · CHD'
+    },
+    smithEndSilverHammer: {
+      name: 'Kumush bolta · CHD'
+    },
+    smithMasterEndSilverShield: {
+      name: 'Usta yasagan kumush qalqon · CHD'
+    },
+    smithEndSilverShield: {
+      name: 'Kumush qalqon · CHD'
+    },
+    smithMasterEndSilverHelm: {
+      name: 'Usta yasagan kumush dubulgʻa · CHD'
+    },
+    smithEndSilverHelm: {
+      name: 'Kumush dubulgʻa · CHD'
+    },
+    smithMasterEndSilverPlate: {
+      name: 'Usta yasagan kumush zirh · CHD'
+    },
+    smithEndSilverPlate: {
+      name: 'Kumush zirh · CHD'
+    },
+    smithMasterEndSilverGreaves: {
+      name: 'Usta yasagan kumush boldir himoyasi · CHD'
+    },
+    smithEndSilverGreaves: {
+      name: 'Kumush boldir himoyasi · CHD'
+    },
+    smithMasterEndGoldSword: {
+      name: 'Usta yasagan oltin gurz · CHD'
+    },
+    smithEndGoldSword: {
+      name: 'Oltin gurz · CHD'
+    },
+    smithMasterEndGoldHammer: {
+      name: 'Usta yasagan oltin bolta · CHD'
+    },
+    smithEndGoldHammer: {
+      name: 'Oltin bolta · CHD'
+    },
+    smithMasterEndGoldShield: {
+      name: 'Usta yasagan oltin qalqon · CHD'
+    },
+    smithEndGoldShield: {
+      name: 'Oltin qalqon · CHD'
+    },
+    smithMasterEndGoldHelm: {
+      name: 'Usta yasagan oltin dubulgʻa · CHD'
+    },
+    smithEndGoldHelm: {
+      name: 'Oltin dubulgʻa · CHD'
+    },
+    smithMasterEndGoldPlate: {
+      name: 'Usta yasagan oltin zirh · CHD'
+    },
+    smithEndGoldPlate: {
+      name: 'Oltin zirh · CHD'
+    },
+    smithMasterEndGoldGreaves: {
+      name: 'Usta yasagan oltin boldir himoyasi · CHD'
+    },
+    smithEndGoldGreaves: {
+      name: 'Oltin boldir himoyasi · CHD'
+    },
+    smithMasterEndMithrilSword: {
+      name: 'Usta yasagan mitril gurz · CHD'
+    },
+    smithMasterEndAdamantSword: {
+      name: 'Usta yasagan adamant gurz · CHD'
+    },
+    smithMasterEndAetheriteSword: {
+      name: 'Usta yasagan efirit gurz · CHD'
+    },
+    smithEndMithrilSword: {
+      name: 'Mitril gurz · CHD'
+    },
+    smithEndAdamantSword: {
+      name: 'Adamant gurz · CHD'
+    },
+    smithEndAetheriteSword: {
+      name: 'Efirit gurz · CHD'
+    },
+    smithMasterEndMithrilHammer: {
+      name: 'Usta yasagan mitril bolta · CHD'
+    },
+    smithMasterEndAdamantHammer: {
+      name: 'Usta yasagan adamant bolta · CHD'
+    },
+    smithMasterEndAetheriteHammer: {
+      name: 'Usta yasagan efirit bolta · CHD'
+    },
+    smithEndMithrilHammer: {
+      name: 'Mitril bolta · CHD'
+    },
+    smithEndAdamantHammer: {
+      name: 'Adamant bolta · CHD'
+    },
+    smithEndAetheriteHammer: {
+      name: 'Efirit bolta · CHD'
+    },
+    smithMasterEndMithrilShield: {
+      name: 'Usta yasagan mitril qalqon · CHD'
+    },
+    smithMasterEndAdamantShield: {
+      name: 'Usta yasagan adamant qalqon · CHD'
+    },
+    smithMasterEndAetheriteShield: {
+      name: 'Usta yasagan efirit qalqon · CHD'
+    },
+    smithEndMithrilShield: {
+      name: 'Mitril qalqon · CHD'
+    },
+    smithEndAdamantShield: {
+      name: 'Adamant qalqon · CHD'
+    },
+    smithEndAetheriteShield: {
+      name: 'Efirit qalqon · CHD'
+    },
+    smithMasterEndMithrilHelm: {
+      name: 'Usta yasagan mitril dubulgʻa · CHD'
+    },
+    smithMasterEndAdamantHelm: {
+      name: 'Usta yasagan adamant dubulgʻa · CHD'
+    },
+    smithMasterEndAetheriteHelm: {
+      name: 'Usta yasagan efirit dubulgʻa · CHD'
+    },
+    smithEndMithrilHelm: {
+      name: 'Mitril dubulgʻa · CHD'
+    },
+    smithEndAdamantHelm: {
+      name: 'Adamant dubulgʻa · CHD'
+    },
+    smithEndAetheriteHelm: {
+      name: 'Efirit dubulgʻa · CHD'
+    },
+    smithMasterEndMithrilPlate: {
+      name: 'Usta yasagan mitril zirh · CHD'
+    },
+    smithMasterEndAdamantPlate: {
+      name: 'Usta yasagan adamant zirh · CHD'
+    },
+    smithMasterEndAetheritePlate: {
+      name: 'Usta yasagan efirit zirh · CHD'
+    },
+    smithEndMithrilPlate: {
+      name: 'Mitril zirh · CHD'
+    },
+    smithEndAdamantPlate: {
+      name: 'Adamant zirh · CHD'
+    },
+    smithEndAetheritePlate: {
+      name: 'Efirit zirh · CHD'
+    },
+    smithMasterEndMithrilGreaves: {
+      name: 'Usta yasagan mitril boldir himoyasi · CHD'
+    },
+    smithMasterEndAdamantGreaves: {
+      name: 'Usta yasagan adamant boldir himoyasi · CHD'
+    },
+    smithMasterEndAetheriteGreaves: {
+      name: 'Usta yasagan efirit boldir himoyasi · CHD'
+    },
+    smithEndMithrilGreaves: {
+      name: 'Mitril boldir himoyasi · CHD'
+    },
+    smithEndAdamantGreaves: {
+      name: 'Adamant boldir himoyasi · CHD'
+    },
+    smithEndAetheriteGreaves: {
+      name: 'Efirit boldir himoyasi · CHD'
     },
     smithIronSword: {
       name: 'Temir qilich'
@@ -1777,6 +2951,414 @@ export default {
     scepterOfTheFirstKing: {
       name: 'Birinchi shoh asosi'
     },
+    pickpocketsKnife: {
+      name: 'Cho\'ntakchi pichog\'i'
+    },
+    serpentsFang: {
+      name: 'Ilon tishi'
+    },
+    phantomRapier: {
+      name: 'Arvoh rapirasi'
+    },
+    fangOfTheWindless: {
+      name: 'Shamolsizlik tishi'
+    },
+    roguesBuckler: {
+      name: 'Ig\'vogar kichik qalqoni'
+    },
+    venomVial: {
+      name: 'Zahar shishasi'
+    },
+    swiftguardBuckler: {
+      name: 'Chaqqon qo\'riqchi kichik qalqoni'
+    },
+    nightshadeFlask: {
+      name: 'Beladonna shishasi'
+    },
+    windveilTarge: {
+      name: 'Shamol pardasi qalqoni'
+    },
+    shadowdancersBuckler: {
+      name: 'Soya raqqosi kichik qalqoni'
+    },
+    scoutsBandana: {
+      name: 'Razvedkachi ro\'molchasi'
+    },
+    nightcowl: {
+      name: 'Tungi kapyushon'
+    },
+    shadowveilHood: {
+      name: 'Soya pardasi kapyushoni'
+    },
+    windrunnersCap: {
+      name: 'Shamol yuguruvchisi kepkasi'
+    },
+    maskOfTheSilentWind: {
+      name: 'Sokin shamol niqobi'
+    },
+    rangersJerkin: {
+      name: 'O\'rmonchi nimchasi'
+    },
+    nightstalkerLeathers: {
+      name: 'Tungi ovchi terisi'
+    },
+    windridersHarness: {
+      name: 'Shamol chavandozi jabduqlari'
+    },
+    mantleOfTheShadowDancer: {
+      name: 'Soya raqqosi plashi'
+    },
+    thiefsGloves: {
+      name: 'O\'g\'ri qo\'lqoplari'
+    },
+    cutpurseGloves: {
+      name: 'Cho\'ntakchi qo\'lqoplari'
+    },
+    glovesOfTheGale: {
+      name: 'Bo\'ron qo\'lqoplari'
+    },
+    softSoledShoes: {
+      name: 'Yumshoq tagli poyabzal'
+    },
+    catStepBoots: {
+      name: 'Mushuk qadami etiklari'
+    },
+    shadowstepBoots: {
+      name: 'Soya qadami etiklari'
+    },
+    windstrideBoots: {
+      name: 'Shamol qadami etiklari'
+    },
+    luckyCoin: {
+      name: 'Omad tangasi'
+    },
+    shadowBand: {
+      name: 'Soya uzugi'
+    },
+    sandglassOfTheSwift: {
+      name: 'Chaqqonlar qum soati'
+    },
+    talonCharm: {
+      name: 'Panja tumori'
+    },
+    windheart: {
+      name: 'Shamol yuragi'
+    },
+    ashwallHeater: {
+      name: 'Kul devori qalqoni'
+    },
+    wyrmhidePavise: {
+      name: 'Ajdar terisidan pavez'
+    },
+    footmansKettleHat: {
+      name: 'Piyoda askarning qozon shlyapasi'
+    },
+    ironbrowSallet: {
+      name: 'Temir qoshli dubulg‘a'
+    },
+    warlordsBarbute: {
+      name: 'Sarkardaning barbutasi'
+    },
+    helmOfTheSunderedThrone: {
+      name: 'Parchalangan taxt dubulg‘asi'
+    },
+    recruitsCuirass: {
+      name: 'Yangi askarning kirasasi'
+    },
+    stonecuttersMitts: {
+      name: 'Tosh yo‘nuvchining qo‘lqoplari'
+    },
+    ashforgedGauntlets: {
+      name: 'Kulda toblangan sovut qo‘lqoplari'
+    },
+    warbringerGauntlets: {
+      name: 'Urush keltiruvchining sovut qo‘lqoplari'
+    },
+    titanfistGauntlets: {
+      name: 'Titan musti sovut qo‘lqoplari'
+    },
+    footmansGreaves: {
+      name: 'Piyoda askarning boldir sovutlari'
+    },
+    ironshodGreaves: {
+      name: 'Temir qoplangan boldir sovutlari'
+    },
+    warlordsSabatons: {
+      name: 'Sarkardaning sabatonlari'
+    },
+    greavesOfTheMountainfall: {
+      name: 'Tog‘ ko‘chkisining boldir sovutlari'
+    },
+    sergeantsSignet: {
+      name: 'Serjantning muhrli uzugi'
+    },
+    brawlersKnuckleRing: {
+      name: 'Janjalkashning musht temiri'
+    },
+    bloodiedWarMedal: {
+      name: 'Qonli urush medali'
+    },
+    watchmansCudgel: {
+      name: 'Qorovulning tayog‘i'
+    },
+    ironboundMace: {
+      name: 'Temir halqali gurz'
+    },
+    stonehideCleaver: {
+      name: 'Tosh teri boltasi'
+    },
+    bulwarkMaul: {
+      name: 'Qal’aning bolg‘asi'
+    },
+    mountainsplitterAxe: {
+      name: 'Tog‘ yoruvchi bolta'
+    },
+    everstandWarmace: {
+      name: 'Mustahkam urush gurzi'
+    },
+    emberwallBastion: {
+      name: 'Cho‘g‘ devor qal’asi'
+    },
+    stonewardenHelm: {
+      name: 'Tosh qo‘riqchining dubulg‘asi'
+    },
+    colossusVisage: {
+      name: 'Devning qiyofasi'
+    },
+    diggersGauntlets: {
+      name: 'Kovlovchining sovut qo‘lqoplari'
+    },
+    bastionGauntlets: {
+      name: 'Qal’aning sovut qo‘lqoplari'
+    },
+    glacierplateGauntlets: {
+      name: 'Muzlik plitali sovut qo‘lqoplari'
+    },
+    gauntletsOfEndlessVigil: {
+      name: 'Abadiy qo‘riqning sovut qo‘lqoplari'
+    },
+    hearthstoneCharm: {
+      name: 'O‘choq toshi tumori'
+    },
+    ironheartPendant: {
+      name: 'Temir yurak marjoni'
+    },
+    hedgewizardsWand: {
+      name: 'To‘siq sehrgarining tayoqchasi'
+    },
+    frostglassStaff: {
+      name: 'Qirov shishasidan tayoq'
+    },
+    voidthreadWand: {
+      name: 'Bo‘shliq ipidan tayoqcha'
+    },
+    staffOfTheStarlessSky: {
+      name: 'Yulduzsiz osmon tayog‘i'
+    },
+    studentsGrimoire: {
+      name: 'O‘quvchining sehr kitobi'
+    },
+    frostfireOrb: {
+      name: 'Qirov olovi shari'
+    },
+    orbOfTheUnwrittenHour: {
+      name: 'Yozilmagan soat shari'
+    },
+    apprenticesPointedCap: {
+      name: 'Shogirdning uchli qalpog‘i'
+    },
+    sagesCirclet: {
+      name: 'Donishmand toji'
+    },
+    cinderWizardsHat: {
+      name: 'Kul sehrgarining shlyapasi'
+    },
+    voidseerCirclet: {
+      name: 'Bo‘shliq ko‘ruvchisining toji'
+    },
+    apprenticesRobe: {
+      name: 'Shogirdning to‘oni'
+    },
+    cinderthreadRobe: {
+      name: 'Kul ipli to‘n'
+    },
+    voidwovenRobe: {
+      name: 'Bo‘shliqdan to‘qilgan to‘n'
+    },
+    inkStainedGloves: {
+      name: 'Siyoh dog‘li qo‘lqoplar'
+    },
+    spellthreadGloves: {
+      name: 'Sehr ipli qo‘lqoplar'
+    },
+    frostweaveGloves: {
+      name: 'Qirov matoli qo‘lqoplar'
+    },
+    starlitGloves: {
+      name: 'Yulduz nurli qo‘lqoplar'
+    },
+    glovesOfTheLastWord: {
+      name: 'Oxirgi so‘z qo‘lqoplari'
+    },
+    scribesSlippers: {
+      name: 'Kotibning shippaklari'
+    },
+    moonstepSlippers: {
+      name: 'Oy qadami shippaklari'
+    },
+    emberstepBoots: {
+      name: 'Cho‘g‘ qadami etiklari'
+    },
+    voidwalkerBoots: {
+      name: 'Bo‘shliq sayyohining etiklari'
+    },
+    bootsOfTheWanderingStar: {
+      name: 'Adashgan yulduz etiklari'
+    },
+    glowstonePendant: {
+      name: 'Yorqin tosh marjoni'
+    },
+    scholarsSeal: {
+      name: 'Olimning muhri'
+    },
+    eyeOfTheArchon: {
+      name: 'Arxonning ko‘zi'
+    },
+    cinderRepeater: {
+      name: 'Kul takroriy miltig‘i'
+    },
+    glacierMortar: {
+      name: 'Muzlik qo‘l minomyoti'
+    },
+    sparkCell: {
+      name: 'Uchqun yacheykasi'
+    },
+    arcCapacitor: {
+      name: 'Yoy kondensatori'
+    },
+    aetherheartCell: {
+      name: 'Efir yuragi yacheykasi'
+    },
+    marksmansVisor: {
+      name: 'Otuvchining yuz qalqoni'
+    },
+    sharpshootersCap: {
+      name: 'Snayperning kepkasi'
+    },
+    gunnersHarness: {
+      name: 'To‘pchining jabduqlari'
+    },
+    steadyhandGloves: {
+      name: 'Mustahkam qo‘l qo‘lqoplari'
+    },
+    gunsmithsGloves: {
+      name: 'Qurol ustasining qo‘lqoplari'
+    },
+    scrappersBoots: {
+      name: 'Janjalkashning etiklari'
+    },
+    sharpshooterBoots: {
+      name: 'Snayperning etiklari'
+    },
+    firingLineBoots: {
+      name: 'Otish chizig‘i etiklari'
+    },
+    steadyfootBoots: {
+      name: 'Mustahkam qadam etiklari'
+    },
+    aetherstepBoots: {
+      name: 'Efir qadami etiklari'
+    },
+    bootsOfTheLastShot: {
+      name: 'Oxirgi o‘q etiklari'
+    },
+    brassCartridgeCharm: {
+      name: 'Mis gilza tumori'
+    },
+    deadEyeLens: {
+      name: 'Aniq ko‘z linzasi'
+    },
+    eagleEyeScope: {
+      name: 'Burgut ko‘zi durbini'
+    },
+    criersBaton: {
+      name: 'Jarchining tayog‘i'
+    },
+    droversStandard: {
+      name: 'Cho‘ponning bayrog‘i'
+    },
+    marshalsSceptre: {
+      name: 'Marshalning hassasi'
+    },
+    balladBook: {
+      name: 'Ballada kitobi'
+    },
+    chronicleOfHeroes: {
+      name: 'Qahramonlar solnomasi'
+    },
+    psalterOfTheHost: {
+      name: 'Qo‘shinning zabur kitobi'
+    },
+    tomeOfEternalReign: {
+      name: 'Abadiy hukmronlik jildi'
+    },
+    heraldsCap: {
+      name: 'Elchining qalpog‘i'
+    },
+    singersCirclet: {
+      name: 'Qo‘shiqchining toji'
+    },
+    diademOfTenThousandVoices: {
+      name: 'O‘n ming ovoz toji'
+    },
+    travelersWaistcoat: {
+      name: 'Yo‘lovchining nimchasi'
+    },
+    minstrelsMotley: {
+      name: 'Baxshining yamoqli kiyimi'
+    },
+    troubadoursCoat: {
+      name: 'Trubadurning paltosi'
+    },
+    marshalsGreatcoat: {
+      name: 'Marshalning paltosi'
+    },
+    buskersGloves: {
+      name: 'Ko‘cha musiqachisining qo‘lqoplari'
+    },
+    drummersGloves: {
+      name: 'Nog‘orachining qo‘lqoplari'
+    },
+    standardBearersGloves: {
+      name: 'Bayroqdorning qo‘lqoplari'
+    },
+    gildedParadeGloves: {
+      name: 'Zarhal parad qo‘lqoplari'
+    },
+    glovesOfTheCrownedHand: {
+      name: 'Toj kiygan qo‘lning qo‘lqoplari'
+    },
+    wayfarersShoes: {
+      name: 'Sayyohning poyabzali'
+    },
+    troubadourBoots: {
+      name: 'Trubadurning etiklari'
+    },
+    heraldsRidingBoots: {
+      name: 'Elchining minish etiklari'
+    },
+    paradeBoots: {
+      name: 'Parad etiklari'
+    },
+    bootsOfTheLongProcession: {
+      name: 'Uzun yurish etiklari'
+    },
+    silverWhistle: {
+      name: 'Kumush hushtak'
+    },
+    gatheringHorn: {
+      name: 'Yig‘ilish shoxi'
+    },
     heartOfTheMountain: {
       name: 'Togʻ yuragi'
     },
@@ -1880,6 +3462,9 @@ export default {
     freedPeddler: {
       talk: 'Sayyohga kerak bo\'lgan hamma narsa. Deyarli yangi, asosan.',
       name: 'Odo Marrow'
+    },
+    sfShadowRoad: {
+      name: 'Nettle Quickhand'
     },
     sfShadow: {
       name: 'Nettle Quickhand'
@@ -2034,6 +3619,9 @@ export default {
     sunfordGambler: {
       name: 'Dob Tumbler'
     },
+    sunfordCups: {
+      name: 'Nell Nimblefingers'
+    },
     oakGambler: {
       name: 'Silky Ren'
     },
@@ -2145,6 +3733,13 @@ export default {
     }
   },
   dlg: {
+    intro: {
+      crossing: { 1: 'Bu dunyoning har bir yoʻli chorrahada tutashadi… va har bir chorraha — jang.' },
+      hero: { 1: 'Sunfordning sokin dalalaridan yosh qahramon yoʻlga chiqdi.' },
+      fire: { 1: 'Olov chaqiruvga javob berdi. Poʻlat yangi nomni bildi.' },
+      foes: { 1: 'Goblin qirollari, ayoz yarllari, boʻshliq ajdari… va Bosh Iblis.' },
+      begin: { 1: 'Sening afsonang hozir boshlanadi.' }
+    },
     frostDisciple: {
       bye: {
         '1': 'Sovqotma.'
@@ -2339,6 +3934,23 @@ export default {
       hello: {
         '2': 'Odo Marrow, xizmatingdaman. Attor, usta va juda minnatdor odam.',
         '1': 'Sen! Oʻsha qafasni ochgan sensan! Men u yerda chirib ketardim.'
+      }
+    },
+    sfShadowRoad: {
+      hello: {
+        '1': 'Teleportatsiya. Qiziqmi?'
+      },
+      again: {
+        '1': 'Yana bir ayyorlik uchun qaytdingmi?'
+      },
+      train: {
+        '1': 'Yaxshilab qara. Bir qadam, va sen boshqa joydasan.'
+      },
+      trainBack: {
+        '1': 'Yaxshi. Endi borib, boshqa joyda bo\'l.'
+      },
+      bye: {
+        '1': 'Ushlanib qolma.'
       }
     },
     sfShadow: {
@@ -2593,9 +4205,8 @@ export default {
         '2': 'Metall eng yorqin choʻgʻlanganda ur. Adashsang, lom boʻladi. Qani.',
         '1': 'Temirchilik? Hm. Bolgʻani mana bunday ushla, toʻqmoqdek emas.'
       },
-      ore: {
-        '1': 'Yombilar, a? Hammasini olaman. Toʻgʻri tarozi, toʻgʻri pul.'
-      },
+      ore: { '1': 'Ruda, a? Ko‘rsat. Har bo‘lagiga to‘layman, adolatli vazn.' },
+      sellBack: { '1': 'Adolatli vazn, adolatli tanga. Topsang, yana olib kel.' },
       forgeBack: {
         '1': 'Yomon emas. Yaxshi ham emas. Davom et.'
       },
@@ -2878,7 +4489,7 @@ export default {
       },
       map: {
         '1': 'Kapitan Rookning xaritasi! Goblinlar uni tutib olishidan oldin u xaritani yirtib, boʻlaklarini yashirib qoʻygan.',
-        '2': 'Oltitasini ham top, X senga yoʻlni koʻrsatadi: Kul qoyalarining bir joyida. Oʻsha yerni qazi, oltin seniki boʻladi.',
+        '2': 'Ulardan oltitasini top, atrofda yana bir nechtasi sochilib yotibdi, X senga yoʻlni koʻrsatadi: Kul qoyalarining bir joyida. Oʻsha yerni qazi, oltin seniki boʻladi.',
         say: 'Eski xaritaning bir boʻlagini topdim.'
       }
     },
@@ -2895,6 +4506,9 @@ export default {
       },
       mana: {
         '1': 'Bu achchiq. Sehrlaring tugaganda ich.'
+      },
+      brew: {
+        '1': 'Giyohlaringni koʻrsat. Mana tonigimdan mazaliroq narsa aralashtirib beraman.'
       },
       potions: {
         '1': 'Har bir jangga bir necha kolba olib borasan. Kerak boʻlmasdan oldin ich, keyin emas.',
@@ -2914,6 +4528,9 @@ export default {
       },
       healBack: {
         '1': 'Kamaringni toʻla, boshingni past tut.'
+      },
+      brewBack: {
+        '1': 'Ehtiyot boʻl, ular issiq. Hammasini birdan ichib yuborma.'
       },
       bye: {
         '1': 'Tashqarida oʻzingga qara.'
@@ -3015,9 +4632,8 @@ export default {
         '2': 'Choʻgʻni kuzat. Uning qoq yuragiga uch marta ur, metall eslab qoladi.',
         '1': 'Hunarni oʻrganmoqchimisan? Yaxshi. Oakhavenga har bir bolgʻa kerak.'
       },
-      ore: {
-        '1': 'Xom ruda! Qurolxonaga hech qachon yetmaydi. Mana, haqing.'
-      },
+      ore: { '1': 'Xom ruda! Qurolxonaga hech qachon yetmaydi. Ortig‘ini menga sot.' },
+      sellBack: { '1': 'Har bir bo‘lak devorga ketadi. Rahmat.' },
       forgeBack: {
         '1': 'Yaxshi poʻlat. Devorlar senga minnatdor.'
       },
@@ -3058,9 +4674,8 @@ export default {
         '2': 'Uch zarba, har biri choʻgʻning yuragiga. Butun sir shu, xolos.',
         '1': 'Qamaldan beri soʻragan har kimga oʻrgataman. Kel, shu yerda tur.'
       },
-      ore: {
-        '1': 'Devorlar uchun yana ruda? Barakalla. Mana, buni ol.'
-      },
+      ore: { '1': 'Devorlar uchun yana ruda? Bera oladigan har bo‘lagingga to‘layman.' },
+      sellBack: { '1': 'Baraka topgin. Bu devorlarga yana sovut taxtalari.' },
       forgeBack: {
         '1': 'Har bir zarba seni yaxshilaydi. Xohlagan paytda kel.'
       },
@@ -3456,9 +5071,8 @@ export default {
         '2': 'Qachonligini choʻgʻ aytadi. Qanchalik qattiq — qoling aytadi. Uch zarba.',
         '1': 'Sandon oldida yer usti odami? Mayli, hamma qayerdandir boshlaydi.'
       },
-      ore: {
-        '1': 'Yaxshi, halol metall. Ironhold bunga doim pul toʻlaydi.'
-      },
+      ore: { '1': 'Yaxshi, halol metall. Shu yerga qo‘y, har bo‘lagiga to‘layman.' },
+      sellBack: { '1': 'Halol savdo. Ironhold yaxshi metallga doim to‘laydi.' },
       forgeBack: {
         '1': 'Gnom yaxshiroq qilardi. Lekin unchalik emas.'
       },
@@ -3528,9 +5142,8 @@ export default {
         '2': 'Qizdir, ur, aylantir. Uch zarba, aynan choʻgʻga. Keyin sovishga qoʻy.',
         '1': 'Zirh sabr talab qiladigan ish. Senga asoslarini koʻrsataman.'
       },
-      ore: {
-        '1': 'Bir tortib koʻray. Yaxshi. Pul seniki.'
-      },
+      ore: { '1': 'Tortib ko‘ray. Nimani sotishingni tanla, men tanga sanayman.' },
+      sellBack: { '1': 'Tortildi va to‘landi. Yaxshi.' },
       forgeBack: {
         '1': 'Kiyishdan oldin sovib olsin.'
       },
@@ -3570,9 +5183,8 @@ export default {
         '2': 'Jang maydonidagidek, sandon oldida ham intizom. Uch zarba, choʻgʻga sodiq.',
         '1': 'Orden doʻstlarini qurollantiradi. Senga oʻrgataman.'
       },
-      ore: {
-        '1': 'Orden urush uchun barcha rudani sotib oladi. Toʻloving.'
-      },
+      ore: { '1': 'Orden urush uchun ruda sotib oladi. Ortig‘ini sot.' },
+      sellBack: { '1': 'To‘lovingiz yozib qo‘yildi. Orden sizga rahmat aytadi.' },
       forgeBack: {
         '1': 'Yaxshi yasalgan. Uni kiyib, munosib xizmat qil.'
       },
@@ -3974,6 +5586,11 @@ export default {
       }
     },
     bark: {
+      banditChief: {
+        whistle: {
+          1: 'Turinglar, bolalar! Tishlanglar ularni!'
+        }
+      },
       lightDisciple: {
         freed: {
           '1': 'Seni nur yubordi. Men Rohiba Aurelle. Meni Sunford shahridan izla, senga Nur keltiruvchi yoʻlini oʻrgataman.'
@@ -4129,9 +5746,8 @@ export default {
         '2': 'Eng qattiq choʻgʻlanganda ur. Uchta yaxshi zarba yaxshi buyum chiqaradi.',
         '1': 'Bolgʻani oʻzing sinab koʻrmoqchimisan? Sandonni boʻlishishga qarshi emasman.'
       },
-      ore: {
-        '1': 'Ajoyib ruda. Silverbridge doim adolatli narx toʻlaydi.'
-      },
+      ore: { '1': 'Chiroyli ruda. Nimani sotishingni ko‘rsat, har bo‘lagiga to‘layman.' },
+      sellBack: { '1': 'Mamnunman. Silverbridge doim adolatli narx to‘laydi.' },
       forgeBack: {
         '1': 'Qara-ya! Sen tugʻma ustasan.'
       },
@@ -4573,7 +6189,7 @@ export default {
         say: 'Giyohlarni qayerdan topaman?'
       },
       elixirs: {
-        '1': 'Har biri seni jangda butun bir daqiqa kuchliroq qiladi. Qattiqroq zarba, pishiqroq teri, chaqqonroq oyoq.',
+        '1': 'Har biri seni jangda butun 5 daqiqa kuchliroq qiladi. Qattiqroq zarba, pishiqroq teri, chaqqonroq oyoq.',
         '2': 'Ular uchinchi kolbangda turadi. Qaysi birini ichishni almashtirish uchun kichik strelkaga bos.',
         say: 'Eliksirlar nima qiladi?'
       },
@@ -4642,6 +6258,36 @@ export default {
       },
       bye: {
         '1': 'Koʻproq eski-tuski olib kel! Eski-tuski eng yaxshi koʻrgan narsam.'
+      }
+    },
+    sunfordCups: {
+      hello: {
+        1: 'Yaqinroq keling! Uchta piyola, bitta qimmatbaho tosh va birinchi raund bepul!',
+        2: 'Nell Nimblefingers. Qo\'llarimni hali hech kim aldamagan. Sinab ko\'rasanmi?'
+      },
+      again: {
+        1: 'Yana keldingmi? Ko\'zingni katta och!'
+      },
+      play: {
+        1: 'Ko\'zing toshda bo\'lsin, do\'stim. Qovog\'ingni qoqma!'
+      },
+      rules: {
+        1: 'Toshni piyola tagiga yashirib, piyolalarni aralashtiraman. Sen uni yashirgan piyolani ko\'rsatasan.',
+        2: 'Ketma-ket har g\'alaba ko\'proq to\'laydi. Uch g\'alaba sovrin, besh g\'alaba xazina keltiradi. Kunning birinchi raundi bepul.',
+        say: 'Bu qanday o\'ynaladi?'
+      },
+      who: {
+        1: 'Yurishdan oldin aralashtirishni o\'rgangandim. Onam buning ko\'p narsani tushuntirishini aytadi.'
+      },
+      luck: {
+        1: 'Ba\'zan! Shunda baland ovozda ingrayman, tomoshabinlar menga achinadi.',
+        say: 'Hech yutqazasanmi?'
+      },
+      playBack: {
+        1: 'Ajoyib raund! Ertaga qayt, birinchisi doim bepul.'
+      },
+      bye: {
+        1: 'Ko\'rishguncha! Tashqarida ko\'zingni ochiq tut.'
       }
     },
     oakGambler: {
@@ -5135,6 +6781,7 @@ export default {
     banditArcher: 'Kamonchi qaroqchi',
     wolf: 'Boʻri',
     banditChief: 'Qaroqchilar boshligʻi',
+    gnome: 'Gnom',
     goblinKing: 'Goblinlar qiroli',
     treant: 'Daraxt odam',
     spider: 'Ulkan oʻrgimchak',
@@ -5352,6 +6999,18 @@ export default {
       firefoxColors: 'Firefox: Sozlamalar → Ranglar → “Sahifa belgilagan ranglarni bekor qilish” ni Hech qachon qiling.'
     }
   },
+  samsungFix: {
+    title: 'Rangni tez tekshirish',
+    body: 'Ba\'zi telefonlar veb-sahifalar ranglarini o\'zgartiradi. Quyidagi ikkita kvadratni solishtiring.',
+    question: 'Ikkala kvadrat bir xil ko\'rinadimi?',
+    refSquare: 'Namunaviy kvadrat',
+    pageSquare: 'Sahifa kvadrati',
+    yes: 'Ha, bir xil',
+    no: 'Yo\'q, har xil',
+    option: 'Ranglarni tuzatish (Samsung qorong\'i rejimi)',
+    optionHint: 'Menyular qorong\'i ko\'rinsa yoki matnni o\'qish qiyin bo\'lsa, yoqing.',
+    recheck: 'Rang tekshiruvini qaytarish'
+  },
   saveStatus: {
     restoredTitle: 'Bulutli saqlash tiklandi',
     restoredBody: 'Tiklash uchun +{n} bonus oltin',
@@ -5476,7 +7135,7 @@ export default {
   },
   forge: {
     upgrade: 'Kuchaytirish ({n} oltin)',
-    max: 'Toʻliq kuchaytirilgan: +{n}.',
+    next: 'Keyingi +{level}: statlar +{pct}%',
     town: 'Istalgan shahar temirchisi buni kuchaytira oladi.'
   },
   ore: {
@@ -5491,6 +7150,12 @@ export default {
     },
     mithril: {
       name: 'Mitril rudasi'
+    },
+    adamant: {
+      name: 'Adamant rudasi'
+    },
+    aetherite: {
+      name: 'Efirit rudasi'
     }
   },
   plant: {
@@ -5572,32 +7237,32 @@ export default {
   elixir: {
     might: {
       name: 'Qudrat eliksiri',
-      desc: 'Bir daqiqaga +{n}% zarar'
+      desc: '5 daqiqaga +{n}% zarar'
     },
     iron: {
       name: 'Temirteri sharbati',
-      desc: 'Bir daqiqaga +{n}% zirh'
+      desc: '5 daqiqaga +{n}% zirh'
     },
     swift: {
       name: 'Chaqqonlik tonigi',
-      desc: 'Bir daqiqaga +{n}% tezlik va hujum tezligi'
+      desc: '5 daqiqaga +{n}% tezlik va hujum tezligi'
     },
     mind: {
       name: 'Tiniq aql damlamasi',
-      desc: 'Bir daqiqa davomida koʻnikmalar {n}% tezroq tiklanadi'
+      desc: '5 daqiqa davomida koʻnikmalar {n}% tezroq tiklanadi'
     },
     vigor: {
       name: 'Tetiklik eliksiri',
-      desc: 'Bir daqiqa davomida har soniyada joningizning {n}% qismini tiklaydi'
+      desc: '5 daqiqa davomida har soniyada joningizning {n}% qismini tiklaydi'
     },
     shadow: {
       name: 'Tashna sharbat',
-      desc: 'Bir daqiqa davomida zarbalaringiz bergan zararning {n}% qismicha joningizni tiklaydi'
+      desc: '5 daqiqa davomida zarbalaringiz bergan zararning {n}% qismicha joningizni tiklaydi'
     }
   },
   alchemy: {
     talk: 'Giyoh kiradi, eliksir chiqadi. Qaysi birini damlaymiz?',
-    lead: 'Har bir eliksir jangda bir daqiqa taʼsir qiladi. Uni uchinchi kolbangizdan iching. Har biridan {n} tadan olib yura olasiz.',
+    lead: 'Har bir eliksir jangda 5 daqiqa taʼsir qiladi. Uni uchinchi kolbangizdan iching. Har biridan {n} tadan olib yura olasiz.',
     brew: 'Damlash · {n}',
     carry: 'Olib yurish',
     carried: 'Kolbangizda',
@@ -5621,6 +7286,25 @@ export default {
     again: 'Yana oʻynash',
     noGold: 'Bu garov uchun oltin yetmaydi.',
     card: 'Karta {n}'
+  },
+  cups: {
+    title: 'Piyola peshtaxtasi',
+    lead: 'Toshga qara, uning piyolasini kuzat, keyin ko\'rsat. Ketma-ket har g\'alaba ko\'proq to\'laydi. Uchinchisi sovrin buyumi, beshinchisi xazina keltiradi.',
+    free: 'Bepul raund',
+    fee: 'O\'yna · {n}',
+    row: 'Ketma-ket g\'alabalar: {n} / {max}',
+    next: 'Keyingi g\'alaba: {n} oltin',
+    watch: 'Toshga qara!',
+    follow: 'Kuzat…',
+    pick: 'Piyolani tanla!',
+    hint: 'Piyolaga teging yoki raqamini bosing.',
+    won: 'Topding! +{n} oltin',
+    lost: 'Bu emas. Seriya qaytadan boshlanadi.',
+    near: 'Oz qoldi! U aynan yonida edi.',
+    timeout: 'Juda sekin! Seriya qaytadan boshlanadi.',
+    again: 'Yana o\'yna',
+    noGold: 'Oltin yetmaydi. Ertaga birinchi raund bepul.',
+    cup: '{n}-piyola'
   },
   battle: {
     title: 'Buyumlar jangi',

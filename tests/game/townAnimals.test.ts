@@ -11,7 +11,7 @@ import { stubCanvas } from './zfightTools'
 stubCanvas()
 
 const build = async (town: 'sunford' | 'oakhaven' | 'ironhold' | 'silverbridge', flags: string[] = [], low = false) => {
-  const { generateTown } = await import('@/game/sim/zoneGen')
+  const { generateTown } = await import('@/game/sim/townGen')
   const { TOWNS } = await import('@/game/data/zones')
   const { setGround } = await import('@/game/gfx/ground')
   const { Sim } = await import('@/game/sim/world')
