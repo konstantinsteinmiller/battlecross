@@ -146,11 +146,27 @@ export const placePieces = (p: SpotPlan & { seed: number }, ids: readonly string
   return pickSpots(p, rng, ids.length, 9, herbs).map((s, i) => ({ id: ids[i]!, x: s.x, z: s.z }))
 }
 
+/** Open ground in all eight cells round (i, j): a chest there cuts nothing off. */
+const openRound = (p: SpotPlan, i: number, j: number): boolean => {
+  for (let dj = -1; dj <= 1; dj++) {
+    for (let di = -1; di <= 1; di++) {
+      const k = (j + dj) * p.w + i + di
+      if (p.solid[k] || p.sealed[k] || p.kind[k] !== K_GROUND) return false
+    }
+  }
+  return true
+}
+
 /** Where the treasure is buried: reachable ground well along the way, but
  *  short of the end (the finale's clearing is a fight, not a dig). */
 export const placeTreasure = (p: SpotPlan & { seed: number; end: { x: number; z: number } }, avoid: ReadonlyArray<{ x: number; z: number }>): { x: number; z: number } | null => {
   const rng = mulberry32((p.seed ^ TREASURE_SALT) >>> 0)
-  const spots = pickSpots(p, rng, 8, 4, [...avoid, p.end]).filter(s => Math.hypot(s.x - p.end.x, s.z - p.end.z) > 12)
+  // The chest stands in the middle of its cell and blocks it (a chest is
+  // walked round): open ground all round it, so it cuts no way off, and the
+  // cell in front of it to dig from.
+  const spots = pickSpots(p, rng, 8, 4, [...avoid, p.end])
+    .map(s => ({ x: (Math.floor(s.x / CELL) + 0.5) * CELL, z: (Math.floor(s.z / CELL) + 0.5) * CELL }))
+    .filter(s => Math.hypot(s.x - p.end.x, s.z - p.end.z) > 12 && openRound(p, Math.floor(s.x / CELL), Math.floor(s.z / CELL)))
   if (!spots.length) return null
   const far = (s: { x: number; z: number }): number => Math.hypot(s.x - p.start.x, s.z - p.start.z)
   // The farthest of those: the X is out along the way, not by the gate.

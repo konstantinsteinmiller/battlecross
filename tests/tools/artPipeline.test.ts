@@ -429,7 +429,8 @@ describe('every other icon in the game is a painter target', () => {
     const src = (p: string): string => readFileSync(join(ROOT, 'src', p), 'utf-8')
     // The one icon component: `ui-<name>`, unless a bench asks for the drawing.
     expect(src('components/icons/GameIcon.vue')).toMatch(/props\.drawn \? '' : ICON_ART\.get\(`ui-\$\{props\.name\}`\)/)
-    expect(src('components/hud/HeroFrame.vue')).toMatch(/ICON_ART\.get\(`status-\$\{s\}`\)/)
+    expect(src('components/hud/HeroFrame.vue')).toMatch(/StatusChipIcon/)
+    expect(src('components/hud/StatusChipIcon.vue')).toMatch(/ICON_ART\.get\(`status-\$\{chip\.id\}`\)/)
     expect(src('components/screens/hero/SkillsPage.vue')).toMatch(/ICON_ART\.get\(`class-\$\{c\}`\)/)
     expect(src('components/screens/hero/EquipmentPage.vue')).toMatch(/ICON_ART\.get\(`slot-\$\{slotOf\(s\)\}`\)/)
     for (const [file, marks] of [['components/hud/SkillBar.vue', ['potion-health', 'potion-mana']], ['components/screens/trade/HealerScreen.vue', ['potion-health', 'potion-mana']], ['components/dialog/NpcPins.vue', ['quest']], ['components/onboarding/LessonLayer.vue', ['cursor']]] as const) {

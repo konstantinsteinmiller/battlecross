@@ -6,11 +6,11 @@ import type { LiquidId } from '../data/zones'
 import type { ChestTier } from '../data/loot'
 import { sfx } from '../audio/sfx'
 import { sceneQuality } from '../engine/quality'
-import { CELL } from '../sim/grid'
+import { CELL, colliderDist, createGrid, type Grid } from '../sim/grid'
 import { mulberry32 } from '../sim/rng'
 import type { SimEvent } from '../sim/types'
 import type { ChestState, Sim } from '../sim/world'
-import type { ZonePlan } from '../sim/zoneGen'
+import { fillGrid, type ZonePlan } from '../sim/zoneGen'
 import { K_BRIDGE, K_FORD, K_WATER } from '../sim/zoneFeatures'
 import { pushHud } from '../state/hud'
 import { celVC, celVCInst, glowVC, outlineMat, setCelMood } from './cel'
@@ -25,7 +25,10 @@ import { ORE_LOOK, isOre } from '../data/ores'
 import { cageOf } from '../data/cages'
 import { markStill, splitByTile } from './cull'
 import type { Slice } from '../engine/slicer'
-import { piecePalette, setPiece } from './setPieces'
+import { piecePalette, setPiece, type PieceGeo, type PiecePalette } from './setPieces'
+import { BODY_H, GROUND_H, LEVEL_PROP_ROLE, SOLID_TOL, type LevelPropKind, type PropRole } from './propRoles'
+import { footOf, footPoints, spillOf } from './footprint'
+import { DRESS_ROLE, type DressKind, type DressPlan } from '../sim/dressing'
 
 /** Side of a tile of the merged props and the water, metres. */
 const PROP_TILE = 30
@@ -351,7 +354,74 @@ const CAVE_AMBIENT = '#6f6c98'
 const CAVE_SKY = '#0d0b15'
 const CAVE_DARK = 0.62
 
+/** The parts of one side of a cave's mouth that stand in a body's way, as
+ *  discs (x, z, r): the pillar's foot, the rock at it, the glowing shards. */
+const mouthDiscs = (x: number, z: number, a: number, sgn: number, d: number): Array<[number, number, number]> => {
+  const px = Math.cos(a)
+  const pz = -Math.sin(a)
+  const bx = x + px * sgn * d
+  const bz = z + pz * sgn * d
+  return [
+    [bx, bz, 0.76],
+    [bx + px * sgn * 0.4, bz + pz * sgn * 0.4 + 0.2, 0.52],
+    [bx - px * sgn * 0.45, bz - pz * sgn * 0.45 + 0.4, 0.16],
+    [bx - px * sgn * 0.72, bz - pz * sgn * 0.72 + 0.5, 0.1]
+  ]
+}
+
+/** How far (m) the furthest point of a disc lies off the colliders. */
+const discSpill = (g: Grid, x: number, z: number, r: number): number => {
+  let worst = colliderDist(g, x, z)
+  for (let q = 0; q < 12; q++) {
+    const t = (q / 12) * Math.PI * 2
+    for (const f of [0.5, 1]) worst = Math.max(worst, colliderDist(g, x + Math.cos(t) * r * f, z + Math.sin(t) * r * f))
+  }
+  return worst
+}
+
+/** How far out from a cave mouth's middle one of its pillars stands: 1.55 m,
+ *  or as much further as keeps its foot on the rock beside the way in (the
+ *  widening may have cut the way wider than the arch); -1: none that side. */
+export const mouthSpread = (g: Grid, x: number, z: number, a: number, sgn: number): number => {
+  for (let d = 1.55; d < 3.6; d += 0.1) {
+    if (mouthDiscs(x, z, a, sgn, d).every(([dx, dz, r]) => discSpill(g, dx, dz, r) <= SOLID_TOL - 0.06)) return d
+  }
+  // No rock beside the way in that side (it opens onto open ground): no pillar there.
+  return -1
+}
+
+/** Does a piece, at its place and turn, stand on what stops a body (`SOLID_TOL`)? */
+const standsInRock = (g: Grid, parts: BufferGeometry[], x: number, z: number, a: number): boolean =>
+  spillOf(g, footPoints(footOf(parts, BODY_H, GROUND_H)), x, z, a, 1, SOLID_TOL - 0.06) <= SOLID_TOL - 0.06
+
+/**
+ * The place's set pieces as they are drawn, each built at the origin (`setPiece`)
+ * and set down at its place and turn by the caller. A solid piece laid
+ * without cells of its own (a timber frame, a gate tower, a rock in the lava)
+ * stands in rock or liquid: where the road or the widening opened the ground
+ * under it, it is left out (a frame across an open floor, a tower half in a
+ * court). `walk`: the plan's walk grid, doors open. Pure.
+ */
+export const piecesOf = (plan: ZonePlan, pal: PiecePalette, walk: Grid): Array<{ d: DressPlan; g: PieceGeo }> => {
+  const out: Array<{ d: DressPlan; g: PieceGeo }> = []
+  ;(plan.dressing ?? []).forEach((d, q) => {
+    const g = setPiece(d.kind, pal, (q * 7 + Math.floor(d.x * 3 + d.z * 5)) >>> 0)
+    if (!d.cells.length && DRESS_ROLE[d.kind] === 'solid' && !standsInRock(walk, [...g.lit, ...g.glow], d.x, d.z, d.a)) {
+      for (const x of [...g.lit, ...g.glow]) x.dispose()
+      return
+    }
+    out.push({ d, g })
+  })
+  return out
+}
+
+/** One piece of the merged props as it was drawn (`LevelProps.trace`): what it is, and its geometry in the world. */
+export interface TracedProp { kind: LevelPropKind | DressKind; role: PropRole; geos: BufferGeometry[] }
+
 export class LevelProps {
+  /** Tests: keep a copy of every merged piece by its kind (`traced`), to hold it against the colliders. Off in the game. */
+  static trace = false
+  readonly traced: TracedProp[] = []
   readonly root = new Group()
   private scene: Scene | null = null
   private plan: ZonePlan | null = null
@@ -402,6 +472,8 @@ export class LevelProps {
     this.scene = scene
     const lit: BufferGeometry[] = []
     const glow: BufferGeometry[] = []
+    // What stops a body once every door is open: a solid piece stands on it (`propRoles.ts`).
+    const walk = fillGrid(createGrid(plan.w, plan.h), plan, true)
     if (plan.liquid) {
       this.buildWater(plan, plan.liquid)
       await slice()
@@ -409,16 +481,17 @@ export class LevelProps {
       await slice()
     }
     // Each piece is built on flat ground at 0 and set down on the ground's height where it stands.
-    const lift = (y: number, fn: () => void): void => {
+    const lift = (kind: LevelPropKind, y: number, fn: () => void): void => {
       const l0 = lit.length
       const g0 = glow.length
       fn()
       for (let q = l0; q < lit.length; q++) lit[q]!.translate(0, y, 0)
       for (let q = g0; q < glow.length; q++) glow[q]!.translate(0, y, 0)
+      this.mark(kind, LEVEL_PROP_ROLE[kind], lit, glow, l0, g0)
     }
     for (const cr of plan.crossings) {
-      if (cr.kind === 'bridge') lift(groundAt(cr.x, cr.z), () => this.buildBridge(plan, cr.i0, cr.i1, cr.j0, cr.j1, lit))
-      else this.buildFord(plan, cr.cells, lit)
+      if (cr.kind === 'bridge') lift('bridge', groundAt(cr.x, cr.z), () => this.buildBridge(plan, cr.i0, cr.i1, cr.j0, cr.j1, lit))
+      else lift('ford', 0, () => this.buildFord(plan, cr.cells, lit))
       await slice()
     }
     // A cave's mouth stands on the lower of its two feet, so neither floats.
@@ -426,22 +499,25 @@ export class LevelProps {
       const m = cv.mouth
       const px = Math.cos(m.a) * 1.55
       const pz = -Math.sin(m.a) * 1.55
-      lift(Math.min(groundAt(m.x + px, m.z + pz), groundAt(m.x - px, m.z - pz), groundAt(m.x, m.z)), () => this.buildMouth(m.x, m.z, m.a, lit, glow))
+      const spread = [-1, 1].map(sgn => mouthSpread(walk, m.x, m.z, m.a, sgn)) as [number, number]
+      lift('caveMouth', Math.min(groundAt(m.x + px, m.z + pz), groundAt(m.x - px, m.z - pz), groundAt(m.x, m.z)), () => this.buildMouth(m.x, m.z, m.a, spread, lit, glow))
       await slice()
     }
-    for (const s of plan.signs) lift(groundAt(s.x, s.z), () => this.buildSign(s.x, s.z, s.a, lit, glow))
-    for (const f of plan.forks) lift(groundAt(f.x, f.z), () => this.buildFork(f.x, f.z, f.a, f.boss, lit, glow))
-    if (plan.puzzle) lift(groundAt(plan.puzzle.hint.x, plan.puzzle.hint.z), () => this.buildHint(plan, lit))
+    for (const s of plan.signs) lift('skullSign', groundAt(s.x, s.z), () => this.buildSign(s.x, s.z, s.a, lit, glow))
+    for (const f of plan.forks) lift('signpost', groundAt(f.x, f.z), () => this.buildFork(f.x, f.z, f.a, f.boss, lit, glow))
+    if (plan.puzzle) lift('hintStone', groundAt(plan.puzzle.hint.x, plan.puzzle.hint.z), () => this.buildHint(plan, lit))
     await slice()
     // The place's set pieces (#120): beds and fires, mills, columns, timbers…
     if (plan.dressing?.length) {
       const pal = piecePalette(this.theme.ground[1], this.theme.rim)
-      plan.dressing.forEach((d, q) => {
-        const g = setPiece(d.kind, pal, (q * 7 + Math.floor(d.x * 3 + d.z * 5)) >>> 0)
+      for (const { d, g } of piecesOf(plan, pal, walk)) {
         const y = groundAt(d.x, d.z)
+        const l0 = lit.length
+        const g0 = glow.length
         for (const x of g.lit) lit.push(xform(x, [d.x, y, d.z], [0, d.a, 0]))
         for (const x of g.glow) glow.push(xform(x, [d.x, y, d.z], [0, d.a, 0]))
-      })
+        this.mark(d.kind, DRESS_ROLE[d.kind], lit, glow, l0, g0)
+      }
       await slice()
     }
     // Merged, then cut into tiles that are culled by their boxes: the whole
@@ -481,6 +557,12 @@ export class LevelProps {
       this.dummy = new DummyProp(this.sim, this.vfx)
       if (!this.dummy.build(scene)) this.dummy = null
     }
+  }
+
+  /** Trace: a copy of what one piece added to the merged props. */
+  private mark(kind: LevelPropKind | DressKind, role: PropRole, lit: BufferGeometry[], glow: BufferGeometry[], l0: number, g0: number): void {
+    if (!LevelProps.trace) return
+    this.traced.push({ kind, role, geos: [...lit.slice(l0), ...glow.slice(g0)].map(g => g.clone()) })
   }
 
   private buildWater(plan: ZonePlan, liquid: LiquidId): void {
@@ -609,6 +691,8 @@ export class LevelProps {
           if (k !== K_WATER && k !== K_BRIDGE && k !== K_FORD) banks.push([di, dj])
         }
         const r = rng()
+        const l0 = lit.length
+        const g0 = glow.length
         if (banks.length && r < 0.42 * density) {
           const [di, dj] = banks[Math.floor(rng() * banks.length)]!
           const bx = x + di * 0.42 + (rng() - 0.5) * 0.7 * Math.abs(dj)
@@ -644,6 +728,7 @@ export class LevelProps {
             lit.push(P(rcyl(0.34, 0.07, 0.03, 6, 1), '#f4fbff', [lx, wy + 0.03, lz], [0, rng() * 6, 0], [1, 1, 0.75]))
           }
         }
+        if (lit.length > l0) this.mark(r < 0.42 * density && banks.length ? (liquid === 'water' ? 'reeds' : 'bankStone') : 'lilyPad', r < 0.42 * density && banks.length ? 'solid' : 'walk', lit, glow, l0, g0)
       }
     }
   }
@@ -723,13 +808,15 @@ export class LevelProps {
 
   /** A cave's mouth: two leaning horns of rock that nearly meet. Nothing spans
    *  the way in, so the hero is never under a roof the camera cannot see past. */
-  private buildMouth(x: number, z: number, a: number, lit: BufferGeometry[], glow: BufferGeometry[]): void {
+  private buildMouth(x: number, z: number, a: number, spread: [number, number], lit: BufferGeometry[], glow: BufferGeometry[]): void {
     // Across the way in.
     const px = Math.cos(a)
     const pz = -Math.sin(a)
     for (const sgn of [-1, 1]) {
-      const bx = x + px * sgn * 1.55
-      const bz = z + pz * sgn * 1.55
+      const d = spread[sgn < 0 ? 0 : 1]
+      if (d < 0) continue
+      const bx = x + px * sgn * d
+      const bz = z + pz * sgn * d
       const lean = Math.atan2(px * -sgn, pz * -sgn)
       lit.push(P(rcone(0.74, 0.4, 2.1, 0.1, 8), '#4a4458', [bx, 1.05, bz]))
       lit.push(P(rock(0.5, 5 + sgn, 9, 7), '#3c3848', [bx + px * sgn * 0.4, 0.3, bz + pz * sgn * 0.4 + 0.2]))
@@ -774,10 +861,11 @@ export class LevelProps {
     const parts: BufferGeometry[] = [
       P(rock(0.42, 3), '#8b8478', [0, 0.12, 0], [0, 0.4, 0], [1, 0.45, 1]),
       P(rcyl(0.085, 2.1, 0.03, 7, 1), wood, [0, 1.05, 0]),
-      // The arrow: a board along the way and its point.
-      P(rbox(0.16, 0.34, 1.15, 0.3, 6, 6), board, [0, 1.62, 0.5]),
-      P(rcone(0.26, 0.01, 0.38, 0.02, 4), board, [0, 1.62, 1.22], [Math.PI / 2, 0, Math.PI / 4], [0.6, 1, 1]),
-      P(rbox(0.18, 0.06, 0.9, 0.3, 6, 4), '#3a2a1e', [0, 1.66, 0.48])
+      // The arrow: a board along the way and its point, short enough to stay
+      // over the post's own round footprint (`ROUND_R`): nobody walks into it.
+      P(rbox(0.16, 0.34, 0.66, 0.3, 6, 6), board, [0, 1.62, 0.22]),
+      P(rcone(0.26, 0.01, 0.3, 0.02, 4), board, [0, 1.62, 0.69], [Math.PI / 2, 0, Math.PI / 4], [0.6, 1, 1]),
+      P(rbox(0.18, 0.06, 0.48, 0.3, 6, 4), '#3a2a1e', [0, 1.66, 0.2])
     ]
     const eyes: BufferGeometry[] = []
     if (boss) {
@@ -806,8 +894,11 @@ export class LevelProps {
     const wide = STEP * n + 0.4
     const { x, z } = pz.hint
     const tilt = -0.66
-    // The slab leans on a heap of rock behind it; a stone props each foot.
-    lit.push(P(rock(0.7, 23, 9, 7), '#7c7a84', [x, 0.3, z - 0.72], [0, 0.4, 0], [wide / 1.6, 1.1, 0.7]))
+    // The slab leans on a heap of rock behind it, the width of the three cells
+    // it stands on (`hintCells`) and inside their row; a stone props each foot,
+    // and a low one lies at the front of each outer cell.
+    lit.push(P(rock(0.7, 23, 9, 7), '#7c7a84', [x, 0.3, z - 0.28], [0, 0, 0], [3.0, 1.1, 0.65]))
+    for (const sx of [-1, 1]) lit.push(P(rock(0.34, 29 + sx, 8, 6), '#6e6c78', [x + sx * 1.55, 0.06, z + 0.3], [0, 0.3 * sx, 0], [1.4, 0.35, 1]))
     lit.push(P(rock(0.3, 5, 8, 6), '#8a8892', [x - wide / 2 - 0.05, 0.14, z + 0.2]))
     lit.push(P(rock(0.26, 9, 8, 6), '#6e6c78', [x + wide / 2 + 0.05, 0.12, z + 0.22]))
     // A low stone at its foot, out to the edge of what stops a body (`ROUND_R`).
@@ -927,6 +1018,7 @@ export class LevelProps {
     this.owned.push(halo)
     for (const p of plan.plates) {
       const root = new Group()
+      root.name = 'plate'
       root.position.set(p.x, groundAt(p.x, p.z), p.z)
       root.add(new Mesh(slab, celVC()))
       const line = new Mesh(slab, outlineMat())
@@ -956,12 +1048,14 @@ export class LevelProps {
   /** The rocks that seal a hidden pocket: one heap to a sealed cell. */
   private buildDoors(plan: ZonePlan): void {
     if (!plan.doors.length) return
+    // Narrow enough to keep on its sealed cell (a heap reached half a cell
+    // out over the open ground in front: `propRoles.ts`), as tall as ever.
     const geo = merge([
       P(rock(0.95, 5, 10, 8), '#8d8a94', [0, 0.62, 0]),
       P(rock(0.6, 12, 9, 7), '#a5a2ac', [0.5, 0.36, 0.42]),
       P(rock(0.52, 19, 9, 7), '#77747e', [-0.52, 0.3, 0.3]),
       P(rock(0.56, 27, 9, 7), '#9a97a1', [-0.1, 1.3, -0.12])
-    ])
+    ]).scale(0.7, 1, 0.7)
     this.owned.push(geo)
     for (const d of plan.doors) {
       const rng = mulberry32((plan.seed ^ (0x51d0 + d.id)) >>> 0)
@@ -972,9 +1066,10 @@ export class LevelProps {
         const z = ((k - i) / plan.w + 0.5) * CELL
         // The wall goes from the door inward: the nearest rocks fall first.
         const delay = Math.min(1.1, Math.hypot(x - d.x, z - d.z) * 0.085)
-        rocks.push({ x: x + (rng() - 0.5) * 0.3, z: z + (rng() - 0.5) * 0.3, rot: rng() * Math.PI * 2, s: 0.95 + rng() * 0.3, delay, dust: false })
+        rocks.push({ x: x + (rng() - 0.5) * 0.16, z: z + (rng() - 0.5) * 0.16, rot: rng() * Math.PI * 2, s: 0.92 + rng() * 0.13, delay, dust: false })
       }
       const mesh = new InstancedMesh(geo, celVCInst(), rocks.length)
+      mesh.name = 'doorRocks'
       const line = new InstancedMesh(geo, outlineMat(undefined, undefined, true), rocks.length)
       line.renderOrder = -1
       const view: DoorView = { id: d.id, mesh, line, rocks, t: -1, wait: -1 }
@@ -1018,6 +1113,7 @@ export class LevelProps {
       }
       const look = CHEST_LOOK[c.tier]
       const root = new Group()
+      root.name = 'chest'
       root.position.set(c.x, groundAt(c.x, c.z), c.z)
       // Its front faces where the hero will stand.
       root.rotation.y = Math.atan2(c.sx - c.x, c.sz - c.z)
@@ -1038,7 +1134,10 @@ export class LevelProps {
       // painted beside it (two strokes at two heights: never one plane).
       if (c.role === 'treasure') {
         const dirt = this.treasureGeo()
-        root.add(new Mesh(dirt, celVC()))
+        const mound = new Mesh(dirt, celVC())
+        // Ground cover (`propRoles.ts`): the chest in it is what stops a body.
+        mound.name = 'treasureMound'
+        root.add(mound)
         const dl = new Mesh(dirt, outlineMat())
         dl.renderOrder = -1
         root.add(dl)
@@ -1081,6 +1180,7 @@ export class LevelProps {
     const body = merge(parts).scale(k, k, k)
     this.owned.push(body)
     const root = new Group()
+    root.name = 'cage'
     root.position.set(c.x, groundAt(c.x, c.z), c.z)
     root.rotation.y = Math.atan2(c.sx - c.x, c.sz - c.z)
     root.scale.setScalar(CHEST_LOOK[c.tier].scale)
@@ -1117,6 +1217,7 @@ export class LevelProps {
     this.sim.pieces.forEach((p, i) => {
       const g = mapPieceGeometry()
       const root = new Group()
+      root.name = 'herb'
       root.position.set(p.x, groundAt(p.x, p.z), p.z)
       root.rotation.y = (i * 2.399 + 0.6) % (Math.PI * 2)
       root.scale.setScalar(HERB_SCALE)
@@ -1133,6 +1234,7 @@ export class LevelProps {
       if (!isPlant(h.kind)) continue
       const g = plantGeometry(h.kind)
       const root = new Group()
+      root.name = 'herb'
       root.position.set(h.x, groundAt(h.x, h.z), h.z)
       root.rotation.y = (h.id * 2.399) % (Math.PI * 2)
       root.scale.setScalar(HERB_SCALE)
@@ -1154,11 +1256,12 @@ export class LevelProps {
       if (!isOre(o.kind)) continue
       const look = ORE_LOOK[o.kind]
       const root = new Group()
+      root.name = 'ore'
       root.position.set(o.x, groundAt(o.x, o.z), o.z)
       root.rotation.y = (o.id * 2.399 + 0.4) % (Math.PI * 2)
       const stone = merge([
         xform(paint(rock(1, 11 + o.id * 7), '#8c8a86'), [0, 0.42, 0], [0, 0, 0], [0.82, 0.62, 0.7]),
-        xform(paint(rock(1, 5 + o.id * 3), '#7a7874'), [0.48, 0.2, 0.22], [0, 0.6, 0], [0.42, 0.3, 0.38])
+        xform(paint(rock(1, 5 + o.id * 3), '#7a7874'), [0.4, 0.2, 0.18], [0, 0.6, 0], [0.42, 0.3, 0.38])
       ])
       this.owned.push(stone)
       const body = new Mesh(stone, celVC())
@@ -1195,6 +1298,7 @@ export class LevelProps {
     ])
     this.owned.push(g)
     const root = new Group()
+    root.name = 'key'
     root.position.set(k.x, groundAt(k.x, k.z) + 0.25, k.z)
     root.scale.setScalar(1.6)
     const body = new Mesh(g, celVC())

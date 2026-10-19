@@ -3,10 +3,10 @@ import {
   Quaternion, ShaderMaterial, UniformsLib, UniformsUtils, Vector3, Fog, type Scene, type Texture
 } from 'three'
 import type { LiquidId, ThemeId } from '../data/zones'
-import { CELL } from '../sim/grid'
+import { CELL, createGrid, type Grid } from '../sim/grid'
 import { mulberry32 } from '../sim/rng'
 import { townExitClear } from '../sim/townCells'
-import type { ZonePlan } from '../sim/zoneGen'
+import { fillGrid, type ZonePlan } from '../sim/zoneGen'
 import { K_BLOCK, K_BRIDGE, K_CLIFF, K_FORD, K_GROUND, K_RAMP, K_WATER, riverRow } from '../sim/zoneFeatures'
 import { groundAt } from './ground'
 import type { Slice } from '../engine/slicer'
@@ -16,7 +16,8 @@ import { EDGE_FROM, EDGE_MAX, EDGE_STRENGTH, EDGE_TO, edgeColour, edgeField, edg
 import { cap, dome, ell, merge, paint, rbox, rcone, rcyl, rock, sph, xform } from './kit'
 import { groundDetail } from './textures'
 import { markStill, splitByTile } from './cull'
-import { COVER_TOL, FootIndex, cellSamples, footOf, footedDist, type Foot } from './footprint'
+import { COVER_TOL, FootIndex, cellSamples, footOf, footPoints, footedDist, spillOf, type Foot } from './footprint'
+import { BODY_H, GROUND_H, SOLID_TOL, type SceneryKind } from './propRoles'
 
 /**
  * ─── The ground and what stands on it ────────────────────────────────────────
@@ -50,6 +51,8 @@ import { COVER_TOL, FootIndex, cellSamples, footOf, footedDist, type Foot } from
  */
 
 export interface PropShape {
+  /** What it is, and so whether it stands in the way (`propRoles.ts`). */
+  kind: SceneryKind
   /** Lit parts and glowing parts, already painted. */
   build: () => { lit: BufferGeometry[]; glow?: BufferGeometry[] }
   /** Relative frequency among the theme's shapes. */
@@ -169,78 +172,78 @@ const shroom = (hex: string) => () => ({ lit: [P(rcyl(0.035, 0.16, 0.012, 6, 1),
 export const THEMES: Readonly<Record<ThemeId, Theme>> = {
   plains: {
     ground: ['#7fc65a', '#6ab04a'], trail: '#c9b07a', rim: '#3f7a3a', sky: '#8fd0ff', ambient: '#ffffff', shadow: '#d6ccff', mote: '#fff6b8',
-    border: [{ build: tree('#4fa84a', '#7fd060'), w: 5, s: [0.9, 1.4] }, { build: bush('#58b04a', '#8fd864'), w: 3, s: [0.9, 1.5] }, { build: boulder('#9aa4a8', '#b8c0c4'), w: 1, s: [0.8, 1.3] }],
-    decor: [{ build: tuft('#5fae4a'), w: 6, s: [0.8, 1.4] }, { build: flower('#ffd84a'), w: 2, s: [0.8, 1.2] }, { build: flower('#ff8ab0'), w: 2, s: [0.8, 1.2] }, { build: pebble('#b8c0c4'), w: 1, s: [0.7, 1.3] }]
+    border: [{ kind: 'tree', build: tree('#4fa84a', '#7fd060'), w: 5, s: [0.9, 1.4] }, { kind: 'bush', build: bush('#58b04a', '#8fd864'), w: 3, s: [0.9, 1.5] }, { kind: 'boulder', build: boulder('#9aa4a8', '#b8c0c4'), w: 1, s: [0.8, 1.3] }],
+    decor: [{ kind: 'tuft', build: tuft('#5fae4a'), w: 6, s: [0.8, 1.4] }, { kind: 'flower', build: flower('#ffd84a'), w: 2, s: [0.8, 1.2] }, { kind: 'flower', build: flower('#ff8ab0'), w: 2, s: [0.8, 1.2] }, { kind: 'pebble', build: pebble('#b8c0c4'), w: 1, s: [0.7, 1.3] }]
   },
   cave: {
     ground: ['#7a6a5a', '#6a5a4c'], trail: '#9a8a74', rim: '#3a3038', sky: '#1c1826', ambient: '#e8dcd0', shadow: '#b8a8e8', mote: '#7dffd0',
-    border: [{ build: spire('#6a5c54', '#857468'), w: 4, s: [0.9, 1.5] }, { build: boulder('#6a5c54', '#857468'), w: 4, s: [1, 1.6] }, { build: mushroom('#e8e2d0', '#5fffd0', true), w: 2, s: [0.9, 1.6] }],
-    decor: [{ build: pebble('#857468'), w: 4, s: [0.8, 1.6] }, { build: shroom('#5fffd0'), w: 3, s: [0.8, 1.4] }, { build: bones, w: 1, s: [0.9, 1.2] }]
+    border: [{ kind: 'spire', build: spire('#6a5c54', '#857468'), w: 4, s: [0.9, 1.5] }, { kind: 'boulder', build: boulder('#6a5c54', '#857468'), w: 4, s: [1, 1.6] }, { kind: 'mushroom', build: mushroom('#e8e2d0', '#5fffd0', true), w: 2, s: [0.9, 1.6] }],
+    decor: [{ kind: 'pebble', build: pebble('#857468'), w: 4, s: [0.8, 1.6] }, { kind: 'shroom', build: shroom('#5fffd0'), w: 3, s: [0.8, 1.4] }, { kind: 'bones', build: bones, w: 1, s: [0.9, 1.2] }]
   },
   forest: {
     ground: ['#4f9a4a', '#3f8440'], trail: '#8a7a54', rim: '#234a2c', sky: '#2f5a4a', ambient: '#e4f4dc', shadow: '#b8c8ff', mote: '#c8ff9a',
-    border: [{ build: pine('#2f7a44', '#4fa85a'), w: 5, s: [1, 1.6] }, { build: tree('#3f8f44', '#5fb85a', '#5a4430'), w: 3, s: [1.1, 1.7] }, { build: mushroom('#e8e2d0', '#e0484a', false), w: 1, s: [0.9, 1.4] }],
-    decor: [{ build: tuft('#3f8f44'), w: 5, s: [0.9, 1.5] }, { build: shroom('#ffd24a'), w: 2, s: [0.8, 1.3] }, { build: flower('#c8a8ff'), w: 2, s: [0.8, 1.2] }]
+    border: [{ kind: 'pine', build: pine('#2f7a44', '#4fa85a'), w: 5, s: [1, 1.6] }, { kind: 'tree', build: tree('#3f8f44', '#5fb85a', '#5a4430'), w: 3, s: [1.1, 1.7] }, { kind: 'mushroom', build: mushroom('#e8e2d0', '#e0484a', false), w: 1, s: [0.9, 1.4] }],
+    decor: [{ kind: 'tuft', build: tuft('#3f8f44'), w: 5, s: [0.9, 1.5] }, { kind: 'shroom', build: shroom('#ffd24a'), w: 2, s: [0.8, 1.3] }, { kind: 'flower', build: flower('#c8a8ff'), w: 2, s: [0.8, 1.2] }]
   },
   farm: {
     ground: ['#b8c85a', '#a4b44a'], trail: '#c9a86a', rim: '#6a7a34', sky: '#ffd8a0', ambient: '#fff0d8', shadow: '#d0c0f0', mote: '#fff0a0',
-    border: [{ build: hay, w: 3, s: [0.9, 1.2] }, { build: tree('#7aa83a', '#a8cc4a'), w: 4, s: [0.9, 1.4] }, { build: bush('#8ab04a', '#b0d060'), w: 3, s: [0.9, 1.4] }],
-    decor: [{ build: tuft('#c8b04a'), w: 6, s: [0.9, 1.6] }, { build: flower('#ff9a4a'), w: 2, s: [0.8, 1.2] }, { build: pebble('#c8b89a'), w: 1, s: [0.7, 1.2] }]
+    border: [{ kind: 'hay', build: hay, w: 3, s: [0.9, 1.2] }, { kind: 'tree', build: tree('#7aa83a', '#a8cc4a'), w: 4, s: [0.9, 1.4] }, { kind: 'bush', build: bush('#8ab04a', '#b0d060'), w: 3, s: [0.9, 1.4] }],
+    decor: [{ kind: 'tuft', build: tuft('#c8b04a'), w: 6, s: [0.9, 1.6] }, { kind: 'flower', build: flower('#ff9a4a'), w: 2, s: [0.8, 1.2] }, { kind: 'pebble', build: pebble('#c8b89a'), w: 1, s: [0.7, 1.2] }]
   },
   ash: {
     ground: ['#5a4a4a', '#4a3c40'], trail: '#7a625a', rim: '#241c22', sky: '#3a1c1c', ambient: '#ffe0c8', shadow: '#c8a0c0', mote: '#ff8a3a',
-    border: [{ build: spire('#3a2e30', '#56444a'), w: 4, s: [1, 1.7] }, { build: deadTree('#2a2024'), w: 3, s: [0.9, 1.4] }, { build: crystal('#3a2e30', '#ff7a2a'), w: 2, s: [0.8, 1.3] }],
-    decor: [{ build: ember('#ff8a3a'), w: 4, s: [0.8, 1.4] }, { build: pebble('#3a2e30'), w: 3, s: [0.8, 1.6] }, { build: bones, w: 1, s: [0.9, 1.2] }]
+    border: [{ kind: 'spire', build: spire('#3a2e30', '#56444a'), w: 4, s: [1, 1.7] }, { kind: 'deadTree', build: deadTree('#2a2024'), w: 3, s: [0.9, 1.4] }, { kind: 'crystal', build: crystal('#3a2e30', '#ff7a2a'), w: 2, s: [0.8, 1.3] }],
+    decor: [{ kind: 'ember', build: ember('#ff8a3a'), w: 4, s: [0.8, 1.4] }, { kind: 'pebble', build: pebble('#3a2e30'), w: 3, s: [0.8, 1.6] }, { kind: 'bones', build: bones, w: 1, s: [0.9, 1.2] }]
   },
   mine: {
     ground: ['#6a6470', '#5a5460'], trail: '#8a8490', rim: '#2a2630', sky: '#16141c', ambient: '#e0e4f4', shadow: '#a8b0f0', mote: '#7fd8ff',
-    border: [{ build: wallBlock('#565060', '#6e6878'), w: 5, s: [0.95, 1.1] }, { build: crystal('#565060', '#5fd8ff'), w: 2, s: [0.8, 1.3] }, { build: boulder('#565060', '#6e6878'), w: 2, s: [1, 1.5] }],
-    decor: [{ build: pebble('#6e6878'), w: 5, s: [0.8, 1.6] }, { build: ember('#5fd8ff'), w: 2, s: [0.7, 1.1] }]
+    border: [{ kind: 'wallBlock', build: wallBlock('#565060', '#6e6878'), w: 5, s: [0.95, 1.1] }, { kind: 'crystal', build: crystal('#565060', '#5fd8ff'), w: 2, s: [0.8, 1.3] }, { kind: 'boulder', build: boulder('#565060', '#6e6878'), w: 2, s: [1, 1.5] }],
+    decor: [{ kind: 'pebble', build: pebble('#6e6878'), w: 5, s: [0.8, 1.6] }, { kind: 'ember', build: ember('#5fd8ff'), w: 2, s: [0.7, 1.1] }]
   },
   snow: {
     ground: ['#e8f4ff', '#d4e8fa'], trail: '#b8cce0', rim: '#8fa8c8', sky: '#a8c8e8', ambient: '#eaf4ff', shadow: '#b8c8ff', mote: '#ffffff',
-    border: [{ build: pine('#4f8a7a', '#f4fbff'), w: 5, s: [1, 1.6] }, { build: iceRock, w: 3, s: [0.9, 1.5] }, { build: boulder('#c8d8e8', '#f4fbff'), w: 2, s: [0.9, 1.4] }],
-    decor: [{ build: pebble('#c8d8e8'), w: 3, s: [0.8, 1.4] }, { build: tuft('#9ab8c8'), w: 2, s: [0.8, 1.2] }]
+    border: [{ kind: 'pine', build: pine('#4f8a7a', '#f4fbff'), w: 5, s: [1, 1.6] }, { kind: 'iceRock', build: iceRock, w: 3, s: [0.9, 1.5] }, { kind: 'boulder', build: boulder('#c8d8e8', '#f4fbff'), w: 2, s: [0.9, 1.4] }],
+    decor: [{ kind: 'pebble', build: pebble('#c8d8e8'), w: 3, s: [0.8, 1.4] }, { kind: 'tuft', build: tuft('#9ab8c8'), w: 2, s: [0.8, 1.2] }]
   },
   temple: {
     ground: ['#4fa8a0', '#3f948e'], trail: '#c8d8c0', rim: '#1c4a54', sky: '#12343c', ambient: '#dcfff4', shadow: '#a8c0ff', mote: '#7fffe8',
-    border: [{ build: column('#b8c8b8', false), w: 3, s: [0.95, 1.1] }, { build: column('#a8b8a8', true), w: 3, s: [0.95, 1.2] }, { build: crystal('#4a7a78', '#5fffe0'), w: 2, s: [0.8, 1.2] }],
-    decor: [{ build: pebble('#b8c8b8'), w: 3, s: [0.8, 1.5] }, { build: shroom('#5fffe0'), w: 3, s: [0.8, 1.3] }, { build: tuft('#3fc7b0'), w: 2, s: [0.8, 1.3] }]
+    border: [{ kind: 'column', build: column('#b8c8b8', false), w: 3, s: [0.95, 1.1] }, { kind: 'brokenColumn', build: column('#a8b8a8', true), w: 3, s: [0.95, 1.2] }, { kind: 'crystal', build: crystal('#4a7a78', '#5fffe0'), w: 2, s: [0.8, 1.2] }],
+    decor: [{ kind: 'pebble', build: pebble('#b8c8b8'), w: 3, s: [0.8, 1.5] }, { kind: 'shroom', build: shroom('#5fffe0'), w: 3, s: [0.8, 1.3] }, { kind: 'tuft', build: tuft('#3fc7b0'), w: 2, s: [0.8, 1.3] }]
   },
   void: {
     ground: ['#4a3a7a', '#3c2e68'], trail: '#7a6ab0', rim: '#180e30', sky: '#0e0820', ambient: '#e8dcff', shadow: '#b090ff', mote: '#d0a8ff',
-    border: [{ build: crystal('#2a1c50', '#b06aff'), w: 4, s: [1, 1.7] }, { build: spire('#2a1c50', '#3e2c70'), w: 4, s: [1, 1.6] }, { build: column('#4a3a7a', true), w: 1, s: [0.95, 1.2] }],
-    decor: [{ build: ember('#d0a8ff'), w: 4, s: [0.8, 1.4] }, { build: pebble('#3e2c70'), w: 3, s: [0.8, 1.5] }]
+    border: [{ kind: 'crystal', build: crystal('#2a1c50', '#b06aff'), w: 4, s: [1, 1.7] }, { kind: 'spire', build: spire('#2a1c50', '#3e2c70'), w: 4, s: [1, 1.6] }, { kind: 'brokenColumn', build: column('#4a3a7a', true), w: 1, s: [0.95, 1.2] }],
+    decor: [{ kind: 'ember', build: ember('#d0a8ff'), w: 4, s: [0.8, 1.4] }, { kind: 'pebble', build: pebble('#3e2c70'), w: 3, s: [0.8, 1.5] }]
   },
   peak: {
     ground: ['#8a7a70', '#766860'], trail: '#a89888', rim: '#3a3038', sky: '#5a3a5a', ambient: '#ffe8dc', shadow: '#c8b0e0', mote: '#ffb07a',
-    border: [{ build: spire('#5a4e50', '#76686a'), w: 5, s: [1.1, 1.9] }, { build: boulder('#5a4e50', '#76686a'), w: 3, s: [1, 1.7] }, { build: deadTree('#3a2e30'), w: 1, s: [0.9, 1.3] }],
-    decor: [{ build: bones, w: 3, s: [0.9, 1.5] }, { build: pebble('#76686a'), w: 4, s: [0.8, 1.6] }, { build: ember('#ffb07a'), w: 1, s: [0.8, 1.2] }]
+    border: [{ kind: 'spire', build: spire('#5a4e50', '#76686a'), w: 5, s: [1.1, 1.9] }, { kind: 'boulder', build: boulder('#5a4e50', '#76686a'), w: 3, s: [1, 1.7] }, { kind: 'deadTree', build: deadTree('#3a2e30'), w: 1, s: [0.9, 1.3] }],
+    decor: [{ kind: 'bones', build: bones, w: 3, s: [0.9, 1.5] }, { kind: 'pebble', build: pebble('#76686a'), w: 4, s: [0.8, 1.6] }, { kind: 'ember', build: ember('#ffb07a'), w: 1, s: [0.8, 1.2] }]
   },
   fortress: {
     ground: ['#4a3a44', '#3e2e3a'], trail: '#6a5460', rim: '#180e16', sky: '#1c0a12', ambient: '#ffdcd8', shadow: '#c090b0', mote: '#ff5a4a',
-    border: [{ build: wallBlock('#3a2a34', '#52404a'), w: 5, s: [0.95, 1.15] }, { build: brazier('#3a2a34', '#ff6a2a'), w: 2, s: [0.9, 1.2] }, { build: column('#52404a', true), w: 1, s: [0.95, 1.2] }],
-    decor: [{ build: bones, w: 3, s: [0.9, 1.4] }, { build: ember('#ff5a4a'), w: 3, s: [0.8, 1.3] }, { build: pebble('#52404a'), w: 3, s: [0.8, 1.5] }]
+    border: [{ kind: 'wallBlock', build: wallBlock('#3a2a34', '#52404a'), w: 5, s: [0.95, 1.15] }, { kind: 'brazier', build: brazier('#3a2a34', '#ff6a2a'), w: 2, s: [0.9, 1.2] }, { kind: 'brokenColumn', build: column('#52404a', true), w: 1, s: [0.95, 1.2] }],
+    decor: [{ kind: 'bones', build: bones, w: 3, s: [0.9, 1.4] }, { kind: 'ember', build: ember('#ff5a4a'), w: 3, s: [0.8, 1.3] }, { kind: 'pebble', build: pebble('#52404a'), w: 3, s: [0.8, 1.5] }]
   },
   rift: {
     ground: ['#2e1c5a', '#24144a'], trail: '#5a3fa0', rim: '#0a0418', sky: '#06020e', ambient: '#f0dcff', shadow: '#a070ff', mote: '#f0a8ff',
-    border: [{ build: crystal('#1c1040', '#e06aff'), w: 5, s: [1.1, 1.9] }, { build: spire('#1c1040', '#30206a'), w: 3, s: [1.1, 1.8] }],
-    decor: [{ build: ember('#f0a8ff'), w: 5, s: [0.8, 1.5] }, { build: pebble('#30206a'), w: 2, s: [0.8, 1.4] }]
+    border: [{ kind: 'crystal', build: crystal('#1c1040', '#e06aff'), w: 5, s: [1.1, 1.9] }, { kind: 'spire', build: spire('#1c1040', '#30206a'), w: 3, s: [1.1, 1.8] }],
+    decor: [{ kind: 'ember', build: ember('#f0a8ff'), w: 5, s: [0.8, 1.5] }, { kind: 'pebble', build: pebble('#30206a'), w: 2, s: [0.8, 1.4] }]
   },
   town: {
     ground: ['#8fc85a', '#7ab84c'], trail: '#d8c090', rim: '#4a8a3a', sky: '#9fd8ff', ambient: '#ffffff', shadow: '#d6ccff', mote: '#fff6b8',
-    border: [{ build: tree('#4fa84a', '#7fd060'), w: 4, s: [1, 1.5] }, { build: bush('#58b04a', '#8fd864'), w: 3, s: [0.9, 1.4] }, { build: hay, w: 1, s: [0.8, 1] }],
-    decor: [{ build: tuft('#5fae4a'), w: 4, s: [0.8, 1.3] }, { build: flower('#ffd84a'), w: 3, s: [0.8, 1.2] }, { build: flower('#ff8ab0'), w: 3, s: [0.8, 1.2] }]
+    border: [{ kind: 'tree', build: tree('#4fa84a', '#7fd060'), w: 4, s: [1, 1.5] }, { kind: 'bush', build: bush('#58b04a', '#8fd864'), w: 3, s: [0.9, 1.4] }, { kind: 'hay', build: hay, w: 1, s: [0.8, 1] }],
+    decor: [{ kind: 'tuft', build: tuft('#5fae4a'), w: 4, s: [0.8, 1.3] }, { kind: 'flower', build: flower('#ffd84a'), w: 3, s: [0.8, 1.2] }, { kind: 'flower', build: flower('#ff8ab0'), w: 3, s: [0.8, 1.2] }]
   },
   ruin: {
     ground: ['#7a7460', '#686250'], trail: '#8a8068', rim: '#2e2a26', sky: '#4a3a3a', ambient: '#f0e0d0', shadow: '#c0b0d8', mote: '#ff9a5a',
-    border: [{ build: deadTree('#3a302a'), w: 4, s: [1, 1.5] }, { build: wallBlock('#5a544a', '#706a5e'), w: 3, s: [0.9, 1.1] }, { build: boulder('#5a544a', '#706a5e'), w: 2, s: [0.9, 1.5] }],
-    decor: [{ build: ember('#ff9a5a'), w: 3, s: [0.8, 1.3] }, { build: bones, w: 2, s: [0.9, 1.3] }, { build: pebble('#706a5e'), w: 4, s: [0.8, 1.5] }]
+    border: [{ kind: 'deadTree', build: deadTree('#3a302a'), w: 4, s: [1, 1.5] }, { kind: 'wallBlock', build: wallBlock('#5a544a', '#706a5e'), w: 3, s: [0.9, 1.1] }, { kind: 'boulder', build: boulder('#5a544a', '#706a5e'), w: 2, s: [0.9, 1.5] }],
+    decor: [{ kind: 'ember', build: ember('#ff9a5a'), w: 3, s: [0.8, 1.3] }, { kind: 'bones', build: bones, w: 2, s: [0.9, 1.3] }, { kind: 'pebble', build: pebble('#706a5e'), w: 4, s: [0.8, 1.5] }]
   },
   arena: {
     ground: ['#d8c090', '#c8b080'], trail: '#e8d4a8', rim: '#7a6444', sky: '#ffcf8a', ambient: '#fff4e0', shadow: '#d8c0e8', mote: '#fff0c0',
-    border: [{ build: wallBlock('#b8a078', '#d0b890'), w: 6, s: [0.98, 1.05] }, { build: column('#d0b890', false), w: 2, s: [0.95, 1.1] }, { build: brazier('#8a7458', '#ffb02a'), w: 1, s: [0.9, 1.1] }],
-    decor: [{ build: pebble('#b8a078'), w: 4, s: [0.8, 1.4] }, { build: bones, w: 1, s: [0.9, 1.2] }]
+    border: [{ kind: 'wallBlock', build: wallBlock('#b8a078', '#d0b890'), w: 6, s: [0.98, 1.05] }, { kind: 'column', build: column('#d0b890', false), w: 2, s: [0.95, 1.1] }, { kind: 'brazier', build: brazier('#8a7458', '#ffb02a'), w: 1, s: [0.9, 1.1] }],
+    decor: [{ kind: 'pebble', build: pebble('#b8a078'), w: 4, s: [0.8, 1.4] }, { kind: 'bones', build: bones, w: 1, s: [0.9, 1.2] }]
   }
 }
 
@@ -328,21 +331,21 @@ const caveGlow = (stone: string, glowHex: string) => () => ({
  * nothing low grows.
  */
 const LOW_PROPS: Readonly<Record<ThemeId, PropShape[]>> = {
-  plains: [{ build: bush('#58b04a', '#8fd864'), w: 4, s: [0.7, 1.15] }, { build: boulder('#9aa4a8', '#b8c0c4'), w: 2, s: [0.6, 1] }],
-  cave: [{ build: boulder('#6a5c54', '#857468'), w: 4, s: [0.7, 1.15] }, { build: mushroom('#e8e2d0', '#5fffd0', true), w: 1, s: [0.6, 0.9] }],
-  forest: [{ build: bush('#3f8f44', '#5fb85a'), w: 5, s: [0.7, 1.2] }, { build: mushroom('#e8e2d0', '#e0484a', false), w: 1, s: [0.6, 1] }, { build: boulder('#7a8a80', '#96a69a'), w: 2, s: [0.6, 1] }],
-  farm: [{ build: bush('#8ab04a', '#b0d060'), w: 4, s: [0.7, 1.15] }, { build: boulder('#c8b89a', '#dccdb0'), w: 2, s: [0.6, 1] }],
-  ash: [{ build: boulder('#3a2e30', '#56444a'), w: 4, s: [0.7, 1.2] }, { build: ember('#ff8a3a'), w: 1, s: [1.4, 2.2] }],
-  mine: [{ build: boulder('#565060', '#6e6878'), w: 4, s: [0.7, 1.2] }, { build: ember('#5fd8ff'), w: 1, s: [1.4, 2.2] }],
-  snow: [{ build: boulder('#c8d8e8', '#f4fbff'), w: 4, s: [0.7, 1.15] }, { build: bush('#4f8a7a', '#f4fbff'), w: 2, s: [0.7, 1.1] }],
-  temple: [{ build: boulder('#7a9a94', '#b8c8b8'), w: 4, s: [0.7, 1.15] }, { build: bush('#2f9a8c', '#3fc7b0'), w: 2, s: [0.7, 1.1] }],
-  void: [{ build: boulder('#2a1c50', '#3e2c70'), w: 4, s: [0.7, 1.2] }, { build: ember('#d0a8ff'), w: 1, s: [1.4, 2.2] }],
-  peak: [{ build: boulder('#5a4e50', '#76686a'), w: 4, s: [0.7, 1.25] }],
-  fortress: [{ build: boulder('#3a2a34', '#52404a'), w: 4, s: [0.7, 1.2] }, { build: ember('#ff5a4a'), w: 1, s: [1.4, 2.2] }],
-  rift: [{ build: boulder('#1c1040', '#30206a'), w: 4, s: [0.7, 1.2] }, { build: ember('#f0a8ff'), w: 1, s: [1.4, 2.2] }],
-  town: [{ build: bush('#58b04a', '#8fd864'), w: 4, s: [0.7, 1.15] }],
-  ruin: [{ build: boulder('#5a544a', '#706a5e'), w: 4, s: [0.7, 1.2] }],
-  arena: [{ build: boulder('#b8a078', '#d0b890'), w: 4, s: [0.7, 1.1] }]
+  plains: [{ kind: 'bush', build: bush('#58b04a', '#8fd864'), w: 4, s: [0.7, 1.15] }, { kind: 'boulder', build: boulder('#9aa4a8', '#b8c0c4'), w: 2, s: [0.6, 1] }],
+  cave: [{ kind: 'boulder', build: boulder('#6a5c54', '#857468'), w: 4, s: [0.7, 1.15] }, { kind: 'mushroom', build: mushroom('#e8e2d0', '#5fffd0', true), w: 1, s: [0.6, 0.9] }],
+  forest: [{ kind: 'bush', build: bush('#3f8f44', '#5fb85a'), w: 5, s: [0.7, 1.2] }, { kind: 'mushroom', build: mushroom('#e8e2d0', '#e0484a', false), w: 1, s: [0.6, 1] }, { kind: 'boulder', build: boulder('#7a8a80', '#96a69a'), w: 2, s: [0.6, 1] }],
+  farm: [{ kind: 'bush', build: bush('#8ab04a', '#b0d060'), w: 4, s: [0.7, 1.15] }, { kind: 'boulder', build: boulder('#c8b89a', '#dccdb0'), w: 2, s: [0.6, 1] }],
+  ash: [{ kind: 'boulder', build: boulder('#3a2e30', '#56444a'), w: 4, s: [0.7, 1.2] }, { kind: 'emberRock', build: ember('#ff8a3a'), w: 1, s: [1.4, 2.2] }],
+  mine: [{ kind: 'boulder', build: boulder('#565060', '#6e6878'), w: 4, s: [0.7, 1.2] }, { kind: 'emberRock', build: ember('#5fd8ff'), w: 1, s: [1.4, 2.2] }],
+  snow: [{ kind: 'boulder', build: boulder('#c8d8e8', '#f4fbff'), w: 4, s: [0.7, 1.15] }, { kind: 'bush', build: bush('#4f8a7a', '#f4fbff'), w: 2, s: [0.7, 1.1] }],
+  temple: [{ kind: 'boulder', build: boulder('#7a9a94', '#b8c8b8'), w: 4, s: [0.7, 1.15] }, { kind: 'bush', build: bush('#2f9a8c', '#3fc7b0'), w: 2, s: [0.7, 1.1] }],
+  void: [{ kind: 'boulder', build: boulder('#2a1c50', '#3e2c70'), w: 4, s: [0.7, 1.2] }, { kind: 'emberRock', build: ember('#d0a8ff'), w: 1, s: [1.4, 2.2] }],
+  peak: [{ kind: 'boulder', build: boulder('#5a4e50', '#76686a'), w: 4, s: [0.7, 1.25] }],
+  fortress: [{ kind: 'boulder', build: boulder('#3a2a34', '#52404a'), w: 4, s: [0.7, 1.2] }, { kind: 'emberRock', build: ember('#ff5a4a'), w: 1, s: [1.4, 2.2] }],
+  rift: [{ kind: 'boulder', build: boulder('#1c1040', '#30206a'), w: 4, s: [0.7, 1.2] }, { kind: 'emberRock', build: ember('#f0a8ff'), w: 1, s: [1.4, 2.2] }],
+  town: [{ kind: 'bush', build: bush('#58b04a', '#8fd864'), w: 4, s: [0.7, 1.15] }],
+  ruin: [{ kind: 'boulder', build: boulder('#5a544a', '#706a5e'), w: 4, s: [0.7, 1.2] }],
+  arena: [{ kind: 'boulder', build: boulder('#b8a078', '#d0b890'), w: 4, s: [0.7, 1.1] }]
 }
 
 /**
@@ -508,7 +511,7 @@ const ruinWall = (a: string, b: string, hgt: number) => () => ({
   lit: [
     P(rbox(1.5, hgt, 1.3, 0.25, 8, 8), b, [0, hgt / 2, 0]),
     P(rbox(0.9, 0.4, 1.0, 0.3, 6, 4), a, [-0.2, hgt + 0.16, 0.05], [0, 0.1, 0.12]),
-    P(rock(0.3, Math.round(hgt * 10), 7, 5), b, [0.62, 0.16, 0.72])
+    P(rock(0.3, Math.round(hgt * 10), 7, 5), b, [0.5, 0.16, 0.48])
   ]
 })
 /** A stone that lines a ramp. */
@@ -670,6 +673,7 @@ const instanced = (shape: PropShape, places: Place[], outline: boolean, root: Gr
     owned.push(geo)
     for (const list of tiles.values()) {
       const mesh = markStill(new InstancedMesh(geo, lit ? celVCInst() : glowVCInst(), list.length))
+      mesh.name = shape.kind
       const line = lit && outline ? markStill(new InstancedMesh(geo, outlineMat(undefined, undefined, true), list.length)) : null
       for (let i = 0; i < list.length; i++) {
         const [x, z, rot, sc, y] = list[i]!
@@ -825,18 +829,18 @@ export interface SceneryGroup { shape: PropShape; places: Place[]; outline: bool
 
 /** The scenery shapes that are the theme's own and not a palette swap: built once per theme. */
 const caveShapesOf = memo((themeId: ThemeId): PropShape[] => [
-  { build: caveWall('#4a4458', '#5e586e', '#3c3848'), w: 1, s: [0.95, 1.25] },
-  { build: boulder('#4a4458', '#5e586e'), w: 1, s: [0.85, 1.25] },
-  { build: caveGlow('#3c3848', THEMES[themeId].mote), w: 1, s: [0.8, 1.2] }
+  { kind: 'caveWall', build: caveWall('#4a4458', '#5e586e', '#3c3848'), w: 1, s: [0.95, 1.25] },
+  { kind: 'caveBoulder', build: boulder('#4a4458', '#5e586e'), w: 1, s: [0.85, 1.25] },
+  { kind: 'caveGlow', build: caveGlow('#3c3848', THEMES[themeId].mote), w: 1, s: [0.8, 1.2] }
 ])
 const wallShapesOf = memo((themeId: ThemeId): PropShape[] => {
   const stone = CLIFF[themeId]
   return [
-    { build: builtWall(stone.a, stone.b, true), w: 1, s: [1, 1] },
-    { build: builtWall(stone.a, stone.b, false), w: 1, s: [1, 1] },
-    { build: ruinWall(stone.a, stone.b, 2.2), w: 1, s: [1, 1] },
-    { build: ruinWall(stone.a, stone.b, 1.4), w: 1, s: [1, 1] },
-    { build: ruinWall(stone.a, stone.b, 0.6), w: 1, s: [1, 1] }
+    { kind: 'builtWall', build: builtWall(stone.a, stone.b, true), w: 1, s: [1, 1] },
+    { kind: 'lowWall', build: builtWall(stone.a, stone.b, false), w: 1, s: [1, 1] },
+    { kind: 'ruinWall', build: ruinWall(stone.a, stone.b, 2.2), w: 1, s: [1, 1] },
+    { kind: 'ruinWall', build: ruinWall(stone.a, stone.b, 1.4), w: 1, s: [1, 1] },
+    { kind: 'ruinWall', build: ruinWall(stone.a, stone.b, 0.6), w: 1, s: [1, 1] }
   ]
 })
 
@@ -851,6 +855,52 @@ export const shapeFoot = (shape: PropShape): Foot => {
     feet.set(shape, f)
   }
   return f
+}
+
+/** What a shape covers of the ground up to a body's height (`footPoints`), built once. */
+const bodies = new WeakMap<PropShape, Float32Array>()
+export const bodyPoints = (shape: PropShape): Float32Array => {
+  let pts = bodies.get(shape)
+  if (!pts) {
+    const b = shape.build()
+    const parts = [...b.lit, ...(b.glow ?? [])]
+    // In the shape's own units: at its smallest scale more of it reaches below a body's height.
+    pts = footPoints(footOf(parts, BODY_H / Math.min(1, shape.s[0]), GROUND_H / Math.max(1, shape.s[1])))
+    for (const g of parts) g.dispose()
+    bodies.set(shape, pts)
+  }
+  return pts
+}
+
+/** How far a solid prop is let reach past its colliders when placed: under `SOLID_TOL`, with room for sampling. */
+const FIT = SOLID_TOL - 0.06
+
+/**
+ * Keep a solid prop on its colliders (`propRoles.ts`): where what it covers
+ * up to a body's height reaches past the blocked cells into walkable ground
+ * (a big rock jittered toward the path, a side boulder turned out), it is
+ * drawn toward its cell's middle, made smaller and turned until it fits.
+ * Mutates the place; false when it fits no way (then it is left out, and the
+ * cover pass fills its cell).
+ */
+export const fitPlace = (g: Grid, shape: PropShape, p: Place, i: number, j: number, minSc = shape.s[0] * 0.6): boolean => {
+  const pts = bodyPoints(shape)
+  if (spillOf(g, pts, p[0], p[1], p[2], p[3], FIT) <= FIT) return true
+  const cx = (i + 0.5) * CELL
+  const cz = (j + 0.5) * CELL
+  for (const t of [0.5, 1]) {
+    const x = p[0] + (cx - p[0]) * t
+    const z = p[1] + (cz - p[1]) * t
+    for (let sc = p[3]; sc >= minSc - 1e-6; sc -= 0.08) {
+      for (let q = 0; q < 4; q++) {
+        const rot = p[2] + (q * Math.PI) / 2
+        if (spillOf(g, pts, x, z, rot, sc, FIT) > FIT) continue
+        p[0] = x; p[1] = z; p[2] = rot; p[3] = sc
+        return true
+      }
+    }
+  }
+  return false
 }
 
 /**
@@ -868,25 +918,27 @@ export const layScenery = (
 ): SceneryGroup[] => {
   const theme = THEMES[themeId]
   const { w, h, solid } = plan
+  // The walk grid with every door open: what stops a body once the visit is under way.
+  const walk = fillGrid(createGrid(w, h), plan, true)
   let anyWet = false
   for (let j = 0; j < h && !anyWet; j++) for (let i = 0; i < w; i++) if (wetCell(plan, i, j)) { anyWet = true; break }
   const footprint = footprintOf(plan)
   const anySide = lowRing.some(v => v > 0)
-  const borderPlaces: Array<Array<[number, number, number, number]>> = theme.border.map(() => [])
+  const borderPlaces: Place[][] = theme.border.map(() => [])
   // Past the two rings that face the player, the same scenery carries on,
   // thinner and without outlines: woods behind the trees, rock behind the
   // rocks, out to `WILDS` cells beyond the grid.
-  const wildPlaces: Array<Array<[number, number, number, number]>> = theme.border.map(() => [])
+  const wildPlaces: Place[][] = theme.border.map(() => [])
   const wildDensity = low ? 0.12 : 0.3
   // Round a cave: tall rock on the far (up-screen) side, low rock on the near
   // side, and a glowing cluster now and then. The camera has no way to look
   // through a wall, so nothing tall ever stands between it and the cave floor.
   const caveShapes = caveShapesOf(themeId)
-  const cavePlaces: Array<Array<[number, number, number, number]>> = caveShapes.map(() => [])
+  const cavePlaces: Place[][] = caveShapes.map(() => [])
   // In front of a side pocket: the theme's own low shapes (a bush, a boulder,
   // a mushroom), or a plain rock in its colours where it has none.
   const lowShapes: PropShape[] = anySide ? LOW_PROPS[themeId] : []
-  const lowPlaces: Array<Array<[number, number, number, number]>> = lowShapes.map(() => [])
+  const lowPlaces: Place[][] = lowShapes.map(() => [])
   // Built walls round a layout's rooms (#120): dressed (tall, low) or a ruin (tall, broken, low).
   const wallShapes = wallShapesOf(themeId)
   const wallPlaces: Place[][] = wallShapes.map(() => [])
@@ -910,7 +962,8 @@ export const layScenery = (
         if (!lowRing[k]) for (let dj = 1; dj <= 2 && !far; dj++) for (let di = -1; di <= 1; di++) if (plan.cave[(j + dj) * w + i + di]) { far = true; break }
         const shape = far ? (rng() < 0.82 ? 0 : 2) : rng() < 0.8 ? 1 : 2
         const s = caveShapes[shape]!
-        cavePlaces[shape]!.push([(i + 0.5 + (rng() - 0.5) * 0.4) * CELL, (j + 0.5 + (rng() - 0.5) * 0.4) * CELL, rng() * Math.PI * 2, s.s[0] + rng() * (s.s[1] - s.s[0])])
+        const p: Place = [(i + 0.5 + (rng() - 0.5) * 0.4) * CELL, (j + 0.5 + (rng() - 0.5) * 0.4) * CELL, rng() * Math.PI * 2, s.s[0] + rng() * (s.s[1] - s.s[0])]
+        if (fitPlace(walk, s, p, i, j)) cavePlaces[shape]!.push(p)
         continue
       }
       if (inside && plan.masonry?.[k] && d <= 2) {
@@ -930,7 +983,8 @@ export const layScenery = (
         if (d > 1 && rng() > (lowRing[k] === 1 ? 0.8 : lowRing[k] === 2 ? 0.42 : 0.2)) continue
         const shape = pickShape(lowShapes, rng())
         const s = lowShapes[shape]!
-        lowPlaces[shape]!.push([(i + 0.5 + (rng() - 0.5) * 0.5) * CELL, (j + 0.5 + (rng() - 0.5) * 0.5) * CELL, rng() * Math.PI * 2, s.s[0] + rng() * (s.s[1] - s.s[0])])
+        const p: Place = [(i + 0.5 + (rng() - 0.5) * 0.5) * CELL, (j + 0.5 + (rng() - 0.5) * 0.5) * CELL, rng() * Math.PI * 2, s.s[0] + rng() * (s.s[1] - s.s[0])]
+        if (fitPlace(walk, s, p, i, j)) lowPlaces[shape]!.push(p)
         continue
       }
       const facing = d <= (low ? 1 : 2)
@@ -941,10 +995,12 @@ export const layScenery = (
       const shape = pickShape(theme.border, rng())
       const s = theme.border[shape]!
       const jitter = facing ? 0.5 : 0.9
-      ;(facing ? borderPlaces : wildPlaces)[shape]!.push([
+      const p: Place = [
         (i + 0.5 + (rng() - 0.5) * jitter) * CELL, (j + 0.5 + (rng() - 0.5) * jitter) * CELL, rng() * Math.PI * 2,
         (s.s[0] + rng() * (s.s[1] - s.s[0])) * (facing ? 1 : 1.12)
-      ])
+      ]
+      // Off the facing rings a prop stands two cells and more from open ground (`fitPlace` all the same, cheap there).
+      if (fitPlace(walk, s, p, i, j)) (facing ? borderPlaces : wildPlaces)[shape]!.push(p)
     }
   }
   const groups: SceneryGroup[] = [
@@ -977,15 +1033,216 @@ export const layScenery = (
       const x = (i + 0.5) * CELL
       const z = (j + 0.5) * CELL
       const rot = frng() * Math.PI * 2
-      let sc = filler.s[0]
-      while (sc < filler.s[1] * 1.6 && !pts.every(([px, pz]) => footedDist({ foot: fillFoot, x, z, rot, sc }, px, pz) <= COVER_TOL)) sc += 0.05
-      const p: Place = [x, z, rot, sc]
+      const covers = (r: number, sc: number): boolean => pts.every(([px, pz]) => footedDist({ foot: fillFoot, x, z, rot: r, sc }, px, pz) <= COVER_TOL)
+      // As small as covers the cell, turned so it keeps on the colliders.
+      let p: Place | null = null
+      for (let sc = filler.s[0]; sc < filler.s[1] * 1.6 && !p; sc += 0.05) {
+        for (let q = 0; q < 4 && !p; q++) {
+          const r = rot + (q * Math.PI) / 2
+          if (covers(r, sc) && spillOf(walk, bodyPoints(filler), x, z, r, sc, FIT) <= FIT) p = [x, z, r, sc]
+        }
+      }
+      if (!p) {
+        let sc = filler.s[0]
+        while (sc < filler.s[1] * 1.6 && !covers(rot, sc)) sc += 0.05
+        p = [x, z, rot, sc]
+      }
       fills.push(p)
-      index.add({ foot: fillFoot, x, z, rot, sc })
+      index.add({ foot: fillFoot, x: p[0], z: p[1], rot: p[2], sc: p[3] })
     }
   }
   if (fills.length) groups.push({ shape: filler, places: fills, outline: true })
   return groups
+}
+
+/**
+ * What the ground carries besides the scenery of its solid cells: stones
+ * along a ledge's brow (or a coping), the ramp's treads or kerbs, the decor
+ * scattered through the clearings, a field's wheat and the relief's tells.
+ * `rng` carries on the stream `layScenery` drew from. Pure placement.
+ */
+export const layGround = (plan: ZonePlan, themeId: ThemeId, rng: () => number, low: boolean): SceneryGroup[] => {
+  const theme = THEMES[themeId]
+  const { w, h, solid, trail } = plan
+  const out: SceneryGroup[] = []
+  const footprint = footprintOf(plan)
+  const townExits = plan.town?.exits
+  const rockLook = CLIFF[themeId]
+  const cliffMask = new Uint8Array(w * h)
+  const rampMask = new Uint8Array(w * h)
+  let anyCliff = false
+  for (let k = 0; k < w * h; k++) {
+    if (plan.kind[k] === K_CLIFF) { cliffMask[k] = 1; anyCliff = true }
+    if (plan.kind[k] === K_RAMP) { rampMask[k] = 1; anyCliff = true }
+  }
+  // ── Ledges: a crag (or a wall of cut blocks) along each cliff edge, and the ramp's steps or kerbs ──
+  if (anyCliff) {
+    const wall: Place[] = []
+    const steps: Place[] = []
+    const kerbs: Place[] = []
+    const look = rockLook
+    const wallShape: PropShape = look.dressed ? { kind: 'coping', build: coping(look.a, look.b), w: 1, s: [1, 1] } : { kind: 'browStone', build: browStone(look.a, look.b), w: 1, s: [1, 1] }
+    const kerbShape: PropShape = { kind: 'kerb', build: kerb(look.a, look.b), w: 1, s: [1, 1] }
+    // Every stone keeps on the cliff's own cells (`fitPlace`): the ground at its foot and on its brow is walked.
+    const walk = fillGrid(createGrid(w, h), plan, true)
+    const stone = (to: Place[], shape: PropShape, p: Place, i: number, j: number): void => { if (fitPlace(walk, shape, p, i, j)) to.push(p) }
+    const corner = (i: number, j: number): number => plan.height[j * (w + 1) + i]!
+    for (let j = 0; j < h; j++) {
+      for (let i = 0; i < w; i++) {
+        const k = j * w + i
+        const cx0 = (i + 0.5) * CELL
+        const cz0 = (j + 0.5) * CELL
+        if (cliffMask[k]) {
+          const c00 = corner(i, j)
+          const c10 = corner(i + 1, j)
+          const c01 = corner(i, j + 1)
+          const c11 = corner(i + 1, j + 1)
+          const lo = Math.min(c00, c10, c01, c11)
+          const hi = Math.max(c00, c10, c01, c11)
+          if (hi - lo < 0.3) continue
+          // The brow is the ledge's own straight line: every stone on it sits
+          // exactly there and turns its way, so the edge reads as one line.
+          const l = plan.ledges.find(q => Math.hypot(q.x - cx0, q.z - cz0) < q.r * 1.5)
+          let ux = (c10 + c11 - c00 - c01) / 2
+          let uz = (c01 + c11 - c00 - c10) / 2
+          const ul = Math.hypot(ux, uz) || 1
+          ux /= ul
+          uz /= ul
+          let bx = cx0 + ux * 0.5
+          let bz = cz0 + uz * 0.5
+          if (l) {
+            ux = l.ux
+            uz = l.uz
+            const sc = (cx0 - l.x) * ux + (cz0 - l.z) * uz
+            bx = cx0 + ux * (l.d0 + 0.32 - sc)
+            bz = cz0 + uz * (l.d0 + 0.32 - sc)
+          }
+          const yaw = Math.atan2(ux, uz) + Math.PI / 2
+          if (rockLook.dressed) {
+            // A coping stone along the terrace's edge: the line the eye reads as a drop.
+            // (Not beside a ramp: the ramp's top tread is the edge there, and the
+            // two stones would lie through each other.)
+            let byRamp = false
+            for (let dj = -1; dj <= 1; dj++) for (let di = -1; di <= 1; di++) if (rampMask[k + dj * w + di]) byRamp = true
+            if (!byRamp) stone(wall, wallShape, [bx, bz, yaw, 1, hi + 0.01], i, j)
+          } else {
+            // Stones along the brow, and now and then a boulder fallen to the foot.
+            stone(wall, wallShape, [bx + uz * 0.35, bz - ux * 0.35, rng() * 6, 0.75 + rng() * 0.3, hi - 0.06], i, j)
+            stone(wall, wallShape, [bx - uz * 0.35, bz + ux * 0.35, rng() * 6, 0.6 + rng() * 0.3, hi - 0.06], i, j)
+            // Fallen against the cliff's foot, on its own cell (it once lay half on the ground below).
+            if (rng() < 0.3) stone(kerbs, kerbShape, [cx0 - ux * 0.3, cz0 - uz * 0.3, rng() * 6, 1 + rng() * 0.3, lo], i, j)
+          }
+        } else if (rampMask[k]) {
+          const l = plan.ledges.find(q => Math.hypot(q.x - cx0, q.z - cz0) < q.r * 1.4)
+          const yaw = l ? Math.atan2(l.ux, l.uz) : 0
+          if (rockLook.dressed && l) {
+            // Two treads to a cell, each at the ground's height where it lies.
+            for (const f of [-0.25, 0.25]) {
+              const px = cx0 + l.ux * f * CELL
+              const pz = cz0 + l.uz * f * CELL
+              steps.push([px, pz, yaw, 1, groundAt(px, pz)])
+            }
+          } else {
+            // Stones along the sides where the ramp meets the cliff: on the
+            // cliff's side of the seam, so the way up stays the ramp's width.
+            for (const [di, dj] of [[1, 0], [-1, 0], [0, 1], [0, -1]] as const) {
+              if (!cliffMask[(j + dj) * w + i + di]) continue
+              const px = cx0 + di * 1.0
+              const pz = cz0 + dj * 1.0
+              stone(kerbs, kerbShape, [px, pz, rng() * 6, 0.8 + rng() * 0.4, groundAt(px, pz)], i + di, j + dj)
+            }
+          }
+        }
+      }
+    }
+    out.push({ shape: wallShape, places: wall, outline: true })
+    if (steps.length) out.push({ shape: { kind: 'tread', build: tread(look.a, look.b), w: 1, s: [1, 1] }, places: steps, outline: true })
+    if (kerbs.length) out.push({ shape: kerbShape, places: kerbs, outline: true })
+  }
+
+  // ── Decor scattered through the clearings (never on the trail) ──
+  const decorPlaces: Array<Array<[number, number, number, number]>> = theme.decor.map(() => [])
+  const density = low ? 0.05 : 0.11
+  const caveDecor: PropShape[] = [{ kind: 'pebble', build: pebble('#5e586e'), w: 3, s: [0.8, 1.6] }, { kind: 'shroom', build: shroom(theme.mote), w: 2, s: [0.8, 1.4] }]
+  const caveDecorPlaces: Array<Array<[number, number, number, number]>> = caveDecor.map(() => [])
+  for (let j = 0; j < h; j++) {
+    for (let i = 0; i < w; i++) {
+      const k = j * w + i
+      if (solid[k] || trail[k] || footprint.has(k) || rng() > density) continue
+      if (townExits && townExitClear(townExits, i, j)) continue
+      // Nothing grows in water, on a bridge, under a chest or on a plate.
+      if (plan.kind[k] !== K_GROUND) continue
+      if (plan.cave[k]) {
+        const shape = pickShape(caveDecor, rng())
+        const s = caveDecor[shape]!
+        caveDecorPlaces[shape]!.push([(i + rng()) * CELL, (j + rng()) * CELL, rng() * Math.PI * 2, s.s[0] + rng() * (s.s[1] - s.s[0])])
+        continue
+      }
+      const shape = pickShape(theme.decor, rng())
+      const s = theme.decor[shape]!
+      decorPlaces[shape]!.push([(i + rng()) * CELL, (j + rng()) * CELL, rng() * Math.PI * 2, s.s[0] + rng() * (s.s[1] - s.s[0])])
+    }
+  }
+  for (let n = 0; n < theme.decor.length; n++) out.push({ shape: theme.decor[n]!, places: decorPlaces[n]!, outline: false })
+
+  // ── A field's standing wheat (#103): clumps over every crop cell ──
+  if (plan.crop) {
+    const wrng = mulberry32((plan.seed ^ 0x3a7e) >>> 0)
+    const per = low ? 2 : 4
+    const wheat: Place[] = []
+    for (let j = 0; j < h; j++) {
+      for (let i = 0; i < w; i++) {
+        const k = j * w + i
+        if (!plan.crop[k] || footprint.has(k)) continue
+        for (let q = 0; q < per; q++) wheat.push([(i + wrng()) * CELL, (j + wrng()) * CELL, wrng() * Math.PI, 0.85 + wrng() * 0.35])
+      }
+    }
+    out.push({ shape: { kind: 'wheat', build: wheatClump, w: 1, s: [1, 1] }, places: wheat, outline: false })
+  }
+  for (let n = 0; n < caveDecor.length; n++) out.push({ shape: caveDecor[n]!, places: caveDecorPlaces[n]!, outline: false })
+
+  // ── The relief's tells: a stone or two on a crest, dark tufts in a hollow ──
+  {
+    const trng = mulberry32((plan.seed ^ 0x7e11) >>> 0)
+    const crest: Place[] = []
+    const hollow: Place[] = []
+    for (let j = 1; j < h - 1; j++) {
+      for (let i = 1; i < w - 1; i++) {
+        const k = j * w + i
+        if (solid[k] || trail[k] || footprint.has(k) || plan.kind[k] !== K_GROUND || plan.cave[k]) continue
+        if (townExits && townExitClear(townExits, i, j)) continue
+        const x = (i + 0.5) * CELL
+        const z = (j + 0.5) * CELL
+        const gy = groundAt(x, z)
+        const lap = groundAt(x + 1.5, z) + groundAt(x - 1.5, z) + groundAt(x, z + 1.5) + groundAt(x, z - 1.5) - 4 * gy
+        const r = trng()
+        if (lap < -0.12 && r < (low ? 0.1 : 0.2)) {
+          const px = x + (trng() - 0.5) * CELL * 0.7
+          const pz = z + (trng() - 0.5) * CELL * 0.7
+          // A stone the size of a pebble: walked over, so never more than ankle high.
+          crest.push([px, pz, trng() * 6, 0.16 + trng() * 0.14, groundAt(px, pz) - 0.03])
+        } else if (lap > 0.1 && r < (low ? 0.25 : 0.5)) {
+          for (let q = 0; q < 2; q++) {
+            const px = x + (trng() - 0.5) * CELL
+            const pz = z + (trng() - 0.5) * CELL
+            hollow.push([px, pz, trng() * 6, 1 + trng() * 0.5, groundAt(px, pz)])
+          }
+        }
+      }
+    }
+    const tuftHex = '#' + new Color(theme.ground[1]).lerp(new Color(theme.rim), 0.5).getHexString()
+    out.push({ shape: { kind: 'crestStone', build: boulder(rockLook.a, rockLook.b), w: 1, s: [1, 1] }, places: crest, outline: true })
+    out.push({ shape: { kind: 'tuft', build: tuft(tuftHex), w: 1, s: [1, 1] }, places: hollow, outline: false })
+  }
+  return out
+}
+
+/** Everything `buildTerrain` instances, placed exactly as it places it (the
+ *  same seeded stream): for the tests that hold it against the colliders. */
+export const layTerrainProps = (plan: ZonePlan, themeId: ThemeId, low = false): SceneryGroup[] => {
+  const rng = mulberry32(plan.seed ^ 0x51ab)
+  const scenery = layScenery(plan, themeId, rng, low)
+  return [...scenery, ...layGround(plan, themeId, rng, low)]
 }
 
 export const buildTerrain = async (plan: ZonePlan, themeId: ThemeId, scene: Scene, slice: Slice): Promise<Terrain> => {
@@ -1387,168 +1644,14 @@ export const buildTerrain = async (plan: ZonePlan, themeId: ThemeId, scene: Scen
     await slice()
   }
 
-  // ── Border props on the solid cells that face the walkable ground ──
-  const footprint = footprintOf(plan)
-  const townExits = plan.town?.exits
+  // ── Border props on the solid cells, then what the ground carries (`layGround`) ──
   const scenery = layScenery(plan, themeId, rng, low, near, caveRing, lowRing)
   separateFlats(scenery.map((g): [PropShape, Place[]] => [g.shape, g.places]))
   for (const g of scenery) {
     instanced(g.shape, g.places, g.outline, root, owned)
     if (g.slice) await slice()
   }
-
-  // ── Ledges: a crag (or a wall of cut blocks) along each cliff edge, and the ramp's steps or kerbs ──
-  if (anyCliff) {
-    const wall: Place[] = []
-    const steps: Place[] = []
-    const kerbs: Place[] = []
-    const corner = (i: number, j: number): number => plan.height[j * (w + 1) + i]!
-    for (let j = 0; j < h; j++) {
-      for (let i = 0; i < w; i++) {
-        const k = j * w + i
-        const cx0 = (i + 0.5) * CELL
-        const cz0 = (j + 0.5) * CELL
-        if (cliffMask[k]) {
-          const c00 = corner(i, j)
-          const c10 = corner(i + 1, j)
-          const c01 = corner(i, j + 1)
-          const c11 = corner(i + 1, j + 1)
-          const lo = Math.min(c00, c10, c01, c11)
-          const hi = Math.max(c00, c10, c01, c11)
-          if (hi - lo < 0.3) continue
-          // The brow is the ledge's own straight line: every stone on it sits
-          // exactly there and turns its way, so the edge reads as one line.
-          const l = plan.ledges.find(q => Math.hypot(q.x - cx0, q.z - cz0) < q.r * 1.5)
-          let ux = (c10 + c11 - c00 - c01) / 2
-          let uz = (c01 + c11 - c00 - c10) / 2
-          const ul = Math.hypot(ux, uz) || 1
-          ux /= ul
-          uz /= ul
-          let bx = cx0 + ux * 0.5
-          let bz = cz0 + uz * 0.5
-          if (l) {
-            ux = l.ux
-            uz = l.uz
-            const sc = (cx0 - l.x) * ux + (cz0 - l.z) * uz
-            bx = cx0 + ux * (l.d0 + 0.32 - sc)
-            bz = cz0 + uz * (l.d0 + 0.32 - sc)
-          }
-          const yaw = Math.atan2(ux, uz) + Math.PI / 2
-          if (rockLook.dressed) {
-            // A coping stone along the terrace's edge: the line the eye reads as a drop.
-            // (Not beside a ramp: the ramp's top tread is the edge there, and the
-            // two stones would lie through each other.)
-            let byRamp = false
-            for (let dj = -1; dj <= 1; dj++) for (let di = -1; di <= 1; di++) if (rampMask[k + dj * w + di]) byRamp = true
-            if (!byRamp) wall.push([bx, bz, yaw, 1, hi + 0.01])
-          } else {
-            // Stones along the brow, and now and then a boulder fallen to the foot.
-            wall.push([bx + uz * 0.35, bz - ux * 0.35, rng() * 6, 0.75 + rng() * 0.3, hi - 0.06])
-            wall.push([bx - uz * 0.35, bz + ux * 0.35, rng() * 6, 0.6 + rng() * 0.3, hi - 0.06])
-            if (rng() < 0.3) kerbs.push([cx0 - ux * 0.6, cz0 - uz * 0.6, rng() * 6, 1.2 + rng() * 0.5, lo])
-          }
-        } else if (rampMask[k]) {
-          const l = plan.ledges.find(q => Math.hypot(q.x - cx0, q.z - cz0) < q.r * 1.4)
-          const yaw = l ? Math.atan2(l.ux, l.uz) : 0
-          if (rockLook.dressed && l) {
-            // Two treads to a cell, each at the ground's height where it lies.
-            for (const f of [-0.25, 0.25]) {
-              const px = cx0 + l.ux * f * CELL
-              const pz = cz0 + l.uz * f * CELL
-              steps.push([px, pz, yaw, 1, groundAt(px, pz)])
-            }
-          } else {
-            // Stones along the sides where the ramp meets the cliff.
-            for (const [di, dj] of [[1, 0], [-1, 0], [0, 1], [0, -1]] as const) {
-              if (!cliffMask[(j + dj) * w + i + di]) continue
-              const px = cx0 + di * 0.55
-              const pz = cz0 + dj * 0.55
-              kerbs.push([px, pz, rng() * 6, 0.8 + rng() * 0.4, groundAt(px, pz)])
-            }
-          }
-        }
-      }
-    }
-    const look = rockLook
-    instanced({ build: look.dressed ? coping(look.a, look.b) : browStone(look.a, look.b), w: 1, s: [1, 1] }, wall, true, root, owned)
-    if (steps.length) instanced({ build: tread(look.a, look.b), w: 1, s: [1, 1] }, steps, true, root, owned)
-    if (kerbs.length) instanced({ build: kerb(look.a, look.b), w: 1, s: [1, 1] }, kerbs, true, root, owned)
-    await slice()
-  }
-
-  // ── Decor scattered through the clearings (never on the trail) ──
-  const decorPlaces: Array<Array<[number, number, number, number]>> = theme.decor.map(() => [])
-  const density = low ? 0.05 : 0.11
-  const caveDecor: PropShape[] = [{ build: pebble('#5e586e'), w: 3, s: [0.8, 1.6] }, { build: shroom(theme.mote), w: 2, s: [0.8, 1.4] }]
-  const caveDecorPlaces: Array<Array<[number, number, number, number]>> = caveDecor.map(() => [])
-  for (let j = 0; j < h; j++) {
-    for (let i = 0; i < w; i++) {
-      const k = j * w + i
-      if (solid[k] || trail[k] || footprint.has(k) || rng() > density) continue
-      if (townExits && townExitClear(townExits, i, j)) continue
-      // Nothing grows in water, on a bridge, under a chest or on a plate.
-      if (plan.kind[k] !== K_GROUND) continue
-      if (plan.cave[k]) {
-        const shape = pickShape(caveDecor, rng())
-        const s = caveDecor[shape]!
-        caveDecorPlaces[shape]!.push([(i + rng()) * CELL, (j + rng()) * CELL, rng() * Math.PI * 2, s.s[0] + rng() * (s.s[1] - s.s[0])])
-        continue
-      }
-      const shape = pickShape(theme.decor, rng())
-      const s = theme.decor[shape]!
-      decorPlaces[shape]!.push([(i + rng()) * CELL, (j + rng()) * CELL, rng() * Math.PI * 2, s.s[0] + rng() * (s.s[1] - s.s[0])])
-    }
-  }
-  for (let n = 0; n < theme.decor.length; n++) instanced(theme.decor[n]!, decorPlaces[n]!, false, root, owned)
-
-  // ── A field's standing wheat (#103): clumps over every crop cell ──
-  if (plan.crop) {
-    const wrng = mulberry32((plan.seed ^ 0x3a7e) >>> 0)
-    const per = low ? 2 : 4
-    const wheat: Place[] = []
-    for (let j = 0; j < h; j++) {
-      for (let i = 0; i < w; i++) {
-        const k = j * w + i
-        if (!plan.crop[k] || footprint.has(k)) continue
-        for (let q = 0; q < per; q++) wheat.push([(i + wrng()) * CELL, (j + wrng()) * CELL, wrng() * Math.PI, 0.85 + wrng() * 0.35])
-      }
-    }
-    instanced({ build: wheatClump, w: 1, s: [1, 1] }, wheat, false, root, owned)
-  }
-  for (let n = 0; n < caveDecor.length; n++) instanced(caveDecor[n]!, caveDecorPlaces[n]!, false, root, owned)
-
-  // ── The relief's tells: a stone or two on a crest, dark tufts in a hollow ──
-  {
-    const trng = mulberry32((plan.seed ^ 0x7e11) >>> 0)
-    const crest: Place[] = []
-    const hollow: Place[] = []
-    for (let j = 1; j < h - 1; j++) {
-      for (let i = 1; i < w - 1; i++) {
-        const k = j * w + i
-        if (solid[k] || trail[k] || footprint.has(k) || plan.kind[k] !== K_GROUND || plan.cave[k]) continue
-        if (townExits && townExitClear(townExits, i, j)) continue
-        const x = (i + 0.5) * CELL
-        const z = (j + 0.5) * CELL
-        const gy = groundAt(x, z)
-        const lap = groundAt(x + 1.5, z) + groundAt(x - 1.5, z) + groundAt(x, z + 1.5) + groundAt(x, z - 1.5) - 4 * gy
-        const r = trng()
-        if (lap < -0.12 && r < (low ? 0.1 : 0.2)) {
-          const px = x + (trng() - 0.5) * CELL * 0.7
-          const pz = z + (trng() - 0.5) * CELL * 0.7
-          crest.push([px, pz, trng() * 6, 0.32 + trng() * 0.3, groundAt(px, pz) - 0.06])
-        } else if (lap > 0.1 && r < (low ? 0.25 : 0.5)) {
-          for (let q = 0; q < 2; q++) {
-            const px = x + (trng() - 0.5) * CELL
-            const pz = z + (trng() - 0.5) * CELL
-            hollow.push([px, pz, trng() * 6, 1 + trng() * 0.5, groundAt(px, pz)])
-          }
-        }
-      }
-    }
-    const tuftHex = '#' + new Color(theme.ground[1]).lerp(new Color(theme.rim), 0.5).getHexString()
-    instanced({ build: boulder(rockLook.a, rockLook.b), w: 1, s: [1, 1] }, crest, true, root, owned)
-    instanced({ build: tuft(tuftHex), w: 1, s: [1, 1] }, hollow, false, root, owned)
-  }
+  for (const g of layGround(plan, themeId, rng, low)) instanced(g.shape, g.places, g.outline, root, owned)
   await slice()
 
   // A town's houses, props and people are `gfx/townView.ts`.

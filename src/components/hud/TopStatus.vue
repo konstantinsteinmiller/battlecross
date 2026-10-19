@@ -14,6 +14,9 @@
         span.plate__name
           span.plate__label {{ t(hud.targetKey) }}
         FBar.plate__bar(:value="hud.targetHp01" tone="enemy" :frame="hud.targetElite ? 'elite' : 'plain'" :label="`${t(hud.targetKey)} · ${t('hud.level', { n: hud.targetLevel })}`" :level="hud.targetLevel" :tier="hud.targetTier")
+        //- What the hero has stacked on it (poison …), with the count (#152).
+        span.plate__stacks(v-if="hud.targetStacks.length")
+          StatusChipIcon.plate__stack(v-for="s in hud.targetStacks" :key="s.id" :chip="s")
 </template>
 
 <script setup lang="ts">
@@ -25,6 +28,7 @@ import { hud } from '@/game/state/hud'
 import FBar from '@/components/atoms/FBar.vue'
 import GameIcon from '@/components/icons/GameIcon.vue'
 import GoalTracker from './GoalTracker.vue'
+import StatusChipIcon from './StatusChipIcon.vue'
 
 const { t } = useI18n()
 </script>
@@ -55,6 +59,12 @@ const { t } = useI18n()
   width: min(100%, calc(clamp(11rem, 66vmin, 27rem) * var(--hud-s, 1)))
   font-size: max(10px, calc(clamp(0.76rem, 3.2vmin, 1.15rem) * var(--hud-s, 1)))
   --fbar-h: calc(clamp(0.7rem, 2.8vmin, 1.1rem) * var(--hud-s, 1))
+.plate__stacks
+  display: inline-flex
+  gap: 0.35em
+  margin-top: 0.15em
+.plate__stack
+  width: 1.5em
 .plate__name
   display: inline-flex
   align-items: center

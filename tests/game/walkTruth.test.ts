@@ -2,7 +2,7 @@
 import { describe, expect, it } from 'vitest'
 import { CELL, ROUND_R, SOLID_LOW, SOLID_ROUND, createGrid, moveCircle, resolveCircle } from '@/game/sim/grid'
 import { generateArena, generateEncounter, generateZone, type ZonePlan } from '@/game/sim/zoneGen'
-import { K_BLOCK, K_CLIFF, K_WATER } from '@/game/sim/zoneFeatures'
+import { K_BLOCK, K_CLIFF, K_WATER, hintCells } from '@/game/sim/zoneFeatures'
 import { ZONES, ZONE_IDS, type ThemeId } from '@/game/data/zones'
 import { layScenery, shapeFoot, wetCell } from '@/game/gfx/terrain'
 import { COVER_TOL, FootIndex, cellSamples, footOf } from '@/game/gfx/footprint'
@@ -92,7 +92,7 @@ describe('walk truth: no invisible walls, a road to everything', () => {
       for (const c of plan.chests) own(c.x, c.z, 'chest')
       for (const s of plan.signs) own(s.x, s.z, 'sign')
       for (const s of plan.forks) own(s.x, s.z, 'fork')
-      if (plan.puzzle) own(plan.puzzle.hint.x, plan.puzzle.hint.z, 'hint')
+      if (plan.puzzle) for (const k of hintCells(Math.floor(plan.puzzle.hint.z / CELL) * w + Math.floor(plan.puzzle.hint.x / CELL))) owned.set(k, 'hint')
       for (const o of plan.ores ?? []) own(o.x, o.z, 'ore')
       const pieceCells = new Map<number, string>()
       for (const d of plan.dressing ?? []) for (const k of d.cells) pieceCells.set(k, d.kind)
@@ -143,7 +143,7 @@ describe('walk truth: no invisible walls, a road to everything', () => {
     expect(bad.slice(0, 40), `${bad.length} narrow ways (narrowest ${narrowest.toFixed(2)} m)`).toEqual([])
   }, 600_000)
 
-  it('(a) every level prop (chest, cage, post, hint stone, ore) covers its round collider', async () => {
+  it('(a) every level prop (chest, cage, post, hint stone, ore) covers its collider', async () => {
     stubCanvas()
     const { Scene } = await import('three')
     const { LevelProps } = await import('@/game/gfx/levelProps')
@@ -166,6 +166,10 @@ describe('walk truth: no invisible walls, a road to everything', () => {
         const tris = trisOfScene(scene, [], 300)
         const pieceCells = new Set<number>()
         for (const d of plan.dressing ?? []) for (const k of d.cells) pieceCells.add(k)
+        // A cage and the hint stone stop a body by their whole cells (`fillGrid`): those are covered square.
+        const square = new Set<number>()
+        for (const c of plan.chests) if (c.role === 'cage') square.add(Math.floor(c.z / CELL) * plan.w + Math.floor(c.x / CELL))
+        if (plan.puzzle) for (const k of hintCells(Math.floor(plan.puzzle.hint.z / CELL) * plan.w + Math.floor(plan.puzzle.hint.x / CELL))) square.add(k)
         // Doors open: a chest in a pocket is square rock until its door opens, then round.
         const g = gridOf(plan, true)
         for (let k = 0; k < plan.kind.length; k++) {
@@ -174,6 +178,12 @@ describe('walk truth: no invisible walls, a road to everything', () => {
           const j = (k - i) / plan.w
           const near = tris.filter(t => Math.max(t.ax, t.bx, t.cx) >= i * CELL - COVER_TOL && Math.min(t.ax, t.bx, t.cx) <= (i + 1) * CELL + COVER_TOL &&
             Math.max(t.az, t.bz, t.cz) >= j * CELL - COVER_TOL && Math.min(t.az, t.bz, t.cz) <= (j + 1) * CELL + COVER_TOL)
+          if (square.has(k)) {
+            if (g.solid[k] !== SOLID_LOW) { bad.push(`${z}#${seed}: square level prop cell ${i},${j} is not square (${g.solid[k]})`); continue }
+            const miss = cellSamples(i, j, CELL).filter(([x, zz]) => !near.some(t => triDist2(t, x, zz) <= COVER_TOL))
+            if (miss.length) bad.push(`${z}#${seed}: level prop ${owner(plan, k)} at cell ${i},${j} with ${miss.length}/16 of its cell bare`)
+            continue
+          }
           // The collider is the disc round the cell's middle (`SOLID_ROUND`), not the square.
           if (g.solid[k] !== (SOLID_LOW | SOLID_ROUND)) { bad.push(`${z}#${seed}: level prop cell ${i},${j} is not round (${g.solid[k]})`); continue }
           const pts = discSamples((i + 0.5) * CELL, (j + 0.5) * CELL, ROUND_R)

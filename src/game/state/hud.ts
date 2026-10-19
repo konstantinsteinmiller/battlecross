@@ -1,6 +1,7 @@
 import type { LevelTier } from '../data/zones'
 import { shallowReactive } from 'vue'
 import { ACTIVE_SLOTS } from '../data/skills'
+import type { StatusChip } from './statusView'
 
 /**
  * ─── The reactivity firewall ─────────────────────────────────────────────────
@@ -62,8 +63,12 @@ export const hud = shallowReactive({
   elixirReady: true,
   /** The six active slots. Replaced whole on a change. */
   skills: Array.from({ length: ACTIVE_SLOTS }, emptySlot) as SkillSlotView[],
-  /** Status icons on the hero (ids, e.g. 'stun', 'burn', 'haste'). */
-  statuses: [] as string[],
+  /** Status icons on the hero, with stack counts (`statusView.ts`). */
+  statuses: [] as StatusChip[],
+  /** Stacks on the locked target (poison …). */
+  targetStacks: [] as StatusChip[],
+  /** The hero's chi beads (Iron Monk), shown on the skills that spend them. */
+  chi: 0,
   /** The locked target: its name key, level, health and whether it is elite. */
   targetKey: '',
   targetLevel: 0,

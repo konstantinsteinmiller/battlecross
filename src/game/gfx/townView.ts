@@ -122,6 +122,7 @@ export class TownView {
       if (out.forge) v.forges.push(out.forge)
       if (out.cut) v.addCut(hi, out.cut, out.room, out.clutter, (h.doorI + 0.5) * CELL, (h.j0 + h.cd) * CELL)
       if (out.layout) blocks.push(...furnitureBlocks(out.layout, x, z))
+      blocks.push(...out.jambs)
       if ((hi & 1) === 1) await slice()
     }
     // The furniture stops the hero (roadmap #84): the room layout keeps its ways open.

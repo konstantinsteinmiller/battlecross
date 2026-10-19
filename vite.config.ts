@@ -594,7 +594,16 @@ export default defineConfig(({ mode, command }) => {
           // usePlayerIdentity lazy-loads `@/use/useCrazyGames` to read the
           // portal's player name for the leaderboard. Same failure mode, but on
           // a PLAYER-facing path rather than a dev-only one.
-          /use[\\/]usePlayerIdentity\.ts$/
+          /use[\\/]usePlayerIdentity\.ts$/,
+          // The Samsung dark-mode fix lazy-loads `@/utils/forcedDarkCounter`
+          // and its check dialog lazy-loads flow + profile; the lifecycle
+          // lazy-loads `@/utils/playgamaPlugin`. Same failure mode: the live
+          // build threw `Failed to resolve module specifier
+          // '@/utils/forcedDarkCounter'` (2026-10-19). `obfuscatorExcludes.test.ts`
+          // now fails for any `import('@/…')` file missing from this list.
+          /use[\\/]useSamsungFix\.ts$/,
+          /components[\\/]organisms[\\/]SamsungColorCheck\.vue/,
+          /use[\\/]useGameplayLifecycle\.ts$/
         ],
         // ─── Obfuscation profile (tuned 2026-04-30) ─────────────────────
         // The previous profile enabled every aggressive transform the

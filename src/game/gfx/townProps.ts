@@ -199,10 +199,11 @@ const draw = (k: Kit, p: TownProp, c: PropCtx, r: () => number): void => {
       barrel(h, 0, 0, 0)
       break
     case 'cart': {
-      // A hay cart: a bed on two wheels, its shafts down on the ground.
-      h.box(-0.9, 0.5, -0.55, 0.9, 0.62, 0.55, { top: '#b07e48', side: WOOD_D }, 'b')
-      for (const s of [-1, 1]) h.box(-0.9, 0.62, s * 0.55 - 0.05, 0.9, 0.9, s * 0.55 + 0.05, { front: WOOD, side: WOOD_D, top: WOOD }, 'b')
-      h.box(0.85, 0.62, -0.55, 0.95, 0.9, 0.55, WOOD, 'b')
+      // A hay cart: a bed on two wheels, its shafts propped up in the air (laid
+      // down, they reached a cell past its own, over the street).
+      h.box(-0.78, 0.5, -0.55, 0.78, 0.62, 0.55, { top: '#b07e48', side: WOOD_D }, 'b')
+      for (const s of [-1, 1]) h.box(-0.78, 0.62, s * 0.55 - 0.05, 0.78, 0.9, s * 0.55 + 0.05, { front: WOOD, side: WOOD_D, top: WOOD }, 'b')
+      h.box(0.73, 0.62, -0.55, 0.83, 0.9, 0.55, WOOD, 'b')
       const broken = p.v % 2 === 0 && !c.low
       for (const s of [-1, 1]) {
         if (broken && s > 0) continue
@@ -214,7 +215,7 @@ const draw = (k: Kit, p: TownProp, c: PropCtx, r: () => number): void => {
       }
       if (broken) {
         // The wheel off and leaning on the cart; the axle on a block; the wheelwright's tools on the ground.
-        h.pushMatrix(new Matrix4().makeRotationX(Math.PI / 2 - 0.35).setPosition(0.55, 0.42, 1.0))
+        h.pushMatrix(new Matrix4().makeRotationX(Math.PI / 2 - 0.35).setPosition(0.35, 0.42, 0.55))
         h.cyl(0, -0.05, 0, 0.42, 0.42, 0.1, 10, '#7a5030', '#a07040')
         h.pop()
         d.rbox(-0.25, 0, 0.42, 0.05, 0.36, 0.72, 0.02, '#6a4428')
@@ -224,7 +225,7 @@ const draw = (k: Kit, p: TownProp, c: PropCtx, r: () => number): void => {
         d.rbox(0.36, 0.0, 1.35, 0.9, 0.05, 1.55, 0.01, '#b07e48')
         d.cyl(-0.85, 0, 1.15, 0.12, 0.14, 0.2, 8, '#8a8f9a', '#4a4a54')
       }
-      for (const s of [-1, 1]) d.beam(-0.9, 0.55, s * 0.4, -1.9, 0.05, s * 0.3, 0.08, WOOD_D, 0.08)
+      for (const s of [-1, 1]) d.beam(-0.76, 0.55, s * 0.4, -0.86, 2.0, s * 0.34, 0.08, WOOD_D, 0.08)
       if (!ruined) d.ball(0, 0.95, 0, 0.75, '#e2b850', 7, 4, 0.45)
       break
     }
@@ -246,9 +247,11 @@ const draw = (k: Kit, p: TownProp, c: PropCtx, r: () => number): void => {
         d.pop()
         d.pop()
       }
-      bale(0, 0, 0, 0)
-      if (r() < 0.6) bale(0.95, 0, 0.05, 0.15)
-      if (r() < 0.35) bale(0.5, 0.76, 0, 0.05)
+      // Two side by side within the cell (one once lay a cell over, on the street).
+      const two = r() < 0.6
+      bale(two ? -0.42 : 0, 0, 0, 0)
+      if (two) bale(0.45, 0, 0.05, 0.15)
+      if (r() < 0.35) bale(two ? 0.02 : 0, 0.76, 0, 0.05)
       break
     }
     case 'lamp': {
@@ -437,8 +440,9 @@ const draw = (k: Kit, p: TownProp, c: PropCtx, r: () => number): void => {
         h.box(s * w - 0.3, 0, -0.3, s * w + 0.3, 0.3, 0.3, { top: '#a8a49a', side: '#8a867c' }, 'b')
       }
       if (ruined) {
-        // The beam fell: one end down in the road's edge.
-        d.beam(-w, 3.1, 0, -w + 2.6, 0.2, 0.4, 0.22, '#2e2622', 0.22)
+        // The beam fell: it leans on its post, its foot on the post's own cell
+        // (lying across the road's edge, it stood in the way of everyone).
+        d.beam(-w + 0.12, 3.1, 0, -w + 0.62, 0.2, 0.3, 0.22, '#2e2622', 0.22)
         break
       }
       h.box(-w - 0.45, 3.05, -0.17, w + 0.45, 3.4, 0.17, { front: stone ? '#7a7680' : WOOD, side: WOOD_D, top: stone ? '#8a8690' : '#a07040' }, 'b')

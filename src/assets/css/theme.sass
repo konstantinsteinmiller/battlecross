@@ -122,8 +122,12 @@
   --bc-text-xp: #d3a8ff
   --bc-text-mana: #8fd4ff
   // Text on a candy fill wears an ink outline (eight hard offsets + a drop).
-  --bc-text-outline: 0 0.1em 0 var(--bc-ink), 0.07em 0 0 var(--bc-ink), -0.07em 0 0 var(--bc-ink), 0 -0.07em 0 var(--bc-ink), 0.05em 0.05em 0 var(--bc-ink), -0.05em 0.05em 0 var(--bc-ink), 0.05em -0.05em 0 var(--bc-ink), -0.05em -0.05em 0 var(--bc-ink)
-  --bc-text-outline-thin: 0 1px 0 var(--bc-ink), 1px 0 0 var(--bc-ink), -1px 0 0 var(--bc-ink), 0 -1px 0 var(--bc-ink), 0 2px 0 var(--bc-ink)
+  // The outline's colour is `--bc-outline-c`: plain ink, or (below) a colour
+  // worked out from the text's own, so dark ink on parchment gets a light halo
+  // instead of a muddy dark one, whatever colour the text is.
+  --bc-outline-c: var(--bc-ink)
+  --bc-text-outline: 0 0.1em 0 var(--bc-outline-c), 0.07em 0 0 var(--bc-outline-c), -0.07em 0 0 var(--bc-outline-c), 0 -0.07em 0 var(--bc-outline-c), 0.05em 0.05em 0 var(--bc-outline-c), -0.05em 0.05em 0 var(--bc-outline-c), 0.05em -0.05em 0 var(--bc-outline-c), -0.05em -0.05em 0 var(--bc-outline-c)
+  --bc-text-outline-thin: 0 1px 0 var(--bc-outline-c), 1px 0 0 var(--bc-outline-c), -1px 0 0 var(--bc-outline-c), 0 -1px 0 var(--bc-outline-c), 0 2px 0 var(--bc-outline-c)
 
   // ── What sits on the current SURFACE ───────────────────────────────────────
   // A window re-declares these for its page (`FModal`: parchment or slate),
@@ -174,3 +178,11 @@
   --bc-z-modal: 110
   --bc-z-veil: 120
   --bc-z-system: 150
+
+// Contrast-aware outlines: light lettering keeps its ink outline, dark lettering
+// (parchment ink, deep greens, reds, golds) gets a paper-white halo instead.
+// The clamp() term is 1 for light text, 0 for dark, switching at OKLCH
+// lightness 0.66; it slides lightness and hue between paper-hi and ink.
+@supports (color: oklch(from red l c h))
+  :root
+    --bc-outline-c: oklch(from currentColor calc(0.98 - 0.78 * clamp(0, (l - 0.66) * 1000, 1)) 0.03 calc(90 + 210 * clamp(0, (l - 0.66) * 1000, 1)))

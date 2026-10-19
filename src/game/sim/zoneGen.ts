@@ -204,16 +204,17 @@ const placeDummy = (solid: Uint8Array, h: number, cs: Array<{ i: number; j: numb
  * around, seen over) and the sealed pockets (`doorsOpen`: as if every door had
  * opened). The sim's grid is this with the doors shut. A level prop that is
  * not a set piece (a chest, a post, an ore rock) stops a body by its round
- * footprint (`SOLID_ROUND`); a set piece covers its cells and stops by them.
+ * footprint (`SOLID_ROUND`); a set piece covers its cells and stops by them,
+ * and so do a cage (its bars stand at the cell's corners) and the carved
+ * hint stone (three cells wide: `hintCells`).
  */
 export const fillGrid = (g: Grid, plan: ZonePlan, doorsOpen = false): Grid => {
   const round = new Uint8Array(plan.solid.length)
   const at = (p: { x: number; z: number }): void => { round[Math.floor(p.z / CELL) * plan.w + Math.floor(p.x / CELL)] = 1 }
-  plan.chests.forEach(at)
+  for (const c of plan.chests) if (c.role !== 'cage') at(c)
   plan.signs.forEach(at)
   plan.forks.forEach(at)
   plan.ores?.forEach(at)
-  if (plan.puzzle) at(plan.puzzle.hint)
   for (const d of plan.dressing ?? []) for (const k of d.cells) round[k] = 0
   for (let k = 0; k < plan.solid.length; k++) {
     let v = plan.solid[k]! ? SOLID_TERRAIN : 0
@@ -578,7 +579,10 @@ export const generateZone = (def: ZoneDef, seed: number, o: ZoneGenOpts = {}): Z
   ]
   const ores = o.tutorial || o.bare ? [] : placeOres({ ...spots, cave }, def.min, [...herbs, ...pieces, ...(x ? [x] : []), ...named])
   if (x) {
-    features.chests.push({ id: features.chests.length, x: x.x, z: x.z, tier: 'gold', role: 'treasure', sx: x.x, sz: x.z + 1.2, door: -1, guard: -1 })
+    // Its cell is its own, like any chest's (it stood on open ground with
+    // nothing to stop a body walking into it).
+    kind[Math.floor(x.z / CELL) * Wd + Math.floor(x.x / CELL)] = K_BLOCK
+    features.chests.push({ id: features.chests.length, x: x.x, z: x.z, tier: 'gold', role: 'treasure', sx: x.x, sz: x.z + CELL, door: -1, guard: -1 })
   }
   // A cage (#100), last of all and on its own stream.
   const cage = o.cage && !o.tutorial && !o.bare ? placeCage(spots, [...herbs, ...pieces, ...ores, ...(x ? [x] : [])]) : null

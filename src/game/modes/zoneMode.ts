@@ -40,6 +40,7 @@ import { townLoop } from '../gfx/rigs/townClips'
 import { heroLook } from '../gfx/rigs/looks'
 import { WallRocks, buildChest, buildTerrain, setZoneFog, type Terrain } from '../gfx/terrain'
 import { Vfx } from '../gfx/vfx'
+import { NO_STATUSES, StackOrbs } from '../gfx/stackOrbs'
 import { SLOW_MO, slowMoScale } from '../gfx/slowMo'
 import { LevelProps } from '../gfx/levelProps'
 import type { TownView } from '../gfx/townView'
@@ -67,6 +68,7 @@ import { MENTOR_SKILL } from '../data/mentor'
 import { markRevealUsed } from '../coach/reveal'
 import { PREVIEW_FEED } from '../previewFlags'
 import { setBossMusic } from '@/use/useSound'
+import { heroStatusView, sameChips, targetStackView } from '../state/statusView'
 
 /**
  * ─── A zone visit ────────────────────────────────────────────────────────────
@@ -217,6 +219,8 @@ export class ZoneMode implements GameMode {
   private cb: ZoneCallbacks
   private terrain!: Terrain
   private vfx!: Vfx
+  /** The charges the hero's skills build, circling him (`gfx/stackOrbs.ts`). */
+  private orbs!: StackOrbs
   private critShakes = new ShakeBudget()
   private markers!: Markers
   private bars!: HealthBars
@@ -400,6 +404,7 @@ export class ZoneMode implements GameMode {
     }
 
     m.vfx = new Vfx(m.scene)
+    m.orbs = new StackOrbs(m.scene)
     m.markers = new Markers(m.scene)
     m.bars = new HealthBars(m.scene, 72)
     m.scene.add(m.walls.root)
@@ -1138,6 +1143,7 @@ export class ZoneMode implements GameMode {
     // DEV: the recorder's textless cut hides what the renderer itself paints.
     if (PREVIEW_FEED === 'pure') { this.bars.mesh.visible = false; this.markers.root.visible = false }
     this.statusFx(fxDt)
+    this.orbs.update(hero.alive ? hero.statuses : NO_STATUSES, hx, hz, hero.r, hero.h, fxDt, this.time, this.camera, groundAt(hx, hz))
 
     // ── Markers ──
     const live = hero.alive && (!sim.ended || (sim.ended === 'victory' && !sim.leaving))
@@ -1274,9 +1280,12 @@ export class ZoneMode implements GameMode {
       next.push(v)
     }
     if (changed) hud.skills = next
-    const st = u.statuses
-    if (st.length !== hud.statuses.length || st.some((s, k) => hud.statuses[k] !== s.id)) hud.statuses = st.map(s => s.id)
+    const st = heroStatusView(u.statuses)
+    if (!sameChips(st, hud.statuses)) hud.statuses = st
+    hud.chi = u.statuses.find(s => s.id === 'chi')?.n ?? 0
     const t = sim.live(h.order.targetId)
+    const ts = targetStackView(t && t.team === 1 ? t.statuses : undefined)
+    if (!sameChips(ts, hud.targetStacks)) hud.targetStacks = ts
     hud.targetKey = t && t.team === 1 ? 'enemy.' + t.kind : ''
     hud.targetLevel = t?.level ?? 0
     hud.targetTier = unitLevelTier(t?.level ?? 0, h.level)
@@ -1456,6 +1465,7 @@ export class ZoneMode implements GameMode {
     setBossMusic(false)
     for (const id of [...this.views.keys()]) this.dropView(id)
     this.vfx.dispose()
+    this.orbs.dispose()
     this.markers.dispose()
     this.bars.dispose()
     this.walls.dispose()

@@ -189,7 +189,7 @@ export const owner = (plan: ZonePlan, k: number): string => {
   if (c) return `chest (${c.role})`
   if (plan.signs.some(at)) return 'skull sign'
   if (plan.forks.some(at)) return 'fork sign'
-  if (plan.puzzle && at(plan.puzzle.hint)) return 'hint stone'
+  if (plan.puzzle && [-1, 0, 1].some(d => at({ x: plan.puzzle!.hint.x + d * CELL, z: plan.puzzle!.hint.z }))) return 'hint stone'
   if ((plan.ores ?? []).some(at)) return 'ore'
   return 'unknown'
 }

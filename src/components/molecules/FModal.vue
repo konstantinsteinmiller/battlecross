@@ -413,7 +413,7 @@ const handleTabChange = (val: string | number): void => emit('update:activeTab',
   --bc-on-mute: var(--bc-paper-ink-soft)
   --bc-on-accent: var(--bc-gold-deep)
   --bc-on-good: var(--bc-green-deep)
-  --bc-on-bad: var(--bc-red-lo)
+  --bc-on-bad: var(--bc-red-deep)
   --bc-cell: rgba(var(--bc-paper-ink-rgb), 0.11)
   --bc-cell-alt: rgba(var(--bc-paper-ink-rgb), 0.05)
   --bc-rule: rgba(var(--bc-paper-ink-rgb), 0.24)

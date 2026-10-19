@@ -45,6 +45,9 @@
           GameIcon.slot__lock(v-if="s.v.locked" name="lock")
           span.slot__num(:ref="(el) => setNum(el, s.slot)")
         template(#badge)
+          //- A chi finisher shows the beads it will spend (#152).
+          span.slot__chi(v-if="CHI_SPENDERS.has(s.def.id)" :data-chi="hud.chi" :style="{ '--chi': statusTint('chi') }" aria-hidden="true")
+            i(v-for="b in CHI_BEADS" :key="b" :class="{ on: b <= hud.chi }")
           span.slot__cost(v-if="s.def.mana > 0") {{ s.def.mana }}
           span.slot__cost.slot__cost--hp(v-else-if="s.def.hpCost") {{ s.def.hpCost }}%
           KeyCap.slot__key(v-if="hud.device === 'mouse'" :code="keyCode(s.slot)")
@@ -169,6 +172,8 @@ import SkillIcon from '@/components/art/SkillIcon.vue'
 import KeyCap from '@/components/glyphs/KeyCap.vue'
 import { glowing, revealed } from '@/game/coach/reveal'
 import ArtIcon from '@/components/art/ArtIcon.vue'
+import { CHI_BEADS, CHI_SPENDERS } from '@/game/state/statusView'
+import { statusTint } from '@/components/art/tints'
 import { ELIXIR_BY_ID, ELIXIR_CAP, isElixir } from '@/game/data/elixirs'
 
 const { t } = useI18n()
@@ -661,6 +666,24 @@ const onElixirNext = (e: PointerEvent): void => {
   pointer-events: none
 .slot__cost--hp
   +cel.tone('red')
+// Chi beads along the top of a finisher: lit for every bead it will spend.
+.slot__chi
+  position: absolute
+  left: 50%
+  top: -10%
+  display: flex
+  gap: calc(var(--btn) * 0.025)
+  transform: translateX(-50%)
+  pointer-events: none
+  i
+    width: calc(var(--btn) * 0.12)
+    height: calc(var(--btn) * 0.12)
+    border: var(--bc-ol-thin) solid var(--bc-ink)
+    border-radius: 50%
+    background: var(--bc-slate-deep)
+    &.on
+      background: var(--chi)
+      box-shadow: 0 0 calc(var(--btn) * 0.06) var(--chi)
 .slot__count
   +cel.tone('gold')
 .slot__key

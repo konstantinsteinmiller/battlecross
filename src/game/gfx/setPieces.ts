@@ -251,12 +251,13 @@ const oldTree = (seed: number): PieceGeo => {
 }
 
 const timber = (): PieceGeo => ({
-  // A mine's frame across a drift: two props against its walls, a cap over
-  // them, a lantern hung from it.
+  // A mine's frame across a drift: two props against its walls (at the rock's
+  // face, three cells apart: not out on the drift's floor), a cap over them,
+  // a lantern hung from it.
   lit: [
-    P(rbox(0.26, 2.7, 0.26, 0.3, 6, 6), '#6a4a2c', [-2.05, 1.35, 0]),
-    P(rbox(0.26, 2.7, 0.26, 0.3, 6, 6), '#6a4a2c', [2.05, 1.35, 0]),
-    P(rbox(4.6, 0.3, 0.3, 0.3, 10, 4), '#7a5634', [0, 2.82, 0]),
+    P(rbox(0.26, 2.7, 0.26, 0.3, 6, 6), '#6a4a2c', [-2.2, 1.35, 0]),
+    P(rbox(0.26, 2.7, 0.26, 0.3, 6, 6), '#6a4a2c', [2.2, 1.35, 0]),
+    P(rbox(4.9, 0.3, 0.3, 0.3, 10, 4), '#7a5634', [0, 2.82, 0]),
     P(rcyl(0.012, 0.3, 0.004, 4, 1), '#2a2a2a', [0.6, 2.5, 0]),
     P(rcone(0.1, 0.06, 0.08, 0.02, 6), '#3a3430', [0.6, 2.33, 0])
   ],

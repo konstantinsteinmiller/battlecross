@@ -42,6 +42,10 @@ export const K_CLIFF = 6
 /** The ramp up a ledge (walkable; worn, or built as steps). */
 export const K_RAMP = 7
 
+/** The cells the puzzle's carved stone stands on (`k`: its middle one): it
+ *  is as wide as three, a symbol and its pips for each plate (`levelProps.ts`). */
+export const hintCells = (k: number): number[] => [k - 1, k, k + 1]
+
 export type ChestRole = 'finale' | 'secret' | 'puzzle' | 'champion' | 'guard' | 'cave' | 'lagoon' | 'nook' | 'tutorial' | 'ledge'
   /** At the far end of a loop way, guarded by its pack (roadmap #70). */
   | 'bypass'
@@ -1250,12 +1254,16 @@ export const addFeatures = (c: FeatureCtx): Features => {
       claimed[kk] = 1
       out.plates.push({ id: first + m, x: cx(kk % w), z: cx(Math.floor(kk / w)), symbol: m })
     }
-    // The carved stone stands at the end of the row, by the first plate.
+    // The carved stone stands at the end of the row, by the first plate. It
+    // is three cells wide (`HINT_CELLS`, a symbol and its pips for each
+    // plate): the cells either side of it are its too, open ground (or rock).
+    const wingFree = (kk: number): boolean => solid[kk] ? !sealed[kk] : !trail[kk] && !claimed[kk] && kind[kk] === K_GROUND && !sealed[kk]
     let hint = -1
-    for (const [da, dr] of [[-1, 0], [-1, 0.9], [count, 0], [count, 0.9], [-1.6, 0], [count + 0.6, 0]] as const) {
+    for (const [da, dr] of [[-1, 0], [-1, 0.9], [count, 0], [count, 0.9], [-1.6, 0], [count + 0.6, 0], [-1, -0.8], [count, -0.8], [-1, 1.8], [count, 1.8], [-2.2, 0], [count + 1.2, 0], [-1.6, 0.9], [count + 0.6, 0.9]] as const) {
       const a = phi + (da - (count - 1) / 2) * dphi
       hint = place(a, R + dr)
-      if (hint >= 0) break
+      if (hint >= 0 && hintCells(hint).every(kk => kk === hint || wingFree(kk))) break
+      hint = -1
     }
     if (hint < 0) return false
     // The stone is read from the plates: no rock or boulder between them.
@@ -1270,8 +1278,10 @@ export const addFeatures = (c: FeatureCtx): Features => {
     }
     for (const kk of spots) if (!seen(hint, kk)) return false
     solid[hint] = 0
-    kind[hint] = K_BLOCK
-    claimed[hint] = 1
+    for (const kk of hintCells(hint)) {
+      claimed[kk] = 1
+      if (!solid[kk]) kind[kk] = K_BLOCK
+    }
     // Off the first screens: well north of the clearing the hero starts in.
     if (kLo > 0) {
       const s0 = cs[0]!

@@ -2,7 +2,7 @@ import { Float32BufferAttribute, Matrix4, SphereGeometry } from 'three'
 import type { ClassId } from '../data/skills'
 import { CLASSES } from '../data/skills'
 import type { TownJob, TownStyle } from '../data/zones'
-import { CELL } from '../sim/grid'
+import { CELL, type Block } from '../sim/grid'
 import type { TownHouse, TownPlan } from '../sim/town'
 import { Mesher, cage, lc, newKit, seeded, shade, under, type Col, type Kit } from './archKit'
 import { rock, stripUv } from './kit'
@@ -118,6 +118,10 @@ export interface HouseOut {
   forge: [number, number, number] | null
   /** Height of the eaves (for the cut-away's lift). */
   top: number
+  /** The front wall either side of a walked-in door, inside the door's own
+   *  cell (world): the walk grid's furniture blocks, so the hero is stopped
+   *  at the jamb and not inside the wall beside it (`propRoles.ts`). */
+  jambs: Block[]
 }
 
 /** A face of the box: where it lies and which way it turns. */
@@ -643,7 +647,7 @@ const awning = (k: Kit, x0: number, x1: number, y: number, c1: string, c2: strin
     d.tri(a, y - drop, out, a + (b - a) / 2, y - drop - 0.13, out, b, y - drop, out, shade(c, 0.85))
     d.tri(b, y - drop, out, a + (b - a) / 2, y - drop - 0.13, out, a, y - drop, out, shade(c, 0.85))
   }
-  for (const xx of [x0 + 0.05, x1 - 0.05]) d.beam(xx, y - 0.6, 0.02, xx, y - drop, out - 0.05, 0.05, '#3a3034', 0.05)
+  for (const xx of [x0 + 0.05, x1 - 0.05]) d.beam(xx, y - 0.48, 0.02, xx, y - drop, out - 0.05, 0.05, '#3a3034', 0.05)
 }
 
 // ─── The house ───────────────────────────────────────────────────────────────
@@ -673,7 +677,7 @@ export const buildHouse = (base: Kit, h: TownHouse, c: HouseCtx): HouseOut => {
   // They are still LAID on one (and thrown away): the room's arrangement, and so
   // the furniture the hero bumps into (roadmap #84), is the same on every device.
   const clutterKit = enterable ? newKit() : null
-  const out: HouseOut = { cut: enterable ? cut : null, room: roomKit, clutter: c.low ? null : clutterKit, layout: null, chimneys: [], lamps: [], forge: null, top: 0 }
+  const out: HouseOut = { cut: enterable ? cut : null, room: roomKit, clutter: c.low ? null : clutterKit, layout: null, chimneys: [], lamps: [], forge: null, top: 0, jambs: [] }
   /** The windows in the side walls, for the room's curtains. */
   const sideWins: RoomCtx['wins'] = []
   /** This house's cat has found its window (else it sleeps on the step). */
@@ -745,6 +749,14 @@ export const buildHouse = (base: Kit, h: TownHouse, c: HouseCtx): HouseOut => {
     const openW = workshop ? Math.min(W - 1.2, 2.6) : doorW
     const openH = workshop ? 1.9 : doorH
     const ox = workshop ? 0 : doorX
+    if (enterable && !workshop) {
+      const z0 = c.z + fz - T
+      const z1 = c.z + fz + 0.12
+      const l = c.x + ox - openW / 2
+      const rr = c.x + ox + openW / 2
+      if (l > h.doorI * CELL + 0.01) out.jambs.push({ x0: h.doorI * CELL, z0, x1: l, z1 })
+      if (rr < (h.doorI + 1) * CELL - 0.01) out.jambs.push({ x0: rr, z0, x1: (h.doorI + 1) * CELL, z1 })
+    }
     const fTop = c.ruined ? fl(F) : F
     const F0 = wy
     // Every wall piece that meets the lintel's side is cut at the lintel's
@@ -763,7 +775,9 @@ export const buildHouse = (base: Kit, h: TownHouse, c: HouseCtx): HouseOut => {
     const fc = { front: wallC, back: inner, top: p.timber, side: wallC }
     stack(front.hull, -W / 2 + T, fz - T, ox - openW / 2, fTop, fz, fc)
     stack(front.hull, ox + openW / 2, fz - T, W / 2 - T, fTop, fz, fc)
-    front.hull.box(ox - openW / 2, openH, fz - T, ox + openW / 2, fTop, fz, fc, 'b')
+    // The lintel, where the wall stands higher than the door (a ruin's broken
+    // front can be lower: its "lintel" hung in the doorway, under the door's top).
+    if (fTop > openH + 0.01) front.hull.box(ox - openW / 2, openH, fz - T, ox + openW / 2, fTop, fz, fc, 'b')
     if (!enterable && !workshop) {
       // A closed house's doorway is dark behind its door.
       B.detail.quad(ox - openW / 2, F0, fz - T - 0.03, ox + openW / 2, F0, fz - T - 0.03, ox + openW / 2, openH, fz - T - 0.03, ox - openW / 2, openH, fz - T - 0.03, '#2a2026')
@@ -962,16 +976,17 @@ export const buildHouse = (base: Kit, h: TownHouse, c: HouseCtx): HouseOut => {
       }
     })
     // ── The room inside ──
-    // A ruin: rubble at its feet.
+    // A ruin: rubble at its feet, small enough to walk over (ground cover:
+    // its stones out in the street were knee high, and nothing stopped a body).
     if (c.ruined) {
       for (let i = 0; i < 4; i++) {
         const rx = (r() - 0.5) * W
         const rz = D / 2 + 0.2 + r() * 0.3
-        B.hull.push(rx, 0.05, rz, r() * 6)
-        B.hull.geo(paintRock(0.2 + r() * 0.25, Math.floor(r() * 99), r() < 0.5 ? '#6a645e' : '#4a4442'))
+        B.hull.push(rx, 0.02, rz, r() * 6)
+        B.hull.geo(paintRock(0.1 + r() * 0.12, Math.floor(r() * 99), r() < 0.5 ? '#6a645e' : '#4a4442'))
         B.hull.pop()
       }
-      B.detail.beam(-W * 0.3, 0.1, D / 2 + 0.35, W * 0.1, 0.25, D / 2 + 0.55, 0.14, '#2a2220', 0.14)
+      B.detail.beam(-W * 0.3, 0.07, D / 2 + 0.35, W * 0.1, 0.13, D / 2 + 0.55, 0.1, '#2a2220', 0.1)
     }
   }
 }

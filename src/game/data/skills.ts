@@ -47,6 +47,8 @@ export interface SkillDef {
   kind: 'active' | 'passive'
   /** Level requirement. */
   level: number
+  /** The GDD level the trainer price is reckoned from (before the level cut). */
+  priceLevel: number
   /** Attribute thresholds. */
   req: Partial<AttrBlock>
   /** Seconds. 0 for a passive. */
@@ -107,17 +109,24 @@ export const CLASSES: Record<ClassId, ClassDef> = {
   bard: { id: 'bard', faction: 'syndicate', color: '#ff8ad8', novel: true, manaCost: 0.6 }
 }
 
+/**
+ * Level bars run ~30% below the GDD tables so a one-stat build reaches its
+ * whole kit before the final challenges. The tables below keep the GDD values.
+ */
+export const SKILL_LEVEL_SCALE = 0.7
+const lvl = (gddLevel: number): number => Math.max(1, Math.round(gddLevel * SKILL_LEVEL_SCALE))
+
 const A = (
   id: string, cls: ClassId, level: number, req: Partial<AttrBlock>, cd: number, mana: number,
   target: TargetMode, range: number, scales: Attr, p: Record<string, number>, extra: Partial<SkillDef> = {}
 ): SkillDef => ({
-  id, cls, kind: 'active', level, req, cd, mana: Math.max(1, Math.round(mana * CLASSES[cls].manaCost)), target, range, cast: 0.22, scales, p, color: CLASSES[cls].color, ...extra
+  id, cls, kind: 'active', level: lvl(level), priceLevel: level, req, cd, mana: Math.max(1, Math.round(mana * CLASSES[cls].manaCost)), target, range, cast: 0.22, scales, p, color: CLASSES[cls].color, ...extra
 })
 
 const P = (
   id: string, cls: ClassId, level: number, req: Partial<AttrBlock>, scales: Attr, mods: Mods, p: Record<string, number>
 ): SkillDef => ({
-  id, cls, kind: 'passive', level, req, cd: 0, mana: 0, target: 'self', range: 0, cast: 0, scales, mods, p, color: CLASSES[cls].color
+  id, cls, kind: 'passive', level: lvl(level), priceLevel: level, req, cd: 0, mana: 0, target: 'self', range: 0, cast: 0, scales, mods, p, color: CLASSES[cls].color
 })
 
 /** Melee reach of a targeted strike (metres, centre to centre past the radii). */
@@ -379,7 +388,7 @@ export const meetsSkill = (s: SkillDef, level: number, attrs: AttrBlock): boolea
 }
 
 /** What its trainer charges (before the Charisma discount). */
-export const priceOf = (s: SkillDef): number => skillPrice(s.level)
+export const priceOf = (s: SkillDef): number => skillPrice(s.priceLevel)
 
 /** Heat a full gauge holds, and how fast it drains per second. */
 export const HEAT_MAX = 100

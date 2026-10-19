@@ -66,8 +66,7 @@
         //- Rested (#9): kills pay double XP while the pool lasts.
         span.rested(v-if="hud.rested" data-rested-hud) {{ t('rested.hud') }}
         span.statuses
-          span.statuses__icon(v-for="s in statuses" :key="s")
-            ArtIcon(:glyph="`status.${s}`" :tint="statusTint(s)" :src="ICON_ART.get(`status-${s}`)" frame="round")
+          StatusChipIcon.statuses__icon(v-for="s in statuses" :key="s.id" :chip="s")
 </template>
 
 <script setup lang="ts">
@@ -86,10 +85,8 @@ import { POINTS_PER_LEVEL } from '@/game/data/attributes'
 import FBar from '@/components/atoms/FBar.vue'
 import FHudBadge from '@/components/atoms/FHudBadge.vue'
 import Portrait from '@/components/art/Portrait.vue'
-import ArtIcon from '@/components/art/ArtIcon.vue'
-import { ICON_ART } from '@/game/assets/overrides'
 import IconCoin from '@/components/icons/IconCoin.vue'
-import { statusTint } from '@/components/art/tints'
+import StatusChipIcon from './StatusChipIcon.vue'
 import { registerQaAdTap } from '@/use/useQaAdTrigger'
 import { fmt } from '@/utils/format'
 

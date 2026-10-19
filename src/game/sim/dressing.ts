@@ -66,6 +66,23 @@ export const DRESS_FOOT: Readonly<Record<DressKind, readonly [number, number]>> 
   pylon: [1, 1], gateTower: [0, 0], warBanner: [1, 1], shard: [0, 0]
 }
 
+/**
+ * What each piece is to a walking body (`gfx/propRoles.ts`): SOLID stands in
+ * the way, and what it covers of the ground lies on blocked cells (its own
+ * footprint's, or the rock, water or wall it stands in); WALK lies flat or is
+ * walked over. A new kind is not drawn until it says which.
+ */
+export const DRESS_ROLE: Readonly<Record<DressKind, 'solid' | 'walk'>> = {
+  bed: 'solid', fire: 'solid', banner: 'solid', club: 'walk', tent: 'solid',
+  mill: 'solid', scarecrow: 'solid',
+  column: 'solid', brokenColumn: 'solid', rubble: 'solid',
+  boulder: 'solid', lavaRock: 'solid',
+  log: 'solid', oldTree: 'solid', mist: 'walk', claws: 'walk',
+  timber: 'solid', rail: 'walk', cart: 'solid', crates: 'solid',
+  floe: 'walk',
+  pylon: 'solid', gateTower: 'solid', warBanner: 'solid', shard: 'solid'
+}
+
 /** Tall pieces: never just in front of (down-screen of) a chest or a side place. */
 export const DRESS_TALL: ReadonlySet<DressKind> = new Set<DressKind>(['mill', 'tent', 'oldTree', 'column', 'pylon', 'gateTower'])
 

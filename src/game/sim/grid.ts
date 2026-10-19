@@ -306,6 +306,48 @@ export const resolveCircle = (g: Grid, x: number, z: number, r: number, out: [nu
 }
 
 /**
+ * How far (m) a point lies outside every collider a body is stopped by: 0 on
+ * a blocked cell (inside a ROUND cell's disc, for a level prop) or a piece of
+ * furniture, else the distance to the nearest one, up to `reach` (then
+ * `reach`). Past the grid's edge counts as blocked. What a drawn prop's
+ * footprint is held against (`gfx/propRoles.ts`): a point of a solid prop
+ * that lies further out than a hand's breadth is one the hero walks into.
+ */
+export const colliderDist = (g: Grid, x: number, z: number, reach = 2 * CELL, blocks = true): number => {
+  let best = reach
+  const ci = cellOf(x)
+  const cj = cellOf(z)
+  // On a blocked square cell: no search.
+  if (ci < 0 || cj < 0 || ci >= g.w || cj >= g.h) return 0
+  const own = g.solid[cj * g.w + ci]!
+  if (own && own !== (SOLID_LOW | SOLID_ROUND)) return 0
+  const R = Math.ceil(reach / CELL)
+  for (let j = cj - R; j <= cj + R; j++) {
+    for (let i = ci - R; i <= ci + R; i++) {
+      const out = i < 0 || j < 0 || i >= g.w || j >= g.h
+      const v = out ? 0xff : g.solid[j * g.w + i]!
+      if (!v) continue
+      let d: number
+      if (v === (SOLID_LOW | SOLID_ROUND)) d = Math.max(0, Math.hypot(x - (i + 0.5) * CELL, z - (j + 0.5) * CELL) - ROUND_R)
+      else d = Math.hypot(Math.max(0, i * CELL - x, x - (i + 1) * CELL), Math.max(0, j * CELL - z, z - (j + 1) * CELL))
+      if (d < best) { best = d; if (!d) return 0 }
+    }
+  }
+  if (blocks && g.blocks && g.blockCells) {
+    for (let j = cellOf(z - best); j <= cellOf(z + best); j++) {
+      for (let i = cellOf(x - best); i <= cellOf(x + best); i++) {
+        for (const n of g.blockCells.get(j * g.w + i) ?? []) {
+          const b = g.blocks[n]!
+          const d = Math.hypot(Math.max(0, b.x0 - x, x - b.x1), Math.max(0, b.z0 - z, z - b.z1))
+          if (d < best) best = d
+        }
+      }
+    }
+  }
+  return best
+}
+
+/**
  * Move a circle by (dx, dz) and resolve against solid cells. Axis-separated
  * and sub-stepped, so the circle slides along walls and a fast dash cannot
  * tunnel through a corner. Mutates and returns `out` ([x, z]).

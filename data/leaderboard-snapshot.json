@@ -1,8 +1,8 @@
 {
   "source": "https://battlecross-leaderboard.rodent-race.workers.dev",
-  "fetchedAt": 1792437445028,
-  "updatedAt": 1792437445118,
-  "total": 33,
+  "fetchedAt": 1792446142745,
+  "updatedAt": 1792446142807,
+  "total": 36,
   "entries": [
     {
       "rank": 1,
@@ -107,97 +107,115 @@
       "flair": 3
     },
     {
-      "rank": 18,
+      "rank": 15,
+      "name": "Circuit330508",
+      "score": 308,
+      "flair": 3
+    },
+    {
+      "rank": 19,
       "name": "Piston744420",
       "score": 154,
       "flair": 2
     },
     {
-      "rank": 18,
+      "rank": 19,
       "name": "Cannon860010",
       "score": 154,
       "flair": 2
     },
     {
-      "rank": 18,
+      "rank": 19,
       "name": "Rivet157562",
       "score": 154,
       "flair": 2
     },
     {
-      "rank": 18,
+      "rank": 19,
       "name": "Rivet968230",
       "score": 154,
       "flair": 2
     },
     {
-      "rank": 18,
+      "rank": 19,
       "name": "Circuit860890",
       "score": 154,
       "flair": 2
     },
     {
-      "rank": 18,
+      "rank": 19,
       "name": "Circuit375559",
       "score": 154,
       "flair": 2
     },
     {
-      "rank": 18,
+      "rank": 19,
       "name": "Rivet148635",
       "score": 154,
       "flair": 2
     },
     {
-      "rank": 18,
+      "rank": 19,
       "name": "Servo154923",
       "score": 154,
       "flair": 2
     },
     {
-      "rank": 18,
+      "rank": 19,
       "name": "Blaster424666",
       "score": 154,
       "flair": 2
     },
     {
-      "rank": 18,
+      "rank": 19,
       "name": "Sprocket788938",
       "score": 154,
       "flair": 2
     },
     {
-      "rank": 18,
+      "rank": 19,
       "name": "Cannon479276",
       "score": 154,
       "flair": 2
     },
     {
-      "rank": 29,
+      "rank": 30,
       "name": "Gizmo511158",
       "score": 144,
       "flair": 2
     },
     {
-      "rank": 30,
+      "rank": 31,
       "name": "Servo282788",
       "score": 108,
       "flair": 2
     },
     {
-      "rank": 31,
+      "rank": 32,
       "name": "Gizmo601671",
       "score": 96,
       "flair": 2
     },
     {
-      "rank": 31,
+      "rank": 32,
       "name": "Blaster727909",
       "score": 96,
       "flair": 2
     },
     {
-      "rank": 33,
+      "rank": 32,
+      "name": "Circuit292477",
+      "score": 96,
+      "flair": 2
+    },
+    {
+      "rank": 35,
+      "name": "Blaster307026",
+      "score": 58,
+      "flair": 1
+    },
+    {
+      "rank": 36,
       "name": "Android453557",
       "score": 22,
       "flair": 1
@@ -262,7 +280,7 @@
     ],
     [
       308,
-      3
+      4
     ],
     [
       154,
@@ -278,7 +296,11 @@
     ],
     [
       96,
-      2
+      3
+    ],
+    [
+      58,
+      1
     ],
     [
       22,

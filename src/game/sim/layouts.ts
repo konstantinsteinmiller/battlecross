@@ -505,8 +505,10 @@ const courts = (c: LayCtx): Laid => {
     carveLine(solid, trail, w, h, p.i, p.j, gi, bottom, 1.2)
     carveLine(solid, trail, w, h, gi, bottom, gi, g.j1, 1.2)
     carveLine(solid, trail, w, h, gi, g.j1, out.cs[k]!.i, out.cs[k]!.j, 1.2)
-    // A tower either side of the gate, in the wall.
-    const wj = Math.round((bottom + g.j1) / 2)
+    // A tower either side of the gate, in the wall: across its middle (a
+    // wall two rows thick holds a tower exactly; rounded to a row, it stood
+    // half a cell out into the court below).
+    const wj = (bottom + g.j1) / 2
     for (const s of [-1, 1]) out.fixtures.push({ kind: 'gateTower', i: gi + s * 2.6, j: wj, a: 0 })
     // A pylon in each corner of the court.
     for (const [ci2, cj2] of [[g.i0 + 1, g.j0 + 1], [g.i1 - 1, g.j0 + 1], [g.i0 + 1, g.j1 - 1], [g.i1 - 1, g.j1 - 1]] as const) {

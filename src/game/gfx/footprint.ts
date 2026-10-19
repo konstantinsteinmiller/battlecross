@@ -1,4 +1,5 @@
 import type { BufferGeometry } from 'three'
+import { colliderDist, type Grid } from '../sim/grid'
 
 /**
  * ─── What a prop covers of the ground ────────────────────────────────────────
@@ -26,8 +27,11 @@ export interface Foot {
 /** Pixel size of a footprint (m). */
 const RES = 0.05
 
-/** The footprint of a shape's parts (local space, as built: at scale 1, unturned). */
-export const footOf = (parts: readonly BufferGeometry[]): Foot => {
+/** The footprint of a shape's parts (local space, as built: at scale 1, unturned).
+ *  `maxY`: only what reaches below that height (a body's: `propRoles.ts`), so
+ *  a crown or a roof high over the ground is left out; `minY`: only what
+ *  stands higher than that (a tool lying in the grass is walked over). */
+export const footOf = (parts: readonly BufferGeometry[], maxY = Infinity, minY = -Infinity): Foot => {
   let half = 0.5
   for (const g of parts) {
     const p = g.attributes.position!
@@ -48,6 +52,8 @@ export const footOf = (parts: readonly BufferGeometry[]): Foot => {
       const ax = px(p.getX(a)); const az = px(p.getZ(a))
       const bx = px(p.getX(b)); const bz = px(p.getZ(b))
       const cx = px(p.getX(c)); const cz = px(p.getZ(c))
+      if (maxY < Infinity && Math.min(p.getY(a), p.getY(b), p.getY(c)) > maxY) continue
+      if (minY > -Infinity && Math.max(p.getY(a), p.getY(b), p.getY(c)) < minY) continue
       // The vertices themselves: a triangle seen edge-on still marks its line.
       for (const [x, z] of [[ax, az], [bx, bz], [cx, cz]] as const) {
         const i = Math.round(x)
@@ -164,4 +170,40 @@ export class FootIndex {
     for (const p of list) if (footedDist(p, x, z) <= tol) return true
     return false
   }
+}
+
+/** The drawn points of a footprint (local m, x then z): every pixel of its
+ *  edge (where the furthest reach lies) and every `step`th inside it. What a
+ *  solid prop covers. */
+export const footPoints = (f: Foot, step = 3): Float32Array => {
+  const out: number[] = []
+  const n = f.n
+  const drawn = (i: number, j: number): boolean => i >= 0 && j >= 0 && i < n && j < n && f.dist[j * n + i] === 0
+  for (let j = 0; j < n; j++) {
+    for (let i = 0; i < n; i++) {
+      if (!drawn(i, j)) continue
+      const edge = !drawn(i - 1, j) || !drawn(i + 1, j) || !drawn(i, j - 1) || !drawn(i, j + 1)
+      if (edge || (i % step === 0 && j % step === 0)) out.push((i + 0.5) * f.res - f.half, (j + 0.5) * f.res - f.half)
+    }
+  }
+  return new Float32Array(out)
+}
+
+/**
+ * How far (m) the furthest drawn point of a placed footprint lies outside the
+ * walk grid's colliders (`colliderDist`): 0 when all of it stands on what
+ * stops a body. `pts` from `footPoints`, placed as `footedDist` places.
+ */
+export const spillOf = (g: Grid, pts: Float32Array, x: number, z: number, rot: number, sc: number, stopAt = Infinity): number => {
+  const c = Math.cos(rot)
+  const s = Math.sin(rot)
+  let worst = 0
+  for (let q = 0; q < pts.length; q += 2) {
+    const lx = pts[q]! * sc
+    const lz = pts[q + 1]! * sc
+    // Local = R(-rot) · world, so world = R(rot) · local.
+    const d = colliderDist(g, x + lx * c + lz * s, z - lx * s + lz * c)
+    if (d > worst) { worst = d; if (worst > stopAt) return worst }
+  }
+  return worst
 }

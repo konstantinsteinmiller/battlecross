@@ -198,7 +198,8 @@ Build order and the decisions taken are in `game-implementation-plan.md`
 - [x] #149 ✅ Currently the player can only upgrade any item up to +10, but why limit it, instead please add unlimited upgrades which are getting increasingly more expensive to upgrade but also give a little more stats per upgrade beyond level 10 as it costs ways more to upgrade beyond there. Overall I feel the +1...+10 progression in stats is marginal, its ~15% more stats value, which is very low I feel, raise it a bit, so upgrading feels valuable and impactful to have the player chase upgrades for more ingame time spent. 
 - [x] #150 ✅ Smithing is becoming very useless in the endgame with mithril beeing very rare to farm (no iron and silver nodes in the last 3 locations with level > 24 please), the highest smithable items are epic tier, but the player can find heroic and legendary items in the last 3 locations, which is a disconnect, even though smithing is a cool way to get your gear pre-upgraded and you can smith your target gear.
 - [x] #151 Do another draw call pass and put all static assets in one draw call per location, so it is super efficient in terms of performance for all players, even on low-end mobile devices.
-- [ ] #152
+- [x] #152 ✅ Chi stacks are never shown, but are important for the icon mark gameplay, check for other stacks/charges based gameplay and fix it too.  
+  Done 2026-10-19: the HUD got only status ids, never the stack count. Now every stacking status (chi, Entropy's Accelerate) shows a count badge and leads the hero's row; chi shows even at one bead; the chi finishers (Rising Dragon, Mountain Palm) carry five beads lit for what they will spend; the locked target shows what is stacked on it (Venomous Blade poison) with its count. Heat already had its bar.
 - [ ] #153
 - [ ] #154
 - [ ] #155
