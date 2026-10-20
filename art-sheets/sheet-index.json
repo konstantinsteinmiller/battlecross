@@ -16626,7 +16626,13 @@
           "w": 256,
           "h": 256,
           "target": "images/icons/class-demonhunter.webp",
-          "round": true
+          "round": true,
+          "fit": {
+            "h": 0.844,
+            "w": 0.84,
+            "bottom": 0.922,
+            "cx": 0.498
+          }
         },
         {
           "id": "class-dragoon",
@@ -16637,7 +16643,13 @@
           "w": 256,
           "h": 256,
           "target": "images/icons/class-dragoon.webp",
-          "round": true
+          "round": true,
+          "fit": {
+            "h": 0.836,
+            "w": 0.688,
+            "bottom": 0.918,
+            "cx": 0.5
+          }
         },
         {
           "id": "class-hexsmith",
@@ -16648,7 +16660,13 @@
           "w": 256,
           "h": 256,
           "target": "images/icons/class-hexsmith.webp",
-          "round": true
+          "round": true,
+          "fit": {
+            "h": 0.633,
+            "w": 0.711,
+            "bottom": 0.816,
+            "cx": 0.5
+          }
         },
         {
           "id": "class-tidecaller",
@@ -16659,7 +16677,13 @@
           "w": 256,
           "h": 256,
           "target": "images/icons/class-tidecaller.webp",
-          "round": true
+          "round": true,
+          "fit": {
+            "h": 0.414,
+            "w": 0.84,
+            "bottom": 0.707,
+            "cx": 0.498
+          }
         }
       ]
     },

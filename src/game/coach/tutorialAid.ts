@@ -49,6 +49,8 @@ export const MERCY = {
 
 interface AidState {
   potionDone: boolean
+  /** Flasks carried when the potion stop began (-1: no stop yet). */
+  stopPotions: number
   /** Seconds the boss fight has gone on. */
   t: number
   /** Hero health lost in it. */
@@ -64,7 +66,7 @@ const states = new WeakMap<Sim, AidState>()
 const stateOf = (sim: Sim): AidState => {
   let s = states.get(sim)
   if (!s) {
-    s = { potionDone: false, t: 0, lost: 0, prevHp: -1, wasAlive: true, falls: 0, bashes: 0, mercy: false }
+    s = { potionDone: false, stopPotions: -1, t: 0, lost: 0, prevHp: -1, wasAlive: true, falls: 0, bashes: 0, mercy: false }
     states.set(sim, s)
   }
   return s
@@ -78,7 +80,22 @@ export const potionStopDue = (sim: Sim): boolean => {
   if (s.potionDone || sim.ended || !u.alive || u.truce) return false
   if (h.potions <= 0 || h.potionCd > 0 || u.hp >= u.s.maxHp * POTION_STOP_HP) return false
   s.potionDone = true
+  s.stopPotions = h.potions
   return true
+}
+
+/**
+ * The potion stop is over: the flask was drunk, by the button, the key or any
+ * other road (a cheat, the preview feed), or there is nothing left to drink it
+ * for. The world must never stay held with the hint up.
+ */
+export const potionStopOver = (sim: Sim): boolean => {
+  const s = stateOf(sim)
+  const h = sim.hero
+  const u = h.unit
+  if (sim.ended || sim.leaving || !u.alive || u.truce) return true
+  if (h.potions < s.stopPotions || h.potions <= 0 || h.potionCd > 0) return true
+  return u.hp >= u.s.maxHp * POTION_STOP_HP
 }
 
 /** The opening fight's boss (the finale's leader, the bandit chief), while it stands. */

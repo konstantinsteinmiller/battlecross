@@ -207,8 +207,10 @@ describe('the plan: everything a visit holds can be walked to', () => {
     ])
   })
 
-  it('visits differ: across seeds a zone shows each of its features, and not always the same ones', () => {
-    for (const zone of ZONE_IDS) {
+  // One case per zone: sixty plans of every zone in one case outran its
+  // timeout under a loaded full-suite run.
+  for (const zone of ZONE_IDS) {
+    it(`visits differ: across seeds ${zone} shows each of its features, and not always the same ones`, () => {
       const f = ZONE_FEATURES[zone]
       const plans = Array.from({ length: 60 }, (_, s) => generateZone(ZONES[zone], s + 1))
       const share = (fn: (p: ZonePlan) => boolean): number => plans.filter(fn).length / plans.length
@@ -226,8 +228,8 @@ describe('the plan: everything a visit holds can be walked to', () => {
       has(f.corner, share(p => p.chests.some(c => c.role === 'guard')), 'a guarded corner')
       if (!f.liquid) expect(share(p => p.kind.includes(K_WATER)), zone).toBe(0)
       expect(new Set(plans.map(p => p.chests.length)).size, `${zone} chest counts`).toBeGreaterThan(1)
-    }
-  })
+    })
+  }
 
   it('the tutorial visit is simple: one easy chest by the road, and nothing else', () => {
     for (const seed of SEEDS) {

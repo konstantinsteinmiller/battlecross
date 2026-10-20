@@ -4,7 +4,7 @@ A report, not a contract: it is a picture of `art-sheets/painted/` and the
 slicer's receipt at the moment it was written. Re-run `pnpm art:prompts`
 after painting or slicing anything.
 
-**127 sliced · 1 need a repaint · 2 painted, unreceipted · 1 outstanding**
+**128 sliced · 1 need a repaint · 2 painted, unreceipted · 0 outstanding**
 
 | | Sheet | Prompt block in | Reference | State |
 | --- | --- | --- | --- | --- |
@@ -110,7 +110,7 @@ after painting or slicing anything.
 | ✓ | **UI: the boss bar frame** | `PROMPTS-UI.md` | `sheet-ui-bar-frame-boss.png` (rev `6361dfa2ee46`) | sliced 2026-10-18 |
 | ✓ | **Icons: class emblems (1 of 2)** | `PROMPTS-ICONS.md` | `sheet-icons-classes.png` (rev `5b8dd08575e3`) | sliced 2026-10-18 |
 | ✓ | **Icons: class emblems (2 of 2)** | `PROMPTS-ICONS.md` | `sheet-icons-crests.png` (rev `ff0751a16f37`) | sliced 2026-10-18 |
-| · | **Icons: prestige class emblems** | `PROMPTS-ICONS.md` | `sheet-icons-prestige.png` — *missing, run `pnpm art:export`* | not painted yet |
+| ✓ | **Icons: prestige class emblems** | `PROMPTS-ICONS.md` | `sheet-icons-prestige.png` (rev `ff66a2fd64e1`) | sliced 2026-10-20 |
 | ✓ | **Icons: status effects (1 of 4)** | `PROMPTS-ICONS.md` | `sheet-icons-status-1.png` (rev `3b679b490b8f`) | sliced 2026-10-18 |
 | ✓ | **Icons: status effects (2 of 4)** | `PROMPTS-ICONS.md` | `sheet-icons-status-2.png` (rev `6a52868c9374`) | sliced 2026-10-18 |
 | ✓ | **Icons: status effects (3 of 4)** | `PROMPTS-ICONS.md` | `sheet-icons-status-3.png` (rev `3021cbd7a46e`) | sliced 2026-10-18 |

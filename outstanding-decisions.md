@@ -435,7 +435,7 @@ test build (not a portal), then on the Samsung phone with the browser's dark mod
   classes take 30-70 s. The phase 5 bot tests use Aegis, Pyro and Blood. Now addressed in part:
   see "Shadow afterplay balance" below.
 
-## Shadow afterplay balance: partly fixed, one decision open
+## Shadow afterplay balance: fixed (boss-only damage cut)
 
 Measured with the bot (geared, top of each afterplay band, seed 7; `tests/game/shadowAfterplay.test.ts`).
 It is not an afterplay problem: the bot's gear stops at level-30 items, and the same geared Shadow kills
@@ -453,12 +453,17 @@ the campaign's Demon King in 4 s. The burst came from three things that stack:
 - Boss fight in seconds, Shadow, before → after: Chimera 4 → 7, Centaur 5 → 8, Cyclops 5 → 6, Frost Jarl
   Reborn 5 → 12, Sphinx 14 → 15, Leviathan 6 → 19, Void Dragon Reborn 4 → 22, Hydra 13 → 21, Elder
   Dragon 3 → 19, Demon King (campaign, geared 30) 4 → 7. Pyro for comparison: 28-93; Blood 40-87.
-- **Open: still under the 25-60 s target.** Even with crits switched off against bosses, the geared
-  Shadow's kit (Shadowstep 150 % backstab, Star Fan, Smoke Bomb and Shadow Mark ambushes, 60 % CDR) does
-  about twice the Pyro's boss damage. To reach 25-60 s it needs about 0.35-0.4x its damage against bosses
-  (measured), which would change how the class feels in the campaign too. Owner call: a Shadow kit nerf
-  (skill numbers in `data/skills.ts`), a boss-only Shadow dampener, or accept it as the fast assassin.
-  The regression test holds the current floor (each fight over 5 s, mean over 12 s; it was 6.6 s).
+- **Decided (owner): a boss-only damage cut.** `SHADOW_BOSS_DAMAGE` 0.34 in `sim/combat.ts`: the hero's
+  damage on a `rank: 'boss'` target is cut by the share of her active slots that are Shadowblade or
+  Demonhunter skills (a pure Shadow kit deals 0.34x, a half-Shadow mix 0.67x, any other kit 1x). Normal
+  enemies, champions and packs take the full blow, so campaign play outside boss fights is unchanged. No
+  tooltip text changed. Boss fight in seconds, geared Shadow, capped → now: Chimera 7 → 22, Centaur 8 → 24,
+  Cyclops 6 → 54, Frost Jarl Reborn 12 → 38, Sphinx 15 → 23, Leviathan 19 → 60, Void Dragon Reborn 22 → 61,
+  Hydra 21 → 32, Elder Dragon 19 → 31 (mean 38 s). Demon King (campaign fortress, geared, top level) 7 → 32
+  (Pyro 29, Blood 61, Aegis 68); ungeared, Shadow loses that fight before and after, as do Pyro and Aegis.
+  Demonhunter (prestige): Leviathan 60 s, Elder Dragon 36 s (were 8-17), still within 0.75x its parents.
+  The regression test now holds every fight at 18-75 s and the mean at 25-60 s. Change the constant to
+  retune; 0.38 gave 19-60 s.
 
 ## Afterplay phase 6 (the Siege of Bastion): defaults chosen, change freely
 

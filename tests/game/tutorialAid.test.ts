@@ -8,7 +8,7 @@ import { ZONES } from '@/game/data/zones'
 import { noGear } from '@/game/data/items'
 import { startAttrs } from '@/game/data/attributes'
 import type { Unit } from '@/game/sim/types'
-import { BASH_SKILL, MERCY, openingBoss, POTION_STOP_HP, mercyStats, potionStopDue, stepMercy } from '@/game/coach/tutorialAid'
+import { BASH_SKILL, MERCY, openingBoss, POTION_STOP_HP, mercyStats, potionStopDue, potionStopOver, stepMercy } from '@/game/coach/tutorialAid'
 import { coach, hintPath } from '@/game/coach'
 
 /**
@@ -59,6 +59,32 @@ describe('the potion stop (#154)', () => {
     talking.hero.unit.truce = true
     talking.hero.unit.hp = 1
     expect(potionStopDue(talking)).toBe(false)
+  })
+
+  it('is over once the flask is drunk by any road, or no longer needed, so the hint never lingers', () => {
+    // Drunk from code (a cheat, the preview feed), not through the button.
+    const drunk = visit().sim
+    drunk.hero.unit.hp = 1
+    expect(potionStopDue(drunk)).toBe(true)
+    expect(potionStopOver(drunk)).toBe(false)
+    expect(usePotion(drunk)).toBe(true)
+    expect(potionStopOver(drunk)).toBe(true)
+    // Health back without a flask (a heal), the flasks gone, or the fight over.
+    const healed = visit().sim
+    healed.hero.unit.hp = 1
+    expect(potionStopDue(healed)).toBe(true)
+    healed.hero.unit.hp = healed.hero.unit.s.maxHp
+    expect(potionStopOver(healed)).toBe(true)
+    const emptied = visit().sim
+    emptied.hero.unit.hp = 1
+    expect(potionStopDue(emptied)).toBe(true)
+    emptied.hero.potions = 0
+    expect(potionStopOver(emptied)).toBe(true)
+    const fallen = visit().sim
+    fallen.hero.unit.hp = 1
+    expect(potionStopDue(fallen)).toBe(true)
+    kill(fallen, fallen.hero.unit, null)
+    expect(potionStopOver(fallen)).toBe(true)
   })
 })
 

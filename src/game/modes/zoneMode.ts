@@ -75,7 +75,7 @@ import { BOARD, BOARD_REACH } from '../townTasks'
 import { isDummy, spawnDummy, stepDummy } from '../coach/dummy'
 import { armMentor, boostOpeningFoes, stepMentor, syncHeroSkills } from '../coach/mentor'
 import { MENTOR_SKILL } from '../data/mentor'
-import { potionStopDue, stepMercy } from '../coach/tutorialAid'
+import { potionStopDue, potionStopOver, stepMercy } from '../coach/tutorialAid'
 import { setTruce, watchTruce } from '../sim/truce'
 import { markRevealUsed } from '../coach/reveal'
 import { PREVIEW_FEED } from '../previewFlags'
@@ -1141,8 +1141,10 @@ export class ZoneMode implements GameMode {
     const i = this.input
     hud.device = i.device
     if (i.pauseQueued) this.cb.onPause()
-    if (i.potionQueued && usePotion(this.sim)) {
-      coach.use('potion')
+    if (i.potionQueued) usePotion(this.sim)
+    // Drunk by any road, or no longer needed: the world goes on, the hint goes.
+    if (potionStopOver(this.sim)) {
+      if (this.sim.hero.potionCd > 0) coach.use('potion')
       this.potionStop = false
       hud.potionStop = false
     }

@@ -56,6 +56,28 @@ export const DEBUFFS: ReadonlySet<StatusId> = new Set<StatusId>([
   'burn', 'poison', 'bleed', 'delayed', 'petrify'
 ])
 
+/**
+ * The Shadowblade's kit against a boss (outstanding-decisions.md, "Shadow
+ * afterplay balance"): its burst felled the afterplay bosses in 6-22 s where
+ * the other classes take 25-90 s. Bosses alone take less of it; every other
+ * foe takes the full blow. The Demonhunter plays the same kit.
+ */
+export const SHADOW_BOSS_DAMAGE = 0.34
+const SHADOW_KIT: ReadonlySet<string> = new Set(['shadow', 'demonhunter'])
+
+/** The hero's damage on a boss: the Shadow kit's share of her active slots, cut. */
+export const shadowBossMul = (skills: readonly string[]): number => {
+  let n = 0
+  let kit = 0
+  for (const id of skills) {
+    const cls = SKILL_BY_ID[id]?.cls
+    if (!cls) continue
+    n++
+    if (SHADOW_KIT.has(cls)) kit++
+  }
+  return n ? 1 - (kit / n) * (1 - SHADOW_BOSS_DAMAGE) : 1
+}
+
 /** Bosses shrug off most of a hard control effect. */
 const BOSS_CC = 0.35
 const ELITE_CC = 0.7
@@ -250,7 +272,8 @@ export const dealDamage = (sim: Sim, src: Unit | null, tgt: Unit, base: number, 
   let crit = false
   if (src) {
     amount *= src.s.damageMul * (1 + statusV(src, 'damageUp') + statusV(src, 'enrage') + statusV(src, 'elixirMight')) * (1 - Math.min(0.8, statusV(src, 'weaken')))
-    if (tgt.rank === 'boss') amount *= 1 + (srcMods?.bossDamage ?? 0)    // A demon pylon's aura (an invaded zone, `invasion.ts`): the enemies in its reach hit harder.
+    if (tgt.rank === 'boss') amount *= (1 + (srcMods?.bossDamage ?? 0)) * (src === hero ? shadowBossMul(sim.hero.skills) : 1)
+    // A demon pylon's aura (an invaded zone, `invasion.ts`): the enemies in its reach hit harder.
     if (sim.pylons.length && src.team === 1) amount *= pylonAura(sim, src)
     // Adrenal Catalyst (#95): the lower the hero's health, the harder she hits.
     const low = srcMods?.lowHealthDamage ?? 0
