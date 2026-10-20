@@ -13,8 +13,11 @@ import { SIDE_GROUP, type Sim } from './world'
 import { populateHerbs } from './herbs'
 import { populateOres } from './ores'
 import { populateCage } from './cages'
+import { populateCamp } from './camp'
 import { spawnCaravan, stepCaravan } from './caravan'
+import { populateInvasion, stepInvasion } from './invasion'
 import { HASTE, SWARM_COUNT, SWARM_HP } from '../arenaWeek'
+import { stepSiege } from './siege'
 
 /**
  * ─── The encounter director ──────────────────────────────────────────────────
@@ -88,7 +91,11 @@ export const populateZone = (sim: Sim, plan: ZonePlan, zone: ZoneId, owned: Iter
   populateFeatures(sim, plan, zone, opened)
   populateHerbs(sim, plan.herbs ?? [], plan.pieces ?? [])
   populateOres(sim, plan.ores ?? [])
-  populateCage(sim, plan.cageKey, plan.start)
+  // The first visit's camp holds the teachers (#156); elsewhere a cage holds its captive.
+  if (plan.camp) populateCamp(sim, plan.camp, plan.cageKey)
+  else populateCage(sim, plan.cageKey, plan.start)
+  // An invaded zone (the afterplay): its pylons and rift scars.
+  populateInvasion(sim, plan)
   // An escort's caravan, at the start of its road (#85).
   if (plan.caravan) spawnCaravan(sim, plan.caravan.path)
 }
@@ -208,7 +215,7 @@ const ladderGold = (sim: Sim, plan: ZonePlan | null): void => {
  * wave on): the visit is won, with what the waves paid.
  */
 export const leaveLadder = (sim: Sim): boolean => {
-  if (sim.mode !== 'arena' || sim.ended || sim.wave.alive > 0 || sim.wave.cleared < ARENA_WAVES) return false
+  if (sim.mode !== 'arena' || sim.siege || sim.ended || sim.wave.alive > 0 || sim.wave.cleared < ARENA_WAVES) return false
   sim.ended = 'victory'
   sim.endReady = true
   sim.emit({ t: 'victory' })
@@ -277,6 +284,10 @@ const arenaMilestone = (sim: Sim, plan: ZonePlan, wave: number): void => {
 }
 
 export const stepDirector = (sim: Sim, plan: ZonePlan, dt: number): void => {
+  // The pylons' chest, before anything else clears side groups.
+  if (sim.pylons.length) stepInvasion(sim)
+  // The siege (afterplay §8) runs its own waves, its gate and its end.
+  if (sim.siege) { stepSiege(sim, dt); return }
   if (sim.ended) { sim.endedT += dt; stepFinale(sim); return }
   if (sim.mode === 'town') return
   if (sim.mode === 'arena') {

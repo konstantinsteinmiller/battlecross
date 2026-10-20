@@ -18,13 +18,20 @@ const FEEL: Readonly<Record<string, Emotion>> = {
   windDisciple: 'proud', frostDisciple: 'grave', lightDisciple: 'warm'
 }
 
-export const CAPTIVE_BARKS: readonly ConversationDef[] = CAGES.map(c => ({
-  id: `bark.${c.npc}`,
-  name: `npc.${c.npc}.name`,
-  look: c.look,
-  voice: c.npc,
-  greet: [{ id: 'freed', lines: [{ id: `dlg.bark.${c.npc}.freed.1`, by: 'npc', emotion: FEEL[c.npc] ?? 'warm' }] }],
+const freed = (npc: string, look: string, emotion: Emotion): ConversationDef => ({
+  id: `bark.${npc}`,
+  name: `npc.${npc}.name`,
+  look,
+  voice: npc,
+  greet: [{ id: 'freed', lines: [{ id: `dlg.bark.${npc}.freed.1`, by: 'npc', emotion }] }],
   nodes: {},
   back: {},
   bye: []
-}))
+})
+
+export const CAPTIVE_BARKS: readonly ConversationDef[] = [
+  ...CAGES.map(c => freed(c.npc, c.look, FEEL[c.npc] ?? 'warm')),
+  // The first visit's camp (#156): Ser Aldric thanks the hero for the three of them
+  // and offers their lessons (`sim/camp.ts`, CAMP_THANKS).
+  freed('trainerAegis', 'trainerAegis', 'proud')
+]

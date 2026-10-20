@@ -6,6 +6,7 @@ import type { BranchPlan, ChestRole } from './zoneFeatures'
 import type { HerbState, PieceState } from './herbs'
 import type { OreState } from './ores'
 import type { CageKeyState, CaptiveState } from './cages'
+import type { CampState } from './camp'
 import type { CaravanState } from './caravan'
 import type {
   Action, Danger, Field, Projectile, SimEvent, Status, StatusId, Team, TempWall, Unit, UnitStats, Rank
@@ -108,6 +109,8 @@ export interface HeroState {
   rested: number
   /** Kills by enemy kind (the faction contracts count them, roadmap #15). */
   killKinds: Record<string, number>
+  /** Times the hero fell and got up again (Second wind; the Dragoon's trial, afterplay §10). */
+  falls?: number
   /** Herbs picked this visit, by plant (roadmap #88). */
   herbs: Record<string, number>
   /** Ore mined this visit, nuggets by metal (roadmap #99). */
@@ -227,6 +230,7 @@ export interface WaveState {
 
 import type { ArenaMod } from '../arenaWeek'
 import type { PressureState } from './pressure'
+import type { SiegeState } from './siege'
 
 export interface SimOptions {
   seed: number
@@ -277,6 +281,8 @@ export class Sim {
   cageKey: CageKeyState | null = null
   /** The people in that cage, and once freed, on their way home (`cages.ts`). */
   captives: CaptiveState[] = []
+  /** The first visit's camp of rescued teachers (`camp.ts`, roadmap #156); null elsewhere. */
+  camp: CampState | null = null
   /** The treasure map's pieces lying in this zone (roadmap #89). */
   pieces: PieceState[] = []
   /** The caravan of an escort (roadmap #85, `caravan.ts`); null: none. */
@@ -300,6 +306,14 @@ export class Sim {
   enemyDmgMul = 1
   /** Enemy health multiplier (the opening fight once the hero knows the road teacher's skill, `OPENING.skillHp`). */
   enemyHpMul = 1
+  /** Every enemy blow is scaled by this as it lands (the opening boss's mercy, #155, `coach/tutorialAid.ts`). */
+  foeHitMul = 1
+  /** An invaded zone (the afterplay, `invasion.ts`): kills pay `xpMul`, and
+   *  the demon pylons (unit ids) and their side group stand. */
+  invaded = false
+  xpMul = 1
+  pylons: number[] = []
+  pylonGroup = -1
   /** Adaptive pressure (#124, `pressure.ts`): null where it never applies. */
   pressure: PressureState | null = null
   /** XP is earned but the level-up waits for the result screen (the opening
@@ -307,6 +321,8 @@ export class Sim {
   holdLevelUp = false
   /** The colosseum's weekly modifier (roadmap #10; '' everywhere else). */
   arenaMod: ArenaMod | '' = ''
+  /** The Siege of Bastion (afterplay §8, `siege.ts`): its gate, waves and defences; null everywhere else. */
+  siege: SiegeState | null = null
   /** Where waves spawn (arena) and where the zone's exit / chest stands. */
   spawnPoints: Array<[number, number]> = []
   /** Where the hero came in: the way a boss's mount leaves by (`sim/bosses`). */
@@ -315,7 +331,8 @@ export class Sim {
   /** Seconds since the outcome was decided (the mode waits out a beat). */
   endedT = 0
   /** Loot tables for this visit (set by the director). */
-  dropTable: { mob: string[]; chest: string[]; boss: string[]; secret: string[] } = { mob: [], chest: [], boss: [], secret: [] }
+  /** `infernal` / `after`: an invaded visit's Infernal twins and its afterplay boss's pair (`relics.ts`). */
+  dropTable: { mob: string[]; chest: string[]; boss: string[]; secret: string[]; infernal?: string[]; after?: string[] } = { mob: [], chest: [], boss: [], secret: [] }
   /** Items the hero already owns (drops prefer something new). */
   owned = new Set<string>()
   /** Extra hostile packs from quest consequences (kind ids). */
@@ -589,8 +606,9 @@ export class Sim {
 /** How high (metres) a boss must be before nothing on the ground reaches it. */
 export const AIR_REACH = 1.2
 
-/** Out of everyone's reach: a boss in the air, or one that has left the field (`sim/bosses`). */
-export const outOfReach = (u: Unit): boolean => !!u.boss && (u.boss.alt > AIR_REACH || u.boss.mode === 'gone')
+/** Out of everyone's reach: a boss in the air, or one that has left the field
+ *  (`sim/bosses`), or the hero in a conversation (`sim/truce.ts`). */
+export const outOfReach = (u: Unit): boolean => !!u.truce || (!!u.boss && (u.boss.alt > AIR_REACH || u.boss.mode === 'gone'))
 
 export const findStatus = (u: Unit, id: StatusId): Status | undefined => {
   const st = u.statuses

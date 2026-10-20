@@ -19,6 +19,8 @@ import { LIQUIDS, WATER_Y, wetCell, type Theme } from './terrain'
 import { groundAt } from './ground'
 import type { Vfx } from './vfx'
 import { DummyProp } from './dummyProp'
+import { PylonProps } from './pylonProp'
+import { SCAR_R } from '../sim/invasion'
 import { mapPieceGeometry, plantGeometry } from './plants'
 import { PLANT_BY_ID, isPlant, type PlantId } from '../data/plants'
 import { ORE_LOOK, isOre } from '../data/ores'
@@ -482,6 +484,8 @@ export class LevelProps {
   private caveSky = new Color(CAVE_SKY)
   /** The first visit's straw training dummy (`dummyProp.ts`). */
   private dummy: DummyProp | null = null
+  /** An invaded zone's demon pylons (`pylonProp.ts`). */
+  private pylons: PylonProps | null = null
   /** Herbs in the wild (#88): a sway, a glint now and then, a pop when picked. */
   private herbs: HerbView[] = []
   private ores: OreView[] = []
@@ -591,6 +595,10 @@ export class LevelProps {
     if (plan.dummy) {
       this.dummy = new DummyProp(this.sim, this.vfx)
       if (!this.dummy.build(scene)) this.dummy = null
+    }
+    if (plan.pylons?.length) {
+      this.pylons = new PylonProps(this.sim, this.vfx)
+      if (!this.pylons.build(scene)) this.pylons = null
     }
   }
 
@@ -1003,6 +1011,7 @@ export class LevelProps {
       mesh.renderOrder = 2
       this.root.add(mesh)
     }
+    this.buildScars(plan)
     const mists = (plan.dressing ?? []).filter(d => d.kind === 'mist')
     if (!mists.length) return
     const mat = new ShaderMaterial({
@@ -1029,6 +1038,49 @@ export class LevelProps {
         this.mists.push({ mesh, spin: (q % 2 ? -1 : 1) * (0.05 + q * 0.02), ph: d.a + q })
       }
     }
+  }
+
+  /**
+   * An invaded zone's rift scars (afterplay §3): a torn black-violet patch on
+   * the ground with a glowing rim, as far as the sim's field reaches. A true
+   * decal like the claw marks (transparent, never writing depth, offset toward
+   * the camera), laid on the slope where it lies; all of a visit in one draw.
+   */
+  private buildScars(plan: ZonePlan): void {
+    const scars = (plan.dressing ?? []).filter(d => d.kind === 'scar')
+    if (!scars.length) return
+    const parts: BufferGeometry[] = []
+    const seg = this.low ? 14 : 22
+    for (const d of scars) {
+      const gy = groundAt(d.x, d.z)
+      const sx = (groundAt(d.x + 0.8, d.z) - groundAt(d.x - 0.8, d.z)) / 1.6
+      const sz = (groundAt(d.x, d.z + 0.8) - groundAt(d.x, d.z - 0.8)) / 1.6
+      // The rim, then the torn middle a little inside and above it; each ragged by the angle.
+      for (const [r, hex, lift] of [[SCAR_R, '#b04aff', 0.03], [SCAR_R * 0.78, '#1a0620', 0.04]] as const) {
+        const pos: number[] = [d.x, gy + lift, d.z]
+        const idx: number[] = []
+        for (let s = 0; s <= seg; s++) {
+          const a = (s / seg) * Math.PI * 2 + d.a
+          const rr = r * (0.82 + 0.18 * Math.abs(Math.sin(a * 3 + d.a * 5)))
+          const x = Math.cos(a) * rr
+          const z = Math.sin(a) * rr
+          pos.push(d.x + x, gy + x * sx + z * sz + lift, d.z + z)
+          if (s > 0) idx.push(0, s + 1, s)
+        }
+        const g = new BufferGeometry()
+        g.setAttribute('position', new Float32BufferAttribute(pos, 3))
+        g.setIndex(idx)
+        parts.push(paint(g, hex))
+      }
+    }
+    const geo = merge(parts)
+    for (const g of parts) g.dispose()
+    this.owned.push(geo)
+    const mat = new MeshBasicMaterial({ vertexColors: true, transparent: true, opacity: 0.85, depthWrite: false, polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -2 })
+    this.mats.push(mat)
+    const mesh = markStill(new Mesh(geo, mat))
+    mesh.renderOrder = 2
+    this.root.add(mesh)
   }
 
   private buildPlates(plan: ZonePlan): void {
@@ -1186,23 +1238,36 @@ export class LevelProps {
    */
   private buildCage(c: ChestState): void {
     const def = cageOf(this.sim.zone)
-    const iron = def?.kind === 'iron'
+    // The first visit's camp (#156): one big cage, three cells wide, three teachers in it.
+    const wide = !!this.sim.camp
+    const iron = !wide && def?.kind === 'iron'
     const wood = iron ? '#4a4e58' : '#7a4c2c'
     const bar = iron ? '#7a808c' : '#9a6a3c'
     const k = 1 / CHEST_LOOK[c.tier].scale
     const H = 1.7
     const R = 0.68
+    /** Half its width: one cell's cage, or three cells' (the door in the middle one). */
+    const RX = wide ? R + CELL : R
     const parts: BufferGeometry[] = []
-    for (const [px, pz] of [[-R, -R], [R, -R], [-R, R], [R, R]] as const) parts.push(xform(paint(rcyl(0.07, H + 0.2, 0.02, 8, 1), wood), [px, H / 2 - 0.1, pz]))
+    const posts: Array<readonly [number, number]> = [[-RX, -R], [RX, -R], [-RX, R], [RX, R]]
+    if (wide) for (const sx of [-1, 1]) posts.push([sx * CELL / 2, -R], [sx * CELL / 2, R])
+    for (const [px, pz] of posts) parts.push(xform(paint(rcyl(0.07, H + 0.2, 0.02, 8, 1), wood), [px, H / 2 - 0.1, pz]))
     // Bars on the back and the two sides (the front is the door), a rail along the top.
+    const back = wide ? 11 : 3
+    for (let q = 1; q <= back; q++) {
+      const t = -RX + (2 * RX * q) / (back + 1)
+      if (wide && Math.abs(Math.abs(t) - CELL / 2) < 0.1) continue
+      parts.push(xform(paint(rcyl(0.03, H, 0.01, 6, 1), bar), [t, H / 2, -R]))
+    }
     for (let q = 1; q <= 3; q++) {
       const t = -R + (2 * R * q) / 4
-      parts.push(xform(paint(rcyl(0.03, H, 0.01, 6, 1), bar), [t, H / 2, -R]))
-      parts.push(xform(paint(rcyl(0.03, H, 0.01, 6, 1), bar), [-R, H / 2, t]))
-      parts.push(xform(paint(rcyl(0.03, H, 0.01, 6, 1), bar), [R, H / 2, t]))
+      parts.push(xform(paint(rcyl(0.03, H, 0.01, 6, 1), bar), [-RX, H / 2, t]))
+      parts.push(xform(paint(rcyl(0.03, H, 0.01, 6, 1), bar), [RX, H / 2, t]))
     }
-    parts.push(xform(paint(rbox(2 * R + 0.36, 0.14, 2 * R + 0.36, 0.2, 8, 4), wood), [0, H + 0.05, 0]))
-    parts.push(xform(paint(rbox(2 * R + 0.1, 0.08, 0.1, 0.3, 6, 3), wood), [0, 0.5, -R]))
+    // The big cage's front either side of its door: bars, as at the back.
+    if (wide) for (const sx of [-1, 1]) for (const t of [0.42, 0.84, 1.26]) parts.push(xform(paint(rcyl(0.03, H, 0.01, 6, 1), bar), [sx * (CELL / 2 + t), H / 2, R]))
+    parts.push(xform(paint(rbox(2 * RX + 0.36, 0.14, 2 * R + 0.36, 0.2, 8, 4), wood), [0, H + 0.05, 0]))
+    parts.push(xform(paint(rbox(2 * RX + 0.1, 0.08, 0.1, 0.3, 6, 3), wood), [0, 0.5, -R]))
     const body = merge(parts).scale(k, k, k)
     this.owned.push(body)
     const root = new Group()
@@ -1421,6 +1486,7 @@ export class LevelProps {
 
   onEvent(e: SimEvent): void {
     this.dummy?.onEvent(e)
+    this.pylons?.onEvent(e)
     switch (e.t) {
       case 'chest': this.onChest(e); break
       case 'herb': this.onHerb(e); break
@@ -1560,6 +1626,7 @@ export class LevelProps {
     const plan = this.plan
     if (!plan) return
     this.dummy?.update(dt)
+    this.pylons?.update(dt)
     if (this.water) this.water.uniforms.uTime!.value = this.time * (this.water.userData.flow as number)
     // Mist turns slowly where it lies, and thins and thickens.
     for (const m of this.mists) {
@@ -1777,6 +1844,8 @@ export class LevelProps {
     this.scene?.remove(this.root)
     this.dummy?.dispose()
     this.dummy = null
+    this.pylons?.dispose()
+    this.pylons = null
     for (const g of this.owned) g.dispose()
     for (const m of this.mats) m.dispose()
     for (const d of this.doors) { d.mesh.dispose(); d.line.dispose() }

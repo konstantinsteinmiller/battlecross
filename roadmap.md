@@ -180,7 +180,8 @@ Build order and the decisions taken are in `game-implementation-plan.md`
  
 - [x] #137 The boss health bars of bosses should be dark reddish and not rosa/pink. Make the frame ornaments of elites and bosses more spectacular and outstanding. Paint the frames and ornaments for a consistent look with the icons and background images
 - [x] #138 ✅ The portraits in a teachers skill teaching UI are not painted and look very low-effort right now. Paint them all on 1-2 sheets.
-- [ ] #139 The dodge roll animations is not perfect yet, it feels it ends in a weird position and then snaps to the standing position without an interpolation of the animation steps.
+- [x] #139 ✅ The dodge roll animations is not perfect yet, it feels it ends in a weird position and then snaps to the standing position without an interpolation of the animation steps.
+  Done 2026-10-20: the clip stood up from a squat in its last ~22 ms (one frame) with the tumble at full speed. Now the turn eases into a landing crouch inside the sim's 0.32 s roll (timing and i-frames unchanged) and a 160 ms eased blend carries that crouch into idle, the walk or a swing; worst one-frame pose jump across the end 0.50 -> 0.15 (tests/game/rollBlend.test.ts, every weapon style).
 - [x] #140 ✅ The screenshake on crits is a bit too heavy, especially a dexterity heavy champion can trigger quite some of them in a short span making the screen shake all the time. Reduce intensity by 50%, so it is less heavy and add a throttle how many screenshakes can happen in a 5 second frame.
 - [ ] #141 The game is already great for the action rpg fantasy, but its lacking stuff to do outside of it. you can do some gambling and memory mini-game, but I think there is more that would fit it. I played till the end with my geomancer build and it worked well. I just wish there was more to do aside from the late game colloseum.
   Maybe something like a castle rush or castle siege event or other events or more mini-games that reward unique items or even unlock more unique class builds?
@@ -200,14 +201,51 @@ Build order and the decisions taken are in `game-implementation-plan.md`
 - [x] #151 Do another draw call pass and put all static assets in one draw call per location, so it is super efficient in terms of performance for all players, even on low-end mobile devices.
 - [x] #152 ✅ Chi stacks are never shown, but are important for the icon mark gameplay, check for other stacks/charges based gameplay and fix it too.  
   Done 2026-10-19: the HUD got only status ids, never the stack count. Now every stacking status (chi, Entropy's Accelerate) shows a count badge and leads the hero's row; chi shows even at one bead; the chi finishers (Rising Dragon, Mountain Palm) carry five beads lit for what they will spend; the locked target shows what is stacked on it (Venomous Blade poison) with its count. Heat already had its bar.
-- [ ] #153
-- [ ] #154
-- [ ] #155
-- [ ] #156
+- [x] #153 player must become invincible and untargetable while in a dialog (its important that this state is reset whenever the player leaves dialog menues, so that the player cannot glitch out and stay invicible and untargetable while not in a dialog, therefore add a every ~3 seconds check if the player is invincible and no menu is open and reset if needed.)
+- [x] #154 In the tutorial level, if the player gets below 35% hp, show a yellow arrow with an attention bounce on the heal potion button and freeze the time until the player clicks/taps/presses Q on the heal potion button. 
+- [x] #155 In the tutorial level show the objective chevrons pointing at the tutorial boss. if the player is struggling at the boss and not uses the shield bash skill often or at all, reduce the damage output of all enemies by 65%.
+- [x] #156 The first town is quite intimidating with its many NPCs and traders and teachers. I think a better first 3 teacher hub (no traders or gambler yet) would be a small encampment at the end of the tutorial boss area (make the area ~40% bigger) after defeating the tutorial boss, the end area shows 1 big cage containing the 3 teachers with the golden key in front of the cage and the area has a broken down caravan as collidable prop and a campfire, so that after the release of the caged teachers, they start teaching you, they have no ambient dialogs in the tutorial level, only the teaching dialogs. 
+  This encampment has the soul warden teacher, the aegis knight teacher, the pyromancer teacher from sunford and the shadowblade teacher also walks over to the campfire as soon as the boss is defeated, so the teachers move to sunford as soon as the player leaves the tutorial level, no need to create new dialogs for the teachers as they are the same instances as in the town sunford. After the cage release the aegis knight thanks you shortly for rescueing them from the bandits and offers all teachers skills teaching to the player (ok, 1-2 new VOs and dialog lines, the first skill bought in this rescued teachers camp costs 0 coins). If the player does not open the cage, the teachers still move to sunford, but the aegis teacher skips the thank you dialog. The boss chest stays as is in the tutorial levels boss area. 
 - [ ] #157
 - [ ] #158
 - [ ] #159
 
+- [ ] #Perf1 One user had 1-3 fps for the first 30 seconds, then ~9-10: WebGL Renderer
+  ANGLE (Imagination Technologies, PowerVR Rogue GE8320, OpenGL ES 3.2)
+  navigator.hardwareConcurrency
+  8
+  window.devicePixelRatio
+  1.875
+  User Agent
+  Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Mobile Safari/537.36
+- [ ] #Perf2 Playtesters have weird device pixel ratios of e.g. 2.8125 or 1.825 or 0.666667 and therefore not sharp graphics.
+WebGL Renderer
+  ANGLE (ARM, Mali-G57 MC2, OpenGL ES 3.2)
+  navigator.hardwareConcurrency
+  8
+  window.devicePixelRatio
+  2.8125
+  User Agent
+  Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Mobile Safari/537.36
+
+  WebGL Renderer
+  ANGLE (Intel, Intel(R) HD Graphics 4600 (0x00000416) Direct3D11 vs_5_0 ps_5_0, D3D11)
+  navigator.hardwareConcurrency
+  8
+  window.devicePixelRatio
+  0.6666667
+  User Agent
+  Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36
+
+- [ ] #Perf3 Playtester had 15-20 fps in the tutorial level: 
+  WebGL Renderer
+  ANGLE (Imagination Technologies, PowerVR Rogue GE8322, OpenGL ES 3.2)
+  navigator.hardwareConcurrency
+  8
+  window.devicePixelRatio
+  2
+  User Agent
+  Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Mobile Safari/537.36
 
 - [x] #Mini1 Please add a minimalistic charged and normal shot mini-game to kill red rotor drones where each click makes one sword slash at the monster and     
   when the machine is dead with a tiny spectacle (like bolts sprinkling up), the next stronger machine appears. Its important that this mini-game is super small in code size and doesnt need any image, so that the player can play this mini-game during loading times and during the first-load

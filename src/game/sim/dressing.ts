@@ -43,6 +43,11 @@ export type DressKind =
   | 'floe'
   // The citadel, the fortress, the rift.
   | 'pylon' | 'gateTower' | 'warBanner' | 'shard'
+  // An invaded zone (the afterplay): a burning ruin, and a rift scar on the
+  // ground (a decal: nothing to walk round, but it slows and burns).
+  | 'ruin' | 'scar'
+  // The first visit's camp (#156): the teachers' broken-down caravan.
+  | 'wagon'
 
 export interface DressPlan {
   kind: DressKind
@@ -63,7 +68,9 @@ export const DRESS_FOOT: Readonly<Record<DressKind, readonly [number, number]>> 
   log: [1, 3], oldTree: [2, 2], mist: [0, 0], claws: [0, 0],
   timber: [0, 0], rail: [0, 0], cart: [1, 1], crates: [1, 1],
   floe: [0, 0],
-  pylon: [1, 1], gateTower: [0, 0], warBanner: [1, 1], shard: [0, 0]
+  pylon: [1, 1], gateTower: [0, 0], warBanner: [1, 1], shard: [0, 0],
+  ruin: [1, 1], scar: [0, 0],
+  wagon: [2, 3]
 }
 
 /**
@@ -80,7 +87,9 @@ export const DRESS_ROLE: Readonly<Record<DressKind, 'solid' | 'walk'>> = {
   log: 'solid', oldTree: 'solid', mist: 'walk', claws: 'walk',
   timber: 'solid', rail: 'walk', cart: 'solid', crates: 'solid',
   floe: 'walk',
-  pylon: 'solid', gateTower: 'solid', warBanner: 'solid', shard: 'solid'
+  pylon: 'solid', gateTower: 'solid', warBanner: 'solid', shard: 'solid',
+  ruin: 'solid', scar: 'walk',
+  wagon: 'solid'
 }
 
 /** Tall pieces: never just in front of (down-screen of) a chest or a side place. */
@@ -222,6 +231,8 @@ export interface PlaceCtx {
   chambers: ReadonlyArray<Chamber | null>
   /** What the layout built in (`layouts.ts`). */
   fixtures: ReadonlyArray<Fixture>
+  /** An invaded zone (`data/invasion.ts`): burning ruins per clearing and rift scars per visit. */
+  invasion?: { ruins: readonly [number, number]; scars: readonly [number, number] }
 }
 
 const QUARTER = Math.PI / 2
@@ -373,5 +384,45 @@ export const dressPlace = (d: Dresser, c: PlaceCtx): void => {
     }
     default:
       break
+  }
+  if (c.invasion) dressInvasion(d, c, round)
+}
+
+/**
+ * The Breaking came through (afterplay §3): burning ruins round every clearing
+ * the hero fights in, and a rift scar or two on open ground beside the fights
+ * (never on the road: the way through stays safe to walk). Last of a place's
+ * dressing and on the same stream, so its own pieces stand exactly where they
+ * stood before the invasion.
+ */
+const dressInvasion = (d: Dresser, c: PlaceCtx, round: (k: number, r0: number, r1: number, tries: number, fn: (i: number, j: number, a: number) => boolean) => boolean): void => {
+  const { rng, cs } = c
+  const inv = c.invasion!
+  const n = cs.length - 1
+  const between = (lo: number, hi: number): number => lo + Math.floor(rng() * (hi - lo + 1))
+  for (let k = 1; k <= n; k++) {
+    const want = between(inv.ruins[0], inv.ruins[1])
+    for (let q = 0; q < want; q++) if (!round(k, 0.55, 1.05, 14, (i, j) => d.stand('ruin', i, j, 0))) round(k, 0.35, 1.25, 24, (i, j) => d.stand('ruin', i, j, 0, { clear: 0 }))
+  }
+  const scars = between(inv.scars[0], inv.scars[1])
+  // The clearings before the finale first; the finale's own ring last.
+  const order = [...Array.from({ length: Math.max(1, n - 1) }, (_, q) => q + 1).sort(() => rng() - 0.5), n]
+  let laid = 0
+  // Its whole patch on open ground off the road if it fits; else its middle
+  // and the four cells beside it (a narrow shelf, a temple's hall).
+  const fits = (i: number, j: number, whole: boolean): boolean => {
+    for (let dj = -1; dj <= 1; dj++) for (let di = -1; di <= 1; di++) if ((whole || !di || !dj) && !d.free(i + di, j + dj, 0, true)) return false
+    return true
+  }
+  for (const whole of [true, false]) {
+    for (const k of order) {
+      if (laid >= scars) break
+      const ok = round(k, 0.15, 1.1, 60, (i, j) => {
+        if (!fits(i, j, whole)) return false
+        d.lay('scar', (i + 0.5) * CELL, (j + 0.5) * CELL, rng() * Math.PI * 2)
+        return true
+      })
+      if (ok) laid++
+    }
   }
 }

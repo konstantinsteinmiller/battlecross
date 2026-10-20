@@ -7,6 +7,7 @@ import { face, setGoal, stop, walk } from './actors'
 import { plainStats } from './stats'
 import type { Unit } from './types'
 import type { ChestState, Sim } from './world'
+import { campWayOut } from './camp'
 
 /**
  * ─── A cage and its key (roadmap #100, D125) ────────────────────────────────
@@ -79,7 +80,7 @@ export const placeCage = (
  * hero came, and are gone once out of sight.
  */
 
-export type CaptivePhase = 'caged' | 'out' | 'talk' | 'leave'
+export type CaptivePhase = 'caged' | 'out' | 'talk' | 'leave' | 'stay'
 
 export interface CaptiveState {
   unit: number
@@ -93,6 +94,12 @@ export interface CaptiveState {
   /** Home: the way back to town (the place's start). */
   hx: number
   hz: number
+  /** The first visit's camp (#156, `camp.ts`): they stay, walking to their
+   *  place (`hx`, `hz`) instead of home, and answer to their town id there. */
+  stay?: boolean
+  npc?: string
+  /** The lead's own line (default: the cage's `captiveLine`). */
+  line?: string
 }
 
 /** Stepping out of the cage, m/s. */
@@ -136,7 +143,9 @@ export const freeCaptives = (sim: Sim, c: ChestState): void => {
     const u = sim.get(p.unit)
     p.phase = 'out'
     p.t = 0
-    p.path = [[u?.x ?? c.x, c.z + 0.8], [c.x + side * 1.35, c.z + 1.05]]
+    p.path = p.stay ? campWayOut(u, c) : [[u?.x ?? c.x, c.z + 0.8], [c.x + side * 1.35, c.z + 1.05]]
+    // Out of the cage, the camp's teachers answer to their town ids (#156).
+    if (u && p.npc) u.npc = p.npc
   })
 }
 
@@ -162,7 +171,8 @@ export const stepCaptives = (sim: Sim, dt: number): void => {
         u.anim = 'idle'
         if (p.lead) {
           const def = cageOf(sim.zone)
-          if (def) sim.emit({ t: 'bark', unit: u.id, key: captiveLine(def.npc) })
+          const key = p.line ?? (def ? captiveLine(def.npc) : '')
+          if (key) sim.emit({ t: 'bark', unit: u.id, key })
         }
         continue
       }
@@ -180,10 +190,18 @@ export const stepCaptives = (sim: Sim, dt: number): void => {
       face(u, hero.x, hero.z)
       u.anim = 'idle'
       if (p.t >= CAPTIVE_TALK) {
-        p.phase = 'leave'
+        p.phase = p.stay ? 'stay' : 'leave'
         p.t = 0
         setGoal(sim, u, p.hx, p.hz)
       }
+      continue
+    }
+    if (p.phase === 'stay') {
+      // The camp (#156): to their place by the fire, and there they keep.
+      if (walk(sim, u, dt)) { u.anim = 'walk'; continue }
+      stop(u)
+      face(u, hero.x, hero.z)
+      u.anim = 'idle'
       continue
     }
     // Off home.

@@ -78,6 +78,9 @@
           span.slot__count {{ hud.potions }}
           KeyCap.slot__key(v-if="hud.device === 'mouse'" :code="potionCode")
       span.slot__flash(aria-hidden="true")
+      //- The opening fight's potion stop (#154): the world waits for this flask.
+      span.slot__stop(v-if="hud.potionStop" data-potion-stop role="img" :aria-label="t('hud.potionStop')")
+        GameIcon(name="up")
     //- A new player's mana flask arrives with the first mana potion (`coach/reveal.ts`).
     Transition(name="reveal")
       button.slot.slot--potion.slot--mana(
@@ -694,6 +697,27 @@ const onElixirNext = (e: PointerEvent): void => {
   color: var(--bc-ink)
   pointer-events: none
 
+// The potion stop's arrow: yellow, pointing down at the flask, bouncing for attention.
+.slot__stop
+  position: absolute
+  left: 50%
+  bottom: 104%
+  width: 64%
+  height: 64%
+  margin-left: -32%
+  color: var(--bc-gold)
+  transform: rotate(180deg)
+  filter: drop-shadow(0 -2px 0 var(--bc-ink)) drop-shadow(1px 0 0 var(--bc-ink)) drop-shadow(-1px 0 0 var(--bc-ink)) drop-shadow(0 2px 0 var(--bc-ink))
+  pointer-events: none
+  animation: slot-stop 0.7s var(--bc-ease-bounce, ease-in-out) infinite alternate
+  :deep(svg)
+    width: 100%
+    height: 100%
+@keyframes slot-stop
+  from
+    transform: rotate(180deg) translateY(0) scale(1)
+  to
+    transform: rotate(180deg) translateY(30%) scale(1.12)
 @keyframes slot-shine
   0%, 62%
     transform: translateX(-110%)

@@ -798,9 +798,9 @@ WHAT IT IS: the terrain of a hand-drawn storybook map, drawn the way such maps a
 · Right of centre: a pale green marsh of reeds around a turquoise lake with lily pads; a river runs from the lake to the sea.
 · Upper right: a violet land of pale crystal spikes and dark pools; beyond it, in the top right corner, a dark crimson land of black peaks with burning tips, thorn spikes and dead trees.
 · Right edge, under those: a jagged black tear in the land with a glowing hot-pink rim, running off the edge of the image.
-· Pale dirt roads wind between 17 bare, flat, oval clearings, each with a darker lip along its lower edge. Keep every road and every clearing, at its place and its size, and keep the clearings EMPTY.
+· Pale dirt roads wind between 18 bare, flat, oval clearings, each with a darker lip along its lower edge. Keep every road and every clearing, at its place and its size, and keep the clearings EMPTY.
 
-WHAT IT IS NOT — read this twice. The game draws every landmark, every place marker and every name OVER this picture, on the 17 clearings, and they change as the player travels: a place is hidden under cloud, then opens, then is marked as cleared. So the clearings stay bare ground, and NOTHING painted anywhere may be a building or a sign: no towns, no houses, no castles, no towers, no temples, no tents, no camps, no windmills, no lighthouses, no ships under sail, no people, no monsters, no flags, no banners, no crosses, no compass rose, no title ribbon, no clouds, no text, no letters, no numbers. A painted town would sit beside the real one and read as a second, wrong place.
+WHAT IT IS NOT — read this twice. The game draws every landmark, every place marker and every name OVER this picture, on the 18 clearings, and they change as the player travels: a place is hidden under cloud, then opens, then is marked as cleared. So the clearings stay bare ground, and NOTHING painted anywhere may be a building or a sign: no towns, no houses, no castles, no towers, no temples, no tents, no camps, no windmills, no lighthouses, no ships under sail, no people, no monsters, no flags, no banners, no crosses, no compass rose, no title ribbon, no clouds, no text, no letters, no numbers. A painted town would sit beside the real one and read as a second, wrong place.
 · Do not add regions, roads, rivers or clearings the reference does not have, and do not join, move or drop any it has.
 EVERY REGION KEEPS ITS OWN OUTLINE — the mistake to avoid above all. The mountains stand ONLY inside the mountain regions the reference marks, and no bigger and no more of them than it shows: a mountain range never spills over the green land, the fields, the forest, the coast, a road or a clearing, and never grows to cover a larger share of the map than its region does in the reference. The same holds for forest, hills, ice, lava and swamp: each fills its own region and stops at its edge. Where the reference shows open grassland, it stays open grassland.
 · Keep it bright and even: small landmarks and paper name tags sit on every part of it and must stay readable. No region darker or busier than the reference shows it.
@@ -829,7 +829,7 @@ BEFORE YOU CALL IT FINISHED, check:
 · Every river, lake and sea is saturated blue and unbroken, where the reference has it; water is crossed only at the reference's bridges.
 · Each region's outline matches the reference: no mountains, trees or hills outside their own region, and the mountain regions are no larger than the reference makes them.
 · Held next to the first two attached images, the map looks painted by the same hand: the same outline weight, the same two-step shading, the same glints. Flat, outline-thin clip-art stickers are wrong.
-· The 17 clearings are empty, and there is not one building, figure, symbol or letter anywhere in it.
+· The 18 clearings are empty, and there is not one building, figure, symbol or letter anywhere in it.
 
 OUTPUT: one image, 1376 x 768 pixels (16:9, landscape). If your tool has an aspect-ratio control, set it to 16:9. PNG. No labels, captions, numbers or watermarks.
 ```

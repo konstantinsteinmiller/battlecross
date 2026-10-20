@@ -1,6 +1,6 @@
 import type { BufferGeometry } from 'three'
 import type { DressKind } from '../sim/dressing'
-import { ell, mixHex, paint, rbox, rcone, rcyl, rock, sph, tone, torus, xform } from './kit'
+import { ell, merge, mixHex, paint, rbox, rcone, rcyl, rock, sph, tone, torus, xform } from './kit'
 
 /**
  * ─── Set pieces: what makes each place itself (roadmap #120) ─────────────────
@@ -359,6 +359,77 @@ const shard = (pal: PiecePalette, seed: number): PieceGeo => ({
   ]
 })
 
+const ruin = (seed: number): PieceGeo => {
+  // A burnt ruin of the Breaking (an invaded zone): a stub of wall broken to
+  // two heights, black with soot, a charred beam leant against it, a block
+  // fallen behind, and embers still glowing at its foot. The two courses stand
+  // two centimetres apart and the faces of the lower one sit back: nothing
+  // pokes through, no face shares another's plane.
+  const tall = 0.95 + (seed % 3) * 0.15
+  const lit: BufferGeometry[] = [
+    P(rbox(0.7, tall, 0.42, 0.25, 8, 6), seed % 2 ? '#4a3e3c' : '#433836', [-0.3, tall / 2, 0]),
+    P(rbox(0.56, 0.62, 0.38, 0.3, 8, 6), '#3a302e', [0.37, 0.31, 0.01]),
+    P(rcyl(0.07, 1.25, 0.02, 7, 1), '#241a16', [-0.12, 0.56, 0.38], [0, 0, 0.62]),
+    P(rbox(0.42, 0.3, 0.34, 0.3, 6, 4), '#55463f', [0.42, 0.15, -0.52], [0, 0.4 + (seed % 5) * 0.1, 0]),
+    P(rock(0.2, 51 + seed, 7, 5), '#2a201e', [-0.46, 0.05, -0.48], [0, 0, 0], [1, 0.45, 1]),
+    // A charred chip in the open corner: the cell the ruin blocks is all drawn.
+    P(rock(0.22, 57 + seed, 7, 5), '#3a2e2a', [0.55, 0.1, 0.56], [0, 0, 0], [1, 0.6, 1])
+  ]
+  const glow: BufferGeometry[] = [
+    P(rcone(0.13, 0.01, 0.38, 0.01, 7), '#ff7a1a', [-0.46, 0.35, -0.48]),
+    P(sph(0.06, 6, 5), '#ffb02a', [-0.05, 0.05, 0.52])
+  ]
+  return { lit, glow }
+}
+
+const wagon = (seed: number): PieceGeo => {
+  // The teachers' caravan, broken down in the bandits' camp (#156): a heavy
+  // bed on three wheels, the fourth fallen flat beside it and a stone propping
+  // that corner, the canvas torn back off its front hoop, a crate and a barrel
+  // still aboard, the shaft snapped and lying in front, a sack spilled behind.
+  // The bed covers the six cells it blocks (from above, to the cover's play).
+  const lit: BufferGeometry[] = [P(rbox(2.5, 0.42, 4.1, 0.15, 10, 6), '#7a5634', [0, 0.62, 0])]
+  for (const [sx, sz] of [[-1, 1], [1, 1], [-1, -1]] as const) {
+    lit.push(P(rcyl(0.46, 0.12, 0.03, 14, 1), '#5a3e26', [sx * 1.32, 0.46, sz * 1.25], [0, 0, Math.PI / 2]))
+    lit.push(P(sph(0.1, 7, 5), '#3a2a1a', [sx * 1.41, 0.46, sz * 1.25]))
+  }
+  lit.push(P(rcyl(0.46, 0.12, 0.03, 14, 1), '#5a3e26', [0.45, 0.07, -1.6]))
+  lit.push(P(rock(0.3, 30 + (seed % 7), 7, 5), '#6e6660', [1.05, 0.2, -1.3]))
+  // The canvas over the back half, and the bare hoop at the front.
+  lit.push(P(ell(1.12, 0.9, 1.45, 12, 8), seed % 2 ? '#d8ccae' : '#cfc2a0', [0, 0.84, -0.55]))
+  lit.push(P(torus(1.05, 0.045, 6, 16), '#6a4a2c', [0, 0.84, 0.95]))
+  lit.push(P(rbox(0.7, 0.62, 0.66, 0.3, 6, 6), '#a07444', [-0.45, 1.1, 1.3], [0, 0.3, 0]))
+  lit.push(P(rcyl(0.28, 0.7, 0.06, 10, 2), '#6a4428', [0.5, 1.15, 1.35]))
+  lit.push(P(rcyl(0.06, 1.3, 0.02, 6, 1), '#6a4a2c', [0.25, 0.08, 1.75], [Math.PI / 2, 0, 0.35]))
+  lit.push(P(ell(0.34, 0.26, 0.3, 8, 6), '#b89a6a', [-0.85, 0.22, -1.98]))
+  return { lit, glow: [] }
+}
+
+/**
+ * A demon pylon (an invaded zone, `gfx/pylonProp.ts` draws it, the sim keeps
+ * it as a unit): the citadel pylon's shape cut from black stone, blood-red
+ * runes down its faces and a burning crystal on its tip.
+ */
+export const demonPylon = (): PieceGeo => ({
+  lit: [
+    P(rbox(1.0, 0.36, 1.0, 0.3, 8, 4), '#2e2224', [0, 0.18, 0]),
+    P(rcone(0.52, 0.22, 3.2, 0.03, 4), '#3a1a1e', [0, 1.96, 0], [0, Math.PI / 4, 0])
+  ],
+  glow: [
+    P(rcone(0.2, 0.01, 0.8, 0.01, 6), '#ff3a2a', [0, 3.95, 0]),
+    P(rbox(0.06, 1.6, 0.04, 0.5, 4, 6), '#ff4a2a', [0, 1.9, 0.43], [-0.05, 0, 0]),
+    P(rbox(0.06, 1.6, 0.04, 0.5, 4, 6), '#ff4a2a', [0.43, 1.9, 0], [0, Math.PI / 2, 0.05])
+  ]
+})
+
+/** The demon pylon merged: one geometry for its stone, one for its glow (each one instanced draw). */
+export const demonPylonGeo = (): { lit: BufferGeometry; glow: BufferGeometry } => {
+  const g = demonPylon()
+  const out = { lit: merge(g.lit), glow: merge(g.glow) }
+  for (const x of [...g.lit, ...g.glow]) x.dispose()
+  return out
+}
+
 /** A set piece, built at the origin (y = 0 the ground), its length along +Z. */
 export const setPiece = (kind: DressKind, pal: PiecePalette, seed: number): PieceGeo => {
   switch (kind) {
@@ -385,9 +456,12 @@ export const setPiece = (kind: DressKind, pal: PiecePalette, seed: number): Piec
     case 'gateTower': return gateTower(pal)
     case 'warBanner': return warBanner(seed)
     case 'shard': return shard(pal, seed)
+    case 'ruin': return ruin(seed)
+    case 'wagon': return wagon(seed)
     // Decals, drawn by `levelProps.ts` itself (never merged with what is opaque).
     case 'mist':
-    case 'claws': return { lit: [], glow: [] }
+    case 'claws':
+    case 'scar': return { lit: [], glow: [] }
   }
 }
 

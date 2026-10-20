@@ -4,6 +4,7 @@ import { CELL, ROUND_R, SOLID_LOW, SOLID_ROUND, createGrid, moveCircle, resolveC
 import { generateArena, generateEncounter, generateZone, type ZonePlan } from '@/game/sim/zoneGen'
 import { K_BLOCK, K_CLIFF, K_WATER, hintCells } from '@/game/sim/zoneFeatures'
 import { ZONES, ZONE_IDS, type ThemeId } from '@/game/data/zones'
+import { invadedZone } from '@/game/data/invasion'
 import { layScenery, shapeFoot, wetCell } from '@/game/gfx/terrain'
 import { COVER_TOL, FootIndex, cellSamples, footOf } from '@/game/gfx/footprint'
 import { piecePalette, setPiece } from '@/game/gfx/setPieces'
@@ -51,6 +52,11 @@ const cases = function * (): Generator<Case> {
       yield { name: `${id}#${seed}`, theme: def.theme, plan: generateZone(def, seed, { cage: odd, treasure: !odd, pieces: odd ? ['a', 'b'] : [], ambush: odd ? def.kinds[0]!.kind : null }) }
     }
     yield { name: `${id} first visit`, theme: def.theme, plan: generateZone(def, 3, { tutorial: true, openingPack: 2 }) }
+    // The afterplay's invaded self (`data/invasion.ts`): its ruins and scars on the same ground.
+    for (const seed of SEEDS.slice(0, 2)) {
+      const odd = seed % 2 === 1
+      yield { name: `${id} invaded#${seed}`, theme: def.theme, plan: generateZone(invadedZone(id), seed, { cage: odd, treasure: !odd }) }
+    }
   }
   for (const seed of SEEDS) {
     yield { name: `encounter#${seed}`, theme: 'plains', plan: generateEncounter([['goblin'], ['goblin', 'goblin']], seed) }
@@ -90,6 +96,8 @@ describe('walk truth: no invisible walls, a road to everything', () => {
       const owned = new Map<number, string>()
       const own = (x: number, z: number, what: string): void => { owned.set(Math.floor(z / CELL) * w + Math.floor(x / CELL), what) }
       for (const c of plan.chests) own(c.x, c.z, 'chest')
+      // The camp's big cage covers three cells (#156).
+      for (const k of plan.camp?.cells ?? []) owned.set(k, 'cage')
       for (const s of plan.signs) own(s.x, s.z, 'sign')
       for (const s of plan.forks) own(s.x, s.z, 'fork')
       if (plan.puzzle) for (const k of hintCells(Math.floor(plan.puzzle.hint.z / CELL) * w + Math.floor(plan.puzzle.hint.x / CELL))) owned.set(k, 'hint')
@@ -154,9 +162,10 @@ describe('walk truth: no invisible walls, a road to everything', () => {
     const { applyPlan, populateZone } = await import('@/game/sim/director')
     const bad: string[] = []
     for (const z of ZONE_IDS) {
-      for (const seed of [3, 8, 11]) {
+      // Seed 0: the first visit (the plains' only), its big cage in the camp (#156).
+      for (const seed of z === 'plains' ? [3, 8, 11, 0] : [3, 8, 11]) {
         const odd = seed % 2 === 1
-        const plan = generateZone(ZONES[z], seed, { cage: odd, treasure: !odd })
+        const plan = seed ? generateZone(ZONES[z], seed, { cage: odd, treasure: !odd }) : generateZone(ZONES[z], 3, { tutorial: true, openingPack: 2 })
         setGround({ w: plan.w, h: plan.h, height: plan.height })
         const scene = new Scene()
         const sim = new Sim({ seed, w: plan.w, h: plan.h, level: 5, difficulty: 1, mode: 'zone', zone: z })
@@ -169,6 +178,8 @@ describe('walk truth: no invisible walls, a road to everything', () => {
         // A cage and the hint stone stop a body by their whole cells (`fillGrid`): those are covered square.
         const square = new Set<number>()
         for (const c of plan.chests) if (c.role === 'cage') square.add(Math.floor(c.z / CELL) * plan.w + Math.floor(c.x / CELL))
+        // The camp's big cage stands on three cells (#156).
+        for (const k of plan.camp?.cells ?? []) square.add(k)
         if (plan.puzzle) for (const k of hintCells(Math.floor(plan.puzzle.hint.z / CELL) * plan.w + Math.floor(plan.puzzle.hint.x / CELL))) square.add(k)
         // Doors open: a chest in a pocket is square rock until its door opens, then round.
         const g = gridOf(plan, true)

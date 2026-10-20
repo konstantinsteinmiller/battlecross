@@ -1,13 +1,14 @@
 import { ENEMY_BY_ID, MINIONS, type Fleeting } from '../data/enemies'
 import { hasLineOfSight } from './grid'
 import { abilityReady, startAbility } from './abilities'
-import { stepBoss } from './bosses'
+import { setArena, stepBoss } from './bosses'
 import { face, inAttackRange, setGoal, startAttack, stop, stride, walk } from './actors'
-import { dealDamage, isControlled, wakeGroup } from './combat'
+import { applyStatus, dealDamage, isControlled, wakeGroup } from './combat'
 import { SIDE_AGGRO, SIDE_LEASH } from './interact'
 import { SIDE_GROUP } from './world'
-import { atPeace, findStatus, hasStatus, type Sim } from './world'
+import { atPeace, findStatus, hasStatus, outOfReach, type Sim } from './world'
 import type { Unit } from './types'
+import { siegeTarget } from './siege'
 
 /**
  * ─── Who does what ───────────────────────────────────────────────────────────
@@ -31,6 +32,8 @@ const pickTarget = (sim: Sim, u: Unit): Unit | null => {
     if (t) return t
   }
   if (hasStatus(u, 'confuse')) return sim.nearest(u.team, u.x, u.z, 9, u.id) ?? null
+  // The siege (afterplay §8): the horde marches on the gate, fighting only who stands near.
+  if (u.team === 1 && sim.siege) return siegeTarget(sim, u)
   const foe = u.team === 0 ? 1 : 0
   const cur = sim.live(u.targetId)
   // A Royal Guard in the way holds attention (GDD: it "taunts enemies").
@@ -44,7 +47,7 @@ const pickTarget = (sim: Sim, u: Unit): Unit | null => {
     }
     if (guard && u.rank !== 'boss') return guard
   }
-  if (cur && cur.team === foe && !hasStatus(cur, 'stealth')) return cur
+  if (cur && cur.team === foe && !hasStatus(cur, 'stealth') && !outOfReach(cur)) return cur
   return sim.nearest(foe, u.x, u.z, 30) ?? null
 }
 
@@ -67,14 +70,33 @@ export const fadeAway = (sim: Sim, u: Unit, f: Fleeting, dt: number): boolean =>
   return !u.alive
 }
 
+/**
+ * The sea-demon's dive: every `every` seconds of the fight it goes under for
+ * `dur`, out of reach (nothing picks it, nothing hurts it), and comes up where
+ * it went down. True while it is under (it does nothing else).
+ */
+const submerge = (sim: Sim, u: Unit, s: { every: number; dur: number }): boolean => {
+  if (hasStatus(u, 'stealth')) return true
+  const left = u.icd.submerge
+  if (left === undefined) { u.icd.submerge = s.every * (0.3 + sim.rng() * 0.4); return false }
+  if (left > 0) return false
+  u.icd.submerge = s.every + s.dur
+  stop(u)
+  applyStatus(sim, u, 'stealth', s.dur, 1, u)
+  applyStatus(sim, u, 'invulnerable', s.dur, 1, u)
+  sim.emit({ t: 'fx', id: 'burst:water', x: u.x, z: u.z, r: 1.2, color: ENEMY_BY_ID[u.kind]?.color ?? '#2a8a9a' })
+  return true
+}
+
 /** One enemy's turn. */
 export const stepEnemy = (sim: Sim, u: Unit, dt: number): void => {
   const def = ENEMY_BY_ID[u.kind]
   if (!def) return
   const hero = sim.hero.unit
+  if (u.boss && !u.boss.marks.includes('arena')) setArena(sim, u)
   if (!u.awake) {
     // Asleep: wake when the hero is seen. A silent hero gets closer first.
-    if (!hero.alive || hasStatus(hero, 'stealth')) return
+    if (!hero.alive || hasStatus(hero, 'stealth') || hero.truce) return
     // A side pack keeps to its corner: it notices only who walks up to it.
     const aggro = u.group >= SIDE_GROUP ? Math.min(def.aggro, SIDE_AGGRO) : def.aggro
     const reach = aggro * (1 - Math.min(0.6, hero.s.mods.stealthy ?? 0))
@@ -89,6 +111,7 @@ export const stepEnemy = (sim: Sim, u: Unit, dt: number): void => {
   // lets the turn go, the generic fight below goes on with the def's abilities.
   if (u.boss && stepBoss(sim, u, dt, pickTarget(sim, u))) return
   if (isControlled(u) || u.action) return
+  if (def.submerge && submerge(sim, u, def.submerge)) return
 
   // Bosses change gear at their phase line.
   if (def.phase2 && u.phase === 1 && u.hp <= u.s.maxHp * def.phase2) {
@@ -136,6 +159,13 @@ export const stepEnemy = (sim: Sim, u: Unit, dt: number): void => {
       u.aiT = ABILITY_GAP
       return
     }
+  }
+
+  // Skittish (the harpy): a foe at arm's length sends it off before it shoots again.
+  if (def.skittish && d < def.skittish + tgt.r) {
+    stride(sim, u, u.x - tgt.x, u.z - tgt.z, dt)
+    u.anim = 'walk'
+    return
   }
 
   if (inAttackRange(sim, u, tgt)) {

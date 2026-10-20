@@ -21,6 +21,7 @@ import { fire } from '@/game/sim/actors'
 import { dealDamage, kill } from '@/game/sim/combat'
 import { mulberry32 } from '@/game/sim/rng'
 import type { SimEvent } from '@/game/sim/types'
+import { CAMP_ROOM } from '@/game/sim/camp'
 
 /**
  * What a zone holds beside its packs (roadmap #54–#59): chests, optional
@@ -187,7 +188,9 @@ describe('the plan: everything a visit holds can be walked to', () => {
         for (const o of [{}, { tutorial: true }, { ambush: 'orderGuard', extra: 1 }]) {
           const plan = generateZone(ZONES[zone], seed, o)
           const off = ((plan.w - 40) / 2) * CELL
-          const s = JSON.stringify(plan.packs.map(p => ({ ...p, x: p.x - off })))
+          // The first visit has the camp's rows above its chain (#156): the chain is the same, set down by them.
+          const offZ = 'tutorial' in o ? CAMP_ROOM * CELL : 0
+          const s = JSON.stringify(plan.packs.map(p => ({ ...p, x: p.x - off, z: p.z - offZ })))
           for (let i = 0; i < s.length; i++) h = Math.imul(h ^ s.charCodeAt(i), 16777619)
         }
       }
@@ -229,7 +232,8 @@ describe('the plan: everything a visit holds can be walked to', () => {
   it('the tutorial visit is simple: one easy chest by the road, and nothing else', () => {
     for (const seed of SEEDS) {
       const plan = generateZone(ZONES.plains, seed, { tutorial: true })
-      expect(plan.chests.map(c => c.role).filter(r => r !== 'puzzle'), `#${seed}`).toEqual(['finale', 'tutorial'])
+      // …and past the finale, the rescued teachers' cage (#156).
+      expect(plan.chests.map(c => c.role).filter(r => r !== 'puzzle'), `#${seed}`).toEqual(['finale', 'tutorial', 'cage'])
       const c = plan.chests.find(x => x.role === 'tutorial')!
       expect(c.tier).toBe('wood')
       expect(Math.hypot(c.x - plan.start.x, c.z - plan.start.z), `#${seed}`).toBeLessThan(6)

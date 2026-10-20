@@ -210,8 +210,16 @@ export interface Unit {
   icd: Record<string, number>
   /** An optional champion: an elite levels above the zone (its bar is framed). */
   champion?: boolean
+  /** Stands where it was put whatever pushes it (a demon pylon): bodies walk round it. */
+  rooted?: boolean
+  /** Of the Breaking's hordes (an invaded zone, the afterplay): drawn tinted red. */
+  infernal?: boolean
+  /** A piece of a split (the hydra spawn's): it never splits again. */
+  split?: boolean
   /** A scripted boss's state (`sim/bosses`): its phase, the move it is in, its height. */
   boss?: BossState
+  /** In a conversation (the hero, roadmap #153, `sim/truce.ts`): nothing hurts or picks him. */
+  truce?: boolean
 }
 
 /**
@@ -258,6 +266,8 @@ export interface BossState {
   marks: string[]
   /** The script's own move timers, seconds left (counted down each step). */
   cd: Record<string, number>
+  /** What reaches it of a blow (1: all; the cyclops's closed eye: a fifth). */
+  guard: number
 }
 
 // ─── Projectiles and ground fields ───────────────────────────────────────────
@@ -405,6 +415,8 @@ export type SimEvent =
   | { t: 'pickup'; what: 'potion' | 'heal' | 'mana'; x: number; z: number }
   /** A ladder milestone reached in the colosseum (#117): its mythic, and whether it is new. */
   | { t: 'milestone'; wave: number; item: string; fresh: boolean }
+  /** An invaded zone's last demon pylon fell: its chest paid out here (`invasion.ts`). */
+  | { t: 'pylonsDown'; x: number; z: number }
   /** A herb walked over and picked (roadmap #88). */
   | { t: 'herb'; id: number; kind: string; x: number; z: number }
   /** An outcrop (roadmap #99): mining starts, is refused (enemies near), or

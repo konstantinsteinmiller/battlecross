@@ -144,7 +144,8 @@ const arrive = (sim: Sim, at: { x: number; z: number }): Unit => {
 /** Every step. Returns the beat's new state when it changes this step, else null. */
 export const stepMentor = (sim: Sim, dt: number): MentorBeat | null => {
   const s = states.get(sim)
-  if (!s || sim.ended === 'defeat') return null
+  // Once the opening is won and its camp waits (#156), the camp walks her to its fire (`sim/camp.ts`).
+  if (!s || sim.ended === 'defeat' || (sim.ended === 'victory' && sim.camp)) return null
   const hero = sim.hero.unit
   let u = mentorUnit(sim)
 

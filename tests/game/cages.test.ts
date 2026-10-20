@@ -48,7 +48,10 @@ describe('where the cages stand', () => {
       const plan = generateZone(ZONES[z], 7, { cage: !!cageOf(z) && false })
       expect(plan.chests.some(x => x.role === 'cage'), z).toBe(false)
     }
-    expect(generateZone(ZONES.plains, 7, { cage: true, tutorial: true }).chests.some(x => x.role === 'cage')).toBe(false)
+    // The first visit holds no captive's cage: its one cage is the rescued teachers' camp (#156, `camp.test.ts`).
+    const first = generateZone(ZONES.plains, 7, { cage: true, tutorial: true })
+    expect(first.chests.filter(x => x.role === 'cage')).toHaveLength(1)
+    expect(first.camp).toBeTruthy()
   })
 
   it('the cage changes nothing else of the place: the same packs and chests as without it', () => {

@@ -51,6 +51,8 @@ export const hud = shallowReactive({
   potions: 0,
   potionsMax: 0,
   potionReady: true,
+  /** The opening fight's potion stop (#154): the world waits for a drink; an arrow bounces on the flask. */
+  potionStop: false,
   /** Mana potions in stock, how many the belt holds, and whether one can be drunk now. */
   manaPotions: 0,
   manaPotionMax: 0,

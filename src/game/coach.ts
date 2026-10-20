@@ -11,6 +11,7 @@ import { isVeteran, revealed } from './coach/reveal'
 import { onboard, type FeatureId } from './coach/state'
 import { canLearnFrom } from './coach/goal'
 import { heroChoice } from './heroChoice'
+import { openingBoss } from './coach/tutorialAid'
 import { nudgeWorld, senseFinder, senseWorld } from './coach/world'
 import type { ClassId } from './data/skills'
 
@@ -107,7 +108,7 @@ export interface HintView {
 /** What the coach needs from the live mode. */
 export interface CoachHost {
   sim: Sim
-  setup: { kind: 'zone' | 'town' | 'arena' }
+  setup: { kind: 'zone' | 'town' | 'arena'; tutorial?: boolean }
   project(x: number, y: number, z: number, out: { x: number; y: number }): boolean
 }
 
@@ -121,10 +122,11 @@ const geo = (slot = -1): HintGeo => ({ x0: 0, y0: 0, x1: 0, y1: 0, x2: 0, y2: 0,
  * doors), in surface px: `n` points in `pts` (x, y pairs), hero first.
  * Rewritten every frame from a path found a few times a second.
  */
-export const hintPath = { n: 0, pts: new Float32Array(96), world: [] as number[] }
+export const hintPath = { n: 0, pts: new Float32Array(96), world: [] as number[], lead: false }
 /** Whom the way leads to (a look id), for the badge at the screen edge. Reactive. */
 export const hintTalk = shallowReactive({ look: '' })
-/** The same way in world metres (x, z pairs, the hero's spot not among them): drawn on the ground. */
+/** The same way in world metres (x, z pairs, the hero's spot not among them): drawn on the ground.
+ *  `lead`: the chevrons lead to the opening fight's boss (#155), with no lesson of their own. */
 const wayWorld = hintPath.world
 const wayScratch: number[] = []
 const wayOpen: [number, number] = [0, 0]
@@ -152,6 +154,20 @@ const p3 = { x: 0, y: 0 }
  *  nearest who can teach the hero something now). */
 const TRAINERS = new Map<string, ClassId | undefined>()
 for (const t of Object.values(TOWNS)) for (const n of t.npcs) if (n.role === 'trainer') TRAINERS.set(n.id, n.cls)
+
+/** The walked way from the hero to `to` into `wayWorld`, found again a few
+ *  times a second (both may move). */
+const findWay = (sim: Sim, u: Unit, to: Unit, dt: number): void => {
+  wayAge += dt
+  if (wayAge <= 0.4 && wayTo === to.id) return
+  wayAge = 0
+  wayTo = to.id
+  wayWorld.length = 0
+  if (nearestOpen(sim.grid, to.x, to.z + 0.9, wayOpen) && findPath(sim.grid, u.x, u.z, wayOpen[0], wayOpen[1], wayScratch) > 0) {
+    wayScratch.length = smoothPath(sim.grid, u.x, u.z, wayScratch)
+    for (const v of wayScratch) wayWorld.push(v)
+  }
+}
 
 class Coach {
   private flashes: Record<string, number> = {}
@@ -226,6 +242,7 @@ class Coach {
     const h = sim.hero
     const u = h.unit
     for (const k in hintGeo) hintGeo[k as LessonId].on = false
+    hintPath.lead = false
     // The hero is being chosen over the opening scene: no glyph, no clock.
     if (heroChoice.open) { this.idleT = 0; nudgeWorld.has = false; this.publish([]); return }
     // The chest the counter by Leave asked for (it is asked after the win).
@@ -322,16 +339,7 @@ class Coach {
         if (hintTalk.look !== t.kind) hintTalk.look = t.kind
         // The walked way: found again a few times a second (the hero and the
         // trainer both move), projected every frame.
-        wayAge += dt
-        if (wayAge > 0.4 || wayTo !== t.id) {
-          wayAge = 0
-          wayTo = t.id
-          wayWorld.length = 0
-          if (nearestOpen(sim.grid, t.x, t.z + 0.9, wayOpen) && findPath(sim.grid, u.x, u.z, wayOpen[0], wayOpen[1], wayScratch) > 0) {
-            wayScratch.length = smoothPath(sim.grid, u.x, u.z, wayScratch)
-            for (const v of wayScratch) wayWorld.push(v)
-          }
-        }
+        findWay(sim, u, t, dt)
         const pts = hintPath.pts
         let n = 0
         pts[n * 2] = p0.x; pts[n * 2 + 1] = p0.y; n++
@@ -359,6 +367,13 @@ class Coach {
       host.project(tx, 0.05, tz, p1)
       Object.assign(hintGeo.move, { x1: p1.x, y1: p1.y, on: true })
       want.push('move')
+    }
+
+    // The opening fight (#155): out of a fight, once the dummy has had its
+    // turn, the chevrons lead up the road to the boss.
+    if (host.setup.kind === 'zone' && host.setup.tutorial && !foe && !dummy) {
+      const boss = openingBoss(sim)
+      if (boss && !boss.awake) { findWay(sim, u, boss, dt); hintPath.lead = wayWorld.length > 0 }
     }
 
     // Two at a time, most urgent first.

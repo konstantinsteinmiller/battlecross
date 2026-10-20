@@ -13,9 +13,11 @@ import type { TownPlan } from './town'
 import { placeHerbs, placePieces, placeTreasure, type HerbPlan, type PiecePlan } from './herbs'
 import { placeOres, type OrePlan } from './ores'
 import { placeCage } from './cages'
+import { CAMP_ROOM, carveCamp, dressCamp, type CampPlan } from './camp'
 import { LAID_SHAPES, carveDisc, carveLine, carveRect, layOut, layoutHeight, wallFace, type Chamber, type Fixture, type Guide, type Laid } from './layouts'
 import { dressPlace, makeDresser, type DressPlan } from './dressing'
 import { widenWays, type Target } from './widen'
+import { INVASION } from '../data/invasion'
 
 /**
  * ─── Zone layouts ────────────────────────────────────────────────────────────
@@ -138,6 +140,8 @@ export interface ZonePlan {
   cageKey?: { x: number; z: number }
   /** The treasure map's pieces lying here (roadmap #89). */
   pieces?: PiecePlan[]
+  /** The first visit's camp of rescued teachers past the finale (roadmap #156); its cage is a chest. */
+  camp?: CampPlan
   /** An escort (roadmap #85): the caravan's road, x, z pairs from start to end. */
   caravan?: { path: number[] }
   /** A field's standing crop (the field layout, #103): 1 where wheat grows.
@@ -147,6 +151,8 @@ export interface ZonePlan {
   dressing?: DressPlan[]
   /** Rock that is a built wall (#120): 1 dressed stone, 2 a crumbling ruin. */
   masonry?: Uint8Array
+  /** An invaded zone (the afterplay, `sim/invasion.ts`): a demon pylon in each section. */
+  pylons?: Array<{ x: number; z: number }>
 }
 
 /** The main chain's width (cells): the road wanders inside it. */
@@ -154,6 +160,7 @@ const W = 40
 /** The streams a layout and its set pieces draw from (#120). */
 const LAYOUT_SALT = 0x2c71e3b5
 const DRESS_SALT = 0x4d17a9c3
+const PYLON_SALT = 0x71c3a5e9
 /** Rock either side of the chain where the branches run (roadmap #70): the
  *  chain is laid exactly as in a 40-wide zone, then set this far in. */
 export const BRANCH_MARGIN = 10
@@ -278,7 +285,8 @@ export const generateZone = (def: ZoneDef, seed: number, o: ZoneGenOpts = {}): Z
   const step = 11
   // The place's own layout (#103, #120); the first visit and a bare chain are always the chain.
   const shape: ZoneShape = o.tutorial || o.bare ? 'chain' : ZONE_SHAPE[def.id] ?? 'chain'
-  const h = layoutHeight(shape, n, boss)
+  // The first visit has room above its finale for the rescued teachers' camp (#156).
+  const h = layoutHeight(shape, n, boss) + (o.tutorial && !o.bare ? CAMP_ROOM : 0)
   // A zone with branches has rock either side of its chain for them to run
   // through; the tutorial's single road and the bare chain do not.
   const M = o.tutorial || o.bare || o.branches === false ? 0 : BRANCH_MARGIN
@@ -394,6 +402,10 @@ export const generateZone = (def: ZoneDef, seed: number, o: ZoneGenOpts = {}): Z
   }
   // The temple's chambers stand in crumbling walls.
   if (shape === 'rooms') for (const k of wallFace(solid, Wd, h, chambers)) masonry[k] = 2
+  // The first visit's chain keeps the edge it had before the camp's rows were
+  // added above it (#156): the boss's floor is the floor the opening fight was
+  // tuned on; only the camp's own way opens it up (`carveCamp`).
+  if (h !== layoutHeight(shape, n, boss)) solid.fill(1, 0, (CAMP_ROOM + 2) * Wd)
 
   // A side pocket for a secret chest, off one of the middle clearings.
   let secret: { x: number; z: number } | null = null
@@ -530,6 +542,9 @@ export const generateZone = (def: ZoneDef, seed: number, o: ZoneGenOpts = {}): Z
   const features = addFeatures({ def, seed, w: Wd, h, solid, trail, kind, cave, sealed, side, cs, chest, secret, secretSlot, tutorial: !!o.tutorial, bare: !!o.bare, branches: M > 0, ...(laid?.loopSites.length ? { loopSites: laid.loopSites } : {}) })
   if (lake) features.ponds.push(lake)
   if (laid) features.crossings.unshift(...laid.crossings)
+  // The first visit's camp (#156): cut out above the finale, its cage a chest.
+  const campCut = o.tutorial && !o.bare ? carveCamp({ w: Wd, h, solid, trail, kind, sealed, fin: cs[n]! }) : null
+  if (campCut) features.chests.push({ id: features.chests.length, ...campCut.chest })
   // The place's set pieces (#120), on their own stream, before the relief
   // (each blocking one stands on a level pad) and before the herbs and the
   // ore (which keep off them). Clear of every place one goes to.
@@ -552,7 +567,9 @@ export const generateZone = (def: ZoneDef, seed: number, o: ZoneGenOpts = {}): Z
     }
   }
   const dresser = makeDresser({ w: Wd, h, solid, trail, kind, sealed, side, start: { i: cs[0]!.i, j: cs[0]!.j }, keep, chests: features.chests })
-  if (!o.tutorial && !o.bare) dressPlace(dresser, { shape, rng: mulberry32((seed ^ DRESS_SALT) >>> 0), w: Wd, kind, cs, chambers, fixtures })
+  const invasion = def.invaded ? { ruins: INVASION[def.id].ruins, scars: INVASION[def.id].scars } : undefined
+  if (!o.tutorial && !o.bare) dressPlace(dresser, { shape, rng: mulberry32((seed ^ DRESS_SALT) >>> 0), w: Wd, kind, cs, chambers, fixtures, ...(invasion ? { invasion } : {}) })
+  const camp = campCut ? dressCamp(dresser, { w: Wd, solid, kind, ...campCut }) : null
   for (const k of secretCells) masonry[k] = 0
   // The secret's pocket is a side place too: it lies a little above its clearing.
   const lobes = features.lobes.slice()
@@ -590,7 +607,9 @@ export const generateZone = (def: ZoneDef, seed: number, o: ZoneGenOpts = {}): Z
   // A way two cells across from the start to every place one goes to, cut
   // through the rock where the layout left only a gap (`widen.ts`).
   // It runs before the relief is raised: a cliff it turns to ramp is ramp in the ground too.
-  widenWays({ w: Wd, h, solid, kind, sealed, masonry, doors: features.doors, pieces: dresser.pieces, crossings: features.crossings, anchored: ores.map(q => Math.floor(q.z / CELL) * Wd + Math.floor(q.x / CELL)) }, start, waysTo({ ...features, packs, herbs, pieces, ores, ...(cage ? { cageKey: cage.key } : {}) }))
+  const cageKey = cage?.key ?? campCut?.key
+  widenWays({ w: Wd, h, solid, kind, sealed, masonry, doors: features.doors, pieces: dresser.pieces, crossings: features.crossings, anchored: ores.map(q => Math.floor(q.z / CELL) * Wd + Math.floor(q.x / CELL)) }, start,
+    [...waysTo({ ...features, packs, herbs, pieces, ores, ...(cageKey ? { cageKey } : {}) }), ...(camp ? camp.spots : [])])
   const height = buildRelief({
     seed, w: Wd, h, kind, trail, cs, lobes, ledges: features.ledges, dais: features.dais, rivers: features.rivers, crossings: features.crossings,
     relief: ZONE_RELIEF[def.id], tutorial: !!o.tutorial, guides
@@ -621,7 +640,18 @@ export const generateZone = (def: ZoneDef, seed: number, o: ZoneGenOpts = {}): Z
     }
   }
   const anyWall = masonry.some(v => v > 0)
+  // An invaded zone's demon pylons (afterplay §3), last of all and on their
+  // own stream: one in each section the hero fights through, on open ground
+  // clear of everything else that stands or lies there.
+  const pylons = def.invaded && !o.tutorial && !o.bare
+    ? placePylons({ w: Wd, h, solid, trail: road, kind, sealed, cave, side, cs, packs },
+      [...features.chests.flatMap(c => [{ x: c.x, z: c.z }, { x: c.sx, z: c.sz }]), ...features.plates, ...(features.puzzle ? [features.puzzle.hint] : []),
+        ...features.caves.map(c => c.mouth), ...features.signs, ...features.forks, ...herbs, ...pieces, ...ores, ...ores.map(q => ({ x: q.sx, z: q.sz })),
+        ...(x ? [x] : []), ...(cage ? [cage.key] : []), ...dresser.pieces],
+      mulberry32((seed ^ PYLON_SALT) >>> 0))
+    : []
   return {
+    ...(pylons.length ? { pylons } : {}),
     ...(crop ? { crop } : {}),
     ...(dresser.pieces.length ? { dressing: dresser.pieces } : {}),
     ...(anyWall ? { masonry } : {}),
@@ -636,11 +666,53 @@ export const generateZone = (def: ZoneDef, seed: number, o: ZoneGenOpts = {}): Z
     gates: [],
     herbs,
     ores,
-    ...(cage ? { cageKey: cage.key } : {}),
+    ...(cageKey ? { cageKey } : {}),
+    ...(camp ? { camp } : {}),
     pieces,
     // The first visit opens on a calm beat: a dummy to learn to fight on.
     ...(o.tutorial ? { dummy: placeDummy(solid, h, cs, features.chests, packs[0]!) } : {})
   }
+}
+
+/** Metres a pylon keeps from anything else on the ground, and from its pack's middle. */
+const PYLON_CLEAR = 2.2
+const PYLON_PACK = 3
+
+/** One demon pylon per section: the open cell, 3 × 3 of flat ground round it, nearest the clearing's ring. */
+const placePylons = (
+  p: { w: number; h: number; solid: Uint8Array; trail: Uint8Array; kind: Uint8Array; sealed: Uint8Array; cave: Uint8Array; side: Uint8Array; cs: ReadonlyArray<{ i: number; j: number; r: number }>; packs: readonly PackPlan[] },
+  avoid: ReadonlyArray<{ x: number; z: number }>, rng: Rng
+): Array<{ x: number; z: number }> => {
+  const { w, h, solid, trail, kind, sealed, cave, side, cs, packs } = p
+  const out: Array<{ x: number; z: number }> = []
+  const open = (i: number, j: number): boolean => {
+    if (i < 3 || j < 3 || i >= w - 3 || j >= h - 3) return false
+    for (let dj = -1; dj <= 1; dj++) for (let di = -1; di <= 1; di++) {
+      const k = (j + dj) * w + i + di
+      if (solid[k] || kind[k] !== K_GROUND || sealed[k] || cave[k] || side[k]) return false
+    }
+    return !trail[j * w + i]
+  }
+  for (let k = 1; k < cs.length - 1; k++) {
+    const c = cs[k]!
+    const pack = packs[k - 1]
+    const a0 = rng() * Math.PI * 2
+    let best: { x: number; z: number } | null = null
+    for (let t = 0; t < 120 && !best; t++) {
+      const a = a0 + t * 2.399
+      const r = c.r * (0.3 + (t % 8) * 0.1)
+      const i = Math.round(c.i + Math.cos(a) * r)
+      const j = Math.round(c.j + Math.sin(a) * r)
+      if (!open(i, j)) continue
+      const x = (i + 0.5) * CELL
+      const z = (j + 0.5) * CELL
+      if (pack && Math.hypot(pack.x - x, pack.z - z) < PYLON_PACK) continue
+      if ([...avoid, ...out].some(q => Math.hypot(q.x - x, q.z - z) < PYLON_CLEAR)) continue
+      best = { x, z }
+    }
+    if (best) out.push(best)
+  }
+  return out
 }
 
 /**

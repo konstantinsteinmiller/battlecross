@@ -196,23 +196,58 @@ describe('z-fighting: every static model', () => {
     const { setGround } = await import('@/game/gfx/ground')
     const { Sim } = await import('@/game/sim/world')
     const { applyPlan, populateZone } = await import('@/game/sim/director')
+    const { invadedZone } = await import('@/game/data/invasion')
+    const { armInvasion } = await import('@/game/sim/invasion')
     const bad: string[] = []
     for (const z of ['plains', 'hollows', 'woods', 'outskirts', 'crags', 'mines', 'tundra', 'temple', 'citadel', 'peak', 'fortress', 'rift'] as const) {
-      for (const seed of [3, 11]) {
-        const plan = generateZone(ZONES[z], seed)
+      // Two visits, and the afterplay's invaded self: its ruins, scars and pylons;
+      // and the plains' first visit, its camp of rescued teachers (#156).
+      for (const [seed, inv, first] of [[3, false, false], [11, false, false], [3, true, false], [3, false, true]] as const) {
+        if (first && z !== 'plains') continue
+        const plan = first ? generateZone(ZONES[z], seed, { tutorial: true, openingPack: 2 }) : generateZone(inv ? invadedZone(z) : ZONES[z], seed)
         setGround({ w: plan.w, h: plan.h, height: plan.height })
         const scene = new Scene()
         const terrain = await buildTerrain(plan, ZONES[z].theme, scene, async () => {})
         const sim = new Sim({ seed, w: plan.w, h: plan.h, level: 5, difficulty: 1, mode: 'zone', zone: z })
         applyPlan(sim, plan)
+        if (inv) armInvasion(sim)
         populateZone(sim, plan, z, [])
         await new LevelProps(sim, new Vfx(scene), terrain.theme).build(plan, scene)
         const f = fights(trisOfScene(scene, [], 300))
-        if (f.length) bad.push(`${z}#${seed}: ${f.join(' | ')}`)
+        if (f.length) bad.push(`${z}${inv ? ' invaded' : first ? ' first visit' : ''}#${seed}: ${f.join(' | ')}`)
       }
     }
     expect(bad).toEqual([])
   }, 300_000)
+
+  it('the siege\'s field as built (afterplay §8): its ground and walls, the gate, bell, platforms and stands, every defence up and a ram', async () => {
+    const { generateSiege } = await import('@/game/sim/siegeMap')
+    const { ZONES } = await import('@/game/data/zones')
+    const { buildTerrain } = await import('@/game/gfx/terrain')
+    const { SiegeProps } = await import('@/game/gfx/siegeProps')
+    const { Vfx } = await import('@/game/gfx/vfx')
+    const { setGround } = await import('@/game/gfx/ground')
+    const { Sim } = await import('@/game/sim/world')
+    const { applyPlan } = await import('@/game/sim/director')
+    const { createHero } = await import('@/game/sim/hero')
+    const { armSiege, buildDefence } = await import('@/game/sim/siege')
+    const { startAttrs } = await import('@/game/data/attributes')
+    const { noGear } = await import('@/game/data/items')
+    const plan = generateSiege(5)
+    setGround({ w: plan.w, h: plan.h, height: plan.height })
+    const scene = new Scene()
+    await buildTerrain(plan, ZONES.outskirts.theme, scene, async () => {})
+    const sim = new Sim({ seed: 5, w: plan.w, h: plan.h, level: 40, difficulty: 1, mode: 'arena', zone: 'siege' })
+    applyPlan(sim, plan)
+    createHero(sim, { build: { level: 40, attrs: startAttrs(), equipped: noGear(), passives: [] }, skills: [], x: plan.start.x, z: plan.start.z, xpInto: 0, potions: 0 })
+    const s = armSiege(sim, { tier: 'normal', cap: 28, commander: { look: 'captain', voice: 'hale' } })
+    s.marks = 99
+    for (let k = 0; k < 3; k++) { buildDefence(sim, 'ballista'); buildDefence(sim, 'cauldron') }
+    const props = new SiegeProps(sim, new Vfx(scene))
+    props.build(scene)
+    props.update(0.016)
+    expect(fights(trisOfScene(scene, [], 300))).toEqual([])
+  }, 120_000)
 
   it('every rig, its layered clothing included', async () => {
     const { buildHumanoid } = await import('@/game/gfx/rigs/humanoid')
