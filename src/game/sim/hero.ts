@@ -1,4 +1,5 @@
 import { statPower } from '../data/attributes'
+import { rankCd } from '../data/progression'
 import { ACTIVE_SLOTS, HEAT_DECAY, SKILL_BY_ID, type SkillDef } from '../data/skills'
 import { MANA_POTION, POTION_HEAL } from '../data/loot'
 import { ELIXIRS, ELIXIR_BY_ID, ELIXIR_TIME, isElixir } from '../data/elixirs'
@@ -300,7 +301,7 @@ const beginCast = (sim: Sim, slot: number, def: SkillDef, target: Unit | null, x
   // Paid up front: a cast that is interrupted is still spent.
   u.mana -= manaCostOf(u, def)
   if (def.hpCost) u.hp = Math.max(1, u.hp - u.hp * (def.hpCost / 100))
-  const cd = def.cd * (1 - cdrOf(u))
+  const cd = def.cd * rankCd(h.build.ranks?.[def.id] ?? 1) * (1 - cdrOf(u))
   h.cd[slot] = cd
   h.cdMax[slot] = Math.max(0.1, cd)
   if (def.heat) addHeat(sim, h, def.heat)

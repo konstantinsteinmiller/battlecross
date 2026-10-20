@@ -85,7 +85,7 @@ const lendHero = (): (() => void) => {
     xp: 0, attrs: { ...ref.build.attrs }, points: 0, pointsSeen: 0,
     learned: SKILLS.map(s => s.id), active,
     passive: Array.from({ length: PASSIVE_SLOTS }, (_, i) => ref.build.passives[i] ?? ''),
-    gender: kept.hero.gender
+    gender: kept.hero.gender, ranks: {}
   }
   profile.inv = {
     ...kept.inv,

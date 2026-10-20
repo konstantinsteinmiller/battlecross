@@ -21,7 +21,7 @@
       div.sheet__id
         span.sheet__lvl {{ t('hud.level', { n: profile.level }) }}
         FBar.sheet__xpbar(:value="xp01()" tone="xp" frame="xp" :label="t('hud.xp')")
-        span.sheet__xp(v-if="profile.level < MAX_LEVEL") {{ fmt(profile.hero.xp) }} / {{ fmt(xpToNext(profile.level)) }} {{ t('hud.xp') }}
+        span.sheet__xp(v-if="profile.level < heroLevelCap()") {{ fmt(profile.hero.xp) }} / {{ fmt(xpToNext(profile.level)) }} {{ t('hud.xp') }}
         span.sheet__xp(v-else) {{ t('sheet.maxLevel') }}
       span.sheet__points(v-if="profile.hero.points > 0" :key="profile.hero.points") {{ t('sheet.points', { n: profile.hero.points }) }}
 
@@ -77,8 +77,8 @@
 import { computed, nextTick, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { ATTRS, ATTR_COLOR, type Attr } from '@/game/data/attributes'
-import { MAX_LEVEL, xpToNext } from '@/game/data/progression'
-import { computeStats, profile, setHeroGender, spendPoint, totalAttrs, xp01 } from '@/game/state/profile'
+import { xpToNext } from '@/game/data/progression'
+import { computeStats, heroLevelCap, profile, setHeroGender, spendPoint, totalAttrs, xp01 } from '@/game/state/profile'
 import { HERO_GENDERS, heroOutfit, heroPortraitId, type HeroGender } from '@/game/art/heroPortrait'
 import { sfx } from '@/game/audio/sfx'
 import { fmt, fmt2 } from '@/utils/format'

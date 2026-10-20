@@ -7,6 +7,7 @@ import { fillGrid, generateArena, generateEncounter, generateZone, type ZonePlan
 import { generateTown } from '@/game/sim/townGen'
 import { DRESS_FOOT, DRESS_ROLE, type DressKind } from '@/game/sim/dressing'
 import { TOWNS, ZONES, ZONE_IDS, type ThemeId } from '@/game/data/zones'
+import { invadedZone } from '@/game/data/invasion'
 import { THEMES, bodyPoints, fitPlace, layTerrainProps } from '@/game/gfx/terrain'
 import { BODY_H, GROUND_H, SCENERY_ROLE, SOLID_TOL, TOWN_PROP_ROLE, type SceneryKind } from '@/game/gfx/propRoles'
 import { footOf, footPoints, spillOf } from '@/game/gfx/footprint'
@@ -45,6 +46,11 @@ const cases = function * (): Generator<Case> {
       yield { name: `${id}#${seed}`, theme: def.theme, plan: generateZone(def, seed, { cage: odd, treasure: !odd, pieces: odd ? ['a', 'b'] : [], ambush: odd ? def.kinds[0]!.kind : null }) }
     }
     yield { name: `${id} first visit`, theme: def.theme, plan: generateZone(def, 3, { tutorial: true, openingPack: 2 }) }
+    // The afterplay's invaded self (`data/invasion.ts`): its ruins and scars on the same ground.
+    for (const seed of SEEDS.slice(0, 2)) {
+      const odd = seed % 2 === 1
+      yield { name: `${id} invaded#${seed}`, theme: def.theme, plan: generateZone(invadedZone(id), seed, { cage: odd, treasure: !odd }) }
+    }
   }
   for (const seed of SEEDS.slice(0, 3)) {
     yield { name: `encounter#${seed}`, theme: 'plains', plan: generateEncounter([['goblin'], ['goblin', 'goblin']], seed) }

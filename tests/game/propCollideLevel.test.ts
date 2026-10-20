@@ -3,6 +3,7 @@ import { describe, expect, it } from 'vitest'
 import { BackSide, type BufferGeometry, type InstancedMesh, Matrix4, type Mesh, type Object3D, Scene } from 'three'
 import { generateZone } from '@/game/sim/zoneGen'
 import { ZONES, ZONE_IDS } from '@/game/data/zones'
+import { invadedZone } from '@/game/data/invasion'
 import { DRESS_ROLE } from '@/game/sim/dressing'
 import { LEVEL_PROP_ROLE, SOLID_TOL } from '@/game/gfx/propRoles'
 import { stubCanvas } from './zfightTools'
@@ -56,9 +57,10 @@ describe('level props stand on their colliders', () => {
     let solids = 0
     try {
       for (const z of ZONE_IDS) {
-        for (const seed of [3, 8]) {
+        // Two visits, and the afterplay's invaded self (its burning ruins).
+        for (const [seed, inv] of [[3, false], [8, false], [3, true]] as const) {
           const odd = seed % 2 === 1
-          const plan = generateZone(ZONES[z], seed, { cage: odd, treasure: !odd })
+          const plan = generateZone(inv ? invadedZone(z) : ZONES[z], seed, { cage: odd, treasure: !odd })
           setGround({ w: plan.w, h: plan.h, height: plan.height })
           const scene = new Scene()
           const sim = new Sim({ seed, w: plan.w, h: plan.h, level: 5, difficulty: 1, mode: 'zone', zone: z })
@@ -66,7 +68,7 @@ describe('level props stand on their colliders', () => {
           populateZone(sim, plan, z, [])
           const lp = new LevelProps(sim, new Vfx(scene), THEMES[ZONES[z].theme])
           await lp.build(plan, scene)
-          const at = `${z}#${seed}`
+          const at = `${z}${inv ? ' invaded' : ''}#${seed}`
           for (const t of lp.traced) {
             kinds.add(t.kind)
             // Every piece is one the registry names, with the role it gives.
@@ -95,7 +97,7 @@ describe('level props stand on their colliders', () => {
     }
     expect(solids).toBeGreaterThan(400)
     // The kinds a zone holds were all met (a check that the trace sees them).
-    for (const k of ['chest', 'cage', 'ore', 'doorRocks', 'caveMouth', 'signpost', 'hintStone', 'gateTower', 'pylon']) expect([...kinds], k).toContain(k)
+    for (const k of ['chest', 'cage', 'ore', 'doorRocks', 'caveMouth', 'signpost', 'hintStone', 'gateTower', 'pylon', 'ruin']) expect([...kinds], k).toContain(k)
     expect(bad.slice(0, 30), `${bad.length} level props drawn over walkable ground`).toEqual([])
   }, 120_000)
 })

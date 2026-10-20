@@ -6,7 +6,7 @@ import { SKILLS } from './data/skills'
 import { xpToNext } from './data/progression'
 import { dealDamage } from './sim/combat'
 import { applyStatus } from './sim/combat'
-import { grantXp, profile, saveProfile } from './state/profile'
+import { grantXp, openAfterplay, profile, saveProfile } from './state/profile'
 
 /**
  * Dev cheats. They only fire when cheats are enabled: `localStorage.cheat =
@@ -38,6 +38,10 @@ export const registerGameCheats = (): void => {
     for (const f of ['arenaOpen', 'throneDone']) if (!profile.world.flags.includes(f)) profile.world.flags.push(f)
     for (const s of SKILLS) if (!profile.hero.learned.includes(s.id)) profile.hero.learned.push(s.id)
     for (const i of ITEMS) if (!profile.inv.items.includes(i.id)) profile.inv.items.push(i.id)
+    saveProfile()
+  })
+  registerCheat('ctrl+shift+alt+a', 'open the afterplay (as if the Void Lord fell)', () => {
+    openAfterplay()
     saveProfile()
   })
 }
