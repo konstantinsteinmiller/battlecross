@@ -18,6 +18,7 @@ import { groundDetail } from './textures'
 import { markStill, splitByTile } from './cull'
 import { COVER_TOL, FootIndex, cellSamples, footOf, footPoints, footedDist, spillOf, type Foot } from './footprint'
 import { BODY_H, GROUND_H, SOLID_TOL, type SceneryKind } from './propRoles'
+import { ARENA_PROPS } from '../sim/bosses/kit'
 
 /**
  * ─── The ground and what stands on it ────────────────────────────────────────
@@ -1688,35 +1689,96 @@ export const setZoneFog = (scene: Scene, theme: Theme, camDist: number): void =>
 
 // ─── Temporary walls (Earth Barrier, rubble) ─────────────────────────────────
 
+/**
+ * The parts of each temporary wall's shape, by its `fx` ('' the plain rock
+ * column): what `WallRocks` merges, and what the poke-through and coplanar
+ * audits read. A boss arena's props (`ARENA_PROPS`) keep inside their one
+ * cell (1.5 m) below body height, so what stops a body is what is drawn.
+ */
+export const wallParts = (): Record<string, BufferGeometry[]> => ({
+  '': [P(rcone(0.78, 0.36, 1.9, 0.08, 7), '#b08a5a', [0, 0.95, 0]), P(rock(0.5, 5), '#c79a5a', [0.2, 1.9, 0.1]), P(rock(0.45, 8), '#9a744a', [-0.4, 0.3, 0.3])],
+  rubble: [P(rock(0.7, 3), '#8a7a6a', [0, 0.4, 0]), P(rock(0.5, 12), '#a8988a', [0.4, 0.7, -0.2]), P(rock(0.4, 19), '#6a5c50', [-0.4, 0.3, 0.3])],
+  // The Frost Jarl's ice spike: a cluster of crystals, pale at their tips.
+  ice: [
+    P(rcone(0.42, 0.04, 2.3, 0.03, 6), '#9fd4ff', [0, 1.15, 0]),
+    P(rcone(0.28, 0.03, 1.5, 0.03, 6), '#cfeaff', [0.38, 0.7, 0.1], [0, 0, -0.35]),
+    P(rcone(0.26, 0.03, 1.3, 0.03, 6), '#7fc0f0', [-0.34, 0.6, -0.12], [0.2, 0, 0.4]),
+    P(rcone(0.22, 0.03, 1.0, 0.03, 6), '#e8f6ff', [0.05, 0.48, 0.38], [0.45, 0, 0])
+  ],
+  // The Chimera's clearing: a weathered stone pillar on a round plinth, a mossy capital.
+  pillar: [
+    P(rcyl(0.62, 0.3, 0.06, 12, 2), '#7a7468', [0, 0.15, 0]),
+    P(rcyl(0.44, 2.5, 0.06, 12, 2), '#a8a090', [0, 1.45, 0]),
+    P(rcyl(0.56, 0.3, 0.06, 12, 2), '#8a8478', [0, 2.75, 0]),
+    P(ell(0.4, 0.12, 0.36, 9, 5), '#5a7a3a', [0.08, 2.92, -0.04])
+  ],
+  // The Centaur Warchief's burned field: a farm wagon heaped with hay.
+  wagon: [
+    P(rbox(1.2, 0.3, 0.74, 0.3, 8, 6), '#7a5232', [0, 0.6, 0]),
+    P(rcyl(0.3, 0.08, 0.03, 12, 1), '#4e3420', [0.36, 0.3, 0.45], [Math.PI / 2, 0, 0]),
+    P(rcyl(0.3, 0.08, 0.03, 12, 1), '#4e3420', [-0.36, 0.3, 0.45], [Math.PI / 2, 0, 0]),
+    P(rcyl(0.3, 0.08, 0.03, 12, 1), '#4e3420', [0.36, 0.3, -0.45], [Math.PI / 2, 0, 0]),
+    P(rcyl(0.3, 0.08, 0.03, 12, 1), '#4e3420', [-0.36, 0.3, -0.45], [Math.PI / 2, 0, 0]),
+    P(ell(0.52, 0.34, 0.33, 10, 6), '#e0bc5a', [0, 1.06, 0])
+  ],
+  // The siege's barricade (afterplay §8.2): sharpened stakes crossed over a log, a cell of a lane's width.
+  barricade: [
+    P(rcyl(0.17, 1.3, 0.04, 9, 1), '#6a4a2e', [0, 0.18, 0], [0, 0, Math.PI / 2]),
+    P(rcone(0.09, 0.012, 1.6, 0.01, 7), '#8a6a42', [-0.22, 0.66, 0.1], [0.5, 0, 0.42]),
+    P(rcone(0.09, 0.012, 1.6, 0.01, 7), '#7a5a36', [0.24, 0.66, -0.08], [-0.5, 0, -0.4]),
+    P(rcone(0.08, 0.012, 1.4, 0.01, 7), '#8a6a42', [0.02, 0.62, 0.32], [0.62, 0, -0.1])
+  ],
+  // The Cyclops's mine hall: a timber support post under its cross beam, rocks at its foot.
+  beam: [
+    P(rbox(0.34, 2.8, 0.34, 0.2, 6, 8), '#6a4a2e', [0, 1.4, 0]),
+    P(rbox(1.3, 0.26, 0.42, 0.2, 8, 4), '#5a3e26', [0, 2.9, 0]),
+    P(rock(0.22, 31, 7, 5), '#7a6a5a', [0.42, 0.12, 0.3]),
+    P(rock(0.18, 37, 7, 5), '#6a5c50', [-0.38, 0.1, -0.34])
+  ],
+  // The Leviathan's flooded hall: a low island of wet stone, a tuft of weed on it.
+  isle: [
+    P(rcyl(0.7, 0.5, 0.08, 10, 2), '#5a6a6e', [0, 0.25, 0]),
+    P(rock(0.45, 43, 7, 5), '#7a8a8a', [0.1, 0.6, -0.05]),
+    P(ell(0.3, 0.1, 0.26, 8, 5), '#4a7a5a', [-0.25, 0.52, 0.25])
+  ],
+  // The Hydra's moat: an iron brazier on a pole, its bowl heaped with live coals.
+  brazier: [
+    P(rcyl(0.5, 0.12, 0.03, 10, 1), '#2a2420', [0, 0.06, 0]),
+    P(rcyl(0.11, 0.9, 0.03, 8, 1), '#3a3430', [0, 0.56, 0]),
+    P(rcone(0.3, 0.55, 0.35, 0.04, 10), '#5a4a40', [0, 1.15, 0]),
+    P(ell(0.42, 0.12, 0.42, 9, 5), '#ff7a2a', [0, 1.28, 0])
+  ],
+  // The Elder Dragon's rift: a standing rune stone, its rune set proud of the face, glowing.
+  rune: [
+    P(rbox(0.7, 2, 0.34, 0.08, 6, 8), '#5a5068', [0, 1, 0]),
+    P(rbox(0.12, 0.9, 0.05, 0.02, 2, 4), '#c87aff', [0, 1.2, 0.2])
+  ]
+})
+
 /** A pool of rock columns that rise out of and sink back into the ground. */
 export class WallRocks {
   readonly root = new Group()
   private pool: Array<{ mesh: Mesh; line: Mesh; cell: number; t: number; state: 0 | 1 | 2 }> = []
-  private geo: BufferGeometry | null = null
-  private rubble: BufferGeometry | null = null
-  private ice: BufferGeometry | null = null
+  private shaped: Record<string, BufferGeometry> | null = null
 
-  private shapes(): void {
-    if (this.geo) return
-    // The Frost Jarl's ice spike: a cluster of crystals, pale at their tips.
-    this.ice = merge([
-      P(rcone(0.42, 0.04, 2.3, 0.03, 6), '#9fd4ff', [0, 1.15, 0]),
-      P(rcone(0.28, 0.03, 1.5, 0.03, 6), '#cfeaff', [0.38, 0.7, 0.1], [0, 0, -0.35]),
-      P(rcone(0.26, 0.03, 1.3, 0.03, 6), '#7fc0f0', [-0.34, 0.6, -0.12], [0.2, 0, 0.4]),
-      P(rcone(0.22, 0.03, 1.0, 0.03, 6), '#e8f6ff', [0.05, 0.48, 0.38], [0.45, 0, 0])
-    ])
-    this.geo = merge([P(rcone(0.78, 0.36, 1.9, 0.08, 7), '#b08a5a', [0, 0.95, 0]), P(rock(0.5, 5), '#c79a5a', [0.2, 1.9, 0.1]), P(rock(0.45, 8), '#9a744a', [-0.4, 0.3, 0.3])])
-    this.rubble = merge([P(rock(0.7, 3), '#8a7a6a', [0, 0.4, 0]), P(rock(0.5, 12), '#a8988a', [0.4, 0.7, -0.2]), P(rock(0.4, 19), '#6a5c50', [-0.4, 0.3, 0.3])])
+  private shapes(): Record<string, BufferGeometry> {
+    if (!this.shaped) {
+      const parts = wallParts()
+      this.shaped = {}
+      for (const k in parts) this.shaped[k] = merge(parts[k]!)
+    }
+    return this.shaped
   }
 
   set(cells: number[], gridW: number, on: boolean, fx: string): void {
-    this.shapes()
+    const shapes = this.shapes()
+    const geo = shapes[fx] ?? shapes['']!
     for (const cell of cells) {
       if (on) {
         let r = this.pool.find(p => p.state === 0)
         if (!r) {
-          const mesh = new Mesh(this.geo!, celVC())
-          const line = new Mesh(this.geo!, outlineMat())
+          const mesh = new Mesh(geo, celVC())
+          const line = new Mesh(geo, outlineMat())
           line.renderOrder = -1
           this.root.add(mesh, line)
           r = { mesh, line, cell, t: 0, state: 0 }
@@ -1724,11 +1786,12 @@ export class WallRocks {
         }
         const i = cell % gridW
         const j = (cell - i) / gridW
-        r.mesh.geometry = r.line.geometry = fx === 'rubble' ? this.rubble! : fx === 'ice' ? this.ice! : this.geo!
+        r.mesh.geometry = r.line.geometry = geo
         r.mesh.position.set((i + 0.5) * CELL, groundAt((i + 0.5) * CELL, (j + 0.5) * CELL), (j + 0.5) * CELL)
         r.mesh.rotation.y = (cell * 2.39996) % (Math.PI * 2)
         r.cell = cell
-        r.t = 0
+        // A boss arena's props stand there already when the zone comes in.
+        r.t = ARENA_PROPS.has(fx) ? 1 : 0
         r.state = 1
         r.mesh.visible = r.line.visible = true
       } else {
@@ -1759,9 +1822,8 @@ export class WallRocks {
   }
 
   dispose(): void {
-    this.geo?.dispose()
-    this.rubble?.dispose()
-    this.ice?.dispose()
+    for (const k in this.shaped) this.shaped[k]!.dispose()
+    this.shaped = null
   }
 }
 

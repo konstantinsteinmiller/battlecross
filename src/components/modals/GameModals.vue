@@ -9,9 +9,13 @@
   MemoryGame(v-else-if="flow.modal === 'memory'")
   ItemBattle(v-else-if="flow.modal === 'itemBattle'")
   CupsGame(v-else-if="flow.modal === 'cups'")
+  WhackGame(v-else-if="flow.modal === 'whack'")
+  RingTossGame(v-else-if="flow.modal === 'ring'")
+  ArmWrestleGame(v-else-if="flow.modal === 'arm'")
   ResultsModal(v-else-if="flow.modal === 'results'")
   SecondWindModal(v-else-if="flow.modal === 'secondWind'")
   ContractBoard(v-else-if="flow.modal === 'contracts'")
+  SiegeModal(v-else-if="flow.modal === 'siege'")
   PauseModal(v-else-if="flow.modal === 'pause'" @options="emit('options')")
   HelpModal(v-else-if="flow.modal === 'help'")
   EndingModal(v-else-if="flow.modal === 'ending'")
@@ -38,9 +42,13 @@ const SellOreScreen = defineAsyncComponent(SCREEN_CHUNKS.sellOre)
 const MemoryGame = defineAsyncComponent(SCREEN_CHUNKS.memory)
 const ItemBattle = defineAsyncComponent(SCREEN_CHUNKS.itemBattle)
 const CupsGame = defineAsyncComponent(SCREEN_CHUNKS.cups)
+const WhackGame = defineAsyncComponent(SCREEN_CHUNKS.whack)
+const RingTossGame = defineAsyncComponent(SCREEN_CHUNKS.ring)
+const ArmWrestleGame = defineAsyncComponent(SCREEN_CHUNKS.arm)
 import ResultsModal from './ResultsModal.vue'
 import SecondWindModal from './SecondWindModal.vue'
 import ContractBoard from './ContractBoard.vue'
+import SiegeModal from './SiegeModal.vue'
 import PauseModal from './PauseModal.vue'
 import HelpModal from './HelpModal.vue'
 import EndingModal from './EndingModal.vue'

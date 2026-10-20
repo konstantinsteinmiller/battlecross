@@ -37,7 +37,9 @@ export const TOWN_REGION: Readonly<Record<TownId, readonly ZoneId[]>> = {
   sunford: ['plains', 'hollows', 'woods'],
   oakhaven: ['outskirts', 'woods', 'crags'],
   ironhold: ['mines', 'crags', 'tundra'],
-  silverbridge: ['woods', 'crags', 'mines']
+  silverbridge: ['woods', 'crags', 'mines'],
+  // The afterplay's fort: the road it guards.
+  bastion: ['outskirts', 'crags', 'woods']
 }
 /** What the hero "talks to" at the notice board, and from how near he reads it. */
 export const BOARD = '@board'

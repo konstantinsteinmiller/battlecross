@@ -197,6 +197,16 @@ const DRAW: Record<NodeId, (p: Pen, st: LandmarkState) => string> = {
     p.i('M8 68H92V82H84V80A10 10 0 0 0 64 80V82H60V80A10 10 0 0 0 40 80V82H36V80A10 10 0 0 0 16 80V82H8z') +
     p.i('M14 58v-4M26 58v-4M50 58v-4M74 58v-4M86 58v-4', 2),
 
+  // Bastion Crossing (the afterplay): a squat border fort, two towers, a banner, a fire on the wall.
+  bastion: p =>
+    p.s('M14 82V50h18v32z', '#c9c2d4') + p.s('M11 52h24v-6h-4v3h-4v-3h-4v3h-4v-3h-4v3h-4z', '#aaa2b8', 2) +
+    p.s('M68 82V50h18v32z', '#c9c2d4') + p.s('M65 52h24v-6h-4v3h-4v-3h-4v3h-4v-3h-4v3h-4z', '#aaa2b8', 2) +
+    p.s('M32 82V60h4v-5h6v5h6v-5h6v5h6v-5h4v27z', '#dcd6e2') + p.f('M32 74H68V82H32z', '#aaa2b8') +
+    p.i('M32 82V60h4v-5h6v5h6v-5h6v5h6v-5h4v27') +
+    p.s('M42 82V72a8 8 0 0 1 16 0V82z', '#8f5d36', 2.4) + p.i('M50 64V82', 1.8) +
+    p.s('M20 60h6v8h-6zM74 60h6v8h-6z', '#ffe45e', 1.8) +
+    flag(p, 23, 26, 20, '#3fa4ff', 12) + flag(p, 77, 26, 20, '#ff5a4f', 12) + flame(p, 50, 52, 0.8),
+
   // Spires of ice over the frozen waste.
   tundra: p =>
     p.s('M14 82L25 46L33 55L38 82z', '#bfe6ff') + p.f('M25 46L33 55L38 82H31z', '#7fc0f0') + p.i('M14 82L25 46L33 55L38 82') +

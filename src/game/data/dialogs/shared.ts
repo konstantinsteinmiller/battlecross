@@ -21,7 +21,8 @@ export const HERO = {
   ready: 'dlg.hero.ready',
   ore: 'dlg.hero.ore',
   learnSmith: 'dlg.hero.learnSmith',
-  forge: 'dlg.hero.forge'
+  forge: 'dlg.hero.forge',
+  siege: 'dlg.hero.siege'
 } as const
 
 /** "Can I see what you've got?" → the answer, then the shop. */
@@ -41,7 +42,7 @@ export const brew = (over: Partial<TopicSpec> = {}): TopicSpec =>
   ({ id: 'brew', say: HERO.brew, once: false, icon: 'brew', fx: [{ t: 'open', window: 'alchemy' }], ...over })
 
 /** "Deal me in." → the answer, then the gambler's table (#91, #92). */
-export const play = (window: 'memory' | 'itemBattle' | 'cups', over: Partial<TopicSpec> = {}): TopicSpec =>
+export const play = (window: 'memory' | 'itemBattle' | 'cups' | 'whack' | 'ring' | 'arm', over: Partial<TopicSpec> = {}): TopicSpec =>
   ({ id: 'play', say: HERO.play, once: false, icon: 'buy', fx: [{ t: 'open', window }], ...over })
 
 /** The offer a healer's mana potion is (`DialogHost.offer`). */

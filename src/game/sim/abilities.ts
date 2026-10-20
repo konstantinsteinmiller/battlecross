@@ -117,7 +117,8 @@ const BARRAGE_WARN = 0.95
 
 const strike = (sim: Sim, u: Unit, a: AbilityDef, t: Unit, mul = 1): void => {
   // A charged blow is a share of the target's health, not of the attacker's hit (#147).
-  const base = a.pct ? t.s.maxHp * a.pct * mul : u.s.baseDmg * (a.dmg ?? 1) * mul
+  // A structure (the siege's gate, a ballista) is not a fighter: it takes the plain heavy blow.
+  const base = a.pct && t.rank !== 'turret' ? t.s.maxHp * a.pct * mul : u.s.baseDmg * (a.dmg ?? 1) * mul
   const dealt = dealDamage(sim, u, t, base, { type: a.type ?? 'physical', heavy: true, canCrit: false })
   if (dealt > 0 && a.status && t.alive) {
     const v = a.status.id === 'burn' || a.status.id === 'poison' || a.status.id === 'bleed' ? u.s.baseDmg * a.status.v : a.status.v
@@ -305,4 +306,15 @@ export const resolveAbility = (sim: Sim, u: Unit, act: Action): void => {
   if ((a.kind === 'smash' || a.kind === 'lob') && a.fx === 'venom') {
     addField(sim, { fx: 'venom', kind: 'poison', src: u, x: act.x, z: act.z, r: r * 0.8, dur: 4, every: 0.5, dmg: u.s.baseDmg * 0.18, type: 'poison', color })
   }
+  // A hellhound's landing scorches (or freezes) the ground for a moment.
+  if (a.patch === 'fire') addField(sim, { fx: 'burning', kind: 'burnGround', src: u, x: u.x, z: u.z, r: r * 0.8, dur: 3, every: 0.5, dmg: u.s.baseDmg * 0.15, type: 'fire', v: u.s.baseDmg * 0.1, color })
+  else if (a.patch === 'frost') addField(sim, { fx: 'frost', kind: 'web', src: u, x: u.x, z: u.z, r: r * 0.8, dur: 3, every: 0.5, dmg: u.s.baseDmg * 0.08, type: 'frost', color })
+  // A blow that throws the caster off balance (the cyclops brute): it reels, open to harder hits.
+  if (a.daze) {
+    applyStatus(sim, u, 'stun', a.daze, 1, u)
+    applyStatus(sim, u, 'vulnerable', a.daze, DAZE_VULNERABLE, u)
+  }
 }
+
+/** How much more a dazed caster takes (`AbilityDef.daze`). */
+export const DAZE_VULNERABLE = 0.5

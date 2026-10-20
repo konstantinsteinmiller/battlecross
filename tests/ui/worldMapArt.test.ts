@@ -65,16 +65,18 @@ describe('the places on the sheet', () => {
     }
   })
 
-  it('the travel graph: seventeen places (the big town, #86), the same links, the same gates', () => {
-    expect(MAP.map(n => n.id)).toEqual(['sunford', 'plains', 'hollows', 'arena', 'woods', 'silverbridge', 'outskirts', 'oakhaven', 'crags', 'mines', 'ironhold', 'tundra', 'temple', 'citadel', 'peak', 'fortress', 'rift'])
+  it('the travel graph: eighteen places (the big town, #86; the afterplay fort), the same links, the same gates', () => {
+    expect(MAP.map(n => n.id)).toEqual(['sunford', 'plains', 'hollows', 'arena', 'woods', 'silverbridge', 'outskirts', 'oakhaven', 'bastion', 'crags', 'mines', 'ironhold', 'tundra', 'temple', 'citadel', 'peak', 'fortress', 'rift'])
     const links = Object.fromEntries(MAP.map(n => [n.id, [...n.links].sort().join(',')]))
     expect(links).toEqual({
       sunford: 'arena,plains', plains: 'hollows,sunford,woods', hollows: 'arena,plains', arena: 'hollows,sunford', woods: 'crags,outskirts,plains,silverbridge', silverbridge: 'woods',
-      outskirts: 'oakhaven,woods', oakhaven: 'outskirts', crags: 'mines,tundra,woods', mines: 'crags,ironhold', ironhold: 'mines',
+      outskirts: 'bastion,oakhaven,woods', oakhaven: 'outskirts', bastion: 'crags,outskirts', crags: 'bastion,mines,tundra,woods', mines: 'crags,ironhold', ironhold: 'mines',
       tundra: 'citadel,crags,temple', temple: 'citadel,tundra', citadel: 'fortress,peak,temple,tundra', peak: 'citadel,fortress', fortress: 'citadel,peak,rift', rift: 'fortress'
     })
     expect(NODE_BY_ID.arena!.needs).toEqual(['arenaOpen'])
     expect(NODE_BY_ID.rift!.needs).toEqual(['throneDone'])
+    // The fort is on the map once Scout Wren has told of it (the afterplay's B1).
+    expect(NODE_BY_ID.bastion!.needs).toEqual(['brk1'])
   })
 })
 
@@ -83,7 +85,7 @@ describe('the roads', () => {
     const keys = new Set<string>()
     for (const n of MAP) for (const l of n.links) keys.add(roadKey(n.id, l))
     expect(ROADS.map(r => r.key).sort()).toEqual([...keys].sort())
-    expect(ROADS).toHaveLength(19)
+    expect(ROADS).toHaveLength(21)
     for (const r of ROADS) {
       expect(r.line[0], r.key).toEqual(nodeAt(r.a))
       const end = r.line.at(-1)!
