@@ -1,6 +1,8 @@
 import { ENEMY_BY_ID } from './enemies'
+import type { SiegeTier } from './siege'
 import type { ZoneId } from './items'
-import { NODE_BY_ID, ZONES, ZONE_FEATURES, visitLevel, type NodeId } from './zones'
+import { NODE_BY_ID, ZONES, ZONE_FEATURES, visitLevel, type NodeId, type ZoneDef } from './zones'
+import { zoneOf } from './invasion'
 
 /**
  * ─── Random encounters on the world map (roadmap #67) ────────────────────────
@@ -29,12 +31,16 @@ export interface EncounterSpec {
   packs: string[][]
   /** The caravan on the road to Oakhaven (#85): guard it to the end. */
   escort?: boolean
+  /** Met in the afterplay: the region's invaded roster and band (`data/invasion.ts`). */
+  invaded?: boolean
+  /** The Siege of Bastion (afterplay §8): fought at the fort's gate, not in the region. */
+  siege?: { tier: SiegeTier; story: boolean; rotation: number }
 }
 
 /** Whose land a place's surroundings are: a town's and the colosseum's
  *  wilds are those of the zone next door. */
 export const ENCOUNTER_REGION: Readonly<Record<NodeId, ZoneId>> = {
-  sunford: 'plains', arena: 'plains', oakhaven: 'outskirts', ironhold: 'mines', silverbridge: 'woods',
+  sunford: 'plains', arena: 'plains', oakhaven: 'outskirts', ironhold: 'mines', silverbridge: 'woods', bastion: 'outskirts',
   plains: 'plains', hollows: 'hollows', woods: 'woods', outskirts: 'outskirts', crags: 'crags', mines: 'mines',
   tundra: 'tundra', temple: 'temple', citadel: 'citadel', peak: 'peak', fortress: 'fortress', rift: 'rift'
 }
@@ -55,8 +61,8 @@ const rngOf = (seed: number): (() => number) => {
 }
 
 /** The region's ordinary enemies (no elites, no bosses), with their weights. */
-const plainKinds = (zone: ZoneId): Array<{ kind: string; w: number }> => {
-  const all = ZONES[zone].kinds
+const plainKinds = (zone: ZoneId, def: ZoneDef = ZONES[zone]): Array<{ kind: string; w: number }> => {
+  const all = def.kinds
   const plain = all.filter(k => { const r = ENEMY_BY_ID[k.kind]?.rank; return r !== 'elite' && r !== 'boss' })
   return plain.length ? plain : all
 }
@@ -70,9 +76,9 @@ const weighted = (rng: () => number, kinds: Array<{ kind: string; w: number }>):
 }
 
 /** What is met: deterministic from the seed. */
-export const rollEncounter = (zone: ZoneId, heroLevel: number, seed: number): EncounterSpec => {
+export const rollEncounter = (zone: ZoneId, heroLevel: number, seed: number, invaded = false): EncounterSpec => {
   const rng = rngOf(seed)
-  const def = ZONES[zone]
+  const def = zoneOf(zone, invaded)
   const level = visitLevel(def, heroLevel)
   let r = rng() * 100
   let kind: EncounterKind = 'fight'
@@ -89,14 +95,14 @@ export const rollEncounter = (zone: ZoneId, heroLevel: number, seed: number): En
       const lo = Math.max(2, def.pack[0] - 1)
       const hi = Math.max(lo, two ? def.pack[0] : def.pack[1] - 1)
       const size = lo + Math.floor(rng() * (hi - lo + 1))
-      const kinds = plainKinds(zone)
+      const kinds = plainKinds(zone, def)
       packs.push(Array.from({ length: size }, () => weighted(rng, kinds)))
     }
   } else if (kind === 'elite') {
     // A lone champion of the region.
-    packs.push([ZONE_FEATURES[zone].championKind])
+    packs.push([def.champion ?? ZONE_FEATURES[zone].championKind])
   }
-  return { kind, zone, level, seed, packs }
+  return { kind, zone, level, seed, packs, ...(invaded ? { invaded } : {}) }
 }
 
 /** The ambushes on the caravan's road (#85): three packs of the region's own. */

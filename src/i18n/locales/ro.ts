@@ -1,5 +1,170 @@
 // Romanian (ro) bundle — mirrors en.ts.
 export default {
+  // ─── Afterplay phase 8: items, materials and capstones ───
+  // ─── Afterplay phase 10: the prestige classes ───
+  'prestige': { 'toast': { 'wanderer': "Un pribeag misterios așteaptă la fort." } },
+  'relic': {
+    'infernal': "{name} · Infernal",
+    'set': "Purtat cu {item}:",
+    'heroicBadge': "Eroic {n}",
+    'heroic': "Eroic {n}: {gold} aur, {glass} sticlă demonică",
+    'heroicIchor': "Eroic {n}: {gold} aur, {glass} sticlă demonică, {ichor} ihor",
+    'heroicMax': "Toate rangurile eroice sunt luate.",
+    'infernalForge': "Forjă infernală: {gold} aur, {glass} sticlă demonică",
+    'lens': "Lentila Oracolului: aici așteaptă {boss}.",
+    'hydraKey': "Sigilat. Cheia de foc a Hidrei deschide inima Rupturii.",
+    'marksGlass': "Cumpără {glass} sticlă demonică pentru {marks} mărci",
+    'capstone': "Apogeu",
+    'fortOnly': "Acest apogeu se predă doar la Vadul Bastionului."
+  },
+  // ─── The fort's fair games (afterplay §9) ───
+  'fair': {
+    'fee': "Joacă · {n}",
+    'again': "Joacă din nou",
+    'noGold': "Nu ai destul aur.",
+    'capped': "Zone de curățat până revin premiile mari: {n}",
+    'top': "Marele premiu! +{gold} aur, +{xp} XP",
+    'topGold': "Marele premiu, doar în aur: +{n} aur",
+    'won': "Ai câștigat! +{n} aur",
+    'lost': "Ghinion. Seria o ia de la capăt.",
+    'row': "Victorii la rând: {n} din {max}",
+    'mats': "+{n} material Eroic+",
+    'discount': "Fierarul îți face acum {n}% reducere la îmbunătățiri!"
+  },
+  'whack': {
+    'title': "Lovește Drăcușorul",
+    'lead': "Lovește 20 de drăcușori în 30 de secunde. Lasă-i în pace pe cei cu armură aurie: fiecare lovit te costă o viață.",
+    'hits': "Drăcușori: {n} / {max}",
+    'lives': "Vieți: {n}",
+    'time': "Timp: {n} s",
+    'hint': "Atinge drăcușorii sau apasă 1–9.",
+    'barrel': "Butoiul {n}",
+    'timeout': "Timpul a expirat!",
+    'dead': "Fără vieți!"
+  },
+  'ring': {
+    'title': "Aruncarea inelelor la Hidră",
+    'lead': "Ține apăsat pentru forță, eliberează pentru aruncare. Un cap prinde inelul doar aproape de mijlocul legănării sale. Fiecare cap la rând valorează un punct în plus.",
+    'hint': "Ține apăsat și eliberează pe masă, sau ține apăsat Spațiu.",
+    'rings': "Inele rămase: {n}",
+    'score': "Scor: {n}",
+    'hit': "Prins! +{n}",
+    'miss': "Ratat!",
+    'perfect': "O rundă perfectă!",
+    'nothing': "Scor {n}. Fără premiu de data asta.",
+    'power': "Forță"
+  },
+  'arm': {
+    'title': "Skandenberg",
+    'lead': "Atinge când inelul întâlnește cercul ca să-i culci brațul. Forța lărgește ritmul. Trei victorii la rând aduc reducere la fierărie, cinci aduc material Eroic+.",
+    'hint': "Atinge masa sau apasă Spațiu.",
+    'good': "Împinge!",
+    'off': "Pe lângă ritm!"
+  },
+  // ─── The Siege of Bastion (afterplay §8) ───
+  'siege': {
+    'title': "Asediul Vadului Bastionului",
+    'lead': "Ține poarta zece valuri. Între valuri, cheltuie Mărci de asediu pe apărări.",
+    'story': "Hoarda e la poartă. Rezistă zece valuri: acest prim asediu nu poate fi pierdut.",
+    'bell': "Sună clopotul asediului! Hoarda se adună la poartă.",
+    'mapBell': "Asediu!",
+    'start': "Trage clopotul",
+    'wins': "Victorii: {n}",
+    'marksBank': "Mărci de asediu puse deoparte: {n}",
+    'tier': {
+      'normal': "Normal",
+      'hard': "Greu",
+      'nightmare': "Coșmar"
+    },
+    'tierDesc': {
+      'normal': "Inamici cu un nivel peste tine.",
+      'hard': "Inamici cu 3 niveluri mai sus, cu 30% mai multă viață.",
+      'nightmare': "Inamici cu 6 niveluri mai sus și două valuri de elite mitice."
+    },
+    'locked': {
+      'hard': "Câștigă mai întâi un asediu normal.",
+      'nightmare': "Se deschide după ce falia e pecetluită sau lăsată întredeschisă."
+    },
+    'lord': "Stăpânul Asediului",
+    'hud': {
+      'wave': "Valul {n}/{total}",
+      'marks': "Mărci: {n}",
+      'gate': "Poarta {pct}%",
+      'build': "Valul {n} în {s} s",
+      'ready': "Gata!",
+      'buy': "{name}: {n} mărci"
+    },
+    'def': {
+      'ballista': {
+        'name': "Balistă",
+        'desc': "Trage o săgeată străpungătoare pe culoarul ei la fiecare 2 secunde."
+      },
+      'cauldron': {
+        'name': "Cazan de foc",
+        'desc': "Dă foc strâmtorii culoarului său."
+      },
+      'barricade': {
+        'name': "Baricadă",
+        'desc': "Blochează un culoar timp de 20 de secunde."
+      },
+      'militia': {
+        'name': "Miliție",
+        'desc': "Doi paznici luptă alături de tine."
+      },
+      'repair': {
+        'name': "Repară poarta",
+        'desc': "Reface un sfert din poartă."
+      }
+    },
+    'block': {
+      'marks': "Nu ai destule Mărci de asediu.",
+      'full': "Nu mai e loc.",
+      'phase': "Doar între valuri."
+    },
+    'toast': {
+      'cleared': "Valul {n} respins! +{marks} mărci",
+      'clearedUnharmed': "Valul {n} respins, poarta neatinsă! +{marks} mărci",
+      'horn': "Sună cornul! Poarta mai are {pct}%.",
+      'ram': "Un berbec! Oprește-l înainte să ajungă la poartă!",
+      'rally': "Din nou în picioare! Ține poarta!"
+    },
+    'banner': {
+      'wave': "Valul {n}",
+      'final': "Stăpânul Asediului!"
+    },
+    'result': {
+      'tier': "Asediul Vadului Bastionului: {tier}",
+      'waves': "Valuri respinse: {n}/{total}",
+      'marks': "Mărci de asediu păstrate: {banked} din {earned}",
+      'glass': "Sticlă demonică: +{n}"
+    },
+    'milestone': {
+      'normal1': "Reper atins: Stindardul Bastionului.",
+      'normal5': "Reper atins: Platoșa Străjerului de Ziduri.",
+      'hard1': "Reper atins: Instinctul veteranului, un al cincilea loc pasiv.",
+      'hard5': "Reper atins: Spărgătorul de porți.",
+      'nightmare1': "Reper atins: Coroana Ultimului Bastion.",
+      'hardFlawless': "Reper atins: cheia unei probe de clasă ascunse."
+    }
+  },
+  // ─── The Breaking (the afterplay's story) ───
+  'breaking': {
+    'title': "Ruptura",
+    'toast': {
+      brk6: "Maestrul Fierar și-a recăpătat forja. Făurirea infernală e deschisă.",
+      brk7: "Sfinxul a murit. Lentila Oracolului arată unde pândesc marile fiare.",
+      brk8: "Leviatanul a murit. Solzul lui te lasă să mergi peste ape mici.",
+      brk9: "Hidra a murit. Cheia ei de foc e a ta.",
+      brk10: "Dragonul Străvechi a murit. Ruptura stă deschisă.",
+      sealed: "Ruptura e pecetluită. Ești Pecetluitorul Rupturii.",
+      ajar: "Ruptura rămâne întredeschisă. Demonii vor pune la încercare zidurile și colosseumul.",
+      'brk2': "Vadul Bastionului te primește. Oamenii lui se bizuie acum pe tine.",
+      'rescued': "Supraviețuitori salvați! Sunt în siguranță la Vadul Bastionului.",
+      'brk3': "Drumul e liber. Oamenii din Sunford sunt în siguranță.",
+      'brk4': "Vraciul de ierburi se alătură fortului.",
+      'brk5': "Hoarda centaurilor e zdrobită. Fortul se pregătește de asediu.",
+    },
+  },
   // ─── The intro (#130): its skip, and its narrator's name ───
   intro: {
     narrator: 'Cronicarul',
@@ -88,6 +253,7 @@ export default {
     gold: '{n} aur',
     potion: 'Poțiune de viață (rămase: {n})',
     manaPotion: 'Poțiune de mană (rămase: {n})',
+    potionStop: 'Bea o poțiune de viață ca să continui',
     groups: '{n} din {total} grupuri de inamici învinse',
     wave: 'Valul {n} / {total}',
     roll: 'Rostogolire',
@@ -261,6 +427,10 @@ export default {
     escort: 'Păzește caravana'
   },
   node: {
+    'bastion': {
+      'name': "Vadul Bastionului",
+      'desc': "Un vechi fort de graniță, ultimele ziduri încă în picioare. Supraviețuitorii se adună aici.",
+    },
     sunford: {
       name: 'Sunford',
       desc: 'Un târg de fermieri la marginea câmpiilor. Casa ta, un fierar și doi maeștri.'
@@ -343,6 +513,9 @@ export default {
     locked: 'Curăță o zonă vecină ca să deschizi drumul.',
     lockedArena: 'Porțile se deschid după ce termini cu Regele Goblin.',
     lockedRift: 'Se deschide când se hotărăște soarta tronului din Fortăreața Groazei.',
+    invaded: 'Invadată',
+    invadedDesc: 'Demonii stăpânesc acest ținut. Pilonii lor îi fac pe dușmanii din jur să lovească mai tare, cicatricile faliei ard și încetinesc, iar fiecare dușman doborât aici valorează mai mult.',
+    lockedInvaded: 'Demonii o țin strâns. Recucerește mai întâi {zone}.',
     danger: {
       '1': 'Puțin peste nivelul tău.',
       '2': 'Periculos la nivelul tău.',
@@ -469,6 +642,11 @@ export default {
     }
   },
   class: {
+    // ── The prestige classes (afterplay phase 10) ──
+    'demonhunter': { 'name': "Vânător de demoni", 'desc': "Umbră și lumină sfântă, jurate unei singure prăzi. Însemnează demonii, iar cei însemnați cad repede." },
+    'dragoon': { 'name': "Dragon", 'desc': "Vânt sub cizme, un scut pe braț. Sare din cer și străpunge rânduri întregi." },
+    'hexsmith': { 'name': "Fierar al blestemelor", 'desc': "Meșteșug de eter hrănit cu sânge. Construiește turele care sug viața dușmanului ca să-l vindece pe fierar." },
+    'tidecaller': { 'name': "Chemătorul mareei", 'desc': "Ger și elemente, turnate în mare. Valuri care aruncă dușmanii înapoi și îi udă." },
     aegis: {
       name: 'Cavaler al Egidei',
       desc: 'Scut și oțel sfânt. Încasează loviturile ca să nu le încaseze nimeni altcineva.'
@@ -535,6 +713,35 @@ export default {
     }
   },
   skill: {
+    // ── The prestige classes (afterplay phase 10) ──
+    'huntersMark': { 'name': "Semnul vânătorului", 'desc': "O săgeată sfântă de {dmg}% daune de Dexteritate. Timp de {dur} s ținta primește cu {vuln}% mai multe daune, un demon cu {demon}% mai multe." },
+    'demonsBane': { 'name': "Pieirea demonilor", 'desc': "+{bane}% daune împotriva demonilor și cu {ward}% mai puține daune de la ei." },
+    'silverVolley': { 'name': "Salvă de argint", 'desc': "Săgeți de argint în linie: {dmg}% daune de Dexteritate, +{bane}% împotriva demonilor și a dușmanilor însemnați." },
+    'skyfallLeap': { 'name': "Prăbușire din cer", 'desc': "Sari din raza de atac timp de {air} s, apoi cazi pe loc: {dmg}% daune de Forță pe o rază de {radius} m, dușmani doborâți." },
+    'dragonBlood': { 'name': "Sânge de dragon", 'desc': "+{boss}% daune împotriva căpeteniilor, +{hp}% viață maximă și nimic nu te împinge înapoi." },
+    'dragonLance': { 'name': "Lancea dragonului", 'desc': "O împunsătură de lance în linie: {dmg}% daune de Dexteritate fiecărui dușman din ea." },
+    'hexTurret': { 'name': "Turelă blestemată", 'desc': "Construiește o turelă pentru {dur} s. În fiecare secundă suge cel mai apropiat dușman pe o rază de {radius} m cu {dmg}% daune de Măiestrie; te vindeci cu {drain}% din ele." },
+    'soulForge': { 'name': "Forja sufletelor", 'desc': "+{hp}% viață maximă, {regen} viață pe secundă și primești cu {reduce}% mai puține daune." },
+    'hexBolt': { 'name': "Săgeată blestemată", 'desc': "Plătește {hp}% viață: o săgeată de {dmg}% daune de Măiestrie. Te vindeci cu {heal}% din ele, iar dușmanul face cu {weak}% mai puține daune timp de {dur} s." },
+    'tidalWave': { 'name': "Val uriaș", 'desc': "Un val în linie: {dmg}% daune de Inteligență, dușmani aruncați înapoi și uzi ({slow}% încetinire timp de {dur} s)." },
+    'seaborn': { 'name': "Născut din mare", 'desc': "+{bonus}% daune împotriva dușmanilor înghețați, cu {reduce}% mai puține daune primite, +{move}% viteză." },
+    'undertow': { 'name': "Vârtej", 'desc': "Un vârtej timp de {dur} s: {dmg}% daune de Inteligență în total pe o rază de {radius} m. Trage dușmanii înăuntru și îi încetinește cu {slow}%." },
+    'bastionWall': { 'name': "Zidul Bastionului", 'desc': "Timp de {dur}s, fiecare dușman pe o rază de {radius} m trebuie să te atace, iar tu primești cu {def}% mai puțin. Apoi lumina dă {dmg}% Forță +{back}% din loviturile primite." },
+    'thousandCuts': { 'name': "O mie de tăieturi", 'desc': "Țâșnește printre dușmani pe o rază de {radius} m, lovind de {hits} ori, fiecare lovitură pentru {dmg}% daune de Dexteritate. Un boss primește o singură lovitură. Cât tai, nimic nu te poate atinge." },
+    'cinderSun': { 'name': "Soarele de cenușă", 'desc': "Un soare muribund se sfărâmă timp de {dur}s: {meteors} fragmente arzânde, fiecare cu {dmg}% daune de Inteligență." },
+    'royalLegion': { 'name': "Legiunea regală", 'desc': "Cheamă legiunea pentru {dur}s: {archers} arcași, {guards} gărzi și {mages} magi de luptă." },
+    'stoppedHour': { 'name': "Ceasul oprit", 'desc': "Oprește ceasul pe o rază de {radius} m timp de {dur}s. Când pornește iar, fiecare dușman primește {dmg}% daune de Inteligență." },
+    'redCovenant': { 'name': "Legământul roșu", 'desc': "Ia {pct}% din viața fiecărui dușman pe o rază de {radius} m. Te vindeci cu {heal}% din ea." },
+    'orbitalLance': { 'name': "Lancea orbitală", 'desc': "O lance de lumină din cer arde unde țintești: {dmg}% daune de Pricepere în {dur}s." },
+    'tectonicHeart': { 'name': "Inima tectonică", 'desc': "Inima pământului se rupe: {dmg}% daune de Forță la tot ce e aproape și moloz care încetinește {dur}s." },
+    'eyeOfTheGale': { 'name': "Ochiul vijeliei", 'desc': "O furtună de săgeți timp de {dur}s: {dmg}% daune de Pricepere în total și {slow}% încetinire." },
+    'endlessWinter': { 'name': "Iarna fără sfârșit", 'desc': "O iarnă fără sfârșit izbucnește din tine: {dmg}% daune de Inteligență pe o rază de {radius} m, toți înghețați {freeze}s." },
+    'dawnbreak': { 'name': "Revărsatul zorilor", 'desc': "Devino zorii timp de {dur}s: în fiecare secundă, {dmg}% daune de Inteligență pe o rază de {radius} m și {heal}% vindecare." },
+    'alphasCall': { 'name': "Chemarea alfei", 'desc': "{wolves} lupi răspund și aleargă cu tine {dur}s. Toată haita dă +{dmg}% daune și e cu {move}% mai rapidă." },
+    'prismStorm': { 'name': "Furtuna prismatică", 'desc': "Timp de {dur}s cele patru elemente se dezlănțuie: {strikes} lovituri de {dmg}% Inteligență care se declanșează reciproc." },
+    'ferryman': { 'name': "Luntrașul", 'desc': "Timp de {dur}s, fiecare dușman care cade lângă tine se ridică drept spiritul tău, iar spiritele dau cu {atk}% mai mult." },
+    'unmovingMountain': { 'name': "Muntele de neclintit", 'desc': "Cheltuiește tot chi-ul: un munte cade pentru {dmg}% daune de Dexteritate, +{per}% pe chi, și doboară dușmanii." },
+    'encore': { 'name': "Bis", 'desc': "Încă o dată timp de {dur}s (+{buff}% viteză, daune, Apărare), apoi ultimul acord: {dmg}% Carismă, dușmani fermecați." },
     kind: {
       active: 'Activă',
       passive: 'Pasivă'
@@ -590,7 +797,7 @@ export default {
     },
     danceOfBlades: {
       name: 'Dansul Lamelor',
-      desc: 'Țâșnești între inamicii pe o rază de {radius} m și lovești de {hits} ori, cu {dmg}% daune din Dexteritate în total. Nu poți fi lovit cât dansezi.'
+      desc: 'Țâșnești între inamicii pe o rază de {radius} m și lovești de {hits} ori, fiecare lovitură cu {dmg}% daune din Dexteritate. Un boss primește o singură lovitură. Nu poți fi lovit cât dansezi.'
     },
     fireball: {
       name: 'Glob de Foc',
@@ -1338,6 +1545,8 @@ export default {
     magic: 'Magie · crește cu {attr}'
   },
   source: {
+    'siege': "Câștigat în Asediul Vadului Bastionului.",
+    'infernal': "Un geamăn infernal: cade în {zone} invadat sau e forjat de un fierar.",
     arena: 'Câștigat în clasamentul Colosseumului.',
     smith: 'Făurit într-o fierărie.',
     mob: 'Îl lasă monștrii. Zonă: {zone}.',
@@ -1346,6 +1555,15 @@ export default {
     secret: 'Ascuns într-un cufăr secret. Zonă: {zone}.'
   },
   mod: {
+    'demonBane': "+{n}% daune contra demonilor",
+    'demonLeech': "{n}% din daunele date demonilor te vindecă",
+    'beastBane': "+{n}% daune contra fiarelor mitice",
+    'fireWard': "Cu {n}% mai puține daune de foc primite",
+    'shadowWard': "Cu {n}% mai puține daune de umbră primite",
+    'demonWard': "Cu {n}% mai puține daune de la demoni",
+    'pylonBreaker': "+{n}% daune contra piloanelor demonice",
+    'glassFinder': "{n}% șansă ca un demon ucis să lase sticlă demonică în plus",
+    'waterWalk': "Apa nu te încetinește",
     str: '+{n} Forță',
     dex: '+{n} Dexteritate',
     int: '+{n} Inteligență',
@@ -1421,6 +1639,24 @@ export default {
     songLength: 'Cântecele durează cu {n}% mai mult'
   },
   item: {
+    'chimeraMane': { 'name': "Coama himerei" },
+    'triFang': { 'name': "Tricolț" },
+    'warchiefsLongbowGun': { 'name': "Arc-pușca căpeteniei" },
+    'hoofbreakerGreaves': { 'name': "Jambiere zdrobitoare de copite" },
+    'eyeOfTheDeep': { 'name': "Ochiul adâncurilor" },
+    'beamSplitter': { 'name': "Despicătorul de raze" },
+    'riddleCrown': { 'name': "Coroana ghicitorilor" },
+    'sandglassWand': { 'name': "Bagheta clepsidrei" },
+    'leviathanScale': { 'name': "Solzul Leviatanului" },
+    'tidecallerStaff': { 'name': "Toiagul chemătorului de maree" },
+    'hydraScaleGauntlets': { 'name': "Mănuși din solzi de hidră" },
+    'manyHeadedFlail': { 'name': "Bici cu multe capete" },
+    'heartOfTheElderDragon': { 'name': "Inima Dragonului Străvechi" },
+    'dragonboneGreatsword': { 'name': "Spadon din os de dragon" },
+    'bastionBanner': { 'name': "Stindardul Bastionului" },
+    'wallwardensPlate': { 'name': "Platoșa străjerului de ziduri" },
+    'gatebreaker': { 'name': "Spărgătorul de porți" },
+    'crownOfTheLastBastion': { 'name': "Coroana ultimului Bastion" },
     heartOfTheArena: {
       name: 'Inima Arenei'
     },
@@ -3418,8 +3654,17 @@ export default {
     known: 'Învățată',
     friend: '{faction} își cinstește prietenii: 20% reducere.',
     fee: 'Taxă',
+    rank: {
+      label: 'Rangul {n}',
+      up: 'Crește rangul',
+      effect: '+{effect}% efect, −{cd}% reîncărcare',
+      max: 'Rang maxim',
+      level: 'Rangul {n} cere nivelul {lvl}.'
+    },
     hint: 'Alege o lecție. Un chenar verde înseamnă că o poți învăța acum.',
     block: {
+      'trial': "Nu ai trecut încă proba acestei clase.",
+      'parents': "Învață mai întâi o abilitate de {a} și una de {b}.",
       level: 'Nivelul tău e prea mic.',
       attrs: 'Atributele tale sunt prea mici.',
       gold: 'Nu ai destul aur.'
@@ -3444,6 +3689,20 @@ export default {
     circle: 'Cercul Eterului'
   },
   npc: {
+    'mysteriousWanderer': { 'name': "Pribeagul misterios" },
+    'fairPip': { 'name': "Pip" },
+    'fairBess': { 'name': "Bătrâna Bess" },
+    'fairHob': { 'name': "Hob" },
+    sunkenPriest: { name: "Preotul Scufundat" },
+    'fortHale': {
+      'name': "Căpitanul Hale",
+    },
+    'fortMara': {
+      'name': "Bătrâna Mara",
+    },
+    'scoutWren': {
+      'name': "Iscoada Wren",
+    },
     frostDisciple: {
       name: 'Ivor Hask'
     },
@@ -3733,6 +3992,185 @@ export default {
     }
   },
   dlg: {
+    // ── The Mysterious Wanderer (afterplay phase 10) ──
+    'mysteriousWanderer': {
+      'hello': { '1': "Așadar. Ai făcut ce puțini au făcut vreodată. Am simțit-o de partea cealaltă a rupturii.", '2': "Predau căile vechi care unesc două școli într-una. Doar celor care le merită." },
+      'sealed': { '1': "Ai pecetluit-o. Păcat, într-un fel. Îmi plăcea priveliștea." },
+      'ajar': { '1': "Ai lăsat-o întredeschisă. Îndrăzneț. Demonii te vor ține treaz." },
+      'again': { '1': "Iar aici. Drumul e lung, dar îl străbați bine." },
+      'train': { '1': "Arată-mi ambele jumătăți ale tale și le voi face una." },
+      'trial': { 'say': "Despre ce probe vorbești?", '1': "O poartă apărată fără o zgârietură. Un dragon ucis fără o cădere. Cinci forjări infernale și cinci victorii la rând.", '2': "Moartea Leviatanului și o rundă perfectă la hidră. Fiecare deschide o ușă pe care ți-o pot arăta." },
+      'who': { '1': "Un pribeag. Umblam pe marginea rupturii înainte să se nască bunicul tău. Numele se tocesc." },
+      'trainBack': { '1': "Exersează. Două școli se ceartă înainte să se împace." },
+      'bye': { '1': "Mergi cu grijă. Voi fi aici, până nu voi mai fi." }
+    },
+    'fairPip': {
+      'hello': { '1': "Apropiați-vă! Nouă butoaie, o ceată de drăcușori și un ciocan. Băgați-i la loc!", '2': "Drăcușorii sar din butoaie. Lovește douăzeci înainte să se scurgă nisipul.", '3': "Lasă-i pe cei cu armură aurie, te costă o viață. Trei victorii la rând și marele premiu e al tău." },
+      'again': { '1': "Mai vrei să lovești? Ia ciocanul!" },
+      'play': { '1': "Ciocanul sus! Uite-i că vin!" },
+      'who': { '1': "Pip, prinzător de drăcușori de meserie. Pe ăștia i-am prins singur. Mușcă." },
+      'playBack': { '1': "Ha! Ce gălăgie! Încă o dată?" },
+      'bye': { '1': "Lasă brațul cu ciocanul relaxat!" }
+    },
+    'fairBess': {
+      'hello': { '1': "Cinci inele, trei capete și niciunul nu mușcă. Am sculptat-o singură, așa că ai grijă la vopsea.", '2': "Ține pentru avânt, eliberează pentru aruncare. Un cap prinde inelul doar când se leagănă spre mijloc.", '3': "Fiecare cap la rând contează cu unul în plus. Prinde-le pe toate cinci și te plătesc cum se cuvine." },
+      'again': { '1': "Ai venit iar să-ți încerci norocul cu bătrâna mea?" },
+      'play': { '1': "Poftim inelele. Aruncă ușor, puișor." },
+      'who': { '1': "Patruzeci de ani pe drumurile bâlciurilor. Hidra a venit odată cu războiul. Mi s-a părut potrivit." },
+      'playBack': { '1': "Nu-i rău. Răposatul meu soț arunca mai prost." },
+      'bye': { '1': "Ai grijă la vopsea la ieșire." }
+    },
+    'fairHob': {
+      'hello': { '1': "Oh. Salut. Vrei să facem skandenberg? O să fiu blând. O să încerc.", '2': "Împinge când inelul întâlnește cercul. Pe lângă ritm, aluneci.", '3': "Brațele puternice ajută. Învinge-mă de trei ori la rând și Maestrul Fierar îți face o reducere." },
+      'again': { '1': "Încă o rundă? Nimeni nu se întoarce vreodată pentru încă o rundă." },
+      'play': { '1': "Cotul pe masă. Când vrei tu." },
+      'who': { '1': "Sunt ucenicul Maestrului Fierar. Zice că nu-mi cunosc propria putere." },
+      'playBack': { '1': "Meci bun. Mâine o să mă doară brațul. Probabil." },
+      'bye': { '1': "Revino curând. În fierărie e foarte liniște." }
+    },
+    // ── The Breaking (the afterplay, B0–B5) ──
+    'story': {
+      forge: { back: { '1': "Forja mea arde iar, mai fierbinte ca oricând. Fierul demonic se topește bine.", '2': "Adu-mi ce găsești acolo. Acum îl pot făuri infernal." } },
+      oracle: { lens: { '1': "Odată m-ai eliberat. Acum voi vedea pentru tine. Ia-mi Lentila.", '2': "Privește prin ea, și harta îți va arăta unde pândesc marile fiare." } },
+      priest: { lens: { '1': "Oracolul s-a dus, așa că acum îi păzesc templul. Sfinxul păzea asta.", '2': "Lentila ei. Privește prin ea, și harta îți va arăta unde pândesc marile fiare." } },
+      herbs: { scale: { '1': "Un solz de Leviatan! Ușor ca o frunză, și plutește.", '2': "Poartă-l, și apele mici te vor ține ca pământul tare." } },
+      ghost: { key: { '1': "Ia te uită, cel care mi-a luat tronul. Mi-ai ucis Hidra. Bine.", '2': "Ia-i cheia de foc. Inima rupturii arde, și doar focul o deschide." } },
+      syndicate: { key: { '1': "Hidra a murit? Atunci cheia ei de foc e a celui care plătește. Sau a ta, presupun.", '2': "Deschide inima rupturii. Du-te și închide-o, până nu-mi înghite afacerea." } },
+      sealed: {
+        sealed: { '1': "Și așa ruptura a fost pecetluită, iar lumea a început să se vindece.", '2': "Orașele au fost reclădite, s-au scris cântece, și în toate era un nume." },
+        ajar: { '1': "Și așa ruptura a rămas întredeschisă, iar lumea a învățat să trăiască lângă ea.", '2': "Zidurile au rămas păzite, colosseumul zgomotos, iar eroul pregătit." },
+      },
+      'rift': {
+        'scream': {
+          '1': "Stăpânul Hăului cade, iar ruptura din spatele lui țipă.",
+          '2': "N-a fost niciodată tronul lui. A fost cușca lui, iar el era capacul.",
+          '3': "Acum ruptura e deschisă, și tot ce ținea hăul adormit se trezește.",
+        },
+      },
+      'wren': {
+        'found': {
+          '1': "Aici erai! Sunt Wren, iscoadă. Te-am căutat peste tot.",
+          '2': "Sunford arde. Toți cei care au putut fugi au plecat la Vadul Bastionului.",
+          '3': "E vechiul fort de pe drumul spre Stâncile de Cenușă. Grăbește-te, au nevoie de tine.",
+        },
+      },
+    },
+    'scoutWren': {
+      sealed: { '1': "Dragonul nu mai e! Drumurile par deja mai ușoare." },
+      'hello': {
+        '1': "Ai venit! Știam. Bine ai venit la Vadul Bastionului.",
+        '2': "Cercetez drumurile pentru căpitan. Întreabă-mă unde e necazul.",
+      },
+      'again': {
+        '1': "Deja înapoi? Drumurile nu se cercetează singure.",
+      },
+      'who': {
+        '1': "Wren. Duceam mesaje pentru straja din Sunford, înainte să ardă.",
+      },
+      'rumor': {
+        'plains': {
+          '1': "Demonii țin drumul prin Câmpiile Sunford. Învățătorii din Sunford sunt prinși dincolo.",
+        },
+        'hollows': {
+          '1': "Văgăunile Goblinilor mișună de câini infernali. Curăță-le, și oamenii din Sunford se pot întoarce.",
+        },
+        'woods': {
+          '1': "Ceva cu trei capete vânează în Pădurea Șoaptelor. Vraciul de ierburi se ascunde acolo.",
+        },
+        'outskirts': {
+          '1': "Centaurii cutreieră Împrejurimile Oakhaven. Dacă ajung la ziduri, ne trebuie fiecare sabie.",
+        },
+        'siege': {
+          '1': "Hoarda lor e zdrobită, dar se adună alții. Căpitanul pregătește zidurile.",
+        },
+      },
+      'bye': {
+        '1': "Păzește drumurile. Le păzesc și eu.",
+      },
+    },
+    'fortHale': {
+      sealed: { '1': "Dragonul a murit. N-am crezut că voi trăi să văd asta. Mulțumesc." },
+      'siegeBack': { '1': "Încă nu? Atunci odihnește-te. Zidurile te vor aștepta." },
+      'bell': { '1': "La poartă, atunci. Spune-mi cât de dârz o ținem." },
+      'hello': {
+        '1': "Ai ajuns. Bine. Ne trebuie fiecare sabie, acum mai mult ca oricând.",
+        '2': "Bine ai venit la Vadul Bastionului. Ziduri vechi, dar singurele încă în picioare.",
+      },
+      'road': {
+        '1': "Drumul spre Sunford e iar deschis. Oamenii lui sunt în siguranță după zidurile noastre.",
+      },
+      'herbs': {
+        '1': "Vraciul de ierburi s-a întors, cu ierburile ei. Infirmeria poate respira.",
+      },
+      'siege': {
+        '1': "Ai zdrobit centaurii. Dar vine o oaste mai mare, și vine după zidurile astea.",
+      },
+      'again': {
+        '1': "Încă în picioare. Zidurile, oamenii și eu.",
+      },
+      'fort': {
+        '1': "Un vechi fort de graniță. Gol cincizeci de ani, până s-a sfâșiat cerul.",
+        '2': "Acum e ultimul loc sigur între câmpii și munți.",
+        'say': "Ce loc e acesta?",
+      },
+      'rumor': {
+        'road': {
+          '1': "Curăță Câmpiile și Văgăunile. Oamenii din Sunford sunt prinși acolo.",
+        },
+        'woods': {
+          '1': "Vraciul de ierburi e în Pădurea Șoaptelor, și o fiară cu trei capete la fel. Fii pregătit.",
+        },
+        'centaurs': {
+          '1': "Centauri în Împrejurimi. Zdrobește-le hoarda înainte să ajungă la noi.",
+        },
+        'siege': {
+          '1': "Odihnește-te. Când bate clopotul asediului, am nevoie de tine pe zid.",
+        },
+      },
+      'bye': {
+        '1': "Ține sabia aproape.",
+      },
+    },
+    'fortMara': {
+      sealed: { '1': "Ai reușit, copile. Fiecare dintre noi îți datorează un cămin." },
+      'siegeBack': { '1': "Odihnește-te puțin, copile. Clopotul va suna din nou." },
+      'bell': { '1': "Zidurile căpitanului sunt acum în grija mea. Alege cum le ținem." },
+      'hello': {
+        '1': "Copile! Trăiești. Când a ars Sunford, m-am temut de ce era mai rău.",
+        '2': "Acum suntem oaspeți într-un fort de soldați, cu babe cu tot.",
+      },
+      'command': {
+        '1': "Căpitanul Hale a căzut odată cu Oakhaven. Așa că fortul ascultă acum de o bătrână.",
+      },
+      'home': {
+        '1': "Sunford se reconstruiește! Primele acoperișuri sunt sus. Aș putea plânge.",
+      },
+      'again': {
+        '1': "Tot aici, copile. Tot număr capete.",
+      },
+      'town': {
+        '1': "Demonii au coborât din cerul nopții. Am fugit cu ce am putut căra.",
+        '2': "Unii dintre noi n-au mai ieșit. Adu-i pe ceilalți acasă, dacă poți.",
+        'say': "Ce s-a întâmplat cu Sunford?",
+      },
+      'rumor': {
+        'road': {
+          '1': "Învățătorii noștri sunt încă pe drumul spre Sunford. Adu-i aici, copile.",
+        },
+        'woods': {
+          '1': "Vraciul de ierburi s-a dus în Pădurea Șoaptelor după ierburi și nu s-a mai întors.",
+        },
+        'centaurs': {
+          '1': "Călăreți în Împrejurimi. Copite ca tunetul, în fiecare noapte.",
+        },
+        'siege': {
+          '1': "Zidurile vor fi puse curând la încercare. O simt în oasele mele bătrâne.",
+        },
+      },
+      'bye': {
+        '1': "Mergi cu grijă, copile.",
+      },
+    },
     intro: {
       crossing: { 1: 'Fiecare drum al acestei lumi se întâlnește la o răscruce… și fiecare răscruce e o bătălie.' },
       hero: { 1: 'Din câmpurile liniștite ale Sunfordului, un tânăr erou a pornit la drum.' },
@@ -4189,6 +4627,7 @@ export default {
       }
     },
     hero: {
+      'siege': "Să ocupăm zidurile.",
       forge: 'Aș vrea să-ți folosesc forja.',
       learnSmith: 'M-ai putea învăța fierăria?',
       ore: 'Am niște minereu de vânzare.',
@@ -4501,7 +4940,7 @@ export default {
       },
       map: {
         '1': 'Harta căpitanului Rook! A rupt-o și a ascuns bucățile înainte să-l prindă goblinii.',
-        '2': 'Găsește șase dintre ele, mai sunt câteva împrăștiate prin jur, și X-ul îți arată drumul: undeva în Stâncile de Cenușă. Sapă acolo și aurul e al tău.',
+        '2': "Găsește șase dintre bucăți, și X-ul îți arată drumul: undeva în Stâncile de Cenușă. Sapă acolo după aur.",
         say: 'Am găsit o bucată dintr-o hartă veche.'
       }
     },
@@ -5493,6 +5932,11 @@ export default {
       }
     },
     quest: {
+      seal: {
+        ask: { '1': "Dragonul Străvechi a murit, iar ruptura stă deschisă în fața ta.", '2': "Ai putea s-o pecetluiești acum, pentru totdeauna. Fiarele ar dormi din nou.", '3': "Sau ai putea s-o lași întredeschisă, ca cei mai curajoși să se încerce cu ce trece prin ea." },
+        seal: { say: "Pecetluiește-o. Pentru totdeauna.", '1': "Ruptura se închide ca o rană care se vindecă, iar cerul tace." },
+        ajar: { say: "Las-o întredeschisă. Vom fi pregătiți.", '1': "Ruptura rămâne întredeschisă, iar ceva din spatele ei râde." },
+      },
       goblinKing: {
         ask: {
           '1': 'Oprește-te. Te rog. Mă predau.',
@@ -5628,6 +6072,64 @@ export default {
       }
     },
     bark: {
+      sphinx: {
+        intro: { '1': "Răspunde-mi, micuțule, sau fii îngropat în nisipul meu." },
+        riddle: { '1': "O ghicitoare, deci. Calcă unde îți arăt, în ordinea aceea." },
+        sand: { '1': "De data asta, cinci. Iar nisipul meu nu va aștepta." },
+        death: { '1': "Ai răspuns bine. Nisipul e al tău acum." },
+      },
+      leviathan: {
+        intro: { '1': "Acum umbli prin apa mea." },
+        sink: { '1': "Insulițele tale se scufundă." },
+        grab: { '1': "Coboară cu mine în adânc!" },
+        death: { '1': "Refluxul pleacă și nu se mai întoarce." },
+      },
+      hydra: {
+        intro: { '1': "Taie un cap, și vor crește două!" },
+        heads: { '1': "Mai multe capete, mai mulți colți!" },
+        rage: { '1': "Să ne arzi? Atunci arzi cu noi!" },
+        death: { '1': "Nu mai sunt capete. Nu mai sunt." },
+      },
+      elderDragon: {
+        intro: { '1': "Dormeam sub lume înainte ca neamul tău să cunoască focul." },
+        flight: { '1': "Ascunde-te atunci după pietricelele tale." },
+        rift: { '1': "Ruptura mă trage înapoi. Nu încă!" },
+        death: { '1': "Pecetluiește-o, atunci. M-am săturat de întuneric." },
+      },
+      'siegeHale': {
+        'start': {
+          '1': "Iată-i! Țineți poarta!"
+        },
+        'ram': {
+          '1': "Un berbec! Ucideți-l înainte să ajungă la poartă!"
+        },
+        'horn50': {
+          '1': "Jumătate din poartă s-a dus! Rezistați!"
+        },
+        'horn25': {
+          '1': "Poarta nu mai ține mult!"
+        },
+        'won': {
+          '1': "Sunt zdrobiți! Bastionul rezistă!"
+        }
+      },
+      'siegeMara': {
+        'start': {
+          '1': "Vin! Fiți tari, toți!"
+        },
+        'ram': {
+          '1': "Un berbec! Opriți-l înainte să spargă poarta!"
+        },
+        'horn50': {
+          '1': "Jumătate din poartă a căzut. Țineți!"
+        },
+        'horn25': {
+          '1': "Poarta cedează! Împingeți-i înapoi!"
+        },
+        'won': {
+          '1': "Fug! Fortul încă stă în picioare!"
+        }
+      },
       banditChief: {
         whistle: {
           1: 'Sus, băieți! Mușcați-i!'
@@ -5636,6 +6138,11 @@ export default {
       lightDisciple: {
         freed: {
           '1': 'Lumina te-a trimis. Sunt Sora Aurelle. Caută-mă în Sunford, te voi învăța calea Purtătorului de Lumină.'
+        }
+      },
+      trainerAegis: {
+        freed: {
+          '1': 'Mulțumim că ne-ai scăpat de bandiți! Vino la foc: te vom învăța toți, prima lecție e gratuită.'
         }
       },
       frostDisciple: {
@@ -5691,6 +6198,48 @@ export default {
         },
         dive: {
           '1': 'Îngenunchează.'
+        }
+      },
+      chimera: {
+        intro: {
+          '1': "Trei capete, o singură foame. Care dintre noi mușcă primul?"
+        },
+        twin: {
+          '1': "Acum suntem două. Alege-ți bine partea."
+        },
+        tail: {
+          '1': "Coada mea! O să plătești pentru asta!"
+        },
+        death: {
+          '1': "Trei capete, și niciunul n-a văzut asta venind."
+        }
+      },
+      centaurWarchief: {
+        intro: {
+          '1': "Fugi, dacă vrei. Săgețile mele fug mai repede."
+        },
+        raiders: {
+          '1': "Călăreți! Călcați-i în picioare!"
+        },
+        rear: {
+          '1': "Destule săgeți. Te voi strivi sub copite!"
+        },
+        death: {
+          '1': "Câmpiile își vor aminti copitele mele."
+        }
+      },
+      cyclops: {
+        intro: {
+          '1': "E ceva mic aici. Vino mai aproape. Lasă-mă să văd."
+        },
+        cover: {
+          '1': "Gata cu privitul. Ochiul meu nu-l vei avea!"
+        },
+        blind: {
+          '1': "Nu te văd, dar te aud!"
+        },
+        death: {
+          '1': "Întuneric. Totul s-a întunecat."
         }
       },
       frostJarl: {
@@ -6817,7 +7366,20 @@ export default {
       }
     }
   },
+  invasion: {
+    pylonsDown: 'Ultimul pilon cade și comoara lui se revarsă!',
+    reborn: {
+      tusker: 'Tusker Renăscut',
+      emberLord: 'Stăpânul Jarului Infernal',
+      frostJarl: 'Jarlul Gerului Renăscut',
+      voidDragon: 'Dragonul Vidului Renăscut'
+    }
+  },
   enemy: {
+    sphinx: "Sfinxul",
+    leviathan: "Leviatanul",
+    hydra: "Hidra",
+    elderDragon: "Dragonul Străvechi",
     trainingDummy: 'Manechin de antrenament',
     goblin: 'Goblin',
     goblinSlinger: 'Goblin Prăștiaș',
@@ -6842,6 +7404,10 @@ export default {
     naga: 'Naga',
     skeleton: 'Schelet',
     necromancer: 'Necromant',
+    chimera: "Himera",
+    chimeraTail: "Coada de șarpe",
+    centaurWarchief: "Căpetenia centaurilor",
+    cyclops: "Ciclopul",
     frostJarl: 'Jarlul Gerului',
     nagaOracle: 'Oracolul Înecat',
     voidStalker: 'Pânditor al Vidului',
@@ -6854,6 +7420,7 @@ export default {
     archDemon: 'Arhidemonul',
     voidling: 'Pui al Vidului',
     voidLord: 'Stăpânul Vidului',
+    demonPylon: 'Pilon demonic',
     orderGuard: 'Inchizitor al Ordinului',
     syndicateBlade: 'Lamă a Sindicatului',
     goblinWarchief: 'Căpetenie de război goblin',
@@ -6870,7 +7437,19 @@ export default {
     goblinTyrant: 'Tiran Goblin',
     voidDrake: 'Balaur al Vidului',
     pitLord: 'Stăpân al Abisului',
-    frostThane: 'Thane al Gerului'
+    frostThane: 'Thane al Gerului',
+    hellhound: 'Câine infernal',
+    frostHellhound: 'Câine infernal de ger',
+    gargoyle: 'Garguie',
+    harpy: 'Harpie',
+    corruptedTreant: 'Ent corupt',
+    centaurRaider: 'Centaur jefuitor',
+    cyclopsBrute: 'Brută ciclop',
+    demonMiner: 'Miner demonic',
+    sphinxAcolyte: 'Acolitul sfinxului',
+    seaDemon: 'Demon marin',
+    drakeHatchling: 'Pui de dragon',
+    hydraSpawn: 'Odraslă de hidră'
   },
   results: {
     careful: 'Victorie prudentă ×{mult}',
@@ -7187,6 +7766,8 @@ export default {
     town: 'Fierarul din orice oraș poate îmbunătăți asta.'
   },
   ore: {
+    'demonglass': { 'name': "Sticlă demonică" },
+    'ichor': { 'name': "Ihor mitic" },
     iron: {
       name: 'Minereu de fier'
     },

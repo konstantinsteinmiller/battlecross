@@ -1,5 +1,170 @@
 // Hungarian (hu) bundle — mirrors en.ts.
 export default {
+  // ─── Afterplay phase 8: items, materials and capstones ───
+  // ─── Afterplay phase 10: the prestige classes ───
+  'prestige': { 'toast': { 'wanderer': "Egy titokzatos vándor vár az erődben." } },
+  'relic': {
+    'infernal': "{name} · Pokoli",
+    'set': "{item} tárggyal viselve:",
+    'heroicBadge': "Hősi {n}",
+    'heroic': "Hősi {n}: {gold} arany, {glass} démonüveg",
+    'heroicIchor': "Hősi {n}: {gold} arany, {glass} démonüveg, {ichor} ichor",
+    'heroicMax': "Minden hősi rang megvan.",
+    'infernalForge': "Pokoli kovácsolás: {gold} arany, {glass} démonüveg",
+    'lens': "A Jósnő lencséje: itt vár {boss}.",
+    'hydraKey': "Lepecsételve. A Hidra tűzkulcsa nyitja a Hasadék szívét.",
+    'marksGlass': "{glass} démonüveg vásárlása {marks} jelért",
+    'capstone': "Csúcsképesség",
+    'fortOnly': "Ezt a csúcsképességet csak Bástyagázlóban tanítják."
+  },
+  // ─── The fort's fair games (afterplay §9) ───
+  'fair': {
+    'fee': "Játék · {n}",
+    'again': "Újra",
+    'noGold': "Nincs elég arany.",
+    'capped': "Megtisztítandó zónák, mielőtt visszatérnek a nagy nyeremények: {n}",
+    'top': "Főnyeremény! +{gold} arany, +{xp} TP",
+    'topGold': "Főnyeremény, csak aranyban: +{n} arany",
+    'won': "Nyertél! +{n} arany",
+    'lost': "Nincs szerencséd. A sorozat újraindul.",
+    'row': "Győzelmek sorozatban: {n}/{max}",
+    'mats': "+{n} Hősi+ nyersanyag",
+    'discount': "A kovács mostantól {n}% kedvezményt ad a fejlesztésekre!"
+  },
+  'whack': {
+    'title': "Üsd az ördögfiókát",
+    'lead': "Üss el 20 ördögfiókát 30 másodperc alatt. Az aranypáncélosokat hagyd: mindegyik, amelyiket eltalálod, egy életbe kerül.",
+    'hits': "Ördögfiókák: {n}/{max}",
+    'lives': "Életek: {n}",
+    'time': "Idő: {n} mp",
+    'hint': "Koppints az ördögfiókákra, vagy nyomd az 1–9 gombot.",
+    'barrel': "{n}. hordó",
+    'timeout': "Lejárt az idő!",
+    'dead': "Elfogytak az életek!"
+  },
+  'ring': {
+    'title': "Karikadobás a Hidrára",
+    'lead': "Tartsd nyomva az erőért, engedd el a dobáshoz. Egy fej csak lengése közepe táján kapja el a karikát. Minden egymás utáni fej egy ponttal többet ér.",
+    'hint': "Tartsd nyomva és engedd el az asztalon, vagy tartsd nyomva a szóközt.",
+    'rings': "Hátralévő karikák: {n}",
+    'score': "Pontszám: {n}",
+    'hit': "Talált! +{n}",
+    'miss': "Mellé!",
+    'perfect': "Tökéletes kör!",
+    'nothing': "Pontszám: {n}. Most nincs nyeremény.",
+    'power': "Erő"
+  },
+  'arm': {
+    'title': "Szkanderezés",
+    'lead': "Koppints, amikor a gyűrű a körhöz ér, és nyomd le a karját. Az Erő szélesíti az ütemet. Sorozatban három győzelem kovácskedvezményt, öt Hősi+ nyersanyagot hoz.",
+    'hint': "Koppints az asztalra, vagy nyomd meg a szóközt.",
+    'good': "Nyomd!",
+    'off': "Ütemen kívül!"
+  },
+  // ─── The Siege of Bastion (afterplay §8) ───
+  'siege': {
+    'title': "Bástyagázló ostroma",
+    'lead': "Tartsd a kaput tíz hullámon át. A hullámok között ostromjeleket költhetsz védelemre.",
+    'story': "A horda a kapu előtt áll. Állj ki tíz hullámot: ezt az első ostromot nem lehet elveszíteni.",
+    'bell': "Szól az ostromharang! A horda a kapu előtt gyülekezik.",
+    'mapBell': "Ostrom!",
+    'start': "Kongasd meg a harangot",
+    'wins': "Győzelmek: {n}",
+    'marksBank': "Félretett ostromjelek: {n}",
+    'tier': {
+      'normal': "Normál",
+      'hard': "Nehéz",
+      'nightmare': "Rémálom"
+    },
+    'tierDesc': {
+      'normal': "Az ellenfelek egy szinttel feletted.",
+      'hard': "Az ellenfelek 3 szinttel magasabbak, 30%-kal több életerővel.",
+      'nightmare': "Az ellenfelek 6 szinttel magasabbak, és két hullám mitikus elit jön."
+    },
+    'locked': {
+      'hard': "Előbb nyerj meg egy normál ostromot.",
+      'nightmare': "Akkor nyílik meg, ha a hasadékot lepecsételted vagy résnyire hagytad."
+    },
+    'lord': "Ostromúr",
+    'hud': {
+      'wave': "{n}/{total}. hullám",
+      'marks': "Jelek: {n}",
+      'gate': "Kapu {pct}%",
+      'build': "{n}. hullám {s} mp múlva",
+      'ready': "Kész!",
+      'buy': "{name}: {n} jel"
+    },
+    'def': {
+      'ballista': {
+        'name': "Ballista",
+        'desc': "2 másodpercenként átütő vesszőt lő végig a sávján."
+      },
+      'cauldron': {
+        'name': "Tűzüst",
+        'desc': "Lángra lobbantja a sávja szorosát."
+      },
+      'barricade': {
+        'name': "Barikád",
+        'desc': "20 másodpercre elzár egy sávot."
+      },
+      'militia': {
+        'name': "Milícia",
+        'desc': "Két őr harcol melletted."
+      },
+      'repair': {
+        'name': "Kapu javítása",
+        'desc': "Visszaállítja a kapu negyedét."
+      }
+    },
+    'block': {
+      'marks': "Nincs elég ostromjel.",
+      'full': "Nincs több hely.",
+      'phase': "Csak a hullámok között."
+    },
+    'toast': {
+      'cleared': "A(z) {n}. hullám visszaverve! +{marks} jel",
+      'clearedUnharmed': "A(z) {n}. hullám visszaverve, a kapu sértetlen! +{marks} jel",
+      'horn': "Megszólal a kürt! A kapu {pct}%-on áll.",
+      'ram': "Faltörő kos! Állítsd meg, mielőtt eléri a kaput!",
+      'rally': "Újra talpon! Tartsd a kaput!"
+    },
+    'banner': {
+      'wave': "{n}. hullám",
+      'final': "Az Ostromúr!"
+    },
+    'result': {
+      'tier': "Bástyagázló ostroma: {tier}",
+      'waves': "Visszavert hullámok: {n}/{total}",
+      'marks': "Megtartott ostromjelek: {banked} / {earned}",
+      'glass': "Démonüveg: +{n}"
+    },
+    'milestone': {
+      'normal1': "Mérföldkő: a Bástya zászlaja.",
+      'normal5': "Mérföldkő: a Falőrző vértje.",
+      'hard1': "Mérföldkő: Veteránösztön, egy ötödik passzív hely.",
+      'hard5': "Mérföldkő: Kapuzúzó.",
+      'nightmare1': "Mérföldkő: az Utolsó Bástya koronája.",
+      'hardFlawless': "Mérföldkő: egy rejtett kaszt próbájának kulcsa."
+    }
+  },
+  // ─── The Breaking (the afterplay's story) ───
+  'breaking': {
+    'title': "A Hasadás",
+    'toast': {
+      brk6: "A Kovácsmester visszakapta a kohóját. A pokoli kovácsolás elérhető.",
+      brk7: "A Szfinx halott. Az Orákulum lencséje megmutatja, hol várnak a nagy fenevadak.",
+      brk8: "A Leviatán halott. A pikkelye a sekély vízen is megtart.",
+      brk9: "A Hidra halott. A tűzkulcsa a tiéd.",
+      brk10: "Az Ősi Sárkány halott. A hasadék nyitva áll.",
+      sealed: "A hasadék lepecsételve. Te vagy a Hasadék Lepecsételője.",
+      ajar: "A hasadék résnyire nyitva marad. A démonok próbára teszik a falakat és a kolosszeumot.",
+      'brk2': "Bástyagázló befogad. Az emberei most rád számítanak.",
+      'rescued': "Túlélők megmentve! Biztonságban vannak Bástyagázlóban.",
+      'brk3': "Szabad az út. Sunford népe biztonságban van.",
+      'brk4': "A füvesasszony csatlakozik az erődhöz.",
+      'brk5': "A kentaurhorda megtört. Az erőd ostromra készül.",
+    },
+  },
   // ─── The intro (#130): its skip, and its narrator's name ───
   intro: {
     narrator: 'A Krónikás',
@@ -88,6 +253,7 @@ export default {
     gold: '{n} arany',
     potion: 'Gyógyital (maradt: {n})',
     manaPotion: 'Manaital (maradt: {n})',
+    potionStop: 'Igyál egy gyógyitalt a folytatáshoz',
     groups: 'Legyőzött ellenséges csapatok: {n} / {total}',
     wave: 'Hullám: {n} / {total}',
     roll: 'Gurulás',
@@ -261,6 +427,10 @@ export default {
     escort: 'Védd a karavánt'
   },
   node: {
+    'bastion': {
+      'name': "Bástyagázló",
+      'desc': "Régi határerőd, az utolsó falak, amelyek még állnak. Itt gyűlnek össze a túlélők.",
+    },
     sunford: {
       name: 'Sunford',
       desc: 'Földműves kisváros a síkság szélén. Otthon, egy kovács és két tanító.'
@@ -343,6 +513,9 @@ export default {
     locked: 'Tisztíts meg egy szomszédos zónát, hogy megnyíljon az út.',
     lockedArena: 'A kapui akkor nyílnak meg, ha elintézted a Goblinkirály ügyét.',
     lockedRift: 'Akkor nyílik meg, ha eldőlt a Rettegés erődje trónjának sorsa.',
+    invaded: 'Megszállva',
+    invadedDesc: 'Démonok uralják ezt a földet. Oszlopaik a közeli ellenségeket keményebb ütésre sarkallják, a hasadék sebhelyei égetnek és lassítanak, és minden itt legyőzött ellenség többet ér.',
+    lockedInvaded: 'A démonok szorosan tartják. Előbb szerezd vissza ezt: {zone}.',
     danger: {
       '1': 'Kicsit a szinted fölött.',
       '2': 'A te szinteden veszélyes.',
@@ -469,6 +642,11 @@ export default {
     }
   },
   class: {
+    // ── The prestige classes (afterplay phase 10) ──
+    'demonhunter': { 'name': "Démonvadász", 'desc': "Árnyék és szent fény, egyetlen prédára esküdve. Megjelöli a démonokat, és a megjelöltek gyorsan elesnek." },
+    'dragoon': { 'name': "Dragonyos", 'desc': "Szél a csizma alatt, pajzs a karon. Az égből ugrik le, és egész sorokat nyársal fel." },
+    'hexsmith': { 'name': "Átokkovács", 'desc': "Vérrel táplált étermesterség. Tornyokat épít, amelyek kiszívják az ellenséget, hogy a kovácsot gyógyítsák." },
+    'tidecaller': { 'name': "Dagályhívó", 'desc': "Fagy és elemek a tengerbe öntve. Hullámok, amelyek hátralökik és eláztatják az ellenséget." },
     aegis: {
       name: 'Égisz-lovag',
       desc: 'Pajzs és szent acél. Felfogja az ütéseket, hogy másnak ne kelljen.'
@@ -535,6 +713,35 @@ export default {
     }
   },
   skill: {
+    // ── The prestige classes (afterplay phase 10) ──
+    'huntersMark': { 'name': "Vadászjel", 'desc': "Szent nyílvessző: {dmg}% Ügyesség alapú sebzés. {dur} mp-ig a célpont {vuln}%-kal több sebzést kap, egy démon {demon}%-kal többet." },
+    'demonsBane': { 'name': "Démonvész", 'desc': "+{bane}% sebzés a démonok ellen, és {ward}%-kal kevesebb sebzés tőlük." },
+    'silverVolley': { 'name': "Ezüstsortűz", 'desc': "Ezüst vesszők egy vonalban: {dmg}% Ügyesség alapú sebzés, +{bane}% démonok és megjelölt ellenségek ellen." },
+    'skyfallLeap': { 'name': "Égi zuhanás", 'desc': "Ugorj elérhetetlen magasba {air} mp-re, majd zuhanj le: {dmg}% Erő alapú sebzés {radius} m-en belül, az ellenségek felbuknak." },
+    'dragonBlood': { 'name': "Sárkányvér", 'desc': "+{boss}% sebzés a főellenségek ellen, +{hp}% maximális életerő, és semmi sem lök hátra." },
+    'dragonLance': { 'name': "Sárkánylándzsa", 'desc': "Lándzsadöfés egy vonalban: {dmg}% Ügyesség alapú sebzés minden benne álló ellenségnek." },
+    'hexTurret': { 'name': "Átkozott torony", 'desc': "Építs tornyot {dur} mp-re. Másodpercenként kiszívja a legközelebbi ellenséget {radius} m-en belül {dmg}% Jártasság alapú sebzéssel; ennek {drain}%-át visszagyógyulod." },
+    'soulForge': { 'name': "Lélekkohó", 'desc': "+{hp}% maximális életerő, másodpercenként {regen} életerő, és {reduce}%-kal kevesebb sebzést kapsz." },
+    'hexBolt': { 'name': "Átkozott vessző", 'desc': "Fizess {hp}% életerőt: vessző {dmg}% Jártasság alapú sebzéssel. Ennek {heal}%-át visszagyógyulod, az ellenség pedig {dur} mp-ig {weak}%-kal kevesebbet sebez." },
+    'tidalWave': { 'name': "Szökőár", 'desc': "Hullám egy vonalban: {dmg}% Intelligencia alapú sebzés, az ellenségek hátralökve és eláztatva ({slow}% lassítás {dur} mp-ig)." },
+    'seaborn': { 'name': "Tengerszülött", 'desc': "+{bonus}% sebzés a lehűtött ellenségek ellen, {reduce}%-kal kevesebb kapott sebzés, +{move}% sebesség." },
+    'undertow': { 'name': "Visszaáramlás", 'desc': "Örvény {dur} mp-re: összesen {dmg}% Intelligencia alapú sebzés {radius} m-en belül. Behúzza az ellenségeket és {slow}%-kal lassítja őket." },
+    'bastionWall': { 'name': "A Bástya fala", 'desc': "{dur} mp-ig minden ellenség {radius} m-en belül téged kell támadjon, és {def}%-kal kevesebbet sebződsz. Utána a fény {dmg}% Erő +a kapott ütések {back}%-át sebzi." },
+    'thousandCuts': { 'name': "Ezer vágás", 'desc': "Cikázz az ellenségek közt {radius} m-en belül, {hits} ütéssel, mindegyik {dmg}% Ügyesség-sebzést okoz. Egy főellenséget csak egy ütés ér. Vágás közben semmi sem talál el." },
+    'cinderSun': { 'name': "Hamunap", 'desc': "Egy haldokló nap {dur} mp alatt széthullik: {meteors} izzó szilánk, mind {dmg}% Intelligencia-sebzéssel csapódik be." },
+    'royalLegion': { 'name': "Királyi légió", 'desc': "Hívd a légiót {dur} mp-re: {archers} íjász, {guards} őr és {mages} harci mágus." },
+    'stoppedHour': { 'name': "Megállt óra", 'desc': "Állítsd meg az órát {radius} m-en belül {dur} mp-re. Amikor újra jár, minden ellenség {dmg}% Intelligencia-sebzést kap." },
+    'redCovenant': { 'name': "Vörös szövetség", 'desc': "Vedd el minden ellenség életének {pct}%-át {radius} m-en belül. Ennek {heal}%-ával gyógyulsz." },
+    'orbitalLance': { 'name': "Orbitális lándzsa", 'desc': "Az égből jövő fénylándzsa éget, ahová célzol: {dmg}% Ügyesség-sebzés {dur} mp alatt." },
+    'tectonicHeart': { 'name': "Tektonikus szív", 'desc': "A föld szíve megreped: {dmg}% Erő-sebzés mindenre a közelben, és törmelék, ami {dur} mp-ig lassít." },
+    'eyeOfTheGale': { 'name': "A szélvihar szeme", 'desc': "Nyílvihar {dur} mp-ig: összesen {dmg}% Ügyesség-sebzés és {slow}% lassítás." },
+    'endlessWinter': { 'name': "Végtelen tél", 'desc': "Végtelen tél tör ki belőled: {dmg}% Intelligencia-sebzés {radius} m-en belül, mindenki {freeze} mp-re megfagy." },
+    'dawnbreak': { 'name': "Hajnalhasadás", 'desc': "Légy a hajnal {dur} mp-ig: másodpercenként {dmg}% Intelligencia-sebzés {radius} m-en belül és {heal}% gyógyulás." },
+    'alphasCall': { 'name': "Az alfa hívása", 'desc': "{wolves} farkas válaszol és fut veled {dur} mp-ig. Az egész falka +{dmg}% sebzést okoz és {move}%-kal gyorsabb." },
+    'prismStorm': { 'name': "Prizmavihar", 'desc': "{dur} mp-ig tombol a négy elem: {strikes} csapás {dmg}% Intelligenciával, amelyek egymást lobbantják." },
+    'ferryman': { 'name': "A révész", 'desc': "{dur} mp-ig minden melletted elesett ellenség szellemedként kel fel, és a szellemek {atk}%-kal többet sebeznek." },
+    'unmovingMountain': { 'name': "Rendíthetetlen hegy", 'desc': "Költsd el minden csid: egy hegy zuhan le {dmg}% Ügyesség-sebzéssel, csinként +{per}%, és ledönti az ellenséget." },
+    'encore': { 'name': "Ráadás", 'desc': "Még egyszer {dur} mp-ig (+{buff}% sebesség, sebzés, Védelem), aztán az utolsó akkord: {dmg}% Karizma, az ellenség elbűvölve." },
     kind: {
       active: 'Aktív',
       passive: 'Passzív'
@@ -590,7 +797,7 @@ export default {
     },
     danceOfBlades: {
       name: 'Pengetánc',
-      desc: 'Átsuhansz a {radius} m-en belüli ellenségek között, {hits} csapással összesen {dmg}% Ügyesség alapú sebzést okozva. Tánc közben nem találhatnak el.'
+      desc: 'Átsuhansz a {radius} m-en belüli ellenségek között, {hits} csapással, mindegyik {dmg}% Ügyesség alapú sebzést okoz. Egy főellenséget csak egy csapás ér. Tánc közben nem találhatnak el.'
     },
     fireball: {
       name: 'Tűzgolyó',
@@ -1338,6 +1545,8 @@ export default {
     magic: 'Mágikus · alapja: {attr}'
   },
   source: {
+    'siege': "A Bástyagázló ostromában nyerve.",
+    'infernal': "Pokoli iker: a megszállt {zone} területén esik, vagy kovács kovácsolja.",
     arena: 'A Kolosszeum ranglistáján elnyerhető.',
     smith: 'Kovácsműhelyben kovácsolva.',
     mob: 'Szörnyekből esik, zóna: {zone}.',
@@ -1346,6 +1555,15 @@ export default {
     secret: 'Titkos ládában rejtőzik, zóna: {zone}.'
   },
   mod: {
+    'demonBane': "+{n}% sebzés démonok ellen",
+    'demonLeech': "A démonokra mért sebzés {n}%-a gyógyít",
+    'beastBane': "+{n}% sebzés mitikus fenevadak ellen",
+    'fireWard': "{n}%-kal kevesebb tűzsebzés",
+    'shadowWard': "{n}%-kal kevesebb árnysebzés",
+    'demonWard': "{n}%-kal kevesebb sebzés démonoktól",
+    'pylonBreaker': "+{n}% sebzés démonoszlopok ellen",
+    'glassFinder': "{n}% esély, hogy egy megölt démon több démonüveget hagy",
+    'waterWalk': "A víz nem lassít",
     str: '+{n} Erő',
     dex: '+{n} Ügyesség',
     int: '+{n} Intelligencia',
@@ -1421,6 +1639,24 @@ export default {
     songLength: 'A dalok {n}%-kal tovább tartanak'
   },
   item: {
+    'chimeraMane': { 'name': "Kiméraserény" },
+    'triFang': { 'name': "Háromagyar" },
+    'warchiefsLongbowGun': { 'name': "A hadúr íjpuskája" },
+    'hoofbreakerGreaves': { 'name': "Patatörő lábvért" },
+    'eyeOfTheDeep': { 'name': "A mélység szeme" },
+    'beamSplitter': { 'name': "Sugárhasító" },
+    'riddleCrown': { 'name': "Rejtvénykorona" },
+    'sandglassWand': { 'name': "Homokóra-pálca" },
+    'leviathanScale': { 'name': "Leviatánpikkely" },
+    'tidecallerStaff': { 'name': "Dagályhívó bot" },
+    'hydraScaleGauntlets': { 'name': "Hidrapikkely-vaskesztyű" },
+    'manyHeadedFlail': { 'name': "Sokfejű cséphadaró" },
+    'heartOfTheElderDragon': { 'name': "Az Ősi Sárkány szíve" },
+    'dragonboneGreatsword': { 'name': "Sárkánycsont kétkezes kard" },
+    'bastionBanner': { 'name': "A Bástya zászlaja" },
+    'wallwardensPlate': { 'name': "A falőr vértje" },
+    'gatebreaker': { 'name': "Kaputörő" },
+    'crownOfTheLastBastion': { 'name': "Az utolsó Bástya koronája" },
     heartOfTheArena: {
       name: 'Aréna szíve'
     },
@@ -3418,8 +3654,17 @@ export default {
     known: 'Megtanulva',
     friend: '{faction} megbecsüli a barátait: 20% kedvezmény.',
     fee: 'Díj',
+    rank: {
+      label: '{n}. rang',
+      up: 'Rangemelés',
+      effect: '+{effect}% hatás, −{cd}% töltési idő',
+      max: 'Legmagasabb rang',
+      level: 'A(z) {n}. ranghoz {lvl}. szint kell.'
+    },
     hint: 'Válassz egy leckét. A zöld szegély azt jelenti, hogy most megtanulhatod.',
     block: {
+      'trial': "Még nem teljesítetted ennek a kasztnak a próbáját.",
+      'parents': "Előbb tanulj egy {a} és egy {b} képességet.",
       level: 'Túl alacsony a szinted.',
       attrs: 'Túl alacsonyak a tulajdonságaid.',
       gold: 'Nincs elég aranyad.'
@@ -3444,6 +3689,20 @@ export default {
     circle: 'Az Éterkör'
   },
   npc: {
+    'mysteriousWanderer': { 'name': "Titokzatos vándor" },
+    'fairPip': { 'name': "Pip" },
+    'fairBess': { 'name': "Öreg Bess" },
+    'fairHob': { 'name': "Hob" },
+    sunkenPriest: { name: "Az Elsüllyedt Pap" },
+    'fortHale': {
+      'name': "Hale kapitány",
+    },
+    'fortMara': {
+      'name': "Vén Mara",
+    },
+    'scoutWren': {
+      'name': "Wren felderítő",
+    },
     frostDisciple: {
       name: 'Ivor Hask'
     },
@@ -3733,6 +3992,185 @@ export default {
     }
   },
   dlg: {
+    // ── The Mysterious Wanderer (afterplay phase 10) ──
+    'mysteriousWanderer': {
+      'hello': { '1': "Nos. Megtetted, amit kevesen tettek meg valaha. A hasadék túloldaláról is éreztem.", '2': "A régi utakat tanítom, amelyek két iskolát eggyé fűznek. Csak azoknak, akik kiérdemlik." },
+      'sealed': { '1': "Lepecsételted. Kár, bizonyos értelemben. Szerettem a kilátást." },
+      'ajar': { '1': "Résnyire nyitva hagytad. Merész. A démonok majd ébren tartanak." },
+      'again': { '1': "Megint itt. Hosszú az út, de jól járod." },
+      'train': { '1': "Mutasd meg, kinek a két fele vagy, és eggyé teszem őket." },
+      'trial': { 'say': "Milyen próbákra gondolsz?", '1': "Egy kapu, amely karcolás nélkül kitartott. Egy sárkány, amelyet egyetlen elesés nélkül öltél meg. Öt pokoli kovácsolás és öt győzelem sorban.", '2': "A Leviatán halála, és egy tökéletes kör a hidránál. Mindegyik ajtót nyit, amelyet megmutathatok." },
+      'who': { '1': "Egy vándor. A hasadék peremén jártam, mielőtt nagyapád megszületett. A nevek elkopnak." },
+      'trainBack': { '1': "Gyakorolj. Két iskola veszekszik, mielőtt megegyezik." },
+      'bye': { '1': "Járj óvatosan. Itt leszek, amíg itt nem leszek." }
+    },
+    'fairPip': {
+      'hello': { '1': "Gyertek közelebb! Kilenc hordó, egy csapat ördögfióka és egy kalapács. Üssétek vissza őket!", '2': "Az ördögfiókák kiugranak a hordókból. Üss el húszat, mielőtt lepereg a homok.", '3': "Az aranypáncélosokat hagyd, egy életbe kerülnek. Sorozatban három győzelem, és tiéd a nagy nyeremény." },
+      'again': { '1': "Még ütnél? Ragadd meg a kalapácsot!" },
+      'play': { '1': "Kalapácsot fel! Jönnek!" },
+      'who': { '1': "Pip, foglalkozásomra ördögfióka-fogó. Ezeket magam fogtam. Harapnak." },
+      'playBack': { '1': "Ha! Micsoda ricsaj! Még egyszer?" },
+      'bye': { '1': "Lazán azzal a kalapácsos karral!" }
+    },
+    'fairBess': {
+      'hello': { '1': "Öt karika, három fej, és egyik sem harap. Magam faragtam, úgyhogy vigyázz a festékre.", '2': "Tartsd nyomva a lendületért, engedd el a dobáshoz. Egy fej csak akkor kapja el a karikát, ha középre leng.", '3': "Minden egymás utáni fej eggyel többet számít. Dobd rá mind az ötöt, és rendesen megfizetlek." },
+      'again': { '1': "Megint szerencsét próbálsz az öreglányommal?" },
+      'play': { '1': "Itt a karikád. Dobj finoman, aranyom." },
+      'who': { '1': "Negyven év a vásári utakon. A hidra a háborúval jött. Illőnek tűnt." },
+      'playBack': { '1': "Nem rossz. Az én néhai uram rosszabbul dobott." },
+      'bye': { '1': "Kifelé vigyázz a festékre." }
+    },
+    'fairHob': {
+      'hello': { '1': "Ó. Szia. Szkanderoznál? Óvatos leszek. Megpróbálok.", '2': "Nyomd, amikor a gyűrű a körhöz ér. Ütemen kívül megcsúszol.", '3': "Az erős karok segítenek. Győzz le háromszor egymás után, és a Kovácsmester kedvezményt ad." },
+      'again': { '1': "Még egy kör? Soha senki nem jön vissza még egy körre." },
+      'play': { '1': "Könyököt az asztalra. Amikor csak akarod." },
+      'who': { '1': "A Kovácsmester inasa vagyok. Azt mondja, nem ismerem a saját erőmet." },
+      'playBack': { '1': "Jó meccs volt. Holnap fájni fog a karom. Valószínűleg." },
+      'bye': { '1': "Gyere vissza hamar. A kovácsműhely nagyon csendes." }
+    },
+    // ── The Breaking (the afterplay, B0–B5) ──
+    'story': {
+      forge: { back: { '1': "A kohóm újra ég, forróbban, mint valaha. A démonvas jól olvad.", '2': "Hozd el, amit odakint találsz. Most már pokolivá tudom kovácsolni." } },
+      oracle: { lens: { '1': "Egyszer kiszabadítottál. Most én látok helyetted. Fogd a lencsémet.", '2': "Nézz át rajta, és a térkép megmutatja, hol várnak a nagy fenevadak." } },
+      priest: { lens: { '1': "Az Orákulum nincs többé, így most én őrzöm a templomát. Ezt a Szfinx őrizte.", '2': "Az ő lencséje. Nézz át rajta, és a térkép megmutatja, hol várnak a nagy fenevadak." } },
+      herbs: { scale: { '1': "Egy pikkely a Leviatánról! Könnyű, mint egy levél, és lebeg.", '2': "Viseld, és a sekély víz úgy tart meg, mint a szilárd föld." } },
+      ghost: { key: { '1': "Nocsak, aki elvette a trónomat. Megölted a Hidrámat. Helyes.", '2': "Vedd el a tűzkulcsát. A hasadék szíve ég, és csak a tűz nyitja meg." } },
+      syndicate: { key: { '1': "A Hidra halott? Akkor a tűzkulcs azé, aki fizet. Vagy a tiéd, gondolom.", '2': "Megnyitja a hasadék szívét. Menj, zárd be, mielőtt felfalja az üzletemet." } },
+      sealed: {
+        sealed: { '1': "Így pecsételték le a hasadékot, és a világ gyógyulni kezdett.", '2': "Városokat építettek újjá, dalokat írtak, és mindegyikben ott volt egy név." },
+        ajar: { '1': "Így maradt a hasadék résnyire nyitva, és a világ megtanult mellette élni.", '2': "A falakon őrség állt, a kolosszeum zajos maradt, a hős pedig készen." },
+      },
+      'rift': {
+        'scream': {
+          '1': "Az Üresség Ura elesik, és a hasadék mögötte felsikolt.",
+          '2': "Sosem volt a trónja. A ketrece volt, ő pedig a fedele.",
+          '3': "Most a hasadék nyitva áll, és minden felébred, amit az üresség álomban tartott.",
+        },
+      },
+      'wren': {
+        'found': {
+          '1': "Hát itt vagy! Wren vagyok, felderítő. Mindenhol kerestelek.",
+          '2': "Sunford ég. Aki menekülni tudott, Bástyagázlóba ment.",
+          '3': "Az a régi erőd a Hamuszirtek felé vezető úton. Siess, szükségük van rád.",
+        },
+      },
+    },
+    'scoutWren': {
+      sealed: { '1': "A sárkány eltűnt! Az utak máris könnyebbnek tűnnek." },
+      'hello': {
+        '1': "Eljöttél! Tudtam. Isten hozott Bástyagázlóban.",
+        '2': "Az utakat derítem fel a kapitánynak. Kérdezz, hol a baj.",
+      },
+      'again': {
+        '1': "Máris vissza? Az utak nem derítik fel magukat.",
+      },
+      'who': {
+        '1': "Wren. Üzeneteket vittem Sunford őrségének, mielőtt Sunford leégett.",
+      },
+      'rumor': {
+        'plains': {
+          '1': "Démonok tartják a Sunfordi-síkság útját. Sunford mesterei mögötte rekedtek.",
+        },
+        'hollows': {
+          '1': "A Goblinüregek hemzsegnek a pokolkutyáktól. Tisztítsd meg őket, és Sunford népe hazatérhet.",
+        },
+        'woods': {
+          '1': "Valami háromfejű vadászik a Suttogó-erdőben. A füvesasszony ott bujkál.",
+        },
+        'outskirts': {
+          '1': "Kentaurok portyáznak Oakhaven határán. Ha elérik a falainkat, minden kard kell.",
+        },
+        'siege': {
+          '1': "A hordájuk megtört, de újak gyűlnek. A kapitány készíti a falakat.",
+        },
+      },
+      'bye': {
+        '1': "Figyeld az utakat. Én is figyelem.",
+      },
+    },
+    'fortHale': {
+      sealed: { '1': "A sárkány halott. Sosem hittem, hogy megérem. Köszönöm." },
+      'siegeBack': { '1': "Még nem? Akkor pihenj. A falak megvárnak." },
+      'bell': { '1': "Akkor a kapuhoz. Mondd, milyen keményen tartsuk." },
+      'hello': {
+        '1': "Ideértél. Jó. Minden kard kell, most jobban, mint valaha.",
+        '2': "Isten hozott Bástyagázlóban. Régi falak, de az egyetlenek, amelyek még állnak.",
+      },
+      'road': {
+        '1': "Újra nyitva a Sunfordba vezető út. Népe biztonságban van a falaink mögött.",
+      },
+      'herbs': {
+        '1': "A füvesasszony visszatért, a füveivel együtt. A gyengélkedő fellélegezhet.",
+      },
+      'siege': {
+        '1': "Megtörted a kentaurokat. De nagyobb sereg jön, és ezekért a falakért jön.",
+      },
+      'again': {
+        '1': "Még állunk. A falak, az emberek és én.",
+      },
+      'fort': {
+        '1': "Régi határerőd. Ötven évig üresen állt, amíg az ég meg nem hasadt.",
+        '2': "Most ez az utolsó biztonságos hely a síkság és a hegyek között.",
+        'say': "Miféle hely ez?",
+      },
+      'rumor': {
+        'road': {
+          '1': "Tisztítsd meg a síkságot és az üregeket. Sunford népe ott rekedt.",
+        },
+        'woods': {
+          '1': "A füvesasszony a Suttogó-erdőben van, és egy háromfejű fenevad is. Légy résen.",
+        },
+        'centaurs': {
+          '1': "Kentaurok a határban. Törd meg a hordájukat, mielőtt ideér.",
+        },
+        'siege': {
+          '1': "Pihenj. Ha megszólal az ostromharang, a falon lesz rád szükségem.",
+        },
+      },
+      'bye': {
+        '1': "Tartsd közel a kardod.",
+      },
+    },
+    'fortMara': {
+      sealed: { '1': "Sikerült, gyermekem. Mindannyian egy otthonnal tartozunk neked." },
+      'siegeBack': { '1': "Pihenj egy kicsit, gyermekem. A harang újra szólni fog." },
+      'bell': { '1': "A kapitány falai most rám vannak bízva. Válaszd meg, hogyan tartjuk őket." },
+      'hello': {
+        '1': "Gyermekem! Élsz. Amikor Sunford leégett, a legrosszabbtól féltem.",
+        '2': "Most vendégek vagyunk egy katonaerődben, öregasszonyostul.",
+      },
+      'command': {
+        '1': "Hale kapitány elesett Oakhavennel. Így most egy vén asszonyra hallgat az erőd.",
+      },
+      'home': {
+        '1': "Sunfordot újjáépítik! Állnak az első tetők. Sírni tudnék.",
+      },
+      'again': {
+        '1': "Még itt vagyok, gyermekem. Még számolom a fejeket.",
+      },
+      'town': {
+        '1': "Démonok jöttek az éjszakai égből. Azzal menekültünk, amit elbírtunk.",
+        '2': "Néhányan sosem jutottak ki. Hozd haza a többieket, ha tudod.",
+        'say': "Mi történt Sunforddal?",
+      },
+      'rumor': {
+        'road': {
+          '1': "Mestereink még a sunfordi úton vannak. Hozd ide őket, gyermekem.",
+        },
+        'woods': {
+          '1': "A füvesasszony füvekért ment a Suttogó-erdőbe, és sosem tért vissza.",
+        },
+        'centaurs': {
+          '1': "Lovasok a határban. Paták, mint a mennydörgés, minden éjjel.",
+        },
+        'siege': {
+          '1': "A falakat hamarosan próbára teszik. Érzem a vén csontjaimban.",
+        },
+      },
+      'bye': {
+        '1': "Vigyázz magadra, gyermekem.",
+      },
+    },
     intro: {
       crossing: { 1: 'E világ minden útja egy keresztútnál találkozik… és minden keresztút egy csata.' },
       hero: { 1: 'Sunford csendes földjeiről egy ifjú hős indult útnak.' },
@@ -4183,6 +4621,7 @@ export default {
       }
     },
     hero: {
+      'siege': "Álljunk a falakra.",
       forge: 'Szeretném használni a kohódat.',
       learnSmith: 'Megtanítanál kovácsolni?',
       ore: 'Van egy kis eladó ércem.',
@@ -4489,7 +4928,7 @@ export default {
       },
       map: {
         '1': 'Rook kapitány térképe! Széttépte, és elrejtette a darabokat, mielőtt a goblinok elkapták.',
-        '2': 'Keress meg hatot közülük, néhány még szanaszét hever, és az X megmutatja az utat: valahol a Hamuszirteken. Áss ott, és az arany a tiéd.',
+        '2': "Keress meg hat darabot, és az X megmutatja az utat: valahol a Hamuszirteken. Ott áss az aranyért.",
         say: 'Találtam egy darabot egy régi térképből.'
       }
     },
@@ -5455,6 +5894,11 @@ export default {
       }
     },
     quest: {
+      seal: {
+        ask: { '1': "Az Ősi Sárkány halott, és a hasadék nyitva áll előtted.", '2': "Most lepecsételheted, örökre. A fenevadak újra elaludnának.", '3': "Vagy résnyire nyitva hagyhatod, és a legbátrabbak megmérkőzhetnek azzal, ami átjön rajta." },
+        seal: { say: "Pecsételd le. Örökre.", '1': "A hasadék bezárul, mint egy gyógyuló seb, és az ég elcsendesedik." },
+        ajar: { say: "Hagyd résnyire nyitva. Készen állunk majd.", '1': "A hasadék résnyire nyitva marad, és valami mögötte nevet." },
+      },
       goblinKing: {
         ask: {
           '1': 'Állj. Kérlek. Megadom magam.',
@@ -5586,6 +6030,64 @@ export default {
       }
     },
     bark: {
+      sphinx: {
+        intro: { '1': "Felelj, kicsikém, vagy eltemet a homokom." },
+        riddle: { '1': "Akkor egy talány. Lépj oda, ahová mutatom, ebben a sorrendben." },
+        sand: { '1': "Most öt. És a homokom nem vár." },
+        death: { '1': "Jól feleltél. A homok most a tiéd." },
+      },
+      leviathan: {
+        intro: { '1': "Most az én vizemben jársz." },
+        sink: { '1': "A kis szigeteid süllyednek." },
+        grab: { '1': "Gyere velem a mélybe!" },
+        death: { '1': "Az apály elmegy, és nem tér vissza." },
+      },
+      hydra: {
+        intro: { '1': "Vágj le egy fejet, és kettő nő helyette!" },
+        heads: { '1': "Több fej, több fog!" },
+        rage: { '1': "Elégetnél minket? Akkor égj velünk!" },
+        death: { '1': "Nincs több fej. Nincs több." },
+      },
+      elderDragon: {
+        intro: { '1': "A világ alatt aludtam, mielőtt a fajtád megismerte a tüzet." },
+        flight: { '1': "Akkor bújj csak a kis köveid mögé." },
+        rift: { '1': "A hasadék visszahúz. Még ne!" },
+        death: { '1': "Akkor pecsételd le. Elegem van a sötétből." },
+      },
+      'siegeHale': {
+        'start': {
+          '1': "Itt jönnek! Tartsátok a kaput!"
+        },
+        'ram': {
+          '1': "Faltörő kos! Öljétek meg, mielőtt a kapuhoz ér!"
+        },
+        'horn50': {
+          '1': "A kapu fele odavan! Tartsatok ki!"
+        },
+        'horn25': {
+          '1': "A kapu már nem sokáig bírja!"
+        },
+        'won': {
+          '1': "Megtörtek! A Bástya áll!"
+        }
+      },
+      'siegeMara': {
+        'start': {
+          '1': "Jönnek! Álljatok szilárdan, mind!"
+        },
+        'ram': {
+          '1': "Faltörő kos! Állítsátok meg, mielőtt betöri a kaput!"
+        },
+        'horn50': {
+          '1': "A kapu fele odavan. Kitartás!"
+        },
+        'horn25': {
+          '1': "A kapu enged! Szorítsátok vissza őket!"
+        },
+        'won': {
+          '1': "Menekülnek! Az erőd még áll!"
+        }
+      },
       banditChief: {
         whistle: {
           1: 'Fel, fiúk! Harapjátok meg őket!'
@@ -5594,6 +6096,11 @@ export default {
       lightDisciple: {
         freed: {
           '1': 'A fény küldött hozzám. Aurelle nővér vagyok. Keress meg Sunfordban, megtanítom neked a Fényhozók útját.'
+        }
+      },
+      trainerAegis: {
+        freed: {
+          '1': 'Köszönjük, hogy kiszabadítottál a banditáktól! Gyere a tűzhöz: mind tanítunk, az első lecke ingyenes.'
         }
       },
       frostDisciple: {
@@ -5649,6 +6156,48 @@ export default {
         },
         dive: {
           '1': 'Térdelj le.'
+        }
+      },
+      chimera: {
+        intro: {
+          '1': "Három fej, egy éhség. Melyikünk harap először?"
+        },
+        twin: {
+          '1': "Most ketten vagyunk. Válaszd jól az oldaladat."
+        },
+        tail: {
+          '1': "A farkam! Ezt még megfizeted!"
+        },
+        death: {
+          '1': "Három fej, és egyik sem látta ezt jönni."
+        }
+      },
+      centaurWarchief: {
+        intro: {
+          '1': "Fuss, ha akarsz. A nyilaim gyorsabbak."
+        },
+        raiders: {
+          '1': "Lovasok! Gázoljátok le őket!"
+        },
+        rear: {
+          '1': "Elég a nyilakból. Eltaposlak!"
+        },
+        death: {
+          '1': "A síkság emlékezni fog a patáimra."
+        }
+      },
+      cyclops: {
+        intro: {
+          '1': "Valami kicsi van itt. Gyere közelebb. Hadd lássalak."
+        },
+        cover: {
+          '1': "Nincs több nézelődés. A szemem nem kapod meg!"
+        },
+        blind: {
+          '1': "Nem látlak, de hallak!"
+        },
+        death: {
+          '1': "Sötét. Minden elsötétült."
         }
       },
       frostJarl: {
@@ -6773,7 +7322,20 @@ export default {
       }
     }
   },
+  invasion: {
+    pylonsDown: 'Az utolsó oszlop leomlik, kincse szétszóródik!',
+    reborn: {
+      tusker: 'Az Újjászületett Agyar',
+      emberLord: 'A Pokoli Parázsúr',
+      frostJarl: 'Az Újjászületett Fagyjarl',
+      voidDragon: 'Az Újjászületett Üresség Sárkánya'
+    }
+  },
   enemy: {
+    sphinx: "A Szfinx",
+    leviathan: "A Leviatán",
+    hydra: "A Hidra",
+    elderDragon: "Az Ősi Sárkány",
     trainingDummy: 'Gyakorlóbábu',
     goblin: 'Goblin',
     goblinSlinger: 'Goblin parittyás',
@@ -6798,6 +7360,10 @@ export default {
     naga: 'Naga',
     skeleton: 'Csontváz',
     necromancer: 'Nekromanta',
+    chimera: "A Kiméra",
+    chimeraTail: "Kígyófarok",
+    centaurWarchief: "A Kentaur Hadúr",
+    cyclops: "A Küklopsz",
     frostJarl: 'A Fagyjarl',
     nagaOracle: 'A Vízbe fúlt Jósnő',
     voidStalker: 'Ürességjáró',
@@ -6810,6 +7376,7 @@ export default {
     archDemon: 'Az Ősdémon',
     voidling: 'Ürességfajzat',
     voidLord: 'Az Üresség Ura',
+    demonPylon: 'Démonoszlop',
     orderGuard: 'Rendi inkvizítor',
     syndicateBlade: 'Szindikátusi penge',
     goblinWarchief: 'Goblin hadvezér',
@@ -6826,7 +7393,19 @@ export default {
     goblinTyrant: 'Goblin zsarnok',
     voidDrake: 'Üresség-sárkányfióka',
     pitLord: 'Mélységúr',
-    frostThane: 'Fagythán'
+    frostThane: 'Fagythán',
+    hellhound: 'Pokolkutya',
+    frostHellhound: 'Fagyos pokolkutya',
+    gargoyle: 'Vízköpő',
+    harpy: 'Hárpia',
+    corruptedTreant: 'Romlott fapásztor',
+    centaurRaider: 'Kentaur portyázó',
+    cyclopsBrute: 'Küklopsz vadember',
+    demonMiner: 'Démonbányász',
+    sphinxAcolyte: 'A szfinx akolitusa',
+    seaDemon: 'Tengeri démon',
+    drakeHatchling: 'Sárkányfióka',
+    hydraSpawn: 'Hidraivadék'
   },
   results: {
     careful: 'Óvatos győzelem ×{mult}',
@@ -7139,6 +7718,8 @@ export default {
     town: 'Bármelyik város kovácsa fejlesztheti.'
   },
   ore: {
+    'demonglass': { 'name': "Démonüveg" },
+    'ichor': { 'name': "Mitikus ichor" },
     iron: {
       name: 'Vasérc'
     },

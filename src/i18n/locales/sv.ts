@@ -1,5 +1,170 @@
 // Swedish locale — mirrors the key shape of en.ts exactly.
 export default {
+  // ─── Afterplay phase 8: items, materials and capstones ───
+  // ─── Afterplay phase 10: the prestige classes ───
+  'prestige': { 'toast': { 'wanderer': "En mystisk vandrare väntar i fästet." } },
+  'relic': {
+    'infernal': "{name} · Helvetes",
+    'set': "Buren med {item}:",
+    'heroicBadge': "Heroisk {n}",
+    'heroic': "Heroisk {n}: {gold} guld, {glass} demonglas",
+    'heroicIchor': "Heroisk {n}: {gold} guld, {glass} demonglas, {ichor} ichor",
+    'heroicMax': "Alla heroiska rang är tagna.",
+    'infernalForge': "Helvetessmide: {gold} guld, {glass} demonglas",
+    'lens': "Orakelns lins: här väntar {boss}.",
+    'hydraKey': "Förseglat. Hydrans eldnyckel öppnar Rämnans hjärta.",
+    'marksGlass': "Köp {glass} demonglas för {marks} märken",
+    'capstone': "Mästarförmåga",
+    'fortOnly': "Den här mästarförmågan lärs bara ut vid Bastionsvadet."
+  },
+  // ─── The fort's fair games (afterplay §9) ───
+  'fair': {
+    'fee': "Spela · {n}",
+    'again': "Spela igen",
+    'noGold': "Inte tillräckligt med guld.",
+    'capped': "Zoner att rensa innan de stora priserna kommer tillbaka: {n}",
+    'top': "Högsta vinsten! +{gold} guld, +{xp} XP",
+    'topGold': "Högsta vinsten, bara i guld: +{n} guld",
+    'won': "Du vinner! +{n} guld",
+    'lost': "Otur. Sviten börjar om.",
+    'row': "Vinster i rad: {n} av {max}",
+    'mats': "+{n} Heroiskt+-material",
+    'discount': "Smeden ger dig nu {n} % rabatt på uppgraderingar!"
+  },
+  'whack': {
+    'title': "Bonka en Imp",
+    'lead': "Träffa 20 imps på 30 sekunder. Låt de guldpansrade vara: varje du träffar kostar ett liv.",
+    'hits': "Imps: {n} / {max}",
+    'lives': "Liv: {n}",
+    'time': "Tid: {n} s",
+    'hint': "Tryck på imparna, eller tryck 1 till 9.",
+    'barrel': "Tunna {n}",
+    'timeout': "Tiden är ute!",
+    'dead': "Slut på liv!"
+  },
+  'ring': {
+    'title': "Ringkastning vid Hydran",
+    'lead': "Håll för kraft, släpp för att kasta. Ett huvud fångar ringen bara nära mitten av sin svängning. Varje huvud i rad är värt en poäng mer.",
+    'hint': "Håll och släpp på bordet, eller håll Mellanslag.",
+    'rings': "Ringar kvar: {n}",
+    'score': "Poäng: {n}",
+    'hit': "Träff! +{n}",
+    'miss': "Miss!",
+    'perfect': "En perfekt runda!",
+    'nothing': "Poäng {n}. Inget pris den här gången.",
+    'power': "Kraft"
+  },
+  'arm': {
+    'title': "Armbrytning",
+    'lead': "Tryck när ringen möter cirkeln för att pressa ner hans arm. Styrka gör takten bredare. Tre vinster i rad ger smedrabatt, fem ger Heroiskt+-material.",
+    'hint': "Tryck på bordet, eller tryck Mellanslag.",
+    'good': "Pressa!",
+    'off': "Ur takt!"
+  },
+  // ─── The Siege of Bastion (afterplay §8) ───
+  'siege': {
+    'title': "Belägringen av Bastionsvadet",
+    'lead': "Håll porten i tio vågor. Mellan vågorna lägger du belägringsmärken på försvar.",
+    'story': "Horden står vid porten. Håll den i tio vågor: den här första belägringen kan inte förloras.",
+    'bell': "Belägringsklockan ringer! Horden samlas vid porten.",
+    'mapBell': "Belägring!",
+    'start': "Ring i klockan",
+    'wins': "Vunna: {n}",
+    'marksBank': "Sparade belägringsmärken: {n}",
+    'tier': {
+      'normal': "Normal",
+      'hard': "Svår",
+      'nightmare': "Mardröm"
+    },
+    'tierDesc': {
+      'normal': "Fiender en nivå över dig.",
+      'hard': "Fiender 3 nivåer högre, med 30 % mer liv.",
+      'nightmare': "Fiender 6 nivåer högre och två vågor av mytiska eliter."
+    },
+    'locked': {
+      'hard': "Vinn en normal belägring först.",
+      'nightmare': "Öppnas när rämnan är förseglad eller hålls på glänt."
+    },
+    'lord': "Belägringsherre",
+    'hud': {
+      'wave': "Våg {n}/{total}",
+      'marks': "Märken: {n}",
+      'gate': "Port {pct} %",
+      'build': "Våg {n} om {s} s",
+      'ready': "Redo!",
+      'buy': "{name}: {n} märken"
+    },
+    'def': {
+      'ballista': {
+        'name': "Ballista",
+        'desc': "Skjuter en genomborrande bult längs sin fil var 2:a sekund."
+      },
+      'cauldron': {
+        'name': "Eldkittel",
+        'desc': "Sätter eld på filens flaskhals."
+      },
+      'barricade': {
+        'name': "Barrikad",
+        'desc': "Spärrar en fil i 20 sekunder."
+      },
+      'militia': {
+        'name': "Milis",
+        'desc': "Två vakter strider vid din sida."
+      },
+      'repair': {
+        'name': "Laga porten",
+        'desc': "Återställer en fjärdedel av porten."
+      }
+    },
+    'block': {
+      'marks': "Inte tillräckligt med belägringsmärken.",
+      'full': "Ingen plats för fler.",
+      'phase': "Bara mellan vågorna."
+    },
+    'toast': {
+      'cleared': "Våg {n} hållen! +{marks} märken",
+      'clearedUnharmed': "Våg {n} hållen, porten oskadd! +{marks} märken",
+      'horn': "Hornet ljuder! Porten är nere på {pct} %.",
+      'ram': "En murbräcka! Stoppa den innan den når porten!",
+      'rally': "På fötter igen! Håll porten!"
+    },
+    'banner': {
+      'wave': "Våg {n}",
+      'final': "Belägringsherren!"
+    },
+    'result': {
+      'tier': "Belägringen av Bastionsvadet: {tier}",
+      'waves': "Vågor hållna: {n}/{total}",
+      'marks': "Belägringsmärken behållna: {banked} av {earned}",
+      'glass': "Demonglas: +{n}"
+    },
+    'milestone': {
+      'normal1': "Milstolpe nådd: Bastionens baner.",
+      'normal5': "Milstolpe nådd: Murväktarens harnesk.",
+      'hard1': "Milstolpe nådd: Veteranens instinkt, en femte passiv plats.",
+      'hard5': "Milstolpe nådd: Portkrossaren.",
+      'nightmare1': "Milstolpe nådd: Den sista bastionens krona.",
+      'hardFlawless': "Milstolpe nådd: nyckeln till ett dolt klassprov."
+    }
+  },
+  // ─── The Breaking (the afterplay's story) ───
+  'breaking': {
+    'title': "Brytningen",
+    'toast': {
+      brk6: "Smidesmästaren har fått tillbaka sin smedja. Helvetessmide är öppet.",
+      brk7: "Sfinxen är död. Orakelns lins visar var de stora bestarna väntar.",
+      brk8: "Leviatan är död. Dess fjäll låter dig gå på grunt vatten.",
+      brk9: "Hydran är död. Hennes eldnyckel är din.",
+      brk10: "Urdraken är död. Rämnan ligger öppen.",
+      sealed: "Rämnan är förseglad. Du är Rämnans Förseglare.",
+      ajar: "Rämnan står på glänt. Demoner kommer att pröva murarna och colosseumet.",
+      'brk2': "Bastionsvadet tar emot dig. Folket ser till dig nu.",
+      'rescued': "Överlevande räddade! De är trygga i Bastionsvadet.",
+      'brk3': "Vägen är fri. Sunfords folk är i säkerhet.",
+      'brk4': "Örtkvinnan ansluter sig till borgen.",
+      'brk5': "Kentaurhorden är krossad. Borgen rustar för en belägring.",
+    },
+  },
   // ─── The intro (#130): its skip, and its narrator's name ───
   intro: {
     narrator: 'Krönikören',
@@ -88,6 +253,7 @@ export default {
     gold: '{n} guld',
     potion: 'Hälsodryck ({n} kvar)',
     manaPotion: 'Manadryck ({n} kvar)',
+    potionStop: 'Drick en hälsodryck för att fortsätta',
     groups: '{n} av {total} fiendegrupper besegrade',
     wave: 'Våg {n} / {total}',
     roll: 'Rulla',
@@ -261,6 +427,10 @@ export default {
     escort: 'Vakta karavanen'
   },
   node: {
+    'bastion': {
+      'name': "Bastionsvadet",
+      'desc': "En gammal gränsborg, de sista murarna som står kvar. De överlevande samlas här.",
+    },
     sunford: {
       name: 'Sunford',
       desc: 'En bondby vid slättens kant. Ett hem, en smed och två läromästare.'
@@ -343,6 +513,9 @@ export default {
     locked: 'Rensa ett angränsande område för att öppna vägen.',
     lockedArena: 'Portarna öppnas när saken med Goblinkungen är avklarad.',
     lockedRift: 'Den öppnas när tronen i Fasans fästning har fått sitt avgörande.',
+    invaded: 'Invaderad',
+    invadedDesc: 'Demoner härskar över detta land. Deras pyloner får fiender i närheten att slå hårdare, rämnans ärr bränner och saktar ner, och varje fiende som besegras här är värd mer.',
+    lockedInvaded: 'Demonerna håller den hårt. Ta först tillbaka {zone}.',
     danger: {
       '1': 'Lite över din nivå.',
       '2': 'Farligt på din nivå.',
@@ -469,6 +642,11 @@ export default {
     }
   },
   class: {
+    // ── The prestige classes (afterplay phase 10) ──
+    'demonhunter': { 'name': "Demonjägare", 'desc': "Skugga och heligt ljus, svurna åt ett enda byte. Märker demoner, och de märkta faller fort." },
+    'dragoon': { 'name': "Dragon", 'desc': "Vind under stövlarna, en sköld på armen. Hoppar ner från himlen och spetsar hela led." },
+    'hexsmith': { 'name': "Förbannelsesmed", 'desc': "Eterhantverk närt med blod. Bygger torn som suger fienden tom för att läka smeden." },
+    'tidecaller': { 'name': "Tidvattenkallare", 'desc': "Frost och element hällda i havet. Vågor som kastar fiender bakåt och dränker dem." },
     aegis: {
       name: 'Aegisriddare',
       desc: 'Sköld och heligt stål. Tar smällarna så att ingen annan behöver.'
@@ -535,6 +713,35 @@ export default {
     }
   },
   skill: {
+    // ── The prestige classes (afterplay phase 10) ──
+    'huntersMark': { 'name': "Jägarens märke", 'desc': "En helig bult för {dmg}% Smidighet i skada. I {dur} s tar målet {vuln}% mer skada, en demon {demon}% mer." },
+    'demonsBane': { 'name': "Demonbane", 'desc': "+{bane}% skada mot demoner, och {ward}% mindre skada från dem." },
+    'silverVolley': { 'name': "Silversalva", 'desc': "Silverbultar i en linje: {dmg}% Smidighet i skada, +{bane}% mot demoner och märkta fiender." },
+    'skyfallLeap': { 'name': "Himlafall", 'desc': "Hoppa utom räckhåll i {air} s, fall sedan ner på platsen: {dmg}% Styrka i skada inom {radius} m, fiender fälls." },
+    'dragonBlood': { 'name': "Drakblod", 'desc': "+{boss}% skada mot bossar, +{hp}% maxhälsa, och inget knuffar dig bakåt." },
+    'dragonLance': { 'name': "Draklans", 'desc': "En spjutstöt i en linje: {dmg}% Smidighet i skada på varje fiende i den." },
+    'hexTurret': { 'name': "Förbannat torn", 'desc': "Bygg ett torn i {dur} s. Varje sekund suger det närmaste fiende inom {radius} m för {dmg}% Teknik i skada; du läker {drain}% av det." },
+    'soulForge': { 'name': "Själsässja", 'desc': "+{hp}% maxhälsa, {regen} hälsa per sekund, och du tar {reduce}% mindre skada." },
+    'hexBolt': { 'name': "Förbannad bult", 'desc': "Betala {hp}% hälsa: en bult för {dmg}% Teknik i skada. Du läker {heal}% av den, och fienden gör {weak}% mindre skada i {dur} s." },
+    'tidalWave': { 'name': "Flodvåg", 'desc': "En våg i en linje: {dmg}% Intelligens i skada, fiender kastas bakåt och blir genomblöta ({slow}% långsammare i {dur} s)." },
+    'seaborn': { 'name': "Havsfödd", 'desc': "+{bonus}% skada mot nedkylda fiender, {reduce}% mindre tagen skada, +{move}% fart." },
+    'undertow': { 'name': "Bakström", 'desc': "En virvel i {dur} s: totalt {dmg}% Intelligens i skada inom {radius} m. Drar in fiender och saktar ner dem {slow}%." },
+    'bastionWall': { 'name': "Bastionsmur", 'desc': "I {dur}s måste varje fiende inom {radius} m anfalla dig, och du tar {def}% mindre. Sedan gör ljuset {dmg}% Styrka +{back}% av slagen du tagit." },
+    'thousandCuts': { 'name': "Tusen snitt", 'desc': "Pila mellan fiender inom {radius} m och slå {hits} gånger för {dmg}% Smidighetsskada vardera. En boss tar bara ett hugg. Medan du skär kan inget träffa dig." },
+    'cinderSun': { 'name': "Askans sol", 'desc': "En döende sol spricker under {dur}s: {meteors} brinnande skärvor, var och en med {dmg}% Intelligensskada." },
+    'royalLegion': { 'name': "Kunglig legion", 'desc': "Kalla legionen i {dur}s: {archers} bågskyttar, {guards} vakter och {mages} stridsmagiker." },
+    'stoppedHour': { 'name': "Stannad timme", 'desc': "Stoppa timmen inom {radius} m i {dur}s. När den går igen tar varje fiende {dmg}% Intelligensskada." },
+    'redCovenant': { 'name': "Röd pakt", 'desc': "Ta {pct}% av livet från varje fiende inom {radius} m. Du helas med {heal}% av det." },
+    'orbitalLance': { 'name': "Orbitallans", 'desc': "En ljuslans från himlen bränner där du siktar: {dmg}% Färdighetsskada under {dur}s." },
+    'tectonicHeart': { 'name': "Tektoniskt hjärta", 'desc': "Jordens hjärta brister: {dmg}% Styrkeskada på allt nära, och bråte som saktar i {dur}s." },
+    'eyeOfTheGale': { 'name': "Stormens öga", 'desc': "En pilstorm i {dur}s: totalt {dmg}% Färdighetsskada och {slow}% saktning." },
+    'endlessWinter': { 'name': "Ändlös vinter", 'desc': "En vinter utan slut bryter ut ur dig: {dmg}% Intelligensskada inom {radius} m, alla fryser i {freeze}s." },
+    'dawnbreak': { 'name': "Gryning", 'desc': "Bli gryningen i {dur}s: varje sekund {dmg}% Intelligensskada inom {radius} m och {heal}% läkning." },
+    'alphasCall': { 'name': "Alfans rop", 'desc': "{wolves} vargar svarar och springer med dig i {dur}s. Hela flocken gör +{dmg}% skada och är {move}% snabbare." },
+    'prismStorm': { 'name': "Prismastorm", 'desc': "I {dur}s rasar de fyra elementen: {strikes} slag med {dmg}% Intelligens som utlöser varandra." },
+    'ferryman': { 'name': "Färjkarlen", 'desc': "I {dur}s reser sig varje fiende som faller nära dig som din ande, och andar gör {atk}% mer." },
+    'unmovingMountain': { 'name': "Orubbligt berg", 'desc': "Använd all chi: ett berg faller för {dmg}% Smidighetsskada, +{per}% per chi, och fäller fienderna." },
+    'encore': { 'name': "Extranummer", 'desc': "En gång till i {dur}s (+{buff}% fart, skada, Försvar), sedan sista ackordet: {dmg}% Karisma, fiender förtrollade." },
     kind: {
       active: 'Aktiv',
       passive: 'Passiv'
@@ -590,7 +797,7 @@ export default {
     },
     danceOfBlades: {
       name: 'Klingornas dans',
-      desc: 'Rusa mellan fiender inom {radius} m och hugg {hits} gånger för totalt {dmg}% Smidighet i skada. Du kan inte träffas medan du dansar.'
+      desc: 'Rusa mellan fiender inom {radius} m och hugg {hits} gånger för {dmg}% Smidighet i skada vardera. En boss tar bara ett hugg. Du kan inte träffas medan du dansar.'
     },
     fireball: {
       name: 'Eldklot',
@@ -1338,6 +1545,8 @@ export default {
     magic: 'Magi · skalar med {attr}'
   },
   source: {
+    'siege': "Vunnen i belägringen av Bastionsvadet.",
+    'infernal': "En helvetestvilling: faller i det invaderade {zone} eller smids av en smed.",
     arena: 'Vunnen i Colosseum.',
     smith: 'Smidd i en smedja.',
     mob: 'Släpps av monster. Område: {zone}.',
@@ -1346,6 +1555,15 @@ export default {
     secret: 'Gömd i en hemlig kista. Område: {zone}.'
   },
   mod: {
+    'demonBane': "+{n}% skada mot demoner",
+    'demonLeech': "{n}% av skadan mot demoner helar dig",
+    'beastBane': "+{n}% skada mot mytiska bestar",
+    'fireWard': "{n}% mindre eldskada",
+    'shadowWard': "{n}% mindre skuggskada",
+    'demonWard': "{n}% mindre skada från demoner",
+    'pylonBreaker': "+{n}% skada mot demonpyloner",
+    'glassFinder': "{n}% chans att en dräpt demon lämnar extra demonglas",
+    'waterWalk': "Vatten saktar inte ner dig",
     str: '+{n} Styrka',
     dex: '+{n} Smidighet',
     int: '+{n} Intelligens',
@@ -1421,6 +1639,24 @@ export default {
     songLength: 'Sånger varar {n}% längre'
   },
   item: {
+    'chimeraMane': { 'name': "Chimärens man" },
+    'triFang': { 'name': "Tretand" },
+    'warchiefsLongbowGun': { 'name': "Krigshövdingens långbågsgevär" },
+    'hoofbreakerGreaves': { 'name': "Hovkrossar-benskydd" },
+    'eyeOfTheDeep': { 'name': "Djupets öga" },
+    'beamSplitter': { 'name': "Strålklyvare" },
+    'riddleCrown': { 'name': "Gåtkronan" },
+    'sandglassWand': { 'name': "Timglasstav" },
+    'leviathanScale': { 'name': "Leviatanfjäll" },
+    'tidecallerStaff': { 'name': "Tidvattenkallarens stav" },
+    'hydraScaleGauntlets': { 'name': "Hydrafjällshandskar" },
+    'manyHeadedFlail': { 'name': "Mångbent slaga" },
+    'heartOfTheElderDragon': { 'name': "Den Uråldriga Drakens hjärta" },
+    'dragonboneGreatsword': { 'name': "Drakbens-tvåhandssvärd" },
+    'bastionBanner': { 'name': "Bastionens baner" },
+    'wallwardensPlate': { 'name': "Murväktarens rustning" },
+    'gatebreaker': { 'name': "Portkrossare" },
+    'crownOfTheLastBastion': { 'name': "Den sista Bastionens krona" },
     heartOfTheArena: {
       name: 'Arenans hjärta'
     },
@@ -3418,8 +3654,17 @@ export default {
     known: 'Inlärd',
     friend: '{faction}: 20% rabatt för vänner.',
     fee: 'Avgift',
+    rank: {
+      label: 'Rang {n}',
+      up: 'Höj rang',
+      effect: '+{effect} % effekt, −{cd} % nedkylning',
+      max: 'Högsta rang',
+      level: 'Rang {n} kräver nivå {lvl}.'
+    },
     hint: 'Välj en lektion. En grön kant betyder att du kan lära dig den nu.',
     block: {
+      'trial': "Du har inte klarat den här klassens prov än.",
+      'parents': "Lär dig först en färdighet från {a} och en från {b}.",
       level: 'Din nivå är för låg.',
       attrs: 'Dina attribut är för låga.',
       gold: 'Inte tillräckligt med guld.'
@@ -3444,6 +3689,20 @@ export default {
     circle: 'Eterns cirkel'
   },
   npc: {
+    'mysteriousWanderer': { 'name': "Mystisk vandrare" },
+    'fairPip': { 'name': "Pip" },
+    'fairBess': { 'name': "Gamla Bess" },
+    'fairHob': { 'name': "Hob" },
+    sunkenPriest: { name: "Den sjunkne prästen" },
+    'fortHale': {
+      'name': "Kapten Hale",
+    },
+    'fortMara': {
+      'name': "Byäldsten Mara",
+    },
+    'scoutWren': {
+      'name': "Spejaren Wren",
+    },
     frostDisciple: {
       name: 'Ivor Hask'
     },
@@ -3733,6 +3992,185 @@ export default {
     }
   },
   dlg: {
+    // ── The Mysterious Wanderer (afterplay phase 10) ──
+    'mysteriousWanderer': {
+      'hello': { '1': "Så. Du gjorde det få någonsin gjort. Jag kände det från andra sidan revan.", '2': "Jag lär ut de gamla vägarna som gör två skolor till en. Bara åt dem som förtjänar dem." },
+      'sealed': { '1': "Du förseglade den. Synd, på sätt och vis. Jag tyckte om utsikten." },
+      'ajar': { '1': "Du lämnade den på glänt. Djärvt. Demonerna kommer att hålla dig skärpt." },
+      'again': { '1': "Tillbaka igen. Vägen är lång, men du går den väl." },
+      'train': { '1': "Visa mig båda halvorna av den du är, så gör jag dem till en." },
+      'trial': { 'say': "Vilka prov menar du?", '1': "En port som hölls utan en skråma. En drake dräpt utan ett enda fall. Fem helvetessmiden och fem segrar i rad.", '2': "Leviatanens död, och en perfekt runda vid hydran. Var och en öppnar en dörr som jag kan visa dig." },
+      'who': { '1': "En vandrare. Jag gick längs revans kant innan din farfar föddes. Namn nöts ut." },
+      'trainBack': { '1': "Öva. Två skolor grälar innan de enas." },
+      'bye': { '1': "Gå varsamt. Jag är här, tills jag inte är det." }
+    },
+    'fairPip': {
+      'hello': { '1': "Kom närmare! Nio tunnor, en hop imps och en klubba. Bonka ner dem igen!", '2': "Imparna hoppar upp ur tunnorna. Träffa tjugo innan sanden runnit ut.", '3': "Låt de guldpansrade vara, de kostar ett liv. Tre vinster i rad och storvinsten är din." },
+      'again': { '1': "Mer bonkande? Ta klubban!" },
+      'play': { '1': "Klubban upp! Här kommer de!" },
+      'who': { '1': "Pip, impfångare till yrket. De här fångade jag själv. De bits." },
+      'playBack': { '1': "Ha! Vilket oväsen! Igen?" },
+      'bye': { '1': "Håll klubbarmen lös!" }
+    },
+    'fairBess': {
+      'hello': { '1': "Fem ringar, tre huvuden, och inget av dem bits. Jag snidade henne själv, så akta färgen.", '2': "Håll för att ta sats, släpp för att kasta. Ett huvud fångar ringen bara när det svänger mot mitten.", '3': "Varje huvud i rad räknas en mer. Träffa alla fem så betalar jag ordentligt." },
+      'again': { '1': "Kommer du tillbaka för att pröva lyckan mot min gamla flicka?" },
+      'play': { '1': "Här är dina ringar. Kasta mjukt, lilla vän." },
+      'who': { '1': "Fyrtio år på marknadsvägarna. Hydran kom med kriget. Kändes passande." },
+      'playBack': { '1': "Inte illa. Min salig man kastade sämre." },
+      'bye': { '1': "Akta färgen på vägen ut." }
+    },
+    'fairHob': {
+      'hello': { '1': "Åh. Hej. Vill du bryta arm? Jag tar det lugnt. Jag ska försöka.", '2': "Pressa när ringen möter cirkeln. Ur takt, så glider du.", '3': "Starka armar hjälper. Slå mig tre gånger i rad så ger Smidesmästaren dig rabatt." },
+      'again': { '1': "En runda till? Ingen kommer någonsin tillbaka för en runda till." },
+      'play': { '1': "Armbågen på bordet. När du vill." },
+      'who': { '1': "Jag är Smidesmästarens lärling. Han säger att jag inte känner min egen styrka." },
+      'playBack': { '1': "Bra match. Armen blir öm i morgon. Antagligen." },
+      'bye': { '1': "Kom snart igen. Smedjan är väldigt tyst." }
+    },
+    // ── The Breaking (the afterplay, B0–B5) ──
+    'story': {
+      forge: { back: { '1': "Min smedja brinner igen, hetare än någonsin. Demonjärn smälter bra.", '2': "Ta med det du hittar där ute. Nu kan jag smida det helvetiskt." } },
+      oracle: { lens: { '1': "Du befriade mig en gång. Nu ser jag åt dig. Ta min lins.", '2': "Titta genom den, så visar kartan var de stora bestarna väntar." } },
+      priest: { lens: { '1': "Oraklet är borta, så nu vaktar jag hennes tempel. Sfinxen vaktade det här.", '2': "Hennes lins. Titta genom den, så visar kartan var de stora bestarna väntar." } },
+      herbs: { scale: { '1': "Ett fjäll från Leviatan! Lätt som ett löv, och det flyter.", '2': "Bär det, så håller det grunda vattnet dig som fast mark." } },
+      ghost: { key: { '1': "Så, den som tog min tron. Du dödade min Hydra. Bra.", '2': "Ta hennes eldnyckel. Rämnans hjärta brinner, och bara eld öppnar det." } },
+      syndicate: { key: { '1': "Är Hydran död? Då går eldnyckeln till den som betalar. Eller till dig, antar jag.", '2': "Den öppnar rämnans hjärta. Gå och stäng den, innan den äter upp mina affärer." } },
+      sealed: {
+        sealed: { '1': "Och så förseglades rämnan, och världen började läka.", '2': "Städer byggdes upp igen, sånger skrevs, och ett namn fanns i dem alla." },
+        ajar: { '1': "Och så lämnades rämnan på glänt, och världen lärde sig leva bredvid den.", '2': "Murarna förblev bemannade, colosseumet högljutt och hjälten redo." },
+      },
+      'rift': {
+        'scream': {
+          '1': "Tomhetens herre faller, och rämnan bakom honom skriker.",
+          '2': "Det var aldrig hans tron. Det var hans bur, och han var locket.",
+          '3': "Nu står rämnan öppen, och allt som tomheten höll sovande vaknar.",
+        },
+      },
+      'wren': {
+        'found': {
+          '1': "Där är du! Jag är Wren, spejare. Jag har letat överallt efter dig.",
+          '2': "Sunford brinner. Alla som kunde fly gick till Bastionsvadet.",
+          '3': "Det är den gamla borgen vid vägen mot Askklipporna. Skynda, de behöver dig.",
+        },
+      },
+    },
+    'scoutWren': {
+      sealed: { '1': "Draken är borta! Vägarna känns redan lättare." },
+      'hello': {
+        '1': "Du kom! Jag visste det. Välkommen till Bastionsvadet.",
+        '2': "Jag spanar längs vägarna åt kaptenen. Fråga mig var faran finns.",
+      },
+      'again': {
+        '1': "Redan tillbaka? Vägarna spanar inte av sig själva.",
+      },
+      'who': {
+        '1': "Wren. Jag bar bud åt Sunfords vakt, innan Sunford brann.",
+      },
+      'rumor': {
+        'plains': {
+          '1': "Demoner håller vägen genom Sunfordslätten. Sunfords lärare sitter fast bakom den.",
+        },
+        'hollows': {
+          '1': "Goblinhålorna kryllar av helveteshundar. Rensa dem, så kan Sunfords folk komma hem.",
+        },
+        'woods': {
+          '1': "Något med tre huvuden jagar i Viskande skogen. Örtkvinnan gömmer sig där.",
+        },
+        'outskirts': {
+          '1': "Kentaurer rider i Oakhavens utkanter. Når de våra murar behövs varje svärd.",
+        },
+        'siege': {
+          '1': "Deras hord är krossad, men fler samlas. Kaptenen förbereder murarna.",
+        },
+      },
+      'bye': {
+        '1': "Håll koll på vägarna. Det gör jag också.",
+      },
+    },
+    'fortHale': {
+      sealed: { '1': "Draken är död. Jag trodde aldrig att jag skulle få se det. Tack." },
+      'siegeBack': { '1': "Inte än? Vila dig, då. Murarna väntar på dig." },
+      'bell': { '1': "Till porten, då. Säg hur hårt vi håller den." },
+      'hello': {
+        '1': "Du klarade det. Bra. Vi behöver varje svärd, mer än någonsin.",
+        '2': "Välkommen till Bastionsvadet. Gamla murar, men de enda som står kvar.",
+      },
+      'road': {
+        '1': "Vägen till Sunford är öppen igen. Folket är tryggt bakom våra murar.",
+      },
+      'herbs': {
+        '1': "Örtkvinnan är tillbaka, med sina örter. Sjukstugan kan andas igen.",
+      },
+      'siege': {
+        '1': "Du krossade kentaurerna. Men en större här kommer, och den kommer för de här murarna.",
+      },
+      'again': {
+        '1': "Står kvar än. Murarna, männen och jag.",
+      },
+      'fort': {
+        '1': "En gammal gränsborg. Obemannad i femtio år, tills himlen rämnade.",
+        '2': "Nu är den sista trygga platsen mellan slätten och bergen.",
+        'say': "Vad är det här för ställe?",
+      },
+      'rumor': {
+        'road': {
+          '1': "Rensa slätten och hålorna. Sunfords folk sitter fast där ute.",
+        },
+        'woods': {
+          '1': "Örtkvinnan är i Viskande skogen, och ett odjur med tre huvuden också. Var redo.",
+        },
+        'centaurs': {
+          '1': "Kentaurer i utkanterna. Krossa deras hord innan den når oss.",
+        },
+        'siege': {
+          '1': "Vila lite. När belägringsklockan ringer behöver jag dig på muren.",
+        },
+      },
+      'bye': {
+        '1': "Håll svärdet nära.",
+      },
+    },
+    'fortMara': {
+      sealed: { '1': "Du klarade det, barn. Var och en av oss är skyldig dig ett hem." },
+      'siegeBack': { '1': "Vila dig en stund, barn. Klockan ringer igen." },
+      'bell': { '1': "Kaptenens murar är mina att vakta nu. Välj hur vi håller dem." },
+      'hello': {
+        '1': "Barn! Du lever. När Sunford brann fruktade jag det värsta.",
+        '2': "Vi är gäster i en soldatborg nu, gamla kvinnor och allt.",
+      },
+      'command': {
+        '1': "Kapten Hale föll med Oakhaven. Så borgen lyssnar på en gammal byäldste nu.",
+      },
+      'home': {
+        '1': "Sunford byggs upp igen! De första taken står. Jag kunde gråta.",
+      },
+      'again': {
+        '1': "Fortfarande här, barn. Räknar fortfarande huvuden.",
+      },
+      'town': {
+        '1': "Demoner kom ur natthimlen. Vi flydde med det vi kunde bära.",
+        '2': "Några av oss kom aldrig ut. För hem resten, om du kan.",
+        'say': "Vad hände med Sunford?",
+      },
+      'rumor': {
+        'road': {
+          '1': "Våra lärare är kvar ute på Sunfordvägen. För hit dem, barn.",
+        },
+        'woods': {
+          '1': "Örtkvinnan gick in i Viskande skogen efter örter och kom aldrig tillbaka.",
+        },
+        'centaurs': {
+          '1': "Ryttare i utkanterna. Hovar som åska, varje natt.",
+        },
+        'siege': {
+          '1': "Murarna sätts snart på prov. Jag känner det i mina gamla ben.",
+        },
+      },
+      'bye': {
+        '1': "Gå varsamt, barn.",
+      },
+    },
     intro: {
       crossing: { 1: 'Varje väg i den här världen möts vid ett vägskäl… och varje vägskäl är ett slag.' },
       hero: { 1: 'Från Sunfords stilla fält gav sig en ung hjälte av.' },
@@ -4183,6 +4621,7 @@ export default {
       }
     },
     hero: {
+      'siege': "Låt oss bemanna murarna.",
       forge: 'Jag skulle vilja använda din smedja.',
       learnSmith: 'Kan du lära mig att smida?',
       ore: 'Jag har lite malm att sälja.',
@@ -4489,7 +4928,7 @@ export default {
       },
       map: {
         '1': 'Kapten Rooks karta! Han rev sönder den och gömde bitarna innan goblins fick tag i honom.',
-        '2': 'Hitta sex av dem, några fler ligger utspridda runt omkring, så visar krysset vägen: någonstans i Askklipporna. Gräv där, så är guldet ditt.',
+        '2': "Hitta sex av bitarna, så visar krysset vägen: någonstans i Askklipporna. Gräv där efter guldet.",
         say: 'Jag har hittat en bit av en gammal karta.'
       }
     },
@@ -5455,6 +5894,11 @@ export default {
       }
     },
     quest: {
+      seal: {
+        ask: { '1': "Urdraken är död, och rämnan ligger öppen framför dig.", '2': "Du kan försegla den nu, för alltid. Bestarna skulle somna igen.", '3': "Eller så lämnar du den på glänt, och låter de modigaste pröva sig mot det som kommer igenom." },
+        seal: { say: "Försegla den. För alltid.", '1': "Rämnan sluter sig som ett läkande sår, och himlen tystnar." },
+        ajar: { say: "Lämna den på glänt. Vi kommer att vara redo.", '1': "Rämnan står på glänt, och något bakom den skrattar." },
+      },
       goblinKing: {
         ask: {
           '1': 'Sluta. Snälla. Jag ger mig.',
@@ -5586,6 +6030,64 @@ export default {
       }
     },
     bark: {
+      sphinx: {
+        intro: { '1': "Svara mig, lilla du, eller begravs i min sand." },
+        riddle: { '1': "En gåta då. Kliv där jag visar, i den ordningen." },
+        sand: { '1': "Fem den här gången. Och min sand väntar inte." },
+        death: { '1': "Du svarade väl. Sanden är din nu." },
+      },
+      leviathan: {
+        intro: { '1': "Nu går du i mitt vatten." },
+        sink: { '1': "Dina små öar sjunker." },
+        grab: { '1': "Följ med mig ner i djupet!" },
+        death: { '1': "Tidvattnet drar sig undan och kommer inte tillbaka." },
+      },
+      hydra: {
+        intro: { '1': "Hugg av ett huvud, så växer två!" },
+        heads: { '1': "Fler huvuden, fler tänder!" },
+        rage: { '1': "Bränna oss? Brinn då med oss!" },
+        death: { '1': "Inga fler huvuden. Inga fler." },
+      },
+      elderDragon: {
+        intro: { '1': "Jag sov under världen innan din sort kände elden." },
+        flight: { '1': "Göm dig bakom dina små stenar, då." },
+        rift: { '1': "Rämnan drar mig tillbaka. Inte än!" },
+        death: { '1': "Försegla den, då. Jag är trött på mörkret." },
+      },
+      'siegeHale': {
+        'start': {
+          '1': "Där kommer de! Håll porten!"
+        },
+        'ram': {
+          '1': "En murbräcka! Döda den innan den når porten!"
+        },
+        'horn50': {
+          '1': "Halva porten är borta! Håll stånd!"
+        },
+        'horn25': {
+          '1': "Porten håller inte mycket längre!"
+        },
+        'won': {
+          '1': "De är krossade! Bastionen står!"
+        }
+      },
+      'siegeMara': {
+        'start': {
+          '1': "De kommer! Stå fast, allihop!"
+        },
+        'ram': {
+          '1': "En murbräcka! Stoppa den innan den krossar porten!"
+        },
+        'horn50': {
+          '1': "Halva porten är borta. Håll ut!"
+        },
+        'horn25': {
+          '1': "Porten ger vika! Driv dem tillbaka!"
+        },
+        'won': {
+          '1': "De flyr! Fortet står fortfarande!"
+        }
+      },
       banditChief: {
         whistle: {
           1: 'Upp, grabbar! Bit dem!'
@@ -5594,6 +6096,11 @@ export default {
       lightDisciple: {
         freed: {
           '1': 'Ljuset sände dig. Jag är Syster Aurelle. Sök upp mig i Sunford, så lär jag dig Ljusbringarens väg.'
+        }
+      },
+      trainerAegis: {
+        freed: {
+          '1': 'Tack för att du befriade oss från banditerna! Kom till elden: vi lär dig alla, första lektionen är gratis.'
         }
       },
       frostDisciple: {
@@ -5649,6 +6156,48 @@ export default {
         },
         dive: {
           '1': 'Knäböj.'
+        }
+      },
+      chimera: {
+        intro: {
+          '1': "Tre huvuden, en hunger. Vem av oss biter först?"
+        },
+        twin: {
+          '1': "Nu är vi två. Välj din sida väl."
+        },
+        tail: {
+          '1': "Min svans! Det ska du få betala för!"
+        },
+        death: {
+          '1': "Tre huvuden, och inget såg detta komma."
+        }
+      },
+      centaurWarchief: {
+        intro: {
+          '1': "Spring om du vill. Mina pilar springer fortare."
+        },
+        raiders: {
+          '1': "Ryttare! Rid ner dem!"
+        },
+        rear: {
+          '1': "Nog med pilar. Jag ska trampa dig platt!"
+        },
+        death: {
+          '1': "Slätterna kommer att minnas mina hovar."
+        }
+      },
+      cyclops: {
+        intro: {
+          '1': "Något litet är här. Kom närmare. Låt mig se."
+        },
+        cover: {
+          '1': "Inget mer tittande. Mitt öga får du inte!"
+        },
+        blind: {
+          '1': "Jag ser dig inte, men jag hör dig!"
+        },
+        death: {
+          '1': "Mörkt. Allt har blivit mörkt."
         }
       },
       frostJarl: {
@@ -6773,7 +7322,20 @@ export default {
       }
     }
   },
+  invasion: {
+    pylonsDown: 'Den sista pylonen faller och dess skatt väller ut!',
+    reborn: {
+      tusker: 'Tusker Återfödd',
+      emberLord: 'Den helvetiska Glödfursten',
+      frostJarl: 'Den återfödde Frostjarlen',
+      voidDragon: 'Den återfödda Tomhetsdraken'
+    }
+  },
   enemy: {
+    sphinx: "Sfinxen",
+    leviathan: "Leviatan",
+    hydra: "Hydran",
+    elderDragon: "Urdraken",
     trainingDummy: 'Övningsdocka',
     goblin: 'Goblin',
     goblinSlinger: 'Goblinslungare',
@@ -6798,6 +7360,10 @@ export default {
     naga: 'Naga',
     skeleton: 'Skelett',
     necromancer: 'Nekromantiker',
+    chimera: "Chimären",
+    chimeraTail: "Ormsvansen",
+    centaurWarchief: "Kentaurhövdingen",
+    cyclops: "Cyklopen",
     frostJarl: 'Frostjarlen',
     nagaOracle: 'Det dränkta oraklet',
     voidStalker: 'Tomhetssmygare',
@@ -6810,6 +7376,7 @@ export default {
     archDemon: 'Ärkedemonen',
     voidling: 'Tomhetsyngel',
     voidLord: 'Tomhetsfursten',
+    demonPylon: 'Demonpylon',
     orderGuard: 'Ordens inkvisitor',
     syndicateBlade: 'Syndikatklinga',
     goblinWarchief: 'Goblinkrigshövding',
@@ -6826,7 +7393,19 @@ export default {
     goblinTyrant: 'Goblintyrann',
     voidDrake: 'Tomhetslindorm',
     pitLord: 'Avgrundsfurste',
-    frostThane: 'Frosthövding'
+    frostThane: 'Frosthövding',
+    hellhound: 'Helveteshund',
+    frostHellhound: 'Frosthelveteshund',
+    gargoyle: 'Gargoyle',
+    harpy: 'Harpya',
+    corruptedTreant: 'Fördärvad träent',
+    centaurRaider: 'Kentaurplundrare',
+    cyclopsBrute: 'Kyklopbjässe',
+    demonMiner: 'Demongruvarbetare',
+    sphinxAcolyte: 'Sfinxens akolyt',
+    seaDemon: 'Havsdemon',
+    drakeHatchling: 'Drakunge',
+    hydraSpawn: 'Hydraavkomma'
   },
   results: {
     careful: 'Försiktig seger ×{mult}',
@@ -7139,6 +7718,8 @@ export default {
     town: 'Smeden i vilken stad som helst kan uppgradera den.'
   },
   ore: {
+    'demonglass': { 'name': "Demonglas" },
+    'ichor': { 'name': "Mytisk ichor" },
     iron: {
       name: 'Järnmalm'
     },

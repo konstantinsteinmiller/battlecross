@@ -87,7 +87,7 @@ describe('poki.config.mjs is Battlecross\'s', () => {
     const { checkGameId } = await load('lib/target.mjs')
     expect(cfg.gameName).toBe('Battlecross')
     expect(cfg.team).toBe('hyperg8')
-    expect(cfg.zip).toBe('dist/Battlecross-poki.zip')
+    expect(cfg.zip).toBe('dist/battlecross-poki.zip')
     expect(cfg.dist).toBe('dist')
     expect(cfg.build).toBe('pnpm build:poki')
     expect(cfg.versionName('0.1.1')).toBe('Battlecross 0.1.1')

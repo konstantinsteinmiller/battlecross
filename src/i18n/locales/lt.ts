@@ -1,5 +1,170 @@
 // Lithuanian (lt) bundle — mirrors en.ts.
 export default {
+  // ─── Afterplay phase 8: items, materials and capstones ───
+  // ─── Afterplay phase 10: the prestige classes ───
+  'prestige': { 'toast': { 'wanderer': "Paslaptingas klajūnas laukia tvirtovėje." } },
+  'relic': {
+    'infernal': "{name} · Pragariškas",
+    'set': "Dėvint su {item}:",
+    'heroicBadge': "Herojiškas {n}",
+    'heroic': "Herojiškas {n}: {gold} aukso, {glass} demonų stiklo",
+    'heroicIchor': "Herojiškas {n}: {gold} aukso, {glass} demonų stiklo, {ichor} ichoro",
+    'heroicMax': "Visi herojiški rangai pasiekti.",
+    'infernalForge': "Pragariška kalvystė: {gold} aukso, {glass} demonų stiklo",
+    'lens': "Orakulo lęšis: čia laukia {boss}.",
+    'hydraKey': "Užantspauduota. Hidros ugnies raktas atveria Plyšio širdį.",
+    'marksGlass': "Pirkti {glass} demonų stiklo už {marks} ženklų",
+    'capstone': "Viršūnė",
+    'fortOnly': "Šios viršūnės mokoma tik Bastiono brastoje."
+  },
+  // ─── The fort's fair games (afterplay §9) ───
+  'fair': {
+    'fee': "Žaisti · {n}",
+    'again': "Žaisti dar kartą",
+    'noGold': "Neužtenka aukso.",
+    'capped': "Zonos, kurias reikia išvalyti, kol grįš didieji prizai: {n}",
+    'top': "Pagrindinis prizas! +{gold} aukso, +{xp} PT",
+    'topGold': "Pagrindinis prizas, tik auksu: +{n} aukso",
+    'won': "Laimėjai! +{n} aukso",
+    'lost': "Nepasisekė. Serija prasideda iš naujo.",
+    'row': "Pergalės iš eilės: {n} iš {max}",
+    'mats': "+{n} Didvyrių+ medžiagos",
+    'discount': "Kalvis dabar daro tau {n} % nuolaidą patobulinimams!"
+  },
+  'whack': {
+    'title': "Trenk velniukui",
+    'lead': "Pataikyk į 20 velniukų per 30 sekundžių. Auksu šarvuotų nelieskit: kiekvienas pataikytas kainuoja gyvybę.",
+    'hits': "Velniukai: {n} / {max}",
+    'lives': "Gyvybės: {n}",
+    'time': "Laikas: {n} s",
+    'hint': "Bakstelėk velniukus arba spausk 1–9.",
+    'barrel': "Statinė {n}",
+    'timeout': "Laikas baigėsi!",
+    'dead': "Neliko gyvybių!"
+  },
+  'ring': {
+    'title': "Žiedų mėtymas į Hidrą",
+    'lead': "Laikyk, kad sukauptum jėgą, paleisk, kad mestum. Galva pagauna žiedą tik arti savo siūbavimo vidurio. Kiekviena galva iš eilės verta tašku daugiau.",
+    'hint': "Laikyk ir paleisk ant stalo arba laikyk tarpo klavišą.",
+    'rings': "Liko žiedų: {n}",
+    'score': "Taškai: {n}",
+    'hit': "Pataikei! +{n}",
+    'miss': "Pro šalį!",
+    'perfect': "Tobulas raundas!",
+    'nothing': "Taškai {n}. Šįkart be prizo.",
+    'power': "Jėga"
+  },
+  'arm': {
+    'title': "Rankų lenkimas",
+    'lead': "Bakstelėk, kai žiedas susitinka su apskritimu, ir prispausk jo ranką. Jėga praplečia ritmą. Trys pergalės iš eilės duoda kalvio nuolaidą, penkios – Didvyrių+ medžiagą.",
+    'hint': "Bakstelėk stalą arba spausk tarpo klavišą.",
+    'good': "Spausk!",
+    'off': "Ne į ritmą!"
+  },
+  // ─── The Siege of Bastion (afterplay §8) ───
+  'siege': {
+    'title': "Bastiono brastos apgultis",
+    'lead': "Išlaikyk vartus dešimt bangų. Tarp bangų leisk apgulties ženklus gynybai.",
+    'story': "Orda prie vartų. Atlaikyk dešimt bangų: šios pirmosios apgulties pralaimėti negalima.",
+    'bell': "Skamba apgulties varpas! Orda renkasi prie vartų.",
+    'mapBell': "Apgultis!",
+    'start': "Skambink varpu",
+    'wins': "Pergalės: {n}",
+    'marksBank': "Sukaupti apgulties ženklai: {n}",
+    'tier': {
+      'normal': "Įprastas",
+      'hard': "Sunkus",
+      'nightmare': "Košmaras"
+    },
+    'tierDesc': {
+      'normal': "Priešai vienu lygiu aukščiau už tave.",
+      'hard': "Priešai 3 lygiais aukščiau, su 30 % daugiau gyvybės.",
+      'nightmare': "Priešai 6 lygiais aukščiau ir dvi mitinio elito bangos."
+    },
+    'locked': {
+      'hard': "Pirmiau laimėk įprastą apgultį.",
+      'nightmare': "Atsiveria, kai plyšys užantspauduotas arba paliktas praviras."
+    },
+    'lord': "Apgulties valdovas",
+    'hud': {
+      'wave': "Banga {n}/{total}",
+      'marks': "Ženklai: {n}",
+      'gate': "Vartai {pct} %",
+      'build': "{n} banga po {s} s",
+      'ready': "Pasiruošęs!",
+      'buy': "{name}: {n} ženklai"
+    },
+    'def': {
+      'ballista': {
+        'name': "Balista",
+        'desc': "Kas 2 sekundes paleidžia perveriančią strėlę savo taku."
+      },
+      'cauldron': {
+        'name': "Ugnies katilas",
+        'desc': "Uždega savo tako siaurumą."
+      },
+      'barricade': {
+        'name': "Barikada",
+        'desc': "Užtveria taką 20 sekundžių."
+      },
+      'militia': {
+        'name': "Milicija",
+        'desc': "Du sargybiniai kaunasi greta tavęs."
+      },
+      'repair': {
+        'name': "Taisyti vartus",
+        'desc': "Atkuria ketvirtadalį vartų."
+      }
+    },
+    'block': {
+      'marks': "Nepakanka apgulties ženklų.",
+      'full': "Nebėra vietos.",
+      'phase': "Tik tarp bangų."
+    },
+    'toast': {
+      'cleared': "{n} banga atremta! +{marks} ženklai",
+      'clearedUnharmed': "{n} banga atremta, vartai nepaliesti! +{marks} ženklai",
+      'horn': "Gaudžia ragas! Vartams liko {pct} %.",
+      'ram': "Taranas! Sustabdyk jį, kol nepasiekė vartų!",
+      'rally': "Vėl ant kojų! Išlaikyk vartus!"
+    },
+    'banner': {
+      'wave': "{n} banga",
+      'final': "Apgulties valdovas!"
+    },
+    'result': {
+      'tier': "Bastiono brastos apgultis: {tier}",
+      'waves': "Atremtos bangos: {n}/{total}",
+      'marks': "Išsaugoti apgulties ženklai: {banked} iš {earned}",
+      'glass': "Demonų stiklas: +{n}"
+    },
+    'milestone': {
+      'normal1': "Pasiektas etapas: Bastiono vėliava.",
+      'normal5': "Pasiektas etapas: Sienų sargo šarvai.",
+      'hard1': "Pasiektas etapas: Veterano instinktas, penkta pasyvi vieta.",
+      'hard5': "Pasiektas etapas: Vartų laužytojas.",
+      'nightmare1': "Pasiektas etapas: Paskutiniojo bastiono karūna.",
+      'hardFlawless': "Pasiektas etapas: raktas į slaptą klasės išbandymą."
+    }
+  },
+  // ─── The Breaking (the afterplay's story) ───
+  'breaking': {
+    'title': "Plyšys",
+    'toast': {
+      brk6: "Kalvių meistras atgavo savo kalvę. Pragariškas kalimas atvertas.",
+      brk7: "Sfinksė mirusi. Orakulo lęšis rodo, kur laukia didieji žvėrys.",
+      brk8: "Leviatanas negyvas. Jo žvynas leidžia vaikščioti sekliu vandeniu.",
+      brk9: "Hidra negyva. Jos ugnies raktas tavo.",
+      brk10: "Senovinis drakonas negyvas. Plyšys atviras.",
+      sealed: "Plyšys užantspauduotas. Tu – Plyšio Antspauduotojas.",
+      ajar: "Plyšys lieka praviras. Demonai išbandys sienas ir koliziejų.",
+      'brk2': "Bastiono brasta tave priima. Jos žmonės dabar tikisi tavęs.",
+      'rescued': "Išgyvenusieji išgelbėti! Jie saugūs Bastiono brastoje.",
+      'brk3': "Kelias laisvas. Sunfordo žmonės saugūs.",
+      'brk4': "Žolininkė prisijungia prie tvirtovės.",
+      'brk5': "Kentaurų gauja sutriuškinta. Tvirtovė ruošiasi apgulčiai.",
+    },
+  },
   // ─── The intro (#130): its skip, and its narrator's name ───
   intro: {
     narrator: 'Metraštininkas',
@@ -88,6 +253,7 @@ export default {
     gold: 'Auksas: {n}',
     potion: 'Gyvybės eliksyras (liko: {n})',
     manaPotion: 'Manos eliksyras (liko: {n})',
+    potionStop: 'Išgerk gyvybės eliksyrą, kad tęstum',
     groups: 'Įveikta priešų grupių: {n} iš {total}',
     wave: 'Banga {n} / {total}',
     roll: 'Riedėjimas',
@@ -261,6 +427,10 @@ export default {
     escort: 'Saugok karavaną'
   },
   node: {
+    'bastion': {
+      'name': "Bastiono brasta",
+      'desc': "Sena pasienio tvirtovė, paskutinės dar stovinčios sienos. Čia renkasi išgyvenusieji.",
+    },
     sunford: {
       name: 'Sunford',
       desc: 'Žemdirbių miestelis lygumų pakraštyje. Namai, kalvis ir du mokytojai.'
@@ -343,6 +513,9 @@ export default {
     locked: 'Išvalyk gretimą zoną, kad atsivertų kelias.',
     lockedArena: 'Vartai atsivers, kai bus susitvarkyta su Goblinų karaliumi.',
     lockedRift: 'Jis atsivers, kai bus nuspręstas Siaubo tvirtovės sosto likimas.',
+    invaded: 'Užimta',
+    invadedDesc: 'Šią žemę valdo demonai. Jų pilonai priverčia netoliese esančius priešus smogti stipriau, plyšio randai degina ir lėtina, o kiekvienas čia nugalėtas priešas vertas daugiau.',
+    lockedInvaded: 'Demonai ją tvirtai laiko. Pirmiau susigrąžink {zone}.',
     danger: {
       '1': 'Šiek tiek virš tavo lygio.',
       '2': 'Tavo lygiui pavojinga.',
@@ -469,6 +642,11 @@ export default {
     }
   },
   class: {
+    // ── The prestige classes (afterplay phase 10) ──
+    'demonhunter': { 'name': "Demonų medžiotojas", 'desc': "Šešėlis ir šventa šviesa, prisiekę vienam grobiui. Žymi demonus, o pažymėti krenta greitai." },
+    'dragoon': { 'name': "Dragūnas", 'desc': "Vėjas po batais, skydas ant rankos. Šoka iš dangaus ir perveria ištisas eiles." },
+    'hexsmith': { 'name': "Prakeiksmų kalvis", 'desc': "Eterio amatas, maitinamas krauju. Stato bokštelius, kurie siurbia priešo gyvybę ir gydo kalvį." },
+    'tidecaller': { 'name': "Potvynių šaukėjas", 'desc': "Šaltis ir stichijos, išlieti į jūrą. Bangos, kurios atmeta ir permerkia priešus." },
     aegis: {
       name: 'Egidos riteris',
       desc: 'Skydas ir šventas plienas. Priima smūgius, kad niekam kitam nereikėtų.'
@@ -535,6 +713,35 @@ export default {
     }
   },
   skill: {
+    // ── The prestige classes (afterplay phase 10) ──
+    'huntersMark': { 'name': "Medžiotojo žymė", 'desc': "Šventa strėlė: {dmg}% Vikrumo žalos. {dur} s taikinys gauna {vuln}% daugiau žalos, demonas {demon}% daugiau." },
+    'demonsBane': { 'name': "Demonų pražūtis", 'desc': "+{bane}% žalos demonams ir {ward}% mažiau žalos iš jų." },
+    'silverVolley': { 'name': "Sidabrinė salvė", 'desc': "Sidabrinės strėlės linija: {dmg}% Vikrumo žalos, +{bane}% demonams ir pažymėtiems priešams." },
+    'skyfallLeap': { 'name': "Kritimas iš dangaus", 'desc': "Iššok už pasiekiamumo ribų {air} s, tada kristi: {dmg}% Jėgos žalos {radius} m spinduliu, priešai parversti." },
+    'dragonBlood': { 'name': "Drakono kraujas", 'desc': "+{boss}% žalos bosams, +{hp}% didžiausios sveikatos, ir niekas tavęs neatmeta." },
+    'dragonLance': { 'name': "Drakono ietis", 'desc': "Ieties dūris linija: {dmg}% Vikrumo žalos kiekvienam joje esančiam priešui." },
+    'hexTurret': { 'name': "Prakeiktas bokštelis", 'desc': "Pastatyk bokštelį {dur} s. Kas sekundę jis siurbia artimiausią priešą {radius} m spinduliu: {dmg}% Meistrystės žalos; tu pasigydai {drain}% jos." },
+    'soulForge': { 'name': "Sielų kalvė", 'desc': "+{hp}% didžiausios sveikatos, {regen} sveikatos per sekundę, ir gauni {reduce}% mažiau žalos." },
+    'hexBolt': { 'name': "Prakeikta strėlė", 'desc': "Sumokėk {hp}% sveikatos: strėlė už {dmg}% Meistrystės žalos. Pasigydai {heal}% jos, o priešas {dur} s daro {weak}% mažiau žalos." },
+    'tidalWave': { 'name': "Potvynio banga", 'desc': "Banga linija: {dmg}% Intelekto žalos, priešai atmesti ir permirkę ({slow}% sulėtėjimas {dur} s)." },
+    'seaborn': { 'name': "Jūros gimęs", 'desc': "+{bonus}% žalos atšaldytiems priešams, {reduce}% mažiau gaunamos žalos, +{move}% greičio." },
+    'undertow': { 'name': "Atoslūgio srovė", 'desc': "Sūkurys {dur} s: iš viso {dmg}% Intelekto žalos {radius} m spinduliu. Įtraukia priešus ir sulėtina juos {slow}%." },
+    'bastionWall': { 'name': "Bastiono siena", 'desc': "{dur} s kiekvienas priešas {radius} m spinduliu privalo pulti jus, o jūs gaunate {def}% mažiau. Tada šviesa padaro {dmg}% Jėgos +{back}% gautų smūgių." },
+    'thousandCuts': { 'name': "Tūkstantis pjūvių", 'desc': "Lakstykite tarp priešų {radius} m spinduliu ir smokite {hits} kartų, kiekvienas smūgis – {dmg}% Vikrumo žalos. Bosas gauna tik vieną smūgį. Kol pjaunate, niekas jūsų nepataiko." },
+    'cinderSun': { 'name': "Pelenų saulė", 'desc': "Mirštanti saulė byra {dur} s: {meteors} degančios nuolaužos, kiekviena po {dmg}% Intelekto žalos." },
+    'royalLegion': { 'name': "Karališkasis legionas", 'desc': "Pakvieskite legioną {dur} s: lankininkai ({archers}), sargybiniai ({guards}) ir kovos magai ({mages})." },
+    'stoppedHour': { 'name': "Sustabdyta valanda", 'desc': "Sustabdykite valandą {radius} m spinduliu {dur} s. Kai ji vėl eis, kiekvienas priešas gaus {dmg}% Intelekto žalos." },
+    'redCovenant': { 'name': "Raudonoji sandora", 'desc': "Atimkite {pct}% gyvybės iš kiekvieno priešo {radius} m spinduliu. {heal}% to jus išgydo." },
+    'orbitalLance': { 'name': "Orbitinė ietis", 'desc': "Šviesos ietis iš dangaus degina ten, kur taikote: {dmg}% Įgūdžio žalos per {dur} s." },
+    'tectonicHeart': { 'name': "Tektoninė širdis", 'desc': "Žemės širdis plyšta: {dmg}% Jėgos žalos viskam šalia ir griuvėsiai, lėtinantys {dur} s." },
+    'eyeOfTheGale': { 'name': "Vėtros akis", 'desc': "Strėlių audra {dur} s: iš viso {dmg}% Įgūdžio žalos ir {slow}% sulėtinimas." },
+    'endlessWinter': { 'name': "Begalinė žiema", 'desc': "Begalinė žiema prasiveržia iš jūsų: {dmg}% Intelekto žalos {radius} m spinduliu, visi užšąla {freeze} s." },
+    'dawnbreak': { 'name': "Aušra", 'desc': "Tapkite aušra {dur} s: kas sekundę {dmg}% Intelekto žalos {radius} m spinduliu ir {heal}% gydymo." },
+    'alphasCall': { 'name': "Alfos šauksmas", 'desc': "Vilkai ({wolves}) atsiliepia ir bėga su jumis {dur} s. Visa gauja daro +{dmg}% žalos ir yra {move}% greitesnė." },
+    'prismStorm': { 'name': "Prizminė audra", 'desc': "{dur} s siaučia keturi gaivalai: {strikes} smūgiai po {dmg}% Intelekto, sukeliantys vienas kitą." },
+    'ferryman': { 'name': "Keltininkas", 'desc': "{dur} s kiekvienas šalia jūsų kritęs priešas prisikelia kaip jūsų dvasia, o dvasios daro {atk}% daugiau." },
+    'unmovingMountain': { 'name': "Nepajudinamas kalnas", 'desc': "Išeikvokite visą či: kalnas krenta, {dmg}% Vikrumo žalos, +{per}% už kiekvieną či, ir parverčia priešus." },
+    'encore': { 'name': "Bisas", 'desc': "Dar kartą {dur} s (+{buff}% greičio, žalos, Gynybos), tada paskutinis akordas: {dmg}% Charizmos, priešai užburti." },
     kind: {
       active: 'Aktyvus',
       passive: 'Pasyvus'
@@ -590,7 +797,7 @@ export default {
     },
     danceOfBlades: {
       name: 'Ašmenų šokis',
-      desc: 'Šok tarp priešų {radius} m spinduliu ir smok {hits} kartų: iš viso {dmg}% Vikrumo žalos. Šokant tavęs neįmanoma kliudyti.'
+      desc: 'Šok tarp priešų {radius} m spinduliu ir smok {hits} kartų, kiekvienas smūgis – {dmg}% Vikrumo žalos. Bosas gauna tik vieną smūgį. Šokant tavęs neįmanoma kliudyti.'
     },
     fireball: {
       name: 'Ugnies kamuolys',
@@ -1338,6 +1545,8 @@ export default {
     magic: 'Magija · savybė: {attr}'
   },
   source: {
+    'siege': "Laimėta Bastiono brastos apgultyje.",
+    'infernal': "Pragariškas dvynys: krenta užimtoje {zone} zonoje arba jį nukala kalvis.",
     arena: 'Laimėta Koliziejaus reitinge.',
     smith: 'Nukaldinta kalvėje.',
     mob: 'Iškrenta iš pabaisų zonoje: {zone}.',
@@ -1346,6 +1555,15 @@ export default {
     secret: 'Paslėpta slaptoje skrynioje zonoje: {zone}.'
   },
   mod: {
+    'demonBane': "+{n}% žalos demonams",
+    'demonLeech': "{n}% demonams padarytos žalos jus gydo",
+    'beastBane': "+{n}% žalos mitiniams žvėrims",
+    'fireWard': "{n}% mažiau gaunamos ugnies žalos",
+    'shadowWard': "{n}% mažiau gaunamos šešėlių žalos",
+    'demonWard': "{n}% mažiau žalos iš demonų",
+    'pylonBreaker': "+{n}% žalos demonų stulpams",
+    'glassFinder': "{n}% tikimybė, kad nužudytas demonas paliks papildomo demonų stiklo",
+    'waterWalk': "Vanduo jūsų nelėtina",
     str: '+{n} Jėgos',
     dex: '+{n} Vikrumo',
     int: '+{n} Intelekto',
@@ -1421,6 +1639,24 @@ export default {
     songLength: 'Dainos trunka {n}% ilgiau'
   },
   item: {
+    'chimeraMane': { 'name': "Chimeros karčiai" },
+    'triFang': { 'name': "Triltis" },
+    'warchiefsLongbowGun': { 'name': "Karvedžio lankas-šautuvas" },
+    'hoofbreakerGreaves': { 'name': "Kanopų laužytojo antblauzdžiai" },
+    'eyeOfTheDeep': { 'name': "Gelmių akis" },
+    'beamSplitter': { 'name': "Spindulių skaldytojas" },
+    'riddleCrown': { 'name': "Mįslių karūna" },
+    'sandglassWand': { 'name': "Smėlio laikrodžio lazdelė" },
+    'leviathanScale': { 'name': "Leviatano žvynas" },
+    'tidecallerStaff': { 'name': "Potvynių šaukėjo lazda" },
+    'hydraScaleGauntlets': { 'name': "Hidros žvynų pirštinės" },
+    'manyHeadedFlail': { 'name': "Daugiagalvis spragilas" },
+    'heartOfTheElderDragon': { 'name': "Senovės drakono širdis" },
+    'dragonboneGreatsword': { 'name': "Drakono kaulo dvirankis kardas" },
+    'bastionBanner': { 'name': "Bastiono vėliava" },
+    'wallwardensPlate': { 'name': "Sienų sargo šarvai" },
+    'gatebreaker': { 'name': "Vartų laužiklis" },
+    'crownOfTheLastBastion': { 'name': "Paskutiniojo Bastiono karūna" },
     heartOfTheArena: {
       name: 'Arenos širdis'
     },
@@ -3418,8 +3654,17 @@ export default {
     known: 'Išmokta',
     friend: '{faction} gerbia savo draugus: 20% pigiau.',
     fee: 'Mokestis',
+    rank: {
+      label: '{n} rangas',
+      up: 'Kelti rangą',
+      effect: '+{effect} % poveikio, −{cd} % atsikūrimo',
+      max: 'Aukščiausias rangas',
+      level: '{n} rangui reikia {lvl} lygio.'
+    },
     hint: 'Pasirink pamoką. Žalias kraštas reiškia, kad gali ją išmokti dabar.',
     block: {
+      'trial': "Dar neišlaikei šios klasės išbandymo.",
+      'parents': "Pirmiausia išmok {a} ir {b} gebėjimą.",
       level: 'Tavo lygis per žemas.',
       attrs: 'Tavo savybės per žemos.',
       gold: 'Neužtenka aukso.'
@@ -3444,6 +3689,20 @@ export default {
     circle: 'Eterio ratas'
   },
   npc: {
+    'mysteriousWanderer': { 'name': "Paslaptingas klajūnas" },
+    'fairPip': { 'name': "Pipas" },
+    'fairBess': { 'name': "Senoji Bes" },
+    'fairHob': { 'name': "Hobas" },
+    sunkenPriest: { name: "Nuskendęs žynys" },
+    'fortHale': {
+      'name': "Kapitonas Hale",
+    },
+    'fortMara': {
+      'name': "Seniūnė Mara",
+    },
+    'scoutWren': {
+      'name': "Žvalgė Wren",
+    },
     frostDisciple: {
       name: 'Ivor Hask'
     },
@@ -3733,6 +3992,185 @@ export default {
     }
   },
   dlg: {
+    // ── The Mysterious Wanderer (afterplay phase 10) ──
+    'mysteriousWanderer': {
+      'hello': { '1': "Taigi. Padarei tai, ką retas kada padarė. Pajutau tai kitoje plyšio pusėje.", '2': "Mokau senųjų kelių, kurie sujungia dvi mokyklas į vieną. Tik tuos, kurie to nusipelno." },
+      'sealed': { '1': "Tu jį užantspaudavai. Gaila, savaip. Man patiko vaizdas." },
+      'ajar': { '1': "Palikai jį praviru. Drąsu. Demonai neleis tau atbukti." },
+      'again': { '1': "Vėl čia. Kelias ilgas, bet eini juo gerai." },
+      'train': { '1': "Parodyk man abi savo puses, ir aš padarysiu iš jų vieną." },
+      'trial': { 'say': "Apie kokius išbandymus kalbi?", '1': "Vartai, apginti be įbrėžimo. Drakonas, nukautas be kritimo. Penki pragariški kaltiniai ir penkios pergalės iš eilės.", '2': "Leviatano mirtis ir tobulas raundas prie hidros. Kiekvienas atveria duris, kurias galiu tau parodyti." },
+      'who': { '1': "Klajūnas. Vaikščiojau plyšio pakraščiu dar prieš gimstant tavo seneliui. Vardai nusidėvi." },
+      'trainBack': { '1': "Treniruokis. Dvi mokyklos ginčijasi, kol susitaria." },
+      'bye': { '1': "Eik atsargiai. Būsiu čia, kol manęs nebebus." }
+    },
+    'fairPip': {
+      'hello': { '1': "Prieikit! Devynios statinės, gauja velniukų ir vienas kūjelis. Sukalkit juos atgal!", '2': "Velniukai iššoka iš statinių. Pataikyk į dvidešimt, kol neišbyrėjo smėlis.", '3': "Auksu šarvuotų nelieskit, jie kainuoja gyvybę. Trys pergalės iš eilės, ir didysis prizas tavo." },
+      'again': { '1': "Dar padaužyti? Griebk kūjelį!" },
+      'play': { '1': "Kūjelis aukštyn! Štai jie!" },
+      'who': { '1': "Pipas, velniukų gaudytojas iš profesijos. Šituos pagavau pats. Jie kanda." },
+      'playBack': { '1': "Ha! Koks triukšmas! Dar kartą?" },
+      'bye': { '1': "Atpalaiduok ranką su kūjeliu!" }
+    },
+    'fairBess': {
+      'hello': { '1': "Penki žiedai, trys galvos, ir nė viena nekanda. Pati ją išdrožiau, tad saugok dažus.", '2': "Laikyk įsibėgėjimui, paleisk metimui. Galva pagauna žiedą tik tada, kai pasisupa į vidurį.", '3': "Kiekviena galva iš eilės skaičiuojama vienu daugiau. Užmesk visus penkis, ir sumokėsiu kaip reikiant." },
+      'again': { '1': "Vėl atėjai išbandyti laimės su mano senute?" },
+      'play': { '1': "Še tavo žiedai. Mesk švelniai, širdele." },
+      'who': { '1': "Keturiasdešimt metų mugių keliais. Hidra atėjo su karu. Atrodė tinkama." },
+      'playBack': { '1': "Neblogai. Mano velionis vyras mėtė prasčiau." },
+      'bye': { '1': "Išeinant saugok dažus." }
+    },
+    'fairHob': {
+      'hello': { '1': "O. Labas. Nori lenkti rankas? Būsiu atsargus. Pasistengsiu.", '2': "Spausk, kai žiedas susitinka su apskritimu. Ne į ritmą – nuslysi.", '3': "Stiprios rankos padeda. Įveik mane tris kartus iš eilės, ir Kalvystės meistras duos nuolaidą." },
+      'again': { '1': "Dar vienas raundas? Niekas niekada negrįžta dar vienam raundui." },
+      'play': { '1': "Alkūnę ant stalo. Kada tik nori." },
+      'who': { '1': "Aš Kalvystės meistro mokinys. Jis sako, kad nežinau savo jėgos." },
+      'playBack': { '1': "Gera kova. Rytoj skaudės ranką. Tikriausiai." },
+      'bye': { '1': "Grįžk greitai. Kalvėje labai tylu." }
+    },
+    // ── The Breaking (the afterplay, B0–B5) ──
+    'story': {
+      forge: { back: { '1': "Mano kalvė vėl dega, karščiau nei bet kada. Demonų geležis gerai lydosi.", '2': "Nešk man, ką ten rasi. Dabar galiu kalti pragariškai." } },
+      oracle: { lens: { '1': "Kartą tu mane išlaisvinai. Dabar aš matysiu už tave. Imk mano lęšį.", '2': "Pažvelk pro jį, ir žemėlapis parodys, kur laukia didieji žvėrys." } },
+      priest: { lens: { '1': "Orakulo nebėra, todėl dabar saugau jos šventyklą. Tai saugojo Sfinksė.", '2': "Jos lęšis. Pažvelk pro jį, ir žemėlapis parodys, kur laukia didieji žvėrys." } },
+      herbs: { scale: { '1': "Leviatano žvynas! Lengvas kaip lapas, ir plūduriuoja.", '2': "Nešiok jį, ir seklus vanduo laikys tave kaip tvirta žemė." } },
+      ghost: { key: { '1': "Še tau, tas, kuris paėmė mano sostą. Nužudei mano Hidrą. Gerai.", '2': "Imk jos ugnies raktą. Plyšio širdis dega, ir tik ugnis ją atveria." } },
+      syndicate: { key: { '1': "Hidra negyva? Tai ugnies raktas atiteks tam, kas sumokės. Arba tau, matyt.", '2': "Jis atveria plyšio širdį. Eik ir uždaryk jį, kol nesuėdė mano verslo." } },
+      sealed: {
+        sealed: { '1': "Taip plyšys buvo užantspauduotas, ir pasaulis ėmė gyti.", '2': "Miestai atstatyti, dainos sudėtos, ir kiekvienoje buvo vienas vardas." },
+        ajar: { '1': "Taip plyšys liko praviras, ir pasaulis išmoko gyventi šalia jo.", '2': "Sienos liko saugomos, koliziejus triukšmingas, o herojus pasiruošęs." },
+      },
+      'rift': {
+        'scream': {
+          '1': "Tuštumos Valdovas krenta, ir plyšys už jo rėkia.",
+          '2': "Tai niekada nebuvo jo sostas. Tai buvo jo narvas, o jis buvo dangtis.",
+          '3': "Dabar plyšys atviras, ir viskas, ką tuštuma laikė miegančią, bunda.",
+        },
+      },
+      'wren': {
+        'found': {
+          '1': "Štai kur tu! Aš Wren, žvalgė. Ieškojau tavęs visur.",
+          '2': "Sunfordas dega. Visi, kas galėjo pabėgti, išėjo į Bastiono brastą.",
+          '3': "Tai sena tvirtovė prie kelio į Pelenų uolas. Skubėk, tavęs reikia.",
+        },
+      },
+    },
+    'scoutWren': {
+      sealed: { '1': "Drakono nebėra! Keliai jau atrodo lengvesni." },
+      'hello': {
+        '1': "Atėjai! Žinojau. Sveikas atvykęs į Bastiono brastą.",
+        '2': "Žvalgau kelius kapitonui. Klausk manęs, kur bėda.",
+      },
+      'again': {
+        '1': "Jau grįžai? Keliai patys savęs neišžvalgys.",
+      },
+      'who': {
+        '1': "Wren. Nešiojau žinias Sunfordo sargybai, kol Sunfordas nesudegė.",
+      },
+      'rumor': {
+        'plains': {
+          '1': "Demonai laiko kelią per Sunfordo lygumas. Sunfordo mokytojai įstrigo už jo.",
+        },
+        'hollows': {
+          '1': "Goblinų urvai knibžda pragaro šunų. Išvalyk juos, ir Sunfordo žmonės grįš namo.",
+        },
+        'woods': {
+          '1': "Kažkas su trimis galvomis medžioja Šnabždančiame miške. Žolininkė ten slepiasi.",
+        },
+        'outskirts': {
+          '1': "Kentaurai joja Oakhaveno prieigose. Jei pasieks sienas, reikės kiekvieno kalavijo.",
+        },
+        'siege': {
+          '1': "Jų gauja sutriuškinta, bet renkasi daugiau. Kapitonas ruošia sienas.",
+        },
+      },
+      'bye': {
+        '1': "Saugok kelius. Aš irgi saugosiu.",
+      },
+    },
+    'fortHale': {
+      sealed: { '1': "Drakonas negyvas. Nemaniau, kad sulauksiu šios dienos. Ačiū." },
+      'siegeBack': { '1': "Dar ne? Tada pailsėk. Sienos tavęs palauks." },
+      'bell': { '1': "Tada prie vartų. Sakyk, kaip tvirtai juos laikysime." },
+      'hello': {
+        '1': "Atvykai. Gerai. Mums reikia kiekvieno kalavijo, dabar labiau nei bet kada.",
+        '2': "Sveikas atvykęs į Bastiono brastą. Senos sienos, bet vienintelės dar stovinčios.",
+      },
+      'road': {
+        '1': "Kelias į Sunfordą vėl atviras. Jo žmonės saugūs už mūsų sienų.",
+      },
+      'herbs': {
+        '1': "Žolininkė grįžo, su savo žolelėmis. Ligoninė gali atsikvėpti.",
+      },
+      'siege': {
+        '1': "Sutriuškinai kentaurus. Bet ateina didesnė kariuomenė, ir ji ateina dėl šių sienų.",
+      },
+      'again': {
+        '1': "Vis dar stovime. Sienos, vyrai ir aš.",
+      },
+      'fort': {
+        '1': "Sena pasienio tvirtovė. Penkiasdešimt metų tuščia, kol dangus neperplyšo.",
+        '2': "Dabar tai paskutinė saugi vieta tarp lygumų ir kalnų.",
+        'say': "Kokia čia vieta?",
+      },
+      'rumor': {
+        'road': {
+          '1': "Išvalyk lygumas ir urvus. Sunfordo žmonės ten įstrigę.",
+        },
+        'woods': {
+          '1': "Žolininkė Šnabždančiame miške, kaip ir trigalvis žvėris. Būk pasiruošęs.",
+        },
+        'centaurs': {
+          '1': "Kentaurai prieigose. Sutriuškink jų gaują, kol ji nepasiekė mūsų.",
+        },
+        'siege': {
+          '1': "Pailsėk. Kai suskambės apgulties varpas, man reikės tavęs ant sienos.",
+        },
+      },
+      'bye': {
+        '1': "Laikyk kalaviją arti.",
+      },
+    },
+    'fortMara': {
+      sealed: { '1': "Tau pavyko, vaike. Kiekvienas iš mūsų tau skolingas namus." },
+      'siegeBack': { '1': "Pailsėk truputį, vaike. Varpas dar suskambės." },
+      'bell': { '1': "Kapitono sienas dabar saugau aš. Rinkis, kaip jas išlaikysime." },
+      'hello': {
+        '1': "Vaike! Tu gyvas. Kai Sunfordas sudegė, bijojau blogiausio.",
+        '2': "Dabar esame svečiai kareivių tvirtovėje, senos moterys ir visi.",
+      },
+      'command': {
+        '1': "Kapitonas Hale žuvo su Oakhavenu. Tad tvirtovė dabar klauso senos seniūnės.",
+      },
+      'home': {
+        '1': "Sunfordas atstatomas! Pirmieji stogai jau stovi. Galėčiau verkti.",
+      },
+      'again': {
+        '1': "Vis dar čia, vaike. Vis dar skaičiuoju galvas.",
+      },
+      'town': {
+        '1': "Demonai nusileido iš nakties dangaus. Bėgome su tuo, ką galėjome panešti.",
+        '2': "Kai kurie mūsų taip ir neišsigelbėjo. Parvesk kitus namo, jei gali.",
+        'say': "Kas nutiko Sunfordui?",
+      },
+      'rumor': {
+        'road': {
+          '1': "Mūsų mokytojai vis dar ant Sunfordo kelio. Atvesk juos čia, vaike.",
+        },
+        'woods': {
+          '1': "Žolininkė nuėjo į Šnabždantį mišką žolelių ir negrįžo.",
+        },
+        'centaurs': {
+          '1': "Raiteliai prieigose. Kanopos kaip griaustinis, kas naktį.",
+        },
+        'siege': {
+          '1': "Sienos netrukus bus išbandytos. Jaučiu tai savo senuose kauluose.",
+        },
+      },
+      'bye': {
+        '1': "Eik atsargiai, vaike.",
+      },
+    },
     intro: {
       crossing: { 1: 'Kiekvienas šio pasaulio kelias susitinka kryžkelėje… ir kiekviena kryžkelė yra mūšis.' },
       hero: { 1: 'Iš ramių Sunfordo laukų į kelią išėjo jaunas didvyris.' },
@@ -4193,6 +4631,7 @@ export default {
       }
     },
     hero: {
+      'siege': "Užimkime sienas.",
       forge: 'Norėčiau pasinaudoti tavo žaizdru.',
       learnSmith: 'Ar išmokytum mane kalvystės?',
       ore: 'Turiu šiek tiek rūdos parduoti.',
@@ -4510,7 +4949,7 @@ export default {
       },
       map: {
         '1': 'Kapitono Rooko žemėlapis! Jis jį suplėšė ir paslėpė gabalus, prieš goblinams jį sugaunant.',
-        '2': 'Surask šešis iš jų, dar keletas guli išmėtyta aplink, ir X parodys kelią: kažkur Pelenų uolose. Kask ten, ir auksas tavo.',
+        '2': "Surask šešias dalis, ir X parodys kelią: kažkur Pelenų uolose. Kask ten aukso.",
         say: 'Radau seno žemėlapio gabalą.'
       }
     },
@@ -5511,6 +5950,11 @@ export default {
       }
     },
     quest: {
+      seal: {
+        ask: { '1': "Senovinis drakonas negyvas, ir plyšys atviras prieš tave.", '2': "Galėtum jį užantspauduoti dabar, amžiams. Žvėrys vėl užmigtų.", '3': "Arba galėtum palikti jį pravirą, kad drąsiausieji išbandytų jėgas su tuo, kas pro jį ateis." },
+        seal: { say: "Užantspauduok jį. Amžiams.", '1': "Plyšys užsiveria kaip gyjanti žaizda, ir dangus nutyla." },
+        ajar: { say: "Palik jį pravirą. Būsime pasiruošę.", '1': "Plyšys lieka praviras, ir kažkas už jo juokiasi." },
+      },
       goblinKing: {
         ask: {
           '1': 'Sustok. Prašau. Pasiduodu.',
@@ -5645,6 +6089,64 @@ export default {
       }
     },
     bark: {
+      sphinx: {
+        intro: { '1': "Atsakyk man, mažyli, arba palaidos tave mano smėlis." },
+        riddle: { '1': "Tuomet mįslė. Žengk ten, kur parodysiu, ta tvarka." },
+        sand: { '1': "Šįkart penkios. Ir mano smėlis nelauks." },
+        death: { '1': "Gerai atsakei. Smėlis dabar tavo." },
+      },
+      leviathan: {
+        intro: { '1': "Dabar tu vaikštai mano vandeniu." },
+        sink: { '1': "Tavo salelės skęsta." },
+        grab: { '1': "Eime su manim į gelmes!" },
+        death: { '1': "Atoslūgis nueina ir nebegrįžta." },
+      },
+      hydra: {
+        intro: { '1': "Nukirsk vieną galvą, ir išaugs dvi!" },
+        heads: { '1': "Daugiau galvų, daugiau dantų!" },
+        rage: { '1': "Sudeginti mus? Tai degk kartu su mumis!" },
+        death: { '1': "Daugiau galvų nėra. Nebėra." },
+      },
+      elderDragon: {
+        intro: { '1': "Miegojau po pasauliu, kai tavo giminė dar nepažino ugnies." },
+        flight: { '1': "Tai slėpkis už savo akmenėlių." },
+        rift: { '1': "Plyšys traukia mane atgal. Dar ne!" },
+        death: { '1': "Tai užantspauduok jį. Pavargau nuo tamsos." },
+      },
+      'siegeHale': {
+        'start': {
+          '1': "Ateina! Laikykit vartus!"
+        },
+        'ram': {
+          '1': "Taranas! Užmuškit jį, kol nepasiekė vartų!"
+        },
+        'horn50': {
+          '1': "Pusės vartų nebėra! Laikykitės!"
+        },
+        'horn25': {
+          '1': "Vartai ilgai nebeatlaikys!"
+        },
+        'won': {
+          '1': "Jie palaužti! Bastionas stovi!"
+        }
+      },
+      'siegeMara': {
+        'start': {
+          '1': "Ateina! Laikykitės tvirtai, visi!"
+        },
+        'ram': {
+          '1': "Taranas! Sustabdykit jį, kol nesulaužė vartų!"
+        },
+        'horn50': {
+          '1': "Pusė vartų žuvo. Laikykitės!"
+        },
+        'horn25': {
+          '1': "Vartai pasiduoda! Atstumkit juos!"
+        },
+        'won': {
+          '1': "Jie bėga! Tvirtovė vis dar stovi!"
+        }
+      },
       banditChief: {
         whistle: {
           1: 'Kelkit, vyrai! Kąskit juos!'
@@ -5653,6 +6155,11 @@ export default {
       lightDisciple: {
         freed: {
           '1': 'Tave atsiuntė šviesa. Aš Sesuo Aurelle. Ieškok manęs Sunford mieste, išmokysiu tave Šviesnešio kelio.'
+        }
+      },
+      trainerAegis: {
+        freed: {
+          '1': 'Ačiū, kad išlaisvinai mus iš banditų! Ateik prie laužo: mokysime tave visi, pirmoji pamoka nemokama.'
         }
       },
       frostDisciple: {
@@ -5708,6 +6215,48 @@ export default {
         },
         dive: {
           '1': 'Klaupkis.'
+        }
+      },
+      chimera: {
+        intro: {
+          '1': "Trys galvos, vienas alkis. Kuri iš mūsų įkąs pirma?"
+        },
+        twin: {
+          '1': "Dabar mūsų dvi. Gerai rinkis pusę."
+        },
+        tail: {
+          '1': "Mano uodega! Tu už tai sumokėsi!"
+        },
+        death: {
+          '1': "Trys galvos, ir nė viena to nenumatė."
+        }
+      },
+      centaurWarchief: {
+        intro: {
+          '1': "Bėk, jei nori. Mano strėlės greitesnės."
+        },
+        raiders: {
+          '1': "Raiteliai! Sutrypkite juos!"
+        },
+        rear: {
+          '1': "Gana strėlių. Sutrypsiu tave!"
+        },
+        death: {
+          '1': "Lygumos prisimins mano kanopas."
+        }
+      },
+      cyclops: {
+        intro: {
+          '1': "Čia kažkas mažo. Prieik arčiau. Leisk pažiūrėti."
+        },
+        cover: {
+          '1': "Daugiau jokio žiūrėjimo. Mano akies negausi!"
+        },
+        blind: {
+          '1': "Nematau tavęs, bet girdžiu!"
+        },
+        death: {
+          '1': "Tamsu. Viskas aptemo."
         }
       },
       frostJarl: {
@@ -6835,7 +7384,20 @@ export default {
       }
     }
   },
+  invasion: {
+    pylonsDown: 'Paskutinis pilonas griūva, ir jo lobis išsibarsto!',
+    reborn: {
+      tusker: 'Atgimęs Tusker',
+      emberLord: 'Pragariškasis Žarijų valdovas',
+      frostJarl: 'Atgimęs Šalčio jarlas',
+      voidDragon: 'Atgimęs Tuštumos drakonas'
+    }
+  },
   enemy: {
+    sphinx: "Sfinksė",
+    leviathan: "Leviatanas",
+    hydra: "Hidra",
+    elderDragon: "Senovinis drakonas",
     trainingDummy: 'Treniruočių manekenas',
     goblin: 'Goblinas',
     goblinSlinger: 'Goblinas svaidytojas',
@@ -6860,6 +7422,10 @@ export default {
     naga: 'Naga',
     skeleton: 'Skeletas',
     necromancer: 'Nekromantas',
+    chimera: "Chimera",
+    chimeraTail: "Gyvatės uodega",
+    centaurWarchief: "Kentaurų karvedys",
+    cyclops: "Kiklopas",
     frostJarl: 'Šalčio jarlas',
     nagaOracle: 'Nuskendusi orakulė',
     voidStalker: 'Tuštumos sėlintojas',
@@ -6872,6 +7438,7 @@ export default {
     archDemon: 'Arkidemonas',
     voidling: 'Tuštumos padaras',
     voidLord: 'Tuštumos valdovas',
+    demonPylon: 'Demonų pilonas',
     orderGuard: 'Ordino inkvizitorius',
     syndicateBlade: 'Sindikato ašmenys',
     goblinWarchief: 'Goblinų karo vadas',
@@ -6888,7 +7455,19 @@ export default {
     goblinTyrant: 'Goblinų tironas',
     voidDrake: 'Tuštumos slibinas',
     pitLord: 'Bedugnės valdovas',
-    frostThane: 'Šalčio tanas'
+    frostThane: 'Šalčio tanas',
+    hellhound: 'Pragaro šuo',
+    frostHellhound: 'Šalčio pragaro šuo',
+    gargoyle: 'Gargojlis',
+    harpy: 'Harpija',
+    corruptedTreant: 'Sugadintas medžiažmogis',
+    centaurRaider: 'Kentauras plėšikas',
+    cyclopsBrute: 'Kiklopas mušeika',
+    demonMiner: 'Demonas kalnakasys',
+    sphinxAcolyte: 'Sfinkso akolitas',
+    seaDemon: 'Jūros demonas',
+    drakeHatchling: 'Drakoniukas',
+    hydraSpawn: 'Hidros atžala'
   },
   results: {
     careful: 'Atsargi pergalė ×{mult}',
@@ -7205,6 +7784,8 @@ export default {
     town: 'Tai gali patobulinti bet kurio miesto kalvis.'
   },
   ore: {
+    'demonglass': { 'name': "Demonų stiklas" },
+    'ichor': { 'name': "Mitinis ichoras" },
     iron: {
       name: 'Geležies rūda'
     },

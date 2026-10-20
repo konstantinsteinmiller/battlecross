@@ -10,6 +10,8 @@
     CoachLayer(v-if="(flow.screen === 'zone' || flow.screen === 'town') && !flow.modal && !flow.talk && !isAnyModalOpen")
     //- The colosseum's announcement: the wave, the next prize, a milestone (#117).
     ArenaBanner(v-if="flow.screen === 'zone' && flow.node === 'arena' && !flow.modal")
+    //- The siege (afterplay §8): the gate, the wave, the build phase's defences.
+    SiegeHud(v-if="flow.screen === 'zone' && siegeHud.active")
     //- The "Open" prompt on the chest in reach.
     ChestPrompt(v-if="flow.screen === 'zone'")
     //- The "Read" prompt on the town square's notice board (#85).
@@ -66,6 +68,8 @@ import { isAnyModalOpen } from '@/use/useModalState'
 const OverheardLayer = defineAsyncComponent(SCREEN_CHUNKS.overheard)
 import ChestPrompt from './ChestPrompt.vue'
 import ArenaBanner from './ArenaBanner.vue'
+import SiegeHud from './SiegeHud.vue'
+import { siegeHud } from '@/game/state/siegeHud'
 import BoardPrompt from './BoardPrompt.vue'
 import LeaveButton from './LeaveButton.vue'
 import MenuButtons from './MenuButtons.vue'

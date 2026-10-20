@@ -1,5 +1,6 @@
-import type { ClassId } from './skills'
+import type { ClassId, PrestigeId } from './skills'
 import type { ItemSlot, ZoneId } from './items'
+import { overrunFlag } from './breaking'
 
 /**
  * ─── The world (GDD §3.1, §6.2) ──────────────────────────────────────────────
@@ -40,6 +41,10 @@ export interface ZoneDef {
   /** An elite that leads the pack half-way along the road: an old boss's
    *  fight, kept as a mini-boss (#74, D85). */
   midBoss?: string
+  /** The invaded version of the zone (the afterplay, `data/invasion.ts`):
+   *  its ruins, scars and pylons are laid, its champion is this. */
+  invaded?: boolean
+  champion?: string
 }
 
 export const ZONES: Readonly<Record<ZoneId, ZoneDef>> = {
@@ -300,7 +305,7 @@ export const ZONE_BRANCHES: Readonly<Record<ZoneId, ZoneBranches>> = {
 
 // ─── Towns ───────────────────────────────────────────────────────────────────
 
-export type TownId = 'sunford' | 'oakhaven' | 'ironhold' | 'silverbridge'
+export type TownId = 'sunford' | 'oakhaven' | 'ironhold' | 'silverbridge' | 'bastion'
 
 export type NpcRole = 'shop' | 'trainer' | 'quest' | 'healer' | 'alchemist' | 'gambler' | 'talk'
 
@@ -345,12 +350,14 @@ export interface NpcDef {
   job?: TownJob
   /** Trainers: the class they teach. */
   cls?: ClassId
+  /** A trainer of several classes (the Mysterious Wanderer, afterplay §10): those whose trial is passed. */
+  classes?: readonly PrestigeId[]
   /** Shops: what they stock. */
   stock?: { slots: ItemSlot[]; tiers: number[] }
   /** Quest givers: the quest id. */
   quest?: string
   /** Gamblers (roadmap #91, #92): the game at their table. */
-  game?: 'memory' | 'items' | 'cups'
+  game?: 'memory' | 'items' | 'cups' | 'whack' | 'ring' | 'arm'
   /** A secret trader or master (roadmap #86): no sign, no shop or lessons
    *  until this world flag is set (their errand handed in); a townsperson to
    *  talk to till then. */
@@ -594,6 +601,56 @@ export const TOWNS: Readonly<Record<TownId, TownDef>> = {
       { id: 'kidA', look: 'child', job: 'child', at: [0.46, 0.64] },
       { id: 'kidB', look: 'childF', job: 'child', at: [0.54, 0.64] }
     ]
+  },
+  // The afterplay's fort (docs/gdd-afterplay.md §7): Bastion Crossing, an old
+  // border fort on the Outskirts–Crags road, the last place with stone walls.
+  // Oakhaven's wall kit; the east gate is the way to the map, the south road
+  // the siege gate. Five quarters: the gate yard (the captain), the teachers'
+  // ring (Sunford's teachers, each once rescued), the market row, the fair
+  // corner, the infirmary and the inn. Somebody not yet rescued is not built.
+  // The rescued keep their own ids (one person, one conversation, as the
+  // masters who teach in two towns): their stock here is the fort's.
+  bastion: {
+    id: 'bastion', theme: 'town', style: 'mountain', site: 'walled', width: 60,
+    npcs: [
+      // The gate yard: Captain Hale, or Elder Mara in his stead when Oakhaven fell.
+      { id: 'fortHale', role: 'talk', look: 'captain', at: [0.86, 0.15], place: 'yard', house: 'hall', job: 'captain', not: ['oakhavenFallen'] },
+      { id: 'fortMara', role: 'talk', look: 'elder', at: [0.42, 0.36], place: 'street', job: 'elder' },
+      { id: 'scoutWren', role: 'talk', look: 'scoutWren', at: [0.58, 0.36], place: 'street', job: 'guard' },
+      // The teachers' ring.
+      { id: 'trainerAegis', role: 'trainer', look: 'trainerAegis', at: [0.16, 0.15], place: 'yard', house: 'hall', cls: 'aegis', needs: ['rescuedAegis'] },
+      { id: 'trainerPyro', role: 'trainer', look: 'trainerPyro', at: [0.5, 0.15], place: 'inside', house: 'hall', cls: 'pyro', needs: ['rescuedPyro'] },
+      { id: 'sfShadow', role: 'trainer', look: 'sfShadow', at: [0.86, 0.48], place: 'inside', house: 'townhouse', cls: 'shadow', needs: ['rescuedShadow'] },
+      { id: 'sfGeo', role: 'trainer', look: 'sfGeo', at: [0.3, 0.82], place: 'yard', house: 'cottage', cls: 'geo', needs: ['rescuedGeo'] },
+      // The market row: Sunford's smith and peddler, stocked for the afterplay.
+      { id: 'sunfordSmith', role: 'shop', look: 'smith', at: [0.12, 0.48], place: 'porch', house: 'workshop', job: 'smith', stock: { slots: ['main', 'off', 'head', 'body', 'hands', 'feet'], tiers: [4, 5] }, needs: ['rescuedTraders'] },
+      { id: 'sunfordPeddler', role: 'shop', look: 'peddler', at: [0.34, 0.62], place: 'street', job: 'merchant', stock: { slots: ['trinket'], tiers: [4, 5] }, needs: ['rescuedTraders'] },
+      // Oakhaven fallen: the Syndicate's fence trades from a cart by the gate.
+      { id: 'blackMarket', role: 'shop', look: 'fence', at: [0.64, 0.4], place: 'street', job: 'fence', stock: { slots: ['main', 'trinket'], tiers: [3, 4, 5] }, needs: ['oakhavenFallen'] },
+      // The fair corner.
+      { id: 'sunfordGambler', role: 'gambler', look: 'sunfordGambler', at: [0.7, 0.62], place: 'street', job: 'merchant', game: 'items', needs: ['rescuedGamblers'] },
+      { id: 'sunfordCups', role: 'gambler', look: 'sunfordCups', at: [0.8, 0.84], place: 'street', job: 'merchant', game: 'cups', needs: ['rescuedGamblers'] },
+      // The fair games (§9): Pip's barrels, Old Bess's wooden hydra, the Forgemaster's apprentice at his table.
+      { id: 'fairPip', role: 'gambler', look: 'fairPip', at: [0.92, 0.62], place: 'street', job: 'merchant', game: 'whack', needs: ['rescuedGamblers'] },
+      { id: 'fairBess', role: 'gambler', look: 'fairBess', at: [0.62, 0.84], place: 'street', job: 'merchant', game: 'ring', needs: ['rescuedGamblers'] },
+      { id: 'fairHob', role: 'gambler', look: 'fairHob', at: [0.94, 0.84], place: 'street', job: 'smith', game: 'arm', needs: ['rescuedGamblers'] },
+      // The infirmary, and the herbalist the Wildwood gave back (B4).
+      { id: 'sunfordHealer', role: 'healer', look: 'healer', at: [0.66, 0.15], place: 'inside', house: 'chapel', needs: ['rescuedHealer'] },
+      { id: 'freedHerbalist', role: 'talk', look: 'freedHerbalist', at: [0.5, 0.62], place: 'street', job: 'alchemist', needs: ['rescuedHerbalist'] },
+      // The Mysterious Wanderer (§10): by the inn's wall once a prestige trial is passed (`data/prestige.ts`, the derived `wandererCame`).
+      { id: 'mysteriousWanderer', role: 'trainer', look: 'mysteriousWanderer', at: [0.08, 0.66], place: 'street', job: 'villager', cls: 'demonhunter', classes: ['demonhunter', 'dragoon', 'hexsmith', 'tidecaller'], needs: ['wandererCame'] }
+    ],
+    houses: [{ kind: 'tavern', at: [0.2, 0.76], inside: true }],
+    folk: [
+      { id: 'innkeeper', look: 'villager', job: 'keeper', at: [0.2, 0.76], inn: true, lite: true },
+      { id: 'patronA', look: 'survivor', job: 'drinker', at: [0.2, 0.76], inn: true, lite: true },
+      { id: 'patronB', look: 'townGuard', job: 'drinker', at: [0.2, 0.76], inn: true },
+      { id: 'guardA', look: 'townGuard', job: 'squire', at: [0.94, 0.15], lite: true },
+      { id: 'guardB', look: 'townGuard', job: 'guard', at: [0.5, 0.58] },
+      { id: 'survivorA', look: 'survivor', job: 'survivor', at: [0.54, 0.46], lite: true },
+      { id: 'survivorB', look: 'villagerF', job: 'survivor', at: [0.66, 0.46] },
+      { id: 'kidA', look: 'child', job: 'child', at: [0.44, 0.64] }
+    ]
   }
 }
 
@@ -623,9 +680,12 @@ export const MAP: readonly MapNode[] = [
   { id: 'woods', kind: 'zone', at: [0.415, 0.525], links: ['plains', 'outskirts', 'crags', 'silverbridge'] },
   // The big town, over the river west of the woods (roadmap #86).
   { id: 'silverbridge', kind: 'town', at: [0.25, 0.435], links: ['woods'] },
-  { id: 'outskirts', kind: 'zone', at: [0.555, 0.67], links: ['woods', 'oakhaven'], quest: 'siege' },
+  { id: 'outskirts', kind: 'zone', at: [0.555, 0.67], links: ['woods', 'oakhaven', 'bastion'], quest: 'siege' },
   { id: 'oakhaven', kind: 'town', at: [0.695, 0.795], links: ['outskirts'] },
-  { id: 'crags', kind: 'zone', at: [0.5, 0.345], links: ['woods', 'mines', 'tundra'] },
+  // The afterplay's fort, on the road between the Outskirts and the Crags: on
+  // the map once Scout Wren has told of it (B1).
+  { id: 'bastion', kind: 'town', at: [0.6, 0.5], links: ['outskirts', 'crags'], needs: ['brk1'] },
+  { id: 'crags', kind: 'zone', at: [0.5, 0.345], links: ['woods', 'mines', 'tundra', 'bastion'] },
   { id: 'mines', kind: 'zone', at: [0.345, 0.25], links: ['crags', 'ironhold'], quest: 'core' },
   { id: 'ironhold', kind: 'town', at: [0.2, 0.175], links: ['mines'] },
   { id: 'tundra', kind: 'zone', at: [0.66, 0.29], links: ['crags', 'temple', 'citadel'] },
@@ -667,7 +727,8 @@ export const foundFlag = (cls: ClassId): string => 'found' + cls[0]!.toUpperCase
 
 /** A town's people as the world's flags leave them. */
 export const townNpcs = (town: TownId, flags: ReadonlySet<string>): NpcDef[] =>
-  TOWNS[town].npcs.filter(n => (!n.needs || n.needs.every(f => flags.has(f))) && !(n.not && n.not.some(f => flags.has(f))))
+  // An overrun town (the afterplay) has nobody left to trade with.
+  flags.has(overrunFlag(town)) ? [] : TOWNS[town].npcs.filter(n => (!n.needs || n.needs.every(f => flags.has(f))) && !(n.not && n.not.some(f => flags.has(f))))
 
 /** Is a node open, given the cleared nodes and the world flags? */
 export const nodeOpen = (id: NodeId, cleared: ReadonlySet<string>, flags: ReadonlySet<string>): boolean => {

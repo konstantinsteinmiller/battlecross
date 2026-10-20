@@ -1,5 +1,170 @@
 // Catalan (ca) bundle — mirrors en.ts.
 export default {
+  // ─── Afterplay phase 8: items, materials and capstones ───
+  // ─── Afterplay phase 10: the prestige classes ───
+  'prestige': { 'toast': { 'wanderer': "Un rodamón misteriós espera al fort." } },
+  'relic': {
+    'infernal': "{name} · Infernal",
+    'set': "Amb {item}:",
+    'heroicBadge': "Heroic {n}",
+    'heroic': "Heroic {n}: {gold} d'or, {glass} de vidre demoníac",
+    'heroicIchor': "Heroic {n}: {gold} d'or, {glass} de vidre demoníac, {ichor} d'icor",
+    'heroicMax': "Tots els rangs heroics assolits.",
+    'infernalForge': "Forja infernal: {gold} d'or, {glass} de vidre demoníac",
+    'lens': "Lent de l'Oracle: aquí espera {boss}.",
+    'hydraKey': "Segellat. La clau de foc de la Hidra obre el cor de l'Escletxa.",
+    'marksGlass': "Compra {glass} de vidre demoníac per {marks} marques",
+    'capstone': "Cim",
+    'fortOnly': "Aquest cim només s'ensenya al Gual del Bastió."
+  },
+  // ─── The fort's fair games (afterplay §9) ───
+  'fair': {
+    'fee': "Jugar · {n}",
+    'again': "Tornar a jugar",
+    'noGold': "No tens prou or.",
+    'capped': "Zones per netejar abans que tornin els grans premis: {n}",
+    'top': "Primer premi! +{gold} d'or, +{xp} PX",
+    'topGold': "Primer premi, només en or: +{n} d'or",
+    'won': "Has guanyat! +{n} d'or",
+    'lost': "Mala sort. La ratxa torna a començar.",
+    'row': "Victòries seguides: {n} de {max}",
+    'mats': "+{n} de material Heroic+",
+    'discount': "Ara el ferrer et fa un {n}% de descompte en millores!"
+  },
+  'whack': {
+    'title': "Pica el Diablet",
+    'lead': "Encerta 20 diablets en 30 segons. Deixa en pau els de cuirassa daurada: cada un que encertis costa una vida.",
+    'hits': "Diablets: {n} / {max}",
+    'lives': "Vides: {n}",
+    'time': "Temps: {n} s",
+    'hint': "Toca els diablets o prem de l'1 al 9.",
+    'barrel': "Bóta {n}",
+    'timeout': "S'ha acabat el temps!",
+    'dead': "Sense vides!"
+  },
+  'ring': {
+    'title': "Anelles a la Hidra",
+    'lead': "Mantén premut per agafar força i deixa anar per llançar. Un cap només agafa l'anella a prop del centre del seu balanceig. Cada cap seguit val un punt més.",
+    'hint': "Mantén premut i deixa anar sobre la taula, o mantén l'Espai.",
+    'rings': "Anelles restants: {n}",
+    'score': "Punts: {n}",
+    'hit': "Dins! +{n}",
+    'miss': "Fallada!",
+    'perfect': "Una ronda perfecta!",
+    'nothing': "{n} punts. Aquesta vegada no hi ha premi.",
+    'power': "Força"
+  },
+  'arm': {
+    'title': "Pols de braç",
+    'lead': "Toca quan l'anell es trobi amb el cercle per abaixar-li el braç. La Força eixampla el ritme. Tres victòries seguides donen un descompte de forja, cinc donen material Heroic+.",
+    'hint': "Toca la taula o prem l'Espai.",
+    'good': "Empeny!",
+    'off': "Fora de ritme!"
+  },
+  // ─── The Siege of Bastion (afterplay §8) ───
+  'siege': {
+    'title': "Setge del Gual del Bastió",
+    'lead': "Defensa la porta durant deu onades. Entre onades, gasta marques de setge en defenses.",
+    'story': "L'horda és a la porta. Aguanta deu onades: aquest primer setge no es pot perdre.",
+    'bell': "Sona la campana del setge! L'horda s'aplega davant la porta.",
+    'mapBell': "Setge!",
+    'start': "Toca la campana",
+    'wins': "Victòries: {n}",
+    'marksBank': "Marques de setge desades: {n}",
+    'tier': {
+      'normal': "Normal",
+      'hard': "Difícil",
+      'nightmare': "Malson"
+    },
+    'tierDesc': {
+      'normal': "Enemics un nivell per sobre del teu.",
+      'hard': "Enemics 3 nivells més alts, amb un 30% més de vida.",
+      'nightmare': "Enemics 6 nivells més alts i dues onades d'elits mítics."
+    },
+    'locked': {
+      'hard': "Primer guanya un setge normal.",
+      'nightmare': "S'obre quan l'esquerda està segellada o es deixa entreoberta."
+    },
+    'lord': "Senyor del Setge",
+    'hud': {
+      'wave': "Onada {n}/{total}",
+      'marks': "Marques: {n}",
+      'gate': "Porta {pct}%",
+      'build': "Onada {n} en {s} s",
+      'ready': "A punt!",
+      'buy': "{name}: {n} marques"
+    },
+    'def': {
+      'ballista': {
+        'name': "Balista",
+        'desc': "Dispara un passador perforant pel seu carril cada 2 segons."
+      },
+      'cauldron': {
+        'name': "Calder de foc",
+        'desc': "Cala foc al pas estret del seu carril."
+      },
+      'barricade': {
+        'name': "Barricada",
+        'desc': "Bloqueja un carril durant 20 segons."
+      },
+      'militia': {
+        'name': "Milícia",
+        'desc': "Dos guàrdies lluiten al teu costat."
+      },
+      'repair': {
+        'name': "Repara la porta",
+        'desc': "Restaura una quarta part de la porta."
+      }
+    },
+    'block': {
+      'marks': "No tens prou marques de setge.",
+      'full': "No hi cap res més.",
+      'phase': "Només entre onades."
+    },
+    'toast': {
+      'cleared': "Onada {n} aturada! +{marks} marques",
+      'clearedUnharmed': "Onada {n} aturada, porta intacta! +{marks} marques",
+      'horn': "Sona el corn! A la porta li queda un {pct}%.",
+      'ram': "Un ariet! Atura'l abans que arribi a la porta!",
+      'rally': "Dempeus de nou! Defensa la porta!"
+    },
+    'banner': {
+      'wave': "Onada {n}",
+      'final': "El Senyor del Setge!"
+    },
+    'result': {
+      'tier': "Setge del Gual del Bastió: {tier}",
+      'waves': "Onades aturades: {n}/{total}",
+      'marks': "Marques de setge conservades: {banked} de {earned}",
+      'glass': "Vidre demoníac: +{n}"
+    },
+    'milestone': {
+      'normal1': "Fita assolida: l'Estendard del Bastió.",
+      'normal5': "Fita assolida: la Cuirassa del Guardamurs.",
+      'hard1': "Fita assolida: Instint de veterà, una cinquena ranura passiva.",
+      'hard5': "Fita assolida: Trencaportes.",
+      'nightmare1': "Fita assolida: la Corona de l'Últim Bastió.",
+      'hardFlawless': "Fita assolida: la clau d'una prova de classe oculta."
+    }
+  },
+  // ─── The Breaking (the afterplay's story) ───
+  'breaking': {
+    'title': "La Ruptura",
+    'toast': {
+      brk6: "El Mestre Ferrer ha recuperat la seva farga. La forja infernal és oberta.",
+      brk7: "L'Esfinx és morta. La Lent de l'Oracle mostra on esperen les grans bèsties.",
+      brk8: "El Leviatan és mort. La seva escata et deixa caminar pels aiguamolls poc fondos.",
+      brk9: "L'Hidra és morta. La seva clau de foc és teva.",
+      brk10: "El Drac Ancestral és mort. L'escletxa és oberta.",
+      sealed: "L'escletxa està segellada. Ets el Segellador de l'Escletxa.",
+      ajar: "L'escletxa queda entreoberta. Els dimonis posaran a prova les muralles i el colosseu.",
+      'brk2': "El Gual del Bastió t’acull. La seva gent ara confia en tu.",
+      'rescued': "Supervivents rescatats! Són a recer al Gual del Bastió.",
+      'brk3': "El camí és lliure. La gent de Sunford és a salvo.",
+      'brk4': "L’herbolària s’uneix al fort.",
+      'brk5': "L’horda de centaures s’ha trencat. El fort es prepara per a un setge.",
+    },
+  },
   // ─── The intro (#130): its skip, and its narrator's name ───
   intro: {
     narrator: 'El Cronista',
@@ -88,6 +253,7 @@ export default {
     gold: '{n} d’or',
     potion: 'Poció de salut (en queden {n})',
     manaPotion: 'Poció de manà (en queden {n})',
+    potionStop: 'Beu una poció de salut per continuar',
     groups: '{n} de {total} grups enemics derrotats',
     wave: 'Onada {n} / {total}',
     roll: 'Voltereta',
@@ -262,6 +428,10 @@ export default {
     escort: 'Protegeix la caravana'
   },
   node: {
+    'bastion': {
+      'name': "Gual del Bastió",
+      'desc': "Un vell fort fronterer, les últimes muralles que encara s’aguanten. Els supervivents s’hi apleguen.",
+    },
     sunford: {
       name: 'Sunford',
       desc: 'Un poble de pagès a la vora de les planes. Casa teva, un ferrer i dos mestres.'
@@ -344,6 +514,9 @@ export default {
     locked: 'Supera una zona veïna per obrir el camí.',
     lockedArena: 'Les portes s’obriran quan el Rei Gòblin estigui resolt.',
     lockedRift: 'S’obrirà quan es decideixi el tron de la Fortalesa del Terror.',
+    invaded: 'Envaïda',
+    invadedDesc: 'Els dimonis dominen aquesta terra. Els seus pilons fan que els enemics propers colpegin més fort, les cicatrius de l\'escletxa cremen i alenteixen, i cada enemic abatut aquí val més.',
+    lockedInvaded: 'Els dimonis la tenen ben agafada. Recupera primer {zone}.',
     danger: {
       '1': 'Una mica per sobre del teu nivell.',
       '2': 'Perillós per al teu nivell.',
@@ -470,6 +643,11 @@ export default {
     }
   },
   class: {
+    // ── The prestige classes (afterplay phase 10) ──
+    'demonhunter': { 'name': "Caçador de dimonis", 'desc': "Ombra i llum sagrada, jurades a una sola presa. Marca dimonis, i els marcats cauen de pressa." },
+    'dragoon': { 'name': "Dragó", 'desc': "Vent sota les botes, un escut al braç. Salta des del cel i ensarta files senceres." },
+    'hexsmith': { 'name': "Ferrer de malediccions", 'desc': "Art de l'èter alimentada amb sang. Construeix torretes que buiden l'enemic per guarir el ferrer." },
+    'tidecaller': { 'name': "Cridamarees", 'desc': "Gel i elements, abocats al mar. Onades que empenyen i amaren els enemics." },
     aegis: {
       name: 'Cavaller de l’Ègida',
       desc: 'Escut i acer sagrat. Rep els cops perquè ningú més els hagi de rebre.'
@@ -536,6 +714,35 @@ export default {
     }
   },
   skill: {
+    // ── The prestige classes (afterplay phase 10) ──
+    'huntersMark': { 'name': "Marca del caçador", 'desc': "Un passador sagrat de {dmg}% de dany de Destresa. Durant {dur} s l'objectiu rep un {vuln}% més de dany, un dimoni un {demon}% més." },
+    'demonsBane': { 'name': "Perdició demoníaca", 'desc': "+{bane}% de dany als dimonis i un {ward}% menys de dany d'ells." },
+    'silverVolley': { 'name': "Ràfega de plata", 'desc': "Passadors de plata en línia: {dmg}% de dany de Destresa, +{bane}% a dimonis i enemics marcats." },
+    'skyfallLeap': { 'name': "Caiguda celestial", 'desc': "Salta fora d'abast durant {air} s i cau al lloc: {dmg}% de dany de Força en {radius} m, enemics tombats." },
+    'dragonBlood': { 'name': "Sang de drac", 'desc': "+{boss}% de dany als caps, +{hp}% de vida màxima, i res no t'empeny." },
+    'dragonLance': { 'name': "Llança del drac", 'desc': "Una estocada de llança en línia: {dmg}% de dany de Destresa a cada enemic." },
+    'hexTurret': { 'name': "Torreta maleïda", 'desc': "Construeix una torreta durant {dur} s. Cada segon xucla l'enemic més proper en {radius} m per {dmg}% de dany de Perícia; et guareixes un {drain}%." },
+    'soulForge': { 'name': "Farga d'ànimes", 'desc': "+{hp}% de vida màxima, {regen} de vida per segon, i reps un {reduce}% menys de dany." },
+    'hexBolt': { 'name': "Passador maleït", 'desc': "Paga un {hp}% de vida: un passador de {dmg}% de dany de Perícia. Et guareixes un {heal}% i l'enemic fa un {weak}% menys de dany durant {dur} s." },
+    'tidalWave': { 'name': "Onada gegant", 'desc': "Una onada en línia: {dmg}% de dany d'Intel·ligència, enemics empesos i amarats ({slow}% d'alentiment durant {dur} s)." },
+    'seaborn': { 'name': "Fill del mar", 'desc': "+{bonus}% de dany als enemics glaçats, un {reduce}% menys de dany rebut, +{move}% de velocitat." },
+    'undertow': { 'name': "Ressaca", 'desc': "Un remolí durant {dur} s: {dmg}% de dany d'Intel·ligència en total en {radius} m. Atrau els enemics i els alenteix un {slow}%." },
+    'bastionWall': { 'name': "Mur del Bastió", 'desc': "Durant {dur} s, tot enemic a {radius} m t'ha d'atacar i reps un {def}% menys. Després la llum fa {dmg}% de Força +{back}% dels cops rebuts." },
+    'thousandCuts': { 'name': "Mil Talls", 'desc': "Salta entre enemics a {radius} m i colpeja {hits} vegades, cada cop per {dmg}% de dany de Destresa. Un cap només rep un cop. Res no et pot tocar mentre talles." },
+    'cinderSun': { 'name': "Sol de cendra", 'desc': "Un sol moribund es trenca durant {dur} s: {meteors} fragments ardents, cadascun amb {dmg}% de dany d'Intel·ligència." },
+    'royalLegion': { 'name': "Legió reial", 'desc': "Crida la legió durant {dur} s: {archers} arquers, {guards} guàrdies i {mages} mags de batalla." },
+    'stoppedHour': { 'name': "Hora aturada", 'desc': "Atura l'hora a {radius} m durant {dur} s. Quan torna a córrer, cada enemic rep {dmg}% de dany d'Intel·ligència." },
+    'redCovenant': { 'name': "Pacte vermell", 'desc': "Pren el {pct}% de la vida de cada enemic a {radius} m. Et cures el {heal}% d'això." },
+    'orbitalLance': { 'name': "Llança orbital", 'desc': "Una llança de llum del cel crema on apuntes: {dmg}% de dany d'Habilitat en {dur} s." },
+    'tectonicHeart': { 'name': "Cor tectònic", 'desc': "El cor de la terra s'obre: {dmg}% de dany de Força a tot el que hi ha a prop, i runa que alenteix {dur} s." },
+    'eyeOfTheGale': { 'name': "Ull del temporal", 'desc': "Una tempesta de fletxes durant {dur} s: {dmg}% de dany d'Habilitat en total i {slow}% d'alentiment." },
+    'endlessWinter': { 'name': "Hivern sense fi", 'desc': "Un hivern sense fi esclata des de tu: {dmg}% de dany d'Intel·ligència a {radius} m, i tots queden glaçats {freeze} s." },
+    'dawnbreak': { 'name': "Albada", 'desc': "Sigues l'alba durant {dur} s: cada segon, {dmg}% de dany d'Intel·ligència a {radius} m i et cures un {heal}%." },
+    'alphasCall': { 'name': "Crida de l'alfa", 'desc': "{wolves} llops responen i corren amb tu {dur} s. Tota la llopada fa +{dmg}% de dany i va un {move}% més ràpid." },
+    'prismStorm': { 'name': "Tempesta prismàtica", 'desc': "Durant {dur} s els quatre elements bramen: {strikes} cops de {dmg}% d'Intel·ligència que s'activen entre ells." },
+    'ferryman': { 'name': "Barquer", 'desc': "Durant {dur} s, tot enemic que cau a prop teu s'alça com el teu esperit, i els esperits fan un {atk}% més." },
+    'unmovingMountain': { 'name': "Muntanya immòbil", 'desc': "Gasta tot el chi: una muntanya cau per {dmg}% de dany de Destresa, +{per}% per chi, i tomba els enemics." },
+    'encore': { 'name': "Bis", 'desc': "Un cop més durant {dur} s (+{buff}% velocitat, dany, Defensa) i després l'últim acord: {dmg}% de Carisma, enemics encisats." },
     kind: {
       active: 'Activa',
       passive: 'Passiva'
@@ -591,7 +798,7 @@ export default {
     },
     danceOfBlades: {
       name: 'Dansa de Fulles',
-      desc: 'Salta entre els enemics a {radius} m i colpeja {hits} vegades amb {dmg}% de dany de Destresa en total. No et poden tocar mentre danses.'
+      desc: 'Salta entre els enemics a {radius} m i colpeja {hits} vegades, cada cop amb {dmg}% de dany de Destresa. Un cap només rep un cop. No et poden tocar mentre danses.'
     },
     fireball: {
       name: 'Bola de Foc',
@@ -1339,6 +1546,8 @@ export default {
     magic: 'Màgia · escala amb {attr}'
   },
   source: {
+    'siege': "Guanyat al Setge del Gual del Bastió.",
+    'infernal': "Un bessó infernal: cau a {zone} envaït o el forja un ferrer.",
     arena: 'Guanyat al Colosseu.',
     smith: 'Forjat en una farga.',
     mob: 'El deixen anar els monstres. Zona: {zone}.',
@@ -1347,6 +1556,15 @@ export default {
     secret: 'Amagat en un cofre secret. Zona: {zone}.'
   },
   mod: {
+    'demonBane': "+{n}% de dany contra dimonis",
+    'demonLeech': "El {n}% del dany als dimonis et cura",
+    'beastBane': "+{n}% de dany contra bèsties mítiques",
+    'fireWard': "{n}% menys de dany de foc rebut",
+    'shadowWard': "{n}% menys de dany d'ombra rebut",
+    'demonWard': "{n}% menys de dany dels dimonis",
+    'pylonBreaker': "+{n}% de dany contra pilons demoníacs",
+    'glassFinder': "{n}% de probabilitat que un dimoni abatut deixi vidre demoníac extra",
+    'waterWalk': "L'aigua no t'alenteix",
     str: '+{n} de Força',
     dex: '+{n} de Destresa',
     int: '+{n} d’Intel·ligència',
@@ -1422,6 +1640,24 @@ export default {
     songLength: 'Les cançons duren un {n}% més'
   },
   item: {
+    'chimeraMane': { 'name': "Crinera de quimera" },
+    'triFang': { 'name': "Triullal" },
+    'warchiefsLongbowGun': { 'name': "Arc-fusell del cabdill" },
+    'hoofbreakerGreaves': { 'name': "Grebes trencacascos" },
+    'eyeOfTheDeep': { 'name': "Ull de les profunditats" },
+    'beamSplitter': { 'name': "Partfeixos" },
+    'riddleCrown': { 'name': "Corona de l'enigma" },
+    'sandglassWand': { 'name': "Vareta del rellotge de sorra" },
+    'leviathanScale': { 'name': "Escata de leviatan" },
+    'tidecallerStaff': { 'name': "Bastó del cridamarees" },
+    'hydraScaleGauntlets': { 'name': "Guantellets d'escates d'hidra" },
+    'manyHeadedFlail': { 'name': "Maça de moltes caps" },
+    'heartOfTheElderDragon': { 'name': "Cor del Drac Ancià" },
+    'dragonboneGreatsword': { 'name': "Espasa d'os de drac" },
+    'bastionBanner': { 'name': "Estendard del Bastió" },
+    'wallwardensPlate': { 'name': "Cuirassa del guardamurs" },
+    'gatebreaker': { 'name': "Trencaportes" },
+    'crownOfTheLastBastion': { 'name': "Corona de l'últim Bastió" },
     heartOfTheArena: {
       name: 'Cor de l’Arena'
     },
@@ -3419,8 +3655,17 @@ export default {
     known: 'Apresa',
     friend: '{faction} honra els seus amics: 20% de descompte.',
     fee: 'Tarifa',
+    rank: {
+      label: 'Rang {n}',
+      up: 'Puja de rang',
+      effect: '+{effect}% d’efecte, −{cd}% de recàrrega',
+      max: 'Rang màxim',
+      level: 'El rang {n} demana el nivell {lvl}.'
+    },
     hint: 'Tria una lliçó. Una vora verda vol dir que ja la pots aprendre.',
     block: {
+      'trial': "No has superat la prova d'aquesta classe.",
+      'parents': "Aprèn primer una habilitat de {a} i una de {b}.",
       level: 'El teu nivell és massa baix.',
       attrs: 'Els teus atributs són massa baixos.',
       gold: 'No tens prou or.'
@@ -3445,6 +3690,20 @@ export default {
     circle: 'El Cercle de l’Èter'
   },
   npc: {
+    'mysteriousWanderer': { 'name': "Rodamón misteriós" },
+    'fairPip': { 'name': "Pip" },
+    'fairBess': { 'name': "La vella Bess" },
+    'fairHob': { 'name': "Hob" },
+    sunkenPriest: { name: "El Sacerdot Enfonsat" },
+    'fortHale': {
+      'name': "Capità Hale",
+    },
+    'fortMara': {
+      'name': "Mara l’Anciana",
+    },
+    'scoutWren': {
+      'name': "Exploradora Wren",
+    },
     frostDisciple: {
       name: 'Ivor Hask'
     },
@@ -3734,6 +3993,185 @@ export default {
     }
   },
   dlg: {
+    // ── The Mysterious Wanderer (afterplay phase 10) ──
+    'mysteriousWanderer': {
+      'hello': { '1': "Vaja. Has fet el que pocs han fet mai. Ho vaig sentir des de l'altra banda de l'esquerda.", '2': "Ensenyo els vells camins que uneixen dues escoles en una. Només a qui se'ls guanya." },
+      'sealed': { '1': "La vas segellar. Una llàstima, en certa manera. M'agradava la vista." },
+      'ajar': { '1': "La vas deixar entreoberta. Agosarat. Els dimonis et mantindran alerta." },
+      'again': { '1': "Altre cop aquí. El camí és llarg, però el camines bé." },
+      'train': { '1': "Mostra'm les dues meitats del que ets, i en faré una." },
+      'trial': { 'say': "De quines proves parles?", '1': "Una porta defensada sense una esgarrinxada. Un drac mort sense una caiguda. Cinc forjades infernals i cinc victòries seguides.", '2': "La mort del Leviatan i una ronda perfecta a l'hidra. Cadascuna obre una porta que et puc mostrar." },
+      'who': { '1': "Un rodamón. Caminava per la vora de l'esquerda abans que nasqués el teu avi. Els noms es gasten." },
+      'trainBack': { '1': "Practica. Dues escoles es barallen abans d'entendre's." },
+      'bye': { '1': "Camina amb compte. Seré aquí, fins que no hi sigui." }
+    },
+    'fairPip': {
+      'hello': { '1': "Acosteu-vos! Nou bótes, una colla de diablets i un mall. Torneu-los a baix!", '2': "Els diablets surten de les bótes. Encerta'n vint abans que s'acabi la sorra.", '3': "Deixa els de cuirassa daurada, costen una vida. Tres victòries seguides i el gran premi és teu." },
+      'again': { '1': "Més cops? Agafa el mall!" },
+      'play': { '1': "Mall amunt! Ja vénen!" },
+      'who': { '1': "Pip, caçador de diablets d'ofici. Aquests els vaig atrapar jo. Mosseguen." },
+      'playBack': { '1': "Ha! Quin enrenou! Una altra?" },
+      'bye': { '1': "Deixa anar aquest braç!" }
+    },
+    'fairBess': {
+      'hello': { '1': "Cinc anelles, tres caps, i cap no mossega. La vaig tallar jo mateixa, així que compte amb la pintura.", '2': "Mantén per agafar impuls, deixa anar per llançar. Un cap només agafa l'anella quan passa pel mig.", '3': "Cada cap seguit compta un més. Encerta'ls tots cinc i et pagaré com cal." },
+      'again': { '1': "Tornes a provar sort amb la meva vella amiga?" },
+      'play': { '1': "Aquí tens les anelles. Llança suau, rei." },
+      'who': { '1': "Quaranta anys pels camins de fira. La hidra va arribar amb la guerra. Semblava escaient." },
+      'playBack': { '1': "No està malament. El meu difunt marit llançava pitjor." },
+      'bye': { '1': "Compte amb la pintura en sortir." }
+    },
+    'fairHob': {
+      'hello': { '1': "Oh. Hola. Vols fer un pols? Aniré amb compte. Ho intentaré.", '2': "Empeny quan l'anell es trobi amb el cercle. Fora de ritme, rellisques.", '3': "Els braços forts ajuden. Guanya'm tres vegades seguides i el Mestre Forjador et farà un descompte." },
+      'again': { '1': "Una altra ronda? Ningú no torna mai per una altra ronda." },
+      'play': { '1': "El colze a la taula. Quan vulguis." },
+      'who': { '1': "Sóc l'aprenent del Mestre Forjador. Diu que no conec la meva pròpia força." },
+      'playBack': { '1': "Bon pols. Demà em farà mal el braç. Segurament." },
+      'bye': { '1': "Torna aviat. La forja és molt silenciosa." }
+    },
+    // ── The Breaking (the afterplay, B0–B5) ──
+    'story': {
+      forge: { back: { '1': "La meva farga torna a cremar, més calenta que mai. El ferro demoníac es fon bé.", '2': "Porta'm el que trobis allà fora. Ara puc forjar-ho infernal." } },
+      oracle: { lens: { '1': "Un cop em vas alliberar. Ara veuré per tu. Pren la meva Lent.", '2': "Mira-hi a través, i el mapa et mostrarà on esperen les grans bèsties." } },
+      priest: { lens: { '1': "L'Oracle ja no hi és, així que ara guardo el seu temple. L'Esfinx custodiava això.", '2': "La seva Lent. Mira-hi a través, i el mapa et mostrarà on esperen les grans bèsties." } },
+      herbs: { scale: { '1': "Una escata del Leviatan! Lleugera com una fulla, i sura.", '2': "Porta-la, i l'aigua poc fonda et sostindrà com terra ferma." } },
+      ghost: { key: { '1': "Vaja, qui va prendre el meu tron. Has matat la meva Hidra. Bé.", '2': "Pren la seva clau de foc. El cor de l'escletxa crema, i només el foc l'obre." } },
+      syndicate: { key: { '1': "L'Hidra és morta? Doncs la clau de foc és de qui pagui. O teva, suposo.", '2': "Obre el cor de l'escletxa. Vés a tancar-la, abans que es mengi el meu negoci." } },
+      sealed: {
+        sealed: { '1': "I així l'escletxa va ser segellada, i el món va començar a guarir-se.", '2': "Es van reconstruir pobles, es van escriure cançons, i un nom era a totes." },
+        ajar: { '1': "I així l'escletxa va quedar entreoberta, i el món va aprendre a viure-hi al costat.", '2': "Les muralles van seguir vigilades, el colosseu sorollós, i l'heroi a punt." },
+      },
+      'rift': {
+        'scream': {
+          '1': "El Senyor del Buit cau, i l’esquerda darrere seu crida.",
+          '2': "Mai no va ser el seu tron. Era la seva gàbia, i ell n’era la tapa.",
+          '3': "Ara l’esquerda és oberta, i tot el que el buit tenia adormit es desperta.",
+        },
+      },
+      'wren': {
+        'found': {
+          '1': "Ets aquí! Soc la Wren, exploradora. T’he buscat per tot arreu.",
+          '2': "Sunford crema. Tothom qui va poder fugir se’n va anar al Gual del Bastió.",
+          '3': "És el vell fort al camí dels Penyals de Cendra. Afanya’t, et necessiten.",
+        },
+      },
+    },
+    'scoutWren': {
+      sealed: { '1': "El drac ja no hi és! Els camins ja semblen més lleugers." },
+      'hello': {
+        '1': "Has vingut! Ho sabia. Benvingut al Gual del Bastió.",
+        '2': "Exploro els camins per al capità. Pregunta’m on hi ha problemes.",
+      },
+      'again': {
+        '1': "Ja tornes? Els camins no s’exploren sols.",
+      },
+      'who': {
+        '1': "Wren. Portava missatges per a la guàrdia de Sunford, abans que cremés.",
+      },
+      'rumor': {
+        'plains': {
+          '1': "Els dimonis dominen el camí de les Planes de Sunford. Els mestres de Sunford hi són atrapats darrere.",
+        },
+        'hollows': {
+          '1': "Les Coves dels Gòblins són plenes de gossos infernals. Neteja-les, i la gent de Sunford podrà tornar.",
+        },
+        'woods': {
+          '1': "Una cosa de tres caps caça al Bosc dels Murmuris. L’herbolària s’hi amaga.",
+        },
+        'outskirts': {
+          '1': "Hi ha centaures als Afores d’Oakhaven. Si arriben a les muralles, caldrà cada espasa.",
+        },
+        'siege': {
+          '1': "La seva horda s’ha trencat, però se n’apleguen més. El capità prepara les muralles.",
+        },
+      },
+      'bye': {
+        '1': "Vigila els camins. Jo també ho faré.",
+      },
+    },
+    'fortHale': {
+      sealed: { '1': "El drac és mort. Mai no vaig pensar que viuria per veure-ho. Gràcies." },
+      'siegeBack': { '1': "Encara no? Doncs descansa. Les muralles t’esperaran." },
+      'bell': { '1': "A la porta, doncs. Digues-me amb quina força la defensem." },
+      'hello': {
+        '1': "Ho has aconseguit. Bé. Necessitem cada espasa, ara més que mai.",
+        '2': "Benvingut al Gual del Bastió. Muralles velles, però les úniques que encara s’aguanten.",
+      },
+      'road': {
+        '1': "El camí a Sunford torna a ser obert. La seva gent és a salvo darrere les muralles.",
+      },
+      'herbs': {
+        '1': "L’herbolària ha tornat, amb les seves herbes. La infermeria pot respirar.",
+      },
+      'siege': {
+        '1': "Has trencat els centaures. Però ve un exèrcit més gran, i ve per aquestes muralles.",
+      },
+      'again': {
+        '1': "Encara drets. Les muralles, els homes i jo.",
+      },
+      'fort': {
+        '1': "Un vell fort fronterer. Buit durant cinquanta anys, fins que el cel es va esquinçar.",
+        '2': "Ara és l’últim lloc segur entre les planes i les muntanyes.",
+        'say': "Quin lloc és aquest?",
+      },
+      'rumor': {
+        'road': {
+          '1': "Neteja les Planes i les Coves. La gent de Sunford hi és atrapada.",
+        },
+        'woods': {
+          '1': "L’herbolària és al Bosc dels Murmuris, i una bèstia de tres caps també. Estigues a punt.",
+        },
+        'centaurs': {
+          '1': "Centaures als Afores. Trenca la seva horda abans que ens arribi.",
+        },
+        'siege': {
+          '1': "Descansa. Quan soni la campana del setge, et necessitaré a la muralla.",
+        },
+      },
+      'bye': {
+        '1': "Tingues l’espasa a prop.",
+      },
+    },
+    'fortMara': {
+      sealed: { '1': "Ho has aconseguit, criatura. Cadascun de nosaltres et deu una llar." },
+      'siegeBack': { '1': "Descansa una mica, criatura. La campana tornarà a sonar." },
+      'bell': { '1': "Ara em toca a mi guardar els murs del capità. Tria com els defensem." },
+      'hello': {
+        '1': "Criatura! Ets viu. Quan Sunford va cremar, vaig témer el pitjor.",
+        '2': "Ara som convidats en un fort de soldats, velles incloses.",
+      },
+      'command': {
+        '1': "El capità Hale va caure amb Oakhaven. Així que el fort escolta una vella anciana.",
+      },
+      'home': {
+        '1': "Sunford es reconstrueix! Ja hi ha els primers teulats. Podria plorar.",
+      },
+      'again': {
+        '1': "Encara aquí, criatura. Encara comptant caps.",
+      },
+      'town': {
+        '1': "Els dimonis van baixar del cel de la nit. Vam fugir amb el que podíem dur.",
+        '2': "Alguns no en vam sortir. Porta la resta a casa, si pots.",
+        'say': "Què li va passar a Sunford?",
+      },
+      'rumor': {
+        'road': {
+          '1': "Els nostres mestres encara són al camí de Sunford. Porta’ls aquí, criatura.",
+        },
+        'woods': {
+          '1': "L’herbolària va anar al Bosc dels Murmuris a buscar herbes i no va tornar mai.",
+        },
+        'centaurs': {
+          '1': "Genets als Afores. Peülles com trons, cada nit.",
+        },
+        'siege': {
+          '1': "Aviat posaran a prova les muralles. Ho sento als meus vells ossos.",
+        },
+      },
+      'bye': {
+        '1': "Vés amb compte, criatura.",
+      },
+    },
     intro: {
       crossing: { 1: 'Tots els camins d’aquest món es troben en una cruïlla… i cada cruïlla és una batalla.' },
       hero: { 1: 'Des dels camps tranquils de Sunford, un jove heroi es posà en camí.' },
@@ -4198,6 +4636,7 @@ export default {
       }
     },
     hero: {
+      'siege': "Anem a defensar les muralles.",
       forge: 'M’agradaria fer servir la teva farga.',
       learnSmith: 'Em podries ensenyar a forjar?',
       ore: 'Tinc mineral per vendre.',
@@ -4510,7 +4949,7 @@ export default {
       },
       map: {
         '1': 'El mapa del capità Rook! El va estripar i va amagar els trossos abans que els gòblins l’atrapessin.',
-        '2': 'Troba’n sis, que n’hi ha uns quants més escampats pels voltants, i la X t’indicarà el camí: en algun lloc dels Penyals de Cendra. Cava-hi, i l’or és teu.',
+        '2': "Troba sis dels trossos, i la X t’indicarà el camí: en algun lloc dels Penyals de Cendra. Cava-hi per l’or.",
         say: 'He trobat un tros d’un mapa antic.'
       }
     },
@@ -5498,6 +5937,11 @@ export default {
       }
     },
     quest: {
+      seal: {
+        ask: { '1': "El Drac Ancestral és mort, i l'escletxa s'obre davant teu.", '2': "Podries segellar-la ara, per sempre. Les bèsties tornarien a dormir.", '3': "O podries deixar-la entreoberta, i que els més valents es mesurin amb el que en surti." },
+        seal: { say: "Segella-la. Per sempre.", '1': "L'escletxa es tanca com una ferida que guareix, i el cel calla." },
+        ajar: { say: "Deixa-la entreoberta. Estarem a punt.", '1': "L'escletxa queda entreoberta, i alguna cosa al darrere riu." },
+      },
       goblinKing: {
         ask: {
           '1': 'Atura’t. Si us plau. Em rendeixo.',
@@ -5633,6 +6077,64 @@ export default {
       }
     },
     bark: {
+      sphinx: {
+        intro: { '1': "Respon-me, petit, o la meva sorra t'enterrarà." },
+        riddle: { '1': "Un endevinall, doncs. Trepitja on t'indiqui, en aquest ordre." },
+        sand: { '1': "Cinc, aquesta vegada. I la meva sorra no esperarà." },
+        death: { '1': "Has respost bé. La sorra ara és teva." },
+      },
+      leviathan: {
+        intro: { '1': "Ara camines per la meva aigua." },
+        sink: { '1': "Les teves illetes s'enfonsen." },
+        grab: { '1': "Baixa amb mi a les profunditats!" },
+        death: { '1': "La marea se'n va, i no torna." },
+      },
+      hydra: {
+        intro: { '1': "Talla un cap, i en creixeran dos!" },
+        heads: { '1': "Més caps, més dents!" },
+        rage: { '1': "Cremar-nos? Doncs crema amb nosaltres!" },
+        death: { '1': "No hi ha més caps. Mai més." },
+      },
+      elderDragon: {
+        intro: { '1': "Jo dormia sota el món abans que els teus coneguessin el foc." },
+        flight: { '1': "Amaga't, doncs, darrere de les teves pedretes." },
+        rift: { '1': "L'escletxa m'arrossega de tornada. Encara no!" },
+        death: { '1': "Segella-la, doncs. Estic cansat de la foscor." },
+      },
+      'siegeHale': {
+        'start': {
+          '1': "Ja vénen! Defenseu la porta!"
+        },
+        'ram': {
+          '1': "Un ariet! Mateu-lo abans que arribi a la porta!"
+        },
+        'horn50': {
+          '1': "Mitja porta ha caigut! Aguanteu!"
+        },
+        'horn25': {
+          '1': "La porta no aguantarà gaire més!"
+        },
+        'won': {
+          '1': "Estan desfets! El Bastió resisteix!"
+        }
+      },
+      'siegeMara': {
+        'start': {
+          '1': "Ja arriben! Ferms, tots!"
+        },
+        'ram': {
+          '1': "Un ariet! Atureu-lo abans que trenqui la porta!"
+        },
+        'horn50': {
+          '1': "Ha caigut mitja porta. Aguanteu!"
+        },
+        'horn25': {
+          '1': "La porta cedeix! Feu-los recular!"
+        },
+        'won': {
+          '1': "Fugen! El fort encara és dempeus!"
+        }
+      },
       banditChief: {
         whistle: {
           1: 'Dempeus, nois! Mossegueu-los!'
@@ -5641,6 +6143,11 @@ export default {
       lightDisciple: {
         freed: {
           '1': 'La llum t’ha enviat. Soc la germana Aurelle. Busca’m a Sunford, t’ensenyaré el camí del Portador de Llum.'
+        }
+      },
+      trainerAegis: {
+        freed: {
+          '1': 'Gràcies per alliberar-nos dels bandits! Vine al foc: t\'ensenyarem tots, i la primera lliçó és gratis.'
         }
       },
       frostDisciple: {
@@ -5696,6 +6203,48 @@ export default {
         },
         dive: {
           '1': 'Agenolla’t.'
+        }
+      },
+      chimera: {
+        intro: {
+          '1': "Tres caps, una sola fam. Quin de nosaltres mossegarà primer?"
+        },
+        twin: {
+          '1': "Ara som dos. Tria bé el teu costat."
+        },
+        tail: {
+          '1': "La meva cua! Me la pagaràs!"
+        },
+        death: {
+          '1': "Tres caps, i cap no ho ha vist venir."
+        }
+      },
+      centaurWarchief: {
+        intro: {
+          '1': "Corre si vols. Les meves fletxes corren més."
+        },
+        raiders: {
+          '1': "Genets! Aixafeu-los!"
+        },
+        rear: {
+          '1': "Prou fletxes. T'aixafaré amb les peülles!"
+        },
+        death: {
+          '1': "Les planes recordaran les meves peülles."
+        }
+      },
+      cyclops: {
+        intro: {
+          '1': "Hi ha alguna cosa petita aquí. Acosta't. Deixa'm veure."
+        },
+        cover: {
+          '1': "S'ha acabat mirar. No tindràs el meu ull!"
+        },
+        blind: {
+          '1': "No et veig, però et sento!"
+        },
+        death: {
+          '1': "Fosc. Tot s'ha tornat fosc."
         }
       },
       frostJarl: {
@@ -6822,7 +7371,20 @@ export default {
       }
     }
   },
+  invasion: {
+    pylonsDown: 'Cau l\'últim piló i el seu tresor s\'escampa!',
+    reborn: {
+      tusker: 'Tusker Renascut',
+      emberLord: 'El Senyor de les Brases infernal',
+      frostJarl: 'El Jarl del Gel renascut',
+      voidDragon: 'El Drac del Buit renascut'
+    }
+  },
   enemy: {
+    sphinx: "L'Esfinx",
+    leviathan: "El Leviatan",
+    hydra: "L'Hidra",
+    elderDragon: "El Drac Ancestral",
     trainingDummy: 'Maniquí d’Entrenament',
     goblin: 'Gòblin',
     goblinSlinger: 'Gòblin Foner',
@@ -6847,6 +7409,10 @@ export default {
     naga: 'Naga',
     skeleton: 'Esquelet',
     necromancer: 'Nigromant',
+    chimera: "La Quimera",
+    chimeraTail: "Cua de serp",
+    centaurWarchief: "El Cabdill centaure",
+    cyclops: "El Cíclop",
     frostJarl: 'El Jarl del Gel',
     nagaOracle: 'L’Oracle Negat',
     voidStalker: 'Aguaitador del Buit',
@@ -6859,6 +7425,7 @@ export default {
     archDemon: 'L’Arxidimoni',
     voidling: 'Cria del Buit',
     voidLord: 'El Senyor del Buit',
+    demonPylon: 'Piló demoníac',
     orderGuard: 'Inquisidor de l’Orde',
     syndicateBlade: 'Fulla del Sindicat',
     goblinWarchief: 'Cabdill Goblin',
@@ -6875,7 +7442,19 @@ export default {
     goblinTyrant: 'Tirà Gòblin',
     voidDrake: 'Víbria del Buit',
     pitLord: 'Senyor de l’Abisme',
-    frostThane: 'Thane del Gel'
+    frostThane: 'Thane del Gel',
+    hellhound: 'Gos infernal',
+    frostHellhound: 'Gos infernal de gel',
+    gargoyle: 'Gàrgola',
+    harpy: 'Harpia',
+    corruptedTreant: 'Ent corrupte',
+    centaurRaider: 'Centaure saquejador',
+    cyclopsBrute: 'Brut ciclop',
+    demonMiner: 'Miner dimoni',
+    sphinxAcolyte: 'Acòlit de l\'esfinx',
+    seaDemon: 'Dimoni marí',
+    drakeHatchling: 'Cria de drac',
+    hydraSpawn: 'Cria d\'hidra'
   },
   results: {
     careful: 'Victòria prudent ×{mult}',
@@ -7193,6 +7772,8 @@ export default {
     town: 'Qualsevol ferrer d’una ciutat ho pot millorar.'
   },
   ore: {
+    'demonglass': { 'name': "Vidre demoníac" },
+    'ichor': { 'name': "Icor mític" },
     iron: {
       name: 'Mineral de ferro'
     },

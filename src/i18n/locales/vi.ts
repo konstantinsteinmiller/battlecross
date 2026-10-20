@@ -1,5 +1,170 @@
 // Vietnamese locale — mirrors the key shape of en.ts exactly.
 export default {
+  // ─── Afterplay phase 8: items, materials and capstones ───
+  // ─── Afterplay phase 10: the prestige classes ───
+  'prestige': { 'toast': { 'wanderer': "Một lữ khách bí ẩn đang chờ ở pháo đài." } },
+  'relic': {
+    'infernal': "{name} · Luyện Ngục",
+    'set': "Mặc cùng {item}:",
+    'heroicBadge': "Anh hùng {n}",
+    'heroic': "Anh hùng {n}: {gold} vàng, {glass} thủy tinh quỷ",
+    'heroicIchor': "Anh hùng {n}: {gold} vàng, {glass} thủy tinh quỷ, {ichor} huyết thần",
+    'heroicMax': "Đã đạt mọi bậc anh hùng.",
+    'infernalForge': "Rèn luyện ngục: {gold} vàng, {glass} thủy tinh quỷ",
+    'lens': "Kính của Nhà Tiên Tri: {boss} đang chờ ở đây.",
+    'hydraKey': "Đã niêm phong. Chìa khóa lửa của Hydra mở trái tim Khe Nứt.",
+    'marksGlass': "Mua {glass} thủy tinh quỷ bằng {marks} dấu",
+    'capstone': "Tuyệt kỹ",
+    'fortOnly': "Tuyệt kỹ này chỉ được dạy ở Ải Thành Lũy."
+  },
+  // ─── The fort's fair games (afterplay §9) ───
+  'fair': {
+    'fee': "Chơi · {n}",
+    'again': "Chơi lại",
+    'noGold': "Không đủ vàng.",
+    'capped': "Số khu vực cần dọn trước khi giải lớn quay lại: {n}",
+    'top': "Giải nhất! +{gold} vàng, +{xp} XP",
+    'topGold': "Giải nhất, chỉ bằng vàng: +{n} vàng",
+    'won': "Thắng rồi! +{n} vàng",
+    'lost': "Không may. Chuỗi thắng bắt đầu lại.",
+    'row': "Thắng liên tiếp: {n} / {max}",
+    'mats': "+{n} nguyên liệu Anh hùng+",
+    'discount': "Thợ rèn giờ giảm {n}% phí nâng cấp cho bạn!"
+  },
+  'whack': {
+    'title': "Đập Tiểu Quỷ",
+    'lead': "Đập trúng 20 tiểu quỷ trong 30 giây. Đừng đụng con giáp vàng: mỗi con bị đập mất một mạng.",
+    'hits': "Tiểu quỷ: {n} / {max}",
+    'lives': "Mạng: {n}",
+    'time': "Thời gian: {n} giây",
+    'hint': "Chạm vào tiểu quỷ, hoặc bấm 1 đến 9.",
+    'barrel': "Thùng {n}",
+    'timeout': "Hết giờ!",
+    'dead': "Hết mạng!"
+  },
+  'ring': {
+    'title': "Ném vòng vào Hydra",
+    'lead': "Giữ để tích lực, thả để ném. Một cái đầu chỉ bắt vòng khi gần giữa nhịp lắc. Mỗi đầu trúng liên tiếp được thêm một điểm.",
+    'hint': "Giữ rồi thả trên bàn, hoặc giữ phím Cách.",
+    'rings': "Vòng còn lại: {n}",
+    'score': "Điểm: {n}",
+    'hit': "Trúng! +{n}",
+    'miss': "Trượt!",
+    'perfect': "Một lượt hoàn hảo!",
+    'nothing': "Điểm {n}. Lần này không có giải.",
+    'power': "Lực"
+  },
+  'arm': {
+    'title': "Vật tay",
+    'lead': "Chạm khi vòng gặp vòng tròn để đè tay anh ta xuống. Sức mạnh nới rộng nhịp. Ba trận thắng liên tiếp được giảm giá rèn, năm trận được nguyên liệu Anh hùng+.",
+    'hint': "Chạm vào bàn, hoặc bấm phím Cách.",
+    'good': "Đẩy!",
+    'off': "Lệch nhịp!"
+  },
+  // ─── The Siege of Bastion (afterplay §8) ───
+  'siege': {
+    'title': "Cuộc vây hãm Ải Thành Lũy",
+    'lead': "Giữ cổng qua mười đợt. Giữa các đợt, dùng Dấu Vây Hãm để dựng phòng thủ.",
+    'story': "Đại quân đã tới cổng. Trụ vững mười đợt: cuộc vây hãm đầu tiên này không thể thua.",
+    'bell': "Chuông vây hãm vang lên! Đại quân đang tập trung trước cổng.",
+    'mapBell': "Vây hãm!",
+    'start': "Rung chuông",
+    'wins': "Thắng: {n}",
+    'marksBank': "Dấu Vây Hãm đã cất: {n}",
+    'tier': {
+      'normal': "Thường",
+      'hard': "Khó",
+      'nightmare': "Ác mộng"
+    },
+    'tierDesc': {
+      'normal': "Kẻ địch cao hơn bạn một cấp.",
+      'hard': "Kẻ địch cao hơn 3 cấp, thêm 30% máu.",
+      'nightmare': "Kẻ địch cao hơn 6 cấp, cùng hai đợt tinh nhuệ huyền thoại."
+    },
+    'locked': {
+      'hard': "Hãy thắng một cuộc vây hãm thường trước.",
+      'nightmare': "Mở khi khe nứt được phong ấn hoặc để hé mở."
+    },
+    'lord': "Chúa Vây Hãm",
+    'hud': {
+      'wave': "Đợt {n}/{total}",
+      'marks': "Dấu: {n}",
+      'gate': "Cổng {pct}%",
+      'build': "Đợt {n} sau {s} giây",
+      'ready': "Sẵn sàng!",
+      'buy': "{name}: {n} Dấu"
+    },
+    'def': {
+      'ballista': {
+        'name': "Nỏ lớn",
+        'desc': "Cứ 2 giây bắn một mũi tên xuyên dọc làn của nó."
+      },
+      'cauldron': {
+        'name': "Vạc lửa",
+        'desc': "Đốt cháy chỗ hẹp trên làn của nó."
+      },
+      'barricade': {
+        'name': "Chướng ngại",
+        'desc': "Chặn một làn trong 20 giây."
+      },
+      'militia': {
+        'name': "Dân quân",
+        'desc': "Hai lính gác chiến đấu bên bạn."
+      },
+      'repair': {
+        'name': "Sửa cổng",
+        'desc': "Khôi phục một phần tư cổng."
+      }
+    },
+    'block': {
+      'marks': "Không đủ Dấu Vây Hãm.",
+      'full': "Không còn chỗ.",
+      'phase': "Chỉ giữa các đợt."
+    },
+    'toast': {
+      'cleared': "Đã chặn đợt {n}! +{marks} Dấu",
+      'clearedUnharmed': "Đã chặn đợt {n}, cổng nguyên vẹn! +{marks} Dấu",
+      'horn': "Tù và vang lên! Cổng chỉ còn {pct}%.",
+      'ram': "Xe phá thành! Chặn nó trước khi tới cổng!",
+      'rally': "Đứng dậy rồi! Giữ cổng!"
+    },
+    'banner': {
+      'wave': "Đợt {n}",
+      'final': "Chúa Vây Hãm!"
+    },
+    'result': {
+      'tier': "Cuộc vây hãm Ải Thành Lũy: {tier}",
+      'waves': "Số đợt đã chặn: {n}/{total}",
+      'marks': "Dấu Vây Hãm giữ lại: {banked} trên {earned}",
+      'glass': "Thủy tinh quỷ: +{n}"
+    },
+    'milestone': {
+      'normal1': "Đạt cột mốc: Cờ Thành Lũy.",
+      'normal5': "Đạt cột mốc: Giáp Người Giữ Tường.",
+      'hard1': "Đạt cột mốc: Bản năng lão binh, ô bị động thứ năm.",
+      'hard5': "Đạt cột mốc: Kẻ Phá Cổng.",
+      'nightmare1': "Đạt cột mốc: Vương miện Thành Lũy Cuối Cùng.",
+      'hardFlawless': "Đạt cột mốc: chìa khóa thử thách nghề ẩn."
+    }
+  },
+  // ─── The Breaking (the afterplay's story) ───
+  'breaking': {
+    'title': "Đại Rạn Nứt",
+    'toast': {
+      brk6: "Bậc thầy Rèn đã lấy lại lò rèn của mình. Rèn Hỏa Ngục đã mở.",
+      brk7: "Nhân Sư đã chết. Thấu Kính của Nhà Tiên Tri chỉ ra nơi những quái thú lớn đang chờ.",
+      brk8: "Thủy Quái Leviathan đã chết. Vảy của nó cho phép bạn đi trên vùng nước nông.",
+      brk9: "Hydra đã chết. Chìa khóa lửa của nó là của bạn.",
+      brk10: "Cổ Long đã chết. Khe nứt đang mở toang.",
+      sealed: "Khe nứt đã bị phong ấn. Bạn là Người Phong Ấn Khe Nứt.",
+      ajar: "Khe nứt vẫn hé mở. Lũ quỷ sẽ thử thách tường thành và đấu trường.",
+      'brk2': "Ải Thành Lũy đón nhận bạn. Người dân ở đây giờ trông cậy vào bạn.",
+      'rescued': "Đã cứu người sống sót! Họ an toàn ở Ải Thành Lũy.",
+      'brk3': "Con đường đã thông. Người dân Sunford đã an toàn.",
+      'brk4': "Thầy thuốc thảo dược gia nhập pháo đài.",
+      'brk5': "Bầy nhân mã đã tan tác. Pháo đài chuẩn bị cho một cuộc vây hãm.",
+    },
+  },
   // ─── The intro (#130): its skip, and its narrator's name ───
   intro: {
     narrator: 'Người Kể Chuyện',
@@ -88,6 +253,7 @@ export default {
     gold: '{n} vàng',
     potion: 'Bình máu (còn {n})',
     manaPotion: 'Bình mana (còn {n})',
+    potionStop: 'Uống bình máu để tiếp tục',
     groups: 'Đã hạ {n} trên {total} nhóm địch',
     wave: 'Đợt {n} / {total}',
     roll: 'Lăn',
@@ -261,6 +427,10 @@ export default {
     escort: 'Bảo vệ đoàn buôn'
   },
   node: {
+    'bastion': {
+      'name': "Ải Thành Lũy",
+      'desc': "Một pháo đài biên giới cũ, những bức tường cuối cùng còn đứng vững. Người sống sót tụ họp ở đây.",
+    },
     sunford: {
       name: 'Sunford',
       desc: 'Thị trấn nông trang bên rìa đồng bằng. Mái nhà, một thợ rèn và hai người huấn luyện.'
@@ -343,6 +513,9 @@ export default {
     locked: 'Dọn sạch một vùng lân cận để mở đường.',
     lockedArena: 'Cổng sẽ mở khi chuyện với Vua Goblin đã xong.',
     lockedRift: 'Nó mở ra khi ngai vàng của Pháo Đài Kinh Hoàng được định đoạt.',
+    invaded: 'Bị xâm chiếm',
+    invadedDesc: 'Lũ quỷ đang chiếm giữ vùng đất này. Trụ quỷ khiến kẻ thù gần đó đánh mạnh hơn, vết sẹo khe nứt thiêu đốt và làm chậm, và mỗi kẻ thù hạ gục ở đây đáng giá hơn.',
+    lockedInvaded: 'Lũ quỷ giữ chặt nơi này. Hãy giành lại {zone} trước.',
     danger: {
       '1': 'Hơi cao hơn cấp của bạn.',
       '2': 'Nguy hiểm ở cấp của bạn.',
@@ -469,6 +642,11 @@ export default {
     }
   },
   class: {
+    // ── The prestige classes (afterplay phase 10) ──
+    'demonhunter': { 'name': "Thợ săn quỷ", 'desc': "Bóng tối và ánh thánh, thề nguyện với một con mồi. Đánh dấu quỷ, và kẻ bị đánh dấu ngã nhanh." },
+    'dragoon': { 'name': "Long kỵ", 'desc': "Gió dưới gót giày, khiên trên tay. Lao xuống từ trời và xiên thủng cả hàng." },
+    'hexsmith': { 'name': "Thợ rèn nguyền", 'desc': "Nghề ê-te nuôi bằng máu. Dựng tháp súng hút sinh lực kẻ thù để chữa cho thợ rèn." },
+    'tidecaller': { 'name': "Kẻ gọi triều", 'desc': "Băng giá và nguyên tố đổ vào biển. Những con sóng đẩy lùi và làm ướt sũng kẻ thù." },
     aegis: {
       name: 'Kỵ Sĩ Aegis',
       desc: 'Khiên và thép thánh. Hứng đòn để không ai khác phải hứng.'
@@ -535,6 +713,35 @@ export default {
     }
   },
   skill: {
+    // ── The prestige classes (afterplay phase 10) ──
+    'huntersMark': { 'name': "Dấu thợ săn", 'desc': "Một mũi tên thánh gây {dmg}% sát thương Khéo léo. Trong {dur} giây mục tiêu nhận thêm {vuln}% sát thương, quỷ thêm {demon}%." },
+    'demonsBane': { 'name': "Khắc tinh của quỷ", 'desc': "+{bane}% sát thương lên quỷ, và nhận ít hơn {ward}% sát thương từ chúng." },
+    'silverVolley': { 'name': "Loạt tên bạc", 'desc': "Tên bạc theo một đường: {dmg}% sát thương Khéo léo, +{bane}% lên quỷ và kẻ thù bị đánh dấu." },
+    'skyfallLeap': { 'name': "Giáng từ trời", 'desc': "Nhảy khỏi tầm với {air} giây rồi rơi xuống tại chỗ: {dmg}% sát thương Sức mạnh trong {radius} m, kẻ thù ngã nhào." },
+    'dragonBlood': { 'name': "Máu rồng", 'desc': "+{boss}% sát thương lên trùm, +{hp}% máu tối đa, và không gì đẩy lùi được bạn." },
+    'dragonLance': { 'name': "Thương rồng", 'desc': "Một cú đâm thương theo đường thẳng: {dmg}% sát thương Khéo léo lên mọi kẻ thù trên đó." },
+    'hexTurret': { 'name': "Tháp nguyền", 'desc': "Dựng một tháp trong {dur} giây. Mỗi giây nó hút kẻ thù gần nhất trong {radius} m, gây {dmg}% sát thương Kỹ xảo; bạn hồi {drain}% lượng đó." },
+    'soulForge': { 'name': "Lò rèn linh hồn", 'desc': "+{hp}% máu tối đa, hồi {regen} máu mỗi giây, và nhận ít hơn {reduce}% sát thương." },
+    'hexBolt': { 'name': "Tên nguyền", 'desc': "Trả {hp}% máu: một mũi tên gây {dmg}% sát thương Kỹ xảo. Bạn hồi {heal}% lượng đó, và kẻ thù gây ít hơn {weak}% sát thương trong {dur} giây." },
+    'tidalWave': { 'name': "Sóng thần", 'desc': "Một con sóng theo đường thẳng: {dmg}% sát thương Trí tuệ, kẻ thù bị đẩy lùi và ướt sũng (chậm {slow}% trong {dur} giây)." },
+    'seaborn': { 'name': "Con của biển", 'desc': "+{bonus}% sát thương lên kẻ thù bị lạnh, nhận ít hơn {reduce}% sát thương, +{move}% tốc độ." },
+    'undertow': { 'name': "Dòng xoáy ngầm", 'desc': "Một xoáy nước trong {dur} giây: tổng {dmg}% sát thương Trí tuệ trong {radius} m. Kéo kẻ thù vào và làm chậm {slow}%." },
+    'bastionWall': { 'name': "Tường Thành Lũy", 'desc': "Trong {dur} giây, mọi kẻ địch trong {radius} m phải tấn công bạn, và bạn nhận ít hơn {def}%. Sau đó ánh sáng gây {dmg}% Sức mạnh +{back}% số đòn đã nhận." },
+    'thousandCuts': { 'name': "Nghìn Nhát Chém", 'desc': "Lướt giữa kẻ địch trong {radius} m, chém {hits} lần, mỗi lần gây {dmg}% sát thương Khéo léo. Trùm chỉ trúng một nhát. Khi đang chém, không gì chạm được bạn." },
+    'cinderSun': { 'name': "Mặt Trời Tro", 'desc': "Một mặt trời sắp tàn vỡ vụn trong {dur} giây: {meteors} mảnh rực cháy, mỗi mảnh gây {dmg}% sát thương Trí tuệ." },
+    'royalLegion': { 'name': "Quân Đoàn Hoàng Gia", 'desc': "Gọi quân đoàn trong {dur} giây: {archers} cung thủ, {guards} vệ binh và {mages} pháp sư chiến trận." },
+    'stoppedHour': { 'name': "Giờ Ngưng Đọng", 'desc': "Dừng giờ trong {radius} m trong {dur} giây. Khi thời gian chạy lại, mỗi kẻ địch nhận {dmg}% sát thương Trí tuệ." },
+    'redCovenant': { 'name': "Giao Ước Đỏ", 'desc': "Lấy {pct}% sinh lực của mọi kẻ địch trong {radius} m. Bạn hồi {heal}% số đó." },
+    'orbitalLance': { 'name': "Thương Quỹ Đạo", 'desc': "Một cây thương ánh sáng từ trời thiêu nơi bạn nhắm: {dmg}% sát thương Kỹ năng trong {dur} giây." },
+    'tectonicHeart': { 'name': "Trái Tim Kiến Tạo", 'desc': "Trái tim đất nứt toác: {dmg}% sát thương Sức mạnh lên mọi thứ gần đó, và đá vụn làm chậm trong {dur} giây." },
+    'eyeOfTheGale': { 'name': "Mắt Cuồng Phong", 'desc': "Bão tên trong {dur} giây: tổng {dmg}% sát thương Kỹ năng và làm chậm {slow}%." },
+    'endlessWinter': { 'name': "Mùa Đông Vô Tận", 'desc': "Mùa đông không hồi kết bùng ra từ bạn: {dmg}% sát thương Trí tuệ trong {radius} m, đóng băng tất cả {freeze} giây." },
+    'dawnbreak': { 'name': "Rạng Đông", 'desc': "Trở thành bình minh trong {dur} giây: mỗi giây gây {dmg}% sát thương Trí tuệ trong {radius} m và hồi {heal}% máu." },
+    'alphasCall': { 'name': "Tiếng Gọi Đầu Đàn", 'desc': "{wolves} con sói đáp lời và chạy cùng bạn {dur} giây. Cả bầy gây +{dmg}% sát thương và nhanh hơn {move}%." },
+    'prismStorm': { 'name': "Bão Lăng Kính", 'desc': "Trong {dur} giây bốn nguyên tố cuồng nộ: {strikes} đòn {dmg}% Trí tuệ kích hoạt lẫn nhau." },
+    'ferryman': { 'name': "Người Lái Đò", 'desc': "Trong {dur} giây, mọi kẻ địch ngã gần bạn đứng dậy làm linh hồn của bạn, và linh hồn gây thêm {atk}%." },
+    'unmovingMountain': { 'name': "Núi Bất Động", 'desc': "Dùng hết khí: một ngọn núi rơi xuống gây {dmg}% sát thương Khéo léo, +{per}% mỗi khí, và quật ngã kẻ địch." },
+    'encore': { 'name': "Bis", 'desc': "Thêm lần nữa trong {dur} giây (+{buff}% tốc độ, sát thương, Phòng thủ), rồi hợp âm cuối: {dmg}% Sức hút, kẻ địch bị mê hoặc." },
     kind: {
       active: 'Chủ động',
       passive: 'Bị động'
@@ -590,7 +797,7 @@ export default {
     },
     danceOfBlades: {
       name: 'Vũ Điệu Lưỡi Dao',
-      desc: 'Lướt giữa các kẻ địch trong {radius} m, chém {hits} lần gây tổng cộng {dmg}% sát thương Khéo léo. Bạn không thể bị đánh trúng khi đang múa.'
+      desc: 'Lướt giữa các kẻ địch trong {radius} m, chém {hits} lần, mỗi lần gây {dmg}% sát thương Khéo léo. Trùm chỉ trúng một nhát. Bạn không thể bị đánh trúng khi đang múa.'
     },
     fireball: {
       name: 'Cầu Lửa',
@@ -1338,6 +1545,8 @@ export default {
     magic: 'Phép thuật · tăng theo {attr}'
   },
   source: {
+    'siege': "Giành được trong Cuộc vây hãm Ải Thành Lũy.",
+    'infernal': "Song sinh luyện ngục: rơi ở {zone} bị xâm chiếm, hoặc do thợ rèn rèn ra.",
     arena: 'Giành được trên bảng xếp hạng Đấu Trường.',
     smith: 'Được rèn tại lò rèn.',
     mob: 'Rơi từ quái vật ở {zone}.',
@@ -1346,6 +1555,15 @@ export default {
     secret: 'Giấu trong một rương bí mật ở {zone}.'
   },
   mod: {
+    'demonBane': "+{n}% sát thương lên quỷ",
+    'demonLeech': "{n}% sát thương gây lên quỷ hồi máu cho bạn",
+    'beastBane': "+{n}% sát thương lên thú thần thoại",
+    'fireWard': "Giảm {n}% sát thương lửa nhận vào",
+    'shadowWard': "Giảm {n}% sát thương bóng tối nhận vào",
+    'demonWard': "Giảm {n}% sát thương từ quỷ",
+    'pylonBreaker': "+{n}% sát thương lên trụ quỷ",
+    'glassFinder': "{n}% cơ hội quỷ bị hạ để lại thêm thủy tinh quỷ",
+    'waterWalk': "Nước không làm bạn chậm lại",
     str: '+{n} Sức mạnh',
     dex: '+{n} Khéo léo',
     int: '+{n} Trí tuệ',
@@ -1421,6 +1639,24 @@ export default {
     songLength: 'Bài hát kéo dài hơn {n}%'
   },
   item: {
+    'chimeraMane': { 'name': "Bờm Chimera" },
+    'triFang': { 'name': "Tam Nanh" },
+    'warchiefsLongbowGun': { 'name': "Cung-súng của Thủ lĩnh" },
+    'hoofbreakerGreaves': { 'name': "Giáp chân Phá Móng" },
+    'eyeOfTheDeep': { 'name': "Mắt Vực Sâu" },
+    'beamSplitter': { 'name': "Khiên Tách Tia" },
+    'riddleCrown': { 'name': "Vương miện Câu Đố" },
+    'sandglassWand': { 'name': "Đũa Đồng Hồ Cát" },
+    'leviathanScale': { 'name': "Vảy Leviathan" },
+    'tidecallerStaff': { 'name': "Trượng Gọi Thủy Triều" },
+    'hydraScaleGauntlets': { 'name': "Găng sắt vảy Hydra" },
+    'manyHeadedFlail': { 'name': "Chùy xích Nhiều Đầu" },
+    'heartOfTheElderDragon': { 'name': "Trái tim Rồng Cổ" },
+    'dragonboneGreatsword': { 'name': "Đại kiếm Xương Rồng" },
+    'bastionBanner': { 'name': "Cờ Thành Lũy" },
+    'wallwardensPlate': { 'name': "Giáp Người Gác Tường" },
+    'gatebreaker': { 'name': "Phá Cổng" },
+    'crownOfTheLastBastion': { 'name': "Vương miện Thành Lũy Cuối Cùng" },
     heartOfTheArena: {
       name: 'Trái Tim Đấu Trường'
     },
@@ -3418,8 +3654,17 @@ export default {
     known: 'Đã học',
     friend: '{faction} trọng đãi bạn hữu: giảm 20%.',
     fee: 'Học phí',
+    rank: {
+      label: 'Bậc {n}',
+      up: 'Nâng bậc',
+      effect: '+{effect}% hiệu quả, −{cd}% hồi chiêu',
+      max: 'Bậc tối đa',
+      level: 'Bậc {n} cần cấp {lvl}.'
+    },
     hint: 'Chọn một bài học. Viền xanh nghĩa là học được ngay bây giờ.',
     block: {
+      'trial': "Bạn chưa vượt qua thử thách của lớp này.",
+      'parents': "Hãy học trước một kỹ năng của {a} và một của {b}.",
       level: 'Cấp của bạn quá thấp.',
       attrs: 'Thuộc tính của bạn quá thấp.',
       gold: 'Không đủ vàng.'
@@ -3444,6 +3689,20 @@ export default {
     circle: 'Vòng Tròn Aether'
   },
   npc: {
+    'mysteriousWanderer': { 'name': "Lữ khách bí ẩn" },
+    'fairPip': { 'name': "Pip" },
+    'fairBess': { 'name': "Bà Bess" },
+    'fairHob': { 'name': "Hob" },
+    sunkenPriest: { name: "Thầy Tu Chìm Đắm" },
+    'fortHale': {
+      'name': "Đội trưởng Hale",
+    },
+    'fortMara': {
+      'name': "Trưởng lão Mara",
+    },
+    'scoutWren': {
+      'name': "Trinh sát Wren",
+    },
     frostDisciple: {
       name: 'Ivor Hask'
     },
@@ -3733,6 +3992,185 @@ export default {
     }
   },
   dlg: {
+    // ── The Mysterious Wanderer (afterplay phase 10) ──
+    'mysteriousWanderer': {
+      'hello': { '1': "Vậy là. Ngươi đã làm điều mà hiếm ai làm được. Ta cảm thấy nó từ phía bên kia khe nứt.", '2': "Ta dạy những lối xưa hợp hai trường phái làm một. Chỉ cho ai xứng đáng." },
+      'sealed': { '1': "Ngươi đã phong ấn nó. Tiếc thay, theo một nghĩa nào đó. Ta thích cảnh ấy." },
+      'ajar': { '1': "Ngươi để nó hé mở. Gan dạ đấy. Lũ quỷ sẽ giữ ngươi luôn sắc bén." },
+      'again': { '1': "Lại đến à. Đường còn dài, nhưng ngươi bước tốt lắm." },
+      'train': { '1': "Cho ta thấy hai nửa con người ngươi, ta sẽ hợp chúng làm một." },
+      'trial': { 'say': "Thử thách nào vậy?", '1': "Một cánh cổng giữ vững không một vết xước. Một con rồng bị hạ mà không ngã lần nào. Năm lần rèn hỏa ngục và năm trận thắng liền.", '2': "Cái chết của Leviathan, và một lượt hoàn hảo ở con hydra. Mỗi thứ mở một cánh cửa ta có thể chỉ cho ngươi." },
+      'who': { '1': "Một lữ khách. Ta đi dọc mép khe nứt từ trước khi ông nội ngươi ra đời. Tên tuổi rồi cũng mòn." },
+      'trainBack': { '1': "Luyện tập đi. Hai trường phái phải tranh cãi trước khi đồng lòng." },
+      'bye': { '1': "Đi cẩn thận. Ta sẽ ở đây, cho đến khi không còn nữa." }
+    },
+    'fairPip': {
+      'hello': { '1': "Lại đây nào! Chín cái thùng, một bầy tiểu quỷ và một cây vồ. Đập chúng xuống lại đi!", '2': "Tiểu quỷ nhảy ra khỏi thùng. Đập trúng hai mươi con trước khi cát chảy hết.", '3': "Đừng đụng mấy con giáp vàng, mất mạng đấy. Thắng ba lần liên tiếp là giải lớn thuộc về bạn." },
+      'again': { '1': "Muốn đập nữa à? Cầm vồ lên!" },
+      'play': { '1': "Giơ vồ lên! Chúng tới rồi!" },
+      'who': { '1': "Pip, nghề bắt tiểu quỷ. Mấy con này tôi tự bắt. Chúng cắn đấy." },
+      'playBack': { '1': "Ha! Ồn ào ghê! Nữa không?" },
+      'bye': { '1': "Thả lỏng tay cầm vồ!" }
+    },
+    'fairBess': {
+      'hello': { '1': "Năm cái vòng, ba cái đầu, không đầu nào cắn. Ta tự tay khắc đấy, cẩn thận lớp sơn.", '2': "Giữ để lấy đà, thả để ném. Đầu chỉ bắt vòng khi lắc vào giữa.", '3': "Mỗi đầu trúng liên tiếp tính thêm một. Trúng cả năm, ta trả cho đàng hoàng." },
+      'again': { '1': "Lại đến thử vận với bà già của ta à?" },
+      'play': { '1': "Vòng của cháu đây. Ném nhẹ tay thôi." },
+      'who': { '1': "Bốn mươi năm trên những con đường hội chợ. Con hydra đến cùng chiến tranh. Thấy cũng hợp." },
+      'playBack': { '1': "Không tệ. Ông nhà quá cố của ta ném còn tệ hơn." },
+      'bye': { '1': "Ra về nhớ cẩn thận lớp sơn." }
+    },
+    'fairHob': {
+      'hello': { '1': "Ồ. Chào. Muốn vật tay không? Tôi sẽ nhẹ tay. Tôi sẽ cố.", '2': "Đẩy khi vòng gặp vòng tròn. Lệch nhịp là trượt đấy.", '3': "Tay khỏe sẽ dễ hơn. Thắng tôi ba lần liên tiếp, Bậc thầy Rèn sẽ giảm giá cho bạn." },
+      'again': { '1': "Thêm một ván? Chưa ai từng quay lại xin thêm một ván." },
+      'play': { '1': "Khuỷu tay lên bàn. Lúc nào bạn sẵn sàng." },
+      'who': { '1': "Tôi là học trò của Bậc thầy Rèn. Thầy bảo tôi không biết sức mình." },
+      'playBack': { '1': "Trận hay lắm. Mai tay tôi sẽ đau. Chắc vậy." },
+      'bye': { '1': "Sớm quay lại nhé. Lò rèn yên tĩnh lắm." }
+    },
+    // ── The Breaking (the afterplay, B0–B5) ──
+    'story': {
+      forge: { back: { '1': "Lò rèn của ta lại cháy rồi, nóng hơn bao giờ hết. Sắt quỷ chảy rất tốt.", '2': "Mang cho ta những gì ngươi tìm được ngoài kia. Giờ ta có thể rèn chúng thành đồ hỏa ngục." } },
+      oracle: { lens: { '1': "Ngươi từng giải thoát ta. Giờ ta sẽ nhìn thay ngươi. Hãy nhận Thấu Kính của ta.", '2': "Nhìn qua nó, và bản đồ sẽ chỉ ra nơi những quái thú lớn đang chờ." } },
+      priest: { lens: { '1': "Nhà Tiên Tri đã ra đi, nên giờ ta canh giữ ngôi đền của bà. Nhân Sư từng canh giữ thứ này.", '2': "Thấu Kính của bà. Nhìn qua nó, và bản đồ sẽ chỉ ra nơi những quái thú lớn đang chờ." } },
+      herbs: { scale: { '1': "Một chiếc vảy của Thủy Quái! Nhẹ như chiếc lá, lại nổi trên nước.", '2': "Mang nó theo, và nước nông sẽ đỡ bạn như đất liền." } },
+      ghost: { key: { '1': "Chà, kẻ đã chiếm ngai vàng của ta. Ngươi đã giết Hydra của ta. Tốt.", '2': "Hãy lấy chìa khóa lửa của nó. Trái tim khe nứt đang cháy, và chỉ lửa mới mở được." } },
+      syndicate: { key: { '1': "Hydra chết rồi à? Vậy chìa khóa lửa thuộc về kẻ trả giá. Hoặc là của ngươi, ta đoán thế.", '2': "Nó mở trái tim khe nứt. Đi đóng nó lại, trước khi nó nuốt mất việc làm ăn của ta." } },
+      sealed: {
+        sealed: { '1': "Và thế là khe nứt bị phong ấn, thế giới bắt đầu lành lại.", '2': "Những thị trấn được xây lại, những bài ca được viết, và bài nào cũng có một cái tên." },
+        ajar: { '1': "Và thế là khe nứt được để hé mở, thế giới học cách sống bên cạnh nó.", '2': "Tường thành vẫn có người canh, đấu trường vẫn náo nhiệt, và người anh hùng vẫn luôn sẵn sàng." },
+      },
+      'rift': {
+        'scream': {
+          '1': "Chúa Tể Hư Không ngã xuống, và khe nứt sau lưng hắn gào thét.",
+          '2': "Đó chưa bao giờ là ngai vàng của hắn. Đó là cái lồng của hắn, và hắn là nắp đậy.",
+          '3': "Giờ khe nứt đã mở, và mọi thứ hư không ru ngủ đang thức giấc.",
+        },
+      },
+      'wren': {
+        'found': {
+          '1': "Bạn đây rồi! Tôi là Wren, trinh sát. Tôi tìm bạn khắp nơi.",
+          '2': "Sunford đang cháy. Ai chạy được đều đã đến Ải Thành Lũy.",
+          '3': "Đó là pháo đài cũ trên đường đến Vách Đá Tro Tàn. Nhanh lên, họ cần bạn.",
+        },
+      },
+    },
+    'scoutWren': {
+      sealed: { '1': "Con rồng đi rồi! Đường sá đã nhẹ nhõm hơn hẳn." },
+      'hello': {
+        '1': "Bạn đến rồi! Tôi biết mà. Chào mừng đến Ải Thành Lũy.",
+        '2': "Tôi trinh sát đường sá cho đội trưởng. Hỏi tôi chỗ nào đang có chuyện.",
+      },
+      'again': {
+        '1': "Về rồi à? Đường sá đâu tự trinh sát được.",
+      },
+      'who': {
+        '1': "Wren. Tôi đưa tin cho đội canh Sunford, trước khi Sunford cháy.",
+      },
+      'rumor': {
+        'plains': {
+          '1': "Quỷ dữ chiếm con đường qua Đồng Bằng Sunford. Các thầy của Sunford bị kẹt phía sau.",
+        },
+        'hollows': {
+          '1': "Hang Goblin đầy chó địa ngục. Dọn sạch chúng, và người Sunford có thể về nhà.",
+        },
+        'woods': {
+          '1': "Có thứ gì đó ba đầu đang săn mồi trong Rừng Thì Thầm. Thầy thuốc thảo dược trốn ở đó.",
+        },
+        'outskirts': {
+          '1': "Nhân mã phi ngựa ở Ngoại Ô Oakhaven. Nếu chúng đến tường thành, ta cần mọi thanh kiếm.",
+        },
+        'siege': {
+          '1': "Bầy của chúng đã tan, nhưng bọn khác đang tụ lại. Đội trưởng đang chuẩn bị tường thành.",
+        },
+      },
+      'bye': {
+        '1': "Hãy canh chừng đường sá. Tôi cũng sẽ canh.",
+      },
+    },
+    'fortHale': {
+      sealed: { '1': "Con rồng đã chết. Ta chưa từng nghĩ mình sống được đến ngày này. Cảm ơn." },
+      'siegeBack': { '1': "Chưa sao? Vậy nghỉ đi. Tường thành sẽ đợi ngươi." },
+      'bell': { '1': "Vậy thì ra cổng. Nói ta biết ta giữ nó vững đến đâu." },
+      'hello': {
+        '1': "Bạn đến được rồi. Tốt. Ta cần mọi thanh kiếm, hơn bao giờ hết.",
+        '2': "Chào mừng đến Ải Thành Lũy. Tường cũ, nhưng là bức tường duy nhất còn đứng.",
+      },
+      'road': {
+        '1': "Đường đến Sunford đã mở lại. Người dân an toàn sau tường thành của ta.",
+      },
+      'herbs': {
+        '1': "Thầy thuốc thảo dược đã về, mang theo thảo dược. Trạm xá có thể thở phào.",
+      },
+      'siege': {
+        '1': "Bạn đã đánh tan nhân mã. Nhưng một đạo quân lớn hơn đang đến, nhắm vào những bức tường này.",
+      },
+      'again': {
+        '1': "Vẫn đứng vững. Tường thành, binh lính, và tôi.",
+      },
+      'fort': {
+        '1': "Một pháo đài biên giới cũ. Bỏ trống năm mươi năm, cho đến khi bầu trời bị xé toạc.",
+        '2': "Giờ đây là nơi an toàn cuối cùng giữa đồng bằng và núi non.",
+        'say': "Đây là nơi nào?",
+      },
+      'rumor': {
+        'road': {
+          '1': "Dọn sạch Đồng Bằng và Hang. Người Sunford bị kẹt ngoài đó.",
+        },
+        'woods': {
+          '1': "Thầy thuốc thảo dược ở Rừng Thì Thầm, và một con thú ba đầu cũng vậy. Hãy sẵn sàng.",
+        },
+        'centaurs': {
+          '1': "Nhân mã ở Ngoại Ô. Đánh tan bầy chúng trước khi chúng đến đây.",
+        },
+        'siege': {
+          '1': "Nghỉ ngơi đi. Khi chuông vây hãm vang lên, tôi cần bạn trên tường thành.",
+        },
+      },
+      'bye': {
+        '1': "Giữ kiếm bên mình.",
+      },
+    },
+    'fortMara': {
+      sealed: { '1': "Con làm được rồi, cháu à. Ai trong chúng ta cũng nợ con một mái nhà." },
+      'siegeBack': { '1': "Nghỉ một chút đi con. Chuông sẽ lại vang." },
+      'bell': { '1': "Giờ ta giữ tường thành của đội trưởng. Hãy chọn cách ta giữ chúng." },
+      'hello': {
+        '1': "Con ơi! Con còn sống. Khi Sunford cháy, ta đã sợ điều tồi tệ nhất.",
+        '2': "Giờ chúng ta là khách trong pháo đài của binh lính, cả mấy bà già nữa.",
+      },
+      'command': {
+        '1': "Đội trưởng Hale đã ngã xuống cùng Oakhaven. Nên giờ pháo đài nghe lời một trưởng lão già.",
+      },
+      'home': {
+        '1': "Sunford đang được xây lại! Những mái nhà đầu tiên đã dựng. Ta muốn khóc.",
+      },
+      'again': {
+        '1': "Vẫn ở đây, con à. Vẫn đang đếm người.",
+      },
+      'town': {
+        '1': "Quỷ dữ từ bầu trời đêm kéo xuống. Chúng ta chạy với những gì mang được.",
+        '2': "Có người không bao giờ thoát ra. Hãy đưa những người còn lại về nhà, nếu con có thể.",
+        'say': "Chuyện gì đã xảy ra với Sunford?",
+      },
+      'rumor': {
+        'road': {
+          '1': "Các thầy của chúng ta vẫn còn trên đường Sunford. Đưa họ về đây, con nhé.",
+        },
+        'woods': {
+          '1': "Thầy thuốc thảo dược vào Rừng Thì Thầm hái thuốc và không bao giờ trở lại.",
+        },
+        'centaurs': {
+          '1': "Kỵ sĩ ở Ngoại Ô. Tiếng vó như sấm, mỗi đêm.",
+        },
+        'siege': {
+          '1': "Tường thành sắp bị thử thách. Ta cảm thấy điều đó trong bộ xương già này.",
+        },
+      },
+      'bye': {
+        '1': "Đi cẩn thận nhé, con.",
+      },
+    },
     intro: {
       crossing: { 1: 'Mọi con đường trên thế giới này đều gặp nhau ở một ngã tư… và mỗi ngã tư là một trận chiến.' },
       hero: { 1: 'Từ những cánh đồng yên bình của Sunford, một anh hùng trẻ tuổi đã lên đường.' },
@@ -4183,6 +4621,7 @@ export default {
       }
     },
     hero: {
+      'siege': "Lên tường thành thôi.",
       forge: 'Cho tôi dùng lò rèn nhé.',
       learnSmith: 'Có thể dạy tôi rèn không?',
       ore: 'Tôi có ít quặng muốn bán.',
@@ -4489,7 +4928,7 @@ export default {
       },
       map: {
         '1': 'Bản đồ của Đội trưởng Rook! Ông ấy xé nó ra và giấu các mảnh đi trước khi bị bọn goblin bắt.',
-        '2': 'Tìm sáu mảnh trong số đó, còn vài mảnh nữa rải rác quanh đây, dấu X sẽ chỉ đường: đâu đó ở Vách Đá Tro Tàn. Đào ở đó, và vàng là của cháu.',
+        '2': "Tìm sáu mảnh, dấu X sẽ chỉ đường: đâu đó ở Vách Đá Tro Tàn. Đào ở đó mà lấy vàng.",
         say: 'Cháu tìm được một mảnh của tấm bản đồ cũ.'
       }
     },
@@ -5455,6 +5894,11 @@ export default {
       }
     },
     quest: {
+      seal: {
+        ask: { '1': "Cổ Long đã chết, và khe nứt đang mở ra trước mặt bạn.", '2': "Bạn có thể phong ấn nó ngay bây giờ, mãi mãi. Lũ quái thú sẽ ngủ lại.", '3': "Hoặc bạn có thể để nó hé mở, để những người dũng cảm nhất thử sức với những gì đi qua." },
+        seal: { say: "Phong ấn nó. Mãi mãi.", '1': "Khe nứt khép lại như vết thương lành, và bầu trời lặng im." },
+        ajar: { say: "Để nó hé mở. Chúng ta sẽ sẵn sàng.", '1': "Khe nứt vẫn hé mở một chút, và có thứ gì đó phía sau đang cười." },
+      },
       goblinKing: {
         ask: {
           '1': 'Dừng lại. Làm ơn. Ta đầu hàng.',
@@ -5586,6 +6030,64 @@ export default {
       }
     },
     bark: {
+      sphinx: {
+        intro: { '1': "Trả lời ta đi, nhóc con, nếu không cát của ta sẽ chôn vùi ngươi." },
+        riddle: { '1': "Vậy thì một câu đố. Bước lên nơi ta chỉ, theo đúng thứ tự đó." },
+        sand: { '1': "Lần này là năm. Và cát của ta sẽ không chờ đâu." },
+        death: { '1': "Ngươi trả lời hay lắm. Cát giờ là của ngươi." },
+      },
+      leviathan: {
+        intro: { '1': "Giờ ngươi đang đi trong nước của ta." },
+        sink: { '1': "Mấy hòn đảo nhỏ của ngươi đang chìm dần." },
+        grab: { '1': "Xuống vực sâu cùng ta nào!" },
+        death: { '1': "Thủy triều rút đi, và không trở lại." },
+      },
+      hydra: {
+        intro: { '1': "Chém một đầu, hai đầu sẽ mọc ra!" },
+        heads: { '1': "Thêm đầu, thêm răng!" },
+        rage: { '1': "Đốt bọn ta ư? Vậy thì cháy cùng bọn ta!" },
+        death: { '1': "Không còn đầu nữa. Không còn nữa." },
+      },
+      elderDragon: {
+        intro: { '1': "Ta đã ngủ dưới thế giới trước cả khi giống loài ngươi biết đến lửa." },
+        flight: { '1': "Vậy thì nấp sau mấy hòn đá nhỏ của ngươi đi." },
+        rift: { '1': "Khe nứt đang kéo ta trở lại. Chưa được!" },
+        death: { '1': "Vậy thì phong ấn nó đi. Ta mệt mỏi với bóng tối rồi." },
+      },
+      'siegeHale': {
+        'start': {
+          '1': "Chúng tới rồi! Giữ cổng!"
+        },
+        'ram': {
+          '1': "Xe phá thành! Giết nó trước khi tới cổng!"
+        },
+        'horn50': {
+          '1': "Nửa cổng đã mất! Trụ vững!"
+        },
+        'horn25': {
+          '1': "Cổng không trụ được lâu nữa!"
+        },
+        'won': {
+          '1': "Chúng tan vỡ rồi! Thành Lũy vẫn đứng!"
+        }
+      },
+      'siegeMara': {
+        'start': {
+          '1': "Chúng tới rồi! Tất cả đứng vững!"
+        },
+        'ram': {
+          '1': "Xe phá thành! Chặn nó trước khi nó phá cổng!"
+        },
+        'horn50': {
+          '1': "Nửa cổng đã sập. Cố lên!"
+        },
+        'horn25': {
+          '1': "Cổng sắp vỡ! Đẩy chúng lùi lại!"
+        },
+        'won': {
+          '1': "Chúng bỏ chạy! Pháo đài vẫn đứng!"
+        }
+      },
       banditChief: {
         whistle: {
           1: 'Dậy đi các chú! Cắn chúng!'
@@ -5594,6 +6096,11 @@ export default {
       lightDisciple: {
         freed: {
           '1': 'Ánh sáng đã gửi cậu đến. Tôi là Xơ Aurelle. Hãy tìm tôi ở Sunford, tôi sẽ dạy cậu con đường Sứ Giả Ánh Sáng.'
+        }
+      },
+      trainerAegis: {
+        freed: {
+          '1': 'Cảm ơn đã cứu chúng ta khỏi lũ cướp! Lại bên đống lửa: tất cả sẽ dạy ngươi, bài học đầu miễn phí.'
         }
       },
       frostDisciple: {
@@ -5649,6 +6156,48 @@ export default {
         },
         dive: {
           '1': 'Quỳ xuống.'
+        }
+      },
+      chimera: {
+        intro: {
+          '1': "Ba cái đầu, một cơn đói. Đầu nào cắn trước đây?"
+        },
+        twin: {
+          '1': "Giờ là hai đầu. Chọn phía cho khéo."
+        },
+        tail: {
+          '1': "Đuôi của ta! Ngươi sẽ phải trả giá!"
+        },
+        death: {
+          '1': "Ba cái đầu, mà chẳng đầu nào thấy trước điều này."
+        }
+      },
+      centaurWarchief: {
+        intro: {
+          '1': "Chạy đi nếu muốn. Tên của ta còn nhanh hơn."
+        },
+        raiders: {
+          '1': "Kỵ binh! Giẫm nát chúng!"
+        },
+        rear: {
+          '1': "Đủ tên rồi. Ta sẽ giẫm bẹp ngươi!"
+        },
+        death: {
+          '1': "Đồng bằng này sẽ nhớ vó ngựa của ta."
+        }
+      },
+      cyclops: {
+        intro: {
+          '1': "Có thứ gì nhỏ bé ở đây. Lại gần hơn. Để ta xem."
+        },
+        cover: {
+          '1': "Không nhìn nữa. Ngươi đừng hòng có mắt ta!"
+        },
+        blind: {
+          '1': "Ta không thấy ngươi, nhưng ta nghe thấy ngươi!"
+        },
+        death: {
+          '1': "Tối. Mọi thứ đã tối sầm."
         }
       },
       frostJarl: {
@@ -6773,7 +7322,20 @@ export default {
       }
     }
   },
+  invasion: {
+    pylonsDown: 'Trụ cuối cùng sụp đổ, kho báu của nó tràn ra!',
+    reborn: {
+      tusker: 'Tusker Tái Sinh',
+      emberLord: 'Chúa Tể Than Hồng Địa Ngục',
+      frostJarl: 'Thủ Lĩnh Băng Giá Tái Sinh',
+      voidDragon: 'Rồng Hư Không Tái Sinh'
+    }
+  },
   enemy: {
+    sphinx: "Nhân Sư",
+    leviathan: "Thủy Quái Leviathan",
+    hydra: "Hydra",
+    elderDragon: "Cổ Long",
     trainingDummy: 'Hình Nhân Tập Luyện',
     goblin: 'Goblin',
     goblinSlinger: 'Goblin Ném Đá',
@@ -6798,6 +7360,10 @@ export default {
     naga: 'Naga',
     skeleton: 'Bộ Xương',
     necromancer: 'Pháp Sư Gọi Hồn',
+    chimera: "Chimera",
+    chimeraTail: "Đuôi Rắn",
+    centaurWarchief: "Thủ Lĩnh Nhân Mã",
+    cyclops: "Cyclops",
     frostJarl: 'Thủ Lĩnh Băng Giá',
     nagaOracle: 'Nhà Tiên Tri Chìm Đắm',
     voidStalker: 'Kẻ Rình Rập Hư Không',
@@ -6810,6 +7376,7 @@ export default {
     archDemon: 'Ma Vương',
     voidling: 'Sinh Vật Hư Không',
     voidLord: 'Chúa Tể Hư Không',
+    demonPylon: 'Trụ Quỷ',
     orderGuard: 'Phán Quan Thiết Hội',
     syndicateBlade: 'Sát Thủ Băng Tro Tàn',
     goblinWarchief: 'Tù Trưởng Yêu Tinh',
@@ -6826,7 +7393,19 @@ export default {
     goblinTyrant: 'Bạo Chúa Goblin',
     voidDrake: 'Tiểu Long Hư Không',
     pitLord: 'Chúa Tể Vực Thẳm',
-    frostThane: 'Lãnh Chúa Băng Giá'
+    frostThane: 'Lãnh Chúa Băng Giá',
+    hellhound: 'Chó Săn Địa Ngục',
+    frostHellhound: 'Chó Săn Địa Ngục Băng Giá',
+    gargoyle: 'Thạch Quỷ',
+    harpy: 'Quỷ Điểu Harpy',
+    corruptedTreant: 'Thụ Nhân Sa Đọa',
+    centaurRaider: 'Kỵ Binh Nhân Mã',
+    cyclopsBrute: 'Gã Khổng Lồ Một Mắt',
+    demonMiner: 'Thợ Mỏ Quỷ',
+    sphinxAcolyte: 'Môn Đồ Nhân Sư',
+    seaDemon: 'Quỷ Biển',
+    drakeHatchling: 'Rồng Non',
+    hydraSpawn: 'Con Non Thủy Quái'
   },
   results: {
     careful: 'Chiến thắng cẩn trọng ×{mult}',
@@ -7139,6 +7718,8 @@ export default {
     town: 'Thợ rèn ở thị trấn nào cũng nâng cấp được món này.'
   },
   ore: {
+    'demonglass': { 'name': "Thủy tinh quỷ" },
+    'ichor': { 'name': "Huyết thần thoại" },
     iron: {
       name: 'Quặng sắt'
     },

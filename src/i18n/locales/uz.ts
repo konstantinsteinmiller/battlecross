@@ -1,5 +1,170 @@
 // Uzbek locale — mirrors the key shape of en.ts exactly.
 export default {
+  // ─── Afterplay phase 8: items, materials and capstones ───
+  // ─── Afterplay phase 10: the prestige classes ───
+  'prestige': { 'toast': { 'wanderer': "Sirli sayyoh qal’ada kutmoqda." } },
+  'relic': {
+    'infernal': "{name} · Doʻzaxiy",
+    'set': "{item} bilan kiyilsa:",
+    'heroicBadge': "Qahramonlik {n}",
+    'heroic': "Qahramonlik {n}: {gold} oltin, {glass} iblis shishasi",
+    'heroicIchor': "Qahramonlik {n}: {gold} oltin, {glass} iblis shishasi, {ichor} ixor",
+    'heroicMax': "Barcha qahramonlik darajalari olindi.",
+    'infernalForge': "Doʻzaxiy temirchilik: {gold} oltin, {glass} iblis shishasi",
+    'lens': "Orakul linzasi: bu yerda {boss} kutmoqda.",
+    'hydraKey': "Muhrlangan. Gidraning olov kaliti Yoriqning yuragini ochadi.",
+    'marksGlass': "{marks} belgiga {glass} iblis shishasi sotib olish",
+    'capstone': "Choʻqqi",
+    'fortOnly': "Bu choʻqqi faqat Qalʼa kechuvida oʻrgatiladi."
+  },
+  // ─── The fort's fair games (afterplay §9) ───
+  'fair': {
+    'fee': "O'ynash · {n}",
+    'again': "Yana o'ynash",
+    'noGold': "Oltin yetarli emas.",
+    'capped': "Katta sovrinlar qaytguncha tozalanadigan hududlar: {n}",
+    'top': "Bosh sovrin! +{gold} oltin, +{xp} TJ",
+    'topGold': "Bosh sovrin, faqat oltinda: +{n} oltin",
+    'won': "Yutding! +{n} oltin",
+    'lost': "Omad kelmadi. Seriya qaytadan boshlanadi.",
+    'row': "Ketma-ket g'alaba: {n} / {max}",
+    'mats': "+{n} Qahramon+ materiali",
+    'discount': "Temirchi endi yaxshilashlarga {n}% chegirma beradi!"
+  },
+  'whack': {
+    'title': "Ajinani ur",
+    'lead': "30 soniyada 20 ta ajinani ur. Oltin sovutlilarga tegma: har bir urilgani bitta jonga tushadi.",
+    'hits': "Ajinalar: {n} / {max}",
+    'lives': "Jonlar: {n}",
+    'time': "Vaqt: {n} s",
+    'hint': "Ajinalarga teg yoki 1–9 tugmalarini bos.",
+    'barrel': "Bochka {n}",
+    'timeout': "Vaqt tugadi!",
+    'dead': "Jon qolmadi!"
+  },
+  'ring': {
+    'title': "Gidraga halqa otish",
+    'lead': "Kuch yig'ish uchun bosib tur, otish uchun qo'yib yubor. Bosh halqani faqat tebranishining o'rtasiga yaqin tutadi. Ketma-ket har bir bosh bir ochko ko'proq.",
+    'hint': "Stolda bosib turib qo'yib yubor yoki Bo'sh joyni bosib tur.",
+    'rings': "Qolgan halqalar: {n}",
+    'score': "Ochko: {n}",
+    'hit': "Tushdi! +{n}",
+    'miss': "Tegmadi!",
+    'perfect': "Mukammal raund!",
+    'nothing': "Ochko {n}. Bu safar sovrin yo'q.",
+    'power': "Kuch"
+  },
+  'arm': {
+    'title': "Bilak kurashi",
+    'lead': "Halqa doiraga tekkanda tegib, uning qo'lini bos. Kuch ritmni kengaytiradi. Ketma-ket uch g'alaba temirchi chegirmasini, besh g'alaba Qahramon+ materialini beradi.",
+    'hint': "Stolga teg yoki Bo'sh joyni bos.",
+    'good': "Bos!",
+    'off': "Ritmdan chiqding!"
+  },
+  // ─── The Siege of Bastion (afterplay §8) ───
+  'siege': {
+    'title': "Qalʼa kechuvi qamali",
+    'lead': "Darvozani oʻn toʻlqin davomida ushlab tur. Toʻlqinlar orasida qamal belgilarini mudofaaga sarfla.",
+    'story': "Toʻda darvoza oldida. Oʻn toʻlqinga bardosh ber: bu birinchi qamalda yutqazib boʻlmaydi.",
+    'bell': "Qamal qoʻngʻirogʻi chalinmoqda! Toʻda darvoza oldida yigʻilmoqda.",
+    'mapBell': "Qamal!",
+    'start': "Qoʻngʻiroqni chal",
+    'wins': "Gʻalabalar: {n}",
+    'marksBank': "Toʻplangan qamal belgilari: {n}",
+    'tier': {
+      'normal': "Oddiy",
+      'hard': "Qiyin",
+      'nightmare': "Dahshat"
+    },
+    'tierDesc': {
+      'normal': "Dushmanlar sendan bir daraja yuqori.",
+      'hard': "Dushmanlar 3 daraja yuqori va 30% koʻproq jonli.",
+      'nightmare': "Dushmanlar 6 daraja yuqori va afsonaviy saralarning ikki toʻlqini."
+    },
+    'locked': {
+      'hard': "Avval oddiy qamalda gʻalaba qozon.",
+      'nightmare': "Yoriq muhrlanganda yoki qiya ochiq qoldirilganda ochiladi."
+    },
+    'lord': "Qamal hukmdori",
+    'hud': {
+      'wave': "Toʻlqin {n}/{total}",
+      'marks': "Belgilar: {n}",
+      'gate': "Darvoza {pct}%",
+      'build': "{n}-toʻlqin {s} soniyadan keyin",
+      'ready': "Tayyor!",
+      'buy': "{name}: {n} belgi"
+    },
+    'def': {
+      'ballista': {
+        'name': "Ballista",
+        'desc': "Har 2 soniyada oʻz yoʻlagi boʻylab teshib oʻtuvchi oʻq otadi."
+      },
+      'cauldron': {
+        'name': "Olov qozoni",
+        'desc': "Oʻz yoʻlagining tor joyini yondiradi."
+      },
+      'barricade': {
+        'name': "Barrikada",
+        'desc': "Yoʻlakni 20 soniyaga toʻsadi."
+      },
+      'militia': {
+        'name': "Lashkar",
+        'desc': "Ikki qorovul yoningda jang qiladi."
+      },
+      'repair': {
+        'name': "Darvozani taʻmirlash",
+        'desc': "Darvozaning chorak qismini tiklaydi."
+      }
+    },
+    'block': {
+      'marks': "Qamal belgilari yetarli emas.",
+      'full': "Boshqa joy yoʻq.",
+      'phase': "Faqat toʻlqinlar orasida."
+    },
+    'toast': {
+      'cleared': "{n}-toʻlqin qaytarildi! +{marks} belgi",
+      'clearedUnharmed': "{n}-toʻlqin qaytarildi, darvoza butun! +{marks} belgi",
+      'horn': "Burgʻu chalindi! Darvozadan {pct}% qoldi.",
+      'ram': "Devorbuzar! U darvozaga yetmasdan toʻxtat!",
+      'rally': "Yana oyoqqa turding! Darvozani ushla!"
+    },
+    'banner': {
+      'wave': "{n}-toʻlqin",
+      'final': "Qamal hukmdori!"
+    },
+    'result': {
+      'tier': "Qalʼa kechuvi qamali: {tier}",
+      'waves': "Qaytarilgan toʻlqinlar: {n}/{total}",
+      'marks': "Saqlangan qamal belgilari: {earned} tadan {banked} ta",
+      'glass': "Iblis shishasi: +{n}"
+    },
+    'milestone': {
+      'normal1': "Bosqich: Qalʼa bayrogʻi.",
+      'normal5': "Bosqich: Devor qoʻriqchisining sovuti.",
+      'hard1': "Bosqich: Faxriy jangchi sezgisi, beshinchi passiv uyacha.",
+      'hard5': "Bosqich: Darvozabuzar.",
+      'nightmare1': "Bosqich: Soʻnggi qalʼa toji.",
+      'hardFlawless': "Bosqich: yashirin sinf sinovining kaliti."
+    }
+  },
+  // ─── The Breaking (the afterplay's story) ───
+  'breaking': {
+    'title': "Yorilish",
+    'toast': {
+      brk6: "Temirchi usta ustaxonasini qaytarib oldi. Do‘zaxiy temirchilik ochildi.",
+      brk7: "Sfinks o‘ldi. Bashoratchining linzasi ulkan maxluqlar qayerda kutayotganini ko‘rsatadi.",
+      brk8: "Leviafan o‘ldi. Uning tangachasi sayoz suvda yurishga imkon beradi.",
+      brk9: "Gidra o‘ldi. Uning olov kaliti endi seniki.",
+      brk10: "Qadimiy ajdar o‘ldi. Yoriq ochiq turibdi.",
+      sealed: "Yoriq muhrlandi. Sen Yoriqni Muhrlovchisan.",
+      ajar: "Yoriq qiya ochiq qoldi. Iblislar devorlar va kolizeyni sinaydi.",
+      'brk2': "Qalʼa kechuvi seni qabul qiladi. Uning xalqi endi senga tayanadi.",
+      'rescued': "Omon qolganlar qutqarildi! Ular Qalʼa kechuvida xavfsiz.",
+      'brk3': "Yoʻl ochiq. Sunford xalqi xavfsiz.",
+      'brk4': "Giyohchi ayol qalʼaga qoʻshiladi.",
+      'brk5': "Kentavr toʻdasi tor-mor etildi. Qalʼa qamalga tayyorlanmoqda.",
+    },
+  },
   // ─── The intro (#130): its skip, and its narrator's name ───
   intro: {
     narrator: 'Solnomachi',
@@ -88,6 +253,7 @@ export default {
     gold: '{n} oltin',
     potion: 'Jon iksiri ({n} ta qoldi)',
     manaPotion: 'Mana iksiri ({n} ta qoldi)',
+    potionStop: 'Davom etish uchun sog‘liq iksirini ich',
     groups: '{total} ta dushman guruhidan {n} tasi yengildi',
     wave: 'Toʻlqin {n} / {total}',
     roll: 'Dumalash',
@@ -261,6 +427,10 @@ export default {
     escort: 'Karvonni qoʻriqla'
   },
   node: {
+    'bastion': {
+      'name': "Qalʼa kechuvi",
+      'desc': "Eski chegara qalʼasi, hali ham tik turgan soʻnggi devorlar. Omon qolganlar shu yerda toʻplanadi.",
+    },
     sunford: {
       name: 'Sunford',
       desc: 'Tekislik chetidagi dehqonlar shaharchasi. Uy, bir temirchi va ikki ustoz.'
@@ -343,6 +513,9 @@ export default {
     locked: 'Yoʻlni ochish uchun qoʻshni hududni tozalang.',
     lockedArena: 'Uning darvozalari Goblinlar qiroli masalasi hal boʻlgach ochiladi.',
     lockedRift: 'U Dahshat qoʻrgʻoni taxtining taqdiri hal boʻlgach ochiladi.',
+    invaded: 'Bosib olingan',
+    invadedDesc: 'Bu yerni iblislar egallab olgan. Ularning ustunlari yaqindagi dushmanlarni qattiqroq urdiradi, yoriq chandiqlari kuydiradi va sekinlashtiradi, bu yerda yengilgan har bir dushman esa qimmatroq.',
+    lockedInvaded: 'Iblislar uni mahkam ushlab turibdi. Avval {zone} hududini qaytarib oling.',
     danger: {
       '1': 'Darajangizdan biroz yuqori.',
       '2': 'Darajangiz uchun xavfli.',
@@ -469,6 +642,11 @@ export default {
     }
   },
   class: {
+    // ── The prestige classes (afterplay phase 10) ──
+    'demonhunter': { 'name': "Iblis ovchisi", 'desc': "Soya va muqaddas nur, bitta o‘ljaga qasamyod qilgan. Iblislarni belgilaydi, belgilanganlar tez yiqiladi." },
+    'dragoon': { 'name': "Dragun", 'desc': "Etik ostida shamol, qo‘lda qalqon. Osmondan sakrab, butun saflarni nayza bilan teshib o‘tadi." },
+    'hexsmith': { 'name': "La’nat temirchisi", 'desc': "Qon bilan oziqlangan efir hunari. Dushmanni so‘rib, temirchini davolaydigan minoralar quradi." },
+    'tidecaller': { 'name': "To‘lqin chaqiruvchi", 'desc': "Ayoz va unsurlar, dengizga quyilgan. Dushmanni orqaga uloqtiradigan va ho‘llaydigan to‘lqinlar." },
     aegis: {
       name: 'Egida ritsari',
       desc: 'Qalqon va muqaddas poʻlat. Boshqalar zarba yemasligi uchun zarbalarni oʻzi oladi.'
@@ -535,6 +713,35 @@ export default {
     }
   },
   skill: {
+    // ── The prestige classes (afterplay phase 10) ──
+    'huntersMark': { 'name': "Ovchi belgisi", 'desc': "Muqaddas o‘q: {dmg}% Chaqqonlik zarari. {dur} s davomida nishon {vuln}% ko‘proq zarar oladi, iblis {demon}% ko‘proq." },
+    'demonsBane': { 'name': "Iblislar balosi", 'desc': "Iblislarga +{bane}% zarar va ulardan {ward}% kamroq zarar." },
+    'silverVolley': { 'name': "Kumush yomg‘ir", 'desc': "Chiziq bo‘ylab kumush o‘qlar: {dmg}% Chaqqonlik zarari, iblislar va belgilangan dushmanlarga +{bane}%." },
+    'skyfallLeap': { 'name': "Osmondan qulash", 'desc': "{air} s yetib bo‘lmas joyga sakra, so‘ng qula: {radius} m radiusda {dmg}% Kuch zarari, dushmanlar yiqitiladi." },
+    'dragonBlood': { 'name': "Ajdar qoni", 'desc': "Boshliqlarga +{boss}% zarar, +{hp}% eng yuqori salomatlik, va seni hech narsa orqaga itarmaydi." },
+    'dragonLance': { 'name': "Ajdar nayzasi", 'desc': "Chiziq bo‘ylab nayza zarbasi: undagi har bir dushmanga {dmg}% Chaqqonlik zarari." },
+    'hexTurret': { 'name': "La’natli minora", 'desc': "{dur} s ga minora qur. Har soniyada u {radius} m ichidagi eng yaqin dushmanni {dmg}% Mahorat zarari bilan so‘radi; sen uning {drain}% ini davolaysan." },
+    'soulForge': { 'name': "Jonlar ustaxonasi", 'desc': "+{hp}% eng yuqori salomatlik, soniyasiga {regen} salomatlik, va sen {reduce}% kamroq zarar olasan." },
+    'hexBolt': { 'name': "La’natli o‘q", 'desc': "{hp}% salomatlik to‘la: {dmg}% Mahorat zarari beruvchi o‘q. Uning {heal}% ini davolaysan, dushman esa {dur} s davomida {weak}% kamroq zarar yetkazadi." },
+    'tidalWave': { 'name': "Toshqin to‘lqin", 'desc': "Chiziq bo‘ylab to‘lqin: {dmg}% Aql zarari, dushmanlar orqaga uloqtiriladi va ho‘llanadi ({dur} s davomida {slow}% sekinlashuv)." },
+    'seaborn': { 'name': "Dengizda tug‘ilgan", 'desc': "Muzlatilgan dushmanlarga +{bonus}% zarar, {reduce}% kamroq olinadigan zarar, +{move}% tezlik." },
+    'undertow': { 'name': "Teskari oqim", 'desc': "{dur} s girdob: {radius} m ichida jami {dmg}% Aql zarari. Dushmanlarni ichkariga tortadi va {slow}% sekinlashtiradi." },
+    'bastionWall': { 'name': "Qalʼa devori", 'desc': "{dur} s davomida {radius} m ichidagi har bir dushman sizga hujum qilishga majbur, siz esa {def}% kam zarar olasiz. Soʻng nur {dmg}% Kuch +olingan zarbalarning {back}% zararini beradi." },
+    'thousandCuts': { 'name': "Ming kesik", 'desc': "{radius} m ichidagi dushmanlar orasida otilib, {hits} marta uring, har zarba {dmg}% Chaqqonlik zarari. Boss faqat bitta zarba oladi. Kesayotganingizda hech narsa sizga tegmaydi." },
+    'cinderSun': { 'name': "Kul quyosh", 'desc': "Soʻnayotgan quyosh {dur} s davomida parchalanadi: {meteors} yonayotgan parcha, har biri {dmg}% Aql zarari beradi." },
+    'royalLegion': { 'name': "Qirollik legioni", 'desc': "Legionni {dur} s ga chaqiring: {archers} kamonchi, {guards} soqchi va {mages} jang sehrgari." },
+    'stoppedHour': { 'name': "Toʻxtagan soat", 'desc': "{radius} m ichida soatni {dur} s toʻxtating. Yana yurganda har bir dushman {dmg}% Aql zarari oladi." },
+    'redCovenant': { 'name': "Qizil ahd", 'desc': "{radius} m ichidagi har bir dushman hayotining {pct}% ini oling. Uning {heal}% i sizni davolaydi." },
+    'orbitalLance': { 'name': "Orbital nayza", 'desc': "Osmondan tushgan nur nayzasi moʻljalingizni kuydiradi: {dur} s ichida {dmg}% Mahorat zarari." },
+    'tectonicHeart': { 'name': "Tektonik yurak", 'desc': "Yer yuragi yoriladi: yaqindagi hamma narsaga {dmg}% Kuch zarari va {dur} s sekinlashtiradigan vayronalar." },
+    'eyeOfTheGale': { 'name': "Boʻron koʻzi", 'desc': "{dur} s davomida oʻqlar boʻroni: jami {dmg}% Mahorat zarari va {slow}% sekinlashtirish." },
+    'endlessWinter': { 'name': "Cheksiz qish", 'desc': "Cheksiz qish sizdan otilib chiqadi: {radius} m ichida {dmg}% Aql zarari, hamma {freeze} s muzlaydi." },
+    'dawnbreak': { 'name': "Tong otishi", 'desc': "{dur} s tongga aylaning: har soniyada {radius} m ichida {dmg}% Aql zarari va {heal}% davolanish." },
+    'alphasCall': { 'name': "Yoʻlboshchi chaqirigʻi", 'desc': "{wolves} boʻri javob berib, {dur} s siz bilan yuguradi. Butun gala +{dmg}% zarar beradi va {move}% tezroq yuradi." },
+    'prismStorm': { 'name': "Prizma boʻroni", 'desc': "{dur} s davomida toʻrt unsur gʻazablanadi: bir-birini qoʻzgʻatadigan {dmg}% Aqldan {strikes} zarba." },
+    'ferryman': { 'name': "Qayiqchi", 'desc': "{dur} s davomida yoningizda yiqilgan har bir dushman sizning ruhingiz boʻlib turadi, ruhlar esa {atk}% koʻp zarar beradi." },
+    'unmovingMountain': { 'name': "Qoʻzgʻalmas togʻ", 'desc': "Barcha chini sarflang: togʻ qulab {dmg}% Chaqqonlik zarari beradi, har bir chi uchun +{per}%, dushmanlarni yiqitadi." },
+    'encore': { 'name': "Yana bir bor", 'desc': "Yana bir bor {dur} s (+{buff}% tezlik, zarar, Himoya), soʻng soʻnggi akkord: {dmg}% Xarizma, dushmanlar sehrlanadi." },
     kind: {
       active: 'Faol',
       passive: 'Passiv'
@@ -590,7 +797,7 @@ export default {
     },
     danceOfBlades: {
       name: 'Tigʻlar raqsi',
-      desc: '{radius} m ichidagi dushmanlar orasida sakrab, {hits} marta urib, jami {dmg}% Chaqqonlik zarari yetkazadi. Raqs paytida sizga zarba tegmaydi.'
+      desc: '{radius} m ichidagi dushmanlar orasida sakrab, {hits} marta uradi, har zarba {dmg}% Chaqqonlik zarari. Boss faqat bitta zarba oladi. Raqs paytida sizga zarba tegmaydi.'
     },
     fireball: {
       name: 'Olov shari',
@@ -1338,6 +1545,8 @@ export default {
     magic: 'Sehr · {attr} bilan oshadi'
   },
   source: {
+    'siege': "Qalʼa kechuvi qamalida qoʻlga kiritilgan.",
+    'infernal': "Doʻzaxiy egizak: bosib olingan {zone} hududida tushadi yoki temirchi yasaydi.",
     arena: 'Kolizey reytingida yutib olingan.',
     smith: 'Temirchixonada yasalgan.',
     mob: '{zone} hududi maxluqlaridan tushadi.',
@@ -1346,6 +1555,15 @@ export default {
     secret: '{zone} hududidagi sirli sandiqda yashiringan.'
   },
   mod: {
+    'demonBane': "Iblislarga +{n}% zarar",
+    'demonLeech': "Iblislarga yetkazilgan zararning {n}% sizni davolaydi",
+    'beastBane': "Afsonaviy maxluqlarga +{n}% zarar",
+    'fireWard': "Olovdan olinadigan zarar {n}% kam",
+    'shadowWard': "Soyadan olinadigan zarar {n}% kam",
+    'demonWard': "Iblislardan olinadigan zarar {n}% kam",
+    'pylonBreaker': "Iblis piloniga +{n}% zarar",
+    'glassFinder': "Oʻldirilgan iblis qoʻshimcha iblis shishasi qoldirishi ehtimoli {n}%",
+    'waterWalk': "Suv sizni sekinlashtirmaydi",
     str: '+{n} Kuch',
     dex: '+{n} Chaqqonlik',
     int: '+{n} Aql',
@@ -1421,6 +1639,24 @@ export default {
     songLength: 'Qo\'shiqlar {n}% uzoqroq davom etadi'
   },
   item: {
+    'chimeraMane': { 'name': "Ximera yoli" },
+    'triFang': { 'name': "Uch tish" },
+    'warchiefsLongbowGun': { 'name': "Sardorning kamon-miltigʻi" },
+    'hoofbreakerGreaves': { 'name': "Tuyoqsindirar boldirlik" },
+    'eyeOfTheDeep': { 'name': "Chuqurlik koʻzi" },
+    'beamSplitter': { 'name': "Nur boʻlgich" },
+    'riddleCrown': { 'name': "Topishmoq toji" },
+    'sandglassWand': { 'name': "Qum soat tayoqchasi" },
+    'leviathanScale': { 'name': "Leviafan tangachasi" },
+    'tidecallerStaff': { 'name': "Toʻlqin chaqiruvchi hassasi" },
+    'hydraScaleGauntlets': { 'name': "Gidra tangachali qoʻlqoplar" },
+    'manyHeadedFlail': { 'name': "Koʻp boshli kistin" },
+    'heartOfTheElderDragon': { 'name': "Qadimiy ajdarning yuragi" },
+    'dragonboneGreatsword': { 'name': "Ajdar suyagidan ikki qoʻlli qilich" },
+    'bastionBanner': { 'name': "Qalʼa bayrogʻi" },
+    'wallwardensPlate': { 'name': "Devor qoʻriqchisining sovuti" },
+    'gatebreaker': { 'name': "Darvozabuzar" },
+    'crownOfTheLastBastion': { 'name': "Soʻnggi Qalʼaning toji" },
     heartOfTheArena: {
       name: 'Arena yuragi'
     },
@@ -3418,8 +3654,17 @@ export default {
     known: 'Oʻrganilgan',
     friend: '{faction} doʻstlarini qadrlaydi: 20% chegirma.',
     fee: 'Haq',
+    rank: {
+      label: '{n}-daraja',
+      up: 'Darajani oshirish',
+      effect: '+{effect}% taʼsir, −{cd}% qayta tiklanish',
+      max: 'Eng yuqori daraja',
+      level: '{n}-daraja uchun {lvl}-bosqich kerak.'
+    },
     hint: 'Dars tanlang. Yashil hoshiya hozir oʻrgana olishingizni bildiradi.',
     block: {
+      'trial': "Sen bu sinfning sinovidan hali o‘tmagansan.",
+      'parents': "Avval {a} va {b} sinflaridan bittadan mahorat o‘rgan.",
       level: 'Darajangiz juda past.',
       attrs: 'Xususiyatlaringiz juda past.',
       gold: 'Oltin yetarli emas.'
@@ -3444,6 +3689,20 @@ export default {
     circle: 'Efir Doirasi'
   },
   npc: {
+    'mysteriousWanderer': { 'name': "Sirli sayyoh" },
+    'fairPip': { 'name': "Pip" },
+    'fairBess': { 'name': "Qari Bess" },
+    'fairHob': { 'name': "Hob" },
+    sunkenPriest: { name: "Cho‘kkan kohin" },
+    'fortHale': {
+      'name': "Kapitan Hale",
+    },
+    'fortMara': {
+      'name': "Oqsoqol Mara",
+    },
+    'scoutWren': {
+      'name': "Razvedkachi Wren",
+    },
     frostDisciple: {
       name: 'Ivor Hask'
     },
@@ -3733,6 +3992,185 @@ export default {
     }
   },
   dlg: {
+    // ── The Mysterious Wanderer (afterplay phase 10) ──
+    'mysteriousWanderer': {
+      'hello': { '1': "Xo‘sh. Sen kamdan-kam kishi qila olgan ishni qilding. Men buni yoriqning narigi tomonida sezdim.", '2': "Men ikki maktabni birga qo‘shadigan eski yo‘llarni o‘rgataman. Faqat ularga loyiq bo‘lganlarga." },
+      'sealed': { '1': "Sen uni muhrlading. Achinarli, bir jihatdan. Menga manzara yoqardi." },
+      'ajar': { '1': "Sen uni qiya ochiq qoldirding. Jasorat. Iblislar seni hushyor tutadi." },
+      'again': { '1': "Yana keldingmi. Yo‘l uzoq, lekin sen uni yaxshi bosib o‘tasan." },
+      'train': { '1': "Menga kimligingning ikki yarmini ko‘rsat, men ularni bitta qilaman." },
+      'trial': { 'say': "Qanday sinovlarni aytyapsan?", '1': "Tirnalmay himoya qilingan darvoza. Bir marta yiqilmay o‘ldirilgan ajdar. Beshta do‘zax zarbi va ketma-ket beshta g‘alaba.", '2': "Leviafanning o‘limi va gidra oldida mukammal raund. Har biri men ko‘rsata oladigan eshikni ochadi." },
+      'who': { '1': "Sayyoh. Bobong tug‘ilmasidan oldin yoriq chetida yurganman. Ismlar eskiradi." },
+      'trainBack': { '1': "Mashq qil. Ikki maktab kelishgunicha bahslashadi." },
+      'bye': { '1': "Ehtiyot bo‘lib yur. Men shu yerda bo‘laman, yo‘q bo‘lgunimcha." }
+    },
+    'fairPip': {
+      'hello': { '1': "Yaqinlashing! To'qqizta bochka, bir to'da ajina va bitta to'qmoq. Ularni qaytarib urib kiriting!", '2': "Ajinalar bochkalardan sakrab chiqadi. Qum tugaguncha yigirmatasini ur.", '3': "Oltin sovutlilarga tegma, ular bitta jon oladi. Ketma-ket uch g'alaba, katta sovrin seniki." },
+      'again': { '1': "Yana urmoqchimisan? To'qmoqni ol!" },
+      'play': { '1': "To'qmoq tepaga! Kelishyapti!" },
+      'who': { '1': "Pip, kasbim ajina tutish. Bularni o'zim tutganman. Tishlashadi." },
+      'playBack': { '1': "Ha! Qanday shovqin! Yana?" },
+      'bye': { '1': "To'qmoqli qo'lingni bo'sh qo'y!" }
+    },
+    'fairBess': {
+      'hello': { '1': "Beshta halqa, uchta bosh, birortasi ham tishlamaydi. O'zim o'yib yasaganman, bo'yoqqa ehtiyot bo'l.", '2': "Siltov uchun bosib tur, otish uchun qo'yib yubor. Bosh halqani faqat o'rtaga tebranganda tutadi.", '3': "Ketma-ket har bir bosh bittaga ko'p hisoblanadi. Beshalasini ham tushirsang, munosib to'layman." },
+      'again': { '1': "Yana mening kampirim bilan omadingni sinab ko'rgani keldingmi?" },
+      'play': { '1': "Mana halqalaring. Sekin ot, jonim." },
+      'who': { '1': "Yarmarka yo'llarida qirq yil. Gidra urush bilan keldi. O'rinli tuyuldi." },
+      'playBack': { '1': "Yomon emas. Marhum erim bundan yomonroq otardi." },
+      'bye': { '1': "Chiqishda bo'yoqqa ehtiyot bo'l." }
+    },
+    'fairHob': {
+      'hello': { '1': "O. Salom. Bilak kurashi qilasanmi? Sekin qilaman. Harakat qilaman.", '2': "Halqa doiraga tekkanda bos. Ritmdan chiqsang, sirpanib ketasan.", '3': "Kuchli qo'llar yordam beradi. Meni ketma-ket uch marta yeng, Usta temirchi senga chegirma beradi." },
+      'again': { '1': "Yana bir raundmi? Hech kim hech qachon yana bir raund uchun qaytmaydi." },
+      'play': { '1': "Tirsak stolga. Qachon xohlasang." },
+      'who': { '1': "Men Usta temirchining shogirdiman. U o'z kuchimni bilmasligimni aytadi." },
+      'playBack': { '1': "Yaxshi bellashuv. Ertaga qo'lim og'riydi. Ehtimol." },
+      'bye': { '1': "Tezroq qayt. Temirxona juda jim." }
+    },
+    // ── The Breaking (the afterplay, B0–B5) ──
+    'story': {
+      forge: { back: { '1': "Ustaxonam yana yonmoqda, avvalgidan ham issiq. Iblis temiri yaxshi eriydi.", '2': "U yerda nima topsang, olib kel. Endi uni do‘zaxiy qilib zarb eta olaman." } },
+      oracle: { lens: { '1': "Bir paytlar sen meni ozod qilgansan. Endi men sen uchun ko‘raman. Linzamni ol.", '2': "Unga qarab boq, xarita ulkan maxluqlar qayerda kutayotganini ko‘rsatadi." } },
+      priest: { lens: { '1': "Bashoratchi yo‘q, shuning uchun endi uning ibodatxonasini men qo‘riqlayman. Buni Sfinks qo‘riqlagan.", '2': "Uning linzasi. Unga qarab boq, xarita ulkan maxluqlar qayerda kutayotganini ko‘rsatadi." } },
+      herbs: { scale: { '1': "Leviafanning tangachasi! Bargdek yengil, suvda ham suzadi.", '2': "Uni taq, sayoz suv seni mustahkam yerdek tutib turadi." } },
+      ghost: { key: { '1': "Demak, taxtimni olgan sen ekansan. Gidramni o‘ldirding. Yaxshi.", '2': "Uning olov kalitini ol. Yoriqning yuragi yonmoqda, uni faqat olov ochadi." } },
+      syndicate: { key: { '1': "Gidra o‘ldimi? Unda olov kaliti kim pul to‘lasa, o‘shaniki. Yoki seniki, shekilli.", '2': "U yoriqning yuragini ochadi. Borib uni yop, ishlarimni yutib yubormasdan oldin." } },
+      sealed: {
+        sealed: { '1': "Shunday qilib yoriq muhrlandi va dunyo tuzala boshladi.", '2': "Shaharlar qayta qurildi, qo‘shiqlar yozildi, ularning barchasida bitta ism bor edi." },
+        ajar: { '1': "Shunday qilib yoriq qiya ochiq qoldi va dunyo uning yonida yashashni o‘rgandi.", '2': "Devorlarda soqchilar turdi, kolizey shovqinli bo‘ldi, qahramon esa doim tayyor." },
+      },
+      'rift': {
+        'scream': {
+          '1': "Boʻshliq Hukmdori yiqiladi va uning ortidagi yoriq qichqiradi.",
+          '2': "Bu hech qachon uning taxti boʻlmagan. Bu uning qafasi edi, u esa qopqogʻi.",
+          '3': "Endi yoriq ochiq va boʻshliq uxlatib turgan hamma narsa uygʻonmoqda.",
+        },
+      },
+      'wren': {
+        'found': {
+          '1': "Mana sen! Men Wren, razvedkachiman. Seni hamma joydan qidirdim.",
+          '2': "Sunford yonmoqda. Qocha olganlarning hammasi Qalʼa kechuviga ketdi.",
+          '3': "Bu Kul qoyalariga boradigan yoʻldagi eski qalʼa. Shoshil, ularga sen kerak.",
+        },
+      },
+    },
+    'scoutWren': {
+      sealed: { '1': "Ajdar yo‘q bo‘ldi! Yo‘llar hozirdanoq yengil tuyulmoqda." },
+      'hello': {
+        '1': "Kelding! Bilardim. Qalʼa kechuviga xush kelibsan.",
+        '2': "Kapitan uchun yoʻllarni razvedka qilaman. Xavf qayerda ekanini mendan soʻra.",
+      },
+      'again': {
+        '1': "Allaqachon qaytdingmi? Yoʻllar oʻzini oʻzi razvedka qilmaydi.",
+      },
+      'who': {
+        '1': "Wren. Sunford yonmasdan oldin qoʻriqchilarga xabar tashirdim.",
+      },
+      'rumor': {
+        'plains': {
+          '1': "Iblislar Sunford tekisliklari yoʻlini egallagan. Sunford ustozlari uning ortida qolib ketgan.",
+        },
+        'hollows': {
+          '1': "Goblin gʻorlari doʻzax itlariga toʻla. Ularni tozala, Sunford xalqi uyiga qaytsin.",
+        },
+        'woods': {
+          '1': "Shivirlovchi oʻrmonda uch boshli nimadir ov qilyapti. Giyohchi ayol oʻsha yerda yashiringan.",
+        },
+        'outskirts': {
+          '1': "Kentavrlar Oakhaven atrofida chopib yuribdi. Devorlarga yetsa, har bir qilich kerak boʻladi.",
+        },
+        'siege': {
+          '1': "Ularning toʻdasi tor-mor boʻldi, lekin yangilari toʻplanmoqda. Kapitan devorlarni tayyorlamoqda.",
+        },
+      },
+      'bye': {
+        '1': "Yoʻllarni kuzat. Men ham kuzataman.",
+      },
+    },
+    'fortHale': {
+      sealed: { '1': "Ajdar o‘ldi. Buni ko‘raman deb hech o‘ylamagandim. Rahmat." },
+      'siegeBack': { '1': "Hali emasmi? Unda dam ol. Devorlar seni kutadi." },
+      'bell': { '1': "Unda darvozaga. Ayt-chi, uni qanchalik qattiq ushlaymiz." },
+      'hello': {
+        '1': "Yetib kelding. Yaxshi. Bizga har bir qilich kerak, hozir har qachongidan ham koʻproq.",
+        '2': "Qalʼa kechuviga xush kelibsan. Eski devorlar, lekin hali tik turgan yagonalari.",
+      },
+      'road': {
+        '1': "Sunfordga yoʻl yana ochiq. Uning xalqi devorlarimiz ortida xavfsiz.",
+      },
+      'herbs': {
+        '1': "Giyohchi ayol giyohlari bilan qaytdi. Shifoxona nafas rostlashi mumkin.",
+      },
+      'siege': {
+        '1': "Kentavrlarni tor-mor qilding. Lekin kattaroq qoʻshin kelyapti va u shu devorlar uchun kelyapti.",
+      },
+      'again': {
+        '1': "Hali tik turibmiz. Devorlar, odamlar va men.",
+      },
+      'fort': {
+        '1': "Eski chegara qalʼasi. Osmon yirtilguncha ellik yil boʻsh turgan.",
+        '2': "Endi u tekisliklar va togʻlar orasidagi soʻnggi xavfsiz joy.",
+        'say': "Bu qanday joy?",
+      },
+      'rumor': {
+        'road': {
+          '1': "Tekislik va gʻorlarni tozala. Sunford xalqi oʻsha yerda qolib ketgan.",
+        },
+        'woods': {
+          '1': "Giyohchi ayol Shivirlovchi oʻrmonda, uch boshli maxluq ham. Tayyor tur.",
+        },
+        'centaurs': {
+          '1': "Atrofda kentavrlar. Bizga yetmasdan toʻdasini tor-mor qil.",
+        },
+        'siege': {
+          '1': "Dam ol. Qamal qoʻngʻirogʻi chalinganda seni devorda kutaman.",
+        },
+      },
+      'bye': {
+        '1': "Qilichingni yaqin tut.",
+      },
+    },
+    'fortMara': {
+      sealed: { '1': "Uddaladin, bolam. Har birimiz senga bir uy qarzdormiz." },
+      'siegeBack': { '1': "Biroz dam ol, bolam. Qoʻngʻiroq yana chalinadi." },
+      'bell': { '1': "Kapitanning devorlarini endi men qoʻriqlayman. Ularni qanday ushlashimizni tanla." },
+      'hello': {
+        '1': "Bolam! Tiriksan. Sunford yonganda eng yomonidan qoʻrqqandim.",
+        '2': "Endi biz askarlar qalʼasida mehmonmiz, kampirlar ham.",
+      },
+      'command': {
+        '1': "Kapitan Hale Oakhaven bilan birga halok boʻldi. Endi qalʼa keksa oqsoqolga quloq soladi.",
+      },
+      'home': {
+        '1': "Sunford qayta qurilmoqda! Birinchi tomlar koʻtarildi. Yigʻlab yuborishim mumkin.",
+      },
+      'again': {
+        '1': "Hali shu yerdaman, bolam. Hali boshlarni sanayapman.",
+      },
+      'town': {
+        '1': "Iblislar tungi osmondan tushdi. Koʻtara olganimiz bilan qochdik.",
+        '2': "Baʼzilarimiz chiqa olmadi. Qoʻlingdan kelsa, qolganlarini uyga olib kel.",
+        'say': "Sunfordga nima boʻldi?",
+      },
+      'rumor': {
+        'road': {
+          '1': "Ustozlarimiz hali Sunford yoʻlida. Ularni bu yerga olib kel, bolam.",
+        },
+        'woods': {
+          '1': "Giyohchi ayol giyoh terish uchun Shivirlovchi oʻrmonga ketdi va qaytmadi.",
+        },
+        'centaurs': {
+          '1': "Atrofda chavandozlar. Har tun momaqaldiroqdek tuyoqlar.",
+        },
+        'siege': {
+          '1': "Devorlar tez orada sinovdan oʻtadi. Buni keksa suyaklarimda sezyapman.",
+        },
+      },
+      'bye': {
+        '1': "Ehtiyot boʻlib bor, bolam.",
+      },
+    },
     intro: {
       crossing: { 1: 'Bu dunyoning har bir yoʻli chorrahada tutashadi… va har bir chorraha — jang.' },
       hero: { 1: 'Sunfordning sokin dalalaridan yosh qahramon yoʻlga chiqdi.' },
@@ -4183,6 +4621,7 @@ export default {
       }
     },
     hero: {
+      'siege': "Devorlarga chiqaylik.",
       forge: 'Oʻchogʻingdan foydalanmoqchiman.',
       learnSmith: 'Menga temirchilikni oʻrgatasanmi?',
       ore: 'Sotadigan biroz rudam bor.',
@@ -4489,7 +4928,7 @@ export default {
       },
       map: {
         '1': 'Kapitan Rookning xaritasi! Goblinlar uni tutib olishidan oldin u xaritani yirtib, boʻlaklarini yashirib qoʻygan.',
-        '2': 'Ulardan oltitasini top, atrofda yana bir nechtasi sochilib yotibdi, X senga yoʻlni koʻrsatadi: Kul qoyalarining bir joyida. Oʻsha yerni qazi, oltin seniki boʻladi.',
+        '2': "Boʻlaklardan oltitasini top, X senga yoʻlni koʻrsatadi: Kul qoyalarining bir joyida. Oltin uchun oʻsha yerni qazi.",
         say: 'Eski xaritaning bir boʻlagini topdim.'
       }
     },
@@ -5455,6 +5894,11 @@ export default {
       }
     },
     quest: {
+      seal: {
+        ask: { '1': "Qadimiy ajdar o‘ldi va yoriq oldingda ochiq turibdi.", '2': "Uni hozir abadiy muhrlashing mumkin. Maxluqlar yana uyquga ketadi.", '3': "Yoki uni qiya ochiq qoldirib, eng jasurlarga undan chiqqanlar bilan kuch sinashishga imkon berishing mumkin." },
+        seal: { say: "Muhrla uni. Abadiy.", '1': "Yoriq bitayotgan yaradek yopiladi va osmon jim bo‘ladi." },
+        ajar: { say: "Qiya ochiq qoldir. Biz tayyor bo‘lamiz.", '1': "Yoriq qiya ochiq qoladi va uning ortida nimadir kuladi." },
+      },
       goblinKing: {
         ask: {
           '1': 'Toʻxta. Iltimos. Taslim boʻlaman.',
@@ -5586,6 +6030,64 @@ export default {
       }
     },
     bark: {
+      sphinx: {
+        intro: { '1': "Javob ber, kichkintoy, aks holda qumim seni ko‘mib yuboradi." },
+        riddle: { '1': "Unda topishmoq. Men ko‘rsatgan joyga, o‘sha tartibda qadam bos." },
+        sand: { '1': "Bu safar beshta. Qumim esa kutib turmaydi." },
+        death: { '1': "Yaxshi javob berding. Qum endi seniki." },
+      },
+      leviathan: {
+        intro: { '1': "Endi sen mening suvimda yuribsan." },
+        sink: { '1': "Kichik orolchalaring cho‘kmoqda." },
+        grab: { '1': "Men bilan tubsizlikka tush!" },
+        death: { '1': "Qaytgan suv ketadi va boshqa qaytmaydi." },
+      },
+      hydra: {
+        intro: { '1': "Bir boshni kes, ikkitasi o‘sib chiqadi!" },
+        heads: { '1': "Ko‘proq bosh, ko‘proq tish!" },
+        rage: { '1': "Bizni yoqmoqchimisan? Unda biz bilan birga yon!" },
+        death: { '1': "Boshqa bosh yo‘q. Boshqa yo‘q." },
+      },
+      elderDragon: {
+        intro: { '1': "Sening zoting olovni tanimasdan oldin men dunyo ostida uxlardim." },
+        flight: { '1': "Unda kichik toshlaring ortiga yashirin." },
+        rift: { '1': "Yoriq meni ortga tortmoqda. Hali emas!" },
+        death: { '1': "Unda uni muhrla. Men zulmatdan charchadim." },
+      },
+      'siegeHale': {
+        'start': {
+          '1': "Kelishyapti! Darvozani ushlang!"
+        },
+        'ram': {
+          '1': "Devorbuzar! Darvozaga yetmasdan uni oʻldiring!"
+        },
+        'horn50': {
+          '1': "Darvozaning yarmi ketdi! Chidang!"
+        },
+        'horn25': {
+          '1': "Darvoza uzoqqa bardosh bermaydi!"
+        },
+        'won': {
+          '1': "Ular tor-mor boʻldi! Qalʼa turibdi!"
+        }
+      },
+      'siegeMara': {
+        'start': {
+          '1': "Kelishyapti! Hammangiz mahkam turing!"
+        },
+        'ram': {
+          '1': "Devorbuzar! Darvozani sindirmasdan toʻxtating!"
+        },
+        'horn50': {
+          '1': "Darvozaning yarmi quladi. Chidang!"
+        },
+        'horn25': {
+          '1': "Darvoza boʻshashyapti! Ularni orqaga suring!"
+        },
+        'won': {
+          '1': "Qochishyapti! Qalʼa hali turibdi!"
+        }
+      },
       banditChief: {
         whistle: {
           1: 'Turinglar, bolalar! Tishlanglar ularni!'
@@ -5594,6 +6096,11 @@ export default {
       lightDisciple: {
         freed: {
           '1': 'Seni nur yubordi. Men Rohiba Aurelle. Meni Sunford shahridan izla, senga Nur keltiruvchi yoʻlini oʻrgataman.'
+        }
+      },
+      trainerAegis: {
+        freed: {
+          '1': 'Bizni qaroqchilardan qutqarganing uchun rahmat! Gulxanga kel: hammamiz o\'rgatamiz, birinchi dars bepul.'
         }
       },
       frostDisciple: {
@@ -5649,6 +6156,48 @@ export default {
         },
         dive: {
           '1': 'Tiz choʻk.'
+        }
+      },
+      chimera: {
+        intro: {
+          '1': "Uch bosh, bitta ochlik. Qaysimiz birinchi tishlaymiz?"
+        },
+        twin: {
+          '1': "Endi ikkimiz. Tomoningni yaxshi tanla."
+        },
+        tail: {
+          '1': "Dumim! Buning uchun to'laysan!"
+        },
+        death: {
+          '1': "Uch bosh, ammo birortasi buni oldindan ko'rmadi."
+        }
+      },
+      centaurWarchief: {
+        intro: {
+          '1': "Qochsang qoch. O'qlarim tezroq yuguradi."
+        },
+        raiders: {
+          '1': "Chavandozlar! Ularni toptang!"
+        },
+        rear: {
+          '1': "O'q yetar. Seni toptab tashlayman!"
+        },
+        death: {
+          '1': "Bu dashtlar tuyoqlarimni eslab qoladi."
+        }
+      },
+      cyclops: {
+        intro: {
+          '1': "Bu yerda kichkina nimadir bor. Yaqinroq kel. Ko'ray-chi."
+        },
+        cover: {
+          '1': "Endi qarash yo'q. Ko'zimni ololmaysan!"
+        },
+        blind: {
+          '1': "Seni ko'rmayman, lekin eshitaman!"
+        },
+        death: {
+          '1': "Qorong'i. Hammasi qorong'i bo'lib qoldi."
         }
       },
       frostJarl: {
@@ -6773,7 +7322,20 @@ export default {
       }
     }
   },
+  invasion: {
+    pylonsDown: 'Oxirgi ustun quladi — xazinasi sochilib ketdi!',
+    reborn: {
+      tusker: 'Qayta tugʻilgan Tusker',
+      emberLord: 'Doʻzaxiy Choʻgʻ hukmdori',
+      frostJarl: 'Qayta tugʻilgan Ayoz yarli',
+      voidDragon: 'Qayta tugʻilgan Boʻshliq ajdari'
+    }
+  },
   enemy: {
+    sphinx: "Sfinks",
+    leviathan: "Leviafan",
+    hydra: "Gidra",
+    elderDragon: "Qadimiy ajdar",
     trainingDummy: 'Mashq qoʻgʻirchogʻi',
     goblin: 'Goblin',
     goblinSlinger: 'Palaxmonchi goblin',
@@ -6798,6 +7360,10 @@ export default {
     naga: 'Naga',
     skeleton: 'Skelet',
     necromancer: 'Nekromant',
+    chimera: "Ximera",
+    chimeraTail: "Ilon dum",
+    centaurWarchief: "Kentavrlar sarkardasi",
+    cyclops: "Siklop",
     frostJarl: 'Ayoz yarli',
     nagaOracle: 'Choʻkkan bashoratchi',
     voidStalker: 'Boʻshliq ovchisi',
@@ -6810,6 +7376,7 @@ export default {
     archDemon: 'Bosh Iblis',
     voidling: 'Boʻshliq bolasi',
     voidLord: 'Boʻshliq hukmdori',
+    demonPylon: 'Iblis ustuni',
     orderGuard: 'Orden inkvizitori',
     syndicateBlade: 'Sindikat tigʻi',
     goblinWarchief: 'Goblin sarkardasi',
@@ -6826,7 +7393,19 @@ export default {
     goblinTyrant: 'Goblin zolimi',
     voidDrake: 'Boʻshliq yosh ajdari',
     pitLord: 'Tubsizlik hukmdori',
-    frostThane: 'Ayoz beki'
+    frostThane: 'Ayoz beki',
+    hellhound: 'Doʻzax iti',
+    frostHellhound: 'Ayoz doʻzax iti',
+    gargoyle: 'Gargoyl',
+    harpy: 'Garpiya',
+    corruptedTreant: 'Buzilgan daraxtodam',
+    centaurRaider: 'Kentavr bosqinchi',
+    cyclopsBrute: 'Siklop bezori',
+    demonMiner: 'Iblis konchi',
+    sphinxAcolyte: 'Sfinks muridi',
+    seaDemon: 'Dengiz iblisi',
+    drakeHatchling: 'Ajdar bolasi',
+    hydraSpawn: 'Gidra zoti'
   },
   results: {
     careful: 'Ehtiyotkor gʻalaba ×{mult}',
@@ -7139,6 +7718,8 @@ export default {
     town: 'Istalgan shahar temirchisi buni kuchaytira oladi.'
   },
   ore: {
+    'demonglass': { 'name': "Iblis shishasi" },
+    'ichor': { 'name': "Afsonaviy ixor" },
     iron: {
       name: 'Temir rudasi'
     },

@@ -1,5 +1,170 @@
 // Latvian (lv) bundle — mirrors en.ts.
 export default {
+  // ─── Afterplay phase 8: items, materials and capstones ───
+  // ─── Afterplay phase 10: the prestige classes ───
+  'prestige': { 'toast': { 'wanderer': "Noslēpumainais klejotājs gaida cietoksnī." } },
+  'relic': {
+    'infernal': "{name} · Elles",
+    'set': "Valkājot kopā ar {item}:",
+    'heroicBadge': "Varonīgs {n}",
+    'heroic': "Varonīgs {n}: {gold} zelta, {glass} dēmonu stikla",
+    'heroicIchor': "Varonīgs {n}: {gold} zelta, {glass} dēmonu stikla, {ichor} ihora",
+    'heroicMax': "Visas varonīgās pakāpes iegūtas.",
+    'infernalForge': "Elles kalšana: {gold} zelta, {glass} dēmonu stikla",
+    'lens': "Orākula lēca: šeit gaida {boss}.",
+    'hydraKey': "Aizzīmogots. Hidras uguns atslēga atver Plaisas sirdi.",
+    'marksGlass': "Pirkt {glass} dēmonu stikla par {marks} zīmēm",
+    'capstone': "Virsotne",
+    'fortOnly': "Šo virsotni māca tikai Bastiona braslā."
+  },
+  // ─── The fort's fair games (afterplay §9) ───
+  'fair': {
+    'fee': "Spēlēt · {n}",
+    'again': "Spēlēt vēlreiz",
+    'noGold': "Nepietiek zelta.",
+    'capped': "Zonas, kas jāiztīra, līdz atgriezīsies lielās balvas: {n}",
+    'top': "Galvenā balva! +{gold} zelts, +{xp} PP",
+    'topGold': "Galvenā balva, tikai zeltā: +{n} zelts",
+    'won': "Uzvara! +{n} zelts",
+    'lost': "Neveiksme. Sērija sākas no jauna.",
+    'row': "Uzvaras pēc kārtas: {n} no {max}",
+    'mats': "+{n} Varoņu+ materiāls",
+    'discount': "Kalējs tagad dod {n}% atlaidi uzlabojumiem!"
+  },
+  'whack': {
+    'title': "Iesit velnēnam",
+    'lead': "Trāpi 20 velnēniem 30 sekundēs. Zelta bruņotos liec mierā: katrs trāpītais maksā dzīvību.",
+    'hits': "Velnēni: {n} / {max}",
+    'lives': "Dzīvības: {n}",
+    'time': "Laiks: {n} s",
+    'hint': "Pieskaries velnēniem vai spied 1–9.",
+    'barrel': "Muca {n}",
+    'timeout': "Laiks beidzies!",
+    'dead': "Dzīvības beigušās!"
+  },
+  'ring': {
+    'title': "Gredzenu mešana Hidrai",
+    'lead': "Turi, lai uzkrātu spēku, atlaid, lai mestu. Galva noķer gredzenu tikai sava šūpojuma vidus tuvumā. Katra galva pēc kārtas ir punktu vairāk vērta.",
+    'hint': "Turi un atlaid uz galda vai turi atstarpi.",
+    'rings': "Atlikušie gredzeni: {n}",
+    'score': "Punkti: {n}",
+    'hit': "Trāpīts! +{n}",
+    'miss': "Garām!",
+    'perfect': "Ideāla kārta!",
+    'nothing': "Punkti {n}. Šoreiz bez balvas.",
+    'power': "Spēks"
+  },
+  'arm': {
+    'title': "Roku laušana",
+    'lead': "Pieskaries, kad gredzens satiek apli, lai nospiestu viņa roku. Spēks paplašina ritmu. Trīs uzvaras pēc kārtas dod kalēja atlaidi, piecas dod Varoņu+ materiālu.",
+    'hint': "Pieskaries galdam vai spied atstarpi.",
+    'good': "Spied!",
+    'off': "Ārpus ritma!"
+  },
+  // ─── The Siege of Bastion (afterplay §8) ───
+  'siege': {
+    'title': "Bastiona brasla aplenkums",
+    'lead': "Noturi vārtus desmit viļņus. Starp viļņiem tērē aplenkuma zīmes aizsardzībai.",
+    'story': "Orda ir pie vārtiem. Izturi desmit viļņus: šo pirmo aplenkumu nevar zaudēt.",
+    'bell': "Skan aplenkuma zvans! Orda pulcējas pie vārtiem.",
+    'mapBell': "Aplenkums!",
+    'start': "Zvani zvanu",
+    'wins': "Uzvaras: {n}",
+    'marksBank': "Uzkrātās aplenkuma zīmes: {n}",
+    'tier': {
+      'normal': "Parasts",
+      'hard': "Grūts",
+      'nightmare': "Murgs"
+    },
+    'tierDesc': {
+      'normal': "Ienaidnieki vienu līmeni virs tevis.",
+      'hard': "Ienaidnieki 3 līmeņus augstāk ar par 30 % vairāk dzīvības.",
+      'nightmare': "Ienaidnieki 6 līmeņus augstāk un divi mītiskās elites viļņi."
+    },
+    'locked': {
+      'hard': "Vispirms uzvari parastā aplenkumā.",
+      'nightmare': "Atveras, kad plaisa aizzīmogota vai atstāta pusvirus."
+    },
+    'lord': "Aplenkuma valdnieks",
+    'hud': {
+      'wave': "Vilnis {n}/{total}",
+      'marks': "Zīmes: {n}",
+      'gate': "Vārti {pct} %",
+      'build': "{n}. vilnis pēc {s} s",
+      'ready': "Gatavs!",
+      'buy': "{name}: {n} zīmes"
+    },
+    'def': {
+      'ballista': {
+        'name': "Ballista",
+        'desc': "Ik pēc 2 sekundēm izšauj caururbjošu bultu pa savu joslu."
+      },
+      'cauldron': {
+        'name': "Uguns katls",
+        'desc': "Aizdedzina savas joslas šaurumu."
+      },
+      'barricade': {
+        'name': "Barikāde",
+        'desc': "Aizšķērso joslu uz 20 sekundēm."
+      },
+      'militia': {
+        'name': "Milicija",
+        'desc': "Divi sargi cīnās tev blakus."
+      },
+      'repair': {
+        'name': "Salabot vārtus",
+        'desc': "Atjauno ceturtdaļu vārtu."
+      }
+    },
+    'block': {
+      'marks': "Nepietiek aplenkuma zīmju.",
+      'full': "Vairs nav vietas.",
+      'phase': "Tikai starp viļņiem."
+    },
+    'toast': {
+      'cleared': "{n}. vilnis atsists! +{marks} zīmes",
+      'clearedUnharmed': "{n}. vilnis atsists, vārti neskarti! +{marks} zīmes",
+      'horn': "Skan rags! Vārtiem palikuši {pct} %.",
+      'ram': "Tarāns! Aptur to, pirms tas sasniedz vārtus!",
+      'rally': "Atkal kājās! Noturi vārtus!"
+    },
+    'banner': {
+      'wave': "{n}. vilnis",
+      'final': "Aplenkuma valdnieks!"
+    },
+    'result': {
+      'tier': "Bastiona brasla aplenkums: {tier}",
+      'waves': "Atsisti viļņi: {n}/{total}",
+      'marks': "Saglabātās aplenkuma zīmes: {banked} no {earned}",
+      'glass': "Dēmonu stikls: +{n}"
+    },
+    'milestone': {
+      'normal1': "Pagrieziena punkts: Bastiona karogs.",
+      'normal5': "Pagrieziena punkts: Mūru sarga bruņas.",
+      'hard1': "Pagrieziena punkts: Veterāna instinkts, piektā pasīvā vieta.",
+      'hard5': "Pagrieziena punkts: Vārtu lauzējs.",
+      'nightmare1': "Pagrieziena punkts: Pēdējā bastiona kronis.",
+      'hardFlawless': "Pagrieziena punkts: atslēga uz slēptu klases pārbaudi."
+    }
+  },
+  // ─── The Breaking (the afterplay's story) ───
+  'breaking': {
+    'title': "Plīsums",
+    'toast': {
+      brk6: "Kalēju meistars atguvis savu kalvi. Elles kalšana ir atvērta.",
+      brk7: "Sfinksa ir mirusi. Orākula lēca rāda, kur gaida lielie zvēri.",
+      brk8: "Leviatāns ir miris. Tā zvīņa ļauj staigāt pa seklumu.",
+      brk9: "Hidra ir mirusi. Tās uguns atslēga ir tava.",
+      brk10: "Senais pūķis ir miris. Plaisa ir atvērta.",
+      sealed: "Plaisa ir aizzīmogota. Tu esi Plaisas Aizzīmogotājs.",
+      ajar: "Plaisa paliek pavērta. Dēmoni pārbaudīs mūrus un kolizeju.",
+      'brk2': "Bastiona brasls tevi uzņem. Tā ļaudis tagad paļaujas uz tevi.",
+      'rescued': "Izdzīvojušie izglābti! Viņi ir drošībā Bastiona braslā.",
+      'brk3': "Ceļš ir brīvs. Sanfordas ļaudis ir drošībā.",
+      'brk4': "Zāļu sieva pievienojas cietoksnim.",
+      'brk5': "Kentauru bars ir sakauts. Cietoksnis gatavojas aplenkumam.",
+    },
+  },
   // ─── The intro (#130): its skip, and its narrator's name ───
   intro: {
     narrator: 'Hronists',
@@ -88,6 +253,7 @@ export default {
     gold: '{n} zelta',
     potion: 'Veselības dzira (atlikušas: {n})',
     manaPotion: 'Manas dzira (atlikušas: {n})',
+    potionStop: 'Izdzer veselības dziru, lai turpinātu',
     groups: 'Sakautas ienaidnieku grupas: {n} no {total}',
     wave: 'Vilnis {n} / {total}',
     roll: 'Ripošana',
@@ -261,6 +427,10 @@ export default {
     escort: 'Sargā karavānu'
   },
   node: {
+    'bastion': {
+      'name': "Bastiona brasls",
+      'desc': "Sens robežcietoksnis, pēdējie mūri, kas vēl stāv. Šeit pulcējas izdzīvojušie.",
+    },
     sunford: {
       name: 'Sanforda',
       desc: 'Zemnieku pilsētiņa līdzenumu malā. Mājas, kalējs un divi skolotāji.'
@@ -343,6 +513,9 @@ export default {
     locked: 'Iztīri blakus esošu zonu, lai atvērtu ceļu.',
     lockedArena: 'Vārti atvērsies, kad būs izlemts Goblinu karaļa liktenis.',
     lockedRift: 'Tā atvērsies, kad būs izlemts Šausmu cietokšņa troņa liktenis.',
+    invaded: 'Iekarota',
+    invadedDesc: 'Šo zemi valda dēmoni. To pilonu tuvumā ienaidnieki sit stiprāk, plaisas rētas dedzina un palēnina, un katrs šeit uzvarēts ienaidnieks ir vairāk vērts.',
+    lockedInvaded: 'Dēmoni to tur cieši. Vispirms atgūsti {zone}.',
     danger: {
       '1': 'Nedaudz virs tava līmeņa.',
       '2': 'Bīstami tavam līmenim.',
@@ -469,6 +642,11 @@ export default {
     }
   },
   class: {
+    // ── The prestige classes (afterplay phase 10) ──
+    'demonhunter': { 'name': "Dēmonu mednieks", 'desc': "Ēna un svēta gaisma, zvērējušas vienam medījumam. Iezīmē dēmonus, un iezīmētie krīt ātri." },
+    'dragoon': { 'name': "Dragūns", 'desc': "Vējš zem zābakiem, vairogs uz rokas. Lec no debesīm un caurdur veselas rindas." },
+    'hexsmith': { 'name': "Lāstu kalējs", 'desc': "Ētera amats, barots ar asinīm. Būvē torņus, kas izsūc ienaidnieku, lai dziedinātu kalēju." },
+    'tidecaller': { 'name': "Paisuma saucējs", 'desc': "Sals un stihijas, ielietas jūrā. Viļņi, kas atgrūž un samērcē ienaidniekus." },
     aegis: {
       name: 'Egīdas bruņinieks',
       desc: 'Vairogs un svēts tērauds. Uzņem sitienus, lai citiem tie nebūtu jācieš.'
@@ -535,6 +713,35 @@ export default {
     }
   },
   skill: {
+    // ── The prestige classes (afterplay phase 10) ──
+    'huntersMark': { 'name': "Mednieka zīme", 'desc': "Svēta bulta ar {dmg}% Veiklības bojājumu. {dur} s mērķis saņem par {vuln}% vairāk bojājumu, dēmons par {demon}%." },
+    'demonsBane': { 'name': "Dēmonu posts", 'desc': "+{bane}% bojājumu dēmoniem un par {ward}% mazāk bojājumu no tiem." },
+    'silverVolley': { 'name': "Sudraba zalve", 'desc': "Sudraba bultas līnijā: {dmg}% Veiklības bojājums, +{bane}% dēmoniem un iezīmētiem ienaidniekiem." },
+    'skyfallLeap': { 'name': "Kritiens no debesīm", 'desc': "Izlec ārpus sasniedzamības uz {air} s, tad krīti: {dmg}% Spēka bojājums {radius} m rādiusā, ienaidnieki notriekti." },
+    'dragonBlood': { 'name': "Pūķa asinis", 'desc': "+{boss}% bojājumu bosiem, +{hp}% maksimālās veselības, un nekas tevi neatgrūž." },
+    'dragonLance': { 'name': "Pūķa šķēps", 'desc': "Šķēpa dūriens līnijā: {dmg}% Veiklības bojājums katram ienaidniekam tajā." },
+    'hexTurret': { 'name': "Nolādētais tornis", 'desc': "Uzbūvē torni uz {dur} s. Katru sekundi tas izsūc tuvāko ienaidnieku {radius} m rādiusā ar {dmg}% Meistarības bojājumu; tu dziedinies par {drain}% no tā." },
+    'soulForge': { 'name': "Dvēseļu kalve", 'desc': "+{hp}% maksimālās veselības, {regen} veselības sekundē, un tu saņem par {reduce}% mazāk bojājumu." },
+    'hexBolt': { 'name': "Nolādētā bulta", 'desc': "Samaksā {hp}% veselības: bulta ar {dmg}% Meistarības bojājumu. Tu dziedinies par {heal}% no tā, un ienaidnieks {dur} s nodara par {weak}% mazāk bojājumu." },
+    'tidalWave': { 'name': "Paisuma vilnis", 'desc': "Vilnis līnijā: {dmg}% Intelekta bojājums, ienaidnieki atgrūsti un samērcēti ({slow}% palēninājums uz {dur} s)." },
+    'seaborn': { 'name': "Jūras dzimušais", 'desc': "+{bonus}% bojājumu atdzesētiem ienaidniekiem, par {reduce}% mazāk saņemtā bojājuma, +{move}% ātruma." },
+    'undertow': { 'name': "Atstraume", 'desc': "Virpulis uz {dur} s: kopā {dmg}% Intelekta bojājums {radius} m rādiusā. Tas ievelk ienaidniekus un palēnina tos par {slow}%." },
+    'bastionWall': { 'name': "Bastiona mūris", 'desc': "{dur} s katram ienaidniekam {radius} m rādiusā jāuzbrūk tev, un tu saņem par {def}% mazāk. Tad gaisma nodara {dmg}% Spēka +{back}% saņemto sitienu." },
+    'thousandCuts': { 'name': "Tūkstoš griezienu", 'desc': "Šaudies starp ienaidniekiem {radius} m rādiusā un sit {hits} reizes, katrs sitiens – {dmg}% Veiklības bojājumu. Boss saņem tikai vienu sitienu. Kamēr griez, nekas tevi neskar." },
+    'cinderSun': { 'name': "Pelnu saule", 'desc': "Mirstoša saule {dur} s sabrūk: {meteors} degošas lauskas, katra nodara {dmg}% Intelekta bojājumu." },
+    'royalLegion': { 'name': "Karaliskais leģions", 'desc': "Izsauc leģionu uz {dur} s: {archers} strēlnieki, {guards} sargi un {mages} kaujas magi." },
+    'stoppedHour': { 'name': "Apstājusies stunda", 'desc': "Aptur stundu {radius} m rādiusā uz {dur} s. Kad tā atkal iet, katrs ienaidnieks saņem {dmg}% Intelekta bojājumu." },
+    'redCovenant': { 'name': "Sarkanā derība", 'desc': "Paņem {pct}% dzīvības katram ienaidniekam {radius} m rādiusā. {heal}% no tā tevi dziedē." },
+    'orbitalLance': { 'name': "Orbitālais šķēps", 'desc': "Gaismas šķēps no debesīm dedzina, kur tēmē: {dmg}% Prasmes bojājumu {dur} s laikā." },
+    'tectonicHeart': { 'name': "Tektoniskā sirds", 'desc': "Zemes sirds pārplīst: {dmg}% Spēka bojājumu visam tuvumā un drupas, kas palēnina {dur} s." },
+    'eyeOfTheGale': { 'name': "Vētras acs", 'desc': "Bultu vētra {dur} s: kopā {dmg}% Prasmes bojājumu un {slow}% palēninājums." },
+    'endlessWinter': { 'name': "Bezgalīgā ziema", 'desc': "Bezgalīga ziema izlaužas no tevis: {dmg}% Intelekta bojājumu {radius} m rādiusā, visi sasalst uz {freeze} s." },
+    'dawnbreak': { 'name': "Rītausma", 'desc': "Kļūsti par rītausmu uz {dur} s: katru sekundi {dmg}% Intelekta bojājumu {radius} m rādiusā un {heal}% dziedināšana." },
+    'alphasCall': { 'name': "Alfas sauciens", 'desc': "{wolves} vilki atsaucas un skrien ar tevi {dur} s. Viss bars nodara +{dmg}% bojājumu un ir par {move}% ātrāks." },
+    'prismStorm': { 'name': "Prizmas vētra", 'desc': "{dur} s plosās četras stihijas: {strikes} sitieni pa {dmg}% Intelekta, kas iedarbina cits citu." },
+    'ferryman': { 'name': "Pārcēlājs", 'desc': "{dur} s katrs ienaidnieks, kas krīt tev blakus, ceļas kā tavs gars, un gari nodara par {atk}% vairāk." },
+    'unmovingMountain': { 'name': "Nekustīgais kalns", 'desc': "Iztērē visu či: kalns krīt, {dmg}% Veiklības bojājumu, +{per}% par katru či, un nogāž ienaidniekus." },
+    'encore': { 'name': "Piedeva", 'desc': "Vēlreiz uz {dur} s (+{buff}% ātrums, bojājumi, Aizsardzība), tad pēdējais akords: {dmg}% Harizmas, ienaidnieki apburti." },
     kind: {
       active: 'Aktīva',
       passive: 'Pasīva'
@@ -590,7 +797,7 @@ export default {
     },
     danceOfBlades: {
       name: 'Asmeņu deja',
-      desc: 'Šaudies starp ienaidniekiem {radius} m rādiusā: sitienu skaits — {hits}, kopā {dmg}% Veiklības bojājumu. Dejas laikā tev nevar trāpīt.'
+      desc: 'Šaudies starp ienaidniekiem {radius} m rādiusā un sit {hits} reizes, katrs sitiens – {dmg}% Veiklības bojājumu. Boss saņem tikai vienu sitienu. Dejas laikā tev nevar trāpīt.'
     },
     fireball: {
       name: 'Ugunsbumba',
@@ -1338,6 +1545,8 @@ export default {
     magic: 'Maģija · aug no: {attr}'
   },
   source: {
+    'siege': "Izcīnīts Bastiona brasla aplenkumā.",
+    'infernal': "Elles dvīnis: krīt ieņemtajā {zone} zonā vai to izkaļ kalējs.",
     arena: 'Izcīnīts Kolizeja reitingā.',
     smith: 'Izkalts smēdē.',
     mob: 'Izkrīt no briesmoņiem. Zona: {zone}.',
@@ -1346,6 +1555,15 @@ export default {
     secret: 'Paslēpts slepenā lādē. Zona: {zone}.'
   },
   mod: {
+    'demonBane': "+{n}% bojājumu dēmoniem",
+    'demonLeech': "{n}% no dēmoniem nodarītajiem bojājumiem tevi dziedē",
+    'beastBane': "+{n}% bojājumu mītiskajiem zvēriem",
+    'fireWard': "Par {n}% mazāk saņemto uguns bojājumu",
+    'shadowWard': "Par {n}% mazāk saņemto ēnu bojājumu",
+    'demonWard': "Par {n}% mazāk bojājumu no dēmoniem",
+    'pylonBreaker': "+{n}% bojājumu dēmonu pīlāriem",
+    'glassFinder': "{n}% iespēja, ka nogalināts dēmons atstās papildu dēmonu stiklu",
+    'waterWalk': "Ūdens tevi nepalēnina",
     str: '+{n} Spēks',
     dex: '+{n} Veiklība',
     int: '+{n} Intelekts',
@@ -1421,6 +1639,24 @@ export default {
     songLength: 'Dziesmas ilgst par {n}% ilgāk'
   },
   item: {
+    'chimeraMane': { 'name': "Himēras krēpes" },
+    'triFang': { 'name': "Trīszobs" },
+    'warchiefsLongbowGun': { 'name': "Karavadoņa loka-šautene" },
+    'hoofbreakerGreaves': { 'name': "Nagu lauzēja apakšstilbsargi" },
+    'eyeOfTheDeep': { 'name': "Dzīļu acs" },
+    'beamSplitter': { 'name': "Staru šķēlējs" },
+    'riddleCrown': { 'name': "Mīklu kronis" },
+    'sandglassWand': { 'name': "Smilšu pulksteņa zizlis" },
+    'leviathanScale': { 'name': "Leviatāna zvīņa" },
+    'tidecallerStaff': { 'name': "Paisuma saucēja zizlis" },
+    'hydraScaleGauntlets': { 'name': "Hidras zvīņu cimdi" },
+    'manyHeadedFlail': { 'name': "Daudzgalvu sprigulis" },
+    'heartOfTheElderDragon': { 'name': "Senā pūķa sirds" },
+    'dragonboneGreatsword': { 'name': "Pūķa kaula divroku zobens" },
+    'bastionBanner': { 'name': "Bastiona karogs" },
+    'wallwardensPlate': { 'name': "Mūru sarga bruņas" },
+    'gatebreaker': { 'name': "Vārtu lauzējs" },
+    'crownOfTheLastBastion': { 'name': "Pēdējā Bastiona kronis" },
     heartOfTheArena: {
       name: 'Arēnas sirds'
     },
@@ -3418,8 +3654,17 @@ export default {
     known: 'Apgūts',
     friend: '{faction} godā savus draugus: 20% atlaide.',
     fee: 'Maksa',
+    rank: {
+      label: '{n}. rangs',
+      up: 'Paaugstināt rangu',
+      effect: '+{effect}% iedarbība, −{cd}% atjaunošanās',
+      max: 'Augstākais rangs',
+      level: '{n}. rangam vajag {lvl}. līmeni.'
+    },
     hint: 'Izvēlies stundu. Zaļa mala nozīmē, ka vari to apgūt tagad.',
     block: {
+      'trial': "Tu vēl neesi izturējis šīs klases pārbaudījumu.",
+      'parents': "Vispirms apgūsti {a} un {b} prasmi.",
       level: 'Tavs līmenis ir par zemu.',
       attrs: 'Tavas īpašības ir par zemām.',
       gold: 'Nepietiek zelta.'
@@ -3444,6 +3689,20 @@ export default {
     circle: 'Ētera loks'
   },
   npc: {
+    'mysteriousWanderer': { 'name': "Noslēpumainais klejotājs" },
+    'fairPip': { 'name': "Pips" },
+    'fairBess': { 'name': "Vecā Besa" },
+    'fairHob': { 'name': "Hobs" },
+    sunkenPriest: { name: "Nogrimušais priesteris" },
+    'fortHale': {
+      'name': "Kapteinis Heils",
+    },
+    'fortMara': {
+      'name': "Vecākā Mara",
+    },
+    'scoutWren': {
+      'name': "Izlūkotāja Vrena",
+    },
     frostDisciple: {
       name: 'Ivors Hasks'
     },
@@ -3733,6 +3992,185 @@ export default {
     }
   },
   dlg: {
+    // ── The Mysterious Wanderer (afterplay phase 10) ──
+    'mysteriousWanderer': {
+      'hello': { '1': "Tātad. Tu paveici to, ko retais kādreiz paveicis. Es to sajutu plaisas otrā pusē.", '2': "Es mācu vecos ceļus, kas apvieno divas skolas vienā. Tikai tiem, kas to nopelna." },
+      'sealed': { '1': "Tu to aizzīmogoji. Žēl, savā ziņā. Man patika skats." },
+      'ajar': { '1': "Tu to atstāji pusvirus. Drosmīgi. Dēmoni tevi turēs modru." },
+      'again': { '1': "Atkal šeit. Ceļš ir garš, bet tu to ej labi." },
+      'train': { '1': "Parādi man abas tavas puses, un es no tām izveidošu vienu." },
+      'trial': { 'say': "Par kādiem pārbaudījumiem tu runā?", '1': "Vārti, nosargāti bez skrāpējuma. Pūķis, nogalināts bez kritiena. Pieci elles kalumi un piecas uzvaras pēc kārtas.", '2': "Leviatāna nāve un nevainojama kārta pie hidras. Katrs atver durvis, ko varu tev parādīt." },
+      'who': { '1': "Klejotājs. Es staigāju pa plaisas malu, pirms piedzima tavs vectēvs. Vārdi nodilst." },
+      'trainBack': { '1': "Vingrinies. Divas skolas strīdas, pirms vienojas." },
+      'bye': { '1': "Ej uzmanīgi. Es būšu šeit, līdz manis vairs nebūs." }
+    },
+    'fairPip': {
+      'hello': { '1': "Nāciet tuvāk! Deviņas mucas, bars velnēnu un viens āmurs. Sitiet tos atpakaļ lejā!", '2': "Velnēni izlec no mucām. Trāpi divdesmit, pirms izbirst smiltis.", '3': "Zelta bruņotos liec mierā, tie maksā dzīvību. Trīs uzvaras pēc kārtas, un lielā balva ir tava." },
+      'again': { '1': "Vēl sist? Ķer āmuru!" },
+      'play': { '1': "Āmuru augšā! Tie nāk!" },
+      'who': { '1': "Pips, pēc amata velnēnu ķērājs. Šos noķēru pats. Tie kož." },
+      'playBack': { '1': "Ha! Kāds tracis! Vēlreiz?" },
+      'bye': { '1': "Atslābini āmura roku!" }
+    },
+    'fairBess': {
+      'hello': { '1': "Pieci gredzeni, trīs galvas, un neviena nekož. Pati viņu izgriezu, tāpēc uzmanies ar krāsu.", '2': "Turi vēzienam, atlaid metienam. Galva noķer gredzenu tikai tad, kad iešūpojas vidū.", '3': "Katra galva pēc kārtas skaitās par vienu vairāk. Uzmet visas piecas, un es samaksāšu kā nākas." },
+      'again': { '1': "Atkal nāc izmēģināt laimi ar manu vecenīti?" },
+      'play': { '1': "Še tavi gredzeni. Met maigi, dārgumiņ." },
+      'who': { '1': "Četrdesmit gadi tirgus ceļos. Hidra atnāca ar karu. Likās piemēroti." },
+      'playBack': { '1': "Nav slikti. Mans nelaiķis vīrs meta sliktāk." },
+      'bye': { '1': "Ejot ārā, uzmanies ar krāsu." }
+    },
+    'fairHob': {
+      'hello': { '1': "Ak. Sveiki. Gribi lauzt rokas? Būšu saudzīgs. Centīšos.", '2': "Spied, kad gredzens satiek apli. Ārpus ritma tu noslīdēsi.", '3': "Stipras rokas palīdz. Uzvari mani trīs reizes pēc kārtas, un Kalēja meistars tev dos atlaidi." },
+      'again': { '1': "Vēl viena kārta? Neviens nekad neatgriežas pēc vēl vienas kārtas." },
+      'play': { '1': "Elkoni uz galda. Kad vien gribi." },
+      'who': { '1': "Esmu Kalēja meistara māceklis. Viņš saka, ka es nepazīstu pats savu spēku." },
+      'playBack': { '1': "Laba cīņa. Rīt sāpēs roka. Droši vien." },
+      'bye': { '1': "Nāc drīz atkal. Kalvē ir ļoti kluss." }
+    },
+    // ── The Breaking (the afterplay, B0–B5) ──
+    'story': {
+      forge: { back: { '1': "Mana kalve atkal deg, karstāk nekā jebkad. Dēmonu dzelzs labi kūst.", '2': "Nes man, ko tur atrodi. Tagad varu to kalt ellišķīgu." } },
+      oracle: { lens: { '1': "Reiz tu mani atbrīvoji. Tagad es redzēšu tavā vietā. Ņem manu lēcu.", '2': "Paskaties caur to, un karte parādīs, kur gaida lielie zvēri." } },
+      priest: { lens: { '1': "Orākula vairs nav, tāpēc tagad es sargāju viņas templi. To sargāja Sfinksa.", '2': "Viņas lēca. Paskaties caur to, un karte parādīs, kur gaida lielie zvēri." } },
+      herbs: { scale: { '1': "Leviatāna zvīņa! Viegla kā lapa, un tā peld.", '2': "Nēsā to, un seklums tevi turēs kā cieta zeme." } },
+      ghost: { key: { '1': "Raugi, tas, kurš paņēma manu troni. Tu nogalināji manu Hidru. Labi.", '2': "Ņem tās uguns atslēgu. Plaisas sirds deg, un to atver tikai uguns." } },
+      syndicate: { key: { '1': "Hidra ir mirusi? Tad uguns atslēga pienākas tam, kurš maksā. Vai tev, laikam.", '2': "Tā atver plaisas sirdi. Ej un aizver to, pirms tā aprij manu biznesu." } },
+      sealed: {
+        sealed: { '1': "Un tā plaisa tika aizzīmogota, un pasaule sāka dzīt.", '2': "Pilsētas tika atjaunotas, dziesmas sacerētas, un katrā bija viens vārds." },
+        ajar: { '1': "Un tā plaisa palika pavērta, un pasaule iemācījās dzīvot tai līdzās.", '2': "Mūri palika apsargāti, kolizejs skaļš, un varonis gatavs." },
+      },
+      'rift': {
+        'scream': {
+          '1': "Tukšuma Valdnieks krīt, un plaisa aiz viņa kliedz.",
+          '2': "Tas nekad nebija viņa tronis. Tas bija viņa būris, un viņš bija tā vāks.",
+          '3': "Tagad plaisa ir vaļā, un viss, ko tukšums turēja miegā, mostas.",
+        },
+      },
+      'wren': {
+        'found': {
+          '1': "Te tu esi! Es esmu Vrena, izlūkotāja. Es tevi meklēju visur.",
+          '2': "Sanforda deg. Visi, kas varēja bēgt, devās uz Bastiona braslu.",
+          '3': "Tas ir vecais cietoksnis pie ceļa uz Pelnu klintīm. Steidzies, tevi gaida.",
+        },
+      },
+    },
+    'scoutWren': {
+      sealed: { '1': "Pūķa vairs nav! Ceļi jau šķiet vieglāki." },
+      'hello': {
+        '1': "Tu atnāci! Es zināju. Laipni lūdzam Bastiona braslā.",
+        '2': "Es izlūkoju ceļus kapteinim. Jautā man, kur ir nelaime.",
+      },
+      'again': {
+        '1': "Jau atpakaļ? Ceļi paši sevi neizlūkos.",
+      },
+      'who': {
+        '1': "Vrena. Es nesu ziņas Sanfordas sardzei, pirms Sanforda nodega.",
+      },
+      'rumor': {
+        'plains': {
+          '1': "Dēmoni tur ceļu caur Sanfordas līdzenumiem. Sanfordas skolotāji ir iesprostoti aiz tā.",
+        },
+        'hollows': {
+          '1': "Goblinu alas mudž no elles suņiem. Iztīri tās, un Sanfordas ļaudis varēs atgriezties.",
+        },
+        'woods': {
+          '1': "Kaut kas ar trim galvām medī Čukstošajā mežā. Zāļu sieva tur slēpjas.",
+        },
+        'outskirts': {
+          '1': "Kentauri jāj Oukheivenas pievārtē. Ja viņi sasniegs mūrus, vajadzēs katru zobenu.",
+        },
+        'siege': {
+          '1': "Viņu bars ir sakauts, bet pulcējas vēl. Kapteinis gatavo mūrus.",
+        },
+      },
+      'bye': {
+        '1': "Uzmani ceļus. Es arī uzmanīšu.",
+      },
+    },
+    'fortHale': {
+      sealed: { '1': "Pūķis ir miris. Nedomāju, ka to piedzīvošu. Paldies." },
+      'siegeBack': { '1': "Vēl ne? Tad atpūties. Mūri tevi sagaidīs." },
+      'bell': { '1': "Tad pie vārtiem. Saki, cik stingri tos turēsim." },
+      'hello': {
+        '1': "Tu tiki līdz šejienei. Labi. Mums vajag katru zobenu, tagad vairāk nekā jebkad.",
+        '2': "Laipni lūdzam Bastiona braslā. Veci mūri, bet vienīgie, kas vēl stāv.",
+      },
+      'road': {
+        '1': "Ceļš uz Sanfordu atkal ir vaļā. Tās ļaudis ir drošībā aiz mūsu mūriem.",
+      },
+      'herbs': {
+        '1': "Zāļu sieva ir atpakaļ, ar savām zālēm. Lazarete var atvilkt elpu.",
+      },
+      'siege': {
+        '1': "Tu sakāvi kentaurus. Bet nāk lielāks karapulks, un tas nāk pēc šiem mūriem.",
+      },
+      'again': {
+        '1': "Joprojām stāvam. Mūri, vīri un es.",
+      },
+      'fort': {
+        '1': "Sens robežcietoksnis. Piecdesmit gadus tukšs, līdz debesis pārplīsa.",
+        '2': "Tagad tā ir pēdējā drošā vieta starp līdzenumiem un kalniem.",
+        'say': "Kas šī ir par vietu?",
+      },
+      'rumor': {
+        'road': {
+          '1': "Iztīri līdzenumus un alas. Sanfordas ļaudis tur ir iesprostoti.",
+        },
+        'woods': {
+          '1': "Zāļu sieva ir Čukstošajā mežā, un trīsgalvains zvērs arī. Esi gatavs.",
+        },
+        'centaurs': {
+          '1': "Kentauri pievārtē. Sakauj viņu baru, pirms tas sasniedz mūs.",
+        },
+        'siege': {
+          '1': "Atpūties. Kad noskanēs aplenkuma zvans, man tevi vajadzēs uz mūra.",
+        },
+      },
+      'bye': {
+        '1': "Turi zobenu tuvumā.",
+      },
+    },
+    'fortMara': {
+      sealed: { '1': "Tev izdevās, bērns. Katrs no mums tev ir parādā mājas." },
+      'siegeBack': { '1': "Atpūties mazliet, bērns. Zvans atkal skanēs." },
+      'bell': { '1': "Kapteiņa mūrus tagad sargāju es. Izvēlies, kā tos noturēsim." },
+      'hello': {
+        '1': "Bērns! Tu esi dzīvs. Kad Sanforda nodega, es baidījos no ļaunākā.",
+        '2': "Tagad mēs esam viesi karavīru cietoksnī, vecas sievas un viss.",
+      },
+      'command': {
+        '1': "Kapteinis Heils krita kopā ar Oukheivenu. Tāpēc cietoksnis tagad klausa vecu vecāko.",
+      },
+      'home': {
+        '1': "Sanforda tiek atjaunota! Pirmie jumti jau stāv. Es varētu raudāt.",
+      },
+      'again': {
+        '1': "Joprojām šeit, bērns. Joprojām skaitu galvas.",
+      },
+      'town': {
+        '1': "Dēmoni nāca no nakts debesīm. Mēs bēgām ar to, ko varējām panest.",
+        '2': "Daži no mums tā arī netika ārā. Atved pārējos mājās, ja vari.",
+        'say': "Kas notika ar Sanfordu?",
+      },
+      'rumor': {
+        'road': {
+          '1': "Mūsu skolotāji joprojām ir uz Sanfordas ceļa. Atved viņus šurp, bērns.",
+        },
+        'woods': {
+          '1': "Zāļu sieva devās uz Čukstošo mežu pēc zālēm un neatgriezās.",
+        },
+        'centaurs': {
+          '1': "Jātnieki pievārtē. Nagi kā pērkons, katru nakti.",
+        },
+        'siege': {
+          '1': "Mūri drīz tiks pārbaudīti. Es to jūtu savos vecajos kaulos.",
+        },
+      },
+      'bye': {
+        '1': "Ej uzmanīgi, bērns.",
+      },
+    },
     intro: {
       crossing: { 1: 'Katrs šīs pasaules ceļš satiekas krustcelēs… un katras krustceles ir kauja.' },
       hero: { 1: 'No Sanfordas klusajiem laukiem ceļā devās jauns varonis.' },
@@ -4194,6 +4632,7 @@ export default {
       }
     },
     hero: {
+      'siege': "Ieņemsim mūrus.",
       forge: 'Es gribētu izmantot tavu ēzi.',
       learnSmith: 'Vai iemācītu man kalt?',
       ore: 'Man ir mazliet rūdas pārdošanai.',
@@ -4514,7 +4953,7 @@ export default {
       },
       map: {
         '1': 'Kapteiņa Rūka karte! Viņš to saplēsa un paslēpa gabalus, pirms goblini viņu noķēra.',
-        '2': 'Atrodi sešus no tiem, vēl daži ir izmētāti apkārt, un X parādīs ceļu: kaut kur Pelnu klintīs. Roc tur, un zelts būs tavs.',
+        '2': "Atrodi sešus gabalus, un X parādīs ceļu: kaut kur Pelnu klintīs. Roc tur pēc zelta.",
         say: 'Atradu vecas kartes gabalu.'
       }
     },
@@ -5524,6 +5963,11 @@ export default {
       }
     },
     quest: {
+      seal: {
+        ask: { '1': "Senais pūķis ir miris, un plaisa ir atvērta tavā priekšā.", '2': "Tu varētu to aizzīmogot tagad, uz visiem laikiem. Zvēri atkal aizmigtu.", '3': "Vai arī atstāt to pavērtu, lai drosmīgākie mērotos ar to, kas nāk cauri." },
+        seal: { say: "Aizzīmogo to. Uz visiem laikiem.", '1': "Plaisa aizveras kā dzīstoša brūce, un debesis apklust." },
+        ajar: { say: "Atstāj to pavērtu. Mēs būsim gatavi.", '1': "Plaisa paliek pavērta, un kaut kas aiz tās smejas." },
+      },
       goblinKing: {
         ask: {
           '1': 'Stāj. Lūdzu. Es padodos.',
@@ -5658,6 +6102,64 @@ export default {
       }
     },
     bark: {
+      sphinx: {
+        intro: { '1': "Atbildi man, mazulīt, vai tevi apraks manas smiltis." },
+        riddle: { '1': "Tad mīkla. Kāp tur, kur rādu, tādā secībā." },
+        sand: { '1': "Šoreiz pieci. Un manas smiltis negaidīs." },
+        death: { '1': "Tu labi atbildēji. Smiltis tagad ir tavas." },
+      },
+      leviathan: {
+        intro: { '1': "Tagad tu staigā manā ūdenī." },
+        sink: { '1': "Tavas saliņas grimst." },
+        grab: { '1': "Nāc ar mani dzelmē!" },
+        death: { '1': "Bēgums aiziet un vairs neatgriežas." },
+      },
+      hydra: {
+        intro: { '1': "Nocērt vienu galvu, un izaugs divas!" },
+        heads: { '1': "Vairāk galvu, vairāk zobu!" },
+        rage: { '1': "Sadedzināt mūs? Tad deg kopā ar mums!" },
+        death: { '1': "Vairs nav galvu. Vairs nav." },
+      },
+      elderDragon: {
+        intro: { '1': "Es gulēju zem pasaules, pirms tava dzimta pazina uguni." },
+        flight: { '1': "Tad slēpies aiz saviem akmentiņiem." },
+        rift: { '1': "Plaisa velk mani atpakaļ. Vēl ne!" },
+        death: { '1': "Tad aizzīmogo to. Esmu noguris no tumsas." },
+      },
+      'siegeHale': {
+        'start': {
+          '1': "Lūk, viņi nāk! Turiet vārtus!"
+        },
+        'ram': {
+          '1': "Tarāns! Nogaliniet to, pirms tas sasniedz vārtus!"
+        },
+        'horn50': {
+          '1': "Puse vārtu ir zudusi! Turieties!"
+        },
+        'horn25': {
+          '1': "Vārti ilgi vairs neizturēs!"
+        },
+        'won': {
+          '1': "Viņi ir salauzti! Bastions stāv!"
+        }
+      },
+      'siegeMara': {
+        'start': {
+          '1': "Viņi nāk! Stāviet stingri, visi!"
+        },
+        'ram': {
+          '1': "Tarāns! Apturiet to, pirms tas salauž vārtus!"
+        },
+        'horn50': {
+          '1': "Puse vārtu kritusi. Turieties!"
+        },
+        'horn25': {
+          '1': "Vārti padodas! Atgrūdiet viņus!"
+        },
+        'won': {
+          '1': "Viņi bēg! Cietoksnis joprojām stāv!"
+        }
+      },
       banditChief: {
         whistle: {
           1: 'Augšā, puiši! Kodiet viņus!'
@@ -5666,6 +6168,11 @@ export default {
       lightDisciple: {
         freed: {
           '1': 'Tevi sūtīja gaisma. Es esmu Māsa Aurela. Meklē mani Sanfordā, es tev iemācīšu Gaismas nesēja ceļu.'
+        }
+      },
+      trainerAegis: {
+        freed: {
+          '1': 'Paldies, ka atbrīvoji mūs no laupītājiem! Nāc pie ugunskura: mēs visi tevi mācīsim, pirmā nodarbība par brīvu.'
         }
       },
       frostDisciple: {
@@ -5721,6 +6228,48 @@ export default {
         },
         dive: {
           '1': 'Nometies ceļos.'
+        }
+      },
+      chimera: {
+        intro: {
+          '1': "Trīs galvas, viens izsalkums. Kura no mums iekodīs pirmā?"
+        },
+        twin: {
+          '1': "Tagad mēs esam divas. Izvēlies pusi gudri."
+        },
+        tail: {
+          '1': "Mana aste! Tu par to samaksāsi!"
+        },
+        death: {
+          '1': "Trīs galvas, un neviena to neparedzēja."
+        }
+      },
+      centaurWarchief: {
+        intro: {
+          '1': "Bēdz, ja gribi. Manas bultas ir ātrākas."
+        },
+        raiders: {
+          '1': "Jātnieki! Samīdiet viņus!"
+        },
+        rear: {
+          '1': "Pietiek bultu. Es tevi samīdīšu!"
+        },
+        death: {
+          '1': "Līdzenumi atcerēsies manus nagus."
+        }
+      },
+      cyclops: {
+        intro: {
+          '1': "Te ir kaut kas mazs. Nāc tuvāk. Ļauj man paskatīties."
+        },
+        cover: {
+          '1': "Vairs nekādas skatīšanās. Manu aci tu nedabūsi!"
+        },
+        blind: {
+          '1': "Es tevi neredzu, bet es tevi dzirdu!"
+        },
+        death: {
+          '1': "Tumšs. Viss ir satumsis."
         }
       },
       frostJarl: {
@@ -6848,7 +7397,20 @@ export default {
       }
     }
   },
+  invasion: {
+    pylonsDown: 'Pēdējais pilons krīt, un tā dārgumi izbirst!',
+    reborn: {
+      tusker: 'Atdzimušais Taskers',
+      emberLord: 'Elles Ogļu pavēlnieks',
+      frostJarl: 'Atdzimušais Sala jarls',
+      voidDragon: 'Atdzimušais Tukšuma pūķis'
+    }
+  },
   enemy: {
+    sphinx: "Sfinksa",
+    leviathan: "Leviatāns",
+    hydra: "Hidra",
+    elderDragon: "Senais pūķis",
     trainingDummy: 'Treniņa lelle',
     goblin: 'Goblins',
     goblinSlinger: 'Goblins lingotājs',
@@ -6873,6 +7435,10 @@ export default {
     naga: 'Nāga',
     skeleton: 'Skelets',
     necromancer: 'Nekromants',
+    chimera: "Himēra",
+    chimeraTail: "Čūskas aste",
+    centaurWarchief: "Kentauru karavadonis",
+    cyclops: "Kiklops",
     frostJarl: 'Sala jarls',
     nagaOracle: 'Noslīkusī pareģe',
     voidStalker: 'Tukšuma mednieks',
@@ -6885,6 +7451,7 @@ export default {
     archDemon: 'Arhidēmons',
     voidling: 'Tukšuma radījums',
     voidLord: 'Tukšuma pavēlnieks',
+    demonPylon: 'Dēmonu pilons',
     orderGuard: 'Ordeņa inkvizitors',
     syndicateBlade: 'Sindikāta asmens',
     goblinWarchief: 'Goblinu karavadonis',
@@ -6901,7 +7468,19 @@ export default {
     goblinTyrant: 'Goblinu tirāns',
     voidDrake: 'Tukšuma pūķēns',
     pitLord: 'Bezdibeņa pavēlnieks',
-    frostThane: 'Sala tans'
+    frostThane: 'Sala tans',
+    hellhound: 'Elles suns',
+    frostHellhound: 'Sala elles suns',
+    gargoyle: 'Gargoils',
+    harpy: 'Harpija',
+    corruptedTreant: 'Samaitāts koku cilvēks',
+    centaurRaider: 'Kentaurs laupītājs',
+    cyclopsBrute: 'Kiklops rupjais',
+    demonMiner: 'Dēmonu kalnracis',
+    sphinxAcolyte: 'Sfinksas akolīts',
+    seaDemon: 'Jūras dēmons',
+    drakeHatchling: 'Pūķēns',
+    hydraSpawn: 'Hidras pēcnācējs'
   },
   results: {
     careful: 'Uzmanīga uzvara ×{mult}',
@@ -7219,6 +7798,8 @@ export default {
     town: 'To var uzlabot jebkuras pilsētas kalējs.'
   },
   ore: {
+    'demonglass': { 'name': "Dēmonu stikls" },
+    'ichor': { 'name': "Mītiskais ihors" },
     iron: {
       name: 'Dzelzsrūda'
     },

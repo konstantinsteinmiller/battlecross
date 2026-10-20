@@ -1,5 +1,170 @@
 // Indonesian locale — mirrors the key shape of en.ts exactly.
 export default {
+  // ─── Afterplay phase 8: items, materials and capstones ───
+  // ─── Afterplay phase 10: the prestige classes ───
+  'prestige': { 'toast': { 'wanderer': "Seorang pengembara misterius menunggu di benteng." } },
+  'relic': {
+    'infernal': "{name} · Neraka",
+    'set': "Dipakai bersama {item}:",
+    'heroicBadge': "Heroik {n}",
+    'heroic': "Heroik {n}: {gold} emas, {glass} kaca iblis",
+    'heroicIchor': "Heroik {n}: {gold} emas, {glass} kaca iblis, {ichor} ikor",
+    'heroicMax': "Semua peringkat heroik sudah diraih.",
+    'infernalForge': "Tempa neraka: {gold} emas, {glass} kaca iblis",
+    'lens': "Lensa Sang Orakel: {boss} menunggu di sini.",
+    'hydraKey': "Tersegel. Kunci api Hydra membuka jantung Retakan.",
+    'marksGlass': "Beli {glass} kaca iblis dengan {marks} tanda",
+    'capstone': "Puncak",
+    'fortOnly': "Puncak ini hanya diajarkan di Penyeberangan Benteng."
+  },
+  // ─── The fort's fair games (afterplay §9) ───
+  'fair': {
+    'fee': "Main · {n}",
+    'again': "Main lagi",
+    'noGold': "Emas tidak cukup.",
+    'capped': "Zona yang harus dibersihkan sebelum hadiah besar kembali: {n}",
+    'top': "Hadiah utama! +{gold} emas, +{xp} XP",
+    'topGold': "Hadiah utama, hanya emas: +{n} emas",
+    'won': "Menang! +{n} emas",
+    'lost': "Belum beruntung. Rentetan dimulai lagi.",
+    'row': "Menang beruntun: {n} dari {max}",
+    'mats': "+{n} bahan Heroik+",
+    'discount': "Pandai besi kini memberimu diskon {n}% untuk peningkatan!"
+  },
+  'whack': {
+    'title': "Pukul Imp",
+    'lead': "Pukul 20 imp dalam 30 detik. Biarkan yang berzirah emas: setiap yang kamu pukul mengambil satu nyawa.",
+    'hits': "Imp: {n} / {max}",
+    'lives': "Nyawa: {n}",
+    'time': "Waktu: {n} dtk",
+    'hint': "Ketuk imp, atau tekan 1 sampai 9.",
+    'barrel': "Tong {n}",
+    'timeout': "Waktu habis!",
+    'dead': "Nyawa habis!"
+  },
+  'ring': {
+    'title': "Lempar Cincin ke Hydra",
+    'lead': "Tahan untuk mengumpulkan tenaga, lepas untuk melempar. Kepala hanya menangkap cincin di dekat tengah ayunannya. Setiap kepala beruntun bernilai satu poin lebih.",
+    'hint': "Tahan dan lepas di meja, atau tahan Spasi.",
+    'rings': "Cincin tersisa: {n}",
+    'score': "Skor: {n}",
+    'hit': "Masuk! +{n}",
+    'miss': "Meleset!",
+    'perfect': "Ronde sempurna!",
+    'nothing': "Skor {n}. Tidak ada hadiah kali ini.",
+    'power': "Tenaga"
+  },
+  'arm': {
+    'title': "Panco",
+    'lead': "Ketuk saat cincin bertemu lingkaran untuk menjatuhkan lengannya. Kekuatan melebarkan ketukan. Tiga kemenangan beruntun memberi diskon pandai besi, lima memberi bahan Heroik+.",
+    'hint': "Ketuk meja, atau tekan Spasi.",
+    'good': "Dorong!",
+    'off': "Meleset dari ketukan!"
+  },
+  // ─── The Siege of Bastion (afterplay §8) ───
+  'siege': {
+    'title': "Pengepungan Penyeberangan Benteng",
+    'lead': "Pertahankan gerbang selama sepuluh gelombang. Di antara gelombang, belanjakan Tanda Kepung untuk pertahanan.",
+    'story': "Gerombolan sudah di gerbang. Bertahanlah sepuluh gelombang: pengepungan pertama ini tak bisa kalah.",
+    'bell': "Lonceng pengepungan berbunyi! Gerombolan berkumpul di depan gerbang.",
+    'mapBell': "Pengepungan!",
+    'start': "Bunyikan lonceng",
+    'wins': "Menang: {n}",
+    'marksBank': "Tanda Kepung tersimpan: {n}",
+    'tier': {
+      'normal': "Normal",
+      'hard': "Sulit",
+      'nightmare': "Mimpi Buruk"
+    },
+    'tierDesc': {
+      'normal': "Musuh satu level di atasmu.",
+      'hard': "Musuh 3 level lebih tinggi, dengan nyawa 30% lebih banyak.",
+      'nightmare': "Musuh 6 level lebih tinggi, dan dua gelombang elite mitos."
+    },
+    'locked': {
+      'hard': "Menangkan dulu pengepungan Normal.",
+      'nightmare': "Terbuka setelah celah disegel atau dibiarkan sedikit terbuka."
+    },
+    'lord': "Penguasa Kepung",
+    'hud': {
+      'wave': "Gelombang {n}/{total}",
+      'marks': "Tanda: {n}",
+      'gate': "Gerbang {pct}%",
+      'build': "Gelombang {n} dalam {s} dtk",
+      'ready': "Siap!",
+      'buy': "{name}: {n} Tanda"
+    },
+    'def': {
+      'ballista': {
+        'name': "Balista",
+        'desc': "Menembakkan baut tembus di jalurnya setiap 2 detik."
+      },
+      'cauldron': {
+        'name': "Kuali api",
+        'desc': "Membakar titik sempit jalurnya."
+      },
+      'barricade': {
+        'name': "Barikade",
+        'desc': "Menutup satu jalur selama 20 detik."
+      },
+      'militia': {
+        'name': "Milisi",
+        'desc': "Dua penjaga bertarung di sisimu."
+      },
+      'repair': {
+        'name': "Perbaiki gerbang",
+        'desc': "Memulihkan seperempat gerbang."
+      }
+    },
+    'block': {
+      'marks': "Tanda Kepung tidak cukup.",
+      'full': "Tak ada tempat lagi.",
+      'phase': "Hanya di antara gelombang."
+    },
+    'toast': {
+      'cleared': "Gelombang {n} tertahan! +{marks} Tanda",
+      'clearedUnharmed': "Gelombang {n} tertahan, gerbang utuh! +{marks} Tanda",
+      'horn': "Terompet berbunyi! Gerbang tinggal {pct}%.",
+      'ram': "Pendobrak! Hentikan sebelum mencapai gerbang!",
+      'rally': "Bangkit lagi! Pertahankan gerbang!"
+    },
+    'banner': {
+      'wave': "Gelombang {n}",
+      'final': "Penguasa Kepung!"
+    },
+    'result': {
+      'tier': "Pengepungan Penyeberangan Benteng: {tier}",
+      'waves': "Gelombang tertahan: {n}/{total}",
+      'marks': "Tanda Kepung disimpan: {banked} dari {earned}",
+      'glass': "Kaca iblis: +{n}"
+    },
+    'milestone': {
+      'normal1': "Tonggak tercapai: Panji Benteng.",
+      'normal5': "Tonggak tercapai: Zirah Penjaga Tembok.",
+      'hard1': "Tonggak tercapai: Naluri Veteran, slot pasif kelima.",
+      'hard5': "Tonggak tercapai: Pendobrak Gerbang.",
+      'nightmare1': "Tonggak tercapai: Mahkota Benteng Terakhir.",
+      'hardFlawless': "Tonggak tercapai: kunci ujian kelas tersembunyi."
+    }
+  },
+  // ─── The Breaking (the afterplay's story) ───
+  'breaking': {
+    'title': "Retakan Besar",
+    'toast': {
+      brk6: "Ahli Tempa telah mendapatkan kembali tempanya. Penempaan neraka kini terbuka.",
+      brk7: "Sfinks telah mati. Lensa Sang Orakel menunjukkan tempat para binatang besar menunggu.",
+      brk8: "Leviatan telah mati. Sisiknya membuatmu bisa berjalan di perairan dangkal.",
+      brk9: "Hidra telah mati. Kunci apinya milikmu.",
+      brk10: "Naga Purba telah mati. Celah itu terbuka lebar.",
+      sealed: "Celah telah disegel. Kau adalah Penyegel Celah.",
+      ajar: "Celah dibiarkan sedikit terbuka. Iblis akan menguji tembok dan koloseum.",
+      'brk2': "Penyeberangan Benteng menerimamu. Rakyatnya kini berharap padamu.",
+      'rescued': "Penyintas diselamatkan! Mereka aman di Penyeberangan Benteng.",
+      'brk3': "Jalan sudah bersih. Warga Sunford selamat.",
+      'brk4': "Ahli herbal bergabung dengan benteng.",
+      'brk5': "Gerombolan centaur sudah dihancurkan. Benteng bersiap untuk pengepungan.",
+    },
+  },
   // ─── The intro (#130): its skip, and its narrator's name ───
   intro: {
     narrator: 'Sang Pencerita',
@@ -88,6 +253,7 @@ export default {
     gold: '{n} emas',
     potion: 'Ramuan nyawa (sisa {n})',
     manaPotion: 'Ramuan mana (sisa {n})',
+    potionStop: 'Minum ramuan kesehatan untuk lanjut',
     groups: '{n} dari {total} kelompok musuh dikalahkan',
     wave: 'Gelombang {n} / {total}',
     roll: 'Guling',
@@ -261,6 +427,10 @@ export default {
     escort: 'Kawal kafilah'
   },
   node: {
+    'bastion': {
+      'name': "Penyeberangan Benteng",
+      'desc': "Benteng perbatasan tua, tembok terakhir yang masih berdiri. Para penyintas berkumpul di sini.",
+    },
     sunford: {
       name: 'Sunford',
       desc: 'Kota petani di tepi dataran. Rumah, seorang pandai besi, dan dua pelatih.'
@@ -343,6 +513,9 @@ export default {
     locked: 'Bersihkan zona di sebelahnya untuk membuka jalan.',
     lockedArena: 'Gerbangnya terbuka setelah urusan dengan Raja Goblin selesai.',
     lockedRift: 'Terbuka setelah nasib takhta Benteng Kengerian diputuskan.',
+    invaded: 'Diserbu',
+    invadedDesc: 'Para iblis menguasai negeri ini. Pilon mereka membuat musuh di dekatnya menyerang lebih keras, bekas luka celah membakar dan memperlambat, dan setiap musuh yang dikalahkan di sini lebih berharga.',
+    lockedInvaded: 'Para iblis menguasainya erat-erat. Rebut kembali {zone} lebih dulu.',
     danger: {
       '1': 'Sedikit di atas levelmu.',
       '2': 'Berbahaya untuk levelmu.',
@@ -469,6 +642,11 @@ export default {
     }
   },
   class: {
+    // ── The prestige classes (afterplay phase 10) ──
+    'demonhunter': { 'name': "Pemburu Iblis", 'desc': "Bayangan dan cahaya suci, bersumpah pada satu mangsa. Menandai iblis, dan yang ditandai cepat tumbang." },
+    'dragoon': { 'name': "Dragoon", 'desc': "Angin di bawah sepatu, perisai di lengan. Melompat dari langit dan menombak seluruh barisan." },
+    'hexsmith': { 'name': "Pandai Kutukan", 'desc': "Kriya eter yang diberi makan darah. Membangun menara yang menguras musuh untuk memulihkan sang pandai." },
+    'tidecaller': { 'name': "Pemanggil Pasang", 'desc': "Es dan elemen, dituang ke laut. Gelombang yang mendorong mundur dan membasahi musuh." },
     aegis: {
       name: 'Kesatria Aegis',
       desc: 'Perisai dan baja suci. Menahan pukulan supaya yang lain tak perlu.'
@@ -535,6 +713,35 @@ export default {
     }
   },
   skill: {
+    // ── The prestige classes (afterplay phase 10) ──
+    'huntersMark': { 'name': "Tanda Pemburu", 'desc': "Baut suci dengan {dmg}% damage Ketangkasan. Selama {dur} dtk target menerima {vuln}% damage lebih banyak, iblis {demon}% lebih." },
+    'demonsBane': { 'name': "Petaka Iblis", 'desc': "+{bane}% damage ke iblis, dan {ward}% lebih sedikit damage dari mereka." },
+    'silverVolley': { 'name': "Rentetan Perak", 'desc': "Baut perak dalam satu garis: {dmg}% damage Ketangkasan, +{bane}% ke iblis dan musuh bertanda." },
+    'skyfallLeap': { 'name': "Lompatan Langit", 'desc': "Melompat keluar jangkauan selama {air} dtk, lalu jatuh di tempat: {dmg}% damage Kekuatan dalam {radius} m, musuh terjatuh." },
+    'dragonBlood': { 'name': "Darah Naga", 'desc': "+{boss}% damage ke bos, +{hp}% nyawa maks, dan tak ada yang bisa mendorongmu mundur." },
+    'dragonLance': { 'name': "Tombak Naga", 'desc': "Tusukan tombak dalam satu garis: {dmg}% damage Ketangkasan ke setiap musuh di dalamnya." },
+    'hexTurret': { 'name': "Menara Kutukan", 'desc': "Bangun menara selama {dur} dtk. Tiap detik ia menguras musuh terdekat dalam {radius} m dengan {dmg}% damage Keahlian; kamu pulih {drain}% darinya." },
+    'soulForge': { 'name': "Tempa Jiwa", 'desc': "+{hp}% nyawa maks, {regen} nyawa per detik, dan kamu menerima {reduce}% lebih sedikit damage." },
+    'hexBolt': { 'name': "Baut Kutukan", 'desc': "Bayar {hp}% nyawa: baut dengan {dmg}% damage Keahlian. Kamu pulih {heal}% darinya, dan musuh memberi {weak}% lebih sedikit damage selama {dur} dtk." },
+    'tidalWave': { 'name': "Gelombang Pasang", 'desc': "Gelombang dalam satu garis: {dmg}% damage Kecerdasan, musuh terdorong mundur dan basah kuyup (lambat {slow}% selama {dur} dtk)." },
+    'seaborn': { 'name': "Anak Laut", 'desc': "+{bonus}% damage ke musuh yang membeku, {reduce}% lebih sedikit damage diterima, +{move}% kecepatan." },
+    'undertow': { 'name': "Arus Balik", 'desc': "Pusaran selama {dur} dtk: total {dmg}% damage Kecerdasan dalam {radius} m. Menarik musuh masuk dan melambatkan mereka {slow}%." },
+    'bastionWall': { 'name': "Tembok Benteng", 'desc': "Selama {dur} dtk, setiap musuh dalam {radius} m harus menyerangmu, dan kamu menerima {def}% lebih sedikit. Lalu cahaya memberi {dmg}% Kekuatan +{back}% dari serangan yang diterima." },
+    'thousandCuts': { 'name': "Seribu Sayatan", 'desc': "Melesat di antara musuh dalam {radius} m, menyerang {hits} kali, masing-masing {dmg}% damage Ketangkasan. Bos hanya terkena satu serangan. Selama menyayat, tak ada yang bisa mengenaimu." },
+    'cinderSun': { 'name': "Matahari Abu", 'desc': "Matahari sekarat hancur selama {dur} dtk: {meteors} serpihan membara, masing-masing {dmg}% damage Kecerdasan." },
+    'royalLegion': { 'name': "Legiun Kerajaan", 'desc': "Panggil legiun selama {dur} dtk: {archers} pemanah, {guards} penjaga, dan {mages} penyihir tempur." },
+    'stoppedHour': { 'name': "Waktu Terhenti", 'desc': "Hentikan waktu dalam {radius} m selama {dur} dtk. Saat berjalan lagi, tiap musuh menerima {dmg}% damage Kecerdasan." },
+    'redCovenant': { 'name': "Perjanjian Merah", 'desc': "Ambil {pct}% nyawa setiap musuh dalam {radius} m. Kamu pulih {heal}% darinya." },
+    'orbitalLance': { 'name': "Tombak Orbit", 'desc': "Tombak cahaya dari langit membakar tempat yang kamu bidik: {dmg}% damage Keahlian selama {dur} dtk." },
+    'tectonicHeart': { 'name': "Jantung Tektonik", 'desc': "Jantung bumi terbelah: {dmg}% damage Kekuatan ke semua yang dekat, dan puing yang memperlambat selama {dur} dtk." },
+    'eyeOfTheGale': { 'name': "Mata Badai", 'desc': "Badai panah selama {dur} dtk: total {dmg}% damage Keahlian dan perlambatan {slow}%." },
+    'endlessWinter': { 'name': "Musim Dingin Abadi", 'desc': "Musim dingin tanpa akhir meledak darimu: {dmg}% damage Kecerdasan dalam {radius} m, membekukan semua selama {freeze} dtk." },
+    'dawnbreak': { 'name': "Fajar Menyingsing", 'desc': "Jadilah fajar selama {dur} dtk: tiap detik {dmg}% damage Kecerdasan dalam {radius} m dan pulih {heal}% nyawa." },
+    'alphasCall': { 'name': "Panggilan Alfa", 'desc': "{wolves} serigala menjawab dan berlari bersamamu selama {dur} dtk. Seluruh kawanan memberi +{dmg}% damage dan {move}% lebih cepat." },
+    'prismStorm': { 'name': "Badai Prisma", 'desc': "Selama {dur} dtk empat elemen mengamuk: {strikes} serangan {dmg}% Kecerdasan yang saling memicu." },
+    'ferryman': { 'name': "Tukang Perahu", 'desc': "Selama {dur} dtk, setiap musuh yang tumbang di dekatmu bangkit sebagai rohmu, dan roh memberi {atk}% lebih banyak." },
+    'unmovingMountain': { 'name': "Gunung Tak Tergoyahkan", 'desc': "Habiskan semua chi: sebuah gunung jatuh untuk {dmg}% damage Ketangkasan, +{per}% per chi, dan merobohkan musuh." },
+    'encore': { 'name': "Encore", 'desc': "Sekali lagi selama {dur} dtk (+{buff}% kecepatan, damage, Pertahanan), lalu akord terakhir: {dmg}% Karisma, musuh terpikat." },
     kind: {
       active: 'Aktif',
       passive: 'Pasif'
@@ -590,7 +797,7 @@ export default {
     },
     danceOfBlades: {
       name: 'Tarian Bilah',
-      desc: 'Melesat di antara musuh dalam {radius} m, menyerang {hits} kali dengan total {dmg}% damage Ketangkasan. Kamu tak bisa dipukul selama menari.'
+      desc: 'Melesat di antara musuh dalam {radius} m, menyerang {hits} kali, masing-masing {dmg}% damage Ketangkasan. Bos hanya terkena satu serangan. Kamu tak bisa dipukul selama menari.'
     },
     fireball: {
       name: 'Bola Api',
@@ -1338,6 +1545,8 @@ export default {
     magic: 'Sihir · mengikuti {attr}'
   },
   source: {
+    'siege': "Dimenangkan dalam Pengepungan Penyeberangan Benteng.",
+    'infernal': "Kembaran neraka: jatuh di {zone} yang diserbu, atau ditempa pandai besi.",
     arena: 'Dimenangkan di tangga Koloseum.',
     smith: 'Ditempa di bengkel pandai besi.',
     mob: 'Dijatuhkan monster di {zone}.',
@@ -1346,6 +1555,15 @@ export default {
     secret: 'Tersembunyi dalam peti rahasia di {zone}.'
   },
   mod: {
+    'demonBane': "+{n}% damage ke iblis",
+    'demonLeech': "{n}% damage ke iblis memulihkanmu",
+    'beastBane': "+{n}% damage ke binatang mitis",
+    'fireWard': "Damage api yang diterima berkurang {n}%",
+    'shadowWard': "Damage bayangan yang diterima berkurang {n}%",
+    'demonWard': "Damage dari iblis berkurang {n}%",
+    'pylonBreaker': "+{n}% damage ke pilar iblis",
+    'glassFinder': "Peluang {n}% iblis yang tewas meninggalkan kaca iblis tambahan",
+    'waterWalk': "Air tidak memperlambatmu",
     str: '+{n} Kekuatan',
     dex: '+{n} Ketangkasan',
     int: '+{n} Kecerdasan',
@@ -1421,6 +1639,24 @@ export default {
     songLength: 'Lagu bertahan {n}% lebih lama'
   },
   item: {
+    'chimeraMane': { 'name': "Surai Chimera" },
+    'triFang': { 'name': "Tri-Taring" },
+    'warchiefsLongbowGun': { 'name': "Senapan-busur Panglima" },
+    'hoofbreakerGreaves': { 'name': "Pelindung kaki Penghancur Kuku" },
+    'eyeOfTheDeep': { 'name': "Mata Kedalaman" },
+    'beamSplitter': { 'name': "Pemecah Sinar" },
+    'riddleCrown': { 'name': "Mahkota Teka-teki" },
+    'sandglassWand': { 'name': "Tongkat Jam Pasir" },
+    'leviathanScale': { 'name': "Sisik Leviathan" },
+    'tidecallerStaff': { 'name': "Tongkat Pemanggil Pasang" },
+    'hydraScaleGauntlets': { 'name': "Sarung tangan sisik Hydra" },
+    'manyHeadedFlail': { 'name': "Cambuk Berkepala Banyak" },
+    'heartOfTheElderDragon': { 'name': "Jantung Naga Purba" },
+    'dragonboneGreatsword': { 'name': "Pedang besar tulang naga" },
+    'bastionBanner': { 'name': "Panji Benteng" },
+    'wallwardensPlate': { 'name': "Zirah Penjaga Tembok" },
+    'gatebreaker': { 'name': "Pendobrak Gerbang" },
+    'crownOfTheLastBastion': { 'name': "Mahkota Benteng Terakhir" },
     heartOfTheArena: {
       name: 'Jantung Arena'
     },
@@ -3418,8 +3654,17 @@ export default {
     known: 'Dipelajari',
     friend: '{faction} menghormati sahabatnya: diskon 20%.',
     fee: 'Biaya',
+    rank: {
+      label: 'Peringkat {n}',
+      up: 'Naikkan peringkat',
+      effect: '+{effect}% efek, −{cd}% jeda',
+      max: 'Peringkat tertinggi',
+      level: 'Peringkat {n} butuh level {lvl}.'
+    },
     hint: 'Pilih pelajaran. Tepi hijau berarti kamu bisa mempelajarinya sekarang.',
     block: {
+      'trial': "Kamu belum lulus ujian kelas ini.",
+      'parents': "Pelajari dulu satu skill {a} dan satu skill {b}.",
       level: 'Levelmu terlalu rendah.',
       attrs: 'Atributmu terlalu rendah.',
       gold: 'Emas tidak cukup.'
@@ -3444,6 +3689,20 @@ export default {
     circle: 'Lingkaran Aether'
   },
   npc: {
+    'mysteriousWanderer': { 'name': "Pengembara Misterius" },
+    'fairPip': { 'name': "Pip" },
+    'fairBess': { 'name': "Bess Tua" },
+    'fairHob': { 'name': "Hob" },
+    sunkenPriest: { name: "Pendeta yang Tenggelam" },
+    'fortHale': {
+      'name': "Kapten Hale",
+    },
+    'fortMara': {
+      'name': "Tetua Mara",
+    },
+    'scoutWren': {
+      'name': "Pengintai Wren",
+    },
     frostDisciple: {
       name: 'Ivor Hask'
     },
@@ -3733,6 +3992,185 @@ export default {
     }
   },
   dlg: {
+    // ── The Mysterious Wanderer (afterplay phase 10) ──
+    'mysteriousWanderer': {
+      'hello': { '1': "Jadi. Kamu melakukan yang jarang bisa dilakukan orang. Aku merasakannya dari sisi lain celah.", '2': "Aku mengajarkan jalan lama yang menyatukan dua aliran. Hanya bagi yang layak." },
+      'sealed': { '1': "Kamu menyegelnya. Sayang, dalam satu hal. Aku suka pemandangannya." },
+      'ajar': { '1': "Kamu membiarkannya sedikit terbuka. Berani. Para iblis akan membuatmu tetap waspada." },
+      'again': { '1': "Kembali lagi. Jalannya panjang, tapi kamu menempuhnya dengan baik." },
+      'train': { '1': "Tunjukkan kedua bagian dirimu, dan akan kujadikan satu." },
+      'trial': { 'say': "Ujian apa maksudmu?", '1': "Gerbang yang dipertahankan tanpa goresan. Naga yang dibunuh tanpa sekali jatuh. Lima tempaan neraka dan lima kemenangan beruntun.", '2': "Kematian Leviathan, dan satu ronde sempurna di hydra. Masing-masing membuka pintu yang bisa kutunjukkan." },
+      'who': { '1': "Seorang pengembara. Aku menyusuri tepi celah sebelum kakekmu lahir. Nama-nama pun aus." },
+      'trainBack': { '1': "Berlatihlah. Dua aliran bertengkar dulu sebelum sepakat." },
+      'bye': { '1': "Berjalanlah hati-hati. Aku akan di sini, sampai aku tak ada." }
+    },
+    'fairPip': {
+      'hello': { '1': "Ayo mendekat! Sembilan tong, segerombolan imp, dan satu palu. Pukul mereka kembali ke bawah!", '2': "Imp melompat keluar dari tong. Pukul dua puluh sebelum pasirnya habis.", '3': "Biarkan yang berzirah emas, mereka mengambil nyawa. Tiga kemenangan beruntun dan hadiah besar milikmu." },
+      'again': { '1': "Mau memukul lagi? Ambil palunya!" },
+      'play': { '1': "Palu siap! Mereka datang!" },
+      'who': { '1': "Pip, penangkap imp sebagai profesi. Yang ini kutangkap sendiri. Mereka menggigit." },
+      'playBack': { '1': "Ha! Ramai sekali! Lagi?" },
+      'bye': { '1': "Lemaskan lengan palumu!" }
+    },
+    'fairBess': {
+      'hello': { '1': "Lima cincin, tiga kepala, dan tak satu pun menggigit. Aku sendiri yang memahatnya, jadi hati-hati catnya.", '2': "Tahan untuk ancang-ancang, lepas untuk melempar. Kepala hanya menangkap cincin saat berayun ke tengah.", '3': "Setiap kepala beruntun dihitung satu lebih. Masukkan kelimanya dan aku bayar dengan pantas." },
+      'again': { '1': "Kembali mencoba peruntungan dengan nenek tuaku ini?" },
+      'play': { '1': "Ini cincinmu. Lempar pelan-pelan, Nak." },
+      'who': { '1': "Empat puluh tahun di jalan-jalan pasar malam. Hydra datang bersama perang. Rasanya cocok." },
+      'playBack': { '1': "Lumayan. Mendiang suamiku melempar lebih buruk." },
+      'bye': { '1': "Hati-hati catnya saat keluar." }
+    },
+    'fairHob': {
+      'hello': { '1': "Oh. Halo. Mau adu panco? Aku akan pelan-pelan. Akan kucoba.", '2': "Dorong saat cincin bertemu lingkaran. Lewat ketukan, kamu tergelincir.", '3': "Lengan kuat membantu. Kalahkan aku tiga kali beruntun dan Mahaguru Tempa akan memberimu diskon." },
+      'again': { '1': "Satu ronde lagi? Tak ada yang pernah kembali untuk satu ronde lagi." },
+      'play': { '1': "Siku di meja. Kapan pun kamu mau." },
+      'who': { '1': "Aku murid Mahaguru Tempa. Katanya aku tidak tahu kekuatanku sendiri." },
+      'playBack': { '1': "Pertandingan bagus. Besok lenganku pegal. Mungkin." },
+      'bye': { '1': "Cepat kembali. Bengkel tempa sangat sepi." }
+    },
+    // ── The Breaking (the afterplay, B0–B5) ──
+    'story': {
+      forge: { back: { '1': "Tempaku menyala lagi, lebih panas dari sebelumnya. Besi iblis meleleh dengan baik.", '2': "Bawakan apa yang kau temukan di luar sana. Kini aku bisa menempanya menjadi neraka." } },
+      oracle: { lens: { '1': "Dulu kau membebaskanku. Kini aku akan melihat untukmu. Ambil Lensaku.", '2': "Lihatlah melaluinya, dan peta akan menunjukkan tempat para binatang besar menunggu." } },
+      priest: { lens: { '1': "Sang Orakel telah tiada, jadi kini aku menjaga kuilnya. Sfinks menjaga benda ini.", '2': "Lensanya. Lihatlah melaluinya, dan peta akan menunjukkan tempat para binatang besar menunggu." } },
+      herbs: { scale: { '1': "Sisik Leviatan! Ringan seperti daun, dan mengapung.", '2': "Pakailah, dan perairan dangkal akan menopangmu seperti tanah padat." } },
+      ghost: { key: { '1': "Jadi, orang yang merebut takhtaku. Kau membunuh Hidraku. Bagus.", '2': "Ambil kunci apinya. Jantung celah itu membara, dan hanya api yang bisa membukanya." } },
+      syndicate: { key: { '1': "Hidra mati? Kalau begitu kunci apinya milik siapa pun yang membayar. Atau milikmu, kurasa.", '2': "Kunci itu membuka jantung celah. Pergi dan tutuplah, sebelum menelan bisnisku." } },
+      sealed: {
+        sealed: { '1': "Maka celah itu disegel, dan dunia mulai pulih.", '2': "Kota-kota dibangun kembali, lagu-lagu ditulis, dan satu nama ada di semuanya." },
+        ajar: { '1': "Maka celah itu dibiarkan sedikit terbuka, dan dunia belajar hidup di sampingnya.", '2': "Tembok tetap dijaga, koloseum tetap riuh, dan sang pahlawan tetap siaga." },
+      },
+      'rift': {
+        'scream': {
+          '1': "Penguasa Kehampaan jatuh, dan celah di belakangnya menjerit.",
+          '2': "Itu tak pernah singgasananya. Itu sangkarnya, dan dialah tutupnya.",
+          '3': "Kini celah itu terbuka, dan semua yang ditidurkan kehampaan mulai bangun.",
+        },
+      },
+      'wren': {
+        'found': {
+          '1': "Itu kamu! Aku Wren, pengintai. Aku mencarimu ke mana-mana.",
+          '2': "Sunford terbakar. Semua yang bisa lari pergi ke Penyeberangan Benteng.",
+          '3': "Itu benteng tua di jalan menuju Tebing Abu. Cepatlah, mereka membutuhkanmu.",
+        },
+      },
+    },
+    'scoutWren': {
+      sealed: { '1': "Naganya sudah pergi! Jalanan sudah terasa lebih ringan." },
+      'hello': {
+        '1': "Kamu datang! Aku tahu kamu akan datang. Selamat datang di Penyeberangan Benteng.",
+        '2': "Aku mengintai jalan untuk kapten. Tanyakan padaku di mana ada masalah.",
+      },
+      'again': {
+        '1': "Sudah kembali? Jalan tidak akan mengintai dirinya sendiri.",
+      },
+      'who': {
+        '1': "Wren. Aku pembawa pesan penjaga Sunford, sebelum Sunford terbakar.",
+      },
+      'rumor': {
+        'plains': {
+          '1': "Iblis menguasai jalan melewati Dataran Sunford. Para guru Sunford terjebak di baliknya.",
+        },
+        'hollows': {
+          '1': "Liang Goblin penuh anjing neraka. Bersihkan, dan warga Sunford bisa pulang.",
+        },
+        'woods': {
+          '1': "Sesuatu berkepala tiga berburu di Hutan Berbisik. Ahli herbal bersembunyi di sana.",
+        },
+        'outskirts': {
+          '1': "Centaur berkeliaran di Pinggiran Oakhaven. Jika mereka mencapai tembok, kita butuh setiap pedang.",
+        },
+        'siege': {
+          '1': "Gerombolan mereka hancur, tapi yang lain berkumpul. Kapten menyiapkan tembok.",
+        },
+      },
+      'bye': {
+        '1': "Awasi jalan-jalan. Aku juga akan mengawasinya.",
+      },
+    },
+    'fortHale': {
+      sealed: { '1': "Naga itu mati. Tak kusangka aku akan hidup untuk melihatnya. Terima kasih." },
+      'siegeBack': { '1': "Belum? Kalau begitu istirahatlah. Tembok akan menunggumu." },
+      'bell': { '1': "Ke gerbang, kalau begitu. Katakan seberapa keras kita menahannya." },
+      'hello': {
+        '1': "Kamu berhasil. Bagus. Kami butuh setiap pedang, sekarang lebih dari sebelumnya.",
+        '2': "Selamat datang di Penyeberangan Benteng. Tembok tua, tapi satu-satunya yang masih berdiri.",
+      },
+      'road': {
+        '1': "Jalan ke Sunford terbuka lagi. Warganya aman di balik tembok kita.",
+      },
+      'herbs': {
+        '1': "Ahli herbal sudah kembali, bersama herbalnya. Ruang rawat bisa bernapas lagi.",
+      },
+      'siege': {
+        '1': "Kamu menghancurkan para centaur. Tapi pasukan lebih besar datang, dan mereka mengincar tembok ini.",
+      },
+      'again': {
+        '1': "Masih berdiri. Tembok, para prajurit, dan aku.",
+      },
+      'fort': {
+        '1': "Benteng perbatasan tua. Kosong lima puluh tahun, sampai langit robek.",
+        '2': "Kini ini tempat aman terakhir di antara dataran dan pegunungan.",
+        'say': "Tempat apa ini?",
+      },
+      'rumor': {
+        'road': {
+          '1': "Bersihkan Dataran dan Liang. Warga Sunford terjebak di sana.",
+        },
+        'woods': {
+          '1': "Ahli herbal ada di Hutan Berbisik, begitu juga binatang berkepala tiga. Bersiaplah.",
+        },
+        'centaurs': {
+          '1': "Centaur di Pinggiran. Hancurkan gerombolan mereka sebelum sampai ke sini.",
+        },
+        'siege': {
+          '1': "Istirahatlah. Saat lonceng pengepungan berbunyi, aku butuh kamu di tembok.",
+        },
+      },
+      'bye': {
+        '1': "Jaga pedangmu tetap dekat.",
+      },
+    },
+    'fortMara': {
+      sealed: { '1': "Kau berhasil, Nak. Setiap dari kami berutang rumah padamu." },
+      'siegeBack': { '1': "Istirahatlah sebentar, Nak. Lonceng akan berbunyi lagi." },
+      'bell': { '1': "Tembok sang kapten kini aku yang jaga. Pilih bagaimana kita menahannya." },
+      'hello': {
+        '1': "Nak! Kamu masih hidup. Saat Sunford terbakar, aku takut yang terburuk.",
+        '2': "Kini kami tamu di benteng prajurit, nenek-nenek sekalipun.",
+      },
+      'command': {
+        '1': "Kapten Hale gugur bersama Oakhaven. Jadi benteng kini mendengarkan tetua tua.",
+      },
+      'home': {
+        '1': "Sunford dibangun kembali! Atap pertama sudah berdiri. Rasanya ingin menangis.",
+      },
+      'again': {
+        '1': "Masih di sini, Nak. Masih menghitung kepala.",
+      },
+      'town': {
+        '1': "Iblis turun dari langit malam. Kami lari membawa apa yang bisa dibawa.",
+        '2': "Sebagian dari kami tak pernah keluar. Bawa sisanya pulang, jika kamu bisa.",
+        'say': "Apa yang terjadi pada Sunford?",
+      },
+      'rumor': {
+        'road': {
+          '1': "Guru-guru kami masih di jalan Sunford. Bawa mereka ke sini, Nak.",
+        },
+        'woods': {
+          '1': "Ahli herbal pergi ke Hutan Berbisik mencari herbal dan tak pernah kembali.",
+        },
+        'centaurs': {
+          '1': "Penunggang di Pinggiran. Derap kaki seperti guntur, setiap malam.",
+        },
+        'siege': {
+          '1': "Tembok akan segera diuji. Aku bisa merasakannya di tulang tuaku.",
+        },
+      },
+      'bye': {
+        '1': "Hati-hati di jalan, Nak.",
+      },
+    },
     intro: {
       crossing: { 1: 'Setiap jalan di dunia ini bertemu di sebuah persimpangan… dan setiap persimpangan adalah pertempuran.' },
       hero: { 1: 'Dari ladang Sunford yang tenang, seorang pahlawan muda berangkat.' },
@@ -4183,6 +4621,7 @@ export default {
       }
     },
     hero: {
+      'siege': "Ayo jaga tembok.",
       forge: 'Aku ingin memakai tungkumu.',
       learnSmith: 'Bisa ajari aku menempa?',
       ore: 'Aku punya bijih untuk dijual.',
@@ -4489,7 +4928,7 @@ export default {
       },
       map: {
         '1': 'Peta Kapten Rook! Dia merobeknya dan menyembunyikan potongannya sebelum para goblin menangkapnya.',
-        '2': 'Temukan enam di antaranya, masih ada beberapa lagi yang tersebar di sekitar, dan tanda X akan menunjukkan jalan: di suatu tempat di Tebing Abu. Galilah di sana, dan emasnya milikmu.',
+        '2': "Temukan enam potongan, dan tanda X akan menunjukkan jalan: di suatu tempat di Tebing Abu. Galilah di sana untuk emasnya.",
         say: 'Aku menemukan sepotong peta tua.'
       }
     },
@@ -5455,6 +5894,11 @@ export default {
       }
     },
     quest: {
+      seal: {
+        ask: { '1': "Naga Purba telah mati, dan celah terbuka di hadapanmu.", '2': "Kau bisa menyegelnya sekarang, selamanya. Para binatang akan tidur lagi.", '3': "Atau kau bisa membiarkannya sedikit terbuka, agar yang paling berani menguji diri melawan apa pun yang muncul." },
+        seal: { say: "Segel. Selamanya.", '1': "Celah menutup seperti luka yang sembuh, dan langit menjadi hening." },
+        ajar: { say: "Biarkan sedikit terbuka. Kami akan siap.", '1': "Celah tetap terbuka sedikit, dan sesuatu di baliknya tertawa." },
+      },
       goblinKing: {
         ask: {
           '1': 'Berhenti. Kumohon. Aku menyerah.',
@@ -5586,6 +6030,64 @@ export default {
       }
     },
     bark: {
+      sphinx: {
+        intro: { '1': "Jawab aku, kecil, atau terkuburlah dalam pasirku." },
+        riddle: { '1': "Kalau begitu, teka-teki. Injak tempat yang kutunjukkan, sesuai urutannya." },
+        sand: { '1': "Lima kali ini. Dan pasirku tidak akan menunggu." },
+        death: { '1': "Jawabanmu bagus. Pasir ini milikmu sekarang." },
+      },
+      leviathan: {
+        intro: { '1': "Sekarang kau berjalan di airku." },
+        sink: { '1': "Pulau-pulau kecilmu tenggelam." },
+        grab: { '1': "Turunlah ke kedalaman bersamaku!" },
+        death: { '1': "Air surut pergi, dan tak kembali." },
+      },
+      hydra: {
+        intro: { '1': "Potong satu kepala, dua akan tumbuh!" },
+        heads: { '1': "Lebih banyak kepala, lebih banyak taring!" },
+        rage: { '1': "Membakar kami? Maka terbakarlah bersama kami!" },
+        death: { '1': "Tak ada kepala lagi. Tak ada lagi." },
+      },
+      elderDragon: {
+        intro: { '1': "Aku tidur di bawah dunia sebelum kaummu mengenal api." },
+        flight: { '1': "Bersembunyilah di balik batu-batu kecilmu, kalau begitu." },
+        rift: { '1': "Celah itu menarikku kembali. Belum!" },
+        death: { '1': "Segellah, kalau begitu. Aku lelah dengan kegelapan." },
+      },
+      'siegeHale': {
+        'start': {
+          '1': "Mereka datang! Tahan gerbang!"
+        },
+        'ram': {
+          '1': "Pendobrak! Hancurkan sebelum sampai gerbang!"
+        },
+        'horn50': {
+          '1': "Separuh gerbang hancur! Bertahan!"
+        },
+        'horn25': {
+          '1': "Gerbang tak akan bertahan lama lagi!"
+        },
+        'won': {
+          '1': "Mereka hancur! Benteng tetap berdiri!"
+        }
+      },
+      'siegeMara': {
+        'start': {
+          '1': "Mereka datang! Semuanya, berdiri teguh!"
+        },
+        'ram': {
+          '1': "Pendobrak! Hentikan sebelum menjebol gerbang!"
+        },
+        'horn50': {
+          '1': "Separuh gerbang runtuh. Bertahanlah!"
+        },
+        'horn25': {
+          '1': "Gerbang mulai jebol! Pukul mundur mereka!"
+        },
+        'won': {
+          '1': "Mereka lari! Benteng masih berdiri!"
+        }
+      },
       banditChief: {
         whistle: {
           1: 'Bangun, anak-anak! Gigit mereka!'
@@ -5594,6 +6096,11 @@ export default {
       lightDisciple: {
         freed: {
           '1': 'Cahaya mengutusmu. Aku Suster Aurelle. Carilah aku di Sunford, akan kuajari kau jalan Pembawa Cahaya.'
+        }
+      },
+      trainerAegis: {
+        freed: {
+          '1': 'Terima kasih telah membebaskan kami dari bandit! Ke api unggun: kami semua mengajarimu, pelajaran pertama gratis.'
         }
       },
       frostDisciple: {
@@ -5649,6 +6156,48 @@ export default {
         },
         dive: {
           '1': 'Berlutut.'
+        }
+      },
+      chimera: {
+        intro: {
+          '1': "Tiga kepala, satu lapar. Siapa di antara kami yang menggigit duluan?"
+        },
+        twin: {
+          '1': "Sekarang kami berdua. Pilih sisimu baik-baik."
+        },
+        tail: {
+          '1': "Ekorku! Kau akan membayarnya!"
+        },
+        death: {
+          '1': "Tiga kepala, dan tak satu pun melihat ini datang."
+        }
+      },
+      centaurWarchief: {
+        intro: {
+          '1': "Larilah kalau mau. Panahku lebih cepat."
+        },
+        raiders: {
+          '1': "Para penunggang! Injak mereka!"
+        },
+        rear: {
+          '1': "Cukup panahnya. Akan kuinjak kau sampai rata!"
+        },
+        death: {
+          '1': "Padang ini akan mengingat derap kakiku."
+        }
+      },
+      cyclops: {
+        intro: {
+          '1': "Ada sesuatu yang kecil di sini. Mendekatlah. Biar kulihat."
+        },
+        cover: {
+          '1': "Tak ada lagi melihat. Mataku takkan kau dapat!"
+        },
+        blind: {
+          '1': "Aku tak bisa melihatmu, tapi aku bisa mendengarmu!"
+        },
+        death: {
+          '1': "Gelap. Semuanya jadi gelap."
         }
       },
       frostJarl: {
@@ -6773,7 +7322,20 @@ export default {
       }
     }
   },
+  invasion: {
+    pylonsDown: 'Pilon terakhir runtuh, dan hartanya berhamburan!',
+    reborn: {
+      tusker: 'Tusker yang Bangkit',
+      emberLord: 'Penguasa Bara Neraka',
+      frostJarl: 'Jarl Es yang Bangkit',
+      voidDragon: 'Naga Hampa yang Bangkit'
+    }
+  },
   enemy: {
+    sphinx: "Sfinks",
+    leviathan: "Leviatan",
+    hydra: "Hidra",
+    elderDragon: "Naga Purba",
     trainingDummy: 'Boneka Latihan',
     goblin: 'Goblin',
     goblinSlinger: 'Goblin Pengumban',
@@ -6798,6 +7360,10 @@ export default {
     naga: 'Siluman Ular',
     skeleton: 'Tengkorak',
     necromancer: 'Nekromanser',
+    chimera: "Chimera",
+    chimeraTail: "Ekor Ular",
+    centaurWarchief: "Panglima Centaur",
+    cyclops: "Cyclops",
     frostJarl: 'Jarl Es',
     nagaOracle: 'Peramal yang Tenggelam',
     voidStalker: 'Pengintai Hampa',
@@ -6810,6 +7376,7 @@ export default {
     archDemon: 'Iblis Agung',
     voidling: 'Anak Hampa',
     voidLord: 'Penguasa Hampa',
+    demonPylon: 'Pilon Iblis',
     orderGuard: 'Inkuisitor Ordo',
     syndicateBlade: 'Bilah Sindikat',
     goblinWarchief: 'Panglima Perang Goblin',
@@ -6826,7 +7393,19 @@ export default {
     goblinTyrant: 'Tiran Goblin',
     voidDrake: 'Drake Hampa',
     pitLord: 'Penguasa Jurang',
-    frostThane: 'Bangsawan Es'
+    frostThane: 'Bangsawan Es',
+    hellhound: 'Anjing Neraka',
+    frostHellhound: 'Anjing Neraka Es',
+    gargoyle: 'Gargoyle',
+    harpy: 'Harpy',
+    corruptedTreant: 'Treant Tercemar',
+    centaurRaider: 'Perampok Kentaur',
+    cyclopsBrute: 'Raksasa Kiklops',
+    demonMiner: 'Penambang Iblis',
+    sphinxAcolyte: 'Murid Sfinks',
+    seaDemon: 'Iblis Laut',
+    drakeHatchling: 'Anak Naga',
+    hydraSpawn: 'Keturunan Hidra'
   },
   results: {
     careful: 'Kemenangan hati-hati ×{mult}',
@@ -7139,6 +7718,8 @@ export default {
     town: 'Pandai besi di kota mana pun bisa meningkatkan ini.'
   },
   ore: {
+    'demonglass': { 'name': "Kaca iblis" },
+    'ichor': { 'name': "Ikor mitis" },
     iron: {
       name: 'Bijih besi'
     },

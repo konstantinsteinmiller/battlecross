@@ -1,5 +1,170 @@
 // Dutch locale — mirrors the key shape of en.ts exactly.
 export default {
+  // ─── Afterplay phase 8: items, materials and capstones ───
+  // ─── Afterplay phase 10: the prestige classes ───
+  'prestige': { 'toast': { 'wanderer': "Een mysterieuze zwerver wacht in het fort." } },
+  'relic': {
+    'infernal': "{name} · Helse",
+    'set': "Gedragen met {item}:",
+    'heroicBadge': "Heroïsch {n}",
+    'heroic': "Heroïsch {n}: {gold} goud, {glass} demonenglas",
+    'heroicIchor': "Heroïsch {n}: {gold} goud, {glass} demonenglas, {ichor} ichor",
+    'heroicMax': "Alle heroïsche rangen zijn behaald.",
+    'infernalForge': "Hels smeden: {gold} goud, {glass} demonenglas",
+    'lens': "Lens van het Orakel: hier wacht {boss}.",
+    'hydraKey': "Verzegeld. De vuursleutel van de Hydra opent het hart van de Scheur.",
+    'marksGlass': "Koop {glass} demonenglas voor {marks} tekens",
+    'capstone': "Hoogtepunt",
+    'fortOnly': "Dit hoogtepunt wordt alleen in Bastionsoversteek onderwezen."
+  },
+  // ─── The fort's fair games (afterplay §9) ───
+  'fair': {
+    'fee': "Spelen · {n}",
+    'again': "Opnieuw spelen",
+    'noGold': "Niet genoeg goud.",
+    'capped': "Zones te veroveren voor de grote prijzen terugkomen: {n}",
+    'top': "Hoofdprijs! +{gold} goud, +{xp} XP",
+    'topGold': "Hoofdprijs, alleen in goud: +{n} goud",
+    'won': "Gewonnen! +{n} goud",
+    'lost': "Pech. De reeks begint opnieuw.",
+    'row': "Overwinningen op rij: {n} van {max}",
+    'mats': "+{n} Heroïsch+-materiaal",
+    'discount': "De smid geeft je nu {n}% korting op verbeteringen!"
+  },
+  'whack': {
+    'title': "Mep-de-Imp",
+    'lead': "Raak 20 imps in 30 seconden. Laat de goudgepantserde met rust: elke die je raakt kost een leven.",
+    'hits': "Imps: {n} / {max}",
+    'lives': "Levens: {n}",
+    'time': "Tijd: {n} s",
+    'hint': "Tik op de imps, of druk op 1 tot 9.",
+    'barrel': "Ton {n}",
+    'timeout': "De tijd is om!",
+    'dead': "Geen levens meer!"
+  },
+  'ring': {
+    'title': "Ringwerpen bij de Hydra",
+    'lead': "Houd vast voor kracht, laat los om te gooien. Een kop vangt de ring alleen bij het midden van zijn zwaai. Elke kop op rij is een punt meer waard.",
+    'hint': "Houd vast en laat los op de tafel, of houd Spatie ingedrukt.",
+    'rings': "Ringen over: {n}",
+    'score': "Score: {n}",
+    'hit': "Raak! +{n}",
+    'miss': "Mis!",
+    'perfect': "Een perfecte ronde!",
+    'nothing': "Score {n}. Deze keer geen prijs.",
+    'power': "Kracht"
+  },
+  'arm': {
+    'title': "Armworstelen",
+    'lead': "Tik als de ring de cirkel raakt om zijn arm neer te drukken. Kracht maakt de maat breder. Drie overwinningen op rij geven smidskorting, vijf geven Heroïsch+-materiaal.",
+    'hint': "Tik op de tafel, of druk op Spatie.",
+    'good': "Duw!",
+    'off': "Uit de maat!"
+  },
+  // ─── The Siege of Bastion (afterplay §8) ───
+  'siege': {
+    'title': "Beleg van Bastionsoversteek",
+    'lead': "Houd de poort tien golven lang. Besteed tussen de golven belegeringstekens aan verdediging.",
+    'story': "De horde staat voor de poort. Houd tien golven stand: dit eerste beleg kan niet verloren gaan.",
+    'bell': "De belegeringsklok luidt! De horde verzamelt zich voor de poort.",
+    'mapBell': "Beleg!",
+    'start': "Luid de klok",
+    'wins': "Gewonnen: {n}",
+    'marksBank': "Gespaarde belegeringstekens: {n}",
+    'tier': {
+      'normal': "Normaal",
+      'hard': "Moeilijk",
+      'nightmare': "Nachtmerrie"
+    },
+    'tierDesc': {
+      'normal': "Vijanden één niveau boven jou.",
+      'hard': "Vijanden 3 niveaus hoger, met 30% meer leven.",
+      'nightmare': "Vijanden 6 niveaus hoger en twee golven mythische elites."
+    },
+    'locked': {
+      'hard': "Win eerst een normaal beleg.",
+      'nightmare': "Opent zodra de scheur verzegeld is of op een kier blijft."
+    },
+    'lord': "Belegeringsheer",
+    'hud': {
+      'wave': "Golf {n}/{total}",
+      'marks': "Tekens: {n}",
+      'gate': "Poort {pct}%",
+      'build': "Golf {n} over {s} s",
+      'ready': "Klaar!",
+      'buy': "{name}: {n} tekens"
+    },
+    'def': {
+      'ballista': {
+        'name': "Ballista",
+        'desc': "Schiet elke 2 seconden een doorborende pijl door haar baan."
+      },
+      'cauldron': {
+        'name': "Vuurketel",
+        'desc': "Zet de engte van zijn baan in brand."
+      },
+      'barricade': {
+        'name': "Barricade",
+        'desc': "Blokkeert een baan voor 20 seconden."
+      },
+      'militia': {
+        'name': "Militie",
+        'desc': "Twee wachters vechten aan je zijde."
+      },
+      'repair': {
+        'name': "Poort herstellen",
+        'desc': "Herstelt een kwart van de poort."
+      }
+    },
+    'block': {
+      'marks': "Niet genoeg belegeringstekens.",
+      'full': "Geen ruimte meer.",
+      'phase': "Alleen tussen de golven."
+    },
+    'toast': {
+      'cleared': "Golf {n} afgeslagen! +{marks} tekens",
+      'clearedUnharmed': "Golf {n} afgeslagen, poort ongedeerd! +{marks} tekens",
+      'horn': "De hoorn klinkt! De poort staat nog op {pct}%.",
+      'ram': "Een stormram! Houd hem tegen voor hij de poort bereikt!",
+      'rally': "Weer overeind! Houd de poort!"
+    },
+    'banner': {
+      'wave': "Golf {n}",
+      'final': "De Belegeringsheer!"
+    },
+    'result': {
+      'tier': "Beleg van Bastionsoversteek: {tier}",
+      'waves': "Golven afgeslagen: {n}/{total}",
+      'marks': "Belegeringstekens behouden: {banked} van {earned}",
+      'glass': "Demonenglas: +{n}"
+    },
+    'milestone': {
+      'normal1': "Mijlpaal bereikt: het Bastionsvaandel.",
+      'normal5': "Mijlpaal bereikt: het Harnas van de Muurwachter.",
+      'hard1': "Mijlpaal bereikt: Veteraneninstinct, een vijfde passief vak.",
+      'hard5': "Mijlpaal bereikt: Poortbreker.",
+      'nightmare1': "Mijlpaal bereikt: de Kroon van het Laatste Bastion.",
+      'hardFlawless': "Mijlpaal bereikt: de sleutel tot een verborgen klassenproef."
+    }
+  },
+  // ─── The Breaking (the afterplay's story) ───
+  'breaking': {
+    'title': "De Breuk",
+    'toast': {
+      brk6: "De Smeedmeester heeft zijn smidse terug. Helse smeedkunst is open.",
+      brk7: "De Sfinx is dood. De Lens van het Orakel toont waar de grote beesten wachten.",
+      brk8: "De Leviathan is dood. Zijn schub laat je over ondiep water lopen.",
+      brk9: "De Hydra is dood. Haar vuursleutel is van jou.",
+      brk10: "De Oerdraak is dood. De scheur ligt open.",
+      sealed: "De scheur is verzegeld. Jij bent de Verzegelaar van de Scheur.",
+      ajar: "De scheur blijft op een kier. Demonen zullen de muren en het colosseum op de proef stellen.",
+      'brk2': "Bastionsoversteek neemt je op. De mensen rekenen nu op jou.",
+      'rescued': "Overlevenden gered! Ze zijn veilig in Bastionsoversteek.",
+      'brk3': "De weg is vrij. De mensen van Sunford zijn veilig.",
+      'brk4': "De kruidenvrouw sluit zich bij het fort aan.",
+      'brk5': "De centaurenbende is gebroken. Het fort maakt zich klaar voor een beleg.",
+    },
+  },
   // ─── The intro (#130): its skip, and its narrator's name ───
   intro: {
     narrator: 'De Kroniekschrijver',
@@ -88,6 +253,7 @@ export default {
     gold: '{n} goud',
     potion: 'Levensdrank (nog {n})',
     manaPotion: 'Manadrank (nog {n})',
+    potionStop: 'Drink een genezingsdrankje om verder te gaan',
     groups: '{n} van {total} vijandelijke groepen verslagen',
     wave: 'Golf {n} / {total}',
     roll: 'Ontwijrol',
@@ -262,6 +428,10 @@ export default {
     escort: 'Bewaak de karavaan'
   },
   node: {
+    'bastion': {
+      'name': "Bastionsoversteek",
+      'desc': "Een oud grensfort, de laatste muren die nog staan. Overlevenden verzamelen zich hier.",
+    },
     sunford: {
       name: 'Sunford',
       desc: 'Een boerenstadje aan de rand van de vlakte. Een thuis, een smid en twee leermeesters.'
@@ -344,6 +514,9 @@ export default {
     locked: 'Maak een aangrenzend gebied vrij om de weg te openen.',
     lockedArena: 'De poorten gaan open zodra er met de Goblinkoning is afgerekend.',
     lockedRift: 'Hij gaat open wanneer over de troon van de Gruwelburcht is beslist.',
+    invaded: 'Bezet',
+    invadedDesc: 'Demonen beheersen dit land. Hun pylonen laten vijanden in de buurt harder slaan, riftlittekens branden en vertragen, en elke vijand die je hier verslaat is meer waard.',
+    lockedInvaded: 'De demonen houden het stevig vast. Herover eerst {zone}.',
     danger: {
       '1': 'Iets boven je level.',
       '2': 'Gevaarlijk op jouw level.',
@@ -470,6 +643,11 @@ export default {
     }
   },
   class: {
+    // ── The prestige classes (afterplay phase 10) ──
+    'demonhunter': { 'name': "Demonenjager", 'desc': "Schaduw en heilig licht, gezworen aan één prooi. Markeert demonen, en de gemarkeerden vallen snel." },
+    'dragoon': { 'name': "Dragonder", 'desc': "Wind onder de laarzen, een schild aan de arm. Springt uit de lucht en spiest hele rijen." },
+    'hexsmith': { 'name': "Vloeksmid", 'desc': "Etherambacht gevoed met bloed. Bouwt geschutstorens die de vijand leegzuigen om de smid te helen." },
+    'tidecaller': { 'name': "Getijdenroeper", 'desc': "Vorst en elementen, in de zee gegoten. Golven die vijanden terugwerpen en doorweken." },
     aegis: {
       name: 'Aegisridder',
       desc: 'Schild en heilig staal. Vangt de klappen op, zodat niemand anders dat hoeft.'
@@ -536,6 +714,35 @@ export default {
     }
   },
   skill: {
+    // ── The prestige classes (afterplay phase 10) ──
+    'huntersMark': { 'name': "Jagersteken", 'desc': "Een heilige bout voor {dmg}% Behendigheid-schade. {dur} s lang krijgt het doelwit {vuln}% meer schade, een demon {demon}% meer." },
+    'demonsBane': { 'name': "Demonenvloek", 'desc': "+{bane}% schade tegen demonen, en {ward}% minder schade van hen." },
+    'silverVolley': { 'name': "Zilversalvo", 'desc': "Zilveren bouten in een lijn: {dmg}% Behendigheid-schade, +{bane}% tegen demonen en gemarkeerde vijanden." },
+    'skyfallLeap': { 'name': "Hemelval", 'desc': "Spring {air} s buiten bereik en val dan neer: {dmg}% Kracht-schade binnen {radius} m, vijanden omvergeworpen." },
+    'dragonBlood': { 'name': "Drakenbloed", 'desc': "+{boss}% schade tegen bazen, +{hp}% maximale gezondheid, en niets duwt je terug." },
+    'dragonLance': { 'name': "Drakenlans", 'desc': "Een speerstoot in een lijn: {dmg}% Behendigheid-schade aan elke vijand erin." },
+    'hexTurret': { 'name': "Vloektoren", 'desc': "Bouw een toren voor {dur} s. Elke seconde zuigt hij de dichtstbijzijnde vijand binnen {radius} m leeg voor {dmg}% Techniek-schade; jij heelt {drain}% daarvan." },
+    'soulForge': { 'name': "Zielensmidse", 'desc': "+{hp}% maximale gezondheid, {regen} gezondheid per seconde, en je krijgt {reduce}% minder schade." },
+    'hexBolt': { 'name': "Vloekbout", 'desc': "Betaal {hp}% gezondheid: een bout voor {dmg}% Techniek-schade. Je heelt {heal}% daarvan, en de vijand doet {dur} s lang {weak}% minder schade." },
+    'tidalWave': { 'name': "Vloedgolf", 'desc': "Een golf in een lijn: {dmg}% Intelligentie-schade, vijanden teruggeworpen en doorweekt ({slow}% trager voor {dur} s)." },
+    'seaborn': { 'name': "Zeegeboren", 'desc': "+{bonus}% schade tegen verkilde vijanden, {reduce}% minder ontvangen schade, +{move}% snelheid." },
+    'undertow': { 'name': "Onderstroom", 'desc': "Een draaikolk voor {dur} s: in totaal {dmg}% Intelligentie-schade binnen {radius} m. Trekt vijanden naar binnen en vertraagt ze met {slow}%." },
+    'bastionWall': { 'name': "Bastionmuur", 'desc': "{dur}s lang moet elke vijand binnen {radius} m jou aanvallen, en je krijgt {def}% minder. Daarna doet licht {dmg}% Kracht +{back}% van de ontvangen klappen." },
+    'thousandCuts': { 'name': "Duizend sneden", 'desc': "Schiet tussen vijanden binnen {radius} m en sla {hits} keer toe voor elk {dmg}% Behendigheidsschade. Een baas krijgt maar één slag. Zolang je snijdt, raakt niets je." },
+    'cinderSun': { 'name': "Sintelzon", 'desc': "Een stervende zon valt {dur}s lang uiteen: {meteors} brandende scherven, elk voor {dmg}% Intelligentieschade." },
+    'royalLegion': { 'name': "Koninklijk legioen", 'desc': "Roep het legioen voor {dur}s: {archers} boogschutters, {guards} wachters en {mages} strijdmagiërs." },
+    'stoppedHour': { 'name': "Stilgezet uur", 'desc': "Zet het uur binnen {radius} m {dur}s stil. Als het weer loopt, krijgt elke vijand {dmg}% Intelligentieschade." },
+    'redCovenant': { 'name': "Rood verbond", 'desc': "Neem {pct}% van het leven van elke vijand binnen {radius} m. Je heelt {heal}% daarvan." },
+    'orbitalLance': { 'name': "Orbitale lans", 'desc': "Een lans van licht uit de hemel brandt waar je mikt: {dmg}% Vaardigheidsschade over {dur}s." },
+    'tectonicHeart': { 'name': "Tektonisch hart", 'desc': "Het hart van de aarde splijt: {dmg}% Krachtschade aan alles dichtbij, en puin dat {dur}s vertraagt." },
+    'eyeOfTheGale': { 'name': "Oog van de storm", 'desc': "Een pijlenstorm voor {dur}s: in totaal {dmg}% Vaardigheidsschade en {slow}% vertraging." },
+    'endlessWinter': { 'name': "Eindeloze winter", 'desc': "Een winter zonder einde barst uit je los: {dmg}% Intelligentieschade binnen {radius} m, alles bevriest {freeze}s." },
+    'dawnbreak': { 'name': "Dageraad", 'desc': "Word {dur}s de dageraad: elke seconde {dmg}% Intelligentieschade binnen {radius} m en {heal}% genezing." },
+    'alphasCall': { 'name': "Roep van de alfa", 'desc': "{wolves} wolven antwoorden en rennen {dur}s met je mee. De hele roedel doet +{dmg}% schade en is {move}% sneller." },
+    'prismStorm': { 'name': "Prismastorm", 'desc': "{dur}s lang razen de vier elementen: {strikes} slagen van {dmg}% Intelligentie die elkaar ontsteken." },
+    'ferryman': { 'name': "Veerman", 'desc': "{dur}s lang rijst elke vijand die bij je valt op als jouw geest, en geesten doen {atk}% meer." },
+    'unmovingMountain': { 'name': "Onwrikbare berg", 'desc': "Gebruik alle chi: een berg valt neer voor {dmg}% Behendigheidsschade, +{per}% per chi, en slaat vijanden neer." },
+    'encore': { 'name': "Toegift", 'desc': "Nog één keer voor {dur}s (+{buff}% snelheid, schade, Verdediging), dan het laatste akkoord: {dmg}% Charisma, vijanden betoverd." },
     kind: {
       active: 'Actief',
       passive: 'Passief'
@@ -591,7 +798,7 @@ export default {
     },
     danceOfBlades: {
       name: 'Dans der Klingen',
-      desc: 'Schiet heen en weer tussen vijanden binnen {radius} m en sla {hits} keer toe voor in totaal {dmg}% Behendigheid-schade. Tijdens de dans ben je niet te raken.'
+      desc: 'Schiet heen en weer tussen vijanden binnen {radius} m en sla {hits} keer toe voor elk {dmg}% Behendigheid-schade. Een baas krijgt maar één slag. Tijdens de dans ben je niet te raken.'
     },
     fireball: {
       name: 'Vuurbal',
@@ -1339,6 +1546,8 @@ export default {
     magic: 'Magie · schaalt met {attr}'
   },
   source: {
+    'siege': "Gewonnen in het Beleg van Bastionsoversteek.",
+    'infernal': "Een helse tweeling: valt in het bezette {zone} of wordt door een smid gesmeed.",
     arena: 'Gewonnen in het Colosseum.',
     smith: 'Gesmeed in een smidse.',
     mob: 'Buit van monsters. Gebied: {zone}.',
@@ -1347,6 +1556,15 @@ export default {
     secret: 'Verstopt in een geheime kist. Gebied: {zone}.'
   },
   mod: {
+    'demonBane': "+{n}% schade tegen demonen",
+    'demonLeech': "{n}% van de schade aan demonen heelt je",
+    'beastBane': "+{n}% schade tegen mythische beesten",
+    'fireWard': "{n}% minder vuurschade ontvangen",
+    'shadowWard': "{n}% minder schaduwschade ontvangen",
+    'demonWard': "{n}% minder schade van demonen",
+    'pylonBreaker': "+{n}% schade tegen demonenzuilen",
+    'glassFinder': "{n}% kans dat een gedode demon extra demonenglas achterlaat",
+    'waterWalk': "Water vertraagt je niet",
     str: '+{n} Kracht',
     dex: '+{n} Behendigheid',
     int: '+{n} Intelligentie',
@@ -1422,6 +1640,24 @@ export default {
     songLength: 'Liederen duren {n}% langer'
   },
   item: {
+    'chimeraMane': { 'name': "Chimaeramanen" },
+    'triFang': { 'name': "Drietand" },
+    'warchiefsLongbowGun': { 'name': "Langboog-geweer van de krijgsheer" },
+    'hoofbreakerGreaves': { 'name': "Hoefbreker-scheenplaten" },
+    'eyeOfTheDeep': { 'name': "Oog van de diepte" },
+    'beamSplitter': { 'name': "Straalsplijter" },
+    'riddleCrown': { 'name': "Raadselkroon" },
+    'sandglassWand': { 'name': "Zandloperstaf" },
+    'leviathanScale': { 'name': "Leviathanschub" },
+    'tidecallerStaff': { 'name': "Staf van de getijdenroeper" },
+    'hydraScaleGauntlets': { 'name': "Hydraschub-handschoenen" },
+    'manyHeadedFlail': { 'name': "Veelkoppige vlegel" },
+    'heartOfTheElderDragon': { 'name': "Hart van de Oeroude Draak" },
+    'dragonboneGreatsword': { 'name': "Drakenbeen-slagzwaard" },
+    'bastionBanner': { 'name': "Banier van het Bastion" },
+    'wallwardensPlate': { 'name': "Harnas van de muurwachter" },
+    'gatebreaker': { 'name': "Poortbreker" },
+    'crownOfTheLastBastion': { 'name': "Kroon van het laatste Bastion" },
     heartOfTheArena: {
       name: 'Hart van de Arena'
     },
@@ -3419,8 +3655,17 @@ export default {
     known: 'Geleerd',
     friend: '{faction}: 20% korting voor vrienden.',
     fee: 'Tarief',
+    rank: {
+      label: 'Rang {n}',
+      up: 'Rang verhogen',
+      effect: '+{effect}% effect, −{cd}% afkoeltijd',
+      max: 'Hoogste rang',
+      level: 'Rang {n} vraagt level {lvl}.'
+    },
     hint: 'Kies een les. Een groene rand betekent dat je hem nu kunt leren.',
     block: {
+      'trial': "Je hebt de beproeving van deze klasse nog niet doorstaan.",
+      'parents': "Leer eerst een vaardigheid van {a} en een van {b}.",
       level: 'Je level is te laag.',
       attrs: 'Je attributen zijn te laag.',
       gold: 'Niet genoeg goud.'
@@ -3445,6 +3690,20 @@ export default {
     circle: 'De Kring van Ether'
   },
   npc: {
+    'mysteriousWanderer': { 'name': "Mysterieuze zwerver" },
+    'fairPip': { 'name': "Pip" },
+    'fairBess': { 'name': "Oude Bess" },
+    'fairHob': { 'name': "Hob" },
+    sunkenPriest: { name: "De Verzonken Priester" },
+    'fortHale': {
+      'name': "Kapitein Hale",
+    },
+    'fortMara': {
+      'name': "Oudste Mara",
+    },
+    'scoutWren': {
+      'name': "Verkenner Wren",
+    },
     frostDisciple: {
       name: 'Ivor Hask'
     },
@@ -3734,6 +3993,185 @@ export default {
     }
   },
   dlg: {
+    // ── The Mysterious Wanderer (afterplay phase 10) ──
+    'mysteriousWanderer': {
+      'hello': { '1': "Zo. Je deed wat maar weinigen ooit deden. Ik voelde het aan de andere kant van de scheur.", '2': "Ik leer de oude wegen die twee scholen tot één maken. Alleen aan wie ze verdient." },
+      'sealed': { '1': "Je hebt hem verzegeld. Jammer, in zekere zin. Ik hield van het uitzicht." },
+      'ajar': { '1': "Je liet hem op een kier. Gedurfd. De demonen houden je scherp." },
+      'again': { '1': "Weer terug. De weg is lang, maar je loopt hem goed." },
+      'train': { '1': "Toon me beide helften van wat je bent, en ik maak er één van." },
+      'trial': { 'say': "Welke beproevingen bedoel je?", '1': "Een poort gehouden zonder kras. Een draak gedood zonder één val. Vijf helse smeedstukken en vijf overwinningen op rij.", '2': "De dood van de Leviathan, en een perfecte ronde bij de hydra. Elk opent een deur die ik je kan tonen." },
+      'who': { '1': "Een zwerver. Ik liep langs de rand van de scheur voor je grootvader geboren was. Namen slijten." },
+      'trainBack': { '1': "Oefen. Twee scholen vechten eerst voor ze het eens worden." },
+      'bye': { '1': "Ga voorzichtig. Ik ben hier, tot ik er niet meer ben." }
+    },
+    'fairPip': {
+      'hello': { '1': "Kom maar kijken! Negen tonnen, een bende imps en één hamer. Mep ze terug naar beneden!", '2': "De imps springen uit de tonnen. Raak er twintig voor het zand op is.", '3': "Laat de goudgepantserde met rust, die kosten een leven. Drie keer op rij winnen en de grote prijs is van jou." },
+      'again': { '1': "Nog meer meppen? Pak de hamer!" },
+      'play': { '1': "Hamer omhoog! Daar komen ze!" },
+      'who': { '1': "Pip, impvanger van beroep. Deze heb ik zelf gevangen. Ze bijten." },
+      'playBack': { '1': "Ha! Wat een herrie! Nog eens?" },
+      'bye': { '1': "Hou die hamerarm los!" }
+    },
+    'fairBess': {
+      'hello': { '1': "Vijf ringen, drie koppen, en geen van allen bijt. Ik heb haar zelf gesneden, dus pas op de verf.", '2': "Houd vast voor de zwaai, laat los om te gooien. Een kop vangt de ring alleen als hij naar het midden zwaait.", '3': "Elke kop op rij telt er een meer. Gooi ze alle vijf en ik betaal je netjes." },
+      'again': { '1': "Kom je het weer proberen bij mijn oude meid?" },
+      'play': { '1': "Hier zijn je ringen. Gooi zachtjes, schat." },
+      'who': { '1': "Veertig jaar op de kermiswegen. De hydra kwam met de oorlog. Leek me toepasselijk." },
+      'playBack': { '1': "Niet slecht. Mijn zaliger man gooide slechter." },
+      'bye': { '1': "Pas op de verf bij het weggaan." }
+    },
+    'fairHob': {
+      'hello': { '1': "O. Hallo. Wil je armworstelen? Ik doe rustig. Ik probeer het.", '2': "Duw als de ring de cirkel raakt. Uit de maat en je glijdt weg.", '3': "Sterke armen helpen. Versla me drie keer op rij en de Smeedmeester geeft je korting." },
+      'again': { '1': "Nog een ronde? Niemand komt ooit terug voor nog een ronde." },
+      'play': { '1': "Elleboog op tafel. Wanneer je wilt." },
+      'who': { '1': "Ik ben de leerling van de Smeedmeester. Hij zegt dat ik mijn eigen kracht niet ken." },
+      'playBack': { '1': "Goede partij. Morgen doet mijn arm pijn. Waarschijnlijk." },
+      'bye': { '1': "Kom snel terug. Het is erg stil in de smidse." }
+    },
+    // ── The Breaking (the afterplay, B0–B5) ──
+    'story': {
+      forge: { back: { '1': "Mijn smidse brandt weer, heter dan ooit. Demonenijzer smelt goed.", '2': "Breng me wat je daarbuiten vindt. Ik kan het nu hels smeden." } },
+      oracle: { lens: { '1': "Je hebt me eens bevrijd. Nu zie ik voor jou. Neem mijn Lens.", '2': "Kijk erdoor, en de kaart toont je waar de grote beesten wachten." } },
+      priest: { lens: { '1': "Het Orakel is weg, dus nu hoed ik haar tempel. De Sfinx bewaakte dit.", '2': "Haar Lens. Kijk erdoor, en de kaart toont je waar de grote beesten wachten." } },
+      herbs: { scale: { '1': "Een schub van de Leviathan! Licht als een blad, en hij drijft.", '2': "Draag hem, en het ondiepe water houdt je als vaste grond." } },
+      ghost: { key: { '1': "Zo, degene die mijn troon nam. Je hebt mijn Hydra gedood. Goed.", '2': "Neem haar vuursleutel. Het hart van de scheur brandt, en alleen vuur opent het." } },
+      syndicate: { key: { '1': "De Hydra is dood? Dan gaat haar vuursleutel naar wie betaalt. Of naar jou, denk ik.", '2': "Hij opent het hart van de scheur. Ga hem sluiten, voor hij mijn zaken opeet." } },
+      sealed: {
+        sealed: { '1': "En zo werd de scheur verzegeld, en begon de wereld te helen.", '2': "Steden werden herbouwd, liederen geschreven, en in allemaal stond één naam." },
+        ajar: { '1': "En zo bleef de scheur op een kier, en leerde de wereld ernaast te leven.", '2': "De muren bleven bemand, het colosseum bleef luid, en de held bleef paraat." },
+      },
+      'rift': {
+        'scream': {
+          '1': "De Leegtevorst valt, en de scheur achter hem schreeuwt.",
+          '2': "Het was nooit zijn troon. Het was zijn kooi, en hij was het deksel.",
+          '3': "Nu staat de scheur open, en alles wat de leegte liet slapen, ontwaakt.",
+        },
+      },
+      'wren': {
+        'found': {
+          '1': "Daar ben je! Ik ben Wren, een verkenner. Ik heb je overal gezocht.",
+          '2': "Sunford brandt. Iedereen die kon vluchten, ging naar Bastionsoversteek.",
+          '3': "Het is het oude fort aan de weg naar de Askliffen. Schiet op, ze hebben je nodig.",
+        },
+      },
+    },
+    'scoutWren': {
+      sealed: { '1': "De draak is weg! De wegen voelen nu al lichter." },
+      'hello': {
+        '1': "Je bent gekomen! Ik wist het. Welkom in Bastionsoversteek.",
+        '2': "Ik verken de wegen voor de kapitein. Vraag me waar het onrustig is.",
+      },
+      'again': {
+        '1': "Nu al terug? De wegen verkennen zichzelf niet.",
+      },
+      'who': {
+        '1': "Wren. Ik bracht berichten voor de wacht van Sunford, voor Sunford brandde.",
+      },
+      'rumor': {
+        'plains': {
+          '1': "Demonen houden de weg door de Vlakte van Sunford. De leraren van Sunford zitten erachter vast.",
+        },
+        'hollows': {
+          '1': "In de Goblinholen wemelt het van de hellehonden. Ruim ze op en de mensen van Sunford kunnen naar huis.",
+        },
+        'woods': {
+          '1': "Iets met drie koppen jaagt in het Fluisterwoud. De kruidenvrouw verstopt zich daar.",
+        },
+        'outskirts': {
+          '1': "Centauren rijden rond aan de Rand van Oakhaven. Als ze onze muren bereiken, telt elk zwaard.",
+        },
+        'siege': {
+          '1': "Hun bende is gebroken, maar er verzamelen zich meer. De kapitein maakt de muren klaar.",
+        },
+      },
+      'bye': {
+        '1': "Houd de wegen in de gaten. Ik doe het ook.",
+      },
+    },
+    'fortHale': {
+      sealed: { '1': "De draak is dood. Ik dacht nooit dat ik dit nog zou meemaken. Dank je." },
+      'siegeBack': { '1': "Nog niet? Rust dan maar. De muren wachten op je." },
+      'bell': { '1': "Naar de poort dan. Zeg me hoe hard we hem houden." },
+      'hello': {
+        '1': "Je hebt het gehaald. Goed. We hebben elk zwaard nodig, nu meer dan ooit.",
+        '2': "Welkom in Bastionsoversteek. Oude muren, maar de enige die nog staan.",
+      },
+      'road': {
+        '1': "De weg naar Sunford is weer open. De mensen zijn veilig achter onze muren.",
+      },
+      'herbs': {
+        '1': "De kruidenvrouw is terug, met haar kruiden. De ziekenzaal kan weer ademen.",
+      },
+      'siege': {
+        '1': "Je hebt de centauren gebroken. Maar er komt een groter leger, en het komt voor deze muren.",
+      },
+      'again': {
+        '1': "Nog steeds overeind. De muren, de mannen en ik.",
+      },
+      'fort': {
+        '1': "Een oud grensfort. Vijftig jaar onbemand, tot de hemel openscheurde.",
+        '2': "Nu is het de laatste veilige plek tussen de vlakte en de bergen.",
+        'say': "Wat is dit voor plek?",
+      },
+      'rumor': {
+        'road': {
+          '1': "Ruim de Vlakte en de Goblinholen op. De mensen van Sunford zitten daar vast.",
+        },
+        'woods': {
+          '1': "De kruidenvrouw is in het Fluisterwoud, en een beest met drie koppen ook. Wees klaar.",
+        },
+        'centaurs': {
+          '1': "Centauren aan de Rand. Breek hun bende voor ze ons bereiken.",
+        },
+        'siege': {
+          '1': "Rust wat uit. Als de belegeringsklok luidt, heb ik je op de muur nodig.",
+        },
+      },
+      'bye': {
+        '1': "Houd je zwaard dichtbij.",
+      },
+    },
+    'fortMara': {
+      sealed: { '1': "Het is je gelukt, kind. Ieder van ons dankt je een thuis." },
+      'siegeBack': { '1': "Rust wat, kind. De klok luidt heus weer." },
+      'bell': { '1': "De muren van de kapitein zijn nu aan mij. Kies hoe we ze houden." },
+      'hello': {
+        '1': "Kind! Je leeft. Toen Sunford brandde, vreesde ik het ergste.",
+        '2': "We zijn nu gasten in een soldatenfort, oude vrouwen en al.",
+      },
+      'command': {
+        '1': "Kapitein Hale viel met Oakhaven. Dus luistert het fort nu naar een oude oudste.",
+      },
+      'home': {
+        '1': "Sunford wordt herbouwd! De eerste daken staan. Ik zou kunnen huilen.",
+      },
+      'again': {
+        '1': "Nog steeds hier, kind. Nog steeds hoofden aan het tellen.",
+      },
+      'town': {
+        '1': "Demonen kwamen uit de nachtlucht. We vluchtten met wat we konden dragen.",
+        '2': "Sommigen kwamen er nooit uit. Breng de rest naar huis, als je kunt.",
+        'say': "Wat is er met Sunford gebeurd?",
+      },
+      'rumor': {
+        'road': {
+          '1': "Onze leraren zijn nog op de weg naar Sunford. Breng ze hier, kind.",
+        },
+        'woods': {
+          '1': "De kruidenvrouw ging het Fluisterwoud in voor kruiden en kwam nooit terug.",
+        },
+        'centaurs': {
+          '1': "Ruiters aan de Rand. Hoeven als donder, elke nacht.",
+        },
+        'siege': {
+          '1': "De muren worden binnenkort op de proef gesteld. Ik voel het in mijn oude botten.",
+        },
+      },
+      'bye': {
+        '1': "Ga voorzichtig, kind.",
+      },
+    },
     intro: {
       crossing: { 1: 'Elke weg in deze wereld komt samen op een kruispunt… en elk kruispunt is een veldslag.' },
       hero: { 1: 'Vanuit de stille velden van Sunford trok een jonge held op weg.' },
@@ -4187,6 +4625,7 @@ export default {
       }
     },
     hero: {
+      'siege': "Laten we de muren bemannen.",
       forge: 'Ik wil graag je smidse gebruiken.',
       learnSmith: 'Kun je me leren smeden?',
       ore: 'Ik heb erts te koop.',
@@ -4494,7 +4933,7 @@ export default {
       },
       map: {
         '1': 'De kaart van kapitein Rook! Hij scheurde hem in stukken en verstopte ze voordat de goblins hem te pakken kregen.',
-        '2': 'Vind er zes, er liggen nog een paar meer verspreid, en de X wijst de weg: ergens in de Askliffen. Graaf daar, en het goud is van jou.',
+        '2': "Vind zes van de stukken, en de X wijst de weg: ergens in de Askliffen. Graaf daar naar het goud.",
         say: 'Ik heb een stuk van een oude kaart gevonden.'
       }
     },
@@ -5465,6 +5904,11 @@ export default {
       }
     },
     quest: {
+      seal: {
+        ask: { '1': "De Oerdraak is dood, en de scheur ligt open voor je.", '2': "Je kunt hem nu verzegelen, voor altijd. De beesten zouden weer slapen.", '3': "Of je laat hem op een kier, en laat de dappersten zich meten met wat erdoor komt." },
+        seal: { say: "Verzegel hem. Voor altijd.", '1': "De scheur sluit als een helende wond, en de hemel wordt stil." },
+        ajar: { say: "Laat hem op een kier. We zullen klaar zijn.", '1': "De scheur blijft op een kier, en iets erachter lacht." },
+      },
       goblinKing: {
         ask: {
           '1': 'Stop. Alsjeblieft. Ik geef me over.',
@@ -5597,6 +6041,64 @@ export default {
       }
     },
     bark: {
+      sphinx: {
+        intro: { '1': "Antwoord me, kleintje, of word begraven in mijn zand." },
+        riddle: { '1': "Een raadsel dan. Stap waar ik het toon, in die volgorde." },
+        sand: { '1': "Dit keer vijf. En mijn zand wacht niet." },
+        death: { '1': "Goed geantwoord. Het zand is nu van jou." },
+      },
+      leviathan: {
+        intro: { '1': "Je loopt nu in mijn water." },
+        sink: { '1': "Je eilandjes zinken." },
+        grab: { '1': "Kom mee naar de diepte!" },
+        death: { '1': "Het tij gaat en komt niet terug." },
+      },
+      hydra: {
+        intro: { '1': "Hak één kop af, en er groeien er twee!" },
+        heads: { '1': "Meer koppen, meer tanden!" },
+        rage: { '1': "Ons verbranden? Brand dan met ons mee!" },
+        death: { '1': "Geen koppen meer. Nooit meer." },
+      },
+      elderDragon: {
+        intro: { '1': "Ik sliep onder de wereld voordat jouw soort vuur kende." },
+        flight: { '1': "Verstop je dan maar achter je steentjes." },
+        rift: { '1': "De scheur trekt me terug. Nog niet!" },
+        death: { '1': "Verzegel hem dan. Ik ben het donker moe." },
+      },
+      'siegeHale': {
+        'start': {
+          '1': "Daar komen ze! Houd de poort!"
+        },
+        'ram': {
+          '1': "Een stormram! Dood hem voor hij de poort bereikt!"
+        },
+        'horn50': {
+          '1': "De halve poort is weg! Houd stand!"
+        },
+        'horn25': {
+          '1': "De poort houdt het niet lang meer!"
+        },
+        'won': {
+          '1': "Ze zijn gebroken! Het bastion staat!"
+        }
+      },
+      'siegeMara': {
+        'start': {
+          '1': "Ze komen! Sta pal, allemaal!"
+        },
+        'ram': {
+          '1': "Een stormram! Houd hem tegen voor hij de poort breekt!"
+        },
+        'horn50': {
+          '1': "De halve poort is weg. Houd vol!"
+        },
+        'horn25': {
+          '1': "De poort bezwijkt! Drijf ze terug!"
+        },
+        'won': {
+          '1': "Ze vluchten! Het fort staat nog!"
+        }
+      },
       banditChief: {
         whistle: {
           1: 'Op, jongens! Bijt ze!'
@@ -5605,6 +6107,11 @@ export default {
       lightDisciple: {
         freed: {
           '1': 'Het licht heeft je gestuurd. Ik ben Zuster Aurelle. Zoek me op in Sunford, dan leer ik je de weg van de Lichtbrenger.'
+        }
+      },
+      trainerAegis: {
+        freed: {
+          '1': 'Bedankt dat je ons van de bandieten hebt bevrijd! Kom bij het vuur: we leren je allemaal, eerste les gratis.'
         }
       },
       frostDisciple: {
@@ -5660,6 +6167,48 @@ export default {
         },
         dive: {
           '1': 'Kniel.'
+        }
+      },
+      chimera: {
+        intro: {
+          '1': "Drie koppen, één honger. Wie van ons bijt eerst?"
+        },
+        twin: {
+          '1': "Nu met z'n tweeën. Kies je kant goed."
+        },
+        tail: {
+          '1': "Mijn staart! Daar ga je voor boeten!"
+        },
+        death: {
+          '1': "Drie koppen, en geen enkele zag dit aankomen."
+        }
+      },
+      centaurWarchief: {
+        intro: {
+          '1': "Ren maar weg. Mijn pijlen zijn sneller."
+        },
+        raiders: {
+          '1': "Ruiters! Rijd ze omver!"
+        },
+        rear: {
+          '1': "Genoeg pijlen. Ik vertrap je!"
+        },
+        death: {
+          '1': "De vlakten zullen mijn hoeven onthouden."
+        }
+      },
+      cyclops: {
+        intro: {
+          '1': "Er is hier iets kleins. Kom dichterbij. Laat me kijken."
+        },
+        cover: {
+          '1': "Geen gekijk meer. Mijn oog krijg je niet!"
+        },
+        blind: {
+          '1': "Ik zie je niet, maar ik hoor je wel!"
+        },
+        death: {
+          '1': "Donker. Alles is donker geworden."
         }
       },
       frostJarl: {
@@ -6784,7 +7333,20 @@ export default {
       }
     }
   },
+  invasion: {
+    pylonsDown: 'De laatste pyloon valt en zijn schat stroomt eruit!',
+    reborn: {
+      tusker: 'Tusker Herboren',
+      emberLord: 'De Helse Gloedheer',
+      frostJarl: 'De Herboren Vorstjarl',
+      voidDragon: 'De Herboren Leegtedraak'
+    }
+  },
   enemy: {
+    sphinx: "De Sfinx",
+    leviathan: "De Leviathan",
+    hydra: "De Hydra",
+    elderDragon: "De Oerdraak",
     trainingDummy: 'Trainingspop',
     goblin: 'Goblin',
     goblinSlinger: 'Goblin-slingeraar',
@@ -6809,6 +7371,10 @@ export default {
     naga: 'Naga',
     skeleton: 'Skelet',
     necromancer: 'Necromant',
+    chimera: "De Chimaera",
+    chimeraTail: "Slangenstaart",
+    centaurWarchief: "De Centaurenkrijgsheer",
+    cyclops: "De Cycloop",
     frostJarl: 'De Vorstjarl',
     nagaOracle: 'Het Verdronken Orakel',
     voidStalker: 'Leegtesluiper',
@@ -6821,6 +7387,7 @@ export default {
     archDemon: 'De Aartsdemon',
     voidling: 'Leegteling',
     voidLord: 'De Leegteheer',
+    demonPylon: 'Demonenpyloon',
     orderGuard: 'Inquisiteur van de Orde',
     syndicateBlade: 'Syndicaatskling',
     goblinWarchief: 'Goblin-krijgsheer',
@@ -6837,7 +7404,19 @@ export default {
     goblinTyrant: 'Goblin-tiran',
     voidDrake: 'Leegtewurm',
     pitLord: 'Afgrondheer',
-    frostThane: 'Vorsthoofdman'
+    frostThane: 'Vorsthoofdman',
+    hellhound: 'Hellehond',
+    frostHellhound: 'Vorst-hellehond',
+    gargoyle: 'Waterspuwer',
+    harpy: 'Harpij',
+    corruptedTreant: 'Verdorven boomherder',
+    centaurRaider: 'Centaurplunderaar',
+    cyclopsBrute: 'Cycloopbruut',
+    demonMiner: 'Demonenmijnwerker',
+    sphinxAcolyte: 'Acoliet van de sfinx',
+    seaDemon: 'Zeedemon',
+    drakeHatchling: 'Drakenjong',
+    hydraSpawn: 'Hydrabroed'
   },
   results: {
     careful: 'Voorzichtige zege ×{mult}',
@@ -7150,6 +7729,8 @@ export default {
     town: 'Elke smid in een stad kan dit verbeteren.'
   },
   ore: {
+    'demonglass': { 'name': "Demonenglas" },
+    'ichor': { 'name': "Mythisch ichor" },
     iron: {
       name: 'IJzererts'
     },

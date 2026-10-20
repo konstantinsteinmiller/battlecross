@@ -1,4 +1,4 @@
-import { AmbientLight, Frustum, Matrix4, Scene, Sphere, Vector2, type Group, type InstancedMesh, type Line, type Material, type Mesh, type Object3D, type Points, type ShaderMaterial, type SkinnedMesh } from 'three'
+import { AmbientLight, Color, Frustum, Matrix4, Scene, Sphere, Vector2, type Group, type InstancedMesh, type Line, type Material, type Mesh, type Object3D, type Points, type ShaderMaterial, type SkinnedMesh } from 'three'
 import { ArenaCrowd } from '../gfx/arenaCrowd'
 import { nextMilestone } from '../data/arena'
 import type { GameMode } from '../engine/app'
@@ -28,7 +28,7 @@ import { generateArena, generateEncounter, generateZone, type ZonePlan } from '.
 import { Sim } from '../sim/world'
 import { captureBaseline, restoreSim, snapshotSim, type SimBaseline, type SimSnapshot } from '../sim/snapshot'
 import type { DamageType, SimEvent, Unit } from '../sim/types'
-import { updateCelFrame, updateSeeThrough } from '../gfx/cel'
+import { setCelMood, updateCelFrame, updateSeeThrough } from '../gfx/cel'
 import { fxLevel, stepEffectsLadder } from '../engine/effectsLadder'
 import { BAR_RANK, HealthBars, Markers, barBadge, makeBlobShadow, placeBlobShadow, type BarRank } from '../gfx/markers'
 import { clearGround, groundAt, setGround } from '../gfx/ground'
@@ -39,6 +39,16 @@ import { makeRigView, prewarmKinds, prewarmLook, type RigView } from '../gfx/rig
 import { townLoop } from '../gfx/rigs/townClips'
 import { heroLook } from '../gfx/rigs/looks'
 import { WallRocks, buildChest, buildTerrain, setZoneFog, type Terrain } from '../gfx/terrain'
+import { corruptColors, corruptTheme } from '../gfx/corruption'
+import { REBORN, invadedZone } from '../data/invasion'
+import { armInvasion, isPylon } from '../sim/invasion'
+import { ARENA_PROPS } from '../sim/bosses/kit'
+import { DEFENCES, SIEGE_CAP, SIEGE_CAP_LOW, SIEGE_LORD, SIEGE_WAVES, siegeKinds, type DefenceId, type SiegeTier } from '../data/siege'
+import { generateSiege } from '../sim/siegeMap'
+import { armSiege, buildBlock, buildDefence, skipBuild } from '../sim/siege'
+import { SIEGE_PROP_KINDS, SiegeProps } from '../gfx/siegeProps'
+import { siegeActions, siegeHud } from '../state/siegeHud'
+
 import { Vfx } from '../gfx/vfx'
 import { NO_STATUSES, StackOrbs } from '../gfx/stackOrbs'
 import { SLOW_MO, slowMoScale } from '../gfx/slowMo'
@@ -65,6 +75,8 @@ import { BOARD, BOARD_REACH } from '../townTasks'
 import { isDummy, spawnDummy, stepDummy } from '../coach/dummy'
 import { armMentor, boostOpeningFoes, stepMentor, syncHeroSkills } from '../coach/mentor'
 import { MENTOR_SKILL } from '../data/mentor'
+import { potionStopDue, stepMercy } from '../coach/tutorialAid'
+import { setTruce, watchTruce } from '../sim/truce'
 import { markRevealUsed } from '../coach/reveal'
 import { PREVIEW_FEED } from '../previewFlags'
 import { setBossMusic } from '@/use/useSound'
@@ -112,6 +124,13 @@ export interface ZoneSetup {
   cage?: boolean
   /** The colosseum's weekly modifier (roadmap #10). */
   arenaMod?: ArenaMod
+  /** The zone's invaded version (the afterplay, `data/invasion.ts`): its roster,
+   *  ruins, pylons and scars, the corruption's tint, and kills worth more. */
+  invaded?: boolean
+  /** The Siege of Bastion (afterplay §8): its tier, whether it is the story's
+   *  (it cannot be lost), whose turn the fifth wave's captain is, and who
+   *  commands the fort (Elder Mara when Oakhaven fell). */
+  siege?: { tier: SiegeTier; story: boolean; rotation: number; commander: 'hale' | 'mara' }
   flags: ReadonlySet<string>
 }
 
@@ -140,7 +159,12 @@ export interface ZoneCallbacks {
   onInteract(npcId: string): void
   onPause(): void
   onPanel(panel: 'map' | 'character' | 'inventory' | 'skills'): void
+  /** A conversation or a window is open (the truce watchdog, #153). Absent: only this scene's own conversation counts. */
+  menuOpen?(): boolean
 }
+
+/** An enemy's name key: a returning boss of an invaded zone is its Reborn self (§5.8). */
+const foeKey = (invaded: boolean, kind: string): string => (invaded && REBORN.has(kind) ? 'invasion.reborn.' + kind : 'enemy.' + kind)
 
 const HIT_STOP_SCALE = 0.01
 const HIT_STOP_LIGHT = 0.04
@@ -240,6 +264,8 @@ export class ZoneMode implements GameMode {
   /** The colosseum's stands, crowd and banners (#117), and the waves it has seen fall. */
   private crowd: ArenaCrowd | null = null
   private crowdCleared = 0
+  /** The siege's gate, bell, platforms, ballistas, fires and rams (`gfx/siegeProps.ts`). */
+  private siegeProps: SiegeProps | null = null
   private chest: { root: Group; lid: Object3D; dispose(): void } | null = null
   private chestOpen = 0
   private views = new Map<number, View>()
@@ -279,6 +305,10 @@ export class ZoneMode implements GameMode {
   /** Seconds after a conversation in which input is still swallowed (the key
    *  or tap that ended it is not an order). */
   private talkHold = 0
+  /** The truce watchdog's clock (#153, `sim/truce.ts`). */
+  private truceWatch = { t: 0 }
+  /** The opening fight's potion stop (#154): the world waits until the hero drinks. */
+  private potionStop = false
   /** The units as this visit was generated: what a saved game is told apart from. */
   private baseline: SimBaseline | null = null
   /** The training dummy was set up in this visit. */
@@ -308,11 +338,13 @@ export class ZoneMode implements GameMode {
     if (setup.kind === 'town') await Promise.all([loadTownSim(), loadTalk()])
     const plan = setup.kind === 'town'
       ? townSim().generateTown(TOWNS[setup.town!], setup.flags, setup.seed)
+      : setup.siege
+        ? generateSiege(setup.seed)
       : setup.kind === 'arena'
         ? generateArena(setup.seed)
         : setup.encounter
           ? generateEncounter(setup.encounter, setup.seed, { escort: setup.escort })
-          : generateZone(ZONES[setup.zone!], setup.seed, {
+          : generateZone(setup.invaded ? invadedZone(setup.zone!) : ZONES[setup.zone!], setup.seed, {
             tutorial: setup.tutorial, openingPack: setup.tutorial ? OPENING.pack : undefined, ambush: setup.ambush, extra: setup.extra,
             pieces: setup.pieces, treasure: setup.treasure, cage: setup.cage,
             // DEV: `?branches=0` plays the zone as one road (the perf A/B arm of roadmap #70).
@@ -342,11 +374,20 @@ export class ZoneMode implements GameMode {
     // Adaptive pressure (#124, D144): zones only — never a town, the colosseum
     // (its ladder climbs by itself, and its board stays fair) or the opening fight.
     if (setup.kind === 'zone' && !setup.tutorial) sim.pressure = newPressure(sessionPressure())
+    // An invaded zone or an encounter in its wilds (the afterplay): kills pay more, pylons and scars stand.
+    if (setup.kind === 'zone' && setup.invaded) armInvasion(sim)
     if (setup.kind === 'zone') populateZone(sim, plan, setup.zone!, profile.inv.items, profile.world.chests)
     // The colosseum knows what is owned: a milestone's mythic is given once (#117).
     else if (setup.kind === 'arena') for (const id of profile.inv.items) sim.owned.add(id)
+    // The siege (afterplay §8): its gate, its commander, its first build phase.
+    if (setup.siege) {
+      armSiege(sim, {
+        tier: setup.siege.tier, story: setup.siege.story, rotation: setup.siege.rotation, cap: m.low ? SIEGE_CAP_LOW : SIEGE_CAP,
+        commander: setup.siege.commander === 'mara' ? { look: 'elder', voice: 'mara' } : { look: 'captain', voice: 'hale' }
+      })
+    }
     // An encounter pays in gold and experience, never in the zone's gear.
-    if (setup.encounter) { sim.dropTable.mob = []; sim.dropTable.chest = []; sim.dropTable.boss = [] }
+    if (setup.encounter) { sim.dropTable.mob = []; sim.dropTable.chest = []; sim.dropTable.boss = []; sim.dropTable.infernal = []; sim.dropTable.after = [] }
     // The first visit's training dummy, until it has been dealt with once.
     // (A saved game says whether it stood: the visit may have dealt with it since.)
     m.dummy = setup.kind === 'zone' && !!setup.tutorial && (resume ? !!resume.dummy : !profile.tips.dummy)
@@ -379,6 +420,12 @@ export class ZoneMode implements GameMode {
     m.field = { w: plan.w, h: plan.h, height: plan.height }
     setGround(m.field)
     m.terrain = await buildTerrain(plan, setup.theme, m.scene, slice)
+    // Invaded (afterplay §3), or the siege's field: the mood darkens toward dried blood, embers drift.
+    if ((setup.kind === 'zone' && setup.invaded) || setup.siege) {
+      m.terrain.theme = corruptTheme(m.terrain.theme)
+      setCelMood({ ambient: m.terrain.theme.ambient, shadowTint: m.terrain.theme.shadow })
+      m.scene.background = new Color(m.terrain.theme.sky)
+    }
     // The haze now, not at the first resize: every program is compiled with
     // it, so the first live frame does not recompile them all (a 0.6 s task
     // at 4× CPU, measured).
@@ -393,7 +440,8 @@ export class ZoneMode implements GameMode {
     const skills = sim.hero.skills
     if (skills.includes('royalGuard') || skills.includes('armyOfTheRealm')) { kinds.add('guard'); kinds.add('archer'); kinds.add('mage') }
     if (skills.includes('deployTurret')) { kinds.add('turret'); kinds.add('rocketTurret') }
-    if (setup.kind === 'arena') for (const id of arenaKinds(setup.level)) kinds.add(id)
+    if (setup.siege) for (const id of [...siegeKinds(setup.siege.tier), 'guard']) kinds.add(id)
+    else if (setup.kind === 'arena') for (const id of arenaKinds(setup.level)) kinds.add(id)
     const jobs = prewarmKinds(kinds)
     // The hero is a job of its own too (his rig is the richest: ~0.1 s at 4× CPU).
     jobs.unshift(() => prewarmLook(heroLook(profile.inv.equipped, profile.hero.gender)))
@@ -415,11 +463,21 @@ export class ZoneMode implements GameMode {
       await m.props.build(plan, m.scene, slice)
       if (resume?.sim) m.props.syncFromSim()
     }
+    // The corruption's tint, baked into the vertex colours of the ground, the
+    // scenery and the props before anything is baked (no shader, no draw call).
+    if ((setup.kind === 'zone' && setup.invaded) || setup.siege) {
+      corruptColors(m.terrain.root)
+      if (m.props) corruptColors(m.props.root)
+      await slice()
+    }
     if (setup.kind === 'town' && plan.town) {
       const { TownView } = await loadTownView()
       m.town = await TownView.build(plan, sim, m.scene, slice, m.vfx.particles)
     }
-    if (setup.kind === 'arena') {
+    if (setup.siege) {
+      m.siegeProps = new SiegeProps(sim, m.vfx)
+      m.siegeProps.build(m.scene)
+    } else if (setup.kind === 'arena') {
       m.crowd = new ArenaCrowd(plan, m.vfx.particles, m.low)
       m.scene.add(m.crowd.root)
     }
@@ -454,7 +512,8 @@ export class ZoneMode implements GameMode {
    *  is over, or the hero has fallen). */
   snapshot(): VisitResume | null {
     const sim = this.sim
-    if (!this.baseline || !sim.hero.unit.alive) return null
+    // A siege is fought in one sitting: a save slot keeps the hero, not the siege.
+    if (!this.baseline || !sim.hero.unit.alive || sim.siege) return null
     if (this.setup.kind === 'town') {
       const h = sim.hero.unit
       return { hero: { x: h.x, z: h.z, facing: h.facing } }
@@ -466,7 +525,7 @@ export class ZoneMode implements GameMode {
 
   private addView(u: Unit): void {
     // The training dummy is a level prop, not a rig (`gfx/dummyProp.ts`).
-    if (this.views.has(u.id) || isDummy(u)) return
+    if (this.views.has(u.id) || isDummy(u) || isPylon(u) || SIEGE_PROP_KINDS.has(u.kind)) return
     const v = makeRigView(u, u.rank === 'hero' ? heroLook(profile.inv.equipped, profile.hero.gender) : undefined)
     const shadow = makeBlobShadow(u.r)
     this.scene.add(v.rig.root, shadow)
@@ -587,6 +646,12 @@ export class ZoneMode implements GameMode {
 
   enter(): void {
     this.entered = true
+    // The siege's buttons reach this scene while it is the live one.
+    siegeHud.active = !!this.sim.siege
+    if (this.sim.siege) {
+      siegeActions.build = id => this.siegeBuild(id)
+      siegeActions.ready = () => this.siegeReady()
+    }
     // The town's code, fetched while the player is busy here (see `townLoader.ts`):
     // on the background queue, after the field's own screens (`screens/chunks.ts`).
     if (!this.town) {
@@ -771,6 +836,7 @@ export class ZoneMode implements GameMode {
     for (let n = 0; n < ev.length; n++) {
       const e = ev[n]!
       this.props?.onEvent(e)
+      this.siegeProps?.onEvent(e)
       switch (e.t) {
         case 'hit': {
           const y = e.h * 0.6
@@ -901,7 +967,7 @@ export class ZoneMode implements GameMode {
         }
         case 'wall':
           this.walls.set(e.cells, sim.grid.w, e.on, e.fx)
-          if (e.on) { sfx('quake'); this.cam.addTrauma(TRAUMA_LIGHT * 1.5) }
+          if (e.on && !ARENA_PROPS.has(e.fx)) { sfx('quake'); this.cam.addTrauma(TRAUMA_LIGHT * 1.5) }
           break
         case 'loot':
           if (e.gold > 0) {
@@ -931,7 +997,7 @@ export class ZoneMode implements GameMode {
         case 'awake':
           sfx(e.boss && ENEMY_BY_ID[e.boss]?.rank === 'boss' ? 'bossIntro' : 'alert')
           if (e.boss && ENEMY_BY_ID[e.boss]?.rank === 'boss') { this.beat = 2; this.slowT = SLOW_MO }
-          if (e.boss && ENEMY_BY_ID[e.boss]?.rank === 'boss') pushHud({ t: 'toast', key: 'toast.boss', params: { boss: 'enemy.' + e.boss } })
+          if (e.boss && ENEMY_BY_ID[e.boss]?.rank === 'boss') pushHud({ t: 'toast', key: 'toast.boss', params: { boss: foeKey(sim.invaded, e.boss) } })
           break
         case 'groupDone':
           break
@@ -943,6 +1009,11 @@ export class ZoneMode implements GameMode {
           sfx('alert')
           break
         }
+        case 'pylonsDown':
+          // An invaded zone's last pylon (afterplay §3): its hoard spills out.
+          pushHud({ t: 'toast', key: 'invasion.pylonsDown' })
+          this.cam.addTrauma(TRAUMA_LIGHT)
+          break
         case 'milestone':
           // A milestone falls: the crowd roars, the mythic is in the sand.
           hud.arenaBanner = { id: (hud.arenaBanner?.id ?? 0) + 1, kind: e.fresh ? 'prize' : 'milestone', n: e.wave, champion: false, item: e.item, at: e.wave }
@@ -1017,6 +1088,7 @@ export class ZoneMode implements GameMode {
   // ─── The step ──────────────────────────────────────────────────────────────
 
   update(dt: number, first: boolean): void {
+    if (this.potionStop) { this.holdForPotion(first); return }
     if (first) this.handleInput()
     if (this.talkOn) this.holdTalk()
     else if (this.talkHold > 0) this.talkHold -= dt
@@ -1029,6 +1101,13 @@ export class ZoneMode implements GameMode {
     if (this.slowT < SLOW_MO) this.slowT += dt
     if (this.beat > 0) this.beat -= dt
     stepSim(this.sim, this.plan, simDt)
+    // The opening fight's helping hands (`coach/tutorialAid.ts`).
+    if (this.setup.kind === 'zone' && this.setup.tutorial) {
+      stepMercy(this.sim, simDt)
+      if (potionStopDue(this.sim)) { this.potionStop = true; hud.potionStop = true }
+    }
+    // A truce never outlives its conversation (#153).
+    watchTruce(this.sim, this.truceWatch, dt, this.talkOn || !!this.cb.menuOpen?.())
     // The dummy knocked apart (or walked past): the opening beat is done for good.
     if (stepDummy(this.sim)) markTip('dummy')
     stepMentor(this.sim, simDt)
@@ -1053,6 +1132,21 @@ export class ZoneMode implements GameMode {
       hud.phase = sim.ended === 'victory' ? 'won' : 'dead'
       this.cb.onEnd(sim.ended)
     }
+  }
+
+  /** The potion stop (#154): nothing moves; the pause still opens, and the
+   *  flask (button or key) is the only order taken. */
+  private holdForPotion(first: boolean): void {
+    if (!first) return
+    const i = this.input
+    hud.device = i.device
+    if (i.pauseQueued) this.cb.onPause()
+    if (i.potionQueued && usePotion(this.sim)) {
+      coach.use('potion')
+      this.potionStop = false
+      hud.potionStop = false
+    }
+    consumeEdges(i)
   }
 
   /** The answer to Second wind: up again, or the defeat goes on to its result. */
@@ -1138,6 +1232,23 @@ export class ZoneMode implements GameMode {
         )
       }
     }
+    // An invaded zone's pylons are props, not rigs: their bars once struck.
+    for (const id of sim.pylons) {
+      const p = sim.live(id)
+      if (!p || p.hp >= p.s.maxHp) continue
+      this.bars.add(id, p.x, groundAt(p.x, p.z) + p.h + 0.4, p.z, p.hp / p.s.maxHp, 0, '#ff5a5a', 1.1, barRank(p), barBadge(p.level, unitLevelTier(p.level, sim.hero.level)))
+    }
+    // The siege's props that can be struck: a ram's bar always, a ballista's once hurt (the gate's is the HUD's).
+    if (sim.siege) {
+      for (const r of sim.siege.rams) {
+        const p = sim.live(r.id)
+        if (p) this.bars.add(p.id, p.x, groundAt(p.x, p.z) + p.h + 0.5, p.z, p.hp / p.s.maxHp, 0, '#ffb02a', 1.3, BAR_RANK.elite, barBadge(p.level, unitLevelTier(p.level, sim.hero.level)))
+      }
+      for (const id of sim.siege.ballistas) {
+        const p = id ? sim.live(id) : undefined
+        if (p && p.hp < p.s.maxHp) this.bars.add(p.id, p.x, groundAt(p.x, p.z) + 1.9, p.z, p.hp / p.s.maxHp, 0, '#5fe08a', 1, BAR_RANK.ally, 0)
+      }
+    }
     this.bars.end()
     this.town?.update(fxDt, hx, hz, sim.get(this.talkNpc), this.cam.target.x, this.cam.target.z)
     // DEV: the recorder's textless cut hides what the renderer itself paints.
@@ -1169,13 +1280,14 @@ export class ZoneMode implements GameMode {
         this.markers.aim(true, hx, hz, def.range, ax, az, def.target === 'dir' ? 0 : def.radius ?? (def.target === 'enemy' ? 0.9 : 0), def.color, inRange)
       } else this.markers.aim(false)
     } else this.markers.aim(false)
-    this.markers.way(dt, hintGeo.talk.on, hx, hz, hintPath.world, hintPath.world.length >> 1)
+    this.markers.way(dt, hintGeo.talk.on || hintPath.lead, hx, hz, hintPath.world, hintPath.world.length >> 1)
     this.markers.update(dt)
 
     this.vfx.syncProjectiles(sim.projectiles, a, fxDt)
     this.vfx.update(fxDt, sim.time)
     this.walls.update(fxDt)
     this.props?.update(fxDt, hx, hz)
+    this.siegeProps?.update(fxDt)
     if (this.crowd) {
       // A wave fought to its end: the crowd is on its feet (#117).
       if (sim.wave.cleared > this.crowdCleared) {
@@ -1286,7 +1398,7 @@ export class ZoneMode implements GameMode {
     const t = sim.live(h.order.targetId)
     const ts = targetStackView(t && t.team === 1 ? t.statuses : undefined)
     if (!sameChips(ts, hud.targetStacks)) hud.targetStacks = ts
-    hud.targetKey = t && t.team === 1 ? 'enemy.' + t.kind : ''
+    hud.targetKey = t && t.team === 1 ? foeKey(sim.invaded, t.kind) : ''
     hud.targetLevel = t?.level ?? 0
     hud.targetTier = unitLevelTier(t?.level ?? 0, h.level)
     hud.targetHp01 = t ? t.hp / t.s.maxHp : 0
@@ -1303,7 +1415,7 @@ export class ZoneMode implements GameMode {
     // A first-timer's first boss: what follows the fight (the level-up, the
     // loot, the book) has its art moved to the head of the idle queue (D149).
     if (boss && !hud.bossKey && !this.bossArt && profile.stats.runs === 0) { this.bossArt = true; queueEarlyArt(true) }
-    hud.bossKey = boss ? 'enemy.' + boss.kind : ''
+    hud.bossKey = boss ? foeKey(sim.invaded, boss.kind) : ''
     hud.bossHp01 = boss ? boss.hp / boss.s.maxHp : 0
     hud.bossLevel = boss?.level ?? 0
     hud.bossTier = unitLevelTier(boss?.level ?? 0, h.level)
@@ -1316,8 +1428,9 @@ export class ZoneMode implements GameMode {
     hud.groupsTotal = sim.groups.length
     hud.wave = sim.wave.n
     hud.arenaMod = sim.arenaMod
-    hud.zoneKey = this.setup.zone ?? this.setup.town ?? 'arena'
+    hud.zoneKey = this.setup.siege ? 'bastion' : this.setup.zone ?? this.setup.town ?? 'arena'
     hud.zoneLevel = sim.level
+    if (sim.siege) this.syncSiege()
     // The townsperson within reach.
     let near = ''
     if (this.setup.kind !== 'arena') {
@@ -1358,6 +1471,69 @@ export class ZoneMode implements GameMode {
     hud.finaleOpen = finaleOpen
   }
 
+  // ─── The siege (afterplay §8) ─────────────────────────────────────────────
+
+  /** Buy a defence in the build phase (the HUD's buttons). */
+  siegeBuild(id: DefenceId): boolean {
+    const ok = buildDefence(this.sim, id)
+    sfx(ok ? 'uiBuy' : 'denied')
+    if (ok) this.syncSiege()
+    return ok
+  }
+
+  /** Ready: the next wave comes now. */
+  siegeReady(): boolean {
+    const ok = skipBuild(this.sim)
+    if (ok) sfx('uiClick')
+    return ok
+  }
+
+  /** The siege's news (`sim/siege.ts`) into toasts and sounds, and its state into the HUD's mirror. */
+  private syncSiege(): void {
+    const sim = this.sim
+    const s = sim.siege
+    if (!s) return
+    for (const n of s.news) {
+      switch (n.t) {
+        case 'wave': sfx('bossIntro'); if (n.ram) pushHud({ t: 'toast', key: 'siege.toast.ram' }); break
+        case 'cleared':
+          pushHud({ t: 'toast', key: n.unharmed ? 'siege.toast.clearedUnharmed' : 'siege.toast.cleared', params: { n: n.n, marks: n.marks } })
+          sfx('chest')
+          break
+        case 'horn': pushHud({ t: 'toast', key: 'siege.toast.horn', params: { pct: n.pct } }); sfx('alert'); this.cam.addTrauma(TRAUMA_LIGHT); break
+        case 'lost': pushHud({ t: 'flash', color: '#c0202a', strength: 0.6 }); sfx('deathBig'); this.cam.addTrauma(TRAUMA_HEAVY); break
+        case 'rally': pushHud({ t: 'toast', key: 'siege.toast.rally' }); break
+        case 'won': case 'build': case 'built': case 'ram': break
+      }
+    }
+    s.news.length = 0
+    const v = siegeHud
+    const gate = sim.get(s.gate)
+    v.active = true
+    v.tier = s.tier
+    v.story = s.story
+    v.phase = s.phase
+    v.wave = s.wave
+    v.buildT = Math.ceil(Math.max(0, s.buildT))
+    v.gateMax = s.gateMax
+    v.gateHp = gate && gate.alive ? Math.ceil(gate.hp) : 0
+    v.gate01 = v.gateHp / Math.max(1, s.gateMax)
+    v.marks = s.marks
+    for (const d of DEFENCES) { const b = buildBlock(sim, d); if (v.blocks[d] !== b) v.blocks[d] = b }
+    const boss = s.boss ? sim.live(s.boss) : undefined
+    v.bossKey = boss ? (boss.kind === SIEGE_LORD ? 'siege.lord' : foeKey(true, boss.kind)) : ''
+    v.boss01 = boss ? boss.hp / boss.s.maxHp : 0
+    let b = 0
+    for (const id of s.ballistas) if (id && sim.live(id)) b++
+    v.ballistas = b
+    v.cauldrons = s.cauldrons.filter(Boolean).length
+    v.barricades = s.barricades.filter(Boolean).length
+    v.militia = s.militia.filter(id => sim.live(id)).length
+    // The badge under the hero's frame counts the waves held.
+    hud.groupsDone = s.cleared
+    hud.groupsTotal = SIEGE_WAVES
+  }
+
   // ─── Conversations ─────────────────────────────────────────────────────────
 
   /**
@@ -1372,6 +1548,8 @@ export class ZoneMode implements GameMode {
     if (was) was.facing = this.talkFace
     this.talkNpc = 0
     this.talkOn = on
+    // Untouchable while he listens, and not a moment longer (#153).
+    setTruce(sim, on)
     if (!on) { this.talkHold = 0.3; townSimReady()?.townAddress(sim, 0); return }
     const npc = npcId ? sim.units.find(u => u.npc === npcId) : undefined
     if (npc) { this.talkNpc = npc.id; this.talkFace = npc.facing }
@@ -1463,6 +1641,13 @@ export class ZoneMode implements GameMode {
 
   dispose(): void {
     setBossMusic(false)
+    hud.potionStop = false
+    if (this.sim.siege) {
+      siegeHud.active = false
+      siegeActions.build = () => false
+      siegeActions.ready = () => false
+    }
+    this.siegeProps?.dispose()
     for (const id of [...this.views.keys()]) this.dropView(id)
     this.vfx.dispose()
     this.orbs.dispose()

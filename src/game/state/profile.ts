@@ -14,13 +14,22 @@ import {
 import type { ZoneId } from '../data/items'
 import { weekKey } from '../arenaWeek'
 import { ATTRS, ATTR_START, POINTS_PER_LEVEL, startAttrs, type Attr, type AttrBlock } from '../data/attributes'
-import { MAX_LEVEL, addXp, xpToNext, xpToReach } from '../data/progression'
-import { ACTIVE_SLOTS, PASSIVE_SLOTS, SKILL_BY_ID, meetsSkill, priceOf as skillPriceOf, CLASSES } from '../data/skills'
+import { AFTER_MAX_LEVEL, MAX_SKILL_RANK, addXp, levelCap, rankLevel, rankPrice, xpToNext, xpToReach } from '../data/progression'
+import { ACTIVE_SLOTS, MAX_PASSIVE_SLOTS, PASSIVE_SLOTS, SKILL_BY_ID, meetsSkill, priceOf as skillPriceOf, CLASSES, isPrestige } from '../data/skills'
+import { knowsParents, prestigeDerived, trialPassed } from '../data/prestige'
 import { EQUIP_SLOTS, ITEM_BY_ID, noGear, priceOf as itemPriceOf, sellValue, sellable, slotOf, type EquipSlot } from '../data/items'
 import { FORGE_MAX, MAX_FORGE_LEVEL, clampForgeLevel, forgeCost } from '../data/forge'
 import { HERB_CAP, isPlant } from '../data/plants'
-import { ORE_CAP, ORE_IDS, ORE_PRICE, isOre, type OreId } from '../data/ores'
+import { MAT_CAP, ORE_CAP, ORE_IDS, POUCH_IDS, isMat, isOre, pouchPrice, type MatId, type OreId } from '../data/ores'
+import {
+  HEROIC_MAX, INFERNAL_FORGE_FLAG, INFERNAL_FORGE_GLASS, INFERNAL_FORGE_GOLD, LEVIATHAN_SCALE_FLAG, MARKS_GLASS, SCALE_GIVEN_FLAG, heroicCost
+} from '../data/relics'
+import { FIFTH_PASSIVE_FLAG } from '../data/siege'
+import { infernalId } from '../data/items'
 import { cageOf } from '../data/cages'
+import { defaultSiege, normalizeSiege, type SiegeSave } from '../data/siege'
+import { ARM_DISCOUNT, defaultFair, normalizeFair, type FairSave } from '../fair'
+import { FORT, MAP_BEAT_FLAG, RESCUES, STORY_QUESTS, advance, breakingDerived, mapBeat, onZoneWon, type MapBeat } from '../data/breaking'
 import { RECIPE_BY_ID, gradeMakes, type Grade } from '../data/smithing'
 import { ELIXIR_BY_ID, ELIXIR_CAP, ELIXIR_IDS, brewFee, isElixir, type ElixirId } from '../data/elixirs'
 import { BATTLE_MIN_ITEMS, BATTLE_ROW, CUPS_ANTE, CUPS_BONUS_ROW, CUPS_ROW, MEMORY_ROW, battleFee, cupsPayout, battleXp, gamblerTable, prizeOf } from '../gamble'
@@ -48,8 +57,11 @@ import { setHeroForm } from '@/i18n/gendered'
  */
 
 /** Bumped when a structured field changes shape. 2: three more equipment
- *  slots (head, hands, feet); a version 1 save loads with them empty. */
-export const SAVE_VERSION = 2
+ *  slots (head, hands, feet); a version 1 save loads with them empty.
+ *  3: the afterplay (`world.afterplay`, `hero.ranks`, levels past 30); a
+ *  version 2 save loads with rank 1 everywhere, and with the afterplay open
+ *  if its Rift is already cleared. */
+export const SAVE_VERSION = 3
 
 export interface HeroSave {
   /** XP into the current level. */
@@ -71,6 +83,9 @@ export interface HeroSave {
    *  and changed on the character page. A save from before the choice has
    *  none and loads as the boy hero it always played. */
   gender: HeroGender
+  /** Skill ranks bought in the afterplay (save version 3), skill id → 2..3.
+   *  A skill not listed is rank 1. */
+  ranks: Record<string, number>
 }
 
 export interface InventorySave {
@@ -100,6 +115,10 @@ export interface InventorySave {
    *  and the one the third flask pours ('' when none is carried). */
   elixirs: Record<string, number>
   elixirPick: string
+  /** Heroic+ ranks by item id, 1..HEROIC_MAX (afterplay §2.4). A save from before has none. */
+  heroic: Record<string, number>
+  /** Pieces remade as their Infernal twins at a smith (afterplay §2.4; the Hexsmith's trial counts them). */
+  infernalForged: number
 }
 
 export interface QuestSave {
@@ -133,6 +152,10 @@ export interface WorldSave {
   said: string[]
   /** Pieces of the treasure map found (roadmap #89), by piece id. */
   pieces: string[]
+  /** The afterplay is open (docs/gdd-afterplay.md, save version 3): the Void
+   *  Lord fell in the Rift and the level cap is 60. Older saves derive it from
+   *  a cleared Rift. */
+  afterplay: boolean
 }
 
 /** What the hero has made of a zone over all his visits (roadmap #70). */
@@ -218,6 +241,10 @@ export interface MetaSave {
   /** Wins in a row: at the memory stand, and at each item-battle table (by
    *  gambler, #115). `battle` is the old shared row, read once into Sunford's. */
   gamble: { memory: number; battle: number; rows: Record<string, number>; cups: CupsState }
+  /** The Siege of Bastion (afterplay §8): wins, Marks, milestones, the bell's count (`data/siege.ts`). */
+  siege: SiegeSave
+  /** The fort's fair games (afterplay §9): rows, bests, the prize cap, what is owed (`game/fair.ts`). */
+  fair: FairSave
 }
 
 /** What the last absence added to the rested pool, in seconds (0: nothing
@@ -254,7 +281,7 @@ const defaultHero = (): HeroSave => {
   // first fight already has a button to press.
   const active = emptySlots(ACTIVE_SLOTS)
   active[0] = 'shieldSlam'
-  return { xp: 0, attrs: startAttrs(), points: 0, pointsSeen: 0, learned: ['shieldSlam'], active, passive: emptySlots(PASSIVE_SLOTS), gender: 'm' }
+  return { xp: 0, attrs: startAttrs(), points: 0, pointsSeen: 0, learned: ['shieldSlam'], active, passive: emptySlots(PASSIVE_SLOTS), gender: 'm', ranks: {} }
 }
 
 const defaultInv = (): InventorySave => ({
@@ -270,7 +297,9 @@ const defaultInv = (): InventorySave => ({
   oresFound: [],
   smithing: false,
   elixirs: {},
-  elixirPick: ''
+  elixirPick: '',
+  heroic: {},
+  infernalForged: 0
 })
 
 const defaults = (): Profile => ({
@@ -281,10 +310,10 @@ const defaults = (): Profile => ({
   hero: defaultHero(),
   inv: defaultInv(),
   quests: { done: {}, rep: { order: 0, syndicate: 0, circle: 0 }, errands: {} },
-  world: { cleared: [], flags: [], at: 'plains', pos: mapSpot('plains'), visits: {}, arenaBest: 0, chests: [], mastery: {}, said: [], pieces: [] },
+  world: { cleared: [], flags: [], at: 'plains', pos: mapSpot('plains'), visits: {}, arenaBest: 0, chests: [], mastery: {}, said: [], pieces: [], afterplay: false },
   stats: { kills: 0, deaths: 0, runs: 0, playSeconds: 0, bestLevel: 1, xpEarned: 0 },
   tips: {},
-  meta: { shelf: { day: '', wares: {}, rolls: {}, used: 0 }, arena: { week: '', best: 0 }, contracts: { day: '', list: [] }, repGifts: [], presets: [null, null], lastSeen: 0, rested: 0, respecs: 0, tasks: { day: '', towns: {} }, gamble: { memory: 0, battle: 0, rows: {}, cups: { row: 0, day: '', seen: false } } }
+  meta: { shelf: { day: '', wares: {}, rolls: {}, used: 0 }, arena: { week: '', best: 0 }, contracts: { day: '', list: [] }, repGifts: [], presets: [null, null], lastSeen: 0, rested: 0, respecs: 0, tasks: { day: '', towns: {} }, gamble: { memory: 0, battle: 0, rows: {}, cups: { row: 0, day: '', seen: false } }, siege: defaultSiege(), fair: defaultFair() }
 })
 
 const num = (v: unknown, d: number): number => (typeof v === 'number' && Number.isFinite(v) ? v : typeof v === 'string' && Number.isFinite(Number(v)) ? Number(v) : d)
@@ -315,7 +344,8 @@ export const profile: Profile = reactive(defaults())
  */
 export const loadProfile = (): void => {
   const d = defaults()
-  profile.level = Math.max(1, Math.min(MAX_LEVEL, Math.round(num(getState(LEVEL_KEY), 1))))
+  // Clamped to the afterplay's cap here, to the hero's own once the world is read.
+  profile.level = Math.max(1, Math.min(AFTER_MAX_LEVEL, Math.round(num(getState(LEVEL_KEY), 1))))
   profile.gold = Math.max(0, Math.round(num(getState(GOLD_KEY), 0)))
   profile.story = Math.max(0, Math.round(num(getState(STORY_KEY), 0)))
   profile.questsDone = Math.max(0, Math.round(num(getState(QUESTS_DONE_KEY), 0)))
@@ -334,9 +364,17 @@ export const loadProfile = (): void => {
     return out
   }
   hero.active = slots(hero.active, ACTIVE_SLOTS, 'active')
-  hero.passive = slots(hero.passive, PASSIVE_SLOTS, 'passive')
+  // Up to the fifth slot here; sized to what the hero has earned once the world is read.
+  hero.passive = slots(hero.passive, MAX_PASSIVE_SLOTS, 'passive')
   // A save from before the hero choice is the boy hero it always played.
   hero.gender = heroGenderOf(hero.gender)
+  // A save from before the afterplay (v2) has no ranks: every skill is rank 1.
+  const ranks = obj(hero.ranks, {}) as Record<string, unknown>
+  hero.ranks = {}
+  for (const [id, v] of Object.entries(ranks)) {
+    const r = Math.min(MAX_SKILL_RANK, Math.round(num(v, 1)))
+    if (r > 1 && hero.learned.includes(id)) hero.ranks[id] = r
+  }
   profile.hero = hero
   setHeroForm(hero.gender)
 
@@ -372,12 +410,14 @@ export const loadProfile = (): void => {
     const n = Math.round(num(v, 0))
     if (isPlant(id) && n > 0) inv.herbs[id] = Math.min(HERB_CAP, n)
   }
-  // A save from before ore has no pouch; only the four metals.
+  // A save from before ore has no pouch; only the metals, and the afterplay's
+  // Demonglass and Mythic Ichor (phase 8), each to its own cap.
   const ores = obj(inv.ores, {}) as Record<string, unknown>
   inv.ores = {}
   for (const [id, v] of Object.entries(ores)) {
     const n = Math.round(num(v, 0))
     if (isOre(id) && n > 0) inv.ores[id] = Math.min(ORE_CAP, n)
+    else if (isMat(id) && n > 0) inv.ores[id] = Math.min(MAT_CAP, n)
   }
   inv.oresFound = Array.isArray(inv.oresFound) ? ORE_IDS.filter(o => (inv.oresFound as unknown[]).includes(o)) : []
   for (const id of Object.keys(inv.ores)) if (!inv.oresFound.includes(id)) inv.oresFound.push(id)
@@ -390,6 +430,14 @@ export const loadProfile = (): void => {
     if (isElixir(id) && n > 0) inv.elixirs[id] = Math.min(ELIXIR_CAP, n)
   }
   inv.elixirPick = typeof inv.elixirPick === 'string' && (inv.elixirs[inv.elixirPick] ?? 0) > 0 ? inv.elixirPick : firstElixir(inv.elixirs)
+  // A save from before Heroic+ (afterplay phase 8) has no ranks; a rank of a piece no longer owned is dropped.
+  const her = obj(inv.heroic, {}) as Record<string, unknown>
+  inv.heroic = {}
+  for (const [id, v] of Object.entries(her)) {
+    const r = Math.min(HEROIC_MAX, Math.round(num(v, 0)))
+    if (inv.items.includes(id) && r >= 1) inv.heroic[id] = r
+  }
+  inv.infernalForged = Math.max(0, Math.round(num(inv.infernalForged, 0)))
   profile.inv = inv
 
   const quests = obj(stored(QUESTS_KEY), d.quests)
@@ -434,7 +482,13 @@ export const loadProfile = (): void => {
   // A save from before the hero walked the map freely: he stands at his place.
   // (Read off what was stored: the defaults would stand him at the plains.)
   world.pos = validPos((storedWorld as { pos?: unknown } | null)?.pos) ?? mapSpot(world.at)
+  // A save from before the afterplay (v2) whose hero already beat the Void
+  // Lord opens it on load.
+  world.afterplay = world.afterplay === true || world.cleared.includes(AFTERPLAY_NODE)
   profile.world = world
+  profile.level = Math.min(profile.level, levelCap(world.afterplay))
+  // The fifth passive slot (the siege's Veteran's Instinct, afterplay §8.6).
+  syncPassiveSlots()
 
   profile.stats = obj(stored(STATS_KEY), d.stats)
   profile.tips = obj(stored(TUTORIAL_KEY), {})
@@ -456,10 +510,14 @@ export const loadProfile = (): void => {
     const eq = noGear()
     const src = obj(o.equipped, {} as Record<string, unknown>)
     for (const s of EQUIP_SLOTS) { const id = src[s]; if (typeof id === 'string' && ITEM_BY_ID[id]) eq[s] = id }
-    presets.push({ name: typeof o.name === 'string' ? o.name.slice(0, PRESET_NAME_MAX) : '', active: ids(o.active, ACTIVE_SLOTS), passive: ids(o.passive, PASSIVE_SLOTS), equipped: eq })
+    presets.push({ name: typeof o.name === 'string' ? o.name.slice(0, PRESET_NAME_MAX) : '', active: ids(o.active, ACTIVE_SLOTS), passive: ids(o.passive, MAX_PASSIVE_SLOTS), equipped: eq })
   }
   meta.presets = presets
   meta.respecs = Math.max(0, Math.round(num(meta.respecs, 0)))
+  // A save from before the siege (afterplay §8) has fought none.
+  meta.siege = normalizeSiege(meta.siege)
+  // A save from before the fair games (afterplay §9) has played none.
+  meta.fair = normalizeFair(meta.fair)
   const aw = obj(meta.arena, d.meta.arena)
   meta.arena = { week: typeof aw.week === 'string' ? aw.week : '', best: Math.max(0, Math.round(num(aw.best, 0))) }
   // Contracts (#15): a day's list as posted; anything malformed is dropped
@@ -511,6 +569,8 @@ export const loadProfile = (): void => {
   // take back a welcome the map has not shown yet.
   if (r.gained > 0) restedGain.value = r.gained
   profile.meta = meta
+  // What the afterplay owes this save now that phase 8 has it to give (siege pieces, Demonglass, the Scale).
+  claimAfterplayDues()
 }
 
 /**
@@ -610,7 +670,10 @@ export const heroBuild = (attrs: AttrBlock = profile.hero.attrs): HeroBuild => (
   equipped: profile.inv.equipped,
   passives: profile.hero.passive.filter(Boolean),
   blessings: blessings(),
-  upgrades: profile.inv.upgrades
+  upgrades: profile.inv.upgrades,
+  ranks: profile.hero.ranks,
+  levelCap: heroLevelCap(),
+  heroic: profile.inv.heroic
 })
 
 export const computeStats = (attrs: AttrBlock = profile.hero.attrs): UnitStats => heroStats(heroBuild(attrs))
@@ -620,19 +683,38 @@ export const totalAttrs = (): AttrBlock => sumBuild(heroBuild()).attrs
 
 // ─── Progression ─────────────────────────────────────────────────────────────
 
-export const xp01 = (): number => (profile.level >= MAX_LEVEL ? 1 : profile.hero.xp / Math.max(1, xpToNext(profile.level)))
+// ─── The afterplay (docs/gdd-afterplay.md) ───────────────────────────────────
+
+/** The zone whose finale (the Void Lord) opens the afterplay. */
+export const AFTERPLAY_NODE: NodeId = 'rift'
+
+/** Is the afterplay open (the Void Lord is dead)? */
+export const afterplayOpen = (): boolean => profile.world.afterplay
+
+/** The level this hero may reach now: 30, or 60 in the afterplay. */
+export const heroLevelCap = (): number => levelCap(profile.world.afterplay)
+
+/** Open the afterplay: the cap rises to 60. XP banked at 30 carries on into 31. */
+export const openAfterplay = (): void => {
+  if (profile.world.afterplay) return
+  profile.world.afterplay = true
+  // The bar was held full at the cap; anything past it levels on now.
+  grantXp(0)
+}
+
+export const xp01 = (): number => (profile.level >= heroLevelCap() ? 1 : profile.hero.xp / Math.max(1, xpToNext(profile.level)))
 
 /**
  * Lifetime XP: the leaderboard's score. Floored at what the level and bar
  * already prove, so the number can only ever grow.
  */
 export const lifetimeXp = (): number =>
-  Math.max(Math.round(profile.stats.xpEarned || 0), xpToReach(profile.level) + Math.round(profile.hero.xp))
+  Math.max(Math.round(profile.stats.xpEarned || 0), xpToReach(profile.level, AFTER_MAX_LEVEL) + Math.round(profile.hero.xp))
 
 /** Grant XP; returns the levels gained (each is 3 attribute points). */
 export const grantXp = (amount: number): number => {
   profile.stats.xpEarned = lifetimeXp() + Math.max(0, Math.round(amount))
-  const r = addXp(profile.level, profile.hero.xp, amount)
+  const r = addXp(profile.level, profile.hero.xp, amount, heroLevelCap())
   profile.level = r.level
   profile.hero.xp = r.xp
   if (r.gained > 0) {
@@ -665,25 +747,42 @@ export const spendPoint = (a: Attr, n = 1): boolean => {
 
 export const knows = (id: string): boolean => profile.hero.learned.includes(id)
 
-/** The lesson being given away right now ('' none): the road teacher's gift (#136). Not saved. */
-export const lesson = reactive({ free: '' })
+/** The lesson being given away right now ('' none): the road teacher's gift (#136). Not saved.
+ *  `camp`: a rescued teacher of the first visit's camp is teaching (#156). */
+export const lesson = reactive({ free: '', camp: false })
+
+/** The one-time flag (in `profile.tips`) that the camp's free lesson is taken (#156). */
+export const CAMP_GIFT_TIP = 'campGift'
+
+/** The first lesson bought in the rescued teachers' camp is on them, once (#156). */
+const campGift = (id: string): boolean => lesson.camp && !profile.tips[CAMP_GIFT_TIP] && lesson.free !== id
 
 /** What a trainer charges this hero: Charisma haggles, a friendly faction gives a discount. */
 export const skillCost = (id: string): number => {
   const s = SKILL_BY_ID[id]
   if (!s) return 0
-  if (lesson.free === id) return 0
+  if (lesson.free === id || campGift(id)) return 0
   const f = CLASSES[s.cls].faction
   const friend = f !== 'none' && profile.quests.rep[f] >= REP_FRIEND ? FRIEND_DISCOUNT : 0
   return Math.max(1, Math.round(skillPriceOf(s) * (1 - shopDiscount(totalAttrs().cha)) * (1 - friend)))
 }
 
-export type LearnBlock = '' | 'known' | 'level' | 'attrs' | 'gold'
+export type LearnBlock = '' | 'known' | 'level' | 'attrs' | 'gold' | 'afterplay' | 'fort' | 'trial' | 'parents'
 
 /** Why this skill cannot be learned right now ('' = it can). */
 export const learnBlock = (id: string): LearnBlock => {
   const s = SKILL_BY_ID[id]
   if (!s || knows(id)) return 'known'
+  if (s.capstone) {
+    // A capstone (afterplay §2.3): the afterplay's, and a rescued teacher's only at the fort.
+    if (!profile.world.afterplay) return 'afterplay'
+    if (capstoneAtFort(s.cls) && profile.world.at !== FORT) return 'fort'
+  }
+  // A prestige class (afterplay §10): its trial passed, and a skill of each parent known.
+  if (isPrestige(s.cls)) {
+    if (!trialPassed(s.cls, { flags: flagSet(), forged: profile.inv.infernalForged })) return 'trial'
+    if (!knowsParents(s.cls, knows)) return 'parents'
+  }
   if (profile.level < s.level) return 'level'
   if (!meetsSkill(s, profile.level, totalAttrs())) return 'attrs'
   if (profile.gold < skillCost(id)) return 'gold'
@@ -693,13 +792,67 @@ export const learnBlock = (id: string): LearnBlock => {
 export const learnSkill = (id: string): boolean => {
   if (learnBlock(id) !== '') return false
   const s = SKILL_BY_ID[id]!
+  const gift = campGift(id)
   profile.gold -= skillCost(id)
+  if (gift) profile.tips[CAMP_GIFT_TIP] = true
   profile.hero.learned.push(id)
   // Straight into the first free slot of its kind, so a new skill is usable
   // without a trip to the loadout screen.
   const slots = s.kind === 'active' ? profile.hero.active : profile.hero.passive
   const free = slots.indexOf('')
   if (free >= 0) slots[free] = id
+  saveProfile()
+  return true
+}
+
+// ─── Skill ranks (afterplay §2.3) ────────────────────────────────────────────
+
+/** A learned skill's rank, 1..3. */
+export const skillRank = (id: string): number => profile.hero.ranks[id] ?? 1
+
+/** The hero level the next rank of a skill asks (0: none left). */
+export const nextRankLevel = (id: string): number => {
+  const s = SKILL_BY_ID[id]
+  const r = skillRank(id)
+  return s && r < MAX_SKILL_RANK ? rankLevel(s.level, r + 1) : 0
+}
+
+/** What the trainer charges this hero for the next rank, haggled like a lesson. */
+export const rankCost = (id: string): number => {
+  const s = SKILL_BY_ID[id]
+  const r = skillRank(id)
+  if (!s || r >= MAX_SKILL_RANK) return 0
+  const f = CLASSES[s.cls].faction
+  const friend = f !== 'none' && profile.quests.rep[f] >= REP_FRIEND ? FRIEND_DISCOUNT : 0
+  return Math.max(1, Math.round(rankPrice(s.priceLevel, r + 1) * (1 - shopDiscount(totalAttrs().cha)) * (1 - friend)))
+}
+
+export type RankBlock = '' | 'unknown' | 'max' | 'afterplay' | 'level' | 'attrs' | 'gold'
+
+/** Why the next rank of this skill cannot be bought right now ('' = it can).
+ *  A rank asks the skill's own attribute bars again, never less. */
+export const rankBlock = (id: string): RankBlock => {
+  const s = SKILL_BY_ID[id]
+  if (!s || !knows(id)) return 'unknown'
+  // A capstone has no ranks.
+  if (skillRank(id) >= MAX_SKILL_RANK || s.capstone) return 'max'
+  if (!profile.world.afterplay) return 'afterplay'
+  if (profile.level < nextRankLevel(id)) return 'level'
+  if (!meetsSkill(s, profile.level, totalAttrs())) return 'attrs'
+  if (profile.gold < rankCost(id)) return 'gold'
+  return ''
+}
+
+/** Is this class's capstone taught only at the fort (its teacher was rescued there)? A class
+ *  whose teacher was never taken teaches it at home (afterplay §2.3, phase 8). */
+export const capstoneAtFort = (cls: string): boolean =>
+  TOWNS[FORT]?.npcs.some(n => n.role === 'trainer' && n.cls === cls) ?? false
+
+/** Buy a skill's next rank at its trainer. */
+export const buyRank = (id: string): boolean => {
+  if (rankBlock(id) !== '') return false
+  profile.gold -= rankCost(id)
+  profile.hero.ranks[id] = skillRank(id) + 1
   saveProfile()
   return true
 }
@@ -720,6 +873,17 @@ export const setSlot = (kind: 'active' | 'passive', slot: number, id: string): b
   slots[slot] = id
   saveProfile()
   return true
+}
+
+/** The passive slots this hero has: four, five once the siege's Hard win earned Veteran's Instinct (afterplay §8.6). */
+export const passiveSlots = (): number => (hasFlag(FIFTH_PASSIVE_FLAG) ? MAX_PASSIVE_SLOTS : PASSIVE_SLOTS)
+
+/** The passive row sized to the slots the hero has: an earned slot is added empty. */
+export const syncPassiveSlots = (): void => {
+  const p = profile.hero.passive
+  const n = passiveSlots()
+  while (p.length < n) p.push('')
+  if (p.length > n) p.length = n
 }
 
 /** The active loadout for a zone visit: skills whose requirements still hold. */
@@ -856,7 +1020,7 @@ export const tasksReady = (town: TownId): number => tasksOf(town).filter(taskRea
 /** What a task pays now. */
 export const taskPay = (t: TownTask): { gold: number; xp: number } => {
   const k = t.kind === 'escort' ? ESCORT_PAY : 1
-  return { gold: taskGold(profile.level) * k, xp: Math.round(xpToNext(Math.min(profile.level, MAX_LEVEL - 1)) * TASK_XP * k) }
+  return { gold: taskGold(profile.level) * k, xp: Math.round(xpToNext(Math.min(profile.level, heroLevelCap() - 1)) * TASK_XP * k) }
 }
 
 /** Hand a finished task in at its board: the herbs go, the pay comes. */
@@ -972,6 +1136,7 @@ export const loadPreset = (i: number): string[] | null => {
   })
   profile.hero.active = fit(p.active)
   profile.hero.passive = fit(p.passive)
+  syncPassiveSlots()
   saveProfile()
   return skipped
 }
@@ -1058,6 +1223,7 @@ export const sellItem = (id: string): boolean => {
   profile.inv.items.splice(profile.inv.items.indexOf(id), 1)
   markSeen(id)
   delete profile.inv.upgrades[id]
+  delete profile.inv.heroic[id]
   const gold = sellValue(it)
   profile.gold += gold
   buyBack.push({ id, gold })
@@ -1152,6 +1318,7 @@ export const layBattleItem = (id: string): boolean => {
   profile.inv.items.splice(profile.inv.items.indexOf(id), 1)
   markSeen(id)
   delete profile.inv.upgrades[id]
+  delete profile.inv.heroic[id]
   saveProfile()
   return true
 }
@@ -1258,12 +1425,13 @@ export const completeErrand = (id: string): ErrandReward | null => {
     if (i < 0) return null
     profile.inv.items.splice(i, 1)
     delete profile.inv.upgrades[cost.item]
+    delete profile.inv.heroic[cost.item]
   }
   save.done = true
   save.step = def.steps.length
   const r = def.reward
   if (r.gold) profile.gold += r.gold
-  if (r.xp) grantXp(Math.round(xpToNext(Math.min(profile.level, MAX_LEVEL - 1)) * r.xp))
+  if (r.xp) grantXp(Math.round(xpToNext(Math.min(profile.level, heroLevelCap() - 1)) * r.xp))
   for (const f of r.flags ?? []) if (!profile.world.flags.includes(f)) profile.world.flags.push(f)
   if (r.item) gainItem(r.item)
   saveProfile()
@@ -1330,10 +1498,13 @@ export const freeCaptives = (zone: string): void => {
 /** How many nuggets of a metal the pouch holds. */
 export const oreCount = (id: string): number => profile.inv.ores[id] ?? 0
 
-/** Nuggets into the pouch (a visit's mining); a metal mined is a metal known. */
+/** Nuggets into the pouch (a visit's mining); a metal mined is a metal known.
+ *  Demonglass and Mythic Ichor (afterplay) go in too, to their own cap. */
 export const addOres = (got: Readonly<Record<string, number>>): void => {
   for (const [id, n] of Object.entries(got)) {
-    if (!isOre(id) || n <= 0) continue
+    if (n <= 0) continue
+    if (isMat(id)) { profile.inv.ores[id] = Math.min(MAT_CAP, oreCount(id) + Math.round(n)); continue }
+    if (!isOre(id)) continue
     profile.inv.ores[id] = Math.min(ORE_CAP, oreCount(id) + Math.round(n))
     if (!profile.inv.oresFound.includes(id)) profile.inv.oresFound.push(id)
   }
@@ -1351,21 +1522,21 @@ export const spendOres = (want: Readonly<Record<string, number>>): boolean => {
 }
 
 /** What the smith pays for the whole pouch (#99, D120): a flat price a nugget. */
-export const orePouchValue = (): number => ORE_IDS.reduce((s, o) => s + oreCount(o) * ORE_PRICE[o], 0)
+export const orePouchValue = (): number => POUCH_IDS.reduce((s, o) => s + oreCount(o) * pouchPrice(o), 0)
 
 /**
  * Sell some nuggets to a smith (the sell window): how many of each ore. Whole,
  * positive counts only, never more than the pouch holds; all or nothing.
  * Returns the gold paid (0: nothing sold).
  */
-export const sellOres = (want: Readonly<Partial<Record<OreId, number>>>): number => {
-  const take: Partial<Record<OreId, number>> = {}
+export const sellOres = (want: Readonly<Partial<Record<OreId | MatId, number>>>): number => {
+  const take: Partial<Record<OreId | MatId, number>> = {}
   let gold = 0
   for (const [id, n] of Object.entries(want)) {
-    if (!isOre(id) || n === undefined || n === 0) continue
+    if ((!isOre(id) && !isMat(id)) || n === undefined || n === 0) continue
     if (!Number.isInteger(n) || n < 0 || n > oreCount(id)) return 0
     take[id] = n
-    gold += n * ORE_PRICE[id]
+    gold += n * pouchPrice(id)
   }
   if (!gold || !spendOres(take as Record<string, number>)) return 0
   profile.gold += gold
@@ -1474,7 +1645,8 @@ export const upgradeLevel = (id: string): number => profile.inv.upgrades[id] ?? 
 export const upgradeCost = (id: string): number => {
   const it = ITEM_BY_ID[id]
   const lvl = upgradeLevel(id)
-  return it && lvl < MAX_FORGE_LEVEL ? forgeCost(it, lvl) : 0
+  // The Arm-Wrestle's discount (afterplay §9) takes its share off.
+  return it && lvl < MAX_FORGE_LEVEL ? Math.round(forgeCost(it, lvl) * (profile.meta.fair.discount ? 1 - ARM_DISCOUNT : 1)) : 0
 }
 
 /** Can a worn piece go up a level now (gold aside: `upgradeCost` says that)? */
@@ -1489,6 +1661,117 @@ export const upgradeItem = (id: string): boolean => {
   profile.inv.upgrades[id] = upgradeLevel(id) + 1
   saveProfile()
   return true
+}
+
+// ─── Heroic+ and Infernal smithing (afterplay §2.4, phase 8) ─────────────────
+
+/** A piece's heroic rank (0: none). */
+export const heroicRank = (id: string): number => profile.inv.heroic[id] ?? 0
+
+export type HeroicBlock = '' | 'afterplay' | 'worn' | 'max' | 'gold' | 'glass' | 'ichor'
+
+/** Why a piece cannot take its next heroic rank now ('' = it can): a worn piece, in the afterplay. */
+export const heroicBlock = (id: string): HeroicBlock => {
+  if (!profile.world.afterplay) return 'afterplay'
+  if (!ITEM_BY_ID[id] || !equippedIn(id)) return 'worn'
+  const c = heroicCost(heroicRank(id))
+  if (!c) return 'max'
+  if (profile.gold < c.gold) return 'gold'
+  if (oreCount('demonglass') < c.glass) return 'glass'
+  if (oreCount('ichor') < c.ichor) return 'ichor'
+  return ''
+}
+
+/** The smith raises a worn piece one heroic rank: gold, Demonglass and Ichor. */
+export const buyHeroic = (id: string): boolean => {
+  if (heroicBlock(id)) return false
+  const c = heroicCost(heroicRank(id))!
+  profile.gold -= c.gold
+  spendOres({ demonglass: c.glass, ...(c.ichor ? { ichor: c.ichor } : {}) })
+  profile.inv.heroic[id] = heroicRank(id) + 1
+  saveProfile()
+  return true
+}
+
+/** The Infernal twin a smith can remake this piece as ('' none: not a named unique of the campaign). */
+export const infernalTwin = (id: string): string => {
+  const it = ITEM_BY_ID[id]
+  const twin = it && !it.infernal ? infernalId(id) : ''
+  return twin && ITEM_BY_ID[twin] ? twin : ''
+}
+
+/** What remaking a piece as its Infernal twin costs. */
+export const infernalForgeCost = (id: string): { gold: number; glass: number } => ({
+  gold: INFERNAL_FORGE_GOLD[ITEM_BY_ID[id]?.tier ?? 1] ?? 0, glass: INFERNAL_FORGE_GLASS
+})
+
+export type InfernalBlock = '' | 'none' | 'forge' | 'owned' | 'gold' | 'glass'
+
+/** Why a piece cannot be remade as its Infernal twin now ('' = it can). The
+ *  Forgemaster's forge (B6) teaches every smith the craft. */
+export const infernalBlock = (id: string): InfernalBlock => {
+  const twin = infernalTwin(id)
+  if (!twin || !owns(id)) return 'none'
+  if (!hasFlag(INFERNAL_FORGE_FLAG)) return 'forge'
+  if (owns(twin)) return 'owned'
+  const c = infernalForgeCost(id)
+  if (profile.gold < c.gold) return 'gold'
+  if (oreCount('demonglass') < c.glass) return 'glass'
+  return ''
+}
+
+/**
+ * Remake an owned unique as its Infernal twin: the original goes into the
+ * fire, the twin comes out with its levels and heroic ranks, worn where the
+ * original was. Counted for the Hexsmith's trial (§10). Returns the twin's id.
+ */
+export const forgeInfernal = (id: string): string => {
+  if (infernalBlock(id)) return ''
+  const twin = infernalTwin(id)
+  const c = infernalForgeCost(id)
+  profile.gold -= c.gold
+  spendOres({ demonglass: c.glass })
+  const inv = profile.inv
+  inv.items.splice(inv.items.indexOf(id), 1)
+  inv.items.push(twin)
+  for (const s of EQUIP_SLOTS) if (inv.equipped[s] === id) inv.equipped[s] = twin
+  if (inv.upgrades[id]) inv.upgrades[twin] = inv.upgrades[id]!
+  if (inv.heroic[id]) inv.heroic[twin] = inv.heroic[id]!
+  delete inv.upgrades[id]
+  delete inv.heroic[id]
+  markSeen(id)
+  inv.infernalForged++
+  saveProfile()
+  return twin
+}
+
+/** The Siege Marks' quartermaster (§8.6): Demonglass for banked Marks. */
+export const buyGlassWithMarks = (): boolean => {
+  const s = profile.meta.siege
+  if (s.marks < MARKS_GLASS.marks) return false
+  s.marks -= MARKS_GLASS.marks
+  addOres({ demonglass: MARKS_GLASS.glass })
+  saveProfile()
+  return true
+}
+
+/**
+ * What the afterplay owes a save on load (phase 8 gives what phases 6–7 could
+ * only promise): the siege's milestone pieces now that they exist, its
+ * Demonglass now that there is a pouch for it, and the Leviathan Scale for a
+ * hero who holds B8's flag. Each is handed over once. Returns the pieces.
+ */
+export const claimAfterplayDues = (): string[] => {
+  const s = profile.meta.siege
+  const got: string[] = []
+  for (const id of s.owed) if (ITEM_BY_ID[id] && !owns(id)) { profile.inv.items.push(id); profile.inv.fresh.push(id); got.push(id) }
+  s.owed = s.owed.filter(id => !ITEM_BY_ID[id])
+  if (s.glass > 0) { addOres({ demonglass: s.glass }); s.glass = 0 }
+  if (hasFlag(LEVIATHAN_SCALE_FLAG) && !hasFlag(SCALE_GIVEN_FLAG)) {
+    profile.world.flags.push(SCALE_GIVEN_FLAG)
+    if (!owns('leviathanScale')) { profile.inv.items.push('leviathanScale'); profile.inv.fresh.push('leviathanScale'); got.push('leviathanScale') }
+  }
+  return got
 }
 
 // ─── Buy-back (D38) ──────────────────────────────────────────────────────────
@@ -1578,7 +1861,15 @@ export const recordMastery = (
 
 // ─── The world ───────────────────────────────────────────────────────────────
 
-export const flagSet = (): Set<string> => new Set(profile.world.flags)
+/** The world's flags: those in the save, and those the afterplay derives from
+ *  them (`afterplay`, each fallen town overrun or rebuilt: `data/breaking.ts`). */
+export const flagSet = (): Set<string> => {
+  const f = new Set(profile.world.flags)
+  for (const d of breakingDerived(profile.world.afterplay, f)) f.add(d)
+  // The prestige trials passed, and the Wanderer they bring (afterplay §10).
+  for (const d of prestigeDerived({ flags: f, forged: profile.inv.infernalForged })) f.add(d)
+  return f
+}
 export const hasFlag = (f: string): boolean => profile.world.flags.includes(f)
 
 /** A stored map position, if it is one (two numbers on the sheet). */
@@ -1600,12 +1891,54 @@ export const clearNode = (id: NodeId): boolean => {
   if (profile.world.cleared.includes(id)) return false
   profile.world.cleared.push(id)
   if (NODE_BY_ID[id]?.kind === 'zone') profile.story++
+  if (id === AFTERPLAY_NODE) openAfterplay()
   return true
 }
 
+// ─── The Breaking (the afterplay's story, `data/breaking.ts`) ─────────────────
+
+const addFlags = (fs: readonly string[]): void => {
+  for (const f of fs) if (!profile.world.flags.includes(f)) profile.world.flags.push(f)
+}
+
+/** The story beat the world map tells next (B0, B1), if any. */
+export const storyMapBeat = (): MapBeat | null => mapBeat(profile.world.afterplay, flagSet())
+
+/** A map beat begins: it is told once, and saved at once. */
+export const beginMapBeat = (b: MapBeat): void => {
+  const f = MAP_BEAT_FLAG[b]
+  if (!f) return
+  addFlags([f])
+  saveProfile()
+}
+
+/** The hero walks into a town: the fort, the first time, is B2 (its people
+ *  take him in). Returns whether a step was taken. */
+export const storyArrive = (node: NodeId): boolean => {
+  if (node !== FORT || !profile.world.afterplay || !hasFlag('brk1') || hasFlag('brk2')) return false
+  addFlags(['brk2', ...advance(new Set([...profile.world.flags, 'brk2']), profile.level)])
+  saveProfile()
+  return true
+}
+
+/**
+ * A zone won in the afterplay: it is purged, whoever was held on its road is
+ * rescued to the fort, and the story moves on where it now holds. Returns the
+ * flags written (the caller tells the rescues).
+ */
+export const storyZoneWon = (zone: ZoneId): string[] => {
+  const add = onZoneWon(zone, profile.world.afterplay, new Set(profile.world.flags), profile.level)
+  addFlags(add)
+  return add
+}
+
+/** The rescue flags among some flags (for the toasts). */
+export const rescuesIn = (fs: readonly string[]): string[] => fs.filter(f => Object.values(RESCUES).some(r => r!.includes(f)))
+
 /** The decision of a quest, applied once and for all. */
 export const decideQuest = (questId: string, choiceId: string): boolean => {
-  const q = QUEST_BY_ID[questId]
+  // The six quests, or the story's own decision (B10: seal the rift or keep it ajar).
+  const q = QUEST_BY_ID[questId] ?? STORY_QUESTS[questId]
   const c = q?.choices.find(x => x.id === choiceId)
   if (!q || !c || profile.quests.done[questId]) return false
   if (!choiceOpen(c, { level: profile.level, attrs: totalAttrs(), flags: flagSet(), rep: profile.quests.rep })) return false

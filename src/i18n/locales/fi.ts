@@ -1,5 +1,170 @@
 // Finnish (fi) bundle — mirrors en.ts.
 export default {
+  // ─── Afterplay phase 8: items, materials and capstones ───
+  // ─── Afterplay phase 10: the prestige classes ───
+  'prestige': { 'toast': { 'wanderer': "Salaperäinen vaeltaja odottaa linnoituksessa." } },
+  'relic': {
+    'infernal': "{name} · Helvetillinen",
+    'set': "Yhdessä esineen {item} kanssa:",
+    'heroicBadge': "Sankarillinen {n}",
+    'heroic': "Sankarillinen {n}: {gold} kultaa, {glass} demonilasia",
+    'heroicIchor': "Sankarillinen {n}: {gold} kultaa, {glass} demonilasia, {ichor} ikoria",
+    'heroicMax': "Kaikki sankariarvot on saavutettu.",
+    'infernalForge': "Helvetin takominen: {gold} kultaa, {glass} demonilasia",
+    'lens': "Oraakkelin linssi: täällä odottaa {boss}.",
+    'hydraKey': "Sinetöity. Hydran tuliavain avaa Repeämän sydämen.",
+    'marksGlass': "Osta {glass} demonilasia {marks} merkillä",
+    'capstone': "Huipputaito",
+    'fortOnly': "Tätä huipputaitoa opetetaan vain Bastionin ylityspaikassa."
+  },
+  // ─── The fort's fair games (afterplay §9) ───
+  'fair': {
+    'fee': "Pelaa · {n}",
+    'again': "Pelaa uudelleen",
+    'noGold': "Kultaa ei ole tarpeeksi.",
+    'capped': "Alueita tyhjennettävänä ennen kuin suuret palkinnot palaavat: {n}",
+    'top': "Pääpalkinto! +{gold} kultaa, +{xp} KP",
+    'topGold': "Pääpalkinto, vain kultana: +{n} kultaa",
+    'won': "Voitit! +{n} kultaa",
+    'lost': "Ei onnea. Putki alkaa alusta.",
+    'row': "Voittoja putkeen: {n}/{max}",
+    'mats': "+{n} Sankari+-materiaalia",
+    'discount': "Seppä antaa sinulle nyt {n} %:n alennuksen parannuksista!"
+  },
+  'whack': {
+    'title': "Lyö pikkupiru",
+    'lead': "Lyö 20 pikkupirua 30 sekunnissa. Jätä kultahaarniskaiset rauhaan: jokainen osuma niihin vie elämän.",
+    'hits': "Pikkupirut: {n}/{max}",
+    'lives': "Elämät: {n}",
+    'time': "Aika: {n} s",
+    'hint': "Napauta pikkupiruja tai paina 1–9.",
+    'barrel': "Tynnyri {n}",
+    'timeout': "Aika loppui!",
+    'dead': "Elämät loppuivat!"
+  },
+  'ring': {
+    'title': "Renkaanheitto Hydralle",
+    'lead': "Pidä pohjassa voiman keräämiseksi, päästä irti heittääksesi. Pää nappaa renkaan vain heilahduksensa keskikohdan lähellä. Jokainen peräkkäinen pää on pisteen enemmän arvoinen.",
+    'hint': "Pidä pohjassa ja päästä irti pöydällä, tai pidä välilyöntiä.",
+    'rings': "Renkaita jäljellä: {n}",
+    'score': "Pisteet: {n}",
+    'hit': "Osui! +{n}",
+    'miss': "Ohi!",
+    'perfect': "Täydellinen kierros!",
+    'nothing': "Pisteet {n}. Ei palkintoa tällä kertaa.",
+    'power': "Voima"
+  },
+  'arm': {
+    'title': "Kädenvääntö",
+    'lead': "Napauta, kun rengas kohtaa ympyrän, niin painat hänen kätensä alas. Voima leventää tahtia. Kolme voittoa putkeen tuo sepän alennuksen, viisi tuo Sankari+-materiaalia.",
+    'hint': "Napauta pöytää tai paina välilyöntiä.",
+    'good': "Paina!",
+    'off': "Tahdista ohi!"
+  },
+  // ─── The Siege of Bastion (afterplay §8) ───
+  'siege': {
+    'title': "Bastionin ylityspaikan piiritys",
+    'lead': "Pidä portti kymmenen aallon ajan. Aaltojen välissä käytä piiritysmerkkejä puolustukseen.",
+    'story': "Lauma on portilla. Kestä kymmenen aaltoa: tätä ensimmäistä piiritystä ei voi hävitä.",
+    'bell': "Piirityskello soi! Lauma kerääntyy portille.",
+    'mapBell': "Piiritys!",
+    'start': "Soita kelloa",
+    'wins': "Voitot: {n}",
+    'marksBank': "Säästetyt piiritysmerkit: {n}",
+    'tier': {
+      'normal': "Normaali",
+      'hard': "Vaikea",
+      'nightmare': "Painajainen"
+    },
+    'tierDesc': {
+      'normal': "Viholliset tasoa sinua korkeammalla.",
+      'hard': "Viholliset 3 tasoa korkeammalla ja 30 % enemmän elämää.",
+      'nightmare': "Viholliset 6 tasoa korkeammalla ja kaksi aaltoa myyttisiä eliittejä."
+    },
+    'locked': {
+      'hard': "Voita ensin normaali piiritys.",
+      'nightmare': "Aukeaa, kun repeämä on sinetöity tai jätetty raolleen."
+    },
+    'lord': "Piiritysruhtinas",
+    'hud': {
+      'wave': "Aalto {n}/{total}",
+      'marks': "Merkit: {n}",
+      'gate': "Portti {pct} %",
+      'build': "Aalto {n} {s} s päästä",
+      'ready': "Valmis!",
+      'buy': "{name}: {n} merkkiä"
+    },
+    'def': {
+      'ballista': {
+        'name': "Ballista",
+        'desc': "Ampuu läpäisevän nuolen kaistaansa pitkin 2 sekunnin välein."
+      },
+      'cauldron': {
+        'name': "Tulipata",
+        'desc': "Sytyttää kaistansa kapeikon tuleen."
+      },
+      'barricade': {
+        'name': "Barrikadi",
+        'desc': "Tukkii kaistan 20 sekunniksi."
+      },
+      'militia': {
+        'name': "Miliisi",
+        'desc': "Kaksi vartijaa taistelee rinnallasi."
+      },
+      'repair': {
+        'name': "Korjaa portti",
+        'desc': "Palauttaa neljänneksen portista."
+      }
+    },
+    'block': {
+      'marks': "Piiritysmerkit eivät riitä.",
+      'full': "Ei tilaa enempää.",
+      'phase': "Vain aaltojen välissä."
+    },
+    'toast': {
+      'cleared': "Aalto {n} torjuttu! +{marks} merkkiä",
+      'clearedUnharmed': "Aalto {n} torjuttu, portti ehjä! +{marks} merkkiä",
+      'horn': "Torvi soi! Portista on jäljellä {pct} %.",
+      'ram': "Muurinmurtaja! Pysäytä se ennen kuin se ehtii portille!",
+      'rally': "Taas jaloillasi! Pidä portti!"
+    },
+    'banner': {
+      'wave': "Aalto {n}",
+      'final': "Piiritysruhtinas!"
+    },
+    'result': {
+      'tier': "Bastionin ylityspaikan piiritys: {tier}",
+      'waves': "Torjutut aallot: {n}/{total}",
+      'marks': "Säilytetyt piiritysmerkit: {banked}/{earned}",
+      'glass': "Demonilasi: +{n}"
+    },
+    'milestone': {
+      'normal1': "Virstanpylväs saavutettu: Bastionin lippu.",
+      'normal5': "Virstanpylväs saavutettu: Muurinvartijan haarniska.",
+      'hard1': "Virstanpylväs saavutettu: Veteraanin vaisto, viides passiivipaikka.",
+      'hard5': "Virstanpylväs saavutettu: Portinmurskaaja.",
+      'nightmare1': "Virstanpylväs saavutettu: Viimeisen bastionin kruunu.",
+      'hardFlawless': "Virstanpylväs saavutettu: avain salaiseen luokkakoetukseen."
+    }
+  },
+  // ─── The Breaking (the afterplay's story) ───
+  'breaking': {
+    'title': "Murtuma",
+    'toast': {
+      brk6: "Takomestari sai pajansa takaisin. Helvetillinen takominen on auki.",
+      brk7: "Sfinksi on kuollut. Oraakkelin linssi näyttää, missä suuret pedot odottavat.",
+      brk8: "Leviatan on kuollut. Sen suomu antaa sinun kävellä matalikoilla.",
+      brk9: "Hydra on kuollut. Sen tuliavain on sinun.",
+      brk10: "Muinaislohikäärme on kuollut. Repeämä on auki.",
+      sealed: "Repeämä on sinetöity. Olet Repeämän sinetöijä.",
+      ajar: "Repeämä jää raolleen. Demonit koettelevat muureja ja kolosseumia.",
+      'brk2': "Bastionin ylityspaikka ottaa sinut vastaan. Sen väki luottaa nyt sinuun.",
+      'rescued': "Eloonjääneet pelastettu! He ovat turvassa Bastionin ylityspaikassa.",
+      'brk3': "Tie on vapaa. Sunfordin väki on turvassa.",
+      'brk4': "Yrttinainen liittyy linnakkeeseen.",
+      'brk5': "Kentaurilauma on murskattu. Linnake valmistautuu piiritykseen.",
+    },
+  },
   // ─── The intro (#130): its skip, and its narrator's name ───
   intro: {
     narrator: 'Kronikoitsija',
@@ -88,6 +253,7 @@ export default {
     gold: '{n} kultaa',
     potion: 'Terveysjuoma ({n} jäljellä)',
     manaPotion: 'Manajuoma ({n} jäljellä)',
+    potionStop: 'Juo terveysjuoma jatkaaksesi',
     groups: '{n} / {total} vihollisryhmää voitettu',
     wave: 'Aalto {n} / {total}',
     roll: 'Väistökieri',
@@ -261,6 +427,10 @@ export default {
     escort: 'Suojele karavaania'
   },
   node: {
+    'bastion': {
+      'name': "Bastionin ylityspaikka",
+      'desc': "Vanha rajalinnake, viimeiset yhä seisovat muurit. Eloonjääneet kokoontuvat tänne.",
+    },
     sunford: {
       name: 'Sunford',
       desc: 'Maalaiskylä tasankojen laidalla. Koti, seppä ja kaksi kouluttajaa.'
@@ -343,6 +513,9 @@ export default {
     locked: 'Raivaa viereinen alue avataksesi tien.',
     lockedArena: 'Portit aukeavat, kun Hiisikuninkaan asia on hoidettu.',
     lockedRift: 'Se aukeaa, kun Kauhun linnoituksen valtaistuimesta on päätetty.',
+    invaded: 'Valloitettu',
+    invadedDesc: 'Demonit hallitsevat tätä maata. Niiden pylonit saavat lähellä olevat viholliset iskemään kovempaa, repeämän arvet polttavat ja hidastavat, ja jokainen täällä kaadettu vihollinen on arvokkaampi.',
+    lockedInvaded: 'Demonit pitävät sitä tiukasti. Valloita ensin takaisin {zone}.',
     danger: {
       '1': 'Hieman tasosi yläpuolella.',
       '2': 'Vaarallinen sinun tasollasi.',
@@ -469,6 +642,11 @@ export default {
     }
   },
   class: {
+    // ── The prestige classes (afterplay phase 10) ──
+    'demonhunter': { 'name': "Demoninmetsästäjä", 'desc': "Varjo ja pyhä valo, vannoutuneet yhdelle saaliille. Merkitsee demonit, ja merkityt kaatuvat nopeasti." },
+    'dragoon': { 'name': "Rakuuna", 'desc': "Tuuli saappaiden alla, kilpi käsivarressa. Hyppää taivaalta ja keihästää kokonaisia rivejä." },
+    'hexsmith': { 'name': "Kirousseppä", 'desc': "Verellä ruokittua eetteritaitoa. Rakentaa tykkitorneja, jotka imevät vihollista ja parantavat seppää." },
+    'tidecaller': { 'name': "Vuorovedenkutsuja", 'desc': "Huurre ja elementit mereen kaadettuina. Aaltoja, jotka paiskaavat ja kastelevat vihollisia." },
     aegis: {
       name: 'Aigisritari',
       desc: 'Kilpi ja pyhä teräs. Ottaa iskut vastaan, ettei kenenkään muun tarvitse.'
@@ -535,6 +713,35 @@ export default {
     }
   },
   skill: {
+    // ── The prestige classes (afterplay phase 10) ──
+    'huntersMark': { 'name': "Metsästäjän merkki", 'desc': "Pyhä nuoli: {dmg}% Ketteryys-vahinkoa. {dur} s ajan kohde ottaa {vuln}% enemmän vahinkoa, demoni {demon}% enemmän." },
+    'demonsBane': { 'name': "Demonien turmio", 'desc': "+{bane}% vahinkoa demoneihin ja {ward}% vähemmän vahinkoa niiltä." },
+    'silverVolley': { 'name': "Hopeasarja", 'desc': "Hopeanuolia linjassa: {dmg}% Ketteryys-vahinkoa, +{bane}% demoneihin ja merkittyihin vihollisiin." },
+    'skyfallLeap': { 'name': "Taivaan isku", 'desc': "Hyppää ulottumattomiin {air} s ajaksi ja putoa paikalleen: {dmg}% Voima-vahinkoa {radius} m säteellä, viholliset kaatuvat." },
+    'dragonBlood': { 'name': "Lohikäärmeen veri", 'desc': "+{boss}% vahinkoa pomoihin, +{hp}% maksimiterveyttä, eikä mikään työnnä sinua taaksepäin." },
+    'dragonLance': { 'name': "Lohikäärmeen peitsi", 'desc': "Keihäänpisto linjassa: {dmg}% Ketteryys-vahinkoa jokaiseen siinä olevaan viholliseen." },
+    'hexTurret': { 'name': "Kirottu tykkitorni", 'desc': "Rakenna tykkitorni {dur} s ajaksi. Joka sekunti se imee lähintä vihollista {radius} m säteellä {dmg}% Taito-vahingolla; paranet {drain}% siitä." },
+    'soulForge': { 'name': "Sielujen ahjo", 'desc': "+{hp}% maksimiterveyttä, {regen} terveyttä sekunnissa, ja otat {reduce}% vähemmän vahinkoa." },
+    'hexBolt': { 'name': "Kirottu nuoli", 'desc': "Maksa {hp}% terveyttä: nuoli, joka tekee {dmg}% Taito-vahinkoa. Paranet {heal}% siitä, ja vihollinen tekee {weak}% vähemmän vahinkoa {dur} s ajan." },
+    'tidalWave': { 'name': "Hyökyaalto", 'desc': "Aalto linjassa: {dmg}% Äly-vahinkoa, viholliset paiskataan taakse ja kastellaan ({slow}% hidastus {dur} s ajaksi)." },
+    'seaborn': { 'name': "Meren synnyttämä", 'desc': "+{bonus}% vahinkoa jäähtyneisiin vihollisiin, {reduce}% vähemmän otettua vahinkoa, +{move}% nopeutta." },
+    'undertow': { 'name': "Pohjavirta", 'desc': "Pyörre {dur} s ajaksi: yhteensä {dmg}% Äly-vahinkoa {radius} m säteellä. Se vetää viholliset sisään ja hidastaa niitä {slow}%." },
+    'bastionWall': { 'name': "Bastionin muuri", 'desc': "{dur} s ajan jokaisen vihollisen {radius} m säteellä on hyökättävä kimppuusi, ja otat {def}% vähemmän. Sitten valo tekee {dmg}% Voimasta +{back}% otetuista iskuista." },
+    'thousandCuts': { 'name': "Tuhat viiltoa", 'desc': "Syöksy vihollisten välillä {radius} m säteellä ja iske {hits} kertaa, kukin isku {dmg}% Ketteryysvahinkoa. Pomo ottaa vain yhden iskun. Viiltäessäsi mikään ei osu sinuun." },
+    'cinderSun': { 'name': "Tuhkan aurinko", 'desc': "Kuoleva aurinko hajoaa {dur} s ajan: {meteors} palavaa sirpaletta, kukin {dmg}% Älykkyysvahinkoa." },
+    'royalLegion': { 'name': "Kuninkaallinen legioona", 'desc': "Kutsu legioona {dur} s ajaksi: {archers} jousimiestä, {guards} vartijaa ja {mages} taistelumaagia." },
+    'stoppedHour': { 'name': "Pysähtynyt hetki", 'desc': "Pysäytä hetki {radius} m säteellä {dur} s ajaksi. Kun se jatkuu, jokainen vihollinen ottaa {dmg}% Älykkyysvahinkoa." },
+    'redCovenant': { 'name': "Punainen liitto", 'desc': "Ota {pct}% jokaisen vihollisen elämästä {radius} m säteellä. Parannut {heal}% siitä." },
+    'orbitalLance': { 'name': "Kiertoratakeihäs", 'desc': "Taivaan valokeihäs polttaa sen, mihin tähtäät: {dmg}% Taitovahinkoa {dur} s aikana." },
+    'tectonicHeart': { 'name': "Tektoninen sydän", 'desc': "Maan sydän murtuu: {dmg}% Voimavahinkoa kaikkeen lähellä ja kivikkoa, joka hidastaa {dur} s." },
+    'eyeOfTheGale': { 'name': "Myrskyn silmä", 'desc': "Nuolimyrsky {dur} s ajan: yhteensä {dmg}% Taitovahinkoa ja {slow}% hidastus." },
+    'endlessWinter': { 'name': "Loputon talvi", 'desc': "Loputon talvi purkautuu sinusta: {dmg}% Älykkyysvahinkoa {radius} m säteellä, kaikki jäätyvät {freeze} s ajaksi." },
+    'dawnbreak': { 'name': "Aamunkoitto", 'desc': "Muutu aamunkoitoksi {dur} s ajaksi: joka sekunti {dmg}% Älykkyysvahinkoa {radius} m säteellä ja {heal}% parannus." },
+    'alphasCall': { 'name': "Alfan kutsu", 'desc': "{wolves} sutta vastaa ja juoksee kanssasi {dur} s. Koko lauma tekee +{dmg}% vahinkoa ja on {move}% nopeampi." },
+    'prismStorm': { 'name': "Prismamyrsky", 'desc': "{dur} s ajan neljä elementtiä raivoaa: {strikes} iskua, {dmg}% Älykkyydestä, jotka laukaisevat toisensa." },
+    'ferryman': { 'name': "Lautturi", 'desc': "{dur} s ajan jokainen lähelläsi kaatuva vihollinen nousee hengeksesi, ja henget tekevät {atk}% enemmän." },
+    'unmovingMountain': { 'name': "Järkkymätön vuori", 'desc': "Käytä kaikki chi: vuori putoaa, {dmg}% Ketteryysvahinkoa, +{per}% per chi, ja kaataa viholliset." },
+    'encore': { 'name': "Encore", 'desc': "Vielä kerran {dur} s (+{buff}% nopeus, vahinko, Puolustus), sitten viimeinen sointu: {dmg}% Karismasta, viholliset lumottuina." },
     kind: {
       active: 'Aktiivinen',
       passive: 'Passiivinen'
@@ -590,7 +797,7 @@ export default {
     },
     danceOfBlades: {
       name: 'Terien tanssi',
-      desc: 'Syöksy vihollisten välillä {radius} m säteellä ja iske {hits} kertaa, yhteensä {dmg}% Ketteryys-vahinkoa. Sinuun ei voi osua tanssin aikana.'
+      desc: 'Syöksy vihollisten välillä {radius} m säteellä ja iske {hits} kertaa, kukin isku {dmg}% Ketteryys-vahinkoa. Pomo ottaa vain yhden iskun. Sinuun ei voi osua tanssin aikana.'
     },
     fireball: {
       name: 'Tulipallo',
@@ -1338,6 +1545,8 @@ export default {
     magic: 'Taikuus · skaalautuu: {attr}'
   },
   source: {
+    'siege': "Voitettu Bastionin ylityspaikan piirityksessä.",
+    'infernal': "Helvetillinen kaksonen: putoaa vallatulla alueella {zone} tai sepän takomana.",
     arena: 'Voitettu Kolosseumin aaltotaisteluissa.',
     smith: 'Taottu pajassa.',
     mob: 'Putoaa hirviöiltä. Alue: {zone}.',
@@ -1346,6 +1555,15 @@ export default {
     secret: 'Kätketty salaiseen arkkuun. Alue: {zone}.'
   },
   mod: {
+    'demonBane': "+{n}% vahinkoa demoneihin",
+    'demonLeech': "{n}% demoneihin tehdystä vahingosta parantaa sinua",
+    'beastBane': "+{n}% vahinkoa myyttisiin petoihin",
+    'fireWard': "{n}% vähemmän tulivahinkoa",
+    'shadowWard': "{n}% vähemmän varjovahinkoa",
+    'demonWard': "{n}% vähemmän vahinkoa demoneilta",
+    'pylonBreaker': "+{n}% vahinkoa demonipyloneihin",
+    'glassFinder': "{n}% mahdollisuus, että kaatunut demoni jättää lisää demonilasia",
+    'waterWalk': "Vesi ei hidasta sinua",
     str: '+{n} Voima',
     dex: '+{n} Ketteryys',
     int: '+{n} Äly',
@@ -1421,6 +1639,24 @@ export default {
     songLength: 'Laulut kestävät {n}% pidempään'
   },
   item: {
+    'chimeraMane': { 'name': "Kimeeran harja" },
+    'triFang': { 'name': "Kolmihammas" },
+    'warchiefsLongbowGun': { 'name': "Sotapäällikön pitkäjousikivääri" },
+    'hoofbreakerGreaves': { 'name': "Kavionmurskaajan säärykset" },
+    'eyeOfTheDeep': { 'name': "Syvyyden silmä" },
+    'beamSplitter': { 'name': "Säteenhalkoja" },
+    'riddleCrown': { 'name': "Arvoituskruunu" },
+    'sandglassWand': { 'name': "Tiimalasisauva" },
+    'leviathanScale': { 'name': "Leviatanin suomu" },
+    'tidecallerStaff': { 'name': "Vuorovedenkutsujan sauva" },
+    'hydraScaleGauntlets': { 'name': "Hydransuomuhansikkaat" },
+    'manyHeadedFlail': { 'name': "Monipäinen varsta" },
+    'heartOfTheElderDragon': { 'name': "Ikivanhan lohikäärmeen sydän" },
+    'dragonboneGreatsword': { 'name': "Lohikäärmeenluinen kahdenkäden miekka" },
+    'bastionBanner': { 'name': "Bastionin lippu" },
+    'wallwardensPlate': { 'name': "Muurinvartijan haarniska" },
+    'gatebreaker': { 'name': "Portinmurtaja" },
+    'crownOfTheLastBastion': { 'name': "Viimeisen Bastionin kruunu" },
     heartOfTheArena: {
       name: 'Areenan sydän'
     },
@@ -3418,8 +3654,17 @@ export default {
     known: 'Opittu',
     friend: '{faction} palkitsee ystävänsä: 20% alennus.',
     fee: 'Maksu',
+    rank: {
+      label: 'Arvo {n}',
+      up: 'Nosta arvoa',
+      effect: '+{effect} % teho, −{cd} % latausaika',
+      max: 'Korkein arvo',
+      level: 'Arvo {n} vaatii tason {lvl}.'
+    },
     hint: 'Valitse oppitunti. Vihreä reuna tarkoittaa, että voit oppia sen nyt.',
     block: {
+      'trial': "Et ole vielä läpäissyt tämän luokan koetta.",
+      'parents': "Opettele ensin yksi taito luokasta {a} ja yksi luokasta {b}.",
       level: 'Tasosi on liian matala.',
       attrs: 'Ominaisuutesi ovat liian matalat.',
       gold: 'Kulta ei riitä.'
@@ -3444,6 +3689,20 @@ export default {
     circle: 'Eetterin piiri'
   },
   npc: {
+    'mysteriousWanderer': { 'name': "Salaperäinen vaeltaja" },
+    'fairPip': { 'name': "Pip" },
+    'fairBess': { 'name': "Vanha Bess" },
+    'fairHob': { 'name': "Hob" },
+    sunkenPriest: { name: "Vajonnut pappi" },
+    'fortHale': {
+      'name': "Kapteeni Hale",
+    },
+    'fortMara': {
+      'name': "Vanhin Mara",
+    },
+    'scoutWren': {
+      'name': "Tiedustelija Wren",
+    },
     frostDisciple: {
       name: 'Ivor Hask'
     },
@@ -3733,6 +3992,185 @@ export default {
     }
   },
   dlg: {
+    // ── The Mysterious Wanderer (afterplay phase 10) ──
+    'mysteriousWanderer': {
+      'hello': { '1': "No niin. Teit sen, mitä harva on koskaan tehnyt. Tunsin sen repeämän toiselle puolelle.", '2': "Opetan vanhoja teitä, jotka yhdistävät kaksi koulukuntaa yhdeksi. Vain niille, jotka ansaitsevat ne." },
+      'sealed': { '1': "Sinetöit sen. Sääli, tavallaan. Pidin näkymästä." },
+      'ajar': { '1': "Jätit sen raolleen. Rohkeaa. Demonit pitävät sinut terävänä." },
+      'again': { '1': "Taas täällä. Tie on pitkä, mutta kuljet sitä hyvin." },
+      'train': { '1': "Näytä minulle kummatkin puolesi, niin teen niistä yhden." },
+      'trial': { 'say': "Mitä kokeita tarkoitat?", '1': "Portti, joka pidettiin ilman naarmuakaan. Lohikäärme, joka kaadettiin kaatumatta kertaakaan. Viisi helvetillistä takomusta ja viisi voittoa putkeen.", '2': "Leviatanin kuolema ja täydellinen kierros hydralla. Kukin avaa oven, jonka voin näyttää sinulle." },
+      'who': { '1': "Vaeltaja. Kuljin repeämän reunaa ennen kuin isoisäsi syntyi. Nimet kuluvat." },
+      'trainBack': { '1': "Harjoittele. Kaksi koulukuntaa riitelee ennen kuin ne sopivat." },
+      'bye': { '1': "Kulje varoen. Olen täällä, kunnes en ole." }
+    },
+    'fairPip': {
+      'hello': { '1': "Tulkaa lähemmäs! Yhdeksän tynnyriä, lauma pikkupiruja ja yksi nuija. Lyökää ne takaisin alas!", '2': "Pikkupirut hyppäävät tynnyreistä. Lyö kaksikymmentä ennen kuin hiekka valuu loppuun.", '3': "Jätä kultahaarniskaiset rauhaan, ne vievät elämän. Kolme voittoa putkeen, niin iso palkinto on sinun." },
+      'again': { '1': "Lisää lyömistä? Tartu nuijaan!" },
+      'play': { '1': "Nuija ylös! Täältä ne tulevat!" },
+      'who': { '1': "Pip, ammatiltani pikkupirujen pyydystäjä. Nämä nappasin itse. Ne purevat." },
+      'playBack': { '1': "Hah! Mikä meteli! Uudestaan?" },
+      'bye': { '1': "Pidä nuijakäsi rentona!" }
+    },
+    'fairBess': {
+      'hello': { '1': "Viisi rengasta, kolme päätä, eikä yksikään pure. Veistin hänet itse, joten varo maalia.", '2': "Pidä pohjassa vauhtia varten, päästä irti heittääksesi. Pää nappaa renkaan vain heilahtaessaan keskelle.", '3': "Jokainen peräkkäinen pää lasketaan yhden enemmän. Osu kaikkiin viiteen, niin maksan kunnolla." },
+      'again': { '1': "Tulitko taas kokeilemaan onneasi vanhan tyttöni kanssa?" },
+      'play': { '1': "Tässä renkaasi. Heitä pehmeästi, kultaseni." },
+      'who': { '1': "Neljäkymmentä vuotta markkinateillä. Hydra tuli sodan mukana. Tuntui sopivalta." },
+      'playBack': { '1': "Ei hassumpaa. Edesmennyt mieheni heitti huonommin." },
+      'bye': { '1': "Varo maalia lähtiessäsi." }
+    },
+    'fairHob': {
+      'hello': { '1': "Oi. Hei. Haluatko vääntää kättä? Otan rauhallisesti. Yritän ainakin.", '2': "Paina, kun rengas kohtaa ympyrän. Tahdista ohi, niin lipsut.", '3': "Vahvat kädet auttavat. Voita minut kolme kertaa putkeen, niin Sepänmestari antaa alennuksen." },
+      'again': { '1': "Vielä kierros? Kukaan ei koskaan palaa vielä yhdelle kierrokselle." },
+      'play': { '1': "Kyynärpää pöytään. Kun olet valmis, aloitetaan." },
+      'who': { '1': "Olen Sepänmestarin oppipoika. Hän sanoo, etten tunne omia voimiani." },
+      'playBack': { '1': "Hyvä ottelu. Huomenna käsi on kipeä. Luultavasti." },
+      'bye': { '1': "Tule pian takaisin. Pajassa on hyvin hiljaista." }
+    },
+    // ── The Breaking (the afterplay, B0–B5) ──
+    'story': {
+      forge: { back: { '1': "Pajani palaa taas, kuumempana kuin koskaan. Demonirauta sulaa hyvin.", '2': "Tuo minulle, mitä löydät tuolta. Nyt osaan takoa sen helvetilliseksi." } },
+      oracle: { lens: { '1': "Vapautit minut kerran. Nyt näen puolestasi. Ota linssini.", '2': "Katso sen läpi, niin kartta näyttää, missä suuret pedot odottavat." } },
+      priest: { lens: { '1': "Oraakkeli on poissa, joten vartioin nyt hänen temppeliään. Sfinksi vartioi tätä.", '2': "Hänen linssinsä. Katso sen läpi, niin kartta näyttää, missä suuret pedot odottavat." } },
+      herbs: { scale: { '1': "Suomu Leviatanista! Kevyt kuin lehti, ja se kelluu.", '2': "Kanna sitä, niin matalikko kantaa sinua kuin kiinteä maa." } },
+      ghost: { key: { '1': "Kas, se joka vei valtaistuimeni. Tapoit Hydrani. Hyvä.", '2': "Ota sen tuliavain. Repeämän sydän palaa, ja vain tuli avaa sen." } },
+      syndicate: { key: { '1': "Hydra on kuollut? Sitten tuliavain menee sille, joka maksaa. Tai sinulle kai.", '2': "Se avaa repeämän sydämen. Mene sulkemaan se, ennen kuin se syö bisnekseni." } },
+      sealed: {
+        sealed: { '1': "Ja niin repeämä sinetöitiin, ja maailma alkoi parantua.", '2': "Kaupungit rakennettiin uudelleen, lauluja kirjoitettiin, ja jokaisessa oli yksi nimi." },
+        ajar: { '1': "Ja niin repeämä jätettiin raolleen, ja maailma oppi elämään sen rinnalla.", '2': "Muureilla pysyi vartio, kolosseumi pysyi äänekkäänä ja sankari valmiina." },
+      },
+      'rift': {
+        'scream': {
+          '1': "Tyhjyyden herra kaatuu, ja repeämä hänen takanaan kirkuu.",
+          '2': "Se ei ollut koskaan hänen valtaistuimensa. Se oli hänen häkkinsä, ja hän oli sen kansi.",
+          '3': "Nyt repeämä on auki, ja kaikki, mitä tyhjyys piti unessa, herää.",
+        },
+      },
+      'wren': {
+        'found': {
+          '1': "Siinä sinä olet! Olen Wren, tiedustelija. Olen etsinyt sinua kaikkialta.",
+          '2': "Sunford palaa. Kaikki, jotka pääsivät pakoon, lähtivät Bastionin ylityspaikkaan.",
+          '3': "Se on vanha linnake Tuhkakallioille vievän tien varrella. Kiirehdi, he tarvitsevat sinua.",
+        },
+      },
+    },
+    'scoutWren': {
+      sealed: { '1': "Lohikäärme on poissa! Tiet tuntuvat jo kevyemmiltä." },
+      'hello': {
+        '1': "Tulit! Tiesin sen. Tervetuloa Bastionin ylityspaikkaan.",
+        '2': "Tiedustelen teitä kapteenille. Kysy minulta, missä on vaaraa.",
+      },
+      'again': {
+        '1': "Jo takaisin? Tiet eivät tiedustele itseään.",
+      },
+      'who': {
+        '1': "Wren. Kannoin viestejä Sunfordin vartiolle, ennen kuin Sunford paloi.",
+      },
+      'rumor': {
+        'plains': {
+          '1': "Demonit pitävät tietä Sunfordin tasankojen halki. Sunfordin opettajat ovat jumissa sen takana.",
+        },
+        'hollows': {
+          '1': "Hiisien onkalot kuhisevat helvetinkoiria. Raivaa ne, niin Sunfordin väki pääsee kotiin.",
+        },
+        'woods': {
+          '1': "Jokin kolmipäinen metsästää Kuiskaavassa metsässä. Yrttinainen piileskelee siellä.",
+        },
+        'outskirts': {
+          '1': "Kentaureja ratsastaa Oakhavenin laitamilla. Jos ne pääsevät muureille, tarvitaan joka miekka.",
+        },
+        'siege': {
+          '1': "Niiden lauma on murskattu, mutta lisää kerääntyy. Kapteeni valmistelee muureja.",
+        },
+      },
+      'bye': {
+        '1': "Pidä teitä silmällä. Minäkin pidän.",
+      },
+    },
+    'fortHale': {
+      sealed: { '1': "Lohikäärme on kuollut. En uskonut eläväni näkemään sitä. Kiitos." },
+      'siegeBack': { '1': "Ei vielä? Lepää sitten. Muurit odottavat sinua." },
+      'bell': { '1': "Portille sitten. Kerro, kuinka kovaa sen pidämme." },
+      'hello': {
+        '1': "Selvisit. Hyvä. Tarvitsemme joka miekan, nyt enemmän kuin koskaan.",
+        '2': "Tervetuloa Bastionin ylityspaikkaan. Vanhat muurit, mutta ainoat yhä pystyssä.",
+      },
+      'road': {
+        '1': "Tie Sunfordiin on taas auki. Sen väki on turvassa muuriemme takana.",
+      },
+      'herbs': {
+        '1': "Yrttinainen palasi yrtteineen. Tupa voi taas hengähtää.",
+      },
+      'siege': {
+        '1': "Murskasit kentaurit. Mutta suurempi armeija on tulossa, ja se tulee näitä muureja kohti.",
+      },
+      'again': {
+        '1': "Yhä pystyssä. Muurit, miehet ja minä.",
+      },
+      'fort': {
+        '1': "Vanha rajalinnake. Viisikymmentä vuotta tyhjillään, kunnes taivas repesi.",
+        '2': "Nyt se on viimeinen turvapaikka tasankojen ja vuorten välillä.",
+        'say': "Mikä paikka tämä on?",
+      },
+      'rumor': {
+        'road': {
+          '1': "Raivaa tasangot ja onkalot. Sunfordin väki on loukussa siellä.",
+        },
+        'woods': {
+          '1': "Yrttinainen on Kuiskaavassa metsässä, ja niin on kolmipäinen petokin. Ole valmis.",
+        },
+        'centaurs': {
+          '1': "Kentaureja laitamilla. Murskaa niiden lauma, ennen kuin se ehtii tänne.",
+        },
+        'siege': {
+          '1': "Lepää. Kun piirityskello soi, tarvitsen sinua muurilla.",
+        },
+      },
+      'bye': {
+        '1': "Pidä miekka lähellä.",
+      },
+    },
+    'fortMara': {
+      sealed: { '1': "Sinä teit sen, lapsi. Jokainen meistä on sinulle velkaa kodin." },
+      'siegeBack': { '1': "Lepää hetki, lapsi. Kello soi vielä uudelleen." },
+      'bell': { '1': "Kapteenin muurit ovat nyt minun vartioitavinani. Valitse, miten ne pidämme." },
+      'hello': {
+        '1': "Lapsi! Sinä elät. Kun Sunford paloi, pelkäsin pahinta.",
+        '2': "Olemme nyt vieraita sotilaiden linnakkeessa, vanhat naiset ja kaikki.",
+      },
+      'command': {
+        '1': "Kapteeni Hale kaatui Oakhavenin mukana. Niinpä linnake kuuntelee nyt vanhaa vanhinta.",
+      },
+      'home': {
+        '1': "Sunfordia rakennetaan uudelleen! Ensimmäiset katot ovat pystyssä. Voisin itkeä.",
+      },
+      'again': {
+        '1': "Yhä täällä, lapsi. Yhä päitä laskemassa.",
+      },
+      'town': {
+        '1': "Demonit tulivat yötaivaalta. Pakenimme sen kanssa, mitä jaksoimme kantaa.",
+        '2': "Kaikki eivät päässeet pois. Tuo loput kotiin, jos voit.",
+        'say': "Mitä Sunfordille tapahtui?",
+      },
+      'rumor': {
+        'road': {
+          '1': "Opettajamme ovat yhä Sunfordin tiellä. Tuo heidät tänne, lapsi.",
+        },
+        'woods': {
+          '1': "Yrttinainen lähti Kuiskaavaan metsään yrttejä hakemaan eikä palannut.",
+        },
+        'centaurs': {
+          '1': "Ratsastajia laitamilla. Kaviot kuin ukkonen, joka yö.",
+        },
+        'siege': {
+          '1': "Muurit pannaan pian koetukselle. Tunnen sen vanhoissa luissani.",
+        },
+      },
+      'bye': {
+        '1': "Kulje varoen, lapsi.",
+      },
+    },
     intro: {
       crossing: { 1: 'Jokainen tämän maailman tie kohtaa risteyksessä… ja jokainen risteys on taistelu.' },
       hero: { 1: 'Sunfordin hiljaisilta pelloilta nuori sankari lähti matkaan.' },
@@ -4183,6 +4621,7 @@ export default {
       }
     },
     hero: {
+      'siege': "Miehitetään muurit.",
       forge: 'Haluaisin käyttää pajaasi.',
       learnSmith: 'Voisitko opettaa minut takomaan?',
       ore: 'Minulla on vähän malmia myytävänä.',
@@ -4489,7 +4928,7 @@ export default {
       },
       map: {
         '1': 'Kapteeni Rookin kartta! Hän repi sen ja piilotti palat, ennen kuin hiidet saivat hänet kiinni.',
-        '2': 'Löydä niistä kuusi, muutama lisää on hajallaan ympäriinsä, niin X näyttää tien: jonnekin Tuhkakallioille. Kaiva sieltä, niin kulta on sinun.',
+        '2': "Löydä kuusi palasta, niin X näyttää tien: jonnekin Tuhkakallioille. Kaiva sieltä kultaa.",
         say: 'Löysin palan vanhaa karttaa.'
       }
     },
@@ -5455,6 +5894,11 @@ export default {
       }
     },
     quest: {
+      seal: {
+        ask: { '1': "Muinaislohikäärme on kuollut, ja repeämä on auki edessäsi.", '2': "Voisit sinetöidä sen nyt, ikiajoiksi. Pedot nukahtaisivat taas.", '3': "Tai voisit jättää sen raolleen ja antaa rohkeimpien mitellä sen kanssa, mikä siitä tulee." },
+        seal: { say: "Sinetöi se. Ikiajoiksi.", '1': "Repeämä sulkeutuu kuin paraneva haava, ja taivas hiljenee." },
+        ajar: { say: "Jätä se raolleen. Olemme valmiita.", '1': "Repeämä jää raolleen, ja jokin sen takana nauraa." },
+      },
       goblinKing: {
         ask: {
           '1': 'Lopeta. Pyydän. Antaudun.',
@@ -5586,6 +6030,64 @@ export default {
       }
     },
     bark: {
+      sphinx: {
+        intro: { '1': "Vastaa minulle, pienokainen, tai hiekkani hautaa sinut." },
+        riddle: { '1': "Arvoitus siis. Astu sinne, minne näytän, siinä järjestyksessä." },
+        sand: { '1': "Tällä kertaa viisi. Eikä hiekkani odota." },
+        death: { '1': "Vastasit hyvin. Hiekka on nyt sinun." },
+      },
+      leviathan: {
+        intro: { '1': "Kuljet nyt minun vedessäni." },
+        sink: { '1': "Pienet saaresi uppoavat." },
+        grab: { '1': "Tule kanssani syvyyteen!" },
+        death: { '1': "Vuorovesi vetäytyy eikä palaa." },
+      },
+      hydra: {
+        intro: { '1': "Katkaise yksi pää, ja kaksi kasvaa tilalle!" },
+        heads: { '1': "Lisää päitä, lisää hampaita!" },
+        rage: { '1': "Polttaa meidät? Pala sitten kanssamme!" },
+        death: { '1': "Ei enää päitä. Ei enää." },
+      },
+      elderDragon: {
+        intro: { '1': "Nukuin maailman alla ennen kuin sinun lajisi tunsi tulen." },
+        flight: { '1': "Piiloudu sitten pienten kiviesi taakse." },
+        rift: { '1': "Repeämä vetää minua takaisin. Ei vielä!" },
+        death: { '1': "Sinetöi se sitten. Olen väsynyt pimeyteen." },
+      },
+      'siegeHale': {
+        'start': {
+          '1': "Siellä ne tulevat! Pitäkää portti!"
+        },
+        'ram': {
+          '1': "Muurinmurtaja! Tappakaa se ennen kuin se ehtii portille!"
+        },
+        'horn50': {
+          '1': "Puolet portista on mennyt! Kestäkää!"
+        },
+        'horn25': {
+          '1': "Portti ei kestä enää kauan!"
+        },
+        'won': {
+          '1': "Ne on murskattu! Bastioni seisoo!"
+        }
+      },
+      'siegeMara': {
+        'start': {
+          '1': "Ne tulevat! Pysykää lujina, kaikki!"
+        },
+        'ram': {
+          '1': "Muurinmurtaja! Pysäyttäkää se ennen kuin se murtaa portin!"
+        },
+        'horn50': {
+          '1': "Puolet portista on poissa. Kestäkää!"
+        },
+        'horn25': {
+          '1': "Portti pettää! Työntäkää heidät takaisin!"
+        },
+        'won': {
+          '1': "Ne pakenevat! Linnake seisoo yhä!"
+        }
+      },
       banditChief: {
         whistle: {
           1: 'Ylös, pojat! Purkaa niitä!'
@@ -5594,6 +6096,11 @@ export default {
       lightDisciple: {
         freed: {
           '1': 'Valo lähetti sinut. Olen Sisar Aurelle. Etsi minut Sunfordista, opetan sinulle Valontuojan tien.'
+        }
+      },
+      trainerAegis: {
+        freed: {
+          '1': 'Kiitos, että vapautit meidät rosvoilta! Tule nuotiolle: opetamme sinua kaikki, ensimmäinen oppitunti ilmaiseksi.'
         }
       },
       frostDisciple: {
@@ -5649,6 +6156,48 @@ export default {
         },
         dive: {
           '1': 'Polvistu.'
+        }
+      },
+      chimera: {
+        intro: {
+          '1': "Kolme päätä, yksi nälkä. Kuka meistä puree ensin?"
+        },
+        twin: {
+          '1': "Nyt meitä on kaksi. Valitse puolesi hyvin."
+        },
+        tail: {
+          '1': "Häntäni! Tästä sinä maksat!"
+        },
+        death: {
+          '1': "Kolme päätä, eikä yksikään nähnyt tätä tulevan."
+        }
+      },
+      centaurWarchief: {
+        intro: {
+          '1': "Juokse, jos haluat. Nuoleni juoksevat nopeammin."
+        },
+        raiders: {
+          '1': "Ratsastajat! Tallatkaa heidät!"
+        },
+        rear: {
+          '1': "Riittää nuolet. Tallaan sinut lyttyyn!"
+        },
+        death: {
+          '1': "Tasangot muistavat kavioni."
+        }
+      },
+      cyclops: {
+        intro: {
+          '1': "Täällä on jotain pientä. Tule lähemmäs. Anna kun katson."
+        },
+        cover: {
+          '1': "Ei enää katselua. Silmääni et saa!"
+        },
+        blind: {
+          '1': "En näe sinua, mutta kuulen sinut!"
+        },
+        death: {
+          '1': "Pimeää. Kaikki on pimennyt."
         }
       },
       frostJarl: {
@@ -6773,7 +7322,20 @@ export default {
       }
     }
   },
+  invasion: {
+    pylonsDown: 'Viimeinen pyloni kaatuu, ja sen aarre valuu esiin!',
+    reborn: {
+      tusker: 'Uudestisyntynyt Tusker',
+      emberLord: 'Helvetillinen hiilloksen herra',
+      frostJarl: 'Uudestisyntynyt jääjaarli',
+      voidDragon: 'Uudestisyntynyt tyhjyyden lohikäärme'
+    }
+  },
   enemy: {
+    sphinx: "Sfinksi",
+    leviathan: "Leviatan",
+    hydra: "Hydra",
+    elderDragon: "Muinaislohikäärme",
     trainingDummy: 'Harjoitusnukke',
     goblin: 'Hiisi',
     goblinSlinger: 'Linkohiisi',
@@ -6798,6 +7360,10 @@ export default {
     naga: 'Naga',
     skeleton: 'Luuranko',
     necromancer: 'Nekromantikko',
+    chimera: "Kimaira",
+    chimeraTail: "Käärmehäntä",
+    centaurWarchief: "Kentauriruhtinas",
+    cyclops: "Kyklooppi",
     frostJarl: 'Jääjaarli',
     nagaOracle: 'Hukkunut oraakkeli',
     voidStalker: 'Tyhjyyden vaanija',
@@ -6810,6 +7376,7 @@ export default {
     archDemon: 'Arkkidemoni',
     voidling: 'Tyhjyyden sikiö',
     voidLord: 'Tyhjyyden herra',
+    demonPylon: 'Demonipyloni',
     orderGuard: 'Ritarikunnan inkvisiittori',
     syndicateBlade: 'Syndikaatin terä',
     goblinWarchief: 'Hiisisotapäällikkö',
@@ -6826,7 +7393,19 @@ export default {
     goblinTyrant: 'Hiisityranni',
     voidDrake: 'Tyhjyyden draakki',
     pitLord: 'Kuilun herra',
-    frostThane: 'Pakkaspäällikkö'
+    frostThane: 'Pakkaspäällikkö',
+    hellhound: 'Helvetinkoira',
+    frostHellhound: 'Pakkashelvetinkoira',
+    gargoyle: 'Gargoili',
+    harpy: 'Harpyija',
+    corruptedTreant: 'Turmeltunut puupaimen',
+    centaurRaider: 'Kentauriryöstäjä',
+    cyclopsBrute: 'Kyklooppiraakalainen',
+    demonMiner: 'Demonikaivosmies',
+    sphinxAcolyte: 'Sfinksin akoluutti',
+    seaDemon: 'Meridemoni',
+    drakeHatchling: 'Lohikäärmeenpoikanen',
+    hydraSpawn: 'Hydran sikiö'
   },
   results: {
     careful: 'Varovainen voitto ×{mult}',
@@ -7139,6 +7718,8 @@ export default {
     town: 'Minkä tahansa kaupungin seppä voi parantaa tämän.'
   },
   ore: {
+    'demonglass': { 'name': "Demonilasi" },
+    'ichor': { 'name': "Myyttinen ikori" },
     iron: {
       name: 'Rautamalmi'
     },

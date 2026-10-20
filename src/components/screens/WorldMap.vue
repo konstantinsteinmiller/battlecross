@@ -68,7 +68,7 @@
                 :key="n.id"
                 type="button"
                 :data-node="n.id"
-                :class="[`node--${n.kind}`, { 'is-locked': !n.open, 'is-cleared': n.cleared, 'is-here': n.here, 'is-selected': selected === n.id, 'is-next': n.open && !n.cleared, 'is-veiled': n.veil === 'wait', 'is-lifting': n.veil === 'lift', 'is-fresh': n.fresh }]"
+                :class="[`node--${n.kind}`, { 'is-locked': !n.open, 'is-invaded': n.invaded, 'is-cleared': n.cleared, 'is-here': n.here, 'is-selected': selected === n.id, 'is-next': n.open && !n.cleared, 'is-veiled': n.veil === 'wait', 'is-lifting': n.veil === 'lift', 'is-fresh': n.fresh }]"
                 :style="{ left: `${n.x}%`, top: `${n.y}%` }"
                 :aria-label="t(`node.${n.id}.name`)"
                 @click="pick(n.id)"
@@ -90,6 +90,10 @@
                   span.node__new(v-if="n.isNew") {{ t('map.new') }}
                   //- After the story (#117): the colosseum is the true test, until its first prize is won.
                   span.node__new.node__new--call(v-else-if="n.call" data-arena-call) {{ t('map.trueTest') }}
+                  //- The siege bell rings at the fort (afterplay §8.4): a banner until the siege is fought.
+                  span.node__new.node__new--call(v-else-if="n.id === 'bastion' && bellCall" data-siege-call) {{ t('siege.mapBell') }}
+                  //- The afterplay (§4): a zone the Breaking holds, open to be won back.
+                  span.node__new.node__new--invaded(v-else-if="n.invaded && n.enterable && !n.cleared" data-invaded) {{ t('map.invaded') }}
                   //- A town and the colosseum say what they are; a zone is the default.
                   GameIcon.node__kind(v-if="n.kind !== 'zone'" :name="n.kind === 'town' ? 'home' : 'trophy'")
                   | {{ t(`node.${n.id}.name`) }}
@@ -143,6 +147,7 @@
         div.card__head
           h2.card__name {{ t(`node.${sel.id}.name`) }}
           span.card__meta(v-if="sel.zone") {{ t('map.levels', { min: sel.zone.min, max: sel.zone.max }) }}
+          span.card__meta.card__meta--invaded(v-if="sel.invaded") {{ t('map.invaded') }}
           span.card__meta(v-else-if="sel.kind === 'arena'") {{ t('map.arenaBest', { n: profile.world.arenaBest }) }}
           //- The ladder's week (#10): its modifier and this week's best.
           span.card__meta(v-if="sel.kind === 'arena'" data-arena-week) {{ t('ladder.week', { mod: t(`ladder.mod.${arenaMod}`) }) }} · {{ t(`ladder.modDesc.${arenaMod}`) }}
@@ -151,7 +156,11 @@
           span.card__meta(v-if="sel.kind === 'arena'" data-arena-prize) {{ arenaNext ? t('arena.next', { at: arenaNext.wave, item: t(`item.${arenaNext.item}.name`) }) : t('arena.allWon') }}
           span.card__meta(v-if="sel.kind === 'town'") {{ t('map.town') }}
         p.card__desc {{ t(`node.${sel.id}.desc`) }}
+        p.card__invaded(v-if="sel.invaded" data-invaded-desc) {{ t('map.invadedDesc') }}
+        //- The Oracle's Lens (B7, afterplay phase 8): an invaded zone's boss shows on its card.
+        p.card__invaded(v-if="lensBoss" data-lens) {{ t('relic.lens', { boss: t(`enemy.${lensBoss}`) }) }}
         p.card__call(v-if="sel.kind === 'arena' && arenaCall" data-arena-call-text) {{ t('arena.call') }}
+        p.card__call(v-if="sel.id === 'bastion' && bellCall" data-siege-call-text) {{ t('siege.bell') }}
         p.card__warn(v-if="sel.enterable && sel.danger > 0")
           GameIcon.card__skull(v-for="k in sel.danger" :key="k" name="skull")
           | {{ t(`map.danger.${sel.danger}`) }}
@@ -166,7 +175,7 @@
             KeyCap.card__key(v-if="hud.device === 'mouse'" :code="interactCode")
           p.card__locked(v-else)
             GameIcon.card__lock(name="lock")
-            | {{ t(sel.id === 'arena' ? 'map.lockedArena' : sel.id === 'rift' ? 'map.lockedRift' : 'map.locked') }}
+            | {{ keyLocked ? t('relic.hydraKey') : sel.lockedBy ? t('map.lockedInvaded', { zone: t(`node.${sel.lockedBy}.name`) }) : t(sel.id === 'arena' ? 'map.lockedArena' : sel.id === 'rift' ? 'map.lockedRift' : 'map.locked') }}
 </template>
 
 <script setup lang="ts">
@@ -192,11 +201,14 @@
  */
 import { computed, nextTick, onBeforeUnmount, onMounted, reactive, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { MAP, NODE_BY_ID, ZONES, dangerOf, levelTier, nodeOpen, nodeReachable, type LevelTier, type NodeId } from '@/game/data/zones'
-import { itemsOfZone, type ZoneId } from '@/game/data/items'
+import { MAP, NODE_BY_ID, dangerOf, levelTier, nodeOpen, nodeReachable, type LevelTier, type NodeId, type ZoneDef } from '@/game/data/zones'
+import { INVASION, invadedBefore, invadedFlag, invasionLetsIn, zoneOf } from '@/game/data/invasion'
+import { HYDRA_KEY_FLAG, ORACLE_LENS_FLAG } from '@/game/data/relics'
+import { AFTER_BOSS_DROPS, itemsOfZone, type ZoneId } from '@/game/data/items'
 import { QUEST_BY_ID } from '@/game/data/quests'
 import { encountersAllowed, regionOf, rollEncounter, type EncounterSpec } from '@/game/data/encounters'
 import { arenaCalling, arenaWeekBest, profile, flagSet, markTip, saveProfile, setMapPos } from '@/game/state/profile'
+import { siegeBell } from '@/game/state/siege'
 import { closeMap, flow, hiddenTrainer, meetMerchant, openFoundChest, startEncounter, travel, visitHiddenTrainer } from '@/game/flow'
 import { hud } from '@/game/state/hud'
 import { input } from '@/game/boot'
@@ -239,6 +251,8 @@ const arenaNext = computed(() => nextMilestone(id => profile.inv.items.includes(
 /** The story is over and the ladder's first prize not yet won: the map points the
  *  hero at the colosseum, the true test of a build (#117). */
 const arenaCall = computed(() => arenaCalling())
+/** The siege bell rings (the story's siege is due, or two invaded zones were cleared since the last). */
+const bellCall = computed(() => { void profile.meta.siege.clears; void profile.world.flags.length; return siegeBell() })
 
 /** The terrain drawing, decoded once for every visit to the map. */
 let plateLoad: Promise<HTMLImageElement> | null = null
@@ -331,16 +345,23 @@ interface NodeView {
   veil: 'wait' | 'lift' | ''
   art: string
   clouds: string
-  zone?: (typeof ZONES)[ZoneId]
+  zone?: ZoneDef
+  /** The afterplay: the zone is its invaded self (its band, its roster). */
+  invaded: boolean
+  /** Shut by the invasion until this zone is won back ('' : not). */
+  lockedBy: ZoneId | ''
 }
 
 /** The place the hero stands at ('' out in the wilds). */
 const hereNode = ref<NodeId | ''>('')
 
 const nodes = computed<NodeView[]>(() => MAP.map((n) => {
-  const zone = n.kind === 'zone' ? ZONES[n.id as ZoneId] : undefined
+  const after = profile.world.afterplay
+  const zone = n.kind === 'zone' ? zoneOf(n.id as ZoneId, after) : undefined
   const open = isOpen(n.id)
-  const done = cleared.value.has(n.id)
+  // In the afterplay a zone is done once its invaded self has been won.
+  const done = zone?.invaded ? flags.value.has(invadedFlag(zone.id)) : cleared.value.has(n.id)
+  const letIn = invasionLetsIn(n.id, after, flags.value)
   const state = veil.get(n.id) ?? ''
   // A place with an open road to it shows through thin cloud; the far ones lie deep.
   const near = n.links.some(l => NODE_BY_ID[l] && isOpen(l))
@@ -353,7 +374,7 @@ const nodes = computed<NodeView[]>(() => MAP.map((n) => {
     cleared: done,
     here: hereNode.value === n.id,
     danger: zone ? dangerOf(zone, profile.level) : 0,
-    enterable: isReachable(n.id) && isSeen(n.id),
+    enterable: isReachable(n.id) && isSeen(n.id) && letIn,
     tier: zone ? levelTier(zone, profile.level) : '',
     decision: open && !!n.quest && !!QUEST_BY_ID[n.quest] && !profile.quests.done[n.quest],
     trainer: !!hiddenTrainer(n.id),
@@ -363,7 +384,9 @@ const nodes = computed<NodeView[]>(() => MAP.map((n) => {
     veil: state,
     art: landmarkSvg(n.id, { locked: !isSeen(n.id), ruined: n.id === 'oakhaven' && flags.value.has('oakhavenFallen') }),
     clouds: !isSeen(n.id) ? (near ? CLOUDS_NEAR : CLOUDS_FAR) : state ? CLOUDS_NEAR : '',
-    zone
+    zone,
+    invaded: !!zone?.invaded,
+    lockedBy: !letIn && zone ? invadedBefore(zone.id) ?? '' : ''
   }
 }))
 
@@ -371,8 +394,19 @@ const sel = computed(() => nodes.value.find(n => n.id === selected.value) ?? nul
 const drops = computed(() => {
   const s = sel.value
   if (!s?.zone) return []
-  return itemsOfZone(s.zone.id).map(i => ({ id: i.id, owned: profile.inv.items.includes(i.id) }))
+  // An invaded zone's boss pair, once the Oracle's Lens shows who holds it.
+  const ids = lensBoss.value ? [...(AFTER_BOSS_DROPS[s.zone.id] ?? [])] : itemsOfZone(s.zone.id).map(i => i.id)
+  return ids.map(id => ({ id, owned: profile.inv.items.includes(id) }))
 })
+/** The Oracle's Lens (afterplay B7): the boss (or finale leader) of the picked invaded zone ('' none). */
+const lensBoss = computed(() => {
+  const s = sel.value
+  if (!s?.zone || !s.invaded || !flags.value.has(ORACLE_LENS_FLAG)) return ''
+  const inv = INVASION[s.zone.id]
+  return inv.boss ?? inv.finale.leader
+})
+/** The Rift's heart waits for the Hydra's fire key (afterplay B9). */
+const keyLocked = computed(() => sel.value?.id === 'rift' && profile.world.afterplay && !sel.value.enterable && !!sel.value.lockedBy && flags.value.has(invadedFlag(sel.value.lockedBy)) && !flags.value.has(HYDRA_KEY_FLAG))
 const trainer = computed(() => (sel.value ? hiddenTrainer(sel.value.id) : null))
 const questLine = computed(() => {
   const q = sel.value ? NODE_BY_ID[sel.value.id]?.quest : undefined
@@ -704,7 +738,7 @@ let gainId = 0
 const encounterSeed = (): number => (Math.imul(Math.round(hero.x), 73856093) ^ Math.imul(Math.round(hero.y), 19349663) ^ Math.imul(profile.stats.runs + 1, 83492791) ^ Math.round(clock.since * 1000)) >>> 0
 
 const encounter = (): void => {
-  const spec: EncounterSpec = rollEncounter(regionOf(mask.value.owner(hero.x, hero.y)), profile.level, encounterSeed())
+  const spec: EncounterSpec = rollEncounter(regionOf(mask.value.owner(hero.x, hero.y)), profile.level, encounterSeed(), profile.world.afterplay)
   clearPath()
   selected.value = ''
   cardOpen.value = false
@@ -1434,6 +1468,20 @@ onBeforeUnmount(() => {
   background: var(--bc-gold-hi, #ffe978)
 .is-selected .node__label
   background: var(--bc-gold, #ffc526)
+// The afterplay: the Breaking holds it (§4). A blood-red ring round the landmark.
+.node__new--invaded
+  background: linear-gradient(180deg, #8a1a2a, #4a0a16)
+.is-invaded .node__ring ellipse
+  stroke: #c0243a
+  opacity: 0.75
+.is-invaded.is-cleared .node__ring ellipse
+  opacity: 0
+.card__meta--invaded
+  color: #a01e30
+  font-weight: 800
+.card__invaded
+  margin: 0.2rem 0 0
+  color: #8a1a2a
 .node__new--call
   background: linear-gradient(180deg, #e0485c, #a01e30)
   animation: arena-call 1.6s ease-in-out infinite

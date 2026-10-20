@@ -1,5 +1,170 @@
 // Croatian (hr) bundle — mirrors en.ts.
 export default {
+  // ─── Afterplay phase 8: items, materials and capstones ───
+  // ─── Afterplay phase 10: the prestige classes ───
+  'prestige': { 'toast': { 'wanderer': "Tajanstveni lutalica čeka u utvrdi." } },
+  'relic': {
+    'infernal': "{name} · Paklensko",
+    'set': "Nošeno uz {item}:",
+    'heroicBadge': "Junački {n}",
+    'heroic': "Junački {n}: {gold} zlata, {glass} demonskog stakla",
+    'heroicIchor': "Junački {n}: {gold} zlata, {glass} demonskog stakla, {ichor} ihora",
+    'heroicMax': "Svi junački rangovi su osvojeni.",
+    'infernalForge': "Paklensko kovanje: {gold} zlata, {glass} demonskog stakla",
+    'lens': "Leća Proročice: ovdje čeka {boss}.",
+    'hydraKey': "Zapečaćeno. Vatreni ključ Hidre otvara srce Raskola.",
+    'marksGlass': "Kupi {glass} demonskog stakla za {marks} znakova",
+    'capstone': "Vrhunac",
+    'fortOnly': "Ovaj vrhunac uči se samo na Bastionskom prijelazu."
+  },
+  // ─── The fort's fair games (afterplay §9) ───
+  'fair': {
+    'fee': "Igraj · {n}",
+    'again': "Igraj ponovno",
+    'noGold': "Nemaš dovoljno zlata.",
+    'capped': "Zone za očistiti prije povratka velikih nagrada: {n}",
+    'top': "Glavna nagrada! +{gold} zlata, +{xp} XP",
+    'topGold': "Glavna nagrada, samo u zlatu: +{n} zlata",
+    'won': "Pobjeda! +{n} zlata",
+    'lost': "Nema sreće. Niz počinje ispočetka.",
+    'row': "Pobjede zaredom: {n} od {max}",
+    'mats': "+{n} herojskog+ materijala",
+    'discount': "Kovač ti sada daje {n}% popusta na poboljšanja!"
+  },
+  'whack': {
+    'title': "Udari vražića",
+    'lead': "Pogodi 20 vražića za 30 sekundi. Ostavi one u zlatnom oklopu: svaki pogodak u njih stoji jedan život.",
+    'hits': "Vražići: {n} / {max}",
+    'lives': "Životi: {n}",
+    'time': "Vrijeme: {n} s",
+    'hint': "Dodirni vražiće ili pritisni 1 do 9.",
+    'barrel': "Bačva {n}",
+    'timeout': "Vrijeme je isteklo!",
+    'dead': "Nema više života!"
+  },
+  'ring': {
+    'title': "Bacanje obruča na Hidru",
+    'lead': "Drži za snagu, pusti za bacanje. Glava hvata obruč samo blizu sredine svog njihanja. Svaka uzastopna glava vrijedi bod više.",
+    'hint': "Drži i pusti na stolu ili drži razmaknicu.",
+    'rings': "Preostalo obruča: {n}",
+    'score': "Bodovi: {n}",
+    'hit': "Pogodak! +{n}",
+    'miss': "Promašaj!",
+    'perfect': "Savršena runda!",
+    'nothing': "Bodovi {n}. Ovaj put bez nagrade.",
+    'power': "Snaga"
+  },
+  'arm': {
+    'title': "Obaranje ruke",
+    'lead': "Dodirni kad se prsten susretne s krugom i obori mu ruku. Snaga širi ritam. Tri pobjede zaredom donose kovački popust, pet donosi herojski+ materijal.",
+    'hint': "Dodirni stol ili pritisni razmaknicu.",
+    'good': "Guraj!",
+    'off': "Izvan ritma!"
+  },
+  // ─── The Siege of Bastion (afterplay §8) ───
+  'siege': {
+    'title': "Opsada Bastionskog prijelaza",
+    'lead': "Drži vrata deset valova. Između valova troši opsadne znakove na obranu.",
+    'story': "Horda je pred vratima. Izdrži deset valova: ova prva opsada ne može se izgubiti.",
+    'bell': "Opsadno zvono zvoni! Horda se okuplja pred vratima.",
+    'mapBell': "Opsada!",
+    'start': "Pozvoni",
+    'wins': "Pobjede: {n}",
+    'marksBank': "Spremljeni opsadni znakovi: {n}",
+    'tier': {
+      'normal': "Normalno",
+      'hard': "Teško",
+      'nightmare': "Noćna mora"
+    },
+    'tierDesc': {
+      'normal': "Neprijatelji razinu iznad tebe.",
+      'hard': "Neprijatelji 3 razine viši, s 30 % više zdravlja.",
+      'nightmare': "Neprijatelji 6 razina viši i dva vala mitskih elita."
+    },
+    'locked': {
+      'hard': "Najprije pobijedi u normalnoj opsadi.",
+      'nightmare': "Otvara se kad je pukotina zapečaćena ili ostavljena odškrinuta."
+    },
+    'lord': "Gospodar opsade",
+    'hud': {
+      'wave': "Val {n}/{total}",
+      'marks': "Znakovi: {n}",
+      'gate': "Vrata {pct} %",
+      'build': "Val {n} za {s} s",
+      'ready': "Spreman!",
+      'buy': "{name}: {n} znakova"
+    },
+    'def': {
+      'ballista': {
+        'name': "Balista",
+        'desc': "Svake 2 sekunde ispaljuje probojnu strijelu niz svoju stazu."
+      },
+      'cauldron': {
+        'name': "Vatreni kotao",
+        'desc': "Pali tjesnac svoje staze."
+      },
+      'barricade': {
+        'name': "Barikada",
+        'desc': "Zatvara stazu na 20 sekundi."
+      },
+      'militia': {
+        'name': "Milicija",
+        'desc': "Dva stražara bore se uz tebe."
+      },
+      'repair': {
+        'name': "Popravi vrata",
+        'desc': "Obnavlja četvrtinu vrata."
+      }
+    },
+    'block': {
+      'marks': "Nema dovoljno opsadnih znakova.",
+      'full': "Nema više mjesta.",
+      'phase': "Samo između valova."
+    },
+    'toast': {
+      'cleared': "Val {n} odbijen! +{marks} znakova",
+      'clearedUnharmed': "Val {n} odbijen, vrata netaknuta! +{marks} znakova",
+      'horn': "Rog trubi! Vrata su na {pct} %.",
+      'ram': "Ovan! Zaustavi ga prije nego stigne do vrata!",
+      'rally': "Opet na nogama! Drži vrata!"
+    },
+    'banner': {
+      'wave': "Val {n}",
+      'final': "Gospodar opsade!"
+    },
+    'result': {
+      'tier': "Opsada Bastionskog prijelaza: {tier}",
+      'waves': "Odbijeni valovi: {n}/{total}",
+      'marks': "Zadržani opsadni znakovi: {banked} od {earned}",
+      'glass': "Demonsko staklo: +{n}"
+    },
+    'milestone': {
+      'normal1': "Prekretnica: Bastionski stijeg.",
+      'normal5': "Prekretnica: Oklop čuvara zidina.",
+      'hard1': "Prekretnica: Instinkt veterana, peto pasivno mjesto.",
+      'hard5': "Prekretnica: Lomitelj vrata.",
+      'nightmare1': "Prekretnica: Kruna posljednjeg bastiona.",
+      'hardFlawless': "Prekretnica: ključ skrivene kušnje klase."
+    }
+  },
+  // ─── The Breaking (the afterplay's story) ───
+  'breaking': {
+    'title': "Raspuknuće",
+    'toast': {
+      brk6: "Majstor kovač vratio je svoju kovačnicu. Paklensko kovanje je otvoreno.",
+      brk7: "Sfinga je mrtva. Proročičina leća pokazuje gdje čekaju velike zvijeri.",
+      brk8: "Levijatan je mrtav. Njegova ljuska pušta te hodati po plićaku.",
+      brk9: "Hidra je mrtva. Njezin vatreni ključ je tvoj.",
+      brk10: "Drevni zmaj je mrtav. Raskol zjapi otvoren.",
+      sealed: "Raskol je zapečaćen. Ti si Pečatitelj raskola.",
+      ajar: "Raskol ostaje odškrinut. Demoni će iskušati zidine i koloseum.",
+      'brk2': "Bastionski prijelaz te prima. Njegovi ljudi sada računaju na tebe.",
+      'rescued': "Preživjeli spašeni! Na sigurnom su u Bastionskom prijelazu.",
+      'brk3': "Put je slobodan. Ljudi iz Sunforda su na sigurnom.",
+      'brk4': "Travarka se pridružuje utvrdi.",
+      'brk5': "Kentaurska horda je razbijena. Utvrda se sprema za opsadu.",
+    },
+  },
   // ─── The intro (#130): its skip, and its narrator's name ───
   intro: {
     narrator: 'Kroničar',
@@ -88,6 +253,7 @@ export default {
     gold: 'Zlato: {n}',
     potion: 'Napitak zdravlja (preostalo: {n})',
     manaPotion: 'Napitak mane (preostalo: {n})',
+    potionStop: 'Popij napitak zdravlja za nastavak',
     groups: 'Poražene skupine neprijatelja: {n} od {total}',
     wave: 'Val {n} / {total}',
     roll: 'Kotrljaj',
@@ -264,6 +430,10 @@ export default {
     escort: 'Čuvaj karavanu'
   },
   node: {
+    'bastion': {
+      'name': "Bastionski prijelaz",
+      'desc': "Stara granična utvrda, posljednje zidine koje još stoje. Ovdje se okupljaju preživjeli.",
+    },
     sunford: {
       name: 'Sunford',
       desc: 'Ratarski gradić na rubu ravnica. Dom, kovač i dva učitelja.'
@@ -346,6 +516,9 @@ export default {
     locked: 'Očisti susjednu zonu da otvoriš put.',
     lockedArena: 'Vrata se otvaraju kad se riješi pitanje Kralja goblina.',
     lockedRift: 'Otvara se kad se odluči o prijestolju Tvrđave užasa.',
+    invaded: 'Okupirana',
+    invadedDesc: 'Ovom zemljom vladaju demoni. Njihovi piloni tjeraju obližnje neprijatelje da udaraju jače, ožiljci pukotine peku i usporavaju, a svaki ovdje poraženi neprijatelj vrijedi više.',
+    lockedInvaded: 'Demoni je čvrsto drže. Najprije povrati {zone}.',
     danger: {
       '1': 'Malo iznad tvoje razine.',
       '2': 'Opasno za tvoju razinu.',
@@ -472,6 +645,11 @@ export default {
     }
   },
   class: {
+    // ── The prestige classes (afterplay phase 10) ──
+    'demonhunter': { 'name': "Lovac na demone", 'desc': "Sjena i sveto svjetlo, zakleti jednom plijenu. Obilježava demone, a obilježeni brzo padaju." },
+    'dragoon': { 'name': "Dragun", 'desc': "Vjetar pod čizmama, štit na ruci. Skače s neba i probada cijele redove." },
+    'hexsmith': { 'name': "Kovač kletvi", 'desc': "Eterski zanat hranjen krvlju. Gradi kupole koje isisavaju neprijatelja da izliječe kovača." },
+    'tidecaller': { 'name': "Zazivač plime", 'desc': "Mraz i elementi izliveni u more. Valovi koji odbacuju i natapaju neprijatelje." },
     aegis: {
       name: 'Vitez Egide',
       desc: 'Štit i sveti čelik. Prima udarce da nitko drugi ne mora.'
@@ -538,6 +716,35 @@ export default {
     }
   },
   skill: {
+    // ── The prestige classes (afterplay phase 10) ──
+    'huntersMark': { 'name': "Lovčev znak", 'desc': "Sveta strijela za {dmg}% štete od Spretnosti. {dur} s meta prima {vuln}% više štete, demon {demon}% više." },
+    'demonsBane': { 'name': "Propast demona", 'desc': "+{bane}% štete demonima i {ward}% manje štete od njih." },
+    'silverVolley': { 'name': "Srebrni plotun", 'desc': "Srebrne strijele u liniji: {dmg}% štete od Spretnosti, +{bane}% demonima i obilježenim neprijateljima." },
+    'skyfallLeap': { 'name': "Pad s neba", 'desc': "Skoči izvan dosega na {air} s, pa padni: {dmg}% štete od Snage u krugu od {radius} m, neprijatelji oboreni." },
+    'dragonBlood': { 'name': "Zmajeva krv", 'desc': "+{boss}% štete bossovima, +{hp}% najvećeg zdravlja i ništa te ne odbacuje." },
+    'dragonLance': { 'name': "Zmajevo koplje", 'desc': "Ubod kopljem u liniji: {dmg}% štete od Spretnosti svakom neprijatelju u njoj." },
+    'hexTurret': { 'name': "Ukleta kupola", 'desc': "Sagradi kupolu na {dur} s. Svake sekunde isisava najbližeg neprijatelja u krugu od {radius} m za {dmg}% štete od Umijeća; liječiš {drain}% toga." },
+    'soulForge': { 'name': "Kovačnica duša", 'desc': "+{hp}% najvećeg zdravlja, {regen} zdravlja u sekundi i primaš {reduce}% manje štete." },
+    'hexBolt': { 'name': "Ukleta strijela", 'desc': "Plati {hp}% zdravlja: strijela za {dmg}% štete od Umijeća. Liječiš {heal}% toga, a neprijatelj nanosi {weak}% manje štete {dur} s." },
+    'tidalWave': { 'name': "Plimni val", 'desc': "Val u liniji: {dmg}% štete od Inteligencije, neprijatelji odbačeni i natopljeni ({slow}% usporavanja na {dur} s)." },
+    'seaborn': { 'name': "Rođen od mora", 'desc': "+{bonus}% štete ohlađenim neprijateljima, {reduce}% manje primljene štete, +{move}% brzine." },
+    'undertow': { 'name': "Povratna struja", 'desc': "Vrtlog na {dur} s: ukupno {dmg}% štete od Inteligencije u krugu od {radius} m. Uvlači neprijatelje i usporava ih za {slow}%." },
+    'bastionWall': { 'name': "Zid Bastiona", 'desc': "{dur} s svaki neprijatelj unutar {radius} m mora napadati tebe, a ti primaš {def}% manje. Zatim svjetlo nanosi {dmg}% Snage +{back}% primljenih udaraca." },
+    'thousandCuts': { 'name': "Tisuću rezova", 'desc': "Jurcaj među neprijateljima unutar {radius} m i udari {hits} puta, svaki udarac za {dmg}% štete Spretnosti. Boss prima samo jedan udarac. Dok režeš, ništa te ne može pogoditi." },
+    'cinderSun': { 'name': "Pepeljasto sunce", 'desc': "Umiruće sunce raspada se {dur} s: {meteors} gorućih krhotina, svaka za {dmg}% štete Inteligencije." },
+    'royalLegion': { 'name': "Kraljevska legija", 'desc': "Pozovi legiju na {dur} s: {archers} strijelaca, {guards} stražara i {mages} bojnih čarobnjaka." },
+    'stoppedHour': { 'name': "Zaustavljeni sat", 'desc': "Zaustavi sat unutar {radius} m na {dur} s. Kad ponovno krene, svaki neprijatelj prima {dmg}% štete Inteligencije." },
+    'redCovenant': { 'name': "Crveni savez", 'desc': "Uzmi {pct}% života svakom neprijatelju unutar {radius} m. Liječiš se za {heal}% toga." },
+    'orbitalLance': { 'name': "Orbitalno koplje", 'desc': "Koplje svjetla s neba prži gdje ciljaš: {dmg}% štete Vještine kroz {dur} s." },
+    'tectonicHeart': { 'name': "Tektonsko srce", 'desc': "Srce zemlje puca: {dmg}% štete Snage svemu u blizini i ruševine koje usporavaju {dur} s." },
+    'eyeOfTheGale': { 'name': "Oko oluje", 'desc': "Oluja strijela {dur} s: ukupno {dmg}% štete Vještine i {slow}% usporavanja." },
+    'endlessWinter': { 'name': "Beskrajna zima", 'desc': "Zima bez kraja izbija iz tebe: {dmg}% štete Inteligencije unutar {radius} m, svi se smrzavaju na {freeze} s." },
+    'dawnbreak': { 'name': "Svitanje", 'desc': "Postani zora na {dur} s: svake sekunde {dmg}% štete Inteligencije unutar {radius} m i {heal}% liječenja." },
+    'alphasCall': { 'name': "Zov alfe", 'desc': "{wolves} vukova odgovara i trči s tobom {dur} s. Cijeli čopor nanosi +{dmg}% štete i brži je za {move}%." },
+    'prismStorm': { 'name': "Prizmatična oluja", 'desc': "{dur} s bjesne četiri stihije: {strikes} udaraca od {dmg}% Inteligencije koji se međusobno pokreću." },
+    'ferryman': { 'name': "Skelar", 'desc': "{dur} s svaki neprijatelj koji padne kraj tebe ustaje kao tvoj duh, a duhovi nanose {atk}% više." },
+    'unmovingMountain': { 'name': "Nepomična planina", 'desc': "Potroši sav chi: planina pada za {dmg}% štete Spretnosti, +{per}% po chiju, i obara neprijatelje." },
+    'encore': { 'name': "Bis", 'desc': "Još jednom na {dur} s (+{buff}% brzine, štete, Obrane), zatim posljednji akord: {dmg}% Karizme, neprijatelji opčinjeni." },
     kind: {
       active: 'Aktivna',
       passive: 'Pasivna'
@@ -593,7 +800,7 @@ export default {
     },
     danceOfBlades: {
       name: 'Ples oštrica',
-      desc: 'Jurni među neprijatelje unutar {radius} m i udari {hits} puta za ukupno {dmg}% štete od Spretnosti. Dok plešeš, ništa te ne može pogoditi.'
+      desc: 'Jurni među neprijatelje unutar {radius} m i udari {hits} puta, svaki udarac za {dmg}% štete od Spretnosti. Boss prima samo jedan udarac. Dok plešeš, ništa te ne može pogoditi.'
     },
     fireball: {
       name: 'Vatrena kugla',
@@ -1341,6 +1548,8 @@ export default {
     magic: 'Magija · atribut: {attr}'
   },
   source: {
+    'siege': "Osvojeno u opsadi Bastionskog prijelaza.",
+    'infernal': "Paklenski blizanac: pada u osvojenom području {zone} ili ga kuje kovač.",
     arena: 'Osvojeno u Koloseumu.',
     smith: 'Iskovano u kovačnici.',
     mob: 'Ispada iz čudovišta u zoni: {zone}.',
@@ -1349,6 +1558,15 @@ export default {
     secret: 'Skriveno u tajnoj škrinji u zoni: {zone}.'
   },
   mod: {
+    'demonBane': "+{n}% štete protiv demona",
+    'demonLeech': "{n}% štete nanesene demonima liječi te",
+    'beastBane': "+{n}% štete protiv mitskih zvijeri",
+    'fireWard': "{n}% manje primljene vatrene štete",
+    'shadowWard': "{n}% manje primljene sjenovite štete",
+    'demonWard': "{n}% manje štete od demona",
+    'pylonBreaker': "+{n}% štete protiv demonskih stupova",
+    'glassFinder': "{n}% šanse da ubijeni demon ostavi dodatno demonsko staklo",
+    'waterWalk': "Voda te ne usporava",
     str: '+{n} Snage',
     dex: '+{n} Spretnosti',
     int: '+{n} Inteligencije',
@@ -1424,6 +1642,24 @@ export default {
     songLength: 'Pjesme traju {n}% dulje'
   },
   item: {
+    'chimeraMane': { 'name': "Griva himere" },
+    'triFang': { 'name': "Trozub" },
+    'warchiefsLongbowGun': { 'name': "Luk-puška vojskovođe" },
+    'hoofbreakerGreaves': { 'name': "Štitnici za noge lomitelja kopita" },
+    'eyeOfTheDeep': { 'name': "Oko dubina" },
+    'beamSplitter': { 'name': "Razdjelnik zraka" },
+    'riddleCrown': { 'name': "Kruna zagonetki" },
+    'sandglassWand': { 'name': "Štapić pješčanog sata" },
+    'leviathanScale': { 'name': "Ljuska Levijatana" },
+    'tidecallerStaff': { 'name': "Štap prizivača plime" },
+    'hydraScaleGauntlets': { 'name': "Rukavice od hidrine ljuske" },
+    'manyHeadedFlail': { 'name': "Mnogoglavi mlat" },
+    'heartOfTheElderDragon': { 'name': "Srce Prastarog zmaja" },
+    'dragonboneGreatsword': { 'name': "Dvoručni mač od zmajeve kosti" },
+    'bastionBanner': { 'name': "Barjak Bastiona" },
+    'wallwardensPlate': { 'name': "Oklop čuvara zidina" },
+    'gatebreaker': { 'name': "Razbijač vrata" },
+    'crownOfTheLastBastion': { 'name': "Kruna posljednjeg Bastiona" },
     heartOfTheArena: {
       name: 'Srce arene'
     },
@@ -3423,8 +3659,17 @@ export default {
     known: 'Naučeno',
     friend: '{faction} poštuje svoje prijatelje: 20% jeftinije.',
     fee: 'Naknada',
+    rank: {
+      label: 'Rang {n}',
+      up: 'Podigni rang',
+      effect: '+{effect}% učinka, −{cd}% punjenja',
+      max: 'Najviši rang',
+      level: 'Rang {n} traži razinu {lvl}.'
+    },
     hint: 'Odaberi lekciju. Zeleni rub znači da je možeš naučiti odmah.',
     block: {
+      'trial': "Još nisi prošao kušnju ove klase.",
+      'parents': "Najprije nauči vještinu klase {a} i klase {b}.",
       level: 'Tvoja je razina preniska.',
       attrs: 'Tvoji su atributi preniski.',
       gold: 'Nemaš dovoljno zlata.'
@@ -3449,6 +3694,20 @@ export default {
     circle: 'Krug etera'
   },
   npc: {
+    'mysteriousWanderer': { 'name': "Tajanstveni lutalica" },
+    'fairPip': { 'name': "Pip" },
+    'fairBess': { 'name': "Stara Bess" },
+    'fairHob': { 'name': "Hob" },
+    sunkenPriest: { name: "Potonuli svećenik" },
+    'fortHale': {
+      'name': "Kapetan Hale",
+    },
+    'fortMara': {
+      'name': "Starješina Mara",
+    },
+    'scoutWren': {
+      'name': "Izvidnica Wren",
+    },
     frostDisciple: {
       name: 'Ivor Hask'
     },
@@ -3738,6 +3997,191 @@ export default {
     }
   },
   dlg: {
+    // ── The Mysterious Wanderer (afterplay phase 10) ──
+    'mysteriousWanderer': {
+      'hello': { '1': "Dakle. Učinio si ono što je malo tko ikad učinio. Osjetio sam to s druge strane pukotine.", '2': "Podučavam stare putove koji spajaju dvije škole u jednu. Samo one koji ih zasluže." },
+      'sealed': { '1': "Zapečatio si je. Šteta, na neki način. Svidio mi se pogled." },
+      'ajar': { '1': "Ostavio si je odškrinutom. Hrabro. Demoni će te držati budnim." },
+      'again': { '1': "Opet ti. Put je dug, ali dobro ga hodaš." },
+      'train': { '1': "Pokaži mi obje polovice onoga što jesi i učinit ću ih jednim." },
+      'trial': { 'say': "Koje kušnje misliš?", '1': "Vrata obranjena bez ogrebotine. Zmaj ubijen bez ijednog pada. Pet paklenih kovanja i pet pobjeda zaredom.", '2': "Smrt Levijatana i savršena runda kod hidre. Svaka otvara vrata koja ti mogu pokazati." },
+      'who': { '1': "Lutalica. Hodao sam rubom pukotine prije nego što se rodio tvoj djed. Imena se istroše." },
+      'trainBack': { '1': "Vježbaj. Dvije se škole svađaju prije nego što se slože." },
+      'bye': { '1': "Hodaj oprezno. Bit ću ovdje, dok me ne bude." }
+    },
+    'fairPip': {
+      'hello': { '1': "Priđite! Devet bačava, hrpa vražića i jedan malj. Vratite ih natrag dolje!", '2': "Vražići iskaču iz bačava. Pogodi dvadeset prije nego što iscuri pijesak.", '3': "Ostavi one u zlatnom oklopu, koštaju život. Tri pobjede zaredom i velika nagrada je tvoja." },
+      'again': { '1': "Još udaranja? Zgrabi malj!" },
+      'play': { '1': "Malj gore! Evo ih!" },
+      'who': { '1': "Pip, lovac na vražiće po zanatu. Ove sam sam uhvatio. Grizu." },
+      'playBack': { '1': "Ha! Kakva galama! Opet?" },
+      'bye': { '1': "Opusti ruku s maljem!" }
+    },
+    'fairBess': {
+      'hello': { '1': "Pet obruča, tri glave, i nijedna ne grize. Sama sam je izrezbarila, pa pazi na boju.", '2': "Drži za zamah, pusti za bacanje. Glava hvata obruč samo kad se zanjiše prema sredini.", '3': "Svaka uzastopna glava broji se jedan više. Pogodi svih pet i platit ću kako treba." },
+      'again': { '1': "Opet se dolaziš ogledati s mojom staricom?" },
+      'play': { '1': "Evo ti obruča. Bacaj nježno, zlato." },
+      'who': { '1': "Četrdeset godina na sajmišnim cestama. Hidra je došla s ratom. Činilo se prikladnim." },
+      'playBack': { '1': "Nije loše. Moj pokojni muž bacao je gore." },
+      'bye': { '1': "Pazi na boju pri izlasku." }
+    },
+    'fairHob': {
+      'hello': { '1': "Oh. Bok. Hoćeš obarati ruke? Bit ću nježan. Pokušat ću.", '2': "Guraj kad se prsten susretne s krugom. Izvan ritma, skliznut ćeš.", '3': "Snažne ruke pomažu. Pobijedi me tri puta zaredom i Majstor kovač dat će ti popust." },
+      'again': { '1': "Još jedna runda? Nitko se nikad ne vraća za još jednu rundu." },
+      'play': { '1': "Lakat na stol. Kad god želiš." },
+      'who': { '1': "Ja sam šegrt Majstora kovača. Kaže da ne znam vlastitu snagu." },
+      'playBack': { '1': "Dobar meč. Sutra će me boljeti ruka. Vjerojatno." },
+      'bye': { '1': "Dođi uskoro opet. U kovačnici je jako tiho." }
+    },
+    // ── The Breaking (the afterplay, B0–B5) ──
+    'story': {
+      forge: { back: { '1': "Moja kovačnica opet gori, vruća kao nikad. Demonsko željezo dobro se topi.", '2': "Donesi mi što nađeš vani. Sad to znam iskovati paklenski." } },
+      oracle: { lens: { '1': "Jednom si me oslobodio. Sad ću ja vidjeti za tebe. Uzmi moju leću.", '2': "Pogledaj kroz nju, i karta će ti pokazati gdje čekaju velike zvijeri." } },
+      priest: { lens: { '1': "Proročice više nema, pa sada čuvam njezin hram. Sfinga je čuvala ovo.", '2': "Njezina leća. Pogledaj kroz nju, i karta će ti pokazati gdje čekaju velike zvijeri." } },
+      herbs: { scale: { '1': "Ljuska s Levijatana! Lagana kao list, i pluta.", '2': "Nosi je, i plićak će te držati kao čvrsto tlo." } },
+      ghost: { key: { '1': "Gle, onaj koji mi je uzeo prijestolje. Ubio si moju Hidru. Dobro.", '2': "Uzmi njezin vatreni ključ. Srce raskola gori, i samo ga vatra otvara." } },
+      syndicate: { key: { '1': "Hidra je mrtva? Onda vatreni ključ ide onome tko plati. Ili tebi, valjda.", '2': "Otvara srce raskola. Idi ga zatvoriti prije nego što mi proguta posao." } },
+      sealed: {
+        sealed: { '1': "I tako je raskol zapečaćen, a svijet je počeo zacjeljivati.", '2': "Gradovi su obnovljeni, pjesme napisane, i u svima je bilo jedno ime." },
+        ajar: { '1': "I tako je raskol ostao odškrinut, a svijet je naučio živjeti uz njega.", '2': "Zidine su ostale čuvane, koloseum bučan, a junak spreman." },
+      },
+      'rift': {
+        'scream': {
+          '1': "Gospodar Praznine pada, a pukotina iza njega vrišti.",
+          '2': "To nikad nije bilo njegovo prijestolje. Bio je to njegov kavez, a on mu je bio poklopac.",
+          '3': "Sada je pukotina otvorena i sve što je praznina držala u snu se budi.",
+        },
+      },
+      'wren': {
+        'found': {
+          '1': "Tu si! Ja sam Wren, izvidnica. Svugdje sam te tražila.",
+          '2': "Sunford gori. Svi koji su mogli pobjeći otišli su u Bastionski prijelaz.",
+          '3': "To je stara utvrda na putu prema Pepeljastim liticama. Požuri, trebaju te.",
+        },
+      },
+    },
+    'scoutWren': {
+      sealed: { '1': "Zmaja više nema! Ceste se već čine lakšima." },
+      'hello': {
+        '1': "Došao si! Znala sam. Dobro došao u Bastionski prijelaz.",
+        '2': "Izviđam putove za kapetana. Pitaj me gdje su nevolje.",
+        '1__f': "Došla si! Znala sam. Dobro došla u Bastionski prijelaz.",
+      },
+      'again': {
+        '1': "Već si se vratio? Putovi se ne izviđaju sami.",
+        '1__f': "Već si se vratila? Putovi se ne izviđaju sami.",
+      },
+      'who': {
+        '1': "Wren. Nosila sam poruke za stražu Sunforda, prije nego što je Sunford izgorio.",
+      },
+      'rumor': {
+        'plains': {
+          '1': "Demoni drže put kroz Sunfordske ravnice. Učitelji iz Sunforda zarobljeni su iza njega.",
+        },
+        'hollows': {
+          '1': "Goblinske jame vrve paklenim psima. Očisti ih i ljudi iz Sunforda mogu kući.",
+        },
+        'woods': {
+          '1': "Nešto s tri glave lovi u Šaptavoj šumi. Travarka se tamo skriva.",
+        },
+        'outskirts': {
+          '1': "Kentauri jašu okolicom Oakhavena. Ako dođu do zidina, trebat će nam svaki mač.",
+        },
+        'siege': {
+          '1': "Njihova horda je razbijena, ali okupljaju se novi. Kapetan priprema zidine.",
+        },
+      },
+      'bye': {
+        '1': "Pazi na putove. I ja ću.",
+      },
+    },
+    'fortHale': {
+      sealed: { '1': "Zmaj je mrtav. Nisam mislio da ću to doživjeti. Hvala." },
+      'siegeBack': { '1': "Još ne? Onda se odmori. Zidine će te čekati." },
+      'bell': { '1': "Onda na vrata. Reci mi koliko ih čvrsto držimo." },
+      'hello': {
+        '1': "Uspio si. Dobro. Treba nam svaki mač, sada više nego ikad.",
+        '2': "Dobro došao u Bastionski prijelaz. Stare zidine, ali jedine koje još stoje.",
+        '1__f': "Uspjela si. Dobro. Treba nam svaki mač, sada više nego ikad.",
+        '2__f': "Dobro došla u Bastionski prijelaz. Stare zidine, ali jedine koje još stoje.",
+      },
+      'road': {
+        '1': "Put do Sunforda opet je otvoren. Njegovi ljudi su sigurni iza naših zidina.",
+      },
+      'herbs': {
+        '1': "Travarka se vratila, i trave s njom. Ambulanta može odahnuti.",
+      },
+      'siege': {
+        '1': "Razbio si kentaure. Ali dolazi veća vojska, i dolazi po ove zidine.",
+        '1__f': "Razbila si kentaure. Ali dolazi veća vojska, i dolazi po ove zidine.",
+      },
+      'again': {
+        '1': "Još stojimo. Zidine, ljudi i ja.",
+      },
+      'fort': {
+        '1': "Stara granična utvrda. Pedeset godina prazna, dok se nebo nije rasparalo.",
+        '2': "Sada je to posljednje sigurno mjesto između ravnica i planina.",
+        'say': "Kakvo je ovo mjesto?",
+      },
+      'rumor': {
+        'road': {
+          '1': "Očisti ravnice i jame. Ljudi iz Sunforda zarobljeni su ondje.",
+        },
+        'woods': {
+          '1': "Travarka je u Šaptavoj šumi, a s njom i zvijer s tri glave. Budi spreman.",
+        },
+        'centaurs': {
+          '1': "Kentauri u okolici. Razbij njihovu hordu prije nego što stigne do nas.",
+        },
+        'siege': {
+          '1': "Odmori se. Kad zazvoni opsadno zvono, trebam te na zidinama.",
+        },
+      },
+      'bye': {
+        '1': "Drži mač blizu.",
+      },
+    },
+    'fortMara': {
+      sealed: { '1': "Uspio si, dijete. Svatko od nas duguje ti dom." },
+      'siegeBack': { '1': "Odmori se malo, dijete. Zvono će opet zazvoniti." },
+      'bell': { '1': "Kapetanove zidine sad čuvam ja. Odaberi kako ćemo ih držati." },
+      'hello': {
+        '1': "Dijete! Živ si. Kad je Sunford izgorio, bojala sam se najgorega.",
+        '2': "Sada smo gosti u vojničkoj utvrdi, starice i sve.",
+        '1__f': "Dijete! Živa si. Kad je Sunford izgorio, bojala sam se najgorega.",
+      },
+      'command': {
+        '1': "Kapetan Hale pao je s Oakhavenom. Zato utvrda sada sluša staru starješinu.",
+      },
+      'home': {
+        '1': "Sunford se obnavlja! Prvi krovovi su gore. Mogla bih zaplakati.",
+      },
+      'again': {
+        '1': "Još sam tu, dijete. Još brojim glave.",
+      },
+      'town': {
+        '1': "Demoni su sišli s noćnog neba. Pobjegli smo s onim što smo mogli nositi.",
+        '2': "Neki od nas nikad nisu izašli. Dovedi ostale kući, ako možeš.",
+        'say': "Što se dogodilo Sunfordu?",
+      },
+      'rumor': {
+        'road': {
+          '1': "Naši učitelji još su na putu za Sunford. Dovedi ih ovamo, dijete.",
+        },
+        'woods': {
+          '1': "Travarka je otišla u Šaptavu šumu po trave i nikad se nije vratila.",
+        },
+        'centaurs': {
+          '1': "Jahači u okolici. Kopita kao grmljavina, svake noći.",
+        },
+        'siege': {
+          '1': "Zidine će uskoro biti na kušnji. Osjećam to u starim kostima.",
+        },
+      },
+      'bye': {
+        '1': "Idi oprezno, dijete.",
+      },
+    },
     intro: {
       crossing: { 1: 'Svaki put ovoga svijeta susreće se na raskrižju… a svako raskrižje je bitka.' },
       hero: { 1: 'S mirnih polja Sunforda na put je krenuo mladi junak.' },
@@ -4204,6 +4648,7 @@ export default {
       }
     },
     hero: {
+      'siege': "Popnimo se na zidine.",
       forge: 'Mogu li koristiti tvoju kovačnicu?',
       learnSmith: 'Možeš li me naučiti kovati?',
       ore: 'Imam nešto rude za prodaju.',
@@ -4533,7 +4978,7 @@ export default {
       },
       map: {
         '1': 'Karta kapetana Rooka! Poderao ju je i sakrio komade prije nego što su ga goblini uhvatili.',
-        '2': 'Pronađi šest od njih, još ih je nekoliko razbacanih naokolo, i X će ti pokazati put: negdje u Pepeljastim liticama. Kopaj ondje i zlato je tvoje.',
+        '2': "Pronađi šest komada i X će ti pokazati put: negdje u Pepeljastim liticama. Ondje kopaj za zlatom.",
         say: 'Imam komad neke stare karte.'
       }
     },
@@ -5559,6 +6004,11 @@ export default {
       }
     },
     quest: {
+      seal: {
+        ask: { '1': "Drevni zmaj je mrtav, a raskol zjapi pred tobom.", '2': "Mogao bi ga sad zapečatiti, zauvijek. Zvijeri bi opet zaspale.", '3': "Ili ga možeš ostaviti odškrinutim, pa neka se najhrabriji ogledaju s onim što prođe." },
+        seal: { say: "Zapečati ga. Zauvijek.", '1': "Raskol se zatvara kao rana koja zacjeljuje, a nebo utihne." },
+        ajar: { say: "Ostavi ga odškrinutim. Bit ćemo spremni.", '1': "Raskol ostaje odškrinut, a nešto iza njega se smije." },
+      },
       goblinKing: {
         ask: {
           '1': 'Stani. Molim te. Predajem se.',
@@ -5693,6 +6143,64 @@ export default {
       }
     },
     bark: {
+      sphinx: {
+        intro: { '1': "Odgovori mi, mališa, ili će te zakopati moj pijesak." },
+        riddle: { '1': "Zagonetka, dakle. Stani gdje pokažem, tim redom." },
+        sand: { '1': "Ovaj put pet. I moj pijesak neće čekati." },
+        death: { '1': "Dobro si odgovorio. Pijesak je sad tvoj." },
+      },
+      leviathan: {
+        intro: { '1': "Sad hodaš mojom vodom." },
+        sink: { '1': "Tvoji otočići tonu." },
+        grab: { '1': "Pođi sa mnom u dubinu!" },
+        death: { '1': "Oseka odlazi i ne vraća se." },
+      },
+      hydra: {
+        intro: { '1': "Odsijeci jednu glavu, i izrast će dvije!" },
+        heads: { '1': "Više glava, više zuba!" },
+        rage: { '1': "Spaliti nas? Onda gori s nama!" },
+        death: { '1': "Nema više glava. Nema više." },
+      },
+      elderDragon: {
+        intro: { '1': "Spavao sam pod svijetom prije nego što je tvoj rod upoznao vatru." },
+        flight: { '1': "Onda se skrivaj iza svojih kamenčića." },
+        rift: { '1': "Raskol me vuče natrag. Ne još!" },
+        death: { '1': "Onda ga zapečati. Umoran sam od tame." },
+      },
+      'siegeHale': {
+        'start': {
+          '1': "Evo ih! Držite vrata!"
+        },
+        'ram': {
+          '1': "Ovan! Ubijte ga prije nego stigne do vrata!"
+        },
+        'horn50': {
+          '1': "Pola vrata je palo! Izdržite!"
+        },
+        'horn25': {
+          '1': "Vrata neće još dugo izdržati!"
+        },
+        'won': {
+          '1': "Slomljeni su! Bastion stoji!"
+        }
+      },
+      'siegeMara': {
+        'start': {
+          '1': "Dolaze! Čvrsto stojte, svi!"
+        },
+        'ram': {
+          '1': "Ovan! Zaustavite ga prije nego razbije vrata!"
+        },
+        'horn50': {
+          '1': "Pola vrata je palo. Izdržite!"
+        },
+        'horn25': {
+          '1': "Vrata popuštaju! Potisnite ih natrag!"
+        },
+        'won': {
+          '1': "Bježe! Utvrda još stoji!"
+        }
+      },
       banditChief: {
         whistle: {
           1: 'Gore, momci! Ugrizite ih!'
@@ -5701,6 +6209,11 @@ export default {
       lightDisciple: {
         freed: {
           '1': 'Svjetlo te poslalo. Ja sam Sestra Aurelle. Potraži me u Sunfordu, poučit ću te putu Donositelja svjetla.'
+        }
+      },
+      trainerAegis: {
+        freed: {
+          '1': 'Hvala što si nas oslobodio od razbojnika! Dođi do vatre: svi ćemo te učiti, prva lekcija je besplatna.'
         }
       },
       frostDisciple: {
@@ -5756,6 +6269,48 @@ export default {
         },
         dive: {
           '1': 'Na koljena.'
+        }
+      },
+      chimera: {
+        intro: {
+          '1': "Tri glave, jedna glad. Koja će od nas prva ugristi?"
+        },
+        twin: {
+          '1': "Sad smo dvije. Dobro odaberi svoju stranu."
+        },
+        tail: {
+          '1': "Moj rep! Platit ćeš za to!"
+        },
+        death: {
+          '1': "Tri glave, a nijedna to nije predvidjela."
+        }
+      },
+      centaurWarchief: {
+        intro: {
+          '1': "Bježi ako hoćeš. Moje strijele su brže."
+        },
+        raiders: {
+          '1': "Jahači! Pregazite ih!"
+        },
+        rear: {
+          '1': "Dosta strijela. Zgazit ću te!"
+        },
+        death: {
+          '1': "Ravnice će pamtiti moja kopita."
+        }
+      },
+      cyclops: {
+        intro: {
+          '1': "Ovdje je nešto malo. Priđi bliže. Da te vidim."
+        },
+        cover: {
+          '1': "Nema više gledanja. Moje oko nećeš dobiti!"
+        },
+        blind: {
+          '1': "Ne vidim te, ali te čujem!"
+        },
+        death: {
+          '1': "Mrak. Sve je potamnjelo."
         }
       },
       frostJarl: {
@@ -6882,7 +7437,20 @@ export default {
       }
     }
   },
+  invasion: {
+    pylonsDown: 'Posljednji pilon pada i njegovo blago se rasipa!',
+    reborn: {
+      tusker: 'Ponovno rođeni Tusker',
+      emberLord: 'Paklenski Gospodar žeravice',
+      frostJarl: 'Ponovno rođeni Ledeni jarl',
+      voidDragon: 'Ponovno rođeni Zmaj Praznine'
+    }
+  },
   enemy: {
+    sphinx: "Sfinga",
+    leviathan: "Levijatan",
+    hydra: "Hidra",
+    elderDragon: "Drevni zmaj",
     trainingDummy: 'Strašilo za trening',
     goblin: 'Goblin',
     goblinSlinger: 'Goblin praćkaš',
@@ -6907,6 +7475,10 @@ export default {
     naga: 'Naga',
     skeleton: 'Kostur',
     necromancer: 'Nekromant',
+    chimera: "Himera",
+    chimeraTail: "Zmijski rep",
+    centaurWarchief: "Kentaurski vojskovođa",
+    cyclops: "Kiklop",
     frostJarl: 'Ledeni jarl',
     nagaOracle: 'Utopljena proročica',
     voidStalker: 'Vrebač Praznine',
@@ -6919,6 +7491,7 @@ export default {
     archDemon: 'Arhidemon',
     voidling: 'Izrod Praznine',
     voidLord: 'Gospodar Praznine',
+    demonPylon: 'Demonski pilon',
     orderGuard: 'Inkvizitor Reda',
     syndicateBlade: 'Oštrica Sindikata',
     goblinWarchief: 'Goblinski ratni poglavica',
@@ -6935,7 +7508,19 @@ export default {
     goblinTyrant: 'Goblinski tiranin',
     voidDrake: 'Aždaja Praznine',
     pitLord: 'Gospodar Ponora',
-    frostThane: 'Ledeni tan'
+    frostThane: 'Ledeni tan',
+    hellhound: 'Pakleni pas',
+    frostHellhound: 'Ledeni pakleni pas',
+    gargoyle: 'Gargojl',
+    harpy: 'Harpija',
+    corruptedTreant: 'Iskvareni ent',
+    centaurRaider: 'Kentaur pljačkaš',
+    cyclopsBrute: 'Kiklopski grubijan',
+    demonMiner: 'Demonski rudar',
+    sphinxAcolyte: 'Sfingin akolit',
+    seaDemon: 'Morski demon',
+    drakeHatchling: 'Zmajić',
+    hydraSpawn: 'Hidrin izdanak'
   },
   results: {
     careful: 'Oprezna pobjeda ×{mult}',
@@ -7253,6 +7838,8 @@ export default {
     town: 'Ovo može poboljšati kovač u bilo kojem gradu.'
   },
   ore: {
+    'demonglass': { 'name': "Demonsko staklo" },
+    'ichor': { 'name': "Mitski ihor" },
     iron: {
       name: 'Željezna ruda'
     },

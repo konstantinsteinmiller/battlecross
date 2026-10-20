@@ -1,5 +1,170 @@
 // Azerbaijani (az) bundle — mirrors en.ts.
 export default {
+  // ─── Afterplay phase 8: items, materials and capstones ───
+  // ─── Afterplay phase 10: the prestige classes ───
+  'prestige': { 'toast': { 'wanderer': "Sirli səyyah qalada gözləyir." } },
+  'relic': {
+    'infernal': "{name} · Cəhənnəmi",
+    'set': "{item} ilə geyiləndə:",
+    'heroicBadge': "Qəhrəmanlıq {n}",
+    'heroic': "Qəhrəmanlıq {n}: {gold} qızıl, {glass} iblis şüşəsi",
+    'heroicIchor': "Qəhrəmanlıq {n}: {gold} qızıl, {glass} iblis şüşəsi, {ichor} ixor",
+    'heroicMax': "Bütün qəhrəmanlıq rütbələri alınıb.",
+    'infernalForge': "Cəhənnəmi döymə: {gold} qızıl, {glass} iblis şüşəsi",
+    'lens': "Orakulun linzası: burada {boss} gözləyir.",
+    'hydraKey': "Möhürlənib. Hidranın od açarı Yarığın ürəyini açır.",
+    'marksGlass': "{marks} nişana {glass} iblis şüşəsi al",
+    'capstone': "Zirvə",
+    'fortOnly': "Bu zirvə yalnız Qala Keçidində öyrədilir."
+  },
+  // ─── The fort's fair games (afterplay §9) ───
+  'fair': {
+    'fee': "Oyna · {n}",
+    'again': "Yenə oyna",
+    'noGold': "Qızıl çatmır.",
+    'capped': "Böyük mükafatlar qayıdana qədər təmizlənəcək zona: {n}",
+    'top': "Baş mükafat! +{gold} qızıl, +{xp} TP",
+    'topGold': "Baş mükafat, yalnız qızılla: +{n} qızıl",
+    'won': "Qazandın! +{n} qızıl",
+    'lost': "Bəxt gətirmədi. Seriya yenidən başlayır.",
+    'row': "Ardıcıl qələbə: {n} / {max}",
+    'mats': "+{n} Qəhrəman+ materialı",
+    'discount': "Dəmirçi indi təkmilləşdirmələrə {n}% endirim edir!"
+  },
+  'whack': {
+    'title': "İblisi Vur",
+    'lead': "30 saniyədə 20 iblis vur. Qızıl zirehlilərə toxunma: vurduğun hər biri bir canına başa gəlir.",
+    'hits': "İblislər: {n} / {max}",
+    'lives': "Can: {n}",
+    'time': "Vaxt: {n} san",
+    'hint': "İblislərə toxun və ya 1–9 düymələrini bas.",
+    'barrel': "Çəllək {n}",
+    'timeout': "Vaxt bitdi!",
+    'dead': "Can qalmadı!"
+  },
+  'ring': {
+    'title': "Hidraya Halqa Atma",
+    'lead': "Güc üçün basılı saxla, atmaq üçün burax. Baş halqanı yalnız yellənməsinin ortasına yaxın tutur. Ardıcıl hər baş bir xal artıq dəyər.",
+    'hint': "Masada basılı saxla və burax, ya da Boşluğu basılı saxla.",
+    'rings': "Qalan halqa: {n}",
+    'score': "Xal: {n}",
+    'hit': "Keçdi! +{n}",
+    'miss': "Yayındı!",
+    'perfect': "Mükəmməl raund!",
+    'nothing': "Xal {n}. Bu dəfə mükafat yoxdur.",
+    'power': "Güc"
+  },
+  'arm': {
+    'title': "Qol Güləşi",
+    'lead': "Halqa dairəyə toxunanda toxun və onun qolunu bas. Güc ritmi genişləndirir. Ardıcıl üç qələbə dəmirçi endirimi, beş qələbə Qəhrəman+ materialı gətirir.",
+    'hint': "Masaya toxun və ya Boşluğu bas.",
+    'good': "Bas!",
+    'off': "Ritmdən çıxdın!"
+  },
+  // ─── The Siege of Bastion (afterplay §8) ───
+  'siege': {
+    'title': "Qala Keçidinin mühasirəsi",
+    'lead': "Darvazanı on dalğa boyu saxla. Dalğalar arasında mühasirə nişanlarını müdafiəyə xərclə.",
+    'story': "Orda darvazanın önündədir. On dalğaya dözüm gətir: bu ilk mühasirəni uduzmaq olmaz.",
+    'bell': "Mühasirə zəngi çalınır! Orda darvazanın önündə toplaşır.",
+    'mapBell': "Mühasirə!",
+    'start': "Zəngi çal",
+    'wins': "Qələbələr: {n}",
+    'marksBank': "Toplanmış mühasirə nişanları: {n}",
+    'tier': {
+      'normal': "Normal",
+      'hard': "Çətin",
+      'nightmare': "Kabus"
+    },
+    'tierDesc': {
+      'normal': "Düşmənlər səndən bir səviyyə yuxarıdır.",
+      'hard': "Düşmənlər 3 səviyyə yuxarı və 30% daha çox canlıdır.",
+      'nightmare': "Düşmənlər 6 səviyyə yuxarı və iki dalğa mifik elita."
+    },
+    'locked': {
+      'hard': "Əvvəlcə normal mühasirədə qalib gəl.",
+      'nightmare': "Yarıq möhürlənəndə və ya aralı qalanda açılır."
+    },
+    'lord': "Mühasirə Lordu",
+    'hud': {
+      'wave': "Dalğa {n}/{total}",
+      'marks': "Nişanlar: {n}",
+      'gate': "Darvaza {pct}%",
+      'build': "{n}-cü dalğa {s} san sonra",
+      'ready': "Hazır!",
+      'buy': "{name}: {n} nişan"
+    },
+    'def': {
+      'ballista': {
+        'name': "Ballista",
+        'desc': "Hər 2 saniyədən bir öz zolağı boyunca deşici ox atır."
+      },
+      'cauldron': {
+        'name': "Od qazanı",
+        'desc': "Öz zolağının dar keçidini alovlandırır."
+      },
+      'barricade': {
+        'name': "Barrikada",
+        'desc': "Zolağı 20 saniyəlik bağlayır."
+      },
+      'militia': {
+        'name': "Milis",
+        'desc': "İki keşikçi yanında döyüşür."
+      },
+      'repair': {
+        'name': "Darvazanı təmir et",
+        'desc': "Darvazanın dörddə birini bərpa edir."
+      }
+    },
+    'block': {
+      'marks': "Mühasirə nişanları çatmır.",
+      'full': "Daha yer yoxdur.",
+      'phase': "Yalnız dalğalar arasında."
+    },
+    'toast': {
+      'cleared': "{n}-cü dalğa dəf edildi! +{marks} nişan",
+      'clearedUnharmed': "{n}-cü dalğa dəf edildi, darvaza salamatdır! +{marks} nişan",
+      'horn': "Şeypur çalınır! Darvazadan {pct}% qalıb.",
+      'ram': "Divardələn! Darvazaya çatmamış onu dayandır!",
+      'rally': "Yenə ayaqdasan! Darvazanı saxla!"
+    },
+    'banner': {
+      'wave': "{n}-cü dalğa",
+      'final': "Mühasirə Lordu!"
+    },
+    'result': {
+      'tier': "Qala Keçidinin mühasirəsi: {tier}",
+      'waves': "Dəf edilən dalğalar: {n}/{total}",
+      'marks': "Saxlanan mühasirə nişanları: {earned} nişandan {banked}",
+      'glass': "İblis şüşəsi: +{n}"
+    },
+    'milestone': {
+      'normal1': "Mərhələ: Qala bayrağı.",
+      'normal5': "Mərhələ: Sur keşikçisinin zirehi.",
+      'hard1': "Mərhələ: Veteran instinkti, beşinci passiv yuva.",
+      'hard5': "Mərhələ: Darvazaqıran.",
+      'nightmare1': "Mərhələ: Son Qalanın tacı.",
+      'hardFlawless': "Mərhələ: gizli sinif sınağının açarı."
+    }
+  },
+  // ─── The Breaking (the afterplay's story) ───
+  'breaking': {
+    'title': "Yarılma",
+    'toast': {
+      brk6: "Dəmirçi ustası emalatxanasını geri aldı. Cəhənnəm döymə açıqdır.",
+      brk7: "Sfinks öldü. Kahinin Linzası böyük heyvanların harada gözlədiyini göstərir.",
+      brk8: "Leviafan öldü. Onun pulcuğu dayaz suda yeriməyə imkan verir.",
+      brk9: "Hidra öldü. Onun od açarı artıq sənindir.",
+      brk10: "Qədim Əjdaha öldü. Yarıq açıqdır.",
+      sealed: "Yarıq möhürləndi. Sən Yarığın Möhürləyicisisən.",
+      ajar: "Yarıq aralı qalır. Cinlər divarları və arenanı sınayacaq.",
+      'brk2': "Qala Keçidi səni qəbul edir. Xalqı indi sənə ümid bağlayır.",
+      'rescued': "Sağ qalanlar xilas edildi! Qala Keçidində təhlükəsizdirlər.",
+      'brk3': "Yol açıqdır. Sunford xalqı təhlükəsizdir.",
+      'brk4': "Otçu qadın qalaya qoşulur.",
+      'brk5': "Sentavr dəstəsi darmadağın edildi. Qala mühasirəyə hazırlaşır.",
+    },
+  },
   // ─── The intro (#130): its skip, and its narrator's name ───
   intro: {
     narrator: 'Salnaməçi',
@@ -88,6 +253,7 @@ export default {
     gold: '{n} qızıl',
     potion: 'Can iksiri ({n} qalıb)',
     manaPotion: 'Mana iksiri ({n} qalıb)',
+    potionStop: 'Davam etmək üçün sağlamlıq iksiri iç',
     groups: '{total} düşmən dəstəsindən {n} məğlub edildi',
     wave: 'Dalğa {n} / {total}',
     roll: 'Yuvarlanma',
@@ -261,6 +427,10 @@ export default {
     escort: 'Karvanı qoru'
   },
   node: {
+    'bastion': {
+      'name': "Qala Keçidi",
+      'desc': "Köhnə sərhəd qalası, hələ də ayaqda qalan son divarlar. Sağ qalanlar burada toplaşır.",
+    },
     sunford: {
       name: 'Sunford',
       desc: 'Düzənliyin kənarında əkinçi qəsəbəsi. Ev, bir dəmirçi və iki təlimçi.'
@@ -343,6 +513,9 @@ export default {
     locked: 'Yolu açmaq üçün qonşu zonanı təmizlə.',
     lockedArena: 'Qapıları Qoblin Kralının işi bitəndə açılır.',
     lockedRift: 'Dəhşət Qəsrinin taxtı həll olunanda açılır.',
+    invaded: 'İşğal olunub',
+    invadedDesc: 'Bu torpağı iblislər ələ keçirib. Onların dirəkləri yaxınlıqdakı düşmənləri daha sərt vurdurur, yarıq izləri yandırır və yavaşladır, burada məğlub edilən hər düşmən isə daha dəyərlidir.',
+    lockedInvaded: 'İblislər onu möhkəm tutur. Əvvəlcə {zone} bölgəsini geri al.',
     danger: {
       '1': 'Səviyyəndən bir az yuxarı.',
       '2': 'Səviyyən üçün təhlükəli.',
@@ -469,6 +642,11 @@ export default {
     }
   },
   class: {
+    // ── The prestige classes (afterplay phase 10) ──
+    'demonhunter': { 'name': "Cin ovçusu", 'desc': "Kölgə və müqəddəs işıq, bir ova and içmiş. Cinləri nişanlayır, nişanlananlar tez yıxılır." },
+    'dragoon': { 'name': "Draqun", 'desc': "Çəkmələr altında külək, qolda qalxan. Göydən atılır və bütöv sıraları nizə ilə deşir." },
+    'hexsmith': { 'name': "Lənət dəmirçisi", 'desc': "Qanla qidalanan efir sənəti. Düşməni sorub dəmirçini sağaldan qüllələr qurur." },
+    'tidecaller': { 'name': "Dalğa çağıran", 'desc': "Şaxta və ünsürlər, dənizə tökülmüş. Düşməni geri atan və islatan dalğalar." },
     aegis: {
       name: 'Egida Cəngavəri',
       desc: 'Qalxan və müqəddəs polad. Zərbələri o alır ki, başqası almasın.'
@@ -535,6 +713,35 @@ export default {
     }
   },
   skill: {
+    // ── The prestige classes (afterplay phase 10) ──
+    'huntersMark': { 'name': "Ovçu nişanı", 'desc': "Müqəddəs ox: {dmg}% Çeviklik zərəri. {dur} s ərzində hədəf {vuln}% çox zərər alır, cin {demon}% çox." },
+    'demonsBane': { 'name': "Cinlərin bəlası", 'desc': "Cinlərə +{bane}% zərər və onlardan {ward}% az zərər." },
+    'silverVolley': { 'name': "Gümüş yağışı", 'desc': "Xətt boyunca gümüş oxlar: {dmg}% Çeviklik zərəri, cinlərə və nişanlanmış düşmənlərə +{bane}%." },
+    'skyfallLeap': { 'name': "Göydən enmə", 'desc': "{air} s əlçatmaz yerə sıçra, sonra en: {radius} m radiusda {dmg}% Güc zərəri, düşmənlər yıxılır." },
+    'dragonBlood': { 'name': "Əjdaha qanı", 'desc': "Başçılara +{boss}% zərər, +{hp}% maksimal sağlamlıq, və heç nə səni geri itə bilmir." },
+    'dragonLance': { 'name': "Əjdaha nizəsi", 'desc': "Xətt boyunca nizə zərbəsi: oradakı hər düşmənə {dmg}% Çeviklik zərəri." },
+    'hexTurret': { 'name': "Lənətli qüllə", 'desc': "{dur} s üçün qüllə qur. Hər saniyə {radius} m daxilindəki ən yaxın düşməni {dmg}% Məharət zərəri ilə sorur; sən onun {drain}%-ni sağalırsan." },
+    'soulForge': { 'name': "Ruhlar dəmirxanası", 'desc': "+{hp}% maksimal sağlamlıq, saniyədə {regen} sağlamlıq, və {reduce}% az zərər alırsan." },
+    'hexBolt': { 'name': "Lənətli ox", 'desc': "{hp}% sağlamlıq ödə: {dmg}% Məharət zərəri vuran ox. Onun {heal}%-ni sağalırsan, düşmən isə {dur} s ərzində {weak}% az zərər vurur." },
+    'tidalWave': { 'name': "Daşqın dalğası", 'desc': "Xətt boyunca dalğa: {dmg}% Zəka zərəri, düşmənlər geri atılır və islanır ({dur} s ərzində {slow}% yavaşlama)." },
+    'seaborn': { 'name': "Dənizdən doğulmuş", 'desc': "Soyudulmuş düşmənlərə +{bonus}% zərər, {reduce}% az alınan zərər, +{move}% sürət." },
+    'undertow': { 'name': "Geri axın", 'desc': "{dur} s burulğan: {radius} m daxilində cəmi {dmg}% Zəka zərəri. Düşmənləri içəri çəkir və {slow}% yavaşladır." },
+    'bastionWall': { 'name': "Qala divarı", 'desc': "{dur} s ərzində {radius} m daxilindəki hər düşmən sənə hücum etməlidir və sən {def}% az zərər alırsan. Sonra işıq {dmg}% Güc +alınan zərbələrin {back}%-i qədər zərər vurur." },
+    'thousandCuts': { 'name': "Min kəsik", 'desc': "{radius} m daxilindəki düşmənlər arasında sıçrayıb {hits} dəfə vur, hər zərbə {dmg}% Çeviklik zərəri. Boss yalnız bir zərbə alır. Kəsərkən heç nə sənə dəyə bilməz." },
+    'cinderSun': { 'name': "Kül günəşi", 'desc': "Sönən günəş {dur} s ərzində parçalanır: {meteors} yanan qəlpə, hər biri {dmg}% Zəka zərəri vurur." },
+    'royalLegion': { 'name': "Kral legionu", 'desc': "Legionu {dur} s çağır: {archers} oxatan, {guards} keşikçi və {mages} döyüş sehrbazı." },
+    'stoppedHour': { 'name': "Dayanmış saat", 'desc': "{radius} m daxilində saatı {dur} s dayandır. Yenidən işləyəndə hər düşmən {dmg}% Zəka zərəri alır." },
+    'redCovenant': { 'name': "Qırmızı əhd", 'desc': "{radius} m daxilindəki hər düşmənin həyatının {pct}%-ni al. Onun {heal}%-i səni sağaldır." },
+    'orbitalLance': { 'name': "Orbital nizə", 'desc': "Göydən gələn işıq nizəsi nişan aldığın yeri yandırır: {dur} s ərzində {dmg}% Bacarıq zərəri." },
+    'tectonicHeart': { 'name': "Tektonik ürək", 'desc': "Yerin ürəyi yarılır: yaxındakı hər şeyə {dmg}% Güc zərəri və {dur} s yavaşladan dağıntı." },
+    'eyeOfTheGale': { 'name': "Fırtınanın gözü", 'desc': "{dur} s ox fırtınası: cəmi {dmg}% Bacarıq zərəri və {slow}% yavaşlatma." },
+    'endlessWinter': { 'name': "Sonsuz qış", 'desc': "Sonsuz qış səndən püskürür: {radius} m daxilində {dmg}% Zəka zərəri, hamı {freeze} s donur." },
+    'dawnbreak': { 'name': "Dan yeri", 'desc': "{dur} s şəfəqə çevril: hər saniyə {radius} m daxilində {dmg}% Zəka zərəri və {heal}% sağalma." },
+    'alphasCall': { 'name': "Başçının çağırışı", 'desc': "{wolves} canavar səsə gəlib {dur} s səninlə qaçır. Bütün sürü +{dmg}% zərər vurur və {move}% sürətli olur." },
+    'prismStorm': { 'name': "Prizma fırtınası", 'desc': "{dur} s dörd ünsür qızışır: bir-birini alovlandıran {dmg}% Zəkadan {strikes} zərbə." },
+    'ferryman': { 'name': "Qayıqçı", 'desc': "{dur} s ərzində yanında yıxılan hər düşmən sənin ruhun kimi qalxır, ruhlar isə {atk}% çox zərər vurur." },
+    'unmovingMountain': { 'name': "Sarsılmaz dağ", 'desc': "Bütün çini xərclə: dağ uçub {dmg}% Çeviklik zərəri vurur, hər çi üçün +{per}%, düşmənləri yıxır." },
+    'encore': { 'name': "Bir daha", 'desc': "Bir daha {dur} s (+{buff}% sürət, zərər, Müdafiə), sonra son akkord: {dmg}% Xarizma, düşmənlər ovsunlanır." },
     kind: {
       active: 'Aktiv',
       passive: 'Passiv'
@@ -590,7 +797,7 @@ export default {
     },
     danceOfBlades: {
       name: 'Tiyələrin Rəqsi',
-      desc: '{radius} m daxilindəki düşmənlər arasında atıl, {hits} dəfə vuraraq cəmi {dmg}% Çeviklik zərəri vur. Rəqs edərkən sənə zərbə dəymir.'
+      desc: '{radius} m daxilindəki düşmənlər arasında atıl, {hits} dəfə vur, hər zərbə {dmg}% Çeviklik zərəri. Boss yalnız bir zərbə alır. Rəqs edərkən sənə zərbə dəymir.'
     },
     fireball: {
       name: 'Od Kürəsi',
@@ -1338,6 +1545,8 @@ export default {
     magic: 'Sehr · {attr} ilə artır'
   },
   source: {
+    'siege': "Qala Keçidinin mühasirəsində qazanılıb.",
+    'infernal': "Cəhənnəmi əkiz: işğal olunmuş {zone} ərazisində düşür və ya dəmirçi döyür.",
     arena: 'Kolizey reytinqində qazanılıb.',
     smith: 'Dəmirçixanada döyülüb.',
     mob: '{zone} zonasının canavarlarından düşür.',
@@ -1346,6 +1555,15 @@ export default {
     secret: '{zone} zonasında gizli sandıqda saxlanılır.'
   },
   mod: {
+    'demonBane': "İblislərə +{n}% zərər",
+    'demonLeech': "İblislərə vurulan zərərin {n}%-i səni sağaldır",
+    'beastBane': "Mifik heyvanlara +{n}% zərər",
+    'fireWard': "Alınan od zərəri {n}% az",
+    'shadowWard': "Alınan kölgə zərəri {n}% az",
+    'demonWard': "İblislərdən zərər {n}% az",
+    'pylonBreaker': "İblis pilonlarına +{n}% zərər",
+    'glassFinder': "Öldürülən iblisin əlavə iblis şüşəsi qoyması şansı {n}%",
+    'waterWalk': "Su səni yavaşlatmır",
     str: '+{n} Güc',
     dex: '+{n} Çeviklik',
     int: '+{n} Zəka',
@@ -1421,6 +1639,24 @@ export default {
     songLength: 'Mahnılar {n}% uzun sürür'
   },
   item: {
+    'chimeraMane': { 'name': "Ximera yalı" },
+    'triFang': { 'name': "Üçdiş" },
+    'warchiefsLongbowGun': { 'name': "Sərkərdənin yay-tüfəngi" },
+    'hoofbreakerGreaves': { 'name': "Dırnaqqıran dizliklər" },
+    'eyeOfTheDeep': { 'name': "Dərinliyin gözü" },
+    'beamSplitter': { 'name': "Şüabölən" },
+    'riddleCrown': { 'name': "Tapmaca tacı" },
+    'sandglassWand': { 'name': "Qum saatı çubuğu" },
+    'leviathanScale': { 'name': "Leviafan pulcuğu" },
+    'tidecallerStaff': { 'name': "Dalğaçağıranın əsası" },
+    'hydraScaleGauntlets': { 'name': "Hidra pulcuqlu dəmir əlcəklər" },
+    'manyHeadedFlail': { 'name': "Çoxbaşlı gürz" },
+    'heartOfTheElderDragon': { 'name': "Qədim Əjdahanın ürəyi" },
+    'dragonboneGreatsword': { 'name': "Əjdaha sümüyündən iki əlli qılınc" },
+    'bastionBanner': { 'name': "Qala bayrağı" },
+    'wallwardensPlate': { 'name': "Divar keşikçisinin zirehi" },
+    'gatebreaker': { 'name': "Darvazaqıran" },
+    'crownOfTheLastBastion': { 'name': "Son Qalanın tacı" },
     heartOfTheArena: {
       name: 'Arenanın Ürəyi'
     },
@@ -3418,8 +3654,17 @@ export default {
     known: 'Öyrənilib',
     friend: '{faction} dostlarına hörmət edir: 20% endirim.',
     fee: 'Haqq',
+    rank: {
+      label: '{n}. dərəcə',
+      up: 'Dərəcəni artır',
+      effect: '+{effect}% təsir, −{cd}% gözləmə',
+      max: 'Ən yüksək dərəcə',
+      level: '{n}. dərəcə üçün {lvl}. səviyyə lazımdır.'
+    },
     hint: 'Dərs seç. Yaşıl kənar onu indi öyrənə biləcəyin deməkdir.',
     block: {
+      'trial': "Bu sinfin sınağından hələ keçməmisən.",
+      'parents': "Əvvəlcə {a} və {b} siniflərindən bir bacarıq öyrən.",
       level: 'Səviyyən çox aşağıdır.',
       attrs: 'Atributların çox aşağıdır.',
       gold: 'Qızıl çatmır.'
@@ -3444,6 +3689,20 @@ export default {
     circle: 'Efir Dairəsi'
   },
   npc: {
+    'mysteriousWanderer': { 'name': "Sirli səyyah" },
+    'fairPip': { 'name': "Pip" },
+    'fairBess': { 'name': "Qoca Bess" },
+    'fairHob': { 'name': "Hob" },
+    sunkenPriest: { name: "Batmış Kahin" },
+    'fortHale': {
+      'name': "Kapitan Hale",
+    },
+    'fortMara': {
+      'name': "Ağsaqqal Mara",
+    },
+    'scoutWren': {
+      'name': "Kəşfiyyatçı Wren",
+    },
     frostDisciple: {
       name: 'Ivor Hask'
     },
@@ -3733,6 +3992,185 @@ export default {
     }
   },
   dlg: {
+    // ── The Mysterious Wanderer (afterplay phase 10) ──
+    'mysteriousWanderer': {
+      'hello': { '1': "Deməli. Az adamın bacardığını bacardın. Mən bunu yarığın o biri tərəfində hiss etdim.", '2': "İki məktəbi birləşdirən köhnə yolları öyrədirəm. Yalnız onlara layiq olanlara." },
+      'sealed': { '1': "Onu möhürlədin. Heyf, bir mənada. Mənzərə xoşuma gəlirdi." },
+      'ajar': { '1': "Onu aralı qoydun. Cəsarətli. Cinlər səni ayıq saxlayacaq." },
+      'again': { '1': "Yenə gəldin. Yol uzundur, amma onu yaxşı gedirsən." },
+      'train': { '1': "Mənə kim olduğunun iki yarısını göstər, mən onları bir edərəm." },
+      'trial': { 'say': "Hansı sınaqları deyirsən?", '1': "Cızıqsız qorunan darvaza. Bir dəfə də yıxılmadan öldürülən əjdaha. Beş cəhənnəm döyməsi və ardıcıl beş qələbə.", '2': "Leviafanın ölümü və hidra yanında mükəmməl raund. Hər biri sənə göstərə biləcəyim qapını açır." },
+      'who': { '1': "Səyyah. Baban doğulmamışdan əvvəl yarığın kənarında gəzirdim. Adlar köhnəlir." },
+      'trainBack': { '1': "Məşq et. İki məktəb razılaşmamışdan əvvəl dalaşır." },
+      'bye': { '1': "Ehtiyatla get. Mən burada olacağam, olmayana qədər." }
+    },
+    'fairPip': {
+      'hello': { '1': "Yaxınlaşın! Doqquz çəllək, bir dəstə iblis və bir toxmaq. Onları geri basdırın!", '2': "İblislər çəlləklərdən sıçrayır. Qum bitməmiş iyirmisini vur.", '3': "Qızıl zirehlilərə dəymə, bir canına başa gəlirlər. Ardıcıl üç qələbə və böyük mükafat sənindir." },
+      'again': { '1': "Yenə vurmaq istəyirsən? Toxmağı götür!" },
+      'play': { '1': "Toxmaq yuxarı! Gəlirlər!" },
+      'who': { '1': "Pip, peşəm iblis tutmaqdır. Bunları özüm tutmuşam. Dişləyirlər." },
+      'playBack': { '1': "Ha! Nə səs-küydür! Yenə?" },
+      'bye': { '1': "Toxmaq qolunu boş saxla!" }
+    },
+    'fairBess': {
+      'hello': { '1': "Beş halqa, üç baş, heç biri dişləmir. Özüm oymuşam, boyaya diqqət et.", '2': "Təkan üçün basılı saxla, atmaq üçün burax. Baş halqanı yalnız ortaya yellənəndə tutur.", '3': "Ardıcıl hər baş bir artıq sayılır. Beşini də keçir, haqqını verərəm." },
+      'again': { '1': "Yenə mənim qoca qızımla bəxtini sınamağa gəldin?" },
+      'play': { '1': "Al halqalarını. Yavaş at, əzizim." },
+      'who': { '1': "Yarmarka yollarında qırx il. Hidra müharibə ilə gəldi. Yerinə düşdü." },
+      'playBack': { '1': "Pis deyil. Rəhmətlik ərim daha pis atırdı." },
+      'bye': { '1': "Çıxanda boyaya diqqət et." }
+    },
+    'fairHob': {
+      'hello': { '1': "Ah. Salam. Qol güləşi istəyirsən? Yavaş edərəm. Çalışaram.", '2': "Halqa dairəyə toxunanda bas. Ritmdən çıxsan, sürüşərsən.", '3': "Güclü qollar işi asanlaşdırır. Məni ardıcıl üç dəfə məğlub et, Dəmirçi Usta sənə endirim edər." },
+      'again': { '1': "Bir raund da? Heç kim bir raund da üçün qayıtmır." },
+      'play': { '1': "Dirsək masaya. Nə vaxt istəsən." },
+      'who': { '1': "Mən Dəmirçi Ustanın şagirdiyəm. Deyir ki, öz gücümü bilmirəm." },
+      'playBack': { '1': "Yaxşı oyun idi. Sabah qolum ağrıyacaq. Yəqin." },
+      'bye': { '1': "Tezliklə gəl. Dəmirxana çox sakitdir." }
+    },
+    // ── The Breaking (the afterplay, B0–B5) ──
+    'story': {
+      forge: { back: { '1': "Emalatxanam yenə yanır, həmişəkindən də isti. Cin dəmiri yaxşı əriyir.", '2': "Orada nə tapsan, gətir. İndi onu cəhənnəmi döyə bilərəm." } },
+      oracle: { lens: { '1': "Bir vaxt məni azad etdin. İndi sənin yerinə görəcəyəm. Linzamı götür.", '2': "Onun içindən bax, xəritə sənə böyük heyvanların harada gözlədiyini göstərəcək." } },
+      priest: { lens: { '1': "Kahin artıq yoxdur, ona görə də indi onun məbədini mən qoruyuram. Bunu Sfinks qoruyurdu.", '2': "Onun Linzası. İçindən bax, xəritə sənə böyük heyvanların harada gözlədiyini göstərəcək." } },
+      herbs: { scale: { '1': "Leviafanın pulcuğu! Yarpaq kimi yüngüldür və suda üzür.", '2': "Onu tax, dayaz su səni möhkəm torpaq kimi saxlayacaq." } },
+      ghost: { key: { '1': "Deməli, taxtımı alan sənsən. Hidramı öldürdün. Yaxşı.", '2': "Onun od açarını götür. Yarığın ürəyi yanır və onu yalnız od açır." } },
+      syndicate: { key: { '1': "Hidra öldü? Onda od açarı pul verənindir. Ya da sənin, deyəsən.", '2': "O, yarığın ürəyini açır. Get bağla onu, işlərimi udmamış." } },
+      sealed: {
+        sealed: { '1': "Beləcə yarıq möhürləndi və dünya sağalmağa başladı.", '2': "Şəhərlər yenidən quruldu, mahnılar yazıldı və hamısında bir ad vardı." },
+        ajar: { '1': "Beləcə yarıq aralı qaldı və dünya onunla yanaşı yaşamağı öyrəndi.", '2': "Divarlar keşikdə qaldı, arena səs-küylü qaldı, qəhrəman da hazır." },
+      },
+      'rift': {
+        'scream': {
+          '1': "Boşluq Hökmdarı yıxılır və arxasındakı yarıq qışqırır.",
+          '2': "Bu heç vaxt onun taxtı olmayıb. Bu onun qəfəsi idi, o isə qapağı.",
+          '3': "İndi yarıq açıqdır və boşluğun yuxuya verdiyi hər şey oyanır.",
+        },
+      },
+      'wren': {
+        'found': {
+          '1': "Budur, buradasan! Mən Wrenəm, kəşfiyyatçı. Səni hər yerdə axtardım.",
+          '2': "Sunford yanır. Qaça bilən hamı Qala Keçidinə getdi.",
+          '3': "Bu, Kül Qayalıqlarına gedən yoldakı köhnə qaladır. Tələs, sənə ehtiyacları var.",
+        },
+      },
+    },
+    'scoutWren': {
+      sealed: { '1': "Əjdaha getdi! Yollar indidən yüngül görünür." },
+      'hello': {
+        '1': "Gəldin! Bilirdim. Qala Keçidinə xoş gəldin.",
+        '2': "Kapitan üçün yolları kəşf edirəm. Bəlanın harada olduğunu məndən soruş.",
+      },
+      'again': {
+        '1': "Artıq qayıtdın? Yollar özü-özünü kəşf etməz.",
+      },
+      'who': {
+        '1': "Wren. Sunford yanmazdan əvvəl gözətçilərə xəbər daşıyırdım.",
+      },
+      'rumor': {
+        'plains': {
+          '1': "Cinlər Sunford düzənliyindəki yolu tutub. Sunfordun müəllimləri onun arxasında qalıb.",
+        },
+        'hollows': {
+          '1': "Qoblin Oyuqları cəhənnəm itləri ilə doludur. Təmizlə, Sunford xalqı evə qayıtsın.",
+        },
+        'woods': {
+          '1': "Pıçıldayan Meşədə üçbaşlı nəsə ov edir. Otçu qadın orada gizlənir.",
+        },
+        'outskirts': {
+          '1': "Sentavrlar Oakhaven ətrafında at çapır. Divarlara çatsalar, hər qılınc lazım olacaq.",
+        },
+        'siege': {
+          '1': "Onların dəstəsi dağıldı, amma yeniləri toplaşır. Kapitan divarları hazırlayır.",
+        },
+      },
+      'bye': {
+        '1': "Yolları izlə. Mən də izləyəcəyəm.",
+      },
+    },
+    'fortHale': {
+      sealed: { '1': "Əjdaha öldü. Bunu görəcək qədər yaşayacağımı heç düşünməzdim. Sağ ol." },
+      'siegeBack': { '1': "Hələ yox? Onda dincəl. Surlar səni gözləyəcək." },
+      'bell': { '1': "Onda darvazaya. De görüm, onu nə qədər möhkəm saxlayırıq." },
+      'hello': {
+        '1': "Gəlib çıxdın. Yaxşı. Hər qılınca ehtiyacımız var, indi həmişəkindən çox.",
+        '2': "Qala Keçidinə xoş gəldin. Köhnə divarlar, amma hələ ayaqda qalan yeganələr.",
+      },
+      'road': {
+        '1': "Sunforda gedən yol yenə açıqdır. Xalqı divarlarımızın arxasında təhlükəsizdir.",
+      },
+      'herbs': {
+        '1': "Otçu qadın otları ilə qayıtdı. Xəstəxana nəfəs ala bilər.",
+      },
+      'siege': {
+        '1': "Sentavrları darmadağın etdin. Amma daha böyük ordu gəlir, bu divarlar üçün gəlir.",
+      },
+      'again': {
+        '1': "Hələ ayaqdayıq. Divarlar, adamlar və mən.",
+      },
+      'fort': {
+        '1': "Köhnə sərhəd qalası. Göy yarılana qədər əlli il boş qaldı.",
+        '2': "İndi düzənliklə dağlar arasında son təhlükəsiz yerdir.",
+        'say': "Bura nə yerdir?",
+      },
+      'rumor': {
+        'road': {
+          '1': "Düzənliyi və Oyuqları təmizlə. Sunford xalqı orada qalıb.",
+        },
+        'woods': {
+          '1': "Otçu qadın Pıçıldayan Meşədədir, üçbaşlı bir heyvan da. Hazır ol.",
+        },
+        'centaurs': {
+          '1': "Ətrafda sentavrlar var. Bizə çatmamış dəstələrini dağıt.",
+        },
+        'siege': {
+          '1': "Bir az dincəl. Mühasirə zəngi çalanda səni divarda istəyəcəyəm.",
+        },
+      },
+      'bye': {
+        '1': "Qılıncını yaxın saxla.",
+      },
+    },
+    'fortMara': {
+      sealed: { '1': "Bacardın, övladım. Hər birimiz sənə bir ev borcluyuq." },
+      'siegeBack': { '1': "Bir az dincəl, övladım. Zəng yenə çalınacaq." },
+      'bell': { '1': "Kapitanın surlarını indi mən qoruyuram. Onları necə saxlayacağımızı seç." },
+      'hello': {
+        '1': "Balam! Sağsan. Sunford yananda ən pisindən qorxdum.",
+        '2': "İndi əsgər qalasında qonağıq, qocalar da daxil.",
+      },
+      'command': {
+        '1': "Kapitan Hale Oakhaven ilə birgə həlak oldu. İndi qala qoca ağsaqqala qulaq asır.",
+      },
+      'home': {
+        '1': "Sunford yenidən tikilir! İlk damlar qalxıb. Ağlaya bilərdim.",
+      },
+      'again': {
+        '1': "Hələ buradayam, balam. Hələ başları sayıram.",
+      },
+      'town': {
+        '1': "Cinlər gecə səmasından endilər. Daşıya bildiyimizlə qaçdıq.",
+        '2': "Bəzilərimiz heç çıxa bilmədi. Bacarsan, qalanlarını evə gətir.",
+        'say': "Sunforda nə oldu?",
+      },
+      'rumor': {
+        'road': {
+          '1': "Müəllimlərimiz hələ Sunford yolundadır. Onları bura gətir, balam.",
+        },
+        'woods': {
+          '1': "Otçu qadın ot yığmağa Pıçıldayan Meşəyə getdi və geri dönmədi.",
+        },
+        'centaurs': {
+          '1': "Ətrafda atlılar. Hər gecə ildırım kimi dırnaqlar.",
+        },
+        'siege': {
+          '1': "Divarlar tezliklə sınanacaq. Bunu qoca sümüklərimdə hiss edirəm.",
+        },
+      },
+      'bye': {
+        '1': "Ehtiyatlı get, balam.",
+      },
+    },
     intro: {
       crossing: { 1: 'Bu dünyanın hər yolu bir yol ayrıcında birləşir… və hər yol ayrıcı bir döyüşdür.' },
       hero: { 1: 'Sunfordun sakit tarlalarından gənc bir qəhrəman yola çıxdı.' },
@@ -4183,6 +4621,7 @@ export default {
       }
     },
     hero: {
+      'siege': "Gəl surlara çıxaq.",
       forge: 'Kürəndən istifadə etmək istəyirəm.',
       learnSmith: 'Mənə dəmirçilik öyrədə bilərsən?',
       ore: 'Satmağa bir az filizim var.',
@@ -4489,7 +4928,7 @@ export default {
       },
       map: {
         '1': 'Kapitan Rookun xəritəsi! Qoblinlər onu tutmazdan əvvəl xəritəni cırıb, parçalarını gizlədib.',
-        '2': 'Onlardan altısını tap, bir neçəsi də ətrafa səpələnib, X sənə yolu göstərəcək: Kül Qayalıqlarında bir yerdə. Orada qaz, qızıl sənindir.',
+        '2': "Altı parça tap, X sənə yolu göstərəcək: Kül Qayalıqlarında bir yerdə. Qızıl üçün orada qaz.",
         say: 'Köhnə bir xəritənin parçasını tapdım.'
       }
     },
@@ -5455,6 +5894,11 @@ export default {
       }
     },
     quest: {
+      seal: {
+        ask: { '1': "Qədim Əjdaha öldü və yarıq qarşında açıqdır.", '2': "Onu indi əbədi möhürləyə bilərsən. Heyvanlar yenidən yuxuya gedər.", '3': "Ya da aralı saxlaya bilərsən ki, ən cəsurlar oradan gələnlə özünü sınasın." },
+        seal: { say: "Möhürlə onu. Əbədi.", '1': "Yarıq sağalan yara kimi bağlanır və göy susur." },
+        ajar: { say: "Aralı qoy. Biz hazır olacağıq.", '1': "Yarıq bir az aralı qalır və arxasında nəsə gülür." },
+      },
       goblinKing: {
         ask: {
           '1': 'Dayan. Xahiş edirəm. Təslim oluram.',
@@ -5586,6 +6030,64 @@ export default {
       }
     },
     bark: {
+      sphinx: {
+        intro: { '1': "Cavab ver mənə, balaca, yoxsa qumum səni basdıracaq." },
+        riddle: { '1': "Onda tapmaca. Göstərdiyim yerə, o ardıcıllıqla bas." },
+        sand: { '1': "Bu dəfə beş. Və qumum gözləməyəcək." },
+        death: { '1': "Yaxşı cavab verdin. Qum indi sənindir." },
+      },
+      leviathan: {
+        intro: { '1': "İndi sən mənim suyumda gəzirsən." },
+        sink: { '1': "Kiçik adaların batır." },
+        grab: { '1': "Mənimlə dərinliyə en!" },
+        death: { '1': "Çəkilmə gedir və bir daha qayıtmır." },
+      },
+      hydra: {
+        intro: { '1': "Bir baş kəs, iki baş çıxacaq!" },
+        heads: { '1': "Daha çox baş, daha çox diş!" },
+        rage: { '1': "Bizi yandırmaq? Onda bizimlə yan!" },
+        death: { '1': "Daha baş yoxdur. Daha yox." },
+      },
+      elderDragon: {
+        intro: { '1': "Sənin nəslin odu tanımazdan əvvəl mən dünyanın altında yatırdım." },
+        flight: { '1': "Onda kiçik daşlarının arxasında gizlən." },
+        rift: { '1': "Yarıq məni geri çəkir. Hələ yox!" },
+        death: { '1': "Onda möhürlə onu. Qaranlıqdan bezmişəm." },
+      },
+      'siegeHale': {
+        'start': {
+          '1': "Gəlirlər! Darvazanı saxlayın!"
+        },
+        'ram': {
+          '1': "Divardələn! Darvazaya çatmamış onu öldürün!"
+        },
+        'horn50': {
+          '1': "Darvazanın yarısı getdi! Dözün!"
+        },
+        'horn25': {
+          '1': "Darvaza çox dözməyəcək!"
+        },
+        'won': {
+          '1': "Darmadağın oldular! Qala dayanır!"
+        }
+      },
+      'siegeMara': {
+        'start': {
+          '1': "Gəlirlər! Hamınız möhkəm durun!"
+        },
+        'ram': {
+          '1': "Divardələn! Darvazanı sındırmamış onu dayandırın!"
+        },
+        'horn50': {
+          '1': "Darvazanın yarısı uçdu. Dözün!"
+        },
+        'horn25': {
+          '1': "Darvaza tab gətirmir! Onları geri itin!"
+        },
+        'won': {
+          '1': "Qaçırlar! Qala hələ dayanır!"
+        }
+      },
       banditChief: {
         whistle: {
           1: 'Qalxın, oğlanlar! Dişləyin onları!'
@@ -5594,6 +6096,11 @@ export default {
       lightDisciple: {
         freed: {
           '1': 'Səni nur göndərdi. Mən Rahibə Aurelle. Məni Sunford qəsəbəsində axtar, sənə Nur Gətirənin yolunu öyrədərəm.'
+        }
+      },
+      trainerAegis: {
+        freed: {
+          '1': 'Bizi quldurlardan xilas etdiyin üçün sağ ol! Ocağa gəl: hamımız sənə öyrədəcəyik, ilk dərs pulsuzdur.'
         }
       },
       frostDisciple: {
@@ -5649,6 +6156,48 @@ export default {
         },
         dive: {
           '1': 'Diz çök.'
+        }
+      },
+      chimera: {
+        intro: {
+          '1': "Üç baş, bir aclıq. Hansımız əvvəl dişləyəcək?"
+        },
+        twin: {
+          '1': "İndi ikimiz birdən. Tərəfini yaxşı seç."
+        },
+        tail: {
+          '1': "Quyruğum! Bunun əvəzini ödəyəcəksən!"
+        },
+        death: {
+          '1': "Üç baş, və heç biri bunu görmədi."
+        }
+      },
+      centaurWarchief: {
+        intro: {
+          '1': "İstəyirsənsə qaç. Oxlarım daha sürətlidir."
+        },
+        raiders: {
+          '1': "Atlılar! Onları tapdalayın!"
+        },
+        rear: {
+          '1': "Bəsdir oxlar. Səni dırnaqlarımla əzəcəyəm!"
+        },
+        death: {
+          '1': "Bu düzənliklər dırnaqlarımı xatırlayacaq."
+        }
+      },
+      cyclops: {
+        intro: {
+          '1': "Burada balaca bir şey var. Yaxın gəl. Qoy baxım."
+        },
+        cover: {
+          '1': "Daha baxmaq yoxdur. Gözümü ala bilməyəcəksən!"
+        },
+        blind: {
+          '1': "Səni görmürəm, amma eşidirəm!"
+        },
+        death: {
+          '1': "Qaranlıq. Hər şey qaraldı."
         }
       },
       frostJarl: {
@@ -6773,7 +7322,20 @@ export default {
       }
     }
   },
+  invasion: {
+    pylonsDown: 'Son dirək yıxılır və xəzinəsi səpələnir!',
+    reborn: {
+      tusker: 'Yenidən doğulmuş Tusker',
+      emberLord: 'Cəhənnəm Köz Lordu',
+      frostJarl: 'Yenidən doğulmuş Şaxta Yarlı',
+      voidDragon: 'Yenidən doğulmuş Heçlik Əjdahası'
+    }
+  },
   enemy: {
+    sphinx: "Sfinks",
+    leviathan: "Leviafan",
+    hydra: "Hidra",
+    elderDragon: "Qədim Əjdaha",
     trainingDummy: 'Məşq Dummisi',
     goblin: 'Qoblin',
     goblinSlinger: 'Sapandçı Qoblin',
@@ -6798,6 +7360,10 @@ export default {
     naga: 'Naqa',
     skeleton: 'Skelet',
     necromancer: 'Nekromant',
+    chimera: "Ximera",
+    chimeraTail: "İlan Quyruq",
+    centaurWarchief: "Kentavr Sərkərdəsi",
+    cyclops: "Siklop",
     frostJarl: 'Şaxta Yarlı',
     nagaOracle: 'Suya Qərq Olmuş Kahin',
     voidStalker: 'Heçlik Ovçusu',
@@ -6810,6 +7376,7 @@ export default {
     archDemon: 'Baş İblis',
     voidling: 'Heçlik Balası',
     voidLord: 'Heçlik Lordu',
+    demonPylon: 'İblis dirəyi',
     orderGuard: 'Orden İnkvizitoru',
     syndicateBlade: 'Sindikat Tiyəsi',
     goblinWarchief: 'Qoblin Sərkərdəsi',
@@ -6826,7 +7393,19 @@ export default {
     goblinTyrant: 'Qoblin Tiranı',
     voidDrake: 'Heçlik Əjdəri',
     pitLord: 'Uçurum Lordu',
-    frostThane: 'Şaxta Bəyi'
+    frostThane: 'Şaxta Bəyi',
+    hellhound: 'Cəhənnəm iti',
+    frostHellhound: 'Şaxta cəhənnəm iti',
+    gargoyle: 'Qarqoyl',
+    harpy: 'Harpiya',
+    corruptedTreant: 'Pozulmuş ağacadam',
+    centaurRaider: 'Kentavr basqınçı',
+    cyclopsBrute: 'Siklop zorbası',
+    demonMiner: 'İblis mədənçi',
+    sphinxAcolyte: 'Sfinks şagirdi',
+    seaDemon: 'Dəniz iblisi',
+    drakeHatchling: 'Əjdaha balası',
+    hydraSpawn: 'Hidra törəməsi'
   },
   results: {
     careful: 'Ehtiyatlı qələbə ×{mult}',
@@ -7139,6 +7718,8 @@ export default {
     town: 'İstənilən şəhərin dəmirçisi bunu təkmilləşdirə bilər.'
   },
   ore: {
+    'demonglass': { 'name': "İblis şüşəsi" },
+    'ichor': { 'name': "Mifik ixor" },
     iron: {
       name: 'Dəmir filizi'
     },

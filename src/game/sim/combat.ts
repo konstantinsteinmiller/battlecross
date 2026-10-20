@@ -1,7 +1,9 @@
 import { HEAT_MAX, SKILL_BY_ID } from '../data/skills'
+import { DEATH_BARKS, barkKey } from '../data/dialogs/bosses'
 import { ENEMY_BY_ID, RANK_REWARD } from '../data/enemies'
-import { SOUL_RISE_LIFE, spawnSpirit } from './spawn'
+import { SOUL_RISE_LIFE, spawnEnemy, spawnSpirit } from './spawn'
 import { killGold, killXp, addXp, xpToNext } from '../data/progression'
+import { pylonAura } from './invasion'
 import { CHAMPION_REWARD } from '../data/loot'
 import { RESTED_XP } from '../rested'
 import { BLESSING } from '../contracts'
@@ -9,6 +11,8 @@ import { GLASS_DAMAGE } from '../arenaWeek'
 import { rewardBonus, armorMitigation } from './stats'
 import { HARD_CC, isPhysical, type DamageType, type Status, type StatusId, type Unit } from './types'
 import { atPeace, findStatus, hasStatus, outOfReach, statusV, type Sim } from './world'
+import { bossHurt } from './bosses/hooks'
+import { afterBossSpoils, demonGlass, dropsInfernal, relicDefence, relicOffence, relicSteal } from './relics'
 
 /**
  * ─── Damage, healing, statuses, death ────────────────────────────────────────
@@ -71,6 +75,8 @@ export interface StatusOpts {
  */
 export const applyStatus = (sim: Sim, tgt: Unit, id: StatusId, dur: number, v: number, src: Unit | null, o: StatusOpts = {}): Status | null => {
   if (!tgt.alive || dur <= 0) return null
+  // In a conversation (#153): nothing a foe casts lands on him.
+  if (tgt.truce && src && src.team !== tgt.team) return null
   // Frozen in time: nothing new lands, good or bad.
   if (hasStatus(tgt, 'stasis') && id !== 'stasis') return null
   let d = dur
@@ -200,7 +206,8 @@ const wakeGroup = (sim: Sim, u: Unit): void => {
   g.awake = true
   for (const id of g.members) {
     const m = sim.get(id)
-    if (m) m.awake = true
+    // A statue (the gargoyle) sleeps on through its pack's waking.
+    if (m && !ENEMY_BY_ID[m.kind]?.statue) m.awake = true
   }
   sim.emit({ t: 'awake', group: g.id, boss: g.boss })
 }
@@ -215,6 +222,8 @@ export const dealDamage = (sim: Sim, src: Unit | null, tgt: Unit, base: number, 
   // A boss in the air or gone from the field is out of reach of anything.
   if (outOfReach(tgt)) return 0
   if (!tgt.alive || base <= 0) return 0
+  // The opening boss's mercy (#155): every enemy blow lands lighter.
+  if (src && src.team === 1 && tgt.team !== 1) base *= sim.foeHitMul
   // The colosseum's week (#10): Glass makes every blow harder; All fire turns
   // every enemy blow to fire.
   if (sim.arenaMod === 'glass') base *= GLASS_DAMAGE
@@ -241,7 +250,8 @@ export const dealDamage = (sim: Sim, src: Unit | null, tgt: Unit, base: number, 
   let crit = false
   if (src) {
     amount *= src.s.damageMul * (1 + statusV(src, 'damageUp') + statusV(src, 'enrage') + statusV(src, 'elixirMight')) * (1 - Math.min(0.8, statusV(src, 'weaken')))
-    if (tgt.rank === 'boss') amount *= 1 + (srcMods?.bossDamage ?? 0)
+    if (tgt.rank === 'boss') amount *= 1 + (srcMods?.bossDamage ?? 0)    // A demon pylon's aura (an invaded zone, `invasion.ts`): the enemies in its reach hit harder.
+    if (sim.pylons.length && src.team === 1) amount *= pylonAura(sim, src)
     // Adrenal Catalyst (#95): the lower the hero's health, the harder she hits.
     const low = srcMods?.lowHealthDamage ?? 0
     if (low > 0 && src === hero) amount *= 1 + low * Math.min(1, Math.max(0, (1 - src.hp / src.s.maxHp) / 0.7))
@@ -253,6 +263,8 @@ export const dealDamage = (sim: Sim, src: Unit | null, tgt: Unit, base: number, 
     // Crumble (#95): what is already shaken breaks easier.
     const crumble = srcMods?.crumble ?? 0
     if (crumble > 0 && (hasStatus(tgt, 'slow') || hasStatus(tgt, 'knockdown') || hasStatus(tgt, 'knockup') || hasStatus(tgt, 'petrify'))) amount *= 1 + crumble
+    // An Infernal piece's demon affix (afterplay §2.4, `relics.ts`).
+    if (src === hero && srcMods) amount *= relicOffence(srcMods, tgt)
     if (o.backstab || (o.attack && src === hero && isBehind(src, tgt))) amount *= 1.25 + (srcMods?.backstab ?? 0)
     // Smoke Bomb: the next strike from the shadows always crits, and harder.
     const ambush = !o.dot ? findStatus(src, 'ambush') : undefined
@@ -314,8 +326,12 @@ export const dealDamage = (sim: Sim, src: Unit | null, tgt: Unit, base: number, 
     // Thermal Plating (#95): a hot suit hardens.
     if (toHero && (tgt.s.mods.heatArmor ?? 0) > 0 && sim.hero.heat >= HEAT_MAX * 0.5) amount *= 1 - (tgt.s.mods.heatArmor ?? 0)
     amount *= 1 + statusV(tgt, 'vulnerable')
+    // A scripted boss's guard (the cyclops's armour, all but its eye).
+    if (tgt.boss) amount *= tgt.boss.guard
     // Cauterize: a burning enemy hits the Pyromancer more softly.
     if (toHero && src && hasStatus(src, 'burn')) amount *= 1 - (tgt.s.mods.cauterize ?? 0)
+    // The wards of the demon affixes (afterplay §2.4).
+    if (toHero) amount *= relicDefence(tgt.s.mods, src, o.type)
   }
   if (amount < 0.5 && !o.dot) amount = 0.5
 
@@ -357,6 +373,8 @@ export const dealDamage = (sim: Sim, src: Unit | null, tgt: Unit, base: number, 
     tgt.shield -= soak
     left -= soak
   }
+  // A scripted boss may share the blow out first (the Hydra's heads).
+  if (tgt.boss) left = bossHurt(sim, tgt, left, o.type)
   const before = tgt.hp
   tgt.hp -= left
   if (toHero) {
@@ -406,7 +424,7 @@ export const dealDamage = (sim: Sim, src: Unit | null, tgt: Unit, base: number, 
 
   // ── What the hit gives back to the source ──
   if (src && src.alive && dealt > 0 && !o.echo) {
-    let steal = src.s.lifesteal + (phys ? src.s.physLifesteal : 0) + statusV(src, 'lifestealUp') + statusV(src, 'elixirShadow') + (o.steal ?? 0)
+    let steal = src.s.lifesteal + (phys ? src.s.physLifesteal : 0) + statusV(src, 'lifestealUp') + statusV(src, 'elixirShadow') + (o.steal ?? 0) + (src === hero ? relicSteal(srcMods, tgt) : 0)
     if (o.drain) steal *= 1 + (srcMods?.lifeDrainPct ?? 0)
     if (steal > 0) heal(sim, src, dealt * steal, dealt * steal < src.s.maxHp * 0.02)
     if (src === hero && crit) {
@@ -448,6 +466,7 @@ export const reviveHero = (sim: Sim): boolean => {
   if (sim.ended !== 'defeat' || u.alive) return false
   sim.ended = ''
   sim.endedT = 0
+  sim.hero.falls = (sim.hero.falls ?? 0) + 1
   u.alive = true
   u.hp = Math.max(1, Math.round(u.s.maxHp * REVIVE_HP))
   u.deadT = 0
@@ -481,6 +500,9 @@ export const kill = (sim: Sim, u: Unit, by: Unit | null): void => {
     heal(sim, hh.unit, hh.unit.s.maxHp * loyal)
     sim.emit({ t: 'fx', id: 'heal', x: hh.unit.x, z: hh.unit.z, unit: hh.unit.id, color: '#ffd84a' })
   }
+  // A boss's last words.
+  const last = u.rank === 'boss' ? DEATH_BARKS[u.kind] : undefined
+  if (last) sim.emit({ t: 'bark', unit: u.id, key: barkKey(last, 'death') })
   u.alive = false
   u.hp = 0
   u.deadT = 0
@@ -514,7 +536,8 @@ export const kill = (sim: Sim, u: Unit, by: Unit | null): void => {
     // A champion pays like several of its kind: the reward for a fight nobody had to take.
     const mul = RANK_REWARD[u.rank] * def.reward * (u.champion ? CHAMPION_REWARD : 1)
     const cha = h.unit.s.power.cha
-    const xp = killXp(u.level, mul, h.level) * (h.rested > 0 ? RESTED_XP : 1)
+    // An invaded zone pays the afterplay's multiplier (`sim.xpMul`, §2.1).
+    const xp = Math.round(killXp(u.level, mul, h.level) * (h.rested > 0 ? RESTED_XP : 1) * sim.xpMul)
     // The Ashen Syndicate's blessing (+5 standing, #15): more gold from every kill.
     const blessing = h.build.blessings?.includes('syndicate') ? 1 + BLESSING.syndicate.goldPct : 1
     const gold = Math.round(killGold(u.level, mul) * rewardBonus(cha) * blessing * (0.8 + sim.rng() * 0.4))
@@ -526,9 +549,14 @@ export const kill = (sim: Sim, u: Unit, by: Unit | null): void => {
     // A branch boss pays in its chest: it drops like an elite, never the
     // finale's promised piece.
     const finaleBoss = u.rank === 'boss' && !def.branch
-    const table = finaleBoss ? sim.dropTable.boss : sim.dropTable.mob
+    // An afterplay boss (an invaded finale) leaves its own pair (`relics.ts`), not one roll.
+    const after = finaleBoss && sim.invaded && !!sim.dropTable.after?.length
+    const spoils = after ? afterBossSpoils(sim, u) : []
+    // In an invaded zone a tenth of the pieces come as Infernal twins (same dice: the pick is hashed).
+    const infernal = !finaleBoss && dropsInfernal(sim, u)
+    const table = after ? [] : finaleBoss ? sim.dropTable.boss : infernal ? sim.dropTable.infernal! : sim.dropTable.mob
     const chance = finaleBoss ? 1 : u.rank === 'elite' || u.rank === 'boss' ? 0.3 : u.rank === 'weak' ? 0.015 : 0.05
-    if (table.length && sim.rng() < chance) {
+    if (table.length && (finaleBoss || sim.dropTable.mob.length) && sim.rng() < chance) {
       // Something the hero does not own yet, if there is one.
       const fresh = table.filter(id => !sim.owned.has(id) && !h.items.includes(id))
       const pool = fresh.length ? fresh : finaleBoss ? [] : table
@@ -537,13 +565,29 @@ export const kill = (sim: Sim, u: Unit, by: Unit | null): void => {
         h.items.push(item)
       }
     }
-    sim.emit({ t: 'loot', x: u.x, z: u.z, gold, item })
+    sim.emit({ t: 'loot', x: u.x, z: u.z, gold, item: item || (spoils[0] ?? '') })
+    for (const id of spoils.slice(1)) sim.emit({ t: 'loot', x: u.x, z: u.z, gold: 0, item: id })
   }
+  // A demon slain in an invaded zone leaves its Demonglass (afterplay §2.4).
+  if (h && !summoned) demonGlass(sim, u)
   if (def?.deathBlast && by) {
     const b = def.deathBlast
     sim.emit({ t: 'fx', id: 'blast', x: u.x, z: u.z, r: b.r, color: def.color })
     const near = sim.inCircle(0, u.x, u.z, b.r, scratch)
     for (const t of near) dealDamage(sim, null, t, u.s.baseDmg * b.dmg, { type: b.type, canCrit: false })
+  }
+  // A hydra spawn splits once: smaller pieces of itself, worth nothing (summons), already in the fight.
+  if (def?.split && !u.split) {
+    for (let i = 0; i < def.split.count; i++) {
+      const ang = (i / def.split.count) * Math.PI * 2 + u.facing
+      const m = spawnEnemy(sim, u.kind, u.x + Math.cos(ang) * 0.9, u.z + Math.sin(ang) * 0.9, u.group, u)
+      if (!m) continue
+      m.split = true
+      m.s.maxHp *= def.split.hp
+      m.hp = m.s.maxHp
+      m.targetId = by?.id ?? 0
+      sim.emit({ t: 'fx', id: 'summon', x: m.x, z: m.z, color: def.color })
+    }
   }
   // Restless Souls (#95): a foe beaten by the hero or his own may rise as his spirit.
   const rise = h ? (h.unit.s.mods.soulRise ?? 0) : 0
@@ -563,7 +607,7 @@ export const grantXp = (sim: Sim, amount: number): void => {
     sim.emit({ t: 'xp', amount })
     return
   }
-  const r = addXp(h.level, h.xpInto, amount)
+  const r = addXp(h.level, h.xpInto, amount, h.build.levelCap)
   h.xpInto = r.xp
   sim.emit({ t: 'xp', amount })
   if (r.gained > 0) {

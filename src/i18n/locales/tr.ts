@@ -1,5 +1,170 @@
 // Turkish locale — mirrors the key shape of en.ts exactly.
 export default {
+  // ─── Afterplay phase 8: items, materials and capstones ───
+  // ─── Afterplay phase 10: the prestige classes ───
+  'prestige': { 'toast': { 'wanderer': "Gizemli bir gezgin kalede bekliyor." } },
+  'relic': {
+    'infernal': "{name} · Cehennemî",
+    'set': "{item} ile giyilince:",
+    'heroicBadge': "Kahramanca {n}",
+    'heroic': "Kahramanca {n}: {gold} altın, {glass} iblis camı",
+    'heroicIchor': "Kahramanca {n}: {gold} altın, {glass} iblis camı, {ichor} ikor",
+    'heroicMax': "Tüm kahramanlık rütbeleri alındı.",
+    'infernalForge': "Cehennemî dövme: {gold} altın, {glass} iblis camı",
+    'lens': "Kâhin Merceği: {boss} burada bekliyor.",
+    'hydraKey': "Mühürlü. Hidra'nın ateş anahtarı Yarık'ın kalbini açar.",
+    'marksGlass': "{marks} işarete {glass} iblis camı satın al",
+    'capstone': "Doruk",
+    'fortOnly': "Bu doruk yalnızca Burç Geçidi'nde öğretilir."
+  },
+  // ─── The fort's fair games (afterplay §9) ───
+  'fair': {
+    'fee': "Oyna · {n}",
+    'again': "Tekrar oyna",
+    'noGold': "Yeterli altın yok.",
+    'capped': "Büyük ödüller dönmeden önce temizlenecek bölge: {n}",
+    'top': "Büyük ödül! +{gold} altın, +{xp} TP",
+    'topGold': "Büyük ödül, yalnızca altın: +{n} altın",
+    'won': "Kazandın! +{n} altın",
+    'lost': "Şanssızlık. Seri baştan başlıyor.",
+    'row': "Üst üste galibiyet: {n} / {max}",
+    'mats': "+{n} Kahraman+ malzemesi",
+    'discount': "Demirci artık geliştirmelerde %{n} indirim yapıyor!"
+  },
+  'whack': {
+    'title': "İblisi Vur",
+    'lead': "30 saniyede 20 iblis vur. Altın zırhlılara dokunma: vurduğun her biri bir cana mal olur.",
+    'hits': "İblisler: {n} / {max}",
+    'lives': "Can: {n}",
+    'time': "Süre: {n} sn",
+    'hint': "İblislere dokun ya da 1–9 tuşlarına bas.",
+    'barrel': "Fıçı {n}",
+    'timeout': "Süre doldu!",
+    'dead': "Canın kalmadı!"
+  },
+  'ring': {
+    'title': "Hidra'ya Halka Atma",
+    'lead': "Güç için basılı tut, atmak için bırak. Bir kafa halkayı yalnızca salınımının ortasına yakınken yakalar. Üst üste her kafa bir puan fazla değer.",
+    'hint': "Masada basılı tut ve bırak ya da Boşluk'u basılı tut.",
+    'rings': "Kalan halka: {n}",
+    'score': "Puan: {n}",
+    'hit': "Geçti! +{n}",
+    'miss': "Iska!",
+    'perfect': "Kusursuz bir tur!",
+    'nothing': "Puan {n}. Bu sefer ödül yok.",
+    'power': "Güç"
+  },
+  'arm': {
+    'title': "Bilek Güreşi",
+    'lead': "Halka daireye değdiğinde dokunarak kolunu bastır. Güç ritmi genişletir. Üst üste üç galibiyet demirci indirimi, beş galibiyet Kahraman+ malzemesi getirir.",
+    'hint': "Masaya dokun ya da Boşluk'a bas.",
+    'good': "Bastır!",
+    'off': "Ritim kaçtı!"
+  },
+  // ─── The Siege of Bastion (afterplay §8) ───
+  'siege': {
+    'title': "Burç Geçidi Kuşatması",
+    'lead': "Kapıyı on dalga boyunca tut. Dalgalar arasında kuşatma işaretlerini savunmaya harca.",
+    'story': "Sürü kapıda. On dalgaya dayan: bu ilk kuşatma kaybedilemez.",
+    'bell': "Kuşatma çanı çalıyor! Sürü kapının önünde toplanıyor.",
+    'mapBell': "Kuşatma!",
+    'start': "Çanı çal",
+    'wins': "Zaferler: {n}",
+    'marksBank': "Biriken kuşatma işaretleri: {n}",
+    'tier': {
+      'normal': "Normal",
+      'hard': "Zor",
+      'nightmare': "Kâbus"
+    },
+    'tierDesc': {
+      'normal': "Düşmanlar senden bir seviye yukarıda.",
+      'hard': "Düşmanlar 3 seviye yukarıda ve %30 daha fazla canlı.",
+      'nightmare': "Düşmanlar 6 seviye yukarıda ve iki dalga efsanevi seçkin."
+    },
+    'locked': {
+      'hard': "Önce normal bir kuşatmayı kazan.",
+      'nightmare': "Yarık mühürlenince ya da aralık bırakılınca açılır."
+    },
+    'lord': "Kuşatma Lordu",
+    'hud': {
+      'wave': "Dalga {n}/{total}",
+      'marks': "İşaretler: {n}",
+      'gate': "Kapı %{pct}",
+      'build': "{n}. dalga {s} sn sonra",
+      'ready': "Hazır!",
+      'buy': "{name}: {n} işaret"
+    },
+    'def': {
+      'ballista': {
+        'name': "Mancınık yay",
+        'desc': "Her 2 saniyede bir şeridi boyunca delici bir ok fırlatır."
+      },
+      'cauldron': {
+        'name': "Ateş kazanı",
+        'desc': "Şeridinin dar boğazını ateşe verir."
+      },
+      'barricade': {
+        'name': "Barikat",
+        'desc': "Bir şeridi 20 saniye kapatır."
+      },
+      'militia': {
+        'name': "Milis",
+        'desc': "İki muhafız yanında savaşır."
+      },
+      'repair': {
+        'name': "Kapıyı onar",
+        'desc': "Kapının dörtte birini onarır."
+      }
+    },
+    'block': {
+      'marks': "Yeterli kuşatma işareti yok.",
+      'full': "Daha fazlasına yer yok.",
+      'phase': "Yalnızca dalgalar arasında."
+    },
+    'toast': {
+      'cleared': "{n}. dalga püskürtüldü! +{marks} işaret",
+      'clearedUnharmed': "{n}. dalga püskürtüldü, kapı sapasağlam! +{marks} işaret",
+      'horn': "Boru çalıyor! Kapı %{pct} seviyesinde.",
+      'ram': "Koçbaşı! Kapıya varmadan durdur onu!",
+      'rally': "Yeniden ayaktasın! Kapıyı tut!"
+    },
+    'banner': {
+      'wave': "{n}. dalga",
+      'final': "Kuşatma Lordu!"
+    },
+    'result': {
+      'tier': "Burç Geçidi Kuşatması: {tier}",
+      'waves': "Püskürtülen dalgalar: {n}/{total}",
+      'marks': "Korunan kuşatma işaretleri: {earned} işaretten {banked}",
+      'glass': "İblis camı: +{n}"
+    },
+    'milestone': {
+      'normal1': "Dönüm noktası: Burç Sancağı.",
+      'normal5': "Dönüm noktası: Sur Bekçisinin Zırhı.",
+      'hard1': "Dönüm noktası: Gazi İçgüdüsü, beşinci pasif yuva.",
+      'hard5': "Dönüm noktası: Kapı Kıran.",
+      'nightmare1': "Dönüm noktası: Son Burcun Tacı.",
+      'hardFlawless': "Dönüm noktası: gizli bir sınıf sınavının anahtarı."
+    }
+  },
+  // ─── The Breaking (the afterplay's story) ───
+  'breaking': {
+    'title': "Kırılış",
+    'toast': {
+      brk6: "Demirci Ustası ocağına kavuştu. Cehennem demirciliği açıldı.",
+      brk7: "Sfenks öldü. Kâhinin Merceği büyük canavarların nerede beklediğini gösteriyor.",
+      brk8: "Leviathan öldü. Pulu sığ sularda yürümeni sağlıyor.",
+      brk9: "Hidra öldü. Ateş anahtarı artık senin.",
+      brk10: "Kadim Ejderha öldü. Yarık açık duruyor.",
+      sealed: "Yarık mühürlendi. Artık Yarığın Mühürleyicisisin.",
+      ajar: "Yarık aralık kalıyor. Şeytanlar surları ve arenayı sınayacak.",
+      'brk2': "Burç Geçidi seni kabul ediyor. Halkı artık sana güveniyor.",
+      'rescued': "Hayatta kalanlar kurtarıldı! Burç Geçidi'nde güvendeler.",
+      'brk3': "Yol açık. Sunford halkı güvende.",
+      'brk4': "Şifacı kadın kaleye katılıyor.",
+      'brk5': "Sentor sürüsü dağıtıldı. Kale bir kuşatmaya hazırlanıyor.",
+    },
+  },
   // ─── The intro (#130): its skip, and its narrator's name ───
   intro: {
     narrator: 'Vakanüvis',
@@ -88,6 +253,7 @@ export default {
     gold: '{n} altın',
     potion: 'Can iksiri ({n} kaldı)',
     manaPotion: 'Mana iksiri ({n} kaldı)',
+    potionStop: 'Devam etmek için bir can iksiri iç',
     groups: '{total} düşman grubundan {n} tanesi yenildi',
     wave: 'Dalga {n} / {total}',
     roll: 'Yuvarlan',
@@ -261,6 +427,10 @@ export default {
     escort: 'Kervanı koru'
   },
   node: {
+    'bastion': {
+      'name': "Burç Geçidi",
+      'desc': "Eski bir sınır kalesi, hâlâ ayakta kalan son surlar. Hayatta kalanlar burada toplanıyor.",
+    },
     sunford: {
       name: 'Sunford',
       desc: 'Ovaların kıyısında bir çiftçi kasabası. Yuva, bir demirci ve iki eğitmen.'
@@ -343,6 +513,9 @@ export default {
     locked: 'Yolu açmak için komşu bir bölgeyi temizle.',
     lockedArena: 'Kapıları, Goblin Kralı’nın işi görülünce açılır.',
     lockedRift: 'Dehşet Kalesi’nin tahtı karara bağlanınca açılır.',
+    invaded: 'İstila edildi',
+    invadedDesc: 'Bu toprakları iblisler tutuyor. Sütunları yakındaki düşmanların daha sert vurmasını sağlar, yarık izleri yakar ve yavaşlatır, burada yenilen her düşman daha değerlidir.',
+    lockedInvaded: 'İblisler burayı sıkı tutuyor. Önce {zone} bölgesini geri al.',
     danger: {
       '1': 'Seviyenin biraz üstünde.',
       '2': 'Seviyen için tehlikeli.',
@@ -469,6 +642,11 @@ export default {
     }
   },
   class: {
+    // ── The prestige classes (afterplay phase 10) ──
+    'demonhunter': { 'name': "İblis Avcısı", 'desc': "Gölge ve kutsal ışık, tek bir avına yeminli. İblisleri işaretler, işaretlenenler çabuk düşer." },
+    'dragoon': { 'name': "Ejder Süvarisi", 'desc': "Çizmelerin altında rüzgâr, kolda kalkan. Gökten atlar ve koca sıraları mızraklar." },
+    'hexsmith': { 'name': "Lanet Demircisi", 'desc': "Kanla beslenen eter zanaati. Düşmanı emip demirciyi iyileştiren taretler kurar." },
+    'tidecaller': { 'name': "Gelgit Çağıran", 'desc': "Ayaz ve elementler, denize dökülmüş. Düşmanı geri atan ve ıslatan dalgalar." },
     aegis: {
       name: 'Aegis Şövalyesi',
       desc: 'Kalkan ve kutsal çelik. Darbeleri o yer, başkası yemesin diye.'
@@ -535,6 +713,35 @@ export default {
     }
   },
   skill: {
+    // ── The prestige classes (afterplay phase 10) ──
+    'huntersMark': { 'name': "Avcı İşareti", 'desc': "{dmg}% Çeviklik hasarı veren kutsal bir cıvata. {dur} sn boyunca hedef {vuln}% daha fazla hasar alır, bir iblis {demon}% daha fazla." },
+    'demonsBane': { 'name': "İblis Belası", 'desc': "İblislere +{bane}% hasar ve onlardan {ward}% daha az hasar." },
+    'silverVolley': { 'name': "Gümüş Yaylım", 'desc': "Bir hat boyunca gümüş cıvatalar: {dmg}% Çeviklik hasarı, iblislere ve işaretli düşmanlara +{bane}%." },
+    'skyfallLeap': { 'name': "Gökten Düşüş", 'desc': "{air} sn erişilmez yere sıçra, sonra in: {radius} m içinde {dmg}% Güç hasarı, düşmanlar devrilir." },
+    'dragonBlood': { 'name': "Ejder Kanı", 'desc': "Boss'lara +{boss}% hasar, +{hp}% azami can ve hiçbir şey seni geri itemez." },
+    'dragonLance': { 'name': "Ejder Mızrağı", 'desc': "Bir hat boyunca mızrak darbesi: içindeki her düşmana {dmg}% Çeviklik hasarı." },
+    'hexTurret': { 'name': "Lanetli Taret", 'desc': "{dur} sn için bir taret kur. Her saniye {radius} m içindeki en yakın düşmanı {dmg}% Beceri hasarıyla emer; bunun {drain}%'ini iyileşirsin." },
+    'soulForge': { 'name': "Ruh Ocağı", 'desc': "+{hp}% azami can, saniyede {regen} can ve {reduce}% daha az hasar alırsın." },
+    'hexBolt': { 'name': "Lanetli Cıvata", 'desc': "{hp}% can öde: {dmg}% Beceri hasarı veren bir cıvata. Bunun {heal}%'ini iyileşirsin ve düşman {dur} sn boyunca {weak}% daha az hasar verir." },
+    'tidalWave': { 'name': "Gelgit Dalgası", 'desc': "Bir hat boyunca dalga: {dmg}% Zekâ hasarı, düşmanlar geri atılır ve ıslanır ({dur} sn boyunca {slow}% yavaşlama)." },
+    'seaborn': { 'name': "Denizden Doğan", 'desc': "Üşümüş düşmanlara +{bonus}% hasar, {reduce}% daha az alınan hasar, +{move}% hız." },
+    'undertow': { 'name': "Ters Akıntı", 'desc': "{dur} sn boyunca bir girdap: {radius} m içinde toplam {dmg}% Zekâ hasarı. Düşmanları içeri çeker ve {slow}% yavaşlatır." },
+    'bastionWall': { 'name': "Burç Duvarı", 'desc': "{dur} sn boyunca {radius} m içindeki her düşman sana saldırmak zorunda ve %{def} daha az hasar alırsın. Sonra ışık %{dmg} Güç +alınan darbelerin %{back} kadarını vurur." },
+    'thousandCuts': { 'name': "Bin Kesik", 'desc': "{radius} m içindeki düşmanlar arasında atılıp {hits} kez vur; her vuruş %{dmg} Çeviklik hasarı. Boss yalnızca bir vuruş alır. Keserken hiçbir şey sana dokunamaz." },
+    'cinderSun': { 'name': "Kül Güneşi", 'desc': "Ölen bir güneş {dur} sn boyunca parçalanır: {meteors} yanan parça, her biri %{dmg} Zekâ hasarı verir." },
+    'royalLegion': { 'name': "Kraliyet Lejyonu", 'desc': "Lejyonu {dur} sn çağır: {archers} okçu, {guards} muhafız ve {mages} savaş büyücüsü." },
+    'stoppedHour': { 'name': "Durmuş Saat", 'desc': "{radius} m içinde saati {dur} sn durdur. Yeniden işlediğinde her düşman %{dmg} Zekâ hasarı alır." },
+    'redCovenant': { 'name': "Kızıl Ahit", 'desc': "{radius} m içindeki her düşmanın canının %{pct} kadarını al. Bunun %{heal} kadarı seni iyileştirir." },
+    'orbitalLance': { 'name': "Yörünge Mızrağı", 'desc': "Gökten inen bir ışık mızrağı nişan aldığın yeri yakar: {dur} sn içinde %{dmg} Beceri hasarı." },
+    'tectonicHeart': { 'name': "Tektonik Kalp", 'desc': "Yerin kalbi yarılır: yakındaki her şeye %{dmg} Güç hasarı ve {dur} sn yavaşlatan moloz." },
+    'eyeOfTheGale': { 'name': "Fırtınanın Gözü", 'desc': "{dur} sn ok fırtınası: toplam %{dmg} Beceri hasarı ve %{slow} yavaşlatma." },
+    'endlessWinter': { 'name': "Sonsuz Kış", 'desc': "Sonu gelmeyen bir kış senden fışkırır: {radius} m içinde %{dmg} Zekâ hasarı, herkes {freeze} sn donar." },
+    'dawnbreak': { 'name': "Şafak Sökümü", 'desc': "{dur} sn şafak ol: her saniye {radius} m içinde %{dmg} Zekâ hasarı ve %{heal} iyileşme." },
+    'alphasCall': { 'name': "Alfanın Çağrısı", 'desc': "{wolves} kurt çağrıya uyup {dur} sn seninle koşar. Tüm sürü +%{dmg} hasar verir ve %{move} daha hızlı gider." },
+    'prismStorm': { 'name': "Prizma Fırtınası", 'desc': "{dur} sn boyunca dört element kudurur: birbirini tetikleyen %{dmg} Zekâlık {strikes} vuruş." },
+    'ferryman': { 'name': "Kayıkçı", 'desc': "{dur} sn boyunca yanında düşen her düşman ruhun olarak kalkar ve ruhlar %{atk} daha fazla hasar verir." },
+    'unmovingMountain': { 'name': "Sarsılmaz Dağ", 'desc': "Tüm chi'yi harca: bir dağ çöker, %{dmg} Çeviklik hasarı, chi başına +%{per}, düşmanları yere serer." },
+    'encore': { 'name': "Bis", 'desc': "Bir kez daha {dur} sn (+%{buff} hız, hasar, Savunma), sonra son akor: %{dmg} Karizma, düşmanlar büyülenir." },
     kind: {
       active: 'Aktif',
       passive: 'Pasif'
@@ -590,7 +797,7 @@ export default {
     },
     danceOfBlades: {
       name: 'Bıçakların Dansı',
-      desc: '{radius} m içindeki düşmanlar arasında atıl, {hits} kez vurarak toplam {dmg}% Çeviklik hasarı ver. Dans ederken sana vurulamaz.'
+      desc: '{radius} m içindeki düşmanlar arasında atıl, {hits} kez vur; her vuruş {dmg}% Çeviklik hasarı. Boss yalnızca bir vuruş alır. Dans ederken sana vurulamaz.'
     },
     fireball: {
       name: 'Ateş Topu',
@@ -1338,6 +1545,8 @@ export default {
     magic: 'Büyü · {attr} ile artar'
   },
   source: {
+    'siege': "Burç Geçidi Kuşatması'nda kazanıldı.",
+    'infernal': "Cehennemî ikiz: istila edilmiş {zone} bölgesinde düşer ya da bir demirci döver.",
     arena: 'Kolezyum sıralamasında kazanıldı.',
     smith: 'Bir demirci ocağında dövüldü.',
     mob: '{zone} bölgesinin canavarlarından düşer.',
@@ -1346,6 +1555,15 @@ export default {
     secret: '{zone} bölgesinde gizli bir sandıkta saklı.'
   },
   mod: {
+    'demonBane': "İblislere +%{n} hasar",
+    'demonLeech': "İblislere verilen hasarın %{n} kadarı seni iyileştirir",
+    'beastBane': "Mitik canavarlara +%{n} hasar",
+    'fireWard': "Alınan ateş hasarı %{n} daha az",
+    'shadowWard': "Alınan gölge hasarı %{n} daha az",
+    'demonWard': "İblislerden gelen hasar %{n} daha az",
+    'pylonBreaker': "İblis pilonlarına +%{n} hasar",
+    'glassFinder': "Öldürülen bir iblisin fazladan iblis camı bırakma şansı %{n}",
+    'waterWalk': "Su seni yavaşlatmaz",
     str: '+{n} Güç',
     dex: '+{n} Çeviklik',
     int: '+{n} Zekâ',
@@ -1421,6 +1639,24 @@ export default {
     songLength: 'Şarkılar %{n} daha uzun sürer'
   },
   item: {
+    'chimeraMane': { 'name': "Kimera Yelesi" },
+    'triFang': { 'name': "Üç Diş" },
+    'warchiefsLongbowGun': { 'name': "Savaş Reisinin Yay-Tüfeği" },
+    'hoofbreakerGreaves': { 'name': "Toynakkıran Dizlikler" },
+    'eyeOfTheDeep': { 'name': "Derinliklerin Gözü" },
+    'beamSplitter': { 'name': "Işın Yaran" },
+    'riddleCrown': { 'name': "Bilmece Tacı" },
+    'sandglassWand': { 'name': "Kum Saati Asası" },
+    'leviathanScale': { 'name': "Leviathan Pulu" },
+    'tidecallerStaff': { 'name': "Gelgit Çağıranın Asası" },
+    'hydraScaleGauntlets': { 'name': "Hidra Pulu Eldivenler" },
+    'manyHeadedFlail': { 'name': "Çok Başlı Gürz" },
+    'heartOfTheElderDragon': { 'name': "Kadim Ejderin Kalbi" },
+    'dragonboneGreatsword': { 'name': "Ejder Kemiği Büyük Kılıç" },
+    'bastionBanner': { 'name': "Burç Sancağı" },
+    'wallwardensPlate': { 'name': "Sur Muhafızının Zırhı" },
+    'gatebreaker': { 'name': "Kapıkıran" },
+    'crownOfTheLastBastion': { 'name': "Son Burç'un Tacı" },
     heartOfTheArena: {
       name: 'Arenanın Kalbi'
     },
@@ -3418,8 +3654,17 @@ export default {
     known: 'Öğrenildi',
     friend: '{faction} dostlarını onurlandırır: 20% indirim.',
     fee: 'Ücret',
+    rank: {
+      label: '{n}. Derece',
+      up: 'Derece yükselt',
+      effect: '+%{effect} etki, −%{cd} bekleme süresi',
+      max: 'En yüksek derece',
+      level: '{n}. derece için {lvl}. seviye gerekir.'
+    },
     hint: 'Bir ders seç. Yeşil kenar, şimdi öğrenebileceğin anlamına gelir.',
     block: {
+      'trial': "Bu sınıfın sınavını henüz geçmedin.",
+      'parents': "Önce {a} ve {b} sınıflarından birer yetenek öğren.",
       level: 'Seviyen çok düşük.',
       attrs: 'Niteliklerin çok düşük.',
       gold: 'Yeterli altın yok.'
@@ -3444,6 +3689,20 @@ export default {
     circle: 'Eter Çemberi'
   },
   npc: {
+    'mysteriousWanderer': { 'name': "Gizemli Gezgin" },
+    'fairPip': { 'name': "Pip" },
+    'fairBess': { 'name': "Yaşlı Bess" },
+    'fairHob': { 'name': "Hob" },
+    sunkenPriest: { name: "Batık Rahip" },
+    'fortHale': {
+      'name': "Yüzbaşı Hale",
+    },
+    'fortMara': {
+      'name': "Bilge Mara",
+    },
+    'scoutWren': {
+      'name': "İzci Wren",
+    },
     frostDisciple: {
       name: 'Ivor Hask'
     },
@@ -3733,6 +3992,185 @@ export default {
     }
   },
   dlg: {
+    // ── The Mysterious Wanderer (afterplay phase 10) ──
+    'mysteriousWanderer': {
+      'hello': { '1': "Demek. Pek azının yapabildiğini yaptın. Bunu yarığın öbür yanında hissettim.", '2': "İki okulu bir eden eski yolları öğretirim. Yalnızca hak edenlere." },
+      'sealed': { '1': "Onu mühürledin. Yazık, bir bakıma. Manzarayı severdim." },
+      'ajar': { '1': "Onu aralık bıraktın. Cesur. İblisler seni tetikte tutacak." },
+      'again': { '1': "Yine geldin. Yol uzun, ama iyi yürüyorsun." },
+      'train': { '1': "Bana olduğun şeyin iki yarısını göster, ben de onları bir edeyim." },
+      'trial': { 'say': "Hangi sınavlardan söz ediyorsun?", '1': "Çiziksiz tutulan bir kapı. Bir kez bile düşmeden öldürülen bir ejderha. Beş cehennem dövmesi ve üst üste beş galibiyet.", '2': "Leviathan'ın ölümü ve hidrada kusursuz bir tur. Her biri sana gösterebileceğim bir kapı açar." },
+      'who': { '1': "Bir gezgin. Deden doğmadan önce yarığın kıyısında yürürdüm. İsimler aşınır." },
+      'trainBack': { '1': "Çalış. İki okul anlaşmadan önce kavga eder." },
+      'bye': { '1': "Dikkatli yürü. Burada olacağım, olmayana dek." }
+    },
+    'fairPip': {
+      'hello': { '1': "Gelin bakın! Dokuz fıçı, bir sürü iblis ve tek bir tokmak. Geri gömün onları!", '2': "İblisler fıçılardan fırlar. Kum bitmeden yirmisini vur.", '3': "Altın zırhlılara dokunma, bir cana mal olurlar. Üst üste üç galibiyet ve büyük ödül senin." },
+      'again': { '1': "Daha fazla vurmak mı? Tokmağı kap!" },
+      'play': { '1': "Tokmak yukarı! Geliyorlar!" },
+      'who': { '1': "Pip, mesleğim iblis avcılığı. Bunları kendim yakaladım. Isırırlar." },
+      'playBack': { '1': "Ha! Ne gürültü! Bir daha?" },
+      'bye': { '1': "Tokmak kolunu gevşek tut!" }
+    },
+    'fairBess': {
+      'hello': { '1': "Beş halka, üç kafa, hiçbiri ısırmaz. Kendim oydum, boyaya dikkat et.", '2': "Hız için basılı tut, atmak için bırak. Bir kafa halkayı ancak ortaya salındığında yakalar.", '3': "Üst üste her kafa bir fazla sayılır. Beşini de geçir, sana hakkını veririm." },
+      'again': { '1': "Yine benim ihtiyar kızla şansını mı deneyeceksin?" },
+      'play': { '1': "Al halkalarını. Yavaş at, canım." },
+      'who': { '1': "Panayır yollarında kırk yıl. Hidra savaşla geldi. Yakışır gibi geldi." },
+      'playBack': { '1': "Fena değil. Rahmetli kocam daha kötü atardı." },
+      'bye': { '1': "Çıkarken boyaya dikkat." }
+    },
+    'fairHob': {
+      'hello': { '1': "Ah. Merhaba. Bilek güreşi yapmak ister misin? Yavaş giderim. Denerim.", '2': "Halka daireye değince bastır. Ritmi kaçırırsan kayarsın.", '3': "Güçlü kollar işi kolaylaştırır. Beni üst üste üç kez yen, Demirci Usta sana indirim yapar." },
+      'again': { '1': "Bir tur daha mı? Kimse bir tur daha için dönmez." },
+      'play': { '1': "Dirsek masaya. Ne zaman istersen." },
+      'who': { '1': "Ben Demirci Usta'nın çırağıyım. Kendi gücümü bilmediğimi söylüyor." },
+      'playBack': { '1': "İyi maçtı. Yarın kolum ağrıyacak. Muhtemelen." },
+      'bye': { '1': "Yakında yine gel. Demirhane çok sessiz." }
+    },
+    // ── The Breaking (the afterplay, B0–B5) ──
+    'story': {
+      forge: { back: { '1': "Ocağım yine yanıyor, eskisinden de sıcak. Şeytan demiri iyi erir.", '2': "Dışarıda ne bulursan getir. Artık onu cehennemî dövebilirim." } },
+      oracle: { lens: { '1': "Bir zamanlar beni özgür bıraktın. Şimdi senin için göreceğim. Merceğimi al.", '2': "İçinden bak, harita sana büyük canavarların nerede beklediğini gösterecek." } },
+      priest: { lens: { '1': "Kâhin gitti, bu yüzden tapınağını artık ben koruyorum. Bunu Sfenks koruyordu.", '2': "Onun Merceği. İçinden bak, harita sana büyük canavarların nerede beklediğini gösterecek." } },
+      herbs: { scale: { '1': "Leviathan'dan bir pul! Yaprak kadar hafif ve suda yüzüyor.", '2': "Onu taşı, sığ sular seni sağlam toprak gibi tutacak." } },
+      ghost: { key: { '1': "Demek tahtımı alan sensin. Hidramı öldürdün. Güzel.", '2': "Ateş anahtarını al. Yarığın kalbi yanıyor ve onu ancak ateş açar." } },
+      syndicate: { key: { '1': "Hidra öldü mü? O zaman ateş anahtarı parayı verenindir. Ya da senin, sanırım.", '2': "Yarığın kalbini açıyor. Git ve kapat onu, işlerimi yutmadan önce." } },
+      sealed: {
+        sealed: { '1': "Ve böylece yarık mühürlendi, dünya iyileşmeye başladı.", '2': "Kasabalar yeniden kuruldu, şarkılar yazıldı ve hepsinde tek bir isim vardı." },
+        ajar: { '1': "Ve böylece yarık aralık bırakıldı, dünya onunla yan yana yaşamayı öğrendi.", '2': "Surlar nöbetçisiz kalmadı, arena gürültülü kaldı, kahraman da hep hazır." },
+      },
+      'rift': {
+        'scream': {
+          '1': "Boşluk Efendisi düşüyor ve ardındaki yarık çığlık atıyor.",
+          '2': "Orası hiçbir zaman onun tahtı değildi. Onun kafesiydi ve o da kapağıydı.",
+          '3': "Şimdi yarık açık ve boşluğun uyuttuğu her şey uyanıyor.",
+        },
+      },
+      'wren': {
+        'found': {
+          '1': "İşte buradasın! Ben Wren, izciyim. Seni her yerde aradım.",
+          '2': "Sunford yanıyor. Kaçabilen herkes Burç Geçidi'ne gitti.",
+          '3': "Kül Kayalıkları yolundaki eski kale. Acele et, sana ihtiyaçları var.",
+        },
+      },
+    },
+    'scoutWren': {
+      sealed: { '1': "Ejderha gitti! Yollar şimdiden hafiflemiş gibi." },
+      'hello': {
+        '1': "Geldin! Biliyordum. Burç Geçidi'ne hoş geldin.",
+        '2': "Yüzbaşı için yolları keşfediyorum. Belanın nerede olduğunu bana sor.",
+      },
+      'again': {
+        '1': "Döndün mü bile? Yollar kendi kendini keşfetmez.",
+      },
+      'who': {
+        '1': "Wren. Sunford yanmadan önce muhafızlara haber taşırdım.",
+      },
+      'rumor': {
+        'plains': {
+          '1': "İblisler Sunford Ovaları'ndaki yolu tutuyor. Sunford'un hocaları arkasında mahsur.",
+        },
+        'hollows': {
+          '1': "Goblin Oyukları cehennem köpekleriyle kaynıyor. Temizle, Sunford halkı evine dönebilsin.",
+        },
+        'woods': {
+          '1': "Fısıldayan Orman'da üç başlı bir şey avlanıyor. Şifacı kadın orada saklanıyor.",
+        },
+        'outskirts': {
+          '1': "Sentorlar Oakhaven Varoşları'nda at koşturuyor. Surlara varırlarsa her kılıç gerekecek.",
+        },
+        'siege': {
+          '1': "Sürüleri dağıldı ama yenileri toplanıyor. Yüzbaşı surları hazırlıyor.",
+        },
+      },
+      'bye': {
+        '1': "Yolları gözle. Ben de gözleyeceğim.",
+      },
+    },
+    'fortHale': {
+      sealed: { '1': "Ejderha öldü. Bunu görecek kadar yaşayacağımı hiç düşünmemiştim. Teşekkürler." },
+      'siegeBack': { '1': "Henüz değil mi? O hâlde dinlen. Surlar seni bekler." },
+      'bell': { '1': "O hâlde kapıya. Söyle bana, onu ne kadar sıkı tutacağız." },
+      'hello': {
+        '1': "Başardın. Güzel. Her kılıca ihtiyacımız var, şimdi her zamankinden çok.",
+        '2': "Burç Geçidi'ne hoş geldin. Eski surlar, ama hâlâ ayakta kalan tek surlar.",
+      },
+      'road': {
+        '1': "Sunford yolu yeniden açık. Halkı surlarımızın ardında güvende.",
+      },
+      'herbs': {
+        '1': "Şifacı kadın otlarıyla birlikte döndü. Revir nefes alabilir.",
+      },
+      'siege': {
+        '1': "Sentorları dağıttın. Ama daha büyük bir ordu geliyor ve bu surlar için geliyor.",
+      },
+      'again': {
+        '1': "Hâlâ ayaktayız. Surlar, adamlar ve ben.",
+      },
+      'fort': {
+        '1': "Eski bir sınır kalesi. Gökyüzü yırtılana dek elli yıl boş kaldı.",
+        '2': "Şimdi ovalarla dağlar arasındaki son güvenli yer.",
+        'say': "Burası neresi?",
+      },
+      'rumor': {
+        'road': {
+          '1': "Ovaları ve Oyukları temizle. Sunford halkı orada mahsur.",
+        },
+        'woods': {
+          '1': "Şifacı kadın Fısıldayan Orman'da, üç başlı bir canavar da öyle. Hazır ol.",
+        },
+        'centaurs': {
+          '1': "Varoşlarda sentorlar var. Bize ulaşmadan sürülerini dağıt.",
+        },
+        'siege': {
+          '1': "Dinlen biraz. Kuşatma çanı çaldığında seni surlarda isteyeceğim.",
+        },
+      },
+      'bye': {
+        '1': "Kılıcını yakında tut.",
+      },
+    },
+    'fortMara': {
+      sealed: { '1': "Başardın, evlat. Her birimiz sana bir yuva borçluyuz." },
+      'siegeBack': { '1': "Biraz dinlen, evlat. Çan yeniden çalacak." },
+      'bell': { '1': "Yüzbaşının surlarını artık ben koruyorum. Onları nasıl tutacağımızı seç." },
+      'hello': {
+        '1': "Evladım! Yaşıyorsun. Sunford yandığında en kötüsünden korktum.",
+        '2': "Artık bir asker kalesinde misafiriz, yaşlı kadınlar dahil.",
+      },
+      'command': {
+        '1': "Yüzbaşı Hale, Oakhaven ile birlikte düştü. Kale artık yaşlı bir bilgeyi dinliyor.",
+      },
+      'home': {
+        '1': "Sunford yeniden inşa ediliyor! İlk çatılar kalktı. Ağlayabilirim.",
+      },
+      'again': {
+        '1': "Hâlâ buradayım, evladım. Hâlâ kafa sayıyorum.",
+      },
+      'town': {
+        '1': "İblisler gece göğünden indi. Taşıyabildiğimizle kaçtık.",
+        '2': "Bazılarımız hiç çıkamadı. Gücün yeterse geri kalanları eve getir.",
+        'say': "Sunford'a ne oldu?",
+      },
+      'rumor': {
+        'road': {
+          '1': "Hocalarımız hâlâ Sunford yolunda. Onları buraya getir, evladım.",
+        },
+        'woods': {
+          '1': "Şifacı kadın ot toplamak için Fısıldayan Orman'a gitti ve hiç dönmedi.",
+        },
+        'centaurs': {
+          '1': "Varoşlarda atlılar. Her gece gök gürültüsü gibi toynaklar.",
+        },
+        'siege': {
+          '1': "Surlar yakında sınanacak. Bunu yaşlı kemiklerimde hissediyorum.",
+        },
+      },
+      'bye': {
+        '1': "Dikkatli git, evladım.",
+      },
+    },
     intro: {
       crossing: { 1: 'Bu dünyanın her yolu bir kavşakta buluşur… ve her kavşak bir savaştır.' },
       hero: { 1: 'Sunford’un sakin tarlalarından genç bir kahraman yola çıktı.' },
@@ -4183,6 +4621,7 @@ export default {
       }
     },
     hero: {
+      'siege': "Surlara çıkalım.",
       forge: 'Ocağını kullanmak istiyorum.',
       learnSmith: 'Bana demircilik öğretir misin?',
       ore: 'Satacak biraz cevherim var.',
@@ -4489,7 +4928,7 @@ export default {
       },
       map: {
         '1': 'Kaptan Rook\'un haritası! Goblinler onu yakalamadan önce haritayı yırtıp parçaları saklamış.',
-        '2': 'Aralarından altısını bul, etrafa saçılmış birkaç parça daha var, X sana yolu gösterecek: Kül Kayalıkları\'nda bir yerde. Orayı kaz, altın senin olsun.',
+        '2': "Parçalardan altısını bul, X sana yolu gösterecek: Kül Kayalıkları'nda bir yerde. Altın için orayı kaz.",
         say: 'Eski bir haritanın parçasını buldum.'
       }
     },
@@ -5455,6 +5894,11 @@ export default {
       }
     },
     quest: {
+      seal: {
+        ask: { '1': "Kadim Ejderha öldü ve yarık önünde açık duruyor.", '2': "Onu şimdi sonsuza dek mühürleyebilirsin. Canavarlar yeniden uyur.", '3': "Ya da aralık bırakır, en cesurların içinden geçenle sınanmasına izin verirsin." },
+        seal: { say: "Mühürle onu. Sonsuza dek.", '1': "Yarık iyileşen bir yara gibi kapanıyor ve gökyüzü susuyor." },
+        ajar: { say: "Aralık bırak. Hazır olacağız.", '1': "Yarık bir parça açık kalıyor ve ardındaki bir şey gülüyor." },
+      },
       goblinKing: {
         ask: {
           '1': 'Dur. Lütfen. Pes ediyorum.',
@@ -5586,6 +6030,64 @@ export default {
       }
     },
     bark: {
+      sphinx: {
+        intro: { '1': "Cevap ver bana küçük şey, yoksa kumuma gömülürsün." },
+        riddle: { '1': "Öyleyse bir bilmece. Gösterdiğim yerlere, o sırayla bas." },
+        sand: { '1': "Bu sefer beş. Ve kumum beklemeyecek." },
+        death: { '1': "İyi cevap verdin. Kum artık senin." },
+      },
+      leviathan: {
+        intro: { '1': "Artık benim suyumda yürüyorsun." },
+        sink: { '1': "Küçük adaların batıyor." },
+        grab: { '1': "Benimle derinlere in!" },
+        death: { '1': "Gelgit çekilir ve bir daha dönmez." },
+      },
+      hydra: {
+        intro: { '1': "Bir kafa kes, iki tane çıksın!" },
+        heads: { '1': "Daha çok kafa, daha çok diş!" },
+        rage: { '1': "Bizi yakmak mı? O zaman bizimle yan!" },
+        death: { '1': "Kafa kalmadı. Artık yok." },
+      },
+      elderDragon: {
+        intro: { '1': "Senin soyun ateşi tanımadan önce ben dünyanın altında uyuyordum." },
+        flight: { '1': "O zaman küçük taşlarının arkasına saklan." },
+        rift: { '1': "Yarık beni geri çekiyor. Henüz değil!" },
+        death: { '1': "Öyleyse mühürle onu. Karanlıktan bıktım." },
+      },
+      'siegeHale': {
+        'start': {
+          '1': "İşte geliyorlar! Kapıyı tutun!"
+        },
+        'ram': {
+          '1': "Koçbaşı! Kapıya varmadan öldürün onu!"
+        },
+        'horn50': {
+          '1': "Kapının yarısı gitti! Dayanın!"
+        },
+        'horn25': {
+          '1': "Kapı daha fazla dayanamayacak!"
+        },
+        'won': {
+          '1': "Bozguna uğradılar! Burç ayakta!"
+        }
+      },
+      'siegeMara': {
+        'start': {
+          '1': "Geliyorlar! Sağlam durun, hepiniz!"
+        },
+        'ram': {
+          '1': "Koçbaşı! Kapıyı kırmadan durdurun onu!"
+        },
+        'horn50': {
+          '1': "Kapının yarısı düştü. Dayanın!"
+        },
+        'horn25': {
+          '1': "Kapı çöküyor! Geri püskürtün onları!"
+        },
+        'won': {
+          '1': "Kaçıyorlar! Kale hâlâ ayakta!"
+        }
+      },
       banditChief: {
         whistle: {
           1: 'Kalkın evlatlar! Isırın onları!'
@@ -5594,6 +6096,11 @@ export default {
       lightDisciple: {
         freed: {
           '1': 'Seni ışık gönderdi. Ben Rahibe Aurelle. Beni Sunford’da ara, sana Işık Getiren yolunu öğreteyim.'
+        }
+      },
+      trainerAegis: {
+        freed: {
+          '1': 'Bizi haydutlardan kurtardığın için teşekkürler! Ateşin başına gel: hepimiz öğreteceğiz, ilk ders bedava.'
         }
       },
       frostDisciple: {
@@ -5649,6 +6156,48 @@ export default {
         },
         dive: {
           '1': 'Diz çök.'
+        }
+      },
+      chimera: {
+        intro: {
+          '1': "Üç baş, tek bir açlık. Hangimiz önce ısıracak?"
+        },
+        twin: {
+          '1': "Şimdi ikimiz birden. Tarafını iyi seç."
+        },
+        tail: {
+          '1': "Kuyruğum! Bunu ödeyeceksin!"
+        },
+        death: {
+          '1': "Üç baş, ve hiçbiri bunu göremedi."
+        }
+      },
+      centaurWarchief: {
+        intro: {
+          '1': "İstersen kaç. Oklarım daha hızlı koşar."
+        },
+        raiders: {
+          '1': "Atlılar! Ezin onları!"
+        },
+        rear: {
+          '1': "Bu kadar ok yeter. Seni toynaklarımla ezeceğim!"
+        },
+        death: {
+          '1': "Bu ovalar toynaklarımı hatırlayacak."
+        }
+      },
+      cyclops: {
+        intro: {
+          '1': "Burada küçük bir şey var. Yaklaş. Bir bakayım."
+        },
+        cover: {
+          '1': "Artık bakmak yok. Gözümü alamayacaksın!"
+        },
+        blind: {
+          '1': "Seni göremiyorum ama duyabiliyorum!"
+        },
+        death: {
+          '1': "Karanlık. Her şey karardı."
         }
       },
       frostJarl: {
@@ -6773,7 +7322,20 @@ export default {
       }
     }
   },
+  invasion: {
+    pylonsDown: 'Son sütun yıkılıyor ve hazinesi saçılıyor!',
+    reborn: {
+      tusker: 'Yeniden Doğan Tusker',
+      emberLord: 'Cehennemi Kor Lordu',
+      frostJarl: 'Yeniden Doğan Ayaz Beyi',
+      voidDragon: 'Yeniden Doğan Hiçlik Ejderhası'
+    }
+  },
   enemy: {
+    sphinx: "Sfenks",
+    leviathan: "Leviathan",
+    hydra: "Hidra",
+    elderDragon: "Kadim Ejderha",
     trainingDummy: 'Talim Mankeni',
     goblin: 'Goblin',
     goblinSlinger: 'Sapancı Goblin',
@@ -6798,6 +7360,10 @@ export default {
     naga: 'Naga',
     skeleton: 'İskelet',
     necromancer: 'Ölü Çağıran',
+    chimera: "Kimera",
+    chimeraTail: "Yılan Kuyruk",
+    centaurWarchief: "Sentor Savaş Reisi",
+    cyclops: "Tepegöz",
     frostJarl: 'Ayaz Beyi',
     nagaOracle: 'Sulara Gömülü Kâhin',
     voidStalker: 'Hiçlik Avcısı',
@@ -6810,6 +7376,7 @@ export default {
     archDemon: 'Baş İblis',
     voidling: 'Hiçlik Yavrusu',
     voidLord: 'Hiçlik Lordu',
+    demonPylon: 'İblis Sütunu',
     orderGuard: 'Tarikat Engizitörü',
     syndicateBlade: 'Sendika Bıçağı',
     goblinWarchief: 'Goblin Savaş Reisi',
@@ -6826,7 +7393,19 @@ export default {
     goblinTyrant: 'Goblin Zorbası',
     voidDrake: 'Genç Hiçlik Ejderi',
     pitLord: 'Uçurum Lordu',
-    frostThane: 'Ayaz Ağası'
+    frostThane: 'Ayaz Ağası',
+    hellhound: 'Cehennem Köpeği',
+    frostHellhound: 'Ayaz Cehennem Köpeği',
+    gargoyle: 'Gargoyl',
+    harpy: 'Harpi',
+    corruptedTreant: 'Bozulmuş Ağaçadam',
+    centaurRaider: 'Sentor Akıncı',
+    cyclopsBrute: 'Tepegöz Kabadayı',
+    demonMiner: 'İblis Madenci',
+    sphinxAcolyte: 'Sfenks Rahibi',
+    seaDemon: 'Deniz İblisi',
+    drakeHatchling: 'Ejder Yavrusu',
+    hydraSpawn: 'Hidra Yavrusu'
   },
   results: {
     careful: 'Dikkatli zafer ×{mult}',
@@ -7139,6 +7718,8 @@ export default {
     town: 'Her kasabanın demircisi bunu geliştirebilir.'
   },
   ore: {
+    'demonglass': { 'name': "İblis camı" },
+    'ichor': { 'name': "Mitik ikor" },
     iron: {
       name: 'Demir cevheri'
     },

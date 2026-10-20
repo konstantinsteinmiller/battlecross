@@ -6,20 +6,25 @@ import { AMBUSH_KIND, FACTIONS, REP_HOSTILE, questOfNode, type FactionId } from 
 import { NODE_BY_ID, TOWNS, ZONES, foundFlag, hiddenTrainerOf, visitLevel, type NodeId, type NpcDef, type ThemeId, type TownId } from './data/zones'
 import type { ClassId } from './data/skills'
 import type { ZoneId } from './data/items'
+import { invadedFlag, invasionLetsIn, zoneOf } from './data/invasion'
 import { ZoneMode, type VisitResume, type ZoneSetup } from './modes/zoneMode'
 import { setVisitSnapshotProvider, takeResumeVisit } from './state/saveSlots'
-import { hud } from './state/hud'
 import { MENTOR_MET_TIP, MENTOR_NPC, MENTOR_SKILL, ROAD_NPCS } from './data/mentor'
 import type { ConversationDef } from './dialog/types'
 import { abortTalk, beginTalk, conversationOf, decisionOf, talkCodeReady, talkResume, talkWaiting, type TalkStage } from './talk'
 import { loadTalk } from './talkLoader'
 import {
-  clearNode, flagSet, gainItem, grantXp, hasFlag, isFreshProfile, isNodeOpen, isNodeReachable, lifetimeXp, profile, saveProfile
+  claimAfterplayDues, clearNode, flagSet, gainItem, grantXp, hasFlag, isFreshProfile, isNodeOpen, isNodeReachable, lifetimeXp, profile, saveProfile,
+  beginMapBeat, rescuesIn, storyArrive, storyMapBeat, storyZoneWon
 } from './state/profile'
+import { overrunFlag, rebuiltFlag, rebuiltTiers } from './data/breaking'
+import { WANDERER_FLAG, trialFlag, visitTrialFlags } from './data/prestige'
+import { hud, pushHud } from './state/hud'
 import { freeCaptives } from './state/profile'
 import { cageOf } from './data/cages'
 import { addHerbs, addOres, addPieces, markTreasureDug, treasureFor, setElixirs, countContracts, countErrands, countTasks, finishEscortTasks, markChestsOpened, recordArenaWaves, recordMastery, setManaPotions } from './state/profile'
 import { zoneMastery, type Mastery } from './sim/route'
+import { inCamp } from './sim/camp'
 import { playJingle } from './audio/music'
 import { flushSaveNow } from '@/use/useSaveStatus'
 import { resumeMusicAfterAd, setMusicTrack, startGameMusic } from '@/use/useSound'
@@ -41,6 +46,9 @@ import { dayKey } from './rareShelf'
 import { carefulMult } from './careful'
 import { BOARD } from './townTasks'
 import { lesson, mapSpot, markTip, setMapPos } from './state/profile'
+import { SIEGE_LORD, siegeEnemyLevel, type SiegeTier } from './data/siege'
+import { countSiegeClear, marksBanked, recordSiege, siegeTierOpen, storySiegeDue } from './state/siege'
+import { countFairClear } from './state/fair'
 
 /**
  * ─── Game flow ───────────────────────────────────────────────────────────────
@@ -56,7 +64,7 @@ import { lesson, mapSpot, markTip, setMapPos } from './state/profile'
 
 export type Screen = 'boot' | 'zone' | 'town' | 'map'
 export type Modal =
-  | '' | 'results' | 'secondWind' | 'contracts' | 'pause' | 'character' | 'skills' | 'inventory' | 'journal' | 'shop' | 'trainer' | 'healer' | 'alchemy' | 'smithing' | 'sellOre' | 'memory' | 'itemBattle' | 'cups' | 'ending' | 'help'
+  | '' | 'results' | 'secondWind' | 'contracts' | 'siege' | 'pause' | 'character' | 'skills' | 'inventory' | 'journal' | 'shop' | 'trainer' | 'healer' | 'alchemy' | 'smithing' | 'sellOre' | 'memory' | 'itemBattle' | 'cups' | 'whack' | 'ring' | 'arm' | 'ending' | 'help'
 /** A conversation in progress (`talk.ts`, drawn by `DialogLayer`): with a
  *  townsperson in the scene, with a trainer met on the map, or a quest's
  *  decision. It is not a window — the world keeps running under it — and it
@@ -106,6 +114,9 @@ export interface ResultsData {
   /** A careful clear (#113): its multiplier, the bonus it paid beside `xp`
    *  and `gold`, and the share of health the visit lost. */
   careful?: { mult: number; xp: number; gold: number; lostPct: number }
+  /** The Siege of Bastion (afterplay §8): its tier, the waves held, the Marks
+   *  earned and banked, the Demonglass won, and the milestones reached. */
+  siege?: SiegeResultView
 }
 
 export const flow = reactive({
@@ -168,8 +179,10 @@ export const hostileFaction = (): FactionId | null => {
   return worst
 }
 
-/** A town's look: Oakhaven is a ruin once it has fallen. */
-export const townTheme = (town: TownId): ThemeId => (town === 'oakhaven' && hasFlag('oakhavenFallen') ? 'ruin' : TOWNS[town].theme)
+/** A town's look: Oakhaven is a ruin once it has fallen, and every town the
+ *  demons overran is one in the afterplay until its road is purged. */
+export const townTheme = (town: TownId): ThemeId =>
+  ((town === 'oakhaven' && hasFlag('oakhavenFallen')) || flagSet().has(overrunFlag(town)) ? 'ruin' : TOWNS[town].theme)
 
 const setupFor = (node: NodeId): ZoneSetup => {
   const def = NODE_BY_ID[node]!
@@ -182,7 +195,9 @@ const setupFor = (node: NodeId): ZoneSetup => {
   if (def.kind === 'arena') {
     return { kind: 'arena', theme: 'arena', seed: hashSeed(node, visits), level: profile.level, difficulty: difficultyFactor(), flags, arenaMod: arenaModOf() }
   }
-  const zone = ZONES[node as ZoneId]
+  // The afterplay: every zone is its invaded self (`data/invasion.ts`).
+  const invaded = profile.world.afterplay
+  const zone = zoneOf(node as ZoneId, invaded)
   const hostile = hostileFaction()
   return {
     kind: 'zone',
@@ -190,6 +205,7 @@ const setupFor = (node: NodeId): ZoneSetup => {
     theme: zone.theme,
     seed: hashSeed(node, visits),
     level: visitLevel(zone, profile.level),
+    ...(invaded ? { invaded } : {}),
     difficulty: difficultyFactor(),
     // The very first visit of a new save opens gently.
     tutorial: node === 'plains' && isFreshProfile(),
@@ -239,6 +255,12 @@ export interface VisitTally {
   /** Health lost over the visit and the hero's health (the careful clear, #113). */
   lost?: number
   maxHp?: number
+  /** The zone was its invaded self (the afterplay). */
+  invaded?: boolean
+  /** Times the hero fell and got up again (Second wind): the Dragoon's trial asks none. */
+  falls?: number
+  /** The Siege of Bastion: how it ended (`sim/siege.ts`). */
+  siege?: { tier: SiegeTier; story: boolean; waves: number; earned: number; flawless: boolean; won: boolean }
 }
 
 type Precompile = (mode: GameMode, onProgress: (f01: number) => void) => Promise<void>
@@ -293,10 +315,57 @@ export const savedVisit = (): SavedVisit | null => {
 setVisitSnapshotProvider(savedVisit)
 
 /** A random encounter's fight: the region's ground and enemies, at its level. */
-const encounterSetup = (e: EncounterSpec): ZoneSetup => ({
+const encounterSetup = (e: EncounterSpec): ZoneSetup => (e.siege ? siegeSetup(e) : {
   kind: 'zone', zone: e.zone, theme: ZONES[e.zone].theme, seed: e.seed, level: e.level, difficulty: difficultyFactor(),
-  encounter: e.packs.map(p => [...p]), flags: flagSet(), ...(e.escort ? { escort: true } : {})
+  encounter: e.packs.map(p => [...p]), flags: flagSet(), ...(e.escort ? { escort: true } : {}), ...(e.invaded ? { invaded: true } : {})
 })
+
+/**
+ * The Siege of Bastion (afterplay §8): the fort's south gate and its three
+ * lanes, fought at the hero's level (never under 38) plus the tier's.
+ */
+const siegeSetup = (e: EncounterSpec): ZoneSetup => ({
+  kind: 'arena', theme: ZONES.outskirts.theme, seed: e.seed, level: e.level, difficulty: difficultyFactor(), flags: flagSet(),
+  siege: { ...e.siege!, commander: hasFlag('oakhavenFallen') ? 'mara' : 'hale' }
+})
+
+/**
+ * Ring the bell: the siege begins (the captain's word, `SiegeModal`). Built
+ * behind the veil like an encounter, so its end, a retry and the way back
+ * (the map, at the fort) are an encounter's.
+ */
+export const startSiege = async (tier: SiegeTier): Promise<void> => {
+  if (flow.loading || !siegeTierOpen(tier)) return
+  const story = storySiegeDue()
+  // The story's siege is fought on Normal.
+  const t: SiegeTier = story ? 'normal' : tier
+  flow.modal = ''
+  flow.npc = null
+  await startEncounter({
+    kind: 'fight', zone: 'outskirts', level: siegeEnemyLevel(profile.level, t), seed: hashSeed(`siege:${t}`, profile.meta.siege.runs), packs: [[SIEGE_LORD]],
+    siege: { tier: t, story, rotation: profile.meta.siege.runs }
+  })
+}
+
+/** The siege as the result screen tells it. */
+export interface SiegeResultView { tier: SiegeTier; waves: number; earned: number; banked: number; glass: number; milestones: string[]; story: boolean }
+
+/**
+ * Bank a siege that is over (`state/siege.ts`): its Marks (half of them on a
+ * loss), and on a win the purse, the XP and the rolled piece go into the
+ * visit's tally, so the result screen counts them with the rest.
+ */
+const bankSiege = (o: NonNullable<VisitTally['siege']>, h: VisitTally & { xp: number; gold: number; items: readonly string[] }): SiegeResultView => {
+  const banked = marksBanked(o.earned, o.won)
+  const r = recordSiege({ tier: o.tier, won: o.won, story: o.story, waves: o.waves, earned: o.earned, banked, flawless: o.flawless }, hashSeed('siegePrize', profile.meta.siege.runs))
+  if (r.reward) {
+    h.xp += r.reward.xp
+    h.gold += r.reward.gold
+  }
+  if (r.item) h.items = [...h.items, r.item]
+  for (const m of r.milestones) pushHud({ t: 'toast', key: `siege.milestone.${m.id}` })
+  return { tier: o.tier, waves: o.waves, earned: o.earned, banked, glass: r.reward?.glass ?? 0, milestones: r.milestones.map(m => m.id), story: o.story }
+}
 
 /**
  * Set out with the caravan (roadmap #85, D106): the road between Sunford and
@@ -322,7 +391,8 @@ const buildZone = async (node: NodeId, onProgress: (p01: number) => void, encoun
     askSecondWind: offerSecondWind,
     onInteract: (npcId) => talkTo(npcId),
     onPause: () => { if (!flow.modal && !flow.talk && !flow.loading && flow.screen !== 'map') flow.modal = 'pause' },
-    onPanel: openPanel
+    onPanel: openPanel,
+    menuOpen: () => !!flow.talk || !!flow.modal
   }, p => onProgress(p * 0.82), saved?.resume)
   await precompile(mode, f => onProgress(0.82 + f * 0.12))
   try { await mode.warmUp(async () => {}, f => onProgress(0.94 + f * 0.06)) } catch (e) { console.warn('[flow] warm-up render failed', e) }
@@ -371,6 +441,8 @@ const enter = (node: NodeId, mode: BuiltPlace): void => {
   if (def.kind === 'town') {
     // A town is "cleared" by walking into it: its roads open.
     if (clearNode(node)) saveProfile()
+    // The fort, the first time (the afterplay's B2): its people take him in.
+    if (storyArrive(node)) pushHud({ t: 'toast', key: 'breaking.toast.brk2' })
   }
   setMusicTrack(trackForTheme(mode.setup.theme))
   startGameMusic()
@@ -426,7 +498,7 @@ export const createBootMode = async (onProgress: (p01: number) => void = () => {
  */
 export const travel = async (node: NodeId): Promise<void> => {
   // Any place without a story lock: too strong is the player's own risk (#72).
-  if (flow.loading || booting || !NODE_BY_ID[node] || !isNodeReachable(node)) return
+  if (flow.loading || booting || !NODE_BY_ID[node] || !isNodeReachable(node) || !invasionLetsIn(node, profile.world.afterplay, flagSet())) return
   flow.loading = true
   flow.loadProgress = 0
   flow.loadingNode = node
@@ -467,7 +539,8 @@ export const startEncounter = async (e: EncounterSpec): Promise<void> => {
     flow.modal = ''
     flow.results = null
     flow.screen = 'zone'
-    setMusicTrack(trackForTheme(mode.setup.theme))
+    // The siege fights to the colosseum's track (its own is a later phase's).
+    setMusicTrack(trackForTheme(e.siege ? 'arena' : mode.setup.theme))
     startGameMusic()
     app.setMode(mode)
     app.setWanted(true)
@@ -504,6 +577,27 @@ export const openMap = (): void => {
   flow.screen = 'map'
   hud.phase = 'map'
   app.setWanted(false)
+  playMapBeat()
+}
+
+/**
+ * The afterplay's beats on the map (B0 the rift's scream, B1 Scout Wren): told
+ * as a portrait conversation the first time the map is up for each, one after
+ * the other. A save from before the afterplay whose hero beat the Void Lord
+ * hears them on its next map.
+ */
+const playMapBeat = (): void => {
+  const b = storyMapBeat()
+  if (!b || flow.modal || flow.talk || flow.loading || flow.screen !== 'map') return
+  if (!talkCodeReady()) { void loadTalk().then(playMapBeat, () => {}); return }
+  // B10's decision: the storyteller puts it over the dead dragon.
+  if (b === 'quest.seal') { startDecision('seal'); return }
+  const conv = conversationOf(b)
+  if (!conv) return
+  beginMapBeat(b)
+  // The rift screams: a red flash and a jolt (B0).
+  if (b === 'story.rift') { pushHud({ t: 'flash', color: '#c0202a', strength: 0.8 }); pushHud({ t: 'hurt', strength: 1 }) }
+  startTalk('map', conv, 'portrait', '', 'breaking.title')
 }
 
 /** Close the map without travelling (only back into a town). */
@@ -536,7 +630,8 @@ export const DEFEAT_GOLD_LOSS = 0.1
 /** Is "Triple the purse" on offer on this result? A won visit that earned
  *  gold, not the opening fight, once (D59). */
 export const purseOffered = (r: ResultsData | null): boolean =>
-  !!r && r.outcome === 'victory' && r.gold > 0 && !r.opening && !r.tripled && canOfferReward.value
+  // Not a siege's: its purse is the afterplay's own sized reward (§11).
+  !!r && r.outcome === 'victory' && r.gold > 0 && !r.opening && !r.tripled && !r.siege && canOfferReward.value
 
 let purseBusy = false
 /**
@@ -568,13 +663,14 @@ export const triplePurse = async (): Promise<boolean> => {
  * fight (the first visit ever), never in the colosseum (it would skew the
  * best-wave board), never in a recorded clip.
  */
-export const secondWindAllowed = (mode: 'zone' | 'arena' | 'town'): boolean =>
-  !PREVIEW_ON && mode === 'zone' && profile.stats.runs > 0 && canOfferReward.value
+export const secondWindAllowed = (mode: 'zone' | 'arena' | 'town', siege = false): boolean =>
+  !PREVIEW_ON && (mode === 'zone' || siege) && profile.stats.runs > 0 && canOfferReward.value
 
 /** The scene asks when the hero falls: true holds the defeat on the offer. */
 const offerSecondWind = (): boolean => {
   const z = app.mode instanceof ZoneMode ? app.mode : null
-  if (!z || flow.modal || !secondWindAllowed(z.sim.mode)) return false
+  // In a siege only the hero's fall is undone, never the gate's (afterplay §8.1).
+  if (!z || flow.modal || z.sim.siege?.phase === 'lost' || !secondWindAllowed(z.sim.mode, !!z.sim.siege)) return false
   flow.modal = 'secondWind'
   return true
 }
@@ -624,18 +720,22 @@ export const finishVisit = async (outcome: 'victory' | 'defeat' | 'retreat'): Pr
   const h = mode.sim.hero
   await bankVisit(outcome, node, {
     xp: h.xp, gold: h.gold, kills: h.kills, items: h.items, seconds: mode.sim.time, waves: mode.sim.wave.cleared,
-    lost: h.lost, maxHp: h.unit.s.maxHp,
+    lost: h.lost, maxHp: h.unit.s.maxHp, invaded: !!mode.setup.invaded, falls: h.falls ?? 0,
     chests: mode.sim.chests.length ? { opened: h.chests, total: mode.sim.chests.length } : undefined,
     special: mode.sim.specialOpened, rested: h.rested, killKinds: h.killKinds, herbs: h.herbs, ores: h.ores, pieces: h.pieces,
     // The flasks went in only where they may be drunk (not in a "No potions"
     // week): elsewhere the stocks stay as they were.
     ...(mode.setup.arenaMod !== 'nopotions' ? { manaPotions: h.manaPotions, elixirs: h.elixirs, elixirPick: h.elixirPick } : {}),
-    ...(mode.sim.mode === 'zone' && !flow.encounter ? { mastery: zoneMastery(mode.sim) } : {})
+    ...(mode.sim.mode === 'zone' && !flow.encounter ? { mastery: zoneMastery(mode.sim) } : {}),
+    ...(mode.sim.siege ? { siege: { tier: mode.sim.siege.tier, story: mode.sim.siege.story, waves: mode.sim.siege.cleared, earned: mode.sim.siege.earned, flawless: mode.sim.siege.flawless, won: outcome === 'victory' } } : {})
   })
 }
 
 /** Bank a decided visit: rewards, unlocks, the save, the result screen. */
-export const bankVisit = async (outcome: 'victory' | 'defeat' | 'retreat', node: NodeId, h: VisitTally): Promise<void> => {
+export const bankVisit = async (outcome: 'victory' | 'defeat' | 'retreat', node: NodeId, tally: VisitTally): Promise<void> => {
+  const h = { ...tally }
+  // Was the Wanderer at the fort before this visit (a trial it passes brings him)?
+  const came = flagSet().has(WANDERER_FLAG)
   // An encounter is a fight on the road: it pays, it may cost, but it clears
   // no place and brings no decision.
   const encounter = !!flow.encounter
@@ -645,9 +745,11 @@ export const bankVisit = async (outcome: 'victory' | 'defeat' | 'retreat', node:
   const opening = profile.stats.runs === 0
   const items: ResultItem[] = []
   // A careful clear (#113): a win with little health lost pays up to twice.
-  const careful = outcome === 'victory' && node !== 'arena' && h.lost !== undefined && h.maxHp ? carefulMult(h.lost, h.maxHp) : 1
+  const careful = outcome === 'victory' && node !== 'arena' && !h.siege && h.lost !== undefined && h.maxHp ? carefulMult(h.lost, h.maxHp) : 1
   const carefulXp = Math.round(h.xp * (careful - 1))
   const carefulGold = Math.round(h.gold * (careful - 1))
+  // The siege (afterplay §8): its Marks, a win's purse, XP and piece, its milestones.
+  const sieged = h.siege ? bankSiege(h.siege, h) : null
   grantXp(h.xp + carefulXp)
   profile.gold += h.gold + carefulGold
   for (const id of h.items) {
@@ -686,20 +788,43 @@ export const bankVisit = async (outcome: 'victory' | 'defeat' | 'retreat', node:
   if (outcome === 'victory' && !encounter) {
     const before = new Set(Object.keys(NODE_BY_ID).filter(n => isNodeOpen(n as NodeId)))
     firstClear = clearNode(node)
+    // An invaded zone's first win (afterplay §4): the next one in the
+    // invasion's order opens; on the result screen it is a first clear.
+    // Every invaded clear brings the siege bell nearer (§8.4).
+    if (h.invaded && node in ZONES) countSiegeClear()
+    // Every zone won brings the fair games' full prizes nearer again (§9).
+    if (node in ZONES) countFairClear()
+    if (h.invaded && node in ZONES && !hasFlag(invadedFlag(node as ZoneId))) {
+      profile.world.flags.push(invadedFlag(node as ZoneId))
+      firstClear = true
+    }
     profile.questsDone++
     // A finale that carries a quest brings its decision (once).
     const q = questOfNode(node)
     if (q && !profile.quests.done[q.id]) flow.quest = q.id
+    // The afterplay (the Breaking): the zone is purged, whoever was held on
+    // its road goes to the fort, and the story moves on.
+    if (node in ZONES) {
+      const story = storyZoneWon(node as ZoneId)
+      // B8's Leviathan Scale and anything else the story now owes (afterplay phase 8).
+      claimAfterplayDues()
+      if (rescuesIn(story).length) pushHud({ t: 'toast', key: 'breaking.toast.rescued' })
+      for (const b of ['brk3', 'brk4', 'brk5', 'brk6', 'brk7', 'brk8', 'brk9', 'brk10']) if (story.includes(b)) pushHud({ t: 'toast', key: `breaking.toast.${b}` })
+    }
     for (const n of Object.keys(NODE_BY_ID)) if (!before.has(n) && isNodeOpen(n as NodeId)) unlocked.push(n as NodeId)
+    // The prestige trials (afterplay §10): the Leviathan slain, the Elder Dragon slain without a fall.
+    for (const f of visitTrialFlags(true, tally.killKinds ?? {}, tally.falls ?? 0)) if (!hasFlag(f)) profile.world.flags.push(f)
   } else if (outcome === 'defeat') {
     profile.stats.deaths++
     // The colosseum is a ladder: falling is how a climb ends, not a loss (#10);
     // a caravan lost on the road costs the task, not the purse (#85).
-    if (node !== 'arena' && !flow.encounter?.escort) {
+    if (node !== 'arena' && !flow.encounter?.escort && !h.siege) {
       goldLost = Math.floor(profile.gold * DEFEAT_GOLD_LOSS)
       profile.gold -= goldLost
     }
   }
+  // A prestige trial passed (a siege, a boss): the Mysterious Wanderer is at the fort (afterplay §10).
+  if (!came && flagSet().has(WANDERER_FLAG)) pushHud({ t: 'toast', key: 'prestige.toast.wanderer' })
   // The colosseum's best, however the climb ended (#10): all-time and this week.
   const arenaNew = node === 'arena' && !encounter ? recordArenaWaves(h.waves) : null
   saveProfile()
@@ -708,7 +833,8 @@ export const bankVisit = async (outcome: 'victory' | 'defeat' | 'retreat', node:
     node, outcome, xp: h.xp, gold: h.gold, goldLost, kills: h.kills, items, levelBefore, levelAfter: profile.level,
     seconds: h.seconds, firstClear, unlocked, waves: h.waves, chests: h.chests, ...(mastery ? { mastery } : {}), ...(encounter ? { encounter: true } : {}), ...(opening ? { opening: true } : {}),
     ...(arenaNew ? { arenaBest: arenaNew.best, arenaNewBest: arenaNew.isNew, arenaWeek: arenaNew.week } : {}),
-    ...(careful > 1 ? { careful: { mult: Math.round(careful * 10) / 10, xp: carefulXp, gold: carefulGold, lostPct: Math.round((h.lost! / h.maxHp!) * 100) } } : {})
+    ...(careful > 1 ? { careful: { mult: Math.round(careful * 10) / 10, xp: carefulXp, gold: carefulGold, lostPct: Math.round((h.lost! / h.maxHp!) * 100) } } : {}),
+    ...(sieged ? { siege: sieged } : {})
   }
   // An ad another placement started may still be up: never open under it.
   await waitForAdGate()
@@ -816,6 +942,10 @@ export const retryVisit = async (): Promise<void> => {
 // ─── Towns ───────────────────────────────────────────────────────────────────
 
 export const npcById = (id: string): NpcDef | null => {
+  // The town the hero stands in first: a person who moved (a teacher or a
+  // trader rescued to the fort) keeps their id, and stocks what they stock HERE.
+  const here = flow.node && flow.node in TOWNS ? TOWNS[flow.node as TownId].npcs.find(x => x.id === id) : undefined
+  if (here) return here
   for (const t of Object.values(TOWNS)) {
     const n = t.npcs.find(x => x.id === id)
     if (n) return n
@@ -846,6 +976,8 @@ const startTalk = (kind: Exclude<Talk, ''>, conv: ConversationDef, stage: TalkSt
       liveZone()?.setTalk(false)
       if (kind === 'decision') afterVisit()
       else flow.npc = null
+      // The next beat of the story, if one is waiting on the map.
+      if (kind === 'map') playMapBeat()
     }
   })
   if (!begun) return false
@@ -857,7 +989,7 @@ const startTalk = (kind: Exclude<Talk, ''>, conv: ConversationDef, stage: TalkSt
 /** The window a townsperson's role opens (reached through their conversation). */
 const roleWindow = (npc: NpcDef): Modal =>
   (npc.role === 'shop' ? 'shop' : npc.role === 'trainer' ? 'trainer' : npc.role === 'healer' ? 'healer' : npc.role === 'alchemist' ? 'alchemy'
-    : npc.role === 'gambler' ? (npc.game === 'memory' ? 'memory' : npc.game === 'cups' ? 'cups' : 'itemBattle') : '')
+    : npc.role === 'gambler' ? (npc.game === 'memory' ? 'memory' : npc.game === 'cups' ? 'cups' : npc.game === 'whack' ? 'whack' : npc.game === 'ring' ? 'ring' : npc.game === 'arm' ? 'arm' : 'itemBattle') : '')
 
 /** The hero walked up to a townsperson (the scene calls this; so may a test). */
 /**
@@ -881,12 +1013,19 @@ export const talkTo = (npcId: string): void => {
   // The conversations' code is a lazy chunk (roadmap #142): a town is never
   // entered without it, so only a road NPC met in its first seconds waits.
   if (!talkCodeReady()) { void loadTalk().then(() => talkTo(npcId), () => {}); return }
-  flow.npc = npc
+  // A rebuilt town's shops stock a tier higher (the afterplay).
+  flow.npc = npc.stock && flow.node && flagSet().has(rebuiltFlag(flow.node)) ? { ...npc, stock: { ...npc.stock, tiers: rebuiltTiers(npc.stock.tiers) } } : npc
   if (npc.role === 'trainer') metTeacher(npc.cls)
-  flow.trainerCls = npc.cls ?? ''
+  // The Wanderer teaches every prestige class whose trial is passed: the first of them to begin with.
+  flow.trainerCls = npc.classes?.find(c => flagSet().has(trialFlag(c))) ?? npc.cls ?? ''
   // The road teacher (#136) teaches her one skill for nothing, once, as a gift.
   lesson.free = npc.id === MENTOR_NPC ? MENTOR_SKILL : ''
   if (npc.id === MENTOR_NPC) markTip(MENTOR_MET_TIP)
+  // A rescued teacher in the first visit's camp (#156): their lessons and
+  // nothing else (no small talk out here), the first one on them.
+  const zone = liveZone()
+  lesson.camp = !!zone && inCamp(zone.sim, npc.id)
+  if (lesson.camp) { flow.modal = roleWindow(npc); return }
   const conv = conversationOf(npc.id)
   // Everyone has a conversation (a test holds the data to it); without one
   // the trade itself is still reachable.
@@ -932,6 +1071,7 @@ export const closeModal = (): void => {
   // the topics again), and the townsperson stays the one in front of the hero.
   if (flow.talk && talkWaiting()) { talkResume(); return }
   flow.npc = null
+  lesson.camp = false
 }
 
 // A conversation never outlives the place it is held in.
@@ -939,6 +1079,7 @@ watch(() => flow.loading, (on) => {
   if (!on || !flow.talk) return
   abortTalk()
   lesson.free = ''
+  lesson.camp = false
   flow.talk = ''
   flow.npc = null
   liveZone()?.setTalk(false)

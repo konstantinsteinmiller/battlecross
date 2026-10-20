@@ -154,8 +154,8 @@ describe('booting from the state blob', () => {
     saveProfile()
     state.flushPersist()
     const blob = JSON.parse(localStorage.getItem(STATE_KEY)!) as { bc_version: number; bc_inventory: { equipped: Record<string, string | null> } }
-    expect(SAVE_VERSION).toBe(2)
-    expect(blob.bc_version).toBe(2)
+    expect(SAVE_VERSION).toBe(3)
+    expect(blob.bc_version).toBe(3)
     expect(blob.bc_inventory.equipped).toEqual({ main: 'ironBroadsword', off: 'woodenBuckler', head: 'quiltedCap', body: 'paddedTunic', hands: null, feet: null, trinket1: 'copperBand', trinket2: null })
   })
 
@@ -184,6 +184,129 @@ describe('booting from the state blob', () => {
     const { initProfile, isFreshProfile } = await boot()
     expect(() => initProfile()).not.toThrow()
     expect(isFreshProfile()).toBe(true)
+  })
+})
+
+describe('save version 3: the afterplay', () => {
+  /** A version 2 hero at the cap, the Rift beaten, XP banked at the full bar. */
+  const CAPPED = {
+    ...DEVELOPED,
+    bc_version: 2,
+    bc_level: 30,
+    bc_hero: { ...DEVELOPED.bc_hero, xp: 500 },
+    bc_world: { ...DEVELOPED.bc_world, cleared: [...DEVELOPED.bc_world.cleared, 'rift'] },
+    bc_stats: { ...DEVELOPED.bc_stats, bestLevel: 30, xpEarned: 200_000 }
+  }
+
+  it('a version 2 save loads unchanged: rank 1 everywhere, campaign cap, nothing lost', async () => {
+    localStorage.setItem(STATE_KEY, JSON.stringify({ ...DEVELOPED, bc_version: 2 }))
+    const { initProfile, profile, heroLevelCap, skillRank, afterplayOpen, lifetimeXp } = await boot()
+    initProfile()
+    expect(profile.level).toBe(9)
+    expect(profile.hero.xp).toBe(410)
+    expect(profile.hero.learned).toEqual(DEVELOPED.bc_hero.learned)
+    expect(profile.hero.ranks).toEqual({})
+    expect(skillRank('fireball')).toBe(1)
+    expect(afterplayOpen()).toBe(false)
+    expect(heroLevelCap()).toBe(30)
+    expect(lifetimeXp()).toBe(9000)
+  })
+
+  it('a version 2 hero who already beat the Void Lord opens the afterplay on load, keeping level and XP', async () => {
+    localStorage.setItem(STATE_KEY, JSON.stringify(CAPPED))
+    const { initProfile, profile, heroLevelCap, afterplayOpen, lifetimeXp } = await boot()
+    initProfile()
+    expect(afterplayOpen()).toBe(true)
+    expect(heroLevelCap()).toBe(60)
+    expect(profile.level).toBe(30)
+    expect(profile.hero.xp).toBe(500)
+    expect(lifetimeXp()).toBe(200_000)
+  })
+
+  it('without the afterplay a level past 30 is clamped to the cap; with it, kept', async () => {
+    localStorage.setItem(STATE_KEY, JSON.stringify({ ...DEVELOPED, bc_version: 3, bc_level: 41 }))
+    const first = await boot()
+    first.initProfile()
+    expect(first.profile.level).toBe(30)
+
+    drainAndResetModules()
+    localStorage.setItem(STATE_KEY, JSON.stringify({ ...CAPPED, bc_version: 3, bc_level: 41, bc_world: { ...DEVELOPED.bc_world, afterplay: true } }))
+    const second = await boot()
+    second.initProfile()
+    expect(second.profile.level).toBe(41)
+  })
+
+  it('ranks round-trip; a rank of an unlearned skill or out of range is cleaned', async () => {
+    localStorage.setItem(STATE_KEY, JSON.stringify({
+      ...CAPPED, bc_version: 3,
+      bc_hero: { ...CAPPED.bc_hero, ranks: { fireball: 2, shieldSlam: 9, cleave: 3, aegisAura: 'x' } }
+    }))
+    const first = await boot()
+    first.initProfile()
+    expect(first.profile.hero.ranks).toEqual({ fireball: 2, shieldSlam: 3 })
+    first.saveProfile()
+    first.state.flushPersist()
+
+    drainAndResetModules()
+    const second = await boot()
+    second.initProfile()
+    expect(second.profile.hero.ranks).toEqual({ fireball: 2, shieldSlam: 3 })
+    expect(second.profile.world.afterplay).toBe(true)
+  })
+
+  it('beating the Rift opens the afterplay, and XP banked at 30 flows on into 31', async () => {
+    localStorage.setItem(STATE_KEY, JSON.stringify({ ...CAPPED, bc_world: DEVELOPED.bc_world }))
+    const { initProfile, profile, grantXp, clearNode, afterplayOpen } = await boot()
+    const { xpToNext } = await import('@/game/data/progression')
+    initProfile()
+    expect(afterplayOpen()).toBe(false)
+    // Gated: no amount of XP passes 30 before the Void Lord falls.
+    grantXp(10_000_000)
+    expect(profile.level).toBe(30)
+    expect(profile.hero.xp).toBe(xpToNext(30))
+    clearNode('rift')
+    expect(afterplayOpen()).toBe(true)
+    expect(profile.level).toBe(31)
+  })
+
+  it('the Breaking (B0–B5): the map beats, the fort, the purges and rescues are flags in the save, and round-trip', async () => {
+    localStorage.setItem(STATE_KEY, JSON.stringify({ ...CAPPED, bc_version: 3, bc_level: 33 }))
+    const first = await boot()
+    first.initProfile()
+    // A hero who beat the Void Lord before the update hears B0 on the next map, then B1.
+    expect(first.storyMapBeat()).toBe('story.rift')
+    first.beginMapBeat('story.rift')
+    expect(first.storyMapBeat()).toBe('story.wren')
+    // Before the scout, a win clears no road for a fort nobody has found.
+    expect(first.storyZoneWon('plains')).toEqual([])
+    first.beginMapBeat('story.wren')
+    expect(first.storyMapBeat()).toBe(null)
+    expect(first.isNodeReachable('bastion')).toBe(true)
+    // The fallen towns are overrun (derived, never stored).
+    expect(first.flagSet().has('sunfordOverrun')).toBe(true)
+    expect(first.profile.world.flags).not.toContain('sunfordOverrun')
+    expect(first.storyArrive('bastion')).toBe(true)
+    expect(first.storyArrive('bastion')).toBe(false)
+    expect(first.storyZoneWon('plains')).toEqual(['purgedPlains', 'rescuedAegis', 'rescuedPyro', 'rescuedTraders'])
+    expect(first.rescuesIn(first.storyZoneWon('hollows'))).toEqual(['rescuedShadow', 'rescuedGeo', 'rescuedHealer', 'rescuedGamblers'])
+    expect(first.profile.world.flags).toContain('brk3')
+    expect(first.flagSet().has('sunfordRebuilt')).toBe(true)
+    // B4 waits for level 34.
+    first.storyZoneWon('woods')
+    expect(first.profile.world.flags).not.toContain('brk4')
+    first.saveProfile()
+    first.state.flushPersist()
+
+    drainAndResetModules()
+    const second = await boot()
+    second.initProfile()
+    for (const f of ['brk0', 'brk1', 'brk2', 'brk3', 'purgedPlains', 'purgedHollows', 'purgedWoods', 'rescuedAegis', 'rescuedHerbalist']) expect(second.profile.world.flags, f).toContain(f)
+    expect(second.flagSet().has('sunfordRebuilt')).toBe(true)
+    expect(second.flagSet().has('oakhavenOverrun')).toBe(true)
+    second.profile.level = 34
+    // Any later win moves the chain on once the level is there.
+    second.storyZoneWon('plains')
+    expect(second.profile.world.flags).toContain('brk4')
   })
 })
 

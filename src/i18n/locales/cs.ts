@@ -1,5 +1,170 @@
 // Czech (cs) bundle — mirrors en.ts.
 export default {
+  // ─── Afterplay phase 8: items, materials and capstones ───
+  // ─── Afterplay phase 10: the prestige classes ───
+  'prestige': { 'toast': { 'wanderer': "Tajemný poutník čeká v pevnosti." } },
+  'relic': {
+    'infernal': "{name} · Pekelné",
+    'set': "Nošeno s: {item}",
+    'heroicBadge': "Hrdinský {n}",
+    'heroic': "Hrdinský {n}: {gold} zlata, {glass} démonského skla",
+    'heroicIchor': "Hrdinský {n}: {gold} zlata, {glass} démonského skla, {ichor} ichoru",
+    'heroicMax': "Všechny hrdinské hodnosti jsou získány.",
+    'infernalForge': "Pekelné kování: {gold} zlata, {glass} démonského skla",
+    'lens': "Čočka Věštkyně: čeká tu {boss}.",
+    'hydraKey': "Zapečetěno. Ohnivý klíč Hydry otevírá srdce Trhliny.",
+    'marksGlass': "Koupit {glass} démonského skla za {marks} známek",
+    'capstone': "Vrchol",
+    'fortOnly': "Tento vrchol se učí jen na Baštovém brodu."
+  },
+  // ─── The fort's fair games (afterplay §9) ───
+  'fair': {
+    'fee': "Hrát · {n}",
+    'again': "Hrát znovu",
+    'noGold': "Nedostatek zlata.",
+    'capped': "Zón k vyčištění, než se vrátí velké ceny: {n}",
+    'top': "Hlavní cena! +{gold} zlata, +{xp} ZK",
+    'topGold': "Hlavní cena, jen ve zlatě: +{n} zlata",
+    'won': "Výhra! +{n} zlata",
+    'lost': "Smůla. Série začíná znovu.",
+    'row': "Výher v řadě: {n} z {max}",
+    'mats': "+{n} hrdinského+ materiálu",
+    'discount': "Kovář ti teď dává slevu {n} % na vylepšení!"
+  },
+  'whack': {
+    'title': "Prašti skřeta",
+    'lead': "Trefi 20 skřetů za 30 sekund. Ty ve zlaté zbroji nech být: každý zásah tě stojí život.",
+    'hits': "Skřeti: {n} / {max}",
+    'lives': "Životy: {n}",
+    'time': "Čas: {n} s",
+    'hint': "Ťukej na skřety nebo mačkej 1 až 9.",
+    'barrel': "Sud {n}",
+    'timeout': "Čas vypršel!",
+    'dead': "Došly životy!"
+  },
+  'ring': {
+    'title': "Házení kruhů na Hydru",
+    'lead': "Podrž pro sílu, pusť pro hod. Hlava chytí kruh jen blízko středu svého kývání. Každá další hlava v řadě má o bod víc.",
+    'hint': "Podrž a pusť na stole, nebo podrž mezerník.",
+    'rings': "Zbývá kruhů: {n}",
+    'score': "Skóre: {n}",
+    'hit': "Trefa! +{n}",
+    'miss': "Vedle!",
+    'perfect': "Dokonalé kolo!",
+    'nothing': "Skóre {n}. Tentokrát bez ceny.",
+    'power': "Síla"
+  },
+  'arm': {
+    'title': "Páka",
+    'lead': "Ťukni, když se prstenec setká s kruhem, a stlač mu ruku. Síla rozšiřuje rytmus. Tři výhry v řadě přinesou kovářskou slevu, pět hrdinský+ materiál.",
+    'hint': "Ťukni na stůl nebo stiskni mezerník.",
+    'good': "Tlač!",
+    'off': "Mimo rytmus!"
+  },
+  // ─── The Siege of Bastion (afterplay §8) ───
+  'siege': {
+    'title': "Obléhání Baštového brodu",
+    'lead': "Drž bránu deset vln. Mezi vlnami utrácej obléhací známky za obranu.",
+    'story': "Horda stojí u brány. Vydrž deset vln: toto první obléhání nelze prohrát.",
+    'bell': "Obléhací zvon zvoní! Horda se shromažďuje u brány.",
+    'mapBell': "Obléhání!",
+    'start': "Rozezvoň zvon",
+    'wins': "Vítězství: {n}",
+    'marksBank': "Uschované obléhací známky: {n}",
+    'tier': {
+      'normal': "Normální",
+      'hard': "Těžká",
+      'nightmare': "Noční můra"
+    },
+    'tierDesc': {
+      'normal': "Nepřátelé o úroveň výš než ty.",
+      'hard': "Nepřátelé o 3 úrovně výš a s 30 % zdraví navíc.",
+      'nightmare': "Nepřátelé o 6 úrovní výš a dvě vlny mýtických elit."
+    },
+    'locked': {
+      'hard': "Nejdřív vyhraj normální obléhání.",
+      'nightmare': "Otevře se, až bude trhlina zapečetěna nebo ponechána pootevřená."
+    },
+    'lord': "Pán obléhání",
+    'hud': {
+      'wave': "Vlna {n}/{total}",
+      'marks': "Známky: {n}",
+      'gate': "Brána {pct} %",
+      'build': "Vlna {n} za {s} s",
+      'ready': "Připraven!",
+      'buy': "{name}: {n} známek"
+    },
+    'def': {
+      'ballista': {
+        'name': "Balista",
+        'desc': "Každé 2 sekundy vystřelí průrazný šíp dolů svou uličkou."
+      },
+      'cauldron': {
+        'name': "Ohnivý kotel",
+        'desc': "Zapálí úžinu své uličky."
+      },
+      'barricade': {
+        'name': "Barikáda",
+        'desc': "Zatarasí uličku na 20 sekund."
+      },
+      'militia': {
+        'name': "Domobrana",
+        'desc': "Dva strážní bojují po tvém boku."
+      },
+      'repair': {
+        'name': "Opravit bránu",
+        'desc': "Obnoví čtvrtinu brány."
+      }
+    },
+    'block': {
+      'marks': "Nedostatek obléhacích známek.",
+      'full': "Už není místo.",
+      'phase': "Jen mezi vlnami."
+    },
+    'toast': {
+      'cleared': "Vlna {n} odražena! +{marks} známek",
+      'clearedUnharmed': "Vlna {n} odražena, brána nepoškozená! +{marks} známek",
+      'horn': "Zní roh! Brána je na {pct} %.",
+      'ram': "Beranidlo! Zastav ho, než dorazí k bráně!",
+      'rally': "Zase na nohou! Drž bránu!"
+    },
+    'banner': {
+      'wave': "Vlna {n}",
+      'final': "Pán obléhání!"
+    },
+    'result': {
+      'tier': "Obléhání Baštového brodu: {tier}",
+      'waves': "Odražené vlny: {n}/{total}",
+      'marks': "Ponechané obléhací známky: {banked} z {earned}",
+      'glass': "Démonské sklo: +{n}"
+    },
+    'milestone': {
+      'normal1': "Milník dosažen: Prapor Bašty.",
+      'normal5': "Milník dosažen: Kyrys strážce hradeb.",
+      'hard1': "Milník dosažen: Instinkt veterána, páté pasivní místo.",
+      'hard5': "Milník dosažen: Lamač bran.",
+      'nightmare1': "Milník dosažen: Koruna poslední bašty.",
+      'hardFlawless': "Milník dosažen: klíč ke skryté zkoušce povolání."
+    }
+  },
+  // ─── The Breaking (the afterplay's story) ───
+  'breaking': {
+    'title': "Roztržení",
+    'toast': {
+      brk6: "Mistr kovář má zpět svou kovárnu. Pekelné kovářství je otevřené.",
+      brk7: "Sfinga je mrtvá. Věštčina čočka ukazuje, kde čekají velké bestie.",
+      brk8: "Leviatan je mrtvý. Jeho šupina tě unese po mělčinách.",
+      brk9: "Hydra je mrtvá. Její ohnivý klíč je tvůj.",
+      brk10: "Prastarý drak je mrtvý. Trhlina je otevřená.",
+      sealed: "Trhlina je zapečetěna. Jsi Pečetitel trhliny.",
+      ajar: "Trhlina zůstává pootevřená. Démoni prověří hradby i koloseum.",
+      'brk2': "Baštový brod tě přijímá. Jeho lidé teď spoléhají na tebe.",
+      'rescued': "Přeživší zachráněni! Jsou v bezpečí v Baštovém brodu.",
+      'brk3': "Cesta je volná. Lidé ze Sunfordu jsou v bezpečí.",
+      'brk4': "Bylinkářka se přidává k pevnosti.",
+      'brk5': "Tlupa kentaurů je rozbita. Pevnost se chystá na obléhání.",
+    },
+  },
   // ─── The intro (#130): its skip, and its narrator's name ───
   intro: {
     narrator: 'Kronikář',
@@ -88,6 +253,7 @@ export default {
     gold: '{n} zl.',
     potion: 'Lektvar zdraví (zbývá {n})',
     manaPotion: 'Lektvar many (zbývá {n})',
+    potionStop: 'Vypij lektvar zdraví a pokračuj',
     groups: 'Poražené skupiny nepřátel: {n} z {total}',
     wave: 'Vlna {n} / {total}',
     roll: 'Kotoul',
@@ -264,6 +430,10 @@ export default {
     escort: 'Chraň karavanu'
   },
   node: {
+    'bastion': {
+      'name': "Baštový brod",
+      'desc': "Stará pohraniční pevnost, poslední hradby, které ještě stojí. Shromažďují se tu přeživší.",
+    },
     sunford: {
       name: 'Sunford',
       desc: 'Farmářské městečko na okraji plání. Domov, kovář a dva učitelé.'
@@ -346,6 +516,9 @@ export default {
     locked: 'Vyčisti sousední zónu a cesta se otevře.',
     lockedArena: 'Brány se otevřou, až se vypořádáš s Králem goblinů.',
     lockedRift: 'Otevře se, až se rozhodne o trůnu Pevnosti děsu.',
+    invaded: 'Napadená',
+    invadedDesc: 'Tuto zemi ovládli démoni. Jejich pylony nutí nepřátele poblíž udeřit silněji, jizvy trhliny pálí a zpomalují a každý zde poražený nepřítel má větší cenu.',
+    lockedInvaded: 'Démoni ji pevně drží. Nejprve dobyj zpět {zone}.',
     danger: {
       '1': 'Trochu nad tvou úrovní.',
       '2': 'Na tvé úrovni nebezpečné.',
@@ -472,6 +645,11 @@ export default {
     }
   },
   class: {
+    // ── The prestige classes (afterplay phase 10) ──
+    'demonhunter': { 'name': "Lovec démonů", 'desc': "Stín a svaté světlo, zaslíbené jediné kořisti. Značí démony a označení padají rychle." },
+    'dragoon': { 'name': "Dragoun", 'desc': "Vítr pod botami, štít na paži. Skáče z nebe a probodává celé řady." },
+    'hexsmith': { 'name': "Kovář kleteb", 'desc': "Éterné řemeslo krmené krví. Staví věže, které vysávají nepřítele a léčí kováře." },
+    'tidecaller': { 'name': "Vládce přílivu", 'desc': "Mráz a živly vlité do moře. Vlny, které odhazují a promáčejí nepřátele." },
     aegis: {
       name: 'Rytíř Égidy',
       desc: 'Štít a svatá ocel. Schytá rány, aby nemusel nikdo jiný.'
@@ -538,6 +716,35 @@ export default {
     }
   },
   skill: {
+    // ── The prestige classes (afterplay phase 10) ──
+    'huntersMark': { 'name': "Znamení lovce", 'desc': "Svatý šíp za {dmg}% poškození z Obratnosti. Po {dur} s cíl utrpí o {vuln}% víc poškození, démon o {demon}%." },
+    'demonsBane': { 'name': "Zhouba démonů", 'desc': "+{bane}% poškození démonům a o {ward}% menší poškození od nich." },
+    'silverVolley': { 'name': "Stříbrná salva", 'desc': "Stříbrné šípy v linii: {dmg}% poškození z Obratnosti, +{bane}% démonům a označeným nepřátelům." },
+    'skyfallLeap': { 'name': "Pád z nebes", 'desc': "Vyskoč mimo dosah na {air} s a pak dopadni: {dmg}% poškození ze Síly v okruhu {radius} m, nepřátelé sraženi." },
+    'dragonBlood': { 'name': "Dračí krev", 'desc': "+{boss}% poškození bossům, +{hp}% max. zdraví a nic tě neodhodí." },
+    'dragonLance': { 'name': "Dračí kopí", 'desc': "Bodnutí kopím v linii: {dmg}% poškození z Obratnosti každému nepříteli v ní." },
+    'hexTurret': { 'name': "Prokletá věž", 'desc': "Postav věž na {dur} s. Každou sekundu vysaje nejbližšího nepřítele v okruhu {radius} m za {dmg}% poškození ze Zručnosti; vyléčíš si {drain}% z toho." },
+    'soulForge': { 'name': "Výheň duší", 'desc': "+{hp}% max. zdraví, {regen} zdraví za sekundu a utrpíš o {reduce}% méně poškození." },
+    'hexBolt': { 'name': "Prokletý šíp", 'desc': "Zaplať {hp}% zdraví: šíp za {dmg}% poškození ze Zručnosti. Vyléčíš si {heal}% z toho a nepřítel po {dur} s dává o {weak}% méně poškození." },
+    'tidalWave': { 'name': "Přílivová vlna", 'desc': "Vlna v linii: {dmg}% poškození z Inteligence, nepřátelé odhozeni a promočeni ({slow}% zpomalení na {dur} s)." },
+    'seaborn': { 'name': "Zrozený z moře", 'desc': "+{bonus}% poškození zchlazeným nepřátelům, o {reduce}% menší utržené poškození, +{move}% rychlosti." },
+    'undertow': { 'name': "Zpětný proud", 'desc': "Vír na {dur} s: celkem {dmg}% poškození z Inteligence v okruhu {radius} m. Vtahuje nepřátele a zpomaluje je o {slow}%." },
+    'bastionWall': { 'name': "Zeď Bašty", 'desc': "Po {dur} s tě musí napadat každý nepřítel do {radius} m a ty utržíš o {def} % méně. Pak světlo způsobí {dmg} % Síly +{back} % utržených zásahů." },
+    'thousandCuts': { 'name': "Tisíc řezů", 'desc': "Kmitej mezi nepřáteli do {radius} m a zasáhni {hits}krát, každý zásah za {dmg} % poškození z Obratnosti. Boss schytá jen jeden zásah. Když řežeš, nic tě nezasáhne." },
+    'cinderSun': { 'name': "Popelavé slunce", 'desc': "Umírající slunce se po {dur} s rozpadá: {meteors} hořících úlomků, každý za {dmg} % poškození z Inteligence." },
+    'royalLegion': { 'name': "Královská legie", 'desc': "Povolej legii na {dur} s: lučištníci ({archers}), strážci ({guards}) a bitevní mágové ({mages})." },
+    'stoppedHour': { 'name': "Zastavená hodina", 'desc': "Zastav hodinu do {radius} m na {dur} s. Až se znovu rozběhne, každý nepřítel utrží {dmg} % poškození z Inteligence." },
+    'redCovenant': { 'name': "Rudá smlouva", 'desc': "Vezmi {pct} % života každého nepřítele do {radius} m. {heal} % z toho tě vyléčí." },
+    'orbitalLance': { 'name': "Orbitální kopí", 'desc': "Kopí světla z nebe pálí, kam míříš: {dmg} % poškození z Dovednosti během {dur} s." },
+    'tectonicHeart': { 'name': "Tektonické srdce", 'desc': "Srdce země se rozlomí: {dmg} % poškození ze Síly všemu poblíž a suť, která zpomaluje po {dur} s." },
+    'eyeOfTheGale': { 'name': "Oko vichru", 'desc': "Bouře šípů po {dur} s: celkem {dmg} % poškození z Dovednosti a {slow} % zpomalení." },
+    'endlessWinter': { 'name': "Nekonečná zima", 'desc': "Zima bez konce z tebe vytryskne: {dmg} % poškození z Inteligence do {radius} m, všichni zamrznou na {freeze} s." },
+    'dawnbreak': { 'name': "Úsvit", 'desc': "Staň se jitřenkou na {dur} s: každou sekundu {dmg} % poškození z Inteligence do {radius} m a léčení o {heal} %." },
+    'alphasCall': { 'name': "Volání alfy", 'desc': "Vlci ({wolves}) odpoví a běží s tebou {dur} s. Celá smečka způsobuje +{dmg} % poškození a je o {move} % rychlejší." },
+    'prismStorm': { 'name': "Prizmatická bouře", 'desc': "Po {dur} s běsní čtyři živly: {strikes} úderů za {dmg} % Inteligence, které se navzájem spouštějí." },
+    'ferryman': { 'name': "Převozník", 'desc': "Po {dur} s každý nepřítel, který padne poblíž, povstane jako tvůj duch, a duchové způsobují o {atk} % víc." },
+    'unmovingMountain': { 'name': "Neotřesitelná hora", 'desc': "Spotřebuj všechno čchi: hora dopadne za {dmg} % poškození z Obratnosti, +{per} % za čchi, a srazí nepřátele." },
+    'encore': { 'name': "Přídavek", 'desc': "Ještě jednou po {dur} s (+{buff} % rychlost, poškození, Obrana), pak poslední akord: {dmg} % Charismatu, nepřátelé okouzleni." },
     kind: {
       active: 'Aktivní',
       passive: 'Pasivní'
@@ -593,7 +800,7 @@ export default {
     },
     danceOfBlades: {
       name: 'Tanec čepelí',
-      desc: 'Přeskakuj mezi nepřáteli do {radius} m a zasáhni {hits}krát za celkem {dmg}% poškození z Obratnosti. Při tanci tě nic nezasáhne.'
+      desc: 'Přeskakuj mezi nepřáteli do {radius} m a zasáhni {hits}krát, každý zásah za {dmg}% poškození z Obratnosti. Boss schytá jen jeden zásah. Při tanci tě nic nezasáhne.'
     },
     fireball: {
       name: 'Ohnivá koule',
@@ -1341,6 +1548,8 @@ export default {
     magic: 'Magie · atribut: {attr}'
   },
   source: {
+    'siege': "Získáno v obléhání Baštového brodu.",
+    'infernal': "Pekelné dvojče: padá v obsazené oblasti {zone}, nebo ho ukove kovář.",
     arena: 'Vybojováno v Koloseu.',
     smith: 'Ukováno v kovárně.',
     mob: 'Padá z nestvůr v zóně: {zone}.',
@@ -1349,6 +1558,15 @@ export default {
     secret: 'Ukryto v tajné truhle v zóně: {zone}.'
   },
   mod: {
+    'demonBane': "+{n} % poškození proti démonům",
+    'demonLeech': "{n} % poškození démonům tě léčí",
+    'beastBane': "+{n} % poškození proti mýtickým bestiím",
+    'fireWard': "O {n} % méně utrženého ohnivého poškození",
+    'shadowWard': "O {n} % méně utrženého stínového poškození",
+    'demonWard': "O {n} % méně poškození od démonů",
+    'pylonBreaker': "+{n} % poškození proti démonským pylonům",
+    'glassFinder': "{n}% šance, že zabitý démon zanechá další démonské sklo",
+    'waterWalk': "Voda tě nezpomaluje",
     str: '+{n} Síly',
     dex: '+{n} Obratnosti',
     int: '+{n} Inteligence',
@@ -1424,6 +1642,24 @@ export default {
     songLength: 'Písně trvají o {n}% déle'
   },
   item: {
+    'chimeraMane': { 'name': "Hříva chiméry" },
+    'triFang': { 'name': "Trojzub" },
+    'warchiefsLongbowGun': { 'name': "Luk-puška náčelníka" },
+    'hoofbreakerGreaves': { 'name': "Holeně lamač kopyt" },
+    'eyeOfTheDeep': { 'name': "Oko hlubin" },
+    'beamSplitter': { 'name': "Štěpič paprsků" },
+    'riddleCrown': { 'name': "Koruna hádanek" },
+    'sandglassWand': { 'name': "Hůlka přesýpacích hodin" },
+    'leviathanScale': { 'name': "Šupina Leviatana" },
+    'tidecallerStaff': { 'name': "Hůl vzývače přílivu" },
+    'hydraScaleGauntlets': { 'name': "Rukavice z hydří šupiny" },
+    'manyHeadedFlail': { 'name': "Mnohohlavý cep" },
+    'heartOfTheElderDragon': { 'name': "Srdce Prastarého draka" },
+    'dragonboneGreatsword': { 'name': "Obouruční meč z dračí kosti" },
+    'bastionBanner': { 'name': "Prapor Bašty" },
+    'wallwardensPlate': { 'name': "Zbroj strážce hradeb" },
+    'gatebreaker': { 'name': "Bourač bran" },
+    'crownOfTheLastBastion': { 'name': "Koruna poslední Bašty" },
     heartOfTheArena: {
       name: 'Srdce arény'
     },
@@ -3422,8 +3658,17 @@ export default {
     known: 'Naučeno',
     friend: '{faction} si váží svých přátel: sleva 20%.',
     fee: 'Poplatek',
+    rank: {
+      label: 'Hodnost {n}',
+      up: 'Zvýšit hodnost',
+      effect: '+{effect} % účinku, −{cd} % přebíjení',
+      max: 'Nejvyšší hodnost',
+      level: 'Hodnost {n} vyžaduje úroveň {lvl}.'
+    },
     hint: 'Vyber lekci. Zelený okraj znamená, že se ji můžeš naučit hned.',
     block: {
+      'trial': "Zkoušku této třídy jsi ještě nesložil.",
+      'parents': "Nejdřív se nauč dovednost třídy {a} a třídy {b}.",
       level: 'Máš příliš nízkou úroveň.',
       attrs: 'Máš příliš nízké atributy.',
       gold: 'Nemáš dost zlata.'
@@ -3448,6 +3693,20 @@ export default {
     circle: 'Kruh éteru'
   },
   npc: {
+    'mysteriousWanderer': { 'name': "Tajemný poutník" },
+    'fairPip': { 'name': "Pip" },
+    'fairBess': { 'name': "Stará Bess" },
+    'fairHob': { 'name': "Hob" },
+    sunkenPriest: { name: "Potopený kněz" },
+    'fortHale': {
+      'name': "Kapitán Hale",
+    },
+    'fortMara': {
+      'name': "Stařešina Mara",
+    },
+    'scoutWren': {
+      'name': "Zvědka Wren",
+    },
     frostDisciple: {
       name: 'Ivor Hask'
     },
@@ -3737,6 +3996,188 @@ export default {
     }
   },
   dlg: {
+    // ── The Mysterious Wanderer (afterplay phase 10) ──
+    'mysteriousWanderer': {
+      'hello': { '1': "Tak. Dokázal jsi, co dokázal málokdo. Cítil jsem to z druhé strany trhliny.", '2': "Učím staré cesty, které spojují dvě školy v jednu. Jen ty, kdo si je zaslouží." },
+      'sealed': { '1': "Zapečetil jsi ji. Škoda, svým způsobem. Líbil se mi ten výhled." },
+      'ajar': { '1': "Nechal jsi ji pootevřenou. Odvážné. Démoni tě udrží ve střehu." },
+      'again': { '1': "Zase ty. Cesta je dlouhá, ale jdeš jí dobře." },
+      'train': { '1': "Ukaž mi obě poloviny toho, čím jsi, a udělám z nich jedno." },
+      'trial': { 'say': "Jaké zkoušky myslíš?", '1': "Brána udržená bez škrábnutí. Drak zabitý bez jediného pádu. Pět pekelných kování a pět vítězství v řadě.", '2': "Smrt Leviatana a dokonalé kolo u hydry. Každé otevírá dveře, které ti mohu ukázat." },
+      'who': { '1': "Poutník. Chodil jsem po okraji trhliny, než se narodil tvůj děd. Jména se opotřebují." },
+      'trainBack': { '1': "Cvič. Dvě školy se hádají, než se shodnou." },
+      'bye': { '1': "Jdi opatrně. Budu tu, dokud tu budu." }
+    },
+    'fairPip': {
+      'hello': { '1': "Pojďte blíž! Devět sudů, banda skřetů a jedna palička. Zatlučte je zpátky!", '2': "Skřeti vyskakují ze sudů. Trefi dvacet, než doteče písek.", '3': "Ty ve zlaté zbroji nech být, stojí život. Tři výhry v řadě a velká cena je tvoje." },
+      'again': { '1': "Ještě mlátit? Popadni paličku!" },
+      'play': { '1': "Palička nahoru! Už jdou!" },
+      'who': { '1': "Pip, lovec skřetů z povolání. Tyhle jsem chytil sám. Koušou." },
+      'playBack': { '1': "Ha! To je rámus! Ještě jednou?" },
+      'bye': { '1': "Ruku s paličkou nech volnou!" }
+    },
+    'fairBess': {
+      'hello': { '1': "Pět kruhů, tři hlavy a žádná nekouše. Vyřezala jsem ji sama, tak pozor na barvu.", '2': "Podrž pro rozmach, pusť pro hod. Hlava chytí kruh jen tehdy, když se zhoupne do středu.", '3': "Každá hlava v řadě se počítá o jednu víc. Trefi všech pět a zaplatím pořádně." },
+      'again': { '1': "Zase si to chceš rozdat s mou starou holkou?" },
+      'play': { '1': "Tady máš kruhy. Házej zlehka, zlatíčko." },
+      'who': { '1': "Čtyřicet let na poutních cestách. Hydra přišla s válkou. Přišlo mi to příhodné." },
+      'playBack': { '1': "Není to špatné. Můj nebožtík házel hůř." },
+      'bye': { '1': "Při odchodu pozor na barvu." }
+    },
+    'fairHob': {
+      'hello': { '1': "Ach. Ahoj. Chceš si dát páku? Budu opatrný. Pokusím se.", '2': "Tlač, když se prstenec setká s kruhem. Mimo rytmus ti to sklouzne.", '3': "Silné paže pomáhají. Poraz mě třikrát v řadě a Mistr kovář ti dá slevu." },
+      'again': { '1': "Další kolo? Nikdo nikdy nechce další kolo." },
+      'play': { '1': "Loket na stůl. Kdykoli budeš chtít." },
+      'who': { '1': "Jsem učeň Mistra kováře. Říká, že neznám vlastní sílu." },
+      'playBack': { '1': "Dobrý zápas. Zítra mě bude bolet ruka. Asi." },
+      'bye': { '1': "Přijď brzy zas. V kovárně je moc ticho." }
+    },
+    // ── The Breaking (the afterplay, B0–B5) ──
+    'story': {
+      forge: { back: { '1': "Má kovárna zase hoří, žhavější než kdy dřív. Démonické železo se dobře taví.", '2': "Nos mi, co tam venku najdeš. Teď to umím ukovat pekelně." } },
+      oracle: { lens: { '1': "Jednou jsi mě osvobodil. Teď budu vidět za tebe. Vezmi si mou čočku.", '2': "Podívej se skrz ni a mapa ti ukáže, kde čekají velké bestie." } },
+      priest: { lens: { '1': "Věštkyně je pryč, tak teď střežím její chrám. Tohle hlídala Sfinga.", '2': "Její čočka. Podívej se skrz ni a mapa ti ukáže, kde čekají velké bestie." } },
+      herbs: { scale: { '1': "Šupina z Leviatana! Lehká jako list a plave.", '2': "Nos ji a mělčiny tě unesou jako pevná zem." } },
+      ghost: { key: { '1': "Ale, ten, kdo vzal můj trůn. Zabil jsi mou Hydru. Dobře.", '2': "Vezmi si její ohnivý klíč. Srdce trhliny hoří a otevře ho jen oheň." } },
+      syndicate: { key: { '1': "Hydra je mrtvá? Pak její ohnivý klíč patří tomu, kdo zaplatí. Nebo tobě, nejspíš.", '2': "Otevírá srdce trhliny. Jdi ji zavřít, než mi sežere obchod." } },
+      sealed: {
+        sealed: { '1': "A tak byla trhlina zapečetěna a svět se začal hojit.", '2': "Města byla obnovena, písně složeny a v každé bylo jedno jméno." },
+        ajar: { '1': "A tak trhlina zůstala pootevřená a svět se naučil žít vedle ní.", '2': "Hradby zůstaly obsazené, koloseum hlučné a hrdina připravený." },
+      },
+      'rift': {
+        'scream': {
+          '1': "Pán Prázdnoty padá a trhlina za ním křičí.",
+          '2': "Nikdy to nebyl jeho trůn. Byla to jeho klec a on byl její víko.",
+          '3': "Teď je trhlina otevřená a vše, co prázdnota držela ve spánku, se probouzí.",
+        },
+      },
+      'wren': {
+        'found': {
+          '1': "Tady jsi! Jsem Wren, zvědka. Hledala jsem tě všude.",
+          '2': "Sunford hoří. Všichni, kdo mohli utéct, šli do Baštového brodu.",
+          '3': "Je to stará pevnost u cesty k Popelavým útesům. Pospěš si, potřebují tě.",
+        },
+      },
+    },
+    'scoutWren': {
+      sealed: { '1': "Drak je pryč! Cesty už působí lehčeji." },
+      'hello': {
+        '1': "Přišel jsi! Věděla jsem to. Vítej v Baštovém brodu.",
+        '2': "Prozkoumávám cesty pro kapitána. Zeptej se mě, kde jsou potíže.",
+        '1__f': "Přišla jsi! Věděla jsem to. Vítej v Baštovém brodu.",
+      },
+      'again': {
+        '1': "Už zpátky? Cesty se samy neprozkoumají.",
+      },
+      'who': {
+        '1': "Wren. Nosila jsem zprávy pro hlídku Sunfordu, než Sunford shořel.",
+      },
+      'rumor': {
+        'plains': {
+          '1': "Démoni drží cestu přes Sunfordské pláně. Učitelé ze Sunfordu za ní uvízli.",
+        },
+        'hollows': {
+          '1': "Gobliní sluje se hemží pekelnými psy. Vyčisti je a lidé ze Sunfordu se vrátí domů.",
+        },
+        'woods': {
+          '1': "V Šeptajícím hvozdu loví něco se třemi hlavami. Bylinkářka se tam skrývá.",
+        },
+        'outskirts': {
+          '1': "Kentauři jezdí po Předpolí Oakhavenu. Jestli dojdou k hradbám, bude třeba každý meč.",
+        },
+        'siege': {
+          '1': "Jejich tlupa je rozbitá, ale shromažďují se další. Kapitán chystá hradby.",
+        },
+      },
+      'bye': {
+        '1': "Hlídej cesty. Já budu taky.",
+      },
+    },
+    'fortHale': {
+      sealed: { '1': "Drak je mrtvý. Nemyslel jsem, že se toho dožiju. Děkuju." },
+      'siegeBack': { '1': "Ještě ne? Tak si odpočiň. Hradby na tebe počkají." },
+      'bell': { '1': "Tak k bráně. Řekni mi, jak tvrdě ji budeme držet." },
+      'hello': {
+        '1': "Dostal ses sem. Dobře. Potřebujeme každý meč, teď víc než kdy dřív.",
+        '2': "Vítej v Baštovém brodu. Staré hradby, ale jediné, které ještě stojí.",
+        '1__f': "Dostala ses sem. Dobře. Potřebujeme každý meč, teď víc než kdy dřív.",
+      },
+      'road': {
+        '1': "Cesta do Sunfordu je zase otevřená. Jeho lidé jsou v bezpečí za našimi hradbami.",
+      },
+      'herbs': {
+        '1': "Bylinkářka je zpátky i s bylinami. Ošetřovna si může vydechnout.",
+      },
+      'siege': {
+        '1': "Rozbil jsi kentaury. Ale blíží se větší vojsko a jde si pro tyhle hradby.",
+        '1__f': "Rozbila jsi kentaury. Ale blíží se větší vojsko a jde si pro tyhle hradby.",
+      },
+      'again': {
+        '1': "Pořád stojíme. Hradby, muži i já.",
+      },
+      'fort': {
+        '1': "Stará pohraniční pevnost. Padesát let prázdná, dokud se nebe neroztrhlo.",
+        '2': "Teď je to poslední bezpečné místo mezi pláněmi a horami.",
+        'say': "Co je to za místo?",
+      },
+      'rumor': {
+        'road': {
+          '1': "Vyčisti pláně a sluje. Lidé ze Sunfordu tam uvízli.",
+        },
+        'woods': {
+          '1': "Bylinkářka je v Šeptajícím hvozdu a s ní i tříhlavá bestie. Buď připraven.",
+        },
+        'centaurs': {
+          '1': "Kentauři na Předpolí. Rozbij jejich tlupu, než se k nám dostane.",
+        },
+        'siege': {
+          '1': "Odpočiň si. Až zazní obléhací zvon, budu tě potřebovat na hradbách.",
+        },
+      },
+      'bye': {
+        '1': "Drž meč po ruce.",
+      },
+    },
+    'fortMara': {
+      sealed: { '1': "Dokázal jsi to, dítě. Každý z nás ti dluží domov." },
+      'siegeBack': { '1': "Odpočiň si chvíli, dítě. Zvon zase zazvoní." },
+      'bell': { '1': "Kapitánovy hradby teď střežím já. Vyber, jak je udržíme." },
+      'hello': {
+        '1': "Dítě! Žiješ. Když Sunford shořel, bála jsem se nejhoršího.",
+        '2': "Teď jsme hosty ve vojenské pevnosti, staré ženy a všichni.",
+      },
+      'command': {
+        '1': "Kapitán Hale padl s Oakhavenem. Pevnost teď poslouchá starou stařešinu.",
+      },
+      'home': {
+        '1': "Sunford se obnovuje! První střechy už stojí. Mohla bych plakat.",
+      },
+      'again': {
+        '1': "Pořád tady, dítě. Pořád počítám hlavy.",
+      },
+      'town': {
+        '1': "Démoni přišli z nočního nebe. Utekli jsme s tím, co jsme unesli.",
+        '2': "Někteří z nás se nedostali ven. Přiveď zbytek domů, jestli můžeš.",
+        'say': "Co se stalo se Sunfordem?",
+      },
+      'rumor': {
+        'road': {
+          '1': "Naši učitelé jsou pořád na sunfordské cestě. Přiveď je sem, dítě.",
+        },
+        'woods': {
+          '1': "Bylinkářka šla do Šeptajícího hvozdu pro byliny a už se nevrátila.",
+        },
+        'centaurs': {
+          '1': "Jezdci na Předpolí. Kopyta jako hrom, každou noc.",
+        },
+        'siege': {
+          '1': "Hradby budou brzy zkoušeny. Cítím to ve svých starých kostech.",
+        },
+      },
+      'bye': {
+        '1': "Jdi opatrně, dítě.",
+      },
+    },
     intro: {
       crossing: { 1: 'Každá cesta tohoto světa se setkává na křižovatce… a každá křižovatka je bitva.' },
       hero: { 1: 'Z tichých polí Sunfordu se vydal na cestu mladý hrdina.' },
@@ -4198,6 +4639,7 @@ export default {
       }
     },
     hero: {
+      'siege': "Obsaďme hradby.",
       forge: 'Můžu použít tvou kovárnu?',
       learnSmith: 'Naučíš mě kovařině?',
       ore: 'Mám nějakou rudu na prodej.',
@@ -4526,7 +4968,7 @@ export default {
       },
       map: {
         '1': 'Mapa kapitána Rooka! Roztrhal ji a kusy schoval, než ho goblini chytili.',
-        '2': 'Najdi jich šest, pár dalších se jich válí kolem, a X ti ukáže cestu: někde v Popelavých útesech. Tam kopej a zlato je tvoje.',
+        '2': "Najdi šest kousků a X ti ukáže cestu: někde v Popelavých útesech. Tam kopej pro zlato.",
         say: 'Mám tu kus nějaké staré mapy.'
       }
     },
@@ -5548,6 +5990,11 @@ export default {
       }
     },
     quest: {
+      seal: {
+        ask: { '1': "Prastarý drak je mrtvý a trhlina se před tebou otevírá.", '2': "Mohl bys ji teď zapečetit, navždy. Bestie by znovu usnuly.", '3': "Nebo ji můžeš nechat pootevřenou a nechat ty nejstatečnější změřit síly s tím, co projde." },
+        seal: { say: "Zapečetit ji. Navždy.", '1': "Trhlina se zavírá jako hojící se rána a nebe utichá." },
+        ajar: { say: "Nechat ji pootevřenou. Budeme připraveni.", '1': "Trhlina zůstává pootevřená a něco za ní se směje." },
+      },
       goblinKing: {
         ask: {
           '1': 'Stůj. Prosím. Vzdávám se.',
@@ -5682,6 +6129,64 @@ export default {
       }
     },
     bark: {
+      sphinx: {
+        intro: { '1': "Odpověz mi, maličký, nebo tě pohřbí můj písek." },
+        riddle: { '1': "Tedy hádanka. Šlápni tam, kam ukážu, v tomto pořadí." },
+        sand: { '1': "Tentokrát pět. A můj písek čekat nebude." },
+        death: { '1': "Odpověděl jsi dobře. Písek je teď tvůj." },
+      },
+      leviathan: {
+        intro: { '1': "Teď chodíš v mé vodě." },
+        sink: { '1': "Tvé ostrůvky se potápějí." },
+        grab: { '1': "Pojď se mnou do hlubin!" },
+        death: { '1': "Odliv odchází a už se nevrátí." },
+      },
+      hydra: {
+        intro: { '1': "Usekni jednu hlavu a dvě dorostou!" },
+        heads: { '1': "Víc hlav, víc zubů!" },
+        rage: { '1': "Spálit nás? Tak hoř s námi!" },
+        death: { '1': "Už žádné hlavy. Už ne." },
+      },
+      elderDragon: {
+        intro: { '1': "Spal jsem pod světem dřív, než tvůj rod poznal oheň." },
+        flight: { '1': "Tak se schovej za své kamínky." },
+        rift: { '1': "Trhlina mě táhne zpátky. Ještě ne!" },
+        death: { '1': "Tak ji zapečeť. Už mě unavuje tma." },
+      },
+      'siegeHale': {
+        'start': {
+          '1': "Už jdou! Držte bránu!"
+        },
+        'ram': {
+          '1': "Beranidlo! Zabijte ho, než dorazí k bráně!"
+        },
+        'horn50': {
+          '1': "Polovina brány je pryč! Vydržte!"
+        },
+        'horn25': {
+          '1': "Brána už dlouho nevydrží!"
+        },
+        'won': {
+          '1': "Jsou rozbiti! Bašta stojí!"
+        }
+      },
+      'siegeMara': {
+        'start': {
+          '1': "Už jdou! Stůjte pevně, všichni!"
+        },
+        'ram': {
+          '1': "Beranidlo! Zastavte ho, než prorazí bránu!"
+        },
+        'horn50': {
+          '1': "Polovina brány padla. Vydržte!"
+        },
+        'horn25': {
+          '1': "Brána povoluje! Zatlačte je zpátky!"
+        },
+        'won': {
+          '1': "Utíkají! Pevnost stále stojí!"
+        }
+      },
       banditChief: {
         whistle: {
           1: 'Vzhůru, chlapci! Kousejte je!'
@@ -5690,6 +6195,11 @@ export default {
       lightDisciple: {
         freed: {
           '1': 'Poslalo tě světlo. Jsem Sestra Aurelle. Hledej mě v Sunfordu, naučím tě cestě Nositele světla.'
+        }
+      },
+      trainerAegis: {
+        freed: {
+          '1': 'Díky, žes nás vysvobodil od banditů! Pojď k ohni: všichni tě budeme učit, první lekce zdarma.'
         }
       },
       frostDisciple: {
@@ -5745,6 +6255,48 @@ export default {
         },
         dive: {
           '1': 'Na kolena.'
+        }
+      },
+      chimera: {
+        intro: {
+          '1': "Tři hlavy, jeden hlad. Která z nás kousne první?"
+        },
+        twin: {
+          '1': "Teď jsme dvě. Vyber si stranu dobře."
+        },
+        tail: {
+          '1': "Můj ocas! Za to zaplatíš!"
+        },
+        death: {
+          '1': "Tři hlavy, a žádná to nečekala."
+        }
+      },
+      centaurWarchief: {
+        intro: {
+          '1': "Utíkej, jestli chceš. Mé šípy jsou rychlejší."
+        },
+        raiders: {
+          '1': "Jezdci! Rozdupejte je!"
+        },
+        rear: {
+          '1': "Dost šípů. Rozdupu tě!"
+        },
+        death: {
+          '1': "Pláně si budou pamatovat má kopyta."
+        }
+      },
+      cyclops: {
+        intro: {
+          '1': "Je tu něco malého. Pojď blíž. Ukaž se."
+        },
+        cover: {
+          '1': "Už žádné dívání. Moje oko nedostaneš!"
+        },
+        blind: {
+          '1': "Nevidím tě, ale slyším tě!"
+        },
+        death: {
+          '1': "Tma. Všechno potemnělo."
         }
       },
       frostJarl: {
@@ -6871,7 +7423,20 @@ export default {
       }
     }
   },
+  invasion: {
+    pylonsDown: 'Poslední pylon padl a jeho poklad se rozsypal!',
+    reborn: {
+      tusker: 'Znovuzrozený Tusker',
+      emberLord: 'Pekelný Pán uhlíků',
+      frostJarl: 'Znovuzrozený Mrazivý jarl',
+      voidDragon: 'Znovuzrozený Drak Prázdnoty'
+    }
+  },
   enemy: {
+    sphinx: "Sfinga",
+    leviathan: "Leviatan",
+    hydra: "Hydra",
+    elderDragon: "Prastarý drak",
     trainingDummy: 'Cvičný panák',
     goblin: 'Goblin',
     goblinSlinger: 'Goblin prakovník',
@@ -6896,6 +7461,10 @@ export default {
     naga: 'Naga',
     skeleton: 'Kostlivec',
     necromancer: 'Nekromant',
+    chimera: "Chiméra",
+    chimeraTail: "Hadí ocas",
+    centaurWarchief: "Kentauří náčelník",
+    cyclops: "Kyklop",
     frostJarl: 'Mrazivý jarl',
     nagaOracle: 'Utopená věštkyně',
     voidStalker: 'Stopař Prázdnoty',
@@ -6908,6 +7477,7 @@ export default {
     archDemon: 'Arcidémon',
     voidling: 'Zplozenec Prázdnoty',
     voidLord: 'Pán Prázdnoty',
+    demonPylon: 'Démonický pylon',
     orderGuard: 'Inkvizitor Řádu',
     syndicateBlade: 'Čepel Syndikátu',
     goblinWarchief: 'Skřetí válečný náčelník',
@@ -6924,7 +7494,19 @@ export default {
     goblinTyrant: 'Goblinský tyran',
     voidDrake: 'Saň Prázdnoty',
     pitLord: 'Pán Propasti',
-    frostThane: 'Mrazivý thán'
+    frostThane: 'Mrazivý thán',
+    hellhound: 'Pekelný pes',
+    frostHellhound: 'Mrazivý pekelný pes',
+    gargoyle: 'Chrlič',
+    harpy: 'Harpyje',
+    corruptedTreant: 'Zkažený ent',
+    centaurRaider: 'Kentaur nájezdník',
+    cyclopsBrute: 'Kyklopský surovec',
+    demonMiner: 'Démonický horník',
+    sphinxAcolyte: 'Sfingin akolyta',
+    seaDemon: 'Mořský démon',
+    drakeHatchling: 'Dráče',
+    hydraSpawn: 'Hydří potomek'
   },
   results: {
     careful: 'Opatrné vítězství ×{mult}',
@@ -7242,6 +7824,8 @@ export default {
     town: 'Vylepšit to může kovář v kterémkoli městě.'
   },
   ore: {
+    'demonglass': { 'name': "Démonské sklo" },
+    'ichor': { 'name': "Mýtický ichor" },
     iron: {
       name: 'Železná ruda'
     },

@@ -1,5 +1,170 @@
 // Polish (pl) bundle — mirrors en.ts.
 export default {
+  // ─── Afterplay phase 8: items, materials and capstones ───
+  // ─── Afterplay phase 10: the prestige classes ───
+  'prestige': { 'toast': { 'wanderer': "Tajemniczy wędrowiec czeka w forcie." } },
+  'relic': {
+    'infernal': "{name} · Piekielny",
+    'set': "Noszony z: {item}",
+    'heroicBadge': "Heroiczny {n}",
+    'heroic': "Heroiczny {n}: {gold} złota, {glass} demonicznego szkła",
+    'heroicIchor': "Heroiczny {n}: {gold} złota, {glass} demonicznego szkła, {ichor} ichoru",
+    'heroicMax': "Wszystkie heroiczne rangi zdobyte.",
+    'infernalForge': "Piekielna kuźnia: {gold} złota, {glass} demonicznego szkła",
+    'lens': "Soczewka Wyroczni: czeka tu {boss}.",
+    'hydraKey': "Zapieczętowane. Ognisty klucz Hydry otwiera serce Szczeliny.",
+    'marksGlass': "Kup {glass} demonicznego szkła za {marks} znaków",
+    'capstone': "Szczyt",
+    'fortOnly': "Tego szczytu uczą tylko w Przeprawie Bastionu."
+  },
+  // ─── The fort's fair games (afterplay §9) ───
+  'fair': {
+    'fee': "Graj · {n}",
+    'again': "Zagraj ponownie",
+    'noGold': "Za mało złota.",
+    'capped': "Strefy do oczyszczenia, zanim wrócą wielkie nagrody: {n}",
+    'top': "Główna nagroda! +{gold} złota, +{xp} PD",
+    'topGold': "Główna nagroda, tylko w złocie: +{n} złota",
+    'won': "Wygrana! +{n} złota",
+    'lost': "Pech. Seria zaczyna się od nowa.",
+    'row': "Wygrane z rzędu: {n} z {max}",
+    'mats': "+{n} materiału Heroicznego+",
+    'discount': "Kowal daje ci teraz {n}% zniżki na ulepszenia!"
+  },
+  'whack': {
+    'title': "Walnij Diablika",
+    'lead': "Trafiaj 20 diablików w 30 sekund. Zostaw te w złotej zbroi: każde trafienie kosztuje życie.",
+    'hits': "Diabliki: {n} / {max}",
+    'lives': "Życia: {n}",
+    'time': "Czas: {n} s",
+    'hint': "Stukaj w diabliki albo naciskaj 1–9.",
+    'barrel': "Beczka {n}",
+    'timeout': "Koniec czasu!",
+    'dead': "Brak żyć!"
+  },
+  'ring': {
+    'title': "Rzut obręczami w Hydrę",
+    'lead': "Przytrzymaj, by nabrać siły, puść, by rzucić. Głowa łapie obręcz tylko blisko środka swojego kołysania. Każda kolejna trafiona głowa z rzędu daje punkt więcej.",
+    'hint': "Przytrzymaj i puść na stole albo przytrzymaj Spację.",
+    'rings': "Pozostałe obręcze: {n}",
+    'score': "Wynik: {n}",
+    'hit': "Trafiona! +{n}",
+    'miss': "Pudło!",
+    'perfect': "Idealna runda!",
+    'nothing': "Wynik {n}. Tym razem bez nagrody.",
+    'power': "Siła"
+  },
+  'arm': {
+    'title': "Siłowanie na rękę",
+    'lead': "Stuknij, gdy pierścień spotka okrąg, by przygiąć jego rękę. Siła poszerza rytm. Trzy wygrane z rzędu dają zniżkę u kowala, pięć daje materiał Heroiczny+.",
+    'hint': "Stuknij w stół albo naciśnij Spację.",
+    'good': "Pchaj!",
+    'off': "Poza rytmem!"
+  },
+  // ─── The Siege of Bastion (afterplay §8) ───
+  'siege': {
+    'title': "Oblężenie Przeprawy Bastionu",
+    'lead': "Utrzymaj bramę przez dziesięć fal. Między falami wydawaj znaki oblężenia na obronę.",
+    'story': "Horda stoi u bramy. Wytrzymaj dziesięć fal: tego pierwszego oblężenia nie da się przegrać.",
+    'bell': "Dzwon oblężenia bije! Horda zbiera się pod bramą.",
+    'mapBell': "Oblężenie!",
+    'start': "Uderz w dzwon",
+    'wins': "Zwycięstwa: {n}",
+    'marksBank': "Odłożone znaki oblężenia: {n}",
+    'tier': {
+      'normal': "Normalny",
+      'hard': "Trudny",
+      'nightmare': "Koszmar"
+    },
+    'tierDesc': {
+      'normal': "Wrogowie o poziom wyżej od ciebie.",
+      'hard': "Wrogowie 3 poziomy wyżej, z 30% więcej zdrowia.",
+      'nightmare': "Wrogowie 6 poziomów wyżej i dwie fale mitycznych elit."
+    },
+    'locked': {
+      'hard': "Najpierw wygraj normalne oblężenie.",
+      'nightmare': "Otwiera się, gdy szczelina zostanie zapieczętowana lub uchylona."
+    },
+    'lord': "Pan Oblężenia",
+    'hud': {
+      'wave': "Fala {n}/{total}",
+      'marks': "Znaki: {n}",
+      'gate': "Brama {pct}%",
+      'build': "Fala {n} za {s} s",
+      'ready': "Gotowe!",
+      'buy': "{name}: {n} znaków"
+    },
+    'def': {
+      'ballista': {
+        'name': "Balista",
+        'desc': "Co 2 sekundy wystrzeliwuje przebijający bełt wzdłuż swojego pasa."
+      },
+      'cauldron': {
+        'name': "Kocioł ognia",
+        'desc': "Podpala przewężenie swojego pasa."
+      },
+      'barricade': {
+        'name': "Barykada",
+        'desc': "Blokuje pas na 20 sekund."
+      },
+      'militia': {
+        'name': "Milicja",
+        'desc': "Dwóch strażników walczy u twego boku."
+      },
+      'repair': {
+        'name': "Napraw bramę",
+        'desc': "Przywraca jedną czwartą bramy."
+      }
+    },
+    'block': {
+      'marks': "Za mało znaków oblężenia.",
+      'full': "Brak miejsca na więcej.",
+      'phase': "Tylko między falami."
+    },
+    'toast': {
+      'cleared': "Fala {n} odparta! +{marks} znaków",
+      'clearedUnharmed': "Fala {n} odparta, brama nietknięta! +{marks} znaków",
+      'horn': "Róg gra! Bramie zostało {pct}%.",
+      'ram': "Taran! Zatrzymaj go, zanim dotrze do bramy!",
+      'rally': "Znów na nogach! Utrzymaj bramę!"
+    },
+    'banner': {
+      'wave': "Fala {n}",
+      'final': "Pan Oblężenia!"
+    },
+    'result': {
+      'tier': "Oblężenie Przeprawy Bastionu: {tier}",
+      'waves': "Odparte fale: {n}/{total}",
+      'marks': "Zachowane znaki oblężenia: {banked} z {earned}",
+      'glass': "Demoniczne szkło: +{n}"
+    },
+    'milestone': {
+      'normal1': "Kamień milowy: Sztandar Bastionu.",
+      'normal5': "Kamień milowy: Napierśnik Strażnika Murów.",
+      'hard1': "Kamień milowy: Instynkt weterana, piąte miejsce pasywne.",
+      'hard5': "Kamień milowy: Łamacz Bram.",
+      'nightmare1': "Kamień milowy: Korona Ostatniego Bastionu.",
+      'hardFlawless': "Kamień milowy: klucz do ukrytej próby klasy."
+    }
+  },
+  // ─── The Breaking (the afterplay's story) ───
+  'breaking': {
+    'title': "Rozdarcie",
+    'toast': {
+      brk6: "Mistrz Kowalski odzyskał swoją kuźnię. Piekielne kowalstwo jest otwarte.",
+      brk7: "Sfinks nie żyje. Soczewka Wyroczni pokazuje, gdzie czekają wielkie bestie.",
+      brk8: "Lewiatan nie żyje. Jego łuska pozwala chodzić po płyciznach.",
+      brk9: "Hydra nie żyje. Jej ognisty klucz jest twój.",
+      brk10: "Pradawny Smok nie żyje. Szczelina stoi otworem.",
+      sealed: "Szczelina jest zapieczętowana. Jesteś Pieczętującym Szczelinę.",
+      ajar: "Szczelina zostaje uchylona. Demony wystawią na próbę mury i koloseum.",
+      'brk2': "Przeprawa Bastionu przyjmuje cię. Jej ludzie liczą teraz na ciebie.",
+      'rescued': "Ocaleni uratowani! Są bezpieczni w Przeprawie Bastionu.",
+      'brk3': "Droga wolna. Ludzie z Sunford są bezpieczni.",
+      'brk4': "Zielarka dołącza do fortu.",
+      'brk5': "Banda centaurów rozbita. Fort szykuje się do oblężenia.",
+    },
+  },
   // ─── The intro (#130): its skip, and its narrator's name ───
   intro: {
     narrator: 'Kronikarz',
@@ -88,6 +253,7 @@ export default {
     gold: '{n} szt. złota',
     potion: 'Mikstura zdrowia (zostało: {n})',
     manaPotion: 'Mikstura many (zostało: {n})',
+    potionStop: 'Wypij miksturę zdrowia, aby kontynuować',
     groups: 'Pokonane grupy wrogów: {n} z {total}',
     wave: 'Fala {n} / {total}',
     roll: 'Przewrót',
@@ -262,6 +428,10 @@ export default {
     escort: 'Pilnuj karawany'
   },
   node: {
+    'bastion': {
+      'name': "Przeprawa Bastionu",
+      'desc': "Stary fort graniczny, ostatnie mury, które wciąż stoją. Tu zbierają się ocaleni.",
+    },
     sunford: {
       name: 'Sunford',
       desc: 'Rolnicze miasteczko na skraju równin. Dom, kowal i dwóch trenerów.'
@@ -344,6 +514,9 @@ export default {
     locked: 'Oczyść sąsiednią strefę, aby otworzyć drogę.',
     lockedArena: 'Bramy otworzą się, gdy rozprawisz się z Królem Goblinów.',
     lockedRift: 'Otworzy się, gdy rozstrzygnie się los tronu Twierdzy Grozy.',
+    invaded: 'Najechana',
+    invadedDesc: 'Tą ziemią władają demony. Ich pylony sprawiają, że pobliscy wrogowie biją mocniej, blizny szczeliny palą i spowalniają, a każdy pokonany tu wróg jest wart więcej.',
+    lockedInvaded: 'Demony trzymają ją mocno. Najpierw odbij {zone}.',
     danger: {
       '1': 'Nieco powyżej twojego poziomu.',
       '2': 'Niebezpiecznie na twoim poziomie.',
@@ -470,6 +643,11 @@ export default {
     }
   },
   class: {
+    // ── The prestige classes (afterplay phase 10) ──
+    'demonhunter': { 'name': "Łowca demonów", 'desc': "Cień i święte światło, zaprzysiężone jednej zdobyczy. Naznacza demony, a naznaczeni padają szybko." },
+    'dragoon': { 'name': "Dragon", 'desc': "Wiatr pod butami, tarcza na ramieniu. Spada z nieba i przebija całe szeregi." },
+    'hexsmith': { 'name': "Kowal klątw", 'desc': "Eteryczne rzemiosło karmione krwią. Buduje wieżyczki, które wysysają wroga, by leczyć kowala." },
+    'tidecaller': { 'name': "Przywoływacz przypływów", 'desc': "Mróz i żywioły wlane w morze. Fale, które odrzucają i przemaczają wrogów." },
     aegis: {
       name: 'Rycerz Egidy',
       desc: 'Tarcza i święta stal. Przyjmuje ciosy, żeby nikt inny nie musiał.'
@@ -536,6 +714,35 @@ export default {
     }
   },
   skill: {
+    // ── The prestige classes (afterplay phase 10) ──
+    'huntersMark': { 'name': "Znak łowcy", 'desc': "Święty bełt za {dmg}% obrażeń od Zręczności. Przez {dur} s cel otrzymuje o {vuln}% więcej obrażeń, demon o {demon}%." },
+    'demonsBane': { 'name': "Zguba demonów", 'desc': "+{bane}% obrażeń przeciw demonom i o {ward}% mniej obrażeń od nich." },
+    'silverVolley': { 'name': "Srebrna salwa", 'desc': "Srebrne bełty w linii: {dmg}% obrażeń od Zręczności, +{bane}% przeciw demonom i naznaczonym wrogom." },
+    'skyfallLeap': { 'name': "Upadek z niebios", 'desc': "Wyskocz poza zasięg na {air} s, potem spadnij: {dmg}% obrażeń od Siły w promieniu {radius} m, wrogowie powaleni." },
+    'dragonBlood': { 'name': "Smocza krew", 'desc': "+{boss}% obrażeń przeciw bossom, +{hp}% maks. zdrowia i nic cię nie odrzuca." },
+    'dragonLance': { 'name': "Smocza lanca", 'desc': "Pchnięcie włócznią w linii: {dmg}% obrażeń od Zręczności każdemu wrogowi na niej." },
+    'hexTurret': { 'name': "Przeklęta wieżyczka", 'desc': "Zbuduj wieżyczkę na {dur} s. Co sekundę wysysa najbliższego wroga w promieniu {radius} m za {dmg}% obrażeń od Biegłości; leczysz {drain}% z tego." },
+    'soulForge': { 'name': "Kuźnia dusz", 'desc': "+{hp}% maks. zdrowia, {regen} zdrowia na sekundę i otrzymujesz o {reduce}% mniej obrażeń." },
+    'hexBolt': { 'name': "Przeklęty bełt", 'desc': "Zapłać {hp}% zdrowia: bełt za {dmg}% obrażeń od Biegłości. Leczysz {heal}% z tego, a wróg zadaje o {weak}% mniej obrażeń przez {dur} s." },
+    'tidalWave': { 'name': "Fala przypływu", 'desc': "Fala w linii: {dmg}% obrażeń od Inteligencji, wrogowie odrzuceni i przemoczeni ({slow}% spowolnienia przez {dur} s)." },
+    'seaborn': { 'name': "Zrodzony z morza", 'desc': "+{bonus}% obrażeń przeciw schłodzonym wrogom, o {reduce}% mniej otrzymanych obrażeń, +{move}% szybkości." },
+    'undertow': { 'name': "Prąd wsteczny", 'desc': "Wir na {dur} s: łącznie {dmg}% obrażeń od Inteligencji w promieniu {radius} m. Wciąga wrogów i spowalnia ich o {slow}%." },
+    'bastionWall': { 'name': "Mur Bastionu", 'desc': "Przez {dur} s każdy wróg w promieniu {radius} m musi cię atakować, a ty otrzymujesz o {def}% mniej. Potem światło zadaje {dmg}% Siły +{back}% otrzymanych ciosów." },
+    'thousandCuts': { 'name': "Tysiąc cięć", 'desc': "Przemykaj między wrogami w promieniu {radius} m i uderz {hits} razy, każdym ciosem za {dmg}% obrażeń ze Zręczności. Boss przyjmuje tylko jeden cios. Gdy tniesz, nic cię nie trafi." },
+    'cinderSun': { 'name': "Popielne słońce", 'desc': "Umierające słońce rozpada się przez {dur} s: {meteors} płonących odłamków, każdy za {dmg}% obrażeń z Inteligencji." },
+    'royalLegion': { 'name': "Królewski legion", 'desc': "Wezwij legion na {dur} s: łucznicy ({archers}), strażnicy ({guards}) i magowie bitewni ({mages})." },
+    'stoppedHour': { 'name': "Zatrzymana godzina", 'desc': "Zatrzymaj godzinę w promieniu {radius} m na {dur} s. Gdy ruszy, każdy wróg otrzyma {dmg}% obrażeń z Inteligencji." },
+    'redCovenant': { 'name': "Czerwone przymierze", 'desc': "Odbierz {pct}% życia każdemu wrogowi w promieniu {radius} m. {heal}% z tego cię leczy." },
+    'orbitalLance': { 'name': "Lanca orbitalna", 'desc': "Lanca światła z nieba pali tam, gdzie celujesz: {dmg}% obrażeń z Umiejętności przez {dur} s." },
+    'tectonicHeart': { 'name': "Tektoniczne serce", 'desc': "Serce ziemi pęka: {dmg}% obrażeń z Siły wszystkiemu w pobliżu i gruz spowalniający przez {dur} s." },
+    'eyeOfTheGale': { 'name': "Oko wichury", 'desc': "Burza strzał przez {dur} s: łącznie {dmg}% obrażeń z Umiejętności i {slow}% spowolnienia." },
+    'endlessWinter': { 'name': "Wieczna zima", 'desc': "Zima bez końca wybucha z ciebie: {dmg}% obrażeń z Inteligencji w promieniu {radius} m, wszyscy zamarzają na {freeze} s." },
+    'dawnbreak': { 'name': "Świt", 'desc': "Stań się jutrzenką na {dur} s: co sekundę {dmg}% obrażeń z Inteligencji w promieniu {radius} m i {heal}% leczenia." },
+    'alphasCall': { 'name': "Zew alfy", 'desc': "Wilki ({wolves}) odpowiadają i biegną z tobą przez {dur} s. Cała wataha zadaje +{dmg}% obrażeń i jest o {move}% szybsza." },
+    'prismStorm': { 'name': "Pryzmatyczna burza", 'desc': "Przez {dur} s szaleją cztery żywioły: {strikes} uderzeń za {dmg}% Inteligencji, które wyzwalają się nawzajem." },
+    'ferryman': { 'name': "Przewoźnik", 'desc': "Przez {dur} s każdy wróg, który padnie obok ciebie, powstaje jako twój duch, a duchy zadają o {atk}% więcej." },
+    'unmovingMountain': { 'name': "Niewzruszona góra", 'desc': "Zużyj całe chi: góra spada za {dmg}% obrażeń ze Zręczności, +{per}% za chi, i powala wrogów." },
+    'encore': { 'name': "Bis", 'desc': "Jeszcze raz przez {dur} s (+{buff}% szybkości, obrażeń, Obrony), potem ostatni akord: {dmg}% Charyzmy, wrogowie oczarowani." },
     kind: {
       active: 'Aktywna',
       passive: 'Pasywna'
@@ -591,7 +798,7 @@ export default {
     },
     danceOfBlades: {
       name: 'Taniec ostrzy',
-      desc: 'Przeskakuj między wrogami w promieniu {radius} m, uderzając {hits} razy i zadając łącznie {dmg}% obrażeń od Zręczności. Podczas tańca nic cię nie trafi.'
+      desc: 'Przeskakuj między wrogami w promieniu {radius} m, uderzając {hits} razy, każdym ciosem za {dmg}% obrażeń od Zręczności. Boss przyjmuje tylko jeden cios. Podczas tańca nic cię nie trafi.'
     },
     fireball: {
       name: 'Kula ognia',
@@ -1339,6 +1546,8 @@ export default {
     magic: 'Magia · atrybut: {attr}'
   },
   source: {
+    'siege': "Zdobyte w Oblężeniu Przeprawy Bastionu.",
+    'infernal': "Piekielny bliźniak: wypada w najechanej strefie {zone} albo wykuwa go kowal.",
     arena: 'Zdobyte w Koloseum.',
     smith: 'Wykute w kuźni.',
     mob: 'Wypada z potworów w strefie: {zone}.',
@@ -1347,6 +1556,15 @@ export default {
     secret: 'Ukryte w sekretnej skrzyni w strefie: {zone}.'
   },
   mod: {
+    'demonBane': "+{n}% obrażeń przeciw demonom",
+    'demonLeech': "{n}% obrażeń zadanych demonom leczy cię",
+    'beastBane': "+{n}% obrażeń przeciw mitycznym bestiom",
+    'fireWard': "O {n}% mniej otrzymywanych obrażeń od ognia",
+    'shadowWard': "O {n}% mniej otrzymywanych obrażeń od cienia",
+    'demonWard': "O {n}% mniej obrażeń od demonów",
+    'pylonBreaker': "+{n}% obrażeń przeciw demonicznym pylonom",
+    'glassFinder': "{n}% szans, że zabity demon zostawi dodatkowe demoniczne szkło",
+    'waterWalk': "Woda cię nie spowalnia",
     str: '+{n} Siły',
     dex: '+{n} Zręczności',
     int: '+{n} Inteligencji',
@@ -1422,6 +1640,24 @@ export default {
     songLength: 'Pieśni trwają o {n}% dłużej'
   },
   item: {
+    'chimeraMane': { 'name': "Grzywa chimery" },
+    'triFang': { 'name': "Trójkieł" },
+    'warchiefsLongbowGun': { 'name': "Łuk-strzelba wodza" },
+    'hoofbreakerGreaves': { 'name': "Nagolenniki kopytołamacze" },
+    'eyeOfTheDeep': { 'name': "Oko głębin" },
+    'beamSplitter': { 'name': "Rozszczepiacz promieni" },
+    'riddleCrown': { 'name': "Korona zagadek" },
+    'sandglassWand': { 'name': "Różdżka klepsydry" },
+    'leviathanScale': { 'name': "Łuska Lewiatana" },
+    'tidecallerStaff': { 'name': "Kostur wzywającego przypływy" },
+    'hydraScaleGauntlets': { 'name': "Rękawice z łuski hydry" },
+    'manyHeadedFlail': { 'name': "Wielogłowy cep" },
+    'heartOfTheElderDragon': { 'name': "Serce Prastarego Smoka" },
+    'dragonboneGreatsword': { 'name': "Dwuręczny miecz ze smoczej kości" },
+    'bastionBanner': { 'name': "Sztandar Bastionu" },
+    'wallwardensPlate': { 'name': "Zbroja strażnika murów" },
+    'gatebreaker': { 'name': "Łamacz Bram" },
+    'crownOfTheLastBastion': { 'name': "Korona Ostatniego Bastionu" },
     heartOfTheArena: {
       name: 'Serce Areny'
     },
@@ -3420,8 +3656,17 @@ export default {
     known: 'Poznane',
     friend: '{faction} ceni swoich przyjaciół: 20% taniej.',
     fee: 'Opłata',
+    rank: {
+      label: 'Ranga {n}',
+      up: 'Podnieś rangę',
+      effect: '+{effect}% efektu, −{cd}% odnowienia',
+      max: 'Najwyższa ranga',
+      level: 'Ranga {n} wymaga poziomu {lvl}.'
+    },
     hint: 'Wybierz lekcję. Zielona ramka oznacza, że możesz się jej nauczyć od razu.',
     block: {
+      'trial': "Nie przeszedłeś jeszcze próby tej klasy.",
+      'parents': "Najpierw naucz się umiejętności klasy {a} i klasy {b}.",
       level: 'Masz za niski poziom.',
       attrs: 'Masz za niskie atrybuty.',
       gold: 'Za mało złota.'
@@ -3446,6 +3691,20 @@ export default {
     circle: 'Krąg Eteru'
   },
   npc: {
+    'mysteriousWanderer': { 'name': "Tajemniczy wędrowiec" },
+    'fairPip': { 'name': "Pip" },
+    'fairBess': { 'name': "Stara Bess" },
+    'fairHob': { 'name': "Hob" },
+    sunkenPriest: { name: "Zatopiony Kapłan" },
+    'fortHale': {
+      'name': "Kapitan Hale",
+    },
+    'fortMara': {
+      'name': "Starsza Mara",
+    },
+    'scoutWren': {
+      'name': "Zwiadowczyni Wren",
+    },
     frostDisciple: {
       name: 'Ivor Hask'
     },
@@ -3735,6 +3994,189 @@ export default {
     }
   },
   dlg: {
+    // ── The Mysterious Wanderer (afterplay phase 10) ──
+    'mysteriousWanderer': {
+      'hello': { '1': "A więc. Zrobiłeś to, co mało komu się udało. Poczułem to po drugiej stronie wyrwy.", '2': "Uczę starych dróg, które łączą dwie szkoły w jedną. Tylko tych, którzy na to zasłużą." },
+      'sealed': { '1': "Zapieczętowałeś ją. Szkoda, w pewnym sensie. Lubiłem ten widok." },
+      'ajar': { '1': "Zostawiłeś ją uchyloną. Odważnie. Demony nie dadzą ci zardzewieć." },
+      'again': { '1': "Znowu tutaj. Droga jest długa, ale dobrze nią idziesz." },
+      'train': { '1': "Pokaż mi obie połowy tego, kim jesteś, a zrobię z nich jedno." },
+      'trial': { 'say': "O jakich próbach mówisz?", '1': "Brama utrzymana bez rysy. Smok zabity bez upadku. Pięć piekielnych wykuć i pięć zwycięstw z rzędu.", '2': "Śmierć Lewiatana i idealna runda przy hydrze. Każde otwiera drzwi, które mogę ci pokazać." },
+      'who': { '1': "Wędrowiec. Chodziłem skrajem wyrwy, zanim urodził się twój dziadek. Imiona się ścierają." },
+      'trainBack': { '1': "Ćwicz. Dwie szkoły kłócą się, zanim się dogadają." },
+      'bye': { '1': "Idź ostrożnie. Będę tu, dopóki mnie nie zabraknie." }
+    },
+    'fairPip': {
+      'hello': { '1': "Podchodźcie! Dziewięć beczek, banda diablików i jeden młotek. Wbijcie je z powrotem!", '2': "Diabliki wyskakują z beczek. Traf dwadzieścia, zanim przesypie się piasek.", '3': "Zostaw te w złotej zbroi, kosztują życie. Trzy wygrane z rzędu i wielka nagroda jest twoja." },
+      'again': { '1': "Jeszcze walenia? Łap młotek!" },
+      'play': { '1': "Młotek w górę! Nadchodzą!" },
+      'who': { '1': "Pip, łowca diablików z zawodu. Te złapałem sam. Gryzą." },
+      'playBack': { '1': "Ha! Ale harmider! Jeszcze raz?" },
+      'bye': { '1': "Luźno tę rękę z młotkiem!" }
+    },
+    'fairBess': {
+      'hello': { '1': "Pięć obręczy, trzy głowy i żadna nie gryzie. Sama ją wyrzeźbiłam, więc uważaj na farbę.", '2': "Przytrzymaj dla zamachu, puść, by rzucić. Głowa łapie obręcz tylko, gdy przechodzi przez środek.", '3': "Każda głowa z rzędu liczy się o jeden więcej. Traf wszystkie pięć, a zapłacę porządnie." },
+      'again': { '1': "Wracasz spróbować sił z moją staruszką?" },
+      'play': { '1': "Masz tu obręcze. Rzucaj delikatnie, kochaniutkie." },
+      'who': { '1': "Czterdzieści lat na jarmarcznych drogach. Hydra przyszła z wojną. Wydawała się na miejscu." },
+      'playBack': { '1': "Nieźle. Mój świętej pamięci mąż rzucał gorzej." },
+      'bye': { '1': "Uważaj na farbę przy wyjściu." }
+    },
+    'fairHob': {
+      'hello': { '1': "Och. Cześć. Chcesz się posiłować na rękę? Będę delikatny. Postaram się.", '2': "Pchaj, gdy pierścień spotka okrąg. Poza rytmem się ześlizgniesz.", '3': "Silne ręce pomagają. Pokonaj mnie trzy razy z rzędu, a Mistrz Kuźni da ci zniżkę." },
+      'again': { '1': "Jeszcze runda? Nikt nigdy nie chce jeszcze jednej rundy." },
+      'play': { '1': "Łokieć na stół. Kiedy tylko zechcesz." },
+      'who': { '1': "Jestem uczniem Mistrza Kuźni. Mówi, że nie znam własnej siły." },
+      'playBack': { '1': "Dobra walka. Jutro będzie mnie bolała ręka. Pewnie." },
+      'bye': { '1': "Wracaj szybko. W kuźni jest bardzo cicho." }
+    },
+    // ── The Breaking (the afterplay, B0–B5) ──
+    'story': {
+      forge: { back: { '1': "Moja kuźnia znów płonie, goręcej niż kiedykolwiek. Demoniczne żelazo dobrze się topi.", '2': "Przynoś mi, co tam znajdziesz. Teraz umiem kuć piekielnie." } },
+      oracle: { lens: { '1': "Raz mnie uwolniłeś. Teraz będę widzieć za ciebie. Weź moją Soczewkę.", '2': "Spójrz przez nią, a mapa pokaże ci, gdzie czekają wielkie bestie." } },
+      priest: { lens: { '1': "Wyroczni już nie ma, więc teraz strzegę jej świątyni. Sfinks pilnował tego.", '2': "Jej Soczewka. Spójrz przez nią, a mapa pokaże ci, gdzie czekają wielkie bestie." } },
+      herbs: { scale: { '1': "Łuska Lewiatana! Lekka jak liść i unosi się na wodzie.", '2': "Noś ją, a płycizny utrzymają cię jak twardy grunt." } },
+      ghost: { key: { '1': "No proszę, ten, kto zabrał mój tron. Zabiłeś moją Hydrę. Dobrze.", '2': "Weź jej ognisty klucz. Serce szczeliny płonie i tylko ogień je otworzy." } },
+      syndicate: { key: { '1': "Hydra nie żyje? To jej ognisty klucz dostanie ten, kto zapłaci. Albo ty, przypuszczam.", '2': "Otwiera serce szczeliny. Idź ją zamknąć, zanim pożre mi interesy." } },
+      sealed: {
+        sealed: { '1': "I tak szczelinę zapieczętowano, a świat zaczął się goić.", '2': "Odbudowano miasta, napisano pieśni, a w każdej było jedno imię." },
+        ajar: { '1': "I tak szczelina została uchylona, a świat nauczył się żyć obok niej.", '2': "Mury wciąż miały straż, koloseum wciąż huczało, a bohater wciąż był gotów." },
+      },
+      'rift': {
+        'scream': {
+          '1': "Pan Pustki pada, a szczelina za nim krzyczy.",
+          '2': "To nigdy nie był jego tron. To była jego klatka, a on był jej wiekiem.",
+          '3': "Teraz szczelina jest otwarta, a wszystko, co pustka trzymała we śnie, budzi się.",
+        },
+      },
+      'wren': {
+        'found': {
+          '1': "Tu jesteś! Jestem Wren, zwiadowczyni. Szukałam cię wszędzie.",
+          '2': "Sunford płonie. Wszyscy, którzy zdołali uciec, poszli do Przeprawy Bastionu.",
+          '3': "To stary fort przy drodze do Popielnych Turni. Pospiesz się, potrzebują cię.",
+        },
+      },
+    },
+    'scoutWren': {
+      sealed: { '1': "Smoka nie ma! Drogi już wydają się lżejsze." },
+      'hello': {
+        '1': "Przyszedłeś! Wiedziałam. Witaj w Przeprawie Bastionu.",
+        '2': "Zwiaduję drogi dla kapitana. Pytaj mnie, gdzie są kłopoty.",
+        '1__f': "Przyszłaś! Wiedziałam. Witaj w Przeprawie Bastionu.",
+      },
+      'again': {
+        '1': "Już wróciłeś? Drogi same się nie zbadają.",
+        '1__f': "Już wróciłaś? Drogi same się nie zbadają.",
+      },
+      'who': {
+        '1': "Wren. Nosiłam wieści dla straży Sunford, zanim Sunford spłonęło.",
+      },
+      'rumor': {
+        'plains': {
+          '1': "Demony trzymają drogę przez Równiny Sunford. Nauczyciele z Sunford utknęli za nią.",
+        },
+        'hollows': {
+          '1': "W Goblińskich Jamach roi się od piekielnych ogarów. Oczyść je, a ludzie z Sunford wrócą do domu.",
+        },
+        'woods': {
+          '1': "Coś z trzema głowami poluje w Szepczącym Lesie. Zielarka się tam ukrywa.",
+        },
+        'outskirts': {
+          '1': "Centaury jeżdżą po Przedpolach Oakhaven. Jeśli dotrą do murów, potrzebny będzie każdy miecz.",
+        },
+        'siege': {
+          '1': "Ich banda jest rozbita, ale zbierają się nowi. Kapitan szykuje mury.",
+        },
+      },
+      'bye': {
+        '1': "Pilnuj dróg. Ja też będę.",
+      },
+    },
+    'fortHale': {
+      sealed: { '1': "Smok nie żyje. Nie sądziłem, że dożyję tej chwili. Dziękuję." },
+      'siegeBack': { '1': "Jeszcze nie? To odpocznij. Mury na ciebie poczekają." },
+      'bell': { '1': "Zatem do bramy. Powiedz, jak twardo jej bronimy." },
+      'hello': {
+        '1': "Dotarłeś. Dobrze. Potrzebujemy każdego miecza, teraz bardziej niż kiedykolwiek.",
+        '2': "Witaj w Przeprawie Bastionu. Stare mury, ale jedyne, które jeszcze stoją.",
+        '1__f': "Dotarłaś. Dobrze. Potrzebujemy każdego miecza, teraz bardziej niż kiedykolwiek.",
+      },
+      'road': {
+        '1': "Droga do Sunford znów jest otwarta. Jego ludzie są bezpieczni za naszymi murami.",
+      },
+      'herbs': {
+        '1': "Zielarka wróciła, a z nią zioła. Lazaret może odetchnąć.",
+      },
+      'siege': {
+        '1': "Rozbiłeś centaury. Ale nadciąga większa armia i przyjdzie po te mury.",
+        '1__f': "Rozbiłaś centaury. Ale nadciąga większa armia i przyjdzie po te mury.",
+      },
+      'again': {
+        '1': "Wciąż stoimy. Mury, ludzie i ja.",
+      },
+      'fort': {
+        '1': "Stary fort graniczny. Pusty przez pięćdziesiąt lat, aż niebo się rozdarło.",
+        '2': "Teraz to ostatnie bezpieczne miejsce między równinami a górami.",
+        'say': "Co to za miejsce?",
+      },
+      'rumor': {
+        'road': {
+          '1': "Oczyść Równiny i Jamy. Ludzie z Sunford utknęli tam.",
+        },
+        'woods': {
+          '1': "Zielarka jest w Szepczącym Lesie, a z nią bestia o trzech głowach. Bądź gotów.",
+        },
+        'centaurs': {
+          '1': "Centaury na Przedpolach. Rozbij ich bandę, zanim do nas dotrze.",
+        },
+        'siege': {
+          '1': "Odpocznij. Gdy zabije dzwon oblężenia, będziesz mi potrzebny na murze.",
+        },
+      },
+      'bye': {
+        '1': "Trzymaj miecz pod ręką.",
+      },
+    },
+    'fortMara': {
+      sealed: { '1': "Udało ci się, dziecko. Każde z nas zawdzięcza ci dom." },
+      'siegeBack': { '1': "Odpocznij trochę, dziecko. Dzwon jeszcze zabije." },
+      'bell': { '1': "Teraz to ja strzegę murów kapitana. Wybierz, jak ich bronimy." },
+      'hello': {
+        '1': "Dziecko! Żyjesz. Kiedy Sunford spłonęło, bałam się najgorszego.",
+        '2': "Jesteśmy teraz gośćmi w żołnierskim forcie, stare kobiety i wszyscy.",
+      },
+      'command': {
+        '1': "Kapitan Hale poległ razem z Oakhaven. Więc fort słucha teraz starej starszej.",
+      },
+      'home': {
+        '1': "Sunford się odbudowuje! Pierwsze dachy już stoją. Mogłabym płakać.",
+      },
+      'again': {
+        '1': "Wciąż tu jestem, dziecko. Wciąż liczę głowy.",
+      },
+      'town': {
+        '1': "Demony spadły z nocnego nieba. Uciekliśmy z tym, co zdołaliśmy unieść.",
+        '2': "Niektórzy z nas nigdy się nie wydostali. Sprowadź resztę do domu, jeśli zdołasz.",
+        'say': "Co się stało z Sunford?",
+      },
+      'rumor': {
+        'road': {
+          '1': "Nasi nauczyciele wciąż są na drodze do Sunford. Przyprowadź ich tu, dziecko.",
+        },
+        'woods': {
+          '1': "Zielarka poszła do Szepczącego Lasu po zioła i nigdy nie wróciła.",
+        },
+        'centaurs': {
+          '1': "Jeźdźcy na Przedpolach. Kopyta jak grzmot, co noc.",
+        },
+        'siege': {
+          '1': "Mury wkrótce zostaną wystawione na próbę. Czuję to w starych kościach.",
+        },
+      },
+      'bye': {
+        '1': "Idź ostrożnie, dziecko.",
+      },
+    },
     intro: {
       crossing: { 1: 'Każda droga tego świata spotyka się na rozstajach… a każde rozstaje to bitwa.' },
       hero: { 1: 'Z cichych pól Sunford wyruszył młody bohater.' },
@@ -4198,6 +4640,7 @@ export default {
       }
     },
     hero: {
+      'siege': "Obsadźmy mury.",
       forge: 'Mogę skorzystać z twojej kuźni?',
       learnSmith: 'Nauczysz mnie kowalstwa?',
       ore: 'Mam trochę rudy na sprzedaż.',
@@ -4526,7 +4969,7 @@ export default {
       },
       map: {
         '1': 'Mapa kapitana Rooka! Podarł ją i ukrył kawałki, zanim gobliny go złapały.',
-        '2': 'Znajdź sześć z nich, kilka kolejnych leży rozrzuconych wokół, a X wskaże ci drogę: gdzieś w Popielnych Turniach. Kop tam, a złoto będzie twoje.',
+        '2': "Znajdź sześć kawałków, a X wskaże ci drogę: gdzieś w Popielnych Turniach. Tam kop po złoto.",
         say: 'Mam kawałek jakiejś starej mapy.'
       }
     },
@@ -5548,6 +5991,11 @@ export default {
       }
     },
     quest: {
+      seal: {
+        ask: { '1': "Pradawny Smok nie żyje, a szczelina stoi przed tobą otworem.", '2': "Możesz ją teraz zapieczętować, na zawsze. Bestie znów by zasnęły.", '3': "Albo możesz zostawić ją uchyloną i pozwolić najodważniejszym zmierzyć się z tym, co przez nią przejdzie." },
+        seal: { say: "Zapieczętuj ją. Na zawsze.", '1': "Szczelina zamyka się jak gojąca się rana, a niebo cichnie." },
+        ajar: { say: "Zostaw ją uchyloną. Będziemy gotowi.", '1': "Szczelina zostaje uchylona, a coś za nią się śmieje." },
+      },
       goblinKing: {
         ask: {
           '1': 'Czekaj. Proszę. Poddaję się.',
@@ -5681,6 +6129,64 @@ export default {
       }
     },
     bark: {
+      sphinx: {
+        intro: { '1': "Odpowiedz mi, maleństwo, albo pogrzebie cię mój piasek." },
+        riddle: { '1': "Zagadka, zatem. Stąpaj tam, gdzie pokażę, w tej kolejności." },
+        sand: { '1': "Tym razem pięć. A mój piasek nie będzie czekał." },
+        death: { '1': "Dobrze odpowiedziałeś. Piasek jest teraz twój." },
+      },
+      leviathan: {
+        intro: { '1': "Teraz chodzisz po mojej wodzie." },
+        sink: { '1': "Twoje wysepki toną." },
+        grab: { '1': "Zejdź ze mną w głębinę!" },
+        death: { '1': "Odpływ odchodzi i nie wraca." },
+      },
+      hydra: {
+        intro: { '1': "Utnij jedną głowę, a wyrosną dwie!" },
+        heads: { '1': "Więcej głów, więcej zębów!" },
+        rage: { '1': "Spalić nas? To płoń razem z nami!" },
+        death: { '1': "Nie ma już głów. Już nie." },
+      },
+      elderDragon: {
+        intro: { '1': "Spałem pod światem, zanim twój ród poznał ogień." },
+        flight: { '1': "No to chowaj się za swoimi kamyczkami." },
+        rift: { '1': "Szczelina ciągnie mnie z powrotem. Jeszcze nie!" },
+        death: { '1': "Zapieczętuj ją więc. Mam dość ciemności." },
+      },
+      'siegeHale': {
+        'start': {
+          '1': "Nadchodzą! Trzymać bramę!"
+        },
+        'ram': {
+          '1': "Taran! Zabijcie go, zanim dotrze do bramy!"
+        },
+        'horn50': {
+          '1': "Połowa bramy przepadła! Trzymać się!"
+        },
+        'horn25': {
+          '1': "Brama długo już nie wytrzyma!"
+        },
+        'won': {
+          '1': "Rozbici! Bastion stoi!"
+        }
+      },
+      'siegeMara': {
+        'start': {
+          '1': "Nadchodzą! Stójcie twardo, wszyscy!"
+        },
+        'ram': {
+          '1': "Taran! Zatrzymajcie go, zanim rozbije bramę!"
+        },
+        'horn50': {
+          '1': "Połowa bramy padła. Wytrwajcie!"
+        },
+        'horn25': {
+          '1': "Brama ustępuje! Odeprzyjcie ich!"
+        },
+        'won': {
+          '1': "Uciekają! Fort wciąż stoi!"
+        }
+      },
       banditChief: {
         whistle: {
           1: 'Wstawać, chłopaki! Gryźć ich!'
@@ -5689,6 +6195,11 @@ export default {
       lightDisciple: {
         freed: {
           '1': 'To światło cię przysłało. Jestem Siostra Aurelle. Szukaj mnie w Sunfordzie, nauczę cię drogi Niosącego Światło.'
+        }
+      },
+      trainerAegis: {
+        freed: {
+          '1': 'Dzięki, że uwolniłeś nas od bandytów! Chodź do ogniska: wszyscy będziemy cię uczyć, pierwsza lekcja za darmo.'
         }
       },
       frostDisciple: {
@@ -5744,6 +6255,48 @@ export default {
         },
         dive: {
           '1': 'Klęknij.'
+        }
+      },
+      chimera: {
+        intro: {
+          '1': "Trzy głowy, jeden głód. Która z nas ugryzie pierwsza?"
+        },
+        twin: {
+          '1': "Teraz dwie naraz. Wybierz dobrze swoją stronę."
+        },
+        tail: {
+          '1': "Mój ogon! Zapłacisz mi za to!"
+        },
+        death: {
+          '1': "Trzy głowy, a żadna tego nie przewidziała."
+        }
+      },
+      centaurWarchief: {
+        intro: {
+          '1': "Uciekaj, jeśli chcesz. Moje strzały są szybsze."
+        },
+        raiders: {
+          '1': "Jeźdźcy! Stratujcie ich!"
+        },
+        rear: {
+          '1': "Dość strzał. Rozdepczę cię!"
+        },
+        death: {
+          '1': "Równiny zapamiętają moje kopyta."
+        }
+      },
+      cyclops: {
+        intro: {
+          '1': "Jest tu coś małego. Podejdź bliżej. Niech się przyjrzę."
+        },
+        cover: {
+          '1': "Koniec patrzenia. Mojego oka nie dostaniesz!"
+        },
+        blind: {
+          '1': "Nie widzę cię, ale cię słyszę!"
+        },
+        death: {
+          '1': "Ciemno. Wszystko pociemniało."
         }
       },
       frostJarl: {
@@ -6870,7 +7423,20 @@ export default {
       }
     }
   },
+  invasion: {
+    pylonsDown: 'Ostatni pylon pada, a jego skarb się wysypuje!',
+    reborn: {
+      tusker: 'Odrodzony Tusker',
+      emberLord: 'Piekielny Władca Żaru',
+      frostJarl: 'Odrodzony Lodowy Jarl',
+      voidDragon: 'Odrodzony Smok Pustki'
+    }
+  },
   enemy: {
+    sphinx: "Sfinks",
+    leviathan: "Lewiatan",
+    hydra: "Hydra",
+    elderDragon: "Pradawny Smok",
     trainingDummy: 'Manekin treningowy',
     goblin: 'Goblin',
     goblinSlinger: 'Goblin procarz',
@@ -6895,6 +7461,10 @@ export default {
     naga: 'Naga',
     skeleton: 'Szkielet',
     necromancer: 'Nekromanta',
+    chimera: "Chimera",
+    chimeraTail: "Wężowy ogon",
+    centaurWarchief: "Wódz centaurów",
+    cyclops: "Cyklop",
     frostJarl: 'Lodowy Jarl',
     nagaOracle: 'Zatopiona Wyrocznia',
     voidStalker: 'Łowca Pustki',
@@ -6907,6 +7477,7 @@ export default {
     archDemon: 'Arcydemon',
     voidling: 'Pomiot Pustki',
     voidLord: 'Władca Pustki',
+    demonPylon: 'Demoniczny pylon',
     orderGuard: 'Inkwizytor Zakonu',
     syndicateBlade: 'Ostrze Syndykatu',
     goblinWarchief: 'Goblin wódz wojenny',
@@ -6923,7 +7494,19 @@ export default {
     goblinTyrant: 'Goblin tyran',
     voidDrake: 'Żmij Pustki',
     pitLord: 'Władca Otchłani',
-    frostThane: 'Mroźny Wielmoża'
+    frostThane: 'Mroźny Wielmoża',
+    hellhound: 'Piekielny ogar',
+    frostHellhound: 'Mroźny piekielny ogar',
+    gargoyle: 'Gargulec',
+    harpy: 'Harpia',
+    corruptedTreant: 'Spaczony drzewiec',
+    centaurRaider: 'Centaur łupieżca',
+    cyclopsBrute: 'Cyklop osiłek',
+    demonMiner: 'Demoniczny górnik',
+    sphinxAcolyte: 'Akolita sfinksa',
+    seaDemon: 'Demon morski',
+    drakeHatchling: 'Pisklę smoka',
+    hydraSpawn: 'Pomiot hydry'
   },
   results: {
     careful: 'Ostrożne zwycięstwo ×{mult}',
@@ -7241,6 +7824,8 @@ export default {
     town: 'Kowal w każdym mieście może to ulepszyć.'
   },
   ore: {
+    'demonglass': { 'name': "Demoniczne szkło" },
+    'ichor': { 'name': "Mityczny ichor" },
     iron: {
       name: 'Ruda żelaza'
     },

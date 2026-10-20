@@ -87,13 +87,14 @@ const worldGeos = (root: Object3D): BufferGeometry[] => {
 const MODULES: Record<string, string> = {
   'gfx/levelProps.ts': 'audited: level props of every zone',
   'gfx/setPieces.ts': 'audited: set pieces',
-  'gfx/terrain.ts': 'audited: scenery shapes and the reward chest',
+  'gfx/terrain.ts': 'audited: scenery shapes, the reward chest and the temporary walls (boss arena props)',
   'gfx/townProps.ts': 'audited: town props, fences and town stones',
   'gfx/houses.ts': 'audited: houses',
   'gfx/interiors.ts': 'audited: the rooms of the houses, and the town props it lends (armour stand, pack)',
   'gfx/plants.ts': 'audited: the herbs of the level props',
   'gfx/dummyProp.ts': 'audited: the training dummy',
   'gfx/arenaCrowd.ts': 'audited: the arena\'s stands and banners',
+  'gfx/siegeProps.ts': 'audited: the siege\'s gate, bell, platforms, stands, ballista, ram and fire',
   'gfx/townView.ts': 'composes houses and props it does not shape (audited as built)',
   'gfx/archKit.ts': 'the building mesher itself',
   'gfx/townAnimals.ts': 'animated rigs (zfight covers every pose)',
@@ -125,8 +126,13 @@ describe('poke-through: no part of a prop shows through another', () => {
     }
   })
 
-  it('terrain scenery shapes, and the reward chest', async () => {
-    const { THEMES, buildChest, layTerrainProps } = await import('@/game/gfx/terrain')
+  it('the siege\'s pieces (afterplay §8): gate, bell, platform, stand, ballista, ram, fire', async () => {
+    const { siegePieceParts } = await import('@/game/gfx/siegeProps')
+    for (const [kind, g] of Object.entries(siegePieceParts())) audit(`siege:${kind}`, 'piece', geoParts([...g.lit, ...g.glow]))
+  })
+
+  it('terrain scenery shapes, the reward chest, and the temporary walls (boss arena props among them)', async () => {
+    const { THEMES, buildChest, layTerrainProps, wallParts } = await import('@/game/gfx/terrain')
     const { generateZone } = await import('@/game/sim/zoneGen')
     const { generateTown } = await import('@/game/sim/townGen')
     const { ZONES, ZONE_IDS, TOWNS } = await import('@/game/data/zones')
@@ -139,6 +145,7 @@ describe('poke-through: no part of a prop shows through another', () => {
       audit(s.kind, 'shape', geoParts([...b.lit, ...(b.glow ?? [])]))
     }
     audit('rewardChest', 'zone', geoParts(worldGeos(buildChest().root)))
+    for (const [fx, geos] of Object.entries(wallParts())) audit(`wall:${fx || 'rock'}`, 'wall', geoParts(geos))
   }, 60_000)
 
   it('town props in every style, whole and ruined; every town\'s fences and town stones', async () => {
@@ -234,18 +241,21 @@ describe('poke-through: no part of a prop shows through another', () => {
     const { applyPlan, populateZone } = await import('@/game/sim/director')
     const { generateArena, generateZone } = await import('@/game/sim/zoneGen')
     const { ZONES, ZONE_IDS } = await import('@/game/data/zones')
+    const { invadedZone } = await import('@/game/data/invasion')
+    const { demonPylon } = await import('@/game/gfx/setPieces')
     // Moving props the scene holds (their own meshes, not the merged pieces).
     const MOVING = ['chest', 'cage', 'ore', 'doorRocks', 'plate', 'herb', 'key']
     LevelProps.trace = true
     try {
       for (const z of ZONE_IDS) {
-        for (const seed of [3, 8, 0]) {
+        // Two visits, the first one, and the afterplay's invaded self (-1).
+        for (const seed of [3, 8, 0, -1]) {
           const odd = seed % 2 === 1
-          const plan = seed ? generateZone(ZONES[z], seed, { cage: odd, treasure: !odd }) : generateZone(ZONES[z], 3, { tutorial: true, openingPack: 2 })
-          const at = `${z}#${seed || 'first'}`
+          const plan = seed > 0 ? generateZone(ZONES[z], seed, { cage: odd, treasure: !odd }) : seed < 0 ? generateZone(invadedZone(z), 3) : generateZone(ZONES[z], 3, { tutorial: true, openingPack: 2 })
+          const at = `${z}#${seed > 0 ? seed : seed < 0 ? 'invaded' : 'first'}`
           setGround({ w: plan.w, h: plan.h, height: plan.height })
           const scene = new Scene()
-          const sim = new Sim({ seed: seed || 3, w: plan.w, h: plan.h, level: 5, difficulty: 1, mode: 'zone', zone: z })
+          const sim = new Sim({ seed: seed > 0 ? seed : 3, w: plan.w, h: plan.h, level: 5, difficulty: 1, mode: 'zone', zone: z })
           applyPlan(sim, plan)
           populateZone(sim, plan, z, [])
           const lp = new LevelProps(sim, new Vfx(scene), THEMES[ZONES[z].theme])
@@ -265,6 +275,9 @@ describe('poke-through: no part of a prop shows through another', () => {
     }
     const d = buildParts()
     audit('dummy', 'rest', geoParts([d.post, d.arms, d.body, d.head]))
+    // An invaded zone's demon pylon (`gfx/pylonProp.ts` draws it instanced).
+    const py = demonPylon()
+    audit('demonPylon', 'rest', geoParts([...py.lit, ...py.glow]))
     const crowd = new ArenaCrowd(generateArena(5), { burst: () => {} } as never, false)
     audit('arena', 'seed 5', geoParts(worldGeos(crowd.root)))
   }, 180_000)
@@ -276,7 +289,9 @@ describe('poke-through: no part of a prop shows through another', () => {
     if (REPORT) writeFileSync(REPORT, `frame misses ${frameMisses}\nkinds ${[...kindsSeen].sort().join(' ')}\n${lines.join('\n')}\n`)
     const want = [
       ...Object.keys(LEVEL_PROP_ROLE), ...Object.keys(DRESS_ROLE), ...Object.keys(SCENERY_ROLE),
-      ...Object.keys(TOWN_PROP_ROLE).map(k => `town:${k}`), 'town:fences', 'rewardChest', 'dummy', 'arena',
+      ...Object.keys(TOWN_PROP_ROLE).map(k => `town:${k}`), 'town:fences', 'rewardChest', 'dummy', 'demonPylon', 'arena',
+      // A boss arena's props (`sim/bosses/kit.ts`), drawn by `WallRocks`.
+      ...[...(await import('@/game/sim/bosses/kit')).ARENA_PROPS].map(k => `wall:${k}`),
       ...['cottage', 'townhouse', 'workshop', 'tavern', 'hall', 'chapel'].map(k => `house:${k}`)
     ]
     expect(want.filter(k => !kindsSeen.has(k)), 'prop kinds the audit never met').toEqual([])

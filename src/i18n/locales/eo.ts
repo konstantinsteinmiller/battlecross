@@ -1,5 +1,170 @@
 // Esperanto (eo) bundle — mirrors en.ts.
 export default {
+  // ─── Afterplay phase 8: items, materials and capstones ───
+  // ─── Afterplay phase 10: the prestige classes ───
+  'prestige': { 'toast': { 'wanderer': "Mistera vaganto atendas en la fortikaĵo." } },
+  'relic': {
+    'infernal': "{name} · Infera",
+    'set': "Portata kun {item}:",
+    'heroicBadge': "Heroa {n}",
+    'heroic': "Heroa {n}: {gold} oro, {glass} demona vitro",
+    'heroicIchor': "Heroa {n}: {gold} oro, {glass} demona vitro, {ichor} ikoro",
+    'heroicMax': "Ĉiuj heroaj rangoj estas atingitaj.",
+    'infernalForge': "Infera forĝado: {gold} oro, {glass} demona vitro",
+    'lens': "Lenso de la Orakolo: ĉi tie atendas {boss}.",
+    'hydraKey': "Sigelita. La fajra ŝlosilo de la Hidro malfermas la koron de la Fendo.",
+    'marksGlass': "Aĉeti {glass} demonan vitron por {marks} markoj",
+    'capstone': "Pinto",
+    'fortOnly': "Ĉi tiu pinto estas instruata nur ĉe Bastiona Transirejo."
+  },
+  // ─── The fort's fair games (afterplay §9) ───
+  'fair': {
+    'fee': "Ludi · {n}",
+    'again': "Ludi denove",
+    'noGold': "Ne sufiĉas oro.",
+    'capped': "Zonoj purigendaj antaŭ ol la grandaj premioj revenos: {n}",
+    'top': "Ĉefpremio! +{gold} oro, +{xp} SP",
+    'topGold': "Ĉefpremio, nur ore: +{n} oro",
+    'won': "Vi venkas! +{n} oro",
+    'lost': "Malbonŝance. La vico rekomenciĝas.",
+    'row': "Venkoj sinsekvaj: {n} el {max}",
+    'mats': "+{n} Heroa+ materialo",
+    'discount': "La forĝisto nun donas al vi {n}% rabaton por plibonigoj!"
+  },
+  'whack': {
+    'title': "Frapu-la-Diableton",
+    'lead': "Frapu 20 diabletojn en 30 sekundoj. Lasu la orkirasitajn: ĉiu frapita kostas vivon.",
+    'hits': "Diabletoj: {n} / {max}",
+    'lives': "Vivoj: {n}",
+    'time': "Tempo: {n} s",
+    'hint': "Tuŝu la diabletojn aŭ premu 1 ĝis 9.",
+    'barrel': "Barelo {n}",
+    'timeout': "La tempo finiĝis!",
+    'dead': "Neniu vivo plu!"
+  },
+  'ring': {
+    'title': "Ringoĵetado al la Hidro",
+    'lead': "Tenu por forto, malpremu por ĵeti. Kapo kaptas la ringon nur proksime al la mezo de sia svingiĝo. Ĉiu sinsekva kapo valoras unu poenton pli.",
+    'hint': "Tenu kaj malpremu sur la tablo, aŭ tenu Spacon.",
+    'rings': "Restantaj ringoj: {n}",
+    'score': "Poentoj: {n}",
+    'hit': "Trafe! +{n}",
+    'miss': "Maltrafe!",
+    'perfect': "Perfekta rondo!",
+    'nothing': "Poentoj {n}. Ĉi-foje sen premio.",
+    'power': "Forto"
+  },
+  'arm': {
+    'title': "Brakobatalo",
+    'lead': "Tuŝu kiam la ringo renkontas la cirklon por puŝi lian brakon malsupren. Forto larĝigas la takton. Tri sinsekvaj venkoj donas forĝan rabaton, kvin donas Heroan+ materialon.",
+    'hint': "Tuŝu la tablon aŭ premu Spacon.",
+    'good': "Puŝu!",
+    'off': "Ekster takto!"
+  },
+  // ─── The Siege of Bastion (afterplay §8) ───
+  'siege': {
+    'title': "Sieĝo de Bastiona Transirejo",
+    'lead': "Tenu la pordegon dum dek ondoj. Inter la ondoj elspezu sieĝomarkojn por defendoj.",
+    'story': "La hordo staras ĉe la pordego. Eltenu dek ondojn: ĉi tiun unuan sieĝon oni ne povas perdi.",
+    'bell': "La sieĝa sonorilo sonoras! La hordo kolektiĝas ĉe la pordego.",
+    'mapBell': "Sieĝo!",
+    'start': "Sonorigu la sonorilon",
+    'wins': "Venkoj: {n}",
+    'marksBank': "Ŝparitaj sieĝomarkoj: {n}",
+    'tier': {
+      'normal': "Normala",
+      'hard': "Malfacila",
+      'nightmare': "Koŝmaro"
+    },
+    'tierDesc': {
+      'normal': "Malamikoj unu nivelon super vi.",
+      'hard': "Malamikoj 3 nivelojn pli altaj, kun 30% pli da vivo.",
+      'nightmare': "Malamikoj 6 nivelojn pli altaj kaj du ondoj de mitaj elituloj."
+    },
+    'locked': {
+      'hard': "Unue venku en normala sieĝo.",
+      'nightmare': "Malfermiĝas kiam la fendo estas sigelita aŭ lasita duonmalfermita."
+    },
+    'lord': "Sieĝmastro",
+    'hud': {
+      'wave': "Ondo {n}/{total}",
+      'marks': "Markoj: {n}",
+      'gate': "Pordego {pct}%",
+      'build': "Ondo {n} post {s} s",
+      'ready': "Preta!",
+      'buy': "{name}: {n} markoj"
+    },
+    'def': {
+      'ballista': {
+        'name': "Balisto",
+        'desc': "Pafas trapikan sagon laŭ sia koridoro ĉiujn 2 sekundojn."
+      },
+      'cauldron': {
+        'name': "Fajra kaldrono",
+        'desc': "Ekbruligas la mallarĝejon de sia koridoro."
+      },
+      'barricade': {
+        'name': "Barikado",
+        'desc': "Baras koridoron dum 20 sekundoj."
+      },
+      'militia': {
+        'name': "Milico",
+        'desc': "Du gardistoj batalas apud vi."
+      },
+      'repair': {
+        'name': "Ripari la pordegon",
+        'desc': "Restarigas kvaronon de la pordego."
+      }
+    },
+    'block': {
+      'marks': "Ne sufiĉe da sieĝomarkoj.",
+      'full': "Ne plu estas loko.",
+      'phase': "Nur inter la ondoj."
+    },
+    'toast': {
+      'cleared': "Ondo {n} forpuŝita! +{marks} markoj",
+      'clearedUnharmed': "Ondo {n} forpuŝita, pordego nedifektita! +{marks} markoj",
+      'horn': "La korno sonas! La pordego estas je {pct}%.",
+      'ram': "Muregrompilo! Haltigu ĝin antaŭ ol ĝi atingos la pordegon!",
+      'rally': "Denove starante! Tenu la pordegon!"
+    },
+    'banner': {
+      'wave': "Ondo {n}",
+      'final': "La Sieĝmastro!"
+    },
+    'result': {
+      'tier': "Sieĝo de Bastiona Transirejo: {tier}",
+      'waves': "Forpuŝitaj ondoj: {n}/{total}",
+      'marks': "Konservitaj sieĝomarkoj: {banked} el {earned}",
+      'glass': "Demona vitro: +{n}"
+    },
+    'milestone': {
+      'normal1': "Mejloŝtono atingita: la Standardo de la Bastiono.",
+      'normal5': "Mejloŝtono atingita: la Kiraso de la Muregogardisto.",
+      'hard1': "Mejloŝtono atingita: Veterana instinkto, kvina pasiva loko.",
+      'hard5': "Mejloŝtono atingita: Pordegrompanto.",
+      'nightmare1': "Mejloŝtono atingita: la Krono de la Lasta Bastiono.",
+      'hardFlawless': "Mejloŝtono atingita: la ŝlosilo de kaŝita klasprovo."
+    }
+  },
+  // ─── The Breaking (the afterplay's story) ───
+  'breaking': {
+    'title': "La Fendiĝo",
+    'toast': {
+      brk6: "La Forĝomajstro reakiris sian forĝejon. Infera forĝado estas malfermita.",
+      brk7: "La Sfinkso mortis. La Lenso de la Orakolo montras, kie atendas la grandaj bestoj.",
+      brk8: "La Leviatano mortis. Ĝia skvamo lasas vin marŝi sur malprofundaĵoj.",
+      brk9: "La Hidro mortis. Ĝia fajroŝlosilo estas via.",
+      brk10: "La Praa Drako mortis. La fendo staras malfermita.",
+      sealed: "La fendo estas sigelita. Vi estas la Sigelinto de la Fendo.",
+      ajar: "La fendo restas duonmalfermita. Demonoj provos la murojn kaj la koloseon.",
+      'brk2': "Bastiona Transirejo akceptas vin. Ĝiaj homoj nun fidas vin.",
+      'rescued': "Pluvivantoj savitaj! Ili estas sekuraj en Bastiona Transirejo.",
+      'brk3': "La vojo estas libera. La homoj de Sunford estas sekuraj.",
+      'brk4': "La herbistino aliĝas al la fortikaĵo.",
+      'brk5': "La centaŭra hordo estas rompita. La fortikaĵo pretiĝas por sieĝo.",
+    },
+  },
   // ─── The intro (#130): its skip, and its narrator's name ───
   intro: {
     narrator: 'La Kronikisto',
@@ -88,6 +253,7 @@ export default {
     gold: '{n} da oro',
     potion: 'Sanpocio (restas {n})',
     manaPotion: 'Manaopocio (restas {n})',
+    potionStop: 'Trinku sanigan eliksiron por daŭrigi',
     groups: '{n} el {total} malamikaj grupoj venkitaj',
     wave: 'Ondo {n} / {total}',
     roll: 'Rulo',
@@ -261,6 +427,10 @@ export default {
     escort: 'Gardu la karavanon'
   },
   node: {
+    'bastion': {
+      'name': "Bastiona Transirejo",
+      'desc': "Malnova landlima fortikaĵo, la lastaj muroj ankoraŭ starantaj. Pluvivantoj kolektiĝas ĉi tie.",
+    },
     sunford: {
       name: 'Sunford',
       desc: 'Kampara urbeto ĉe la rando de la ebenaĵoj. Hejmo, forĝisto kaj du trejnistoj.'
@@ -343,6 +513,9 @@ export default {
     locked: 'Purigu najbaran zonon por malfermi la vojon.',
     lockedArena: 'Ĝiaj pordegoj malfermiĝos, kiam la afero de la Kobolda Reĝo estos finita.',
     lockedRift: 'Ĝi malfermiĝos, kiam la trono de la Terura Fortikaĵo estos decidita.',
+    invaded: 'Invadita',
+    invadedDesc: 'Demonoj regas ĉi tiun landon. Iliaj pilonoj igas proksimajn malamikojn bati pli forte, fendocikatroj brulas kaj malrapidigas, kaj ĉiu malamiko venkita ĉi tie valoras pli.',
+    lockedInvaded: 'La demonoj tenas ĝin forte. Unue rekonkeru {zone}.',
     danger: {
       '1': 'Iomete super via nivelo.',
       '2': 'Danĝera je via nivelo.',
@@ -469,6 +642,11 @@ export default {
     }
   },
   class: {
+    // ── The prestige classes (afterplay phase 10) ──
+    'demonhunter': { 'name': "Demonĉasisto", 'desc': "Ombro kaj sankta lumo, ĵuritaj al unu predo. Markas demonojn, kaj la markitaj falas rapide." },
+    'dragoon': { 'name': "Dragono", 'desc': "Vento sub la botoj, ŝildo sur la brako. Saltas el la ĉielo kaj trapikas tutajn vicojn." },
+    'hexsmith': { 'name': "Sorĉforĝisto", 'desc': "Etera metio nutrata per sango. Konstruas turetojn, kiuj suĉas la malamikon por sanigi la forĝiston." },
+    'tidecaller': { 'name': "Tajdvokanto", 'desc': "Frosto kaj elementoj, verŝitaj en la maron. Ondoj, kiuj forpuŝas kaj trempas malamikojn." },
     aegis: {
       name: 'Egida Kavaliro',
       desc: 'Ŝildo kaj sankta ŝtalo. Ricevas la batojn, por ke neniu alia devu.'
@@ -535,6 +713,35 @@ export default {
     }
   },
   skill: {
+    // ── The prestige classes (afterplay phase 10) ──
+    'huntersMark': { 'name': "Signo de la ĉasisto", 'desc': "Sankta sago por {dmg}% da Lerto-damaĝo. Dum {dur} s la celo ricevas {vuln}% pli da damaĝo, demono {demon}% pli." },
+    'demonsBane': { 'name': "Demonpereo", 'desc': "+{bane}% da damaĝo kontraŭ demonoj, kaj {ward}% malpli da damaĝo de ili." },
+    'silverVolley': { 'name': "Arĝenta salvo", 'desc': "Arĝentaj sagoj laŭ linio: {dmg}% da Lerto-damaĝo, +{bane}% kontraŭ demonoj kaj markitaj malamikoj." },
+    'skyfallLeap': { 'name': "Ĉielfalo", 'desc': "Saltu ekster atingo dum {air} s, poste falu surloke: {dmg}% da Forto-damaĝo ene de {radius} m, malamikoj faligitaj." },
+    'dragonBlood': { 'name': "Dragonsango", 'desc': "+{boss}% da damaĝo kontraŭ estroj, +{hp}% da maksimuma sano, kaj nenio forpuŝas vin." },
+    'dragonLance': { 'name': "Dragonlanco", 'desc': "Lancopiko laŭ linio: {dmg}% da Lerto-damaĝo al ĉiu malamiko en ĝi." },
+    'hexTurret': { 'name': "Sorĉtureto", 'desc': "Konstruu tureton por {dur} s. Ĉiun sekundon ĝi suĉas la plej proksiman malamikon ene de {radius} m por {dmg}% da Majstreco-damaĝo; vi saniĝas je {drain}% de tio." },
+    'soulForge': { 'name': "Animforĝejo", 'desc': "+{hp}% da maksimuma sano, {regen} da sano sekunde, kaj vi ricevas {reduce}% malpli da damaĝo." },
+    'hexBolt': { 'name': "Sorĉsago", 'desc': "Pagu {hp}% da sano: sago por {dmg}% da Majstreco-damaĝo. Vi saniĝas je {heal}% de tio, kaj la malamiko faras {weak}% malpli da damaĝo dum {dur} s." },
+    'tidalWave': { 'name': "Tajdondo", 'desc': "Ondo laŭ linio: {dmg}% da Inteligento-damaĝo, malamikoj forpuŝitaj kaj trempitaj ({slow}% malrapidigo dum {dur} s)." },
+    'seaborn': { 'name': "Marnaskito", 'desc': "+{bonus}% da damaĝo kontraŭ malvarmigitaj malamikoj, {reduce}% malpli da ricevita damaĝo, +{move}% da rapido." },
+    'undertow': { 'name': "Subfluo", 'desc': "Kirlakvo dum {dur} s: entute {dmg}% da Inteligento-damaĝo ene de {radius} m. Ĝi tiras malamikojn kaj malrapidigas ilin je {slow}%." },
+    'bastionWall': { 'name': "Muro de la Bastiono", 'desc': "Dum {dur}s ĉiu malamiko ene de {radius} m devas ataki vin, kaj vi ricevas {def}% malpli. Poste lumo faras {dmg}% Forto +{back}% de la ricevitaj batoj." },
+    'thousandCuts': { 'name': "Mil tranĉoj", 'desc': "Saltu inter malamikoj ene de {radius} m kaj batu {hits} fojojn, ĉiufoje por {dmg}% Lerteca damaĝo. Estro ricevas nur unu baton. Dum vi tranĉas, nenio povas trafi vin." },
+    'cinderSun': { 'name': "Cindra suno", 'desc': "Mortanta suno disfalas dum {dur}s: {meteors} brulantaj eroj, ĉiu trafas kun {dmg}% Inteligenta damaĝo." },
+    'royalLegion': { 'name': "Reĝa legio", 'desc': "Voku la legion por {dur}s: {archers} pafarkistojn, {guards} gardistojn kaj {mages} batalmagojn." },
+    'stoppedHour': { 'name': "Haltigita horo", 'desc': "Haltigu la horon ene de {radius} m dum {dur}s. Kiam ĝi denove iras, ĉiu malamiko ricevas {dmg}% Inteligentan damaĝon." },
+    'redCovenant': { 'name': "Ruĝa interligo", 'desc': "Prenu {pct}% de la vivo de ĉiu malamiko ene de {radius} m. Vi resaniĝas je {heal}% de ĝi." },
+    'orbitalLance': { 'name': "Orbita lanco", 'desc': "Lanco el lumo de la ĉielo brulas kien vi celas: {dmg}% Kapablo-damaĝo dum {dur}s." },
+    'tectonicHeart': { 'name': "Tektona koro", 'desc': "La koro de la tero rompiĝas: {dmg}% Forto-damaĝo al ĉio proksima, kaj rubo kiu malrapidigas dum {dur}s." },
+    'eyeOfTheGale': { 'name': "Okulo de la ventego", 'desc': "Sagoŝtormo dum {dur}s: entute {dmg}% Kapablo-damaĝo kaj {slow}% malrapidigo." },
+    'endlessWinter': { 'name': "Senfina vintro", 'desc': "Vintro sen fino eksplodas el vi: {dmg}% Inteligenta damaĝo ene de {radius} m, ĉiuj frostiĝas dum {freeze}s." },
+    'dawnbreak': { 'name': "Tagiĝo", 'desc': "Fariĝu la aŭroro dum {dur}s: ĉiusekunde {dmg}% Inteligenta damaĝo ene de {radius} m kaj {heal}% resanigo." },
+    'alphasCall': { 'name': "Voko de la alfao", 'desc': "{wolves} lupoj respondas kaj kuras kun vi dum {dur}s. La tuta aro faras +{dmg}% damaĝon kaj estas {move}% pli rapida." },
+    'prismStorm': { 'name': "Prisma ŝtormo", 'desc': "Dum {dur}s la kvar elementoj furiozas: {strikes} batoj de {dmg}% Inteligento, kiuj ekigas unu la alian." },
+    'ferryman': { 'name': "Pramisto", 'desc': "Dum {dur}s ĉiu malamiko, kiu falas apud vi, leviĝas kiel via spirito, kaj spiritoj faras {atk}% pli." },
+    'unmovingMountain': { 'name': "Neŝancelebla monto", 'desc': "Elspezu ĉiun vivenergion: monto falas por {dmg}% Lerteca damaĝo, +{per}% po unuo, kaj faligas malamikojn." },
+    'encore': { 'name': "Bis", 'desc': "Ankoraŭ unu fojon dum {dur}s (+{buff}% rapido, damaĝo, Defendo), poste la lasta akordo: {dmg}% Karismo, malamikoj ĉarmitaj." },
     kind: {
       active: 'Aktiva',
       passive: 'Pasiva'
@@ -590,7 +797,7 @@ export default {
     },
     danceOfBlades: {
       name: 'Danco de Klingoj',
-      desc: 'Saltu inter malamikoj ene de {radius} m kaj frapu {hits}-foje por entute {dmg}% da Lerto-damaĝo. Oni ne povas trafi vin dum la danco.'
+      desc: 'Saltu inter malamikoj ene de {radius} m kaj frapu {hits}-foje, ĉiufoje por {dmg}% da Lerto-damaĝo. Estro ricevas nur unu baton. Oni ne povas trafi vin dum la danco.'
     },
     fireball: {
       name: 'Fajroglobo',
@@ -1338,6 +1545,8 @@ export default {
     magic: 'Magio · kreskas kun {attr}'
   },
   source: {
+    'siege': "Gajnita en la sieĝo de Bastiona Transirejo.",
+    'infernal': "Infera ĝemelo: falas en invadita {zone}, aŭ forĝita de forĝisto.",
     arena: 'Gajnita en la Koloseo.',
     smith: 'Forĝita en forĝejo.',
     mob: 'Faligata de la monstroj. Zono: {zone}.',
@@ -1346,6 +1555,15 @@ export default {
     secret: 'Kaŝita en sekreta kesto. Zono: {zone}.'
   },
   mod: {
+    'demonBane': "+{n}% damaĝo kontraŭ demonoj",
+    'demonLeech': "{n}% de la damaĝo al demonoj resanigas vin",
+    'beastBane': "+{n}% damaĝo kontraŭ mitaj bestoj",
+    'fireWard': "{n}% malpli da fajra damaĝo ricevita",
+    'shadowWard': "{n}% malpli da ombra damaĝo ricevita",
+    'demonWard': "{n}% malpli da damaĝo de demonoj",
+    'pylonBreaker': "+{n}% damaĝo kontraŭ demonaj piloneoj",
+    'glassFinder': "{n}% ŝanco ke mortigita demono lasas pliajn demonajn vitrojn",
+    'waterWalk': "Akvo ne malrapidigas vin",
     str: '+{n} da Forto',
     dex: '+{n} da Lerto',
     int: '+{n} da Inteligento',
@@ -1421,6 +1639,24 @@ export default {
     songLength: 'Kantoj daŭras {n}% pli longe'
   },
   item: {
+    'chimeraMane': { 'name': "Kolharoj de ĥimero" },
+    'triFang': { 'name': "Tridento" },
+    'warchiefsLongbowGun': { 'name': "Pafarko-fusilo de la militestro" },
+    'hoofbreakerGreaves': { 'name': "Hufrompaj tibiŝirmiloj" },
+    'eyeOfTheDeep': { 'name': "Okulo de la profundo" },
+    'beamSplitter': { 'name': "Radiofendilo" },
+    'riddleCrown': { 'name': "Enigmokrono" },
+    'sandglassWand': { 'name': "Sablohorloĝa vergeto" },
+    'leviathanScale': { 'name': "Skvamo de Leviatano" },
+    'tidecallerStaff': { 'name': "Bastono de la tajdovokanto" },
+    'hydraScaleGauntlets': { 'name': "Hidroskvamaj gantoj" },
+    'manyHeadedFlail': { 'name': "Multkapa draŝilo" },
+    'heartOfTheElderDragon': { 'name': "Koro de la Antikva Drako" },
+    'dragonboneGreatsword': { 'name': "Dumana glavo el drakosto" },
+    'bastionBanner': { 'name': "Standardo de la Bastiono" },
+    'wallwardensPlate': { 'name': "Kiraso de la murgardisto" },
+    'gatebreaker': { 'name': "Pordorompilo" },
+    'crownOfTheLastBastion': { 'name': "Krono de la lasta Bastiono" },
     heartOfTheArena: {
       name: 'Koro de la Areno'
     },
@@ -3418,8 +3654,17 @@ export default {
     known: 'Lernita',
     friend: '{faction} honoras siajn amikojn: 20% da rabato.',
     fee: 'Kotizo',
+    rank: {
+      label: 'Rango {n}',
+      up: 'Altigi rangon',
+      effect: '+{effect}% efiko, −{cd}% reŝargo',
+      max: 'Plej alta rango',
+      level: 'Rango {n} postulas nivelon {lvl}.'
+    },
     hint: 'Elektu lecionon. Verda rando signifas, ke vi povas lerni ĝin nun.',
     block: {
+      'trial': "Vi ankoraŭ ne trapasis la provon de ĉi tiu klaso.",
+      'parents': "Unue lernu kapablon de {a} kaj unu de {b}.",
       level: 'Via nivelo estas tro malalta.',
       attrs: 'Viaj atributoj estas tro malaltaj.',
       gold: 'Ne sufiĉe da oro.'
@@ -3444,6 +3689,20 @@ export default {
     circle: 'La Rondo de Etero'
   },
   npc: {
+    'mysteriousWanderer': { 'name': "Mistera vaganto" },
+    'fairPip': { 'name': "Pip" },
+    'fairBess': { 'name': "Maljuna Bess" },
+    'fairHob': { 'name': "Hob" },
+    sunkenPriest: { name: "La Subakvigita Pastro" },
+    'fortHale': {
+      'name': "Kapitano Hale",
+    },
+    'fortMara': {
+      'name': "Plejaĝulino Mara",
+    },
+    'scoutWren': {
+      'name': "Esploristino Wren",
+    },
     frostDisciple: {
       name: 'Ivor Hask'
     },
@@ -3733,6 +3992,185 @@ export default {
     }
   },
   dlg: {
+    // ── The Mysterious Wanderer (afterplay phase 10) ──
+    'mysteriousWanderer': {
+      'hello': { '1': "Do. Vi faris tion, kion malmultaj iam faris. Mi sentis ĝin de la alia flanko de la fendo.", '2': "Mi instruas la malnovajn vojojn, kiuj kunigas du lernejojn en unu. Nur al tiuj, kiuj meritas ilin." },
+      'sealed': { '1': "Vi sigelis ĝin. Domaĝe, iel. Mi ŝatis la vidon." },
+      'ajar': { '1': "Vi lasis ĝin duone malfermita. Kuraĝe. La demonoj tenos vin akra." },
+      'again': { '1': "Denove ĉi tie. La vojo estas longa, sed vi iras ĝin bone." },
+      'train': { '1': "Montru al mi ambaŭ duonojn de tio, kio vi estas, kaj mi faros el ili unu." },
+      'trial': { 'say': "Kiujn provojn vi celas?", '1': "Pordego tenita sen skrapo. Drako mortigita sen falo. Kvin inferaj forĝaĵoj kaj kvin venkoj sinsekve.", '2': "La morto de la Leviatano, kaj perfekta rondo ĉe la hidro. Ĉiu malfermas pordon, kiun mi povas montri al vi." },
+      'who': { '1': "Vaganto. Mi marŝis laŭ la rando de la fendo antaŭ ol via avo naskiĝis. Nomoj eluziĝas." },
+      'trainBack': { '1': "Ekzercu. Du lernejoj batalas antaŭ ol konsenti." },
+      'bye': { '1': "Iru singarde. Mi estos ĉi tie, ĝis mi ne plu estos." }
+    },
+    'fairPip': {
+      'hello': { '1': "Alvenu! Naŭ bareloj, aro da diabletoj kaj unu maleo. Frapu ilin reen!", '2': "La diabletoj saltas el la bareloj. Frapu dudek antaŭ ol la sablo elfluos.", '3': "Lasu la orkirasitajn, ili kostas vivon. Tri sinsekvaj venkoj, kaj la granda premio estas via." },
+      'again': { '1': "Pli da frapado? Prenu la maleon!" },
+      'play': { '1': "Maleon supren! Jen ili venas!" },
+      'who': { '1': "Pip, diableto-kaptisto laŭprofesie. Ĉi tiujn mi mem kaptis. Ili mordas." },
+      'playBack': { '1': "Ha! Kia bruo! Denove?" },
+      'bye': { '1': "Tenu la malean brakon malstreĉita!" }
+    },
+    'fairBess': {
+      'hello': { '1': "Kvin ringoj, tri kapoj, kaj neniu mordas. Mi mem ĉizis ŝin, do atentu la farbon.", '2': "Tenu por svingo, malpremu por ĵeti. Kapo kaptas la ringon nur kiam ĝi svingiĝas al la mezo.", '3': "Ĉiu sinsekva kapo kalkuliĝas unu pli. Trafu ĉiujn kvin, kaj mi pagos vin dece." },
+      'again': { '1': "Ĉu vi revenas provi vian sorton kontraŭ mia maljunulino?" },
+      'play': { '1': "Jen viaj ringoj. Ĵetu milde, kara." },
+      'who': { '1': "Kvardek jaroj sur la foiraj vojoj. La hidro venis kun la milito. Ŝajnis taŭge." },
+      'playBack': { '1': "Ne malbone. Mia forpasinta edzo ĵetis pli malbone." },
+      'bye': { '1': "Atentu la farbon elirante." }
+    },
+    'fairHob': {
+      'hello': { '1': "Ho. Saluton. Ĉu vi volas brakobatali? Mi estos milda. Mi provos.", '2': "Puŝu kiam la ringo renkontas la cirklon. Ekster takto vi glitos.", '3': "Fortaj brakoj helpas. Venku min trifoje sinsekve, kaj la Forĝomajstro donos al vi rabaton." },
+      'again': { '1': "Plian rondon? Neniu iam revenas por plia rondo." },
+      'play': { '1': "Kubuton sur la tablon. Kiam vi volas." },
+      'who': { '1': "Mi estas la metilernanto de la Forĝomajstro. Li diras, ke mi ne konas mian propran forton." },
+      'playBack': { '1': "Bona matĉo. Morgaŭ mia brako doloros. Verŝajne." },
+      'bye': { '1': "Revenu baldaŭ. La forĝejo estas tre silenta." }
+    },
+    // ── The Breaking (the afterplay, B0–B5) ──
+    'story': {
+      forge: { back: { '1': "Mia forĝejo denove brulas, pli varme ol iam. Demona fero bone fandiĝas.", '2': "Alportu al mi, kion vi trovas tie ekstere. Nun mi povas forĝi ĝin infere." } },
+      oracle: { lens: { '1': "Vi iam liberigis min. Nun mi vidos por vi. Prenu mian Lenson.", '2': "Rigardu tra ĝi, kaj la mapo montros, kie atendas la grandaj bestoj." } },
+      priest: { lens: { '1': "La Orakolo foriris, do nun mi gardas ŝian templon. La Sfinkso gardis ĉi tion.", '2': "Ŝia Lenso. Rigardu tra ĝi, kaj la mapo montros, kie atendas la grandaj bestoj." } },
+      herbs: { scale: { '1': "Skvamo de la Leviatano! Malpeza kiel folio, kaj ĝi flosas.", '2': "Portu ĝin, kaj la malprofundaĵoj tenos vin kiel firma tero." } },
+      ghost: { key: { '1': "Nu, tiu, kiu prenis mian tronon. Vi mortigis mian Hidron. Bone.", '2': "Prenu ĝian fajroŝlosilon. La koro de la fendo brulas, kaj nur fajro malfermas ĝin." } },
+      syndicate: { key: { '1': "La Hidro mortis? Do ĝia fajroŝlosilo iros al tiu, kiu pagos. Aŭ al vi, mi supozas.", '2': "Ĝi malfermas la koron de la fendo. Iru fermi ĝin, antaŭ ol ĝi formanĝos mian negocon." } },
+      sealed: {
+        sealed: { '1': "Kaj tiel la fendo estis sigelita, kaj la mondo ekresaniĝis.", '2': "Urboj estis rekonstruitaj, kantoj verkitaj, kaj en ĉiuj estis unu nomo." },
+        ajar: { '1': "Kaj tiel la fendo restis duonmalfermita, kaj la mondo lernis vivi apud ĝi.", '2': "La muroj restis gardataj, la koloseo laŭta, kaj la heroo preta." },
+      },
+      'rift': {
+        'scream': {
+          '1': "La Sinjoro de la Malpleno falas, kaj la fendo malantaŭ li krias.",
+          '2': "Ĝi neniam estis lia trono. Ĝi estis lia kaĝo, kaj li estis ĝia kovrilo.",
+          '3': "Nun la fendo estas malfermita, kaj ĉio, kion la malpleno tenis dormanta, vekiĝas.",
+        },
+      },
+      'wren': {
+        'found': {
+          '1': "Jen vi! Mi estas Wren, esploristino. Mi serĉis vin ĉie.",
+          '2': "Sunford brulas. Ĉiuj, kiuj povis fuĝi, iris al Bastiona Transirejo.",
+          '3': "Ĝi estas la malnova fortikaĵo ĉe la vojo al la Cindraj Rokegoj. Rapidu, ili bezonas vin.",
+        },
+      },
+    },
+    'scoutWren': {
+      sealed: { '1': "La drako foriris! La vojoj jam sentiĝas pli malpezaj." },
+      'hello': {
+        '1': "Vi venis! Mi sciis. Bonvenon al Bastiona Transirejo.",
+        '2': "Mi esploras la vojojn por la kapitano. Demandu min, kie estas danĝero.",
+      },
+      'again': {
+        '1': "Jam reen? La vojoj ne esploras sin mem.",
+      },
+      'who': {
+        '1': "Wren. Mi portis mesaĝojn por la gardistaro de Sunford, antaŭ ol ĝi brulis.",
+      },
+      'rumor': {
+        'plains': {
+          '1': "Demonoj tenas la vojon tra la Sunford-Ebenaĵoj. La instruistoj de Sunford estas kaptitaj malantaŭ ĝi.",
+        },
+        'hollows': {
+          '1': "La Koboldaj Kavernoj svarmas de inferaj hundoj. Purigu ilin, kaj Sunford povos reveni hejmen.",
+        },
+        'woods': {
+          '1': "Io kun tri kapoj ĉasas en la Flustranta Arbaro. La herbistino kaŝiĝas tie.",
+        },
+        'outskirts': {
+          '1': "Centaŭroj rajdas en la Ĉirkaŭaĵo de Oakhaven. Se ili atingos niajn murojn, ni bezonos ĉiun glavon.",
+        },
+        'siege': {
+          '1': "Ilia hordo estas rompita, sed pliaj kolektiĝas. La kapitano pretigas la murojn.",
+        },
+      },
+      'bye': {
+        '1': "Gardu la vojojn. Ankaŭ mi gardos ilin.",
+      },
+    },
+    'fortHale': {
+      sealed: { '1': "La drako mortis. Mi neniam pensis, ke mi travivos tion. Dankon." },
+      'siegeBack': { '1': "Ankoraŭ ne? Do ripozu. La muroj atendos vin." },
+      'bell': { '1': "Al la pordego do. Diru al mi, kiom firme ni tenos ĝin." },
+      'hello': {
+        '1': "Vi alvenis. Bone. Ni bezonas ĉiun glavon, nun pli ol iam ajn.",
+        '2': "Bonvenon al Bastiona Transirejo. Malnovaj muroj, sed la solaj ankoraŭ starantaj.",
+      },
+      'road': {
+        '1': "La vojo al Sunford denove estas malfermita. Ĝiaj homoj estas sekuraj malantaŭ niaj muroj.",
+      },
+      'herbs': {
+        '1': "La herbistino revenis, kun siaj herboj. La malsanulejo povas denove spiri.",
+      },
+      'siege': {
+        '1': "Vi rompis la centaŭrojn. Sed pli granda armeo venas, kaj ĝi venas por ĉi tiuj muroj.",
+      },
+      'again': {
+        '1': "Ankoraŭ starantaj. La muroj, la viroj kaj mi.",
+      },
+      'fort': {
+        '1': "Malnova landlima fortikaĵo. Malplena dum kvindek jaroj, ĝis la ĉielo ŝiriĝis.",
+        '2': "Nun ĝi estas la lasta sekura loko inter la ebenaĵoj kaj la montoj.",
+        'say': "Kia loko estas ĉi tio?",
+      },
+      'rumor': {
+        'road': {
+          '1': "Purigu la Ebenaĵojn kaj la Kavernojn. La homoj de Sunford estas kaptitaj tie.",
+        },
+        'woods': {
+          '1': "La herbistino estas en la Flustranta Arbaro, kaj ankaŭ besto kun tri kapoj. Estu preta.",
+        },
+        'centaurs': {
+          '1': "Centaŭroj en la Ĉirkaŭaĵo. Rompu ilian hordon antaŭ ol ĝi atingos nin.",
+        },
+        'siege': {
+          '1': "Ripozu. Kiam la sieĝa sonorilo sonos, mi bezonos vin sur la muro.",
+        },
+      },
+      'bye': {
+        '1': "Tenu vian glavon proksime.",
+      },
+    },
+    'fortMara': {
+      sealed: { '1': "Vi sukcesis, infano. Ĉiu el ni ŝuldas al vi hejmon." },
+      'siegeBack': { '1': "Ripozu iom, infano. La sonorilo denove sonoros." },
+      'bell': { '1': "La murojn de la kapitano nun gardas mi. Elektu, kiel ni tenos ilin." },
+      'hello': {
+        '1': "Infano! Vi vivas. Kiam Sunford brulis, mi timis la plej malbonan.",
+        '2': "Ni nun estas gastoj en soldata fortikaĵo, maljunulinoj kaj ĉio.",
+      },
+      'command': {
+        '1': "Kapitano Hale falis kun Oakhaven. Do la fortikaĵo nun aŭskultas maljunan plejaĝulinon.",
+      },
+      'home': {
+        '1': "Sunford rekonstruiĝas! La unuaj tegmentoj staras. Mi povus plori.",
+      },
+      'again': {
+        '1': "Ankoraŭ ĉi tie, infano. Ankoraŭ kalkulante kapojn.",
+      },
+      'town': {
+        '1': "Demonoj venis el la nokta ĉielo. Ni fuĝis kun tio, kion ni povis porti.",
+        '2': "Kelkaj el ni neniam eliris. Revenigu la ceterajn hejmen, se vi povas.",
+        'say': "Kio okazis al Sunford?",
+      },
+      'rumor': {
+        'road': {
+          '1': "Niaj instruistoj ankoraŭ estas sur la vojo de Sunford. Venigu ilin ĉi tien, infano.",
+        },
+        'woods': {
+          '1': "La herbistino iris en la Flustrantan Arbaron por herboj kaj neniam revenis.",
+        },
+        'centaurs': {
+          '1': "Rajdantoj en la Ĉirkaŭaĵo. Hufoj kiel tondro, ĉiunokte.",
+        },
+        'siege': {
+          '1': "La muroj baldaŭ estos provitaj. Mi sentas tion en miaj maljunaj ostoj.",
+        },
+      },
+      'bye': {
+        '1': "Iru singarde, infano.",
+      },
+    },
     intro: {
       crossing: { 1: 'Ĉiu vojo de ĉi tiu mondo renkontiĝas ĉe vojkruciĝo… kaj ĉiu vojkruciĝo estas batalo.' },
       hero: { 1: 'El la trankvilaj kampoj de Sunford ekiris juna heroo.' },
@@ -4183,6 +4621,7 @@ export default {
       }
     },
     hero: {
+      'siege': "Ni okupu la murojn.",
       forge: 'Mi ŝatus uzi vian forĝejon.',
       learnSmith: 'Ĉu vi povus instrui al mi forĝi?',
       ore: 'Mi havas iom da erco por vendi.',
@@ -4489,7 +4928,7 @@ export default {
       },
       map: {
         '1': 'La mapo de kapitano Rook! Li disŝiris ĝin kaj kaŝis la pecojn, antaŭ ol la koboldoj kaptis lin.',
-        '2': 'Trovu ses el ili, kelkaj pliaj estas disĵetitaj ĉirkaŭe, kaj la X montros al vi la vojon: ie en la Cindraj Rokegoj. Fosu tie, kaj la oro estos via.',
+        '2': "Trovu ses el la pecoj, kaj la X montros la vojon: ie en la Cindraj Rokegoj. Fosu tie por la oro.",
         say: 'Mi trovis pecon de malnova mapo.'
       }
     },
@@ -5455,6 +5894,11 @@ export default {
       }
     },
     quest: {
+      seal: {
+        ask: { '1': "La Praa Drako mortis, kaj la fendo staras malfermita antaŭ vi.", '2': "Vi povus sigeli ĝin nun, por ĉiam. La bestoj denove dormus.", '3': "Aŭ vi povus lasi ĝin duonmalfermita, kaj lasi la plej kuraĝajn provi sin kontraŭ tio, kio venas tra ĝi." },
+        seal: { say: "Sigelu ĝin. Por ĉiam.", '1': "La fendo fermiĝas kiel resaniĝanta vundo, kaj la ĉielo silentiĝas." },
+        ajar: { say: "Lasu ĝin duonmalfermita. Ni estos pretaj.", '1': "La fendo restas duonmalfermita, kaj io malantaŭ ĝi ridas." },
+      },
       goblinKing: {
         ask: {
           '1': 'Haltu. Mi petas. Mi cedas.',
@@ -5586,6 +6030,64 @@ export default {
       }
     },
     bark: {
+      sphinx: {
+        intro: { '1': "Respondu al mi, etulo, aŭ mia sablo entombigos vin." },
+        riddle: { '1': "Enigmo do. Paŝu, kien mi montras, en tiu ordo." },
+        sand: { '1': "Kvin ĉi-foje. Kaj mia sablo ne atendos." },
+        death: { '1': "Vi bone respondis. La sablo nun estas via." },
+      },
+      leviathan: {
+        intro: { '1': "Nun vi marŝas en mia akvo." },
+        sink: { '1': "Viaj insuletoj subakviĝas." },
+        grab: { '1': "Venu kun mi en la profundon!" },
+        death: { '1': "La tajdo foriras kaj ne revenas." },
+      },
+      hydra: {
+        intro: { '1': "Detranĉu unu kapon, kaj du kreskos!" },
+        heads: { '1': "Pli da kapoj, pli da dentoj!" },
+        rage: { '1': "Bruligi nin? Do brulu kun ni!" },
+        death: { '1': "Ne plu kapoj. Ne plu." },
+      },
+      elderDragon: {
+        intro: { '1': "Mi dormis sub la mondo antaŭ ol via gento konis fajron." },
+        flight: { '1': "Do kaŝu vin malantaŭ viaj ŝtonetoj." },
+        rift: { '1': "La fendo tiras min reen. Ankoraŭ ne!" },
+        death: { '1': "Do sigelu ĝin. Mi estas laca de la mallumo." },
+      },
+      'siegeHale': {
+        'start': {
+          '1': "Jen ili venas! Tenu la pordegon!"
+        },
+        'ram': {
+          '1': "Muregrompilo! Mortigu ĝin antaŭ ol ĝi atingos la pordegon!"
+        },
+        'horn50': {
+          '1': "Duono de la pordego forestas! Tenu!"
+        },
+        'horn25': {
+          '1': "La pordego ne longe eltenos!"
+        },
+        'won': {
+          '1': "Ili estas rompitaj! La bastiono staras!"
+        }
+      },
+      'siegeMara': {
+        'start': {
+          '1': "Ili venas! Staru firme, ĉiuj!"
+        },
+        'ram': {
+          '1': "Muregrompilo! Haltigu ĝin antaŭ ol ĝi rompos la pordegon!"
+        },
+        'horn50': {
+          '1': "Duono de la pordego falis. Eltenu!"
+        },
+        'horn25': {
+          '1': "La pordego cedas! Repuŝu ilin!"
+        },
+        'won': {
+          '1': "Ili fuĝas! La fortikaĵo ankoraŭ staras!"
+        }
+      },
       banditChief: {
         whistle: {
           1: 'Supren, knaboj! Mordu ilin!'
@@ -5594,6 +6096,11 @@ export default {
       lightDisciple: {
         freed: {
           '1': 'La lumo sendis vin. Mi estas Fratino Aurelle. Serĉu min en Sunford, mi instruos al vi la vojon de la Lumportanto.'
+        }
+      },
+      trainerAegis: {
+        freed: {
+          '1': 'Dankon, ke vi liberigis nin de la banditoj! Venu al la fajro: ni ĉiuj instruos vin, la unua leciono senpaga.'
         }
       },
       frostDisciple: {
@@ -5649,6 +6156,48 @@ export default {
         },
         dive: {
           '1': 'Genuiĝu.'
+        }
+      },
+      chimera: {
+        intro: {
+          '1': "Tri kapoj, unu malsato. Kiu el ni mordos unue?"
+        },
+        twin: {
+          '1': "Nun ni estas du. Elektu vian flankon saĝe."
+        },
+        tail: {
+          '1': "Mia vosto! Vi pagos pro tio!"
+        },
+        death: {
+          '1': "Tri kapoj, kaj neniu antaŭvidis tion."
+        }
+      },
+      centaurWarchief: {
+        intro: {
+          '1': "Kuru, se vi volas. Miaj sagoj kuras pli rapide."
+        },
+        raiders: {
+          '1': "Rajdantoj! Piedpremu ilin!"
+        },
+        rear: {
+          '1': "Sufiĉas sagoj. Mi piedpremos vin!"
+        },
+        death: {
+          '1': "La ebenaĵoj memoros miajn hufojn."
+        }
+      },
+      cyclops: {
+        intro: {
+          '1': "Io malgranda estas ĉi tie. Venu pli proksimen. Lasu min vidi."
+        },
+        cover: {
+          '1': "Ne plu rigardi. Mian okulon vi ne havos!"
+        },
+        blind: {
+          '1': "Mi ne vidas vin, sed mi aŭdas vin!"
+        },
+        death: {
+          '1': "Mallume. Ĉio mallumiĝis."
         }
       },
       frostJarl: {
@@ -6773,7 +7322,20 @@ export default {
       }
     }
   },
+  invasion: {
+    pylonsDown: 'La lasta pilono falas, kaj ĝia trezoro disverŝiĝas!',
+    reborn: {
+      tusker: 'Renaskita Dentegulo',
+      emberLord: 'La Infera Mastro de Ardaĵo',
+      frostJarl: 'La Renaskita Frostjarlo',
+      voidDragon: 'La Renaskita Drako de la Malpleno'
+    }
+  },
   enemy: {
+    sphinx: "La Sfinkso",
+    leviathan: "La Leviatano",
+    hydra: "La Hidro",
+    elderDragon: "La Praa Drako",
     trainingDummy: 'Ekzerca Pupo',
     goblin: 'Koboldo',
     goblinSlinger: 'Kobolda Ŝtonĵetisto',
@@ -6798,6 +7360,10 @@ export default {
     naga: 'Nagao',
     skeleton: 'Skeleto',
     necromancer: 'Nekromanciisto',
+    chimera: "La Ĥimero",
+    chimeraTail: "Serpenta Vosto",
+    centaurWarchief: "La Centaŭra Militestro",
+    cyclops: "La Ciklopo",
     frostJarl: 'La Frostjarlo',
     nagaOracle: 'La Dronita Orakolo',
     voidStalker: 'Gvatanto de la Malpleno',
@@ -6810,6 +7376,7 @@ export default {
     archDemon: 'La Ĉefdemono',
     voidling: 'Malplenido',
     voidLord: 'La Mastro de la Malpleno',
+    demonPylon: 'Demona Pilono',
     orderGuard: 'Inkvizitoro de la Ordeno',
     syndicateBlade: 'Klingo de la Sindikato',
     goblinWarchief: 'Goblena Militestro',
@@ -6826,7 +7393,19 @@ export default {
     goblinTyrant: 'Kobolda Tirano',
     voidDrake: 'Drakido de la Malpleno',
     pitLord: 'Mastro de la Abismo',
-    frostThane: 'Frostnobelo'
+    frostThane: 'Frostnobelo',
+    hellhound: 'Inferhundo',
+    frostHellhound: 'Frosta inferhundo',
+    gargoyle: 'Gargojlo',
+    harpy: 'Harpio',
+    corruptedTreant: 'Koruptita arbulo',
+    centaurRaider: 'Centaŭra rabatakanto',
+    cyclopsBrute: 'Ciklopa brutulo',
+    demonMiner: 'Demona ministo',
+    sphinxAcolyte: 'Akolito de la sfinkso',
+    seaDemon: 'Mara demono',
+    drakeHatchling: 'Drakido',
+    hydraSpawn: 'Hidrido'
   },
   results: {
     careful: 'Singarda venko ×{mult}',
@@ -7139,6 +7718,8 @@ export default {
     town: 'Ĉiu urba forĝisto povas plibonigi ĝin.'
   },
   ore: {
+    'demonglass': { 'name': "Demona vitro" },
+    'ichor': { 'name': "Mita ikoro" },
     iron: {
       name: 'Fera erco'
     },

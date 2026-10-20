@@ -1,5 +1,170 @@
 // Norwegian Bokmål locale — mirrors the key shape of en.ts exactly.
 export default {
+  // ─── Afterplay phase 8: items, materials and capstones ───
+  // ─── Afterplay phase 10: the prestige classes ───
+  'prestige': { 'toast': { 'wanderer': "En mystisk vandrer venter i festningen." } },
+  'relic': {
+    'infernal': "{name} · Helvetes",
+    'set': "Båret med {item}:",
+    'heroicBadge': "Heroisk {n}",
+    'heroic': "Heroisk {n}: {gold} gull, {glass} demonglass",
+    'heroicIchor': "Heroisk {n}: {gold} gull, {glass} demonglass, {ichor} ichor",
+    'heroicMax': "Alle heroiske rang er tatt.",
+    'infernalForge': "Helvetessmie: {gold} gull, {glass} demonglass",
+    'lens': "Orakelets linse: her venter {boss}.",
+    'hydraKey': "Forseglet. Hydraens ildnøkkel åpner Riftens hjerte.",
+    'marksGlass': "Kjøp {glass} demonglass for {marks} merker",
+    'capstone': "Mesterevne",
+    'fortOnly': "Denne mesterevnen læres bare ved Bastionsvadet."
+  },
+  // ─── The fort's fair games (afterplay §9) ───
+  'fair': {
+    'fee': "Spill · {n}",
+    'again': "Spill igjen",
+    'noGold': "Ikke nok gull.",
+    'capped': "Soner som må ryddes før de store premiene kommer tilbake: {n}",
+    'top': "Hovedpremie! +{gold} gull, +{xp} XP",
+    'topGold': "Hovedpremie, bare i gull: +{n} gull",
+    'won': "Du vant! +{n} gull",
+    'lost': "Uflaks. Rekken starter på nytt.",
+    'row': "Seire på rad: {n} av {max}",
+    'mats': "+{n} Heroisk+-materiale",
+    'discount': "Smeden gir deg nå {n} % rabatt på oppgraderinger!"
+  },
+  'whack': {
+    'title': "Slå-en-Imp",
+    'lead': "Treff 20 imper på 30 sekunder. La de gullpansrede være: hver du treffer koster et liv.",
+    'hits': "Imper: {n} / {max}",
+    'lives': "Liv: {n}",
+    'time': "Tid: {n} s",
+    'hint': "Trykk på impene, eller trykk 1 til 9.",
+    'barrel': "Tønne {n}",
+    'timeout': "Tiden er ute!",
+    'dead': "Tom for liv!"
+  },
+  'ring': {
+    'title': "Ringkasting ved Hydraen",
+    'lead': "Hold for kraft, slipp for å kaste. Et hode fanger ringen bare nær midten av svingen sin. Hvert hode på rad er verdt ett poeng mer.",
+    'hint': "Hold og slipp på bordet, eller hold Mellomrom.",
+    'rings': "Ringer igjen: {n}",
+    'score': "Poeng: {n}",
+    'hit': "Truffet! +{n}",
+    'miss': "Bom!",
+    'perfect': "En perfekt runde!",
+    'nothing': "Poeng {n}. Ingen premie denne gangen.",
+    'power': "Kraft"
+  },
+  'arm': {
+    'title': "Håndbak",
+    'lead': "Trykk når ringen møter sirkelen for å presse armen hans ned. Styrke gjør takten bredere. Tre seire på rad gir smederabatt, fem gir Heroisk+-materiale.",
+    'hint': "Trykk på bordet, eller trykk Mellomrom.",
+    'good': "Press!",
+    'off': "Ute av takt!"
+  },
+  // ─── The Siege of Bastion (afterplay §8) ───
+  'siege': {
+    'title': "Beleiringen av Bastionsvadet",
+    'lead': "Hold porten i ti bølger. Mellom bølgene bruker du beleiringsmerker på forsvar.",
+    'story': "Horden står ved porten. Hold den i ti bølger: denne første beleiringen kan ikke tapes.",
+    'bell': "Beleiringsklokken ringer! Horden samler seg ved porten.",
+    'mapBell': "Beleiring!",
+    'start': "Ring med klokken",
+    'wins': "Vunnet: {n}",
+    'marksBank': "Spart beleiringsmerker: {n}",
+    'tier': {
+      'normal': "Normal",
+      'hard': "Vanskelig",
+      'nightmare': "Mareritt"
+    },
+    'tierDesc': {
+      'normal': "Fiender ett nivå over deg.",
+      'hard': "Fiender 3 nivåer høyere, med 30 % mer liv.",
+      'nightmare': "Fiender 6 nivåer høyere og to bølger med mytiske eliter."
+    },
+    'locked': {
+      'hard': "Vinn en normal beleiring først.",
+      'nightmare': "Åpner når riften er forseglet eller holdt på gløtt."
+    },
+    'lord': "Beleiringsherre",
+    'hud': {
+      'wave': "Bølge {n}/{total}",
+      'marks': "Merker: {n}",
+      'gate': "Port {pct} %",
+      'build': "Bølge {n} om {s} s",
+      'ready': "Klar!",
+      'buy': "{name}: {n} merker"
+    },
+    'def': {
+      'ballista': {
+        'name': "Ballista",
+        'desc': "Skyter en gjennomborende bolt ned sin bane hvert 2. sekund."
+      },
+      'cauldron': {
+        'name': "Ildgryte",
+        'desc': "Setter fyr på banens flaskehals."
+      },
+      'barricade': {
+        'name': "Barrikade",
+        'desc': "Sperrer en bane i 20 sekunder."
+      },
+      'militia': {
+        'name': "Milits",
+        'desc': "To vakter kjemper ved din side."
+      },
+      'repair': {
+        'name': "Reparer porten",
+        'desc': "Gjenoppretter en fjerdedel av porten."
+      }
+    },
+    'block': {
+      'marks': "Ikke nok beleiringsmerker.",
+      'full': "Ikke plass til flere.",
+      'phase': "Bare mellom bølgene."
+    },
+    'toast': {
+      'cleared': "Bølge {n} holdt! +{marks} merker",
+      'clearedUnharmed': "Bølge {n} holdt, porten uskadd! +{marks} merker",
+      'horn': "Hornet lyder! Porten er nede i {pct} %.",
+      'ram': "En rambukk! Stopp den før den når porten!",
+      'rally': "På beina igjen! Hold porten!"
+    },
+    'banner': {
+      'wave': "Bølge {n}",
+      'final': "Beleiringsherren!"
+    },
+    'result': {
+      'tier': "Beleiringen av Bastionsvadet: {tier}",
+      'waves': "Bølger holdt: {n}/{total}",
+      'marks': "Beleiringsmerker beholdt: {banked} av {earned}",
+      'glass': "Demonglass: +{n}"
+    },
+    'milestone': {
+      'normal1': "Milepæl nådd: Bastionens banner.",
+      'normal5': "Milepæl nådd: Murvokterens brynje.",
+      'hard1': "Milepæl nådd: Veteranens instinkt, en femte passiv plass.",
+      'hard5': "Milepæl nådd: Portbryter.",
+      'nightmare1': "Milepæl nådd: Den siste bastionens krone.",
+      'hardFlawless': "Milepæl nådd: nøkkelen til en skjult klasseprøve."
+    }
+  },
+  // ─── The Breaking (the afterplay's story) ───
+  'breaking': {
+    'title': "Bruddet",
+    'toast': {
+      brk6: "Smedmesteren har fått smia si tilbake. Helvetessmiing er åpen.",
+      brk7: "Sfinksen er død. Orakelets linse viser hvor de store beistene venter.",
+      brk8: "Leviatan er død. Skjellet lar deg gå på grunt vann.",
+      brk9: "Hydraen er død. Ildnøkkelen dens er din.",
+      brk10: "Urdragen er død. Riften ligger åpen.",
+      sealed: "Riften er forseglet. Du er Riftens Forsegler.",
+      ajar: "Riften står på gløtt. Demoner vil sette murene og kolosseet på prøve.",
+      'brk2': "Bastionsvadet tar imot deg. Folket ser til deg nå.",
+      'rescued': "Overlevende reddet! De er trygge i Bastionsvadet.",
+      'brk3': "Veien er fri. Sunfords folk er trygge.",
+      'brk4': "Urtekona slutter seg til festningen.",
+      'brk5': "Kentaurhorden er knust. Festningen gjør seg klar til beleiring.",
+    },
+  },
   // ─── The intro (#130): its skip, and its narrator's name ───
   intro: {
     narrator: 'Krønikeskriveren',
@@ -88,6 +253,7 @@ export default {
     gold: '{n} gull',
     potion: 'Livseliksir ({n} igjen)',
     manaPotion: 'Manaeliksir ({n} igjen)',
+    potionStop: 'Drikk en helsedrikk for å fortsette',
     groups: '{n} av {total} fiendegrupper beseiret',
     wave: 'Bølge {n} / {total}',
     roll: 'Rulle',
@@ -261,6 +427,10 @@ export default {
     escort: 'Vokt karavanen'
   },
   node: {
+    'bastion': {
+      'name': "Bastionsvadet",
+      'desc': "En gammel grensefestning, de siste murene som fortsatt står. De overlevende samles her.",
+    },
     sunford: {
       name: 'Sunford',
       desc: 'En bondeby i kanten av slettene. Et hjem, en smed og to læremestere.'
@@ -343,6 +513,9 @@ export default {
     locked: 'Rydd et naboområde for å åpne veien.',
     lockedArena: 'Portene åpner når det er gjort opp med Goblinkongen.',
     lockedRift: 'Den åpner når tronen i Redselsfestningen er avgjort.',
+    invaded: 'Invadert',
+    invadedDesc: 'Demoner hersker over dette landet. Pylonene deres får fiender i nærheten til å slå hardere, riftens arr brenner og bremser, og hver fiende som beseires her, er verdt mer.',
+    lockedInvaded: 'Demonene holder det i et fast grep. Ta tilbake {zone} først.',
     danger: {
       '1': 'Litt over nivået ditt.',
       '2': 'Farlig på nivået ditt.',
@@ -469,6 +642,11 @@ export default {
     }
   },
   class: {
+    // ── The prestige classes (afterplay phase 10) ──
+    'demonhunter': { 'name': "Demonjeger", 'desc': "Skygge og hellig lys, sverget til ett bytte. Merker demoner, og de merkede faller fort." },
+    'dragoon': { 'name': "Dragon", 'desc': "Vind under støvlene, et skjold på armen. Hopper ned fra himmelen og spidder hele rekker." },
+    'hexsmith': { 'name': "Forbannelsessmed", 'desc': "Eterhåndverk næret med blod. Bygger tårn som suger fienden tom for å lege smeden." },
+    'tidecaller': { 'name': "Tidevannskaller", 'desc': "Frost og elementer helt i havet. Bølger som kaster fiender tilbake og gjennomvæter dem." },
     aegis: {
       name: 'Aegisridder',
       desc: 'Skjold og hellig stål. Tar slagene så ingen andre trenger det.'
@@ -535,6 +713,35 @@ export default {
     }
   },
   skill: {
+    // ── The prestige classes (afterplay phase 10) ──
+    'huntersMark': { 'name': "Jegerens merke", 'desc': "En hellig bolt for {dmg}% Smidighet i skade. I {dur} s tar målet {vuln}% mer skade, en demon {demon}% mer." },
+    'demonsBane': { 'name': "Demonbane", 'desc': "+{bane}% skade mot demoner, og {ward}% mindre skade fra dem." },
+    'silverVolley': { 'name': "Sølvsalve", 'desc': "Sølvbolter i en linje: {dmg}% Smidighet i skade, +{bane}% mot demoner og merkede fiender." },
+    'skyfallLeap': { 'name': "Himmelfall", 'desc': "Hopp utenfor rekkevidde i {air} s, og fall så ned på stedet: {dmg}% Styrke i skade innen {radius} m, fiender veltes." },
+    'dragonBlood': { 'name': "Drageblod", 'desc': "+{boss}% skade mot bosser, +{hp}% maks helse, og ingenting dytter deg bakover." },
+    'dragonLance': { 'name': "Dragelanse", 'desc': "Et spydstøt i en linje: {dmg}% Smidighet i skade på hver fiende i den." },
+    'hexTurret': { 'name': "Forbannet tårn", 'desc': "Bygg et tårn i {dur} s. Hvert sekund suger det nærmeste fiende innen {radius} m for {dmg}% Teknikk i skade; du leges for {drain}% av det." },
+    'soulForge': { 'name': "Sjeleesse", 'desc': "+{hp}% maks helse, {regen} helse i sekundet, og du tar {reduce}% mindre skade." },
+    'hexBolt': { 'name': "Forbannet bolt", 'desc': "Betal {hp}% helse: en bolt for {dmg}% Teknikk i skade. Du leges for {heal}% av den, og fienden gjør {weak}% mindre skade i {dur} s." },
+    'tidalWave': { 'name': "Flodbølge", 'desc': "En bølge i en linje: {dmg}% Intelligens i skade, fiender kastes tilbake og gjennomvætes ({slow}% saktere i {dur} s)." },
+    'seaborn': { 'name': "Havfødt", 'desc': "+{bonus}% skade mot nedkjølte fiender, {reduce}% mindre mottatt skade, +{move}% fart." },
+    'undertow': { 'name': "Understrøm", 'desc': "En virvel i {dur} s: totalt {dmg}% Intelligens i skade innen {radius} m. Trekker fiender inn og senker dem {slow}%." },
+    'bastionWall': { 'name': "Bastionsmur", 'desc': "I {dur}s må hver fiende innen {radius} m angripe deg, og du tar {def}% mindre. Så gjør lyset {dmg}% Styrke +{back}% av slagene du har tatt." },
+    'thousandCuts': { 'name': "Tusen kutt", 'desc': "Pil mellom fiender innen {radius} m og slå {hits} ganger for {dmg}% Smidighetsskade hver. En boss tar bare ett hugg. Mens du kutter, kan ingenting treffe deg." },
+    'cinderSun': { 'name': "Askesol", 'desc': "En døende sol brister over {dur}s: {meteors} brennende biter, hver treffer med {dmg}% Intelligensskade." },
+    'royalLegion': { 'name': "Kongelig legion", 'desc': "Kall legionen i {dur}s: {archers} bueskyttere, {guards} vakter og {mages} kampmagikere." },
+    'stoppedHour': { 'name': "Stanset time", 'desc': "Stans timen innen {radius} m i {dur}s. Når den går igjen, tar hver fiende {dmg}% Intelligensskade." },
+    'redCovenant': { 'name': "Rød pakt", 'desc': "Ta {pct}% av livet fra hver fiende innen {radius} m. Du leges med {heal}% av det." },
+    'orbitalLance': { 'name': "Orbitallanse", 'desc': "En lanse av lys fra himmelen brenner der du sikter: {dmg}% Ferdighetsskade over {dur}s." },
+    'tectonicHeart': { 'name': "Tektonisk hjerte", 'desc': "Jordens hjerte brister: {dmg}% Styrkeskade på alt nær, og steinras som bremser i {dur}s." },
+    'eyeOfTheGale': { 'name': "Stormens øye", 'desc': "En pilstorm i {dur}s: totalt {dmg}% Ferdighetsskade og {slow}% bremsing." },
+    'endlessWinter': { 'name': "Endeløs vinter", 'desc': "En vinter uten ende bryter ut fra deg: {dmg}% Intelligensskade innen {radius} m, alle fryses i {freeze}s." },
+    'dawnbreak': { 'name': "Daggry", 'desc': "Bli daggryet i {dur}s: hvert sekund {dmg}% Intelligensskade innen {radius} m og {heal}% helbredelse." },
+    'alphasCall': { 'name': "Alfaens kall", 'desc': "{wolves} ulver svarer og løper med deg i {dur}s. Hele flokken gjør +{dmg}% skade og er {move}% raskere." },
+    'prismStorm': { 'name': "Prismestorm", 'desc': "I {dur}s raser de fire elementene: {strikes} slag av {dmg}% Intelligens som utløser hverandre." },
+    'ferryman': { 'name': "Fergemann", 'desc': "I {dur}s reiser hver fiende som faller nær deg seg som din ånd, og ånder gjør {atk}% mer." },
+    'unmovingMountain': { 'name': "Urokkelig fjell", 'desc': "Bruk all chi: et fjell faller for {dmg}% Smidighetsskade, +{per}% per chi, og slår fiendene over ende." },
+    'encore': { 'name': "Ekstranummer", 'desc': "Én gang til i {dur}s (+{buff}% fart, skade, Forsvar), så siste akkord: {dmg}% Karisma, fiender fortryllet." },
     kind: {
       active: 'Aktiv',
       passive: 'Passiv'
@@ -590,7 +797,7 @@ export default {
     },
     danceOfBlades: {
       name: 'Klingenes dans',
-      desc: 'Sprett mellom fiender innenfor {radius} m og hugg {hits} ganger for til sammen {dmg}% Smidighet i skade. Du kan ikke treffes mens du danser.'
+      desc: 'Sprett mellom fiender innenfor {radius} m og hugg {hits} ganger for {dmg}% Smidighet i skade hver. En boss tar bare ett hugg. Du kan ikke treffes mens du danser.'
     },
     fireball: {
       name: 'Ildkule',
@@ -1338,6 +1545,8 @@ export default {
     magic: 'Magi · skalerer med {attr}'
   },
   source: {
+    'siege': "Vunnet i beleiringen av Bastionsvadet.",
+    'infernal': "En helvetestvilling: faller i det invaderte {zone} eller smis av en smed.",
     arena: 'Vunnet i Colosseum.',
     smith: 'Smidd i en smie.',
     mob: 'Slippes av monstre. Område: {zone}.',
@@ -1346,6 +1555,15 @@ export default {
     secret: 'Gjemt i en hemmelig kiste. Område: {zone}.'
   },
   mod: {
+    'demonBane': "+{n}% skade mot demoner",
+    'demonLeech': "{n}% av skaden på demoner leger deg",
+    'beastBane': "+{n}% skade mot mytiske beist",
+    'fireWard': "{n}% mindre ildskade",
+    'shadowWard': "{n}% mindre skyggeskade",
+    'demonWard': "{n}% mindre skade fra demoner",
+    'pylonBreaker': "+{n}% skade mot demonpyloner",
+    'glassFinder': "{n}% sjanse for at en drept demon legger igjen ekstra demonglass",
+    'waterWalk': "Vann bremser deg ikke",
     str: '+{n} Styrke',
     dex: '+{n} Smidighet',
     int: '+{n} Intelligens',
@@ -1421,6 +1639,24 @@ export default {
     songLength: 'Sanger varer {n}% lenger'
   },
   item: {
+    'chimeraMane': { 'name': "Kimærens manke" },
+    'triFang': { 'name': "Tretann" },
+    'warchiefsLongbowGun': { 'name': "Krigshøvdingens langbuegevær" },
+    'hoofbreakerGreaves': { 'name': "Hovknuser-leggskinner" },
+    'eyeOfTheDeep': { 'name': "Dypets øye" },
+    'beamSplitter': { 'name': "Strålekløyver" },
+    'riddleCrown': { 'name': "Gåtekronen" },
+    'sandglassWand': { 'name': "Timeglasstav" },
+    'leviathanScale': { 'name': "Leviatanskjell" },
+    'tidecallerStaff': { 'name': "Tidevannskallerens stav" },
+    'hydraScaleGauntlets': { 'name': "Hydraskjell-hansker" },
+    'manyHeadedFlail': { 'name': "Mangehodet slegge" },
+    'heartOfTheElderDragon': { 'name': "Den Eldgamle Dragens hjerte" },
+    'dragonboneGreatsword': { 'name': "Drakebein-tohåndssverd" },
+    'bastionBanner': { 'name': "Bastionens banner" },
+    'wallwardensPlate': { 'name': "Murvokterens rustning" },
+    'gatebreaker': { 'name': "Portbryter" },
+    'crownOfTheLastBastion': { 'name': "Den siste Bastionens krone" },
     heartOfTheArena: {
       name: 'Arenaens hjerte'
     },
@@ -3418,8 +3654,17 @@ export default {
     known: 'Lært',
     friend: '{faction}: 20% rabatt for venner.',
     fee: 'Avgift',
+    rank: {
+      label: 'Rang {n}',
+      up: 'Øk rang',
+      effect: '+{effect} % effekt, −{cd} % nedkjøling',
+      max: 'Høyeste rang',
+      level: 'Rang {n} krever nivå {lvl}.'
+    },
     hint: 'Velg en leksjon. En grønn kant betyr at du kan lære den nå.',
     block: {
+      'trial': "Du har ikke bestått denne klassens prøve ennå.",
+      'parents': "Lær først en evne fra {a} og en fra {b}.",
       level: 'Nivået ditt er for lavt.',
       attrs: 'Attributtene dine er for lave.',
       gold: 'Ikke nok gull.'
@@ -3444,6 +3689,20 @@ export default {
     circle: 'Eterens sirkel'
   },
   npc: {
+    'mysteriousWanderer': { 'name': "Mystisk vandrer" },
+    'fairPip': { 'name': "Pip" },
+    'fairBess': { 'name': "Gamle Bess" },
+    'fairHob': { 'name': "Hob" },
+    sunkenPriest: { name: "Den sunkne presten" },
+    'fortHale': {
+      'name': "Kaptein Hale",
+    },
+    'fortMara': {
+      'name': "Den eldste Mara",
+    },
+    'scoutWren': {
+      'name': "Speideren Wren",
+    },
     frostDisciple: {
       name: 'Ivor Hask'
     },
@@ -3733,6 +3992,185 @@ export default {
     }
   },
   dlg: {
+    // ── The Mysterious Wanderer (afterplay phase 10) ──
+    'mysteriousWanderer': {
+      'hello': { '1': "Så. Du gjorde det få noensinne har gjort. Jeg kjente det fra den andre siden av riften.", '2': "Jeg lærer bort de gamle veiene som gjør to skoler til én. Bare til dem som fortjener dem." },
+      'sealed': { '1': "Du forseglet den. Synd, på et vis. Jeg likte utsikten." },
+      'ajar': { '1': "Du lot den stå på gløtt. Dristig. Demonene vil holde deg skarp." },
+      'again': { '1': "Tilbake igjen. Veien er lang, men du går den godt." },
+      'train': { '1': "Vis meg begge halvdelene av det du er, så gjør jeg dem til én." },
+      'trial': { 'say': "Hvilke prøver mener du?", '1': "En port holdt uten en skramme. En drage drept uten et eneste fall. Fem helvetessmedninger og fem seire på rad.", '2': "Leviatanens død og en perfekt runde ved hydraen. Hver åpner en dør jeg kan vise deg." },
+      'who': { '1': "En vandrer. Jeg gikk langs riftens kant før bestefaren din ble født. Navn slites ut." },
+      'trainBack': { '1': "Øv. To skoler krangler før de blir enige." },
+      'bye': { '1': "Gå varsomt. Jeg er her, til jeg ikke er det." }
+    },
+    'fairPip': {
+      'hello': { '1': "Kom nærmere! Ni tønner, en flokk imper og én klubbe. Slå dem ned igjen!", '2': "Impene spretter opp av tønnene. Treff tjue før sanden renner ut.", '3': "La de gullpansrede være, de koster et liv. Tre seire på rad, og storpremien er din." },
+      'again': { '1': "Mer banking? Grip klubben!" },
+      'play': { '1': "Klubben opp! Her kommer de!" },
+      'who': { '1': "Pip, impfanger av yrke. Disse fanget jeg selv. De biter." },
+      'playBack': { '1': "Ha! For et spetakkel! Igjen?" },
+      'bye': { '1': "Hold klubbearmen løs!" }
+    },
+    'fairBess': {
+      'hello': { '1': "Fem ringer, tre hoder, og ingen av dem biter. Jeg skar henne selv, så pass på malingen.", '2': "Hold for å ta sats, slipp for å kaste. Et hode fanger ringen bare når det svinger mot midten.", '3': "Hvert hode på rad teller ett mer. Treff alle fem, så betaler jeg skikkelig." },
+      'again': { '1': "Kommer du igjen for å prøve deg mot den gamle jenta mi?" },
+      'play': { '1': "Her er ringene dine. Kast mykt, vennen." },
+      'who': { '1': "Førti år på markedsveiene. Hydraen kom med krigen. Det virket passende." },
+      'playBack': { '1': "Ikke verst. Min avdøde mann kastet verre." },
+      'bye': { '1': "Pass på malingen på vei ut." }
+    },
+    'fairHob': {
+      'hello': { '1': "Å. Hei. Vil du ta håndbak? Jeg skal ta det rolig. Jeg skal prøve.", '2': "Press når ringen møter sirkelen. Ute av takt, så sklir du.", '3': "Sterke armer hjelper. Slå meg tre ganger på rad, så gir Smedmesteren deg rabatt." },
+      'again': { '1': "En runde til? Ingen kommer noen gang tilbake for en runde til." },
+      'play': { '1': "Albuen på bordet. Når du vil." },
+      'who': { '1': "Jeg er Smedmesterens lærling. Han sier jeg ikke kjenner min egen styrke." },
+      'playBack': { '1': "God kamp. Armen blir sår i morgen. Sannsynligvis." },
+      'bye': { '1': "Kom snart igjen. Smia er veldig stille." }
+    },
+    // ── The Breaking (the afterplay, B0–B5) ──
+    'story': {
+      forge: { back: { '1': "Smia mi brenner igjen, hetere enn noen gang. Demonjern smelter godt.", '2': "Kom med det du finner der ute. Nå kan jeg smi det helvetes." } },
+      oracle: { lens: { '1': "Du befridde meg en gang. Nå ser jeg for deg. Ta linsen min.", '2': "Se gjennom den, så viser kartet hvor de store beistene venter." } },
+      priest: { lens: { '1': "Orakelet er borte, så nå vokter jeg tempelet hennes. Sfinksen voktet dette.", '2': "Linsen hennes. Se gjennom den, så viser kartet hvor de store beistene venter." } },
+      herbs: { scale: { '1': "Et skjell fra Leviatan! Lett som et blad, og det flyter.", '2': "Bær det, så holder det grunne vannet deg som fast grunn." } },
+      ghost: { key: { '1': "Så, den som tok tronen min. Du drepte Hydraen min. Bra.", '2': "Ta ildnøkkelen dens. Riftens hjerte brenner, og bare ild åpner det." } },
+      syndicate: { key: { '1': "Er Hydraen død? Da går ildnøkkelen til den som betaler. Eller til deg, antar jeg.", '2': "Den åpner riftens hjerte. Gå og lukk den, før den spiser opp forretningen min." } },
+      sealed: {
+        sealed: { '1': "Og slik ble riften forseglet, og verden begynte å gro.", '2': "Byer ble bygget opp igjen, sanger ble skrevet, og ett navn sto i dem alle." },
+        ajar: { '1': "Og slik ble riften stående på gløtt, og verden lærte å leve ved siden av den.", '2': "Murene forble bemannet, kolosseet forble høylytt, og helten forble klar." },
+      },
+      'rift': {
+        'scream': {
+          '1': "Tomhetens herre faller, og riften bak ham skriker.",
+          '2': "Det var aldri tronen hans. Det var buret hans, og han var lokket.",
+          '3': "Nå står riften åpen, og alt tomheten holdt sovende, våkner.",
+        },
+      },
+      'wren': {
+        'found': {
+          '1': "Der er du! Jeg er Wren, speider. Jeg har lett overalt etter deg.",
+          '2': "Sunford brenner. Alle som kunne flykte, dro til Bastionsvadet.",
+          '3': "Det er den gamle festningen ved veien mot Askeklippene. Skynd deg, de trenger deg.",
+        },
+      },
+    },
+    'scoutWren': {
+      sealed: { '1': "Dragen er borte! Veiene føles allerede lettere." },
+      'hello': {
+        '1': "Du kom! Jeg visste det. Velkommen til Bastionsvadet.",
+        '2': "Jeg speider veiene for kapteinen. Spør meg hvor faren er.",
+      },
+      'again': {
+        '1': "Allerede tilbake? Veiene speider ikke seg selv.",
+      },
+      'who': {
+        '1': "Wren. Jeg bar bud for Sunfords vakt, før Sunford brant.",
+      },
+      'rumor': {
+        'plains': {
+          '1': "Demoner holder veien gjennom Sunford-slettene. Sunfords lærere sitter fast bak den.",
+        },
+        'hollows': {
+          '1': "Goblinhulene kryr av helveteshunder. Rens dem, så kan Sunfords folk komme hjem.",
+        },
+        'woods': {
+          '1': "Noe med tre hoder jakter i Den hviskende skogen. Urtekona gjemmer seg der.",
+        },
+        'outskirts': {
+          '1': "Kentaurer rir i Oakhavens utkant. Når de murene våre, trenger vi hvert sverd.",
+        },
+        'siege': {
+          '1': "Horden deres er knust, men flere samles. Kapteinen gjør murene klare.",
+        },
+      },
+      'bye': {
+        '1': "Hold øye med veiene. Det gjør jeg også.",
+      },
+    },
+    'fortHale': {
+      sealed: { '1': "Dragen er død. Jeg trodde aldri jeg skulle leve å se det. Takk." },
+      'siegeBack': { '1': "Ikke ennå? Hvil deg, da. Murene venter på deg." },
+      'bell': { '1': "Til porten, da. Si meg hvor hardt vi holder den." },
+      'hello': {
+        '1': "Du klarte det. Bra. Vi trenger hvert sverd, mer enn noen gang.",
+        '2': "Velkommen til Bastionsvadet. Gamle murer, men de eneste som fortsatt står.",
+      },
+      'road': {
+        '1': "Veien til Sunford er åpen igjen. Folket er trygt bak murene våre.",
+      },
+      'herbs': {
+        '1': "Urtekona er tilbake, med urtene sine. Lasarettet kan puste igjen.",
+      },
+      'siege': {
+        '1': "Du knuste kentaurene. Men en større hær kommer, og den kommer for disse murene.",
+      },
+      'again': {
+        '1': "Står fortsatt. Murene, mennene og meg.",
+      },
+      'fort': {
+        '1': "En gammel grensefestning. Ubemannet i femti år, til himmelen revnet.",
+        '2': "Nå er den det siste trygge stedet mellom slettene og fjellene.",
+        'say': "Hva er dette for et sted?",
+      },
+      'rumor': {
+        'road': {
+          '1': "Rens slettene og hulene. Sunfords folk sitter fast der ute.",
+        },
+        'woods': {
+          '1': "Urtekona er i Den hviskende skogen, og et beist med tre hoder også. Vær klar.",
+        },
+        'centaurs': {
+          '1': "Kentaurer i utkanten. Knus horden deres før den når oss.",
+        },
+        'siege': {
+          '1': "Hvil deg. Når beleiringsklokka ringer, trenger jeg deg på muren.",
+        },
+      },
+      'bye': {
+        '1': "Hold sverdet nær.",
+      },
+    },
+    'fortMara': {
+      sealed: { '1': "Du klarte det, barn. Hver eneste av oss skylder deg et hjem." },
+      'siegeBack': { '1': "Hvil deg litt, barn. Klokken ringer igjen." },
+      'bell': { '1': "Kapteinens murer er mine å vokte nå. Velg hvordan vi holder dem." },
+      'hello': {
+        '1': "Barn! Du lever. Da Sunford brant, fryktet jeg det verste.",
+        '2': "Vi er gjester i en soldatfestning nå, gamle koner og alt.",
+      },
+      'command': {
+        '1': "Kaptein Hale falt med Oakhaven. Så festningen lytter til en gammel eldste nå.",
+      },
+      'home': {
+        '1': "Sunford bygges opp igjen! De første takene står. Jeg kunne grått.",
+      },
+      'again': {
+        '1': "Fortsatt her, barn. Teller fortsatt hoder.",
+      },
+      'town': {
+        '1': "Demoner kom ut av nattehimmelen. Vi flyktet med det vi kunne bære.",
+        '2': "Noen av oss kom aldri ut. Før resten hjem, om du kan.",
+        'say': "Hva skjedde med Sunford?",
+      },
+      'rumor': {
+        'road': {
+          '1': "Lærerne våre er fortsatt ute på Sunford-veien. Før dem hit, barn.",
+        },
+        'woods': {
+          '1': "Urtekona gikk inn i Den hviskende skogen etter urter og kom aldri tilbake.",
+        },
+        'centaurs': {
+          '1': "Ryttere i utkanten. Hover som torden, hver natt.",
+        },
+        'siege': {
+          '1': "Murene blir snart satt på prøve. Jeg kjenner det i de gamle knoklene mine.",
+        },
+      },
+      'bye': {
+        '1': "Gå varsomt, barn.",
+      },
+    },
     intro: {
       crossing: { 1: 'Hver vei i denne verden møtes ved et veiskille… og hvert veiskille er et slag.' },
       hero: { 1: 'Fra de stille åkrene i Sunford dro en ung helt av sted.' },
@@ -4183,6 +4621,7 @@ export default {
       }
     },
     hero: {
+      'siege': "La oss bemanne murene.",
       forge: 'Jeg vil gjerne bruke smia di.',
       learnSmith: 'Kan du lære meg å smi?',
       ore: 'Jeg har litt malm å selge.',
@@ -4489,7 +4928,7 @@ export default {
       },
       map: {
         '1': 'Kaptein Rooks kart! Han rev det i stykker og gjemte bitene før goblins fikk tak i ham.',
-        '2': 'Finn seks av dem, det ligger noen flere spredt rundt omkring, så viser krysset veien: et sted i Askeklippene. Grav der, så er gullet ditt.',
+        '2': "Finn seks av bitene, så viser krysset veien: et sted i Askeklippene. Grav der etter gullet.",
         say: 'Jeg har funnet en bit av et gammelt kart.'
       }
     },
@@ -5455,6 +5894,11 @@ export default {
       }
     },
     quest: {
+      seal: {
+        ask: { '1': "Urdragen er død, og riften ligger åpen foran deg.", '2': "Du kan forsegle den nå, for alltid. Beistene ville sovne igjen.", '3': "Eller du kan la den stå på gløtt, og la de modigste prøve seg mot det som kommer gjennom." },
+        seal: { say: "Forsegl den. For alltid.", '1': "Riften lukker seg som et sår som gror, og himmelen blir stille." },
+        ajar: { say: "La den stå på gløtt. Vi skal være klare.", '1': "Riften står på gløtt, og noe bak den ler." },
+      },
       goblinKing: {
         ask: {
           '1': 'Stopp. Vær så snill. Jeg gir meg.',
@@ -5586,6 +6030,64 @@ export default {
       }
     },
     bark: {
+      sphinx: {
+        intro: { '1': "Svar meg, lille venn, eller bli begravd i sanden min." },
+        riddle: { '1': "En gåte, da. Tråkk der jeg viser, i den rekkefølgen." },
+        sand: { '1': "Fem denne gangen. Og sanden min venter ikke." },
+        death: { '1': "Du svarte godt. Sanden er din nå." },
+      },
+      leviathan: {
+        intro: { '1': "Nå går du i vannet mitt." },
+        sink: { '1': "De små øyene dine synker." },
+        grab: { '1': "Bli med meg ned i dypet!" },
+        death: { '1': "Tidevannet trekker seg tilbake og kommer ikke igjen." },
+      },
+      hydra: {
+        intro: { '1': "Hugg av ett hode, og to vokser ut!" },
+        heads: { '1': "Flere hoder, flere tenner!" },
+        rage: { '1': "Brenne oss? Så brenn med oss!" },
+        death: { '1': "Ingen flere hoder. Ingen flere." },
+      },
+      elderDragon: {
+        intro: { '1': "Jeg sov under verden før din slekt kjente ilden." },
+        flight: { '1': "Gjem deg bak de små steinene dine, da." },
+        rift: { '1': "Riften drar meg tilbake. Ikke ennå!" },
+        death: { '1': "Forsegl den, da. Jeg er lei av mørket." },
+      },
+      'siegeHale': {
+        'start': {
+          '1': "Der kommer de! Hold porten!"
+        },
+        'ram': {
+          '1': "En rambukk! Drep den før den når porten!"
+        },
+        'horn50': {
+          '1': "Halve porten er borte! Hold stand!"
+        },
+        'horn25': {
+          '1': "Porten holder ikke stort lenger!"
+        },
+        'won': {
+          '1': "De er knust! Bastionen står!"
+        }
+      },
+      'siegeMara': {
+        'start': {
+          '1': "De kommer! Stå fast, alle sammen!"
+        },
+        'ram': {
+          '1': "En rambukk! Stopp den før den knuser porten!"
+        },
+        'horn50': {
+          '1': "Halve porten er borte. Hold ut!"
+        },
+        'horn25': {
+          '1': "Porten svikter! Driv dem tilbake!"
+        },
+        'won': {
+          '1': "De flykter! Fortet står fortsatt!"
+        }
+      },
       banditChief: {
         whistle: {
           1: 'Opp, gutter! Bit dem!'
@@ -5594,6 +6096,11 @@ export default {
       lightDisciple: {
         freed: {
           '1': 'Lyset sendte deg. Jeg er Søster Aurelle. Finn meg i Sunford, så lærer jeg deg Lysbringerens vei.'
+        }
+      },
+      trainerAegis: {
+        freed: {
+          '1': 'Takk for at du befridde oss fra bandittene! Kom til bålet: vi lærer deg alle, første leksjon er gratis.'
         }
       },
       frostDisciple: {
@@ -5649,6 +6156,48 @@ export default {
         },
         dive: {
           '1': 'Knel.'
+        }
+      },
+      chimera: {
+        intro: {
+          '1': "Tre hoder, én sult. Hvem av oss biter først?"
+        },
+        twin: {
+          '1': "Nå er vi to. Velg side med omhu."
+        },
+        tail: {
+          '1': "Halen min! Det skal du få betale for!"
+        },
+        death: {
+          '1': "Tre hoder, og ingen så dette komme."
+        }
+      },
+      centaurWarchief: {
+        intro: {
+          '1': "Løp om du vil. Pilene mine løper fortere."
+        },
+        raiders: {
+          '1': "Ryttere! Ri dem ned!"
+        },
+        rear: {
+          '1': "Nok med piler. Jeg skal trampe deg flat!"
+        },
+        death: {
+          '1': "Slettene skal huske hovene mine."
+        }
+      },
+      cyclops: {
+        intro: {
+          '1': "Noe lite er her. Kom nærmere. La meg se."
+        },
+        cover: {
+          '1': "Ikke mer titting. Øyet mitt får du ikke!"
+        },
+        blind: {
+          '1': "Jeg ser deg ikke, men jeg hører deg!"
+        },
+        death: {
+          '1': "Mørkt. Alt har blitt mørkt."
         }
       },
       frostJarl: {
@@ -6773,7 +7322,20 @@ export default {
       }
     }
   },
+  invasion: {
+    pylonsDown: 'Den siste pylonen faller, og skatten dens velter ut!',
+    reborn: {
+      tusker: 'Tusker Gjenfødt',
+      emberLord: 'Den infernalske Glødefyrsten',
+      frostJarl: 'Den gjenfødte Frostjarlen',
+      voidDragon: 'Den gjenfødte Tomhetsdragen'
+    }
+  },
   enemy: {
+    sphinx: "Sfinksen",
+    leviathan: "Leviatan",
+    hydra: "Hydraen",
+    elderDragon: "Urdragen",
     trainingDummy: 'Treningsdukke',
     goblin: 'Goblin',
     goblinSlinger: 'Goblinslynger',
@@ -6798,6 +7360,10 @@ export default {
     naga: 'Naga',
     skeleton: 'Skjelett',
     necromancer: 'Nekromantiker',
+    chimera: "Kimæren",
+    chimeraTail: "Slangehalen",
+    centaurWarchief: "Kentaurhøvdingen",
+    cyclops: "Kyklopen",
     frostJarl: 'Frostjarlen',
     nagaOracle: 'Det druknede orakelet',
     voidStalker: 'Tomhetssniker',
@@ -6810,6 +7376,7 @@ export default {
     archDemon: 'Erkedemonen',
     voidling: 'Tomhetsyngel',
     voidLord: 'Tomhetsfyrsten',
+    demonPylon: 'Demonpylon',
     orderGuard: 'Ordenens inkvisitor',
     syndicateBlade: 'Syndikatklinge',
     goblinWarchief: 'Goblinkrigshøvding',
@@ -6826,7 +7393,19 @@ export default {
     goblinTyrant: 'Goblintyrann',
     voidDrake: 'Tomhetslindorm',
     pitLord: 'Avgrunnsfyrste',
-    frostThane: 'Frosthøvding'
+    frostThane: 'Frosthøvding',
+    hellhound: 'Helvetesvarg',
+    frostHellhound: 'Frosthelvetesvarg',
+    gargoyle: 'Gargoil',
+    harpy: 'Harpy',
+    corruptedTreant: 'Fordervet treent',
+    centaurRaider: 'Kentaur-plyndrer',
+    cyclopsBrute: 'Kyklopråtass',
+    demonMiner: 'Demongruvearbeider',
+    sphinxAcolyte: 'Sfinksens akolytt',
+    seaDemon: 'Havdemon',
+    drakeHatchling: 'Drageunge',
+    hydraSpawn: 'Hydraavkom'
   },
   results: {
     careful: 'Forsiktig seier ×{mult}',
@@ -7139,6 +7718,8 @@ export default {
     town: 'Smeden i hvilken som helst by kan oppgradere den.'
   },
   ore: {
+    'demonglass': { 'name': "Demonglass" },
+    'ichor': { 'name': "Mytisk ichor" },
     iron: {
       name: 'Jernmalm'
     },
