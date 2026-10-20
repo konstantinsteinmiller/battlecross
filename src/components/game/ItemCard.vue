@@ -6,6 +6,8 @@
       span.item-card__title
         span.item-card__name {{ t(`item.${id}.name`) }}
           span.item-card__plus(v-if="plus") +{{ plus }}
+          //- Its heroic rank (afterplay §2.4).
+          span.item-card__plus.is-heroic(v-if="hero") {{ t('relic.heroicBadge', { n: hero }) }}
         span.item-card__sub
           | {{ t(`slot.${item.slot}`) }} · {{ t(`tier.${item.tier}`) }}
     ul.item-card__lines
@@ -21,6 +23,11 @@
       )
         span(:class="{ 'is-gone': l.gone }") {{ t(l.key, { n: l.n }) }}
         span.delta(v-if="worn && l.delta" :class="l.delta > 0 ? 'is-up' : 'is-down'") {{ signed(l.delta) }}
+    //- One of a boss pair (afterplay §2.4): what wearing both adds.
+    template(v-if="partner")
+      p.item-card__set {{ t('relic.set', { item: t(`item.${partner}.name`) }) }}
+      ul.item-card__lines
+        li.unique(v-for="l in setLines" :key="l.id") {{ t(l.key, { n: l.n }) }}
     //- What it is measured against: the piece worn in its slot.
     p.item-card__versus(v-if="worn")
       span.item-card__versus-icon
@@ -38,12 +45,13 @@
  */
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { ITEM_BY_ID, TIER_COLOR } from '@/game/data/items'
+import { ITEM_BY_ID, TIER_COLOR, setPartner } from '@/game/data/items'
 import { forgedArmor, forgedMods } from '@/game/data/forge'
 import { ATTR_COLOR, type Attr } from '@/game/data/attributes'
-import { upgradeLevel } from '@/game/state/profile'
+import { heroicRank, upgradeLevel } from '@/game/state/profile'
+import { SET_BONUS } from '@/game/data/relics'
 import ItemIcon from '@/components/art/ItemIcon.vue'
-import { compareMods, signed, type ModCompare } from './modLines'
+import { compareMods, modLines, signed, type ModCompare } from './modLines'
 
 const props = withDefaults(defineProps<{
   id: string
@@ -59,12 +67,16 @@ const tint = computed(() => TIER_COLOR[item.value?.tier ?? 1])
 // its numbers grown by it; the worn one it is set against likewise.
 const plus = computed(() => upgradeLevel(props.id))
 const wornPlus = computed(() => (worn.value ? upgradeLevel(worn.value.id) : 0))
+const hero = computed(() => heroicRank(props.id))
+const wornHero = computed(() => (worn.value ? heroicRank(worn.value.id) : 0))
+const partner = computed(() => (item.value ? setPartner(item.value) : ''))
+const setLines = computed(() => modLines(item.value?.set ? SET_BONUS[item.value.set] : undefined))
 const r1 = (v: number): number => Math.round(v * 10) / 10
-const armorOf = computed(() => (item.value ? r1(forgedArmor(item.value, plus.value)) : 0))
-const wornArmor = computed(() => (worn.value ? r1(forgedArmor(worn.value, wornPlus.value)) : 0))
+const armorOf = computed(() => (item.value ? r1(forgedArmor(item.value, plus.value, hero.value)) : 0))
+const wornArmor = computed(() => (worn.value ? r1(forgedArmor(worn.value, wornPlus.value, wornHero.value)) : 0))
 const lines = computed<ModCompare[]>(() => compareMods(
-  item.value ? forgedMods(item.value, plus.value) : undefined,
-  worn.value ? forgedMods(worn.value, wornPlus.value) : undefined
+  item.value ? forgedMods(item.value, plus.value, hero.value) : undefined,
+  worn.value ? forgedMods(worn.value, wornPlus.value, wornHero.value) : undefined
 ))
 const armorDelta = computed(() => (worn.value ? r1(armorOf.value - wornArmor.value) : 0))
 const attrColor = (id: string): string => ATTR_COLOR[id as Attr]
@@ -125,6 +137,15 @@ const attrColor = (id: string): string => ATTR_COLOR[id as Attr]
   color: var(--bc-ink)
   font-size: 0.85em
   line-height: 1.1
+// A heroic rank (afterplay §2.4) beside the smith's level.
+.item-card__plus.is-heroic
+  background: var(--bc-blood)
+  color: var(--bc-white)
+// A boss pair's set line (afterplay §2.4).
+.item-card__set
+  margin: 0
+  color: var(--bc-paper-ink-soft)
+  font-size: clamp(0.7rem, 2.9vmin, 0.88rem)
 .item-card__sub
   color: var(--bc-paper-ink-soft)
   font-size: clamp(0.7rem, 2.9vmin, 0.88rem)

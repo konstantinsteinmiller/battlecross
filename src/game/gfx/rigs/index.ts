@@ -1,7 +1,8 @@
 import type { Object3D } from 'three'
 import { ENEMY_BY_ID, MINIONS } from '../../data/enemies'
 import { SPIRIT_COLOR } from '../../sim/spawn'
-import { setCelRim } from '../cel'
+import { setCelRim, setCelTint } from '../cel'
+import { INFERNAL_RIM, INFERNAL_TINT } from '../corruption'
 import { cloneRig, type Rig } from '../kit'
 import { buildBeast, buildBoar, buildCart, buildDragon, buildElemental, buildGolem, buildNaga, buildSpider, buildTreant, buildTurret, buildWyvern } from './creatures'
 import { clipSet, styleOf, type ClipSet } from './clips'
@@ -174,7 +175,8 @@ const specFor = (rig: string, look: string, foe = false): Spec => {
     case 'beast': {
       if (look === 'boar') return { key: 'beast:boar', family: 'beast', build: buildBoar, float: 0, held: 'none', ghost: false }
       // The Beastcaller's companions (#86) have looks of their own: a green spirit wolf, a bear.
-      const v = look === 'stalker' || look === 'howler' || look === 'spiritWolf' || look === 'spiritBear' ? look : 'wolf'
+      const v = look === 'stalker' || look === 'howler' || look === 'spiritWolf' || look === 'spiritBear' ||
+        look === 'hellhound' || look === 'frostHound' || look === 'acolyte' || look === 'chimera' || look === 'centaur' || look === 'sphinx' ? look : 'wolf'
       return { key: 'beast:' + v, family: 'beast', build: () => buildBeast(v), float: 0, held: 'none', ghost: false }
     }
     case 'spider': {
@@ -182,11 +184,11 @@ const specFor = (rig: string, look: string, foe = false): Spec => {
       return { key: 'spider:' + v, family: 'spider', build: () => buildSpider(v), float: 0, held: 'none', ghost: false }
     }
     case 'treant': {
-      const v = look === 'elder' ? 'elder' : look === 'thorn' ? 'thorn' : 'treant'
+      const v = look === 'elder' ? 'elder' : look === 'thorn' ? 'thorn' : look === 'blight' ? 'blight' : 'treant'
       return { key: 'treant:' + v, family: 'humanoid', build: () => buildTreant(v), float: 0, held: 'club', ghost: false }
     }
     case 'golem': {
-      const v = look === 'colossus' ? 'colossus' : look === 'cinder' ? 'cinder' : 'iron'
+      const v = look === 'colossus' ? 'colossus' : look === 'cinder' ? 'cinder' : look === 'gargoyle' ? 'gargoyle' : look === 'cyclops' ? 'cyclops' : 'iron'
       return { key: 'golem:' + v, family: 'humanoid', build: () => buildGolem(v), float: 0, held: 'hammer', ghost: false }
     }
     case 'elemental': {
@@ -194,15 +196,15 @@ const specFor = (rig: string, look: string, foe = false): Spec => {
       return { key: 'elem:' + v, family: 'humanoid', build: () => buildElemental(v), float: 0.22, held: 'wand', ghost: false }
     }
     case 'naga': {
-      const v = look === 'oracle' ? 'oracle' : look === 'serpent' ? 'serpent' : 'naga'
+      const v = look === 'oracle' || look === 'serpent' || look === 'seaDemon' || look === 'hydraSpawn' || look === 'leviathan' ? look : 'naga'
       return { key: 'naga:' + v, family: 'naga', build: () => buildNaga(v), float: 0, held: v === 'oracle' ? 'wand' : 'sword', ghost: false }
     }
     case 'wyvern': {
-      const v = look === 'matriarch' ? 'matriarch' : 'wyvern'
+      const v = look === 'matriarch' || look === 'harpy' || look === 'hatchling' ? look : 'wyvern'
       return { key: 'wyvern:' + v, family: 'wyvern', build: () => buildWyvern(v), float: 0.5, held: 'none', ghost: false }
     }
     case 'dragon': {
-      const v = look === 'ally' ? 'ally' : look === 'drake' ? 'drake' : 'void'
+      const v = look === 'ally' ? 'ally' : look === 'drake' ? 'drake' : look === 'hydra' ? 'hydra' : look === 'elderDragon' ? 'elder' : 'void'
       return { key: 'dragon:' + v, family: 'dragon', build: () => buildDragon(v), float: 0, held: 'none', ghost: false }
     }
     case 'voidlord':
@@ -244,6 +246,12 @@ export const makeRigView = (u: Unit, heroLook?: Look): RigView => {
   if (u.rank === 'boss') setCelRim(rig.material, color, 0.55)
   else if (spec.ghost && u.team === 0 && ENEMY_BY_ID[u.kind]) setCelRim(rig.material, SPIRIT_COLOR, 0.45)
   else if (u.rank === 'elite') setCelRim(rig.material, color, 0.3)
+  // The Breaking's hordes (an invaded zone): the same foes, tinted toward
+  // blood and rimmed in ember red (afterplay §6: "by level and tint only").
+  if (u.infernal) {
+    setCelTint(rig.material, INFERNAL_TINT)
+    if (u.rank !== 'boss') setCelRim(rig.material, INFERNAL_RIM, u.rank === 'elite' ? 0.4 : 0.28)
+  }
   const off = spec.off ?? 'none'
   const set = clipSet(styleOf(spec.held, off, u.s.atkStyle), off === 'shield', u.s.dual > 0 || off === 'dagger' || off === 'gun')
   const posed = spec.family === 'humanoid' || spec.family === 'naga'

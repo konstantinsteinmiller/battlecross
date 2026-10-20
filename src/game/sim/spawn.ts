@@ -10,12 +10,24 @@ import { pressureMul } from './pressure'
  * summons, whose numbers come from the hero at the moment they are called.
  */
 
+/**
+ * A foe far above the hero hits harder (GDD pillar 3: an under-levelled hero
+ * is in real danger three tiers up). Each level past `OUTMATCH_FREE` above the
+ * hero adds `OUTMATCH_STEP` to its damage; a zone at or near the hero's level
+ * is untouched, so the reference curve is too.
+ */
+export const OUTMATCH_FREE = 4
+export const OUTMATCH_STEP = 0.15
+export const outmatchMul = (enemyLevel: number, heroLevel: number | undefined): number =>
+  heroLevel == null ? 1 : 1 + OUTMATCH_STEP * Math.max(0, enemyLevel - heroLevel - OUTMATCH_FREE)
+
 export const spawnEnemy = (sim: Sim, kind: string, x: number, z: number, group = -1, owner: Unit | null = null, levelOffset = 0): Unit | null => {
   const def: EnemyDef | undefined = ENEMY_BY_ID[kind]
   if (!def) return null
   const level = Math.max(1, sim.level + levelOffset)
   // Adaptive pressure (#124): a hero with no trouble meets tougher foes.
   const press = sim.pressure ? pressureMul(sim.pressure.bonus, def.rank === 'boss') : 1
+  const outmatch = outmatchMul(level, sim.hero?.level)
   const u = sim.addUnit({
     kind,
     team: 1,
@@ -27,7 +39,7 @@ export const spawnEnemy = (sim: Sim, kind: string, x: number, z: number, group =
     h: def.h,
     s: plainStats({
       hp: enemyHp(level) * def.hp * sim.difficulty * sim.enemyHpMul * press,
-      dmg: enemyDmg(level) * def.dmg * sim.difficulty * sim.enemyDmgMul * press,
+      dmg: enemyDmg(level) * def.dmg * sim.difficulty * sim.enemyDmgMul * press * outmatch,
       armor: def.armor * level,
       resist: def.resist,
       speed: def.speed,
@@ -43,6 +55,8 @@ export const spawnEnemy = (sim: Sim, kind: string, x: number, z: number, group =
     facing: sim.rng() * Math.PI * 2
   })
   for (let i = 0; i < def.abilities.length; i++) u.cds[i] = def.abilities[i]!.first ?? def.abilities[i]!.cd * 0.5
+  // The Breaking's hordes (an invaded zone): drawn tinted.
+  if (sim.invaded) u.infernal = true
   // A scripted boss (#74) carries its script's state.
   if (def.script) u.boss = newBossState(def.script)
   // A helper that burns out (the whistle's gnomes, #136): its time is its `life`.

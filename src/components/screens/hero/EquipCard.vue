@@ -8,6 +8,7 @@
     //- The smith (roadmap #90): a worn piece goes up a level, in a town.
     p.equip-card__note.is-forge(v-if="worn && forge && !forge.town") {{ t('forge.town') }}
     p.equip-card__note.is-forge(v-else-if="worn && forge && forge.cost") {{ t('forge.next', { level: fmt(forge.level + 1), pct: fmt2(forge.pct) }) }}
+    p.equip-card__note.is-forge(v-if="worn && heroicDone") {{ t('relic.heroicMax') }}
     div.bag__actions
       FButton(
         v-if="worn && forge && forge.town && forge.cost"
@@ -18,6 +19,28 @@
         data-coach="forge"
         :is-disabled="!forge.affordable"
         @click="emit('upgrade')"
+      )
+      //- Heroic+ (afterplay §2.4): a worn piece's ranks past the gold levels, at a town's smith.
+      FButton(
+        v-if="worn && heroic && forge && forge.town"
+        :label="heroic.ichor ? t('relic.heroicIchor', { n: heroic.rank + 1, gold: fmtBig(heroic.gold), glass: fmt(heroic.glass), ichor: fmt(heroic.ichor) }) : t('relic.heroic', { n: heroic.rank + 1, gold: fmtBig(heroic.gold), glass: fmt(heroic.glass) })"
+        type="primary"
+        size="sm"
+        icon="up"
+        data-heroic
+        :is-disabled="!heroic.affordable"
+        @click="emit('heroic')"
+      )
+      //- Infernal smithing (after B6): the piece remade as its Infernal twin, at a town's smith.
+      FButton(
+        v-if="infernal && town"
+        :label="t('relic.infernalForge', { gold: fmtBig(infernal.gold), glass: fmt(infernal.glass) })"
+        type="primary"
+        size="sm"
+        icon="up"
+        data-infernal
+        :is-disabled="!infernal.affordable"
+        @click="emit('infernal')"
       )
       FButton(v-if="worn" :label="t('bag.unequip')" type="danger" size="sm" @click="emit('unequip')")
       FButton(v-else :label="t('bag.equip')" type="success" size="sm" :is-disabled="!canWear" @click="emit('equip')")
@@ -48,8 +71,16 @@ defineProps<{
    *  percent of the piece's own numbers), whether the hero is in a town and
    *  has the gold. There is no top level. */
   forge?: { level: number; cost: number; pct: number; town: boolean; affordable: boolean } | null
+  /** Its next heroic rank (afterplay): the rank it has, the next one's price, whether it is paid for. */
+  heroic?: { rank: number; gold: number; glass: number; ichor: number; affordable: boolean } | null
+  /** Every heroic rank taken. */
+  heroicDone?: boolean
+  /** Remaking it as its Infernal twin (after B6): the price, whether it is paid for. */
+  infernal?: { gold: number; glass: number; affordable: boolean } | null
+  /** The hero stands in a town (a smith is at hand). */
+  town?: boolean
 }>()
-const emit = defineEmits<{ (e: 'equip'): void; (e: 'unequip'): void; (e: 'close'): void; (e: 'upgrade'): void }>()
+const emit = defineEmits<{ (e: 'equip'): void; (e: 'unequip'): void; (e: 'close'): void; (e: 'upgrade'): void; (e: 'heroic'): void; (e: 'infernal'): void }>()
 const { t } = useI18n()
 </script>
 

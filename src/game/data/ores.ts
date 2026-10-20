@@ -29,6 +29,26 @@ export const ORE_LOOK: Readonly<Record<OreId, { vein: string; glint: string }>> 
 }
 /** The most of one ore the pouch holds. */
 export const ORE_CAP = 99
+
+/**
+ * The afterplay's two materials (§2.4, phase 8): Demonglass (from demons) and
+ * Mythic Ichor (from the bosses). Kept in the ore pouch, never mined, never
+ * smithed into a piece of their own: they pay for Heroic+ ranks and Infernal
+ * smithing, and a smith buys them like ore.
+ */
+export type MatId = 'demonglass' | 'ichor'
+export const MAT_IDS: readonly MatId[] = ['demonglass', 'ichor']
+export const isMat = (id: string): id is MatId => (MAT_IDS as readonly string[]).includes(id)
+export const MAT_PRICE: Readonly<Record<MatId, number>> = { demonglass: 60, ichor: 900 }
+/** A material's pouch holds far more than an ore's: a siege pays in hundreds. */
+export const MAT_CAP = 9999
+export const MAT_LOOK: Readonly<Record<MatId, { vein: string; glint: string }>> = {
+  demonglass: { vein: '#8a1a2a', glint: '#ff6a4a' },
+  ichor: { vein: '#c8a020', glint: '#fff4b0' }
+}
+/** Everything a smith buys from the pouch, and its price. */
+export const POUCH_IDS: readonly (OreId | MatId)[] = [...ORE_IDS, ...MAT_IDS]
+export const pouchPrice = (id: OreId | MatId): number => (isMat(id) ? MAT_PRICE[id] : ORE_PRICE[id])
 /** Outcrops a visit holds at most. */
 export const ORE_NODES_MAX = 3
 

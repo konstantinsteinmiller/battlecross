@@ -1,7 +1,9 @@
-import { ATTRS, ATTR_EFFECTS, CAPS, statPower, zeroAttrs, type Attr, type AttrBlock } from '../data/attributes'
+import { ATTRS, ATTR_EFFECTS, CAPS, softCapAttrs, statPower, zeroAttrs, type Attr, type AttrBlock } from '../data/attributes'
 import { addMods, type Mods } from '../data/mods'
+import { rankMul } from '../data/progression'
 import { ITEM_BY_ID, UNARMED, isPlate, type EquipSlot } from '../data/items'
 import { forgedArmor, forgedMods } from '../data/forge'
+import { SET_BONUS } from '../data/relics'
 import { SKILL_BY_ID } from '../data/skills'
 import type { DamageType, UnitStats } from './types'
 import type { FactionId } from '../data/quests'
@@ -28,6 +30,12 @@ export interface HeroBuild {
   blessings?: readonly FactionId[]
   /** Upgrade levels by item id (roadmap #90; none: +0). */
   upgrades?: Readonly<Record<string, number>>
+  /** Skill ranks bought in the afterplay, by skill id (none: rank 1). */
+  ranks?: Readonly<Record<string, number>>
+  /** The level the hero may reach (none: the campaign's MAX_LEVEL). */
+  levelCap?: number
+  /** Heroic+ ranks by item id (afterplay §2.4; none: 0). */
+  heroic?: Readonly<Record<string, number>>
 }
 
 const clamp = (v: number, lo: number, hi: number): number => Math.max(lo, Math.min(hi, v))
@@ -59,19 +67,25 @@ export const sumBuild = (b: HeroBuild): { attrs: AttrBlock; mods: Mods; armor: n
   const mods: Mods = {}
   let armor = 0
   let plate = 0
+  const sets: Record<string, number> = {}
   for (const slot in b.equipped) {
     const id = b.equipped[slot as EquipSlot]
     const it = id ? ITEM_BY_ID[id] : undefined
     if (!it) continue
     const lvl = b.upgrades?.[it.id] ?? 0
-    addMods(mods, forgedMods(it, lvl))
+    const hero = b.heroic?.[it.id] ?? 0
+    addMods(mods, forgedMods(it, lvl, hero))
     if (it.armor) {
-      const a = forgedArmor(it, lvl)
+      const a = forgedArmor(it, lvl, hero)
       armor += a
       if (isPlate(it)) plate += a
     }
+    if (it.set) sets[it.set] = (sets[it.set] ?? 0) + 1
   }
-  for (const id of b.passives) addMods(mods, SKILL_BY_ID[id]?.mods)
+  // A boss pair worn together (afterplay §2.4): the set's bonus.
+  for (const s in sets) if (sets[s]! >= 2) addMods(mods, SET_BONUS[s])
+  // A ranked passive gives its bonuses × its rank's factor (numeric rank only).
+  for (const id of b.passives) addMods(mods, SKILL_BY_ID[id]?.mods, rankMul(b.ranks?.[id] ?? 1))
   const attrs = zeroAttrs()
   for (const a of ATTRS) attrs[a] = b.attrs[a] + (mods[a] ?? 0) + (mods.allAttrs ?? 0)
   // "+3 STR or DEX": whichever the hero has more of.
@@ -86,7 +100,11 @@ const attackType = (style: 'melee' | 'ranged' | 'magic', kind: string | undefine
 }
 
 export const heroStats = (b: HeroBuild): UnitStats => {
-  const { attrs, mods, armor: gearArmor, plate } = sumBuild(b)
+  const built = sumBuild(b)
+  const { mods, armor: gearArmor, plate } = built
+  // Past ATTR_SOFT_CAP a point counts half (afterplay §2.2). Requirements
+  // still read the raw totals (`sumBuild`).
+  const attrs = softCapAttrs(built.attrs)
   const m = (id: keyof Mods): number => mods[id] ?? 0
   const E = ATTR_EFFECTS
   const main = b.equipped.main ? ITEM_BY_ID[b.equipped.main] : undefined
@@ -118,9 +136,9 @@ export const heroStats = (b: HeroBuild): UnitStats => {
     power: attrs,
     baseDmg: statPower(attrs[w.scale]),
     critChance: clamp(0.05 + attrs.dex * E.dex.critPerPoint + m('critChance'), 0, CAPS.crit),
-    critMult: 1.5 + attrs.skl * E.skl.critDamagePerPoint + m('critDamage'),
+    critMult: clamp(1.5 + attrs.skl * E.skl.critDamagePerPoint + m('critDamage'), 0, CAPS.critMult),
     spellCrit: m('spellCrit'),
-    attackSpeed: 1 + attrs.dex * E.dex.attackSpeedPerPoint + m('attackSpeed'),
+    attackSpeed: clamp(1 + attrs.dex * E.dex.attackSpeedPerPoint + m('attackSpeed'), 0, CAPS.attackSpeed),
     moveSpeed: 4.3 * clamp(1 + attrs.dex * E.dex.moveSpeedPerPoint + m('moveSpeed'), 0.5, CAPS.moveSpeed),
     cdr: clamp(attrs.skl * E.skl.cdrPerPoint + m('cdr'), 0, CAPS.cdr),
     lifesteal: m('lifesteal'),

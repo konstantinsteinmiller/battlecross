@@ -1,5 +1,6 @@
 import type { Attr } from './attributes'
-import type { Mods } from './mods'
+import type { Mods, ModId } from './mods'
+import { DEMON_AFFIXES, INFERNAL_LEVEL, INFERNAL_MUL, INFERNAL_PRICE, INFERNAL_SUFFIX } from './relics'
 
 /**
  * ─── Items (GDD §6) ──────────────────────────────────────────────────────────
@@ -44,6 +45,8 @@ export type ZoneId =
 /** Where it comes from inside its zone ('smith': made at a forge, #99; 'arena': a
  *  colosseum milestone, #117; neither is ever dropped). */
 export type DropSource = 'mob' | 'chest' | 'boss' | 'secret' | 'smith' | 'arena'
+  // The afterplay (phase 8): a siege milestone, and an Infernal twin (invaded zones, a smith).
+  | 'siege' | 'infernal'
 
 export interface ItemDef {
   id: string
@@ -63,6 +66,10 @@ export interface ItemDef {
   /** It has a unique passive line (`item.<id>.passive` in i18n). */
   unique?: boolean
   drop: { zone: ZoneId; src: DropSource }
+  /** An Infernal twin (afterplay §2.4): the id of the piece it was made from. */
+  infernal?: string
+  /** One of a boss pair (afterplay §2.4): both worn add the set's bonus (`SET_BONUS`). */
+  set?: string
 }
 
 const melee = (scale: Attr, interval = 0.95, heavy = false) => ({ scale, style: 'melee' as const, range: 2.1, interval, heavy })
@@ -549,7 +556,89 @@ export const MYTHICS: readonly ItemDef[] = ([
   { id: 'heartOfTheArena', slot: 'trinket', kind: 'heart', tier: 7, level: 30, mods: { allAttrs: 60, damagePct: 0.2, critChance: 0.08, critCooldown: 0.5 }, unique: true, drop: { zone: 'plains', src: 'arena' } }
 ] as ItemDef[]).map(scaled)
 
-export const ITEM_BY_ID: Readonly<Record<string, ItemDef>> = Object.fromEntries([...ITEMS, ...SMITHED, ...MYTHICS].map(i => [i.id, i]))
+/**
+ * ─── The afterplay's named pieces (docs/gdd-afterplay.md §2.4, §5, §8.6) ─────
+ *
+ * Each of the seven new bosses drops two (`drop.src` 'boss', in its invaded
+ * zone), a set; the Siege of Bastion's milestones hand over four. Tier 6, the
+ * Elder Dragon's pair and the siege's two top milestones tier 7 (mythic: siege
+ * and final boss only). Their budgets grow past the legendaries' with their
+ * levels (34–60). Kept out of `ITEMS`: no shop, no gambler, no campaign chest
+ * or finale ever holds one (`AFTER_BOSS_DROPS` is the invaded finales' table).
+ * There is no flail in the armoury yet: the Many-Headed Flail is drawn as a hammer.
+ */
+export const AFTER_ITEMS: readonly ItemDef[] = ([
+  // The Chimera (Wildwood, lvl 37)
+  { id: 'chimeraMane', slot: 'head', kind: 'helm', tier: 6, level: 37, set: 'chimera', mods: { str: 70, end: 40, armor: 80, stunDurationCut: 0.2 }, unique: true, drop: { zone: 'woods', src: 'boss' } },
+  { id: 'triFang', slot: 'main', kind: 'dagger', tier: 6, level: 37, set: 'chimera', mods: { dex: 130, skl: 60, critChance: 0.06, critDamage: 0.2 }, weapon: melee('dex', 0.6), unique: true, drop: { zone: 'woods', src: 'boss' } },
+  // The Centaur Warchief (Outskirts, lvl 40)
+  { id: 'warchiefsLongbowGun', slot: 'main', kind: 'gun', tier: 6, level: 40, set: 'centaur', mods: { skl: 140, dex: 65, pierce: 2, attackSpeed: 0.08 }, weapon: ranged('skl', 0.8), unique: true, drop: { zone: 'outskirts', src: 'boss' } },
+  { id: 'hoofbreakerGreaves', slot: 'feet', kind: 'greaves', tier: 6, level: 40, set: 'centaur', mods: { end: 45, str: 30, armor: 80, moveSpeed: 0.1, knockbackImmune: 1 }, unique: true, drop: { zone: 'outskirts', src: 'boss' } },
+  // The Cyclops (Mines, lvl 45)
+  { id: 'eyeOfTheDeep', slot: 'trinket', kind: 'charm', tier: 6, level: 45, set: 'cyclops', mods: { skl: 90, dex: 60, critChance: 0.08, crumble: 0.25 }, unique: true, drop: { zone: 'mines', src: 'boss' } },
+  { id: 'beamSplitter', slot: 'off', kind: 'shield', tier: 6, level: 45, set: 'cyclops', mods: { end: 120, str: 70, block: 0.18, reflectOnBlock: 60 }, unique: true, drop: { zone: 'mines', src: 'boss' } },
+  // The Sphinx (Temple, lvl 49)
+  { id: 'riddleCrown', slot: 'head', kind: 'circlet', tier: 6, level: 49, set: 'sphinx', mods: { int: 95, cha: 40, cdr: 0.1, maxMana: 140 }, unique: true, drop: { zone: 'temple', src: 'boss' } },
+  { id: 'sandglassWand', slot: 'main', kind: 'wand', tier: 6, level: 49, set: 'sphinx', mods: { int: 200, skl: 85, cdr: 0.1, freezeOnHit: 0.1 }, weapon: magic(0.85), unique: true, drop: { zone: 'temple', src: 'boss' } },
+  // The Leviathan (Citadel, lvl 52)
+  { id: 'leviathanScale', slot: 'body', kind: 'plate', tier: 6, level: 52, set: 'leviathan', mods: { end: 190, str: 110, damageReduction: 0.06, waterWalk: 1 }, armor: 340, unique: true, drop: { zone: 'citadel', src: 'boss' } },
+  { id: 'tidecallerStaff', slot: 'main', kind: 'staff', tier: 6, level: 52, set: 'leviathan', mods: { int: 215, cha: 90, chillOnHit: 0.25, spellCrit: 0.06 }, weapon: magic(1.05), unique: true, drop: { zone: 'citadel', src: 'boss' } },
+  // The Hydra (Fortress, lvl 57)
+  { id: 'hydraScaleGauntlets', slot: 'hands', kind: 'gauntlets', tier: 6, level: 57, set: 'hydra', mods: { str: 80, end: 45, armor: 110, burnOnHit: 40, critDamage: 0.15 }, unique: true, drop: { zone: 'fortress', src: 'boss' } },
+  { id: 'manyHeadedFlail', slot: 'main', kind: 'hammer', tier: 6, level: 57, set: 'hydra', mods: { str: 245, end: 110, burnOnHit: 60, attackSpeed: 0.08 }, weapon: melee('str', 1.0, true), unique: true, drop: { zone: 'fortress', src: 'boss' } },
+  // The Elder Dragon (Rift, lvl 60): mythic
+  { id: 'heartOfTheElderDragon', slot: 'trinket', kind: 'heart', tier: 7, level: 60, set: 'elderDragon', mods: { allAttrs: 110, damagePct: 0.25, damageReduction: 0.12, fireWard: 0.3 }, unique: true, drop: { zone: 'rift', src: 'boss' } },
+  { id: 'dragonboneGreatsword', slot: 'main', kind: 'greatsword', tier: 7, level: 60, set: 'elderDragon', mods: { str: 290, end: 130, critDamage: 0.35, bossDamage: 0.3, beastBane: 0.2 }, weapon: melee('str', 1.2, true), unique: true, drop: { zone: 'rift', src: 'boss' } },
+  // The Siege of Bastion's milestones (§8.6)
+  { id: 'bastionBanner', slot: 'off', kind: 'tome', tier: 6, level: 38, mods: { cha: 100, end: 60, minionDamage: 0.05, minionHp: 0.05, minionAttackSpeed: 0.05 }, unique: true, drop: { zone: 'outskirts', src: 'siege' } },
+  { id: 'wallwardensPlate', slot: 'body', kind: 'plate', tier: 6, level: 42, mods: { end: 170, str: 95, damageReduction: 0.08 }, armor: 320, unique: true, drop: { zone: 'outskirts', src: 'siege' } },
+  { id: 'gatebreaker', slot: 'main', kind: 'hammer', tier: 7, level: 45, mods: { str: 270, end: 120, bossDamage: 0.3, pylonBreaker: 1 }, weapon: melee('str', 1.25, true), unique: true, drop: { zone: 'outskirts', src: 'siege' } },
+  { id: 'crownOfTheLastBastion', slot: 'head', kind: 'greathelm', tier: 7, level: 50, mods: { allAttrs: 70, armor: 100, damageReduction: 0.08, lastStand: 0.2 }, unique: true, drop: { zone: 'outskirts', src: 'siege' } }
+] as ItemDef[]).map(scaled)
+
+/** The partner of a set piece ('' none). */
+export const setPartner = (it: ItemDef): string => (it.set ? AFTER_ITEMS.find(o => o.set === it.set && o.id !== it.id)?.id ?? '' : '')
+
+/** The two pieces an afterplay boss leaves, by the invaded zone it holds. */
+export const AFTER_BOSS_DROPS: Readonly<Partial<Record<ZoneId, readonly string[]>>> =
+  AFTER_ITEMS.reduce<Partial<Record<ZoneId, string[]>>>((m, i) => {
+    if (i.drop.src === 'boss') (m[i.drop.zone] ??= []).push(i.id)
+    return m
+  }, {})
+
+/** What an Infernal twin grows: its attributes, armour and the flat pools; never its effects. */
+const INFERNAL_GROWS: ReadonlySet<ModId> = new Set<ModId>(['str', 'dex', 'int', 'end', 'skl', 'cha', 'allAttrs', 'strOrDex', 'armor', 'maxHp', 'maxMana', 'hpRegen'])
+
+/** An Infernal twin's id. */
+export const infernalId = (id: string): string => `${id}${INFERNAL_SUFFIX}`
+
+/**
+ * ─── Infernal twins (afterplay §2.4) ─────────────────────────────────────────
+ *
+ * Every named unique of the campaign (`ITEMS` with a passive), once more: 30
+ * levels higher, its attributes and armour ×1.9, one demon affix (taken in
+ * turn from the eight, so the table is the same for every player). Its icon
+ * is its original's, tinted red-black. Named "<name> · Infernal" by the
+ * locale loader, from the original's own name.
+ */
+export const INFERNALS: readonly ItemDef[] = ITEMS.filter(i => i.unique).map((it, n) => {
+  const mods: Mods = {}
+  for (const k of Object.keys(it.mods) as ModId[]) {
+    const v = it.mods[k] ?? 0
+    mods[k] = INFERNAL_GROWS.has(k) ? Math.round(v * INFERNAL_MUL) : v
+  }
+  for (const [k, v] of Object.entries(DEMON_AFFIXES[n % DEMON_AFFIXES.length]!)) mods[k as ModId] = (mods[k as ModId] ?? 0) + (v ?? 0)
+  return {
+    ...it, id: infernalId(it.id), level: it.level + INFERNAL_LEVEL, mods,
+    ...(it.armor ? { armor: Math.round(it.armor * INFERNAL_MUL) } : {}),
+    infernal: it.id, drop: { zone: it.drop.zone, src: 'infernal' as const }
+  }
+})
+
+/** The Infernal twins of the uniques found in a zone (its drops, chests and boss). */
+export const infernalsOfZone = (zone: ZoneId): string[] => INFERNALS.filter(i => i.drop.zone === zone).map(i => i.id)
+
+export const ITEM_BY_ID: Readonly<Record<string, ItemDef>> = Object.fromEntries([...ITEMS, ...SMITHED, ...MYTHICS, ...AFTER_ITEMS, ...INFERNALS].map(i => [i.id, i]))
 
 /** Tier frame colours (icons, loot beams, names). T6 is the legendary gold. */
 export const TIER_COLOR: Record<number, string> = {
@@ -566,7 +655,7 @@ export const TIER_COLOR: Record<number, string> = {
 /** What a shop charges (before the Charisma discount); legendaries are not for sale. */
 export const TIER_PRICE: Record<number, number> = { 1: 60, 2: 260, 3: 820, 4: 2300, 5: 5600, 6: 0, 7: 0 }
 
-export const priceOf = (it: ItemDef): number => Math.round(TIER_PRICE[it.tier]! * (1 + (it.level % 5) * 0.06))
+export const priceOf = (it: ItemDef): number => Math.round(TIER_PRICE[it.tier]! * (1 + (it.level % 5) * 0.06) * (it.infernal ? INFERNAL_PRICE : 1))
 
 /** What a merchant pays for it. Legendaries sell for a fortune they can never be bought back with. */
 export const sellValue = (it: ItemDef): number =>

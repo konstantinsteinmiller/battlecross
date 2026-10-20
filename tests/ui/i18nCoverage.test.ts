@@ -8,7 +8,9 @@ import { PLANT_IDS } from '@/game/data/plants'
 import { ORE_IDS } from '@/game/data/ores'
 import { ARENA_MODS } from '@/game/arenaWeek'
 import { LANGUAGES } from '@/utils/enums'
-import { SKILLS, CLASS_IDS } from '@/game/data/skills'
+import { CAPSTONES, SKILLS, CLASS_IDS } from '@/game/data/skills'
+import { MAT_IDS } from '@/game/data/ores'
+import { withInfernalNames } from '@/i18n'
 import { ENEMIES } from '@/game/data/enemies'
 import { MAP, TOWNS } from '@/game/data/zones'
 import { QUESTS, FACTIONS, EPILOGUE_FLAGS } from '@/game/data/quests'
@@ -83,7 +85,7 @@ const dataKeys = (): string[] => {
     for (const m in i.mods) add(`mod.${m}`)
     if (i.weapon) add(`weapon.${i.weapon.style}`)
   }
-  for (const s of SKILLS) {
+  for (const s of [...SKILLS, ...CAPSTONES]) {
     add(`skill.${s.id}.name`); add(`skill.${s.id}.desc`); add(`skill.kind.${s.kind}`)
     for (const m in s.mods ?? {}) add(`mod.${m}`)
   }
@@ -97,7 +99,7 @@ const dataKeys = (): string[] => {
   for (const e of ERRANDS) { add(`errand.${e.id}.title`); add(`npc.${e.giver}.name`) }
   for (const e of ELIXIRS) { add(`elixir.${e.id}.name`); add(`elixir.${e.id}.desc`); add(`status.${e.status}`) }
   for (const p of PLANT_IDS) add(`plant.${p}.name`)
-  for (const o of ORE_IDS) add(`ore.${o}.name`)
+  for (const o of [...ORE_IDS, ...MAT_IDS]) add(`ore.${o}.name`)
   for (const m of ARENA_MODS) { add(`ladder.mod.${m}`); add(`ladder.modDesc.${m}`) }
   for (const e of ['fight', 'elite', 'chest', 'merchant']) add(`encounter.title.${e}`)
   for (const f of EPILOGUE_FLAGS) add(`ending.note.${f}`)
@@ -208,7 +210,8 @@ describe('i18n coverage', () => {
   it('every key built from a data id exists in every shipped locale', async () => {
     const missing: string[] = []
     for (const code of LANGUAGES) {
-      const msgs = code === 'en' ? en : (await import(`../../src/i18n/locales/${code}.ts`)).default
+      // As the loader hands them over: an Infernal twin's name is derived from its original's (phase 8).
+      const msgs = withInfernalNames(code === 'en' ? en : (await import(`../../src/i18n/locales/${code}.ts`)).default)
       for (const k of dataKeys()) if (!hasIn(msgs, k)) missing.push(`${code}: ${k}`)
     }
     expect(missing).toEqual([])

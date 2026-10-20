@@ -1,5 +1,6 @@
 import type { Mods, ModId } from './mods'
 import { priceOf, type ItemDef } from './items'
+import { heroicScale } from './relics'
 
 /**
  * ─── Upgrading what the hero wears (roadmap #90, D99, #149) ──────────────────
@@ -82,10 +83,10 @@ export const forgeScale = (it: ItemDef, level: number): number => {
   return k
 }
 
-/** The item's modifiers at an upgrade level. */
-export const forgedMods = (it: ItemDef, level: number): Mods => {
-  if (level <= 0) return it.mods
-  const k = forgeScale(it, level)
+/** The item's modifiers at an upgrade level (and its afterplay heroic rank, `relics.ts`). */
+export const forgedMods = (it: ItemDef, level: number, heroic = 0): Mods => {
+  if (level <= 0 && heroic <= 0) return it.mods
+  const k = forgeScale(it, level) * heroicScale(heroic)
   const out: Mods = {}
   for (const id of Object.keys(it.mods) as ModId[]) {
     const v = it.mods[id] ?? 0
@@ -94,9 +95,9 @@ export const forgedMods = (it: ItemDef, level: number): Mods => {
   return out
 }
 
-/** A body piece's armour value at an upgrade level. */
-export const forgedArmor = (it: ItemDef, level: number): number =>
-  it.armor ? keep2(it.armor * forgeScale(it, level)) : 0
+/** A body piece's armour value at an upgrade level (and heroic rank). */
+export const forgedArmor = (it: ItemDef, level: number, heroic = 0): number =>
+  it.armor ? keep2(it.armor * forgeScale(it, level) * heroicScale(heroic)) : 0
 
 /** The gold the next level costs (`level`: the one it is at now). Always
  *  finite and ever rising: x1.35 a level up to +10, x1.18 after. */

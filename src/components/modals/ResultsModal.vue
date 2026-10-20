@@ -1,7 +1,14 @@
 <template lang="pug">
   FModal(:model-value="true" :title="t(`results.${r ? r.outcome : 'victory'}`)" :is-closable="false" surface="parchment" :tone="tone")
     div.results(v-if="r" :class="`results--${r.outcome}`")
-      p.results__place {{ r.encounter ? t('encounter.result', { place: t(`node.${r.node}.name`) }) : t(`node.${r.node}.name`) }}
+      p.results__place(v-if="r.siege" data-siege-result) {{ t('siege.result.tier', { tier: t(`siege.tier.${r.siege.tier}`) }) }}
+      p.results__place(v-else) {{ r.encounter ? t('encounter.result', { place: t(`node.${r.node}.name`) }) : t(`node.${r.node}.name`) }}
+      //- The siege (afterplay §8): the waves held, the Marks kept, the Demonglass, the milestones.
+      template(v-if="r.siege")
+        p.results__first {{ t('siege.result.waves', { n: r.siege.waves, total: SIEGE_WAVES }) }}
+        p.results__place {{ t('siege.result.marks', { banked: r.siege.banked, earned: r.siege.earned }) }}
+        p.results__place(v-if="r.siege.glass") {{ t('siege.result.glass', { n: r.siege.glass }) }}
+        p.results__first(v-for="m in r.siege.milestones" :key="m" data-siege-milestone) {{ t(`siege.milestone.${m}`) }}
       p.results__first(v-if="r.firstClear") {{ t('results.firstClear') }}
       p.results__first(v-if="r.node === 'arena'" data-ladder-result)
         | {{ t('results.waves', { n: r.waves }) }}
@@ -106,6 +113,7 @@ import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { ITEM_BY_ID, TIER_COLOR } from '@/game/data/items'
 import { POINTS_PER_LEVEL } from '@/game/data/attributes'
+import { SIEGE_WAVES } from '@/game/data/siege'
 import { flow, leaveResults, purseOffered, retryVisit, triplePurse } from '@/game/flow'
 import { adInFlight, isRewardGated } from '@/use/useAdGate'
 import { clock, fmt } from '@/utils/format'

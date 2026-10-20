@@ -102,6 +102,25 @@ export type ModId =
   | 'bleedHeal'
   /** Thermal Overload: critical damage bonus while overheated. */
   | 'overheatCrit'
+  // Demon affixes (afterplay §2.4): one on every Infernal piece (`relics.ts`)
+  /** More damage to demons. */
+  | 'demonBane'
+  /** This share of the damage dealt to demons heals the hero. */
+  | 'demonLeech'
+  /** More damage to the mythic beasts (the afterplay's bosses and their kin). */
+  | 'beastBane'
+  /** Fire damage taken is cut by this share. */
+  | 'fireWard'
+  /** Shadow damage taken is cut by this share. */
+  | 'shadowWard'
+  /** Damage taken from demons is cut by this share. */
+  | 'demonWard'
+  /** More damage to demon pylons. */
+  | 'pylonBreaker'
+  /** Chance a slain demon leaves one more Demonglass. */
+  | 'glassFinder'
+  /** The Leviathan Scale: water does not slow the hero. */
+  | 'waterWalk'
 
 export type Mods = Partial<Record<ModId, number>>
 

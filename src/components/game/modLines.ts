@@ -9,7 +9,7 @@ import { fmt2 } from '@/utils/format'
  */
 const FLAT: ReadonlySet<string> = new Set<string>([
   ...ATTRS, 'allAttrs', 'strOrDex', 'armor', 'maxHp', 'maxMana', 'hpRegen', 'burnOnHit', 'pierce', 'critCooldown',
-  'extraBlastEvery', 'fatalSave', 'wildfire', 'knockbackImmune', 'pyromaniac', 'reflectOnBlock'
+  'extraBlastEvery', 'fatalSave', 'wildfire', 'knockbackImmune', 'pyromaniac', 'reflectOnBlock', 'waterWalk'
 ])
 
 export interface ModLine {

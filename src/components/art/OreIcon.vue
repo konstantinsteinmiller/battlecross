@@ -15,10 +15,11 @@
  * the smith's counter. One drawing, in each metal's own colours.
  */
 import { computed } from 'vue'
-import { ORE_LOOK, isOre } from '@/game/data/ores'
+import { MAT_LOOK, ORE_LOOK, isMat, isOre } from '@/game/data/ores'
 
 const props = defineProps<{ id: string }>()
-const look = computed(() => (isOre(props.id) ? ORE_LOOK[props.id] : ORE_LOOK.iron))
+// Demonglass and Mythic Ichor (afterplay) are drawn as nuggets of their own colours.
+const look = computed(() => (isOre(props.id) ? ORE_LOOK[props.id] : isMat(props.id) ? MAT_LOOK[props.id] : ORE_LOOK.iron))
 </script>
 
 <style scoped lang="sass">

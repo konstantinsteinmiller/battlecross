@@ -14,9 +14,15 @@
           :worn="!!wornSlot"
           :can-wear="canEquip(sel)"
           :forge="forge"
+          :heroic="heroic"
+          :heroic-done="heroicDone"
+          :infernal="infernal"
+          :town="flow.screen === 'town'"
           @equip="doEquip(sel)"
           @unequip="wornSlot && doUnequip(wornSlot)"
           @upgrade="doUpgrade"
+          @heroic="doHeroic"
+          @infernal="doInfernal"
           @close="sel = ''"
         )
         button.doll__socket(
@@ -109,9 +115,15 @@
         :worn="!!wornSlot"
         :can-wear="canEquip(sel)"
         :forge="forge"
+        :heroic="heroic"
+        :heroic-done="heroicDone"
+        :infernal="infernal"
+        :town="flow.screen === 'town'"
         @equip="doEquip(sel)"
         @unequip="wornSlot && doUnequip(wornSlot)"
         @upgrade="doUpgrade"
+        @heroic="doHeroic"
+        @infernal="doInfernal"
         @close="sel = ''"
       )
       p.equip__hint(v-else) {{ t('bag.hint') }}
@@ -146,7 +158,11 @@ import { useI18n } from 'vue-i18n'
 import { EQUIP_SLOTS, ITEM_BY_ID, TIER_COLOR, slotOf, type EquipSlot, type ItemDef, type ItemSlot } from '@/game/data/items'
 import { isUpgrade, slotHasUpgrade } from '@/game/data/upgrade'
 import { forgeStep } from '@/game/data/forge'
-import { canEquip, computeStats, equipItem, equippedIn, fitsSlot, markSeen, owns, profile, saveProfile, unequip, upgradeCost, upgradeItem, upgradeLevel } from '@/game/state/profile'
+import {
+  buyHeroic, canEquip, computeStats, equipItem, equippedIn, fitsSlot, forgeInfernal, heroicBlock, heroicRank, infernalBlock, infernalForgeCost, markSeen, owns,
+  profile, saveProfile, unequip, upgradeCost, upgradeItem, upgradeLevel
+} from '@/game/state/profile'
+import { heroicCost } from '@/game/data/relics'
 import { flow } from '@/game/flow'
 import { sfx } from '@/game/audio/sfx'
 import FSocket from '@/components/atoms/FSocket.vue'
@@ -165,7 +181,7 @@ import HeroDoll from './HeroDoll.vue'
 import EquipCard from './EquipCard.vue'
 import PlantIcon from '@/components/art/PlantIcon.vue'
 import OreIcon from '@/components/art/OreIcon.vue'
-import { ORE_IDS } from '@/game/data/ores'
+import { POUCH_IDS } from '@/game/data/ores'
 import { PLANT_IDS } from '@/game/data/plants'
 
 const { t } = useI18n()
@@ -182,7 +198,7 @@ const IN_FILTER: Record<Filter, readonly ItemSlot[] | null> = { all: null, weapo
 /** The pouch, in the order the plants are listed (#88). */
 const herbs = computed(() => PLANT_IDS.map(id => ({ id, n: profile.inv.herbs[id] ?? 0 })).filter(h => h.n > 0))
 /** The ore pouch, iron first (#99). */
-const ores = computed(() => ORE_IDS.map(id => ({ id, n: profile.inv.ores[id] ?? 0 })).filter(o => o.n > 0))
+const ores = computed(() => POUCH_IDS.map(id => ({ id, n: profile.inv.ores[id] ?? 0 })).filter(o => o.n > 0))
 const SORTS = ['slot', 'tier', 'level'] as const
 type Sort = (typeof SORTS)[number]
 
@@ -292,6 +308,37 @@ const doUpgrade = (): void => {
     burst(el, tierOf(id), true)
     doll.value?.react()
   })
+}
+
+/** Heroic+ (afterplay §2.4): a worn piece's next heroic rank, in the afterplay. */
+const heroic = computed(() => {
+  const id = sel.value
+  if (!id || !wornSlot.value || !profile.world.afterplay) return null
+  const c = heroicCost(heroicRank(id))
+  return c ? { rank: heroicRank(id), ...c, affordable: heroicBlock(id) === '' } : null
+})
+const heroicDone = computed(() => !!sel.value && !!wornSlot.value && profile.world.afterplay && !heroicCost(heroicRank(sel.value)))
+const doHeroic = (): void => {
+  const id = sel.value
+  const s = wornSlot.value
+  if (!id || !s || !buyHeroic(id)) { sfx('denied'); return }
+  sfx('block')
+  sfx('coin')
+  void nextTick(() => burst(socketEl(s), tierOf(id), true))
+}
+/** Infernal smithing (after B6): an owned unique remade as its Infernal twin. */
+const infernal = computed(() => {
+  const id = sel.value
+  const b = id ? infernalBlock(id) : 'none'
+  if (b === 'none' || b === 'forge' || b === 'owned') return null
+  return { ...infernalForgeCost(id), affordable: b === '' }
+})
+const doInfernal = (): void => {
+  const twin = forgeInfernal(sel.value)
+  if (!twin) { sfx('denied'); return }
+  sfx('block')
+  sfx('coin')
+  sel.value = twin
 }
 
 const doUnequip = (s: EquipSlot): void => {

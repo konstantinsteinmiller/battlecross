@@ -1,7 +1,9 @@
 import { Group } from 'three'
 import { setCelFlash, setCelOpacity, setCelTint } from '../cel'
+import { INFERNAL_TINT } from '../corruption'
 import { nudge, pose, scaleBone, type Rig } from '../kit'
 import { ENEMY_BY_ID } from '../../data/enemies'
+import { SKILL_BY_ID } from '../../data/skills'
 import { findStatus, hasStatus } from '../../sim/world'
 import type { Action, Unit } from '../../sim/types'
 import { groundAt } from '../ground'
@@ -128,7 +130,8 @@ const clipOf = (v: RigView, u: Unit, a: Action): Clip => {
   // Opening a chest (`sim/interact.ts`), mining an outcrop (`sim/ores.ts`).
   if (a.id === 'open') return castClip(set, 'open')
   if (a.id === 'mine') return castClip(set, 'mine')
-  let name: CastName | undefined = SKILL_CAST[a.id]
+  // A capstone (afterplay §2.3) is cast like the signature skill it raises.
+  let name: CastName | undefined = SKILL_CAST[a.id] ?? SKILL_CAST[SKILL_BY_ID[a.id]?.capstone ?? '']
   if (!name) {
     name = ABILITY_CAST[a.id]
     // A cone of fire or frost is breathed, not swung; so is anything a caster cones.
@@ -257,6 +260,9 @@ const humanoid = (v: RigView, u: Unit, time: number, dt: number, speed: number):
     v.from[pitch] = v.from[pitch]! - Math.round(v.from[pitch]! / TAU) * TAU
     v.blendT = 0
     v.blendDur = clip && a ? Math.max(clip.blendIn ?? 0, Math.min(0.07, a.hitAt * 0.4)) : v.loop ? 0.32 : outOf ?? 0.18
+    // Out of a clip with its own recovery (the roll's landing, #139) into a
+    // swing: the recovery still plays, as far as the wind-up leaves room for it.
+    if (clip && a && outOf) v.blendDur = Math.max(v.blendDur, Math.min(outOf, a.hitAt * 0.6))
   }
   if (v.blendT < v.blendDur) {
     v.blendT += dt
@@ -1160,7 +1166,7 @@ export const animate = (v: RigView, u: Unit, x: number, z: number, time: number,
   const dying = u.alive ? 0 : Math.max(0, 0.8 - u.deadT * 4)
   setCelFlash(rig.material, u.alive ? Math.max(u.flinch * 0.8, v.flash) : dying, v.flash > u.flinch * 0.8 ? v.flashHex : '#ffffff')
   if (v.flash > 0) v.flash = Math.max(0, v.flash - dt * 7)
-  setCelTint(rig.material, stone ? '#a39d92' : ice ? '#a8dcff' : stasis ? '#9fb4ff' : hasStatus(u, 'poison') ? '#c8f0a8' : hasStatus(u, 'enrage') ? '#ffc8b8' : '#ffffff')
+  setCelTint(rig.material, stone ? '#a39d92' : ice ? '#a8dcff' : stasis ? '#9fb4ff' : hasStatus(u, 'poison') ? '#c8f0a8' : hasStatus(u, 'enrage') ? '#ffc8b8' : u.infernal ? INFERNAL_TINT : '#ffffff')
   setCelOpacity(rig.material, opacity)
   // The shared outline cannot fade per rig: it simply leaves with the body.
   if (rig.outline) rig.outline.visible = opacity > 0.6

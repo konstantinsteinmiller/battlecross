@@ -144,7 +144,9 @@
  */
 import { computed, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { ITEMS, ITEM_BY_ID, priceOf, sellValue, sellable, type ItemDef } from '@/game/data/items'
+import { INFERNALS, ITEMS, ITEM_BY_ID, priceOf, sellValue, sellable, type ItemDef } from '@/game/data/items'
+import { FORT } from '@/game/data/breaking'
+import { INFERNAL_FORGE_FLAG } from '@/game/data/relics'
 import {
   buyBack, buyBackItem, buyCost, buyItem, computeStats, equippedIn, markSeen, owns, profile, rareShelf, restockShelf, saveProfile,
   sellItem, shelfRefreshesLeft, unequip
@@ -186,7 +188,11 @@ const stock = computed<ItemDef[]>(() => {
   const s = npc.value?.stock
   if (!s) return []
   const slots = s.slots as readonly string[]
-  return ITEMS.filter(i => i.tier < 6 && slots.includes(i.slot) && s.tiers.includes(i.tier)).sort((a, b) => a.tier - b.tier || a.level - b.level)
+  const plain = ITEMS.filter(i => i.tier < 6 && slots.includes(i.slot) && s.tiers.includes(i.tier))
+  // The fort's Infernal stock once the Forgemaster has his forge back (afterplay B6).
+  const infernal = flow.node === FORT && profile.world.flags.includes(INFERNAL_FORGE_FLAG)
+    ? INFERNALS.filter(i => i.tier < 6 && slots.includes(i.slot) && s.tiers.includes(i.tier)) : []
+  return [...plain, ...infernal].sort((a, b) => a.tier - b.tier || a.level - b.level)
 })
 /** Today's rare shelf: stocked once, kept in the save. */
 const rareIds = ref<string[]>(npc.value?.stock ? rareShelf(npc.value.id, npc.value.stock) : [])

@@ -3,6 +3,7 @@ import { LANGUAGES } from '@/utils/enums'
 import { getState } from '@/use/useGameState'
 import { LANGUAGE_KEY } from '@/keys'
 import { toLocale } from './localeTag'
+import { INFERNAL_SUFFIX } from '@/game/data/relics'
 
 // Read straight off `import.meta.env` rather than importing `isPlaygama` from
 // `@/use/useUser`: this module runs during the i18n bootstrap, before the app
@@ -34,6 +35,24 @@ const localeInFlight = new Map<string, Promise<Record<string, unknown>>>()
 
 const pathFor = (code: string) => `./locales/${code}.ts`
 
+/**
+ * An Infernal twin (afterplay §2.4) is named after its original in each
+ * language: `relic.infernal` ("{name} · Infernal") round the original's own
+ * name. Derived here, once per locale, so the 39 files do not carry a second
+ * copy of every unique's name. Smithed pieces have no twins.
+ */
+export const withInfernalNames = (msgs: Record<string, unknown>): Record<string, unknown> => {
+  const items = msgs.item as Record<string, { name?: unknown }> | undefined
+  const pattern = (msgs.relic as Record<string, unknown> | undefined)?.infernal
+  if (!items || typeof pattern !== 'string') return msgs
+  const twins: Record<string, { name: string }> = {}
+  for (const [id, v] of Object.entries(items)) {
+    if (id.startsWith('smith') || id.endsWith(INFERNAL_SUFFIX) || typeof v?.name !== 'string') continue
+    twins[`${id}${INFERNAL_SUFFIX}`] = { name: pattern.replace('{name}', v.name) }
+  }
+  return { ...msgs, item: { ...items, ...twins } }
+}
+
 export const isSupportedLocale = (code: string | null | undefined): code is string =>
   !!code && LANGUAGES.includes(code)
 
@@ -55,7 +74,7 @@ export const loadLocaleMessages = async (
   if (!loader) throw new Error(`[i18n] no locale file for "${code}"`)
 
   const promise = loader().then((msgs) => {
-    const resolved = (msgs ?? {}) as Record<string, unknown>
+    const resolved = withInfernalNames((msgs ?? {}) as Record<string, unknown>)
     localeCache.set(code, resolved)
     localeInFlight.delete(code)
     return resolved

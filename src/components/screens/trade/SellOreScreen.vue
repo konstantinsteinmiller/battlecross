@@ -17,7 +17,7 @@
             OreIcon(:id="o")
           span.ore-row__title
             span.ore-row__name {{ t(`ore.${o}.name`) }}
-            span.ore-row__meta {{ t('sellOre.have', { n: oreCount(o) }) }} · {{ t('sellOre.each', { n: fmt(ORE_PRICE[o]) }) }}
+            span.ore-row__meta {{ t('sellOre.have', { n: oreCount(o) }) }} · {{ t('sellOre.each', { n: fmt(pouchPrice(o)) }) }}
           span.ore-row__step
             button.ore-row__quick(type="button" :disabled="!pick[o]" @click="set(o, 0)") {{ t('sellOre.none') }}
             button.ore-row__btn(type="button" :aria-label="t('sellOre.less', { ore: t(`ore.${o}.name`) })" :disabled="!pick[o]" @click="set(o, (pick[o] ?? 0) - 1)")
@@ -26,7 +26,7 @@
             button.ore-row__btn(type="button" :aria-label="t('sellOre.more', { ore: t(`ore.${o}.name`) })" :disabled="(pick[o] ?? 0) >= oreCount(o)" @click="set(o, (pick[o] ?? 0) + 1)")
               span.ore-row__sign.ore-row__sign--plus(aria-hidden="true")
             button.ore-row__quick(type="button" :disabled="(pick[o] ?? 0) >= oreCount(o)" @click="set(o, oreCount(o))") {{ t('sellOre.all') }}
-          span.ore-row__sum {{ t('smith.gold', { n: fmt((pick[o] ?? 0) * ORE_PRICE[o]) }) }}
+          span.ore-row__sum {{ t('smith.gold', { n: fmt((pick[o] ?? 0) * pouchPrice(o)) }) }}
       div.sell__foot(v-if="rows.length")
         span.sell__total {{ t('sellOre.total', { n: fmt(total) }) }}
         FButton.sell__all(:label="t('sellOre.selectAll')" type="secondary" size="md" @click="selectAll")
@@ -45,7 +45,7 @@
 import { computed, onBeforeUnmount, reactive, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { oreCount, sellOres } from '@/game/state/profile'
-import { ORE_IDS, ORE_PRICE, type OreId } from '@/game/data/ores'
+import { POUCH_IDS, pouchPrice, type MatId, type OreId } from '@/game/data/ores'
 import { flow } from '@/game/flow'
 import { sfx } from '@/game/audio/sfx'
 import { fmt } from '@/utils/format'
@@ -57,11 +57,13 @@ const { t } = useI18n()
 const npc = computed(() => flow.npc)
 const frame = ref<InstanceType<typeof TradeFrame> | null>(null)
 
-const rows = computed(() => ORE_IDS.filter(o => oreCount(o) > 0))
-const pick = reactive<Partial<Record<OreId, number>>>({})
-const total = computed(() => rows.value.reduce((s, o) => s + (pick[o] ?? 0) * ORE_PRICE[o], 0))
+// The metals, then the afterplay's Demonglass and Mythic Ichor (phase 8).
+type PouchId = OreId | MatId
+const rows = computed(() => POUCH_IDS.filter(o => oreCount(o) > 0))
+const pick = reactive<Partial<Record<PouchId, number>>>({})
+const total = computed(() => rows.value.reduce((s, o) => s + (pick[o] ?? 0) * pouchPrice(o), 0))
 
-const set = (o: OreId, n: number): void => {
+const set = (o: PouchId, n: number): void => {
   pick[o] = Math.max(0, Math.min(oreCount(o), n))
   sfx('uiClick')
 }
@@ -78,7 +80,7 @@ onBeforeUnmount(() => { if (soldTimer) clearTimeout(soldTimer) })
 const sell = (): void => {
   const gold = sellOres(pick)
   if (!gold) { sfx('denied'); return }
-  for (const o of ORE_IDS) delete pick[o]
+  for (const o of POUCH_IDS) delete pick[o]
   sfx('coin')
   // The HUD's toasts sit under every modal: the receipt shows in the window.
   sold.value = gold
