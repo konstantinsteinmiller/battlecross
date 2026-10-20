@@ -83,6 +83,10 @@ export interface AbilityDef {
   gap?: number
   /** A beat the caster shouts at the start of the wind-up (`data/dialogs/bosses`), the first time only. */
   bark?: string
+  /** Leaves burning (fire) or freezing (frost) ground where it lands (the hellhounds' leap, afterplay §6). */
+  patch?: 'fire' | 'frost'
+  /** The caster stands dazed this many seconds after the blow, taking more damage (the cyclops brute's slam). */
+  daze?: number
 }
 
 /** A creature that wears itself out (#136): after `life` seconds it is gone, losing `pct` of its health every `every` seconds. */
@@ -137,6 +141,14 @@ export interface EnemyDef {
    *  boss plate and wakes the boss music, but drops what a zone's mobs drop,
    *  never the finale's promised piece; its prize is the chest it guards. */
   branch?: boolean
+  /** Sleeps as a statue (afterplay §6): its pack waking leaves it be; only the hero within its `aggro`, or a blow, wakes it. */
+  statue?: boolean
+  /** Runs from a foe closer than this many metres (the harpy). */
+  skittish?: number
+  /** Dives out of reach, untargetable and unhurt, for `dur` seconds every `every` (the sea-demon). */
+  submerge?: { every: number; dur: number }
+  /** Splits into `count` of itself on death, once; each piece has `hp` of its health (the hydra spawn). */
+  split?: { count: number; hp: number }
 }
 
 const D = (e: EnemyDef): EnemyDef => e
@@ -527,6 +539,152 @@ const BASE_ENEMIES: readonly EnemyDef[] = [
       { kind: 'slam', cd: 18, first: 1, range: 20, windup: 1.6, recover: 0.8, dmg: 2.2, r: 11, type: 'shadow', phase: 2 },
       { kind: 'enrage', cd: 40, first: 0, range: 20, windup: 0.8, recover: 0.3, phase: 2 }
     ]
+  }),
+
+  // ── The Breaking (afterplay §6, phase 4): the invasion's own hordes ──────
+  // Placeholder looks (recoloured variants of the rigs above) until painted.
+  D({
+    id: 'hellhound', rank: 'normal', rig: 'beast', look: 'hellhound', scale: 1.05, r: 0.5, h: 1,
+    hp: 0.8, dmg: 1, armor: 0.6, resist: 0.3, speed: 5, style: 'melee', type: 'fire', range: 1.7, interval: 1.05, windup: 0.26,
+    aggro: 10, reward: 1, color: '#ff5a1a',
+    abilities: [{ kind: 'leap', cd: 6.5, first: 1.5, range: 7, min: 3, windup: 0.55, recover: 0.4, dmg: 1.3, r: 1.6, type: 'fire', patch: 'fire' }]
+  }),
+  D({
+    id: 'frostHellhound', rank: 'normal', rig: 'beast', look: 'frostHound', scale: 1.05, r: 0.5, h: 1,
+    hp: 0.85, dmg: 1, armor: 0.7, resist: 0.3, speed: 5, style: 'melee', type: 'frost', range: 1.7, interval: 1.05, windup: 0.26,
+    aggro: 10, reward: 1, color: '#5fb8ff',
+    abilities: [{ kind: 'leap', cd: 6.5, first: 1.5, range: 7, min: 3, windup: 0.55, recover: 0.4, dmg: 1.2, r: 1.6, type: 'frost', patch: 'frost', status: { id: 'slow', dur: 2, v: 0.4 } }]
+  }),
+  D({
+    // A statue until the hero is within four metres; then the stone wakes with a stunning slam.
+    id: 'gargoyle', rank: 'normal', rig: 'golem', look: 'gargoyle', scale: 1.05, r: 0.6, h: 1.7, statue: true,
+    hp: 1.8, dmg: 1.2, armor: 4.5, resist: 0.2, speed: 3, style: 'melee', type: 'physical', range: 2.2, interval: 1.6, windup: 0.5, heavy: true,
+    aggro: 4, reward: 1.3, color: '#8a8a9a',
+    abilities: [{ kind: 'slam', cd: 9, first: 0.4, range: 3, windup: 0.9, recover: 0.6, dmg: 1.5, r: 3.2, status: { id: 'stun', dur: 0.8, v: 1 } }]
+  }),
+  D({
+    id: 'harpy', rank: 'normal', rig: 'wyvern', look: 'harpy', scale: 0.72, r: 0.5, h: 1.5, skittish: 2.6,
+    hp: 0.75, dmg: 1, armor: 0.6, resist: 0.2, speed: 3.6, style: 'ranged', type: 'pierce', range: 9, interval: 1.9, windup: 0.45,
+    shotFx: 'arrow', aggro: 11, keep: 6.5, reward: 1, color: '#c87ad8',
+    abilities: [{ kind: 'volley', cd: 7, first: 2.5, range: 10, min: 2.5, windup: 0.7, recover: 0.4, dmg: 0.7, count: 4, w: 14, fx: 'arrow' }]
+  }),
+  D({
+    id: 'corruptedTreant', rank: 'normal', rig: 'treant', look: 'blight', scale: 1.15, r: 0.66, h: 1.9,
+    hp: 1.7, dmg: 1.2, armor: 2.6, resist: 0.2, speed: 2.4, style: 'melee', type: 'physical', range: 2.3, interval: 1.8, windup: 0.55, heavy: true,
+    aggro: 8.5, reward: 1.3, color: '#8a4a9a',
+    abilities: [{ kind: 'smash', cd: 9, first: 4, range: 8, min: 2.5, windup: 1, recover: 0.5, dmg: 1.2, r: 2.4, type: 'poison', fx: 'roots', status: { id: 'poison', dur: 4, v: 0.22, type: 'poison' } }]
+  }),
+  D({
+    // Hit and run: it keeps its distance with the bow and rides through the hero.
+    id: 'centaurRaider', rank: 'normal', rig: 'humanoid', look: 'centaurRaider', scale: 1.12, r: 0.55, h: 1.6,
+    hp: 1.1, dmg: 1.05, armor: 1.4, speed: 4.4, style: 'ranged', type: 'pierce', range: 9, interval: 1.8, windup: 0.45,
+    shotFx: 'arrow', aggro: 11, keep: 6.5, reward: 1.2, color: '#c98a4a',
+    abilities: [
+      { kind: 'charge', cd: 9, first: 3, range: 10, min: 3.5, windup: 0.75, recover: 0.6, dmg: 1.6, r: 9, w: 1, status: { id: 'knockdown', dur: 0.6, v: 1 } },
+      { kind: 'volley', cd: 8, first: 5, range: 10, min: 3, windup: 0.7, recover: 0.5, dmg: 0.7, count: 3, w: 16, fx: 'arrow', pose: 1 }
+    ]
+  }),
+  D({
+    // Its slam leaves it reeling: the window to hit it hard.
+    id: 'cyclopsBrute', rank: 'normal', rig: 'humanoid', look: 'cyclopsBrute', scale: 1.45, r: 0.75, h: 2.15,
+    hp: 2.3, dmg: 1.35, armor: 2.6, speed: 2.8, style: 'melee', type: 'physical', range: 2.6, interval: 1.8, windup: 0.55, heavy: true,
+    aggro: 10, reward: 1.6, color: '#c9a07a',
+    abilities: [{ kind: 'slam', cd: 9, first: 3.5, range: 3, windup: 1, recover: 0.4, dmg: 1.8, r: 3.6, pose: 1, daze: 1.8, status: { id: 'knockdown', dur: 0.7, v: 1 } }]
+  }),
+  D({
+    id: 'demonMiner', rank: 'normal', rig: 'humanoid', look: 'demonMiner', scale: 0.85, r: 0.44, h: 1.2,
+    hp: 0.9, dmg: 1, armor: 1.2, resist: 0.25, speed: 3.2, style: 'ranged', type: 'physical', range: 8, interval: 1.9, windup: 0.45,
+    shotFx: 'rock', aggro: 10, keep: 6, reward: 1.1, color: '#e0703a',
+    abilities: [{ kind: 'barrage', cd: 9, first: 3, range: 11, windup: 0.8, recover: 0.5, dmg: 1.2, r: 1.9, count: 3, fx: 'bomb', type: 'fire', pose: 1 }]
+  }),
+  D({
+    id: 'sphinxAcolyte', rank: 'normal', rig: 'beast', look: 'acolyte', scale: 1.05, r: 0.5, h: 1,
+    hp: 1, dmg: 1.15, armor: 1.2, resist: 0.3, speed: 4.2, style: 'melee', type: 'physical', range: 1.9, interval: 1.15, windup: 0.3,
+    aggro: 10.5, reward: 1.2, color: '#e0c060',
+    abilities: [
+      { kind: 'cone', cd: 8, first: 3, range: 4.5, windup: 0.8, recover: 0.5, dmg: 1.3, r: 5, w: 32, fx: 'breath', color: '#e8cc7a', status: { id: 'slow', dur: 2, v: 0.4 } },
+      { kind: 'blink', cd: 8, first: 5, range: 5.5, min: 2.5, windup: 0.45, recover: 0.4, dmg: 1.4 }
+    ]
+  }),
+  D({
+    id: 'seaDemon', rank: 'normal', rig: 'naga', look: 'seaDemon', scale: 1.05, r: 0.5, h: 1.6, submerge: { every: 9, dur: 2 },
+    hp: 1.15, dmg: 1.15, armor: 1.4, resist: 0.3, speed: 3.6, style: 'melee', type: 'physical', range: 2.3, interval: 1.2, windup: 0.34,
+    aggro: 10, reward: 1.25, color: '#2a8a9a',
+    abilities: [{ kind: 'volley', cd: 7, first: 2.5, range: 9, min: 2.6, windup: 0.6, recover: 0.4, dmg: 0.75, count: 3, w: 14, type: 'frost', fx: 'water' }]
+  }),
+  D({
+    id: 'drakeHatchling', rank: 'normal', rig: 'wyvern', look: 'hatchling', scale: 0.8, r: 0.55, h: 1.5,
+    hp: 0.9, dmg: 0.95, armor: 1.4, resist: 0.3, speed: 3.8, style: 'melee', type: 'physical', range: 2, interval: 1.3, windup: 0.32,
+    aggro: 10, reward: 1, color: '#e08a3a',
+    abilities: [{ kind: 'cone', cd: 8, first: 2.5, range: 4.5, windup: 0.8, recover: 0.5, dmg: 1, r: 5, w: 28, type: 'fire', fx: 'breath', status: { id: 'burn', dur: 2.5, v: 0.15, type: 'fire' } }]
+  }),
+  D({
+    // Two heads, two spits; cut down, it splits once into two smaller spawn.
+    id: 'hydraSpawn', rank: 'normal', rig: 'naga', look: 'hydraSpawn', scale: 1.05, r: 0.55, h: 1.6, split: { count: 2, hp: 0.4 },
+    hp: 1.3, dmg: 1.1, armor: 1.6, resist: 0.3, speed: 3.2, style: 'magic', type: 'poison', range: 8, interval: 1.9, windup: 0.45,
+    shotFx: 'venom', aggro: 10, keep: 5, reward: 1.3, color: '#5ac04a',
+    abilities: [
+      { kind: 'lob', cd: 7, first: 2, range: 10, min: 2, windup: 0.7, recover: 0.4, dmg: 1.1, r: 2.2, type: 'poison', fx: 'venom', status: { id: 'poison', dur: 4, v: 0.2, type: 'poison' } },
+      { kind: 'lob', cd: 7, first: 5.5, range: 10, min: 2, windup: 0.7, recover: 0.4, dmg: 1.1, r: 2.2, type: 'fire', fx: 'ember', status: { id: 'burn', dur: 3, v: 0.18, type: 'fire' } }
+    ]
+  }),
+
+  // ── The Breaking's bosses I (afterplay §5.1-5.3, phase 5) ────────────────
+  // Each on its script (`sim/bosses/`), each teaching one thing; placeholder
+  // looks on the existing rigs until painted.
+  D({
+    // Three heads, three moves, each head glowing its colour first (`sim/bosses/chimera.ts`).
+    id: 'chimera', rank: 'boss', rig: 'beast', look: 'chimera', scale: 2.3, r: 1.05, h: 2.3,
+    hp: 12, dmg: 1.3, armor: 3, resist: 0.3, speed: 3.8, style: 'melee', type: 'physical', range: 2.8, interval: 1.4, windup: 0.45, heavy: true,
+    aggro: 16, reward: 1, color: '#ff9a3a', script: 'chimera', abilities: []
+  }),
+  D({
+    // The chimera's serpent tail, cut off at 30 %: a weak snake that fights on.
+    id: 'chimeraTail', rank: 'weak', rig: 'naga', look: 'serpent', scale: 0.9, r: 0.45, h: 1.2,
+    hp: 0.9, dmg: 0.9, armor: 1, resist: 0.3, speed: 3.6, style: 'melee', type: 'poison', range: 1.9, interval: 1.2, windup: 0.32,
+    aggro: 14, reward: 0.4, color: '#6ad84a', abilities: []
+  }),
+  D({
+    // Keeps its distance and shoots; tramples whoever closes in (`sim/bosses/centaur.ts`).
+    id: 'centaurWarchief', rank: 'boss', rig: 'beast', look: 'centaur', rider: 'centaurWarchief', scale: 2.1, r: 1, h: 2.6,
+    hp: 11, dmg: 1.25, armor: 2.6, resist: 0.25, speed: 4.6, style: 'ranged', type: 'pierce', range: 12, interval: 1.6, windup: 0.42,
+    shotFx: 'arrow', aggro: 16, keep: 10, reward: 1, color: '#e0a04a', script: 'centaur',
+    abilities: [
+      { kind: 'volley', cd: 6, first: 2, range: 13, min: 3, windup: 0.7, recover: 0.4, dmg: 0.6, count: 5, w: 18, fx: 'arrow', pose: 1 },
+      { kind: 'rain', cd: 11, first: 5, range: 13, windup: 1.1, recover: 0.6, dmg: 0.3, r: 3, hits: 4, gap: 0.5, fx: 'arrow', type: 'pierce', pose: 1 }
+    ]
+  }),
+  D({
+    // Armoured all over but the eye, which only a miss opens (`sim/bosses/cyclops.ts`).
+    id: 'cyclops', rank: 'boss', rig: 'golem', look: 'cyclops', scale: 2.2, r: 1.2, h: 3.4,
+    hp: 6, dmg: 1.4, armor: 4, resist: 0.3, speed: 2.7, style: 'melee', type: 'physical', range: 3.4, interval: 1.8, windup: 0.55, heavy: true,
+    aggro: 16, reward: 1, color: '#e0b04a', script: 'cyclops', abilities: []
+  }),
+
+  // ── The Breaking's bosses II (afterplay §5.4-5.7, phase 7) ───────────────
+  D({
+    // Claws and sand; at 60 % and 30 % a riddle of coloured plates (`sim/bosses/sphinx.ts`).
+    id: 'sphinx', rank: 'boss', rig: 'beast', look: 'sphinx', scale: 2.2, r: 1.05, h: 2.3,
+    hp: 9, dmg: 1.3, armor: 2.6, resist: 0.35, speed: 3.6, style: 'melee', type: 'physical', range: 2.8, interval: 1.4, windup: 0.45, heavy: true,
+    aggro: 16, reward: 1, color: '#e8c060', script: 'sphinx', abilities: []
+  }),
+  D({
+    // Under the flood but for its bites; it moves beneath the water, not over it (`sim/bosses/leviathan.ts`).
+    id: 'leviathan', rank: 'boss', rig: 'naga', look: 'leviathan', scale: 2.8, r: 1.3, h: 3.6,
+    hp: 7, dmg: 1.35, armor: 3, resist: 0.3, speed: 0.8, style: 'melee', type: 'physical', range: 3.4, interval: 1.5, windup: 0.45, heavy: true,
+    aggro: 16, reward: 1, color: '#3a8ac8', script: 'leviathan', abilities: []
+  }),
+  D({
+    // Its heads take every blow; a stump grows two unless seared (`sim/bosses/hydra.ts`).
+    id: 'hydra', rank: 'boss', rig: 'dragon', look: 'hydra', scale: 1.9, r: 1.4, h: 2.8,
+    hp: 6, dmg: 1.3, armor: 3, resist: 0.3, speed: 2.4, style: 'melee', type: 'poison', range: 3.2, interval: 1.6, windup: 0.5, heavy: true,
+    aggro: 16, reward: 1, color: '#5ac04a', script: 'hydra', abilities: []
+  }),
+  D({
+    // The final fight: ground, sky behind rune stones, a void ring, the rift's pull (`sim/bosses/elderDragon.ts`).
+    id: 'elderDragon', rank: 'boss', rig: 'dragon', look: 'elderDragon', scale: 2.6, r: 1.6, h: 3.4,
+    hp: 12, dmg: 1.4, armor: 3.2, resist: 0.35, speed: 3, style: 'melee', type: 'physical', range: 3.6, interval: 1.6, windup: 0.5, heavy: true,
+    aggro: 16, reward: 1, color: '#ff6a3a', script: 'elderDragon', abilities: []
   }),
 
   // ── Hostile townsfolk and faction ambushers (quest consequences) ──────────

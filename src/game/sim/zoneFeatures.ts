@@ -1074,7 +1074,7 @@ export const addFeatures = (c: FeatureCtx): Features => {
     const pack = out.optionalPacks.length
     out.optionalPacks.push({
       x: cx(s.i), z: cx(s.j), r: rr * CELL,
-      kinds: [champion ? f.championKind : guardKind()],
+      kinds: [champion ? c.def.champion ?? f.championKind : guardKind()],
       levelOffset: champion ? int(f.championLevels[0], f.championLevels[1]) : int(0, 1),
       champion
     })

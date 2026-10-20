@@ -3,6 +3,7 @@ import type { ConversationDef, DialogHost, Offer } from './dialog/types'
 import { conversationOf, decisionOf } from './data/dialogs'
 import { MANA_OFFER } from './data/dialogs/shared'
 import { QUEST_BY_ID } from './data/quests'
+import { RIFT_SEALED, STORY_QUESTS } from './data/breaking'
 import {
   buyManaPotion, completeErrand, decideQuest, errandTalk, gainItem, manaPotionCost, manaPotionRoom, profile, saveProfile,
   startErrand,
@@ -73,7 +74,10 @@ const host: DialogHost = {
     // The rule, and the save on the device at once: a decision is permanent.
     if (!decideQuest(quest, choice)) return false
     void flushSaveNow()
-    talk.outcome = QUEST_BY_ID[quest]?.choices.find(c => c.id === choice) ?? null
+    const q = QUEST_BY_ID[quest] ?? STORY_QUESTS[quest]
+    talk.outcome = q?.choices.find(c => c.id === choice) ?? null
+    // The end of the Breaking: what the choice made of the hero (the title) or of the world.
+    if (q && q === STORY_QUESTS.seal) pushHud({ t: 'toast', key: q.choices.find(c => c.id === choice)?.flags.includes(RIFT_SEALED) ? 'breaking.toast.sealed' : 'breaking.toast.ajar' })
     return true
   },
   open(window) {

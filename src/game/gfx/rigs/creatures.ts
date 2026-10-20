@@ -94,7 +94,7 @@ const glare = (b: RigBuilder, bone: string, x: number, y: number, z: number, r: 
 
 // ─── Four legs: wolf, void stalker, frost howler ─────────────────────────────
 
-type BeastVariant = 'wolf' | 'stalker' | 'howler' | 'spiritWolf' | 'spiritBear'
+type BeastVariant = 'wolf' | 'stalker' | 'howler' | 'spiritWolf' | 'spiritBear' | 'hellhound' | 'frostHound' | 'acolyte' | 'chimera' | 'centaur' | 'sphinx'
 
 const BEAST: Record<BeastVariant, { fur: string; back: string; belly: string; eye: string; accent: string; nose: string }> = {
   wolf: { fur: '#8e98ac', back: '#58627a', belly: '#e4e8f0', eye: '#ffb02a', accent: '#c8ced8', nose: '#2a2430' },
@@ -102,7 +102,18 @@ const BEAST: Record<BeastVariant, { fur: string; back: string; belly: string; ey
   howler: { fur: '#dce6f4', back: '#8ea8cc', belly: '#ffffff', eye: '#7fe8ff', accent: '#9fd8ff', nose: '#3a4a66' },
   // The Beastcaller's companions (#86): a leaf-green wolf, a honey-brown bear (its own body, `buildBear`).
   spiritWolf: { fur: '#6fbf7a', back: '#3f7a4a', belly: '#e8f4d8', eye: '#ffe07a', accent: '#b8f0a0', nose: '#24301f' },
-  spiritBear: { fur: '#a8784a', back: '#6a4a2a', belly: '#e8d0a8', eye: '#ffe07a', accent: '#d8a860', nose: '#2a1c14' }
+  spiritBear: { fur: '#a8784a', back: '#6a4a2a', belly: '#e8d0a8', eye: '#ffe07a', accent: '#d8a860', nose: '#2a1c14' },
+  // The Breaking's hounds (afterplay §6), placeholder looks: a wolf in coal and ember with a burning mane, one in
+  // blue-black with an icy one; the sphinx's acolyte a sand-gold cat of a beast.
+  hellhound: { fur: '#3a1a16', back: '#1e0c0a', belly: '#8a3a1c', eye: '#ffd24a', accent: '#ff7a1a', nose: '#140808' },
+  frostHound: { fur: '#1e2a44', back: '#0e1426', belly: '#5a7aa8', eye: '#9fe8ff', accent: '#7fd0ff', nose: '#080c18' },
+  acolyte: { fur: '#d8b06a', back: '#9a7a3a', belly: '#f4e4bc', eye: '#7fe8d0', accent: '#3fa8c0', nose: '#3a2a1a' },
+  // The Breaking's bosses (afterplay §5), placeholder looks: a tawny lion with a fiery mane (its goat head and
+  // serpent tail are parts of their own), a chestnut horse body for the Centaur Warchief to sit in.
+  chimera: { fur: '#c88a3a', back: '#8a5420', belly: '#ecd2a0', eye: '#ffd24a', accent: '#ff7a1a', nose: '#2a1810' },
+  centaur: { fur: '#8a5a34', back: '#4e3020', belly: '#c89a6a', eye: '#ffb04a', accent: '#e0a04a', nose: '#24160e' },
+  // The Sphinx (afterplay §5.4), placeholder: a sand-gold lioness with a lapis-blue headdress mane (no wings yet).
+  sphinx: { fur: '#e0b868', back: '#a8823a', belly: '#f6e6c0', eye: '#7fe8d0', accent: '#2a5ab8', nose: '#3a2a1a' }
 }
 
 export const buildBeast = (variant: BeastVariant): Rig => {
@@ -113,6 +124,8 @@ export const buildBeast = (variant: BeastVariant): Rig => {
   b.bone('body', 'root', [0, 0.46, 0])
   b.bone('head', 'body', [0, 0.12, 0.36])
   b.bone('tail', 'body', [0, 0.1, -0.4])
+  // The Warchief's man's half sits here (`gfx/rigs/index.ts` seats the rider).
+  if (variant === 'centaur') b.bone('saddle', 'body', [0, 0.26, 0.12])
   const big = variant === 'howler' ? 1.12 : 1
   // ── The body: a deep chest, lean haunches, a ruff at the neck ──
   b.painted('body', coat(ell(0.25 * big, 0.27 * big, 0.3, 12, 8), P.belly, P.fur, P.back), { p: [0, 0.03, 0.12] })
@@ -165,6 +178,35 @@ export const buildBeast = (variant: BeastVariant): Rig => {
   if (variant === 'howler') {
     // Frost grown out of its back.
     for (let k = 0; k < 5; k++) b.part('body', spike(0.06, 0.32 - Math.abs(k - 2) * 0.05, 5), k % 2 ? '#bfe6ff' : '#e8f8ff', { p: [(k % 2 ? 0.06 : -0.06), 0.3, 0.2 - k * 0.12], r: [-0.5, 0, (k % 2 ? -0.3 : 0.3)] })
+  } else if (variant === 'chimera') {
+    // The lion's mane, a ring of flame-coloured points round its neck.
+    for (let k = 0; k < 7; k++) {
+      const a = -1.6 + (3.2 * k) / 6
+      b.part('head', spike(0.08, 0.26, 5), k % 2 ? P.accent : tone(P.accent, 0.8), { p: [Math.sin(a) * 0.2, 0.1 + Math.cos(a) * 0.16, -0.1], r: [-1.1, 0, -a] })
+    }
+    // The goat's head on the left shoulder: a blue-grey skull, two curled horns, a beard.
+    b.part('body', ell(0.1, 0.11, 0.15, 9, 6), '#8a9ab8', { p: [-0.2, 0.34, 0.3], r: [0.3, 0.4, 0] })
+    b.part('body', ell(0.06, 0.06, 0.08, 7, 5), '#6a7a98', { p: [-0.24, 0.3, 0.43], r: [0.3, 0.4, 0] })
+    b.part('body', spike(0.03, 0.1, 4), '#dfe6f2', { p: [-0.25, 0.22, 0.42], r: [Math.PI, 0, 0] })
+    b.mirror((s) => { b.part('body', torus(0.06, 0.018, 5, 10, Math.PI * 1.3), '#6fc8ff', { p: [-0.2 + s * 0.07, 0.46, 0.26], r: [0, Math.PI / 2, 0.4] }) })
+    b.part('body', sph(0.022, 5, 4), '#6fc8ff', { p: [-0.29, 0.36, 0.38], glow: true, outline: false })
+    // The serpent tail: a green neck rising over the back, a head with a glowing eye.
+    b.part('tail', rcone(0.07, 0.045, 0.5, 0.02, 7), '#4a9a3a', { p: [0, 0.2, -0.12], r: [-0.5, 0, 0] })
+    b.part('tail', ell(0.08, 0.06, 0.12, 8, 5), '#6ad84a', { p: [0, 0.45, 0.02], r: [0.4, 0, 0] })
+    b.part('tail', sph(0.02, 5, 4), '#d8ff7a', { p: [0, 0.5, 0.1], glow: true, outline: false })
+  } else if (variant === 'sphinx') {
+    // The headdress: lapis and gold bands falling to each side of the head.
+    for (let k = 0; k < 6; k++) {
+      const a = -1.4 + (2.8 * k) / 5
+      b.part('head', spike(0.07, 0.22, 5), k % 2 ? P.accent : '#e8c060', { p: [Math.sin(a) * 0.19, 0.08 + Math.cos(a) * 0.14, -0.1], r: [-1.2, 0, -a] })
+    }
+  } else if (variant === 'centaur') {
+    // A dark mane down the neck and a horse's long tail.
+    for (let k = 0; k < 4; k++) b.part('body', spike(0.06, 0.2, 5), P.back, { p: [0, 0.27, 0.34 - k * 0.07], r: [-0.9, 0, 0] })
+    b.part('tail', rcone(0.06, 0.02, 0.45, 0.012, 7), P.back, { p: [0, -0.1, -0.12], r: [-2.6, 0, 0] })
+  } else if (variant === 'hellhound' || variant === 'frostHound') {
+    // The hellhounds' mane: the howler's row of points, burning (or frozen) and lit from within.
+    for (let k = 0; k < 5; k++) b.part('body', spike(0.06, 0.32 - Math.abs(k - 2) * 0.05, 5), k % 2 ? P.accent : P.eye, { p: [(k % 2 ? 0.06 : -0.06), 0.3, 0.2 - k * 0.12], r: [-0.5, 0, (k % 2 ? -0.3 : 0.3)], glow: true })
   }
   return b.build({ height: 0.95 * big })
 }
@@ -344,12 +386,14 @@ export const buildSpider = (variant: SpiderVariant): Rig => {
 
 // ─── Treant ──────────────────────────────────────────────────────────────────
 
-type TreantVariant = 'treant' | 'elder' | 'thorn'
+type TreantVariant = 'treant' | 'elder' | 'thorn' | 'blight'
 
 const TREANT: Record<TreantVariant, { bark: string; leaf: string; leaf2: string; eye: string; extra: string }> = {
   treant: { bark: '#7a5a3a', leaf: '#4f9a3e', leaf2: '#8fd45a', eye: '#ffe07a', extra: '#a8e06a' },
   elder: { bark: '#5a4632', leaf: '#3a7f36', leaf2: '#6fbf4a', eye: '#ffe07a', extra: '#ffd24a' },
-  thorn: { bark: '#3e2a26', leaf: '#4a2a3a', leaf2: '#7a3a4a', eye: '#ff6a4a', extra: '#c8303a' }
+  thorn: { bark: '#3e2a26', leaf: '#4a2a3a', leaf2: '#7a3a4a', eye: '#ff6a4a', extra: '#c8303a' },
+  // The corrupted treant (afterplay §6): a treant gone sick, ash bark and bruised leaves.
+  blight: { bark: '#4a3a3e', leaf: '#5a3a6a', leaf2: '#8a5a9a', eye: '#b8ff5a', extra: '#9ae04a' }
 }
 
 /** Bark: furrows running up it (by the angle round the trunk), darker toward the roots. */
@@ -420,12 +464,16 @@ export const buildTreant = (variant: TreantVariant): Rig => {
 
 // ─── Golem ───────────────────────────────────────────────────────────────────
 
-type GolemVariant = 'iron' | 'colossus' | 'cinder'
+type GolemVariant = 'iron' | 'colossus' | 'cinder' | 'gargoyle' | 'cyclops'
 
 const GOLEM: Record<GolemVariant, { stone: string; plate: string; core: string; crack: string }> = {
   iron: { stone: '#8f9bb0', plate: '#5d6a82', core: '#ffb04a', crack: '#ffb04a' },
   colossus: { stone: '#aab8cf', plate: '#4a5878', core: '#7ff4ff', crack: '#7ff4ff' },
-  cinder: { stone: '#4a3a36', plate: '#2a2020', core: '#ff7a1a', crack: '#ff5a1a' }
+  cinder: { stone: '#4a3a36', plate: '#2a2020', core: '#ff7a1a', crack: '#ff5a1a' },
+  // The gargoyle (afterplay §6): weathered grey stone, a demon's violet heart.
+  gargoyle: { stone: '#7a7a86', plate: '#4a4a56', core: '#c45aff', crack: '#a04ae0' },
+  // The Cyclops (afterplay §5.3), placeholder: a giant of leathery hide and iron straps, one great eye.
+  cyclops: { stone: '#b8906a', plate: '#5a4a3a', core: '#ffb04a', crack: '#8a5a3a' }
 }
 
 export const buildGolem = (variant: GolemVariant): Rig => {
@@ -468,7 +516,12 @@ export const buildGolem = (variant: GolemVariant): Rig => {
   }
   // The head: small, sunk between the shoulders, a slit of light for eyes under a brow of rock.
   b.painted('head', shade(rock(0.2, 61, 9, 7), P.stone, 0.65, 1.1), { p: [0, 0.08, 0.02], s: [1.1, 0.85, 1] })
-  b.part('head', rbox(0.22, 0.045, 0.06, 0.5, 8, 4), P.core, { p: [0, 0.08, 0.2], glow: true, outline: false })
+  if (variant === 'cyclops') {
+    // The one great eye: a white ball, a burning iris, a heavy lid of brow.
+    b.part('head', sph(0.1, 10, 8), '#f4ecd8', { p: [0, 0.09, 0.15] })
+    b.part('head', sph(0.05, 8, 6), P.core, { p: [0, 0.09, 0.235], glow: true, outline: false })
+    b.part('head', sph(0.022, 6, 5), DARK, { p: [0, 0.09, 0.278], outline: false })
+  } else b.part('head', rbox(0.22, 0.045, 0.06, 0.5, 8, 4), P.core, { p: [0, 0.08, 0.2], glow: true, outline: false })
   b.painted('head', shade(rbox(0.32, 0.08, 0.14, 0.4, 8, 6), P.plate, 0.8, 1.2), { p: [0, 0.15, 0.15], r: [0.3, 0, 0] })
   if (variant === 'colossus') {
     // Crystal grown through it.
@@ -545,12 +598,17 @@ export const buildElemental = (variant: ElementalVariant): Rig => {
 
 // ─── Naga ────────────────────────────────────────────────────────────────────
 
-type NagaVariant = 'naga' | 'oracle' | 'serpent'
+type NagaVariant = 'naga' | 'oracle' | 'serpent' | 'seaDemon' | 'hydraSpawn' | 'leviathan'
 
 const NAGA: Record<NagaVariant, { scale: string; belly: string; fin: string; eye: string; gold: string }> = {
   naga: { scale: '#2fb0a0', belly: '#d8f4e4', fin: '#1f7a8a', eye: '#ffe07a', gold: '#d9a83a' },
   oracle: { scale: '#26c8b0', belly: '#eafff4', fin: '#6a4fe0', eye: '#e8d0ff', gold: '#ffd24a' },
-  serpent: { scale: '#1f6a9a', belly: '#bfe8f4', fin: '#0f3a6a', eye: '#7fffd0', gold: '#c9a24a' }
+  serpent: { scale: '#1f6a9a', belly: '#bfe8f4', fin: '#0f3a6a', eye: '#7fffd0', gold: '#c9a24a' },
+  // The Breaking's serpents (afterplay §6), placeholder looks: a sea-demon in drowned black-teal, a hydra spawn in bile green.
+  seaDemon: { scale: '#1a3a44', belly: '#6a9aa0', fin: '#a02a3a', eye: '#ff5a4a', gold: '#5a6a6a' },
+  hydraSpawn: { scale: '#3a7a2a', belly: '#c8e0a0', fin: '#7a2a1a', eye: '#ffd24a', gold: '#8a8a3a' },
+  // The Leviathan (afterplay §5.5), placeholder: a great sea-serpent in deep-water blue with coral fins.
+  leviathan: { scale: '#1e4a7a', belly: '#9ac8e0', fin: '#e05a4a', eye: '#ffe07a', gold: '#3a6a8a' }
 }
 
 /** A serpent's length: banded belly scales below, the coat above. */
@@ -668,13 +726,16 @@ const wing = (b: RigBuilder, bone: string, s: -1 | 1, span: number, chord: numbe
 
 // ─── Wyvern and dragon ───────────────────────────────────────────────────────
 
-type WyvernVariant = 'wyvern' | 'matriarch' | 'spiritHawk'
+type WyvernVariant = 'wyvern' | 'matriarch' | 'spiritHawk' | 'harpy' | 'hatchling'
 
 /** Hide, belly, wing skin and eye. The Beastcaller's hawk (#86) is the small wyvern in a hawk's browns. */
 const WYVERN_TONES: Record<WyvernVariant, [string, string, string, string]> = {
   wyvern: ['#d8683a', '#ffd9a8', '#b8482a', '#ffe07a'],
   matriarch: ['#8a3a6a', '#f4c8e0', '#5a1a4a', '#ff8ad8'],
-  spiritHawk: ['#b8864a', '#f4e4c0', '#7a5a34', '#ffe07a']
+  spiritHawk: ['#b8864a', '#f4e4c0', '#7a5a34', '#ffe07a'],
+  // The Breaking's fliers (afterplay §6), placeholder looks: a harpy in dusk-violet feathers, a drake hatchling in young amber.
+  harpy: ['#7a4a8a', '#e8d0e0', '#4a2a5a', '#ffe07a'],
+  hatchling: ['#c9782a', '#ffe0a8', '#8a3a1a', '#ff4a2a']
 }
 
 export const buildWyvern = (variant: WyvernVariant = 'wyvern'): Rig => {
@@ -716,13 +777,17 @@ export const buildWyvern = (variant: WyvernVariant = 'wyvern'): Rig => {
   return b.build({ height: 1.9 })
 }
 
-type DragonVariant = 'void' | 'ally' | 'drake'
+type DragonVariant = 'void' | 'ally' | 'drake' | 'hydra' | 'elder'
 
 const DRAGON: Record<DragonVariant, { hide: string; top: string; belly: string; skin: string; skinEdge: string; horn: string; hornBase: string; glow: string; mouth: string }> = {
   // The Void Dragon: near-black violet, lit only where it means harm.
   void: { hide: '#22113e', top: '#3e2474', belly: '#7a66a8', skin: '#1e0c3c', skinEdge: '#5a32a0', horn: '#efe6f8', hornBase: '#3a2a4a', glow: '#c87aff', mouth: '#2a0a24' },
   ally: { hide: '#5a3aa8', top: '#8a6ae0', belly: '#e0d0f8', skin: '#3a2478', skinEdge: '#9a7ae8', horn: '#f8f0ff', hornBase: '#6a5a80', glow: '#e0a8ff', mouth: '#4a1a3a' },
-  drake: { hide: '#1e4a52', top: '#2f7a7a', belly: '#9ad0c0', skin: '#123a40', skinEdge: '#3fa0a0', horn: '#e0f0e8', hornBase: '#2a4a48', glow: '#5ff0e0', mouth: '#1a2a2a' }
+  drake: { hide: '#1e4a52', top: '#2f7a7a', belly: '#9ad0c0', skin: '#123a40', skinEdge: '#3fa0a0', horn: '#e0f0e8', hornBase: '#2a4a48', glow: '#5ff0e0', mouth: '#1a2a2a' },
+  // The Breaking's dragons (afterplay §5.6-5.7), placeholders: the Hydra in bile green with no wings (its
+  // heads are the script's, one drawn), the Elder Dragon in ember red and old bone.
+  hydra: { hide: '#2a5a24', top: '#4a8a3a', belly: '#c8e0a0', skin: '#1a3a18', skinEdge: '#7ac05a', horn: '#e8e0c0', hornBase: '#4a4a2a', glow: '#b8ff5a', mouth: '#2a1a0a' },
+  elder: { hide: '#5a1a12', top: '#8a2a1a', belly: '#e8b080', skin: '#3a0e0a', skinEdge: '#ff6a3a', horn: '#f4ead8', hornBase: '#5a4a3a', glow: '#ffb03a', mouth: '#2a0a06' }
 }
 
 /** A run of segments along `pts` (a horn, a curling spine), tapering from `r0` to `r1`, shaded `base` → `tip`. */
@@ -753,8 +818,8 @@ export const buildDragon = (variant: DragonVariant): Rig => {
   b.bone('tail2', 'tail1', [0, 0, -0.52])
   b.bone('tail3', 'tail2', [0, 0, -0.46])
   const hide = (g: BufferGeometry): BufferGeometry => coat(g, P.belly, P.hide, P.top)
-  // ── Wings: big, membrane dark with a lit leading edge, veins of light ──
-  b.mirror((s, t) => {
+  // ── Wings: big, membrane dark with a lit leading edge, veins of light (the Hydra has none) ──
+  if (variant !== 'hydra') b.mirror((s, t) => {
     // Held up and swept back at rest: a dragon spreads, it does not hang its wings out flat.
     b.bone('wing' + t, 'body', [s * 0.32, 0.36, -0.02], [0, s * 0.28, s * 0.42])
     wing(b, 'wing' + t, s, 1.75, 1.05, P.skin, P.hide, P.horn, { edge: P.skinEdge, vein: P.glow })
@@ -938,6 +1003,12 @@ export const CREATURE_BUILDS: Record<string, () => Rig> = {
   wolf: () => buildBeast('wolf'),
   stalker: () => buildBeast('stalker'),
   howler: () => buildBeast('howler'),
+  hellhound: () => buildBeast('hellhound'),
+  frostHound: () => buildBeast('frostHound'),
+  acolyte: () => buildBeast('acolyte'),
+  chimera: () => buildBeast('chimera'),
+  centaur: () => buildBeast('centaur'),
+  sphinx: () => buildBeast('sphinx'),
   spiritWolf: () => buildBeast('spiritWolf'),
   spiritBear: () => buildBeast('spiritBear'),
   boar: buildBoar,
@@ -948,9 +1019,12 @@ export const CREATURE_BUILDS: Record<string, () => Rig> = {
   treant: () => buildTreant('treant'),
   elder: () => buildTreant('elder'),
   thorn: () => buildTreant('thorn'),
+  blight: () => buildTreant('blight'),
   golem: () => buildGolem('iron'),
   colossus: () => buildGolem('colossus'),
   cinder: () => buildGolem('cinder'),
+  gargoyle: () => buildGolem('gargoyle'),
+  cyclops: () => buildGolem('cyclops'),
   fire: () => buildElemental('fire'),
   emberLord: () => buildElemental('emberLord'),
   void: () => buildElemental('void'),
@@ -958,12 +1032,19 @@ export const CREATURE_BUILDS: Record<string, () => Rig> = {
   naga: () => buildNaga('naga'),
   oracle: () => buildNaga('oracle'),
   serpent: () => buildNaga('serpent'),
+  seaDemon: () => buildNaga('seaDemon'),
+  hydraSpawn: () => buildNaga('hydraSpawn'),
+  leviathan: () => buildNaga('leviathan'),
   wyvern: () => buildWyvern('wyvern'),
   matriarch: () => buildWyvern('matriarch'),
   spiritHawk: () => buildWyvern('spiritHawk'),
+  harpy: () => buildWyvern('harpy'),
+  hatchling: () => buildWyvern('hatchling'),
   dragon: () => buildDragon('void'),
   drake: () => buildDragon('drake'),
   ally: () => buildDragon('ally'),
+  hydra: () => buildDragon('hydra'),
+  elderDragon: () => buildDragon('elder'),
   gatling: () => buildTurret('gatling'),
   rocket: () => buildTurret('rocket')
 }

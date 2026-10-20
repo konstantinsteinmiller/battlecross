@@ -125,6 +125,7 @@ export const separate = (sim: Sim, dt: number): void => {
   for (let i = 0; i < us.length; i++) {
     const a = us[i]!
     if (!a.alive) continue
+    if (a.rooted) a.kx = a.kz = 0
     if (a.kx !== 0 || a.kz !== 0) {
       moveCircle(sim.grid, a.x, a.z, a.kx * dt, a.kz * dt, a.r, out2, bodyBlocks(a))
       a.x = out2[0]
@@ -148,8 +149,9 @@ export const separate = (sim: Sim, dt: number): void => {
       const nx = dx / d
       const nz = dz / d
       // The heavier body gives less; statues and turrets give nothing.
-      const fixedB = b.rank === 'npc' || b.rank === 'turret' || b.rank === 'boss'
-      const fixedA = a.rank === 'boss'
+      const fixedB = b.rank === 'npc' || b.rank === 'turret' || b.rank === 'boss' || !!b.rooted
+      const fixedA = a.rank === 'boss' || !!a.rooted
+      if (fixedA && fixedB) continue
       const wa = fixedA ? 0 : fixedB ? 2 : 1
       const wb = fixedB ? 0 : fixedA ? 2 : 1
       if (wa > 0) {

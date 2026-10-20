@@ -1,5 +1,6 @@
 import type { HouseKind, NpcDef, NpcPlace, TownDef, TownFolkDef, TownId, TownJob, TownStyle } from '../data/zones'
 import type { ClassId } from '../data/skills'
+import { overrunFlag } from '../data/breaking'
 import { CELL, SOLID_LOW, SOLID_TERRAIN, createGrid, findPath, type Grid } from './grid'
 import { mulberry32, type Rng } from './rng'
 import { K_BLOCK, K_WATER } from './zoneFeatures'
@@ -282,8 +283,20 @@ const present = <T extends { needs?: string[]; not?: string[] }>(x: T, flags: Re
 /** The folk in town for this world state (a weak device keeps the `lite` ones). */
 export const townFolk = (def: TownDef, flags: ReadonlySet<string>): TownFolkDef[] => def.folk.filter(f => present(f, flags))
 
-/** Is the town a ruin in this world state? */
-export const townRuined = (def: TownDef, flags: ReadonlySet<string>): boolean => !!def.fallen && flags.has(def.fallen)
+/** Is the town a ruin in this world state (fallen, or overrun in the afterplay)? */
+export const townRuined = (def: TownDef, flags: ReadonlySet<string>): boolean => (!!def.fallen && flags.has(def.fallen)) || flags.has(overrunFlag(def.id))
+
+/** Who is left in an overrun town (the afterplay, docs/gdd-afterplay.md §7):
+ *  two survivors by a fire. Nobody trades, nobody teaches. */
+const OVERRUN_FOLK: readonly TownFolkDef[] = [
+  { id: 'survivorA', look: 'survivor', job: 'survivor', at: [0.54, 0.46], lite: true },
+  { id: 'survivorB', look: 'villagerF', job: 'survivor', at: [0.66, 0.46] }
+]
+
+/** The town as the world leaves it: an overrun one keeps its streets and
+ *  houses (the same plan, ruined), but its cast is gone. */
+export const townAsFound = (def: TownDef, flags: ReadonlySet<string>): TownDef =>
+  flags.has(overrunFlag(def.id)) ? { ...def, npcs: def.npcs.map(n => ({ ...n, needs: [overrunFlag('nobody')] })), folk: [...OVERRUN_FOLK] } : def
 
 /** A townsperson's routine, by what they do in the story. */
 export const jobOf = (n: NpcDef): TownJob => {
@@ -353,7 +366,8 @@ const storeysOf = (kind: HouseKind, style: TownStyle, row: number, rng: Rng): 1 
   return style === 'mercantile' || rng() < 0.45 ? 2 : 1
 }
 
-export const layTown = (def: TownDef, flags: ReadonlySet<string>, seed: number): TownLayout => {
+export const layTown = (given: TownDef, flags: ReadonlySet<string>, seed: number): TownLayout => {
+  const def = townAsFound(given, flags)
   const rng = mulberry32(seed)
   site = def.site
   G = townGeo(def.width ?? TOWN_W, site)

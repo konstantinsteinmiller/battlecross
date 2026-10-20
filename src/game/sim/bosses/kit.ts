@@ -1,7 +1,7 @@
 import { ENEMY_BY_ID } from '../../data/enemies'
-import { isSolidAt, nearestOpen } from '../grid'
+import { CELL, isSolidAt, isSolidCell, nearestOpen } from '../grid'
 import { applyStatus, dealDamage, removeStatus } from '../combat'
-import { cellIndex, face, setGoal, stop, walk } from '../actors'
+import { cellIndex, face, raiseWall, setGoal, stop, walk } from '../actors'
 import { hasStatus, newAction, type Sim } from '../world'
 import type { Action, BossState, Team, Telegraph, Unit } from '../types'
 
@@ -18,13 +18,16 @@ import type { Action, BossState, Team, Telegraph, Unit } from '../types'
  *   moves      a scripted wind-up (`move`): an action the script lands itself
  *   exit       leave the field by the way in, then be GONE (no body, no loot,
  *              not counted): a mount running off, a cameo leaving
+ *   props      the arena's own solid things (pillars, hay wagons, support
+ *              beams, islands, braziers, rune stones), raised round the boss's home for the fight: a run
+ *              that meets one is the script's to judge (`propAt`)
  */
 
 /** An action whose landing is the script's (`landScripted`), not the def's abilities. */
 export const SCRIPTED = -2
 
 export const newBossState = (script: string): BossState => ({
-  script, phase: 1, mode: '', modeT: 0, sub: '', goalX: 0, goalZ: 0, dx: 0, dz: 1, speed: 0, left: 0, alt: 0, carry: 0, next: 0, n: 0, marks: [], cd: {}
+  script, phase: 1, mode: '', modeT: 0, sub: '', goalX: 0, goalZ: 0, dx: 0, dz: 1, speed: 0, left: 0, alt: 0, carry: 0, next: 0, n: 0, marks: [], cd: {}, guard: 1
 })
 
 export const other = (u: Unit): Team => (u.team === 0 ? 1 : 0)
@@ -105,9 +108,12 @@ export interface ChargeOpts {
 const charges = new WeakMap<BossState, ChargeOpts>()
 
 /** Wind up a charge at `tgt`: the lane to the wall shows for `windup` seconds, then it runs (`land` → `runCharge`). */
-export const windCharge = (sim: Sim, u: Unit, tgt: Unit, windup: number, o: ChargeOpts): void => {
+export const windCharge = (sim: Sim, u: Unit, tgt: Unit, windup: number, o: ChargeOpts): void => windChargeAt(sim, u, tgt.x, tgt.z, windup, o, tgt)
+
+/** The same, at a spot (a blind boss charges at the last noise it heard). */
+export const windChargeAt = (sim: Sim, u: Unit, x: number, z: number, windup: number, o: ChargeOpts, tgt: Unit | null = null): void => {
   const b = u.boss!
-  const a = Math.atan2(tgt.x - u.x, tgt.z - u.z)
+  const a = Math.atan2(x - u.x, z - u.z)
   const dx = Math.sin(a)
   const dz = Math.cos(a)
   const len = laneLength(sim, u.x, u.z, dx, dz, o.max, u.r)
@@ -117,6 +123,7 @@ export const windCharge = (sim: Sim, u: Unit, tgt: Unit, windup: number, o: Char
   b.left = len < o.max - 0.4 ? len + 2 : len
   charges.set(b, o)
   move(sim, u, 'charge', windup, 0, tgt, u.x + dx * len, u.z + dz * len, 3)
+  if (!tgt) face(u, x, z)
   warn(sim, u, { shape: 'line', x: u.x, z: u.z, r: len + u.r, w: u.r * 0.9, a, dur: windup, wind: windup })
 }
 
@@ -224,6 +231,59 @@ const ram = (sim: Sim, u: Unit, o: ChargeOpts, carried: Unit | undefined): void 
   const d = o.wallDaze ? o.wallDaze(sim, u.x + b.dx * (u.r + 0.4), u.z + b.dz * (u.r + 0.4)) : o.daze
   if (d > 0) daze(sim, u, d)
   else u.aiT = 0.6
+}
+
+// ─── The arena's props ──────────────────────────────────────────────────────
+
+/** The props a script may raise (`WallRocks` draws each; the view raises them without a quake). */
+export const ARENA_PROPS: ReadonlySet<string> = new Set(['pillar', 'wagon', 'beam', 'isle', 'brazier', 'rune'])
+/** A prop stands the whole fight (until a run breaks it). */
+const PROP_DUR = 1e6
+
+/** Is the cell (i, j) open, with open ground all round it (a prop never closes a way)? */
+const openAround = (sim: Sim, i: number, j: number): boolean => {
+  for (let dj = -1; dj <= 1; dj++) for (let di = -1; di <= 1; di++) if (isSolidCell(sim.grid, i + di, j + dj)) return false
+  return true
+}
+
+/**
+ * Raise `n` props of kind `fx` round the boss's home, `rMin`-`rMax` metres
+ * out and spread evenly round it: one cell each, on open ground with open
+ * ground all round (the way through is never shut), clear of chests and of
+ * anyone standing there. Returns how many stood up.
+ */
+export const raiseProps = (sim: Sim, u: Unit, fx: string, n: number, rMin: number, rMax: number): number => {
+  const g = sim.grid
+  const a0 = sim.rng() * Math.PI * 2
+  let made = 0
+  for (let k = 0; k < n; k++) {
+    let done = false
+    for (let t = 0; t < 24 && !done; t++) {
+      const a = a0 + (k / n) * Math.PI * 2 + (t % 2 ? 1 : -1) * Math.ceil(t / 2) * 0.13
+      const r = rMin + ((t * 0.37 + k * 0.19) % 1) * (rMax - rMin)
+      const x = u.homeX + Math.sin(a) * r
+      const z = u.homeZ + Math.cos(a) * r
+      const i = Math.floor(x / CELL)
+      const j = Math.floor(z / CELL)
+      if (i < 1 || j < 1 || i >= g.w - 1 || j >= g.h - 1 || !openAround(sim, i, j)) continue
+      const cx = (i + 0.5) * CELL
+      const cz = (j + 0.5) * CELL
+      if (sim.chests.some(c => Math.hypot(c.x - cx, c.z - cz) < 3 || Math.hypot(c.sx - cx, c.sz - cz) < 2)) continue
+      if (sim.units.some(q => q.alive && Math.hypot(q.x - cx, q.z - cz) < CELL + q.r)) continue
+      raiseWall(sim, [j * g.w + i], PROP_DUR, fx)
+      made++
+      done = true
+    }
+  }
+  return made
+}
+
+/** The prop standing on the cell at (x, z), if any: its kind, or ''. */
+export const propAt = (sim: Sim, x: number, z: number): string => {
+  const k = cellIndex(sim, x, z)
+  if (k < 0) return ''
+  for (const w of sim.walls) if (w.cells.includes(k)) return w.fx
+  return ''
 }
 
 // ─── Leaving the field ──────────────────────────────────────────────────────

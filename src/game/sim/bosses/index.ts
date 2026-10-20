@@ -6,6 +6,13 @@ import { TUSKER_SCRIPTS } from './tusker'
 import { SKYFIRE_SCRIPTS } from './skyfire'
 import { HELLGATE_SCRIPTS } from './hellgate'
 import { SHATTERLAKE_SCRIPTS } from './shatterlake'
+import { CHIMERA_SCRIPTS } from './chimera'
+import { CENTAUR_SCRIPTS } from './centaur'
+import { CYCLOPS_SCRIPTS } from './cyclops'
+import { SPHINX_SCRIPTS } from './sphinx'
+import { LEVIATHAN_SCRIPTS } from './leviathan'
+import { HYDRA_SCRIPTS } from './hydra'
+import { ELDER_DRAGON_SCRIPTS } from './elderDragon'
 
 /**
  * ─── Scripted bosses (#74) ───────────────────────────────────────────────────
@@ -28,6 +35,33 @@ import { SHATTERLAKE_SCRIPTS } from './shatterlake'
  *   shatterlake  the Frost Jarl (Frostpeak Tundra): hammerfall raises ice
  *                spikes, a shoulder charge that shatters on them (dazed); at
  *                half the ice breaks and a glacier grinds across, one gap in it
+ *
+ * The Breaking's bosses (afterplay §5, phase 5), each teaching one thing:
+ *
+ *   chimera      the Chimera (Wildwood): three heads, each glowing its colour
+ *                before its move; at 60 % two glow at once (read the safe
+ *                side); at 30 % the serpent tail is cut off and fights alone
+ *   centaur      the Centaur Warchief (Outskirts): keeps its distance and
+ *                shoots, tramples whoever closes in; raiders and spears at
+ *                60 %; at 30 % it rears before each charge — lure it into a
+ *                hay wagon
+ *   cyclops      the Cyclops (Mines): armoured but for its eye, which only a
+ *                missed boulder or a beam it slams into opens; at 60 % it
+ *                covers it; at 30 % blind, it goes for the last noise
+ *
+ * And the last four (afterplay §5.4-5.7, phase 7):
+ *
+ *   sphinx       the Sphinx (Temple): claws and sand; at 60 % and 30 % she flies
+ *                up and asks a riddle of coloured plates, stepped in order
+ *   leviathan    the Leviathan (Citadel): a flooded hall with six islands; it
+ *                surfaces to bite, a tidal wave to shelter from; islands sink
+ *                at 60 %, it grabs at 30 %
+ *   hydra        the Hydra (Fortress): every blow lands on a head; a cut stump
+ *                grows two unless fire sears it (braziers for every build);
+ *                no heads, and the body is open
+ *   elderDragon  the Elder Dragon (Rift, the final fight): breath, tail, gust;
+ *                at 70 % in the air behind rune stones; a void ring at 40 %;
+ *                at 15 % the rift holds it 30 s, or it heals to 30 %
  */
 
 export interface BossScript {
@@ -43,13 +77,38 @@ export interface BossScript {
   tick?(sim: Sim, u: Unit, dt: number): void
   /** In the air: the script flies it (true while it holds the turn). */
   air?(sim: Sim, u: Unit, dt: number, tgt: Unit | null): boolean
+  /** Once, on its first step (asleep or not): its arena's props (`raiseProps`). */
+  arena?(sim: Sim, u: Unit): void
+  /**
+   * What a competent player does about the fight's puzzle right now (the
+   * reference bot reads it): walk to a spot (a riddle's plate, cover from a
+   * wave), or hit a unit that is not the boss. Null: just fight.
+   */
+  botGoal?(sim: Sim, u: Unit): BotGoal | null
 }
+
+/** A spot to stand on, or a unit to strike (`attack`, its id). */
+export interface BotGoal { x: number; z: number; attack?: number }
 
 export const BOSS_SCRIPTS: Record<string, BossScript> = {
   ...TUSKER_SCRIPTS,
   ...SKYFIRE_SCRIPTS,
   ...HELLGATE_SCRIPTS,
-  ...SHATTERLAKE_SCRIPTS
+  ...SHATTERLAKE_SCRIPTS,
+  ...CHIMERA_SCRIPTS,
+  ...CENTAUR_SCRIPTS,
+  ...CYCLOPS_SCRIPTS,
+  ...SPHINX_SCRIPTS,
+  ...LEVIATHAN_SCRIPTS,
+  ...HYDRA_SCRIPTS,
+  ...ELDER_DRAGON_SCRIPTS
+}
+
+/** Its arena, once: what stands in it is up before the hero comes in sight. */
+export const setArena = (sim: Sim, u: Unit): void => {
+  const b = u.boss!
+  b.marks.push('arena')
+  BOSS_SCRIPTS[b.script]?.arena?.(sim, u)
 }
 
 export { SCRIPTED }

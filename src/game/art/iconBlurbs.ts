@@ -139,7 +139,11 @@ export const CLASS_EMBLEM_BLURBS: Readonly<Record<ClassId, string>> = {
   elementalist: 'a crest: four small orbs in a ring, red, blue, yellow and brown, round a magenta star',
   soulwarden: 'a crest: a friendly glowing periwinkle wisp with two dot eyes rising from an open lantern',
   ironmonk: 'a crest: a jade-green closed fist seen from the front, with a short motion arc above it',
-  bard: 'a crest: a pink lute seen from the front, with two small music notes floating above it'
+  bard: 'a crest: a pink lute seen from the front, with two small music notes floating above it',
+  demonhunter: 'a crest: a silver crossbow bolt pointing down through a small pale lilac horned mask, with a tiny gold sun behind it',
+  dragoon: 'a crest: a sky blue spear pointing down out of a pair of spread leathery wings, with a short gold impact burst at its tip',
+  hexsmith: 'a crest: a squat rust-red iron turret on three legs with a single red drop of liquid on its front and a small gold rune above it',
+  tidecaller: 'a crest: one big curling sea teal wave breaking to the right, with a small white snowflake in its curl'
 }
 
 /** The empty-slot markers of the equipment doll: a slot's shape, in pale stone. */

@@ -384,3 +384,50 @@ describe('a conversation is not gameplay', () => {
     expect(isGameplayLive({ ...base, flowModal: f.flow.modal !== '' || f.flow.talk !== '' })).toBe(false)
   })
 })
+
+describe('the Breaking (the afterplay, B0–B5)', () => {
+  it('the map tells the rift (B0), then Scout Wren (B1), once each, and the fort opens on the map', () => {
+    p.profile.world.cleared.push('rift')
+    p.openAfterplay()
+    f.openMap()
+    expect(f.flow.talk).toBe('map')
+    expect(k.talk.stage).toBe('portrait')
+    expect(k.talk.title).toBe('breaking.title')
+    expect(hear()).toEqual(['dlg.story.rift.scream.1', 'dlg.story.rift.scream.2', 'dlg.story.rift.scream.3'])
+    expect(k.talkPick('end')).toBe(true)
+    // The hero takes his leave, and the scout follows at once.
+    expect(hear()).toEqual(['dlg.hero.bye', 'dlg.story.wren.found.1', 'dlg.story.wren.found.2', 'dlg.story.wren.found.3'])
+    expect(f.flow.talk).toBe('map')
+    expect(k.talkPick('end')).toBe(true)
+    hear()
+    expect(f.flow.talk).toBe('')
+    expect(p.isNodeReachable('bastion')).toBe(true)
+    expect(p.profile.world.flags).toEqual(expect.arrayContaining(['brk0', 'brk1']))
+    // Told once.
+    f.openMap()
+    expect(f.flow.talk).toBe('')
+  })
+
+  it('a zone won in the afterplay purges its road and rescues Sunford\'s people to the fort', async () => {
+    p.profile.world.cleared.push('rift')
+    p.openAfterplay()
+    p.profile.world.flags.push('brk0', 'brk1', 'brk2')
+    await f.bankVisit('victory', 'plains', tally)
+    expect(p.profile.world.flags).toEqual(expect.arrayContaining(['purgedPlains', 'rescuedAegis', 'rescuedTraders']))
+    await f.bankVisit('victory', 'hollows', tally)
+    expect(p.profile.world.flags).toContain('brk3')
+  })
+
+  it('at the fort the rescued smith sells the fort\'s tiers; in a rebuilt Sunford one tier up', () => {
+    p.profile.world.afterplay = true
+    p.profile.world.flags.push('rescuedTraders', 'purgedPlains', 'purgedHollows')
+    f.flow.node = 'bastion'
+    f.talkTo('sunfordSmith')
+    expect(f.flow.npc?.stock?.tiers).toEqual([4, 5])
+    k.abortTalk()
+    f.flow.talk = ''
+    f.flow.node = 'sunford'
+    f.talkTo('sunfordSmith')
+    expect(f.flow.npc?.stock?.tiers).toEqual([2])
+  })
+})

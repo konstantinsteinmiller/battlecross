@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest'
+import { RESCUES } from '@/game/data/breaking'
 // The town's simulation is a lazy chunk in the game (roadmap #142).
 import '../stubs/lazyCode'
 import { fillGrid, type ZonePlan } from '@/game/sim/zoneGen'
@@ -21,7 +22,11 @@ import { referenceBuild } from '@/game/sim/bot'
  */
 
 const TOWN_IDS = Object.keys(TOWNS) as TownId[]
-const flagSets: string[][] = [[], ...QUESTS.flatMap(q => q.choices.map(c => c.flags)), ['oakhavenFallen', 'goblinPact', 'coreCircle']]
+const RESCUED = Object.values(RESCUES).flat() as string[]
+const flagSets: string[][] = [[], ...QUESTS.flatMap(q => q.choices.map(c => c.flags)), ['oakhavenFallen', 'goblinPact', 'coreCircle'],
+  // The afterplay (the Breaking): the fallen towns overrun, then rebuilt; the fort full.
+  ['sunfordOverrun', 'oakhavenOverrun', 'ironholdOverrun'], ['sunfordRebuilt', 'oakhavenRebuilt', 'ironholdRebuilt', ...RESCUED],
+  ['oakhavenFallen', 'oakhavenOverrun', ...RESCUED]]
 const SEEDS = [7, 1, 2, 3, 99, 4242]
 
 const gridOf = (plan: ZonePlan): Grid => fillGrid(createGrid(plan.w, plan.h), plan)

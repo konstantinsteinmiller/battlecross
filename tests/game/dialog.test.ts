@@ -11,6 +11,7 @@ import type { Cond, ConversationDef, DialogHost, DialogWorld, Offer, TalkWindow 
 import { CONVERSATIONS, SPOKEN, conversationOf, decisionOf } from '@/game/data/dialogs'
 import { MANA_OFFER } from '@/game/data/dialogs/shared'
 import { QUESTS, QUEST_BY_ID, choiceOpen } from '@/game/data/quests'
+import { STORY_QUESTS } from '@/game/data/breaking'
 import { MAP, TOWNS } from '@/game/data/zones'
 import { startAttrs, type AttrBlock } from '@/game/data/attributes'
 
@@ -42,7 +43,8 @@ const fake = (over: Partial<Fake['w']> = {}): Fake => {
     give: (gold, item) => { w.gold += gold; log.push(item ? `item:${item}` : `gold:${gold}`) },
     hint: (q) => { log.push(`hint:${q}`) },
     decide: (q, c) => {
-      const def = QUEST_BY_ID[q]?.choices.find(x => x.id === c)
+      // The six quests, or the story's own decision (B10), as the game's host reads them.
+      const def = (QUEST_BY_ID[q] ?? STORY_QUESTS[q])?.choices.find(x => x.id === c)
       if (!def || w.quests[q] || !choiceOpen(def, { level: w.level, attrs: w.attrs, flags: w.flags, rep: w.rep })) return false
       w.quests[q] = c
       for (const f of def.flags) w.flags.add(f)

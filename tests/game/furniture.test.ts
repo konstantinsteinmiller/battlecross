@@ -1,5 +1,6 @@
 // @vitest-environment jsdom
 import { describe, expect, it } from 'vitest'
+import { RESCUES } from '@/game/data/breaking'
 // The town's simulation is a lazy chunk in the game (roadmap #142).
 import '../stubs/lazyCode'
 import { buildHouse, roomPropsOf } from '@/game/gfx/houses'
@@ -75,7 +76,9 @@ describe('furniture', () => {
 
   for (const town of TOWN_IDS) {
     it(`${town}: the hero walks to everyone indoors round the furniture, never through it`, () => {
-      const plan = generateTown(TOWNS[town], new Set(), 7)
+      // The afterplay's fort is empty until its people are rescued: test it full.
+      const flags = town === 'bastion' ? new Set<string>(Object.values(RESCUES).flat()) : new Set<string>()
+      const plan = generateTown(TOWNS[town], flags, 7)
       const sim = new Sim({ seed: 7, w: plan.w, h: plan.h, level: 1, difficulty: 1, mode: 'town', zone: town })
       applyPlan(sim, plan)
       createHero(sim, { build: referenceBuild({ cls: 'aegis', level: 1 }).build, skills: [], x: plan.start.x, z: plan.start.z, xpInto: 0, potions: 0 })
