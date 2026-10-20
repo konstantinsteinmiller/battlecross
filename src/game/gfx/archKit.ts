@@ -1,4 +1,5 @@
 import { BufferGeometry, Color, Float32BufferAttribute, Matrix3, Matrix4, Uint32BufferAttribute, Vector3 } from 'three'
+import { partTrace, type TracedBox, type TracedPart } from './kit'
 
 /**
  * ─── A mesher for buildings ──────────────────────────────────────────────────
@@ -40,12 +41,24 @@ const _a = new Vector3()
 const _b = new Vector3()
 const _d = new Vector3()
 
+/** A box a mesher made (`Mesher.trace`): vertices v0..v1, its extent in its own frame and the inverse of that frame. */
+export interface MesherBox {
+  v0: number; v1: number; inv: Matrix4; lo: [number, number, number]; hi: [number, number, number]
+  /** A rounded kit box's squareness (`kit.rbox`); none: a hard box. */
+  e?: number
+}
+
 export class Mesher {
   /** Tests: record which builder made each vertex (`labels`), for the z-fight audit. Off in the game. */
   static trace = false
   labels: string[] = []
   /** Tests: the label the vertices being made now carry (set once per primitive). */
   tag = ''
+  /** Tests (`trace`, `partTrace`): every box made, as its run of vertices and its frame, for the poke-through audit. */
+  boxes: MesherBox[] = []
+  /** Tests (`partTrace`): where each primitive's vertices start, and the builder that made it. */
+  starts: Array<{ v: number; label: string }> = []
+  private depth = 0
   pos: number[] = []
   nor: number[] = []
   col: number[] = []
@@ -101,6 +114,7 @@ export class Mesher {
    * one per corner (a gradient across the face).
    */
   quad(ax: number, ay: number, az: number, bx: number, by: number, bz: number, cx: number, cy: number, cz: number, dx: number, dy: number, dz: number, c: Col | [Col, Col, Col, Col]): this {
+    this.open()
     _a.set(bx - ax, by - ay, bz - az)
     _b.set(dx - ax, dy - ay, dz - az)
     _d.crossVectors(_a, _b).normalize()
@@ -111,10 +125,11 @@ export class Mesher {
     this.vert(cx, cy, cz, _d.x, _d.y, _d.z, cs ? cs[2]! : one!)
     this.vert(dx, dy, dz, _d.x, _d.y, _d.z, cs ? cs[3]! : one!)
     this.idx.push(i0, i0 + 1, i0 + 2, i0, i0 + 2, i0 + 3)
-    return this
+    return this.close()
   }
 
   tri(ax: number, ay: number, az: number, bx: number, by: number, bz: number, cx: number, cy: number, cz: number, c: Col): this {
+    this.open()
     _a.set(bx - ax, by - ay, bz - az)
     _b.set(cx - ax, cy - ay, cz - az)
     _d.crossVectors(_a, _b).normalize()
@@ -123,7 +138,7 @@ export class Mesher {
     this.vert(bx, by, bz, _d.x, _d.y, _d.z, k)
     this.vert(cx, cy, cz, _d.x, _d.y, _d.z, k)
     this.idx.push(i0, i0 + 1, i0 + 2)
-    return this
+    return this.close()
   }
 
   /**
@@ -132,12 +147,14 @@ export class Mesher {
    * Faces in `skip` ('t','b','n','s','e','w') are left out.
    */
   box(x0: number, y0: number, z0: number, x1: number, y1: number, z1: number, c: Col | { top?: Col; side?: Col; front?: Col; back?: Col; east?: Col; west?: Col; bottom?: Col }, skip = 'b', foot?: Col): this {
+    this.open()
     const f = (k: 'top' | 'front' | 'back' | 'east' | 'west' | 'bottom'): Col => {
       if (typeof c === 'string' || c instanceof Color) return c
       return (c as Record<string, Col | undefined>)[k] ?? c.side ?? c.top ?? '#ff00ff'
     }
     const g = (top: Col): Col | [Col, Col, Col, Col] => (foot ? [foot, foot, top, top] : top)
     this.solid(x0, y0, z0, x1, y1, z1)
+    const v0 = this.vertexCount
     if (!skip.includes('t')) this.quad(x0, y1, z1, x1, y1, z1, x1, y1, z0, x0, y1, z0, f('top'))
     if (!skip.includes('b')) this.quad(x0, y0, z0, x1, y0, z0, x1, y0, z1, x0, y0, z1, f('bottom'))
     // South (+Z), north (−Z), east (+X), west (−X).
@@ -145,7 +162,8 @@ export class Mesher {
     if (!skip.includes('n')) this.quad(x1, y0, z0, x0, y0, z0, x0, y1, z0, x1, y1, z0, g(f('back')))
     if (!skip.includes('e')) this.quad(x1, y0, z1, x1, y0, z0, x1, y1, z0, x1, y1, z1, g(f('east')))
     if (!skip.includes('w')) this.quad(x0, y0, z0, x0, y0, z1, x0, y1, z1, x0, y1, z0, g(f('west')))
-    return this
+    this.traceBox(v0, x0, y0, z0, x1, y1, z1)
+    return this.close()
   }
 
   /** Remember a box's volume (for `welded`). */
@@ -158,6 +176,22 @@ export class Mesher {
       whi.max(_v)
     }
     this.solids.push({ inv: this.m.clone().invert(), lo: [Math.min(x0, x1), Math.min(y0, y1), Math.min(z0, z1)], hi: [Math.max(x0, x1), Math.max(y0, y1), Math.max(z0, z1)], wlo, whi })
+  }
+
+  /** A primitive begins (`partTrace`: one part per outermost primitive). */
+  private open(): void {
+    if (this.depth++ === 0 && partTrace.on) this.starts.push({ v: this.vertexCount, label: this.tag || caller() })
+  }
+
+  private close(): this {
+    this.depth--
+    return this
+  }
+
+  /** Remember the box just made, by its vertices (`trace`). */
+  private traceBox(v0: number, x0: number, y0: number, z0: number, x1: number, y1: number, z1: number): void {
+    if (!(Mesher.trace || partTrace.on) || this.vertexCount === v0) return
+    this.boxes.push({ v0, v1: this.vertexCount, inv: this.m.clone().invert(), lo: [Math.min(x0, x1), Math.min(y0, y1), Math.min(z0, z1)], hi: [Math.max(x0, x1), Math.max(y0, y1), Math.max(z0, z1)] })
   }
 
   /** Is this world point inside one of the boxes (not on its skin)? */
@@ -183,12 +217,14 @@ export class Mesher {
    * the edge catches the light in the cel shading).
    */
   rbox(x0: number, y0: number, z0: number, x1: number, y1: number, z1: number, b: number, c: Col | { top?: Col; side?: Col; edge?: Col }): this {
+    this.open()
     const one = typeof c === 'string' || c instanceof Color
     const top = one ? c : (c.top ?? c.side ?? '#ffffff')
     const side = one ? c : (c.side ?? c.top ?? '#ffffff')
     const edge = one ? shade(c, 1.1) : (c.edge ?? shade(top, 1.1))
     b = Math.max(0.001, Math.min(b, (x1 - x0) / 2 - 0.001, (z1 - z0) / 2 - 0.001, (y1 - y0) - 0.001))
     const cx = (x0 + x1) / 2, cy = (y0 + y1) / 2, cz = (z0 + z1) / 2
+    const v0 = this.vertexCount
     // Every face turned away from the box's centre (a convex shape).
     const out = (p: number[][], col: Col): void => {
       const [a, q, r2] = [p[0]!, p[1]!, p[p.length - 1]!]
@@ -218,7 +254,8 @@ export class Mesher {
       out([[sx - dx * b, y0, sz], [sx, y0, sz - dz * b], [sx, ya, sz - dz * b], [sx - dx * b, ya, sz]], side)
       out([[sx - dx * b, ya, sz], [sx, ya, sz - dz * b], [sx - dx * b, y1, sz - dz * b]], edge)
     }
-    return this
+    this.traceBox(v0, x0, y0, z0, x1, y1, z1)
+    return this.close()
   }
 
   /** A beam from point A to point B with a square section `s` (timber, rails, posts). */
@@ -226,6 +263,7 @@ export class Mesher {
     _a.set(bx - ax, by - ay, bz - az)
     const len = _a.length()
     if (len < 1e-4) return this
+    this.open()
     _a.normalize()
     // A frame along the beam: x across, y up-ish, z along.
     const up = Math.abs(_a.y) > 0.95 ? _b.set(1, 0, 0) : _b.set(0, 1, 0)
@@ -235,7 +273,7 @@ export class Mesher {
     this.pushMatrix(t4)
     this.box(-s / 2, -t / 2, 0, s / 2, t / 2, len, c, '')
     this.pop()
-    return this
+    return this.close()
   }
 
   /**
@@ -243,6 +281,7 @@ export class Mesher {
    * along Z from z0 to z1. Gables, roof slabs, steps, signs.
    */
   prism(pts: Array<[number, number]>, z0: number, z1: number, c: Col, side?: Col, caps = true): this {
+    this.open()
     const n = pts.length
     if (caps) {
       for (let k = 1; k < n - 1; k++) {
@@ -256,11 +295,12 @@ export class Mesher {
       const b = pts[(k + 1) % n]!
       this.quad(a[0], a[1], z0, b[0], b[1], z0, b[0], b[1], z1, a[0], a[1], z1, sc)
     }
-    return this
+    return this.close()
   }
 
   /** A cylinder along Y, flat-shaded sides (posts, barrels' staves, a well's ring). */
   cyl(x: number, y0: number, z: number, r0: number, r1: number, h: number, segs: number, c: Col, top?: Col, smooth = false): this {
+    this.open()
     const k = typeof c === 'string' ? lc(c) : c
     for (let s = 0; s < segs; s++) {
       const a0 = (s / segs) * Math.PI * 2
@@ -279,22 +319,24 @@ export class Mesher {
       }
       if (top) this.tri(x, y0 + h, z, x + Math.sin(a0) * r1, y0 + h, z + Math.cos(a0) * r1, x + Math.sin(a1) * r1, y0 + h, z + Math.cos(a1) * r1, top)
     }
-    return this
+    return this.close()
   }
 
   /** A flat disc at height y (`down`: facing down, the open bottom end of a cylinder). */
   disc(x: number, y: number, z: number, r: number, segs: number, c: Col, down = false): this {
+    this.open()
     for (let s = 0; s < segs; s++) {
       const a0 = (s / segs) * Math.PI * 2
       const a1 = ((s + 1) / segs) * Math.PI * 2
       if (down) this.tri(x, y, z, x + Math.sin(a1) * r, y, z + Math.cos(a1) * r, x + Math.sin(a0) * r, y, z + Math.cos(a0) * r, c)
       else this.tri(x, y, z, x + Math.sin(a0) * r, y, z + Math.cos(a0) * r, x + Math.sin(a1) * r, y, z + Math.cos(a1) * r, c)
     }
-    return this
+    return this.close()
   }
 
   /** A low-poly ball (bushes, lamps, flowers, fruit), smooth normals. */
   ball(x: number, y: number, z: number, r: number, c: Col, ws = 6, hs = 4, sy = 1): this {
+    this.open()
     const k = typeof c === 'string' ? lc(c) : c
     const base = this.pos.length / 3
     for (let j = 0; j <= hs; j++) {
@@ -316,7 +358,7 @@ export class Mesher {
         if (j < hs - 1) this.idx.push(a + 1, b, b + 1)
       }
     }
-    return this
+    return this.close()
   }
 
   /** Append another mesher's triangles (already in world space). */
@@ -325,16 +367,29 @@ export class Mesher {
     // (A loop, not a spread: a town's worth of numbers overflows an argument list.)
     for (let i = 0; i < o.pos.length; i++) { this.pos.push(o.pos[i]!); this.nor.push(o.nor[i]!); this.col.push(o.col[i]!) }
     if (Mesher.trace) for (const l of o.labels) this.labels.push(l)
+    for (const b of o.boxes) this.boxes.push({ ...b, v0: b.v0 + base, v1: b.v1 + base })
+    for (const p of o.starts) this.starts.push({ ...p, v: p.v + base })
     for (const i of o.idx) this.idx.push(i + base)
     return this
   }
 
   /** Append a kit geometry (indexed, with colours), placed by the current transform. */
   geo(g: BufferGeometry): this {
+    this.open()
     const p = g.attributes.position!
     const n = g.attributes.normal!
     const c = g.attributes.color
     const base = this.pos.length / 3
+    if (Mesher.trace || partTrace.on) {
+      // The kit's rounded boxes in it (`partTrace`), placed by the current transform.
+      const parts: TracedPart[] = (g.userData.parts as TracedPart[] | undefined) ?? (g.userData.box ? [{ start: 0, count: p.count, label: '', box: g.userData.box as TracedBox, frame: g.userData.frame as number[] | undefined }] : [])
+      for (const q of parts) {
+        if (!q.box) continue
+        const fr = q.frame ? new Matrix4().fromArray(q.frame) : new Matrix4()
+        const b = q.box
+        this.boxes.push({ v0: base + q.start, v1: base + q.start + q.count, inv: this.m.clone().multiply(fr).invert(), lo: [-b.hx, -b.hy, -b.hz], hi: [b.hx, b.hy, b.hz], e: b.e })
+      }
+    }
     for (let i = 0; i < p.count; i++) {
       _c.setRGB(c ? c.getX(i) : 1, c ? c.getY(i) : 1, c ? c.getZ(i) : 1)
       this.vert(p.getX(i), p.getY(i), p.getZ(i), n.getX(i), n.getY(i), n.getZ(i), _c)
@@ -343,7 +398,7 @@ export class Mesher {
     if (ix) for (let i = 0; i < ix.count; i++) this.idx.push(ix.getX(i) + base)
     else for (let i = 0; i < p.count; i++) this.idx.push(base + i)
     g.dispose()
-    return this
+    return this.close()
   }
 
   get empty(): boolean {

@@ -49,6 +49,41 @@ const PROP_TILE = 30
 const P = (g: BufferGeometry, hex: string, p?: [number, number, number], r?: [number, number, number], s?: number | [number, number, number]): BufferGeometry =>
   xform(paint(g, hex), p, r, s ?? 1)
 
+// ─── The hint stone's body ───────────────────────────────────────────────────
+/** How far the slab leans back (rad about x), how high its foot sits, how far forward of the cell centre. */
+export const HINT_TILT = -0.66
+export const HINT_LIFT = 0.2
+export const HINT_FRONT = 0.12
+/** The slab, in its own frame before the lean: width by 1.3 tall by 0.2 thick, foot at y −0.05. */
+export const HINT_SLAB = { h: 1.3, t: 0.2, y: 0.6 }
+export const hintWidth = (n: number): number => 0.74 * n + 0.4
+
+/**
+ * The stone's rock and slab, at ground 0. The heap it leans on sits wholly
+ * BEHIND the leaning slab's back face (`hintStone.test.ts` checks every vertex:
+ * squeezing it into its cells once pushed it out through the carved face); the
+ * stones at its feet only touch the slab's bottom edge.
+ */
+export const hintStoneParts = (x: number, z: number, n: number): { rocks: BufferGeometry[]; slab: BufferGeometry; frame: BufferGeometry } => {
+  const wide = hintWidth(n)
+  const rocks = [
+    // The heap: low, long and set back under the lean.
+    P(rock(0.7, 23, 9, 7), '#7c7a84', [x, 0.12, z - 0.6], [0, 0, 0], [2.6, 0.75, 0.42]),
+    ...[-1, 1].map(sx => P(rock(0.34, 29 + sx, 8, 6), '#6e6c78', [x + sx * 1.55, 0.06, z + 0.3], [0, 0.3 * sx, 0], [1.4, 0.35, 1])),
+    P(rock(0.3, 5, 8, 6), '#8a8892', [x - wide / 2 - 0.05, 0.14, z + 0.2]),
+    P(rock(0.26, 9, 8, 6), '#6e6c78', [x + wide / 2 + 0.05, 0.12, z + 0.22]),
+    // A low stone at its foot, out to the edge of what stops a body (`ROUND_R`).
+    P(rock(0.34, 17, 8, 6), '#7c7a84', [x, 0.03, z + 0.5], [0, 0.2, 0], [1.6, 0.25, 0.7])
+  ]
+  const slab = P(rbox(wide, HINT_SLAB.h, HINT_SLAB.t, 0.22, 10, 8), '#a6a4b0', [0, HINT_SLAB.y, 0])
+  xform(slab, [0, 0, 0], [HINT_TILT, 0, 0])
+  xform(slab, [x, HINT_LIFT, z + HINT_FRONT])
+  const frame = P(rbox(wide + 0.14, 0.14, 0.24, 0.4, 8, 6), '#6e6c78', [0, 1.28, 0])
+  xform(frame, [0, 0, 0], [HINT_TILT, 0, 0])
+  xform(frame, [x, HINT_LIFT, z + HINT_FRONT])
+  return { rocks, slab, frame }
+}
+
 // ─── The water's surface ─────────────────────────────────────────────────────
 //
 // A flat sheet over every wet cell and one cell past it (it runs under the
@@ -877,9 +912,14 @@ export class LevelProps {
       )
       eyes.push(P(sph(0.03, 5, 4), '#ff3a2a', [-0.08, 2.3, 0.25]), P(sph(0.03, 5, 4), '#ff3a2a', [0.08, 2.3, 0.25]))
     } else {
-      // A lantern hung from the post: a way that is worth the walk.
-      parts.push(P(rbox(0.16, 0.22, 0.16, 0.3, 6, 6), '#3a2a1e', [0, 1.95, -0.12]))
-      eyes.push(P(sph(0.06, 6, 5), '#ffd27a', [0, 1.95, -0.12]))
+      // A lantern hung from the post on an arm: a way that is worth the walk.
+      // A cap and a foot with the light between (a closed box hid it).
+      parts.push(
+        P(rbox(0.04, 0.04, 0.2, 0.3, 4, 4), '#3a2a1e', [0, 2.07, -0.15]),
+        P(rbox(0.16, 0.05, 0.16, 0.3, 6, 4), '#3a2a1e', [0, 2.035, -0.22]),
+        P(rbox(0.14, 0.04, 0.14, 0.3, 6, 4), '#3a2a1e', [0, 1.865, -0.22])
+      )
+      eyes.push(P(sph(0.065, 6, 5), '#ffd27a', [0, 1.95, -0.22]))
     }
     for (const g of parts) lit.push(xform(g, [x, 0, z], [0, a, 0]))
     for (const g of eyes) glow.push(xform(g, [x, 0, z], [0, a, 0]))
@@ -893,25 +933,11 @@ export class LevelProps {
     const STEP = 0.74
     const wide = STEP * n + 0.4
     const { x, z } = pz.hint
-    const tilt = -0.66
-    // The slab leans on a heap of rock behind it, the width of the three cells
-    // it stands on (`hintCells`) and inside their row; a stone props each foot,
-    // and a low one lies at the front of each outer cell.
-    lit.push(P(rock(0.7, 23, 9, 7), '#7c7a84', [x, 0.3, z - 0.28], [0, 0, 0], [3.0, 1.1, 0.65]))
-    for (const sx of [-1, 1]) lit.push(P(rock(0.34, 29 + sx, 8, 6), '#6e6c78', [x + sx * 1.55, 0.06, z + 0.3], [0, 0.3 * sx, 0], [1.4, 0.35, 1]))
-    lit.push(P(rock(0.3, 5, 8, 6), '#8a8892', [x - wide / 2 - 0.05, 0.14, z + 0.2]))
-    lit.push(P(rock(0.26, 9, 8, 6), '#6e6c78', [x + wide / 2 + 0.05, 0.12, z + 0.22]))
-    // A low stone at its foot, out to the edge of what stops a body (`ROUND_R`).
-    lit.push(P(rock(0.34, 17, 8, 6), '#7c7a84', [x, 0.05, z + 0.42], [0, 0.2, 0], [1.6, 0.3, 0.8]))
-    const slab = P(rbox(wide, 1.3, 0.2, 0.22, 10, 8), '#a6a4b0', [0, 0.6, 0])
-    xform(slab, [0, 0, 0], [tilt, 0, 0])
-    lit.push(xform(slab, [x, 0.2, z + 0.12]))
-    const frame = P(rbox(wide + 0.14, 0.14, 0.24, 0.4, 8, 6), '#6e6c78', [0, 1.28, 0])
-    xform(frame, [0, 0, 0], [tilt, 0, 0])
-    lit.push(xform(frame, [x, 0.2, z + 0.12]))
+    const parts = hintStoneParts(x, z, n)
+    lit.push(...parts.rocks, parts.slab, parts.frame)
     const face = new Group()
-    face.position.set(x, 0.2 + groundAt(x, z), z + 0.12)
-    face.rotation.x = tilt
+    face.position.set(x, HINT_LIFT + groundAt(x, z), z + HINT_FRONT)
+    face.rotation.x = HINT_TILT
     for (let q = 0; q < n; q++) {
       const plate = plan.plates.find(p => p.id === pz.order[q])
       if (!plate) continue

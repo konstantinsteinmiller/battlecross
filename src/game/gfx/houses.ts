@@ -1,4 +1,4 @@
-import { Float32BufferAttribute, Matrix4, SphereGeometry } from 'three'
+import { Float32BufferAttribute, Matrix4, SphereGeometry, Vector3 } from 'three'
 import type { ClassId } from '../data/skills'
 import { CLASSES } from '../data/skills'
 import type { TownJob, TownStyle } from '../data/zones'
@@ -478,14 +478,27 @@ const chimney = (cut: Kit, x: number, z: number, y0: number, y1: number, stone: 
   const w = 0.5
   cut.hull.box(x - w / 2, y0, z - w / 2, x + w / 2, y1, z + w / 2, { front: stone, side: shade(stone, 0.9), top: '#2a2224' }, 'b')
   // Brick courses and a cap.
-  for (let yy = y0 + 0.3; yy < y1 - 0.2; yy += 0.36) cut.detail.box(x - w / 2 - 0.02, yy, z - w / 2 - 0.02, x + w / 2 + 0.02, yy + 0.06, z + w / 2 + 0.02, shade(stone, 0.8), 'b')
+  // (From above the eaves: the first course below them lay inside the storey, never seen.)
+  for (let yy = y0 + 0.66; yy < y1 - 0.2; yy += 0.36) cut.detail.box(x - w / 2 - 0.02, yy, z - w / 2 - 0.02, x + w / 2 + 0.02, yy + 0.06, z + w / 2 + 0.02, shade(stone, 0.8), 'b')
   cut.hull.box(x - w / 2 - 0.08, y1, z - w / 2 - 0.08, x + w / 2 + 0.08, y1 + 0.12, z + w / 2 + 0.08, { top: '#3a3034', side: shade(stone, 0.75) }, 'b')
   return [x, y1 + 0.15, z]
 }
 
 // ─── Signs ───────────────────────────────────────────────────────────────────
 
-/** What a sign shows, drawn flat on its board (local: board face at z = 0, centre 0,0). */
+/** A ball pressed flat to depth `k` of its radius (an emblem's dome: a whole ball came out through the back of the board). */
+const flatBall = (d: Mesher, x: number, y: number, z: number, r: number, k: number, c: Col, ws: number, hs: number, sy = 1): void => {
+  d.pushMatrix(new Matrix4().makeTranslation(x, y, z).scale(_k.set(1, 1, k)))
+  d.ball(0, 0, 0, r, c, ws, hs, sy)
+  d.pop()
+}
+const _k = new Vector3()
+
+/**
+ * What a sign shows, drawn flat on its board (local: board face at z = 0,
+ * centre 0,0). Nothing reaches more than 3 cm behind the face: the board is
+ * 5.5 cm deep, and what went deeper showed through its back.
+ */
 const emblem = (d: Mesher, kind: string, cls?: ClassId): void => {
   switch (kind) {
     case 'smith':
@@ -497,9 +510,9 @@ const emblem = (d: Mesher, kind: string, cls?: ClassId): void => {
       break
     case 'armor':
       // A helmet.
-      d.ball(0, 0.0, 0.02, 0.13, '#b9c4d6', 7, 4, 0.9)
+      flatBall(d, 0, 0.0, 0.02, 0.13, 0.38, '#b9c4d6', 7, 4, 0.9)
       d.box(-0.13, -0.1, 0.02, 0.13, -0.06, 0.05, '#8a8fa0', 'b')
-      d.box(-0.02, -0.08, 0.06, 0.02, 0.06, 0.08, '#2a2a34', 'b')
+      d.box(-0.02, -0.08, 0.05, 0.02, 0.06, 0.08, '#2a2a34', 'b')
       break
     case 'weapons':
       d.beam(-0.16, -0.16, 0.02, 0.16, 0.16, 0.02, 0.05, '#d8dde8', 0.02)
@@ -508,20 +521,23 @@ const emblem = (d: Mesher, kind: string, cls?: ClassId): void => {
       d.box(0.05, -0.11, 0.045, 0.14, -0.07, 0.075, '#d8b04a', 'b')
       break
     case 'trinkets':
-      d.ball(0, 0.02, 0.03, 0.1, '#5fd8ff', 6, 4)
-      d.cyl(0, -0.16, 0.03, 0.12, 0.12, 0.03, 8, '#ffd24a', '#ffd24a')
+      flatBall(d, 0, 0.02, 0.03, 0.1, 0.6, '#5fd8ff', 6, 4)
+      // Its gold stand, a flat disc seen edge on (pressed thin: whole, it stood out of the back).
+      d.pushMatrix(new Matrix4().makeTranslation(0, 0, 0.03).scale(_k.set(1, 1, 0.25)))
+      d.cyl(0, -0.16, 0, 0.12, 0.12, 0.03, 8, '#ffd24a', '#ffd24a')
+      d.pop()
       break
     case 'healer':
       // A potion with a green cross on it.
-      d.ball(0, -0.04, 0.03, 0.12, '#7dff8a', 7, 4)
+      flatBall(d, 0, -0.04, 0.03, 0.12, 0.5, '#7dff8a', 7, 4)
       d.box(-0.035, 0.07, 0.01, 0.035, 0.16, 0.05, '#e8f0f4', 'b')
-      d.box(-0.05, -0.06, 0.13, 0.05, -0.02, 0.15, '#ffffff', 'b')
-      d.box(-0.02, -0.09, 0.13, 0.02, 0.01, 0.15, '#ffffff', 'b')
+      d.box(-0.05, -0.06, 0.085, 0.05, -0.02, 0.105, '#ffffff', 'b')
+      d.box(-0.02, -0.09, 0.085, 0.02, 0.01, 0.105, '#ffffff', 'b')
       break
     case 'tavern':
       // A frothing mug.
       d.box(-0.11, -0.15, 0.01, 0.07, 0.07, 0.06, { front: '#c98a3a', side: '#a06a2a' }, 'b')
-      d.ball(-0.02, 0.09, 0.04, 0.1, '#fff8e8', 6, 3, 0.6)
+      flatBall(d, -0.02, 0.09, 0.04, 0.1, 0.6, '#fff8e8', 6, 3, 0.6)
       d.box(0.07, -0.1, 0.02, 0.15, 0.02, 0.05, '#a06a2a', 'b')
       break
     case 'guard':
@@ -529,9 +545,9 @@ const emblem = (d: Mesher, kind: string, cls?: ClassId): void => {
       d.box(-0.02, -0.12, 0.04, 0.02, 0.1, 0.06, '#ffd84a', 'b')
       break
     case 'black':
-      d.ball(0, -0.04, 0.03, 0.12, '#7a5a3a', 6, 4)
+      flatBall(d, 0, -0.04, 0.03, 0.12, 0.5, '#7a5a3a', 6, 4)
       d.ball(0, 0.09, 0.03, 0.05, '#5a4028', 5, 3)
-      d.ball(0.05, -0.05, 0.13, 0.035, '#ffd24a', 4, 3)
+      d.ball(0.05, -0.05, 0.09, 0.035, '#ffd24a', 4, 3)
       break
     case 'class':
       classMark(d, cls ?? 'aegis', 1)
@@ -588,11 +604,19 @@ const classMark = (d: Mesher, cls: ClassId, s: number): void => {
 }
 
 /** A sign on a bracket out from the wall, hanging beside the door (local face frame). */
-const hangingSign = (k: Kit, x: number, y: number, kind: string, p: Pal, cls?: ClassId): void => {
+const hangingSign = (k: Kit, x: number, y: number, kind: string, p: Pal, cls?: ClassId, thatch = Infinity): void => {
   const d = k.detail
-  d.beam(x, y, 0, x, y, 0.7, 0.07, '#3a3034', 0.07)
-  d.beam(x, y + 0.35, 0, x, y + 0.02, 0.45, 0.04, '#3a3034', 0.04)
-  for (const zz of [0.18, 0.56]) d.beam(x, y - 0.03, zz, x, y - 0.12, zz, 0.02, '#3a3034', 0.02)
+  if (thatch < y + 0.4) {
+    // Under a thatch (`thatch`: the height of its rim): no bracket (it stood in
+    // the straw, and the board with it); the board hangs on two chains from the
+    // thatch, just under it.
+    y = thatch + 0.05
+    for (const xx of [-0.2, 0.2]) d.beam(x + xx, y - 0.13, 0.27, x + xx, thatch + 0.06, 0.27, 0.02, '#3a3034', 0.02)
+  } else {
+    d.beam(x, y, 0, x, y, 0.7, 0.07, '#3a3034', 0.07)
+    d.beam(x, y + 0.35, 0, x, y + 0.02, 0.45, 0.04, '#3a3034', 0.04)
+    for (const zz of [0.18, 0.56]) d.beam(x, y - 0.03, zz, x, y - 0.12, zz, 0.02, '#3a3034', 0.02)
+  }
   // The board turns its face to the camera: a sign across the street, not along it.
   // (Its emblem stays a few centimetres behind an eave's fascia, 42 cm out.)
   d.push(x, y - 0.38, 0.29, 0)
@@ -888,11 +912,14 @@ export const buildHouse = (base: Kit, h: TownHouse, c: HouseCtx): HouseOut => {
     // walls): a neighbour's roof starts there, and two roofs reaching into
     // the same gap would cross, their edges lying in one plane.
     const sideReach = WALL_IN - 0.02 - jut
+    // How low a thatch hangs over the walls (its rim, `thatchRoof`): a sign hangs under it.
+    let skirt = Infinity
     const rows = c.low ? 4 : 6
     const pitch = c.style === 'mountain' ? 0.95 : c.style === 'mercantile' ? 0.8 : 0.72
     if (roofKind === 'thatch') {
       const rise = Math.min(W, D) * 0.5 * pitch + 0.6
       thatchRoof(cut, W + jut * 2, D + jut * 2, Y, rise, c.ruined, r, Math.min(0.42, sideReach))
+      skirt = Y - 0.12 - 0.15 * rise
       out.top = Y + rise
     } else if (roofKind === 'hip') {
       const rise = D * 0.5 * pitch
@@ -936,9 +963,10 @@ export const buildHouse = (base: Kit, h: TownHouse, c: HouseCtx): HouseOut => {
         })
       }
     }
-    // A bell cote on a chapel; a dormer on a long roof.
+    // A bell cote on a chapel; a dormer on a long roof (drawn once the room is
+    // known: the hearth's chimney once came up through one).
     if (h.kind === 'chapel' && !c.ruined) belfry(cut, D, out.top, p, stone)
-    if (roofKind === 'gable' && W > 4.2 && !c.low && r() < 0.6) dormer(cut, (r() - 0.5) * (W - 2.4), D, Y, D * 0.5 * pitch, p, lit())
+    const dormerAt = roofKind === 'gable' && W > 4.2 && !c.low && r() < 0.6 ? { x: (r() - 0.5) * (W - 2.4), lit: lit() } : null
     // ── The room inside (before the chimneys: its hearth's chimney goes up over it) ──
     let hearth: { x: number; z: number; wall: string } | null = null
     if (roomKit) {
@@ -947,24 +975,34 @@ export const buildHouse = (base: Kit, h: TownHouse, c: HouseCtx): HouseOut => {
       out.layout = fit.layout
       hearth = fit.hearth
     }
+    // The first chimney stands over the room's hearth (in the wall the hearth stands against, right over it).
+    const overHearth = hearth && [
+      hearth.wall === 'west' ? -W / 2 + T + 0.3 : hearth.wall === 'east' ? W / 2 - T - 0.3 : hearth.x,
+      hearth.wall === 'back' ? -D / 2 + T + 0.3 : hearth.z
+    ] as const
+    if (dormerAt) {
+      // The dormer's box and roof (`dormer`) against the chimney and its cap.
+      const clash = overHearth && Math.abs(overHearth[0] - dormerAt.x) < 0.95 && overHearth[1] + 0.33 > D / 2 - 1.55
+      if (!clash) dormer(cut, dormerAt.x, D, Y, D * 0.5 * pitch, p, dormerAt.lit)
+    }
     // ── Chimneys ──
     if (!c.ruined || r() < 0.4) {
       const n = h.kind === 'tavern' || workshop || h.kind === 'hall' ? 2 : 1
       for (let i = 0; i < n; i++) {
-        // The first stands over the room's hearth (on the back wall), if it has one.
-        // (In the wall the hearth stands against, right over it.)
-        const over = i === 0 && hearth !== null
-        const cx = over ? (hearth!.wall === 'west' ? -W / 2 + T + 0.3 : hearth!.wall === 'east' ? W / 2 - T - 0.3 : hearth!.x) : (i === 0 ? -1 : 1) * (W / 2 - 0.55) * (0.6 + r() * 0.4)
-        const cz = over ? (hearth!.wall === 'back' ? -D / 2 + T + 0.3 : hearth!.z) : -D * 0.18
+        // The first stands over the room's hearth, if it has one.
+        const over = i === 0 && overHearth ? overHearth : null
+        const cx = over ? over[0] : (i === 0 ? -1 : 1) * (W / 2 - 0.55) * (0.6 + r() * 0.4)
+        const cz = over ? over[1] : -D * 0.18
         const top = chimney(cut, cx, cz, Y - 0.5, out.top + 0.5 + (workshop ? 0.4 : 0), stone ? '#8a8690' : '#a8786a')
         if (!c.ruined) out.chimneys.push([c.x + top[0], c.y + top[1], c.z + top[2]])
       }
     }
     // ── The trade, told at the door ──
     onFace(front, W, D, 's', 0, () => {
-      const sx = workshop ? -W / 2 + 0.55 : doorX + (doorX > 0 ? -1 : 1) * (openW / 2 + 0.55)
-      if (h.sign && h.sign !== 'class' && !(c.ruined && r() < 0.5)) hangingSign(front, sx, F - 0.15, h.sign, p, h.cls)
-      if (h.sign === 'class' && h.cls && (twoStorey ? false : true)) hangingSign(front, sx, F - 0.15, 'class', p, h.cls)
+      // (Half a metre out from the doorway: at 55 cm an awning's strut ran through the board.)
+      const sx = workshop ? -W / 2 + 0.55 : doorX + (doorX > 0 ? -1 : 1) * (openW / 2 + 0.5)
+      if (h.sign && h.sign !== 'class' && !(c.ruined && r() < 0.5)) hangingSign(front, sx, F - 0.15, h.sign, p, h.cls, skirt)
+      if (h.sign === 'class' && h.cls && (twoStorey ? false : true)) hangingSign(front, sx, F - 0.15, 'class', p, h.cls, skirt)
       if (!c.ruined && (h.kind !== 'cottage' || r() < 0.5)) {
         const lx = workshop ? W / 2 - 0.45 : doorX + (doorX > 0 ? 1 : -1) * (openW / 2 + 0.38)
         const l = lantern(front, lx, F - 0.55)
@@ -1030,8 +1068,9 @@ const belfry = (k: Kit, D: number, top: number, p: Pal, stone: boolean): void =>
   const z = D / 2 - 0.26
   const c = stone ? '#a8a4a0' : '#f2ead8'
   k.hull.box(-0.38, top - 0.4, z - 0.38, 0.38, top + 0.75, z + 0.38, { front: c, side: shade(c, 0.9), top: c }, 'b')
-  k.detail.box(-0.22, top + 0.1, z + 0.38, 0.22, top + 0.62, z + 0.4, '#2a2228', 'b')
-  k.detail.ball(0, top + 0.28, z + 0.36, 0.13, '#e8b84a', 6, 4)
+  // The niche and its bell, clear above the ridge cap (whose end ran through the niche).
+  k.detail.box(-0.22, top + 0.2, z + 0.38, 0.22, top + 0.7, z + 0.4, '#2a2228', 'b')
+  k.detail.ball(0, top + 0.38, z + 0.36, 0.13, '#e8b84a', 6, 4)
   k.hull.push(0, top + 0.75, z, Math.PI / 4)
   k.hull.cyl(0, 0, 0, 0.62, 0.02, 0.85, 4, p.roof)
   k.hull.pop()

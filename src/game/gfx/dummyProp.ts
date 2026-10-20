@@ -51,7 +51,8 @@ const straw = (out: BufferGeometry[], p: [number, number, number], r: [number, n
   }
 }
 
-const buildParts = (): { post: BufferGeometry; arms: BufferGeometry; body: BufferGeometry; head: BufferGeometry } => {
+/** The dummy's four moving pieces, in its own space at rest (exported for `pokeThrough.test.ts`). */
+export const buildParts = (): { post: BufferGeometry; arms: BufferGeometry; body: BufferGeometry; head: BufferGeometry } => {
   // The post and its cross-foot.
   const post = merge([
     P(rcyl(0.075, TOP + 0.1, 0.03, 10), WOOD, [0, (TOP + 0.1) / 2, 0]),

@@ -20,6 +20,38 @@ import type { MeshBasicMaterial } from 'three'
  * All helpers return indexed geometry WITHOUT uvs, so any mix of them merges.
  */
 
+/**
+ * Tests: name the parts a merged prop is made of, for the poke-through audit
+ * (`pokeThrough.test.ts`): a painted part keeps the builder that painted it
+ * (`userData.label`), a rounded box its size (`userData.box`), and a merge
+ * the vertex range of every part in it (`userData.parts`). Off in the game.
+ */
+export const partTrace = { on: false }
+
+/** One part of a merged geometry (`partTrace`): its vertices, who made it, and its box if it is one. */
+export interface TracedPart {
+  start: number
+  count: number
+  label: string
+  box?: TracedBox
+  /** The part's frame (column-major) when it was merged; the audit moves it with the geometry. */
+  frame?: number[]
+}
+/** A rounded box's half-size and squareness (`rbox`'s exponent: 1 a ball, 0.12 near a block). */
+export interface TracedBox { hx: number; hy: number; hz: number; e: number }
+
+/** The first builder outside this file on the stack (`partTrace`), past a one-letter painting helper (`P`). */
+const builderOf = (): string => {
+  for (const l of (new Error().stack ?? '').split('\n')) {
+    if (!l.includes(' at ') || /[\\/]kit\.ts/.test(l) || / at [A-Z] /.test(l)) continue
+    const m = /at (\S+) .*?([A-Za-z]+\.ts):(\d+)/.exec(l)
+    if (m) return `${m[1]}@${m[2]}:${m[3]}`
+    const n = /([A-Za-z]+\.ts):(\d+)/.exec(l)
+    if (n) return `${n[1]}:${n[2]}`
+  }
+  return '?'
+}
+
 export const stripUv = <T extends BufferGeometry>(g: T): T => {
   g.deleteAttribute('uv')
   return g
@@ -113,6 +145,7 @@ export const rbox = (w: number, h: number, d: number, round = 0.35, ws = 16, hs 
     pos.setXYZ(i, sx * w / 2, sy * h / 2, sz * d / 2)
   }
   g.computeVertexNormals()
+  if (partTrace.on) g.userData.box = { hx: w / 2, hy: h / 2, hz: d / 2, e } satisfies TracedBox
   return stripUv(g)
 }
 
@@ -319,6 +352,7 @@ export const xform = (g: BufferGeometry, p: V3 = [0, 0, 0], r: V3 = [0, 0, 0], s
 
 /** Paint a whole geometry one colour (linear-space vertex colours). */
 export const paint = (g: BufferGeometry, hex: string | Color): BufferGeometry => {
+  if (partTrace.on && !g.userData.label) g.userData.label = builderOf()
   const c = typeof hex === 'string' ? new Color(hex) : hex
   const n = g.attributes.position!.count
   const arr = new Float32Array(n * 3)
@@ -333,6 +367,7 @@ export const paint = (g: BufferGeometry, hex: string | Color): BufferGeometry =>
 
 /** Paint by a per-vertex function of the (already transformed) position. */
 export const paintBy = (g: BufferGeometry, fn: (x: number, y: number, z: number) => string | Color): BufferGeometry => {
+  if (partTrace.on && !g.userData.label) g.userData.label = builderOf()
   const pos = g.attributes.position!
   const n = pos.count
   const arr = new Float32Array(n * 3)
@@ -352,10 +387,24 @@ export const paintBy = (g: BufferGeometry, fn: (x: number, y: number, z: number)
   return g
 }
 
+/** The parts of geometries about to be merged, by vertex range (`partTrace`). */
+export const tracedParts = (geos: readonly BufferGeometry[]): TracedPart[] => {
+  const out: TracedPart[] = []
+  let at = 0
+  for (const g of geos) {
+    const inner = g.userData.parts as TracedPart[] | undefined
+    if (inner) for (const p of inner) out.push({ ...p, start: p.start + at })
+    else out.push({ start: at, count: g.attributes.position!.count, label: (g.userData.label as string | undefined) ?? builderOf(), box: g.userData.box as TracedBox | undefined, frame: g.userData.frame as number[] | undefined })
+    at += g.attributes.position!.count
+  }
+  return out
+}
+
 /** Merge painted geometries (all must share attribute sets). */
 export const merge = (geos: BufferGeometry[], groups = false): BufferGeometry => {
   const out = mergeGeometries(geos, groups)
   if (!out) throw new Error('[kit] mergeGeometries failed — attribute mismatch')
+  if (partTrace.on) out.userData.parts = tracedParts(geos)
   return out
 }
 

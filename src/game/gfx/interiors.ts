@@ -291,7 +291,8 @@ const shelfBoards = (k: Kit, w: number, rows: number, y0: number, gap: number, w
   return ys
 }
 
-/** What stands on a shelf from x0 to x1 at height y: books, jars, plates, bowls. */
+/** What stands on a shelf from x0 to x1 at height y: books, jars, plates, bowls (the last one
+ *  that would reach past x1 is left off: it stood through the dresser's side). */
 const shelfStuff = (m: Mesher, glow: Mesher, x0: number, x1: number, y: number, mix: 'books' | 'kitchen' | 'jars' | 'potions' | 'rocks', r: () => number, ruined: boolean): void => {
   let x = x0
   const books = ['#c9483a', '#3f6fd6', '#5aa84a', '#d8b04a', '#7a3fa0', '#2a6a7a', '#a86a3a']
@@ -310,11 +311,13 @@ const shelfStuff = (m: Mesher, glow: Mesher, x0: number, x1: number, y: number, 
         x += bw + 0.1
         continue
       }
+      if (x + bw > x1) break
       m.rbox(x, y + 0.001, 0.05, x + bw, y + bh, 0.26, 0.008, { top: '#efe6d6', side: col })
       if (bh > 0.24) m.box(x - 0.002, y + bh - 0.06, 0.265, x + bw + 0.002, y + bh - 0.04, 0.275, BRASS, 'b')
       x += bw + 0.012
     } else if (mix === 'kitchen' && t < 0.55) {
       // A plate standing on its edge against the wall, or a bowl.
+      if (x + (t < 0.4 ? 0.2 : 0.16) > x1) break
       if (t < 0.4) {
         m.pushMatrix(new Matrix4().makeRotationX(Math.PI / 2 - 0.15).setPosition(x + 0.1, y + 0.1, 0.12))
         m.cyl(0, -0.012, 0, 0.1, 0.1, 0.024, 10, '#e8e4dc', '#f6f2ea')
@@ -326,6 +329,7 @@ const shelfStuff = (m: Mesher, glow: Mesher, x0: number, x1: number, y: number, 
       }
     } else if (mix === 'rocks') {
       const col = ['#8a8f9a', '#b06aff', '#5fd8ff', '#c9a24a', '#7dd84a'][Math.floor(r() * 5)]!
+      if (x + 0.12 > x1) break
       if (r() < 0.5) m.cyl(x + 0.06, y, 0.15, 0.06, 0, 0.16 + r() * 0.1, 5, col)
       else m.ball(x + 0.06, y + 0.05, 0.15, 0.06, col, 5, 3, 0.8)
       x += 0.16
@@ -334,6 +338,7 @@ const shelfStuff = (m: Mesher, glow: Mesher, x0: number, x1: number, y: number, 
       const jw = 0.05 + r() * 0.03
       const jh = 0.12 + r() * 0.1
       const col = mix === 'potions' ? ['#7dff8a', '#ff4a6a', '#5fd8ff', '#ffd84a', '#b06aff'][Math.floor(r() * 5)]! : ['#c9b48a', '#a8c4b8', '#d8a070', '#e8d8a8'][Math.floor(r() * 4)]!
+      if (x + jw * 2 + 0.016 > x1) break
       if (mix === 'potions' && !ruined) {
         glow.cyl(x + jw, y, 0.15, jw, jw * 0.8, jh * 0.7, 7, col, col)
         m.cyl(x + jw, y + jh * 0.7, 0.15, jw * 0.4, jw * 0.35, jh * 0.3, 5, '#e8f0f4', '#8a6a44')
@@ -409,7 +414,7 @@ const hearthKitchen = (k: Kit, L: Kit | null, top: number, o: { lit: boolean; st
     k.glow.ball(0, 0.25, -0.08, 0.17, '#ff7a2a', 6, 4, 1.25)
     k.glow.ball(0.04, 0.34, -0.06, 0.1, '#ffd24a', 5, 3, 1.4)
   } else {
-    d.ball(0, 0.08, -0.08, 0.16, '#6a6466', 6, 3, 0.35)
+    d.ball(0, 0.1, -0.08, 0.16, '#6a6466', 6, 3, 0.35)
   }
   if (o.pot) {
     // A crane arm from the cheek, a pot on its hook.
@@ -1236,13 +1241,16 @@ const dining = (f: Fit, w: number, d: number, px: number, pz: number, round: boo
       c.B.detail.cyl(0, 0, 0, 0.08, 0.1, 0.68, 7, shade(wood, 0.8))
       c.B.detail.cyl(0, 0, 0, 0.3, 0.32, 0.06, 9, shade(wood, 0.75), shade(wood, 0.85))
     } else table(c.B, w, d, 0.74, wood)
-    // Tucked in: their seats under the table's edge.
-    place([c.B, c.L], -w * 0.22, 0, -d / 2 - 0.12, 0, () => chair(c.B, wood))
-    place([c.B, c.L], w * 0.22, 0, -d / 2 - 0.12, 0, () => {
+    // Tucked in: their seats under the table's edge (on a small table, short
+    // of its legs: tucked as deep, a leg stood through a seat).
+    const tuck = w * 0.22 + 0.21 > w / 2 - 0.145 ? 0.17 : 0.12
+    place([c.B, c.L], -w * 0.22, 0, -d / 2 - tuck, 0, () => chair(c.B, wood))
+    place([c.B, c.L], w * 0.22, 0, -d / 2 - tuck, 0, () => {
       chair(c.B, wood)
       if (c.L && o.scarf && !c.ruined) scarf(c.L.detail, '#3f8ac8')
     })
-    place([c.B], -w / 2 - 0.12, 0, 0, Math.PI / 2, () => (c.ruined ? chairDown(c.B, wood) : chair(c.B, wood)))
+    // (Knocked over, it lies a hand further out: at the table's end a leg ran through its seat.)
+    place([c.B], -w / 2 - (c.ruined ? 0.24 : 0.12), 0, 0, Math.PI / 2, () => (c.ruined ? chairDown(c.B, wood) : chair(c.B, wood)))
     // Pulled out and turned: somebody got up (or is about to sit down).
     if (o.pulled) place([c.B], w / 2 + 0.25, 0, 0.12, -Math.PI / 2 + 0.5, () => chair(c.B, wood))
     else place([c.B], w / 2 + 0.12, 0, 0, -Math.PI / 2, () => chair(c.B, wood))
@@ -1466,7 +1474,7 @@ const shop = (f: Fit): void => {
     table(B, 1.2, 0.6, 0.78, wood)
     if (!L) return
     for (const x of [-0.35, 0.05]) {
-      L.detail.ball(x, 0.84, 0, 0.12, '#a8b0bc', 7, 4, 0.8)
+      L.detail.ball(x, 0.86, 0, 0.12, '#a8b0bc', 7, 4, 0.8)
       L.detail.box(x - 0.12, 0.78, -0.02, x + 0.12, 0.81, 0.02, '#6a6a74', 'b')
     }
     for (let i = 0; i < 3; i++) L.detail.beam(0.28 + i * 0.08, 0.795, -0.18, 0.28 + i * 0.08, 0.795, 0.12, 0.04, '#d8dde8', 0.015)

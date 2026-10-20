@@ -226,7 +226,13 @@ const draw = (k: Kit, p: TownProp, c: PropCtx, r: () => number): void => {
         d.cyl(-0.85, 0, 1.15, 0.12, 0.14, 0.2, 8, '#8a8f9a', '#4a4a54')
       }
       for (const s of [-1, 1]) d.beam(-0.76, 0.55, s * 0.4, -0.86, 2.0, s * 0.34, 0.08, WOOD_D, 0.08)
-      if (!ruined) d.ball(0, 0.95, 0, 0.75, '#e2b850', 7, 4, 0.45)
+      // The load heaped between the side boards (as round as the bed is long, it
+      // bulged out through the planks).
+      if (!ruined) {
+        d.pushMatrix(HAY_IN_BED)
+        d.ball(0, 0.95, 0, 0.75, '#e2b850', 7, 4, 0.45)
+        d.pop()
+      }
       break
     }
     case 'hay': {
@@ -483,8 +489,9 @@ const draw = (k: Kit, p: TownProp, c: PropCtx, r: () => number): void => {
         if (i % 2) d.cyl(x, 0.68, 0.0, 0.07, 0, 0.2, 5, cols[i]!)
         else d.ball(x, 0.75, 0.0, 0.08, cols[i]!, 5, 3, 0.8)
       }
-      d.beam(0.65, 0.0, 0.1, 0.55, 0.75, 0.15, 0.05, '#7a5030')
-      d.beam(0.5, 0.72, 0.15, 0.7, 0.8, 0.15, 0.06, '#8a8f9a', 0.03)
+      // (Its handle stands clear of the bench's end: leaning on it, it ran through the top.)
+      d.beam(0.74, 0.0, 0.1, 0.66, 0.75, 0.15, 0.05, '#7a5030')
+      d.beam(0.61, 0.72, 0.15, 0.81, 0.8, 0.15, 0.06, '#8a8f9a', 0.03)
       break
     }
     case 'chalk': {
@@ -538,6 +545,8 @@ const draw = (k: Kit, p: TownProp, c: PropCtx, r: () => number): void => {
 
 /** Turns a cylinder standing on Y to lie along Z (wheels, logs). */
 const ALONG_Z = new Matrix4().makeRotationX(Math.PI / 2)
+/** A cart's hay, narrowed across the bed to stay inside its side boards. */
+const HAY_IN_BED = new Matrix4().makeScale(1, 1, 0.64)
 
 // ─── Fences and low walls ────────────────────────────────────────────────────
 

@@ -187,9 +187,10 @@ const column = (broken: boolean, seed: number): PieceGeo => {
     lit.push(P(rbox(0.07, hgt - 0.2, 0.07, 0.6, 4, 4), MARBLE2, [Math.cos(a) * 0.43, 0.3 + hgt / 2, Math.sin(a) * 0.43]))
   }
   if (broken) {
-    // The break: a jagged top, and the drum that fell.
+    // The break: a jagged top, and a piece of the drum that fell, on the
+    // ground along the plinth (it lay through the stump and the plinth once).
     lit.push(P(rock(0.36, seed + 5, 8, 5), MARBLE, [0.04, 0.3 + hgt, 0], [0, 0, 0], [1, 0.45, 1]))
-    lit.push(P(rcyl(0.4, 0.6, 0.05, 12, 1), MARBLE, [0.55, 0.38, 0.4], [Math.PI / 2, 0.7, 0]))
+    lit.push(P(rcyl(0.22, 0.6, 0.04, 12, 1), MARBLE, [0.8, 0.22, 0.3], [Math.PI / 2, 0, 0]))
   } else {
     lit.push(P(rcyl(0.55, 0.16, 0.04, 14, 1), MARBLE2, [0, 0.3 + hgt + 0.08, 0]))
     lit.push(P(rbox(1.2, 0.24, 1.2, 0.3, 8, 4), MARBLE, [0, 0.3 + hgt + 0.28, 0]))
