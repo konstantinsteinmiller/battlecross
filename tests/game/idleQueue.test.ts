@@ -133,7 +133,7 @@ describe('the screens on the background queue', () => {
     for (const order of Object.values(SCREEN_ORDER)) expect([...order].sort()).toEqual(Object.keys(SCREEN_CHUNKS).sort())
     queueScreens('field')
     expect(idleWaiting().slice(0, 3)).toEqual(['heroBook', 'worldMap', 'dialog'].map(n => screenTask(n as never)))
-    expect(idleWaiting().slice(-3)).toEqual(['memory', 'itemBattle', 'cups'].map(n => screenTask(n as never)))
+    expect(idleWaiting().slice(-6)).toEqual(['memory', 'itemBattle', 'cups', 'whack', 'ring', 'arm'].map(n => screenTask(n as never)))
     // Arriving in a town re-ranks what is still waiting.
     queueScreens('town')
     expect(idleWaiting().slice(0, 2)).toEqual([screenTask('dialog'), screenTask('trade')])

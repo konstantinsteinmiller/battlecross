@@ -24,6 +24,10 @@ export const SCREEN_CHUNKS = {
   memory: () => import('../modals/MemoryGame.vue'),
   itemBattle: () => import('../modals/ItemBattle.vue'),
   cups: () => import('../modals/CupsGame.vue'),
+  // The fort's fair games (afterplay §9).
+  whack: () => import('../modals/WhackGame.vue'),
+  ring: () => import('../modals/RingTossGame.vue'),
+  arm: () => import('../modals/ArmWrestleGame.vue'),
   // Not screens, but not on the first frame either: a conversation's layer
   // (towns and decisions) and the options window.
   dialog: () => import('../dialog/DialogLayer.vue'),
@@ -42,8 +46,8 @@ export type ScreenChunk = keyof typeof SCREEN_CHUNKS
  * at once, as before.
  */
 export const SCREEN_ORDER: Record<'field' | 'town', readonly ScreenChunk[]> = {
-  field: ['heroBook', 'worldMap', 'dialog', 'options', 'overheard', 'trade', 'smithing', 'sellOre', 'teach', 'healer', 'alchemy', 'memory', 'itemBattle', 'cups'],
-  town: ['dialog', 'trade', 'smithing', 'sellOre', 'teach', 'healer', 'alchemy', 'overheard', 'worldMap', 'heroBook', 'options', 'memory', 'itemBattle', 'cups']
+  field: ['heroBook', 'worldMap', 'dialog', 'options', 'overheard', 'trade', 'smithing', 'sellOre', 'teach', 'healer', 'alchemy', 'memory', 'itemBattle', 'cups', 'whack', 'ring', 'arm'],
+  town: ['dialog', 'trade', 'smithing', 'sellOre', 'teach', 'healer', 'alchemy', 'overheard', 'worldMap', 'heroBook', 'options', 'memory', 'itemBattle', 'cups', 'whack', 'ring', 'arm']
 }
 
 /** The idle queue's key of a screen's chunk. */
