@@ -1,5 +1,5 @@
 import { CHARISMA_ITEMS, DEXTERITY_ITEMS, GAPFILL_ITEMS, ITEMS, MYTHICS, SMITHED, SMITH_LINES, SMITH_METAL, SMITH_PIECES, smithItemId, TIER_COLOR, type ItemDef, type SmithLine, type SmithMetal, type SmithPiece } from '../data/items'
-import { CLASSES, CLASS_IDS, skillsOf, type ClassId } from '../data/skills'
+import { CLASSES, CLASS_IDS, PRESTIGE_IDS, skillsOf, type ClassId } from '../data/skills'
 import { HERO_OUTFITS, heroPortraitId } from './heroPortrait'
 import { BRAND_REFS } from './brandRefs'
 import { ORNAMENTS } from './ornamentRefs'
@@ -643,6 +643,8 @@ const PORTRAIT_BLURBS: Readonly<Record<string, string>> = {
   // The other teachers of the skill screen: disciples and masters.
   sfShadow: 'a rogue with a dark olive hood up, fair skin and dark olive leather with a pale green collar line',
   sfGeo: 'an old earth sage with a bald head, a long ash-white beard, tan-brown skin and a dusty olive-brown robe with a lime collar line',
+  scoutWren: 'a young scout with a moss-green hood up, auburn hair at the edges, fair skin, a green leather jerkin with a pale bandage collar line',
+  sunkenPriest: 'an old priest with a sea-green hood up, long white hair and a white beard, pale grey-green skin and a deep teal robe with a gold collar line',
   lightDisciple: 'a light disciple with dark hair in a round bun on top, brown skin and a cream-white robe with a gold collar line',
   windDisciple: 'a wind disciple with short dark-brown hair, fair skin, a sky-teal leather jerkin with a pale lime collar line and a green cape at the shoulders',
   frostDisciple: 'a frost disciple with short sandy hair and a short sandy beard, pale skin and pale blue plate armour with an icy white collar line and a pale blue cape at the shoulders',
@@ -690,12 +692,14 @@ const TIER_NAME: Readonly<Record<number, string>> = { 1: 'pale silver-grey', 2: 
 const CLASS_NAME: Readonly<Record<ClassId, string>> = {
   aegis: 'Aegis Knight', shadow: 'Shadowblade', pyro: 'Pyromancer', sovereign: 'Grand Sovereign', chrono: 'Chrono-Weaver', blood: 'Blood Alchemist', aether: 'Aether-Tech', geo: 'Geomancer',
   windrunner: 'Windrunner', frostwarden: 'Frostwarden', lightbringer: 'Lightbringer', beastcaller: 'Beastcaller',
-  elementalist: 'Elementalist', soulwarden: 'Soul Warden', ironmonk: 'Iron Monk', bard: 'Bard'
+  elementalist: 'Elementalist', soulwarden: 'Soul Warden', ironmonk: 'Iron Monk', bard: 'Bard',
+  demonhunter: 'Demonhunter', dragoon: 'Dragoon', hexsmith: 'Hexsmith', tidecaller: 'Tidecaller'
 }
 const CLASS_HUE: Readonly<Record<ClassId, string>> = {
   aegis: 'gold', shadow: 'violet', pyro: 'orange', sovereign: 'amber', chrono: 'cyan', blood: 'crimson', aether: 'teal', geo: 'sand',
   windrunner: 'lime', frostwarden: 'ice blue', lightbringer: 'rose', beastcaller: 'leaf green',
-  elementalist: 'magenta', soulwarden: 'periwinkle', ironmonk: 'jade', bard: 'pink'
+  elementalist: 'magenta', soulwarden: 'periwinkle', ironmonk: 'jade', bard: 'pink',
+  demonhunter: 'pale lilac', dragoon: 'sky blue', hexsmith: 'rust', tidecaller: 'sea teal'
 }
 
 // ─── The sheets ──────────────────────────────────────────────────────────────
@@ -939,7 +943,10 @@ const statusCells = STATUS_IDS.map(id => {
   if (!blurb) throw new Error(`artSheet: no blurb for status "${id}"`)
   return iconCell(`status-${id}`, 'glyph', `status.${id}`, blurb, statusTint(id), hueName(statusTint(id)), true)
 })
-const classCells = CLASS_IDS.map(cls => iconCell(`class-${cls}`, 'glyph', `skill.${skillsOf(cls)[0]!.id}`, CLASS_EMBLEM_BLURBS[cls], CLASSES[cls].color, CLASS_HUE[cls], true))
+const classCell = (cls: ClassId): SheetCell => iconCell(`class-${cls}`, 'glyph', `skill.${skillsOf(cls)[0]!.id}`, CLASS_EMBLEM_BLURBS[cls], CLASSES[cls].color, CLASS_HUE[cls], true)
+const classCells = CLASS_IDS.map(classCell)
+/** The prestige four (afterplay §10): emblems of their own to paint; their skills wear a parent's drawing. */
+const prestigeCells = PRESTIGE_IDS.map(classCell)
 const uiCells = UI_ICONS.map(i => iconCell(`ui-${i.ref}`, 'ui', i.ref, i.blurb, i.tint, i.tintName))
 const slotCells = Object.entries(SLOT_BLURBS).map(([slot, blurb]) => iconCell(`slot-${slot}`, 'glyph', SLOT_GLYPH[slot] ?? 'unknown', blurb, '#b8b2c8', 'pale stone grey'))
 const markCells = MARK_ICONS.map(m => iconCell(`mark-${m.ref}`, 'mark', m.ref, m.blurb, m.tint, m.tintName))
@@ -956,6 +963,7 @@ export const ICON_SETS: readonly ArtSet[] = [
   iconSet('sheet-icons-classes', 'Icons: class emblems (1 of 2)', classCells.slice(0, 8), 3, 3, 128),
   // The eight classes of #86 and #95.
   iconSet('sheet-icons-crests', 'Icons: class emblems (2 of 2)', classCells.slice(8), 3, 3, 128),
+  iconSet('sheet-icons-prestige', 'Icons: prestige class emblems', prestigeCells, 3, 3, 128),
   iconSet('sheet-icons-status-1', 'Icons: status effects (1 of 4)', statusCells.slice(0, 12), 4, 3, 96),
   iconSet('sheet-icons-status-2', 'Icons: status effects (2 of 4)', statusCells.slice(12, 24), 4, 3, 96),
   iconSet('sheet-icons-status-3', 'Icons: status effects (3 of 4)', statusCells.slice(24, 36), 4, 3, 96),

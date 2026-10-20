@@ -46,7 +46,7 @@
             GameIcon(name="up")
         div.codex__classes(ref="gridEl" role="tablist")
           button.emblem(
-            v-for="c in CLASS_IDS"
+            v-for="c in shownClasses"
             :key="c"
             type="button"
             role="tab"
@@ -128,8 +128,9 @@
  */
 import { computed, nextTick, onBeforeUnmount, onMounted, reactive, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { CLASSES, CLASS_IDS, SKILL_BY_ID, meetsSkill, skillsOf, type ClassId } from '@/game/data/skills'
-import { knows, profile, setSlot, totalAttrs } from '@/game/state/profile'
+import { CLASSES, CLASS_IDS, PRESTIGE_IDS, SKILL_BY_ID, meetsSkill, skillsOf, type ClassId } from '@/game/data/skills'
+import { trialFlag } from '@/game/data/prestige'
+import { flagSet, knows, profile, setSlot, totalAttrs } from '@/game/state/profile'
 import { sfx } from '@/game/audio/sfx'
 import FButton from '@/components/atoms/FButton.vue'
 import PresetBar from './PresetBar.vue'
@@ -157,6 +158,11 @@ const usable = (id: string): boolean => {
   return !!s && meetsSkill(s, profile.level, attrs.value)
 }
 const learnedOf = (c: ClassId): number => skillsOf(c).filter(s => knows(s.id)).length
+/** The sixteen, and a prestige class once its trial is passed (afterplay §10): hidden till then. */
+const shownClasses = computed<ClassId[]>(() => {
+  const f = flagSet()
+  return [...CLASS_IDS, ...PRESTIGE_IDS.filter(c => f.has(trialFlag(c)) || learnedOf(c) > 0)]
+})
 
 // ── What is open and what is in hand ─────────────────────────────────────────
 /** The class the codex opens on: the one the hero knows most of. */

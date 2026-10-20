@@ -16,19 +16,27 @@ import { skillPrice } from './progression'
  * names mana as a resource but tables none), cast ranges and radii.
  */
 
-export type ClassId = 'aegis' | 'shadow' | 'pyro' | 'sovereign' | 'chrono' | 'blood' | 'aether' | 'geo'
+export type BaseClassId = 'aegis' | 'shadow' | 'pyro' | 'sovereign' | 'chrono' | 'blood' | 'aether' | 'geo'
   // The secret four (#86), each found through its master's test in Silverbridge
   | 'windrunner' | 'frostwarden' | 'lightbringer' | 'beastcaller'
   // The four of #95, taught openly in Silverbridge
   | 'elementalist' | 'soulwarden' | 'ironmonk' | 'bard'
+/** The four prestige classes (afterplay §10, phase 10): hybrids of two parents, earned by a trial. */
+export type PrestigeId = 'demonhunter' | 'dragoon' | 'hexsmith' | 'tidecaller'
+export type ClassId = BaseClassId | PrestigeId
 
 /** The classes in play, in the skills page's order. A new class joins the
- *  list in the phase that gives it its skills (#86, #95). */
-export const CLASS_IDS: readonly ClassId[] = [
+ *  list in the phase that gives it its skills (#86, #95). The prestige four
+ *  are kept apart (`PRESTIGE_IDS`): three skills each, no capstone. */
+export const CLASS_IDS: readonly BaseClassId[] = [
   'aegis', 'shadow', 'pyro', 'sovereign', 'chrono', 'blood', 'aether', 'geo',
   'windrunner', 'frostwarden', 'lightbringer', 'beastcaller',
   'elementalist', 'soulwarden', 'ironmonk', 'bard'
 ]
+export const PRESTIGE_IDS: readonly PrestigeId[] = ['demonhunter', 'dragoon', 'hexsmith', 'tidecaller']
+/** All twenty. */
+export const ALL_CLASS_IDS: readonly ClassId[] = [...CLASS_IDS, ...PRESTIGE_IDS]
+export const isPrestige = (cls: string): cls is PrestigeId => (PRESTIGE_IDS as readonly string[]).includes(cls)
 
 /** How a skill is aimed. */
 export type TargetMode =
@@ -76,6 +84,8 @@ export interface SkillDef {
   color: string
   /** Fire skills: Pyromaniac shortens their cooldowns. */
   fire?: boolean
+  /** A capstone (afterplay §2.3): the skill whose effect it runs, with its own numbers. */
+  capstone?: string
 }
 
 export interface ClassDef {
@@ -88,6 +98,8 @@ export interface ClassDef {
   /** Share of a skill's table mana cost this class pays (#129). Mana recovery grows
    *  with Intelligence, so a class that does not scale with it pays less. */
   manaCost: number
+  /** A prestige class (afterplay §10): the two classes it is born of. */
+  parents?: readonly [BaseClassId, BaseClassId]
 }
 
 export const CLASSES: Record<ClassId, ClassDef> = {
@@ -106,7 +118,11 @@ export const CLASSES: Record<ClassId, ClassDef> = {
   elementalist: { id: 'elementalist', faction: 'circle', color: '#e86bff', novel: true, manaCost: 1 },
   soulwarden: { id: 'soulwarden', faction: 'none', color: '#7f9cff', novel: true, manaCost: 1 },
   ironmonk: { id: 'ironmonk', faction: 'order', color: '#5fd08a', novel: true, manaCost: 0.6 },
-  bard: { id: 'bard', faction: 'syndicate', color: '#ff8ad8', novel: true, manaCost: 0.6 }
+  bard: { id: 'bard', faction: 'syndicate', color: '#ff8ad8', novel: true, manaCost: 0.6 },
+  demonhunter: { id: 'demonhunter', faction: 'none', color: '#d8c8ff', novel: true, manaCost: 0.6, parents: ['shadow', 'lightbringer'] },
+  dragoon: { id: 'dragoon', faction: 'none', color: '#5fb8ff', novel: true, manaCost: 0.6, parents: ['windrunner', 'aegis'] },
+  hexsmith: { id: 'hexsmith', faction: 'none', color: '#b85a3a', novel: true, manaCost: 0.6, parents: ['aether', 'blood'] },
+  tidecaller: { id: 'tidecaller', faction: 'none', color: '#3ad8c8', novel: true, manaCost: 0.8, parents: ['frostwarden', 'elementalist'] }
 }
 
 /**
@@ -351,7 +367,84 @@ export const SKILLS: readonly SkillDef[] = [
   A('grandFinale', 'bard', 27, { cha: 33, skl: 26 }, 50, 40, 'self', 0, 'cha', { dur: 8, buff: 15, dmg: 560, charm: 3, radius: 9 }, { radius: 9, cast: 0.5 })
 ]
 
-export const SKILL_BY_ID: Readonly<Record<string, SkillDef>> = Object.fromEntries(SKILLS.map(s => [s.id, s]))
+const BASE_BY_ID: Readonly<Record<string, SkillDef>> = Object.fromEntries(SKILLS.map(s => [s.id, s]))
+
+/**
+ * ─── Capstones (docs/gdd-afterplay.md §2.3, phase 8) ─────────────────────────
+ *
+ * One per class, at hero level 45 (not cut by SKILL_LEVEL_SCALE), 15k at the
+ * trainer, slotted like any active (no new slot). Each is its class's
+ * signature skill raised to the afterplay: the same effect (`capstone` names
+ * the skill whose code it runs, `sim/heroSkills.ts`) with its own, far larger
+ * numbers. Kept out of `SKILLS` (the class's twelve, its art sheets and its
+ * balance tables); `SKILL_BY_ID` knows them. No ranks.
+ * Taught only at Bastion Crossing by a teacher rescued there; a class whose
+ * teacher was never taken teaches it at home (`profile.learnBlock`).
+ */
+export const CAPSTONE_LEVEL = 45
+export const CAPSTONE_PRICE = 15000
+const CAP = (id: string, cls: ClassId, base: string, req: Partial<AttrBlock>, cd: number, p: Record<string, number>, extra: Partial<SkillDef> = {}): SkillDef => {
+  const b = BASE_BY_ID[base]!
+  return { ...b, id, cls, level: CAPSTONE_LEVEL, priceLevel: CAPSTONE_LEVEL, req, cd, mana: Math.max(1, Math.round(b.mana * 1.25)), p: { ...b.p, ...p }, capstone: base, ...extra }
+}
+export const CAPSTONES: readonly SkillDef[] = [
+  CAP('bastionWall', 'aegis', 'retribution', { str: 45, end: 36 }, 45, { dur: 6, def: 70, radius: 10, dmg: 500, back: 250, cap: 1500 }, { radius: 10 }),
+  CAP('thousandCuts', 'shadow', 'danceOfBlades', { dex: 46, skl: 38 }, 40, { hits: 16, dmg: 700, dur: 2, radius: 12 }, { radius: 12 }),
+  CAP('cinderSun', 'pyro', 'cataclysm', { int: 48 }, 45, { dmg: 900, meteors: 20, radius: 3.5 }, { radius: 16 }),
+  CAP('royalLegion', 'sovereign', 'armyOfTheRealm', { cha: 48, end: 24 }, 60, { archers: 3, guards: 3, mages: 2, dur: 25 }),
+  CAP('stoppedHour', 'chrono', 'timeStop', { int: 46, skl: 38 }, 70, { dmg: 800, dur: 5, radius: 15 }, { radius: 15 }),
+  CAP('redCovenant', 'blood', 'grandTransmutation', { end: 46, int: 38 }, 60, { pct: 35, cap: 1400, heal: 60, radius: 12 }, { radius: 12 }),
+  CAP('orbitalLance', 'aether', 'orbitalBeam', { skl: 46, int: 34 }, 35, { dmg: 950, dur: 5, radius: 3.4 }, { radius: 3.4 }),
+  CAP('tectonicHeart', 'geo', 'tectonicRupture', { str: 42, int: 36 }, 45, { dmg: 1000, dur: 6, rubble: 12 }),
+  CAP('eyeOfTheGale', 'windrunner', 'arrowStorm', { skl: 40, dex: 32 }, 30, { dmg: 520, volleys: 14, dur: 3, radius: 5, slow: 40 }, { radius: 5 }),
+  CAP('endlessWinter', 'frostwarden', 'absoluteZero', { int: 46, str: 38 }, 55, { dmg: 1000, freeze: 4, shield: 800, radius: 12 }, { radius: 12 }),
+  CAP('dawnbreak', 'lightbringer', 'haloOfDawn', { int: 46, cha: 38 }, 50, { dur: 12, dmg: 130, heal: 5, radius: 8 }, { radius: 8 }),
+  CAP('alphasCall', 'beastcaller', 'wildHunt', { cha: 46, end: 36 }, 55, { wolves: 5, dur: 15, dmg: 80, move: 40 }),
+  CAP('prismStorm', 'elementalist', 'elementalConvergence', { int: 46, skl: 36 }, 50, { dmg: 60, strikes: 20, dur: 7 }),
+  CAP('ferryman', 'soulwarden', 'processionOfSouls', { int: 45, cha: 33 }, 50, { dur: 14, atk: 80, life: 20 }),
+  CAP('unmovingMountain', 'ironmonk', 'mountainPalm', { dex: 46, end: 36 }, 40, { dmg: 900, per: 80, radius: 5, down: 2 }, { radius: 5 }),
+  CAP('encore', 'bard', 'grandFinale', { cha: 45, skl: 36 }, 50, { dur: 10, buff: 25, dmg: 1000, charm: 4, radius: 11 }, { radius: 11 })
+]
+/** Each class's capstone. */
+export const CAPSTONE_OF: Readonly<Record<BaseClassId, SkillDef>> = Object.fromEntries(CAPSTONES.map(s => [s.cls, s])) as Record<BaseClassId, SkillDef>
+
+/** A class's capstone, if it has one (the prestige four have none). */
+export const capstoneOf = (cls: ClassId): SkillDef | undefined => (isPrestige(cls) ? undefined : CAPSTONE_OF[cls])
+
+/**
+ * ─── The prestige classes (docs/gdd-afterplay.md §10, phase 10) ──────────────
+ *
+ * Four hybrids, three skills each (two actives, one passive), at hero levels
+ * 40–43 (not cut by SKILL_LEVEL_SCALE: they are the afterplay's). A class's
+ * skills are taught only once its trial is passed (`data/prestige.ts`) and
+ * the hero knows a skill of each parent (`profile.learnBlock`), by the
+ * Mysterious Wanderer at the fort. Kept out of `SKILLS` (the sixteen classes'
+ * twelve, their tables and sheets); `SKILL_BY_ID` and `skillsOf` know them.
+ */
+const PA = (...a: Parameters<typeof A>): SkillDef => ({ ...A(...a), level: a[2], priceLevel: a[2] })
+const PP = (...a: Parameters<typeof P>): SkillDef => ({ ...P(...a), level: a[2], priceLevel: a[2] })
+export const PRESTIGE_SKILLS: readonly SkillDef[] = [
+  // Demonhunter (Shadowblade + Lightbringer): marks demons; marked demons take +40 %.
+  PA('huntersMark', 'demonhunter', 40, { dex: 40, int: 30 }, 10, 14, 'enemy', 12, 'dex', { dmg: 140, demon: 40, vuln: 20, dur: 8 }, { cast: 0.12 }),
+  PP('demonsBane', 'demonhunter', 41, { dex: 40, int: 28 }, 'dex', { demonBane: 0.25, demonWard: 0.15 }, { bane: 25, ward: 15 }),
+  PA('silverVolley', 'demonhunter', 43, { dex: 44, int: 34 }, 14, 20, 'dir', 12, 'dex', { dmg: 220, bane: 50, width: 1.4 }, { cast: 0.25 }),
+  // Dragoon (Windrunner + Aegis): a jump attack from the sky, a spear line.
+  PA('skyfallLeap', 'dragoon', 40, { str: 36, dex: 36 }, 16, 18, 'ground', 12, 'str', { dmg: 300, air: 0.8, down: 1.2, radius: 3.5 }, { radius: 3.5, cast: 0.15 }),
+  PP('dragonBlood', 'dragoon', 41, { str: 36, end: 28 }, 'str', { bossDamage: 0.12, maxHpPct: 0.08, knockbackImmune: 1 }, { boss: 12, hp: 8 }),
+  PA('dragonLance', 'dragoon', 43, { dex: 44, str: 34 }, 9, 14, 'dir', 14, 'dex', { dmg: 220, width: 1.1 }, { cast: 0.2 }),
+  // Hexsmith (Aether-Tech + Blood Alchemist): turrets that drain health.
+  PA('hexTurret', 'hexsmith', 40, { skl: 40, end: 30 }, 16, 18, 'ground', 6, 'skl', { dmg: 45, drain: 40, dur: 12, radius: 7, max: 2 }, { cast: 0.3 }),
+  PP('soulForge', 'hexsmith', 41, { end: 36, skl: 28 }, 'end', { maxHpPct: 0.1, hpRegen: 2, damageReduction: 0.05 }, { hp: 10, regen: 2, reduce: 5 }),
+  PA('hexBolt', 'hexsmith', 43, { skl: 44, end: 34 }, 6, 0, 'enemy', 11, 'skl', { hp: 8, dmg: 180, weak: 20, dur: 4, heal: 30 }, { hpCost: 8, cast: 0.15 }),
+  // Tidecaller (Frostwarden + Elementalist): waves that knock back and soak.
+  PA('tidalWave', 'tidecaller', 40, { int: 40, str: 30 }, 12, 18, 'dir', 12, 'int', { dmg: 380, push: 7, slow: 40, dur: 4, width: 2.2 }, { cast: 0.3 }),
+  PP('seaborn', 'tidecaller', 41, { int: 36, end: 26 }, 'int', { chillDamage: 0.15, damageReduction: 0.06, moveSpeed: 0.05 }, { bonus: 15, reduce: 6, move: 5 }),
+  PA('undertow', 'tidecaller', 43, { int: 44, str: 34 }, 18, 22, 'ground', 10, 'int', { dmg: 520, dur: 4, radius: 4, slow: 50 }, { radius: 4, cast: 0.3 })
+]
+
+export const SKILL_BY_ID: Readonly<Record<string, SkillDef>> = {
+  ...BASE_BY_ID, ...Object.fromEntries(CAPSTONES.map(s => [s.id, s])), ...Object.fromEntries(PRESTIGE_SKILLS.map(s => [s.id, s]))
+}
 
 /**
  * Actives whose effect reads no attribute (roadmap #105): flat percentages,
@@ -371,11 +464,13 @@ export const FIXED_EFFECT: ReadonlySet<string> = new Set([
 export const scalingOf = (def: SkillDef): Attr | null =>
   def.kind === 'passive' || FIXED_EFFECT.has(def.id) ? null : def.scales
 
-export const skillsOf = (cls: ClassId): SkillDef[] => SKILLS.filter(s => s.cls === cls)
+export const skillsOf = (cls: ClassId): SkillDef[] => (isPrestige(cls) ? PRESTIGE_SKILLS : SKILLS).filter(s => s.cls === cls)
 
 /** The bar's slots (roadmap #95): eight actives, four passives. */
 export const ACTIVE_SLOTS = 8
 export const PASSIVE_SLOTS = 4
+/** With the siege's "Veteran's Instinct" (afterplay §8.6, the `fifthPassive` flag): one more passive slot. */
+export const MAX_PASSIVE_SLOTS = PASSIVE_SLOTS + 1
 
 /** Does a hero of this level and these attribute totals meet a skill's bars? */
 export const meetsSkill = (s: SkillDef, level: number, attrs: AttrBlock): boolean => {
@@ -388,7 +483,7 @@ export const meetsSkill = (s: SkillDef, level: number, attrs: AttrBlock): boolea
 }
 
 /** What its trainer charges (before the Charisma discount). */
-export const priceOf = (s: SkillDef): number => skillPrice(s.priceLevel)
+export const priceOf = (s: SkillDef): number => (s.capstone ? CAPSTONE_PRICE : skillPrice(s.priceLevel))
 
 /** Heat a full gauge holds, and how fast it drains per second. */
 export const HEAT_MAX = 100

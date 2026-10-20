@@ -1,11 +1,14 @@
 import { startAttrs, ATTRS, type Attr, type AttrBlock } from '../data/attributes'
 import { POINTS_PER_LEVEL } from '../data/attributes'
-import { ACTIVE_SLOTS, PASSIVE_SLOTS, SKILLS, SKILL_BY_ID, meetsSkill, type ClassId } from '../data/skills'
+import { ACTIVE_SLOTS, CLASSES, PASSIVE_SLOTS, PRESTIGE_SKILLS, SKILLS, SKILL_BY_ID, meetsSkill, type ClassId } from '../data/skills'
 import { ITEMS, noGear, type ItemSlot, type ZoneId } from '../data/items'
-import { ZONES, visitLevel } from '../data/zones'
+import { visitLevel } from '../data/zones'
+import { zoneOf } from '../data/invasion'
+import { armInvasion } from './invasion'
 import { applyPlan, populateZone } from './director'
 import { ROLL_DIST, castSkill, createHero, orderAttack, orderMove, rollHero, slotState, useManaPotion, usePotion } from './hero'
 import { isSolidAt } from './grid'
+import { BOSS_SCRIPTS, type BotGoal } from './bosses'
 import type { Danger } from './types'
 import { chestLock, orderOpen } from './interact'
 import { zoneMastery, type Mastery } from './route'
@@ -44,7 +47,8 @@ const MAIN: Record<ClassId, [Attr, Attr]> = {
   aegis: ['str', 'end'], shadow: ['dex', 'skl'], pyro: ['int', 'skl'], sovereign: ['cha', 'end'],
   chrono: ['int', 'skl'], blood: ['end', 'int'], aether: ['skl', 'int'], geo: ['str', 'int'],
   windrunner: ['dex', 'skl'], frostwarden: ['str', 'int'], lightbringer: ['int', 'cha'], beastcaller: ['cha', 'end'],
-  elementalist: ['int', 'skl'], soulwarden: ['int', 'cha'], ironmonk: ['dex', 'end'], bard: ['cha', 'skl']
+  elementalist: ['int', 'skl'], soulwarden: ['int', 'cha'], ironmonk: ['dex', 'end'], bard: ['cha', 'skl'],
+  demonhunter: ['dex', 'int'], dragoon: ['dex', 'str'], hexsmith: ['skl', 'end'], tidecaller: ['int', 'str']
 }
 
 export const referenceBuild = (o: RefBuildOpts): { build: HeroBuild; skills: string[] } => {
@@ -54,8 +58,11 @@ export const referenceBuild = (o: RefBuildOpts): { build: HeroBuild; skills: str
   // First, what the class's own skills ask for at this level: a player who
   // commits to a class spends the points that unlock its skills (an Aegis
   // Knight needs INT 8 for Radiant Strike) before anything else.
-  for (const s of SKILLS) {
-    if (s.cls !== o.cls || s.level > o.level) continue
+  // A prestige class (afterplay §10) plays its three over its parents' kits: theirs count as its own.
+  const kit = [o.cls, ...(CLASSES[o.cls].parents ?? [])]
+  const pool = [...PRESTIGE_SKILLS, ...SKILLS]
+  for (const s of pool) {
+    if (!kit.includes(s.cls) || s.level > o.level) continue
     for (const k in s.req) {
       const attr = k as Attr
       const need = (s.req[attr] ?? 0) - attrs[attr]
@@ -98,7 +105,7 @@ export const referenceBuild = (o: RefBuildOpts): { build: HeroBuild; skills: str
   // Every skill of the class the build qualifies for.
   const probe: HeroBuild = { level: o.level, attrs, equipped, passives: [] }
   const total = sumBuild(probe).attrs
-  const own = SKILLS.filter(s => s.cls === o.cls && meetsSkill(s, o.level, total))
+  const own = pool.filter(s => kit.includes(s.cls) && meetsSkill(s, o.level, total))
   const passives = own.filter(s => s.kind === 'passive').slice(0, PASSIVE_SLOTS).map(s => s.id)
   const skills = own.filter(s => s.kind === 'active').slice(0, ACTIVE_SLOTS).map(s => s.id)
   return { build: { level: o.level, attrs, equipped, passives }, skills }
@@ -131,11 +138,13 @@ export interface RunOpts extends RefBuildOpts {
   bare?: boolean
   /** Clear the branches and open the chests before the finale. */
   explore?: boolean
+  /** The zone's invaded self (the afterplay, `data/invasion.ts`). */
+  invaded?: boolean
 }
 
 /** Set up a zone visit exactly as the game does, with a reference build. */
 export const setupRun = (o: RunOpts): { sim: Sim; plan: ZonePlan } => {
-  const def = ZONES[o.zone]
+  const def = zoneOf(o.zone, !!o.invaded)
   const seed = o.seed ?? 1234
   const plan = generateZone(def, seed, { bare: o.bare })
   const sim = new Sim({
@@ -145,6 +154,7 @@ export const setupRun = (o: RunOpts): { sim: Sim; plan: ZonePlan } => {
   applyPlan(sim, plan)
   const ref = referenceBuild(o)
   createHero(sim, { build: ref.build, skills: ref.skills, x: plan.start.x, z: plan.start.z, xpInto: 0, potions: o.potions ?? 3 })
+  if (o.invaded) armInvasion(sim)
   populateZone(sim, plan, o.zone, [])
   return { sim, plan }
 }
@@ -168,11 +178,20 @@ export const botThink = (sim: Sim, explore = false): void => {
   // The nearest enemy that is awake; if none, the next pack that still stands.
   let foe: (typeof sim.units)[number] | undefined
   let bd = Infinity
+  let goal: BotGoal | null = null
   for (const e of sim.units) {
     if (!e.alive || e.team !== 1 || !e.awake) continue
+    // A boss fight with a puzzle (a riddle, a wave to hide from): the puzzle first.
+    if (!goal && e.boss) goal = BOSS_SCRIPTS[e.boss.script]?.botGoal?.(sim, e) ?? null
     const d = Math.hypot(e.x - u.x, e.z - u.z)
     if (d < bd) { bd = d; foe = e }
   }
+  if (goal && goal.attack === undefined) {
+    if (Math.hypot(goal.x - u.x, goal.z - u.z) > 0.5 && (h.order.kind !== 'move' || Math.hypot(h.order.x - goal.x, h.order.z - goal.z) > 0.3)) orderMove(sim, goal.x, goal.z)
+    return
+  }
+  const aim = goal?.attack !== undefined ? sim.live(goal.attack) : undefined
+  if (aim) { foe = aim; bd = Math.hypot(aim.x - u.x, aim.z - u.z) }
   if (!foe) {
     if (explore && exploreStep(sim)) return
     // The main chain only: side packs are a player's choice, not the yardstick's.

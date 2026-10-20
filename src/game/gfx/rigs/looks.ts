@@ -55,6 +55,13 @@ export const LOOKS: Readonly<Record<string, Look>> = {
   banditBaron: L({ skin: '#d9a47e', top: '#2a3a6a', bottom: '#2a2420', head: 'hat', hair: '#2a1c14', outfit: 'leather', held: 'sword', off: 'dagger', trim: '#ffd24a', bulk: 1.1, beard: '#2a1c14', cape: '#6a1a2a', pauldrons: true, headCol: '#1c1a24', headTrim: '#ffd24a', metal: '#e8eef8' }),
   riftKnight: L({ skin: '#3a2466', top: '#1c1430', bottom: '#140c24', head: 'greathelm', hair: '#2a1a4a', outfit: 'plate', held: 'greatsword', off: 'none', pauldrons: true, trim: '#b06aff', bulk: 1.2, cape: '#3a1a6a', eyeGlow: '#e0a8ff', metal: '#5a4a8a', glow: '#b06aff' }),
   doomKnight: L({ skin: '#5a3038', top: '#2a1c24', bottom: '#1a1218', head: 'greathelm', hair: '#3a2028', outfit: 'plate', held: 'greatsword', off: 'none', pauldrons: true, trim: '#c0364a', bulk: 1.15, cape: '#7a1c28', eyeGlow: '#ff5a4a', metal: '#6a4048' }),
+  // The Breaking (afterplay §6), placeholder looks: a raider in horse browns with a bow, a one-eyed brute
+  // (a giant recoloured), a demon-touched miner (a dwarf in soot and ember).
+  centaurRaider: L({ skin: '#c9926a', top: '#6a4a2a', bottom: '#8a5a34', head: 'long', hair: '#3a2418', outfit: 'leather', held: 'bow', trim: '#c9a24a', bulk: 1.1, eyeGlow: '#ff8a4a' }),
+  cyclopsBrute: L({ skin: '#c9a07a', top: '#6a4a34', bottom: '#4a3424', head: 'bald', hair: '#4a3424', outfit: 'rags', held: 'club', trim: '#8a6a4a', bulk: 1.25, eyeGlow: '#ffd84a' }),
+  // The Centaur Warchief (afterplay §5.2), placeholder: the man's half, seated on its horse's body (`buildBeast('centaur')`).
+  centaurWarchief: L({ skin: '#b8805a', top: '#7a2a1c', bottom: '#6a4a2a', head: 'horns', hair: '#2a1a12', outfit: 'leather', held: 'bow', pauldrons: true, trim: '#e0a04a', bulk: 1.2, beard: '#2a1a12', cape: '#8a3a1c', eyeGlow: '#ffb04a', metal: '#c9a24a' }),
+  demonMiner: L({ skin: '#b85a4a', top: '#3a2a24', bottom: '#2a201c', head: 'horns', hair: '#2a141c', outfit: 'leather', held: 'hammer', trim: '#ff8a3a', bulk: 1.15, beard: '#3a1c14', eyeGlow: '#ffb04a' }),
   imp: L({ skin: '#ff6a4a', top: '#8a2a1c', bottom: '#6a1c14', head: 'horns', hair: '#3a141c', outfit: 'bare', held: 'none', ears: 'pointy', eyeGlow: '#ffd84a', tail: '#d84a30', wings: '#a8301c' }),
   archDemon: L({ skin: '#c8283a', top: '#2a1018', bottom: '#1a0a10', head: 'horns', hair: '#1a0a10', outfit: 'plate', held: 'greatsword', pauldrons: true, trim: '#ffb04a', bulk: 1.3, eyeGlow: '#ffe07a', tail: '#a01c2c', wings: '#5a1020', cape: '#3a0a14', metal: '#ff7a3a' }),
 
@@ -122,6 +129,10 @@ export const LOOKS: Readonly<Record<string, Look>> = {
   freedFarmers: L({ skin: '#d8a078', top: '#a88a3a', bottom: '#4a5a6a', head: 'cap', headCol: '#8a6a3a', hair: '#5a3a22', style: 'short', outfit: 'tunic', held: 'none', trim: '#e8d8a0', beard: '#5a3a22' }),
   windDisciple: L({ skin: '#e8b88e', top: '#5ac8e0', bottom: '#3a4a3a', head: 'short', hair: '#3a2a1a', outfit: 'leather', held: 'bow', trim: '#d8f8a0', cape: '#4a8a3a', metal: '#e0d0a8', glow: '#c4f05a', boots: 'leather' }),
   frostDisciple: L({ skin: '#e0c0a8', top: '#8ab8ff', bottom: '#3a4a6a', head: 'short', hair: '#c8b890', style: 'short', outfit: 'plate', held: 'sword', trim: '#d8eeff', cape: '#c8e0f8', beard: '#c8b890', metal: '#bfe6ff', glow: '#a8d8ff' }),
+  // Scout Wren (the afterplay): a wounded ranger in a moss-green hood, a bandage on one arm.
+  scoutWren: L({ skin: '#e2b08a', top: '#4a6a3a', bottom: '#3a3430', head: 'hood', hair: '#8a4a2a', headCol: '#3f5a32', outfit: 'leather', held: 'bow', trim: '#e8e0d0', cape: '#3f5a32', boots: 'leather' }),
+  // The Sunken Priest (afterplay B7, if the Oracle was slain): a drowned temple's keeper in a sea-green hood.
+  sunkenPriest: L({ skin: '#b8c8b0', top: '#2f6a6a', bottom: '#1f3a44', head: 'hood', headCol: '#24504e', hair: '#d8dce0', style: 'long', outfit: 'robe', held: 'staff', trim: '#e8c060', beard: '#d8dce0', metal: '#c9a24a', glow: '#7fe8d0' }),
   lightDisciple: L({ skin: '#c89070', top: '#fbf0e0', bottom: '#f0d060', head: 'bun', hair: '#2a1a12', outfit: 'robe', held: 'staff', trim: '#f0d060', metal: '#e0b84a', glow: '#fff2a8' }),
   // Beastcaller: a moss-green hunting coat, a grey fur hood over long grey hair, a beard and a walking staff.
   sbMasterBeastcaller: L({ skin: '#d9a47e', top: '#4a6a34', bottom: '#5a4430', head: 'hood', headCol: '#8a8278', hair: '#c8c4bc', style: 'long', outfit: 'leather', held: 'staff', trim: '#4fb85a', cape: '#5a4a34', beard: '#c8c4bc', metal: '#7a5a34', glow: '#4fb85a', boots: 'leather' }),
@@ -141,6 +152,12 @@ export const LOOKS: Readonly<Record<string, Look>> = {
   sunfordGambler: L({ skin: '#d9a47e', top: '#8a5f3a', bottom: '#4a3a2a', head: 'bandana', hair: '#5a3a24', outfit: 'tunic', held: 'none', off: 'tome', trim: '#e0a84a', beard: '#5a3a24' }),
   // The cup stand (#136): a quick-fingered girl in a yellow hood and a green apron, a bright orb for the gem.
   sunfordCups: L({ skin: '#e8b890', top: '#4a9a5a', bottom: '#3a3a52', head: 'hood', headCol: '#e8c23a', hair: '#c9783a', style: 'ponytail', outfit: 'apron', held: 'none', off: 'orb', trim: '#f0d060', glow: '#ff6a8a' }),
+  // The fort's fair barkers (afterplay §9): Pip in a striped red barker's coat with a mallet; Old Bess in a shawl, grey bun, a ring-bright orb; Hob the apprentice, huge, in a leather apron with a hammer.
+  fairPip: L({ skin: '#e8b890', top: '#c8383a', bottom: '#2a2a3a', head: 'hat', headCol: '#f0d060', hair: '#5a3a24', style: 'short', outfit: 'tunic', held: 'hammer', trim: '#f4f0e0', metal: '#8a6a4a' }),
+  fairBess: L({ skin: '#e0b090', top: '#5a7a4a', bottom: '#5a3a4a', head: 'bun', hair: '#c8c4bc', outfit: 'robe', held: 'none', off: 'orb', trim: '#e8c060', glow: '#ffd24a' }),
+  // The Mysterious Wanderer (afterplay §10): a deep grey hood over a road-worn cloak, a staff with a pale rift-light at its tip.
+  mysteriousWanderer: L({ skin: '#c8a888', top: '#3a3a48', bottom: '#2a2a32', head: 'hood', headCol: '#2a2a36', outfit: 'robe', held: 'staff', trim: '#8a7ab8', glow: '#c8b8ff', cape: '#24242e' }),
+  fairHob: L({ skin: '#c89070', top: '#6a4a34', bottom: '#3a3430', head: 'bald', outfit: 'apron', held: 'hammer', trim: '#c9a24a', beard: '#3a2a1a', metal: '#b9c4d6', bulk: 1.25 }),
   oakGambler: L({ skin: '#f0c8a8', top: '#1f2a5a', bottom: '#141a3a', head: 'leathercap', hair: '#c9a24a', headCol: '#2a1f4a', outfit: 'leather', held: 'none', off: 'orb', trim: '#c9a24a', glow: '#8fd8ff' }),
   sbAlchemist: L({ skin: '#f2c8a0', top: '#8a6ab8', bottom: '#4a6a3a', head: 'bun', hair: '#d8583a', outfit: 'apron', held: 'flask', off: 'tome', trim: '#9ef06a', glow: '#9ef06a' }),
   sbHealer: L({ skin: '#e2b08a', top: '#e8eef4', bottom: '#9fb4c8', head: 'bald', outfit: 'robe', held: 'none', off: 'orb', trim: '#4f9fd6', beard: '#7a5a3a', glow: '#8dff9a' }),

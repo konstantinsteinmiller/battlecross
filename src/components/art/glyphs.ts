@@ -414,4 +414,14 @@ export const GLYPHS: Readonly<Record<string, string>> = {
   unknown: C(24, 24, 18, 'b') + P('M18 19a6 6 0 1 1 9 5c-2 1-3 2-3 5M24 35v1', 'n')
 }
 
+/** The prestige classes' skills (afterplay §10): a parent's drawing each, worn in their own colour
+ *  (owner decision: paint class icons, reuse the rest). */
+const PRESTIGE_GLYPH: Readonly<Record<string, string>> = {
+  huntersMark: 'shadowMark', demonsBane: 'searingLight', silverVolley: 'lanceOfLight',
+  skyfallLeap: 'updraftLeap', dragonBlood: 'fortitude', dragonLance: 'skyrender',
+  hexTurret: 'deployTurret', soulForge: 'hemophilia', hexBolt: 'essenceHarvest',
+  tidalWave: 'frostLance', seaborn: 'prismaticWard', undertow: 'rimeField'
+}
+for (const [id, from] of Object.entries(PRESTIGE_GLYPH)) (GLYPHS as Record<string, string>)[`skill.${id}`] = GLYPHS[`skill.${from}`]!
+
 export const hasGlyph = (id: string): boolean => id in GLYPHS

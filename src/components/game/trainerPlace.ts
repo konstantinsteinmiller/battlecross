@@ -12,7 +12,7 @@ export const trainerPlace = (cls: ClassId): { npc: string; node: NodeId; met: bo
   const flags = flagSet()
   const met = (npc: string): boolean => profile.world.said.includes(npc)
   for (const town of Object.keys(TOWNS) as TownId[]) {
-    const n = townNpcs(town, flags).find(x => x.role === 'trainer' && x.cls === cls)
+    const n = townNpcs(town, flags).find(x => x.role === 'trainer' && (x.cls === cls || (x.classes as readonly string[] | undefined)?.includes(cls)))
     if (n) return { npc: n.id, node: town, met: met(n.id) }
   }
   // A hidden trainer shows once their zone is cleared: asked as if all were.

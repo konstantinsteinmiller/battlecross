@@ -12,6 +12,19 @@
       section.trade__side.trade__left.teach__path
         h3.trade__cap {{ t(`class.${cls}.name`) }}
         div.trade__scroll
+          //- The Wanderer (afterplay §10): one tab per prestige class whose trial is passed.
+          div.teach__tabs(v-if="tabs.length > 1" role="tablist")
+            button.teach__tab(
+              v-for="c in tabs"
+              :key="c"
+              type="button"
+              role="tab"
+              :aria-selected="cls === c"
+              :class="{ 'is-active': cls === c }"
+              :style="{ '--c': CLASSES[c].color }"
+              :data-cls="c"
+              @click="pickClass(c)"
+            ) {{ t(`class.${c}.name`) }}
           p.trainer__friend(v-if="friend") {{ t('trainer.friend', { faction: t(`faction.${CLASSES[cls].faction}`) }) }}
           ol.lessons
             li.lessons__step(v-for="s in skills" :key="s.id" :class="{ 'is-known': knows(s.id) }")
@@ -28,6 +41,8 @@
                   StatBadge.lesson__stat(:id="s.id")
                 span.lesson__text
                   span.lesson__name {{ t(`skill.${s.id}.name`) }}
+                  span.lesson__rank(v-if="s.capstone") {{ t('relic.capstone') }}
+                  span.lesson__rank(v-if="skillRank(s.id) > 1") {{ t('trainer.rank.label', { n: roman(skillRank(s.id)) }) }}
                   span.lesson__reqs
                     span(:class="{ bad: profile.level < s.level }") {{ t('hud.level', { n: s.level }) }}
                     span(v-for="r in reqsOf(s.id)" :key="r.attr" :class="{ bad: r.have < r.need }") {{ t(`attr.${r.attr}.short`) }} {{ r.need }}
@@ -48,9 +63,31 @@
           div.trade__deal(v-if="!knows(picked)")
             span.trade__deal-label {{ t('trainer.fee') }}
             PriceTag.trade__deal-price(:n="skillCost(picked)" :base="baseOf(picked)" :bad="profile.gold < skillCost(picked)")
-          p.trade__why(v-if="block && block !== 'known'") {{ t(`trainer.block.${block}`) }}
+          p.trade__why(v-if="block === 'fort'") {{ t('relic.fortOnly') }}
+          p.trade__why(v-else-if="block && block !== 'known'") {{ t(`trainer.block.${block}`, parentNames) }}
+          //- The afterplay (§2.3): a learned skill's next rank, from the same trainer.
+          template(v-if="ranking")
+            p.teach__rank(v-if="rBlock === 'max'") {{ t('trainer.rank.max') }}
+            template(v-else)
+              p.teach__rank {{ t('trainer.rank.label', { n: roman(nextRank) }) }}
+              p.teach__rank-gain {{ t('trainer.rank.effect', { effect: rankGain.effect, cd: rankGain.cd }) }}
+              div.trade__deal
+                span.trade__deal-label {{ t('trainer.fee') }}
+                PriceTag.trade__deal-price(:n="rankCost(picked)" :base="rankBaseOf(picked)" :bad="profile.gold < rankCost(picked)")
+              p.trade__why(v-if="rBlock === 'level'") {{ t('trainer.rank.level', { n: roman(nextRank), lvl: nextRankLevel(picked) }) }}
+              p.trade__why(v-else-if="rBlock === 'attrs' || rBlock === 'gold'") {{ t(`trainer.block.${rBlock}`) }}
           div.trainer__actions
             FButton.trade__act(
+              v-if="ranking && rBlock !== 'max'"
+              :label="t('trainer.rank.up')"
+              type="success"
+              :size="short ? 'sm' : 'md'"
+              :is-disabled="rBlock !== ''"
+              @click="rankUp"
+            )
+            FButton.trade__act(
+              v-else
+
               :label="block === 'known' ? t('trainer.known') : t('trainer.learn')"
               type="success"
               :size="short ? 'sm' : 'md'"
@@ -105,9 +142,11 @@
 import { computed, nextTick, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { ATTRS, ATTR_COLOR, type Attr } from '@/game/data/attributes'
-import { CLASSES, SKILL_BY_ID, priceOf, skillsOf, type ClassId } from '@/game/data/skills'
+import { CLASSES, SKILL_BY_ID, capstoneOf, priceOf, skillsOf, type ClassId } from '@/game/data/skills'
+import { trialFlag } from '@/game/data/prestige'
 import { REP_FRIEND } from '@/game/data/quests'
-import { knows, learnBlock, learnSkill, profile, skillCost, totalAttrs } from '@/game/state/profile'
+import { afterplayOpen, buyRank, flagSet, knows, learnBlock, learnSkill, nextRankLevel, profile, rankBlock, rankCost, skillCost, skillRank, totalAttrs } from '@/game/state/profile'
+import { rankCd, rankMul, rankPrice } from '@/game/data/progression'
 import { flow } from '@/game/flow'
 import { sfx } from '@/game/audio/sfx'
 import FButton from '@/components/atoms/FButton.vue'
@@ -126,7 +165,27 @@ import TradeFrame from './TradeFrame.vue'
 const { t } = useI18n()
 const npc = computed(() => flow.npc)
 const cls = computed<ClassId>(() => (flow.trainerCls || 'aegis') as ClassId)
-const skills = computed(() => skillsOf(cls.value))
+/** The class's twelve, and in the afterplay its capstone at the end of the path (§2.3). */
+const skills = computed(() => {
+  const cap = afterplayOpen() ? capstoneOf(cls.value) : undefined
+  return cap ? [...skillsOf(cls.value), cap] : skillsOf(cls.value)
+})
+/** A trainer of several classes (the Wanderer): the ones he teaches this hero. */
+const tabs = computed<ClassId[]>(() => {
+  const f = flagSet()
+  return (npc.value?.classes ?? []).filter(c => f.has(trialFlag(c)))
+})
+const pickClass = (c: ClassId): void => {
+  if (c === cls.value) return
+  flow.trainerCls = c
+  picked.value = ''
+  sfx('uiClick')
+}
+/** A prestige class's parents, for the 'parents' block's line. */
+const parentNames = computed(() => {
+  const p = CLASSES[cls.value].parents
+  return p ? { a: t(`class.${p[0]}.name`), b: t(`class.${p[1]}.name`) } : {}
+})
 const frame = ref<InstanceType<typeof TradeFrame> | null>(null)
 /** A phone on its side: the big action a size down, so the card has room. */
 const short = useMedia('(max-height: 30rem)')
@@ -137,6 +196,19 @@ const friend = computed(() => {
   const f = CLASSES[cls.value].faction
   return f !== 'none' && profile.quests.rep[f] >= REP_FRIEND
 })
+
+/** A learned skill in hand, and the afterplay open: its ranks are for sale. */
+const ranking = computed(() => !!picked.value && knows(picked.value) && afterplayOpen())
+const rBlock = computed(() => (ranking.value ? rankBlock(picked.value) : ''))
+const nextRank = computed(() => skillRank(picked.value) + 1)
+/** What the next rank gives over rank I, in whole percent. */
+const rankGain = computed(() => ({
+  effect: Math.round((rankMul(nextRank.value) - 1) * 100),
+  cd: Math.round((1 - rankCd(nextRank.value)) * 100)
+}))
+const ROMAN = ['', 'I', 'II', 'III']
+const roman = (n: number): string => ROMAN[n] ?? String(n)
+const rankBaseOf = (id: string): number => (SKILL_BY_ID[id] ? rankPrice(SKILL_BY_ID[id]!.priceLevel, skillRank(id) + 1) : 0)
 
 const colorOf = (id: string): string => SKILL_BY_ID[id]?.color ?? ''
 const baseOf = (id: string): number => (SKILL_BY_ID[id] ? priceOf(SKILL_BY_ID[id]!) : 0)
@@ -156,6 +228,19 @@ const pick = (id: string): void => {
 }
 
 const stamps = ref(0)
+const rankUp = (): void => {
+  const id = picked.value
+  const cost = rankCost(id)
+  if (!buyRank(id)) {
+    sfx('denied')
+    shake(document.querySelector('.trade__act'))
+    return
+  }
+  sfx('uiLearn')
+  stamps.value++
+  void frame.value?.pay(cost)
+  void nextTick(() => burst(document.querySelector(`.lesson[data-skill="${id}"] .lesson__icon`), CLASSES[cls.value].color, true))
+}
 const learn = (): void => {
   const id = picked.value
   const cost = skillCost(id)
@@ -198,6 +283,26 @@ const learn = (): void => {
   .trade__cap
     color: var(--bc-text)
     background: var(--tint)
+// The Wanderer's classes: a row of tabs over the path.
+.teach__tabs
+  display: flex
+  flex-wrap: wrap
+  gap: 0.3rem
+  margin: 0 0 0.5rem
+.teach__tab
+  +screen.bare-button
+  flex: 1 1 auto
+  min-height: 2.2rem
+  padding: 0.2rem 0.5rem
+  border: var(--bc-ol-thin) solid var(--bc-ink)
+  border-radius: var(--bc-r-sm)
+  background: var(--bc-paper-lo)
+  color: var(--bc-ink)
+  font-size: clamp(0.66rem, 2.7vmin, 0.86rem)
+  line-height: 1.15
+  overflow-wrap: anywhere
+  &.is-active
+    background: color-mix(in srgb, var(--c) 55%, var(--bc-paper-hi))
 .trainer__friend
   margin: 0 0 0.5rem
   padding: 0.3rem 0.6rem
@@ -284,6 +389,19 @@ const learn = (): void => {
   hyphens: auto
 .lesson__price, .lesson__fee
   justify-self: start
+.lesson__rank
+  color: var(--bc-on-good)
+  font-size: clamp(0.6rem, 2.4vmin, 0.76rem)
+// The next rank on the table: its name, and what it adds.
+.teach__rank
+  margin: 0.4rem 0 0
+  font-size: clamp(0.8rem, 3.2vmin, 1rem)
+  text-align: center
+.teach__rank-gain
+  margin: 0.1rem 0 0.3rem
+  color: var(--bc-on-soft)
+  font-size: clamp(0.66rem, 2.7vmin, 0.86rem)
+  text-align: center
 @container (min-width: 21rem)
   .lesson
     grid-template-columns: auto minmax(0, 1fr) auto

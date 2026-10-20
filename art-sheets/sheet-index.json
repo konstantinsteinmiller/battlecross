@@ -16602,6 +16602,68 @@
       ]
     },
     {
+      "id": "sheet-icons-prestige",
+      "kind": "set",
+      "title": "Icons: prestige class emblems",
+      "files": {
+        "clean": "sheet-icons-prestige.png",
+        "key": "sheet-icons-prestige-key.png"
+      },
+      "width": 768,
+      "height": 768,
+      "cols": 3,
+      "rows": 3,
+      "maxEdge": 128,
+      "crop": 1,
+      "anchor": "centre",
+      "cells": [
+        {
+          "id": "class-demonhunter",
+          "label": "Class-demonhunter",
+          "variant": "icons",
+          "x": 0,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/icons/class-demonhunter.webp",
+          "round": true
+        },
+        {
+          "id": "class-dragoon",
+          "label": "Class-dragoon",
+          "variant": "icons",
+          "x": 256,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/icons/class-dragoon.webp",
+          "round": true
+        },
+        {
+          "id": "class-hexsmith",
+          "label": "Class-hexsmith",
+          "variant": "icons",
+          "x": 512,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/icons/class-hexsmith.webp",
+          "round": true
+        },
+        {
+          "id": "class-tidecaller",
+          "label": "Class-tidecaller",
+          "variant": "icons",
+          "x": 0,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/icons/class-tidecaller.webp",
+          "round": true
+        }
+      ]
+    },
+    {
       "id": "sheet-icons-status-1",
       "kind": "set",
       "title": "Icons: status effects (1 of 4)",

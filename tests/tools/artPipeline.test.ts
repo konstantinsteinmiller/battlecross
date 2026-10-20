@@ -22,7 +22,7 @@ import { pathToFileURL } from 'node:url'
 import sharp from 'sharp'
 import { afterAll, beforeAll, describe, expect, it } from 'vitest'
 import { CHARISMA_ITEMS, DEXTERITY_ITEMS, GAPFILL_ITEMS, ITEMS, MYTHICS, SMITHED } from '@/game/data/items'
-import { CLASSES, CLASS_IDS, SKILLS, skillsOf } from '@/game/data/skills'
+import { ALL_CLASS_IDS, CLASSES, CLASS_IDS, SKILLS, skillsOf } from '@/game/data/skills'
 import { heroLook } from '@/game/gfx/rigs/looks'
 import { GLYPHS } from '@/components/art/glyphs'
 import { isGameIconName } from '@/components/icons/iconNames'
@@ -345,7 +345,7 @@ describe('the manifest covers the game', () => {
         expect(c.y + c.h).toBeLessThanOrEqual(s.height)
       }
       // Icons are drawn small (24 to 64 px): emblems and slots 128, the rest 96.
-      const icon = s.id === 'sheet-icons-classes' || s.id === 'sheet-icons-crests' || s.id === 'sheet-icons-misc' ? 128 : s.id.startsWith('sheet-icons-') ? 96 : null
+      const icon = s.id === 'sheet-icons-classes' || s.id === 'sheet-icons-crests' || s.id === 'sheet-icons-prestige' || s.id === 'sheet-icons-misc' ? 128 : s.id.startsWith('sheet-icons-') ? 96 : null
       // The logo's badge and mascot are written at 512 whatever the default (`exact`), the painted titles at 1024 (#76).
       const brand = s.id.startsWith('single-logo-title-') || s.id === 'single-logo-wordmark' ? 1024 : s.id.startsWith('single-logo-') ? 512 : null
       // The rank frames of the bars (#137) are 4:1 strips, written at 1024 x 256 (`exact`).
@@ -374,7 +374,7 @@ describe('every other icon in the game is a painter target', () => {
 
   it('every status effect, every class emblem, every empty slot and every mark has a panel', () => {
     for (const k of Object.keys(GLYPHS).filter(g => g.startsWith('status.'))) expect(ids, k).toContain(`status-${k.slice(7)}`)
-    for (const cls of CLASS_IDS) expect(ids, cls).toContain(`class-${cls}`)
+    for (const cls of ALL_CLASS_IDS) expect(ids, cls).toContain(`class-${cls}`)
     for (const slot of ['main', 'off', 'head', 'body', 'hands', 'feet', 'trinket']) {
       expect(ids, slot).toContain(`slot-${slot}`)
       // The reference is the glyph the doll draws today.
