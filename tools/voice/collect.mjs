@@ -22,6 +22,16 @@ import { normalize } from './normalize.mjs'
  * real text. Add from real failures only.
  */
 const SAY = {
+  // Afterplay fort/siege lines: kana for misread kanji, pauses before the noun, the Russian town name spelled to say.
+  'ru/dlg.fortMara.command.1': 'Капитан Хейл пал вместе с Оукхэйвеном. Теперь крепость слушает старую старейшину.',
+  'ja/dlg.fortMara.rumor.centaurs.1': '郊外に、きばの群れ。毎晩、雷のような、ひづめの音よ。',
+  'zh/dlg.fortMara.rumor.centaurs.1': '郊外，有骑手。每晚……蹄声如雷。',
+  'zh/dlg.fortMara.siegeBack.1': '歇一会儿吧，孩子。钟声……还会再响的。',
+  'ja/dlg.story.wren.found.1': 'いた！ わたしはレン。せっこうよ。ずっと探してたの。',
+  'ja/dlg.bark.siegeHale.ram.1': 'はじょうついだ！ 門に着く前に、しとめろ！',
+  'zh/dlg.bark.siegeHale.ram.1': '攻城槌！在它到城门前，干掉它！',
+  'zh/dlg.bark.siegeMara.ram.1': '攻城槌！在它撞破城门前，拦住它！',
+  'fr/dlg.bark.siegeMara.won.1': 'Ils... fuient ! Le fort tient toujours !',
   // The model said "Lately, mostly swords" twice; short phrases keep it to one.
   'en/dlg.sunfordSmith.who.2': 'Horseshoes. Ploughs. The odd sword. Lately... mostly swords.',
   // The model dropped the last sentence; a pause before it keeps it in.

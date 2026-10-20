@@ -83,6 +83,33 @@ describe('automatic QA', () => {
     expect(budgetFor('一二三四五六七八九十一二三四五六七八九十', 2, 'ja')).toBeGreaterThan(6)
   })
 
+  it('compares how a line sounds where the script hides it: homophones pass, other words fail', () => {
+    const take = { seconds: 3, lufs: -16, peak: -3, target: { lufs: -16 } }
+    const ok = (lang: string, text: string, heard: string) => judge({ ...take, lang, text, heard }, 6).ok
+    // Japanese, by kana reading: 騎馬 / 牙 (きば), 斥候 / セッコウ, 町長 / 蝶々, 竜 / リュウ.
+    expect(ok('ja', '郊外に騎馬の群れ。毎晩、雷のような蹄の音よ。', '郊外に牙の群れ、毎晩雷のようなひずめの音よ。')).toBe(true)
+    expect(ok('ja', 'いた！わたしはレン、斥候よ。ずっと探してたの。', 'いた、私はレン・セッコウよ。ずっと探してたの。')).toBe(true)
+    expect(ok('ja', '町長のブレナ・クイルよ。なくした物、壊れた物、遅れた物は、ぜんぶ私の机に来るの。', '蝶々のブレナ・クイルよ、なくしたもの、壊れたもの、遅れたものは、全部私の机に来るの。')).toBe(true)
+    expect(ok('ja', '竜とは取引しない。', 'リュウとは取引しない')).toBe(true)
+    expect(ok('ja', '破城槌だ！ 門に着く前に仕留めろ！', 'あしろつちだ、もんにつくまえにしとめろ。')).toBe(false)
+    expect(ok('ja', '竜とは取引しない。', 'ルートは取引しない。')).toBe(false)
+    // Chinese, by toneless pinyin: 骑手 / 棋手, 蹄声 / 提升, 钟声 / 终生, 响 / 想.
+    expect(ok('zh', '郊外有骑手。每晚蹄声如雷。', '脚外有起手,每晚提升如雷。')).toBe(true)
+    expect(ok('zh', '歇一会儿吧，孩子。钟声还会再响的。', '歇一会儿吧,孩子,终生还会再想的。')).toBe(true)
+    expect(ok('zh', '灰烬商会应得此位。', '辉聚商会应得此位。')).toBe(false)
+    expect(ok('zh', '歇一会儿吧，孩子。钟声还会再响的。', '今天天气很好我们去公园吧好的')).toBe(false)
+    // French, silent endings and spellings of one sound: fuient / fuit, l'ait / l'est, raids / raid.
+    expect(ok('fr', 'Ils fuient ! Le fort tient toujours !', 'Il fuit. Le fort tient toujours.')).toBe(true)
+    expect(ok('fr', 'Que le Cercle de l’Éther l’ait.', "Que le cercle de l'éther l'est.")).toBe(true)
+    expect(ok('fr', 'Pas de marché. Tes raids s’arrêtent ici.', 'Pas de Marche, Tez Raid, Saret, Isi.')).toBe(true)
+    expect(ok('fr', 'Assez. Tu as des crocs, petite créature.', 'Assez. Tu as des gros petites créatures.')).toBe(false)
+    expect(ok('fr', 'Qu’est-ce qui inquiète Sunford ?', 'Kiss Ki and Ki at Sunford.')).toBe(false)
+    expect(ok('fr', 'Arrête les raids et commerce plutôt avec Sunford. Jure-le.', 'Arrête les raid et commence plutôt avec Sunford. Jour le!')).toBe(false)
+    // German: a doubled consonant is one sound ("Wasser" / "Waser"), a wrong word is not.
+    expect(ok('de', 'Das seichte Wasser trägt dich.', 'Das seichte Waser trägt dich.')).toBe(true)
+    expect(ok('de', 'Trag sie, und das seichte Wasser trägt dich wie fester Boden.', 'Krag sie und das seichte Wasser teigt dich wie fester Boden.')).toBe(false)
+  })
+
   it('fails a take on words, length, level or clipping, and says why', () => {
     const good = { text: 'Back again. What can I do for you?', heard: 'Back again, what can I do for you?', seconds: 1.9, lufs: -16.2, peak: -3.4, target: { lufs: -16 } }
     expect(judge(good, 3)).toMatchObject({ ok: true })

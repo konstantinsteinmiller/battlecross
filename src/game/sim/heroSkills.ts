@@ -1,4 +1,5 @@
-import { HEAT_MAX, OVERHEAT_LOCK, type SkillDef } from '../data/skills'
+import { CAPSTONES, HEAT_MAX, OVERHEAT_LOCK, type SkillDef } from '../data/skills'
+import { rankMul } from '../data/progression'
 import { MINIONS } from '../data/enemies'
 import { cellOf, isSolidAt, isSolidCell, nearestOpen } from './grid'
 import { addField, face, fire, raiseWall } from './actors'
@@ -7,6 +8,7 @@ import {
 } from './combat'
 import { isSpirit, spawnMinion, spawnSpirit } from './spawn'
 import { scalePower } from './stats'
+import { isDemon } from './relics'
 import { angleTo, findStatus, hasStatus, outOfReach, type HeroState, type Sim } from './world'
 import type { Attr, DamageType, Unit } from './types'
 
@@ -34,7 +36,8 @@ export interface CastCtx {
 const hits: Unit[] = []
 const out2: [number, number] = [0, 0]
 
-const pw = (c: CastCtx, attr: Attr): number => scalePower(c.u.s, attr)
+/** A skill's power: the attribute's, × its afterplay rank (II +30 %, III +60 %). */
+const pw = (c: CastCtx, attr: Attr): number => scalePower(c.u.s, attr) * rankMul(c.h.build.ranks?.[c.def.id] ?? 1)
 const pct = (n: number | undefined): number => (n ?? 0) / 100
 
 const placeNear = (sim: Sim, u: Unit, x: number, z: number): void => {
@@ -279,7 +282,7 @@ export const HERO_SKILLS: Record<string, SkillFn> = {
       fromX = t.x
       fromZ = t.z
       next = c.sim.inCircle(1, t.x, t.z, p.jump!, hits)
-        .filter(e => e.rank !== 'npc' && !struck.includes(e.id))
+        .filter(e => e.rank !== 'npc')
         .sort((a, b) => Math.hypot(a.x - t.x, a.z - t.z) - Math.hypot(b.x - t.x, b.z - t.z))[0]
     }
   },
@@ -368,12 +371,16 @@ export const HERO_SKILLS: Record<string, SkillFn> = {
     const n = p.hits!
     applyStatus(c.sim, c.u, 'invulnerable', p.dur! + 0.1, 1, c.u, { quiet: true })
     const dmg = pw(c, 'dex') * pct(p.dmg)
+    // A boss takes one blade, not the whole dance: alone with the Shadow it ate
+    // all eight (outstanding-decisions.md, "Shadow afterplay balance").
+    const struck: number[] = []
     for (let i = 0; i < n; i++) {
       c.sim.after((i * p.dur!) / n, () => {
         if (!c.u.alive) return
-        const near = c.sim.inCircle(1, c.u.x, c.u.z, p.radius!, hits).filter(e => e.awake || e.rank !== 'npc')
+        const near = c.sim.inCircle(1, c.u.x, c.u.z, p.radius!, hits).filter(e => (e.awake || e.rank !== 'npc') && (e.rank !== 'boss' || !struck.includes(e.id)))
         if (!near.length) return
         const t = near[Math.floor(c.sim.rng() * near.length)]!
+        struck.push(t.id)
         const ang = c.sim.rng() * Math.PI * 2
         const fromX = c.u.x
         const fromZ = c.u.z
@@ -2106,9 +2113,135 @@ export const HERO_SKILLS: Record<string, SkillFn> = {
         if (dealt > 0 && t.alive) applyStatus(c.sim, t, 'confuse', p.charm!, 1, c.u)
       }
     })
-  }
+  },
 
+  // ── The prestige classes (afterplay §10, phase 10) ──────────────────────────
+  // Demonhunter: a holy bolt that marks; a demon marked takes far more.
+  huntersMark: (c) => {
+    const t = c.target
+    if (!t) return
+    const p = c.def.p
+    const demon = isDemon(t)
+    dealDamage(c.sim, c.u, t, pw(c, 'dex') * pct(p.dmg), { type: 'holy', heavy: true, skill: c.def.id })
+    if (t.alive) applyStatus(c.sim, t, 'vulnerable', p.dur!, pct(demon ? p.demon : p.vuln), c.u)
+    c.sim.emit({ t: 'fx', id: 'mark', x: t.x, z: t.z, color: c.def.color, unit: t.id, dur: p.dur })
+    c.h.order.kind = 'attack'
+    c.h.order.targetId = t.id
+  },
+  // Demonhunter: a line of silver bolts; demons and the marked take +bane %.
+  silverVolley: (c) => {
+    const p = c.def.p
+    const len = c.def.range
+    c.sim.emit({ t: 'fx', id: 'dash', x: c.u.x, z: c.u.z, x2: c.u.x + Math.sin(c.a) * len, z2: c.u.z + Math.cos(c.a) * len, color: c.def.color })
+    for (const t of c.sim.inLine(1, c.u.x, c.u.z, c.a, len, p.width!, hits)) {
+      const bane = isDemon(t) || hasStatus(t, 'vulnerable') ? 1 + pct(p.bane) : 1
+      dealDamage(c.sim, c.u, t, pw(c, 'dex') * pct(p.dmg) * bane, { type: 'holy', heavy: true, skill: c.def.id })
+    }
+  },
+  // Dragoon: up out of reach, then down on the spot from the sky.
+  skyfallLeap: (c) => {
+    const p = c.def.p
+    const tx = c.x
+    const tz = c.z
+    applyStatus(c.sim, c.u, 'invulnerable', p.air!, 1, c.u, { quiet: true })
+    c.sim.emit({ t: 'fx', id: 'burst:geyser', x: c.u.x, z: c.u.z, r: 1.4, color: c.def.color })
+    c.sim.after(p.air!, () => {
+      if (!c.u.alive) return
+      dashTo(c, angleTo(c.u.x, c.u.z, tx, tz), Math.hypot(tx - c.u.x, tz - c.u.z))
+      c.sim.emit({ t: 'fx', id: 'quake', x: c.u.x, z: c.u.z, r: p.radius, color: c.def.color })
+      for (const t of c.sim.inCircle(1, c.u.x, c.u.z, p.radius!, hits)) {
+        const dealt = dealDamage(c.sim, c.u, t, pw(c, 'str') * pct(p.dmg), { type: 'pierce', heavy: true, skill: c.def.id })
+        if (dealt > 0 && t.alive && t.rank !== 'boss') applyStatus(c.sim, t, 'knockdown', p.down!, 1, c.u)
+      }
+    })
+  },
+  // Dragoon: the spear thrust down a line.
+  dragonLance: (c) => {
+    const p = c.def.p
+    const len = c.def.range
+    c.sim.emit({ t: 'fx', id: 'dash', x: c.u.x, z: c.u.z, x2: c.u.x + Math.sin(c.a) * len, z2: c.u.z + Math.cos(c.a) * len, color: c.def.color })
+    for (const t of c.sim.inLine(1, c.u.x, c.u.z, c.a, len, p.width!, hits)) {
+      dealDamage(c.sim, c.u, t, pw(c, 'dex') * pct(p.dmg), { type: 'pierce', heavy: true, skill: c.def.id })
+    }
+  },
+  // Hexsmith: a turret that, each second it stands, drains the nearest foe in reach and mends the smith.
+  hexTurret: (c) => {
+    const p = c.def.p
+    const mine = c.sim.units.filter(m => m.alive && m.rank === 'turret' && m.ownerId === c.u.id)
+    if (mine.length >= p.max!) mine[0]!.life = 0.01
+    const m = spawnMinion(c.sim, 'turret', c.x, c.z, p.dur!)
+    if (!m) return
+    c.sim.emit({ t: 'fx', id: 'deploy', x: m.x, z: m.z, color: c.def.color })
+    for (let i = 1; i <= Math.floor(p.dur!); i++) {
+      c.sim.after(i, () => {
+        if (!m.alive || !c.u.alive) return
+        let best: Unit | null = null
+        let bd = p.radius!
+        for (const t of c.sim.inCircle(1, m.x, m.z, p.radius!, near)) {
+          const d = Math.hypot(t.x - m.x, t.z - m.z)
+          if (d <= bd) { bd = d; best = t }
+        }
+        if (!best) return
+        const dealt = dealDamage(c.sim, c.u, best, pw(c, 'skl') * pct(p.dmg), { type: 'blood', skill: c.def.id })
+        if (dealt > 0) heal(c.sim, c.u, dealt * pct(p.drain), true)
+        c.sim.emit({ t: 'fx', id: 'dash', x: m.x, z: m.z, x2: best.x, z2: best.z, color: c.def.color })
+      })
+    }
+  },
+  // Hexsmith: a bolt paid in blood that weakens and gives some of it back.
+  hexBolt: (c) => {
+    const t = c.target
+    if (!t) return
+    const p = c.def.p
+    const dealt = dealDamage(c.sim, c.u, t, pw(c, 'skl') * pct(p.dmg), { type: 'blood', heavy: true, skill: c.def.id })
+    if (dealt > 0) {
+      heal(c.sim, c.u, dealt * pct(p.heal), true)
+      if (t.alive) applyStatus(c.sim, t, 'weaken', p.dur!, pct(p.weak), c.u)
+    }
+    c.sim.emit({ t: 'fx', id: 'dash', x: c.u.x, z: c.u.z, x2: t.x, z2: t.z, color: c.def.color })
+  },
+  // Tidecaller: a wave down a line that throws foes back and soaks them (slowed: cold to Shatterpoint and Seaborn).
+  tidalWave: (c) => {
+    const p = c.def.p
+    const len = c.def.range
+    const dx = Math.sin(c.a)
+    const dz = Math.cos(c.a)
+    c.sim.emit({ t: 'fx', id: 'dash', x: c.u.x, z: c.u.z, x2: c.u.x + dx * len, z2: c.u.z + dz * len, color: c.def.color })
+    c.sim.emit({ t: 'fx', id: 'burst:geyser', x: c.u.x + dx * len * 0.5, z: c.u.z + dz * len * 0.5, r: 2.5, color: c.def.color })
+    for (const t of c.sim.inLine(1, c.u.x, c.u.z, c.a, len, p.width!, hits)) {
+      const dealt = dealDamage(c.sim, c.u, t, pw(c, 'int') * pct(p.dmg), { type: 'frost', spell: true, heavy: true, skill: c.def.id })
+      if (dealt > 0 && t.alive) {
+        applyStatus(c.sim, t, 'slow', p.dur!, pct(p.slow), c.u)
+        knockback(t, t.x - dx, t.z - dz, p.push!)
+      }
+    }
+  },
+  // Tidecaller: a whirlpool that drags foes to its eye and drowns them over its life.
+  undertow: (c) => {
+    const p = c.def.p
+    const cx = c.x
+    const cz = c.z
+    const ticks = 8
+    c.sim.emit({ t: 'fx', id: 'burst:geyser', x: cx, z: cz, r: p.radius, color: c.def.color })
+    for (let i = 0; i < ticks; i++) {
+      c.sim.after((i * p.dur!) / ticks, () => {
+        if (!c.u.alive) return
+        if (i % 2 === 0) c.sim.emit({ t: 'fx', id: 'harvest', x: cx, z: cz, r: p.radius, color: c.def.color })
+        for (const t of c.sim.inCircle(1, cx, cz, p.radius!, hits)) {
+          const dealt = dealDamage(c.sim, c.u, t, (pw(c, 'int') * pct(p.dmg)) / ticks, { type: 'frost', spell: true, skill: c.def.id })
+          if (dealt > 0 && t.alive) {
+            applyStatus(c.sim, t, 'slow', 1, pct(p.slow), c.u, { quiet: true })
+            // Pulled in: shoved away from a point beyond it, through the eye.
+            knockback(t, 2 * t.x - cx, 2 * t.z - cz, 2)
+          }
+        }
+      })
+    }
+  }
 }
+
+// The capstones (afterplay §2.3): each runs its signature skill's code with its own, larger numbers.
+for (const cap of CAPSTONES) HERO_SKILLS[cap.id] = HERO_SKILLS[cap.capstone!]!
 
 /** Skills that may be thrown at a point when there is no enemy to lock. */
 export const FREE_AIM: ReadonlySet<string> = new Set(['fireball', 'aetherPistol', 'stoneSpike', 'galeArrow', 'rimeLance', 'sunbolt', 'prismBolt', 'wispBolt', 'sharpNote'])

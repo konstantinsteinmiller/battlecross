@@ -20,7 +20,7 @@ A friendly, brave boy on his first big adventure: polite, curious, quick to help
 - **Accent:** Neutral, clear English
 - **Design prompt:** A thirteen-year-old boy whose voice has not broken yet: bright, clear and friendly, with a brave, eager energy. He speaks naturally and politely, curious about everyone he meets. Clean, close-miked studio recording, no reverb, no background noise.
 - **Reference text:** Hello! I'm new around here, but I cleared the road on my way in. If anyone needs help, I'm happy to lend a hand. Can you tell me where to find the blacksmith?
-- **Lines:** 204 (neutral 176, deadpan 13, calm 8, urgent 4, warm 3)
+- **Lines:** 206 (neutral 178, deadpan 13, calm 8, urgent 4, warm 3)
 - **Notes:** Every line of his also has a girl take (heroine). Never cartoonish, never an adult doing a kid.
 
 ## The hero (girl) (`heroine`)
@@ -34,7 +34,7 @@ A warm, determined girl on her first big adventure: kind, curious, steady when i
 - **Accent:** Neutral, clear English
 - **Design prompt:** A thirteen-year-old girl with a warm, clear voice and a calm, determined confidence. Friendly and curious, she speaks naturally and kindly, never squeaky. Clean, close-miked studio recording, no reverb, no background noise.
 - **Reference text:** Hello! I'm new around here, but I cleared the road on my way in. If anyone needs help, I'm happy to lend a hand. Can you tell me where to find the blacksmith?
-- **Lines:** 204 (neutral 176, deadpan 13, calm 8, urgent 4, warm 3)
+- **Lines:** 206 (neutral 178, deadpan 13, calm 8, urgent 4, warm 3)
 - **Notes:** Says the same lines as the hero (`__f` takes): the same reference text keeps the two comparable.
 
 ## The storyteller (`narrator`)
@@ -62,7 +62,7 @@ An old storyteller by the fire who has seen every road of the world and still lo
 - **Accent:** Neutral, clear English
 - **Design prompt:** An old man in his late sixties with a deep, warm, slightly weathered bass-baritone, narrating the opening of a fantasy legend. Slow and deliberate, with dramatic pauses, gravitas and a twinkle of charm, like a beloved storyteller by the hearth. Clean, close-miked studio recording, no reverb, no background noise.
 - **Reference text:** Every road in this world meets at a crossing. I have walked most of them, and I remember every battle fought where they meet. Sit a while, and I will tell you of the one who walked them all.
-- **Lines:** 5 (warm 3, calm 2)
+- **Lines:** 8 (calm 5, warm 3)
 - **Notes:** The intro (#130) only. The English take is meant for ElevenLabs (tools/voice/intro-elevenlabs.mjs); the other voiced languages go through the usual pipeline.
 
 ## Bram the Smith (`sunfordSmith`)
@@ -76,7 +76,7 @@ A gruff village blacksmith of few words with a good heart under the soot.
 - **Accent:** Neutral, clear English
 - **Design prompt:** A man in his early fifties with a deep, slightly gravelly baritone. A gruff, practical village blacksmith: short sentences, dry, kind underneath. Clean, close-miked studio recording, no reverb, no background noise.
 - **Reference text:** Bram. I keep the forge here. Blades, axes, a horseshoe if you ask nicely. Mind the sparks, and do not touch the anvil while it is still hot.
-- **Lines:** 24 (neutral 24)
+- **Lines:** 25 (neutral 25)
 - **Notes:** Gruff, never angry.
 
 ## Tilly the Peddler (`sunfordPeddler`)
@@ -103,7 +103,7 @@ The town's grandmother: warm, wise, gently teasing, honest when disappointed.
 - **Accent:** Neutral, clear English
 - **Design prompt:** A woman of about seventy with a soft, warm voice and a slight age crackle. Kind and wise like a beloved grandmother, speaking slowly with a gentle smile. Clean, close-miked studio recording, no reverb, no background noise.
 - **Reference text:** Come here, let me look at you. I've looked after this town for forty years now, and I can tell a good heart when I see one. Sit down, have some tea, and tell me about the road.
-- **Lines:** 27 (warm 16, calm 5, cheeky 4, sad 2)
+- **Lines:** 39 (warm 23, calm 7, cheeky 4, sad 4, excited 1)
 
 ## Sister Lune (`sunfordHealer`)
 
@@ -238,6 +238,20 @@ Sefa Galewing's pupil: eager, quick, cheerful, always ready to run.
 - **Lines:** 14 (excited 11, warm 3)
 - **Notes:** Not Sefa Galewing (a woman): Kestrel is her young male pupil.
 
+## Scout Wren (`scoutWren`)
+
+| Gender | Age | Pitch | Pace | Timbre |
+| --- | --- | --- | --- | --- |
+| female | about 19 | mid-high | fast | clear, quick, slightly husky young woman's voice |
+
+A young scout of Sunford's watch: brave, breathless, quick to hope, wounded but still running.
+
+- **Accent:** Neutral, clear English
+- **Design prompt:** A young woman of about nineteen with a clear, quick, slightly husky voice. Brave and eager, a little out of breath, warm under the urgency. Clean, close-miked studio recording, no reverb, no background noise.
+- **Reference text:** There you are! I'm Wren, a scout. I've looked everywhere for you. Sunford is burning, but the old fort still stands. Come on, the roads won't scout themselves.
+- **Lines:** 13 (excited 8, urgent 3, cheeky 1, calm 1)
+- **Notes:** Not Ember Wren the pyromancer (trainerPyro): a different person, younger and faster.
+
 ## Ivor Hask (`frostDisciple`)
 
 | Gender | Age | Pitch | Pace | Timbre |
@@ -277,7 +291,7 @@ The tired commander of a besieged town watch: dutiful, grateful, weary.
 - **Accent:** Neutral, clear English
 - **Design prompt:** A man in his mid fifties with a worn, husky baritone. A tired but steady soldier, plain-spoken, carrying a heavy duty. Clean, close-miked studio recording, no reverb, no background noise.
 - **Reference text:** Captain Hale. I command what's left of the town watch. The walls are still standing, for today anyway. We need every sword we can get, so I won't turn yours away.
-- **Lines:** 18 (calm 16, warm 2)
+- **Lines:** 31 (calm 27, warm 4)
 
 ## Odo the Armorer (`oakArmorer`)
 
@@ -290,7 +304,7 @@ An overworked armourer who hasn't slept: apologetic, later proud of his back roo
 - **Accent:** Neutral, clear English
 - **Design prompt:** A man in his early forties with a friendly, slightly tired mid voice, an overworked craftsman who is still kind and a bit apologetic. Clean, close-miked studio recording, no reverb, no background noise.
 - **Reference text:** Odo. I make armour. Haven't slept much lately. Plate, if you stand your ground. Leather, if you keep moving. Take what's left, if it fits.
-- **Lines:** 30 (calm 14, warm 12, excited 2, cheeky 2)
+- **Lines:** 32 (calm 15, warm 13, excited 2, cheeky 2)
 - **Notes:** Also speaks as Master Odo after the siege.
 
 ## Senna Blades (`oakWeapons`)
@@ -411,7 +425,7 @@ A proud dwarven weaponsmith, hearty and blunt.
 - **Accent:** Neutral, clear English
 - **Design prompt:** A woman in her mid forties with a strong, hearty alto, a proud dwarf weaponsmith, blunt and loud with a big laugh. Clean, close-miked studio recording, no reverb, no background noise.
 - **Reference text:** Hilda Hammerhand. Every piece here was forged by dwarven hands. Careful with the display, those are sharp on both edges. If one of these breaks, I want to know how.
-- **Lines:** 15 (warm 13, excited 1, neutral 1)
+- **Lines:** 16 (warm 14, excited 1, neutral 1)
 
 ## Tinker Voss (`ironAetherWorks`)
 
@@ -437,7 +451,7 @@ A dwarven armourer who says as little as possible.
 - **Accent:** Neutral, clear English
 - **Design prompt:** A man of about fifty with a very low, flat bass voice, terse and calm, a craftsman who uses as few words as he can. Clean, close-miked studio recording, no reverb, no background noise.
 - **Reference text:** Garrun. Armour on the racks, rings in the tray. That plate will turn a giant's club. Have a look. Good choice. Not much more worth saying.
-- **Lines:** 13 (neutral 13)
+- **Lines:** 14 (neutral 14)
 
 ## Order Quartermaster (`ironOrderArmor`)
 
@@ -450,7 +464,7 @@ An efficient quartermaster of the Iron Order: formal, crisp, follows orders.
 - **Accent:** Neutral, clear English
 - **Design prompt:** A woman in her early forties with a crisp, clear and clipped voice, an efficient military quartermaster, formal and precise. Clean, close-miked studio recording, no reverb, no background noise.
 - **Reference text:** I'm the Order's quartermaster here. Take what you need, sign for it, and bring it back in one piece. The Order looks after its own. At ease.
-- **Lines:** 15 (deadpan 14, warm 1)
+- **Lines:** 16 (deadpan 15, warm 1)
 
 ## Old Stonefoot (`trainerGeo`)
 
@@ -599,6 +613,48 @@ A giant northern warlord who loves a fight and laughs at the cold.
 - **Design prompt:** A man in his mid fifties with a big, booming, gravelly bass voice, a hearty northern chieftain, loud and proud but never cruel. Clean, close-miked studio recording, no reverb, no background noise.
 - **Reference text:** Ha! So you came all the way up the mountain for me. Good. The ice remembers every warrior who stood here. Stand still, little one, and let us see if it remembers you.
 - **Lines:** 2 (neutral 1, shout 1)
+- **Notes:** No FX: the bass carries it.
+
+## The Chimera (`chimera`)
+
+| Gender | Age | Pitch | Pace | Timbre |
+| --- | --- | --- | --- | --- |
+| female | ageless beast | low | measured | husky, growling alto with a hiss under it |
+
+A three-headed beast that speaks as one hungry, mocking voice and loves the hunt.
+
+- **Accent:** Neutral, clear English
+- **Design prompt:** A woman with a husky, growling low alto, a predator purring and mocking, a faint hiss on the s sounds, never shrill. Clean, close-miked studio recording, no reverb, no background noise.
+- **Reference text:** Three heads, one hunger. You smell of fear and iron. Run, little thing, run. The lion is patient, the goat is cold, and the serpent never forgets.
+- **Lines:** 4 (urgent 2, shout 1, sad 1)
+- **Notes:** No FX: the growl is in the voice.
+
+## The Centaur Warchief (`centaurWarchief`)
+
+| Gender | Age | Pitch | Pace | Timbre |
+| --- | --- | --- | --- | --- |
+| male | about 45 | low | brisk | strong, commanding, weathered baritone |
+
+A proud war leader of the plains who scorns anyone who fights on foot.
+
+- **Accent:** Neutral, clear English
+- **Design prompt:** A man of about forty-five with a strong, commanding, weathered baritone, a cavalry captain shouting across an open field, proud and fierce. Clean, close-miked studio recording, no reverb, no background noise.
+- **Reference text:** Run if you like. My arrows run faster. These plains belong to the herd now, and every field you burned will burn again under our hooves.
+- **Lines:** 4 (warm 1, shout 1, urgent 1, sad 1)
+- **Notes:** No FX: an open field, dry.
+
+## The Cyclops (`cyclops`)
+
+| Gender | Age | Pitch | Pace | Timbre |
+| --- | --- | --- | --- | --- |
+| male | old giant | low | slow | huge, slow, rumbling bass, simple words |
+
+A huge, slow-witted giant of the deep mines, curious and cruel like a child with a stick.
+
+- **Accent:** Neutral, clear English
+- **Design prompt:** A man with a huge, slow, rumbling bass voice, simple and heavy, a giant talking slowly and heavily to something very small. Clean, close-miked studio recording, no reverb, no background noise.
+- **Reference text:** Something small is here. Come closer. Let me see you. Down here it is always dark, and small things break so easy in the dark. I like small things. Stay a while.
+- **Lines:** 4 (neutral 1, urgent 1, shout 1, sad 1)
 - **Notes:** No FX: the bass carries it.
 
 ## Mayor Brenna Quill (`mayorBrenna`)
@@ -849,7 +905,7 @@ A blunt, cheerful armourer from the mountains who laughs at dents and says exact
 - **Accent:** Neutral, clear English
 - **Design prompt:** A sturdy woman in her mid forties with a big, bright alto and a ready laugh. Blunt and cheerful, loud in a friendly way, like a craftswoman who loves her work. Clean, close-miked studio recording, no reverb, no background noise.
 - **Reference text:** Ha! Look at that dent. I'm Greta Ironvein, and I make armour that comes home with its owner. Go on, knock on it. Hard as you like.
-- **Lines:** 14 (cheeky 13, warm 1)
+- **Lines:** 15 (cheeky 14, warm 1)
 - **Notes:** Not Hilda Hammerhand (Ironhold, proud and hearty): Greta laughs more and brags less.
 
 ## Corvin Ashby (`sbWeapons`)

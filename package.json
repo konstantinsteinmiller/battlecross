@@ -1,6 +1,6 @@
 {
   "name": "battlecross",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "private": true,
   "type": "module",
   "scripts": {
@@ -56,6 +56,7 @@
     "voice:cards": "node --experimental-strip-types --no-warnings tools/voice/cards.mjs",
     "voice:collect": "node --experimental-strip-types --no-warnings tools/voice/collect.mjs",
     "voice:gen": "node --experimental-strip-types --no-warnings tools/voice/generate.mjs",
+    "voice:rejudge": "node --experimental-strip-types --no-warnings tools/voice/rejudge.mjs",
     "voice:compare": "node --experimental-strip-types --no-warnings tools/voice/compare.mjs",
     "voice:setup": "node --experimental-strip-types --no-warnings tools/voice/setup.mjs",
     "voice:intro": "node --experimental-strip-types --no-warnings tools/voice/intro-elevenlabs.mjs",
@@ -94,8 +95,10 @@
     "autoprefixer": "^10.4.27",
     "ffmpeg-static": "^5.3.0",
     "jsdom": "^28.1.0",
+    "kuromoji": "^0.1.2",
     "npm-run-all2": "^8.0.4",
     "pdfkit": "^0.20.2",
+    "pinyin-pro": "^3.29.5",
     "playwright-core": "^1.63.0",
     "postcss": "^8.5.8",
     "pug": "^3.0.3",

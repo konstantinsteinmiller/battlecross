@@ -201,6 +201,15 @@ export const CARDS: Readonly<Record<string, VoiceCard>> = {
     reference: "You got me out! I owe you everything. Well, a lot. Kestrel Vane. Sefa taught me the bow. Feet apart, breathe out, and let the wind carry it.",
     notes: 'Not Sefa Galewing (a woman): Kestrel is her young male pupil.'
   }),
+  // The afterplay (docs/gdd-afterplay.md §1.3): the scout who finds the hero after the rift opens.
+  scoutWren: card({
+    name: 'Scout Wren', gender: 'female', age: 'about 19', pitch: 'mid-high', pace: 'fast',
+    timbre: "clear, quick, slightly husky young woman's voice",
+    personality: "A young scout of Sunford's watch: brave, breathless, quick to hope, wounded but still running.",
+    design: 'A young woman of about nineteen with a clear, quick, slightly husky voice. Brave and eager, a little out of breath, warm under the urgency.',
+    reference: "There you are! I'm Wren, a scout. I've looked everywhere for you. Sunford is burning, but the old fort still stands. Come on, the roads won't scout themselves.",
+    notes: 'Not Ember Wren the pyromancer (trainerPyro): a different person, younger and faster.'
+  }),
   frostDisciple: card({
     name: 'Ivor Hask', gender: 'male', age: 'late 30s', pitch: 'low', pace: 'slow',
     timbre: 'deep, quiet, cold voice with a northern edge',
@@ -423,6 +432,72 @@ export const CARDS: Readonly<Record<string, VoiceCard>> = {
     reference: 'Ha! So you came all the way up the mountain for me. Good. The ice remembers every warrior who stood here. Stand still, little one, and let us see if it remembers you.',
     notes: 'No FX: the bass carries it.'
   }),
+  // The Breaking's bosses (afterplay §5): only shouts mid-fight.
+  chimera: card({
+    name: 'The Chimera', gender: 'female', age: 'ageless beast', pitch: 'low', pace: 'measured',
+    timbre: 'husky, growling alto with a hiss under it',
+    personality: 'A three-headed beast that speaks as one hungry, mocking voice and loves the hunt.',
+    design: 'A woman with a husky, growling low alto, a predator purring and mocking, a faint hiss on the s sounds, never shrill.',
+    reference: 'Three heads, one hunger. You smell of fear and iron. Run, little thing, run. The lion is patient, the goat is cold, and the serpent never forgets.',
+    notes: 'No FX: the growl is in the voice.'
+  }),
+  centaurWarchief: card({
+    name: 'The Centaur Warchief', gender: 'male', age: 'about 45', pitch: 'low', pace: 'brisk',
+    timbre: 'strong, commanding, weathered baritone',
+    personality: 'A proud war leader of the plains who scorns anyone who fights on foot.',
+    design: 'A man of about forty-five with a strong, commanding, weathered baritone, a cavalry captain shouting across an open field, proud and fierce.',
+    reference: 'Run if you like. My arrows run faster. These plains belong to the herd now, and every field you burned will burn again under our hooves.',
+    notes: 'No FX: an open field, dry.'
+  }),
+  cyclops: card({
+    name: 'The Cyclops', gender: 'male', age: 'old giant', pitch: 'low', pace: 'slow',
+    timbre: 'huge, slow, rumbling bass, simple words',
+    personality: 'A huge, slow-witted giant of the deep mines, curious and cruel like a child with a stick.',
+    design: 'A man with a huge, slow, rumbling bass voice, simple and heavy, a giant talking slowly and heavily to something very small.',
+    reference: 'Something small is here. Come closer. Let me see you. Down here it is always dark, and small things break so easy in the dark. I like small things. Stay a while.',
+    notes: 'No FX: the bass carries it.'
+  }),
+  sphinx: card({
+    name: 'The Sphinx', gender: 'female', age: 'ageless', pitch: 'mid-low', pace: 'slow',
+    timbre: 'smooth, regal, velvety contralto, amused',
+    personality: 'An ancient riddler who guards her temple with patience and a cat-like, teasing pride.',
+    design: 'A woman with a smooth, regal, velvety low voice, slow and amused, like a queen setting a puzzle she knows you will get wrong.',
+    reference: 'Answer me, little one. Many have stood where you stand, and the sand has kept them all. Sun, moon, eye and wave. Step where I show you, and perhaps the sand will let you go.',
+    notes: 'No FX.'
+  }),
+  leviathan: card({
+    name: 'The Leviathan', gender: 'male', age: 'ancient sea beast', pitch: 'low', pace: 'slow',
+    timbre: 'deep, cold, rolling bass, unhurried as the tide',
+    personality: 'A vast sea-serpent from the drowned deep, cold and patient, sure the water always wins.',
+    design: 'A man with a deep, cold, rolling bass voice, slow and calm like the tide coming in, never hurried and never loud for long.',
+    reference: 'You walk in my water now. The tide comes in, and the tide goes out, and everything it touches belongs to the deep in the end. Your little islands will not save you.',
+    notes: 'No FX: the bass carries it.'
+  }),
+  hydra: card({
+    name: 'The Hydra', gender: 'female', age: 'ageless beast', pitch: 'mid', pace: 'brisk',
+    timbre: 'hissing, gleeful, slightly raspy voice',
+    personality: 'A many-headed serpent that speaks as a gleeful crowd of itself, delighted by every head it grows back.',
+    design: 'A woman with a hissing, gleeful, slightly raspy voice, quick and mocking, a snake that laughs at its own cleverness.',
+    reference: 'Cut one head, and two will grow. Cut two, and four will grow. We have all the time in the world, little hero, and so many more teeth than you have arms.',
+    notes: 'No FX.'
+  }),
+  elderDragon: card({
+    name: 'The Elder Dragon', gender: 'male', age: 'ancient', pitch: 'low', pace: 'slow',
+    timbre: 'vast, weary, resonant bass, old beyond counting',
+    personality: 'The oldest thing under the world: proud, tired, and almost glad of a worthy foe at the end.',
+    design: 'A man with a vast, weary, resonant bass voice, slow and grave, an ancient king who has seen everything and is tired of most of it.',
+    reference: 'I slept beneath the world before your kind had fire. I have seen kings rise and fall like sparks. And now the rift calls me back to the dark. Very well. Show me what a spark can do.',
+    notes: 'No FX: the bass carries it.'
+  }),
+  // The Sunken Priest (afterplay B7, when the Oracle was slain): keeper of her drowned temple.
+  sunkenPriest: card({
+    name: 'The Sunken Priest', gender: 'male', age: 'about 70', pitch: 'mid-low', pace: 'measured',
+    timbre: 'soft, hoarse, reverent old voice',
+    personality: 'An old keeper of a drowned temple, quiet and grave, who speaks of the Oracle with sorrow.',
+    design: 'A man of about seventy with a soft, hoarse, reverent voice, quiet and grave, an old temple keeper speaking low as if in a holy place.',
+    reference: 'The Oracle is gone, so I keep her temple now. The water rose, and the sand came after it, but I stayed. Someone has to light the lamps. Someone has to remember what she saw.',
+    notes: 'No FX.'
+  }),
 
   // ── Silverbridge ──
   mayorBrenna: card({
@@ -537,6 +612,38 @@ export const CARDS: Readonly<Record<string, VoiceCard>> = {
     design: 'A young woman of about twenty with a bright, quick, playful voice, grinning as she talks, like a street performer calling over a crowd.',
     reference: "Three cups, one gem, and a first round on the house! Keep your eyes sharp, friend. Nell Nimblefingers never loses a gem. Well, almost never.",
     notes: 'Not Dob Tumbler (scratchy, chatty): Nell is higher, brisker and cheekier.'
+  }),
+  fairPip: card({
+    name: 'Pip', gender: 'male', age: 'about 25', pitch: 'mid-high', pace: 'fast',
+    timbre: 'loud, bright, carnival-barker voice',
+    personality: 'A wiry fair barker who shouts every sentence like the crowd is a mile away; loves imps the way a farmer loves moles.',
+    design: 'A young man of about twenty five with a loud, bright barker voice, projecting over a noisy fair, quick and cheerful.',
+    reference: "Roll up, roll up! Nine barrels, a pack of imps and one mallet! Bonk them back down where they came from!",
+    notes: 'Not Nell Nimblefingers (higher, cheekier, female) nor Dob Tumbler (scratchy, chatty): Pip shouts.'
+  }),
+  fairBess: card({
+    name: 'Old Bess', gender: 'female', age: 'about 70', pitch: 'low', pace: 'slow',
+    timbre: 'dry, creaky, amused old voice',
+    personality: 'An old carnival woman who carved the wooden hydra herself; dry humour, unimpressed, secretly delighted by good throws.',
+    design: 'A woman of about seventy with a dry, slightly creaky, low voice, unhurried and wry, a carnival lifer.',
+    reference: "Five rings, three heads, and not one of them bites. Mostly. I carved her myself, dearie, so do mind the paint.",
+    notes: 'Not Elder Mara (warm, wise): Bess is drier and teasing.'
+  }),
+  fairHob: card({
+    name: 'Hob', gender: 'male', age: 'about 19', pitch: 'low', pace: 'slow',
+    timbre: 'deep, soft, shy voice',
+    personality: "The Forgemaster's apprentice: enormous, gentle, shy, very proud of his arms and a little embarrassed by it.",
+    design: 'A very large young man of about nineteen with a deep but soft and shy voice, a little hesitant, kind.',
+    reference: "Oh. Hello. Do you... want to arm-wrestle? I'll go easy. Well, I'll try. The Forgemaster says I don't know my own strength.",
+    notes: 'Not the gruff smiths: Hob is deep but timid.'
+  }),
+  mysteriousWanderer: card({
+    name: 'The Mysterious Wanderer', gender: 'male', age: 'ageless, sounds about 60', pitch: 'low', pace: 'slow',
+    timbre: 'hushed, smooth, faintly amused low voice',
+    personality: 'A hooded stranger who has walked the rift\'s edge for longer than the war; speaks in few, weighed words, knowing and a little teasing.',
+    design: 'A man who sounds about sixty with a low, hushed, smooth voice, unhurried, quietly amused, as if sharing a secret.',
+    reference: "So. You did what few could. I have watched the rift for longer than you have been alive, and I teach only those who earn it.",
+    notes: 'Not the chronicler (grand, narrating): the Wanderer is close, quiet and sly.'
   }),
   oakGambler: card({
     name: 'Silky Ren', gender: 'male', age: 'mid 30s', pitch: 'mid-low', pace: 'measured',

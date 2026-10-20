@@ -16,23 +16,23 @@ rewrites it, and a test fails when it is stale. Do not edit by hand.
 
 | Voice | Lines | EN voiced |
 | --- | --- | --- |
-| hero | 204 | 204 |
+| hero | 210 | 210 |
 | freedPeddler | 9 | 9 |
 | lightDisciple | 14 | 14 |
 | sfShadow | 17 | 17 |
 | sunfordSmith | 25 | 25 |
 | sunfordPeddler | 15 | 15 |
-| trainerAegis | 18 | 18 |
+| trainerAegis | 19 | 19 |
 | trainerPyro | 15 | 15 |
 | sfGeo | 12 | 12 |
-| elderMara | 27 | 27 |
+| elderMara | 47 | 47 |
 | sunfordHealer | 14 | 14 |
 | goblinTrader | 11 | 11 |
 | sunfordGambler | 10 | 10 |
 | sunfordCups | 10 | 10 |
 | freedFarmers | 12 | 12 |
 | windDisciple | 14 | 14 |
-| captainHale | 18 | 18 |
+| captainHale | 39 | 39 |
 | oakArmorer | 32 | 32 |
 | oakWeapons | 10 | 10 |
 | trainerShadow | 15 | 15 |
@@ -40,10 +40,10 @@ rewrites it, and a test fails when it is stale. Do not edit by hand.
 | oakHealer | 11 | 11 |
 | blackMarket | 11 | 11 |
 | trainerBlood | 16 | 16 |
-| syndicateBoss | 15 | 15 |
+| syndicateBoss | 17 | 17 |
 | oakGambler | 10 | 10 |
 | frostDisciple | 14 | 14 |
-| forgemaster | 23 | 23 |
+| forgemaster | 25 | 25 |
 | ironWeapons | 16 | 16 |
 | ironAetherWorks | 8 | 8 |
 | ironArmor | 14 | 14 |
@@ -52,7 +52,7 @@ rewrites it, and a test fails when it is stale. Do not edit by hand.
 | trainerAether | 16 | 16 |
 | ironHealer | 12 | 12 |
 | trainerChrono | 19 | 19 |
-| freedHerbalist | 12 | 12 |
+| freedHerbalist | 14 | 14 |
 | mayorBrenna | 17 | 17 |
 | sbHealer | 10 | 10 |
 | sbAlchemist | 11 | 11 |
@@ -80,9 +80,16 @@ rewrites it, and a test fails when it is stale. Do not edit by hand.
 | sbMasterBard | 14 | 14 |
 | goblinKing | 9 | 9 |
 | warlord | 5 | 5 |
-| oracle | 5 | 5 |
+| oracle | 7 | 7 |
 | dragon | 6 | 6 |
-| archDemon | 5 | 5 |
+| archDemon | 7 | 7 |
+| scoutWren | 14 | 14 |
+| chronicler | 17 | 17 |
+| sunkenPriest | 2 | 2 |
+| fairPip | 8 | 8 |
+| fairBess | 8 | 8 |
+| fairHob | 8 | 8 |
+| mysteriousWanderer | 11 | 11 |
 | smalltalkSunford | 13 | 13 |
 | townsfolk | 32 | 32 |
 | smalltalkOakhaven | 13 | 13 |
@@ -92,25 +99,31 @@ rewrites it, and a test fails when it is stale. Do not edit by hand.
 | kidFriend | 4 | 4 |
 | banditChief | 1 | 1 |
 | frostJarl | 2 | 2 |
-| chronicler | 5 | 5 |
-| heroine | 204 | 204 |
-| **All** | **1422** | **1422** |
+| chimera | 4 | 4 |
+| centaurWarchief | 4 | 4 |
+| cyclops | 4 | 4 |
+| sphinx | 4 | 4 |
+| leviathan | 4 | 4 |
+| hydra | 4 | 4 |
+| elderDragon | 4 | 4 |
+| heroine | 210 | 210 |
+| **All** | **1577** | **1577** |
 
 ## Other languages: the core lines only
 
-English is voiced in full. Every other voiced language ships only the **core**: 196 of 1422 lines (60 of them the girl hero's `__f` twins, limit 300), set in data/voice-core.json by id pattern plus an explicit list. Core: the hero's "Will you teach me?" and goodbye lines, the main quest decisions with their boss monologues (Goblin King, Krag, the Colossus core, the oracle, the dragon, the Arch-Demon's throne), the five endings, and the story beats of Elder Mara, Captain Hale, Mayor Brenna, Madam Ash and the exiled Sovereign. Not core: smalltalk, shops, gamblers, barks, trainer and master Q&A, trade and heal chatter. A non-core line is a silent bubble; a test fails when a language folder holds a file outside the core.
+English is voiced in full. Every other voiced language ships only the **core**: 314 of 1577 lines (65 of them the girl hero's `__f` twins, limit 320), set in data/voice-core.json by id pattern plus an explicit list. Core: the hero's "Will you teach me?" and goodbye lines, the main quest decisions with their boss monologues (Goblin King, Krag, the Colossus core, the oracle, the dragon, the Arch-Demon's throne), the five endings, and the story beats of Elder Mara, Captain Hale, Mayor Brenna, Madam Ash and the exiled Sovereign. Not core: smalltalk, shops, gamblers, barks, trainer and master Q&A, trade and heal chatter. A non-core line is a silent bubble; a test fails when a language folder holds a file outside the core.
 Make them with `voice:gen --engine chatterbox --lang <code>` (then `--retry 2`); `voice:collect` builds jobs for the core lines only.
 Indonesian (id) and Vietnamese (vi) are not voiced: Chatterbox cannot speak them. pt-PT keeps English too.
 
 | Language | Core voiced | Core lines |
 | --- | --- | --- |
-| de | 196 | 196 |
-| fr | 188 | 196 |
-| es | 196 | 196 |
-| ru | 195 | 196 |
-| ja | 191 | 196 |
-| pt | 196 | 196 |
-| zh | 194 | 196 |
+| de | 312 | 314 |
+| fr | 305 | 314 |
+| es | 312 | 314 |
+| ru | 312 | 314 |
+| ja | 314 | 314 |
+| pt | 310 | 314 |
+| zh | 314 | 314 |
 
 ## Parked takes (decision 2026-10-18)
 
@@ -121,7 +134,7 @@ To widen a language beyond the core, change data/voice-core.json and settle the 
 
 Nothing: every line has its recording.
 
-## Every line (1422)
+## Every line (1577)
 
 | File | Who | Scene | English | EN |
 | --- | --- | --- | --- | --- |
@@ -280,7 +293,7 @@ Nothing: every line has its recording.
 | `dlg.elderMara.again.1` | Elder Mara (elderMara) | elderMara | Sit for a moment. The road will still be there. | chatterbox |
 | `dlg.elderMara.map.say` | The hero (hero) | elderMara | I found a piece of an old map. | chatterbox |
 | `dlg.elderMara.map.1` | Elder Mara (elderMara) | elderMara | Captain Rook's map! He tore it up and hid the pieces before the goblins caught him. | chatterbox |
-| `dlg.elderMara.map.2` | Elder Mara (elderMara) | elderMara | Find six of them, though a few more are scattered about, and the X shows the way: somewhere in the Ashen Crags. Dig there, and the gold is yours. | chatterbox |
+| `dlg.elderMara.map.2` | Elder Mara (elderMara) | elderMara | Find six of the pieces, and the X shows the way: somewhere in the Ashen Crags. Dig there for the gold. | chatterbox |
 | `dlg.elderMara.reward.say` | The hero (hero) | elderMara | Someone said you wanted to see me? | chatterbox |
 | `dlg.elderMara.reward.1` | Elder Mara (elderMara) | elderMara | You held the road when our militia couldn't. The town put a little together. | chatterbox |
 | `dlg.elderMara.reward.2` | Elder Mara (elderMara) | elderMara | It isn't much. It's what we could spare. | chatterbox |
@@ -1216,6 +1229,116 @@ Nothing: every line has its recording.
 | `dlg.quest.throne.claim.say` | The hero (hero) | quest.throne | I'll take it myself. | chatterbox |
 | `dlg.quest.throne.claim.1` | The hero, telling the story (hero) | quest.throne | The throne is cold, and it fits. | chatterbox |
 | `dlg.quest.throne.claim.2` | The hero, telling the story (hero) | quest.throne | Three factions discover they have a common enemy. | chatterbox |
+| `dlg.scoutWren.hello.1` | Scout Wren (scoutWren) | scoutWren | You came! I knew you would. Welcome to Bastion Crossing. | chatterbox |
+| `dlg.scoutWren.hello.2` | Scout Wren (scoutWren) | scoutWren | I scout the roads for the captain. Ask me where the trouble is. | chatterbox |
+| `dlg.scoutWren.sealed.1` | Scout Wren (scoutWren) | scoutWren | The dragon's gone! The roads feel lighter already. | chatterbox |
+| `dlg.scoutWren.again.1` | Scout Wren (scoutWren) | scoutWren | Back already? The roads won't scout themselves. | chatterbox |
+| `dlg.scoutWren.who.1` | Scout Wren (scoutWren) | scoutWren | Wren. I ran messages for Sunford's watch, before Sunford burned. | chatterbox |
+| `dlg.scoutWren.rumor.plains.1` | Scout Wren (scoutWren) | scoutWren | Demons hold the road through Sunford Plains. Sunford's teachers are trapped behind it. | chatterbox |
+| `dlg.scoutWren.rumor.hollows.1` | Scout Wren (scoutWren) | scoutWren | The Hollows are crawling with hellhounds. Clear them, and Sunford's people can come home. | chatterbox |
+| `dlg.scoutWren.rumor.woods.1` | Scout Wren (scoutWren) | scoutWren | Something with three heads hunts the Whispering Woods. The herbalist is hiding there. | chatterbox |
+| `dlg.scoutWren.rumor.outskirts.1` | Scout Wren (scoutWren) | scoutWren | Centaurs ride the Outskirts. If they reach our walls, we'll need every sword. | chatterbox |
+| `dlg.scoutWren.rumor.siege.1` | Scout Wren (scoutWren) | scoutWren | Their warband is broken, but more are gathering. The captain is readying the walls. | chatterbox |
+| `dlg.scoutWren.bye.1` | Scout Wren (scoutWren) | scoutWren | Watch the roads. I'll be watching them too. | chatterbox |
+| `dlg.fortHale.hello.1` | Captain Hale (captainHale) | fortHale | You made it. Good. We need every sword we can get, now more than ever. | chatterbox |
+| `dlg.fortHale.hello.2` | Captain Hale (captainHale) | fortHale | Welcome to Bastion Crossing. Old walls, but the only ones still standing. | chatterbox |
+| `dlg.fortHale.road.1` | Captain Hale (captainHale) | fortHale | The road to Sunford is open again. Its people are safe behind our walls. | chatterbox |
+| `dlg.fortHale.herbs.1` | Captain Hale (captainHale) | fortHale | The herbalist is back, and her herbs with her. The infirmary can breathe again. | chatterbox |
+| `dlg.fortHale.siege.1` | Captain Hale (captainHale) | fortHale | You broke the centaurs. But a bigger host is coming, and it will come for these walls. | chatterbox |
+| `dlg.fortHale.sealed.1` | Captain Hale (captainHale) | fortHale | The dragon is dead. I never thought I'd live to see it. Thank you. | chatterbox |
+| `dlg.fortHale.again.1` | Captain Hale (captainHale) | fortHale | Still standing. The walls, the men, and me. | chatterbox |
+| `dlg.hero.siege` | The hero (hero) | hero | Let's man the walls. | chatterbox |
+| `dlg.fortHale.bell.1` | Captain Hale (captainHale) | fortHale | To the gate, then. Tell me how hard we hold it. | chatterbox |
+| `dlg.fortHale.fort.say` | The hero (hero) | fortHale | What is this place? | chatterbox |
+| `dlg.fortHale.fort.1` | Captain Hale (captainHale) | fortHale | An old border fort. Nobody manned it for fifty years, until the sky tore open. | chatterbox |
+| `dlg.fortHale.fort.2` | Captain Hale (captainHale) | fortHale | Now it's the last safe place between the plains and the mountains. | chatterbox |
+| `dlg.fortHale.rumor.road.1` | Captain Hale (captainHale) | fortHale | Clear the Plains and the Hollows. Sunford's people are trapped out there. | chatterbox |
+| `dlg.fortHale.rumor.woods.1` | Captain Hale (captainHale) | fortHale | The herbalist is in the Whispering Woods, and so is a beast with three heads. Be ready. | chatterbox |
+| `dlg.fortHale.rumor.centaurs.1` | Captain Hale (captainHale) | fortHale | Centaurs on the Outskirts. Break their warband before it reaches us. | chatterbox |
+| `dlg.fortHale.rumor.siege.1` | Captain Hale (captainHale) | fortHale | Get some rest. When the siege bell rings, I'll need you on the wall. | chatterbox |
+| `dlg.fortHale.siegeBack.1` | Captain Hale (captainHale) | fortHale | Not yet? Rest, then. The walls will wait for you. | chatterbox |
+| `dlg.fortHale.bye.1` | Captain Hale (captainHale) | fortHale | Keep your sword close. | chatterbox |
+| `dlg.fortMara.hello.1` | Elder Mara (elderMara) | fortMara | Child! You're alive. When Sunford burned, I feared the worst. | chatterbox |
+| `dlg.fortMara.hello.2` | Elder Mara (elderMara) | fortMara | We are guests in a soldier's fort now, old women and all. | chatterbox |
+| `dlg.fortMara.command.1` | Elder Mara (elderMara) | fortMara | Captain Hale fell with Oakhaven. So the fort listens to an old elder now. | chatterbox |
+| `dlg.fortMara.home.1` | Elder Mara (elderMara) | fortMara | Sunford is rebuilding! The first roofs are up. I could weep. | chatterbox |
+| `dlg.fortMara.sealed.1` | Elder Mara (elderMara) | fortMara | You did it, child. Every one of us owes you a home. | chatterbox |
+| `dlg.fortMara.again.1` | Elder Mara (elderMara) | fortMara | Still here, child. Still counting heads. | chatterbox |
+| `dlg.fortMara.bell.1` | Elder Mara (elderMara) | fortMara | The captain's walls are mine to keep now. Choose how we hold them. | chatterbox |
+| `dlg.fortMara.town.say` | The hero (hero) | fortMara | What happened to Sunford? | chatterbox |
+| `dlg.fortMara.town.1` | Elder Mara (elderMara) | fortMara | Demons came out of the night sky. We ran with what we could carry. | chatterbox |
+| `dlg.fortMara.town.2` | Elder Mara (elderMara) | fortMara | Some of us never made it out. Bring the rest home, if you can. | chatterbox |
+| `dlg.fortMara.rumor.road.1` | Elder Mara (elderMara) | fortMara | Our teachers are still out on the Sunford road. Bring them here, child. | chatterbox |
+| `dlg.fortMara.rumor.woods.1` | Elder Mara (elderMara) | fortMara | The herbalist went into the Whispering Woods for herbs and never came back. | chatterbox |
+| `dlg.fortMara.rumor.centaurs.1` | Elder Mara (elderMara) | fortMara | Riders on the Outskirts. Hooves like thunder, every night. | chatterbox |
+| `dlg.fortMara.rumor.siege.1` | Elder Mara (elderMara) | fortMara | The walls will be tested soon. I can feel it in my old bones. | chatterbox |
+| `dlg.fortMara.siegeBack.1` | Elder Mara (elderMara) | fortMara | Rest a while, child. The bell will ring again. | chatterbox |
+| `dlg.fortMara.bye.1` | Elder Mara (elderMara) | fortMara | Go carefully, child. | chatterbox |
+| `dlg.story.rift.scream.1` | The Chronicler (chronicler) | story.rift | The Void Lord falls, and the rift behind him screams. | chatterbox |
+| `dlg.story.rift.scream.2` | The Chronicler (chronicler) | story.rift | It was never his throne. It was his cage, and he was its lid. | chatterbox |
+| `dlg.story.rift.scream.3` | The Chronicler (chronicler) | story.rift | Now the rift is open, and everything the void held asleep is waking. | chatterbox |
+| `dlg.story.wren.found.1` | Scout Wren (scoutWren) | story.wren | There you are! I'm Wren, a scout. I've looked everywhere for you. | chatterbox |
+| `dlg.story.wren.found.2` | Scout Wren (scoutWren) | story.wren | Sunford is burning. Everyone who could run went to Bastion Crossing. | chatterbox |
+| `dlg.story.wren.found.3` | Scout Wren (scoutWren) | story.wren | It's the old fort on the road to the Ashen Crags. Please hurry, they need you. | chatterbox |
+| `dlg.story.forge.back.1` | Forgemaster Dorn (forgemaster) | story.forge | My forge is burning again, hotter than ever. Demon iron melts well. | chatterbox |
+| `dlg.story.forge.back.2` | Forgemaster Dorn (forgemaster) | story.forge | Bring me what you find out there. I can forge it Infernal now. | chatterbox |
+| `dlg.story.oracle.lens.1` | The Drowned Oracle (oracle) | story.oracle | You freed me once. Now I will see for you. Take my Lens. | chatterbox |
+| `dlg.story.oracle.lens.2` | The Drowned Oracle (oracle) | story.oracle | Look through it, and the map will show you where the great beasts wait. | chatterbox |
+| `dlg.story.priest.lens.1` | The Sunken Priest (sunkenPriest) | story.priest | The Oracle is gone, so I keep her temple now. The Sphinx guarded this. | chatterbox |
+| `dlg.story.priest.lens.2` | The Sunken Priest (sunkenPriest) | story.priest | Her Lens. Look through it, and the map will show you where the great beasts wait. | chatterbox |
+| `dlg.story.herbs.scale.1` | Briar Hollowell (freedHerbalist) | story.herbs | A scale off the Leviathan! It's light as a leaf, and it floats. | chatterbox |
+| `dlg.story.herbs.scale.2` | Briar Hollowell (freedHerbalist) | story.herbs | Wear it, and the shallows will hold you like solid ground. | chatterbox |
+| `dlg.story.ghost.key.1` | The Arch-Demon (archDemon) | story.ghost | So, the one who took my throne. You killed my Hydra. Good. | chatterbox |
+| `dlg.story.ghost.key.2` | The Arch-Demon (archDemon) | story.ghost | Take its fire key. The rift's heart burns, and only fire opens it. | chatterbox |
+| `dlg.story.syndicate.key.1` | Madam Ash (syndicateBoss) | story.syndicate | The Hydra is dead? Then its fire key goes to whoever pays. Or to you, I suppose. | chatterbox |
+| `dlg.story.syndicate.key.2` | Madam Ash (syndicateBoss) | story.syndicate | It opens the rift's heart. Go and close it, before it eats my business. | chatterbox |
+| `dlg.quest.seal.ask.1` | The Chronicler (chronicler) | quest.seal | The Elder Dragon is dead, and the rift lies open before you. | chatterbox |
+| `dlg.quest.seal.ask.2` | The Chronicler (chronicler) | quest.seal | You could seal it now, forever. The beasts would sleep again. | chatterbox |
+| `dlg.quest.seal.ask.3` | The Chronicler (chronicler) | quest.seal | Or you could leave it ajar, and let the bravest test themselves against what comes through. | chatterbox |
+| `dlg.quest.seal.seal.say` | The hero (hero) | quest.seal | Seal it. Forever. | chatterbox |
+| `dlg.quest.seal.seal.1` | The Chronicler (chronicler) | quest.seal | The rift closes like a healing wound, and the sky goes quiet. | chatterbox |
+| `dlg.quest.seal.ajar.say` | The hero (hero) | quest.seal | Leave it ajar. We'll be ready. | chatterbox |
+| `dlg.quest.seal.ajar.1` | The Chronicler (chronicler) | quest.seal | The rift stays open a crack, and something behind it laughs. | chatterbox |
+| `dlg.story.sealed.sealed.1` | The Chronicler (chronicler) | story.sealed | And so the rift was sealed, and the world began to mend. | chatterbox |
+| `dlg.story.sealed.sealed.2` | The Chronicler (chronicler) | story.sealed | Towns were rebuilt, songs were written, and one name was in all of them. | chatterbox |
+| `dlg.story.sealed.ajar.1` | The Chronicler (chronicler) | story.sealed | And so the rift was left ajar, and the world learned to live beside it. | chatterbox |
+| `dlg.story.sealed.ajar.2` | The Chronicler (chronicler) | story.sealed | The walls stayed manned, the colosseum stayed loud, and the hero stayed ready. | chatterbox |
+| `dlg.fairPip.hello.1` | Pip (fairPip) | fairPip | Roll up! Nine barrels, a pack of imps and one mallet. Bonk them back down! | chatterbox |
+| `dlg.fairPip.hello.2` | Pip (fairPip) | fairPip | Imps pop out of the barrels. Hit twenty before the sand runs out. | chatterbox |
+| `dlg.fairPip.hello.3` | Pip (fairPip) | fairPip | Leave the gold armoured ones alone, they cost you a life. Three wins in a row and the big prize is yours. | chatterbox |
+| `dlg.fairPip.again.1` | Pip (fairPip) | fairPip | Back for more bonking? Grab the mallet! | chatterbox |
+| `dlg.fairPip.play.1` | Pip (fairPip) | fairPip | Mallet up! Here they come! | chatterbox |
+| `dlg.fairPip.who.1` | Pip (fairPip) | fairPip | Pip, imp-catcher by trade. I caught these ones myself. They bite. | chatterbox |
+| `dlg.fairPip.playBack.1` | Pip (fairPip) | fairPip | Ha! What a racket! Again? | chatterbox |
+| `dlg.fairPip.bye.1` | Pip (fairPip) | fairPip | Keep your mallet arm loose! | chatterbox |
+| `dlg.fairBess.hello.1` | Old Bess (fairBess) | fairBess | Five rings, three heads, and not one of them bites. I carved her myself, so mind the paint. | chatterbox |
+| `dlg.fairBess.hello.2` | Old Bess (fairBess) | fairBess | Hold to build your throw, let go to toss. A head only takes a ring when it sways to the middle. | chatterbox |
+| `dlg.fairBess.hello.3` | Old Bess (fairBess) | fairBess | Every head you ring in a row counts one more. Ring all five and I pay you properly. | chatterbox |
+| `dlg.fairBess.again.1` | Old Bess (fairBess) | fairBess | Back to try your arm on my old girl? | chatterbox |
+| `dlg.fairBess.play.1` | Old Bess (fairBess) | fairBess | Here are your rings. Throw soft, dearie. | chatterbox |
+| `dlg.fairBess.who.1` | Old Bess (fairBess) | fairBess | Forty years on the fair roads. The hydra came with the war. Seemed fitting. | chatterbox |
+| `dlg.fairBess.playBack.1` | Old Bess (fairBess) | fairBess | Not bad. My late husband threw worse. | chatterbox |
+| `dlg.fairBess.bye.1` | Old Bess (fairBess) | fairBess | Mind the paint on your way out. | chatterbox |
+| `dlg.fairHob.hello.1` | Hob (fairHob) | fairHob | Oh. Hello. Do you want to arm-wrestle? I will go easy. I will try. | chatterbox |
+| `dlg.fairHob.hello.2` | Hob (fairHob) | fairHob | Push when the ring meets the circle. Push off the beat and you slip. | chatterbox |
+| `dlg.fairHob.hello.3` | Hob (fairHob) | fairHob | Strong arms make it easier. Beat me three times in a row and the Forgemaster gives you a discount. | chatterbox |
+| `dlg.fairHob.again.1` | Hob (fairHob) | fairHob | Another round? Nobody ever comes back for another round. | chatterbox |
+| `dlg.fairHob.play.1` | Hob (fairHob) | fairHob | Elbow on the table. Ready when you are. | chatterbox |
+| `dlg.fairHob.who.1` | Hob (fairHob) | fairHob | I am the Forgemaster's apprentice. He says I do not know my own strength. | chatterbox |
+| `dlg.fairHob.playBack.1` | Hob (fairHob) | fairHob | Good match. My arm will be sore tomorrow. Probably. | chatterbox |
+| `dlg.fairHob.bye.1` | Hob (fairHob) | fairHob | Come back soon. The forge is very quiet. | chatterbox |
+| `dlg.mysteriousWanderer.hello.1` | Mysterious Wanderer (mysteriousWanderer) | mysteriousWanderer | So. You did what few ever could. I felt it from the far side of the rift. | chatterbox |
+| `dlg.mysteriousWanderer.hello.2` | Mysterious Wanderer (mysteriousWanderer) | mysteriousWanderer | I teach the old ways that join two schools in one. Only to those who earn them. | chatterbox |
+| `dlg.mysteriousWanderer.sealed.1` | Mysterious Wanderer (mysteriousWanderer) | mysteriousWanderer | You sealed it. A pity, in a way. I liked the view. | chatterbox |
+| `dlg.mysteriousWanderer.ajar.1` | Mysterious Wanderer (mysteriousWanderer) | mysteriousWanderer | You left it ajar. Bold. The demons will keep you sharp. | chatterbox |
+| `dlg.mysteriousWanderer.again.1` | Mysterious Wanderer (mysteriousWanderer) | mysteriousWanderer | Back again. The road is long, but you walk it well. | chatterbox |
+| `dlg.mysteriousWanderer.train.1` | Mysterious Wanderer (mysteriousWanderer) | mysteriousWanderer | Show me both halves of what you are, and I will make them one. | chatterbox |
+| `dlg.mysteriousWanderer.trial.say` | The hero (hero) | mysteriousWanderer | What trials do you mean? | chatterbox |
+| `dlg.mysteriousWanderer.trial.1` | Mysterious Wanderer (mysteriousWanderer) | mysteriousWanderer | A gate held without a scratch. A dragon slain without a fall. Five Infernal forgings and five wins in a row. | chatterbox |
+| `dlg.mysteriousWanderer.trial.2` | Mysterious Wanderer (mysteriousWanderer) | mysteriousWanderer | The Leviathan's death, and a perfect round at the hydra. Each opens a door I can show you. | chatterbox |
+| `dlg.mysteriousWanderer.who.1` | Mysterious Wanderer (mysteriousWanderer) | mysteriousWanderer | A wanderer. I walked the rift's edge before your grandfather was born. Names wear out. | chatterbox |
+| `dlg.mysteriousWanderer.trainBack.1` | Mysterious Wanderer (mysteriousWanderer) | mysteriousWanderer | Practise. Two schools fight each other before they agree. | chatterbox |
+| `dlg.mysteriousWanderer.bye.1` | Mysterious Wanderer (mysteriousWanderer) | mysteriousWanderer | Walk carefully. I will be here, until I am not. | chatterbox |
 | `dlg.smalltalkSunford.weather.1` | Townsfolk (smalltalkSunford) | smalltalkSunford | Rain tonight. My knee's been aching all day. | chatterbox |
 | `dlg.smalltalkSunford.weather.2` | Townsfolk (townsfolk) | smalltalkSunford | Your knee said that last week too. | chatterbox |
 | `dlg.smalltalkSunford.weather.3` | Townsfolk (smalltalkSunford) | smalltalkSunford | And it rained, didn't it? Just not here. | chatterbox |
@@ -1314,12 +1437,51 @@ Nothing: every line has its recording.
 | `dlg.bark.archDemon.dive.1` | The Arch-Demon (archDemon) | bark.archDemon | Kneel. | chatterbox |
 | `dlg.bark.frostJarl.hammer.1` | The Frost Jarl (frostJarl) | bark.frostJarl | Stand still, little one. | chatterbox |
 | `dlg.bark.frostJarl.iceBreak.1` | The Frost Jarl (frostJarl) | bark.frostJarl | The lake will swallow you! | chatterbox |
+| `dlg.bark.chimera.intro.1` | The Chimera (chimera) | bark.chimera | Three heads, one hunger. Which of us bites first? | chatterbox |
+| `dlg.bark.chimera.twin.1` | The Chimera (chimera) | bark.chimera | Two of us now. Choose your side well. | chatterbox |
+| `dlg.bark.chimera.tail.1` | The Chimera (chimera) | bark.chimera | My tail! You will pay for that! | chatterbox |
+| `dlg.bark.chimera.death.1` | The Chimera (chimera) | bark.chimera | Three heads, and none saw this coming. | chatterbox |
+| `dlg.bark.centaurWarchief.intro.1` | The Centaur Warchief (centaurWarchief) | bark.centaurWarchief | Run if you like. My arrows run faster. | chatterbox |
+| `dlg.bark.centaurWarchief.raiders.1` | The Centaur Warchief (centaurWarchief) | bark.centaurWarchief | Riders! Ride them down! | chatterbox |
+| `dlg.bark.centaurWarchief.rear.1` | The Centaur Warchief (centaurWarchief) | bark.centaurWarchief | Enough arrows. I will trample you flat! | chatterbox |
+| `dlg.bark.centaurWarchief.death.1` | The Centaur Warchief (centaurWarchief) | bark.centaurWarchief | The plains will remember my hooves. | chatterbox |
+| `dlg.bark.cyclops.intro.1` | The Cyclops (cyclops) | bark.cyclops | Something small is here. Come closer. Let me see. | chatterbox |
+| `dlg.bark.cyclops.cover.1` | The Cyclops (cyclops) | bark.cyclops | No more looking. You will not have my eye! | chatterbox |
+| `dlg.bark.cyclops.blind.1` | The Cyclops (cyclops) | bark.cyclops | I can't see you, but I can hear you! | chatterbox |
+| `dlg.bark.cyclops.death.1` | The Cyclops (cyclops) | bark.cyclops | Dark. It's all gone dark. | chatterbox |
+| `dlg.bark.sphinx.intro.1` | The Sphinx (sphinx) | bark.sphinx | Answer me, little one, or be buried in my sand. | chatterbox |
+| `dlg.bark.sphinx.riddle.1` | The Sphinx (sphinx) | bark.sphinx | A riddle, then. Step where I show you, in that order. | chatterbox |
+| `dlg.bark.sphinx.sand.1` | The Sphinx (sphinx) | bark.sphinx | Five this time. And my sand will not wait. | chatterbox |
+| `dlg.bark.sphinx.death.1` | The Sphinx (sphinx) | bark.sphinx | You answered well. The sand is yours now. | chatterbox |
+| `dlg.bark.leviathan.intro.1` | The Leviathan (leviathan) | bark.leviathan | You walk in my water now. | chatterbox |
+| `dlg.bark.leviathan.sink.1` | The Leviathan (leviathan) | bark.leviathan | Your little islands are sinking. | chatterbox |
+| `dlg.bark.leviathan.grab.1` | The Leviathan (leviathan) | bark.leviathan | Come down to the deep with me! | chatterbox |
+| `dlg.bark.leviathan.death.1` | The Leviathan (leviathan) | bark.leviathan | The tide goes out, and does not come back. | chatterbox |
+| `dlg.bark.hydra.intro.1` | The Hydra (hydra) | bark.hydra | Cut one head, and two will grow! | chatterbox |
+| `dlg.bark.hydra.heads.1` | The Hydra (hydra) | bark.hydra | More heads, more teeth! | chatterbox |
+| `dlg.bark.hydra.rage.1` | The Hydra (hydra) | bark.hydra | Burn us? Then burn with us! | chatterbox |
+| `dlg.bark.hydra.death.1` | The Hydra (hydra) | bark.hydra | No more heads. No more. | chatterbox |
+| `dlg.bark.elderDragon.intro.1` | The Elder Dragon (elderDragon) | bark.elderDragon | I slept beneath the world before your kind had fire. | chatterbox |
+| `dlg.bark.elderDragon.flight.1` | The Elder Dragon (elderDragon) | bark.elderDragon | Hide behind your little stones, then. | chatterbox |
+| `dlg.bark.elderDragon.rift.1` | The Elder Dragon (elderDragon) | bark.elderDragon | The rift is pulling me back. Not yet! | chatterbox |
+| `dlg.bark.elderDragon.death.1` | The Elder Dragon (elderDragon) | bark.elderDragon | Seal it, then. I am tired of the dark. | chatterbox |
+| `dlg.bark.siegeHale.start.1` | Captain Hale (captainHale) | bark.siegeHale | Here they come! Hold the gate! | chatterbox |
+| `dlg.bark.siegeHale.ram.1` | Captain Hale (captainHale) | bark.siegeHale | A ram! Kill it before it reaches the gate! | chatterbox |
+| `dlg.bark.siegeHale.horn50.1` | Captain Hale (captainHale) | bark.siegeHale | The gate is half gone! Hold! | chatterbox |
+| `dlg.bark.siegeHale.horn25.1` | Captain Hale (captainHale) | bark.siegeHale | The gate won't last much longer! | chatterbox |
+| `dlg.bark.siegeHale.won.1` | Captain Hale (captainHale) | bark.siegeHale | They're broken! Bastion stands! | chatterbox |
+| `dlg.bark.siegeMara.start.1` | Elder Mara (elderMara) | bark.siegeMara | They're coming! Stand fast, all of you! | chatterbox |
+| `dlg.bark.siegeMara.ram.1` | Elder Mara (elderMara) | bark.siegeMara | A ram! Stop it before it breaks the gate! | chatterbox |
+| `dlg.bark.siegeMara.horn50.1` | Elder Mara (elderMara) | bark.siegeMara | Half the gate is gone. Hold on! | chatterbox |
+| `dlg.bark.siegeMara.horn25.1` | Elder Mara (elderMara) | bark.siegeMara | The gate is failing! Hold them back! | chatterbox |
+| `dlg.bark.siegeMara.won.1` | Elder Mara (elderMara) | bark.siegeMara | They're running! The fort still stands! | chatterbox |
 | `dlg.bark.freedPeddler.freed.1` | Odo Marrow (freedPeddler) | bark.freedPeddler | Bless your boots! Odo Marrow, peddler. Come find me in Sunford, I'll have wares for you. | chatterbox |
 | `dlg.bark.freedHerbalist.freed.1` | Briar Hollowell (freedHerbalist) | bark.freedHerbalist | Oh, thank you! I'm Briar, a herbalist. Come and see me in Silverbridge. I could use your help. | chatterbox |
 | `dlg.bark.freedFarmers.freed.1` | Jory Toller (freedFarmers) | bark.freedFarmers | You saved us! We're the Tollers, farmers. Find us in Oakhaven, there's trouble at home. | chatterbox |
 | `dlg.bark.windDisciple.freed.1` | Kestrel Vane (windDisciple) | bark.windDisciple | Free at last! Kestrel Vane, of the Windrunner's way. Find me in Oakhaven and I'll teach you. | chatterbox |
 | `dlg.bark.frostDisciple.freed.1` | Ivor Hask (frostDisciple) | bark.frostDisciple | You came for me? Ivor Hask, a Frostwarden's disciple. Come to Ironhold and I'll teach you. | chatterbox |
 | `dlg.bark.lightDisciple.freed.1` | Sister Aurelle (lightDisciple) | bark.lightDisciple | The light sent you. I am Sister Aurelle. Seek me in Sunford, I'll teach you the Lightbringer's way. | chatterbox |
+| `dlg.bark.trainerAegis.freed.1` | Ser Aldric (trainerAegis) | bark.trainerAegis | Thank you for freeing us from the bandits! Come to the fire: we'll all teach you, first lesson free. | chatterbox |
 | `dlg.intro.crossing.1` | The Chronicler (chronicler) | intro | Every road in this world meets at a crossing… and every crossing is a battle. | elevenlabs |
 | `dlg.intro.hero.1` | The Chronicler (chronicler) | intro | From the quiet fields of Sunford, a young hero set out. | elevenlabs |
 | `dlg.intro.fire.1` | The Chronicler (chronicler) | intro | Fire answered the call. Steel learned a new name. | elevenlabs |
@@ -1529,6 +1691,12 @@ Nothing: every line has its recording.
 | `dlg.quest.throne.claim.say__f` | The girl hero (heroine) | quest.throne | I'll take it myself. | chatterbox |
 | `dlg.quest.throne.claim.1__f` | The girl hero, telling the story (heroine) | quest.throne | The throne is cold, and it fits. | chatterbox |
 | `dlg.quest.throne.claim.2__f` | The girl hero, telling the story (heroine) | quest.throne | Three factions discover they have a common enemy. | chatterbox |
+| `dlg.hero.siege__f` | The girl hero (heroine) | hero | Let's man the walls. | chatterbox |
+| `dlg.fortHale.fort.say__f` | The girl hero (heroine) | fortHale | What is this place? | chatterbox |
+| `dlg.fortMara.town.say__f` | The girl hero (heroine) | fortMara | What happened to Sunford? | chatterbox |
+| `dlg.quest.seal.seal.say__f` | The girl hero (heroine) | quest.seal | Seal it. Forever. | chatterbox |
+| `dlg.quest.seal.ajar.say__f` | The girl hero (heroine) | quest.seal | Leave it ajar. We'll be ready. | chatterbox |
+| `dlg.mysteriousWanderer.trial.say__f` | The girl hero (heroine) | mysteriousWanderer | What trials do you mean? | chatterbox |
 | `ending.order.text__f` | The girl hero, telling the story (heroine) | ending | Banners of the Iron Order fly over the Dread Fortress. The roads are safe, the laws are many, and your name is carved above the gate. | chatterbox |
 | `ending.syndicate.text__f` | The girl hero, telling the story (heroine) | ending | The Syndicate rules from the shadows of the fortress. Nothing in the realm is forbidden any more. It is only expensive. | chatterbox |
 | `ending.circle.text__f` | The girl hero, telling the story (heroine) | ending | The Circle lights the fortress with captured void-fire. Wonders pour out of its gates, and no one asks what they cost. | chatterbox |

@@ -61,14 +61,36 @@ export const CAPS = {
   cdr: 0.6,
   resist: 0.7,
   moveSpeed: 1.6,
+  // Attack speed and the crit multiplier had no cap, and #110 doubled the DEX
+  // and SKL points behind them: a geared Shadow swung 3.6-4.3× as fast for
+  // 3.5-4× crits and burst any boss down in seconds. A levelled-only build
+  // sits at or below both (outstanding-decisions.md, "Shadow afterplay balance").
+  attackSpeed: 1.8,
+  critMult: 2.5,
   discount: 0.4,
   stunResist: 0.7,
   dualWield: 0.8
 } as const
 
 /**
+ * The soft cap (afterplay §2.2): past 300 in one attribute each further point
+ * counts half, so an all-in level-60 build cannot break damage and kill-XP
+ * balance. It bends what the attributes DO (`heroStats`), never what they are:
+ * skill requirements read the full totals.
+ */
+export const ATTR_SOFT_CAP = 300
+export const ATTR_OVER_CAP = 0.5
+
+export const softCapAttr = (v: number): number => (v > ATTR_SOFT_CAP ? ATTR_SOFT_CAP + (v - ATTR_SOFT_CAP) * ATTR_OVER_CAP : v)
+
+export const softCapAttrs = (a: AttrBlock): AttrBlock => ({
+  str: softCapAttr(a.str), dex: softCapAttr(a.dex), int: softCapAttr(a.int),
+  end: softCapAttr(a.end), skl: softCapAttr(a.skl), cha: softCapAttr(a.cha)
+})
+
+/**
  * The damage a "100 % STAT" hit deals: `6 + 1.6 × stat`. A fresh hero (5) hits
  * for 14; a late one with 150 in a stat hits for 246. Every skill percentage
  * in the GDD's tables multiplies this.
  */
-export const statPower = (stat: number): number => 6 + 1.6 * Math.max(0, stat)
+export const statPower =(stat: number): number => 6 + 1.6 * Math.max(0, stat)
