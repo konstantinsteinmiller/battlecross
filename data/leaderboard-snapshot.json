@@ -1,8 +1,8 @@
 {
   "source": "https://battlecross-leaderboard.rodent-race.workers.dev",
-  "fetchedAt": 1792447559014,
-  "updatedAt": 1792447559061,
-  "total": 36,
+  "fetchedAt": 1792455981353,
+  "updatedAt": 1792455981333,
+  "total": 39,
   "entries": [
     {
       "rank": 1,
@@ -42,180 +42,198 @@
     },
     {
       "rank": 7,
+      "name": "Gizmo373408",
+      "score": 1775,
+      "flair": 5
+    },
+    {
+      "rank": 8,
       "name": "Servo773028",
       "score": 1580,
       "flair": 5
     },
     {
-      "rank": 8,
+      "rank": 9,
       "name": "Piston973924",
       "score": 1372,
       "flair": 5
     },
     {
-      "rank": 9,
+      "rank": 10,
       "name": "Servo410092",
       "score": 1176,
       "flair": 5
     },
     {
-      "rank": 10,
+      "rank": 11,
       "name": "Dynamo928649",
       "score": 1029,
       "flair": 4
     },
     {
-      "rank": 11,
+      "rank": 12,
       "name": "Circuit128613",
       "score": 938,
       "flair": 4
     },
     {
-      "rank": 12,
+      "rank": 13,
       "name": "Piston656697",
       "score": 904,
       "flair": 4
     },
     {
-      "rank": 13,
+      "rank": 14,
       "name": "Circuit859703",
       "score": 691,
       "flair": 4
     },
     {
-      "rank": 14,
+      "rank": 15,
       "name": "Gizmo452947",
       "score": 446,
       "flair": 3
     },
     {
-      "rank": 15,
+      "rank": 16,
       "name": "Servo309560",
       "score": 308,
       "flair": 3
     },
     {
-      "rank": 15,
+      "rank": 16,
       "name": "Dynamo300800",
       "score": 308,
       "flair": 3
     },
     {
-      "rank": 15,
+      "rank": 16,
       "name": "Android595284",
       "score": 308,
       "flair": 3
     },
     {
-      "rank": 15,
+      "rank": 16,
       "name": "Circuit330508",
       "score": 308,
       "flair": 3
     },
     {
-      "rank": 19,
+      "rank": 20,
       "name": "Piston744420",
       "score": 154,
       "flair": 2
     },
     {
-      "rank": 19,
+      "rank": 20,
       "name": "Cannon860010",
       "score": 154,
       "flair": 2
     },
     {
-      "rank": 19,
+      "rank": 20,
       "name": "Rivet157562",
       "score": 154,
       "flair": 2
     },
     {
-      "rank": 19,
+      "rank": 20,
       "name": "Rivet968230",
       "score": 154,
       "flair": 2
     },
     {
-      "rank": 19,
+      "rank": 20,
       "name": "Circuit860890",
       "score": 154,
       "flair": 2
     },
     {
-      "rank": 19,
+      "rank": 20,
       "name": "Circuit375559",
       "score": 154,
       "flair": 2
     },
     {
-      "rank": 19,
+      "rank": 20,
       "name": "Rivet148635",
       "score": 154,
       "flair": 2
     },
     {
-      "rank": 19,
+      "rank": 20,
       "name": "Servo154923",
       "score": 154,
       "flair": 2
     },
     {
-      "rank": 19,
+      "rank": 20,
       "name": "Blaster424666",
       "score": 154,
       "flair": 2
     },
     {
-      "rank": 19,
+      "rank": 20,
       "name": "Sprocket788938",
       "score": 154,
       "flair": 2
     },
     {
-      "rank": 19,
+      "rank": 20,
       "name": "Cannon479276",
       "score": 154,
       "flair": 2
     },
     {
-      "rank": 30,
+      "rank": 31,
       "name": "Gizmo511158",
       "score": 144,
       "flair": 2
     },
     {
-      "rank": 31,
+      "rank": 32,
       "name": "Servo282788",
       "score": 108,
       "flair": 2
     },
     {
-      "rank": 32,
+      "rank": 33,
       "name": "Gizmo601671",
       "score": 96,
       "flair": 2
     },
     {
-      "rank": 32,
+      "rank": 33,
       "name": "Blaster727909",
       "score": 96,
       "flair": 2
     },
     {
-      "rank": 32,
+      "rank": 33,
       "name": "Circuit292477",
       "score": 96,
       "flair": 2
     },
     {
-      "rank": 35,
+      "rank": 33,
+      "name": "Android839445",
+      "score": 96,
+      "flair": 2
+    },
+    {
+      "rank": 37,
+      "name": "Circuit332815",
+      "score": 83,
+      "flair": 2
+    },
+    {
+      "rank": 38,
       "name": "Blaster307026",
       "score": 58,
       "flair": 1
     },
     {
-      "rank": 36,
+      "rank": 39,
       "name": "Android453557",
       "score": 22,
       "flair": 1
@@ -244,6 +262,10 @@
     ],
     [
       2378,
+      1
+    ],
+    [
+      1775,
       1
     ],
     [
@@ -296,7 +318,11 @@
     ],
     [
       96,
-      3
+      4
+    ],
+    [
+      83,
+      1
     ],
     [
       58,

@@ -86,6 +86,8 @@ describe('stats from attributes and gear (GDD §4.1)', () => {
     expect(maxed.block).toBeLessThanOrEqual(CAPS.block)
     expect(maxed.cdr).toBeLessThanOrEqual(CAPS.cdr)
     expect(maxed.resist).toBeLessThanOrEqual(CAPS.resist)
+    expect(maxed.attackSpeed).toBeLessThanOrEqual(CAPS.attackSpeed)
+    expect(maxed.critMult).toBeLessThanOrEqual(CAPS.critMult)
     expect(shopDiscount(400)).toBe(CAPS.discount)
   })
 

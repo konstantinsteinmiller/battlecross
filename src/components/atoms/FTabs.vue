@@ -87,13 +87,13 @@ const selectTab = (value: string | number): void => {
     user-select: none
 
   &.can-right
-    mask-image: linear-gradient(90deg, #000 calc(100% - 1.6rem), transparent)
+    mask-image: linear-gradient(90deg, black calc(100% - 1.6rem), transparent)
 
   &.can-left
-    mask-image: linear-gradient(90deg, transparent, #000 1.6rem)
+    mask-image: linear-gradient(90deg, transparent, black 1.6rem)
 
   &.can-left.can-right
-    mask-image: linear-gradient(90deg, transparent, #000 1.6rem, #000 calc(100% - 1.6rem), transparent)
+    mask-image: linear-gradient(90deg, transparent, black 1.6rem, black calc(100% - 1.6rem), transparent)
 
   > :first-child
     margin-left: auto

@@ -63,7 +63,13 @@ export const TOTAL = 2_500
 // own module and fails if they drift: regenerate the seed after changing the
 // curve.
 export const MAX_LEVEL = 30
-export const xpToNext = (level) => Math.round(45 * Math.pow(Math.max(1, level), 1.55) + 30 * Math.max(1, level))
+// Above the campaign cap the afterplay's levels cost AFTER_CURVE of the formula.
+const AFTER_CURVE = 0.75
+export const xpToNext = (level) => {
+  const l = Math.max(1, level)
+  const base = 45 * Math.pow(l, 1.55) + 30 * l
+  return Math.round(l > MAX_LEVEL ? base * AFTER_CURVE : base)
+}
 export const xpToReach = (level) => {
   let sum = 0
   for (let l = 1; l < Math.min(level, MAX_LEVEL); l++) sum += xpToNext(l)

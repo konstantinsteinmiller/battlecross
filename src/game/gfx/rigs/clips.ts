@@ -63,6 +63,8 @@ const STEP_OVER: Spec = { lLx: -0.66, kL: 0.95, lRx: 0.55, kR: 0.15, fR: 0.4, hi
 const WIDE: Spec = { lLx: -0.2, lLz: 0.16, kL: 0.35, lRx: 0.15, lRz: 0.16, kR: 0.35 }
 const SQUAT: Spec = { lLx: -0.8, kL: 1.6, lRx: -0.7, kR: 1.5, lLz: 0.22, lRz: 0.22 }
 const HALF_SQUAT: Spec = { lLx: -0.45, kL: 0.9, lRx: -0.35, kR: 0.8, lLz: 0.16, lRz: 0.16 }
+/** Down on both feet out of a tumble, knees still taking it. */
+const LANDING: Spec = { lLx: -0.6, kL: 1.2, lRx: -0.5, kR: 1.1, lLz: 0.2, lRz: 0.2 }
 const GRIM: Spec = { brow: -0.9 }
 const SHOUT: Spec = { brow: -1, mouth: 1 }
 /** The blade in line with the forearm. */
@@ -408,16 +410,18 @@ const CASTS: Record<CastName, (st: Pose) => Clip> = {
     over: { ...STEP_OVER, brow: -1, mouth: 0.5, pitch: 0.26, rootZ: 0.5, torRy: -0.95, headRy: 0.45, ...R0, aRz: 0.9, aRy: 2.3, eR: 0.3, wRx: 1.9, wRy: 0, aLx: 1.0, aLz: 0.6, eL: 0.7 }
   }, { tail: 0.36, strike: 0.06 }),
 
-  // The dodge roll (#74, D79): down into a tuck, over once, and up running.
+  // The dodge roll (#74, D79): down into a tuck, over once, and onto his feet
+  // in a crouch (#139). The clip ends on that landing, not on the stance: the
+  // stand-up is the eased blend out of it, into idle, the walk or a swing.
   roll: st => clip([
     { at: 0, p: st, e: lin },
     { at: 1, p: mk(st, { ...SQUAT, ...GRIM, pitch: 0.45, headRx: 0.4, aRx: -1.3, aRy: 0, eR: 1.7, aLx: -1.3, aLy: 0, eL: 1.7 }), e: easeOut },
-    { at: 1.25, p: mk(st, { ...SQUAT, ...GRIM, pitch: 1.57, rootY: 0.42, headRx: 0.6, aRx: -1.5, aRy: 0, eR: 1.9, aLx: -1.5, aLy: 0, eL: 1.9 }), e: lin },
-    { at: 1.5, p: mk(st, { ...SQUAT, ...GRIM, pitch: 3.14, rootY: 0.78, headRx: 0.6, aRx: -1.5, aRy: 0, eR: 1.9, aLx: -1.5, aLy: 0, eL: 1.9 }), e: lin },
-    { at: 1.75, p: mk(st, { ...SQUAT, ...GRIM, pitch: 4.71, rootY: 0.42, headRx: 0.5, aRx: -1.4, aRy: 0, eR: 1.7, aLx: -1.4, aLy: 0, eL: 1.7 }), e: lin },
-    { at: 1.92, p: mk(st, { ...HALF_SQUAT, pitch: 6.05, rootY: 0.04 }), e: lin },
-    { at: 2, p: mk(st, { pitch: 6.283 }), e: easeOut }
-  ], { tail: 0.28, trail: null, strike: 0, blendIn: 0.09, blendOut: 0.12 }),
+    { at: 1.22, p: mk(st, { ...SQUAT, ...GRIM, pitch: 1.57, rootY: 0.42, headRx: 0.6, aRx: -1.5, aRy: 0, eR: 1.9, aLx: -1.5, aLy: 0, eL: 1.9 }), e: lin },
+    { at: 1.44, p: mk(st, { ...SQUAT, ...GRIM, pitch: 3.14, rootY: 0.78, headRx: 0.6, aRx: -1.5, aRy: 0, eR: 1.9, aLx: -1.5, aLy: 0, eL: 1.9 }), e: lin },
+    { at: 1.64, p: mk(st, { ...SQUAT, ...GRIM, pitch: 4.71, rootY: 0.42, headRx: 0.5, aRx: -1.4, aRy: 0, eR: 1.7, aLx: -1.4, aLy: 0, eL: 1.7 }), e: lin },
+    { at: 1.83, p: mk(st, { ...SQUAT, ...GRIM, pitch: 6.0, rootY: 0.05, headRx: 0.3, aRx: -1.1, aRy: 0, eR: 1.4, aLx: -1.1, aLy: 0, eL: 1.4 }), e: lin },
+    { at: 2, p: mk(st, { ...LANDING, ...GRIM, pitch: 6.283, headRx: 0.05, aRx: -0.7, aRy: 0, eR: 1.0, aLx: -0.7, aLy: 0, eL: 1.0 }), e: easeOut }
+  ], { tail: 0.28, trail: null, strike: 0, blendIn: 0.09, blendOut: 0.16 }),
 
   // Thrown with the free hand: the weapon stays where it is.
   throw: st => swing(st, {
