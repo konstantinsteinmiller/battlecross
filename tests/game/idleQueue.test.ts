@@ -1,5 +1,7 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
-import { __resetIdleQueue, idleNow, idleTask, idleWaiting, rerankIdle, startIdleQueue } from '@/utils/idleQueue'
+import { readFileSync } from 'node:fs'
+import { join } from 'node:path'
+import { __resetIdleQueue, idleNow, idleTask, idleWaiting, rerankIdle, setIdleHold, startIdleQueue } from '@/utils/idleQueue'
 
 // ─── The background loads after the first frame (roadmap #142) ──────────────
 
@@ -137,5 +139,65 @@ describe('the screens on the background queue', () => {
     // Arriving in a town re-ranks what is still waiting.
     queueScreens('town')
     expect(idleWaiting().slice(0, 2)).toEqual([screenTask('dialog'), screenTask('trade')])
+  })
+})
+
+// ─── Held while play struggles (#Perf1) ─────────────────────────────────────
+
+describe('the idle queue under a struggling frame rate (#Perf1)', () => {
+  let timedOut = true
+  beforeEach(() => {
+    vi.useFakeTimers()
+    // A device at 3-9 fps: every idle callback arrives by its timeout.
+    if (typeof window === 'undefined') vi.stubGlobal('window', globalThis)
+    vi.stubGlobal('requestIdleCallback', (cb: (d: { didTimeout: boolean }) => void) => setTimeout(() => cb({ didTimeout: timedOut }), 10) as unknown as number)
+    vi.stubGlobal('cancelIdleCallback', (h: number) => clearTimeout(h))
+    __resetIdleQueue()
+    timedOut = true
+  })
+  afterEach(() => {
+    __resetIdleQueue()
+    vi.unstubAllGlobals()
+    vi.useRealTimers()
+  })
+
+  it('forces nothing in on the timeout while held, and runs once the hold lifts', async () => {
+    let struggling = true
+    setIdleHold(() => struggling)
+    const r = recorder()
+    idleTask('a', r.task('a'))
+    idleTask('b', r.task('b'))
+    startIdleQueue()
+    await drain()
+    expect(r.ran).toEqual([])
+    struggling = false
+    await drain()
+    expect(r.ran).toEqual(['a', 'b'])
+  })
+
+  it('a genuine idle period still runs a task while held', async () => {
+    setIdleHold(() => true)
+    timedOut = false
+    const r = recorder()
+    idleTask('a', r.task('a'))
+    startIdleQueue()
+    await drain()
+    expect(r.ran).toEqual(['a'])
+  })
+
+  it('a window about to open is not held', async () => {
+    setIdleHold(() => true)
+    const r = recorder()
+    idleTask('screen', r.task('screen'))
+    startIdleQueue()
+    await drain()
+    expect(r.ran).toEqual([])
+    await idleNow('screen')
+    expect(r.ran).toEqual(['screen'])
+  })
+
+  it('the scene holds the queue only while the loop runs under ~30 fps', () => {
+    const src = readFileSync(join(__dirname, '../../src/views/GameScene.vue'), 'utf8')
+    expect(src).toMatch(/setIdleHold\(\(\) => app\.running && app\.frameMs > IDLE_HOLD_MS\)/)
   })
 })

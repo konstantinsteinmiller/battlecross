@@ -835,3 +835,29 @@ and every pack of six zones: summed triangles drawn ≤ unbaked, summed still
 draws ≤ 70 % of unbaked, no spot more than 15 % more triangles. #151 ticked:
 one draw per kind per 7.5 m tile is the measured minimum that does not draw
 more; one draw per location is not (see above).
+
+## 2026-10-20: slow PowerVR phones and fractional pixel ratios (#Perf1-#Perf3)
+
+Method: production builds, served privately; headless Chrome, fresh save
+(tutorial), phone emulation with the playtesters' GPU strings spoofed
+(PowerVR GE8320 @1.875, GE8322 @2), 6× CPU, 35-45 s after the hero pick;
+GL calls wrapped for draws / triangles / program links / texture uploads.
+GPU cost from frozen frames (render + 1-px readback, loop suspended).
+
+Found:
+- The idle queue ran ~140 loads (~520 kB of script, ~100 images, a style
+  recalc per stylesheet) during the first fight, one every 2.5 s: at <10 fps
+  no idle period comes and every task ran on the timeout, for ~40 s.
+- The effects ladder counted the clamped 0.1 s game step: at 1-3 fps a rung
+  took 7-20 s of wall time, and frames over 0.5 s were ignored outright.
+- No program links or texture uploads after the first frame (warm-up holds).
+- The buffer was floor(clientHeight × dpr): 1599 rows on a 1600-row screen.
+
+Kept: weak GPU starts on the last rung (frozen GPU frame, tutorial, 1.875×:
+rung 1 88-95 ms → rung 3 62-68 ms); the ladder hears the real interval;
+the idle queue is held while the loop runs over 34 ms a frame (script
+loaded after play: 524-545 kB → 11-90 kB); device-pixel buffer sizing.
+Steady fps in emulation: inside the noise (8-14 fps both builds; the old
+build also reached rung 3 within seconds at ~10 fps). Draws 47-48,
+triangles 69-73 k unchanged. The 1-3 fps phase does not reproduce on
+SwiftShader: the real-device answer is the new `perf_sample` events.

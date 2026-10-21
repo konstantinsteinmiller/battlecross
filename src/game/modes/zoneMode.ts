@@ -29,7 +29,7 @@ import { Sim } from '../sim/world'
 import { captureBaseline, restoreSim, snapshotSim, type SimBaseline, type SimSnapshot } from '../sim/snapshot'
 import type { DamageType, SimEvent, Unit } from '../sim/types'
 import { setCelMood, updateCelFrame, updateSeeThrough } from '../gfx/cel'
-import { fxLevel, stepEffectsLadder } from '../engine/effectsLadder'
+import { fxLevel } from '../engine/effectsLadder'
 import { BAR_RANK, HealthBars, Markers, barBadge, makeBlobShadow, placeBlobShadow, type BarRank } from '../gfx/markers'
 import { clearGround, groundAt, setGround } from '../gfx/ground'
 import type { HeightField } from '../sim/ground'
@@ -1330,7 +1330,6 @@ export class ZoneMode implements GameMode {
     hudLive.manaPotionCd = h.manaPotionCd
     hudLive.manaPotionCdMax = POTION_CD
     tickHud(dt)
-    stepEffectsLadder(dt)
   }
 
   /** What every unit is under, shown on its body (`Vfx.statusTells`), and the hero's footfalls. */

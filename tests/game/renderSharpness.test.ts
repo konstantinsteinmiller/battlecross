@@ -10,6 +10,8 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
  */
 
 const ratios: number[] = []
+/** Every drawing buffer the renderer was given: [width, height] in device px. */
+const buffers: Array<[number, number]> = []
 let weak = false
 
 vi.mock('three', async (orig) => ({
@@ -21,8 +23,11 @@ vi.mock('three', async (orig) => ({
     outputColorSpace = ''
     toneMapping = 0
     autoClear = true
+    domElement = { style: { width: '', height: '' } }
     setPixelRatio (r: number): void { ratios.push(r) }
     setSize (): void {}
+    // three's own arithmetic: floor(width × ratio).
+    setDrawingBufferSize (w: number, h: number, r: number): void { ratios.push(r); buffers.push([Math.floor(w * r), Math.floor(h * r)]) }
   }
 }))
 vi.mock('@/use/deviceProfile', () => ({ deviceClass: () => (weak ? 'weak' : 'normal') }))
@@ -30,10 +35,10 @@ vi.mock('@/game/engine/glContext', () => ({ watchContextLoss: () => {} }))
 
 describe('render sharpness: the canvas draws at native pixel ratio', () => {
   const dpr0 = window.devicePixelRatio
-  beforeEach(() => { vi.resetModules(); ratios.length = 0 })
+  beforeEach(() => { vi.resetModules(); ratios.length = 0; buffers.length = 0 })
   afterEach(() => { Object.defineProperty(window, 'devicePixelRatio', { value: dpr0, configurable: true }) })
 
-  for (const dpr of [1, 1.25, 1.5, 2, 3])
+  for (const dpr of [0.6666667, 1, 1.25, 1.5, 1.825, 1.875, 2, 2.8125, 3])
     for (const w of [false, true])
       it(`dpr ${dpr}, ${w ? 'weak' : 'normal'} device → pixel ratio ${dpr}`, async () => {
         weak = w
@@ -43,6 +48,10 @@ describe('render sharpness: the canvas draws at native pixel ratio', () => {
         resizeRenderer({ aspect: 1, updateProjectionMatrix: () => {} } as never, 390, 844)
         expect(ratios.length).toBeGreaterThan(0)
         for (const r of ratios) expect(r).toBeGreaterThanOrEqual(dpr)
+        // The buffer is the box's device pixels, never fewer (#Perf2).
+        const [bw, bh] = buffers[buffers.length - 1]!
+        expect(bw).toBeGreaterThanOrEqual(Math.floor(390 * dpr))
+        expect(bh).toBeGreaterThanOrEqual(Math.floor(844 * dpr))
       })
 
   it('nothing in the game lowers the pixel ratio behind the renderer\'s back', () => {

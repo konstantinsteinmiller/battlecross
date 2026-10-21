@@ -770,3 +770,35 @@ the campaign's Demon King in 4 s. The burst came from three things that stack:
   lines already has 2–24 failed takes.
 - `levels.test` "visits differ" times out (30 s) under a full parallel run and passes alone (48 s of work on a
   busy machine). Open: raise its timeout or split it.
+
+## #Perf1-#Perf3 (slow PowerVR / Mali phones, fractional pixel ratios): defaults chosen, change freely
+
+- **The resolution stays native on every device.** The fill cost of DPR 1.875-2
+  on a PowerVR GE832x is real (an emulated phone drew a frame in ~33 ms at 1×
+  and ~66 ms at 1.875×, SwiftShader), but the house rule wins: never below the
+  screen's own ratio. The other costs were cut first: a weak GPU now starts on
+  the effects ladder's last rung (no scenery outlines, half the particles, no
+  motes: -30 % GPU frame time in the emulated tutorial). **Open:** if the next
+  Poki playtests still show a GE832x under ~20 fps (the new `perf_sample`
+  events say), the remaining choice is a 1.5× cap for that one GPU family
+  only, which the sharpness rule forbids today. Say if you want it.
+- **The see-through dither stays.** Its `discard` turns off a PowerVR's
+  hidden-surface removal for the scenery that uses it (one baked material for
+  all of it); measured ~10 % of the emulated frame, likely more on a real
+  tile-based GPU. Splitting the bake into "see-through" and "plain" kinds (a few
+  more draws per tile) is the next lever, not done blind: wait for playtest
+  numbers.
+- **Background loads wait while play runs under ~30 fps.** The screens' code,
+  town code and early art (~140 loads, ~520 kB of script) no longer run on the
+  idle callback's 2.5 s timeout during the first fight; they come in real idle
+  periods or when the loop pauses (menu, result, map). A window opened before
+  its chunk arrived loads it on open (`idleNow`), as before. Possible cost: a
+  first-time slow-phone player may wait a moment on the first map or trade
+  window.
+- **A weak GPU on a desktop (Intel HD 4600) also starts without scenery
+  outlines** and climbs back after 8 s of fast frames. At a ratio below 1×
+  (a zoomed-out desktop) it now gets MSAA, since the buffer is small there.
+- **Telemetry:** `perf_sample` analytics events (Poki `customEvent`) at 30 s
+  and 120 s of play: fps, first steady second, rung, tier, DPR, buffer, CSS
+  size, draws, triangles, cores and the GPU name. `?perfhud=1` shows the same
+  on screen in any build.

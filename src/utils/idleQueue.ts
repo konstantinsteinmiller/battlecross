@@ -22,7 +22,17 @@
  *   - a QUIET task (`{ quiet: true }`: the early art, D149) waits for an idle
  *     connection too: it runs alone, one after another, only while no other
  *     task is in flight and nothing has finished downloading for `QUIET_MS`;
- *     a plain task of a worse rank may go ahead of it meanwhile.
+ *     a plain task of a worse rank may go ahead of it meanwhile;
+ *   - nothing is FORCED in while play is struggling (`setIdleHold`, #Perf1).
+ *     The idle period's timeout used to run a task anyway after 2.5 s, and on
+ *     a phone at 3–9 fps no idle period ever comes: the whole queue (~140
+ *     loads, ~520 kB of script to parse, a hundred images to decode, a style
+ *     recalculation per stylesheet) ran on that timeout, one every 2.5 s, for
+ *     the first 40 s of the first fight. Measured on an emulated PowerVR
+ *     GE8320 phone; the playtester saw 1–3 fps for the first 30 s. Now a held
+ *     queue waits for a real idle period, or for the hold to lift (the loop
+ *     paused, a menu, a result screen); `idleNow` still loads what a window
+ *     about to open needs.
  *
  * Each task is a load that is cached on its own (a dynamic import, a warmed
  * image), so running one early, twice or late is always safe. A task that
@@ -49,6 +59,16 @@ const IDLE_TIMEOUT_MS = 2500
 const QUIET_MS = 250
 /** How often a waiting quiet task looks again (ms). */
 const QUIET_POLL_MS = 200
+/** How often a held queue looks again (ms). */
+const HOLD_POLL_MS = 500
+
+/** True while the game wants no forced background work (set by the scene). */
+let hold: () => boolean = () => false
+/**
+ * Hold the queue while `fn` says play is struggling: a task then starts only
+ * in a genuine idle period, never on the idle callback's timeout.
+ */
+export const setIdleHold = (fn: () => boolean): void => { hold = fn }
 
 /** When the page last finished downloading something (performance.now()). */
 let lastNet = -Infinity
@@ -67,7 +87,7 @@ const netQuiet = (): boolean =>
   busy === 0 && (typeof performance === 'undefined' || performance.now() - lastNet >= QUIET_MS)
 
 type IdleWindow = Window & {
-  requestIdleCallback?: (cb: () => void, o?: { timeout: number }) => number
+  requestIdleCallback?: (cb: (d: { didTimeout: boolean }) => void, o?: { timeout: number }) => number
   cancelIdleCallback?: (h: number) => void
 }
 
@@ -90,9 +110,15 @@ const next = (quietOk: boolean): Task | undefined => {
 const schedule = (): void => {
   if (!started || busy >= LANES || timer !== null || idleHandle !== null || waiting.size === 0) return
   const w = (typeof window !== 'undefined' ? window : undefined) as IdleWindow | undefined
-  const go = (): void => {
+  const go = (idle?: { didTimeout?: boolean }): void => {
     idleHandle = null
     timer = null
+    // Forced by the timeout (or no idle callbacks at all) while play is
+    // struggling: not now. Looked at again shortly.
+    if ((!idle || idle.didTimeout) && holding()) {
+      timer = setTimeout(() => { timer = null; schedule() }, HOLD_POLL_MS)
+      return
+    }
     const t = next(netQuiet())
     if (!t) {
       // Only quiet tasks wait: look again once the connection may have calmed.
@@ -107,6 +133,8 @@ const schedule = (): void => {
   if (w?.requestIdleCallback) idleHandle = w.requestIdleCallback(go, { timeout: IDLE_TIMEOUT_MS })
   else timer = setTimeout(go, 50)
 }
+
+const holding = (): boolean => { try { return hold() } catch { return false } }
 
 /**
  * Queue a background load under `key` (once: a key already waiting only takes
@@ -158,4 +186,5 @@ export const __resetIdleQueue = (): void => {
   timer = null
   idleHandle = null
   lastNet = -Infinity
+  hold = () => false
 }

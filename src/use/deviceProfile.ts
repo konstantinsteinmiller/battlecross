@@ -22,12 +22,12 @@
  *
  * ── What it is allowed to change ──
  *
- * The canvas RESOLUTION, and nothing else. Not the effect tier, not the
- * particle budget, not a single pass in the renderer — those are what the game
- * LOOKS like, and a wrong guess there is a permanently worse-looking game for a
- * player whose device was fine. Resolution is the cheapest thing to give up
- * (fill cost scales with its square) and the least visible on a phone-class
- * screen, and a wrong guess is a slightly softer picture.
+ * Never the resolution any more: the canvas draws at the screen's own pixel
+ * ratio (outstanding question 43, `engine/renderer.ts`). A weak verdict picks
+ * where the effects ladder STARTS (its last rung, `engine/effectsLadder.ts`,
+ * #Perf1), the scenery's density (`engine/quality.ts`) and no MSAA. The ladder
+ * climbs back on fast frames, so a wrong guess costs seconds of effects, not a
+ * permanently worse-looking game.
  *
  * ── Why the GPU string and not a benchmark ──
  *

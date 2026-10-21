@@ -16,6 +16,9 @@
     HeroChoice(v-if="!introOn")
     //- The intro (#130): its own chunk, mounted only while it plays.
     IntroLayer(v-if="introOn")
+    //- Debug only (the debug flag or `?perfhud=1`): what a playtest reports (#Perf1-3).
+    div.perf-detail(v-if="perfLines.length")
+      div(v-for="l in perfLines" :key="l") {{ l }}
 </template>
 
 <script setup lang="ts">
@@ -41,7 +44,9 @@ import { PREVIEW_ON } from '@/game/previewFlags'
 import GameHud from '@/components/hud/GameHud.vue'
 import { SCREEN_CHUNKS, queueScreens } from '@/components/screens/chunks'
 import { queueEarlyArt } from '@/game/assets/preload'
-import { startIdleQueue } from '@/utils/idleQueue'
+import { setIdleHold, startIdleQueue } from '@/utils/idleQueue'
+import { exposePerf, perfHudOn, perfSnapshot } from '@/game/engine/perfReport'
+import { isDebug } from '@/use/useMatch'
 import { useI18n } from 'vue-i18n'
 import useUser from '@/use/useUser'
 import { setI18nLocale } from '@/i18n'
@@ -74,6 +79,8 @@ registerGameCheats()
 useHudScale()
 
 const canvasHost = ref<HTMLElement | null>(null)
+/** Frame interval (ms, the loop's running average) above which background loads wait. */
+const IDLE_HOLD_MS = 34
 const surface = ref<HTMLElement | null>(null)
 const optionsOpen = ref(false)
 const optionsMounted = ref(false)
@@ -187,7 +194,12 @@ onMounted(async () => {
   // Then the art of what opens after the first fights, one image at a time
   // while the connection is idle (`assets/preload.ts`, D149).
   queueEarlyArt()
+  // Nothing forced in while play runs under ~30 fps (#Perf1): a slow phone
+  // never has an idle period, and the queue's timeout fed it ~140 loads into
+  // its first fight. A pause, a menu or a result screen lets them through.
+  setIdleHold(() => app.running && app.frameMs > IDLE_HOLD_MS)
   startIdleQueue()
+  exposePerf()
 })
 
 // A new place re-ranks what is still waiting for its own likely next steps.
@@ -215,7 +227,26 @@ const live = computed(() => isGameplayLive({
 }))
 watch(live, (v) => syncGameplayLifecycle(v), { immediate: true })
 
+// The perf meter's second half: tier, rung, pixels, GPU (dev overlay, not player copy).
+const perfLines = ref<string[]>([])
+let perfTimer: ReturnType<typeof setInterval> | null = null
+const showPerf = (): void => {
+  const p = perfSnapshot()
+  perfLines.value = [
+    `${p.fps} fps · fx ${p.fx} · ${p.tier} · steady @${p.steadyAt}s`,
+    `dpr ${p.dpr} · ${p.bufW}×${p.bufH} · css ${p.cssW}×${p.cssH}`,
+    `${p.calls} draws · ${Math.round(p.tris / 1000)}k tris · ${p.cores} cores`,
+    p.gpu
+  ]
+}
+watch(() => isDebug.value || perfHudOn(), (on) => {
+  if (perfTimer) clearInterval(perfTimer)
+  perfTimer = on ? setInterval(showPerf, 1000) : null
+  if (!on) perfLines.value = []
+}, { immediate: true })
+
 onUnmounted(() => {
+  if (perfTimer) clearInterval(perfTimer)
   syncGameplayLifecycle(false)
   detachInput?.()
   window.removeEventListener('keydown', onKey)
@@ -238,6 +269,16 @@ onUnmounted(() => {
     width: 100%
     height: 100%
     touch-action: none
+.perf-detail
+  position: fixed
+  top: calc(84px + env(safe-area-inset-top, 0px))
+  right: calc(12px + env(safe-area-inset-right, 0px))
+  z-index: 9999
+  pointer-events: none
+  text-align: right
+  font: 600 11px/1.3 ui-monospace, monospace
+  color: rgba(226, 232, 240, 0.9)
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.85)
 .input-surface
   position: absolute
   inset: 0

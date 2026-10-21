@@ -1,6 +1,8 @@
 import { PerspectiveCamera, Scene } from 'three'
-import { getRenderer, resizeRenderer } from './renderer'
+import { getRenderer, resizeRenderer, sizeRenderer } from './renderer'
 import { frameStart, frameEnd, phaseStart, phaseEnd } from '@/use/usePerfProbe'
+import { stepEffectsLadder } from './effectsLadder'
+import { notePerfFrame } from './perfReport'
 
 /**
  * ─── The game loop ───────────────────────────────────────────────────────────
@@ -53,32 +55,69 @@ class GameApp {
     this.container = container
     container.appendChild(r.domElement)
     this.ro?.disconnect()
-    this.ro = new ResizeObserver(() => this.resize())
-    this.ro.observe(container)
+    this.devW = 0
+    this.devH = 0
+    // The box's size in DEVICE pixels where the browser reports it (#Perf2,
+    // `renderer.fitCanvas`): the buffer then matches the screen exactly at any
+    // ratio, and a zoom (which changes the ratio and the box) reports anew.
+    this.ro = new ResizeObserver((entries) => {
+      const d = entries[entries.length - 1]?.devicePixelContentBoxSize?.[0]
+      this.devW = d?.inlineSize ?? 0
+      this.devH = d?.blockSize ?? 0
+      this.resize()
+    })
+    try { this.ro.observe(container, { box: 'device-pixel-content-box' }) } catch { this.ro.observe(container) }
+    this.watchDpr()
     this.resize()
   }
 
   detach(): void {
     this.ro?.disconnect()
     this.ro = null
+    this.dprQuery?.removeEventListener('change', this.onDpr)
+    this.dprQuery = null
     const r = getRenderer()
     if (r.domElement.parentElement) r.domElement.parentElement.removeChild(r.domElement)
     this.container = null
   }
 
+  /** Device pixels of the box, from the last resize report (0: not reported). */
+  private devW = 0
+  private devH = 0
+  private dprQuery: MediaQueryList | null = null
+  private onDpr = (): void => { this.watchDpr(); this.resize() }
+  /** A change of pixel ratio (zoom, another screen) without a resize report:
+   *  the query only matches the ratio it was made for, so it is made again. */
+  private watchDpr(): void {
+    this.dprQuery?.removeEventListener('change', this.onDpr)
+    try {
+      this.dprQuery = window.matchMedia(`(resolution: ${window.devicePixelRatio || 1}dppx)`)
+      this.dprQuery.addEventListener('change', this.onDpr)
+    } catch { this.dprQuery = null }
+  }
+
   resize(): void {
     const el = this.container
-    const w = el ? el.clientWidth : window.innerWidth
-    const h = el ? el.clientHeight : window.innerHeight
+    // The box's own fractional size: `clientWidth` rounds to whole CSS pixels,
+    // which at a fractional ratio is a fraction of a pixel short or over.
+    const box = el?.getBoundingClientRect()
+    const w = box ? box.width : window.innerWidth
+    const h = box ? box.height : window.innerHeight
     // A zero-size viewport (Playables resize-to-zero, a collapsed iframe)
     // must not produce a NaN projection.
     this.width = Math.max(1, w)
     this.height = Math.max(1, h)
+    // A device size that no longer belongs to this box (a report from before a
+    // zoom) is not used: the fallback rounds from the CSS size instead.
+    const dpr = window.devicePixelRatio || 1
+    const exact = this.devW > 0 && Math.abs(this.devW - w * dpr) < 2 && Math.abs(this.devH - h * dpr) < 2
+    const dw = exact ? this.devW : 0
+    const dh = exact ? this.devH : 0
     if (this.mode) {
-      resizeRenderer(this.mode.camera, this.width, this.height)
+      resizeRenderer(this.mode.camera, this.width, this.height, dw, dh)
       this.mode.resize?.(this.width, this.height)
     } else {
-      getRenderer().setSize(this.width, this.height, false)
+      sizeRenderer(this.width, this.height, dw, dh)
     }
   }
 
@@ -151,6 +190,10 @@ class GameApp {
     phaseStart('draw')
     mode.render(this.acc / STEP, dt)
     phaseEnd('draw')
+    // The effects ladder hears the real interval, not the clamped step: at
+    // 2 fps a frame is 0.5 s, not 0.1 (#Perf1, `effectsLadder.ts`).
+    stepEffectsLadder(dtMs / 1000)
+    notePerfFrame(now)
     frameEnd()
   }
 }

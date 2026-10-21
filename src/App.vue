@@ -24,6 +24,8 @@ import { useRenderGate } from '@/platforms/renderGate'
 import { installBrowserGuard } from '@/use/useBrowserGuard'
 
 const { t } = useI18n()
+/** `?perfhud=1`: the perf meter in any build, for a device check (#Perf1-3). */
+const perfHud = new URLSearchParams(window.location.search).has('perfhud')
 const { initMusic, pauseMusic, continueMusic } = useMusic()
 const { resourceCache } = useAssets()
 useCrazyMuteSync()
@@ -165,7 +167,7 @@ const VConsoleHide = import.meta.env.VITE_APP_NATIVE === 'true' || import.meta.e
 <template lang="pug">
   div(v-if="isGameShowAllowed" id="app-root" class="h-screen h-dvh w-screen app-container root-protection game-ui-immune")
     FLogoProgress
-    FPerfMeter(v-if="isDebug" :offset-y="52")
+    FPerfMeter(v-if="isDebug || perfHud" :enabled="perfHud ? true : null" :offset-y="52")
     SaveStatusBanner
     AdsBlockedModal
     GlLostVeil
