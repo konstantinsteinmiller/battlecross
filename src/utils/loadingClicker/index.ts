@@ -510,7 +510,13 @@ export const mountClicker = (canvas: HTMLCanvasElement, opts: { firstLoad: boole
     // the tunic and belt
     P([-7, -24, 5, -24, 6.4, -9, -8.4, -9], '#3f7fd6', 1.6)
     L([-7.4, -12.6, 5.8, -12.6], 1.2, '#5a3a22', false)
-    // the head, traced from the game's: a wide face, the big eyes, the hair with its swept fringe over the brow
+    // the neck, shaded under the jaw, into a collar
+    P([-4.6, -27, 1.4, -27, 1.6, -23.6, -4.8, -23.6], '#f2c8a0', 1.3)
+    P([-4.6, -25.6, 1.4, -25.6, 1.5, -24.6, -4.7, -24.6], '#c99878', 0.01)
+    L([-7, -24, -1.6, -21.6, 5, -24], 1.3, '#2c5fae', false)
+    // the head, traced from the game's: a wide face, the big eyes, the hair with its swept fringe over the brow;
+    // set low on a short neck
+    ctx.save(); ctx.translate(0, 3.6)
     if (f) S([-12.6, -44, -14.6, -36, -14, -30.4, -11, -30, -10, -38], hair, 1.4)
     S(f ? [-10.6, -42, 6, -42, 6.4, -33, 3, -29.4, -1, -28, -5, -28.6, -9.6, -31.4] : [-10.6, -42, 6, -42, 6.4, -33, 2.6, -28.8, -4.4, -28.4, -9.6, -31.4], '#f2c8a0', 1.6)
     eye(-2.4, -34.2, 2.4, f ? 3.1 : 2.9, '#1e3050', iris)
@@ -527,6 +533,7 @@ export const mountClicker = (canvas: HTMLCanvasElement, opts: { firstLoad: boole
       P([-12.6, -34.6, -14, -43, -11, -48, -5, -50.4, -2.4, -50.6, -1.4, -53.6, 0.6, -50, 5, -48.4, 8.4, -44, 8, -34.6, 5, -40.6, 4.6, -35.4, 0, -41.6, -0.6, -36.6, -5, -41.8, -6, -37.4, -9.6, -41.4, -11.6, -36], hair, 1.7)
       L([-8, -46.6, -3.6, -48.6], 1, hl, false)
     }
+    ctx.restore()
     // the buckler on the near arm: a white rim round a gold boss
     ctx.save(); ctx.translate(f ? -4.4 : -6.4, f ? -18.6 : -16.2); ctx.scale(1.12, 1.12); ctx.translate(2, 21.2)
     P([-8.4, -24.6, -3.4, -27.6, 2.6, -26.4, 5.4, -21, 3.4, -15.4, -2, -13.4, -7.6, -15.6, -9.4, -21], '#eef2f8', 1.6)

@@ -715,16 +715,26 @@ export default defineConfig(({ mode, command }) => {
   const skipCspMeta = isYandexBuild || isGamepixBuild || isPokiBuild || isPlaygamaBuild
   // The loading mini-game is an inline script in index.html (a cold load makes no second request
   // for it); the policy names its hash wherever script-src has no 'unsafe-inline'.
-  const clicker = clickerInline(fileURLToPath(new URL('.', import.meta.url)))
+  // The dev server rebuilds it on every page load, so an edit shows on reload (it was built once
+  // at startup and kept serving the old drawing); the CSP follows the fresh hash.
+  const clickerRoot = fileURLToPath(new URL('.', import.meta.url))
+  let clicker = clickerInline(clickerRoot)
   plugins.push({
     name: 'inline-clicker',
-    transformIndexHtml: { order: 'pre', handler: (html: string) => injectClicker(html, clicker) }
+    transformIndexHtml: {
+      order: 'pre',
+      handler: (html: string) => {
+        if (command === 'serve') clicker = clickerInline(clickerRoot)
+        return injectClicker(html, clicker)
+      }
+    }
   })
-  const cspValue = buildCsp(env, [clicker.hash])
+  let cspValue = buildCsp(env, [clicker.hash])
 
   plugins.push({
     name: 'inject-csp',
     transformIndexHtml(html: string) {
+      if (command === 'serve') cspValue = buildCsp(env, [clicker.hash])
       return html.replace(
         '<!-- CSP meta tag injected by vite.config.ts at build time -->',
         skipCspMeta
