@@ -1,3 +1,4 @@
+import { existsSync } from 'node:fs'
 import { describe, expect, it } from 'vitest'
 // @ts-expect-error plain .mjs tools without types
 import { SHOTS, BEAT } from '../../tools/preview-video/scenarios/cinematic-trailer.mjs'
@@ -22,6 +23,14 @@ describe('the cinematic trailer is cut on its score (#74)', () => {
       expect(starts.has(bar * 4), `${name} starts at beat ${bar * 4}`).toBe(true)
       bar += bars
     }
+  })
+
+  it('the menus run 28 beats (#X2: 30 % under the first cut) and every narrator line has its take', () => {
+    const shots = SHOTS as (Shot & { ui?: unknown; narrate?: { id: string; file?: string }[] })[]
+    expect(shots.filter(s => s.ui).reduce((n, s) => n + s.beats, 0)).toBe(28)
+    const lines = shots.flatMap(s => s.narrate ?? [])
+    expect(lines.length).toBeGreaterThanOrEqual(5)
+    for (const l of lines) expect(existsSync(l.file ?? `public/audio/voice/en/${l.id}.ogg`), l.id).toBe(true)
   })
 
   it('the game edit is a loop of whole bars that opens on a drum blow', () => {

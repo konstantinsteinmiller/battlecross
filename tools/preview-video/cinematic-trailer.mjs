@@ -66,7 +66,9 @@ const picture = (() => {
 if (!picture) { console.error('no recording of the trailer found under preview-videos/'); process.exit(1) }
 if (!existsSync(SOUNDS)) { console.error(`no sound log at ${SOUNDS}: record first`); process.exit(1) }
 const { durationMs, events, voices = [] } = JSON.parse(readFileSync(SOUNDS, 'utf8'))
-const lines = voices.filter(v => existsSync(join(VOICE_DIR, `${v.id}.ogg`)))
+/** A line's take: the narrator's trailer lines carry their own file, the rest are the game's. */
+const fileOf = (v) => (v.file ? join(ROOT, v.file) : join(VOICE_DIR, `${v.id}.ogg`))
+const lines = voices.filter(v => existsSync(fileOf(v)))
 for (const v of voices) if (!lines.includes(v)) console.warn(`no voice file for ${v.id}`)
 const seconds = durationMs / 1000
 console.log(`picture: ${picture}\nsounds: ${events.length} logged, ${lines.length} lines`)
@@ -82,23 +84,26 @@ const fights = join(audioDir, 'fights.wav')
 run(process.execPath, [join(ROOT, 'tools/sfx-render.mjs'), SOUNDS, fights], 'rendering the fights')
 
 // 4 + 5. The mix.
-const fadeOut = Math.max(0, seconds - 2.5).toFixed(2)
-// The lines: each delayed to its time, all on one bus; the music side-chained under it.
-const voiceInputs = lines.flatMap(v => ['-i', join(VOICE_DIR, `${v.id}.ogg`)])
+// A short fade (#X2): the narrator's last words sit in the trailer's last two seconds.
+const fadeOut = Math.max(0, seconds - 1.5).toFixed(2)
+// The lines: each delayed to its time, all on one bus; the music and the fights side-chained under it
+// (the narrator's long lines need the fights out of the way too).
+const voiceInputs = lines.flatMap(v => ['-i', fileOf(v)])
 const voiceBus = lines.length
   ? [
       ...lines.map((v, k) => `[${3 + k}:a]aformat=sample_rates=44100:channel_layouts=stereo,adelay=${v.ms}|${v.ms},volume=${VOICE_GAIN}[v${k}]`),
-      `${lines.map((_, k) => `[v${k}]`).join('')}amix=inputs=${lines.length}:normalize=0:duration=longest,apad,atrim=0:${seconds.toFixed(3)},asplit=2[vo][vkey]`
+      `${lines.map((_, k) => `[v${k}]`).join('')}amix=inputs=${lines.length}:normalize=0:duration=longest,apad,atrim=0:${seconds.toFixed(3)},asplit=3[vo][vkey][fkey]`
     ]
   : []
 const graph = [
   `[1:a]atrim=0:${seconds.toFixed(3)},asetpts=PTS-STARTPTS,aformat=sample_rates=44100:channel_layouts=stereo,volume=${MUSIC_GAIN}${lines.length ? '[mus0]' : '[mus]'}`,
   ...voiceBus,
-  ...(lines.length ? ['[mus0][vkey]sidechaincompress=threshold=0.05:ratio=4:attack=20:release=400[mus]'] : []),
+  ...(lines.length ? ['[mus0][vkey]sidechaincompress=threshold=0.03:ratio=6:attack=20:release=450[mus]'] : []),
   // The fights' bus a little compressed: a crit on an explosion would otherwise
   // be squared off by the limiter, and AAC rings past the ceiling on that.
-  `[2:a]aformat=sample_rates=44100:channel_layouts=stereo,volume=${FIGHTS_GAIN},acompressor=threshold=0.2:ratio=3:attack=3:release=90[fx]`,
-  `[mus][fx]${lines.length ? '[vo]' : ''}amix=inputs=${lines.length ? 3 : 2}:normalize=0:duration=first,afade=t=in:st=0:d=0.4,afade=t=out:st=${fadeOut}:d=2.5,loudnorm=I=-15:TP=-1.5:LRA=11,aresample=44100,lowpass=f=16000,alimiter=limit=0.89:attack=2:level=false[aout]`
+  `[2:a]aformat=sample_rates=44100:channel_layouts=stereo,volume=${FIGHTS_GAIN},acompressor=threshold=0.2:ratio=3:attack=3:release=90${lines.length ? '[fx0]' : '[fx]'}`,
+  ...(lines.length ? ['[fx0][fkey]sidechaincompress=threshold=0.03:ratio=4:attack=15:release=400[fx]'] : []),
+  `[mus][fx]${lines.length ? '[vo]' : ''}amix=inputs=${lines.length ? 3 : 2}:normalize=0:duration=first,afade=t=in:st=0:d=0.4,afade=t=out:st=${fadeOut}:d=1.5,loudnorm=I=-15:TP=-1.5:LRA=11,aresample=44100,lowpass=f=16000,alimiter=limit=0.89:attack=2:level=false[aout]`
 ].join(';')
 run(ffmpeg, [
   '-y', '-loglevel', 'error', '-i', picture, '-i', music, '-i', fights, ...voiceInputs,

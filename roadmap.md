@@ -257,7 +257,7 @@ WebGL Renderer
 
 
 - [x] #X1 ✅ Create a cinematic trailer using the gameplay-preview-pipeline (but use a separate package.json script called "cinematic-trailer" with the file name called trailer to battlecross-cinematic-trailer.mp4) which shows off the correct in game behaviour to the watching audience and make it epic with epic fights and win scenarios and epic loot findings, the most actionable scenes with edgy video cuts to make it appeal to a 10-15 year old. Let the player speak a few of his cool lines in english(no text bubbles in the video). Show of the coolest features of the game and the coolest enemies and locations, all enemies and the player must behave like in the game.
-- [ ] #X2 Recreate the cinematic trailer, shorten the menu passages by ~30% in time and add the intro narrator to give the cinematic trailers an epic and atmospheric story and gameplay overview.
+- [x] #X2 ✅ Recreate the cinematic trailer, shorten the menu passages by ~30% in time and add the intro narrator to give the cinematic trailers an epic and atmospheric story and gameplay overview.
   you can reuse some or most of the older boss fight scenes as they have not changed and looked good already in the trailer.
 
 

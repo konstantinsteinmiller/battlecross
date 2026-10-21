@@ -5,7 +5,7 @@
 // timpani) and synthesized percussion (kick, snare, toms, bongos, shaker,
 // crash). 112 BPM, D minor (the game's key), 4/4.
 //
-//   trailer  40 bars, cut to the cinematic trailer's shots (its scenario lays
+//   trailer  37 bars, cut to the cinematic trailer's shots (its scenario lays
 //            its shots on these same bars): the walk out of Sunford, the call
 //            to arms, the build (the hero's book, #125), the montage, the
 //            loot, the dragon and the fortress, the rift
@@ -65,9 +65,10 @@ const SECTIONS = [
 const section = (name) => SECTIONS.find(s => s.name === name)
 const TRAILER_SECTIONS = [
   section('intro'),
-  section('call'),
-  // 10–17  the build: a lighter drive under the menus
-  { name: 'build', chords: ['Dm', 'Bb', 'F', 'C', 'Gm', 'Bb', 'C', 'A'], level: 0.74, parts: ['celloEighths', 'guitarStrum', 'pianoChords', 'pad', 'bongos', 'shaker', 'kick', 'taikoDown', 'timpRollEnd'], melody: { inst: 'violin', bars: [...M1, ...M1b] } },
+  // #X2: the shop is a bar now, so the call is a bar shorter
+  { ...section('call'), chords: ['Dm', 'Bb', 'F', 'C', 'Dm', 'Bb', 'A'] },
+  // 9–14  the build: a lighter drive under the menus (#X2: six bars, was eight)
+  { name: 'build', chords: ['Dm', 'Bb', 'F', 'Gm', 'C', 'A'], level: 0.74, parts: ['celloEighths', 'guitarStrum', 'pianoChords', 'pad', 'bongos', 'shaker', 'kick', 'taikoDown', 'timpRollEnd'], melody: { inst: 'violin', bars: [...M1, ...M1b] } },
   section('montage'),
   section('loot'),
   { ...section('climax'), chords: ['Dm', 'Bb', 'Gm', 'A'], melody: { inst: 'violin', bars: M2, up: 12 } },
@@ -176,7 +177,7 @@ const notes = (sections) => {
   return ev
 }
 
-/** An edit of the piece: 'trailer' (40 bars, TRAILER_SECTIONS) or 'game' (the boss fight's loop). */
+/** An edit of the piece: 'trailer' (37 bars, TRAILER_SECTIONS) or 'game' (the boss fight's loop). */
 export const score = (edit = 'trailer') => {
   const pick = edit === 'game' ? SECTIONS.filter(s => s.name === 'montage' || s.name === 'climax' || s.name === 'fortress') : TRAILER_SECTIONS
   const bars = pick.reduce((n, s) => n + s.chords.length, 0)

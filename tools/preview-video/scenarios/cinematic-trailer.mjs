@@ -1,7 +1,11 @@
 /**
- * THE CINEMATIC TRAILER (roadmap #X1, recut in #125) — `pnpm cinematic-trailer`.
+ * THE CINEMATIC TRAILER (roadmap #X1, recut in #125 and #X2) — `pnpm cinematic-trailer`.
  *
- * About 86 s at 1920x1080, cut on the bars of its own score, "The Last Light"
+ * #X2: the menus (shop, book, stats, gear) cut from 40 beats to 28, and the
+ * game's narrator, the Chronicler, tells the story over it (`narrate`: his
+ * intro takes, and two trailer-only gameplay lines made by `narration.mjs`).
+ *
+ * About 79 s at 1920x1080, cut on the bars of its own score, "The Last Light"
  * (`tools/score-render/score.mjs`, the trailer edit: 112 BPM, a beat is
  * 0.536 s; every shot is whole bars, so each cut lands on a downbeat and each
  * section of the music on its act). Fewer boss fights than the first cut, and
@@ -53,17 +57,21 @@ const bossDown = () => {
   return s.ended === 'victory' || (!!s.boss && !s.boss.alive)
 }
 
-/** The loadout shot's taps: three actives, a second class's skill, two passives. */
+/** The loadout shot's taps: three actives, a second class's skill, two passives (#X2: a quarter faster). */
 const LOADOUT_TAPS = [
-  { at: 300, sel: '.codex__path .node:not(.is-round):not(.is-locked)', n: 0 }, { at: 750, sel: '[data-drop="active:0"]' },
-  { at: 1350, sel: '.codex__path .node:not(.is-round):not(.is-locked)', n: 1 }, { at: 1800, sel: '[data-drop="active:1"]' },
-  { at: 2400, sel: '.codex__path .node:not(.is-round):not(.is-locked)', n: 2 }, { at: 2850, sel: '[data-drop="active:2"]' },
-  { at: 3500, sel: '.codex__classes .emblem', n: 2 },
-  { at: 4200, sel: '.codex__path .node:not(.is-round):not(.is-locked)', n: 0 }, { at: 4650, sel: '[data-drop="active:3"]' },
-  { at: 5300, sel: '.codex__path .node.is-round:not(.is-locked)', n: 0 }, { at: 5750, sel: '[data-drop="passive:0"]' },
-  { at: 6400, sel: '.codex__classes .emblem', n: 0 },
-  { at: 6950, sel: '.codex__path .node.is-round:not(.is-locked)', n: 0 }, { at: 7400, sel: '[data-drop="passive:1"]' }
+  { at: 250, sel: '.codex__path .node:not(.is-round):not(.is-locked)', n: 0 }, { at: 580, sel: '[data-drop="active:0"]' },
+  { at: 1000, sel: '.codex__path .node:not(.is-round):not(.is-locked)', n: 1 }, { at: 1340, sel: '[data-drop="active:1"]' },
+  { at: 1780, sel: '.codex__path .node:not(.is-round):not(.is-locked)', n: 2 }, { at: 2120, sel: '[data-drop="active:2"]' },
+  { at: 2600, sel: '.codex__classes .emblem', n: 2 },
+  { at: 3120, sel: '.codex__path .node:not(.is-round):not(.is-locked)', n: 0 }, { at: 3460, sel: '[data-drop="active:3"]' },
+  { at: 3940, sel: '.codex__path .node.is-round:not(.is-locked)', n: 0 }, { at: 4280, sel: '[data-drop="passive:0"]' },
+  { at: 4760, sel: '.codex__classes .emblem', n: 0 },
+  { at: 5170, sel: '.codex__path .node.is-round:not(.is-locked)', n: 0 }, { at: 5510, sel: '[data-drop="passive:1"]' }
 ]
+
+/** The narrator's lines (#X2): the game's intro takes, and the trailer's own (`tools/preview-video/narration.mjs`). */
+const INTRO = (key) => ({ id: `dlg.intro.${key}.1` })
+const TRAILER_LINE = (key) => ({ id: `trailer.${key}`, file: `tools/preview-video/narration/trailer.${key}.ogg` })
 
 /**
  * The shot list. `beats`: the shot's length on the music's grid. `hold`: the
@@ -84,39 +92,40 @@ const LOADOUT_TAPS = [
  */
 export const SHOTS = [
   // ── intro ──
-  { id: 'sunford', node: 'sunford', hero: { level: 30, cls: 'aegis' }, walk: [[17, 11], [17, 19], [19, 22], [19, 33]], beats: 8 },
-  // ── the call ──
+  { id: 'sunford', node: 'sunford', hero: { level: 30, cls: 'aegis' }, walk: [[17, 11], [17, 19], [19, 22], [19, 33]], beats: 8,
+    narrate: [{ at: 300, ...INTRO('crossing') }] },
+  // ── the call ── (the narrator still speaks over the shop: the hero's trade line is left out)
   { id: 'shop', ui: { on: 'sunford', modal: 'shop', npc: 'sunfordSmith', book: { gold: 4000 },
-    taps: [{ at: 350, sel: '.trade__shelf .ware:not(.is-owned)', n: 1 }, { at: 1250, sel: '.trade__act' }, { at: 2100, sel: '.trade__shelf .ware:not(.is-owned)', n: 2 }, { at: 3000, sel: '.trade__act' }] },
-    hero: { level: 8, cls: 'aegis', bare: true }, beats: 8, say: { at: 150, id: 'dlg.hero.trade' } },
+    taps: [{ at: 150, sel: '.trade__shelf .ware:not(.is-owned)', n: 1 }, { at: 600, sel: '.trade__act' }, { at: 1100, sel: '.trade__shelf .ware:not(.is-owned)', n: 2 }, { at: 1550, sel: '.trade__act' }] },
+    hero: { level: 8, cls: 'aegis', bare: true }, beats: 4 },
   // Tusker's first charge carries the knight into the rock (he takes it); at half the King leaps off.
   { id: 'hollows', node: 'hollows', hero: { level: 5, cls: 'aegis' }, stage: { pack: 'finale', gap: 6.5, heroHp: 0.95, bossHp: 0.6, foeHp: 0.2 }, beats: 12,
-    cues: [{ at: 0, dodge: 0 }, { at: 3800, dodge: 0.7 }, { at: 4400, boss: { hp: 0.49 } }], say: { at: 500, id: 'dlg.quest.goblinKing.slay.say' } },
+    cues: [{ at: 0, dodge: 0 }, { at: 3800, dodge: 0.7 }, { at: 4400, boss: { hp: 0.49 } }], narrate: [{ at: 300, ...INTRO('hero') }], say: { at: 4600, id: 'dlg.quest.goblinKing.slay.say' } },
   { id: 'woods', node: 'woods', hero: { level: 8, cls: 'shadow' }, stage: { pack: 'finale', gap: 3.2, heroHp: 0.9, bossHp: 0.35, foeHp: 0.4 }, beats: 4 },
   // The bandits of the first ambush come out for the cart; the hero cuts them down beside it.
   { id: 'caravan', node: 'outskirts', escort: true, hero: { level: 12, cls: 'sovereign' }, stage: { pack: 0, gap: 3.0, heroHp: 0.9, foeHp: 0.35 }, beats: 8 },
   // ── the build ──
   { id: 'loadout', ui: { on: 'sunford', modal: 'skills', book: { active: ['', '', '', '', '', ''], passive: ['', '', ''] }, taps: LOADOUT_TAPS },
-    hero: { level: 30, cls: 'pyro' }, beats: 16 },
+    hero: { level: 30, cls: 'pyro' }, beats: 12, narrate: [{ at: 400, ...TRAILER_LINE('build') }] },
   { id: 'stats', ui: { on: 'sunford', modal: 'character', book: { points: 12 },
-    taps: [0, 0, 1, 0, 2, 0, 3, 1, 0, 4].map((n, i) => ({ at: 250 + i * 360, sel: '.attr__plus', n })) },
-    hero: { level: 30, cls: 'aegis' }, beats: 8 },
+    taps: [0, 1, 2, 0, 4].map((n, i) => ({ at: 200 + i * 330, sel: '.attr__plus', n })) },
+    hero: { level: 30, cls: 'aegis' }, beats: 4 },
   { id: 'equip', ui: { on: 'sunford', modal: 'inventory', book: { items: ['bladeOfTheUnbound', 'shieldOfTheFallen', 'dragonscaleHauberk'] },
     taps: [{ at: 250, sel: '.bag__grid .item-cell:not(.is-worn)', n: 0 }, { at: 900, sel: '.equip__card .bag__actions > :last-child' },
       { at: 1600, sel: '.bag__grid .item-cell:not(.is-worn)', n: 0 }, { at: 2250, sel: '.equip__card .bag__actions > :last-child' },
       { at: 2950, sel: '.bag__grid .item-cell:not(.is-worn)', n: 0 }, { at: 3600, sel: '.equip__card .bag__actions > :last-child' }] },
-    hero: { level: 30, cls: 'aegis', bare: true }, beats: 8 },
+    hero: { level: 30, cls: 'aegis', bare: true }, beats: 8, narrate: [{ at: 800, ...INTRO('fire') }] },
   // ── the montage ──
   { id: 'crags', node: 'crags', hero: { level: 13, cls: 'pyro' }, stage: { pack: 1, gap: 3.0, heroHp: 0.9, foeHp: 0.7 }, beats: 4 },
   { id: 'mines', node: 'mines', hero: { level: 15, cls: 'aether' }, stage: { pack: 'finale', gap: 4.2, heroHp: 0.9, bossHp: 0.6, foeHp: 0.6 }, beats: 4 },
   // Hammerfall raises the ice where the hero stood; his charge shatters on it and he reels.
-  { id: 'tundra', node: 'tundra', hero: { level: 19, cls: 'geo' }, stage: { pack: 'finale', gap: 6.5, heroHp: 0.9, bossHp: 0.8, foeHp: 0.6 }, beats: 8,
+  { id: 'tundra', node: 'tundra', hero: { level: 19, cls: 'geo' }, stage: { pack: 'finale', gap: 6.5, heroHp: 0.9, bossHp: 0.8, foeHp: 0.6 }, beats: 8, narrate: [{ at: 200, ...INTRO('foes') }],
     cues: [{ at: 0, boss: { ready: ['hammer'], hold: ['charge'] } }, { at: 1600, boss: { ready: ['charge'], hold: ['hammer'] } }] },
   { id: 'temple', node: 'temple', hero: { level: 20, cls: 'chrono' }, stage: { pack: 'finale', gap: 3.6, heroHp: 0.9, bossHp: 0.6, foeHp: 0.6 }, beats: 4 },
   { id: 'arena', node: 'arena', hero: { level: 15, cls: 'sovereign' }, preroll: 4200, beats: 4 },
   { id: 'citadel', node: 'citadel', hero: { level: 23, cls: 'blood' }, stage: { pack: 'finale', gap: 3.6, heroHp: 0.9, bossHp: 0.6, foeHp: 0.6 }, beats: 4 },
   // ── the loot ──
-  { id: 'chest', node: 'woods', hero: { level: 30, cls: 'shadow', bare: true }, chest: ['armorOfTheTitan', 'orbOfEternalFlame'], beats: 8 },
+  { id: 'chest', node: 'woods', hero: { level: 30, cls: 'shadow', bare: true }, chest: ['armorOfTheTitan', 'orbOfEternalFlame'], beats: 8, narrate: [{ at: 400, ...TRAILER_LINE('loot') }] },
   { id: 'loot', node: 'tundra', hero: { level: 19, cls: 'pyro', bare: true }, stage: { pack: 'finale', gap: 3.0, heroHp: 0.9, bossHp: 0.05, foeHp: 0.05 }, beats: 4 },
   // ── the climax: a breath, then it takes to the sky; strafing runs that leave the field burning ──
   { id: 'peak', node: 'peak', hero: { level: 25, cls: 'aegis' }, stage: { pack: 'finale', gap: 6.0, heroHp: 0.85, bossHp: 0.64 }, beats: 16,
@@ -127,7 +136,8 @@ export const SHOTS = [
   { id: 'fortress', node: 'fortress', hero: { level: 30, cls: 'pyro', bare: true }, stage: { pack: 'finale', gap: -5.0, heroHp: 0.85, bossHp: 0.3, foeHp: 0.2 }, beats: 24, hold: true,
     cues: [{ at: 2500, boss: { hp: 0.2 } }, { at: 6500, boss: { hp: 0.03 } }] },
   // ── the rift ──
-  { id: 'rift', node: 'rift', hero: { level: 30, cls: 'shadow' }, stage: { pack: 'finale', gap: 6.5, heroHp: 1, bossHp: 1 }, beats: 8, say: { at: 700, id: 'dlg.quest.throne.claim.say' } }
+  { id: 'rift', node: 'rift', hero: { level: 30, cls: 'shadow' }, stage: { pack: 'finale', gap: 6.5, heroHp: 1, bossHp: 1 }, beats: 8, say: { at: 300, id: 'dlg.quest.throne.claim.say' },
+    narrate: [{ at: 1400, ...INTRO('begin') }] }
 ]
 
 /** The trailer's length: every shot's beats, on the grid. */
@@ -284,6 +294,7 @@ export default {
       }
       if (SHOTS[i + 1]?.id === 'peak') events.push({ name: 'trailerRiser', ms: Math.round(clip0 + s.beats * BEAT - 3100), pan: 0, gain: 0.4, shot: s.id })
       if (s.say) voices.push({ id: s.say.id, ms: Math.round(clip0 + s.say.at), shot: s.id })
+      for (const n of s.narrate ?? []) voices.push({ id: n.id, file: n.file, ms: Math.round(clip0 + n.at), shot: s.id, narrator: true })
       end += s.beats * BEAT
       // The shot's moments in time order: the boss's cues and a screen's taps.
       const moments = [...(s.cues ?? []).map(c => ({ at: c.at, c })), ...(s.ui?.taps ?? []).map(p => ({ at: p.at, p }))].sort((a, b) => a.at - b.at)
