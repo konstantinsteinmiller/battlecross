@@ -7,7 +7,7 @@ import { join, relative } from 'node:path'
 import { pathToFileURL } from 'node:url'
 import { LANGS, MANIFEST, ROOT, VOICE_OUT, VO_SRC, voiceOf } from './lib.mjs'
 import { textHashOf } from './stale.mjs'
-import { CORE_IDS, CORE_SPEC } from './core.mjs'
+import { CORE_IDS, CORE_SPEC, FULL_LANGS } from './core.mjs'
 
 const { renderVoiceTodo, todoLinesOf, voiceFileId } = await import(pathToFileURL(join(ROOT, 'src/game/audio/voiceTodo.ts')).href)
 
@@ -26,7 +26,8 @@ export const writeVoiceTodo = () => {
     files: voiceFilesOf('en'),
     others: LANGS.filter(l => l !== 'en').map(lang => ({ lang, files: voiceFilesOf(lang) })),
     core: CORE_IDS,
-    coreMax: CORE_SPEC.max
+    coreMax: CORE_SPEC.max,
+    full: new Set(FULL_LANGS)
   })
   const out = join(ROOT, 'voice-todo.md')
   writeFileSync(out, md)

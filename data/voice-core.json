@@ -1,6 +1,7 @@
 {
-  "note": "The CORE voice lines (owner decision 2026-10-18). English is voiced in full; every other voiced language (de, fr, es, pt, ru, ja, zh) ships ONLY these lines, the rest stay text-only (silent bubble). Single source of truth: tools/voice/core.mjs, the todo, the tests and `voice:gen --lang` read it. A line is core when its id (without the __f girl-hero suffix) matches a pattern or is listed in `include`, and is not in `exclude`; the __f twin follows its base line. Edit here, then run `pnpm voice:script`.",
-  "max": 320,
+  "note": "The CORE voice lines (owner decision 2026-10-18). English and the languages in `full` (German, owner decision 2026-10-21) are voiced in full; every other voiced language (fr, es, pt, ru, ja, zh) ships ONLY these lines, the rest stay text-only (silent bubble). Single source of truth: tools/voice/core.mjs, the todo, the tests and `voice:gen --lang` read it. A line is core when its id (without the __f girl-hero suffix) matches a pattern or is listed in `include`, and is not in `exclude`; the __f twin follows its base line. Edit here, then run `pnpm voice:script`.",
+  "full": ["de"],
+  "max": 330,
   "patterns": [
     "^dlg\\.quest\\.",
     "^ending\\.(order|syndicate|circle|free|unbound)\\.text$",
@@ -16,13 +17,17 @@
     "^dlg\\.syndicateBoss\\.hello\\.",
     "^dlg\\.exiledSovereign\\.hello\\.",
     "^dlg\\.story\\.",
-    "^dlg\\.(scoutWren|fortHale|fortMara)\\."
+    "^dlg\\.(scoutWren|fortHale|fortMara)\\.",
+    "^dlg\\.sfShadowRoad\\.",
+    "^dlg\\.mysteriousWanderer\\.(hello|sealed|ajar)\\."
   ],
   "include": [
     "dlg.hero.train",
     "dlg.hero.bye",
     "dlg.hero.learnSmith",
-    "dlg.hero.siege"
+    "dlg.hero.siege",
+    "dlg.hero.who",
+    "dlg.hero.rumor"
   ],
   "exclude": []
 }

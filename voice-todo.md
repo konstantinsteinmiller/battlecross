@@ -109,25 +109,32 @@ rewrites it, and a test fails when it is stale. Do not edit by hand.
 | heroine | 210 | 210 |
 | **All** | **1577** | **1577** |
 
+## Other languages voiced in full
+
+English and German voice every line. A line with no file there is a silent bubble; make the missing ones with `voice:gen --engine chatterbox --lang <code>` (then `--retry 2`).
+
+| Language | Voiced | Lines |
+| --- | --- | --- |
+| de | 1551 | 1577 |
+
 ## Other languages: the core lines only
 
-English is voiced in full. Every other voiced language ships only the **core**: 314 of 1577 lines (65 of them the girl hero's `__f` twins, limit 320), set in data/voice-core.json by id pattern plus an explicit list. Core: the hero's "Will you teach me?" and goodbye lines, the main quest decisions with their boss monologues (Goblin King, Krag, the Colossus core, the oracle, the dragon, the Arch-Demon's throne), the five endings, and the story beats of Elder Mara, Captain Hale, Mayor Brenna, Madam Ash and the exiled Sovereign. Not core: smalltalk, shops, gamblers, barks, trainer and master Q&A, trade and heal chatter. A non-core line is a silent bubble; a test fails when a language folder holds a file outside the core.
+English and German are voiced in full. Every other voiced language ships only the **core**: 327 of 1577 lines (67 of them the girl hero's `__f` twins, limit 330), set in data/voice-core.json by id pattern plus an explicit list. Core: the hero's "Will you teach me?" and goodbye lines, the main quest decisions with their boss monologues (Goblin King, Krag, the Colossus core, the oracle, the dragon, the Arch-Demon's throne), the five endings, the story beats of Elder Mara, Captain Hale, Mayor Brenna, Madam Ash and the exiled Sovereign, the intro, the first visit's road teacher (Nettle) and the camp's thanks, every bark (bosses, the siege, freed captives), the afterplay's story (its beats, Scout Wren, the fort's Hale and Mara, the seal decision and its epilogue) and the Wanderer's greeting. Not core: smalltalk, shops, gamblers, the fair's barkers, trainer and master Q&A, trade and heal chatter. A non-core line is a silent bubble; a test fails when a language folder holds a file outside the core.
 Make them with `voice:gen --engine chatterbox --lang <code>` (then `--retry 2`); `voice:collect` builds jobs for the core lines only.
 Indonesian (id) and Vietnamese (vi) are not voiced: Chatterbox cannot speak them. pt-PT keeps English too.
 
 | Language | Core voiced | Core lines |
 | --- | --- | --- |
-| de | 312 | 314 |
-| fr | 305 | 314 |
-| es | 312 | 314 |
-| ru | 312 | 314 |
-| ja | 314 | 314 |
-| pt | 310 | 314 |
-| zh | 314 | 314 |
+| fr | 320 | 327 |
+| es | 325 | 327 |
+| ru | 323 | 327 |
+| ja | 326 | 327 |
+| pt | 323 | 327 |
+| zh | 327 | 327 |
 
 ## Parked takes (decision 2026-10-18)
 
-About 1,400 files per language is too large for CrazyGames (50 MB), so only English ships complete and the others ship the core. The earlier full Chatterbox runs are kept out of the build in `vo-src/parked/<lang>/` (git-ignored): German has 1,366 of 1,410 lines (the girl hero's short lines with invented class names, such as the Aether and Chrono masters, still fail the Whisper check), French about 1,000, and ja, zh, es, pt and ru only pilot files. Only the core takes were moved back to `public/audio/voice/<lang>/`.
+About 1,400 files per language is too large for CrazyGames (50 MB), so only the full languages ship complete and the others ship the core (German was widened to full by the owner on 2026-10-21, from its parked takes plus new ones). The earlier full Chatterbox runs are kept out of the build in `vo-src/parked/<lang>/` (git-ignored): French has about 1,000 lines, and ja, zh, es, pt and ru only pilot files. Only the core takes (and all of German's) were moved back to `public/audio/voice/<lang>/`.
 To widen a language beyond the core, change data/voice-core.json and settle the size budget or a per-portal language filter first. A half-voiced core is silent on its missing lines, so finish it before shipping.
 
 ## To do (0)

@@ -13,7 +13,7 @@
 import { mkdirSync, writeFileSync } from 'node:fs'
 import { join, relative } from 'node:path'
 import { CARDS, LANGS, ROOT, SAMPLE_KEYS, VOICE_LINES, VO_SRC, VOICE_OUT, args, fileName, hashFor, maxFor, textOf } from './lib.mjs'
-import { isCoreId } from './core.mjs'
+import { isVoicedIn } from './core.mjs'
 import { normalize } from './normalize.mjs'
 
 /**
@@ -87,8 +87,8 @@ if (missingCards.length) throw new Error(`no voice card for ${missingCards.join(
 const jobs = []
 for (const line of pick) {
   for (const lang of langs) {
-    // Only English is voiced in full; the other languages get just the core lines (data/voice-core.json).
-    if (lang !== 'en' && !isCoreId(fileName(line.key))) continue
+    // English and the full languages voice every line; the others just the core (data/voice-core.json).
+    if (!isVoicedIn(lang, fileName(line.key))) continue
     const shown = textOf(line, lang)
     if (!shown) continue
     const { text, emphasis } = normalize(shown, lang)

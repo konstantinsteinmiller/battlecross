@@ -10,7 +10,7 @@ import { existsSync, readFileSync, readdirSync } from 'node:fs'
 import { resolve } from 'node:path'
 import { renderVoiceTodo, todoLinesOf, voiceFileId } from '@/game/audio/voiceTodo'
 import { voiceOf } from '@/game/audio/voiceCards'
-import { coreIdsOf, type VoiceCoreSpec } from '@/game/audio/voiceCore'
+import { coreIdsOf, fullLangsOf, type VoiceCoreSpec } from '@/game/audio/voiceCore'
 import { textHashOf } from '../../tools/voice/stale.mjs'
 
 const ROOT = resolve(__dirname, '../..')
@@ -28,7 +28,7 @@ const others = ['de', 'fr', 'es', 'ru', 'ja', 'pt', 'zh'].map((lang) => {
 })
 
 describe('voice-todo.md', () => {
-  const md = renderVoiceTodo({ lines, shipped, files, others, core, coreMax: coreSpec.max })
+  const md = renderVoiceTodo({ lines, shipped, files, others, core, coreMax: coreSpec.max, full: new Set(fullLangsOf(coreSpec)) })
 
   it('is current (run `pnpm voice:script` when it is not)', () => {
     const file = readFileSync(resolve(ROOT, 'voice-todo.md'), 'utf8').replace(/\r\n/g, '\n')
@@ -42,6 +42,21 @@ describe('voice-todo.md', () => {
     expect(renderVoiceTodo({ lines: one, shipped: {}, files: new Set() })).toContain('| **missing** |')
     expect(renderVoiceTodo({ lines: one, shipped: { 'en/dlg.a.1': { engine: 'chatterbox', hash: 'old' } }, files: new Set(['dlg.a.1']) })).toContain('| **stale** |')
     expect(renderVoiceTodo({ lines: one, shipped: { 'en/dlg.a.1': { engine: 'chatterbox', hash: 'new' } }, files: new Set(['dlg.a.1']) })).toContain('## To do (0)')
+  })
+
+  it('counts a full language (German) against every line, the others against the core', () => {
+    const two = [
+      { id: 'dlg.a.1', speaker: 'hero', who: 'The hero', scene: 'hero', text: 'Hi.', hash: 'h' },
+      { id: 'dlg.b.1', speaker: 'hero', who: 'The hero', scene: 'hero', text: 'Bye.', hash: 'h' }
+    ]
+    const out = renderVoiceTodo({
+      lines: two, shipped: {}, files: new Set(), core: new Set(['dlg.a.1']), full: new Set(['en', 'de']),
+      others: [{ lang: 'de', files: new Set(['dlg.a.1', 'dlg.b.1']) }, { lang: 'fr', files: new Set(['dlg.a.1']) }]
+    })
+    expect(out).toContain('## Other languages voiced in full')
+    expect(out).toContain('| de | 2 | 2 |')
+    expect(out).toContain('| fr | 1 | 1 |')
+    expect(out).toContain('English and German are voiced in full')
   })
 
   it('keeps the dots of an id in its file name', () => {

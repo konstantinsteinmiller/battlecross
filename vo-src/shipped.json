@@ -169,6 +169,11 @@
     "at": "2026-10-20",
     "hash": "8484eb8d80"
   },
+  "de/dlg.bark.hydra.rage.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
+    "hash": "f3d289dce0"
+  },
   "de/dlg.bark.leviathan.death.1": {
     "engine": "chatterbox",
     "at": "2026-10-20",
@@ -699,6 +704,11 @@
     "at": "2026-10-18",
     "hash": "b336ac8cf4"
   },
+  "de/dlg.exiledSovereign.class.say": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
+    "hash": "a9aa8897ee"
+  },
   "de/dlg.exiledSovereign.ending.1": {
     "engine": "chatterbox",
     "at": "2026-10-18",
@@ -758,6 +768,126 @@
     "engine": "chatterbox",
     "at": "2026-10-18",
     "hash": "1e723c62bb"
+  },
+  "de/dlg.fairBess.again.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
+    "hash": "b23bde55fd"
+  },
+  "de/dlg.fairBess.bye.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
+    "hash": "54ae8e889d"
+  },
+  "de/dlg.fairBess.hello.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
+    "hash": "564a985491"
+  },
+  "de/dlg.fairBess.hello.2": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
+    "hash": "452f5bee27"
+  },
+  "de/dlg.fairBess.hello.3": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
+    "hash": "4ce4eefbd1"
+  },
+  "de/dlg.fairBess.play.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
+    "hash": "791fc5fbc5"
+  },
+  "de/dlg.fairBess.playBack.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
+    "hash": "0bb9c9c7df"
+  },
+  "de/dlg.fairBess.who.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
+    "hash": "9e916520f1"
+  },
+  "de/dlg.fairHob.again.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
+    "hash": "2c5216afac"
+  },
+  "de/dlg.fairHob.bye.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
+    "hash": "0397324eff"
+  },
+  "de/dlg.fairHob.hello.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
+    "hash": "da9b2eb6c4"
+  },
+  "de/dlg.fairHob.hello.2": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
+    "hash": "06061c4e78"
+  },
+  "de/dlg.fairHob.hello.3": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
+    "hash": "57ea606dc6"
+  },
+  "de/dlg.fairHob.play.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
+    "hash": "c13b57fe67"
+  },
+  "de/dlg.fairHob.playBack.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
+    "hash": "f8f79cfcc6"
+  },
+  "de/dlg.fairHob.who.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
+    "hash": "a028586e29"
+  },
+  "de/dlg.fairPip.again.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
+    "hash": "1ad59abcc3"
+  },
+  "de/dlg.fairPip.bye.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
+    "hash": "00d7086959"
+  },
+  "de/dlg.fairPip.hello.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
+    "hash": "557e2e7a62"
+  },
+  "de/dlg.fairPip.hello.2": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
+    "hash": "c53d3452ad"
+  },
+  "de/dlg.fairPip.hello.3": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
+    "hash": "a56ad75e7f"
+  },
+  "de/dlg.fairPip.play.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
+    "hash": "e62fd2274e"
+  },
+  "de/dlg.fairPip.playBack.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
+    "hash": "ba8fe33a5c"
+  },
+  "de/dlg.fairPip.who.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
+    "hash": "a6bec2b9e5"
   },
   "de/dlg.forgemaster.again.1": {
     "engine": "chatterbox",
@@ -1254,6 +1384,11 @@
     "at": "2026-10-18",
     "hash": "606a778bd7"
   },
+  "de/dlg.freedPeddler.hello.2": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
+    "hash": "74f9959da7"
+  },
   "de/dlg.freedPeddler.shopBack.1": {
     "engine": "chatterbox",
     "at": "2026-10-18",
@@ -1297,6 +1432,11 @@
   "de/dlg.frostDisciple.class.say": {
     "engine": "chatterbox",
     "at": "2026-10-18",
+    "hash": "d969486bac"
+  },
+  "de/dlg.frostDisciple.class.say__f": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
     "hash": "d969486bac"
   },
   "de/dlg.frostDisciple.hello.1": {
@@ -1629,6 +1769,11 @@
     "at": "2026-10-18",
     "hash": "33290cf5a5"
   },
+  "de/dlg.ironArmor.again.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
+    "hash": "f8d6c3b18c"
+  },
   "de/dlg.ironArmor.bye.1": {
     "engine": "chatterbox",
     "at": "2026-10-18",
@@ -1661,8 +1806,8 @@
   },
   "de/dlg.ironArmor.ore.1": {
     "engine": "chatterbox",
-    "at": "2026-10-18",
-    "hash": "97a118f397"
+    "at": "2026-10-21",
+    "hash": "ff53028e4e"
   },
   "de/dlg.ironArmor.quiet.1": {
     "engine": "chatterbox",
@@ -1688,6 +1833,11 @@
     "engine": "chatterbox",
     "at": "2026-10-18",
     "hash": "55836938c4"
+  },
+  "de/dlg.ironArmor.sellBack.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
+    "hash": "0256c0f63e"
   },
   "de/dlg.ironArmor.shopBack.1": {
     "engine": "chatterbox",
@@ -1769,6 +1919,11 @@
     "at": "2026-10-18",
     "hash": "b4120a782f"
   },
+  "de/dlg.ironOrderArmor.again.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
+    "hash": "00b659e055"
+  },
   "de/dlg.ironOrderArmor.bye.1": {
     "engine": "chatterbox",
     "at": "2026-10-18",
@@ -1824,10 +1979,20 @@
     "at": "2026-10-18",
     "hash": "e52c0b955c"
   },
+  "de/dlg.ironOrderArmor.ore.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
+    "hash": "ce019f5764"
+  },
   "de/dlg.ironOrderArmor.rumor.throne.1": {
     "engine": "chatterbox",
     "at": "2026-10-18",
     "hash": "6fc472c481"
+  },
+  "de/dlg.ironOrderArmor.sellBack.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
+    "hash": "6c675ecbcb"
   },
   "de/dlg.ironOrderArmor.shopBack.1": {
     "engine": "chatterbox",
@@ -1886,8 +2051,8 @@
   },
   "de/dlg.ironWeapons.ore.1": {
     "engine": "chatterbox",
-    "at": "2026-10-18",
-    "hash": "bb868b495c"
+    "at": "2026-10-21",
+    "hash": "3c8391fe52"
   },
   "de/dlg.ironWeapons.rumor.arm.1": {
     "engine": "chatterbox",
@@ -2099,6 +2264,71 @@
     "at": "2026-10-18",
     "hash": "f147057b68"
   },
+  "de/dlg.mysteriousWanderer.again.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
+    "hash": "e5ed6c90cb"
+  },
+  "de/dlg.mysteriousWanderer.ajar.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
+    "hash": "37ad4da546"
+  },
+  "de/dlg.mysteriousWanderer.bye.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
+    "hash": "c78acabb6b"
+  },
+  "de/dlg.mysteriousWanderer.hello.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
+    "hash": "41e3572ec6"
+  },
+  "de/dlg.mysteriousWanderer.hello.2": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
+    "hash": "e41bc03cd8"
+  },
+  "de/dlg.mysteriousWanderer.sealed.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
+    "hash": "b4c7865c1b"
+  },
+  "de/dlg.mysteriousWanderer.train.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
+    "hash": "b01b706a15"
+  },
+  "de/dlg.mysteriousWanderer.trainBack.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
+    "hash": "b979d8a956"
+  },
+  "de/dlg.mysteriousWanderer.trial.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
+    "hash": "bbc888265d"
+  },
+  "de/dlg.mysteriousWanderer.trial.2": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
+    "hash": "337ee72a15"
+  },
+  "de/dlg.mysteriousWanderer.trial.say": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
+    "hash": "23c7d6f565"
+  },
+  "de/dlg.mysteriousWanderer.trial.say__f": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
+    "hash": "23c7d6f565"
+  },
+  "de/dlg.mysteriousWanderer.who.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
+    "hash": "61153d6e6b"
+  },
   "de/dlg.oakArmorer.again.1": {
     "engine": "chatterbox",
     "at": "2026-10-18",
@@ -2156,13 +2386,18 @@
   },
   "de/dlg.oakArmorer.ore.1": {
     "engine": "chatterbox",
-    "at": "2026-10-18",
-    "hash": "9b431ee72c"
+    "at": "2026-10-21",
+    "hash": "f0ce7757cd"
   },
   "de/dlg.oakArmorer.rumor.backRoom.1": {
     "engine": "chatterbox",
     "at": "2026-10-18",
     "hash": "4019f3cac6"
+  },
+  "de/dlg.oakArmorer.sellBack.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
+    "hash": "2359a88f75"
   },
   "de/dlg.oakArmorer.shopBack.1": {
     "engine": "chatterbox",
@@ -2279,6 +2514,11 @@
     "at": "2026-10-18",
     "hash": "f4b5411639"
   },
+  "de/dlg.oakHealer.mana.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
+    "hash": "771212dfd8"
+  },
   "de/dlg.oakHealer.potions.1": {
     "engine": "chatterbox",
     "at": "2026-10-18",
@@ -2356,8 +2596,8 @@
   },
   "de/dlg.oakMasterArmorer.ore.1": {
     "engine": "chatterbox",
-    "at": "2026-10-18",
-    "hash": "1358db203b"
+    "at": "2026-10-21",
+    "hash": "51ede896ae"
   },
   "de/dlg.oakMasterArmorer.rumor.mines.1": {
     "engine": "chatterbox",
@@ -2368,6 +2608,11 @@
     "engine": "chatterbox",
     "at": "2026-10-18",
     "hash": "9218cb0e6d"
+  },
+  "de/dlg.oakMasterArmorer.sellBack.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
+    "hash": "aa63f94149"
   },
   "de/dlg.oakMasterArmorer.shopBack.1": {
     "engine": "chatterbox",
@@ -2393,6 +2638,11 @@
     "engine": "chatterbox",
     "at": "2026-10-18",
     "hash": "0c87229a25"
+  },
+  "de/dlg.oakWeapons.again.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
+    "hash": "90dfee949c"
   },
   "de/dlg.oakWeapons.bye.1": {
     "engine": "chatterbox",
@@ -3176,8 +3426,13 @@
   },
   "de/dlg.sbArmorer.ore.1": {
     "engine": "chatterbox",
-    "at": "2026-10-18",
-    "hash": "5d25531d2d"
+    "at": "2026-10-21",
+    "hash": "2f535f8277"
+  },
+  "de/dlg.sbArmorer.sellBack.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
+    "hash": "d0f307b094"
   },
   "de/dlg.sbArmorer.shopBack.1": {
     "engine": "chatterbox",
@@ -3237,6 +3492,11 @@
   "de/dlg.sbCollector.favor.say": {
     "engine": "chatterbox",
     "at": "2026-10-18",
+    "hash": "e8e7d1abc1"
+  },
+  "de/dlg.sbCollector.favor.say__f": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
     "hash": "e8e7d1abc1"
   },
   "de/dlg.sbCollector.favorDone.1": {
@@ -3564,6 +3824,11 @@
     "at": "2026-10-18",
     "hash": "70392b3566"
   },
+  "de/dlg.sbJeweler.gossip.say__f": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
+    "hash": "70392b3566"
+  },
   "de/dlg.sbJeweler.hello.1": {
     "engine": "chatterbox",
     "at": "2026-10-18",
@@ -3697,6 +3962,11 @@
   "de/dlg.sbMasterAether.class.say": {
     "engine": "chatterbox",
     "at": "2026-10-18",
+    "hash": "4dc0e76697"
+  },
+  "de/dlg.sbMasterAether.class.say__f": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
     "hash": "4dc0e76697"
   },
   "de/dlg.sbMasterAether.eyebrows.1": {
@@ -4199,6 +4469,11 @@
     "at": "2026-10-18",
     "hash": "36ebe0f3ff"
   },
+  "de/dlg.sbMasterElementalist.sleeve.say__f": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
+    "hash": "36ebe0f3ff"
+  },
   "de/dlg.sbMasterElementalist.train.1": {
     "engine": "chatterbox",
     "at": "2026-10-18",
@@ -4283,6 +4558,11 @@
     "engine": "chatterbox",
     "at": "2026-10-18",
     "hash": "249819fbf8"
+  },
+  "de/dlg.sbMasterFrostwarden.hello.2": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
+    "hash": "8095f1e5ec"
   },
   "de/dlg.sbMasterFrostwarden.open.1": {
     "engine": "chatterbox",
@@ -4889,6 +5169,11 @@
     "at": "2026-10-18",
     "hash": "a9aa8897ee"
   },
+  "de/dlg.sbMasterSovereign.class.say__f": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
+    "hash": "a9aa8897ee"
+  },
   "de/dlg.sbMasterSovereign.hello.1": {
     "engine": "chatterbox",
     "at": "2026-10-18",
@@ -5274,6 +5559,11 @@
     "at": "2026-10-18",
     "hash": "6829829f9f"
   },
+  "de/dlg.sfShadow.class.2": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
+    "hash": "3c47ad22bb"
+  },
   "de/dlg.sfShadow.class.say": {
     "engine": "chatterbox",
     "at": "2026-10-18",
@@ -5423,6 +5713,11 @@
     "engine": "chatterbox",
     "at": "2026-10-18",
     "hash": "65422e7f6c"
+  },
+  "de/dlg.smalltalkIronhold.ore.2": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
+    "hash": "41222f1ced"
   },
   "de/dlg.smalltalkIronhold.ore.3": {
     "engine": "chatterbox",
@@ -5808,6 +6103,11 @@
     "engine": "chatterbox",
     "at": "2026-10-20",
     "hash": "a395ff772e"
+  },
+  "de/dlg.story.herbs.scale.2": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
+    "hash": "c557fc7a78"
   },
   "de/dlg.story.oracle.lens.1": {
     "engine": "chatterbox",
@@ -6308,6 +6608,11 @@
     "engine": "chatterbox",
     "at": "2026-10-18",
     "hash": "957e3bc1ea"
+  },
+  "de/dlg.sunfordSmith.who.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
+    "hash": "321999fac0"
   },
   "de/dlg.sunfordSmith.who.2": {
     "engine": "chatterbox",
@@ -6933,6 +7238,11 @@
     "engine": "chatterbox",
     "at": "2026-10-18",
     "hash": "4bf8778c15"
+  },
+  "de/dlg.trainerPyro.circle.say": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
+    "hash": "95a1291c85"
   },
   "de/dlg.trainerPyro.circle.say__f": {
     "engine": "chatterbox",
@@ -15489,6 +15799,11 @@
     "at": "2026-10-20",
     "hash": "f365a4664d"
   },
+  "es/dlg.bark.hydra.heads.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
+    "hash": "8951574180"
+  },
   "es/dlg.bark.hydra.intro.1": {
     "engine": "chatterbox",
     "at": "2026-10-20",
@@ -15979,6 +16294,16 @@
     "at": "2026-10-18",
     "hash": "c6a9f54190"
   },
+  "es/dlg.hero.rumor": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
+    "hash": "cd6a360baf"
+  },
+  "es/dlg.hero.rumor__f": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
+    "hash": "cd6a360baf"
+  },
   "es/dlg.hero.siege": {
     "engine": "chatterbox",
     "at": "2026-10-20",
@@ -15998,6 +16323,16 @@
     "engine": "chatterbox",
     "at": "2026-10-18",
     "hash": "7c896b8026"
+  },
+  "es/dlg.hero.who": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
+    "hash": "c12908bd30"
+  },
+  "es/dlg.hero.who__f": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
+    "hash": "c12908bd30"
   },
   "es/dlg.intro.begin.1": {
     "engine": "chatterbox",
@@ -16033,6 +16368,21 @@
     "engine": "chatterbox",
     "at": "2026-10-18",
     "hash": "bebc0efe56"
+  },
+  "es/dlg.mysteriousWanderer.hello.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
+    "hash": "428beab6ec"
+  },
+  "es/dlg.mysteriousWanderer.hello.2": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
+    "hash": "50b9248750"
+  },
+  "es/dlg.mysteriousWanderer.sealed.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
+    "hash": "d25452d132"
   },
   "es/dlg.quest.core.ask.1": {
     "engine": "chatterbox",
@@ -16709,6 +17059,31 @@
     "at": "2026-10-20",
     "hash": "61d0b61d8d"
   },
+  "es/dlg.sfShadowRoad.again.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
+    "hash": "70e62b3c6b"
+  },
+  "es/dlg.sfShadowRoad.bye.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
+    "hash": "3a3ad519b4"
+  },
+  "es/dlg.sfShadowRoad.hello.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
+    "hash": "8f18e8895a"
+  },
+  "es/dlg.sfShadowRoad.train.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
+    "hash": "2ba1842c43"
+  },
+  "es/dlg.sfShadowRoad.trainBack.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
+    "hash": "44c2e7fa9d"
+  },
   "es/dlg.story.forge.back.1": {
     "engine": "chatterbox",
     "at": "2026-10-20",
@@ -16973,6 +17348,11 @@
     "engine": "chatterbox",
     "at": "2026-10-18",
     "hash": "8e292727b8"
+  },
+  "fr/dlg.bark.elderDragon.death.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
+    "hash": "8d3644b89e"
   },
   "fr/dlg.bark.elderDragon.flight.1": {
     "engine": "chatterbox",
@@ -18121,12 +18501,12 @@
   },
   "fr/dlg.hero.rumor": {
     "engine": "chatterbox",
-    "at": "2026-10-18",
+    "at": "2026-10-21",
     "hash": "78d59f4e3a"
   },
   "fr/dlg.hero.rumor__f": {
     "engine": "chatterbox",
-    "at": "2026-10-18",
+    "at": "2026-10-21",
     "hash": "78d59f4e3a"
   },
   "fr/dlg.hero.siege": {
@@ -18161,12 +18541,12 @@
   },
   "fr/dlg.hero.who": {
     "engine": "chatterbox",
-    "at": "2026-10-18",
+    "at": "2026-10-21",
     "hash": "9f85944ed3"
   },
   "fr/dlg.hero.who__f": {
     "engine": "chatterbox",
-    "at": "2026-10-18",
+    "at": "2026-10-21",
     "hash": "9f85944ed3"
   },
   "fr/dlg.intro.begin.1": {
@@ -18573,6 +18953,26 @@
     "engine": "chatterbox",
     "at": "2026-10-18",
     "hash": "17e0277a0f"
+  },
+  "fr/dlg.mysteriousWanderer.ajar.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
+    "hash": "2d8eedbd0b"
+  },
+  "fr/dlg.mysteriousWanderer.hello.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
+    "hash": "8f14ebde66"
+  },
+  "fr/dlg.mysteriousWanderer.hello.2": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
+    "hash": "42bdd658d5"
+  },
+  "fr/dlg.mysteriousWanderer.sealed.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
+    "hash": "141c98b5fd"
   },
   "fr/dlg.oakArmorer.again.1": {
     "engine": "chatterbox",
@@ -19167,6 +19567,11 @@
   "fr/dlg.quest.seal.ajar.say": {
     "engine": "chatterbox",
     "at": "2026-10-20",
+    "hash": "d02d9ce354"
+  },
+  "fr/dlg.quest.seal.ajar.say__f": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
     "hash": "d02d9ce354"
   },
   "fr/dlg.quest.seal.ask.1": {
@@ -21126,27 +21531,27 @@
   },
   "fr/dlg.sfShadowRoad.again.1": {
     "engine": "chatterbox",
-    "at": "2026-10-18",
+    "at": "2026-10-21",
     "hash": "4e839d1da4"
   },
   "fr/dlg.sfShadowRoad.bye.1": {
     "engine": "chatterbox",
-    "at": "2026-10-18",
+    "at": "2026-10-21",
     "hash": "8eb4e6d7de"
   },
   "fr/dlg.sfShadowRoad.hello.1": {
     "engine": "chatterbox",
-    "at": "2026-10-18",
+    "at": "2026-10-21",
     "hash": "3e03a107bd"
   },
   "fr/dlg.sfShadowRoad.train.1": {
     "engine": "chatterbox",
-    "at": "2026-10-18",
+    "at": "2026-10-21",
     "hash": "20fe980211"
   },
   "fr/dlg.sfShadowRoad.trainBack.1": {
     "engine": "chatterbox",
-    "at": "2026-10-18",
+    "at": "2026-10-21",
     "hash": "66be49008d"
   },
   "fr/dlg.smalltalkIronhold.beard.1": {
@@ -23384,6 +23789,16 @@
     "at": "2026-10-18",
     "hash": "ceffa6232e"
   },
+  "ja/dlg.hero.rumor": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
+    "hash": "c7565607cc"
+  },
+  "ja/dlg.hero.rumor__f": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
+    "hash": "c7565607cc"
+  },
   "ja/dlg.hero.siege": {
     "engine": "chatterbox",
     "at": "2026-10-20",
@@ -23403,6 +23818,11 @@
     "engine": "chatterbox",
     "at": "2026-10-18",
     "hash": "5a255b29e2"
+  },
+  "ja/dlg.hero.who": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
+    "hash": "114cee3bca"
   },
   "ja/dlg.intro.begin.1": {
     "engine": "chatterbox",
@@ -23438,6 +23858,26 @@
     "engine": "chatterbox",
     "at": "2026-10-20",
     "hash": "2766488e47"
+  },
+  "ja/dlg.mysteriousWanderer.ajar.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
+    "hash": "754ae168a4"
+  },
+  "ja/dlg.mysteriousWanderer.hello.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
+    "hash": "a51ceb3163"
+  },
+  "ja/dlg.mysteriousWanderer.hello.2": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
+    "hash": "1dd085d456"
+  },
+  "ja/dlg.mysteriousWanderer.sealed.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
+    "hash": "1e729c4736"
   },
   "ja/dlg.quest.core.ask.1": {
     "engine": "chatterbox",
@@ -24118,6 +24558,31 @@
     "engine": "chatterbox",
     "at": "2026-10-20",
     "hash": "41f2eeecf4"
+  },
+  "ja/dlg.sfShadowRoad.again.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
+    "hash": "31c7badb56"
+  },
+  "ja/dlg.sfShadowRoad.bye.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
+    "hash": "9d9e530c90"
+  },
+  "ja/dlg.sfShadowRoad.hello.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
+    "hash": "3aee6fb842"
+  },
+  "ja/dlg.sfShadowRoad.train.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
+    "hash": "90cc4341ba"
+  },
+  "ja/dlg.sfShadowRoad.trainBack.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
+    "hash": "fdc7af6d5d"
   },
   "ja/dlg.story.forge.back.1": {
     "engine": "chatterbox",
@@ -24944,6 +25409,16 @@
     "at": "2026-10-18",
     "hash": "afbabcae43"
   },
+  "pt/dlg.hero.rumor": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
+    "hash": "8c8664ed57"
+  },
+  "pt/dlg.hero.rumor__f": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
+    "hash": "8c8664ed57"
+  },
   "pt/dlg.hero.siege": {
     "engine": "chatterbox",
     "at": "2026-10-20",
@@ -24963,6 +25438,16 @@
     "engine": "chatterbox",
     "at": "2026-10-18",
     "hash": "b517704a8f"
+  },
+  "pt/dlg.hero.who": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
+    "hash": "8e6f29f100"
+  },
+  "pt/dlg.hero.who__f": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
+    "hash": "8e6f29f100"
   },
   "pt/dlg.intro.begin.1": {
     "engine": "chatterbox",
@@ -24998,6 +25483,26 @@
     "engine": "chatterbox",
     "at": "2026-10-18",
     "hash": "0f69044a14"
+  },
+  "pt/dlg.mysteriousWanderer.ajar.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
+    "hash": "13e085ba28"
+  },
+  "pt/dlg.mysteriousWanderer.hello.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
+    "hash": "cb9f265cef"
+  },
+  "pt/dlg.mysteriousWanderer.hello.2": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
+    "hash": "78c39f8cb6"
+  },
+  "pt/dlg.mysteriousWanderer.sealed.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
+    "hash": "70f1882445"
   },
   "pt/dlg.quest.core.ask.1": {
     "engine": "chatterbox",
@@ -25668,6 +26173,31 @@
     "engine": "chatterbox",
     "at": "2026-10-20",
     "hash": "b66ea82d71"
+  },
+  "pt/dlg.sfShadowRoad.again.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
+    "hash": "70c9b2dc83"
+  },
+  "pt/dlg.sfShadowRoad.bye.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
+    "hash": "72d4c26fb1"
+  },
+  "pt/dlg.sfShadowRoad.hello.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
+    "hash": "b744859801"
+  },
+  "pt/dlg.sfShadowRoad.train.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
+    "hash": "e02a2751f2"
+  },
+  "pt/dlg.sfShadowRoad.trainBack.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
+    "hash": "ffd4f49d88"
   },
   "pt/dlg.story.forge.back.1": {
     "engine": "chatterbox",
@@ -26494,6 +27024,16 @@
     "at": "2026-10-18",
     "hash": "fc5915c07e"
   },
+  "ru/dlg.hero.rumor": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
+    "hash": "d406cdb41f"
+  },
+  "ru/dlg.hero.rumor__f": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
+    "hash": "d406cdb41f"
+  },
   "ru/dlg.hero.siege": {
     "engine": "chatterbox",
     "at": "2026-10-20",
@@ -26513,6 +27053,16 @@
     "engine": "chatterbox",
     "at": "2026-10-18",
     "hash": "0a17a399ce"
+  },
+  "ru/dlg.hero.who": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
+    "hash": "ae343c1ef3"
+  },
+  "ru/dlg.hero.who__f": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
+    "hash": "ae343c1ef3"
   },
   "ru/dlg.intro.begin.1": {
     "engine": "chatterbox",
@@ -26548,6 +27098,21 @@
     "engine": "chatterbox",
     "at": "2026-10-18",
     "hash": "1082eeb6fd"
+  },
+  "ru/dlg.mysteriousWanderer.hello.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
+    "hash": "0cd0f42335"
+  },
+  "ru/dlg.mysteriousWanderer.hello.2": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
+    "hash": "2fffd1d4bb"
+  },
+  "ru/dlg.mysteriousWanderer.sealed.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
+    "hash": "f269218d8c"
   },
   "ru/dlg.quest.core.ask.1": {
     "engine": "chatterbox",
@@ -27228,6 +27793,26 @@
     "engine": "chatterbox",
     "at": "2026-10-20",
     "hash": "f7c08104c8"
+  },
+  "ru/dlg.sfShadowRoad.again.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
+    "hash": "53b8112f58"
+  },
+  "ru/dlg.sfShadowRoad.bye.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
+    "hash": "c1f82966ae"
+  },
+  "ru/dlg.sfShadowRoad.train.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
+    "hash": "93b1fc5aaa"
+  },
+  "ru/dlg.sfShadowRoad.trainBack.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
+    "hash": "32766c16e5"
   },
   "ru/dlg.story.forge.back.1": {
     "engine": "chatterbox",
@@ -28079,6 +28664,16 @@
     "at": "2026-10-18",
     "hash": "b4fa84d3d9"
   },
+  "zh/dlg.hero.rumor": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
+    "hash": "c7c003e76b"
+  },
+  "zh/dlg.hero.rumor__f": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
+    "hash": "c7c003e76b"
+  },
   "zh/dlg.hero.siege": {
     "engine": "chatterbox",
     "at": "2026-10-20",
@@ -28098,6 +28693,16 @@
     "engine": "chatterbox",
     "at": "2026-10-18",
     "hash": "39165a7b91"
+  },
+  "zh/dlg.hero.who": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
+    "hash": "371fc426e1"
+  },
+  "zh/dlg.hero.who__f": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
+    "hash": "371fc426e1"
   },
   "zh/dlg.intro.begin.1": {
     "engine": "chatterbox",
@@ -28133,6 +28738,26 @@
     "engine": "chatterbox",
     "at": "2026-10-18",
     "hash": "fa85e8159d"
+  },
+  "zh/dlg.mysteriousWanderer.ajar.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
+    "hash": "8c8faf7085"
+  },
+  "zh/dlg.mysteriousWanderer.hello.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
+    "hash": "e3cb7b5f85"
+  },
+  "zh/dlg.mysteriousWanderer.hello.2": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
+    "hash": "d6dac7aa49"
+  },
+  "zh/dlg.mysteriousWanderer.sealed.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
+    "hash": "44ab2ec1e0"
   },
   "zh/dlg.quest.core.ask.1": {
     "engine": "chatterbox",
@@ -28813,6 +29438,31 @@
     "engine": "chatterbox",
     "at": "2026-10-20",
     "hash": "9f8d6f6f26"
+  },
+  "zh/dlg.sfShadowRoad.again.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
+    "hash": "08e561ef47"
+  },
+  "zh/dlg.sfShadowRoad.bye.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
+    "hash": "3015b708d0"
+  },
+  "zh/dlg.sfShadowRoad.hello.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
+    "hash": "6724447da7"
+  },
+  "zh/dlg.sfShadowRoad.train.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
+    "hash": "2df6129b61"
+  },
+  "zh/dlg.sfShadowRoad.trainBack.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-21",
+    "hash": "d803a2e183"
   },
   "zh/dlg.story.forge.back.1": {
     "engine": "chatterbox",
