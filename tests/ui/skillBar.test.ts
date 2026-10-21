@@ -47,6 +47,26 @@ beforeEach(() => {
 })
 
 describe('SkillBar', () => {
+  it('darkens the screen round the health flask while the potion stop is up (#154)', async () => {
+    const w = mount(SkillBar, { attachTo: document.body })
+    const btn = w.find('[data-potion]').element as HTMLElement
+    btn.getBoundingClientRect = () => ({ left: 300, top: 500, right: 360, bottom: 560, width: 60, height: 60, x: 300, y: 500, toJSON: () => ({}) })
+    hud.potionStop = true
+    await nextTick(); await nextTick()
+    const spot = document.body.querySelector('[data-potion-spot]')
+    expect(spot).not.toBeNull()
+    // the hole sits over the flask and the arrow above it, and takes no taps
+    const hole = spot!.querySelector('.potion-spot__hole') as HTMLElement
+    expect(parseFloat(hole.style.left)).toBeLessThan(300)
+    expect(parseFloat(hole.style.top)).toBeLessThan(500 - 60)
+    expect(parseFloat(hole.style.top) + parseFloat(hole.style.height)).toBeGreaterThanOrEqual(560)
+    expect(spot!.textContent).toContain('hud.potionStop')
+    hud.potionStop = false
+    await nextTick()
+    expect(document.body.querySelector('[data-potion-spot]')).toBeNull()
+    w.unmount()
+  })
+
   it('draws eight buttons: six skills and the two flasks', () => {
     const w = mount(SkillBar)
     expect(w.findAll('.slot')).toHaveLength(8)

@@ -58,6 +58,7 @@
     //- The belt: one tap each, never aimed. A flask with nothing left dims
     //- but stays, so the bar never jumps.
     button.slot.slot--potion(
+      ref="potionBtn"
       type="button"
       data-potion
       :class="{ 'is-empty': hud.potions <= 0, 'is-ready': hud.potionReady && hud.potions > 0 }"
@@ -81,6 +82,12 @@
       //- The opening fight's potion stop (#154): the world waits for this flask.
       span.slot__stop(v-if="hud.potionStop" data-potion-stop role="img" :aria-label="t('hud.potionStop')")
         GameIcon(name="up")
+    //- The stop's lightbox: the screen darkens round a hole over the flask and
+    //- its arrow, the line to read sits in the middle. Taps go through the hole.
+    Teleport(to="body")
+      div.potion-spot(v-if="hud.potionStop && spot" data-potion-spot aria-hidden="true")
+        span.potion-spot__hole(:style="spot")
+        span.potion-spot__text {{ t('hud.potionStop') }}
     //- A new player's mana flask arrives with the first mana potion (`coach/reveal.ts`).
     Transition(name="reveal")
       button.slot.slot--potion.slot--mana(
@@ -158,7 +165,7 @@
  * a cooldown ends the button pops and flashes — one compositor animation,
  * started from the same ticker.
  */
-import { computed, onMounted, onUnmounted, ref, type ComponentPublicInstance } from 'vue'
+import { computed, onMounted, onUnmounted, ref, watch, type ComponentPublicInstance } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { addHudTicker, hud, hudLive } from '@/game/state/hud'
 import { ACTIVE_SLOTS, SKILL_BY_ID, type SkillDef } from '@/game/data/skills'
@@ -278,7 +285,30 @@ onMounted(() => {
 onUnmounted(() => {
   removeTicker?.()
   release()
+  cancelAnimationFrame(spotRaf)
 })
+
+// ── The potion stop's lightbox (#154) ────────────────────────────────────────
+/** The hole over the flask and the arrow above it, in viewport px; followed
+ *  every frame while the stop is up (the bar can reflow, the phone can turn). */
+const potionBtn = ref<HTMLElement | null>(null)
+const spot = ref<Record<string, string> | null>(null)
+let spotRaf = 0
+const followSpot = (): void => {
+  const r = potionBtn.value?.getBoundingClientRect()
+  if (r && r.width > 0) {
+    const pad = r.width * 0.16
+    const next = { left: `${r.left - pad}px`, top: `${r.top - r.height * 1.05}px`, width: `${r.width + pad * 2}px`, height: `${r.height * 2.05 + pad}px` }
+    const s = spot.value
+    if (!s || s.left !== next.left || s.top !== next.top || s.width !== next.width || s.height !== next.height) spot.value = next
+  }
+  if (hud.potionStop) spotRaf = requestAnimationFrame(followSpot)
+}
+watch(() => hud.potionStop, (on) => {
+  cancelAnimationFrame(spotRaf)
+  if (on) followSpot()
+  else spot.value = null
+}, { immediate: true })
 
 // ── Tap and drag-to-aim ──────────────────────────────────────────────────────
 /** How far a finger must leave its press point before the press is an aim. */
@@ -713,6 +743,32 @@ const onElixirNext = (e: PointerEvent): void => {
   :deep(svg)
     width: 100%
     height: 100%
+// The lightbox: one fixed layer under the modals (the pause menu still opens
+// over it); the hole's huge shadow is the dark, so the flask shows untouched.
+.potion-spot
+  position: fixed
+  inset: 0
+  z-index: calc(var(--bc-z-modal) - 1)
+  pointer-events: none
+  animation: potion-spot-in 0.25s ease-out both
+.potion-spot__hole
+  position: fixed
+  border-radius: 999px
+  box-shadow: 0 0 0 200vmax rgba(6, 8, 20, 0.74), inset 0 0 0 3px var(--bc-gold)
+.potion-spot__text
+  position: absolute
+  left: 50%
+  top: 38%
+  max-width: min(90vw, 28em)
+  transform: translate(-50%, -50%)
+  text-align: center
+  font-size: max(10px, calc(clamp(20px, 4.4vmin, 38px) * var(--hud-s, 1)))
+  font-weight: 800
+  color: var(--bc-gold)
+  text-shadow: 0 2px 0 var(--bc-ink), 0 -2px 0 var(--bc-ink), 2px 0 0 var(--bc-ink), -2px 0 0 var(--bc-ink), 0 4px 10px rgba(0, 0, 0, 0.6)
+@keyframes potion-spot-in
+  from
+    opacity: 0
 @keyframes slot-stop
   from
     transform: rotate(180deg) translateY(0) scale(1)
