@@ -358,8 +358,8 @@ export const dealDamage = (sim: Sim, src: Unit | null, tgt: Unit, base: number, 
     if (toHero) amount *= relicDefence(tgt.s.mods, src, o.type)
   }
   if (amount < 0.5 && !o.dot) amount = 0.5
-  // The boss ramp (#157) measures the boss's own blows.
-  if (toHero && src?.rank === 'boss' && !o.dot && !o.echo) noteBossHit(sim, src, amount, !!o.attack)
+  // The hard-fight ramp (#157) measures a boss's, champion's or elite's own blows.
+  if (toHero && src && !o.dot && !o.echo) noteBossHit(sim, src, amount, !!o.attack)
 
   // ── Passives that move damage around (the hero only, never on an echo) ──
   if (toHero && !o.echo && o.type !== 'true') {
