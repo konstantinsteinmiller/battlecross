@@ -11,7 +11,7 @@ import { sceneQuality } from '../engine/quality'
 import { sfx, type SfxName } from '../audio/sfx'
 import { ENEMY_BY_ID, MINIONS } from '../data/enemies'
 import { SPIRIT_COLOR } from '../sim/spawn'
-import { newPressure, sessionPressure, setSessionPressure } from '../sim/pressure'
+import { newPressure, sessionPressure, sessionRampPool, setSessionPressure, setSessionRampPool } from '../sim/pressure'
 import { BOSS_SCRIPTS } from '../sim/bosses'
 import { ACTIVE_SLOTS, SKILL_BY_ID } from '../data/skills'
 import { IMPACT_SOUND, castSoundOf, skillElement } from '../data/skillSounds'
@@ -373,7 +373,7 @@ export class ZoneMode implements GameMode {
     })
     // Adaptive pressure (#124, D144): zones only — never a town, the colosseum
     // (its ladder climbs by itself, and its board stays fair) or the opening fight.
-    if (setup.kind === 'zone' && !setup.tutorial) sim.pressure = newPressure(sessionPressure())
+    if (setup.kind === 'zone' && !setup.tutorial) sim.pressure = newPressure(sessionPressure(), sessionRampPool())
     // An invaded zone or an encounter in its wilds (the afterplay): kills pay more, pylons and scars stand.
     if (setup.kind === 'zone' && setup.invaded) armInvasion(sim)
     if (setup.kind === 'zone') populateZone(sim, plan, setup.zone!, profile.inv.items, profile.world.chests)
@@ -1051,7 +1051,7 @@ export class ZoneMode implements GameMode {
         case 'defeat':
           this.cam.addTrauma(TRAUMA_HEAVY)
           // A fallen hero starts the next visit at the designed difficulty (#124).
-          if (!sim.hero.unit.alive) setSessionPressure(0)
+          if (!sim.hero.unit.alive) { setSessionPressure(0); setSessionRampPool(0) }
           break
         case 'pressure':
           setSessionPressure(sim.pressure?.bonus ?? 0)

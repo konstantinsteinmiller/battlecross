@@ -51,6 +51,8 @@ export interface PressureState {
   low: number
   /** The hard fights' damage ramps (#157), by foe. */
   ramps: Map<number, BossRamp>
+  /** The elites' and champions' shared ramp (#157). */
+  pool: RampPool
 }
 
 /** The session's level, carried from visit to visit (a defeat clears it). */
@@ -58,8 +60,8 @@ let session = 0
 export const sessionPressure = (): number => session
 export const setSessionPressure = (bonus: number): void => { session = Math.max(0, bonus) }
 
-export const newPressure = (bonus = 0): PressureState =>
-  ({ bonus, t: 0, lost0: 0, dealt0: 0, potions: 0, lastPotion: false, low: 1, ramps: new Map() })
+export const newPressure = (bonus = 0, pool = 0): PressureState =>
+  ({ bonus, t: 0, lost0: 0, dealt0: 0, potions: 0, lastPotion: false, low: 1, ramps: new Map(), pool: newRampPool(pool) })
 
 /** Skull pips for a bonus (one per normal step). */
 export const pressurePips = (bonus: number): number => Math.round(bonus / STEP)
@@ -94,32 +96,41 @@ const rescale = (u: Unit, from: number, to: number): void => {
  * ─── The hard-fight ramp (roadmap #157) ──────────────────────────────────────
  *
  * A boss, a champion or an elite the hero shrugs off hits a little harder.
- * Each keeps its own ramp. Its blows on the hero are measured as a share of
- * his health (after armour, before shields): normal attacks and abilities
- * apart, each as a running average at the foe's design damage. Every
- * `RAMP_WINDOW` seconds of that fight:
+ * Blows on the hero are measured as a share of his health (after armour,
+ * before shields): normal attacks and abilities apart, each as a running
+ * average at the foe's design damage. Every window of fight time:
  *
- *   - no potion drunk and less than `RAMP_EASY` of his health lost → its
- *     damage climbs by its rank's `step`, but never past the point where a
- *     normal attack takes `hit` of his health or an ability `strong` (it
- *     stops there: a stronger hero simply holds it);
+ *   - no potion drunk and less than `RAMP_EASY` of his health lost → the
+ *     damage climbs a step, but never past the point where a normal attack
+ *     takes `hit` of his health or an ability `strong` (it stops there: a
+ *     stronger hero simply holds it);
  *   - a potion drunk → it eases back by `RAMP_EASE` of itself, so a potion
  *     never turns a hard fight soft at once;
  *   - anything else → it holds.
  *
- * A boss climbs fastest and highest; a champion less, a plain elite least
- * (`RAMP_TUNE`). Damage only, health is untouched; a new foe starts from
- * nothing, and it lives on top of the minute-by-minute pressure.
+ * A boss keeps a ramp of its own, `RAMP_WINDOW` seconds a window, and a new
+ * boss starts from nothing. Elites and champions die in seconds (a measured
+ * Dexterity hero: ~3 s an elite, ~1 s a champion), so no single one of them
+ * would ever see a window: they share one ramp (`pool`) whose clock runs only
+ * while one of them is on the hero, `POOL.window` seconds a window, carried
+ * from fight to fight and visit to visit (`sessionRampPool`; a defeat clears
+ * it). Each takes as much of it as its own rank's target allows. Damage only,
+ * health is untouched; it lives on top of the minute-by-minute pressure.
  */
 export const RAMP_WINDOW = 8
 export const RAMP_EASY = 0.04
 export const RAMP_EASE = 0.12
 export type RampKind = 'boss' | 'champion' | 'elite'
+/** Per rank: the boss's step a window, and every rank's targets. */
 export const RAMP_TUNE: Readonly<Record<RampKind, { step: number; hit: number; strong: number }>> = {
   boss: { step: 0.06, hit: 0.07, strong: 0.225 },
-  champion: { step: 0.04, hit: 0.05, strong: 0.16 },
-  elite: { step: 0.025, hit: 0.035, strong: 0.11 }
+  champion: { step: 0, hit: 0.05, strong: 0.16 },
+  elite: { step: 0, hit: 0.035, strong: 0.11 }
 }
+/** The shared elite/champion ramp's step and window: a Dexterity hero who never
+ *  struggles sees +30 % after five visits (elite blows ~2.2 % → ~2.9 % of his
+ *  health, a champion's ~3.7 % → ~4.8 %), the cap after ten or so. */
+export const POOL: Readonly<{ step: number; window: number }> = { step: 0.1, window: 3 }
 /** The boss's (the tests read them). */
 export const RAMP_STEP = RAMP_TUNE.boss.step
 export const RAMP_HIT = RAMP_TUNE.boss.hit
@@ -130,7 +141,7 @@ const RAMP_AVG = 0.3
 const RAMP_ENGAGED = 6
 
 export interface BossRamp {
-  /** The foe it belongs to (`Unit.id`), and its rank's tuning. */
+  /** The foe it belongs to (`Unit.id`; -1 for the pool), and its rank's tuning. */
   id: number
   kind: RampKind
   /** Extra damage now (0 = as designed). */
@@ -145,12 +156,28 @@ export interface BossRamp {
   potions: number
 }
 
+export interface RampPool extends BossRamp {
+  /** The champions' own averages (`hit`, `strong` are the elites'). */
+  champHit: number
+  champStrong: number
+  /** What each living elite or champion has taken of it so far. */
+  applied: Map<number, number>
+}
+
+/** The pool, carried from visit to visit (a defeat clears it). */
+let poolSession = 0
+export const sessionRampPool = (): number => poolSession
+export const setSessionRampPool = (bonus: number): void => { poolSession = Math.max(0, bonus) }
+
 /** Which ramp a unit gets, if any. */
 export const rampKindOf = (u: Unit): RampKind | null =>
   u.rank === 'boss' ? 'boss' : u.rank === 'elite' ? (u.champion ? 'champion' : 'elite') : null
 
 const newRamp = (id: number, kind: RampKind, lost0: number): BossRamp =>
   ({ id, kind, bonus: 0, hit: -1, strong: -1, t: 0, idle: 0, lost0, potions: 0 })
+
+export const newRampPool = (bonus = 0): RampPool =>
+  ({ ...newRamp(-1, 'elite', 0), bonus, idle: RAMP_ENGAGED + 1, champHit: -1, champStrong: -1, applied: new Map() })
 
 /** The most the ramp may reach so neither kind of blow passes its target. */
 export const rampCeiling = (r: Pick<BossRamp, 'hit' | 'strong'> & { kind?: RampKind }): number => {
@@ -161,11 +188,28 @@ export const rampCeiling = (r: Pick<BossRamp, 'hit' | 'strong'> & { kind?: RampK
   return r.hit > 0 || r.strong > 0 ? Math.max(0, cap) : 0
 }
 
+/** The pool's ceiling for a rank (-1: none of it seen yet). */
+export const poolCeiling = (q: RampPool, kind: 'elite' | 'champion'): number => {
+  const [hit, strong] = kind === 'elite' ? [q.hit, q.strong] : [q.champHit, q.champStrong]
+  return hit > 0 || strong > 0 ? rampCeiling({ hit, strong, kind }) : -1
+}
+
 /** Judge one window of a fight (pure: the rules above). */
-export const rampNext = (r: BossRamp, lostShare: number): number => {
+export const rampNext = (r: BossRamp, lostShare: number, step = RAMP_TUNE[r.kind].step, ceiling = rampCeiling(r)): number => {
   if (r.potions > 0) return r.bonus * (1 - RAMP_EASE)
   if (lostShare >= RAMP_EASY) return r.bonus
-  return Math.max(r.bonus, Math.min(rampCeiling(r), r.bonus + RAMP_TUNE[r.kind].step))
+  return Math.max(r.bonus, Math.min(ceiling, r.bonus + step))
+}
+
+const avg = (cur: number, v: number): number => cur < 0 ? v : cur + (v - cur) * RAMP_AVG
+
+/** Bring an elite or champion to its share of the pool (none of a rank unseen: it is measured first). */
+const syncPoolFoe = (q: RampPool, foe: Unit): void => {
+  const cap = poolCeiling(q, foe.champion ? 'champion' : 'elite')
+  const want = cap < 0 ? 0 : Math.min(q.bonus, cap)
+  const had = q.applied.get(foe.id) ?? 0
+  if (want !== had) foe.s.baseDmg *= (1 + want) / (1 + had)
+  q.applied.set(foe.id, want)
 }
 
 /** A boss's, champion's or elite's blow landed on the hero (`dealDamage`, before shields). */
@@ -173,19 +217,35 @@ export const noteBossHit = (sim: Sim, foe: Unit, amount: number, attack: boolean
   const p = sim.pressure
   const kind = rampKindOf(foe)
   if (!p || !kind || !sim.hero || sim.mode !== 'zone') return
-  let r = p.ramps.get(foe.id)
-  if (!r) p.ramps.set(foe.id, r = newRamp(foe.id, kind, sim.hero.lost))
-  const share = amount / sim.hero.unit.s.maxHp / (1 + r.bonus)
-  if (attack) r.hit = r.hit < 0 ? share : r.hit + (share - r.hit) * RAMP_AVG
-  else r.strong = r.strong < 0 ? share : r.strong + (share - r.strong) * RAMP_AVG
-  r.idle = 0
+  const max = sim.hero.unit.s.maxHp
+  if (kind === 'boss') {
+    let r = p.ramps.get(foe.id)
+    if (!r) p.ramps.set(foe.id, r = newRamp(foe.id, kind, sim.hero.lost))
+    const share = amount / max / (1 + r.bonus)
+    if (attack) r.hit = avg(r.hit, share)
+    else r.strong = avg(r.strong, share)
+    r.idle = 0
+    return
+  }
+  const q = p.pool
+  // A new fight after a quiet spell opens a fresh window.
+  if (q.idle > RAMP_ENGAGED) { q.t = 0; q.lost0 = sim.hero.lost; q.potions = 0 }
+  // This blow was struck at what the foe had taken so far.
+  const share = amount / max / (1 + (q.applied.get(foe.id) ?? 0))
+  if (kind === 'champion') {
+    if (attack) q.champHit = avg(q.champHit, share)
+    else q.champStrong = avg(q.champStrong, share)
+  } else if (attack) q.hit = avg(q.hit, share)
+  else q.strong = avg(q.strong, share)
+  q.idle = 0
+  syncPoolFoe(q, foe)
 }
 
 /** Step each fight's clock; judge each window. */
 const stepRamps = (sim: Sim, dt: number): void => {
   const p = sim.pressure
   const h = sim.hero
-  if (!p || !h || !p.ramps.size) return
+  if (!p || !h) return
   for (const r of p.ramps.values()) {
     const foe = sim.units.find(u => u.id === r.id)
     if (!foe?.alive) { p.ramps.delete(r.id); continue }
@@ -200,6 +260,23 @@ const stepRamps = (sim: Sim, dt: number): void => {
     r.potions = 0
     r.lost0 = h.lost
   }
+  const q = p.pool
+  q.idle += dt
+  if (q.idle > RAMP_ENGAGED) return
+  q.t += dt
+  if (q.t < POOL.window) return
+  // The pool climbs as far as the more lenient rank allows; each foe takes what its own allows.
+  const top = Math.max(0, poolCeiling(q, 'elite'), poolCeiling(q, 'champion'))
+  q.bonus = Math.round(rampNext(q, (h.lost - q.lost0) / h.unit.s.maxHp, POOL.step, top) * 1000) / 1000
+  q.t = 0
+  q.potions = 0
+  q.lost0 = h.lost
+  poolSession = q.bonus
+  for (const id of [...q.applied.keys()]) {
+    const foe = sim.units.find(u => u.id === id)
+    if (foe?.alive) syncPoolFoe(q, foe)
+    else q.applied.delete(id)
+  }
 }
 
 /** A health potion drunk (the hero's `usePotion`). */
@@ -207,6 +284,7 @@ export const notePotion = (sim: Sim): void => {
   if (!sim.pressure) return
   sim.pressure.potions++
   for (const r of sim.pressure.ramps.values()) r.potions++
+  sim.pressure.pool.potions++
 }
 
 /** One step of fight time: watch the hero, judge each minute. */

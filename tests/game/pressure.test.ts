@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import {
-  BOSS_SHARE, CAP, CAP_OVER, RAMP_EASE, RAMP_HIT, RAMP_HIT_STRONG, RAMP_STEP, RAMP_TUNE, RAMP_WINDOW, STEP, STEP_OVER, WINDOW, judge, newPressure, notePotion, pressurePips, rampCeiling, rampKindOf, rampNext, sessionPressure, setSessionPressure, stepPressure, type BossRamp
+  BOSS_SHARE, CAP, CAP_OVER, POOL, RAMP_EASE, RAMP_HIT, RAMP_HIT_STRONG, RAMP_STEP, RAMP_TUNE, RAMP_WINDOW, sessionRampPool, setSessionRampPool, STEP, STEP_OVER, WINDOW, judge, newPressure, notePotion, pressurePips, rampCeiling, rampKindOf, rampNext, sessionPressure, setSessionPressure, stepPressure, type BossRamp
 } from '@/game/sim/pressure'
 import { Sim } from '@/game/sim/world'
 import { createHero } from '@/game/sim/hero'
@@ -212,35 +212,69 @@ describe('the boss ramp', () => {
   })
 })
 
-describe('the ramp for champions and elites', () => {
-  it('climbs slower and stops lower than a boss', () => {
-    expect(RAMP_TUNE.champion.step).toBeLessThan(RAMP_TUNE.boss.step)
-    expect(RAMP_TUNE.elite.step).toBeLessThan(RAMP_TUNE.champion.step)
+
+describe('the shared ramp of champions and elites', () => {
+  it('targets lower blows than a boss: a champion below it, an elite lower still', () => {
     expect(RAMP_TUNE.champion.hit).toBeLessThan(RAMP_TUNE.boss.hit)
     expect(RAMP_TUNE.elite.hit).toBeLessThan(RAMP_TUNE.champion.hit)
+    expect(RAMP_TUNE.elite.strong).toBeLessThan(RAMP_TUNE.champion.strong)
   })
 
-  it('gives every elite its own ramp, and none to a normal foe', () => {
+  it('climbs over many short fights, gives each foe its own share, skips normal foes', () => {
+    setSessionRampPool(0)
     const sim = field()
-    const a = spawnEnemy(sim, 'goblin', 0, 0)!
-    const b = spawnEnemy(sim, 'goblin', 1, 0)!
-    const plain = spawnEnemy(sim, 'goblin', 2, 0)!
-    a.rank = 'elite'
-    b.rank = 'elite'
-    b.champion = true
-    expect(rampKindOf(a)).toBe('elite')
-    expect(rampKindOf(b)).toBe('champion')
-    expect(rampKindOf(plain)).toBeNull()
     const max = sim.hero.unit.s.maxHp
-    const dA = a.s.baseDmg, dB = b.s.baseDmg, dP = plain.s.baseDmg
-    for (let t = 0; t < RAMP_WINDOW; t++) {
-      for (const u of [a, b, plain]) dealDamage(sim, u, sim.hero.unit, max * 0.01, { type: 'true', attack: true, canCrit: false })
-      sim.hero.unit.hp = max
-      sim.hero.lost = 0
-      stepPressure(sim, 1)
+    const plain = spawnEnemy(sim, 'goblin', 2, 0)!
+    const dP = plain.s.baseDmg
+    // Short elite fights, each a second or two, one after the other.
+    const elites = []
+    for (let n = 0; n < 7; n++) {
+      const e = spawnEnemy(sim, 'goblin', 0, 0)!
+      e.rank = 'elite'
+      for (let t = 0; t < 2 * 30; t++) {
+        if (t % 15 === 0) dealDamage(sim, e, sim.hero.unit, max * 0.01 * (1 + (sim.pressure!.pool.applied.get(e.id) ?? 0)), { type: 'true', attack: true, canCrit: false })
+        if (t % 15 === 0) dealDamage(sim, plain, sim.hero.unit, max * 0.01, { type: 'true', attack: true, canCrit: false })
+        sim.hero.unit.hp = max
+        sim.hero.lost = 0
+        stepPressure(sim, 1 / 30)
+      }
+      e.alive = false
+      elites.push(e)
     }
-    expect(a.s.baseDmg / dA).toBeCloseTo(1 + RAMP_TUNE.elite.step, 3)
-    expect(b.s.baseDmg / dB).toBeCloseTo(1 + RAMP_TUNE.champion.step, 3)
+    // 14 s of contact: four whole windows.
+    expect(sim.pressure!.pool.bonus).toBeCloseTo(4 * POOL.step, 6)
+    expect(sessionRampPool()).toBeCloseTo(4 * POOL.step, 6)
     expect(plain.s.baseDmg).toBe(dP)
+    // A champion joining takes nothing until its own blows have been measured, then its share.
+    const c = spawnEnemy(sim, 'goblin', 1, 0)!
+    c.rank = 'elite'
+    c.champion = true
+    const dC = c.s.baseDmg
+    dealDamage(sim, c, sim.hero.unit, max * 0.04, { type: 'true', attack: true, canCrit: false })
+    expect(c.s.baseDmg / dC).toBeCloseTo(1 + Math.min(4 * POOL.step, RAMP_TUNE.champion.hit / 0.04 - 1), 6)
+    setSessionRampPool(0)
+  })
+
+  it('stops at the elites\' target, and a potion eases it only a little', () => {
+    setSessionRampPool(0)
+    const sim = field()
+    const max = sim.hero.unit.s.maxHp
+    const e = spawnEnemy(sim, 'goblin', 0, 0)!
+    e.rank = 'elite'
+    const fight = (s: number): void => {
+      for (let t = 0; t < s; t++) {
+        dealDamage(sim, e, sim.hero.unit, max * 0.02 * (1 + (sim.pressure!.pool.applied.get(e.id) ?? 0)), { type: 'true', attack: true, canCrit: false })
+        sim.hero.unit.hp = max
+        sim.hero.lost = 0
+        stepPressure(sim, 1)
+      }
+    }
+    fight(300)
+    const cap = RAMP_TUNE.elite.hit / 0.02 - 1
+    expect(sim.pressure!.pool.bonus).toBeCloseTo(cap, 2)
+    notePotion(sim)
+    fight(POOL.window)
+    expect(sim.pressure!.pool.bonus).toBeCloseTo(cap * (1 - RAMP_EASE), 2)
+    setSessionRampPool(0)
   })
 })
