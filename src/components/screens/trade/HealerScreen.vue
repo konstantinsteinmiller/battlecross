@@ -68,6 +68,13 @@
               @click="forget"
             )
       DealStamp(:n="stamps" :text="t('shop.deal')" :tone="stampTone")
+      //- What a new slot bought, spelled out (roadmap #158); a tap clears it.
+      Transition(name="slot-banner")
+        div.heal__banner(v-if="slotBanner" role="status" aria-live="polite" data-slot-banner @click="slotBanner = 0")
+          GameIcon.heal__banner-icon(name="flask")
+          span.heal__banner-text
+            strong.heal__banner-title {{ t('healer.slotTitle') }}
+            span {{ t('healer.slotBought', { n: slotBanner }) }}
 </template>
 
 <script setup lang="ts">
@@ -80,7 +87,7 @@
  * belt has slots. Both are `profile.ts`'s rules; this is the stall they are
  * sold from, on the same table as the merchants'.
  */
-import { computed, nextTick, ref } from 'vue'
+import { computed, nextTick, onUnmounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import {
   POTION_MAX, buyManaPotion, buyPotionSlot, manaPotionCost, manaPotionRoom, potionUpgradeCost, profile, respec, respecBenched, respecCost, respecRefund
@@ -121,7 +128,18 @@ const buySlot = (): void => {
   stampTone.value = 'green'
   stamps.value++
   landed(`hp${profile.inv.potions}`, 'var(--bc-red)')
+  showSlotBanner(profile.inv.potions)
 }
+
+// ── The banner after a slot (#158): the new belt size, for a few seconds.
+const slotBanner = ref(0)
+let bannerTimer = 0
+const showSlotBanner = (n: number): void => {
+  slotBanner.value = n
+  window.clearTimeout(bannerTimer)
+  bannerTimer = window.setTimeout(() => { slotBanner.value = 0 }, 4200)
+}
+onUnmounted(() => window.clearTimeout(bannerTimer))
 
 // ── Respec: one tap arms it (and names what goes to the bench), a second does it.
 const refund = computed(() => respecRefund())
@@ -253,6 +271,45 @@ const buyMana = (): void => {
     grid-template-columns: minmax(0, 1fr)
     max-width: 34rem
     align-content: start
+
+.heal__banner
+  position: absolute
+  z-index: 3
+  inset-inline: 0
+  top: 0.5rem
+  margin-inline: auto
+  width: min(92%, 30rem)
+  display: flex
+  align-items: center
+  gap: 0.7rem
+  padding: 0.7rem 0.9rem
+  +screen.plate('leather')
+  border: 2px solid var(--bc-green)
+  border-radius: 0.6rem
+  box-shadow: 0 0.4rem 1.2rem rgba(0, 0, 0, 0.45)
+  cursor: pointer
+.heal__banner-icon
+  flex: 0 0 auto
+  width: 2rem
+  height: 2rem
+  color: var(--bc-red)
+.heal__banner-text
+  display: flex
+  flex-direction: column
+  gap: 0.15rem
+  font-size: clamp(0.76rem, 3vmin, 0.95rem)
+  line-height: 1.3
+  color: var(--bc-text-soft)
+.heal__banner-title
+  +cel.label
+  color: var(--bc-text-good)
+  font-size: clamp(0.85rem, 3.4vmin, 1.1rem)
+  text-shadow: var(--bc-text-outline-thin)
+.slot-banner-enter-active, .slot-banner-leave-active
+  transition: opacity 0.25s ease, transform 0.25s var(--bc-ease-bounce)
+.slot-banner-enter-from, .slot-banner-leave-to
+  opacity: 0
+  transform: translateY(-0.8rem) scale(0.96)
 
 @keyframes flask-call
   from

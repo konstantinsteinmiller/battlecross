@@ -3676,6 +3676,8 @@ export default {
     buy: 'Dar viena kolba · {n}',
     full: 'Ant tavo diržo daugiau netelpa.',
     belt: 'Eliksyrų diržas',
+    slotTitle: 'Diržas padidintas',
+    slotBought: 'Viena vieta buteliukui daugiau: dabar į kiekvieną zoną neši {n} gyvybės eliksyrų ir gali laikyti {n} manos eliksyrų.',
     mana: {
       title: 'Manos eliksyrai',
       note: 'Atsargose: {n} iš {max}. Jie lieka su tavimi tarp apsilankymų.',

@@ -3676,6 +3676,8 @@ export default {
     buy: 'Satu botol lagi · {n}',
     full: 'Sabukmu sudah penuh.',
     belt: 'Sabuk ramuan',
+    slotTitle: 'Sabuk diperbesar',
+    slotBought: 'Satu slot botol lagi: kini kamu membawa {n} ramuan darah ke setiap zona dan bisa menyimpan {n} ramuan mana.',
     mana: {
       title: 'Ramuan mana',
       note: 'Persediaan: {n} dari {max}. Tetap bersamamu di antara kunjungan.',

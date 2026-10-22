@@ -3677,6 +3677,8 @@ export default {
     buy: 'Un flascó més · {n}',
     full: 'Al teu cinturó no n’hi cap cap més.',
     belt: 'Cinturó de pocions',
+    slotTitle: 'Cinturó ampliat',
+    slotBought: 'Un espai de flascó més: ara portes {n} pocions de vida a cada zona i pots guardar {n} pocions de manà.',
     mana: {
       title: 'Pocions de manà',
       note: 'En tens {n} de {max}. Se’t queden entre visites.',

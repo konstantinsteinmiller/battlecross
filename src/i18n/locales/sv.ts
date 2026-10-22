@@ -3676,6 +3676,8 @@ export default {
     buy: 'En flaska till · {n}',
     full: 'Ditt bälte rymmer inte mer.',
     belt: 'Dryckesbälte',
+    slotTitle: 'Bältet utökat',
+    slotBought: 'En flaskplats till: du tar nu med {n} hälsodrycker in i varje område och kan ha {n} manadrycker i lager.',
     mana: {
       title: 'Manadrycker',
       note: 'I lager: {n} av {max}. De följer med dig mellan besöken.',

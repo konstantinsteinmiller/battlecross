@@ -3677,6 +3677,8 @@ export default {
     buy: 'Nog een fles · {n}',
     full: 'Aan je riem past niets meer.',
     belt: 'Drankriem',
+    slotTitle: 'Riem uitgebreid',
+    slotBought: 'Eén flesplek erbij: je neemt nu {n} genezingsdrankjes mee naar elk gebied en kunt {n} manadrankjes bewaren.',
     mana: {
       title: 'Manadranken',
       note: 'Voorraad: {n} van {max}. Ze blijven bij je tussen bezoeken.',

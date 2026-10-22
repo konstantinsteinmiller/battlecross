@@ -3676,6 +3676,8 @@ export default {
     buy: 'Én flaske til · {n}',
     full: 'Beltet ditt rommer ikke mer.',
     belt: 'Eliksirbelte',
+    slotTitle: 'Beltet utvidet',
+    slotBought: 'Én flaskeplass til: du tar nå med {n} helsedrikker inn i hvert område og kan ha {n} manadrikker på lager.',
     mana: {
       title: 'Manaeliksirer',
       note: 'På lager: {n} av {max}. De blir med deg mellom besøkene.',

@@ -3677,6 +3677,8 @@ export default {
     buy: 'Une fiole de plus · {n}',
     full: 'Ta ceinture ne peut pas en porter plus.',
     belt: 'Ceinture de potions',
+    slotTitle: 'Ceinture agrandie',
+    slotBought: 'Un emplacement de flasque en plus : tu emportes désormais {n} potions de soin dans chaque zone, et tu peux garder {n} potions de mana.',
     mana: {
       title: 'Potions de mana',
       note: 'En stock : {n} sur {max}. Elles restent avec toi entre les visites.',

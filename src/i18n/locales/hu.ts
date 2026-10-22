@@ -3676,6 +3676,8 @@ export default {
     buy: 'Még egy fiola · {n}',
     full: 'Az öveden nem fér el több.',
     belt: 'Italöv',
+    slotTitle: 'Öv bővítve',
+    slotBought: 'Eggyel több üveghely: mostantól {n} életerő-italt viszel minden területre, és {n} manaitalt tarthatsz készleten.',
     mana: {
       title: 'Manaitalok',
       note: 'Készleten: {n} / {max}. Látogatások között is veled maradnak.',

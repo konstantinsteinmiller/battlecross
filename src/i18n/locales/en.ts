@@ -1677,6 +1677,8 @@ export default {
     'buy': 'One more flask · {n}',
     'full': 'Your belt holds all it can.',
     'belt': 'Potion belt',
+    'slotTitle': 'Belt upgraded',
+    'slotBought': 'One more flask slot: you now carry {n} health potions into every zone, and can stock {n} mana potions.',
     'mana': {
       'title': 'Mana potions',
       'note': 'In stock: {n} of {max}. They stay with you between visits.',

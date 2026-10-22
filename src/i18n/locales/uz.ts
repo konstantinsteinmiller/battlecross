@@ -3676,6 +3676,8 @@ export default {
     buy: 'Yana bir kolba · {n}',
     full: 'Kamaringizga boshqa sigʻmaydi.',
     belt: 'Iksir kamari',
+    slotTitle: 'Kamar kengaytirildi',
+    slotBought: 'Yana bitta shisha joyi: endi har bir hududga {n} ta sogʻliq ichimligi olib borasan va {n} ta mana ichimligini saqlay olasan.',
     mana: {
       title: 'Mana iksirlari',
       note: 'Zaxirada: {max} tadan {n} ta. Ular tashriflar orasida sizda qoladi.',

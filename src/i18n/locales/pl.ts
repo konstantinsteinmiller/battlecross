@@ -3678,6 +3678,8 @@ export default {
     buy: 'Jeszcze jedna fiolka · {n}',
     full: 'Twój pas więcej nie pomieści.',
     belt: 'Pas na mikstury',
+    slotTitle: 'Pas powiększony',
+    slotBought: 'Jedno miejsce na flaszkę więcej: teraz zabierasz {n} mikstur zdrowia do każdej strefy i możesz trzymać {n} mikstur many.',
     mana: {
       title: 'Mikstury many',
       note: 'W zapasie: {n} z {max}. Zostają z tobą między wizytami.',

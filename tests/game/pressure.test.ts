@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import {
-  BOSS_SHARE, CAP, CAP_OVER, STEP, STEP_OVER, WINDOW, judge, newPressure, notePotion, pressurePips, sessionPressure, setSessionPressure, stepPressure
+  BOSS_SHARE, CAP, CAP_OVER, RAMP_EASE, RAMP_HIT, RAMP_HIT_STRONG, RAMP_STEP, RAMP_WINDOW, STEP, STEP_OVER, WINDOW, judge, newPressure, notePotion, pressurePips, rampCeiling, rampNext, sessionPressure, setSessionPressure, stepPressure, type BossRamp
 } from '@/game/sim/pressure'
 import { Sim } from '@/game/sim/world'
 import { createHero } from '@/game/sim/hero'
@@ -163,5 +163,51 @@ describe('a level-appropriate run with the reference player', () => {
       if (sim.ended === 'victory') wins++
     }
     expect(wins, seen.join('; ')).toBeGreaterThanOrEqual(CLASS_IDS.length - 2)
+  })
+})
+
+/**
+ * The boss ramp (#157): a boss the hero takes no harm from hits harder, a step
+ * a window, until a normal attack costs ~7 % and an ability ~22.5 % of his
+ * health; a potion eases it back only a little.
+ */
+describe('the boss ramp', () => {
+  const ramp = (o: Partial<BossRamp> = {}): BossRamp =>
+    ({ id: 1, bonus: 0, hit: 0.02, strong: 0.05, t: 0, idle: 0, lost0: 0, potions: 0, ...o })
+
+  it('stops where a normal attack or an ability reaches its target', () => {
+    expect(rampCeiling(ramp())).toBeCloseTo(Math.min(RAMP_HIT / 0.02, RAMP_HIT_STRONG / 0.05) - 1, 6)
+    expect(rampCeiling(ramp({ hit: 0.1 }))).toBe(0)
+    expect(rampCeiling(ramp({ hit: -1, strong: -1 }))).toBe(0)
+  })
+
+  it('climbs on an easy window, holds on a hurting one, eases slowly after a potion', () => {
+    expect(rampNext(ramp(), 0)).toBeCloseTo(RAMP_STEP, 6)
+    expect(rampNext(ramp({ bonus: 0.5 }), 0.1)).toBe(0.5)
+    expect(rampNext(ramp({ bonus: 1, potions: 1 }), 0)).toBeCloseTo(1 - RAMP_EASE, 6)
+  })
+
+  it('raises a real boss to the target and no further; a potion barely moves it', () => {
+    const sim = field()
+    const boss = spawnEnemy(sim, 'goblinKing', 0, 0)!
+    const max = sim.hero.unit.s.maxHp
+    const dmg0 = boss.s.baseDmg
+    // Blows at 2 % of the hero's health (true damage, so the number lands as is).
+    const fight = (): void => {
+      for (let t = 0; t < RAMP_WINDOW; t++) {
+        dealDamage(sim, boss, sim.hero.unit, max * 0.02 * boss.s.baseDmg / dmg0, { type: 'true', attack: true, canCrit: false })
+        sim.hero.unit.hp = max
+        sim.hero.lost = 0
+        stepPressure(sim, 1)
+      }
+    }
+    fight()
+    expect(boss.s.baseDmg / dmg0).toBeCloseTo(1 + RAMP_STEP, 3)
+    for (let i = 0; i < 80; i++) fight()
+    expect(boss.s.baseDmg / dmg0).toBeCloseTo(RAMP_HIT / 0.02, 1)
+    const top = boss.s.baseDmg
+    notePotion(sim)
+    fight()
+    expect(boss.s.baseDmg / top).toBeCloseTo((1 + (RAMP_HIT / 0.02 - 1) * (1 - RAMP_EASE)) / (RAMP_HIT / 0.02), 2)
   })
 })

@@ -3680,6 +3680,8 @@ export default {
     buy: 'Další lahvička · {n}',
     full: 'Na opasek se ti víc nevejde.',
     belt: 'Pás na lektvary',
+    slotTitle: 'Opasek rozšířen',
+    slotBought: 'O jedno místo na lahvičku víc: teď si do každé oblasti bereš {n} lektvarů zdraví a můžeš mít v zásobě {n} lektvarů many.',
     mana: {
       title: 'Lektvary many',
       note: 'V zásobě: {n} z {max}. Zůstanou ti mezi návštěvami.',

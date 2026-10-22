@@ -3676,6 +3676,8 @@ export default {
     buy: '多帶一瓶 · {n}',
     full: '你的腰帶已經掛滿了。',
     belt: '藥水腰帶',
+    slotTitle: '腰帶已擴充',
+    slotBought: '多了一個藥瓶槽：現在每次進入區域都帶 {n} 瓶生命藥水，並可儲存 {n} 瓶法力藥水。',
     mana: {
       title: '魔力藥水',
       note: '庫存：{n}/{max}。下次來也還在。',

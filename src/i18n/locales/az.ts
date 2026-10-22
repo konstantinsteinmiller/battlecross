@@ -3676,6 +3676,8 @@ export default {
     buy: 'Daha bir kolba · {n}',
     full: 'Kəmərin bundan artıq götürmür.',
     belt: 'İksir kəməri',
+    slotTitle: 'Kəmər genişləndi',
+    slotBought: 'Daha bir şüşə yeri: indi hər əraziyə {n} sağlamlıq iksiri aparırsan və {n} mana iksiri saxlaya bilərsən.',
     mana: {
       title: 'Mana iksirləri',
       note: 'Ehtiyatda: {max} içində {n}. Ziyarətlər arasında səninlə qalır.',

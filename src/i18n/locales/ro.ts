@@ -3676,6 +3676,8 @@ export default {
     buy: 'Încă un flacon · {n}',
     full: 'La centură nu mai încape niciunul.',
     belt: 'Centură de poțiuni',
+    slotTitle: 'Centură mărită',
+    slotBought: 'Încă un loc de flacon: acum duci {n} poțiuni de viață în fiecare zonă și poți păstra {n} poțiuni de mana.',
     mana: {
       title: 'Poțiuni de mană',
       note: 'În stoc: {n} din {max}. Rămân cu tine între vizite.',

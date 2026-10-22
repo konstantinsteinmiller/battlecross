@@ -49,6 +49,8 @@ export interface PressureState {
   lastPotion: boolean
   /** Lowest health share seen in this window. */
   low: number
+  /** The boss fight's damage ramp (#157), null outside one. */
+  ramp: BossRamp | null
 }
 
 /** The session's level, carried from visit to visit (a defeat clears it). */
@@ -57,7 +59,7 @@ export const sessionPressure = (): number => session
 export const setSessionPressure = (bonus: number): void => { session = Math.max(0, bonus) }
 
 export const newPressure = (bonus = 0): PressureState =>
-  ({ bonus, t: 0, lost0: 0, dealt0: 0, potions: 0, lastPotion: false, low: 1 })
+  ({ bonus, t: 0, lost0: 0, dealt0: 0, potions: 0, lastPotion: false, low: 1, ramp: null })
 
 /** Skull pips for a bonus (one per normal step). */
 export const pressurePips = (bonus: number): number => Math.round(bonus / STEP)
@@ -88,14 +90,113 @@ const rescale = (u: Unit, from: number, to: number): void => {
   u.s.baseDmg *= k
 }
 
+/**
+ * ─── The boss ramp (roadmap #157) ────────────────────────────────────────────
+ *
+ * A boss the hero shrugs off hits a little harder. Its blows on the hero are
+ * measured as a share of his health (after armour, before shields): normal
+ * attacks and abilities apart, each as a running average at the boss's
+ * design damage. Every `RAMP_WINDOW` seconds of the fight:
+ *
+ *   - no potion drunk and less than `RAMP_EASY` of his health lost → the
+ *     boss's damage climbs by `RAMP_STEP`, but never past the point where a
+ *     normal attack takes `RAMP_HIT` of his health or an ability
+ *     `RAMP_HIT_STRONG` (it stops there: a stronger hero simply holds it);
+ *   - a potion drunk → it eases back by `RAMP_EASE` of itself, so a potion
+ *     never turns a hard fight soft at once;
+ *   - anything else → it holds.
+ *
+ * Damage only, the boss's health is untouched; it is the boss's own (a new
+ * boss starts from nothing) and lives on top of the minute-by-minute pressure.
+ */
+export const RAMP_WINDOW = 8
+export const RAMP_STEP = 0.06
+export const RAMP_EASY = 0.04
+export const RAMP_HIT = 0.07
+export const RAMP_HIT_STRONG = 0.225
+export const RAMP_EASE = 0.12
+/** Weight of a new blow in the running averages. */
+const RAMP_AVG = 0.3
+/** A fight is on while the boss struck the hero this recently. */
+const RAMP_ENGAGED = 6
+
+export interface BossRamp {
+  /** The boss it belongs to (`Unit.id`). */
+  id: number
+  /** Extra boss damage now (0 = as designed). */
+  bonus: number
+  /** Average blow at design damage, as a share of the hero's health (-1: none seen). */
+  hit: number
+  strong: number
+  /** Fight time into this window; since the boss last struck. */
+  t: number
+  idle: number
+  lost0: number
+  potions: number
+}
+
+const newRamp = (id: number, lost0: number): BossRamp =>
+  ({ id, bonus: 0, hit: -1, strong: -1, t: 0, idle: 0, lost0, potions: 0 })
+
+/** The most the ramp may reach so neither kind of blow passes its target. */
+export const rampCeiling = (r: Pick<BossRamp, 'hit' | 'strong'>): number => {
+  let cap = Infinity
+  if (r.hit > 0) cap = Math.min(cap, RAMP_HIT / r.hit - 1)
+  if (r.strong > 0) cap = Math.min(cap, RAMP_HIT_STRONG / r.strong - 1)
+  return r.hit > 0 || r.strong > 0 ? Math.max(0, cap) : 0
+}
+
+/** Judge one window of a boss fight (pure: the rules above). */
+export const rampNext = (r: BossRamp, lostShare: number): number => {
+  if (r.potions > 0) return r.bonus * (1 - RAMP_EASE)
+  if (lostShare >= RAMP_EASY) return r.bonus
+  return Math.max(r.bonus, Math.min(rampCeiling(r), r.bonus + RAMP_STEP))
+}
+
+/** A boss's blow landed on the hero (`dealDamage`, before shields). */
+export const noteBossHit = (sim: Sim, boss: Unit, amount: number, attack: boolean): void => {
+  const p = sim.pressure
+  if (!p || !sim.hero || sim.mode !== 'zone') return
+  if (!p.ramp || p.ramp.id !== boss.id) p.ramp = newRamp(boss.id, sim.hero.lost)
+  const r = p.ramp
+  const share = amount / sim.hero.unit.s.maxHp / (1 + r.bonus)
+  if (attack) r.hit = r.hit < 0 ? share : r.hit + (share - r.hit) * RAMP_AVG
+  else r.strong = r.strong < 0 ? share : r.strong + (share - r.strong) * RAMP_AVG
+  r.idle = 0
+}
+
+/** Step the boss fight's clock; judge each window. */
+const stepRamp = (sim: Sim, dt: number): void => {
+  const r = sim.pressure?.ramp
+  const h = sim.hero
+  if (!r || !h) return
+  const boss = sim.units.find(u => u.id === r.id)
+  if (!boss?.alive) { sim.pressure!.ramp = null; return }
+  r.idle += dt
+  if (r.idle > RAMP_ENGAGED) return
+  r.t += dt
+  if (r.t < RAMP_WINDOW) return
+  const to = Math.round(rampNext(r, (h.lost - r.lost0) / h.unit.s.maxHp) * 1000) / 1000
+  if (to !== r.bonus) boss.s.baseDmg *= (1 + to) / (1 + r.bonus)
+  r.bonus = to
+  r.t = 0
+  r.potions = 0
+  r.lost0 = h.lost
+}
+
 /** A health potion drunk (the hero's `usePotion`). */
-export const notePotion = (sim: Sim): void => { if (sim.pressure) sim.pressure.potions++ }
+export const notePotion = (sim: Sim): void => {
+  if (!sim.pressure) return
+  sim.pressure.potions++
+  if (sim.pressure.ramp) sim.pressure.ramp.potions++
+}
 
 /** One step of fight time: watch the hero, judge each minute. */
 export const stepPressure = (sim: Sim, dt: number): void => {
   const p = sim.pressure
   const h = sim.hero
   if (!p || !h || sim.ended || sim.mode !== 'zone' || !h.unit.alive) return
+  stepRamp(sim, dt)
   p.low = Math.min(p.low, h.unit.hp / h.unit.s.maxHp)
   p.t += dt
   if (p.t < WINDOW) return

@@ -3676,6 +3676,8 @@ export default {
     buy: 'Unu plia flakono · {n}',
     full: 'Via zono ne povas teni pli.',
     belt: 'Pociozono',
+    slotTitle: 'Zono pligrandigita',
+    slotBought: 'Unu plia flakono-loko: nun vi portas {n} sanajn trinkaĵojn en ĉiun zonon kaj povas teni {n} manajn trinkaĵojn.',
     mana: {
       title: 'Manaopocioj',
       note: 'En stoko: {n} el {max}. Ili restas kun vi inter vizitoj.',

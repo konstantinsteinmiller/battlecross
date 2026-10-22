@@ -3681,6 +3681,8 @@ export default {
     buy: 'Još jedna bočica · {n}',
     full: 'Na tvoj pojas više ne stane.',
     belt: 'Pojas za napitke',
+    slotTitle: 'Pojas proširen',
+    slotBought: 'Jedno mjesto za bočicu više: sada nosiš {n} napitaka zdravlja u svako područje i možeš čuvati {n} napitaka mane.',
     mana: {
       title: 'Napitci mane',
       note: 'U zalihi: {n} od {max}. Ostaju s tobom između posjeta.',

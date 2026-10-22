@@ -3676,6 +3676,8 @@ export default {
     buy: 'Yksi pullo lisää · {n}',
     full: 'Vyöhösi ei mahdu enempää.',
     belt: 'Juomavyö',
+    slotTitle: 'Vyö laajennettu',
+    slotBought: 'Yksi pullopaikka lisää: viet nyt {n} terveysjuomaa jokaiselle alueelle ja voit pitää varastossa {n} manajuomaa.',
     mana: {
       title: 'Manajuomat',
       note: 'Varastossa: {n} / {max}. Ne pysyvät mukanasi käyntien välillä.',

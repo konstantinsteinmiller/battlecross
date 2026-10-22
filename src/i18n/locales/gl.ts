@@ -3677,6 +3677,8 @@ export default {
     buy: 'Un frasco máis · {n}',
     full: 'No teu cinto xa non cabe ningún máis.',
     belt: 'Cinto de pocións',
+    slotTitle: 'Cinto ampliado',
+    slotBought: 'Un oco de frasco máis: agora levas {n} pocións de vida a cada zona e podes gardar {n} pocións de maná.',
     mana: {
       title: 'Pocións de maná',
       note: 'Tes {n} de {max}. Quédanche entre visitas.',

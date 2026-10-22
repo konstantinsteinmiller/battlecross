@@ -3676,6 +3676,8 @@ export default {
     buy: 'Thêm một bình · {n}',
     full: 'Thắt lưng của bạn đã chật kín.',
     belt: 'Thắt lưng thuốc',
+    slotTitle: 'Đã nới đai',
+    slotBought: 'Thêm một ô bình: giờ bạn mang {n} bình máu vào mỗi vùng và có thể trữ {n} bình mana.',
     mana: {
       title: 'Bình mana',
       note: 'Trong kho: {n} trên {max}. Chúng đi theo bạn qua các lần ghé thăm.',

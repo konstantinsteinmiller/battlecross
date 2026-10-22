@@ -3676,6 +3676,8 @@ export default {
     buy: 'Vēl viena kolba · {n}',
     full: 'Pie jostas vairāk vietas nav.',
     belt: 'Dziru josta',
+    slotTitle: 'Josta paplašināta',
+    slotBought: 'Vēl viena vieta pudelītei: tagad katrā zonā nes {n} dzīvības dziras un vari glabāt {n} manas dziras.',
     mana: {
       title: 'Manas dziras',
       note: 'Krājumā: {n} no {max}. Tās paliek pie tevis starp apmeklējumiem.',

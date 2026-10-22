@@ -3677,6 +3677,8 @@ export default {
     buy: 'Noch eine Flasche · {n}',
     full: 'Mehr passt nicht an deinen Gürtel.',
     belt: 'Trankgürtel',
+    slotTitle: 'Gürtel erweitert',
+    slotBought: 'Ein Flaschenplatz mehr: Du nimmst jetzt {n} Heiltränke in jedes Gebiet mit und kannst {n} Manatränke vorrätig haben.',
     mana: {
       title: 'Manatränke',
       note: 'Vorrat: {n} von {max}. Sie bleiben zwischen den Besuchen bei dir.',

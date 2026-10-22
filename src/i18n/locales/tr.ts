@@ -3676,6 +3676,8 @@ export default {
     buy: 'Bir şişe daha · {n}',
     full: 'Kemerin daha fazlasını taşıyamaz.',
     belt: 'İksir kemeri',
+    slotTitle: 'Kemer genişletildi',
+    slotBought: 'Bir şişe yeri daha: artık her bölgeye {n} can iksiri götürüyorsun ve {n} mana iksiri saklayabilirsin.',
     mana: {
       title: 'Mana iksirleri',
       note: 'Stokta: {max} içinde {n}. Ziyaretler arasında seninle kalır.',

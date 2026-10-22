@@ -3677,6 +3677,8 @@ export default {
     buy: 'Un frasco más · {n}',
     full: 'En tu cinturón no cabe ni uno más.',
     belt: 'Cinturón de pociones',
+    slotTitle: 'Cinturón ampliado',
+    slotBought: 'Un hueco de frasco más: ahora llevas {n} pociones de salud a cada zona y puedes guardar {n} pociones de maná.',
     mana: {
       title: 'Pociones de maná',
       note: 'En existencias: {n} de {max}. Se quedan contigo entre visitas.',

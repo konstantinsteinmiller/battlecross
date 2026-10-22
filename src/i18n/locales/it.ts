@@ -3677,6 +3677,8 @@ export default {
     buy: 'Una fiala in più · {n}',
     full: 'La tua cintura non ne regge altre.',
     belt: 'Cintura delle pozioni',
+    slotTitle: 'Cintura ampliata',
+    slotBought: 'Un posto per fiaschetta in più: ora porti {n} pozioni di salute in ogni zona e puoi tenere {n} pozioni di mana.',
     mana: {
       title: 'Pozioni di mana',
       note: 'Scorta: {n} su {max}. Restano con te tra una visita e l’altra.',
