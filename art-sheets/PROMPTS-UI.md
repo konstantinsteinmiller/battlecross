@@ -1399,6 +1399,8 @@ WHAT IT IS: a merchant's wooden counter seen from straight above: warm honey-bro
 · RIGHT: on the planks right of the cloth: brass merchant's scales near the top (one pan lower, holding a few coins), three small steel weights in a row above them, and an untied leather coin purse near the bottom with coins spilling from it.
 · MIDDLE: the teal cloth with a quiet woven diamond pattern, tone on tone.
 
+BUILD EVERY OBJECT RIGHT, even where the reference is crude. The reference is a LAYOUT drawn from flat shapes; it fixes where things stand and how big they are, not how they are built. Paint each object as the real, solid thing it is, with volume, light and a shadow: a pot's rim is a round rolled ring seen from slightly above, never a flat bar across it; a fire is layered tongues of flame, never one cut-out shape; mortar joints and brick courses stay inside the masonry and follow its curve, never a line running past an arch's edge; a tool's handle runs into its head. Never copy a flat rectangle or a stray line of the reference as if it were part of the object.
+
 THE CALM MIDDLE — read this twice. The game lays its interface over the middle of this picture: panels, buttons and white lettering with a dark outline. The middle 44% of the width (from 28% to 72% across) is ALWAYS covered, and on a phone held upright it is all that is seen. Keep that band one quiet, even surface: no objects, no strong pattern, no bright spot, no dark hole, nothing that draws the eye. Every object lives in the outer 28% at each side, and nothing important sits in the top 12% (a bar of buttons covers it).
 
 WHAT IT IS NOT: no people, no hands, no animals, no faces, no text, no letters, no numbers, no runes, no signs, no labels, no buttons, no frames or panels of an interface, no icons. Nothing that could be mistaken for something the player can tap.
@@ -1439,6 +1441,8 @@ WHAT IT IS: the inside of an open adventurer's satchel seen from the front: a de
 · LEFT: a wooden weapon rack standing in the bag: two posts and two rails, a sword hanging point down, an axe beside it, and a round blue shield leaning at its foot.
 · RIGHT: a wooden armour stand: a post on a foot, a steel breastplate hung on its shoulder bar and a steel helmet with a red plume on top.
 · MIDDLE: the quilted green lining, lit a little lighter toward the middle.
+
+BUILD EVERY OBJECT RIGHT, even where the reference is crude. The reference is a LAYOUT drawn from flat shapes; it fixes where things stand and how big they are, not how they are built. Paint each object as the real, solid thing it is, with volume, light and a shadow: a pot's rim is a round rolled ring seen from slightly above, never a flat bar across it; a fire is layered tongues of flame, never one cut-out shape; mortar joints and brick courses stay inside the masonry and follow its curve, never a line running past an arch's edge; a tool's handle runs into its head. Never copy a flat rectangle or a stray line of the reference as if it were part of the object.
 
 THE CALM MIDDLE — read this twice. The game lays its interface over the middle of this picture: panels, buttons and white lettering with a dark outline. The middle 44% of the width (from 28% to 72% across) is ALWAYS covered, and on a phone held upright it is all that is seen. Keep that band one quiet, even surface: no objects, no strong pattern, no bright spot, no dark hole, nothing that draws the eye. Every object lives in the outer 28% at each side, and nothing important sits in the top 12% (a bar of buttons covers it).
 
@@ -1481,6 +1485,8 @@ WHAT IT IS: a page of a star codex: a deep indigo night sky filling the picture 
 · RIGHT: two more constellations (a shield in pale gold, an hourglass in lilac), a shooting star near the bottom, and many small stars.
 · MIDDLE: the dark sky with the faint rings and tick marks of an astrolabe, and only a few faint stars.
 
+BUILD EVERY OBJECT RIGHT, even where the reference is crude. The reference is a LAYOUT drawn from flat shapes; it fixes where things stand and how big they are, not how they are built. Paint each object as the real, solid thing it is, with volume, light and a shadow: a pot's rim is a round rolled ring seen from slightly above, never a flat bar across it; a fire is layered tongues of flame, never one cut-out shape; mortar joints and brick courses stay inside the masonry and follow its curve, never a line running past an arch's edge; a tool's handle runs into its head. Never copy a flat rectangle or a stray line of the reference as if it were part of the object.
+
 THE CALM MIDDLE — read this twice. The game lays its interface over the middle of this picture: panels, buttons and white lettering with a dark outline. The middle 44% of the width (from 28% to 72% across) is ALWAYS covered, and on a phone held upright it is all that is seen. Keep that band one quiet, even surface: no objects, no strong pattern, no bright spot, no dark hole, nothing that draws the eye. Every object lives in the outer 28% at each side, and nothing important sits in the top 12% (a bar of buttons covers it).
 
 WHAT IT IS NOT: no people, no hands, no animals, no faces, no text, no letters, no numbers, no runes, no signs, no labels, no buttons, no frames or panels of an interface, no icons. Nothing that could be mistaken for something the player can tap.
@@ -1517,10 +1523,12 @@ One landscape image, 1376 x 768 pixels (16:9), painted edge to edge.
 
 IT FILLS THE IMAGE, edge to edge, corner to corner. There is NO background behind it and NO magenta anywhere in this one: it is itself the backdrop the screen is drawn on top of. No outer frame of your own, no vignette, no card, no matting, no rounded corners, no letterboxing.
 
-WHAT IT IS: the inside wall of a blacksmith’s forge: courses of dark grey dressed stone blocks filling the picture, every other course offset, a warm orange glow from the hearth washing over the left of the wall, and iron tongs hanging from a hook near the top of the wall. Repaint the attached reference: every object stays where the reference has it, at its size.
-· LEFT: a tall red-brick arched hearth with a black iron hood above it: inside the arch a roaring fire of orange and yellow flames on a bed of glowing coals, a few sparks rising.
-· RIGHT: a steel anvil standing on a thick wooden block, a hammer with a wooden handle lying across it, a glowing orange bar of hot iron on its face, and a few sparks around it.
+WHAT IT IS: the inside wall of a busy blacksmith’s forge: courses of dark grey dressed stone blocks filling the picture, every other course offset, a warm orange glow from the hearth washing over the left of the wall, and iron tongs hanging from a hook high on the right. Repaint the attached reference: every object stays where the reference has it, at its size.
+· LEFT: a tall red-brick arched hearth with a black iron hood above it — its bricks laid in staggered courses that follow the arch and stop at its edge: inside the arch a roaring fire of orange and yellow flames on a bed of glowing coals, a few sparks rising; above the hood a wooden shelf with four iron ingots and a horseshoe hanging on a peg.
+· RIGHT: a steel anvil standing on a thick wooden block, a smith’s hammer lying on its face (a wooden handle running into a square steel head), a glowing orange bar of hot iron on its horn, and a few sparks; above it a wall rack with three hammers hanging head down and two finished swords; on the floor in front a wooden water barrel with iron hoops.
 · MIDDLE: the plain grey stone wall, slightly darker and smoke-stained, nothing on it.
+
+BUILD EVERY OBJECT RIGHT, even where the reference is crude. The reference is a LAYOUT drawn from flat shapes; it fixes where things stand and how big they are, not how they are built. Paint each object as the real, solid thing it is, with volume, light and a shadow: a pot's rim is a round rolled ring seen from slightly above, never a flat bar across it; a fire is layered tongues of flame, never one cut-out shape; mortar joints and brick courses stay inside the masonry and follow its curve, never a line running past an arch's edge; a tool's handle runs into its head. Never copy a flat rectangle or a stray line of the reference as if it were part of the object.
 
 THE CALM MIDDLE — read this twice. The game lays its interface over the middle of this picture: panels, buttons and white lettering with a dark outline. The middle 44% of the width (from 28% to 72% across) is ALWAYS covered, and on a phone held upright it is all that is seen. Keep that band one quiet, even surface: no objects, no strong pattern, no bright spot, no dark hole, nothing that draws the eye. Every object lives in the outer 28% at each side, and nothing important sits in the top 12% (a bar of buttons covers it).
 
@@ -1560,8 +1568,53 @@ IT FILLS THE IMAGE, edge to edge, corner to corner. There is NO background behin
 
 WHAT IT IS: a herbalist’s workroom wall: upright dark green wooden boards filling the picture, bunches of dried herbs hanging from the top edge on strings, warm lamplight from the right. Repaint the attached reference: every object stays where the reference has it, at its size.
 · LEFT: three wooden shelves one above another, each holding a row of corked glass bottles of coloured liquid (red, blue, green, purple, yellow) in different sizes, with small white glints on the glass.
-· RIGHT: a round black iron cauldron on a low fire of orange flames, bubbling bright green liquid, pale steam curling up, and a wooden ledge below with a stone mortar and an open book.
+· RIGHT: a big round black iron cauldron with a thick rolled rim and two lugs, seen from slightly above so the rim is an oval ring around bubbling bright green liquid, standing over a crackling fire whose layered orange and yellow tongues lick up round its belly; pale steam curling up; a wooden ledge below with a stone mortar and pestle and an open book.
 · MIDDLE: the plain dark green boards, slightly darker and quiet, nothing on them.
+
+BUILD EVERY OBJECT RIGHT, even where the reference is crude. The reference is a LAYOUT drawn from flat shapes; it fixes where things stand and how big they are, not how they are built. Paint each object as the real, solid thing it is, with volume, light and a shadow: a pot's rim is a round rolled ring seen from slightly above, never a flat bar across it; a fire is layered tongues of flame, never one cut-out shape; mortar joints and brick courses stay inside the masonry and follow its curve, never a line running past an arch's edge; a tool's handle runs into its head. Never copy a flat rectangle or a stray line of the reference as if it were part of the object.
+
+THE CALM MIDDLE — read this twice. The game lays its interface over the middle of this picture: panels, buttons and white lettering with a dark outline. The middle 44% of the width (from 28% to 72% across) is ALWAYS covered, and on a phone held upright it is all that is seen. Keep that band one quiet, even surface: no objects, no strong pattern, no bright spot, no dark hole, nothing that draws the eye. Every object lives in the outer 28% at each side, and nothing important sits in the top 12% (a bar of buttons covers it).
+
+WHAT IT IS NOT: no people, no hands, no animals, no faces, no text, no letters, no numbers, no runes, no signs, no labels, no buttons, no frames or panels of an interface, no icons. Nothing that could be mistaken for something the player can tap.
+
+COLOUR — the reference's own, object by object. Take the HUES from it, not the flatness.
+
+THE VIEW — as the reference: straight on, flat, the objects as simple upright shapes. No perspective that tilts the surface away, no depth blur.
+
+STYLE — the same hand as every other picture in this game.
+· Chunky, rounded, toy-like forms. Simplify: few large shapes, no fine detail that vanishes at thumbnail size.
+· ONE dark outline around every shape, in deep charcoal-violet (about #0F0C19, never pure black), brush-pen weight: at its heaviest about 2.5% of the panel's shorter side. Hold the picture at thumbnail size; if the outline has thinned to a hairline it is several times too thin.
+· Cel shading in hard steps, no blending: a base tone, ONE shadow step (the base darkened by about a third and pushed toward blue-violet) and ONE lighter step. No airbrush, no smooth gradients, no photographic texture, no noise.
+· Bright, saturated candy colours (saturation 60-85%, brightness 75-100%). Nothing muddy, grey or desaturated.
+· One small, hard-edged white glint on anything metal, glass, gem or liquid.
+· Light and energy are painted as SOLID shapes: a white-hot core, the colour, a darker edge. Nothing is ever see-through, hazy or ghostly.
+· People are squat chibi: the head is nearly half the figure, large oval eyes with one white glint, tiny nose or none, mitten hands, no fingers.
+· AN OBJECT WITH NO FACE IS NOT AN EXCEPTION TO ANY OF THIS. A sword, a ring, a flask or a rock gets the same outline, the same two-step shading and the same glint as a character.
+· The attached reference is a flat stand-in. Follow its SHAPE, its SIZE in the panel and its POSITION; take nothing else from it — not its line weight, flat fills or lack of shading. Its plain shapes are notation, and a sheet that comes back as the same flat shapes neatly repainted is unusable.
+AVOID: three-quarter or perspective views, realism, pixel art, thin technical line, soft glow around a shape, drop shadows, text, numbers, frames, badges or cards behind the object.
+
+BEFORE YOU CALL IT FINISHED, check:
+· The picture reaches all four edges of the image; there is no magenta and no added border.
+· Laid over the reference, every object is where the reference has it.
+· The middle band is calm and even, with not one object in it, and there is not one letter anywhere.
+
+OUTPUT: one image, 1376 x 768 pixels (16:9, landscape). If your tool has an aspect-ratio control, set it to 16:9. PNG. No labels, captions, numbers or watermarks.
+```
+
+## UI: the ore buyer’s backdrop  (bg-ui-ore.png → images/ui/bg-ore.webp)
+
+```text
+WHAT COMES BACK IS ONE FULL-BLEED ILLUSTRATED BACKDROP FOR A GAME SCREEN: A STILL LIFE WITH NO PEOPLE AND NO LETTERING.
+One landscape image, 1376 x 768 pixels (16:9), painted edge to edge.
+
+IT FILLS THE IMAGE, edge to edge, corner to corner. There is NO background behind it and NO magenta anywhere in this one: it is itself the backdrop the screen is drawn on top of. No outer frame of your own, no vignette, no card, no matting, no rounded corners, no letterboxing.
+
+WHAT IT IS: the smith’s ore store room: a rough brown-grey rock wall of irregular blocks filling the picture, framed by two thick timber posts and a timber beam across the top, warm lantern light from the left. Repaint the attached reference: every object stays where the reference has it, at its size.
+· LEFT: an iron-banded wooden mine cart on short rails, heaped with chunky ore nuggets in six colours (dull iron grey, silver white, gold, icy cyan mithril, deep red adamant, violet aetherite) that glint; a pickaxe leaning against the post; a brass lantern hanging from the beam, glowing.
+· RIGHT: a sturdy wooden buying counter: a brass balance scale with a gold nugget in one pan and a coin in the other, three shallow wooden trays of sorted ore nuggets in those colours, and a bulging leather sack of ore on the floor.
+· MIDDLE: the plain rock wall between the posts, slightly darker and quiet, nothing on it.
+
+BUILD EVERY OBJECT RIGHT, even where the reference is crude. The reference is a LAYOUT drawn from flat shapes; it fixes where things stand and how big they are, not how they are built. Paint each object as the real, solid thing it is, with volume, light and a shadow: a pot's rim is a round rolled ring seen from slightly above, never a flat bar across it; a fire is layered tongues of flame, never one cut-out shape; mortar joints and brick courses stay inside the masonry and follow its curve, never a line running past an arch's edge; a tool's handle runs into its head. Never copy a flat rectangle or a stray line of the reference as if it were part of the object.
 
 THE CALM MIDDLE — read this twice. The game lays its interface over the middle of this picture: panels, buttons and white lettering with a dark outline. The middle 44% of the width (from 28% to 72% across) is ALWAYS covered, and on a phone held upright it is all that is seen. Keep that band one quiet, even surface: no objects, no strong pattern, no bright spot, no dark hole, nothing that draws the eye. Every object lives in the outer 28% at each side, and nothing important sits in the top 12% (a bar of buttons covers it).
 

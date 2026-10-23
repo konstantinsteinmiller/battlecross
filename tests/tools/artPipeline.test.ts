@@ -210,7 +210,7 @@ describe('the manifest covers the game', () => {
     }
   })
 
-  it('the coin, the map, the three screen backdrops and the ground are there, at their sizes', () => {
+  it('the coin, the map, the screen backdrops and the ground are there, at their sizes', () => {
     expect(idsOf('single-ui-coin')).toEqual(['coin'])
     expect(SINGLES[0]!.maxEdge).toBe(64)
     expect(SCENERY.map(a => [a.stem, a.width, a.height, a.target, a.bg, a.tileable])).toEqual([
@@ -231,6 +231,7 @@ describe('the manifest covers the game', () => {
       ['bg-ui-skills', 1376, 768, 'images/ui/bg-skills.webp', 'opaque', false],
       ['bg-ui-forge', 1376, 768, 'images/ui/bg-forge.webp', 'opaque', false],
       ['bg-ui-alchemy', 1376, 768, 'images/ui/bg-alchemy.webp', 'opaque', false],
+      ['bg-ui-ore', 1376, 768, 'images/ui/bg-ore.webp', 'opaque', false],
       ['bg-ground', 512, 512, 'images/textures/ground.webp', 'opaque', true]
     ])
     // A piece covers its corner of its quarter: the bottom right piece of the
@@ -242,7 +243,7 @@ describe('the manifest covers the game', () => {
     // The screen's own name for it: what `UI_ART.get('bg-<name>')` looks up.
     expect(SCENERY.filter(a => a.plate === 'screen').map(a => [a.screen!.name, a.target])).toEqual([
       ['trade', 'images/ui/bg-trade.webp'], ['inventory', 'images/ui/bg-inventory.webp'], ['skills', 'images/ui/bg-skills.webp'],
-      ['forge', 'images/ui/bg-forge.webp'], ['alchemy', 'images/ui/bg-alchemy.webp']
+      ['forge', 'images/ui/bg-forge.webp'], ['alchemy', 'images/ui/bg-alchemy.webp'], ['ore', 'images/ui/bg-ore.webp']
     ])
   })
 
@@ -275,7 +276,7 @@ describe('the manifest covers the game', () => {
     // ... and the logo's badge and mascot, and the painted wordmark (#76).
     // ... and the wooden cup of the cup stand (the last +1).
     // The portraits: 43 speakers (21 of them teachers), the boy hero's four and the girl hero's four.
-    expect(seen.size).toBe(210 + SMITHED.length + 6 + SKILLS.length + 43 + 4 + 4 + 1 + 2 + 5 + ORNAMENTS.length + Object.keys(BAR_FRAME_REFS).length + icons + 2 + 1 + 1)
+    expect(seen.size).toBe(210 + SMITHED.length + 6 + SKILLS.length + 43 + 4 + 4 + 1 + 2 + 6 + ORNAMENTS.length + Object.keys(BAR_FRAME_REFS).length + icons + 2 + 1 + 1)
     // The catalogue `pnpm art:status` reports on is exactly what the sheets write.
     const catalogue = Object.entries(ART_CATALOGUE).flatMap(([kind, ids]) => ids.map(id => artTarget(kind as keyof typeof ART_CATALOGUE, id)))
     expect([...catalogue].sort()).toEqual([...seen].sort())

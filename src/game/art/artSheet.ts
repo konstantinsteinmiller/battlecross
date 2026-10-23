@@ -90,7 +90,7 @@ export const ART_CATALOGUE: Readonly<Record<ArtKind, readonly string[]>> = {
   skills: CLASS_IDS.flatMap(c => skillsOf(c).map(s => s.id)),
   portraits: [...TOWN_LOOKS, ...TRAINER_LOOKS, ...MASTER_LOOKS_A, ...MASTER_LOOKS_B, ...SPEAKER_LOOKS, ...HERO_LOOKS, ...HERO_F_LOOKS],
   // ... and the border-inset ornaments of the cel interface (`ORNAMENTS`).
-  ui: ['coin', 'cup', 'map', 'bg-trade', 'bg-inventory', 'bg-skills', 'bg-forge', 'bg-alchemy', ...ORNAMENTS.map(o => o.id), ...Object.keys(BAR_FRAME_REFS)],
+  ui: ['coin', 'cup', 'map', 'bg-trade', 'bg-inventory', 'bg-skills', 'bg-forge', 'bg-alchemy', 'bg-ore', ...ORNAMENTS.map(o => o.id), ...Object.keys(BAR_FRAME_REFS)],
   textures: ['ground'],
   // Defined below with their sheets (`ICON_CELLS`); a getter, because the
   // cells are built after this table.
@@ -814,7 +814,7 @@ export interface ArtScenery {
   label: string
   /** A screen's backdrop (`components/game/backdrops.ts`): which one, and
    *  what is in it, left, right and in the calm middle, for its prompt. */
-  screen?: { name: 'trade' | 'inventory' | 'skills' | 'forge' | 'alchemy'; what: string; left: string; right: string; middle: string }
+  screen?: { name: 'trade' | 'inventory' | 'skills' | 'forge' | 'alchemy' | 'ore'; what: string; left: string; right: string; middle: string }
 }
 
 /** `rustedShortsword` → `Rusted Shortsword`. */
@@ -1281,9 +1281,9 @@ export const SCENERY: readonly ArtScenery[] = [
     target: artTarget('ui', 'bg-forge'), maxEdge: 1376, tileable: false, bg: 'opaque', plate: 'screen', label: 'Smithy',
     screen: {
       name: 'forge',
-      what: 'the inside wall of a blacksmith’s forge: courses of dark grey dressed stone blocks filling the picture, every other course offset, a warm orange glow from the hearth washing over the left of the wall, and iron tongs hanging from a hook near the top of the wall.',
-      left: 'a tall red-brick arched hearth with a black iron hood above it: inside the arch a roaring fire of orange and yellow flames on a bed of glowing coals, a few sparks rising.',
-      right: 'a steel anvil standing on a thick wooden block, a hammer with a wooden handle lying across it, a glowing orange bar of hot iron on its face, and a few sparks around it.',
+      what: 'the inside wall of a busy blacksmith’s forge: courses of dark grey dressed stone blocks filling the picture, every other course offset, a warm orange glow from the hearth washing over the left of the wall, and iron tongs hanging from a hook high on the right.',
+      left: 'a tall red-brick arched hearth with a black iron hood above it — its bricks laid in staggered courses that follow the arch and stop at its edge: inside the arch a roaring fire of orange and yellow flames on a bed of glowing coals, a few sparks rising; above the hood a wooden shelf with four iron ingots and a horseshoe hanging on a peg.',
+      right: 'a steel anvil standing on a thick wooden block, a smith’s hammer lying on its face (a wooden handle running into a square steel head), a glowing orange bar of hot iron on its horn, and a few sparks; above it a wall rack with three hammers hanging head down and two finished swords; on the floor in front a wooden water barrel with iron hoops.',
       middle: 'the plain grey stone wall, slightly darker and smoke-stained, nothing on it.'
     }
   },
@@ -1294,8 +1294,19 @@ export const SCENERY: readonly ArtScenery[] = [
       name: 'alchemy',
       what: 'a herbalist’s workroom wall: upright dark green wooden boards filling the picture, bunches of dried herbs hanging from the top edge on strings, warm lamplight from the right.',
       left: 'three wooden shelves one above another, each holding a row of corked glass bottles of coloured liquid (red, blue, green, purple, yellow) in different sizes, with small white glints on the glass.',
-      right: 'a round black iron cauldron on a low fire of orange flames, bubbling bright green liquid, pale steam curling up, and a wooden ledge below with a stone mortar and an open book.',
+      right: 'a big round black iron cauldron with a thick rolled rim and two lugs, seen from slightly above so the rim is an oval ring around bubbling bright green liquid, standing over a crackling fire whose layered orange and yellow tongues lick up round its belly; pale steam curling up; a wooden ledge below with a stone mortar and pestle and an open book.',
       middle: 'the plain dark green boards, slightly darker and quiet, nothing on them.'
+    }
+  },
+  {
+    stem: 'bg-ui-ore', title: 'UI: the ore buyer’s backdrop', kind: 'ui', doc: 'PROMPTS-UI.md', width: 1376, height: 768,
+    target: artTarget('ui', 'bg-ore'), maxEdge: 1376, tileable: false, bg: 'opaque', plate: 'screen', label: 'Ore counter',
+    screen: {
+      name: 'ore',
+      what: 'the smith’s ore store room: a rough brown-grey rock wall of irregular blocks filling the picture, framed by two thick timber posts and a timber beam across the top, warm lantern light from the left.',
+      left: 'an iron-banded wooden mine cart on short rails, heaped with chunky ore nuggets in six colours (dull iron grey, silver white, gold, icy cyan mithril, deep red adamant, violet aetherite) that glint; a pickaxe leaning against the post; a brass lantern hanging from the beam, glowing.',
+      right: 'a sturdy wooden buying counter: a brass balance scale with a gold nugget in one pan and a coin in the other, three shallow wooden trays of sorted ore nuggets in those colours, and a bulging leather sack of ore on the floor.',
+      middle: 'the plain rock wall between the posts, slightly darker and quiet, nothing on it.'
     }
   },
   {
@@ -2123,6 +2134,8 @@ const screenPrompt = (a: ArtScenery): string => {
     `· LEFT: ${sc.left}`,
     `· RIGHT: ${sc.right}`,
     `· MIDDLE: ${sc.middle}`,
+    '',
+    'BUILD EVERY OBJECT RIGHT, even where the reference is crude. The reference is a LAYOUT drawn from flat shapes; it fixes where things stand and how big they are, not how they are built. Paint each object as the real, solid thing it is, with volume, light and a shadow: a pot\'s rim is a round rolled ring seen from slightly above, never a flat bar across it; a fire is layered tongues of flame, never one cut-out shape; mortar joints and brick courses stay inside the masonry and follow its curve, never a line running past an arch\'s edge; a tool\'s handle runs into its head. Never copy a flat rectangle or a stray line of the reference as if it were part of the object.',
     '',
     'THE CALM MIDDLE — read this twice. The game lays its interface over the middle of this picture: panels, buttons and white lettering with a dark outline. The middle 44% of the width (from 28% to 72% across) is ALWAYS covered, and on a phone held upright it is all that is seen. Keep that band one quiet, even surface: no objects, no strong pattern, no bright spot, no dark hole, nothing that draws the eye. Every object lives in the outer 28% at each side, and nothing important sits in the top 12% (a bar of buttons covers it).',
     '',

@@ -18698,6 +18698,17 @@
       "bg": "opaque"
     },
     {
+      "id": "bg-ui-ore",
+      "file": "bg-ui-ore.png",
+      "title": "UI: the ore buyer’s backdrop",
+      "width": 1376,
+      "height": 768,
+      "target": "images/ui/bg-ore.webp",
+      "maxEdge": 1376,
+      "tileable": false,
+      "bg": "opaque"
+    },
+    {
       "id": "bg-ground",
       "file": "bg-ground.png",
       "title": "Texture: the ground detail",

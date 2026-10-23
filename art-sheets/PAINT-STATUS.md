@@ -4,7 +4,7 @@ A report, not a contract: it is a picture of `art-sheets/painted/` and the
 slicer's receipt at the moment it was written. Re-run `pnpm art:prompts`
 after painting or slicing anything.
 
-**128 sliced · 1 need a repaint · 2 painted, unreceipted · 0 outstanding**
+**128 sliced · 2 need a repaint · 2 painted, unreceipted · 0 outstanding**
 
 | | Sheet | Prompt block in | Reference | State |
 | --- | --- | --- | --- | --- |
@@ -136,8 +136,9 @@ after painting or slicing anything.
 | ✓ | **UI: the trade table backdrop** | `PROMPTS-UI.md` | `bg-ui-trade.png` (rev `748f6cfd871f`) | sliced 2026-10-18 |
 | ✓ | **UI: the equipment backdrop** | `PROMPTS-UI.md` | `bg-ui-inventory.png` (rev `f58e29283d5b`) | sliced 2026-10-18 |
 | ✓ | **UI: the skills backdrop** | `PROMPTS-UI.md` | `bg-ui-skills.png` (rev `c1d39c64381c`) | sliced 2026-10-18 |
-| ✓ | **UI: the smithy backdrop** | `PROMPTS-UI.md` | `bg-ui-forge.png` (rev `5f4818d2b7d7`) | sliced 2026-10-18 |
-| ✓ | **UI: the alchemist’s workroom backdrop** | `PROMPTS-UI.md` | `bg-ui-alchemy.png` (rev `54b0683cae30`) | sliced 2026-10-18 |
+| ! | **UI: the smithy backdrop** | `PROMPTS-UI.md` | `bg-ui-forge.png` (rev `bcb8bcdc2511`) | REPAINT — the reference changed (6a8d147dc598 → bcb8bcdc2511) |
+| ✓ | **UI: the alchemist’s workroom backdrop** | `PROMPTS-UI.md` | `bg-ui-alchemy.png` (rev `bd41700293ce`) | sliced 2026-10-23 |
+| ✓ | **UI: the ore buyer’s backdrop** | `PROMPTS-UI.md` | `bg-ui-ore.png` (rev `f4a652bd2b0a`) | sliced 2026-10-23 |
 | ✓ | **Texture: the ground detail** | `PROMPTS-UI.md` | `bg-ground.png` (rev `cdfbedea9f01`) | sliced 2026-10-18 |
 
 ## What the marks mean

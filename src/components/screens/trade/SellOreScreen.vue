@@ -1,7 +1,7 @@
 <template lang="pug">
   TradeFrame(
     ref="frame"
-    art="forge"
+    art="ore"
     :look="npc ? npc.look : 'smith'"
     :name="npc ? t(`npc.${npc.id}.name`) : ''"
     :line="t('sellOre.talk')"
@@ -146,20 +146,30 @@ const sell = (): void => {
   display: flex
   align-items: center
   gap: 0.25em
+// The steppers (#162): a dark slate key with a gold rim, so they stand off the
+// leather row they sit on instead of melting into it.
 .ore-row__btn, .ore-row__quick
-  +screen.plate('leather')
+  +screen.plate('slate', var(--bc-r-md))
   min-width: max(2.75rem, 44px)
   min-height: max(2.75rem, 44px)
   padding: 0 0.5em
-  border: 0
-  color: var(--bc-text)
+  box-shadow: inset 0 0 0 2px var(--bc-gold-lo), var(--bc-drop-soft)
+  color: var(--bc-gold-hi)
   font: inherit
   +cel.label
   font-size: clamp(0.8rem, 3.2vmin, 1.05rem)
+  text-shadow: var(--bc-text-outline-thin)
   cursor: pointer
   touch-action: manipulation
+  transition: filter var(--bc-t-release, 120ms) ease, transform var(--bc-t-release, 120ms) ease
+  &:hover:not(:disabled), &:focus-visible
+    filter: brightness(1.2)
+  &:active:not(:disabled)
+    transform: translateY(1px)
   &:disabled
-    opacity: 0.45
+    box-shadow: var(--bc-drop-soft)
+    color: var(--bc-text-soft)
+    opacity: 0.5
     cursor: default
 // − and + drawn as bars: the display font's "+" is a speck beside its "−".
 .ore-row__sign

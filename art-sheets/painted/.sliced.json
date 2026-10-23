@@ -505,18 +505,6 @@
       "painting": "fec557b6916a",
       "at": "2026-10-18T12:26:27.608Z"
     },
-    "bg-ui-forge.jpg": {
-      "sheet": "bg-ui-forge",
-      "rev": "5f4818d2b7d7",
-      "painting": "bc0554f9884d",
-      "at": "2026-10-18T12:26:25.624Z"
-    },
-    "bg-ui-alchemy.jpg": {
-      "sheet": "bg-ui-alchemy",
-      "rev": "54b0683cae30",
-      "painting": "a569006ae8ec",
-      "at": "2026-10-18T12:26:25.358Z"
-    },
     "sheet-ui-ornaments.jpg": {
       "sheet": "sheet-ui-ornaments",
       "rev": "518a67362d95",
@@ -852,6 +840,24 @@
       "rev": "ff66a2fd64e1",
       "painting": "d35553b89dfd",
       "at": "2026-10-20T15:01:09.805Z"
+    },
+    "bg-ui-alchemy.jpg": {
+      "sheet": "bg-ui-alchemy",
+      "rev": "bd41700293ce",
+      "painting": "3c622577d211",
+      "at": "2026-10-23T16:19:54.175Z"
+    },
+    "bg-ui-ore.jpg": {
+      "sheet": "bg-ui-ore",
+      "rev": "f4a652bd2b0a",
+      "painting": "7c6e9fbfd21b",
+      "at": "2026-10-23T16:25:30.971Z"
+    },
+    "bg-ui-forge.jpg": {
+      "sheet": "bg-ui-forge",
+      "rev": "bcb8bcdc2511",
+      "painting": "50cc76a3d74e",
+      "at": "2026-10-23T16:27:59.768Z"
     }
   }
 }

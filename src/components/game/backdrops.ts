@@ -24,8 +24,8 @@ export const BACKDROP_H = 768
 /** The calm middle, as fractions of the sheet's width. */
 export const BACKDROP_SAFE: readonly [number, number] = [0.28, 0.72]
 
-export type BackdropName = 'trade' | 'inventory' | 'skills' | 'forge' | 'alchemy'
-export const BACKDROPS: readonly BackdropName[] = ['trade', 'inventory', 'skills', 'forge', 'alchemy']
+export type BackdropName = 'trade' | 'inventory' | 'skills' | 'forge' | 'alchemy' | 'ore'
+export const BACKDROPS: readonly BackdropName[] = ['trade', 'inventory', 'skills', 'forge', 'alchemy', 'ore']
 
 const W = BACKDROP_W
 const H = BACKDROP_H
@@ -388,12 +388,21 @@ const forgeSvg = (): string => {
   s += `<rect x="385" y="0" width="606" height="${H}" fill="${STONE.seam}" opacity="0.18"/>`
 
   // ── The hearth (left): a brick arch, coals and fire, a hood above ──
-  s += S('M40 768V430Q40 300 190 300Q340 300 340 430V768Z', BRICK.base)
-  for (let y = 330; y < 768; y += 34) s += L(`M46 ${y}H334`, BRICK.lo, 4)
+  // The arch's bricks: courses clipped to the arch, staggered joints, so no line leaves the masonry.
+  const ARCH = 'M40 768V430Q40 300 190 300Q340 300 340 430V768Z'
+  s += S(ARCH, BRICK.base)
+  s += `<clipPath id="forge-arch"><path d="${ARCH}"/></clipPath><g clip-path="url(#forge-arch)">`
+  for (let y = 334, r = 0; y < 768; y += 34, r++) {
+    s += L(`M40 ${y}H340`, BRICK.lo, 4)
+    for (let x = 40 + (r % 2) * 24; x < 340; x += 48) s += L(`M${x} ${y - 34}v34`, BRICK.lo, 3)
+  }
+  s += `</g>` + S(ARCH, 'none')
   s += S('M80 768V460Q80 360 190 360Q300 360 300 460V768Z', '#2a1810')
   s += E(190, 690, 104, 38, FIRE.deep, 4) + E(190, 680, 86, 28, FIRE.lo, 0) + E(190, 674, 54, 16, FIRE.hi, 0)
-  s += S('M130 690Q120 600 165 560Q160 620 190 640Q200 570 240 540Q232 610 252 690Z', FIRE.base, 4)
-  s += F('M160 690Q156 640 180 612Q186 650 200 660Q210 630 224 618Q226 660 228 690Z', FIRE.hi)
+  // A roaring fire: layered tongues across the whole bed of coals, not one cut-out.
+  s += S('M100 690Q90 610 122 570Q128 620 146 634Q140 560 172 500Q182 580 196 600Q204 530 238 486Q240 570 252 596Q268 560 288 548Q296 620 280 690Z', FIRE.lo, 4)
+  s += F('M118 690Q112 636 138 606Q144 640 160 650Q160 596 186 556Q194 616 208 630Q218 584 240 556Q244 616 258 640Q270 616 278 610Q282 660 268 690Z', FIRE.base)
+  s += F('M146 690Q142 656 162 636Q168 660 182 664Q186 628 204 606Q210 650 224 660Q236 640 248 632Q252 668 242 690Z', FIRE.hi)
   s += S('M10 300L60 150H320L370 300Z', STONE.lo)
   s += L('M60 150H320', STONE.hi, 6)
   // Sparks rising.
@@ -405,12 +414,87 @@ const forgeSvg = (): string => {
   s += S('M1030 560H1240Q1300 560 1330 530L1336 556Q1306 600 1240 604H1210L1196 620H1120L1106 604H1050Q1030 600 1030 580Z', STEEL.lo)
   s += F('M1036 566H1236Q1290 566 1318 542', STEEL.hi, 0.9)
   s += L('M1036 566H1236Q1290 566 1318 542', STEEL.hi, 6)
-  s += S('M1070 548L1196 520L1204 540L1078 568Z', '#8a5a34', 4)
-  s += S('M1180 500H1236V552H1180Z', STEEL.base, 4)
-  s += L('M1140 120L1110 360M1160 120L1190 360', STEEL.lo, 10)
-  s += C(1150, 120, 16, STEEL.base, 5)
+  // The hammer lying on the face: a wooden handle that runs INTO the head, the head square to it.
+  s += S('M1060 556L1176 530L1180 546L1064 572Z', '#8a5a34', 4)
+  s += S('M1170 512L1222 500L1234 552L1182 564Z', STEEL.base, 4) + F('M1174 516L1218 506L1222 522L1178 532Z', STEEL.hi, 0.8)
+  s += L('M1318 76L1300 176M1334 76L1352 176', STEEL.lo, 8)
+  s += C(1326, 72, 12, STEEL.base, 4)
   // A glowing bar waiting on the anvil's horn.
   s += S('M1260 536H1330V548H1260Z', FIRE.lo, 3)
+
+  // ── The walls are a working smithy, not bare stone ──
+  // Left, above the hood: a shelf of iron ingots and a horseshoe on a peg.
+  s += R(20, 92, 340, 14, 3, '#7a4a28')
+  for (let k = 0; k < 4; k++) s += S(`M${40 + k * 52} 92L${48 + k * 52} 66H${80 + k * 52}L${88 + k * 52} 92Z`, STEEL.lo, 4)
+  s += L('M300 40Q276 40 276 64Q276 84 300 84M300 40Q324 40 324 64Q324 84 300 84', STEEL.base, 8)
+  // Right: a rack of hammers and a finished sword on the wall, a water barrel on the floor.
+  s += R(1010, 200, 320, 14, 3, '#7a4a28')
+  for (const x of [1036, 1076, 1116]) s += L(`M${x} 214V320`, '#8a5a34', 8) + R(x - 16, 300, 32, 24, 4, STEEL.base, 4)
+  s += S('M1210 214H1226V420L1218 440L1210 420Z', STEEL.base, 4) + R(1196, 214, 44, 10, 3, BRASS.base, 3) + R(1210, 190, 16, 26, 3, LEATHER.lo, 3)
+  s += S('M1260 214H1276V400L1268 420L1260 400Z', STEEL.base, 4) + R(1246, 214, 44, 10, 3, BRASS.base, 3) + R(1260, 190, 16, 26, 3, LEATHER.lo, 3)
+  s += S('M920 768V640Q920 620 990 620Q1060 620 1060 640V768Z', '#8a5730')
+  s += L('M920 668H1060M920 728H1060', STEEL.lo, 8) + E(990, 626, 66, 12, '#3f6f9a', 3)
+  return wrap(s)
+}
+
+// ═══════════════════════════════════════════════════════════
+// Ore: the smith's buying counter, in a timbered store room
+// ═══════════════════════════════════════════════════════════
+const ROCK = { hi: '#7d6f62', base: '#665a4f', lo: '#54493f', seam: '#2f2822' }
+const BEAM = { hi: '#a8743f', base: '#8a5a30', lo: '#6b4322' }
+/** The six ores (iron, silver, gold, mithril, adamant, aetherite), as the game tints them. */
+const ORE = ['#8f949e', '#d8dde6', '#ffc526', '#5fd8e6', '#e0485a', '#a77bff']
+
+const nugget = (x: number, y: number, r: number, c: string, rnd: () => number): string => {
+  const pts: string[] = []
+  for (let k = 0; k < 7; k++) {
+    const a = (k / 7) * Math.PI * 2
+    const rr = r * (0.75 + rnd() * 0.35)
+    pts.push(`${n1(x + Math.cos(a) * rr)} ${n1(y + Math.sin(a) * rr * 0.8)}`)
+  }
+  return S(`M${pts.join('L')}Z`, c, 4) + C(x - r * 0.3, y - r * 0.3, r * 0.18, '#ffffff', 0, 0.7)
+}
+
+const oreSvg = (): string => {
+  const rnd = seeded(97)
+  let s = `<rect width="${W}" height="${H}" fill="${ROCK.base}"/>`
+  // Rough rock wall: irregular blocks.
+  for (let y = 0; y < H; y += 96) {
+    for (let x = -(y / 96 % 2) * 70; x < W; x += 140 + Math.round(rnd() * 30)) {
+      s += `<rect x="${x + 4}" y="${y + 4}" width="130" height="88" rx="22" fill="${rnd() < 0.5 ? ROCK.lo : ROCK.hi}" opacity="0.55"/>`
+    }
+  }
+  // Timber posts and a lintel framing the room.
+  for (const x of [330, 1010]) s += R(x, 0, 36, H, 4, BEAM.base) + F(`M${x + 6} 0V${H}`, BEAM.hi, 0.5)
+  s += R(0, 30, W, 34, 4, BEAM.base) + F(`M0 36H${W}`, BEAM.hi, 0.5)
+  // The calm middle, a little darker.
+  s += `<rect x="385" y="64" width="606" height="${H}" fill="${ROCK.seam}" opacity="0.2"/>`
+
+  // ── Left: a mine cart heaped with ore on its rails, a pickaxe leaning on the post ──
+  s += L('M0 742H360M0 762H360', STEEL.lo, 8)
+  for (let x = 10; x < 360; x += 44) s += R(x, 736, 26, 34, 3, BEAM.lo, 3)
+  s += S('M40 720L60 600H300L320 720Z', BEAM.base) + L('M56 640H304M48 680H312', STEEL.lo, 8)
+  s += C(100, 728, 26, STEEL.lo) + C(260, 728, 26, STEEL.lo)
+  for (let k = 0; k < 9; k++) s += nugget(80 + (k % 5) * 50 + rnd() * 12, 590 - Math.floor(k / 5) * 30 - rnd() * 8, 22, ORE[k % ORE.length]!, rnd)
+  s += L('M300 560L370 260', BEAM.lo, 10) + S('M320 270Q370 230 420 268L372 262Z', STEEL.base, 4)
+  // A lantern on a hook.
+  s += L('M170 64V150', INK, 4) + S('M146 150H194L204 230H136Z', BRASS.base, 4) + C(170, 196, 18, '#fff3a0', 0, 0.9)
+  s += C(170, 196, 120, '#fff3a0', 0, 0.12)
+
+  // ── Right: the buying counter, a balance scale, ore sorted in trays ──
+  s += S(`M1040 768V560H${W}V768Z`, BEAM.base) + R(1030, 540, W - 1030, 30, 4, BEAM.hi)
+  s += L('M1040 640H1376M1040 710H1376', BEAM.lo, 5)
+  s += L('M1200 540V400M1110 410H1290', BRASS.lo, 8) + C(1200, 396, 12, BRASS.base, 4)
+  s += L('M1110 410L1090 470M1110 410L1130 470M1290 410L1270 470M1290 410L1310 470', INK, 3)
+  s += S('M1080 470Q1110 500 1140 470Z', BRASS.base, 4) + S('M1260 470Q1290 500 1320 470Z', BRASS.base, 4)
+  s += nugget(1110, 466, 14, ORE[2]!, rnd) + coin(1290, 468, 12)
+  for (let k = 0; k < 3; k++) {
+    const x = 1060 + k * 104
+    s += R(x, 512, 90, 28, 6, BEAM.lo, 4)
+    for (let j = 0; j < 3; j++) s += nugget(x + 20 + j * 25, 508, 13, ORE[k * 2 + (j % 2)]!, rnd)
+  }
+  // Sacks of ore on the floor before the counter.
+  s += S('M1060 768Q1040 700 1080 680Q1120 670 1140 700Q1150 740 1130 768Z', LEATHER.base)
   return wrap(s)
 }
 
@@ -445,11 +529,19 @@ const alchemySvg = (): string => {
   }
 
   // ── The cauldron (right): on a low fire, steam, herbs hanging above ──
-  s += E(1170, 700, 170, 40, '#2a1810', 4)
-  s += S('M1030 520Q1030 700 1170 700Q1310 700 1310 520Z', '#3a3a4c')
-  s += E(1170, 520, 140, 34, '#2a2a38', 5) + E(1170, 522, 118, 24, '#5fd86a', 0)
-  s += S('M1010 508H1330V532H1010Z', '#4c5580', 4)
-  s += S('M1110 710Q1100 650 1140 620Q1140 670 1170 690Q1180 640 1220 618Q1220 670 1240 710Z', '#f09410', 4)
+  // The fire first, licking up round the pot's belly: layered tongues, not one cut-out.
+  s += E(1170, 712, 150, 30, '#2a1810', 4)
+  s += S('M1060 712Q1040 640 1080 600Q1084 650 1110 664Q1104 600 1140 566Q1146 630 1170 650Q1180 590 1216 560Q1224 630 1240 660Q1262 610 1290 596Q1306 650 1282 712Z', FIRE.lo, 4)
+  s += F('M1090 712Q1080 666 1106 640Q1112 676 1134 686Q1136 640 1164 616Q1170 668 1190 680Q1204 640 1228 622Q1238 670 1252 712Z', FIRE.base)
+  s += F('M1128 712Q1124 684 1144 668Q1150 692 1170 698Q1180 676 1200 664Q1208 690 1214 712Z', FIRE.hi)
+  // The pot: a round iron belly with a thick rolled rim (an ellipse ring, not a bar) and two lugs.
+  s += S('M1036 524Q1022 690 1170 696Q1318 690 1304 524Z', '#3a3a4c')
+  s += F('M1060 560Q1060 660 1130 680Q1080 640 1078 560Z', '#55566e', 0.8)
+  s += E(1170, 524, 146, 36, '#4c5580', 5) + E(1170, 524, 126, 26, '#2a2a38', 0) + E(1170, 528, 120, 22, '#5fd86a', 0)
+  s += E(1170, 524, 146, 36, 'none', 0) + L('M1032 520Q1170 470 1308 520', STEEL.hi, 4, ' opacity="0.6"')
+  s += C(1024, 560, 14, '#4c5580', 4) + C(1316, 560, 14, '#4c5580', 4)
+  // Bubbles breaking on the brew.
+  for (let k = 0; k < 4; k++) s += C(1110 + k * 38 + rnd() * 10, 520 - rnd() * 10, 8 + rnd() * 6, '#9af0a0', 3)
   for (let k = 0; k < 5; k++) s += C(1120 + rnd() * 100, 440 - k * 50, 12 + rnd() * 10, '#e8f4e8', 0, 0.35)
   for (let k = 0; k < 5; k++) {
     const x = 1010 + k * 70
@@ -458,10 +550,12 @@ const alchemySvg = (): string => {
   }
   // A book and a mortar on a ledge, bottom right.
   s += R(1000, 730, 340, 24, 4, LEATHER.base)
+  s += S('M1004 730L1010 690L1070 680L1076 722Z', PAPER.base, 4) + L('M1040 684L1044 726', PAPER.deep, 3)
+  s += S('M1300 730Q1290 690 1306 686H1346Q1360 690 1352 730Z', STONE.hi, 4) + L('M1318 690L1350 640', LEATHER.lo, 8)
   return wrap(s)
 }
 
-const BUILDERS: Record<BackdropName, () => string> = { trade: tradeSvg, inventory: inventorySvg, skills: skillsSvg, forge: forgeSvg, alchemy: alchemySvg }
+const BUILDERS: Record<BackdropName, () => string> = { trade: tradeSvg, inventory: inventorySvg, skills: skillsSvg, forge: forgeSvg, alchemy: alchemySvg, ore: oreSvg }
 const cache: Partial<Record<BackdropName, string>> = {}
 
 /** The drawn backdrop, as one standalone SVG document. */
