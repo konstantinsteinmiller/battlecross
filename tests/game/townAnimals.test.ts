@@ -262,6 +262,48 @@ describe('the animals walk on their legs (#102)', () => {
     }
   })
 
+  it('no town animal ever puts a paw into the ground, in any town, gait, pose or slope (#161)', async () => {
+    const { Mesh, Vector3 } = await import('three')
+    const { groundAt } = await import('@/game/gfx/ground')
+    const { vi } = await import('vitest')
+    // Their wanderings drawn from a seeded die, so every run walks the same streets.
+    let seed = 1
+    const rand = vi.spyOn(Math, 'random').mockImplementation(() => ((seed = (seed * 16807) % 2147483647) - 1) / 2147483646)
+    const v = new Vector3()
+    try {
+      for (const town of ['sunford', 'oakhaven', 'ironhold', 'silverbridge'] as const) {
+        const { zoo } = await build(town)
+        const worst = new Map<string, number>()
+        const kinds = new Set<string>()
+        for (let f = 0; f < 1500; f++) {
+          // The hero strolls the town in a wide loop: dogs greet him, cats keep off, squirrels flee.
+          const t = f / 60
+          zoo.update(1 / 60, 30 + Math.cos(t * 0.3) * 25, 30 + Math.sin(t * 0.2) * 25)
+          for (const b of zoo.beasts) {
+            if (!b.legs.length || !b.obj.visible || !b.stand.visible || b.mode === 'up' || b.mode === 'down') continue
+            kinds.add(b.kind)
+            b.obj.updateMatrixWorld(true)
+            for (const [i, l] of b.legs.entries()) {
+              l.obj.traverse(o => {
+                if (!(o instanceof Mesh) || o.renderOrder < 0) return
+                const pos = o.geometry.getAttribute('position')
+                for (let k = 0; k < pos.count; k++) {
+                  v.fromBufferAttribute(pos, k).applyMatrix4(o.matrixWorld)
+                  const key = `${town} ${b.kind} leg ${i} (${b.mode})`
+                  worst.set(key, Math.min(worst.get(key) ?? Infinity, v.y - groundAt(v.x, v.z)))
+                }
+              })
+            }
+          }
+        }
+        expect(kinds.has('dog'), `${town} has a dog on its legs`).toBe(true)
+        for (const [key, d] of worst) expect(d, key).toBeGreaterThan(-0.002)
+      }
+    } finally {
+      rand.mockRestore()
+    }
+  }, 60000)
+
   it('the body vaults over its planted legs: no planted leg is ever stretched, the hips dip twice a cycle (#123)', async () => {
     const { WALK, TROT, pawAt, legPose, strideFor, vaultDrop } = await import('@/game/gfx/townAnimals')
     const len = 0.32

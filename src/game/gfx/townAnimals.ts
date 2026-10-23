@@ -170,7 +170,7 @@ export const animalKits = (kind: AnimalKind, coat: Coat, pose: AnimalPose = 'sta
   }
   // A squirrel, crouched.
   h.ball(0, 0.08, 0.01, 0.065, coat.fur, 6, 4, 1.1)
-  h.ball(0, 0.07, -0.05, 0.075, coat.fur, 6, 4)
+  h.ball(0, 0.08, -0.05, 0.075, coat.fur, 6, 4)
   h.ball(0, 0.14, 0.075, 0.052, coat.fur, 6, 4)
   d.ball(0, 0.07, 0.05, 0.04, coat.belly, 5, 3)
   for (const s of [-1, 1]) d.prism([[s * 0.03 - 0.015, 0.175], [s * 0.03 + 0.015, 0.175], [s * 0.033, 0.215]], 0.06, 0.08, coat.ear)
@@ -288,6 +288,8 @@ export interface Beast {
   /** Where in the gait cycle it is, and how fast it went this frame. */
   cycle: number
   speed: number
+  /** How far the body was tipped back last frame (a squirrel sat up). */
+  tilt: number
 }
 
 /** A pet is drawn bigger than life, as the cartoon camera needs: a real cat
@@ -298,6 +300,10 @@ const SIZE: Readonly<Record<AnimalKind, number>> = { chicken: 1, cat: 1.3, dog: 
  *  street's stones (laid 2.5 cm up), with the dip of the paw ball below its
  *  leg's end when the leg is turned. */
 const PAW_CLEAR = 0.04
+
+/** How far behind its middle a squirrel's rump is, in model units: what it
+ *  tips back about when it sits up. */
+const SQUIRREL_RUMP = 0.1
 
 const WALKABLE = new Set([TC_GRASS, TC_STREET, TC_SQUARE, TC_YARD, TC_GROUND])
 
@@ -437,9 +443,12 @@ export class TownAnimals {
     const b: Beast = {
       kind, sitter: false, obj, stand, sit, head, tail, headAt: { stand: st.headAt, sit: sitHead },
       x, z, y: 0, tx: x, tz: z, hx: x, hz: z, yaw: clock, mode: 'idle', t: 1 + (clock % 2), clock, cool: 0, hop: 0, tree: null, seed: clock, size: SIZE[kind],
-      legs, cycle: 0, speed: 0
+      legs, cycle: 0, speed: 0, tilt: 0
     }
     this.place(b)
+    // Its legs set to the ground from the first frame, not eased there from
+    // their unposed length while an uphill paw stands in the slope (#161).
+    if (legs.length) this.stride(b, 1)
     this.beasts.push(b)
     return b
   }
@@ -491,16 +500,47 @@ export class TownAnimals {
     const rise = (ax: number, az: number): number => {
       const px = b.x + (ax * c + az * s) * b.size
       const pz = b.z + (-ax * s + az * c) * b.size
-      const d = (groundAt(px, pz) - base + PAW_CLEAR) / b.size
-      return Math.max(-0.3 * len, Math.min(0.3 * len, d))
+      return (groundAt(px, pz) - base + PAW_CLEAR) / b.size
+    }
+    // A leg reaches at most 0.3 of its length up or down to the ground under
+    // its paw. Where the ground climbs more than that across the body (a
+    // steep lane, a step in the cobbles), the body is lifted by the rest, or
+    // the uphill paws would sink into the slope (#161).
+    const cap = 0.3 * len
+    const reach = (d: number[]): number[] => {
+      const lift = Math.max(0, Math.max(...d) - cap)
+      b.obj.position.y += lift * b.size
+      return d.map(x => Math.max(-cap, Math.min(cap, x - lift)))
     }
     if (v < 0.05) {
-      const k = Math.min(1, dt * 10)
-      for (const l of b.legs) {
-        const q = legPose(0, rise(l.obj.position.x, l.obj.position.z), len)
-        l.obj.rotation.x += (q.pitch - l.obj.rotation.x) * k
-        l.obj.scale.y += (q.stretch - l.obj.scale.y) * k
-      }
+      // A body tipped back (a squirrel sat up) hangs its legs straight down
+      // from where its tilt has carried the hips: the leg stretched or
+      // shortened to the ground, never left at its length through it; a hip
+      // tipped up out of reach holds its paw up (#161). The body tips in a
+      // snap, so its legs do too: eased, they would swing through the ground.
+      const tilt = b.obj.rotation.x
+      const k = tilt !== b.tilt ? 1 : Math.min(1, dt * 10)
+      b.tilt = tilt
+      const ct = Math.cos(tilt)
+      const st = Math.sin(tilt)
+      // (Sitting, the body is raised by the clearance its paws would stand on.)
+      const up = b.sit?.visible ? 0 : (b.obj.position.y - base) / b.size
+      const hips = b.legs.map(l => ({ y: up + l.obj.position.y * ct - l.obj.position.z * st, z: l.obj.position.y * st + l.obj.position.z * ct }))
+      const d = reach(b.legs.map((l, i) => rise(l.obj.position.x, hips[i]!.z)))
+      b.legs.forEach((l, i) => {
+        const reachDown = hips[i]!.y - d[i]!
+        const q = legPose(0, reachDown > 1.3 * len ? 0 : len - reachDown, len)
+        q.pitch -= tilt
+        // Eased in a straight line from where the paw is to where it goes, not
+        // by turn and stretch: that arc dips a paw below a slope (#161).
+        const s0 = len * l.obj.scale.y
+        const s1 = len * q.stretch
+        const z = -s0 * Math.sin(l.obj.rotation.x) + (-s1 * Math.sin(q.pitch) + s0 * Math.sin(l.obj.rotation.x)) * k
+        const y = -s0 * Math.cos(l.obj.rotation.x) + (-s1 * Math.cos(q.pitch) + s0 * Math.cos(l.obj.rotation.x)) * k
+        const e = legPose(z, len + y, len)
+        l.obj.rotation.x = e.pitch
+        l.obj.scale.y = e.stretch
+      })
       return
     }
     const g = b.kind === 'squirrel' ? BOUND : v > 1.4 ? TROT : WALK
@@ -510,9 +550,11 @@ export class TownAnimals {
     // legs reach down from the lowered hips, so every planted paw stays put.
     const drop = vaultDrop(g, b.cycle, stride, len)
     b.obj.position.y -= drop * b.size
+    const paws = b.legs.map((_, i) => pawAt(g, b.cycle + g.offsets[i]!, stride, len))
+    const d = reach(b.legs.map((l, i) => rise(l.obj.position.x, l.obj.position.z + paws[i]!.z)))
     b.legs.forEach((l, i) => {
-      const p = pawAt(g, b.cycle + g.offsets[i]!, stride, len)
-      const q = legPose(p.z, p.lift + drop + rise(l.obj.position.x, l.obj.position.z + p.z), len)
+      const p = paws[i]!
+      const q = legPose(p.z, p.lift + drop + d[i]!, len)
       l.obj.rotation.x = q.pitch
       l.obj.scale.y = q.stretch
     })
@@ -694,7 +736,8 @@ export class TownAnimals {
         b.y -= dt * 1.2
         b.yaw = 0
         pitch = Math.PI / 2
-        if (b.y <= 0) { b.y = 0; b.mode = 'idle'; b.t = 1 }
+        // At the foot of the trunk it lands level, not nose-first in the ground (#161).
+        if (b.y <= 0) { b.y = 0; b.mode = 'idle'; b.t = 1; pitch = 0 }
         break
       case 'walk':
         if (this.walk(b, dt, 3.2)) { b.mode = 'idle'; b.t = 0.6 + Math.random() * 1.8 }
@@ -717,6 +760,14 @@ export class TownAnimals {
       b.y = 0
     }
     b.obj.rotation.set(upright ? -0.9 : pitch, b.yaw, 0, 'YXZ')
+    if (upright) {
+      // It sits up on its haunches: tipped back about its rump, not about the
+      // middle of its belly, which would bury the rump and the hind legs (#161).
+      const r = SQUIRREL_RUMP * b.size
+      b.obj.position.x -= Math.sin(b.yaw) * r * (1 - Math.cos(0.9))
+      b.obj.position.y += r * Math.sin(0.9)
+      b.obj.position.z -= Math.cos(b.yaw) * r * (1 - Math.cos(0.9))
+    }
     if (b.tail) {
       // Upright, the tail stays up; it flicks while the squirrel waits.
       b.tail.rotation.x = (upright ? 0.9 : 0) + (b.mode === 'idle' ? Math.max(0, Math.sin(b.clock * 7)) * 0.35 : 0)
