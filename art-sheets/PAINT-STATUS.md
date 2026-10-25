@@ -4,7 +4,7 @@ A report, not a contract: it is a picture of `art-sheets/painted/` and the
 slicer's receipt at the moment it was written. Re-run `pnpm art:prompts`
 after painting or slicing anything.
 
-**128 sliced · 2 need a repaint · 2 painted, unreceipted · 0 outstanding**
+**132 sliced · 1 need a repaint · 2 painted, unreceipted · 0 outstanding**
 
 | | Sheet | Prompt block in | Reference | State |
 | --- | --- | --- | --- | --- |
@@ -101,6 +101,9 @@ after painting or slicing anything.
 | ✓ | **Portraits: masters and disciples, 1** | `PROMPTS-PORTRAITS.md` | `sheet-portraits-masters-1.png` (rev `8b3a87facbfa`) | sliced 2026-10-18 |
 | ✓ | **Portraits: masters and disciples, 2** | `PROMPTS-PORTRAITS.md` | `sheet-portraits-masters-2.png` (rev `f32fcb354d01`) | sliced 2026-10-18 |
 | ✓ | **Portraits: quest speakers** | `PROMPTS-PORTRAITS.md` | `sheet-portraits-speakers.png` (rev `58641c102acc`) | sliced 2026-10-18 |
+| ✓ | **Portraits: the fort, the freed and the townsfolk** | `PROMPTS-PORTRAITS.md` | `sheet-portraits-people-1.png` (rev `645ec9a5f9c1`) | sliced 2026-10-25 |
+| ✓ | **Portraits: Silverbridge traders** | `PROMPTS-PORTRAITS.md` | `sheet-portraits-people-2.png` (rev `a068b5c85387`) | sliced 2026-10-25 |
+| ✓ | **Portraits: gamblers, the fair and the mines** | `PROMPTS-PORTRAITS.md` | `sheet-portraits-people-3.png` (rev `958aff468507`) | sliced 2026-10-25 |
 | ✓ | **Portraits: the hero, per outfit** | `PROMPTS-PORTRAITS.md` | `sheet-portraits-hero.png` (rev `75c7036e6e95`) | sliced 2026-10-18 |
 | ✓ | **Portraits: the girl hero, per outfit** | `PROMPTS-PORTRAITS.md` | `sheet-portraits-girl.png` (rev `7e58d5984004`) | sliced 2026-10-18 |
 | ✓ | **UI: the border-inset ornaments (windows, cards, buttons)** | `PROMPTS-UI.md` | `sheet-ui-ornaments.png` (rev `518a67362d95`) | sliced 2026-10-18 |
@@ -136,7 +139,7 @@ after painting or slicing anything.
 | ✓ | **UI: the trade table backdrop** | `PROMPTS-UI.md` | `bg-ui-trade.png` (rev `748f6cfd871f`) | sliced 2026-10-18 |
 | ✓ | **UI: the equipment backdrop** | `PROMPTS-UI.md` | `bg-ui-inventory.png` (rev `f58e29283d5b`) | sliced 2026-10-18 |
 | ✓ | **UI: the skills backdrop** | `PROMPTS-UI.md` | `bg-ui-skills.png` (rev `c1d39c64381c`) | sliced 2026-10-18 |
-| ! | **UI: the smithy backdrop** | `PROMPTS-UI.md` | `bg-ui-forge.png` (rev `bcb8bcdc2511`) | REPAINT — the reference changed (6a8d147dc598 → bcb8bcdc2511) |
+| ✓ | **UI: the smithy backdrop** | `PROMPTS-UI.md` | `bg-ui-forge.png` (rev `bcb8bcdc2511`) | sliced 2026-10-23 |
 | ✓ | **UI: the alchemist’s workroom backdrop** | `PROMPTS-UI.md` | `bg-ui-alchemy.png` (rev `bd41700293ce`) | sliced 2026-10-23 |
 | ✓ | **UI: the ore buyer’s backdrop** | `PROMPTS-UI.md` | `bg-ui-ore.png` (rev `f4a652bd2b0a`) | sliced 2026-10-23 |
 | ✓ | **Texture: the ground detail** | `PROMPTS-UI.md` | `bg-ground.png` (rev `cdfbedea9f01`) | sliced 2026-10-18 |

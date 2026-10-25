@@ -6162,7 +6162,11 @@ export default {
       trainerAegis: {
         freed: {
           '1': 'Ačiū, kad išlaisvinai mus iš banditų! Ateik prie laužo: mokysime tave visi, pirmoji pamoka nemokama.'
-        }
+        },
+        road: { '1': 'Tu mus radai! Demonai sugavo mus kelyje į Sanfordą. Keliaujame į Bastiono brastą: ieškok mūsų tvirtovėje.' }
+      },
+      sfShadow: {
+        road: { '1': 'Pagaliau kažkas atėjo. Išeiname į Bastiono brastą. Ieškok mūsų tvirtovėje.' }
       },
       frostDisciple: {
         freed: {
@@ -7504,8 +7508,7 @@ export default {
     retreatNote: 'Viskas, kas iki šiol uždirbta, lieka tau, bet zona nebus išvalyta.'
   },
   ending: {
-    level: 'Lygis',
-    more: 'Po tvirtove atsivėrė Tuštumos plyšys. Tačiau tikrasis tavo galios išbandymas laukia Koliziejuje: įveik jo bangas ir laimėk mitinius prizus, kuriuos turi tik jo čempionai.',
+    more: 'Archidemonas krito, bet karalystė dar nėra saugi. Pasauliui liko viena didelė grėsmė, ir ji laukia Tuštumos plyšyje.',
     order: {
       title: 'Geležinė taika',
       text: 'Virš Siaubo tvirtovės plevėsuoja Geležinio ordino vėliavos. Keliai saugūs, įstatymų daug, o tavo vardas iškaltas virš vartų.'

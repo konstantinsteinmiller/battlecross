@@ -6202,7 +6202,11 @@ export default {
       trainerAegis: {
         freed: {
           '1': 'Dzięki, że uwolniłeś nas od bandytów! Chodź do ogniska: wszyscy będziemy cię uczyć, pierwsza lekcja za darmo.'
-        }
+        },
+        road: { '1': 'Znalazłeś nas! Demony złapały nas na drodze do Sunford. Idziemy do Przeprawy Bastionu: szukaj nas w forcie.' }
+      },
+      sfShadow: {
+        road: { '1': 'Najwyższy czas, żeby ktoś przyszedł. Ruszamy do Przeprawy Bastionu. Szukaj nas w forcie.' }
       },
       frostDisciple: {
         freed: {
@@ -7543,8 +7547,7 @@ export default {
     retreatNote: 'Zatrzymujesz wszystko, co udało się zdobyć, ale strefa nie zostanie zaliczona.'
   },
   ending: {
-    level: 'Poziom',
-    more: 'Pod twierdzą otworzyła się Wyrwa Pustki. Lecz prawdziwa próba twojej siły czeka w Koloseum: pokonaj jego fale i zdobądź mityczne nagrody, które mają tylko jego czempioni.',
+    more: 'Arcydemon upadł, ale królestwo wciąż nie jest bezpieczne. Światu zostało jedno wielkie zagrożenie i czeka ono we Wyrwie Pustki.',
     order: {
       title: 'Żelazny pokój',
       text: 'Nad Twierdzą Grozy powiewają sztandary Żelaznego Zakonu. Drogi są bezpieczne, praw jest wiele, a twoje imię wykuto nad bramą.'

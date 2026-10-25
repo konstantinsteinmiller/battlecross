@@ -6103,7 +6103,11 @@ export default {
       trainerAegis: {
         freed: {
           '1': 'Bizni qaroqchilardan qutqarganing uchun rahmat! Gulxanga kel: hammamiz o\'rgatamiz, birinchi dars bepul.'
-        }
+        },
+        road: { '1': 'Bizni topding! Iblislar bizni Sanford yoʻlida tutib olishdi. Qalʼa kechuviga ketyapmiz: bizni qalʼadan izla.' }
+      },
+      sfShadow: {
+        road: { '1': 'Nihoyat kimdir keldi. Qalʼa kechuviga yoʻl olamiz. Bizni qalʼadan izla.' }
       },
       frostDisciple: {
         freed: {
@@ -7442,8 +7446,7 @@ export default {
     retreatNote: 'Shu paytgacha topgan hamma narsangiz sizda qoladi, lekin hudud tozalanmagan hisoblanadi.'
   },
   ending: {
-    level: 'Daraja',
-    more: 'Qoʻrgʻon ostida Boʻshliq yorigʻi ochildi. Ammo kuchingning haqiqiy sinovi Kolizeyda kutmoqda: uning toʻlqinlaridan oʻt va faqat chempionlarigina ega boʻlgan mifik sovrinlarni yutib ol.',
+    more: 'Bosh iblis yiqildi, ammo qirollik hali xavfsiz emas. Dunyoga bitta katta xavf qoldi va u Boʻshliq yorigʻi ichida kutmoqda.',
     order: {
       title: 'Temir tinchlik',
       text: 'Dahshat qoʻrgʻoni uzra Temir Orden bayroqlari hilpiraydi. Yoʻllar xavfsiz, qonunlar koʻp, ismingiz esa darvoza tepasiga oʻyib yozilgan.'

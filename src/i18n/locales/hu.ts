@@ -6103,7 +6103,11 @@ export default {
       trainerAegis: {
         freed: {
           '1': 'Köszönjük, hogy kiszabadítottál a banditáktól! Gyere a tűzhöz: mind tanítunk, az első lecke ingyenes.'
-        }
+        },
+        road: { '1': 'Megtaláltál minket! A démonok elkaptak a sunfordi úton. A Bástyagázlóhoz megyünk: keress minket az erődben.' }
+      },
+      sfShadow: {
+        road: { '1': 'Ideje volt, hogy jöjjön valaki. Indulunk a Bástyagázlóhoz. Az erődben keress minket.' }
       },
       frostDisciple: {
         freed: {
@@ -7442,8 +7446,7 @@ export default {
     retreatNote: 'Minden megmarad, amit eddig szereztél, de a zóna nem lesz megtisztítva.'
   },
   ending: {
-    level: 'Szint',
-    more: 'Az erőd alatt megnyílt az Üresség hasadéka. Ám erőd igazi próbája a Kolosszeumban vár: küzdd végig a hullámait, és nyerd el a mitikus díjakat, amelyek csak a bajnokainak jutnak.',
+    more: 'Az Ősdémon elesett, de a birodalom még nincs biztonságban. Egyetlen nagy fenyegetés maradt a világ számára, és az Üresség hasadékában vár.',
     order: {
       title: 'A vasbéke',
       text: 'A Vasrend zászlói lobognak a Rettegés erődje fölött. Az utak biztonságosak, a törvény sok, a neved pedig a kapu fölé van vésve.'

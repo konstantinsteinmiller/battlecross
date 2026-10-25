@@ -16,7 +16,7 @@ import { INK, mix } from './geo'
 export interface LandmarkState {
   /** Not open yet: washed out, nothing moves. */
   locked?: boolean
-  /** Oakhaven after the siege was lost. */
+  /** Oakhaven after the siege was lost; a town the demons hold in the afterplay (#164). */
   ruined?: boolean
 }
 
@@ -78,14 +78,17 @@ const flame = (p: Pen, x: number, y: number, k = 1): string => `<g transform="tr
 
 const DRAW: Record<NodeId, (p: Pen, st: LandmarkState) => string> = {
   // A farming town: three roofs round a little clock tower.
-  sunford: p =>
-    p.s('M39 62V32h12v30z', '#f1e2c6') + p.s('M35 34L45 17L55 34z', '#ff6a4f') + p.o(45, 42, 3.2, '#fff8e3', '', 1.8) + flag(p, 45, 6, 11, '#ffc526') +
+  sunford: (p, st) =>
+    p.s('M39 62V32h12v30z', '#f1e2c6') + p.s('M35 34L45 17L55 34z', '#ff6a4f') + p.o(45, 42, 3.2, '#fff8e3', '', 1.8) + (st.ruined ? '' : flag(p, 45, 6, 11, '#ffc526')) +
     p.s('M15 82V61h30v21z', '#ffeccb') + p.s('M10 63L30 44L50 63z', '#ff6a4f') + p.f('M30 44L50 63H43L30 51z', '#d8423a') + p.i('M10 63L30 44L50 63z') +
     p.s('M26 82V71h8v11z', '#8f5d36', 2.2) + p.s('M19 66h6v6h-6z', '#8fdcff', 2) +
     p.s('M49 82V56h30v26z', '#fff4dc') + p.s('M44 58L64 38L84 58z', '#3fa4ff') + p.f('M64 38L84 58H77L64 45z', '#2470e8') + p.i('M44 58L64 38L84 58z') +
     p.s('M70 50V40h6v10z', '#c9c4d2', 2) + smoke(p, 73, 36) +
     p.s('M58 82V69h9v13z', '#8f5d36', 2.2) + p.s('M70 63h6v6h-6z', '#ffe45e', 2) + p.s('M53 63h6v6h-6z', '#ffe45e', 2) +
-    p.o(90, 72, 8, '#54d862') + p.l('M86 71a5 5 0 0 1 4-4', '#b4ff86', 2.4) + p.s('M88.500 82v-4h3v4z', '#8f5d36', 1.6),
+    p.o(90, 72, 8, '#54d862') + p.l('M86 71a5 5 0 0 1 4-4', '#b4ff86', 2.4) + p.s('M88.500 82v-4h3v4z', '#8f5d36', 1.6) +
+    // Burned by the demons (the afterplay, until its road is purged, #164): roofs alight, soot, black smoke.
+    (st.ruined ? p.s('M26 82V71h8v11z', '#241a2e', 2.2) + p.s('M58 82V69h9v13z', '#241a2e', 2.2) +
+      flame(p, 30, 50, 1.1) + flame(p, 64, 46, 1.2) + flame(p, 45, 24, 0.8) + smoke(p, 36, 30, '#6a6278') + smoke(p, 70, 30, '#6a6278') : ''),
 
   // The bandits' camp on the open road.
   plains: p =>
@@ -172,7 +175,7 @@ const DRAW: Record<NodeId, (p: Pen, st: LandmarkState) => string> = {
     p.o(44.500, 84, 2.6, '#3a3050', '', 1.6) + p.o(55.500, 84, 2.6, '#3a3050', '', 1.6),
 
   // The forge-town under the mountain.
-  ironhold: p =>
+  ironhold: (p, st) =>
     p.s('M4 82L32 30Q37 22 42 30L52 46L59 36Q63 31 67 37L96 82z', '#bd8b5a') + p.f('M36 26Q40 25 42 30L52 46L47 60L56 82H96L67 37Q63 31 59 36L52 46z', '#946542') +
     p.s('M24 44L32 30Q37 22 42 30L47 38L42 44L37 37L31 46z', '#ffffff', 2) + p.i('M4 82L32 30Q37 22 42 30L52 46L59 36Q63 31 67 37L96 82') +
     p.s('M62 60V40h9v20z', '#6a6480', 2.2) + p.i('M60 40h13', 3) + smoke(p, 66, 34) +
@@ -180,7 +183,7 @@ const DRAW: Record<NodeId, (p: Pen, st: LandmarkState) => string> = {
     p.i('M28 82V58h5v-5h6v5h6v-5h6v5h6v-5h6v5h5V82') +
     p.s('M41 82V70a7.500 7.500 0 0 1 15 0V82z', '#ff8a2a', 2.4) + p.f('M44.500 82V72a4 4 0 0 1 8 0V82z', '#ffe45e', 'lm-glow') +
     p.s('M32 64h5v6h-5z', '#ffe45e', 1.8) + p.s('M60 64h5v6h-5z', '#ffe45e', 1.8) +
-    flag(p, 34, 38, 15, '#ff5a4f', 11),
+    (st.ruined ? flame(p, 38, 56, 1.1) + flame(p, 58, 54, 0.9) + smoke(p, 46, 40, '#6a6278') : flag(p, 34, 38, 15, '#ff5a4f', 11)),
 
   // The big town on the old stone bridge: houses on its back, the river under it.
   silverbridge: p =>

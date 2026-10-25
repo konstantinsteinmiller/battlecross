@@ -6114,7 +6114,11 @@ export default {
       trainerAegis: {
         freed: {
           '1': 'Bedankt dat je ons van de bandieten hebt bevrijd! Kom bij het vuur: we leren je allemaal, eerste les gratis.'
-        }
+        },
+        road: { '1': 'Je hebt ons gevonden! De demonen grepen ons op de weg naar Sunford. We gaan naar de Bastionsoversteek: zoek ons in het fort.' }
+      },
+      sfShadow: {
+        road: { '1': 'Werd tijd dat er iemand kwam. We vertrekken naar de Bastionsoversteek. Zoek ons in het fort.' }
       },
       frostDisciple: {
         freed: {
@@ -7453,8 +7457,7 @@ export default {
     retreatNote: 'Je houdt alles wat je tot nu toe hebt verdiend, maar het gebied is niet vrijgemaakt.'
   },
   ending: {
-    level: 'Level',
-    more: 'Onder de burcht is de Leegtescheur opengegaan. Maar de ware beproeving van je kracht wacht in het Colosseum: beklim de golven en win de mythische prijzen die alleen de kampioenen bezitten.',
+    more: 'De Aartsdemon is gevallen, maar het rijk is nog niet veilig. Er rest de wereld nog één grote dreiging, en die wacht in de Leegtescheur.',
     order: {
       title: 'De IJzeren Vrede',
       text: 'Boven de Gruwelburcht wapperen de banieren van de IJzeren Orde. De wegen zijn veilig, de wetten talrijk, en jouw naam staat boven de poort gebeiteld.'

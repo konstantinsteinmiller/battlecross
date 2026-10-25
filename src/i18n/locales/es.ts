@@ -6153,7 +6153,11 @@ export default {
       trainerAegis: {
         freed: {
           '1': '¡Gracias por librarnos de los bandidos! Ven junto al fuego: todos te enseñaremos, y la primera lección es gratis.'
-        }
+        },
+        road: { '1': '¡Nos has encontrado! Los demonios nos atraparon en el camino de Sunford. Iremos al Paso del Bastión: búscanos en el fuerte.' }
+      },
+      sfShadow: {
+        road: { '1': 'Ya era hora de que alguien viniera. Nos vamos al Paso del Bastión. Búscanos en el fuerte.' }
       },
       frostDisciple: {
         freed: {
@@ -7494,8 +7498,7 @@ export default {
     retreatNote: 'Conservas todo lo ganado hasta ahora, pero la zona no queda despejada.'
   },
   ending: {
-    level: 'Nivel',
-    more: 'La Grieta del Vacío se ha abierto bajo la fortaleza. Pero la verdadera prueba de tu poder te espera en el Coliseo: supera sus oleadas y gana los premios míticos que solo tienen sus campeones.',
+    more: 'El Archidemonio ha caído, pero el reino aún no está a salvo. Queda una gran amenaza para el mundo, y espera dentro de la Grieta del Vacío.',
     order: {
       title: 'La Paz de Hierro',
       text: 'Los estandartes de la Orden de Hierro ondean sobre la Fortaleza del Terror. Los caminos son seguros, las leyes son muchas, y tu nombre está grabado sobre la puerta.'

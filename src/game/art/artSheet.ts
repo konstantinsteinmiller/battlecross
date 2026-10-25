@@ -79,6 +79,12 @@ const TRAINER_LOOKS = ['trainerAegis', 'trainerShadow', 'trainerPyro', 'trainerS
 const MASTER_LOOKS_A = ['sfShadow', 'sfGeo', 'lightDisciple', 'windDisciple', 'frostDisciple', 'sbMasterAegis', 'sbMasterPyro', 'sbMasterShadow', 'sbMasterSovereign', 'sbMasterGeo', 'sbMasterAether', 'sbMasterChrono'] as const
 const MASTER_LOOKS_B = ['sbMasterBlood', 'sbMasterWindrunner', 'sbMasterFrostwarden', 'sbMasterLightbringer', 'sbMasterBeastcaller', 'sbMasterElementalist', 'sbMasterSoulwarden', 'sbMasterIronmonk', 'sbMasterBard'] as const
 const SPEAKER_LOOKS = ['goblinKing', 'warlord', 'oracle', 'dragon', 'archDemon'] as const
+/** Everyone else with a face in the talk window (#164): the afterplay's people, the traders, the fair, the freed. */
+const PEOPLE_LOOKS_A = ['scoutWren', 'sunkenPriest', 'mysteriousWanderer', 'mayorBrenna', 'freedPeddler', 'freedHerbalist', 'freedFarmers', 'villager', 'child'] as const
+const PEOPLE_LOOKS_B = ['sbCollector', 'sbFence', 'sbGambler', 'sbAlchemist', 'sbHealer', 'sbArmorer', 'sbWeapons', 'sbJeweler', 'merchantF'] as const
+const PEOPLE_LOOKS_C = ['sunfordGambler', 'sunfordCups', 'fairPip', 'fairBess', 'fairHob', 'oakGambler', 'miner'] as const
+/** Shipped townsfolk shown as the finish to match, never as a face to copy. */
+const PEOPLE_FINISH = ['public/images/portraits/elder.webp', 'public/images/portraits/healer.webp'] as const
 /** The hero, once per outfit family: `hero-tunic` … `hero-plate`. */
 const HERO_LOOKS: readonly string[] = HERO_OUTFITS.map(o => heroPortraitId(o))
 /** The girl hero (roadmap #71), the same four: `hero-f-tunic` … `hero-f-plate`. */
@@ -88,7 +94,7 @@ const HERO_F_LOOKS: readonly string[] = HERO_OUTFITS.map(o => heroPortraitId(o, 
 export const ART_CATALOGUE: Readonly<Record<ArtKind, readonly string[]>> = {
   items: [...ITEMS, ...SMITHED, ...MYTHICS].map(i => i.id),
   skills: CLASS_IDS.flatMap(c => skillsOf(c).map(s => s.id)),
-  portraits: [...TOWN_LOOKS, ...TRAINER_LOOKS, ...MASTER_LOOKS_A, ...MASTER_LOOKS_B, ...SPEAKER_LOOKS, ...HERO_LOOKS, ...HERO_F_LOOKS],
+  portraits: [...TOWN_LOOKS, ...TRAINER_LOOKS, ...MASTER_LOOKS_A, ...MASTER_LOOKS_B, ...SPEAKER_LOOKS, ...PEOPLE_LOOKS_A, ...PEOPLE_LOOKS_B, ...PEOPLE_LOOKS_C, ...HERO_LOOKS, ...HERO_F_LOOKS],
   // ... and the border-inset ornaments of the cel interface (`ORNAMENTS`).
   ui: ['coin', 'cup', 'map', 'bg-trade', 'bg-inventory', 'bg-skills', 'bg-forge', 'bg-alchemy', 'bg-ore', ...ORNAMENTS.map(o => o.id), ...Object.keys(BAR_FRAME_REFS)],
   textures: ['ground'],
@@ -645,6 +651,30 @@ const PORTRAIT_BLURBS: Readonly<Record<string, string>> = {
   sfGeo: 'an old earth sage with a bald head, a long ash-white beard, tan-brown skin and a dusty olive-brown robe with a lime collar line',
   scoutWren: 'a young scout with a moss-green hood up, auburn hair at the edges, fair skin, a green leather jerkin with a pale bandage collar line',
   sunkenPriest: 'an old priest with a sea-green hood up, long white hair and a white beard, pale grey-green skin and a deep teal robe with a gold collar line',
+  // Everyone else who talks to the hero with a face in the window (#164).
+  villager: 'a villager with short brown hair, fair skin and a rust-orange cloth tunic with a dark brown collar line',
+  child: 'a young child with spiky golden-blond hair, rosy fair skin and a bright blue cloth tunic with a yellow collar line',
+  merchantF: 'a merchant woman with black hair in a round bun on top, warm tan skin and a teal robe with a gold collar line',
+  miner: 'a sturdy miner in a brass mining helmet, a bushy rust-red beard, ruddy skin and a slate-grey work apron with a brown collar line',
+  mayorBrenna: 'a mayor with auburn hair in a round bun on top, fair skin, a deep blue robe with a silver-white collar line and a dark blue cape at the shoulders',
+  freedPeddler: 'an old peddler in a brown felt hat, a short grey beard, fair skin and a rust-orange work apron with a pale gold collar line',
+  freedHerbalist: 'a herbalist with long brown hair, warm tan skin and a leaf-green robe with a pale green collar line',
+  freedFarmers: 'a farmer in a brown cloth cap, a short dark-brown beard, sun-tanned skin and a mustard-yellow tunic with a cream collar line',
+  sbCollector: 'an old collector with a bald head, a short white beard, fair skin and a deep plum robe with a gold collar line',
+  sbFence: 'a fence with a dark teal hood up, tan skin, dark teal leather with a gold collar line and a dark slate cape at the shoulders',
+  sbGambler: 'a gambler in a black wide-brimmed hat, black hair, fair skin, a purple robe with a gold collar line and a dark purple cape at the shoulders',
+  sunfordGambler: 'a gambler in a brown bandana, a short brown beard, tan skin and a brown cloth tunic with an amber collar line',
+  sunfordCups: 'a cups-game host with a yellow hood up, a ginger ponytail, fair skin and a green work apron with a gold collar line',
+  fairPip: 'a fairground caller in a yellow hat, short brown hair, fair skin and a bright red tunic with a white collar line',
+  fairBess: 'an old fortune teller with silver-grey hair in a round bun on top, fair skin and a moss-green robe with a gold collar line',
+  fairHob: 'a burly strongman with a bald head, a thick black beard, tan skin and a brown leather work apron with a gold collar line',
+  mysteriousWanderer: 'a hooded wanderer whose face is mostly hidden in the shadow of a charcoal hood, a pale violet glint for eyes, a charcoal robe with a lavender collar line and a dark cape at the shoulders',
+  oakGambler: 'a card sharp in a dark violet leather cap, golden hair, fair skin and dark navy leather with a gold collar line',
+  sbAlchemist: 'an alchemist with fiery red hair in a round bun on top, fair skin and a lavender work apron with a lime-green collar line',
+  sbHealer: 'a healer with a bald head, a short brown beard, tan skin and a white robe with a sky-blue collar line',
+  sbArmorer: 'a strong armourer woman with red hair in a round bun on top, ruddy skin and a dark brick-red work apron with a gold collar line',
+  sbWeapons: 'a weaponsmith with short black hair, fair skin, a wine-red tunic with a gold collar line and a dark purple cape at the shoulders',
+  sbJeweler: 'a jeweller in a brown leather cap, spiky orange hair, fair skin and a leaf-green tunic with a gold collar line',
   lightDisciple: 'a light disciple with dark hair in a round bun on top, brown skin and a cream-white robe with a gold collar line',
   windDisciple: 'a wind disciple with short dark-brown hair, fair skin, a sky-teal leather jerkin with a pale lime collar line and a green cape at the shoulders',
   frostDisciple: 'a frost disciple with short sandy hair and a short sandy beard, pale skin and pale blue plate armour with an icy white collar line and a pale blue cape at the shoulders',
@@ -1089,6 +1119,11 @@ export const SETS: readonly ArtSet[] = [
   portraitSet('sheet-portraits-masters-1', 'Portraits: masters and disciples, 1', MASTER_LOOKS_A, 4, 3),
   portraitSet('sheet-portraits-masters-2', 'Portraits: masters and disciples, 2', MASTER_LOOKS_B, 3, 3),
   portraitSet('sheet-portraits-speakers', 'Portraits: quest speakers', SPEAKER_LOOKS, 3, 2),
+  // The first returns without a finish came back as flat emoji copies of the placeholder (#164):
+  // two shipped townsfolk ride along to show the painted finish (ears, noses, brows, shading).
+  { ...portraitSet('sheet-portraits-people-1', 'Portraits: the fort, the freed and the townsfolk', PEOPLE_LOOKS_A, 3, 3), styleRefs: PEOPLE_FINISH },
+  { ...portraitSet('sheet-portraits-people-2', 'Portraits: Silverbridge traders', PEOPLE_LOOKS_B, 3, 3), styleRefs: PEOPLE_FINISH },
+  { ...portraitSet('sheet-portraits-people-3', 'Portraits: gamblers, the fair and the mines', PEOPLE_LOOKS_C, 3, 3), styleRefs: PEOPLE_FINISH },
   {
     ...portraitSet('sheet-portraits-hero', 'Portraits: the hero, per outfit', HERO_LOOKS, 2, 2),
     // Four paintings of ONE face, shown as the same player all game: a face

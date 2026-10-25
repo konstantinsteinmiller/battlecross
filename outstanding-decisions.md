@@ -802,3 +802,10 @@ the campaign's Demon King in 4 s. The burst came from three things that stack:
   and 120 s of play: fps, first steady second, rung, tier, DPR, buffer, CSS
   size, draws, triangles, cores and the GPU name. `?perfhud=1` shows the same
   on screen in any build.
+
+## Glitch banner image (3840x1240) is blurry
+The current banner is an upscale of a 1376x444 painting and fails the blur probe (BLURRY 0.052). Options: paint a new wide master at 3:1, at least ~2.5k wide (e.g. Gemini, clash scene) and rerun the cover script, or upload it as is. Portrait covers in store-art/covers/glitch/ are SHARP.
+
+## 44 voice lines fail QA after two retries (2026-10-21)
+
+de 26, fr 7, ru 4, pt 4, es 2, ja 1 (list: the failures in the last `voice:gen --retry 2` run; voice-todo.md shows the counts). They play as silent bubbles. About half fail only because Whisper mishears invented names (Chronoweber, Ägis, Sunford), so the take may be fine; the rest run 1.5× too long or slur. Options: listen and mark good ones `LOOSE`, add respellings in tools/voice/collect.mjs and regenerate, or ship them silent.

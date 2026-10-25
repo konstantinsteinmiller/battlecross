@@ -6103,7 +6103,11 @@ export default {
       trainerAegis: {
         freed: {
           '1': 'Kiitos, että vapautit meidät rosvoilta! Tule nuotiolle: opetamme sinua kaikki, ensimmäinen oppitunti ilmaiseksi.'
-        }
+        },
+        road: { '1': 'Löysit meidät! Demonit nappasivat meidät Sunfordin tiellä. Lähdemme Bastionin ylityspaikalle: etsi meidät linnakkeesta.' }
+      },
+      sfShadow: {
+        road: { '1': 'Olipa jo aikakin, että joku tuli. Lähdemme Bastionin ylityspaikalle. Etsi meitä linnakkeesta.' }
       },
       frostDisciple: {
         freed: {
@@ -7442,8 +7446,7 @@ export default {
     retreatNote: 'Saat pitää kaiken tähän asti ansaitun, mutta aluetta ei ole raivattu.'
   },
   ending: {
-    level: 'Taso',
-    more: 'Tyhjyyden repeämä on auennut linnoituksen alle. Mutta voimasi todellinen koetus odottaa Kolosseumissa: kiipeä sen aaltojen läpi ja voita myyttiset palkinnot, jotka ovat vain sen mestareilla.',
+    more: 'Arkkidemoni on kaatunut, mutta valtakunta ei ole vielä turvassa. Maailmaa uhkaa enää yksi suuri vaara, ja se odottaa Tyhjyyden repeämässä.',
     order: {
       title: 'Rautarauha',
       text: 'Rautaritarikunnan viirit liehuvat Kauhun linnoituksen yllä. Tiet ovat turvallisia, lakeja on paljon, ja nimesi on kaiverrettu portin ylle.'

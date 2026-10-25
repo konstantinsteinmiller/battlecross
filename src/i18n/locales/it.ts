@@ -6183,7 +6183,11 @@ export default {
       trainerAegis: {
         freed: {
           '1': 'Grazie per averci liberati dai banditi! Vieni accanto al fuoco: ti insegneremo tutti, la prima lezione è gratis.'
-        }
+        },
+        road: { '1': 'Ci hai trovati! I demoni ci hanno presi sulla strada per Sunford. Andiamo al Guado del Bastione: cercaci al forte.' }
+      },
+      sfShadow: {
+        road: { '1': 'Era ora che arrivasse qualcuno. Partiamo per il Guado del Bastione. Cercaci al forte.' }
       },
       frostDisciple: {
         freed: {
@@ -7524,8 +7528,7 @@ export default {
     retreatNote: 'Tieni tutto ciò che hai guadagnato finora, ma la zona non risulta ripulita.'
   },
   ending: {
-    level: 'Livello',
-    more: 'Lo Squarcio del Vuoto si è aperto sotto la fortezza. Ma la vera prova del tuo potere ti attende nel Colosseo: supera le sue ondate e vinci i premi mitici che solo i suoi campioni possiedono.',
+    more: 'L’Arcidemone è caduto, ma il regno non è ancora salvo. Resta una grande minaccia per il mondo, e attende dentro lo Squarcio del Vuoto.',
     order: {
       title: 'La Pace di Ferro',
       text: 'Gli stendardi dell’Ordine di Ferro sventolano sulla Fortezza del Terrore. Le strade sono sicure, le leggi sono tante, e il tuo nome è inciso sopra la porta.'

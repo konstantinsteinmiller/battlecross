@@ -1487,9 +1487,9 @@ export const spendHerbs = (want: Readonly<Record<string, number>>): boolean => {
 /** A zone's cage opened: its captives are free (their flag, and a disciple's
  *  class found: no master's test for it, question 57). */
 export const freeCaptives = (zone: string): void => {
-  const c = cageOf(zone)
+  const c = cageOf(zone, profile.world.afterplay)
   if (!c) return
-  for (const f of [c.flag, c.found]) if (f && !profile.world.flags.includes(f)) profile.world.flags.push(f)
+  for (const f of [c.flag, c.found, ...(c.also ?? [])]) if (f && !profile.world.flags.includes(f)) profile.world.flags.push(f)
   saveProfile()
 }
 

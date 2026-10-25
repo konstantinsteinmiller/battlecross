@@ -6103,7 +6103,11 @@ export default {
       trainerAegis: {
         freed: {
           '1': 'Bizi haydutlardan kurtardığın için teşekkürler! Ateşin başına gel: hepimiz öğreteceğiz, ilk ders bedava.'
-        }
+        },
+        road: { '1': 'Bizi buldun! İblisler bizi Sunford yolunda yakaladı. Burç Geçidi’ne gidiyoruz: bizi kalede bul.' }
+      },
+      sfShadow: {
+        road: { '1': 'Sonunda biri geldi. Burç Geçidi’ne yola çıkıyoruz. Bizi kalede ara.' }
       },
       frostDisciple: {
         freed: {
@@ -7442,8 +7446,7 @@ export default {
     retreatNote: 'Şimdiye dek kazandığın her şey sende kalır, ama bölge temizlenmiş sayılmaz.'
   },
   ending: {
-    level: 'Seviye',
-    more: 'Kalenin altında Hiçlik Yarığı açıldı. Ama gücünün asıl sınavı Kolezyum’da bekliyor: dalgalarını aş ve yalnızca şampiyonlarının sahip olduğu mitik ödülleri kazan.',
+    more: 'Baş İblis düştü, ama krallık henüz güvende değil. Dünyayı bekleyen tek bir büyük tehdit kaldı ve o, Hiçlik Yarığı’nın içinde bekliyor.',
     order: {
       title: 'Demir Barış',
       text: 'Dehşet Kalesi’nin üstünde Demir Tarikatı’nın sancakları dalgalanıyor. Yollar güvenli, yasalar çok ve adın kapının üstüne kazındı.'

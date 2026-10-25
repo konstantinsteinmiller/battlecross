@@ -6145,7 +6145,11 @@ export default {
       trainerAegis: {
         freed: {
           '1': 'Mulțumim că ne-ai scăpat de bandiți! Vino la foc: te vom învăța toți, prima lecție e gratuită.'
-        }
+        },
+        road: { '1': 'Ne-ai găsit! Demonii ne-au prins pe drumul spre Sunford. Mergem la Vadul Bastionului: caută-ne în fort.' }
+      },
+      sfShadow: {
+        road: { '1': 'Era și timpul să vină cineva. Plecăm spre Vadul Bastionului. Caută-ne în fort.' }
       },
       frostDisciple: {
         freed: {
@@ -7486,8 +7490,7 @@ export default {
     retreatNote: 'Păstrezi tot ce ai câștigat până acum, dar zona nu e curățată.'
   },
   ending: {
-    level: 'Nivel',
-    more: 'Falia Vidului s-a deschis sub fortăreață. Dar adevărata probă a puterii tale te așteaptă în Colosseum: urcă prin valurile lui și câștigă premiile mitice pe care le dețin doar campionii săi.',
+    more: 'Arhidemonul a căzut, dar regatul nu e încă în siguranță. Lumii i-a mai rămas o singură mare amenințare, și ea așteaptă în Falia Vidului.',
     order: {
       title: 'Pacea de Fier',
       text: 'Stindardele Ordinului de Fier flutură peste Fortăreața Groazei. Drumurile sunt sigure, legile sunt multe, iar numele tău e săpat deasupra porții.'

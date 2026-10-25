@@ -19,7 +19,7 @@ const TAU = 6.2832
 type Pt = readonly number[]
 
 /** How big each kind stands on the stage. */
-const SCALE: Record<MonsterKind, number> = { wolf: 1.35, goblin: 1.5, treant: 1.15, elemental: 1.35, golem: 1.1, dragon: 0.85, demon: 1.12, wraith: 1.25, titan: 0.98 }
+const SCALE: Record<MonsterKind, number> = { wolf: 1.15, goblin: 1.5, treant: 1.15, elemental: 1.35, golem: 1.1, dragon: 0.86, demon: 1.12, wraith: 1.25, titan: 0.98 }
 /** The themed debris of a kill. */
 type Debris = 'fur' | 'coin' | 'leaf' | 'ember' | 'rock' | 'scale' | 'ash' | 'wisp' | 'ice'
 const DEBRIS: Record<MonsterKind, readonly [Debris, string, string]> = {
@@ -176,33 +176,47 @@ export const mountClicker = (canvas: HTMLCanvasElement, opts: { firstLoad: boole
       // The game's wolf: a grey chibi beast, a big head with a long snout, a black nose, a toothy grin and amber
       // eyes under a heavy brow, a fluffy ruff and pale cheeks, a pale chest, a short low barrel with spikes
       // down the back, thick bent legs on paws, the tail curled up and over.
-      const FU = '#8e98ac'; const DK = '#6a7490'; const PA = '#d4d9e2'
-      const wag = Math.sin(t * 5) * 0.8
-      // far legs, the tail, the body
-      L([6, -14, 9, -8, 6.6, -3], 4.4, '#525a74'); E(6.4, -2.2, 3, 1.8, '#525a74', 1.2)
-      L([-3, -13, -4, -7, -2.6, -3], 4, '#525a74'); E(-2.6, -2, 3, 1.8, '#525a74', 1.2)
-      S([8, -25, 14 + wag, -30, 14 + wag, -37, 8 + wag, -39, 4 + wag, -36, 8 + wag, -34, 10, -29], FU, 1.6); S([4.4 + wag, -38.6, 8 + wag, -39.6, 7.6 + wag, -36.4, 5 + wag, -35.6], '#eef2f8', 0.9)
-      for (let i = 0; i < 4; i++) P([0 + i * 2.8, -28.4 + i * 0.3, 1.6 + i * 2.8, -30.6 + i * 0.3, 2.8 + i * 2.8, -28.2 + i * 0.3], DK, 0.9)
-      S([-11, -21, 0, -29, 10, -27, 16, -22, 17, -15, 12, -11, 5, -13.6, 0, -12, -6, -8, -12.6, -11.6], FU, 2)
-      // near legs: thick, bent at the knee, on round paws with white claws
-      L([-8, -14, -9.4, -7, -8.4, -3], 6, FU); E(-8.4, -2, 3.6, 2.2, '#7a849c', 1.2)
-      L([10.6, -16, 13.4, -9, 9.6, -5.6, 9.4, -3.6], 6, FU); E(9, -3, 3.4, 2.1, '#7a849c', 1.2)
-      for (const [x, y] of [[-10.4, -0.6], [-8, -0.2], [7.8, -1.6], [10, -1.4]] as const) P([x - 0.6, y - 0.7, x, y + 0.9, x + 0.6, y - 0.7], '#fff', 0.5)
-      // the pale chest, the fluffy ruff round the neck
-      
-      S([-7, -33, 0, -34, 4, -29, 4, -22, 0, -17, -5, -16, -9, -21, -11, -28], FU, 1.8)
-      for (const [x, y] of [[3.6, -31], [5, -25], [3, -19], [-1, -16]] as const) P([x - 2, y - 2, x + 1.6, y, x - 2, y + 2], FU, 0.01)
-      // the head: ears (pink inside), the skull, pale cheek tufts, the long muzzle, the grin
-      P([-12, -31, -9, -40, -5, -31], FU, 1.5); P([-10.5, -32, -9, -37.5, -7, -32], '#c08a8a', 0.6)
-      P([-4, -31, 2, -39, 4, -30], FU, 1.5); P([-2.5, -31.5, 1.5, -36.5, 2.5, -31], '#c08a8a', 0.6)
-      S([-14, -27, -12, -33, -4, -34, 3, -30, 2, -23, -4, -18, -12, -19], FU, 2)
-      S([-14.6, -24, -11.4, -27.4, -7, -24, -6, -19, -11, -17.4, -14, -20], PA, 1.5)
-      S([-16, -21.6, -12, -19.6, -6.6, -21.4, -9, -17, -14, -17.8], '#c86a7a', 0.8); S([-15.4, -21.2, -12, -20.2, -7.4, -21.2, -10.4, -19.4, -13.8, -19.8], '#f4f6fa', 0.01)
-      L([-16, -21.6, -12, -20.2, -6.6, -21.4], 0.8, INK, false)
-      P([-14.6, -21.2, -13.9, -19, -13.2, -21], '#fff', 0.6); P([-9.6, -21, -9, -18.8, -8.4, -21], '#fff', 0.6)
-      E(-14.4, -24.6, 1.9, 1.6, '#1b1626', 1)
-      eye(-10, -27.6, 1.6, 1.8, '#2a2430', '#ff9a1a', FU, 1); eye(-4, -27.4, 1.8, 1.9, '#2a2430', '#ff9a1a', FU, -1)
-      L([-12.6, -30, -9.4, -29], 1.2, '#3a3448', false); L([-7, -29.4, -2.6, -30.6], 1.4, '#3a3448', false)
+      // Traced from the rig (#160): long and low, the head carried forward at the back's height,
+      // the long snout pointing at the hero, the bushy tail streaming out straight behind with a
+      // white tip, a row of spikes down the back, four short straight legs under chest and hips.
+      const FU = '#8e98ac'; const DK = '#5e6884'; const FAR = '#58607a'; const PA = '#e6eaf2'
+      const wag = Math.sin(t * 5) * 0.9
+      const st = Math.sin(t * 2.4) * 0.4
+      // far legs (front and hind), behind the body
+      P([-8.4, -14, -2.4, -14, -3, -2.6, -7.6, -2.6], FAR, 1.2); E(-5.4, -2.2, 3.4, 1.9, FAR, 1.1)
+      P([9.6, -14, 15.6, -14, 15, -2.6, 10.4, -2.6], FAR, 1.2); E(12.6, -2.2, 3.4, 1.9, FAR, 1.1)
+      ctx.save(); ctx.translate(0, 4)
+      // the tail: thick at the rump, out behind and a little up, its tip white
+      S([14, -28, 21, -32 + wag * 0.4, 28, -34.4 + wag, 33.4, -31.4 + wag, 32, -25.6 + wag, 25, -23.4 + wag * 0.4, 16, -20], FU, 1.9)
+      S([28, -33.6 + wag, 33.4, -31.4 + wag, 32.4, -26.6 + wag, 28.4, -27.4 + wag], '#f4f6fa', 0.01)
+      // the body: a long low barrel, the chest deeper than the hips, the belly paler
+      S([-12, -26, -6, -31, 4, -31, 13, -29.6, 18, -25, 17.4, -18, 12, -14.4, 2, -14, -6, -13.4, -11.6, -17], FU, 2)
+      S([-9, -17, -2, -15.4, 8, -15.4, 13, -16.4, 8, -14.6, -3, -14.2], PA, 0.01)
+      for (let i = 0; i < 5; i++) P([-3 + i * 3.6, -30.6 + i * 0.3, -1.6 + i * 3.6, -34.4 + i * 0.3, 0 + i * 3.6, -30.4 + i * 0.3], DK, 0.9)
+      ctx.restore()
+      // near legs: short straight columns on round paws with white claws, a haunch over the hind one
+      P([-11.8, -14, -4.4, -14, -5.2, -2.4, -11, -2.4], FU, 1.5); E(-8, -2, 4, 2.2, '#7a849c', 1.2)
+      E(10.6, -16, 5.8, 5.4, FU, 1.6)
+      P([6.8, -14, 14.2, -14, 13.6, -2.4, 7.6, -2.4], FU, 1.5); E(10.6, -2, 4, 2.2, '#7a849c', 1.2)
+      for (const [x, y] of [[-10.2, -0.6], [-7.6, -0.4], [8, -0.6], [10.6, -0.4]] as const) P([x - 0.6, y - 0.8, x, y + 0.9, x + 0.6, y - 0.8], '#fff', 0.5)
+      ctx.save(); ctx.translate(0, 4)
+      // the pale ruff at the throat
+      S([-15, -24, -10, -26, -7, -21, -9, -16.6, -13, -17.4, -15.4, -20.6], PA, 1.4)
+      for (const [x, y] of [[-12, -16.4], [-9, -16], [-15.4, -19]] as const) P([x - 1.4, y - 1.6, x, y + 1.6, x + 1.4, y - 1.6], PA, 0.01)
+      // the head, forward and level: ears up, the skull, the long snout with its pale jaw, the black nose
+      ctx.save(); ctx.translate(-9, -22 + st + 0.6); ctx.scale(1.2, 1.2); ctx.translate(9, 22)
+      P([-18.6, -31, -17.4, -40.6, -13.6, -32], FU, 1.5); P([-17.6, -32, -17, -38, -15, -32.6], '#c08a8a', 0.6)
+      P([-13, -32, -10.4, -40, -8.6, -31], FU, 1.5); P([-12, -32.4, -10.4, -37.6, -9.6, -32], '#c08a8a', 0.6)
+      S([-21, -27, -19, -33, -12, -34.4, -7, -30, -8, -23, -14, -21, -19.6, -22.6], FU, 2)
+      S([-20, -28.4, -26.6, -28, -31.6, -26, -31.4, -21.8, -26, -20.6, -19.6, -21], FU, 1.7)
+      S([-30.8, -22.2, -26, -21, -19.6, -21.2, -20.6, -17.8, -25.6, -17.4, -30, -19.6], PA, 1.2)
+      L([-30, -22.2, -25, -21.4, -20.6, -21.6], 0.8, INK, false)
+      for (const x of [-28.4, -25.6, -23]) P([x - 0.6, -21.8, x, -20.2, x + 0.6, -21.8], '#fff', 0.4)
+      E(-31.4, -25.4, 2.2, 1.9, '#1b1626', 0.9)
+      eye(-17.4, -28.4, 1.6, 1.8, '#2a2430', '#ff9a1a', FU, 1); eye(-12.6, -28.6, 1.6, 1.7, '#2a2430', '#ff9a1a', FU, -1)
+      L([-19.6, -31, -16.4, -30.4], 1.2, '#3a3448', false); L([-14.4, -30.6, -11, -31.4], 1.2, '#3a3448', false)
+      ctx.restore()
+      ctx.restore()
     },
     goblin: () => {
       // The game's goblin: a bald, round-domed green imp with wide drooping ears, a heavy scowl and fangs, a
@@ -336,51 +350,63 @@ export const mountClicker = (canvas: HTMLCanvasElement, opts: { firstLoad: boole
       L([-6.4, -49.8, -0.6, -49.2], 1.8, '#ffb04a', false)
     },
     dragon: () => {
-      // The game's void dragon: a heavy violet body with a deep chest, a darker underside with pale belly
-      // plates, lit along its edges in bright purple, a glowing gem, a big head with a rounded snout tilted up,
-      // a nostril, a brow ridge, a pale jaw full of teeth and big white horns, a bat wing raised behind the
-      // back, chunky legs from round thighs to forward claws.
-      const fl = Math.sin(t * 3.2) * 0.06
-      const V = '#4a2a8a'; const DV = '#2a1650'; const RIM = '#9a4aff'
-      // the bat wing raised behind the back: a dark spar and fingers, membrane between
-      ctx.save(); ctx.translate(-4, -44); ctx.rotate(-0.36 - fl)
-      P([2, 2, 24, 0, 48, -1, 32, 8, 14, 10], '#5a2aa8', 1.2)
-      L([16, 1, 22, 9], 0.9, DV, false); L([30, 0, 34, 7], 0.9, DV, false)
-      P([6, -0.6, 30, -6, 50, -2], '#4a2290', 0.9)
-      P([0, -0.8, 54, -2.4, 54, 0.2, 0, 2.6], DV, 1.2)
-      horn(26, -1, 27, -5, 28.6, -8.4, 3, '#fff')
+      // The game's void dragon, traced from the rig (#160): a heavy violet body low on short thick
+      // legs, lit along its edges in bright purple, a glowing gem on the chest; the head carried
+      // forward and level on a short neck, a long flat snout with a pale jaw full of teeth, three
+      // pale horns swept back; one bat wing raised high, the other swept back low; a long straight
+      // tail streaming out behind, spikes down its length, an arrowhead at its tip.
+      const fl = Math.sin(t * 3.2) * 0.05
+      const V = '#4a2a8a'; const DV = '#24124a'; const RIM = '#9a4aff'; const MB = '#5a2aa8'
+      const sw = Math.sin(t * 2) * 0.8
+      // the far wing, swept back low behind the body
+      ctx.save(); ctx.translate(4, -36); ctx.rotate(0.06 + fl * 0.5)
+      P([0, 0, 20, -6, 42, -8, 38, -2, 31, 2, 22, 1, 12, 5], '#43228a', 1.3)
+      L([0, -1, 42, -8], 1.8, DV, false); L([1, -2, 40, -9], 0.8, RIM, false); L([16, -4, 22, 1], 0.8, DV, false); L([30, -6, 31, 2], 0.8, DV, false)
       ctx.restore()
-      // legs behind: round thighs tapering to the foot
-      S([-22, -16, -18, -20, -14, -16, -15, -8, -15.4, -2, -19.6, -2, -20.4, -8], '#120826', 1.2); S([7, -18, 11, -22, 15, -17, 13.4, -10, 13, -6, 9.4, -6, 9, -10], '#120826', 1.2)
-      for (const [x, y] of [[-19.6, -2], [10, -6]] as const) for (let i = 0; i < 3; i++) horn(x + i * 2, y, x - 1 + i * 2, y + 0.6, x - 2 + i * 2, y + 1.6, 1.6, '#d8d0e8')
-      // tail and back spines, the body with its deep chest and darker underside
-      P([10, -34, 26, -37, 14, -26], '#6a3ab8', 1.2); for (let i = 0; i < 3; i++) horn(14 + i * 4, -35 - i * 0.6, 15 + i * 4, -37.6 - i * 0.6, 16 + i * 4, -39 - i * 0.6, 2.4, '#7a4ac8')
-      for (let i = 0; i < 5; i++) horn(-6 + i * 4.6, -45.4 + i * 1.6, -5 + i * 4.6, -48 + i * 1.6, -3 + i * 4.6, -50 + i * 1.6, 3, '#7a4ac8')
-      const body = (): void => S([-34, -36, -28, -48, -12, -50, 4, -45, 13, -34, 13, -20, 4, -13, -12, -12, -28, -14, -36, -24], V, 2.2)
+      // the tail: long and straight out behind, a little up, spikes along it, an arrowhead at the tip
+      S([12, -30, 24, -34 + sw * 0.3, 40, -38 + sw, 42, -35 + sw, 26, -28 + sw * 0.3, 14, -21], V, 1.8)
+      for (let i = 0; i < 4; i++) horn(18 + i * 6, -33 - i * 1.2 + sw * (i / 4), 19 + i * 6, -36 - i * 1.2 + sw * (i / 4), 20 + i * 6, -37.6 - i * 1.2 + sw * (i / 4), 2.4, '#7a4ac8')
+      P([39, -40.6 + sw, 49, -37.4 + sw, 40, -32.6 + sw, 42, -36.6 + sw], '#7a4ac8', 1.3)
+      // the far legs, behind
+      S([-12, -18, -7, -20, -5, -12, -5.6, -1.6, -11, -1.6, -12.4, -10], '#1c0e3a', 1.2)
+      S([10, -18, 15, -20, 17, -12, 16.4, -1.6, 11, -1.6, 9.6, -10], '#1c0e3a', 1.2)
+      // the body: a heavy low mass, deeper at the chest, darker beneath, lit along the back
+      const body = (): void => S([-24, -30, -18, -42, -4, -46, 10, -43, 19, -34, 20, -22, 12, -14, -4, -13, -18, -14, -25, -21], V, 2.2)
       body()
       ctx.save(); body(); ctx.clip()
-      if (!white) { ctx.fillStyle = 'rgba(20,8,44,.45)'; ctx.beginPath(); ctx.ellipse(-10, -12, 30, 9, 0, 0, TAU); ctx.fill() }
-      L([-34, -16, -37, -28, -33, -40, -24, -48, -12, -50], 1.3, RIM, false); L([5, -44, 13, -32, 12, -17], 1.3, RIM, false)
-      for (let i = 0; i < 4; i++) L([-33 + i * 1.4, -34 + i * 5, -26 + i * 2, -33 + i * 5], 1.1, '#8a6ac0', false)
-      L([-28, -46, -31, -36, -27, -28], 1, DV, false)
+      if (!white) { ctx.fillStyle = 'rgba(20,8,44,.45)'; ctx.beginPath(); ctx.ellipse(-2, -12, 26, 8, 0, 0, TAU); ctx.fill() }
+      L([-24, -24, -21, -38, -8, -45.4, 8, -43.6, 18, -34], 1.3, RIM, false)
+      for (let i = 0; i < 4; i++) L([-22 + i * 1.6, -26 + i * 3.4, -14 + i * 2, -25 + i * 3.4], 1.1, '#8a6ac0', false)
       ctx.restore()
-      glow(-17, -28, 10, '#e8b0ff', 0.8 + 0.2 * b()); E(-17, -28, 3.4, 4, '#d08aff', 0.01); oval(-18, -29.6, 1, 1.2, '#f4e0ff')
-      // legs in front: a round thigh, a thick shin, claws reaching forward
-      for (const [x, y] of [[-33, -1], [-11, 0]] as const) {
-        S([x - 5, y - 20, x + 3, y - 26, x + 11.4, y - 19, x + 8.4, y - 9, x + 7.6, y - 1, x - 1, y - 1, x - 2.4, y - 9], '#33205e', 1.4)
-        L([x - 2, y - 17, x - 0.6, y - 4], 0.9, RIM, false)
-        for (let i = 0; i < 3; i++) horn(x + 1 + i * 2.4, y - 1, x - 0.6 + i * 2.4, y + 0.6, x - 2.2 + i * 2.4, y + 1, 2, '#f0eaf8')
+      for (let i = 0; i < 6; i++) horn(-12 + i * 4.6, -44.4 + Math.abs(i - 2) * 0.9, -11 + i * 4.6, -47.4 + Math.abs(i - 2) * 0.9, -9.6 + i * 4.6, -49 + Math.abs(i - 2) * 0.9, 2.6, '#7a4ac8')
+      glow(-14, -27, 9, '#e8b0ff', 0.8 + 0.2 * b()); E(-14, -27, 3, 3.6, '#d08aff', 0.01); oval(-15, -28.4, 0.9, 1.1, '#f4e0ff')
+      // the raised wing, high over the back: a dark leading spar, fingers, the membrane between
+      ctx.save(); ctx.translate(-2, -42); ctx.rotate(-fl); ctx.scale(1.3, 1.08)
+      P([0, 0, 4, -30, 9, -38, 18, -30, 24, -18, 20, -8, 12, -3], MB, 1.3)
+      P([4, -30, 9, -38, 18, -30, 12, -26], '#6a3ab8', 0.01)
+      L([0, 0, 4, -30, 9, -38], 2.2, DV, false)
+      L([9, -38, 18, -30], 1, DV, false); L([8, -36, 24, -18], 1, DV, false); L([6, -33, 20, -8], 1, DV, false)
+      horn(8.4, -37, 9, -40.6, 9.6, -43, 2.6, '#f0eaf8')
+      ctx.restore()
+      // the near legs: short and thick, a round thigh, claws reaching forward
+      for (const [x, k] of [[-16, 0], [8, 1]] as const) {
+        S([x - 4, -22, x + 3, -25, x + 9.4, -19, x + 7.4, -9, x + 7, -1, x - 0.4, -1, x - 1.6, -10], '#33205e', 1.4)
+        L([x - 1, -19, x + 0.2, -4], 0.9, RIM, false)
+        for (let i = 0; i < 3; i++) horn(x + 0.6 + i * 2.4, -1, x - 1 + i * 2.4, -0.4, x - 2.6 + i * 2.4, 0.6, 2, '#f0eaf8')
+        void k
       }
-      // the head, big and tilted up: horns curving up and forward, the skull with its brow ridge, the round snout, the pale jaw
-      ctx.save(); ctx.translate(-34, -49); ctx.rotate(-0.12); ctx.scale(1.16, 1.16)
-      horn(4, -7, 8, -18, 20, -19, 7, '#eeeaf6'); horn(9, -5, 16, -14, 28, -12, 6.2, '#d8d4e6'); horn(10, 0, 16, -4, 24, -2, 4.6, '#c8c4d8')
-      S([-20, 2, -20, -4, -16.6, -7.4, -14, -5.6, -8, -11, 2, -14.6, 12, -11, 16, -3, 14, 7, 3, 10, -9, 9.4, -19, 7], V, 2)
-      S([-20, 3.4, -4, 5, 10, 4.4, 6, 10.4, -6, 11.6, -16, 9.6], '#b8a8d8', 1.4)
-      for (let i = 0; i < 6; i++) P([-16 + i * 4, 4.2, -15 + i * 4, 6.6, -14 + i * 4, 4.2], '#fff', 0.01)
-      L([-16, -2, -6, -5.6, 4, -6], 1.1, RIM, false)
-      L([-2, -6.6, 5, -8], 1.8, DV, false)
-      oval(-15.8, -1.4, 1.4, 1, '#1b1626'); L([-17, -3.6, -13.6, -4.4], 0.9, '#6a3ab8', false)
-      eye(1, -3.6, 2.2, 2.2, '#1b1626', '#4a3a6a', V, 1)
+      // the head, forward and level on a short neck: three horns swept back, the skull, the long
+      // flat snout over a pale toothy jaw, a nostril, a brow over a glowing eye
+      S([-26, -38, -20, -42, -14, -38, -14, -28, -22, -26], V, 1.8)
+      ctx.save(); ctx.translate(-27, -38); ctx.rotate(-0.03 + fl * 0.4); ctx.scale(1.2, 1.2); ctx.translate(-2, 0)
+      horn(2, -6, 8, -13, 19, -15, 5.4, '#eeeaf6'); horn(5, -3, 12, -7, 23, -7, 4.6, '#d8d4e6'); horn(5, 1, 11, 0, 19, 2, 3.6, '#c8c4d8')
+      S([-21, -1, -21, -5, -12, -6.6, -6, -9, 2, -10, 8, -6, 8, 2, 2, 6, -8, 6, -20, 3], V, 2)
+      S([-21, 2.4, -10, 2.6, 4, 2.6, 2, 7.4, -8, 8, -19, 5.4], '#b8a8d8', 1.4)
+      for (let i = 0; i < 6; i++) P([-19 + i * 3.6, 2.4, -18 + i * 3.6, 4.8, -17 + i * 3.6, 2.4], '#fff', 0.01)
+      L([-20, -3.4, -10, -5.6, 0, -7.6], 1, RIM, false)
+      L([-5, -6.4, 2, -8.2], 1.8, DV, false)
+      oval(-19.6, -2.4, 1.3, 0.9, '#1b1626')
+      if (!blink) { glow(-1, -3.6, 4, '#e8b0ff', 0.6); oval(-1, -3.6, 1.8, 1.5, '#e8b0ff'); oval(-1.3, -3.9, 0.7, 0.6, '#fff') } else L([-3, -3.6, 1, -3.6], 1, INK, false)
       ctx.restore()
     },
     demon: () => {
@@ -488,67 +514,58 @@ export const mountClicker = (canvas: HTMLCanvasElement, opts: { firstLoad: boole
     },
   }
 
-  // ── the hero: the game's, facing right: sword and buckler, red cape, blue tunic, the big chibi head ──
+  // ── the hero: the game's, facing right (drawn as before the 21 Oct redraw, the owner's pick) ──
+  /** The hero's own eye: white, a coloured iris, a pupil, a catch-light; a brow. */
+  const heroEye = (x: number, y: number, r: number, iris: string, look = 0, brow = 0, side = 1): void => {
+    if (blink) { L([x - r, y, x + r, y], 1.4, INK, false) } else {
+      ctx.lineWidth = 1.1
+      ctx.beginPath(); ctx.ellipse(x, y, r, r * 1.1, 0, 0, TAU); ctx.fillStyle = white ? '#fff' : '#fff'; ctx.fill(); ctx.strokeStyle = INK; ctx.stroke()
+      dot(x + look, y + 0.2, r * 0.62, iris); dot(x + look, y + 0.2, r * 0.3, INK)
+      dot(x + look - r * 0.2, y - r * 0.25, r * 0.2, '#fff')
+    }
+    if (brow) L([x - r * 1.4 * side, y - r - brow * side, x + r * 1.2 * side, y - r * 1.3 + brow * side], 1.8, INK, false)
+  }
   const drawHero = (): void => {
     const sw = slash > 0 ? 1 - slash / 0.24 : 0
     const f = hero === 'female'
-    const hair = f ? '#9a4526' : '#7a4a2a'
-    const hl = f ? '#d07a40' : '#a8703e'
-    const iris = f ? '#5cc884' : '#3f8fd6'
+    const hair = f ? '#d2762c' : '#8a5230'
     const wv = (k: number): number => Math.sin(t * 3 + k)
     ctx.save()
     ctx.translate(HERO_X + (slash > 0 ? Math.sin(sw * 3.14) * 9 : 0), GROUND)
     ctx.scale(1.5, 1.5 - 0.02 * b())
-    ctx.translate(0, -1.6)
-    // the cape behind, flowing wide: its darker inner side, a fold
-    P([-6, -28, 0, -28, -1, -12, -5 + wv(1), -4, -15 + wv(2) * 1.5, -3.6, -15 + wv(3), -14, -11, -24], f ? '#f0201a' : '#c9483a', 1.6)
-    P([-3, -27, 0, -28, -1, -12, -5 + wv(1), -4, -6, -14], '#8e2a24', 0.01)
-    L([-8, -24, -11 + wv(2), -8], 1, '#9a2c24', false)
-    // blue trousers, tall brown boots
-    P([-6, -11, -2, -11, -2.2, -6, -5.8, -6], '#3a5a9a'); P([0, -11, 4, -11, 4, -6, 0.2, -6], '#3a5a9a')
-    P([-6.4, -7, -1.8, -7, -1.6, -1, 0, 0.2, 0, 1.4, -6.8, 1.4], '#6a4428', 1.3); P([-0.2, -7, 4.4, -7, 4.6, -1, 6.4, 0.2, 6.4, 1.4, -0.4, 1.4], '#6a4428', 1.3)
-    // the tunic and belt
-    P([-7, -24, 5, -24, 6.4, -9, -8.4, -9], '#3f7fd6', 1.6)
-    L([-7.4, -12.6, 5.8, -12.6], 1.2, '#5a3a22', false)
-    // the neck, shaded under the jaw, into a collar
-    P([-4.6, -27, 1.4, -27, 1.6, -23.6, -4.8, -23.6], '#f2c8a0', 1.3)
-    P([-4.6, -25.6, 1.4, -25.6, 1.5, -24.6, -4.7, -24.6], '#c99878', 0.01)
-    L([-7, -24, -1.6, -21.6, 5, -24], 1.3, '#2c5fae', false)
-    // the head, traced from the game's: a wide face, the big eyes, the hair with its swept fringe over the brow;
-    // set low on a short neck
-    ctx.save(); ctx.translate(0, 3.6)
-    if (f) S([-12.6, -44, -14.6, -36, -14, -30.4, -11, -30, -10, -38], hair, 1.4)
-    S(f ? [-10.6, -42, 6, -42, 6.4, -33, 3, -29.4, -1, -28, -5, -28.6, -9.6, -31.4] : [-10.6, -42, 6, -42, 6.4, -33, 2.6, -28.8, -4.4, -28.4, -9.6, -31.4], '#f2c8a0', 1.6)
-    eye(-2.4, -34.2, 2.4, f ? 3.1 : 2.9, '#1e3050', iris)
-    eye(4, -34.2, 2.1, f ? 3 : 2.8, '#1e3050', iris)
-    if (f && !blink) { L([-5.6, -37.6, -7.4, -39.4], 1, INK, false); L([6.2, -37, 7.6, -38.6], 1, INK, false); L([-5.2, -37.8, -2.6, -38.4, 0, -37.6], 0.8, INK, false); L([2.2, -37.6, 4.2, -38.2, 6, -37.2], 0.8, INK, false) }
-    P(f ? [1.4, -30.4, 2.4, -30.4, 2.1, -29.9, 1.6, -29.9] : [0.8, -30.6, 2.8, -30.6, 2.4, -29.8, 1.2, -29.8], f ? '#c03a4a' : '#6a2a34', 0.01)
-    if (f) {
-      // a parted top, auburn locks framing the face down to the jaw, a soft fringe over the brow
-      P([-12.4, -31, -14.6, -42, -11, -48.4, -4, -51.6, 3, -51, 8, -47, 9.4, -40, 9.6, -31, 7, -30.6, 6.6, -37, 4.6, -40.6, 2, -39.4, 0.4, -42, -2.6, -40.6, -6.4, -41.6, -9.4, -38.6, -10, -31], hair, 1.4)
-      L([-1, -51, -2.6, -45, -6, -41.4], 1.1, tone(hair, 0.6), false)
-      L([-9, -46, -6, -48.6], 1, hl, false); L([3, -49, 6, -46], 1, hl, false)
-    } else {
-      // a fringe swept to one side, the ears tucked under the hair, a tuft on top
-      P([-12.6, -34.6, -14, -43, -11, -48, -5, -50.4, -2.4, -50.6, -1.4, -53.6, 0.6, -50, 5, -48.4, 8.4, -44, 8, -34.6, 5, -40.6, 4.6, -35.4, 0, -41.6, -0.6, -36.6, -5, -41.8, -6, -37.4, -9.6, -41.4, -11.6, -36], hair, 1.7)
-      L([-8, -46.6, -3.6, -48.6], 1, hl, false)
-    }
-    ctx.restore()
-    // the buckler on the near arm: a white rim round a gold boss
-    ctx.save(); ctx.translate(f ? -4.4 : -6.4, f ? -18.6 : -16.2); ctx.scale(1.12, 1.12); ctx.translate(2, 21.2)
-    P([-8.4, -24.6, -3.4, -27.6, 2.6, -26.4, 5.4, -21, 3.4, -15.4, -2, -13.4, -7.6, -15.6, -9.4, -21], '#eef2f8', 1.6)
-    P([-5.6, -23.6, -2.4, -25, 1.4, -24, 2.6, -20.4, 1, -17.2, -2.6, -16.6, -5.6, -18.4, -6.2, -21.4], '#d9b04e', 1.1)
-    oval(-2, -21.2, 2, 2.2, '#ffe9a0')
-    ctx.restore()
-    // the sword arm, from the shoulder: raised to cut
-    ctx.save(); ctx.translate(4.6, -21); ctx.rotate(0.45 + sw * 1.95)
-    L([0, 0, 1, 4], 2.6, '#3f7fd6'); E(1.2, 4.8, 1.8, 1.8, '#f2c8a0', 1)
-    R(0.4, 4.4, 1.6, 3.4, '#8a5a34', 0.8)
-    R(-1.6, 3, 5.2, 1.6, '#d9b04e', 0.9)
-    P([0, 3, 2.4, 3, 2.2, -16, 1.2, -18.5, 0.2, -16], '#d8dde8', 1.2)
-    L([1.2, 2, 1.2, -15], 0.5, '#fff', false)
+    // cape, flowing behind
+    S([-4, -29, -11 + wv(0), -25, -17 + wv(1) * 2, -14, -16 + wv(2) * 2.4, -6, -10 + wv(3) * 2, -9, -4 + wv(4), -6, 0, -14, 1, -24], '#d03a3a', 1.8)
+    L([-8, -26, -12 + wv(1), -12], 0.9, '#9a2424', false)
+    R(-6.5, -13, 5.5, 13, '#4a4458'); R(1.5, -13, 5.5, 13, '#4a4458'); R(-7.5, -5, 7.5, 5, '#5a3a22'); R(1, -5, 7.5, 5, '#5a3a22')
+    L([-7, -3.5, -1, -3.5], 0.7, '#8a6a4a', false)
+    if (f) S([-9, -17, 9, -17, 14, -6, 0, -4, -14, -6], '#3f7fd6', 1.8)
+    S([-9, -14, -10, -26, -4, -30, 5, -30, 10, -26, 9, -14, 0, -12], '#3f7fd6', 2)
+    R(-9, -18, 18, 3.4, '#5a3a22', 1.3); R(-1.8, -18.2, 3.6, 3.8, '#ffd24a', 1)
+    P([-4, -30, 0, -26, 4, -30], '#eef2fa', 1)
+    // head
+    if (f) { S([-8, -42, -17 + wv(2) * 2, -40, -20 + wv(3) * 2.5, -30, -14, -27, -11 + wv(1), -34], hair, 1.8); P([-14, -42, -19, -46, -16, -38], '#d03a3a', 1.1); P([-14, -42, -9, -47, -12, -38], '#d03a3a', 1.1) }
+    E(0, -38, 9.5, 9, '#f2c8a0', 2)
+    E(-8.6, -37, 2.2, 2.6, '#e8b890', 1.2)
+    S([-10.5, -37, -9, -46, 0, -49.5, 9, -46, 10.5, -39, 6, -43, 0, -41.5, -6, -43], hair, 2)
+    for (const x of [-5, -1, 3]) L([x, -47, x + 1.5, -42], 0.8, tone(hair, 1.35), false)
+    P([5, -43, 10, -40, 8, -37], hair, 1.1)
+    heroEye(4.2, -37.5, 2.1, '#5a3a22', 0.8, 0.8)
+    L([6, -32.5, 8, -32, 9.5, -33], 1, '#a0605a', false)
+    // shield on the near arm: boss, rivets, emblem
+    S([-11, -27, 3, -27, 3, -17, -4, -8, -11, -17], '#ffd24a', 2)
+    S([-9, -25.5, 1, -25.5, 1, -17.5, -4, -11, -9, -17.5], '#2f63b8', 1)
+    L([-4, -25, -4, -13], 1.1, '#9ac0f0', false); L([-9, -20, 1, -20], 1.1, '#9ac0f0', false)
+    E(-4, -20, 2.4, 2.4, '#ffd24a', 1.1); dot(-4.5, -20.6, 0.8, '#fff')
+    for (const [x, y] of [[-8.5, -24], [0.5, -24], [-8.5, -18], [0.5, -18]] as const) dot(x, y, 0.8, '#fff0b0')
+    // the sword arm: from the shoulder, raised to cut
+    ctx.save(); ctx.translate(6, -25); ctx.rotate(0.5 + sw * 1.95)
+    R(-2.4, -1, 4.8, 8, '#3f7fd6', 1.3); E(0, 7.5, 2.7, 2.7, '#f2c8a0', 1.3)
+    R(-1.1, 6, 2.4, 7, '#a8733f', 1); E(0, 14.5, 2, 2, '#ffd24a', 1.1); dot(-0.6, 13.9, 0.6, '#fff')
+    R(-5.5, 4, 11, 2.6, '#ffd24a', 1.3)
+    S([-2.8, 4, 2.8, 4, 2.2, -24, 0, -30, -2.2, -24], '#e6ebf5', 1.7)
+    L([0, 3, 0, -22], 0.9, '#9aa4b8', false); L([-1.6, 2, -1.2, -24], 0.7, '#fff', false)
     const g = ((t * 0.7) % 1)
-    if (!white) { ctx.globalAlpha = 0.9 * Math.sin(g * 3.14); L([-0.8, -4 - g * 12, 3.2, -4 - g * 12], 0.7, '#fff', false); L([1.2, -6 - g * 12, 1.2, -2 - g * 12], 0.7, '#fff', false); ctx.globalAlpha = 1 }
+    if (!white) { ctx.globalAlpha = 0.9 * Math.sin(g * 3.14); L([-2.5, -4 - g * 20, 2.5, -4 - g * 20], 0.9, '#fff', false); L([0, -6.5 - g * 20, 0, -1.5 - g * 20], 0.9, '#fff', false); ctx.globalAlpha = 1 }
     ctx.restore()
     ctx.restore()
   }

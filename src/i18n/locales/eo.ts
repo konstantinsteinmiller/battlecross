@@ -6103,7 +6103,11 @@ export default {
       trainerAegis: {
         freed: {
           '1': 'Dankon, ke vi liberigis nin de la banditoj! Venu al la fajro: ni ĉiuj instruos vin, la unua leciono senpaga.'
-        }
+        },
+        road: { '1': 'Vi trovis nin! La demonoj kaptis nin sur la vojo al Sunford. Ni iros al Bastiona Transirejo: trovu nin en la fortikaĵo.' }
+      },
+      sfShadow: {
+        road: { '1': 'Jam estis tempo, ke iu venu. Ni foriras al Bastiona Transirejo. Serĉu nin en la fortikaĵo.' }
       },
       frostDisciple: {
         freed: {
@@ -7442,8 +7446,7 @@ export default {
     retreatNote: 'Vi konservas ĉion ĝis nun gajnitan, sed la zono ne estas purigita.'
   },
   ending: {
-    level: 'Nivelo',
-    more: 'La Malplena Fendo malfermiĝis sub la fortikaĵo. Sed la vera provo de via forto atendas en la Koloseo: grimpu tra ĝiaj ondoj, kaj gajnu la mitajn premiojn, kiujn havas nur ĝiaj ĉampionoj.',
+    more: 'La Ĉefdemono falis, sed la regno ankoraŭ ne estas sekura. Unu granda minaco restas al la mondo, kaj ĝi atendas en la Malplena Fendo.',
     order: {
       title: 'La Fera Paco',
       text: 'Standardoj de la Fera Ordeno flirtas super la Terura Fortikaĵo. La vojoj estas sekuraj, la leĝoj estas multaj, kaj via nomo estas ĉizita super la pordego.'

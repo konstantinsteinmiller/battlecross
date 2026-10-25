@@ -134,8 +134,46 @@ describe('opening one', () => {
       const conv = SPOKEN.find(s => s.id === `bark.${c.npc}`)
       expect(conv, c.npc).toBeTruthy()
       expect(conv!.voice).toBe(c.npc)
-      expect(conv!.greet[0]!.lines[0]!.id).toBe(captiveLine(c.npc))
+      const ids = conv!.greet.flatMap(g => g.lines.map(l => l.id))
+      expect(ids, c.npc).toContain(c.line ?? captiveLine(c.npc))
     }
+  })
+})
+
+describe('Sunford\'s teachers on the burned road (#164)', () => {
+  it('in the afterplay the invaded Plains and Hollows hold them: two each, in their own looks, with their own line', () => {
+    for (const zone of ['plains', 'hollows'] as const) {
+      const def = cageOf(zone, true)!
+      expect(def, zone).toBeTruthy()
+      expect(cageOf(zone, false)).not.toBe(def)
+      const plan = generateZone(ZONES[zone], 3, { cage: true })
+      const sim = new Sim({ seed: 3, w: plan.w, h: plan.h, level: 32, difficulty: 1, mode: 'zone', zone })
+      sim.invaded = true
+      applyPlan(sim, plan)
+      const ref = referenceBuild({ level: 32, cls: 'aegis' })
+      createHero(sim, { build: ref.build, skills: ref.skills, x: plan.start.x, z: plan.start.z, xpInto: 0, potions: 3 })
+      populateZone(sim, plan, zone, [])
+      const kinds = sim.captives.map(p => sim.get(p.unit)!.kind)
+      expect(kinds).toEqual([...def.looks!])
+      expect(sim.captives[0]!.line).toBe(def.line)
+    }
+  })
+
+  it('stay behind the bars, whatever shoves them, until the door opens (#163)', () => {
+    const plan = generateZone(ZONES.tundra, 3, { cage: true })
+    const sim = new Sim({ seed: 3, w: plan.w, h: plan.h, level: 20, difficulty: 1, mode: 'zone', zone: 'tundra' })
+    applyPlan(sim, plan)
+    const ref = referenceBuild({ level: 20, cls: 'aegis' })
+    createHero(sim, { build: ref.build, skills: ref.skills, x: plan.start.x, z: plan.start.z, xpInto: 0, potions: 3 })
+    populateZone(sim, plan, 'tundra', [])
+    const u = sim.get(sim.captives[0]!.unit)!
+    const at = [u.x, u.z]
+    u.kx = 6
+    u.kz = 9
+    for (let t = 0; t < 2; t += 1 / 30) stepSim(sim, plan, 1 / 30)
+    expect([u.x, u.z]).toEqual(at)
+    expect(u.vx).toBe(0)
+    expect(u.vz).toBe(0)
   })
 })
 
@@ -152,7 +190,7 @@ describe('the freed', () => {
   afterEach(() => { drainPersist(); vi.restoreAllMocks() })
 
   it('are met again in their town; a disciple teaches the class and spares the master\'s test', () => {
-    for (const c of CAGES) {
+    for (const c of CAGES.filter(x => !x.afterplay)) {
       const before = townNpcs(c.town, new Set(p.profile.world.flags)).map(n => n.id)
       expect(before, c.npc).not.toContain(c.npc)
       p.freeCaptives(c.zone)
@@ -171,5 +209,12 @@ describe('the freed', () => {
       const favor = conversationOf(m)!.nodes.root!.choices.find(ch => ch.id === 'favor')!
       expect(meets(favor.when, w, m), m).toBe(false)
     }
+  })
+
+  it('freed on the burned road in the afterplay, Sunford\'s teachers are rescued to the fort (#164)', () => {
+    p.profile.world.afterplay = true
+    p.freeCaptives('plains')
+    p.freeCaptives('hollows')
+    for (const f of ['rescuedAegis', 'rescuedPyro', 'rescuedShadow', 'rescuedGeo']) expect(p.hasFlag(f), f).toBe(true)
   })
 })

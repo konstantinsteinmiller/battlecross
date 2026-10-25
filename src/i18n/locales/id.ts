@@ -6103,7 +6103,11 @@ export default {
       trainerAegis: {
         freed: {
           '1': 'Terima kasih telah membebaskan kami dari bandit! Ke api unggun: kami semua mengajarimu, pelajaran pertama gratis.'
-        }
+        },
+        road: { '1': 'Kau menemukan kami! Para iblis menangkap kami di jalan ke Sunford. Kami akan pergi ke Penyeberangan Benteng: temui kami di benteng.' }
+      },
+      sfShadow: {
+        road: { '1': 'Akhirnya ada yang datang. Kami berangkat ke Penyeberangan Benteng. Cari kami di benteng.' }
       },
       frostDisciple: {
         freed: {
@@ -7442,8 +7446,7 @@ export default {
     retreatNote: 'Semua yang sudah kamu dapat tetap milikmu, tapi zonanya belum tuntas.'
   },
   ending: {
-    level: 'Level',
-    more: 'Retakan Hampa telah terbuka di bawah benteng. Tapi ujian sejati kekuatanmu menanti di Koloseum: daki gelombangnya, dan menangkan hadiah mitis yang hanya dimiliki para juaranya.',
+    more: 'Iblis Agung telah tumbang, tetapi kerajaan belum aman. Satu ancaman besar masih tersisa bagi dunia, dan ia menunggu di dalam Retakan Hampa.',
     order: {
       title: 'Kedamaian Besi',
       text: 'Panji-panji Ordo Besi berkibar di atas Benteng Kengerian. Jalanan aman, hukumnya banyak, dan namamu terukir di atas gerbang.'

@@ -19,10 +19,10 @@ rewrites it, and a test fails when it is stale. Do not edit by hand.
 | hero | 210 | 210 |
 | freedPeddler | 9 | 9 |
 | lightDisciple | 14 | 14 |
-| sfShadow | 17 | 17 |
+| sfShadow | 18 | 18 |
 | sunfordSmith | 25 | 25 |
 | sunfordPeddler | 15 | 15 |
-| trainerAegis | 19 | 19 |
+| trainerAegis | 20 | 20 |
 | trainerPyro | 15 | 15 |
 | sfGeo | 12 | 12 |
 | elderMara | 47 | 47 |
@@ -107,7 +107,7 @@ rewrites it, and a test fails when it is stale. Do not edit by hand.
 | hydra | 4 | 4 |
 | elderDragon | 4 | 4 |
 | heroine | 210 | 210 |
-| **All** | **1577** | **1577** |
+| **All** | **1579** | **1579** |
 
 ## Other languages voiced in full
 
@@ -115,22 +115,22 @@ English and German voice every line. A line with no file there is a silent bubbl
 
 | Language | Voiced | Lines |
 | --- | --- | --- |
-| de | 1551 | 1577 |
+| de | 1553 | 1579 |
 
 ## Other languages: the core lines only
 
-English and German are voiced in full. Every other voiced language ships only the **core**: 327 of 1577 lines (67 of them the girl hero's `__f` twins, limit 330), set in data/voice-core.json by id pattern plus an explicit list. Core: the hero's "Will you teach me?" and goodbye lines, the main quest decisions with their boss monologues (Goblin King, Krag, the Colossus core, the oracle, the dragon, the Arch-Demon's throne), the five endings, the story beats of Elder Mara, Captain Hale, Mayor Brenna, Madam Ash and the exiled Sovereign, the intro, the first visit's road teacher (Nettle) and the camp's thanks, every bark (bosses, the siege, freed captives), the afterplay's story (its beats, Scout Wren, the fort's Hale and Mara, the seal decision and its epilogue) and the Wanderer's greeting. Not core: smalltalk, shops, gamblers, the fair's barkers, trainer and master Q&A, trade and heal chatter. A non-core line is a silent bubble; a test fails when a language folder holds a file outside the core.
+English and German are voiced in full. Every other voiced language ships only the **core**: 329 of 1579 lines (67 of them the girl hero's `__f` twins, limit 330), set in data/voice-core.json by id pattern plus an explicit list. Core: the hero's "Will you teach me?" and goodbye lines, the main quest decisions with their boss monologues (Goblin King, Krag, the Colossus core, the oracle, the dragon, the Arch-Demon's throne), the five endings, the story beats of Elder Mara, Captain Hale, Mayor Brenna, Madam Ash and the exiled Sovereign, the intro, the first visit's road teacher (Nettle) and the camp's thanks, every bark (bosses, the siege, freed captives), the afterplay's story (its beats, Scout Wren, the fort's Hale and Mara, the seal decision and its epilogue) and the Wanderer's greeting. Not core: smalltalk, shops, gamblers, the fair's barkers, trainer and master Q&A, trade and heal chatter. A non-core line is a silent bubble; a test fails when a language folder holds a file outside the core.
 Make them with `voice:gen --engine chatterbox --lang <code>` (then `--retry 2`); `voice:collect` builds jobs for the core lines only.
 Indonesian (id) and Vietnamese (vi) are not voiced: Chatterbox cannot speak them. pt-PT keeps English too.
 
 | Language | Core voiced | Core lines |
 | --- | --- | --- |
-| fr | 320 | 327 |
-| es | 325 | 327 |
-| ru | 323 | 327 |
-| ja | 326 | 327 |
-| pt | 323 | 327 |
-| zh | 327 | 327 |
+| fr | 322 | 329 |
+| es | 327 | 329 |
+| ru | 325 | 329 |
+| ja | 328 | 329 |
+| pt | 325 | 329 |
+| zh | 329 | 329 |
 
 ## Parked takes (decision 2026-10-18)
 
@@ -141,7 +141,7 @@ To widen a language beyond the core, change data/voice-core.json and settle the 
 
 Nothing: every line has its recording.
 
-## Every line (1577)
+## Every line (1579)
 
 | File | Who | Scene | English | EN |
 | --- | --- | --- | --- | --- |
@@ -1489,6 +1489,8 @@ Nothing: every line has its recording.
 | `dlg.bark.frostDisciple.freed.1` | Ivor Hask (frostDisciple) | bark.frostDisciple | You came for me? Ivor Hask, a Frostwarden's disciple. Come to Ironhold and I'll teach you. | chatterbox |
 | `dlg.bark.lightDisciple.freed.1` | Sister Aurelle (lightDisciple) | bark.lightDisciple | The light sent you. I am Sister Aurelle. Seek me in Sunford, I'll teach you the Lightbringer's way. | chatterbox |
 | `dlg.bark.trainerAegis.freed.1` | Ser Aldric (trainerAegis) | bark.trainerAegis | Thank you for freeing us from the bandits! Come to the fire: we'll all teach you, first lesson free. | chatterbox |
+| `dlg.bark.trainerAegis.road.1` | Ser Aldric (trainerAegis) | bark.trainerAegis | You found us! The demons caught us on the Sunford road. We will make for Bastion Crossing: find us at the fort. | chatterbox |
+| `dlg.bark.sfShadow.road.1` | Nettle Quickhand (sfShadow) | bark.sfShadow | About time someone came. We are off to Bastion Crossing. Look for us at the fort. | chatterbox |
 | `dlg.intro.crossing.1` | The Chronicler (chronicler) | intro | Every road in this world meets at a crossing… and every crossing is a battle. | elevenlabs |
 | `dlg.intro.hero.1` | The Chronicler (chronicler) | intro | From the quiet fields of Sunford, a young hero set out. | elevenlabs |
 | `dlg.intro.fire.1` | The Chronicler (chronicler) | intro | Fire answered the call. Steel learned a new name. | elevenlabs |
@@ -1511,7 +1513,7 @@ Nothing: every line has its recording.
 | `ending.note.oracleSlain` | The hero, telling the story (hero) | ending | The Sunken Temple is silent. No one knows what comes next any more. | chatterbox |
 | `ending.note.dragonPact` | The hero, telling the story (hero) | ending | A dragon nests on the fortress roof, and answers to one name only. | chatterbox |
 | `ending.note.dragonSlain` | The hero, telling the story (hero) | ending | A dragon's skull hangs in the Order's great hall. | chatterbox |
-| `ending.more` | The hero, telling the story (hero) | ending | The Void Rift has opened beneath the fortress. But the true test of your power waits in the Colosseum: climb its waves, and win the mythic prizes only its champions hold. | chatterbox |
+| `ending.more` | The hero, telling the story (hero) | ending | The Arch-Demon has fallen, but the realm is not safe yet. One great threat is left to the world, and it waits inside the Void Rift. | chatterbox |
 | `dlg.hero.bye__f` | The girl hero (heroine) | hero | I'll let you get on. | chatterbox |
 | `dlg.hero.trade__f` | The girl hero (heroine) | hero | Can I see what you've got? | chatterbox |
 | `dlg.hero.who__f` | The girl hero (heroine) | hero | Who are you, if you don't mind me asking? | chatterbox |
@@ -1721,4 +1723,4 @@ Nothing: every line has its recording.
 | `ending.note.oracleSlain__f` | The girl hero, telling the story (heroine) | ending | The Sunken Temple is silent. No one knows what comes next any more. | chatterbox |
 | `ending.note.dragonPact__f` | The girl hero, telling the story (heroine) | ending | A dragon nests on the fortress roof, and answers to one name only. | chatterbox |
 | `ending.note.dragonSlain__f` | The girl hero, telling the story (heroine) | ending | A dragon's skull hangs in the Order's great hall. | chatterbox |
-| `ending.more__f` | The girl hero, telling the story (heroine) | ending | The Void Rift has opened beneath the fortress. But the true test of your power waits in the Colosseum: climb its waves, and win the mythic prizes only its champions hold. | chatterbox |
+| `ending.more__f` | The girl hero, telling the story (heroine) | ending | The Arch-Demon has fallen, but the realm is not safe yet. One great threat is left to the world, and it waits inside the Void Rift. | chatterbox |

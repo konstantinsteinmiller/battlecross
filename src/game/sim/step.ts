@@ -10,7 +10,7 @@ import { stepHero } from './hero'
 import { finishOpen } from './interact'
 import { finishMine } from './ores'
 import { stepPickups } from './herbs'
-import { stepCaptives } from './cages'
+import { holdCaged, stepCaptives } from './cages'
 import { stepCamp } from './camp'
 import { HERO_SKILLS } from './heroSkills'
 import { townSimReady } from './townHooks'
@@ -116,6 +116,8 @@ export const stepSim = (sim: Sim, plan: ZonePlan, dt: number): void => {
   stepProjectiles(sim, dt)
   stepFields(sim, dt)
   stepWalls(sim, dt)
+  // Nobody behind bars is moved by any of it (#163).
+  if (sim.captives.length) holdCaged(sim)
 
   const inv = dt > 0 ? 1 / dt : 0
   for (let i = 0; i < us.length; i++) {

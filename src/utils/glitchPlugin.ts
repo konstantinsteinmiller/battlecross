@@ -1,4 +1,6 @@
-import { glitchLicenseStatus } from '@/use/useGlitchLicense'
+import { glitchLicenseReason, glitchLicenseStatus } from '@/use/useGlitchLicense'
+import { version } from '@/use/useUser'
+import { connectGlitch, newSessionId, sendHeartbeat, type GlitchConnectDeps } from '@/utils/glitchInstall'
 import { GlitchStrategy } from '@/utils/save/GlitchStrategy'
 import type { SaveStrategy } from '@/utils/save/types'
 
@@ -61,47 +63,49 @@ export const createGlitchSaveStrategy = (): SaveStrategy | null => {
  * network calls happen.
  */
 export const glitchPlugin = (): void => {
-  const cfg = resolveGlitchConfig()
-  if (!cfg) {
-    console.warn('[Glitch] Missing install_id / titleId / token — heartbeat disabled.')
+  const isProduction = import.meta.env.VITE_NODE_ENV === 'production'
+  const titleId =
+    (isProduction ? undefined : import.meta.env.VITE_APP_GLITCH_TEST_INSTALL_ID) ||
+    import.meta.env.VITE_APP_GLITCH_INSTALL_ID
+  const token = import.meta.env.VITE_APP_GLITCH_TOKEN
+  if (!titleId || !token) {
+    console.warn('[Glitch] Missing title id / token — Glitch connection disabled.')
+    glitchLicenseReason.value = 'UNAUTHENTICATED'
     glitchLicenseStatus.value = 'denied'
     return
   }
 
-  const { titleId, installId, token } = cfg
+  let storage: Storage | null = null
+  try { storage = window.localStorage } catch { /* blocked storage */ }
 
-  const validate = async (): Promise<void> => {
-    try {
-      const response = await fetch(
-        `https://api.glitch.fun/api/titles/${titleId}/installs/${installId}/validate`,
-        {
-          method: 'POST',
-          headers: { Authorization: `Bearer ${token}` }
-        }
-      )
-      glitchLicenseStatus.value = response.ok ? 'ok' : 'denied'
-    } catch {
+  const deps: GlitchConnectDeps = {
+    titleId,
+    token,
+    search: new URLSearchParams(window.location.search),
+    storage,
+    fetch: window.fetch.bind(window),
+    gameVersion: version,
+    userAgent: navigator.userAgent,
+    // The launcher's session id when given, else one per page load.
+    sessionId: new URLSearchParams(window.location.search).get('session_id') || newSessionId()
+  }
+
+  connectGlitch(deps).then((result) => {
+    if (!result.ok) {
+      console.warn('[Glitch] Access denied:', result.reason)
+      glitchLicenseReason.value = result.reason
       glitchLicenseStatus.value = 'denied'
+      return
     }
-  }
-
-  const sendPayoutHeartbeat = (): void => {
-    fetch(`https://api.glitch.fun/api/titles/${titleId}/installs`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`
-      },
-      body: JSON.stringify({ user_install_id: installId, platform: 'web' })
-    }).catch(() => {
-      /* swallow — heartbeat is best-effort */
-    })
-  }
-
-  validate().then(() => {
-    if (glitchLicenseStatus.value !== 'ok') return
-    sendPayoutHeartbeat()
-    setInterval(sendPayoutHeartbeat, HEARTBEAT_INTERVAL_MS)
+    glitchLicenseReason.value = null
+    glitchLicenseStatus.value = 'ok'
+    // Heartbeat = re-post the install under our own user_install_id. Skipped
+    // when Glitch asks us to, or when the launcher gave us an install_id
+    // without its key (posting a guessed key would register a phantom install).
+    const { userInstallId, validation } = result
+    if (!userInstallId || validation.disable_playtime_tracking) return
+    sendHeartbeat(deps, userInstallId)
+    setInterval(() => sendHeartbeat(deps, userInstallId), HEARTBEAT_INTERVAL_MS)
   })
 }
 

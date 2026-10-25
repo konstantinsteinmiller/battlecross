@@ -858,6 +858,24 @@
       "rev": "bcb8bcdc2511",
       "painting": "50cc76a3d74e",
       "at": "2026-10-23T16:27:59.768Z"
+    },
+    "sheet-portraits-people-1.jpg": {
+      "sheet": "sheet-portraits-people-1",
+      "rev": "645ec9a5f9c1",
+      "painting": "c8600bd608f1",
+      "at": "2026-10-25T00:05:57.425Z"
+    },
+    "sheet-portraits-people-2.jpg": {
+      "sheet": "sheet-portraits-people-2",
+      "rev": "a068b5c85387",
+      "painting": "042be2324dc4",
+      "at": "2026-10-25T00:07:03.275Z"
+    },
+    "sheet-portraits-people-3.jpg": {
+      "sheet": "sheet-portraits-people-3",
+      "rev": "958aff468507",
+      "painting": "8130819eb7c6",
+      "at": "2026-10-25T00:10:12.763Z"
     }
   }
 }

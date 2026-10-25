@@ -6202,7 +6202,11 @@ export default {
       trainerAegis: {
         freed: {
           '1': 'Díky, žes nás vysvobodil od banditů! Pojď k ohni: všichni tě budeme učit, první lekce zdarma.'
-        }
+        },
+        road: { '1': 'Našel jsi nás! Démoni nás chytili na cestě do Sunfordu. Míříme do Baštového brodu: najdi nás v pevnosti.' }
+      },
+      sfShadow: {
+        road: { '1': 'Bylo načase, že někdo přišel. Jdeme do Baštového brodu. Hledej nás v pevnosti.' }
       },
       frostDisciple: {
         freed: {
@@ -7543,8 +7547,7 @@ export default {
     retreatNote: 'Vše, co se ti zatím podařilo získat, ti zůstane, ale zóna nebude vyčištěná.'
   },
   ending: {
-    level: 'Úroveň',
-    more: 'Pod pevností se otevřela Trhlina Prázdnoty. Skutečná zkouška tvé síly ale čeká v Koloseu: probij se jeho vlnami a získej mýtické ceny, které mají jen jeho šampioni.',
+    more: 'Arcidémon padl, ale říše ještě není v bezpečí. Světu zbývá jedna velká hrozba a ta čeká v Trhlině Prázdnoty.',
     order: {
       title: 'Železný mír',
       text: 'Nad Pevností děsu vlají prapory Železného řádu. Cesty jsou bezpečné, zákonů je mnoho a tvé jméno je vytesané nad bránou.'

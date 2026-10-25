@@ -6103,7 +6103,11 @@ export default {
       trainerAegis: {
         freed: {
           '1': 'Tack för att du befriade oss från banditerna! Kom till elden: vi lär dig alla, första lektionen är gratis.'
-        }
+        },
+        road: { '1': 'Du hittade oss! Demonerna fångade oss på vägen till Sunford. Vi beger oss till Bastionsvadet: hitta oss i fortet.' }
+      },
+      sfShadow: {
+        road: { '1': 'Det var på tiden att någon kom. Vi drar till Bastionsvadet. Leta efter oss i fortet.' }
       },
       frostDisciple: {
         freed: {
@@ -7442,8 +7446,7 @@ export default {
     retreatNote: 'Du behåller allt du har tjänat hittills, men området är inte rensat.'
   },
   ending: {
-    level: 'Nivå',
-    more: 'Tomhetsrevan har öppnats under fästningen. Men det sanna provet på din kraft väntar i Colosseum: klättra genom vågorna och vinn de mytiska priserna som bara dess mästare har.',
+    more: 'Ärkedemonen har fallit, men riket är ännu inte säkert. Ett stort hot återstår för världen, och det väntar inne i Tomhetsrevan.',
     order: {
       title: 'Järnfreden',
       text: 'Järnordens baner vajar över Fasans fästning. Vägarna är trygga, lagarna många, och ditt namn är inhugget ovanför porten.'

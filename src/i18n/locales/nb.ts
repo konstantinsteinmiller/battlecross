@@ -6103,7 +6103,11 @@ export default {
       trainerAegis: {
         freed: {
           '1': 'Takk for at du befridde oss fra bandittene! Kom til bålet: vi lærer deg alle, første leksjon er gratis.'
-        }
+        },
+        road: { '1': 'Du fant oss! Demonene fanget oss på veien til Sunford. Vi drar til Bastionsvadet: finn oss i fortet.' }
+      },
+      sfShadow: {
+        road: { '1': 'På tide at noen kom. Vi drar til Bastionsvadet. Se etter oss i fortet.' }
       },
       frostDisciple: {
         freed: {
@@ -7442,8 +7446,7 @@ export default {
     retreatNote: 'Du beholder alt du har tjent så langt, men området er ikke ryddet.'
   },
   ending: {
-    level: 'Nivå',
-    more: 'Tomhetsriften har åpnet seg under festningen. Men den sanne prøven på kraften din venter i Colosseum: klatre gjennom bølgene, og vinn de mytiske premiene bare mesterne der har.',
+    more: 'Erkedemonen har falt, men riket er ennå ikke trygt. Én stor trussel gjenstår for verden, og den venter inne i Tomhetsriften.',
     order: {
       title: 'Jernfreden',
       text: 'Jernordenens bannere vaier over Redselsfestningen. Veiene er trygge, lovene mange, og navnet ditt er hugget inn over porten.'

@@ -6123,7 +6123,11 @@ export default {
       trainerAegis: {
         freed: {
           '1': 'Danke, dass du uns von den Banditen befreit hast! Komm ans Feuer: Wir alle lehren dich, die erste Lektion umsonst.'
-        }
+        },
+        road: { '1': 'Du hast uns gefunden! Die Dämonen haben uns auf der Straße nach Sunford erwischt. Wir gehen nach Bastionsfurt: Such uns in der Festung.' }
+      },
+      sfShadow: {
+        road: { '1': 'Wurde auch Zeit, dass jemand kommt. Wir machen uns auf nach Bastionsfurt. Such uns in der Festung.' }
       },
       frostDisciple: {
         freed: {
@@ -7463,8 +7467,7 @@ export default {
     retreatNote: 'Du behältst alles, was du bisher verdient hast, aber das Gebiet gilt nicht als geschafft.'
   },
   ending: {
-    level: 'Level',
-    more: 'Unter der Festung hat sich der Leerenriss geöffnet. Doch die wahre Prüfung deiner Macht wartet im Kolosseum: Erklimm seine Wellen und gewinn die mythischen Preise, die nur seine Champions besitzen.',
+    more: 'Der Erzdämon ist gefallen, doch das Reich ist noch nicht sicher. Eine große Bedrohung ist der Welt geblieben, und sie wartet im Leerenriss.',
     order: {
       title: 'Der Eiserne Frieden',
       text: 'Über der Schreckensfestung wehen die Banner des Eisernen Ordens. Die Straßen sind sicher, die Gesetze zahlreich, und dein Name ist über dem Tor eingemeißelt.'

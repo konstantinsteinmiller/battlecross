@@ -199,6 +199,11 @@
     "at": "2026-10-18",
     "hash": "f4587bcf00"
   },
+  "de/dlg.bark.sfShadow.road.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-25",
+    "hash": "2c839bb451"
+  },
   "de/dlg.bark.siegeHale.horn25.1": {
     "engine": "chatterbox",
     "at": "2026-10-20",
@@ -273,6 +278,11 @@
     "engine": "chatterbox",
     "at": "2026-10-20",
     "hash": "25bfa415a4"
+  },
+  "de/dlg.bark.trainerAegis.road.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-25",
+    "hash": "c62e18257c"
   },
   "de/dlg.bark.windDisciple.freed.1": {
     "engine": "chatterbox",
@@ -7596,13 +7606,13 @@
   },
   "de/ending.more": {
     "engine": "chatterbox",
-    "at": "2026-10-18",
-    "hash": "ea917643e4"
+    "at": "2026-10-25",
+    "hash": "510f1b3a12"
   },
   "de/ending.more__f": {
     "engine": "chatterbox",
-    "at": "2026-10-18",
-    "hash": "ea917643e4"
+    "at": "2026-10-25",
+    "hash": "510f1b3a12"
   },
   "de/ending.note.coreCircle": {
     "engine": "chatterbox",
@@ -7954,6 +7964,11 @@
     "at": "2026-10-12",
     "hash": "25991043a0"
   },
+  "en/dlg.bark.sfShadow.road.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-25",
+    "hash": "7b7a440dd8"
+  },
   "en/dlg.bark.siegeHale.horn25.1": {
     "engine": "chatterbox",
     "at": "2026-10-20",
@@ -8028,6 +8043,11 @@
     "engine": "chatterbox",
     "at": "2026-10-20",
     "hash": "5d90d914cb"
+  },
+  "en/dlg.bark.trainerAegis.road.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-25",
+    "hash": "d6735549d5"
   },
   "en/dlg.bark.windDisciple.freed.1": {
     "engine": "chatterbox",
@@ -15481,13 +15501,13 @@
   },
   "en/ending.more": {
     "engine": "chatterbox",
-    "at": "2026-10-13",
-    "hash": "3cb4a11dbd"
+    "at": "2026-10-25",
+    "hash": "dcfa416e17"
   },
   "en/ending.more__f": {
     "engine": "chatterbox",
-    "at": "2026-10-13",
-    "hash": "3cb4a11dbd"
+    "at": "2026-10-25",
+    "hash": "dcfa416e17"
   },
   "en/ending.note.coreCircle": {
     "engine": "chatterbox",
@@ -15839,6 +15859,11 @@
     "at": "2026-10-18",
     "hash": "7ff5b9fc6a"
   },
+  "es/dlg.bark.sfShadow.road.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-25",
+    "hash": "ecdbc9792a"
+  },
   "es/dlg.bark.siegeHale.horn25.1": {
     "engine": "chatterbox",
     "at": "2026-10-20",
@@ -15913,6 +15938,11 @@
     "engine": "chatterbox",
     "at": "2026-10-20",
     "hash": "ce584e3fb2"
+  },
+  "es/dlg.bark.trainerAegis.road.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-25",
+    "hash": "3fc3766f37"
   },
   "es/dlg.bark.windDisciple.freed.1": {
     "engine": "chatterbox",
@@ -17226,13 +17256,13 @@
   },
   "es/ending.more": {
     "engine": "chatterbox",
-    "at": "2026-10-18",
-    "hash": "f20c0d3707"
+    "at": "2026-10-25",
+    "hash": "17a09ffc39"
   },
   "es/ending.more__f": {
     "engine": "chatterbox",
-    "at": "2026-10-18",
-    "hash": "f20c0d3707"
+    "at": "2026-10-25",
+    "hash": "17a09ffc39"
   },
   "es/ending.order.text": {
     "engine": "chatterbox",
@@ -17459,6 +17489,11 @@
     "at": "2026-10-18",
     "hash": "070861c313"
   },
+  "fr/dlg.bark.sfShadow.road.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-25",
+    "hash": "1612e45f6e"
+  },
   "fr/dlg.bark.siegeHale.horn25.1": {
     "engine": "chatterbox",
     "at": "2026-10-20",
@@ -17533,6 +17568,11 @@
     "engine": "chatterbox",
     "at": "2026-10-20",
     "hash": "6f02ac3f60"
+  },
+  "fr/dlg.bark.trainerAegis.road.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-25",
+    "hash": "cf67eb0a94"
   },
   "fr/dlg.bark.windDisciple.freed.1": {
     "engine": "chatterbox",
@@ -22996,13 +23036,13 @@
   },
   "fr/ending.more": {
     "engine": "chatterbox",
-    "at": "2026-10-18",
-    "hash": "b125513860"
+    "at": "2026-10-25",
+    "hash": "c6cd7d34cf"
   },
   "fr/ending.more__f": {
     "engine": "chatterbox",
-    "at": "2026-10-18",
-    "hash": "b125513860"
+    "at": "2026-10-25",
+    "hash": "c6cd7d34cf"
   },
   "fr/ending.note.coreCircle": {
     "engine": "chatterbox",
@@ -23319,6 +23359,11 @@
     "at": "2026-10-18",
     "hash": "73a64dec4e"
   },
+  "ja/dlg.bark.sfShadow.road.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-25",
+    "hash": "d6fafb426c"
+  },
   "ja/dlg.bark.siegeHale.horn25.1": {
     "engine": "chatterbox",
     "at": "2026-10-20",
@@ -23393,6 +23438,11 @@
     "engine": "chatterbox",
     "at": "2026-10-20",
     "hash": "429ec1cc75"
+  },
+  "ja/dlg.bark.trainerAegis.road.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-25",
+    "hash": "98ab914b43"
   },
   "ja/dlg.bark.windDisciple.freed.1": {
     "engine": "chatterbox",
@@ -24726,13 +24776,13 @@
   },
   "ja/ending.more": {
     "engine": "chatterbox",
-    "at": "2026-10-18",
-    "hash": "ab1077fe1e"
+    "at": "2026-10-25",
+    "hash": "1a23c5f76b"
   },
   "ja/ending.more__f": {
     "engine": "chatterbox",
-    "at": "2026-10-18",
-    "hash": "ab1077fe1e"
+    "at": "2026-10-25",
+    "hash": "1a23c5f76b"
   },
   "ja/ending.order.text": {
     "engine": "chatterbox",
@@ -24954,6 +25004,11 @@
     "at": "2026-10-18",
     "hash": "7b33c0ab01"
   },
+  "pt/dlg.bark.sfShadow.road.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-25",
+    "hash": "da8c0e74b3"
+  },
   "pt/dlg.bark.siegeHale.horn25.1": {
     "engine": "chatterbox",
     "at": "2026-10-20",
@@ -25028,6 +25083,11 @@
     "engine": "chatterbox",
     "at": "2026-10-20",
     "hash": "a87246847b"
+  },
+  "pt/dlg.bark.trainerAegis.road.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-25",
+    "hash": "9caf72a2e3"
   },
   "pt/dlg.bark.windDisciple.freed.1": {
     "engine": "chatterbox",
@@ -26341,13 +26401,13 @@
   },
   "pt/ending.more": {
     "engine": "chatterbox",
-    "at": "2026-10-18",
-    "hash": "9d4fb20c04"
+    "at": "2026-10-25",
+    "hash": "57e538cc12"
   },
   "pt/ending.more__f": {
     "engine": "chatterbox",
-    "at": "2026-10-18",
-    "hash": "9d4fb20c04"
+    "at": "2026-10-25",
+    "hash": "57e538cc12"
   },
   "pt/ending.order.text": {
     "engine": "chatterbox",
@@ -26574,6 +26634,11 @@
     "at": "2026-10-18",
     "hash": "79088e3b38"
   },
+  "ru/dlg.bark.sfShadow.road.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-25",
+    "hash": "62f8f3968b"
+  },
   "ru/dlg.bark.siegeHale.horn25.1": {
     "engine": "chatterbox",
     "at": "2026-10-20",
@@ -26648,6 +26713,11 @@
     "engine": "chatterbox",
     "at": "2026-10-20",
     "hash": "e56fcef27f"
+  },
+  "ru/dlg.bark.trainerAegis.road.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-25",
+    "hash": "c277836bc2"
   },
   "ru/dlg.bark.windDisciple.freed.1": {
     "engine": "chatterbox",
@@ -27956,13 +28026,13 @@
   },
   "ru/ending.more": {
     "engine": "chatterbox",
-    "at": "2026-10-18",
-    "hash": "2e689407dc"
+    "at": "2026-10-25",
+    "hash": "c617956e11"
   },
   "ru/ending.more__f": {
     "engine": "chatterbox",
-    "at": "2026-10-18",
-    "hash": "2e689407dc"
+    "at": "2026-10-25",
+    "hash": "c617956e11"
   },
   "ru/ending.order.text": {
     "engine": "chatterbox",
@@ -28194,6 +28264,11 @@
     "at": "2026-10-18",
     "hash": "fb8fa2829f"
   },
+  "zh/dlg.bark.sfShadow.road.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-25",
+    "hash": "09558c373b"
+  },
   "zh/dlg.bark.siegeHale.horn25.1": {
     "engine": "chatterbox",
     "at": "2026-10-20",
@@ -28268,6 +28343,11 @@
     "engine": "chatterbox",
     "at": "2026-10-20",
     "hash": "b67d53533b"
+  },
+  "zh/dlg.bark.trainerAegis.road.1": {
+    "engine": "chatterbox",
+    "at": "2026-10-25",
+    "hash": "c94385974c"
   },
   "zh/dlg.bark.windDisciple.freed.1": {
     "engine": "chatterbox",
@@ -29606,13 +29686,13 @@
   },
   "zh/ending.more": {
     "engine": "chatterbox",
-    "at": "2026-10-18",
-    "hash": "90bc077cad"
+    "at": "2026-10-25",
+    "hash": "a95e36b330"
   },
   "zh/ending.more__f": {
     "engine": "chatterbox",
-    "at": "2026-10-18",
-    "hash": "90bc077cad"
+    "at": "2026-10-25",
+    "hash": "a95e36b330"
   },
   "zh/ending.order.text": {
     "engine": "chatterbox",

@@ -6103,7 +6103,11 @@ export default {
       trainerAegis: {
         freed: {
           '1': 'Bizi quldurlardan xilas etdiyin üçün sağ ol! Ocağa gəl: hamımız sənə öyrədəcəyik, ilk dərs pulsuzdur.'
-        }
+        },
+        road: { '1': 'Bizi tapdın! İblislər bizi Sanford yolunda tutdular. Qala Keçidinə gedirik: bizi qalada axtar.' }
+      },
+      sfShadow: {
+        road: { '1': 'Nəhayət kimsə gəldi. Qala Keçidinə yollanırıq. Bizi qalada axtar.' }
       },
       frostDisciple: {
         freed: {
@@ -7442,8 +7446,7 @@ export default {
     retreatNote: 'İndiyə qədər qazandığın hər şey səndə qalır, amma zona təmizlənmiş sayılmır.'
   },
   ending: {
-    level: 'Səviyyə',
-    more: 'Qəsrin altında Heçlik Yarığı açılıb. Amma gücünün əsl sınağı Kolizeydə gözləyir: onun dalğalarında yüksəl və yalnız çempionlarının sahib olduğu mifik mükafatları qazan.',
+    more: 'Baş İblis yıxıldı, amma krallıq hələ təhlükəsiz deyil. Dünyanı bir böyük təhlükə gözləyir və o, Heçlik Yarığının içində dayanır.',
     order: {
       title: 'Dəmir Sülh',
       text: 'Dəhşət Qəsrinin üstündə Dəmir Ordenin bayraqları dalğalanır. Yollar təhlükəsiz, qanunlar çoxdur və adın darvazanın üstünə həkk olunub.'

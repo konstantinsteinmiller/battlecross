@@ -76,6 +76,7 @@
                 svg.node__ring(viewBox="0 0 100 100" aria-hidden="true" focusable="false")
                   ellipse(cx="50" cy="81" rx="45" ry="19")
                 svg.node__art(viewBox="0 0 100 100" aria-hidden="true" focusable="false" v-html="n.art")
+                svg.node__doom(v-if="n.doom" viewBox="0 0 100 100" aria-hidden="true" focusable="false" data-rift-doom v-html="DOOM_SKULL")
                 svg.node__clouds(v-if="n.clouds" viewBox="0 0 100 100" aria-hidden="true" focusable="false" v-html="n.clouds")
                 span.node__lock(v-if="!n.enterable" aria-hidden="true")
                   GameIcon(name="lock")
@@ -203,6 +204,7 @@ import { computed, nextTick, onBeforeUnmount, onMounted, reactive, ref, watch } 
 import { useI18n } from 'vue-i18n'
 import { MAP, NODE_BY_ID, dangerOf, levelTier, nodeOpen, nodeReachable, type LevelTier, type NodeId, type ZoneDef } from '@/game/data/zones'
 import { INVASION, invadedBefore, invadedFlag, invasionLetsIn, zoneOf } from '@/game/data/invasion'
+import { overrunFlag } from '@/game/data/breaking'
 import { HYDRA_KEY_FLAG, ORACLE_LENS_FLAG } from '@/game/data/relics'
 import { AFTER_BOSS_DROPS, itemsOfZone, type ZoneId } from '@/game/data/items'
 import { QUEST_BY_ID } from '@/game/data/quests'
@@ -253,6 +255,8 @@ const arenaNext = computed(() => nextMilestone(id => profile.inv.items.includes(
 const arenaCall = computed(() => arenaCalling())
 /** The siege bell rings (the story's siege is due, or two invaded zones were cleared since the last). */
 const bellCall = computed(() => { void profile.meta.siege.clears; void profile.world.flags.length; return siegeBell() })
+/** The throne is won and the Void Lord still waits: the Rift is the one threat left (#164). */
+const riftCalls = computed(() => flags.value.has('throneDone') && !profile.world.afterplay && !cleared.value.has('rift'))
 
 /** The terrain drawing, decoded once for every visit to the map. */
 let plateLoad: Promise<HTMLImageElement> | null = null
@@ -279,6 +283,16 @@ const frame = frameSvg()
 const tear = tearClip()
 const CLOUDS_NEAR = cloudCover(false)
 const CLOUDS_FAR = cloudCover(true)
+/** The skull hung over the Rift once the throne is won (#164): bone, deep sockets lit violet, cracked. */
+const DOOM_SKULL =
+  '<path d="M50 8C27 8 14 24 14 44c0 12 6 21 14 26v14h44V70c8-5 14-14 14-26C86 24 73 8 50 8z" fill="#f4ecdc" stroke="#1b1626" stroke-width="4" stroke-linejoin="round"/>' +
+  '<path d="M50 8c12 0 24 6 30 18c-8-6-18-8-30-8z" fill="#fffaf0"/>' +
+  '<path d="M28 84V70c-6-4-11-10-13-18c6 10 18 14 35 14s29-4 35-14c-2 8-7 14-13 18v14z" fill="#cfc2ac"/>' +
+  '<path d="M23 46c0-8 6-13 13-13s12 6 12 13c0 6-5 10-12 10s-13-4-13-10zM52 46c0-7 5-13 12-13s13 5 13 13c0 6-6 10-13 10s-12-4-12-10z" fill="#2c1244" stroke="#1b1626" stroke-width="3"/>' +
+  '<circle class="node__doom-eye" cx="36" cy="46" r="5" fill="#ff5ad8"/><circle class="node__doom-eye" cx="64" cy="46" r="5" fill="#ff5ad8"/>' +
+  '<path d="M50 58l-6 10h12z" fill="#2c1244" stroke="#1b1626" stroke-width="2.5" stroke-linejoin="round"/>' +
+  '<path d="M36 84v-9M44 84v-9M52 84v-9M60 84v-9M28 75h44" stroke="#1b1626" stroke-width="3" fill="none" stroke-linecap="round"/>' +
+  '<path d="M57 10l-4 10 6 6-5 8" stroke="#1b1626" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>'
 
 const selected = ref<NodeId | ''>('')
 /** The picked place's card is up (a place is picked first, its card shows when he gets there). */
@@ -350,6 +364,8 @@ interface NodeView {
   invaded: boolean
   /** Shut by the invasion until this zone is won back ('' : not). */
   lockedBy: ZoneId | ''
+  /** The Rift after the Arch-Demon's fall: a big skull over it, the story's last threat (#164). */
+  doom: boolean
 }
 
 /** The place the hero stands at ('' out in the wilds). */
@@ -382,7 +398,9 @@ const nodes = computed<NodeView[]>(() => MAP.map((n) => {
     call: n.kind === 'arena' && arenaCall.value,
     fresh: fresh.has(n.id),
     veil: state,
-    art: landmarkSvg(n.id, { locked: !isSeen(n.id), ruined: n.id === 'oakhaven' && flags.value.has('oakhavenFallen') }),
+    // A town the demons hold in the afterplay stands burned (#164), as Oakhaven after its siege was lost.
+    art: landmarkSvg(n.id, { locked: !isSeen(n.id), ruined: (n.id === 'oakhaven' && flags.value.has('oakhavenFallen')) || flags.value.has(overrunFlag(n.id)) }),
+    doom: n.id === 'rift' && riftCalls.value,
     clouds: !isSeen(n.id) ? (near ? CLOUDS_NEAR : CLOUDS_FAR) : state ? CLOUDS_NEAR : '',
     zone,
     invaded: !!zone?.invaded,
@@ -494,12 +512,11 @@ const side = ref(false)
 const MIN_FIT = 0.5
 const MAX_ZOOM = 1.05
 
-/** On a phone the top row, the bottom row and the stick float over the screen: the
- *  sheet is the window between their strips, so a place is never panned under a button.
- *  The top row's lower edge also goes to the card (`--band-t`), which docks below it. */
-const clearOfControls = (): { l: number; t: number; b: number } => {
+/** The top row's lower edge goes to the card (`--band-t`), which docks below it; the
+ *  bottom row's upper edge to `--band-b`. */
+const controlBands = (): void => {
   const at = root.value?.getBoundingClientRect()
-  if (!at || !topEl.value) return { l: 0, t: 0, b: 0 }
+  if (!at || !topEl.value) return
   // The rows' own controls, not the soft shade that stands under them.
   const kids = (row: HTMLElement | null): DOMRect[] => [...(row?.children ?? [])].map(c => c.getBoundingClientRect())
   const band = Math.ceil(Math.max(...kids(topEl.value).map(r => r.bottom)) - at.top)
@@ -507,25 +524,19 @@ const clearOfControls = (): { l: number; t: number; b: number } => {
   const bottom = kids(bottomEl.value)
   const low = bottom.length ? Math.max(0, Math.ceil(at.bottom - Math.min(...bottom.map(r => r.top)))) : 0
   root.value!.style.setProperty('--band-b', `${low}px`)
-  if (!touch.value) return { l: 0, t: 0, b: 0 }
-  const stick = stickEl.value?.getBoundingClientRect()
-  return {
-    t: band,
-    b: low,
-    l: stick ? Math.max(0, Math.ceil(stick.right - at.left)) : 0
-  }
 }
 
 const fit = (): void => {
   const el = sheet.value
   if (!el || !el.clientWidth || !el.clientHeight) return
-  const pad = clearOfControls()
-  el.style.inset = touch.value ? `${pad.t}px 0 ${pad.b}px ${pad.l}px` : ''
+  controlBands()
   const w = el.clientWidth
   const h = el.clientHeight
   const contain = Math.min(w / MAP_W, h / MAP_H)
   const cover = Math.max(w / MAP_W, h / MAP_H)
-  const s = contain >= MIN_FIT ? contain : Math.min(cover, MAX_ZOOM)
+  // On a touch screen the sheet covers the whole screen, the controls float over it (#165):
+  // fitted into the window between them it was a small box that still had to be panned.
+  const s = touch.value ? cover : contain >= MIN_FIT ? contain : Math.min(cover, MAX_ZOOM)
   scale.value = Math.round(s * 10000) / 10000
   pannable.value = MAP_W * s > w + 1 || MAP_H * s > h + 1
   side.value = window.innerHeight <= 520 && window.innerWidth > window.innerHeight * 1.2
@@ -1026,6 +1037,10 @@ onMounted(async () => {
   unwatchLost = watchLostInput({ releaseAll: stickRelease, releaseTouches: stickRelease, heldTouches: () => (stick.on ? 1 : 0) })
   frameId = requestAnimationFrame(tick)
   unveil()
+  // Past the ending (#164): he sets off for the Rift by himself, and stops at its door.
+  const to = flow.mapWalkTo
+  flow.mapWalkTo = ''
+  if (to && isReachable(to)) later(calm ? 0 : 900, () => { if (!blocked()) pick(to) })
 })
 onBeforeUnmount(() => {
   keepPos()
@@ -1282,6 +1297,29 @@ onBeforeUnmount(() => {
   animation: node-bob 1.1s ease-in-out infinite
 .is-lifting .node__art
   animation: node-pop 0.8s var(--bc-ease-pop, cubic-bezier(0.2, 1.4, 0.4, 1))
+// The skull over the Rift (#164): big, high over the landmark, hovering, its eyes pulsing.
+.node__doom
+  position: absolute
+  left: 50%
+  bottom: 82%
+  width: 115%
+  height: 115%
+  margin-left: -57.5%
+  pointer-events: none
+  filter: drop-shadow(0 0 calc(var(--s) * 0.12) rgba(255, 90, 216, 0.75))
+  animation: doom-hover 2.4s ease-in-out infinite alternate
+  :deep(.node__doom-eye)
+    animation: doom-eye 1.2s steps(4) infinite alternate
+@keyframes doom-hover
+  from
+    transform: translateY(0)
+  to
+    transform: translateY(-8%)
+@keyframes doom-eye
+  from
+    opacity: 0.45
+  to
+    opacity: 1
 
 // What moves on a landmark (classes written by `map/landmarks.ts`). Drawn "on
 // threes", like the cel animation it imitates: a part inside an SVG is painted

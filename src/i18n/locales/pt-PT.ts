@@ -6156,7 +6156,11 @@ export default {
       trainerAegis: {
         freed: {
           '1': 'Obrigado por nos libertares dos bandidos! Vem para a fogueira: ensinamos-te todos, a primeira lição é grátis.'
-        }
+        },
+        road: { '1': 'Encontraste-nos! Os demónios apanharam-nos na estrada de Sunford. Vamos para o Passo do Bastião: procura-nos no forte.' }
+      },
+      sfShadow: {
+        road: { '1': 'Já não era sem tempo. Vamos para o Passo do Bastião. Procura-nos no forte.' }
       },
       frostDisciple: {
         freed: {
@@ -7497,8 +7501,7 @@ export default {
     retreatNote: 'Ficas com tudo o que ganhaste até agora, mas a zona não fica limpa.'
   },
   ending: {
-    level: 'Nível',
-    more: 'A Fenda do Vazio abriu-se por baixo da fortaleza. Mas o verdadeiro teste do teu poder espera-te no Coliseu: supera as suas vagas e conquista os prémios míticos que só os seus campeões têm.',
+    more: 'O Arquidemónio caiu, mas o reino ainda não está a salvo. Resta uma grande ameaça ao mundo, e ela espera dentro da Fenda do Vazio.',
     order: {
       title: 'A Paz de Ferro',
       text: 'Os estandartes da Ordem de Ferro ondulam sobre a Fortaleza do Pavor. As estradas são seguras, as leis são muitas, e o teu nome está gravado por cima do portão.'

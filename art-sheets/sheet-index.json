@@ -15869,6 +15869,460 @@
       ]
     },
     {
+      "id": "sheet-portraits-people-1",
+      "kind": "set",
+      "title": "Portraits: the fort, the freed and the townsfolk",
+      "files": {
+        "clean": "sheet-portraits-people-1.png",
+        "key": "sheet-portraits-people-1-key.png"
+      },
+      "width": 768,
+      "height": 768,
+      "cols": 3,
+      "rows": 3,
+      "maxEdge": 256,
+      "crop": 0.8,
+      "anchor": "feet",
+      "cells": [
+        {
+          "id": "scoutWren",
+          "label": "Scout Wren",
+          "variant": "portraits",
+          "x": 0,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/portraits/scoutWren.webp",
+          "fit": {
+            "h": 0.734,
+            "w": 0.633,
+            "bottom": 0.902,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "sunkenPriest",
+          "label": "Sunken Priest",
+          "variant": "portraits",
+          "x": 256,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/portraits/sunkenPriest.webp",
+          "fit": {
+            "h": 0.73,
+            "w": 0.633,
+            "bottom": 0.898,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "mysteriousWanderer",
+          "label": "Mysterious Wanderer",
+          "variant": "portraits",
+          "x": 512,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/portraits/mysteriousWanderer.webp",
+          "fit": {
+            "h": 0.734,
+            "w": 0.633,
+            "bottom": 0.902,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "mayorBrenna",
+          "label": "Mayor Brenna",
+          "variant": "portraits",
+          "x": 0,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/portraits/mayorBrenna.webp",
+          "fit": {
+            "h": 0.77,
+            "w": 0.633,
+            "bottom": 0.902,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "freedPeddler",
+          "label": "Freed Peddler",
+          "variant": "portraits",
+          "x": 256,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/portraits/freedPeddler.webp",
+          "fit": {
+            "h": 0.648,
+            "w": 0.633,
+            "bottom": 0.898,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "freedHerbalist",
+          "label": "Freed Herbalist",
+          "variant": "portraits",
+          "x": 512,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/portraits/freedHerbalist.webp",
+          "fit": {
+            "h": 0.656,
+            "w": 0.633,
+            "bottom": 0.898,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "freedFarmers",
+          "label": "Freed Farmers",
+          "variant": "portraits",
+          "x": 0,
+          "y": 512,
+          "w": 256,
+          "h": 256,
+          "target": "images/portraits/freedFarmers.webp",
+          "fit": {
+            "h": 0.68,
+            "w": 0.645,
+            "bottom": 0.898,
+            "cx": 0.506
+          }
+        },
+        {
+          "id": "villager",
+          "label": "Villager",
+          "variant": "portraits",
+          "x": 256,
+          "y": 512,
+          "w": 256,
+          "h": 256,
+          "target": "images/portraits/villager.webp",
+          "fit": {
+            "h": 0.656,
+            "w": 0.633,
+            "bottom": 0.898,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "child",
+          "label": "Child",
+          "variant": "portraits",
+          "x": 512,
+          "y": 512,
+          "w": 256,
+          "h": 256,
+          "target": "images/portraits/child.webp",
+          "fit": {
+            "h": 0.746,
+            "w": 0.633,
+            "bottom": 0.898,
+            "cx": 0.5
+          }
+        }
+      ]
+    },
+    {
+      "id": "sheet-portraits-people-2",
+      "kind": "set",
+      "title": "Portraits: Silverbridge traders",
+      "files": {
+        "clean": "sheet-portraits-people-2.png",
+        "key": "sheet-portraits-people-2-key.png"
+      },
+      "width": 768,
+      "height": 768,
+      "cols": 3,
+      "rows": 3,
+      "maxEdge": 256,
+      "crop": 0.8,
+      "anchor": "feet",
+      "cells": [
+        {
+          "id": "sbCollector",
+          "label": "Sb Collector",
+          "variant": "portraits",
+          "x": 0,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/portraits/sbCollector.webp",
+          "fit": {
+            "h": 0.648,
+            "w": 0.633,
+            "bottom": 0.898,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "sbFence",
+          "label": "Sb Fence",
+          "variant": "portraits",
+          "x": 256,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/portraits/sbFence.webp",
+          "fit": {
+            "h": 0.734,
+            "w": 0.633,
+            "bottom": 0.902,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "sbGambler",
+          "label": "Sb Gambler",
+          "variant": "portraits",
+          "x": 512,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/portraits/sbGambler.webp",
+          "fit": {
+            "h": 0.652,
+            "w": 0.633,
+            "bottom": 0.902,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "sbAlchemist",
+          "label": "Sb Alchemist",
+          "variant": "portraits",
+          "x": 0,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/portraits/sbAlchemist.webp",
+          "fit": {
+            "h": 0.766,
+            "w": 0.633,
+            "bottom": 0.898,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "sbHealer",
+          "label": "Sb Healer",
+          "variant": "portraits",
+          "x": 256,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/portraits/sbHealer.webp",
+          "fit": {
+            "h": 0.648,
+            "w": 0.633,
+            "bottom": 0.898,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "sbArmorer",
+          "label": "Sb Armorer",
+          "variant": "portraits",
+          "x": 512,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/portraits/sbArmorer.webp",
+          "fit": {
+            "h": 0.766,
+            "w": 0.633,
+            "bottom": 0.898,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "sbWeapons",
+          "label": "Sb Weapons",
+          "variant": "portraits",
+          "x": 0,
+          "y": 512,
+          "w": 256,
+          "h": 256,
+          "target": "images/portraits/sbWeapons.webp",
+          "fit": {
+            "h": 0.66,
+            "w": 0.633,
+            "bottom": 0.902,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "sbJeweler",
+          "label": "Sb Jeweler",
+          "variant": "portraits",
+          "x": 256,
+          "y": 512,
+          "w": 256,
+          "h": 256,
+          "target": "images/portraits/sbJeweler.webp",
+          "fit": {
+            "h": 0.648,
+            "w": 0.633,
+            "bottom": 0.898,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "merchantF",
+          "label": "Merchant F",
+          "variant": "portraits",
+          "x": 512,
+          "y": 512,
+          "w": 256,
+          "h": 256,
+          "target": "images/portraits/merchantF.webp",
+          "fit": {
+            "h": 0.766,
+            "w": 0.633,
+            "bottom": 0.898,
+            "cx": 0.5
+          }
+        }
+      ]
+    },
+    {
+      "id": "sheet-portraits-people-3",
+      "kind": "set",
+      "title": "Portraits: gamblers, the fair and the mines",
+      "files": {
+        "clean": "sheet-portraits-people-3.png",
+        "key": "sheet-portraits-people-3-key.png"
+      },
+      "width": 768,
+      "height": 768,
+      "cols": 3,
+      "rows": 3,
+      "maxEdge": 256,
+      "crop": 0.8,
+      "anchor": "feet",
+      "cells": [
+        {
+          "id": "sunfordGambler",
+          "label": "Sunford Gambler",
+          "variant": "portraits",
+          "x": 0,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/portraits/sunfordGambler.webp",
+          "fit": {
+            "h": 0.648,
+            "w": 0.664,
+            "bottom": 0.898,
+            "cx": 0.516
+          }
+        },
+        {
+          "id": "sunfordCups",
+          "label": "Sunford Cups",
+          "variant": "portraits",
+          "x": 256,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/portraits/sunfordCups.webp",
+          "fit": {
+            "h": 0.73,
+            "w": 0.633,
+            "bottom": 0.898,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "fairPip",
+          "label": "Fair Pip",
+          "variant": "portraits",
+          "x": 512,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/portraits/fairPip.webp",
+          "fit": {
+            "h": 0.648,
+            "w": 0.633,
+            "bottom": 0.898,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "fairBess",
+          "label": "Fair Bess",
+          "variant": "portraits",
+          "x": 0,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/portraits/fairBess.webp",
+          "fit": {
+            "h": 0.766,
+            "w": 0.633,
+            "bottom": 0.898,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "fairHob",
+          "label": "Fair Hob",
+          "variant": "portraits",
+          "x": 256,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/portraits/fairHob.webp",
+          "fit": {
+            "h": 0.648,
+            "w": 0.633,
+            "bottom": 0.898,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "oakGambler",
+          "label": "Oak Gambler",
+          "variant": "portraits",
+          "x": 512,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/portraits/oakGambler.webp",
+          "fit": {
+            "h": 0.648,
+            "w": 0.633,
+            "bottom": 0.898,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "miner",
+          "label": "Miner",
+          "variant": "portraits",
+          "x": 0,
+          "y": 512,
+          "w": 256,
+          "h": 256,
+          "target": "images/portraits/miner.webp",
+          "fit": {
+            "h": 0.684,
+            "w": 0.633,
+            "bottom": 0.898,
+            "cx": 0.5
+          }
+        }
+      ]
+    },
+    {
       "id": "sheet-portraits-hero",
       "kind": "set",
       "title": "Portraits: the hero, per outfit",

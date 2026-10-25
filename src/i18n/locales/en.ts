@@ -3782,7 +3782,11 @@ export default {
       'trainerAegis': {
         'freed': {
           '1': 'Thank you for freeing us from the bandits! Come to the fire: we\'ll all teach you, first lesson free.'
-        }
+        },
+        'road': { '1': 'You found us! The demons caught us on the Sunford road. We will make for Bastion Crossing: find us at the fort.' }
+      },
+      'sfShadow': {
+        'road': { '1': 'About time someone came. We are off to Bastion Crossing. Look for us at the fort.' }
       }
     }
   },
@@ -3909,8 +3913,7 @@ export default {
     'retreatNote': 'You keep everything earned so far, but the zone is not cleared.'
   },
   'ending': {
-    'level': 'Level',
-    'more': 'The Void Rift has opened beneath the fortress. But the true test of your power waits in the Colosseum: climb its waves, and win the mythic prizes only its champions hold.',
+    'more': 'The Arch-Demon has fallen, but the realm is not safe yet. One great threat is left to the world, and it waits inside the Void Rift.',
     'order': { 'title': 'The Iron Peace', 'text': 'Banners of the Iron Order fly over the Dread Fortress. The roads are safe, the laws are many, and your name is carved above the gate.' },
     'syndicate': { 'title': 'The Ashen Bargain', 'text': 'The Syndicate rules from the shadows of the fortress. Nothing in the realm is forbidden any more. It is only expensive.' },
     'circle': { 'title': 'The Aether Age', 'text': 'The Circle lights the fortress with captured void-fire. Wonders pour out of its gates, and no one asks what they cost.' },

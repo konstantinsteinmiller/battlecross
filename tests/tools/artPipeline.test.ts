@@ -142,7 +142,7 @@ describe('the manifest covers the game', () => {
     for (const o of HERO_OUTFITS) expect(targets.has(`images/portraits/hero-f-${o}.webp`), o).toBe(true)
     // voidLord never speaks.
     for (const id of ['hero', 'voidLord']) expect(targets.has(`images/portraits/${id}.webp`), id).toBe(false)
-    expect(ART_CATALOGUE.portraits).toHaveLength(51)
+    expect(ART_CATALOGUE.portraits).toHaveLength(76)
   })
 
   it('the hero sheet is one character four times: the prompt says so before the style, and only the clothes change', () => {
@@ -275,8 +275,8 @@ describe('the manifest covers the game', () => {
     const icons = ICON_SETS.reduce((n, s) => n + s.cells.filter(c => c).length, 0)
     // ... and the logo's badge and mascot, and the painted wordmark (#76).
     // ... and the wooden cup of the cup stand (the last +1).
-    // The portraits: 43 speakers (21 of them teachers), the boy hero's four and the girl hero's four.
-    expect(seen.size).toBe(210 + SMITHED.length + 6 + SKILLS.length + 43 + 4 + 4 + 1 + 2 + 6 + ORNAMENTS.length + Object.keys(BAR_FRAME_REFS).length + icons + 2 + 1 + 1)
+    // The portraits: 43 speakers (21 of them teachers), 25 more people with a face in the talk window (#164), the boy hero's four and the girl hero's four.
+    expect(seen.size).toBe(210 + SMITHED.length + 6 + SKILLS.length + 43 + 25 + 4 + 4 + 1 + 2 + 6 + ORNAMENTS.length + Object.keys(BAR_FRAME_REFS).length + icons + 2 + 1 + 1)
     // The catalogue `pnpm art:status` reports on is exactly what the sheets write.
     const catalogue = Object.entries(ART_CATALOGUE).flatMap(([kind, ids]) => ids.map(id => artTarget(kind as keyof typeof ART_CATALOGUE, id)))
     expect([...catalogue].sort()).toEqual([...seen].sort())
@@ -593,7 +593,7 @@ describe('what a prompt says', () => {
     for (const f of SKILL_FINISH_REFS) expect(manifestTargets().has(f.replace(/^public\//, '')), f).toBe(true)
     // Nothing else is sent with more than its own reference.
     // (The icon sheets borrow the same finish references; see their own test.)
-    for (const b of blocks) if (!b.stem.startsWith('sheet-skills-') && !b.stem.startsWith('sheet-skills2-') && !b.stem.startsWith('sheet-icons-') && b.stem !== 'sheet-ui-ornaments' && b.stem !== 'sheet-ui-rule-crest' && !b.stem.startsWith('sheet-ui-bar-frame-') && b.stem !== 'single-logo-mascot' && !b.stem.startsWith('single-logo-title-') && b.stem !== 'single-logo-wordmark' && b.stem !== 'sheet-portraits-girl' && !b.stem.startsWith('cover-') && !b.stem.startsWith('bg-ui-terrain-') && b.stem !== 'bg-ui-map') expect(b.styleRefs, b.stem).toBeUndefined()
+    for (const b of blocks) if (!b.stem.startsWith('sheet-skills-') && !b.stem.startsWith('sheet-skills2-') && !b.stem.startsWith('sheet-icons-') && b.stem !== 'sheet-ui-ornaments' && b.stem !== 'sheet-ui-rule-crest' && !b.stem.startsWith('sheet-ui-bar-frame-') && b.stem !== 'single-logo-mascot' && !b.stem.startsWith('single-logo-title-') && b.stem !== 'single-logo-wordmark' && b.stem !== 'sheet-portraits-girl' && !b.stem.startsWith('sheet-portraits-people-') && !b.stem.startsWith('cover-') && !b.stem.startsWith('bg-ui-terrain-') && b.stem !== 'bg-ui-map') expect(b.styleRefs, b.stem).toBeUndefined()
   })
 
   it('a sheet says its own grid, its blanks and its measured size', () => {

@@ -1237,7 +1237,7 @@ export class LevelProps {
    * whoever is held in it. Built at life size inside the chest's scale.
    */
   private buildCage(c: ChestState): void {
-    const def = cageOf(this.sim.zone)
+    const def = cageOf(this.sim.zone, this.sim.invaded)
     // The first visit's camp (#156): one big cage, three cells wide, three teachers in it.
     const wide = !!this.sim.camp
     const iron = !wide && def?.kind === 'iron'

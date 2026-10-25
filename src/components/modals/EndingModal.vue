@@ -6,16 +6,7 @@
       p.ending__text {{ t(`ending.${kind}.text`) }}
       ul.ending__notes
         li(v-for="f in notes" :key="f") {{ t(`ending.note.${f}`) }}
-      dl.ending__stats
-        div
-          dt {{ t('ending.level') }}
-          dd {{ profile.level }}
-        div
-          dt {{ t('results.kills') }}
-          dd {{ fmt(profile.stats.kills) }}
-        div
-          dt {{ t('results.time') }}
-          dd {{ clock(profile.stats.playSeconds) }}
+      //- Not an end card (#164): no tally, only the one threat left, and where it is.
       p.ending__more {{ t('ending.more') }}
     template(#footer)
       FButton(:label="t('ui.continue')" type="success" size="md" attention @click="done")
@@ -23,14 +14,13 @@
 
 <script setup lang="ts">
 /** The ending the hero's choices added up to (GDD §3.2): which power holds
- *  the throne, and a line for each thing done on the way there. The world
- *  stays open afterwards — the Rift, the colosseum, the gear left to find. */
+ *  the throne, and a line for each thing done on the way there. The story is
+ *  not over: one threat is left, in the Void Rift, and the hero walks there. */
 import { computed, onMounted, onUnmounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { EPILOGUE_FLAGS, endingOf } from '@/game/data/quests'
-import { flagSet, markTip, profile } from '@/game/state/profile'
-import { afterVisit } from '@/game/flow'
-import { clock, fmt } from '@/utils/format'
+import { flagSet, markTip } from '@/game/state/profile'
+import { afterVisit, flow } from '@/game/flow'
 import FModal from '@/components/molecules/FModal.vue'
 import FButton from '@/components/atoms/FButton.vue'
 import Portrait from '@/components/art/Portrait.vue'
@@ -59,6 +49,8 @@ onUnmounted(() => { reading = false; stopSpeech() })
 
 const done = (): void => {
   markTip('endingSeen')
+  // On the map he sets off for the Rift by himself, and stops at its door (#164).
+  flow.mapWalkTo = 'rift'
   afterVisit()
 }
 </script>
@@ -89,23 +81,9 @@ const done = (): void => {
   color: var(--bc-on-accent)
   font-size: clamp(0.76rem, 3.1vmin, 0.95rem)
   line-height: 1.3
-.ending__stats
-  margin: 0
-  width: 100%
-  display: grid
-  grid-template-columns: repeat(3, minmax(0, 1fr))
-  gap: 0.3rem
-  div
-    padding: 0.3rem
-    +cel.cell(var(--bc-r-md))
-  dt
-    color: var(--bc-on-soft)
-    font-size: clamp(0.62rem, 2.6vmin, 0.8rem)
-  dd
-    margin: 0
-    font-size: clamp(0.95rem, 4vmin, 1.25rem)
 .ending__more
   margin: 0
-  color: var(--bc-on-soft)
-  font-size: clamp(0.72rem, 3vmin, 0.9rem)
+  color: var(--bc-on-accent)
+  font-size: clamp(0.8rem, 3.3vmin, 1rem)
+  line-height: 1.35
 </style>

@@ -6153,7 +6153,11 @@ export default {
       trainerAegis: {
         freed: {
           '1': 'Grazas por liberarnos dos bandidos! Ven ao lume: ensinarémosche todos, e a primeira lección é de balde.'
-        }
+        },
+        road: { '1': 'Atopáchesnos! Os demos collérannos no camiño de Sunford. Imos ao Vao do Bastión: búscanos no forte.' }
+      },
+      sfShadow: {
+        road: { '1': 'Xa era hora de que viñese alguén. Marchamos ao Vao do Bastión. Búscanos no forte.' }
       },
       frostDisciple: {
         freed: {
@@ -7494,8 +7498,7 @@ export default {
     retreatNote: 'Conservas todo o gañado ata agora, pero a zona non queda superada.'
   },
   ending: {
-    level: 'Nivel',
-    more: 'A Fenda do Baleiro abriuse baixo a fortaleza. Pero a verdadeira proba do teu poder agárdate no Coliseo: supera as súas vagas e gaña os premios míticos que só teñen os seus campións.',
+    more: 'O Arquidemo caeu, pero o reino aínda non está a salvo. Queda unha gran ameaza para o mundo, e agarda dentro da Fenda do Baleiro.',
     order: {
       title: 'A Paz de Ferro',
       text: 'Os estandartes da Orde de Ferro ondean sobre a Fortaleza do Terror. Os camiños son seguros, as leis son moitas, e o teu nome está gravado sobre a porta.'

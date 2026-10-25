@@ -197,9 +197,10 @@ export const populateCamp = (sim: Sim, plan: CampPlan, key: { x: number; z: numb
     if (!u) return
     u.x = u.px = x
     u.z = u.pz = z
+    u.rooted = true
     const spot = plan.spots[q] ?? plan.fire
     sim.captives.push({
-      unit: u.id, lead: t.npc === CAMP_SPEAKER, phase: 'caged', t: 0, path: [], hx: spot.x, hz: spot.z,
+      unit: u.id, lead: t.npc === CAMP_SPEAKER, phase: 'caged', t: 0, path: [[x, z]], hx: spot.x, hz: spot.z,
       npc: t.npc, stay: true, ...(t.npc === CAMP_SPEAKER ? { line: CAMP_THANKS } : {})
     })
   })

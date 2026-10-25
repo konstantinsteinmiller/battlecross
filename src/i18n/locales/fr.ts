@@ -6152,7 +6152,11 @@ export default {
       trainerAegis: {
         freed: {
           '1': 'Merci de nous avoir délivrés des bandits ! Viens près du feu : nous t\'apprendrons tous, première leçon offerte.'
-        }
+        },
+        road: { '1': 'Tu nous as trouvés ! Les démons nous ont pris sur la route de Sunford. Nous partons pour Gué-du-Bastion : retrouve-nous au fort.' }
+      },
+      sfShadow: {
+        road: { '1': 'Il était temps que quelqu’un vienne. Nous filons à Gué-du-Bastion. Cherche-nous au fort.' }
       },
       frostDisciple: {
         freed: {
@@ -7494,8 +7498,7 @@ export default {
     retreatNote: 'Tu gardes tout ce que tu as gagné jusqu’ici, mais la zone n’est pas nettoyée.'
   },
   ending: {
-    level: 'Niveau',
-    more: 'La Faille du Vide s’est ouverte sous la forteresse. Mais la vraie épreuve de ta puissance t’attend au Colisée : franchis ses vagues et gagne les prix mythiques que seuls ses champions détiennent.',
+    more: 'L’Archidémon est tombé, mais le royaume n’est pas encore sauf. Une grande menace pèse encore sur le monde, et elle attend dans la Faille du Vide.',
     order: {
       title: 'La Paix de Fer',
       text: 'Les bannières de l’Ordre de Fer flottent sur la Forteresse de l’Effroi. Les routes sont sûres, les lois sont nombreuses, et ton nom est gravé au-dessus de la porte.'

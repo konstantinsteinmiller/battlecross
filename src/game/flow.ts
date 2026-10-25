@@ -139,6 +139,8 @@ export const flow = reactive({
   quest: '' as string,
   /** After the throne: the ending screen has been shown this session. */
   endingShown: false,
+  /** A place the hero walks to by himself when the map next opens (past the ending: the Rift, #164). */
+  mapWalkTo: '' as NodeId | '',
   /** The random encounter being fought (roadmap #67), from the veil until the
    *  hero is back on the map. */
   encounter: null as EncounterSpec | null
@@ -217,7 +219,8 @@ const setupFor = (node: NodeId): ZoneSetup => {
     // The treasure map (#89): the pieces still lying here, the X once it is whole.
     ...treasureFor(node),
     // A cage (#100), until it has been opened.
-    cage: !!cageOf(node) && !hasFlag(cageOf(node)!.flag),
+    // In the afterplay, Sunford's teachers held on its road (#164), until freed or the zone purged.
+    cage: !!cageOf(node, invaded) && !hasFlag(cageOf(node, invaded)!.flag),
     flags
   }
 }

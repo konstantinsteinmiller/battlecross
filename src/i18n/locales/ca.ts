@@ -6150,7 +6150,11 @@ export default {
       trainerAegis: {
         freed: {
           '1': 'Gràcies per alliberar-nos dels bandits! Vine al foc: t\'ensenyarem tots, i la primera lliçó és gratis.'
-        }
+        },
+        road: { '1': 'Ens has trobat! Els dimonis ens van atrapar al camí de Sunford. Anirem al Gual del Bastió: busca’ns al fort.' }
+      },
+      sfShadow: {
+        road: { '1': 'Ja era hora que vingués algú. Marxem cap al Gual del Bastió. Busca’ns al fort.' }
       },
       frostDisciple: {
         freed: {
@@ -7492,8 +7496,7 @@ export default {
     retreatNote: 'Conserves tot el que has guanyat fins ara, però la zona no queda superada.'
   },
   ending: {
-    level: 'Nivell',
-    more: 'L’Esquerda del Buit s’ha obert sota la fortalesa. Però la veritable prova del teu poder t’espera al Colosseu: puja’n les onades i guanya els premis mítics que només tenen els seus campions.',
+    more: 'L’Arxidimoni ha caigut, però el regne encara no és segur. Queda una gran amenaça per al món, i espera dins l’Esquerda del Buit.',
     order: {
       title: 'La Pau de Ferro',
       text: 'Els estendards de l’Orde de Ferro onegen sobre la Fortalesa del Terror. Els camins són segurs, les lleis són moltes, i el teu nom és gravat sobre la porta.'

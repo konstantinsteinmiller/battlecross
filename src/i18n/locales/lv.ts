@@ -6175,7 +6175,11 @@ export default {
       trainerAegis: {
         freed: {
           '1': 'Paldies, ka atbrīvoji mūs no laupītājiem! Nāc pie ugunskura: mēs visi tevi mācīsim, pirmā nodarbība par brīvu.'
-        }
+        },
+        road: { '1': 'Tu mūs atradi! Dēmoni mūs noķēra ceļā uz Sanfordu. Dodamies uz Bastiona braslu: meklē mūs cietoksnī.' }
+      },
+      sfShadow: {
+        road: { '1': 'Beidzot kāds atnāca. Mēs dodamies uz Bastiona braslu. Meklē mūs cietoksnī.' }
       },
       frostDisciple: {
         freed: {
@@ -7518,8 +7522,7 @@ export default {
     retreatNote: 'Viss līdz šim nopelnītais paliek tev, bet zona nav iztīrīta.'
   },
   ending: {
-    level: 'Līmenis',
-    more: 'Zem cietokšņa ir atvērusies Tukšuma plaisa. Taču tava spēka īstais pārbaudījums gaida Kolizejā: kāp pa tā viļņiem un izcīni mītiskās balvas, kas pieder tikai tā čempioniem.',
+    more: 'Arhidēmons ir kritis, bet valstība vēl nav drošībā. Pasaulei palicis viens liels drauds, un tas gaida Tukšuma plaisā.',
     order: {
       title: 'Dzelzs miers',
       text: 'Virs Šausmu cietokšņa plīvo Dzelzs ordeņa karogi. Ceļi ir droši, likumu ir daudz, un tavs vārds ir iekalts virs vārtiem.'

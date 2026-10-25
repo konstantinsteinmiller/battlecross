@@ -6216,7 +6216,11 @@ export default {
       trainerAegis: {
         freed: {
           '1': 'Hvala što si nas oslobodio od razbojnika! Dođi do vatre: svi ćemo te učiti, prva lekcija je besplatna.'
-        }
+        },
+        road: { '1': 'Pronašao si nas! Demoni su nas uhvatili na cesti za Sunford. Idemo u Bastionski prijelaz: nađi nas u utvrdi.' }
+      },
+      sfShadow: {
+        road: { '1': 'Bilo je vrijeme da netko dođe. Krećemo u Bastionski prijelaz. Potraži nas u utvrdi.' }
       },
       frostDisciple: {
         freed: {
@@ -7557,8 +7561,7 @@ export default {
     retreatNote: 'Sve dosad zarađeno ostaje tebi, ali zona nije očišćena.'
   },
   ending: {
-    level: 'Razina',
-    more: 'Pod tvrđavom se otvorio Rascjep Praznine. No pravi ispit tvoje snage čeka u Koloseumu: probij se kroz njegove valove i osvoji mitske nagrade koje imaju samo njegovi prvaci.',
+    more: 'Arhidemon je pao, ali kraljevstvo još nije sigurno. Svijetu je ostala jedna velika prijetnja, i ona čeka u Rascjepu Praznine.',
     order: {
       title: 'Željezni mir',
       text: 'Nad Tvrđavom užasa vijore se stjegovi Željeznog reda. Ceste su sigurne, zakona je mnogo, a tvoje je ime uklesano iznad vrata.'

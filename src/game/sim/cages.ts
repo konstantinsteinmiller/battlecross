@@ -89,7 +89,7 @@ export interface CaptiveState {
   phase: CaptivePhase
   /** Seconds in the phase. */
   t: number
-  /** Out of the cage: the points still to walk through. */
+  /** Out of the cage: the points still to walk through. Caged: the one spot behind the bars. */
   path: Array<[number, number]>
   /** Home: the way back to town (the place's start). */
   hx: number
@@ -118,20 +118,38 @@ export const captiveLine = (npc: string): string => `dlg.bark.${npc}.freed.1`
 export const populateCage = (sim: Sim, key: { x: number; z: number } | undefined, home?: { x: number; z: number }): void => {
   sim.cageKey = key ? { x: key.x, z: key.z, taken: false } : null
   sim.captives = []
-  const def = cageOf(sim.zone)
+  const def = cageOf(sim.zone, sim.invaded)
   const cage = sim.chests.find(c => c.role === 'cage')
   if (!def || !cage || cage.state === 'open') return
   for (let q = 0; q < def.count; q++) {
     const x = cage.x + (def.count === 1 ? 0 : (q - (def.count - 1) / 2) * 0.5)
     const z = cage.z - 0.05
     const u = sim.addUnit({
-      kind: def.look, team: 0, rank: 'npc', level: 1, x, z, r: 0.3, h: 1.45,
+      kind: def.looks?.[q] ?? def.look, team: 0, rank: 'npc', level: 1, x, z, r: 0.3, h: 1.45,
       s: plainStats({ hp: 1000, dmg: 0, speed: 3.2 }), facing: 0
     })
     // Behind the bars, facing out (the cell is a block: put it there exactly).
     u.x = u.px = x
     u.z = u.pz = z
-    sim.captives.push({ unit: u.id, lead: q === 0, phase: 'caged', t: 0, path: [], hx: home?.x ?? cage.x, hz: home?.z ?? cage.z })
+    u.rooted = true
+    sim.captives.push({ unit: u.id, lead: q === 0, phase: 'caged', t: 0, path: [[x, z]], hx: home?.x ?? cage.x, hz: home?.z ?? cage.z, ...(q === 0 && def.line ? { line: def.line } : {}) })
+  }
+}
+
+/**
+ * Whoever is still behind the bars stays on their spot, whatever shoved them this step
+ * (#163: Ivor Hask was knocked about inside the iron cage, then out under its front).
+ * Run after everything that moves bodies; a caged captive is also rooted against knockback.
+ */
+export const holdCaged = (sim: Sim): void => {
+  for (const p of sim.captives) {
+    if (p.phase !== 'caged') continue
+    const u = sim.get(p.unit)
+    const at = p.path[0]
+    if (!u || !at) continue
+    u.x = u.px = at[0]
+    u.z = u.pz = at[1]
+    u.kx = u.kz = 0
   }
 }
 
@@ -143,6 +161,7 @@ export const freeCaptives = (sim: Sim, c: ChestState): void => {
     const u = sim.get(p.unit)
     p.phase = 'out'
     p.t = 0
+    if (u) u.rooted = false
     p.path = p.stay ? campWayOut(u, c) : [[u?.x ?? c.x, c.z + 0.8], [c.x + side * 1.35, c.z + 1.05]]
     // Out of the cage, the camp's teachers answer to their town ids (#156).
     if (u && p.npc) u.npc = p.npc
@@ -170,7 +189,7 @@ export const stepCaptives = (sim: Sim, dt: number): void => {
         p.t = 0
         u.anim = 'idle'
         if (p.lead) {
-          const def = cageOf(sim.zone)
+          const def = cageOf(sim.zone, sim.invaded)
           const key = p.line ?? (def ? captiveLine(def.npc) : '')
           if (key) sim.emit({ t: 'bark', unit: u.id, key })
         }

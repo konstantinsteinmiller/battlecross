@@ -6103,7 +6103,11 @@ export default {
       trainerAegis: {
         freed: {
           '1': 'Cảm ơn đã cứu chúng ta khỏi lũ cướp! Lại bên đống lửa: tất cả sẽ dạy ngươi, bài học đầu miễn phí.'
-        }
+        },
+        road: { '1': 'Ngươi tìm thấy chúng ta rồi! Lũ quỷ bắt chúng ta trên đường tới Sunford. Chúng ta sẽ tới Ải Thành Lũy: hãy tìm chúng ta ở pháo đài.' }
+      },
+      sfShadow: {
+        road: { '1': 'Cuối cùng cũng có người tới. Chúng ta đi Ải Thành Lũy đây. Tìm chúng ta ở pháo đài nhé.' }
       },
       frostDisciple: {
         freed: {
@@ -7442,8 +7446,7 @@ export default {
     retreatNote: 'Bạn giữ mọi thứ đã kiếm được, nhưng vùng này chưa được dọn sạch.'
   },
   ending: {
-    level: 'Cấp',
-    more: 'Khe Nứt Hư Không đã mở ra bên dưới pháo đài. Nhưng thử thách thật sự cho sức mạnh của bạn đang chờ ở Đấu Trường: vượt qua từng đợt, và giành những phần thưởng thần thoại chỉ các nhà vô địch nơi đó mới có.',
+    more: 'Đại Quỷ Vương đã ngã xuống, nhưng vương quốc vẫn chưa an toàn. Thế giới vẫn còn một mối đe dọa lớn, và nó đang chờ bên trong Khe Nứt Hư Không.',
     order: {
       title: 'Nền Hòa Bình Sắt',
       text: 'Cờ của Thiết Hội tung bay trên Pháo Đài Kinh Hoàng. Đường sá an toàn, luật lệ thì nhiều, và tên bạn được khắc phía trên cổng.'
