@@ -13,4 +13,4 @@ Updated 2026-10-25. Mirrors `C:\Users\konst\chaos-arena\ADS_STATE.md` (read it f
 - **Consent:** Google UMP before `LevelPlay.init` (EEA/UK/CH). Options shows "Privacy settings" while UMP says a re-entry is
   required, and "Privacy policy" (`VITE_APP_PRIVACY_POLICY_URL`).
 - **Gate:** `scripts/native-ads-gate.mjs` runs before every AAB: no debug switches, no test ids, no empty keys.
-- **Open:** all ids empty until roadmap #Store-5..8 are done by the owner.
+- **Open:** AdMob consent message, store linking, iOS secrets and listings (roadmap #Store-4, #Store-6, #Store-13+). Android and iOS ad ids are filled in `.env.tauri`.

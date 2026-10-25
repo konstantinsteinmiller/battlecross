@@ -256,16 +256,20 @@ Build order and the decisions taken are in `game-implementation-plan.md`
   `APP_STORE_CONNECT_API_KEY_KEY`, `MATCH_PASSWORD`, `MATCH_GIT_BASIC_AUTHORIZATION`) and the Actions **variables**
   `VITE_APP_LEVELPLAY_*`, `VITE_APP_ADMOB_*`, `VITE_APP_PRIVACY_POLICY_URL` (public ids, not secrets). How to make each: the
   `tauri-mobile-ci` skill's SECRETS.md.
-- [ ] #Store-5 **Owner: LevelPlay dashboard.** New app Battlecross for Android and iOS (COPPA off, not child-directed); a
+  Done 2026-10-25: repository variables set on GitHub (`VITE_APP_LEVELPLAY_IOS_APP_ID`, `…_IOS_REWARDED_ID`, `…_IOS_INTERSTITIAL_ID`, `VITE_APP_ADMOB_IOS_APP_ID`, `ADMOB_IOS_APP_ID`, `VITE_APP_PRIVACY_POLICY_URL`). Still open: the secrets (Apple team id, App Store Connect API key id / issuer / .p8, match password and token, Android keystore base64 + passwords), which need your Apple login and passwords.
+- [x] #Store-5 ✅ **Owner: LevelPlay dashboard.** New app Battlecross for Android and iOS (COPPA off, not child-directed); a
   rewarded and an interstitial ad unit per platform; add AdMob and Unity Ads as networks. Put the app keys and unit ids
   into `.env.tauri` (`VITE_APP_LEVELPLAY_*`).
   Done for Android 2026-10-25 (app key `28ffa590d`, rewarded `5xfgeeukewu1g7fd`, interstitial `v8nsddme7gadbldj`, ironSource + Google + UnityAds bidders on both formats, COPPA not directed). iOS app and units: open.
+  iOS done 2026-10-25: LevelPlay iOS app `28ffbb23d`, rewarded `5itp5zhc39ope8ce`, interstitial `ypbwxyar182w9o4g`; ironSource + Google (AdMob units `…/6464463778`, `…/6548224258`) + UnityAds (`BP_Rewarded_iOS`, `BP_Interstitial_iOS`) bidders; COPPA not directed. Both platforms done.
 - [ ] #Store-6 **Owner: AdMob.** New Android and iOS apps; the ad units LevelPlay mediates; a GDPR + US-state consent
   message (Privacy & messaging) for both apps; put the app ids (`ca-app-pub-…~…`) into `.env.tauri`
   (`VITE_APP_ADMOB_*_APP_ID`). Link the apps to the stores after publication.
   Done for Android 2026-10-25: app `ca-app-pub-4823250874530748~7215060781`; bidding units rewarded `…/3024534333`, interstitial `…/8830686941` (the first two units `…/4225313246`, `…/5901271276` are unused). The GDPR consent message and the iOS app and units are open.
-- [ ] #Store-7 **Owner: Unity Ads.** New project + Android and iOS game ids, entered in LevelPlay as a network.
+  iOS done 2026-10-25: AdMob iOS app `ca-app-pub-4823250874530748~1403708783`, bidding units as above. Still open: the GDPR + US-state consent message (AdMob → Privacy & messaging) for both apps, and linking the apps to the stores after publication.
+- [x] #Store-7 ✅ **Owner: Unity Ads.** New project + Android and iOS game ids, entered in LevelPlay as a network.
   Done for Android 2026-10-25: Unity project and app Battlecross, Game ID `800410980`, placements `BP_Rewarded_Android` / `BP_Interstitial_Android`, entered in LevelPlay. iOS game id: open.
+  iOS done 2026-10-25: Unity iOS app Battlecross, Game ID `800410987`, placements `BP_Rewarded_iOS` / `BP_Interstitial_iOS`, entered in LevelPlay. Both platforms done.
 - [x] #Store-8 ✅ **Owner: privacy policy + app-ads.txt.** Host a Battlecross privacy page (ads, advertising ID, analytics
   = none, leaderboard nickname, no child data, contact mail) and `app-ads.txt` on the developer website domain with the
   LevelPlay, Unity and `google.com, pub-…, DIRECT` lines. Put the URL in `VITE_APP_PRIVACY_POLICY_URL` (same page as the
@@ -301,6 +305,26 @@ Build order and the decisions taken are in `game-implementation-plan.md`
 - [ ] #Store-17 **Release QA before both uploads:** `blur-probe.mjs live` (phone 3×), `pnpm vue-tsc --build`, the platform
   tests, a tree-shake check that no web build contains `plugin:levelplay` (`tests/platforms/bundlePurity.test.ts`),
   and the Play pre-launch report / Poki-style real-device numbers for performance.
+- [ ] #Store-18 Levelplay account activation: I got this email back in April after signing up:
+"Hello Konstantin,
+
+You’re almost ready to start growing your app business with ironSource Ads.
+
+To finish setting up your account, send an email from the developer email address listed on your app’s store page to ironsource-account-review@unity3d.com and include the following:
+
+The email subject: “ironSource account review details”
+A direct link to your app’s live store page (Google Play or Apple App Store). If your app isn’t live, publish it before sending the email.
+The email address you used to sign up for your ironSource Ads account
+Ticket number 00902101
+If there is no email address listed on your app’s store page, add one before sending the email to us.
+
+Once we receive your information, our Customer Support team will review your ironSource Ads account and follow up with you by email. Reviews are handled manually and typically require up to 10 working days to complete, and may take longer during periods of high volume. You may not receive an immediate response, and creating additional tickets or follow-up requests will not speed up the review and may delay processing.
+
+Please note, if you are using LevelPlay mediation, you can already start monetizing with the other mediated networks. This review process is only relevant for the ironSource Ads network.
+
+thread::bNnLo_yNdxaznYHmLryx1Ts::".
+Please draft me a response to fulfill the requirements. Chaos Arena is live on PlayStore at https://play.google.com/store/apps/details?id=com.chaos.arena .
+Also do the claiming or the chaos-arena app id on admob and for battlecross, it was asking me for it, probably also need the play store link or something.
 
 
 - [x] #Perf1 ✅ One user had 1-3 fps for the first 30 seconds, then ~9-10: WebGL Renderer
