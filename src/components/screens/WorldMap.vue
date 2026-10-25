@@ -508,9 +508,6 @@ const scale = ref(0.5)
 const pannable = ref(false)
 /** A short, wide screen (a phone on its side): the card stands BESIDE the picked place. */
 const side = ref(false)
-/** Smaller than this and the landmarks stop reading: fill the table and pan instead. */
-const MIN_FIT = 0.5
-const MAX_ZOOM = 1.05
 
 /** The top row's lower edge goes to the card (`--band-t`), which docks below it; the
  *  bottom row's upper edge to `--band-b`. */
@@ -533,10 +530,9 @@ const fit = (): void => {
   const w = el.clientWidth
   const h = el.clientHeight
   const contain = Math.min(w / MAP_W, h / MAP_H)
-  const cover = Math.max(w / MAP_W, h / MAP_H)
-  // On a touch screen the sheet covers the whole screen, the controls float over it (#165):
-  // fitted into the window between them it was a small box that still had to be panned.
-  const s = touch.value ? cover : contain >= MIN_FIT ? contain : Math.min(cover, MAX_ZOOM)
+  // The whole sheet is always on screen (#165): contained, never cropped or panned; the
+  // table around it is the sea's blue, so a wider or taller screen just shows more sea.
+  const s = contain
   scale.value = Math.round(s * 10000) / 10000
   pannable.value = MAP_W * s > w + 1 || MAP_H * s > h + 1
   side.value = window.innerHeight <= 520 && window.innerWidth > window.innerHeight * 1.2
