@@ -227,6 +227,8 @@ jobs:
           # desired state. Remove this line if your app is NOT in the
           # Apple Kids Category.
           /usr/libexec/PlistBuddy -c "Delete :NSUserTrackingUsageDescription" "$INFO_PLIST" 2>/dev/null || true
+          # Only standard TLS: answers the App Store Connect export-compliance question.
+          /usr/libexec/PlistBuddy -c "Set :ITSAppUsesNonExemptEncryption false" "$INFO_PLIST" \n            || /usr/libexec/PlistBuddy -c "Add :ITSAppUsesNonExemptEncryption bool false" "$INFO_PLIST"
           /usr/libexec/PlistBuddy -c "Print :GADApplicationIdentifier" "$INFO_PLIST"
 
       - name: Inject SKAdNetworkItems into Info.plist (iOS 14.5+ ad attribution)
