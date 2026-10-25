@@ -250,6 +250,7 @@ Build order and the decisions taken are in `game-implementation-plan.md`
   Still open: create `src-tauri/gen/android/key.properties` (gitignored) with `password=`, `keyAlias=<the alias you used>` and
   `storeFile=C:/Users/konst/battlecross-release.keystore`; back the keystore up twice (password manager + offline);
   turn **Play App Signing** on when creating the app. The same alias and password go into the CI secrets (#Store-4).
+  Update 2026-10-25: Battlecross signs with the shared hyperg8 keystore (`C:/Users/konst/hyperg8-release.keystore`, alias `hyperg8`); `key.properties` points at it and the password is entered. Still open: two backups, Play App Signing on.
 - [ ] #Store-4 **Owner: GitHub secrets** for CI (`ANDROID_KEYSTORE_BASE64`, `ANDROID_KEYSTORE_PASSWORD`, `ANDROID_KEY_ALIAS`,
   `ANDROID_KEY_PASSWORD`, `APPLE_TEAM_ID`, `APP_STORE_CONNECT_API_KEY_KEY_ID`, `APP_STORE_CONNECT_API_KEY_ISSUER_ID`,
   `APP_STORE_CONNECT_API_KEY_KEY`, `MATCH_PASSWORD`, `MATCH_GIT_BASIC_AUTHORIZATION`) and the Actions **variables**
@@ -258,14 +259,19 @@ Build order and the decisions taken are in `game-implementation-plan.md`
 - [ ] #Store-5 **Owner: LevelPlay dashboard.** New app Battlecross for Android and iOS (COPPA off, not child-directed); a
   rewarded and an interstitial ad unit per platform; add AdMob and Unity Ads as networks. Put the app keys and unit ids
   into `.env.tauri` (`VITE_APP_LEVELPLAY_*`).
+  Done for Android 2026-10-25 (app key `28ffa590d`, rewarded `5xfgeeukewu1g7fd`, interstitial `v8nsddme7gadbldj`, ironSource + Google + UnityAds bidders on both formats, COPPA not directed). iOS app and units: open.
 - [ ] #Store-6 **Owner: AdMob.** New Android and iOS apps; the ad units LevelPlay mediates; a GDPR + US-state consent
   message (Privacy & messaging) for both apps; put the app ids (`ca-app-pub-…~…`) into `.env.tauri`
   (`VITE_APP_ADMOB_*_APP_ID`). Link the apps to the stores after publication.
+  Done for Android 2026-10-25: app `ca-app-pub-4823250874530748~7215060781`; bidding units rewarded `…/3024534333`, interstitial `…/8830686941` (the first two units `…/4225313246`, `…/5901271276` are unused). The GDPR consent message and the iOS app and units are open.
 - [ ] #Store-7 **Owner: Unity Ads.** New project + Android and iOS game ids, entered in LevelPlay as a network.
-- [ ] #Store-8 **Owner: privacy policy + app-ads.txt.** Host a Battlecross privacy page (ads, advertising ID, analytics
+  Done for Android 2026-10-25: Unity project and app Battlecross, Game ID `800410980`, placements `BP_Rewarded_Android` / `BP_Interstitial_Android`, entered in LevelPlay. iOS game id: open.
+- [x] #Store-8 ✅ **Owner: privacy policy + app-ads.txt.** Host a Battlecross privacy page (ads, advertising ID, analytics
   = none, leaderboard nickname, no child data, contact mail) and `app-ads.txt` on the developer website domain with the
   LevelPlay, Unity and `google.com, pub-…, DIRECT` lines. Put the URL in `VITE_APP_PRIVACY_POLICY_URL` (same page as the
-  store listings).
+  store listings). Add the battlecross privacy policy modal in the same way the chaos arena privacy policy page/modal is working in the
+  C:\Users\konst\Documents\__p\hyperg8-webpage project that holds the hyperg8 webpage. C:\Users\konst\Documents\__p\hyperg8-webpage\src\assets\documentation\rights\chaos-arena-privacy-policy-de.md C:\Users\konst\Documents\__p\hyperg8-webpage\src\assets\documentation\rights\chaos-arena-privacy-policy-en.md
+  Done 2026-10-25: policy (en, de) is live at https://konstantinsteinmiller.github.io/hyperg8/?battlecross-privacy-policy-en=true (set in `.env.tauri`); `app-ads.txt` at the github.io root already carries the Google pub line and the Unity DIRECT line for this publisher account.
 - [ ] #Store-9 **Play Console: create the app.** Free game; Content rating questionnaire (fantasy violence; no
   gambling, no UGC); Target audience **13-15 and up** (not child-directed, not Families); Ads declaration = yes; Data
   safety + AD_ID declaration (copy the table from `C:\Users\konst\chaos-arena\ADS_STATE.md`); News/Health/Government = no.
