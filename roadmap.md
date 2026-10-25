@@ -267,6 +267,7 @@ Build order and the decisions taken are in `game-implementation-plan.md`
   (`VITE_APP_ADMOB_*_APP_ID`). Link the apps to the stores after publication.
   Done for Android 2026-10-25: app `ca-app-pub-4823250874530748~7215060781`; bidding units rewarded `…/3024534333`, interstitial `…/8830686941` (the first two units `…/4225313246`, `…/5901271276` are unused). The GDPR consent message and the iOS app and units are open.
   iOS done 2026-10-25: AdMob iOS app `ca-app-pub-4823250874530748~1403708783`, bidding units as above. Still open: the GDPR + US-state consent message (AdMob → Privacy & messaging) for both apps, and linking the apps to the stores after publication.
+  Consent done 2026-10-25: the EU/GDPR message "Chaos Arena GDPR" (published) now covers Chaos Arena and Battlecross on both platforms (Battlecross privacy URL set), and a new published US-states message "Hyperg8 US states" covers all four apps in every state. Chaos Arena (`com.chaos.arena`) was claimed and linked to Google Play, merged into the existing AdMob app `…~3774407282`. Battlecross cannot be linked to a store until it is live on Play / App Store (then: Apps → Battlecross → Add store). The apps get the consent form through the LevelPlay plugin's UMP call; no code change.
 - [x] #Store-7 ✅ **Owner: Unity Ads.** New project + Android and iOS game ids, entered in LevelPlay as a network.
   Done for Android 2026-10-25: Unity project and app Battlecross, Game ID `800410980`, placements `BP_Rewarded_Android` / `BP_Interstitial_Android`, entered in LevelPlay. iOS game id: open.
   iOS done 2026-10-25: Unity iOS app Battlecross, Game ID `800410987`, placements `BP_Rewarded_iOS` / `BP_Interstitial_iOS`, entered in LevelPlay. Both platforms done.
@@ -305,7 +306,7 @@ Build order and the decisions taken are in `game-implementation-plan.md`
 - [ ] #Store-17 **Release QA before both uploads:** `blur-probe.mjs live` (phone 3×), `pnpm vue-tsc --build`, the platform
   tests, a tree-shake check that no web build contains `plugin:levelplay` (`tests/platforms/bundlePurity.test.ts`),
   and the Play pre-launch report / Poki-style real-device numbers for performance.
-- [ ] #Store-18 Levelplay account activation: I got this email back in April after signing up:
+- [x] #Store-18 ✅ Levelplay account activation: I got this email back in April after signing up:
 "Hello Konstantin,
 
 You’re almost ready to start growing your app business with ironSource Ads.
@@ -325,7 +326,26 @@ Please note, if you are using LevelPlay mediation, you can already start monetiz
 thread::bNnLo_yNdxaznYHmLryx1Ts::".
 Please draft me a response to fulfill the requirements. Chaos Arena is live on PlayStore at https://play.google.com/store/apps/details?id=com.chaos.arena .
 Also do the claiming or the chaos-arena app id on admob and for battlecross, it was asking me for it, probably also need the play store link or something.
+  Done 2026-10-25 except the send: the AdMob claim is done (see #Store-6). Email draft, to send yourself:
+  - **From:** the developer email on Chaos Arena's Play listing, `konstantin.steinmiller@gmail.com` (the mail must come from that address).
+  - **To:** ironsource-account-review@unity3d.com
+  - **Subject:** ironSource account review details
+  - **Body:**
+    Hello,
+    
+    please review my ironSource Ads account.
+    
+    - App store page (live): https://play.google.com/store/apps/details?id=com.chaos.arena (Chaos Arena, developer hyperg8)
+    - Email address used to sign up for ironSource Ads: <the address you registered with; check the April mail's recipient>
+    - Ticket number: 00902101
+    
+    Chaos Arena is mediated through LevelPlay (ironSource, Google AdMob, Unity Ads). A second app, Battlecross (com.hyperg8.battlecross), is in the same LevelPlay account and not yet published.
+    
+    Thank you,
+    Konstantin Steinmiller
+  Check before sending: the signup address (not known to me), and keep the ticket number in the body; do not open further tickets (the mail says that delays the review). Chaos Arena's page lists that developer email, but its privacy policy uses `koststone@gmail.com`; either is fine as long as the From address matches the store page.
 
+- [ ] #Store-19 harvest the learnings from the ios and android submission and creating all ids and vars and setting them on github to the mobile-release skill, might be missspelled by me, but I think a user level skill exists already.
 
 - [x] #Perf1 ✅ One user had 1-3 fps for the first 30 seconds, then ~9-10: WebGL Renderer
   ANGLE (Imagination Technologies, PowerVR Rogue GE8320, OpenGL ES 3.2)
