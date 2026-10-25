@@ -312,7 +312,8 @@ Build order and the decisions taken are in `game-implementation-plan.md`
 - [x] #Store-18 ✅ Levelplay account activation: I got this email back in April after signing up:
 
 - [ ] #Store-19 harvest the learnings from the ios and android submission and creating all ids and vars and setting them on github to the mobile-release skill, might be missspelled by me, but I think a user level skill exists already.
-- [ ] #Store-20 Create Screenshots that will be used for the Store entries. ~7-8 Screenshots that show the most variety of the game, 2 locations with a champion, 1 boss, 1 town shot of silverbridge, 1 shot of one destroyed town, 1 shot of the world map, 1 shot of the skills to purchase from a skills teacher. All Screenshots should be usable for the store submissions and live in /src/assets/promotion/stores/ 
+- [x] #Store-20 ✅ Create Screenshots that will be used for the Store entries. ~7-8 Screenshots that show the most variety of the game, 2 locations with a champion, 1 boss, 1 town shot of silverbridge, 1 shot of one destroyed town, 1 shot of the world map, 1 shot of the skills to purchase from a skills teacher. All Screenshots should be usable for the store submissions and live in /src/assets/promotion/stores/ 
+  Done 2026-10-25: 7 scenes in `src/assets/promotion/stores/` (README lists slots): 1920x1080 (Play) and 2868x1320 (App Store 6.9"), plus 2752x2064 (iPad 13") for scenes 01, 03, 04. Sharpness: 15 of 17 files SHARP; the two world-map files are SOFT in part (illustrated map art). Weak spots to review: the boss shot shows an empty boss health bar and a barely visible boss; Oakhaven's ruin is subtle (an overrun Sunford / Ironhold shot would read stronger); 02, 05, 06, 07 have no iPad size.
 
 - [x] #Perf1 ✅ One user had 1-3 fps for the first 30 seconds, then ~9-10: WebGL Renderer
   ANGLE (Imagination Technologies, PowerVR Rogue GE8320, OpenGL ES 3.2)
