@@ -280,6 +280,9 @@ Build order and the decisions taken are in `game-implementation-plan.md`
 - [ ] #Store-9 **Play Console: create the app.** Free game; Content rating questionnaire (fantasy violence; no
   gambling, no UGC); Target audience **13-15 and up** (not child-directed, not Families); Ads declaration = yes; Data
   safety + AD_ID declaration (copy the table from `C:\Users\konst\chaos-arena\ADS_STATE.md`); News/Health/Government = no.
+  Done 2026-10-25 in the Play Console (app `4975565716976452573`, draft): privacy policy URL, app access (no login), ads = yes, content rating (IARC, fantasy violence, simulated gambling with in-game currency only; results: PEGI 7, ESRB 10+, USK 12, IARC generic 7+, Australia R18+ because of the simulated-gambling descriptor), target audience 13-15 / 16-17 / 18+, Data safety (approximate location, name, user ids, diagnostics, app interactions, other actions, device ids; encrypted; deletion request via the policy page), advertising ID = yes, government / financial / health = no. All "App content" declarations show done.
+  Still open: store listing (name, short + full description, app category Game > Role Playing, contact email, 512 icon, 1024x500 feature graphic, screenshots: #Store-10 / #Store-20), the first AAB upload to Internal testing, the testers list, Play App Signing acceptance.
+  **Check:** the IARC result gives Australia R18+ and Germany USK 12 because the Whack-a-Imp / Ring Toss / Cups mini-games count as simulated gambling. If that is not wanted, re-answer the gambling question as No and re-run the questionnaire (only possible if those games do not stake gold).
 - [ ] #Store-10 **Play listing assets.** Icon 512×512 PNG; feature graphic 1024×500; phone screenshots 2-8 (16:9 landscape,
   min 1080 px on the short side, 1920×1080 recommended); 7" and 10" tablet screenshots (recommended, landscape 16:9);
   optional promo video (YouTube URL: `pnpm preview:video`). Short description ≤80, full ≤4000 chars (from `description.md`),
@@ -307,45 +310,9 @@ Build order and the decisions taken are in `game-implementation-plan.md`
   tests, a tree-shake check that no web build contains `plugin:levelplay` (`tests/platforms/bundlePurity.test.ts`),
   and the Play pre-launch report / Poki-style real-device numbers for performance.
 - [x] #Store-18 ✅ Levelplay account activation: I got this email back in April after signing up:
-"Hello Konstantin,
-
-You’re almost ready to start growing your app business with ironSource Ads.
-
-To finish setting up your account, send an email from the developer email address listed on your app’s store page to ironsource-account-review@unity3d.com and include the following:
-
-The email subject: “ironSource account review details”
-A direct link to your app’s live store page (Google Play or Apple App Store). If your app isn’t live, publish it before sending the email.
-The email address you used to sign up for your ironSource Ads account
-Ticket number 00902101
-If there is no email address listed on your app’s store page, add one before sending the email to us.
-
-Once we receive your information, our Customer Support team will review your ironSource Ads account and follow up with you by email. Reviews are handled manually and typically require up to 10 working days to complete, and may take longer during periods of high volume. You may not receive an immediate response, and creating additional tickets or follow-up requests will not speed up the review and may delay processing.
-
-Please note, if you are using LevelPlay mediation, you can already start monetizing with the other mediated networks. This review process is only relevant for the ironSource Ads network.
-
-thread::bNnLo_yNdxaznYHmLryx1Ts::".
-Please draft me a response to fulfill the requirements. Chaos Arena is live on PlayStore at https://play.google.com/store/apps/details?id=com.chaos.arena .
-Also do the claiming or the chaos-arena app id on admob and for battlecross, it was asking me for it, probably also need the play store link or something.
-  Done 2026-10-25 except the send: the AdMob claim is done (see #Store-6). Email draft, to send yourself:
-  - **From:** the developer email on Chaos Arena's Play listing, `konstantin.steinmiller@gmail.com` (the mail must come from that address).
-  - **To:** ironsource-account-review@unity3d.com
-  - **Subject:** ironSource account review details
-  - **Body:**
-    Hello,
-    
-    please review my ironSource Ads account.
-    
-    - App store page (live): https://play.google.com/store/apps/details?id=com.chaos.arena (Chaos Arena, developer hyperg8)
-    - Email address used to sign up for ironSource Ads: <the address you registered with; check the April mail's recipient>
-    - Ticket number: 00902101
-    
-    Chaos Arena is mediated through LevelPlay (ironSource, Google AdMob, Unity Ads). A second app, Battlecross (com.hyperg8.battlecross), is in the same LevelPlay account and not yet published.
-    
-    Thank you,
-    Konstantin Steinmiller
-  Check before sending: the signup address (not known to me), and keep the ticket number in the body; do not open further tickets (the mail says that delays the review). Chaos Arena's page lists that developer email, but its privacy policy uses `koststone@gmail.com`; either is fine as long as the From address matches the store page.
 
 - [ ] #Store-19 harvest the learnings from the ios and android submission and creating all ids and vars and setting them on github to the mobile-release skill, might be missspelled by me, but I think a user level skill exists already.
+- [ ] #Store-20 Create Screenshots that will be used for the Store entries. ~7-8 Screenshots that show the most variety of the game, 2 locations with a champion, 1 boss, 1 town shot of silverbridge, 1 shot of one destroyed town, 1 shot of the world map, 1 shot of the skills to purchase from a skills teacher. All Screenshots should be usable for the store submissions and live in /src/assets/promotion/stores/ 
 
 - [x] #Perf1 ✅ One user had 1-3 fps for the first 30 seconds, then ~9-10: WebGL Renderer
   ANGLE (Imagination Technologies, PowerVR Rogue GE8320, OpenGL ES 3.2)
