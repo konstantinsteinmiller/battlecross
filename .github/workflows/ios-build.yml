@@ -658,6 +658,8 @@ jobs:
           APPLE_DEVELOPMENT_TEAM: ${{ secrets.APPLE_TEAM_ID }}
           # Tauri build mode flags.
           VITE_APP_NATIVE: "true"
+          # Free demo to the Goblin King + the one-time full-version purchase.
+          VITE_APP_IAP_UNLOCK: "true"
           VITE_APP_SHOW_MEDIATOR_ADS: "true"
           VITE_APP_DEMO: "false"
           VITE_APP_DEBUG: "false"

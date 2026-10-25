@@ -12,6 +12,7 @@ import {
 } from '@/i18n'
 import { bcp47For, toLocale } from '@/i18n/localeTag'
 import { initAds } from '@/use/useAds'
+import { initFullVersion } from '@/use/useFullVersion'
 import { installGamePauseAudio } from '@/use/useGamePauseAudio'
 import { onPauseChange } from '@/use/useGamePause'
 import useUser, { clearLanguageChoice, hasLanguageChoice, isCrazyWeb, isWaveDash, isItch, isGlitch, isGameDistribution, isPlaygama, isGamepix, isGameMonetize, isYandex, isPoki } from '@/use/useUser'
@@ -653,6 +654,11 @@ const bootstrap = async () => {
   // placements stay hidden via `isAdsReady` until the provider signals
   // ready.
   void initAds().catch((e) => console.warn('[ads] init failed', e))
+
+  // The iOS demo's unlock: ask the store who owns the full version (a no-op,
+  // and a stub import, on every other build). The saved answer is already in
+  // use; this only refreshes it.
+  void initFullVersion().catch((e) => console.warn('[iap] init failed', e))
 
   // Signal to Wavedash that the game is fully loaded and ready (env literal:
   // see the init arm above)

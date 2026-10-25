@@ -7628,6 +7628,20 @@ export default {
     of: '/ {n} oʻyinchi',
     tabGlobal: 'Jahon'
   },
+  iap: {
+    title: "To'liq versiya",
+    body: "Sen Goblinlar shohini yengding va bepul demoni tugatding. Davom etish uchun to'liq versiyani bir marta och: yangi yurtlar, bosslar va topshiriqlar. Bitta xarid, obunasiz.",
+    unlock: "To'liq versiyani {price} evaziga ochish",
+    unlockNoPrice: "To'liq versiyani ochish",
+    restore: 'Xaridlarni tiklash',
+    notNow: 'Hozir emas',
+    pending: "Tasdiqlash kutilmoqda. Xarid tasdiqlanishi bilanoq to'liq versiya ochiladi.",
+    failed: "Xarid amalga oshmadi. Qayta urinib ko'r.",
+    restoreNone: 'Bu Apple hisobi uchun avvalgi xarid topilmadi.',
+    thanks: "Rahmat! To'liq versiya ochildi.",
+    locked: "To'liq versiyaning bir qismi",
+    working: "App Store bilan bog'lanilmoqda..."
+  },
   wind: {
     title: 'Ikkinchi nafas',
     text: 'Sen yiqilding. Sog‘lig‘ingning {n}% bilan turib, jangni tugatasanmi?',

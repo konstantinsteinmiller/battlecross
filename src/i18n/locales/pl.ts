@@ -7729,6 +7729,20 @@ export default {
     of: 'z {n} graczy',
     tabGlobal: 'Światowy'
   },
+  iap: {
+    title: 'Pełna wersja',
+    body: 'Pokonałeś Króla Goblinów i ukończyłeś darmowe demo. Odblokuj pełną wersję jednorazowo, by ruszyć dalej: nowe krainy, bossowie i zadania. Jeden zakup, bez subskrypcji.',
+    unlock: 'Odblokuj pełną wersję za {price}',
+    unlockNoPrice: 'Odblokuj pełną wersję',
+    restore: 'Przywróć zakupy',
+    notNow: 'Nie teraz',
+    pending: 'Oczekiwanie na zatwierdzenie. Pełna wersja odblokuje się, gdy tylko zakup zostanie zatwierdzony.',
+    failed: 'Zakup się nie powiódł. Spróbuj ponownie.',
+    restoreNone: 'Nie znaleziono wcześniejszego zakupu dla tego konta Apple.',
+    thanks: 'Dziękujemy! Pełna wersja jest odblokowana.',
+    locked: 'Część pełnej wersji',
+    working: 'Łączenie z App Store...'
+  },
   wind: {
     title: 'Drugi oddech',
     text: 'Upadłeś. Wstajesz z {n}% zdrowia i kończysz walkę?',

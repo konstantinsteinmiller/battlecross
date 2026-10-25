@@ -7690,6 +7690,20 @@ export default {
     of: 'iš {n} žaidėjų',
     tabGlobal: 'Pasaulis'
   },
+  iap: {
+    title: 'Pilna versija',
+    body: 'Nugalėjai Goblinų karalių ir baigei nemokamą demo. Vieną kartą atrakink pilną versiją, kad keliautum toliau: naujos šalys, bosai ir užduotys. Vienas pirkinys, jokios prenumeratos.',
+    unlock: 'Atrakinti pilną versiją už {price}',
+    unlockNoPrice: 'Atrakinti pilną versiją',
+    restore: 'Atkurti pirkinius',
+    notNow: 'Ne dabar',
+    pending: 'Laukiama patvirtinimo. Pilna versija atrakinama, kai tik pirkimas patvirtinamas.',
+    failed: 'Pirkimas nepavyko. Bandyk dar kartą.',
+    restoreNone: 'Šiai „Apple“ paskyrai ankstesnių pirkinių nerasta.',
+    thanks: 'Ačiū! Pilna versija atrakinta.',
+    locked: 'Pilnos versijos dalis',
+    working: 'Jungiamasi prie App Store...'
+  },
   wind: {
     title: 'Antras kvėpavimas',
     text: 'Griuvai. Atsistoji su {n}% sveikatos ir baigi kovą?',

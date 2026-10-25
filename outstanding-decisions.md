@@ -809,3 +809,7 @@ The current banner is an upscale of a 1376x444 painting and fails the blur probe
 ## 44 voice lines fail QA after two retries (2026-10-21)
 
 de 26, fr 7, ru 4, pt 4, es 2, ja 1 (list: the failures in the last `voice:gen --retry 2` run; voice-todo.md shows the counts). They play as silent bubbles. About half fail only because Whisper mishears invented names (Chronoweber, Ägis, Sunford), so the take may be fine; the rest run 1.5× too long or slur. Options: listen and mark good ones `LOOSE`, add respellings in tools/voice/collect.mjs and regenerate, or ship them silent.
+
+## iOS full-version unlock: reviewer shortcut and a device test (2026-10-26)
+
+The demo/unlock is built (`app-store-submission.md`, "In-App Purchase") but was written without a Mac: the Swift plugin is uncompiled and no purchase was ever made. Two things only you can settle. (1) App Review starts a fresh save and has to play to the Goblin King to see the offer; do you want a reviewer shortcut (for example a long-press in Options that sets the Goblin King's flag), or accept the few fights? In effect: no shortcut. (2) Run one TestFlight build through the "How to test" list before the iOS submission.

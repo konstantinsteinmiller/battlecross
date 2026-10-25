@@ -7649,6 +7649,20 @@ export default {
     of: 'von {n} Spielern',
     tabGlobal: 'Global'
   },
+  iap: {
+    title: 'Vollversion',
+    body: 'Du hast den Goblinkönig besiegt und die kostenlose Demo beendet. Schalte die Vollversion einmalig frei, um weiterzuziehen: neue Länder, Bosse und Quests. Ein Kauf, kein Abo.',
+    unlock: 'Vollversion freischalten für {price}',
+    unlockNoPrice: 'Vollversion freischalten',
+    restore: 'Käufe wiederherstellen',
+    notNow: 'Nicht jetzt',
+    pending: 'Warte auf Genehmigung. Die Vollversion wird freigeschaltet, sobald der Kauf genehmigt ist.',
+    failed: 'Der Kauf ist nicht zustande gekommen. Bitte versuche es erneut.',
+    restoreNone: 'Für diese Apple-ID wurde kein früherer Kauf gefunden.',
+    thanks: 'Danke! Die Vollversion ist freigeschaltet.',
+    locked: 'Teil der Vollversion',
+    working: 'Verbinde mit dem App Store ...'
+  },
   wind: {
     title: 'Zweiter Atem',
     text: 'Du bist gefallen. Steh mit {n}% deiner Gesundheit wieder auf und beende den Kampf?',

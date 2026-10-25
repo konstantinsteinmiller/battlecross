@@ -7639,6 +7639,20 @@ export default {
     of: 'van {n} spelers',
     tabGlobal: 'Wereldwijd'
   },
+  iap: {
+    title: 'Volledige versie',
+    body: 'Je versloeg de Goblinkoning en speelde de gratis demo uit. Ontgrendel de volledige versie eenmalig om verder te reizen: nieuwe landen, bazen en queesten. Eén aankoop, geen abonnement.',
+    unlock: 'Volledige versie ontgrendelen voor {price}',
+    unlockNoPrice: 'Volledige versie ontgrendelen',
+    restore: 'Aankopen herstellen',
+    notNow: 'Nu niet',
+    pending: 'Wacht op goedkeuring. De volledige versie wordt ontgrendeld zodra de aankoop is goedgekeurd.',
+    failed: 'De aankoop is niet gelukt. Probeer het opnieuw.',
+    restoreNone: 'Er is geen eerdere aankoop gevonden voor dit Apple-account.',
+    thanks: 'Bedankt! De volledige versie is ontgrendeld.',
+    locked: 'Onderdeel van de volledige versie',
+    working: 'Verbinden met de App Store...'
+  },
   wind: {
     title: 'Tweede adem',
     text: 'Je bent gevallen. Sta op met {n}% van je gezondheid en maak het gevecht af?',

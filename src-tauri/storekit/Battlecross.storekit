@@ -1,0 +1,38 @@
+{
+  "identifier" : "B7C5A001",
+  "nonRenewingSubscriptions" : [
+
+  ],
+  "products" : [
+    {
+      "displayPrice" : "2.99",
+      "familyShareable" : false,
+      "internalID" : "6746100001",
+      "localizations" : [
+        {
+          "description" : "Unlock the whole game: every land, boss and quest beyond the Goblin King. One purchase, no subscription.",
+          "displayName" : "Full Version",
+          "locale" : "en_US"
+        },
+        {
+          "description" : "Schalte das ganze Spiel frei: alle Länder, Bosse und Quests nach dem Goblinkönig. Ein Kauf, kein Abo.",
+          "displayName" : "Vollversion",
+          "locale" : "de"
+        }
+      ],
+      "productID" : "com.hyperg8.battlecross.fullversion",
+      "referenceName" : "Battlecross Full Version",
+      "type" : "NonConsumable"
+    }
+  ],
+  "settings" : {
+
+  },
+  "subscriptionGroups" : [
+
+  ],
+  "version" : {
+    "major" : 3,
+    "minor" : 0
+  }
+}

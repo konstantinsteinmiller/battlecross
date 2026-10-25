@@ -7628,6 +7628,20 @@ export default {
     of: '/ {n} oyuncu',
     tabGlobal: 'Dünya'
   },
+  iap: {
+    title: 'Tam sürüm',
+    body: "Goblin Kralı'nı yendin ve ücretsiz demoyu bitirdin. Yoluna devam etmek için tam sürümün kilidini bir kez aç: yeni diyarlar, bosslar ve görevler. Tek satın alma, abonelik yok.",
+    unlock: 'Tam sürümün kilidini {price} karşılığında aç',
+    unlockNoPrice: 'Tam sürümün kilidini aç',
+    restore: 'Satın alımları geri yükle',
+    notNow: 'Şimdi değil',
+    pending: 'Onay bekleniyor. Satın alma onaylanır onaylanmaz tam sürümün kilidi açılır.',
+    failed: 'Satın alma tamamlanamadı. Lütfen tekrar dene.',
+    restoreNone: 'Bu Apple hesabı için önceki bir satın alma bulunamadı.',
+    thanks: 'Teşekkürler! Tam sürümün kilidi açıldı.',
+    locked: 'Tam sürümün parçası',
+    working: "App Store'a bağlanılıyor..."
+  },
   wind: {
     title: 'İkinci nefes',
     text: 'Yere düştün. Canının %{n} kadarıyla ayağa kalkıp dövüşü bitirmek ister misin?',

@@ -7628,6 +7628,20 @@ export default {
     of: '/ 共 {n} 名玩家',
     tabGlobal: '全球'
   },
+  iap: {
+    title: '完整版',
+    body: '你擊敗了哥布林之王，通關了免費試玩。一次性解鎖完整版即可繼續前進：新的土地、首領與任務。一次購買，無需訂閱。',
+    unlock: '以 {price} 解鎖完整版',
+    unlockNoPrice: '解鎖完整版',
+    restore: '恢復購買',
+    notNow: '暫不',
+    pending: '等待核准中。購買一經核准，完整版將立即解鎖。',
+    failed: '購買未能完成，請再試一次。',
+    restoreNone: '此 Apple 帳號下找不到過往購買紀錄。',
+    thanks: '謝謝！完整版已解鎖。',
+    locked: '完整版內容',
+    working: '正在連接 App Store……'
+  },
   wind: {
     title: '重新振作',
     text: '你倒下了。要以 {n}% 的生命值站起來，把這場戰鬥打完嗎？',

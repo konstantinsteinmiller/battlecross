@@ -7628,6 +7628,20 @@ export default {
     of: 'av {n} spelare',
     tabGlobal: 'Världen'
   },
+  iap: {
+    title: 'Fullversion',
+    body: 'Du besegrade Goblinkungen och klarade den gratis demon. Lås upp fullversionen en gång för att fortsätta: nya länder, bossar och uppdrag. Ett köp, ingen prenumeration.',
+    unlock: 'Lås upp fullversionen för {price}',
+    unlockNoPrice: 'Lås upp fullversionen',
+    restore: 'Återställ köp',
+    notNow: 'Inte nu',
+    pending: 'Väntar på godkännande. Fullversionen låses upp så fort köpet godkänns.',
+    failed: 'Köpet gick inte igenom. Försök igen.',
+    restoreNone: 'Inget tidigare köp hittades för det här Apple-kontot.',
+    thanks: 'Tack! Fullversionen är upplåst.',
+    locked: 'Del av fullversionen',
+    working: 'Kontaktar App Store ...'
+  },
   wind: {
     title: 'Andra andningen',
     text: 'Du föll. Res dig med {n} % av din hälsa och avsluta striden?',

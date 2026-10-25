@@ -4099,6 +4099,20 @@ export default {
     'of': 'of {n} players',
     'tabGlobal': 'Global'
   },
+  'iap': {
+    'title': 'Full version',
+    'body': 'You beat the Goblin King and finished the free demo. Unlock the full version once to travel on: new lands, bosses and quests. One purchase, no subscription.',
+    'unlock': 'Unlock full version for {price}',
+    'unlockNoPrice': 'Unlock full version',
+    'restore': 'Restore purchases',
+    'notNow': 'Not now',
+    'pending': 'Waiting for approval. The full version unlocks as soon as the purchase is approved.',
+    'failed': 'The purchase did not go through. Please try again.',
+    'restoreNone': 'No earlier purchase was found for this Apple account.',
+    'thanks': 'Thank you! The full version is unlocked.',
+    'locked': 'Part of the full version',
+    'working': 'Contacting the App Store...'
+  },
   'wind': {
     'title': 'Second wind',
     'text': 'You fell. Get back up with {n}% of your health and finish the fight?',

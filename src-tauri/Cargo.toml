@@ -32,3 +32,15 @@ tauri-plugin-opener = "2"
 # Tauri CLI builds gen/android/tauri.settings.gradle from THIS dependency list,
 # so this line decides which ads SDKs reach the APK/AAB.
 tauri-plugin-levelplay = { path = "plugins/tauri-plugin-levelplay" }
+# The iOS full-version unlock (StoreKit 2). Inert on Android/desktop: it has no
+# Android module, so the Gradle build is unchanged by this line.
+tauri-plugin-iap = { path = "plugins/tauri-plugin-iap" }
+
+# The store bundle must stay under Play's 200 MB AAB limit: unstripped, each
+# Android ABI's libapp_lib.so was ~80 MB. Strip symbols and size-optimise.
+[profile.release]
+strip = true
+opt-level = "s"
+lto = true
+codegen-units = 1
+panic = "abort"

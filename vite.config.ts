@@ -1060,6 +1060,11 @@ export default defineConfig(({ mode, command }) => {
         ...(env.VITE_APP_PLAYGAMA === 'true' || env.VITE_APP_GAME_MONETIZE === 'true' ? {
           '@/use/analyticsSink': fileURLToPath(new URL('./src/use/analyticsSink.stub.ts', import.meta.url))
         } : {}),
+        // The iOS free demo's unlock (`plugin:iap|…` command strings, the
+        // product id) belongs in the iOS store build only.
+        ...(env.VITE_APP_IAP_UNLOCK === 'true' ? {} : {
+          '@/use/useFullVersion': fileURLToPath(new URL('./src/use/useFullVersion.stub.ts', import.meta.url))
+        }),
         // LevelPlay (Tauri plugin ids, ad-unit env, `plugin:levelplay|…` command
         // strings) belongs in the native store build only.
         ...(env.VITE_APP_NATIVE === 'true' ? {} : {

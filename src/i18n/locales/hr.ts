@@ -7743,6 +7743,20 @@ export default {
     of: 'od {n} igrača',
     tabGlobal: 'Svjetska'
   },
+  iap: {
+    title: 'Puna verzija',
+    body: 'Pobijedio si Kralja goblina i završio besplatni demo. Jednom otključaj punu verziju kako bi nastavio: nove zemlje, bossovi i zadaci. Jedna kupnja, bez pretplate.',
+    unlock: 'Otključaj punu verziju za {price}',
+    unlockNoPrice: 'Otključaj punu verziju',
+    restore: 'Vrati kupnje',
+    notNow: 'Ne sada',
+    pending: 'Čeka se odobrenje. Puna verzija otključava se čim kupnja bude odobrena.',
+    failed: 'Kupnja nije uspjela. Pokušaj ponovno.',
+    restoreNone: 'Za ovaj Apple račun nije pronađena nijedna ranija kupnja.',
+    thanks: 'Hvala! Puna verzija je otključana.',
+    locked: 'Dio pune verzije',
+    working: 'Povezivanje s App Storeom...'
+  },
   wind: {
     title: 'Drugi dah',
     text: 'Pao si. Ustaješ li s {n}% zdravlja i završavaš borbu?',

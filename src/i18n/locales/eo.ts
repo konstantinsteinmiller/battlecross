@@ -7628,6 +7628,20 @@ export default {
     of: 'el {n} ludantoj',
     tabGlobal: 'Tutmonde'
   },
+  iap: {
+    title: 'Plena versio',
+    body: 'Vi venkis la Koboldan Reĝon kaj finis la senpagan demonstraĵon. Malŝlosu la plenan version unufoje por vojaĝi pluen: novaj landoj, estroj kaj taskoj. Unu aĉeto, sen abono.',
+    unlock: 'Malŝlosi la plenan version por {price}',
+    unlockNoPrice: 'Malŝlosi la plenan version',
+    restore: 'Restarigi aĉetojn',
+    notNow: 'Ne nun',
+    pending: 'Atendas aprobon. La plena versio malŝlosiĝas tuj kiam la aĉeto estas aprobita.',
+    failed: 'La aĉeto ne sukcesis. Bonvolu reprovi.',
+    restoreNone: 'Neniu antaŭa aĉeto troviĝis por ĉi tiu Apple-konto.',
+    thanks: 'Dankon! La plena versio estas malŝlosita.',
+    locked: 'Parto de la plena versio',
+    working: 'Konektante al la App Store...'
+  },
   wind: {
     title: 'Dua spiro',
     text: 'Vi falis. Ĉu releviĝi kun {n}% de via sano kaj fini la batalon?',

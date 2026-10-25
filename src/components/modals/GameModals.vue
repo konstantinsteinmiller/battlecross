@@ -19,6 +19,7 @@
   PauseModal(v-else-if="flow.modal === 'pause'" @options="emit('options')")
   HelpModal(v-else-if="flow.modal === 'help'")
   EndingModal(v-else-if="flow.modal === 'ending'")
+  UnlockModal(v-else-if="flow.modal === 'unlock'")
 </template>
 
 <script setup lang="ts">
@@ -52,6 +53,7 @@ import SiegeModal from './SiegeModal.vue'
 import PauseModal from './PauseModal.vue'
 import HelpModal from './HelpModal.vue'
 import EndingModal from './EndingModal.vue'
+import UnlockModal from './UnlockModal.vue'
 
 const emit = defineEmits<{ (e: 'options'): void }>()
 </script>

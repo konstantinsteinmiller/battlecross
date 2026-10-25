@@ -7628,6 +7628,20 @@ export default {
     of: '/ {n} játékos',
     tabGlobal: 'Globális'
   },
+  iap: {
+    title: 'Teljes játék',
+    body: 'Legyőzted a Goblinkirályt, és végigjátszottad az ingyenes demót. Egyszer old fel a teljes játékot, hogy tovább utazhass: új tájak, főellenségek és küldetések. Egyetlen vásárlás, előfizetés nélkül.',
+    unlock: 'Teljes játék feloldása: {price}',
+    unlockNoPrice: 'Teljes játék feloldása',
+    restore: 'Vásárlások visszaállítása',
+    notNow: 'Most nem',
+    pending: 'Jóváhagyásra vár. A teljes játék a vásárlás jóváhagyása után azonnal feloldódik.',
+    failed: 'A vásárlás nem sikerült. Próbáld újra.',
+    restoreNone: 'Ehhez az Apple-fiókhoz nem található korábbi vásárlás.',
+    thanks: 'Köszönjük! A teljes játék fel van oldva.',
+    locked: 'A teljes játék része',
+    working: 'Csatlakozás az App Store-hoz...'
+  },
   wind: {
     title: 'Második szél',
     text: 'Elestél. Felállsz az életerőd {n}%-ával, és befejezed a harcot?',

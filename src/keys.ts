@@ -121,3 +121,11 @@ export const KEY_BINDINGS_KEY = 'bc_user_key_bindings'
 /** Keyboard layout: auto-detect on / off, the manual pick, the layout last
  *  detected from typing (`engine/keyLabels.ts`). */
 export const KB_LAYOUT_KEY = 'bc_user_keyboard_layout'
+
+// ─── Purchases (iOS full-version unlock) ────────────────────────────────────
+
+/** `true` once the store has confirmed the full-version purchase on this
+ *  device: the offline cache of the entitlement (`useFullVersion.ts`). Not in
+ *  `PROFILE_FIELDS`: it belongs to the Apple account, not to one playthrough,
+ *  so a new game or a slot load never takes it away. */
+export const FULL_VERSION_KEY = 'bc_full_version'

@@ -7704,6 +7704,20 @@ export default {
     of: 'no {n} spēlētājiem',
     tabGlobal: 'Pasaulē'
   },
+  iap: {
+    title: 'Pilnā versija',
+    body: 'Tu uzvarēji Goblinu karali un pabeidzi bezmaksas demo. Vienreiz atbloķē pilno versiju, lai dotos tālāk: jaunas zemes, bosi un uzdevumi. Viens pirkums, bez abonementa.',
+    unlock: 'Atbloķēt pilno versiju par {price}',
+    unlockNoPrice: 'Atbloķēt pilno versiju',
+    restore: 'Atjaunot pirkumus',
+    notNow: 'Ne tagad',
+    pending: 'Gaida apstiprinājumu. Pilnā versija tiks atbloķēta, tiklīdz pirkums tiks apstiprināts.',
+    failed: 'Pirkums neizdevās. Mēģini vēlreiz.',
+    restoreNone: 'Šim Apple kontam iepriekšēji pirkumi nav atrasti.',
+    thanks: 'Paldies! Pilnā versija ir atbloķēta.',
+    locked: 'Pilnās versijas daļa',
+    working: 'Savienojas ar App Store...'
+  },
   wind: {
     title: 'Otrā elpa',
     text: 'Tu nokriti. Piecelties ar {n}% veselības un pabeigt cīņu?',

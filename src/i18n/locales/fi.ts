@@ -7628,6 +7628,20 @@ export default {
     of: '/ {n} pelaajaa',
     tabGlobal: 'Maailma'
   },
+  iap: {
+    title: 'Täysi versio',
+    body: 'Voitit Hirviökuninkaan ja pelasit ilmaisen demon loppuun. Avaa täysi versio kerran jatkaaksesi: uusia maita, pomoja ja tehtäviä. Yksi ostos, ei tilausta.',
+    unlock: 'Avaa täysi versio hintaan {price}',
+    unlockNoPrice: 'Avaa täysi versio',
+    restore: 'Palauta ostokset',
+    notNow: 'Ei nyt',
+    pending: 'Odottaa hyväksyntää. Täysi versio aukeaa heti, kun osto on hyväksytty.',
+    failed: 'Osto ei onnistunut. Yritä uudelleen.',
+    restoreNone: 'Tälle Apple-tilille ei löytynyt aiempaa ostoa.',
+    thanks: 'Kiitos! Täysi versio on avattu.',
+    locked: 'Osa täyttä versiota',
+    working: 'Yhdistetään App Storeen...'
+  },
   wind: {
     title: 'Toinen tuuli',
     text: 'Kaaduit. Nouset ylös {n} %:lla terveydestäsi ja viet taistelun loppuun?',

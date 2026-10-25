@@ -32,6 +32,8 @@ import { pokiMeasure } from '@/utils/pokiPlugin'
 import { showMidgameAd } from '@/use/useAds'
 import { canOfferReward, canShowInterstitial, claimReward, isRewardGated, markInterstitialShown } from '@/use/useAdGate'
 import { breakAllowed } from '@/game/adPacing'
+import { DEMO_END_FLAG } from './data/fullVersion'
+import { gateActive, isNodeLockedByDemo, resetPurchaseStatus } from '@/use/useFullVersion'
 import { isAdShowing } from '@/use/useGamePause'
 import { triggerHappytime } from '@/use/useCrazyGames'
 import { reportLadder, reportRun } from '@/use/useLeaderboard'
@@ -64,7 +66,7 @@ import { countFairClear } from './state/fair'
 
 export type Screen = 'boot' | 'zone' | 'town' | 'map'
 export type Modal =
-  | '' | 'results' | 'secondWind' | 'contracts' | 'siege' | 'pause' | 'character' | 'skills' | 'inventory' | 'journal' | 'shop' | 'trainer' | 'healer' | 'alchemy' | 'smithing' | 'sellOre' | 'memory' | 'itemBattle' | 'cups' | 'whack' | 'ring' | 'arm' | 'ending' | 'help'
+  | '' | 'results' | 'secondWind' | 'contracts' | 'siege' | 'pause' | 'character' | 'skills' | 'inventory' | 'journal' | 'shop' | 'trainer' | 'healer' | 'alchemy' | 'smithing' | 'sellOre' | 'memory' | 'itemBattle' | 'cups' | 'whack' | 'ring' | 'arm' | 'ending' | 'help' | 'unlock'
 /** A conversation in progress (`talk.ts`, drawn by `DialogLayer`): with a
  *  townsperson in the scene, with a trainer met on the map, or a quest's
  *  decision. It is not a window — the world keeps running under it — and it
@@ -143,7 +145,11 @@ export const flow = reactive({
   mapWalkTo: '' as NodeId | '',
   /** The random encounter being fought (roadmap #67), from the veil until the
    *  hero is back on the map. */
-  encounter: null as EncounterSpec | null
+  encounter: null as EncounterSpec | null,
+  /** Where the unlock offer (iOS demo) came from: 'victory' = after the Goblin
+   *  King (Not now leads to the town), 'map' = a locked place was tapped
+   *  (Not now just closes it). */
+  unlockFrom: '' as '' | 'victory' | 'map'
 })
 
 
@@ -502,6 +508,8 @@ export const createBootMode = async (onProgress: (p01: number) => void = () => {
 export const travel = async (node: NodeId): Promise<void> => {
   // Any place without a story lock: too strong is the player's own risk (#72).
   if (flow.loading || booting || !NODE_BY_ID[node] || !isNodeReachable(node) || !invasionLetsIn(node, profile.world.afterplay, flagSet())) return
+  // The iOS demo ends at the Goblin King: beyond it the unlock is offered instead (a no-op elsewhere).
+  if (isNodeLockedByDemo(node)) { openUnlock('map'); return }
   flow.loading = true
   flow.loadProgress = 0
   flow.loadingNode = node
@@ -887,7 +895,8 @@ const adBreak = async (decisionNext = false): Promise<void> => {
   flow.modal = ''
   let adShown = false
   try {
-    if (r && breakAllowed({ outcome: r.outcome, opening: r.opening, decisionNext }) && canShowInterstitial()) {
+    // The unlock offer may follow this screen: no ad in front of it (the Goblin King's own decision already holds the ad back).
+    if (r && breakAllowed({ outcome: r.outcome, opening: r.opening, decisionNext }) && !unlockDue() && canShowInterstitial()) {
       markInterstitialShown()
       adShown = true
       await showMidgameAd()
@@ -903,11 +912,56 @@ const adBreak = async (decisionNext = false): Promise<void> => {
   }
 }
 
+// ─── The iOS demo's unlock ───────────────────────────────────────────────────
+
+/** Tip (in `profile.tips`) that the unlock offer after the Goblin King has been shown. */
+export const UNLOCK_OFFERED_TIP = 'iapOffered'
+
+/**
+ * Is the unlock offer due now? Only where the demo gate is on and the full
+ * version is not bought, only once the Goblin King is answered (never before,
+ * never during a fight: this is asked at the end of a visit), and only the
+ * first time: later the locked places on the map open the same offer.
+ */
+export const unlockDue = (): boolean =>
+  gateActive.value && hasFlag(DEMO_END_FLAG) && !profile.tips[UNLOCK_OFFERED_TIP]
+
+/** Open the unlock offer over whatever is up (the map, or the frozen zone). */
+export const openUnlock = (from: 'victory' | 'map'): void => {
+  // A fight, a conversation or another window is up: not now.
+  if (flow.loading || flow.talk || (flow.modal && flow.modal !== 'unlock')) return
+  resetPurchaseStatus()
+  flow.unlockFrom = from
+  flow.modal = 'unlock'
+  if (!profile.tips[UNLOCK_OFFERED_TIP]) {
+    markTip(UNLOCK_OFFERED_TIP)
+  }
+}
+
+/** "Not now": the offer is closed, the demo stays playable. After the Goblin
+ *  King it leads to the town; from a locked place on the map it just closes. */
+export const declineUnlock = async (): Promise<void> => {
+  const from = flow.unlockFrom
+  flow.modal = ''
+  flow.unlockFrom = ''
+  if (from === 'victory') await travel('sunford')
+}
+
+/** The full version is owned and the thanks was read: the road ahead opens. */
+export const acceptUnlock = (): void => {
+  const from = flow.unlockFrom
+  flow.modal = ''
+  flow.unlockFrom = ''
+  if (from === 'victory') { afterVisit(); return }
+}
+
 /** Past the results (and the decision): the ending once, else the map. */
 export const afterVisit = (): void => {
   flow.quest = ''
   // Back from an encounter: on the map, where he was walking.
   flow.encounter = null
+  // The iOS demo's end: the Goblin King is answered, the unlock is offered once.
+  if (unlockDue()) { openUnlock('victory'); return }
   if (hasFlag('throneDone') && !flow.endingShown && !profile.tips.endingSeen) {
     flow.endingShown = true
     flow.modal = 'ending'

@@ -78,7 +78,7 @@
                 svg.node__art(viewBox="0 0 100 100" aria-hidden="true" focusable="false" v-html="n.art")
                 svg.node__doom(v-if="n.doom" viewBox="0 0 100 100" aria-hidden="true" focusable="false" data-rift-doom v-html="DOOM_SKULL")
                 svg.node__clouds(v-if="n.clouds" viewBox="0 0 100 100" aria-hidden="true" focusable="false" v-html="n.clouds")
-                span.node__lock(v-if="!n.enterable" aria-hidden="true")
+                span.node__lock(v-if="!n.enterable || n.demoLocked" aria-hidden="true")
                   GameIcon(name="lock")
                 span.node__badge.node__badge--done(v-if="n.cleared && n.kind !== 'town'" aria-hidden="true")
                   GameIcon(name="check")
@@ -171,7 +171,9 @@
         p.card__quest(v-if="questLine") {{ questLine }}
         div.card__actions
           FButton(v-if="trainer" :label="t('map.trainer', { cls: t(`class.${trainer.cls}.name`) })" type="secondary" size="sm" icon="book" @click="visitHiddenTrainer(sel.id)")
-          FButton(v-if="sel.enterable" :label="t(sel.kind === 'town' ? 'map.enter' : sel.kind === 'arena' ? 'map.fight' : sel.cleared ? 'map.again' : 'map.travel')" type="success" size="md" :icon="sel.kind === 'town' ? 'home' : 'sword'" attention @click="go(sel.id)")
+          //- The iOS demo ends at the Goblin King: a place beyond it offers the unlock.
+          FButton(v-if="sel.demoLocked" :label="t('iap.locked')" type="success" size="md" icon="lock" attention data-demo-locked @click="openUnlock('map')")
+          FButton(v-else-if="sel.enterable" :label="t(sel.kind === 'town' ? 'map.enter' : sel.kind === 'arena' ? 'map.fight' : sel.cleared ? 'map.again' : 'map.travel')" type="success" size="md" :icon="sel.kind === 'town' ? 'home' : 'sword'" attention @click="go(sel.id)")
             | {{ t(sel.kind === 'town' ? 'map.enter' : sel.kind === 'arena' ? 'map.fight' : sel.cleared ? 'map.again' : 'map.travel') }}
             KeyCap.card__key(v-if="hud.device === 'mouse'" :code="interactCode")
           p.card__locked(v-else)
@@ -211,7 +213,8 @@ import { QUEST_BY_ID } from '@/game/data/quests'
 import { encountersAllowed, regionOf, rollEncounter, type EncounterSpec } from '@/game/data/encounters'
 import { arenaCalling, arenaWeekBest, profile, flagSet, markTip, saveProfile, setMapPos } from '@/game/state/profile'
 import { siegeBell } from '@/game/state/siege'
-import { closeMap, flow, hiddenTrainer, meetMerchant, openFoundChest, startEncounter, travel, visitHiddenTrainer } from '@/game/flow'
+import { closeMap, flow, hiddenTrainer, meetMerchant, openFoundChest, openUnlock, startEncounter, travel, visitHiddenTrainer } from '@/game/flow'
+import { isNodeLockedByDemo } from '@/use/useFullVersion'
 import { hud } from '@/game/state/hud'
 import { input } from '@/game/boot'
 import { watchLostInput } from '@/game/engine/lostInput'
@@ -345,6 +348,8 @@ interface NodeView {
   danger: number
   /** Reachable and seen: the card offers to go in (#72). */
   enterable: boolean
+  /** Past the Goblin King on the iOS demo: shut until the full version is bought. */
+  demoLocked: boolean
   /** The zone's levels against the hero's (the badge's colour). */
   tier: LevelTier | ''
   /** A major decision still waits at the end of this zone. */
@@ -391,6 +396,7 @@ const nodes = computed<NodeView[]>(() => MAP.map((n) => {
     here: hereNode.value === n.id,
     danger: zone ? dangerOf(zone, profile.level) : 0,
     enterable: isReachable(n.id) && isSeen(n.id) && letIn,
+    demoLocked: isNodeLockedByDemo(n.id),
     tier: zone ? levelTier(zone, profile.level) : '',
     decision: open && !!n.quest && !!QUEST_BY_ID[n.quest] && !profile.quests.done[n.quest],
     trainer: !!hiddenTrainer(n.id),
@@ -953,6 +959,7 @@ const skipWalk = (): void => { if (rushing.value) skipRush?.() }
 /** Travel: to the place's door first (brisk, and a tap skips it), then the veil. */
 const go = async (id: NodeId): Promise<void> => {
   if (rushing.value || flow.loading) return
+  if (isNodeLockedByDemo(id)) { openUnlock('map'); return }
   cardOpen.value = false
   const p = nodeAt(id)
   if (Math.hypot(p[0] - hero.x, p[1] - hero.y) >= ARRIVE && !calm) {

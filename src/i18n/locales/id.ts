@@ -7628,6 +7628,20 @@ export default {
     of: 'dari {n} pemain',
     tabGlobal: 'Global'
   },
+  iap: {
+    title: 'Versi lengkap',
+    body: 'Kamu mengalahkan Raja Goblin dan menamatkan demo gratis. Buka versi lengkap sekali saja untuk melanjutkan: negeri baru, bos, dan misi. Sekali beli, tanpa langganan.',
+    unlock: 'Buka versi lengkap seharga {price}',
+    unlockNoPrice: 'Buka versi lengkap',
+    restore: 'Pulihkan pembelian',
+    notNow: 'Nanti saja',
+    pending: 'Menunggu persetujuan. Versi lengkap terbuka segera setelah pembelian disetujui.',
+    failed: 'Pembelian tidak berhasil. Silakan coba lagi.',
+    restoreNone: 'Tidak ada pembelian sebelumnya untuk akun Apple ini.',
+    thanks: 'Terima kasih! Versi lengkap sudah terbuka.',
+    locked: 'Bagian dari versi lengkap',
+    working: 'Menghubungi App Store...'
+  },
   wind: {
     title: 'Napas kedua',
     text: 'Kamu jatuh. Bangkit dengan {n}% kesehatanmu dan selesaikan pertarungan?',

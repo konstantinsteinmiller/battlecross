@@ -7680,6 +7680,20 @@ export default {
     of: 'sur {n} joueurs',
     tabGlobal: 'Mondial'
   },
+  iap: {
+    title: 'Version complète',
+    body: 'Tu as vaincu le Roi gobelin et terminé la démo gratuite. Débloque la version complète une seule fois pour continuer : nouvelles terres, boss et quêtes. Un seul achat, sans abonnement.',
+    unlock: 'Débloquer la version complète pour {price}',
+    unlockNoPrice: 'Débloquer la version complète',
+    restore: 'Restaurer les achats',
+    notNow: 'Pas maintenant',
+    pending: "En attente d'approbation. La version complète se débloque dès que l'achat est approuvé.",
+    failed: "L'achat n'a pas abouti. Réessaie.",
+    restoreNone: 'Aucun achat antérieur trouvé pour ce compte Apple.',
+    thanks: 'Merci ! La version complète est débloquée.',
+    locked: 'Fait partie de la version complète',
+    working: "Connexion à l'App Store..."
+  },
   wind: {
     title: 'Second souffle',
     text: 'Tu es à terre. Te relever avec {n} % de ta santé et finir le combat ?',

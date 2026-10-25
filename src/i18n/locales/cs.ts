@@ -7729,6 +7729,20 @@ export default {
     of: 'z {n} hráčů',
     tabGlobal: 'Celosvětový'
   },
+  iap: {
+    title: 'Plná verze',
+    body: 'Porazil jsi Goblinského krále a dohrál bezplatné demo. Jednorázově odemkni plnou verzi a pokračuj: nové země, bossové a úkoly. Jeden nákup, žádné předplatné.',
+    unlock: 'Odemknout plnou verzi za {price}',
+    unlockNoPrice: 'Odemknout plnou verzi',
+    restore: 'Obnovit nákupy',
+    notNow: 'Teď ne',
+    pending: 'Čeká se na schválení. Plná verze se odemkne, jakmile bude nákup schválen.',
+    failed: 'Nákup se nezdařil. Zkus to prosím znovu.',
+    restoreNone: 'Pro tento účet Apple nebyl nalezen žádný dřívější nákup.',
+    thanks: 'Děkujeme! Plná verze je odemčena.',
+    locked: 'Součást plné verze',
+    working: 'Připojování k App Store...'
+  },
   wind: {
     title: 'Druhý dech',
     text: 'Upadl jsi. Vstaneš s {n} % zdraví a dobojuješ souboj?',

@@ -7628,6 +7628,20 @@ export default {
     of: '/ {n} oyunçu',
     tabGlobal: 'Dünya'
   },
+  iap: {
+    title: 'Tam versiya',
+    body: 'Goblin Kralını məğlub etdin və pulsuz demonu bitirdin. Davam etmək üçün tam versiyanı bir dəfə aç: yeni diyarlar, bosslar və tapşırıqlar. Bir alış, abunəlik yoxdur.',
+    unlock: 'Tam versiyanı {price} qarşılığında aç',
+    unlockNoPrice: 'Tam versiyanı aç',
+    restore: 'Alışları bərpa et',
+    notNow: 'İndi yox',
+    pending: 'Təsdiq gözlənilir. Alış təsdiqlənən kimi tam versiya açılacaq.',
+    failed: 'Alış alınmadı. Yenidən cəhd et.',
+    restoreNone: 'Bu Apple hesabı üçün əvvəlki alış tapılmadı.',
+    thanks: 'Təşəkkürlər! Tam versiya açıldı.',
+    locked: 'Tam versiyanın bir hissəsi',
+    working: 'App Store ilə əlaqə qurulur...'
+  },
   wind: {
     title: 'İkinci nəfəs',
     text: 'Yıxıldın. Canının {n}%-i ilə ayağa qalxıb döyüşü bitirmək istəyirsən?',

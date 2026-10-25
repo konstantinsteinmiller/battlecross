@@ -7628,6 +7628,20 @@ export default {
     of: 'trên {n} người chơi',
     tabGlobal: 'Toàn cầu'
   },
+  iap: {
+    title: 'Bản đầy đủ',
+    body: 'Bạn đã đánh bại Vua Goblin và hoàn thành bản demo miễn phí. Hãy mở khóa bản đầy đủ một lần để đi tiếp: vùng đất mới, trùm và nhiệm vụ. Mua một lần, không đăng ký.',
+    unlock: 'Mở khóa bản đầy đủ với giá {price}',
+    unlockNoPrice: 'Mở khóa bản đầy đủ',
+    restore: 'Khôi phục giao dịch mua',
+    notNow: 'Để sau',
+    pending: 'Đang chờ phê duyệt. Bản đầy đủ sẽ được mở khóa ngay khi giao dịch được phê duyệt.',
+    failed: 'Giao dịch chưa thành công. Vui lòng thử lại.',
+    restoreNone: 'Không tìm thấy giao dịch mua trước đó cho tài khoản Apple này.',
+    thanks: 'Cảm ơn bạn! Bản đầy đủ đã được mở khóa.',
+    locked: 'Thuộc bản đầy đủ',
+    working: 'Đang kết nối App Store...'
+  },
   wind: {
     title: 'Hơi thở thứ hai',
     text: 'Bạn đã ngã xuống. Đứng dậy với {n}% máu và kết thúc trận đấu nhé?',

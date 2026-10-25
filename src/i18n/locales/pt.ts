@@ -7685,6 +7685,20 @@ export default {
     of: 'de {n} jogadores',
     tabGlobal: 'Global'
   },
+  iap: {
+    title: 'Versão completa',
+    body: 'Você derrotou o Rei Goblin e terminou a demo gratuita. Desbloqueie a versão completa uma única vez para continuar: novas terras, chefes e missões. Uma compra, sem assinatura.',
+    unlock: 'Desbloquear versão completa por {price}',
+    unlockNoPrice: 'Desbloquear versão completa',
+    restore: 'Restaurar compras',
+    notNow: 'Agora não',
+    pending: 'Aguardando aprovação. A versão completa é desbloqueada assim que a compra for aprovada.',
+    failed: 'A compra não foi concluída. Tente novamente.',
+    restoreNone: 'Nenhuma compra anterior foi encontrada nesta conta Apple.',
+    thanks: 'Obrigado! A versão completa está desbloqueada.',
+    locked: 'Parte da versão completa',
+    working: 'Conectando à App Store...'
+  },
   wind: {
     title: 'Segundo fôlego',
     text: 'Você caiu. Quer se levantar com {n}% da sua saúde e terminar a luta?',

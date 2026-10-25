@@ -7628,6 +7628,20 @@ export default {
     of: 'af {n} spillere',
     tabGlobal: 'Verden'
   },
+  iap: {
+    title: 'Fuld version',
+    body: 'Du besejrede Goblinkongen og gennemførte den gratis demo. Lås den fulde version op én gang for at rejse videre: nye lande, bosser og quests. Ét køb, intet abonnement.',
+    unlock: 'Lås den fulde version op for {price}',
+    unlockNoPrice: 'Lås den fulde version op',
+    restore: 'Gendan køb',
+    notNow: 'Ikke nu',
+    pending: 'Afventer godkendelse. Den fulde version låses op, så snart købet er godkendt.',
+    failed: 'Købet gik ikke igennem. Prøv igen.',
+    restoreNone: 'Der blev ikke fundet noget tidligere køb for denne Apple-konto.',
+    thanks: 'Tak! Den fulde version er låst op.',
+    locked: 'Del af den fulde version',
+    working: 'Kontakter App Store ...'
+  },
   wind: {
     title: 'Anden luft',
     text: 'Du faldt. Rejs dig med {n}% af dit helbred og afslut kampen?',

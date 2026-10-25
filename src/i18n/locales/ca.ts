@@ -7678,6 +7678,20 @@ export default {
     of: 'de {n} jugadors',
     tabGlobal: 'Global'
   },
+  iap: {
+    title: 'Versió completa',
+    body: 'Has derrotat el Rei Goblin i has acabat la demo gratuïta. Desbloqueja la versió completa una sola vegada per continuar: terres noves, caps i missions. Una compra, sense subscripció.',
+    unlock: 'Desbloqueja la versió completa per {price}',
+    unlockNoPrice: 'Desbloqueja la versió completa',
+    restore: 'Restaura les compres',
+    notNow: 'Ara no',
+    pending: "Pendent d'aprovació. La versió completa es desbloqueja tan bon punt s'aprovi la compra.",
+    failed: "La compra no s'ha completat. Torna-ho a provar.",
+    restoreNone: "No s'ha trobat cap compra anterior en aquest compte d'Apple.",
+    thanks: 'Gràcies! La versió completa està desbloquejada.',
+    locked: 'Part de la versió completa',
+    working: "Connectant amb l'App Store..."
+  },
   wind: {
     title: 'Segon alè',
     text: 'Has caigut. Vols aixecar-te amb el {n}% de la salut i acabar el combat?',

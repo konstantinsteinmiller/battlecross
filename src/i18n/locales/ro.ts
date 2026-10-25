@@ -7672,6 +7672,20 @@ export default {
     of: 'din {n} jucători',
     tabGlobal: 'Global'
   },
+  iap: {
+    title: 'Versiunea completă',
+    body: 'Ai învins Regele Goblinilor și ai terminat demo-ul gratuit. Deblochează versiunea completă o singură dată ca să mergi mai departe: ținuturi noi, bossi și misiuni. O singură achiziție, fără abonament.',
+    unlock: 'Deblochează versiunea completă pentru {price}',
+    unlockNoPrice: 'Deblochează versiunea completă',
+    restore: 'Restaurează achizițiile',
+    notNow: 'Nu acum',
+    pending: 'Se așteaptă aprobarea. Versiunea completă se deblochează imediat ce achiziția este aprobată.',
+    failed: 'Achiziția nu a reușit. Încearcă din nou.',
+    restoreNone: 'Nu a fost găsită nicio achiziție anterioară pentru acest cont Apple.',
+    thanks: 'Mulțumim! Versiunea completă este deblocată.',
+    locked: 'Parte din versiunea completă',
+    working: 'Se conectează la App Store...'
+  },
   wind: {
     title: 'A doua suflare',
     text: 'Ai căzut. Te ridici cu {n}% din sănătate și termini lupta?',

@@ -7710,6 +7710,20 @@ export default {
     of: 'su {n} giocatori',
     tabGlobal: 'Globale'
   },
+  iap: {
+    title: 'Versione completa',
+    body: 'Hai sconfitto il Re dei Goblin e finito la demo gratuita. Sblocca la versione completa una sola volta per proseguire: nuove terre, boss e missioni. Un solo acquisto, nessun abbonamento.',
+    unlock: 'Sblocca la versione completa a {price}',
+    unlockNoPrice: 'Sblocca la versione completa',
+    restore: 'Ripristina acquisti',
+    notNow: 'Non ora',
+    pending: "In attesa di approvazione. La versione completa si sblocca appena l'acquisto viene approvato.",
+    failed: "L'acquisto non è andato a buon fine. Riprova.",
+    restoreNone: 'Nessun acquisto precedente trovato per questo account Apple.',
+    thanks: 'Grazie! La versione completa è sbloccata.',
+    locked: 'Parte della versione completa',
+    working: "Connessione all'App Store..."
+  },
   wind: {
     title: 'Secondo fiato',
     text: 'Sei a terra. Ti rialzi con il {n}% della salute e finisci il combattimento?',

@@ -1,0 +1,12 @@
+"$schema" = "schemas/schema.json"
+
+[default]
+description = "Default permissions for the IAP plugin: read the full-version product and its price, buy it, restore purchases, read the entitlement, and the framework-provided event-listener commands needed for `addPluginListener` to subscribe to entitlement-changed."
+permissions = [
+  "allow-get-product",
+  "allow-purchase",
+  "allow-restore",
+  "allow-get-entitlement",
+  "allow-registerListener",
+  "allow-removeListener"
+]
