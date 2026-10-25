@@ -7583,6 +7583,10 @@ export default {
       firefoxColors: 'Firefox: Parametrlər → Rənglər → “Səhifənin təyin etdiyi rəngləri əvəz et” seçimini Heç vaxt et.'
     }
   },
+  privacy: {
+    policy: 'Məxfilik siyasəti',
+    settings: 'Məxfilik parametrləri'
+  },
   samsungFix: {
     title: 'Sürətli rəng yoxlaması',
     body: 'Bəzi telefonlar veb səhifələrin rənglərini dəyişir. Aşağıdakı iki kvadratı müqayisə et.',

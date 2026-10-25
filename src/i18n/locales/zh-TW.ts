@@ -7583,6 +7583,10 @@ export default {
       firefoxColors: 'Firefox：設定 → 色彩 → 把「覆寫頁面指定的色彩」設為「永不」。'
     }
   },
+  privacy: {
+    policy: '隱私權政策',
+    settings: '隱私設定'
+  },
   samsungFix: {
     title: '快速顏色檢查',
     body: '部分手機會改變網頁的顏色。請比較下面兩個方塊。',

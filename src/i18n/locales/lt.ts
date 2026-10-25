@@ -7645,6 +7645,10 @@ export default {
       firefoxColors: 'Firefox: Nustatymai → Spalvos → „Perrašyti puslapio nurodytas spalvas“ nustatyk į Niekada.'
     }
   },
+  privacy: {
+    policy: 'Privatumo politika',
+    settings: 'Privatumo nustatymai'
+  },
   samsungFix: {
     title: 'Greitas spalvų patikrinimas',
     body: 'Kai kurie telefonai pakeičia svetainių spalvas. Palygink du kvadratus žemiau.',

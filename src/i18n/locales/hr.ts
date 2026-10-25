@@ -7698,6 +7698,10 @@ export default {
       firefoxColors: 'Firefox: Postavke → Boje → postavi «Zamijeni boje koje određuje stranica» na Nikad.'
     }
   },
+  privacy: {
+    policy: 'Pravila privatnosti',
+    settings: 'Postavke privatnosti'
+  },
   samsungFix: {
     title: 'Brza provjera boja',
     body: 'Neki telefoni mijenjaju boje web-stranica. Usporedi dva kvadrata ispod.',

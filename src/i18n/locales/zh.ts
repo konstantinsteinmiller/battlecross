@@ -7583,6 +7583,10 @@ export default {
       firefoxColors: 'Firefox：设置 → 颜色 → 把“覆盖页面指定的颜色”设为“从不”。'
     }
   },
+  privacy: {
+    policy: '隐私政策',
+    settings: '隐私设置'
+  },
   samsungFix: {
     title: '快速颜色检查',
     body: '部分手机会改变网页的颜色。请对比下面两个方块。',

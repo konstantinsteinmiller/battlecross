@@ -7583,6 +7583,10 @@ export default {
       firefoxColors: 'Firefox: Agordoj → Koloroj → agordu “Anstataŭigi la kolorojn specifitajn de la paĝo” al Neniam.'
     }
   },
+  privacy: {
+    policy: 'Privateca politiko',
+    settings: 'Privatecaj agordoj'
+  },
   samsungFix: {
     title: 'Rapida kolorkontrolo',
     body: 'Kelkaj telefonoj ŝanĝas la kolorojn de retpaĝoj. Komparu la du kvadratojn sube.',

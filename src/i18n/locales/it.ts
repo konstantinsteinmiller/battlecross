@@ -7665,6 +7665,10 @@ export default {
       firefoxColors: 'Firefox: Impostazioni → Colori → imposta «Ignora i colori specificati dalla pagina» su Mai.'
     }
   },
+  privacy: {
+    policy: 'Informativa sulla privacy',
+    settings: 'Impostazioni sulla privacy'
+  },
   samsungFix: {
     title: 'Breve test dei colori',
     body: 'Alcuni telefoni cambiano i colori delle pagine web. Confronta i due quadrati qui sotto.',

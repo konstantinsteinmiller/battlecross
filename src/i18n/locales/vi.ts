@@ -7583,6 +7583,10 @@ export default {
       firefoxColors: 'Firefox: Cài đặt → Màu sắc → đặt “Ghi đè màu do trang chỉ định” thành Không bao giờ.'
     }
   },
+  privacy: {
+    policy: 'Chính sách quyền riêng tư',
+    settings: 'Cài đặt quyền riêng tư'
+  },
   samsungFix: {
     title: 'Kiểm tra màu nhanh',
     body: 'Một số điện thoại làm thay đổi màu của trang web. Hãy so sánh hai hình vuông bên dưới.',

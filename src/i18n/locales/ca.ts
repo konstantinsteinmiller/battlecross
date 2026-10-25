@@ -7633,6 +7633,10 @@ export default {
       firefoxColors: 'Firefox: Configuració → Colors → posa “Anul·la els colors especificats per la pàgina” a Mai.'
     }
   },
+  privacy: {
+    policy: 'Política de privadesa',
+    settings: 'Configuració de privadesa'
+  },
   samsungFix: {
     title: 'Prova ràpida de color',
     body: 'Alguns mòbils canvien els colors de les pàgines web. Compara els dos quadrats de sota.',

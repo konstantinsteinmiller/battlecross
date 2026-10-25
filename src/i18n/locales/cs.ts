@@ -7684,6 +7684,10 @@ export default {
       firefoxColors: 'Firefox: Nastavení → Barvy → nastav «Přepsat barvy určené stránkou» na Nikdy.'
     }
   },
+  privacy: {
+    policy: 'Zásady ochrany osobních údajů',
+    settings: 'Nastavení soukromí'
+  },
   samsungFix: {
     title: 'Rychlá kontrola barev',
     body: 'Některé telefony mění barvy webových stránek. Porovnej dva čtverce níže.',

@@ -7583,6 +7583,10 @@ export default {
       firefoxColors: 'Firefox: Ayarlar → Renkler → “Sayfanın belirttiği renkleri geçersiz kıl” seçeneğini Hiçbir zaman yap.'
     }
   },
+  privacy: {
+    policy: 'Gizlilik politikası',
+    settings: 'Gizlilik ayarları'
+  },
   samsungFix: {
     title: 'Hızlı renk kontrolü',
     body: 'Bazı telefonlar web sayfalarının renklerini değiştirir. Aşağıdaki iki kareyi karşılaştır.',

@@ -7583,6 +7583,10 @@ export default {
       firefoxColors: 'Firefox: Sozlamalar → Ranglar → “Sahifa belgilagan ranglarni bekor qilish” ni Hech qachon qiling.'
     }
   },
+  privacy: {
+    policy: 'Maxfiylik siyosati',
+    settings: 'Maxfiylik sozlamalari'
+  },
   samsungFix: {
     title: 'Rangni tez tekshirish',
     body: 'Ba\'zi telefonlar veb-sahifalar ranglarini o\'zgartiradi. Quyidagi ikkita kvadratni solishtiring.',

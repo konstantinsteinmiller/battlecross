@@ -7583,6 +7583,10 @@ export default {
       firefoxColors: 'Firefox: Inställningar → Färger → ställ «Åsidosätt färgerna som anges av sidan» på Aldrig.'
     }
   },
+  privacy: {
+    policy: 'Integritetspolicy',
+    settings: 'Integritetsinställningar'
+  },
   samsungFix: {
     title: 'Snabb färgkontroll',
     body: 'Vissa telefoner ändrar färgerna på webbsidor. Jämför de två kvadraterna nedan.',

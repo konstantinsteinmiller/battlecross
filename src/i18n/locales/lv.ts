@@ -7659,6 +7659,10 @@ export default {
       firefoxColors: 'Firefox: Iestatījumi → Krāsas → iestati „Aizstāt lapas norādītās krāsas” uz Nekad.'
     }
   },
+  privacy: {
+    policy: 'Privātuma politika',
+    settings: 'Privātuma iestatījumi'
+  },
   samsungFix: {
     title: 'Ātra krāsu pārbaude',
     body: 'Daži tālruņi maina tīmekļa lapu krāsas. Salīdzini abus kvadrātus zemāk.',

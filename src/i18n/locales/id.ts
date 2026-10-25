@@ -7583,6 +7583,10 @@ export default {
       firefoxColors: 'Firefox: Pengaturan → Warna → atur “Timpa warna yang ditentukan halaman” ke Jangan pernah.'
     }
   },
+  privacy: {
+    policy: 'Kebijakan privasi',
+    settings: 'Pengaturan privasi'
+  },
   samsungFix: {
     title: 'Cek warna cepat',
     body: 'Beberapa ponsel mengubah warna halaman web. Bandingkan dua kotak di bawah.',

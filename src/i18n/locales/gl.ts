@@ -7635,6 +7635,10 @@ export default {
       firefoxColors: 'Firefox: Configuración → Cores → pon “Anular as cores especificadas pola páxina” en Nunca.'
     }
   },
+  privacy: {
+    policy: 'Política de privacidade',
+    settings: 'Axustes de privacidade'
+  },
   samsungFix: {
     title: 'Proba rápida de cor',
     body: 'Algúns móbiles cambian as cores das páxinas web. Compara os dous cadrados de abaixo.',

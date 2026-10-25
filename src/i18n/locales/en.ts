@@ -4044,6 +4044,12 @@ export default {
       'firefoxColors': 'Firefox: Settings → Colors → set "Override the colors specified by the page" to Never.'
     }
   },
+  // ─── Native store build: privacy entries in Options ───────────────────────
+  'privacy': {
+    'policy': 'Privacy policy',
+    'settings': 'Privacy settings'
+  },
+
   // ─── Samsung dark-mode colour check ───────────────────────────────────────
   // The one-time card (two squares: one drawn on a canvas, one a plain CSS box) and the Options toggle,
   // shown on Samsung Internet only. 'Samsung' stays in English: it is the brand and the phone's own menu name.

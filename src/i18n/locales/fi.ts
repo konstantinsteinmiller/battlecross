@@ -7583,6 +7583,10 @@ export default {
       firefoxColors: 'Firefox: Asetukset → Värit → aseta «Ohita sivun määrittämät värit» arvoon Ei koskaan.'
     }
   },
+  privacy: {
+    policy: 'Tietosuojakäytäntö',
+    settings: 'Tietosuoja-asetukset'
+  },
   samsungFix: {
     title: 'Nopea värintarkistus',
     body: 'Jotkin puhelimet muuttavat verkkosivujen värejä. Vertaa alla olevia kahta neliötä.',

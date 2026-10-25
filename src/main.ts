@@ -105,6 +105,20 @@ const bootstrap = async () => {
     bootstrapVConsoleFromUrl()
   }
 
+  // Android back button (native store build). Tauri's WebView would otherwise
+  // close the app on the first press. The press becomes the Escape the game
+  // already understands: it closes the top dialog / card / screen, or opens
+  // pause. The import is behind the build-time literal, so web bundles drop it.
+  if (import.meta.env.VITE_APP_NATIVE === 'true') {
+    void import('@tauri-apps/api/app')
+      .then(({ onBackButtonPress }) =>
+        onBackButtonPress(() => {
+          window.dispatchEvent(new KeyboardEvent('keydown', { code: 'Escape', key: 'Escape', bubbles: true }))
+        })
+      )
+      .catch(() => { /* desktop shell or older runtime: no back button */ })
+  }
+
   // Build-config self-check. Wrapped in an env-literal gate so the CG
   // hostname strings (`crazygames.com`, `1001juegos.com`) DCE on Yandex
   // builds — Yandex's moderator rejects any non-Yandex hostname as

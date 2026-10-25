@@ -83,6 +83,14 @@ export interface AdProvider {
    * before the ad closes MUST keep the up-front kill, so this stays opt-in.
    */
   readonly managesMidgameAudio?: boolean
+  /**
+   * Reactive, optional: the provider's consent platform says the player must
+   * be able to reopen their privacy choice (Google UMP in GDPR regions). The
+   * Options menu shows a "Privacy settings" entry while this is true.
+   */
+  readonly privacyOptionsRequired?: Ref<boolean>
+  /** Reopens the consent form. Only providers with a consent platform. */
+  showPrivacyOptions?: () => Promise<void>
   init: () => Promise<void>
   /**
    * Show a rewarded video. Resolves `true` only if it played all the way

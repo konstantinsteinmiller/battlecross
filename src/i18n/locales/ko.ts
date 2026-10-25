@@ -7583,6 +7583,10 @@ export default {
       firefoxColors: 'Firefox: 설정 → 색 → “페이지에서 지정한 색 무시”를 “안 함”으로 바꿔 주세요.'
     }
   },
+  privacy: {
+    policy: '개인정보 처리방침',
+    settings: '개인정보 설정'
+  },
   samsungFix: {
     title: '간단한 색상 확인',
     body: '일부 휴대폰은 웹페이지 색상을 바꿉니다. 아래 두 사각형을 비교해 보세요.',

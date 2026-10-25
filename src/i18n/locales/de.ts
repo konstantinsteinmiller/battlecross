@@ -7604,6 +7604,10 @@ export default {
       firefoxColors: 'Firefox: Einstellungen → Farben → setze „Von der Seite festgelegte Farben überschreiben“ auf Nie.'
     }
   },
+  privacy: {
+    policy: 'Datenschutzerklärung',
+    settings: 'Datenschutzeinstellungen'
+  },
   samsungFix: {
     title: 'Kurzer Farbtest',
     body: 'Manche Handys färben Webseiten um. Vergleiche die beiden Quadrate unten.',

@@ -1,0 +1,34 @@
+[package]
+name = "battlecross"
+version = "0.4.2"
+description = "Battlecross — low-fantasy action RPG"
+authors = ["Konstantin Steinmiller"]
+license = ""
+repository = ""
+edition = "2021"
+rust-version = "1.77.2"
+
+[lib]
+name = "app_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2.5.6", features = [] }
+
+[dependencies]
+serde_json = "1.0"
+serde = { version = "1.0", features = ["derive"] }
+log = "0.4"
+tauri = { version = "2.10.3", features = [] }
+tauri-plugin-log = "2"
+# Opens links (privacy policy) in the system browser. tauri-plugin-shell's
+# JS `open()` runs the desktop `open` crate and does nothing on Android.
+tauri-plugin-opener = "2"
+# Ads: Unity LevelPlay (ironSource) mediation with the AdMob and Unity Ads
+# bidders. The native app is an 18+ title since 2026-10-03 (ADS_STATE.md).
+#
+# `tauri-plugin-admob` (direct AdMob, built for the Families programme) stays
+# on disk at plugins/tauri-plugin-admob/ but is NOT listed here on purpose. The
+# Tauri CLI builds gen/android/tauri.settings.gradle from THIS dependency list,
+# so this line decides which ads SDKs reach the APK/AAB.
+tauri-plugin-levelplay = { path = "plugins/tauri-plugin-levelplay" }

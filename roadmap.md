@@ -232,6 +232,70 @@ Build order and the decisions taken are in `game-implementation-plan.md`
 - [ ] #174
 - [ ] #175
 - [ ] #176
+- [ ] #Store-IAP The IOS app has gated content, The player can play until past the Goblin hollow for free as a demo like version, but as soon as he has beaten the goblin king, the games full content can be unlocks with a button opening and "Unlock full version for 2.99$" which is an IAP in IOS store.  
+- [ ] #Store-1 I want the game to be deployed Play Store and App Store built with tauri like the Chaos Arena project. Set everything up like in C:\Users\konst\chaos-arena and that allows me to show ads via ad-providers like AdMob, UnityAds and Ironsource and Levelplay. The game is not child directed, find the earliest age group below age 18 submit this game in the stores under. Every step that would require manual work by me or can be done with debugging controls on a remote controlled browser, you can put those work steps as new bullet points into roadmap.md as #Store-2...XXX below #Store-1. In the end I need all thats necessary to build and submit the game to Play Store and App Store with ads enabled and everything prepared for a flawless release, also specific screenshot formats, keystores, IOS build pipeline and EVERYTHING.
+  **Built 2026-10-25 (code side, verified):** `src-tauri/` (Tauri 2.10, id `com.hyperg8.battlecross`, landscape
+  window), the LevelPlay plugin (mediates ironSource + AdMob + Unity Ads) with its JS provider
+  (`use/ads/LevelPlayProvider.ts`, stubbed out of every web build), consent via Google UMP, "Privacy policy" /
+  "Privacy settings" entries in Options (39 locales), Android back button (= Escape), the store-build gate
+  (`scripts/native-ads-gate.mjs`), versionCode bump, `.env.tauri` / `.env.tauri.remote`, Fastlane + GitHub Actions
+  (`android-build`, `ios-build` with ads, `ios-bootstrap-signing`, `ios-simulator-build`).
+  **Audience:** Play target audience **13-15** (the earliest group outside Families; under 13 would need the
+  Families ad rules that mediated video cannot meet), fallback 16-17, then 18+. Never Families. App Store: answer the
+  age questionnaire truthfully (frequent fantasy violence, no gambling, no UGC) and accept the rating it yields
+  (expect 12+/13+); not in the Kids category. `ADS_CHILD_DIRECTED=false`.
+- [ ] #Store-2 **Owner: confirm the app id `com.hyperg8.battlecross`** (permanent once uploaded to Play / App Store
+  Connect) and the developer name shown on the listings.
+- [ ] #Store-3 **Owner: Android upload keystore.** `keytool -genkeypair -v -keystore
+  C:/Users/konst/battlecross-release.keystore -alias battlecross -keyalg RSA -keysize 2048 -validity 10000`, then
+  `src-tauri/gen/android/key.properties` (`password=`, `keyAlias=battlecross`, `storeFile=C:/Users/konst/battlecross-release.keystore`;
+  gitignored). Back the keystore up twice (password manager + offline). Turn **Play App Signing** on when creating the app.
+- [ ] #Store-4 **Owner: GitHub secrets** for CI (`ANDROID_KEYSTORE_BASE64`, `ANDROID_KEYSTORE_PASSWORD`, `ANDROID_KEY_ALIAS`,
+  `ANDROID_KEY_PASSWORD`, `APPLE_TEAM_ID`, `APP_STORE_CONNECT_API_KEY_KEY_ID`, `APP_STORE_CONNECT_API_KEY_ISSUER_ID`,
+  `APP_STORE_CONNECT_API_KEY_KEY`, `MATCH_PASSWORD`, `MATCH_GIT_BASIC_AUTHORIZATION`) and the Actions **variables**
+  `VITE_APP_LEVELPLAY_*`, `VITE_APP_ADMOB_*`, `VITE_APP_PRIVACY_POLICY_URL` (public ids, not secrets). How to make each: the
+  `tauri-mobile-ci` skill's SECRETS.md.
+- [ ] #Store-5 **Owner: LevelPlay dashboard.** New app Battlecross for Android and iOS (COPPA off, not child-directed); a
+  rewarded and an interstitial ad unit per platform; add AdMob and Unity Ads as networks. Put the app keys and unit ids
+  into `.env.tauri` (`VITE_APP_LEVELPLAY_*`).
+- [ ] #Store-6 **Owner: AdMob.** New Android and iOS apps; the ad units LevelPlay mediates; a GDPR + US-state consent
+  message (Privacy & messaging) for both apps; put the app ids (`ca-app-pub-…~…`) into `.env.tauri`
+  (`VITE_APP_ADMOB_*_APP_ID`). Link the apps to the stores after publication.
+- [ ] #Store-7 **Owner: Unity Ads.** New project + Android and iOS game ids, entered in LevelPlay as a network.
+- [ ] #Store-8 **Owner: privacy policy + app-ads.txt.** Host a Battlecross privacy page (ads, advertising ID, analytics
+  = none, leaderboard nickname, no child data, contact mail) and `app-ads.txt` on the developer website domain with the
+  LevelPlay, Unity and `google.com, pub-…, DIRECT` lines. Put the URL in `VITE_APP_PRIVACY_POLICY_URL` (same page as the
+  store listings).
+- [ ] #Store-9 **Play Console: create the app.** Free game; Content rating questionnaire (fantasy violence; no
+  gambling, no UGC); Target audience **13-15 and up** (not child-directed, not Families); Ads declaration = yes; Data
+  safety + AD_ID declaration (copy the table from `C:\Users\konst\chaos-arena\ADS_STATE.md`); News/Health/Government = no.
+- [ ] #Store-10 **Play listing assets.** Icon 512×512 PNG; feature graphic 1024×500; phone screenshots 2-8 (16:9 landscape,
+  min 1080 px on the short side, 1920×1080 recommended); 7" and 10" tablet screenshots (recommended, landscape 16:9);
+  optional promo video (YouTube URL: `pnpm preview:video`). Short description ≤80, full ≤4000 chars (from `description.md`),
+  every language the game ships. Generate from `store-art/` and the portal-promotion art script; run `blur-probe.mjs image` on each.
+- [ ] #Store-11 **First Android build.** Fill `.env.tauri`, run `pnpm tauri:build-android-aab` (gate, sign, bump versionCode);
+  output `src-tauri/gen/android/app/build/outputs/bundle/universalRelease/com.hyperg8.battlecross.aab`. Upload to
+  **Internal testing**, install via the Play link, and check: a rewarded and an interstitial play, game audio mutes and the
+  game pauses during an ad, back button, safe area, landscape lock, offline launch, EEA consent form (debug build with
+  `VITE_APP_ADS_CONSENT_DEBUG_EEA=true`), LevelPlay Test Suite (`VITE_APP_ADS_TEST_SUITE=true`, debug build only).
+- [ ] #Store-12 **Play testing track.** A new personal account needs a **Closed test with 12 testers for 14 days** before
+  Production; then promote. After approval: link the store in AdMob and LevelPlay, verify `app-ads.txt`.
+- [ ] #Store-13 **Apple Developer + App Store Connect setup.** Program membership; API key (Admin or App Manager); the
+  private signing repo `konstantinsteinmiller/battlecross-signing` (empty `master` commit); run the
+  `iOS Bootstrap Signing (match)` workflow with `generate`; then `pnpm ci:ios:testflight` (creates the app record).
+- [ ] #Store-14 **App Store listing.** Icon (1024×1024, no alpha); iPhone screenshots 6.9" (1320×2868 portrait or 2868×1320
+  landscape) and 6.5" (1284×2778 / 2778×1284), iPad 13" (2064×2752 / 2752×2064) if iPad is supported; optional app
+  preview video 15-30 s; name ≤30, subtitle ≤30, promo text ≤170, description ≤4000, keywords ≤100 chars; support URL, privacy URL;
+  App Privacy "nutrition label" (identifiers + usage data for third-party advertising, no tracking unless ATT is used);
+  age-rating questionnaire; export compliance (no non-exempt encryption); review notes (no login needed).
+- [ ] #Store-15 **iOS ATT + SKAdNetwork.** `NSUserTrackingUsageDescription` text and the ATT prompt before ad init (UMP handles
+  consent; LevelPlay needs the ATT result); SKAdNetworkItems are injected by `ios-build.yml`. Check on a TestFlight device.
+- [ ] #Store-16 **TestFlight and review.** Upload via CI, add internal testers, run the ad checks from #Store-11 on
+  an iPhone, then submit for review. Use the `ios-release` skill's pre-submission checklist and rejection playbook.
+- [ ] #Store-17 **Release QA before both uploads:** `blur-probe.mjs live` (phone 3×), `pnpm vue-tsc --build`, the platform
+  tests, a tree-shake check that no web build contains `plugin:levelplay` (`tests/platforms/bundlePurity.test.ts`),
+  and the Play pre-launch report / Poki-style real-device numbers for performance.
+
 
 - [x] #Perf1 ✅ One user had 1-3 fps for the first 30 seconds, then ~9-10: WebGL Renderer
   ANGLE (Imagination Technologies, PowerVR Rogue GE8320, OpenGL ES 3.2)

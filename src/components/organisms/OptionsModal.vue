@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, computed, watch, onUnmounted } from 'vue'
 import { useI18n } from 'vue-i18n'
-import useUser, { isMobileLandscape } from '@/use/useUser'
+import useUser, { isMobileLandscape, isNative } from '@/use/useUser'
 import { setI18nLocale } from '@/i18n'
 import FModal from '@/components/molecules/FModal.vue'
 import FButton from '@/components/atoms/FButton.vue'
@@ -16,6 +16,8 @@ import { keyboard, keyLabel, LAYOUTS, setAutoLayout, setManualLayout, type Layou
 import { resetSamsungFixCheck, samsungFixOffered, samsungFixOn, setSamsungFixChoice } from '@/use/useSamsungFix'
 import { INTRO_ENABLED } from '@/game/intro/state'
 import { flow } from '@/game/flow'
+import { privacyOptionsRequired, showPrivacyOptions } from '@/use/useAds'
+import { openExternal } from '@/utils/openExternal'
 
 defineProps<{
   isOpen: boolean
@@ -39,6 +41,15 @@ const {
   userMusicVolume,
   userMusicTrack
 } = useUser()
+
+// ─── Privacy (native builds) ──────────────────────────────────────────────
+// Google Play wants the privacy policy reachable from inside the app. "Privacy
+// settings" reopens the ad-consent form, shown only where UMP says one is due.
+const privacyPolicyUrl: string = import.meta.env.VITE_APP_PRIVACY_POLICY_URL ?? ''
+const showPrivacyLinks = computed(() => isNative && (!!privacyPolicyUrl || privacyOptionsRequired.value))
+const openPrivacyPolicy = () => {
+  if (privacyPolicyUrl) void openExternal(privacyPolicyUrl)
+}
 
 const currentTab = ref('general')
 
@@ -201,6 +212,8 @@ onUnmounted(stopCapture)
           p.opt-hint {{ t('samsungFix.optionHint') }}
           button.reset-keys.opt-recheck(type="button" @click="rerunColourCheck") {{ t('samsungFix.recheck') }}
         button.reset-keys.opt-recheck(v-if="canReplayIntro" type="button" data-intro-replay @click="emit('intro')") {{ t('intro.replay') }}
+        button.reset-keys.opt-recheck(v-if="showPrivacyLinks && privacyPolicyUrl" type="button" @click="openPrivacyPolicy") {{ t('privacy.policy') }}
+        button.reset-keys.opt-recheck(v-if="showPrivacyLinks && privacyOptionsRequired" type="button" @click="showPrivacyOptions") {{ t('privacy.settings') }}
 
     div(v-else-if="currentTab === 'gameplay'").flex.flex-col.gap-2.p-2
       div(class="z-[20] flex flex-col gap-1")

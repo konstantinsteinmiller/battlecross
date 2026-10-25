@@ -7583,6 +7583,10 @@ export default {
       firefoxColors: 'Firefox: Indstillinger → Farver → sæt «Tilsidesæt farverne angivet af siden» til Aldrig.'
     }
   },
+  privacy: {
+    policy: 'Privatlivspolitik',
+    settings: 'Privatlivsindstillinger'
+  },
   samsungFix: {
     title: 'Hurtig farvetest',
     body: 'Nogle telefoner ændrer farverne på websider. Sammenlign de to firkanter nedenfor.',

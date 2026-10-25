@@ -7583,6 +7583,10 @@ export default {
       firefoxColors: 'Firefox：設定 → 色 → 「ページが指定した色を上書きする」を「しない」にしてください。'
     }
   },
+  privacy: {
+    policy: 'プライバシーポリシー',
+    settings: 'プライバシー設定'
+  },
   samsungFix: {
     title: 'かんたんな色チェック',
     body: '一部のスマートフォンはウェブページの色を変えてしまいます。下の2つの四角を見比べてください。',

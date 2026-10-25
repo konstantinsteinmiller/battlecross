@@ -7594,6 +7594,10 @@ export default {
       firefoxColors: 'Firefox: Instellingen → Kleuren → zet «Kleuren van de pagina overschrijven» op Nooit.'
     }
   },
+  privacy: {
+    policy: 'Privacybeleid',
+    settings: 'Privacy-instellingen'
+  },
   samsungFix: {
     title: 'Snelle kleurcontrole',
     body: 'Sommige telefoons veranderen de kleuren van webpagina\'s. Vergelijk de twee vierkanten hieronder.',

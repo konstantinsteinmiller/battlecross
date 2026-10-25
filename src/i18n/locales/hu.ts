@@ -7583,6 +7583,10 @@ export default {
       firefoxColors: 'Firefox: Beállítások → Színek → állítsd az «Oldal által megadott színek felülbírálása» értékét Soha-ra.'
     }
   },
+  privacy: {
+    policy: 'Adatvédelmi irányelvek',
+    settings: 'Adatvédelmi beállítások'
+  },
   samsungFix: {
     title: 'Gyors színellenőrzés',
     body: 'Egyes telefonok megváltoztatják a weboldalak színeit. Hasonlítsd össze az alábbi két négyzetet.',

@@ -7627,6 +7627,10 @@ export default {
       firefoxColors: 'Firefox: Setări → Culori → setează „Suprascrie culorile specificate de pagină” pe Niciodată.'
     }
   },
+  privacy: {
+    policy: 'Politica de confidențialitate',
+    settings: 'Setări de confidențialitate'
+  },
   samsungFix: {
     title: 'Test rapid de culori',
     body: 'Unele telefoane schimbă culorile paginilor web. Compară cele două pătrate de mai jos.',

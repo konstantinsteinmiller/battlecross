@@ -7635,6 +7635,10 @@ export default {
       firefoxColors: 'Firefox : Paramètres → Couleurs → mets « Remplacer les couleurs spécifiées par la page » sur Jamais.'
     }
   },
+  privacy: {
+    policy: 'Politique de confidentialité',
+    settings: 'Paramètres de confidentialité'
+  },
   samsungFix: {
     title: 'Petit test de couleurs',
     body: 'Certains téléphones modifient les couleurs des pages web. Compare les deux carrés ci-dessous.',

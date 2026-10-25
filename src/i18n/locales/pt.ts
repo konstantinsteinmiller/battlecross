@@ -7640,6 +7640,10 @@ export default {
       firefoxColors: 'Firefox: Configurações → Cores → defina «Substituir as cores especificadas pela página» como Nunca.'
     }
   },
+  privacy: {
+    policy: 'Política de privacidade',
+    settings: 'Configurações de privacidade'
+  },
   samsungFix: {
     title: 'Teste rápido de cores',
     body: 'Alguns celulares alteram as cores das páginas da web. Compare os dois quadrados abaixo.',

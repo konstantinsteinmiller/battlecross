@@ -7583,6 +7583,10 @@ export default {
       firefoxColors: 'Firefox: Innstillinger → Farger → sett «Overstyr fargene angitt av siden» til Aldri.'
     }
   },
+  privacy: {
+    policy: 'Personvernerklæring',
+    settings: 'Personverninnstillinger'
+  },
   samsungFix: {
     title: 'Rask fargesjekk',
     body: 'Noen telefoner endrer fargene på nettsider. Sammenlign de to rutene under.',
