@@ -244,7 +244,7 @@ Build order and the decisions taken are in `game-implementation-plan.md`
   Families ad rules that mediated video cannot meet), fallback 16-17, then 18+. Never Families. App Store: answer the
   age questionnaire truthfully (frequent fantasy violence, no gambling, no UGC) and accept the rating it yields
   (expect 12+/13+); not in the Kids category. `ADS_CHILD_DIRECTED=false`.
-- [ ] #Store-2 **Owner: confirm the app id `com.hyperg8.battlecross`** (permanent once uploaded to Play / App Store
+- [x] #Store-2 ✅ **Owner: confirm the app id `com.hyperg8.battlecross`** (confirmed 2026-10-25) (permanent once uploaded to Play / App Store
   Connect) and the developer name shown on the listings.
 - [ ] #Store-3 **Owner: Android upload keystore.** `keytool -genkeypair -v -keystore
   C:/Users/konst/battlecross-release.keystore -alias battlecross -keyalg RSA -keysize 2048 -validity 10000`, then
