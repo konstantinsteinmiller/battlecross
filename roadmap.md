@@ -246,10 +246,10 @@ Build order and the decisions taken are in `game-implementation-plan.md`
   (expect 12+/13+); not in the Kids category. `ADS_CHILD_DIRECTED=false`.
 - [x] #Store-2 ✅ **Owner: confirm the app id `com.hyperg8.battlecross`** (confirmed 2026-10-25) (permanent once uploaded to Play / App Store
   Connect) and the developer name shown on the listings.
-- [ ] #Store-3 **Owner: Android upload keystore.** `keytool -genkeypair -v -keystore
-  C:/Users/konst/battlecross-release.keystore -alias battlecross -keyalg RSA -keysize 2048 -validity 10000`, then
-  `src-tauri/gen/android/key.properties` (`password=`, `keyAlias=battlecross`, `storeFile=C:/Users/konst/battlecross-release.keystore`;
-  gitignored). Back the keystore up twice (password manager + offline). Turn **Play App Signing** on when creating the app.
+- [ ] #Store-3 **Owner: Android upload keystore.** Generated 2026-10-25 at `C:/Users/konst/battlecross-release.keystore`.
+  Still open: create `src-tauri/gen/android/key.properties` (gitignored) with `password=`, `keyAlias=<the alias you used>` and
+  `storeFile=C:/Users/konst/battlecross-release.keystore`; back the keystore up twice (password manager + offline);
+  turn **Play App Signing** on when creating the app. The same alias and password go into the CI secrets (#Store-4).
 - [ ] #Store-4 **Owner: GitHub secrets** for CI (`ANDROID_KEYSTORE_BASE64`, `ANDROID_KEYSTORE_PASSWORD`, `ANDROID_KEY_ALIAS`,
   `ANDROID_KEY_PASSWORD`, `APPLE_TEAM_ID`, `APP_STORE_CONNECT_API_KEY_KEY_ID`, `APP_STORE_CONNECT_API_KEY_ISSUER_ID`,
   `APP_STORE_CONNECT_API_KEY_KEY`, `MATCH_PASSWORD`, `MATCH_GIT_BASIC_AUTHORIZATION`) and the Actions **variables**
