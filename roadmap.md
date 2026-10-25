@@ -287,16 +287,19 @@ Build order and the decisions taken are in `game-implementation-plan.md`
   min 1080 px on the short side, 1920×1080 recommended); 7" and 10" tablet screenshots (recommended, landscape 16:9);
   optional promo video (YouTube URL: `pnpm preview:video`). Short description ≤80, full ≤4000 chars (from `description.md`),
   every language the game ships. Generate from `store-art/` and the portal-promotion art script; run `blur-probe.mjs image` on each.
+  Progress 2026-10-26: Play listing (default, en-US) saved: name, short + full description, icon 512, feature graphic 1024x500 (cropped from the clash cover), 7 phone screenshots (1920x1080), category Role Playing, contact email, website, assets labelled AI-made. Open: tablet screenshots (7"/10") and a promo video (optional), listing translations, a late-game boss shot (the re-shoot came out black and was discarded; the committed 03 boss shot has an empty boss bar).
 - [ ] #Store-11 **First Android build.** Fill `.env.tauri`, run `pnpm tauri:build-android-aab` (gate, sign, bump versionCode);
   output `src-tauri/gen/android/app/build/outputs/bundle/universalRelease/com.hyperg8.battlecross.aab`. Upload to
   **Internal testing**, install via the Play link, and check: a rewarded and an interstitial play, game audio mutes and the
   game pauses during an ad, back button, safe area, landscape lock, offline launch, EEA consent form (debug build with
   `VITE_APP_ADS_CONSENT_DEBUG_EEA=true`), LevelPlay Test Suite (`VITE_APP_ADS_TEST_SUITE=true`, debug build only).
+  Progress 2026-10-26: signed release AAB built with the hyperg8 keystore (versionCode 1000001, SHA-256 matches the keystore): `src-tauri/gen/android/app/build/outputs/bundle/universalRelease/com.hyperg8.battlecross.aab`, 318 MB. Not yet uploaded: Play Console -> Testing -> Internal testing (or the Chaos Arena closed-test route you mentioned) -> Create release -> upload, accept Play App Signing. The size is large (four ABIs, 17 MB voice + art): watch for Play's size warnings.
 - [ ] #Store-12 **Play testing track.** A new personal account needs a **Closed test with 12 testers for 14 days** before
   Production; then promote. After approval: link the store in AdMob and LevelPlay, verify `app-ads.txt`.
 - [ ] #Store-13 **Apple Developer + App Store Connect setup.** Program membership; API key (Admin or App Manager); the
   private signing repo `konstantinsteinmiller/battlecross-signing` (empty `master` commit); run the
   `iOS Bootstrap Signing (match)` workflow with `generate`; then `pnpm ci:ios:testflight` (creates the app record).
+  Progress 2026-10-26: `battlecross-signing` (private, `master` seeded) created, all six iOS secrets set, workflows pushed to main, `iOS Bootstrap Signing (match)` (generate) started. Next: `pnpm ci:ios:testflight` once it is green. App Store Connect app record is created by the Fastfile on that first run.
 - [ ] #Store-14 **App Store listing.** Icon (1024×1024, no alpha); iPhone screenshots 6.9" (1320×2868 portrait or 2868×1320
   landscape) and 6.5" (1284×2778 / 2778×1284), iPad 13" (2064×2752 / 2752×2064) if iPad is supported; optional app
   preview video 15-30 s; name ≤30, subtitle ≤30, promo text ≤170, description ≤4000, keywords ≤100 chars; support URL, privacy URL;
