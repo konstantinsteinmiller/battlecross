@@ -15,5 +15,6 @@ Sizes: 1920x1080 = Google Play phone/tablet (16:9) and generic 16:9 slots;
 | 05 Ruined town, Oakhaven fallen | 05-ruined-oakhaven-{1920x1080,2868x1320}.png |
 | 06 World map | 06-world-map-{1920x1080,2868x1320}.png |
 | 07 Skills bought from a teacher (Magister Ignatius Vale, Pyromancer) | 07-skills-teacher-{1920x1080,2868x1320}.png |
+| 08 Overrun town, Ironhold gutted houses, braziers, nobody trading (afterplay state) | 08-overrun-ironhold-{1920x1080,2868x1320,2752x2064}.png |
 
 Suggested store order: 03, 01, 04, 07, 02, 06, 05 (boss first, most striking).
