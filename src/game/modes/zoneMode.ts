@@ -311,6 +311,8 @@ export class ZoneMode implements GameMode {
   private potionStop = false
   /** The units as this visit was generated: what a saved game is told apart from. */
   private baseline: SimBaseline | null = null
+  /** The share of the hero's run gold already paid into the purse (see `bankRunGold`). */
+  bankedGold = 0
   /** The training dummy was set up in this visit. */
   private dummy = false
   /** The early art was moved up for this visit's first boss. */
@@ -404,6 +406,7 @@ export class ZoneMode implements GameMode {
     m.baseline = captureBaseline(sim)
     // A saved game: the same visit, put back as it was saved.
     if (resume?.sim && !restoreSim(sim, m.baseline, resume.sim)) throw new Error('[zone] the saved visit does not match this zone')
+    m.bankedGold = sim.hero.gold
     if (resume?.hero) {
       const h = sim.hero.unit
       h.x = h.px = h.homeX = resume.hero.x
@@ -1358,8 +1361,22 @@ export class ZoneMode implements GameMode {
     this.vfx.particles.emit({ x, y: 0.3 + Math.random() * 2.5, z, vx: (Math.random() - 0.5) * 0.4, vy: 0.15 + Math.random() * 0.3, vz: (Math.random() - 0.5) * 0.4, color: this.terrain.theme.mote, size: 0.16, sizeEnd: 0.03, life: 2 + Math.random() * 2 })
   }
 
+  /**
+   * Coins are the player's the moment they are picked up: they go into the
+   * purse at once, so a trainer or a shop met inside the visit sees them. The
+   * hero's run total (`sim.hero.gold`) stays the visit's tally for the result
+   * screen and its "triple the purse" offer, which pays twice that on top.
+   */
+  bankRunGold(): void {
+    const d = this.sim.hero.gold - this.bankedGold
+    if (!d) return
+    profile.gold = Math.max(0, profile.gold + d)
+    this.bankedGold = this.sim.hero.gold
+  }
+
   /** Mirror the fight into the reactive HUD state. */
   private syncHud(force: boolean): void {
+    this.bankRunGold()
     const sim = this.sim
     const h = sim.hero
     const u = h.unit
@@ -1371,7 +1388,7 @@ export class ZoneMode implements GameMode {
     hud.heat = h.usesHeat ? Math.round(h.heat) : -1
     hud.overheated = h.overheatT > 0
     hud.level = h.level
-    hud.gold = profile.gold + h.gold
+    hud.gold = profile.gold
     hud.rested = h.rested > 0
     hud.potions = h.potions
     hud.potionsMax = h.potionsMax

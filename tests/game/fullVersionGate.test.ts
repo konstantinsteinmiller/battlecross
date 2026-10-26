@@ -80,9 +80,9 @@ describe('what the demo locks', () => {
     for (const n of d.DEMO_NODES) expect(d.isLockedNode(n)).toBe(false)
   })
 
-  it('the demo is the town, the plains, the Hollows and the colosseum; the road on is locked', async () => {
+  it('the demo is the town, the plains and the Hollows; the colosseum and the road on are locked', async () => {
     const d = await import('@/game/data/fullVersion')
-    expect([...d.DEMO_NODES].sort()).toEqual(['arena', 'hollows', 'plains', 'sunford'])
+    expect([...d.DEMO_NODES].sort()).toEqual(['hollows', 'plains', 'sunford'])
     for (const n of ['woods', 'silverbridge', 'crags', 'temple', 'fortress', 'rift']) expect(d.isLockedNode(n)).toBe(true)
   })
 
@@ -136,7 +136,8 @@ describe('when the gate is on', () => {
     expect(gate.gateActive.value).toBe(true)
     expect(gate.isNodeLockedByDemo('woods')).toBe(true)
     expect(gate.isNodeLockedByDemo('rift')).toBe(true)
-    for (const n of ['sunford', 'plains', 'hollows', 'arena']) expect(gate.isNodeLockedByDemo(n)).toBe(false)
+    for (const n of ['sunford', 'plains', 'hollows']) expect(gate.isNodeLockedByDemo(n)).toBe(false)
+    expect(gate.isNodeLockedByDemo('arena')).toBe(true)
   })
 
   it('the pure rule needs all three', async () => {

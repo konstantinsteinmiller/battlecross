@@ -22,13 +22,14 @@ export const FULL_VERSION_PRODUCT_ID = 'com.hyperg8.battlecross.fullversion'
  *  ransom all open the colosseum): the demo's last story beat is done. */
 export const DEMO_END_FLAG = 'arenaOpen'
 
-/** The demo: the town, the first fights, the Hollows and the colosseum their
- *  finale opens. Playable and replayable without the purchase. */
-export const DEMO_NODES: readonly NodeId[] = ['sunford', 'plains', 'hollows', 'arena']
+/** The demo: the town, the first fight and the Hollows. Playable and
+ *  replayable without the purchase. */
+export const DEMO_NODES: readonly NodeId[] = ['sunford', 'plains', 'hollows']
 
-/** Past the Goblin King: shut on the demo build until the full version is bought. */
+/** Everything else (the colosseum the Goblin King opens included): shut on the
+ *  demo build until the full version is bought. */
 export const LOCKED_NODES: readonly NodeId[] = [
-  'woods', 'silverbridge', 'outskirts', 'oakhaven', 'bastion', 'crags', 'mines',
+  'arena', 'woods', 'silverbridge', 'outskirts', 'oakhaven', 'bastion', 'crags', 'mines',
   'ironhold', 'tundra', 'temple', 'citadel', 'peak', 'fortress', 'rift'
 ]
 

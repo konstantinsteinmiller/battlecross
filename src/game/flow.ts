@@ -235,6 +235,8 @@ const setupFor = (node: NodeId): ZoneSetup => {
 export interface VisitTally {
   xp: number
   gold: number
+  /** How much of `gold` already went into the purse during the visit. */
+  goldBanked?: number
   kills: number
   items: readonly string[]
   seconds: number
@@ -729,8 +731,9 @@ export const finishVisit = async (outcome: 'victory' | 'defeat' | 'retreat'): Pr
   const node = flow.node
   if (!mode || !node) return
   const h = mode.sim.hero
+  mode.bankRunGold()
   await bankVisit(outcome, node, {
-    xp: h.xp, gold: h.gold, kills: h.kills, items: h.items, seconds: mode.sim.time, waves: mode.sim.wave.cleared,
+    xp: h.xp, gold: h.gold, goldBanked: mode.bankedGold, kills: h.kills, items: h.items, seconds: mode.sim.time, waves: mode.sim.wave.cleared,
     lost: h.lost, maxHp: h.unit.s.maxHp, invaded: !!mode.setup.invaded, falls: h.falls ?? 0,
     chests: mode.sim.chests.length ? { opened: h.chests, total: mode.sim.chests.length } : undefined,
     special: mode.sim.specialOpened, rested: h.rested, killKinds: h.killKinds, herbs: h.herbs, ores: h.ores, pieces: h.pieces,
@@ -762,7 +765,7 @@ export const bankVisit = async (outcome: 'victory' | 'defeat' | 'retreat', node:
   // The siege (afterplay §8): its Marks, a win's purse, XP and piece, its milestones.
   const sieged = h.siege ? bankSiege(h.siege, h) : null
   grantXp(h.xp + carefulXp)
-  profile.gold += h.gold + carefulGold
+  profile.gold += h.gold - (h.goldBanked ?? 0) + carefulGold
   for (const id of h.items) {
     const r = gainItem(id)
     items.push({ id, added: r.added, gold: r.gold })
