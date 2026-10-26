@@ -4102,7 +4102,7 @@ export default {
   'iap': {
     'title': 'Full version',
     'body': 'You beat the Goblin King and finished the free demo. Unlock the full version once to travel on: new lands, bosses and quests. One purchase, no subscription.',
-    'unlock': 'Unlock full version for {price}',
+    'unlock': 'Unlock for {price}',
     'unlockNoPrice': 'Unlock full version',
     'restore': 'Restore purchases',
     'notNow': 'Not now',

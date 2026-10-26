@@ -32,6 +32,7 @@ coverage
 *.env
 .env
 .env.*
+.env.tauri
 # The shareable switches (no secrets): the documented template.
 !.env.example
 # Non-secret build state checked in so multiple dev machines stay in

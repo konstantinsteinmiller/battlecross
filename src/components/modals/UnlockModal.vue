@@ -13,6 +13,7 @@
           size="md"
           icon="lock"
           attention
+          class="unlock__buy"
           :is-disabled="busy"
           data-unlock-buy
           @click="buy"
@@ -79,6 +80,11 @@ if (!price.value) void loadProduct()
   &.is-bad
     color: var(--bc-on)
     font-weight: 700
+.unlock__buy :deep(.f-button__text)
+  // The price string and a translated label can outgrow the footer row: wrap instead of spilling past the button.
+  white-space: normal
+  text-align: center
+  max-width: 11em
 .unlock__restore
   appearance: none
   background: none
