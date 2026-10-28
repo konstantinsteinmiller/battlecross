@@ -7,10 +7,10 @@
       FButton(:label="t('wind.decline')" type="secondary" size="md" :is-disabled="adInFlight" @click="declineSecondWind")
       FButton(
         v-if="canOfferReward"
-        :label="isRewardGated ? t('wind.watch') : t('wind.take')"
+        :label="rewardIsVideo ? t('wind.watch') : t('wind.take')"
         type="success"
         size="md"
-        :icon="isRewardGated ? 'video' : 'heart'"
+        :icon="rewardIsVideo ? 'video' : 'heart'"
         attention
         :is-disabled="adInFlight"
         @click="takeSecondWind"
@@ -29,7 +29,7 @@ import { useI18n } from 'vue-i18n'
 import FModal from '@/components/molecules/FModal.vue'
 import FButton from '@/components/atoms/FButton.vue'
 import { declineSecondWind, takeSecondWind } from '@/game/flow'
-import { adInFlight, canOfferReward, isRewardGated } from '@/use/useAdGate'
+import { adInFlight, canOfferReward, rewardIsVideo } from '@/use/useAdGate'
 import { REVIVE_HP } from '@/game/sim/combat'
 
 const { t } = useI18n()

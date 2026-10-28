@@ -7633,6 +7633,7 @@ export default {
     body: 'Kamu mengalahkan Raja Goblin dan menamatkan demo gratis. Buka versi lengkap sekali saja untuk melanjutkan: negeri baru, bos, dan misi. Sekali beli, tanpa langganan.',
     unlock: 'Buka versi lengkap seharga {price}',
     unlockNoPrice: 'Buka versi lengkap',
+    noAds: 'Versi lengkap juga menghapus semua iklan.',
     restore: 'Pulihkan pembelian',
     notNow: 'Nanti saja',
     pending: 'Menunggu persetujuan. Versi lengkap terbuka segera setelah pembelian disetujui.',

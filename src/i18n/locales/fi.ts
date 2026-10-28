@@ -7633,6 +7633,7 @@ export default {
     body: 'Voitit Hirviökuninkaan ja pelasit ilmaisen demon loppuun. Avaa täysi versio kerran jatkaaksesi: uusia maita, pomoja ja tehtäviä. Yksi ostos, ei tilausta.',
     unlock: 'Avaa täysi versio hintaan {price}',
     unlockNoPrice: 'Avaa täysi versio',
+    noAds: 'Täysi versio poistaa myös kaikki mainokset.',
     restore: 'Palauta ostokset',
     notNow: 'Ei nyt',
     pending: 'Odottaa hyväksyntää. Täysi versio aukeaa heti, kun osto on hyväksytty.',

@@ -7709,6 +7709,7 @@ export default {
     body: 'Tu uzvarēji Goblinu karali un pabeidzi bezmaksas demo. Vienreiz atbloķē pilno versiju, lai dotos tālāk: jaunas zemes, bosi un uzdevumi. Viens pirkums, bez abonementa.',
     unlock: 'Atbloķēt pilno versiju par {price}',
     unlockNoPrice: 'Atbloķēt pilno versiju',
+    noAds: 'Pilnā versija noņem arī visas reklāmas.',
     restore: 'Atjaunot pirkumus',
     notNow: 'Ne tagad',
     pending: 'Gaida apstiprinājumu. Pilnā versija tiks atbloķēta, tiklīdz pirkums tiks apstiprināts.',

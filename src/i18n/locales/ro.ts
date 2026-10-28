@@ -7677,6 +7677,7 @@ export default {
     body: 'Ai învins Regele Goblinilor și ai terminat demo-ul gratuit. Deblochează versiunea completă o singură dată ca să mergi mai departe: ținuturi noi, bossi și misiuni. O singură achiziție, fără abonament.',
     unlock: 'Deblochează versiunea completă pentru {price}',
     unlockNoPrice: 'Deblochează versiunea completă',
+    noAds: 'Versiunea completă elimină și toate reclamele.',
     restore: 'Restaurează achizițiile',
     notNow: 'Nu acum',
     pending: 'Se așteaptă aprobarea. Versiunea completă se deblochează imediat ce achiziția este aprobată.',

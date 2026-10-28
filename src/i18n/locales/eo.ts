@@ -7633,6 +7633,7 @@ export default {
     body: 'Vi venkis la Koboldan Reĝon kaj finis la senpagan demonstraĵon. Malŝlosu la plenan version unufoje por vojaĝi pluen: novaj landoj, estroj kaj taskoj. Unu aĉeto, sen abono.',
     unlock: 'Malŝlosi la plenan version por {price}',
     unlockNoPrice: 'Malŝlosi la plenan version',
+    noAds: 'La plena versio ankaŭ forigas ĉiujn reklamojn.',
     restore: 'Restarigi aĉetojn',
     notNow: 'Ne nun',
     pending: 'Atendas aprobon. La plena versio malŝlosiĝas tuj kiam la aĉeto estas aprobita.',

@@ -7690,6 +7690,7 @@ export default {
     body: 'Você derrotou o Rei Goblin e terminou a demo gratuita. Desbloqueie a versão completa uma única vez para continuar: novas terras, chefes e missões. Uma compra, sem assinatura.',
     unlock: 'Desbloquear versão completa por {price}',
     unlockNoPrice: 'Desbloquear versão completa',
+    noAds: 'A versão completa também remove todos os anúncios.',
     restore: 'Restaurar compras',
     notNow: 'Agora não',
     pending: 'Aguardando aprovação. A versão completa é desbloqueada assim que a compra for aprovada.',

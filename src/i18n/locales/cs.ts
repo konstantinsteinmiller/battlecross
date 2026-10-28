@@ -7734,6 +7734,7 @@ export default {
     body: 'Porazil jsi Goblinského krále a dohrál bezplatné demo. Jednorázově odemkni plnou verzi a pokračuj: nové země, bossové a úkoly. Jeden nákup, žádné předplatné.',
     unlock: 'Odemknout plnou verzi za {price}',
     unlockNoPrice: 'Odemknout plnou verzi',
+    noAds: 'Plná verze také odstraní všechny reklamy.',
     restore: 'Obnovit nákupy',
     notNow: 'Teď ne',
     pending: 'Čeká se na schválení. Plná verze se odemkne, jakmile bude nákup schválen.',

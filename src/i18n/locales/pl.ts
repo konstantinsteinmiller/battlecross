@@ -7734,6 +7734,7 @@ export default {
     body: 'Pokonałeś Króla Goblinów i ukończyłeś darmowe demo. Odblokuj pełną wersję jednorazowo, by ruszyć dalej: nowe krainy, bossowie i zadania. Jeden zakup, bez subskrypcji.',
     unlock: 'Odblokuj pełną wersję za {price}',
     unlockNoPrice: 'Odblokuj pełną wersję',
+    noAds: 'Pełna wersja usuwa też wszystkie reklamy.',
     restore: 'Przywróć zakupy',
     notNow: 'Nie teraz',
     pending: 'Oczekiwanie na zatwierdzenie. Pełna wersja odblokuje się, gdy tylko zakup zostanie zatwierdzony.',

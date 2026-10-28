@@ -7633,6 +7633,7 @@ export default {
     body: "Goblin Kralı'nı yendin ve ücretsiz demoyu bitirdin. Yoluna devam etmek için tam sürümün kilidini bir kez aç: yeni diyarlar, bosslar ve görevler. Tek satın alma, abonelik yok.",
     unlock: 'Tam sürümün kilidini {price} karşılığında aç',
     unlockNoPrice: 'Tam sürümün kilidini aç',
+    noAds: 'Tam sürüm ayrıca tüm reklamları kaldırır.',
     restore: 'Satın alımları geri yükle',
     notNow: 'Şimdi değil',
     pending: 'Onay bekleniyor. Satın alma onaylanır onaylanmaz tam sürümün kilidi açılır.',

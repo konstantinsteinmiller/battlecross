@@ -7654,6 +7654,7 @@ export default {
     body: 'Du hast den Goblinkönig besiegt und die kostenlose Demo beendet. Schalte die Vollversion einmalig frei, um weiterzuziehen: neue Länder, Bosse und Quests. Ein Kauf, kein Abo.',
     unlock: 'Vollversion freischalten für {price}',
     unlockNoPrice: 'Vollversion freischalten',
+    noAds: 'Die Vollversion entfernt außerdem alle Werbung.',
     restore: 'Käufe wiederherstellen',
     notNow: 'Nicht jetzt',
     pending: 'Warte auf Genehmigung. Die Vollversion wird freigeschaltet, sobald der Kauf genehmigt ist.',

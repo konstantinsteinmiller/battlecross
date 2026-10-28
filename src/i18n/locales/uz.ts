@@ -7633,6 +7633,7 @@ export default {
     body: "Sen Goblinlar shohini yengding va bepul demoni tugatding. Davom etish uchun to'liq versiyani bir marta och: yangi yurtlar, bosslar va topshiriqlar. Bitta xarid, obunasiz.",
     unlock: "To'liq versiyani {price} evaziga ochish",
     unlockNoPrice: "To'liq versiyani ochish",
+    noAds: 'To‘liq versiya barcha reklamalarni ham olib tashlaydi.',
     restore: 'Xaridlarni tiklash',
     notNow: 'Hozir emas',
     pending: "Tasdiqlash kutilmoqda. Xarid tasdiqlanishi bilanoq to'liq versiya ochiladi.",

@@ -7748,6 +7748,7 @@ export default {
     body: 'Pobijedio si Kralja goblina i završio besplatni demo. Jednom otključaj punu verziju kako bi nastavio: nove zemlje, bossovi i zadaci. Jedna kupnja, bez pretplate.',
     unlock: 'Otključaj punu verziju za {price}',
     unlockNoPrice: 'Otključaj punu verziju',
+    noAds: 'Puna verzija uklanja i sve oglase.',
     restore: 'Vrati kupnje',
     notNow: 'Ne sada',
     pending: 'Čeka se odobrenje. Puna verzija otključava se čim kupnja bude odobrena.',

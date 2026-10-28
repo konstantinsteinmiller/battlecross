@@ -7685,6 +7685,7 @@ export default {
     body: 'Tu as vaincu le Roi gobelin et terminé la démo gratuite. Débloque la version complète une seule fois pour continuer : nouvelles terres, boss et quêtes. Un seul achat, sans abonnement.',
     unlock: 'Débloquer la version complète pour {price}',
     unlockNoPrice: 'Débloquer la version complète',
+    noAds: 'La version complète supprime aussi toutes les publicités.',
     restore: 'Restaurer les achats',
     notNow: 'Pas maintenant',
     pending: "En attente d'approbation. La version complète se débloque dès que l'achat est approuvé.",

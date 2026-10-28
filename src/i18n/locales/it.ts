@@ -7715,6 +7715,7 @@ export default {
     body: 'Hai sconfitto il Re dei Goblin e finito la demo gratuita. Sblocca la versione completa una sola volta per proseguire: nuove terre, boss e missioni. Un solo acquisto, nessun abbonamento.',
     unlock: 'Sblocca la versione completa a {price}',
     unlockNoPrice: 'Sblocca la versione completa',
+    noAds: 'La versione completa rimuove anche tutta la pubblicità.',
     restore: 'Ripristina acquisti',
     notNow: 'Non ora',
     pending: "In attesa di approvazione. La versione completa si sblocca appena l'acquisto viene approvato.",

@@ -78,6 +78,9 @@ export const purchaseStatus = ref<PurchaseStatus>('idle')
 /** The lock applies right now: the demo build, and not bought. */
 export const gateActive = computed(() => gateOn.value && !isFullVersion.value)
 
+/** The unlock is owned on a store build: no ad of any kind plays, and the rewarded perks are free. */
+export const adsRemoved = computed(() => gateOn.value && isFullVersion.value)
+
 /** Is this place shut by the demo? The single check the flow and the map use. */
 export const isNodeLockedByDemo = (id: string): boolean => gateActive.value && isLockedNode(id)
 

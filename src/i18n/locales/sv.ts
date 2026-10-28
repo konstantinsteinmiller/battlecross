@@ -7633,6 +7633,7 @@ export default {
     body: 'Du besegrade Goblinkungen och klarade den gratis demon. Lås upp fullversionen en gång för att fortsätta: nya länder, bossar och uppdrag. Ett köp, ingen prenumeration.',
     unlock: 'Lås upp fullversionen för {price}',
     unlockNoPrice: 'Lås upp fullversionen',
+    noAds: 'Fullversionen tar också bort all reklam.',
     restore: 'Återställ köp',
     notNow: 'Inte nu',
     pending: 'Väntar på godkännande. Fullversionen låses upp så fort köpet godkänns.',

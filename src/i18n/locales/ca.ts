@@ -7683,6 +7683,7 @@ export default {
     body: 'Has derrotat el Rei Goblin i has acabat la demo gratuïta. Desbloqueja la versió completa una sola vegada per continuar: terres noves, caps i missions. Una compra, sense subscripció.',
     unlock: 'Desbloqueja la versió completa per {price}',
     unlockNoPrice: 'Desbloqueja la versió completa',
+    noAds: 'La versió completa també elimina tots els anuncis.',
     restore: 'Restaura les compres',
     notNow: 'Ara no',
     pending: "Pendent d'aprovació. La versió completa es desbloqueja tan bon punt s'aprovi la compra.",

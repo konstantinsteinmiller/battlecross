@@ -7644,6 +7644,7 @@ export default {
     body: 'Je versloeg de Goblinkoning en speelde de gratis demo uit. Ontgrendel de volledige versie eenmalig om verder te reizen: nieuwe landen, bazen en queesten. Eén aankoop, geen abonnement.',
     unlock: 'Volledige versie ontgrendelen voor {price}',
     unlockNoPrice: 'Volledige versie ontgrendelen',
+    noAds: 'De volledige versie verwijdert ook alle advertenties.',
     restore: 'Aankopen herstellen',
     notNow: 'Nu niet',
     pending: 'Wacht op goedkeuring. De volledige versie wordt ontgrendeld zodra de aankoop is goedgekeurd.',

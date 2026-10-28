@@ -4104,6 +4104,7 @@ export default {
     'body': 'You beat the Goblin King and finished the free demo. Unlock the full version once to travel on: new lands, bosses and quests. One purchase, no subscription.',
     'unlock': 'Unlock for {price}',
     'unlockNoPrice': 'Unlock full version',
+    'noAds': 'The full version also removes all ads.',
     'restore': 'Restore purchases',
     'notNow': 'Not now',
     'pending': 'Waiting for approval. The full version unlocks as soon as the purchase is approved.',

@@ -65,7 +65,7 @@
         :label="t('purse.offer', { n: fmt(r.gold * 2) })"
         type="warning"
         size="md"
-        :icon="isRewardGated ? 'video' : 'coin'"
+        :icon="rewardIsVideo ? 'video' : 'coin'"
         :is-disabled="adInFlight"
         @click="takePurse"
       )
@@ -115,7 +115,7 @@ import { ITEM_BY_ID, TIER_COLOR } from '@/game/data/items'
 import { POINTS_PER_LEVEL } from '@/game/data/attributes'
 import { SIEGE_WAVES } from '@/game/data/siege'
 import { flow, leaveResults, purseOffered, retryVisit, triplePurse } from '@/game/flow'
-import { adInFlight, isRewardGated } from '@/use/useAdGate'
+import { adInFlight, rewardIsVideo } from '@/use/useAdGate'
 import { clock, fmt } from '@/utils/format'
 import FModal from '@/components/molecules/FModal.vue'
 import FButton from '@/components/atoms/FButton.vue'

@@ -326,3 +326,17 @@ describe('the animals walk on their legs (#102)', () => {
     }
   })
 })
+
+describe('a frame with no time in it (iOS delivers two on one timestamp)', () => {
+  it('leaves every animal\'s gait and pose finite', async () => {
+    const { zoo } = await build('sunford')
+    for (let i = 0; i < 400; i++) {
+      zoo.update(i % 7 === 0 ? 0 : 1 / 60, 20 + (i % 50) * 0.3, 20)
+      for (const b of zoo.beasts) {
+        expect(Number.isFinite(b.cycle), b.kind).toBe(true)
+        expect(Number.isFinite(b.obj.position.y), b.kind).toBe(true)
+        for (const l of b.legs) expect(Number.isFinite(l.obj.scale.y) && Number.isFinite(l.obj.rotation.x), b.kind).toBe(true)
+      }
+    }
+  })
+})

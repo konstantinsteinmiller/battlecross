@@ -7633,6 +7633,7 @@ export default {
     body: 'Du besejrede Goblinkongen og gennemførte den gratis demo. Lås den fulde version op én gang for at rejse videre: nye lande, bosser og quests. Ét køb, intet abonnement.',
     unlock: 'Lås den fulde version op for {price}',
     unlockNoPrice: 'Lås den fulde version op',
+    noAds: 'Den fulde version fjerner også alle reklamer.',
     restore: 'Gendan køb',
     notNow: 'Ikke nu',
     pending: 'Afventer godkendelse. Den fulde version låses op, så snart købet er godkendt.',

@@ -19,6 +19,7 @@
 // GameDistribution because the SDK script is dynamically injected and we
 // don't want to pay that latency on the boot critical path.
 import { computed, ref } from 'vue'
+import { adsRemoved } from '@/use/useFullVersion'
 import { isCrazyWeb, isWaveDash, isItch, isGlitch, isGameDistribution, isPlaygama, isGamepix, isGameMonetize, isYandex, isPoki, isNative, showMediatorAds } from '@/use/useUser'
 import type { AdProvider } from './ads/types'
 import { resolveAdProvider } from '@/platforms/resolveAdProvider'
@@ -207,7 +208,7 @@ export const showRewardedAd = async (): Promise<boolean> => {
   // contract callers already handle (no grant). The reward UI is
   // already hidden via `isRewardedReady`, so this branch only fires
   // if a placement somehow bypassed that check.
-  if (isRewardedThrottled.value) return false
+  if (isRewardedThrottled.value || adsRemoved.value) return false
   // Flip `isAdShowing` BEFORE the await. It OR's into `isGamePaused`,
   // which the audio orchestrator (`useGamePauseAudio`) watches with
   // `flush: 'sync'` — so the renderer pause AND the audio suspend both
@@ -262,6 +263,7 @@ export const showRewardedAd = async (): Promise<boolean> => {
 }
 
 export const showMidgameAd = async (): Promise<void> => {
+  if (adsRemoved.value) return
   // The audio kill: hard-stop the music, cut every in-flight one-shot SFX so
   // nothing tails into the ad, and flip the pause gate (`isAdShowing` →
   // `isGamePaused`, which `useGamePauseAudio` watches with `flush: 'sync'` to

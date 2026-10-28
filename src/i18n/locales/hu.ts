@@ -7633,6 +7633,7 @@ export default {
     body: 'Legyőzted a Goblinkirályt, és végigjátszottad az ingyenes demót. Egyszer old fel a teljes játékot, hogy tovább utazhass: új tájak, főellenségek és küldetések. Egyetlen vásárlás, előfizetés nélkül.',
     unlock: 'Teljes játék feloldása: {price}',
     unlockNoPrice: 'Teljes játék feloldása',
+    noAds: 'A teljes verzió az összes reklámot is eltávolítja.',
     restore: 'Vásárlások visszaállítása',
     notNow: 'Most nem',
     pending: 'Jóváhagyásra vár. A teljes játék a vásárlás jóváhagyása után azonnal feloldódik.',

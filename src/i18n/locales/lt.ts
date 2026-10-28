@@ -7695,6 +7695,7 @@ export default {
     body: 'Nugalėjai Goblinų karalių ir baigei nemokamą demo. Vieną kartą atrakink pilną versiją, kad keliautum toliau: naujos šalys, bosai ir užduotys. Vienas pirkinys, jokios prenumeratos.',
     unlock: 'Atrakinti pilną versiją už {price}',
     unlockNoPrice: 'Atrakinti pilną versiją',
+    noAds: 'Pilna versija taip pat pašalina visas reklamas.',
     restore: 'Atkurti pirkinius',
     notNow: 'Ne dabar',
     pending: 'Laukiama patvirtinimo. Pilna versija atrakinama, kai tik pirkimas patvirtinamas.',

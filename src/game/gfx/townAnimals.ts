@@ -474,6 +474,9 @@ export class TownAnimals {
 
   /** Every frame: (px, pz) is the hero. */
   update(dt: number, px: number, pz: number): void {
+    // A frame with no time in it (two rAF callbacks on one timestamp, as iOS
+    // delivers them) would make a speed of 0 / 0 and poison the gait cycle.
+    if (!(dt > 0)) return
     const step = Math.min(dt, 1 / 20)
     for (const b of this.beasts) {
       b.clock += step
@@ -546,6 +549,7 @@ export class TownAnimals {
     const g = b.kind === 'squirrel' ? BOUND : v > 1.4 ? TROT : WALK
     const stride = strideFor(g, len, v)
     b.cycle += (v * dt) / stride
+    if (!Number.isFinite(b.cycle)) b.cycle = 0
     // The body rides down and up over its planted legs, two dips a cycle; the
     // legs reach down from the lowered hips, so every planted paw stays put.
     const drop = vaultDrop(g, b.cycle, stride, len)

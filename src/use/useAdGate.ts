@@ -1,6 +1,7 @@
 import { ref, computed } from 'vue'
 import { isCrazyWeb, isPoki, isWaveDash } from '@/use/useUser'
 import { isCrazyGamesFullRelease } from '@/use/useMatch'
+import { adsRemoved } from '@/use/useFullVersion'
 import { adProviderName, isRewardedReady, showRewardedAd } from '@/use/useAds'
 
 /**
@@ -152,7 +153,7 @@ export const claimReward = async (grant: () => void): Promise<boolean> => {
   // suppressed (CG pre-release, Wavedash), but a free ×3 must not be reachable
   // by any other route either.
   if (isRewardOfferSuppressed) return false
-  if (!isRewardGated) {
+  if (!isRewardGated || adsRemoved.value) {
     grant()
     return true
   }
@@ -174,6 +175,9 @@ export const claimReward = async (grant: () => void): Promise<boolean> => {
   }
 }
 
+/** A perk's button shows a video: the build has rewarded ads and the unlock has not removed them. */
+export const rewardIsVideo = computed(() => isRewardGated && !adsRemoved.value)
+
 /** True while a gated reward is waiting on its video. */
 export const adInFlight = ref(false)
 
@@ -188,7 +192,7 @@ export const adInFlight = ref(false)
  * as for a no-fill.
  */
 export const canOfferReward = computed(
-  () => !isRewardOfferSuppressed && (!isRewardGated || (isRewardedReady.value && !isRewardRateLimited()))
+  () => !isRewardOfferSuppressed && (!isRewardGated || adsRemoved.value || (isRewardedReady.value && !isRewardRateLimited()))
 )
 
 // ─── Interstitial pacing ────────────────────────────────────────────────────
@@ -263,6 +267,7 @@ let sessionStartedAt = Date.now()
  * to start the clock.
  */
 export const canShowInterstitial = (): boolean => {
+  if (adsRemoved.value) return false
   const now = Date.now()
   if (now - sessionStartedAt < INTERSTITIAL_AFTER_LOAD_MS) return false
   return lastInterstitialAt === 0 || now - lastInterstitialAt >= INTERSTITIAL_MIN_GAP_MS

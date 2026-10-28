@@ -1,7 +1,9 @@
 <template lang="pug">
   FModal(:model-value="true" :title="t('iap.title')" :is-closable="false" surface="parchment" tone="gold")
     div.unlock(data-unlock)
-      p.unlock__text(v-if="!owned") {{ t('iap.body') }}
+      template(v-if="!owned")
+        p.unlock__text {{ t('iap.body') }}
+        p.unlock__text.unlock__perk(data-unlock-noads) {{ t('iap.noAds') }}
       p.unlock__text.unlock__thanks(v-else data-unlock-thanks) {{ t('iap.thanks') }}
       p.unlock__status(v-if="statusKey" :class="{ 'is-bad': purchaseStatus === 'failed' || purchaseStatus === 'restoreNone' }" role="status" data-unlock-status) {{ t(statusKey) }}
     template(#footer)
@@ -71,6 +73,8 @@ if (!price.value) void loadProduct()
   max-width: 24rem
   font-size: clamp(0.95rem, 4vmin, 1.2rem)
   line-height: 1.3
+.unlock__perk
+  font-weight: 700
 .unlock__thanks
   font-weight: 700
 .unlock__status

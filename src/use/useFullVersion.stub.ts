@@ -12,6 +12,7 @@ export const isFullVersion = ref(true)
 export const price = ref('')
 export const purchaseStatus = ref<PurchaseStatus>('idle')
 export const gateActive = computed(() => false)
+export const adsRemoved = computed(() => false)
 export const isNodeLockedByDemo = (_id: string): boolean => false
 export const refreshGate = (): void => {}
 export const loadProduct = async (): Promise<boolean> => false

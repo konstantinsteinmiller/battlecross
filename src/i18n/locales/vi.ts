@@ -7633,6 +7633,7 @@ export default {
     body: 'Bạn đã đánh bại Vua Goblin và hoàn thành bản demo miễn phí. Hãy mở khóa bản đầy đủ một lần để đi tiếp: vùng đất mới, trùm và nhiệm vụ. Mua một lần, không đăng ký.',
     unlock: 'Mở khóa bản đầy đủ với giá {price}',
     unlockNoPrice: 'Mở khóa bản đầy đủ',
+    noAds: 'Phiên bản đầy đủ còn xóa toàn bộ quảng cáo.',
     restore: 'Khôi phục giao dịch mua',
     notNow: 'Để sau',
     pending: 'Đang chờ phê duyệt. Bản đầy đủ sẽ được mở khóa ngay khi giao dịch được phê duyệt.',
