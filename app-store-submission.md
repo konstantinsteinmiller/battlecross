@@ -28,7 +28,7 @@ Source of truth for ads: `ADS_STATE.md`. Source of truth for screenshots: `src/a
 
 - **Subtitle (30):** `Action RPG, any skill, any hero`
 - **Promotional text (170):** `Mix skills from 8 classes into your own hero. Fight goblins, demons and dragons, and make choices that reshape the realm.`
-- **Description:** use the full description from `description.md`/the Play listing (4000 max).
+- **Description:** use the full description from `description.md`/the Play listing (4000 max), plus, on iOS only, the closing paragraph `Free to play up to the Goblin King. One in-app purchase unlocks the full game and removes all ads.`
 - **Keywords (100):** `rpg,action,hero,dragon,skills,fantasy,loot,boss,quest,offline`
 - **Support URL:** `https://konstantinsteinmiller.github.io/hyperg8/`
 - **Marketing URL:** same
@@ -109,7 +109,7 @@ Decided and built: the iOS app is a **free demo** (playable up to and including 
 | Family Sharing | off (can be switched on later, not off again) |
 | Availability | all countries, as the app |
 | en-US display name (30 max) | `Full Version` |
-| en-US description (45 max in the sheet, 255 in Connect) | `Every land, boss and quest beyond the Goblin King. One purchase.` |
+| en-US description (55 max in the sheet) | `All lands, bosses and quests. No more ads.` |
 | de-DE display name | `Vollversion` |
 | de-DE description | `Alle Länder, Bosse und Quests nach dem Goblinkönig. Ein Kauf.` |
 | Review screenshot | Same sizes as an App Store screenshot: use **2868x1320** (iPhone 6.9" landscape, the game's orientation) showing the "Unlock full version for ..." modal. Taken from a StoreKit-configured simulator or a sandbox build. |
@@ -125,7 +125,7 @@ Reviewer note to paste into App Review Information:
 
 Open owner decision: a reviewer starting a fresh save has to play to the Goblin King (a few fights) to see the offer. If a faster route for the reviewer is wanted, say so and one can be added; none exists yet.
 
-Nothing else is needed: no login, no extra hardware. The App Review sandbox buyer completes the purchase; after it the locks disappear at once and stay gone after a restart (cached in the save, re-checked with the App Store on each start).
+Nothing else is needed: no login, no extra hardware. The App Review sandbox buyer completes the purchase; after it the locks disappear at once, every ad is gone (no interstitial, no rewarded video; the rewarded perks become free) and stay gone after a restart (cached in the save, re-checked with the App Store on each start).
 
 ### How it is built
 
@@ -135,6 +135,10 @@ Nothing else is needed: no login, no extra hardware. The App Review sandbox buye
 - **The offer** (`UnlockModal`) opens once right after the Goblin King's decision is answered (no interstitial plays in front of it), and later from any locked place. "Not now" returns to the town.
 - **Entitlement cache**: `bc_full_version` in the save blob. Works offline after one successful check; every start asks the App Store again and a confirmed answer (including a refund) replaces the cache. It is not part of a playthrough, so "Start New Game" and slot loads keep it.
 - The CI iOS build sets `VITE_APP_IAP_UNLOCK: "true"` (`.github/workflows/ios-build.yml`).
+
+### TestFlight: testing the purchase again
+
+A bought non-consumable cannot be un-bought on the same Apple ID. Seven taps on the invisible corner at the bottom right of Options > General reveal "Test: ignore my purchase" (iOS store build only, stored on the device, never in the save). On = demo again; off = the store's answer. Buy or Restore switch it off by themselves.
 
 ### How to test
 
