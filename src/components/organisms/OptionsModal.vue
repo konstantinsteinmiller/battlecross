@@ -18,6 +18,7 @@ import { INTRO_ENABLED } from '@/game/intro/state'
 import { flow } from '@/game/flow'
 import { privacyOptionsRequired, showPrivacyOptions } from '@/use/useAds'
 import { openExternal } from '@/utils/openExternal'
+import { gateOn, ignorePurchase, setIgnorePurchase } from '@/use/useFullVersion'
 
 defineProps<{
   isOpen: boolean
@@ -45,6 +46,10 @@ const {
 // ─── Privacy (native builds) ──────────────────────────────────────────────
 // Google Play wants the privacy policy reachable from inside the app. "Privacy
 // settings" reopens the ad-consent form, shown only where UMP says one is due.
+// TestFlight testing switch (hidden): seven taps on the corner reveal "ignore the purchase". Dev-only copy, not translated.
+const secretTaps = ref(0)
+const secretOpen = computed(() => gateOn.value && secretTaps.value >= 7)
+
 const privacyPolicyUrl: string = import.meta.env.VITE_APP_PRIVACY_POLICY_URL ?? ''
 const showPrivacyLinks = computed(() => isNative && (!!privacyPolicyUrl || privacyOptionsRequired.value))
 const openPrivacyPolicy = () => {
@@ -214,6 +219,8 @@ onUnmounted(stopCapture)
         button.reset-keys.opt-recheck(v-if="canReplayIntro" type="button" data-intro-replay @click="emit('intro')") {{ t('intro.replay') }}
         button.reset-keys.opt-recheck(v-if="showPrivacyLinks && privacyPolicyUrl" type="button" @click="openPrivacyPolicy") {{ t('privacy.policy') }}
         button.reset-keys.opt-recheck(v-if="showPrivacyLinks && privacyOptionsRequired" type="button" @click="showPrivacyOptions") {{ t('privacy.settings') }}
+        button.opt-secret(v-if="gateOn && !secretOpen" type="button" aria-hidden="true" tabindex="-1" data-secret-tap @click="secretTaps++")
+        button.reset-keys.opt-recheck(v-if="secretOpen" type="button" data-ignore-purchase @click="setIgnorePurchase(!ignorePurchase)") {{ ignorePurchase ? 'Test: purchase ignored (tap to restore it)' : 'Test: ignore my purchase' }}
 
     div(v-else-if="currentTab === 'gameplay'").flex.flex-col.gap-2.p-2
       div(class="z-[20] flex flex-col gap-1")
@@ -351,6 +358,14 @@ onUnmounted(stopCapture)
     +cel.tone('off')
     opacity: 0.7
     cursor: default
+.opt-secret
+  align-self: flex-end
+  width: 2.5rem
+  height: 2.5rem
+  background: transparent
+  border: 0
+  opacity: 0
+
 .opt-recheck
   align-self: flex-start
   min-height: 44px

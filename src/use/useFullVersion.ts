@@ -84,17 +84,32 @@ export const adsRemoved = computed(() => gateOn.value && isFullVersion.value)
 /** Is this place shut by the demo? The single check the flow and the map use. */
 export const isNodeLockedByDemo = (id: string): boolean => gateActive.value && isLockedNode(id)
 
+/** TestFlight testing: a non-consumable cannot be un-bought, so the owner can switch the app to ignore the purchase. Kept on the device, never in the save. */
+const IGNORE_KEY = 'bc_ignore_purchase'
+const readIgnore = (): boolean => { try { return localStorage.getItem(IGNORE_KEY) === '1' } catch { return false } }
+export const ignorePurchase = ref(readIgnore())
+
 const readCache = (): boolean => getState<unknown>(FULL_VERSION_KEY) === true
 
-const setEntitled = (entitled: boolean): void => {
-  isFullVersion.value = entitled
+/** `force`: the owner acted (bought, restored), so the ignore switch goes off. */
+const setEntitled = (entitled: boolean, force = false): void => {
+  if (force && entitled && ignorePurchase.value) setIgnorePurchase(false)
+  isFullVersion.value = entitled && !ignorePurchase.value
   if (readCache() !== entitled) setState(FULL_VERSION_KEY, entitled)
 }
 
 /** Read the platform and the cached entitlement (synchronous; also the test seam). */
 export const refreshGate = (): void => {
   gateOn.value = platformOn()
-  isFullVersion.value = gateOn.value && readCache()
+  isFullVersion.value = gateOn.value && readCache() && !ignorePurchase.value
+}
+
+/** Pretend the purchase is not there (on), or ask the store again (off). */
+export function setIgnorePurchase(on: boolean): void {
+  ignorePurchase.value = on
+  try { localStorage.setItem(IGNORE_KEY, on ? '1' : '0') } catch { /* private mode */ }
+  if (on) isFullVersion.value = false
+  else void verifyEntitlement().then(() => { if (!isFullVersion.value) isFullVersion.value = gateOn.value && readCache() })
 }
 
 /** Ask the store for the product and its price. Never throws. */
@@ -152,7 +167,7 @@ export const buy = async (): Promise<boolean> => {
   purchaseStatus.value = 'busy'
   try {
     const r = await invoke<PurchaseReply>('purchase')
-    if (r.status === 'purchased' && r.entitled) { setEntitled(true); purchaseStatus.value = 'thanks'; return true }
+    if (r.status === 'purchased' && r.entitled) { setEntitled(true, true); purchaseStatus.value = 'thanks'; return true }
     purchaseStatus.value = r.status === 'pending' ? 'pending' : r.status === 'cancelled' ? 'idle' : 'failed'
   } catch (e) {
     console.warn('[iap] purchase failed', e)
@@ -167,7 +182,7 @@ export const restore = async (): Promise<boolean> => {
   purchaseStatus.value = 'busy'
   try {
     const r = await invoke<EntitlementReply>('restore')
-    if (r.supported && r.entitled) { setEntitled(true); purchaseStatus.value = 'thanks'; return true }
+    if (r.supported && r.entitled) { setEntitled(true, true); purchaseStatus.value = 'thanks'; return true }
     purchaseStatus.value = r.supported && r.checked ? 'restoreNone' : 'failed'
   } catch (e) {
     console.warn('[iap] restore failed', e)

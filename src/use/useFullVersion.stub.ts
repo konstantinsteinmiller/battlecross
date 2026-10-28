@@ -12,6 +12,8 @@ export const isFullVersion = ref(true)
 export const price = ref('')
 export const purchaseStatus = ref<PurchaseStatus>('idle')
 export const gateActive = computed(() => false)
+export const ignorePurchase = ref(false)
+export const setIgnorePurchase = (_on: boolean): void => {}
 export const adsRemoved = computed(() => false)
 export const isNodeLockedByDemo = (_id: string): boolean => false
 export const refreshGate = (): void => {}
