@@ -78,7 +78,7 @@
                 svg.node__art(viewBox="0 0 100 100" aria-hidden="true" focusable="false" v-html="n.art")
                 svg.node__doom(v-if="n.doom" viewBox="0 0 100 100" aria-hidden="true" focusable="false" data-rift-doom v-html="DOOM_SKULL")
                 svg.node__clouds(v-if="n.clouds" viewBox="0 0 100 100" aria-hidden="true" focusable="false" v-html="n.clouds")
-                span.node__lock(v-if="!n.enterable || n.demoLocked" aria-hidden="true")
+                span.node__lock(v-if="n.demoLocked"aria-hidden="true")
                   GameIcon(name="lock")
                 span.node__badge.node__badge--done(v-if="n.cleared && n.kind !== 'town'" aria-hidden="true")
                   GameIcon(name="check")
