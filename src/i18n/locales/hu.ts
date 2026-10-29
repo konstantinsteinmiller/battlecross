@@ -7634,6 +7634,8 @@ export default {
     unlock: 'Teljes játék feloldása: {price}',
     unlockNoPrice: 'Teljes játék feloldása',
     noAds: 'A teljes verzió az összes reklámot is eltávolítja.',
+    ignore: 'A teljes verzió vásárlásának figyelmen kívül hagyása',
+    ignoreHint: 'Teszteléshez: visszatérnek a demó zárai és a reklámok. Kapcsold ki, hogy újra használd a vásárlásod.',
     restore: 'Vásárlások visszaállítása',
     notNow: 'Most nem',
     pending: 'Jóváhagyásra vár. A teljes játék a vásárlás jóváhagyása után azonnal feloldódik.',

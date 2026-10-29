@@ -7634,6 +7634,8 @@ export default {
     unlock: 'Lås opp fullversjonen for {price}',
     unlockNoPrice: 'Lås opp fullversjonen',
     noAds: 'Fullversjonen fjerner også all reklame.',
+    ignore: 'Ignorer kjøpet av fullversjonen',
+    ignoreHint: 'For testing: demoens låser og reklamen kommer tilbake. Slå av for å bruke kjøpet ditt igjen.',
     restore: 'Gjenopprett kjøp',
     notNow: 'Ikke nå',
     pending: 'Venter på godkjenning. Fullversjonen låses opp så snart kjøpet er godkjent.',

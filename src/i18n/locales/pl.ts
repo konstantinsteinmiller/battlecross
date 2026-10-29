@@ -7735,6 +7735,8 @@ export default {
     unlock: 'Odblokuj pełną wersję za {price}',
     unlockNoPrice: 'Odblokuj pełną wersję',
     noAds: 'Pełna wersja usuwa też wszystkie reklamy.',
+    ignore: 'Ignoruj zakup pełnej wersji',
+    ignoreHint: 'Do testów: wracają blokady dema i reklamy. Wyłącz, aby znów korzystać z zakupu.',
     restore: 'Przywróć zakupy',
     notNow: 'Nie teraz',
     pending: 'Oczekiwanie na zatwierdzenie. Pełna wersja odblokuje się, gdy tylko zakup zostanie zatwierdzony.',

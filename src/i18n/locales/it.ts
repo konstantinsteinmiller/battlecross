@@ -7716,6 +7716,8 @@ export default {
     unlock: 'Sblocca la versione completa a {price}',
     unlockNoPrice: 'Sblocca la versione completa',
     noAds: 'La versione completa rimuove anche tutta la pubblicità.',
+    ignore: 'Ignora l\'acquisto della versione completa',
+    ignoreHint: 'Per i test: tornano i blocchi della demo e la pubblicità. Disattiva per usare di nuovo il tuo acquisto.',
     restore: 'Ripristina acquisti',
     notNow: 'Non ora',
     pending: "In attesa di approvazione. La versione completa si sblocca appena l'acquisto viene approvato.",

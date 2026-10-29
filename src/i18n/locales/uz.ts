@@ -7634,6 +7634,8 @@ export default {
     unlock: "To'liq versiyani {price} evaziga ochish",
     unlockNoPrice: "To'liq versiyani ochish",
     noAds: 'To‘liq versiya barcha reklamalarni ham olib tashlaydi.',
+    ignore: 'To‘liq versiya xaridini inobatga olmaslik',
+    ignoreHint: 'Sinov uchun: demo qulflari va reklamalar qaytadi. Xaridingizdan qayta foydalanish uchun o‘chiring.',
     restore: 'Xaridlarni tiklash',
     notNow: 'Hozir emas',
     pending: "Tasdiqlash kutilmoqda. Xarid tasdiqlanishi bilanoq to'liq versiya ochiladi.",

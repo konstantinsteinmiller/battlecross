@@ -7678,6 +7678,8 @@ export default {
     unlock: 'Deblochează versiunea completă pentru {price}',
     unlockNoPrice: 'Deblochează versiunea completă',
     noAds: 'Versiunea completă elimină și toate reclamele.',
+    ignore: 'Ignoră achiziția versiunii complete',
+    ignoreHint: 'Pentru testare: revin blocajele demo-ului și reclamele. Dezactivează pentru a folosi din nou achiziția.',
     restore: 'Restaurează achizițiile',
     notNow: 'Nu acum',
     pending: 'Se așteaptă aprobarea. Versiunea completă se deblochează imediat ce achiziția este aprobată.',

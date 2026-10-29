@@ -7634,6 +7634,8 @@ export default {
     unlock: 'Avaa täysi versio hintaan {price}',
     unlockNoPrice: 'Avaa täysi versio',
     noAds: 'Täysi versio poistaa myös kaikki mainokset.',
+    ignore: 'Ohita täysversion osto',
+    ignoreHint: 'Testausta varten: demon lukot ja mainokset palaavat. Poista käytöstä, niin ostos on taas käytössä.',
     restore: 'Palauta ostokset',
     notNow: 'Ei nyt',
     pending: 'Odottaa hyväksyntää. Täysi versio aukeaa heti, kun osto on hyväksytty.',

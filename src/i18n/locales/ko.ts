@@ -7634,6 +7634,8 @@ export default {
     unlock: '{price}에 정식 버전 잠금 해제',
     unlockNoPrice: '정식 버전 잠금 해제',
     noAds: '정식 버전에서는 모든 광고도 사라집니다.',
+    ignore: '정식 버전 구매 무시',
+    ignoreHint: '테스트용: 데모 잠금과 광고가 다시 나타납니다. 구매를 다시 사용하려면 끄세요.',
     restore: '구매 복원',
     notNow: '나중에',
     pending: '승인을 기다리는 중입니다. 구매가 승인되면 바로 정식 버전이 열립니다.',

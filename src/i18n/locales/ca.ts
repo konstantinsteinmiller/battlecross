@@ -7684,6 +7684,8 @@ export default {
     unlock: 'Desbloqueja la versió completa per {price}',
     unlockNoPrice: 'Desbloqueja la versió completa',
     noAds: 'La versió completa també elimina tots els anuncis.',
+    ignore: 'Ignora la compra de la versió completa',
+    ignoreHint: 'Per fer proves: tornen els bloquejos de la demo i els anuncis. Desactiva per tornar a usar la teva compra.',
     restore: 'Restaura les compres',
     notNow: 'Ara no',
     pending: "Pendent d'aprovació. La versió completa es desbloqueja tan bon punt s'aprovi la compra.",

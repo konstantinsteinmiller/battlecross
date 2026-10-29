@@ -7634,6 +7634,8 @@ export default {
     unlock: 'Mở khóa bản đầy đủ với giá {price}',
     unlockNoPrice: 'Mở khóa bản đầy đủ',
     noAds: 'Phiên bản đầy đủ còn xóa toàn bộ quảng cáo.',
+    ignore: 'Bỏ qua giao dịch mua phiên bản đầy đủ',
+    ignoreHint: 'Để thử nghiệm: khóa của bản demo và quảng cáo quay lại. Tắt để dùng lại giao dịch mua của bạn.',
     restore: 'Khôi phục giao dịch mua',
     notNow: 'Để sau',
     pending: 'Đang chờ phê duyệt. Bản đầy đủ sẽ được mở khóa ngay khi giao dịch được phê duyệt.',

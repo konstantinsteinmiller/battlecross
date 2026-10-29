@@ -7634,6 +7634,8 @@ export default {
     unlock: 'Lås den fulde version op for {price}',
     unlockNoPrice: 'Lås den fulde version op',
     noAds: 'Den fulde version fjerner også alle reklamer.',
+    ignore: 'Ignorer købet af den fulde version',
+    ignoreHint: 'Til test: demoens låse og reklamerne vender tilbage. Slå fra for at bruge dit køb igen.',
     restore: 'Gendan køb',
     notNow: 'Ikke nu',
     pending: 'Afventer godkendelse. Den fulde version låses op, så snart købet er godkendt.',

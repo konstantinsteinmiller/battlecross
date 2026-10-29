@@ -7634,6 +7634,8 @@ export default {
     unlock: '以 {price} 解鎖完整版',
     unlockNoPrice: '解鎖完整版',
     noAds: '完整版還會移除所有廣告。',
+    ignore: '忽略完整版購買',
+    ignoreHint: '用於測試：試玩版的鎖定和廣告會回來。關閉後即可再次使用你的購買。',
     restore: '恢復購買',
     notNow: '暫不',
     pending: '等待核准中。購買一經核准，完整版將立即解鎖。',

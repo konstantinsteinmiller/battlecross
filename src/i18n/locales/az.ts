@@ -7634,6 +7634,8 @@ export default {
     unlock: 'Tam versiyanı {price} qarşılığında aç',
     unlockNoPrice: 'Tam versiyanı aç',
     noAds: 'Tam versiya həmçinin bütün reklamları silir.',
+    ignore: 'Tam versiya alışını nəzərə alma',
+    ignoreHint: 'Test üçün: demo kilidləri və reklamlar qayıdır. Alışınızı yenidən istifadə etmək üçün söndürün.',
     restore: 'Alışları bərpa et',
     notNow: 'İndi yox',
     pending: 'Təsdiq gözlənilir. Alış təsdiqlənən kimi tam versiya açılacaq.',

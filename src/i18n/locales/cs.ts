@@ -7735,6 +7735,8 @@ export default {
     unlock: 'Odemknout plnou verzi za {price}',
     unlockNoPrice: 'Odemknout plnou verzi',
     noAds: 'Plná verze také odstraní všechny reklamy.',
+    ignore: 'Ignorovat nákup plné verze',
+    ignoreHint: 'Pro testování: vrátí se zámky dema a reklamy. Vypnutím znovu použijete svůj nákup.',
     restore: 'Obnovit nákupy',
     notNow: 'Teď ne',
     pending: 'Čeká se na schválení. Plná verze se odemkne, jakmile bude nákup schválen.',

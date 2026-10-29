@@ -7634,6 +7634,8 @@ export default {
     unlock: 'Lås upp fullversionen för {price}',
     unlockNoPrice: 'Lås upp fullversionen',
     noAds: 'Fullversionen tar också bort all reklam.',
+    ignore: 'Ignorera köpet av fullversionen',
+    ignoreHint: 'För test: demons lås och reklamen kommer tillbaka. Stäng av för att använda ditt köp igen.',
     restore: 'Återställ köp',
     notNow: 'Inte nu',
     pending: 'Väntar på godkännande. Fullversionen låses upp så fort köpet godkänns.',

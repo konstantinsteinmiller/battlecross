@@ -4105,6 +4105,8 @@ export default {
     'unlock': 'Unlock for {price}',
     'unlockNoPrice': 'Unlock full version',
     'noAds': 'The full version also removes all ads.',
+    'ignore': 'Ignore full-version purchase',
+    'ignoreHint': 'For testing: the demo locks and the ads come back. Turn off to use your purchase again.',
     'restore': 'Restore purchases',
     'notNow': 'Not now',
     'pending': 'Waiting for approval. The full version unlocks as soon as the purchase is approved.',

@@ -7686,6 +7686,8 @@ export default {
     unlock: 'Desbloquear a versión completa por {price}',
     unlockNoPrice: 'Desbloquear a versión completa',
     noAds: 'A versión completa tamén elimina todos os anuncios.',
+    ignore: 'Ignorar a compra da versión completa',
+    ignoreHint: 'Para probas: volven os bloqueos da demo e os anuncios. Desactívao para usar de novo a túa compra.',
     restore: 'Restaurar compras',
     notNow: 'Agora non',
     pending: 'Pendente de aprobación. A versión completa desbloquease en canto se aprobe a compra.',

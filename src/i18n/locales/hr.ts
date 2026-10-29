@@ -7749,6 +7749,8 @@ export default {
     unlock: 'Otključaj punu verziju za {price}',
     unlockNoPrice: 'Otključaj punu verziju',
     noAds: 'Puna verzija uklanja i sve oglase.',
+    ignore: 'Zanemari kupnju pune verzije',
+    ignoreHint: 'Za testiranje: vraćaju se zaključavanja demo verzije i oglasi. Isključi za ponovno korištenje kupnje.',
     restore: 'Vrati kupnje',
     notNow: 'Ne sada',
     pending: 'Čeka se odobrenje. Puna verzija otključava se čim kupnja bude odobrena.',

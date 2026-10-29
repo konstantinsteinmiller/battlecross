@@ -7634,6 +7634,8 @@ export default {
     unlock: 'Buka versi lengkap seharga {price}',
     unlockNoPrice: 'Buka versi lengkap',
     noAds: 'Versi lengkap juga menghapus semua iklan.',
+    ignore: 'Abaikan pembelian versi lengkap',
+    ignoreHint: 'Untuk pengujian: kunci demo dan iklan kembali. Matikan untuk memakai pembelian Anda lagi.',
     restore: 'Pulihkan pembelian',
     notNow: 'Nanti saja',
     pending: 'Menunggu persetujuan. Versi lengkap terbuka segera setelah pembelian disetujui.',

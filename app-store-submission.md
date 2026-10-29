@@ -138,7 +138,7 @@ Nothing else is needed: no login, no extra hardware. The App Review sandbox buye
 
 ### TestFlight: testing the purchase again
 
-A bought non-consumable cannot be un-bought on the same Apple ID. Seven taps on the invisible corner at the bottom right of Options > General reveal "Test: ignore my purchase" (iOS store build only, stored on the device, never in the save). On = demo again; off = the store's answer. Buy or Restore switch it off by themselves.
+A bought non-consumable cannot be un-bought on the same Apple ID. The Options > Gameplay tab has "Ignore full-version purchase" (iOS store build only, stored on the device, never in the save). On = demo again; off = the store's answer. Buy or Restore switch it off by themselves.
 
 ### How to test
 

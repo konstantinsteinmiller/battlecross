@@ -7634,6 +7634,8 @@ export default {
     unlock: 'Malŝlosi la plenan version por {price}',
     unlockNoPrice: 'Malŝlosi la plenan version',
     noAds: 'La plena versio ankaŭ forigas ĉiujn reklamojn.',
+    ignore: 'Ignori la aĉeton de la plena versio',
+    ignoreHint: 'Por testado: la seruroj de la demo kaj la reklamoj revenas. Malŝaltu por reuzi vian aĉeton.',
     restore: 'Restarigi aĉetojn',
     notNow: 'Ne nun',
     pending: 'Atendas aprobon. La plena versio malŝlosiĝas tuj kiam la aĉeto estas aprobita.',

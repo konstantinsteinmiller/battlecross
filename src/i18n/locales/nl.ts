@@ -7645,6 +7645,8 @@ export default {
     unlock: 'Volledige versie ontgrendelen voor {price}',
     unlockNoPrice: 'Volledige versie ontgrendelen',
     noAds: 'De volledige versie verwijdert ook alle advertenties.',
+    ignore: 'Aankoop van de volledige versie negeren',
+    ignoreHint: 'Om te testen: de demo-sloten en de advertenties komen terug. Zet uit om je aankoop weer te gebruiken.',
     restore: 'Aankopen herstellen',
     notNow: 'Nu niet',
     pending: 'Wacht op goedkeuring. De volledige versie wordt ontgrendeld zodra de aankoop is goedgekeurd.',

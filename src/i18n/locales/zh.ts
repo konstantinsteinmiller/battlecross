@@ -7634,6 +7634,8 @@ export default {
     unlock: '以 {price} 解锁完整版',
     unlockNoPrice: '解锁完整版',
     noAds: '完整版还会移除所有广告。',
+    ignore: '忽略完整版购买',
+    ignoreHint: '用于测试：试玩版的锁定和广告会回来。关闭后即可再次使用你的购买。',
     restore: '恢复购买',
     notNow: '暂不',
     pending: '等待批准中。购买一经批准，完整版将立即解锁。',

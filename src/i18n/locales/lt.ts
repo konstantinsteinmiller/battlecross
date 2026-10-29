@@ -7696,6 +7696,8 @@ export default {
     unlock: 'Atrakinti pilną versiją už {price}',
     unlockNoPrice: 'Atrakinti pilną versiją',
     noAds: 'Pilna versija taip pat pašalina visas reklamas.',
+    ignore: 'Ignoruoti pilnos versijos pirkimą',
+    ignoreHint: 'Testavimui: grįžta demonstracinės versijos užraktai ir reklamos. Išjunkite, kad vėl naudotumėte pirkinį.',
     restore: 'Atkurti pirkinius',
     notNow: 'Ne dabar',
     pending: 'Laukiama patvirtinimo. Pilna versija atrakinama, kai tik pirkimas patvirtinamas.',

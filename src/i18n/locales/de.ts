@@ -7655,6 +7655,8 @@ export default {
     unlock: 'Vollversion freischalten für {price}',
     unlockNoPrice: 'Vollversion freischalten',
     noAds: 'Die Vollversion entfernt außerdem alle Werbung.',
+    ignore: 'Vollversion-Kauf ignorieren',
+    ignoreHint: 'Zum Testen: Die Demo-Sperren und die Werbung kommen zurück. Ausschalten, um den Kauf wieder zu nutzen.',
     restore: 'Käufe wiederherstellen',
     notNow: 'Nicht jetzt',
     pending: 'Warte auf Genehmigung. Die Vollversion wird freigeschaltet, sobald der Kauf genehmigt ist.',

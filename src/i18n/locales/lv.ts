@@ -7710,6 +7710,8 @@ export default {
     unlock: 'Atbloķēt pilno versiju par {price}',
     unlockNoPrice: 'Atbloķēt pilno versiju',
     noAds: 'Pilnā versija noņem arī visas reklāmas.',
+    ignore: 'Ignorēt pilnās versijas pirkumu',
+    ignoreHint: 'Testēšanai: atgriežas demo slēdzenes un reklāmas. Izslēdziet, lai atkal izmantotu pirkumu.',
     restore: 'Atjaunot pirkumus',
     notNow: 'Ne tagad',
     pending: 'Gaida apstiprinājumu. Pilnā versija tiks atbloķēta, tiklīdz pirkums tiks apstiprināts.',
