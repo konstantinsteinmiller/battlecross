@@ -132,6 +132,7 @@ export const initCrazyGames = async (): Promise<void> => {
 
   await captureSdkProfile()
   registerMuteListener()
+  armFocusStart()
   probeAdBlocker()
 }
 
@@ -300,7 +301,9 @@ export const stopGameplay = (): void => {
 // SFC made it untestable.
 //
 // PRE-RELEASE (`VITE_APP_CRAZY_GAMES_FULL_RELEASE=false`)
-//   Exactly one `gameplayStart()`, once loading has finished. Never stopped.
+//   Exactly one `gameplayStart()`, once the loader is gone or the player first
+//   taps / presses a key (whichever is first). Never stopped, and no menu, shop
+//   or modal closing ever starts it again.
 //   The pre-release build is a QA artefact with no ad inventory, so a full
 //   start/stop lifecycle here emits a stream of events around ads that will
 //   never play and menus opened only to be inspected. One event says "the game
@@ -321,9 +324,25 @@ let firedLoadedStart = false
  * Idempotent: safe to call from a boot path that can run more than once.
  */
 export const signalGameplayLoaded = (): void => {
-  if (isCrazyGamesFullRelease || firedLoadedStart) return
+  if (isCrazyGamesFullRelease || firedLoadedStart || !sdk) return
   firedLoadedStart = true
   startGameplay()
+}
+
+/**
+ * Basic launch only: the player's first tap or key also opens the one play,
+ * whichever comes before the loader is gone — CrazyGames wants the game
+ * focused when it starts. Armed once the SDK is up; a no-op on the full release.
+ */
+const armFocusStart = (): void => {
+  if (isCrazyGamesFullRelease || typeof window === 'undefined' || typeof window.addEventListener !== 'function') return
+  const go = (): void => {
+    window.removeEventListener('pointerdown', go, true)
+    window.removeEventListener('keydown', go, true)
+    signalGameplayLoaded()
+  }
+  window.addEventListener('pointerdown', go, true)
+  window.addEventListener('keydown', go, true)
 }
 
 /**

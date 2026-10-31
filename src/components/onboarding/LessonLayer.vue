@@ -126,6 +126,9 @@ const clippers = (el: HTMLElement): HTMLElement[] => {
  *  TOP of the modal (the layer sits above modals so it can teach inside them).
  *  Only things inside the topmost open modal may be pointed at. */
 const coveredByModal = (el: HTMLElement): boolean => {
+  // The map's place card is no `.f-modal`, but it covers the HUD just the same: nothing behind it is pointed at.
+  const card = document.querySelector<HTMLElement>('[data-map-card]')
+  if (card && !card.contains(el)) return true
   if (!isAnyModalOpen.value) return false
   const modals = document.querySelectorAll<HTMLElement>('.f-modal')
   const top = modals[modals.length - 1]

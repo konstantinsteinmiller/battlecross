@@ -374,14 +374,14 @@ describe('a hidden trainer met on the map', () => {
   })
 })
 
-describe('a conversation is not gameplay', () => {
+describe('a conversation does not stop the portal bracket', () => {
   it('the portal bracket reads it as a reason gameplay is not live', async () => {
     const { isGameplayLive } = await import('@/use/useGameplayLifecycle')
-    const base = { screen: 'zone' as const, phase: 'play', flowModal: false, anyModalOpen: false, adShowing: false, visibilityHidden: false, platformPaused: false }
+    const base = { screen: 'zone' as const, pauseMenu: false, adShowing: false, visibilityHidden: false, platformPaused: false }
     expect(isGameplayLive(base)).toBe(true)
-    // What `GameScene.vue` feeds it while `flow.talk` is set.
+    // What `GameScene.vue` feeds it while `flow.talk` is set: only the pause menu stops the play.
     f.talkTo('sunfordSmith')
-    expect(isGameplayLive({ ...base, flowModal: f.flow.modal !== '' || f.flow.talk !== '' })).toBe(false)
+    expect(isGameplayLive({ ...base, pauseMenu: f.flow.modal === 'pause' })).toBe(true)
   })
 })
 

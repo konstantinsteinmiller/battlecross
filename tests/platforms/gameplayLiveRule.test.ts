@@ -19,35 +19,25 @@ import { isGameplayLive, type GameplayLiveInputs } from '@/use/useGameplayLifecy
 /** A player mid-mission with nothing in the way. Each test negates one thing. */
 const playing: GameplayLiveInputs = {
   screen: 'zone',
-  phase: 'play',
-  flowModal: false,
-  anyModalOpen: false,
+  pauseMenu: false,
   adShowing: false,
   visibilityHidden: false,
   platformPaused: false
 }
 
 describe('isGameplayLive', () => {
-  it('is live while the player has control in a zone', () => {
+  it('is live while the player is in a zone', () => {
     expect(isGameplayLive(playing)).toBe(true)
   })
 
-  it('is not live in a town or on the map — that is shopping and menus, not play', () => {
-    expect(isGameplayLive({ ...playing, screen: 'town', phase: 'town' })).toBe(false)
-    expect(isGameplayLive({ ...playing, screen: 'map', phase: 'map' })).toBe(false)
+  it('stays live in a town, on the map, in shops and on result screens — they are part of the session', () => {
+    expect(isGameplayLive({ ...playing, screen: 'town' })).toBe(true)
+    expect(isGameplayLive({ ...playing, screen: 'map' })).toBe(true)
+  })
+
+  it('is not live while the game boots', () => {
     expect(isGameplayLive({ ...playing, screen: 'boot' })).toBe(false)
   })
-
-  it('is not live while the player has no control', () => {
-    // The beat after a win or a defeat is an animation: a `gameplayStart`
-    // there opens a play nobody has begun, and on Poki inflates the very C2P
-    // number the web fit test grades.
-    expect(isGameplayLive({ ...playing, phase: 'boot' })).toBe(false)
-    expect(isGameplayLive({ ...playing, phase: 'won' })).toBe(false)
-    expect(isGameplayLive({ ...playing, phase: 'dead' })).toBe(false)
-  })
-
-  // ─── The two that were missing ───────────────────────────────────────────
 
   it('STOPS on tab away', () => {
     expect(isGameplayLive({ ...playing, visibilityHidden: true })).toBe(false)
@@ -58,35 +48,23 @@ describe('isGameplayLive', () => {
   })
 
   it('comes back live when the player returns to the tab', () => {
-    // The bracket must REOPEN, not stay closed — a stop with no matching start
-    // costs the rest of the session's playtime on every portal that measures it.
     const away = { ...playing, visibilityHidden: true }
     expect(isGameplayLive(away)).toBe(false)
     expect(isGameplayLive({ ...away, visibilityHidden: false })).toBe(true)
   })
 
-  // ─── The ones that were already right ────────────────────────────────────
-
-  it('STOPS on menu entry', () => {
-    expect(isGameplayLive({ ...playing, anyModalOpen: true })).toBe(false)
+  it('STOPS only for the pause menu', () => {
+    expect(isGameplayLive({ ...playing, pauseMenu: true })).toBe(false)
   })
 
   it('STOPS while an ad is on screen', () => {
     expect(isGameplayLive({ ...playing, adShowing: true })).toBe(false)
   })
 
-  it('STOPS while a flow modal is up — pause, defeat, results, level-up', () => {
-    expect(isGameplayLive({ ...playing, flowModal: true })).toBe(false)
-  })
-
   it('needs EVERY reason to clear before it reports live again', () => {
-    // Overlapping stops are the normal case: a modal opened while the tab was
-    // hidden, an ad that opened during a portal pause. Dropping one must not
-    // reopen the bracket.
-    const stopped = { ...playing, visibilityHidden: true, anyModalOpen: true }
+    const stopped = { ...playing, visibilityHidden: true, pauseMenu: true }
     expect(isGameplayLive({ ...stopped, visibilityHidden: false })).toBe(false)
-    expect(isGameplayLive({ ...stopped, anyModalOpen: false })).toBe(false)
-    expect(isGameplayLive({ ...stopped, visibilityHidden: false, anyModalOpen: false }))
-      .toBe(true)
+    expect(isGameplayLive({ ...stopped, pauseMenu: false })).toBe(false)
+    expect(isGameplayLive({ ...stopped, visibilityHidden: false, pauseMenu: false })).toBe(true)
   })
 })

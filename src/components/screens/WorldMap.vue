@@ -142,7 +142,7 @@
     //- The picked place.
     Transition(name="card")
       //- Docked away from the picked place, so it never covers it.
-      div.card(v-if="showCard && sel" :key="sel.id" :class="{ 'card--top': !side && cardTop, 'card--side': side, 'card--left': side && sel.x > 50 }")
+      div.card(v-if="showCard && sel" :key="sel.id" data-map-card :class="{ 'card--top': !side && cardTop, 'card--side': side, 'card--left': side && sel.x > 50 }")
         button.card__close(type="button" :aria-label="t('close')" @click="selected = ''")
           GameIcon(name="close")
         div.card__head

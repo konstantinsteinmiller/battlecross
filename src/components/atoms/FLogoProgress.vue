@@ -34,7 +34,7 @@ import { ref, computed, onMounted, onUnmounted, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import LoadingClicker from '@/components/atoms/LoadingClicker.vue'
 import useAssets from '@/use/useAssets'
-import { stopLoading } from '@/use/useCrazyGames'
+import { signalGameplayLoaded, stopLoading } from '@/use/useCrazyGames'
 import { armFirstLoadInterstitial, notifySplashGone } from '@/use/useFirstLoadInterstitial'
 import { whenInteractive } from '@/use/whenInteractive'
 import { LOGO_ART } from '@/game/assets/overrides'
@@ -171,6 +171,8 @@ const signalGameReadyToCG = () => {
   if (cgLoadSignaled) return
   cgLoadSignaled = true
   try { stopLoading() } catch (e) { console.warn('[FLogoProgress] CG ready-to-play failed', e) }
+  // Basic launch: the one gameplayStart (a no-op on the full release).
+  try { signalGameplayLoaded() } catch (e) { console.warn('[FLogoProgress] CG gameplayStart failed', e) }
 }
 
 let playgamaLoadSignaled = false

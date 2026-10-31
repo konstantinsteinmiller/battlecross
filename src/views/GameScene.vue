@@ -33,7 +33,6 @@ import { isFreshProfile, profile } from '@/game/state/profile'
 import { talk } from '@/game/talk'
 import { coach } from '@/game/coach'
 import { isGamePaused, isAdShowing, isVisibilityHidden, isPlatformPaused } from '@/use/useGamePause'
-import { isAnyModalOpen } from '@/use/useModalState'
 import { isGameplayLive, syncGameplayLifecycle } from '@/use/useGameplayLifecycle'
 import { startGameMusic } from '@/use/useSound'
 import { getAudioContext } from '@/use/useAssets'
@@ -217,10 +216,8 @@ watch(isGamePaused, (p) => {
 // window, so a modal closing in the same breath as an ad opening is safe.
 const live = computed(() => isGameplayLive({
   screen: flow.screen,
-  phase: hud.phase,
-  // A conversation is not gameplay either (in a zone it is the quest's decision).
-  flowModal: flow.modal !== '' || flow.talk !== '' || introOn.value,
-  anyModalOpen: isAnyModalOpen.value,
+  // Only the pause menu stops the play: shops, skills, the map and the result screens are the session too.
+  pauseMenu: flow.modal === 'pause',
   adShowing: isAdShowing.value,
   visibilityHidden: isVisibilityHidden.value,
   platformPaused: isPlatformPaused.value

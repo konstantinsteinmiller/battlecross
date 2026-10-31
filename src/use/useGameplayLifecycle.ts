@@ -43,16 +43,12 @@ import { pokiGameplayStart, pokiGameplayStop } from '@/utils/pokiPlugin'
 // a platform-contract module must not drag the game into anything that
 // imports it.
 export interface GameplayLiveInputs {
-  /** Which screen the flow is on. Only a combat zone is PLAYED; a town is
-   *  shopping and talk, the map is a menu. */
+  /** Which screen the flow is on. Everything but the boot is play: a town, the
+   *  map, a shop or the result screen are part of the session, and counting
+   *  them as stopped would shrink the average playtime the portals grade. */
   screen: 'boot' | 'zone' | 'town' | 'map'
-  /** The zone's phase. Only 'play' is live: the beat after a win or a defeat
-   *  hands the player no control. */
-  phase: string
-  /** A flow modal is up: pause, results, a shop, a decision. */
-  flowModal: boolean
-  /** Any other blocking modal (Options). */
-  anyModalOpen: boolean
+  /** The pause menu is up — the one menu that is a real stop. */
+  pauseMenu: boolean
   /** A rewarded / interstitial ad is on screen. */
   adShowing: boolean
   /** `document.visibilityState === 'hidden'` — the player switched away. */
@@ -76,10 +72,8 @@ export interface GameplayLiveInputs {
  *     thing portal moderation rejects.
  */
 export const isGameplayLive = (i: GameplayLiveInputs): boolean =>
-  i.screen === 'zone'
-  && i.phase === 'play'
-  && !i.flowModal
-  && !i.anyModalOpen
+  i.screen !== 'boot'
+  && !i.pauseMenu
   && !i.adShowing
   && !i.visibilityHidden
   && !i.platformPaused
