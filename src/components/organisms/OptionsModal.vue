@@ -20,6 +20,13 @@ import { privacyOptionsRequired, showPrivacyOptions } from '@/use/useAds'
 import { openExternal } from '@/utils/openExternal'
 import { gateOn, ignorePurchase, setIgnorePurchase } from '@/use/useFullVersion'
 
+/** Test button (iOS store build): ask first, then ignore the bought unlock until the next buy or restore. */
+const askReset = ref(false)
+const confirmReset = (): void => {
+  setIgnorePurchase(true)
+  askReset.value = false
+}
+
 defineProps<{
   isOpen: boolean
 }>()
@@ -235,13 +242,13 @@ onUnmounted(stopCapture)
         )
       //- iOS store build only: pretend the full-version purchase is not there, to test the demo again.
       div(v-if="gateOn" class="z-[1] flex flex-col gap-1" data-ignore-purchase)
-        FSelect(
-          :label="t('iap.ignore')"
-          :options="hapticsList"
-          :model-value="ignorePurchase ? 'on' : 'off'"
-          @update:model-value="setIgnorePurchase($event === 'on')"
-        )
+        button.reset-keys.opt-recheck(type="button" :disabled="ignorePurchase" data-ignore-purchase-btn @click="askReset = true") {{ t('iap.ignore') }}
         p.opt-hint {{ t('iap.ignoreHint') }}
+        FModal(v-if="askReset" :model-value="true" :title="t('iap.ignore')" :is-closable="false" surface="parchment" tone="gold" data-ignore-ask)
+          p.opt-hint {{ t('iap.ignoreAsk') }}
+          template(#footer)
+            FButton(:label="t('cancel')" type="secondary" size="md" data-ignore-no @click="askReset = false")
+            FButton(:label="t('iap.ignore')" type="success" size="md" data-ignore-yes @click="confirmReset")
 
     div(v-else-if="currentTab === 'audio'").flex.flex-col.justify-between.items-center
       FSlider.px-4(class="!py-1 !pb-3 w-full max-w-[min(20rem,90%)]" :model-value="userSoundVolume" @update:modelValue="setSettingValue('sound', $event)" :label="t('options.soundEffects')" :min="0" :max="1" :step="0.01")
