@@ -120,15 +120,20 @@ export const pickSpots = (p: SpotPlan, rng: Rng, n: number, apart = 7, avoid: Re
   return out
 }
 
-/** The herbs a visit holds: 6–7 of what grows in this zone (its habitats). */
+/** Moonbells every visit to the Whispering Woods holds, whatever the roll: the teachers' errands ask for them. */
+export const WOODS_MOONBELLS = 2
+
+/** The herbs a visit holds: 6–7 of what grows in this zone (its habitats); the woods always hold two moonbells. */
 export const placeHerbs = (p: SpotPlan & { seed: number }, zone: ZoneId): HerbPlan[] => {
   const pool = plantsOf(zone)
   if (!pool.length) return []
   const rng = mulberry32((p.seed ^ HERB_SALT) >>> 0)
   const n = HERBS_MIN + Math.floor(rng() * (HERBS_MAX - HERBS_MIN + 1))
   const total = pool.reduce((s, q) => s + q.weight, 0)
-  return pickSpots(p, rng, n).map(s => {
+  return pickSpots(p, rng, n).map((s, i) => {
     let r = rng() * total
+    // The roll is still drawn, so the other herbs of a seed stay as they were.
+    if (zone === 'woods' && i < WOODS_MOONBELLS) return { x: s.x, z: s.z, kind: 'moonbell' as PlantId }
     let kind = pool[pool.length - 1]!.id
     for (const q of pool) {
       r -= q.weight

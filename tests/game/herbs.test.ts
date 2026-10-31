@@ -26,6 +26,15 @@ import { referenceBuild } from '@/game/sim/bot'
 stubCanvas()
 const SEEDS = [1, 2, 3, 7, 11, 42, 77, 1234]
 
+describe('the Whispering Woods', () => {
+  it('always hold two moonbells, for the teacher errands', () => {
+    for (const seed of [...SEEDS, 5, 9, 100, 999, 31337]) {
+      const herbs = generateZone(ZONES.woods, seed).herbs ?? []
+      expect(herbs.filter(h => h.kind === 'moonbell').length, `woods#${seed}`).toBeGreaterThanOrEqual(2)
+    }
+  })
+})
+
 describe('where herbs grow', () => {
   it('every zone holds 6 or 7 a visit, of its own plants, on ground the hero walks to, apart', () => {
     for (const zone of ZONE_IDS) {
