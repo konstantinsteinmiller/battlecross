@@ -202,13 +202,14 @@ const awaitAdBounded = (call: Promise<unknown>, hasOpened: () => boolean): Promi
     maxTimer = setTimeout(() => finish('never finished'), AD_MAX_MS)
   })
 
-export const showRewardedAd = async (): Promise<boolean> => {
+/** `force` (the "cmunc" cheat) skips the throttle budget; ads-removed still wins. */
+export const showRewardedAd = async (force = false): Promise<boolean> => {
   // Throttle gate: refuse the SDK call once the player has burned
   // their 10-min budget. Returning `false` here matches the
   // contract callers already handle (no grant). The reward UI is
   // already hidden via `isRewardedReady`, so this branch only fires
   // if a placement somehow bypassed that check.
-  if (isRewardedThrottled.value || adsRemoved.value) return false
+  if ((isRewardedThrottled.value && !force) || adsRemoved.value) return false
   // Flip `isAdShowing` BEFORE the await. It OR's into `isGamePaused`,
   // which the audio orchestrator (`useGamePauseAudio`) watches with
   // `flush: 'sync'` — so the renderer pause AND the audio suspend both

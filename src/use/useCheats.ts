@@ -46,7 +46,11 @@ export const installDebugUnlock = (): void => {
     } else if (buf === adTarget) {
       buf = ''
       // Lazy: this file sits in the eager App shell and must not pull the ad stack in.
-      void import('@/use/useAds').then((m) => m.showRewardedAd())
+      console.warn('[CHEAT] rewarded ad')
+      void import('@/use/useAds')
+        .then((m) => m.showRewardedAd(true))
+        .then((ok) => console.warn(`[CHEAT] rewarded ad ${ok ? 'granted' : 'not granted (no fill, blocked or ads removed)'}`))
+        .catch((e) => console.warn('[CHEAT] rewarded ad failed', e))
     }
   })
 }
