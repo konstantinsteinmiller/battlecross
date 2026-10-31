@@ -22,11 +22,12 @@ export const registerCheat = (shortcut: string, label: string, fn: CheatFn): voi
 }
 
 let debugUnlockInstalled = false
-/** Typing "cmarc" anywhere flips debug mode (FPS meter, extra logs). */
+/** Typing "cmarc" anywhere flips debug mode (FPS meter, extra logs); "cmunc" plays a rewarded ad on the spot. */
 export const installDebugUnlock = (): void => {
   if (typeof window === 'undefined' || debugUnlockInstalled) return
   debugUnlockInstalled = true
   const target = 'cmarc'
+  const adTarget = 'cmunc'
   let buf = ''
   const isTypingTarget = (el: EventTarget | null): boolean => {
     if (!(el instanceof HTMLElement)) return false
@@ -38,10 +39,14 @@ export const installDebugUnlock = (): void => {
     if (isTypingTarget(e.target)) { buf = ''; return }
     const k = e.key.toLowerCase()
     if (k.length !== 1) return
-    buf = (buf + k).slice(-target.length)
+    buf = (buf + k).slice(-adTarget.length)
     if (buf === target) {
       buf = ''
       toggleDebug()
+    } else if (buf === adTarget) {
+      buf = ''
+      // Lazy: this file sits in the eager App shell and must not pull the ad stack in.
+      void import('@/use/useAds').then((m) => m.showRewardedAd())
     }
   })
 }

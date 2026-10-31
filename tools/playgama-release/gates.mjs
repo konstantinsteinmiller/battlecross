@@ -332,7 +332,8 @@ export const runPlaygamaGates = ({ dist, zip, forbid = [], bridgeVersion = null 
         const entries = listZip(zip)
         if (!entries.includes('index.html')) bad('index.html at the archive root', `archive root holds: ${entries.slice(0, 5).join(', ')}`)
         else ok('index.html at the archive root', `${entries.length} entries`)
-        const want = new Set(files.map((f) => f.rel))
+        // The packer leaves the compressor's -original backups out on purpose.
+        const want = new Set(files.filter((f) => !/-original\.(png|jpe?g|webp)$/i.test(f.rel)).map((f) => f.rel))
         const got = new Set(entries)
         const missing = [...want].filter((n) => !got.has(n))
         const extra = [...got].filter((n) => !want.has(n))
