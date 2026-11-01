@@ -1,293 +1,341 @@
 {
   "source": "https://battlecross-leaderboard.rodent-race.workers.dev",
-  "fetchedAt": 1793020203271,
-  "updatedAt": 1793020203219,
-  "total": 48,
+  "fetchedAt": 1793312949234,
+  "updatedAt": 1793312949161,
+  "total": 56,
   "entries": [
     {
       "rank": 1,
+      "name": "Blaster298983",
+      "score": 369697,
+      "flair": 52
+    },
+    {
+      "rank": 2,
       "name": "Cannon138770",
       "score": 162414,
       "flair": 30
     },
     {
-      "rank": 2,
+      "rank": 3,
+      "name": "Gizmo373408",
+      "score": 134897,
+      "flair": 32
+    },
+    {
+      "rank": 4,
       "name": "Circuit330508",
       "score": 120096,
       "flair": 30
     },
     {
-      "rank": 3,
+      "rank": 5,
       "name": "Blaster827382",
       "score": 28722,
       "flair": 17
     },
     {
-      "rank": 4,
+      "rank": 6,
       "name": "Circuit846948",
       "score": 15555,
       "flair": 13
     },
     {
-      "rank": 5,
-      "name": "Gizmo373408",
-      "score": 13145,
-      "flair": 12
-    },
-    {
-      "rank": 6,
+      "rank": 7,
       "name": "Android774134",
       "score": 3433,
       "flair": 7
     },
     {
-      "rank": 7,
+      "rank": 8,
       "name": "Servo719549",
       "score": 3427,
       "flair": 7
     },
     {
-      "rank": 8,
+      "rank": 9,
       "name": "Rivet958992",
       "score": 2378,
       "flair": 6
     },
     {
-      "rank": 9,
+      "rank": 10,
       "name": "Servo773028",
       "score": 1580,
       "flair": 5
     },
     {
-      "rank": 10,
+      "rank": 11,
       "name": "Piston973924",
       "score": 1372,
       "flair": 5
     },
     {
-      "rank": 11,
+      "rank": 12,
       "name": "Android697809",
       "score": 1208,
       "flair": 5
     },
     {
-      "rank": 12,
+      "rank": 13,
       "name": "Servo410092",
       "score": 1176,
       "flair": 5
     },
     {
-      "rank": 13,
+      "rank": 14,
       "name": "Dynamo928649",
       "score": 1029,
       "flair": 4
     },
     {
-      "rank": 14,
+      "rank": 15,
       "name": "Circuit128613",
       "score": 938,
       "flair": 4
     },
     {
-      "rank": 15,
+      "rank": 16,
       "name": "Piston656697",
       "score": 904,
       "flair": 4
     },
     {
-      "rank": 16,
+      "rank": 17,
       "name": "Circuit859703",
       "score": 691,
       "flair": 4
     },
     {
-      "rank": 17,
+      "rank": 18,
       "name": "Sprocket682518",
       "score": 494,
       "flair": 3
     },
     {
-      "rank": 18,
+      "rank": 19,
       "name": "Cannon931788",
       "score": 488,
       "flair": 3
     },
     {
       "rank": 19,
+      "name": "Cannon242945",
+      "score": 488,
+      "flair": 3
+    },
+    {
+      "rank": 21,
       "name": "Gizmo452947",
       "score": 446,
       "flair": 3
     },
     {
-      "rank": 20,
+      "rank": 22,
       "name": "Servo309560",
       "score": 308,
       "flair": 3
     },
     {
-      "rank": 20,
+      "rank": 22,
       "name": "Dynamo300800",
       "score": 308,
       "flair": 3
     },
     {
-      "rank": 20,
+      "rank": 22,
       "name": "Android595284",
       "score": 308,
       "flair": 3
     },
     {
-      "rank": 23,
+      "rank": 22,
+      "name": "大卫",
+      "score": 308,
+      "flair": 3
+    },
+    {
+      "rank": 22,
+      "name": "左懿",
+      "score": 308,
+      "flair": 3
+    },
+    {
+      "rank": 22,
+      "name": "Dynamo727881",
+      "score": 308,
+      "flair": 3
+    },
+    {
+      "rank": 28,
       "name": "Piston744420",
       "score": 154,
       "flair": 2
     },
     {
-      "rank": 23,
+      "rank": 28,
       "name": "Cannon860010",
       "score": 154,
       "flair": 2
     },
     {
-      "rank": 23,
+      "rank": 28,
       "name": "Rivet157562",
       "score": 154,
       "flair": 2
     },
     {
-      "rank": 23,
+      "rank": 28,
       "name": "Rivet968230",
       "score": 154,
       "flair": 2
     },
     {
-      "rank": 23,
+      "rank": 28,
       "name": "Circuit860890",
       "score": 154,
       "flair": 2
     },
     {
-      "rank": 23,
+      "rank": 28,
       "name": "Circuit375559",
       "score": 154,
       "flair": 2
     },
     {
-      "rank": 23,
+      "rank": 28,
       "name": "Rivet148635",
       "score": 154,
       "flair": 2
     },
     {
-      "rank": 23,
+      "rank": 28,
       "name": "Servo154923",
       "score": 154,
       "flair": 2
     },
     {
-      "rank": 23,
+      "rank": 28,
       "name": "Blaster424666",
       "score": 154,
       "flair": 2
     },
     {
-      "rank": 23,
+      "rank": 28,
       "name": "Sprocket788938",
       "score": 154,
       "flair": 2
     },
     {
-      "rank": 23,
+      "rank": 28,
       "name": "Cannon479276",
       "score": 154,
       "flair": 2
     },
     {
-      "rank": 23,
+      "rank": 28,
       "name": "Blaster334060",
       "score": 154,
       "flair": 2
     },
     {
-      "rank": 23,
+      "rank": 28,
       "name": "Android642504",
       "score": 154,
       "flair": 2
     },
     {
-      "rank": 23,
+      "rank": 28,
       "name": "Servo256530",
       "score": 154,
       "flair": 2
     },
     {
-      "rank": 37,
+      "rank": 28,
+      "name": "Servo342298",
+      "score": 154,
+      "flair": 2
+    },
+    {
+      "rank": 28,
+      "name": "Cannon919852",
+      "score": 154,
+      "flair": 2
+    },
+    {
+      "rank": 44,
       "name": "Gizmo511158",
       "score": 144,
       "flair": 2
     },
     {
-      "rank": 38,
+      "rank": 45,
       "name": "Servo282788",
       "score": 108,
       "flair": 2
     },
     {
-      "rank": 39,
+      "rank": 46,
       "name": "Gizmo601671",
       "score": 96,
       "flair": 2
     },
     {
-      "rank": 39,
+      "rank": 46,
       "name": "Blaster727909",
       "score": 96,
       "flair": 2
     },
     {
-      "rank": 39,
+      "rank": 46,
       "name": "Circuit292477",
       "score": 96,
       "flair": 2
     },
     {
-      "rank": 39,
+      "rank": 46,
       "name": "Android839445",
       "score": 96,
       "flair": 2
     },
     {
-      "rank": 39,
+      "rank": 46,
       "name": "Gizmo305582",
       "score": 96,
       "flair": 2
     },
     {
-      "rank": 39,
+      "rank": 46,
       "name": "Blaster158654",
       "score": 96,
       "flair": 2
     },
     {
-      "rank": 45,
+      "rank": 46,
+      "name": "Circuit631889",
+      "score": 96,
+      "flair": 2
+    },
+    {
+      "rank": 53,
       "name": "Circuit332815",
       "score": 83,
       "flair": 2
     },
     {
-      "rank": 46,
+      "rank": 54,
       "name": "Blaster307026",
       "score": 58,
       "flair": 1
     },
     {
-      "rank": 47,
+      "rank": 55,
       "name": "Android453557",
       "score": 22,
       "flair": 1
     },
     {
-      "rank": 47,
+      "rank": 55,
       "name": "Piston766981",
       "score": 22,
       "flair": 1
@@ -295,7 +343,15 @@
   ],
   "dist": [
     [
+      369697,
+      1
+    ],
+    [
       162414,
+      1
+    ],
+    [
+      134897,
       1
     ],
     [
@@ -308,10 +364,6 @@
     ],
     [
       15555,
-      1
-    ],
-    [
-      13145,
       1
     ],
     [
@@ -364,7 +416,7 @@
     ],
     [
       488,
-      1
+      2
     ],
     [
       446,
@@ -372,11 +424,11 @@
     ],
     [
       308,
-      3
+      6
     ],
     [
       154,
-      14
+      16
     ],
     [
       144,
@@ -388,7 +440,7 @@
     ],
     [
       96,
-      6
+      7
     ],
     [
       83,

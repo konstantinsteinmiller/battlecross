@@ -11381,7 +11381,7 @@
     {
       "id": "sheet-skills-aegis",
       "kind": "set",
-      "title": "Skill icons: Aegis Knight",
+      "title": "Skill icons: Aegis Knight (1 of 3)",
       "files": {
         "clean": "sheet-skills-aegis.png",
         "key": "sheet-skills-aegis-key.png"
@@ -11497,7 +11497,7 @@
     {
       "id": "sheet-skills2-aegis",
       "kind": "set",
-      "title": "Skill icons: Aegis Knight (2 of 2)",
+      "title": "Skill icons: Aegis Knight (2 of 3)",
       "files": {
         "clean": "sheet-skills2-aegis.png",
         "key": "sheet-skills2-aegis-key.png"
@@ -11611,9 +11611,125 @@
       ]
     },
     {
+      "id": "sheet-skills3-aegis",
+      "kind": "set",
+      "title": "Skill icons: Aegis Knight (3 of 3)",
+      "files": {
+        "clean": "sheet-skills3-aegis.png",
+        "key": "sheet-skills3-aegis-key.png"
+      },
+      "width": 768,
+      "height": 576,
+      "cols": 3,
+      "rows": 2,
+      "maxEdge": 192,
+      "crop": 1,
+      "anchor": "centre",
+      "cells": [
+        {
+          "id": "earthsplitter",
+          "label": "Earthsplitter",
+          "variant": "skills",
+          "x": 0,
+          "y": 0,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/earthsplitter.webp",
+          "fit": {
+            "h": 0.84,
+            "w": 0.719,
+            "bottom": 0.918,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "ironResolve",
+          "label": "Iron Resolve",
+          "variant": "skills",
+          "x": 256,
+          "y": 0,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/ironResolve.webp",
+          "round": true,
+          "fit": {
+            "h": 0.836,
+            "w": 0.672,
+            "bottom": 0.918,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "guardiansVow",
+          "label": "Guardians Vow",
+          "variant": "skills",
+          "x": 512,
+          "y": 0,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/guardiansVow.webp",
+          "fit": {
+            "h": 0.844,
+            "w": 0.844,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "judgmentHammer",
+          "label": "Judgment Hammer",
+          "variant": "skills",
+          "x": 0,
+          "y": 288,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/judgmentHammer.webp",
+          "fit": {
+            "h": 0.836,
+            "w": 0.695,
+            "bottom": 0.918,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "undyingBastion",
+          "label": "Undying Bastion",
+          "variant": "skills",
+          "x": 256,
+          "y": 288,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/undyingBastion.webp",
+          "round": true,
+          "fit": {
+            "h": 0.836,
+            "w": 0.672,
+            "bottom": 0.918,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "crusadersWrath",
+          "label": "Crusaders Wrath",
+          "variant": "skills",
+          "x": 512,
+          "y": 288,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/crusadersWrath.webp",
+          "fit": {
+            "h": 0.844,
+            "w": 0.844,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        }
+      ]
+    },
+    {
       "id": "sheet-skills-shadow",
       "kind": "set",
-      "title": "Skill icons: Shadowblade",
+      "title": "Skill icons: Shadowblade (1 of 3)",
       "files": {
         "clean": "sheet-skills-shadow.png",
         "key": "sheet-skills-shadow-key.png"
@@ -11729,7 +11845,7 @@
     {
       "id": "sheet-skills2-shadow",
       "kind": "set",
-      "title": "Skill icons: Shadowblade (2 of 2)",
+      "title": "Skill icons: Shadowblade (2 of 3)",
       "files": {
         "clean": "sheet-skills2-shadow.png",
         "key": "sheet-skills2-shadow-key.png"
@@ -11843,9 +11959,125 @@
       ]
     },
     {
+      "id": "sheet-skills3-shadow",
+      "kind": "set",
+      "title": "Skill icons: Shadowblade (3 of 3)",
+      "files": {
+        "clean": "sheet-skills3-shadow.png",
+        "key": "sheet-skills3-shadow-key.png"
+      },
+      "width": 768,
+      "height": 576,
+      "cols": 3,
+      "rows": 2,
+      "maxEdge": 192,
+      "crop": 1,
+      "anchor": "centre",
+      "cells": [
+        {
+          "id": "phantomRush",
+          "label": "Phantom Rush",
+          "variant": "skills",
+          "x": 0,
+          "y": 0,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/phantomRush.webp",
+          "fit": {
+            "h": 0.672,
+            "w": 0.844,
+            "bottom": 0.836,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "predatorsInstinct",
+          "label": "Predators Instinct",
+          "variant": "skills",
+          "x": 256,
+          "y": 0,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/predatorsInstinct.webp",
+          "round": true,
+          "fit": {
+            "h": 0.789,
+            "w": 0.789,
+            "bottom": 0.895,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "bladeVortex",
+          "label": "Blade Vortex",
+          "variant": "skills",
+          "x": 512,
+          "y": 0,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/bladeVortex.webp",
+          "fit": {
+            "h": 0.84,
+            "w": 0.82,
+            "bottom": 0.918,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "veilOfNight",
+          "label": "Veil Of Night",
+          "variant": "skills",
+          "x": 0,
+          "y": 288,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/veilOfNight.webp",
+          "fit": {
+            "h": 0.805,
+            "w": 0.84,
+            "bottom": 0.902,
+            "cx": 0.498
+          }
+        },
+        {
+          "id": "deathsLegacy",
+          "label": "Deaths Legacy",
+          "variant": "skills",
+          "x": 256,
+          "y": 288,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/deathsLegacy.webp",
+          "round": true,
+          "fit": {
+            "h": 0.836,
+            "w": 0.734,
+            "bottom": 0.918,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "execution",
+          "label": "Execution",
+          "variant": "skills",
+          "x": 512,
+          "y": 288,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/execution.webp",
+          "fit": {
+            "h": 0.797,
+            "w": 0.836,
+            "bottom": 0.898,
+            "cx": 0.5
+          }
+        }
+      ]
+    },
+    {
       "id": "sheet-skills-pyro",
       "kind": "set",
-      "title": "Skill icons: Pyromancer",
+      "title": "Skill icons: Pyromancer (1 of 3)",
       "files": {
         "clean": "sheet-skills-pyro.png",
         "key": "sheet-skills-pyro-key.png"
@@ -11961,7 +12193,7 @@
     {
       "id": "sheet-skills2-pyro",
       "kind": "set",
-      "title": "Skill icons: Pyromancer (2 of 2)",
+      "title": "Skill icons: Pyromancer (2 of 3)",
       "files": {
         "clean": "sheet-skills2-pyro.png",
         "key": "sheet-skills2-pyro-key.png"
@@ -12075,9 +12307,125 @@
       ]
     },
     {
+      "id": "sheet-skills3-pyro",
+      "kind": "set",
+      "title": "Skill icons: Pyromancer (3 of 3)",
+      "files": {
+        "clean": "sheet-skills3-pyro.png",
+        "key": "sheet-skills3-pyro-key.png"
+      },
+      "width": 768,
+      "height": 576,
+      "cols": 3,
+      "rows": 2,
+      "maxEdge": 192,
+      "crop": 1,
+      "anchor": "centre",
+      "cells": [
+        {
+          "id": "infernoWave",
+          "label": "Inferno Wave",
+          "variant": "skills",
+          "x": 0,
+          "y": 0,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/infernoWave.webp",
+          "fit": {
+            "h": 0.797,
+            "w": 0.836,
+            "bottom": 0.898,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "emberHeart",
+          "label": "Ember Heart",
+          "variant": "skills",
+          "x": 256,
+          "y": 0,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/emberHeart.webp",
+          "round": true,
+          "fit": {
+            "h": 0.742,
+            "w": 0.773,
+            "bottom": 0.871,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "sunSpear",
+          "label": "Sun Spear",
+          "variant": "skills",
+          "x": 512,
+          "y": 0,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/sunSpear.webp",
+          "fit": {
+            "h": 0.797,
+            "w": 0.836,
+            "bottom": 0.898,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "ashenVeil",
+          "label": "Ashen Veil",
+          "variant": "skills",
+          "x": 0,
+          "y": 288,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/ashenVeil.webp",
+          "fit": {
+            "h": 0.844,
+            "w": 0.672,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "moltenCore",
+          "label": "Molten Core",
+          "variant": "skills",
+          "x": 256,
+          "y": 288,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/moltenCore.webp",
+          "round": true,
+          "fit": {
+            "h": 0.836,
+            "w": 0.836,
+            "bottom": 0.918,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "supernova",
+          "label": "Supernova",
+          "variant": "skills",
+          "x": 512,
+          "y": 288,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/supernova.webp",
+          "fit": {
+            "h": 0.836,
+            "w": 0.836,
+            "bottom": 0.918,
+            "cx": 0.5
+          }
+        }
+      ]
+    },
+    {
       "id": "sheet-skills-sovereign",
       "kind": "set",
-      "title": "Skill icons: Grand Sovereign",
+      "title": "Skill icons: Grand Sovereign (1 of 3)",
       "files": {
         "clean": "sheet-skills-sovereign.png",
         "key": "sheet-skills-sovereign-key.png"
@@ -12193,7 +12541,7 @@
     {
       "id": "sheet-skills2-sovereign",
       "kind": "set",
-      "title": "Skill icons: Grand Sovereign (2 of 2)",
+      "title": "Skill icons: Grand Sovereign (2 of 3)",
       "files": {
         "clean": "sheet-skills2-sovereign.png",
         "key": "sheet-skills2-sovereign-key.png"
@@ -12307,9 +12655,125 @@
       ]
     },
     {
+      "id": "sheet-skills3-sovereign",
+      "kind": "set",
+      "title": "Skill icons: Grand Sovereign (3 of 3)",
+      "files": {
+        "clean": "sheet-skills3-sovereign.png",
+        "key": "sheet-skills3-sovereign-key.png"
+      },
+      "width": 768,
+      "height": 576,
+      "cols": 3,
+      "rows": 2,
+      "maxEdge": 192,
+      "crop": 1,
+      "anchor": "centre",
+      "cells": [
+        {
+          "id": "standardBearer",
+          "label": "Standard Bearer",
+          "variant": "skills",
+          "x": 0,
+          "y": 0,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/standardBearer.webp",
+          "fit": {
+            "h": 0.836,
+            "w": 0.602,
+            "bottom": 0.918,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "crownedPresence",
+          "label": "Crowned Presence",
+          "variant": "skills",
+          "x": 256,
+          "y": 0,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/crownedPresence.webp",
+          "round": true,
+          "fit": {
+            "h": 0.738,
+            "w": 0.781,
+            "bottom": 0.867,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "summonVanguard",
+          "label": "Summon Vanguard",
+          "variant": "skills",
+          "x": 512,
+          "y": 0,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/summonVanguard.webp",
+          "fit": {
+            "h": 0.578,
+            "w": 0.84,
+            "bottom": 0.789,
+            "cx": 0.502
+          }
+        },
+        {
+          "id": "decreeOfSilence",
+          "label": "Decree Of Silence",
+          "variant": "skills",
+          "x": 0,
+          "y": 288,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/decreeOfSilence.webp",
+          "fit": {
+            "h": 0.691,
+            "w": 0.84,
+            "bottom": 0.844,
+            "cx": 0.502
+          }
+        },
+        {
+          "id": "eternalCourt",
+          "label": "Eternal Court",
+          "variant": "skills",
+          "x": 256,
+          "y": 288,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/eternalCourt.webp",
+          "round": true,
+          "fit": {
+            "h": 0.664,
+            "w": 0.797,
+            "bottom": 0.832,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "imperialAscension",
+          "label": "Imperial Ascension",
+          "variant": "skills",
+          "x": 512,
+          "y": 288,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/imperialAscension.webp",
+          "fit": {
+            "h": 0.844,
+            "w": 0.844,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        }
+      ]
+    },
+    {
       "id": "sheet-skills-chrono",
       "kind": "set",
-      "title": "Skill icons: Chrono-Weaver",
+      "title": "Skill icons: Chrono-Weaver (1 of 3)",
       "files": {
         "clean": "sheet-skills-chrono.png",
         "key": "sheet-skills-chrono-key.png"
@@ -12425,7 +12889,7 @@
     {
       "id": "sheet-skills2-chrono",
       "kind": "set",
-      "title": "Skill icons: Chrono-Weaver (2 of 2)",
+      "title": "Skill icons: Chrono-Weaver (2 of 3)",
       "files": {
         "clean": "sheet-skills2-chrono.png",
         "key": "sheet-skills2-chrono-key.png"
@@ -12539,9 +13003,125 @@
       ]
     },
     {
+      "id": "sheet-skills3-chrono",
+      "kind": "set",
+      "title": "Skill icons: Chrono-Weaver (3 of 3)",
+      "files": {
+        "clean": "sheet-skills3-chrono.png",
+        "key": "sheet-skills3-chrono-key.png"
+      },
+      "width": 768,
+      "height": 576,
+      "cols": 3,
+      "rows": 2,
+      "maxEdge": 192,
+      "crop": 1,
+      "anchor": "centre",
+      "cells": [
+        {
+          "id": "timeShear",
+          "label": "Time Shear",
+          "variant": "skills",
+          "x": 0,
+          "y": 0,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/timeShear.webp",
+          "fit": {
+            "h": 0.797,
+            "w": 0.84,
+            "bottom": 0.898,
+            "cx": 0.502
+          }
+        },
+        {
+          "id": "temporalMastery",
+          "label": "Temporal Mastery",
+          "variant": "skills",
+          "x": 256,
+          "y": 0,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/temporalMastery.webp",
+          "round": true,
+          "fit": {
+            "h": 0.844,
+            "w": 0.844,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "echoVolley",
+          "label": "Echo Volley",
+          "variant": "skills",
+          "x": 512,
+          "y": 0,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/echoVolley.webp",
+          "fit": {
+            "h": 0.453,
+            "w": 0.84,
+            "bottom": 0.727,
+            "cx": 0.502
+          }
+        },
+        {
+          "id": "stasisField",
+          "label": "Stasis Field",
+          "variant": "skills",
+          "x": 0,
+          "y": 288,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/stasisField.webp",
+          "fit": {
+            "h": 0.836,
+            "w": 0.836,
+            "bottom": 0.918,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "eternalMoment",
+          "label": "Eternal Moment",
+          "variant": "skills",
+          "x": 256,
+          "y": 288,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/eternalMoment.webp",
+          "round": true,
+          "fit": {
+            "h": 0.711,
+            "w": 0.617,
+            "bottom": 0.855,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "timeCollapse",
+          "label": "Time Collapse",
+          "variant": "skills",
+          "x": 512,
+          "y": 288,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/timeCollapse.webp",
+          "fit": {
+            "h": 0.836,
+            "w": 0.836,
+            "bottom": 0.918,
+            "cx": 0.5
+          }
+        }
+      ]
+    },
+    {
       "id": "sheet-skills-blood",
       "kind": "set",
-      "title": "Skill icons: Blood Alchemist",
+      "title": "Skill icons: Blood Alchemist (1 of 3)",
       "files": {
         "clean": "sheet-skills-blood.png",
         "key": "sheet-skills-blood-key.png"
@@ -12657,7 +13237,7 @@
     {
       "id": "sheet-skills2-blood",
       "kind": "set",
-      "title": "Skill icons: Blood Alchemist (2 of 2)",
+      "title": "Skill icons: Blood Alchemist (2 of 3)",
       "files": {
         "clean": "sheet-skills2-blood.png",
         "key": "sheet-skills2-blood-key.png"
@@ -12771,9 +13351,125 @@
       ]
     },
     {
+      "id": "sheet-skills3-blood",
+      "kind": "set",
+      "title": "Skill icons: Blood Alchemist (3 of 3)",
+      "files": {
+        "clean": "sheet-skills3-blood.png",
+        "key": "sheet-skills3-blood-key.png"
+      },
+      "width": 768,
+      "height": 576,
+      "cols": 3,
+      "rows": 2,
+      "maxEdge": 192,
+      "crop": 1,
+      "anchor": "centre",
+      "cells": [
+        {
+          "id": "bloodTide",
+          "label": "Blood Tide",
+          "variant": "skills",
+          "x": 0,
+          "y": 0,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/bloodTide.webp",
+          "fit": {
+            "h": 0.781,
+            "w": 0.836,
+            "bottom": 0.891,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "crimsonVigor",
+          "label": "Crimson Vigor",
+          "variant": "skills",
+          "x": 256,
+          "y": 0,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/crimsonVigor.webp",
+          "round": true,
+          "fit": {
+            "h": 0.844,
+            "w": 0.844,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "leechingMist",
+          "label": "Leeching Mist",
+          "variant": "skills",
+          "x": 512,
+          "y": 0,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/leechingMist.webp",
+          "fit": {
+            "h": 0.711,
+            "w": 0.84,
+            "bottom": 0.855,
+            "cx": 0.502
+          }
+        },
+        {
+          "id": "sanguineAegis",
+          "label": "Sanguine Aegis",
+          "variant": "skills",
+          "x": 0,
+          "y": 288,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/sanguineAegis.webp",
+          "fit": {
+            "h": 0.844,
+            "w": 0.672,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "bloodPact",
+          "label": "Blood Pact",
+          "variant": "skills",
+          "x": 256,
+          "y": 288,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/bloodPact.webp",
+          "round": true,
+          "fit": {
+            "h": 0.648,
+            "w": 0.68,
+            "bottom": 0.824,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "exsanguinate",
+          "label": "Exsanguinate",
+          "variant": "skills",
+          "x": 512,
+          "y": 288,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/exsanguinate.webp",
+          "fit": {
+            "h": 0.844,
+            "w": 0.57,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        }
+      ]
+    },
+    {
       "id": "sheet-skills-aether",
       "kind": "set",
-      "title": "Skill icons: Aether-Tech",
+      "title": "Skill icons: Aether-Tech (1 of 3)",
       "files": {
         "clean": "sheet-skills-aether.png",
         "key": "sheet-skills-aether-key.png"
@@ -12889,7 +13585,7 @@
     {
       "id": "sheet-skills2-aether",
       "kind": "set",
-      "title": "Skill icons: Aether-Tech (2 of 2)",
+      "title": "Skill icons: Aether-Tech (2 of 3)",
       "files": {
         "clean": "sheet-skills2-aether.png",
         "key": "sheet-skills2-aether-key.png"
@@ -13003,9 +13699,125 @@
       ]
     },
     {
+      "id": "sheet-skills3-aether",
+      "kind": "set",
+      "title": "Skill icons: Aether-Tech (3 of 3)",
+      "files": {
+        "clean": "sheet-skills3-aether.png",
+        "key": "sheet-skills3-aether-key.png"
+      },
+      "width": 768,
+      "height": 576,
+      "cols": 3,
+      "rows": 2,
+      "maxEdge": 192,
+      "crop": 1,
+      "anchor": "centre",
+      "cells": [
+        {
+          "id": "plasmaCannon",
+          "label": "Plasma Cannon",
+          "variant": "skills",
+          "x": 0,
+          "y": 0,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/plasmaCannon.webp",
+          "fit": {
+            "h": 0.629,
+            "w": 0.84,
+            "bottom": 0.813,
+            "cx": 0.498
+          }
+        },
+        {
+          "id": "overclock",
+          "label": "Overclock",
+          "variant": "skills",
+          "x": 256,
+          "y": 0,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/overclock.webp",
+          "round": true,
+          "fit": {
+            "h": 0.844,
+            "w": 0.844,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "droneSwarm",
+          "label": "Drone Swarm",
+          "variant": "skills",
+          "x": 512,
+          "y": 0,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/droneSwarm.webp",
+          "fit": {
+            "h": 0.797,
+            "w": 0.844,
+            "bottom": 0.898,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "gravityWell",
+          "label": "Gravity Well",
+          "variant": "skills",
+          "x": 0,
+          "y": 288,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/gravityWell.webp",
+          "fit": {
+            "h": 0.836,
+            "w": 0.836,
+            "bottom": 0.918,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "quantumLens",
+          "label": "Quantum Lens",
+          "variant": "skills",
+          "x": 256,
+          "y": 288,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/quantumLens.webp",
+          "round": true,
+          "fit": {
+            "h": 0.789,
+            "w": 0.789,
+            "bottom": 0.895,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "ionStorm",
+          "label": "Ion Storm",
+          "variant": "skills",
+          "x": 512,
+          "y": 288,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/ionStorm.webp",
+          "fit": {
+            "h": 0.84,
+            "w": 0.805,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        }
+      ]
+    },
+    {
       "id": "sheet-skills-geo",
       "kind": "set",
-      "title": "Skill icons: Geomancer",
+      "title": "Skill icons: Geomancer (1 of 3)",
       "files": {
         "clean": "sheet-skills-geo.png",
         "key": "sheet-skills-geo-key.png"
@@ -13120,7 +13932,7 @@
     {
       "id": "sheet-skills2-geo",
       "kind": "set",
-      "title": "Skill icons: Geomancer (2 of 2)",
+      "title": "Skill icons: Geomancer (2 of 3)",
       "files": {
         "clean": "sheet-skills2-geo.png",
         "key": "sheet-skills2-geo-key.png"
@@ -13235,9 +14047,125 @@
       ]
     },
     {
+      "id": "sheet-skills3-geo",
+      "kind": "set",
+      "title": "Skill icons: Geomancer (3 of 3)",
+      "files": {
+        "clean": "sheet-skills3-geo.png",
+        "key": "sheet-skills3-geo-key.png"
+      },
+      "width": 768,
+      "height": 576,
+      "cols": 3,
+      "rows": 2,
+      "maxEdge": 192,
+      "crop": 1,
+      "anchor": "centre",
+      "cells": [
+        {
+          "id": "aftershock",
+          "label": "Aftershock",
+          "variant": "skills",
+          "x": 0,
+          "y": 0,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/aftershock.webp",
+          "fit": {
+            "h": 0.594,
+            "w": 0.836,
+            "bottom": 0.797,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "graniteSoul",
+          "label": "Granite Soul",
+          "variant": "skills",
+          "x": 256,
+          "y": 0,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/graniteSoul.webp",
+          "round": true,
+          "fit": {
+            "h": 0.664,
+            "w": 0.727,
+            "bottom": 0.832,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "crystalLance",
+          "label": "Crystal Lance",
+          "variant": "skills",
+          "x": 512,
+          "y": 0,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/crystalLance.webp",
+          "fit": {
+            "h": 0.836,
+            "w": 0.836,
+            "bottom": 0.918,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "mountainsEmbrace",
+          "label": "Mountains Embrace",
+          "variant": "skills",
+          "x": 0,
+          "y": 288,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/mountainsEmbrace.webp",
+          "fit": {
+            "h": 0.844,
+            "w": 0.672,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "worldShaper",
+          "label": "World Shaper",
+          "variant": "skills",
+          "x": 256,
+          "y": 288,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/worldShaper.webp",
+          "round": true,
+          "fit": {
+            "h": 0.836,
+            "w": 0.836,
+            "bottom": 0.918,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "cataclysmQuake",
+          "label": "Cataclysm Quake",
+          "variant": "skills",
+          "x": 512,
+          "y": 288,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/cataclysmQuake.webp",
+          "fit": {
+            "h": 0.836,
+            "w": 0.797,
+            "bottom": 0.918,
+            "cx": 0.5
+          }
+        }
+      ]
+    },
+    {
       "id": "sheet-skills-windrunner",
       "kind": "set",
-      "title": "Skill icons: Windrunner",
+      "title": "Skill icons: Windrunner (1 of 3)",
       "files": {
         "clean": "sheet-skills-windrunner.png",
         "key": "sheet-skills-windrunner-key.png"
@@ -13353,7 +14281,7 @@
     {
       "id": "sheet-skills2-windrunner",
       "kind": "set",
-      "title": "Skill icons: Windrunner (2 of 2)",
+      "title": "Skill icons: Windrunner (2 of 3)",
       "files": {
         "clean": "sheet-skills2-windrunner.png",
         "key": "sheet-skills2-windrunner-key.png"
@@ -13467,9 +14395,125 @@
       ]
     },
     {
+      "id": "sheet-skills3-windrunner",
+      "kind": "set",
+      "title": "Skill icons: Windrunner (3 of 3)",
+      "files": {
+        "clean": "sheet-skills3-windrunner.png",
+        "key": "sheet-skills3-windrunner-key.png"
+      },
+      "width": 768,
+      "height": 576,
+      "cols": 3,
+      "rows": 2,
+      "maxEdge": 192,
+      "crop": 1,
+      "anchor": "centre",
+      "cells": [
+        {
+          "id": "zephyrBarrage",
+          "label": "Zephyr Barrage",
+          "variant": "skills",
+          "x": 0,
+          "y": 0,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/zephyrBarrage.webp",
+          "fit": {
+            "h": 0.691,
+            "w": 0.836,
+            "bottom": 0.844,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "tailwindSoul",
+          "label": "Tailwind Soul",
+          "variant": "skills",
+          "x": 256,
+          "y": 0,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/tailwindSoul.webp",
+          "round": true,
+          "fit": {
+            "h": 0.844,
+            "w": 0.844,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "cycloneRip",
+          "label": "Cyclone Rip",
+          "variant": "skills",
+          "x": 512,
+          "y": 0,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/cycloneRip.webp",
+          "fit": {
+            "h": 0.797,
+            "w": 0.84,
+            "bottom": 0.898,
+            "cx": 0.502
+          }
+        },
+        {
+          "id": "galeVeil",
+          "label": "Gale Veil",
+          "variant": "skills",
+          "x": 0,
+          "y": 288,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/galeVeil.webp",
+          "fit": {
+            "h": 0.836,
+            "w": 0.836,
+            "bottom": 0.918,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "stormsEye",
+          "label": "Storms Eye",
+          "variant": "skills",
+          "x": 256,
+          "y": 288,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/stormsEye.webp",
+          "round": true,
+          "fit": {
+            "h": 0.844,
+            "w": 0.844,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "hurricaneRain",
+          "label": "Hurricane Rain",
+          "variant": "skills",
+          "x": 512,
+          "y": 288,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/hurricaneRain.webp",
+          "fit": {
+            "h": 0.754,
+            "w": 0.84,
+            "bottom": 0.879,
+            "cx": 0.502
+          }
+        }
+      ]
+    },
+    {
       "id": "sheet-skills-frostwarden",
       "kind": "set",
-      "title": "Skill icons: Frostwarden",
+      "title": "Skill icons: Frostwarden (1 of 3)",
       "files": {
         "clean": "sheet-skills-frostwarden.png",
         "key": "sheet-skills-frostwarden-key.png"
@@ -13585,7 +14629,7 @@
     {
       "id": "sheet-skills2-frostwarden",
       "kind": "set",
-      "title": "Skill icons: Frostwarden (2 of 2)",
+      "title": "Skill icons: Frostwarden (2 of 3)",
       "files": {
         "clean": "sheet-skills2-frostwarden.png",
         "key": "sheet-skills2-frostwarden-key.png"
@@ -13699,9 +14743,125 @@
       ]
     },
     {
+      "id": "sheet-skills3-frostwarden",
+      "kind": "set",
+      "title": "Skill icons: Frostwarden (3 of 3)",
+      "files": {
+        "clean": "sheet-skills3-frostwarden.png",
+        "key": "sheet-skills3-frostwarden-key.png"
+      },
+      "width": 768,
+      "height": 576,
+      "cols": 3,
+      "rows": 2,
+      "maxEdge": 192,
+      "crop": 1,
+      "anchor": "centre",
+      "cells": [
+        {
+          "id": "glacierSlam",
+          "label": "Glacier Slam",
+          "variant": "skills",
+          "x": 0,
+          "y": 0,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/glacierSlam.webp",
+          "fit": {
+            "h": 0.781,
+            "w": 0.836,
+            "bottom": 0.891,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "permafrostSoul",
+          "label": "Permafrost Soul",
+          "variant": "skills",
+          "x": 256,
+          "y": 0,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/permafrostSoul.webp",
+          "round": true,
+          "fit": {
+            "h": 0.844,
+            "w": 0.844,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "iceComet",
+          "label": "Ice Comet",
+          "variant": "skills",
+          "x": 512,
+          "y": 0,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/iceComet.webp",
+          "fit": {
+            "h": 0.84,
+            "w": 0.84,
+            "bottom": 0.918,
+            "cx": 0.502
+          }
+        },
+        {
+          "id": "frozenBulwark",
+          "label": "Frozen Bulwark",
+          "variant": "skills",
+          "x": 0,
+          "y": 288,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/frozenBulwark.webp",
+          "fit": {
+            "h": 0.844,
+            "w": 0.672,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "winterbound",
+          "label": "Winterbound",
+          "variant": "skills",
+          "x": 256,
+          "y": 288,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/winterbound.webp",
+          "round": true,
+          "fit": {
+            "h": 0.742,
+            "w": 0.773,
+            "bottom": 0.871,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "whiteout",
+          "label": "Whiteout",
+          "variant": "skills",
+          "x": 512,
+          "y": 288,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/whiteout.webp",
+          "fit": {
+            "h": 0.836,
+            "w": 0.836,
+            "bottom": 0.918,
+            "cx": 0.5
+          }
+        }
+      ]
+    },
+    {
       "id": "sheet-skills-lightbringer",
       "kind": "set",
-      "title": "Skill icons: Lightbringer",
+      "title": "Skill icons: Lightbringer (1 of 3)",
       "files": {
         "clean": "sheet-skills-lightbringer.png",
         "key": "sheet-skills-lightbringer-key.png"
@@ -13817,7 +14977,7 @@
     {
       "id": "sheet-skills2-lightbringer",
       "kind": "set",
-      "title": "Skill icons: Lightbringer (2 of 2)",
+      "title": "Skill icons: Lightbringer (2 of 3)",
       "files": {
         "clean": "sheet-skills2-lightbringer.png",
         "key": "sheet-skills2-lightbringer-key.png"
@@ -13931,9 +15091,125 @@
       ]
     },
     {
+      "id": "sheet-skills3-lightbringer",
+      "kind": "set",
+      "title": "Skill icons: Lightbringer (3 of 3)",
+      "files": {
+        "clean": "sheet-skills3-lightbringer.png",
+        "key": "sheet-skills3-lightbringer-key.png"
+      },
+      "width": 768,
+      "height": 576,
+      "cols": 3,
+      "rows": 2,
+      "maxEdge": 192,
+      "crop": 1,
+      "anchor": "centre",
+      "cells": [
+        {
+          "id": "divineSmite",
+          "label": "Divine Smite",
+          "variant": "skills",
+          "x": 0,
+          "y": 0,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/divineSmite.webp",
+          "fit": {
+            "h": 0.844,
+            "w": 0.844,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "radiantAura",
+          "label": "Radiant Aura",
+          "variant": "skills",
+          "x": 256,
+          "y": 0,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/radiantAura.webp",
+          "round": true,
+          "fit": {
+            "h": 0.844,
+            "w": 0.844,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "cleansingNova",
+          "label": "Cleansing Nova",
+          "variant": "skills",
+          "x": 512,
+          "y": 0,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/cleansingNova.webp",
+          "fit": {
+            "h": 0.836,
+            "w": 0.836,
+            "bottom": 0.918,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "consecration",
+          "label": "Consecration",
+          "variant": "skills",
+          "x": 0,
+          "y": 288,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/consecration.webp",
+          "fit": {
+            "h": 0.836,
+            "w": 0.836,
+            "bottom": 0.918,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "zealotsFaith",
+          "label": "Zealots Faith",
+          "variant": "skills",
+          "x": 256,
+          "y": 288,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/zealotsFaith.webp",
+          "round": true,
+          "fit": {
+            "h": 0.844,
+            "w": 0.844,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "solarJudgment",
+          "label": "Solar Judgment",
+          "variant": "skills",
+          "x": 512,
+          "y": 288,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/solarJudgment.webp",
+          "fit": {
+            "h": 0.836,
+            "w": 0.602,
+            "bottom": 0.918,
+            "cx": 0.5
+          }
+        }
+      ]
+    },
+    {
       "id": "sheet-skills-beastcaller",
       "kind": "set",
-      "title": "Skill icons: Beastcaller",
+      "title": "Skill icons: Beastcaller (1 of 3)",
       "files": {
         "clean": "sheet-skills-beastcaller.png",
         "key": "sheet-skills-beastcaller-key.png"
@@ -14049,7 +15325,7 @@
     {
       "id": "sheet-skills2-beastcaller",
       "kind": "set",
-      "title": "Skill icons: Beastcaller (2 of 2)",
+      "title": "Skill icons: Beastcaller (2 of 3)",
       "files": {
         "clean": "sheet-skills2-beastcaller.png",
         "key": "sheet-skills2-beastcaller-key.png"
@@ -14163,9 +15439,125 @@
       ]
     },
     {
+      "id": "sheet-skills3-beastcaller",
+      "kind": "set",
+      "title": "Skill icons: Beastcaller (3 of 3)",
+      "files": {
+        "clean": "sheet-skills3-beastcaller.png",
+        "key": "sheet-skills3-beastcaller-key.png"
+      },
+      "width": 768,
+      "height": 576,
+      "cols": 3,
+      "rows": 2,
+      "maxEdge": 192,
+      "crop": 1,
+      "anchor": "centre",
+      "cells": [
+        {
+          "id": "rendingPounce",
+          "label": "Rending Pounce",
+          "variant": "skills",
+          "x": 0,
+          "y": 0,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/rendingPounce.webp",
+          "fit": {
+            "h": 0.84,
+            "w": 0.797,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "primalBond",
+          "label": "Primal Bond",
+          "variant": "skills",
+          "x": 256,
+          "y": 0,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/primalBond.webp",
+          "round": true,
+          "fit": {
+            "h": 0.742,
+            "w": 0.773,
+            "bottom": 0.871,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "thunderStampede",
+          "label": "Thunder Stampede",
+          "variant": "skills",
+          "x": 512,
+          "y": 0,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/thunderStampede.webp",
+          "fit": {
+            "h": 0.836,
+            "w": 0.766,
+            "bottom": 0.918,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "summonPack",
+          "label": "Summon Pack",
+          "variant": "skills",
+          "x": 0,
+          "y": 288,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/summonPack.webp",
+          "fit": {
+            "h": 0.613,
+            "w": 0.84,
+            "bottom": 0.805,
+            "cx": 0.502
+          }
+        },
+        {
+          "id": "apexPredator",
+          "label": "Apex Predator",
+          "variant": "skills",
+          "x": 256,
+          "y": 288,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/apexPredator.webp",
+          "round": true,
+          "fit": {
+            "h": 0.664,
+            "w": 0.703,
+            "bottom": 0.832,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "spiritOfTheWild",
+          "label": "Spirit Of The Wild",
+          "variant": "skills",
+          "x": 512,
+          "y": 288,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/spiritOfTheWild.webp",
+          "fit": {
+            "h": 0.836,
+            "w": 0.836,
+            "bottom": 0.918,
+            "cx": 0.5
+          }
+        }
+      ]
+    },
+    {
       "id": "sheet-skills-elementalist",
       "kind": "set",
-      "title": "Skill icons: Elementalist",
+      "title": "Skill icons: Elementalist (1 of 3)",
       "files": {
         "clean": "sheet-skills-elementalist.png",
         "key": "sheet-skills-elementalist-key.png"
@@ -14281,7 +15673,7 @@
     {
       "id": "sheet-skills2-elementalist",
       "kind": "set",
-      "title": "Skill icons: Elementalist (2 of 2)",
+      "title": "Skill icons: Elementalist (2 of 3)",
       "files": {
         "clean": "sheet-skills2-elementalist.png",
         "key": "sheet-skills2-elementalist-key.png"
@@ -14395,9 +15787,125 @@
       ]
     },
     {
+      "id": "sheet-skills3-elementalist",
+      "kind": "set",
+      "title": "Skill icons: Elementalist (3 of 3)",
+      "files": {
+        "clean": "sheet-skills3-elementalist.png",
+        "key": "sheet-skills3-elementalist-key.png"
+      },
+      "width": 768,
+      "height": 576,
+      "cols": 3,
+      "rows": 2,
+      "maxEdge": 192,
+      "crop": 1,
+      "anchor": "centre",
+      "cells": [
+        {
+          "id": "pyroclasm",
+          "label": "Pyroclasm",
+          "variant": "skills",
+          "x": 0,
+          "y": 0,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/pyroclasm.webp",
+          "fit": {
+            "h": 0.781,
+            "w": 0.836,
+            "bottom": 0.891,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "elementalAttunement",
+          "label": "Elemental Attunement",
+          "variant": "skills",
+          "x": 256,
+          "y": 0,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/elementalAttunement.webp",
+          "round": true,
+          "fit": {
+            "h": 0.844,
+            "w": 0.844,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "stormcall",
+          "label": "Stormcall",
+          "variant": "skills",
+          "x": 512,
+          "y": 0,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/stormcall.webp",
+          "fit": {
+            "h": 0.84,
+            "w": 0.805,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "primordialSurge",
+          "label": "Primordial Surge",
+          "variant": "skills",
+          "x": 0,
+          "y": 288,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/primordialSurge.webp",
+          "fit": {
+            "h": 0.844,
+            "w": 0.844,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "arcaneMastery",
+          "label": "Arcane Mastery",
+          "variant": "skills",
+          "x": 256,
+          "y": 288,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/arcaneMastery.webp",
+          "round": true,
+          "fit": {
+            "h": 0.844,
+            "w": 0.844,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "elementalCataclysm",
+          "label": "Elemental Cataclysm",
+          "variant": "skills",
+          "x": 512,
+          "y": 288,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/elementalCataclysm.webp",
+          "fit": {
+            "h": 0.836,
+            "w": 0.836,
+            "bottom": 0.918,
+            "cx": 0.5
+          }
+        }
+      ]
+    },
+    {
       "id": "sheet-skills-soulwarden",
       "kind": "set",
-      "title": "Skill icons: Soul Warden",
+      "title": "Skill icons: Soul Warden (1 of 3)",
       "files": {
         "clean": "sheet-skills-soulwarden.png",
         "key": "sheet-skills-soulwarden-key.png"
@@ -14513,7 +16021,7 @@
     {
       "id": "sheet-skills2-soulwarden",
       "kind": "set",
-      "title": "Skill icons: Soul Warden (2 of 2)",
+      "title": "Skill icons: Soul Warden (2 of 3)",
       "files": {
         "clean": "sheet-skills2-soulwarden.png",
         "key": "sheet-skills2-soulwarden-key.png"
@@ -14627,9 +16135,125 @@
       ]
     },
     {
+      "id": "sheet-skills3-soulwarden",
+      "kind": "set",
+      "title": "Skill icons: Soul Warden (3 of 3)",
+      "files": {
+        "clean": "sheet-skills3-soulwarden.png",
+        "key": "sheet-skills3-soulwarden-key.png"
+      },
+      "width": 768,
+      "height": 576,
+      "cols": 3,
+      "rows": 2,
+      "maxEdge": 192,
+      "crop": 1,
+      "anchor": "centre",
+      "cells": [
+        {
+          "id": "soulRend",
+          "label": "Soul Rend",
+          "variant": "skills",
+          "x": 0,
+          "y": 0,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/soulRend.webp",
+          "fit": {
+            "h": 0.836,
+            "w": 0.797,
+            "bottom": 0.918,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "graveBond",
+          "label": "Grave Bond",
+          "variant": "skills",
+          "x": 256,
+          "y": 0,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/graveBond.webp",
+          "round": true,
+          "fit": {
+            "h": 0.766,
+            "w": 0.5,
+            "bottom": 0.883,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "spectralLegion",
+          "label": "Spectral Legion",
+          "variant": "skills",
+          "x": 512,
+          "y": 0,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/spectralLegion.webp",
+          "fit": {
+            "h": 0.582,
+            "w": 0.84,
+            "bottom": 0.793,
+            "cx": 0.498
+          }
+        },
+        {
+          "id": "wailOfTheDamned",
+          "label": "Wail Of The Damned",
+          "variant": "skills",
+          "x": 0,
+          "y": 288,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/wailOfTheDamned.webp",
+          "fit": {
+            "h": 0.75,
+            "w": 0.844,
+            "bottom": 0.875,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "eternalVigil",
+          "label": "Eternal Vigil",
+          "variant": "skills",
+          "x": 256,
+          "y": 288,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/eternalVigil.webp",
+          "round": true,
+          "fit": {
+            "h": 0.844,
+            "w": 0.844,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "reapersHarvest",
+          "label": "Reapers Harvest",
+          "variant": "skills",
+          "x": 512,
+          "y": 288,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/reapersHarvest.webp",
+          "fit": {
+            "h": 0.813,
+            "w": 0.84,
+            "bottom": 0.906,
+            "cx": 0.502
+          }
+        }
+      ]
+    },
+    {
       "id": "sheet-skills-ironmonk",
       "kind": "set",
-      "title": "Skill icons: Iron Monk",
+      "title": "Skill icons: Iron Monk (1 of 3)",
       "files": {
         "clean": "sheet-skills-ironmonk.png",
         "key": "sheet-skills-ironmonk-key.png"
@@ -14745,7 +16369,7 @@
     {
       "id": "sheet-skills2-ironmonk",
       "kind": "set",
-      "title": "Skill icons: Iron Monk (2 of 2)",
+      "title": "Skill icons: Iron Monk (2 of 3)",
       "files": {
         "clean": "sheet-skills2-ironmonk.png",
         "key": "sheet-skills2-ironmonk-key.png"
@@ -14859,9 +16483,125 @@
       ]
     },
     {
+      "id": "sheet-skills3-ironmonk",
+      "kind": "set",
+      "title": "Skill icons: Iron Monk (3 of 3)",
+      "files": {
+        "clean": "sheet-skills3-ironmonk.png",
+        "key": "sheet-skills3-ironmonk-key.png"
+      },
+      "width": 768,
+      "height": 576,
+      "cols": 3,
+      "rows": 2,
+      "maxEdge": 192,
+      "crop": 1,
+      "anchor": "centre",
+      "cells": [
+        {
+          "id": "dragonFist",
+          "label": "Dragon Fist",
+          "variant": "skills",
+          "x": 0,
+          "y": 0,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/dragonFist.webp",
+          "fit": {
+            "h": 0.836,
+            "w": 0.777,
+            "bottom": 0.918,
+            "cx": 0.502
+          }
+        },
+        {
+          "id": "stillWaters",
+          "label": "Still Waters",
+          "variant": "skills",
+          "x": 256,
+          "y": 0,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/stillWaters.webp",
+          "round": true,
+          "fit": {
+            "h": 0.836,
+            "w": 0.836,
+            "bottom": 0.918,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "stormOfBlows",
+          "label": "Storm Of Blows",
+          "variant": "skills",
+          "x": 512,
+          "y": 0,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/stormOfBlows.webp",
+          "fit": {
+            "h": 0.797,
+            "w": 0.84,
+            "bottom": 0.898,
+            "cx": 0.498
+          }
+        },
+        {
+          "id": "diamondBody",
+          "label": "Diamond Body",
+          "variant": "skills",
+          "x": 0,
+          "y": 288,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/diamondBody.webp",
+          "fit": {
+            "h": 0.836,
+            "w": 0.68,
+            "bottom": 0.918,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "zenMind",
+          "label": "Zen Mind",
+          "variant": "skills",
+          "x": 256,
+          "y": 288,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/zenMind.webp",
+          "round": true,
+          "fit": {
+            "h": 0.844,
+            "w": 0.844,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "celestialPalm",
+          "label": "Celestial Palm",
+          "variant": "skills",
+          "x": 512,
+          "y": 288,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/celestialPalm.webp",
+          "fit": {
+            "h": 0.844,
+            "w": 0.844,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        }
+      ]
+    },
+    {
       "id": "sheet-skills-bard",
       "kind": "set",
-      "title": "Skill icons: Bard",
+      "title": "Skill icons: Bard (1 of 3)",
       "files": {
         "clean": "sheet-skills-bard.png",
         "key": "sheet-skills-bard-key.png"
@@ -14977,7 +16717,7 @@
     {
       "id": "sheet-skills2-bard",
       "kind": "set",
-      "title": "Skill icons: Bard (2 of 2)",
+      "title": "Skill icons: Bard (2 of 3)",
       "files": {
         "clean": "sheet-skills2-bard.png",
         "key": "sheet-skills2-bard-key.png"
@@ -15085,6 +16825,122 @@
             "h": 0.797,
             "w": 0.844,
             "bottom": 0.898,
+            "cx": 0.5
+          }
+        }
+      ]
+    },
+    {
+      "id": "sheet-skills3-bard",
+      "kind": "set",
+      "title": "Skill icons: Bard (3 of 3)",
+      "files": {
+        "clean": "sheet-skills3-bard.png",
+        "key": "sheet-skills3-bard-key.png"
+      },
+      "width": 768,
+      "height": 576,
+      "cols": 3,
+      "rows": 2,
+      "maxEdge": 192,
+      "crop": 1,
+      "anchor": "centre",
+      "cells": [
+        {
+          "id": "discordantChord",
+          "label": "Discordant Chord",
+          "variant": "skills",
+          "x": 0,
+          "y": 0,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/discordantChord.webp",
+          "fit": {
+            "h": 0.84,
+            "w": 0.797,
+            "bottom": 0.918,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "bravura",
+          "label": "Bravura",
+          "variant": "skills",
+          "x": 256,
+          "y": 0,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/bravura.webp",
+          "round": true,
+          "fit": {
+            "h": 0.844,
+            "w": 0.844,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "anthemOfWar",
+          "label": "Anthem Of War",
+          "variant": "skills",
+          "x": 512,
+          "y": 0,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/anthemOfWar.webp",
+          "fit": {
+            "h": 0.844,
+            "w": 0.77,
+            "bottom": 0.922,
+            "cx": 0.498
+          }
+        },
+        {
+          "id": "sirenSong",
+          "label": "Siren Song",
+          "variant": "skills",
+          "x": 0,
+          "y": 288,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/sirenSong.webp",
+          "fit": {
+            "h": 0.84,
+            "w": 0.719,
+            "bottom": 0.918,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "maestro",
+          "label": "Maestro",
+          "variant": "skills",
+          "x": 256,
+          "y": 288,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/maestro.webp",
+          "round": true,
+          "fit": {
+            "h": 0.707,
+            "w": 0.727,
+            "bottom": 0.852,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "magnumOpus",
+          "label": "Magnum Opus",
+          "variant": "skills",
+          "x": 512,
+          "y": 288,
+          "w": 256,
+          "h": 288,
+          "target": "images/skills/magnumOpus.webp",
+          "fit": {
+            "h": 0.844,
+            "w": 0.844,
+            "bottom": 0.922,
             "cx": 0.5
           }
         }

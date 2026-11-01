@@ -85,9 +85,9 @@ describe('the item battle', () => {
 })
 
 describe('where they sit', () => {
-  it('the item battle in Sunford and Oakhaven (whatever becomes of it), the memory stand in Silverbridge', () => {
+  it('the item battle in Oakhaven (whatever becomes of it; #167 moved the first town gamblers moved there), the memory stand in Silverbridge', () => {
     const at = (game: string) => Object.values(TOWNS).filter(t => t.npcs.some(n => n.role === 'gambler' && n.game === game && !n.needs)).map(t => t.id)
-    expect(at('items').sort()).toEqual(['oakhaven', 'sunford'])
+    expect(at('items').sort()).toEqual(['oakhaven'])
     expect(at('memory')).toEqual(['silverbridge'])
     for (const t of Object.values(TOWNS)) for (const n of t.npcs.filter(x => x.role === 'gambler')) {
       expect(n.not, n.id).toBeUndefined()

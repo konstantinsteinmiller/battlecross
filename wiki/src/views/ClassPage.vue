@@ -2,7 +2,7 @@
 import { computed } from 'vue'
 import { parts } from '../router'
 import { CLASSES, CLASS_IDS, ATTR_SHORT, className, classDesc, classIcon, skillsByClass, skillName, skillDesc, skillCost, teachersOf,
-  npcName, placeName, factionName, scalingOf, ATTR_NAME, IMG, type ClassId, type Attr } from '../data'
+  npcName, placeName, factionName, scalingOf, ATTR_NAME, ATTR_COLOR, IMG, type ClassId, type Attr } from '../data'
 import { BUILDS } from '../builds'
 import { partnersOf } from '../synergy'
 import SkillIcon from '../components/SkillIcon.vue'
@@ -69,7 +69,8 @@ const crossClass = computed(() => {
             <span v-if="s.kind === 'active'">· {{ s.cd }}s cooldown</span>
             <span v-if="s.mana">· {{ s.mana }} mana</span>
             <span v-if="s.hpCost" class="warn">· {{ s.hpCost }}% health</span>
-            <span v-if="scalingOf(s)" :class="'attr-' + scalingOf(s)">· scales with {{ ATTR_NAME[scalingOf(s)!] }}</span>
+            <span v-if="scalingOf(s)" class="sbadge" :style="{ '--c': ATTR_COLOR[scalingOf(s)!] }">scales with {{ ATTR_NAME[scalingOf(s)!] }}</span>
+            <span v-if="s.endgame" class="sbadge">Endgame · after the Demon King</span>
           </div>
         </div>
       </div>

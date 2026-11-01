@@ -420,13 +420,12 @@ export interface TownDef {
 export const TOWNS: Readonly<Record<TownId, TownDef>> = {
   // Rural and warm: thatch and timber, gardens, a tavern at the head of the square.
   sunford: {
-    id: 'sunford', theme: 'town', style: 'rural',
+    id: 'sunford', theme: 'town', style: 'rural', width: 35,
     npcs: [
-      // Freed from the cages (#100): the peddler from the plains, the disciple from the temple.
-      { id: 'freedPeddler', role: 'shop', look: 'freedPeddler', at: [0.45, 0.62], place: 'street', job: 'merchant', stock: { slots: ['trinket', 'hands', 'feet'], tiers: [1, 2] }, needs: ['freedPeddler'] },
+      // Freed from the cages (#100): the disciple from the temple. (#167: the first town keeps only its
+      // teachers, one smith and the elder; the peddler, the gamblers, the healer and the goblin trader live in Oakhaven.)
       { id: 'lightDisciple', role: 'trainer', look: 'lightDisciple', at: [0.86, 0.62], place: 'street', job: 'healer', cls: 'lightbringer', needs: ['freedLightDisciple'] },
       { id: 'sunfordSmith', role: 'shop', look: 'smith', at: [0.2, 0.48], place: 'porch', house: 'workshop', job: 'smith', stock: { slots: ['main', 'off', 'head', 'body', 'hands', 'feet'], tiers: [1] } },
-      { id: 'sunfordPeddler', role: 'shop', look: 'peddler', at: [0.6, 0.54], place: 'street', job: 'merchant', stock: { slots: ['trinket'], tiers: [1, 2] } },
       // The knight drills in his yard; the pyromancer keeps to her books.
       { id: 'trainerAegis', role: 'trainer', look: 'trainerAegis', at: [0.2, 0.15], place: 'yard', house: 'hall', cls: 'aegis' },
       { id: 'trainerPyro', role: 'trainer', look: 'trainerPyro', at: [0.8, 0.15], place: 'inside', house: 'hall', cls: 'pyro' },
@@ -437,16 +436,9 @@ export const TOWNS: Readonly<Record<TownId, TownDef>> = {
       // Two of Silverbridge's masters keep a second school here (#121), so a
       // first build can lean on spirits or on bare hands: the same people,
       // their own words and voices (one id, one conversation, met once).
-      { id: 'sbMasterSoulwarden', role: 'trainer', look: 'sbMasterSoulwarden', at: [0.62, 0.82], place: 'inside', house: 'hall', job: 'scholar', cls: 'soulwarden' },
-      { id: 'sbMasterIronmonk', role: 'trainer', look: 'sbMasterIronmonk', at: [0.9, 0.82], place: 'inside', house: 'hall', job: 'knight', cls: 'ironmonk' },
-      // The item battle (#92): a table in the street, a deck of odds and ends.
-      { id: 'sunfordGambler', role: 'gambler', look: 'sunfordGambler', at: [0.72, 0.62], place: 'street', job: 'merchant', game: 'items' },
-      // The cup stand (#136): by the square's well-trodden path, so the first stroll finds it.
-      { id: 'sunfordCups', role: 'gambler', look: 'sunfordCups', at: [0.36, 0.66], place: 'street', job: 'merchant', game: 'cups' },
-      { id: 'elderMara', role: 'quest', look: 'elder', at: [0.42, 0.36], place: 'street', job: 'elder', quest: 'goblinKing' },
-      { id: 'sunfordHealer', role: 'healer', look: 'healer', at: [0.84, 0.48], place: 'inside', house: 'chapel' },
-      // The pact's price and prize: goblins trading rarities in the square.
-      { id: 'goblinTrader', role: 'shop', look: 'goblinTrader', at: [0.6, 0.3], place: 'street', job: 'merchant', stock: { slots: ['trinket', 'off'], tiers: [2, 3] }, needs: ['goblinPact'] }
+      { id: 'sbMasterSoulwarden', role: 'trainer', look: 'sbMasterSoulwarden', at: [0.5, 0.82], place: 'inside', house: 'hall', job: 'scholar', cls: 'soulwarden' },
+      { id: 'sbMasterIronmonk', role: 'trainer', look: 'sbMasterIronmonk', at: [0.8, 0.82], place: 'inside', house: 'hall', job: 'knight', cls: 'ironmonk' },
+      { id: 'elderMara', role: 'quest', look: 'elder', at: [0.42, 0.36], place: 'street', job: 'elder', quest: 'goblinKing' }
     ],
     houses: [{ kind: 'tavern', at: [0.5, 0.15], inside: true }],
     folk: [
@@ -455,14 +447,7 @@ export const TOWNS: Readonly<Record<TownId, TownDef>> = {
       { id: 'patronA', look: 'farmer', job: 'drinker', at: [0.5, 0.15], inn: true, lite: true },
       { id: 'patronB', look: 'villagerF', job: 'drinker', at: [0.5, 0.15], inn: true },
       { id: 'patronC', look: 'squire', job: 'drinker', at: [0.5, 0.15], inn: true },
-      { id: 'bard', look: 'peddler', job: 'bard', at: [0.5, 0.15], inn: true },
-      { id: 'squire', look: 'squire', job: 'squire', at: [0.26, 0.15] },
-      { id: 'gossip', look: 'villagerF', job: 'villager', at: [0.4, 0.5], lite: true },
-      { id: 'drinker', look: 'villager', job: 'drinker', at: [0.44, 0.24], lite: true },
-      { id: 'farmer', look: 'farmer', job: 'farmer', at: [0.3, 0.86] },
-      { id: 'washer', look: 'villagerF', job: 'villager', at: [0.72, 0.86], lite: true },
-      { id: 'kidA', look: 'child', job: 'child', at: [0.46, 0.62] },
-      { id: 'kidB', look: 'childF', job: 'child', at: [0.54, 0.62] }
+      { id: 'bard', look: 'peddler', job: 'bard', at: [0.5, 0.15], inn: true }
     ]
   },
   // Bigger and mercantile: two storeys, shop fronts, a fountain, the watch.
@@ -480,10 +465,18 @@ export const TOWNS: Readonly<Record<TownId, TownDef>> = {
       { id: 'trainerShadow', role: 'trainer', look: 'trainerShadow', at: [0.86, 0.48], place: 'inside', house: 'townhouse', cls: 'shadow' },
       { id: 'trainerSovereign', role: 'trainer', look: 'trainerSovereign', at: [0.5, 0.15], place: 'inside', house: 'hall', cls: 'sovereign', not: ['oakhavenFallen'] },
       // The item battle (#92): he plays on whatever becomes of the town.
-      { id: 'oakGambler', role: 'gambler', look: 'oakGambler', at: [0.22, 0.64], place: 'street', job: 'merchant', game: 'items' },
+      { id: 'oakGambler', role: 'gambler', look: 'oakGambler', at: [0.34, 0.74], place: 'street', job: 'merchant', game: 'items' },
       { id: 'oakHealer', role: 'healer', look: 'healer', at: [0.18, 0.15], place: 'inside', house: 'chapel', not: ['oakhavenFallen'] },
       // Betrayed: a ruin with a black market, and the alchemist it shelters in
       // what was the healer's chapel.
+      // Sunford's other townsfolk (#167): the first town keeps only its teachers, so its peddlers, its
+      // gamblers, Sister Lune (who brews) and the goblin trader trade here.
+      { id: 'sunfordPeddler', role: 'shop', look: 'peddler', at: [0.6, 0.8], place: 'street', job: 'merchant', stock: { slots: ['trinket'], tiers: [1, 2] } },
+      { id: 'freedPeddler', role: 'shop', look: 'freedPeddler', at: [0.7, 0.8], place: 'street', job: 'merchant', stock: { slots: ['trinket', 'hands', 'feet'], tiers: [1, 2] }, needs: ['freedPeddler'] },
+      { id: 'sunfordGambler', role: 'gambler', look: 'sunfordGambler', at: [0.88, 0.8], place: 'street', job: 'merchant', game: 'items' },
+      { id: 'sunfordCups', role: 'gambler', look: 'sunfordCups', at: [0.2, 0.86], place: 'street', job: 'merchant', game: 'cups' },
+      { id: 'sunfordHealer', role: 'healer', look: 'healer', at: [0.68, 0.48], place: 'inside', house: 'townhouse' },
+      { id: 'goblinTrader', role: 'shop', look: 'goblinTrader', at: [0.5, 0.34], place: 'street', job: 'merchant', stock: { slots: ['trinket', 'off'], tiers: [2, 3] }, needs: ['goblinPact'] },
       { id: 'blackMarket', role: 'shop', look: 'fence', at: [0.36, 0.4], place: 'street', job: 'fence', stock: { slots: ['main', 'trinket'], tiers: [2, 3, 4] }, needs: ['oakhavenFallen'] },
       { id: 'trainerBlood', role: 'trainer', look: 'trainerBlood', at: [0.18, 0.15], place: 'inside', house: 'chapel', cls: 'blood', needs: ['oakhavenFallen'] },
       { id: 'syndicateBoss', role: 'talk', look: 'fence', at: [0.6, 0.42], place: 'street', job: 'boss', needs: ['oakhavenFallen'] }
@@ -502,6 +495,7 @@ export const TOWNS: Readonly<Record<TownId, TownDef>> = {
       { id: 'guardB', look: 'townGuard', job: 'guard', at: [0.5, 0.58], lite: true, not: ['oakhavenFallen'] },
       { id: 'merchantF', look: 'merchantF', job: 'villager', at: [0.42, 0.5], lite: true, not: ['oakhavenFallen'] },
       { id: 'drinker', look: 'villager', job: 'drinker', at: [0.72, 0.86], not: ['oakhavenFallen'] },
+      { id: 'farmer', look: 'farmer', job: 'farmer', at: [0.9, 0.86], not: ['oakhavenFallen'] },
       { id: 'kidA', look: 'child', job: 'child', at: [0.44, 0.64], not: ['oakhavenFallen'] },
       { id: 'kidB', look: 'childF', job: 'child', at: [0.56, 0.64], not: ['oakhavenFallen'] },
       // What is left of the town huddles round a fire; the Syndicate's men watch.

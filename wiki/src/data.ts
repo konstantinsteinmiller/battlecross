@@ -4,7 +4,7 @@
  * next time it is built.
  */
 import en from '@/i18n/locales/en'
-import { CLASSES, CLASS_IDS, SKILLS, SKILL_BY_ID, FIXED_EFFECT, ACTIVE_SLOTS, PASSIVE_SLOTS, priceOf as skillPriceOf, type ClassId, type SkillDef } from '@/game/data/skills'
+import { CLASSES, CLASS_IDS, SKILLS, ENDGAME_SKILLS, endgameOf, SKILL_BY_ID, FIXED_EFFECT, ACTIVE_SLOTS, PASSIVE_SLOTS, priceOf as skillPriceOf, type ClassId, type SkillDef } from '@/game/data/skills'
 import { ATTRS, ATTR_COLOR, ATTR_START, POINTS_PER_LEVEL, ATTR_EFFECTS, CAPS, type Attr } from '@/game/data/attributes'
 import { ITEMS, SMITHED, ITEM_BY_ID, TIER_COLOR, EQUIP_SLOTS, slotOf, priceOf as itemPriceOf, type ItemDef, type ItemSlot, type ZoneId, type EquipSlot } from '@/game/data/items'
 import { ZONES, ZONE_IDS, ZONE_FEATURES, TOWNS, MAP, NODE_BY_ID, FALLBACK_TRAINERS, type NpcDef, type TownId } from '@/game/data/zones'
@@ -113,7 +113,7 @@ export const FLAG_HOW: Record<string, { text: string; at: number }> = {
   dragonSlain: { text: 'Void Dragon: slay it', at: 25 },
   dragonPact: { text: 'Void Dragon: strike a pact (needs 25 CHA)', at: 25 },
   throneDone: { text: 'Decide the Empty Throne', at: 30 },
-  freedPeddler: { text: 'Free the caged peddler in Sunford Plains (find the key in the zone)', at: 1 },
+  freedPeddler: { text: 'Free the caged peddler in Sunford Plains (find the key in the zone); he sets up his stall in Oakhaven', at: 1 },
   freedHerbalist: { text: 'Free the caged herbalist in the Goblin Hollows', at: 3 },
   freedFarmers: { text: 'Free the caged farmers in the Whispering Woods', at: 6 },
   freedWindDisciple: { text: 'Free the iron cage in the Ashen Crags', at: 11 },
@@ -244,7 +244,12 @@ export const slotOfEquip = slotOf
 
 // ─── Skills, per level ───────────────────────────────────────────────────────
 
-export const skillsByClass = (c: ClassId): SkillDef[] => SKILLS.filter(s => s.cls === c).sort((a, b) => a.level - b.level)
+export const skillsByClass = (c: ClassId): SkillDef[] => [...SKILLS, ...ENDGAME_SKILLS].filter(s => s.cls === c).sort((a, b) => a.level - b.level)
+/** The twelve of every class, and the endgame six (#168) that unlock once the Demon King has fallen. */
+export const ALL_SKILLS: readonly SkillDef[] = [...SKILLS, ...ENDGAME_SKILLS]
+export { endgameOf }
+/** The mastery rules (#168): a point per class at these levels once six of its skills are learned. */
+export const MASTERY_NOTE = 'Mastery: at level 25 and again at 35 you earn one mastery point for every class you have learned at least six skills of. Spend it at that class\'s teacher: open the lesson of a skill you know and press Master. A mastered skill works twice as hard (its damage scaling, its passive bonuses and its strength numbers double; durations, radii and chances do not).'
 export const enemy = (id: string) => ENEMY_BY_ID[id]
 export const node = (id: string) => NODE_BY_ID[id]
 export const skillReqText = (s: SkillDef): string =>

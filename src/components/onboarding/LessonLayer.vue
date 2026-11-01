@@ -4,6 +4,10 @@
       svg.lessons__lines(aria-hidden="true")
         path.lessons__trail(ref="trailEl")
       span.lessons__glow(ref="glowEl" aria-hidden="true")
+      //- The six "+": one small arrow at the first one's top right, pointing in, and the button itself presses (`lessons-press`).
+      span.lessons__arrow(ref="arrowEl" aria-hidden="true")
+        svg(viewBox="0 0 24 24" focusable="false")
+          path(d="M2 22 L2 10 L6 14 L17 3 L21 7 L10 18 L14 22 Z")
       span.lessons__ring(v-for="n in RING_POOL" :key="n" :ref="(el) => setRing(el, n - 1)" aria-hidden="true")
       div.lessons__hand(
         ref="handEl"
@@ -92,6 +96,15 @@ const setIdle = (on: boolean): void => {
   if (idle.value !== on) idle.value = on
 }
 const glowEl = ref<HTMLElement | null>(null)
+const arrowEl = ref<HTMLElement | null>(null)
+/** The button being shown pressing (a class on the real thing, taken off when the hint goes). */
+let pressing: HTMLElement | null = null
+const press = (el: HTMLElement | null): void => {
+  if (pressing === el) return
+  pressing?.classList.remove('lessons-press')
+  pressing = el
+  el?.classList.add('lessons-press')
+}
 const trailEl = ref<SVGPathElement | null>(null)
 const doneEl = shallowRef<HTMLElement | null>(null)
 const rings: Array<HTMLElement | null> = new Array(RING_POOL).fill(null)
@@ -183,6 +196,15 @@ const placeRing = (ring: HTMLElement | null, el: HTMLElement | null, r: DOMRect 
   ring.classList.toggle('is-soft', soft)
 }
 
+/** The arrow's tip on the button's top-right edge (the round "+" at 45 degrees), its tail out toward the corner. */
+const placeArrow = (r: DOMRect): void => {
+  const a = arrowEl.value
+  if (!a) return
+  const k = 0.5 * Math.SQRT1_2
+  a.style.opacity = '1'
+  a.style.transform = `translate(${(r.left + r.width * (0.5 + k)).toFixed(1)}px, ${(r.top + r.height * (0.5 - k)).toFixed(1)}px)`
+}
+
 // ── Acting out the gesture ───────────────────────────────────────────────────
 /** A drag: rest on the thing, carry it over, rest on the socket, come back. */
 const DRAG_PERIOD = 2.1
@@ -217,6 +239,8 @@ const hide = (): void => {
   if (handEl.value) handEl.value.style.opacity = '0'
   if (glowEl.value) glowEl.value.style.opacity = '0'
   if (trailEl.value) trailEl.value.style.opacity = '0'
+  if (arrowEl.value) arrowEl.value.style.opacity = '0'
+  press(null)
   for (const r of rings) if (r) r.style.opacity = '0'
 }
 
@@ -242,15 +266,15 @@ const draw = (step: Step | null): void => {
     const r = el?.getBoundingClientRect() ?? null
     if (!el || !r || !shown(el, r)) { if (el && !coveredByModal(el)) bringIntoView(el); hide(); return }
     if (r.top < 0 || r.bottom > innerHeight || r.left < 0 || r.right > innerWidth) bringIntoView(el)
-    // Every match breathes (the six "+"), the first is tapped.
+    // The six "+": no ring on each (it covered their numbers), but the first one
+    // presses and a small arrow points in at it from its top right.
     if (step.rings) {
-      const all = Array.from(document.querySelectorAll<HTMLElement>(step.rings)).slice(0, RING_POOL)
-      for (let i = 0; i < RING_POOL; i++) {
-        const e = all[i] ?? null
-        const er = e?.getBoundingClientRect() ?? null
-        placeRing(rings[i]!, e, e && er && shown(e, er) ? er : null)
-      }
+      for (let i = 0; i < RING_POOL; i++) placeRing(rings[i]!, null, null)
+      press(el)
+      placeArrow(r)
     } else {
+      press(null)
+      if (arrowEl.value) arrowEl.value.style.opacity = '0'
       placeRing(rings[0]!, el, r)
       for (let i = 1; i < RING_POOL; i++) placeRing(rings[i]!, null, null)
     }
@@ -401,6 +425,29 @@ onUnmounted(() => {
     box-shadow: 0 0 0 2px #0f1a30
     &::after
       display: none
+// "Press this": a small gold arrow at a button's top right, nudging in toward it.
+.lessons__arrow
+  position: absolute
+  left: 0
+  top: 0
+  width: 0
+  height: 0
+  opacity: 0
+  transition: opacity 180ms ease-out
+  will-change: transform
+  svg
+    position: absolute
+    // The tip of the arrow is the element's own point; the body lies up and to the right of it.
+    left: 0
+    top: -1.5rem
+    width: 1.5rem
+    height: 1.5rem
+    transform-origin: 0 100%
+    fill: #ffd84a
+    stroke: #0f1a30
+    stroke-width: 1.6
+    stroke-linejoin: round
+    animation: lessons-nudge 0.9s ease-in-out infinite
 // "Read this": a soft light round the numbers.
 .lessons__glow
   position: absolute
@@ -516,6 +563,11 @@ onUnmounted(() => {
     border: 3px solid #0f1a30
     box-shadow: 0 0 1.2rem #5dff7a
     animation: lessons-done 0.9s cubic-bezier(0.34, 1.56, 0.64, 1) both
+@keyframes lessons-nudge
+  0%, 100%
+    transform: translate(0.25rem, -0.25rem)
+  50%
+    transform: translate(-0.1rem, 0.1rem)
 @keyframes lessons-breathe
   0%
     transform: scale(1)
@@ -542,6 +594,22 @@ onUnmounted(() => {
     transform: scale(1.05) translateY(-0.6rem)
     opacity: 0
 @media (prefers-reduced-motion: reduce)
-  .lessons__ring::after, .lessons__glow
+  .lessons__ring::after, .lessons__glow, .lessons__arrow svg
+    animation: none
+</style>
+
+<style lang="sass">
+// The real button shown pressing (#167 follow-up): a squash down and a spring back, on a loop.
+.lessons-press
+  animation: lessons-press 1.3s ease-in-out infinite
+@keyframes lessons-press
+  0%, 55%, 100%
+    transform: none
+  70%
+    transform: translateY(var(--bc-press-sm, 3px)) scale(1.04, 0.94)
+  85%
+    transform: scale(0.98, 1.04)
+@media (prefers-reduced-motion: reduce)
+  .lessons-press
     animation: none
 </style>

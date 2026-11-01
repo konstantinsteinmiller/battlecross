@@ -86,6 +86,8 @@ export interface SkillDef {
   fire?: boolean
   /** A capstone (afterplay §2.3): the skill whose effect it runs, with its own numbers. */
   capstone?: string
+  /** An endgame skill (#168): taught from level 30 on, but only once the demon king has fallen. */
+  endgame?: boolean
 }
 
 export interface ClassDef {
@@ -442,8 +444,142 @@ export const PRESTIGE_SKILLS: readonly SkillDef[] = [
   PA('undertow', 'tidecaller', 43, { int: 44, str: 34 }, 18, 22, 'ground', 10, 'int', { dmg: 520, dur: 4, radius: 4, slow: 50 }, { radius: 4, cast: 0.3 })
 ]
 
+/**
+ * ─── The endgame skills (#168) ───────────────────────────────────────────────
+ *
+ * Six more for each class, to keep the power fantasy going past the campaign:
+ * four actives and two passives, taught at hero levels 30, 34, 37, 40, 43 and
+ * 46 for a lot of the class's own attribute. They are locked (a lock icon, the
+ * description unread) until the demon king has fallen and the afterplay is
+ * open. Kept out of `SKILLS` like the capstones (the class's twelve stay
+ * twelve); `SKILL_BY_ID` knows them and the trainer's path ends with them.
+ * Wave 1: Aegis Knight, Shadowblade, Pyromancer, Grand Sovereign. Wave 2:
+ * Chrono-Weaver, Blood Alchemist, Aether-Tech, Geomancer. Wave 3: Windrunner,
+ * Frostwarden, Lightbringer, Beastcaller. Wave 4: Elementalist, Soulwarden,
+ * Ironmonk, Bard.
+ */
+export const ENDGAME_LEVELS: readonly number[] = [30, 34, 37, 40, 43, 46]
+const EA = (...a: Parameters<typeof PA>): SkillDef => ({ ...PA(...a), endgame: true })
+const EP = (...a: Parameters<typeof PP>): SkillDef => ({ ...PP(...a), endgame: true })
+export const ENDGAME_SKILLS: readonly SkillDef[] = [
+  // Aegis Knight: the wall that hits back.
+  EA('earthsplitter', 'aegis', 30, { str: 42, end: 30 }, 20, 30, 'self', 0, 'str', { dmg: 420, radius: 6, stun: 1.5 }, { radius: 6, cast: 0.3 }),
+  EP('ironResolve', 'aegis', 34, { end: 44, str: 32 }, 'end', { maxHpPct: 0.12, damageReduction: 0.06 }, { hp: 12, reduce: 6 }),
+  EA('guardiansVow', 'aegis', 37, { end: 46, str: 34 }, 40, 36, 'self', 0, 'end', { shield: 30, def: 40, dur: 8 }, { cast: 0.2 }),
+  EA('judgmentHammer', 'aegis', 40, { str: 48, end: 36 }, 20, 34, 'enemy', 2.4, 'str', { dmg: 650, heal: 10, weak: 30, dur: 5 }, { cast: 0.25 }),
+  EP('undyingBastion', 'aegis', 43, { end: 50, str: 38 }, 'end', { block: 0.1, lastStand: 0.15 }, { block: 10, reduce: 15 }),
+  EA('crusadersWrath', 'aegis', 46, { str: 52, end: 40 }, 60, 45, 'self', 0, 'str', { dur: 10, atk: 60, steal: 15 }, { cast: 0.3 }),
+  // Shadowblade: the knife that was never there.
+  EA('phantomRush', 'shadow', 30, { dex: 42, skl: 30 }, 14, 28, 'enemy', 12, 'dex', { dmg: 460, bleed: 40, dur: 5 }, { cast: 0.08 }),
+  EP('predatorsInstinct', 'shadow', 34, { dex: 44, skl: 32 }, 'dex', { critChance: 0.1, critDamage: 0.4 }, { crit: 10, critDmg: 40 }),
+  EA('bladeVortex', 'shadow', 37, { dex: 46, skl: 34 }, 24, 34, 'self', 0, 'dex', { dmg: 400, radius: 5, hits: 2 }, { radius: 5, cast: 0.15 }),
+  EA('veilOfNight', 'shadow', 40, { dex: 48, skl: 36 }, 30, 32, 'self', 0, 'dex', { dur: 6, haste: 40, bonus: 150 }, { cast: 0.1 }),
+  EP('deathsLegacy', 'shadow', 43, { dex: 50, skl: 38 }, 'dex', { backstab: 0.5, dodge: 0.1 }, { back: 50, dodge: 10 }),
+  EA('execution', 'shadow', 46, { dex: 52, skl: 40 }, 24, 40, 'enemy', 10, 'dex', { dmg: 800, exec: 100, low: 35 }, { cast: 0.12 }),
+  // Pyromancer: a star in the hand.
+  EA('infernoWave', 'pyro', 30, { int: 42, skl: 22 }, 16, 32, 'self', 0, 'int', { dmg: 400, radius: 8, burn: 60, burnDur: 5 }, { radius: 8, fire: true, cast: 0.3 }),
+  EP('emberHeart', 'pyro', 34, { int: 44, skl: 24 }, 'int', { damagePct: 0.15, igniteBonus: 0.4 }, { dmg: 15, burn: 40 }),
+  EA('sunSpear', 'pyro', 37, { int: 46, skl: 26 }, 20, 38, 'enemy', 14, 'int', { dmg: 720, radius: 2.5, burn: 50, burnDur: 4 }, { radius: 2.5, fire: true, cast: 0.25 }),
+  EA('ashenVeil', 'pyro', 40, { int: 48, end: 26 }, 36, 40, 'self', 0, 'int', { shield: 25, dur: 8, dmg: 200, radius: 7 }, { radius: 7, fire: true, cast: 0.25 }),
+  EP('moltenCore', 'pyro', 43, { int: 50, skl: 30 }, 'int', { spellCrit: 0.1, cdr: 0.08 }, { crit: 10, cdr: 8 }),
+  EA('supernova', 'pyro', 46, { int: 54, skl: 32 }, 55, 60, 'self', 0, 'int', { dmg: 1300, radius: 10, burn: 80, burnDur: 5, delay: 1.2 }, { radius: 10, fire: true, cast: 0.4 }),
+  // Grand Sovereign: the court that never falls.
+  EA('standardBearer', 'sovereign', 30, { cha: 42, end: 22 }, 28, 30, 'self', 0, 'cha', { heal: 30, atk: 40, dur: 10, radius: 10 }, { radius: 10, cast: 0.25 }),
+  EP('crownedPresence', 'sovereign', 34, { cha: 44, end: 24 }, 'cha', { minionDamage: 0.2, minionHp: 0.25 }, { dmg: 20, hp: 25 }),
+  EA('summonVanguard', 'sovereign', 37, { cha: 46, end: 26 }, 45, 40, 'self', 0, 'cha', { max: 3, dur: 30 }, { cast: 0.4 }),
+  EA('decreeOfSilence', 'sovereign', 40, { cha: 48, end: 28 }, 36, 38, 'self', 0, 'cha', { stun: 2.5, weak: 40, dur: 6, radius: 9 }, { radius: 9, cast: 0.35 }),
+  EP('eternalCourt', 'sovereign', 43, { cha: 50, end: 30 }, 'cha', { minionAttackSpeed: 0.2, minionDamage: 0.15, loyalty: 0.08 }, { speed: 20, dmg: 15, heal: 8 }),
+  EA('imperialAscension', 'sovereign', 46, { cha: 54, end: 32 }, 70, 55, 'self', 0, 'cha', { dur: 12, atk: 80, def: 40, radius: 14 }, { radius: 14, cast: 0.5 }),
+  // Wave 2. Chrono-Weaver: the moment that does not end.
+  EA('timeShear', 'chrono', 30, { int: 42, skl: 30 }, 16, 30, 'ground', 10, 'int', { dmg: 420, slow: 60, dur: 4, radius: 4.5 }, { radius: 4.5, cast: 0.2 }),
+  EP('temporalMastery', 'chrono', 34, { skl: 44, int: 32 }, 'skl', { cdr: 0.1, dodge: 0.08 }, { cdr: 10, dodge: 8 }),
+  EA('echoVolley', 'chrono', 37, { int: 46, skl: 34 }, 20, 36, 'enemy', 12, 'int', { dmg: 500, echo: 70, delay: 1.2, radius: 2.5 }, { radius: 2.5, cast: 0.2 }),
+  EA('stasisField', 'chrono', 40, { int: 48, skl: 36 }, 40, 42, 'self', 0, 'int', { stun: 2, vuln: 30, dur: 6, radius: 9 }, { radius: 9, cast: 0.4 }),
+  EP('eternalMoment', 'chrono', 43, { skl: 50, int: 38 }, 'skl', { spellCrit: 0.1, cdr: 0.08 }, { crit: 10, cdr: 8 }),
+  EA('timeCollapse', 'chrono', 46, { int: 54, skl: 40 }, 55, 60, 'ground', 12, 'int', { dmg: 1200, stun: 2, radius: 8, delay: 1.5 }, { radius: 8, cast: 0.5 }),
+  // Blood Alchemist: the red tide.
+  EA('bloodTide', 'blood', 30, { end: 42, int: 30 }, 16, 0, 'self', 0, 'end', { hp: 12, dmg: 400, heal: 40, radius: 7 }, { hpCost: 12, radius: 7, cast: 0.3 }),
+  EP('crimsonVigor', 'blood', 34, { end: 44, int: 32 }, 'end', { maxHpPct: 0.12, hpRegen: 3 }, { hp: 12, regen: 3 }),
+  EA('leechingMist', 'blood', 37, { end: 46, int: 34 }, 22, 0, 'ground', 9, 'int', { hp: 10, dmg: 450, heal: 50, bleed: 40, dur: 5, radius: 6 }, { hpCost: 10, radius: 6, cast: 0.25 }),
+  EA('sanguineAegis', 'blood', 40, { end: 48, int: 36 }, 36, 0, 'self', 0, 'end', { hp: 15, shield: 40, def: 30, dur: 8 }, { hpCost: 15, cast: 0.2 }),
+  EP('bloodPact', 'blood', 43, { end: 50, int: 38 }, 'end', { lowHealthDamage: 0.3, damageReduction: 0.06 }, { dmg: 30, reduce: 6 }),
+  EA('exsanguinate', 'blood', 46, { end: 54, int: 40 }, 45, 0, 'enemy', 10, 'int', { hp: 20, dmg: 1000, bleed: 60, dur: 5, heal: 25 }, { hpCost: 20, cast: 0.3 }),
+  // Aether-Tech: the machine that learns.
+  EA('plasmaCannon', 'aether', 30, { skl: 42, int: 26 }, 15, 28, 'enemy', 13, 'skl', { dmg: 480, radius: 2.5, heat: 25 }, { heat: 25, radius: 2.5, cast: 0.25 }),
+  EP('overclock', 'aether', 34, { skl: 44, int: 28 }, 'skl', { damagePct: 0.12, cdr: 0.06 }, { dmg: 12, cdr: 6 }),
+  EA('droneSwarm', 'aether', 37, { skl: 46, int: 30 }, 24, 34, 'self', 0, 'skl', { dmg: 270, radius: 8, hits: 3, heat: 20 }, { heat: 20, radius: 8, cast: 0.2 }),
+  EA('gravityWell', 'aether', 40, { skl: 48, int: 32 }, 30, 38, 'ground', 11, 'skl', { dmg: 450, slow: 70, stun: 1, dur: 4, radius: 5 }, { radius: 5, cast: 0.3 }),
+  EP('quantumLens', 'aether', 43, { skl: 50, int: 34 }, 'skl', { critChance: 0.1, critDamage: 0.4 }, { crit: 10, critDmg: 40 }),
+  EA('ionStorm', 'aether', 46, { skl: 54, int: 36 }, 50, 55, 'ground', 12, 'skl', { dmg: 280, strikes: 6, stun: 0.5, radius: 7 }, { radius: 7, cast: 0.4 }),
+  // Geomancer: the mountain walks.
+  EA('aftershock', 'geo', 30, { str: 42, int: 28 }, 16, 30, 'self', 0, 'str', { dmg: 420, slow: 50, dur: 4, radius: 6 }, { radius: 6, cast: 0.3 }),
+  EP('graniteSoul', 'geo', 34, { str: 44, end: 30 }, 'str', { armorPct: 0.12, maxHpPct: 0.1 }, { armor: 12, hp: 10 }),
+  EA('crystalLance', 'geo', 37, { str: 46, int: 32 }, 20, 36, 'enemy', 11, 'str', { dmg: 650, vuln: 25, dur: 6 }, { cast: 0.25 }),
+  EA('mountainsEmbrace', 'geo', 40, { str: 48, int: 34 }, 36, 38, 'self', 0, 'str', { shield: 40, def: 40, dur: 8 }, { cast: 0.25 }),
+  EP('worldShaper', 'geo', 43, { str: 50, int: 36 }, 'str', { bossDamage: 0.2, damageReduction: 0.06 }, { boss: 20, reduce: 6 }),
+  EA('cataclysmQuake', 'geo', 46, { str: 54, int: 40 }, 55, 60, 'self', 0, 'str', { dmg: 450, hits: 3, stun: 1.5, radius: 12 }, { radius: 12, cast: 0.5 }),
+  // Wave 3. Windrunner: the storm that has a bow.
+  EA('zephyrBarrage', 'windrunner', 30, { dex: 42, skl: 30 }, 14, 28, 'ground', 12, 'skl', { dmg: 450, slow: 40, dur: 3, radius: 5 }, { radius: 5, cast: 0.25 }),
+  EP('tailwindSoul', 'windrunner', 34, { dex: 44, skl: 32 }, 'dex', { moveSpeed: 0.1, attackSpeed: 0.1 }, { move: 10, speed: 10 }),
+  EA('cycloneRip', 'windrunner', 37, { dex: 46, skl: 34 }, 22, 34, 'self', 0, 'dex', { dmg: 450, air: 1, radius: 6 }, { radius: 6, cast: 0.2 }),
+  EA('galeVeil', 'windrunner', 40, { dex: 48, skl: 36 }, 32, 32, 'self', 0, 'dex', { dur: 6, haste: 50, def: 25 }, { cast: 0.1 }),
+  EP('stormsEye', 'windrunner', 43, { dex: 50, skl: 38 }, 'dex', { critChance: 0.1, bossDamage: 0.15 }, { crit: 10, boss: 15 }),
+  EA('hurricaneRain', 'windrunner', 46, { dex: 54, skl: 40 }, 50, 55, 'ground', 12, 'skl', { dmg: 280, strikes: 6, air: 0.8, radius: 7 }, { radius: 7, cast: 0.4 }),
+  // Frostwarden: winter, standing up.
+  EA('glacierSlam', 'frostwarden', 30, { str: 42, int: 28 }, 16, 30, 'self', 0, 'str', { dmg: 420, slow: 50, dur: 4, radius: 5.5 }, { radius: 5.5, cast: 0.3 }),
+  EP('permafrostSoul', 'frostwarden', 34, { str: 44, end: 30 }, 'str', { chillDamage: 0.25, damageReduction: 0.06 }, { bonus: 25, reduce: 6 }),
+  EA('iceComet', 'frostwarden', 37, { int: 46, str: 32 }, 20, 38, 'enemy', 13, 'int', { dmg: 680, freeze: 1.5, radius: 2.5 }, { radius: 2.5, cast: 0.3 }),
+  EA('frozenBulwark', 'frostwarden', 40, { str: 48, end: 34 }, 36, 38, 'self', 0, 'str', { shield: 40, def: 40, dur: 8 }, { cast: 0.2 }),
+  EP('winterbound', 'frostwarden', 43, { str: 50, end: 36 }, 'str', { stunDurationCut: 0.4, maxHpPct: 0.1 }, { cut: 40, hp: 10 }),
+  EA('whiteout', 'frostwarden', 46, { int: 54, str: 40 }, 55, 60, 'self', 0, 'int', { dmg: 1100, freeze: 3, radius: 11 }, { radius: 11, cast: 0.5 }),
+  // Lightbringer: the dawn that does not ask.
+  EA('divineSmite', 'lightbringer', 30, { int: 42, cha: 28 }, 14, 28, 'enemy', 12, 'int', { dmg: 480, weaken: 25, dur: 5 }, { cast: 0.2 }),
+  EP('radiantAura', 'lightbringer', 34, { cha: 44, int: 30 }, 'cha', { healPower: 0.2, damageReduction: 0.06 }, { heal: 20, reduce: 6 }),
+  EA('cleansingNova', 'lightbringer', 37, { cha: 46, int: 32 }, 24, 36, 'self', 0, 'cha', { dmg: 400, heal: 30, radius: 7 }, { radius: 7, cast: 0.25 }),
+  EA('consecration', 'lightbringer', 40, { int: 48, cha: 34 }, 30, 40, 'ground', 9, 'int', { dmg: 160, heal: 4, dur: 6, radius: 5 }, { radius: 5, cast: 0.3 }),
+  EP('zealotsFaith', 'lightbringer', 43, { int: 50, cha: 36 }, 'int', { spellCrit: 0.1, healPower: 0.2 }, { crit: 10, heal: 20 }),
+  EA('solarJudgment', 'lightbringer', 46, { int: 54, cha: 40 }, 55, 60, 'ground', 12, 'int', { dmg: 1300, weaken: 30, dur: 6, radius: 9, delay: 1.2 }, { radius: 9, cast: 0.5 }),
+  // Beastcaller: the pack that answers.
+  EA('rendingPounce', 'beastcaller', 30, { cha: 42, end: 28 }, 14, 26, 'enemy', 12, 'cha', { dmg: 480, bleed: 40, dur: 5 }, { cast: 0.1 }),
+  EP('primalBond', 'beastcaller', 34, { cha: 44, end: 30 }, 'cha', { minionHp: 0.3, minionDamage: 0.2 }, { hp: 30, dmg: 20 }),
+  EA('thunderStampede', 'beastcaller', 37, { cha: 46, end: 32 }, 22, 36, 'dir', 14, 'cha', { dmg: 520, down: 1.5, width: 2.4 }, { cast: 0.3 }),
+  EA('summonPack', 'beastcaller', 40, { cha: 48, end: 34 }, 45, 42, 'self', 0, 'cha', { wolves: 2, bears: 1, dur: 30 }, { cast: 0.4 }),
+  EP('apexPredator', 'beastcaller', 43, { cha: 50, end: 36 }, 'cha', { minionAttackSpeed: 0.25, minionDamage: 0.15 }, { speed: 25, dmg: 15 }),
+  EA('spiritOfTheWild', 'beastcaller', 46, { cha: 54, end: 40 }, 70, 55, 'self', 0, 'cha', { dur: 12, atk: 80, move: 30, radius: 14 }, { radius: 14, cast: 0.5 }),
+  // Wave 4. Elementalist: all four winds at once.
+  EA('pyroclasm', 'elementalist', 30, { int: 42, skl: 30 }, 14, 30, 'ground', 11, 'int', { dmg: 450, burn: 50, burnDur: 4, radius: 5 }, { radius: 5, fire: true, cast: 0.25 }),
+  EP('elementalAttunement', 'elementalist', 34, { int: 44, skl: 32 }, 'int', { spellCrit: 0.1, damagePct: 0.1 }, { crit: 10, dmg: 10 }),
+  EA('stormcall', 'elementalist', 37, { int: 46, skl: 34 }, 30, 38, 'ground', 12, 'int', { dmg: 200, strikes: 5, stun: 0.5, radius: 6 }, { radius: 6, cast: 0.3 }),
+  EA('primordialSurge', 'elementalist', 40, { int: 48, skl: 36 }, 45, 36, 'self', 0, 'int', { dur: 8, atk: 50, haste: 30 }, { cast: 0.2 }),
+  EP('arcaneMastery', 'elementalist', 43, { int: 50, skl: 38 }, 'int', { cdr: 0.08, manaDiscount: 0.15 }, { cdr: 8, mana: 15 }),
+  EA('elementalCataclysm', 'elementalist', 46, { int: 54, skl: 40 }, 55, 60, 'self', 0, 'int', { dmg: 1200, burn: 60, burnDur: 5, freeze: 1.5, radius: 11 }, { radius: 11, fire: true, cast: 0.5 }),
+  // Soulwarden: the dead keep a promise.
+  EA('soulRend', 'soulwarden', 30, { int: 42, cha: 28 }, 14, 28, 'enemy', 12, 'int', { dmg: 500, fear: 2 }, { cast: 0.2 }),
+  EP('graveBond', 'soulwarden', 34, { int: 44, cha: 30 }, 'int', { minionHp: 0.3, minionDamage: 0.2 }, { hp: 30, dmg: 20 }),
+  EA('spectralLegion', 'soulwarden', 37, { int: 46, cha: 32 }, 30, 40, 'self', 0, 'int', { max: 5, life: 25, radius: 12 }, { radius: 12, cast: 0.4 }),
+  EA('wailOfTheDamned', 'soulwarden', 40, { int: 48, cha: 34 }, 28, 38, 'self', 0, 'int', { dmg: 450, fear: 3, weaken: 30, dur: 5, radius: 9 }, { radius: 9, cast: 0.35 }),
+  EP('eternalVigil', 'soulwarden', 43, { int: 50, cha: 36 }, 'int', { cdr: 0.08, damageReduction: 0.08 }, { cdr: 8, reduce: 8 }),
+  EA('reapersHarvest', 'soulwarden', 46, { int: 54, cha: 40 }, 55, 60, 'self', 0, 'int', { dmg: 1000, heal: 3, max: 6, life: 20, radius: 10 }, { radius: 10, cast: 0.5 }),
+  // Iron Monk: the body is the temple.
+  EA('dragonFist', 'ironmonk', 30, { dex: 42, end: 28 }, 12, 22, 'enemy', MELEE, 'dex', { dmg: 420, chi: 2 }, { cast: 0.12 }),
+  EP('stillWaters', 'ironmonk', 34, { end: 44, dex: 30 }, 'end', { dodge: 0.1, damageReduction: 0.06 }, { dodge: 10, reduce: 6 }),
+  EA('stormOfBlows', 'ironmonk', 37, { dex: 46, end: 32 }, 20, 30, 'self', 0, 'dex', { dmg: 380, hits: 2, chi: 2, radius: 5 }, { radius: 5, cast: 0.15 }),
+  EA('diamondBody', 'ironmonk', 40, { end: 48, dex: 34 }, 36, 34, 'self', 0, 'end', { shield: 35, def: 40, dur: 8 }, { cast: 0.15 }),
+  EP('zenMind', 'ironmonk', 43, { dex: 50, end: 36 }, 'dex', { critChance: 0.08, cdr: 0.08 }, { crit: 8, cdr: 8 }),
+  EA('celestialPalm', 'ironmonk', 46, { dex: 54, end: 40 }, 50, 55, 'ground', 8, 'dex', { dmg: 800, per: 30, radius: 5, down: 2 }, { radius: 5, cast: 0.4 }),
+  // Bard: the last verse.
+  EA('discordantChord', 'bard', 30, { cha: 42, skl: 28 }, 14, 28, 'self', 0, 'cha', { dmg: 420, weaken: 25, dur: 5, radius: 6 }, { radius: 6, cast: 0.25 }),
+  EP('bravura', 'bard', 34, { cha: 44, skl: 30 }, 'cha', { cdr: 0.1, songLength: 0.3 }, { cdr: 10, pct: 30 }),
+  EA('anthemOfWar', 'bard', 37, { cha: 46, skl: 32 }, 40, 36, 'self', 0, 'cha', { dur: 10, dmg: 40, speed: 25, radius: 9 }, { radius: 9, cast: 0.3 }),
+  EA('sirenSong', 'bard', 40, { cha: 48, skl: 34 }, 30, 38, 'self', 0, 'cha', { dmg: 300, charm: 3, radius: 8 }, { radius: 8, cast: 0.35 }),
+  EP('maestro', 'bard', 43, { cha: 50, skl: 36 }, 'cha', { damagePct: 0.12, songLength: 0.3 }, { dmg: 12, pct: 30 }),
+  EA('magnumOpus', 'bard', 46, { cha: 54, skl: 40 }, 60, 60, 'self', 0, 'cha', { dur: 10, buff: 25, dmg: 1100, charm: 3, radius: 10 }, { radius: 10, cast: 0.5 })
+]
+/** A class's endgame six (empty for a class whose wave has not come yet). */
+export const endgameOf = (cls: ClassId): SkillDef[] => ENDGAME_SKILLS.filter(s => s.cls === cls)
+
 export const SKILL_BY_ID: Readonly<Record<string, SkillDef>> = {
-  ...BASE_BY_ID, ...Object.fromEntries(CAPSTONES.map(s => [s.id, s])), ...Object.fromEntries(PRESTIGE_SKILLS.map(s => [s.id, s]))
+  ...BASE_BY_ID, ...Object.fromEntries(CAPSTONES.map(s => [s.id, s])), ...Object.fromEntries(PRESTIGE_SKILLS.map(s => [s.id, s])), ...Object.fromEntries(ENDGAME_SKILLS.map(s => [s.id, s]))
 }
 
 /**
@@ -456,7 +592,15 @@ export const FIXED_EFFECT: ReadonlySet<string> = new Set([
   'tauntingCry', 'holyBastion', 'venomousBlade', 'smokeBomb', 'shadowMark', 'fanTheFlames', 'commandFocus',
   'royalRally', 'bannerOfVictory', 'royalDecree', 'temporalStasis', 'hasteField', 'chronoRewind', 'essenceWard',
   'earthBarrier', 'petrify', 'zephyrDash', 'blindingFlash', 'packBond', 'alphaHowl', 'tigerStance', 'craneStance',
-  'marchingSong', 'lullaby', 'balladOfValor', 'charmingSerenade', 'hymnOfMending'
+  'marchingSong', 'lullaby', 'balladOfValor', 'charmingSerenade', 'hymnOfMending',
+  // The endgame (#168): flat shields, buffs and statuses.
+  'guardiansVow', 'crusadersWrath', 'veilOfNight', 'standardBearer', 'decreeOfSilence', 'imperialAscension',
+  // Wave 2: percentages of health, flat statuses.
+  'stasisField', 'sanguineAegis', 'mountainsEmbrace',
+  // Wave 3: flat statuses, buffs, shields and heals.
+  'galeVeil', 'frozenBulwark', 'spiritOfTheWild', 'summonPack',
+  // Wave 4: buffs and a shield.
+  'primordialSurge', 'diamondBody', 'anthemOfWar'
 ])
 
 /** The attribute a skill's effect grows with, or null when nothing it does

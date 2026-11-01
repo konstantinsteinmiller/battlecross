@@ -1,6 +1,6 @@
 import { ATTRS, ATTR_EFFECTS, CAPS, softCapAttrs, statPower, zeroAttrs, type Attr, type AttrBlock } from '../data/attributes'
 import { addMods, type Mods } from '../data/mods'
-import { rankMul } from '../data/progression'
+import { masteryMul, rankMul } from '../data/progression'
 import { ITEM_BY_ID, UNARMED, isPlate, type EquipSlot } from '../data/items'
 import { forgedArmor, forgedMods } from '../data/forge'
 import { SET_BONUS } from '../data/relics'
@@ -32,6 +32,8 @@ export interface HeroBuild {
   upgrades?: Readonly<Record<string, number>>
   /** Skill ranks bought in the afterplay, by skill id (none: rank 1). */
   ranks?: Readonly<Record<string, number>>
+  /** Skills mastered with mastery points (#168; none: no skill). */
+  mastered?: readonly string[]
   /** The level the hero may reach (none: the campaign's MAX_LEVEL). */
   levelCap?: number
   /** Heroic+ ranks by item id (afterplay §2.4; none: 0). */
@@ -85,7 +87,7 @@ export const sumBuild = (b: HeroBuild): { attrs: AttrBlock; mods: Mods; armor: n
   // A boss pair worn together (afterplay §2.4): the set's bonus.
   for (const s in sets) if (sets[s]! >= 2) addMods(mods, SET_BONUS[s])
   // A ranked passive gives its bonuses × its rank's factor (numeric rank only).
-  for (const id of b.passives) addMods(mods, SKILL_BY_ID[id]?.mods, rankMul(b.ranks?.[id] ?? 1))
+  for (const id of b.passives) addMods(mods, SKILL_BY_ID[id]?.mods, rankMul(b.ranks?.[id] ?? 1) * masteryMul(!!b.mastered?.includes(id)))
   const attrs = zeroAttrs()
   for (const a of ATTRS) attrs[a] = b.attrs[a] + (mods[a] ?? 0) + (mods.allAttrs ?? 0)
   // "+3 STR or DEX": whichever the hero has more of.

@@ -38,7 +38,7 @@ export interface CageDef {
 }
 
 export const CAGES: readonly CageDef[] = [
-  { zone: 'plains', kind: 'wood', flag: 'freedPeddler', npc: 'freedPeddler', town: 'sunford', count: 1, look: 'freedPeddler' },
+  { zone: 'plains', kind: 'wood', flag: 'freedPeddler', npc: 'freedPeddler', town: 'oakhaven', count: 1, look: 'freedPeddler' },
   { zone: 'hollows', kind: 'wood', flag: 'freedHerbalist', npc: 'freedHerbalist', town: 'silverbridge', count: 1, look: 'freedHerbalist' },
   { zone: 'woods', kind: 'wood', flag: 'freedFarmers', npc: 'freedFarmers', town: 'oakhaven', count: 2, look: 'freedFarmers' },
   { zone: 'crags', kind: 'iron', flag: 'freedWindDisciple', npc: 'windDisciple', town: 'oakhaven', count: 1, look: 'windDisciple', found: 'foundWindrunner' },

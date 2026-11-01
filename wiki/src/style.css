@@ -159,3 +159,6 @@ table.data tr:hover td { background: rgba(255, 255, 255, 0.03); }
 ::-webkit-scrollbar { width: 10px; height: 10px; }
 ::-webkit-scrollbar-thumb { background: rgba(255, 216, 74, 0.25); border-radius: 10px; }
 ::-webkit-scrollbar-track { background: transparent; }
+
+/* The stat-scaling badge (#168): a skill's attribute, as in the game. */
+.sbadge { display: inline-block; margin-left: 6px; padding: 0 7px; border: 1px solid var(--c, currentColor); border-radius: 999px; color: var(--c, inherit); font-size: 0.72rem; font-weight: 700; line-height: 1.5; white-space: nowrap; }

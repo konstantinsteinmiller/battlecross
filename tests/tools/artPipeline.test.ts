@@ -22,7 +22,7 @@ import { pathToFileURL } from 'node:url'
 import sharp from 'sharp'
 import { afterAll, beforeAll, describe, expect, it } from 'vitest'
 import { CHARISMA_ITEMS, DEXTERITY_ITEMS, GAPFILL_ITEMS, ITEMS, MYTHICS, SMITHED } from '@/game/data/items'
-import { ALL_CLASS_IDS, CLASSES, CLASS_IDS, SKILLS, skillsOf } from '@/game/data/skills'
+import { ALL_CLASS_IDS, CLASSES, CLASS_IDS, ENDGAME_SKILLS, SKILLS, endgameOf, skillsOf } from '@/game/data/skills'
 import { heroLook } from '@/game/gfx/rigs/looks'
 import { GLYPHS } from '@/components/art/glyphs'
 import { isGameIconName } from '@/components/icons/iconNames'
@@ -109,12 +109,13 @@ describe('the manifest covers the game', () => {
     expect([...ART_CATALOGUE.items].sort()).toEqual([...ITEMS, ...SMITHED, ...MYTHICS].map(i => i.id).sort())
   })
 
-  it('every skill has a panel: two 3x2 sheets per class (twelve skills, #95), in unlock order, in the class colour', () => {
+  it('every skill has a panel: two 3x2 sheets per class (twelve skills, #95) and a third for the endgame six (#168), in unlock order, in the class colour', () => {
     expect(SKILLS).toHaveLength(CLASS_IDS.length * 12)
     for (const cls of CLASS_IDS) {
-      const want = skillsOf(cls)
+      const want = [...skillsOf(cls), ...endgameOf(cls)]
       expect(want.map(s => s.level), `${cls} unlock order`).toEqual([...want.map(s => s.level)].sort((a, b) => a - b))
-      for (const [k, stem] of [`sheet-skills-${cls}`, `sheet-skills2-${cls}`].entries()) {
+      const stems = endgameOf(cls).length ? [`sheet-skills-${cls}`, `sheet-skills2-${cls}`, `sheet-skills3-${cls}`] : [`sheet-skills-${cls}`, `sheet-skills2-${cls}`]
+      for (const [k, stem] of stems.entries()) {
         const part = want.slice(k * 6, k * 6 + 6)
         expect(idsOf(stem), stem).toEqual(part.map(s => s.id))
         const sheet = SETS.find(s => s.stem === stem)!
@@ -123,8 +124,8 @@ describe('the manifest covers the game', () => {
         for (const c of sheet.cells) expect(!!c!.round, c!.id).toBe(part.find(s => s.id === c!.id)!.kind === 'passive')
       }
     }
-    for (const s of SKILLS) expect(targets.has(`images/skills/${s.id}.webp`), s.id).toBe(true)
-    expect([...ART_CATALOGUE.skills].sort()).toEqual(SKILLS.map(s => s.id).sort())
+    for (const s of [...SKILLS, ...ENDGAME_SKILLS]) expect(targets.has(`images/skills/${s.id}.webp`), s.id).toBe(true)
+    expect([...ART_CATALOGUE.skills].sort()).toEqual([...SKILLS, ...ENDGAME_SKILLS].map(s => s.id).sort())
   })
 
   it('every speaker portrait has a panel, the hero has one per outfit family, and the void lord has none', () => {
@@ -276,7 +277,7 @@ describe('the manifest covers the game', () => {
     // ... and the logo's badge and mascot, and the painted wordmark (#76).
     // ... and the wooden cup of the cup stand (the last +1).
     // The portraits: 43 speakers (21 of them teachers), 25 more people with a face in the talk window (#164), the boy hero's four and the girl hero's four.
-    expect(seen.size).toBe(210 + SMITHED.length + 6 + SKILLS.length + 43 + 25 + 4 + 4 + 1 + 2 + 6 + ORNAMENTS.length + Object.keys(BAR_FRAME_REFS).length + icons + 2 + 1 + 1)
+    expect(seen.size).toBe(210 + SMITHED.length + 6 + SKILLS.length + ENDGAME_SKILLS.length + 43 + 25 + 4 + 4 + 1 + 2 + 6 + ORNAMENTS.length + Object.keys(BAR_FRAME_REFS).length + icons + 2 + 1 + 1)
     // The catalogue `pnpm art:status` reports on is exactly what the sheets write.
     const catalogue = Object.entries(ART_CATALOGUE).flatMap(([kind, ids]) => ids.map(id => artTarget(kind as keyof typeof ART_CATALOGUE, id)))
     expect([...catalogue].sort()).toEqual([...seen].sort())
@@ -568,7 +569,7 @@ describe('what a prompt says', () => {
   it('a skill sheet demands painted volume, names the flat answer as wrong, and goes out with painted weapons as finish references', () => {
     // The first skill sheets came back as flat single-colour shapes while the
     // weapons, from the same style block, came back with volume.
-    for (const stem of CLASS_IDS.flatMap(cls => [`sheet-skills-${cls}`, `sheet-skills2-${cls}`])) {
+    for (const stem of CLASS_IDS.flatMap(cls => [`sheet-skills-${cls}`, `sheet-skills2-${cls}`, ...(endgameOf(cls).length ? [`sheet-skills3-${cls}`] : [])])) {
       const text = textOf(stem)
       expect(text, stem).toContain('PAINTED VOLUME — this is what the sheet is judged on.')
       expect(text, stem).toMatch(/a LIT side and a SHADOW side that meet along a hard edge/)
@@ -593,7 +594,7 @@ describe('what a prompt says', () => {
     for (const f of SKILL_FINISH_REFS) expect(manifestTargets().has(f.replace(/^public\//, '')), f).toBe(true)
     // Nothing else is sent with more than its own reference.
     // (The icon sheets borrow the same finish references; see their own test.)
-    for (const b of blocks) if (!b.stem.startsWith('sheet-skills-') && !b.stem.startsWith('sheet-skills2-') && !b.stem.startsWith('sheet-icons-') && b.stem !== 'sheet-ui-ornaments' && b.stem !== 'sheet-ui-rule-crest' && !b.stem.startsWith('sheet-ui-bar-frame-') && b.stem !== 'single-logo-mascot' && !b.stem.startsWith('single-logo-title-') && b.stem !== 'single-logo-wordmark' && b.stem !== 'sheet-portraits-girl' && !b.stem.startsWith('sheet-portraits-people-') && !b.stem.startsWith('cover-') && !b.stem.startsWith('bg-ui-terrain-') && b.stem !== 'bg-ui-map') expect(b.styleRefs, b.stem).toBeUndefined()
+    for (const b of blocks) if (!b.stem.startsWith('sheet-skills-') && !b.stem.startsWith('sheet-skills2-') && !b.stem.startsWith('sheet-skills3-') && !b.stem.startsWith('sheet-icons-') && b.stem !== 'sheet-ui-ornaments' && b.stem !== 'sheet-ui-rule-crest' && !b.stem.startsWith('sheet-ui-bar-frame-') && b.stem !== 'single-logo-mascot' && !b.stem.startsWith('single-logo-title-') && b.stem !== 'single-logo-wordmark' && b.stem !== 'sheet-portraits-girl' && !b.stem.startsWith('sheet-portraits-people-') && !b.stem.startsWith('cover-') && !b.stem.startsWith('bg-ui-terrain-') && b.stem !== 'bg-ui-map') expect(b.styleRefs, b.stem).toBeUndefined()
   })
 
   it('a sheet says its own grid, its blanks and its measured size', () => {
@@ -758,7 +759,8 @@ describe('the slicer knows a painting by its name, and only by its name', () => 
     // are 768x576: shape says nothing.
     expect(targets.filter(t => t.width === 1024 && t.height === 768)).toHaveLength(65)
     // (Two skill sheets for every class, the portraits, and the ornaments.)
-    expect(targets.filter(t => t.width === 768 && t.height === 576 && t.kind === 'cells')).toHaveLength(CLASS_IDS.length * 2 + 2)
+    // (and a third for each class with its endgame six, #168)
+    expect(targets.filter(t => t.width === 768 && t.height === 576 && t.kind === 'cells')).toHaveLength(CLASS_IDS.length * 2 + CLASS_IDS.filter(c => endgameOf(c).length).length + 2)
     for (const name of [
       'Gemini_Generated_Image_abc123.png', // a download nobody renamed
       'sheet-items-shields.png',           // a sheet the index does not know (yet, or any more)

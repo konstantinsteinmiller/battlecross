@@ -149,7 +149,14 @@ describe('the trainer\'s lesson', () => {
     p.profile.gold = 5000
     await open('TeachScreen', 'trainerPyro')
     const lessons = $$('.lesson')
-    expect(lessons).toHaveLength(12)
+    // The class's twelve, then its six endgame skills (#168), locked until the demon king falls.
+    expect(lessons).toHaveLength(12 + 6)
+    expect(lessons.slice(12).every(l => !!l.querySelector('.lesson__lock'))).toBe(true)
+    await click(lessons[12]!)
+    expect($('.skill-card')).toBeNull()
+    // Not clickable: the card never opens, so its description cannot be read.
+    expect(lessons[12]!.getAttribute('aria-disabled')).toBe('true')
+    expect($('.skill-card')).toBeNull()
     await click(lessons[0]!)
     const cost = p.skillCost('fireball')
     await click(act())
@@ -161,7 +168,8 @@ describe('the trainer\'s lesson', () => {
 
   it('every lesson and the card in hand show the attribute the skill grows with (#96), none when it reads none (#105)', async () => {
     await open('TeachScreen', 'trainerPyro')
-    const lessons = $$('.lesson')
+    // (The locked endgame skills show no badge: their scaling is part of what stays unread.)
+    const lessons = $$('.lesson').filter(l => !l.querySelector('.lesson__lock'))
     for (const l of lessons) {
       const def = SKILL_BY_ID[l.getAttribute('data-skill')!]!
       expect(l.querySelector('.stat-badge')?.getAttribute('data-scales') ?? null, def.id).toBe(scalingOf(def))

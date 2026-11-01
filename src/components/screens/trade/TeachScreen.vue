@@ -33,15 +33,19 @@
                 :class="{ 'is-sel': picked === s.id, 'is-known': knows(s.id), 'is-open': learnBlock(s.id) === '', 'is-locked': lockedOut(s.id) }"
                 :aria-label="t(`skill.${s.id}.name`)"
                 :aria-pressed="picked === s.id"
+                :aria-disabled="isLocked(s.id)"
                 :data-skill="s.id"
-                @click="pick(s.id)"
+                @click="!isLocked(s.id) && pick(s.id)"
               )
                 span.lesson__icon
                   SkillIcon(:id="s.id" :dim="lockedOut(s.id)")
-                  StatBadge.lesson__stat(:id="s.id")
+                  StatBadge.lesson__stat(v-if="!isLocked(s.id)" :id="s.id")
+                  span.lesson__lock(v-else aria-hidden="true")
+                    GameIcon(name="lock")
                 span.lesson__text
                   span.lesson__name {{ t(`skill.${s.id}.name`) }}
                   span.lesson__rank(v-if="s.capstone") {{ t('relic.capstone') }}
+                  span.lesson__rank(v-if="isMastered(s.id)") {{ t('trainer.master.mark') }}
                   span.lesson__rank(v-if="skillRank(s.id) > 1") {{ t('trainer.rank.label', { n: roman(skillRank(s.id)) }) }}
                   span.lesson__reqs
                     span(:class="{ bad: profile.level < s.level }") {{ t('hud.level', { n: s.level }) }}
@@ -76,7 +80,20 @@
                 PriceTag.trade__deal-price(:n="rankCost(picked)" :base="rankBaseOf(picked)" :bad="profile.gold < rankCost(picked)")
               p.trade__why(v-if="rBlock === 'level'") {{ t('trainer.rank.level', { n: roman(nextRank), lvl: nextRankLevel(picked) }) }}
               p.trade__why(v-else-if="rBlock === 'attrs' || rBlock === 'gold'") {{ t(`trainer.block.${rBlock}`) }}
+          //- Mastery (#168): six skills of the class learned, a point to spend.
+          template(v-if="masterable")
+            p.teach__rank(v-if="mBlock === 'mastered'") {{ t('trainer.master.done') }}
+            p.trade__why(v-else-if="mBlock === 'points'") {{ t('trainer.master.points') }}
+            p.teach__rank-gain(v-else) {{ t('trainer.master.left', { n: masteryLeft(cls) }) }}
           div.trainer__actions
+            FButton.trade__act(
+              v-if="masterable && mBlock !== 'mastered'"
+              :label="t('trainer.master.button', { name: t(`skill.${picked}.name`) })"
+              type="warning"
+              :size="short ? 'sm' : 'md'"
+              :is-disabled="mBlock !== ''"
+              @click="master"
+            )
             FButton.trade__act(
               v-if="ranking && rBlock !== 'max'"
               :label="t('trainer.rank.up')"
@@ -142,11 +159,11 @@
 import { computed, nextTick, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { ATTRS, ATTR_COLOR, type Attr } from '@/game/data/attributes'
-import { CLASSES, SKILL_BY_ID, capstoneOf, priceOf, skillsOf, type ClassId } from '@/game/data/skills'
+import { CLASSES, SKILL_BY_ID, capstoneOf, endgameOf, priceOf, skillsOf, type ClassId } from '@/game/data/skills'
 import { trialFlag } from '@/game/data/prestige'
 import { REP_FRIEND } from '@/game/data/quests'
-import { afterplayOpen, buyRank, flagSet, knows, learnBlock, learnSkill, nextRankLevel, profile, rankBlock, rankCost, skillCost, skillRank, totalAttrs } from '@/game/state/profile'
-import { rankCd, rankMul, rankPrice } from '@/game/data/progression'
+import { afterplayOpen, buyRank, flagSet, isMastered, knows, learnBlock, learnSkill, learnedIn, masterSkill, masteryBlock, masteryLeft, nextRankLevel, profile, rankBlock, rankCost, skillCost, skillRank, totalAttrs } from '@/game/state/profile'
+import { MASTERY_MIN_SKILLS, rankCd, rankMul, rankPrice } from '@/game/data/progression'
 import { flow } from '@/game/flow'
 import { sfx } from '@/game/audio/sfx'
 import FButton from '@/components/atoms/FButton.vue'
@@ -168,7 +185,9 @@ const cls = computed<ClassId>(() => (flow.trainerCls || 'aegis') as ClassId)
 /** The class's twelve, and in the afterplay its capstone at the end of the path (§2.3). */
 const skills = computed(() => {
   const cap = afterplayOpen() ? capstoneOf(cls.value) : undefined
-  return cap ? [...skillsOf(cls.value), cap] : skillsOf(cls.value)
+  // The endgame six (#168) are always on the path, locked until the demon king falls.
+  const path = cap ? [...skillsOf(cls.value), cap] : skillsOf(cls.value)
+  return [...path, ...endgameOf(cls.value)]
 })
 /** A trainer of several classes (the Wanderer): the ones he teaches this hero. */
 const tabs = computed<ClassId[]>(() => {
@@ -218,7 +237,9 @@ const reqsOf = (id: string): Array<{ attr: Attr; need: number; have: number }> =
   return (Object.keys(s.req) as Attr[]).map(attr => ({ attr, need: s.req[attr] ?? 0, have: total.value[attr] }))
 }
 /** Not learned and out of reach for now (level or attributes, not money). */
-const lockedOut = (id: string): boolean => !knows(id) && (learnBlock(id) === 'level' || learnBlock(id) === 'attrs')
+const lockedOut = (id: string): boolean => !knows(id) && (learnBlock(id) === 'level' || learnBlock(id) === 'attrs' || isLocked(id))
+/** An endgame skill before the demon king has fallen (#168). */
+const isLocked = (id: string): boolean => !!SKILL_BY_ID[id]?.endgame && !afterplayOpen()
 /** What the lesson in hand asks of this attribute (0: nothing). */
 const needOf = (a: Attr): number => (picked.value && !knows(picked.value) ? SKILL_BY_ID[picked.value]?.req[a] ?? 0 : 0)
 
@@ -228,6 +249,20 @@ const pick = (id: string): void => {
 }
 
 const stamps = ref(0)
+/** A learned skill of a class with six learned: it can be mastered (or already is). */
+const masterable = computed(() => !!picked.value && knows(picked.value) && learnedIn(cls.value) >= MASTERY_MIN_SKILLS)
+const mBlock = computed(() => (masterable.value ? masteryBlock(picked.value) : ''))
+const master = (): void => {
+  const id = picked.value
+  if (!masterSkill(id)) {
+    sfx('denied')
+    shake(document.querySelector('.trade__act'))
+    return
+  }
+  sfx('uiLearn')
+  stamps.value++
+  void nextTick(() => burst(document.querySelector(`.lesson[data-skill="${id}"] .lesson__icon`), CLASSES[cls.value].color, true))
+}
 const rankUp = (): void => {
   const id = picked.value
   const cost = rankCost(id)
@@ -283,6 +318,22 @@ const learn = (): void => {
   .trade__cap
     color: var(--bc-text)
     background: var(--tint)
+// The padlock where a locked endgame skill's scaling badge would be.
+.lesson__lock
+  position: absolute
+  right: -0.2rem
+  bottom: -0.2rem
+  display: grid
+  place-items: center
+  width: 1.1rem
+  height: 1.1rem
+  border: var(--bc-ol-thin) solid var(--bc-ink)
+  border-radius: 50%
+  background: var(--bc-paper)
+  color: var(--bc-ink)
+  > :deep(svg)
+    width: 70%
+    height: 70%
 // The Wanderer's classes: a row of tabs over the path.
 .teach__tabs
   display: flex
@@ -366,6 +417,10 @@ const learn = (): void => {
     background: color-mix(in srgb, var(--tint) 22%, var(--bc-paper-hi))
   &.is-locked
     background: var(--bc-paper-lo)
+  // The endgame six before the demon king falls: shown, but not to be opened.
+  &[aria-disabled="true"]
+    cursor: default
+    pointer-events: none
 .lesson__icon
   position: relative
   z-index: 1

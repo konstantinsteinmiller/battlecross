@@ -1,7 +1,7 @@
 import { HEAT_MAX, SKILL_BY_ID } from '../data/skills'
 import { DEATH_BARKS, barkKey } from '../data/dialogs/bosses'
 import { ENEMY_BY_ID, RANK_REWARD } from '../data/enemies'
-import { SOUL_RISE_LIFE, spawnEnemy, spawnSpirit } from './spawn'
+import { SOUL_RISE_LIFE, isSpirit, spawnEnemy, spawnSpirit } from './spawn'
 import { killGold, killXp, addXp, xpToNext } from '../data/progression'
 import { pylonAura } from './invasion'
 import { CHAMPION_REWARD } from '../data/loot'
@@ -14,7 +14,7 @@ import { atPeace, findStatus, hasStatus, outOfReach, statusV, type Sim } from '.
 import { bossHurt } from './bosses/hooks'
 import { noteBossHit } from './pressure'
 import { afterBossSpoils, demonGlass, dropsInfernal, relicDefence, relicOffence, relicSteal } from './relics'
-import { BOSS_VS_MINION_MUL, ELITE_VS_MINION_MUL, INVADED_DROP_MUL, MINION_DAMAGE_MUL } from '../data/relics'
+import { BOSS_VS_MINION_MUL, ELITE_VS_MINION_MUL, INVADED_DROP_MUL, MINION_DAMAGE_MUL, SPIRIT_DAMAGE_TAKEN_MUL } from '../data/relics'
 
 /**
  * ─── Damage, healing, statuses, death ────────────────────────────────────────
@@ -279,6 +279,8 @@ export const dealDamage = (sim: Sim, src: Unit | null, tgt: Unit, base: number, 
     if (tgt.team === 0 && tgt.ownerId !== 0 && src.team === 1) {
       if (src.rank === 'boss') amount *= BOSS_VS_MINION_MUL
       else if (src.rank === 'elite' || src.champion) amount *= ELITE_VS_MINION_MUL
+      // A raised soul (#175) is frail against the ordinary foes.
+      else if (hero && isSpirit(tgt, hero)) amount *= SPIRIT_DAMAGE_TAKEN_MUL
     }
     if (tgt.rank === 'boss') amount *= (1 + (srcMods?.bossDamage ?? 0)) * (src === hero ? shadowBossMul(sim.hero.skills) : 1)
     // A demon pylon's aura (an invaded zone, `invasion.ts`): the enemies in its reach hit harder.

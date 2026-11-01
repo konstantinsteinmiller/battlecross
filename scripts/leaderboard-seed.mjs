@@ -15,7 +15,7 @@
  * ── Histogram only, NO rows ──
  *
  * The owner's call (2026-09-24): on these builds the game shows the rank badge
- * ("#1,204 of 2,500 players") and no top-100 list, so the seed publishes no
+ * ("#1,204 of 1,573 players") and no top-100 list, so the seed publishes no
  * rows at all and therefore no invented player names. `rankFromDist` needs
  * only `dist` and `total` to place a player exactly.
  *
@@ -55,7 +55,7 @@ export const SEED_FILE = resolve(SELF ? dirname(SELF) : 'scripts', '../data/lead
  * not to what looks impressive: six figures beside an unknown game is the tell
  * that a board was invented.
  */
-export const TOTAL = 2_500
+export const TOTAL = 1_573
 
 // ─── Copies of the game's XP curve (`src/game/data/progression.ts`) ─────────
 // This is plain Node and the game is TypeScript behind an alias, so these are
@@ -86,7 +86,7 @@ export const xpToReach = (level) => {
  *    5 → 0.42     most stop somewhere in levels 2–4
  *   12 → 0.12     one in eight plays into the third tier's zones
  *   24 → 0.016    under 2 % are still playing at level 24
- *   30 → 0.0024   a handful (~6 of 2 500) reach the cap
+ *   30 → 0.0024   a handful (~4 of 1 573) reach the cap
  *   31 → 0        the cap: nobody is modelled past it
  *
  * Interpolated log-linearly between anchors, so each band decays smoothly
@@ -131,7 +131,7 @@ const softKnee = (x) => (x <= POST_CAP_KNEE ? x : POST_CAP_KNEE + POST_CAP_ROOM 
 
 /**
  * Round to two significant figures. The histogram ships inside the bundle, and
- * 2 500 distinct XP values would be ~30 kB of buckets; two figures keep it to a
+ * 1 573 distinct XP values would be ~30 kB of buckets; two figures keep it to a
  * few hundred without changing anyone's placing by more than the model's own
  * noise.
  */

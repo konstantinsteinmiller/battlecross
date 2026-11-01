@@ -8,6 +8,8 @@ import { SIDE_AGGRO, SIDE_LEASH } from './interact'
 import { SIDE_GROUP } from './world'
 import { atPeace, findStatus, hasStatus, outOfReach, type Sim } from './world'
 import type { Unit } from './types'
+import { isSpirit } from './spawn'
+import { SPIRIT_DECAY_PER_SEC } from '../data/relics'
 import { siegeTarget } from './siege'
 import { stepFrenzy } from './frenzy'
 
@@ -210,6 +212,15 @@ export const stepAlly = (sim: Sim, u: Unit, dt: number): void => {
       u.animT = 0
       sim.emit({ t: 'death', unit: u.id, x: u.x, z: u.z, kind: u.kind, rank: u.rank, team: u.team })
       return
+    }
+  }
+  // A raised soul (#175) has no clock, only a slow fade: it thins out unless healed.
+  if (isSpirit(u, hero)) {
+    u.icd.fade = (u.icd.fade ?? 1) - dt
+    if (u.icd.fade <= 0) {
+      u.icd.fade += 1
+      dealDamage(sim, null, u, u.s.maxHp * SPIRIT_DECAY_PER_SEC, { type: 'true', canCrit: false, dot: true })
+      if (!u.alive) return
     }
   }
   if (isControlled(u) || u.action || !def) return

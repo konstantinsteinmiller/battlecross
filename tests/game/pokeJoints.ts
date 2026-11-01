@@ -28,6 +28,8 @@ export const JOINTS: Joint[] = [
   // ── Houses ──
   { box: 'chimney@houses.ts', part: 'chimney@houses.ts', rule: 'through', why: 'a chimney\'s brick courses and its cap ring the stack' },
   { box: 'chimney@houses.ts', part: 'gableRoof@houses.ts', rule: 'through', why: 'a chimney comes up through the roof, a course ringing it where they meet' },
+  { box: 'chimney@houses.ts', part: 'gableRoof@houses.ts', rule: 'deep', boxSize: '54x6x54', why: 'the brick course ringing a chimney where it meets a steep gable roof' },
+  { box: 'hearthKitchen@interiors.ts', part: 'thatchRoof@houses.ts', rule: 'through', boxSize: '120x93x36', why: 'the chimney breast of a low cottage reaches the ceiling, which is the underside of the thatch' },
   { box: 'chimney@houses.ts', part: 'hipRoof@houses.ts', rule: 'through', why: 'a chimney comes up through the roof, a course ringing it where they meet' },
   { box: 'chimney@houses.ts', part: 'roofRows@houses.ts', rule: 'through', why: 'a chimney comes up through the roof\'s tile rows' },
   { box: 'chimney@houses.ts', part: 'thatchRoof@houses.ts', rule: 'through', why: 'a chimney comes up through the thatch' },

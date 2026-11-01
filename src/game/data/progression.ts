@@ -100,5 +100,27 @@ export const rankLevel = (skillLevel: number, rank: number): number => {
   const i = rankIdx(rank)
   return i === 0 ? skillLevel : Math.min(RANK_LEVEL_CAP[i], skillLevel + RANK_LEVEL_STEP[i])
 }
+/**
+ * Mastery (#168). A hero who has bought at least MASTERY_MIN_SKILLS skills of a
+ * class earns one mastery point in that class at each of MASTERY_LEVELS; a point
+ * masters one learned skill of the class, which then works twice as hard: its
+ * power scaling doubles (a 140 % Intelligence hit becomes 280 %), a passive's
+ * mods double, and so do the strength figures of an active listed in
+ * MASTERY_P_KEYS (damage, healing, defence, shields, slows...). Durations,
+ * radii, counts and chances stay as they were.
+ */
+export const MASTERY_LEVELS: readonly number[] = [25, 35]
+export const MASTERY_MIN_SKILLS = 6
+export const MASTERY_MUL = 2
+export const MASTERY_P_KEYS: ReadonlySet<string> = new Set([
+  'dmg', 'heal', 'def', 'shield', 'reflect', 'back', 'bonus', 'vuln', 'weak', 'slow', 'move', 'speed', 'atk',
+  'regen', 'steal', 'pct', 'poison', 'burn', 'echo', 'reduce', 'crit', 'critDmg', 'hp'
+])
+/** Mastery points a class has earned: none below MASTERY_MIN_SKILLS learned skills of it, else one per milestone reached. */
+export const masteryEarned = (heroLevel: number, learnedInClass: number): number =>
+  learnedInClass >= MASTERY_MIN_SKILLS ? MASTERY_LEVELS.filter(l => heroLevel >= l).length : 0
+/** The factor a skill's strength gets from being mastered. */
+export const masteryMul = (mastered: boolean): number => (mastered ? MASTERY_MUL : 1)
+
 /** What a rank costs at the trainer, from the skill's price level. */
 export const rankPrice = (priceLevel: number, rank: number): number => skillPrice(priceLevel + RANK_LEVEL_STEP[rankIdx(rank)])

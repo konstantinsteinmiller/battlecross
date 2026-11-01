@@ -147,8 +147,8 @@ describe('the cup stand at the save', () => {
 })
 
 describe('Nell Nimblefingers', () => {
-  it('stands in Sunford, early and for everyone, and hands over to the cups with a parting line', () => {
-    const n = TOWNS.sunford.npcs.find(x => x.id === 'sunfordCups')!
+  it('stands in Oakhaven, early and for everyone, and hands over to the cups with a parting line', () => {
+    const n = TOWNS.oakhaven.npcs.find(x => x.id === 'sunfordCups' && !x.needs)!
     expect(n.role).toBe('gambler')
     expect(n.game).toBe('cups')
     expect(n.needs).toBeUndefined()

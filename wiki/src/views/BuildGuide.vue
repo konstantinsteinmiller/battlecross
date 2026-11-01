@@ -4,7 +4,7 @@ import { parts } from '../router'
 import { BUILD_BY_ID } from '../builds'
 import { encodePlan, type Plan } from '../planner'
 import { barSynergy, statFocus } from '../synergy'
-import { CLASSES, ATTRS, ATTR_NAME, ATTR_COLOR, EQUIP_SLOT_LIST, ITEM_BY_ID, IMG, classIcon, className, itemName, slotName, type ClassId } from '../data'
+import { CLASSES, ATTRS, ATTR_NAME, ATTR_COLOR, ATTR_SHORT, EQUIP_SLOT_LIST, ITEM_BY_ID, IMG, MASTERY_NOTE, classIcon, className, endgameOf, itemName, skillDesc, skillName, scalingOf, slotName, type ClassId } from '../data'
 import SkillIcon from '../components/SkillIcon.vue'
 import ItemIcon from '../components/ItemIcon.vue'
 import StatSheet from '../components/StatSheet.vue'
@@ -20,6 +20,8 @@ const portrait = computed(() => {
   const kind = body?.kind === 'plate' ? 'plate' : body?.kind === 'robe' ? 'robe' : 'leather'
   return `${IMG}portraits/hero-${kind}.webp`
 })
+/** The endgame six of the build's classes (#168), where the class has them yet. */
+const endgame = computed(() => (b.value ? b.value.classes.flatMap(c => endgameOf(c as ClassId)) : []))
 const maxAttr = computed(() => (b.value ? Math.max(...ATTRS.map(a => b.value!.attrs[a])) : 1))
 </script>
 
@@ -54,6 +56,18 @@ const maxAttr = computed(() => (b.value ? Math.max(...ATTRS.map(a => b.value!.at
       <div class="row qa"><span v-for="a in ATTRS" :key="a" :style="{ color: ATTR_COLOR[a] }">{{ a.toUpperCase() }} {{ b.attrs[a] }}</span></div>
       <div class="row"><template v-for="s in EQUIP_SLOT_LIST" :key="s"><ItemIcon v-if="b.gear[s]" :id="b.gear[s]!" :size="40" /></template></div>
       <div class="dim small">Tap any icon for details.</div>
+    </section>
+
+    <section v-if="endgame.length" class="panel">
+      <h3>After the Demon King: the endgame skills</h3>
+      <p class="small muted">Locked in the game until the Demon King falls and the second story opens; taught from level 30 on by the same teacher.</p>
+      <div v-for="s in endgame" :key="s.id" class="row" style="gap:10px;margin:6px 0;align-items:flex-start">
+        <SkillIcon :id="s.id" :size="40" />
+        <div class="small"><b>{{ skillName(s) }}</b> <span class="dim">Lv {{ s.level }} · {{ s.kind }}</span>
+          <span v-if="scalingOf(s)" class="sbadge" :style="{ '--c': ATTR_COLOR[scalingOf(s)!] }">{{ ATTR_SHORT[scalingOf(s)!] }}</span>
+          <div class="muted">{{ skillDesc(s) }}</div></div>
+      </div>
+      <p class="small dim">{{ MASTERY_NOTE }}</p>
     </section>
 
     <div class="grid cols">

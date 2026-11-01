@@ -21,6 +21,8 @@
         HeroFrame
         //- Where he is, and how far the clearing has come.
         ZoneBadge(v-if="flow.screen === 'zone' || flow.screen === 'town'")
+        //- Who keeps what in this town, on one small map (#167).
+        TownMinimap(v-if="flow.screen === 'town' && !flow.talk")
         //- After the finale falls: how the hero goes home, under his frame
         //- (roadmap #80: out of the field he still explores and fights in).
         LeaveButton(v-if="flow.screen === 'zone'")
@@ -57,6 +59,7 @@ import NpcPins from '@/components/dialog/NpcPins.vue'
 import BossBarkLayer from './BossBarkLayer.vue'
 import HeroFrame from './HeroFrame.vue'
 import ZoneBadge from './ZoneBadge.vue'
+import TownMinimap from './TownMinimap.vue'
 import TopStatus from './TopStatus.vue'
 import HudMenu from './HudMenu.vue'
 import SkillBar from './SkillBar.vue'

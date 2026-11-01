@@ -59,8 +59,8 @@ export const INFERNAL_SHARE = 0.35
 /** A twin is at least legendary (#174): what the invaded zones drop is worth the level. */
 export const INFERNAL_MIN_TIER = 6
 /** Invaded visits (#173): foes hold more and hit harder than the plain level band says. */
-export const INVADED_HP_MUL = 1.3
-export const INVADED_DMG_MUL = 1.08
+export const INVADED_HP_MUL = 2
+export const INVADED_DMG_MUL = 1.3
 /** A drop's chance is this many times higher in an invaded zone. */
 export const INVADED_DROP_MUL = 2.5
 /** The hero's minions hit for this share of what they did (#173). */
@@ -68,6 +68,10 @@ export const MINION_DAMAGE_MUL = 0.7
 /** What a boss / an elite or champion deals to the hero's minions and summons, times its normal blow. */
 export const BOSS_VS_MINION_MUL = 3
 export const ELITE_VS_MINION_MUL = 2.5
+/** A Soul Warden's spirit (#175) stays until it falls, but takes this many times the blows of the ordinary foes... */
+export const SPIRIT_DAMAGE_TAKEN_MUL = 1.5
+/** ...and loses this share of its maximum health every second, so an idle, unhealed band thins out. */
+export const SPIRIT_DECAY_PER_SEC = 0.01
 
 /** Remaking an owned unique as its Infernal twin at a smith (after B6): gold by tier, and Demonglass. */
 export const INFERNAL_FORGE_GOLD: Readonly<Record<number, number>> = { 1: 1500, 2: 2500, 3: 4000, 4: 6000, 5: 9000, 6: 14000 }

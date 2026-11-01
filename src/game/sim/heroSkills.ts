@@ -1,5 +1,5 @@
 import { CAPSTONES, HEAT_MAX, OVERHEAT_LOCK, type SkillDef } from '../data/skills'
-import { rankMul } from '../data/progression'
+import { masteryMul, rankMul } from '../data/progression'
 import { MINIONS } from '../data/enemies'
 import { cellOf, isSolidAt, isSolidCell, nearestOpen } from './grid'
 import { addField, face, fire, raiseWall } from './actors'
@@ -37,7 +37,7 @@ const hits: Unit[] = []
 const out2: [number, number] = [0, 0]
 
 /** A skill's power: the attribute's, × its afterplay rank (II +30 %, III +60 %). */
-const pw = (c: CastCtx, attr: Attr): number => scalePower(c.u.s, attr) * rankMul(c.h.build.ranks?.[c.def.id] ?? 1)
+const pw = (c: CastCtx, attr: Attr): number => scalePower(c.u.s, attr) * rankMul(c.h.build.ranks?.[c.def.id] ?? 1) * masteryMul(!!c.h.build.mastered?.includes(c.def.id))
 const pct = (n: number | undefined): number => (n ?? 0) / 100
 
 const placeNear = (sim: Sim, u: Unit, x: number, z: number): void => {
@@ -2241,6 +2241,605 @@ export const HERO_SKILLS: Record<string, SkillFn> = {
 }
 
 // The capstones (afterplay §2.3): each runs its signature skill's code with its own, larger numbers.
+// ── The endgame skills (#168), wave 1 ──────────────────────────────────────
+const foesAround = (c: CastCtx, r: number, x = c.u.x, z = c.u.z): Unit[] => c.sim.inCircle(1, x, z, r, hits)
+const alliesOf = (c: CastCtx, r: number): Unit[] => c.sim.units.filter(m => m.alive && m.team === 0 && m.ownerId === c.u.id && m.rank === 'minion' && Math.hypot(m.x - c.u.x, m.z - c.u.z) <= r)
+/** A burn of `share` of the Intelligence hit over `dur`, the fire skills' way. */
+const kindle = (c: CastCtx, t: Unit, share: number, dur: number): void => {
+  applyStatus(c.sim, t, 'burn', dur, ((pw(c, 'int') * share) / dur) * (1 + (c.u.s.mods.igniteBonus ?? 0)), c.u, { type: 'fire', quiet: true })
+}
+
+Object.assign(HERO_SKILLS, {
+  // Aegis Knight
+  earthsplitter: (c: CastCtx) => {
+    const p = c.def.p
+    c.sim.emit({ t: 'fx', id: 'quake', x: c.u.x, z: c.u.z, r: p.radius, color: c.def.color })
+    for (const t of foesAround(c, p.radius!)) {
+      const dealt = dealDamage(c.sim, c.u, t, pw(c, 'str') * pct(p.dmg), { type: 'physical', heavy: true, skill: c.def.id })
+      if (dealt <= 0 || !t.alive) continue
+      applyStatus(c.sim, t, 'stun', p.stun!, 1, c.u)
+      knockback(t, c.u.x, c.u.z, 6)
+    }
+  },
+  guardiansVow: (c: CastCtx) => {
+    const p = c.def.p
+    addShield(c.u, c.u.s.maxHp * pct(p.shield), p.dur!)
+    applyStatus(c.sim, c.u, 'defenseUp', p.dur!, pct(p.def), c.u)
+    c.sim.emit({ t: 'fx', id: 'bastion', x: c.u.x, z: c.u.z, dur: p.dur, color: '#fff2a8', unit: c.u.id })
+  },
+  judgmentHammer: (c: CastCtx) => {
+    const t = c.target
+    if (!t) return
+    const p = c.def.p
+    c.sim.emit({ t: 'fx', id: 'radiant', x: t.x, z: t.z, a: c.a, color: '#fff2a8', unit: t.id })
+    const dealt = dealDamage(c.sim, c.u, t, pw(c, 'str') * pct(p.dmg), { type: 'holy', heavy: true, skill: c.def.id })
+    if (dealt <= 0) return
+    heal(c.sim, c.u, c.u.s.maxHp * pct(p.heal))
+    if (t.alive) applyStatus(c.sim, t, 'weaken', p.dur!, pct(p.weak), c.u)
+  },
+  crusadersWrath: (c: CastCtx) => {
+    const p = c.def.p
+    applyStatus(c.sim, c.u, 'damageUp', p.dur!, pct(p.atk), c.u)
+    applyStatus(c.sim, c.u, 'lifestealUp', p.dur!, pct(p.steal), c.u, { quiet: true })
+    c.sim.emit({ t: 'fx', id: 'roar', x: c.u.x, z: c.u.z, r: 4, color: c.def.color })
+  },
+  // Shadowblade
+  phantomRush: (c: CastCtx) => {
+    const t = c.target
+    if (!t) return
+    const p = c.def.p
+    // Out of nowhere, behind the foe.
+    const a = Math.atan2(t.x - c.u.x, t.z - c.u.z)
+    const gap = t.r + c.u.r + 0.3
+    c.sim.emit({ t: 'fx', id: 'dash', x: c.u.x, z: c.u.z, x2: t.x, z2: t.z, color: c.def.color })
+    placeNear(c.sim, c.u, t.x + Math.sin(a) * gap, t.z + Math.cos(a) * gap)
+    face(c.u, t.x, t.z)
+    const dealt = dealDamage(c.sim, c.u, t, pw(c, 'dex') * pct(p.dmg), { type: 'physical', heavy: true, skill: c.def.id })
+    if (dealt > 0 && t.alive) applyStatus(c.sim, t, 'bleed', p.dur!, (pw(c, 'dex') * pct(p.bleed)) / p.dur!, c.u, { type: 'physical', quiet: true })
+  },
+  bladeVortex: (c: CastCtx) => {
+    const p = c.def.p
+    for (let i = 0; i < p.hits!; i++) {
+      c.sim.after(i * 0.4, () => {
+        if (!c.u.alive) return
+        c.sim.emit({ t: 'fx', id: 'roar', x: c.u.x, z: c.u.z, r: p.radius, color: c.def.color })
+        for (const t of foesAround(c, p.radius!)) dealDamage(c.sim, c.u, t, pw(c, 'dex') * pct(p.dmg), { type: 'physical', skill: c.def.id })
+      })
+    }
+  },
+  veilOfNight: (c: CastCtx) => {
+    const p = c.def.p
+    applyStatus(c.sim, c.u, 'stealth', p.dur!, 1, c.u)
+    applyStatus(c.sim, c.u, 'ambush', p.dur!, pct(p.bonus), c.u, { quiet: true })
+    applyStatus(c.sim, c.u, 'haste', p.dur!, pct(p.haste), c.u, { quiet: true })
+    c.sim.emit({ t: 'fx', id: 'smoke', x: c.u.x, z: c.u.z, r: 3.5, color: '#8a8fa8' })
+    for (const e of c.sim.units) if (e.team === 1 && e.targetId === c.u.id) e.targetId = 0
+  },
+  execution: (c: CastCtx) => {
+    const t = c.target
+    if (!t) return
+    const p = c.def.p
+    c.sim.emit({ t: 'fx', id: 'impact:rock', x: t.x, z: t.z, color: c.def.color })
+    const low = t.hp < t.s.maxHp * pct(p.low)
+    dealDamage(c.sim, c.u, t, pw(c, 'dex') * pct(p.dmg) * (low ? 1 + pct(p.exec) : 1), { type: 'physical', heavy: true, skill: c.def.id })
+  },
+  // Pyromancer
+  infernoWave: (c: CastCtx) => {
+    const p = c.def.p
+    c.sim.emit({ t: 'fx', id: 'roar', x: c.u.x, z: c.u.z, r: p.radius, color: c.def.color })
+    for (const t of foesAround(c, p.radius!)) {
+      const dealt = dealDamage(c.sim, c.u, t, pw(c, 'int') * pct(p.dmg), { type: 'fire', spell: true, skill: c.def.id })
+      if (dealt > 0 && t.alive) kindle(c, t, pct(p.burn), p.burnDur!)
+    }
+  },
+  sunSpear: (c: CastCtx) => {
+    const t = c.target
+    if (!t) return
+    const p = c.def.p
+    const fly = Math.hypot(t.x - c.u.x, t.z - c.u.z) / 26
+    c.sim.emit({ t: 'fx', id: 'lob:holy', x: c.u.x, z: c.u.z, x2: t.x, z2: t.z, dur: fly, color: '#ffd45a' })
+    c.sim.after(fly, () => {
+      const x = t.x
+      const z = t.z
+      c.sim.emit({ t: 'fx', id: 'burst:bolt', x, z, r: p.radius, color: '#ffd45a' })
+      for (const e of foesAround(c, p.radius!, x, z)) {
+        const dealt = dealDamage(c.sim, c.u.alive ? c.u : null, e, pw(c, 'int') * pct(p.dmg), { type: 'fire', spell: true, heavy: e === t, skill: c.def.id })
+        if (dealt > 0 && e.alive) kindle(c, e, pct(p.burn), p.burnDur!)
+      }
+    })
+  },
+  ashenVeil: (c: CastCtx) => {
+    const p = c.def.p
+    addShield(c.u, c.u.s.maxHp * pct(p.shield), p.dur!)
+    c.sim.emit({ t: 'fx', id: 'shield', x: c.u.x, z: c.u.z, unit: c.u.id, color: c.def.color })
+    c.sim.emit({ t: 'fx', id: 'roar', x: c.u.x, z: c.u.z, r: p.radius, color: c.def.color })
+    for (const t of foesAround(c, p.radius!)) dealDamage(c.sim, c.u, t, pw(c, 'int') * pct(p.dmg), { type: 'fire', spell: true, skill: c.def.id })
+  },
+  supernova: (c: CastCtx) => {
+    const p = c.def.p
+    const x = c.u.x
+    const z = c.u.z
+    // The star swells for a moment where the pyromancer stood, then bursts.
+    c.sim.emit({ t: 'fx', id: 'roar', x, z, r: p.radius, color: c.def.color })
+    c.sim.after(p.delay!, () => {
+      c.sim.emit({ t: 'fx', id: 'quake', x, z, r: p.radius, color: c.def.color })
+      c.sim.emit({ t: 'fx', id: 'burst:bolt', x, z, r: p.radius, color: '#ffd45a' })
+      for (const t of foesAround(c, p.radius!, x, z)) {
+        const dealt = dealDamage(c.sim, c.u.alive ? c.u : null, t, pw(c, 'int') * pct(p.dmg), { type: 'fire', spell: true, heavy: true, skill: c.def.id })
+        if (dealt > 0 && t.alive) kindle(c, t, pct(p.burn), p.burnDur!)
+      }
+    })
+  },
+  // Grand Sovereign
+  standardBearer: (c: CastCtx) => {
+    const p = c.def.p
+    c.sim.emit({ t: 'fx', id: 'harvest', x: c.u.x, z: c.u.z, r: p.radius, color: c.def.color })
+    for (const m of alliesOf(c, p.radius!)) {
+      heal(c.sim, m, m.s.maxHp * pct(p.heal))
+      applyStatus(c.sim, m, 'damageUp', p.dur!, pct(p.atk), c.u, { quiet: true })
+    }
+  },
+  summonVanguard: (c: CastCtx) => {
+    const p = c.def.p
+    for (let i = 0; i < p.max!; i++) {
+      const ang = c.u.facing + ((i - (p.max! - 1) / 2) * 0.8)
+      const m = spawnMinion(c.sim, 'guard', c.u.x + Math.sin(ang) * 1.9, c.u.z + Math.cos(ang) * 1.9, p.dur!)
+      if (m) c.sim.emit({ t: 'fx', id: 'summon', x: m.x, z: m.z, color: c.def.color })
+    }
+  },
+  decreeOfSilence: (c: CastCtx) => {
+    const p = c.def.p
+    c.sim.emit({ t: 'fx', id: 'roar', x: c.u.x, z: c.u.z, r: p.radius, color: c.def.color })
+    for (const t of foesAround(c, p.radius!)) {
+      wakeGroup(c.sim, t)
+      applyStatus(c.sim, t, 'stun', p.stun!, 1, c.u)
+      applyStatus(c.sim, t, 'weaken', p.dur!, pct(p.weak), c.u)
+    }
+  },
+  imperialAscension: (c: CastCtx) => {
+    const p = c.def.p
+    c.sim.emit({ t: 'fx', id: 'bastion', x: c.u.x, z: c.u.z, dur: p.dur, color: c.def.color, unit: c.u.id })
+    for (const m of [c.u, ...alliesOf(c, p.radius!)]) {
+      applyStatus(c.sim, m, 'damageUp', p.dur!, pct(p.atk), c.u, { quiet: true })
+      applyStatus(c.sim, m, 'defenseUp', p.dur!, pct(p.def), c.u, { quiet: true })
+    }
+  }
+} satisfies Record<string, SkillFn>)
+
+// ── Wave 2: Chrono-Weaver, Blood Alchemist, Aether-Tech, Geomancer ──────────
+/** A burst at a point: every foe in the circle takes `scale` × the skill's hit, and `each` runs on those still standing. */
+const burstAt = (c: CastCtx, attr: Attr, x: number, z: number, r: number, mul: number, opts: { type: string; spell?: boolean; heavy?: boolean }, each?: (t: Unit, dealt: number) => void): void => {
+  for (const t of foesAround(c, r, x, z)) {
+    const dealt = dealDamage(c.sim, c.u.alive ? c.u : null, t, pw(c, attr) * pct(c.def.p.dmg) * mul, { ...opts, skill: c.def.id } as Parameters<typeof dealDamage>[4])
+    if (dealt > 0 && t.alive) each?.(t, dealt)
+  }
+}
+
+Object.assign(HERO_SKILLS, {
+  // Chrono-Weaver
+  timeShear: (c: CastCtx) => {
+    const p = c.def.p
+    c.sim.emit({ t: 'fx', id: 'burst:bolt', x: c.x, z: c.z, r: p.radius, color: c.def.color })
+    burstAt(c, 'int', c.x, c.z, p.radius!, 1, { type: 'temporal', spell: true }, t => applyStatus(c.sim, t, 'slow', p.dur!, pct(p.slow), c.u))
+  },
+  echoVolley: (c: CastCtx) => {
+    const t = c.target
+    if (!t) return
+    const p = c.def.p
+    c.sim.emit({ t: 'fx', id: 'burst:bolt', x: t.x, z: t.z, r: p.radius, color: c.def.color })
+    burstAt(c, 'int', t.x, t.z, p.radius!, 1, { type: 'temporal', spell: true })
+    // The same place, a moment later, softer: the echo.
+    const x = t.x
+    const z = t.z
+    c.sim.after(p.delay!, () => {
+      c.sim.emit({ t: 'fx', id: 'burst:bolt', x, z, r: p.radius, color: c.def.color })
+      burstAt(c, 'int', x, z, p.radius!, pct(p.echo), { type: 'temporal', spell: true })
+    })
+  },
+  stasisField: (c: CastCtx) => {
+    const p = c.def.p
+    c.sim.emit({ t: 'fx', id: 'roar', x: c.u.x, z: c.u.z, r: p.radius, color: c.def.color })
+    for (const t of foesAround(c, p.radius!)) {
+      wakeGroup(c.sim, t)
+      applyStatus(c.sim, t, 'stun', p.stun!, 1, c.u)
+      applyStatus(c.sim, t, 'vulnerable', p.dur!, pct(p.vuln), c.u)
+    }
+  },
+  timeCollapse: (c: CastCtx) => {
+    const p = c.def.p
+    const x = c.x
+    const z = c.z
+    c.sim.emit({ t: 'fx', id: 'roar', x, z, r: p.radius, color: c.def.color })
+    c.sim.after(p.delay!, () => {
+      c.sim.emit({ t: 'fx', id: 'quake', x, z, r: p.radius, color: c.def.color })
+      burstAt(c, 'int', x, z, p.radius!, 1, { type: 'temporal', spell: true, heavy: true }, t => applyStatus(c.sim, t, 'stun', p.stun!, 1, c.u))
+    })
+  },
+  // Blood Alchemist
+  bloodTide: (c: CastCtx) => {
+    const p = c.def.p
+    c.sim.emit({ t: 'fx', id: 'harvest', x: c.u.x, z: c.u.z, r: p.radius, color: c.def.color })
+    burstAt(c, 'end', c.u.x, c.u.z, p.radius!, 1, { type: 'physical' }, (_t, dealt) => heal(c.sim, c.u, dealt * pct(p.heal)))
+  },
+  leechingMist: (c: CastCtx) => {
+    const p = c.def.p
+    c.sim.emit({ t: 'fx', id: 'burst:bolt', x: c.x, z: c.z, r: p.radius, color: c.def.color })
+    burstAt(c, 'int', c.x, c.z, p.radius!, 1, { type: 'poison', spell: true }, (t, dealt) => {
+      heal(c.sim, c.u, dealt * pct(p.heal))
+      applyStatus(c.sim, t, 'bleed', p.dur!, (pw(c, 'int') * pct(p.bleed)) / p.dur!, c.u, { type: 'physical', quiet: true })
+    })
+  },
+  sanguineAegis: (c: CastCtx) => {
+    const p = c.def.p
+    addShield(c.u, c.u.s.maxHp * pct(p.shield), p.dur!)
+    applyStatus(c.sim, c.u, 'defenseUp', p.dur!, pct(p.def), c.u)
+    c.sim.emit({ t: 'fx', id: 'shield', x: c.u.x, z: c.u.z, unit: c.u.id, color: c.def.color })
+  },
+  exsanguinate: (c: CastCtx) => {
+    const t = c.target
+    if (!t) return
+    const p = c.def.p
+    c.sim.emit({ t: 'fx', id: 'impact:rock', x: t.x, z: t.z, color: c.def.color })
+    const dealt = dealDamage(c.sim, c.u, t, pw(c, 'int') * pct(p.dmg), { type: 'physical', heavy: true, spell: true, skill: c.def.id })
+    if (dealt <= 0) return
+    heal(c.sim, c.u, c.u.s.maxHp * pct(p.heal))
+    if (t.alive) applyStatus(c.sim, t, 'bleed', p.dur!, (pw(c, 'int') * pct(p.bleed)) / p.dur!, c.u, { type: 'physical', quiet: true })
+  },
+  // Aether-Tech
+  plasmaCannon: (c: CastCtx) => {
+    const t = c.target
+    if (!t) return
+    const p = c.def.p
+    c.sim.emit({ t: 'fx', id: 'burst:bolt', x: t.x, z: t.z, r: p.radius, color: c.def.color })
+    burstAt(c, 'skl', t.x, t.z, p.radius!, 1, { type: 'fire', heavy: true })
+  },
+  droneSwarm: (c: CastCtx) => {
+    const p = c.def.p
+    for (let i = 0; i < p.hits!; i++) {
+      c.sim.after(i * 0.5, () => {
+        if (!c.u.alive) return
+        c.sim.emit({ t: 'fx', id: 'roar', x: c.u.x, z: c.u.z, r: p.radius, color: c.def.color })
+        burstAt(c, 'skl', c.u.x, c.u.z, p.radius!, 1, { type: 'physical' })
+      })
+    }
+  },
+  gravityWell: (c: CastCtx) => {
+    const p = c.def.p
+    c.sim.emit({ t: 'fx', id: 'quake', x: c.x, z: c.z, r: p.radius, color: c.def.color })
+    burstAt(c, 'skl', c.x, c.z, p.radius!, 1, { type: 'physical' }, t => {
+      applyStatus(c.sim, t, 'slow', p.dur!, pct(p.slow), c.u)
+      applyStatus(c.sim, t, 'stun', p.stun!, 1, c.u)
+    })
+  },
+  ionStorm: (c: CastCtx) => {
+    const p = c.def.p
+    for (let i = 0; i < p.strikes!; i++) {
+      c.sim.after(i * 0.5, () => {
+        if (!c.u.alive) return
+        const a = (i * 2.4) % (Math.PI * 2)
+        const d = ((i * 0.37) % 1) * p.radius! * 0.7
+        const x = c.x + Math.sin(a) * d
+        const z = c.z + Math.cos(a) * d
+        c.sim.emit({ t: 'fx', id: 'burst:bolt', x, z, r: 2.2, color: c.def.color })
+        burstAt(c, 'skl', x, z, 2.2, 1, { type: 'lightning', spell: true }, t => applyStatus(c.sim, t, 'stun', p.stun!, 1, c.u))
+      })
+    }
+  },
+  // Geomancer
+  aftershock: (c: CastCtx) => {
+    const p = c.def.p
+    c.sim.emit({ t: 'fx', id: 'quake', x: c.u.x, z: c.u.z, r: p.radius, color: c.def.color })
+    burstAt(c, 'str', c.u.x, c.u.z, p.radius!, 1, { type: 'physical', heavy: true }, t => applyStatus(c.sim, t, 'slow', p.dur!, pct(p.slow), c.u))
+  },
+  crystalLance: (c: CastCtx) => {
+    const t = c.target
+    if (!t) return
+    const p = c.def.p
+    c.sim.emit({ t: 'fx', id: 'impact:rock', x: t.x, z: t.z, color: c.def.color })
+    const dealt = dealDamage(c.sim, c.u, t, pw(c, 'str') * pct(p.dmg), { type: 'physical', heavy: true, skill: c.def.id })
+    if (dealt > 0 && t.alive) applyStatus(c.sim, t, 'vulnerable', p.dur!, pct(p.vuln), c.u)
+  },
+  mountainsEmbrace: (c: CastCtx) => {
+    const p = c.def.p
+    addShield(c.u, c.u.s.maxHp * pct(p.shield), p.dur!)
+    applyStatus(c.sim, c.u, 'defenseUp', p.dur!, pct(p.def), c.u)
+    c.sim.emit({ t: 'fx', id: 'bastion', x: c.u.x, z: c.u.z, dur: p.dur, color: c.def.color, unit: c.u.id })
+  },
+  cataclysmQuake: (c: CastCtx) => {
+    const p = c.def.p
+    for (let i = 0; i < p.hits!; i++) {
+      c.sim.after(i * 0.5, () => {
+        if (!c.u.alive) return
+        c.sim.emit({ t: 'fx', id: 'quake', x: c.u.x, z: c.u.z, r: p.radius, color: c.def.color })
+        burstAt(c, 'str', c.u.x, c.u.z, p.radius!, 1, { type: 'physical', heavy: true }, t => { if (i === 0) applyStatus(c.sim, t, 'stun', p.stun!, 1, c.u) })
+      })
+    }
+  }
+} satisfies Record<string, SkillFn>)
+
+// ── Wave 3: Windrunner, Frostwarden, Lightbringer, Beastcaller ──────────────
+Object.assign(HERO_SKILLS, {
+  // Windrunner
+  zephyrBarrage: (c: CastCtx) => {
+    const p = c.def.p
+    c.sim.emit({ t: 'fx', id: 'burst:arrow', x: c.x, z: c.z, r: p.radius, color: c.def.color })
+    burstAt(c, 'skl', c.x, c.z, p.radius!, 1, { type: 'pierce' }, t => applyStatus(c.sim, t, 'slow', p.dur!, pct(p.slow), c.u))
+  },
+  cycloneRip: (c: CastCtx) => {
+    const p = c.def.p
+    c.sim.emit({ t: 'fx', id: 'roar', x: c.u.x, z: c.u.z, r: p.radius, color: c.def.color })
+    burstAt(c, 'dex', c.u.x, c.u.z, p.radius!, 1, { type: 'physical', heavy: true }, t => applyStatus(c.sim, t, 'knockup', p.air!, 1, c.u))
+  },
+  galeVeil: (c: CastCtx) => {
+    const p = c.def.p
+    applyStatus(c.sim, c.u, 'haste', p.dur!, pct(p.haste), c.u)
+    applyStatus(c.sim, c.u, 'defenseUp', p.dur!, pct(p.def), c.u)
+    c.sim.emit({ t: 'fx', id: 'rage', x: c.u.x, z: c.u.z, dur: p.dur, color: c.def.color, unit: c.u.id })
+  },
+  hurricaneRain: (c: CastCtx) => {
+    const p = c.def.p
+    for (let i = 0; i < p.strikes!; i++) {
+      c.sim.after(i * 0.4, () => {
+        if (!c.u.alive) return
+        c.sim.emit({ t: 'fx', id: 'burst:arrow', x: c.x, z: c.z, r: p.radius, color: c.def.color })
+        burstAt(c, 'skl', c.x, c.z, p.radius!, 1, { type: 'pierce' }, t => applyStatus(c.sim, t, 'knockup', p.air!, 1, c.u))
+      })
+    }
+  },
+  // Frostwarden
+  glacierSlam: (c: CastCtx) => {
+    const p = c.def.p
+    c.sim.emit({ t: 'fx', id: 'quake', x: c.u.x, z: c.u.z, r: p.radius, color: c.def.color })
+    burstAt(c, 'str', c.u.x, c.u.z, p.radius!, 1, { type: 'frost', heavy: true }, t => applyStatus(c.sim, t, 'slow', p.dur!, pct(p.slow), c.u))
+  },
+  iceComet: (c: CastCtx) => {
+    const t = c.target
+    if (!t) return
+    const p = c.def.p
+    const x = t.x
+    const z = t.z
+    c.sim.emit({ t: 'fx', id: 'fall:holy', x, z, r: p.radius, dur: 0.5, color: c.def.color })
+    c.sim.after(0.5, () => {
+      c.sim.emit({ t: 'fx', id: 'burst:icicle', x, z, r: p.radius, color: c.def.color })
+      burstAt(c, 'int', x, z, p.radius!, 1, { type: 'frost', spell: true, heavy: true }, e => applyStatus(c.sim, e, 'frozen', p.freeze!, 1, c.u))
+    })
+  },
+  frozenBulwark: (c: CastCtx) => {
+    const p = c.def.p
+    addShield(c.u, c.u.s.maxHp * pct(p.shield), p.dur!)
+    applyStatus(c.sim, c.u, 'defenseUp', p.dur!, pct(p.def), c.u)
+    c.sim.emit({ t: 'fx', id: 'bastion', x: c.u.x, z: c.u.z, dur: p.dur, color: c.def.color, unit: c.u.id })
+  },
+  whiteout: (c: CastCtx) => {
+    const p = c.def.p
+    c.sim.emit({ t: 'fx', id: 'roar', x: c.u.x, z: c.u.z, r: p.radius, color: c.def.color })
+    c.sim.emit({ t: 'fx', id: 'stasis', x: c.u.x, z: c.u.z, dur: p.freeze, color: c.def.color, unit: c.u.id })
+    burstAt(c, 'int', c.u.x, c.u.z, p.radius!, 1, { type: 'frost', spell: true, heavy: true }, t => applyStatus(c.sim, t, 'frozen', p.freeze!, 1, c.u))
+  },
+  // Lightbringer
+  divineSmite: (c: CastCtx) => {
+    const t = c.target
+    if (!t) return
+    const p = c.def.p
+    c.sim.emit({ t: 'fx', id: 'burst:holy', x: t.x, z: t.z, r: 1.6, color: '#fff2a8' })
+    const dealt = dealDamage(c.sim, c.u, t, pw(c, 'int') * pct(p.dmg), { type: 'holy', spell: true, heavy: true, skill: c.def.id })
+    if (dealt > 0 && t.alive) applyStatus(c.sim, t, 'weaken', p.dur!, pct(p.weaken), c.u)
+  },
+  cleansingNova: (c: CastCtx) => {
+    const p = c.def.p
+    c.sim.emit({ t: 'fx', id: 'harvest', x: c.u.x, z: c.u.z, r: p.radius, color: '#fff2a8' })
+    for (const m of [c.u, ...alliesOf(c, p.radius!)]) heal(c.sim, m, m.s.maxHp * pct(p.heal))
+    burstAt(c, 'cha', c.u.x, c.u.z, p.radius!, 1, { type: 'holy', spell: true })
+  },
+  consecration: (c: CastCtx) => {
+    const p = c.def.p
+    const x = c.x
+    const z = c.z
+    c.sim.emit({ t: 'fx', id: 'bastion', x, z, dur: p.dur, color: '#fff2a8' })
+    for (let i = 1; i <= p.dur!; i++) {
+      c.sim.after(i, () => {
+        c.sim.emit({ t: 'fx', id: 'burst:holy', x, z, r: p.radius, color: '#fff2a8' })
+        burstAt(c, 'int', x, z, p.radius!, 1, { type: 'holy', spell: true })
+        if (c.u.alive && Math.hypot(c.u.x - x, c.u.z - z) <= p.radius!) heal(c.sim, c.u, c.u.s.maxHp * pct(p.heal), true)
+      })
+    }
+  },
+  solarJudgment: (c: CastCtx) => {
+    const p = c.def.p
+    const x = c.x
+    const z = c.z
+    c.sim.emit({ t: 'tele', tele: { shape: 'circle', x, z, r: p.radius!, w: 0, a: 0, dur: p.delay!, team: 0 } })
+    c.sim.emit({ t: 'fx', id: 'fall:holy', x, z, r: p.radius, dur: p.delay, color: '#fff2a8' })
+    c.sim.after(p.delay!, () => {
+      c.sim.emit({ t: 'fx', id: 'radiant', x, z, a: 0, color: '#fff2a8' })
+      c.sim.emit({ t: 'fx', id: 'burst:holy', x, z, r: p.radius, color: '#fff2a8' })
+      burstAt(c, 'int', x, z, p.radius!, 1, { type: 'holy', spell: true, heavy: true }, t => applyStatus(c.sim, t, 'weaken', p.dur!, pct(p.weaken), c.u))
+    })
+  },
+  // Beastcaller
+  rendingPounce: (c: CastCtx) => {
+    const t = c.target
+    if (!t) return
+    const p = c.def.p
+    c.sim.emit({ t: 'fx', id: 'impact:rock', x: t.x, z: t.z, color: c.def.color })
+    const dealt = dealDamage(c.sim, c.u, t, pw(c, 'cha') * pct(p.dmg), { type: 'physical', heavy: true, skill: c.def.id })
+    if (dealt > 0 && t.alive) applyStatus(c.sim, t, 'bleed', p.dur!, (pw(c, 'cha') * pct(p.bleed)) / p.dur!, c.u, { type: 'physical', quiet: true })
+  },
+  thunderStampede: (c: CastCtx) => {
+    const p = c.def.p
+    const len = c.def.range
+    const dx = Math.sin(c.a)
+    const dz = Math.cos(c.a)
+    for (const off of [-1.6, 0, 1.6]) {
+      c.sim.emit({ t: 'fx', id: 'dash', x: c.u.x + dz * off, z: c.u.z - dx * off, x2: c.u.x + dx * len + dz * off, z2: c.u.z + dz * len - dx * off, color: c.def.color })
+    }
+    c.sim.emit({ t: 'fx', id: 'slam', x: c.u.x + dx * len * 0.5, z: c.u.z + dz * len * 0.5, r: 4, color: '#c79a5a' })
+    for (const t of c.sim.inLine(1, c.u.x, c.u.z, c.a, len, p.width!, hits)) {
+      const dealt = dealDamage(c.sim, c.u, t, pw(c, 'cha') * pct(p.dmg), { type: 'physical', heavy: true, skill: c.def.id })
+      if (dealt > 0 && t.alive && t.rank !== 'boss') {
+        applyStatus(c.sim, t, 'knockdown', p.down!, 1, c.u)
+        knockback(t, t.x - dx, t.z - dz, 7)
+      }
+    }
+  },
+  summonPack: (c: CastCtx) => {
+    const p = c.def.p
+    const kinds = [...Array(p.wolves!).fill('packWolf'), ...Array(p.bears!).fill('packBear')]
+    kinds.forEach((kind, i) => {
+      const ang = (i / kinds.length) * Math.PI * 2
+      const m = spawnMinion(c.sim, kind, c.u.x + Math.cos(ang) * 2.2, c.u.z + Math.sin(ang) * 2.2, p.dur!)
+      if (m) c.sim.emit({ t: 'fx', id: 'summon', x: m.x, z: m.z, color: c.def.color })
+    })
+  },
+  spiritOfTheWild: (c: CastCtx) => {
+    const p = c.def.p
+    c.sim.emit({ t: 'fx', id: 'roar', x: c.u.x, z: c.u.z, r: p.radius, color: c.def.color })
+    for (const m of [c.u, ...pack(c)]) {
+      heal(c.sim, m, m.s.maxHp, true)
+      applyStatus(c.sim, m, 'damageUp', p.dur!, pct(p.atk), c.u, { quiet: true })
+      applyStatus(c.sim, m, 'haste', p.dur!, pct(p.move), c.u, { quiet: true })
+      c.sim.emit({ t: 'fx', id: 'rage', x: m.x, z: m.z, dur: p.dur, color: c.def.color, unit: m.id })
+    }
+  },
+
+  // ── Wave 4: Elementalist, Soulwarden, Ironmonk, Bard ────────────────────────
+  // Elementalist
+  pyroclasm: (c: CastCtx) => {
+    const p = c.def.p
+    c.sim.emit({ t: 'fx', id: 'burst:bolt', x: c.x, z: c.z, r: p.radius, color: c.def.color })
+    burstAt(c, 'int', c.x, c.z, p.radius!, 1, { type: 'fire', spell: true, heavy: true }, t => kindle(c, t, pct(p.burn), p.burnDur!))
+  },
+  stormcall: (c: CastCtx) => {
+    const p = c.def.p
+    for (let i = 0; i < p.strikes!; i++) {
+      c.sim.after(i * 0.5, () => {
+        if (!c.u.alive) return
+        const a = (i * 2.4) % (Math.PI * 2)
+        const d = ((i * 0.37) % 1) * p.radius! * 0.7
+        const x = c.x + Math.sin(a) * d
+        const z = c.z + Math.cos(a) * d
+        c.sim.emit({ t: 'fx', id: 'burst:bolt', x, z, r: 2.4, color: c.def.color })
+        burstAt(c, 'int', x, z, 2.4, 1, { type: 'lightning', spell: true }, t => applyStatus(c.sim, t, 'stun', p.stun!, 1, c.u))
+      })
+    }
+  },
+  primordialSurge: (c: CastCtx) => {
+    const p = c.def.p
+    applyStatus(c.sim, c.u, 'damageUp', p.dur!, pct(p.atk), c.u)
+    applyStatus(c.sim, c.u, 'haste', p.dur!, pct(p.haste), c.u)
+    c.sim.emit({ t: 'fx', id: 'rage', x: c.u.x, z: c.u.z, dur: p.dur, color: c.def.color, unit: c.u.id })
+  },
+  elementalCataclysm: (c: CastCtx) => {
+    const p = c.def.p
+    c.sim.emit({ t: 'fx', id: 'quake', x: c.u.x, z: c.u.z, r: p.radius, color: c.def.color })
+    c.sim.emit({ t: 'fx', id: 'burst:icicle', x: c.u.x, z: c.u.z, r: p.radius, color: '#a8d8ff' })
+    burstAt(c, 'int', c.u.x, c.u.z, p.radius!, 1, { type: 'fire', spell: true, heavy: true }, t => {
+      kindle(c, t, pct(p.burn), p.burnDur!)
+      applyStatus(c.sim, t, 'frozen', p.freeze!, 1, c.u)
+    })
+  },
+  // Soulwarden
+  soulRend: (c: CastCtx) => {
+    const t = c.target
+    if (!t) return
+    const p = c.def.p
+    c.sim.emit({ t: 'fx', id: 'burst:holy', x: t.x, z: t.z, r: 1.6, color: c.def.color })
+    const dealt = dealDamage(c.sim, c.u, t, pw(c, 'int') * pct(p.dmg), { type: 'shadow', spell: true, heavy: true, skill: c.def.id })
+    if (dealt > 0 && t.alive) applyStatus(c.sim, t, 'fear', p.fear!, 1, c.u)
+  },
+  spectralLegion: (c: CastCtx) => {
+    const p = c.def.p
+    const bodies = c.sim.units
+      .filter(e => !e.alive && e.team === 1 && e.rank !== 'boss' && e.deadT < 3 && Math.hypot(e.x - c.u.x, e.z - c.u.z) <= p.radius!)
+      .sort((a, b) => a.deadT - b.deadT)
+      .slice(0, p.max!)
+    c.sim.emit({ t: 'fx', id: 'harvest', x: c.u.x, z: c.u.z, r: p.radius, color: c.def.color })
+    if (!bodies.length) { refund(c); return }
+    for (const b of bodies) spawnSpirit(c.sim, b, p.life!)
+  },
+  wailOfTheDamned: (c: CastCtx) => {
+    const p = c.def.p
+    c.sim.emit({ t: 'fx', id: 'roar', x: c.u.x, z: c.u.z, r: p.radius, color: c.def.color })
+    burstAt(c, 'int', c.u.x, c.u.z, p.radius!, 1, { type: 'shadow', spell: true }, t => {
+      applyStatus(c.sim, t, 'fear', p.fear!, 1, c.u)
+      applyStatus(c.sim, t, 'weaken', p.dur!, pct(p.weaken), c.u)
+    })
+  },
+  reapersHarvest: (c: CastCtx) => {
+    const p = c.def.p
+    c.sim.emit({ t: 'fx', id: 'quake', x: c.u.x, z: c.u.z, r: p.radius, color: c.def.color })
+    burstAt(c, 'int', c.u.x, c.u.z, p.radius!, 1, { type: 'shadow', spell: true, heavy: true }, () => heal(c.sim, c.u, c.u.s.maxHp * pct(p.heal)))
+    // Whoever fell in the harvest rises to fight for the Warden.
+    const bodies = c.sim.units
+      .filter(e => !e.alive && e.team === 1 && e.rank !== 'boss' && e.deadT < 3 && Math.hypot(e.x - c.u.x, e.z - c.u.z) <= p.radius!)
+      .slice(0, p.max!)
+    for (const b of bodies) spawnSpirit(c.sim, b, p.life!)
+  },
+  // Iron Monk
+  dragonFist: (c: CastCtx) => {
+    const t = c.target
+    if (!t) return
+    const p = c.def.p
+    c.sim.emit({ t: 'fx', id: 'impact:rock', x: t.x, z: t.z, color: c.def.color })
+    const dealt = dealDamage(c.sim, c.u, t, pw(c, 'dex') * pct(p.dmg), { type: 'physical', heavy: true, skill: c.def.id })
+    if (dealt > 0) gainChi(c, p.chi!)
+  },
+  stormOfBlows: (c: CastCtx) => {
+    const p = c.def.p
+    for (let i = 0; i < p.hits!; i++) {
+      c.sim.after(i * 0.3, () => {
+        if (!c.u.alive) return
+        c.sim.emit({ t: 'fx', id: 'roar', x: c.u.x, z: c.u.z, r: p.radius, color: c.def.color })
+        burstAt(c, 'dex', c.u.x, c.u.z, p.radius!, 1, { type: 'physical' })
+      })
+    }
+    gainChi(c, p.chi!)
+  },
+  diamondBody: (c: CastCtx) => {
+    const p = c.def.p
+    addShield(c.u, c.u.s.maxHp * pct(p.shield), p.dur!)
+    applyStatus(c.sim, c.u, 'defenseUp', p.dur!, pct(p.def), c.u)
+    c.sim.emit({ t: 'fx', id: 'bastion', x: c.u.x, z: c.u.z, dur: p.dur, color: c.def.color, unit: c.u.id })
+  },
+  celestialPalm: (c: CastCtx) => {
+    const p = c.def.p
+    const mul = 1 + (pct(p.per) * spendChi(c))
+    c.sim.emit({ t: 'fx', id: 'quake', x: c.x, z: c.z, r: p.radius, color: c.def.color })
+    burstAt(c, 'dex', c.x, c.z, p.radius!, mul, { type: 'physical', heavy: true }, t => applyStatus(c.sim, t, 'knockdown', p.down!, 1, c.u))
+  },
+  // Bard
+  discordantChord: (c: CastCtx) => {
+    const p = c.def.p
+    c.sim.emit({ t: 'fx', id: 'roar', x: c.u.x, z: c.u.z, r: p.radius, color: c.def.color })
+    burstAt(c, 'cha', c.u.x, c.u.z, p.radius!, 1, { type: 'holy', spell: true }, t => applyStatus(c.sim, t, 'weaken', p.dur!, pct(p.weaken), c.u))
+  },
+  anthemOfWar: (c: CastCtx) => {
+    const p = c.def.p
+    sing(c, p.dur!, p.radius!, f => {
+      applyStatus(c.sim, f, 'damageUp', 0.6, pct(p.dmg), c.u, { quiet: true })
+      applyStatus(c.sim, f, 'haste', 0.6, pct(p.speed), c.u, { quiet: true })
+    })
+  },
+  sirenSong: (c: CastCtx) => {
+    const p = c.def.p
+    c.sim.emit({ t: 'fx', id: 'roar', x: c.u.x, z: c.u.z, r: p.radius, color: c.def.color })
+    burstAt(c, 'cha', c.u.x, c.u.z, p.radius!, 1, { type: 'holy', spell: true }, t => applyStatus(c.sim, t, 'confuse', p.charm!, 1, c.u))
+  },
+  magnumOpus: (c: CastCtx) => {
+    const p = c.def.p
+    const len = sing(c, p.dur!, p.radius!, f => {
+      applyStatus(c.sim, f, 'haste', 0.6, pct(p.buff), c.u, { quiet: true })
+      applyStatus(c.sim, f, 'damageUp', 0.6, pct(p.buff), c.u, { quiet: true })
+      applyStatus(c.sim, f, 'defenseUp', 0.6, pct(p.buff), c.u, { quiet: true })
+    })
+    c.sim.after(len, () => {
+      if (!c.u.alive) return
+      c.sim.emit({ t: 'fx', id: 'rupture', x: c.u.x, z: c.u.z, r: p.radius, color: c.def.color })
+      burstAt(c, 'cha', c.u.x, c.u.z, p.radius!, 1, { type: 'holy', spell: true, heavy: true }, t => applyStatus(c.sim, t, 'confuse', p.charm!, 1, c.u))
+    })
+  }
+} satisfies Record<string, SkillFn>)
+
 for (const cap of CAPSTONES) HERO_SKILLS[cap.id] = HERO_SKILLS[cap.capstone!]!
 
 /** Skills that may be thrown at a point when there is no enemy to lock. */

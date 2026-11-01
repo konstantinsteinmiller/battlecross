@@ -14,7 +14,7 @@ import {
 import type { ZoneId } from '../data/items'
 import { weekKey } from '../arenaWeek'
 import { ATTRS, ATTR_START, POINTS_PER_LEVEL, startAttrs, type Attr, type AttrBlock } from '../data/attributes'
-import { AFTER_MAX_LEVEL, MAX_SKILL_RANK, addXp, levelCap, rankLevel, rankPrice, xpToNext, xpToReach } from '../data/progression'
+import { AFTER_MAX_LEVEL, MASTERY_MIN_SKILLS, MAX_SKILL_RANK, addXp, levelCap, masteryEarned, rankLevel, rankPrice, xpToNext, xpToReach } from '../data/progression'
 import { ACTIVE_SLOTS, MAX_PASSIVE_SLOTS, PASSIVE_SLOTS, SKILL_BY_ID, meetsSkill, priceOf as skillPriceOf, CLASSES, isPrestige } from '../data/skills'
 import { knowsParents, prestigeDerived, trialPassed } from '../data/prestige'
 import { EQUIP_SLOTS, ITEM_BY_ID, noGear, priceOf as itemPriceOf, sellValue, sellable, slotOf, type EquipSlot } from '../data/items'
@@ -86,6 +86,8 @@ export interface HeroSave {
   /** Skill ranks bought in the afterplay (save version 3), skill id → 2..3.
    *  A skill not listed is rank 1. */
   ranks: Record<string, number>
+  /** Skills mastered with mastery points (#168), by id. */
+  mastered: string[]
 }
 
 export interface InventorySave {
@@ -281,7 +283,7 @@ const defaultHero = (): HeroSave => {
   // first fight already has a button to press.
   const active = emptySlots(ACTIVE_SLOTS)
   active[0] = 'shieldSlam'
-  return { xp: 0, attrs: startAttrs(), points: 0, pointsSeen: 0, learned: ['shieldSlam'], active, passive: emptySlots(PASSIVE_SLOTS), gender: 'm', ranks: {} }
+  return { xp: 0, attrs: startAttrs(), points: 0, pointsSeen: 0, learned: ['shieldSlam'], active, passive: emptySlots(PASSIVE_SLOTS), gender: 'm', ranks: {}, mastered: [] }
 }
 
 const defaultInv = (): InventorySave => ({
@@ -375,6 +377,8 @@ export const loadProfile = (): void => {
     const r = Math.min(MAX_SKILL_RANK, Math.round(num(v, 1)))
     if (r > 1 && hero.learned.includes(id)) hero.ranks[id] = r
   }
+  // A save from before mastery (#168) has none; a mastered skill no longer learned is dropped.
+  hero.mastered = strs(hero.mastered).filter(id => hero.learned.includes(id))
   profile.hero = hero
   setHeroForm(hero.gender)
 
@@ -672,6 +676,7 @@ export const heroBuild = (attrs: AttrBlock = profile.hero.attrs): HeroBuild => (
   blessings: blessings(),
   upgrades: profile.inv.upgrades,
   ranks: profile.hero.ranks,
+  mastered: profile.hero.mastered,
   levelCap: heroLevelCap(),
   heroic: profile.inv.heroic
 })
@@ -773,6 +778,8 @@ export type LearnBlock = '' | 'known' | 'level' | 'attrs' | 'gold' | 'afterplay'
 export const learnBlock = (id: string): LearnBlock => {
   const s = SKILL_BY_ID[id]
   if (!s || knows(id)) return 'known'
+  // An endgame skill (#168) waits for the demon king to fall.
+  if (s.endgame && !profile.world.afterplay) return 'afterplay'
   if (s.capstone) {
     // A capstone (afterplay §2.3): the afterplay's, and a rescued teacher's only at the fort.
     if (!profile.world.afterplay) return 'afterplay'
@@ -853,6 +860,35 @@ export const buyRank = (id: string): boolean => {
   if (rankBlock(id) !== '') return false
   profile.gold -= rankCost(id)
   profile.hero.ranks[id] = skillRank(id) + 1
+  saveProfile()
+  return true
+}
+
+// ─── Mastery (#168) ──────────────────────────────────────────────────────────
+
+/** How many skills of a class the hero has learned. */
+export const learnedIn = (cls: string): number => profile.hero.learned.filter(id => SKILL_BY_ID[id]?.cls === cls).length
+export const isMastered = (id: string): boolean => profile.hero.mastered.includes(id)
+/** Mastery points a class has left to spend. */
+export const masteryLeft = (cls: string): number =>
+  masteryEarned(profile.level, learnedIn(cls)) - profile.hero.mastered.filter(id => SKILL_BY_ID[id]?.cls === cls).length
+
+export type MasteryBlock = '' | 'unknown' | 'mastered' | 'skills' | 'points'
+
+/** Why this skill cannot be mastered right now ('' = it can). */
+export const masteryBlock = (id: string): MasteryBlock => {
+  const s = SKILL_BY_ID[id]
+  if (!s || !knows(id)) return 'unknown'
+  if (isMastered(id)) return 'mastered'
+  if (learnedIn(s.cls) < MASTERY_MIN_SKILLS) return 'skills'
+  if (masteryLeft(s.cls) <= 0) return 'points'
+  return ''
+}
+
+/** Spend a mastery point on a learned skill. */
+export const masterSkill = (id: string): boolean => {
+  if (masteryBlock(id) !== '') return false
+  profile.hero.mastered.push(id)
   saveProfile()
   return true
 }

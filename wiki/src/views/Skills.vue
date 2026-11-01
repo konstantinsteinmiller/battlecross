@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import { SKILLS, CLASS_IDS, CLASSES, ATTRS, ATTR_SHORT, ATTR_COLOR, className, classIcon, skillName, skillDesc, skillCost, scalingOf, type ClassId, type Attr } from '../data'
+import { ALL_SKILLS as SKILLS, CLASS_IDS, CLASSES, ATTRS, ATTR_SHORT, ATTR_COLOR, className, classIcon, skillName, skillDesc, skillCost, scalingOf, type ClassId, type Attr } from '../data'
 import { tagsOf, TAG_LABEL, TAG_COLOR, type Tag } from '../synergy'
 import SkillIcon from '../components/SkillIcon.vue'
 
@@ -22,7 +22,7 @@ const list = computed(() => SKILLS.filter(s =>
 <template>
   <div class="page wrap">
     <h1 class="gold-text">Skill Database</h1>
-    <p class="muted">All {{ SKILLS.length }} skills of the sixteen classes. Hover an icon for the full card.</p>
+    <p class="muted">All {{ SKILLS.length }} skills of the sixteen classes, endgame six included. Hover an icon for the full card.</p>
     <div class="panel tight filters">
       <div class="row">
         <input type="search" v-model="q" placeholder="Search name or effect… (e.g. “freeze”, “minion”)" style="flex:1;min-width:260px" />
@@ -44,7 +44,7 @@ const list = computed(() => SKILLS.filter(s =>
       <tbody>
         <tr v-for="s in list" :key="s.id">
           <td><SkillIcon :id="s.id" :size="40" /></td>
-          <td><b>{{ skillName(s) }}</b><div class="dim small">{{ s.kind }}<span v-if="scalingOf(s)" :class="'attr-' + scalingOf(s)"> · {{ ATTR_SHORT[scalingOf(s)!] }}</span></div></td>
+          <td><b>{{ skillName(s) }}</b><div class="dim small">{{ s.kind }}<span v-if="scalingOf(s)" class="sbadge" :style="{ '--c': ATTR_COLOR[scalingOf(s)!] }" :title="'Scales with ' + ATTR_SHORT[scalingOf(s)!]">{{ ATTR_SHORT[scalingOf(s)!] }}</span><span v-if="s.endgame" class="sbadge" title="Unlocks after the Demon King falls">Endgame</span></div></td>
           <td><a :href="'#/classes/' + s.cls" :style="{ color: CLASSES[s.cls].color }">{{ className(s.cls) }}</a></td>
           <td class="display">{{ s.level }}</td>
           <td class="small nowrap"><span v-for="(v, a) in s.req" :key="a" :class="'attr-' + a">{{ v }} {{ ATTR_SHORT[a as Attr] }} </span></td>

@@ -6,8 +6,12 @@
       span.skill-card__title
         span.skill-card__name {{ t(`skill.${id}.name`) }}
         span.skill-card__sub {{ t(`class.${skill.cls}.name`) }} · {{ t(`skill.kind.${skill.kind}`) }}
-    p.skill-card__desc {{ t(`skill.${id}.desc`, skill.p) }}
-    div.skill-card__facts
+    //- An endgame skill (#168) stays unread until the demon king has fallen.
+    p.skill-card__desc.is-locked(v-if="locked")
+      GameIcon(name="lock")
+      |  {{ t('skill.locked') }}
+    p.skill-card__desc(v-else) {{ t(`skill.${id}.desc`, skill.p) }}
+    div.skill-card__facts(v-if="!locked")
       StatBadge(:id="id" long)
       span.fact(v-if="skill.cd > 0") {{ t('skill.cooldown', { n: skill.cd }) }}
       span.fact.fact--mana(v-if="skill.mana > 0") {{ t('skill.mana', { n: skill.mana }) }}
@@ -26,13 +30,15 @@ import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { SKILL_BY_ID } from '@/game/data/skills'
 import { ATTR_COLOR, type Attr } from '@/game/data/attributes'
-import { profile, totalAttrs } from '@/game/state/profile'
+import { afterplayOpen, profile, totalAttrs } from '@/game/state/profile'
+import GameIcon from '@/components/icons/GameIcon.vue'
 import SkillIcon from '@/components/art/SkillIcon.vue'
 import StatBadge from './StatBadge.vue'
 
 const props = withDefaults(defineProps<{ id: string; dim?: boolean }>(), { dim: false })
 const { t } = useI18n()
 const skill = computed(() => SKILL_BY_ID[props.id])
+const locked = computed(() => !!skill.value?.endgame && !afterplayOpen())
 const reqs = computed(() => {
   const s = skill.value
   if (!s) return []

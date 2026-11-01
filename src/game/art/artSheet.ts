@@ -1,5 +1,5 @@
 import { CHARISMA_ITEMS, DEXTERITY_ITEMS, GAPFILL_ITEMS, ITEMS, MYTHICS, SMITHED, SMITH_LINES, SMITH_METAL, SMITH_PIECES, smithItemId, TIER_COLOR, type ItemDef, type SmithLine, type SmithMetal, type SmithPiece } from '../data/items'
-import { CLASSES, CLASS_IDS, PRESTIGE_IDS, skillsOf, type ClassId } from '../data/skills'
+import { CLASSES, CLASS_IDS, PRESTIGE_IDS, endgameOf, skillsOf, type ClassId } from '../data/skills'
 import { HERO_OUTFITS, heroPortraitId } from './heroPortrait'
 import { BRAND_REFS } from './brandRefs'
 import { ORNAMENTS } from './ornamentRefs'
@@ -95,7 +95,7 @@ const HERO_F_LOOKS: readonly string[] = HERO_OUTFITS.map(o => heroPortraitId(o, 
 /** Every drop-in the pipeline paints, by the folder the build scans. */
 export const ART_CATALOGUE: Readonly<Record<ArtKind, readonly string[]>> = {
   items: [...ITEMS, ...SMITHED, ...MYTHICS].map(i => i.id),
-  skills: CLASS_IDS.flatMap(c => skillsOf(c).map(s => s.id)),
+  skills: CLASS_IDS.flatMap(c => [...skillsOf(c), ...endgameOf(c)].map(s => s.id)),
   portraits: [...TOWN_LOOKS, ...TRAINER_LOOKS, ...MASTER_LOOKS_A, ...MASTER_LOOKS_B, ...SPEAKER_LOOKS, ...PEOPLE_LOOKS_A, ...PEOPLE_LOOKS_B, ...PEOPLE_LOOKS_C, ...PEOPLE_LOOKS_D, ...HERO_LOOKS, ...HERO_F_LOOKS],
   // ... and the border-inset ornaments of the cel interface (`ORNAMENTS`).
   ui: ['coin', 'cup', 'map', 'bg-trade', 'bg-inventory', 'bg-skills', 'bg-forge', 'bg-alchemy', 'bg-ore', ...ORNAMENTS.map(o => o.id), ...Object.keys(BAR_FRAME_REFS)],
@@ -420,6 +420,106 @@ const GAPFILL_BLURBS: Readonly<Record<string, string>> = {
 const ALL_ITEM_BLURBS: Readonly<Record<string, string>> = { ...ITEM_BLURBS, ...GAPFILL_BLURBS, ...SMITH_BLURBS }
 
 const SKILL_BLURBS: Readonly<Record<string, string>> = {
+  // The endgame (#168), wave 1
+  earthsplitter: 'a fist-sized boulder cracked in two by a jagged gold fissure, short grey rays shooting out of the crack',
+  ironResolve: 'a steel shield with a small solid red heart in its centre and thick bands of plate around the rim',
+  guardiansVow: 'a tall glowing shield with a small cross on it, wrapped in a ring of eight gold rays',
+  judgmentHammer: 'a huge war hammer with a square head coming down from the upper left, a gold star burst under the head',
+  undyingBastion: 'a steel shield with a thick gold boss in the middle and a vertical and a horizontal rib, solid and unbroken',
+  crusadersWrath: 'a long sword pointing upward in front of eight solid gold rays arranged in a ring',
+  phantomRush: 'three thick grey speed streaks trailing behind a dagger, with a small red droplet at the tip',
+  predatorsInstinct: 'a large round eye with a tiny black pupil and a small red four-pointed spark at its upper right',
+  bladeVortex: 'three daggers arranged in a circle like a pinwheel, points chasing each other, grey',
+  veilOfNight: 'a purple crescent moon with a few small gold stars and a faint white wisp of mist',
+  deathsLegacy: 'a white skull with a dagger stabbed through it from the side',
+  execution: 'a white skull crossed by one thick red diagonal slash with a small red spark',
+  infernoWave: 'a big orange flame sitting on top of three flat curved shock waves of fire',
+  emberHeart: 'a red heart with a small orange flame burning on its upper half',
+  sunSpear: 'a long spear flying to the upper right, its tip a gold spiked sun burst',
+  ashenVeil: 'a purple shield with a small orange flame on its face, soft grey ash flakes around it',
+  moltenCore: 'a round orb with orange outer glow, a gold middle ring and a white-hot centre',
+  supernova: 'a twelve-pointed gold star bursting out of an orange sphere with a white-hot centre',
+  standardBearer: 'a tall dark pole with a large purple pennant flag and a small gold star on the flag',
+  crownedPresence: 'a gold crown with a small steel helmet sitting under it',
+  summonVanguard: 'three steel helmets, one big in front and two small behind it, with a gold glow',
+  decreeOfSilence: 'a gold crown with a bold red diagonal bar across a small round mark, like a forbidding sign',
+  eternalCourt: 'a gold crown with a small red heart beneath it',
+  imperialAscension: 'a gold crown above a bold upward arrow, surrounded by white rays',
+  // The endgame (#168), wave 2
+  timeShear: 'a round clock face torn open by a thick red diagonal rip, with a small gold spark where it splits',
+  temporalMastery: 'a white clock face ringed by eight solid gold rays, the hands at a crisp angle',
+  echoVolley: 'three round energy orbs in a row, big orange then medium blue then small white, trailing to the right like an echo',
+  stasisField: 'a pale blue bubble holding a small white clock inside it, a faint frost sheen on the bubble',
+  eternalMoment: 'a stout hourglass with orange sand and a small gold four-pointed star beside it',
+  timeCollapse: 'concentric rings collapsing inward: a dark outer disc, an orange middle ring and a white-hot centre',
+  bloodTide: 'a wide red breaking wave with a single red droplet above its crest',
+  crimsonVigor: 'a solid red heart ringed by eight short gold rays',
+  leechingMist: 'a puffy white cloud with a small red droplet hanging under it',
+  sanguineAegis: 'a red shield with a white droplet in its centre',
+  bloodPact: 'a red heart cut by one grey diagonal slash with a tiny gold bead at its end',
+  exsanguinate: 'a large red droplet pierced by a thin grey needle, with a white highlight',
+  plasmaCannon: 'a stubby grey cannon with a glowing orange plasma ball at its muzzle',
+  overclock: 'a grey round gauge with a red needle at the limit, ringed by gold rays',
+  droneSwarm: 'four small round grey drones at the corners around a glowing orange core',
+  gravityWell: 'concentric dark and blue rings pulled to a white centre, short grey arrows pointing inward from the corners',
+  quantumLens: 'a blue lens with a white core and a small gold four-pointed spark at its upper right',
+  ionStorm: 'a grey storm cloud with a thick gold lightning bolt and short grey rain streaks',
+  aftershock: 'a brown boulder on a cracked ground line with two gold shock ripples',
+  graniteSoul: 'a grey granite boulder with a small red heart on its face',
+  crystalLance: 'a long grey spear flying to the upper right with a blue crystal head and white glints',
+  mountainsEmbrace: 'a brown shield with a grey mountain peak in its centre',
+  worldShaper: 'a blue globe with a brown boulder resting on its face',
+  cataclysmQuake: 'a brown boulder above a huge red jagged crack in the ground and a gold burst',
+  // The endgame (#168), wave 3
+  zephyrBarrage: 'two orange arrows flying side by side to the upper right, each trailing pale blue wind curls',
+  tailwindSoul: 'a blue wave streaking to the right under eight short gold rays',
+  cycloneRip: 'a blue spiral whirlwind cut by a grey diagonal slash, with a small gold spark',
+  galeVeil: 'a pale blue disc wrapped in a white spiral of wind',
+  stormsEye: 'a blue ring around a white ring around a dark centre, ringed by eight short gold rays',
+  hurricaneRain: 'a grey storm cloud with an orange arrow dropping out of it and grey rain streaks',
+  glacierSlam: 'an ice-blue boulder landing on a cracked ground line with a white six-pointed frost burst',
+  permafrostSoul: 'an ice-blue heart ringed by eight short white rays',
+  iceComet: 'an ice-blue fireball with a long ice-blue tail streaking down-left and a white six-pointed core',
+  frozenBulwark: 'an ice-blue shield with a white six-pointed snowflake in its centre',
+  winterbound: 'an ice-blue heart with a small white shield in front of it',
+  whiteout: 'a large ice-blue disc filled by a huge white twelve-pointed snowflake',
+  divineSmite: 'a thick gold lightning bolt striking down with short white rays around it',
+  radiantAura: 'a red heart ringed by eight short gold rays',
+  cleansingNova: 'concentric white and gold rings with a small white four-pointed star in the centre',
+  consecration: 'a gold disc with a white inner disc and a bold dark cross inside it',
+  zealotsFaith: 'a white open hand raised up in front of gold rays',
+  solarJudgment: 'a big gold sun with a white core and three gold beams falling straight down from it',
+  rendingPounce: 'an orange wolf head with two long red claw slashes across it',
+  primalBond: 'a red heart with a small orange wolf head inside it',
+  thunderStampede: 'a brown charging beast with three grey speed lines behind it and a gold lightning bolt',
+  summonPack: 'two small orange wolf heads side by side above a gold summoning circle',
+  apexPredator: 'a red fanged jaw shape pointing up with a small white eye in its middle',
+  // The endgame (#168), wave 4
+  pyroclasm: 'an orange flame above a cracked ground line with a small gold spark',
+  elementalAttunement: 'an orange flame with a small blue water drop in front of it, ringed by short gold rays',
+  stormcall: 'a grey storm cloud with a thick gold lightning bolt and short grey rain streaks',
+  primordialSurge: 'an orange disc wrapped in a white spiral of energy, ringed by short gold rays',
+  arcaneMastery: 'a blue disc with a big white eight-pointed star, ringed by short gold rays',
+  elementalCataclysm: 'an orange disc split by a huge ice-blue eight-pointed star with a white-hot centre',
+  soulRend: 'a white sheet ghost with two dark eyes slashed by a bold red diagonal rip',
+  graveBond: 'a white sheet ghost holding a small red heart on its front',
+  spectralLegion: 'three white sheet ghosts in a triangle, one big in front and two small behind',
+  wailOfTheDamned: 'a white sheet ghost with an open mouth and two grey sound arcs on each side',
+  eternalVigil: 'a hanging gold lantern with a bright glow, surrounded by white rays',
+  reapersHarvest: 'a white skull with a curved grey scythe blade sweeping over it and a small gold spark',
+  dragonFist: 'an orange clenched fist with a red dragon flame curling above it and a gold impact burst',
+  stillWaters: 'a blue disc with three calm white wave lines across it',
+  stormOfBlows: 'two orange clenched fists, one behind the other, with gold impact lines at the upper right',
+  diamondBody: 'a blue faceted gem with a small white shield on its face',
+  zenMind: 'a white disc with a dark centre ringed by eight short gold rays',
+  celestialPalm: 'an orange open palm raised up in front of gold rays',
+  discordantChord: 'an orange musical note split by two bold red jagged lines',
+  bravura: 'an orange musical note ringed by eight short gold rays',
+  anthemOfWar: 'a red musical note beside a small orange war banner',
+  sirenSong: 'a blue musical note over three white wave lines',
+  maestro: 'an orange lute with a small gold four-pointed star beside it',
+  magnumOpus: 'a gold musical note inside an orange disc, surrounded by white rays',
+  spiritOfTheWild: 'a gold ring holding an orange wolf head with a faint green glow',
   // Aegis Knight
   shieldThrow: 'a round shield flying to the upper right, with short curved motion arcs bouncing off it in a zigzag',
   shieldShove: 'a shield seen from the side with three bold curved push arcs spreading out in front of it',
@@ -913,14 +1013,15 @@ const itemSet = (stem: string, title: string, items: ItemDef[]): ArtSet => ({
  */
 export const SKILL_FINISH_REFS: readonly string[] = ['ironBroadsword', 'dragonSmasher', 'voidCannon'].map(id => `public/${artTarget('items', id)}`)
 
-/** A class's skill icons, six to a sheet: its first six, then (#95) its next. */
-const skillSet = (cls: ClassId, part: 0 | 1): ArtSet => ({
-  stem: part ? `sheet-skills2-${cls}` : `sheet-skills-${cls}`,
-  title: `Skill icons: ${CLASS_NAME[cls]}${part ? ' (2 of 2)' : ''}`,
+/** A class's skill icons, six to a sheet: its first six, then (#95) its next, then (#168) its endgame six. */
+const sheetSkills = (cls: ClassId) => [...skillsOf(cls), ...endgameOf(cls)]
+const skillSet = (cls: ClassId, part: 0 | 1 | 2): ArtSet => ({
+  stem: part ? `sheet-skills${part + 1}-${cls}` : `sheet-skills-${cls}`,
+  title: `Skill icons: ${CLASS_NAME[cls]}${sheetSkills(cls).length > 12 ? ` (${part + 1} of 3)` : part ? ' (2 of 2)' : ''}`,
   kind: 'skills', doc: 'PROMPTS-SKILLS.md', cols: 3, rows: 2, panelH: TALL, maxEdge: 192, crop: 1, anchor: 'centre',
   accent: { hex: CLASSES[cls].color, name: CLASS_HUE[cls] },
   styleRefs: SKILL_FINISH_REFS,
-  cells: grid(skillsOf(cls).slice(part * 6, part * 6 + 6).map(s => ({
+  cells: grid(sheetSkills(cls).slice(part * 6, part * 6 + 6).map(s => ({
     id: s.id, draw: 'skill' as const, label: labelOf(s.id), blurb: need(SKILL_BLURBS, s.id), target: artTarget('skills', s.id),
     glyph: `skill.${s.id}`, tint: CLASSES[cls].color, tintName: CLASS_HUE[cls], round: s.kind === 'passive'
   })), 3, 2)
@@ -1116,7 +1217,7 @@ export const SETS: readonly ArtSet[] = [
   ...SMITH_LINES.flatMap(line => (Object.keys(SMITH_METAL) as SmithMetal[]).map(metal => line === 'str'
     ? itemSet(`sheet-items-smith-${metal}`, `Item icons: smithed ${metal}`, smithedOf(metal, line))
     : itemSet(`sheet-items-smith-${line}-${metal}`, `Item icons: smithed ${metal}, ${line} build`, smithedOf(metal, line)))),
-  ...CLASS_IDS.flatMap(cls => (skillsOf(cls).length > 6 ? [skillSet(cls, 0), skillSet(cls, 1)] : [skillSet(cls, 0)])),
+  ...CLASS_IDS.flatMap(cls => (sheetSkills(cls).length > 12 ? [skillSet(cls, 0), skillSet(cls, 1), skillSet(cls, 2)] : skillsOf(cls).length > 6 ? [skillSet(cls, 0), skillSet(cls, 1)] : [skillSet(cls, 0)])),
   portraitSet('sheet-portraits-town', 'Portraits: townsfolk', TOWN_LOOKS, 3, 3),
   portraitSet('sheet-portraits-trainers', 'Portraits: trainers', TRAINER_LOOKS, 3, 3),
   portraitSet('sheet-portraits-masters-1', 'Portraits: masters and disciples, 1', MASTER_LOOKS_A, 4, 3),

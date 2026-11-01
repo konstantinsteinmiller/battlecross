@@ -250,7 +250,7 @@ export const buildDefence = (sim: Sim, id: DefenceId): boolean => {
     case 'militia': {
       const h = sim.hero.unit
       for (let k = 0; k < MILITIA_COUNT; k++) {
-        const m = spawnMinion(sim, 'guard', L.gate.front.x + (k ? 1.6 : -1.6), L.gate.front.z + 1.4, -1)
+        const m = spawnMinion(sim, 'guard', L.gate.front.x + (k ? 1.6 : -1.6), L.gate.front.z + 1.4, -1, false)
         if (m) s.militia.push(m.id)
       }
       sim.emit({ t: 'fx', id: 'summon', x: h.x, z: h.z, color: '#ffd84a' })

@@ -74,10 +74,10 @@ export const spawnEnemy = (sim: Sim, kind: string, x: number, z: number, group =
  * falls. Health is a share of the hero's; damage a share of the hero's hit
  * (Charisma for the royal troops, Skill for the machines).
  */
-export const spawnMinion = (sim: Sim, kind: string, x: number, z: number, life: number): Unit | null => {
+export const spawnMinion = (sim: Sim, kind: string, x: number, z: number, life: number, capped = true): Unit | null => {
   const def = MINIONS[kind]
   const h = sim.hero
-  if (!def || !h) return null
+  if (!def || !h || (capped && bandFull(sim, h.unit))) return null
   const machine = def.rig === 'turret'
   const hs = h.unit.s
   const hpMul = machine ? 1 : 1 + (hs.mods.minionHp ?? 0)
@@ -105,13 +105,21 @@ export const spawnMinion = (sim: Sim, kind: string, x: number, z: number, life: 
   return u
 }
 
-/** Spirits a Soul Warden keeps at once: one more sends the oldest home. */
-export const SPIRIT_MAX = 5
 export const SPIRIT_COLOR = '#7f9cff'
 
 /** One of the hero's spirits: an ENEMY kind fighting on his side. */
 export const isSpirit = (m: Unit, owner: Unit): boolean =>
   m.alive && m.team === 0 && m.ownerId === owner.id && !!ENEMY_BY_ID[m.kind] && !MINIONS[m.kind]
+
+/** The most minions, spirits and machines the hero keeps at once (#176): a seventh never appears. */
+export const MINION_CAP = 6
+
+/** True once the hero's band is at the cap. A member just sent home (`life` 0.01, a companion being replaced) no longer counts. */
+const bandFull = (sim: Sim, owner: Unit): boolean => {
+  let n = 0
+  for (const m of sim.units) if (m.alive && m.team === 0 && m.ownerId === owner.id && (m.rank === 'minion' || m.rank === 'turret') && !(m.life > 0 && m.life <= 0.01)) n++
+  return n >= MINION_CAP
+}
 
 /**
  * Soul Warden (#95): the spirit of a fallen — or befriended — enemy fights for
@@ -129,8 +137,7 @@ export const spawnSpirit = (sim: Sim, from: Unit, life: number, mul = 1): Unit |
   if (!def || !h || from.team !== 1 || from.rank === 'boss') return null
   if (!from.alive && from.deadT >= 3) return null
   const hs = h.unit.s
-  const band = sim.units.filter(m => isSpirit(m, h.unit))
-  if (band.length >= SPIRIT_MAX) band[0]!.life = 0.01
+  if (bandFull(sim, h.unit)) return null
   const s = plainStats({
     hp: hs.maxHp * 0.4 * Math.min(2.5, def.hp) * mul * (1 + (hs.mods.minionHp ?? 0)),
     dmg: scalePower(hs, 'int') * 0.45 * Math.min(1.6, def.dmg) * mul * (1 + (hs.mods.minionDamage ?? 0)) * heroMight(h.level),
@@ -145,7 +152,7 @@ export const spawnSpirit = (sim: Sim, from: Unit, life: number, mul = 1): Unit |
   s.attackSpeed = 1 + (hs.mods.minionAttackSpeed ?? 0)
   const u = sim.addUnit({
     kind: from.kind, team: 0, rank: 'minion', level: h.level, x: from.x, z: from.z, r: def.r, h: def.h, s,
-    ownerId: h.unit.id, life, facing: from.facing
+    ownerId: h.unit.id, life: -1, facing: from.facing
   })
   u.anim = 'spawn'
   u.animT = 0

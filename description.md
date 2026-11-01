@@ -7,21 +7,22 @@ classes into your own hero and make choices that reshape the realm.
 
 ## Description (482 / 500 chars)
 
-Start as a militia recruit with a rusty sword and grow into whatever you want: any hero can learn from any trainer. Combine a knight's shield with a pyromancer's fire, summon royal guards, stop time, or call a beam from the sky. Fight through 12 zones in six tiers, from sunny plains to the Dread Fortress, find 44 named weapons, armours and rings, and decide the fate of towns, kings and a dragon. Your choices change who trades, who teaches, who hunts you, and how the story ends.
+In a world full or trouble, a hero can learn from any teacher. Combine a knight's shield with a pyromancer's fire, summon royal guards, stop time, or call a beam from the sky.
+Fight hordes or goblins, trent and demons, find weapons and equipment to become a 1-man army, and decide the fate of towns, kings and a dragon.
+Your choices change who trades, who teaches, who hunts you, and how the fate of the world of Battlecross ends.
 
 ## How to play
 
 1. **Fight.** Walk up to an enemy and your hero attacks on their own. Use
-   your skills when they light up, and drink a potion when your health is
-   low. Red marks on the ground show where a big attack will land: step out.
+   your skills and drink a health potion.
 2. **Clear the zone.** Beat every enemy group and the leader at the end to
    win. You keep the experience and loot even if you fall.
 3. **Grow.** Each level gives 3 attribute points. Strength, Dexterity,
    Intelligence, Endurance, Skill and Charisma unlock different skills and
    gear, so spend them toward the hero you want.
 4. **Visit towns.** Buy gear, enlarge your potion belt at the healer, and
-   learn skills from trainers. You have 6 active and 3 passive slots, and you
-   may fill them from any of the 8 classes.
+   learn skills from trainers. You have 8 active and 4 passive slots, and you
+   may fill them from any of the 16 classes.
 5. **Choose.** At the end of some zones you make a decision that cannot be
    undone. It changes the towns, the shops, the trainers and the ending.
 

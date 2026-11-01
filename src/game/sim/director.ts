@@ -115,7 +115,7 @@ export const populateTown = (sim: Sim, plan: ZonePlan, o: { lite?: boolean; visi
 /** The dragon keeps its bargain (GDD §3.2: choices alter the endgame). */
 export const summonDragonAlly = (sim: Sim): void => {
   const h = sim.hero.unit
-  spawnMinion(sim, 'dragonAlly', h.x + 2.5, h.z + 1.5, -1)
+  spawnMinion(sim, 'dragonAlly', h.x + 2.5, h.z + 1.5, -1, false)
 }
 
 const spawnWave = (sim: Sim): void => {

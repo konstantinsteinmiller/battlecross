@@ -151,7 +151,7 @@ describe('overhearing a chat', () => {
   })
 
   it('in a real town: the chats are found, and the one saying a line talks while the other listens', () => {
-    const town: TownId = 'sunford'
+    const town: TownId = 'oakhaven'
     const plan = generateTown(TOWNS[town], new Set(), 7)
     const sim = new Sim({ seed: 7, w: plan.w, h: plan.h, level: 1, difficulty: 1, mode: 'town', zone: town })
     applyPlan(sim, plan)

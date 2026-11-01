@@ -16,6 +16,7 @@ import { HERO_SKILLS } from './heroSkills'
 import { townSimReady } from './townHooks'
 import type { ZonePlan } from './zoneGen'
 import type { Unit } from './types'
+import { masteredDef } from './mastery'
 import { atPeace, type Sim } from './world'
 
 /**
@@ -46,7 +47,7 @@ const land = (sim: Sim, u: Unit): void => {
   if (a.slot >= 0) {
     const def = SKILL_BY_ID[a.id]
     const fn = HERO_SKILLS[a.id]
-    if (def && fn) fn({ sim, h: sim.hero, u, def, target: sim.live(a.targetId) ?? null, x: a.x, z: a.z, a: a.a })
+    if (def && fn) fn({ sim, h: sim.hero, u, def: masteredDef(def, sim.hero.build.mastered), target: sim.live(a.targetId) ?? null, x: a.x, z: a.z, a: a.a })
     return
   }
   if (a.ability === SCRIPTED) landScripted(sim, u, a)
