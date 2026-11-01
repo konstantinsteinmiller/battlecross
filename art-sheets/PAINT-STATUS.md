@@ -4,7 +4,7 @@ A report, not a contract: it is a picture of `art-sheets/painted/` and the
 slicer's receipt at the moment it was written. Re-run `pnpm art:prompts`
 after painting or slicing anything.
 
-**132 sliced · 1 need a repaint · 2 painted, unreceipted · 0 outstanding**
+**132 sliced · 1 need a repaint · 2 painted, unreceipted · 1 outstanding**
 
 | | Sheet | Prompt block in | Reference | State |
 | --- | --- | --- | --- | --- |
@@ -104,6 +104,7 @@ after painting or slicing anything.
 | ✓ | **Portraits: the fort, the freed and the townsfolk** | `PROMPTS-PORTRAITS.md` | `sheet-portraits-people-1.png` (rev `645ec9a5f9c1`) | sliced 2026-10-25 |
 | ✓ | **Portraits: Silverbridge traders** | `PROMPTS-PORTRAITS.md` | `sheet-portraits-people-2.png` (rev `a068b5c85387`) | sliced 2026-10-25 |
 | ✓ | **Portraits: gamblers, the fair and the mines** | `PROMPTS-PORTRAITS.md` | `sheet-portraits-people-3.png` (rev `958aff468507`) | sliced 2026-10-25 |
+| · | **Portraits: the chronicler** | `PROMPTS-PORTRAITS.md` | `sheet-portraits-people-4.png` (rev `9b20a21fcd18`) | not painted yet |
 | ✓ | **Portraits: the hero, per outfit** | `PROMPTS-PORTRAITS.md` | `sheet-portraits-hero.png` (rev `75c7036e6e95`) | sliced 2026-10-18 |
 | ✓ | **Portraits: the girl hero, per outfit** | `PROMPTS-PORTRAITS.md` | `sheet-portraits-girl.png` (rev `7e58d5984004`) | sliced 2026-10-18 |
 | ✓ | **UI: the border-inset ornaments (windows, cards, buttons)** | `PROMPTS-UI.md` | `sheet-ui-ornaments.png` (rev `518a67362d95`) | sliced 2026-10-18 |

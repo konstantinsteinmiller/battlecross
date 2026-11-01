@@ -130,6 +130,7 @@ export const LOOKS: Readonly<Record<string, Look>> = {
   windDisciple: L({ skin: '#e8b88e', top: '#5ac8e0', bottom: '#3a4a3a', head: 'short', hair: '#3a2a1a', outfit: 'leather', held: 'bow', trim: '#d8f8a0', cape: '#4a8a3a', metal: '#e0d0a8', glow: '#c4f05a', boots: 'leather' }),
   frostDisciple: L({ skin: '#e0c0a8', top: '#8ab8ff', bottom: '#3a4a6a', head: 'short', hair: '#c8b890', style: 'short', outfit: 'plate', held: 'sword', trim: '#d8eeff', cape: '#c8e0f8', beard: '#c8b890', metal: '#bfe6ff', glow: '#a8d8ff' }),
   // Scout Wren (the afterplay): a wounded ranger in a moss-green hood, a bandage on one arm.
+  chronicler: L({ skin: '#e2b08a', top: '#6a3a2a', bottom: '#4a2a22', head: 'bald', hair: '#e8e4dc', beard: '#e8e4dc', outfit: 'robe', held: 'staff', trim: '#d4a64a', cape: '#4a2a22' }),
   scoutWren: L({ skin: '#e2b08a', top: '#4a6a3a', bottom: '#3a3430', head: 'hood', hair: '#8a4a2a', headCol: '#3f5a32', outfit: 'leather', held: 'bow', trim: '#e8e0d0', cape: '#3f5a32', boots: 'leather' }),
   // The Sunken Priest (afterplay B7, if the Oracle was slain): a drowned temple's keeper in a sea-green hood.
   sunkenPriest: L({ skin: '#b8c8b0', top: '#2f6a6a', bottom: '#1f3a44', head: 'hood', headCol: '#24504e', hair: '#d8dce0', style: 'long', outfit: 'robe', held: 'staff', trim: '#e8c060', beard: '#d8dce0', metal: '#c9a24a', glow: '#7fe8d0' }),

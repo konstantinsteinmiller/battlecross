@@ -82,6 +82,8 @@ const SPEAKER_LOOKS = ['goblinKing', 'warlord', 'oracle', 'dragon', 'archDemon']
 /** Everyone else with a face in the talk window (#164): the afterplay's people, the traders, the fair, the freed. */
 const PEOPLE_LOOKS_A = ['scoutWren', 'sunkenPriest', 'mysteriousWanderer', 'mayorBrenna', 'freedPeddler', 'freedHerbalist', 'freedFarmers', 'villager', 'child'] as const
 const PEOPLE_LOOKS_B = ['sbCollector', 'sbFence', 'sbGambler', 'sbAlchemist', 'sbHealer', 'sbArmorer', 'sbWeapons', 'sbJeweler', 'merchantF'] as const
+/** The old storyteller of the intro and the Void Rift's seal (#172). */
+const PEOPLE_LOOKS_D = ['chronicler'] as const
 const PEOPLE_LOOKS_C = ['sunfordGambler', 'sunfordCups', 'fairPip', 'fairBess', 'fairHob', 'oakGambler', 'miner'] as const
 /** Shipped townsfolk shown as the finish to match, never as a face to copy. */
 const PEOPLE_FINISH = ['public/images/portraits/elder.webp', 'public/images/portraits/healer.webp'] as const
@@ -94,7 +96,7 @@ const HERO_F_LOOKS: readonly string[] = HERO_OUTFITS.map(o => heroPortraitId(o, 
 export const ART_CATALOGUE: Readonly<Record<ArtKind, readonly string[]>> = {
   items: [...ITEMS, ...SMITHED, ...MYTHICS].map(i => i.id),
   skills: CLASS_IDS.flatMap(c => skillsOf(c).map(s => s.id)),
-  portraits: [...TOWN_LOOKS, ...TRAINER_LOOKS, ...MASTER_LOOKS_A, ...MASTER_LOOKS_B, ...SPEAKER_LOOKS, ...PEOPLE_LOOKS_A, ...PEOPLE_LOOKS_B, ...PEOPLE_LOOKS_C, ...HERO_LOOKS, ...HERO_F_LOOKS],
+  portraits: [...TOWN_LOOKS, ...TRAINER_LOOKS, ...MASTER_LOOKS_A, ...MASTER_LOOKS_B, ...SPEAKER_LOOKS, ...PEOPLE_LOOKS_A, ...PEOPLE_LOOKS_B, ...PEOPLE_LOOKS_C, ...PEOPLE_LOOKS_D, ...HERO_LOOKS, ...HERO_F_LOOKS],
   // ... and the border-inset ornaments of the cel interface (`ORNAMENTS`).
   ui: ['coin', 'cup', 'map', 'bg-trade', 'bg-inventory', 'bg-skills', 'bg-forge', 'bg-alchemy', 'bg-ore', ...ORNAMENTS.map(o => o.id), ...Object.keys(BAR_FRAME_REFS)],
   textures: ['ground'],
@@ -649,6 +651,7 @@ const PORTRAIT_BLURBS: Readonly<Record<string, string>> = {
   // The other teachers of the skill screen: disciples and masters.
   sfShadow: 'a rogue with a dark olive hood up, fair skin and dark olive leather with a pale green collar line',
   sfGeo: 'an old earth sage with a bald head, a long ash-white beard, tan-brown skin and a dusty olive-brown robe with a lime collar line',
+  chronicler: 'an old storyteller with a bald crown, long white hair at the sides and a long white beard, weathered fair skin, a warm brown robe with a gold collar line and a dark brown cape at the shoulders',
   scoutWren: 'a young scout with a moss-green hood up, auburn hair at the edges, fair skin, a green leather jerkin with a pale bandage collar line',
   sunkenPriest: 'an old priest with a sea-green hood up, long white hair and a white beard, pale grey-green skin and a deep teal robe with a gold collar line',
   // Everyone else who talks to the hero with a face in the window (#164).
@@ -1124,6 +1127,7 @@ export const SETS: readonly ArtSet[] = [
   { ...portraitSet('sheet-portraits-people-1', 'Portraits: the fort, the freed and the townsfolk', PEOPLE_LOOKS_A, 3, 3), styleRefs: PEOPLE_FINISH },
   { ...portraitSet('sheet-portraits-people-2', 'Portraits: Silverbridge traders', PEOPLE_LOOKS_B, 3, 3), styleRefs: PEOPLE_FINISH },
   { ...portraitSet('sheet-portraits-people-3', 'Portraits: gamblers, the fair and the mines', PEOPLE_LOOKS_C, 3, 3), styleRefs: PEOPLE_FINISH },
+  { ...portraitSet('sheet-portraits-people-4', 'Portraits: the chronicler', PEOPLE_LOOKS_D, 1, 1), styleRefs: PEOPLE_FINISH },
   {
     ...portraitSet('sheet-portraits-hero', 'Portraits: the hero, per outfit', HERO_LOOKS, 2, 2),
     // Four paintings of ONE face, shown as the same player all game: a face

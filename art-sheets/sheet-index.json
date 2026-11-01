@@ -16323,6 +16323,40 @@
       ]
     },
     {
+      "id": "sheet-portraits-people-4",
+      "kind": "single",
+      "title": "Portraits: the chronicler",
+      "files": {
+        "clean": "sheet-portraits-people-4.png",
+        "key": "sheet-portraits-people-4-key.png"
+      },
+      "width": 256,
+      "height": 256,
+      "cols": 1,
+      "rows": 1,
+      "maxEdge": 256,
+      "crop": 0.8,
+      "anchor": "feet",
+      "cells": [
+        {
+          "id": "chronicler",
+          "label": "Chronicler",
+          "variant": "portraits",
+          "x": 0,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/portraits/chronicler.webp",
+          "fit": {
+            "h": 0.652,
+            "w": 0.633,
+            "bottom": 0.902,
+            "cx": 0.5
+          }
+        }
+      ]
+    },
+    {
       "id": "sheet-portraits-hero",
       "kind": "set",
       "title": "Portraits: the hero, per outfit",
