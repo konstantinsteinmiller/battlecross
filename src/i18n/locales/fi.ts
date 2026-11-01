@@ -637,6 +637,7 @@ export default {
     howSlot: 'Napauta nyt paikkaa asettaaksesi sen.',
     classCount: '{cls}: {n} / {total} opittu',
     hint: {
+      find: 'Etsi opettaja',
       met: 'Opi se: {name}, {place}.',
       unmet: 'Kouluttaja paikassa {place} opettaa tämän.'
     }
@@ -873,7 +874,7 @@ export default {
     },
     sanguineFlask: {
       name: 'Veripullo',
-      desc: 'Heitä pullollinen omaa vertasi: {dmg}% Kestävyys-vahinkoa alueelle ja panssari murtuu {shred}% {shredDur}s ajaksi.'
+      desc: 'Heitä pullollinen omaa vertasi: {dmg}% Kestävyys-vahinkoa alueelle ja panssari murtuu {shred}% {shredDur}s ajaksi. Osumat viholliset vuotavat verta.'
     },
     bloodTransmutation: {
       name: 'Veren transmutaatio',
@@ -889,7 +890,7 @@ export default {
     },
     mutagenicRage: {
       name: 'Mutageeninen raivo',
-      desc: '{dur}s ajan: +{speed}% hyökkäysnopeutta, +{steal}% elämänvarkautta ja +{move}% liikenopeutta.'
+      desc: '{dur}s ajan: +{speed}% hyökkäysnopeutta, +{steal}% elämänvarkautta ja +{move}% liikenopeutta. Iskusi saavat viholliset vuotamaan verta.'
     },
     philosophersCrucible: {
       name: 'Viisasten upokas',

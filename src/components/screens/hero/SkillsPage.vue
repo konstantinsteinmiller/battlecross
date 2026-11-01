@@ -94,6 +94,7 @@
       section.skills__card
         template(v-if="picked")
           SkillCard(:id="picked" :dim="!knows(picked)")
+          FButton(v-if="!knows(picked) && place" :label="t('skills.hint.find')" type="success" size="sm" data-find-teacher @click="findTeacher")
           p.skills__note(v-if="!knows(picked) && place") {{ place.met ? t('skills.hint.met', { name: t(`npc.${place.npc}.name`), place: t(`node.${place.node}.name`) }) : t('skills.hint.unmet', { place: t(`node.${place.node}.name`) }) }}
           p.skills__note.is-bad(v-else-if="knows(picked) && !usable(picked)") {{ t('skills.unmet') }}
           div.loadout__actions(v-if="knows(picked)")
@@ -143,6 +144,8 @@ import SkillCard from '@/components/game/SkillCard.vue'
 import StatBadge from '@/components/game/StatBadge.vue'
 import { burst, thunk } from '@/components/game/fx'
 import { trainerPlace } from '@/components/game/trainerPlace'
+import { setSeek } from '@/game/coach/seek'
+import { closeModal } from '@/game/flow'
 import { useDrag } from '@/components/game/useDrag'
 
 type Kind = 'active' | 'passive'
@@ -173,6 +176,12 @@ const picked = ref('')
 const armed = ref(false)
 /** An empty slot was tapped first: the next skill tapped goes there. */
 const sel = reactive<{ kind: Kind | ''; slot: number }>({ kind: '', slot: -1 })
+/** Close the book and let the gold chevrons (in that town) and the map's arrow lead to the teacher (#166). */
+const findTeacher = (): void => {
+  if (!place.value) return
+  setSeek(place.value.npc, place.value.node)
+  closeModal()
+}
 const place = computed(() => (picked.value && SKILL_BY_ID[picked.value] ? trainerPlace(SKILL_BY_ID[picked.value]!.cls) : null))
 
 const slotClass = (kind: Kind, i: number, id: string): Record<string, boolean> => {

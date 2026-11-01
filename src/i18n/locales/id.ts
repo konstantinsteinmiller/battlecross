@@ -637,6 +637,7 @@ export default {
     howSlot: 'Sekarang ketuk sebuah slot untuk memasangnya.',
     classCount: '{cls}: {n} dari {total} dipelajari',
     hint: {
+      find: 'Cari guru',
       met: 'Pelajari dari {name} di {place}.',
       unmet: 'Seorang pelatih di {place} mengajarkan ini.'
     }
@@ -873,7 +874,7 @@ export default {
     },
     sanguineFlask: {
       name: 'Botol Darah',
-      desc: 'Lempar botol berisi darahmu sendiri: {dmg}% damage Ketahanan di satu area, dan zirah rusak {shred}% selama {shredDur} dtk.'
+      desc: 'Lempar botol berisi darahmu sendiri: {dmg}% damage Ketahanan di satu area, dan zirah rusak {shred}% selama {shredDur} dtk. Musuh yang terkena akan berdarah.'
     },
     bloodTransmutation: {
       name: 'Transmutasi Darah',
@@ -889,7 +890,7 @@ export default {
     },
     mutagenicRage: {
       name: 'Amukan Mutagen',
-      desc: 'Selama {dur} dtk: +{speed}% kecepatan serang, +{steal}% curi nyawa, dan +{move}% kecepatan gerak.'
+      desc: 'Selama {dur} dtk: +{speed}% kecepatan serang, +{steal}% curi nyawa, dan +{move}% kecepatan gerak. Seranganmu membuat musuh berdarah.'
     },
     philosophersCrucible: {
       name: 'Kuali Sang Filsuf',

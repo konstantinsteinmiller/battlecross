@@ -637,6 +637,7 @@ export default {
     howSlot: 'Şimdi yerleştirmek için bir yuvaya dokun.',
     classCount: '{cls}: {total} yetenekten {n} öğrenildi',
     hint: {
+      find: 'Öğretmeni bul',
       met: 'Bunu {place} yerindeki {name} öğretir.',
       unmet: '{place} yerindeki bir eğitmen bunu öğretir.'
     }
@@ -873,7 +874,7 @@ export default {
     },
     sanguineFlask: {
       name: 'Kan Şişesi',
-      desc: 'Kendi kanınla dolu bir şişe fırlat: alanda {dmg}% Dayanıklılık hasarı, zırh {shredDur} sn boyunca {shred}% kırılır.'
+      desc: 'Kendi kanınla dolu bir şişe fırlat: alanda {dmg}% Dayanıklılık hasarı, zırh {shredDur} sn boyunca {shred}% kırılır. Vurulan düşmanlar kanar.'
     },
     bloodTransmutation: {
       name: 'Kan Dönüşümü',
@@ -889,7 +890,7 @@ export default {
     },
     mutagenicRage: {
       name: 'Mutajen Öfke',
-      desc: '{dur} sn boyunca: +{speed}% saldırı hızı, +{steal}% can çalma ve +{move}% hareket hızı.'
+      desc: '{dur} sn boyunca: +{speed}% saldırı hızı, +{steal}% can çalma ve +{move}% hareket hızı. Vuruşların düşmanları kanatır.'
     },
     philosophersCrucible: {
       name: 'Filozofun Potası',

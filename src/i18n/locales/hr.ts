@@ -640,6 +640,7 @@ export default {
     howSlot: 'Sad dodirni mjesto na koje je želiš staviti.',
     classCount: '{cls}: naučeno {n} od {total}',
     hint: {
+      find: 'Pronađi učitelja',
       met: 'Poučit će te {name}, {place}.',
       unmet: 'Ovo poučava učitelj: {place}.'
     }
@@ -876,7 +877,7 @@ export default {
     },
     sanguineFlask: {
       name: 'Krvava bočica',
-      desc: 'Baci bočicu vlastite krvi: {dmg}% štete od Izdržljivosti na području i oklop razbijen za {shred}% na {shredDur}s.'
+      desc: 'Baci bočicu vlastite krvi: {dmg}% štete od Izdržljivosti na području i oklop razbijen za {shred}% na {shredDur}s. Pogođeni neprijatelji krvare.'
     },
     bloodTransmutation: {
       name: 'Transmutacija krvi',
@@ -892,7 +893,7 @@ export default {
     },
     mutagenicRage: {
       name: 'Mutageni bijes',
-      desc: 'Tijekom {dur}s: +{speed}% brzine napada, +{steal}% krađe života i +{move}% brzine kretanja.'
+      desc: 'Tijekom {dur}s: +{speed}% brzine napada, +{steal}% krađe života i +{move}% brzine kretanja. Tvoji udarci uzrokuju krvarenje neprijatelja.'
     },
     philosophersCrucible: {
       name: 'Filozofski talionik',

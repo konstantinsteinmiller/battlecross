@@ -537,6 +537,7 @@ export default {
     'howSlot': 'Now tap a slot to put it in.',
     'classCount': '{cls}: {n} of {total} learned',
     'hint': {
+      'find': 'Find teacher',
       'met': 'Learn it from {name} in {place}.',
       'unmet': 'A trainer in {place} teaches this.'
     }
@@ -679,11 +680,11 @@ export default {
     'homunculus': { 'name': 'Homunculus', 'desc': 'Brew a bubbly helper from {hp}% of your health for {dur}s. Brewing a new one returns {back}% of its life.' },
     'adrenalCatalyst': { 'name': 'Adrenal Catalyst', 'desc': 'The lower your health, the more damage you deal: up to +{dmg}% at {low}% health or less.' },
     'grandTransmutation': { 'name': 'Grand Transmutation', 'desc': 'Turn {pct}% of the life of enemies within {radius} m into essence. You heal {heal}% of it.' },
-    'sanguineFlask': { 'name': 'Sanguine Flask', 'desc': 'Throw a flask of your own blood: {dmg}% Endurance damage in an area, and armor broken by {shred}% for {shredDur}s.' },
+    'sanguineFlask': { 'name': 'Sanguine Flask', 'desc': 'Throw a flask of your own blood: {dmg}% Endurance damage in an area, and armor broken by {shred}% for {shredDur}s. Enemies hit are left bleeding.' },
     'bloodTransmutation': { 'name': 'Blood Transmutation', 'desc': '{share}% of the physical damage you take returns as mana.' },
     'essenceHarvest': { 'name': 'Essence Harvest', 'desc': 'Drain every enemy within {radius} m for {dmg}% Intelligence damage. You are healed for {heal}% of it.' },
     'hemophilia': { 'name': 'Hemophilia', 'desc': 'Life drain is {drain}% stronger. Hitting a bleeding enemy heals {heal}% of your health.' },
-    'mutagenicRage': { 'name': 'Mutagenic Rage', 'desc': 'For {dur}s: +{speed}% attack speed, +{steal}% life steal and +{move}% move speed.' },
+    'mutagenicRage': { 'name': 'Mutagenic Rage', 'desc': 'For {dur}s: +{speed}% attack speed, +{steal}% life steal and +{move}% move speed. Your hits make enemies bleed.' },
     'philosophersCrucible': { 'name': 'Philosopher\'s Crucible', 'desc': 'A pool of boiling blood for {dur}s: {dmg}% Intelligence damage to enemies in it, and it heals you while you stand in it.' },
 
     // Aether-Tech

@@ -637,6 +637,7 @@ export default {
     howSlot: 'Nun tuŝu lokon por enmeti ĝin.',
     classCount: '{cls}: {n} el {total} lernitaj',
     hint: {
+      find: 'Trovi instruiston',
       met: 'Lernu ĝin de {name} en {place}.',
       unmet: 'Trejnisto en {place} instruas ĉi tion.'
     }
@@ -873,7 +874,7 @@ export default {
     },
     sanguineFlask: {
       name: 'Sanga Flakono',
-      desc: 'Ĵetu flakonon de via propra sango: {dmg}% da Eltenemo-damaĝo en areo, kaj kiraso rompita je {shred}% dum {shredDur}s.'
+      desc: 'Ĵetu flakonon de via propra sango: {dmg}% da Eltenemo-damaĝo en areo, kaj kiraso rompita je {shred}% dum {shredDur}s. Trafitaj malamikoj sangas.'
     },
     bloodTransmutation: {
       name: 'Sanga Transmutacio',
@@ -889,7 +890,7 @@ export default {
     },
     mutagenicRage: {
       name: 'Mutagena Furiozo',
-      desc: 'Dum {dur}s: +{speed}% da atakrapido, +{steal}% da vivoŝtelo kaj +{move}% da movrapido.'
+      desc: 'Dum {dur}s: +{speed}% da atakrapido, +{steal}% da vivoŝtelo kaj +{move}% da movrapido. Viaj batoj sangigas malamikojn.'
     },
     philosophersCrucible: {
       name: 'Krisolo de la Filozofo',

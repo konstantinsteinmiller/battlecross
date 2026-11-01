@@ -18,7 +18,7 @@ describe('charged attacks (#147)', () => {
       if (e.script === 'tuskerCameo') continue
       const c = e.abilities.filter(a => a.charged)
       expect(c.length, e.id).toBe(1)
-      expect(c[0]!.windup, e.id).toBeGreaterThanOrEqual(2)
+      expect(c[0]!.windup, e.id).toBeGreaterThanOrEqual(1.5)
       const normal = e.abilities.filter(a => !a.charged && a.kind === 'cone' && a.fx === 'breath')
       for (const n of normal) expect(coneArea(c[0]!), e.id).toBeGreaterThan(coneArea(n) * 1.5)
     }

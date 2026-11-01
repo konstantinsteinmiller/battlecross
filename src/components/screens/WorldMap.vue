@@ -84,6 +84,8 @@
                   GameIcon(name="check")
                 span.node__badge.node__badge--quest(v-else-if="n.decision" aria-hidden="true")
                   GameIcon(name="chat")
+                span.node__seek(v-if="seek.node === n.id" aria-hidden="true" data-seek)
+                  GameIcon(name="down")
                 span.node__badge.node__badge--trainer(v-if="n.trainer" aria-hidden="true")
                   GameIcon(name="book")
                 span.node__spark(v-if="n.fresh" aria-hidden="true")
@@ -213,6 +215,7 @@ import { QUEST_BY_ID } from '@/game/data/quests'
 import { encountersAllowed, regionOf, rollEncounter, type EncounterSpec } from '@/game/data/encounters'
 import { arenaCalling, arenaWeekBest, profile, flagSet, markTip, saveProfile, setMapPos } from '@/game/state/profile'
 import { siegeBell } from '@/game/state/siege'
+import { seek } from '@/game/coach/seek'
 import { closeMap, flow, hiddenTrainer, meetMerchant, openFoundChest, openUnlock, startEncounter, travel, visitHiddenTrainer } from '@/game/flow'
 import { isNodeLockedByDemo } from '@/use/useFullVersion'
 import { hud } from '@/game/state/hud'
@@ -1280,6 +1283,28 @@ onBeforeUnmount(() => {
   opacity: 0
   transform-box: fill-box
   transform-origin: center
+.node__seek
+  position: absolute
+  left: 50%
+  top: -4%
+  width: 1.6rem
+  height: 1.6rem
+  margin-left: -0.8rem
+  color: var(--bc-gold, #f2c14e)
+  filter: drop-shadow(0 0 4px rgba(0, 0, 0, 0.8))
+  pointer-events: none
+  z-index: 3
+  animation: seek-bob 0.8s ease-in-out infinite alternate
+  :deep(svg)
+    width: 100%
+    height: 100%
+
+@keyframes seek-bob
+  from
+    transform: translateY(-4px)
+  to
+    transform: translateY(5px)
+
 // Only where there is a pointer to hover with: on a touch screen the last
 // place tapped would keep its ring.
 @media (hover: hover)

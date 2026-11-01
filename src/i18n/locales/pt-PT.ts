@@ -638,6 +638,7 @@ export default {
     howSlot: 'Agora toca numa ranhura para a colocares.',
     classCount: '{cls}: {n} de {total} aprendidas',
     hint: {
+      find: 'Encontrar o mestre',
       met: 'Aprende-a com {name} em {place}.',
       unmet: 'Um mestre em {place} ensina isto.'
     }
@@ -874,7 +875,7 @@ export default {
     },
     sanguineFlask: {
       name: 'Frasco sanguíneo',
-      desc: 'Atira um frasco com o teu próprio sangue: {dmg}% de dano de Vigor em área, e armadura quebrada em {shred}% durante {shredDur}s.'
+      desc: 'Atira um frasco com o teu próprio sangue: {dmg}% de dano de Vigor em área, e armadura quebrada em {shred}% durante {shredDur}s. Os inimigos atingidos sangram.'
     },
     bloodTransmutation: {
       name: 'Transmutação de sangue',
@@ -890,7 +891,7 @@ export default {
     },
     mutagenicRage: {
       name: 'Fúria mutagénica',
-      desc: 'Durante {dur}s: +{speed}% de velocidade de ataque, +{steal}% de roubo de vida e +{move}% de velocidade de movimento.'
+      desc: 'Durante {dur}s: +{speed}% de velocidade de ataque, +{steal}% de roubo de vida e +{move}% de velocidade de movimento. Os teus golpes fazem os inimigos sangrar.'
     },
     philosophersCrucible: {
       name: 'Cadinho filosofal',

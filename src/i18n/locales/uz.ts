@@ -637,6 +637,7 @@ export default {
     howSlot: 'Endi joylash uchun uyaga bosing.',
     classCount: '{cls}: {total} tadan {n} tasi oʻrganildi',
     hint: {
+      find: 'Ustozni topish',
       met: 'Buni {place} joyidagi {name} oʻrgatadi.',
       unmet: 'Buni {place} joyidagi murabbiy oʻrgatadi.'
     }
@@ -873,7 +874,7 @@ export default {
     },
     sanguineFlask: {
       name: 'Qonli kolba',
-      desc: 'Oʻz qoningiz solingan kolbani otasiz: maydonda {dmg}% Chidamlilik zarari, zirh esa {shredDur} s ga {shred}% sinadi.'
+      desc: 'Oʻz qoningiz solingan kolbani otasiz: maydonda {dmg}% Chidamlilik zarari, zirh esa {shredDur} s ga {shred}% sinadi. Zarba yegan dushmanlar qon ketadi.'
     },
     bloodTransmutation: {
       name: 'Qon transmutatsiyasi',
@@ -889,7 +890,7 @@ export default {
     },
     mutagenicRage: {
       name: 'Mutagen gʻazab',
-      desc: '{dur} s davomida: +{speed}% hujum tezligi, +{steal}% jon oʻgʻirlash va +{move}% harakat tezligi.'
+      desc: '{dur} s davomida: +{speed}% hujum tezligi, +{steal}% jon oʻgʻirlash va +{move}% harakat tezligi. Zarbalaring dushmanlarni qonatadi.'
     },
     philosophersCrucible: {
       name: 'Faylasuf tigeli',

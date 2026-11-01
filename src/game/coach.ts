@@ -10,6 +10,7 @@ import { dummyBeat, dummyOf } from './coach/dummy'
 import { isVeteran, revealed } from './coach/reveal'
 import { onboard, type FeatureId } from './coach/state'
 import { canLearnFrom } from './coach/goal'
+import { clearSeek, seek } from './coach/seek'
 import { heroChoice } from './heroChoice'
 import { openingBoss } from './coach/tutorialAid'
 import { nudgeWorld, senseFinder, senseWorld } from './coach/world'
@@ -329,8 +330,12 @@ class Coach {
     }
     // A town's first steps: the way to the nearest trainer, when the pacing
     // says this is the moment (`coach/onboarding.ts`).
-    if (host.setup.kind === 'town' && onboard.lesson === 'talk' && onboard.shown && !this.learned('talk')) {
-      const t = this.nearTrainer(sim, u)
+    // Or the teacher the hero asked to be led to (#166), lesson or not.
+    const seekT = host.setup.kind === 'town' && seek.npc ? sim.units.find(n => n.rank === 'npc' && n.npc === seek.npc) : undefined
+    if (seekT && Math.hypot(seekT.x - u.x, seekT.z - u.z) < 3) clearSeek()
+    const lessonTalk = host.setup.kind === 'town' && onboard.lesson === 'talk' && onboard.shown && !this.learned('talk')
+    if (lessonTalk || (seekT && seek.npc)) {
+      const t = seek.npc && seekT ? seekT : this.nearTrainer(sim, u)
       if (t) {
         host.project(u.x, 0.02, u.z, p0)
         host.project(t.x, t.h * 0.5, t.z, p1)

@@ -707,6 +707,7 @@ export default {
     howSlot__f: 'الآن المسي خانة لتضعيها فيها.',
     classCount: '{cls}: تعلّمت {n} من {total}',
     hint: {
+      find: 'ابحث عن المعلم',
       met: 'تعلّمها من {name} في {place}.',
       met__f: 'تعلّميها من {name} في {place}.',
       unmet: 'مدرّب في {place} يعلّم هذه المهارة.'
@@ -944,7 +945,7 @@ export default {
     },
     sanguineFlask: {
       name: 'القارورة الدموية',
-      desc: 'ارمِ قارورة من دمك: ضرر {dmg}% من التحمّل في منطقة، وكسر الدرع بنسبة {shred}% لمدة {shredDur}ث.'
+      desc: 'ارمِ قارورة من دمك: ضرر {dmg}% من التحمّل في منطقة، وكسر الدرع بنسبة {shred}% لمدة {shredDur}ث. الأعداء المصابون ينزفون.'
     },
     bloodTransmutation: {
       name: 'تحويل الدم',
@@ -960,7 +961,7 @@ export default {
     },
     mutagenicRage: {
       name: 'الغضب المتحوّر',
-      desc: 'لمدة {dur}ث: +{speed}% سرعة هجوم، +{steal}% سرقة حياة، و+{move}% سرعة حركة.'
+      desc: 'لمدة {dur}ث: +{speed}% سرعة هجوم، +{steal}% سرقة حياة، و+{move}% سرعة حركة. ضرباتك تجعل الأعداء ينزفون.'
     },
     philosophersCrucible: {
       name: 'بوتقة الفيلسوف',

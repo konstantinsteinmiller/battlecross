@@ -637,6 +637,7 @@ export default {
     howSlot: '次はスロットをタップしてセットしよう。',
     classCount: '{cls}：{total}個中{n}個習得',
     hint: {
+      find: '師匠を探す',
       met: '{place}の{name}から習得できる。',
       unmet: '{place}の師範がこれを教えてくれる。'
     }
@@ -873,7 +874,7 @@ export default {
     },
     sanguineFlask: {
       name: '鮮血のフラスコ',
-      desc: '自分の血のフラスコを投げる。範囲に耐久力の{dmg}%のダメージ、{shredDur}秒間アーマーを{shred}%破壊。'
+      desc: '自分の血のフラスコを投げる。範囲に耐久力の{dmg}%のダメージ、{shredDur}秒間アーマーを{shred}%破壊。命中した敵は出血する。'
     },
     bloodTransmutation: {
       name: '血の変成',
@@ -889,7 +890,7 @@ export default {
     },
     mutagenicRage: {
       name: '変異の怒り',
-      desc: '{dur}秒間：攻撃速度+{speed}%、ライフスティール+{steal}%、移動速度+{move}%。'
+      desc: '{dur}秒間：攻撃速度+{speed}%、ライフスティール+{steal}%、移動速度+{move}%。攻撃が敵を出血させる。'
     },
     philosophersCrucible: {
       name: '賢者のるつぼ',

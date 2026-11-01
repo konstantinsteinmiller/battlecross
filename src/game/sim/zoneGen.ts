@@ -157,6 +157,10 @@ export interface ZonePlan {
 
 /** The main chain's width (cells): the road wanders inside it. */
 const W = 40
+/** Horde packs (#169): size multiplier, extra heads by the last pack, and the elites a late pack may hold. */
+const HORDE_SIZE = 1.4
+const HORDE_LATE = 2
+const HORDE_ELITES = 1
 /** The streams a layout and its set pieces draw from (#120). */
 const LAYOUT_SALT = 0x2c71e3b5
 const DRESS_SALT = 0x4d17a9c3
@@ -473,16 +477,22 @@ export const generateZone = (def: ZoneDef, seed: number, o: ZoneGenOpts = {}): Z
       size = 0
     } else if (o.tutorial && o.openingPack) size = o.openingPack
     let elites = 0
+    // The horde (#169): the invaded zones, the Demon King's fortress and the rift are a power
+    // fantasy — packs of about twice the size, with more elites in them the further on.
+    const horde = !o.tutorial && (def.invaded || def.id === 'fortress' || def.id === 'rift')
+    if (horde) size = Math.round(size * (def.id === 'fortress' && def.invaded ? 1 : HORDE_SIZE)) + (def.id === 'fortress' && def.invaded ? 0 : Math.floor((k / n) * HORDE_LATE))
+    let eliteCap = horde ? 1 + Math.floor((k / n) * HORDE_ELITES) : 1
     // Half-way along the road, an old boss leads the pack (D85).
     if (def.midBoss && !o.tutorial && k === Math.ceil(n / 2)) {
       kinds.push(def.midBoss)
       elites = 1
+      eliteCap = 1
       size = Math.max(1, size - 1)
     }
     for (let q = 0; q < size; q++) {
       let kind = weighted(rng, def.kinds)
       if (ENEMY_BY_ID[kind]?.rank === 'elite') {
-        if (elites > 0) kind = def.kinds[0]!.kind
+        if (elites >= eliteCap) kind = def.kinds[0]!.kind
         else elites++
       }
       kinds.push(kind)

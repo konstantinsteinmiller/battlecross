@@ -638,6 +638,7 @@ export default {
     howSlot: 'Tippe jetzt auf einen Platz, um sie einzusetzen.',
     classCount: '{cls}: {n} von {total} gelernt',
     hint: {
+      find: 'Lehrer finden',
       met: 'Lerne sie bei {name} in {place}.',
       unmet: 'Ein Lehrer in {place} bringt das bei.'
     }
@@ -874,7 +875,7 @@ export default {
     },
     sanguineFlask: {
       name: 'Blutflakon',
-      desc: 'Wirf einen Flakon mit deinem eigenen Blut: {dmg}% Ausdauer-Schaden in einem Bereich, und die Rüstung bricht um {shred}% für {shredDur}s.'
+      desc: 'Wirf einen Flakon mit deinem eigenen Blut: {dmg}% Ausdauer-Schaden in einem Bereich, und die Rüstung bricht um {shred}% für {shredDur}s. Getroffene Gegner bluten.'
     },
     bloodTransmutation: {
       name: 'Bluttransmutation',
@@ -890,7 +891,7 @@ export default {
     },
     mutagenicRage: {
       name: 'Mutagene Raserei',
-      desc: 'Für {dur}s: +{speed}% Angriffstempo, +{steal}% Lebensraub und +{move}% Lauftempo.'
+      desc: 'Für {dur}s: +{speed}% Angriffstempo, +{steal}% Lebensraub und +{move}% Lauftempo. Deine Treffer lassen Gegner bluten.'
     },
     philosophersCrucible: {
       name: 'Tiegel des Philosophen',

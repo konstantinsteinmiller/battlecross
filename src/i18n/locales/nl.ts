@@ -638,6 +638,7 @@ export default {
     howSlot: 'Tik nu op een vak om haar erin te zetten.',
     classCount: '{cls}: {n} van {total} geleerd',
     hint: {
+      find: 'Leraar zoeken',
       met: 'Leer haar van {name} in {place}.',
       unmet: 'Een leraar in {place} onderwijst dit.'
     }
@@ -874,7 +875,7 @@ export default {
     },
     sanguineFlask: {
       name: 'Bloedflacon',
-      desc: 'Gooi een flacon met je eigen bloed: {dmg}% Uithouding-schade in een gebied, en pantser breekt met {shred}% voor {shredDur}s.'
+      desc: 'Gooi een flacon met je eigen bloed: {dmg}% Uithouding-schade in een gebied, en pantser breekt met {shred}% voor {shredDur}s. Geraakte vijanden bloeden.'
     },
     bloodTransmutation: {
       name: 'Bloedtransmutatie',
@@ -890,7 +891,7 @@ export default {
     },
     mutagenicRage: {
       name: 'Mutagene Razernij',
-      desc: 'Gedurende {dur}s: +{speed}% aanvalssnelheid, +{steal}% levensroof en +{move}% loopsnelheid.'
+      desc: 'Gedurende {dur}s: +{speed}% aanvalssnelheid, +{steal}% levensroof en +{move}% loopsnelheid. Je slagen laten vijanden bloeden.'
     },
     philosophersCrucible: {
       name: 'Smeltkroes van de Filosoof',

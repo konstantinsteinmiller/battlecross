@@ -637,6 +637,7 @@ export default {
     howSlot: 'Acum atinge un loc ca s-o pui.',
     classCount: '{cls}: {n} din {total} învățate',
     hint: {
+      find: 'Găsește profesorul',
       met: 'Învață-o de la {name}, în {place}.',
       unmet: 'Un maestru din {place} predă asta.'
     }
@@ -873,7 +874,7 @@ export default {
     },
     sanguineFlask: {
       name: 'Flacon Sangvin',
-      desc: 'Aruncă un flacon cu propriul sânge: {dmg}% daune din Anduranță pe o arie și armură spartă cu {shred}% timp de {shredDur}s.'
+      desc: 'Aruncă un flacon cu propriul sânge: {dmg}% daune din Anduranță pe o arie și armură spartă cu {shred}% timp de {shredDur}s. Inamicii loviți sângerează.'
     },
     bloodTransmutation: {
       name: 'Transmutarea Sângelui',
@@ -889,7 +890,7 @@ export default {
     },
     mutagenicRage: {
       name: 'Furie Mutagenă',
-      desc: 'Timp de {dur}s: +{speed}% viteză de atac, +{steal}% furt de viață și +{move}% viteză de mers.'
+      desc: 'Timp de {dur}s: +{speed}% viteză de atac, +{steal}% furt de viață și +{move}% viteză de mers. Loviturile tale îi fac pe inamici să sângereze.'
     },
     philosophersCrucible: {
       name: 'Creuzetul Filosofului',

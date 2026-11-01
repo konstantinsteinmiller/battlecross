@@ -637,6 +637,7 @@ export default {
     howSlot: '现在点击一个栏位，把它放进去。',
     classCount: '{cls}：已学会 {n}/{total}',
     hint: {
+      find: '寻找导师',
       met: '可在{place}向{name}学习。',
       unmet: '{place}的一位导师会教这个。'
     }
@@ -873,7 +874,7 @@ export default {
     },
     sanguineFlask: {
       name: '鲜血药瓶',
-      desc: '扔出一瓶自己的血：范围内造成{dmg}%耐力伤害，并破甲{shred}%，持续{shredDur}秒。'
+      desc: '扔出一瓶自己的血：范围内造成{dmg}%耐力伤害，并破甲{shred}%，持续{shredDur}秒。被击中的敌人会流血。'
     },
     bloodTransmutation: {
       name: '血液转化',
@@ -889,7 +890,7 @@ export default {
     },
     mutagenicRage: {
       name: '变异狂怒',
-      desc: '{dur}秒内：攻击速度+{speed}%，生命偷取+{steal}%，移动速度+{move}%。'
+      desc: '{dur}秒内：攻击速度+{speed}%，生命偷取+{steal}%，移动速度+{move}%。你的攻击会使敌人流血。'
     },
     philosophersCrucible: {
       name: '贤者坩埚',

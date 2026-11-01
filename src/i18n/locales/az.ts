@@ -637,6 +637,7 @@ export default {
     howSlot: 'İndi yerləşdirmək üçün yuvaya toxun.',
     classCount: '{cls}: {total} bacarıqdan {n} öyrənilib',
     hint: {
+      find: 'Müəllimi tap',
       met: 'Bunu {place} yerindəki {name} öyrədir.',
       unmet: '{place} yerindəki təlimçi bunu öyrədir.'
     }
@@ -873,7 +874,7 @@ export default {
     },
     sanguineFlask: {
       name: 'Qan Kolbası',
-      desc: 'Öz qanınla dolu kolba at: sahədə {dmg}% Dözüm zərəri, zireh {shredDur} san ərzində {shred}% qırılır.'
+      desc: 'Öz qanınla dolu kolba at: sahədə {dmg}% Dözüm zərəri, zireh {shredDur} san ərzində {shred}% qırılır. Vurulan düşmənlər qanayır.'
     },
     bloodTransmutation: {
       name: 'Qan Çevrilməsi',
@@ -889,7 +890,7 @@ export default {
     },
     mutagenicRage: {
       name: 'Mutagen Qəzəb',
-      desc: '{dur} san ərzində: +{speed}% hücum sürəti, +{steal}% can oğurluğu və +{move}% hərəkət sürəti.'
+      desc: '{dur} san ərzində: +{speed}% hücum sürəti, +{steal}% can oğurluğu və +{move}% hərəkət sürəti. Zərbələrin düşmənləri qanadır.'
     },
     philosophersCrucible: {
       name: 'Filosofun Putası',

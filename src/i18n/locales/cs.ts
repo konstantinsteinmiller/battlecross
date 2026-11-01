@@ -640,6 +640,7 @@ export default {
     howSlot: 'Teď klepni na pozici, kam ji vložit.',
     classCount: '{cls}: naučeno {n} z {total}',
     hint: {
+      find: 'Najít učitele',
       met: 'Naučí tě {name}, {place}.',
       unmet: 'Tohle učí učitel: {place}.'
     }
@@ -876,7 +877,7 @@ export default {
     },
     sanguineFlask: {
       name: 'Krvavá baňka',
-      desc: 'Hoď baňku vlastní krve: {dmg}% poškození z Výdrže v oblasti a brnění rozbité o {shred}% na {shredDur}s.'
+      desc: 'Hoď baňku vlastní krve: {dmg}% poškození z Výdrže v oblasti a brnění rozbité o {shred}% na {shredDur}s. Zasažení nepřátelé krvácejí.'
     },
     bloodTransmutation: {
       name: 'Transmutace krve',
@@ -892,7 +893,7 @@ export default {
     },
     mutagenicRage: {
       name: 'Mutagenní zuřivost',
-      desc: 'Na {dur}s: +{speed}% rychlosti útoku, +{steal}% krádeže života a +{move}% rychlosti pohybu.'
+      desc: 'Na {dur}s: +{speed}% rychlosti útoku, +{steal}% krádeže života a +{move}% rychlosti pohybu. Tvé údery způsobují nepřátelům krvácení.'
     },
     philosophersCrucible: {
       name: 'Tyglík filozofů',

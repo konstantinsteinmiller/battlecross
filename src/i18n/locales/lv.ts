@@ -637,6 +637,7 @@ export default {
     howSlot: 'Tagad pieskaries vietai, lai to ievietotu.',
     classCount: '{cls}: apgūtas {n} no {total}',
     hint: {
+      find: 'Atrast skolotāju',
       met: 'Apgūsti to pie {name}, {place}.',
       unmet: 'To māca skolotājs vietā {place}.'
     }
@@ -873,7 +874,7 @@ export default {
     },
     sanguineFlask: {
       name: 'Asins kolba',
-      desc: 'Met kolbu ar savām asinīm: {dmg}% Izturības bojājumu laukumā, un bruņas salauztas par {shred}% uz {shredDur} s.'
+      desc: 'Met kolbu ar savām asinīm: {dmg}% Izturības bojājumu laukumā, un bruņas salauztas par {shred}% uz {shredDur} s. Trāpītie ienaidnieki asiņo.'
     },
     bloodTransmutation: {
       name: 'Asins transmutācija',
@@ -889,7 +890,7 @@ export default {
     },
     mutagenicRage: {
       name: 'Mutagēnās dusmas',
-      desc: 'Uz {dur} s: +{speed}% uzbrukuma ātruma, +{steal}% dzīvības zagšanas un +{move}% kustības ātruma.'
+      desc: 'Uz {dur} s: +{speed}% uzbrukuma ātruma, +{steal}% dzīvības zagšanas un +{move}% kustības ātruma. Tavi sitieni liek ienaidniekiem asiņot.'
     },
     philosophersCrucible: {
       name: 'Filozofa tīģelis',

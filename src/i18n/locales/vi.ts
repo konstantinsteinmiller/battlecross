@@ -637,6 +637,7 @@ export default {
     howSlot: 'Giờ chạm vào một ô để đặt nó vào.',
     classCount: '{cls}: đã học {n} trên {total}',
     hint: {
+      find: 'Tìm thầy dạy',
       met: 'Học từ {name} ở {place}.',
       unmet: 'Một người huấn luyện ở {place} dạy kỹ năng này.'
     }
@@ -873,7 +874,7 @@ export default {
     },
     sanguineFlask: {
       name: 'Bình Huyết',
-      desc: 'Ném một bình máu của chính bạn: {dmg}% sát thương Sức bền trên một vùng, và phá {shred}% giáp trong {shredDur} giây.'
+      desc: 'Ném một bình máu của chính bạn: {dmg}% sát thương Sức bền trên một vùng, và phá {shred}% giáp trong {shredDur} giây. Kẻ địch bị trúng sẽ chảy máu.'
     },
     bloodTransmutation: {
       name: 'Chuyển Hóa Máu',
@@ -889,7 +890,7 @@ export default {
     },
     mutagenicRage: {
       name: 'Cuồng Nộ Đột Biến',
-      desc: 'Trong {dur} giây: +{speed}% tốc độ đánh, +{steal}% hút máu và +{move}% tốc độ chạy.'
+      desc: 'Trong {dur} giây: +{speed}% tốc độ đánh, +{steal}% hút máu và +{move}% tốc độ chạy. Đòn đánh của bạn khiến kẻ địch chảy máu.'
     },
     philosophersCrucible: {
       name: 'Lò Luyện Hiền Triết',

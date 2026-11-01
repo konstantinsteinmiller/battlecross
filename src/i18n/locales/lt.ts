@@ -637,6 +637,7 @@ export default {
     howSlot: 'Dabar palieski vietą, kad jį įdėtum.',
     classCount: '{cls}: išmokta {n} iš {total}',
     hint: {
+      find: 'Rasti mokytoją',
       met: 'Išmok jį pas {name}, vietovėje {place}.',
       unmet: 'Mokytojas vietovėje {place} moko to.'
     }
@@ -873,7 +874,7 @@ export default {
     },
     sanguineFlask: {
       name: 'Kraujo kolba',
-      desc: 'Mesk savo kraujo kolbą: {dmg}% Ištvermės žalos plote, o šarvai sulaužomi {shred}% {shredDur}s.'
+      desc: 'Mesk savo kraujo kolbą: {dmg}% Ištvermės žalos plote, o šarvai sulaužomi {shred}% {shredDur}s. Pataikyti priešai kraujuoja.'
     },
     bloodTransmutation: {
       name: 'Kraujo transmutacija',
@@ -889,7 +890,7 @@ export default {
     },
     mutagenicRage: {
       name: 'Mutageninis įniršis',
-      desc: '{dur}s: +{speed}% puolimo greičio, +{steal}% gyvybės vagystės ir +{move}% judėjimo greičio.'
+      desc: '{dur}s: +{speed}% puolimo greičio, +{steal}% gyvybės vagystės ir +{move}% judėjimo greičio. Tavo smūgiai priverčia priešus kraujuoti.'
     },
     philosophersCrucible: {
       name: 'Filosofų tiglis',

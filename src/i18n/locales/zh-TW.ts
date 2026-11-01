@@ -637,6 +637,7 @@ export default {
     howSlot: '現在點一個欄位，把它放進去。',
     classCount: '{cls}：已學會 {n}/{total}',
     hint: {
+      find: '尋找導師',
       met: '可在{place}向{name}學習。',
       unmet: '{place}的一位導師會教這個。'
     }
@@ -873,7 +874,7 @@ export default {
     },
     sanguineFlask: {
       name: '鮮血藥瓶',
-      desc: '丟出一瓶自己的血：範圍內造成{dmg}%耐力傷害，並破甲{shred}%，持續{shredDur}秒。'
+      desc: '丟出一瓶自己的血：範圍內造成{dmg}%耐力傷害，並破甲{shred}%，持續{shredDur}秒。被擊中的敵人會流血。'
     },
     bloodTransmutation: {
       name: '血液轉化',
@@ -889,7 +890,7 @@ export default {
     },
     mutagenicRage: {
       name: '突變狂怒',
-      desc: '{dur}秒內：攻擊速度+{speed}%、生命竊取+{steal}%、移動速度+{move}%。'
+      desc: '{dur}秒內：攻擊速度+{speed}%、生命竊取+{steal}%、移動速度+{move}%。你的攻擊會使敵人流血。'
     },
     philosophersCrucible: {
       name: '賢者坩堝',

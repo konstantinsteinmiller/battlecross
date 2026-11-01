@@ -638,6 +638,7 @@ export default {
     howSlot: 'Ora tocca uno slot per inserirla.',
     classCount: '{cls}: {n} di {total} apprese',
     hint: {
+      find: 'Trova l’insegnante',
       met: 'Imparala da {name} a {place}.',
       unmet: 'Un maestro di {place} la insegna.'
     }
@@ -874,7 +875,7 @@ export default {
     },
     sanguineFlask: {
       name: 'Fiala sanguigna',
-      desc: 'Lancia una fiala del tuo stesso sangue: {dmg}% di danno da Vigore ad area, e armatura rotta del {shred}% per {shredDur}s.'
+      desc: 'Lancia una fiala del tuo stesso sangue: {dmg}% di danno da Vigore ad area, e armatura rotta del {shred}% per {shredDur}s. I nemici colpiti sanguinano.'
     },
     bloodTransmutation: {
       name: 'Trasmutazione del sangue',
@@ -890,7 +891,7 @@ export default {
     },
     mutagenicRage: {
       name: 'Furia mutagena',
-      desc: 'Per {dur}s: +{speed}% velocità d’attacco, +{steal}% furto di vita e +{move}% velocità di movimento.'
+      desc: 'Per {dur}s: +{speed}% velocità d’attacco, +{steal}% furto di vita e +{move}% velocità di movimento. I tuoi colpi fanno sanguinare i nemici.'
     },
     philosophersCrucible: {
       name: 'Crogiolo filosofale',

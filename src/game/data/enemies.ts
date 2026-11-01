@@ -825,7 +825,7 @@ export const chargedFor = (e: EnemyDef, rank: 'boss' | 'elite' = e.rank as 'boss
   const r = Math.round((boss ? bossR : bossR * Math.sqrt(CHARGED_ELITE_AREA)) * 100) / 100
   const cd = Math.round(mean * CHARGED_RARITY * 10) / 10
   return {
-    kind: 'cone', cd, first: Math.round(cd * 0.5 * 10) / 10, range: r * 0.75, windup: boss ? 2.8 : 2.2, recover: 0.9,
+    kind: 'cone', cd, first: Math.round(cd * 0.5 * 10) / 10, range: r * 0.75, windup: boss ? 2.1 : 1.65, recover: 0.9,
     dmg: 1, type: 'true', r, w: CHARGED_HALF_ANGLE, fx: 'breath', color: CHARGED_COLOR, pose: 2, charged: true, pct: boss ? CHARGED_PCT.boss : CHARGED_PCT.elite
   }
 }

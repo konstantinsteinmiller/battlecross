@@ -638,6 +638,7 @@ export default {
     howSlot: 'Agora toque em um espaço para colocá-la.',
     classCount: '{cls}: {n} de {total} aprendidas',
     hint: {
+      find: 'Encontrar o mestre',
       met: 'Aprenda com {name} em {place}.',
       unmet: 'Um mestre em {place} ensina isto.'
     }
@@ -874,7 +875,7 @@ export default {
     },
     sanguineFlask: {
       name: 'Frasco sanguíneo',
-      desc: 'Arremesse um frasco com seu próprio sangue: {dmg}% de dano de Vigor em área, e armadura quebrada em {shred}% por {shredDur}s.'
+      desc: 'Arremesse um frasco com seu próprio sangue: {dmg}% de dano de Vigor em área, e armadura quebrada em {shred}% por {shredDur}s. Os inimigos atingidos sangram.'
     },
     bloodTransmutation: {
       name: 'Transmutação de sangue',
@@ -890,7 +891,7 @@ export default {
     },
     mutagenicRage: {
       name: 'Fúria mutagênica',
-      desc: 'Por {dur}s: +{speed}% de velocidade de ataque, +{steal}% de roubo de vida e +{move}% de velocidade de movimento.'
+      desc: 'Por {dur}s: +{speed}% de velocidade de ataque, +{steal}% de roubo de vida e +{move}% de velocidade de movimento. Seus golpes fazem os inimigos sangrar.'
     },
     philosophersCrucible: {
       name: 'Cadinho filosofal',

@@ -638,6 +638,7 @@ export default {
     howSlot: 'Ara toca una ranura per posar-la.',
     classCount: '{cls}: {n} de {total} apreses',
     hint: {
+      find: 'Troba el mestre',
       met: 'L’aprens de {name} a {place}.',
       unmet: 'Un mestre a {place} ensenya això.'
     }
@@ -874,7 +875,7 @@ export default {
     },
     sanguineFlask: {
       name: 'Flascó Sanguini',
-      desc: 'Llança un flascó de la teva sang: {dmg}% de dany d’Aguant en una àrea, i armadura trencada un {shred}% durant {shredDur}s.'
+      desc: 'Llança un flascó de la teva sang: {dmg}% de dany d’Aguant en una àrea, i armadura trencada un {shred}% durant {shredDur}s. Els enemics tocats sagnen.'
     },
     bloodTransmutation: {
       name: 'Transmutació de Sang',
@@ -890,7 +891,7 @@ export default {
     },
     mutagenicRage: {
       name: 'Ràbia Mutagènica',
-      desc: 'Durant {dur}s: +{speed}% de velocitat d’atac, +{steal}% de robatori de vida i +{move}% de velocitat de moviment.'
+      desc: 'Durant {dur}s: +{speed}% de velocitat d’atac, +{steal}% de robatori de vida i +{move}% de velocitat de moviment. Els teus cops fan sagnar els enemics.'
     },
     philosophersCrucible: {
       name: 'Gresol del Filòsof',

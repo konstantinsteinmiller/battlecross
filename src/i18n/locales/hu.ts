@@ -637,6 +637,7 @@ export default {
     howSlot: 'Most koppints egy helyre a behelyezéshez.',
     classCount: '{cls}: {n} / {total} megtanulva',
     hint: {
+      find: 'Tanár keresése',
       met: 'Tanuld meg tőle: {name}, itt: {place}.',
       unmet: 'Ezt egy tanító tanítja itt: {place}.'
     }
@@ -873,7 +874,7 @@ export default {
     },
     sanguineFlask: {
       name: 'Véres fiola',
-      desc: 'Eldobsz egy fiolát a saját véredből: {dmg}% Állóképesség alapú területi sebzés, és {shred}%-kal tört páncél {shredDur}s-ig.'
+      desc: 'Eldobsz egy fiolát a saját véredből: {dmg}% Állóképesség alapú területi sebzés, és {shred}%-kal tört páncél {shredDur}s-ig. A találatot kapott ellenségek vérzenek.'
     },
     bloodTransmutation: {
       name: 'Vértranszmutáció',
@@ -889,7 +890,7 @@ export default {
     },
     mutagenicRage: {
       name: 'Mutagén düh',
-      desc: '{dur}s-ig: +{speed}% támadási sebesség, +{steal}% életlopás és +{move}% mozgási sebesség.'
+      desc: '{dur}s-ig: +{speed}% támadási sebesség, +{steal}% életlopás és +{move}% mozgási sebesség. Az ütéseid vérzést okoznak az ellenségeknek.'
     },
     philosophersCrucible: {
       name: 'Bölcsek olvasztótégelye',

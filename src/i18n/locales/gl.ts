@@ -638,6 +638,7 @@ export default {
     howSlot: 'Agora toca un oco para poñela.',
     classCount: '{cls}: {n} de {total} aprendidas',
     hint: {
+      find: 'Atopar o mestre',
       met: 'Aprendela con {name} en {place}.',
       unmet: 'Un mestre en {place} ensina isto.'
     }
@@ -874,7 +875,7 @@ export default {
     },
     sanguineFlask: {
       name: 'Frasco Sanguíneo',
-      desc: 'Lanza un frasco do teu propio sangue: {dmg}% de dano de Aguante nunha área, e armadura rota un {shred}% durante {shredDur}s.'
+      desc: 'Lanza un frasco do teu propio sangue: {dmg}% de dano de Aguante nunha área, e armadura rota un {shred}% durante {shredDur}s. Os inimigos alcanzados sangran.'
     },
     bloodTransmutation: {
       name: 'Transmutación de Sangue',
@@ -890,7 +891,7 @@ export default {
     },
     mutagenicRage: {
       name: 'Furia Mutaxénica',
-      desc: 'Durante {dur}s: +{speed}% de velocidade de ataque, +{steal}% de roubo de vida e +{move}% de velocidade de movemento.'
+      desc: 'Durante {dur}s: +{speed}% de velocidade de ataque, +{steal}% de roubo de vida e +{move}% de velocidade de movemento. Os teus golpes fan sangrar os inimigos.'
     },
     philosophersCrucible: {
       name: 'Crisol do Filósofo',

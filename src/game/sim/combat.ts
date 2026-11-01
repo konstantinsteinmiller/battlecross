@@ -273,7 +273,7 @@ export const dealDamage = (sim: Sim, src: Unit | null, tgt: Unit, base: number, 
   let amount = base
   let crit = false
   if (src) {
-    amount *= src.s.damageMul * (1 + statusV(src, 'damageUp') + statusV(src, 'enrage') + statusV(src, 'elixirMight')) * (1 - Math.min(0.8, statusV(src, 'weaken')))
+    amount *= src.s.damageMul * (1 + statusV(src, 'damageUp') + statusV(src, 'enrage') + statusV(src, 'frenzy') + statusV(src, 'elixirMight')) * (1 - Math.min(0.8, statusV(src, 'weaken')))
     // The hero's minions hit softer (#173), and the big foes crush them and the summons.
     if (src.team === 0 && src.rank === 'minion') amount *= MINION_DAMAGE_MUL
     if (tgt.team === 0 && tgt.ownerId !== 0 && src.team === 1) {

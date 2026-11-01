@@ -638,6 +638,7 @@ export default {
     howSlot: 'Ahora toca una ranura para colocarla.',
     classCount: '{cls}: {n} de {total} aprendidas',
     hint: {
+      find: 'Buscar al maestro',
       met: 'Apréndela con {name} en {place}.',
       unmet: 'Un maestro de {place} enseña esto.'
     }
@@ -874,7 +875,7 @@ export default {
     },
     sanguineFlask: {
       name: 'Frasco sanguíneo',
-      desc: 'Lanza un frasco con tu propia sangre: {dmg}% de daño de Aguante en área, y armadura rota un {shred}% durante {shredDur}s.'
+      desc: 'Lanza un frasco con tu propia sangre: {dmg}% de daño de Aguante en área, y armadura rota un {shred}% durante {shredDur}s. Los enemigos alcanzados sangran.'
     },
     bloodTransmutation: {
       name: 'Transmutación de sangre',
@@ -890,7 +891,7 @@ export default {
     },
     mutagenicRage: {
       name: 'Furia mutagénica',
-      desc: 'Durante {dur}s: +{speed}% de velocidad de ataque, +{steal}% de robo de vida y +{move}% de velocidad de movimiento.'
+      desc: 'Durante {dur}s: +{speed}% de velocidad de ataque, +{steal}% de robo de vida y +{move}% de velocidad de movimiento. Tus golpes hacen sangrar a los enemigos.'
     },
     philosophersCrucible: {
       name: 'Crisol filosofal',

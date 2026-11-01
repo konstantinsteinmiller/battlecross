@@ -637,6 +637,7 @@ export default {
     howSlot: '이제 슬롯을 탭해 넣으세요.',
     classCount: '{cls}: {total}개 중 {n}개 배움',
     hint: {
+      find: '스승 찾기',
       met: '{place}의 {name}에게서 배울 수 있다.',
       unmet: '{place}의 스승이 이걸 가르쳐 준다.'
     }
@@ -873,7 +874,7 @@ export default {
     },
     sanguineFlask: {
       name: '선혈의 플라스크',
-      desc: '자기 피가 담긴 플라스크를 던진다. 범위에 지구력의 {dmg}% 피해, {shredDur}초 동안 방어도 {shred}% 파괴.'
+      desc: '자기 피가 담긴 플라스크를 던진다. 범위에 지구력의 {dmg}% 피해, {shredDur}초 동안 방어도 {shred}% 파괴. 적중한 적은 출혈한다.'
     },
     bloodTransmutation: {
       name: '피의 변환',
@@ -889,7 +890,7 @@ export default {
     },
     mutagenicRage: {
       name: '변이의 분노',
-      desc: '{dur}초 동안: 공격 속도 +{speed}%, 생명력 흡수 +{steal}%, 이동 속도 +{move}%.'
+      desc: '{dur}초 동안: 공격 속도 +{speed}%, 생명력 흡수 +{steal}%, 이동 속도 +{move}%. 공격이 적에게 출혈을 일으킨다.'
     },
     philosophersCrucible: {
       name: '현자의 도가니',

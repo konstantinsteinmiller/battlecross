@@ -9,6 +9,7 @@ import { SIDE_GROUP } from './world'
 import { atPeace, findStatus, hasStatus, outOfReach, type Sim } from './world'
 import type { Unit } from './types'
 import { siegeTarget } from './siege'
+import { stepFrenzy } from './frenzy'
 
 /**
  * ─── Who does what ───────────────────────────────────────────────────────────
@@ -143,6 +144,7 @@ export const stepEnemy = (sim: Sim, u: Unit, dt: number): void => {
   }
   u.targetId = tgt.id
   const d = Math.hypot(tgt.x - u.x, tgt.z - u.z)
+  stepFrenzy(sim, u, tgt, d, dt)
 
   // Too far from home: a pack does not follow the hero across the map.
   if (sim.mode === 'zone' && (u.rank !== 'boss' || u.group >= SIDE_GROUP) && Math.hypot(u.homeX - u.x, u.homeZ - u.z) > (u.group >= SIDE_GROUP ? SIDE_LEASH : LEASH) && d > 8) {

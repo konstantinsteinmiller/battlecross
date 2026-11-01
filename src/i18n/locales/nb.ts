@@ -637,6 +637,7 @@ export default {
     howSlot: 'Trykk nå på en plass for å sette den inn.',
     classCount: '{cls}: {n} av {total} lært',
     hint: {
+      find: 'Finn læreren',
       met: 'Lær den av {name} i {place}.',
       unmet: 'En læremester i {place} underviser i denne.'
     }
@@ -873,7 +874,7 @@ export default {
     },
     sanguineFlask: {
       name: 'Blodflaske',
-      desc: 'Kast en flaske med ditt eget blod: {dmg}% Utholdenhet i skade i et område, og rustning brytes med {shred}% i {shredDur}s.'
+      desc: 'Kast en flaske med ditt eget blod: {dmg}% Utholdenhet i skade i et område, og rustning brytes med {shred}% i {shredDur}s. Rammede fiender blør.'
     },
     bloodTransmutation: {
       name: 'Blodtransmutasjon',
@@ -889,7 +890,7 @@ export default {
     },
     mutagenicRage: {
       name: 'Mutagent raseri',
-      desc: 'I {dur}s: +{speed}% angrepsfart, +{steal}% livstyveri og +{move}% løpefart.'
+      desc: 'I {dur}s: +{speed}% angrepsfart, +{steal}% livstyveri og +{move}% løpefart. Slagene dine får fiender til å blø.'
     },
     philosophersCrucible: {
       name: 'Filosofens digel',

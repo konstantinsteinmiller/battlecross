@@ -638,6 +638,7 @@ export default {
     howSlot: 'Teraz dotknij miejsca, aby ją umieścić.',
     classCount: '{cls}: poznano {n} z {total}',
     hint: {
+      find: 'Znajdź nauczyciela',
       met: 'Nauczy cię {name}, {place}.',
       unmet: 'Uczy tego nauczyciel: {place}.'
     }
@@ -874,7 +875,7 @@ export default {
     },
     sanguineFlask: {
       name: 'Krwawa fiolka',
-      desc: 'Rzuć fiolką własnej krwi: {dmg}% obrażeń od Wytrzymałości na obszarze i pancerz rozbity o {shred}% na {shredDur}s.'
+      desc: 'Rzuć fiolką własnej krwi: {dmg}% obrażeń od Wytrzymałości na obszarze i pancerz rozbity o {shred}% na {shredDur}s. Trafieni wrogowie krwawią.'
     },
     bloodTransmutation: {
       name: 'Transmutacja krwi',
@@ -890,7 +891,7 @@ export default {
     },
     mutagenicRage: {
       name: 'Mutagenny szał',
-      desc: 'Przez {dur}s: +{speed}% szybkości ataku, +{steal}% kradzieży życia i +{move}% szybkości ruchu.'
+      desc: 'Przez {dur}s: +{speed}% szybkości ataku, +{steal}% kradzieży życia i +{move}% szybkości ruchu. Twoje ciosy powodują krwawienie wrogów.'
     },
     philosophersCrucible: {
       name: 'Tygiel filozofów',

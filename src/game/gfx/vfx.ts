@@ -1325,6 +1325,10 @@ export class Vfx {
           if (chance(12)) { const [x, z] = around(0.8); sp.emit({ x, y: 0.1, z, vy: 2.4 + Math.random(), color: col, size: 0.55, sizeEnd: 0.1, aspect: 0.3, align: true, life: 0.45, shape: SHAPE.streak }) }
           break
         }
+        case 'frenzy':
+          // Red bubbles streaming up round the body.
+          if (chance(22)) { const [x, z] = around(0.9); sp.emit({ x, y: 0.1 + Math.random() * u.h * 0.4, z, vy: 2.2 + Math.random() * 1.6, color: Math.random() < 0.5 ? '#ff2a2a' : '#ff6a4a', size: 0.32 + Math.random() * 0.25, sizeEnd: 0.1, life: 0.8, shape: SHAPE.bubble }) }
+          break
         case 'regen':
           if (chance(5)) { const [x, z] = around(0.8); sp.emit({ x, y: 0.2, z, vy: 1.4, color: '#7dff8a', size: 0.26, sizeEnd: 0.08, life: 0.7, shape: SHAPE.cross, hold: 0.4 }) }
           break

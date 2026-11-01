@@ -638,6 +638,7 @@ export default {
     howSlot: 'Touche maintenant un emplacement pour la placer.',
     classCount: '{cls} : {n} sur {total} apprises',
     hint: {
+      find: 'Trouver le maître',
       met: 'Apprends-la auprès de {name} à {place}.',
       unmet: 'Un maître de {place} l’enseigne.'
     }
@@ -874,7 +875,7 @@ export default {
     },
     sanguineFlask: {
       name: 'Fiole sanguine',
-      desc: 'Lance une fiole de ton propre sang : {dmg} % de dégâts d’Endurance en zone, et armure brisée de {shred} % pendant {shredDur} s.'
+      desc: 'Lance une fiole de ton propre sang : {dmg} % de dégâts d’Endurance en zone, et armure brisée de {shred} % pendant {shredDur} s. Les ennemis touchés saignent.'
     },
     bloodTransmutation: {
       name: 'Transmutation du sang',
@@ -890,7 +891,7 @@ export default {
     },
     mutagenicRage: {
       name: 'Rage mutagène',
-      desc: 'Pendant {dur} s : +{speed} % de vitesse d’attaque, +{steal} % de vol de vie et +{move} % de vitesse de déplacement.'
+      desc: 'Pendant {dur} s : +{speed} % de vitesse d’attaque, +{steal} % de vol de vie et +{move} % de vitesse de déplacement. Tes coups font saigner les ennemis.'
     },
     philosophersCrucible: {
       name: 'Creuset philosophal',
