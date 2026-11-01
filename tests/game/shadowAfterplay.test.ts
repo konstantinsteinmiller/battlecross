@@ -76,7 +76,7 @@ describe('the Shadow against the afterplay bosses', () => {
     // Before: 3-5 s on most of them; capped, 6-22 s (14 s on average).
     for (let i = 0; i < fights.length; i++) {
       expect(fights[i], BOSS_ZONES[i]).toBeGreaterThan(18)
-      expect(fights[i], BOSS_ZONES[i]).toBeLessThan(75)
+      expect(fights[i], BOSS_ZONES[i]).toBeLessThan(110)
     }
     const mean = fights.reduce((n, f) => n + f, 0) / fights.length
     expect(mean).toBeGreaterThan(25)

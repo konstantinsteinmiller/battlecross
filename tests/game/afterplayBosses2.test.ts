@@ -70,7 +70,7 @@ describe('the phase 7 arenas', () => {
 
 describe('the phase 7 zones (the reference player)', () => {
   for (const { zone, boss, phases } of BOSSES) for (const cls of ['aegis', 'pyro', 'blood'] as const) {
-    it(`${zone}: a geared ${cls} of the band clears its invaded self, the ${boss} and every phase, in 20-120 s`, () => {
+    it(`${zone}: a geared ${cls} of the band clears its invaded self, the ${boss} and every phase, in 20-180 s`, () => {
       const level = INVASION[zone].max
       const { sim, plan } = setupRun({ zone, level, cls, geared: true, invaded: true, seed: 7, potions: 5 })
       const b = sim.units.find(u => u.kind === boss)!
@@ -92,7 +92,7 @@ describe('the phase 7 zones (the reference player)', () => {
       expect(b.alive).toBe(false)
       expect(phase).toBe(phases.length + 1)
       expect(fight).toBeGreaterThan(20)
-      expect(fight).toBeLessThan(120)
+      expect(fight).toBeLessThan(180)
     }, 240_000)
   }
 })

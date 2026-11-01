@@ -71,7 +71,7 @@ describe('the afterplay item tables', () => {
       expect(tw, it.id).toBeTruthy()
       expect(tw.infernal).toBe(it.id)
       expect(tw.level).toBe(it.level + 30)
-      expect(tw.tier).toBe(it.tier)
+      expect(tw.tier).toBe(Math.max(6, it.tier))
       expect(tw.drop).toEqual({ zone: it.drop.zone, src: 'infernal' })
       for (const a of ['str', 'dex', 'int', 'end', 'skl', 'cha'] as const) if (it.mods[a]) expect(tw.mods[a]).toBe(Math.round(it.mods[a]! * INFERNAL_MUL))
       expect(affixKeys.filter(k => (tw.mods[k as keyof typeof tw.mods] ?? 0) > (it.mods[k as keyof typeof it.mods] ?? 0))).toHaveLength(1)

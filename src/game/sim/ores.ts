@@ -1,4 +1,4 @@
-import { LATE_ORE_LEVEL, LATE_ORE_NODES_MIN, ORE_NODES_MAX, oresAt, type OreId } from '../data/ores'
+import { INVADED_ORE_LEVEL, LATE_ORE_LEVEL, LATE_ORE_NODES_MIN, ORE_NODES_MAX, oresAt, type OreId } from '../data/ores'
 import { face, stop } from './actors'
 import { cellOf, centerOf } from './grid'
 import { walkableFrom, type SpotPlan } from './herbs'
@@ -161,7 +161,7 @@ export const placeOres = (p: SpotPlan & { seed: number; cave?: Uint8Array }, lev
     }
   }
   // The last zones are where the smith's endgame metals are mined: no thin visits.
-  const lo = level >= LATE_ORE_LEVEL ? LATE_ORE_NODES_MIN : 1
+  const lo = level >= INVADED_ORE_LEVEL ? ORE_NODES_MAX : level >= LATE_ORE_LEVEL ? LATE_ORE_NODES_MIN : 1
   const n = lo + Math.floor(rng() * (ORE_NODES_MAX - lo + 1))
   const total = pool.reduce((s, q) => s + q.weight, 0)
   const out: OrePlan[] = []

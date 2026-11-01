@@ -129,7 +129,7 @@ describe('the phase 5 zones (the reference player)', () => {
       expect(phase).toBe(3)
       // D82: about a minute to a minute and a half from its waking.
       expect(fight).toBeGreaterThan(20)
-      expect(fight).toBeLessThan(120)
+      expect(fight).toBeLessThan(180)
     }, 180_000)
   }
 })

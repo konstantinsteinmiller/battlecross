@@ -1,6 +1,6 @@
 import type { Attr } from './attributes'
 import type { Mods, ModId } from './mods'
-import { DEMON_AFFIXES, INFERNAL_LEVEL, INFERNAL_MUL, INFERNAL_PRICE, INFERNAL_SUFFIX } from './relics'
+import { DEMON_AFFIXES, INFERNAL_LEVEL, INFERNAL_MIN_TIER, INFERNAL_MUL, INFERNAL_PRICE, INFERNAL_SUFFIX } from './relics'
 
 /**
  * ─── Items (GDD §6) ──────────────────────────────────────────────────────────
@@ -629,7 +629,7 @@ export const INFERNALS: readonly ItemDef[] = ITEMS.filter(i => i.unique).map((it
   }
   for (const [k, v] of Object.entries(DEMON_AFFIXES[n % DEMON_AFFIXES.length]!)) mods[k as ModId] = (mods[k as ModId] ?? 0) + (v ?? 0)
   return {
-    ...it, id: infernalId(it.id), level: it.level + INFERNAL_LEVEL, mods,
+    ...it, id: infernalId(it.id), tier: (it.tier >= INFERNAL_MIN_TIER ? it.tier : INFERNAL_MIN_TIER) as ItemDef['tier'], level: it.level + INFERNAL_LEVEL, mods,
     ...(it.armor ? { armor: Math.round(it.armor * INFERNAL_MUL) } : {}),
     infernal: it.id, drop: { zone: it.drop.zone, src: 'infernal' as const }
   }
@@ -655,7 +655,7 @@ export const TIER_COLOR: Record<number, string> = {
 /** What a shop charges (before the Charisma discount); legendaries are not for sale. */
 export const TIER_PRICE: Record<number, number> = { 1: 60, 2: 260, 3: 820, 4: 2300, 5: 5600, 6: 0, 7: 0 }
 
-export const priceOf = (it: ItemDef): number => Math.round(TIER_PRICE[it.tier]! * (1 + (it.level % 5) * 0.06) * (it.infernal ? INFERNAL_PRICE : 1))
+export const priceOf = (it: ItemDef): number => Math.round(TIER_PRICE[it.infernal ? Math.min(5, it.tier) : it.tier]! * (1 + (it.level % 5) * 0.06) * (it.infernal ? INFERNAL_PRICE : 1))
 
 /** What a merchant pays for it. Legendaries sell for a fortune they can never be bought back with. */
 export const sellValue = (it: ItemDef): number =>

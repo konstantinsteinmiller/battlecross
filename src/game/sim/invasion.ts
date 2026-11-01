@@ -2,7 +2,7 @@ import { AFTER_XP_MUL } from '../data/progression'
 import { PYLON } from '../data/invasion'
 import { finaleGold } from '../data/loot'
 import { prizeOf } from '../gamble'
-import { PYLON_GLASS } from '../data/relics'
+import { INVADED_DMG_MUL, INVADED_HP_MUL, PYLON_GLASS } from '../data/relics'
 import { armRelicDrops } from './relics'
 import { enemyDmg, enemyHp, plainStats } from './stats'
 import type { Unit } from './types'
@@ -40,6 +40,8 @@ const SCAR_EVERY = 0.5
 export const armInvasion = (sim: Sim): void => {
   sim.invaded = true
   sim.xpMul = AFTER_XP_MUL
+  sim.enemyHpMul *= INVADED_HP_MUL
+  sim.enemyDmgMul *= INVADED_DMG_MUL
 }
 
 /** The pylons' side group, once spawned. */

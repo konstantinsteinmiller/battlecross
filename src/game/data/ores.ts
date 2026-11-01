@@ -65,7 +65,11 @@ export const LATE_ORE_NODES_MIN = 2
  * 4 in 9, so it is a steady find and the new metals are the prize.
  */
 const LATE_WEIGHT: Readonly<Record<OreId, number>> = { iron: 0, silver: 0, gold: 2, mithril: 4, adamant: 3, aetherite: 2 }
+/** The invaded zones' band (31 and up, #174): mostly the two top metals, mithril only a stray. */
+export const INVADED_ORE_LEVEL = 31
+const INVADED_WEIGHT: Readonly<Record<OreId, number>> = { iron: 0, silver: 0, gold: 0, mithril: 1, adamant: 4, aetherite: 5 }
 export const oresAt = (level: number): Array<{ id: OreId; weight: number }> => {
+  if (level >= INVADED_ORE_LEVEL) return (['mithril', 'adamant', 'aetherite'] as const).map(id => ({ id, weight: INVADED_WEIGHT[id] }))
   const open = ORE_IDS.filter(o => ORE_LEVEL[o] <= level)
   if (level >= LATE_ORE_LEVEL) return open.slice(-3).map(id => ({ id, weight: LATE_WEIGHT[id] }))
   return open.map((id, i) => ({ id, weight: i === open.length - 2 ? 2 : 1 }))

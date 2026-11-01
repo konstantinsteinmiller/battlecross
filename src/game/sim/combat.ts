@@ -14,6 +14,7 @@ import { atPeace, findStatus, hasStatus, outOfReach, statusV, type Sim } from '.
 import { bossHurt } from './bosses/hooks'
 import { noteBossHit } from './pressure'
 import { afterBossSpoils, demonGlass, dropsInfernal, relicDefence, relicOffence, relicSteal } from './relics'
+import { BOSS_VS_MINION_MUL, ELITE_VS_MINION_MUL, INVADED_DROP_MUL, MINION_DAMAGE_MUL } from '../data/relics'
 
 /**
  * ─── Damage, healing, statuses, death ────────────────────────────────────────
@@ -273,6 +274,12 @@ export const dealDamage = (sim: Sim, src: Unit | null, tgt: Unit, base: number, 
   let crit = false
   if (src) {
     amount *= src.s.damageMul * (1 + statusV(src, 'damageUp') + statusV(src, 'enrage') + statusV(src, 'elixirMight')) * (1 - Math.min(0.8, statusV(src, 'weaken')))
+    // The hero's minions hit softer (#173), and the big foes crush them and the summons.
+    if (src.team === 0 && src.rank === 'minion') amount *= MINION_DAMAGE_MUL
+    if (tgt.team === 0 && tgt.ownerId !== 0 && src.team === 1) {
+      if (src.rank === 'boss') amount *= BOSS_VS_MINION_MUL
+      else if (src.rank === 'elite' || src.champion) amount *= ELITE_VS_MINION_MUL
+    }
     if (tgt.rank === 'boss') amount *= (1 + (srcMods?.bossDamage ?? 0)) * (src === hero ? shadowBossMul(sim.hero.skills) : 1)
     // A demon pylon's aura (an invaded zone, `invasion.ts`): the enemies in its reach hit harder.
     if (sim.pylons.length && src.team === 1) amount *= pylonAura(sim, src)
@@ -581,7 +588,8 @@ export const kill = (sim: Sim, u: Unit, by: Unit | null): void => {
     // In an invaded zone a tenth of the pieces come as Infernal twins (same dice: the pick is hashed).
     const infernal = !finaleBoss && dropsInfernal(sim, u)
     const table = after ? [] : finaleBoss ? sim.dropTable.boss : infernal ? sim.dropTable.infernal! : sim.dropTable.mob
-    const chance = finaleBoss ? 1 : u.rank === 'elite' || u.rank === 'boss' ? 0.3 : u.rank === 'weak' ? 0.015 : 0.05
+    const baseChance = finaleBoss ? 1 : u.rank === 'elite' || u.rank === 'boss' ? 0.3 : u.rank === 'weak' ? 0.015 : 0.05
+    const chance = infernal ? Math.min(1, baseChance * INVADED_DROP_MUL) : baseChance
     if (table.length && (finaleBoss || sim.dropTable.mob.length) && sim.rng() < chance) {
       // Something the hero does not own yet, if there is one.
       const fresh = table.filter(id => !sim.owned.has(id) && !h.items.includes(id))

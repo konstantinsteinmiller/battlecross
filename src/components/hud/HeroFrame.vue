@@ -129,8 +129,8 @@ onUnmounted(() => clearTimeout(popTimer))
 
 .hero-frame
   // The two framed bars' thicknesses; the rest lines up on them.
-  --hp-h: max(12px, calc(clamp(0.78rem, 3.1vmin, 1.1rem) * var(--hud-s, 1)))
-  --mp-h: max(9px, calc(clamp(0.64rem, 2.5vmin, 0.9rem) * var(--hud-s, 1)))
+  --hp-h: max(16px, calc(clamp(0.78rem, 3.1vmin, 1.1rem) * var(--hud-s, 1)))
+  --mp-h: max(12px, calc(clamp(0.64rem, 2.5vmin, 0.9rem) * var(--hud-s, 1)))
   // Where the health bar's well starts and ends inside its frame (`FBar`:
   // the cap, the finial and the bezel), so the plainer bars sit under it.
   --well-l: calc(var(--hp-h) * 1.25 + 3px)
@@ -258,7 +258,8 @@ onUnmounted(() => clearTimeout(popTimer))
   display: flex
   flex-direction: column
   gap: calc(clamp(1px, 0.4vmin, 3px) * var(--hud-s, 1))
-  width: calc(clamp(6.2rem, 34vmin, 12.5rem) * var(--hud-s, 1))
+  // Floors in px: on a very short viewport (a phone with its url bar up) the bars must stay readable.
+  width: max(9.5rem, calc(clamp(6.2rem, 34vmin, 12.5rem) * var(--hud-s, 1)))
 .hero-frame__hp
   --fbar-h: var(--hp-h)
 // Mana is the slimmer of the two; its well starts where health's does.
@@ -267,14 +268,14 @@ onUnmounted(() => clearTimeout(popTimer))
   margin-left: calc((var(--hp-h) - var(--mp-h)) * 1.25)
   margin-right: calc(var(--hp-h) * 0.5 + (var(--hp-h) - var(--mp-h)) * 2.2)
 .hero-frame__heat
-  --fbar-h: calc(clamp(0.5rem, 2vmin, 0.72rem) * var(--hud-s, 1))
+  --fbar-h: max(8px, calc(clamp(0.5rem, 2vmin, 0.72rem) * var(--hud-s, 1)))
   margin-left: var(--well-l)
   margin-right: calc(var(--well-r) + var(--hp-h) * 1.6)
   &.is-over
     animation: heat-over 0.3s linear infinite alternate
 // Experience: tall enough to read, as long as the health well.
 .hero-frame__xp
-  --fbar-h: calc(clamp(0.5rem, 2vmin, 0.72rem) * var(--hud-s, 1))
+  --fbar-h: max(8px, calc(clamp(0.5rem, 2vmin, 0.72rem) * var(--hud-s, 1)))
   margin-left: var(--well-l)
   margin-right: var(--well-r)
 
