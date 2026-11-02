@@ -423,7 +423,8 @@ export default {
       style: {
         aegis: 'Stari firme kaj bati reen',
         pyro: 'Bruligi ĉion en atingo',
-        soulwarden: 'Batali kun la falintoj'
+        soulwarden: 'Batali kun la falintoj',
+        ironmonk: 'Frapu per nudaj manoj'
       }
     }
   },

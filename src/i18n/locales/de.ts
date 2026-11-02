@@ -424,7 +424,8 @@ export default {
       style: {
         aegis: 'Standhaft bleiben und zurückschlagen',
         pyro: 'Alles in Reichweite verbrennen',
-        soulwarden: 'Mit den Gefallenen kämpfen'
+        soulwarden: 'Mit den Gefallenen kämpfen',
+        ironmonk: 'Mit bloßen Händen zuschlagen'
       }
     }
   },

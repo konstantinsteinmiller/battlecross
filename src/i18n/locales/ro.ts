@@ -423,7 +423,8 @@ export default {
       style: {
         aegis: 'Rezistă și lovește înapoi',
         pyro: 'Arde tot ce ajungi',
-        soulwarden: 'Luptă alături de cei căzuți'
+        soulwarden: 'Luptă alături de cei căzuți',
+        ironmonk: 'Lovește cu mâinile goale'
       }
     }
   },

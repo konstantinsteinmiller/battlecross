@@ -423,7 +423,8 @@ export default {
       style: {
         aegis: 'Pidä pintasi ja lyö takaisin',
         pyro: 'Polta kaikki ulottuvilla',
-        soulwarden: 'Taistele kaatuneiden rinnalla'
+        soulwarden: 'Taistele kaatuneiden rinnalla',
+        ironmonk: 'Iske paljain käsin'
       }
     }
   },

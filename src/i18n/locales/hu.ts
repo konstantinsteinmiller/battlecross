@@ -423,7 +423,8 @@ export default {
       style: {
         aegis: 'Állj szilárdan és ütj vissza',
         pyro: 'Égess el mindent, ami a közelben van',
-        soulwarden: 'Harcolj az elesettekkel'
+        soulwarden: 'Harcolj az elesettekkel',
+        ironmonk: 'Ütés puszta kézzel'
       }
     }
   },

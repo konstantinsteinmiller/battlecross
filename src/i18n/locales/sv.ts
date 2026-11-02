@@ -423,7 +423,8 @@ export default {
       style: {
         aegis: 'Stå fast och slå tillbaka',
         pyro: 'Bränn allt inom räckhåll',
-        soulwarden: 'Kämpa med de fallna'
+        soulwarden: 'Kämpa med de fallna',
+        ironmonk: 'Slå med bara nävarna'
       }
     }
   },

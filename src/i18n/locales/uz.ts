@@ -423,7 +423,8 @@ export default {
       style: {
         aegis: 'Mustahkam tur va zarbani qaytar',
         pyro: 'Yetadigan hamma narsani yoq',
-        soulwarden: 'Qulaganlar bilan birga jang qil'
+        soulwarden: 'Qulaganlar bilan birga jang qil',
+        ironmonk: 'Yalang qo‘l bilan ur'
       }
     }
   },

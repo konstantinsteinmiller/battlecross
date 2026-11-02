@@ -424,7 +424,8 @@ export default {
       style: {
         aegis: 'Tenir bon et riposter',
         pyro: 'Tout brûler à portée',
-        soulwarden: 'Combattre avec les défunts'
+        soulwarden: 'Combattre avec les défunts',
+        ironmonk: 'Frapper à mains nues'
       }
     }
   },

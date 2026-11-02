@@ -423,7 +423,8 @@ export default {
       style: {
         aegis: 'Möhkəm dur və cavab ver',
         pyro: 'Əlçatan hər şeyi yandır',
-        soulwarden: 'Düşənlərlə döyüş'
+        soulwarden: 'Düşənlərlə döyüş',
+        ironmonk: 'Çılpaq əllərlə vur'
       }
     }
   },

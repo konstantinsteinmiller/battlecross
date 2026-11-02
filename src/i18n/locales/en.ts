@@ -394,7 +394,8 @@ export default {
       'style': {
         'aegis': 'Stand firm and hit back',
         'pyro': 'Burn everything in reach',
-        'soulwarden': 'Fight with the fallen'
+        'soulwarden': 'Fight with the fallen',
+        'ironmonk': 'Strike with bare hands'
       }
     }
   },

@@ -423,7 +423,8 @@ export default {
       style: {
         aegis: '버티며 반격하기',
         pyro: '닿는 모든 것을 불태우기',
-        soulwarden: '쓰러진 자들과 함께 싸우기'
+        soulwarden: '쓰러진 자들과 함께 싸우기',
+        ironmonk: '맨손으로 가격하기'
       }
     }
   },

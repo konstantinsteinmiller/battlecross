@@ -424,7 +424,8 @@ export default {
       style: {
         aegis: 'Standvastig blijven en terugslaan',
         pyro: 'Alles binnen bereik verbranden',
-        soulwarden: 'Vechten met de gevallenen'
+        soulwarden: 'Vechten met de gevallenen',
+        ironmonk: 'Sla toe met blote handen'
       }
     }
   },

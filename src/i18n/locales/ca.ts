@@ -424,7 +424,8 @@ export default {
       style: {
         aegis: 'Mantenir-se ferm i tornar el cop',
         pyro: 'Cremar tot el que tinguis a l’abast',
-        soulwarden: 'Lluitar amb els caiguts'
+        soulwarden: 'Lluitar amb els caiguts',
+        ironmonk: 'Colpeja amb les mans nues'
       }
     }
   },

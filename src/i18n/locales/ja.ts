@@ -423,7 +423,8 @@ export default {
       style: {
         aegis: '踏みとどまって反撃する',
         pyro: '届く限りすべてを燃やす',
-        soulwarden: '倒れた者たちと共に戦う'
+        soulwarden: '倒れた者たちと共に戦う',
+        ironmonk: '素手で打ちのめす'
       }
     }
   },

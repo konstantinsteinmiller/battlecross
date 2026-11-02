@@ -424,7 +424,8 @@ export default {
       style: {
         aegis: 'Стой твърдо и отвръщай',
         pyro: 'Изгори всичко наоколо',
-        soulwarden: 'Бий се с падналите'
+        soulwarden: 'Бий се с падналите',
+        ironmonk: 'Удряй с голи ръце'
       }
     }
   },

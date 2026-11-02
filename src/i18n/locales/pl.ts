@@ -424,7 +424,8 @@ export default {
       style: {
         aegis: 'Stój twardo i oddawaj ciosy',
         pyro: 'Spal wszystko w zasięgu',
-        soulwarden: 'Walcz razem z poległymi'
+        soulwarden: 'Walcz razem z poległymi',
+        ironmonk: 'Walcz gołymi rękami'
       }
     }
   },

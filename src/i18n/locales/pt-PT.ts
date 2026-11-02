@@ -424,7 +424,8 @@ export default {
       style: {
         aegis: 'Resistir e retribuir o golpe',
         pyro: 'Queimar tudo ao alcance',
-        soulwarden: 'Lutar com os caídos'
+        soulwarden: 'Lutar com os caídos',
+        ironmonk: 'Atacar com as mãos nuas'
       }
     }
   },

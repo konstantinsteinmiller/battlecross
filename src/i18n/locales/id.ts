@@ -423,7 +423,8 @@ export default {
       style: {
         aegis: 'Bertahan dan balas pukulan',
         pyro: 'Bakar semua yang terjangkau',
-        soulwarden: 'Bertarung bersama yang gugur'
+        soulwarden: 'Bertarung bersama yang gugur',
+        ironmonk: 'Serang dengan tangan kosong'
       }
     }
   },

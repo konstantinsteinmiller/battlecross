@@ -423,7 +423,8 @@ export default {
       style: {
         aegis: '穩守反擊',
         pyro: '焚盡一切',
-        soulwarden: '與亡者並肩作戰'
+        soulwarden: '與亡者並肩作戰',
+        ironmonk: '徒手出擊'
       }
     }
   },

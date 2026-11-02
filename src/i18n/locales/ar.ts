@@ -465,7 +465,8 @@ export default {
       style: {
         aegis: 'اثبت وردّ الضربة',
         pyro: 'احرق كل ما في المتناول',
-        soulwarden: 'قاتل مع الساقطين'
+        soulwarden: 'قاتل مع الساقطين',
+        ironmonk: 'اضرب بيديك العاريتين'
       }
     }
   },

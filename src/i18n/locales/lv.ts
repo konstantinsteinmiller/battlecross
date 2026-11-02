@@ -423,7 +423,8 @@ export default {
       style: {
         aegis: 'Turēties stingri un sist pretī',
         pyro: 'Sadedzināt visu aizsniedzamo',
-        soulwarden: 'Cīnīties kopā ar kritušajiem'
+        soulwarden: 'Cīnīties kopā ar kritušajiem',
+        ironmonk: 'Sit ar kailām rokām'
       }
     }
   },

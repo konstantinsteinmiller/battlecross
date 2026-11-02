@@ -423,7 +423,8 @@ export default {
       style: {
         aegis: 'Đứng vững và đáp trả',
         pyro: 'Thiêu rụi mọi thứ trong tầm tay',
-        soulwarden: 'Chiến đấu cùng những người đã ngã'
+        soulwarden: 'Chiến đấu cùng những người đã ngã',
+        ironmonk: 'Ra đòn bằng tay không'
       }
     }
   },

@@ -124,11 +124,17 @@ void lesson
   gap: 0.6rem
   align-items: stretch
 .pick__hero
+  // The turntable fills this box and the cards decide how tall it is: its canvas must never size the box (a canvas that
+  // takes its size from the box that takes its size from the canvas grew without end on a tall narrow screen).
+  position: relative
   min-height: 9rem
+  min-width: 0
   border-radius: var(--bc-r-md)
   background: radial-gradient(circle at 50% 35%, rgba(255, 255, 255, 0.5), rgba(0, 0, 0, 0.08))
   overflow: hidden
   :deep(.turntable)
+    position: absolute
+    inset: 0
     width: 100%
     height: 100%
 .pick__cards

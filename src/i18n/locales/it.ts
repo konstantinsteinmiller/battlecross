@@ -424,7 +424,8 @@ export default {
       style: {
         aegis: 'Reggere e rispondere ai colpi',
         pyro: 'Bruciare tutto ciò che è a tiro',
-        soulwarden: 'Combattere con i caduti'
+        soulwarden: 'Combattere con i caduti',
+        ironmonk: 'Colpire a mani nude'
       }
     }
   },

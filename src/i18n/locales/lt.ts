@@ -423,7 +423,8 @@ export default {
       style: {
         aegis: 'Atsilaikyti ir atsakyti smūgiu',
         pyro: 'Sudeginti viską, ką pasieksi',
-        soulwarden: 'Kovoti kartu su kritusiais'
+        soulwarden: 'Kovoti kartu su kritusiais',
+        ironmonk: 'Smok plikomis rankomis'
       }
     }
   },

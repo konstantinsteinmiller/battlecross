@@ -426,7 +426,8 @@ export default {
       style: {
         aegis: 'Izdrži i uzvrati udarac',
         pyro: 'Spali sve na dohvat ruke',
-        soulwarden: 'Bori se s palima'
+        soulwarden: 'Bori se s palima',
+        ironmonk: 'Udaraj golim rukama'
       }
     }
   },

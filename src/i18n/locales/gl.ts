@@ -424,7 +424,8 @@ export default {
       style: {
         aegis: 'Aguantar firme e devolver o golpe',
         pyro: 'Queimar todo o que teñas ao alcance',
-        soulwarden: 'Loitar cos caídos'
+        soulwarden: 'Loitar cos caídos',
+        ironmonk: 'Golpea coas mans núas'
       }
     }
   },

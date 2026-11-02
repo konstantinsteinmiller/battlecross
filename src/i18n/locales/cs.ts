@@ -426,7 +426,8 @@ export default {
       style: {
         aegis: 'Vydržet a oplácet',
         pyro: 'Spálit vše v dosahu',
-        soulwarden: 'Bojovat s padlými'
+        soulwarden: 'Bojovat s padlými',
+        ironmonk: 'Udeř holýma rukama'
       }
     }
   },

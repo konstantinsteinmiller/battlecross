@@ -423,7 +423,8 @@ export default {
       style: {
         aegis: 'Dimdik dur ve karşılık ver',
         pyro: 'Menzildeki her şeyi yak',
-        soulwarden: 'Düşenlerle birlikte savaş'
+        soulwarden: 'Düşenlerle birlikte savaş',
+        ironmonk: 'Çıplak ellerle vur'
       }
     }
   },
