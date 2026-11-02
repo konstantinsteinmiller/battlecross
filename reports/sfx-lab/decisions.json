@@ -1,0 +1,400 @@
+{
+ "castFire": {
+  "ratings": {
+   "r0-06.mp3": 5
+  },
+  "pick": "r0-06.mp3",
+  "reroll": false,
+  "at": "2026-11-02T21:26:46.299Z"
+ },
+ "castIce": {
+  "ratings": {
+   "r0-06.mp3": 5
+  },
+  "pick": "r0-06.mp3",
+  "reroll": false,
+  "at": "2026-11-02T21:27:15.115Z"
+ },
+ "castShock": {
+  "ratings": {
+   "r0-12.mp3": 5
+  },
+  "pick": "r0-12.mp3",
+  "reroll": false,
+  "at": "2026-11-02T21:27:57.415Z"
+ },
+ "castHoly": {
+  "ratings": {
+   "r0-07.mp3": 5
+  },
+  "pick": "r0-07.mp3",
+  "reroll": false,
+  "at": "2026-11-02T21:29:21.679Z"
+ },
+ "castShadow": {
+  "ratings": {},
+  "pick": "r0-18.mp3",
+  "reroll": false,
+  "at": "2026-11-02T21:29:40.227Z"
+ },
+ "castPoison": {
+  "ratings": {
+   "r0-10.mp3": 5
+  },
+  "pick": "r0-10.mp3",
+  "reroll": false,
+  "at": "2026-11-02T21:29:54.952Z"
+ },
+ "castBlood": {
+  "ratings": {
+   "r0-08.mp3": 5,
+   "r0-14.mp3": 5
+  },
+  "pick": "r0-14.mp3",
+  "reroll": false,
+  "at": "2026-11-02T21:30:25.177Z"
+ },
+ "castEarth": {
+  "ratings": {
+   "r0-14.mp3": 5
+  },
+  "pick": "r0-14.mp3",
+  "reroll": false,
+  "at": "2026-11-02T21:30:58.992Z"
+ },
+ "castWind": {
+  "ratings": {
+   "r0-20.mp3": 4,
+   "r0-14.mp3": 5
+  },
+  "pick": "r0-14.mp3",
+  "reroll": false,
+  "at": "2026-11-02T21:31:26.120Z"
+ },
+ "castNature": {
+  "ratings": {
+   "r0-09.mp3": 0,
+   "r0-14.mp3": 5
+  },
+  "pick": "r0-14.mp3",
+  "reroll": false,
+  "at": "2026-11-02T21:31:53.498Z"
+ },
+ "castArcane": {
+  "ratings": {
+   "r0-15.mp3": 4
+  },
+  "pick": "r0-15.mp3",
+  "reroll": false,
+  "at": "2026-11-02T21:32:24.187Z"
+ },
+ "castTime": {
+  "ratings": {
+   "r0-08.mp3": 5
+  },
+  "pick": "r0-08.mp3",
+  "reroll": false,
+  "at": "2026-11-02T21:32:44.114Z"
+ },
+ "castSpirit": {
+  "ratings": {
+   "r0-16.mp3": 5
+  },
+  "pick": "r0-16.mp3",
+  "reroll": false,
+  "at": "2026-11-02T21:33:20.286Z"
+ },
+ "castSong": {
+  "ratings": {
+   "r0-10.mp3": 5
+  },
+  "pick": "r0-10.mp3",
+  "reroll": false,
+  "at": "2026-11-02T21:33:33.322Z"
+ },
+ "castTech": {
+  "ratings": {
+   "r0-14.mp3": 5
+  },
+  "pick": "r0-14.mp3",
+  "reroll": false,
+  "at": "2026-11-02T21:34:36.637Z"
+ },
+ "castCommand": {
+  "ratings": {
+   "r0-13.mp3": 5
+  },
+  "pick": "r0-13.mp3",
+  "reroll": false,
+  "at": "2026-11-02T21:34:34.770Z"
+ },
+ "castEarthShift": {
+  "ratings": {
+   "r0-08.mp3": 5
+  },
+  "pick": "r0-08.mp3",
+  "reroll": false,
+  "at": "2026-11-02T21:34:32.565Z"
+ },
+ "castBoulder": {
+  "ratings": {
+   "r0-19.mp3": 4,
+   "r0-15.mp3": 5
+  },
+  "pick": "r0-15.mp3",
+  "reroll": false,
+  "at": "2026-11-02T21:35:05.107Z"
+ },
+ "castFrostShatter": {
+  "ratings": {
+   "r0-07.mp3": 5
+  },
+  "pick": "r0-07.mp3",
+  "reroll": false,
+  "at": "2026-11-02T21:35:17.827Z"
+ },
+ "castAvalancheLeap": {
+  "ratings": {
+   "r0-10.mp3": 5
+  },
+  "pick": "r0-10.mp3",
+  "reroll": false,
+  "at": "2026-11-02T21:35:42.174Z"
+ },
+ "castAbsoluteZero": {
+  "ratings": {
+   "r0-01.mp3": 5
+  },
+  "pick": "r0-01.mp3",
+  "reroll": false,
+  "at": "2026-11-02T21:36:01.886Z"
+ },
+ "castSmokeBomb": {
+  "ratings": {
+   "r0-11.mp3": 5
+  },
+  "pick": "r0-11.mp3",
+  "reroll": false,
+  "at": "2026-11-02T21:36:32.220Z"
+ },
+ "castShadowMark": {
+  "ratings": {
+   "r0-02.mp3": 5
+  },
+  "pick": "r0-02.mp3",
+  "reroll": false,
+  "at": "2026-11-02T21:36:42.783Z"
+ },
+ "castOrbitalBeam": {
+  "ratings": {
+   "r0-15.mp3": 2,
+   "r0-20.mp3": 5,
+   "r0-19.mp3": 5
+  },
+  "pick": "r0-19.mp3",
+  "reroll": false,
+  "at": "2026-11-02T21:37:35.098Z"
+ },
+ "castSpark": {
+  "ratings": {
+   "r0-07.mp3": 5
+  },
+  "pick": "r0-07.mp3",
+  "reroll": false,
+  "at": "2026-11-02T21:37:59.634Z"
+ },
+ "holy": {
+  "ratings": {
+   "r0-14.mp3": 5
+  },
+  "pick": "r0-14.mp3",
+  "reroll": false,
+  "at": "2026-11-02T21:38:18.834Z"
+ },
+ "shadow": {
+  "ratings": {
+   "r0-11.mp3": 5
+  },
+  "pick": "r0-11.mp3",
+  "reroll": false,
+  "at": "2026-11-02T21:38:43.075Z"
+ },
+ "poison": {
+  "ratings": {
+   "r0-07.mp3": 5
+  },
+  "pick": "r0-07.mp3",
+  "reroll": false,
+  "at": "2026-11-02T21:39:10.902Z"
+ },
+ "blood": {
+  "ratings": {},
+  "pick": "r0-14.mp3",
+  "reroll": false,
+  "at": "2026-11-02T21:39:28.622Z"
+ },
+ "quake": {
+  "ratings": {},
+  "pick": "r0-09.mp3",
+  "reroll": false,
+  "at": "2026-11-02T21:39:39.145Z"
+ },
+ "impactFire": {
+  "ratings": {
+   "r0-14.mp3": 3
+  },
+  "pick": "r0-14.mp3",
+  "reroll": false,
+  "at": "2026-11-02T21:40:09.601Z"
+ },
+ "impactIce": {
+  "ratings": {
+   "r0-13.mp3": 4,
+   "r0-14.mp3": 5
+  },
+  "pick": "r0-14.mp3",
+  "reroll": false,
+  "at": "2026-11-02T21:40:27.466Z"
+ },
+ "impactShock": {
+  "ratings": {
+   "r0-20.mp3": 5
+  },
+  "pick": "r0-20.mp3",
+  "reroll": false,
+  "at": "2026-11-02T21:40:53.020Z"
+ },
+ "impactWind": {
+  "ratings": {
+   "r0-15.mp3": 4
+  },
+  "pick": "r0-15.mp3",
+  "reroll": false,
+  "at": "2026-11-02T21:41:30.370Z"
+ },
+ "impactNature": {
+  "ratings": {
+   "r0-18.mp3": 5
+  },
+  "pick": "r0-18.mp3",
+  "reroll": false,
+  "at": "2026-11-02T21:41:50.600Z"
+ },
+ "impactArcane": {
+  "ratings": {
+   "r0-18.mp3": 3
+  },
+  "pick": "r0-18.mp3",
+  "reroll": false,
+  "at": "2026-11-02T21:42:20.648Z"
+ },
+ "impactTime": {
+  "ratings": {
+   "r0-08.mp3": 5,
+   "r0-09.mp3": 5
+  },
+  "pick": "r0-09.mp3",
+  "reroll": false,
+  "at": "2026-11-02T21:42:33.840Z"
+ },
+ "impactSpirit": {
+  "ratings": {
+   "r0-02.mp3": 5
+  },
+  "pick": "r0-02.mp3",
+  "reroll": false,
+  "at": "2026-11-02T21:43:10.263Z"
+ },
+ "impactSong": {
+  "ratings": {
+   "r0-13.mp3": 5
+  },
+  "pick": "r0-13.mp3",
+  "reroll": false,
+  "at": "2026-11-02T21:43:20.650Z"
+ },
+ "impactTech": {
+  "ratings": {
+   "r0-13.mp3": 3
+  },
+  "pick": "r0-13.mp3",
+  "reroll": false,
+  "at": "2026-11-02T21:43:47.621Z"
+ },
+ "swing": {
+  "ratings": {
+   "r0-04.mp3": 5,
+   "r0-20.mp3": 1,
+   "r0-14.mp3": 5
+  },
+  "pick": "r0-04.mp3",
+  "reroll": false,
+  "at": "2026-11-02T21:44:19.683Z"
+ },
+ "swingHeavy": {
+  "ratings": {
+   "r0-13.mp3": 4,
+   "r0-14.mp3": 5
+  },
+  "pick": "r0-14.mp3",
+  "reroll": false,
+  "at": "2026-11-02T21:44:57.094Z"
+ },
+ "swingBlunt": {
+  "ratings": {
+   "r0-18.mp3": 4
+  },
+  "pick": "r0-18.mp3",
+  "reroll": false,
+  "at": "2026-11-02T21:45:21.566Z"
+ },
+ "shoot": {
+  "ratings": {
+   "r0-19.mp3": 5
+  },
+  "pick": "r0-19.mp3",
+  "reroll": false,
+  "at": "2026-11-02T21:45:38.022Z"
+ },
+ "shootBow": {
+  "ratings": {
+   "r0-07.mp3": 4
+  },
+  "pick": "r0-07.mp3",
+  "reroll": false,
+  "at": "2026-11-02T21:46:03.469Z"
+ },
+ "cast": {
+  "ratings": {
+   "r0-16.mp3": 5
+  },
+  "pick": "r0-16.mp3",
+  "reroll": false,
+  "at": "2026-11-02T21:47:22.865Z"
+ },
+ "hitBlunt": {
+  "ratings": {
+   "r0-11.mp3": 5
+  },
+  "pick": "r0-11.mp3",
+  "reroll": false,
+  "at": "2026-11-02T21:47:45.104Z"
+ },
+ "hitHeavy": {
+  "ratings": {
+   "r0-15.mp3": 1,
+   "r0-04.mp3": 5
+  },
+  "pick": "r0-04.mp3",
+  "reroll": false,
+  "at": "2026-11-02T21:48:21.939Z"
+ },
+ "crit": {
+  "ratings": {
+   "r0-03.mp3": 5
+  },
+  "pick": "r0-03.mp3",
+  "reroll": false,
+  "at": "2026-11-02T21:48:29.983Z"
+ }
+}
