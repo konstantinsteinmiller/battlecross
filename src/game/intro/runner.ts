@@ -154,7 +154,10 @@ const stage = (m: ZoneMode): Cast | null => {
   // (a copy: `dismiss` takes the unit out of the list being walked, and every second one would be skipped)
   for (const e of [...sim.units]) if (e.team === 1) sim.dismiss(e)
   sim.wave.rest = 1e9
-  const dragon = spawnEnemy(sim, INTRO_DRAGON, p.x, p.z - 3.4, 0)
+  // The place's own packs were just dismissed: left alone, the director would find the finale's pack cleared on the first
+  // step and call the visit won (the scene froze on its "victory"). They count as cleared already, and the drake is in no pack.
+  for (const g of sim.groups) g.cleared = true
+  const dragon = spawnEnemy(sim, INTRO_DRAGON, p.x, p.z - 3.4, -1)
   if (!dragon) return null
   dragon.awake = true
   dragon.s.maxHp *= 80
