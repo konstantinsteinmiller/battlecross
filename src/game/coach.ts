@@ -16,6 +16,7 @@ import { openingBoss } from './coach/tutorialAid'
 import { nudgeWorld, senseFinder, senseWorld } from './coach/world'
 import type { ClassId } from './data/skills'
 import { campPending, campTarget } from './sim/camp'
+import { campLessonPending, nearestTeacher } from './coach/campLesson'
 
 /**
  * ─── The wordless coach ──────────────────────────────────────────────────────
@@ -253,6 +254,10 @@ class Coach {
     if (u.alive && sim.ended === 'victory' && !sim.leaving && campPending(sim)) {
       const to = campTarget(sim)
       if (to) { findWay(sim, u, to, dt); hintPath.lead = wayWorld.length > 0 }
+    } else if (u.alive && sim.ended === 'victory' && !sim.leaving && campLessonPending(sim)) {
+      // The teachers are out: the chevrons lead to the nearest, to learn their free lesson (#180).
+      const t = nearestTeacher(sim, u.x, u.z)
+      if (t && Math.hypot(t.x - u.x, t.z - u.z) > 3) { findWay(sim, u, t, dt); hintPath.lead = wayWorld.length > 0 }
     }
     if (!u.alive || sim.ended) { this.setFight(false); nudgeWorld.has = false; nudgeWorld.chest = false; this.publish([]); return }
     // Where the next objective stands, for the nudges (`coach/world.ts`).

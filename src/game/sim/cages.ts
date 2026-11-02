@@ -165,6 +165,11 @@ export const freeCaptives = (sim: Sim, c: ChestState): void => {
     p.path = p.stay ? campWayOut(u, c) : [[u?.x ?? c.x, c.z + 0.8], [c.x + side * 1.35, c.z + 1.05]]
     // Out of the cage, the camp's teachers answer to their town ids (#156).
     if (u && p.npc) u.npc = p.npc
+    // The first visit's big moment (#178): a golden burst over each teacher as the door swings open.
+    if (u && p.stay) {
+      sim.emit({ t: 'fx', id: 'radiant', x: u.x, z: u.z, a: 0, color: '#fff2a8' })
+      sim.emit({ t: 'fx', id: 'burst:holy', x: u.x, z: u.z, r: 2.2, color: '#fff2a8' })
+    }
   })
 }
 

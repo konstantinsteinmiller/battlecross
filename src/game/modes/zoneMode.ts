@@ -1,4 +1,5 @@
 import { campPending } from '../sim/camp'
+import { campLessonPending } from '../coach/campLesson'
 import { trackFtue } from '@/use/useAnalytics'
 import { AmbientLight, Color, Frustum, Matrix4, Scene, Sphere, Vector2, type Group, type InstancedMesh, type Line, type Material, type Mesh, type Object3D, type Points, type ShaderMaterial, type SkinnedMesh } from 'three'
 import { ArenaCrowd } from '../gfx/arenaCrowd'
@@ -1478,7 +1479,7 @@ export class ZoneMode implements GameMode {
     hud.interactOre = (!hud.interactChest && (!sim.ended || (sim.ended === 'victory' && !sim.leaving)) && u.alive && this.props && u.action?.id !== 'mine' && nearOre(sim)?.kind) || ''
     // After the finale falls: the Leave button, whether the finale's chest is
     // open yet, and how many chests the place still holds.
-    hud.canLeave = (this.setup.kind === 'zone' && sim.ended === 'victory' && !sim.leaving && !campPending(sim)) ||
+    hud.canLeave = (this.setup.kind === 'zone' && sim.ended === 'victory' && !sim.leaving && !campPending(sim) && !campLessonPending(sim)) ||
       // The ladder (#10): between waves, from the eighth on.
       (this.setup.kind === 'arena' && !sim.ended && sim.wave.alive === 0 && sim.wave.cleared >= ARENA_WAVES)
     let left = 0

@@ -140,6 +140,36 @@ describe('the camp past the first visit\'s boss', () => {
   })
 })
 
+describe('the first visit holds a little of the rest of the world (#178)', () => {
+  it('two plants, a first ore node and a piece of the treasure map, on every seed, all reachable and clear of the camp', () => {
+    for (const seed of SEEDS) {
+      const plan = generateZone(ZONES.plains, seed, { tutorial: true, openingPack: 2, pieces: ['plains1'] })
+      const tag = 'seed ' + seed
+      expect(plan.herbs, tag).toHaveLength(2)
+      expect(plan.ores, tag).toHaveLength(1)
+      expect(plan.pieces.map(q => q.id), tag).toEqual(['plains1'])
+      const grid = createGrid(plan.w, plan.h)
+      fillGrid(grid, plan)
+      const camp = plan.camp!
+      const at = [...plan.herbs, ...plan.ores, ...plan.pieces]
+      for (const q of at) {
+        expect(Math.hypot(q.x - camp.x, q.z - camp.z), tag).toBeGreaterThan(3 * CELL)
+        const path: number[] = []
+        // An ore node stands in rock: it is reached from the cell in front of it.
+        const to = 'sx' in q ? { x: (q as { sx: number }).sx, z: (q as { sz: number }).sz } : q
+        expect(findPath(grid, plan.start.x, plan.start.z, to.x, to.z, path), tag + ' reachable').toBeGreaterThan(0)
+      }
+    }
+  })
+
+  it('without the piece lying about (already found), the visit still holds the plants and the ore', () => {
+    const plan = generateZone(ZONES.plains, 3, { tutorial: true, openingPack: 2 })
+    expect(plan.pieces).toHaveLength(0)
+    expect(plan.herbs).toHaveLength(2)
+    expect(plan.ores).toHaveLength(1)
+  })
+})
+
 describe('the way to the camp (#177)', () => {
   it('wheels and splintered spokes lie along the way in, from the boss floor towards the wagon', () => {
     for (const seed of SEEDS) {
@@ -323,6 +353,25 @@ describe('the camp\'s gift and the teachers\' way home', () => {
     for (const id of ids.filter(id => id !== free)) expect(p.skillCost(id), id).toBeGreaterThan(0)
     p.lesson.camp = false
     for (const id of ids.filter(id => id !== free)) expect(p.skillCost(id), id).toBeGreaterThan(0)
+  })
+
+  it('the free lesson is the last step of the visit (#180): pending once the cage is open, done when it is taken', async () => {
+    const L = await import('@/game/coach/campLesson')
+    const { sim, plan } = visit()
+    p.profile.gold = 0
+    // The cage is shut: the rescue comes first, not the lesson.
+    expect(L.campLessonPending(sim)).toBe(false)
+    win(sim)
+    openCage(sim, plan)
+    expect(L.campHasLesson()).toBe(true)
+    expect(L.campLessonPending(sim)).toBe(true)
+    // The teachers stand out, and the chevrons can find the nearest.
+    run(sim, plan, CAPTIVE_TALK + 8)
+    expect(L.nearestTeacher(sim, sim.hero.unit.x, sim.hero.unit.z)).toBeTruthy()
+    p.lesson.camp = true
+    p.learnSkill(firstLessons().find(id => p.learnBlock(id) === '')!)
+    p.lesson.camp = false
+    expect(L.campLessonPending(sim)).toBe(false)
   })
 
   it('the road teacher\'s own gift does not spend the camp\'s', () => {

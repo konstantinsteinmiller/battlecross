@@ -1,4 +1,5 @@
 import { MENTOR_NPC } from '../data/mentor'
+import type { ClassId } from '../data/skills'
 import { face, setGoal, stop, walk } from './actors'
 import { CELL } from './grid'
 import { mulberry32 } from './rng'
@@ -40,10 +41,10 @@ const CAMP_GAP = 3.6
 export const CAGE_HALF = 1
 
 /** Who is in the cage, the speaker in the middle. */
-export const CAMP_TEACHERS: ReadonlyArray<{ npc: string; look: string }> = [
-  { npc: 'trainerPyro', look: 'trainerPyro' },
-  { npc: 'trainerAegis', look: 'trainerAegis' },
-  { npc: 'sbMasterSoulwarden', look: 'sbMasterSoulwarden' }
+export const CAMP_TEACHERS: ReadonlyArray<{ npc: string; look: string; cls: ClassId }> = [
+  { npc: 'trainerPyro', look: 'trainerPyro', cls: 'pyro' },
+  { npc: 'trainerAegis', look: 'trainerAegis', cls: 'aegis' },
+  { npc: 'sbMasterSoulwarden', look: 'sbMasterSoulwarden', cls: 'soulwarden' }
 ]
 /** The knight's thanks, said once as the cage opens (a bark with its recording). */
 export const CAMP_THANKS = 'dlg.bark.trainerAegis.freed.1'

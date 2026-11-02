@@ -1,4 +1,5 @@
 import { campPending } from '../sim/camp'
+import { campLessonPending } from './campLesson'
 import { watch, type WatchStopHandle } from 'vue'
 import { EQUIP_SLOTS } from '../data/items'
 import { flow } from '../flow'
@@ -72,7 +73,7 @@ export const liveGoalCtx = (): GoalCtx => {
           escort: !!flow.encounter?.escort,
           ended: z.sim.ended || '',
           dummy: dummyBeat(z.sim) === 'on',
-          camp: z.sim.ended === 'victory' && campPending(z.sim),
+          camp: z.sim.ended === 'victory' ? (campPending(z.sim) ? 'cage' : campLessonPending(z.sim) ? 'lesson' : '') : '',
           mentor: mentorCue(z.sim) && !profile.hero.learned.includes(MENTOR_SKILL),
           wave: hud.wave,
           // The ladder (#10): eight waves to start with, then the hero's own best to beat.

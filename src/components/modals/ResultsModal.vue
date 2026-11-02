@@ -10,6 +10,10 @@
         p.results__place(v-if="r.siege.glass") {{ t('siege.result.glass', { n: r.siege.glass }) }}
         p.results__first(v-for="m in r.siege.milestones" :key="m" data-siege-milestone) {{ t(`siege.milestone.${m}`) }}
       p.results__first(v-if="r.firstClear") {{ t('results.firstClear') }}
+      //- The way on, above the numbers (#178): a landscape phone scrolls the rest away.
+      p.results__next(v-if="nextStop" data-next-step)
+        GameIcon.results__next-icon(name="forward")
+        | {{ t(nextStop.town ? 'results.nextTown' : 'results.next', { place: t(`node.${nextStop.id}.name`) }) }}
       p.results__first(v-if="r.node === 'arena'" data-ladder-result)
         | {{ t('results.waves', { n: r.waves }) }}
         span.results__best(v-if="r.arenaNewBest") {{ t('results.newBest') }}
@@ -126,9 +130,16 @@ import GameIcon from '@/components/icons/GameIcon.vue'
 import { canEquip, equipItem, equippedIn, lifetimeXp, profile } from '@/game/state/profile'
 import { isUpgrade } from '@/game/data/upgrade'
 import { sfx } from '@/game/audio/sfx'
+import { isTown, nextNode } from '@/game/coach/goal'
 
 const { t } = useI18n()
 const r = computed(() => flow.results)
+/** Where to go on, after a first win: the next place on the map's own order (the goal chip's place). */
+const nextStop = computed(() => {
+  if (!r.value || r.value.outcome !== 'victory' || !r.value.firstClear || r.value.siege || r.value.encounter) return null
+  const id = nextNode()
+  return id ? { id, town: isTown(id) } : null
+})
 /** The ribbon says how it went before a word is read. */
 const tone = computed(() => (!r.value || r.value.outcome === 'victory' ? 'gold' : r.value.outcome === 'defeat' ? 'red' : 'blue'))
 
@@ -151,6 +162,22 @@ const takePurse = async (): Promise<void> => { if (await triplePurse()) { sfx('c
   margin: 0
   color: var(--bc-on-soft)
   font-size: clamp(0.84rem, 3.5vmin, 1.1rem)
+.results__next
+  display: flex
+  align-items: center
+  justify-content: center
+  gap: 0.35em
+  margin: 0
+  padding: 0.2em 0.7em
+  border-radius: 999px
+  background: rgba(95, 208, 104, 0.22)
+  color: var(--bc-on-accent)
+  font-size: clamp(0.82rem, 3.4vmin, 1.05rem)
+  text-align: center
+.results__next-icon
+  flex: 0 0 auto
+  width: 1.1em
+  height: 1.1em
 .results__first
   margin: 0
   color: var(--bc-on-accent)
