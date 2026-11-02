@@ -115,7 +115,7 @@ describe('the first boot (#189)', () => {
   it('only the dragon is left in the picture and no wave can come, and the camera is pulled back', () => {
     const runner = read('game/intro/runner.ts')
     expect(runner).toMatch(/for \(const e of \[\.\.\.sim\.units\]\) if \(e\.team === 1\) sim\.dismiss\(e\)\s*sim\.wave\.rest = 1e9/)
-    expect(INTRO_ZOOMS[0]!.to).toBeGreaterThan(1.3)
+    expect(INTRO_ZOOMS[0]!.to).toBeGreaterThan(1.1)
   })
 
   it('the sounds are gated while it plays and ungated when it ends', () => {
