@@ -414,6 +414,7 @@ export default {
     dummy: 'Robohkan boneka latihan',
     clear: 'Bersihkan {place}',
     boss: 'Kalahkan {foe}',
+    rescue: 'Bebaskan para guru dalam kurungan',
     exit: 'Ambil jarahan lalu pergi',
     wave: 'Bertahan dari gelombang',
     trainer: 'Bicara dengan pelatih',

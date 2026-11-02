@@ -415,6 +415,7 @@ export default {
     dummy: 'Renverse le mannequin d’entraînement',
     clear: 'Nettoie {place}',
     boss: 'Bats {foe}',
+    rescue: 'Libère les maîtres en cage',
     exit: 'Prends ton butin et pars',
     wave: 'Survis aux vagues',
     trainer: 'Parle à un maître',

@@ -414,6 +414,7 @@ export default {
     dummy: 'Mashq qoʻgʻirchogʻini yiqiting',
     clear: 'Tozalang: {place}',
     boss: 'Magʻlub eting: {foe}',
+    rescue: 'Qafasdagi ustozlarni ozod qil',
     exit: 'Oʻljani olib, chiqing',
     wave: 'Toʻlqinlarga bardosh bering',
     trainer: 'Murabbiy bilan gaplashing',

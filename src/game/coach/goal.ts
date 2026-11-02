@@ -26,7 +26,7 @@ import type { FeatureId } from './state'
  */
 
 export type GoalId =
-  | 'dummy' | 'clear' | 'boss' | 'exit' | 'wave' | 'fight' | 'escort'
+  | 'dummy' | 'clear' | 'boss' | 'rescue' | 'exit' | 'wave' | 'fight' | 'escort'
   | 'trainer' | 'learn' | 'points' | 'leave' | 'travel' | 'decide' | 'explore'
 
 export interface Goal {
@@ -56,6 +56,8 @@ export interface ZoneGoalState {
   ended: '' | 'victory' | 'defeat'
   /** The opening dummy still stands, and the pack still sleeps. */
   dummy: boolean
+  /** The first visit's teachers are still in their cage (#177): freeing them is the goal after the win. */
+  camp?: boolean
   /** The road teacher stands waiting after the first pack (#136): she is the goal until he walks on. */
   mentor?: boolean
   /** A random encounter met on the map: no place to clear, just this fight. */
@@ -111,7 +113,7 @@ export const nextGoal = (c: GoalCtx): Goal | null => {
   if (c.quest) return { id: 'decide' }
   if (c.screen === 'zone' && c.zone) {
     const z = c.zone
-    if (z.ended === 'victory') return { id: 'exit' }
+    if (z.ended === 'victory') return z.camp ? { id: 'rescue' } : { id: 'exit' }
     if (z.ended) return null
     if (z.kind === 'arena') return { id: 'wave', n: Math.max(0, z.wave - 1), of: z.waves }
     if (z.dummy) return { id: 'dummy' }

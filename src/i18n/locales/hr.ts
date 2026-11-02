@@ -417,6 +417,7 @@ export default {
     dummy: 'Obori strašilo za trening',
     clear: 'Očisti: {place}',
     boss: 'Pobijedi: {foe}',
+    rescue: 'Oslobodi učitelje iz kaveza',
     exit: 'Uzmi plijen i odlazi',
     wave: 'Preživi valove',
     trainer: 'Razgovaraj s učiteljem',

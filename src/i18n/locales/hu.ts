@@ -414,6 +414,7 @@ export default {
     dummy: 'Döntsd le a gyakorlóbábut',
     clear: 'Tisztítsd meg: {place}',
     boss: 'Győzd le: {foe}',
+    rescue: 'Szabadítsd ki a ketrecbe zárt tanítókat',
     exit: 'Vidd a zsákmányt, és indulj',
     wave: 'Éld túl a hullámokat',
     trainer: 'Beszélj egy tanítóval',

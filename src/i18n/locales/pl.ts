@@ -415,6 +415,7 @@ export default {
     dummy: 'Przewróć manekin treningowy',
     clear: 'Oczyść: {place}',
     boss: 'Pokonaj: {foe}',
+    rescue: 'Uwolnij nauczycieli z klatki',
     exit: 'Weź łup i wyjdź',
     wave: 'Przetrwaj fale',
     trainer: 'Porozmawiaj z trenerem',

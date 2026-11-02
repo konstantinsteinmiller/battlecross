@@ -414,6 +414,7 @@ export default {
     dummy: 'Nuversk treniruočių manekeną',
     clear: 'Išvalyk: {place}',
     boss: 'Nugalėk: {foe}',
+    rescue: 'Išlaisvink narve uždarytus mokytojus',
     exit: 'Pasiimk grobį ir išeik',
     wave: 'Atlaikyk bangas',
     trainer: 'Pakalbėk su mokytoju',

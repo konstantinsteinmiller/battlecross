@@ -414,6 +414,7 @@ export default {
     dummy: 'Vælt træningsdukken',
     clear: 'Ryd {place}',
     boss: 'Besejr {foe}',
+    rescue: 'Befri de burede lærere',
     exit: 'Tag byttet og gå',
     wave: 'Overlev bølgerne',
     trainer: 'Tal med en læremester',

@@ -414,6 +414,7 @@ export default {
     dummy: 'Nogāz treniņa lelli',
     clear: 'Iztīri: {place}',
     boss: 'Uzvari: {foe}',
+    rescue: 'Atbrīvo būrī ieslodzītos skolotājus',
     exit: 'Ņem laupījumu un dodies prom',
     wave: 'Izturi vilņus',
     trainer: 'Parunā ar skolotāju',

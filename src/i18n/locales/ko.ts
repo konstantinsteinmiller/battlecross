@@ -414,6 +414,7 @@ export default {
     dummy: '훈련용 허수아비 쓰러뜨리기',
     clear: '{place} 정리하기',
     boss: '{foe} 물리치기',
+    rescue: '우리에 갇힌 스승들을 구출하라',
     exit: '전리품 챙겨 떠나기',
     wave: '웨이브 버티기',
     trainer: '스승과 대화하기',

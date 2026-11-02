@@ -38,6 +38,8 @@ describe('the next goal through the first hour', () => {
     expect(g.nextGoal(inZone({}))).toEqual({ id: 'clear', place: 'plains', n: 0, of: 3 })
     expect(g.nextGoal(inZone({ done: 2 }))).toEqual({ id: 'clear', place: 'plains', n: 2, of: 3 })
     expect(g.nextGoal(inZone({ done: 3, ended: 'victory' }))).toEqual({ id: 'exit' })
+    // The first visit's teachers are still caged (#177): freeing them is the goal, then the way out.
+    expect(g.nextGoal(inZone({ done: 3, ended: 'victory', camp: true }))).toEqual({ id: 'rescue' })
     // A defeat goes to the result screen: no goal over it.
     expect(g.nextGoal(inZone({ ended: 'defeat' }))).toBeNull()
   })

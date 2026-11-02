@@ -415,6 +415,7 @@ export default {
     dummy: 'Derruba o boneco de adestramento',
     clear: 'Limpa {place}',
     boss: 'Derrota a {foe}',
+    rescue: 'Libera os mestres enxaulados',
     exit: 'Colle o botín e marcha',
     wave: 'Sobrevive ás vagas',
     trainer: 'Fala cun mestre',

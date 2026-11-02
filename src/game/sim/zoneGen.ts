@@ -579,7 +579,7 @@ export const generateZone = (def: ZoneDef, seed: number, o: ZoneGenOpts = {}): Z
   const dresser = makeDresser({ w: Wd, h, solid, trail, kind, sealed, side, start: { i: cs[0]!.i, j: cs[0]!.j }, keep, chests: features.chests })
   const invasion = def.invaded ? { ruins: INVASION[def.id].ruins, scars: INVASION[def.id].scars } : undefined
   if (!o.tutorial && !o.bare) dressPlace(dresser, { shape, rng: mulberry32((seed ^ DRESS_SALT) >>> 0), w: Wd, kind, cs, chambers, fixtures, ...(invasion ? { invasion } : {}) })
-  const camp = campCut ? dressCamp(dresser, { w: Wd, solid, kind, ...campCut }) : null
+  const camp = campCut ? dressCamp(dresser, { w: Wd, solid, kind, ...campCut, fin: cs[n]! }) : null
   for (const k of secretCells) masonry[k] = 0
   // The secret's pocket is a side place too: it lies a little above its clearing.
   const lobes = features.lobes.slice()

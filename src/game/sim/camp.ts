@@ -112,6 +112,10 @@ export const carveCamp = (p: {
 /** Where the fire and the caravan may stand, tried in turn (cells from the camp's middle). */
 const FIRE_AT: ReadonlyArray<readonly [number, number]> = [[2, 1], [-2, 1], [2, 2], [-2, 2], [3, 0], [-3, 0], [1, 2], [-1, 2]]
 const WAGON_AT: ReadonlyArray<readonly [number, number, number]> = [[-4, -2, 0], [3, -2, 0], [-4, 0, 0], [3, 0, 0], [-3, 2, Math.PI / 2], [1, 2, Math.PI / 2]]
+/** The wreckage on the way in: how far along the way from the boss's floor to the camp (0..1), how far to one side (cells), and what. */
+const DEBRIS_AT: ReadonlyArray<readonly [number, number, 'wheel' | 'spikes']> = [
+  [0.18, 0.7, 'spikes'], [0.32, -0.8, 'wheel'], [0.46, 0.6, 'spikes'], [0.6, -0.7, 'wheel'], [0.72, 0.8, 'spikes'], [0.86, -0.6, 'wheel']
+]
 /** The places round the fire the teachers keep (cells from it): the three, then Nettle. */
 const SPOT_AT: ReadonlyArray<readonly [number, number]> = [[-1, 1], [1, 1], [0, 2], [1, -1], [-1, -1], [-2, 0], [2, 0], [0, -2], [-2, 2], [2, 2]]
 
@@ -123,6 +127,8 @@ const SPOT_AT: ReadonlyArray<readonly [number, number]> = [[-1, 1], [1, 1], [0, 
 export const dressCamp = (d: Dresser, p: {
   w: number; solid: Uint8Array; kind: Uint8Array
   ci: number; cj: number; cells: readonly number[]; key: { x: number; z: number }
+  /** The boss's floor, where the worn way in starts (the debris leads from it). */
+  fin?: { i: number; j: number }
 }): CampPlan => {
   const { w, solid, kind, ci, cj } = p
   let fi = ci + 2
@@ -131,6 +137,21 @@ export const dressCamp = (d: Dresser, p: {
     if (d.stand('fire', ci + di, cj + dj, 0, { clear: 0 })) { fi = ci + di; fj = cj + dj; break }
   }
   for (const [di, dj, a] of WAGON_AT) if (d.stand('wagon', ci + di, cj + dj, a, { clear: 0 })) break
+  // What fell off the caravan (#177): wheels and splintered spokes along the way in, from
+  // the boss's floor to the camp, thicker towards the wagon. Dice-free, so the place's
+  // stream is untouched, and only on open ground.
+  if (p.fin) {
+    const dx = ci - p.fin.i
+    const dj = cj - p.fin.j
+    const len = Math.hypot(dx, dj) || 1
+    DEBRIS_AT.forEach(([t, side, kd], q) => {
+      const i = p.fin!.i + dx * t + (-dj / len) * side
+      const j = p.fin!.j + dj * t + (dx / len) * side
+      const k = Math.round(j) * w + Math.round(i)
+      if (solid[k] || kind[k] !== K_GROUND) return
+      d.lay(kd, cx(i - 0.5), cx(j - 0.5), 0.7 * q)
+    })
+  }
   const keyK = Math.floor(p.key.z / CELL) * w + Math.floor(p.key.x / CELL)
   const spots: Array<{ x: number; z: number }> = []
   for (const [di, dj] of SPOT_AT) {
@@ -219,6 +240,16 @@ export const inCamp = (sim: Sim, npcId: string): boolean =>
 const nettleOf = (sim: Sim): Unit | null => {
   for (const u of sim.units) if (u.alive && u.npc === MENTOR_NPC) return u
   return null
+}
+
+/** The teachers are still caged: the visit is not over (the Leave button waits, the way points to the cage). */
+export const campPending = (sim: Sim): boolean => !!sim.camp && sim.chests.some(c => c.role === 'cage' && c.state !== 'open')
+
+/** Where the way to the teachers leads: the key while it lies, then the cage's door. */
+export const campTarget = (sim: Sim): { id: number; x: number; z: number } | null => {
+  if (sim.cageKey && !sim.cageKey.taken) return { id: -2, x: sim.cageKey.x, z: sim.cageKey.z }
+  const cage = sim.chests.find(c => c.role === 'cage' && c.state !== 'open')
+  return cage ? { id: -3, x: cage.sx, z: cage.sz } : null
 }
 
 /** Every step: once the boss is down, Nettle walks over to the fire. */

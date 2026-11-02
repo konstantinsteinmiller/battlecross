@@ -13,7 +13,7 @@ import { chestLock, orderOpen } from '@/game/sim/interact'
 import { PICK_REACH } from '@/game/sim/herbs'
 import { referenceBuild } from '@/game/sim/bot'
 import { CAPTIVE_TALK } from '@/game/sim/cages'
-import { CAMP_SPEAKER, CAMP_TEACHERS, CAMP_THANKS, NETTLE_WALK_MAX, inCamp } from '@/game/sim/camp'
+import { CAMP_SPEAKER, CAMP_TEACHERS, CAMP_THANKS, NETTLE_WALK_MAX, campPending, campTarget, inCamp } from '@/game/sim/camp'
 import { MENTOR_NPC } from '@/game/data/mentor'
 import { SPOKEN } from '@/game/data/dialogs'
 import { plainStats } from '@/game/sim/stats'
@@ -137,6 +137,50 @@ describe('the camp past the first visit\'s boss', () => {
   it('a later visit to the plains has no camp', () => {
     expect(generateZone(ZONES.plains, 3).camp).toBeUndefined()
     expect(generateZone(ZONES.plains, 3, { cage: true }).camp).toBeUndefined()
+  })
+})
+
+describe('the way to the camp (#177)', () => {
+  it('wheels and splintered spokes lie along the way in, from the boss floor towards the wagon', () => {
+    for (const seed of SEEDS) {
+      const plan = firstVisit(seed)
+      const camp = plan.camp!
+      const bits = (plan.dressing ?? []).filter(d => d.kind === 'wheel' || d.kind === 'spikes')
+      expect(bits.length, 'seed ' + seed).toBeGreaterThanOrEqual(3)
+      expect(bits.some(d => d.kind === 'wheel'), 'seed ' + seed).toBe(true)
+      expect(bits.some(d => d.kind === 'spikes'), 'seed ' + seed).toBe(true)
+      // They block nothing, and none lies on the camp's own ground (they lead to it).
+      for (const d of bits) expect(d.cells, 'seed ' + seed).toEqual([])
+      const fin = plan.packs.find(q => q.finale)!
+      for (const d of bits) expect(d.z, 'seed ' + seed).toBeLessThan(fin.z + 4)
+      expect(Math.min(...bits.map(d => Math.hypot(d.x - camp.x, d.z - camp.z))), 'seed ' + seed).toBeLessThan(14)
+    }
+  })
+
+  it('a later visit has none of it', () => {
+    const plan = generateZone(ZONES.plains, 3, {})
+    expect((plan.dressing ?? []).some(d => d.kind === 'wheel' || d.kind === 'spikes')).toBe(false)
+  })
+
+  it('the visit is not over while the teachers are caged: the way leads to the key, then to the cage', () => {
+    const { sim, plan } = visit()
+    expect(campPending(sim)).toBe(true)
+    const cage = sim.chests.find(c => c.role === 'cage')!
+    const key = campTarget(sim)!
+    expect(key.x).toBeCloseTo(sim.cageKey!.x, 5)
+    win(sim)
+    expect(campPending(sim)).toBe(true)
+    openCage(sim, plan)
+    expect(campPending(sim)).toBe(false)
+    expect(campTarget(sim)).toBeNull()
+    void cage
+  })
+
+  it('a visit without a camp is never pending', () => {
+    const plan = generateZone(ZONES.plains, 3, {})
+    const sim = new Sim({ seed: 3, w: plan.w, h: plan.h, level: 1, difficulty: 1, mode: 'zone', zone: 'plains' })
+    applyPlan(sim, plan)
+    expect(campPending(sim)).toBe(false)
   })
 })
 

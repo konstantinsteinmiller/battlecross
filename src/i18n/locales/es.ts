@@ -415,6 +415,7 @@ export default {
     dummy: 'Derriba el muñeco de entrenamiento',
     clear: 'Despeja {place}',
     boss: 'Derrota a {foe}',
+    rescue: 'Libera a los maestros enjaulados',
     exit: 'Coge el botín y sal',
     wave: 'Sobrevive a las oleadas',
     trainer: 'Habla con un maestro',

@@ -244,9 +244,10 @@ Build order and the decisions taken are in `game-implementation-plan.md`
   Done 2026-11-01: Infernal twins (the invaded drops) are legendary or better, drop 35% of the time (was 10%) and with 2.5× the drop chance; invaded ore nodes are always 3 and hold mostly adamant and aetherite (a stray mithril).
 - [x] #175 ✅ The soulwardens skills revive fallen foes, which is a nice mechanic, but they last only for such short amount of time that they become irrelevant, beastcallers minions are ways superior that way. Lets set fallen souls revive without a time limit, but souls take 1.5x damage from normal enemies and lose 1% max hp per second. That way they naturally die out if not healed and idling, but can actually help out the player more.
 - [x] #176 ✅ The player should have a minion limit of 6 minions. if new ones are spawned, the latest spawn disappears instead, otherwise its too easy to rake up side damage.
-- [ ] #175
-- [ ] #175
-- [ ] #175
+- [x] #177 Players don't walk past the boss treasure chest after they have opened it, Instead of showing the leave button upon defeating the boss or opening the chest, show it after the teachers were rescued, show the yellow chevron quest objective leading to the cages and add visual cues that there is something up there beyond the chest, e.g. broken parts of the cart, like wheel spikes and wheels, that lead to the broken down cart in the tutorial level.  
+  Done 2026-11-02: after the first visit's boss the Leave button waits until the teachers are out of their cage (goal chip "Free the caged teachers", gold chevrons lead to the key and then the cage); wheels and splintered spokes lie along the way from the boss floor to the broken wagon. Not yet seen in a browser.
+- [ ] #178
+- [ ] #179
 
 - [ ] #Long-1 add a dual wielding class that allows to hold a second weapon in the off-hand (also visually) if the player has the passive skill equipped.
 - [ ] #Long-2 add coop gameplay

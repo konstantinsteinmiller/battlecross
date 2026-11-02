@@ -414,6 +414,7 @@ export default {
     dummy: '打倒訓練木樁',
     clear: '清理{place}',
     boss: '擊敗{foe}',
+    rescue: '解救籠中的導師',
     exit: '帶上戰利品離開',
     wave: '撐過所有波次',
     trainer: '找導師談談',

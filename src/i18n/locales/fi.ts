@@ -414,6 +414,7 @@ export default {
     dummy: 'Kaada harjoitusnukke',
     clear: 'Puhdista {place}',
     boss: 'Kukista {foe}',
+    rescue: 'Vapauta häkkiin suljetut opettajat',
     exit: 'Ota saalis ja lähde',
     wave: 'Selviydy aalloista',
     trainer: 'Puhu kouluttajalle',

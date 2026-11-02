@@ -414,6 +414,7 @@ export default {
     dummy: 'Slå ner övningsdockan',
     clear: 'Rensa {place}',
     boss: 'Besegra {foe}',
+    rescue: 'Befria de burade lärarna',
     exit: 'Ta bytet och gå',
     wave: 'Överlev vågorna',
     trainer: 'Prata med en läromästare',

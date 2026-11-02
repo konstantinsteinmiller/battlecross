@@ -414,6 +414,7 @@ export default {
     dummy: 'Məşq dummisini yıx',
     clear: 'Təmizlə: {place}',
     boss: 'Məğlub et: {foe}',
+    rescue: 'Qəfəsdəki müəllimləri azad et',
     exit: 'Qənimətini götür və çıx',
     wave: 'Dalğalardan sağ çıx',
     trainer: 'Təlimçi ilə danış',

@@ -48,6 +48,8 @@ export type DressKind =
   | 'ruin' | 'scar'
   // The first visit's camp (#156): the teachers' broken-down caravan.
   | 'wagon'
+  // What fell off it on the way (#177): a cartwheel and splintered spokes, laid along the camp's way in.
+  | 'wheel' | 'spikes'
 
 export interface DressPlan {
   kind: DressKind
@@ -70,7 +72,7 @@ export const DRESS_FOOT: Readonly<Record<DressKind, readonly [number, number]>> 
   floe: [0, 0],
   pylon: [1, 1], gateTower: [0, 0], warBanner: [1, 1], shard: [0, 0],
   ruin: [1, 1], scar: [0, 0],
-  wagon: [2, 3]
+  wagon: [2, 3], wheel: [0, 0], spikes: [0, 0]
 }
 
 /**
@@ -89,7 +91,7 @@ export const DRESS_ROLE: Readonly<Record<DressKind, 'solid' | 'walk'>> = {
   floe: 'walk',
   pylon: 'solid', gateTower: 'solid', warBanner: 'solid', shard: 'solid',
   ruin: 'solid', scar: 'walk',
-  wagon: 'solid'
+  wagon: 'solid', wheel: 'walk', spikes: 'walk'
 }
 
 /** Tall pieces: never just in front of (down-screen of) a chest or a side place. */

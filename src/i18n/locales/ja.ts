@@ -414,6 +414,7 @@ export default {
     dummy: '訓練用のかかしを倒そう',
     clear: '{place}をクリアしよう',
     boss: '{foe}を倒そう',
+    rescue: '檻の中の師匠たちを解放せよ',
     exit: '戦利品を持って出よう',
     wave: 'ウェーブを生き延びよう',
     trainer: '師範と話そう',

@@ -414,6 +414,7 @@ export default {
     dummy: 'Hạ hình nhân tập luyện',
     clear: 'Dọn sạch {place}',
     boss: 'Hạ gục {foe}',
+    rescue: 'Giải cứu các sư phụ bị nhốt trong lồng',
     exit: 'Lấy chiến lợi phẩm rồi đi',
     wave: 'Sống sót qua các đợt',
     trainer: 'Nói chuyện với người huấn luyện',

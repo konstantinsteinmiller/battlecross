@@ -414,6 +414,7 @@ export default {
     dummy: 'Faligu la ekzercan pupon',
     clear: 'Purigu {place}',
     boss: 'Venku {foe}',
+    rescue: 'Liberigu la enkaĝigitajn instruistojn',
     exit: 'Prenu la predon kaj foriru',
     wave: 'Travivu la ondojn',
     trainer: 'Parolu kun trejnisto',

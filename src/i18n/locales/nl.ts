@@ -415,6 +415,7 @@ export default {
     dummy: 'Sla de trainingspop omver',
     clear: 'Zuiver {place}',
     boss: 'Versla {foe}',
+    rescue: 'Bevrijd de opgesloten leraren',
     exit: 'Pak je buit en ga',
     wave: 'Overleef de golven',
     trainer: 'Praat met een leermeester',

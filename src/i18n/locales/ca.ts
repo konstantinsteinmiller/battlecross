@@ -415,6 +415,7 @@ export default {
     dummy: 'Tomba el maniquí d’entrenament',
     clear: 'Neteja {place}',
     boss: 'Derrota {foe}',
+    rescue: 'Allibera els mestres engabiats',
     exit: 'Agafa el botí i marxa',
     wave: 'Sobreviu a les onades',
     trainer: 'Parla amb un mestre',

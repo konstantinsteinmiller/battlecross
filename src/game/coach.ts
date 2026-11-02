@@ -15,6 +15,7 @@ import { heroChoice } from './heroChoice'
 import { openingBoss } from './coach/tutorialAid'
 import { nudgeWorld, senseFinder, senseWorld } from './coach/world'
 import type { ClassId } from './data/skills'
+import { campPending, campTarget } from './sim/camp'
 
 /**
  * ─── The wordless coach ──────────────────────────────────────────────────────
@@ -158,7 +159,7 @@ for (const t of Object.values(TOWNS)) for (const n of t.npcs) if (n.role === 'tr
 
 /** The walked way from the hero to `to` into `wayWorld`, found again a few
  *  times a second (both may move). */
-const findWay = (sim: Sim, u: Unit, to: Unit, dt: number): void => {
+const findWay = (sim: Sim, u: Unit, to: { id: number; x: number; z: number }, dt: number): void => {
   wayAge += dt
   if (wayAge <= 0.4 && wayTo === to.id) return
   wayAge = 0
@@ -248,6 +249,11 @@ class Coach {
     if (heroChoice.open) { this.idleT = 0; nudgeWorld.has = false; this.publish([]); return }
     // The chest the counter by Leave asked for (it is asked after the win).
     senseFinder(host)
+    // The boss is down but the teachers are still in their cage (#177): the chevrons lead to the key, then the cage.
+    if (u.alive && sim.ended === 'victory' && !sim.leaving && campPending(sim)) {
+      const to = campTarget(sim)
+      if (to) { findWay(sim, u, to, dt); hintPath.lead = wayWorld.length > 0 }
+    }
     if (!u.alive || sim.ended) { this.setFight(false); nudgeWorld.has = false; nudgeWorld.chest = false; this.publish([]); return }
     // Where the next objective stands, for the nudges (`coach/world.ts`).
     senseWorld(host, onboard.goal?.id ?? '')

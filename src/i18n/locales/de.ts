@@ -415,6 +415,7 @@ export default {
     dummy: 'Wirf die Trainingspuppe um',
     clear: '{place} säubern',
     boss: 'Besiege {foe}',
+    rescue: 'Befreie die eingesperrten Lehrmeister',
     exit: 'Nimm die Beute und geh',
     wave: 'Überlebe die Wellen',
     trainer: 'Sprich mit einem Lehrmeister',

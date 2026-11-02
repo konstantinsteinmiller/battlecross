@@ -385,6 +385,7 @@ export default {
     'dummy': 'Knock down the training dummy',
     'clear': 'Clear {place}',
     'boss': 'Beat {foe}',
+    'rescue': 'Free the caged teachers',
     'exit': 'Take your loot and leave',
     'wave': 'Survive the waves',
     'trainer': 'Talk to a trainer',

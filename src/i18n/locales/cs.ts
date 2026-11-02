@@ -417,6 +417,7 @@ export default {
     dummy: 'Skoť cvičného panáka',
     clear: 'Vyčisti: {place}',
     boss: 'Poraž: {foe}',
+    rescue: 'Osvoboď učitele z klece',
     exit: 'Vezmi kořist a odejdi',
     wave: 'Přežij vlny',
     trainer: 'Promluv s učitelem',

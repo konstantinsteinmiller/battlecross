@@ -414,6 +414,7 @@ export default {
     dummy: 'Talim mankenini devir',
     clear: 'Temizle: {place}',
     boss: 'Yen: {foe}',
+    rescue: 'Kafesteki öğretmenleri kurtar',
     exit: 'Ganimetini al ve çık',
     wave: 'Dalgalardan sağ çık',
     trainer: 'Bir eğitmenle konuş',

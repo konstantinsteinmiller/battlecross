@@ -414,6 +414,7 @@ export default {
     dummy: 'Doboară manechinul de antrenament',
     clear: 'Curăță {place}',
     boss: 'Învinge: {foe}',
+    rescue: 'Eliberează profesorii din cușcă',
     exit: 'Ia prada și pleacă',
     wave: 'Supraviețuiește valurilor',
     trainer: 'Vorbește cu un maestru',

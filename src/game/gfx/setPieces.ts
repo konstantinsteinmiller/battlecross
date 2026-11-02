@@ -405,6 +405,30 @@ const wagon = (seed: number): PieceGeo => {
   return { lit, glow: [] }
 }
 
+const wheel = (seed: number): PieceGeo => {
+  // A cartwheel that came off the caravan (#177): the rim and its spokes lean
+  // half sunk in the ground, a snapped spoke stub standing up beside it. The
+  // spokes are each a centimetre thicker than the one before, so no two share a face.
+  const tilt = 1.05 + (seed % 3) * 0.08
+  const c: [number, number, number] = [0, 0.2, 0]
+  const lit: BufferGeometry[] = [P(torus(0.42, 0.06, 6, 16), '#5a3e26', c, [tilt, 0, 0])]
+  for (let k = 0; k < 4; k++) {
+    const t = 0.05 + k * 0.02
+    lit.push(P(rbox(0.8, t, t, 0.4, 4, 4), '#7a5634', c, [tilt, 0, (k * Math.PI) / 4]))
+  }
+  lit.push(P(rcyl(0.1, 0.16, 0.03, 10, 1), '#3a2a1a', c, [tilt + Math.PI / 2, 0, 0]))
+  lit.push(P(rcone(0.05, 0.012, 0.5, 0.01, 6), '#7a5634', [0.5, 0.22, 0.3], [0.2, 0, -0.25]))
+  return { lit, glow: [] }
+}
+
+const spikes = (seed: number): PieceGeo => {
+  // Splintered spokes and a snapped plank, stuck in the ground at all angles (#177).
+  const lit: BufferGeometry[] = [P(rbox(0.8, 0.06, 0.18, 0.3, 4, 4), '#6a4a2c', [-0.05, 0.03, 0.05], [0, 0.4 + (seed % 5) * 0.2, 0])]
+  const at: Array<[number, number, number, number, number]> = [[0.35, 0.3, 0.55, 0.3, -0.25], [-0.3, -0.25, 0.45, -0.2, 0.3], [0.1, -0.4, 0.38, 0.35, 0.1], [-0.4, 0.28, 0.32, 0.1, 0.4]]
+  for (const [x, z, h, rx, rz] of at) lit.push(P(rcone(0.045, 0.01, h, 0.01, 6), '#7a5634', [x, h * 0.45, z], [rx, 0, rz]))
+  return { lit, glow: [] }
+}
+
 /**
  * A demon pylon (an invaded zone, `gfx/pylonProp.ts` draws it, the sim keeps
  * it as a unit): the citadel pylon's shape cut from black stone, blood-red
@@ -458,6 +482,8 @@ export const setPiece = (kind: DressKind, pal: PiecePalette, seed: number): Piec
     case 'shard': return shard(pal, seed)
     case 'ruin': return ruin(seed)
     case 'wagon': return wagon(seed)
+    case 'wheel': return wheel(seed)
+    case 'spikes': return spikes(seed)
     // Decals, drawn by `levelProps.ts` itself (never merged with what is opaque).
     case 'mist':
     case 'claws':

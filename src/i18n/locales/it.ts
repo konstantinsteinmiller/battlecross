@@ -415,6 +415,7 @@ export default {
     dummy: 'Abbatti il manichino da allenamento',
     clear: 'Libera {place}',
     boss: 'Sconfiggi {foe}',
+    rescue: 'Libera i maestri in gabbia',
     exit: 'Prendi il bottino ed esci',
     wave: 'Sopravvivi alle ondate',
     trainer: 'Parla con un maestro',
