@@ -84,7 +84,7 @@
                   GameIcon(name="check")
                 span.node__badge.node__badge--quest(v-else-if="n.decision" aria-hidden="true")
                   GameIcon(name="chat")
-                span.node__seek(v-if="seek.node === n.id" aria-hidden="true" data-seek)
+                span.node__seek(v-if="seek.node === n.id || goalNode === n.id" aria-hidden="true" data-seek)
                   GameIcon(name="down")
                 span.node__badge.node__badge--trainer(v-if="n.trainer" aria-hidden="true")
                   GameIcon(name="book")
@@ -216,6 +216,8 @@ import { encountersAllowed, regionOf, rollEncounter, type EncounterSpec } from '
 import { arenaCalling, arenaWeekBest, profile, flagSet, markTip, saveProfile, setMapPos } from '@/game/state/profile'
 import { siegeBell } from '@/game/state/siege'
 import { seek } from '@/game/coach/seek'
+import { onboard } from '@/game/coach/state'
+import { isVeteran } from '@/game/coach/reveal'
 import { closeMap, flow, hiddenTrainer, meetMerchant, openFoundChest, openUnlock, startEncounter, travel, visitHiddenTrainer } from '@/game/flow'
 import { isNodeLockedByDemo } from '@/use/useFullVersion'
 import { hud } from '@/game/state/hud'
@@ -250,6 +252,8 @@ import RestedNote from '@/components/hud/RestedNote.vue'
 import { arenaModOf } from '@/game/arenaWeek'
 import { nextMilestone } from '@/game/data/arena'
 
+/** The place the goal chip names ("Travel to Sunford"): a new player gets the same bobbing arrow a sought teacher's place has, so the way on is one thing to look for on a busy map (#178). */
+const goalNode = computed(() => (onboard.goal?.id === 'travel' && !isVeteran() ? onboard.goal.place ?? '' : ''))
 const emit = defineEmits<{ (e: 'options'): void }>()
 const { t } = useI18n()
 /** The colosseum's modifier this week (#10). */
