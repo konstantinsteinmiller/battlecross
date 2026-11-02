@@ -882,6 +882,108 @@
       "rev": "9b20a21fcd18",
       "painting": "f10fa1504741",
       "at": "2026-11-01T00:31:30.674Z"
+    },
+    "sheet-skills3-aegis.jpg": {
+      "sheet": "sheet-skills3-aegis",
+      "rev": "5334c148b32f",
+      "painting": "81c559a345fc",
+      "at": "2026-11-01T23:32:46.393Z"
+    },
+    "sheet-skills3-aether.jpg": {
+      "sheet": "sheet-skills3-aether",
+      "rev": "7cabba7311fc",
+      "painting": "2594c47ae08d",
+      "at": "2026-11-01T23:35:42.590Z"
+    },
+    "sheet-skills3-bard.jpg": {
+      "sheet": "sheet-skills3-bard",
+      "rev": "f72c54bdf56d",
+      "painting": "4b7443ec69d5",
+      "at": "2026-11-01T23:38:37.730Z"
+    },
+    "sheet-skills3-beastcaller.jpg": {
+      "sheet": "sheet-skills3-beastcaller",
+      "rev": "ba9ebe3e1acc",
+      "painting": "7cdd0e283088",
+      "at": "2026-11-01T23:41:06.370Z"
+    },
+    "sheet-skills3-blood.jpg": {
+      "sheet": "sheet-skills3-blood",
+      "rev": "8a98a0d26e14",
+      "painting": "9e5a5cb0a580",
+      "at": "2026-11-01T23:43:33.841Z"
+    },
+    "sheet-skills3-chrono.jpg": {
+      "sheet": "sheet-skills3-chrono",
+      "rev": "12a2128f35a0",
+      "painting": "4e72eb762934",
+      "at": "2026-11-01T23:46:12.819Z"
+    },
+    "sheet-skills3-elementalist.jpg": {
+      "sheet": "sheet-skills3-elementalist",
+      "rev": "63b0d67e0029",
+      "painting": "bd6d54584493",
+      "at": "2026-11-01T23:48:57.050Z"
+    },
+    "sheet-skills3-frostwarden.jpg": {
+      "sheet": "sheet-skills3-frostwarden",
+      "rev": "1cce816f4ed0",
+      "painting": "50d61ee7743b",
+      "at": "2026-11-01T23:51:49.732Z"
+    },
+    "sheet-skills3-geo.jpg": {
+      "sheet": "sheet-skills3-geo",
+      "rev": "fef0c333c795",
+      "painting": "e68639e90d61",
+      "at": "2026-11-01T23:54:49.853Z"
+    },
+    "sheet-skills3-ironmonk.jpg": {
+      "sheet": "sheet-skills3-ironmonk",
+      "rev": "e95a6816a4b4",
+      "painting": "5cd9eaf0a35f",
+      "at": "2026-11-01T23:57:43.258Z"
+    },
+    "sheet-skills3-lightbringer.jpg": {
+      "sheet": "sheet-skills3-lightbringer",
+      "rev": "a8e5624082bf",
+      "painting": "b62340b366c2",
+      "at": "2026-11-02T00:00:41.097Z"
+    },
+    "sheet-skills3-pyro.jpg": {
+      "sheet": "sheet-skills3-pyro",
+      "rev": "4e21cf793f36",
+      "painting": "18af4af181a0",
+      "at": "2026-11-02T00:03:26.175Z"
+    },
+    "sheet-skills3-shadow.jpg": {
+      "sheet": "sheet-skills3-shadow",
+      "rev": "534615a82f7f",
+      "painting": "70b8a050d1c0",
+      "at": "2026-11-02T01:07:28.242Z"
+    },
+    "sheet-skills3-soulwarden.jpg": {
+      "sheet": "sheet-skills3-soulwarden",
+      "rev": "b984165ef362",
+      "painting": "cd85553e82e4",
+      "at": "2026-11-02T01:09:50.494Z"
+    },
+    "sheet-skills3-sovereign.jpg": {
+      "sheet": "sheet-skills3-sovereign",
+      "rev": "d2e9518212d9",
+      "painting": "be5168cd9fb2",
+      "at": "2026-11-02T01:13:01.432Z"
+    },
+    "sheet-skills3-windrunner.jpg": {
+      "sheet": "sheet-skills3-windrunner",
+      "rev": "50658303d9ed",
+      "painting": "66183d98d211",
+      "at": "2026-11-02T01:15:31.507Z"
+    },
+    "sheet-portraits-people-5.jpg": {
+      "sheet": "sheet-portraits-people-5",
+      "rev": "9a3ad4d9b625",
+      "painting": "5f42768f9ed3",
+      "at": "2026-11-02T01:18:53.531Z"
     }
   }
 }

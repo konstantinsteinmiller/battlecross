@@ -87,7 +87,7 @@ try {
       if (vite.exitCode !== null) throw new Error(`the dev server exited (${vite.exitCode}):\n${out.trim()}`)
       // A busy machine takes most of a minute to answer the first request (the
       // whole style sheet is compiled for it), so the wait is long but bounded.
-      try { up = (await fetch(`${base}/`, { signal: AbortSignal.timeout(180_000) })).ok } catch { /* not up yet */ }
+      try { up = (await fetch(`${base}/`, { signal: AbortSignal.timeout(300_000) })).ok } catch { /* not up yet */ }
       if (!up) await sleep(500)
     }
     if (!up) throw new Error(`the dev server did not answer at ${base}:\n${out.trim()}`)
@@ -138,8 +138,8 @@ try {
   // can need one reload of its own, which the blocked socket cannot deliver.
   let ready = false
   for (let attempt = 0; attempt < 3 && !ready; attempt++) {
-    if (attempt === 0) await page.goto(url, { waitUntil: 'load', timeout: 240_000 })
-    else { console.log('  · not ready, reloading'); await page.reload({ waitUntil: 'load', timeout: 240_000 }) }
+    if (attempt === 0) await page.goto(url, { waitUntil: 'load', timeout: 600_000 })
+    else { console.log('  · not ready, reloading'); await page.reload({ waitUntil: 'load', timeout: 600_000 }) }
     const started = Date.now()
     while (Date.now() - started < 120_000 && !ready) {
       const st = await page.evaluate(() => ({

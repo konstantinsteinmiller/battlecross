@@ -18213,6 +18213,152 @@
       ]
     },
     {
+      "id": "sheet-portraits-people-5",
+      "kind": "set",
+      "title": "Portraits: the smiths, healers and shops of Oakhaven and Ironhold",
+      "files": {
+        "clean": "sheet-portraits-people-5.png",
+        "key": "sheet-portraits-people-5-key.png"
+      },
+      "width": 1024,
+      "height": 512,
+      "cols": 4,
+      "rows": 2,
+      "maxEdge": 256,
+      "crop": 0.8,
+      "anchor": "feet",
+      "cells": [
+        {
+          "id": "oakArmorer",
+          "label": "Oak Armorer",
+          "variant": "portraits",
+          "x": 0,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/portraits/oakArmorer.webp",
+          "fit": {
+            "h": 0.656,
+            "w": 0.633,
+            "bottom": 0.898,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "ironArmor",
+          "label": "Iron Armor",
+          "variant": "portraits",
+          "x": 256,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/portraits/ironArmor.webp",
+          "fit": {
+            "h": 0.656,
+            "w": 0.633,
+            "bottom": 0.898,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "ironOrderArmor",
+          "label": "Iron Order Armor",
+          "variant": "portraits",
+          "x": 512,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/portraits/ironOrderArmor.webp",
+          "fit": {
+            "h": 0.656,
+            "w": 0.633,
+            "bottom": 0.898,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "oakWeapons",
+          "label": "Oak Weapons",
+          "variant": "portraits",
+          "x": 768,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/portraits/oakWeapons.webp",
+          "fit": {
+            "h": 0.648,
+            "w": 0.664,
+            "bottom": 0.898,
+            "cx": 0.516
+          }
+        },
+        {
+          "id": "oakHealer",
+          "label": "Oak Healer",
+          "variant": "portraits",
+          "x": 0,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/portraits/oakHealer.webp",
+          "fit": {
+            "h": 0.648,
+            "w": 0.633,
+            "bottom": 0.898,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "ironHealer",
+          "label": "Iron Healer",
+          "variant": "portraits",
+          "x": 256,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/portraits/ironHealer.webp",
+          "fit": {
+            "h": 0.656,
+            "w": 0.633,
+            "bottom": 0.898,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "ironWeapons",
+          "label": "Iron Weapons",
+          "variant": "portraits",
+          "x": 512,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/portraits/ironWeapons.webp",
+          "fit": {
+            "h": 0.746,
+            "w": 0.633,
+            "bottom": 0.898,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "syndicateBoss",
+          "label": "Syndicate Boss",
+          "variant": "portraits",
+          "x": 768,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/portraits/syndicateBoss.webp",
+          "fit": {
+            "h": 0.652,
+            "w": 0.633,
+            "bottom": 0.902,
+            "cx": 0.5
+          }
+        }
+      ]
+    },
+    {
       "id": "sheet-portraits-hero",
       "kind": "set",
       "title": "Portraits: the hero, per outfit",
