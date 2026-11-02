@@ -19,5 +19,11 @@ export const INTRO_ENABLED: boolean = import.meta.env.VITE_INTRO_ENABLED === 'tr
 /** The one-time flag in `profile.tips`: the intro was watched to its end or skipped. */
 export const INTRO_TIP = 'introSeen'
 
+/**
+ * A new save boots into the intro's own scene (#189), not the opening level: the hero choice shows on black, the film
+ * plays, and the opening level is built behind its last black. True from the boot until the film starts.
+ */
+export const introBoot = ref(false)
+
 /** The intro is on screen: no HUD, no lessons, no gameplay bracket, no ad. */
 export const introPlaying = ref(false)

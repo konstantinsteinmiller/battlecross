@@ -7,67 +7,67 @@
         "t": 0,
         "veil": 1,
         "label": 0,
-        "on": false
+        "on": true
       },
       {
         "at": 1.5,
-        "t": 0.32,
-        "veil": 0.55,
+        "t": 0.63,
+        "veil": 0.1,
         "label": 0,
         "on": true
       },
       {
         "at": 2.6,
-        "t": 0.95,
+        "t": 1.12,
         "veil": 0,
         "label": 0,
         "on": true
       },
       {
         "at": 3.8,
-        "t": 1.5,
+        "t": 1.78,
         "veil": 0,
         "label": 0,
         "on": true
       },
       {
         "at": 5,
-        "t": 2.03,
+        "t": 2.37,
         "veil": 0,
         "label": 0,
         "on": true
       },
       {
         "at": 6.6,
-        "t": 2.58,
+        "t": 2.93,
         "veil": 0,
         "label": 0,
         "on": true
       },
       {
         "at": 8.2,
-        "t": 3.18,
+        "t": 3.52,
         "veil": 0,
         "label": 0,
         "on": true
       },
       {
         "at": 9.2,
-        "t": 3.68,
+        "t": 4.13,
         "veil": 0,
         "label": 0,
         "on": true
       },
       {
         "at": 10.8,
-        "t": 4.15,
+        "t": 4.75,
         "veil": 0,
         "label": 0,
         "on": true
       },
       {
         "at": 11.6,
-        "t": 4.58,
+        "t": 5.1,
         "veil": 0,
         "label": 0,
         "on": true
@@ -80,9 +80,7 @@
       "seen": false,
       "gender": "m"
     },
-    "errors": [
-      "TypeError: Cannot read properties of undefined (reading 'r')"
-    ],
-    "seconds": 13.2
+    "errors": [],
+    "seconds": 13
   }
 ]

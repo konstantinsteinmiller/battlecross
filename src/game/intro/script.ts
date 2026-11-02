@@ -46,23 +46,23 @@ export const INTRO_BEAST = 'sbMasterBeastcaller'
 
 /** The heroes' entrance (#188): a leap in from the picture's edge with a forward flip, landing as a hero lands. */
 export const ENTRY_AT = 0.3
-export const ENTRY_S = 1.1
+export const ENTRY_S = 1.4
 
 /** What happens when: who does it and what. The runner plays them in order. */
 export type IntroAct = 'summon' | 'fire' | 'frost' | 'bolt' | 'hawk' | 'storm' | 'slay' | 'flee'
 export interface IntroBeat { at: number; who: 'beast' | 'mage' | 'both'; act: IntroAct }
 export const INTRO_ACTS: readonly IntroBeat[] = [
-  { at: 1.5, who: 'beast', act: 'summon' },
-  { at: 2.4, who: 'mage', act: 'fire' },
-  { at: 3.4, who: 'mage', act: 'frost' },
-  { at: 4.4, who: 'beast', act: 'hawk' },
-  { at: 5.4, who: 'mage', act: 'bolt' },
-  { at: 6.5, who: 'mage', act: 'storm' },
+  { at: 1.9, who: 'beast', act: 'summon' },
+  { at: 2.8, who: 'mage', act: 'fire' },
+  { at: 3.8, who: 'mage', act: 'frost' },
+  { at: 4.8, who: 'beast', act: 'hawk' },
+  { at: 5.7, who: 'mage', act: 'bolt' },
+  { at: 6.6, who: 'mage', act: 'storm' },
   { at: 8.4, who: 'both', act: 'slay' },
   { at: 9.0, who: 'both', act: 'flee' }
 ]
-/** The camera: a little wider than a fight is shot, so all three are in the picture. */
-export const INTRO_ZOOMS = [{ at: 0, to: 0.82, dur: 0.01, hold: 12 }] as const
+/** The camera: pulled well back (above 1 is farther), so the leaps, the flips and the dragon are all in the picture. */
+export const INTRO_ZOOMS = [{ at: 0, to: 1.7, dur: 0.01, hold: 12 }] as const
 /** "1 month later…" fades in over the dark from here. */
 export const LABEL_AT = 10.3
 /** The last fade to black (the label rides on it). */

@@ -2,7 +2,7 @@
   div.scene-root
     div.canvas-host(ref="canvasHost")
     div.input-surface(v-show="!introOn && (flow.screen === 'zone' || flow.screen === 'town')" ref="surface")
-    GameHud(v-if="!introOn && (flow.screen === 'zone' || flow.screen === 'town')" @options="optionsOpen = true")
+    GameHud(v-if="!introOn && !introBoot && (flow.screen === 'zone' || flow.screen === 'town')" @options="optionsOpen = true")
     WorldMap(v-if="flow.screen === 'map'" @options="optionsOpen = true")
     //- A conversation: bubbles over the running scene, never a window.
     DialogLayer(v-if="flow.talk")
@@ -15,7 +15,7 @@
     //- A new save picks the boy or the girl hero over the opening fight.
     HeroChoice(v-if="!introOn" @done="onHeroPicked")
     //- The intro (#130): its own chunk, mounted only while it plays.
-    IntroLayer(v-if="introOn")
+    IntroLayer(v-if="introOn || introBoot")
     //- Debug only (the debug flag or `?perfhud=1`): what a playtest reports (#Perf1-3).
     div.perf-detail(v-if="perfLines.length")
       div(v-for="l in perfLines" :key="l") {{ l }}
@@ -29,7 +29,7 @@ import { loadKeyboardLayout } from '@/game/engine/keyLabels'
 import { input, adoptBootMode, currentZone } from '@/game/boot'
 import { flow, travel, openMap, talkTo, visitHiddenTrainer } from '@/game/flow'
 import { hud } from '@/game/state/hud'
-import { isFreshProfile, profile } from '@/game/state/profile'
+import { isFreshProfile, needsHeroChoice, profile } from '@/game/state/profile'
 import { talk } from '@/game/talk'
 import { coach } from '@/game/coach'
 import { isGamePaused, isAdShowing, isVisibilityHidden, isPlatformPaused } from '@/use/useGamePause'
@@ -55,7 +55,7 @@ import LessonLayer from '@/components/onboarding/LessonLayer.vue'
 import HeroChoice from '@/components/screens/hero/HeroChoice.vue'
 import { recallHere } from '@/game/coach/onboarding'
 import { useHudScale } from '@/use/useHudScale'
-import { INTRO_ENABLED, INTRO_TIP, introPlaying } from '@/game/intro/state'
+import { INTRO_ENABLED, INTRO_TIP, introBoot, introPlaying } from '@/game/intro/state'
 import { whenForcedDarkGuardClear } from '@/use/useForcedDarkModeGuard'
 
 // The world map is a chunk of its own (see `components/screens/chunks.ts`).
@@ -178,6 +178,8 @@ onMounted(async () => {
   const first = await adoptBootMode()
   app.setMode(first)
   app.setWanted(flow.screen !== 'map')
+  // A save that picked its hero already but never saw the film (a reload in between): no choice to wait for, the film starts.
+  if (introBoot.value && !needsHeroChoice()) void playIntro()
   // Music once the first frame is up, in the place's own track (started
   // during the loader it played the default one, then built a second song for
   // the place: two reverbs and a ~0.5 s task at 4× CPU). The audio context and

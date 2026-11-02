@@ -251,6 +251,11 @@ export class ZoneMode implements GameMode {
   private critShakes = new ShakeBudget()
   private markers!: Markers
   private bars!: HealthBars
+  /** The ground's theme (the intro re-sets the haze for its pulled-back camera). */
+  terrainTheme(): Terrain['theme'] { return this.terrain.theme }
+
+  /** No health bars over anyone (the intro's film, #189). */
+  hideBars = false
   private walls = new WallRocks()
   /** The still world (scenery tiles, ground, props, houses), culled by its boxes. */
   private still = new StillCull()
@@ -425,7 +430,9 @@ export class ZoneMode implements GameMode {
     if (import.meta.env.DEV && typeof location !== 'undefined' && new URLSearchParams(location.search).get('relief') === '0') plan.height.fill(0)
     m.field = { w: plan.w, h: plan.h, height: plan.height }
     setGround(m.field)
+    performance.mark('zone:ground-start')
     m.terrain = await buildTerrain(plan, setup.theme, m.scene, slice)
+    performance.mark('zone:terrain-built')
     // Invaded (afterplay §3), or the siege's field: the mood darkens toward dried blood, embers drift.
     if ((setup.kind === 'zone' && setup.invaded) || setup.siege) {
       m.terrain.theme = corruptTheme(m.terrain.theme)
@@ -449,6 +456,7 @@ export class ZoneMode implements GameMode {
     if (setup.siege) for (const id of [...siegeKinds(setup.siege.tier), 'guard']) kinds.add(id)
     else if (setup.kind === 'arena') for (const id of arenaKinds(setup.level)) kinds.add(id)
     const jobs = prewarmKinds(kinds)
+    performance.mark('zone:rigs-start')
     // The hero is a job of its own too (his rig is the richest: ~0.1 s at 4× CPU).
     jobs.unshift(() => prewarmLook(heroLook(profile.inv.equipped, profile.hero.gender)))
     for (let i = 0; i < jobs.length; i++) {
@@ -457,6 +465,7 @@ export class ZoneMode implements GameMode {
       await slice()
     }
 
+    performance.mark('zone:rigs-built')
     m.vfx = new Vfx(m.scene)
     m.orbs = new StackOrbs(m.scene)
     m.markers = new Markers(m.scene)
@@ -493,10 +502,12 @@ export class ZoneMode implements GameMode {
       m.chest.root.visible = false
       m.scene.add(m.chest.root)
     }
+    performance.mark('zone:props-built')
     for (const u of sim.units) {
       m.addView(u)
       if ((u.id & 3) === 3) await slice()
     }
+    performance.mark('zone:views-built')
     // DEV: `?bake=0` keeps the builders' meshes, `?bakeTile=<m>|all` sizes the
     // baked tiles (the A/B arms of roadmap #151).
     const q = import.meta.env.DEV && typeof location !== 'undefined' ? new URLSearchParams(location.search) : null
@@ -504,6 +515,7 @@ export class ZoneMode implements GameMode {
       const t = q?.get('bakeTile')
       await m.baked.bake(m.scene, t === 'all' ? Infinity : t ? Number(t) : BAKE_TILE, slice)
     }
+    performance.mark('zone:baked')
     m.still.collect(m.scene)
     onProgress(0.95)
     m.cam.snap()
@@ -1227,7 +1239,7 @@ export class ZoneMode implements GameMode {
       // Swing trails, muzzle flashes and the like are read off the pose just made.
       trackUnit(this.vfx, w.v, u)
       placeBlobShadow(w.shadow, w.v.x, w.v.z)
-      if (u.alive && u.rank !== 'npc' && (u.rank !== 'hero') && (u.awake || u.hp < u.s.maxHp)) {
+      if (!this.hideBars && u.alive && u.rank !== 'npc' && (u.rank !== 'hero') && (u.awake || u.hp < u.s.maxHp)) {
         // The frame says how special it is (D42); allies are green, the hero's own summons teal.
         const ours = u.team === 0
         const rank: BarRank = ours ? BAR_RANK.ally : barRank(u)

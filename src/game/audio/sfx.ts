@@ -53,7 +53,12 @@ export const setSfxPlayer = (p: Player | null): void => { player = p }
 let tap: Player | null = null
 export const setSfxTap = (t: Player | null): void => { tap = import.meta.env.DEV ? t : null }
 
+/** A filter on every sound asked for (the intro keeps a film's worth of effects from piling on top of each other, #189). */
+let gate: ((name: SfxName) => boolean) | null = null
+export const setSfxGate = (g: ((name: SfxName) => boolean) | null): void => { gate = g }
+
 export const sfx = (name: SfxName, pan = 0, gain = 1, muffle = 0): void => {
+  if (gate && !gate(name)) return
   if (import.meta.env.DEV) tap?.(name, pan, gain, muffle)
   player?.(name, Math.max(-1, Math.min(1, pan)), gain, Math.max(0, Math.min(1, muffle)))
 }

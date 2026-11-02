@@ -44,6 +44,7 @@ import { joinPortalBoard, reportPortalBest } from '@/use/usePortalLeaderboard'
 import { difficultyFactor } from '@/use/useUser'
 import { trackForTheme } from './audio/themes'
 import { PREVIEW_ON } from './previewFlags'
+import { INTRO_ENABLED, INTRO_TIP, introBoot } from './intro/state'
 import { classifyOnboarding } from './coach/reveal'
 import { chestReward, escortPacks, merchantTiers, type EncounterSpec } from './data/encounters'
 import { dayKey } from './rareShelf'
@@ -492,6 +493,20 @@ export const createBootMode = async (onProgress: (p01: number) => void = () => {
       flow.encounter = null
     }
   }
+  // A new save with the intro on (#189): the intro's own scene is the first thing built, not the opening level. The
+  // hero choice shows over its black, the film plays, and the opening level is built behind the last fade.
+  if (INTRO_ENABLED && !PREVIEW_ON && isFreshProfile() && profile.tips[INTRO_TIP] !== true) {
+    try {
+      const { prepareIntro } = await import('./intro/runner')
+      const mode = await prepareIntro(onProgress)
+      introBoot.value = true
+      flow.node = 'plains'
+      flow.screen = 'zone'
+      return mode
+    } catch (e) {
+      console.warn('[flow] the intro scene could not be prepared; the opening level instead', e)
+    }
+  }
   const at = profile.world.at
   const node: NodeId = isFreshProfile() ? 'plains' : NODE_BY_ID[at]?.kind === 'town' ? at : 'sunford'
   const mode = await buildNode(node, onProgress)
@@ -502,6 +517,12 @@ export const createBootMode = async (onProgress: (p01: number) => void = () => {
   setMusicTrack(trackForTheme(mode.setup.theme))
   measureStart(node)
   return mode
+}
+
+/** The opening level, built behind the intro's last black and taking over from its scene (#189). */
+export const startFirstLevel = async (): Promise<void> => {
+  const mode = await buildNode('plains', () => {})
+  enter('plains', mode)
 }
 
 /**

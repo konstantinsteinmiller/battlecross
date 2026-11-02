@@ -13,10 +13,13 @@ import type { Unit } from '../sim/types'
 import type { ZoneId } from '../data/items'
 import { ZONES } from '../data/zones'
 import { stopSpeech } from '../audio/speech'
+import { setZoneFog } from '../gfx/terrain'
 import { trackForTheme } from '../audio/themes'
 import { setMusicTrack, startGameMusic } from '@/use/useSound'
 import { isGamePaused } from '@/use/useGamePause'
-import { INTRO_TIP } from './state'
+import { INTRO_TIP, introBoot } from './state'
+import { setSfxGate } from '../audio/sfx'
+import { startFirstLevel } from '../flow'
 import {
   BUILD_CAP_S, INTRO_ACTS, INTRO_BEAST, INTRO_DRAGON, INTRO_FOE_LEVEL, INTRO_LENGTH, INTRO_MAGE, INTRO_PACK, INTRO_SEED, INTRO_ZONE,
   ENTRY_AT, ENTRY_S, INTRO_ZOOMS, SCENE_AT, createIntroClock, labelAt, veilAt, type IntroAct
@@ -70,6 +73,12 @@ const setup = (): ZoneSetup => ({
   level: INTRO_FOE_LEVEL, difficulty: 1, tutorial: false, ambush: null, extra: 0, flags: new Set()
 })
 
+/**
+ * The scene, built and staged while the hero choice shows (#189): the boot hands it to the game view as its first mode,
+ * and `runIntro` plays on it. Null until prepared (or once taken).
+ */
+let prepared: { mode: ZoneMode; cast: Cast } | null = null
+
 const build = async (): Promise<ZoneMode> => {
   const m = await ZoneMode.create(setup(), createInput(), NONE)
   await precompile(m)
@@ -112,27 +121,35 @@ const stage = (m: ZoneMode): Cast | null => {
   const p = packs[Math.min(INTRO_PACK, packs.length - 1)] ?? m.plan.packs[0]
   if (!p) return null
   // Nobody else of the place is in the picture.
-  for (const e of sim.units) if (e.team === 1) sim.dismiss(e)
-  const dragon = spawnEnemy(sim, INTRO_DRAGON, p.x, p.z - 2, 0)
+  // (a copy: `dismiss` takes the unit out of the list being walked, and every second one would be skipped)
+  for (const e of [...sim.units]) if (e.team === 1) sim.dismiss(e)
+  sim.wave.rest = 1e9
+  const dragon = spawnEnemy(sim, INTRO_DRAGON, p.x, p.z - 3.2, 0)
   if (!dragon) return null
   dragon.awake = true
   dragon.s.maxHp *= 60
   dragon.hp = dragon.s.maxHp
   dragon.facing = 0
+  // It stands and takes it: its moves and calls are the heroes' to show off, not its own to land on the one in the snow.
+  dragon.aiT = 1e9
+  dragon.rooted = true
   // The player's hero: face down in the snow in front of it, hurt by nothing.
   const hero = sim.hero.unit
   hero.x = hero.px = p.x
-  hero.z = hero.pz = p.z + 6.5
+  hero.z = hero.pz = p.z + 3
   hero.hasGoal = false
   hero.facing = Math.PI
   sim.hero.order = { kind: 'none', targetId: 0, x: hero.x, z: hero.z }
   applyStatus(sim, hero, 'knockdown', 1e9, 1, null, { quiet: true })
   applyStatus(sim, hero, 'invulnerable', 1e9, 1, hero, { quiet: true })
   // They leap in from beyond the picture's edge (#188): each starts far out and high, and lands on the mark at the entry beat.
-  const land = { mage: { x: p.x - 6.5, z: p.z + 3.5 }, beast: { x: p.x + 6.5, z: p.z + 3.5 } }
+  const land = { mage: { x: p.x - 3.6, z: p.z + 0.6 }, beast: { x: p.x + 3.6, z: p.z + 0.6 } }
   const mage = person(sim, INTRO_MAGE, land.mage.x - ENTRY_RUN, land.mage.z + ENTRY_RUN * 0.4, -0.7)
   const beast = person(sim, INTRO_BEAST, land.beast.x + ENTRY_RUN, land.beast.z + ENTRY_RUN * 0.4, 0.7)
   for (const u of [mage, beast]) u.stunt = { lift: ENTRY_HIGH, flip: 0 }
+  m.hideBars = true
+  // The haze is set for the usual view: with the camera pulled back it would swallow the dragon.
+  setZoneFog(m.scene, m.terrainTheme(), m.cam.dist * INTRO_ZOOMS[0]!.to)
   m.cam.snap()
   return { hero, mage, beast, dragon, leave: { mage: { x: p.x - 26, z: p.z + 14 }, beast: { x: p.x + 26, z: p.z + 14 } }, land, fled: false }
 }
@@ -165,6 +182,33 @@ const entry = (sim: Sim, c: Cast, t: number): void => {
       sim.emit({ t: 'fx', id: 'slam', x: to.x, z: to.z, r: 3.4, color: '#e8f4ff' })
       sim.emit({ t: 'fx', id: 'quake', x: to.x, z: to.z, r: 3, color: '#cfe8ff' })
     }
+  }
+}
+
+/** Build and stage the film's scene now (the boot's first mode); `runIntro` takes it. */
+export const prepareIntro = async (onProgress: (p01: number) => void = () => {}): Promise<ZoneMode> => {
+  onProgress(0.05)
+  const m = await build()
+  const cast = stage(m)
+  if (!cast) { m.dispose(); throw new Error('the intro scene could not be staged') }
+  onProgress(1)
+  prepared = { mode: m, cast }
+  return m
+}
+
+/** At most a few sounds at once, and one of a kind at a time: a film of spells is not a wall of noise. */
+const soundGate = (): ((name: string) => boolean) => {
+  const last = new Map<string, number>()
+  let windowAt = 0
+  let inWindow = 0
+  return (name) => {
+    const now = performance.now()
+    if (now - (last.get(name) ?? -1e9) < 140) return false
+    if (now - windowAt > 160) { windowAt = now; inWindow = 0 }
+    if (inWindow >= 3) return false
+    inWindow++
+    last.set(name, now)
+    return true
   }
 }
 
@@ -237,11 +281,11 @@ const play = (sim: Sim, c: Cast, who: 'beast' | 'mage' | 'both', act: IntroAct):
     case 'storm':
       pose(c.mage, 'elementalConvergence', d)
       sim.emit({ t: 'fx', id: 'roar', x: c.mage.x, z: c.mage.z, r: 8, color: '#e86bff' })
-      for (let i = 0; i < 9; i++) {
-        const a = (i / 9) * Math.PI * 2
+      for (let i = 0; i < 6; i++) {
+        const a = (i / 6) * Math.PI * 2
         const x = d.x + Math.cos(a) * 3.2
         const z = d.z + Math.sin(a) * 3.2
-        sim.after(0.2 + i * 0.2, () => {
+        sim.after(0.2 + i * 0.28, () => {
           sim.emit({ t: 'fx', id: 'fall:holy', x, z, r: 2, dur: 0.5, color: FIRE })
           sim.after(0.5, () => { sim.emit({ t: 'fx', id: 'burst:bolt', x, z, r: 2.4, color: FIRE }); hit(sim, c, 25, 'fire') })
         })
@@ -291,9 +335,14 @@ export const runIntro = (next: GameMode | null = null): Promise<void> => new Pro
   const clock = createIntroClock()
   const prev = app.mode
   const prevPhase = hud.phase
-  let mode: ZoneMode | null = null
-  let cast: Cast | null = null
-  let shown = false
+  const pre = prepared
+  prepared = null
+  let mode: ZoneMode | null = pre?.mode ?? null
+  let cast: Cast | null = pre?.cast ?? null
+  let shown = !!pre
+  const boot = !!pre
+  introBoot.value = false
+  setSfxGate(soundGate())
   let over = false
   let raf = 0
   let last = performance.now()
@@ -309,6 +358,31 @@ export const runIntro = (next: GameMode | null = null): Promise<void> => new Pro
     end = null
     cancelAnimationFrame(raf)
     stopSpeech()
+    setSfxGate(null)
+    profile.tips[INTRO_TIP] = true
+    saveProfile()
+    if (boot) {
+      // The film ran on the game's first scene: the opening level is built behind the black (the label stays up while it
+      // builds) and takes the renderer over; the veil then lifts on it.
+      mode = null
+      hud.phase = prevPhase
+      introView.veil = 1
+      introView.label = 1
+      void startFirstLevel().catch((e) => console.warn('[intro] the opening level could not be built', e)).finally(() => {
+        // The black lifts off the opening level over a third of a second.
+        let k = 1
+        const lift = window.setInterval(() => {
+          k -= 0.08
+          introView.veil = Math.max(0, k)
+          introView.label = Math.max(0, k)
+          if (k > 0) return
+          window.clearInterval(lift)
+          introView.ready = false
+          resolve()
+        }, 30)
+      })
+      return
+    }
     if (shown) {
       app.mode = prev
       if (prev) app.resize()
@@ -317,14 +391,13 @@ export const runIntro = (next: GameMode | null = null): Promise<void> => new Pro
     mode = null
     hud.phase = prevPhase
     settleAfterIntro(prev ?? next)
-    profile.tips[INTRO_TIP] = true
-    saveProfile()
     introView.ready = false
     resolve()
   }
   end = finish
 
-  build().then((m) => {
+  if (pre) { setMusicTrack(trackForTheme(pre.mode.setup.theme)); startGameMusic(); app.setWanted(true); introView.ready = true }
+  else build().then((m) => {
     if (over) { m.dispose(); return }
     cast = stage(m)
     if (!cast) { m.dispose(); finish(); return }
@@ -354,8 +427,10 @@ export const runIntro = (next: GameMode | null = null): Promise<void> => new Pro
     if (!shown && wall > BUILD_CAP_S) { finish(); return }
     const t = clock.tick(dt, shown)
     introView.t = t
-    introView.veil = veilAt(t, shown)
-    introView.label = labelAt(t)
+    if (!clock.done) {
+      introView.veil = veilAt(t, shown)
+      introView.label = labelAt(t)
+    }
     if (shown && m && cast) {
       while (zoom < INTRO_ZOOMS.length && t >= INTRO_ZOOMS[zoom]!.at) {
         const z = INTRO_ZOOMS[zoom++]!

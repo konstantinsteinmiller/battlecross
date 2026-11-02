@@ -3,7 +3,7 @@
     div.intro__veil(:style="{ opacity: introView.veil }" aria-hidden="true")
     //- "1 month later…" rides on the last fade to black.
     p.intro__later(:style="{ opacity: introView.label }" aria-live="polite") {{ introView.label > 0.05 ? t('intro.later') : '' }}
-    div.intro__skip
+    div.intro__skip(v-if="!introBoot")
       button.intro__btn(
         type="button"
         data-intro-skip
@@ -27,6 +27,7 @@ import { onMounted, onUnmounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 import KeyCap from '@/components/glyphs/KeyCap.vue'
 import { introView, skipIntro } from '@/game/intro/runner'
+import { introBoot } from '@/game/intro/state'
 import { touchFirst } from '@/game/engine/input'
 
 const { t } = useI18n()

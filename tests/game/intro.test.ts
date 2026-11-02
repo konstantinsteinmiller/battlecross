@@ -3,7 +3,7 @@ import { resolve } from 'node:path'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import {
   BUILD_CAP_S, FADE_IN_S, FADE_OUT_AT, INTRO_ACTS, INTRO_BEAST, INTRO_DRAGON, INTRO_LENGTH, INTRO_MAGE, LABEL_AT, SCENE_AT,
-  createIntroClock, labelAt, veilAt
+  INTRO_ZOOMS, createIntroClock, labelAt, veilAt
 } from '@/game/intro/script'
 import { ENEMY_BY_ID, MINIONS } from '@/game/data/enemies'
 import { SKILL_BY_ID } from '@/game/data/skills'
@@ -47,7 +47,7 @@ describe('the flag', () => {
   it('the scene never mounts or fetches the intro with the flag off: both chunks only behind INTRO_ENABLED, never imported statically', () => {
     const scene = read('views/GameScene.vue')
     expect(scene).toContain("defineAsyncComponent(() => import('@/components/screens/intro/IntroLayer.vue'))")
-    expect(scene).toMatch(/IntroLayer\(v-if="introOn"\)/)
+    expect(scene).toMatch(/IntroLayer\(v-if="introOn \|\| introBoot"\)/)
     expect(scene).toContain('const introOn = computed(() => INTRO_ENABLED && introPlaying.value)')
     const play = scene.slice(scene.indexOf('const playIntro'), scene.indexOf('const onHeroPicked'))
     expect(play).toMatch(/if \(!INTRO_ENABLED \|\| introPlaying\.value\) return[\s\S]*import\('@\/game\/intro\/runner'\)/)
@@ -92,6 +92,36 @@ describe('the order: the hero choice first, then the film (#183)', () => {
     expect(choice).toContain("defineEmits<{ (e: 'done'): void }>()")
     expect(choice.match(/emit\('done'\)/g)).toHaveLength(1)
     expect(choice).toMatch(/stage\.value = 'done'; emit\('done'\)/)
+  })
+})
+
+describe('the first boot (#189)', () => {
+  it("a new save with the intro on builds the intro's scene first, never the opening level, behind the hero choice", () => {
+    const flowSrc = read('game/flow.ts')
+    const boot = flowSrc.slice(flowSrc.indexOf('export const createBootMode'), flowSrc.indexOf('export const startFirstLevel'))
+    expect(boot).toMatch(/INTRO_ENABLED && !PREVIEW_ON && isFreshProfile\(\) && profile\.tips\[INTRO_TIP\] !== true/)
+    expect(boot.indexOf("import('./intro/runner')")).toBeGreaterThan(0)
+    expect(boot.indexOf('prepareIntro')).toBeLessThan(boot.indexOf('buildNode(node, onProgress)'))
+  })
+
+  it('the film plays on that scene, and the opening level is built behind its last black', () => {
+    const runner = read('game/intro/runner.ts')
+    expect(runner).toMatch(/export const prepareIntro/)
+    expect(runner).toMatch(/const pre = prepared/)
+    expect(runner).toMatch(/void startFirstLevel\(\)/)
+    expect(read('game/flow.ts')).toMatch(/export const startFirstLevel = async \(\): Promise<void> => \{\s*const mode = await buildNode\('plains'/)
+  })
+
+  it('only the dragon is left in the picture and no wave can come, and the camera is pulled back', () => {
+    const runner = read('game/intro/runner.ts')
+    expect(runner).toMatch(/for \(const e of \[\.\.\.sim\.units\]\) if \(e\.team === 1\) sim\.dismiss\(e\)\s*sim\.wave\.rest = 1e9/)
+    expect(INTRO_ZOOMS[0]!.to).toBeGreaterThan(1.3)
+  })
+
+  it('the sounds are gated while it plays and ungated when it ends', () => {
+    const runner = read('game/intro/runner.ts')
+    expect(runner).toMatch(/setSfxGate\(soundGate\(\)\)/)
+    expect(runner).toMatch(/setSfxGate\(null\)/)
   })
 })
 
