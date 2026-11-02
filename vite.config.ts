@@ -947,7 +947,9 @@ export default defineConfig(({ mode, command }) => {
         // reference sheets. Watching them reloads the page that is writing.
         // The voice pipeline's work folder holds thousands of takes: watching
         // it while `voice:gen` writes there stalled the dev server.
-        ignored: ['**/preview-videos/**', '**/art-sheets/**', '**/vo-src/**']
+        // Reports and their shots (the sound lab's 1800 takes, intro frames), backups of replaced art and the built wiki are
+        // written by tools and never imported: watched, they slowed every load of a dev server that had run for a day.
+        ignored: ['**/preview-videos/**', '**/art-sheets/**', '**/vo-src/**', '**/reports/**', '**/public-backup/**', '**/sound-src/**', '**/dist/**', '**/tools/sfx-review/out/**']
       }
     },
     define: {
