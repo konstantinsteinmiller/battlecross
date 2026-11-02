@@ -331,9 +331,9 @@ const styleVars = computed(() => {
 
 @keyframes btn-sweep
   0%
-    background-position: var(--gem-pos), 150% 0, top
+    background-position: 150% 0, top
   55%, 100%
-    background-position: var(--gem-pos), -50% 0, top
+    background-position: -50% 0, top
 @media (prefers-reduced-motion: reduce)
   .is-ornate-wings .f-button__body::after
     animation: none

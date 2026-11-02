@@ -111,11 +111,15 @@
     pointer-events: none
     background: var(--orn-crest) center / 100% 100% no-repeat
 
-/// A button's finish (#127, redone twice): a gilded frame and jewels, all of it drawn off the button's own curve, so it
-/// is right on a slim button and on a tall one. A metal ring (a gradient seen through a ring-shaped mask, the host's own
-/// radius), a dark inner keyline and a gloss over the top; on the wide sizes (`$wings`) a faceted jewel in the button's
-/// own colour sits in a gold bezel at each end of the middle line, and a band of light sweeps over the face now and then
-/// (`btn-sweep`, declared by the host: reduced motion switches it off). Needs the tone's `--c-hi`, `--c`, `--c-lo`.
+/// A button's finish (#127, redone a third time): ornaments in the BUTTON'S OWN COLOUR, never a stock gold. Everything is
+/// derived from the tone's `--c-hi` / `--c` / `--c-lo`, so a green button wears green-white filigree and a red one red,
+/// and it stays in the cel-shaded family: an ink outline round a flat light shape with one hard shadow edge.
+///   * a fine light keyline one step inside the rim, following the button's own radius (the same radius less the inset),
+///     a hard shadow lip under it, and a soft gloss over the top half;
+///   * on the wide sizes (`$wings`) a flourish at each end of the middle line: a hollow diamond with a dot, a tapered
+///     line with two curling arcs and a trail of beads, drawn once as a mask and tinted from the tone (inked by a hard
+///     drop shadow), and a band of light that sweeps over the face now and then (`btn-sweep`, declared by the host;
+///     reduced motion switches it off).
 @mixin ornate-button($size: 0.62em, $inset: 0.17em, $wings: false)
   isolation: isolate
   &::before
@@ -124,30 +128,35 @@
     inset: 0
     z-index: -1
     pointer-events: none
-    border-radius: inherit
-    padding: $inset
-    background: linear-gradient(135deg, #fff6bf 0, #ffd75a 18%, #c98a1c 42%, #fff0a0 55%, #e0a52a 72%, #8a5410 100%)
-    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)
-    -webkit-mask-composite: xor
-    mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0)
+    @if $wings
+      --orn-tint: color-mix(in srgb, var(--c-hi) 22%, #ffffff)
+      --orn-ink: color-mix(in srgb, var(--c-lo) 70%, #000000)
+      background: var(--orn-tint)
+      -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2084%2028%22%3E%3Cg%20fill%3D%22%23000%22%20stroke%3D%22%23000%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20fill-rule%3D%22evenodd%22%20stroke%3D%22none%22%20d%3D%22M6%2014L15%204.6L24%2014L15%2023.4ZM10.4%2014L15%209.2L19.6%2014L15%2018.8Z%22%2F%3E%3Ccircle%20stroke%3D%22none%22%20cx%3D%2215%22%20cy%3D%2214%22%20r%3D%222.1%22%2F%3E%3Cpath%20stroke%3D%22none%22%20d%3D%22M27%2012.4L66%2014L27%2015.6Z%22%2F%3E%3Cpath%20fill%3D%22none%22%20stroke-width%3D%221.9%22%20d%3D%22M29%2011.4Q38%203.2%2053%207.6%22%2F%3E%3Cpath%20fill%3D%22none%22%20stroke-width%3D%221.9%22%20d%3D%22M29%2016.6Q38%2024.8%2053%2020.4%22%2F%3E%3Ccircle%20stroke%3D%22none%22%20cx%3D%2270%22%20cy%3D%2214%22%20r%3D%222%22%2F%3E%3Ccircle%20stroke%3D%22none%22%20cx%3D%2276.5%22%20cy%3D%2214%22%20r%3D%221.35%22%2F%3E%3Ccircle%20stroke%3D%22none%22%20cx%3D%2255.5%22%20cy%3D%227.9%22%20r%3D%221.4%22%2F%3E%3Ccircle%20stroke%3D%22none%22%20cx%3D%2255.5%22%20cy%3D%2220.1%22%20r%3D%221.4%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E"), url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2084%2028%22%3E%3Cg%20transform%3D%22translate(84%200)%20scale(-1%201)%22%20fill%3D%22%23000%22%20stroke%3D%22%23000%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20fill-rule%3D%22evenodd%22%20stroke%3D%22none%22%20d%3D%22M6%2014L15%204.6L24%2014L15%2023.4ZM10.4%2014L15%209.2L19.6%2014L15%2018.8Z%22%2F%3E%3Ccircle%20stroke%3D%22none%22%20cx%3D%2215%22%20cy%3D%2214%22%20r%3D%222.1%22%2F%3E%3Cpath%20stroke%3D%22none%22%20d%3D%22M27%2012.4L66%2014L27%2015.6Z%22%2F%3E%3Cpath%20fill%3D%22none%22%20stroke-width%3D%221.9%22%20d%3D%22M29%2011.4Q38%203.2%2053%207.6%22%2F%3E%3Cpath%20fill%3D%22none%22%20stroke-width%3D%221.9%22%20d%3D%22M29%2016.6Q38%2024.8%2053%2020.4%22%2F%3E%3Ccircle%20stroke%3D%22none%22%20cx%3D%2270%22%20cy%3D%2214%22%20r%3D%222%22%2F%3E%3Ccircle%20stroke%3D%22none%22%20cx%3D%2276.5%22%20cy%3D%2214%22%20r%3D%221.35%22%2F%3E%3Ccircle%20stroke%3D%22none%22%20cx%3D%2255.5%22%20cy%3D%227.9%22%20r%3D%221.4%22%2F%3E%3Ccircle%20stroke%3D%22none%22%20cx%3D%2255.5%22%20cy%3D%2220.1%22%20r%3D%221.4%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E")
+      mask-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2084%2028%22%3E%3Cg%20fill%3D%22%23000%22%20stroke%3D%22%23000%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20fill-rule%3D%22evenodd%22%20stroke%3D%22none%22%20d%3D%22M6%2014L15%204.6L24%2014L15%2023.4ZM10.4%2014L15%209.2L19.6%2014L15%2018.8Z%22%2F%3E%3Ccircle%20stroke%3D%22none%22%20cx%3D%2215%22%20cy%3D%2214%22%20r%3D%222.1%22%2F%3E%3Cpath%20stroke%3D%22none%22%20d%3D%22M27%2012.4L66%2014L27%2015.6Z%22%2F%3E%3Cpath%20fill%3D%22none%22%20stroke-width%3D%221.9%22%20d%3D%22M29%2011.4Q38%203.2%2053%207.6%22%2F%3E%3Cpath%20fill%3D%22none%22%20stroke-width%3D%221.9%22%20d%3D%22M29%2016.6Q38%2024.8%2053%2020.4%22%2F%3E%3Ccircle%20stroke%3D%22none%22%20cx%3D%2270%22%20cy%3D%2214%22%20r%3D%222%22%2F%3E%3Ccircle%20stroke%3D%22none%22%20cx%3D%2276.5%22%20cy%3D%2214%22%20r%3D%221.35%22%2F%3E%3Ccircle%20stroke%3D%22none%22%20cx%3D%2255.5%22%20cy%3D%227.9%22%20r%3D%221.4%22%2F%3E%3Ccircle%20stroke%3D%22none%22%20cx%3D%2255.5%22%20cy%3D%2220.1%22%20r%3D%221.4%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E"), url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2084%2028%22%3E%3Cg%20transform%3D%22translate(84%200)%20scale(-1%201)%22%20fill%3D%22%23000%22%20stroke%3D%22%23000%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20fill-rule%3D%22evenodd%22%20stroke%3D%22none%22%20d%3D%22M6%2014L15%204.6L24%2014L15%2023.4ZM10.4%2014L15%209.2L19.6%2014L15%2018.8Z%22%2F%3E%3Ccircle%20stroke%3D%22none%22%20cx%3D%2215%22%20cy%3D%2214%22%20r%3D%222.1%22%2F%3E%3Cpath%20stroke%3D%22none%22%20d%3D%22M27%2012.4L66%2014L27%2015.6Z%22%2F%3E%3Cpath%20fill%3D%22none%22%20stroke-width%3D%221.9%22%20d%3D%22M29%2011.4Q38%203.2%2053%207.6%22%2F%3E%3Cpath%20fill%3D%22none%22%20stroke-width%3D%221.9%22%20d%3D%22M29%2016.6Q38%2024.8%2053%2020.4%22%2F%3E%3Ccircle%20stroke%3D%22none%22%20cx%3D%2270%22%20cy%3D%2214%22%20r%3D%222%22%2F%3E%3Ccircle%20stroke%3D%22none%22%20cx%3D%2276.5%22%20cy%3D%2214%22%20r%3D%221.35%22%2F%3E%3Ccircle%20stroke%3D%22none%22%20cx%3D%2255.5%22%20cy%3D%227.9%22%20r%3D%221.4%22%2F%3E%3Ccircle%20stroke%3D%22none%22%20cx%3D%2255.5%22%20cy%3D%2220.1%22%20r%3D%221.4%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E")
+      -webkit-mask-repeat: no-repeat
+      mask-repeat: no-repeat
+      -webkit-mask-size: 3.7em 1.23em
+      mask-size: 3.7em 1.23em
+      -webkit-mask-position: left max(0.5em, calc(var(--fbtn-radius, 0.85rem) * 0.38)) top 50%, right max(0.5em, calc(var(--fbtn-radius, 0.85rem) * 0.38)) top 50%
+      mask-position: left max(0.5em, calc(var(--fbtn-radius, 0.85rem) * 0.38)) top 50%, right max(0.5em, calc(var(--fbtn-radius, 0.85rem) * 0.38)) top 50%
+      filter: drop-shadow(0 0.08em 0 var(--orn-ink)) drop-shadow(0 0 0.03em var(--orn-ink))
   &::after
     content: ''
     position: absolute
     inset: $inset
     z-index: -1
     pointer-events: none
-    border-radius: max(0.3em, calc(var(--fbtn-radius, 0.85rem) - #{$inset}))
-    box-shadow: inset 0 0 0 max(1px, 0.05em) rgba(70, 35, 0, 0.6), inset 0 0.12em 0 rgba(255, 255, 255, 0.35), inset 0 -0.2em 0.3em rgba(0, 0, 0, 0.18)
+    // The body's own corner radius less its ink border and this inset: the keyline runs parallel to the rim all round the
+    // curve (without the border in the sum it is rounder than the edge it follows).
+    border-radius: max(0.2em, calc(var(--fbtn-radius, 0.85rem) - var(--bc-ol, 3px) - #{$inset}))
+    // The keyline (light, then a hard shadow lip under it) and a pressed-in lower edge.
+    box-shadow: inset 0 0 0 max(1px, 0.045em) color-mix(in srgb, var(--c-hi) 40%, #ffffff), inset 0 -0.2em 0 color-mix(in srgb, var(--c-lo) 55%, transparent)
     background-repeat: no-repeat
     @if $wings
-      --gx: max(0.5em, calc(var(--fbtn-radius, 0.85rem) * 0.45))
-      --gem-ring: radial-gradient(circle, transparent 0 0.29em, #fff3b0 0.3em 0.34em, #d99a22 0.35em 0.4em, #6b3d08 0.41em 0.47em, transparent 0.49em)
-      --gem-cut: conic-gradient(from 30deg, var(--c-hi) 0 25%, #fff 25% 31%, var(--c) 31% 56%, var(--c-lo) 56% 81%, var(--c) 81%)
-      --gem-glint: radial-gradient(circle, #fff 0 14%, transparent 18%)
-      --gem-pos: left calc(var(--gx) + 0.4em) center, left var(--gx) center, left calc(var(--gx) + 0.21em) center, right calc(var(--gx) + 0.4em) center, right var(--gx) center, right calc(var(--gx) + 0.21em) center
-      background-image: var(--gem-glint), var(--gem-ring), var(--gem-cut), var(--gem-glint), var(--gem-ring), var(--gem-cut), linear-gradient(105deg, transparent 42%, rgba(255, 255, 255, 0.6) 50%, transparent 58%), linear-gradient(180deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0))
-      background-position: var(--gem-pos), 150% 0, top
-      background-size: 0.18em 0.18em, 0.98em 0.98em, 0.56em 0.56em, 0.18em 0.18em, 0.98em 0.98em, 0.56em 0.56em, 250% 100%, 100% 50%
+      background-image: linear-gradient(105deg, transparent 42%, rgba(255, 255, 255, 0.55) 50%, transparent 58%), linear-gradient(180deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0))
+      background-position: 150% 0, top
+      background-size: 250% 100%, 100% 50%
       animation: btn-sweep 4.6s ease-in-out infinite
     @else
       background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0))
