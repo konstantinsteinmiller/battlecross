@@ -9,7 +9,8 @@ import { applyStatus, dealDamage } from '../sim/combat'
 import { spawnEnemy, spawnMinion } from '../sim/spawn'
 import { plainStats } from '../sim/stats'
 import { newAction, type Sim } from '../sim/world'
-import type { Unit } from '../sim/types'
+import type { DamageType, Unit } from '../sim/types'
+import { pushHud } from '../state/hud'
 import type { ZoneId } from '../data/items'
 import { ZONES } from '../data/zones'
 import { heroLook, LOOKS } from '../gfx/rigs/looks'
@@ -88,7 +89,7 @@ const build = async (): Promise<ZoneMode> => {
 }
 
 /** A leap in progress: an arc over the ground from where the body is to a mark, with `flips` turns on the way. */
-interface Leap { u: Unit; fx: number; fz: number; tx: number; tz: number; t0: number; dur: number; high: number; flips: number; land: boolean; done: boolean }
+interface Leap { exit?: boolean; u: Unit; fx: number; fz: number; tx: number; tz: number; t0: number; dur: number; high: number; flips: number; land: boolean; done: boolean }
 
 /** The cast of the film, once the scene is staged. */
 interface Cast {
@@ -106,6 +107,9 @@ interface Cast {
   fled: boolean
   /** The clock of the last bite, per pack member. */
   bite: number[]
+  /** The drake's home spot, and how far a blow has pushed it off (it eases back). */
+  home: { x: number; z: number }
+  settle: number
 }
 
 /** How far out (m) the two start their leap from, and how high (m) it goes. */
@@ -176,13 +180,13 @@ const stage = (m: ZoneMode): Cast | null => {
   // The haze is set for the usual view: with the camera pulled back it would swallow the dragon.
   setZoneFog(m.scene, m.terrainTheme(), m.cam.dist * INTRO_ZOOMS[0]!.to * 12)
   m.cam.snap()
-  return { hero, mage, beast, dragon, pack: [], leaps: [], land, packAt: -1, fled: false, bite: [] }
+  return { hero, mage, beast, dragon, pack: [], leaps: [], land, packAt: -1, fled: false, bite: [], home: { x: dragon.x, z: dragon.z }, settle: 0 }
 }
 
 /** Start a leap: `high` metres at the top of the arc, `flips` forward turns on the way, a hero's landing at the end. */
-const leap = (c: Cast, u: Unit, tx: number, tz: number, t: number, dur: number, high: number, flips: number, land = true): void => {
+const leap = (c: Cast, u: Unit, tx: number, tz: number, t: number, dur: number, high: number, flips: number, land = true, exit = false): void => {
   c.leaps = c.leaps.filter(l => l.u !== u)
-  c.leaps.push({ u, fx: u.x, fz: u.z, tx, tz, t0: t, dur, high, flips, land, done: false })
+  c.leaps.push({ exit, u, fx: u.x, fz: u.z, tx, tz, t0: t, dur, high, flips, land, done: false })
 }
 
 /** A person casts: the pose of the spell they name, facing `at`. */
@@ -194,8 +198,27 @@ const pose = (u: Unit, skill: string, at: { x: number; z: number; id?: number })
   u.animStyle = 1
 }
 
-const hit = (sim: Sim, c: Cast, dmg: number, type: string): void => {
-  dealDamage(sim, null, c.dragon, dmg, { type, spell: true, canCrit: false } as Parameters<typeof dealDamage>[4])
+/**
+ * A blow on the drake that reads as one (#189): the game's own impact effect and flinch (a `hit` event from whoever struck
+ * it), a number over it, and a small step back from the one who struck. `big`: a crit's weight.
+ */
+const hit = (sim: Sim, c: Cast, dmg: number, type: string, from: Unit = c.mage, big = false): void => {
+  const d = c.dragon
+  dealDamage(sim, null, d, dmg, { type, spell: true, canCrit: false } as Parameters<typeof dealDamage>[4])
+  const amount = Math.round(dmg * (big ? 11 : 6) * (0.85 + ((sim.time * 7) % 1) * 0.3))
+  sim.emit({
+    t: 'hit', src: from.id, tgt: d.id, x: d.x + (((sim.time * 13) % 1) - 0.5) * 1.4, z: d.z + (((sim.time * 17) % 1) - 0.5) * 1.2, h: d.h,
+    amount, crit: big, type: (type === 'physical' ? 'physical' : type) as DamageType, heavy: big, toHero: false, killed: false, dot: false
+  })
+  if (big) pushHud({ t: 'num', x: d.x, y: d.h + 0.6, z: d.z, amount, kind: 'crit' })
+  // It rocks back from the blow and settles again.
+  const dx = d.x - from.x
+  const dz = d.z - from.z
+  const l = Math.hypot(dx, dz) || 1
+  const k = big ? 0.5 : 0.18
+  d.x = d.px = d.x + (dx / l) * k
+  d.z = d.pz = d.z + (dz / l) * k
+  c.settle = Math.max(c.settle, k)
 }
 
 const FIRE = '#ff7a1a'
@@ -212,8 +235,8 @@ const play = (m: ZoneMode, c: Cast, t: number, act: IntroAct): void => {
     sim.emit({ t: 'fx', id: 'lob:holy', x: from.x, z: from.z, x2: d.x + dx, z2: d.z + dz, dur: 0.45, color })
     sim.after(0.45, () => {
       sim.emit({ t: 'fx', id: 'burst:bolt', x: d.x + dx, z: d.z + dz, r: 3, color })
-      hit(sim, c, 40, 'fire')
-      shake(0.25)
+      hit(sim, c, 40, 'fire', from, true)
+      shake(0.3)
     })
   }
   switch (act) {
@@ -257,7 +280,7 @@ const play = (m: ZoneMode, c: Cast, t: number, act: IntroAct): void => {
     }
     case 'dodge':
       // …and he is not there: a backflip over it, to the far side.
-      leap(c, c.mage, c.land.mage.x - 4.2, c.land.mage.z + 3.2, t, 0.85, 2.6, 1, false)
+      leap(c, c.mage, c.land.mage.x + 2.6, c.land.mage.z + 2.4, t, 0.85, 2.6, 1, false)
       break
     case 'fire':
       pose(c.mage, 'fireball', d)
@@ -269,12 +292,13 @@ const play = (m: ZoneMode, c: Cast, t: number, act: IntroAct): void => {
       pose(c.mage, 'frostLance', d)
       sim.emit({ t: 'fx', id: 'burst:icicle', x: d.x, z: d.z, r: 5, color: FROST })
       lob(c.mage, FROST)
+      sim.after(0.2, () => hit(sim, c, 30, 'frost', c.mage, true))
       shake(0.3)
       break
     case 'hawk':
       pose(c.beast, 'callHawk', d)
       sim.emit({ t: 'fx', id: 'dash', x: c.beast.x, z: c.beast.z, x2: d.x, z2: d.z, color: '#f0d890' })
-      sim.after(0.4, () => { sim.emit({ t: 'fx', id: 'burst:bolt', x: d.x, z: d.z, r: 3, color: '#f0d890' }); hit(sim, c, 30, 'physical'); shake(0.3) })
+      sim.after(0.4, () => { sim.emit({ t: 'fx', id: 'burst:bolt', x: d.x, z: d.z, r: 3, color: '#f0d890' }); hit(sim, c, 30, 'physical', c.beast, true); shake(0.3) })
       break
     case 'slam':
       // The drake slams the ground: a ring of force that throws the pack back.
@@ -298,7 +322,7 @@ const play = (m: ZoneMode, c: Cast, t: number, act: IntroAct): void => {
       for (let i = 0; i < 5; i++) {
         sim.after(i * 0.14, () => {
           sim.emit({ t: 'fx', id: 'burst:bolt', x: d.x + (i - 2) * 1.3, z: d.z + (i % 2 ? 1.2 : -1.2), r: 2.4, color: BOLT })
-          hit(sim, c, 20, 'lightning')
+          hit(sim, c, 20, 'lightning', c.mage, i === 2)
         })
       }
       shake(0.3)
@@ -313,7 +337,7 @@ const play = (m: ZoneMode, c: Cast, t: number, act: IntroAct): void => {
         const z = d.z + Math.sin(a) * 3.4
         sim.after(0.2 + i * 0.2, () => {
           sim.emit({ t: 'fx', id: 'fall:holy', x, z, r: 2.2, dur: 0.5, color: FIRE })
-          sim.after(0.5, () => { sim.emit({ t: 'fx', id: 'burst:bolt', x, z, r: 2.6, color: FIRE }); hit(sim, c, 25, 'fire'); shake(0.2) })
+          sim.after(0.5, () => { sim.emit({ t: 'fx', id: 'burst:bolt', x, z, r: 2.6, color: FIRE }); hit(sim, c, 25, 'fire', c.mage, i % 2 === 0); shake(0.25) })
         })
       }
       break
@@ -332,8 +356,8 @@ const play = (m: ZoneMode, c: Cast, t: number, act: IntroAct): void => {
     case 'flee':
       // They go the way they came: up and out over the edge of the picture, not one look at the hero in the snow.
       c.fled = true
-      leap(c, c.mage, c.land.mage.x - ENTRY_RUN, c.land.mage.z + ENTRY_RUN * 0.5, t, 1.3, 8, 2, false)
-      leap(c, c.beast, c.land.beast.x + ENTRY_RUN, c.land.beast.z + ENTRY_RUN * 0.5, t, 1.3, 8, 2, false)
+      leap(c, c.mage, c.land.mage.x - ENTRY_RUN, c.land.mage.z + ENTRY_RUN * 0.5, t, 1.3, 14, 2, false, true)
+      leap(c, c.beast, c.land.beast.x + ENTRY_RUN, c.land.beast.z + ENTRY_RUN * 0.5, t, 1.3, 14, 2, false, true)
       break
   }
 }
@@ -350,10 +374,11 @@ const stepLeaps = (m: ZoneMode, c: Cast, t: number): void => {
     u.facing = Math.atan2(l.tx - l.fx, l.tz - l.fz)
     u.anim = 'idle'
     u.action = null
-    u.stunt = { lift: l.high * 4 * k * (1 - k), flip: Math.min(1, Math.max(0, (k - 0.12) / 0.7)) * l.flips % (l.flips + 0.0001) }
+    u.stunt = { lift: l.exit ? l.high * k * k : l.high * 4 * k * (1 - k), flip: Math.min(1, Math.max(0, (k - 0.12) / 0.7)) * l.flips % (l.flips + 0.0001) }
     if (l.flips > 1) u.stunt.flip = Math.min(1, Math.max(0, (k - 0.1) / 0.75)) * l.flips
     if (k >= 1) {
       l.done = true
+      if (l.exit) continue
       u.stunt = undefined
       if (l.land) {
         // A hero's landing: the ground answers.
@@ -372,24 +397,28 @@ const stepPack = (m: ZoneMode, c: Cast, t: number, dt: number): void => {
   const d = c.dragon
   c.pack.forEach((mn, i) => {
     if (!mn.alive) return
-    const a = (i / Math.max(1, c.pack.length)) * Math.PI * 2 + t * 0.9
-    const r = 2.9 + (i % 2) * 0.7
-    const tx = d.x + Math.sin(a) * r
-    const tz = d.z + Math.cos(a) * r
+    // Each takes a place on the drake's near side (it keeps its own, as in a fight) and goes at it flat out.
+    const side = i - (c.pack.length - 1) / 2
+    const tx = d.x + side * 1.8
+    const tz = d.z + d.r * 0.9 + mn.r + 0.4 + Math.abs(side) * 0.3
     const dx = tx - mn.x
     const dz = tz - mn.z
     const dist = Math.hypot(dx, dz)
-    const sp = Math.min(dist, 10 * dt)
+    const sp = Math.min(dist, 11 * dt)
     if (dist > 0.05) { mn.x = mn.px = mn.x + (dx / dist) * sp; mn.z = mn.pz = mn.z + (dz / dist) * sp }
     mn.facing = Math.atan2(d.x - mn.x, d.z - mn.z)
-    if (dist > 1.2) { mn.anim = 'walk'; return }
-    if (t - (c.bite[i] ?? 0) > 0.75 + (i % 3) * 0.12) {
+    if (dist > 0.9) { mn.anim = 'walk'; return }
+    // A bite: the animal lunges in and back, the drake is struck (flinch, impact, step back).
+    const gap = t - (c.bite[i] ?? 0)
+    if (gap > 0.62 + (i % 3) * 0.1) {
       c.bite[i] = t
       mn.anim = 'attack'
       mn.animT = 0
-      sim.emit({ t: 'fx', id: 'burst:bolt', x: d.x + (mn.x - d.x) * 0.5, z: d.z + (mn.z - d.z) * 0.5, r: 1.3, color: '#7ff0a0' })
-      hit(sim, c, 6, 'physical')
-    }
+      mn.x = mn.px = mn.x + Math.sin(mn.facing) * 0.45
+      mn.z = mn.pz = mn.z + Math.cos(mn.facing) * 0.45
+      sim.emit({ t: 'fx', id: 'burst:bolt', x: d.x + (mn.x - d.x) * 0.6, z: d.z + (mn.z - d.z) * 0.6, r: 1.5, color: '#7ff0a0' })
+      hit(sim, c, 6, 'physical', mn, mn.kind === 'packBear')
+    } else if (gap > 0.2) mn.anim = 'idle'
   })
 }
 
@@ -553,6 +582,14 @@ export const runIntro = (next: GameMode | null = null): Promise<void> => new Pro
       }
       stepLeaps(m, cast, t)
       stepPack(m, cast, t, dt)
+      // …and the drake eases back to its place after a blow.
+      if (cast.dragon.alive && cast.settle > 0) {
+        const d = cast.dragon
+        const k = Math.min(1, 6 * dt)
+        d.x = d.px = d.x + (cast.home.x - d.x) * k
+        d.z = d.pz = d.z + (cast.home.z - d.z) * k
+        cast.settle = Math.hypot(cast.home.x - d.x, cast.home.z - d.z) < 0.03 ? 0 : cast.settle
+      }
       tickPose(cast.mage, dt)
       tickPose(cast.beast, dt)
       tickPose(cast.dragon, dt)
