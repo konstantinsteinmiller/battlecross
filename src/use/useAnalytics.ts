@@ -58,6 +58,8 @@ export type AnalyticsEvent =
   | 'armory_pick'
   /** A device's frame rate, pixels and GPU after 30 s / 120 s of play (`engine/perfReport.ts`). */
   | 'perf_sample'
+  /** The first visit's funnel (#178): each step once, with the seconds of fight so far (`trackFtue`). */
+  | 'ftue_step'
 
 export type AnalyticsValue = string | number | boolean
 export type AnalyticsProps = Record<string, AnalyticsValue | undefined>
@@ -67,6 +69,19 @@ export interface AnalyticsRecord {
   props: Record<string, AnalyticsValue>
   /** ms since page load — a clock the player's timezone cannot identify them by. */
   at: number
+}
+
+/**
+ * One step of the first visit's funnel (#178): boss seen, boss down, the finale
+ * chest open, the key taken, the cage open, Leave pressed, the hero fallen. Each
+ * is sent ONCE per page load, so a Poki playtest shows where the people who do
+ * not finish stopped: the last step reached, and when.
+ */
+const ftueSeen = new Set<string>()
+export const trackFtue = (step: string, props?: AnalyticsProps): void => {
+  if (ftueSeen.has(step)) return
+  ftueSeen.add(step)
+  track('ftue_step', { step, ...props })
 }
 
 /** How many events are kept for `analyticsLog()`. A career of twenty stages
@@ -171,6 +186,7 @@ export const analyticsLog = (): readonly AnalyticsRecord[] => ring
 /** Test seam: empty the ring and re-probe the sink. */
 export const __resetAnalytics = (): void => {
   ring.length = 0
+  ftueSeen.clear()
   sink = undefined
 }
 

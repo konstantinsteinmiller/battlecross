@@ -44,10 +44,11 @@ import { DEFAULT_BINDINGS } from '@/game/engine/keyBindings'
 import FButton from '@/components/atoms/FButton.vue'
 import KeyCap from '@/components/glyphs/KeyCap.vue'
 import GameIcon from '@/components/icons/GameIcon.vue'
+import { trackFtue } from '@/use/useAnalytics'
 
 const { t } = useI18n()
 const leaveCode = DEFAULT_BINDINGS.leave[0]!
-const leave = (): void => { input.leaveQueued = true }
+const leave = (): void => { trackFtue('leave_pressed'); input.leaveQueued = true }
 const find = (): void => { input.findChestQueued = true }
 </script>
 

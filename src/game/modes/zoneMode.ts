@@ -1,4 +1,5 @@
 import { campPending } from '../sim/camp'
+import { trackFtue } from '@/use/useAnalytics'
 import { AmbientLight, Color, Frustum, Matrix4, Scene, Sphere, Vector2, type Group, type InstancedMesh, type Line, type Material, type Mesh, type Object3D, type Points, type ShaderMaterial, type SkinnedMesh } from 'three'
 import { ArenaCrowd } from '../gfx/arenaCrowd'
 import { nextMilestone } from '../data/arena'
@@ -1482,7 +1483,16 @@ export class ZoneMode implements GameMode {
       (this.setup.kind === 'arena' && !sim.ended && sim.wave.alive === 0 && sim.wave.cleared >= ARENA_WAVES)
     let left = 0
     let finaleOpen = false
+    // The first visit's funnel (#178), for the portal's event sink: where do the people who leave stop?
+    if (this.setup.kind === 'zone' && this.setup.tutorial) {
+      const at = Math.round(sim.time)
+      if (hud.bossKey) trackFtue('boss_seen', { at })
+      if (!sim.hero.unit.alive) trackFtue('hero_fell', { at })
+      if (sim.ended === 'victory') trackFtue('boss_down', { at })
+      if (sim.cageKey?.taken) trackFtue('key_taken', { at })
+    }
     for (const c of sim.chests) {
+      if (c.state === 'open' && this.setup.kind === 'zone' && this.setup.tutorial) trackFtue(c.role === 'cage' ? 'cage_open' : c.role === 'finale' ? 'finale_open' : 'chest_open', { at: Math.round(sim.time) })
       if (c.role === 'finale') finaleOpen = c.state === 'open'
       if (c.state === 'closed' || c.state === 'opening') left++
     }
