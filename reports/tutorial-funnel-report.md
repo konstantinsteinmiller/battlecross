@@ -115,14 +115,76 @@ probe is the existing one; check in the Poki inspector before the next playtest)
 | | Change | Status |
 |---|---|---|
 | R1 | Hold Leave until the teachers are free; chevrons + goal chip + trail to the camp | **done** (#177) |
-| R2 | Make the map's next step one thing: on a first map visit dim the other NEW tags, and on phone portrait zoom/pan the map to the hero's region instead of showing the whole realm in a strip | proposed |
-| R3 | Put the reward and the next step on the result window itself (above the stats on short landscape screens): a line "Next: Sunford — your teachers are waiting" and a preview of the first new skill (needs copy in 39 locales) | proposed, needs owner copy |
-| R4 | A short celebration beat when the cage opens (the teachers thanking the hero already happens) with the goal chip switching to "Take your loot and leave" only then | partly there (Leave appears); polish proposed |
-| R5 | Read the real funnel from the Poki playtest, then A/B: boss one pack earlier, the cage offered before the chest | needs real data |
-| R6 | A phone-portrait pass on the world map labels (about 15 overlapping labels in a 390 px strip) | proposed |
+| R2 | Make the map's next step one thing: on a first map visit the goal's place keeps its tags and a bobbing arrow, every other place loses its NEW flag and level pill and a locked one fades | **done** (zoom/pan of the strip not built: the decluttering does the job at lower risk) |
+| R3 | Put the next step on the result window above the stats: "Next: Sunford, where teachers and shops are waiting" (first wins only; 39 locales) | **done** (a preview of the first new skill is not built) |
+| R7 | The first visit now holds a little of the rest of the world: two plants, a first ore node and the plains' piece of the treasure map (own random streams, clear of the camp), so the world shows it has more than fights | **done** |
+| R8 | #180: after the cage opens the goal is "Learn a free skill from the teachers" (chevrons lead to the nearest teacher); Leave comes only once the camp's free lesson is taken, and is skipped if no teacher could teach this hero anything | **done** |
+| R4 | A celebration beat when the cage opens: a golden burst over each teacher as the door swings, the knight's thanks, then the goal chip becomes "Learn a free skill from the teachers" and, once learned, Leave appears | **done** |
+| R5 | Read the real funnel from the Poki playtest, then A/B: boss one pack earlier, the cage offered before the chest | **cannot be done from here**: needs real player data (the events that will give it are in) |
+| R6 | A phone-portrait pass on the world map labels (about 15 overlapping labels in a 390 px strip) | **done** with R2 (off-goal places go quiet for a new player) |
 
 ## 8. Open items
 
 * The fights, the boss's difficulty and real hands-on feel were not driven; do a short human playtest of the
   first visit on a phone with the new flow.
 * The sharpness probe (`blur-probe.mjs image`) crashed on this machine, so the screenshots were checked by eye.
+
+## 9. #181 — A depth preview of the class diversity without overwhelming a new player
+
+**The situation.** 16 base classes (4 taught openly in Sunford, 4 in Silverbridge, 4 secret ones found through a
+master's test, 4 more taught openly) plus 4 prestige hybrids; a hero may learn skills from any class (8 active and
+4 passive slots), and every class now has six locked endgame skills. That is a lot of depth, and the right amount of
+it for a player who stays. For a Poki player in minute three, any of it shown as a list is noise.
+
+**Principles (from the research in section 5 and the funnel above).**
+* Show depth by *doing*, not by listing: one thing to look at, one to try.
+* Never more than **three** choices on screen at once; reveal the rest as a curiosity gap ("more teachers wait in
+  Silverbridge"), not a catalogue.
+* The preview should end in a **decision the player owns**, because choosing a style is the first hook of a
+  build game (Archero offers a blessing before the first big boss and a skill choice after it).
+* Every preview must cost the player **zero extra taps** on the path they are already on.
+
+**Ranked ideas.**
+
+| # | Idea | Overwhelm risk | Effort | Why |
+|---|---|---|---|---|
+| D1 | **Pick one of three** for the camp's free lesson (#180): the three rescued teachers each offer their first skill as a card with its icon, its class colour and a one-line *style* ("Shield: hit back harder", "Fire: burn it all", "Spirits: fight with the fallen"). The free lesson becomes the player's first build choice. | very low | low (the teachers and the free lesson exist; it is a presentation of what #180 already does) | the preview *is* the decision: three classes, one pick, free |
+| D2 | **A 3-second demo on tap**: tapping a skill card plays its animation on a straw dummy in a small viewport (the sim and the dummy exist). | low | medium | seeing beats reading; costs no text and no locales |
+| D3 | **Locked silhouettes** in the teachers' skill list: the next two skills of a class appear as dark icons with a level, the six endgame ones as a single sealed row "after the demon king" (non-clickable, as built). | low | low | a curiosity gap, and it tells a new player there is more without explaining it |
+| D4 | **A "classes seen" row** on the skills page: 16 small class emblems, the ones met lit, the rest dark with "?"; the first dark one pulses once after the second town. | low | low | collecting is a hook; the count (3/16) is the preview |
+| D5 | **A second-class nudge**: after the first level-up, a single line from a teacher in the next town, "Try a trick from another school: it all combines." with a free swap of one slot (needs a free-swap rule). | medium | medium | explicit permission to mix, which a new player does not assume |
+| D6 | A full class codex with every skill of every class | high | medium | for those who ask for it, behind a button; never shown unasked |
+
+**Recommendation.** Do D1 first (it rides on #180 and is nearly free), D3 and D4 next (cheap curiosity gaps), D2 only if
+the first three show up as drop-off or low second-class uptake in the funnel. Leave D5 and D6 until a player has
+learned two skills. Measure with new events: `class_preview_pick` (which of three), `second_class_learned` (did a hero learn
+from a class other than the first), `classes_seen` at the end of session one. If `second_class_learned` stays under about a
+third of players who learn a second skill, add D5.
+
+**Not built here**: this is a proposal; nothing in section 9 is in the game yet.
+
+## 10. #171 — Healing shamans and a fire-pit boss: does it help retention or overwhelm a Poki player?
+
+**What it asks.** (a) A boss whose first phase is destroying healing shamans, so the boss is not constantly
+out-healing the hero; (b) a harder fight where the player kites the boss onto fire pits that pressure plates arm,
+each activation costing the boss 10 % of its health, the boss leaping out so one activation cannot grill it.
+
+**What the game already has.** 13 scripted boss modules (centaur, chimera, cyclops, elder dragon, hellgate, hydra,
+leviathan, shatter lake, skyfire, sphinx, tusker and others), pressure plates and plate puzzles in the level generator,
+and a mercy rule that cuts boss damage when the first fight goes badly. So the *infrastructure* exists; the question is fit.
+
+**Assessment.**
+
+| | (a) Healing shamans (kill the healers first) | (b) Kite the boss onto plate-armed fire pits |
+|---|---|---|
+| Retention value | high: a clear, readable rule ("break the green beams, then the boss"), a classic that casual players learn in one attempt; fixes a real frustration (a boss that out-heals a weak build) | high for those who master it, **low for a first session**: it is a skill-expression fight |
+| Overwhelm risk on Poki | low if telegraphed (green beams from each shaman to the boss, the boss shielded while one lives) | **high** on touch: kiting needs fine stick control while watching plates and pits; a new player has two new ideas at once (plates arm pits, the boss must stand in them) |
+| Fit to the first minutes | not in the tutorial boss; fine from the second or third zone | never before the player has beaten two bosses |
+| Failure mode | a boss that is *untouchable* until the adds die and no cue says so | an unwinnable-feeling fight; players quit at exactly the point #178 is trying to fix |
+
+**Verdict.** Yes to (a): it is the better retention play and the lower risk. (b) is a good *optional depth* fight, but
+as a mandatory kill for Poki's mostly casual, often-touch audience it would raise the quit rate. Build it so the boss
+**can be beaten without the pits** (they are a big damage bonus and a mastery bonus, not the only way), place it after the
+first two zones, and give it a one-line, one-time hint in the fight ("Lure it onto the fire!") rather than a lesson. Ship
+(a) first, read the `boss_seen` → `boss_down` and `hero_fell` events per boss in the next Poki playtest, and only then
+decide on (b). **Not built here**: this is an assessment; no boss was changed.

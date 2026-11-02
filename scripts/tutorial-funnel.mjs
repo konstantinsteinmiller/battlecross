@@ -202,7 +202,20 @@ const run = async (dev) => {
       if (c) { const u = z.sim.hero.unit; u.x = c.sx; u.z = c.sz + 1.2; u.hasGoal = false; orderOpen(z.sim, c.id) }
     })
     await page.waitForTimeout(9000)
-    await snap('cage-open', 'the teachers are out and talk; the Leave button?')
+    await snap('cage-open', 'the teachers are out and talk: the goal is their free lesson (#180); no Leave button yet')
+    // The free lesson: the first one bought in the camp is on the teachers.
+    await game(page, async () => {
+      const P = await import('/src/game/state/profile.ts')
+      const { skillsOf } = await import('/src/game/data/skills.ts')
+      P.lesson.camp = true
+      for (const cls of ['aegis', 'pyro', 'soulwarden']) {
+        const s = skillsOf(cls).find(q => P.learnBlock(q.id) === '')
+        if (s) { P.learnSkill(s.id); break }
+      }
+      P.lesson.camp = false
+    })
+    await page.waitForTimeout(2500)
+    await snap('lesson-learned', 'the free lesson is taken: the Leave button comes')
     // Leave and the result window.
     const leave = page.locator('[data-coach="leave"]')
     if (await leave.count()) {
