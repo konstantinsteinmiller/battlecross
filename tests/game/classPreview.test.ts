@@ -41,9 +41,11 @@ describe('the first build choice (D1)', () => {
     const { CAMP_TEACHERS } = await import('@/game/sim/camp')
     const { skillsOf } = await import('@/game/data/skills')
     p.profile.gold = 0
-    // One card each, three in all; the ones the hero can take now are the choice (the knight's first skill is his already).
-    expect(CAMP_TEACHERS).toHaveLength(3)
-    const open = CAMP_TEACHERS.filter(t => skillsOf(t.cls).some(q => { const b = p.learnBlock(q.id); return b === '' || b === 'gold' }))
-    expect(open.length).toBeGreaterThanOrEqual(2)
+    // Four in the cage, three of them teach (the knight's first skill is the hero's already: he steps aside, the monk takes his place on the cards).
+    const { CAMP_LESSONS } = await import('@/game/sim/camp')
+    expect(CAMP_TEACHERS).toHaveLength(4)
+    expect(CAMP_LESSONS.map(t => t.cls)).toEqual(['pyro', 'soulwarden', 'ironmonk'])
+    const open = CAMP_LESSONS.filter(t => skillsOf(t.cls).some(q => { const b = p.learnBlock(q.id); return b === '' || b === 'gold' }))
+    expect(open).toHaveLength(3)
   })
 })

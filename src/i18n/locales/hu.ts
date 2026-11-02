@@ -169,6 +169,7 @@ export default {
   intro: {
     narrator: 'A Krónikás',
     skip: 'Kihagyás',
+    later: '1 hónappal később…',
     holdKey: 'A kihagyáshoz tartsd lenyomva: {key}',
     holdTouch: 'Tartsd lenyomva a kihagyáshoz',
     replay: 'Intró megtekintése'
@@ -418,6 +419,7 @@ export default {
       title: 'Válaszd ki az első képességed',
       lead: 'Ingyenes. Ezeknek a tanítóknak mind más a stílusa, és később mindegyiküktől tanulhatsz.',
       learn: 'Ingyen megtanulom',
+      go: 'Menj {name} -hoz',
       style: {
         aegis: 'Állj szilárdan és ütj vissza',
         pyro: 'Égess el mindent, ami a közelben van',
@@ -6156,6 +6158,10 @@ export default {
       }
     },
     bark: {
+      hero: { cage: { 1: 'Valaki segítségért kiabál?' } },
+      trainerPyro: { help: { 1: 'Segítség, valaki!' } },
+      sbMasterSoulwarden: { help: { 1: 'Elraboltak minket!' } },
+      sbMasterIronmonk: { help: { 1: 'Szörnyek! Segítség!' } },
       sphinx: {
         intro: { '1': "Felelj, kicsikém, vagy eltemet a homokom." },
         riddle: { '1': "Akkor egy talány. Lépj oda, ahová mutatom, ebben a sorrendben." },

@@ -218,6 +218,8 @@ export interface Unit {
   split?: boolean
   /** A scripted boss's state (`sim/bosses`): its phase, the move it is in, its height. */
   boss?: BossState
+  /** A staged jump (the intro's heroes, #188): metres off the ground, and a forward flip in turns (0..1). Drawn only; nothing in the sim reads them. */
+  stunt?: { lift: number; flip: number }
   /** In a conversation (the hero, roadmap #153, `sim/truce.ts`): nothing hurts or picks him. */
   truce?: boolean
 }
@@ -410,6 +412,8 @@ export type SimEvent =
   | { t: 'chest'; id: number; x: number; z: number; state: 'reveal' | 'opening' | 'open' | 'closed' | 'locked'; why?: 'guard' | 'finale' | 'key' }
   /** A cage's key picked up (#100). */
   | { t: 'cageKey'; x: number; z: number }
+  /** The boss let the camp's key fall (#182). */
+  | { t: 'cageKeyDrop'; x: number; z: number }
   /** Something from a chest that is not gold or gear: a health potion for the
    *  belt, a full belt's potion drunk on the spot, a mana potion for the stock. */
   | { t: 'pickup'; what: 'potion' | 'heal' | 'mana'; x: number; z: number }

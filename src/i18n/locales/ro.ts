@@ -169,6 +169,7 @@ export default {
   intro: {
     narrator: 'Cronicarul',
     skip: 'Sari peste',
+    later: 'O lună mai târziu…',
     holdKey: 'Ține apăsat {key} pentru a sări',
     holdTouch: 'Ține apăsat pentru a sări',
     replay: 'Vezi introducerea'
@@ -418,6 +419,7 @@ export default {
       title: 'Alege prima ta abilitate',
       lead: 'Este gratuită. Fiecare dintre acești profesori are alt stil, iar mai târziu poți învăța de la toți.',
       learn: 'Învaț-o gratis',
+      go: 'Mergi la {name}',
       style: {
         aegis: 'Rezistă și lovește înapoi',
         pyro: 'Arde tot ce ajungi',
@@ -6198,6 +6200,10 @@ export default {
       }
     },
     bark: {
+      hero: { cage: { 1: 'Strigă cineva după ajutor?' } },
+      trainerPyro: { help: { 1: 'Ajutor, cineva!' } },
+      sbMasterSoulwarden: { help: { 1: 'Am fost răpiți!' } },
+      sbMasterIronmonk: { help: { 1: 'Monștri! Ajutor!' } },
       sphinx: {
         intro: { '1': "Răspunde-mi, micuțule, sau fii îngropat în nisipul meu." },
         riddle: { '1': "O ghicitoare, deci. Calcă unde îți arăt, în ordinea aceea." },

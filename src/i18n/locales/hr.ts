@@ -169,6 +169,7 @@ export default {
   intro: {
     narrator: 'Kroničar',
     skip: 'Preskoči',
+    later: 'Mjesec dana kasnije…',
     holdKey: 'Drži {key} za preskakanje',
     holdTouch: 'Drži za preskakanje',
     replay: 'Pogledaj uvod'
@@ -421,6 +422,7 @@ export default {
       title: 'Odaberi prvu vještinu',
       lead: 'Besplatna je. Svaki od ovih učitelja ima drukčiji stil, a kasnije možeš učiti od svih.',
       learn: 'Nauči besplatno',
+      go: 'Idi do: {name}',
       style: {
         aegis: 'Izdrži i uzvrati udarac',
         pyro: 'Spali sve na dohvat ruke',
@@ -6269,6 +6271,10 @@ export default {
       }
     },
     bark: {
+      hero: { cage: { 1: 'Viče li netko upomoć?' } },
+      trainerPyro: { help: { 1: 'Upomoć, ima li koga!' } },
+      sbMasterSoulwarden: { help: { 1: 'Otete su nas!' } },
+      sbMasterIronmonk: { help: { 1: 'Čudovišta! Upomoć!' } },
       sphinx: {
         intro: { '1': "Odgovori mi, mališa, ili će te zakopati moj pijesak." },
         riddle: { '1': "Zagonetka, dakle. Stani gdje pokažem, tim redom." },

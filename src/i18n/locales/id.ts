@@ -169,6 +169,7 @@ export default {
   intro: {
     narrator: 'Sang Pencerita',
     skip: 'Lewati',
+    later: '1 bulan kemudian…',
     holdKey: 'Tahan {key} untuk melewati',
     holdTouch: 'Tahan untuk melewati',
     replay: 'Tonton intro'
@@ -418,6 +419,7 @@ export default {
       title: 'Pilih skill pertamamu',
       lead: 'Gratis. Setiap guru ini punya gaya berbeda, dan nanti kamu bisa belajar dari semuanya.',
       learn: 'Pelajari gratis',
+      go: 'Temui {name}',
       style: {
         aegis: 'Bertahan dan balas pukulan',
         pyro: 'Bakar semua yang terjangkau',
@@ -6156,6 +6158,10 @@ export default {
       }
     },
     bark: {
+      hero: { cage: { 1: 'Ada yang berteriak minta tolong?' } },
+      trainerPyro: { help: { 1: 'Tolong, siapa saja!' } },
+      sbMasterSoulwarden: { help: { 1: 'Kami diculik!' } },
+      sbMasterIronmonk: { help: { 1: 'Monster! Tolong!' } },
       sphinx: {
         intro: { '1': "Jawab aku, kecil, atau terkuburlah dalam pasirku." },
         riddle: { '1': "Kalau begitu, teka-teki. Injak tempat yang kutunjukkan, sesuai urutannya." },

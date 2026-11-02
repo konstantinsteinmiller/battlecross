@@ -30,7 +30,23 @@ const freed = (npc: string, look: string, emotion: Emotion, says: readonly strin
   bye: []
 })
 
+/** The hero's thought as the first chest opens, and the cries from the cage (#187; `sim/camp.ts`'s `stepHelp`). */
+const heroThought: ConversationDef = {
+  id: 'bark.hero',
+  name: 'dlg.ui.hero',
+  look: 'hero',
+  voice: 'hero',
+  greet: [{ id: 'cage', lines: [{ id: 'dlg.bark.hero.cage.1', by: 'hero', emotion: 'neutral' }] }],
+  nodes: {},
+  back: {},
+  bye: []
+}
+
 export const CAPTIVE_BARKS: readonly ConversationDef[] = [
+  heroThought,
+  freed('trainerPyro', 'trainerPyro', 'excited', ['help']),
+  freed('sbMasterSoulwarden', 'sbMasterSoulwarden', 'grave', ['help']),
+  freed('sbMasterIronmonk', 'sbMasterIronmonk', 'excited', ['help']),
   ...CAGES.filter(c => !c.afterplay).map(c => freed(c.npc, c.look, FEEL[c.npc] ?? 'warm')),
   // The first visit's camp (#156): Ser Aldric thanks the hero for the three of them
   // and offers their lessons (`sim/camp.ts`, CAMP_THANKS); freed on the burned road in

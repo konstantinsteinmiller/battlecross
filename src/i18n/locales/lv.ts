@@ -169,6 +169,7 @@ export default {
   intro: {
     narrator: 'Hronists',
     skip: 'Izlaist',
+    later: 'Pēc mēneša…',
     holdKey: 'Turiet {key}, lai izlaistu',
     holdTouch: 'Turiet nospiestu, lai izlaistu',
     replay: 'Skatīt ievadu'
@@ -418,6 +419,7 @@ export default {
       title: 'Izvēlies pirmo prasmi',
       lead: 'Tā ir bezmaksas. Katram no šiem skolotājiem ir sava stila, un vēlāk vari mācīties no visiem.',
       learn: 'Apgūt bez maksas',
+      go: 'Doties pie {name}',
       style: {
         aegis: 'Turēties stingri un sist pretī',
         pyro: 'Sadedzināt visu aizsniedzamo',
@@ -6228,6 +6230,10 @@ export default {
       }
     },
     bark: {
+      hero: { cage: { 1: 'Vai kāds sauc palīgā?' } },
+      trainerPyro: { help: { 1: 'Palīgā, vai kāds ir!' } },
+      sbMasterSoulwarden: { help: { 1: 'Mūs nolaupīja!' } },
+      sbMasterIronmonk: { help: { 1: 'Briesmoņi! Palīgā!' } },
       sphinx: {
         intro: { '1': "Atbildi man, mazulīt, vai tevi apraks manas smiltis." },
         riddle: { '1': "Tad mīkla. Kāp tur, kur rādu, tādā secībā." },

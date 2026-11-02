@@ -169,6 +169,7 @@ export default {
   intro: {
     narrator: 'Kronikář',
     skip: 'Přeskočit',
+    later: 'O měsíc později…',
     holdKey: 'Podrž {key} pro přeskočení',
     holdTouch: 'Podrž pro přeskočení',
     replay: 'Přehrát intro'
@@ -421,6 +422,7 @@ export default {
       title: 'Vyber si první dovednost',
       lead: 'Je zdarma. Každý z těchto učitelů má jiný styl a později se můžeš učit od všech.',
       learn: 'Naučit se zdarma',
+      go: 'Jít za: {name}',
       style: {
         aegis: 'Vydržet a oplácet',
         pyro: 'Spálit vše v dosahu',
@@ -6255,6 +6257,10 @@ export default {
       }
     },
     bark: {
+      hero: { cage: { 1: 'Volá tam někdo o pomoc?' } },
+      trainerPyro: { help: { 1: 'Pomoc, je tu někdo!' } },
+      sbMasterSoulwarden: { help: { 1: 'Byli jsme unesení!' } },
+      sbMasterIronmonk: { help: { 1: 'Příšery! Pomoc!' } },
       sphinx: {
         intro: { '1': "Odpověz mi, maličký, nebo tě pohřbí můj písek." },
         riddle: { '1': "Tedy hádanka. Šlápni tam, kam ukážu, v tomto pořadí." },

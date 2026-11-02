@@ -169,6 +169,7 @@ export default {
   intro: {
     narrator: 'Il Cronista',
     skip: 'Salta',
+    later: '1 mese dopo…',
     holdKey: 'Tieni premuto {key} per saltare',
     holdTouch: 'Tieni premuto per saltare',
     replay: 'Guarda l’intro'
@@ -419,6 +420,7 @@ export default {
       title: 'Scegli la tua prima abilità',
       lead: 'È gratis. Ognuno di questi maestri ha uno stile diverso e potrai imparare da tutti più avanti.',
       learn: 'Impara gratis',
+      go: 'Vai da {name}',
       style: {
         aegis: 'Reggere e rispondere ai colpi',
         pyro: 'Bruciare tutto ciò che è a tiro',
@@ -6236,6 +6238,10 @@ export default {
       }
     },
     bark: {
+      hero: { cage: { 1: 'Qualcuno sta gridando aiuto?' } },
+      trainerPyro: { help: { 1: 'Aiuto, c’è qualcuno?' } },
+      sbMasterSoulwarden: { help: { 1: 'Siamo stati rapiti!' } },
+      sbMasterIronmonk: { help: { 1: 'Mostri! Aiuto!' } },
       sphinx: {
         intro: { '1': "Rispondimi, piccolo, o sarai sepolto nella mia sabbia." },
         riddle: { '1': "Un indovinello, allora. Calpesta dove ti mostro, in quell'ordine." },

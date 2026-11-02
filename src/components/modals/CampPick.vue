@@ -28,7 +28,7 @@
       div.pick__card-in-hand(v-if="seen")
         SkillCard(:id="seen")
       div.pick__actions
-        FButton(:label="t('camp.pick.learn')" type="success" :is-disabled="!sel" @click="learn")
+        FButton(:label="t('camp.pick.go', { name: goName })" type="success" :is-disabled="!sel" @click="go")
 </template>
 
 <script setup lang="ts">
@@ -47,10 +47,12 @@
  */
 import { computed, onUnmounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { flow } from '@/game/flow'
+import { campWalk, flow } from '@/game/flow'
 import { CLASSES, skillsOf, type ClassId, type SkillDef } from '@/game/data/skills'
-import { CAMP_TEACHERS } from '@/game/sim/camp'
-import { learnBlock, learnSkill, lesson } from '@/game/state/profile'
+import { CAMP_LESSONS } from '@/game/sim/camp'
+import { learnBlock, lesson } from '@/game/state/profile'
+import { currentZone } from '@/game/boot'
+import { orderAttack } from '@/game/sim/hero'
 import { sfx } from '@/game/audio/sfx'
 import FModal from '@/components/molecules/FModal.vue'
 import FButton from '@/components/atoms/FButton.vue'
@@ -66,13 +68,13 @@ const sel = ref('')
 
 /** One card per rescued teacher, always three schools: the first skill of theirs this hero can take now; a school he cannot
  *  take anything from (he already knows its first skill) still shows it, marked, so the three styles are all seen. */
-const options = computed<Array<{ cls: ClassId; skill: SkillDef; color: string; can: boolean }>>(() => {
-  const out: Array<{ cls: ClassId; skill: SkillDef; color: string; can: boolean }> = []
-  for (const tch of CAMP_TEACHERS) {
+const options = computed<Array<{ cls: ClassId; skill: SkillDef; color: string; can: boolean; npc: string }>>(() => {
+  const out: Array<{ cls: ClassId; skill: SkillDef; color: string; can: boolean; npc: string }> = []
+  for (const tch of CAMP_LESSONS) {
     const list = skillsOf(tch.cls)
     const open = list.find(q => { const b = learnBlock(q.id); return b === '' || b === 'gold' })
     const s = open ?? list[0]
-    if (s) out.push({ cls: tch.cls, skill: s, color: CLASSES[tch.cls].color, can: !!open })
+    if (s) out.push({ cls: tch.cls, skill: s, color: CLASSES[tch.cls].color, can: !!open, npc: tch.npc })
   }
   return out
 })
@@ -86,15 +88,23 @@ const choose = (id: string, can: boolean): void => {
 }
 const seen = ref('')
 const close = (): void => { flow.modal = '' }
-const learn = (): void => {
-  if (!sel.value) return
-  // The first lesson of the camp is on the teachers (`profile.ts`'s camp gift).
-  lesson.camp = true
-  const ok = learnSkill(sel.value)
-  lesson.camp = false
-  if (ok) { sfx('uiBuy'); flow.modal = '' } else sfx('denied')
+/** The hero walks over to the teacher of the card in hand, and learns from them in the usual lesson window (the first lesson is free, `profile.ts`'s camp gift). */
+const go = (): void => {
+  const o = options.value.find(q => q.skill.id === sel.value)
+  const zone = currentZone()
+  const unit = zone?.sim.units.find(u => u.npc === o?.npc && u.alive)
+  if (!o || !zone || !unit) { sfx('denied'); return }
+  campWalk.npc = o.npc
+  sfx('uiClick')
+  flow.modal = ''
+  orderAttack(zone.sim, unit.id)
 }
+const goName = computed(() => {
+  const o = options.value.find(q => q.skill.id === sel.value)
+  return o ? t(`npc.${o.npc}.name`) : ''
+})
 onUnmounted(() => { lesson.camp = false })
+void lesson
 </script>
 
 <style scoped lang="sass">

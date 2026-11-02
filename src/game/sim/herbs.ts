@@ -2,6 +2,7 @@ import { HERBS_MAX, HERBS_MIN, plantsOf, type PlantId } from '../data/plants'
 import type { ZoneId } from '../data/items'
 import { CELL, cellOf, centerOf } from './grid'
 import { mulberry32, type Rng } from './rng'
+import { KEY_DROP_T } from './camp'
 import type { Sim } from './world'
 import { K_GROUND } from './zoneFeatures'
 
@@ -193,7 +194,8 @@ export const stepPickups = (sim: Sim): void => {
   const u = h.unit
   // A cage's key (#100).
   const key = sim.cageKey
-  if (key && !key.taken && Math.hypot(key.x - u.x, key.z - u.z) <= PICK_REACH) {
+  // A key the boss drops lies still only once it has landed (#182).
+  if (key && !key.taken && (key.drop === undefined || key.drop >= KEY_DROP_T) && Math.hypot(key.x - u.x, key.z - u.z) <= PICK_REACH) {
     key.taken = true
     sim.emit({ t: 'cageKey', x: key.x, z: key.z })
   }

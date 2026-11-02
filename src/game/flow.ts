@@ -33,6 +33,7 @@ import { showMidgameAd } from '@/use/useAds'
 import { canOfferReward, canShowInterstitial, claimReward, isRewardGated, markInterstitialShown } from '@/use/useAdGate'
 import { breakAllowed } from '@/game/adPacing'
 import { campLessonPending } from '@/game/coach/campLesson'
+import { CAMP_TEACHERS, CAMP_THANKS } from '@/game/sim/camp'
 import { DEMO_END_FLAG } from './data/fullVersion'
 import { gateActive, isNodeLockedByDemo, resetPurchaseStatus } from '@/use/useFullVersion'
 import { isAdShowing } from '@/use/useGamePause'
@@ -1047,6 +1048,9 @@ const startTalk = (kind: Exclude<Talk, ''>, conv: ConversationDef, stage: TalkSt
   return true
 }
 
+/** The camp teacher the hero was sent to from the three cards (#186): that talk opens their lesson window, not the cards. Not saved. */
+export const campWalk = { npc: '' }
+
 /** The window a townsperson's role opens (reached through their conversation). */
 const roleWindow = (npc: NpcDef): Modal =>
   (npc.role === 'shop' ? 'shop' : npc.role === 'trainer' ? 'trainer' : npc.role === 'healer' ? 'healer' : npc.role === 'alchemist' ? 'alchemy'
@@ -1087,8 +1091,19 @@ export const talkTo = (npcId: string): void => {
   // nothing else (no small talk out here), the first one on them.
   const zone = liveZone()
   lesson.camp = !!zone && inCamp(zone.sim, npc.id)
-  // The camp's free lesson is a first build choice (#181): one card per teacher, until it is taken.
-  if (lesson.camp) { flow.modal = zone && campLessonPending(zone.sim) ? 'campPick' : roleWindow(npc); return }
+  // The camp (#181, #186): the knight only says his thanks again (his skill is the hero's already). Until the free lesson is taken, the
+  // first teacher talked to opens the three cards, unless the hero walked over to one from them: then it is that teacher's lesson window.
+  if (lesson.camp) {
+    if (CAMP_TEACHERS.some(t => t.npc === npc.id && !t.teaches)) {
+      const k = zone?.sim.units.find(u => u.npc === npc.id)
+      if (zone && k) zone.sim.emit({ t: 'bark', unit: k.id, key: CAMP_THANKS })
+      return
+    }
+    const chosen = campWalk.npc === npc.id
+    campWalk.npc = ''
+    flow.modal = !chosen && zone && campLessonPending(zone.sim) ? 'campPick' : roleWindow(npc)
+    return
+  }
   const conv = conversationOf(npc.id)
   // Everyone has a conversation (a test holds the data to it); without one
   // the trade itself is still reachable.

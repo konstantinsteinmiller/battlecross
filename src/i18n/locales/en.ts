@@ -176,6 +176,7 @@ export default {
   'intro': {
     'narrator': 'The Chronicler',
     'skip': 'Skip',
+    'later': '1 month later…',
     'holdKey': 'Hold {key} to skip',
     'holdTouch': 'Hold to skip',
     'replay': 'Watch the intro'
@@ -389,6 +390,7 @@ export default {
       'title': 'Choose your first skill',
       'lead': 'It is free. Each of these teachers has a different style, and you can learn from all of them later.',
       'learn': 'Learn it free',
+      'go': 'Go to {name}',
       'style': {
         'aegis': 'Stand firm and hit back',
         'pyro': 'Burn everything in reach',
@@ -3730,6 +3732,10 @@ export default {
       }
     },
     'bark': {
+      'hero': { 'cage': { '1': 'Is there somebody screaming for help?' } },
+      'trainerPyro': { 'help': { '1': 'Help, anybody!' } },
+      'sbMasterSoulwarden': { 'help': { '1': 'We were kidnapped!' } },
+      'sbMasterIronmonk': { 'help': { '1': 'Monsters! Help!' } },
       sphinx: {
         intro: { '1': "Answer me, little one, or be buried in my sand." },
         riddle: { '1': "A riddle, then. Step where I show you, in that order." },

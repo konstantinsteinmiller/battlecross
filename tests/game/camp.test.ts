@@ -13,7 +13,7 @@ import { chestLock, orderOpen } from '@/game/sim/interact'
 import { PICK_REACH } from '@/game/sim/herbs'
 import { referenceBuild } from '@/game/sim/bot'
 import { CAPTIVE_TALK } from '@/game/sim/cages'
-import { CAMP_SPEAKER, CAMP_TEACHERS, CAMP_THANKS, NETTLE_WALK_MAX, campPending, campTarget, inCamp } from '@/game/sim/camp'
+import { CAMP_SPEAKER, CAMP_TEACHERS, CAMP_THANKS, KEY_DROP_T, NETTLE_WALK_MAX, campPending, campTarget, inCamp } from '@/game/sim/camp'
 import { MENTOR_NPC } from '@/game/data/mentor'
 import { SPOKEN } from '@/game/data/dialogs'
 import { plainStats } from '@/game/sim/stats'
@@ -55,6 +55,8 @@ const win = (sim: Sim): void => {
 /** The hero picks up the key and opens the cage. */
 const openCage = (sim: Sim, plan: ZonePlan): void => {
   const h = sim.hero.unit
+  // The boss's key has to have fallen and landed (#182).
+  run(sim, plan, KEY_DROP_T + 0.3)
   h.x = h.px = sim.cageKey!.x + PICK_REACH * 0.5
   h.z = h.pz = sim.cageKey!.z
   stepSim(sim, plan, 1 / 30)
@@ -69,68 +71,129 @@ const openCage = (sim: Sim, plan: ZonePlan): void => {
 
 const barks = (sim: Sim): string[] => sim.events.filter(e => e.t === 'bark').map(e => (e as { key: string }).key)
 
-describe('the camp past the first visit\'s boss', () => {
-  it('on every seed: a big cage past the finale, its key in front, a fire and a caravan, ~40 % more ground, all reachable', () => {
+describe('the camp on the boss floor (#182)', () => {
+  it('on every seed: the cage right of the boss, the caravan left of it, the fire a little below it, the finale chest where it was', () => {
     for (const seed of SEEDS) {
       const plan = firstVisit(seed)
       const tag = `#${seed}`
       const camp = plan.camp!
       expect(camp, tag).toBeTruthy()
-      const fin = plan.clearings.find(c => c.role === 'finale')!
-      // Up the screen from the boss's floor.
-      expect(camp.z, tag).toBeLessThan(fin.z - fin.r)
-      // One cage, three cells wide, standing on its cells.
+      const boss = plan.packs.find(q => q.finale)!
+      // One cage, three cells wide, standing on its cells, to the right of the boss (no more than a row off).
       const cages = plan.chests.filter(c => c.role === 'cage')
       expect(cages, tag).toHaveLength(1)
       const cage = cages[0]!
       expect(camp.cells, tag).toHaveLength(3)
       for (const k of camp.cells) expect(plan.kind[k], tag).toBe(K_BLOCK)
       expect(camp.cells).toContain(Math.floor(cage.z / CELL) * plan.w + Math.floor(cage.x / CELL))
-      // The key lies in front of the cage, on the way to its door.
+      expect(cage.x - boss.x, tag).toBeGreaterThanOrEqual(4 * CELL)
+      expect(cage.x - boss.x, tag).toBeLessThanOrEqual(5.5 * CELL)
+      expect(Math.abs(cage.z - boss.z), tag).toBeLessThanOrEqual(1.5 * CELL)
+      // The caravan to its left (six cells, a set piece); the fire a little below it (one cell).
+      const fire = plan.dressing?.find(d => d.kind === 'fire')!
+      const wagon = plan.dressing?.find(d => d.kind === 'wagon')!
+      expect(wagon, tag).toBeTruthy()
+      expect(wagon.cells.length, tag).toBe(6)
+      expect(wagon.x, tag).toBeLessThan(boss.x - 3 * CELL)
+      expect(fire.cells.length, tag).toBe(1)
+      expect(fire.z - boss.z, tag).toBeGreaterThanOrEqual(3.5 * CELL)
+      expect(fire.z - boss.z, tag).toBeLessThanOrEqual(5.5 * CELL)
+      // The finale's chest stays where it was: a few cells above the boss.
+      const finale = plan.chests.find(c => c.role === 'finale')!
+      expect(finale.x, tag).toBeCloseTo(boss.x, 5)
+      expect(boss.z - finale.z, tag).toBeCloseTo(4 * CELL, 5)
+      // The camp's fixed key place (where it falls if the boss is not found) is on the floor, below the boss.
       expect(plan.cageKey, tag).toBeTruthy()
-      expect(plan.cageKey!.z, tag).toBeGreaterThan(cage.z)
-      expect(Math.hypot(plan.cageKey!.x - cage.x, plan.cageKey!.z - cage.z), tag).toBeLessThan(4)
-      // A fire and the broken-down caravan, both set pieces with cells of their own.
-      const fire = plan.dressing?.find(d => d.kind === 'fire')
-      const wagon = plan.dressing?.find(d => d.kind === 'wagon')
-      expect(fire?.cells.length, tag).toBe(1)
-      expect(wagon?.cells.length, tag).toBe(6)
-      expect(Math.hypot(fire!.x - camp.x, fire!.z - camp.z), tag).toBeLessThan(6)
-      expect(Math.hypot(wagon!.x - camp.x, wagon!.z - camp.z), tag).toBeLessThan(8)
-      // About 40 % more ground than the boss's floor alone (the way in counted too, and
-      // the boss's floor is lumpy: a wide band).
-      let finCells = 0
-      let campCells = 0
-      for (let k = 0; k < plan.solid.length; k++) {
-        if (plan.solid[k]) continue
-        const x = ((k % plan.w) + 0.5) * CELL
-        const z = (Math.floor(k / plan.w) + 0.5) * CELL
-        if (Math.hypot(x - fin.x, z - fin.z) <= fin.r) finCells++
-        else if (z < fin.z - fin.r * 0.6 && Math.hypot(x - camp.x, z - camp.z) <= 6 * CELL) campCells++
-      }
-      expect(campCells / finCells, tag).toBeGreaterThan(0.3)
-      expect(campCells / finCells, tag).toBeLessThan(0.8)
-      // Everything is walked to from the start: the cage's door, the key, every place by the fire.
+      expect(Math.hypot(plan.cageKey!.x - boss.x, plan.cageKey!.z - boss.z), tag).toBeLessThan(2 * CELL)
+      // Everything is walked to from the start: the cage's door, the key, every place by the fire, Nettle's way in.
       const g = fillGrid(createGrid(plan.w, plan.h), plan)
       const path: number[] = []
-      for (const p of [{ x: cage.sx, z: cage.sz }, plan.cageKey!, ...camp.spots, camp.entry]) {
+      for (const p of [{ x: cage.sx, z: cage.sz }, plan.cageKey!, ...camp.spots, camp.entry, { x: finale.sx, z: finale.sz }]) {
         expect(findPath(g, plan.start.x, plan.start.z, p.x, p.z, path), `${tag} ${p.x},${p.z}`).toBeGreaterThan(0)
       }
     }
   })
 
-  it('the cage traps nobody: every open cell of the camp is walked to from the start', () => {
+  it('nothing clips: no two blocking pieces share a cell, the pack ring is clear of them, the wheels and the teachers places lie on open ground', () => {
+    for (const seed of SEEDS) {
+      const plan = firstVisit(seed)
+      const tag = `#${seed}`
+      const camp = plan.camp!
+      const boss = plan.packs.find(q => q.finale)!
+      const cellOf = (x: number, z: number): number => Math.floor(z / CELL) * plan.w + Math.floor(x / CELL)
+      const taken = new Map<number, string>()
+      const take = (k: number, what: string): void => {
+        expect(taken.get(k), `${tag} ${what} on ${taken.get(k)}`).toBeUndefined()
+        taken.set(k, what)
+      }
+      for (const k of camp.cells) take(k, 'cage')
+      for (const d of plan.dressing ?? []) for (const k of d.cells) take(k, d.kind)
+      for (const c of plan.chests) if (c.role !== 'cage') take(cellOf(c.x, c.z), 'chest ' + c.role)
+      // The boss's pack spawns up to 2.5 cells round its middle (and the leader a little above): none of it on a blocked cell.
+      const sim = new Sim({ seed, w: plan.w, h: plan.h, level: 1, difficulty: 1, mode: 'zone', zone: 'plains' })
+      applyPlan(sim, plan)
+      populateZone(sim, plan, 'plains', [])
+      for (const u of sim.units) {
+        if (u.team !== 1) continue
+        expect(taken.has(cellOf(u.x, u.z)), `${tag} ${u.kind} at ${u.x.toFixed(1)},${u.z.toFixed(1)} stands on ${taken.get(cellOf(u.x, u.z))}`).toBe(false)
+        expect(plan.solid[cellOf(u.x, u.z)], `${tag} ${u.kind} in rock`).toBeFalsy()
+      }
+      // The teachers places and the wheels are on open ground, apart from each other.
+      for (const sp of camp.spots) {
+        expect(plan.solid[cellOf(sp.x, sp.z)], tag + ' place in rock').toBeFalsy()
+        expect(taken.has(cellOf(sp.x, sp.z)), tag + ' place on a piece').toBe(false)
+      }
+      for (const d of (plan.dressing ?? []).filter(q => q.kind === 'wheel' || q.kind === 'spikes')) {
+        expect(plan.solid[cellOf(d.x, d.z)], tag + ' ' + d.kind + ' in rock').toBeFalsy()
+        for (const sp of camp.spots) expect(Math.hypot(d.x - sp.x, d.z - sp.z), tag + ' wreckage on a place').toBeGreaterThan(1.2 * CELL)
+        expect(Math.hypot(d.x - boss.x, d.z - boss.z), tag + ' wreckage in the pack ring').toBeGreaterThan(2.5 * CELL)
+      }
+    }
+  })
+
+  it('the cage traps nobody: every open cell of the fight (4.5 cells round the boss) is walked to from the start', () => {
     for (const seed of SEEDS) {
       const plan = firstVisit(seed)
       const g = fillGrid(createGrid(plan.w, plan.h), plan)
-      const camp = plan.camp!
+      const boss = plan.packs.find(q => q.finale)!
       const path: number[] = []
       for (let k = 0; k < plan.solid.length; k++) {
         const x = ((k % plan.w) + 0.5) * CELL
         const z = (Math.floor(k / plan.w) + 0.5) * CELL
-        if (g.solid[k] || Math.hypot(x - camp.x, z - camp.z) > 5 * CELL) continue
+        if (g.solid[k] || Math.hypot(x - boss.x, z - boss.z) > 4.5 * CELL) continue
         expect(findPath(g, plan.start.x, plan.start.z, x, z, path), `#${seed} cell ${k % plan.w},${Math.floor(k / plan.w)}`).toBeGreaterThan(0)
       }
+    }
+  })
+
+  it('the boss drops the key as it falls: nowhere before, it arcs down, and it can be picked up only once it has landed', () => {
+    const { sim, plan } = visit()
+    expect(sim.cageKey!.drop).toBe(-1)
+    expect(chestLock(sim, sim.chests.find(c => c.role === 'cage')!)).toBe('finale')
+    win(sim)
+    run(sim, plan, 1 / 30 + 0.01)
+    expect(sim.cageKey!.drop).toBeGreaterThanOrEqual(0)
+    // It falls where the boss lay (or the nearest open ground to it).
+    const boss = sim.units.find(u => !u.alive && u.team === 1 && u.kind === sim.groups.find(g => g.boss)!.boss)
+    expect(Math.hypot(sim.cageKey!.x - (boss?.x ?? sim.cageKey!.x), sim.cageKey!.z - (boss?.z ?? sim.cageKey!.z))).toBeLessThan(2 * CELL)
+    // Standing on it before it lands: nothing is picked up.
+    const h = sim.hero.unit
+    h.x = h.px = sim.cageKey!.x
+    h.z = h.pz = sim.cageKey!.z
+    stepSim(sim, plan, 1 / 30)
+    expect(sim.cageKey!.taken).toBe(false)
+    run(sim, plan, KEY_DROP_T + 0.2)
+    expect(sim.cageKey!.drop).toBe(KEY_DROP_T)
+    expect(sim.cageKey!.taken).toBe(true)
+  })
+
+  it('the teachers behind the bars cannot be touched while the boss fights (nothing targets or hurts them)', () => {
+    const { sim, plan } = visit()
+    run(sim, plan, 2)
+    for (const p of sim.captives) {
+      const u = sim.get(p.unit)!
+      expect(u.statuses.some(q => q.id === 'invulnerable'), p.npc).toBe(true)
+      expect(u.hp, p.npc).toBe(u.s.maxHp)
     }
   })
 
@@ -179,11 +242,14 @@ describe('the way to the camp (#177)', () => {
       expect(bits.length, 'seed ' + seed).toBeGreaterThanOrEqual(3)
       expect(bits.some(d => d.kind === 'wheel'), 'seed ' + seed).toBe(true)
       expect(bits.some(d => d.kind === 'spikes'), 'seed ' + seed).toBe(true)
-      // They block nothing, and none lies on the camp's own ground (they lead to it).
+      // They block nothing, start below the boss and lead left to the caravan.
       for (const d of bits) expect(d.cells, 'seed ' + seed).toEqual([])
       const fin = plan.packs.find(q => q.finale)!
-      for (const d of bits) expect(d.z, 'seed ' + seed).toBeLessThan(fin.z + 4)
-      expect(Math.min(...bits.map(d => Math.hypot(d.x - camp.x, d.z - camp.z))), 'seed ' + seed).toBeLessThan(14)
+      const wagon = plan.dressing!.find(d => d.kind === 'wagon')!
+      expect(Math.max(...bits.map(d => d.z)), 'seed ' + seed).toBeGreaterThan(fin.z + 2.5 * CELL)
+      for (const d of bits) expect(d.x, 'seed ' + seed).toBeLessThan(fin.x)
+      expect(Math.min(...bits.map(d => Math.hypot(d.x - wagon.x, d.z - wagon.z))), 'seed ' + seed).toBeLessThan(3 * CELL)
+      void camp
     }
   })
 
@@ -196,10 +262,12 @@ describe('the way to the camp (#177)', () => {
     const { sim, plan } = visit()
     expect(campPending(sim)).toBe(true)
     const cage = sim.chests.find(c => c.role === 'cage')!
-    const key = campTarget(sim)!
-    expect(key.x).toBeCloseTo(sim.cageKey!.x, 5)
+    // The key is the boss's to drop: until it falls the way leads to the cage's door.
+    expect(campTarget(sim)!.x).toBeCloseTo(cage.sx, 5)
     win(sim)
+    run(sim, plan, KEY_DROP_T + 0.3)
     expect(campPending(sim)).toBe(true)
+    expect(campTarget(sim)!.x).toBeCloseTo(sim.cageKey!.x, 5)
     openCage(sim, plan)
     expect(campPending(sim)).toBe(false)
     expect(campTarget(sim)).toBeNull()
@@ -215,14 +283,14 @@ describe('the way to the camp (#177)', () => {
 })
 
 describe('the cage and its teachers', () => {
-  it('three of Sunford\'s teachers behind the bars, in their own looks, nobody to talk to yet', () => {
+  it('four of Sunford\'s teachers behind the bars (the knight, the pyromancer, the Soul Warden and the monk), in their own looks, nobody to talk to yet', () => {
     const { sim } = visit()
     const cage = sim.chests.find(c => c.role === 'cage')!
     const people = sim.captives.map(p => sim.get(p.unit)!)
     expect(people.map(u => u.kind).sort()).toEqual(CAMP_TEACHERS.map(t => t.look).sort())
     for (const u of people) {
       expect(Math.abs(u.z - cage.z)).toBeLessThan(0.5)
-      expect(Math.abs(u.x - cage.x)).toBeLessThanOrEqual(CELL + 0.01)
+      expect(Math.abs(u.x - cage.x)).toBeLessThanOrEqual(1.7)
       expect(u.npc).toBeFalsy()
     }
     for (const t of CAMP_TEACHERS) expect(inCamp(sim, t.npc)).toBe(false)
@@ -251,13 +319,16 @@ describe('the cage and its teachers', () => {
     }
     // Then to their places by the fire, and there they stay.
     run(sim, plan, CAPTIVE_TALK + 15)
-    expect(sim.captives).toHaveLength(3)
+    expect(sim.captives).toHaveLength(4)
     for (const p of sim.captives) {
       const u = sim.get(p.unit)!
       expect(p.phase).toBe('stay')
       expect(u.alive).toBe(true)
       expect(Math.hypot(u.x - p.hx, u.z - p.hz), p.npc).toBeLessThan(0.8)
-      expect(Math.hypot(u.x - plan.camp!.fire.x, u.z - plan.camp!.fire.z), p.npc).toBeLessThan(4)
+      // The ones who teach stand by the fire; the knight (his skill is the hero's already) has stepped aside, by the cage's door (#186).
+      const teaches = CAMP_TEACHERS.find(t => t.npc === p.npc)!.teaches
+      if (teaches) expect(Math.hypot(u.x - plan.camp!.fire.x, u.z - plan.camp!.fire.z), p.npc).toBeLessThan(4)
+      else expect(Math.hypot(u.x - plan.camp!.aside.x, u.z - plan.camp!.aside.z), p.npc).toBeLessThan(0.8)
     }
     // Said once only.
     run(sim, plan, 10)

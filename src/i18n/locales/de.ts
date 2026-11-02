@@ -169,6 +169,7 @@ export default {
   intro: {
     narrator: 'Der Chronist',
     skip: 'Überspringen',
+    later: '1 Monat später …',
     holdKey: '{key} gedrückt halten zum Überspringen',
     holdTouch: 'Gedrückt halten zum Überspringen',
     replay: 'Intro ansehen'
@@ -419,6 +420,7 @@ export default {
       title: 'Wähle deine erste Fähigkeit',
       lead: 'Sie ist gratis. Jeder dieser Lehrmeister hat einen anderen Stil, und von allen kannst du später lernen.',
       learn: 'Gratis lernen',
+      go: 'Zu {name} gehen',
       style: {
         aegis: 'Standhaft bleiben und zurückschlagen',
         pyro: 'Alles in Reichweite verbrennen',
@@ -6176,6 +6178,10 @@ export default {
       }
     },
     bark: {
+      hero: { cage: { 1: 'Schreit da jemand um Hilfe?' } },
+      trainerPyro: { help: { 1: 'Hilfe, ist da jemand?' } },
+      sbMasterSoulwarden: { help: { 1: 'Wir wurden entführt!' } },
+      sbMasterIronmonk: { help: { 1: 'Monster! Hilfe!' } },
       sphinx: {
         intro: { '1': "Antworte mir, Kleines, oder mein Sand begräbt dich." },
         riddle: { '1': "Ein Rätsel also. Tritt dorthin, wo ich es zeige, in dieser Reihenfolge." },

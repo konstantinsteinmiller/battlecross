@@ -25,6 +25,8 @@ export interface CageKeyState {
   x: number
   z: number
   taken: boolean
+  /** The first visit's camp (#182): seconds since the boss dropped it; -1 not yet dropped; absent: a key that lies about from the start. */
+  drop?: number
 }
 
 /** Where the cage stands and where its key lies; null when the place has no room. */

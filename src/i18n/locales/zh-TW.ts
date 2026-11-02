@@ -169,6 +169,7 @@ export default {
   intro: {
     narrator: '說書人',
     skip: '跳過',
+    later: '一個月後……',
     holdKey: '按住{key}跳過',
     holdTouch: '按住跳過',
     replay: '觀看開場'
@@ -418,6 +419,7 @@ export default {
       title: '選擇你的第一個技能',
       lead: '免費學習。這幾位導師風格各異，之後你可以向所有人學習。',
       learn: '免費學習',
+      go: '前往{name}',
       style: {
         aegis: '穩守反擊',
         pyro: '焚盡一切',
@@ -6156,6 +6158,10 @@ export default {
       }
     },
     bark: {
+      hero: { cage: { 1: '有人在喊救命嗎？' } },
+      trainerPyro: { help: { 1: '救命，有人嗎！' } },
+      sbMasterSoulwarden: { help: { 1: '我們被綁架了！' } },
+      sbMasterIronmonk: { help: { 1: '有怪物！救命！' } },
       sphinx: {
         intro: { '1': "回答我，小傢伙，否則就被我的沙子掩埋。" },
         riddle: { '1': "那就出個謎題。照我指示的順序，踩上去。" },

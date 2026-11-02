@@ -169,6 +169,7 @@ export default {
   intro: {
     narrator: 'Le Chroniqueur',
     skip: 'Passer',
+    later: '1 mois plus tard…',
     holdKey: 'Maintenez {key} pour passer',
     holdTouch: 'Maintenez pour passer',
     replay: 'Revoir l’intro'
@@ -419,6 +420,7 @@ export default {
       title: 'Choisis ta première compétence',
       lead: 'Elle est gratuite. Chacun de ces maîtres a son style, et tu pourras apprendre de tous plus tard.',
       learn: 'L’apprendre gratuitement',
+      go: 'Aller voir {name}',
       style: {
         aegis: 'Tenir bon et riposter',
         pyro: 'Tout brûler à portée',
@@ -6205,6 +6207,10 @@ export default {
       }
     },
     bark: {
+      hero: { cage: { 1: 'Quelqu’un crie à l’aide ?' } },
+      trainerPyro: { help: { 1: 'À l’aide, quelqu’un !' } },
+      sbMasterSoulwarden: { help: { 1: 'On nous a enlevés !' } },
+      sbMasterIronmonk: { help: { 1: 'Des monstres ! Au secours !' } },
       sphinx: {
         intro: { '1': "Réponds-moi, petit, ou sois enseveli sous mon sable." },
         riddle: { '1': "Une énigme, donc. Marche là où je te montre, dans cet ordre." },

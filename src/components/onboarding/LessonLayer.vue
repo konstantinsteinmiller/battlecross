@@ -266,12 +266,13 @@ const draw = (step: Step | null): void => {
     const r = el?.getBoundingClientRect() ?? null
     if (!el || !r || !shown(el, r)) { if (el && !coveredByModal(el)) bringIntoView(el); hide(); return }
     if (r.top < 0 || r.bottom > innerHeight || r.left < 0 || r.right > innerWidth) bringIntoView(el)
-    // The six "+": no ring on each (it covered their numbers), but the first one
-    // presses and a small arrow points in at it from its top right.
+    // The six "+": no ring on each (it covered their numbers). Their own hint (a small arrow
+    // at each one's top right, and each one pressing) lives on the sheet itself (`CharacterPage.vue`, #184),
+    // so it shows whenever points are unspent, lesson or no lesson; the finger is all the layer adds.
     if (step.rings) {
       for (let i = 0; i < RING_POOL; i++) placeRing(rings[i]!, null, null)
-      press(el)
-      placeArrow(r)
+      press(null)
+      if (arrowEl.value) arrowEl.value.style.opacity = '0'
     } else {
       press(null)
       if (arrowEl.value) arrowEl.value.style.opacity = '0'

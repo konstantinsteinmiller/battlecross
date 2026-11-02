@@ -1,6 +1,6 @@
 import { skillsOf } from '../data/skills'
 import { CAMP_GIFT_TIP, learnBlock, profile } from '../state/profile'
-import { CAMP_TEACHERS, campPending } from '../sim/camp'
+import { CAMP_LESSONS, campPending } from '../sim/camp'
 import type { Sim } from '../sim/world'
 import type { Unit } from '../sim/types'
 
@@ -16,7 +16,7 @@ import type { Unit } from '../sim/types'
 
 /** Could a rescued teacher teach this hero a skill now (gold aside: the first lesson is free)? */
 export const campHasLesson = (): boolean =>
-  CAMP_TEACHERS.some(t => skillsOf(t.cls).some(s => { const b = learnBlock(s.id); return b === '' || b === 'gold' }))
+  CAMP_LESSONS.some(t => skillsOf(t.cls).some(s => { const b = learnBlock(s.id); return b === '' || b === 'gold' }))
 
 /** The teachers are out and the free lesson is not taken yet. */
 export const campLessonPending = (sim: Sim): boolean =>

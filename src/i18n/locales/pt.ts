@@ -169,6 +169,7 @@ export default {
   intro: {
     narrator: 'O Cronista',
     skip: 'Pular',
+    later: '1 mês depois…',
     holdKey: 'Segure {key} para pular',
     holdTouch: 'Segure para pular',
     replay: 'Ver a introdução'
@@ -419,6 +420,7 @@ export default {
       title: 'Escolha sua primeira habilidade',
       lead: 'É grátis. Cada um desses mestres tem um estilo diferente e você poderá aprender com todos depois.',
       learn: 'Aprender de graça',
+      go: 'Ir até {name}',
       style: {
         aegis: 'Resistir e revidar',
         pyro: 'Queimar tudo ao alcance',
@@ -6211,6 +6213,10 @@ export default {
       }
     },
     bark: {
+      hero: { cage: { 1: 'Alguém está gritando por ajuda?' } },
+      trainerPyro: { help: { 1: 'Socorro, alguém!' } },
+      sbMasterSoulwarden: { help: { 1: 'Fomos sequestrados!' } },
+      sbMasterIronmonk: { help: { 1: 'Monstros! Socorro!' } },
       sphinx: {
         intro: { '1': "Responda-me, pequenino, ou seja enterrado na minha areia." },
         riddle: { '1': "Um enigma, então. Pise onde eu mostrar, nessa ordem." },

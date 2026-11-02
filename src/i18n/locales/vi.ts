@@ -169,6 +169,7 @@ export default {
   intro: {
     narrator: 'Người Kể Chuyện',
     skip: 'Bỏ qua',
+    later: '1 tháng sau…',
     holdKey: 'Giữ {key} để bỏ qua',
     holdTouch: 'Giữ để bỏ qua',
     replay: 'Xem đoạn mở đầu'
@@ -418,6 +419,7 @@ export default {
       title: 'Chọn kỹ năng đầu tiên của bạn',
       lead: 'Miễn phí. Mỗi sư phụ ở đây có một phong cách riêng, và sau này bạn có thể học từ tất cả.',
       learn: 'Học miễn phí',
+      go: 'Đến chỗ {name}',
       style: {
         aegis: 'Đứng vững và đáp trả',
         pyro: 'Thiêu rụi mọi thứ trong tầm tay',
@@ -6156,6 +6158,10 @@ export default {
       }
     },
     bark: {
+      hero: { cage: { 1: 'Có ai đang kêu cứu không?' } },
+      trainerPyro: { help: { 1: 'Cứu với, có ai không!' } },
+      sbMasterSoulwarden: { help: { 1: 'Chúng tôi bị bắt cóc!' } },
+      sbMasterIronmonk: { help: { 1: 'Quái vật! Cứu với!' } },
       sphinx: {
         intro: { '1': "Trả lời ta đi, nhóc con, nếu không cát của ta sẽ chôn vùi ngươi." },
         riddle: { '1': "Vậy thì một câu đố. Bước lên nơi ta chỉ, theo đúng thứ tự đó." },

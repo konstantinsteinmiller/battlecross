@@ -169,6 +169,7 @@ export default {
   intro: {
     narrator: 'Kronikoitsija',
     skip: 'Ohita',
+    later: '1 kuukausi myöhemmin…',
     holdKey: 'Ohita pitämällä {key} pohjassa',
     holdTouch: 'Ohita pitämällä pohjassa',
     replay: 'Katso intro'
@@ -418,6 +419,7 @@ export default {
       title: 'Valitse ensimmäinen taitosi',
       lead: 'Se on ilmainen. Jokaisella näistä opettajista on oma tyylinsä, ja myöhemmin voit oppia kaikilta.',
       learn: 'Opi ilmaiseksi',
+      go: 'Mene luo: {name}',
       style: {
         aegis: 'Pidä pintasi ja lyö takaisin',
         pyro: 'Polta kaikki ulottuvilla',
@@ -6156,6 +6158,10 @@ export default {
       }
     },
     bark: {
+      hero: { cage: { 1: 'Huutaako joku apua?' } },
+      trainerPyro: { help: { 1: 'Apua, joku!' } },
+      sbMasterSoulwarden: { help: { 1: 'Meidät kidnapattiin!' } },
+      sbMasterIronmonk: { help: { 1: 'Hirviöitä! Apua!' } },
       sphinx: {
         intro: { '1': "Vastaa minulle, pienokainen, tai hiekkani hautaa sinut." },
         riddle: { '1': "Arvoitus siis. Astu sinne, minne näytän, siinä järjestyksessä." },

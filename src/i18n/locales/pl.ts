@@ -169,6 +169,7 @@ export default {
   intro: {
     narrator: 'Kronikarz',
     skip: 'Pomiń',
+    later: 'Miesiąc później…',
     holdKey: 'Przytrzymaj {key}, aby pominąć',
     holdTouch: 'Przytrzymaj, aby pominąć',
     replay: 'Obejrzyj intro'
@@ -419,6 +420,7 @@ export default {
       title: 'Wybierz pierwszą umiejętność',
       lead: 'Jest darmowa. Każdy z tych nauczycieli ma inny styl, a później nauczysz się od wszystkich.',
       learn: 'Naucz się za darmo',
+      go: 'Idź do: {name}',
       style: {
         aegis: 'Stój twardo i oddawaj ciosy',
         pyro: 'Spal wszystko w zasięgu',
@@ -6255,6 +6257,10 @@ export default {
       }
     },
     bark: {
+      hero: { cage: { 1: 'Czy ktoś woła o pomoc?' } },
+      trainerPyro: { help: { 1: 'Pomocy, ktokolwiek!' } },
+      sbMasterSoulwarden: { help: { 1: 'Porwano nas!' } },
+      sbMasterIronmonk: { help: { 1: 'Potwory! Pomocy!' } },
       sphinx: {
         intro: { '1': "Odpowiedz mi, maleństwo, albo pogrzebie cię mój piasek." },
         riddle: { '1': "Zagadka, zatem. Stąpaj tam, gdzie pokażę, w tej kolejności." },

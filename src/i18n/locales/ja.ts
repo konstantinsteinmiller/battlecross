@@ -169,6 +169,7 @@ export default {
   intro: {
     narrator: '語り部',
     skip: 'スキップ',
+    later: '1か月後…',
     holdKey: '{key}長押しでスキップ',
     holdTouch: '長押しでスキップ',
     replay: 'イントロを見る'
@@ -418,6 +419,7 @@ export default {
       title: '最初のスキルを選ぼう',
       lead: '無料です。この師匠たちはそれぞれ流儀が違い、あとで全員から学べます。',
       learn: '無料で習得',
+      go: '{name}のもとへ行く',
       style: {
         aegis: '踏みとどまって反撃する',
         pyro: '届く限りすべてを燃やす',
@@ -6156,6 +6158,10 @@ export default {
       }
     },
     bark: {
+      hero: { cage: { 1: '誰か助けを求めて叫んでいる？' } },
+      trainerPyro: { help: { 1: '誰か、助けて！' } },
+      sbMasterSoulwarden: { help: { 1: '私たちはさらわれたの！' } },
+      sbMasterIronmonk: { help: { 1: 'モンスターよ！助けて！' } },
       sphinx: {
         intro: { '1': "答えなさい、小さき者。さもなくば砂に埋もれるがいい。" },
         riddle: { '1': "では謎かけを。わたしが示す場所を、その順に踏みなさい。" },

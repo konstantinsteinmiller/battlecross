@@ -492,7 +492,7 @@ export class LevelProps {
   /** Mist lying in patches (the Whisperwood, #120): each drifts and breathes. */
   private mists: Array<{ mesh: Mesh; spin: number; ph: number }> = []
   /** A cage's key lying in the place (#100). */
-  private key: { root: Group; x: number; z: number; glint: number } | null = null
+  private key: { root: Group; x: number; z: number; glint: number; dropT: number } | null = null
 
   /**
    * @param shake camera trauma, for the rumble of a door.
@@ -1381,6 +1381,8 @@ export class LevelProps {
   private buildKey(): void {
     const k = this.sim.cageKey
     if (!k || k.taken) return
+    // The camp's key is the boss's to drop (#182): nothing lies there until it falls.
+    if (k.drop !== undefined && k.drop < 0) return
     const g = merge([
       xform(paint(torus(0.11, 0.035, 6, 12), '#f0c040'), [0, 0, -0.16], [Math.PI / 2, 0, 0]),
       xform(paint(rcyl(0.03, 0.36, 0.01, 6, 1), '#f0c040'), [0, 0, 0.05], [Math.PI / 2, 0, 0]),
@@ -1397,7 +1399,7 @@ export class LevelProps {
     line.renderOrder = -1
     root.add(body, line)
     this.root.add(root)
-    this.key = { root, x: k.x, z: k.z, glint: 0.5 }
+    this.key = { root, x: k.x, z: k.z, glint: 0.5, dropT: -1 }
   }
 
   /** The pickaxe: chips fly at each swing; the last one breaks the vein out. */
@@ -1491,6 +1493,14 @@ export class LevelProps {
       case 'chest': this.onChest(e); break
       case 'herb': this.onHerb(e); break
       case 'mine': this.onMine(e); break
+      case 'cageKeyDrop': {
+        // The boss lets the key fall: it arcs down from above, glints, and lands with a ring.
+        if (!this.key) this.buildKey()
+        if (this.key) { this.key.dropT = 0; this.key.x = e.x; this.key.z = e.z; this.key.root.visible = true }
+        this.vfx.ring(e.x, e.z, 0.2, 1.2, '#ffd84a', 0.4)
+        sfx('uiEquip', this.pan(e.x))
+        break
+      }
       case 'cageKey': {
         if (this.key) this.key.root.visible = false
         this.vfx.ring(e.x, e.z, 0.2, 1.6, '#ffd84a', 0.5)
@@ -1660,7 +1670,18 @@ export class LevelProps {
     if (this.key && this.key.root.visible) {
       const kv = this.key
       kv.root.rotation.y += dt * 1.2
-      kv.root.position.y = groundAt(kv.x, kv.z) + 0.25 + Math.sin(this.time * 2.4) * 0.05
+      // Falling (#182): high above, easing down in under a second, then it bobs as before.
+      let lift = 0
+      if (kv.dropT >= 0) {
+        kv.dropT += dt
+        const u = Math.min(1, kv.dropT / 0.75)
+        lift = (1 - u) * (1 - u) * 3
+        if (u >= 1) {
+          kv.dropT = -1
+          this.vfx.ring(kv.x, kv.z, 0.2, 1.6, '#fff2a0', 0.4)
+        }
+      }
+      kv.root.position.set(kv.x, groundAt(kv.x, kv.z) + 0.25 + lift + (kv.dropT < 0 ? Math.sin(this.time * 2.4) * 0.05 : 0), kv.z)
       kv.glint -= dt
       const d = Math.hypot(kv.x - this.heroX, kv.z - this.heroZ)
       if (kv.glint <= 0 && d < 16) {

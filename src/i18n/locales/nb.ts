@@ -169,6 +169,7 @@ export default {
   intro: {
     narrator: 'Krønikeskriveren',
     skip: 'Hopp over',
+    later: '1 måned senere…',
     holdKey: 'Hold {key} for å hoppe over',
     holdTouch: 'Hold inne for å hoppe over',
     replay: 'Se introen'
@@ -418,6 +419,7 @@ export default {
       title: 'Velg din første ferdighet',
       lead: 'Den er gratis. Hver av disse lærerne har sin egen stil, og senere kan du lære av dem alle.',
       learn: 'Lær den gratis',
+      go: 'Gå til {name}',
       style: {
         aegis: 'Stå støtt og slå tilbake',
         pyro: 'Brenn alt innen rekkevidde',
@@ -6156,6 +6158,10 @@ export default {
       }
     },
     bark: {
+      hero: { cage: { 1: 'Er det noen som roper om hjelp?' } },
+      trainerPyro: { help: { 1: 'Hjelp, noen!' } },
+      sbMasterSoulwarden: { help: { 1: 'Vi ble kidnappet!' } },
+      sbMasterIronmonk: { help: { 1: 'Monstre! Hjelp!' } },
       sphinx: {
         intro: { '1': "Svar meg, lille venn, eller bli begravd i sanden min." },
         riddle: { '1': "En gåte, da. Tråkk der jeg viser, i den rekkefølgen." },

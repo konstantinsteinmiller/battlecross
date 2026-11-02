@@ -169,6 +169,7 @@ export default {
   intro: {
     narrator: 'La Kronikisto',
     skip: 'Preterlasi',
+    later: 'Monaton poste…',
     holdKey: 'Tenu {key} por preterlasi',
     holdTouch: 'Tenu premite por preterlasi',
     replay: 'Spekti la enkondukon'
@@ -418,6 +419,7 @@ export default {
       title: 'Elektu vian unuan kapablon',
       lead: 'Ĝi estas senpaga. Ĉiu el ĉi tiuj instruistoj havas malsaman stilon, kaj poste vi povas lerni de ĉiuj.',
       learn: 'Lernu senpage',
+      go: 'Iru al {name}',
       style: {
         aegis: 'Stari firme kaj bati reen',
         pyro: 'Bruligi ĉion en atingo',
@@ -6156,6 +6158,10 @@ export default {
       }
     },
     bark: {
+      hero: { cage: { 1: 'Ĉu iu krias pri helpo?' } },
+      trainerPyro: { help: { 1: 'Helpon, ĉu iu!' } },
+      sbMasterSoulwarden: { help: { 1: 'Ni estis kidnapitaj!' } },
+      sbMasterIronmonk: { help: { 1: 'Monstroj! Helpon!' } },
       sphinx: {
         intro: { '1': "Respondu al mi, etulo, aŭ mia sablo entombigos vin." },
         riddle: { '1': "Enigmo do. Paŝu, kien mi montras, en tiu ordo." },

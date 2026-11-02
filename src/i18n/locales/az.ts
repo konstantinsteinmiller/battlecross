@@ -169,6 +169,7 @@ export default {
   intro: {
     narrator: 'Salnaməçi',
     skip: 'Keç',
+    later: '1 ay sonra…',
     holdKey: 'Keçmək üçün {key} düyməsini basılı saxla',
     holdTouch: 'Keçmək üçün basılı saxla',
     replay: 'Girişə bax'
@@ -418,6 +419,7 @@ export default {
       title: 'İlk bacarığını seç',
       lead: 'Pulsuzdur. Bu müəllimlərin hər birinin öz üslubu var, sonra hamısından öyrənə bilərsən.',
       learn: 'Pulsuz öyrən',
+      go: '{name} yanına get',
       style: {
         aegis: 'Möhkəm dur və cavab ver',
         pyro: 'Əlçatan hər şeyi yandır',
@@ -6156,6 +6158,10 @@ export default {
       }
     },
     bark: {
+      hero: { cage: { 1: 'Kimsə kömək üçün qışqırır?' } },
+      trainerPyro: { help: { 1: 'Kömək, kimsə!' } },
+      sbMasterSoulwarden: { help: { 1: 'Bizi qaçırdılar!' } },
+      sbMasterIronmonk: { help: { 1: 'Canavarlar! Kömək!' } },
       sphinx: {
         intro: { '1': "Cavab ver mənə, balaca, yoxsa qumum səni basdıracaq." },
         riddle: { '1': "Onda tapmaca. Göstərdiyim yerə, o ardıcıllıqla bas." },

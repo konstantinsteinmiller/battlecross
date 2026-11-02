@@ -169,6 +169,7 @@ export default {
   intro: {
     narrator: 'Metraštininkas',
     skip: 'Praleisti',
+    later: 'Po mėnesio…',
     holdKey: 'Laikykite {key}, kad praleistumėte',
     holdTouch: 'Laikykite, kad praleistumėte',
     replay: 'Žiūrėti įžangą'
@@ -418,6 +419,7 @@ export default {
       title: 'Pasirink pirmąjį įgūdį',
       lead: 'Nemokamas. Kiekvienas šių mokytojų turi savo stilių, o vėliau galėsi mokytis iš visų.',
       learn: 'Išmokti nemokamai',
+      go: 'Eiti pas {name}',
       style: {
         aegis: 'Atsilaikyti ir atsakyti smūgiu',
         pyro: 'Sudeginti viską, ką pasieksi',
@@ -6215,6 +6217,10 @@ export default {
       }
     },
     bark: {
+      hero: { cage: { 1: 'Ar kažkas šaukia pagalbos?' } },
+      trainerPyro: { help: { 1: 'Padėkite, kas nors!' } },
+      sbMasterSoulwarden: { help: { 1: 'Mus pagrobė!' } },
+      sbMasterIronmonk: { help: { 1: 'Pabaisos! Padėkite!' } },
       sphinx: {
         intro: { '1': "Atsakyk man, mažyli, arba palaidos tave mano smėlis." },
         riddle: { '1': "Tuomet mįslė. Žengk ten, kur parodysiu, ta tvarka." },

@@ -169,6 +169,7 @@ export default {
   intro: {
     narrator: 'Solnomachi',
     skip: 'Oʻtkazib yuborish',
+    later: '1 oydan keyin…',
     holdKey: 'Oʻtkazib yuborish uchun {key} ni bosib turing',
     holdTouch: 'Oʻtkazib yuborish uchun bosib turing',
     replay: 'Kirishni koʻrish'
@@ -418,6 +419,7 @@ export default {
       title: 'Birinchi ko‘nikmangni tanla',
       lead: 'U bepul. Bu ustozlarning har birining o‘z uslubi bor, keyinroq hammasidan o‘rgana olasan.',
       learn: 'Bepul o‘rgan',
+      go: '{name} oldiga bor',
       style: {
         aegis: 'Mustahkam tur va zarbani qaytar',
         pyro: 'Yetadigan hamma narsani yoq',
@@ -6156,6 +6158,10 @@ export default {
       }
     },
     bark: {
+      hero: { cage: { 1: 'Kimdir yordam so‘rab qichqiryaptimi?' } },
+      trainerPyro: { help: { 1: 'Yordam bering, kimdir!' } },
+      sbMasterSoulwarden: { help: { 1: 'Bizni o‘g‘irlab ketishdi!' } },
+      sbMasterIronmonk: { help: { 1: 'Hayvonlar! Yordam bering!' } },
       sphinx: {
         intro: { '1': "Javob ber, kichkintoy, aks holda qumim seni ko‘mib yuboradi." },
         riddle: { '1': "Unda topishmoq. Men ko‘rsatgan joyga, o‘sha tartibda qadam bos." },

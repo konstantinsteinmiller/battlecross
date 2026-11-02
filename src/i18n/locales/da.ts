@@ -169,6 +169,7 @@ export default {
   intro: {
     narrator: 'Krønikeskriveren',
     skip: 'Spring over',
+    later: '1 måned senere…',
     holdKey: 'Hold {key} for at springe over',
     holdTouch: 'Hold nede for at springe over',
     replay: 'Se introen'
@@ -418,6 +419,7 @@ export default {
       title: 'Vælg din første evne',
       lead: 'Den er gratis. Hver af disse lærere har sin egen stil, og senere kan du lære af dem alle.',
       learn: 'Lær den gratis',
+      go: 'Gå hen til {name}',
       style: {
         aegis: 'Stå fast og slå igen',
         pyro: 'Brænd alt inden for rækkevidde',
@@ -6156,6 +6158,10 @@ export default {
       }
     },
     bark: {
+      hero: { cage: { 1: 'Er der nogen, der råber om hjælp?' } },
+      trainerPyro: { help: { 1: 'Hjælp, nogen!' } },
+      sbMasterSoulwarden: { help: { 1: 'Vi blev kidnappet!' } },
+      sbMasterIronmonk: { help: { 1: 'Monstre! Hjælp!' } },
       sphinx: {
         intro: { '1': "Svar mig, lille du, eller bliv begravet i mit sand." },
         riddle: { '1': "En gåde, så. Træd hvor jeg viser, i den rækkefølge." },

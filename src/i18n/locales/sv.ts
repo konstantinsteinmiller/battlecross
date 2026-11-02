@@ -169,6 +169,7 @@ export default {
   intro: {
     narrator: 'Krönikören',
     skip: 'Hoppa över',
+    later: '1 månad senare…',
     holdKey: 'Håll {key} för att hoppa över',
     holdTouch: 'Håll inne för att hoppa över',
     replay: 'Se introt'
@@ -418,6 +419,7 @@ export default {
       title: 'Välj din första färdighet',
       lead: 'Den är gratis. Varje lärare här har sin egen stil, och senare kan du lära dig av alla.',
       learn: 'Lär dig gratis',
+      go: 'Gå till {name}',
       style: {
         aegis: 'Stå fast och slå tillbaka',
         pyro: 'Bränn allt inom räckhåll',
@@ -6156,6 +6158,10 @@ export default {
       }
     },
     bark: {
+      hero: { cage: { 1: 'Är det någon som skriker på hjälp?' } },
+      trainerPyro: { help: { 1: 'Hjälp, någon!' } },
+      sbMasterSoulwarden: { help: { 1: 'Vi blev kidnappade!' } },
+      sbMasterIronmonk: { help: { 1: 'Monster! Hjälp!' } },
       sphinx: {
         intro: { '1': "Svara mig, lilla du, eller begravs i min sand." },
         riddle: { '1': "En gåta då. Kliv där jag visar, i den ordningen." },

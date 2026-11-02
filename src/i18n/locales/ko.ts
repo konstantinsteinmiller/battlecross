@@ -169,6 +169,7 @@ export default {
   intro: {
     narrator: '이야기꾼',
     skip: '건너뛰기',
+    later: '1개월 후…',
     holdKey: '{key} 길게 눌러 건너뛰기',
     holdTouch: '길게 눌러 건너뛰기',
     replay: '인트로 보기'
@@ -418,6 +419,7 @@ export default {
       title: '첫 스킬을 고르세요',
       lead: '무료입니다. 이 스승들은 각자 다른 방식이 있고, 나중에 모두에게 배울 수 있습니다.',
       learn: '무료로 배우기',
+      go: '{name}에게 가기',
       style: {
         aegis: '버티며 반격하기',
         pyro: '닿는 모든 것을 불태우기',
@@ -6156,6 +6158,10 @@ export default {
       }
     },
     bark: {
+      hero: { cage: { 1: '누가 도와달라고 소리치고 있나?' } },
+      trainerPyro: { help: { 1: '도와주세요, 아무나!' } },
+      sbMasterSoulwarden: { help: { 1: '우리는 납치당했어요!' } },
+      sbMasterIronmonk: { help: { 1: '괴물이에요! 도와줘요!' } },
       sphinx: {
         intro: { '1': "대답하거라, 작은 것아. 아니면 내 모래에 묻히리라." },
         riddle: { '1': "그럼 수수께끼다. 내가 보여 주는 곳을, 그 순서대로 밟아라." },

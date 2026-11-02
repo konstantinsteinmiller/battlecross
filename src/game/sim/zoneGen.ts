@@ -13,7 +13,7 @@ import type { TownPlan } from './town'
 import { placeHerbs, placePieces, placeTreasure, type HerbPlan, type PiecePlan } from './herbs'
 import { placeOres, type OrePlan } from './ores'
 import { placeCage } from './cages'
-import { CAMP_ROOM, carveCamp, dressCamp, type CampPlan } from './camp'
+import { CAMP_ROOM, dressCamp, placeCamp, type CampPlan } from './camp'
 import { LAID_SHAPES, carveDisc, carveLine, carveRect, layOut, layoutHeight, wallFace, type Chamber, type Fixture, type Guide, type Laid } from './layouts'
 import { dressPlace, makeDresser, type DressPlan } from './dressing'
 import { widenWays, type Target } from './widen'
@@ -552,8 +552,9 @@ export const generateZone = (def: ZoneDef, seed: number, o: ZoneGenOpts = {}): Z
   const features = addFeatures({ def, seed, w: Wd, h, solid, trail, kind, cave, sealed, side, cs, chest, secret, secretSlot, tutorial: !!o.tutorial, bare: !!o.bare, branches: M > 0, ...(laid?.loopSites.length ? { loopSites: laid.loopSites } : {}) })
   if (lake) features.ponds.push(lake)
   if (laid) features.crossings.unshift(...laid.crossings)
-  // The first visit's camp (#156): cut out above the finale, its cage a chest.
-  const campCut = o.tutorial && !o.bare ? carveCamp({ w: Wd, h, solid, trail, kind, sealed, fin: cs[n]! }) : null
+  // The first visit's camp (#156, #182): on the boss's floor, its cage (right of the boss) a chest.
+  const finalePack = packs.find(q => q.finale)
+  const campCut = o.tutorial && !o.bare && finalePack ? placeCamp({ w: Wd, h, solid, trail, kind, sealed, boss: { x: finalePack.x, z: finalePack.z } }) : null
   if (campCut) features.chests.push({ id: features.chests.length, ...campCut.chest })
   // The place's set pieces (#120), on their own stream, before the relief
   // (each blocking one stands on a level pad) and before the herbs and the
@@ -579,7 +580,7 @@ export const generateZone = (def: ZoneDef, seed: number, o: ZoneGenOpts = {}): Z
   const dresser = makeDresser({ w: Wd, h, solid, trail, kind, sealed, side, start: { i: cs[0]!.i, j: cs[0]!.j }, keep, chests: features.chests })
   const invasion = def.invaded ? { ruins: INVASION[def.id].ruins, scars: INVASION[def.id].scars } : undefined
   if (!o.tutorial && !o.bare) dressPlace(dresser, { shape, rng: mulberry32((seed ^ DRESS_SALT) >>> 0), w: Wd, kind, cs, chambers, fixtures, ...(invasion ? { invasion } : {}) })
-  const camp = campCut ? dressCamp(dresser, { w: Wd, solid, kind, ...campCut, fin: cs[n]! }) : null
+  const camp = campCut ? dressCamp(dresser, { w: Wd, h, solid, kind, sealed, ...campCut }) : null
   for (const k of secretCells) masonry[k] = 0
   // The secret's pocket is a side place too: it lies a little above its clearing.
   const lobes = features.lobes.slice()
@@ -598,7 +599,7 @@ export const generateZone = (def: ZoneDef, seed: number, o: ZoneGenOpts = {}): Z
   const campAvoid: Array<{ x: number; z: number }> = []
   if (campCut) {
     campAvoid.push(campCut.key, campCut.chest)
-    for (let dj = -8; dj <= 8; dj += 2) for (let di = -8; di <= 8; di += 2) if (Math.hypot(di, dj) <= 8) campAvoid.push({ x: cx0(campCut.ci + di), z: cx0(campCut.cj + dj) })
+    for (let dj = -9; dj <= 9; dj += 2) for (let di = -9; di <= 9; di += 2) if (Math.hypot(di, dj) <= 9) campAvoid.push({ x: cx0(campCut.bi + di), z: cx0(campCut.bj + dj) })
   }
   const herbs = o.bare ? [] : placeHerbs(spots, def.id, o.tutorial ? 2 : undefined, o.tutorial ? campAvoid : [])
   // The treasure map (#89), after the herbs and on streams of their own too.

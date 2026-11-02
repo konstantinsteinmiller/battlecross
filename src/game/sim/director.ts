@@ -72,7 +72,8 @@ export const populateZone = (sim: Sim, plan: ZonePlan, zone: ZoneId, owned: Iter
   plan.packs.forEach((p, gi) => {
     const group = { id: gi, x: p.x, z: p.z, members: [] as number[], awake: false, cleared: false, finale: p.finale, boss: p.boss }
     // A pack with its camp fire (the Hollows, #120) sits round it, warming itself.
-    const fire = plan.dressing?.find(d => d.kind === 'fire' && Math.hypot(d.x - p.x, d.z - p.z) < p.r)
+    // (The first visit's camp fire is the teachers', not a fire the boss's pack sits round.)
+    const fire = plan.dressing?.find(d => d.kind === 'fire' && Math.hypot(d.x - p.x, d.z - p.z) < p.r && !(plan.camp && d.x === plan.camp.fire.x && d.z === plan.camp.fire.z))
     sim.groups.push(group)
     p.kinds.forEach((kind, k) => {
       const leader = p.finale && k === 0

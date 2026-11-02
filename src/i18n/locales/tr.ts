@@ -169,6 +169,7 @@ export default {
   intro: {
     narrator: 'Vakanüvis',
     skip: 'Geç',
+    later: '1 ay sonra…',
     holdKey: 'Geçmek için {key} tuşunu basılı tut',
     holdTouch: 'Geçmek için basılı tut',
     replay: 'Girişi izle'
@@ -418,6 +419,7 @@ export default {
       title: 'İlk yeteneğini seç',
       lead: 'Bedava. Bu öğretmenlerin her birinin farklı bir tarzı var, sonra hepsinden öğrenebilirsin.',
       learn: 'Bedava öğren',
+      go: '{name} yanına git',
       style: {
         aegis: 'Dimdik dur ve karşılık ver',
         pyro: 'Menzildeki her şeyi yak',
@@ -6156,6 +6158,10 @@ export default {
       }
     },
     bark: {
+      hero: { cage: { 1: 'Biri yardım için mi bağırıyor?' } },
+      trainerPyro: { help: { 1: 'İmdat, kimse yok mu!' } },
+      sbMasterSoulwarden: { help: { 1: 'Kaçırıldık!' } },
+      sbMasterIronmonk: { help: { 1: 'Canavarlar! İmdat!' } },
       sphinx: {
         intro: { '1': "Cevap ver bana küçük şey, yoksa kumuma gömülürsün." },
         riddle: { '1': "Öyleyse bir bilmece. Gösterdiğim yerlere, o sırayla bas." },

@@ -169,6 +169,7 @@ export default {
   intro: {
     narrator: 'De Kroniekschrijver',
     skip: 'Overslaan',
+    later: '1 maand later…',
     holdKey: 'Houd {key} ingedrukt om over te slaan',
     holdTouch: 'Ingedrukt houden om over te slaan',
     replay: 'Intro bekijken'
@@ -419,6 +420,7 @@ export default {
       title: 'Kies je eerste vaardigheid',
       lead: 'Het is gratis. Elk van deze leraren heeft een andere stijl, en later kun je van allemaal leren.',
       learn: 'Gratis leren',
+      go: 'Ga naar {name}',
       style: {
         aegis: 'Standvastig blijven en terugslaan',
         pyro: 'Alles binnen bereik verbranden',
@@ -6167,6 +6169,10 @@ export default {
       }
     },
     bark: {
+      hero: { cage: { 1: 'Schreeuwt daar iemand om hulp?' } },
+      trainerPyro: { help: { 1: 'Help, is daar iemand!' } },
+      sbMasterSoulwarden: { help: { 1: 'We zijn ontvoerd!' } },
+      sbMasterIronmonk: { help: { 1: 'Monsters! Help!' } },
       sphinx: {
         intro: { '1': "Antwoord me, kleintje, of word begraven in mijn zand." },
         riddle: { '1': "Een raadsel dan. Stap waar ik het toon, in die volgorde." },

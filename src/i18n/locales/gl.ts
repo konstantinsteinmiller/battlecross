@@ -169,6 +169,7 @@ export default {
   intro: {
     narrator: 'O Cronista',
     skip: 'Omitir',
+    later: '1 mes despois…',
     holdKey: 'Mantén {key} para omitir',
     holdTouch: 'Mantén premido para omitir',
     replay: 'Ver a introdución'
@@ -419,6 +420,7 @@ export default {
       title: 'Escolle a túa primeira habilidade',
       lead: 'É de balde. Cada un destes mestres ten un estilo distinto e máis adiante poderás aprender de todos.',
       learn: 'Aprender de balde',
+      go: 'Ir con {name}',
       style: {
         aegis: 'Aguantar firme e devolver o golpe',
         pyro: 'Queimar todo o que teñas ao alcance',
@@ -6206,6 +6208,10 @@ export default {
       }
     },
     bark: {
+      hero: { cage: { 1: 'Hai alguén berrando pedindo axuda?' } },
+      trainerPyro: { help: { 1: 'Axuda, alguén!' } },
+      sbMasterSoulwarden: { help: { 1: 'Secuestráronnos!' } },
+      sbMasterIronmonk: { help: { 1: 'Monstros! Axuda!' } },
       sphinx: {
         intro: { '1': "Respóndeme, pequeno, ou a miña area enterrarate." },
         riddle: { '1': "Unha adiviña, logo. Pisa onde che amose, nesa orde." },

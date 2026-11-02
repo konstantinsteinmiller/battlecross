@@ -169,6 +169,7 @@ export default {
   intro: {
     narrator: 'El Cronista',
     skip: 'Omet',
+    later: '1 mes després…',
     holdKey: 'Mantén {key} per ometre',
     holdTouch: 'Mantén premut per ometre',
     replay: 'Mira la introducció'
@@ -419,6 +420,7 @@ export default {
       title: 'Tria la teva primera habilitat',
       lead: 'És gratis. Cadascun d’aquests mestres té un estil diferent i més endavant podràs aprendre de tots.',
       learn: 'Aprèn-la gratis',
+      go: 'Vés a {name}',
       style: {
         aegis: 'Mantenir-se ferm i tornar el cop',
         pyro: 'Cremar tot el que tinguis a l’abast',
@@ -6203,6 +6205,10 @@ export default {
       }
     },
     bark: {
+      hero: { cage: { 1: 'Algú crida demanant ajuda?' } },
+      trainerPyro: { help: { 1: 'Ajuda, algú!' } },
+      sbMasterSoulwarden: { help: { 1: 'Ens han segrestat!' } },
+      sbMasterIronmonk: { help: { 1: 'Monstres! Ajuda!' } },
       sphinx: {
         intro: { '1': "Respon-me, petit, o la meva sorra t'enterrarà." },
         riddle: { '1': "Un endevinall, doncs. Trepitja on t'indiqui, en aquest ordre." },
