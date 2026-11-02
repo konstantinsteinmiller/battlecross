@@ -1,0 +1,88 @@
+[
+  {
+    "device": "desktop",
+    "frames": [
+      {
+        "at": 0.3,
+        "t": 0,
+        "veil": 1,
+        "label": 0,
+        "on": false
+      },
+      {
+        "at": 1.5,
+        "t": 0.32,
+        "veil": 0.55,
+        "label": 0,
+        "on": true
+      },
+      {
+        "at": 2.6,
+        "t": 0.95,
+        "veil": 0,
+        "label": 0,
+        "on": true
+      },
+      {
+        "at": 3.8,
+        "t": 1.5,
+        "veil": 0,
+        "label": 0,
+        "on": true
+      },
+      {
+        "at": 5,
+        "t": 2.03,
+        "veil": 0,
+        "label": 0,
+        "on": true
+      },
+      {
+        "at": 6.6,
+        "t": 2.58,
+        "veil": 0,
+        "label": 0,
+        "on": true
+      },
+      {
+        "at": 8.2,
+        "t": 3.18,
+        "veil": 0,
+        "label": 0,
+        "on": true
+      },
+      {
+        "at": 9.2,
+        "t": 3.68,
+        "veil": 0,
+        "label": 0,
+        "on": true
+      },
+      {
+        "at": 10.8,
+        "t": 4.15,
+        "veil": 0,
+        "label": 0,
+        "on": true
+      },
+      {
+        "at": 11.6,
+        "t": 4.58,
+        "veil": 0,
+        "label": 0,
+        "on": true
+      }
+    ],
+    "after": {
+      "intro": true,
+      "choice": false,
+      "screen": "zone",
+      "seen": false,
+      "gender": "m"
+    },
+    "errors": [
+      "TypeError: Cannot read properties of undefined (reading 'r')"
+    ],
+    "seconds": 13.2
+  }
+]

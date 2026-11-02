@@ -1100,6 +1100,7 @@ export const animate = (v: RigView, u: Unit, x: number, z: number, time: number,
   y += (v.hopY + v.rootY) * v.scale
   // A boss in the air (#74): its script's height, in metres.
   if (u.boss && u.boss.alt > 0) y += u.boss.alt
+  if (u.stunt) y += u.stunt.lift
   // A leap is drawn travelling: the sim moves the body at the landing.
   const a = u.action
   if (v.leapK > 0 && a && a.id === 'leap' && !a.done) {
@@ -1157,6 +1158,8 @@ export const animate = (v: RigView, u: Unit, x: number, z: number, time: number,
 
   // On the ground's height where the body stands (`gfx/ground.ts`).
   root.position.set(px, y + groundAt(px, pz), pz)
+  // A staged forward flip (#188): the whole body over its head, once.
+  if (u.stunt && u.stunt.flip > 0) tilt += u.stunt.flip * Math.PI * 2
   root.rotation.set(tilt, v.yaw + v.spin, roll, 'YXZ')
   root.scale.set(v.scale * sxz, v.scale * sy, v.scale * sxz)
   v.x = px

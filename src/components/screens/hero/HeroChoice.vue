@@ -65,6 +65,8 @@ import { isForcedDarkBlocking } from '@/use/useForcedDarkModeGuard'
 import { burst, prefersReducedMotion } from '@/components/game/fx'
 
 const { t } = useI18n()
+/** The pick is made and its pop has played: the game goes on (a new save's film starts, #183). */
+const emit = defineEmits<{ (e: 'done'): void }>()
 const low = sceneQuality() === 'low'
 
 /** wait: owed, not on screen yet (the loader, an ad); open: asking; picked:
@@ -152,7 +154,7 @@ const choose = (g: HeroGender): void => {
   pickHero(g)
   try { currentZone()?.restyleHero() } catch (e) { console.warn('[hero-choice] the hero could not be rebuilt', e) }
   // The pop plays, then the overlay leaves and the fight begins.
-  doneTimer = window.setTimeout(() => { stage.value = 'done' }, prefersReducedMotion() ? 120 : 640)
+  doneTimer = window.setTimeout(() => { stage.value = 'done'; emit('done') }, prefersReducedMotion() ? 120 : 640)
 }
 
 /** Left / right move between the two portraits; Enter and Space pick (a button's own). */

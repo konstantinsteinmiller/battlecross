@@ -1,103 +1,83 @@
 /**
- * ─── The intro's script (roadmap #130) ───────────────────────────────────────
+ * ─── The intro's script (roadmap #130, replaced by #183) ─────────────────────
  *
- * Pure data and two small clocks, no engine: the runner (`intro/runner.ts`)
- * plays it, the voice manifest reads its lines (`data/dialogs/intro.ts`), the
- * tests hold it to its limits (`tests/game/intro.test.ts`).
+ * Pure data and a small clock, no engine: the runner (`intro/runner.ts`) plays
+ * it, the tests hold it to its limits (`tests/game/intro.test.ts`).
  *
- * 25 seconds, in two acts:
- *   0.0  black, the title, the narrator: "Every road in this world meets at a
- *        crossing… and every crossing is a battle." (the place builds behind it)
- *   4.0  the frozen tundra fades in, close on a level-30 Pyromancer, five
- *        skills in the belt, a pack of the Frost Jarl's folk closing in
- *   6.0  "From the quiet fields of Sunford, a young hero set out."
- *   5–16 Flame Pillar, Fireball, Ring of Fire ("Fire answered the call."),
- *        Phoenix Flight, Fireball, Flame Pillar
- *  13.8  "Goblin kings, frost jarls, a void dragon… and the Arch-Demon."
- *  17.6  the camera pulls out: Cataclysm, twelve meteors finish the field
- *  20.8  "Your legend begins now." and the title over the burning field;
- *        fade to black, the game starts at 25.0
+ * A new save picks its hero first (the choice is also the click that gives the
+ * page focus), then 12 seconds of film play and the game starts:
  *
- * The scene's half waits for the place: if it is not built by `SCENE_AT`,
- * the clock holds there (the title card stays) until it is, and gives up on a
- * device that needs longer than `BUILD_CAP_S` (the game just starts).
+ *   0.0  the field, a small dragon over a hero lying face down in the grass
+ *   0.9  two heroes, far above this one's level, ride in on the fight: a beast
+ *        caller (wolves, a bear, a hawk) and an elementalist (fire, frost,
+ *        lightning, a storm of meteors)
+ *   8.4  the dragon falls
+ *   9.0  they leave, not once looking at the one in the grass
+ *  10.4  black, and "1 month later…"
+ *  12.0  the game
+ *
+ * The hero on the ground is never seen from the front, so the face the player
+ * picked is the one that gets up a month later.
+ *
+ * The scene's half waits for the place: if it is not built by `SCENE_AT` the
+ * clock holds there (black) until it is, and gives up on a device that needs
+ * longer than `BUILD_CAP_S` (the game just starts).
  */
 
-/** The whole intro, seconds (the roadmap's ceiling is 25). */
-export const INTRO_LENGTH = 25
+/** The whole intro, seconds (the roadmap's ceiling is 12). */
+export const INTRO_LENGTH = 12
 /** The place is on screen from here; the clock holds here until it is built. */
-export const SCENE_AT = 4
+export const SCENE_AT = 0
 /** Wall seconds the build may take before the intro is dropped. */
 export const BUILD_CAP_S = 12
-/** Hold Space (or the skip button) this long to skip. */
-export const HOLD_SKIP_S = 1.5
-/** Where it is shot: an icy field for fire to light up, and the Jarl's folk. */
+/** The fade in from black. */
+export const FADE_IN_S = 0.7
+/** Where it is shot: an icy field, and the smaller of the dragons. */
 export const INTRO_ZONE = 'tundra'
-/** Its enemies' level, and a fixed seed so every player sees the same field. */
 export const INTRO_FOE_LEVEL = 19
 export const INTRO_SEED = 130
-/** Which of the zone's packs the hero meets (never the finale: no boss, no victory). */
+/** Which of the zone's packs the scene is staged at (never the finale). */
 export const INTRO_PACK = 1
-/** The hero: a full build of this class at this level. */
-export const INTRO_CLASS = 'pyro'
-export const INTRO_LEVEL = 30
-/** The five skills in the belt (slots 0-4), the fire school's best. */
-export const INTRO_BELT = ['fireball', 'flamePillar', 'ringOfFire', 'phoenixFlight', 'cataclysm'] as const
-/** The foes are this much tougher until the finale, so every skill has someone to hit. */
-export const INTRO_FOE_HP = 6
+/** The dragon of the fight (an elite: the smaller of the dragons). */
+export const INTRO_DRAGON = 'voidDrake'
+/** The two who save the day: their looks (the masters of the two schools). */
+export const INTRO_MAGE = 'sbMasterElementalist'
+export const INTRO_BEAST = 'sbMasterBeastcaller'
 
-/** The narrator's lines: i18n key (= voice id) and when it starts. */
-export const INTRO_LINES = [
-  { id: 'dlg.intro.crossing.1', at: 0.1 },
-  { id: 'dlg.intro.hero.1', at: 6.0 },
-  { id: 'dlg.intro.fire.1', at: 10.3 },
-  { id: 'dlg.intro.foes.1', at: 13.8 },
-  { id: 'dlg.intro.begin.1', at: 20.8 }
-] as const
+/** The heroes' entrance (#188): a leap in from the picture's edge with a forward flip, landing as a hero lands. */
+export const ENTRY_AT = 0.3
+export const ENTRY_S = 1.1
 
-/** The beats of the narration, in order (the voice manifest's line names). */
-export const INTRO_BEATS = INTRO_LINES.map(l => l.id.split('.')[2]!)
+/** What happens when: who does it and what. The runner plays them in order. */
+export type IntroAct = 'summon' | 'fire' | 'frost' | 'bolt' | 'hawk' | 'storm' | 'slay' | 'flee'
+export interface IntroBeat { at: number; who: 'beast' | 'mage' | 'both'; act: IntroAct }
+export const INTRO_ACTS: readonly IntroBeat[] = [
+  { at: 1.5, who: 'beast', act: 'summon' },
+  { at: 2.4, who: 'mage', act: 'fire' },
+  { at: 3.4, who: 'mage', act: 'frost' },
+  { at: 4.4, who: 'beast', act: 'hawk' },
+  { at: 5.4, who: 'mage', act: 'bolt' },
+  { at: 6.5, who: 'mage', act: 'storm' },
+  { at: 8.4, who: 'both', act: 'slay' },
+  { at: 9.0, who: 'both', act: 'flee' }
+]
+/** The camera: a little wider than a fight is shot, so all three are in the picture. */
+export const INTRO_ZOOMS = [{ at: 0, to: 0.82, dur: 0.01, hold: 12 }] as const
+/** "1 month later…" fades in over the dark from here. */
+export const LABEL_AT = 10.3
+/** The last fade to black (the label rides on it). */
+export const FADE_OUT_AT = 9.9
 
-/** Skill casts: belt slot, when. The last one is the finale. */
-export const INTRO_CASTS = [
-  { slot: 1, at: 5.2 },
-  { slot: 0, at: 7.4 },
-  { slot: 2, at: 10.6 },
-  { slot: 3, at: 12.6 },
-  { slot: 0, at: 14.6 },
-  { slot: 1, at: 16.2 },
-  { slot: 4, at: 17.6 }
-] as const
-
-/** The finale: from here the field may fall. */
-export const FINALE_AT = 17.6
-/** Camera: close on the hero as the scene opens, pulled out for the finale. */
-export const INTRO_ZOOMS = [
-  { at: SCENE_AT, to: 0.72, dur: 0.01, hold: 5.4 },
-  { at: 17.3, to: 1.3, dur: 0.8, hold: 5 }
-] as const
-/** The title card: over black at the start, over the field at the end. */
-export const TITLE_SPANS: ReadonlyArray<readonly [number, number]> = [[0.2, SCENE_AT], [21.0, INTRO_LENGTH]]
-/** The last fade to black. */
-export const FADE_OUT_AT = 24.2
-
-/** The line on screen at `t` (index into INTRO_LINES, -1 for none): each holds until the next. */
-export const lineAt = (t: number): number => {
-  let i = -1
-  for (let k = 0; k < INTRO_LINES.length; k++) if (t >= INTRO_LINES[k]!.at) i = k
-  return t >= INTRO_LENGTH ? -1 : i
-}
-
-/** Is the title card up at `t`? */
-export const titleAt = (t: number): boolean => TITLE_SPANS.some(([a, b]) => t >= a && t < b)
-
-/** How black the screen is at `t` (0..1): black until the scene, then the last fade. */
+/** How black the screen is at `t` (0..1): black until the scene is built, the fade in, the fade to black. */
 export const veilAt = (t: number, sceneReady: boolean): number => {
-  if (!sceneReady || t < SCENE_AT) return 1
-  if (t < SCENE_AT + 0.6) return 1 - (t - SCENE_AT) / 0.6
-  if (t >= FADE_OUT_AT) return Math.min(1, (t - FADE_OUT_AT) / (INTRO_LENGTH - FADE_OUT_AT))
+  if (!sceneReady) return 1
+  if (t < FADE_IN_S) return 1 - t / FADE_IN_S
+  if (t >= FADE_OUT_AT) return Math.min(1, (t - FADE_OUT_AT) / (LABEL_AT + 0.5 - FADE_OUT_AT))
   return 0
 }
+
+/** How visible the label is at `t` (0..1). */
+export const labelAt = (t: number): number => (t < LABEL_AT ? 0 : Math.min(1, (t - LABEL_AT) / 0.5))
 
 /**
  * The intro's clock: real seconds, paused with the game, held at `SCENE_AT`
@@ -116,27 +96,16 @@ export const createIntroClock = () => {
   }
 }
 
-/**
- * Hold-to-skip (the RDR2 way): the ring fills while the key or the button is
- * held and drains, four times as fast, when it is let go — a tap never skips.
- * `tick` returns true once, and for good, when the ring is full.
- */
-export const createHoldSkip = (need = HOLD_SKIP_S) => {
-  let held = 0
-  let down = false
-  let done = false
-  return {
-    press(): void { if (!done) down = true },
-    release(): void { down = false },
-    tick(dt: number): boolean {
-      if (done) return true
-      const step = Math.max(0, Math.min(dt, 0.1))
-      held = down ? Math.min(need, held + step) : Math.max(0, held - step * 4)
-      if (held >= need) done = true
-      return done
-    },
-    get progress(): number { return held / need },
-    get holding(): boolean { return down },
-    get done(): boolean { return done }
-  }
-}
+// ─── The old narration (#130): no longer played, kept for the voice tools ─────
+
+/** The old narrator's lines: i18n key (= voice id) and when it started. The new film has no narrator; these stay
+ *  so the voice files and tools that name them keep working until the owner drops them. */
+export const INTRO_LINES = [
+  { id: 'dlg.intro.crossing.1', at: 0.1 },
+  { id: 'dlg.intro.hero.1', at: 6.0 },
+  { id: 'dlg.intro.fire.1', at: 10.3 },
+  { id: 'dlg.intro.foes.1', at: 13.8 },
+  { id: 'dlg.intro.begin.1', at: 20.8 }
+] as const
+/** The beats of the old narration, in order (the voice manifest's line names). */
+export const INTRO_BEATS = INTRO_LINES.map(l => l.id.split('.')[2]!)

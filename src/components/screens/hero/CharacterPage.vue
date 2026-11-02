@@ -49,6 +49,7 @@
             small(v-if="total[a] > profile.hero.attrs[a]") +{{ fmt2(total[a] - profile.hero.attrs[a]) }}
           button.attr__plus(
             type="button"
+            :class="{ 'is-hint': profile.hero.points > 0 }"
             :disabled="profile.hero.points <= 0"
             :aria-label="t('sheet.raise', { attr: t(`attr.${a}.name`) })"
             @focus="peek = a"
@@ -332,6 +333,37 @@ const raise = (a: Attr): void => {
     width: 100%
     height: 100%
     filter: drop-shadow(0 2px 0 var(--bc-ink))
+
+// Points to spend (#184): every "+" presses on a loop and a small yellow arrow points in at it from its top
+// right, on the sheet itself, so it is there with or without a lesson. The arrow is a clipped shape drawn
+// from one box (no aspect-ratio tricks), so it is the same at every size.
+.attr__plus.is-hint
+  animation: attr-press 1.5s ease-in-out infinite
+  &::after
+    content: ''
+    position: absolute
+    right: -0.55rem
+    top: -0.65rem
+    width: 1.15rem
+    height: 1.15rem
+    background: var(--bc-gold-hi, #ffd24a)
+    clip-path: polygon(8% 92%, 8% 42%, 25% 58%, 71% 12%, 88% 29%, 42% 75%, 58% 92%)
+    filter: drop-shadow(0 0 1px #1b1020) drop-shadow(0 1px 0 #1b1020)
+    pointer-events: none
+    animation: attr-arrow 0.9s ease-in-out infinite alternate
+@keyframes attr-press
+  0%, 55%, 100%
+    transform: none
+  70%
+    transform: translateY(var(--bc-press-sm)) scale(1.04, 0.94)
+@keyframes attr-arrow
+  from
+    transform: translate(0, 0)
+  to
+    transform: translate(-0.22rem, 0.22rem)
+@media (prefers-reduced-motion: reduce)
+  .attr__plus.is-hint, .attr__plus.is-hint::after
+    animation: none
 
 // ── The derived stats ────────────────────────────────────────────────────────
 .sheet__stats

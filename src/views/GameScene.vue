@@ -13,7 +13,7 @@
     //- The feature lessons, over every screen (and the pacing that picks them).
     LessonLayer(v-if="!introOn")
     //- A new save picks the boy or the girl hero over the opening fight.
-    HeroChoice(v-if="!introOn")
+    HeroChoice(v-if="!introOn" @done="onHeroPicked")
     //- The intro (#130): its own chunk, mounted only while it plays.
     IntroLayer(v-if="introOn")
     //- Debug only (the debug flag or `?perfhud=1`): what a playtest reports (#Perf1-3).
@@ -106,12 +106,19 @@ const playIntro = async (next: Parameters<typeof app.setMode>[0] = null): Promis
   introPlaying.value = true
   try {
     const { runIntro } = await import('@/game/intro/runner')
-    await runIntro(() => locale.value, next)
+    await runIntro(next)
   } catch (e) {
     console.warn('[intro] it could not play', e)
   } finally {
     introPlaying.value = false
   }
+}
+/**
+ * A brand-new save picks its hero first (#183): that click is also the one that gives the page focus. Then the film
+ * plays, over the opening fight held still behind it; a save that has seen it (or a build without it) just plays on.
+ */
+const onHeroPicked = (): void => {
+  if (INTRO_ENABLED && !PREVIEW_ON && profile.tips[INTRO_TIP] !== true) void playIntro()
 }
 /** "Watch the intro" in the options: over the place the player is in, which waits behind it. */
 const replayIntro = (): void => {
@@ -169,12 +176,6 @@ onMounted(async () => {
   // The loader's prepared first scene. The scene never builds its own copy
   // while the loader is still priming (see `adoptBootMode`).
   const first = await adoptBootMode()
-  // A brand-new save sees the intro first (#130), the prepared first scene
-  // waiting behind it. After the dark-mode notice: nothing plays under it.
-  if (INTRO_ENABLED && !PREVIEW_ON && isFreshProfile() && profile.tips[INTRO_TIP] !== true) {
-    await whenForcedDarkGuardClear()
-    await playIntro(first)
-  }
   app.setMode(first)
   app.setWanted(flow.screen !== 'map')
   // Music once the first frame is up, in the place's own track (started
