@@ -129,7 +129,7 @@ export const roomyWall = (p: SpotPlan, i: number, j: number): boolean => {
  * prompt), the herbs and each other; and never cutting anything off. Each
  * one's cell becomes a block.
  */
-export const placeOres = (p: SpotPlan & { seed: number; cave?: Uint8Array }, level: number, avoid: ReadonlyArray<{ x: number; z: number }>): OrePlan[] => {
+export const placeOres = (p: SpotPlan & { seed: number; cave?: Uint8Array }, level: number, avoid: ReadonlyArray<{ x: number; z: number }>, limit?: number): OrePlan[] => {
   const pool = oresAt(level)
   if (!pool.length) return []
   const rng = mulberry32((p.seed ^ ORE_SALT) >>> 0)
@@ -162,7 +162,9 @@ export const placeOres = (p: SpotPlan & { seed: number; cave?: Uint8Array }, lev
   }
   // The last zones are where the smith's endgame metals are mined: no thin visits.
   const lo = level >= INVADED_ORE_LEVEL ? ORE_NODES_MAX : level >= LATE_ORE_LEVEL ? LATE_ORE_NODES_MIN : 1
-  const n = lo + Math.floor(rng() * (ORE_NODES_MAX - lo + 1))
+  const drawn = lo + Math.floor(rng() * (ORE_NODES_MAX - lo + 1))
+  // The first visit holds a single node (#178): the first thing to mine, not a field of them.
+  const n = limit ?? drawn
   const total = pool.reduce((s, q) => s + q.weight, 0)
   const out: OrePlan[] = []
   let before = -1

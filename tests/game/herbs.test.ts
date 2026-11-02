@@ -68,8 +68,8 @@ describe('where herbs grow', () => {
     expect(generateZone(ZONES.woods, 8).herbs).not.toEqual(a)
   })
 
-  it('the first visit and a bare chain hold none', () => {
-    expect(generateZone(ZONES.plains, 1, { tutorial: true }).herbs).toEqual([])
+  it('the first visit holds just two (#178), a bare chain none', () => {
+    expect(generateZone(ZONES.plains, 1, { tutorial: true }).herbs).toHaveLength(2)
     expect(generateZone(ZONES.plains, 1, { bare: true }).herbs).toEqual([])
   })
 

@@ -44,7 +44,9 @@ describe('the pieces', () => {
       expect(JSON.stringify(b.herbs)).toBe(JSON.stringify(a.herbs))
       for (const p of b.pieces!) for (const h of b.herbs ?? []) expect(Math.hypot(p.x - h.x, p.z - h.z)).toBeGreaterThanOrEqual(3)
     }
-    expect(generateZone(ZONES.plains, 1, { tutorial: true, pieces: ['plains1'] }).pieces).toEqual([])
+    // The first visit holds the plains' own piece (#178), and a bare chain none.
+    expect(generateZone(ZONES.plains, 1, { tutorial: true, pieces: ['plains1'] }).pieces).toHaveLength(1)
+    expect(generateZone(ZONES.plains, 1, { bare: true, pieces: ['plains1'] }).pieces).toEqual([])
     const { sim, plan } = visit('woods', { pieces: ['woods1'] })
     const p = sim.pieces[0]!
     const u = sim.hero.unit

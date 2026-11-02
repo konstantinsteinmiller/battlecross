@@ -590,9 +590,19 @@ export const generateZone = (def: ZoneDef, seed: number, o: ZoneGenOpts = {}): Z
   // Herbs (#88), on their own stream: nothing above moves for them.
   // Not on the very first visit (one thing at a time) nor on a bare chain.
   const spots = { seed, w: Wd, h, solid, sealed, trail, kind, start, chests: features.chests }
-  const herbs = o.tutorial || o.bare ? [] : placeHerbs(spots, def.id)
+  // The first visit holds a little of the rest of the world (#178): two plants, one piece of the treasure map
+  // (the plains' own, while it lies there) and a first ore node, each on its own stream so the opening's dice
+  // fall as they did, and all of them clear of the camp.
+  const cx0 = (i: number): number => (i + 0.5) * CELL
+  // The camp's whole round of ground (its fire and caravan are set down there): a ring of points, not one.
+  const campAvoid: Array<{ x: number; z: number }> = []
+  if (campCut) {
+    campAvoid.push(campCut.key, campCut.chest)
+    for (let dj = -8; dj <= 8; dj += 2) for (let di = -8; di <= 8; di += 2) if (Math.hypot(di, dj) <= 8) campAvoid.push({ x: cx0(campCut.ci + di), z: cx0(campCut.cj + dj) })
+  }
+  const herbs = o.bare ? [] : placeHerbs(spots, def.id, o.tutorial ? 2 : undefined, o.tutorial ? campAvoid : [])
   // The treasure map (#89), after the herbs and on streams of their own too.
-  const pieces = o.tutorial || o.bare ? [] : placePieces(spots, o.pieces ?? [], herbs)
+  const pieces = o.bare ? [] : placePieces(spots, o.pieces ?? [], [...herbs, ...campAvoid])
   const end = clearings.find(c => c.role === 'finale') ?? clearings[clearings.length - 1]!
   const x = o.treasure && !o.tutorial && !o.bare ? placeTreasure({ ...spots, end: { x: end.x, z: end.z } }, [...herbs, ...pieces]) : null
   // Ore (#99), last of all and on its own stream: against the stone, off the
@@ -604,7 +614,7 @@ export const generateZone = (def: ZoneDef, seed: number, o: ZoneGenOpts = {}): Z
     // The top of a ledge is reached by its ramp: no ore stands on either.
     ...features.ledges.flatMap(l => [{ x: l.x, z: l.z }, { x: ((l.probe % Wd) + 0.5) * CELL, z: (Math.floor(l.probe / Wd) + 0.5) * CELL }])
   ]
-  const ores = o.tutorial || o.bare ? [] : placeOres({ ...spots, cave }, def.min, [...herbs, ...pieces, ...(x ? [x] : []), ...named])
+  const ores = o.bare ? [] : placeOres({ ...spots, cave }, def.min, [...herbs, ...pieces, ...campAvoid, ...(x ? [x] : []), ...named], o.tutorial ? 1 : undefined)
   if (x) {
     // Its cell is its own, like any chest's (it stood on open ground with
     // nothing to stop a body walking into it).

@@ -176,8 +176,8 @@ describe('where ore lies', () => {
     }
   })
 
-  it('none on the first visit; a seed lays the same outcrops', () => {
-    expect(generateZone(ZONES.plains, 7, { tutorial: true }).ores ?? []).toEqual([])
+  it('a single node on the first visit (#178); a seed lays the same outcrops', () => {
+    expect(generateZone(ZONES.plains, 7, { tutorial: true }).ores ?? []).toHaveLength(1)
     expect(generateZone(ZONES.crags, 7).ores).toEqual(generateZone(ZONES.crags, 7).ores)
   })
 })
