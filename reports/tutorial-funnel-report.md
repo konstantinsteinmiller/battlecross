@@ -2,7 +2,7 @@
 
 Structured browser report. Generated 2026-11-02 from a real-browser walkthrough of the first visit
 (`scripts/tutorial-funnel.mjs`), the code paths around the boss and its chest, and a web search on
-first-session retention. Raw data: `tf-desktop/funnel.json`, `tf-phone/funnel.json` (+ screenshots per step).
+first-session retention. Raw data: `tf-desktop/funnel.json`, `tf-phone/funnel.json`, `tf-landscape/funnel.json` (+ screenshots per step).
 
 ## 1. Bottom line
 
@@ -27,7 +27,7 @@ it directly.
 | | |
 |---|---|
 | Browser | real Chrome (headless, software GL), new save, boy hero, English |
-| Devices | desktop 1280×720 mouse; phone portrait 390×844 touch (`isMobile`); phone landscape 844×390 touch (see section 8) |
+| Devices | desktop 1280×720 mouse; phone portrait 390×844 touch (`isMobile`); phone landscape 844×390 touch |
 | Walked | boot + hero choice → dummy → first pack → boss in view → boss down → finale chest → key → cage → Leave → result window → world map |
 | Recorded at every step | screenshot, goal chip text, lessons shown, Leave button (rect, inside viewport), chest prompt, modal, hero health, camp state |
 | **Skipped with damage** | the fights themselves. Time-to-boss and boss difficulty are **not** measured here (`tests/game/tutorialAid` and the "mercy" rule cover the boss) |
@@ -70,8 +70,15 @@ says "Travel to Sunford" (where the teachers and the smith are). On phone portra
 into a ~390×220 strip with about 15 overlapping labels (`tf-phone/phone/12-map.png`). Done: the goal's place
 now gets the same bobbing arrow a sought teacher's place has. Not done: see recommendation R2.
 
-**F5 — The result window is sound (checked).** It fits 390×844 and 1280×720 without scrolling, the Continue
-button is inside the viewport, and the new-gear rows have clear Equip buttons.
+**F5 — The result window is sound in portrait and desktop (checked).** It fits 390×844 and 1280×720 without
+scrolling, the Continue button is inside the viewport, and the new-gear rows have clear Equip buttons.
+
+**F7 — In phone landscape the result window hides what makes a player want to go on (new).** At 844×390 the
+window shows the stats and Continue (`tf-landscape/landscape/11-results.png`); the two gear rows with their
+Equip buttons and the "New on the map" line are below the fold, inside a scroll. A landscape player sees the
+stats and a green Continue, and nothing about the reward or the next place. Recommendation R3 should therefore
+also move the next-step line above the stats on short screens. The camp scene itself is fine in landscape: the
+chevrons, the goal chip and the wheel trail are all in frame (`tf-landscape/landscape/08-finale-chest-open.png`).
 
 **F6 — Funnel was blind (fixed).** Nothing recorded where a leaving player stopped. See section 6.
 
@@ -109,14 +116,13 @@ probe is the existing one; check in the Poki inspector before the next playtest)
 |---|---|---|
 | R1 | Hold Leave until the teachers are free; chevrons + goal chip + trail to the camp | **done** (#177) |
 | R2 | Make the map's next step one thing: on a first map visit dim the other NEW tags, and on phone portrait zoom/pan the map to the hero's region instead of showing the whole realm in a strip | proposed |
-| R3 | Put the reward and the next step on the result window itself: a line "Next: Sunford — your teachers are waiting" and a preview of the first new skill (needs copy in 39 locales) | proposed, needs owner copy |
+| R3 | Put the reward and the next step on the result window itself (above the stats on short landscape screens): a line "Next: Sunford — your teachers are waiting" and a preview of the first new skill (needs copy in 39 locales) | proposed, needs owner copy |
 | R4 | A short celebration beat when the cage opens (the teachers thanking the hero already happens) with the goal chip switching to "Take your loot and leave" only then | partly there (Leave appears); polish proposed |
 | R5 | Read the real funnel from the Poki playtest, then A/B: boss one pack earlier, the cage offered before the chest | needs real data |
 | R6 | A phone-portrait pass on the world map labels (about 15 overlapping labels in a 390 px strip) | proposed |
 
 ## 8. Open items
 
-* Phone landscape (844×390) is in the run queue; its data lands in `tf-landscape/` when it finishes.
 * The fights, the boss's difficulty and real hands-on feel were not driven; do a short human playtest of the
   first visit on a phone with the new flow.
 * The sharpness probe (`blur-probe.mjs image`) crashed on this machine, so the screenshots were checked by eye.
