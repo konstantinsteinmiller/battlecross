@@ -197,10 +197,12 @@ describe('skipping', () => {
     const layer = read('components/screens/intro/IntroLayer.vue')
     expect(layer).toContain('@click="skipIntro"')
     expect(layer).toMatch(/e\.code !== 'Space'/)
-    expect(layer).toMatch(/if \(!e\.repeat\) skipIntro\(\)/)
+    expect(layer).toMatch(/if \(!e\.repeat && introView\.canSkip\) skipIntro\(\)/)
+    // Not once the label and the load are up (#189): the button goes, and Space does nothing.
+    expect(layer).toContain('introBoot && introView.canSkip')
     expect(layer).toContain("addEventListener('keydown', onDown, true)")
     const runner = read('game/intro/runner.ts')
-    expect(runner).toMatch(/export const skipIntro = \(\): void => end\?\.\(\)/)
+    expect(runner).toMatch(/export const skipIntro = \(\): void => \{ if \(introView\.t < NO_SKIP_AT\) end\?\.\(\) \}/)
   })
 
   it('writes the one flag when it ends or is skipped, and nothing else of the profile', () => {

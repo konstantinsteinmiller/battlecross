@@ -218,10 +218,10 @@ onUnmounted(stopCapture)
             @update:model-value="setSamsungFixChoice($event === 'on' ? 'on' : 'off')"
           )
           p.opt-hint {{ t('samsungFix.optionHint') }}
-          button.reset-keys.opt-recheck(type="button" @click="rerunColourCheck") {{ t('samsungFix.recheck') }}
-        button.reset-keys.opt-recheck(v-if="canReplayIntro" type="button" data-intro-replay @click="emit('intro')") {{ t('intro.replay') }}
-        button.reset-keys.opt-recheck(v-if="showPrivacyLinks && privacyPolicyUrl" type="button" @click="openPrivacyPolicy") {{ t('privacy.policy') }}
-        button.reset-keys.opt-recheck(v-if="showPrivacyLinks && privacyOptionsRequired" type="button" @click="showPrivacyOptions") {{ t('privacy.settings') }}
+          FButton(:label="t('samsungFix.recheck')" type="secondary" size="md" @click="rerunColourCheck")
+        FButton(v-if="canReplayIntro" :label="t('intro.replay')" type="secondary" size="md" data-intro-replay @click="emit('intro')")
+        FButton(v-if="showPrivacyLinks && privacyPolicyUrl" :label="t('privacy.policy')" type="secondary" size="md" @click="openPrivacyPolicy")
+        FButton(v-if="showPrivacyLinks && privacyOptionsRequired" :label="t('privacy.settings')" type="secondary" size="md" @click="showPrivacyOptions")
 
     div(v-else-if="currentTab === 'gameplay'").flex.flex-col.gap-2.p-2
       div(class="z-[20] flex flex-col gap-1")
@@ -242,7 +242,7 @@ onUnmounted(stopCapture)
         )
       //- iOS store build only: pretend the full-version purchase is not there, to test the demo again.
       div(v-if="gateOn" class="z-[1] flex flex-col gap-1" data-ignore-purchase)
-        button.reset-keys.opt-recheck(type="button" :disabled="ignorePurchase" data-ignore-purchase-btn @click="askReset = true") {{ t('iap.ignore') }}
+        FButton(:label="t('iap.ignore')" type="secondary" size="md" :is-disabled="ignorePurchase" data-ignore-purchase-btn @click="askReset = true")
         p.opt-hint {{ t('iap.ignoreHint') }}
         FModal(v-if="askReset" :model-value="true" :title="t('iap.ignore')" :is-closable="false" surface="parchment" tone="gold" data-ignore-ask)
           p.opt-hint {{ t('iap.ignoreAsk') }}
@@ -281,7 +281,7 @@ onUnmounted(stopCapture)
       hr.opt-rule
       div.flex.items-center.justify-between.px-1
         span.opt-head {{ t('options.keyboard.bindings') }}
-        button.reset-keys(type="button" :disabled="!bindingsChanged()" @click="resetBindings()") {{ t('options.keyboard.reset') }}
+        FButton(:label="t('options.keyboard.reset')" type="secondary" size="md" :is-disabled="!bindingsChanged()" @click="resetBindings()")
       p.opt-hint(v-if="capturing") {{ t('options.keyboard.press') }}
       ul.bindings
         li.bind-row(v-for="a in ACTIONS" :key="a")

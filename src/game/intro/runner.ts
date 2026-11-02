@@ -25,7 +25,7 @@ import { setSfxGate } from '../audio/sfx'
 import { buildFirstLevel, enterFirstLevel, startFirstLevel } from '../flow'
 import {
   BUILD_CAP_S, INTRO_ACTS, INTRO_BEAST, INTRO_DRAGON, INTRO_FOE_LEVEL, INTRO_LENGTH, INTRO_MAGE, INTRO_PACK, INTRO_SEED, INTRO_ZONE,
-  ENTRY_AT, ENTRY_S, INTRO_ZOOMS, SCENE_AT, createIntroClock, labelAt, veilAt, type IntroAct
+  ENTRY_AT, ENTRY_S, INTRO_ZOOMS, NO_SKIP_AT, SCENE_AT, createIntroClock, labelAt, veilAt, type IntroAct
 } from './script'
 
 /**
@@ -53,13 +53,15 @@ export const introView = shallowReactive({
   /** 0..1: how black the screen is. */
   veil: 1,
   /** 0..1: how visible "1 month later…" is. */
-  label: 0
+  label: 0,
+  /** The skip button is up (until the label and the load). */
+  canSkip: true
 })
 
 let end: (() => void) | null = null
 
 /** Skip: the film is over now (the button, or Space). */
-export const skipIntro = (): void => end?.()
+export const skipIntro = (): void => { if (introView.t < NO_SKIP_AT) end?.() }
 /** End the intro now (it is over, or it could not play). */
 export const endIntro = (): void => end?.()
 
@@ -158,6 +160,9 @@ const stage = (m: ZoneMode): Cast | null => {
   // (a copy: `dismiss` takes the unit out of the list being walked, and every second one would be skipped)
   for (const e of [...sim.units]) if (e.team === 1) sim.dismiss(e)
   sim.wave.rest = 1e9
+  // Its fall pays nothing: no level-up (and its slow motion and flash), no loot, no gold.
+  sim.holdLevelUp = true
+  sim.dropTable = { mob: [], chest: [], boss: [], secret: [], infernal: [], after: [] }
   // The place's own packs were just dismissed: left alone, the director would find the finale's pack cleared on the first
   // step and call the visit won (the scene froze on its "victory"). They count as cleared already, and the drake is in no pack.
   for (const g of sim.groups) g.cleared = true
@@ -309,7 +314,10 @@ const play = (m: ZoneMode, c: Cast, t: number, act: IntroAct, who: 'beast' | 'ma
       walk(c, c.mage, c.land.mage.x - 14, c.land.mage.z + 7, t, 5.2)
       walk(c, c.beast, c.land.beast.x + 14, c.land.beast.z + 7, t, 5.2)
       { const bx = c.land.beast.x + 14 - c.beast.x; const bz = c.land.beast.z + 7 - c.beast.z; const l = Math.hypot(bx, bz) || 1; c.beastDir = { x: bx / l, z: bz / l } }
-      // The opening level starts building now, behind the film.
+      break
+    case 'load':
+      // The screen goes dark: the opening level builds now (a build is a heavy task, kept out of the walk), and from here
+      // the film cannot be skipped (`NO_SKIP_AT`): what is up is the label and the load.
       if (bootRun && !building) building = buildFirstLevel()
       break
     case 'rise':
@@ -480,7 +488,7 @@ export const runIntro = (next: GameMode | null = null): Promise<void> => new Pro
   let zoom = 0
   let started = false
 
-  Object.assign(introView, { t: 0, ready: false, veil: 1, label: 0 })
+  Object.assign(introView, { t: 0, ready: false, veil: 1, label: 0, canSkip: true })
 
   const finish = (): void => {
     if (over) return
@@ -560,6 +568,7 @@ export const runIntro = (next: GameMode | null = null): Promise<void> => new Pro
     if (!shown && wall > BUILD_CAP_S) { finish(); return }
     const t = clock.tick(dt, shown)
     introView.t = t
+    introView.canSkip = t < NO_SKIP_AT
     if (!clock.done) {
       introView.veil = veilAt(t, shown)
       introView.label = labelAt(t)

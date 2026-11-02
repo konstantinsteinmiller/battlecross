@@ -3,7 +3,7 @@
     div.intro__veil(:style="{ opacity: introView.veil }" aria-hidden="true")
     //- "1 month later…" rides on the last fade to black.
     p.intro__later(:style="{ opacity: introView.label }" aria-live="polite") {{ introView.label > 0.05 ? t('intro.later') : '' }}
-    div.intro__skip(v-if="!introBoot")
+    div.intro__skip(v-if="!introBoot && introView.canSkip")
       button.intro__btn(
         type="button"
         data-intro-skip
@@ -37,7 +37,7 @@ const onDown = (e: KeyboardEvent): void => {
   if (e.code !== 'Space') return
   e.preventDefault()
   e.stopImmediatePropagation()
-  if (!e.repeat) skipIntro()
+  if (!e.repeat && introView.canSkip) skipIntro()
 }
 
 onMounted(() => window.addEventListener('keydown', onDown, true))

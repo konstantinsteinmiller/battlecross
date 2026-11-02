@@ -49,7 +49,7 @@ export const ENTRY_AT = 0.4
 export const ENTRY_S = 1.3
 
 /** What happens when: who does it and what. The runner plays them in order. */
-export type IntroAct = 'roar' | 'summon' | 'close' | 'slap' | 'slay' | 'flee' | 'rise'
+export type IntroAct = 'roar' | 'summon' | 'close' | 'slap' | 'slay' | 'flee' | 'rise' | 'load'
 export interface IntroBeat { at: number; who: 'beast' | 'mage' | 'both'; act: IntroAct }
 export const INTRO_ACTS: readonly IntroBeat[] = [
   { at: 0.15, who: 'both', act: 'roar' },
@@ -63,7 +63,8 @@ export const INTRO_ACTS: readonly IntroBeat[] = [
   { at: 5.95, who: 'beast', act: 'slap' },
   { at: 6.5, who: 'both', act: 'slay' },
   { at: 7.4, who: 'both', act: 'flee' },
-  { at: 8.4, who: 'both', act: 'rise' }
+  { at: 8.4, who: 'both', act: 'rise' },
+  { at: 8.9, who: 'both', act: 'load' }
 ]
 /** The camera: pulled well back (above 1 is farther), so the leaps, the flips and the dragon are all in the picture. */
 export const INTRO_ZOOMS = [{ at: 0, to: 1.3, dur: 0.01, hold: 12 }] as const
@@ -113,3 +114,6 @@ export const INTRO_LINES = [
 ] as const
 /** The beats of the old narration, in order (the voice manifest's line names). */
 export const INTRO_BEATS = INTRO_LINES.map(l => l.id.split('.')[2]!)
+
+/** From here the film can no longer be skipped: the opening level is building behind it (#189). */
+export const NO_SKIP_AT = 8.9
