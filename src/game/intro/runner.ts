@@ -110,6 +110,10 @@ interface Cast {
   /** The drake's home spot, and how far a blow has pushed it off (it eases back). */
   home: { x: number; z: number }
   settle: number
+  /** The elementalist's spells cast so far (they come in turn). */
+  casts: number
+  /** The way the beast caller walks off (a unit vector), which the pack follows. */
+  beastDir: { x: number; z: number }
 }
 
 /** How far out (m) the two start their leap from, and how high (m) it goes. */
@@ -183,7 +187,7 @@ const stage = (m: ZoneMode): Cast | null => {
   // The haze is set for the usual view: with the camera pulled back it would swallow the dragon.
   setZoneFog(m.scene, m.terrainTheme(), m.cam.dist * INTRO_ZOOMS[0]!.to * 12)
   m.cam.snap()
-  return { hero, mage, beast, dragon, pack: [], leaps: [], land, packAt: -1, fled: false, bite: [], home: { x: dragon.x, z: dragon.z }, settle: 0 }
+  return { hero, mage, beast, dragon, pack: [], leaps: [], land, packAt: -1, fled: false, bite: [], home: { x: dragon.x, z: dragon.z }, settle: 0, casts: 0, beastDir: { x: 1, z: 0.5 } }
 }
 
 /** Start a leap: `high` metres at the top of the arc, `flips` forward turns on the way, a hero's landing at the end. */
@@ -270,8 +274,21 @@ const play = (m: ZoneMode, c: Cast, t: number, act: IntroAct, who: 'beast' | 'ma
       walk(c, c.beast, d.x + 2.6, d.z + 2.4, t, 1.3)
       break
     case 'slap': {
+      if (who === 'mage') {
+        // The elementalist answers with a spell a beat: fire, frost, lightning in turn, each one drawn once.
+        const spells: Array<[string, string, string]> = [['fireball', FIRE, 'burst:bolt'], ['frostLance', FROST, 'burst:icicle'], ['chainSpark', BOLT, 'burst:bolt']]
+        const [skill, color, burst] = spells[c.casts++ % spells.length]!
+        pose(c.mage, skill, d)
+        sim.emit({ t: 'fx', id: 'lob:holy', x: c.mage.x, z: c.mage.z, x2: d.x, z2: d.z, dur: 0.4, color })
+        sim.after(0.4, () => {
+          sim.emit({ t: 'fx', id: burst, x: d.x, z: d.z, r: 2.6, color })
+          hit(sim, c, 40, skill === 'fireball' ? 'fire' : skill === 'frostLance' ? 'frost' : 'lightning', c.mage, false)
+          shake(0.15)
+        })
+        break
+      }
       // A slap: the back of a hand. The game's own impact and flinch, the drake rocks back, nothing more.
-      const u = who === 'mage' ? c.mage : c.beast
+      const u = c.beast
       u.facing = Math.atan2(d.x - u.x, d.z - u.z)
       u.anim = 'attack'
       u.animT = 0
@@ -291,6 +308,7 @@ const play = (m: ZoneMode, c: Cast, t: number, act: IntroAct, who: 'beast' | 'ma
       c.fled = true
       walk(c, c.mage, c.land.mage.x - 14, c.land.mage.z + 7, t, 5.2)
       walk(c, c.beast, c.land.beast.x + 14, c.land.beast.z + 7, t, 5.2)
+      { const bx = c.land.beast.x + 14 - c.beast.x; const bz = c.land.beast.z + 7 - c.beast.z; const l = Math.hypot(bx, bz) || 1; c.beastDir = { x: bx / l, z: bz / l } }
       // The opening level starts building now, behind the film.
       if (bootRun && !building) building = buildFirstLevel()
       break
@@ -345,15 +363,29 @@ const stepPack = (m: ZoneMode, c: Cast, t: number, dt: number): void => {
   c.pack.forEach((mn, i) => {
     if (!mn.alive) return
     if (!d.alive) {
-      // The drake is down: the pack trots after the beast caller, in her wake.
+      // The drake is down: the pack trots after the beast caller in her wake: a slot behind her along the way she walks,
+      // a pace that eases as they close, and a body that turns smoothly, never on the spot.
       const b = c.beast
-      const tx = b.x - 1.1 * (1 + (i % 3)) + (i - 2) * 0.5
-      const tz = b.z - 0.9 * (1 + Math.floor(i / 3))
+      const dir = c.fled ? c.beastDir : { x: 0, z: 1 }
+      const back = 1.5 + 0.9 * (i % 3) + Math.floor(i / 3) * 0.8
+      const side = ((i % 3) - 1) * 0.9 + (i > 2 ? 0.45 : 0)
+      const tx = b.x - dir.x * back - dir.z * side
+      const tz = b.z - dir.z * back + dir.x * side
       const dx = tx - mn.x
       const dz = tz - mn.z
       const dist = Math.hypot(dx, dz)
-      const sp = Math.min(dist, 5 * dt)
-      if (dist > 0.05) { mn.x = mn.px = mn.x + (dx / dist) * sp; mn.z = mn.pz = mn.z + (dz / dist) * sp; mn.facing = Math.atan2(dx, dz); mn.anim = 'walk' } else mn.anim = 'idle'
+      const sp = c.fled ? Math.min(dist * 2.2, 4.4) : 0
+      if (dist > 0.12 && sp > 0.25) {
+        mn.x = mn.px = mn.x + (dx / dist) * sp * dt
+        mn.z = mn.pz = mn.z + (dz / dist) * sp * dt
+        // Turn toward the way it goes, by the short way round, at a steady rate.
+        const want = Math.atan2(dx, dz)
+        let diff = want - mn.facing
+        while (diff > Math.PI) diff -= Math.PI * 2
+        while (diff < -Math.PI) diff += Math.PI * 2
+        mn.facing += Math.sign(diff) * Math.min(Math.abs(diff), 6 * dt)
+        mn.anim = 'walk'
+      } else mn.anim = 'idle'
       return
     }
     // Each takes a place on the drake's near side (it keeps its own, as in a fight) and goes at it flat out.
