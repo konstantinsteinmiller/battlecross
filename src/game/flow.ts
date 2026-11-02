@@ -408,8 +408,11 @@ const buildZone = async (node: NodeId, onProgress: (p01: number) => void, encoun
     onPanel: openPanel,
     menuOpen: () => !!flow.talk || !!flow.modal
   }, p => onProgress(p * 0.82), saved?.resume)
+  performance.mark('zone:compile-start')
   await precompile(mode, f => onProgress(0.82 + f * 0.12))
+  performance.mark('zone:compiled')
   try { await mode.warmUp(async () => {}, f => onProgress(0.94 + f * 0.06)) } catch (e) { console.warn('[flow] warm-up render failed', e) }
+  performance.mark('zone:warmed')
   onProgress(1)
   return mode
 }

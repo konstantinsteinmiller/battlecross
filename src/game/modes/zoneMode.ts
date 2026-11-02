@@ -1,7 +1,7 @@
 import { campPending } from '../sim/camp'
 import { campLessonPending } from '../coach/campLesson'
 import { trackFtue } from '@/use/useAnalytics'
-import { AmbientLight, Color, Frustum, Matrix4, Scene, Sphere, Vector2, type Group, type InstancedMesh, type Line, type Material, type Mesh, type Object3D, type Points, type ShaderMaterial, type SkinnedMesh } from 'three'
+import { AmbientLight, Color, Frustum, Matrix4, Scene, Sphere, Vector2, Vector3, Vector4, type Group, type InstancedMesh, type Line, type Material, type Mesh, type Object3D, type Points, type ShaderMaterial, type SkinnedMesh } from 'three'
 import { ArenaCrowd } from '../gfx/arenaCrowd'
 import { nextMilestone } from '../data/arena'
 import type { GameMode } from '../engine/app'
@@ -229,6 +229,25 @@ const ground = { x: 0, z: 0 }
 const screen = { x: 0, y: 0 }
 const frustum = new Frustum()
 const _size = new Vector2()
+const _wc = new Vector3()
+/** The see-through copies of the rigs' materials, one per kind, alive for the session so their programs are too. */
+const SEE_VARIANTS = new Map<string, Material>()
+const _view = new Vector4()
+/** How far (m) from the hero's start the scenery is warmed with the load; the rest streams in (#190). */
+const WARM_NEAR = 44
+/** Metres from (x, z) to the nearest edge of a mesh's bounds (0 when inside); a tile of instances or one drawn piece. */
+const distanceTo = (m: Mesh, x: number, z: number): number => {
+  const inst = m as InstancedMesh
+  let s: Sphere | null
+  if (inst.isInstancedMesh) { if (!inst.boundingSphere) inst.computeBoundingSphere(); s = inst.boundingSphere } else {
+    if (!m.geometry.boundingSphere) m.geometry.computeBoundingSphere()
+    s = m.geometry.boundingSphere
+  }
+  if (!s) return -1
+  m.updateWorldMatrix(true, false)
+  _wc.copy(s.center).applyMatrix4(m.matrixWorld)
+  return Math.max(0, Math.hypot(_wc.x - x, _wc.z - z) - s.radius * m.matrixWorld.getMaxScaleOnAxis())
+}
 const _px = new Uint8Array(4)
 const viewProj = new Matrix4()
 const bound = new Sphere()
@@ -264,9 +283,10 @@ export class ZoneMode implements GameMode {
   private bakeTile = BAKE_TILE
   private bakeOn = true
   private bakeStarted = false
+  /** The scenery still to be uploaded to the GPU, nearest first (see `warmUp`, `warmStep`). */
+  private warmQueue: Object3D[] = []
   private gone = false
   /** See-through copies of materials, held so their programs stay compiled (`warmUp`). */
-  private variants: Material[] = []
   /** The height of this place's ground. */
   private field: HeightField | null = null
   /** Chests, plates, doors, bridges and the water (`gfx/levelProps.ts`). */
@@ -600,9 +620,24 @@ export class ZoneMode implements GameMode {
     r.setScissorTest(true)
     r.setScissor(0, 0, 1, 1)
     r.setViewport(0, 0, 1, 1)
+    const everything: Object3D[] = []
+    this.scene.traverse((o) => { if ((o as Mesh).isMesh || (o as Points).isPoints || (o as Line).isLine) everything.push(o) })
+    // The still world far from where the hero starts (more than ~2 screens of walking) is warmed after the place is up (#190):
+    // its geometry is uploaded in small steps, nearest first, a few milliseconds a frame (`warmStep`), long before a walk
+    // reaches it; the load itself pays only for what is round the hero and for everything that is not scenery.
     const all: Object3D[] = []
-    this.scene.traverse((o) => { if ((o as Mesh).isMesh || (o as Points).isPoints || (o as Line).isLine) all.push(o) })
+    const hero = this.sim.hero?.unit
+    const far: Array<{ o: Object3D; d: number }> = []
+    for (const o of everything) {
+      const d = hero && o.userData.stillCull ? distanceTo(o as Mesh, hero.x, hero.z) : -1
+      if (d > WARM_NEAR) far.push({ o, d }); else all.push(o)
+    }
+    far.sort((a, b) => a.d - b.d)
+    this.warmQueue = far.map(f => f.o)
     const shown = all.map(o => o.visible)
+    // …so the far pieces are hidden while the near ones are drawn (a render draws whatever is shown).
+    const farShown = far.map(f => f.o.visible)
+    for (const f of far) f.o.visible = false
     for (const o of all) o.visible = false
     try {
       let i = 0
@@ -624,26 +659,28 @@ export class ZoneMode implements GameMode {
       }
     } finally {
       for (let k = 0; k < all.length; k++) all[k]!.visible = shown[k]!
+      far.forEach((f, k) => { f.o.visible = farShown[k]! })
       r.setScissorTest(false)
       r.setViewport(0, 0, size.x, size.y)
     }
+    performance.mark('zone:warm-near-done')
     // A body fading in or out (a spawn, a death, stealth, a house's cut-away
     // front) is drawn see-through, and three gives a see-through material its
     // own program: compiled here, one kind of mesh at a time, not on the first
     // frame that fades someone (~0.15 s at 4× CPU, measured on the boot).
     const kinds = new Set<string>()
-    for (const o of all) {
+    for (const o of everything) {
       const m = (o as Mesh).material as ShaderMaterial | undefined
       if (!m || Array.isArray(m) || m.transparent || !m.uniforms?.uOpacity) continue
       const key = ((o as SkinnedMesh).isSkinnedMesh ? 's' : (o as InstancedMesh).isInstancedMesh ? 'i' : 'm') + m.vertexShader.length + ':' + m.fragmentShader.length + Object.keys(m.defines ?? {}).join()
       if (kinds.has(key)) continue
       kinds.add(key)
-      // A see-through copy, kept for the visit: three frees a program once no
-      // material uses it, and flipping the live material would free (and
-      // later rebuild) its opaque program instead.
+      // A see-through copy, kept for the whole session (#190): three frees a program once no material uses it, and a
+      // copy made and thrown away per visit meant re-deriving the same programs on every place entered (~0.4 s).
+      if (SEE_VARIANTS.has(key)) continue
       const see = m.clone()
       see.transparent = true
-      this.variants.push(see)
+      SEE_VARIANTS.set(key, see)
       ;(o as Mesh).material = see
       try {
         for (const c of r.compile(o, this.camera, this.scene)) (r.properties.get(c) as { currentProgram?: { getUniforms(): unknown } }).currentProgram?.getUniforms()
@@ -652,6 +689,7 @@ export class ZoneMode implements GameMode {
       }
       await own()
     }
+    performance.mark('zone:warm-fade-done')
     // Programs compiled for things hidden until their moment (a chest's glow, a
     // ring) read their uniforms back here, one a slice, not on the frame that
     // first shows them; the read also waits for the GPU to finish the above.
@@ -665,6 +703,50 @@ export class ZoneMode implements GameMode {
     await slice()
     // What follows (the scene taking over, the HUD mounting) is a task of its own.
     await yieldToBrowser()
+  }
+
+  /**
+   * Upload the far scenery in the background (#190): a few milliseconds of a frame, nearest first, each batch drawn into one
+   * pixel exactly as `warmUp` does, then put back as it was. A piece the bake has since replaced is skipped. Called at the
+   * top of the frame, before the cull sets what is shown.
+   */
+  private warmStep(): void {
+    const q = this.warmQueue
+    if (!q.length || !this.entered) return
+    const r = getRenderer()
+    const t0 = performance.now()
+    const view = r.getViewport(_view)
+    const test = r.getScissorTest()
+    r.setScissorTest(true)
+    r.setScissor(0, 0, 1, 1)
+    r.setViewport(0, 0, 1, 1)
+    const was: Array<[Object3D, boolean]> = []
+    try {
+      do {
+        let verts = 0
+        let n = 0
+        while (q.length && n < 8 && verts < 20000) {
+          const o = q.shift()!
+          if (!o.parent) continue
+          was.push([o, o.visible])
+          o.visible = true
+          verts += ((o as Mesh).geometry?.attributes.position?.count ?? 0) * Math.max(1, (o as InstancedMesh).count ?? 1)
+          n++
+        }
+        if (!was.length) continue
+        // Everything else of the scene is hidden for the call, so the one pixel draws these and nothing more.
+        const rest: Array<[Object3D, boolean]> = []
+        this.scene.traverse((o) => { if (((o as Mesh).isMesh || (o as Points).isPoints || (o as Line).isLine) && !was.some(w => w[0] === o)) { rest.push([o, o.visible]); o.visible = false } })
+        r.render(this.scene, this.camera)
+        for (const [o, v] of rest) o.visible = v
+        for (const [o, v] of was) o.visible = v
+        was.length = 0
+      } while (q.length && performance.now() - t0 < 3)
+    } finally {
+      for (const [o, v] of was) o.visible = v
+      r.setScissorTest(test)
+      r.setViewport(view)
+    }
   }
 
   /**
@@ -695,6 +777,10 @@ export class ZoneMode implements GameMode {
     if (this.gone) { this.baked.dispose(); return }
     this.still = new StillCull()
     this.still.collect(this.scene)
+    // The merged tiles are new buffers: the ones round the hero are drawn at once, the rest are uploaded like the far scenery.
+    const h = this.sim.hero?.unit
+    const merged = [...(this.baked.root.children as Mesh[])].map(o => ({ o, d: h ? distanceTo(o, h.x, h.z) : 0 })).sort((a, b) => a.d - b.d)
+    this.warmQueue.push(...merged.map(m => m.o))
   }
 
   enter(): void {
@@ -1246,6 +1332,7 @@ export class ZoneMode implements GameMode {
     const reach2 = reach * reach
     viewProj.multiplyMatrices(this.camera.projectionMatrix, this.camera.matrixWorldInverse)
     frustum.setFromProjectionMatrix(viewProj)
+    this.warmStep()
     this.still.update(frustum)
     this.bars.begin(dt)
     this.town?.begin()
@@ -1740,7 +1827,6 @@ export class ZoneMode implements GameMode {
     this.terrain.dispose()
     this.gone = true
     this.baked.dispose()
-    for (const v of this.variants) v.dispose()
     clearGround(this.field)
     this.scene.clear()
   }
