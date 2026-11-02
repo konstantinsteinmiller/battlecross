@@ -14,6 +14,17 @@ import { referenceBuild } from '@/game/sim/bot'
  * The intro's scene is the tundra with its own packs dismissed (#189): the director must not find the finale's pack
  * "cleared" and call the visit won, and the drake falling must not end anything: the film goes on to its black.
  */
+describe('the intro only asks the effects for what they know', () => {
+  it('every damage type the film strikes with has an impact colour (an unknown one threw in the middle of every frame and froze the game)', async () => {
+    const { readFileSync } = await import('node:fs')
+    const { TYPE_COLOR } = await import('@/game/gfx/vfx')
+    const src = readFileSync('src/game/intro/runner.ts', 'utf8')
+    const used = new Set([...src.matchAll(/hit\(sim, c, \d+, ([^,]+),/g)].flatMap(m => [...m[1]!.matchAll(/'([a-z]+)'/g)].map(x => x[1]!)).filter(w => !['fireball', 'frostLance', 'chainSpark'].includes(w)))
+    expect(used.size).toBeGreaterThan(2)
+    for (const t of used) expect(TYPE_COLOR, t).toHaveProperty(t)
+  })
+})
+
 describe('the intro scene stays a scene', () => {
   it('no victory when the packs are dismissed, nor when the drake falls', () => {
     const plan = generateZone(ZONES.tundra, 130, {})

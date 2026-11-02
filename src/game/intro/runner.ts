@@ -183,6 +183,8 @@ const stage = (m: ZoneMode): Cast | null => {
   hero.facing = Math.PI
   sim.hero.order = { kind: 'none', targetId: 0, x: hero.x, z: hero.z }
   applyStatus(sim, hero, 'knockdown', 1e9, 1, null, { quiet: true })
+  // Lying down turns the body about its feet: lifted a little, it lies on the snow and not half in it.
+  hero.stunt = { lift: 0.42, flip: 0 }
   registerLooks()
   const land = { mage: { x: p.x - 4.4, z: p.z + 0.2 }, beast: { x: p.x + 4.4, z: p.z + 0.2 } }
   const mage = person(sim, 'introMage', land.mage.x - ENTRY_RUN, land.mage.z + ENTRY_RUN * 0.45, -0.7)
@@ -214,13 +216,13 @@ const pose = (u: Unit, skill: string, at: { x: number; z: number; id?: number })
  * A blow on the drake that reads as one (#189): the game's own impact effect and flinch (a `hit` event from whoever struck
  * it), a number over it, and a small step back from the one who struck. `big`: a crit's weight.
  */
-const hit = (sim: Sim, c: Cast, dmg: number, type: string, from: Unit = c.mage, big = false): void => {
+const hit = (sim: Sim, c: Cast, dmg: number, type: DamageType, from: Unit = c.mage, big = false): void => {
   const d = c.dragon
   dealDamage(sim, null, d, dmg, { type, spell: true, canCrit: false } as Parameters<typeof dealDamage>[4])
   const amount = Math.round(dmg * (big ? 11 : 6) * (0.85 + ((sim.time * 7) % 1) * 0.3))
   sim.emit({
     t: 'hit', src: from.id, tgt: d.id, x: d.x + (((sim.time * 13) % 1) - 0.5) * 1.4, z: d.z + (((sim.time * 17) % 1) - 0.5) * 1.2, h: d.h,
-    amount, crit: big, type: (type === 'physical' ? 'physical' : type) as DamageType, heavy: big, toHero: false, killed: false, dot: false
+    amount, crit: big, type, heavy: big, toHero: false, killed: false, dot: false
   })
   if (big) pushHud({ t: 'num', x: d.x, y: d.h + 0.6, z: d.z, amount, kind: 'crit' })
   // It rocks back from the blow and settles again.
@@ -287,7 +289,7 @@ const play = (m: ZoneMode, c: Cast, t: number, act: IntroAct, who: 'beast' | 'ma
         sim.emit({ t: 'fx', id: 'lob:holy', x: c.mage.x, z: c.mage.z, x2: d.x, z2: d.z, dur: 0.4, color })
         sim.after(0.4, () => {
           sim.emit({ t: 'fx', id: burst, x: d.x, z: d.z, r: 2.6, color })
-          hit(sim, c, 40, skill === 'fireball' ? 'fire' : skill === 'frostLance' ? 'frost' : 'lightning', c.mage, false)
+          hit(sim, c, 40, skill === 'fireball' ? 'fire' : skill === 'frostLance' ? 'frost' : 'holy', c.mage, false)
           shake(0.15)
         })
         break
@@ -323,6 +325,7 @@ const play = (m: ZoneMode, c: Cast, t: number, act: IntroAct, who: 'beast' | 'ma
     case 'rise':
       // The one in the snow gets up, as the screen goes dark.
       removeStatus(c.hero, 'knockdown')
+      c.hero.stunt = undefined
       c.hero.anim = 'idle'
       break
   }

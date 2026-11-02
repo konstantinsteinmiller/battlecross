@@ -477,7 +477,7 @@ export class Vfx {
     const ps = this.particles
     const sp = this.sprites
     // A plain blow is drawn warm, not white: white is nothing at all on snow.
-    const col = o.color ?? (o.toHero && (o.type === 'physical' || o.type === 'pierce') ? '#ff6a6a' : o.type === 'physical' || o.type === 'true' ? '#ffe9a0' : TYPE_COLOR[o.type])
+    const col = o.color ?? (o.toHero && (o.type === 'physical' || o.type === 'pierce') ? '#ff6a6a' : o.type === 'physical' || o.type === 'true' ? '#ffe9a0' : TYPE_COLOR[o.type] ?? '#ffffff')
     if (o.dot) { this.tick(o, col); return }
     const k = 1.25 * (o.crit ? 1.5 : o.heavy ? 1.22 : 1) * Math.min(1.5, Math.max(0.85, 0.7 + o.size * 0.55))
     if (this.impactsLeft <= 0) { ps.flash(o.x, o.y, o.z, col, 1.1 * k, 0.1); return }
