@@ -161,7 +161,13 @@ learned two skills. Measure with new events: `class_preview_pick` (which of thre
 from a class other than the first), `classes_seen` at the end of session one. If `second_class_learned` stays under about a
 third of players who learn a second skill, add D5.
 
-**Not built here**: this is a proposal; nothing in section 9 is in the game yet.
+**Built (2026-11-02), D1 to D4, and seen in the phone browser run (`tf-phone/phone/11-camp-pick.png` to `14-schools-met.png`):**
+* **D1** — talking to a rescued teacher while the free lesson is due opens "Choose your first skill": one card per teacher (Pyromancer: Fireball, "Burn everything in reach"; Aegis Knight: Shield Slam, "Stand firm and hit back"; Soul Warden: Wisp Bolt, "Fight with the fallen"), one taken free. The Aegis card is already the hero's (it is his starting skill), so it shows a tick and cannot be picked: the choice is really between two. Reworded copy in 39 locales.
+* **D2** — tapping a card shows the skill's card and the hero casts it in a small 3D view. It is a pose, not the skill's effect (no particles or damage): good enough to show how a school moves, not to show what it does.
+* **D3** — a teacher's list shows the next steps of the school (skills up to six levels ahead of the hero), one dashed line for the rest ("8 more skills ahead") and one sealed row for the endgame six ("6 more unlock after the demon king"), until level 20 / the demon king.
+* **D4** — the skills page shows "Schools met: n/16"; a school not met yet is a dark disc with a "?" (still tappable, so its skills can be read). A school counts as met when a teacher of it has been talked to or a skill of it has been learned.
+
+Not built: D5 (a nudge to mix schools) and D6 (a full codex). The events proposed above (`class_preview_pick`, `second_class_learned`, `classes_seen`) are **not** wired yet; the funnel events of section 6 are.
 
 ## 10. #171 — Healing shamans and a fire-pit boss: does it help retention or overwhelm a Poki player?
 

@@ -203,6 +203,23 @@ const run = async (dev) => {
     })
     await page.waitForTimeout(9000)
     await snap('cage-open', 'the teachers are out and talk: the goal is their free lesson (#180); no Leave button yet')
+    // The depth preview (#181): the first build choice (three teachers), the tap-to-cast demo, a school's path, the schools met.
+    await game(page, () => { window.__game.flow.modal = 'campPick' })
+    await page.waitForTimeout(2500)
+    await snap('camp-pick', 'D1: one card per teacher, the first skill free')
+    const pickCard = page.locator('.pick__card').nth(1)
+    if (await pickCard.count()) { await pickCard.click({ force: true }).catch(() => {}); await page.waitForTimeout(700) }
+    await snap('camp-pick-cast', 'D2: the hero casts the skill in hand (a pose) and its card shows')
+    await game(page, () => { window.__game.flow.modal = '' })
+    await page.waitForTimeout(500)
+    await game(page, () => { window.__game.flow.trainerCls = 'pyro'; window.__game.flow.modal = 'trainer' })
+    await page.waitForTimeout(2500)
+    await snap('teach-path', 'D3: a school as next steps, one line for the rest, one sealed row')
+    await game(page, () => { window.__game.flow.modal = 'skills' })
+    await page.waitForTimeout(2500)
+    await snap('schools-met', 'D4: the skills page with the schools met')
+    await game(page, () => { window.__game.flow.modal = '' })
+    await page.waitForTimeout(500)
     // The free lesson: the first one bought in the camp is on the teachers.
     await game(page, async () => {
       const P = await import('/src/game/state/profile.ts')
