@@ -514,14 +514,14 @@
     "sheet-portraits-masters-1.jpg": {
       "sheet": "sheet-portraits-masters-1",
       "rev": "8b3a87facbfa",
-      "painting": "a351e904d694",
-      "at": "2026-10-18T12:27:06.979Z"
+      "painting": "90164f486448",
+      "at": "2026-11-02T19:06:58.790Z"
     },
     "sheet-portraits-masters-2.jpg": {
       "sheet": "sheet-portraits-masters-2",
       "rev": "f32fcb354d01",
-      "painting": "4e2ab6aca049",
-      "at": "2026-10-18T12:27:07.647Z"
+      "painting": "be61ac15133c",
+      "at": "2026-11-02T19:09:43.258Z"
     },
     "sheet-items-dexterity-arms.jpg": {
       "sheet": "sheet-items-dexterity-arms",
@@ -984,6 +984,12 @@
       "rev": "9a3ad4d9b625",
       "painting": "5f42768f9ed3",
       "at": "2026-11-02T01:18:53.531Z"
+    },
+    "sheet-portraits-people-6.jpg": {
+      "sheet": "sheet-portraits-people-6",
+      "rev": "50c993424235",
+      "painting": "9cca7f95ad44",
+      "at": "2026-11-02T19:14:12.456Z"
     }
   }
 }

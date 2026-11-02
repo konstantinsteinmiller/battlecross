@@ -87,6 +87,8 @@ const PEOPLE_LOOKS_D = ['chronicler'] as const
 /** The shops, healers and smiths that shared a face with another (the portrait pass): one each now. */
 const PEOPLE_LOOKS_E = ['oakArmorer', 'ironArmor', 'ironOrderArmor', 'oakWeapons', 'oakHealer', 'ironHealer', 'ironWeapons', 'syndicateBoss'] as const
 const PEOPLE_LOOKS_C = ['sunfordGambler', 'sunfordCups', 'fairPip', 'fairBess', 'fairHob', 'oakGambler', 'miner'] as const
+/** The people with a face in the talk window that had only the drawn bust: folk, guards, the survivor, the squire. */
+const PEOPLE_LOOKS_F = ['villagerF', 'farmer', 'childF', 'squire', 'townGuard', 'dwarfGuard', 'survivor', 'orderGuard', 'syndicate'] as const
 /** Shipped townsfolk shown as the finish to match, never as a face to copy. */
 const PEOPLE_FINISH = ['public/images/portraits/elder.webp', 'public/images/portraits/healer.webp'] as const
 /** The hero, once per outfit family: `hero-tunic` … `hero-plate`. */
@@ -98,7 +100,7 @@ const HERO_F_LOOKS: readonly string[] = HERO_OUTFITS.map(o => heroPortraitId(o, 
 export const ART_CATALOGUE: Readonly<Record<ArtKind, readonly string[]>> = {
   items: [...ITEMS, ...SMITHED, ...MYTHICS].map(i => i.id),
   skills: CLASS_IDS.flatMap(c => [...skillsOf(c), ...endgameOf(c)].map(s => s.id)),
-  portraits: [...TOWN_LOOKS, ...TRAINER_LOOKS, ...MASTER_LOOKS_A, ...MASTER_LOOKS_B, ...SPEAKER_LOOKS, ...PEOPLE_LOOKS_A, ...PEOPLE_LOOKS_B, ...PEOPLE_LOOKS_C, ...PEOPLE_LOOKS_D, ...PEOPLE_LOOKS_E, ...HERO_LOOKS, ...HERO_F_LOOKS],
+  portraits: [...TOWN_LOOKS, ...TRAINER_LOOKS, ...MASTER_LOOKS_A, ...MASTER_LOOKS_B, ...SPEAKER_LOOKS, ...PEOPLE_LOOKS_A, ...PEOPLE_LOOKS_B, ...PEOPLE_LOOKS_C, ...PEOPLE_LOOKS_D, ...PEOPLE_LOOKS_E, ...PEOPLE_LOOKS_F, ...HERO_LOOKS, ...HERO_F_LOOKS],
   // ... and the border-inset ornaments of the cel interface (`ORNAMENTS`).
   ui: ['coin', 'cup', 'map', 'bg-trade', 'bg-inventory', 'bg-skills', 'bg-forge', 'bg-alchemy', 'bg-ore', ...ORNAMENTS.map(o => o.id), ...Object.keys(BAR_FRAME_REFS)],
   textures: ['ground'],
@@ -739,6 +741,15 @@ const PORTRAIT_BLURBS: Readonly<Record<string, string>> = {
   oakWeapons: 'a lean weapon seller with a red bandana over dark-red hair, fair skin and a brown tunic with a bronze collar line',
   oakHealer: 'an elderly bald healer with a white beard, fair skin and a pale sage-green robe with a green collar line',
   ironHealer: 'a dwarf healer woman with long pink hair, ruddy skin and a white-blue robe with a pale-blue collar line',
+  villagerF: 'a friendly village woman in her thirties with a ginger bun, a rose-pink top with a cream collar and kind, tired eyes',
+  farmer: 'a sunburnt farmer with a flat straw-yellow cap, a short sandy beard, a green work shirt and a brown apron',
+  childF: 'a small girl of about nine with long dark-brown hair, a pink hair ribbon, a bright orange tunic and a curious look',
+  squire: 'a young squire in his late teens with copper hair under a brown leather cap, a steel-grey jerkin with a blue trim and an eager grin',
+  townGuard: 'a town guard in a steel helmet with a blue crest, a blue tabard over plate and a grey moustache, stern but fair',
+  dwarfGuard: 'a stocky dwarf guard in a dented iron helm with a long braided rust-brown beard, a leather-and-plate coat and a gold-trimmed collar',
+  survivor: 'a worn survivor of the burned road with a grey-brown bandana, soot on a tanned face, ragged brown clothes and tired, watchful eyes',
+  orderGuard: 'a knight of the Iron Order in a pale steel helmet with a visor slit, a polished breastplate with gold trim and a calm, hard stare',
+  syndicate: 'a hooded Syndicate blade in a dark violet cowl with a thin violet trim, shadowed eyes and a faint sly smile',
   ironWeapons: 'a broad dwarf weaponsmith with spiky black hair and a thick black beard, ruddy skin and a dark-red work apron with a gold collar line',
   syndicateBoss: 'a crime boss in a wide dark-purple hat with a gold band, tan skin, a burgundy coat with a gold collar line and a black cape',
   smith: 'a bald, broad-faced blacksmith with a thick brown beard, tan skin and a brown work apron',
@@ -1116,7 +1127,9 @@ export const ICON_SETS: readonly ArtSet[] = [
   iconSet('sheet-icons-ui-1', 'Icons: HUD and menu buttons', uiCells.slice(0, 12), 4, 3, 96),
   iconSet('sheet-icons-ui-2', 'Icons: screen buttons', uiCells.slice(12, 24), 4, 3, 96),
   iconSet('sheet-icons-ui-3', 'Icons: badges, pins and help', uiCells.slice(24, 36), 4, 3, 96),
-  iconSet('sheet-icons-misc', 'Icons: equipment slots and marks', [...uiCells.slice(36), ...slotCells, ...markCells], 4, 3, 128)
+  iconSet('sheet-icons-misc', 'Icons: equipment slots and marks', [...uiCells.slice(36), ...slotCells, ...markCells].slice(0, 12), 4, 3, 128),
+  // What came after the twelve (a sheet holds twelve): the same kind, a sheet of their own.
+  iconSet('sheet-icons-misc-2', 'Icons: equipment slots and marks (2)', [...uiCells.slice(36), ...slotCells, ...markCells].slice(12), 4, 3, 128)
 ]
 const ICON_CELLS: readonly SheetCell[] = ICON_SETS.flatMap(s => s.cells.flatMap(c => (c ? [c] : [])))
 
@@ -1230,8 +1243,9 @@ export const SETS: readonly ArtSet[] = [
   ...CLASS_IDS.flatMap(cls => (sheetSkills(cls).length > 12 ? [skillSet(cls, 0), skillSet(cls, 1), skillSet(cls, 2)] : skillsOf(cls).length > 6 ? [skillSet(cls, 0), skillSet(cls, 1)] : [skillSet(cls, 0)])),
   portraitSet('sheet-portraits-town', 'Portraits: townsfolk', TOWN_LOOKS, 3, 3),
   portraitSet('sheet-portraits-trainers', 'Portraits: trainers', TRAINER_LOOKS, 3, 3),
-  portraitSet('sheet-portraits-masters-1', 'Portraits: masters and disciples, 1', MASTER_LOOKS_A, 4, 3),
-  portraitSet('sheet-portraits-masters-2', 'Portraits: masters and disciples, 2', MASTER_LOOKS_B, 3, 3),
+  // The masters and disciples were painted flat and alike: they are repainted to the finish of the town people (#189 follow-up).
+  { ...portraitSet('sheet-portraits-masters-1', 'Portraits: masters and disciples, 1', MASTER_LOOKS_A, 4, 3), styleRefs: PEOPLE_FINISH },
+  { ...portraitSet('sheet-portraits-masters-2', 'Portraits: masters and disciples, 2', MASTER_LOOKS_B, 3, 3), styleRefs: PEOPLE_FINISH },
   portraitSet('sheet-portraits-speakers', 'Portraits: quest speakers', SPEAKER_LOOKS, 3, 2),
   // The first returns without a finish came back as flat emoji copies of the placeholder (#164):
   // two shipped townsfolk ride along to show the painted finish (ears, noses, brows, shading).
@@ -1239,6 +1253,7 @@ export const SETS: readonly ArtSet[] = [
   { ...portraitSet('sheet-portraits-people-2', 'Portraits: Silverbridge traders', PEOPLE_LOOKS_B, 3, 3), styleRefs: PEOPLE_FINISH },
   { ...portraitSet('sheet-portraits-people-3', 'Portraits: gamblers, the fair and the mines', PEOPLE_LOOKS_C, 3, 3), styleRefs: PEOPLE_FINISH },
   { ...portraitSet('sheet-portraits-people-4', 'Portraits: the chronicler', PEOPLE_LOOKS_D, 1, 1), styleRefs: PEOPLE_FINISH },
+  { ...portraitSet('sheet-portraits-people-6', 'Portraits: folk, guards, the squire and the survivor', PEOPLE_LOOKS_F, 3, 3), styleRefs: PEOPLE_FINISH },
   { ...portraitSet('sheet-portraits-people-5', 'Portraits: the smiths, healers and shops of Oakhaven and Ironhold', PEOPLE_LOOKS_E, 4, 2), styleRefs: PEOPLE_FINISH },
   {
     ...portraitSet('sheet-portraits-hero', 'Portraits: the hero, per outfit', HERO_LOOKS, 2, 2),
