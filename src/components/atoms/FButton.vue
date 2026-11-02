@@ -325,9 +325,18 @@ const styleVars = computed(() => {
   transition: transform var(--bc-t-release) var(--bc-ease-bounce), filter 120ms ease-out
 
 .is-ornate-corners .f-button__body
-  +cel.ornate-button
+  +cel.ornate-button(0.62em, 0.17em, false)
 .is-ornate-wings .f-button__body
-  +cel.ornate-button(0.62em, 0.2em, true)
+  +cel.ornate-button(0.62em, 0.17em, true)
+
+@keyframes btn-sweep
+  0%
+    background-position: var(--gem-pos), 150% 0, top
+  55%, 100%
+    background-position: var(--gem-pos), -50% 0, top
+@media (prefers-reduced-motion: reduce)
+  .is-ornate-wings .f-button__body::after
+    animation: none
 
 // Nested rather than written flat, and that is load-bearing: `GameIcon`'s own
 // scoped rule is `.game-icon[data-v-…]` — one class plus one attribute, exactly

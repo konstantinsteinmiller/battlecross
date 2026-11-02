@@ -111,34 +111,45 @@
     pointer-events: none
     background: var(--orn-crest) center / 100% 100% no-repeat
 
-/// A button's finish (#127, redone): everything FOLLOWS the button's own curve, so nothing sits in a corner it
-/// does not fit. A fine light keyline one step inside the rim (the same radius less the inset), a soft gloss over
-/// the top half (clipped by the rounded body), and, on the wide sizes, a gilded stud at each end of the middle line.
-/// Corner brackets and leaf scrolls were dropped: on a tall or round-ended button they poked out of the curve.
-@mixin ornate-button($size: 0.62em, $inset: 0.2em, $wings: false)
+/// A button's finish (#127, redone twice): a gilded frame and jewels, all of it drawn off the button's own curve, so it
+/// is right on a slim button and on a tall one. A metal ring (a gradient seen through a ring-shaped mask, the host's own
+/// radius), a dark inner keyline and a gloss over the top; on the wide sizes (`$wings`) a faceted jewel in the button's
+/// own colour sits in a gold bezel at each end of the middle line, and a band of light sweeps over the face now and then
+/// (`btn-sweep`, declared by the host: reduced motion switches it off). Needs the tone's `--c-hi`, `--c`, `--c-lo`.
+@mixin ornate-button($size: 0.62em, $inset: 0.17em, $wings: false)
   isolation: isolate
   &::before
-    content: ''
-    position: absolute
-    inset: $inset
-    z-index: -1
-    pointer-events: none
-    box-sizing: border-box
-    border: max(1px, 0.075em) solid rgba(255, 255, 255, 0.5)
-    border-radius: max(0.3em, calc(var(--fbtn-radius) - #{$inset}))
-    box-shadow: inset 0 -0.14em 0 rgba(0, 0, 0, 0.1), 0 0 0 max(1px, 0.04em) rgba(0, 0, 0, 0.14)
-  &::after
     content: ''
     position: absolute
     inset: 0
     z-index: -1
     pointer-events: none
+    border-radius: inherit
+    padding: $inset
+    background: linear-gradient(135deg, #fff6bf 0, #ffd75a 18%, #c98a1c 42%, #fff0a0 55%, #e0a52a 72%, #8a5410 100%)
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)
+    -webkit-mask-composite: xor
+    mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0)
+  &::after
+    content: ''
+    position: absolute
+    inset: $inset
+    z-index: -1
+    pointer-events: none
+    border-radius: max(0.3em, calc(var(--fbtn-radius, 0.85rem) - #{$inset}))
+    box-shadow: inset 0 0 0 max(1px, 0.05em) rgba(70, 35, 0, 0.6), inset 0 0.12em 0 rgba(255, 255, 255, 0.35), inset 0 -0.2em 0.3em rgba(0, 0, 0, 0.18)
     background-repeat: no-repeat
     @if $wings
-      background-image: radial-gradient(circle at 50% 50%, #fff7c8 0 18%, #f0b830 22% 56%, #8a5410 60% 76%, transparent 80%), radial-gradient(circle at 50% 50%, #fff7c8 0 18%, #f0b830 22% 56%, #8a5410 60% 76%, transparent 80%), linear-gradient(180deg, rgba(255, 255, 255, 0.34), rgba(255, 255, 255, 0) 100%)
-      background-position: left 0.42em center, right 0.42em center, top
-      background-size: 0.52em 0.52em, 0.52em 0.52em, 100% 48%
+      --gx: max(0.5em, calc(var(--fbtn-radius, 0.85rem) * 0.45))
+      --gem-ring: radial-gradient(circle, transparent 0 0.29em, #fff3b0 0.3em 0.34em, #d99a22 0.35em 0.4em, #6b3d08 0.41em 0.47em, transparent 0.49em)
+      --gem-cut: conic-gradient(from 30deg, var(--c-hi) 0 25%, #fff 25% 31%, var(--c) 31% 56%, var(--c-lo) 56% 81%, var(--c) 81%)
+      --gem-glint: radial-gradient(circle, #fff 0 14%, transparent 18%)
+      --gem-pos: left calc(var(--gx) + 0.4em) center, left var(--gx) center, left calc(var(--gx) + 0.21em) center, right calc(var(--gx) + 0.4em) center, right var(--gx) center, right calc(var(--gx) + 0.21em) center
+      background-image: var(--gem-glint), var(--gem-ring), var(--gem-cut), var(--gem-glint), var(--gem-ring), var(--gem-cut), linear-gradient(105deg, transparent 42%, rgba(255, 255, 255, 0.6) 50%, transparent 58%), linear-gradient(180deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0))
+      background-position: var(--gem-pos), 150% 0, top
+      background-size: 0.18em 0.18em, 0.98em 0.98em, 0.56em 0.56em, 0.18em 0.18em, 0.98em 0.98em, 0.56em 0.56em, 250% 100%, 100% 50%
+      animation: btn-sweep 4.6s ease-in-out infinite
     @else
-      background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.34), rgba(255, 255, 255, 0) 100%)
+      background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0))
       background-position: top
-      background-size: 100% 48%
+      background-size: 100% 50%
