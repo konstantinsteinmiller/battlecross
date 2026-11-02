@@ -68,7 +68,7 @@
                 :key="n.id"
                 type="button"
                 :data-node="n.id"
-                :class="[`node--${n.kind}`, { 'is-locked': !n.open, 'is-invaded': n.invaded, 'is-cleared': n.cleared, 'is-here': n.here, 'is-selected': selected === n.id, 'is-next': n.open && !n.cleared, 'is-veiled': n.veil === 'wait', 'is-lifting': n.veil === 'lift', 'is-fresh': n.fresh }]"
+                :class="[`node--${n.kind}`, { 'is-locked': !n.open, 'is-invaded': n.invaded, 'is-cleared': n.cleared, 'is-here': n.here, 'is-selected': selected === n.id, 'is-next': n.open && !n.cleared, 'is-veiled': n.veil === 'wait', 'is-lifting': n.veil === 'lift', 'is-fresh': n.fresh, 'is-goal': !!goalNode && goalNode === n.id, 'is-offgoal': !!goalNode && goalNode !== n.id && !n.here }]"
                 :style="{ left: `${n.x}%`, top: `${n.y}%` }"
                 :aria-label="t(`node.${n.id}.name`)"
                 @click="pick(n.id)"
@@ -1539,6 +1539,13 @@ onBeforeUnmount(() => {
 .is-selected .node__label
   background: var(--bc-gold, #ffc526)
 // The afterplay: the Breaking holds it (§4). A blood-red ring round the landmark.
+// A new player's map says one thing (#178): the goal's place keeps its tags, every other place goes quiet (no NEW
+// flag, no level pill; a locked one fades), so the realm's ~15 labels on a phone are not 15 calls to action.
+.node.is-offgoal
+  .node__new, .node__lvl
+    display: none
+  &.is-locked
+    opacity: 0.55
 .node__new--invaded
   background: linear-gradient(180deg, #8a1a2a, #4a0a16)
 .is-invaded .node__ring ellipse
