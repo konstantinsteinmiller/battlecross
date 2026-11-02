@@ -346,9 +346,9 @@ const raise = (a: Attr): void => {
     top: -0.65rem
     width: 1.15rem
     height: 1.15rem
-    background: var(--bc-gold-hi, #ffd24a)
+    background: var(--bc-gold-hi)
     clip-path: polygon(8% 92%, 8% 42%, 25% 58%, 71% 12%, 88% 29%, 42% 75%, 58% 92%)
-    filter: drop-shadow(0 0 1px #1b1020) drop-shadow(0 1px 0 #1b1020)
+    filter: drop-shadow(0 0 1px var(--bc-ink)) drop-shadow(0 1px 0 var(--bc-ink))
     pointer-events: none
     animation: attr-arrow 0.9s ease-in-out infinite alternate
 @keyframes attr-press

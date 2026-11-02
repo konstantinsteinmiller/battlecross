@@ -552,7 +552,7 @@ const drag = useDrag<Held>({
   display: flex
   align-items: center
   justify-content: center
-  background: linear-gradient(180deg, #4a4358 0, #2a2536 100%)
+  background: linear-gradient(180deg, var(--bc-slate-hi) 0, var(--bc-slate-lo) 100%)
   filter: none
 .emblem__unknown
   font-family: var(--font-ui)
@@ -564,7 +564,7 @@ const drag = useDrag<Held>({
   margin: 0 0 0.3rem
   text-align: center
   font-size: 0.8rem
-  color: var(--bc-text-dim, #5a4a38)
+  color: var(--bc-paper-ink-soft)
 .emblem.is-active .emblem__disc
   +screen.chosen
 .emblem__pips

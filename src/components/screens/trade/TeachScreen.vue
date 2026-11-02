@@ -401,7 +401,7 @@ const learn = (): void => {
   gap: 0.4em
   margin: 0.2rem 0.4rem
   padding: 0.35em 0.6em
-  border: var(--bc-ol-thin) dashed var(--bc-stone-hi, #9a8c74)
+  border: var(--bc-ol-thin) dashed var(--bc-stone-hi)
   border-radius: var(--bc-r-md)
   font-size: 0.82rem
   opacity: 0.8
