@@ -410,6 +410,21 @@ export default {
       mouse: '按下翻滾鍵，就能閃開危險。翻滾的時候，什麼都傷不到你。'
     }
   },
+  camp: {
+    ahead: '前方還有{n}個技能',
+    sealed: '擊敗魔王後再解鎖{n}個',
+    met: '已遇見的流派：{n}/{total}',
+    pick: {
+      title: '選擇你的第一個技能',
+      lead: '免費學習。這幾位導師風格各異，之後你可以向所有人學習。',
+      learn: '免費學習',
+      style: {
+        aegis: '穩守反擊',
+        pyro: '焚盡一切',
+        soulwarden: '與亡者並肩作戰'
+      }
+    }
+  },
   goal: {
     dummy: '打倒訓練木樁',
     clear: '清理{place}',

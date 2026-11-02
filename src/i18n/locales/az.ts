@@ -410,6 +410,21 @@ export default {
       mouse: 'Təhlükədən yayınmaq üçün yuvarlanma düyməsini bas. Yuvarlanarkən heç nə sənə zərər verə bilməz.'
     }
   },
+  camp: {
+    ahead: 'Qarşıda daha {n} bacarıq',
+    sealed: 'İblis kralından sonra daha {n} açılır',
+    met: 'Tanış olunan məktəblər: {n}/{total}',
+    pick: {
+      title: 'İlk bacarığını seç',
+      lead: 'Pulsuzdur. Bu müəllimlərin hər birinin öz üslubu var, sonra hamısından öyrənə bilərsən.',
+      learn: 'Pulsuz öyrən',
+      style: {
+        aegis: 'Möhkəm dur və cavab ver',
+        pyro: 'Əlçatan hər şeyi yandır',
+        soulwarden: 'Düşənlərlə döyüş'
+      }
+    }
+  },
   goal: {
     dummy: 'Məşq dummisini yıx',
     clear: 'Təmizlə: {place}',

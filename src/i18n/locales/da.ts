@@ -410,6 +410,21 @@ export default {
       mouse: 'Tryk på rulletasten for at undvige faren. Intet kan skade dig midt i rullet.'
     }
   },
+  camp: {
+    ahead: '{n} evner mere længere fremme',
+    sealed: '{n} mere låses op efter dæmonkongen',
+    met: 'Skoler mødt: {n}/{total}',
+    pick: {
+      title: 'Vælg din første evne',
+      lead: 'Den er gratis. Hver af disse lærere har sin egen stil, og senere kan du lære af dem alle.',
+      learn: 'Lær den gratis',
+      style: {
+        aegis: 'Stå fast og slå igen',
+        pyro: 'Brænd alt inden for rækkevidde',
+        soulwarden: 'Kæmp med de faldne'
+      }
+    }
+  },
   goal: {
     dummy: 'Vælt træningsdukken',
     clear: 'Ryd {place}',

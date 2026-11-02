@@ -410,6 +410,21 @@ export default {
       mouse: 'Tehlikeden kaçmak için yuvarlanma tuşuna bas. Yuvarlanırken hiçbir şey sana zarar veremez.'
     }
   },
+  camp: {
+    ahead: 'İleride {n} yetenek daha',
+    sealed: '{n} tanesi daha iblis kralından sonra açılır',
+    met: 'Tanışılan okullar: {n}/{total}',
+    pick: {
+      title: 'İlk yeteneğini seç',
+      lead: 'Bedava. Bu öğretmenlerin her birinin farklı bir tarzı var, sonra hepsinden öğrenebilirsin.',
+      learn: 'Bedava öğren',
+      style: {
+        aegis: 'Dimdik dur ve karşılık ver',
+        pyro: 'Menzildeki her şeyi yak',
+        soulwarden: 'Düşenlerle birlikte savaş'
+      }
+    }
+  },
   goal: {
     dummy: 'Talim mankenini devir',
     clear: 'Temizle: {place}',

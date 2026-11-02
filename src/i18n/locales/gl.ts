@@ -411,6 +411,21 @@ export default {
       mouse: 'Preme a tecla de rodar para esquivar o perigo. Nada che pode facer dano mentres rodas.'
     }
   },
+  camp: {
+    ahead: '{n} habilidades máis por diante',
+    sealed: '{n} máis desbloquéanse despois do rei demo',
+    met: 'Escolas coñecidas: {n}/{total}',
+    pick: {
+      title: 'Escolle a túa primeira habilidade',
+      lead: 'É de balde. Cada un destes mestres ten un estilo distinto e máis adiante poderás aprender de todos.',
+      learn: 'Aprender de balde',
+      style: {
+        aegis: 'Aguantar firme e devolver o golpe',
+        pyro: 'Queimar todo o que teñas ao alcance',
+        soulwarden: 'Loitar cos caídos'
+      }
+    }
+  },
   goal: {
     dummy: 'Derruba o boneco de adestramento',
     clear: 'Limpa {place}',

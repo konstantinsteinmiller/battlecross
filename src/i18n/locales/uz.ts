@@ -410,6 +410,21 @@ export default {
       mouse: 'Xavfdan qochish uchun dumalash tugmasini bosing. Dumalayotganda hech narsa sizga zarar yetkaza olmaydi.'
     }
   },
+  camp: {
+    ahead: 'Oldinda yana {n} ko‘nikma',
+    sealed: 'Iblis shohidan keyin yana {n} ochiladi',
+    met: 'Uchrashgan maktablar: {n}/{total}',
+    pick: {
+      title: 'Birinchi ko‘nikmangni tanla',
+      lead: 'U bepul. Bu ustozlarning har birining o‘z uslubi bor, keyinroq hammasidan o‘rgana olasan.',
+      learn: 'Bepul o‘rgan',
+      style: {
+        aegis: 'Mustahkam tur va zarbani qaytar',
+        pyro: 'Yetadigan hamma narsani yoq',
+        soulwarden: 'Qulaganlar bilan birga jang qil'
+      }
+    }
+  },
   goal: {
     dummy: 'Mashq qoʻgʻirchogʻini yiqiting',
     clear: 'Tozalang: {place}',

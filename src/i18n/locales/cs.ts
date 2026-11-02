@@ -413,6 +413,21 @@ export default {
       mouse: 'Stiskni klávesu kotoulu a uhneš před nebezpečím. Během kotoulu ti nic neublíží.'
     }
   },
+  camp: {
+    ahead: 'Dalších {n} dovedností před tebou',
+    sealed: 'Dalších {n} se odemkne po démonském králi',
+    met: 'Potkané školy: {n}/{total}',
+    pick: {
+      title: 'Vyber si první dovednost',
+      lead: 'Je zdarma. Každý z těchto učitelů má jiný styl a později se můžeš učit od všech.',
+      learn: 'Naučit se zdarma',
+      style: {
+        aegis: 'Vydržet a oplácet',
+        pyro: 'Spálit vše v dosahu',
+        soulwarden: 'Bojovat s padlými'
+      }
+    }
+  },
   goal: {
     dummy: 'Skoť cvičného panáka',
     clear: 'Vyčisti: {place}',

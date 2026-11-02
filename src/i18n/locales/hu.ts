@@ -410,6 +410,21 @@ export default {
       mouse: 'Nyomd meg a gurulás billentyűt, hogy kitérj a veszély elől. Gurulás közben semmi sem árthat neked.'
     }
   },
+  camp: {
+    ahead: 'Még {n} képesség vár előtted',
+    sealed: 'Még {n} nyílik meg a démonkirály után',
+    met: 'Megismert iskolák: {n}/{total}',
+    pick: {
+      title: 'Válaszd ki az első képességed',
+      lead: 'Ingyenes. Ezeknek a tanítóknak mind más a stílusa, és később mindegyiküktől tanulhatsz.',
+      learn: 'Ingyen megtanulom',
+      style: {
+        aegis: 'Állj szilárdan és ütj vissza',
+        pyro: 'Égess el mindent, ami a közelben van',
+        soulwarden: 'Harcolj az elesettekkel'
+      }
+    }
+  },
   goal: {
     dummy: 'Döntsd le a gyakorlóbábut',
     clear: 'Tisztítsd meg: {place}',

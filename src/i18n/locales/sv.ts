@@ -410,6 +410,21 @@ export default {
       mouse: 'Tryck på rulltangenten för att ta dig ur fara. Inget kan skada dig medan du rullar.'
     }
   },
+  camp: {
+    ahead: '{n} färdigheter till längre fram',
+    sealed: '{n} till låses upp efter demonkungen',
+    met: 'Skolor mötta: {n}/{total}',
+    pick: {
+      title: 'Välj din första färdighet',
+      lead: 'Den är gratis. Varje lärare här har sin egen stil, och senare kan du lära dig av alla.',
+      learn: 'Lär dig gratis',
+      style: {
+        aegis: 'Stå fast och slå tillbaka',
+        pyro: 'Bränn allt inom räckhåll',
+        soulwarden: 'Kämpa med de fallna'
+      }
+    }
+  },
   goal: {
     dummy: 'Slå ner övningsdockan',
     clear: 'Rensa {place}',

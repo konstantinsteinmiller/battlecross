@@ -411,6 +411,21 @@ export default {
       mouse: 'Naciśnij klawisz przewrotu, aby uciec przed niebezpieczeństwem. W trakcie przewrotu nic cię nie skrzywdzi.'
     }
   },
+  camp: {
+    ahead: 'Jeszcze {n} umiejętności przed tobą',
+    sealed: 'Kolejne {n} odblokują się po królu demonów',
+    met: 'Poznane szkoły: {n}/{total}',
+    pick: {
+      title: 'Wybierz pierwszą umiejętność',
+      lead: 'Jest darmowa. Każdy z tych nauczycieli ma inny styl, a później nauczysz się od wszystkich.',
+      learn: 'Naucz się za darmo',
+      style: {
+        aegis: 'Stój twardo i oddawaj ciosy',
+        pyro: 'Spal wszystko w zasięgu',
+        soulwarden: 'Walcz razem z poległymi'
+      }
+    }
+  },
   goal: {
     dummy: 'Przewróć manekin treningowy',
     clear: 'Oczyść: {place}',

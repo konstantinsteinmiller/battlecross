@@ -44,6 +44,8 @@
         div.codex__nav(aria-hidden="false")
           button.codex__up(v-show="away" type="button" :aria-label="t('ui.back')" @click="toClasses")
             GameIcon(name="up")
+        //- The schools met so far (#181, D4): a count to fill, and the ones not met yet are a dark "?".
+        p.codex__met(data-met) {{ t('camp.met', { n: metCount, total: shownClasses.length }) }}
         div.codex__classes(ref="gridEl" role="tablist")
           button.emblem(
             v-for="c in shownClasses"
@@ -52,13 +54,14 @@
             role="tab"
             :aria-selected="cls === c"
             :aria-label="t('skills.classCount', { cls: t(`class.${c}.name`), n: learnedOf(c), total: skillsOf(c).length })"
-            :class="{ 'is-active': cls === c, 'is-bare': learnedOf(c) === 0 }"
+            :class="{ 'is-active': cls === c, 'is-bare': learnedOf(c) === 0, 'is-unmet': !metClass(c) }"
             :style="{ '--tint': CLASSES[c].color }"
             :data-cls="c"
             @click="pickClass(c, $event)"
           )
             span.emblem__disc
-              ArtIcon(:glyph="`skill.${skillsOf(c)[0].id}`" :tint="CLASSES[c].color" :src="ICON_ART.get(`class-${c}`)" frame="none")
+              span.emblem__unknown(v-if="!metClass(c)" aria-hidden="true") ?
+              ArtIcon(v-else :glyph="`skill.${skillsOf(c)[0].id}`" :tint="CLASSES[c].color" :src="ICON_ART.get(`class-${c}`)" frame="none")
             span.emblem__pips(aria-hidden="true")
               span.emblem__pip(v-for="s in skillsOf(c)" :key="s.id" :class="{ on: knows(s.id) }")
         header.codex__head(ref="headEl")
@@ -131,7 +134,7 @@ import { computed, nextTick, onBeforeUnmount, onMounted, reactive, ref } from 'v
 import { useI18n } from 'vue-i18n'
 import { CLASSES, CLASS_IDS, PRESTIGE_IDS, SKILL_BY_ID, meetsSkill, skillsOf, type ClassId } from '@/game/data/skills'
 import { trialFlag } from '@/game/data/prestige'
-import { flagSet, knows, profile, setSlot, totalAttrs } from '@/game/state/profile'
+import { flagSet, knows, metClass, profile, setSlot, totalAttrs } from '@/game/state/profile'
 import { sfx } from '@/game/audio/sfx'
 import FButton from '@/components/atoms/FButton.vue'
 import PresetBar from './PresetBar.vue'
@@ -162,6 +165,7 @@ const usable = (id: string): boolean => {
 }
 const learnedOf = (c: ClassId): number => skillsOf(c).filter(s => knows(s.id)).length
 /** The sixteen, and a prestige class once its trial is passed (afterplay §10): hidden till then. */
+const metCount = computed(() => shownClasses.value.filter(c => metClass(c)).length)
 const shownClasses = computed<ClassId[]>(() => {
   const f = flagSet()
   return [...CLASS_IDS, ...PRESTIGE_IDS.filter(c => f.has(trialFlag(c)) || learnedOf(c) > 0)]
@@ -543,6 +547,24 @@ const drag = useDrag<Held>({
   box-shadow: var(--bc-drop)
 .emblem.is-bare .emblem__disc
   filter: saturate(0.45)
+// A school not met yet (#181, D4): a dark disc with a question mark; its skills are still there to look at.
+.emblem.is-unmet .emblem__disc
+  display: flex
+  align-items: center
+  justify-content: center
+  background: linear-gradient(180deg, #4a4358 0, #2a2536 100%)
+  filter: none
+.emblem__unknown
+  font-family: var(--font-ui)
+  font-weight: 800
+  font-size: 1.4rem
+  line-height: 1
+  color: rgba(255, 255, 255, 0.55)
+.codex__met
+  margin: 0 0 0.3rem
+  text-align: center
+  font-size: 0.8rem
+  color: var(--bc-text-dim, #5a4a38)
 .emblem.is-active .emblem__disc
   +screen.chosen
 .emblem__pips

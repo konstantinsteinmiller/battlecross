@@ -381,6 +381,21 @@ export default {
   },
 
   // ─── The goal tracker (one short goal under the place's name) ─────────────
+  'camp': {
+    'ahead': '{n} more skills ahead',
+    'sealed': '{n} more unlock after the demon king',
+    'met': 'Schools met: {n}/{total}',
+    'pick': {
+      'title': 'Choose your first skill',
+      'lead': 'It is free. Each of these teachers has a different style, and you can learn from all of them later.',
+      'learn': 'Learn it free',
+      'style': {
+        'aegis': 'Stand firm and hit back',
+        'pyro': 'Burn everything in reach',
+        'soulwarden': 'Fight with the fallen'
+      }
+    }
+  },
   'goal': {
     'dummy': 'Knock down the training dummy',
     'clear': 'Clear {place}',

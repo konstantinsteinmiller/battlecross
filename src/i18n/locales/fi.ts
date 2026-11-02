@@ -410,6 +410,21 @@ export default {
       mouse: 'Paina kierimisnäppäintä väistääksesi vaaraa. Mikään ei voi satuttaa sinua kierimisen aikana.'
     }
   },
+  camp: {
+    ahead: '{n} taitoa lisää edessä',
+    sealed: '{n} lisää avautuu demonikuninkaan jälkeen',
+    met: 'Koulukuntia tavattu: {n}/{total}',
+    pick: {
+      title: 'Valitse ensimmäinen taitosi',
+      lead: 'Se on ilmainen. Jokaisella näistä opettajista on oma tyylinsä, ja myöhemmin voit oppia kaikilta.',
+      learn: 'Opi ilmaiseksi',
+      style: {
+        aegis: 'Pidä pintasi ja lyö takaisin',
+        pyro: 'Polta kaikki ulottuvilla',
+        soulwarden: 'Taistele kaatuneiden rinnalla'
+      }
+    }
+  },
   goal: {
     dummy: 'Kaada harjoitusnukke',
     clear: 'Puhdista {place}',

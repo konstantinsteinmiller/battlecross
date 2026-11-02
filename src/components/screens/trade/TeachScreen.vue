@@ -27,7 +27,7 @@
             ) {{ t(`class.${c}.name`) }}
           p.trainer__friend(v-if="friend") {{ t('trainer.friend', { faction: t(`faction.${CLASSES[cls].faction}`) }) }}
           ol.lessons
-            li.lessons__step(v-for="s in skills" :key="s.id" :class="{ 'is-known': knows(s.id) }")
+            li.lessons__step(v-for="s in shownSkills" :key="s.id" :class="{ 'is-known': knows(s.id) }")
               button.lesson(
                 type="button"
                 :class="{ 'is-sel': picked === s.id, 'is-known': knows(s.id), 'is-open': learnBlock(s.id) === '', 'is-locked': lockedOut(s.id) }"
@@ -56,6 +56,15 @@
                     GameIcon(name="check")
                   span.lesson__known {{ t('trainer.known') }}
                 PriceTag.lesson__fee(v-else :n="skillCost(s.id)" :base="baseOf(s.id)" :bad="profile.gold < skillCost(s.id)" plain)
+            //- What lies further on, as one quiet line each (#181, D3): a new player sees the next steps of a school, not all eighteen.
+            li.lessons__more(v-if="aheadCount > 0" data-ahead)
+              span.lessons__more-icon(aria-hidden="true")
+                GameIcon(name="forward")
+              | {{ t('camp.ahead', { n: aheadCount }) }}
+            li.lessons__more.is-sealed(v-if="sealedCount > 0" data-sealed)
+              span.lessons__more-icon(aria-hidden="true")
+                GameIcon(name="lock")
+              | {{ t('camp.sealed', { n: sealedCount }) }}
 
       //- ── The lesson on the table ────────────────────────────────────────────
       section.trade__table(:class="{ 'is-open': !!picked }")
@@ -189,6 +198,16 @@ const skills = computed(() => {
   const path = cap ? [...skillsOf(cls.value), cap] : skillsOf(cls.value)
   return [...path, ...endgameOf(cls.value)]
 })
+/** Up to this many levels ahead of the hero a skill is shown; further ones are one line ("N more ahead"), until level 20. */
+const SHOW_AHEAD = 6
+const EARLY = 20
+/** The path as the list shows it (#181, D3): the endgame six are one sealed row until the demon king falls; a young hero sees the next steps of the school, not every skill of it. */
+const shownSkills = computed(() => skills.value.filter(s => {
+  if (s.endgame) return afterplayOpen()
+  return knows(s.id) || profile.level >= EARLY || s.level <= profile.level + SHOW_AHEAD
+}))
+const aheadCount = computed(() => skills.value.filter(s => !s.endgame && !shownSkills.value.includes(s)).length)
+const sealedCount = computed(() => (afterplayOpen() ? 0 : skills.value.filter(s => s.endgame).length))
 /** A trainer of several classes (the Wanderer): the ones he teaches this hero. */
 const tabs = computed<ClassId[]>(() => {
   const f = flagSet()
@@ -374,6 +393,27 @@ const learn = (): void => {
   display: flex
   flex-direction: column
   gap: clamp(0.3rem, 1.4vmin, 0.5rem)
+// What lies further on (#181, D3): one quiet line, not a card.
+.lessons__more
+  display: flex
+  align-items: center
+  justify-content: center
+  gap: 0.4em
+  margin: 0.2rem 0.4rem
+  padding: 0.35em 0.6em
+  border: var(--bc-ol-thin) dashed var(--bc-stone-hi, #9a8c74)
+  border-radius: var(--bc-r-md)
+  font-size: 0.82rem
+  opacity: 0.8
+  &.is-sealed
+    opacity: 0.65
+.lessons__more-icon
+  display: inline-flex
+  width: 1.1em
+  height: 1.1em
+  :deep(svg)
+    width: 100%
+    height: 100%
 .lessons__step
   position: relative
   // The thread from this stone to the next.

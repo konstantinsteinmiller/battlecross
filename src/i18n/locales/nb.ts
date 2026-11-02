@@ -410,6 +410,21 @@ export default {
       mouse: 'Trykk på rulletasten for å komme deg unna fare. Ingenting kan skade deg mens du ruller.'
     }
   },
+  camp: {
+    ahead: '{n} ferdigheter til lenger frem',
+    sealed: '{n} til låses opp etter demonkongen',
+    met: 'Skoler møtt: {n}/{total}',
+    pick: {
+      title: 'Velg din første ferdighet',
+      lead: 'Den er gratis. Hver av disse lærerne har sin egen stil, og senere kan du lære av dem alle.',
+      learn: 'Lær den gratis',
+      style: {
+        aegis: 'Stå støtt og slå tilbake',
+        pyro: 'Brenn alt innen rekkevidde',
+        soulwarden: 'Kjemp med de falne'
+      }
+    }
+  },
   goal: {
     dummy: 'Slå ned treningsdukken',
     clear: 'Rydd {place}',

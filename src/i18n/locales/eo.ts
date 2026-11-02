@@ -410,6 +410,21 @@ export default {
       mouse: 'Premu la rulklavon por eviti danĝeron. Nenio povas vundi vin meze de la rulo.'
     }
   },
+  camp: {
+    ahead: 'Ankoraŭ {n} kapabloj antaŭe',
+    sealed: 'Ankoraŭ {n} malŝlosiĝas post la demonreĝo',
+    met: 'Renkontitaj lernejoj: {n}/{total}',
+    pick: {
+      title: 'Elektu vian unuan kapablon',
+      lead: 'Ĝi estas senpaga. Ĉiu el ĉi tiuj instruistoj havas malsaman stilon, kaj poste vi povas lerni de ĉiuj.',
+      learn: 'Lernu senpage',
+      style: {
+        aegis: 'Stari firme kaj bati reen',
+        pyro: 'Bruligi ĉion en atingo',
+        soulwarden: 'Batali kun la falintoj'
+      }
+    }
+  },
   goal: {
     dummy: 'Faligu la ekzercan pupon',
     clear: 'Purigu {place}',

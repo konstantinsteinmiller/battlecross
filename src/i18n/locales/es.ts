@@ -411,6 +411,21 @@ export default {
       mouse: 'Pulsa la tecla de voltereta para esquivar el peligro. Nada puede hacerte daño en plena voltereta.'
     }
   },
+  camp: {
+    ahead: '{n} habilidades más por delante',
+    sealed: '{n} más se desbloquean tras el rey demonio',
+    met: 'Escuelas conocidas: {n}/{total}',
+    pick: {
+      title: 'Elige tu primera habilidad',
+      lead: 'Es gratis. Cada uno de estos maestros tiene un estilo distinto y luego podrás aprender de todos.',
+      learn: 'Aprender gratis',
+      style: {
+        aegis: 'Resistir y devolver el golpe',
+        pyro: 'Quemar todo a tu alcance',
+        soulwarden: 'Luchar con los caídos'
+      }
+    }
+  },
   goal: {
     dummy: 'Derriba el muñeco de entrenamiento',
     clear: 'Despeja {place}',

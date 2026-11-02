@@ -759,6 +759,16 @@ export const lesson = reactive({ free: '', camp: false })
 /** The one-time flag (in `profile.tips`) that the camp's free lesson is taken (#156). */
 export const CAMP_GIFT_TIP = 'campGift'
 
+/** A teacher of this school has been met (#181, D4): the skills page's "schools met" row lights it. */
+export const metTip = (cls: string): string => 'met:' + cls
+export const markMet = (cls: string): void => {
+  if (profile.tips[metTip(cls)] === true) return
+  profile.tips[metTip(cls)] = true
+  saveProfile()
+}
+/** Met a teacher of it, or learned from it. */
+export const metClass = (cls: string): boolean => profile.tips[metTip(cls)] === true || profile.hero.learned.some(id => SKILL_BY_ID[id]?.cls === cls)
+
 /** The first lesson bought in the rescued teachers' camp is on them, once (#156). */
 const campGift = (id: string): boolean => lesson.camp && !profile.tips[CAMP_GIFT_TIP] && lesson.free !== id
 

@@ -32,6 +32,7 @@ import { pokiMeasure } from '@/utils/pokiPlugin'
 import { showMidgameAd } from '@/use/useAds'
 import { canOfferReward, canShowInterstitial, claimReward, isRewardGated, markInterstitialShown } from '@/use/useAdGate'
 import { breakAllowed } from '@/game/adPacing'
+import { campLessonPending } from '@/game/coach/campLesson'
 import { DEMO_END_FLAG } from './data/fullVersion'
 import { gateActive, isNodeLockedByDemo, resetPurchaseStatus } from '@/use/useFullVersion'
 import { isAdShowing } from '@/use/useGamePause'
@@ -47,7 +48,7 @@ import { chestReward, escortPacks, merchantTiers, type EncounterSpec } from './d
 import { dayKey } from './rareShelf'
 import { carefulMult } from './careful'
 import { BOARD } from './townTasks'
-import { lesson, mapSpot, markTip, setMapPos } from './state/profile'
+import { lesson, mapSpot, markMet, markTip, setMapPos } from './state/profile'
 import { SIEGE_LORD, siegeEnemyLevel, type SiegeTier } from './data/siege'
 import { countSiegeClear, marksBanked, recordSiege, siegeTierOpen, storySiegeDue } from './state/siege'
 import { countFairClear } from './state/fair'
@@ -66,7 +67,7 @@ import { countFairClear } from './state/fair'
 
 export type Screen = 'boot' | 'zone' | 'town' | 'map'
 export type Modal =
-  | '' | 'results' | 'secondWind' | 'contracts' | 'siege' | 'pause' | 'character' | 'skills' | 'inventory' | 'journal' | 'shop' | 'trainer' | 'healer' | 'alchemy' | 'smithing' | 'sellOre' | 'memory' | 'itemBattle' | 'cups' | 'whack' | 'ring' | 'arm' | 'ending' | 'help' | 'unlock'
+  | '' | 'results' | 'secondWind' | 'contracts' | 'siege' | 'pause' | 'character' | 'skills' | 'inventory' | 'journal' | 'shop' | 'trainer' | 'healer' | 'alchemy' | 'smithing' | 'sellOre' | 'memory' | 'itemBattle' | 'cups' | 'whack' | 'ring' | 'arm' | 'ending' | 'help' | 'unlock' | 'campPick'
 /** A conversation in progress (`talk.ts`, drawn by `DialogLayer`): with a
  *  townsperson in the scene, with a trainer met on the map, or a quest's
  *  decision. It is not a window — the world keeps running under it — and it
@@ -1058,6 +1059,7 @@ const roleWindow = (npc: NpcDef): Modal =>
  */
 const metTeacher = (cls: ClassId | undefined): void => {
   if (!cls) return
+  markMet(cls)
   const f = foundFlag(cls)
   if (hasFlag(f) || !Object.values(TOWNS).some(t => t.npcs.some(n => n.needs?.includes(f)))) return
   profile.world.flags.push(f)
@@ -1085,7 +1087,8 @@ export const talkTo = (npcId: string): void => {
   // nothing else (no small talk out here), the first one on them.
   const zone = liveZone()
   lesson.camp = !!zone && inCamp(zone.sim, npc.id)
-  if (lesson.camp) { flow.modal = roleWindow(npc); return }
+  // The camp's free lesson is a first build choice (#181): one card per teacher, until it is taken.
+  if (lesson.camp) { flow.modal = zone && campLessonPending(zone.sim) ? 'campPick' : roleWindow(npc); return }
   const conv = conversationOf(npc.id)
   // Everyone has a conversation (a test holds the data to it); without one
   // the trade itself is still reachable.

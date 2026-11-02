@@ -411,6 +411,21 @@ export default {
       mouse: 'Premi il tasto di rotolata per schivare il pericolo. Niente può farti male durante la rotolata.'
     }
   },
+  camp: {
+    ahead: 'Altre {n} abilità più avanti',
+    sealed: 'Altre {n} si sbloccano dopo il re demone',
+    met: 'Scuole incontrate: {n}/{total}',
+    pick: {
+      title: 'Scegli la tua prima abilità',
+      lead: 'È gratis. Ognuno di questi maestri ha uno stile diverso e potrai imparare da tutti più avanti.',
+      learn: 'Impara gratis',
+      style: {
+        aegis: 'Reggere e rispondere ai colpi',
+        pyro: 'Bruciare tutto ciò che è a tiro',
+        soulwarden: 'Combattere con i caduti'
+      }
+    }
+  },
   goal: {
     dummy: 'Abbatti il manichino da allenamento',
     clear: 'Libera {place}',

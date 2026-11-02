@@ -410,6 +410,21 @@ export default {
       mouse: 'Apasă tasta de rostogolire ca să scapi de pericol. Nimic nu te poate răni în timpul rostogolirii.'
     }
   },
+  camp: {
+    ahead: 'Încă {n} abilități înainte',
+    sealed: 'Încă {n} se deblochează după regele demon',
+    met: 'Școli întâlnite: {n}/{total}',
+    pick: {
+      title: 'Alege prima ta abilitate',
+      lead: 'Este gratuită. Fiecare dintre acești profesori are alt stil, iar mai târziu poți învăța de la toți.',
+      learn: 'Învaț-o gratis',
+      style: {
+        aegis: 'Rezistă și lovește înapoi',
+        pyro: 'Arde tot ce ajungi',
+        soulwarden: 'Luptă alături de cei căzuți'
+      }
+    }
+  },
   goal: {
     dummy: 'Doboară manechinul de antrenament',
     clear: 'Curăță {place}',

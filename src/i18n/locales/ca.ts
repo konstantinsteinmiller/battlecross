@@ -411,6 +411,21 @@ export default {
       mouse: 'Prem la tecla de voltereta per esquivar el perill. Res no et pot fer mal enmig de la voltereta.'
     }
   },
+  camp: {
+    ahead: '{n} habilitats més per endavant',
+    sealed: '{n} més es desbloquegen després del rei dimoni',
+    met: 'Escoles conegudes: {n}/{total}',
+    pick: {
+      title: 'Tria la teva primera habilitat',
+      lead: 'És gratis. Cadascun d’aquests mestres té un estil diferent i més endavant podràs aprendre de tots.',
+      learn: 'Aprèn-la gratis',
+      style: {
+        aegis: 'Mantenir-se ferm i tornar el cop',
+        pyro: 'Cremar tot el que tinguis a l’abast',
+        soulwarden: 'Lluitar amb els caiguts'
+      }
+    }
+  },
   goal: {
     dummy: 'Tomba el maniquí d’entrenament',
     clear: 'Neteja {place}',

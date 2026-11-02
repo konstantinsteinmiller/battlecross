@@ -411,6 +411,21 @@ export default {
       mouse: 'Pressione a tecla de rolamento para escapar do perigo. Nada pode machucar você durante o rolamento.'
     }
   },
+  camp: {
+    ahead: 'Mais {n} habilidades adiante',
+    sealed: 'Mais {n} se desbloqueiam depois do rei demônio',
+    met: 'Escolas conhecidas: {n}/{total}',
+    pick: {
+      title: 'Escolha sua primeira habilidade',
+      lead: 'É grátis. Cada um desses mestres tem um estilo diferente e você poderá aprender com todos depois.',
+      learn: 'Aprender de graça',
+      style: {
+        aegis: 'Resistir e revidar',
+        pyro: 'Queimar tudo ao alcance',
+        soulwarden: 'Lutar com os caídos'
+      }
+    }
+  },
   goal: {
     dummy: 'Derrube o boneco de treino',
     clear: 'Limpe {place}',

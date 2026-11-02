@@ -410,6 +410,21 @@ export default {
       mouse: 'Nospied ripošanas taustiņu, lai izvairītos no briesmām. Ripošanas laikā nekas tevi nevar sāpināt.'
     }
   },
+  camp: {
+    ahead: 'Vēl {n} prasmes priekšā',
+    sealed: 'Vēl {n} atvērsies pēc dēmonu karaļa',
+    met: 'Satiktās skolas: {n}/{total}',
+    pick: {
+      title: 'Izvēlies pirmo prasmi',
+      lead: 'Tā ir bezmaksas. Katram no šiem skolotājiem ir sava stila, un vēlāk vari mācīties no visiem.',
+      learn: 'Apgūt bez maksas',
+      style: {
+        aegis: 'Turēties stingri un sist pretī',
+        pyro: 'Sadedzināt visu aizsniedzamo',
+        soulwarden: 'Cīnīties kopā ar kritušajiem'
+      }
+    }
+  },
   goal: {
     dummy: 'Nogāz treniņa lelli',
     clear: 'Iztīri: {place}',

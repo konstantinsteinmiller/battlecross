@@ -413,6 +413,21 @@ export default {
       mouse: 'Pritisni tipku za kotrljanje da izbjegneš opasnost. Ništa ti ne može nauditi usred kotrljanja.'
     }
   },
+  camp: {
+    ahead: 'Još {n} vještina pred tobom',
+    sealed: 'Još {n} otključava se nakon demonskog kralja',
+    met: 'Upoznate škole: {n}/{total}',
+    pick: {
+      title: 'Odaberi prvu vještinu',
+      lead: 'Besplatna je. Svaki od ovih učitelja ima drukčiji stil, a kasnije možeš učiti od svih.',
+      learn: 'Nauči besplatno',
+      style: {
+        aegis: 'Izdrži i uzvrati udarac',
+        pyro: 'Spali sve na dohvat ruke',
+        soulwarden: 'Bori se s palima'
+      }
+    }
+  },
   goal: {
     dummy: 'Obori strašilo za trening',
     clear: 'Očisti: {place}',

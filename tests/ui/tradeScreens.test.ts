@@ -149,14 +149,13 @@ describe('the trainer\'s lesson', () => {
     p.profile.gold = 5000
     await open('TeachScreen', 'trainerPyro')
     const lessons = $$('.lesson')
-    // The class's twelve, then its six endgame skills (#168), locked until the demon king falls.
-    expect(lessons).toHaveLength(12 + 6)
-    expect(lessons.slice(12).every(l => !!l.querySelector('.lesson__lock'))).toBe(true)
-    await click(lessons[12]!)
-    expect($('.skill-card')).toBeNull()
-    // Not clickable: the card never opens, so its description cannot be read.
-    expect(lessons[12]!.getAttribute('aria-disabled')).toBe('true')
-    expect($('.skill-card')).toBeNull()
+    // A young hero sees the next steps of the school as lessons and the rest as one line (#181, D3); the
+    // endgame six (#168) are one sealed row, not six cards: nothing to click, nothing to read, until the demon king falls.
+    expect(lessons.length).toBeGreaterThan(0)
+    expect(lessons.length).toBeLessThan(12)
+    expect($('[data-ahead]'), 'the rest of the school is one line').toBeTruthy()
+    expect($('[data-sealed]'), 'the endgame six are one sealed row').toBeTruthy()
+    expect(lessons.every(l => !l.querySelector('.lesson__lock'))).toBe(true)
     await click(lessons[0]!)
     const cost = p.skillCost('fireball')
     await click(act())
@@ -168,8 +167,7 @@ describe('the trainer\'s lesson', () => {
 
   it('every lesson and the card in hand show the attribute the skill grows with (#96), none when it reads none (#105)', async () => {
     await open('TeachScreen', 'trainerPyro')
-    // (The locked endgame skills show no badge: their scaling is part of what stays unread.)
-    const lessons = $$('.lesson').filter(l => !l.querySelector('.lesson__lock'))
+    const lessons = $$('.lesson')
     for (const l of lessons) {
       const def = SKILL_BY_ID[l.getAttribute('data-skill')!]!
       expect(l.querySelector('.stat-badge')?.getAttribute('data-scales') ?? null, def.id).toBe(scalingOf(def))
@@ -183,7 +181,7 @@ describe('the trainer\'s lesson', () => {
   it('a lesson out of reach says why and cannot be bought', async () => {
     p.profile.gold = 5000
     await open('TeachScreen', 'trainerPyro')
-    await click($$('.lesson')[5]!)
+    await click($$('.lesson').at(-1)!)
     expect(act().disabled).toBe(true)
     expect($('.trade__why')!.textContent).toContain('trainer.block.level')
     // The hero's attributes are set against what the lesson asks.

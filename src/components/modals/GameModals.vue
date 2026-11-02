@@ -20,6 +20,7 @@
   HelpModal(v-else-if="flow.modal === 'help'")
   EndingModal(v-else-if="flow.modal === 'ending'")
   UnlockModal(v-else-if="flow.modal === 'unlock'")
+  CampPick(v-else-if="flow.modal === 'campPick'")
 </template>
 
 <script setup lang="ts">
@@ -54,6 +55,7 @@ import PauseModal from './PauseModal.vue'
 import HelpModal from './HelpModal.vue'
 import EndingModal from './EndingModal.vue'
 import UnlockModal from './UnlockModal.vue'
+import CampPick from './CampPick.vue'
 
 const emit = defineEmits<{ (e: 'options'): void }>()
 </script>

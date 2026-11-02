@@ -26,6 +26,8 @@ import { animate, squash } from '@/game/gfx/rigs/anim'
 import { heroLook, lookKey } from '@/game/gfx/rigs/looks'
 import type { Unit } from '@/game/sim/types'
 import { profile } from '@/game/state/profile'
+import { newAction } from '@/game/sim/world'
+import { SKILL_BY_ID } from '@/game/data/skills'
 import { prefersReducedMotion } from '@/components/game/fx'
 
 const emit = defineEmits<{ (e: 'fail'): void }>()
@@ -163,6 +165,8 @@ const tick = (now: number): void => {
   time += dt
   if (!grabbed.value && now > idleAt && !prefersReducedMotion()) yaw += spin * dt
   unit.facing = yaw
+  // A cast the window asked for (`cast`): the sim does not step here, so its clock is kept by hand.
+  if (unit.action) unit.action.t += dt
   animate(view, unit, 0, 0, time, dt)
   draw()
 }
@@ -250,7 +254,21 @@ watch(() => lookKey(heroLook(profile.inv.equipped, profile.hero.gender)), () => 
 })
 
 /** Something was put on: he squashes and springs back. */
-defineExpose({ react: (): void => { if (view) squash(view, 0.28) } })
+let castTimer = 0
+/** The hero casts a skill once (a pose: the family of cast it reads as, no effect), for the pick window's preview (#181). */
+const cast = (id: string): void => {
+  const u = unit
+  const def = SKILL_BY_ID[id]
+  if (!u || !def) return
+  u.action = newAction(u, id, 0.45, 0.75, 0, Math.sin(yaw) * 3, Math.cos(yaw) * 3)
+  u.anim = 'cast'
+  u.animT = 0
+  u.animStyle = def.target === 'self' ? 2 : def.range <= 3 ? 0 : 1
+  window.clearTimeout(castTimer)
+  castTimer = window.setTimeout(() => { if (unit) { unit.action = null; unit.anim = 'idle' } }, 1800)
+}
+onUnmounted(() => window.clearTimeout(castTimer))
+defineExpose({ react: (): void => { if (view) squash(view, 0.28) }, cast })
 </script>
 
 <style scoped lang="sass">

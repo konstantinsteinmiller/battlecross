@@ -411,6 +411,21 @@ export default {
       mouse: 'Druk op de roltoets om gevaar te ontwijken. Tijdens de rol kan niets je raken.'
     }
   },
+  camp: {
+    ahead: 'Nog {n} vaardigheden te gaan',
+    sealed: 'Nog {n} ontgrendelen na de demonenkoning',
+    met: 'Scholen ontmoet: {n}/{total}',
+    pick: {
+      title: 'Kies je eerste vaardigheid',
+      lead: 'Het is gratis. Elk van deze leraren heeft een andere stijl, en later kun je van allemaal leren.',
+      learn: 'Gratis leren',
+      style: {
+        aegis: 'Standvastig blijven en terugslaan',
+        pyro: 'Alles binnen bereik verbranden',
+        soulwarden: 'Vechten met de gevallenen'
+      }
+    }
+  },
   goal: {
     dummy: 'Sla de trainingspop omver',
     clear: 'Zuiver {place}',

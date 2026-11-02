@@ -410,6 +410,21 @@ export default {
       mouse: 'Tekan tombol guling untuk menghindari bahaya. Tidak ada yang bisa melukaimu saat berguling.'
     }
   },
+  camp: {
+    ahead: '{n} skill lagi di depan',
+    sealed: '{n} lagi terbuka setelah raja iblis',
+    met: 'Aliran yang ditemui: {n}/{total}',
+    pick: {
+      title: 'Pilih skill pertamamu',
+      lead: 'Gratis. Setiap guru ini punya gaya berbeda, dan nanti kamu bisa belajar dari semuanya.',
+      learn: 'Pelajari gratis',
+      style: {
+        aegis: 'Bertahan dan balas pukulan',
+        pyro: 'Bakar semua yang terjangkau',
+        soulwarden: 'Bertarung bersama yang gugur'
+      }
+    }
+  },
   goal: {
     dummy: 'Robohkan boneka latihan',
     clear: 'Bersihkan {place}',

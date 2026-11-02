@@ -411,6 +411,21 @@ export default {
       mouse: 'Appuie sur la touche de roulade pour esquiver le danger. Rien ne peut te blesser pendant la roulade.'
     }
   },
+  camp: {
+    ahead: '{n} autres compétences à venir',
+    sealed: '{n} autres se débloquent après le roi démon',
+    met: 'Écoles rencontrées : {n}/{total}',
+    pick: {
+      title: 'Choisis ta première compétence',
+      lead: 'Elle est gratuite. Chacun de ces maîtres a son style, et tu pourras apprendre de tous plus tard.',
+      learn: 'L’apprendre gratuitement',
+      style: {
+        aegis: 'Tenir bon et riposter',
+        pyro: 'Tout brûler à portée',
+        soulwarden: 'Combattre avec les défunts'
+      }
+    }
+  },
   goal: {
     dummy: 'Renverse le mannequin d’entraînement',
     clear: 'Nettoie {place}',

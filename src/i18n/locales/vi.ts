@@ -410,6 +410,21 @@ export default {
       mouse: 'Nhấn phím lăn để thoát khỏi nguy hiểm. Đang lăn thì không gì làm bạn bị thương được.'
     }
   },
+  camp: {
+    ahead: 'Còn {n} kỹ năng phía trước',
+    sealed: 'Còn {n} kỹ năng mở sau vua quỷ',
+    met: 'Môn phái đã gặp: {n}/{total}',
+    pick: {
+      title: 'Chọn kỹ năng đầu tiên của bạn',
+      lead: 'Miễn phí. Mỗi sư phụ ở đây có một phong cách riêng, và sau này bạn có thể học từ tất cả.',
+      learn: 'Học miễn phí',
+      style: {
+        aegis: 'Đứng vững và đáp trả',
+        pyro: 'Thiêu rụi mọi thứ trong tầm tay',
+        soulwarden: 'Chiến đấu cùng những người đã ngã'
+      }
+    }
+  },
   goal: {
     dummy: 'Hạ hình nhân tập luyện',
     clear: 'Dọn sạch {place}',

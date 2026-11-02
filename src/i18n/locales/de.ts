@@ -411,6 +411,21 @@ export default {
       mouse: 'Drücke die Rolltaste, um der Gefahr auszuweichen. Mitten in der Rolle kann dir nichts schaden.'
     }
   },
+  camp: {
+    ahead: '{n} weitere Fähigkeiten folgen',
+    sealed: '{n} weitere schalten sich nach dem Dämonenkönig frei',
+    met: 'Schulen getroffen: {n}/{total}',
+    pick: {
+      title: 'Wähle deine erste Fähigkeit',
+      lead: 'Sie ist gratis. Jeder dieser Lehrmeister hat einen anderen Stil, und von allen kannst du später lernen.',
+      learn: 'Gratis lernen',
+      style: {
+        aegis: 'Standhaft bleiben und zurückschlagen',
+        pyro: 'Alles in Reichweite verbrennen',
+        soulwarden: 'Mit den Gefallenen kämpfen'
+      }
+    }
+  },
   goal: {
     dummy: 'Wirf die Trainingspuppe um',
     clear: '{place} säubern',

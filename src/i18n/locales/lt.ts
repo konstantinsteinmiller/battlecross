@@ -410,6 +410,21 @@ export default {
       mouse: 'Paspausk riedėjimo klavišą, kad išsisuktum iš pavojaus. Riedėjimo metu niekas negali tavęs sužeisti.'
     }
   },
+  camp: {
+    ahead: 'Dar {n} įgūdžių priekyje',
+    sealed: 'Dar {n} atsidarys po demonų karaliaus',
+    met: 'Sutiktos mokyklos: {n}/{total}',
+    pick: {
+      title: 'Pasirink pirmąjį įgūdį',
+      lead: 'Nemokamas. Kiekvienas šių mokytojų turi savo stilių, o vėliau galėsi mokytis iš visų.',
+      learn: 'Išmokti nemokamai',
+      style: {
+        aegis: 'Atsilaikyti ir atsakyti smūgiu',
+        pyro: 'Sudeginti viską, ką pasieksi',
+        soulwarden: 'Kovoti kartu su kritusiais'
+      }
+    }
+  },
   goal: {
     dummy: 'Nuversk treniruočių manekeną',
     clear: 'Išvalyk: {place}',
