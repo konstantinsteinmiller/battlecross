@@ -1,0 +1,4850 @@
+{
+ "log": [
+  {
+   "wall": 0,
+   "t": 0,
+   "veil": 1,
+   "label": 0,
+   "canSkip": true,
+   "intro": true,
+   "screen": "zone",
+   "ended": "",
+   "drake": {
+    "alive": true,
+    "hp": 441360,
+    "deadT": 0
+   },
+   "hero": {
+    "hp": 320,
+    "st": "knockdown",
+    "y": 1.45
+   },
+   "mode": "ZoneMode",
+   "zone": "tundra",
+   "flag": true,
+   "boot": true,
+   "playing": false,
+   "paused": true,
+   "gap": 1350,
+   "frames": 124,
+   "big": [
+    [
+     2.64,
+     1350
+    ],
+    [
+     3.53,
+     884
+    ],
+    [
+     6.71,
+     500
+    ],
+    [
+     9.74,
+     584
+    ]
+   ]
+  },
+  {
+   "wall": 0.2,
+   "t": 0,
+   "veil": 1,
+   "label": 0,
+   "canSkip": true,
+   "intro": true,
+   "screen": "zone",
+   "ended": "",
+   "drake": {
+    "alive": true,
+    "hp": 441360,
+    "deadT": 0
+   },
+   "hero": {
+    "hp": 320,
+    "st": "knockdown",
+    "y": 1.45
+   },
+   "mode": "ZoneMode",
+   "zone": "tundra",
+   "flag": true,
+   "boot": true,
+   "playing": false,
+   "paused": true,
+   "gap": 1350,
+   "frames": 124,
+   "big": [
+    [
+     2.64,
+     1350
+    ],
+    [
+     3.53,
+     884
+    ],
+    [
+     6.71,
+     500
+    ],
+    [
+     9.74,
+     584
+    ]
+   ]
+  },
+  {
+   "wall": 0.4,
+   "t": 0,
+   "veil": 1,
+   "label": 0,
+   "canSkip": true,
+   "intro": true,
+   "screen": "zone",
+   "ended": "",
+   "drake": {
+    "alive": true,
+    "hp": 441360,
+    "deadT": 0
+   },
+   "hero": {
+    "hp": 320,
+    "st": "knockdown",
+    "y": 1.45
+   },
+   "mode": "ZoneMode",
+   "zone": "tundra",
+   "flag": true,
+   "boot": true,
+   "playing": false,
+   "paused": true,
+   "gap": 1350,
+   "frames": 125,
+   "big": [
+    [
+     2.64,
+     1350
+    ],
+    [
+     3.53,
+     884
+    ],
+    [
+     6.71,
+     500
+    ],
+    [
+     9.74,
+     584
+    ]
+   ]
+  },
+  {
+   "wall": 0.7,
+   "t": 0,
+   "veil": 1,
+   "label": 0,
+   "canSkip": true,
+   "intro": true,
+   "screen": "zone",
+   "ended": "",
+   "drake": {
+    "alive": true,
+    "hp": 441360,
+    "deadT": 0
+   },
+   "hero": {
+    "hp": 320,
+    "st": "knockdown",
+    "y": 1.45
+   },
+   "mode": "ZoneMode",
+   "zone": "tundra",
+   "flag": true,
+   "boot": false,
+   "playing": true,
+   "paused": false,
+   "gap": 1350,
+   "frames": 129,
+   "big": [
+    [
+     2.64,
+     1350
+    ],
+    [
+     3.53,
+     884
+    ],
+    [
+     6.71,
+     500
+    ],
+    [
+     9.74,
+     584
+    ]
+   ]
+  },
+  {
+   "wall": 1,
+   "t": 0,
+   "veil": 1,
+   "label": 0,
+   "canSkip": true,
+   "intro": true,
+   "screen": "zone",
+   "ended": "",
+   "drake": {
+    "alive": true,
+    "hp": 441360,
+    "deadT": 0
+   },
+   "hero": {
+    "hp": 320,
+    "st": "knockdown",
+    "y": 1.45
+   },
+   "mode": "ZoneMode",
+   "zone": "tundra",
+   "flag": true,
+   "boot": false,
+   "playing": true,
+   "paused": false,
+   "gap": 1350,
+   "frames": 135,
+   "big": [
+    [
+     2.64,
+     1350
+    ],
+    [
+     3.53,
+     884
+    ],
+    [
+     6.71,
+     500
+    ],
+    [
+     9.74,
+     584
+    ]
+   ]
+  },
+  {
+   "wall": 1.3,
+   "t": 0,
+   "veil": 1,
+   "label": 0,
+   "canSkip": true,
+   "intro": true,
+   "screen": "zone",
+   "ended": "",
+   "drake": {
+    "alive": true,
+    "hp": 441360,
+    "deadT": 0
+   },
+   "hero": {
+    "hp": 320,
+    "st": "knockdown",
+    "y": 1.45
+   },
+   "mode": "ZoneMode",
+   "zone": "tundra",
+   "flag": true,
+   "boot": false,
+   "playing": true,
+   "paused": false,
+   "gap": 1350,
+   "frames": 140,
+   "big": [
+    [
+     2.64,
+     1350
+    ],
+    [
+     3.53,
+     884
+    ],
+    [
+     6.71,
+     500
+    ],
+    [
+     9.74,
+     584
+    ]
+   ]
+  },
+  {
+   "wall": 1.5,
+   "t": 0,
+   "veil": 1,
+   "label": 0,
+   "canSkip": true,
+   "intro": true,
+   "screen": "zone",
+   "ended": "",
+   "drake": {
+    "alive": true,
+    "hp": 441360,
+    "deadT": 0
+   },
+   "hero": {
+    "hp": 320,
+    "st": "knockdown",
+    "y": 1.45
+   },
+   "mode": "ZoneMode",
+   "zone": "tundra",
+   "flag": true,
+   "boot": false,
+   "playing": true,
+   "paused": false,
+   "gap": 1350,
+   "frames": 144,
+   "big": [
+    [
+     2.64,
+     1350
+    ],
+    [
+     3.53,
+     884
+    ],
+    [
+     6.71,
+     500
+    ],
+    [
+     9.74,
+     584
+    ]
+   ]
+  },
+  {
+   "wall": 1.7,
+   "t": 0,
+   "veil": 1,
+   "label": 0,
+   "canSkip": true,
+   "intro": true,
+   "screen": "zone",
+   "ended": "",
+   "drake": {
+    "alive": true,
+    "hp": 441360,
+    "deadT": 0
+   },
+   "hero": {
+    "hp": 320,
+    "st": "knockdown",
+    "y": 1.45
+   },
+   "mode": "ZoneMode",
+   "zone": "tundra",
+   "flag": true,
+   "boot": false,
+   "playing": true,
+   "paused": false,
+   "gap": 1350,
+   "frames": 149,
+   "big": [
+    [
+     2.64,
+     1350
+    ],
+    [
+     3.53,
+     884
+    ],
+    [
+     6.71,
+     500
+    ],
+    [
+     9.74,
+     584
+    ]
+   ]
+  },
+  {
+   "wall": 1.9,
+   "t": 0,
+   "veil": 1,
+   "label": 0,
+   "canSkip": true,
+   "intro": true,
+   "screen": "zone",
+   "ended": "",
+   "drake": {
+    "alive": true,
+    "hp": 441360,
+    "deadT": 0
+   },
+   "hero": {
+    "hp": 320,
+    "st": "knockdown",
+    "y": 1.45
+   },
+   "mode": "ZoneMode",
+   "zone": "tundra",
+   "flag": true,
+   "boot": false,
+   "playing": true,
+   "paused": false,
+   "gap": 1350,
+   "frames": 154,
+   "big": [
+    [
+     2.64,
+     1350
+    ],
+    [
+     3.53,
+     884
+    ],
+    [
+     6.71,
+     500
+    ],
+    [
+     9.74,
+     584
+    ]
+   ]
+  },
+  {
+   "wall": 2.1,
+   "t": 0,
+   "veil": 1,
+   "label": 0,
+   "canSkip": true,
+   "intro": true,
+   "screen": "zone",
+   "ended": "",
+   "drake": {
+    "alive": true,
+    "hp": 441360,
+    "deadT": 0
+   },
+   "hero": {
+    "hp": 320,
+    "st": "knockdown",
+    "y": 1.45
+   },
+   "mode": "ZoneMode",
+   "zone": "tundra",
+   "flag": true,
+   "boot": false,
+   "playing": true,
+   "paused": false,
+   "gap": 1350,
+   "frames": 159,
+   "big": [
+    [
+     2.64,
+     1350
+    ],
+    [
+     3.53,
+     884
+    ],
+    [
+     6.71,
+     500
+    ],
+    [
+     9.74,
+     584
+    ]
+   ]
+  },
+  {
+   "wall": 2.3,
+   "t": 0,
+   "veil": 1,
+   "label": 0,
+   "canSkip": true,
+   "intro": true,
+   "screen": "zone",
+   "ended": "",
+   "drake": {
+    "alive": true,
+    "hp": 441360,
+    "deadT": 0
+   },
+   "hero": {
+    "hp": 320,
+    "st": "knockdown",
+    "y": 1.45
+   },
+   "mode": "ZoneMode",
+   "zone": "tundra",
+   "flag": true,
+   "boot": false,
+   "playing": true,
+   "paused": false,
+   "gap": 1350,
+   "frames": 164,
+   "big": [
+    [
+     2.64,
+     1350
+    ],
+    [
+     3.53,
+     884
+    ],
+    [
+     6.71,
+     500
+    ],
+    [
+     9.74,
+     584
+    ]
+   ]
+  },
+  {
+   "wall": 2.6,
+   "t": 0,
+   "veil": 1,
+   "label": 0,
+   "canSkip": true,
+   "intro": true,
+   "screen": "zone",
+   "ended": "",
+   "drake": {
+    "alive": true,
+    "hp": 441360,
+    "deadT": 0
+   },
+   "hero": {
+    "hp": 320,
+    "st": "knockdown",
+    "y": 1.45
+   },
+   "mode": "ZoneMode",
+   "zone": "tundra",
+   "flag": true,
+   "boot": false,
+   "playing": true,
+   "paused": false,
+   "gap": 1350,
+   "frames": 168,
+   "big": [
+    [
+     2.64,
+     1350
+    ],
+    [
+     3.53,
+     884
+    ],
+    [
+     6.71,
+     500
+    ],
+    [
+     9.74,
+     584
+    ]
+   ]
+  },
+  {
+   "wall": 2.8,
+   "t": 0,
+   "veil": 1,
+   "label": 0,
+   "canSkip": true,
+   "intro": true,
+   "screen": "zone",
+   "ended": "",
+   "drake": {
+    "alive": true,
+    "hp": 441355,
+    "deadT": 0
+   },
+   "hero": {
+    "hp": 320,
+    "st": "knockdown",
+    "y": 1.45
+   },
+   "mode": "ZoneMode",
+   "zone": "tundra",
+   "flag": true,
+   "boot": false,
+   "playing": true,
+   "paused": false,
+   "gap": 1350,
+   "frames": 173,
+   "big": [
+    [
+     2.64,
+     1350
+    ],
+    [
+     3.53,
+     884
+    ],
+    [
+     6.71,
+     500
+    ],
+    [
+     9.74,
+     584
+    ]
+   ]
+  },
+  {
+   "wall": 3,
+   "t": 0,
+   "veil": 1,
+   "label": 0,
+   "canSkip": true,
+   "intro": true,
+   "screen": "zone",
+   "ended": "",
+   "drake": {
+    "alive": true,
+    "hp": 441350,
+    "deadT": 0
+   },
+   "hero": {
+    "hp": 320,
+    "st": "knockdown",
+    "y": 1.45
+   },
+   "mode": "ZoneMode",
+   "zone": "tundra",
+   "flag": true,
+   "boot": false,
+   "playing": true,
+   "paused": false,
+   "gap": 1350,
+   "frames": 177,
+   "big": [
+    [
+     2.64,
+     1350
+    ],
+    [
+     3.53,
+     884
+    ],
+    [
+     6.71,
+     500
+    ],
+    [
+     9.74,
+     584
+    ]
+   ]
+  },
+  {
+   "wall": 3.2,
+   "t": 0,
+   "veil": 1,
+   "label": 0,
+   "canSkip": true,
+   "intro": true,
+   "screen": "zone",
+   "ended": "",
+   "drake": {
+    "alive": true,
+    "hp": 441350,
+    "deadT": 0
+   },
+   "hero": {
+    "hp": 320,
+    "st": "knockdown",
+    "y": 1.45
+   },
+   "mode": "ZoneMode",
+   "zone": "tundra",
+   "flag": true,
+   "boot": false,
+   "playing": true,
+   "paused": false,
+   "gap": 1350,
+   "frames": 180,
+   "big": [
+    [
+     2.64,
+     1350
+    ],
+    [
+     3.53,
+     884
+    ],
+    [
+     6.71,
+     500
+    ],
+    [
+     9.74,
+     584
+    ]
+   ]
+  },
+  {
+   "wall": 3.4,
+   "t": 0,
+   "veil": 1,
+   "label": 0,
+   "canSkip": true,
+   "intro": true,
+   "screen": "zone",
+   "ended": "",
+   "drake": {
+    "alive": true,
+    "hp": 441338,
+    "deadT": 0
+   },
+   "hero": {
+    "hp": 320,
+    "st": "knockdown",
+    "y": 1.45
+   },
+   "mode": "ZoneMode",
+   "zone": "tundra",
+   "flag": true,
+   "boot": false,
+   "playing": true,
+   "paused": false,
+   "gap": 1350,
+   "frames": 184,
+   "big": [
+    [
+     2.64,
+     1350
+    ],
+    [
+     3.53,
+     884
+    ],
+    [
+     6.71,
+     500
+    ],
+    [
+     9.74,
+     584
+    ]
+   ]
+  },
+  {
+   "wall": 3.6,
+   "t": 0,
+   "veil": 1,
+   "label": 0,
+   "canSkip": true,
+   "intro": true,
+   "screen": "zone",
+   "ended": "",
+   "drake": {
+    "alive": true,
+    "hp": 441333,
+    "deadT": 0
+   },
+   "hero": {
+    "hp": 320,
+    "st": "knockdown",
+    "y": 1.45
+   },
+   "mode": "ZoneMode",
+   "zone": "tundra",
+   "flag": true,
+   "boot": false,
+   "playing": true,
+   "paused": false,
+   "gap": 1350,
+   "frames": 187,
+   "big": [
+    [
+     2.64,
+     1350
+    ],
+    [
+     3.53,
+     884
+    ],
+    [
+     6.71,
+     500
+    ],
+    [
+     9.74,
+     584
+    ]
+   ]
+  },
+  {
+   "wall": 3.9,
+   "t": 0,
+   "veil": 1,
+   "label": 0,
+   "canSkip": true,
+   "intro": true,
+   "screen": "zone",
+   "ended": "",
+   "drake": {
+    "alive": true,
+    "hp": 441328,
+    "deadT": 0
+   },
+   "hero": {
+    "hp": 320,
+    "st": "knockdown",
+    "y": 1.45
+   },
+   "mode": "ZoneMode",
+   "zone": "tundra",
+   "flag": true,
+   "boot": false,
+   "playing": true,
+   "paused": false,
+   "gap": 1350,
+   "frames": 191,
+   "big": [
+    [
+     2.64,
+     1350
+    ],
+    [
+     3.53,
+     884
+    ],
+    [
+     6.71,
+     500
+    ],
+    [
+     9.74,
+     584
+    ]
+   ]
+  },
+  {
+   "wall": 4.1,
+   "t": 0,
+   "veil": 1,
+   "label": 0,
+   "canSkip": true,
+   "intro": true,
+   "screen": "zone",
+   "ended": "",
+   "drake": {
+    "alive": true,
+    "hp": 441323,
+    "deadT": 0
+   },
+   "hero": {
+    "hp": 320,
+    "st": "knockdown",
+    "y": 1.45
+   },
+   "mode": "ZoneMode",
+   "zone": "tundra",
+   "flag": true,
+   "boot": false,
+   "playing": true,
+   "paused": false,
+   "gap": 1350,
+   "frames": 195,
+   "big": [
+    [
+     2.64,
+     1350
+    ],
+    [
+     3.53,
+     884
+    ],
+    [
+     6.71,
+     500
+    ],
+    [
+     9.74,
+     584
+    ]
+   ]
+  },
+  {
+   "wall": 4.3,
+   "t": 0,
+   "veil": 1,
+   "label": 0,
+   "canSkip": true,
+   "intro": true,
+   "screen": "zone",
+   "ended": "",
+   "drake": {
+    "alive": true,
+    "hp": 441319,
+    "deadT": 0
+   },
+   "hero": {
+    "hp": 320,
+    "st": "knockdown",
+    "y": 1.45
+   },
+   "mode": "ZoneMode",
+   "zone": "tundra",
+   "flag": true,
+   "boot": false,
+   "playing": true,
+   "paused": false,
+   "gap": 1350,
+   "frames": 199,
+   "big": [
+    [
+     2.64,
+     1350
+    ],
+    [
+     3.53,
+     884
+    ],
+    [
+     6.71,
+     500
+    ],
+    [
+     9.74,
+     584
+    ]
+   ]
+  },
+  {
+   "wall": 4.5,
+   "t": 0,
+   "veil": 1,
+   "label": 0,
+   "canSkip": true,
+   "intro": true,
+   "screen": "zone",
+   "ended": "",
+   "drake": {
+    "alive": true,
+    "hp": 441310,
+    "deadT": 0
+   },
+   "hero": {
+    "hp": 320,
+    "st": "knockdown",
+    "y": 1.45
+   },
+   "mode": "ZoneMode",
+   "zone": "tundra",
+   "flag": true,
+   "boot": false,
+   "playing": true,
+   "paused": false,
+   "gap": 1350,
+   "frames": 203,
+   "big": [
+    [
+     2.64,
+     1350
+    ],
+    [
+     3.53,
+     884
+    ],
+    [
+     6.71,
+     500
+    ],
+    [
+     9.74,
+     584
+    ]
+   ]
+  },
+  {
+   "wall": 4.7,
+   "t": 0,
+   "veil": 1,
+   "label": 0,
+   "canSkip": true,
+   "intro": true,
+   "screen": "zone",
+   "ended": "",
+   "drake": {
+    "alive": true,
+    "hp": 441307,
+    "deadT": 0
+   },
+   "hero": {
+    "hp": 320,
+    "st": "knockdown",
+    "y": 1.45
+   },
+   "mode": "ZoneMode",
+   "zone": "tundra",
+   "flag": true,
+   "boot": false,
+   "playing": true,
+   "paused": false,
+   "gap": 1350,
+   "frames": 208,
+   "big": [
+    [
+     2.64,
+     1350
+    ],
+    [
+     3.53,
+     884
+    ],
+    [
+     6.71,
+     500
+    ],
+    [
+     9.74,
+     584
+    ]
+   ]
+  },
+  {
+   "wall": 5,
+   "t": 0,
+   "veil": 1,
+   "label": 0,
+   "canSkip": true,
+   "intro": true,
+   "screen": "zone",
+   "ended": "",
+   "drake": {
+    "alive": true,
+    "hp": 441264,
+    "deadT": 0
+   },
+   "hero": {
+    "hp": 320,
+    "st": "knockdown",
+    "y": 1.45
+   },
+   "mode": "ZoneMode",
+   "zone": "tundra",
+   "flag": true,
+   "boot": false,
+   "playing": true,
+   "paused": false,
+   "gap": 1350,
+   "frames": 211,
+   "big": [
+    [
+     2.64,
+     1350
+    ],
+    [
+     3.53,
+     884
+    ],
+    [
+     6.71,
+     500
+    ],
+    [
+     9.74,
+     584
+    ]
+   ]
+  },
+  {
+   "wall": 5.2,
+   "t": 0,
+   "veil": 1,
+   "label": 0,
+   "canSkip": true,
+   "intro": true,
+   "screen": "zone",
+   "ended": "",
+   "drake": {
+    "alive": true,
+    "hp": 441260,
+    "deadT": 0
+   },
+   "hero": {
+    "hp": 320,
+    "st": "knockdown",
+    "y": 1.45
+   },
+   "mode": "ZoneMode",
+   "zone": "tundra",
+   "flag": true,
+   "boot": false,
+   "playing": true,
+   "paused": false,
+   "gap": 1350,
+   "frames": 215,
+   "big": [
+    [
+     2.64,
+     1350
+    ],
+    [
+     3.53,
+     884
+    ],
+    [
+     6.71,
+     500
+    ],
+    [
+     9.74,
+     584
+    ]
+   ]
+  },
+  {
+   "wall": 5.4,
+   "t": 0,
+   "veil": 1,
+   "label": 0,
+   "canSkip": true,
+   "intro": true,
+   "screen": "zone",
+   "ended": "",
+   "drake": {
+    "alive": true,
+    "hp": 441255,
+    "deadT": 0
+   },
+   "hero": {
+    "hp": 320,
+    "st": "knockdown",
+    "y": 1.45
+   },
+   "mode": "ZoneMode",
+   "zone": "tundra",
+   "flag": true,
+   "boot": false,
+   "playing": true,
+   "paused": false,
+   "gap": 1350,
+   "frames": 219,
+   "big": [
+    [
+     2.64,
+     1350
+    ],
+    [
+     3.53,
+     884
+    ],
+    [
+     6.71,
+     500
+    ],
+    [
+     9.74,
+     584
+    ]
+   ]
+  },
+  {
+   "wall": 5.6,
+   "t": 0,
+   "veil": 1,
+   "label": 0,
+   "canSkip": true,
+   "intro": true,
+   "screen": "zone",
+   "ended": "",
+   "drake": {
+    "alive": true,
+    "hp": 441236,
+    "deadT": 0
+   },
+   "hero": {
+    "hp": 320,
+    "st": "knockdown",
+    "y": 1.45
+   },
+   "mode": "ZoneMode",
+   "zone": "tundra",
+   "flag": true,
+   "boot": false,
+   "playing": true,
+   "paused": false,
+   "gap": 1350,
+   "frames": 224,
+   "big": [
+    [
+     2.64,
+     1350
+    ],
+    [
+     3.53,
+     884
+    ],
+    [
+     6.71,
+     500
+    ],
+    [
+     9.74,
+     584
+    ]
+   ]
+  },
+  {
+   "wall": 5.8,
+   "t": 0,
+   "veil": 1,
+   "label": 0,
+   "canSkip": true,
+   "intro": true,
+   "screen": "zone",
+   "ended": "",
+   "drake": {
+    "alive": true,
+    "hp": 441216,
+    "deadT": 0
+   },
+   "hero": {
+    "hp": 320,
+    "st": "knockdown",
+    "y": 1.45
+   },
+   "mode": "ZoneMode",
+   "zone": "tundra",
+   "flag": true,
+   "boot": false,
+   "playing": true,
+   "paused": false,
+   "gap": 1350,
+   "frames": 228,
+   "big": [
+    [
+     2.64,
+     1350
+    ],
+    [
+     3.53,
+     884
+    ],
+    [
+     6.71,
+     500
+    ],
+    [
+     9.74,
+     584
+    ]
+   ]
+  },
+  {
+   "wall": 6.1,
+   "t": 0,
+   "veil": 1,
+   "label": 0,
+   "canSkip": true,
+   "intro": true,
+   "screen": "zone",
+   "ended": "",
+   "drake": {
+    "alive": true,
+    "hp": 441190,
+    "deadT": 0
+   },
+   "hero": {
+    "hp": 320,
+    "st": "knockdown",
+    "y": 1.45
+   },
+   "mode": "ZoneMode",
+   "zone": "tundra",
+   "flag": true,
+   "boot": false,
+   "playing": true,
+   "paused": false,
+   "gap": 1350,
+   "frames": 232,
+   "big": [
+    [
+     2.64,
+     1350
+    ],
+    [
+     3.53,
+     884
+    ],
+    [
+     6.71,
+     500
+    ],
+    [
+     9.74,
+     584
+    ]
+   ]
+  },
+  {
+   "wall": 6.3,
+   "t": 0,
+   "veil": 1,
+   "label": 0,
+   "canSkip": true,
+   "intro": true,
+   "screen": "zone",
+   "ended": "",
+   "drake": {
+    "alive": true,
+    "hp": 441186,
+    "deadT": 0
+   },
+   "hero": {
+    "hp": 320,
+    "st": "knockdown",
+    "y": 1.45
+   },
+   "mode": "ZoneMode",
+   "zone": "tundra",
+   "flag": true,
+   "boot": false,
+   "playing": true,
+   "paused": false,
+   "gap": 1350,
+   "frames": 236,
+   "big": [
+    [
+     2.64,
+     1350
+    ],
+    [
+     3.53,
+     884
+    ],
+    [
+     6.71,
+     500
+    ],
+    [
+     9.74,
+     584
+    ]
+   ]
+  },
+  {
+   "wall": 6.5,
+   "t": 0,
+   "veil": 1,
+   "label": 0,
+   "canSkip": true,
+   "intro": true,
+   "screen": "zone",
+   "ended": "",
+   "drake": {
+    "alive": true,
+    "hp": 441186,
+    "deadT": 0
+   },
+   "hero": {
+    "hp": 320,
+    "st": "knockdown",
+    "y": 1.45
+   },
+   "mode": "ZoneMode",
+   "zone": "tundra",
+   "flag": true,
+   "boot": false,
+   "playing": true,
+   "paused": false,
+   "gap": 1350,
+   "frames": 239,
+   "big": [
+    [
+     2.64,
+     1350
+    ],
+    [
+     3.53,
+     884
+    ],
+    [
+     6.71,
+     500
+    ],
+    [
+     9.74,
+     584
+    ]
+   ]
+  },
+  {
+   "wall": 6.7,
+   "t": 0,
+   "veil": 1,
+   "label": 0,
+   "canSkip": true,
+   "intro": true,
+   "screen": "zone",
+   "ended": "",
+   "drake": {
+    "alive": true,
+    "hp": 441153,
+    "deadT": 0
+   },
+   "hero": {
+    "hp": 320,
+    "st": "knockdown",
+    "y": 1.45
+   },
+   "mode": "ZoneMode",
+   "zone": "tundra",
+   "flag": true,
+   "boot": false,
+   "playing": true,
+   "paused": false,
+   "gap": 1350,
+   "frames": 244,
+   "big": [
+    [
+     2.64,
+     1350
+    ],
+    [
+     3.53,
+     884
+    ],
+    [
+     6.71,
+     500
+    ],
+    [
+     9.74,
+     584
+    ]
+   ]
+  },
+  {
+   "wall": 6.9,
+   "t": 0,
+   "veil": 1,
+   "label": 0,
+   "canSkip": true,
+   "intro": true,
+   "screen": "zone",
+   "ended": "",
+   "drake": {
+    "alive": true,
+    "hp": 441122,
+    "deadT": 0
+   },
+   "hero": {
+    "hp": 320,
+    "st": "knockdown",
+    "y": 1.45
+   },
+   "mode": "ZoneMode",
+   "zone": "tundra",
+   "flag": true,
+   "boot": false,
+   "playing": true,
+   "paused": false,
+   "gap": 1350,
+   "frames": 248,
+   "big": [
+    [
+     2.64,
+     1350
+    ],
+    [
+     3.53,
+     884
+    ],
+    [
+     6.71,
+     500
+    ],
+    [
+     9.74,
+     584
+    ]
+   ]
+  },
+  {
+   "wall": 7.2,
+   "t": 0,
+   "veil": 1,
+   "label": 0,
+   "canSkip": true,
+   "intro": true,
+   "screen": "zone",
+   "ended": "",
+   "drake": {
+    "alive": true,
+    "hp": 441122,
+    "deadT": 0
+   },
+   "hero": {
+    "hp": 320,
+    "st": "knockdown",
+    "y": 1.45
+   },
+   "mode": "ZoneMode",
+   "zone": "tundra",
+   "flag": true,
+   "boot": false,
+   "playing": true,
+   "paused": false,
+   "gap": 1350,
+   "frames": 252,
+   "big": [
+    [
+     2.64,
+     1350
+    ],
+    [
+     3.53,
+     884
+    ],
+    [
+     6.71,
+     500
+    ],
+    [
+     9.74,
+     584
+    ]
+   ]
+  },
+  {
+   "wall": 7.4,
+   "t": 0,
+   "veil": 1,
+   "label": 0,
+   "canSkip": true,
+   "intro": true,
+   "screen": "zone",
+   "ended": "",
+   "drake": {
+    "alive": false,
+    "hp": 0,
+    "deadT": 0.1
+   },
+   "hero": {
+    "hp": 320,
+    "st": "knockdown",
+    "y": 1.45
+   },
+   "mode": "ZoneMode",
+   "zone": "tundra",
+   "flag": true,
+   "boot": false,
+   "playing": true,
+   "paused": false,
+   "gap": 1350,
+   "frames": 255,
+   "big": [
+    [
+     2.64,
+     1350
+    ],
+    [
+     3.53,
+     884
+    ],
+    [
+     6.71,
+     500
+    ],
+    [
+     9.74,
+     584
+    ]
+   ]
+  },
+  {
+   "wall": 7.6,
+   "t": 0,
+   "veil": 1,
+   "label": 0,
+   "canSkip": true,
+   "intro": true,
+   "screen": "zone",
+   "ended": "",
+   "drake": {
+    "alive": false,
+    "hp": 0,
+    "deadT": 0.37
+   },
+   "hero": {
+    "hp": 320,
+    "st": "knockdown",
+    "y": 1.45
+   },
+   "mode": "ZoneMode",
+   "zone": "tundra",
+   "flag": true,
+   "boot": false,
+   "playing": true,
+   "paused": false,
+   "gap": 1350,
+   "frames": 259,
+   "big": [
+    [
+     2.64,
+     1350
+    ],
+    [
+     3.53,
+     884
+    ],
+    [
+     6.71,
+     500
+    ],
+    [
+     9.74,
+     584
+    ]
+   ]
+  },
+  {
+   "wall": 7.8,
+   "t": 0,
+   "veil": 1,
+   "label": 0,
+   "canSkip": true,
+   "intro": true,
+   "screen": "zone",
+   "ended": "",
+   "drake": {
+    "alive": false,
+    "hp": 0,
+    "deadT": 0.53
+   },
+   "hero": {
+    "hp": 320,
+    "st": "knockdown",
+    "y": 1.45
+   },
+   "mode": "ZoneMode",
+   "zone": "tundra",
+   "flag": true,
+   "boot": false,
+   "playing": true,
+   "paused": false,
+   "gap": 1350,
+   "frames": 262,
+   "big": [
+    [
+     2.64,
+     1350
+    ],
+    [
+     3.53,
+     884
+    ],
+    [
+     6.71,
+     500
+    ],
+    [
+     9.74,
+     584
+    ]
+   ]
+  },
+  {
+   "wall": 8,
+   "t": 0,
+   "veil": 1,
+   "label": 0,
+   "canSkip": true,
+   "intro": true,
+   "screen": "zone",
+   "ended": "",
+   "drake": {
+    "alive": false,
+    "hp": 0,
+    "deadT": 0.78
+   },
+   "hero": {
+    "hp": 320,
+    "st": "knockdown",
+    "y": 1.45
+   },
+   "mode": "ZoneMode",
+   "zone": "tundra",
+   "flag": true,
+   "boot": false,
+   "playing": true,
+   "paused": false,
+   "gap": 1350,
+   "frames": 266,
+   "big": [
+    [
+     2.64,
+     1350
+    ],
+    [
+     3.53,
+     884
+    ],
+    [
+     6.71,
+     500
+    ],
+    [
+     9.74,
+     584
+    ]
+   ]
+  },
+  {
+   "wall": 8.2,
+   "t": 0,
+   "veil": 1,
+   "label": 0,
+   "canSkip": true,
+   "intro": true,
+   "screen": "zone",
+   "ended": "",
+   "drake": {
+    "alive": false,
+    "hp": 0,
+    "deadT": 0.97
+   },
+   "hero": {
+    "hp": 320,
+    "st": "knockdown",
+    "y": 1.45
+   },
+   "mode": "ZoneMode",
+   "zone": "tundra",
+   "flag": true,
+   "boot": false,
+   "playing": true,
+   "paused": false,
+   "gap": 1350,
+   "frames": 269,
+   "big": [
+    [
+     2.64,
+     1350
+    ],
+    [
+     3.53,
+     884
+    ],
+    [
+     6.71,
+     500
+    ],
+    [
+     9.74,
+     584
+    ]
+   ]
+  },
+  {
+   "wall": 8.5,
+   "t": 0,
+   "veil": 1,
+   "label": 0,
+   "canSkip": true,
+   "intro": true,
+   "screen": "zone",
+   "ended": "",
+   "drake": {
+    "alive": false,
+    "hp": 0,
+    "deadT": 1.23
+   },
+   "hero": {
+    "hp": 320,
+    "st": "knockdown",
+    "y": 1.45
+   },
+   "mode": "ZoneMode",
+   "zone": "tundra",
+   "flag": true,
+   "boot": false,
+   "playing": true,
+   "paused": false,
+   "gap": 1350,
+   "frames": 274,
+   "big": [
+    [
+     2.64,
+     1350
+    ],
+    [
+     3.53,
+     884
+    ],
+    [
+     6.71,
+     500
+    ],
+    [
+     9.74,
+     584
+    ]
+   ]
+  },
+  {
+   "wall": 8.8,
+   "t": 0,
+   "veil": 1,
+   "label": 0,
+   "canSkip": true,
+   "intro": true,
+   "screen": "zone",
+   "ended": "",
+   "drake": {
+    "alive": false,
+    "hp": 0,
+    "deadT": 1.43
+   },
+   "hero": {
+    "hp": 320,
+    "st": "knockdown",
+    "y": 1.45
+   },
+   "mode": "ZoneMode",
+   "zone": "tundra",
+   "flag": true,
+   "boot": false,
+   "playing": true,
+   "paused": false,
+   "gap": 1350,
+   "frames": 278,
+   "big": [
+    [
+     2.64,
+     1350
+    ],
+    [
+     3.53,
+     884
+    ],
+    [
+     6.71,
+     500
+    ],
+    [
+     9.74,
+     584
+    ]
+   ]
+  },
+  {
+   "wall": 9,
+   "t": 0,
+   "veil": 1,
+   "label": 0,
+   "canSkip": true,
+   "intro": true,
+   "screen": "zone",
+   "ended": "",
+   "drake": {
+    "alive": false,
+    "hp": 0,
+    "deadT": 1.62
+   },
+   "hero": {
+    "hp": 320,
+    "st": "knockdown",
+    "y": 1.45
+   },
+   "mode": "ZoneMode",
+   "zone": "tundra",
+   "flag": true,
+   "boot": false,
+   "playing": true,
+   "paused": false,
+   "gap": 1350,
+   "frames": 281,
+   "big": [
+    [
+     2.64,
+     1350
+    ],
+    [
+     3.53,
+     884
+    ],
+    [
+     6.71,
+     500
+    ],
+    [
+     9.74,
+     584
+    ]
+   ]
+  },
+  {
+   "wall": 9.2,
+   "t": 0,
+   "veil": 1,
+   "label": 0,
+   "canSkip": true,
+   "intro": true,
+   "screen": "zone",
+   "ended": "",
+   "drake": {
+    "alive": false,
+    "hp": 0,
+    "deadT": 1.88
+   },
+   "hero": {
+    "hp": 320,
+    "st": "",
+    "y": 1.45
+   },
+   "mode": "ZoneMode",
+   "zone": "tundra",
+   "flag": true,
+   "boot": false,
+   "playing": true,
+   "paused": false,
+   "gap": 1350,
+   "frames": 286,
+   "big": [
+    [
+     2.64,
+     1350
+    ],
+    [
+     3.53,
+     884
+    ],
+    [
+     6.71,
+     500
+    ],
+    [
+     9.74,
+     584
+    ]
+   ]
+  },
+  {
+   "wall": 9.4,
+   "t": 0,
+   "veil": 1,
+   "label": 0,
+   "canSkip": true,
+   "intro": true,
+   "screen": "zone",
+   "ended": "",
+   "drake": {
+    "alive": false,
+    "hp": 0,
+    "deadT": 2.08
+   },
+   "hero": {
+    "hp": 320,
+    "st": "",
+    "y": 1.45
+   },
+   "mode": "ZoneMode",
+   "zone": "tundra",
+   "flag": true,
+   "boot": false,
+   "playing": true,
+   "paused": false,
+   "gap": 1350,
+   "frames": 290,
+   "big": [
+    [
+     2.64,
+     1350
+    ],
+    [
+     3.53,
+     884
+    ],
+    [
+     6.71,
+     500
+    ],
+    [
+     9.74,
+     584
+    ]
+   ]
+  },
+  {
+   "wall": 9.6,
+   "t": 0,
+   "veil": 1,
+   "label": 0,
+   "canSkip": true,
+   "intro": true,
+   "screen": "zone",
+   "ended": "",
+   "drake": {
+    "alive": false,
+    "hp": 0,
+    "deadT": 2.32
+   },
+   "hero": {
+    "hp": 320,
+    "st": "",
+    "y": 1.45
+   },
+   "mode": "ZoneMode",
+   "zone": "tundra",
+   "flag": true,
+   "boot": false,
+   "playing": true,
+   "paused": false,
+   "gap": 1350,
+   "frames": 295,
+   "big": [
+    [
+     2.64,
+     1350
+    ],
+    [
+     3.53,
+     884
+    ],
+    [
+     6.71,
+     500
+    ],
+    [
+     9.74,
+     584
+    ]
+   ]
+  },
+  {
+   "wall": 10.8,
+   "t": 0,
+   "veil": 1,
+   "label": 0,
+   "canSkip": true,
+   "intro": true,
+   "screen": "zone",
+   "ended": "",
+   "drake": {
+    "alive": false,
+    "hp": 0,
+    "deadT": 3.08
+   },
+   "hero": {
+    "hp": 320,
+    "st": "",
+    "y": 1.45
+   },
+   "mode": "ZoneMode",
+   "zone": "tundra",
+   "flag": true,
+   "boot": false,
+   "playing": true,
+   "paused": false,
+   "gap": 1350,
+   "frames": 306,
+   "big": [
+    [
+     2.64,
+     1350
+    ],
+    [
+     3.53,
+     884
+    ],
+    [
+     6.71,
+     500
+    ],
+    [
+     9.74,
+     584
+    ]
+   ]
+  },
+  {
+   "wall": 11,
+   "t": 0,
+   "veil": 1,
+   "label": 0,
+   "canSkip": true,
+   "intro": true,
+   "screen": "zone",
+   "ended": "",
+   "drake": null,
+   "hero": {
+    "hp": 320,
+    "st": "",
+    "y": 1.45
+   },
+   "mode": "ZoneMode",
+   "zone": "tundra",
+   "flag": true,
+   "boot": false,
+   "playing": true,
+   "paused": false,
+   "gap": 1350,
+   "frames": 310,
+   "big": [
+    [
+     2.64,
+     1350
+    ],
+    [
+     3.53,
+     884
+    ],
+    [
+     6.71,
+     500
+    ],
+    [
+     9.74,
+     584
+    ]
+   ]
+  },
+  {
+   "wall": 11.2,
+   "t": 0,
+   "veil": 1,
+   "label": 0,
+   "canSkip": true,
+   "intro": true,
+   "screen": "zone",
+   "ended": "",
+   "drake": null,
+   "hero": {
+    "hp": 320,
+    "st": "",
+    "y": 1.45
+   },
+   "mode": "ZoneMode",
+   "zone": "tundra",
+   "flag": true,
+   "boot": false,
+   "playing": true,
+   "paused": false,
+   "gap": 1350,
+   "frames": 314,
+   "big": [
+    [
+     2.64,
+     1350
+    ],
+    [
+     3.53,
+     884
+    ],
+    [
+     6.71,
+     500
+    ],
+    [
+     9.74,
+     584
+    ]
+   ]
+  },
+  {
+   "wall": 11.4,
+   "t": 0,
+   "veil": 1,
+   "label": 0,
+   "canSkip": true,
+   "intro": true,
+   "screen": "zone",
+   "ended": "",
+   "drake": null,
+   "hero": {
+    "hp": 320,
+    "st": "",
+    "y": 1.45
+   },
+   "mode": "ZoneMode",
+   "zone": "tundra",
+   "flag": true,
+   "boot": false,
+   "playing": true,
+   "paused": false,
+   "gap": 1350,
+   "frames": 318,
+   "big": [
+    [
+     2.64,
+     1350
+    ],
+    [
+     3.53,
+     884
+    ],
+    [
+     6.71,
+     500
+    ],
+    [
+     9.74,
+     584
+    ]
+   ]
+  },
+  {
+   "wall": 11.6,
+   "t": 0,
+   "veil": 1,
+   "label": 0,
+   "canSkip": true,
+   "intro": true,
+   "screen": "zone",
+   "ended": "",
+   "drake": null,
+   "hero": {
+    "hp": 320,
+    "st": "",
+    "y": 1.45
+   },
+   "mode": "ZoneMode",
+   "zone": "tundra",
+   "flag": true,
+   "boot": false,
+   "playing": true,
+   "paused": false,
+   "gap": 1350,
+   "frames": 321,
+   "big": [
+    [
+     2.64,
+     1350
+    ],
+    [
+     3.53,
+     884
+    ],
+    [
+     6.71,
+     500
+    ],
+    [
+     9.74,
+     584
+    ]
+   ]
+  },
+  {
+   "wall": 11.9,
+   "t": 0,
+   "veil": 1,
+   "label": 0,
+   "canSkip": true,
+   "intro": true,
+   "screen": "zone",
+   "ended": "",
+   "drake": null,
+   "hero": {
+    "hp": 320,
+    "st": "",
+    "y": 1.45
+   },
+   "mode": "ZoneMode",
+   "zone": "tundra",
+   "flag": true,
+   "boot": false,
+   "playing": true,
+   "paused": false,
+   "gap": 1350,
+   "frames": 327,
+   "big": [
+    [
+     2.64,
+     1350
+    ],
+    [
+     3.53,
+     884
+    ],
+    [
+     6.71,
+     500
+    ],
+    [
+     9.74,
+     584
+    ]
+   ]
+  },
+  {
+   "wall": 12.1,
+   "t": 0,
+   "veil": 1,
+   "label": 0,
+   "canSkip": true,
+   "intro": true,
+   "screen": "zone",
+   "ended": "",
+   "drake": null,
+   "hero": {
+    "hp": 320,
+    "st": "",
+    "y": 1.45
+   },
+   "mode": "ZoneMode",
+   "zone": "tundra",
+   "flag": true,
+   "boot": false,
+   "playing": true,
+   "paused": false,
+   "gap": 1350,
+   "frames": 334,
+   "big": [
+    [
+     2.64,
+     1350
+    ],
+    [
+     3.53,
+     884
+    ],
+    [
+     6.71,
+     500
+    ],
+    [
+     9.74,
+     584
+    ]
+   ]
+  },
+  {
+   "wall": 12.3,
+   "t": 0,
+   "veil": 1,
+   "label": 0,
+   "canSkip": true,
+   "intro": true,
+   "screen": "zone",
+   "ended": "",
+   "drake": null,
+   "hero": {
+    "hp": 320,
+    "st": "",
+    "y": 1.45
+   },
+   "mode": "ZoneMode",
+   "zone": "tundra",
+   "flag": true,
+   "boot": false,
+   "playing": true,
+   "paused": false,
+   "gap": 1350,
+   "frames": 339,
+   "big": [
+    [
+     2.64,
+     1350
+    ],
+    [
+     3.53,
+     884
+    ],
+    [
+     6.71,
+     500
+    ],
+    [
+     9.74,
+     584
+    ]
+   ]
+  },
+  {
+   "wall": 12.5,
+   "t": 0,
+   "veil": 1,
+   "label": 0,
+   "canSkip": true,
+   "intro": true,
+   "screen": "zone",
+   "ended": "",
+   "drake": null,
+   "hero": {
+    "hp": 320,
+    "st": "",
+    "y": 1.45
+   },
+   "mode": "ZoneMode",
+   "zone": "tundra",
+   "flag": true,
+   "boot": false,
+   "playing": true,
+   "paused": false,
+   "gap": 1350,
+   "frames": 343,
+   "big": [
+    [
+     2.64,
+     1350
+    ],
+    [
+     3.53,
+     884
+    ],
+    [
+     6.71,
+     500
+    ],
+    [
+     9.74,
+     584
+    ]
+   ]
+  },
+  {
+   "wall": 12.7,
+   "t": 0,
+   "veil": 1,
+   "label": 0,
+   "canSkip": true,
+   "intro": true,
+   "screen": "zone",
+   "ended": "",
+   "drake": null,
+   "hero": {
+    "hp": 320,
+    "st": "",
+    "y": 1.45
+   },
+   "mode": "ZoneMode",
+   "zone": "tundra",
+   "flag": true,
+   "boot": false,
+   "playing": true,
+   "paused": false,
+   "gap": 1350,
+   "frames": 347,
+   "big": [
+    [
+     2.64,
+     1350
+    ],
+    [
+     3.53,
+     884
+    ],
+    [
+     6.71,
+     500
+    ],
+    [
+     9.74,
+     584
+    ]
+   ]
+  },
+  {
+   "wall": 12.9,
+   "t": 0,
+   "veil": 1,
+   "label": 0,
+   "canSkip": true,
+   "intro": true,
+   "screen": "zone",
+   "ended": "",
+   "drake": null,
+   "hero": {
+    "hp": 320,
+    "st": "",
+    "y": 1.45
+   },
+   "mode": "ZoneMode",
+   "zone": "tundra",
+   "flag": true,
+   "boot": false,
+   "playing": true,
+   "paused": false,
+   "gap": 1350,
+   "frames": 354,
+   "big": [
+    [
+     2.64,
+     1350
+    ],
+    [
+     3.53,
+     884
+    ],
+    [
+     6.71,
+     500
+    ],
+    [
+     9.74,
+     584
+    ]
+   ]
+  },
+  {
+   "wall": 13.2,
+   "t": 0,
+   "veil": 1,
+   "label": 0,
+   "canSkip": true,
+   "intro": true,
+   "screen": "zone",
+   "ended": "",
+   "drake": null,
+   "hero": {
+    "hp": 320,
+    "st": "",
+    "y": 1.45
+   },
+   "mode": "ZoneMode",
+   "zone": "tundra",
+   "flag": true,
+   "boot": false,
+   "playing": true,
+   "paused": false,
+   "gap": 1350,
+   "frames": 357,
+   "big": [
+    [
+     2.64,
+     1350
+    ],
+    [
+     3.53,
+     884
+    ],
+    [
+     6.71,
+     500
+    ],
+    [
+     9.74,
+     584
+    ]
+   ]
+  },
+  {
+   "wall": 13.4,
+   "t": 0,
+   "veil": 1,
+   "label": 0,
+   "canSkip": true,
+   "intro": true,
+   "screen": "zone",
+   "ended": "",
+   "drake": null,
+   "hero": {
+    "hp": 320,
+    "st": "",
+    "y": 1.45
+   },
+   "mode": "ZoneMode",
+   "zone": "plains",
+   "flag": true,
+   "boot": false,
+   "playing": true,
+   "paused": false,
+   "gap": 1350,
+   "frames": 362,
+   "big": [
+    [
+     2.64,
+     1350
+    ],
+    [
+     3.53,
+     884
+    ],
+    [
+     6.71,
+     500
+    ],
+    [
+     9.74,
+     584
+    ]
+   ]
+  },
+  {
+   "wall": 13.6,
+   "t": 0,
+   "veil": 1,
+   "label": 0,
+   "canSkip": true,
+   "intro": true,
+   "screen": "zone",
+   "ended": "",
+   "drake": null,
+   "hero": {
+    "hp": 320,
+    "st": "",
+    "y": 1.45
+   },
+   "mode": "ZoneMode",
+   "zone": "plains",
+   "flag": true,
+   "boot": false,
+   "playing": true,
+   "paused": false,
+   "gap": 1350,
+   "frames": 368,
+   "big": [
+    [
+     2.64,
+     1350
+    ],
+    [
+     3.53,
+     884
+    ],
+    [
+     6.71,
+     500
+    ],
+    [
+     9.74,
+     584
+    ]
+   ]
+  },
+  {
+   "wall": 13.8,
+   "t": 0,
+   "veil": 1,
+   "label": 0,
+   "canSkip": true,
+   "intro": false,
+   "screen": "zone",
+   "ended": "",
+   "drake": null,
+   "hero": {
+    "hp": 320,
+    "st": "",
+    "y": 1.45
+   },
+   "mode": "ZoneMode",
+   "zone": "plains",
+   "flag": true,
+   "boot": false,
+   "playing": false,
+   "paused": false,
+   "gap": 1350,
+   "frames": 373,
+   "big": [
+    [
+     2.64,
+     1350
+    ],
+    [
+     3.53,
+     884
+    ],
+    [
+     6.71,
+     500
+    ],
+    [
+     9.74,
+     584
+    ]
+   ]
+  },
+  {
+   "wall": 14,
+   "t": 0,
+   "veil": 1,
+   "label": 0,
+   "canSkip": true,
+   "intro": false,
+   "screen": "zone",
+   "ended": "",
+   "drake": null,
+   "hero": {
+    "hp": 320,
+    "st": "",
+    "y": 1.45
+   },
+   "mode": "ZoneMode",
+   "zone": "plains",
+   "flag": true,
+   "boot": false,
+   "playing": false,
+   "paused": false,
+   "gap": 1350,
+   "frames": 374,
+   "big": [
+    [
+     2.64,
+     1350
+    ],
+    [
+     3.53,
+     884
+    ],
+    [
+     6.71,
+     500
+    ],
+    [
+     9.74,
+     584
+    ]
+   ]
+  },
+  {
+   "wall": 14.3,
+   "t": 0,
+   "veil": 1,
+   "label": 0,
+   "canSkip": true,
+   "intro": false,
+   "screen": "zone",
+   "ended": "",
+   "drake": null,
+   "hero": {
+    "hp": 320,
+    "st": "",
+    "y": 1.45
+   },
+   "mode": "ZoneMode",
+   "zone": "plains",
+   "flag": true,
+   "boot": false,
+   "playing": false,
+   "paused": false,
+   "gap": 1350,
+   "frames": 374,
+   "big": [
+    [
+     2.64,
+     1350
+    ],
+    [
+     3.53,
+     884
+    ],
+    [
+     6.71,
+     500
+    ],
+    [
+     9.74,
+     584
+    ]
+   ]
+  },
+  {
+   "wall": 14.5,
+   "t": 0,
+   "veil": 1,
+   "label": 0,
+   "canSkip": true,
+   "intro": false,
+   "screen": "zone",
+   "ended": "",
+   "drake": null,
+   "hero": {
+    "hp": 320,
+    "st": "",
+    "y": 1.45
+   },
+   "mode": "ZoneMode",
+   "zone": "plains",
+   "flag": true,
+   "boot": false,
+   "playing": false,
+   "paused": false,
+   "gap": 1350,
+   "frames": 374,
+   "big": [
+    [
+     2.64,
+     1350
+    ],
+    [
+     3.53,
+     884
+    ],
+    [
+     6.71,
+     500
+    ],
+    [
+     9.74,
+     584
+    ]
+   ]
+  },
+  {
+   "wall": 14.7,
+   "t": 0,
+   "veil": 1,
+   "label": 0,
+   "canSkip": true,
+   "intro": false,
+   "screen": "zone",
+   "ended": "",
+   "drake": null,
+   "hero": {
+    "hp": 320,
+    "st": "",
+    "y": 1.45
+   },
+   "mode": "ZoneMode",
+   "zone": "plains",
+   "flag": true,
+   "boot": false,
+   "playing": false,
+   "paused": false,
+   "gap": 1350,
+   "frames": 376,
+   "big": [
+    [
+     3.53,
+     884
+    ],
+    [
+     6.71,
+     500
+    ],
+    [
+     9.74,
+     584
+    ],
+    [
+     25.49,
+     783
+    ]
+   ]
+  },
+  {
+   "wall": 14.9,
+   "t": 0,
+   "veil": 1,
+   "label": 0,
+   "canSkip": true,
+   "intro": false,
+   "screen": "zone",
+   "ended": "",
+   "drake": null,
+   "hero": {
+    "hp": 320,
+    "st": "",
+    "y": 1.45
+   },
+   "mode": "ZoneMode",
+   "zone": "plains",
+   "flag": true,
+   "boot": false,
+   "playing": false,
+   "paused": false,
+   "gap": 1350,
+   "frames": 377,
+   "big": [
+    [
+     3.53,
+     884
+    ],
+    [
+     6.71,
+     500
+    ],
+    [
+     9.74,
+     584
+    ],
+    [
+     25.49,
+     783
+    ]
+   ]
+  },
+  {
+   "wall": 15.1,
+   "t": 0,
+   "veil": 1,
+   "label": 0,
+   "canSkip": true,
+   "intro": false,
+   "screen": "zone",
+   "ended": "",
+   "drake": null,
+   "hero": {
+    "hp": 320,
+    "st": "",
+    "y": 1.45
+   },
+   "mode": "ZoneMode",
+   "zone": "plains",
+   "flag": true,
+   "boot": false,
+   "playing": false,
+   "paused": false,
+   "gap": 1350,
+   "frames": 381,
+   "big": [
+    [
+     3.53,
+     884
+    ],
+    [
+     6.71,
+     500
+    ],
+    [
+     9.74,
+     584
+    ],
+    [
+     25.49,
+     783
+    ]
+   ]
+  },
+  {
+   "wall": 15.4,
+   "t": 0,
+   "veil": 1,
+   "label": 0,
+   "canSkip": true,
+   "intro": false,
+   "screen": "zone",
+   "ended": "",
+   "drake": null,
+   "hero": {
+    "hp": 320,
+    "st": "",
+    "y": 1.45
+   },
+   "mode": "ZoneMode",
+   "zone": "plains",
+   "flag": true,
+   "boot": false,
+   "playing": false,
+   "paused": false,
+   "gap": 1350,
+   "frames": 385,
+   "big": [
+    [
+     3.53,
+     884
+    ],
+    [
+     6.71,
+     500
+    ],
+    [
+     9.74,
+     584
+    ],
+    [
+     25.49,
+     783
+    ]
+   ]
+  },
+  {
+   "wall": 15.6,
+   "t": 0,
+   "veil": 1,
+   "label": 0,
+   "canSkip": true,
+   "intro": false,
+   "screen": "zone",
+   "ended": "",
+   "drake": null,
+   "hero": {
+    "hp": 320,
+    "st": "",
+    "y": 1.45
+   },
+   "mode": "ZoneMode",
+   "zone": "plains",
+   "flag": true,
+   "boot": false,
+   "playing": false,
+   "paused": false,
+   "gap": 1350,
+   "frames": 388,
+   "big": [
+    [
+     3.53,
+     884
+    ],
+    [
+     6.71,
+     500
+    ],
+    [
+     9.74,
+     584
+    ],
+    [
+     25.49,
+     783
+    ]
+   ]
+  },
+  {
+   "wall": 15.8,
+   "t": 0,
+   "veil": 1,
+   "label": 0,
+   "canSkip": true,
+   "intro": false,
+   "screen": "zone",
+   "ended": "",
+   "drake": null,
+   "hero": {
+    "hp": 320,
+    "st": "",
+    "y": 1.45
+   },
+   "mode": "ZoneMode",
+   "zone": "plains",
+   "flag": true,
+   "boot": false,
+   "playing": false,
+   "paused": false,
+   "gap": 1350,
+   "frames": 392,
+   "big": [
+    [
+     3.53,
+     884
+    ],
+    [
+     6.71,
+     500
+    ],
+    [
+     9.74,
+     584
+    ],
+    [
+     25.49,
+     783
+    ]
+   ]
+  },
+  {
+   "wall": 16,
+   "t": 0,
+   "veil": 1,
+   "label": 0,
+   "canSkip": true,
+   "intro": false,
+   "screen": "zone",
+   "ended": "",
+   "drake": null,
+   "hero": {
+    "hp": 320,
+    "st": "",
+    "y": 1.45
+   },
+   "mode": "ZoneMode",
+   "zone": "plains",
+   "flag": true,
+   "boot": false,
+   "playing": false,
+   "paused": false,
+   "gap": 1350,
+   "frames": 396,
+   "big": [
+    [
+     3.53,
+     884
+    ],
+    [
+     6.71,
+     500
+    ],
+    [
+     9.74,
+     584
+    ],
+    [
+     25.49,
+     783
+    ]
+   ]
+  },
+  {
+   "wall": 16.2,
+   "t": 0,
+   "veil": 1,
+   "label": 0,
+   "canSkip": true,
+   "intro": false,
+   "screen": "zone",
+   "ended": "",
+   "drake": null,
+   "hero": {
+    "hp": 320,
+    "st": "",
+    "y": 1.45
+   },
+   "mode": "ZoneMode",
+   "zone": "plains",
+   "flag": true,
+   "boot": false,
+   "playing": false,
+   "paused": false,
+   "gap": 1350,
+   "frames": 402,
+   "big": [
+    [
+     3.53,
+     884
+    ],
+    [
+     6.71,
+     500
+    ],
+    [
+     9.74,
+     584
+    ],
+    [
+     25.49,
+     783
+    ]
+   ]
+  },
+  {
+   "wall": 16.5,
+   "t": 0,
+   "veil": 1,
+   "label": 0,
+   "canSkip": true,
+   "intro": false,
+   "screen": "zone",
+   "ended": "",
+   "drake": null,
+   "hero": {
+    "hp": 320,
+    "st": "",
+    "y": 1.45
+   },
+   "mode": "ZoneMode",
+   "zone": "plains",
+   "flag": true,
+   "boot": false,
+   "playing": false,
+   "paused": false,
+   "gap": 1350,
+   "frames": 407,
+   "big": [
+    [
+     3.53,
+     884
+    ],
+    [
+     6.71,
+     500
+    ],
+    [
+     9.74,
+     584
+    ],
+    [
+     25.49,
+     783
+    ]
+   ]
+  },
+  {
+   "wall": 16.7,
+   "t": 0,
+   "veil": 1,
+   "label": 0,
+   "canSkip": true,
+   "intro": false,
+   "screen": "zone",
+   "ended": "",
+   "drake": null,
+   "hero": {
+    "hp": 320,
+    "st": "",
+    "y": 1.45
+   },
+   "mode": "ZoneMode",
+   "zone": "plains",
+   "flag": true,
+   "boot": false,
+   "playing": false,
+   "paused": false,
+   "gap": 1350,
+   "frames": 411,
+   "big": [
+    [
+     3.53,
+     884
+    ],
+    [
+     6.71,
+     500
+    ],
+    [
+     9.74,
+     584
+    ],
+    [
+     25.49,
+     783
+    ]
+   ]
+  },
+  {
+   "wall": 16.9,
+   "t": 0,
+   "veil": 1,
+   "label": 0,
+   "canSkip": true,
+   "intro": false,
+   "screen": "zone",
+   "ended": "",
+   "drake": null,
+   "hero": {
+    "hp": 320,
+    "st": "",
+    "y": 1.45
+   },
+   "mode": "ZoneMode",
+   "zone": "plains",
+   "flag": true,
+   "boot": false,
+   "playing": false,
+   "paused": false,
+   "gap": 1350,
+   "frames": 416,
+   "big": [
+    [
+     3.53,
+     884
+    ],
+    [
+     6.71,
+     500
+    ],
+    [
+     9.74,
+     584
+    ],
+    [
+     25.49,
+     783
+    ]
+   ]
+  },
+  {
+   "wall": 17.1,
+   "t": 0,
+   "veil": 1,
+   "label": 0,
+   "canSkip": true,
+   "intro": false,
+   "screen": "zone",
+   "ended": "",
+   "drake": null,
+   "hero": {
+    "hp": 320,
+    "st": "",
+    "y": 1.45
+   },
+   "mode": "ZoneMode",
+   "zone": "plains",
+   "flag": true,
+   "boot": false,
+   "playing": false,
+   "paused": false,
+   "gap": 1350,
+   "frames": 420,
+   "big": [
+    [
+     3.53,
+     884
+    ],
+    [
+     6.71,
+     500
+    ],
+    [
+     9.74,
+     584
+    ],
+    [
+     25.49,
+     783
+    ]
+   ]
+  },
+  {
+   "wall": 17.3,
+   "t": 0,
+   "veil": 1,
+   "label": 0,
+   "canSkip": true,
+   "intro": false,
+   "screen": "zone",
+   "ended": "",
+   "drake": null,
+   "hero": {
+    "hp": 320,
+    "st": "",
+    "y": 1.45
+   },
+   "mode": "ZoneMode",
+   "zone": "plains",
+   "flag": true,
+   "boot": false,
+   "playing": false,
+   "paused": false,
+   "gap": 1350,
+   "frames": 425,
+   "big": [
+    [
+     3.53,
+     884
+    ],
+    [
+     6.71,
+     500
+    ],
+    [
+     9.74,
+     584
+    ],
+    [
+     25.49,
+     783
+    ]
+   ]
+  },
+  {
+   "wall": 17.5,
+   "t": 0,
+   "veil": 1,
+   "label": 0,
+   "canSkip": true,
+   "intro": false,
+   "screen": "zone",
+   "ended": "",
+   "drake": null,
+   "hero": {
+    "hp": 320,
+    "st": "",
+    "y": 1.45
+   },
+   "mode": "ZoneMode",
+   "zone": "plains",
+   "flag": true,
+   "boot": false,
+   "playing": false,
+   "paused": false,
+   "gap": 1350,
+   "frames": 430,
+   "big": [
+    [
+     3.53,
+     884
+    ],
+    [
+     6.71,
+     500
+    ],
+    [
+     9.74,
+     584
+    ],
+    [
+     25.49,
+     783
+    ]
+   ]
+  },
+  {
+   "wall": 17.7,
+   "t": 0,
+   "veil": 1,
+   "label": 0,
+   "canSkip": true,
+   "intro": false,
+   "screen": "zone",
+   "ended": "",
+   "drake": null,
+   "hero": {
+    "hp": 320,
+    "st": "",
+    "y": 1.45
+   },
+   "mode": "ZoneMode",
+   "zone": "plains",
+   "flag": true,
+   "boot": false,
+   "playing": false,
+   "paused": false,
+   "gap": 1350,
+   "frames": 434,
+   "big": [
+    [
+     3.53,
+     884
+    ],
+    [
+     6.71,
+     500
+    ],
+    [
+     9.74,
+     584
+    ],
+    [
+     25.49,
+     783
+    ]
+   ]
+  },
+  {
+   "wall": 18,
+   "t": 0,
+   "veil": 1,
+   "label": 0,
+   "canSkip": true,
+   "intro": false,
+   "screen": "zone",
+   "ended": "",
+   "drake": null,
+   "hero": {
+    "hp": 320,
+    "st": "",
+    "y": 1.45
+   },
+   "mode": "ZoneMode",
+   "zone": "plains",
+   "flag": true,
+   "boot": false,
+   "playing": false,
+   "paused": false,
+   "gap": 1350,
+   "frames": 439,
+   "big": [
+    [
+     3.53,
+     884
+    ],
+    [
+     6.71,
+     500
+    ],
+    [
+     9.74,
+     584
+    ],
+    [
+     25.49,
+     783
+    ]
+   ]
+  },
+  {
+   "wall": 18.2,
+   "t": 0,
+   "veil": 1,
+   "label": 0,
+   "canSkip": true,
+   "intro": false,
+   "screen": "zone",
+   "ended": "",
+   "drake": null,
+   "hero": {
+    "hp": 320,
+    "st": "",
+    "y": 1.45
+   },
+   "mode": "ZoneMode",
+   "zone": "plains",
+   "flag": true,
+   "boot": false,
+   "playing": false,
+   "paused": false,
+   "gap": 1350,
+   "frames": 445,
+   "big": [
+    [
+     3.53,
+     884
+    ],
+    [
+     6.71,
+     500
+    ],
+    [
+     9.74,
+     584
+    ],
+    [
+     25.49,
+     783
+    ]
+   ]
+  },
+  {
+   "wall": 18.4,
+   "t": 0,
+   "veil": 1,
+   "label": 0,
+   "canSkip": true,
+   "intro": false,
+   "screen": "zone",
+   "ended": "",
+   "drake": null,
+   "hero": {
+    "hp": 320,
+    "st": "",
+    "y": 1.45
+   },
+   "mode": "ZoneMode",
+   "zone": "plains",
+   "flag": true,
+   "boot": false,
+   "playing": false,
+   "paused": false,
+   "gap": 1350,
+   "frames": 450,
+   "big": [
+    [
+     3.53,
+     884
+    ],
+    [
+     6.71,
+     500
+    ],
+    [
+     9.74,
+     584
+    ],
+    [
+     25.49,
+     783
+    ]
+   ]
+  },
+  {
+   "wall": 18.6,
+   "t": 0,
+   "veil": 1,
+   "label": 0,
+   "canSkip": true,
+   "intro": false,
+   "screen": "zone",
+   "ended": "",
+   "drake": null,
+   "hero": {
+    "hp": 320,
+    "st": "",
+    "y": 1.45
+   },
+   "mode": "ZoneMode",
+   "zone": "plains",
+   "flag": true,
+   "boot": false,
+   "playing": false,
+   "paused": false,
+   "gap": 1350,
+   "frames": 456,
+   "big": [
+    [
+     3.53,
+     884
+    ],
+    [
+     6.71,
+     500
+    ],
+    [
+     9.74,
+     584
+    ],
+    [
+     25.49,
+     783
+    ]
+   ]
+  },
+  {
+   "wall": 18.8,
+   "t": 0,
+   "veil": 1,
+   "label": 0,
+   "canSkip": true,
+   "intro": false,
+   "screen": "zone",
+   "ended": "",
+   "drake": null,
+   "hero": {
+    "hp": 320,
+    "st": "",
+    "y": 1.45
+   },
+   "mode": "ZoneMode",
+   "zone": "plains",
+   "flag": true,
+   "boot": false,
+   "playing": false,
+   "paused": false,
+   "gap": 1350,
+   "frames": 462,
+   "big": [
+    [
+     3.53,
+     884
+    ],
+    [
+     6.71,
+     500
+    ],
+    [
+     9.74,
+     584
+    ],
+    [
+     25.49,
+     783
+    ]
+   ]
+  },
+  {
+   "wall": 19.1,
+   "t": 0,
+   "veil": 1,
+   "label": 0,
+   "canSkip": true,
+   "intro": false,
+   "screen": "zone",
+   "ended": "",
+   "drake": null,
+   "hero": {
+    "hp": 320,
+    "st": "",
+    "y": 1.45
+   },
+   "mode": "ZoneMode",
+   "zone": "plains",
+   "flag": true,
+   "boot": false,
+   "playing": false,
+   "paused": false,
+   "gap": 1350,
+   "frames": 468,
+   "big": [
+    [
+     3.53,
+     884
+    ],
+    [
+     6.71,
+     500
+    ],
+    [
+     9.74,
+     584
+    ],
+    [
+     25.49,
+     783
+    ]
+   ]
+  },
+  {
+   "wall": 19.3,
+   "t": 0,
+   "veil": 1,
+   "label": 0,
+   "canSkip": true,
+   "intro": false,
+   "screen": "zone",
+   "ended": "",
+   "drake": null,
+   "hero": {
+    "hp": 320,
+    "st": "",
+    "y": 1.45
+   },
+   "mode": "ZoneMode",
+   "zone": "plains",
+   "flag": true,
+   "boot": false,
+   "playing": false,
+   "paused": false,
+   "gap": 1350,
+   "frames": 473,
+   "big": [
+    [
+     3.53,
+     884
+    ],
+    [
+     6.71,
+     500
+    ],
+    [
+     9.74,
+     584
+    ],
+    [
+     25.49,
+     783
+    ]
+   ]
+  },
+  {
+   "wall": 19.5,
+   "t": 0,
+   "veil": 1,
+   "label": 0,
+   "canSkip": true,
+   "intro": false,
+   "screen": "zone",
+   "ended": "",
+   "drake": null,
+   "hero": {
+    "hp": 320,
+    "st": "",
+    "y": 1.45
+   },
+   "mode": "ZoneMode",
+   "zone": "plains",
+   "flag": true,
+   "boot": false,
+   "playing": false,
+   "paused": false,
+   "gap": 1350,
+   "frames": 479,
+   "big": [
+    [
+     3.53,
+     884
+    ],
+    [
+     6.71,
+     500
+    ],
+    [
+     9.74,
+     584
+    ],
+    [
+     25.49,
+     783
+    ]
+   ]
+  },
+  {
+   "wall": 19.7,
+   "t": 0,
+   "veil": 1,
+   "label": 0,
+   "canSkip": true,
+   "intro": false,
+   "screen": "zone",
+   "ended": "",
+   "drake": null,
+   "hero": {
+    "hp": 320,
+    "st": "",
+    "y": 1.45
+   },
+   "mode": "ZoneMode",
+   "zone": "plains",
+   "flag": true,
+   "boot": false,
+   "playing": false,
+   "paused": false,
+   "gap": 1350,
+   "frames": 484,
+   "big": [
+    [
+     3.53,
+     884
+    ],
+    [
+     6.71,
+     500
+    ],
+    [
+     9.74,
+     584
+    ],
+    [
+     25.49,
+     783
+    ]
+   ]
+  },
+  {
+   "wall": 19.9,
+   "t": 0,
+   "veil": 1,
+   "label": 0,
+   "canSkip": true,
+   "intro": false,
+   "screen": "zone",
+   "ended": "",
+   "drake": null,
+   "hero": {
+    "hp": 320,
+    "st": "",
+    "y": 1.45
+   },
+   "mode": "ZoneMode",
+   "zone": "plains",
+   "flag": true,
+   "boot": false,
+   "playing": false,
+   "paused": false,
+   "gap": 1350,
+   "frames": 489,
+   "big": [
+    [
+     3.53,
+     884
+    ],
+    [
+     6.71,
+     500
+    ],
+    [
+     9.74,
+     584
+    ],
+    [
+     25.49,
+     783
+    ]
+   ]
+  },
+  {
+   "wall": 20.1,
+   "t": 0,
+   "veil": 1,
+   "label": 0,
+   "canSkip": true,
+   "intro": false,
+   "screen": "zone",
+   "ended": "",
+   "drake": null,
+   "hero": {
+    "hp": 320,
+    "st": "",
+    "y": 1.45
+   },
+   "mode": "ZoneMode",
+   "zone": "plains",
+   "flag": true,
+   "boot": false,
+   "playing": false,
+   "paused": false,
+   "gap": 1350,
+   "frames": 493,
+   "big": [
+    [
+     3.53,
+     884
+    ],
+    [
+     6.71,
+     500
+    ],
+    [
+     9.74,
+     584
+    ],
+    [
+     25.49,
+     783
+    ]
+   ]
+  },
+  {
+   "wall": 20.4,
+   "t": 0,
+   "veil": 1,
+   "label": 0,
+   "canSkip": true,
+   "intro": false,
+   "screen": "zone",
+   "ended": "",
+   "drake": null,
+   "hero": {
+    "hp": 320,
+    "st": "",
+    "y": 1.45
+   },
+   "mode": "ZoneMode",
+   "zone": "plains",
+   "flag": true,
+   "boot": false,
+   "playing": false,
+   "paused": false,
+   "gap": 1350,
+   "frames": 498,
+   "big": [
+    [
+     3.53,
+     884
+    ],
+    [
+     6.71,
+     500
+    ],
+    [
+     9.74,
+     584
+    ],
+    [
+     25.49,
+     783
+    ]
+   ]
+  },
+  {
+   "wall": 20.6,
+   "t": 0,
+   "veil": 1,
+   "label": 0,
+   "canSkip": true,
+   "intro": false,
+   "screen": "zone",
+   "ended": "",
+   "drake": null,
+   "hero": {
+    "hp": 320,
+    "st": "",
+    "y": 1.45
+   },
+   "mode": "ZoneMode",
+   "zone": "plains",
+   "flag": true,
+   "boot": false,
+   "playing": false,
+   "paused": false,
+   "gap": 1350,
+   "frames": 503,
+   "big": [
+    [
+     3.53,
+     884
+    ],
+    [
+     6.71,
+     500
+    ],
+    [
+     9.74,
+     584
+    ],
+    [
+     25.49,
+     783
+    ]
+   ]
+  },
+  {
+   "wall": 20.8,
+   "t": 0,
+   "veil": 1,
+   "label": 0,
+   "canSkip": true,
+   "intro": false,
+   "screen": "zone",
+   "ended": "",
+   "drake": null,
+   "hero": {
+    "hp": 320,
+    "st": "",
+    "y": 1.45
+   },
+   "mode": "ZoneMode",
+   "zone": "plains",
+   "flag": true,
+   "boot": false,
+   "playing": false,
+   "paused": false,
+   "gap": 1350,
+   "frames": 508,
+   "big": [
+    [
+     3.53,
+     884
+    ],
+    [
+     6.71,
+     500
+    ],
+    [
+     9.74,
+     584
+    ],
+    [
+     25.49,
+     783
+    ]
+   ]
+  },
+  {
+   "wall": 21,
+   "t": 0,
+   "veil": 1,
+   "label": 0,
+   "canSkip": true,
+   "intro": false,
+   "screen": "zone",
+   "ended": "",
+   "drake": null,
+   "hero": {
+    "hp": 320,
+    "st": "",
+    "y": 1.45
+   },
+   "mode": "ZoneMode",
+   "zone": "plains",
+   "flag": true,
+   "boot": false,
+   "playing": false,
+   "paused": false,
+   "gap": 1350,
+   "frames": 514,
+   "big": [
+    [
+     3.53,
+     884
+    ],
+    [
+     6.71,
+     500
+    ],
+    [
+     9.74,
+     584
+    ],
+    [
+     25.49,
+     783
+    ]
+   ]
+  },
+  {
+   "wall": 21.2,
+   "t": 0,
+   "veil": 1,
+   "label": 0,
+   "canSkip": true,
+   "intro": false,
+   "screen": "zone",
+   "ended": "",
+   "drake": null,
+   "hero": {
+    "hp": 320,
+    "st": "",
+    "y": 1.45
+   },
+   "mode": "ZoneMode",
+   "zone": "plains",
+   "flag": true,
+   "boot": false,
+   "playing": false,
+   "paused": false,
+   "gap": 1350,
+   "frames": 519,
+   "big": [
+    [
+     3.53,
+     884
+    ],
+    [
+     6.71,
+     500
+    ],
+    [
+     9.74,
+     584
+    ],
+    [
+     25.49,
+     783
+    ]
+   ]
+  },
+  {
+   "wall": 21.5,
+   "t": 0,
+   "veil": 1,
+   "label": 0,
+   "canSkip": true,
+   "intro": false,
+   "screen": "zone",
+   "ended": "",
+   "drake": null,
+   "hero": {
+    "hp": 320,
+    "st": "",
+    "y": 1.45
+   },
+   "mode": "ZoneMode",
+   "zone": "plains",
+   "flag": true,
+   "boot": false,
+   "playing": false,
+   "paused": false,
+   "gap": 1350,
+   "frames": 525,
+   "big": [
+    [
+     3.53,
+     884
+    ],
+    [
+     6.71,
+     500
+    ],
+    [
+     9.74,
+     584
+    ],
+    [
+     25.49,
+     783
+    ]
+   ]
+  },
+  {
+   "wall": 21.7,
+   "t": 0,
+   "veil": 1,
+   "label": 0,
+   "canSkip": true,
+   "intro": false,
+   "screen": "zone",
+   "ended": "",
+   "drake": null,
+   "hero": {
+    "hp": 320,
+    "st": "",
+    "y": 1.45
+   },
+   "mode": "ZoneMode",
+   "zone": "plains",
+   "flag": true,
+   "boot": false,
+   "playing": false,
+   "paused": false,
+   "gap": 1350,
+   "frames": 530,
+   "big": [
+    [
+     3.53,
+     884
+    ],
+    [
+     6.71,
+     500
+    ],
+    [
+     9.74,
+     584
+    ],
+    [
+     25.49,
+     783
+    ]
+   ]
+  },
+  {
+   "wall": 21.9,
+   "t": 0,
+   "veil": 1,
+   "label": 0,
+   "canSkip": true,
+   "intro": false,
+   "screen": "zone",
+   "ended": "",
+   "drake": null,
+   "hero": {
+    "hp": 320,
+    "st": "",
+    "y": 1.45
+   },
+   "mode": "ZoneMode",
+   "zone": "plains",
+   "flag": true,
+   "boot": false,
+   "playing": false,
+   "paused": false,
+   "gap": 1350,
+   "frames": 535,
+   "big": [
+    [
+     3.53,
+     884
+    ],
+    [
+     6.71,
+     500
+    ],
+    [
+     9.74,
+     584
+    ],
+    [
+     25.49,
+     783
+    ]
+   ]
+  },
+  {
+   "wall": 22.1,
+   "t": 0,
+   "veil": 1,
+   "label": 0,
+   "canSkip": true,
+   "intro": false,
+   "screen": "zone",
+   "ended": "",
+   "drake": null,
+   "hero": {
+    "hp": 320,
+    "st": "",
+    "y": 1.45
+   },
+   "mode": "ZoneMode",
+   "zone": "plains",
+   "flag": true,
+   "boot": false,
+   "playing": false,
+   "paused": false,
+   "gap": 1350,
+   "frames": 540,
+   "big": [
+    [
+     3.53,
+     884
+    ],
+    [
+     6.71,
+     500
+    ],
+    [
+     9.74,
+     584
+    ],
+    [
+     25.49,
+     783
+    ]
+   ]
+  },
+  {
+   "wall": 22.3,
+   "t": 0,
+   "veil": 1,
+   "label": 0,
+   "canSkip": true,
+   "intro": false,
+   "screen": "zone",
+   "ended": "",
+   "drake": null,
+   "hero": {
+    "hp": 320,
+    "st": "",
+    "y": 1.45
+   },
+   "mode": "ZoneMode",
+   "zone": "plains",
+   "flag": true,
+   "boot": false,
+   "playing": false,
+   "paused": false,
+   "gap": 1350,
+   "frames": 544,
+   "big": [
+    [
+     3.53,
+     884
+    ],
+    [
+     6.71,
+     500
+    ],
+    [
+     9.74,
+     584
+    ],
+    [
+     25.49,
+     783
+    ]
+   ]
+  },
+  {
+   "wall": 22.6,
+   "t": 0,
+   "veil": 1,
+   "label": 0,
+   "canSkip": true,
+   "intro": false,
+   "screen": "zone",
+   "ended": "",
+   "drake": null,
+   "hero": {
+    "hp": 320,
+    "st": "",
+    "y": 1.45
+   },
+   "mode": "ZoneMode",
+   "zone": "plains",
+   "flag": true,
+   "boot": false,
+   "playing": false,
+   "paused": false,
+   "gap": 1350,
+   "frames": 549,
+   "big": [
+    [
+     3.53,
+     884
+    ],
+    [
+     6.71,
+     500
+    ],
+    [
+     9.74,
+     584
+    ],
+    [
+     25.49,
+     783
+    ]
+   ]
+  },
+  {
+   "wall": 22.8,
+   "t": 0,
+   "veil": 1,
+   "label": 0,
+   "canSkip": true,
+   "intro": false,
+   "screen": "zone",
+   "ended": "",
+   "drake": null,
+   "hero": {
+    "hp": 320,
+    "st": "",
+    "y": 1.45
+   },
+   "mode": "ZoneMode",
+   "zone": "plains",
+   "flag": true,
+   "boot": false,
+   "playing": false,
+   "paused": false,
+   "gap": 1350,
+   "frames": 554,
+   "big": [
+    [
+     3.53,
+     884
+    ],
+    [
+     6.71,
+     500
+    ],
+    [
+     9.74,
+     584
+    ],
+    [
+     25.49,
+     783
+    ]
+   ]
+  },
+  {
+   "wall": 23,
+   "t": 0,
+   "veil": 1,
+   "label": 0,
+   "canSkip": true,
+   "intro": false,
+   "screen": "zone",
+   "ended": "",
+   "drake": null,
+   "hero": {
+    "hp": 320,
+    "st": "",
+    "y": 1.45
+   },
+   "mode": "ZoneMode",
+   "zone": "plains",
+   "flag": true,
+   "boot": false,
+   "playing": false,
+   "paused": false,
+   "gap": 1350,
+   "frames": 558,
+   "big": [
+    [
+     3.53,
+     884
+    ],
+    [
+     6.71,
+     500
+    ],
+    [
+     9.74,
+     584
+    ],
+    [
+     25.49,
+     783
+    ]
+   ]
+  },
+  {
+   "wall": 23.2,
+   "t": 0,
+   "veil": 1,
+   "label": 0,
+   "canSkip": true,
+   "intro": false,
+   "screen": "zone",
+   "ended": "",
+   "drake": null,
+   "hero": {
+    "hp": 320,
+    "st": "",
+    "y": 1.45
+   },
+   "mode": "ZoneMode",
+   "zone": "plains",
+   "flag": true,
+   "boot": false,
+   "playing": false,
+   "paused": false,
+   "gap": 1350,
+   "frames": 563,
+   "big": [
+    [
+     3.53,
+     884
+    ],
+    [
+     6.71,
+     500
+    ],
+    [
+     9.74,
+     584
+    ],
+    [
+     25.49,
+     783
+    ]
+   ]
+  },
+  {
+   "wall": 23.4,
+   "t": 0,
+   "veil": 1,
+   "label": 0,
+   "canSkip": true,
+   "intro": false,
+   "screen": "zone",
+   "ended": "",
+   "drake": null,
+   "hero": {
+    "hp": 320,
+    "st": "",
+    "y": 1.45
+   },
+   "mode": "ZoneMode",
+   "zone": "plains",
+   "flag": true,
+   "boot": false,
+   "playing": false,
+   "paused": false,
+   "gap": 1350,
+   "frames": 567,
+   "big": [
+    [
+     3.53,
+     884
+    ],
+    [
+     6.71,
+     500
+    ],
+    [
+     9.74,
+     584
+    ],
+    [
+     25.49,
+     783
+    ]
+   ]
+  },
+  {
+   "wall": 23.6,
+   "t": 0,
+   "veil": 1,
+   "label": 0,
+   "canSkip": true,
+   "intro": false,
+   "screen": "zone",
+   "ended": "",
+   "drake": null,
+   "hero": {
+    "hp": 320,
+    "st": "",
+    "y": 1.45
+   },
+   "mode": "ZoneMode",
+   "zone": "plains",
+   "flag": true,
+   "boot": false,
+   "playing": false,
+   "paused": false,
+   "gap": 1350,
+   "frames": 572,
+   "big": [
+    [
+     3.53,
+     884
+    ],
+    [
+     6.71,
+     500
+    ],
+    [
+     9.74,
+     584
+    ],
+    [
+     25.49,
+     783
+    ]
+   ]
+  },
+  {
+   "wall": 23.9,
+   "t": 0,
+   "veil": 1,
+   "label": 0,
+   "canSkip": true,
+   "intro": false,
+   "screen": "zone",
+   "ended": "",
+   "drake": null,
+   "hero": {
+    "hp": 320,
+    "st": "",
+    "y": 1.45
+   },
+   "mode": "ZoneMode",
+   "zone": "plains",
+   "flag": true,
+   "boot": false,
+   "playing": false,
+   "paused": false,
+   "gap": 1350,
+   "frames": 577,
+   "big": [
+    [
+     3.53,
+     884
+    ],
+    [
+     6.71,
+     500
+    ],
+    [
+     9.74,
+     584
+    ],
+    [
+     25.49,
+     783
+    ]
+   ]
+  },
+  {
+   "wall": 24.1,
+   "t": 0,
+   "veil": 1,
+   "label": 0,
+   "canSkip": true,
+   "intro": false,
+   "screen": "zone",
+   "ended": "",
+   "drake": null,
+   "hero": {
+    "hp": 320,
+    "st": "",
+    "y": 1.45
+   },
+   "mode": "ZoneMode",
+   "zone": "plains",
+   "flag": true,
+   "boot": false,
+   "playing": false,
+   "paused": false,
+   "gap": 1350,
+   "frames": 582,
+   "big": [
+    [
+     3.53,
+     884
+    ],
+    [
+     6.71,
+     500
+    ],
+    [
+     9.74,
+     584
+    ],
+    [
+     25.49,
+     783
+    ]
+   ]
+  },
+  {
+   "wall": 24.3,
+   "t": 0,
+   "veil": 1,
+   "label": 0,
+   "canSkip": true,
+   "intro": false,
+   "screen": "zone",
+   "ended": "",
+   "drake": null,
+   "hero": {
+    "hp": 320,
+    "st": "",
+    "y": 1.45
+   },
+   "mode": "ZoneMode",
+   "zone": "plains",
+   "flag": true,
+   "boot": false,
+   "playing": false,
+   "paused": false,
+   "gap": 1350,
+   "frames": 588,
+   "big": [
+    [
+     3.53,
+     884
+    ],
+    [
+     6.71,
+     500
+    ],
+    [
+     9.74,
+     584
+    ],
+    [
+     25.49,
+     783
+    ]
+   ]
+  },
+  {
+   "wall": 24.5,
+   "t": 0,
+   "veil": 1,
+   "label": 0,
+   "canSkip": true,
+   "intro": false,
+   "screen": "zone",
+   "ended": "",
+   "drake": null,
+   "hero": {
+    "hp": 320,
+    "st": "",
+    "y": 1.45
+   },
+   "mode": "ZoneMode",
+   "zone": "plains",
+   "flag": true,
+   "boot": false,
+   "playing": false,
+   "paused": false,
+   "gap": 1350,
+   "frames": 593,
+   "big": [
+    [
+     3.53,
+     884
+    ],
+    [
+     6.71,
+     500
+    ],
+    [
+     9.74,
+     584
+    ],
+    [
+     25.49,
+     783
+    ]
+   ]
+  },
+  {
+   "wall": 24.7,
+   "t": 0,
+   "veil": 1,
+   "label": 0,
+   "canSkip": true,
+   "intro": false,
+   "screen": "zone",
+   "ended": "",
+   "drake": null,
+   "hero": {
+    "hp": 320,
+    "st": "",
+    "y": 1.45
+   },
+   "mode": "ZoneMode",
+   "zone": "plains",
+   "flag": true,
+   "boot": false,
+   "playing": false,
+   "paused": false,
+   "gap": 1350,
+   "frames": 598,
+   "big": [
+    [
+     3.53,
+     884
+    ],
+    [
+     6.71,
+     500
+    ],
+    [
+     9.74,
+     584
+    ],
+    [
+     25.49,
+     783
+    ]
+   ]
+  },
+  {
+   "wall": 24.9,
+   "t": 0,
+   "veil": 1,
+   "label": 0,
+   "canSkip": true,
+   "intro": false,
+   "screen": "zone",
+   "ended": "",
+   "drake": null,
+   "hero": {
+    "hp": 320,
+    "st": "",
+    "y": 1.45
+   },
+   "mode": "ZoneMode",
+   "zone": "plains",
+   "flag": true,
+   "boot": false,
+   "playing": false,
+   "paused": false,
+   "gap": 1350,
+   "frames": 603,
+   "big": [
+    [
+     3.53,
+     884
+    ],
+    [
+     6.71,
+     500
+    ],
+    [
+     9.74,
+     584
+    ],
+    [
+     25.49,
+     783
+    ]
+   ]
+  },
+  {
+   "wall": 25.2,
+   "t": 0,
+   "veil": 1,
+   "label": 0,
+   "canSkip": true,
+   "intro": false,
+   "screen": "zone",
+   "ended": "",
+   "drake": null,
+   "hero": {
+    "hp": 320,
+    "st": "",
+    "y": 1.45
+   },
+   "mode": "ZoneMode",
+   "zone": "plains",
+   "flag": true,
+   "boot": false,
+   "playing": false,
+   "paused": false,
+   "gap": 1350,
+   "frames": 608,
+   "big": [
+    [
+     3.53,
+     884
+    ],
+    [
+     6.71,
+     500
+    ],
+    [
+     9.74,
+     584
+    ],
+    [
+     25.49,
+     783
+    ]
+   ]
+  }
+ ],
+ "errors": [
+  "debug: [vite] connecting...",
+  "log: [boot] setMode plains     at enter (http://localhost:2194/src/game/flow.ts?t=1793652528239:301:7) |     at enterFirstLevel (http://localhost:2194/src/game/flow.ts?t=1793652528239:352:42) |     at http://localhost:2194/src/game/intro/runner.ts?t=1793652528239:455:55"
+ ]
+}

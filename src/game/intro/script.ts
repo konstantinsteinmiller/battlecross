@@ -62,16 +62,16 @@ export const INTRO_ACTS: readonly IntroBeat[] = [
   { at: 5.5, who: 'mage', act: 'slap' },
   { at: 5.95, who: 'beast', act: 'slap' },
   { at: 6.5, who: 'both', act: 'slay' },
-  { at: 7.4, who: 'both', act: 'flee' },
-  { at: 8.4, who: 'both', act: 'rise' },
-  { at: 8.9, who: 'both', act: 'load' }
+  { at: 7.0, who: 'both', act: 'flee' },
+  { at: 8.2, who: 'both', act: 'rise' },
+  { at: 9.6, who: 'both', act: 'load' }
 ]
 /** The camera: pulled well back (above 1 is farther), so the leaps, the flips and the dragon are all in the picture. */
 export const INTRO_ZOOMS = [{ at: 0, to: 1.3, dur: 0.01, hold: 12 }] as const
 /** "1 month later…" fades in over the dark from here. */
-export const LABEL_AT = 9.8
+export const LABEL_AT = 10.1
 /** The last fade to black (the label rides on it). */
-export const FADE_OUT_AT = 9.3
+export const FADE_OUT_AT = 9.6
 
 /** How black the screen is at `t` (0..1): black until the scene is built, the fade in, the fade to black. */
 export const veilAt = (t: number, sceneReady: boolean): number => {
@@ -116,4 +116,4 @@ export const INTRO_LINES = [
 export const INTRO_BEATS = INTRO_LINES.map(l => l.id.split('.')[2]!)
 
 /** From here the film can no longer be skipped: the opening level is building behind it (#189). */
-export const NO_SKIP_AT = 8.9
+export const NO_SKIP_AT = 9.6

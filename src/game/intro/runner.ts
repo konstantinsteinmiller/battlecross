@@ -116,6 +116,9 @@ interface Cast {
   casts: number
   /** The way the beast caller walks off (a unit vector), which the pack follows. */
   beastDir: { x: number; z: number }
+  /** Where each of the pack stood, relative to her, when she set off, and when that was. */
+  packOff: Array<{ x: number; z: number }>
+  fleeT: number
 }
 
 /** How far out (m) the two start their leap from, and how high (m) it goes. */
@@ -194,7 +197,7 @@ const stage = (m: ZoneMode): Cast | null => {
   // The haze is set for the usual view: with the camera pulled back it would swallow the dragon.
   setZoneFog(m.scene, m.terrainTheme(), m.cam.dist * INTRO_ZOOMS[0]!.to * 12)
   m.cam.snap()
-  return { hero, mage, beast, dragon, pack: [], leaps: [], land, packAt: -1, fled: false, bite: [], home: { x: dragon.x, z: dragon.z }, settle: 0, casts: 0, beastDir: { x: 1, z: 0.5 } }
+  return { hero, mage, beast, dragon, pack: [], leaps: [], land, packAt: -1, fled: false, bite: [], home: { x: dragon.x, z: dragon.z }, settle: 0, casts: 0, beastDir: { x: 1, z: 0.5 }, packOff: [], fleeT: 0 }
 }
 
 /** Start a leap: `high` metres at the top of the arc, `flips` forward turns on the way, a hero's landing at the end. */
@@ -313,8 +316,10 @@ const play = (m: ZoneMode, c: Cast, t: number, act: IntroAct, who: 'beast' | 'ma
     case 'flee':
       // They walk off calmly, one each way, the pack at the beast caller's heels, not one look at the hero in the snow.
       c.fled = true
-      walk(c, c.mage, c.land.mage.x - 14, c.land.mage.z + 7, t, 5.2)
-      walk(c, c.beast, c.land.beast.x + 14, c.land.beast.z + 7, t, 5.2)
+      walk(c, c.mage, c.land.mage.x - 14, c.land.mage.z + 7, t, 5.6)
+      walk(c, c.beast, c.land.beast.x + 14, c.land.beast.z + 7, t, 5.6)
+      c.fleeT = t
+      c.packOff = c.pack.map(mn => ({ x: mn.x - c.beast.x, z: mn.z - c.beast.z }))
       { const bx = c.land.beast.x + 14 - c.beast.x; const bz = c.land.beast.z + 7 - c.beast.z; const l = Math.hypot(bx, bz) || 1; c.beastDir = { x: bx / l, z: bz / l } }
       break
     case 'load':
@@ -342,7 +347,10 @@ const stepLeaps = (m: ZoneMode, c: Cast, t: number): void => {
   const sim = m.sim
   for (const l of c.leaps) {
     if (l.done) continue
-    const k = Math.min(1, Math.max(0, (t - l.t0) / l.dur))
+    const raw = Math.min(1, Math.max(0, (t - l.t0) / l.dur))
+    // A walk eases into its pace (the first quarter) and then holds it; a leap is one arc.
+    const A = 0.25
+    const k = l.walk ? (raw < A ? (raw * raw) / (2 * A) : raw - A / 2) / (1 - A / 2) : raw
     const u = l.u
     u.x = u.px = l.fx + (l.tx - l.fx) * k
     u.z = u.pz = l.fz + (l.tz - l.fz) * k
@@ -374,29 +382,35 @@ const stepPack = (m: ZoneMode, c: Cast, t: number, dt: number): void => {
   c.pack.forEach((mn, i) => {
     if (!mn.alive) return
     if (!d.alive) {
-      // The drake is down: the pack trots after the beast caller in her wake: a slot behind her along the way she walks,
-      // a pace that eases as they close, and a body that turns smoothly, never on the spot.
+      // The drake is down. Until she sets off they stand about her, turned the way she is; then they trot with her, each
+      // from where it stood into its place behind her, all facing the way she walks (never at the one in the snow).
       const b = c.beast
       const dir = c.fled ? c.beastDir : { x: 0, z: 1 }
-      const back = 1.5 + 0.9 * (i % 3) + Math.floor(i / 3) * 0.8
-      const side = ((i % 3) - 1) * 0.9 + (i > 2 ? 0.45 : 0)
-      const tx = b.x - dir.x * back - dir.z * side
-      const tz = b.z - dir.z * back + dir.x * side
+      const k = c.fled ? Math.min(1, Math.max(0, (t - c.fleeT) / 2.2)) : 0
+      const off = c.packOff[i] ?? { x: mn.x - b.x, z: mn.z - b.z }
+      const back = 1.6 + 0.9 * (i % 3) + Math.floor(i / 3) * 0.8
+      const side = ((i % 3) - 1) * 0.95 + (i > 2 ? 0.45 : 0)
+      const fx = -dir.x * back - dir.z * side
+      const fz = -dir.z * back + dir.x * side
+      const tx = b.x + off.x + (fx - off.x) * k * k * (3 - 2 * k)
+      const tz = b.z + off.z + (fz - off.z) * k * k * (3 - 2 * k)
       const dx = tx - mn.x
       const dz = tz - mn.z
       const dist = Math.hypot(dx, dz)
-      const sp = c.fled ? Math.min(dist * 2.2, 4.4) : 0
-      if (dist > 0.12 && sp > 0.25) {
-        mn.x = mn.px = mn.x + (dx / dist) * sp * dt
-        mn.z = mn.pz = mn.z + (dz / dist) * sp * dt
-        // Turn toward the way it goes, by the short way round, at a steady rate.
-        const want = Math.atan2(dx, dz)
-        let diff = want - mn.facing
-        while (diff > Math.PI) diff -= Math.PI * 2
-        while (diff < -Math.PI) diff += Math.PI * 2
-        mn.facing += Math.sign(diff) * Math.min(Math.abs(diff), 6 * dt)
-        mn.anim = 'walk'
-      } else mn.anim = 'idle'
+      // They travel at her pace, and a little more to close a gap.
+      const sp = c.fled ? Math.min(3.3 + dist * 2.5, 6) : 0
+      let want = mn.facing
+      if (c.fled) {
+        mn.x = mn.px = mn.x + (dx / (dist || 1)) * Math.min(sp * dt, dist)
+        mn.z = mn.pz = mn.z + (dz / (dist || 1)) * Math.min(sp * dt, dist)
+        // The body points the way she walks; a long way to go points at the place it is running to.
+        want = dist > 1.6 ? Math.atan2(dx, dz) : Math.atan2(dir.x, dir.z)
+      } else want = Math.atan2(dir.x, dir.z)
+      let diff = want - mn.facing
+      while (diff > Math.PI) diff -= Math.PI * 2
+      while (diff < -Math.PI) diff += Math.PI * 2
+      mn.facing += Math.sign(diff) * Math.min(Math.abs(diff), 5 * dt)
+      mn.anim = c.fled ? 'walk' : 'idle'
       return
     }
     // Each takes a place on the drake's near side (it keeps its own, as in a fight) and goes at it flat out.

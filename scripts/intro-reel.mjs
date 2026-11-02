@@ -40,7 +40,7 @@ for (;;) {
   if (n % 5 === 0) console.log(n, Math.round((Date.now() - t0) / 1000) + 's', JSON.stringify(s))
   if (sawFilm && !s.film && s.zone === 'plains') { console.log('handed over to the opening level after', n, 'frames'); break }
   if (Date.now() - t0 > 180000) { console.log('timeout'); break }
-  await page.waitForTimeout(1000)
+  await page.waitForTimeout(Number(arg('every', 1000)))
 }
 await page.waitForTimeout(2000)
 await page.screenshot({ path: join(OUT, 'zz-after.png') })
