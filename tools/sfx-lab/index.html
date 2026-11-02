@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Battlecross Sound Lab</title>
+<style>
+:root{--bg:#f6f3ec;--card:#ffffff;--ink:#1d1a26;--mut:#6b6778;--line:#e1dcd0;--acc:#5b3fd0;--acc2:#2d9d5a;--warn:#c2410c;--star:#f0b020;--chip:#efeaf8}
+@media(prefers-color-scheme:dark){:root{--bg:#14121b;--card:#1d1a27;--ink:#efecf6;--mut:#9c97ad;--line:#322e40;--acc:#a99bff;--acc2:#58d68d;--warn:#ff9a6a;--star:#ffcf4a;--chip:#2a2540}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 system-ui,Segoe UI,sans-serif}
+header{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line);padding:10px 16px}
+h1{font-size:1.15rem;margin:0 0 6px}
+.bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.stat{background:var(--chip);border-radius:999px;padding:3px 11px;font-size:.82rem}
+.stat b{color:var(--acc)}
+input,select,button{font:inherit;color:inherit}
+input[type=search],select{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:6px 9px}
+button{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:6px 11px;cursor:pointer}
+button:hover{border-color:var(--acc)}
+button.primary{background:var(--acc);border-color:var(--acc);color:#fff}
+button.danger{border-color:var(--warn);color:var(--warn)}
+button:disabled{opacity:.5;cursor:default}
+main{max-width:1280px;margin:0 auto;padding:14px 16px 60px}
+.job{margin:8px 0;padding:8px 12px;border-radius:8px;background:var(--chip);font-size:.85rem;white-space:pre-wrap}
+section.cat{margin-top:26px}
+section.cat>h2{font-size:1rem;letter-spacing:.04em;text-transform:uppercase;color:var(--mut);border-bottom:1px solid var(--line);padding-bottom:4px}
+.snd{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin:12px 0}
+.snd.picked{border-color:var(--acc2);box-shadow:0 0 0 1px var(--acc2) inset}
+.snd.reroll{border-color:var(--warn)}
+.head{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:baseline}
+.head h3{margin:0;font-size:1.05rem}
+.tag{font-size:.75rem;border-radius:999px;padding:1px 9px;background:var(--chip);color:var(--mut)}
+.tag.ok{background:color-mix(in srgb,var(--acc2) 20%,transparent);color:var(--acc2)}
+.tag.rr{background:color-mix(in srgb,var(--warn) 20%,transparent);color:var(--warn)}
+.desc{color:var(--mut);font-size:.88rem;margin:4px 0 8px}
+.used{font-size:.8rem;color:var(--mut)}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:8px 0}
+.takes{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px}
+.take{border:1px solid var(--line);border-radius:10px;padding:7px 9px;background:color-mix(in srgb,var(--card) 92%,var(--acc))}
+.take.pick{border-color:var(--acc2);background:color-mix(in srgb,var(--acc2) 14%,var(--card))}
+.take .top{display:flex;justify-content:space-between;align-items:center;gap:6px}
+.take .n{font-size:.78rem;color:var(--mut)}
+.play{width:34px;height:34px;border-radius:50%;padding:0;display:grid;place-items:center;font-size:.95rem}
+.play.on{background:var(--acc);color:#fff;border-color:var(--acc)}
+.stars{display:flex;gap:1px;margin:5px 0}
+.stars button{border:0;background:none;padding:0 1px;font-size:1.25rem;line-height:1;color:var(--line);cursor:pointer}
+.stars button.f{color:var(--star)}
+.take .dir{font-size:.72rem;color:var(--mut);line-height:1.25;max-height:2.5em;overflow:hidden}
+.take .act{display:flex;gap:6px;margin-top:6px}
+.take .act button{flex:1;font-size:.8rem;padding:3px 6px}
+.empty{color:var(--mut);font-size:.88rem}
+@media(max-width:600px){main{padding:10px}.takes{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+<header>
+  <h1>Battlecross Sound Lab <span class="tag">20 ElevenLabs takes per sound · rate 1-5 · pick one · or reject all 20 for a reroll</span></h1>
+  <div class="bar">
+    <span class="stat">sounds <b id="sSounds">0</b></span>
+    <span class="stat">with takes <b id="sTakes">0</b></span>
+    <span class="stat">picked <b id="sPicked">0</b></span>
+    <span class="stat">reroll <b id="sReroll">0</b></span>
+    <span class="stat">undecided <b id="sOpen">0</b></span>
+    <input id="q" type="search" placeholder="Search a sound…">
+    <select id="cat"><option value="">All categories</option></select>
+    <select id="st"><option value="">All</option><option value="open">Undecided</option><option value="picked">Picked</option><option value="reroll">To reroll</option><option value="none">No takes yet</option></select>
+    <button id="gen">Generate missing takes</button>
+    <button id="rr" class="primary">Reroll the rejected</button>
+    <button id="dl">Export decisions</button>
+  </div>
+  <div id="job" class="job" hidden></div>
+</header>
+<main id="main"></main>
+<script>
+const $ = (s) => document.querySelector(s)
+let S = { sounds: [], decisions: {}, job: null }
+const cur = new Audio()
+let playing = null
+const post = (p, b) => fetch(p, { method: 'POST', headers: { 'content-type': 'application/json', 'x-sfx-lab': '1' }, body: JSON.stringify(b) }).then(r => r.json())
+const dec = (id) => (S.decisions[id] ??= { ratings: {}, pick: null, reroll: false })
+const save = (id) => post('/api/decision', { id, ...dec(id) })
+const status = (s) => (!s.takes.length ? 'none' : dec(s.id).pick ? 'picked' : dec(s.id).reroll ? 'reroll' : 'open')
+const play = (url, btn) => {
+  if (playing) playing.classList.remove('on')
+  if (playing === btn && !cur.paused) { cur.pause(); playing = null; return }
+  cur.src = url; cur.currentTime = 0; cur.play().catch(() => {})
+  btn.classList.add('on'); playing = btn
+  cur.onended = () => { btn.classList.remove('on'); playing = null }
+}
+const esc = (t) => String(t ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]))
+const usedLine = (u) => { if (!u) return ''; const p = []; if (u.castOf?.length) p.push('cast of: ' + u.castOf.join(', ')); if (u.impactOf?.length) p.push('impact of: ' + u.impactOf.join(', ')); return p.join(' · ') }
+
+function render() {
+  const q = $('#q').value.trim().toLowerCase(), cat = $('#cat').value, st = $('#st').value
+  const list = S.sounds.filter(s => (!cat || s.category === cat) && (!st || status(s) === st) && (!q || s.id.toLowerCase().includes(q) || s.description.toLowerCase().includes(q)))
+  const by = new Map()
+  for (const s of list) { if (!by.has(s.category)) by.set(s.category, []); by.get(s.category).push(s) }
+  const html = []
+  for (const [c, arr] of by) {
+    html.push(`<section class="cat"><h2>${esc(c)} · ${arr.length}</h2>`)
+    for (const s of arr) {
+      const d = dec(s.id), sst = status(s)
+      html.push(`<div class="snd ${sst === 'picked' ? 'picked' : sst === 'reroll' ? 'reroll' : ''}" data-id="${s.id}">
+        <div class="head"><h3>${esc(s.id)}</h3><span class="tag">${s.seconds}s</span>
+          ${sst === 'picked' ? '<span class="tag ok">picked</span>' : sst === 'reroll' ? '<span class="tag rr">reroll requested</span>' : s.takes.length ? '<span class="tag">undecided</span>' : '<span class="tag">no takes yet</span>'}
+        </div>
+        <div class="desc">${esc(s.description.split(':')[0])}</div>
+        <div class="used">${esc(usedLine(s.usedBy))}</div>
+        <div class="row">
+          ${s.current ? `<button class="play" title="The game's current sound" data-play="${s.current}">▶</button><span class="n">current (synth)</span>` : '<span class="n">no current sample</span>'}
+          ${s.takes.length ? `<button class="danger" data-reject="${s.id}">Reject all ${s.takes.length} → reroll</button>` : ''}
+          ${d.pick || d.reroll ? `<button data-clear="${s.id}">Clear decision</button>` : ''}
+        </div>
+        ${s.takes.length ? `<div class="takes">${s.takes.map(t => {
+          const r = d.ratings[t.file] ?? 0
+          return `<div class="take ${d.pick === t.file ? 'pick' : ''}">
+            <div class="top"><button class="play" data-play="${t.url}">▶</button><span class="n">take ${t.round ? 'R' + (t.round + 1) + '·' : ''}${t.n}</span></div>
+            <div class="stars">${[1, 2, 3, 4, 5].map(i => `<button class="${i <= r ? 'f' : ''}" data-star="${s.id}|${t.file}|${i}" title="${i} star${i > 1 ? 's' : ''}">★</button>`).join('')}</div>
+            <div class="dir" title="${esc(t.text)}">${esc((t.text.match(/, ([^,.]*)\. Sound effect/) || [])[1] ?? '')}</div>
+            <div class="act"><button class="${d.pick === t.file ? 'primary' : ''}" data-pick="${s.id}|${t.file}">${d.pick === t.file ? '✓ Picked' : 'Pick this'}</button></div>
+          </div>`
+        }).join('')}</div>` : '<div class="empty">Nothing generated for this sound yet: “Generate missing takes”.</div>'}
+      </div>`)
+    }
+    html.push('</section>')
+  }
+  $('#main').innerHTML = html.join('') || '<p class="empty">Nothing matches.</p>'
+  const all = S.sounds
+  $('#sSounds').textContent = all.length
+  $('#sTakes').textContent = all.filter(s => s.takes.length).length
+  $('#sPicked').textContent = all.filter(s => status(s) === 'picked').length
+  $('#sReroll').textContent = all.filter(s => status(s) === 'reroll').length
+  $('#sOpen').textContent = all.filter(s => status(s) === 'open').length
+  const j = S.job
+  $('#job').hidden = !j
+  if (j) $('#job').textContent = (j.running ? '⏳ ' : '✓ ') + j.what + (j.running ? ' running…' : ' finished') + '\n' + j.log.join('\n')
+  $('#gen').disabled = !!(j && j.running); $('#rr').disabled = !!(j && j.running) || !all.some(s => status(s) === 'reroll')
+}
+
+async function load() {
+  const keep = window.scrollY
+  S = await (await fetch('/api/state')).json()
+  if (!$('#cat').options[1]) for (const c of [...new Set(S.sounds.map(s => s.category))]) $('#cat').append(new Option(c, c))
+  render(); window.scrollTo(0, keep)
+}
+
+document.addEventListener('click', async (e) => {
+  const b = e.target.closest('button'); if (!b) return
+  const D = b.dataset
+  if (D.play) return play(D.play, b)
+  if (D.star) { const [id, file, n] = D.star.split('|'); const d = dec(id); d.ratings[file] = d.ratings[file] === +n ? 0 : +n; d.reroll = false; await save(id); return render() }
+  if (D.pick) { const [id, file] = D.pick.split('|'); const d = dec(id); d.pick = d.pick === file ? null : file; d.reroll = false; await save(id); return render() }
+  if (D.reject) { const d = dec(D.reject); d.reroll = true; d.pick = null; await save(D.reject); return render() }
+  if (D.clear) { const d = dec(D.clear); d.reroll = false; d.pick = null; await save(D.clear); return render() }
+})
+for (const id of ['q', 'cat', 'st']) $('#' + id).addEventListener('input', render)
+$('#gen').onclick = async () => { await post('/api/generate', { ids: [] }); load() }
+$('#rr').onclick = async () => { const ids = S.sounds.filter(s => status(s) === 'reroll').map(s => s.id); await post('/api/reroll', { ids }); load() }
+$('#dl').onclick = () => { const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([JSON.stringify(S.decisions, null, 1)], { type: 'application/json' })); a.download = 'sfx-decisions.json'; a.click() }
+load()
+setInterval(() => { if (S.job?.running) load() }, 5000)
+</script>
+</body>
+</html>

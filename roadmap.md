@@ -255,18 +255,40 @@ Build order and the decisions taken are in `game-implementation-plan.md`
 - [x] #183 The sex choice happens before the intro. Short scripted Intro cutscene (10-12 seconds) where the player hero(lying on the ground and face not seen, so the player can choose the sex himself later) is saved by 2 op heroes showing off their skills against the smaller dragon boss fight, one hero is the elementalist, the other the beast caller with all minions summoned. The heroes run away without helping the fallen down player character up. After that scene a "1 month later..." label transitions the game into the current character selection screen. If the player has clicked into the window before and taken focus of the window, The sex choice is shown directly before the intro and clicking the sex choice starts the intro start immediately(Intro is skippable with a button and has a Space shortcut key attached for fast skip), otherwise the sex choice decision acts as a Focus grab button shows and start the intro if there is an intro to play. If intro was played already, then the game starts immediately without sex choice button and without focus claim needed like it is right now.
 - [x] #184 There is now no hint at all to click at the stats upgrade buttons, I asked to add a yellow arrow pointing at all buttons from the top right side.
 - [ ] #185 3 skill card is badly formatted on mobile landscape, probably others too.
-- [x] #186 since player already knows eagis skill, add iron fist monk from sunford to the tutorial cage (and widen it if needed), so he and the pyromancer and the soul warden teach the skills, while the eagis knight steps aside like from the bonfire the shadowblade teacher, the card select doesnt show the eagis knight skill anymore but iron fist first skill.
+- [x] #186 since player already knows aegis skill, add iron fist monk from sunford to the tutorial cage (and widen it if needed), so he and the pyromancer and the soul warden teach the skills, while the eagis knight steps aside like from the bonfire the shadowblade teacher, the card select doesnt show the eagis knight skill anymore but iron fist first skill.
   instead of card click instant learn, player character walks over to the teacher and learns the skill from the skill learn UI.
 - [x] #187 Monolog "Is there somebody screaming for help?" of the hero, once the player opened the first chest in the tutorial level after the intro. There are periodic help scream VOs taking the players attention with sounds (first "Help anybody" / "We were kidnapped" / "Monsters, help!" every 3 seconds until all 3 lines were spoken, then the period drops to every 5 second, after the 3 VOs played all for a second time, then the period between help screams drop to evey 7seconds to not annoy the player too much for the rest for the tutorial level until the teachers cage was opened.). Do VOs in Elevenlabs for English and German, Chatterbox for other new VOs languages.
 - [x] #188 The intro with the op heroes showing off their skills is supposed to spark the players curiosity at what he can do later if the keeps playing the game, with 2 very different builds showing how op a single character can become, that he is able to fight a dragon and beat him quickly. Therefore the intro cutscene must be mind-blowingly cool, I think some jumping heroes with a superhero entry and a forward flip would be a cool and cinematic intro for the coolness of the hero strangers.
-- [ ] #189
-- [ ] #19
-- [ ] #19
-- [ ] #19
-- [ ] #19
-- [ ] #19
-- [ ] #19
-- [ ] #19
+- [ ] #189 The game should not load into the tutorial level before the intro has played, preload the intro scene instead for a first time player or a "New Game" click and show the sex choice portraits on a black background, then start the intro, the intro is very laggy with nothing great to see, the superhero landing and the flips are not visible, remove all other enemies aside from the dragon and show a zoomed out view, so its clear whats happening, the intro must run very smoothly without any lags or insane amount of sounds overlapping each other. Redesign the intro into that awesome and mind-blowing experience I was talking about in #183 amd #188 specifically  
+- [ ] #190 The loading screen take very long to load on cold load and on location switch or even a hot page refresh really, could we maybe avoid such long loading screens if the only render the near field surroundings of the location or town first, and then stream in the rest of the world later(especially far away houses and bosses and enemies that take 2-3 screens of walk time, its essential that this does not lead to level mesh pop-ins later)
+- [ ] #191 Please use the logged in eleven labs account to generate mind-blowingly fantastic sounding sound effects that are on a "AAA professional senior sound designer" level for this game that replace the synthesized game sounds, especially the spell sounds and impact sounds of abilities, so they sound awesome and exciting to use adhering to the Adventure and Character building fantasy of Battlecross - this includes the game and the trailer sounds.
+- [x] #192 create an interactive browser report showcasing all sound effects and generate 20 new elevenlabs sound effects for each sound needed in the game, so I can rate each sound by 1-5 start and click a pick this button or reject all 20 per sound to ask for a reroll. 
+  attach a screenshot showing what they are used for  in the game and which situation they are used in.
+  In the end I want to update all synthetically generated sound effects with well designed sounds that fit the game and dont sound cheap and low-effort.
+- [ ] #193
+- [ ] #194
+- [ ] #195
+- [ ] #196
+- [ ] #197
+- [ ] #198
+- [ ] #199
+- [ ] #200
+- [ ] #201
+- [ ] #202
+- [ ] #203
+- [ ] #204
+- [ ] #205
+- [ ] #206
+- [ ] #207
+- [ ] #208
+- [ ] #209
+- [ ] #21
+- [ ] #21
+- [ ] #21
+- [ ] #21
+- [ ] #21
+- [ ] #21
+- [ ] #21
 
 - [ ] #Long-1 add a dual wielding class that allows to hold a second weapon in the off-hand (also visually) if the player has the passive skill equipped.
 - [ ] #Long-2 add coop gameplay
