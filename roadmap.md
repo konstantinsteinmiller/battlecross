@@ -265,7 +265,9 @@ Build order and the decisions taken are in `game-implementation-plan.md`
 - [x] #192 create an interactive browser report showcasing all sound effects and generate 20 new elevenlabs sound effects for each sound needed in the game, so I can rate each sound by 1-5 start and click a pick this button or reject all 20 per sound to ask for a reroll. 
   attach a screenshot showing what they are used for  in the game and which situation they are used in.
   In the end I want to update all synthetically generated sound effects with well designed sounds that fit the game and dont sound cheap and low-effort.
-- [ ] #193
+- [x] #193  the help scream by the teachers in the tutorial level can get quite annoying, spread out  
+  the  frequency  more after the first 3 lines where spoken once, on 3rd tier make a random
+  frequency of repeating the help screams between 12-15 seconds.
 - [ ] #194
 - [ ] #195
 - [ ] #196

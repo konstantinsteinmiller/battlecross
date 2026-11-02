@@ -25,7 +25,7 @@ import { setSfxGate } from '../audio/sfx'
 import { buildFirstLevel, enterFirstLevel, startFirstLevel } from '../flow'
 import {
   BUILD_CAP_S, INTRO_ACTS, INTRO_BEAST, INTRO_DRAGON, INTRO_FOE_LEVEL, INTRO_LENGTH, INTRO_MAGE, INTRO_PACK, INTRO_SEED, INTRO_ZONE,
-  ENTRY_AT, ENTRY_S, INTRO_ZOOMS, NO_SKIP_AT, SCENE_AT, createIntroClock, labelAt, veilAt, type IntroAct
+  ENTRY_AT, ENTRY_S, INTRO_ZOOMS, LABEL_AT, NO_SKIP_AT, SCENE_AT, createIntroClock, labelAt, veilAt, type IntroAct
 } from './script'
 
 /**
@@ -326,9 +326,8 @@ const play = (m: ZoneMode, c: Cast, t: number, act: IntroAct, who: 'beast' | 'ma
       { const bx = c.land.beast.x + 14 - c.beast.x; const bz = c.land.beast.z + 7 - c.beast.z; const l = Math.hypot(bx, bz) || 1; c.beastDir = { x: bx / l, z: bz / l } }
       break
     case 'load':
-      // The screen goes dark: the opening level builds now (a build is a heavy task, kept out of the walk), and from here
-      // the film cannot be skipped (`NO_SKIP_AT`): what is up is the label and the load.
-      if (bootRun && !building) building = buildFirstLevel()
+      // The screen goes dark. From here the film cannot be skipped (`NO_SKIP_AT`): what is up is the label and the load,
+      // which starts when the black is whole (the frame loop below).
       break
     case 'rise':
       // The one in the snow gets up, as the screen goes dark.
@@ -526,7 +525,9 @@ export const runIntro = (next: GameMode | null = null): Promise<void> => new Pro
       hud.phase = prevPhase
       introView.veil = 1
       introView.label = 1
-      const ready = building ? building.then((lvl) => enterFirstLevel(lvl)) : startFirstLevel()
+      // The loop stops for the build; the level is entered (and the loop restarted) when it is ready.
+      if (!building) { app.setWanted(false); building = buildFirstLevel() }
+      const ready = building.then((lvl) => enterFirstLevel(lvl))
       void ready.catch((e) => console.warn('[intro] the opening level could not be built', e)).finally(() => {
         // The black lifts off the opening level over a third of a second.
         let k = 1
@@ -589,6 +590,14 @@ export const runIntro = (next: GameMode | null = null): Promise<void> => new Pro
     const t = clock.tick(dt, shown)
     introView.t = t
     introView.canSkip = t < NO_SKIP_AT
+    // The opening level is built when the screen is wholly black, with the game's own loop stopped and nothing of the film
+    // running: a build beside a live scene is not safe (the live scene sets the global ground height every frame, and
+    // the new level's props, chests, herbs and the dummy were placed on the wrong ground, under it), and it gets the whole
+    // CPU, as a journey's build does.
+    if (boot && !building && t >= LABEL_AT + 0.5 && introView.veil >= 1) {
+      app.setWanted(false)
+      building = buildFirstLevel()
+    }
     if (!clock.done) {
       introView.veil = veilAt(t, shown)
       introView.label = labelAt(t)

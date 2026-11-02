@@ -108,9 +108,9 @@ describe('the first boot (#189)', () => {
     const runner = read('game/intro/runner.ts')
     expect(runner).toMatch(/export const prepareIntro/)
     expect(runner).toMatch(/const pre = prepared/)
-    expect(runner).toMatch(/building \? building\.then\(\(lvl\) => enterFirstLevel\(lvl\)\) : startFirstLevel\(\)/)
-    // …and it starts building while the two walk away, not after the film.
-    expect(runner).toMatch(/if \(bootRun && !building\) building = buildFirstLevel\(\)/)
+    expect(runner).toMatch(/building\.then\(\(lvl\) => enterFirstLevel\(lvl\)\)/)
+    // …built when the screen is black and the game's loop is stopped, never beside a live scene (the ground is a global).
+    expect(runner).toMatch(/introView\.veil >= 1\) \{\s*app\.setWanted\(false\)\s*building = buildFirstLevel\(\)/)
     expect(read('game/flow.ts')).toMatch(/export const startFirstLevel = async \(\): Promise<void> => \{\s*const mode = await buildNode\('plains'/)
   })
 

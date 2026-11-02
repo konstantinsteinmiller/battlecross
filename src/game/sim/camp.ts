@@ -243,8 +243,12 @@ export const HELP_CALLS: ReadonlyArray<{ npc: string; key: string }> = [
   { npc: 'sbMasterSoulwarden', key: 'dlg.bark.sbMasterSoulwarden.help.1' },
   { npc: 'sbMasterIronmonk', key: 'dlg.bark.sbMasterIronmonk.help.1' }
 ]
-/** Seconds between two calls, by how many have been made: 3 for the first three, 5 for the next three, then 7. */
-export const helpPeriod = (made: number): number => (made < 3 ? 3 : made < 6 ? 5 : 7)
+/**
+ * Seconds between two calls, by how many have been made: 3 for the first three, 8 for the next three, then a different
+ * wait of 12 to 15 s each time (#193: it grated). The third tier's wait is a fixed hash of the count, not a dice roll,
+ * so a visit replays the same.
+ */
+export const helpPeriod = (made: number): number => (made < 3 ? 3 : made < 6 ? 8 : 12 + (((made * 2654435761) >>> 0) % 3001) / 1000)
 /** From the monologue to the first call. */
 export const HELP_FIRST_S = 3
 
