@@ -16,7 +16,7 @@ rewrites it, and a test fails when it is stale. Do not edit by hand.
 
 | Voice | Lines | EN voiced |
 | --- | --- | --- |
-| hero | 210 | 210 |
+| hero | 211 | 211 |
 | freedPeddler | 9 | 9 |
 | lightDisciple | 14 | 14 |
 | sfShadow | 18 | 18 |
@@ -75,8 +75,8 @@ rewrites it, and a test fails when it is stale. Do not edit by hand.
 | sbMasterLightbringer | 18 | 18 |
 | sbMasterBeastcaller | 20 | 20 |
 | sbMasterElementalist | 13 | 13 |
-| sbMasterSoulwarden | 13 | 13 |
-| sbMasterIronmonk | 13 | 13 |
+| sbMasterSoulwarden | 14 | 14 |
+| sbMasterIronmonk | 14 | 14 |
 | sbMasterBard | 14 | 14 |
 | goblinKing | 9 | 9 |
 | warlord | 5 | 5 |
@@ -106,8 +106,9 @@ rewrites it, and a test fails when it is stale. Do not edit by hand.
 | leviathan | 4 | 4 |
 | hydra | 4 | 4 |
 | elderDragon | 4 | 4 |
-| heroine | 210 | 210 |
-| **All** | **1579** | **1579** |
+| pyroCry | 1 | 1 |
+| heroine | 211 | 211 |
+| **All** | **1584** | **1584** |
 
 ## Other languages voiced in full
 
@@ -115,22 +116,22 @@ English and German voice every line. A line with no file there is a silent bubbl
 
 | Language | Voiced | Lines |
 | --- | --- | --- |
-| de | 1553 | 1579 |
+| de | 1558 | 1584 |
 
 ## Other languages: the core lines only
 
-English and German are voiced in full. Every other voiced language ships only the **core**: 329 of 1579 lines (67 of them the girl hero's `__f` twins, limit 330), set in data/voice-core.json by id pattern plus an explicit list. Core: the hero's "Will you teach me?" and goodbye lines, the main quest decisions with their boss monologues (Goblin King, Krag, the Colossus core, the oracle, the dragon, the Arch-Demon's throne), the five endings, the story beats of Elder Mara, Captain Hale, Mayor Brenna, Madam Ash and the exiled Sovereign, the intro, the first visit's road teacher (Nettle) and the camp's thanks, every bark (bosses, the siege, freed captives), the afterplay's story (its beats, Scout Wren, the fort's Hale and Mara, the seal decision and its epilogue) and the Wanderer's greeting. Not core: smalltalk, shops, gamblers, the fair's barkers, trainer and master Q&A, trade and heal chatter. A non-core line is a silent bubble; a test fails when a language folder holds a file outside the core.
+English and German are voiced in full. Every other voiced language ships only the **core**: 334 of 1584 lines (68 of them the girl hero's `__f` twins, limit 340), set in data/voice-core.json by id pattern plus an explicit list. Core: the hero's "Will you teach me?" and goodbye lines, the main quest decisions with their boss monologues (Goblin King, Krag, the Colossus core, the oracle, the dragon, the Arch-Demon's throne), the five endings, the story beats of Elder Mara, Captain Hale, Mayor Brenna, Madam Ash and the exiled Sovereign, the intro, the first visit's road teacher (Nettle) and the camp's thanks, every bark (bosses, the siege, freed captives), the afterplay's story (its beats, Scout Wren, the fort's Hale and Mara, the seal decision and its epilogue) and the Wanderer's greeting. Not core: smalltalk, shops, gamblers, the fair's barkers, trainer and master Q&A, trade and heal chatter. A non-core line is a silent bubble; a test fails when a language folder holds a file outside the core.
 Make them with `voice:gen --engine chatterbox --lang <code>` (then `--retry 2`); `voice:collect` builds jobs for the core lines only.
 Indonesian (id) and Vietnamese (vi) are not voiced: Chatterbox cannot speak them. pt-PT keeps English too.
 
 | Language | Core voiced | Core lines |
 | --- | --- | --- |
-| fr | 322 | 329 |
-| es | 327 | 329 |
-| ru | 325 | 329 |
-| ja | 328 | 329 |
-| pt | 325 | 329 |
-| zh | 329 | 329 |
+| fr | 327 | 334 |
+| es | 332 | 334 |
+| ru | 330 | 334 |
+| ja | 333 | 334 |
+| pt | 330 | 334 |
+| zh | 334 | 334 |
 
 ## Parked takes (decision 2026-10-18)
 
@@ -141,7 +142,7 @@ To widen a language beyond the core, change data/voice-core.json and settle the 
 
 Nothing: every line has its recording.
 
-## Every line (1579)
+## Every line (1584)
 
 | File | Who | Scene | English | EN |
 | --- | --- | --- | --- | --- |
@@ -1482,6 +1483,10 @@ Nothing: every line has its recording.
 | `dlg.bark.siegeMara.horn50.1` | Elder Mara (elderMara) | bark.siegeMara | Half the gate is gone. Hold on! | chatterbox |
 | `dlg.bark.siegeMara.horn25.1` | Elder Mara (elderMara) | bark.siegeMara | The gate is failing! Hold them back! | chatterbox |
 | `dlg.bark.siegeMara.won.1` | Elder Mara (elderMara) | bark.siegeMara | They're running! The fort still stands! | chatterbox |
+| `dlg.bark.hero.cage.1` | The hero (hero) | bark.hero | Is there somebody screaming for help? | by hand |
+| `dlg.bark.trainerPyro.help.1` | Ember Wren (pyroCry) | bark.trainerPyro | Help! Anybody! | by hand |
+| `dlg.bark.sbMasterSoulwarden.help.1` | Warden Odalys Lanternlight (sbMasterSoulwarden) | bark.sbMasterSoulwarden | We were kidnapped! | by hand |
+| `dlg.bark.sbMasterIronmonk.help.1` | Master Oru Stillwater (sbMasterIronmonk) | bark.sbMasterIronmonk | Monsters! Help! | by hand |
 | `dlg.bark.freedPeddler.freed.1` | Odo Marrow (freedPeddler) | bark.freedPeddler | Bless your boots! Odo Marrow, peddler. Come find me in Sunford, I'll have wares for you. | chatterbox |
 | `dlg.bark.freedHerbalist.freed.1` | Briar Hollowell (freedHerbalist) | bark.freedHerbalist | Oh, thank you! I'm Briar, a herbalist. Come and see me in Silverbridge. I could use your help. | chatterbox |
 | `dlg.bark.freedFarmers.freed.1` | Jory Toller (freedFarmers) | bark.freedFarmers | You saved us! We're the Tollers, farmers. Find us in Oakhaven, there's trouble at home. | chatterbox |
@@ -1706,6 +1711,7 @@ Nothing: every line has its recording.
 | `dlg.quest.seal.seal.say__f` | The girl hero (heroine) | quest.seal | Seal it. Forever. | chatterbox |
 | `dlg.quest.seal.ajar.say__f` | The girl hero (heroine) | quest.seal | Leave it ajar. We'll be ready. | chatterbox |
 | `dlg.mysteriousWanderer.trial.say__f` | The girl hero (heroine) | mysteriousWanderer | What trials do you mean? | chatterbox |
+| `dlg.bark.hero.cage.1__f` | The girl hero (heroine) | bark.hero | Is there somebody screaming for help? | by hand |
 | `ending.order.text__f` | The girl hero, telling the story (heroine) | ending | Banners of the Iron Order fly over the Dread Fortress. The roads are safe, the laws are many, and your name is carved above the gate. | chatterbox |
 | `ending.syndicate.text__f` | The girl hero, telling the story (heroine) | ending | The Syndicate rules from the shadows of the fortress. Nothing in the realm is forbidden any more. It is only expensive. | chatterbox |
 | `ending.circle.text__f` | The girl hero, telling the story (heroine) | ending | The Circle lights the fortress with captured void-fire. Wonders pour out of its gates, and no one asks what they cost. | chatterbox |
