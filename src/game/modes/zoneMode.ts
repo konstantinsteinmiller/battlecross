@@ -261,6 +261,10 @@ export class ZoneMode implements GameMode {
   private still = new StillCull()
   /** The still world merged into a few draws per tile (`gfx/stillBake.ts`, roadmap #151). */
   private baked = new StillBake()
+  private bakeTile = BAKE_TILE
+  private bakeOn = true
+  private bakeStarted = false
+  private gone = false
   /** See-through copies of materials, held so their programs stay compiled (`warmUp`). */
   private variants: Material[] = []
   /** The height of this place's ground. */
@@ -511,10 +515,11 @@ export class ZoneMode implements GameMode {
     // DEV: `?bake=0` keeps the builders' meshes, `?bakeTile=<m>|all` sizes the
     // baked tiles (the A/B arms of roadmap #151).
     const q = import.meta.env.DEV && typeof location !== 'undefined' ? new URLSearchParams(location.search) : null
-    if (q?.get('bake') !== '0') {
-      const t = q?.get('bakeTile')
-      await m.baked.bake(m.scene, t === 'all' ? Infinity : t ? Number(t) : BAKE_TILE, slice)
-    }
+    // The bake (a merge of the still world into a few draws, a pure speed-up: the builders' own pieces draw the same
+    // pixels meanwhile) is the second-longest step of a load and nothing the first frame needs: it runs after the place
+    // is on screen (`bakeLater`, #190), in slices, the merged programs compiled before the swap.
+    m.bakeTile = q?.get('bakeTile') === 'all' ? Infinity : q?.get('bakeTile') ? Number(q.get('bakeTile')) : BAKE_TILE
+    m.bakeOn = q?.get('bake') !== '0'
     performance.mark('zone:baked')
     m.still.collect(m.scene)
     onProgress(0.95)
@@ -662,8 +667,40 @@ export class ZoneMode implements GameMode {
     await yieldToBrowser()
   }
 
+  /**
+   * Merge the still world into its few draws, once the place is showing (#190). Safe to call twice (the second is a no-op),
+   * and nothing happens to a mode that has been disposed meanwhile. Sliced like the build; the merged programs are compiled
+   * before the swap, and the cull list is made again from what the scene holds then.
+   */
+  async bakeLater(): Promise<void> {
+    if (this.bakeStarted || !this.bakeOn || this.gone) return
+    this.bakeStarted = true
+    const slice = createSlicer(6)
+    await this.baked.bake(this.scene, this.bakeTile, slice, async (root) => {
+      try {
+        const cam = this.camera
+        const r = getRenderer()
+        const pre = [...(root.children as Mesh[])]
+        // One representative per material program is enough.
+        const seen = new Set<unknown>()
+        for (const mesh of pre) {
+          const key = (mesh.material as Material).uuid
+          if (seen.has(key)) continue
+          seen.add(key)
+          r.compile(mesh, cam, this.scene)
+          await slice()
+        }
+      } catch { /* compiled on its first draw instead */ }
+    })
+    if (this.gone) { this.baked.dispose(); return }
+    this.still = new StillCull()
+    this.still.collect(this.scene)
+  }
+
   enter(): void {
     this.entered = true
+    // The bake waits until the first frames are drawn, then runs in the background.
+    window.setTimeout(() => { void this.bakeLater() }, 1200)
     // The siege's buttons reach this scene while it is the live one.
     siegeHud.active = !!this.sim.siege
     if (this.sim.siege) {
@@ -1701,6 +1738,7 @@ export class ZoneMode implements GameMode {
     this.crowd?.dispose()
     this.chest?.dispose()
     this.terrain.dispose()
+    this.gone = true
     this.baked.dispose()
     for (const v of this.variants) v.dispose()
     clearGround(this.field)

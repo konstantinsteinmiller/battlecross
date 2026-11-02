@@ -90,7 +90,7 @@ export class StillBake {
    * Bake every still mesh under `scene` into tiles of `tile` metres
    * (Infinity: one mesh per kind for the whole place).
    */
-  async bake(scene: Object3D, tile = BAKE_TILE, slice: Slice = () => {}): Promise<void> {
+  async bake(scene: Object3D, tile = BAKE_TILE, slice: Slice = () => {}, beforeSwap?: (root: Group) => Promise<void>): Promise<void> {
     scene.updateMatrixWorld(true)
     const classes = new Map<Material, { known: boolean; sources: Source[] }>()
     scene.traverse((o) => {
@@ -260,6 +260,9 @@ export class StillBake {
       }
       await slice()
     }
+    // The merged meshes' programs are compiled before they replace the pieces, so the frame that first draws them is not
+    // the one that compiles them (a bake that runs after the place is on screen, #190).
+    if (beforeSwap && this.made) await beforeSwap(this.root)
     for (const m of this.taken) m.removeFromParent()
     this.replaced = this.taken.length
     if (this.made) scene.add(this.root)
