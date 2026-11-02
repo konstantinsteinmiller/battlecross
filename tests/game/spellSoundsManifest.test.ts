@@ -19,11 +19,12 @@ describe('generated spell sounds', () => {
     expect(manifest.totalBytes).toBeLessThan(3 * 1048576)
   })
 
-  it('every file is named after a sound the game has, and never sits in public/', () => {
+  // (The synthesized renders stay out of public/ by themselves; the sounds the owner picked in the sound lab, from
+  // ElevenLabs, are what ships there now: `tools/sfx-lab/install.mjs`, roadmap #191/#192, which replaced owner decision 53.)
+  it('every file is named after a sound the game has', () => {
     for (const f of manifest.files) {
       expect(SFX_NAMES).toContain(f.event)
       expect(f.file).toBe(`${f.event}.ogg`)
-      expect(existsSync(join(process.cwd(), 'public/audio/sfx', f.file))).toBe(false)
     }
   })
 

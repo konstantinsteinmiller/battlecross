@@ -1,0 +1,198 @@
+{
+ "castFire": {
+  "take": "r0-06.mp3",
+  "stars": 5
+ },
+ "castIce": {
+  "take": "r0-06.mp3",
+  "stars": 5
+ },
+ "castShock": {
+  "take": "r0-12.mp3",
+  "stars": 5
+ },
+ "castHoly": {
+  "take": "r0-07.mp3",
+  "stars": 5
+ },
+ "castShadow": {
+  "take": "r0-18.mp3",
+  "stars": 0
+ },
+ "castPoison": {
+  "take": "r0-10.mp3",
+  "stars": 5
+ },
+ "castBlood": {
+  "take": "r0-14.mp3",
+  "stars": 5
+ },
+ "castEarth": {
+  "take": "r0-14.mp3",
+  "stars": 5
+ },
+ "castWind": {
+  "take": "r0-14.mp3",
+  "stars": 5
+ },
+ "castNature": {
+  "take": "r0-14.mp3",
+  "stars": 5
+ },
+ "castArcane": {
+  "take": "r0-15.mp3",
+  "stars": 4
+ },
+ "castTime": {
+  "take": "r0-08.mp3",
+  "stars": 5
+ },
+ "castSpirit": {
+  "take": "r0-16.mp3",
+  "stars": 5
+ },
+ "castSong": {
+  "take": "r0-10.mp3",
+  "stars": 5
+ },
+ "castTech": {
+  "take": "r0-14.mp3",
+  "stars": 5
+ },
+ "castCommand": {
+  "take": "r0-13.mp3",
+  "stars": 5
+ },
+ "castEarthShift": {
+  "take": "r0-08.mp3",
+  "stars": 5
+ },
+ "castBoulder": {
+  "take": "r0-15.mp3",
+  "stars": 5
+ },
+ "castFrostShatter": {
+  "take": "r0-07.mp3",
+  "stars": 5
+ },
+ "castAvalancheLeap": {
+  "take": "r0-10.mp3",
+  "stars": 5
+ },
+ "castAbsoluteZero": {
+  "take": "r0-01.mp3",
+  "stars": 5
+ },
+ "castSmokeBomb": {
+  "take": "r0-11.mp3",
+  "stars": 5
+ },
+ "castShadowMark": {
+  "take": "r0-02.mp3",
+  "stars": 5
+ },
+ "castOrbitalBeam": {
+  "take": "r0-19.mp3",
+  "stars": 5
+ },
+ "castSpark": {
+  "take": "r0-07.mp3",
+  "stars": 5
+ },
+ "holy": {
+  "take": "r0-14.mp3",
+  "stars": 5
+ },
+ "shadow": {
+  "take": "r0-11.mp3",
+  "stars": 5
+ },
+ "poison": {
+  "take": "r0-07.mp3",
+  "stars": 5
+ },
+ "blood": {
+  "take": "r0-14.mp3",
+  "stars": 0
+ },
+ "quake": {
+  "take": "r0-09.mp3",
+  "stars": 0
+ },
+ "impactFire": {
+  "take": "r0-14.mp3",
+  "stars": 3
+ },
+ "impactIce": {
+  "take": "r0-14.mp3",
+  "stars": 5
+ },
+ "impactShock": {
+  "take": "r0-20.mp3",
+  "stars": 5
+ },
+ "impactWind": {
+  "take": "r0-15.mp3",
+  "stars": 4
+ },
+ "impactNature": {
+  "take": "r0-18.mp3",
+  "stars": 5
+ },
+ "impactArcane": {
+  "take": "r0-18.mp3",
+  "stars": 3
+ },
+ "impactTime": {
+  "take": "r0-09.mp3",
+  "stars": 5
+ },
+ "impactSpirit": {
+  "take": "r0-02.mp3",
+  "stars": 5
+ },
+ "impactSong": {
+  "take": "r0-13.mp3",
+  "stars": 5
+ },
+ "impactTech": {
+  "take": "r0-13.mp3",
+  "stars": 3
+ },
+ "swing": {
+  "take": "r0-04.mp3",
+  "stars": 5
+ },
+ "swingHeavy": {
+  "take": "r0-14.mp3",
+  "stars": 5
+ },
+ "swingBlunt": {
+  "take": "r0-18.mp3",
+  "stars": 4
+ },
+ "shoot": {
+  "take": "r0-19.mp3",
+  "stars": 5
+ },
+ "shootBow": {
+  "take": "r0-07.mp3",
+  "stars": 4
+ },
+ "cast": {
+  "take": "r0-16.mp3",
+  "stars": 5
+ },
+ "hitBlunt": {
+  "take": "r0-11.mp3",
+  "stars": 5
+ },
+ "hitHeavy": {
+  "take": "r0-04.mp3",
+  "stars": 5
+ },
+ "crit": {
+  "take": "r0-03.mp3",
+  "stars": 5
+ }
+}
