@@ -11,63 +11,63 @@
       },
       {
         "at": 1.5,
-        "t": 0.63,
-        "veil": 0.1,
+        "t": 0.17,
+        "veil": 0.76,
         "label": 0,
         "on": true
       },
       {
         "at": 2.6,
-        "t": 1.12,
+        "t": 0.75,
         "veil": 0,
         "label": 0,
         "on": true
       },
       {
         "at": 3.8,
-        "t": 1.78,
+        "t": 1.15,
         "veil": 0,
         "label": 0,
         "on": true
       },
       {
         "at": 5,
-        "t": 2.37,
+        "t": 1.67,
         "veil": 0,
         "label": 0,
         "on": true
       },
       {
         "at": 6.6,
-        "t": 2.93,
+        "t": 1.84,
         "veil": 0,
         "label": 0,
         "on": true
       },
       {
         "at": 8.2,
-        "t": 3.52,
+        "t": 2.24,
         "veil": 0,
         "label": 0,
         "on": true
       },
       {
         "at": 9.2,
-        "t": 4.13,
+        "t": 2.54,
         "veil": 0,
         "label": 0,
         "on": true
       },
       {
         "at": 10.8,
-        "t": 4.75,
+        "t": 2.99,
         "veil": 0,
         "label": 0,
         "on": true
       },
       {
         "at": 11.6,
-        "t": 5.1,
+        "t": 3.36,
         "veil": 0,
         "label": 0,
         "on": true
@@ -81,6 +81,6 @@
       "gender": "m"
     },
     "errors": [],
-    "seconds": 13
+    "seconds": 9.4
   }
 ]

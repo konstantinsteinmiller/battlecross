@@ -68,7 +68,7 @@ export const INTRO_ACTS: readonly IntroBeat[] = [
   { at: 9.0, who: 'both', act: 'flee' }
 ]
 /** The camera: pulled well back (above 1 is farther), so the leaps, the flips and the dragon are all in the picture. */
-export const INTRO_ZOOMS = [{ at: 0, to: 1.55, dur: 0.01, hold: 12 }] as const
+export const INTRO_ZOOMS = [{ at: 0, to: 1.3, dur: 0.01, hold: 12 }] as const
 /** "1 month later…" fades in over the dark from here. */
 export const LABEL_AT = 10.3
 /** The last fade to black (the label rides on it). */
