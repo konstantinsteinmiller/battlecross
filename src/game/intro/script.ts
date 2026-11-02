@@ -45,24 +45,30 @@ export const INTRO_MAGE = 'sbMasterElementalist'
 export const INTRO_BEAST = 'sbMasterBeastcaller'
 
 /** The heroes' entrance (#188): a leap in from the picture's edge with a forward flip, landing as a hero lands. */
-export const ENTRY_AT = 0.3
-export const ENTRY_S = 1.4
+export const ENTRY_AT = 0.4
+export const ENTRY_S = 1.3
 
 /** What happens when: who does it and what. The runner plays them in order. */
-export type IntroAct = 'summon' | 'fire' | 'frost' | 'bolt' | 'hawk' | 'storm' | 'slay' | 'flee'
+export type IntroAct = 'roar' | 'summon' | 'breath' | 'dodge' | 'fire' | 'frost' | 'bolt' | 'hawk' | 'slam' | 'charge' | 'storm' | 'finish' | 'slay' | 'flee'
 export interface IntroBeat { at: number; who: 'beast' | 'mage' | 'both'; act: IntroAct }
 export const INTRO_ACTS: readonly IntroBeat[] = [
+  { at: 0.15, who: 'both', act: 'roar' },
   { at: 1.9, who: 'beast', act: 'summon' },
-  { at: 2.8, who: 'mage', act: 'fire' },
-  { at: 3.8, who: 'mage', act: 'frost' },
-  { at: 4.8, who: 'beast', act: 'hawk' },
-  { at: 5.7, who: 'mage', act: 'bolt' },
-  { at: 6.6, who: 'mage', act: 'storm' },
-  { at: 8.4, who: 'both', act: 'slay' },
+  { at: 2.5, who: 'both', act: 'breath' },
+  { at: 2.9, who: 'mage', act: 'dodge' },
+  { at: 3.6, who: 'mage', act: 'fire' },
+  { at: 4.2, who: 'both', act: 'slam' },
+  { at: 4.7, who: 'mage', act: 'frost' },
+  { at: 5.2, who: 'beast', act: 'hawk' },
+  { at: 5.6, who: 'both', act: 'charge' },
+  { at: 6.2, who: 'mage', act: 'bolt' },
+  { at: 6.8, who: 'mage', act: 'storm' },
+  { at: 7.9, who: 'both', act: 'finish' },
+  { at: 8.8, who: 'both', act: 'slay' },
   { at: 9.0, who: 'both', act: 'flee' }
 ]
 /** The camera: pulled well back (above 1 is farther), so the leaps, the flips and the dragon are all in the picture. */
-export const INTRO_ZOOMS = [{ at: 0, to: 1.7, dur: 0.01, hold: 12 }] as const
+export const INTRO_ZOOMS = [{ at: 0, to: 1.55, dur: 0.01, hold: 12 }] as const
 /** "1 month later…" fades in over the dark from here. */
 export const LABEL_AT = 10.3
 /** The last fade to black (the label rides on it). */
