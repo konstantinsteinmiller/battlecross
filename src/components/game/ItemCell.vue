@@ -76,50 +76,54 @@ const { t } = useI18n()
   position: absolute
   z-index: 1
   pointer-events: none
-  // Round at any cell size: border-box, so the padding and the outline stay
-  // inside the square the aspect ratio makes, and never shrink or stretch.
-  box-sizing: border-box
-  display: flex
-  align-items: center
-  justify-content: center
+  // Round at any cell size, on every screen. A square from its WIDTH alone: no
+  // height, and a bottom padding that is the same percentage of the same box
+  // (a percentage padding is always a share of the width). No aspect-ratio, no
+  // border (a border added to one side only made an oval), the outline is a
+  // shadow ring, and the glyph is laid inside it, so nothing in it can
+  // stretch the badge.
+  box-sizing: content-box
+  display: block
+  height: 0
 // Worn: a blue shield crest, top left.
 .item-cell__worn
   left: -5%
   top: -5%
   width: 36%
-  aspect-ratio: 1 / 1
-  padding: 7%
-  border: var(--bc-ol-thin) solid var(--bc-ink)
+  padding-bottom: 36%
   border-radius: 50%
   background: var(--bc-blue)
   color: var(--bc-text)
-  :deep(svg)
+  box-shadow: 0 0 0 var(--bc-ol-thin) var(--bc-ink)
+  :deep(svg), :deep(img)
+    position: absolute
+    inset: 14%
     display: block
-    width: 100%
-    height: 100%
+    width: 72%
+    height: 72%
 // Better: a green arrow, bottom right.
 .item-cell__up
   right: -5%
   bottom: -5%
   width: 36%
-  aspect-ratio: 1 / 1
-  padding: 5%
-  border: var(--bc-ol-thin) solid var(--bc-ink)
+  padding-bottom: 36%
   border-radius: 50%
   background: var(--bc-green)
   color: var(--bc-text)
-  box-shadow: 0 2px 0 var(--bc-ink)
-  :deep(svg)
+  box-shadow: 0 0 0 var(--bc-ol-thin) var(--bc-ink), 0 2px 0 var(--bc-ol-thin) var(--bc-ink)
+  :deep(svg), :deep(img)
+    position: absolute
+    inset: 10%
     display: block
-    width: 100%
-    height: 100%
+    width: 80%
+    height: 80%
 // New: a red dot that breathes, top right.
 .cell__new
   right: -6%
   top: -6%
   width: 32%
-  aspect-ratio: 1 / 1
-  border: var(--bc-ol-thin) solid var(--bc-ink)
+  padding-bottom: 32%
+  box-shadow: 0 0 0 var(--bc-ol-thin) var(--bc-ink)
   border-radius: 50%
   background: var(--bc-red)
   animation: cell-new 0.8s ease-in-out infinite alternate

@@ -16,7 +16,7 @@
         )
           span.book__tab-shadow(aria-hidden="true")
           span.book__tab-body
-            GameIcon.book__tab-icon(:name="p.icon")
+            GameIcon.book__tab-icon(:name="p.id === 'character' && profile.hero.gender === 'f' ? 'hero-f' : p.icon")
             span.book__tab-label {{ t(`menu.${p.id}`) }}
           FHudBadge.book__tab-badge(v-if="p.id === 'character' && profile.hero.points > 0" tone="red") {{ profile.hero.points }}
           FHudBadge.book__tab-badge(v-else-if="p.id === 'inventory' && profile.inv.fresh.length > 0" tone="green") {{ profile.inv.fresh.length }}

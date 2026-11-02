@@ -7,7 +7,7 @@
         FHudButton(tone="gold" icon="map" :aria-label="t('menu.map')" @click="open('map')")
     Transition(name="reveal")
       span.menu-buttons__item(v-if="revealed('hero')" data-coach="menu-character" :class="{ 'is-glow': glowing('hero') }")
-        FHudButton(tone="blue" icon="hero" :attention="unseenPoints() > 0" :aria-label="t('menu.character')" @click="open('character')")
+        FHudButton(tone="blue" :icon="heroIcon" :attention="unseenPoints() > 0" :aria-label="t('menu.character')" @click="open('character')")
           template(v-if="profile.hero.points > 0" #badge)
             FHudBadge(tone="red") {{ profile.hero.points }}
     Transition(name="reveal")
@@ -57,6 +57,8 @@ withDefaults(defineProps<{
 const { t } = useI18n()
 
 /** Contracts come with the second zone cleared: the first town visit stays about the trainer. */
+/** The hero button wears the girl's bust when the hero is a girl. */
+const heroIcon = computed(() => (profile.hero.gender === 'f' ? 'hero-f' : 'hero'))
 const contractsOpen = computed(() => profile.world.cleared.filter(n => n !== 'sunford').length >= 2)
 const ready = computed(() => { void profile.meta.contracts.list.map(c => c.have); return contractsReady() })
 const openContracts = (): void => { if (!flow.loading && !flow.modal && !flow.talk) flow.modal = 'contracts' }

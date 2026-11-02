@@ -654,6 +654,10 @@ export const ICON_PATHS: Record<GameIconName, string[]> = {
   'hero': [
     'M12 3A4.6 4.6 0 1 1 11.99 3Z', 'M3.6 21C3.6 16.4 7.4 13.6 12 13.6S20.4 16.4 20.4 21Z'
   ],
+  // The girl hero's bust: the same shoulders, a ponytail swinging out behind the head.
+  'hero-f': [
+    'M12 3A4.6 4.6 0 1 1 11.99 3Z', 'M3.6 21C3.6 16.4 7.4 13.6 12 13.6S20.4 16.4 20.4 21Z', 'M17.2 4.4C21.6 3.8 22.8 9.4 20.2 13C20.6 10.4 19.8 8.2 17.4 7.4Z'
+  ],
   'chat': [
     'M5 3.6H19A2.6 2.6 0 0 1 21.6 6.2V13.8A2.6 2.6 0 0 1 19 16.4H12.4L7.4 20.6V16.4H5A2.6 2.6 0 0 1 2.4 13.8V6.2A2.6 2.6 0 0 1 5 3.6Z'
   ],

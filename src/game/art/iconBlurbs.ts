@@ -31,6 +31,7 @@ export const UI_ICONS: readonly IconDef[] = [
   { ref: 'help', tint: '#f4ecd8', tintName: 'cream white', blurb: 'a round cream-white token with a bold dark-blue question mark on its face' },
   { ref: 'map', tint: '#e8d29a', tintName: 'parchment tan', blurb: 'a folded parchment map seen from the front, three panels folded like a fan, with a green patch of land and a red dotted route on it' },
   { ref: 'hero', tint: '#4a7fd6', tintName: 'blue', blurb: 'a small head-and-shoulders bust of a young adventurer: round head with short brown hair and a blue tunic' },
+  { ref: 'hero-f', tint: '#4a7fd6', tintName: 'blue', blurb: 'a small head-and-shoulders bust of a young adventurer girl: round head with auburn hair in a high ponytail tied with a red ribbon, a blue tunic and a red cape collar' },
   { ref: 'book', tint: '#c9483a', tintName: 'red', blurb: 'an open book seen from the front: two cream pages spread wide over a red leather cover' },
   { ref: 'bag', tint: '#8a5f3a', tintName: 'brown', blurb: 'a sturdy brown leather satchel with a rounded flap, a gold buckle and a short carrying handle on top' },
   { ref: 'close', tint: '#f4ecd8', tintName: 'cream white', blurb: 'a thick diagonal X (a saltire, like the letter X, NOT an upright plus) made of two rounded cream-white bars crossing at 45 degrees' },

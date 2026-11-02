@@ -492,19 +492,21 @@ const portrait = useMedia('(max-aspect-ratio: 1/1)')
   right: -8%
   top: -8%
   z-index: 1
+  // One size for both sides, a shadow ring instead of a border: a circle on every screen.
+  box-sizing: content-box
   width: calc(var(--sock) * 0.36)
-  aspect-ratio: 1
-  padding: calc(var(--sock) * 0.04)
-  border: var(--bc-ol-thin) solid var(--bc-ink)
+  height: calc(var(--sock) * 0.36)
   border-radius: 50%
   background: var(--bc-green)
   color: var(--bc-text)
-  box-shadow: 0 2px 0 var(--bc-ink)
+  box-shadow: 0 0 0 var(--bc-ol-thin) var(--bc-ink), 0 2px 0 var(--bc-ol-thin) var(--bc-ink)
   pointer-events: none
-  :deep(svg)
+  :deep(svg), :deep(img)
+    position: absolute
+    inset: 10%
     display: block
-    width: 100%
-    height: 100%
+    width: 80%
+    height: 80%
 
 // The socket of the piece being looked at.
 .doll__socket.is-sel :deep(.f-socket)
