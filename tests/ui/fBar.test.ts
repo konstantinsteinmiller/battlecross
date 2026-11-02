@@ -99,10 +99,10 @@ describe('FBar', () => {
     expect(mount(FBar, { props: { value: 0.8, frame: 'boss' } }).findAll('.f-bar__ticks i')).toHaveLength(3)
   })
 
-  it('a painted frame replaces the drawn ornaments and the bezel', () => {
+  it('a painted frame replaces the drawn ornaments and the bezel (a winged one keeps only the two wings behind it)', () => {
     const w = mount(FBar, { props: { value: 1, frame: 'boss', art: '/images/ui/bar-frame-boss.webp' } })
     expect(w.classes()).toContain('has-art')
-    expect(w.findAll('.f-bar__orn')).toHaveLength(0)
+    expect(w.findAll('.f-bar__orn').map(e => e.classes().filter(c => c !== 'f-bar__orn').join(' '))).toEqual(['f-bar__wing is-left', 'f-bar__wing is-right'])
     expect(w.find('.f-bar__bezel').exists()).toBe(false)
     const art = w.find('.f-bar__art').element as HTMLElement
     expect(art.style.getPropertyValue('--art')).toContain('bar-frame-boss.webp')

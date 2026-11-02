@@ -46,9 +46,14 @@ for (const name of ['boss', 'elite', 'champion']) {
       if (seen[k - 1] || seen[k + 1] || seen[k - W] || seen[k + W]) data[k * 4 + 3] = Math.min(data[k * 4 + 3], 150)
     }
   }
-  // The wings' cut tips fade out.
+  // The painted wings run off the file and are cut: the winged frames lose them here (the bar draws its own wings
+  // behind the frame, `FBar.vue`), so the frame ends cleanly at its gems. The champion's scrolls fade instead.
+  const WING = 58
+  if (name !== 'champion') {
+    for (let y = 0; y < H; y++) for (let x = 0; x < WING; x++) { data[at(x, y) + 3] = 0; data[at(W - 1 - x, y) + 3] = 0 }
+  }
   for (let y = 0; y < H; y++) {
-    for (let x = 0; x < FADE; x++) {
+    for (let x = 0; x < (name === 'champion' ? FADE : 0); x++) {
       const f = x / FADE
       for (const xx of [x, W - 1 - x]) data[at(xx, y) + 3] = Math.round(data[at(xx, y) + 3] * f * f)
     }

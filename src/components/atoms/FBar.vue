@@ -145,6 +145,10 @@ const phaseMarks = computed(() => (props.marks ?? []).filter(m => m > 0.01 && m 
       span.f-bar__phases(v-else-if="phaseMarks.length" aria-hidden="true")
         i(v-for="m in phaseMarks" :key="m" :style="{ left: `${Math.round(m * 1000) / 10}%` }")
       span.f-bar__flash(ref="flash" aria-hidden="true")
+    //- The painted winged frames end at their gems (the wings in the paintings were cut by the file): the code's own wings go behind them.
+    template(v-if="frameArt && winged")
+      svg.f-bar__orn.f-bar__wing.is-left(:viewBox="WING_BOX" aria-hidden="true" focusable="false" v-html="wing")
+      svg.f-bar__orn.f-bar__wing.is-right(:viewBox="WING_BOX" aria-hidden="true" focusable="false" v-html="wing")
     //- A painted frame, five-sliced: the caps and the middle ornament (crest, crown, stones)
     //- keep their shape, only the plain stretches of rim between them stretch.
     span.f-bar__art(v-if="frameArt" aria-hidden="true" :style="{ '--art': `url(${frameArt})` }")
@@ -596,8 +600,9 @@ const phaseMarks = computed(() => (props.marks ?? []).filter(m => m > 0.01 && m 
 // the middle. The 64 px caps keep their shape (two bar-heights wide), the middle stretches.
 .has-art
   --bz: 0px
-  --pad-l: calc(var(--u) * 2)
-  --pad-r: calc(var(--u) * 2)
+  // The painted well's window starts 1.72 bar-heights in from each end (the 64 px caps are two wide): the track sits exactly in it.
+  --pad-l: calc(var(--u) * 1.72)
+  --pad-r: calc(var(--u) * 1.72)
   --pad-t: calc(var(--u) * 0.5)
   --pad-b: calc(var(--u) * 0.5)
   &.f-bar--champion, &.f-bar--boss
