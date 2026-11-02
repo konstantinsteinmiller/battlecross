@@ -1,0 +1,358 @@
+{
+  "generated": "2026-11-02T02:02:59.644Z",
+  "runs": [
+    {
+      "device": {
+        "id": "desktop",
+        "name": "Desktop (1280×720, mouse)",
+        "w": 1280,
+        "h": 720,
+        "touch": false
+      },
+      "steps": [
+        {
+          "step": 1,
+          "key": "boot-hero-choice",
+          "note": "a new save is asked for its hero over the opening fight",
+          "wallSeconds": 463.5,
+          "shot": "desktop/01-boot-hero-choice.png",
+          "screen": "zone",
+          "modal": "",
+          "talk": false,
+          "simTime": 0.2,
+          "ended": "",
+          "hero": {
+            "hp": 320,
+            "maxHp": 320,
+            "level": 1
+          },
+          "foesAlive": 11,
+          "goal": "Knock down the training dummy",
+          "hints": [
+            "move"
+          ],
+          "bossPlate": "",
+          "leave": null,
+          "chestPrompt": "",
+          "chestsLeft": 3,
+          "chevronPoints": 0,
+          "campPending": true,
+          "modalTitle": ""
+        },
+        {
+          "step": 2,
+          "key": "first-seconds",
+          "note": "the fight starts: the goal, the first lesson",
+          "wallSeconds": 468,
+          "shot": "desktop/02-first-seconds.png",
+          "screen": "zone",
+          "modal": "",
+          "talk": false,
+          "simTime": 1,
+          "ended": "",
+          "hero": {
+            "hp": 320,
+            "maxHp": 320,
+            "level": 1
+          },
+          "foesAlive": 11,
+          "goal": "Knock down the training dummy",
+          "hints": [
+            "move"
+          ],
+          "bossPlate": "",
+          "leave": null,
+          "chestPrompt": "",
+          "chestsLeft": 3,
+          "chevronPoints": 0,
+          "campPending": true,
+          "modalTitle": ""
+        },
+        {
+          "step": 3,
+          "key": "dummy-down",
+          "note": "the first goal done",
+          "wallSeconds": 470.9,
+          "shot": "desktop/03-dummy-down.png",
+          "screen": "zone",
+          "modal": "",
+          "talk": false,
+          "simTime": 2.5,
+          "ended": "",
+          "hero": {
+            "hp": 320,
+            "maxHp": 320,
+            "level": 1
+          },
+          "foesAlive": 10,
+          "goal": "",
+          "hints": [
+            "chest",
+            "move"
+          ],
+          "bossPlate": "",
+          "leave": null,
+          "chestPrompt": "",
+          "chestsLeft": 3,
+          "chevronPoints": 0,
+          "campPending": true,
+          "modalTitle": ""
+        },
+        {
+          "step": 4,
+          "key": "first-pack",
+          "note": "the goblins wake",
+          "wallSeconds": 474.6,
+          "shot": "desktop/04-first-pack.png",
+          "screen": "zone",
+          "modal": "",
+          "talk": false,
+          "simTime": 4.3,
+          "ended": "",
+          "hero": {
+            "hp": 314,
+            "maxHp": 320,
+            "level": 1
+          },
+          "foesAlive": 10,
+          "goal": "",
+          "hints": [
+            "skill"
+          ],
+          "bossPlate": "",
+          "leave": null,
+          "chestPrompt": "",
+          "chestsLeft": 3,
+          "chevronPoints": 0,
+          "campPending": true,
+          "modalTitle": ""
+        },
+        {
+          "step": 5,
+          "key": "boss-in-view",
+          "note": "the road up to the boss (the chevrons lead to it)",
+          "wallSeconds": 482.1,
+          "shot": "desktop/05-boss-in-view.png",
+          "screen": "zone",
+          "modal": "",
+          "talk": false,
+          "simTime": 10,
+          "ended": "",
+          "hero": {
+            "hp": 296,
+            "maxHp": 320,
+            "level": 1
+          },
+          "foesAlive": 3,
+          "goal": "",
+          "hints": [
+            "skill"
+          ],
+          "bossPlate": "",
+          "leave": null,
+          "chestPrompt": "",
+          "chestsLeft": 3,
+          "chevronPoints": 0,
+          "campPending": true,
+          "modalTitle": ""
+        },
+        {
+          "step": 6,
+          "key": "boss-down",
+          "note": "victory, before the chest is opened: what is on screen?",
+          "wallSeconds": 486,
+          "shot": "desktop/06-boss-down.png",
+          "screen": "zone",
+          "modal": "",
+          "talk": false,
+          "simTime": 11.9,
+          "ended": "victory",
+          "hero": {
+            "hp": 288,
+            "maxHp": 320,
+            "level": 1
+          },
+          "foesAlive": 0,
+          "goal": "Free the caged teachers",
+          "hints": [],
+          "bossPlate": "",
+          "leave": null,
+          "chestPrompt": "",
+          "chestsLeft": 3,
+          "chevronPoints": 0,
+          "campPending": true,
+          "modalTitle": ""
+        },
+        {
+          "step": 7,
+          "key": "finale-chest-opening",
+          "note": "the lid lifts",
+          "wallSeconds": 487.2,
+          "shot": "desktop/07-finale-chest-opening.png",
+          "screen": "zone",
+          "modal": "",
+          "talk": false,
+          "simTime": 12.9,
+          "ended": "victory",
+          "hero": {
+            "hp": 288,
+            "maxHp": 320,
+            "level": 1
+          },
+          "foesAlive": 0,
+          "goal": "Free the caged teachers",
+          "hints": [],
+          "bossPlate": "",
+          "leave": null,
+          "chestPrompt": "",
+          "chestsLeft": 3,
+          "chevronPoints": 0,
+          "campPending": true,
+          "modalTitle": ""
+        },
+        {
+          "step": 8,
+          "key": "finale-chest-open",
+          "note": "THE DROP-OFF MOMENT: the chest is open; what tells the player there is more?",
+          "wallSeconds": 491.6,
+          "shot": "desktop/08-finale-chest-open.png",
+          "screen": "zone",
+          "modal": "",
+          "talk": false,
+          "simTime": 16.6,
+          "ended": "victory",
+          "hero": {
+            "hp": 289,
+            "maxHp": 320,
+            "level": 1
+          },
+          "foesAlive": 0,
+          "goal": "Free the caged teachers",
+          "hints": [],
+          "bossPlate": "",
+          "leave": null,
+          "chestPrompt": "",
+          "chestsLeft": 2,
+          "chevronPoints": 0,
+          "campPending": true,
+          "modalTitle": ""
+        },
+        {
+          "step": 9,
+          "key": "camp-key-taken",
+          "note": "the key in hand",
+          "wallSeconds": 494,
+          "shot": "desktop/09-camp-key-taken.png",
+          "screen": "zone",
+          "modal": "",
+          "talk": false,
+          "simTime": 18.7,
+          "ended": "victory",
+          "hero": {
+            "hp": 290,
+            "maxHp": 320,
+            "level": 1
+          },
+          "foesAlive": 0,
+          "goal": "Free the caged teachers",
+          "hints": [],
+          "bossPlate": "",
+          "leave": null,
+          "chestPrompt": "OpenE",
+          "chestsLeft": 2,
+          "chevronPoints": 0,
+          "campPending": true,
+          "modalTitle": ""
+        },
+        {
+          "step": 10,
+          "key": "cage-open",
+          "note": "the teachers are out and talk; the Leave button?",
+          "wallSeconds": 503.9,
+          "shot": "desktop/10-cage-open.png",
+          "screen": "zone",
+          "modal": "",
+          "talk": false,
+          "simTime": 26.6,
+          "ended": "victory",
+          "hero": {
+            "hp": 292,
+            "maxHp": 320,
+            "level": 1
+          },
+          "foesAlive": 0,
+          "goal": "",
+          "hints": [],
+          "bossPlate": "",
+          "leave": {
+            "x": 10,
+            "y": 156,
+            "w": 203,
+            "h": 72,
+            "inView": true
+          },
+          "chestPrompt": "",
+          "chestsLeft": 1,
+          "chevronPoints": 0,
+          "campPending": false,
+          "modalTitle": ""
+        },
+        {
+          "step": 11,
+          "key": "results",
+          "note": "the result window",
+          "wallSeconds": 506.7,
+          "shot": "desktop/11-results.png",
+          "screen": "zone",
+          "modal": "results",
+          "talk": false,
+          "simTime": 27.5,
+          "ended": "victory",
+          "hero": {
+            "hp": 293,
+            "maxHp": 320,
+            "level": 3
+          },
+          "foesAlive": 0,
+          "goal": "",
+          "hints": [],
+          "bossPlate": "",
+          "leave": null,
+          "chestPrompt": "",
+          "chestsLeft": 1,
+          "chevronPoints": 0,
+          "campPending": false,
+          "modalTitle": "Victory!"
+        },
+        {
+          "step": 12,
+          "key": "map",
+          "note": "the world map: is the next step clear?",
+          "wallSeconds": 511,
+          "shot": "desktop/12-map.png",
+          "screen": "map",
+          "modal": "",
+          "talk": false,
+          "simTime": 27.5,
+          "ended": "victory",
+          "hero": {
+            "hp": 293,
+            "maxHp": 320,
+            "level": 3
+          },
+          "foesAlive": 0,
+          "goal": "",
+          "hints": [],
+          "bossPlate": "",
+          "leave": null,
+          "chestPrompt": "",
+          "chestsLeft": 1,
+          "chevronPoints": 0,
+          "campPending": false,
+          "modalTitle": ""
+        }
+      ],
+      "consoleErrors": []
+    }
+  ]
+}
