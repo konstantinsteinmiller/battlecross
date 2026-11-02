@@ -82,6 +82,9 @@ export const placeCage = (
  * hero came, and are gone once out of sight.
  */
 
+/** How near (m) the hero has to be before a teacher at the fire turns to him. */
+export const STAY_LOOK = 3.6
+
 export type CaptivePhase = 'caged' | 'out' | 'talk' | 'leave' | 'stay'
 
 export interface CaptiveState {
@@ -226,7 +229,10 @@ export const stepCaptives = (sim: Sim, dt: number): void => {
       // The camp (#156): to their place by the fire, and there they keep.
       if (walk(sim, u, dt)) { u.anim = 'walk'; continue }
       stop(u)
-      face(u, hero.x, hero.z)
+      // They turn to the hero only when he is close (a word's distance); otherwise they face the fire they stand round.
+      const f = sim.camp?.fire
+      if (Math.hypot(u.x - hero.x, u.z - hero.z) < STAY_LOOK || !f) face(u, hero.x, hero.z)
+      else face(u, f.x, f.z)
       u.anim = 'idle'
       continue
     }

@@ -40,8 +40,8 @@ import type { Sim } from './world'
 
 /** Rows of rock added above the first visit's chain for the camp: none since #182 (the camp stands on the boss's floor). */
 export const CAMP_ROOM = 0
-/** Half the cage's width, in cells (three cells across). */
-export const CAGE_HALF = 1
+/** Half the cage's width, in cells (five cells across: four teachers in a row, #186 follow-up). */
+export const CAGE_HALF = 2
 
 /** Who is in the cage, the speaker in the middle. */
 export const CAMP_TEACHERS: ReadonlyArray<{ npc: string; look: string; cls: ClassId; teaches: boolean }> = [
@@ -100,16 +100,16 @@ export const placeCamp = (p: {
   const bj = Math.floor(p.boss.z / CELL)
   // Out of the ring the boss's pack spawns in (2.5 cells round the pack; the cage's nearest cell is at least 3.5): 4 or 5 to the
   // right, in the boss's row or the one below or above it; where the floor holds none, the wall is notched (two cells deep).
-  const fits = (ci: number, cj: number): boolean => [-1, 0, 1].every(d => openCell(p, ci + d, cj) && openCell(p, ci + d, cj + 1))
+  const fits = (ci: number, cj: number): boolean => [-2, -1, 0, 1, 2].every(d => openCell(p, ci + d, cj) && openCell(p, ci + d, cj + 1))
   let spot: { ci: number; cj: number } | null = null
-  for (const dj of [0, 1, -1]) for (const side of [5, 4]) if (!spot && fits(bi + side, bj + dj)) spot = { ci: bi + side, cj: bj + dj }
+  for (const dj of [0, 1, -1]) for (const side of [6, 7]) if (!spot && fits(bi + side, bj + dj)) spot = { ci: bi + side, cj: bj + dj }
   if (!spot) {
-    const ci = bi + 5
-    for (const d of [-1, 0, 1]) for (const r of [0, 1]) {
+    const ci = bi + 6
+    for (const d of [-2, -1, 0, 1, 2]) for (const r of [0, 1]) {
       const i = ci + d
       const j = bj + r
       const k = j * w + i
-      if (i < 3 || i >= w - 3 || j < 3 || j >= p.h - 3 || p.sealed[k]) return null
+      if (i < 3 || i >= w - 2 || j < 3 || j >= p.h - 3 || p.sealed[k]) return null
       p.solid[k] = 0
       kind[k] = K_GROUND
     }
@@ -133,7 +133,7 @@ export const placeCamp = (p: {
   }
   const { ci, cj } = spot
   const cells: number[] = []
-  for (const d of [-1, 0, 1]) {
+  for (const d of [-2, -1, 0, 1, 2]) {
     const k = cj * w + ci + d
     kind[k] = K_BLOCK
     cells.push(k)
@@ -290,7 +290,7 @@ export const populateCamp = (sim: Sim, plan: CampPlan, key: { x: number; z: numb
   const cage = sim.chests.find(c => c.role === 'cage')
   if (!cage || cage.state === 'open') return
   CAMP_TEACHERS.forEach((t, q) => {
-    const x = cage.x + (q - 1.5) * 1.1
+    const x = cage.x + (q - 1.5) * 1.5
     const z = cage.z - 0.05
     // A unit rolls dice as it is born: theirs come from a stream of their own,
     // so the opening fight's dice fall as they did before the camp.
@@ -306,8 +306,8 @@ export const populateCamp = (sim: Sim, plan: CampPlan, key: { x: number; z: numb
     u.x = u.px = x
     u.z = u.pz = z
     u.rooted = true
-    // The boss fights beside them now: nothing may touch them behind the bars.
-    applyStatus(sim, u, 'invulnerable', 1e9, 1, u, { quiet: true })
+    // The boss fights beside them: nothing aims at or sweeps over an NPC (`rank: 'npc'` is skipped by every query), so
+    // they need no shield status (it drew a glowing bubble round each of them).
     const spot = t.teaches ? (plan.spots[CAMP_LESSONS.indexOf(t)] ?? plan.fire) : plan.aside
     sim.captives.push({
       unit: u.id, lead: t.npc === CAMP_SPEAKER, phase: 'caged', t: 0, path: [[x, z]], hx: spot.x, hz: spot.z,

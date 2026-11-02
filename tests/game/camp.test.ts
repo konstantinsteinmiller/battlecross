@@ -83,11 +83,11 @@ describe('the camp on the boss floor (#182)', () => {
       const cages = plan.chests.filter(c => c.role === 'cage')
       expect(cages, tag).toHaveLength(1)
       const cage = cages[0]!
-      expect(camp.cells, tag).toHaveLength(3)
+      expect(camp.cells, tag).toHaveLength(5)
       for (const k of camp.cells) expect(plan.kind[k], tag).toBe(K_BLOCK)
       expect(camp.cells).toContain(Math.floor(cage.z / CELL) * plan.w + Math.floor(cage.x / CELL))
-      expect(cage.x - boss.x, tag).toBeGreaterThanOrEqual(4 * CELL)
-      expect(cage.x - boss.x, tag).toBeLessThanOrEqual(5.5 * CELL)
+      expect(cage.x - boss.x, tag).toBeGreaterThanOrEqual(5.5 * CELL)
+      expect(cage.x - boss.x, tag).toBeLessThanOrEqual(7.5 * CELL)
       expect(Math.abs(cage.z - boss.z), tag).toBeLessThanOrEqual(1.5 * CELL)
       // The caravan to its left (six cells, a set piece); the fire a little below it (one cell).
       const fire = plan.dressing?.find(d => d.kind === 'fire')!
@@ -97,7 +97,7 @@ describe('the camp on the boss floor (#182)', () => {
       expect(wagon.x, tag).toBeLessThan(boss.x - 3 * CELL)
       expect(fire.cells.length, tag).toBe(1)
       expect(fire.z - boss.z, tag).toBeGreaterThanOrEqual(3.5 * CELL)
-      expect(fire.z - boss.z, tag).toBeLessThanOrEqual(5.5 * CELL)
+      expect(fire.z - boss.z, tag).toBeLessThanOrEqual(7.5 * CELL)
       // The finale's chest stays where it was: a few cells above the boss.
       const finale = plan.chests.find(c => c.role === 'finale')!
       expect(finale.x, tag).toBeCloseTo(boss.x, 5)
@@ -192,7 +192,7 @@ describe('the camp on the boss floor (#182)', () => {
     run(sim, plan, 2)
     for (const p of sim.captives) {
       const u = sim.get(p.unit)!
-      expect(u.statuses.some(q => q.id === 'invulnerable'), p.npc).toBe(true)
+      expect(u.statuses.some(q => q.id === 'invulnerable'), p.npc).toBe(false)
       expect(u.hp, p.npc).toBe(u.s.maxHp)
     }
   })
@@ -290,7 +290,7 @@ describe('the cage and its teachers', () => {
     expect(people.map(u => u.kind).sort()).toEqual(CAMP_TEACHERS.map(t => t.look).sort())
     for (const u of people) {
       expect(Math.abs(u.z - cage.z)).toBeLessThan(0.5)
-      expect(Math.abs(u.x - cage.x)).toBeLessThanOrEqual(1.7)
+      expect(Math.abs(u.x - cage.x)).toBeLessThanOrEqual(2.6)
       expect(u.npc).toBeFalsy()
     }
     for (const t of CAMP_TEACHERS) expect(inCamp(sim, t.npc)).toBe(false)

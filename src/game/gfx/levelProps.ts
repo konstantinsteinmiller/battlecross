@@ -1247,16 +1247,16 @@ export class LevelProps {
     const H = 1.7
     const R = 0.68
     /** Half its width: one cell's cage, or three cells' (the door in the middle one). */
-    const RX = wide ? R + CELL : R
+    const RX = wide ? R + 2 * CELL : R
     const parts: BufferGeometry[] = []
     const posts: Array<readonly [number, number]> = [[-RX, -R], [RX, -R], [-RX, R], [RX, R]]
-    if (wide) for (const sx of [-1, 1]) posts.push([sx * CELL / 2, -R], [sx * CELL / 2, R])
+    if (wide) for (const sx of [-1, 1]) for (const m of [0.5, 1.5]) posts.push([sx * CELL * m, -R], [sx * CELL * m, R])
     for (const [px, pz] of posts) parts.push(xform(paint(rcyl(0.07, H + 0.2, 0.02, 8, 1), wood), [px, H / 2 - 0.1, pz]))
     // Bars on the back and the two sides (the front is the door), a rail along the top.
-    const back = wide ? 11 : 3
+    const back = wide ? 19 : 3
     for (let q = 1; q <= back; q++) {
       const t = -RX + (2 * RX * q) / (back + 1)
-      if (wide && Math.abs(Math.abs(t) - CELL / 2) < 0.1) continue
+      if (wide && [0.5, 1.5].some(m => Math.abs(Math.abs(t) - CELL * m) < 0.1)) continue
       parts.push(xform(paint(rcyl(0.03, H, 0.01, 6, 1), bar), [t, H / 2, -R]))
     }
     for (let q = 1; q <= 3; q++) {
@@ -1265,7 +1265,11 @@ export class LevelProps {
       parts.push(xform(paint(rcyl(0.03, H, 0.01, 6, 1), bar), [RX, H / 2, t]))
     }
     // The big cage's front either side of its door: bars, as at the back.
-    if (wide) for (const sx of [-1, 1]) for (const t of [0.42, 0.84, 1.26]) parts.push(xform(paint(rcyl(0.03, H, 0.01, 6, 1), bar), [sx * (CELL / 2 + t), H / 2, R]))
+    if (wide) for (const sx of [-1, 1]) for (const t of [0.42, 0.84, 1.26, 1.68, 2.1, 2.52]) {
+      const px = sx * (CELL / 2 + t)
+      if (Math.abs(Math.abs(px) - CELL * 1.5) < 0.1) continue
+      parts.push(xform(paint(rcyl(0.03, H, 0.01, 6, 1), bar), [px, H / 2, R]))
+    }
     parts.push(xform(paint(rbox(2 * RX + 0.36, 0.14, 2 * R + 0.36, 0.2, 8, 4), wood), [0, H + 0.05, 0]))
     parts.push(xform(paint(rbox(2 * RX + 0.1, 0.08, 0.1, 0.3, 6, 3), wood), [0, 0.5, -R]))
     const body = merge(parts).scale(k, k, k)
