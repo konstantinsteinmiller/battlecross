@@ -92,7 +92,7 @@ export const factionName = (f: string): string => t(`faction.${f}`)
 /** The level a hero usually has when he first walks into a place (the zone's
  *  band; a town once its neighbour is cleared). */
 export const ARRIVE: Record<string, number> = {
-  sunford: 1, plains: 1, hollows: 3, arena: 4, woods: 6, silverbridge: 6, outskirts: 8, oakhaven: 9, crags: 11, mines: 13, ironhold: 14,
+  sunford: 1, plains: 1, hollows: 3, arena: 4, woods: 6, silverbridge: 6, outskirts: 8, bastion: 8, oakhaven: 9, crags: 11, mines: 13, ironhold: 14,
   tundra: 16, temple: 17, citadel: 21, peak: 24, fortress: 26, rift: 30
 }
 for (const z of ZONE_IDS) ARRIVE[z] = ZONES[z].min

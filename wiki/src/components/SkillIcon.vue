@@ -1,12 +1,14 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import { SKILL_BY_ID, CLASSES, skillIcon, skillName, classIcon } from '../data'
+import { SKILL_BY_ID, CLASSES, skillIcon, skillName, classIcon, scalingOf, ATTR_SHORT, ATTR_COLOR } from '../data'
 import { showTip, moveTip, hoverTip, leaveTip } from '../tip'
 
 const props = withDefaults(defineProps<{ id: string; size?: number; dim?: boolean; label?: boolean }>(), { size: 52 })
 const s = computed(() => SKILL_BY_ID[props.id])
 const icon = computed(() => (s.value ? skillIcon(s.value) : null))
 const color = computed(() => (s.value ? CLASSES[s.value.cls].color : '#888'))
+/** The attribute its damage or effect grows with, as the in-game icon shows it (none for a passive or a flat effect). */
+const scales = computed(() => (s.value ? scalingOf(s.value) : null))
 </script>
 
 <template>
@@ -19,12 +21,13 @@ const color = computed(() => (s.value ? CLASSES[s.value.cls].color : '#888'))
         <b>{{ skillName(s).split(' ').map(w => w[0]).join('').slice(0, 2) }}</b>
       </span>
     </span>
+    <span v-if="scales" class="badge" :style="{ '--attr': ATTR_COLOR[scales] }" :title="'Scales with ' + ATTR_SHORT[scales]">{{ ATTR_SHORT[scales] }}</span>
     <span v-if="label" class="lbl">{{ skillName(s) }}</span>
   </span>
 </template>
 
 <style scoped>
-.skill { display: inline-flex; flex-direction: column; align-items: center; gap: 4px; cursor: help; vertical-align: middle; }
+.skill { position: relative; display: inline-flex; flex-direction: column; align-items: center; gap: 4px; cursor: help; vertical-align: middle; }
 .frame {
   width: var(--s); height: var(--s); border-radius: 12px; overflow: hidden; position: relative; display: block;
   box-shadow: 0 0 0 2px var(--c), 0 0 14px color-mix(in srgb, var(--c) 45%, transparent), inset 0 0 0 1px rgba(0,0,0,.6);
@@ -37,6 +40,12 @@ const color = computed(() => (s.value ? CLASSES[s.value.cls].color : '#888'))
 .glyph { position: absolute; inset: 0; display: grid; place-items: center; }
 .glyph img { position: absolute; width: 74%; height: 74%; object-fit: contain; opacity: .35; filter: saturate(1.3); }
 .glyph b { position: relative; font-family: var(--display); font-weight: 400; color: #fff; font-size: calc(var(--s) * .34); text-shadow: 0 2px 0 rgba(0,0,0,.7); }
+/* The stat chip of the in-game icon: the attribute's colour, ink outline, sitting on the icon's lower edge. */
+.badge {
+  position: absolute; left: 50%; top: calc(var(--s) - 0.5em); transform: translateX(-50%);
+  padding: .04em .38em; border: 2px solid #1b1626; border-radius: 999px; background: var(--attr); color: #1b1626;
+  font: 800 max(8px, calc(var(--s) * .2))/1.15 var(--display, inherit); letter-spacing: .02em; white-space: nowrap; pointer-events: none;
+}
 .dim { opacity: .35; filter: grayscale(.8); }
 .lbl { font-size: 11.5px; font-weight: 700; color: var(--muted); max-width: calc(var(--s) + 34px); text-align: center; line-height: 1.15; }
 </style>
