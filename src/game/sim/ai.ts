@@ -223,7 +223,8 @@ export const stepAlly = (sim: Sim, u: Unit, dt: number): void => {
       if (!u.alive) return
     }
   }
-  if (isControlled(u) || u.action || !def) return
+  // A unit a script stages (the intro's pack, `unit.stunt`) is moved by hand: nothing here walks it to the hero.
+  if (isControlled(u) || u.action || !def || u.stunt) return
 
   // Command: Focus names the target; otherwise the nearest threat around the
   // hero (so the guard fights WITH him rather than wandering off).

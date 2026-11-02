@@ -25,6 +25,28 @@ describe('the intro only asks the effects for what they know', () => {
   })
 })
 
+describe('a staged pack is not walked to the hero', () => {
+  it('a minion with a stage flag keeps its place and its facing while the hero stands elsewhere', async () => {
+    const { spawnMinion } = await import('@/game/sim/spawn')
+    const plan = generateZone(ZONES.tundra, 130, {})
+    const sim = new Sim({ seed: 130, w: plan.w, h: plan.h, level: 19, difficulty: 1, mode: 'zone', zone: 'tundra' })
+    applyPlan(sim, plan)
+    const ref = referenceBuild({ level: 1, cls: 'aegis' })
+    createHero(sim, { build: ref.build, skills: ref.skills, x: plan.start.x, z: plan.start.z, xpInto: 0, potions: 0 })
+    const m = spawnMinion(sim, 'packWolf', plan.start.x + 12, plan.start.z, 30, false)!
+    m.stunt = { lift: 0, flip: 0 }
+    m.facing = 1.1
+    const x0 = m.x
+    for (let t = 0; t < 3; t += 1 / 30) stepSim(sim, plan, 1 / 30)
+    expect(m.x).toBeCloseTo(x0, 5)
+    expect(m.facing).toBeCloseTo(1.1, 5)
+    // …and unflagged, the same wolf runs to the hero (why the flag matters).
+    const w = spawnMinion(sim, 'packWolf', plan.start.x + 12, plan.start.z, 30, false)!
+    for (let t = 0; t < 3; t += 1 / 30) stepSim(sim, plan, 1 / 30)
+    expect(Math.abs(w.x - (plan.start.x + 12))).toBeGreaterThan(1)
+  })
+})
+
 describe('the intro scene stays a scene', () => {
   it('no victory when the packs are dismissed, nor when the drake falls', () => {
     const plan = generateZone(ZONES.tundra, 130, {})

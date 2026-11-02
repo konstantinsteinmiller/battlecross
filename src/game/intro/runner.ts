@@ -272,6 +272,9 @@ const play = (m: ZoneMode, c: Cast, t: number, act: IntroAct, who: 'beast' | 'ma
         mn.s.maxHp *= 200
         mn.hp = mn.s.maxHp
         mn.aiT = 1e9
+        // Staged: the sim's own follower AI (which walks a minion to its owner, the hero in the snow, and has it look at him)
+        // leaves it alone.
+        mn.stunt = { lift: 0, flip: 0 }
         c.pack.push(mn)
         c.bite.push(0)
       }
