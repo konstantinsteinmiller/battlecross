@@ -25,7 +25,7 @@ await ctx.routeWebSocket(/.*/, () => {})
 const page = ctx.pages()[0] ?? await ctx.newPage()
 const errors = []
 page.on('pageerror', e => errors.push('pageerror: ' + String(e.stack ?? e).slice(0, 900)))
-page.on('console', m => { if (m.type() === 'error' || m.type() === 'warning') errors.push(m.type() + ': ' + m.text().slice(0, 240)) })
+page.on('console', m => { if (m.type() === 'error' || m.type() === 'warning' || /[(flow|intro|boot)]/.test(m.text())) errors.push(m.type() + ': ' + m.text().slice(0, 300)) })
 await page.addInitScript(() => {
   // The longest gap between two animation frames, and the frame count, from the first.
   const s = { last: 0, max: 0, n: 0, big: [] }
@@ -38,6 +38,8 @@ await page.waitForFunction(() => window.__game && window.__game.app.mode && wind
 await page.waitForSelector('.hero-choice .hero-choice__card', { timeout: 120000 })
 await page.waitForTimeout(1500)
 await page.screenshot({ path: join(OUT, '00-choice.png') })
+console.log('before the pick', JSON.stringify(await page.evaluate(async () => ({ tips: Object.keys(window.__game.profile.tips), level: window.__game.profile.level, story: window.__game.profile.story, qd: window.__game.profile.questsDone, runs: window.__game.profile.stats?.runs, kills: window.__game.profile.stats?.kills, zone: window.__game.zone()?.setup?.zone, url: location.href }))))
+await page.evaluate(() => { const a = window.__game.app; const o = a.setMode.bind(a); a.setMode = (m) => { console.log('[boot] setMode ' + (m?.setup?.zone ?? m) + ' ' + String(new Error().stack).split('\n').slice(2, 7).join(' | ')); return o(m) } })
 await page.locator('.hero-choice [data-hero="m"]').click()
 const t0 = Date.now()
 const log = []
