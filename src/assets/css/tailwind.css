@@ -1,1 +1,5 @@
-@import "tailwindcss";
+@import "tailwindcss" source(none);
+/* Class names are found in the app only (not in reports, backups, art, voice work or build output: scanning the whole
+   project took 150 s of every dev start, #190 follow-up). */
+@source "../../src";
+@source "../../index.html";
