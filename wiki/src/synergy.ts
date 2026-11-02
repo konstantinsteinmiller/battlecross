@@ -5,7 +5,7 @@
  * one sets up the condition the other pays off (a freeze before a shatter,
  * a mark before a burst). Scored over all pairs of the 192 skills.
  */
-import { SKILLS, skillName, scalingOf, type SkillDef, type Attr } from './data'
+import { SKILLS, ALL_SKILLS, skillName, scalingOf, type SkillDef, type Attr } from './data'
 
 export type Tag =
   | 'summon' | 'stun' | 'freeze' | 'slow' | 'knock' | 'confuse' | 'fear' | 'charm' | 'taunt'
@@ -102,8 +102,9 @@ const feedsOf = (s: SkillDef): Set<Tag> => {
 }
 
 export interface SkillTags { does: Set<Tag>; feeds: Set<Tag> }
-export const TAGS: Record<string, SkillTags> = Object.fromEntries(SKILLS.map(s => [s.id, { does: doesOf(s), feeds: feedsOf(s) }]))
-export const tagsOf = (s: SkillDef): Tag[] => [...new Set([...TAGS[s.id]!.does, ...TAGS[s.id]!.feeds])]
+export const TAGS: Record<string, SkillTags> = Object.fromEntries(ALL_SKILLS.map(s => [s.id, { does: doesOf(s), feeds: feedsOf(s) }]))
+/** The endgame skills (#168) are tagged too: the Skills page lists them, and an untagged one crashed the page. */
+export const tagsOf = (s: SkillDef): Tag[] => { const t = TAGS[s.id]; return t ? [...new Set([...t.does, ...t.feeds])] : [] }
 
 /** Set-up → payoff: one skill makes the condition another profits from. */
 const SETUP: Partial<Record<Tag, Tag[]>> = {
