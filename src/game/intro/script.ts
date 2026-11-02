@@ -49,30 +49,28 @@ export const ENTRY_AT = 0.4
 export const ENTRY_S = 1.3
 
 /** What happens when: who does it and what. The runner plays them in order. */
-export type IntroAct = 'roar' | 'summon' | 'breath' | 'dodge' | 'fire' | 'frost' | 'bolt' | 'hawk' | 'slam' | 'charge' | 'storm' | 'finish' | 'slay' | 'flee'
+export type IntroAct = 'roar' | 'summon' | 'close' | 'slap' | 'slay' | 'flee' | 'rise'
 export interface IntroBeat { at: number; who: 'beast' | 'mage' | 'both'; act: IntroAct }
 export const INTRO_ACTS: readonly IntroBeat[] = [
   { at: 0.15, who: 'both', act: 'roar' },
   { at: 1.9, who: 'beast', act: 'summon' },
-  { at: 2.5, who: 'both', act: 'breath' },
-  { at: 2.9, who: 'mage', act: 'dodge' },
-  { at: 3.6, who: 'mage', act: 'fire' },
-  { at: 4.2, who: 'both', act: 'slam' },
-  { at: 4.7, who: 'mage', act: 'frost' },
-  { at: 5.2, who: 'beast', act: 'hawk' },
-  { at: 5.6, who: 'both', act: 'charge' },
-  { at: 6.2, who: 'mage', act: 'bolt' },
-  { at: 6.8, who: 'mage', act: 'storm' },
-  { at: 7.9, who: 'both', act: 'finish' },
-  { at: 8.8, who: 'both', act: 'slay' },
-  { at: 9.0, who: 'both', act: 'flee' }
+  { at: 2.4, who: 'both', act: 'close' },
+  { at: 3.7, who: 'mage', act: 'slap' },
+  { at: 4.15, who: 'beast', act: 'slap' },
+  { at: 4.6, who: 'mage', act: 'slap' },
+  { at: 5.05, who: 'beast', act: 'slap' },
+  { at: 5.5, who: 'mage', act: 'slap' },
+  { at: 5.95, who: 'beast', act: 'slap' },
+  { at: 6.5, who: 'both', act: 'slay' },
+  { at: 7.4, who: 'both', act: 'flee' },
+  { at: 8.4, who: 'both', act: 'rise' }
 ]
 /** The camera: pulled well back (above 1 is farther), so the leaps, the flips and the dragon are all in the picture. */
 export const INTRO_ZOOMS = [{ at: 0, to: 1.3, dur: 0.01, hold: 12 }] as const
 /** "1 month later…" fades in over the dark from here. */
-export const LABEL_AT = 10.3
+export const LABEL_AT = 9.8
 /** The last fade to black (the label rides on it). */
-export const FADE_OUT_AT = 9.9
+export const FADE_OUT_AT = 9.3
 
 /** How black the screen is at `t` (0..1): black until the scene is built, the fade in, the fade to black. */
 export const veilAt = (t: number, sceneReady: boolean): number => {

@@ -108,7 +108,9 @@ describe('the first boot (#189)', () => {
     const runner = read('game/intro/runner.ts')
     expect(runner).toMatch(/export const prepareIntro/)
     expect(runner).toMatch(/const pre = prepared/)
-    expect(runner).toMatch(/void startFirstLevel\(\)/)
+    expect(runner).toMatch(/building \? building\.then\(\(lvl\) => enterFirstLevel\(lvl\)\) : startFirstLevel\(\)/)
+    // …and it starts building while the two walk away, not after the film.
+    expect(runner).toMatch(/if \(bootRun && !building\) building = buildFirstLevel\(\)/)
     expect(read('game/flow.ts')).toMatch(/export const startFirstLevel = async \(\): Promise<void> => \{\s*const mode = await buildNode\('plains'/)
   })
 
@@ -141,7 +143,10 @@ describe('the script', () => {
     expect(INTRO_ACTS.filter(b => b.act === 'slay')).toHaveLength(1)
     // Both heroes show their school before the dragon falls: the elementalist's fire, frost, lightning and storm, the beast caller's pack and hawk.
     const before = INTRO_ACTS.filter(b => b.at < slay.at)
-    for (const a of ['summon', 'hawk', 'fire', 'frost', 'bolt', 'storm']) expect(before.some(b => b.act === a), a).toBe(true)
+    for (const a of ['roar', 'summon', 'close', 'slap']) expect(before.some(b => b.act === a), a).toBe(true)
+    // A calm film (#189): a handful of slaps, no spell storm, and the one in the snow gets up after they have gone.
+    expect(before.filter(b => b.act === 'slap').length).toBeGreaterThanOrEqual(4)
+    expect(INTRO_ACTS.find(b => b.act === 'rise')!.at).toBeGreaterThan(flee.at)
   })
 
   it('uses only what the game has: the drake, the two masters\' looks, the minions and the skills whose poses it borrows', () => {

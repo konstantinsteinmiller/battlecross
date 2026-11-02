@@ -5,7 +5,7 @@ import { precompile } from '../boot'
 import { ZoneMode, type ZoneCallbacks, type ZoneSetup } from '../modes/zoneMode'
 import { profile, saveProfile } from '../state/profile'
 import { hud } from '../state/hud'
-import { applyStatus, dealDamage } from '../sim/combat'
+import { applyStatus, dealDamage, removeStatus } from '../sim/combat'
 import { spawnEnemy, spawnMinion } from '../sim/spawn'
 import { plainStats } from '../sim/stats'
 import { newAction, type Sim } from '../sim/world'
@@ -22,7 +22,7 @@ import { setMusicTrack, startGameMusic } from '@/use/useSound'
 import { isGamePaused } from '@/use/useGamePause'
 import { INTRO_TIP, introBoot } from './state'
 import { setSfxGate } from '../audio/sfx'
-import { startFirstLevel } from '../flow'
+import { buildFirstLevel, enterFirstLevel, startFirstLevel } from '../flow'
 import {
   BUILD_CAP_S, INTRO_ACTS, INTRO_BEAST, INTRO_DRAGON, INTRO_FOE_LEVEL, INTRO_LENGTH, INTRO_MAGE, INTRO_PACK, INTRO_SEED, INTRO_ZONE,
   ENTRY_AT, ENTRY_S, INTRO_ZOOMS, SCENE_AT, createIntroClock, labelAt, veilAt, type IntroAct
@@ -89,7 +89,7 @@ const build = async (): Promise<ZoneMode> => {
 }
 
 /** A leap in progress: an arc over the ground from where the body is to a mark, with `flips` turns on the way. */
-interface Leap { exit?: boolean; u: Unit; fx: number; fz: number; tx: number; tz: number; t0: number; dur: number; high: number; flips: number; land: boolean; done: boolean }
+interface Leap { walk?: boolean; exit?: boolean; u: Unit; fx: number; fz: number; tx: number; tz: number; t0: number; dur: number; high: number; flips: number; land: boolean; done: boolean }
 
 /** The cast of the film, once the scene is staged. */
 interface Cast {
@@ -229,31 +229,26 @@ const FROST = '#a8d8ff'
 const BOLT = '#ffe14a'
 const HOLY = '#fff0a0'
 
+/** The opening level, once the film asks for it (it builds while the two walk away). */
+let building: ReturnType<typeof buildFirstLevel> | null = null
+let bootRun = false
+
 /** One beat of the film. */
-const play = (m: ZoneMode, c: Cast, t: number, act: IntroAct): void => {
+const play = (m: ZoneMode, c: Cast, t: number, act: IntroAct, who: 'beast' | 'mage' | 'both'): void => {
   const sim = m.sim
   const d = c.dragon
   const shake = (n: number): void => m.cam.addTrauma(n)
-  const lob = (from: Unit, color: string, dx = 0, dz = 0): void => {
-    sim.emit({ t: 'fx', id: 'lob:holy', x: from.x, z: from.z, x2: d.x + dx, z2: d.z + dz, dur: 0.45, color })
-    sim.after(0.45, () => {
-      sim.emit({ t: 'fx', id: 'burst:bolt', x: d.x + dx, z: d.z + dz, r: 3, color })
-      hit(sim, c, 40, 'fire', from, true)
-      shake(0.3)
-    })
-  }
   switch (act) {
     case 'roar':
-      // The drake rears and roars over the one in the snow: the whole picture shakes.
+      // The drake rears and roars over the one in the snow: the picture shakes once.
       pose(d, 'slam', c.hero)
       sim.emit({ t: 'fx', id: 'roar', x: d.x, z: d.z, r: 9, color: '#58e0d0' })
-      shake(0.8)
+      shake(0.7)
       break
     case 'summon': {
-      // The whole pack, thrown in: three wolves, a bear and a hawk run at the drake and tear at it.
+      // The pack, thrown in: three wolves, a bear and a hawk run at the drake and bite.
       pose(c.beast, 'wildHunt', d)
-      sim.emit({ t: 'fx', id: 'roar', x: c.beast.x, z: c.beast.z, r: 7, color: '#4fb85a' })
-      shake(0.35)
+      shake(0.25)
       const pack: Array<[string, number, number]> = [
         ['packWolf', -1.6, -1.2], ['packWolf', 0.6, -2.2], ['packWolf', -3, -0.2], ['packBear', 1.8, -0.8], ['packHawk', 0, -1.6]
       ]
@@ -265,104 +260,52 @@ const play = (m: ZoneMode, c: Cast, t: number, act: IntroAct): void => {
         mn.aiT = 1e9
         c.pack.push(mn)
         c.bite.push(0)
-        sim.emit({ t: 'fx', id: 'summon', x: mn.x, z: mn.z, color: '#4fb85a' })
       }
       c.packAt = t
       break
     }
-    case 'breath': {
-      // The drake breathes along the ground at the mage: a long cone of dark fire.
-      pose(d, 'cone', c.mage)
-      sim.emit({ t: 'fx', id: 'roar', x: d.x, z: d.z, r: 5, color: '#9a58ff' })
-      sim.after(0.5, () => {
-        sim.emit({ t: 'fx', id: 'dash', x: d.x, z: d.z, x2: c.mage.x, z2: c.mage.z, color: '#9a58ff' })
-        sim.emit({ t: 'fx', id: 'burst:bolt', x: c.mage.x, z: c.mage.z, r: 4, color: '#9a58ff' })
-        shake(0.5)
-      })
+    case 'close':
+      // The two walk up to the drake, one at either flank: they do not hurry.
+      walk(c, c.mage, d.x - 2.6, d.z + 2.4, t, 1.3)
+      walk(c, c.beast, d.x + 2.6, d.z + 2.4, t, 1.3)
       break
-    }
-    case 'dodge':
-      // …and he is not there: a backflip over it, to the far side.
-      leap(c, c.mage, c.land.mage.x + 2.6, c.land.mage.z + 2.4, t, 0.85, 2.6, 1, false)
-      break
-    case 'fire':
-      pose(c.mage, 'fireball', d)
-      lob(c.mage, FIRE)
-      sim.after(0.12, () => lob(c.mage, FIRE, -2.2, 0.8))
-      sim.after(0.24, () => lob(c.mage, FIRE, 2.2, -0.6))
-      break
-    case 'frost':
-      pose(c.mage, 'frostLance', d)
-      sim.emit({ t: 'fx', id: 'burst:icicle', x: d.x, z: d.z, r: 5, color: FROST })
-      lob(c.mage, FROST)
-      sim.after(0.2, () => hit(sim, c, 30, 'frost', c.mage, true))
-      shake(0.3)
-      break
-    case 'hawk':
-      pose(c.beast, 'callHawk', d)
-      sim.emit({ t: 'fx', id: 'dash', x: c.beast.x, z: c.beast.z, x2: d.x, z2: d.z, color: '#f0d890' })
-      sim.after(0.4, () => { sim.emit({ t: 'fx', id: 'burst:bolt', x: d.x, z: d.z, r: 3, color: '#f0d890' }); hit(sim, c, 30, 'physical', c.beast, true); shake(0.3) })
-      break
-    case 'slam':
-      // The drake slams the ground: a ring of force that throws the pack back.
-      pose(d, 'slam', c.beast)
-      sim.after(0.5, () => {
-        sim.emit({ t: 'fx', id: 'slam', x: d.x, z: d.z, r: 7, color: '#58e0d0' })
-        shake(0.7)
-        for (const mn of c.pack) { mn.x = mn.px = mn.x + (mn.x - d.x) * 0.5; mn.z = mn.pz = mn.z + (mn.z - d.z) * 0.5 }
-      })
-      break
-    case 'charge': {
-      // It charges the beast caller: she goes over it, two flips, and lands behind it.
-      pose(d, 'charge', c.beast)
-      const to = { x: c.beast.x, z: c.beast.z }
-      sim.emit({ t: 'fx', id: 'dash', x: d.x, z: d.z, x2: to.x, z2: to.z, color: '#58e0d0' })
-      leap(c, c.beast, to.x + 3.6, to.z - 5.6, t + 0.15, 1, 3.6, 2, false)
-      break
-    }
-    case 'bolt':
-      pose(c.mage, 'chainSpark', d)
-      for (let i = 0; i < 5; i++) {
-        sim.after(i * 0.14, () => {
-          sim.emit({ t: 'fx', id: 'burst:bolt', x: d.x + (i - 2) * 1.3, z: d.z + (i % 2 ? 1.2 : -1.2), r: 2.4, color: BOLT })
-          hit(sim, c, 20, 'lightning', c.mage, i === 2)
-        })
-      }
-      shake(0.3)
-      break
-    case 'storm':
-      pose(c.mage, 'elementalConvergence', d)
-      sim.emit({ t: 'fx', id: 'roar', x: c.mage.x, z: c.mage.z, r: 9, color: '#e86bff' })
-      shake(0.4)
-      for (let i = 0; i < 7; i++) {
-        const a = (i / 7) * Math.PI * 2
-        const x = d.x + Math.cos(a) * 3.4
-        const z = d.z + Math.sin(a) * 3.4
-        sim.after(0.2 + i * 0.2, () => {
-          sim.emit({ t: 'fx', id: 'fall:holy', x, z, r: 2.2, dur: 0.5, color: FIRE })
-          sim.after(0.5, () => { sim.emit({ t: 'fx', id: 'burst:bolt', x, z, r: 2.6, color: FIRE }); hit(sim, c, 25, 'fire', c.mage, i % 2 === 0); shake(0.25) })
-        })
-      }
-      break
-    case 'finish': {
-      // Both go up together and come down on it from either side.
-      leap(c, c.mage, d.x - 3.4, d.z + 1.2, t, 0.9, 5.2, 1)
-      leap(c, c.beast, d.x + 3.4, d.z + 1.2, t, 0.9, 5.2, 1)
+    case 'slap': {
+      // A slap: the back of a hand. The game's own impact and flinch, the drake rocks back, nothing more.
+      const u = who === 'mage' ? c.mage : c.beast
+      u.facing = Math.atan2(d.x - u.x, d.z - u.z)
+      u.anim = 'attack'
+      u.animT = 0
+      hit(sim, c, 20, 'physical', u, false)
+      shake(0.12)
       break
     }
     case 'slay':
-      sim.emit({ t: 'fx', id: 'quake', x: d.x, z: d.z, r: 10, color: HOLY })
-      sim.emit({ t: 'fx', id: 'burst:bolt', x: d.x, z: d.z, r: 6, color: HOLY })
-      shake(1)
+      // Both together: one more slap, and the drake goes down.
+      for (const u of [c.mage, c.beast]) { u.facing = Math.atan2(d.x - u.x, d.z - u.z); u.anim = 'attack'; u.animT = 0 }
+      sim.emit({ t: 'fx', id: 'quake', x: d.x, z: d.z, r: 8, color: HOLY })
+      shake(0.8)
       dealDamage(sim, null, d, 1e12, { type: 'true', canCrit: false } as Parameters<typeof dealDamage>[4])
       break
     case 'flee':
-      // They go the way they came: up and out over the edge of the picture, not one look at the hero in the snow.
+      // They walk off calmly, one each way, the pack at the beast caller's heels, not one look at the hero in the snow.
       c.fled = true
-      leap(c, c.mage, c.land.mage.x - ENTRY_RUN, c.land.mage.z + ENTRY_RUN * 0.5, t, 1.3, 14, 2, false, true)
-      leap(c, c.beast, c.land.beast.x + ENTRY_RUN, c.land.beast.z + ENTRY_RUN * 0.5, t, 1.3, 14, 2, false, true)
+      walk(c, c.mage, c.land.mage.x - 14, c.land.mage.z + 7, t, 5.2)
+      walk(c, c.beast, c.land.beast.x + 14, c.land.beast.z + 7, t, 5.2)
+      // The opening level starts building now, behind the film.
+      if (bootRun && !building) building = buildFirstLevel()
+      break
+    case 'rise':
+      // The one in the snow gets up, as the screen goes dark.
+      removeStatus(c.hero, 'knockdown')
+      c.hero.anim = 'idle'
       break
   }
+}
+
+/** A walk: a straight line at a steady pace, in the unit's walk. */
+const walk = (c: Cast, u: Unit, tx: number, tz: number, t: number, dur: number): void => {
+  c.leaps = c.leaps.filter(l => l.u !== u)
+  c.leaps.push({ walk: true, u, fx: u.x, fz: u.z, tx, tz, t0: t, dur, high: 0, flips: 0, land: false, done: false })
 }
 
 /** The leaps: positions along each arc, the drawn body lifted and turned, and a hero's landing at the end. */
@@ -375,8 +318,9 @@ const stepLeaps = (m: ZoneMode, c: Cast, t: number): void => {
     u.x = u.px = l.fx + (l.tx - l.fx) * k
     u.z = u.pz = l.fz + (l.tz - l.fz) * k
     u.facing = Math.atan2(l.tx - l.fx, l.tz - l.fz)
-    u.anim = 'idle'
+    u.anim = l.walk && k < 1 ? 'walk' : 'idle'
     u.action = null
+    if (l.walk) { u.stunt = undefined; if (k >= 1) l.done = true; continue }
     u.stunt = { lift: l.exit ? l.high * k * k : l.high * 4 * k * (1 - k), flip: Math.min(1, Math.max(0, (k - 0.12) / 0.7)) * l.flips % (l.flips + 0.0001) }
     if (l.flips > 1) u.stunt.flip = Math.min(1, Math.max(0, (k - 0.1) / 0.75)) * l.flips
     if (k >= 1) {
@@ -400,6 +344,18 @@ const stepPack = (m: ZoneMode, c: Cast, t: number, dt: number): void => {
   const d = c.dragon
   c.pack.forEach((mn, i) => {
     if (!mn.alive) return
+    if (!d.alive) {
+      // The drake is down: the pack trots after the beast caller, in her wake.
+      const b = c.beast
+      const tx = b.x - 1.1 * (1 + (i % 3)) + (i - 2) * 0.5
+      const tz = b.z - 0.9 * (1 + Math.floor(i / 3))
+      const dx = tx - mn.x
+      const dz = tz - mn.z
+      const dist = Math.hypot(dx, dz)
+      const sp = Math.min(dist, 5 * dt)
+      if (dist > 0.05) { mn.x = mn.px = mn.x + (dx / dist) * sp; mn.z = mn.pz = mn.z + (dz / dist) * sp; mn.facing = Math.atan2(dx, dz); mn.anim = 'walk' } else mn.anim = 'idle'
+      return
+    }
     // Each takes a place on the drake's near side (it keeps its own, as in a fight) and goes at it flat out.
     const side = i - (c.pack.length - 1) / 2
     const tx = d.x + side * 1.8
@@ -413,14 +369,14 @@ const stepPack = (m: ZoneMode, c: Cast, t: number, dt: number): void => {
     if (dist > 0.9) { mn.anim = 'walk'; return }
     // A bite: the animal lunges in and back, the drake is struck (flinch, impact, step back).
     const gap = t - (c.bite[i] ?? 0)
-    if (gap > 0.62 + (i % 3) * 0.1) {
+    if (gap > 1.05 + (i % 3) * 0.15) {
       c.bite[i] = t
       mn.anim = 'attack'
       mn.animT = 0
       mn.x = mn.px = mn.x + Math.sin(mn.facing) * 0.45
       mn.z = mn.pz = mn.z + Math.cos(mn.facing) * 0.45
       sim.emit({ t: 'fx', id: 'burst:bolt', x: d.x + (mn.x - d.x) * 0.6, z: d.z + (mn.z - d.z) * 0.6, r: 1.5, color: '#7ff0a0' })
-      hit(sim, c, 6, 'physical', mn, mn.kind === 'packBear')
+      if (i % 2 === 0) hit(sim, c, 6, 'physical', mn, false)
     } else if (gap > 0.2) mn.anim = 'idle'
   })
 }
@@ -436,16 +392,21 @@ export const prepareIntro = async (onProgress: (p01: number) => void = () => {})
   return m
 }
 
+const FILM_SOUNDS: ReadonlySet<string> = new Set(['roar', 'summon', 'hit', 'hitHeavy', 'hitBlunt', 'deathBig'])
+
 /** At most a few sounds at once, and one of a kind at a time: a film of spells is not a wall of noise. */
 const soundGate = (): ((name: string) => boolean) => {
   const last = new Map<string, number>()
   let windowAt = 0
   let inWindow = 0
   return (name) => {
+    // Only the few sounds the film is made of: a roar, the pack, blows, the fall. Everything else the scene's own events
+    // would ask for (casts, impacts of every element, footsteps of a pack) stays silent.
+    if (!FILM_SOUNDS.has(name)) return false
     const now = performance.now()
-    if (now - (last.get(name) ?? -1e9) < 140) return false
-    if (now - windowAt > 160) { windowAt = now; inWindow = 0 }
-    if (inWindow >= 3) return false
+    if (now - (last.get(name) ?? -1e9) < 350) return false
+    if (now - windowAt > 300) { windowAt = now; inWindow = 0 }
+    if (inWindow >= 2) return false
     inWindow++
     last.set(name, now)
     return true
@@ -476,6 +437,8 @@ export const runIntro = (next: GameMode | null = null): Promise<void> => new Pro
   let shown = !!pre
   const boot = !!pre
   introBoot.value = false
+  bootRun = boot
+  building = null
   setSfxGate(soundGate())
   let over = false
   let raf = 0
@@ -503,7 +466,8 @@ export const runIntro = (next: GameMode | null = null): Promise<void> => new Pro
       hud.phase = prevPhase
       introView.veil = 1
       introView.label = 1
-      void startFirstLevel().catch((e) => console.warn('[intro] the opening level could not be built', e)).finally(() => {
+      const ready = building ? building.then((lvl) => enterFirstLevel(lvl)) : startFirstLevel()
+      void ready.catch((e) => console.warn('[intro] the opening level could not be built', e)).finally(() => {
         // The black lifts off the opening level over a third of a second.
         let k = 1
         const lift = window.setInterval(() => {
@@ -581,7 +545,7 @@ export const runIntro = (next: GameMode | null = null): Promise<void> => new Pro
       }
       while (beat < INTRO_ACTS.length && t >= INTRO_ACTS[beat]!.at) {
         const b = INTRO_ACTS[beat++]!
-        play(m, cast, t, b.act)
+        play(m, cast, t, b.act, b.who)
       }
       stepLeaps(m, cast, t)
       stepPack(m, cast, t, dt)

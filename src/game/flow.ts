@@ -519,6 +519,10 @@ export const createBootMode = async (onProgress: (p01: number) => void = () => {
   return mode
 }
 
+/** The opening level, built while the film plays (#189) and entered when it is over. */
+export const buildFirstLevel = (): ReturnType<typeof buildNode> => buildNode('plains', () => {})
+export const enterFirstLevel = (mode: Awaited<ReturnType<typeof buildNode>>): void => enter('plains', mode)
+
 /** The opening level, built behind the intro's last black and taking over from its scene (#189). */
 export const startFirstLevel = async (): Promise<void> => {
   const mode = await buildNode('plains', () => {})
