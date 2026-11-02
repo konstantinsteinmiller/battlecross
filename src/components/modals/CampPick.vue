@@ -27,8 +27,9 @@
       //- The skill in hand, as the teachers' own card shows it.
       div.pick__card-in-hand(v-if="seen")
         SkillCard(:id="seen")
-      div.pick__actions
-        FButton(:label="t('camp.pick.go', { name: goName })" type="success" :is-disabled="!sel" @click="go")
+    //- Pinned under the scroll once a skill is chosen (#193 follow-up): on a landscape phone the button was below the fold.
+    template(#footer v-if="sel")
+      FButton(:label="t('camp.pick.go', { name: goName })" type="success" @click="go")
 </template>
 
 <script setup lang="ts">
@@ -186,7 +187,4 @@ void lesson
 .pick__card-in-hand
   max-height: 11rem
   overflow: auto
-.pick__actions
-  display: flex
-  justify-content: center
 </style>
