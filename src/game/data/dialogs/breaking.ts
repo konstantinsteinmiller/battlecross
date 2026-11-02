@@ -56,7 +56,7 @@ const priest = beat('story.priest', 'lens', { name: 'npc.sunkenPriest.name', loo
 const herbs = beat('story.herbs', 'scale', { name: 'npc.freedHerbalist.name', look: 'freedHerbalist', voice: 'freedHerbalist', mood: 'warm' })
 /** B9: the Arch-Demon's ghost (the throne was claimed) or the Syndicate's boss, with the Hydra's fire key. */
 const ghost = beat('story.ghost', 'key', { name: 'enemy.archDemon', look: 'archDemon', voice: 'archDemon', mood: 'cold' })
-const syndicate = beat('story.syndicate', 'key', { name: 'npc.syndicateBoss.name', look: 'fence', voice: 'syndicateBoss', mood: 'sly' })
+const syndicate = beat('story.syndicate', 'key', { name: 'npc.syndicateBoss.name', look: 'syndicateBoss', voice: 'syndicateBoss', mood: 'sly' })
 /** B10: seal the rift, or keep it ajar — the storyteller asks. */
 const seal = decision(SEAL_QUEST, { name: 'intro.narrator', voice: 'chronicler', mood: 'grave', ask: 'nnn', results: { seal: 'n', ajar: 'n' } })
 /** B10's epilogue, as it was chosen. */

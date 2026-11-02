@@ -34,7 +34,7 @@ const captainHale = conversation('captainHale', {
 
 /** Odo the Armorer, while the siege lasts: harried, short of everything. */
 const oakArmorer = conversation('oakArmorer', {
-  name: 'npc.oakArmorer.name', look: 'smith', mood: 'weary',
+  name: 'npc.oakArmorer.name', look: 'oakArmorer', mood: 'weary',
   greet: [
     { id: 'hello', when: { met: false }, lines: 'nn' },
     { id: 'again' }
@@ -53,7 +53,7 @@ const oakArmorer = conversation('oakArmorer', {
 
 /** Master Odo, in the town the hero saved: grateful, busy, sleepless. */
 const oakMasterArmorer = conversation('oakMasterArmorer', {
-  name: 'npc.oakMasterArmorer.name', look: 'smith', voice: 'oakArmorer', mood: 'warm',
+  name: 'npc.oakMasterArmorer.name', look: 'oakArmorer', voice: 'oakArmorer', mood: 'warm',
   greet: [
     { id: 'hello', when: { met: false }, lines: 'nn', mood: 'excited' },
     news('ending', { flags: ['throneDone'] }, { mood: 'proud' }),
@@ -75,7 +75,7 @@ const oakMasterArmorer = conversation('oakMasterArmorer', {
 
 /** Senna Blades: sells edges to whoever pays, and has outlived most of them. */
 const oakWeapons = conversation('oakWeapons', {
-  name: 'npc.oakWeapons.name', look: 'peddler', mood: 'cold',
+  name: 'npc.oakWeapons.name', look: 'oakWeapons', mood: 'cold',
   greet: [
     { id: 'hello', when: { met: false }, lines: 'nn' },
     news('saved', { flags: ['oakhavenSaved'] }, { mood: 'sly' }),
@@ -135,7 +135,7 @@ const trainerSovereign = conversation('trainerSovereign', {
 
 /** Brother Fenn: forty wounded on the wall and one of him. Cheerful about it. */
 const oakHealer = conversation('oakHealer', {
-  name: 'npc.oakHealer.name', look: 'healer', mood: 'amused',
+  name: 'npc.oakHealer.name', look: 'oakHealer', mood: 'amused',
   greet: [
     { id: 'hello', when: { met: false }, lines: 'nn' },
     news('saved', { flags: ['oakhavenSaved'] }),
@@ -201,7 +201,7 @@ const trainerBlood = conversation('trainerBlood', {
 
 /** Madam Ash: the Syndicate's hand in Oakhaven. Smooth, patient, dangerous. */
 const syndicateBoss = conversation('syndicateBoss', {
-  name: 'npc.syndicateBoss.name', look: 'fence', mood: 'sly',
+  name: 'npc.syndicateBoss.name', look: 'syndicateBoss', mood: 'sly',
   greet: [
     { id: 'hello', when: { met: false }, lines: 'nn' },
     news('throneOurs', { flags: ['endSyndicate'] }, { mood: 'proud' }),

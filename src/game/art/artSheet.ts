@@ -84,6 +84,8 @@ const PEOPLE_LOOKS_A = ['scoutWren', 'sunkenPriest', 'mysteriousWanderer', 'mayo
 const PEOPLE_LOOKS_B = ['sbCollector', 'sbFence', 'sbGambler', 'sbAlchemist', 'sbHealer', 'sbArmorer', 'sbWeapons', 'sbJeweler', 'merchantF'] as const
 /** The old storyteller of the intro and the Void Rift's seal (#172). */
 const PEOPLE_LOOKS_D = ['chronicler'] as const
+/** The shops, healers and smiths that shared a face with another (the portrait pass): one each now. */
+const PEOPLE_LOOKS_E = ['oakArmorer', 'ironArmor', 'ironOrderArmor', 'oakWeapons', 'oakHealer', 'ironHealer', 'ironWeapons', 'syndicateBoss'] as const
 const PEOPLE_LOOKS_C = ['sunfordGambler', 'sunfordCups', 'fairPip', 'fairBess', 'fairHob', 'oakGambler', 'miner'] as const
 /** Shipped townsfolk shown as the finish to match, never as a face to copy. */
 const PEOPLE_FINISH = ['public/images/portraits/elder.webp', 'public/images/portraits/healer.webp'] as const
@@ -96,7 +98,7 @@ const HERO_F_LOOKS: readonly string[] = HERO_OUTFITS.map(o => heroPortraitId(o, 
 export const ART_CATALOGUE: Readonly<Record<ArtKind, readonly string[]>> = {
   items: [...ITEMS, ...SMITHED, ...MYTHICS].map(i => i.id),
   skills: CLASS_IDS.flatMap(c => [...skillsOf(c), ...endgameOf(c)].map(s => s.id)),
-  portraits: [...TOWN_LOOKS, ...TRAINER_LOOKS, ...MASTER_LOOKS_A, ...MASTER_LOOKS_B, ...SPEAKER_LOOKS, ...PEOPLE_LOOKS_A, ...PEOPLE_LOOKS_B, ...PEOPLE_LOOKS_C, ...PEOPLE_LOOKS_D, ...HERO_LOOKS, ...HERO_F_LOOKS],
+  portraits: [...TOWN_LOOKS, ...TRAINER_LOOKS, ...MASTER_LOOKS_A, ...MASTER_LOOKS_B, ...SPEAKER_LOOKS, ...PEOPLE_LOOKS_A, ...PEOPLE_LOOKS_B, ...PEOPLE_LOOKS_C, ...PEOPLE_LOOKS_D, ...PEOPLE_LOOKS_E, ...HERO_LOOKS, ...HERO_F_LOOKS],
   // ... and the border-inset ornaments of the cel interface (`ORNAMENTS`).
   ui: ['coin', 'cup', 'map', 'bg-trade', 'bg-inventory', 'bg-skills', 'bg-forge', 'bg-alchemy', 'bg-ore', ...ORNAMENTS.map(o => o.id), ...Object.keys(BAR_FRAME_REFS)],
   textures: ['ground'],
@@ -731,6 +733,14 @@ const SKILL_BLURBS: Readonly<Record<string, string>> = {
 }
 
 const PORTRAIT_BLURBS: Readonly<Record<string, string>> = {
+  oakArmorer: 'a short-haired armourer woman with silver-grey hair, tan skin and a worn brown leather work apron with a bronze collar line',
+  ironArmor: 'a stocky dwarf woman with long chestnut hair, ruddy skin and a slate-blue work apron with a gold collar line',
+  ironOrderArmor: 'a stern armourer with short black hair and a black beard, fair skin and a white-and-silver work apron with a gold collar line',
+  oakWeapons: 'a lean weapon seller with a red bandana over dark-red hair, fair skin and a brown tunic with a bronze collar line',
+  oakHealer: 'an elderly bald healer with a white beard, fair skin and a pale sage-green robe with a green collar line',
+  ironHealer: 'a dwarf healer woman with long pink hair, ruddy skin and a white-blue robe with a pale-blue collar line',
+  ironWeapons: 'a broad dwarf weaponsmith with spiky black hair and a thick black beard, ruddy skin and a dark-red work apron with a gold collar line',
+  syndicateBoss: 'a crime boss in a wide dark-purple hat with a gold band, tan skin, a burgundy coat with a gold collar line and a black cape',
   smith: 'a bald, broad-faced blacksmith with a thick brown beard, tan skin and a brown work apron',
   peddler: 'a travelling merchant with a peaked rust-brown cap, fair skin and a green tunic',
   elder: 'an old village elder with long white hair, a long white beard, pale skin and a dusty-violet robe',
@@ -1229,6 +1239,7 @@ export const SETS: readonly ArtSet[] = [
   { ...portraitSet('sheet-portraits-people-2', 'Portraits: Silverbridge traders', PEOPLE_LOOKS_B, 3, 3), styleRefs: PEOPLE_FINISH },
   { ...portraitSet('sheet-portraits-people-3', 'Portraits: gamblers, the fair and the mines', PEOPLE_LOOKS_C, 3, 3), styleRefs: PEOPLE_FINISH },
   { ...portraitSet('sheet-portraits-people-4', 'Portraits: the chronicler', PEOPLE_LOOKS_D, 1, 1), styleRefs: PEOPLE_FINISH },
+  { ...portraitSet('sheet-portraits-people-5', 'Portraits: the smiths, healers and shops of Oakhaven and Ironhold', PEOPLE_LOOKS_E, 4, 2), styleRefs: PEOPLE_FINISH },
   {
     ...portraitSet('sheet-portraits-hero', 'Portraits: the hero, per outfit', HERO_LOOKS, 2, 2),
     // Four paintings of ONE face, shown as the same player all game: a face

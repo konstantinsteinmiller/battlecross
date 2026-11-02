@@ -41,7 +41,7 @@ const forgemaster = conversation('forgemaster', {
 
 /** Hilda Hammerhand: dwarf-forged, every piece, and she will tell you so. */
 const ironWeapons = conversation('ironWeapons', {
-  name: 'npc.ironWeapons.name', look: 'dwarf', mood: 'proud',
+  name: 'npc.ironWeapons.name', look: 'ironWeapons', mood: 'proud',
   greet: [
     { id: 'hello', when: { met: false }, lines: 'nn' },
     news('dragon', { flags: ['dragonSlain'] }, { mood: 'excited' }),
@@ -79,7 +79,7 @@ const ironAetherWorks = conversation('ironAetherWorks', {
 
 /** Garrun Ironside: armour, rings, and as few words as will do. */
 const ironArmor = conversation('ironArmor', {
-  name: 'npc.ironArmor.name', look: 'smith', mood: 'gruff',
+  name: 'npc.ironArmor.name', look: 'ironArmor', mood: 'gruff',
   greet: [
     { id: 'hello', when: { met: false } },
     { id: 'again' }
@@ -100,7 +100,7 @@ const ironArmor = conversation('ironArmor', {
 
 /** The Order's Quartermaster: clipped, correct, and not allowed to joke. */
 const ironOrderArmor = conversation('ironOrderArmor', {
-  name: 'npc.ironOrderArmor.name', look: 'smith', mood: 'cold',
+  name: 'npc.ironOrderArmor.name', look: 'ironOrderArmor', mood: 'cold',
   greet: [
     { id: 'hello', when: { met: false }, lines: 'nn' },
     news('throneOurs', { flags: ['endOrder'] }, { mood: 'proud' }),
@@ -160,7 +160,7 @@ const trainerAether = conversation('trainerAether', {
 
 /** Mother Brynja: has set every broken bone in the mountain twice. */
 const ironHealer = conversation('ironHealer', {
-  name: 'npc.ironHealer.name', look: 'healer', mood: 'gruff',
+  name: 'npc.ironHealer.name', look: 'ironHealer', mood: 'gruff',
   greet: [
     { id: 'hello', when: { met: false }, lines: 'nn' },
     news('ending', { flags: ['throneDone'] }, { mood: 'warm' }),

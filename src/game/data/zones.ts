@@ -459,14 +459,14 @@ export const TOWNS: Readonly<Record<TownId, TownDef>> = {
       { id: 'windDisciple', role: 'trainer', look: 'windDisciple', at: [0.62, 0.86], place: 'street', job: 'villager', cls: 'windrunner', needs: ['freedWindDisciple'] },
       { id: 'captainHale', role: 'quest', look: 'captain', at: [0.82, 0.15], place: 'yard', house: 'hall', job: 'captain', quest: 'siege', not: ['oakhavenFallen'] },
       // Defended: a prosperous trade hub with high-tier armourers.
-      { id: 'oakArmorer', role: 'shop', look: 'smith', at: [0.12, 0.48], place: 'porch', house: 'workshop', job: 'smith', stock: { slots: ['head', 'body', 'hands', 'feet', 'off'], tiers: [2, 3] }, not: ['oakhavenFallen', 'oakhavenSaved'] },
-      { id: 'oakMasterArmorer', role: 'shop', look: 'smith', at: [0.12, 0.48], place: 'porch', house: 'workshop', job: 'smith', stock: { slots: ['head', 'body', 'hands', 'feet', 'off'], tiers: [2, 3, 4, 5] }, needs: ['oakhavenSaved'] },
-      { id: 'oakWeapons', role: 'shop', look: 'peddler', at: [0.3, 0.48], place: 'inside', house: 'townhouse', job: 'merchant', stock: { slots: ['main'], tiers: [2, 3] }, not: ['oakhavenFallen'] },
+      { id: 'oakArmorer', role: 'shop', look: 'oakArmorer', at: [0.12, 0.48], place: 'porch', house: 'workshop', job: 'smith', stock: { slots: ['head', 'body', 'hands', 'feet', 'off'], tiers: [2, 3] }, not: ['oakhavenFallen', 'oakhavenSaved'] },
+      { id: 'oakMasterArmorer', role: 'shop', look: 'oakArmorer', at: [0.12, 0.48], place: 'porch', house: 'workshop', job: 'smith', stock: { slots: ['head', 'body', 'hands', 'feet', 'off'], tiers: [2, 3, 4, 5] }, needs: ['oakhavenSaved'] },
+      { id: 'oakWeapons', role: 'shop', look: 'oakWeapons', at: [0.3, 0.48], place: 'inside', house: 'townhouse', job: 'merchant', stock: { slots: ['main'], tiers: [2, 3] }, not: ['oakhavenFallen'] },
       { id: 'trainerShadow', role: 'trainer', look: 'trainerShadow', at: [0.86, 0.48], place: 'inside', house: 'townhouse', cls: 'shadow' },
       { id: 'trainerSovereign', role: 'trainer', look: 'trainerSovereign', at: [0.5, 0.15], place: 'inside', house: 'hall', cls: 'sovereign', not: ['oakhavenFallen'] },
       // The item battle (#92): he plays on whatever becomes of the town.
       { id: 'oakGambler', role: 'gambler', look: 'oakGambler', at: [0.34, 0.74], place: 'street', job: 'merchant', game: 'items' },
-      { id: 'oakHealer', role: 'healer', look: 'healer', at: [0.18, 0.15], place: 'inside', house: 'chapel', not: ['oakhavenFallen'] },
+      { id: 'oakHealer', role: 'healer', look: 'oakHealer', at: [0.18, 0.15], place: 'inside', house: 'chapel', not: ['oakhavenFallen'] },
       // Betrayed: a ruin with a black market, and the alchemist it shelters in
       // what was the healer's chapel.
       // Sunford's other townsfolk (#167): the first town keeps only its teachers, so its peddlers, its
@@ -479,7 +479,7 @@ export const TOWNS: Readonly<Record<TownId, TownDef>> = {
       { id: 'goblinTrader', role: 'shop', look: 'goblinTrader', at: [0.5, 0.34], place: 'street', job: 'merchant', stock: { slots: ['trinket', 'off'], tiers: [2, 3] }, needs: ['goblinPact'] },
       { id: 'blackMarket', role: 'shop', look: 'fence', at: [0.36, 0.4], place: 'street', job: 'fence', stock: { slots: ['main', 'trinket'], tiers: [2, 3, 4] }, needs: ['oakhavenFallen'] },
       { id: 'trainerBlood', role: 'trainer', look: 'trainerBlood', at: [0.18, 0.15], place: 'inside', house: 'chapel', cls: 'blood', needs: ['oakhavenFallen'] },
-      { id: 'syndicateBoss', role: 'talk', look: 'fence', at: [0.6, 0.42], place: 'street', job: 'boss', needs: ['oakhavenFallen'] }
+      { id: 'syndicateBoss', role: 'talk', look: 'syndicateBoss', at: [0.6, 0.42], place: 'street', job: 'boss', needs: ['oakhavenFallen'] }
     ],
     houses: [{ kind: 'tavern', at: [0.78, 0.76], inside: true }],
     folk: [
@@ -512,15 +512,15 @@ export const TOWNS: Readonly<Record<TownId, TownDef>> = {
       // Freed from the tundra's cage (#100): a disciple of the frost.
       { id: 'frostDisciple', role: 'trainer', look: 'frostDisciple', at: [0.5, 0.62], place: 'street', job: 'knight', cls: 'frostwarden', needs: ['freedFrostDisciple'] },
       { id: 'forgemaster', role: 'quest', look: 'dwarf', at: [0.5, 0.15], place: 'porch', house: 'workshop', job: 'smith', quest: 'core' },
-      { id: 'ironWeapons', role: 'shop', look: 'dwarf', at: [0.28, 0.48], place: 'porch', house: 'workshop', job: 'smith', stock: { slots: ['main', 'off'], tiers: [3, 4] }, not: ['coreCircle'] },
+      { id: 'ironWeapons', role: 'shop', look: 'ironWeapons', at: [0.28, 0.48], place: 'porch', house: 'workshop', job: 'smith', stock: { slots: ['main', 'off'], tiers: [3, 4] }, not: ['coreCircle'] },
       // The Circle's study of the core arms the town with aether-works.
       { id: 'ironAetherWorks', role: 'shop', look: 'tinker', at: [0.28, 0.48], place: 'porch', house: 'workshop', job: 'tinker', stock: { slots: ['main', 'off'], tiers: [3, 4, 5] }, needs: ['coreCircle'] },
-      { id: 'ironArmor', role: 'shop', look: 'smith', at: [0.78, 0.48], place: 'porch', house: 'workshop', job: 'smith', stock: { slots: ['head', 'body', 'hands', 'feet', 'trinket'], tiers: [3, 4] }, not: ['coreOrder'] },
+      { id: 'ironArmor', role: 'shop', look: 'ironArmor', at: [0.78, 0.48], place: 'porch', house: 'workshop', job: 'smith', stock: { slots: ['head', 'body', 'hands', 'feet', 'trinket'], tiers: [3, 4] }, not: ['coreOrder'] },
       // The Order's thanks: its own armourers move in.
-      { id: 'ironOrderArmor', role: 'shop', look: 'smith', at: [0.78, 0.48], place: 'porch', house: 'workshop', job: 'smith', stock: { slots: ['head', 'body', 'hands', 'feet', 'trinket'], tiers: [3, 4, 5] }, needs: ['coreOrder'] },
+      { id: 'ironOrderArmor', role: 'shop', look: 'ironOrderArmor', at: [0.78, 0.48], place: 'porch', house: 'workshop', job: 'smith', stock: { slots: ['head', 'body', 'hands', 'feet', 'trinket'], tiers: [3, 4, 5] }, needs: ['coreOrder'] },
       { id: 'trainerGeo', role: 'trainer', look: 'trainerGeo', at: [0.18, 0.15], place: 'yard', house: 'hall', cls: 'geo' },
       { id: 'trainerAether', role: 'trainer', look: 'trainerAether', at: [0.82, 0.15], place: 'inside', house: 'hall', cls: 'aether' },
-      { id: 'ironHealer', role: 'healer', look: 'healer', at: [0.08, 0.48], place: 'inside', house: 'chapel' },
+      { id: 'ironHealer', role: 'healer', look: 'ironHealer', at: [0.08, 0.48], place: 'inside', house: 'chapel' },
       // Oakhaven's exiled lord teaches from here once his town has fallen.
       { id: 'exiledSovereign', role: 'trainer', look: 'trainerSovereign', at: [0.8, 0.76], place: 'porch', house: 'townhouse', cls: 'sovereign', needs: ['oakhavenFallen'] }
     ],

@@ -165,6 +165,15 @@ export const LOOKS: Readonly<Record<string, Look>> = {
   // The armourer: a sturdy mountain woman in a leather apron, red hair tied up, a hammer.
   sbArmorer: L({ skin: '#e2a888', top: '#7a3a2a', bottom: '#4a3424', head: 'bun', hair: '#c9483a', outfit: 'apron', held: 'hammer', trim: '#c9a24a', bulk: 1.15, metal: '#b9c4d6' }),
   // The weaponsmith: a dandy in burgundy and gold, a short cape, a gleaming sword.
+  // Each shop, healer and smith of the towns has a face of their own (portrait pass): the ones that shared a look with another.
+  oakArmorer: L({ skin: '#d9a47e', top: '#6a5a44', bottom: '#4a3b34', head: 'short', hair: '#9a9aa4', outfit: 'apron', held: 'hammer', trim: '#8a6a3a', bulk: 1.05, metal: '#8a8fa0' }),
+  ironArmor: L({ skin: '#e2a888', top: '#4a5a6a', bottom: '#3a4a54', head: 'long', hair: '#6a4a2a', outfit: 'apron', held: 'hammer', trim: '#c9a24a', bulk: 1.15, metal: '#b9c4d6' }),
+  ironOrderArmor: L({ skin: '#e8c4a4', top: '#c9d3e4', bottom: '#5a6a8a', head: 'short', hair: '#2a2a3a', outfit: 'apron', held: 'hammer', beard: '#2a2a3a', trim: '#ffd24a', bulk: 1.1, metal: '#f4f8ff' }),
+  oakWeapons: L({ skin: '#e2b08a', top: '#6a4a34', bottom: '#3a3024', head: 'bandana', hair: '#a02a2a', outfit: 'tunic', held: 'sword', trim: '#c9a24a', metal: '#d8e0ee' }),
+  oakHealer: L({ skin: '#e8c4a4', top: '#cfd8c8', bottom: '#a8b0a0', head: 'bald', hair: '#e8e8f0', outfit: 'robe', held: 'staff', beard: '#e8e8f0', trim: '#67e08a', glow: '#8dff9a' }),
+  ironHealer: L({ skin: '#e2a888', top: '#e8f0f4', bottom: '#b8c8d4', head: 'long', hair: '#e8a8c8', outfit: 'robe', held: 'none', off: 'orb', trim: '#67c8e0', glow: '#8de8ff', bulk: 1.1 }),
+  ironWeapons: L({ skin: '#e2a888', top: '#7a2a1a', bottom: '#3a2a24', head: 'spiky', hair: '#2a2a2a', outfit: 'apron', held: 'hammer', beard: '#2a2a2a', trim: '#c9a24a', bulk: 1.18, metal: '#b9c4d6' }),
+  syndicateBoss: L({ skin: '#c9906e', top: '#5a1a2a', bottom: '#2a1420', head: 'hat', hair: '#1c1020', outfit: 'tunic', held: 'none', off: 'none', trim: '#ffd24a', cape: '#1c1020' }),
   sbWeapons: L({ skin: '#e8c4a4', top: '#7a1f3a', bottom: '#2a2030', head: 'short', hair: '#1c1418', outfit: 'tunic', held: 'sword', trim: '#ffd24a', cape: '#2a1c3a', metal: '#f4f8ff' }),
   // The trinket kid: a patched green tunic, a leather cap over ginger hair, a pouch-orb of charms.
   sbJeweler: L({ skin: '#f2c8a0', top: '#5f9a4a', bottom: '#6a5a44', head: 'leathercap', hair: '#d8783a', style: 'spiky', headCol: '#8a5f3a', outfit: 'tunic', held: 'none', off: 'orb', trim: '#ffd24a', glow: '#ffe07a' }),
