@@ -45,7 +45,25 @@ const MODEL = a.model ?? 'eleven_multilingual_v2'
 // Slow and grave with room to colour each line; a little style for the charm.
 const SETTINGS = { stability: 0.42, similarity_boost: 0.8, style: 0.35, use_speaker_boost: true, speed: 0.92 }
 
-const lines = VOICE_LINES.filter(l => l.key.startsWith('dlg.intro.'))
+// `--prefix dlg.bark.` (#187): other lines by the same route, each speaker in a premade voice of their own.
+const PREFIX = a.prefix ?? 'dlg.intro.'
+const SPEAKER_VOICE = {
+  hero: 'TX3LPaxmHKxFdv7VOQHJ', // Liam
+  trainerPyro: 'EXAVITQu4vr4xnSDxMaL', // Sarah
+  sbMasterSoulwarden: 'onwK4e9ZLuTAKqWW03F9', // Daniel
+  sbMasterIronmonk: 'IKne3meq5aSn9XLyUdCD' // Charlie
+}
+// The owner's picks (#187): Brian (en) / Liam (de) the pyromancer, Liam (de) / Bill (en) the monk.
+const PICK = {
+  'en/dlg.bark.sbMasterSoulwarden.help.1': 'FGY2WhTYpPnrIDTdsKH5', // Laura
+  'de/dlg.bark.sbMasterSoulwarden.help.1': 'Xb7hH8MSUJpSbSDYk0k2', // Alice
+  'en/dlg.bark.trainerPyro.help.1': 'nPczCjzI2devNBz1zQrb', // Brian
+  'de/dlg.bark.trainerPyro.help.1': 'TX3LPaxmHKxFdv7VOQHJ', // Liam
+  'en/dlg.bark.sbMasterIronmonk.help.1': 'pqHfZKP75CvOlQylNhV4', // Bill
+  'de/dlg.bark.sbMasterIronmonk.help.1': 'TX3LPaxmHKxFdv7VOQHJ' // Liam
+}
+const voiceOf = (speaker, key) => (PREFIX === 'dlg.intro.' || a.voice ? VOICE : PICK[lang + '/' + key] ?? (key.endsWith('__f') ? 'FGY2WhTYpPnrIDTdsKH5' /* Laura */ : SPEAKER_VOICE[speaker] ?? VOICE))
+const lines = VOICE_LINES.filter(l => (a.only ? new RegExp(a.only).test(l.key) : l.key.startsWith(PREFIX)))
 if (!lines.length) throw new Error('no dlg.intro.* lines in data/voice-manifest.json: run `pnpm voice:manifest` first')
 
 const jobs = lines.map((l) => {
@@ -79,7 +97,7 @@ const book = existsSync(bookFile) ? JSON.parse(readFileSync(bookFile, 'utf8')) :
 const day = new Date().toISOString().slice(0, 10)
 
 for (const j of jobs) {
-  const res = await fetch(`https://api.elevenlabs.io/v1/text-to-speech/${VOICE}?output_format=mp3_44100_128`, {
+  const res = await fetch(`https://api.elevenlabs.io/v1/text-to-speech/${voiceOf(j.speaker, j.key)}?output_format=mp3_44100_128`, {
     method: 'POST',
     headers: { 'xi-api-key': KEY, 'content-type': 'application/json', accept: 'audio/mpeg' },
     body: JSON.stringify({ text: j.text, model_id: MODEL, voice_settings: SETTINGS })

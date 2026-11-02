@@ -7538,6 +7538,7 @@ export default {
     broodSpider: 'Arañiña',
     outlawCaptain: 'Capitán Proscrito',
     elderTreant: 'Árbore Vivente Anciá',
+    groveShaman: 'Chamán do souto',
     warlord: 'Caudillo Krag',
     fireElemental: 'Elemental de Lume',
     ironGolem: 'Gólem de Ferro',

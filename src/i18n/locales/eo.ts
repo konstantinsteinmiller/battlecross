@@ -7486,6 +7486,7 @@ export default {
     broodSpider: 'Araneido',
     outlawCaptain: 'Kapitano de Eksterleĝuloj',
     elderTreant: 'Praa Arbulo',
+    groveShaman: 'Ŝamano de la arbaro',
     warlord: 'Militestro Krag',
     fireElemental: 'Fajra Elementulo',
     ironGolem: 'Fera Golemo',

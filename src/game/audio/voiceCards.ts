@@ -151,6 +151,15 @@ export const CARDS: Readonly<Record<string, VoiceCard>> = {
     reference: "Oh, a student? Lovely! I'm Ember Wren, and I teach fire. Mostly it does what I ask. Watch my hands, keep your sleeves back, and maybe stand a little further away.",
     notes: ''
   }),
+  // The pyromancer's cry from the cage (#187) is a man's voice (the owner's call), not Ember Wren's: a card of its own.
+  pyroCry: card({
+    name: 'The caged pyromancer', gender: 'male', age: 'late 20s', pitch: 'mid', pace: 'brisk',
+    timbre: 'bright, hoarse from shouting',
+    personality: 'A fire mage, cheerful and a little reckless, now scared in a cage.',
+    design: 'A man in his late twenties with a bright, slightly hoarse voice, shouting for help in fear but still half-laughing at his own bad luck.',
+    reference: "Oh, a student? Lovely! I'm Ember, and I teach fire. Mostly it does what I ask. Watch my hands, keep your sleeves back, and maybe stand a little further away.",
+    notes: 'Only the cry for help in the tutorial cage; the pyromancer trainer elsewhere keeps her own card.'
+  }),
   // ── Sunford's newer teachers (#106) ──
   sfShadow: card({
     name: 'Nettle Quickhand', gender: 'female', age: 'mid 30s', pitch: 'mid', pace: 'brisk',

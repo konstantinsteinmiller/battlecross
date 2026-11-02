@@ -7507,6 +7507,7 @@ export default {
     broodSpider: 'Brutling',
     outlawCaptain: 'Hauptmann der Gesetzlosen',
     elderTreant: 'Ur-Treant',
+    groveShaman: 'Hainschamane',
     warlord: 'Kriegsherr Krag',
     fireElemental: 'Feuerelementar',
     ironGolem: 'Eisengolem',

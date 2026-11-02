@@ -7535,6 +7535,7 @@ export default {
     broodSpider: 'Aranyeta',
     outlawCaptain: 'Capità Proscrit',
     elderTreant: 'Arbre Vivent Ancià',
+    groveShaman: 'Xaman del bosquet',
     warlord: 'Cabdill Krag',
     fireElemental: 'Elemental de Foc',
     ironGolem: 'Gòlem de Ferro',

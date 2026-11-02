@@ -7590,6 +7590,7 @@ export default {
     broodSpider: 'Паучонок',
     outlawCaptain: 'Атаман изгоев',
     elderTreant: 'Старший древень',
+    groveShaman: 'Шаман рощи',
     warlord: 'Военачальник Краг',
     fireElemental: 'Огненный элементаль',
     ironGolem: 'Железный голем',

@@ -7486,6 +7486,7 @@ export default {
     broodSpider: 'Oʻrgimchak bolasi',
     outlawCaptain: 'Qochoqlar sardori',
     elderTreant: 'Qadimiy daraxt odam',
+    groveShaman: 'O‘rmon shamani',
     warlord: 'Sarkarda Krag',
     fireElemental: 'Olov elementali',
     ironGolem: 'Temir golem',

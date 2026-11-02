@@ -7568,6 +7568,7 @@ export default {
     broodSpider: 'Ragnetto di covata',
     outlawCaptain: 'Capitano fuorilegge',
     elderTreant: 'Treant antico',
+    groveShaman: 'Sciamano del boschetto',
     warlord: 'Signore della guerra Krag',
     fireElemental: 'Elementale del fuoco',
     ironGolem: 'Golem di ferro',

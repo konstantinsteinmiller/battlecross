@@ -7561,6 +7561,7 @@ export default {
     broodSpider: 'Zirneklēns',
     outlawCaptain: 'Izstumto kapteinis',
     elderTreant: 'Vecais kokvīrs',
+    groveShaman: 'Birzs šamanis',
     warlord: 'Karavadonis Krags',
     fireElemental: 'Uguns elementālis',
     ironGolem: 'Dzelzs golems',

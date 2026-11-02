@@ -7486,6 +7486,7 @@ export default {
     broodSpider: '幼蛛',
     outlawCaptain: '亡命之徒隊長',
     elderTreant: '古樹人',
+    groveShaman: '林地薩滿',
     warlord: '軍閥克拉格',
     fireElemental: '火元素',
     ironGolem: '鐵魔像',

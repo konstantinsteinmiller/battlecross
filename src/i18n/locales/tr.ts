@@ -7486,6 +7486,7 @@ export default {
     broodSpider: 'Yavru Örümcek',
     outlawCaptain: 'Kanun Kaçağı Reisi',
     elderTreant: 'Kadim Ağaç Adam',
+    groveShaman: 'Koru Şamanı',
     warlord: 'Savaş Beyi Krag',
     fireElemental: 'Ateş Elementali',
     ironGolem: 'Demir Golem',

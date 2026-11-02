@@ -7530,6 +7530,7 @@ export default {
     broodSpider: 'Pui de Păianjen',
     outlawCaptain: 'Căpitan Proscris',
     elderTreant: 'Copac Umblător Bătrân',
+    groveShaman: 'Șamanul crângului',
     warlord: 'Războinicul Krag',
     fireElemental: 'Elemental de Foc',
     ironGolem: 'Golem de Fier',

@@ -7486,6 +7486,7 @@ export default {
     broodSpider: 'Pókfióka',
     outlawCaptain: 'Haramiakapitány',
     elderTreant: 'Ősi élőfa',
+    groveShaman: 'Ligeti sámán',
     warlord: 'Krag hadúr',
     fireElemental: 'Tűzelementál',
     ironGolem: 'Vasgólem',

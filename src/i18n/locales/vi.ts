@@ -7486,6 +7486,7 @@ export default {
     broodSpider: 'Nhện Con',
     outlawCaptain: 'Thủ Lĩnh Đạo Tặc',
     elderTreant: 'Thụ Nhân Cổ Thụ',
+    groveShaman: 'Pháp sư Rừng',
     warlord: 'Lãnh Chúa Krag',
     fireElemental: 'Tinh Linh Lửa',
     ironGolem: 'Golem Sắt',

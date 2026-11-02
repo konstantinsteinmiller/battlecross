@@ -7578,6 +7578,7 @@ export default {
     broodSpider: 'मकड़ी का बच्चा',
     outlawCaptain: 'बागियों का कप्तान',
     elderTreant: 'प्राचीन वृक्ष-दैत्य',
+    groveShaman: 'वन ओझा',
     warlord: 'युद्ध-सरदार क्रैग',
     fireElemental: 'अग्नि तत्व',
     ironGolem: 'लौह गोलेम',

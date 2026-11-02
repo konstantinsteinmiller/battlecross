@@ -7486,6 +7486,7 @@ export default {
     broodSpider: 'ลูกแมงมุม',
     outlawCaptain: 'หัวหน้าคนนอกกฎหมาย',
     elderTreant: 'ทรีแอนท์เฒ่า',
+    groveShaman: 'หมอผีแห่งป่า',
     warlord: 'ขุนศึกแคร็ก',
     fireElemental: 'ภูตไฟ',
     ironGolem: 'โกเลมเหล็ก',

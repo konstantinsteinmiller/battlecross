@@ -327,7 +327,7 @@ const styleVars = computed(() => {
 .is-ornate-corners .f-button__body
   +cel.ornate-button
 .is-ornate-wings .f-button__body
-  +cel.ornate-button(0.62em, 0.16em, true)
+  +cel.ornate-button(0.62em, 0.2em, true)
 
 // Nested rather than written flat, and that is load-bearing: `GameIcon`'s own
 // scoped rule is `.game-icon[data-v-…]` — one class plus one attribute, exactly

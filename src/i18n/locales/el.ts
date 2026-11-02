@@ -7543,6 +7543,7 @@ export default {
     broodSpider: 'Αραχνάκι',
     outlawCaptain: 'Λοχαγός των Παρανόμων',
     elderTreant: 'Γέρικος Δεντράνθρωπος',
+    groveShaman: 'Σαμάνος του άλσους',
     warlord: 'Πολέμαρχος Κραγκ',
     fireElemental: 'Στοιχειακό Φωτιάς',
     ironGolem: 'Σιδερένιο Γκόλεμ',

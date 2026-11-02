@@ -7497,6 +7497,7 @@ export default {
     broodSpider: 'Broedeling',
     outlawCaptain: 'Kapitein der Vogelvrijen',
     elderTreant: 'Oeroude Boomreus',
+    groveShaman: 'Bosjesjamaan',
     warlord: 'Krijgsheer Krag',
     fireElemental: 'Vuurelementaal',
     ironGolem: 'IJzeren Golem',

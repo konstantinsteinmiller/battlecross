@@ -111,9 +111,11 @@
     pointer-events: none
     background: var(--orn-crest) center / 100% 100% no-repeat
 
-/// A button: small corner brackets, plus a leaf scroll at each end when `$wings`
-/// (the wide sizes, whose padding has room for them).
-@mixin ornate-button($size: 0.62em, $inset: 0.16em, $wings: false)
+/// A button's finish (#127, redone): everything FOLLOWS the button's own curve, so nothing sits in a corner it
+/// does not fit. A fine light keyline one step inside the rim (the same radius less the inset), a soft gloss over
+/// the top half (clipped by the rounded body), and, on the wide sizes, a gilded stud at each end of the middle line.
+/// Corner brackets and leaf scrolls were dropped: on a tall or round-ended button they poked out of the curve.
+@mixin ornate-button($size: 0.62em, $inset: 0.2em, $wings: false)
   isolation: isolate
   &::before
     content: ''
@@ -121,18 +123,22 @@
     inset: $inset
     z-index: -1
     pointer-events: none
+    box-sizing: border-box
+    border: max(1px, 0.075em) solid rgba(255, 255, 255, 0.5)
+    border-radius: max(0.3em, calc(var(--fbtn-radius) - #{$inset}))
+    box-shadow: inset 0 -0.14em 0 rgba(0, 0, 0, 0.1), 0 0 0 max(1px, 0.04em) rgba(0, 0, 0, 0.14)
+  &::after
+    content: ''
+    position: absolute
+    inset: 0
+    z-index: -1
+    pointer-events: none
     background-repeat: no-repeat
-    background-image: var(--orn-corner-sm-tl), var(--orn-corner-sm-tr), var(--orn-corner-sm-bl), var(--orn-corner-sm-br)
-    background-position: left top, right top, left bottom, right bottom
-    background-size: $size $size
-  @if $wings
-    &::after
-      content: ''
-      position: absolute
-      inset: 0
-      z-index: -1
-      pointer-events: none
-      background-repeat: no-repeat
-      background-image: var(--orn-wing-l), var(--orn-wing-r)
-      background-position: left 0.34em center, right 0.34em center
-      background-size: 0.74em auto
+    @if $wings
+      background-image: radial-gradient(circle at 50% 50%, #fff7c8 0 18%, #f0b830 22% 56%, #8a5410 60% 76%, transparent 80%), radial-gradient(circle at 50% 50%, #fff7c8 0 18%, #f0b830 22% 56%, #8a5410 60% 76%, transparent 80%), linear-gradient(180deg, rgba(255, 255, 255, 0.34), rgba(255, 255, 255, 0) 100%)
+      background-position: left 0.42em center, right 0.42em center, top
+      background-size: 0.52em 0.52em, 0.52em 0.52em, 100% 48%
+    @else
+      background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.34), rgba(255, 255, 255, 0) 100%)
+      background-position: top
+      background-size: 100% 48%

@@ -7486,6 +7486,7 @@ export default {
     broodSpider: 'Anak Laba-laba',
     outlawCaptain: 'Kapten Penyamun',
     elderTreant: 'Manusia Pohon Tua',
+    groveShaman: 'Dukun Hutan',
     warlord: 'Panglima Krag',
     fireElemental: 'Elemental Api',
     ironGolem: 'Golem Besi',

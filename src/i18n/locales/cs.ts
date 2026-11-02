@@ -7587,6 +7587,7 @@ export default {
     broodSpider: 'Pavouče',
     outlawCaptain: 'Kapitán psanců',
     elderTreant: 'Prastarý stromovec',
+    groveShaman: 'Šaman hájku',
     warlord: 'Vojevůdce Krag',
     fireElemental: 'Ohnivý elementál',
     ironGolem: 'Železný golem',

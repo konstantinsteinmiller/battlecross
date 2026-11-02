@@ -7538,6 +7538,7 @@ export default {
     broodSpider: 'Cría de araña',
     outlawCaptain: 'Capitán forajido',
     elderTreant: 'Ent anciano',
+    groveShaman: 'Chamán del bosque',
     warlord: 'Caudillo Krag',
     fireElemental: 'Elemental de fuego',
     ironGolem: 'Gólem de hierro',

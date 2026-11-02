@@ -7548,6 +7548,7 @@ export default {
     broodSpider: 'Voriukas',
     outlawCaptain: 'Plėšikų kapitonas',
     elderTreant: 'Senasis medžmogis',
+    groveShaman: 'Giraitės šamanas',
     warlord: 'Karo vadas Krag',
     fireElemental: 'Ugnies elementalis',
     ironGolem: 'Geležinis golemas',

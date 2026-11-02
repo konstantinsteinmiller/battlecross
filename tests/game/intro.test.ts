@@ -68,9 +68,9 @@ describe('the flag', () => {
     expect(offenders).toEqual([])
   })
 
-  it('every env file the repo documents ships it off, but the base and development env', () => {
+  it('every env file the repo documents ships it on (#183 follow-up: all builds)', () => {
     const ex = readFileSync(resolve(__dirname, '../../.env.example'), 'utf8')
-    expect(ex).toMatch(/^VITE_INTRO_ENABLED=false$/m)
+    expect(ex).toMatch(/^VITE_INTRO_ENABLED=true$/m)
   })
 })
 

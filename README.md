@@ -43,7 +43,7 @@ tundra, and an old narrator (the Chronicler) introduces the world. Hold
 Space, or hold the Skip button, for 1.5 s to skip it. Subtitles are always
 on. "Watch the intro" in the options plays it again.
 
-- **Off by default.** `VITE_INTRO_ENABLED=false` sits in `.env`,
+- **On in every build (#183).** `VITE_INTRO_ENABLED=true` sits in `.env`,
   `.env.example` and every portal's env file. Set it to `true` in the env
   file of the build you want it in. A portal's `.env.<mode>` file overrides
   `.env`, so switching `.env` alone does not turn it on there.

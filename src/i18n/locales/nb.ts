@@ -7486,6 +7486,7 @@ export default {
     broodSpider: 'Edderkoppunge',
     outlawCaptain: 'De fredløses kaptein',
     elderTreant: 'Eldgammel trevette',
+    groveShaman: 'Lundshaman',
     warlord: 'Krigsherren Krag',
     fireElemental: 'Ildelementar',
     ironGolem: 'Jerngolem',

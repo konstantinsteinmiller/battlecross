@@ -7486,6 +7486,7 @@ export default {
     broodSpider: 'Өрмекші төлі',
     outlawCaptain: 'Қашқындар капитаны',
     elderTreant: 'Кәрі ағаш алып',
+    groveShaman: 'Орман шаманы',
     warlord: 'Қолбасшы Краг',
     fireElemental: 'От элементалі',
     ironGolem: 'Темір голем',

@@ -7601,6 +7601,7 @@ export default {
     broodSpider: 'Paučić',
     outlawCaptain: 'Kapetan odmetnika',
     elderTreant: 'Drevni drvodiv',
+    groveShaman: 'Šaman šumarka',
     warlord: 'Ratni vođa Krag',
     fireElemental: 'Vatreni elemental',
     ironGolem: 'Željezni golem',

@@ -7543,6 +7543,7 @@ export default {
     broodSpider: 'Filhote de aranha',
     outlawCaptain: 'Capitão fora da lei',
     elderTreant: 'Ent ancião',
+    groveShaman: 'Xamã do bosque',
     warlord: 'Senhor da guerra Krag',
     fireElemental: 'Elemental de fogo',
     ironGolem: 'Golem de ferro',

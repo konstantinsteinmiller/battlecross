@@ -7486,6 +7486,7 @@ export default {
     broodSpider: 'Hämähäkinpoikanen',
     outlawCaptain: 'Lainsuojattomien kapteeni',
     elderTreant: 'Ikivanha puuhenki',
+    groveShaman: 'Lehdon samaani',
     warlord: 'Sotaherra Krag',
     fireElemental: 'Tulielementaali',
     ironGolem: 'Rautagolem',

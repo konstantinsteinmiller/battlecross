@@ -19,11 +19,11 @@ const FEEL: Readonly<Record<string, Emotion>> = {
 }
 
 /** Each line a freed one may say, by its greet id: `freed`, or a cage's own (`road`, #164). */
-const freed = (npc: string, look: string, emotion: Emotion, says: readonly string[] = ['freed']): ConversationDef => ({
+const freed = (npc: string, look: string, emotion: Emotion, says: readonly string[] = ['freed'], voice = npc): ConversationDef => ({
   id: `bark.${npc}`,
   name: `npc.${npc}.name`,
   look,
-  voice: npc,
+  voice,
   greet: says.map(id => ({ id, lines: [{ id: `dlg.bark.${npc}.${id}.1`, by: 'npc', emotion }] })),
   nodes: {},
   back: {},
@@ -44,7 +44,7 @@ const heroThought: ConversationDef = {
 
 export const CAPTIVE_BARKS: readonly ConversationDef[] = [
   heroThought,
-  freed('trainerPyro', 'trainerPyro', 'excited', ['help']),
+  freed('trainerPyro', 'trainerPyro', 'excited', ['help'], 'pyroCry'),
   freed('sbMasterSoulwarden', 'sbMasterSoulwarden', 'grave', ['help']),
   freed('sbMasterIronmonk', 'sbMasterIronmonk', 'excited', ['help']),
   ...CAGES.filter(c => !c.afterplay).map(c => freed(c.npc, c.look, FEEL[c.npc] ?? 'warm')),

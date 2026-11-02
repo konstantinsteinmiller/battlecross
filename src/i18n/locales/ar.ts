@@ -7833,6 +7833,7 @@ export default {
     broodSpider: 'عنكبوت صغير',
     outlawCaptain: 'قائد الخارجين عن القانون',
     elderTreant: 'شجرة حيّة عتيقة',
+    groveShaman: 'شامان الغابة',
     warlord: 'أمير الحرب كراغ',
     fireElemental: 'عنصر النار',
     ironGolem: 'غولم حديدي',

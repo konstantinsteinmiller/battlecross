@@ -7587,6 +7587,7 @@ export default {
     broodSpider: 'Pajączek',
     outlawCaptain: 'Kapitan banitów',
     elderTreant: 'Prastary drzewiec',
+    groveShaman: 'Szaman gaju',
     warlord: 'Watażka Krag',
     fireElemental: 'Żywiołak ognia',
     ironGolem: 'Żelazny golem',

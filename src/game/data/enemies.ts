@@ -288,11 +288,17 @@ const BASE_ENEMIES: readonly EnemyDef[] = [
   D({
     id: 'elderTreant', rank: 'elite', rig: 'treant', look: 'elder', scale: 1.7, r: 0.95, h: 2.7,
     hp: 3.4, dmg: 1.35, armor: 3.4, speed: 2.1, style: 'melee', type: 'physical', range: 2.9, interval: 1.9, windup: 0.6, heavy: true,
-    aggro: 10, reward: 1.2, color: '#4f8f3a',
+    aggro: 10, reward: 1.2, color: '#4f8f3a', script: 'grove',
     abilities: [
       { kind: 'slam', cd: 8, first: 3, range: 3.6, windup: 1, recover: 0.6, dmg: 1.8, r: 4.2, status: { id: 'knockdown', dur: 0.8, v: 1 } },
       { kind: 'barrage', cd: 11, first: 6, range: 12, windup: 0.9, recover: 0.5, dmg: 1.1, r: 2.1, count: 4, type: 'poison', fx: 'roots', status: { id: 'slow', dur: 2.5, v: 0.5 } }
     ]
+  }),
+  D({
+    // Mends the Elder Treant by a green beam while it lives (`sim/bosses/grove.ts`, #171): small, soft, and stays back.
+    id: 'groveShaman', rank: 'weak', rig: 'treant', look: 'blight', scale: 0.8, r: 0.5, h: 1.5,
+    hp: 1.4, dmg: 0.6, armor: 0.5, speed: 3.4, style: 'ranged', type: 'poison', range: 9, interval: 2.2, windup: 0.5,
+    aggro: 14, keep: 8, reward: 0.8, color: '#6fe06a', abilities: []
   }),
   D({
     id: 'warlord', rank: 'boss', rig: 'humanoid', look: 'warlord', scale: 1.5, r: 0.78, h: 2.05,

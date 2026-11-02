@@ -13,6 +13,7 @@ import { SPHINX_SCRIPTS } from './sphinx'
 import { LEVIATHAN_SCRIPTS } from './leviathan'
 import { HYDRA_SCRIPTS } from './hydra'
 import { ELDER_DRAGON_SCRIPTS } from './elderDragon'
+import { GROVE_SCRIPTS } from './grove'
 
 /**
  * ─── Scripted bosses (#74) ───────────────────────────────────────────────────
@@ -59,6 +60,8 @@ import { ELDER_DRAGON_SCRIPTS } from './elderDragon'
  *   hydra        the Hydra (Fortress): every blow lands on a head; a cut stump
  *                grows two unless fire sears it (braziers for every build);
  *                no heads, and the body is open
+ *   grove        the Elder Treant (Whispering Woods, #171): two Grove Shamans mend
+ *                it by green beams until they are killed; two more at half
  *   elderDragon  the Elder Dragon (Rift, the final fight): breath, tail, gust;
  *                at 70 % in the air behind rune stones; a void ring at 40 %;
  *                at 15 % the rift holds it 30 s, or it heals to 30 %
@@ -101,7 +104,8 @@ export const BOSS_SCRIPTS: Record<string, BossScript> = {
   ...SPHINX_SCRIPTS,
   ...LEVIATHAN_SCRIPTS,
   ...HYDRA_SCRIPTS,
-  ...ELDER_DRAGON_SCRIPTS
+  ...ELDER_DRAGON_SCRIPTS,
+  ...GROVE_SCRIPTS
 }
 
 /** Its arena, once: what stands in it is up before the hero comes in sight. */

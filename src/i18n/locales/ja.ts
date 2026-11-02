@@ -7486,6 +7486,7 @@ export default {
     broodSpider: '子グモ',
     outlawCaptain: '無法者の隊長',
     elderTreant: 'エルダートレント',
+    groveShaman: '森のシャーマン',
     warlord: '戦将クラッグ',
     fireElemental: 'ファイアエレメンタル',
     ironGolem: 'アイアンゴーレム',

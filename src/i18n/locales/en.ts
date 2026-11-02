@@ -3733,7 +3733,7 @@ export default {
     },
     'bark': {
       'hero': { 'cage': { '1': 'Is there somebody screaming for help?' } },
-      'trainerPyro': { 'help': { '1': 'Help, anybody!' } },
+      'trainerPyro': { 'help': { '1': 'Help! Anybody!' } },
       'sbMasterSoulwarden': { 'help': { '1': 'We were kidnapped!' } },
       'sbMasterIronmonk': { 'help': { '1': 'Monsters! Help!' } },
       sphinx: {
@@ -3950,6 +3950,7 @@ export default {
     'broodSpider': 'Broodling',
     'outlawCaptain': 'Outlaw Captain',
     'elderTreant': 'Elder Treant',
+    'groveShaman': 'Grove Shaman',
     'warlord': 'Warlord Krag',
     'fireElemental': 'Fire Elemental',
     'ironGolem': 'Iron Golem',

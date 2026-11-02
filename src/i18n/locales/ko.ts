@@ -7486,6 +7486,7 @@ export default {
     broodSpider: '새끼 거미',
     outlawCaptain: '무법자 대장',
     elderTreant: '고대 트렌트',
+    groveShaman: '숲의 주술사',
     warlord: '군벌 크라그',
     fireElemental: '불의 정령',
     ironGolem: '무쇠 골렘',
