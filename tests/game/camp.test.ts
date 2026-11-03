@@ -7,6 +7,7 @@ import { CELL, createGrid, findPath } from '@/game/sim/grid'
 import { K_BLOCK } from '@/game/sim/zoneFeatures'
 import { Sim } from '@/game/sim/world'
 import { applyPlan, populateZone } from '@/game/sim/director'
+import { openDoor } from '@/game/sim/interact'
 import { createHero } from '@/game/sim/hero'
 import { stepSim } from '@/game/sim/step'
 import { chestLock, orderOpen } from '@/game/sim/interact'
@@ -39,7 +40,15 @@ const visit = (seed = 3): { sim: Sim; plan: ZonePlan } => {
   const ref = referenceBuild({ level: 1, cls: 'aegis' })
   createHero(sim, { build: ref.build, skills: ref.skills, x: plan.start.x, z: plan.start.z, xpInto: 0, potions: 3 })
   populateZone(sim, plan, 'plains', [])
+  openGate(sim, plan)
   return { sim, plan }
+}
+
+/** The palisade gate (#194) is open: these tests are about the camp, not the way to it. */
+const openGate = (sim: Sim, plan: ZonePlan): void => {
+  if (!plan.gate || !sim.gate) return
+  sim.gate.opened = true
+  openDoor(sim, plan.gate.door)
 }
 
 const run = (sim: Sim, plan: ZonePlan, secs: number, until: () => boolean = () => false): void => {
@@ -106,7 +115,7 @@ describe('the camp on the boss floor (#182)', () => {
       expect(plan.cageKey, tag).toBeTruthy()
       expect(Math.hypot(plan.cageKey!.x - boss.x, plan.cageKey!.z - boss.z), tag).toBeLessThan(2 * CELL)
       // Everything is walked to from the start: the cage's door, the key, every place by the fire, Nettle's way in.
-      const g = fillGrid(createGrid(plan.w, plan.h), plan)
+      const g = fillGrid(createGrid(plan.w, plan.h), plan, true)
       const path: number[] = []
       for (const p of [{ x: cage.sx, z: cage.sz }, plan.cageKey!, ...camp.spots, camp.entry, { x: finale.sx, z: finale.sz }]) {
         expect(findPath(g, plan.start.x, plan.start.z, p.x, p.z, path), `${tag} ${p.x},${p.z}`).toBeGreaterThan(0)
@@ -154,7 +163,7 @@ describe('the camp on the boss floor (#182)', () => {
   it('the cage traps nobody: every open cell of the fight (4.5 cells round the boss) is walked to from the start', () => {
     for (const seed of SEEDS) {
       const plan = firstVisit(seed)
-      const g = fillGrid(createGrid(plan.w, plan.h), plan)
+      const g = fillGrid(createGrid(plan.w, plan.h), plan, true)
       const boss = plan.packs.find(q => q.finale)!
       const path: number[] = []
       for (let k = 0; k < plan.solid.length; k++) {
@@ -212,7 +221,7 @@ describe('the first visit holds a little of the rest of the world (#178)', () =>
       expect(plan.ores, tag).toHaveLength(1)
       expect(plan.pieces.map(q => q.id), tag).toEqual(['plains1'])
       const grid = createGrid(plan.w, plan.h)
-      fillGrid(grid, plan)
+      fillGrid(grid, plan, true)
       const camp = plan.camp!
       const at = [...plan.herbs, ...plan.ores, ...plan.pieces]
       for (const q of at) {

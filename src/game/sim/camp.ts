@@ -149,8 +149,16 @@ export const placeCamp = (p: {
 const FIRE_AT: ReadonlyArray<readonly [number, number]> = [[0, 4], [1, 4], [-1, 4], [0, 5], [2, 4], [-2, 4]]
 /** Where the caravan may stand, tried in turn (cells from the boss: to its left; two across, three along). */
 const WAGON_AT: ReadonlyArray<readonly [number, number, number]> = [-1, 0, -2, 1].flatMap(dj => [-6, -5, -7, -4, -8].map(di => [di, dj, 0] as const))
-/** The places round the fire the teachers keep (cells from it): the three, then Nettle. */
-const SPOT_AT: ReadonlyArray<readonly [number, number]> = [[-1, 1], [1, 1], [0, 1], [-1, 0], [1, 0], [-2, 1], [2, 1], [0, -1], [-1, -1], [1, -1], [-2, 0], [2, 0]]
+/** The rock round the fire is cut back this far (cells): the trees of the wood stand beyond it, and there is room to walk all round. */
+const FIRE_CLEAR = 5.5
+/**
+ * Where the three teachers stand round the fire once they are out: evenly, a third of the way round from each other (east-south-east,
+ * west-south-west and north), each with the nearer and the farther ring to fall back on. Then Nettle, a little further west than
+ * the ring so the way past the fire stays open.
+ */
+const TEACHER_ANGLE: ReadonlyArray<number> = [(30 * Math.PI) / 180, (150 * Math.PI) / 180, (270 * Math.PI) / 180]
+const RING: ReadonlyArray<number> = [2.4, 2.0, 2.7]
+const NETTLE_AT: ReadonlyArray<readonly [number, number]> = [[-4, 0], [-4, 1], [-3, 0], [-4, -1], [-3, 1], [-3, -1], [-2, 0]]
 /** The wreckage on the way in, in cells from the boss: from below the floor towards the caravan (left, and a little above the boss's row), thicker towards it. */
 const DEBRIS_AT: ReadonlyArray<readonly [number, number, 'wheel' | 'spikes']> = [
   [-2.6, 6.2, 'spikes'], [-3.0, 5.2, 'wheel'], [-3.3, 4.2, 'spikes'], [-3.5, 3.3, 'wheel'], [-3.6, 2.6, 'spikes'], [-4.0, 2.1, 'wheel']
@@ -181,17 +189,41 @@ export const dressCamp = (d: Dresser, p: {
     if (!d.free(Math.floor(x / CELL), Math.floor(z / CELL), 0)) continue
     d.lay(kd, x, z, 0.7 * (dx + 9))
   }
+  // The wood is cut back from the fire: no tree (a rim cell of rock) within `FIRE_CLEAR` cells of it, the cage's own cells kept.
+  for (let j = Math.floor(fj - FIRE_CLEAR); j <= Math.ceil(fj + FIRE_CLEAR); j++) {
+    for (let i = Math.floor(fi - FIRE_CLEAR); i <= Math.ceil(fi + FIRE_CLEAR); i++) {
+      if (Math.hypot(i - fi, j - fj) > FIRE_CLEAR || i < 3 || j < 3 || i >= p.w - 3 || j >= p.h - 3) continue
+      const k = j * w + i
+      if (!solid[k] || sealed[k] || kind[k] === K_BLOCK || (Math.abs(j - p.cj) <= 2 && Math.abs(i - p.ci) <= 3)) continue
+      solid[k] = 0
+      kind[k] = K_GROUND
+    }
+  }
   const keyK = Math.floor(p.key.z / CELL) * w + Math.floor(p.key.x / CELL)
   const spots: Array<{ x: number; z: number }> = []
-  for (const [di, dj] of SPOT_AT) {
-    if (spots.length >= 4) break
-    const i = fi + di
-    const j = fj + dj
-    const k = j * w + i
-    if (!openCell(p, i, j) || k === keyK || !d.free(i, j, 0)) continue
+  const usable = (i: number, j: number): boolean => {
+    if (!openCell(p, i, j) || j * w + i === keyK || !d.free(i, j, 0)) return false
+    if (spots.some(sp => Math.floor(sp.x / CELL) === i && Math.floor(sp.z / CELL) === j)) return false
     // Not on the wreckage, nor on the way the hero walks up to the cage's door.
-    if (DEBRIS_AT.some(([dx, dz]) => Math.hypot(bi + 0.5 + dx - (i + 0.5), bj + 0.5 + dz - (j + 0.5)) < 1.4)) continue
-    spots.push({ x: cx(i), z: cx(j) })
+    return !DEBRIS_AT.some(([dx, dz]) => Math.hypot(bi + 0.5 + dx - (i + 0.5), bj + 0.5 + dz - (j + 0.5)) < 1.4)
+  }
+  for (const a of TEACHER_ANGLE) {
+    for (const r of RING) {
+      const i = fi + Math.round(Math.cos(a) * r)
+      const j = fj + Math.round(Math.sin(a) * r)
+      if (usable(i, j)) { spots.push({ x: cx(i), z: cx(j) }); break }
+    }
+  }
+  // Too crowded or too narrow for the ring: any open cell round the fire, nearest first.
+  if (spots.length < 3) {
+    for (let r = 1; r <= 5 && spots.length < 3; r++) for (let dj = -r; dj <= r && spots.length < 3; dj++) for (let di = -r; di <= r && spots.length < 3; di++) {
+      if (Math.max(Math.abs(di), Math.abs(dj)) === r && usable(fi + di, fj + dj)) spots.push({ x: cx(fi + di), z: cx(fj + dj) })
+    }
+  }
+  // Nettle, west of the fire.
+  for (const [di, dj] of NETTLE_AT) {
+    if (spots.length >= 4) break
+    if (usable(fi + di, fj + dj)) spots.push({ x: cx(fi + di), z: cx(fj + dj) })
   }
   // Too crowded round the fire (it never is on the seeds tried): the fire's own cell and its neighbours.
   while (spots.length < 4) spots.push({ x: cx(fi + spots.length - 2), z: cx(fj) })
