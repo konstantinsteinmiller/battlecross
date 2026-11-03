@@ -347,6 +347,9 @@ export class ZoneMode implements GameMode {
   private baseline: SimBaseline | null = null
   /** The share of the hero's run gold already paid into the purse (see `bankRunGold`). */
   bankedGold = 0
+  /** The coins of this same visit (same seed) a reload already paid: the first of the new run's are not paid again (#196). */
+  private goldCredit = 0
+  private visitKey = ''
   /** The training dummy was set up in this visit. */
   private dummy = false
   /** The early art was moved up for this visit's first boss. */
@@ -445,6 +448,9 @@ export class ZoneMode implements GameMode {
     // A saved game: the same visit, put back as it was saved.
     if (resume?.sim && !restoreSim(sim, m.baseline, resume.sim)) throw new Error('[zone] the saved visit does not match this zone')
     m.bankedGold = sim.hero.gold
+    m.visitKey = `${setup.kind}:${setup.zone ?? setup.town ?? ''}:${setup.seed}:${setup.tutorial ? 1 : 0}:${setup.encounter ? 1 : 0}`
+    const paid = profile.meta.visitGold
+    m.goldCredit = !resume?.sim && paid && paid.key === m.visitKey ? paid.gold : 0
     if (resume?.hero) {
       const h = sim.hero.unit
       h.x = h.px = h.homeX = resume.hero.x
@@ -1515,10 +1521,14 @@ export class ZoneMode implements GameMode {
    * screen and its "triple the purse" offer, which pays twice that on top.
    */
   bankRunGold(): void {
-    const d = this.sim.hero.gold - this.bankedGold
+    const gold = this.sim.hero.gold
+    const d = gold - this.bankedGold
     if (!d) return
-    profile.gold = Math.max(0, profile.gold + d)
-    this.bankedGold = this.sim.hero.gold
+    // A reloaded visit: its first `goldCredit` coins were paid before the reload (the ledger is saved with the purse).
+    const pay = d > 0 ? Math.max(0, gold - Math.max(this.bankedGold, this.goldCredit)) : d
+    profile.gold = Math.max(0, profile.gold + pay)
+    this.bankedGold = gold
+    if (gold > 0) profile.meta.visitGold = { key: this.visitKey, gold: Math.max(gold, this.goldCredit) }
   }
 
   /** Mirror the fight into the reactive HUD state. */

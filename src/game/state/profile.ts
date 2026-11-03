@@ -247,6 +247,9 @@ export interface MetaSave {
   siege: SiegeSave
   /** The fort's fair games (afterplay §9): rows, bests, the prize cap, what is owed (`game/fair.ts`). */
   fair: FairSave
+  /** The coins the visit being played already paid into the purse (#196): a reload rebuilds the same visit
+   *  (same seed) with its coins lying again, so the first `gold` of the new run are not paid twice. */
+  visitGold: { key: string; gold: number } | null
 }
 
 /** What the last absence added to the rested pool, in seconds (0: nothing
@@ -315,7 +318,7 @@ const defaults = (): Profile => ({
   world: { cleared: [], flags: [], at: 'plains', pos: mapSpot('plains'), visits: {}, arenaBest: 0, chests: [], mastery: {}, said: [], pieces: [], afterplay: false },
   stats: { kills: 0, deaths: 0, runs: 0, playSeconds: 0, bestLevel: 1, xpEarned: 0 },
   tips: {},
-  meta: { shelf: { day: '', wares: {}, rolls: {}, used: 0 }, arena: { week: '', best: 0 }, contracts: { day: '', list: [] }, repGifts: [], presets: [null, null], lastSeen: 0, rested: 0, respecs: 0, tasks: { day: '', towns: {} }, gamble: { memory: 0, battle: 0, rows: {}, cups: { row: 0, day: '', seen: false } }, siege: defaultSiege(), fair: defaultFair() }
+  meta: { shelf: { day: '', wares: {}, rolls: {}, used: 0 }, arena: { week: '', best: 0 }, contracts: { day: '', list: [] }, repGifts: [], presets: [null, null], lastSeen: 0, rested: 0, respecs: 0, tasks: { day: '', towns: {} }, gamble: { memory: 0, battle: 0, rows: {}, cups: { row: 0, day: '', seen: false } }, siege: defaultSiege(), fair: defaultFair(), visitGold: null }
 })
 
 const num = (v: unknown, d: number): number => (typeof v === 'number' && Number.isFinite(v) ? v : typeof v === 'string' && Number.isFinite(Number(v)) ? Number(v) : d)
@@ -569,6 +572,8 @@ export const loadProfile = (): void => {
   const r = accrueRested(Math.min(RESTED_CAP, Math.max(0, num(meta.rested, 0))), Math.max(0, num(meta.lastSeen, 0)), now)
   meta.rested = r.pool
   meta.lastSeen = now
+  const vg = meta.visitGold as { key?: unknown; gold?: unknown } | null | undefined
+  meta.visitGold = vg && typeof vg.key === 'string' && num(vg.gold, 0) > 0 ? { key: vg.key, gold: Math.round(num(vg.gold, 0)) } : null
   // Only ever raised here: a later re-read (a cloud row landing) must not
   // take back a welcome the map has not shown yet.
   if (r.gained > 0) restedGain.value = r.gained

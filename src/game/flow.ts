@@ -796,6 +796,8 @@ export const bankVisit = async (outcome: 'victory' | 'defeat' | 'retreat', node:
   const sieged = h.siege ? bankSiege(h.siege, h) : null
   grantXp(h.xp + carefulXp)
   profile.gold += h.gold - (h.goldBanked ?? 0) + carefulGold
+  // The visit is decided: its coins are in the purse for good, nothing is owed to a reload any more (#196).
+  profile.meta.visitGold = null
   for (const id of h.items) {
     const r = gainItem(id)
     items.push({ id, added: r.added, gold: r.gold })
