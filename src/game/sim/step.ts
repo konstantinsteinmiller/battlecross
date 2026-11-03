@@ -12,6 +12,7 @@ import { finishMine } from './ores'
 import { stepPickups } from './herbs'
 import { holdCaged, stepCaptives } from './cages'
 import { stepCamp, stepHelp } from './camp'
+import { stepGate } from './gate'
 import { HERO_SKILLS } from './heroSkills'
 import { townSimReady } from './townHooks'
 import type { ZonePlan } from './zoneGen'
@@ -67,6 +68,7 @@ export const stepSim = (sim: Sim, plan: ZonePlan, dt: number): void => {
   if (!sim.ended || sim.ended === 'victory') stepHero(sim, dt)
   // What the hero walks over is his: herbs (#88), map pieces (#89).
   stepPickups(sim)
+  if (sim.gate) stepGate(sim, dt)
   // A cage's freed people (#100): out, a word, and off home.
   if (sim.captives.length) stepCaptives(sim, dt)
   // The first visit's camp (#156): the road teacher walks over once the boss is down.

@@ -330,6 +330,7 @@ export default {
   toast: {
     cageLocked: 'Qulflangan. Kalit shu yerda bir joyda boʻlishi kerak.',
     cageKey: 'Kalit! Qafasni shu ochsa kerak.',
+    gateKey: 'Kumush kalit! U darvozani ochsa kerak.',
     ore: 'Qazildi: {n} × {ore}',
     mineBusy: 'Dushmanlar yaqinda — mumkin emas!',
     pressureUp: 'Dushmanlaring yanada shafqatsizlashdi {skulls}',

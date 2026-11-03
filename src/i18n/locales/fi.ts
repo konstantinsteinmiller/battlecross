@@ -330,6 +330,7 @@ export default {
   toast: {
     cageLocked: 'Lukossa. Avaimen täytyy olla jossain täällä.',
     cageKey: 'Avain! Sen täytyy avata häkki.',
+    gateKey: 'Hopea-avain! Sen täytyy avata portti.',
     ore: 'Louhittu: {n} × {ore}',
     mineBusy: 'Ei vihollisten lähellä!',
     pressureUp: 'Vihollisesi käyvät hurjemmiksi {skulls}',

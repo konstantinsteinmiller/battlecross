@@ -330,6 +330,7 @@ export default {
   toast: {
     cageLocked: 'Zárva. A kulcsnak valahol itt kell lennie.',
     cageKey: 'Egy kulcs! Biztosan a ketrecet nyitja.',
+    gateKey: 'Egy ezüstkulcs! Biztos a kaput nyitja.',
     ore: 'Kibányászva: {n} × {ore}',
     mineBusy: 'Nem, amíg ellenség van a közelben!',
     pressureUp: 'Ellenfeleid vadabbak lesznek {skulls}',

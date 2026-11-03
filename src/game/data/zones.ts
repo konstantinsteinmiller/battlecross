@@ -807,7 +807,7 @@ export const dangerOf = (zone: ZoneDef, heroLevel: number): 0 | 1 | 2 | 3 => {
  *          free skill (Shadowstep): the foes still standing at that moment and
  *          every one born later (`boostOpeningFoes`); without the skill, 1
  */
-export const OPENING = { pack: 5, dmg: 2.84, skillHp: 2.1 } as const
+export const OPENING = { pack: 4, dmg: 2.84, skillHp: 2.1 } as const
 
 export const visitLevel = (zone: ZoneDef, heroLevel: number): number =>
   Math.max(zone.min, Math.min(zone.max, heroLevel))

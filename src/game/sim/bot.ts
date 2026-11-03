@@ -1,3 +1,4 @@
+import { gateGoal } from './gate'
 import { startAttrs, ATTRS, type Attr, type AttrBlock } from '../data/attributes'
 import { POINTS_PER_LEVEL } from '../data/attributes'
 import { ACTIVE_SLOTS, CLASSES, PASSIVE_SLOTS, PRESTIGE_SKILLS, SKILLS, SKILL_BY_ID, meetsSkill, type ClassId } from '../data/skills'
@@ -194,6 +195,12 @@ export const botThink = (sim: Sim, explore = false): void => {
   if (aim) { foe = aim; bd = Math.hypot(aim.x - u.x, aim.z - u.z) }
   if (!foe) {
     if (explore && exploreStep(sim)) return
+    // The first level's palisade (#194): its key first, then the gate.
+    const gg = gateGoal(sim)
+    if (gg) {
+      if (Math.hypot(gg.x - u.x, gg.z - u.z) > 0.5 && (h.order.kind !== 'move' || Math.hypot(h.order.x - gg.x, h.order.z - gg.z) > 0.3)) orderMove(sim, gg.x, gg.z)
+      return
+    }
     // The main chain only: side packs are a player's choice, not the yardstick's.
     const next = sim.groups.find(g => !g.cleared)
     if (next && (h.order.kind !== 'move' || Math.hypot(h.order.x - next.x, h.order.z - next.z) > 1)) orderMove(sim, next.x, next.z)

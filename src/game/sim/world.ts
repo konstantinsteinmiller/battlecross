@@ -7,6 +7,7 @@ import type { HerbState, PieceState } from './herbs'
 import type { OreState } from './ores'
 import type { CageKeyState, CaptiveState } from './cages'
 import type { CampState } from './camp'
+import type { GateState } from './gate'
 import type { CaravanState } from './caravan'
 import type {
   Action, Danger, Field, Projectile, SimEvent, Status, StatusId, Team, TempWall, Unit, UnitStats, Rank
@@ -279,6 +280,8 @@ export class Sim {
   ores: OreState[] = []
   /** A cage's key lying in the place (`cages.ts`, roadmap #100). */
   cageKey: CageKeyState | null = null
+  /** The first visit's palisade gate and the key that opens it (`gate.ts`); null elsewhere. */
+  gate: GateState | null = null
   /** The people in that cage, and once freed, on their way home (`cages.ts`). */
   captives: CaptiveState[] = []
   /** The first visit's camp of rescued teachers (`camp.ts`, roadmap #156); null elsewhere. */

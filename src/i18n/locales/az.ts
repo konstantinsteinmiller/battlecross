@@ -330,6 +330,7 @@ export default {
   toast: {
     cageLocked: 'Kilidlidir. Açar bu yerdə haradasa olmalıdır.',
     cageKey: 'Açar! Yəqin ki, qəfəsi açır.',
+    gateKey: 'Gümüş açar! Yəqin ki, darvazanı açır.',
     ore: 'Qazıldı: {n} × {ore}',
     mineBusy: 'Düşmənlər yaxındaykən olmaz!',
     pressureUp: 'Düşmənlərin daha qəddar olur {skulls}',

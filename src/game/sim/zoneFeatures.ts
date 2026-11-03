@@ -95,6 +95,8 @@ export interface DoorPlan {
   /** Where the wall opens. */
   x: number
   z: number
+  /** A palisade across the road (the first level's gate, `gate.ts`) instead of rocks over a pocket. */
+  style?: 'palisade'
 }
 
 export interface OptionalPackPlan {

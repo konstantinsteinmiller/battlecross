@@ -330,6 +330,7 @@ export default {
   toast: {
     cageLocked: 'Terkunci. Kuncinya pasti ada di suatu tempat di sini.',
     cageKey: 'Sebuah kunci! Pasti untuk membuka kurungan itu.',
+    gateKey: 'Kunci perak! Pasti untuk membuka gerbang.',
     ore: 'Ditambang: {n} × {ore}',
     mineBusy: 'Musuh ada di dekat!',
     pressureUp: 'Musuhmu makin ganas {skulls}',

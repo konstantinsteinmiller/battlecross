@@ -330,6 +330,7 @@ export default {
   toast: {
     cageLocked: 'Bị khóa. Chìa khóa hẳn ở đâu đó quanh đây.',
     cageKey: 'Một chiếc chìa khóa! Chắc nó mở được cái lồng.',
+    gateKey: 'Một chiếc chìa khóa bạc! Chắc nó mở được cánh cổng.',
     ore: 'Đã đào: {n} × {ore}',
     mineBusy: 'Kẻ thù đang ở gần!',
     pressureUp: 'Kẻ thù của bạn trở nên hung tợn hơn {skulls}',

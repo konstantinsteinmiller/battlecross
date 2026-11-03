@@ -330,6 +330,7 @@ export default {
   toast: {
     cageLocked: 'Încuiat. Cheia trebuie să fie pe undeva pe aici.',
     cageKey: 'O cheie! Trebuie să deschidă cușca.',
+    gateKey: 'O cheie de argint! Trebuie să deschidă poarta.',
     ore: 'Ai minat: {n} × {ore}',
     mineBusy: 'Nu cu dușmani prin preajmă!',
     pressureUp: 'Dușmanii tăi devin mai feroce {skulls}',

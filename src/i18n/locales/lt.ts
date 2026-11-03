@@ -330,6 +330,7 @@ export default {
   toast: {
     cageLocked: 'Užrakinta. Raktas turi būti kažkur šioje vietoje.',
     cageKey: 'Raktas! Jis turbūt atrakina narvą.',
+    gateKey: 'Sidabrinis raktas! Turbūt atrakina vartus.',
     ore: 'Iškasta: {n} × {ore}',
     mineBusy: 'Ne, kai šalia priešai!',
     pressureUp: 'Tavo priešai tampa įnirtingesni {skulls}',

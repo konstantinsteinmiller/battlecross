@@ -411,9 +411,9 @@ export type SimEvent =
    *  its guard lives or the finale stands. */
   | { t: 'chest'; id: number; x: number; z: number; state: 'reveal' | 'opening' | 'open' | 'closed' | 'locked'; why?: 'guard' | 'finale' | 'key' }
   /** A cage's key picked up (#100). */
-  | { t: 'cageKey'; x: number; z: number }
+  | { t: 'cageKey'; x: number; z: number; gate?: boolean }
   /** The boss let the camp's key fall (#182). */
-  | { t: 'cageKeyDrop'; x: number; z: number }
+  | { t: 'cageKeyDrop'; x: number; z: number; gate?: boolean }
   /** Something from a chest that is not gold or gear: a health potion for the
    *  belt, a full belt's potion drunk on the spot, a mana potion for the stock. */
   | { t: 'pickup'; what: 'potion' | 'heal' | 'mana'; x: number; z: number }

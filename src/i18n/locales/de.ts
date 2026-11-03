@@ -330,6 +330,7 @@ export default {
   toast: {
     cageLocked: 'Verschlossen. Der Schlüssel muss hier irgendwo sein.',
     cageKey: 'Ein Schlüssel! Er muss den Käfig öffnen.',
+    gateKey: 'Ein Silberschlüssel! Er muss das Tor öffnen.',
     ore: 'Abgebaut: {n} × {ore}',
     mineBusy: 'Nicht mit Feinden in der Nähe!',
     pressureUp: 'Deine Feinde werden grimmiger {skulls}',

@@ -330,6 +330,7 @@ export default {
   toast: {
     cageLocked: '锁着。钥匙一定就在这附近某处。',
     cageKey: '一把钥匙！一定能打开笼子。',
+    gateKey: '银钥匙！它一定能打开大门。',
     ore: '采到：{n} × {ore}',
     mineBusy: '敌人就在附近！',
     pressureUp: '敌人变得更凶猛了 {skulls}',

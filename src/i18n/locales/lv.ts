@@ -330,6 +330,7 @@ export default {
   toast: {
     cageLocked: 'Aizslēgts. Atslēgai jābūt kaut kur šajā vietā.',
     cageKey: 'Atslēga! Tai jāatver būris.',
+    gateKey: 'Sudraba atslēga! Tā noteikti atver vārtus.',
     ore: 'Izrakts: {n} × {ore}',
     mineBusy: 'Ne, kad tuvumā ir ienaidnieki!',
     pressureUp: 'Tavi ienaidnieki kļūst niknāki {skulls}',

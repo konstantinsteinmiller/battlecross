@@ -330,6 +330,7 @@ export default {
   toast: {
     cageLocked: 'Ŝlosita. La ŝlosilo devas esti ie en ĉi tiu loko.',
     cageKey: 'Ŝlosilo! Ĝi certe malfermas la kaĝon.',
+    gateKey: 'Arĝenta ŝlosilo! Ĝi certe malfermas la pordegon.',
     ore: 'Elfosita: {n} × {ore}',
     mineBusy: 'Ne kun malamikoj ĉirkaŭe!',
     pressureUp: 'Viaj malamikoj fariĝas pli furiozaj {skulls}',

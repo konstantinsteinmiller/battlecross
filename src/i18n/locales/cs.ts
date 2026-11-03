@@ -330,6 +330,7 @@ export default {
   toast: {
     cageLocked: 'Zamčeno. Klíč musí být někde tady.',
     cageKey: 'Klíč! Ten musí otevírat klec.',
+    gateKey: 'Stříbrný klíč! Ten musí otevírat bránu.',
     ore: 'Vytěženo: {n} × {ore}',
     mineBusy: 'Ne s nepřáteli poblíž!',
     pressureUp: 'Tví nepřátelé jsou zuřivější {skulls}',

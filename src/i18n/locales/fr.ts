@@ -330,6 +330,7 @@ export default {
   toast: {
     cageLocked: 'Fermée à clé. La clé doit se trouver quelque part ici.',
     cageKey: 'Une clé ! Elle doit ouvrir la cage.',
+    gateKey: 'Une clé d’argent ! Elle doit ouvrir la porte.',
     ore: 'Extrait : {n} × {ore}',
     mineBusy: 'Pas avec des ennemis dans les parages !',
     pressureUp: 'Vos ennemis deviennent plus féroces {skulls}',

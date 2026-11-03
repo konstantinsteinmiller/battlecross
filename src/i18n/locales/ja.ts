@@ -330,6 +330,7 @@ export default {
   toast: {
     cageLocked: '鍵がかかっている。鍵はこの場所のどこかにあるはずだ。',
     cageKey: '鍵だ！きっと檻の鍵だ。',
+    gateKey: '銀の鍵だ！ きっと門を開けられる。',
     ore: '採掘した：{n} × {ore}',
     mineBusy: '敵が近くにいる！',
     pressureUp: '敵が手強くなった {skulls}',

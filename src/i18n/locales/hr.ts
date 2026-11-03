@@ -330,6 +330,7 @@ export default {
   toast: {
     cageLocked: 'Zaključano. Ključ mora biti negdje ovdje.',
     cageKey: 'Ključ! Sigurno otvara kavez.',
+    gateKey: 'Srebrni ključ! Sigurno otvara vrata.',
     ore: 'Iskopano: {n} × {ore}',
     mineBusy: 'Ne dok su neprijatelji blizu!',
     pressureUp: 'Tvoji neprijatelji postaju žešći {skulls}',

@@ -330,6 +330,7 @@ export default {
   toast: {
     cageLocked: '잠겨 있다. 열쇠가 이곳 어딘가에 있을 거야.',
     cageKey: '열쇠다! 우리를 여는 열쇠가 틀림없어.',
+    gateKey: '은열쇠다! 분명 문을 여는 열쇠일 거야.',
     ore: '채굴: {n} × {ore}',
     mineBusy: '적이 가까이 있어!',
     pressureUp: '적들이 더 사나워졌다 {skulls}',

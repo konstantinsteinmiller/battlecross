@@ -364,6 +364,8 @@ interface HintGlyph { mat: MeshBasicMaterial; color: Color; plate: number; lit: 
 
 // ─── Sealed pockets ──────────────────────────────────────────────────────────
 
+interface KeyView { root: Group; x: number; z: number; glint: number; dropT: number }
+
 interface DoorView {
   id: number
   mesh: InstancedMesh
@@ -492,7 +494,9 @@ export class LevelProps {
   /** Mist lying in patches (the Whisperwood, #120): each drifts and breathes. */
   private mists: Array<{ mesh: Mesh; spin: number; ph: number }> = []
   /** A cage's key lying in the place (#100). */
-  private key: { root: Group; x: number; z: number; glint: number; dropT: number } | null = null
+  private key: KeyView | null = null
+  /** The first visit's silver key for the palisade gate (`sim/gate.ts`). */
+  private gateKey: KeyView | null = null
 
   /**
    * @param shake camera trauma, for the rumble of a door.
@@ -589,7 +593,8 @@ export class LevelProps {
     this.buildDecals(plan)
     this.buildHerbs()
     this.buildOres()
-    this.buildKey()
+    this.key = this.makeKey(this.sim.cageKey, false)
+    this.gateKey = this.makeKey(this.sim.gate?.key ?? null, true)
     await slice()
     scene.add(this.root)
     if (plan.dummy) {
@@ -1128,14 +1133,22 @@ export class LevelProps {
     if (!plan.doors.length) return
     // Narrow enough to keep on its sealed cell (a heap reached half a cell
     // out over the open ground in front: `propRoles.ts`), as tall as ever.
-    const geo = merge([
+    const rockGeo = merge([
       P(rock(0.95, 5, 10, 8), '#8d8a94', [0, 0.62, 0]),
       P(rock(0.6, 12, 9, 7), '#a5a2ac', [0.5, 0.36, 0.42]),
       P(rock(0.52, 19, 9, 7), '#77747e', [-0.52, 0.3, 0.3]),
       P(rock(0.56, 27, 9, 7), '#9a97a1', [-0.1, 1.3, -0.12])
     ]).scale(0.7, 1, 0.7)
-    this.owned.push(geo)
+    // The first level's gate: a small wooden palisade, four pointed logs to a cell, bound by a rail.
+    const logs: BufferGeometry[] = []
+    for (const [ox, oz, hh, c] of [[-0.36, -0.34, 1.9, '#8a5a30'], [0.36, -0.3, 2.1, '#9a6a38'], [-0.34, 0.36, 2.0, '#7a4c28'], [0.34, 0.34, 1.8, '#946236']] as const) {
+      logs.push(P(rcyl(0.27, hh, 0.05, 7, 1), c, [ox, hh / 2, oz]), P(rcone(0.27, 0.03, 0.45, 0.02, 7), c, [ox, hh + 0.2, oz]))
+    }
+    logs.push(P(rbox(1.5, 0.14, 0.14, 0.3, 6, 3), '#6a4424', [0, 1.15, 0]))
+    const palisadeGeo = merge(logs)
+    this.owned.push(rockGeo, palisadeGeo)
     for (const d of plan.doors) {
+      const geo = d.style === 'palisade' ? palisadeGeo : rockGeo
       const rng = mulberry32((plan.seed ^ (0x51d0 + d.id)) >>> 0)
       const rocks: DoorView['rocks'] = []
       for (const k of d.cells) {
@@ -1399,16 +1412,17 @@ export class LevelProps {
   }
 
   /** A cage's key (#100): an old golden key lying on the ground, turning slowly. */
-  private buildKey(): void {
-    const k = this.sim.cageKey
-    if (!k || k.taken) return
-    // The camp's key is the boss's to drop (#182): nothing lies there until it falls.
-    if (k.drop !== undefined && k.drop < 0) return
+  private makeKey(k: { x: number; z: number; taken: boolean; drop?: number } | null, silver: boolean): KeyView | null {
+    if (!k || k.taken) return null
+    // The camp's key is the boss's to drop (#182), the gate's the pack's: nothing lies there until it falls.
+    if (k.drop !== undefined && k.drop < 0) return null
+    const bright = silver ? '#e4ecf4' : '#f0c040'
+    const dark = silver ? '#aab6c6' : '#e0a830'
     const g = merge([
-      xform(paint(torus(0.11, 0.035, 6, 12), '#f0c040'), [0, 0, -0.16], [Math.PI / 2, 0, 0]),
-      xform(paint(rcyl(0.03, 0.36, 0.01, 6, 1), '#f0c040'), [0, 0, 0.05], [Math.PI / 2, 0, 0]),
-      xform(paint(rbox(0.1, 0.04, 0.06, 0.3, 6, 3), '#e0a830'), [0.05, 0, 0.17]),
-      xform(paint(rbox(0.07, 0.04, 0.05, 0.3, 6, 3), '#e0a830'), [0.04, 0, 0.09])
+      xform(paint(torus(0.11, 0.035, 6, 12), bright), [0, 0, -0.16], [Math.PI / 2, 0, 0]),
+      xform(paint(rcyl(0.03, 0.36, 0.01, 6, 1), bright), [0, 0, 0.05], [Math.PI / 2, 0, 0]),
+      xform(paint(rbox(0.1, 0.04, 0.06, 0.3, 6, 3), dark), [0.05, 0, 0.17]),
+      xform(paint(rbox(0.07, 0.04, 0.05, 0.3, 6, 3), dark), [0.04, 0, 0.09])
     ])
     this.owned.push(g)
     const root = new Group()
@@ -1420,7 +1434,7 @@ export class LevelProps {
     line.renderOrder = -1
     root.add(body, line)
     this.root.add(root)
-    this.key = { root, x: k.x, z: k.z, glint: 0.5, dropT: -1 }
+    return { root, x: k.x, z: k.z, glint: 0.5, dropT: -1 }
   }
 
   /** The pickaxe: chips fly at each swing; the last one breaks the vein out. */
@@ -1516,17 +1530,20 @@ export class LevelProps {
       case 'mine': this.onMine(e); break
       case 'cageKeyDrop': {
         // The boss lets the key fall: it arcs down from above, glints, and lands with a ring.
-        if (!this.key) this.buildKey()
-        if (this.key) { this.key.dropT = 0; this.key.x = e.x; this.key.z = e.z; this.key.root.visible = true }
+        const gate = !!e.gate
+        if (gate ? !this.gateKey : !this.key) { const v = this.makeKey({ x: e.x, z: e.z, taken: false }, gate); if (gate) this.gateKey = v; else this.key = v }
+        const kv = gate ? this.gateKey : this.key
+        if (kv) { kv.dropT = 0; kv.x = e.x; kv.z = e.z; kv.root.visible = true }
         this.vfx.ring(e.x, e.z, 0.2, 1.2, '#ffd84a', 0.4)
         sfx('uiEquip', this.pan(e.x))
         break
       }
       case 'cageKey': {
-        if (this.key) this.key.root.visible = false
+        const kv = e.gate ? this.gateKey : this.key
+        if (kv) kv.root.visible = false
         this.vfx.ring(e.x, e.z, 0.2, 1.6, '#ffd84a', 0.5)
         this.vfx.orb(e.x, 0.5, e.z, this.heroX, 1.0, this.heroZ, 0.2, '#ffd84a', '#ffffff', 0.45, 1.5)
-        pushHud({ t: 'toast', key: 'toast.cageKey' })
+        pushHud({ t: 'toast', key: e.gate ? 'toast.gateKey' : 'toast.cageKey' })
         sfx('uiEquip', this.pan(e.x))
         break
       }
@@ -1687,9 +1704,9 @@ export class LevelProps {
       }
     }
 
-    // ── A cage's key: turning, bobbing, and a glint that grows as the hero nears ──
-    if (this.key && this.key.root.visible) {
-      const kv = this.key
+    // ── A key (the cage's, the gate's): turning, bobbing, and a glint that grows as the hero nears ──
+    for (const kv of [this.key, this.gateKey]) {
+      if (!kv || !kv.root.visible) continue
       kv.root.rotation.y += dt * 1.2
       // Falling (#182): high above, easing down in under a second, then it bobs as before.
       let lift = 0

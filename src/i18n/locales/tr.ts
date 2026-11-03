@@ -330,6 +330,7 @@ export default {
   toast: {
     cageLocked: 'Kilitli. Anahtar buralarda bir yerde olmalı.',
     cageKey: 'Bir anahtar! Kafesi açıyor olmalı.',
+    gateKey: 'Gümüş bir anahtar! Kapıyı açıyor olmalı.',
     ore: 'Kazıldı: {n} × {ore}',
     mineBusy: 'Düşmanlar yakındayken olmaz!',
     pressureUp: 'Düşmanların daha da azgınlaşıyor {skulls}',

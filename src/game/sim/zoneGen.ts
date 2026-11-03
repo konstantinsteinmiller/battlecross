@@ -14,6 +14,7 @@ import { placeHerbs, placePieces, placeTreasure, type HerbPlan, type PiecePlan }
 import { placeOres, type OrePlan } from './ores'
 import { placeCage } from './cages'
 import { CAMP_ROOM, dressCamp, placeCamp, type CampPlan } from './camp'
+import { placeGate, type GatePlan } from './gate'
 import { LAID_SHAPES, carveDisc, carveLine, carveRect, layOut, layoutHeight, wallFace, type Chamber, type Fixture, type Guide, type Laid } from './layouts'
 import { dressPlace, makeDresser, type DressPlan } from './dressing'
 import { widenWays, type Target } from './widen'
@@ -138,6 +139,8 @@ export interface ZonePlan {
   ores?: OrePlan[]
   /** A cage's key lying in the place (roadmap #100); the cage is a chest. */
   cageKey?: { x: number; z: number }
+  /** The first visit's palisade gate before the boss and the pack that keeps its key (`gate.ts`). */
+  gate?: GatePlan
   /** The treasure map's pieces lying here (roadmap #89). */
   pieces?: PiecePlan[]
   /** The first visit's camp of rescued teachers past the finale (roadmap #156); its cage is a chest. */
@@ -631,6 +634,13 @@ export const generateZone = (def: ZoneDef, seed: number, o: ZoneGenOpts = {}): Z
   const cageKey = cage?.key ?? campCut?.key
   widenWays({ w: Wd, h, solid, kind, sealed, masonry, doors: features.doors, pieces: dresser.pieces, crossings: features.crossings, anchored: ores.map(q => Math.floor(q.z / CELL) * Wd + Math.floor(q.x / CELL)) }, start,
     [...waysTo({ ...features, packs, herbs, pieces, ores, ...(cageKey ? { cageKey } : {}) }), ...(camp ? camp.spots : [])])
+  // The first visit (#194): a wooden palisade across the road walls the boss's floor off from the pack before it. Cut after the
+  // ways are widened (a widening beside it would open a way round).
+  let gate: GatePlan | undefined
+  if (campCut && finalePack && packs.length >= 2) {
+    const door = placeGate({ w: Wd, h, solid, sealed }, features.doors.length, { x: finalePack.x, z: finalePack.z, r: clearings[n]!.r }, { x: packs[packs.length - 2]!.x, z: packs[packs.length - 2]!.z, r: clearings[n - 1]!.r })
+    if (door) { features.doors.push(door); gate = { door: door.id, pack: packs.length - 2, x: door.x, z: door.z } }
+  }
   const height = buildRelief({
     seed, w: Wd, h, kind, trail, cs, lobes, ledges: features.ledges, dais: features.dais, rivers: features.rivers, crossings: features.crossings,
     relief: ZONE_RELIEF[def.id], tutorial: !!o.tutorial, guides
@@ -689,6 +699,7 @@ export const generateZone = (def: ZoneDef, seed: number, o: ZoneGenOpts = {}): Z
     ores,
     ...(cageKey ? { cageKey } : {}),
     ...(camp ? { camp } : {}),
+    ...(gate ? { gate } : {}),
     pieces,
     // The first visit opens on a calm beat: a dummy to learn to fight on.
     ...(o.tutorial ? { dummy: placeDummy(solid, h, cs, features.chests, packs[0]!) } : {})

@@ -16,6 +16,7 @@ import { openingBoss } from './coach/tutorialAid'
 import { nudgeWorld, senseFinder, senseWorld } from './coach/world'
 import type { ClassId } from './data/skills'
 import { campPending, campTarget } from './sim/camp'
+import { gateGoal } from './sim/gate'
 import { campLessonPending, nearestTeacher } from './coach/campLesson'
 
 /**
@@ -158,6 +159,9 @@ const p3 = { x: 0, y: 0 }
 const TRAINERS = new Map<string, ClassId | undefined>()
 for (const t of Object.values(TOWNS)) for (const n of t.npcs) if (n.role === 'trainer') TRAINERS.set(n.id, n.cls)
 
+/** Is an awake enemy close (the chevrons wait for the fight to be over)? */
+const nearFoe = (sim: Sim, u: Unit): boolean => sim.units.some(e => e.alive && e.team === 1 && e.awake && Math.hypot(e.x - u.x, e.z - u.z) < 9)
+
 /** The walked way from the hero to `to` into `wayWorld`, found again a few
  *  times a second (both may move). */
 const findWay = (sim: Sim, u: Unit, to: { id: number; x: number; z: number }, dt: number): void => {
@@ -258,6 +262,10 @@ class Coach {
       // The teachers are out: the chevrons lead to the nearest, to learn their free lesson (#180).
       const t = nearestTeacher(sim, u.x, u.z)
       if (t && Math.hypot(t.x - u.x, t.z - u.z) > 3) { findWay(sim, u, t, dt); hintPath.lead = wayWorld.length > 0 }
+    } else if (u.alive && !sim.ended && !sim.leaving && !nearFoe(sim, u)) {
+      // The pack before the boss is down (#194): the chevrons lead to its silver key, then to the palisade gate it opens.
+      const to = gateGoal(sim)
+      if (to) { findWay(sim, u, { id: -4, ...to }, dt); hintPath.lead = wayWorld.length > 0 }
     }
     if (!u.alive || sim.ended) { this.setFight(false); nudgeWorld.has = false; nudgeWorld.chest = false; this.publish([]); return }
     // Where the next objective stands, for the nudges (`coach/world.ts`).

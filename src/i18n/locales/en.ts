@@ -296,6 +296,7 @@ export default {
     'item': 'Found: {item}',
     'herb': 'Picked: {plant}',
     'cageKey': 'A key! It must open the cage.',
+    'gateKey': 'A silver key! It must open the gate.',
     'cageLocked': 'Locked. The key must be somewhere in this place.',
     'ore': 'Mined: {n} × {ore}',
     'mineBusy': 'Not with enemies about!',

@@ -330,6 +330,7 @@ export default {
   toast: {
     cageLocked: 'Op slot. De sleutel moet hier ergens zijn.',
     cageKey: 'Een sleutel! Die moet de kooi openen.',
+    gateKey: 'Een zilveren sleutel! Die opent vast de poort.',
     ore: 'Gedolven: {n} × {ore}',
     mineBusy: 'Niet met vijanden in de buurt!',
     pressureUp: 'Je vijanden worden feller {skulls}',

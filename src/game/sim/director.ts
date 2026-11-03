@@ -1,6 +1,7 @@
 import { ARENA_WAVES, ZONES } from '../data/zones'
 import { milestoneAt } from '../data/arena'
 import { CELL } from './grid'
+import { armGate } from './gate'
 import { itemsOfZone, type ZoneId } from '../data/items'
 import { ENEMY_BY_ID } from '../data/enemies'
 import { FINALE_BEAT, LEAVE_BEAT, openChest, populateFeatures, stepPlates } from './interact'
@@ -95,6 +96,8 @@ export const populateZone = (sim: Sim, plan: ZonePlan, zone: ZoneId, owned: Iter
   // The first visit's camp holds the teachers (#156); elsewhere a cage holds its captive.
   if (plan.camp) populateCamp(sim, plan.camp, plan.cageKey)
   else populateCage(sim, plan.cageKey, plan.start)
+  // The first visit's palisade gate and its key (`gate.ts`).
+  sim.gate = armGate(plan.gate, plan.gate ? plan.packs[plan.gate.pack] : undefined, sim.grid)
   // An invaded zone (the afterplay): its pylons and rift scars.
   populateInvasion(sim, plan)
   // An escort's caravan, at the start of its road (#85).

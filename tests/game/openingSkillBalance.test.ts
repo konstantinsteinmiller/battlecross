@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { Sim } from '@/game/sim/world'
+import { gateGoal } from '@/game/sim/gate'
 import { createHero, orderAttack, orderMove, slotState, castSkill } from '@/game/sim/hero'
 import { applyPlan, populateZone } from '@/game/sim/director'
 import { generateZone } from '@/game/sim/zoneGen'
@@ -68,7 +69,11 @@ export const skillRun = (opts: { learn: boolean; mul?: number; react?: number; l
             if (d < bd) { bd = d; best = e }
           }
           if (best) { target = best.id; orderAttack(sim, best.id) }
-          else {
+          else if (gateGoal(sim)) {
+            // The palisade (#194): the key the last of the pack let fall, then the gate.
+            const gg = gateGoal(sim)!
+            if (h.order.kind !== 'move' || Math.hypot(h.order.x - gg.x, h.order.z - gg.z) > 0.3) orderMove(sim, gg.x, gg.z)
+          } else {
             const next = sim.groups.find(g => !g.cleared)
             if (next && (h.order.kind !== 'move' || Math.hypot(h.order.x - next.x, h.order.z - next.z) > 1)) orderMove(sim, next.x, next.z)
           }

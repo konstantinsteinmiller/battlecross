@@ -330,6 +330,7 @@ export default {
   toast: {
     cageLocked: 'Tancada amb clau. La clau ha de ser en algun lloc d’aquí.',
     cageKey: 'Una clau! Deu obrir la gàbia.',
+    gateKey: 'Una clau de plata! Deu obrir la porta.',
     ore: 'Extret: {n} × {ore}',
     mineBusy: 'No amb enemics a prop!',
     pressureUp: 'Els teus enemics es tornen més ferotges {skulls}',

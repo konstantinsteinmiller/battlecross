@@ -330,6 +330,7 @@ export default {
   toast: {
     cageLocked: 'Låst. Nøglen må være et sted her.',
     cageKey: 'En nøgle! Den må åbne buret.',
+    gateKey: 'En sølvnøgle! Den må åbne porten.',
     ore: 'Udvundet: {n} × {ore}',
     mineBusy: 'Ikke med fjender i nærheden!',
     pressureUp: 'Dine fjender bliver mere vilde {skulls}',
