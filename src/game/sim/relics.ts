@@ -57,6 +57,8 @@ export const armRelicDrops = (sim: Sim): void => {
   const infernal = infernalsOfZone(zone)
   const after = AFTER_BOSS_DROPS[zone]
   sim.dropTable.infernal = infernal
+  // An invaded zone drops its Infernal twins and nothing else: the plain pieces are far below a level-30+ hero (their 2 Charisma and 2 Dexterity).
+  if (infernal.length) { sim.dropTable.mob = [...infernal]; sim.dropTable.chest = [...infernal] }
   sim.dropTable.after = after ? [...after] : []
   if (after) sim.dropTable.boss = [...after]
   else {

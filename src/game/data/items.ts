@@ -1,6 +1,6 @@
 import type { Attr } from './attributes'
 import type { Mods, ModId } from './mods'
-import { DEMON_AFFIXES, INFERNAL_LEVEL, INFERNAL_MIN_TIER, INFERNAL_MUL, INFERNAL_PRICE, INFERNAL_SUFFIX } from './relics'
+import { DEMON_AFFIXES, INFERNAL_LEVEL, INFERNAL_MIN_TIER, INFERNAL_MYTHIC_MUL, INFERNAL_MYTHIC_ZONES, INFERNAL_MUL, INFERNAL_PRICE, INFERNAL_SUFFIX } from './relics'
 
 /**
  * ─── Items (GDD §6) ──────────────────────────────────────────────────────────
@@ -594,7 +594,7 @@ export const AFTER_ITEMS: readonly ItemDef[] = ([
   { id: 'wallwardensPlate', slot: 'body', kind: 'plate', tier: 6, level: 42, mods: { end: 170, str: 95, damageReduction: 0.08 }, armor: 320, unique: true, drop: { zone: 'outskirts', src: 'siege' } },
   { id: 'gatebreaker', slot: 'main', kind: 'hammer', tier: 7, level: 45, mods: { str: 270, end: 120, bossDamage: 0.3, pylonBreaker: 1 }, weapon: melee('str', 1.25, true), unique: true, drop: { zone: 'outskirts', src: 'siege' } },
   { id: 'crownOfTheLastBastion', slot: 'head', kind: 'greathelm', tier: 7, level: 50, mods: { allAttrs: 70, armor: 100, damageReduction: 0.08, lastStand: 0.2 }, unique: true, drop: { zone: 'outskirts', src: 'siege' } }
-] as ItemDef[]).map(scaled)
+] as ItemDef[]).map(scaled).map(i => (i.level >= 45 && i.tier === 6 ? { ...i, tier: 7 as const } : i))
 
 /** The partner of a set piece ('' none). */
 export const setPartner = (it: ItemDef): string => (it.set ? AFTER_ITEMS.find(o => o.set === it.set && o.id !== it.id)?.id ?? '' : '')
@@ -623,14 +623,17 @@ export const infernalId = (id: string): string => `${id}${INFERNAL_SUFFIX}`
  */
 export const INFERNALS: readonly ItemDef[] = ITEMS.filter(i => i.unique).map((it, n) => {
   const mods: Mods = {}
+  // From the Ashen Crags on: mythic, and a third stronger (the hero at level 40+ needs it to keep up with the bosses).
+  const mythic = INFERNAL_MYTHIC_ZONES.has(it.drop.zone)
+  const mul = mythic ? INFERNAL_MYTHIC_MUL : 1
   for (const k of Object.keys(it.mods) as ModId[]) {
     const v = it.mods[k] ?? 0
-    mods[k] = INFERNAL_GROWS.has(k) ? Math.round(v * INFERNAL_MUL) : v
+    mods[k] = INFERNAL_GROWS.has(k) ? Math.round(v * INFERNAL_MUL * mul) : v
   }
   for (const [k, v] of Object.entries(DEMON_AFFIXES[n % DEMON_AFFIXES.length]!)) mods[k as ModId] = (mods[k as ModId] ?? 0) + (v ?? 0)
   return {
-    ...it, id: infernalId(it.id), tier: (it.tier >= INFERNAL_MIN_TIER ? it.tier : INFERNAL_MIN_TIER) as ItemDef['tier'], level: it.level + INFERNAL_LEVEL, mods,
-    ...(it.armor ? { armor: Math.round(it.armor * INFERNAL_MUL) } : {}),
+    ...it, id: infernalId(it.id), tier: (mythic ? 7 : it.tier >= INFERNAL_MIN_TIER ? it.tier : INFERNAL_MIN_TIER) as ItemDef['tier'], level: it.level + INFERNAL_LEVEL, mods,
+    ...(it.armor ? { armor: Math.round(it.armor * INFERNAL_MUL * mul) } : {}),
     infernal: it.id, drop: { zone: it.drop.zone, src: 'infernal' as const }
   }
 })

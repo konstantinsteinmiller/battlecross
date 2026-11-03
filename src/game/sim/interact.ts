@@ -179,7 +179,7 @@ export const openChest = (sim: Sim, c: ChestState): void => {
   sim.emit({ t: 'chest', id: c.id, x: c.x, z: c.z, state: 'open' })
   if (c.role === 'cage') freeCaptives(sim, c)
   const at = spillOf(c)
-  const pool = c.role === 'finale' ? sim.dropTable.chest.concat(sim.dropTable.mob) : ZONE_LOOT[sim.zone as ZoneId]?.items ?? []
+  const pool = c.role === 'finale' ? sim.dropTable.chest.concat(sim.dropTable.mob) : sim.invaded && sim.dropTable.infernal?.length ? sim.dropTable.infernal : ZONE_LOOT[sim.zone as ZoneId]?.items ?? []
   // Every pile in the chest is one purse (and one number over it).
   let gold = 0
   for (const d of c.loot) {

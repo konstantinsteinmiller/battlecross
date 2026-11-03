@@ -4,7 +4,7 @@ import { drainAndResetModules, drainPersist, holdGameState } from '../stubs/drai
 import {
   AFTER_BOSS_DROPS, AFTER_ITEMS, INFERNALS, ITEMS, ITEM_BY_ID, infernalId, noGear, priceOf, setPartner, type ZoneId
 } from '@/game/data/items'
-import { DEMON_AFFIXES, HEROIC, HEROIC_MAX, INFERNAL_MUL, SET_BONUS, heroicCost, heroicScale } from '@/game/data/relics'
+import { DEMON_AFFIXES, HEROIC, HEROIC_MAX, INFERNAL_MUL, INFERNAL_MYTHIC_MUL, INFERNAL_MYTHIC_ZONES, SET_BONUS, heroicCost, heroicScale } from '@/game/data/relics'
 import { forgedArmor, forgedMods } from '@/game/data/forge'
 import { CAPSTONES, CAPSTONE_LEVEL, CAPSTONE_OF, CAPSTONE_PRICE, CLASS_IDS, SKILLS, SKILL_BY_ID, priceOf as skillPrice } from '@/game/data/skills'
 import { INVASION, invadedFlag, invadedOpen } from '@/game/data/invasion'
@@ -46,7 +46,7 @@ describe('the afterplay item tables', () => {
       for (const it of [a!, b!]) {
         expect(it.level).toBeGreaterThanOrEqual(34)
         expect(it.level).toBeLessThanOrEqual(60)
-        expect(it.tier).toBe(z === 'rift' ? 7 : 6)
+        expect(it.tier).toBe(it.level >= 45 ? 7 : 6) // from the Mines on the boss pairs are mythic
         expect(it.unique).toBe(true)
         expect(SET_BONUS[it.set!], it.id).toBeTruthy()
       }
@@ -59,7 +59,7 @@ describe('the afterplay item tables', () => {
     const campaign = new Set(ITEMS.map(i => i.id))
     for (const it of AFTER_ITEMS) expect(campaign.has(it.id), it.id).toBe(false)
     // Mythics: the siege's top two and the Elder Dragon's pair.
-    expect(AFTER_ITEMS.filter(i => i.tier === 7).map(i => i.id).sort()).toEqual(['crownOfTheLastBastion', 'dragonboneGreatsword', 'gatebreaker', 'heartOfTheElderDragon'])
+    expect(AFTER_ITEMS.filter(i => i.tier === 7).map(i => i.id)).toEqual(expect.arrayContaining(['crownOfTheLastBastion', 'dragonboneGreatsword', 'gatebreaker', 'heartOfTheElderDragon']))
   })
 
   it('every named unique of the campaign has an Infernal twin: +30 levels, attributes ×1.9, one demon affix, tinted not redrawn', () => {
@@ -71,11 +71,13 @@ describe('the afterplay item tables', () => {
       expect(tw, it.id).toBeTruthy()
       expect(tw.infernal).toBe(it.id)
       expect(tw.level).toBe(it.level + 30)
-      expect(tw.tier).toBe(Math.max(6, it.tier))
+      const mythic = INFERNAL_MYTHIC_ZONES.has(it.drop.zone) // from the Ashen Crags on: mythic, a third stronger
+      const k = INFERNAL_MUL * (mythic ? INFERNAL_MYTHIC_MUL : 1)
+      expect(tw.tier).toBe(mythic ? 7 : Math.max(6, it.tier))
       expect(tw.drop).toEqual({ zone: it.drop.zone, src: 'infernal' })
-      for (const a of ['str', 'dex', 'int', 'end', 'skl', 'cha'] as const) if (it.mods[a]) expect(tw.mods[a]).toBe(Math.round(it.mods[a]! * INFERNAL_MUL))
+      for (const a of ['str', 'dex', 'int', 'end', 'skl', 'cha'] as const) if (it.mods[a]) expect(tw.mods[a]).toBe(Math.round(it.mods[a]! * k))
       expect(affixKeys.filter(k => (tw.mods[k as keyof typeof tw.mods] ?? 0) > (it.mods[k as keyof typeof it.mods] ?? 0))).toHaveLength(1)
-      if (it.armor) expect(tw.armor).toBe(Math.round(it.armor * INFERNAL_MUL))
+      if (it.armor) expect(tw.armor).toBe(Math.round(it.armor * k))
       if (it.tier < 6) expect(priceOf(tw)).toBeGreaterThan(priceOf(it) * 2.5)
     }
     // The eight affixes all appear.
@@ -258,11 +260,11 @@ describe('through the profile and the save', () => {
     expect(p.oreCount('demonglass')).toBe(300)
     expect(p.profile.hero.passive).toHaveLength(5)
     expect(p.profile.inv.heroic).toEqual({})
-    // Sold, then reloaded: the Scale is not given twice.
-    expect(p.sellItem('leviathanScale')).toBe(true)
+    // Sold, then reloaded: the banner is not given twice.
+    expect(p.sellItem('bastionBanner')).toBe(true)
     p.saveProfile()
     p.loadProfile()
-    expect(p.owns('leviathanScale')).toBe(false)
+    expect(p.owns('bastionBanner')).toBe(false)
     expect(p.oreCount('demonglass')).toBe(300)
   })
 

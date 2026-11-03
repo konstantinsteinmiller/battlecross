@@ -55,9 +55,12 @@ export const INFERNAL_SUFFIX = 'Infernal'
 /** An Infernal piece in a shop costs this many times its original's price. */
 export const INFERNAL_PRICE = 3
 /** The share of a visit's dropped pieces that comes as an Infernal twin (§11: 10 %). */
-export const INFERNAL_SHARE = 0.35
+export const INFERNAL_SHARE = 1
 /** A twin is at least legendary (#174): what the invaded zones drop is worth the level. */
 export const INFERNAL_MIN_TIER = 6
+/** From the Ashen Crags on (the invasion's fifth zone) a twin is MYTHIC and grows a third more: the hero past level 40 scales on it. */
+export const INFERNAL_MYTHIC_ZONES: ReadonlySet<string> = new Set(['crags', 'mines', 'tundra', 'temple', 'citadel', 'peak', 'fortress', 'rift'])
+export const INFERNAL_MYTHIC_MUL = 1.35
 /** Invaded visits (#173): foes hold more and hit harder than the plain level band says. */
 export const INVADED_HP_MUL = 2
 export const INVADED_DMG_MUL = 1.3
