@@ -302,9 +302,12 @@ const preloadEngineChunksPlugin = (): Plugin => {
   }
 }
 
-const leaderboardSnapshotPlugin = (seeded: boolean): Plugin => ({
+const leaderboardSnapshotPlugin = (seeded: boolean, dev = false): Plugin => ({
   name: 'leaderboard-snapshot',
   buildStart() {
+    // The local dev server uses whatever copy is committed: no seed line in its log, and no refresh from the Worker that rewrites the
+    // committed snapshot on every start.
+    if (dev) return
     if (seeded) {
       // Nothing to fetch: the seed is generated from a curve, committed, and
       // deterministic. Re-running `pnpm leaderboard:seed` reproduces it byte for
@@ -466,7 +469,7 @@ export default defineConfig(({ mode, command }) => {
   // row-read allowance ran out mid-afternoon and `/top` threw for every live
   // build, which without this shows a first-time player "Couldn't reach the
   // leaderboard". It costs ~2 kB gzipped per build.
-  plugins.push(leaderboardSnapshotPlugin((env.VITE_LEADERBOARD_URL ?? '').trim().length === 0))
+  plugins.push(leaderboardSnapshotPlugin((env.VITE_LEADERBOARD_URL ?? '').trim().length === 0, command === 'serve'))
 
   // Only push the obfuscator if both conditions are met
   if (isProduction && shouldObfuscate) {
