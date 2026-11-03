@@ -17,9 +17,9 @@ import { bark, daze, move, other, strikeFor, warn } from './kit'
  *             silver, eye violet, wave teal). She shows a sequence of four,
  *             one plate flaring after the other; the hero steps the plates in
  *             that order while SAND BLADES sweep the floor (each lane shown
- *             first). Right: she falls, dazed 6 s, and takes half again for
- *             10 s. Wrong (or too slow): she heals 8 % and asks again, in a
- *             new order.
+ *             first). Right: she falls, dazed 9 s, and takes half again for
+ *             14 s. Wrong (or too slow): she heals 3 % and shows the same
+ *             sequence again.
  *   30 %      the second riddle, five long, and two sand-spinning acolytes.
  *
  * No words in the riddle: symbols are colours and places, so it reads the
@@ -31,7 +31,7 @@ const COLOR = '#e8c060'
 export const SYMBOL_COLOR = ['#ffc23a', '#c8d8ff', '#c87aff', '#3ac8d8'] as const
 const PLATE_R = 1.2
 const PLATE_DIST = 5
-const HIGH = 6
+const HIGH = 3.2
 const RISE = 1
 /** Seconds each symbol flares while she shows the sequence, and the pause after. */
 const SHOW_EACH = 0.8
@@ -39,14 +39,14 @@ const SHOW_PAUSE = 0.6
 /** The plates' dim glow, laid again every beat. */
 const GLOW_BEAT = 1
 /** Seconds to step the whole sequence before it counts as wrong. */
-const STEP_TIME = 16
-const BLADE_EVERY = 3.2
+const STEP_TIME = 32
+const BLADE_EVERY = 5
 const BLADE_WARN = 1.2
 const BLADE_W = 0.8
 const BLADE_LEN = 24
-const RIGHT_DAZE = 6
-const RIGHT_VULN = 10
-const WRONG_HEAL = 0.08
+const RIGHT_DAZE = 9
+const RIGHT_VULN = 14
+const WRONG_HEAL = 0.03
 const CLAW_R = 4.2
 const CLAW_HALF = 0.75
 const SAND_R = 1.9
@@ -144,7 +144,8 @@ const answer = (sim: Sim, u: Unit, right: boolean): void => {
     heal(sim, u, u.s.maxHp * WRONG_HEAL)
     sim.emit({ t: 'fx', id: 'heal', x: u.x, z: u.z, unit: u.id, color: COLOR })
     sim.emit({ t: 'fx', id: 'burst:sand', x: sim.hero.unit.x, z: sim.hero.unit.z, r: 1.6, color: COLOR })
-    newSequence(sim, s, b.n)
+    s.at = 0
+    s.on = -1
     b.sub = 'show'
     b.modeT = 0
     s.showT = 0
@@ -193,7 +194,7 @@ const blade = (sim: Sim, u: Unit): void => {
       const across = Math.abs((t.x - x0) * dz - (t.z - z0) * dx)
       if (along < 0 || along > BLADE_LEN || across > BLADE_W + t.r) continue
       strikeFor(sim, u, t, 1.2)
-      applyStatus(sim, t, 'knockdown', 0.5, 1, u)
+      applyStatus(sim, t, 'slow', 1.5, 0.4, u)
     }
   })
 }
@@ -345,3 +346,5 @@ export const riddleOf = (u: Unit): { px: readonly number[]; pz: readonly number[
   const s = u.boss ? states.get(u.boss) : undefined
   return s ? { px: s.px, pz: s.pz, seq: s.seq, at: s.at } : undefined
 }
+// Probe handle for the browser checks (scripts/sphinx-probe.mjs); folds away in production.
+if (import.meta.env?.DEV) (globalThis as Record<string, unknown>).__riddleOf = riddleOf

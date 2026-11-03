@@ -123,7 +123,7 @@ describe('the Sphinx (afterplay §5.4)', () => {
     expect(hasStatus(s, 'vulnerable')).toBe(true)
   })
 
-  it('stepped wrong: she heals 8 % and asks again, in a new order', () => {
+  it('stepped wrong: she heals 3 % and shows the same sequence again', () => {
     const sim = arena()
     const s = sphinx(sim)
     toRiddle(sim, s)
@@ -135,6 +135,7 @@ describe('the Sphinx (afterplay §5.4)', () => {
     expect(s.boss!.mode).toBe('air')
     expect(s.boss!.sub).toBe('show')
     expect(riddleOf(s)!.at).toBe(0)
+    expect([...riddleOf(s)!.seq]).toEqual(first)
   })
 
   it('too slow is wrong too', () => {
