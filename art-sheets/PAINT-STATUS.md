@@ -4,7 +4,7 @@ A report, not a contract: it is a picture of `art-sheets/painted/` and the
 slicer's receipt at the moment it was written. Re-run `pnpm art:prompts`
 after painting or slicing anything.
 
-**148 sliced · 1 need a repaint · 2 painted, unreceipted · 4 outstanding**
+**151 sliced · 1 need a repaint · 2 painted, unreceipted · 3 outstanding**
 
 | | Sheet | Prompt block in | Reference | State |
 | --- | --- | --- | --- | --- |
@@ -28,6 +28,8 @@ after painting or slicing anything.
 | ✓ | **Item icons: the gap-fill set, 8 of 9** | `PROMPTS-ITEMS.md` | `sheet-items-fill-8.png` (rev `a2db37870d77`) | sliced 2026-10-18 |
 | ✓ | **Item icons: the gap-fill set, 9 of 9** | `PROMPTS-ITEMS.md` | `sheet-items-fill-9.png` (rev `276a728874b1`) | sliced 2026-10-18 |
 | ✓ | **Item icons: the colosseum prizes** | `PROMPTS-ITEMS.md` | `sheet-items-mythic.png` (rev `7e0751c191de`) | sliced 2026-10-18 |
+| · | **Item icons: the afterplay bosses and the siege, 1 of 2** | `PROMPTS-ITEMS.md` | `sheet-items-after-1.png` (rev `d740c33af4f7`) | not painted yet |
+| · | **Item icons: the afterplay bosses and the siege, 2 of 2** | `PROMPTS-ITEMS.md` | `sheet-items-after-2.png` (rev `79d7d9b3c1ea`) | not painted yet |
 | ✓ | **Item icons: smithed iron** | `PROMPTS-ITEMS.md` | `sheet-items-smith-iron.png` (rev `ce537d394bfe`) | sliced 2026-10-18 |
 | ✓ | **Item icons: smithed silver** | `PROMPTS-ITEMS.md` | `sheet-items-smith-silver.png` (rev `516da39d0173`) | sliced 2026-10-18 |
 | ✓ | **Item icons: smithed gold** | `PROMPTS-ITEMS.md` | `sheet-items-smith-gold.png` (rev `60c4f9d0be35`) | sliced 2026-10-18 |
@@ -114,14 +116,14 @@ after painting or slicing anything.
 | ✓ | **Skill icons: Bard (3 of 3)** | `PROMPTS-SKILLS.md` | `sheet-skills3-bard.png` (rev `f72c54bdf56d`) | sliced 2026-11-01 |
 | ✓ | **Portraits: townsfolk** | `PROMPTS-PORTRAITS.md` | `sheet-portraits-town.png` (rev `3732e628fe79`) | sliced 2026-10-18 |
 | ✓ | **Portraits: trainers** | `PROMPTS-PORTRAITS.md` | `sheet-portraits-trainers.png` (rev `770414fa440b`) | sliced 2026-10-18 |
-| · | **Portraits: masters and disciples, 1** | `PROMPTS-PORTRAITS.md` | `sheet-portraits-masters-1.png` (rev `8b3a87facbfa`) | not painted yet |
-| · | **Portraits: masters and disciples, 2** | `PROMPTS-PORTRAITS.md` | `sheet-portraits-masters-2.png` (rev `f32fcb354d01`) | not painted yet |
+| ✓ | **Portraits: masters and disciples, 1** | `PROMPTS-PORTRAITS.md` | `sheet-portraits-masters-1.png` (rev `8b3a87facbfa`) | sliced 2026-11-02 |
+| ✓ | **Portraits: masters and disciples, 2** | `PROMPTS-PORTRAITS.md` | `sheet-portraits-masters-2.png` (rev `f32fcb354d01`) | sliced 2026-11-02 |
 | ✓ | **Portraits: quest speakers** | `PROMPTS-PORTRAITS.md` | `sheet-portraits-speakers.png` (rev `58641c102acc`) | sliced 2026-10-18 |
 | ✓ | **Portraits: the fort, the freed and the townsfolk** | `PROMPTS-PORTRAITS.md` | `sheet-portraits-people-1.png` (rev `645ec9a5f9c1`) | sliced 2026-10-25 |
 | ✓ | **Portraits: Silverbridge traders** | `PROMPTS-PORTRAITS.md` | `sheet-portraits-people-2.png` (rev `a068b5c85387`) | sliced 2026-10-25 |
 | ✓ | **Portraits: gamblers, the fair and the mines** | `PROMPTS-PORTRAITS.md` | `sheet-portraits-people-3.png` (rev `958aff468507`) | sliced 2026-10-25 |
 | ✓ | **Portraits: the chronicler** | `PROMPTS-PORTRAITS.md` | `sheet-portraits-people-4.png` (rev `9b20a21fcd18`) | sliced 2026-11-01 |
-| · | **Portraits: folk, guards, the squire and the survivor** | `PROMPTS-PORTRAITS.md` | `sheet-portraits-people-6.png` (rev `50c993424235`) | not painted yet |
+| ✓ | **Portraits: folk, guards, the squire and the survivor** | `PROMPTS-PORTRAITS.md` | `sheet-portraits-people-6.png` (rev `50c993424235`) | sliced 2026-11-02 |
 | ✓ | **Portraits: the smiths, healers and shops of Oakhaven and Ironhold** | `PROMPTS-PORTRAITS.md` | `sheet-portraits-people-5.png` (rev `9a3ad4d9b625`) | sliced 2026-11-02 |
 | ✓ | **Portraits: the hero, per outfit** | `PROMPTS-PORTRAITS.md` | `sheet-portraits-hero.png` (rev `75c7036e6e95`) | sliced 2026-10-18 |
 | ✓ | **Portraits: the girl hero, per outfit** | `PROMPTS-PORTRAITS.md` | `sheet-portraits-girl.png` (rev `7e58d5984004`) | sliced 2026-10-18 |

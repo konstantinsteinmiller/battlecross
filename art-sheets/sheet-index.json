@@ -3819,6 +3819,330 @@
       ]
     },
     {
+      "id": "sheet-items-after-1",
+      "kind": "set",
+      "title": "Item icons: the afterplay bosses and the siege, 1 of 2",
+      "files": {
+        "clean": "sheet-items-after-1.png",
+        "key": "sheet-items-after-1-key.png"
+      },
+      "width": 1024,
+      "height": 768,
+      "cols": 4,
+      "rows": 3,
+      "maxEdge": 192,
+      "crop": 1,
+      "anchor": "centre",
+      "cells": [
+        {
+          "id": "chimeraMane",
+          "label": "Chimera Mane",
+          "variant": "items",
+          "x": 0,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/chimeraMane.webp",
+          "fit": {
+            "h": 0.84,
+            "w": 0.688,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "triFang",
+          "label": "Tri Fang",
+          "variant": "items",
+          "x": 256,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/triFang.webp",
+          "fit": {
+            "h": 0.836,
+            "w": 0.742,
+            "bottom": 0.918,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "warchiefsLongbowGun",
+          "label": "Warchiefs Longbow Gun",
+          "variant": "items",
+          "x": 512,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/warchiefsLongbowGun.webp",
+          "fit": {
+            "h": 0.691,
+            "w": 0.84,
+            "bottom": 0.844,
+            "cx": 0.498
+          }
+        },
+        {
+          "id": "hoofbreakerGreaves",
+          "label": "Hoofbreaker Greaves",
+          "variant": "items",
+          "x": 768,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/hoofbreakerGreaves.webp",
+          "fit": {
+            "h": 0.844,
+            "w": 0.688,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "eyeOfTheDeep",
+          "label": "Eye Of The Deep",
+          "variant": "items",
+          "x": 0,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/eyeOfTheDeep.webp",
+          "fit": {
+            "h": 0.844,
+            "w": 0.492,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "beamSplitter",
+          "label": "Beam Splitter",
+          "variant": "items",
+          "x": 256,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/beamSplitter.webp",
+          "fit": {
+            "h": 0.844,
+            "w": 0.672,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "riddleCrown",
+          "label": "Riddle Crown",
+          "variant": "items",
+          "x": 512,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/riddleCrown.webp",
+          "fit": {
+            "h": 0.66,
+            "w": 0.836,
+            "bottom": 0.832,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "sandglassWand",
+          "label": "Sandglass Wand",
+          "variant": "items",
+          "x": 768,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/sandglassWand.webp",
+          "fit": {
+            "h": 0.844,
+            "w": 0.68,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "leviathanScale",
+          "label": "Leviathan Scale",
+          "variant": "items",
+          "x": 0,
+          "y": 512,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/leviathanScale.webp",
+          "fit": {
+            "h": 0.84,
+            "w": 0.789,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "tidecallerStaff",
+          "label": "Tidecaller Staff",
+          "variant": "items",
+          "x": 256,
+          "y": 512,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/tidecallerStaff.webp",
+          "fit": {
+            "h": 0.844,
+            "w": 0.555,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "hydraScaleGauntlets",
+          "label": "Hydra Scale Gauntlets",
+          "variant": "items",
+          "x": 512,
+          "y": 512,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/hydraScaleGauntlets.webp",
+          "fit": {
+            "h": 0.844,
+            "w": 0.641,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "manyHeadedFlail",
+          "label": "Many Headed Flail",
+          "variant": "items",
+          "x": 768,
+          "y": 512,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/manyHeadedFlail.webp",
+          "fit": {
+            "h": 0.84,
+            "w": 0.664,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        }
+      ]
+    },
+    {
+      "id": "sheet-items-after-2",
+      "kind": "set",
+      "title": "Item icons: the afterplay bosses and the siege, 2 of 2",
+      "files": {
+        "clean": "sheet-items-after-2.png",
+        "key": "sheet-items-after-2-key.png"
+      },
+      "width": 1024,
+      "height": 768,
+      "cols": 4,
+      "rows": 3,
+      "maxEdge": 192,
+      "crop": 1,
+      "anchor": "centre",
+      "cells": [
+        {
+          "id": "heartOfTheElderDragon",
+          "label": "Heart Of The Elder Dragon",
+          "variant": "items",
+          "x": 0,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/heartOfTheElderDragon.webp",
+          "fit": {
+            "h": 0.789,
+            "w": 0.844,
+            "bottom": 0.895,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "dragonboneGreatsword",
+          "label": "Dragonbone Greatsword",
+          "variant": "items",
+          "x": 256,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/dragonboneGreatsword.webp",
+          "fit": {
+            "h": 0.84,
+            "w": 0.727,
+            "bottom": 0.918,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "bastionBanner",
+          "label": "Bastion Banner",
+          "variant": "items",
+          "x": 512,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/bastionBanner.webp",
+          "fit": {
+            "h": 0.84,
+            "w": 0.773,
+            "bottom": 0.918,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "wallwardensPlate",
+          "label": "Wallwardens Plate",
+          "variant": "items",
+          "x": 768,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/wallwardensPlate.webp",
+          "fit": {
+            "h": 0.84,
+            "w": 0.789,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "gatebreaker",
+          "label": "Gatebreaker",
+          "variant": "items",
+          "x": 0,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/gatebreaker.webp",
+          "fit": {
+            "h": 0.84,
+            "w": 0.664,
+            "bottom": 0.922,
+            "cx": 0.5
+          }
+        },
+        {
+          "id": "crownOfTheLastBastion",
+          "label": "Crown Of The Last Bastion",
+          "variant": "items",
+          "x": 256,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "target": "images/items/crownOfTheLastBastion.webp",
+          "fit": {
+            "h": 0.836,
+            "w": 0.609,
+            "bottom": 0.918,
+            "cx": 0.5
+          }
+        }
+      ]
+    },
+    {
       "id": "sheet-items-smith-iron",
       "kind": "set",
       "title": "Item icons: smithed iron",

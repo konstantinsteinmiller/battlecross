@@ -1,4 +1,4 @@
-import { CHARISMA_ITEMS, DEXTERITY_ITEMS, GAPFILL_ITEMS, ITEMS, MYTHICS, SMITHED, SMITH_LINES, SMITH_METAL, SMITH_PIECES, smithItemId, TIER_COLOR, type ItemDef, type SmithLine, type SmithMetal, type SmithPiece } from '../data/items'
+import { AFTER_ITEMS, CHARISMA_ITEMS, DEXTERITY_ITEMS, GAPFILL_ITEMS, ITEMS, MYTHICS, SMITHED, SMITH_LINES, SMITH_METAL, SMITH_PIECES, smithItemId, TIER_COLOR, type ItemDef, type SmithLine, type SmithMetal, type SmithPiece } from '../data/items'
 import { CLASSES, CLASS_IDS, PRESTIGE_IDS, endgameOf, skillsOf, type ClassId } from '../data/skills'
 import { HERO_OUTFITS, heroPortraitId } from './heroPortrait'
 import { BRAND_REFS } from './brandRefs'
@@ -98,7 +98,7 @@ const HERO_F_LOOKS: readonly string[] = HERO_OUTFITS.map(o => heroPortraitId(o, 
 
 /** Every drop-in the pipeline paints, by the folder the build scans. */
 export const ART_CATALOGUE: Readonly<Record<ArtKind, readonly string[]>> = {
-  items: [...ITEMS, ...SMITHED, ...MYTHICS].map(i => i.id),
+  items: [...ITEMS, ...SMITHED, ...MYTHICS, ...AFTER_ITEMS].map(i => i.id),
   skills: CLASS_IDS.flatMap(c => [...skillsOf(c), ...endgameOf(c)].map(s => s.id)),
   portraits: [...TOWN_LOOKS, ...TRAINER_LOOKS, ...MASTER_LOOKS_A, ...MASTER_LOOKS_B, ...SPEAKER_LOOKS, ...PEOPLE_LOOKS_A, ...PEOPLE_LOOKS_B, ...PEOPLE_LOOKS_C, ...PEOPLE_LOOKS_D, ...PEOPLE_LOOKS_E, ...PEOPLE_LOOKS_F, ...HERO_LOOKS, ...HERO_F_LOOKS],
   // ... and the border-inset ornaments of the cel interface (`ORNAMENTS`).
@@ -421,7 +421,29 @@ const GAPFILL_BLURBS: Readonly<Record<string, string>> = {
   silverWhistle: 'a small silver whistle with a short curved mouthpiece and a tiny loop on top, hanging from a thin cord',
   gatheringHorn: 'a short curved ivory horn banded in gold at the mouth and the tip, hanging from a loop of red cord'
 }
-const ALL_ITEM_BLURBS: Readonly<Record<string, string>> = { ...ITEM_BLURBS, ...GAPFILL_BLURBS, ...SMITH_BLURBS }
+/** The afterplay's boss pairs and the siege's prizes (`AFTER_ITEMS`): the legendary and mythic pieces a level 35+ hero wears. */
+const AFTER_BLURBS: Readonly<Record<string, string>> = {
+  chimeraMane: 'a fierce helm crowned with a thick tawny lion mane, a snarling goat horn curling up each side and a green-scaled brow plate',
+  triFang: 'a short dagger whose blade is three curved, tooth-like fangs of pale bone joined at one steel guard, with a dark scaled grip',
+  warchiefsLongbowGun: 'a long hybrid of a bow and a rifle: a curved wooden bow limb on each end of a long steel gun barrel with a bowstring drawn across it and a brass-banded stock',
+  hoofbreakerGreaves: 'heavy steel boots with a thick horseshoe-shaped toe plate, studded leather straps and a tuft of brown horsehair at the top',
+  eyeOfTheDeep: 'a round charm: one big glowing yellow cyclops eye in a rough stone setting with a short chain loop',
+  beamSplitter: 'a round steel shield with a glass prism lens in its middle that splits a bright beam of light into three coloured rays',
+  riddleCrown: 'a sandy gold circlet with a row of small hieroglyph-like symbols and one tall pointed centre jewel in turquoise',
+  sandglassWand: 'a slim wand topped with a small hourglass full of glowing gold sand, in a gold frame with a curl at each end',
+  leviathanScale: 'a breastplate of overlapping sea-blue scales with a coral-pink trim, a pearl at the neck and two small fin-shaped shoulder plates',
+  tidecallerStaff: 'a tall staff of pale driftwood topped with a big spiral shell that holds a swirl of blue water, wrapped with a strand of seaweed',
+  hydraScaleGauntlets: 'a pair of green-scaled gauntlets with a small hydra head fang rising from each knuckle plate and an ember-orange glow in the seams',
+  manyHeadedFlail: 'a heavy flail: a short black handle with three chains each ending in a spiked green hydra-head ball, all three glowing ember-orange at the mouths',
+  heartOfTheElderDragon: 'a trinket of a fist-sized glowing crimson dragon heart bound in gold claws on a short chain, with tiny flames licking from the top',
+  dragonboneGreatsword: 'a huge two-handed greatsword whose blade is a long ridged spine of ivory dragon bone with a glowing red core and a gold dragon-claw crossguard',
+  bastionBanner: 'a small tome-shaped banner: a book with a blue cloth cover showing a white castle tower, wrapped in a gold cord with a short flag on top',
+  wallwardensPlate: 'a heavy grey steel breastplate shaped like a fortress wall with stone-block lines, a gold gate emblem in the middle and two crenellated shoulder plates',
+  gatebreaker: 'a huge siege war hammer: a massive iron battering-ram head with a gold ram horn on each side, on a thick wooden shaft with iron bands',
+  crownOfTheLastBastion: 'a heavy greathelm with a castle-battlement crest on top, a narrow visor slit, thick gold trim and a small white-blue banner flying from the crest'
+}
+
+const ALL_ITEM_BLURBS: Readonly<Record<string, string>> = { ...ITEM_BLURBS, ...GAPFILL_BLURBS, ...SMITH_BLURBS, ...AFTER_BLURBS }
 
 const SKILL_BLURBS: Readonly<Record<string, string>> = {
   // The endgame (#168), wave 1
@@ -1236,6 +1258,8 @@ export const SETS: readonly ArtSet[] = [
   itemSet('sheet-items-dexterity-boots', 'Item icons: the Dexterity set, boots and trinkets', dexOf('feet', 'trinket')),
   ...Array.from({ length: GAPFILL_SHEETS }, (_, n) => gapfillSet(n)),
   itemSet('sheet-items-mythic', 'Item icons: the colosseum prizes', [...MYTHICS]),
+  itemSet('sheet-items-after-1', 'Item icons: the afterplay bosses and the siege, 1 of 2', AFTER_ITEMS.slice(0, 12)),
+  itemSet('sheet-items-after-2', 'Item icons: the afterplay bosses and the siege, 2 of 2', AFTER_ITEMS.slice(12)),
   // The strength line keeps its sheets' names; every other build's (#148) carries the attribute.
   ...SMITH_LINES.flatMap(line => (Object.keys(SMITH_METAL) as SmithMetal[]).map(metal => line === 'str'
     ? itemSet(`sheet-items-smith-${metal}`, `Item icons: smithed ${metal}`, smithedOf(metal, line))
