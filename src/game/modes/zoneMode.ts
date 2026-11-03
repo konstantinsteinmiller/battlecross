@@ -18,7 +18,7 @@ import { newPressure, sessionPressure, sessionRampPool, setSessionPressure, setS
 import { BOSS_SCRIPTS } from '../sim/bosses'
 import { ACTIVE_SLOTS, SKILL_BY_ID } from '../data/skills'
 import { IMPACT_SOUND, castSoundOf, skillElement } from '../data/skillSounds'
-import { ARENA_WAVES, OPENING, TOWNS, ZONES, unitLevelTier, type ThemeId, type TownId } from '../data/zones'
+import { ARENA_WAVES, CAMPAIGN_HARDER, OPENING, TOWNS, ZONES, unitLevelTier, type ThemeId, type TownId } from '../data/zones'
 import { ITEM_BY_ID, type ZoneId } from '../data/items'
 import { applyPlan, populateTown, populateZone, summonDragonAlly } from '../sim/director'
 import { arenaKinds, leaveLadder, leaveVisit } from '../sim/director'
@@ -394,6 +394,9 @@ export class ZoneMode implements GameMode {
       // A hero who already knows the teacher's skill meets foes that carry it in (a saved visit regenerates the same).
       if (profile.hero.learned.includes(MENTOR_SKILL)) sim.enemyHpMul = OPENING.skillHp
     }
+    // The campaign's Frostlands and Temple hold more than their level band says (the invaded ones have their own multipliers).
+    const harder = setup.kind === 'zone' && !setup.invaded && setup.zone ? CAMPAIGN_HARDER[setup.zone] : undefined
+    if (harder) { sim.enemyHpMul *= harder.hp; sim.enemyDmgMul *= harder.dmg }
     applyPlan(sim, plan)
     createHero(sim, {
       build: heroBuild(), skills: loadoutActive(), x: plan.start.x, z: plan.start.z, xpInto: profile.hero.xp,

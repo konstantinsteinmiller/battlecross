@@ -116,6 +116,15 @@ export const ZONES: Readonly<Record<ZoneId, ZoneDef>> = {
 
 export const ZONE_IDS = Object.keys(ZONES) as ZoneId[]
 
+/**
+ * The Frostlands and the Sunken Temple before the demon king falls: by then the hero has a power spike (epic and heroic gear
+ * is in reach) and the plain level band crushed them. Their foes hold and hit this many times more in the campaign.
+ */
+export const CAMPAIGN_HARDER: Readonly<Partial<Record<ZoneId, { hp: number; dmg: number }>>> = {
+  tundra: { hp: 1.45, dmg: 1.3 },
+  temple: { hp: 1.55, dmg: 1.35 }
+}
+
 // ─── What a visit can hold beside its packs (roadmap #54–#59) ────────────────
 
 /** What fills a zone's rivers and ponds. All of them are walked AROUND; the
