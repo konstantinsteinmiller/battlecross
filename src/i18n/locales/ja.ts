@@ -412,7 +412,6 @@ export default {
     }
   },
   camp: {
-    ahead: 'この先にスキルがあと{n}個',
     sealed: '魔王を倒すとさらに{n}個が解放',
     met: '出会った流派：{n}/{total}',
     pick: {

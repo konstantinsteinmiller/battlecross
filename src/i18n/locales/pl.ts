@@ -413,7 +413,6 @@ export default {
     }
   },
   camp: {
-    ahead: 'Jeszcze {n} umiejętności przed tobą',
     sealed: 'Kolejne {n} odblokują się po królu demonów',
     met: 'Poznane szkoły: {n}/{total}',
     pick: {

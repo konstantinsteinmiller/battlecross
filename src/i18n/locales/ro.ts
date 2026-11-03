@@ -412,7 +412,6 @@ export default {
     }
   },
   camp: {
-    ahead: 'Încă {n} abilități înainte',
     sealed: 'Încă {n} se deblochează după regele demon',
     met: 'Școli întâlnite: {n}/{total}',
     pick: {

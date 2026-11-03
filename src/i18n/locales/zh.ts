@@ -412,7 +412,6 @@ export default {
     }
   },
   camp: {
-    ahead: '前方还有{n}个技能',
     sealed: '击败魔王后再解锁{n}个',
     met: '已遇见的流派：{n}/{total}',
     pick: {

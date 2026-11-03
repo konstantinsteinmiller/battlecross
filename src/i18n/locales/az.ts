@@ -412,7 +412,6 @@ export default {
     }
   },
   camp: {
-    ahead: 'Qarşıda daha {n} bacarıq',
     sealed: 'İblis kralından sonra daha {n} açılır',
     met: 'Tanış olunan məktəblər: {n}/{total}',
     pick: {

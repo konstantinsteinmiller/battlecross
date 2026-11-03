@@ -412,7 +412,6 @@ export default {
     }
   },
   camp: {
-    ahead: 'Oldinda yana {n} ko‘nikma',
     sealed: 'Iblis shohidan keyin yana {n} ochiladi',
     met: 'Uchrashgan maktablar: {n}/{total}',
     pick: {

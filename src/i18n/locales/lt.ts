@@ -412,7 +412,6 @@ export default {
     }
   },
   camp: {
-    ahead: 'Dar {n} įgūdžių priekyje',
     sealed: 'Dar {n} atsidarys po demonų karaliaus',
     met: 'Sutiktos mokyklos: {n}/{total}',
     pick: {

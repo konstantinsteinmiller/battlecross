@@ -413,7 +413,6 @@ export default {
     }
   },
   camp: {
-    ahead: '{n} autres compétences à venir',
     sealed: '{n} autres se débloquent après le roi démon',
     met: 'Écoles rencontrées : {n}/{total}',
     pick: {

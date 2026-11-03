@@ -412,7 +412,6 @@ export default {
     }
   },
   camp: {
-    ahead: 'Vēl {n} prasmes priekšā',
     sealed: 'Vēl {n} atvērsies pēc dēmonu karaļa',
     met: 'Satiktās skolas: {n}/{total}',
     pick: {

@@ -415,7 +415,6 @@ export default {
     }
   },
   camp: {
-    ahead: 'Još {n} vještina pred tobom',
     sealed: 'Još {n} otključava se nakon demonskog kralja',
     met: 'Upoznate škole: {n}/{total}',
     pick: {

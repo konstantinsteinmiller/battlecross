@@ -412,7 +412,6 @@ export default {
     }
   },
   camp: {
-    ahead: 'İleride {n} yetenek daha',
     sealed: '{n} tanesi daha iblis kralından sonra açılır',
     met: 'Tanışılan okullar: {n}/{total}',
     pick: {

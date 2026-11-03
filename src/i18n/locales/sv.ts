@@ -412,7 +412,6 @@ export default {
     }
   },
   camp: {
-    ahead: '{n} färdigheter till längre fram',
     sealed: '{n} till låses upp efter demonkungen',
     met: 'Skolor mötta: {n}/{total}',
     pick: {

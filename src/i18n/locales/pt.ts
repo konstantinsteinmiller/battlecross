@@ -413,7 +413,6 @@ export default {
     }
   },
   camp: {
-    ahead: 'Mais {n} habilidades adiante',
     sealed: 'Mais {n} se desbloqueiam depois do rei demônio',
     met: 'Escolas conhecidas: {n}/{total}',
     pick: {

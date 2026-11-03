@@ -412,7 +412,6 @@ export default {
     }
   },
   camp: {
-    ahead: 'आगे {n} और कौशल',
     sealed: 'दानव राजा के बाद {n} और खुलते हैं',
     met: 'मिले हुए पंथ: {n}/{total}',
     pick: {

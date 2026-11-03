@@ -412,7 +412,6 @@ export default {
     }
   },
   camp: {
-    ahead: '앞으로 스킬 {n}개 더',
     sealed: '마왕을 쓰러뜨리면 {n}개가 더 열립니다',
     met: '만난 유파: {n}/{total}',
     pick: {

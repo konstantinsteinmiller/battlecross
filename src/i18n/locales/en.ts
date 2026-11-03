@@ -383,7 +383,6 @@ export default {
 
   // ─── The goal tracker (one short goal under the place's name) ─────────────
   'camp': {
-    'ahead': '{n} more skills ahead',
     'sealed': '{n} more unlock after the demon king',
     'met': 'Schools met: {n}/{total}',
     'pick': {

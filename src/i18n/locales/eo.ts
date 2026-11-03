@@ -412,7 +412,6 @@ export default {
     }
   },
   camp: {
-    ahead: 'Ankoraŭ {n} kapabloj antaŭe',
     sealed: 'Ankoraŭ {n} malŝlosiĝas post la demonreĝo',
     met: 'Renkontitaj lernejoj: {n}/{total}',
     pick: {

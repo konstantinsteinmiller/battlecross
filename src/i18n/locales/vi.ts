@@ -412,7 +412,6 @@ export default {
     }
   },
   camp: {
-    ahead: 'Còn {n} kỹ năng phía trước',
     sealed: 'Còn {n} kỹ năng mở sau vua quỷ',
     met: 'Môn phái đã gặp: {n}/{total}',
     pick: {

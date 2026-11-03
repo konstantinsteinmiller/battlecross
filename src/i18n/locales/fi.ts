@@ -412,7 +412,6 @@ export default {
     }
   },
   camp: {
-    ahead: '{n} taitoa lisää edessä',
     sealed: '{n} lisää avautuu demonikuninkaan jälkeen',
     met: 'Koulukuntia tavattu: {n}/{total}',
     pick: {

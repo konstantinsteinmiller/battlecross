@@ -149,11 +149,10 @@ describe('the trainer\'s lesson', () => {
     p.profile.gold = 5000
     await open('TeachScreen', 'trainerPyro')
     const lessons = $$('.lesson')
-    // A young hero sees the next steps of the school as lessons and the rest as one line (#181, D3); the
-    // endgame six (#168) are one sealed row, not six cards: nothing to click, nothing to read, until the demon king falls.
+    // Every skill of the school is a lesson; only the endgame six (#168) are one sealed row, not six cards:
+    // nothing to click, nothing to read, until the demon king falls.
     expect(lessons.length).toBeGreaterThan(0)
-    expect(lessons.length).toBeLessThan(12)
-    expect($('[data-ahead]'), 'the rest of the school is one line').toBeTruthy()
+    expect($('[data-ahead]'), 'no "more ahead" line').toBeFalsy()
     expect($('[data-sealed]'), 'the endgame six are one sealed row').toBeTruthy()
     expect(lessons.every(l => !l.querySelector('.lesson__lock'))).toBe(true)
     await click(lessons[0]!)

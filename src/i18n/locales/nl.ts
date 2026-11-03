@@ -413,7 +413,6 @@ export default {
     }
   },
   camp: {
-    ahead: 'Nog {n} vaardigheden te gaan',
     sealed: 'Nog {n} ontgrendelen na de demonenkoning',
     met: 'Scholen ontmoet: {n}/{total}',
     pick: {

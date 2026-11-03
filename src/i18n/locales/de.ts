@@ -413,7 +413,6 @@ export default {
     }
   },
   camp: {
-    ahead: '{n} weitere Fähigkeiten folgen',
     sealed: '{n} weitere schalten sich nach dem Dämonenkönig frei',
     met: 'Schulen getroffen: {n}/{total}',
     pick: {

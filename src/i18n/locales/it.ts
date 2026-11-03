@@ -413,7 +413,6 @@ export default {
     }
   },
   camp: {
-    ahead: 'Altre {n} abilità più avanti',
     sealed: 'Altre {n} si sbloccano dopo il re demone',
     met: 'Scuole incontrate: {n}/{total}',
     pick: {

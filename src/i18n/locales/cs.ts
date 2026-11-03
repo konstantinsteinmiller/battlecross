@@ -415,7 +415,6 @@ export default {
     }
   },
   camp: {
-    ahead: 'Dalších {n} dovedností před tebou',
     sealed: 'Dalších {n} se odemkne po démonském králi',
     met: 'Potkané školy: {n}/{total}',
     pick: {

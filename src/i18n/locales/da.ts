@@ -412,7 +412,6 @@ export default {
     }
   },
   camp: {
-    ahead: '{n} evner mere længere fremme',
     sealed: '{n} mere låses op efter dæmonkongen',
     met: 'Skoler mødt: {n}/{total}',
     pick: {

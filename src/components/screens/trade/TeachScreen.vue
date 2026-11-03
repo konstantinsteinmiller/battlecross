@@ -56,11 +56,6 @@
                     GameIcon(name="check")
                   span.lesson__known {{ t('trainer.known') }}
                 PriceTag.lesson__fee(v-else :n="skillCost(s.id)" :base="baseOf(s.id)" :bad="profile.gold < skillCost(s.id)" plain)
-            //- What lies further on, as one quiet line each (#181, D3): a new player sees the next steps of a school, not all eighteen.
-            li.lessons__more(v-if="aheadCount > 0" data-ahead)
-              span.lessons__more-icon(aria-hidden="true")
-                GameIcon(name="forward")
-              | {{ t('camp.ahead', { n: aheadCount }) }}
             li.lessons__more.is-sealed(v-if="sealedCount > 0" data-sealed)
               span.lessons__more-icon(aria-hidden="true")
                 GameIcon(name="lock")
@@ -198,15 +193,11 @@ const skills = computed(() => {
   const path = cap ? [...skillsOf(cls.value), cap] : skillsOf(cls.value)
   return [...path, ...endgameOf(cls.value)]
 })
-/** Up to this many levels ahead of the hero a skill is shown; further ones are one line ("N more ahead"), until level 20. */
-const SHOW_AHEAD = 6
-const EARLY = 20
-/** The path as the list shows it (#181, D3): the endgame six are one sealed row until the demon king falls; a young hero sees the next steps of the school, not every skill of it. */
+/** The path as the list shows it: every skill of the school, and the endgame six only once the demon king has fallen (until then one sealed row). */
 const shownSkills = computed(() => skills.value.filter(s => {
   if (s.endgame) return afterplayOpen()
-  return knows(s.id) || profile.level >= EARLY || s.level <= profile.level + SHOW_AHEAD
+  return true
 }))
-const aheadCount = computed(() => skills.value.filter(s => !s.endgame && !shownSkills.value.includes(s)).length)
 const sealedCount = computed(() => (afterplayOpen() ? 0 : skills.value.filter(s => s.endgame).length))
 /** A trainer of several classes (the Wanderer): the ones he teaches this hero. */
 const tabs = computed<ClassId[]>(() => {

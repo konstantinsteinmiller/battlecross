@@ -413,7 +413,6 @@ export default {
     }
   },
   camp: {
-    ahead: '{n} habilidades máis por diante',
     sealed: '{n} máis desbloquéanse despois do rei demo',
     met: 'Escolas coñecidas: {n}/{total}',
     pick: {

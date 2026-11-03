@@ -413,7 +413,6 @@ export default {
     }
   },
   camp: {
-    ahead: '{n} habilitats més per endavant',
     sealed: '{n} més es desbloquegen després del rei dimoni',
     met: 'Escoles conegudes: {n}/{total}',
     pick: {

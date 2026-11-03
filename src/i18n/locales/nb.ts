@@ -412,7 +412,6 @@ export default {
     }
   },
   camp: {
-    ahead: '{n} ferdigheter til lenger frem',
     sealed: '{n} til låses opp etter demonkongen',
     met: 'Skoler møtt: {n}/{total}',
     pick: {

@@ -412,7 +412,6 @@ export default {
     }
   },
   camp: {
-    ahead: 'Még {n} képesség vár előtted',
     sealed: 'Még {n} nyílik meg a démonkirály után',
     met: 'Megismert iskolák: {n}/{total}',
     pick: {

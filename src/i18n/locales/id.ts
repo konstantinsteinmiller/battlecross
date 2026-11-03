@@ -412,7 +412,6 @@ export default {
     }
   },
   camp: {
-    ahead: '{n} skill lagi di depan',
     sealed: '{n} lagi terbuka setelah raja iblis',
     met: 'Aliran yang ditemui: {n}/{total}',
     pick: {
