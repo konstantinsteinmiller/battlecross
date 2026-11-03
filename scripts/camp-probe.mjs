@@ -13,8 +13,8 @@ const root = resolve(dirname(fileURLToPath(import.meta.url)), '..')
 const URL = process.argv[2] ?? 'http://localhost:2194/'
 const OUT = resolve(root, 'reports/camp'); mkdirSync(OUT, { recursive: true })
 const ctx = await chromium.launchPersistentContext(mkdtempSync(join(tmpdir(), 'bc-camp-')), {
-  channel: 'chrome', headless: true, viewport: { width: 1100, height: 700 }, locale: 'en-US',
-  args: ['--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist', '--mute-audio']
+  channel: 'chrome', headless: false, viewport: { width: 1100, height: 700 }, locale: 'en-US',
+  args: ['--mute-audio']
 })
 await ctx.routeWebSocket(/.*/, () => {})
 const page = ctx.pages()[0] ?? await ctx.newPage()

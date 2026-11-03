@@ -1,5 +1,5 @@
 import { fileURLToPath, URL } from 'node:url'
-import { resolve, dirname } from 'node:path'
+import { resolve, dirname, relative } from 'node:path'
 import { readFileSync, writeFileSync, existsSync, mkdirSync, readdirSync, renameSync } from 'node:fs'
 import { execFileSync } from 'node:child_process'
 
@@ -158,7 +158,9 @@ const assetOverridesPlugin = (): Plugin => {
     configResolved: (c) => { base = c.base },
     transformIndexHtml: { order: 'pre', handler: (html) => injectSplashArt(html, scanOverrides().logo, base) },
     configureServer(server) {
-      const dirs = [...Object.values(OVERRIDE_DIRS).map(d => d.dir), VOICE_DIR].map(d => fileURLToPath(new URL(`./${d}`, import.meta.url)))
+      // The painted art and the drop-in sounds only: the voice takes (12,000+ files) are fetched by URL when a line plays and are NOT watched
+      // (a watch handle per file took 26 s of every cold start, and `voice:gen` writing there stalled the server). A new recording needs a reload.
+      const dirs = Object.values(OVERRIDE_DIRS).map(d => d.dir).filter(d => d !== VOICE_DIR).map(d => fileURLToPath(new URL(`./${d}`, import.meta.url)))
       server.watcher.add(dirs)
       const onChange = (file: string) => {
         if (!dirs.some(d => file.startsWith(d))) return
@@ -387,6 +389,11 @@ import { PLAYGAMA_BRIDGE_CHUNK, PLAYGAMA_OUT_DIR } from './src/platforms/playgam
 import { devToolAliases, resolvePlatformPolicy } from './src/platforms/policy'
 
 // https://vite.dev/config/
+/** This folder (the repo root). */
+const ROOT_DIR = fileURLToPath(new URL('.', import.meta.url))
+/** Written by tools, never imported (kept from before the folder rule below; harmless there). */
+const WATCH_IGNORED = ['**/preview-videos/**', '**/art-sheets/**', '**/vo-src/**', '**/reports/**', '**/public-backup/**', '**/sound-src/**', '**/dist/**', '**/tools/sfx-review/out/**']
+
 export default defineConfig(({ mode, command }) => {
   // Load env file based on `mode` in the current working directory.
   // The third parameter '' loads all env vars regardless of VITE_ prefix.
@@ -940,6 +947,9 @@ export default defineConfig(({ mode, command }) => {
     // export) points this at its own folder, so it never re-optimises the
     // dependency cache under a dev server somebody already has open.
     cacheDir: process.env.VITE_CACHE_DIR || 'node_modules/.vite',
+    // The dependency scan starts from the app's page only: by default it globs EVERY .html in the repo (the portal builds, the built
+    // wiki, the browser profiles of the test tools), which took over a minute before the first byte of a cold load.
+    optimizeDeps: { entries: ['index.html'] },
     server: {
       port: 2194,
       watch: {
@@ -949,7 +959,17 @@ export default defineConfig(({ mode, command }) => {
         // it while `voice:gen` writes there stalled the dev server.
         // Reports and their shots (the sound lab's 1800 takes, intro frames), backups of replaced art and the built wiki are
         // written by tools and never imported: watched, they slowed every load of a dev server that had run for a day.
-        ignored: ['**/preview-videos/**', '**/art-sheets/**', '**/vo-src/**', '**/reports/**', '**/public-backup/**', '**/sound-src/**', '**/dist/**', '**/tools/sfx-review/out/**']
+        // Only what the page imports or serves is watched: src/ and public/ (and the files at the root). Every other folder of the repo
+        // (the browser profiles of the test tools, the built wiki and portal builds, the Android tree, the art and voice work) is
+        // ignored: chokidar crawled them all, tens of thousands of files, and a cold load took minutes (and the machine ran hot).
+        ignored: [...WATCH_IGNORED, (path: string): boolean => {
+          const rel = relative(ROOT_DIR, path).split('\\').join('/')
+          if (!rel || rel.startsWith('..')) return false
+          const [top, ...rest] = rel.split('/')
+          if (rest.length === 0) return false
+          if (top === 'public') return rel.startsWith('public/audio/voice') // thousands of takes, never imported
+          return top !== 'src'
+        }]
       }
     },
     define: {

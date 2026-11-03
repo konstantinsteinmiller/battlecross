@@ -10,8 +10,8 @@ const URL = process.argv[2] ?? 'http://localhost:2194/'
 const W = Number(process.argv[3] ?? 844), H = Number(process.argv[4] ?? 390)
 const OUT = resolve(root, 'reports/shop'); mkdirSync(OUT, { recursive: true })
 const ctx = await chromium.launchPersistentContext(mkdtempSync(join(tmpdir(), 'bc-shop-')), {
-  channel: 'chrome', headless: true, viewport: { width: W, height: H }, deviceScaleFactor: 2, hasTouch: true, isMobile: true, locale: 'en-US',
-  args: ['--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist', '--mute-audio']
+  channel: 'chrome', headless: false, viewport: { width: W, height: H }, deviceScaleFactor: 2, hasTouch: true, isMobile: true, locale: 'en-US',
+  args: ['--mute-audio']
 })
 await ctx.routeWebSocket(/.*/, () => {})
 const page = ctx.pages()[0] ?? await ctx.newPage()
