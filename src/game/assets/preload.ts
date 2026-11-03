@@ -1,5 +1,6 @@
 import { ICON_ART, ITEM_ART, PORTRAIT_ART, SKILL_ART, UI_ART } from './overrides'
-import { profile, isFreshProfile, needsHeroChoice } from '../state/profile'
+import { profile, isFreshProfile, needsHeroChoice, learnBlock } from '../state/profile'
+import { CAMP_LESSONS } from '../sim/camp'
 import { HERO_GENDERS, heroOutfit, heroPortraitId } from '../art/heroPortrait'
 import { TOWNS, type TownId } from '../data/zones'
 import { CLASS_IDS, skillsOf, type ClassId } from '../data/skills'
@@ -213,6 +214,20 @@ export const queueEarlyArt = (atBoss = false): void => {
   const urls = earlyImages().filter(u => !warm.has(u))
   urls.forEach((u, i) => idleTask(artTask(u), () => warmImage(u), rank + i / 1000, { quiet: true }))
   if (atBoss) rerankIdle(Object.fromEntries(urls.map((u, i) => [artTask(u), rank + i / 1000])))
+}
+
+/**
+ * The first skill window (the camp's three cards, `CampPick.vue`): its three icons are fetched and decoded while the
+ * tutorial is played, so the cards do not pop in when it opens. The same pick as the window's own (the first skill of each
+ * rescued teacher's school the hero can take now).
+ */
+export const warmCampCards = (): void => {
+  for (const t of CAMP_LESSONS) {
+    const list = skillsOf(t.cls)
+    const open = list.find(q => { const b = learnBlock(q.id); return b === '' || b === 'gold' })
+    const sk = open ?? list[0]
+    if (sk) void warmImage(SKILL_ART.get(sk.id))
+  }
 }
 
 /** Test seam. */

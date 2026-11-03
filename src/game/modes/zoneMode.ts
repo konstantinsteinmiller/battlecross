@@ -58,7 +58,7 @@ import { SLOW_MO, slowMoScale } from '../gfx/slowMo'
 import { LevelProps } from '../gfx/levelProps'
 import type { TownView } from '../gfx/townView'
 import { loadTownView } from '../gfx/townLoader'
-import { prefetchLikely, prefetchNow, queueEarlyArt } from '../assets/preload'
+import { prefetchLikely, prefetchNow, queueEarlyArt, warmCampCards } from '../assets/preload'
 import { idleTask } from '@/utils/idleQueue'
 import { UI_ART } from '../assets/overrides'
 import { StillCull } from '../gfx/cull'
@@ -806,6 +806,8 @@ export class ZoneMode implements GameMode {
     idleTask('talk', loadTalk, 12.5)
     // The art of what can be reached from here, on a slow drip (`assets/preload.ts`).
     prefetchLikely(this.setup.zone ?? this.setup.town ?? 'arena')
+    // The first visit's camp: its three skill cards are ready before the cage opens.
+    if (this.sim.camp) warmCampCards()
     hud.phase = this.setup.kind === 'town' ? 'town' : 'play'
     this.syncHud(true)
   }
