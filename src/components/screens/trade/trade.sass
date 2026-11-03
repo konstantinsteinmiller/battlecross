@@ -229,10 +229,16 @@
   .trade
     --cell: 2.9rem
     grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr) minmax(0, 1fr)
-  // A phone on its side: the table keeps most of its height for the card.
+  // A phone on its side: the table keeps most of its height for the card, but the card is the part that gives way
+  // (it scrolls): the price, the reason and the Sell / Take off buttons are never pushed down under the sold tray.
+  .trade__table
+    overflow: hidden
   .trade__paper
-    flex: 1 1 auto
-    min-height: 6rem
+    flex: 1 1 0
+    min-height: 2.2rem
+  .trade__why
+    font-size: 0.7rem
+    line-height: 1.15
   .trade__deal
     padding-block: 0.15rem
   .trade__back
@@ -245,8 +251,8 @@
       padding: 0.3rem 0.2rem
       font-size: 0.6rem
   .trade__back-row
-    --cell: 2.6rem
-    padding: 0.3rem
+    --cell: 2.3rem
+    padding: 0.25rem 0.3rem
 
 @media (prefers-reduced-motion: reduce)
   .trade__table
