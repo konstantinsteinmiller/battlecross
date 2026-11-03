@@ -24,7 +24,7 @@ await page.goto(URL, { waitUntil: 'load', timeout: 600000 })
 await page.waitForFunction(() => window.__game && window.__game.app.mode && window.__game.hud.phase !== 'boot', null, { timeout: 600000 })
 await page.waitForSelector('.hero-choice .hero-choice__card', { timeout: 120000 })
 await page.waitForTimeout(1000)
-await page.locator('.hero-choice [data-hero="m"]').click()
+await page.locator('.hero-choice [data-hero="m"]').click({ force: true })
 for (let i = 0; i < 400; i++) {
   const s = await page.evaluate(() => ({ film: !!document.querySelector('.intro'), zone: window.__game.zone()?.setup?.zone }))
   if (!s.film && s.zone === 'plains') break
@@ -60,6 +60,7 @@ await page.evaluate(() => { const z = window.__game.zone(); const h = z.sim.hero
 await page.waitForTimeout(500)
 await page.screenshot({ path: join(OUT, 'g2-opening.png') })
 await shot('g3-open')
+console.log('leaves', JSON.stringify(await page.evaluate(() => { const z = window.__game.zone(); const out = []; z.scene.traverse(o => { if (o.name === 'palisade') for (const c of o.children) if (c.isGroup) { const w = c.getWorldPosition(c.position.clone()); out.push([+c.rotation.y.toFixed(2), +w.x.toFixed(1), +w.y.toFixed(1), +w.z.toFixed(1), c.visible]) } }); return { out, gate: { x: z.sim.gate.x, z: z.sim.gate.z, fx: z.sim.gate.fx, fz: z.sim.gate.fz } } })))
 console.log('gate after', JSON.stringify(await page.evaluate(() => ({ o: window.__g.opened, taken: window.__g.key.taken }))))
 // the camp round the fire: the teachers are out
 await page.evaluate(async () => {

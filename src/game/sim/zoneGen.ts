@@ -638,8 +638,8 @@ export const generateZone = (def: ZoneDef, seed: number, o: ZoneGenOpts = {}): Z
   // ways are widened (a widening beside it would open a way round).
   let gate: GatePlan | undefined
   if (campCut && finalePack && packs.length >= 2) {
-    const door = placeGate({ w: Wd, h, solid, sealed }, features.doors.length, { x: finalePack.x, z: finalePack.z, r: clearings[n]!.r }, { x: packs[packs.length - 2]!.x, z: packs[packs.length - 2]!.z, r: clearings[n - 1]!.r })
-    if (door) { features.doors.push(door); gate = { door: door.id, pack: packs.length - 2, x: door.x, z: door.z } }
+    const cut = placeGate({ w: Wd, h, solid, sealed, kind }, features.doors.length, { x: finalePack.x, z: finalePack.z, r: clearings[n]!.r }, { x: packs[packs.length - 2]!.x, z: packs[packs.length - 2]!.z, r: clearings[n - 1]!.r })
+    if (cut) { features.doors.push(cut.door); gate = { door: cut.door.id, fence: cut.fence, pack: packs.length - 2, x: cut.door.x, z: cut.door.z } }
   }
   const height = buildRelief({
     seed, w: Wd, h, kind, trail, cs, lobes, ledges: features.ledges, dais: features.dais, rivers: features.rivers, crossings: features.crossings,

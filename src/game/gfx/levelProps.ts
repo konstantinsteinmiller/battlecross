@@ -471,6 +471,8 @@ export class LevelProps {
   private plates: PlateView[] = []
   private glyphs: HintGlyph[] = []
   private doors: DoorView[] = []
+  /** The first level's palisade gate: its two leaves, and how its opening goes (`buildGate`). */
+  private gate: { door: number; leaves: Array<{ g: Group; shut: number; open: number }>; t: number; wait: number; x: number; z: number } | null = null
   /** Wet cell centres (motes rise from lava, pools and void-water). */
   private wetSpots: Array<[number, number]> = []
   private time = 0
@@ -588,6 +590,7 @@ export class LevelProps {
     await slice()
     this.buildPlates(plan)
     this.buildDoors(plan)
+    this.buildGate(plan)
     await slice()
     this.buildChests()
     this.buildDecals(plan)
@@ -1139,16 +1142,11 @@ export class LevelProps {
       P(rock(0.52, 19, 9, 7), '#77747e', [-0.52, 0.3, 0.3]),
       P(rock(0.56, 27, 9, 7), '#9a97a1', [-0.1, 1.3, -0.12])
     ]).scale(0.7, 1, 0.7)
-    // The first level's gate: a small wooden palisade, four pointed logs to a cell, bound by a rail.
-    const logs: BufferGeometry[] = []
-    for (const [ox, oz, hh, c] of [[-0.36, -0.34, 1.9, '#8a5a30'], [0.36, -0.3, 2.1, '#9a6a38'], [-0.34, 0.36, 2.0, '#7a4c28'], [0.34, 0.34, 1.8, '#946236']] as const) {
-      logs.push(P(rcyl(0.27, hh, 0.05, 7, 1), c, [ox, hh / 2, oz]), P(rcone(0.27, 0.03, 0.45, 0.02, 7), c, [ox, hh + 0.2, oz]))
-    }
-    logs.push(P(rbox(1.5, 0.14, 0.14, 0.3, 6, 3), '#6a4424', [0, 1.15, 0]))
-    const palisadeGeo = merge(logs)
-    this.owned.push(rockGeo, palisadeGeo)
+    this.owned.push(rockGeo)
     for (const d of plan.doors) {
-      const geo = d.style === 'palisade' ? palisadeGeo : rockGeo
+      // The first level's gate is a palisade with a gate piece, not rocks (`buildGate`).
+      if (d.style === 'palisade') continue
+      const geo = rockGeo
       const rng = mulberry32((plan.seed ^ (0x51d0 + d.id)) >>> 0)
       const rocks: DoorView['rocks'] = []
       for (const k of d.cells) {
@@ -1168,6 +1166,129 @@ export class LevelProps {
       this.root.add(mesh, line)
       this.doors.push(view)
     }
+  }
+
+  /**
+   * The first level's gate (#194): a palisade of pointed logs bound by two rails across the whole width of the road, and in its middle
+   * the gate piece: two tall posts, a lintel, and two plank leaves with iron bands and a lock between them. The fence's cells are
+   * blocks for good; only the gate's cells open, when the silver key is carried to it, and the leaves swing in toward the boss.
+   */
+  private buildGate(plan: ZonePlan): void {
+    const gp = plan.gate
+    const door = gp ? plan.doors.find(d => d.id === gp.door) : undefined
+    if (!gp || !door) return
+    const cellsAll = [...gp.fence, ...door.cells].map(k => { const i = k % plan.w; return { x: (i + 0.5) * CELL, z: ((k - i) / plan.w + 0.5) * CELL } })
+    // The line of the wall: through its two farthest cells.
+    let a = cellsAll[0]!
+    let b = cellsAll[0]!
+    let far = -1
+    for (const p of cellsAll) for (const q of cellsAll) { const dd = Math.hypot(p.x - q.x, p.z - q.z); if (dd > far) { far = dd; a = p; b = q } }
+    let dx = b.x - a.x
+    let dz = b.z - a.z
+    const dl = Math.hypot(dx, dz) || 1
+    dx /= dl
+    dz /= dl
+    if (!(far > 0)) { dx = 1; dz = 0 }
+    const gx = door.x
+    const gz = door.z
+    const GW = 1.5
+    const along = (x: number, z: number): number => (x - gx) * dx + (z - gz) * dz
+    const sorted = cellsAll.slice().sort((p, q) => along(p.x, p.z) - along(q.x, q.z))
+    // The ends reach half a cell further, into the rock either side.
+    const first = sorted[0]!
+    const last = sorted[sorted.length - 1]!
+    const pts = [{ x: first.x - dx * 0.75, z: first.z - dz * 0.75 }, ...sorted, { x: last.x + dx * 0.75, z: last.z + dz * 0.75 }]
+    const inGate = (x: number, z: number): boolean => Math.abs(along(x, z)) < GW + 0.12 && Math.hypot(x - gx, z - gz) < GW + 0.6
+    const rng = mulberry32((plan.seed ^ 0x9a7e) >>> 0)
+    const parts: BufferGeometry[] = []
+    const WOOD = ['#8a5a30', '#9a6a38', '#7a4c28', '#946236', '#84562e']
+    const log = (x: number, z: number, hh: number, r: number, c: string): void => {
+      const y = groundAt(x, z) - 0.05
+      parts.push(P(rcyl(r, hh, 0.04, 7, 1), c, [x, y + hh / 2, z]), P(rcone(r, 0.025, r * 2.2, 0.02, 7), c, [x, y + hh + r * 1.1, z]))
+    }
+    const beam = (x0: number, z0: number, x1: number, z1: number, y: number, c: string): void => {
+      const len = Math.hypot(x1 - x0, z1 - z0)
+      if (len < 0.05) return
+      const ang = Math.atan2(-(z1 - z0), x1 - x0)
+      const mx = (x0 + x1) / 2
+      const mz = (z0 + z1) / 2
+      parts.push(P(rbox(len + 0.12, 0.13, 0.15, 0.4, 6, 3), c, [mx, groundAt(mx, mz) + y, mz], [0, ang, 0]))
+    }
+    for (let q = 0; q + 1 < pts.length; q++) {
+      const p0 = pts[q]!
+      const p1 = pts[q + 1]!
+      const len = Math.hypot(p1.x - p0.x, p1.z - p0.z)
+      const n = Math.max(1, Math.round(len / 0.5))
+      for (let t = 0; t < n; t++) {
+        const x = p0.x + ((p1.x - p0.x) * t) / n
+        const z = p0.z + ((p1.z - p0.z) * t) / n
+        if (inGate(x, z)) continue
+        log(x + (rng() - 0.5) * 0.06, z + (rng() - 0.5) * 0.06, 1.75 + rng() * 0.45, 0.17 + rng() * 0.03, WOOD[Math.floor(rng() * WOOD.length)]!)
+      }
+      if (!(inGate(p0.x, p0.z) && inGate(p1.x, p1.z))) {
+        beam(p0.x, p0.z, p1.x, p1.z, 0.55, '#6a4424')
+        beam(p0.x, p0.z, p1.x, p1.z, 1.32, '#6a4424')
+      }
+    }
+    // The gate piece: a tall post either side, a lintel over them, an iron ring hung from it.
+    const post = (sgn: number): void => {
+      const x = gx + dx * GW * sgn
+      const z = gz + dz * GW * sgn
+      const y = groundAt(x, z) - 0.05
+      parts.push(P(rcyl(0.3, 2.9, 0.06, 8, 1), '#6e4526', [x, y + 1.45, z]), P(rbox(0.74, 0.16, 0.74, 0.3, 6, 3), '#5a3820', [x, y + 2.95, z]), P(rcone(0.3, 0.1, 0.4, 0.02, 8), '#7a4c28', [x, y + 3.2, z]))
+    }
+    post(-1)
+    post(1)
+    const turn = Math.atan2(-dz, dx)
+    const ly = Math.max(groundAt(gx - dx * GW, gz - dz * GW), groundAt(gx + dx * GW, gz + dz * GW)) + 2.5
+    parts.push(P(rbox(GW * 2 + 0.5, 0.28, 0.3, 0.3, 8, 4), '#6e4526', [gx, ly, gz], [0, turn, 0]))
+    parts.push(P(torus(0.13, 0.035, 6, 12), '#b9c0cc', [gx, ly - 0.32, gz], [0, turn, 0]))
+    const geo = merge(parts)
+    this.owned.push(geo)
+    const root = new Group()
+    root.name = 'palisade'
+    const body = new Mesh(geo, celVC())
+    const line = new Mesh(geo, outlineMat())
+    line.renderOrder = -1
+    root.add(body, line)
+    // The leaves: planks with two iron bands; one carries the lock on its free edge.
+    const leafGeo = (lock: boolean): BufferGeometry => {
+      const W = GW - 0.32
+      const g: BufferGeometry[] = [P(rbox(W, 1.78, 0.13, 0.3, 8, 6), '#8a5a30', [W / 2, 0.92, 0])]
+      for (let i = 1; i < 5; i++) g.push(P(rbox(0.035, 1.74, 0.15, 0.3, 4, 4), '#5e3b1f', [(W * i) / 5, 0.92, 0]))
+      g.push(P(rbox(W, 0.12, 0.17, 0.3, 6, 3), '#4a4e58', [W / 2, 0.42, 0]), P(rbox(W, 0.12, 0.17, 0.3, 6, 3), '#4a4e58', [W / 2, 1.5, 0]))
+      if (lock) g.push(P(rbox(0.24, 0.28, 0.2, 0.4, 6, 4), '#e0a830', [W - 0.16, 0.9, 0]), P(torus(0.07, 0.025, 6, 10), '#f0c040', [W - 0.16, 1.1, 0]))
+      return merge(g)
+    }
+    // Which way is the boss, across the wall.
+    const boss = plan.packs.find(q => q.finale)
+    const nx = -dz
+    const nz = dx
+    const bossSide = boss && (boss.x - gx) * nx + (boss.z - gz) * nz < 0 ? -1 : 1
+    const hinge = (sgn: number, lock: boolean): { g: Group; shut: number; open: number } => {
+      const hx = gx + dx * GW * sgn
+      const hz = gz + dz * GW * sgn
+      const gm = leafGeo(lock)
+      this.owned.push(gm)
+      const grp = new Group()
+      grp.position.set(hx, groundAt(hx, hz) - 0.02, hz)
+      const m = new Mesh(gm, celVC())
+      const ln = new Mesh(gm, outlineMat())
+      ln.renderOrder = -1
+      grp.add(m, ln)
+      // Local +x runs along the leaf, hinge to free edge: toward the middle of the gate. A turn of t about y sends it along (cos t, -sin t).
+      const ux = -sgn * dx
+      const uz = -sgn * dz
+      const shut = Math.atan2(-uz, ux)
+      // It swings in toward the boss: of the two quarter turns, the one whose free edge ends on the boss's side.
+      const side = (t: number): number => (Math.cos(t) * nx - Math.sin(t) * nz) * bossSide
+      const open = side(shut + Math.PI * 0.52) >= side(shut - Math.PI * 0.52) ? shut + Math.PI * 0.52 : shut - Math.PI * 0.52
+      grp.rotation.y = shut
+      root.add(grp)
+      return { g: grp, shut, open }
+    }
+    this.root.add(root)
+    this.gate = { door: gp.door, leaves: [hinge(-1, true), hinge(1, false)], t: -1, wait: -1, x: gx, z: gz }
   }
 
   /** Write a door's rocks: standing (t = 0) or sinking into the ground. */
@@ -1515,6 +1636,11 @@ export class LevelProps {
       d.t = 2
       d.mesh.visible = d.line.visible = false
     }
+    if (this.gate && this.sim.doors.find(v => v.id === this.gate!.door)?.open) {
+      this.gate.wait = -1
+      this.gate.t = 2
+      for (const l of this.gate.leaves) l.g.rotation.y = l.open
+    }
     for (const v of this.plates) {
       const p = this.sim.plates.find(q => q.id === v.id)
       if (p?.lit) v.aim = v.lit = 1
@@ -1565,6 +1691,7 @@ export class LevelProps {
         // A light leaves the last plate for the wall; the wall gives way when it lands.
         const d = this.doors.find(v => v.id === e.id)
         if (d && d.t < 0 && d.wait < 0) d.wait = DOOR_WAIT
+        if (this.gate && this.gate.door === e.id && this.gate.t < 0 && this.gate.wait < 0) this.gate.wait = DOOR_WAIT
         this.vfx.orb(this.heroX, 0.5, this.heroZ, e.x, 1.1, e.z, 0.3, '#fff2a8', '#ffd84a', DOOR_WAIT, 2.4)
         break
       }
@@ -1816,6 +1943,25 @@ export class LevelProps {
       const plate = this.plates.find(p => p.id === g.plate)
       g.lit += ((plate?.aim ?? 0) - g.lit) * Math.min(1, dt * 10)
       g.mat.color.copy(g.color).multiplyScalar(0.72 + g.lit * 0.5)
+    }
+
+    // ── The palisade gate: the key arrives, the leaves swing in ──
+    const gt = this.gate
+    if (gt) {
+      if (gt.wait >= 0) {
+        gt.wait -= dt
+        if (gt.wait < 0) {
+          gt.t = 0
+          this.vfx.ring(gt.x, gt.z, 0.4, 4, '#ffe9a8', 0.7)
+          sfx('chest', this.pan(gt.x))
+        }
+      }
+      if (gt.t >= 0 && gt.t < 1.2) {
+        gt.t += dt
+        const u = Math.min(1, gt.t / 1.1)
+        const e = 1 - (1 - u) * (1 - u)
+        for (const l of gt.leaves) l.g.rotation.y = l.shut + (l.open - l.shut) * e
+      }
     }
 
     // ── Doors ──

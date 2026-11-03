@@ -21,7 +21,7 @@ await page.goto(URL, { waitUntil: 'load', timeout: 600000 })
 await page.waitForFunction(() => window.__game && window.__game.app.mode && window.__game.hud.phase !== 'boot', null, { timeout: 600000 })
 await page.waitForSelector('.hero-choice .hero-choice__card', { timeout: 120000 })
 await page.waitForTimeout(800)
-await page.locator('.hero-choice [data-hero="m"]').click()
+await page.locator('.hero-choice [data-hero="m"]').click({ force: true })
 for (let i = 0; i < 400; i++) {
   const s = await page.evaluate(() => ({ film: !!document.querySelector('.intro'), zone: window.__game.zone()?.setup?.zone }))
   if (!s.film && s.zone === 'plains') break

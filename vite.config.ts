@@ -160,7 +160,7 @@ const assetOverridesPlugin = (): Plugin => {
     configureServer(server) {
       // The painted art and the drop-in sounds only: the voice takes (12,000+ files) are fetched by URL when a line plays and are NOT watched
       // (a watch handle per file took 26 s of every cold start, and `voice:gen` writing there stalled the server). A new recording needs a reload.
-      const dirs = Object.values(OVERRIDE_DIRS).map(d => d.dir).filter(d => d !== VOICE_DIR).map(d => fileURLToPath(new URL(`./${d}`, import.meta.url)))
+      const dirs = Object.values(OVERRIDE_DIRS).map(d => d.dir).map(d => fileURLToPath(new URL(`./${d}`, import.meta.url)))
       server.watcher.add(dirs)
       const onChange = (file: string) => {
         if (!dirs.some(d => file.startsWith(d))) return
