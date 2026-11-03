@@ -1,26 +1,67 @@
 <template lang="pug">
-  FModal(:model-value="true" :title="t(`results.${r ? r.outcome : 'victory'}`)" :is-closable="false" surface="parchment" :tone="tone")
+  FModal.results-modal(:model-value="true" :title="t(`results.${r ? r.outcome : 'victory'}`)" :is-closable="false" surface="parchment" :tone="tone")
     div.results(v-if="r" :class="`results--${r.outcome}`")
-      p.results__place(v-if="r.siege" data-siege-result) {{ t('siege.result.tier', { tier: t(`siege.tier.${r.siege.tier}`) }) }}
-      p.results__place(v-else) {{ r.encounter ? t('encounter.result', { place: t(`node.${r.node}.name`) }) : t(`node.${r.node}.name`) }}
-      //- The siege (afterplay §8): the waves held, the Marks kept, the Demonglass, the milestones.
-      template(v-if="r.siege")
-        p.results__first {{ t('siege.result.waves', { n: r.siege.waves, total: SIEGE_WAVES }) }}
-        p.results__place {{ t('siege.result.marks', { banked: r.siege.banked, earned: r.siege.earned }) }}
-        p.results__place(v-if="r.siege.glass") {{ t('siege.result.glass', { n: r.siege.glass }) }}
-        p.results__first(v-for="m in r.siege.milestones" :key="m" data-siege-milestone) {{ t(`siege.milestone.${m}`) }}
-      p.results__first(v-if="r.firstClear") {{ t('results.firstClear') }}
-      //- The way on, above the numbers (#178): a landscape phone scrolls the rest away.
-      p.results__next(v-if="nextStop" data-next-step)
-        GameIcon.results__next-icon(name="forward")
-        | {{ t(nextStop.town ? 'results.nextTown' : 'results.next', { place: t(`node.${nextStop.id}.name`) }) }}
-      p.results__first(v-if="r.node === 'arena'" data-ladder-result)
-        | {{ t('results.waves', { n: r.waves }) }}
-        span.results__best(v-if="r.arenaNewBest") {{ t('results.newBest') }}
-      p.results__place(v-if="r.node === 'arena' && r.arenaWeek") {{ t('ladder.weekBest', { n: r.arenaWeek }) }}
-      div.results__levelup(v-if="r.levelAfter > r.levelBefore")
-        span.results__level {{ t('results.levelUp', { n: r.levelAfter }) }}
-        span.results__points {{ t('results.points', { n: (r.levelAfter - r.levelBefore) * POINTS_PER_LEVEL }) }}
+      div.results__top
+        p.results__place(v-if="r.siege" data-siege-result) {{ t('siege.result.tier', { tier: t(`siege.tier.${r.siege.tier}`) }) }}
+        p.results__place(v-else) {{ r.encounter ? t('encounter.result', { place: t(`node.${r.node}.name`) }) : t(`node.${r.node}.name`) }}
+        //- The siege (afterplay §8): the waves held, the Marks kept, the Demonglass, the milestones.
+        template(v-if="r.siege")
+          p.results__first {{ t('siege.result.waves', { n: r.siege.waves, total: SIEGE_WAVES }) }}
+          p.results__place {{ t('siege.result.marks', { banked: r.siege.banked, earned: r.siege.earned }) }}
+          p.results__place(v-if="r.siege.glass") {{ t('siege.result.glass', { n: r.siege.glass }) }}
+          p.results__first(v-for="m in r.siege.milestones" :key="m" data-siege-milestone) {{ t(`siege.milestone.${m}`) }}
+        p.results__first(v-if="r.firstClear") {{ t('results.firstClear') }}
+        //- The way on, above the numbers (#178): a landscape phone scrolls the rest away.
+        p.results__next(v-if="nextStop" data-next-step)
+          GameIcon.results__next-icon(name="forward")
+          | {{ t(nextStop.town ? 'results.nextTown' : 'results.next', { place: t(`node.${nextStop.id}.name`) }) }}
+        p.results__first(v-if="r.node === 'arena'" data-ladder-result)
+          | {{ t('results.waves', { n: r.waves }) }}
+          span.results__best(v-if="r.arenaNewBest") {{ t('results.newBest') }}
+        p.results__place(v-if="r.node === 'arena' && r.arenaWeek") {{ t('ladder.weekBest', { n: r.arenaWeek }) }}
+        div.results__levelup(v-if="r.levelAfter > r.levelBefore")
+          span.results__level {{ t('results.levelUp', { n: r.levelAfter }) }}
+          span.results__points {{ t('results.points', { n: (r.levelAfter - r.levelBefore) * POINTS_PER_LEVEL }) }}
+        //- Where this hero stands among everyone's: nothing at all on a build
+        //- without a board, or before a placing can be stated as a number.
+        RankBadge.results__rank(:score="lifetimeXp()")
+      div.results__take
+        //- Triple the purse (#19): one rewarded video, the gold ×3 in total.
+        FButton.results__purse(
+          v-if="purseOffered(r)"
+          :label="t('purse.offer', { n: fmt(r.gold * 2) })"
+          type="warning"
+          :size="compact ? 'sm' : 'md'"
+          :icon="rewardIsVideo ? 'video' : 'coin'"
+          :is-disabled="adInFlight"
+          @click="takePurse"
+        )
+        ul.results__loot(v-if="r.items.length")
+          li.loot(v-for="(it, i) in r.items" :key="i" :style="{ '--tier': TIER_COLOR[ITEM_BY_ID[it.id] ? ITEM_BY_ID[it.id].tier : 1], animationDelay: `${i * 90}ms` }")
+            span.loot__icon
+              ItemIcon(:id="it.id")
+            span.loot__name {{ t(`item.${it.id}.name`) }}
+            span.loot__up(v-if="it.added && !equippedIn(it.id) && isUpgrade(it.id, profile.inv.equipped, profile.hero.attrs, profile.inv.upgrades)" :aria-label="t('results.better')")
+              GameIcon(name="up")
+            span.loot__dup(v-if="!it.added")
+              IconCoin.results__coin
+              | +{{ fmt(it.gold) }}
+            //- A new piece goes on from here: the bag's own rule (`equipItem`).
+            span.loot__act(v-else)
+              span.loot__done(v-if="equippedIn(it.id)")
+                span.loot__tick
+                  GameIcon(name="check")
+                | {{ t('results.equipped') }}
+              FButton(
+                v-else
+                :label="t('bag.equip')"
+                type="success"
+                size="sm"
+                :is-disabled="!canEquip(it.id)"
+                @click="wear(it.id)"
+              )
+        p.results__open(v-if="r.unlocked.length") {{ t('results.unlocked', { places: r.unlocked.map(n => t(`node.${n}.name`)).join(', ') }) }}
+        p.results__tip(v-if="r.outcome === 'defeat'") {{ t('results.tip') }}
       dl.results__stats
         div
           dt {{ t('results.xp') }}
@@ -63,48 +104,9 @@
         div
           dt {{ t('results.time') }}
           dd {{ clock(r.seconds) }}
-      //- Triple the purse (#19): one rewarded video, the gold ×3 in total.
-      FButton.results__purse(
-        v-if="purseOffered(r)"
-        :label="t('purse.offer', { n: fmt(r.gold * 2) })"
-        type="warning"
-        size="md"
-        :icon="rewardIsVideo ? 'video' : 'coin'"
-        :is-disabled="adInFlight"
-        @click="takePurse"
-      )
-      //- Where this hero stands among everyone's: nothing at all on a build
-      //- without a board, or before a placing can be stated as a number.
-      RankBadge.results__rank(:score="lifetimeXp()")
-      ul.results__loot(v-if="r.items.length")
-        li.loot(v-for="(it, i) in r.items" :key="i" :style="{ '--tier': TIER_COLOR[ITEM_BY_ID[it.id] ? ITEM_BY_ID[it.id].tier : 1], animationDelay: `${i * 90}ms` }")
-          span.loot__icon
-            ItemIcon(:id="it.id")
-          span.loot__name {{ t(`item.${it.id}.name`) }}
-          span.loot__up(v-if="it.added && !equippedIn(it.id) && isUpgrade(it.id, profile.inv.equipped, profile.hero.attrs, profile.inv.upgrades)" :aria-label="t('results.better')")
-            GameIcon(name="up")
-          span.loot__dup(v-if="!it.added")
-            IconCoin.results__coin
-            | +{{ fmt(it.gold) }}
-          //- A new piece goes on from here: the bag's own rule (`equipItem`).
-          span.loot__act(v-else)
-            span.loot__done(v-if="equippedIn(it.id)")
-              span.loot__tick
-                GameIcon(name="check")
-              | {{ t('results.equipped') }}
-            FButton(
-              v-else
-              :label="t('bag.equip')"
-              type="success"
-              size="sm"
-              :is-disabled="!canEquip(it.id)"
-              @click="wear(it.id)"
-            )
-      p.results__open(v-if="r.unlocked.length") {{ t('results.unlocked', { places: r.unlocked.map(n => t(`node.${n}.name`)).join(', ') }) }}
-      p.results__tip(v-if="r.outcome === 'defeat'") {{ t('results.tip') }}
     template(#footer)
-      FButton(v-if="r && r.outcome !== 'victory'" :label="t('results.retry')" type="secondary" size="md" icon="replay" :is-disabled="adInFlight" @click="retryVisit")
-      FButton(:label="t('ui.continue')" type="success" size="md" icon="skip-forward" attention :is-disabled="adInFlight" @click="leaveResults")
+      FButton(v-if="r && r.outcome !== 'victory'" :label="t('results.retry')" type="secondary" :size="compact ? 'sm' : 'md'" icon="replay" :is-disabled="adInFlight" @click="retryVisit")
+      FButton(:label="t('ui.continue')" type="success" :size="compact ? 'sm' : 'md'" icon="skip-forward" attention :is-disabled="adInFlight" @click="leaveResults")
 </template>
 
 <script setup lang="ts">
@@ -131,9 +133,12 @@ import { canEquip, equipItem, equippedIn, lifetimeXp, profile } from '@/game/sta
 import { isUpgrade } from '@/game/data/upgrade'
 import { sfx } from '@/game/audio/sfx'
 import { isTown, nextNode } from '@/game/coach/goal'
+import { windowHeight, windowWidth } from '@/use/useUser'
 
 const { t } = useI18n()
 const r = computed(() => flow.results)
+/** A landscape phone: the page is two columns and its buttons are small (the styles below). */
+const compact = computed(() => windowHeight.value <= 520 && windowWidth.value > windowHeight.value)
 /** Where to go on, after a first win: the next place on the map's own order (the goal chip's place). */
 const nextStop = computed(() => {
   if (!r.value || r.value.outcome !== 'victory' || !r.value.firstClear || r.value.siege || r.value.encounter) return null
@@ -158,6 +163,42 @@ const takePurse = async (): Promise<void> => { if (await triplePurse()) { sfx('c
   gap: clamp(0.4rem, 1.8vmin, 0.7rem)
   color: var(--bc-on)
   text-align: center
+// The page: what happened, then what was won, the numbers last (a short screen scrolls those away).
+.results__top, .results__take
+  display: flex
+  flex-direction: column
+  align-items: center
+  gap: inherit
+  width: 100%
+// A landscape phone: the news on the left, the loot and the purse on the right, the numbers below.
+@media (max-height: 520px) and (orientation: landscape)
+  .results
+    display: grid
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr)
+    align-items: start
+    column-gap: 0.7rem
+    row-gap: 0.3rem
+  .results__stats
+    grid-column: 1 / -1
+    grid-template-columns: repeat(auto-fit, minmax(5.2rem, 1fr))
+    gap: 0.2rem
+    div
+      padding: 0.15rem 0.3rem
+    dt
+      font-size: 0.62rem
+    dd
+      font-size: 0.9rem
+  .results__loot
+    gap: 0.25rem
+  .loot
+    padding: 0.15rem 0.4rem 0.15rem 0.2rem
+    gap: 0.4rem
+  .loot__icon
+    width: 1.9rem
+  .results__levelup
+    padding: 0.2em 0.9em
+  .results__tip
+    grid-column: 1 / -1
 .results__place
   margin: 0
   color: var(--bc-on-soft)
@@ -367,4 +408,28 @@ const takePurse = async (): Promise<void> => { if (await triplePurse()) { sfx('c
 @media (prefers-reduced-motion: reduce)
   .results__levelup, .loot, .gold.is-tripled
     animation: none
+</style>
+
+<!-- The window's own frame on a landscape phone: the leather rim and the sides take the room the page needs. -->
+<style lang="sass">
+@media (max-height: 520px) and (orientation: landscape)
+  .results-modal
+    padding-inline: calc(0.1rem + env(safe-area-inset-left, 0px)) calc(0.1rem + env(safe-area-inset-right, 0px))
+    padding-block: calc(0.1rem + env(safe-area-inset-top, 0px)) calc(0.2rem + env(safe-area-inset-bottom, 0px))
+    --fmodal-rim: 0.18rem
+    --fmodal-r: 0.7rem
+    .f-modal__container
+      max-width: 100%
+    .f-modal__ribbon-body
+      min-height: 1.5rem
+      padding-block: 0.1rem
+    .f-modal__ribbon-text
+      font-size: 0.95rem
+    .f-modal__content
+      padding-inline: 0.5rem
+      padding-bottom: 0.2rem
+    .f-modal__footer
+      padding-bottom: calc(0.25rem + var(--bc-press))
+    .f-modal__rivet
+      display: none
 </style>
