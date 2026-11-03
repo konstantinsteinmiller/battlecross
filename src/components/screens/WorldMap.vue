@@ -1540,9 +1540,9 @@ onBeforeUnmount(() => {
   background: var(--bc-gold, #ffc526)
 // The afterplay: the Breaking holds it (§4). A blood-red ring round the landmark.
 // A new player's map says one thing (#178): the goal's place keeps its tags, every other place goes quiet (no NEW
-// flag, no level pill; a locked one fades), so the realm's ~15 labels on a phone are not 15 calls to action.
+// flag; a locked one fades). The level pill stays on EVERY place: the player reads where he is strong enough from the whole map.
 .node.is-offgoal
-  .node__new, .node__lvl
+  .node__new
     display: none
   &.is-locked
     opacity: 0.55
