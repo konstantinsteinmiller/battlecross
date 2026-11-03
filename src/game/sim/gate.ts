@@ -169,7 +169,8 @@ export const placeGate = (c: Cut, id: number, boss: { x: number; z: number; r: n
       // Square across the road costs nothing; a slant costs up to three cells' worth.
       let off = Math.abs(((ang - roadAng) % Math.PI + Math.PI) % Math.PI - Math.PI / 2)
       off = Math.min(off, Math.PI - off)
-      const score = cells.size + off * 2 + Math.abs(d - (lo + hi) / 2) * 0.01
+      // (A little toward the pack's side of the neck: the boss's floor keeps its room for the camp.)
+      const score = cells.size + off * 2 - d * 0.05
       if (!best || score < best.n) best = { cells: [...cells], d, n: score }
     }
   }

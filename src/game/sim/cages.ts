@@ -105,10 +105,14 @@ export interface CaptiveState {
   npc?: string
   /** The lead's own line (default: the cage's `captiveLine`). */
   line?: string
+  /** The camp's teachers leave the cage one by one: seconds to wait behind the bars after the door opens. */
+  delay?: number
 }
 
 /** Stepping out of the cage, m/s. */
 const STEP_OUT = 1.6
+/** Seconds between one teacher leaving the cage and the next: the door is clear before the next steps into it. */
+export const CAMP_EXIT_GAP = 1.5
 /** How long they stand and talk before setting off. */
 export const CAPTIVE_TALK = 5.5
 /** Gone once this far from the hero (well out of the picture). */
@@ -160,6 +164,7 @@ export const holdCaged = (sim: Sim): void => {
 
 /** The cage is open: out they come, through the door and to either side. */
 export const freeCaptives = (sim: Sim, c: ChestState): void => {
+  const camp = sim.captives.filter(p => p.stay && p.phase === 'caged')
   sim.captives.forEach((p, q) => {
     if (p.phase !== 'caged') return
     const side = q === 0 ? 1 : -1
@@ -167,7 +172,10 @@ export const freeCaptives = (sim: Sim, c: ChestState): void => {
     p.phase = 'out'
     p.t = 0
     if (u) u.rooted = false
-    p.path = p.stay ? campWayOut(u, c) : [[u?.x ?? c.x, c.z + 0.8], [c.x + side * 1.35, c.z + 1.05]]
+    // The camp's four go out one by one through the door and line up side by side in front of the cage.
+    const slot = camp.indexOf(p)
+    if (p.stay) p.delay = Math.max(0, slot) * CAMP_EXIT_GAP
+    p.path = p.stay ? campWayOut(u, c, Math.max(0, slot), camp.length) : [[u?.x ?? c.x, c.z + 0.8], [c.x + side * 1.35, c.z + 1.05]]
     // Out of the cage, the camp's teachers answer to their town ids (#156).
     if (u && p.npc) u.npc = p.npc
     // The first visit's big moment (#178): a golden burst over each teacher as the door swings open.
@@ -193,6 +201,8 @@ export const stepCaptives = (sim: Sim, dt: number): void => {
     p.t += dt
     if (p.phase === 'caged') { u.anim = 'idle'; continue }
     if (p.phase === 'out') {
+      // Waiting behind the bars for their turn at the door.
+      if (p.t < (p.delay ?? 0)) { u.anim = 'idle'; continue }
       const at = p.path[0]
       if (!at) {
         p.phase = 'talk'
@@ -218,6 +228,8 @@ export const stepCaptives = (sim: Sim, dt: number): void => {
     if (p.phase === 'talk') {
       face(u, hero.x, hero.z)
       u.anim = 'idle'
+      // The camp's teachers wait side by side until all of them are out: then they talk, then go to the fire together.
+      if (p.stay && sim.captives.some(o => o.stay && (o.phase === 'out' || o.phase === 'caged'))) { p.t = 0; continue }
       if (p.t >= CAPTIVE_TALK) {
         p.phase = p.stay ? 'stay' : 'leave'
         p.t = 0

@@ -13,7 +13,7 @@ import { stepSim } from '@/game/sim/step'
 import { chestLock, orderOpen } from '@/game/sim/interact'
 import { PICK_REACH } from '@/game/sim/herbs'
 import { referenceBuild } from '@/game/sim/bot'
-import { CAPTIVE_TALK } from '@/game/sim/cages'
+import { CAMP_EXIT_GAP, CAPTIVE_TALK } from '@/game/sim/cages'
 import { CAMP_SPEAKER, CAMP_TEACHERS, CAMP_THANKS, KEY_DROP_T, NETTLE_WALK_MAX, campPending, campTarget, inCamp } from '@/game/sim/camp'
 import { MENTOR_NPC } from '@/game/data/mentor'
 import { SPOKEN } from '@/game/data/dialogs'
@@ -105,7 +105,7 @@ describe('the camp on the boss floor (#182)', () => {
       expect(wagon.cells.length, tag).toBe(6)
       expect(wagon.x, tag).toBeLessThan(boss.x - 3 * CELL)
       expect(fire.cells.length, tag).toBe(1)
-      expect(fire.z - boss.z, tag).toBeGreaterThanOrEqual(3.5 * CELL)
+      expect(fire.z - boss.z, tag).toBeGreaterThanOrEqual(2.5 * CELL)
       expect(fire.z - boss.z, tag).toBeLessThanOrEqual(7.5 * CELL)
       // The finale's chest stays where it was: a few cells above the boss.
       const finale = plan.chests.find(c => c.role === 'finale')!
@@ -319,6 +319,8 @@ describe('the cage and its teachers', () => {
     const aegis = sim.captives.find(p => p.npc === CAMP_SPEAKER)!
     expect(barks(sim)).toEqual([CAMP_THANKS])
     expect(sim.events.find(e => e.t === 'bark' && (e as { unit: number }).unit === aegis.unit)).toBeTruthy()
+    // They leave the cage one by one (`CAMP_EXIT_GAP` apart), so the last is out a few seconds after the first.
+    run(sim, plan, CAMP_EXIT_GAP * 4)
     // Out of the cage, answering to their town ids.
     for (const p of sim.captives) {
       const u = sim.get(p.unit)!

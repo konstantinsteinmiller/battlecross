@@ -146,7 +146,7 @@ export const placeCamp = (p: {
 }
 
 /** Where the fire may stand, tried in turn (cells from the boss: a little below it). */
-const FIRE_AT: ReadonlyArray<readonly [number, number]> = [[0, 4], [1, 4], [-1, 4], [0, 5], [2, 4], [-2, 4]]
+const FIRE_AT: ReadonlyArray<readonly [number, number]> = [[0, 3], [1, 3], [-1, 3], [0, 4], [1, 4], [-1, 4], [0, 5], [2, 4], [-2, 4]]
 /** Where the caravan may stand, tried in turn (cells from the boss: to its left; two across, three along). */
 const WAGON_AT: ReadonlyArray<readonly [number, number, number]> = [-1, 0, -2, 1].flatMap(dj => [-6, -5, -7, -4, -8].map(di => [di, dj, 0] as const))
 /** The rock round the fire is cut back this far (cells): the trees of the wood stand beyond it, and there is room to walk all round. */
@@ -195,6 +195,16 @@ export const dressCamp = (d: Dresser, p: {
       if (Math.hypot(i - fi, j - fj) > FIRE_CLEAR || i < 3 || j < 3 || i >= p.w - 3 || j >= p.h - 3) continue
       const k = j * w + i
       if (!solid[k] || sealed[k] || kind[k] === K_BLOCK || (Math.abs(j - p.cj) <= 2 && Math.abs(i - p.ci) <= 3)) continue
+      solid[k] = 0
+      kind[k] = K_GROUND
+    }
+  }
+  // And round the cage: no stone or tree where the teachers step out and stand (the cage's own cells and the map's edge stay).
+  for (let j = p.cj - 5; j <= p.cj + 6; j++) {
+    for (let i = p.ci - 6; i <= p.ci + 6; i++) {
+      if (Math.hypot((i - p.ci) / 1.25, j - p.cj) > 5.2 || i < 3 || j < 3 || i >= p.w - 3 || j >= p.h - 3) continue
+      const k = j * w + i
+      if (!solid[k] || sealed[k] || kind[k] === K_BLOCK) continue
       solid[k] = 0
       kind[k] = K_GROUND
     }
@@ -353,10 +363,13 @@ export const populateCamp = (sim: Sim, plan: CampPlan, key: { x: number; z: numb
 }
 
 /** Out of the big cage: each to the door in the middle, through it, and a step to the side. */
-export const campWayOut = (u: Unit | undefined, c: { x: number; z: number }): Array<[number, number]> => {
-  const side = u ? Math.sign(Math.round((u.x - c.x) / CELL)) : 0
-  return [[c.x, u?.z ?? c.z], [c.x, c.z + 0.9], [c.x + side * 1.3, c.z + 1.6]]
+export const campWayOut = (u: Unit | undefined, c: { x: number; z: number }, slot = 0, n = 1): Array<[number, number]> => {
+  // To the door in the middle, through it, and to their own place in a row in front of the cage: side by side, a body-width and a half apart.
+  const x = c.x + (slot - (n - 1) / 2) * LINE_GAP
+  return [[c.x, u?.z ?? c.z], [c.x, c.z + 0.9], [c.x, c.z + 1.9], [x, c.z + 2.5]]
 }
+/** Metres between two teachers standing in a row in front of the cage. */
+const LINE_GAP = 1.45
 
 /** Is this person one of the rescued teachers, out of the cage, in this visit's camp? */
 export const inCamp = (sim: Sim, npcId: string): boolean =>
