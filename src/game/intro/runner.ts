@@ -13,6 +13,9 @@ import type { DamageType, Unit } from '../sim/types'
 import { pushHud } from '../state/hud'
 import type { ZoneId } from '../data/items'
 import { ZONES } from '../data/zones'
+import { CELL } from '../sim/grid'
+import { K_BLOCK, K_GROUND } from '../sim/zoneFeatures'
+import type { ZonePlan } from '../sim/zoneGen'
 import { heroLook, LOOKS } from '../gfx/rigs/looks'
 import type { Look } from '../gfx/rigs/humanoid'
 import { stopSpeech } from '../audio/speech'
@@ -72,9 +75,38 @@ export const settleAfterIntro = (mode: GameMode | null): void => {
   if (mode instanceof ZoneMode) setMusicTrack(trackForTheme(mode.setup.theme))
 }
 
+/** The stage cut clear: no tree or stone where the heroes land, fight and walk off (the way each leaves, `flee`). */
+const carveStage = (plan: ZonePlan): void => {
+  const packs = plan.packs.filter(p => !p.finale)
+  const p = packs[Math.min(INTRO_PACK, packs.length - 1)] ?? plan.packs[0]
+  if (!p) return
+  // Segments (metres): the landing marks to where each walks to, and the ground between the two and the drake.
+  const segs: Array<[number, number, number, number]> = [
+    [p.x - 4.4, p.z + 0.2, p.x - 4.4 - FLEE_X, p.z + 0.2 + FLEE_Z],
+    [p.x + 4.4, p.z + 0.2, p.x + 4.4 + FLEE_X, p.z + 0.2 + FLEE_Z],
+    [p.x - 4.4, p.z + 0.2, p.x + 4.4, p.z + 0.2],
+    [p.x, p.z - 3.4, p.x, p.z + 3.2]
+  ]
+  const R = 3.2 // metres either side of a path
+  for (let j = 1; j < plan.h - 1; j++) {
+    for (let i = 1; i < plan.w - 1; i++) {
+      const k = j * plan.w + i
+      if (!plan.solid[k] || plan.sealed[k] || plan.kind[k] === K_BLOCK) continue
+      const x = (i + 0.5) * CELL
+      const z = (j + 0.5) * CELL
+      for (const [ax, az, bx, bz] of segs) {
+        const dx = bx - ax
+        const dz = bz - az
+        const t = Math.max(0, Math.min(1, ((x - ax) * dx + (z - az) * dz) / (dx * dx + dz * dz || 1)))
+        if (Math.hypot(x - (ax + dx * t), z - (az + dz * t)) <= R) { plan.solid[k] = 0; plan.kind[k] = K_GROUND; break }
+      }
+    }
+  }
+}
+
 const setup = (): ZoneSetup => ({
   kind: 'zone', zone: INTRO_ZONE as ZoneId, theme: ZONES[INTRO_ZONE as ZoneId].theme, seed: INTRO_SEED,
-  level: INTRO_FOE_LEVEL, difficulty: 1, tutorial: false, ambush: null, extra: 0, flags: new Set()
+  level: INTRO_FOE_LEVEL, difficulty: 1, tutorial: false, ambush: null, extra: 0, flags: new Set(), carve: carveStage
 })
 
 /**
@@ -121,6 +153,9 @@ interface Cast {
   fleeT: number
 }
 
+/** How far (m) each walks off, sideways and toward the camera (the stage is cut clear along it). */
+const FLEE_X = 14
+const FLEE_Z = 7
 /** How far out (m) the two start their leap from, and how high (m) it goes. */
 const ENTRY_RUN = 15
 const ENTRY_HIGH = 9
@@ -319,11 +354,11 @@ const play = (m: ZoneMode, c: Cast, t: number, act: IntroAct, who: 'beast' | 'ma
     case 'flee':
       // They walk off calmly, one each way, the pack at the beast caller's heels, not one look at the hero in the snow.
       c.fled = true
-      walk(c, c.mage, c.land.mage.x - 14, c.land.mage.z + 7, t, 5.6)
-      walk(c, c.beast, c.land.beast.x + 14, c.land.beast.z + 7, t, 5.6)
+      walk(c, c.mage, c.land.mage.x - FLEE_X, c.land.mage.z + FLEE_Z, t, 5.6)
+      walk(c, c.beast, c.land.beast.x + FLEE_X, c.land.beast.z + FLEE_Z, t, 5.6)
       c.fleeT = t
       c.packOff = c.pack.map(mn => ({ x: mn.x - c.beast.x, z: mn.z - c.beast.z }))
-      { const bx = c.land.beast.x + 14 - c.beast.x; const bz = c.land.beast.z + 7 - c.beast.z; const l = Math.hypot(bx, bz) || 1; c.beastDir = { x: bx / l, z: bz / l } }
+      { const bx = c.land.beast.x + FLEE_X - c.beast.x; const bz = c.land.beast.z + FLEE_Z - c.beast.z; const l = Math.hypot(bx, bz) || 1; c.beastDir = { x: bx / l, z: bz / l } }
       break
     case 'load':
       // The screen goes dark. From here the film cannot be skipped (`NO_SKIP_AT`): what is up is the label and the load,

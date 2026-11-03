@@ -113,6 +113,8 @@ export interface ZoneSetup {
   level: number
   difficulty: number
   tutorial?: boolean
+  /** A hook on the generated plan before anything is built from it (the intro cuts its stage clear). */
+  carve?: (plan: ZonePlan) => void
   ambush?: string | null
   extra?: number
   dragonAlly?: boolean
@@ -384,6 +386,7 @@ export class ZoneMode implements GameMode {
             // DEV: `?branches=0` plays the zone as one road (the perf A/B arm of roadmap #70).
             ...(import.meta.env.DEV && typeof location !== 'undefined' && new URLSearchParams(location.search).get('branches') === '0' ? { branches: false } : {})
           })
+    setup.carve?.(plan)
     const m = new ZoneMode(setup, plan, input, cb)
     const sim = m.sim
     if (setup.arenaMod) sim.arenaMod = setup.arenaMod
