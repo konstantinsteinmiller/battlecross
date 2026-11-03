@@ -49,7 +49,7 @@
             small(v-if="total[a] > profile.hero.attrs[a]") +{{ fmt2(total[a] - profile.hero.attrs[a]) }}
           button.attr__plus(
             type="button"
-            :class="{ 'is-hint': profile.hero.points > 0 }"
+            :class="{ 'is-hint': profile.hero.points > 0 && invested < HINT_UNTIL }"
             :disabled="profile.hero.points <= 0"
             :aria-label="t('sheet.raise', { attr: t(`attr.${a}.name`) })"
             @focus="peek = a"
@@ -77,7 +77,7 @@
  */
 import { computed, nextTick, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { ATTRS, ATTR_COLOR, type Attr } from '@/game/data/attributes'
+import { ATTRS, ATTR_COLOR, startAttrs, type Attr } from '@/game/data/attributes'
 import { xpToNext } from '@/game/data/progression'
 import { computeStats, heroLevelCap, profile, setHeroGender, spendPoint, totalAttrs, xp01 } from '@/game/state/profile'
 import { HERO_GENDERS, heroOutfit, heroPortraitId, type HeroGender } from '@/game/art/heroPortrait'
@@ -96,6 +96,12 @@ const total = computed(() => totalAttrs())
 
 /** The attribute whose "+" is being considered. */
 const peek = ref<Attr | ''>('')
+/** The yellow arrow on the "+" buttons teaches where points go: it is gone once the player has put this many points in himself. */
+const HINT_UNTIL = 6
+const invested = computed(() => {
+  const base = startAttrs()
+  return ATTRS.reduce((n, a) => n + Math.max(0, profile.hero.attrs[a] - base[a]), 0)
+})
 const plusOne = (a: Attr) => statsWithAttrs({ ...profile.hero.attrs, [a]: profile.hero.attrs[a] + 1 })
 
 const rows = computed<StatRow[]>(() => {
