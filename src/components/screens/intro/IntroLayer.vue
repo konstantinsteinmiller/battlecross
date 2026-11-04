@@ -10,6 +10,7 @@
         :aria-label="t('intro.skip')"
         @click="skipIntro"
       )
+        GameIcon.intro__icon(name="fast-forward")
         span.intro__label {{ t('intro.skip') }}
         KeyCap.intro__key(v-if="!touch" code="Space")
 </template>
@@ -26,6 +27,7 @@
 import { onMounted, onUnmounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 import KeyCap from '@/components/glyphs/KeyCap.vue'
+import GameIcon from '@/components/icons/GameIcon.vue'
 import { introView, skipIntro } from '@/game/intro/runner'
 import { introBoot } from '@/game/intro/state'
 import { touchFirst } from '@/game/engine/input'
@@ -96,6 +98,10 @@ onUnmounted(() => window.removeEventListener('keydown', onDown, true))
   font-size: clamp(0.9rem, 3vmin, 1.15rem)
   cursor: pointer
   +cel.focus-ring
+.intro__icon
+  flex: 0 0 auto
+  width: 1.5em
+  height: 1.5em
 .intro__key
   height: 1.5em
 </style>
