@@ -20,7 +20,7 @@ rewrites it, and a test fails when it is stale. Do not edit by hand.
 | freedPeddler | 9 | 9 |
 | lightDisciple | 14 | 14 |
 | sfShadow | 18 | 18 |
-| smalltalkIronhold | 20 | 9 |
+| smalltalkIronhold | 20 | 20 |
 | sunfordSmith | 25 | 25 |
 | sunfordPeddler | 15 | 15 |
 | trainerAegis | 20 | 20 |
@@ -108,7 +108,7 @@ rewrites it, and a test fails when it is stale. Do not edit by hand.
 | elderDragon | 4 | 4 |
 | pyroCry | 1 | 1 |
 | heroine | 211 | 211 |
-| **All** | **1595** | **1584** |
+| **All** | **1595** | **1595** |
 
 ## Other languages voiced in full
 
@@ -116,7 +116,7 @@ English and German voice every line. A line with no file there is a silent bubbl
 
 | Language | Voiced | Lines |
 | --- | --- | --- |
-| de | 1558 | 1595 |
+| de | 1569 | 1595 |
 
 ## Other languages: the core lines only
 
@@ -126,33 +126,21 @@ Indonesian (id) and Vietnamese (vi) are not voiced: Chatterbox cannot speak them
 
 | Language | Core voiced | Core lines |
 | --- | --- | --- |
-| fr | 327 | 349 |
-| es | 332 | 349 |
-| ru | 330 | 349 |
-| ja | 333 | 349 |
-| pt | 330 | 349 |
-| zh | 334 | 349 |
+| fr | 342 | 349 |
+| es | 346 | 349 |
+| ru | 345 | 349 |
+| ja | 348 | 349 |
+| pt | 344 | 349 |
+| zh | 349 | 349 |
 
 ## Parked takes (decision 2026-10-18)
 
 About 1,400 files per language is too large for CrazyGames (50 MB), so only the full languages ship complete and the others ship the core (German was widened to full by the owner on 2026-10-21, from its parked takes plus new ones). The earlier full Chatterbox runs are kept out of the build in `vo-src/parked/<lang>/` (git-ignored): French has about 1,000 lines, and ja, zh, es, pt and ru only pilot files. Only the core takes (and all of German's) were moved back to `public/audio/voice/<lang>/`.
 To widen a language beyond the core, change data/voice-core.json and settle the size budget or a per-portal language filter first. A half-voiced core is silent on its missing lines, so finish it before shipping.
 
-## To do (11)
+## To do (0)
 
-| File | Who | Scene | English | EN |
-| --- | --- | --- | --- | --- |
-| `dlg.plainsMiner.hello.1` | Brann Pickfast (smalltalkIronhold) | plainsMiner | Easy with the dust! Oh, you're the one who cleared the road. | **missing** |
-| `dlg.plainsMiner.hello.2` | Brann Pickfast (smalltalkIronhold) | plainsMiner | Brann Pickfast. I dig ore out of these hills. | **missing** |
-| `dlg.plainsMiner.again.1` | Brann Pickfast (smalltalkIronhold) | plainsMiner | Back again? The vein's good today. | **missing** |
-| `dlg.plainsMiner.ore.1` | Brann Pickfast (smalltalkIronhold) | plainsMiner | Ore, is it? Let's see it. I pay a fair price by the nugget. | **missing** |
-| `dlg.plainsMiner.learnSmith.1` | Brann Pickfast (smalltalkIronhold) | plainsMiner | Smithing? It starts right here: a pick and a rock that glints. | **missing** |
-| `dlg.plainsMiner.learnSmith.2` | Brann Pickfast (smalltalkIronhold) | plainsMiner | Dig the ore, then hammer it into your gear at a forge. Three good strikes. Go on, try it. | **missing** |
-| `dlg.plainsMiner.forge.1` | Brann Pickfast (smalltalkIronhold) | plainsMiner | Borrow my anvil. Mind your fingers. | **missing** |
-| `dlg.plainsMiner.who.1` | Brann Pickfast (smalltalkIronhold) | plainsMiner | Brann. I dig what the smiths hammer. Every good blade starts as a rock like this one. | **missing** |
-| `dlg.plainsMiner.forgeBack.1` | Brann Pickfast (smalltalkIronhold) | plainsMiner | Not bad for a first strike. Keep at it. | **missing** |
-| `dlg.plainsMiner.sellBack.1` | Brann Pickfast (smalltalkIronhold) | plainsMiner | Fair weight, fair coin. Bring more when you find it. | **missing** |
-| `dlg.plainsMiner.bye.1` | Brann Pickfast (smalltalkIronhold) | plainsMiner | Watch your head. Rocks fall. | **missing** |
+Nothing: every line has its recording.
 
 ## Every line (1595)
 
@@ -190,20 +178,20 @@ To widen a language beyond the core, change data/voice-core.json and settle the 
 | `dlg.sfShadowRoad.train.1` | Nettle Quickhand (sfShadow) | sfShadowRoad | Watch closely. One step, and you're somewhere else. | chatterbox |
 | `dlg.sfShadowRoad.trainBack.1` | Nettle Quickhand (sfShadow) | sfShadowRoad | Good. Now go be somewhere else. | chatterbox |
 | `dlg.sfShadowRoad.bye.1` | Nettle Quickhand (sfShadow) | sfShadowRoad | Don't get caught. | chatterbox |
-| `dlg.plainsMiner.hello.1` | Brann Pickfast (smalltalkIronhold) | plainsMiner | Easy with the dust! Oh, you're the one who cleared the road. | **missing** |
-| `dlg.plainsMiner.hello.2` | Brann Pickfast (smalltalkIronhold) | plainsMiner | Brann Pickfast. I dig ore out of these hills. | **missing** |
-| `dlg.plainsMiner.again.1` | Brann Pickfast (smalltalkIronhold) | plainsMiner | Back again? The vein's good today. | **missing** |
+| `dlg.plainsMiner.hello.1` | Brann Pickfast (smalltalkIronhold) | plainsMiner | Easy with the dust! Oh, you're the one who cleared the road. | chatterbox |
+| `dlg.plainsMiner.hello.2` | Brann Pickfast (smalltalkIronhold) | plainsMiner | Brann Pickfast. I dig ore out of these hills. | chatterbox |
+| `dlg.plainsMiner.again.1` | Brann Pickfast (smalltalkIronhold) | plainsMiner | Back again? The vein's good today. | chatterbox |
 | `dlg.hero.ore` | The hero (hero) | hero | I've got some ore to sell. | chatterbox |
-| `dlg.plainsMiner.ore.1` | Brann Pickfast (smalltalkIronhold) | plainsMiner | Ore, is it? Let's see it. I pay a fair price by the nugget. | **missing** |
+| `dlg.plainsMiner.ore.1` | Brann Pickfast (smalltalkIronhold) | plainsMiner | Ore, is it? Let's see it. I pay a fair price by the nugget. | chatterbox |
 | `dlg.hero.learnSmith` | The hero (hero) | hero | Could you teach me to smith? | chatterbox |
-| `dlg.plainsMiner.learnSmith.1` | Brann Pickfast (smalltalkIronhold) | plainsMiner | Smithing? It starts right here: a pick and a rock that glints. | **missing** |
-| `dlg.plainsMiner.learnSmith.2` | Brann Pickfast (smalltalkIronhold) | plainsMiner | Dig the ore, then hammer it into your gear at a forge. Three good strikes. Go on, try it. | **missing** |
+| `dlg.plainsMiner.learnSmith.1` | Brann Pickfast (smalltalkIronhold) | plainsMiner | Smithing? It starts right here: a pick and a rock that glints. | chatterbox |
+| `dlg.plainsMiner.learnSmith.2` | Brann Pickfast (smalltalkIronhold) | plainsMiner | Dig the ore, then hammer it into your gear at a forge. Three good strikes. Go on, try it. | chatterbox |
 | `dlg.hero.forge` | The hero (hero) | hero | I'd like to use your forge. | chatterbox |
-| `dlg.plainsMiner.forge.1` | Brann Pickfast (smalltalkIronhold) | plainsMiner | Borrow my anvil. Mind your fingers. | **missing** |
-| `dlg.plainsMiner.who.1` | Brann Pickfast (smalltalkIronhold) | plainsMiner | Brann. I dig what the smiths hammer. Every good blade starts as a rock like this one. | **missing** |
-| `dlg.plainsMiner.forgeBack.1` | Brann Pickfast (smalltalkIronhold) | plainsMiner | Not bad for a first strike. Keep at it. | **missing** |
-| `dlg.plainsMiner.sellBack.1` | Brann Pickfast (smalltalkIronhold) | plainsMiner | Fair weight, fair coin. Bring more when you find it. | **missing** |
-| `dlg.plainsMiner.bye.1` | Brann Pickfast (smalltalkIronhold) | plainsMiner | Watch your head. Rocks fall. | **missing** |
+| `dlg.plainsMiner.forge.1` | Brann Pickfast (smalltalkIronhold) | plainsMiner | Borrow my anvil. Mind your fingers. | chatterbox |
+| `dlg.plainsMiner.who.1` | Brann Pickfast (smalltalkIronhold) | plainsMiner | Brann. I dig what the smiths hammer. Every good blade starts as a rock like this one. | chatterbox |
+| `dlg.plainsMiner.forgeBack.1` | Brann Pickfast (smalltalkIronhold) | plainsMiner | Not bad for a first strike. Keep at it. | chatterbox |
+| `dlg.plainsMiner.sellBack.1` | Brann Pickfast (smalltalkIronhold) | plainsMiner | Fair weight, fair coin. Bring more when you find it. | chatterbox |
+| `dlg.plainsMiner.bye.1` | Brann Pickfast (smalltalkIronhold) | plainsMiner | Watch your head. Rocks fall. | chatterbox |
 | `dlg.sunfordSmith.hello.1` | Bram the Smith (sunfordSmith) | sunfordSmith | Haven't seen you before. You're the one who cleared the road? | chatterbox |
 | `dlg.sunfordSmith.hello.2` | Bram the Smith (sunfordSmith) | sunfordSmith | Bram. I keep the forge. If you need a blade, come to me. | chatterbox |
 | `dlg.sunfordSmith.kingDead.1` | Bram the Smith (sunfordSmith) | sunfordSmith | Heard the Goblin King's dead. Can't say I'll miss him. | chatterbox |
@@ -1506,10 +1494,10 @@ To widen a language beyond the core, change data/voice-core.json and settle the 
 | `dlg.bark.siegeMara.horn50.1` | Elder Mara (elderMara) | bark.siegeMara | Half the gate is gone. Hold on! | chatterbox |
 | `dlg.bark.siegeMara.horn25.1` | Elder Mara (elderMara) | bark.siegeMara | The gate is failing! Hold them back! | chatterbox |
 | `dlg.bark.siegeMara.won.1` | Elder Mara (elderMara) | bark.siegeMara | They're running! The fort still stands! | chatterbox |
-| `dlg.bark.hero.cage.1` | The hero (hero) | bark.hero | Is there somebody screaming for help? | by hand |
-| `dlg.bark.trainerPyro.help.1` | Ember Wren (pyroCry) | bark.trainerPyro | Help! Anybody! | by hand |
-| `dlg.bark.sbMasterSoulwarden.help.1` | Warden Odalys Lanternlight (sbMasterSoulwarden) | bark.sbMasterSoulwarden | We were kidnapped! | by hand |
-| `dlg.bark.sbMasterIronmonk.help.1` | Master Oru Stillwater (sbMasterIronmonk) | bark.sbMasterIronmonk | Monsters! Help! | by hand |
+| `dlg.bark.hero.cage.1` | The hero (hero) | bark.hero | Is there somebody screaming for help? | chatterbox |
+| `dlg.bark.trainerPyro.help.1` | Ember Wren (pyroCry) | bark.trainerPyro | Help! Anybody! | chatterbox |
+| `dlg.bark.sbMasterSoulwarden.help.1` | Warden Odalys Lanternlight (sbMasterSoulwarden) | bark.sbMasterSoulwarden | We were kidnapped! | chatterbox |
+| `dlg.bark.sbMasterIronmonk.help.1` | Master Oru Stillwater (sbMasterIronmonk) | bark.sbMasterIronmonk | Monsters! Help! | chatterbox |
 | `dlg.bark.freedPeddler.freed.1` | Odo Marrow (freedPeddler) | bark.freedPeddler | Bless your boots! Odo Marrow, peddler. Come find me in Sunford, I'll have wares for you. | chatterbox |
 | `dlg.bark.freedHerbalist.freed.1` | Briar Hollowell (freedHerbalist) | bark.freedHerbalist | Oh, thank you! I'm Briar, a herbalist. Come and see me in Silverbridge. I could use your help. | chatterbox |
 | `dlg.bark.freedFarmers.freed.1` | Jory Toller (freedFarmers) | bark.freedFarmers | You saved us! We're the Tollers, farmers. Find us in Oakhaven, there's trouble at home. | chatterbox |
@@ -1734,7 +1722,7 @@ To widen a language beyond the core, change data/voice-core.json and settle the 
 | `dlg.quest.seal.seal.say__f` | The girl hero (heroine) | quest.seal | Seal it. Forever. | chatterbox |
 | `dlg.quest.seal.ajar.say__f` | The girl hero (heroine) | quest.seal | Leave it ajar. We'll be ready. | chatterbox |
 | `dlg.mysteriousWanderer.trial.say__f` | The girl hero (heroine) | mysteriousWanderer | What trials do you mean? | chatterbox |
-| `dlg.bark.hero.cage.1__f` | The girl hero (heroine) | bark.hero | Is there somebody screaming for help? | by hand |
+| `dlg.bark.hero.cage.1__f` | The girl hero (heroine) | bark.hero | Is there somebody screaming for help? | chatterbox |
 | `ending.order.text__f` | The girl hero, telling the story (heroine) | ending | Banners of the Iron Order fly over the Dread Fortress. The roads are safe, the laws are many, and your name is carved above the gate. | chatterbox |
 | `ending.syndicate.text__f` | The girl hero, telling the story (heroine) | ending | The Syndicate rules from the shadows of the fortress. Nothing in the realm is forbidden any more. It is only expensive. | chatterbox |
 | `ending.circle.text__f` | The girl hero, telling the story (heroine) | ending | The Circle lights the fortress with captured void-fire. Wonders pour out of its gates, and no one asks what they cost. | chatterbox |
