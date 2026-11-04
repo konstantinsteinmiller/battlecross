@@ -17,6 +17,10 @@ export const MENTOR_SKILL = 'shadowstep'
 /** The one-time flag (in `profile.tips`) that the hero has spoken to her. */
 export const MENTOR_MET_TIP = 'mentorMet'
 
+/** The miner at the opening level's ore rock (#195): swinging his pick, he is the one to ask about smithing. */
+export const MINER_NPC = 'plainsMiner'
+
 export const ROAD_NPCS: readonly NpcDef[] = [
-  { id: MENTOR_NPC, role: 'trainer', look: 'sfShadow', at: [0, 0], place: 'street', cls: 'shadow' }
+  { id: MENTOR_NPC, role: 'trainer', look: 'sfShadow', at: [0, 0], place: 'street', cls: 'shadow' },
+  { id: MINER_NPC, role: 'talk', look: 'miner', at: [0, 0], place: 'street' }
 ]

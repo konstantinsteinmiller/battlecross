@@ -3852,6 +3852,9 @@ export default {
       talk: 'Todo lo que necesita un viajero. Casi nuevo, casi siempre.',
       name: 'Odo Marrow'
     },
+    plainsMiner: {
+      name: 'Brann Picorrápido'
+    },
     sfShadowRoad: {
       name: 'Nettle Quickhand'
     },
@@ -4517,6 +4520,37 @@ export default {
       hello: {
         '2': 'Odo Marrow, a tu servicio. Buhonero, calderero y hombre muy agradecido.',
         '1': '¡Tú! ¡Tú eres quien abrió esa jaula! Me habría podrido ahí dentro.'
+      }
+    },
+    plainsMiner: {
+      forgeBack: {
+        '1': 'No está mal para un primer golpe. Sigue así.'
+      },
+      sellBack: {
+        '1': 'Peso justo, moneda justa. Trae más cuando encuentres.'
+      },
+      hello: {
+        '1': '¡Cuidado con el polvo! Ah, eres quien despejó el camino.',
+        '2': 'Brann Picorrápido. Saco mineral de estas colinas.'
+      },
+      again: {
+        '1': '¿Otra vez por aquí? La veta está buena hoy.'
+      },
+      ore: {
+        '1': '¿Mineral? A ver. Pago un precio justo por pepita.'
+      },
+      learnSmith: {
+        '1': '¿Herrería? Empieza aquí mismo: un pico y una roca que brilla.',
+        '2': 'Extrae el mineral y luego fórjalo en tu equipo en una fragua. Tres buenos golpes. Venga, pruébalo.'
+      },
+      forge: {
+        '1': 'Usa mi yunque. Cuidado con los dedos.'
+      },
+      who: {
+        '1': 'Brann. Saco lo que los herreros martillean. Toda buena hoja empieza como una roca así.'
+      },
+      bye: {
+        '1': 'Cuidado con la cabeza. Caen piedras.'
       }
     },
     sfShadowRoad: {

@@ -3851,6 +3851,9 @@ export default {
       talk: 'Viss, kas ceļotājam vajadzīgs. Gandrīz jauns, lielākoties.',
       name: 'Odo Marovs'
     },
+    plainsMiner: {
+      name: 'Brans Ātrā Cirvis'
+    },
     sfShadowRoad: {
       name: 'Netla Kvikhenda'
     },
@@ -4512,6 +4515,37 @@ export default {
         '2': 'Odo Marovs, tavā rīcībā. Tirgotājs, amatnieks, ļoti pateicīgs vīrs.',
         '1__f': 'Tu! Tu esi tā, kas atvēra to būri! Es tur būtu sapuvis.',
         '1': 'Tu! Tu esi tas, kas atvēra to būri! Es tur būtu sapuvis.'
+      }
+    },
+    plainsMiner: {
+      forgeBack: {
+        '1': 'Nav slikti pirmajam sitienam. Turpini tā.'
+      },
+      sellBack: {
+        '1': 'Godīgs svars, godīga monēta. Atnes vēl, kad atradīsi.'
+      },
+      hello: {
+        '1': 'Uzmanīgi ar putekļiem! Ak, tu esi tas, kas attīrīja ceļu.',
+        '2': 'Brans Ātrā Cirvis. Es racu rūdu no šiem pauguriem.'
+      },
+      again: {
+        '1': 'Atkal šeit? Dzīsla šodien laba.'
+      },
+      ore: {
+        '1': 'Rūda, jā? Parādi. Maksāju godīgu cenu par gabalu.'
+      },
+      learnSmith: {
+        '1': 'Kalšana? Tā sākas tieši šeit: kaplis un mirdzošs akmens.',
+        '2': 'Izrac rūdu un nokal to savā ekipējumā smēdē. Trīs labi sitieni. Nu, pamēģini.'
+      },
+      forge: {
+        '1': 'Aizņemies manu lakstu. Uzmanies ar pirkstiem.'
+      },
+      who: {
+        '1': 'Brans. Es racu to, ko kalēji kaļ. Katrs labs asmens sākas kā šāds akmens.'
+      },
+      bye: {
+        '1': 'Uzmanies ar galvu. Krīt akmeņi.'
       }
     },
     sfShadowRoad: {

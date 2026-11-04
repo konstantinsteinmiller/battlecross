@@ -3851,6 +3851,9 @@ export default {
       talk: 'Alt en reisende trenger. Nesten nytt, stort sett.',
       name: 'Odo Marrow'
     },
+    plainsMiner: {
+      name: 'Brann Hakkeraskt'
+    },
     sfShadowRoad: {
       name: 'Nettle Quickhand'
     },
@@ -4501,6 +4504,37 @@ export default {
       hello: {
         '2': 'Odo Marrow, til tjeneste. Kremmer, kjeleflikker og en svært takknemlig mann.',
         '1': 'Du! Det var du som åpnet buret! Jeg hadde råtnet der inne.'
+      }
+    },
+    plainsMiner: {
+      forgeBack: {
+        '1': 'Ikke dårlig til et første slag. Hold ut.'
+      },
+      sellBack: {
+        '1': 'Rettferdig vekt, rettferdig mynt. Kom med mer når du finner noe.'
+      },
+      hello: {
+        '1': 'Pass på støvet! Å, det er deg som ryddet veien.',
+        '2': 'Brann Hakkeraskt. Jeg graver malm ut av disse åsene.'
+      },
+      again: {
+        '1': 'Her igjen? Åren er god i dag.'
+      },
+      ore: {
+        '1': 'Malm, sier du? La meg se. Jeg betaler en rettferdig pris per klump.'
+      },
+      learnSmith: {
+        '1': 'Smiing? Det starter akkurat her: en hakke og en stein som glitrer.',
+        '2': 'Grav ut malmen og hamre den inn i utstyret ditt ved en esse. Tre gode slag. Kom igjen, prøv.'
+      },
+      forge: {
+        '1': 'Lån ambolten min. Pass fingrene.'
+      },
+      who: {
+        '1': 'Brann. Jeg graver det smedene hamrer. Hvert godt blad starter som en stein som denne.'
+      },
+      bye: {
+        '1': 'Pass hodet. Det faller stein.'
       }
     },
     sfShadowRoad: {

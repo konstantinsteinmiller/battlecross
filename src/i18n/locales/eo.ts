@@ -3851,6 +3851,9 @@ export default {
       talk: 'Ĉio, kion vojaĝanto bezonas. Preskaŭ nova, plejparte.',
       name: 'Odo Marrow'
     },
+    plainsMiner: {
+      name: 'Brann Pikrapida'
+    },
     sfShadowRoad: {
       name: 'Nettle Quickhand'
     },
@@ -4501,6 +4504,37 @@ export default {
       hello: {
         '2': 'Odo Marrow, je via servo. Kolportisto, lad-riparisto, tre dankema viro.',
         '1': 'Vi! Vi estas tiu, kiu malfermis tiun kaĝon! Mi estus putrinta tie interne.'
+      }
+    },
+    plainsMiner: {
+      forgeBack: {
+        '1': 'Ne malbone por unua bato. Daŭrigu.'
+      },
+      sellBack: {
+        '1': 'Justa pezo, justa mono. Alportu pli kiam vi trovos.'
+      },
+      hello: {
+        '1': 'Atentu la polvon! Ha, vi estas tiu, kiu purigis la vojon.',
+        '2': 'Brann Pikrapida. Mi elfosas mineralon el ĉi tiuj montetoj.'
+      },
+      again: {
+        '1': 'Denove ĉi tie? La veno bonas hodiaŭ.'
+      },
+      ore: {
+        '1': 'Mineralo, ĉu? Montru. Mi pagas juston por peco.'
+      },
+      learnSmith: {
+        '1': 'Forĝado? Ĝi komenciĝas ĝuste ĉi tie: piko kaj brilanta roko.',
+        '2': 'Elfosu la mineralon kaj poste martelu ĝin en vian ilaron ĉe forĝejo. Tri bonaj batoj. Nu, provu.'
+      },
+      forge: {
+        '1': 'Prunteprenu mian amboson. Atentu viajn fingrojn.'
+      },
+      who: {
+        '1': 'Brann. Mi elfosas tion, kion forĝistoj martelas. Ĉiu bona klingo komenciĝas kiel tia roko.'
+      },
+      bye: {
+        '1': 'Atentu vian kapon. Ŝtonoj falas.'
       }
     },
     sfShadowRoad: {

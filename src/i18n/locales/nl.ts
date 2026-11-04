@@ -3852,6 +3852,9 @@ export default {
       talk: 'Alles wat een reiziger nodig heeft. Bijna nieuw, meestal.',
       name: 'Odo Marrow'
     },
+    plainsMiner: {
+      name: 'Brann Pikvlug'
+    },
     sfShadowRoad: {
       name: 'Nettle Quickhand'
     },
@@ -4505,6 +4508,37 @@ export default {
       hello: {
         '2': 'Odo Marrow, tot je dienst. Marskramer, ketellapper, zeer dankbaar man.',
         '1': 'Jij! Jij hebt die kooi opengemaakt! Ik was erin weggerot.'
+      }
+    },
+    plainsMiner: {
+      forgeBack: {
+        '1': 'Niet slecht voor een eerste slag. Ga zo door.'
+      },
+      sellBack: {
+        '1': 'Eerlijk gewicht, eerlijk geld. Breng meer als je het vindt.'
+      },
+      hello: {
+        '1': 'Voorzichtig met het stof! Ah, jij bent degene die de weg heeft vrijgemaakt.',
+        '2': 'Brann Pikvlug. Ik haal erts uit deze heuvels.'
+      },
+      again: {
+        '1': 'Alweer hier? De ader is vandaag goed.'
+      },
+      ore: {
+        '1': 'Erts, zeg je? Laat maar zien. Ik betaal een eerlijke prijs per klont.'
+      },
+      learnSmith: {
+        '1': 'Smeden? Dat begint hier: een houweel en een rots die glinstert.',
+        '2': 'Haal het erts naar boven en hamer het dan in je uitrusting bij een smidse. Drie goede slagen. Kom, probeer het.'
+      },
+      forge: {
+        '1': 'Leen mijn aambeeld maar. Pas op je vingers.'
+      },
+      who: {
+        '1': 'Brann. Ik graaf wat de smeden hameren. Elk goed zwaard begint als zo\'n rots.'
+      },
+      bye: {
+        '1': 'Pas op je hoofd. Er vallen stenen.'
       }
     },
     sfShadowRoad: {

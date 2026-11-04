@@ -3853,6 +3853,9 @@ export default {
       talk: 'Wszystko, czego potrzeba podróżnemu. Prawie nowe, przeważnie.',
       name: 'Odo Marrow'
     },
+    plainsMiner: {
+      name: 'Brann Szybkicz'
+    },
     sfShadowRoad: {
       name: 'Nettle Quickhand'
     },
@@ -4520,6 +4523,37 @@ export default {
         '2': 'Odo Marrow, do usług. Domokrążca, druciarz i bardzo wdzięczny człowiek.',
         '1__f': 'Ty! To ty otworzyłaś tę klatkę! Zgniłbym tam.',
         '1': 'Ty! To ty otworzyłeś tę klatkę! Zgniłbym tam.'
+      }
+    },
+    plainsMiner: {
+      forgeBack: {
+        '1': 'Nieźle jak na pierwsze uderzenie. Tak trzymaj.'
+      },
+      sellBack: {
+        '1': 'Uczciwa waga, uczciwa moneta. Przynieś więcej, gdy znajdziesz.'
+      },
+      hello: {
+        '1': 'Ostrożnie z tym kurzem! A, to ty oczyściłeś drogę.',
+        '2': 'Brann Szybkicz. Wydobywam rudę z tych wzgórz.'
+      },
+      again: {
+        '1': 'Znowu tutaj? Żyła jest dziś dobra.'
+      },
+      ore: {
+        '1': 'Ruda, tak? Pokaż. Płacę uczciwie za bryłkę.'
+      },
+      learnSmith: {
+        '1': 'Kowalstwo? Zaczyna się tutaj: kilof i skała, która błyszczy.',
+        '2': 'Wykop rudę, potem wykuj ją w swój ekwipunek w kuźni. Trzy dobre uderzenia. No dalej, spróbuj.'
+      },
+      forge: {
+        '1': 'Pożycz moje kowadło. Uważaj na palce.'
+      },
+      who: {
+        '1': 'Brann. Wydobywam to, co kowale kują. Każde dobre ostrze zaczyna się od takiej skały.'
+      },
+      bye: {
+        '1': 'Uważaj na głowę. Spadają kamienie.'
       }
     },
     sfShadowRoad: {

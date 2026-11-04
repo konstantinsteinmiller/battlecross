@@ -3851,6 +3851,9 @@ export default {
       talk: 'Tot ce-i trebuie unui călător. Aproape nou, de cele mai multe ori.',
       name: 'Odo Marrow'
     },
+    plainsMiner: {
+      name: 'Brann Târnăcop'
+    },
     sfShadowRoad: {
       name: 'Nettle Quickhand'
     },
@@ -4507,6 +4510,37 @@ export default {
         '2': 'Odo Marrow, la dispoziția ta. Negustor, meșteșugar, om foarte recunoscător.',
         '1__f': 'Tu! Tu ești cea care a deschis cușca aia! Aș fi putrezit acolo.',
         '1': 'Tu! Tu ești cel care a deschis cușca aia! Aș fi putrezit acolo.'
+      }
+    },
+    plainsMiner: {
+      forgeBack: {
+        '1': 'Nu-i rău pentru prima lovitură. Continuă.'
+      },
+      sellBack: {
+        '1': 'Greutate corectă, bănuț corect. Adu mai mult când găsești.'
+      },
+      hello: {
+        '1': 'Cu grijă la praf! Ah, tu ești cel care a curățat drumul.',
+        '2': 'Brann Târnăcop. Scot minereu din dealurile astea.'
+      },
+      again: {
+        '1': 'Iar aici? Filonul e bun azi.'
+      },
+      ore: {
+        '1': 'Minereu, zici? Arată-l. Plătesc un preț corect pe bucată.'
+      },
+      learnSmith: {
+        '1': 'Fierărie? Începe chiar aici: un târnăcop și o stâncă ce sclipește.',
+        '2': 'Scoate minereul, apoi bate-l în echipamentul tău la o forjă. Trei lovituri bune. Hai, încearcă.'
+      },
+      forge: {
+        '1': 'Împrumută-mi nicovala. Ai grijă la degete.'
+      },
+      who: {
+        '1': 'Brann. Scot ce bat fierarii. Orice lamă bună începe ca o stâncă din asta.'
+      },
+      bye: {
+        '1': 'Ai grijă la cap. Cad pietre.'
       }
     },
     sfShadowRoad: {

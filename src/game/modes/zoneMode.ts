@@ -77,6 +77,7 @@ import { emitCrumbs, findChest, finder, peekOffset } from '../coach/nudgeFx'
 import { BOARD, BOARD_REACH } from '../townTasks'
 import { isDummy, spawnDummy, stepDummy } from '../coach/dummy'
 import { armMentor, boostOpeningFoes, stepMentor, syncHeroSkills } from '../coach/mentor'
+import { placeMiner, stepMiner } from '../coach/miner'
 import { MENTOR_SKILL } from '../data/mentor'
 import { potionStopDue, potionStopOver, stepMercy } from '../coach/tutorialAid'
 import { setTruce, watchTruce } from '../sim/truce'
@@ -441,6 +442,8 @@ export class ZoneMode implements GameMode {
     if (setup.dragonAlly) summonDragonAlly(sim)
     // The road teacher (#136) walks into the opening fight once its first pack is down.
     if (setup.kind === 'zone' && setup.tutorial && !profile.hero.learned.includes(MENTOR_SKILL)) armMentor(sim)
+    // The opening level's one ore rock has a miner at it (#195): the one to ask about smithing.
+    if (setup.kind === 'zone' && setup.tutorial) placeMiner(sim)
     // An escort (#85): what the visit is about, said once at the start.
     if (setup.escort) pushHud({ t: 'toast', key: 'escort.start' })
     sim.events.length = 0
@@ -1266,6 +1269,7 @@ export class ZoneMode implements GameMode {
     // The dummy knocked apart (or walked past): the opening beat is done for good.
     if (stepDummy(this.sim)) markTip('dummy')
     stepMentor(this.sim, simDt)
+    if (this.setup.tutorial) stepMiner(this.sim, this.talkOn)
     // A skill learned on the way (hers) joins the hero in the scene at once.
     if (profile.hero.learned.length !== this.learnedN) {
       this.learnedN = profile.hero.learned.length

@@ -3851,6 +3851,9 @@ export default {
       talk: 'Viskas, ko reikia keliautojui. Beveik nauja, dažniausiai.',
       name: 'Odo Marrow'
     },
+    plainsMiner: {
+      name: 'Brannas Greitkirtis'
+    },
     sfShadowRoad: {
       name: 'Nettle Quickhand'
     },
@@ -4511,6 +4514,37 @@ export default {
         '2': 'Odo Marrow, tavo paslaugoms. Prekeivis, meistrautojas ir labai dėkingas žmogus.',
         '1__f': 'Tu! Tu ta, kuri atidarė tą narvą! Būčiau ten supuvęs.',
         '1': 'Tu! Tu tas, kuris atidarė tą narvą! Būčiau ten supuvęs.'
+      }
+    },
+    plainsMiner: {
+      forgeBack: {
+        '1': 'Neblogai pirmam smūgiui. Taip ir toliau.'
+      },
+      sellBack: {
+        '1': 'Teisingas svoris, teisinga moneta. Atnešk daugiau, kai rasi.'
+      },
+      hello: {
+        '1': 'Atsargiai su dulkėmis! O, tai tu išvalei kelią.',
+        '2': 'Brannas Greitkirtis. Kasu rūdą iš šių kalvų.'
+      },
+      again: {
+        '1': 'Vėl čia? Gysla šiandien gera.'
+      },
+      ore: {
+        '1': 'Rūda, a? Parodyk. Mokėsiu teisingą kainą už gabalą.'
+      },
+      learnSmith: {
+        '1': 'Kalvystė? Ji prasideda čia: kirtiklis ir blizgantis akmuo.',
+        '2': 'Iškask rūdą ir sukalk ją į savo įrangą kalvėje. Trys geri smūgiai. Eik, pabandyk.'
+      },
+      forge: {
+        '1': 'Pasiskolink mano priekalą. Saugok pirštus.'
+      },
+      who: {
+        '1': 'Brannas. Kasu tai, ką kalviai kala. Kiekvienas geras ašmuo prasideda tokiu akmeniu.'
+      },
+      bye: {
+        '1': 'Saugok galvą. Krenta akmenys.'
       }
     },
     sfShadowRoad: {

@@ -3852,6 +3852,9 @@ export default {
       talk: 'Tudo o que um viajante precisa. Quase novo, quase sempre.',
       name: 'Odo Marrow'
     },
+    plainsMiner: {
+      name: 'Brann Picão'
+    },
     sfShadowRoad: {
       name: 'Nettle Quickhand'
     },
@@ -4515,6 +4518,37 @@ export default {
       hello: {
         '2': 'Odo Marrow, a seu dispor. Mascate, funileiro e um homem muito grato.',
         '1': 'Você! Foi você quem abriu aquela jaula! Eu teria apodrecido lá dentro.'
+      }
+    },
+    plainsMiner: {
+      forgeBack: {
+        '1': 'Nada mau para uma primeira pancada. Continua.'
+      },
+      sellBack: {
+        '1': 'Peso justo, moeda justa. Traz mais quando encontrares.'
+      },
+      hello: {
+        '1': 'Cuidado com a poeira! Ah, és tu quem limpou a estrada.',
+        '2': 'Brann Picão. Tiro minério destas colinas.'
+      },
+      again: {
+        '1': 'Outra vez aqui? O filão está bom hoje.'
+      },
+      ore: {
+        '1': 'Minério, é? Mostra. Pago um preço justo por pepita.'
+      },
+      learnSmith: {
+        '1': 'Ferraria? Começa mesmo aqui: uma picareta e uma rocha que brilha.',
+        '2': 'Extrai o minério e depois malha-o no teu equipamento numa forja. Três boas pancadas. Vá, experimenta.'
+      },
+      forge: {
+        '1': 'Usa a minha bigorna. Cuidado com os dedos.'
+      },
+      who: {
+        '1': 'Brann. Tiro o que os ferreiros malham. Toda a boa lâmina começa numa rocha assim.'
+      },
+      bye: {
+        '1': 'Cuidado com a cabeça. Caem pedras.'
       }
     },
     sfShadowRoad: {

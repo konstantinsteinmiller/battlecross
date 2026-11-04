@@ -3855,6 +3855,9 @@ export default {
       talk: 'Všechno, co cestovatel potřebuje. Skoro nové, většinou.',
       name: 'Odo Marrow'
     },
+    plainsMiner: {
+      name: 'Brann Rychlokrump'
+    },
     sfShadowRoad: {
       name: 'Nettle Quickhand'
     },
@@ -4519,6 +4522,37 @@ export default {
         '2': 'Odo Marrow, k tvým službám. Podomní obchodník, dráteník a velmi vděčný člověk.',
         '1__f': 'Ty! Ty jsi ta, která otevřela tu klec! Byl bych tam shnil.',
         '1': 'Ty! Ty jsi ten, kdo otevřel tu klec! Byl bych tam shnil.'
+      }
+    },
+    plainsMiner: {
+      forgeBack: {
+        '1': 'Na první ránu to není špatné. Jen tak dál.'
+      },
+      sellBack: {
+        '1': 'Férová váha, férová mince. Přines další, až nějakou najdeš.'
+      },
+      hello: {
+        '1': 'Pozor na prach! Aha, to ty jsi vyčistil cestu.',
+        '2': 'Brann Rychlokrump. Dobývám rudu z těchhle kopců.'
+      },
+      again: {
+        '1': 'Zase tady? Žíla je dnes dobrá.'
+      },
+      ore: {
+        '1': 'Ruda, říkáš? Ukaž. Platím férově za kus.'
+      },
+      learnSmith: {
+        '1': 'Kovářství? Začíná tady: krumpáč a kámen, který se leskne.',
+        '2': 'Vykutej rudu a pak ji v kovárně vykuj do své výbavy. Tři dobré rány. No tak, zkus to.'
+      },
+      forge: {
+        '1': 'Půjč si moji kovadlinu. Pozor na prsty.'
+      },
+      who: {
+        '1': 'Brann. Dobývám, co kováři kují. Každá dobrá čepel začíná jako takový kámen.'
+      },
+      bye: {
+        '1': 'Pozor na hlavu. Padají kameny.'
       }
     },
     sfShadowRoad: {

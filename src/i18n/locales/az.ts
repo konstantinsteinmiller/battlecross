@@ -3851,6 +3851,9 @@ export default {
       talk: 'Səyyahın ehtiyacı olan hər şey. Az qala yeni, əsasən.',
       name: 'Odo Marrow'
     },
+    plainsMiner: {
+      name: 'Brann Cəldkazan'
+    },
     sfShadowRoad: {
       name: 'Nettle Quickhand'
     },
@@ -4501,6 +4504,37 @@ export default {
       hello: {
         '2': 'Odo Marrow, xidmətindəyəm. Çərçi, usta və çox minnətdar bir adam.',
         '1': 'Sən! O qəfəsi açan sənsən! Orada çürüyüb gedəcəkdim.'
+      }
+    },
+    plainsMiner: {
+      forgeBack: {
+        '1': 'İlk zərbə üçün pis deyil. Davam et.'
+      },
+      sellBack: {
+        '1': 'Ədalətli çəki, ədalətli pul. Tapanda daha gətir.'
+      },
+      hello: {
+        '1': 'Tozdan ehtiyatlı ol! A, yolu təmizləyən sənsən.',
+        '2': 'Brann Cəldkazan. Bu təpələrdən filiz çıxarıram.'
+      },
+      again: {
+        '1': 'Yenə burdasan? Damar bu gün yaxşıdır.'
+      },
+      ore: {
+        '1': 'Filiz, deməli? Göstər. Hər parçaya ədalətli qiymət verirəm.'
+      },
+      learnSmith: {
+        '1': 'Dəmirçilik? Elə burada başlayır: bir külüng və parıldayan bir qaya.',
+        '2': 'Filizi çıxar, sonra dəmirxanada ləvazimatına döy. Üç yaxşı zərbə. Hə, sına.'
+      },
+      forge: {
+        '1': 'Mənim zindanımı götür. Barmaqlarına diqqət.'
+      },
+      who: {
+        '1': 'Brann. Dəmirçilərin döydüyünü mən çıxarıram. Hər yaxşı bıçaq belə bir qayadan başlayır.'
+      },
+      bye: {
+        '1': 'Başına diqqət. Daşlar düşür.'
       }
     },
     sfShadowRoad: {

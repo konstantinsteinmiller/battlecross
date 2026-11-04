@@ -1988,6 +1988,9 @@ export default {
     'sunfordPeddler': { 'name': 'Tilly the Peddler', 'talk': 'Rings, charms, bits and pieces. That one might even be lucky.' },
     'trainerAegis': { 'name': 'Ser Aldric' },
     'trainerPyro': { 'name': 'Ember Wren' },
+    'plainsMiner': {
+      'name': 'Brann Pickfast'
+    },
     'sfShadowRoad': { 'name': 'Nettle Quickhand' },
     'sfShadow': { 'name': 'Nettle Quickhand' },
     'sfGeo': { 'name': 'Harrow Flint' },
@@ -3089,6 +3092,37 @@ export default {
       'circle': { 'say': 'Who are the Circle of Aether?', '1': 'Scholars. We study what the world\'s made of. Some of it explodes.' },
       'trainBack': { '1': 'Go and practise. Somewhere that won\'t catch, please.' },
       'bye': { '1': 'Take care of yourself!' }
+    },
+    'plainsMiner': {
+      'forgeBack': {
+        '1': 'Not bad for a first strike. Keep at it.'
+      },
+      'sellBack': {
+        '1': 'Fair weight, fair coin. Bring more when you find it.'
+      },
+      'hello': {
+        '1': 'Easy with the dust! Oh, you\'re the one who cleared the road.',
+        '2': 'Brann Pickfast. I dig ore out of these hills.'
+      },
+      'again': {
+        '1': 'Back again? The vein\'s good today.'
+      },
+      'ore': {
+        '1': 'Ore, is it? Let\'s see it. I pay a fair price by the nugget.'
+      },
+      'learnSmith': {
+        '1': 'Smithing? It starts right here: a pick and a rock that glints.',
+        '2': 'Dig the ore, then hammer it into your gear at a forge. Three good strikes. Go on, try it.'
+      },
+      'forge': {
+        '1': 'Borrow my anvil. Mind your fingers.'
+      },
+      'who': {
+        '1': 'Brann. I dig what the smiths hammer. Every good blade starts as a rock like this one.'
+      },
+      'bye': {
+        '1': 'Watch your head. Rocks fall.'
+      }
     },
     'sfShadowRoad': {
       'hello': { '1': 'Teleports. Interested?' },

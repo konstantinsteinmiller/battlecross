@@ -3852,6 +3852,9 @@ export default {
       talk: 'Todo o que precisa un viaxeiro. Case novo, polo xeral.',
       name: 'Odo Marrow'
     },
+    plainsMiner: {
+      name: 'Brann Picoágil'
+    },
     sfShadowRoad: {
       name: 'Nettle Quickhand'
     },
@@ -4511,6 +4514,37 @@ export default {
       hello: {
         '2': 'Odo Marrow, ao teu servizo. Quincalleiro, latoeiro e home moi agradecido.',
         '1': 'Ti! Ti es quen abriu aquela gaiola! Tería podrecido alí dentro.'
+      }
+    },
+    plainsMiner: {
+      forgeBack: {
+        '1': 'Non está mal para un primeiro golpe. Segue así.'
+      },
+      sellBack: {
+        '1': 'Peso xusto, moeda xusta. Trae máis cando atopes.'
+      },
+      hello: {
+        '1': 'Coidado co po! Ah, es ti quen limpou o camiño.',
+        '2': 'Brann Picoágil. Saco mineral destes outeiros.'
+      },
+      again: {
+        '1': 'Outra vez por aquí? A veta está boa hoxe.'
+      },
+      ore: {
+        '1': 'Mineral, é? Amosa. Pago un prezo xusto por pepita.'
+      },
+      learnSmith: {
+        '1': 'Ferraría? Comeza aquí mesmo: un pico e unha rocha que brilla.',
+        '2': 'Extrae o mineral e despois malla o no teu equipamento nunha forxa. Tres boas pancadas. Veña, proba.'
+      },
+      forge: {
+        '1': 'Usa a miña engra. Coidado cos dedos.'
+      },
+      who: {
+        '1': 'Brann. Saco o que os ferreiros mallan. Toda boa folla comeza como unha rocha así.'
+      },
+      bye: {
+        '1': 'Coidado coa cabeza. Caen pedras.'
       }
     },
     sfShadowRoad: {

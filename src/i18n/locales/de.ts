@@ -3852,6 +3852,9 @@ export default {
       talk: 'Alles, was ein Reisender braucht. Fast neu, meistens.',
       name: 'Odo Marrow'
     },
+    plainsMiner: {
+      name: 'Brann Pickfest'
+    },
     sfShadowRoad: {
       name: 'Nettle Quickhand'
     },
@@ -4505,6 +4508,37 @@ export default {
       hello: {
         '2': 'Odo Marrow, zu Diensten. Hausierer, Kesselflicker, sehr dankbarer Mann.',
         '1': 'Du! Du hast diesen Käfig aufgemacht! Ich wäre da drin verrottet.'
+      }
+    },
+    plainsMiner: {
+      forgeBack: {
+        '1': 'Nicht schlecht für den ersten Schlag. Bleib dran.'
+      },
+      sellBack: {
+        '1': 'Faires Gewicht, faire Münze. Bring mehr, wenn du welches findest.'
+      },
+      hello: {
+        '1': 'Vorsicht, der Staub! Ach, du bist der, der die Straße freigekämpft hat.',
+        '2': 'Brann Pickfest. Ich hole Erz aus diesen Hügeln.'
+      },
+      again: {
+        '1': 'Schon wieder da? Die Ader ist heute gut.'
+      },
+      ore: {
+        '1': 'Erz, ja? Zeig her. Ich zahle einen fairen Preis pro Brocken.'
+      },
+      learnSmith: {
+        '1': 'Schmieden? Das fängt genau hier an: mit einer Spitzhacke und einem Fels, der glitzert.',
+        '2': 'Erz abbauen, dann an einer Schmiede in deine Ausrüstung hämmern. Drei gute Schläge. Los, probier es.'
+      },
+      forge: {
+        '1': 'Leih dir meinen Amboss. Pass auf deine Finger auf.'
+      },
+      who: {
+        '1': 'Brann. Ich hole raus, was die Schmiede hämmern. Jede gute Klinge beginnt als Fels wie dieser.'
+      },
+      bye: {
+        '1': 'Pass auf deinen Kopf auf. Es fallen Steine.'
       }
     },
     sfShadowRoad: {

@@ -3851,6 +3851,9 @@ export default {
       talk: 'Mọi thứ lữ khách cần. Gần như mới, phần lớn là vậy.',
       name: 'Odo Marrow'
     },
+    plainsMiner: {
+      name: 'Brann Cuốc Nhanh'
+    },
     sfShadowRoad: {
       name: 'Nettle Quickhand'
     },
@@ -4501,6 +4504,37 @@ export default {
       hello: {
         '2': 'Odo Marrow, xin được phục vụ. Người bán rong, thợ sửa đồ, và là một người vô cùng biết ơn.',
         '1': 'Cậu! Chính cậu đã mở cái lồng đó! Không thì ta đã mục rữa trong ấy rồi.'
+      }
+    },
+    plainsMiner: {
+      forgeBack: {
+        '1': 'Không tệ cho nhát đầu tiên. Cứ tiếp tục.'
+      },
+      sellBack: {
+        '1': 'Cân công bằng, tiền công bằng. Tìm được thì mang thêm đến.'
+      },
+      hello: {
+        '1': 'Cẩn thận bụi! À, bạn là người đã dọn sạch con đường.',
+        '2': 'Brann Cuốc Nhanh. Tôi đào quặng từ những ngọn đồi này.'
+      },
+      again: {
+        '1': 'Lại đến nữa à? Mạch quặng hôm nay tốt.'
+      },
+      ore: {
+        '1': 'Quặng à? Đưa tôi xem. Tôi trả giá công bằng cho mỗi cục.'
+      },
+      learnSmith: {
+        '1': 'Rèn đúc ư? Nó bắt đầu ngay tại đây: một cái cuốc chim và một tảng đá lấp lánh.',
+        '2': 'Đào quặng, rồi rèn nó vào trang bị ở lò rèn. Ba nhát búa tốt. Nào, thử đi.'
+      },
+      forge: {
+        '1': 'Mượn cái đe của tôi. Coi chừng ngón tay.'
+      },
+      who: {
+        '1': 'Brann. Tôi đào thứ mà thợ rèn đập. Mọi lưỡi kiếm tốt đều bắt đầu từ một tảng đá như thế này.'
+      },
+      bye: {
+        '1': 'Coi chừng đầu. Đá rơi đấy.'
       }
     },
     sfShadowRoad: {

@@ -3852,6 +3852,9 @@ export default {
       talk: 'Tot el que necessita un viatger. Gairebé nou, en general.',
       name: 'Odo Marrow'
     },
+    plainsMiner: {
+      name: 'Brann Picarapid'
+    },
     sfShadowRoad: {
       name: 'Nettle Quickhand'
     },
@@ -4512,6 +4515,37 @@ export default {
       hello: {
         '2': 'Odo Marrow, al teu servei. Quincallaire, llauner i home molt agraït.',
         '1': 'Tu! Tu ets qui va obrir aquella gàbia! M’hi hauria podrit.'
+      }
+    },
+    plainsMiner: {
+      forgeBack: {
+        '1': 'No està malament per a un primer cop. Continua així.'
+      },
+      sellBack: {
+        '1': 'Pes just, moneda justa. Porta\'n més quan en trobis.'
+      },
+      hello: {
+        '1': 'Compte amb la pols! Ah, ets tu qui ha netejat el camí.',
+        '2': 'Brann Picarapid. Trec mineral d\'aquests turons.'
+      },
+      again: {
+        '1': 'Un altre cop aquí? La veta està bona avui.'
+      },
+      ore: {
+        '1': 'Mineral, eh? A veure. Pago un preu just per pepita.'
+      },
+      learnSmith: {
+        '1': 'Ferreria? Comença aquí mateix: un pic i una roca que brilla.',
+        '2': 'Extreu el mineral i després forja\'l a l\'equip en una farga. Tres bons cops. Au, prova-ho.'
+      },
+      forge: {
+        '1': 'Fes servir la meva enclusa. Compte amb els dits.'
+      },
+      who: {
+        '1': 'Brann. Trec el que els ferrers martellegen. Tota bona fulla comença com una roca així.'
+      },
+      bye: {
+        '1': 'Compte amb el cap. Cauen pedres.'
       }
     },
     sfShadowRoad: {

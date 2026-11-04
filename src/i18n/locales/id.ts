@@ -3851,6 +3851,9 @@ export default {
       talk: 'Semua yang dibutuhkan pengembara. Hampir baru, kebanyakan.',
       name: 'Odo Marrow'
     },
+    plainsMiner: {
+      name: 'Brann Kapakcepat'
+    },
     sfShadowRoad: {
       name: 'Nettle Quickhand'
     },
@@ -4501,6 +4504,37 @@ export default {
       hello: {
         '2': 'Odo Marrow, siap melayani. Pedagang keliling, tukang reparasi, dan orang yang sangat berterima kasih.',
         '1': 'Kamu! Kamulah yang membuka kurungan itu! Aku pasti sudah membusuk di dalam sana.'
+      }
+    },
+    plainsMiner: {
+      forgeBack: {
+        '1': 'Lumayan untuk pukulan pertama. Teruskan.'
+      },
+      sellBack: {
+        '1': 'Berat yang adil, koin yang adil. Bawa lagi kalau kamu menemukannya.'
+      },
+      hello: {
+        '1': 'Awas debunya! Oh, kamu yang membersihkan jalan itu.',
+        '2': 'Brann Kapakcepat. Aku menggali bijih dari bukit-bukit ini.'
+      },
+      again: {
+        '1': 'Kembali lagi? Uratnya bagus hari ini.'
+      },
+      ore: {
+        '1': 'Bijih, ya? Coba lihat. Aku bayar harga yang adil per bongkah.'
+      },
+      learnSmith: {
+        '1': 'Menempa? Itu dimulai di sini: sebuah beliung dan batu yang berkilau.',
+        '2': 'Gali bijihnya, lalu tempa ke perlengkapanmu di tungku tempa. Tiga pukulan bagus. Ayo, coba.'
+      },
+      forge: {
+        '1': 'Pinjam landasanku. Hati-hati jarimu.'
+      },
+      who: {
+        '1': 'Brann. Aku menggali apa yang ditempa para pandai besi. Setiap bilah bagus berawal dari batu seperti ini.'
+      },
+      bye: {
+        '1': 'Awas kepalamu. Batu berjatuhan.'
       }
     },
     sfShadowRoad: {

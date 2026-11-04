@@ -3851,6 +3851,9 @@ export default {
       talk: 'Minden, ami egy utazónak kell. Majdnem új, többnyire.',
       name: 'Odo Marrow'
     },
+    plainsMiner: {
+      name: 'Brann Gyorskapa'
+    },
     sfShadowRoad: {
       name: 'Nettle Quickhand'
     },
@@ -4501,6 +4504,37 @@ export default {
       hello: {
         '2': 'Odo Marrow, szolgálatodra. Házaló, ezermester, nagyon hálás ember.',
         '1': 'Te! Te nyitottad ki azt a ketrecet! Ott rohadtam volna meg.'
+      }
+    },
+    plainsMiner: {
+      forgeBack: {
+        '1': 'Nem rossz egy első ütésnek. Csak így tovább.'
+      },
+      sellBack: {
+        '1': 'Tisztességes súly, tisztességes pénz. Hozz még, ha találsz.'
+      },
+      hello: {
+        '1': 'Vigyázz a porral! Ó, te vagy az, aki megtisztította az utat.',
+        '2': 'Brann Gyorskapa. Ércet bányászom ezekből a dombokból.'
+      },
+      again: {
+        '1': 'Már megint itt? Ma jó az érce.'
+      },
+      ore: {
+        '1': 'Érc, mi? Mutasd. Tisztességes árat fizetek darabonként.'
+      },
+      learnSmith: {
+        '1': 'Kovácsolás? Itt kezdődik: egy csákány és egy csillogó szikla.',
+        '2': 'Bányászd ki az ércet, aztán kovácsold a felszerelésedbe egy kovácsműhelyben. Három jó ütés. Na, próbáld ki.'
+      },
+      forge: {
+        '1': 'Használd az üllőmet. Vigyázz az ujjaidra.'
+      },
+      who: {
+        '1': 'Brann. Azt bányászom, amit a kovácsok vernek. Minden jó penge ilyen sziklából indul.'
+      },
+      bye: {
+        '1': 'Vigyázz a fejedre. Kövek hullanak.'
       }
     },
     sfShadowRoad: {

@@ -3856,6 +3856,9 @@ export default {
       talk: 'Sve što putniku treba. Gotovo novo, uglavnom.',
       name: 'Odo Marrow'
     },
+    plainsMiner: {
+      name: 'Brann Brzokrampa'
+    },
     sfShadowRoad: {
       name: 'Nettle Quickhand'
     },
@@ -4528,6 +4531,37 @@ export default {
         '2': 'Odo Marrow, tebi na usluzi. Torbar, kotlokrpa i vrlo zahvalan čovjek.',
         '1__f': 'Ti! Ti si ona koja je otvorila taj kavez! Istrunuo bih ondje.',
         '1': 'Ti! Ti si onaj koji je otvorio taj kavez! Istrunuo bih ondje.'
+      }
+    },
+    plainsMiner: {
+      forgeBack: {
+        '1': 'Nije loše za prvi udarac. Samo nastavi.'
+      },
+      sellBack: {
+        '1': 'Poštena težina, pošten novac. Donesi još kad naiđeš.'
+      },
+      hello: {
+        '1': 'Pazi na prašinu! A, ti si taj koji je očistio cestu.',
+        '2': 'Brann Brzokrampa. Vadim rudu iz ovih brda.'
+      },
+      again: {
+        '1': 'Opet ovdje? Žila je danas dobra.'
+      },
+      ore: {
+        '1': 'Ruda, kažeš? Pokaži. Plaćam pošteno po grumenu.'
+      },
+      learnSmith: {
+        '1': 'Kovanje? Počinje ovdje: špic i stijena koja sjaji.',
+        '2': 'Iskopaj rudu pa je iskuj u svoju opremu u kovačnici. Tri dobra udarca. Hajde, probaj.'
+      },
+      forge: {
+        '1': 'Posudi moj nakovanj. Pazi na prste.'
+      },
+      who: {
+        '1': 'Brann. Vadim ono što kovači kuju. Svaka dobra oštrica počinje kao ovakva stijena.'
+      },
+      bye: {
+        '1': 'Pazi na glavu. Pada kamenje.'
       }
     },
     sfShadowRoad: {

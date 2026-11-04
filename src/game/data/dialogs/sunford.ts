@@ -304,7 +304,25 @@ const sfShadowRoad = conversation('sfShadowRoad', {
   bye: [{ id: 'bye' }]
 })
 
+/**
+ * Brann Pickfast, who works the opening level's ore rock (#195): the first person to ask about smithing. He sells nothing and
+ * trains nobody else; the ore he buys, the smith's craft he teaches (`smithing()`), the forge is his portable anvil.
+ */
+const plainsMiner = conversation('plainsMiner', {
+  name: 'npc.plainsMiner.name', look: 'miner', voice: 'smalltalkIronhold', mood: 'amused',
+  greet: [
+    { id: 'hello', when: { met: false }, lines: 'nn' },
+    { id: 'again' }
+  ],
+  topics: [
+    ...smithing(),
+    who()
+  ],
+  back: { smithing: [{ id: 'forgeBack' }], sellOre: [{ id: 'sellBack' }] },
+  bye: [{ id: 'bye' }]
+})
+
 export const SUNFORD_TALK: ConversationDef[] = [
-  freedPeddler, lightDisciple, sfShadowRoad,
+  freedPeddler, lightDisciple, sfShadowRoad, plainsMiner,
   sunfordSmith, sunfordPeddler, trainerAegis, trainerPyro, sfShadow, sfGeo, elderMara, sunfordHealer, goblinTrader, sunfordGambler, sunfordCups
 ]

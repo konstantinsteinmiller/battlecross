@@ -3852,6 +3852,9 @@ export default {
       talk: 'Tutto ciò che serve a un viaggiatore. Quasi nuovo, perlopiù.',
       name: 'Odo Marrow'
     },
+    plainsMiner: {
+      name: 'Brann Piccofesto'
+    },
     sfShadowRoad: {
       name: 'Nettle Quickhand'
     },
@@ -4518,6 +4521,37 @@ export default {
         '2': 'Odo Marrow, al tuo servizio. Venditore ambulante, stagnino e uomo molto riconoscente.',
         '1__f': 'Tu! Sei tu quella che ha aperto la gabbia! Ci sarei marcito, là dentro.',
         '1': 'Tu! Sei tu quello che ha aperto la gabbia! Ci sarei marcito, là dentro.'
+      }
+    },
+    plainsMiner: {
+      forgeBack: {
+        '1': 'Non male per un primo colpo. Continua così.'
+      },
+      sellBack: {
+        '1': 'Peso giusto, moneta giusta. Portane altro quando ne trovi.'
+      },
+      hello: {
+        '1': 'Occhio alla polvere! Ah, sei tu che hai ripulito la strada.',
+        '2': 'Brann Piccofesto. Cavo minerale da queste colline.'
+      },
+      again: {
+        '1': 'Di nuovo qui? Il filone oggi è buono.'
+      },
+      ore: {
+        '1': 'Minerale, eh? Fammi vedere. Pago il giusto a pepita.'
+      },
+      learnSmith: {
+        '1': 'Fabbro? Comincia proprio qui: un piccone e una roccia che luccica.',
+        '2': 'Estrai il minerale, poi battilo nel tuo equipaggiamento in una forgia. Tre bei colpi. Dai, prova.'
+      },
+      forge: {
+        '1': 'Usa la mia incudine. Attento alle dita.'
+      },
+      who: {
+        '1': 'Brann. Cavo ciò che i fabbri battono. Ogni buona lama inizia come una roccia così.'
+      },
+      bye: {
+        '1': 'Attento alla testa. Cadono sassi.'
       }
     },
     sfShadowRoad: {

@@ -3851,6 +3851,9 @@ export default {
       talk: 'Sayyohga kerak bo\'lgan hamma narsa. Deyarli yangi, asosan.',
       name: 'Odo Marrow'
     },
+    plainsMiner: {
+      name: 'Brann Tezkazar'
+    },
     sfShadowRoad: {
       name: 'Nettle Quickhand'
     },
@@ -4501,6 +4504,37 @@ export default {
       hello: {
         '2': 'Odo Marrow, xizmatingdaman. Attor, usta va juda minnatdor odam.',
         '1': 'Sen! Oʻsha qafasni ochgan sensan! Men u yerda chirib ketardim.'
+      }
+    },
+    plainsMiner: {
+      forgeBack: {
+        '1': 'Birinchi zarba uchun yomon emas. Davom eting.'
+      },
+      sellBack: {
+        '1': 'Adolatli og‘irlik, adolatli tanga. Topsangiz yana olib keling.'
+      },
+      hello: {
+        '1': 'Changdan ehtiyot bo‘ling! A, yo‘lni tozalagan o‘sha siz ekansiz.',
+        '2': 'Brann Tezkazar. Bu tepaliklardan ruda qazib olaman.'
+      },
+      again: {
+        '1': 'Yana shu yerdamisiz? Bugun tomir yaxshi.'
+      },
+      ore: {
+        '1': 'Ruda deysizmi? Ko‘rsating. Har bir bo‘lak uchun adolatli narx to‘layman.'
+      },
+      learnSmith: {
+        '1': 'Temirchilik? U aynan shu yerdan boshlanadi: ketmon va yaltirab turgan tosh.',
+        '2': 'Rudani qazing, keyin temirchilikda jihozingizga bolg‘alang. Uchta yaxshi zarba. Qani, sinab ko‘ring.'
+      },
+      forge: {
+        '1': 'Sandonimdan foydalaning. Barmoqlaringizni ehtiyot qiling.'
+      },
+      who: {
+        '1': 'Brann. Temirchilar bolg‘alaydigan narsani men qazib chiqaraman. Har bir yaxshi pichoq shunday toshdan boshlanadi.'
+      },
+      bye: {
+        '1': 'Boshingizni ehtiyot qiling. Toshlar tushadi.'
       }
     },
     sfShadowRoad: {

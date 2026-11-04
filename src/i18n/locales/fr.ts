@@ -3852,6 +3852,9 @@ export default {
       talk: 'Tout ce qu\'il faut au voyageur. Presque neuf, en général.',
       name: 'Odo Marrow'
     },
+    plainsMiner: {
+      name: 'Brann Pioche-Vive'
+    },
     sfShadowRoad: {
       name: 'Nettle Quickhand'
     },
@@ -4511,6 +4514,37 @@ export default {
       hello: {
         '2': 'Odo Marrow, à ton service. Colporteur, rétameur, et homme très reconnaissant.',
         '1': 'Toi ! C’est toi qui as ouvert cette cage ! J’y aurais pourri.'
+      }
+    },
+    plainsMiner: {
+      forgeBack: {
+        '1': 'Pas mal pour un premier coup. Continuez.'
+      },
+      sellBack: {
+        '1': 'Poids honnête, pièces honnêtes. Rapportez-en quand vous en trouvez.'
+      },
+      hello: {
+        '1': 'Doucement avec la poussière ! Ah, c\'est vous qui avez dégagé la route.',
+        '2': 'Brann Pioche-Vive. Je tire du minerai de ces collines.'
+      },
+      again: {
+        '1': 'Déjà de retour ? Le filon est bon aujourd\'hui.'
+      },
+      ore: {
+        '1': 'Du minerai ? Montrez. Je paie un prix honnête à la pépite.'
+      },
+      learnSmith: {
+        '1': 'La forge ? Ça commence ici : une pioche et un rocher qui brille.',
+        '2': 'Extrayez le minerai, puis martelez-le dans votre équipement à une forge. Trois bons coups. Allez, essayez.'
+      },
+      forge: {
+        '1': 'Empruntez mon enclume. Attention à vos doigts.'
+      },
+      who: {
+        '1': 'Brann. J\'extrais ce que les forgerons martèlent. Toute bonne lame commence comme un rocher pareil.'
+      },
+      bye: {
+        '1': 'Attention à la tête. Des pierres tombent.'
       }
     },
     sfShadowRoad: {

@@ -3851,6 +3851,9 @@ export default {
       talk: 'Bir yolcunun ihtiyacı olan her şey. Neredeyse yeni, çoğunlukla.',
       name: 'Odo Marrow'
     },
+    plainsMiner: {
+      name: 'Brann Çabukkazma'
+    },
     sfShadowRoad: {
       name: 'Nettle Quickhand'
     },
@@ -4501,6 +4504,37 @@ export default {
       hello: {
         '2': 'Odo Marrow, emrindeyim. Çerçi, tamirci ve çok minnettar bir adam.',
         '1': 'Sen! O kafesi açan sensin! Orada çürüyüp gidecektim.'
+      }
+    },
+    plainsMiner: {
+      forgeBack: {
+        '1': 'İlk darbe için fena değil. Devam et.'
+      },
+      sellBack: {
+        '1': 'Adil ağırlık, adil para. Bulunca daha getir.'
+      },
+      hello: {
+        '1': 'Toza dikkat! Ha, yolu temizleyen sensin.',
+        '2': 'Brann Çabukkazma. Bu tepelerden cevher çıkarırım.'
+      },
+      again: {
+        '1': 'Yine mi buradasın? Damar bugün iyi.'
+      },
+      ore: {
+        '1': 'Cevher mi? Göster bakalım. Parçası için adil fiyat öderim.'
+      },
+      learnSmith: {
+        '1': 'Demircilik mi? Tam burada başlar: bir kazma ve parıldayan bir kaya.',
+        '2': 'Cevheri çıkar, sonra bir demirhanede ekipmanına döv. Üç sağlam darbe. Hadi, dene.'
+      },
+      forge: {
+        '1': 'Örsümü ödünç al. Parmaklarına dikkat.'
+      },
+      who: {
+        '1': 'Brann. Demircilerin dövdüğünü ben çıkarırım. Her iyi kılıç böyle bir kayayla başlar.'
+      },
+      bye: {
+        '1': 'Kafana dikkat. Taş düşer.'
       }
     },
     sfShadowRoad: {

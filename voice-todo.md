@@ -20,6 +20,7 @@ rewrites it, and a test fails when it is stale. Do not edit by hand.
 | freedPeddler | 9 | 9 |
 | lightDisciple | 14 | 14 |
 | sfShadow | 18 | 18 |
+| smalltalkIronhold | 20 | 9 |
 | sunfordSmith | 25 | 25 |
 | sunfordPeddler | 15 | 15 |
 | trainerAegis | 20 | 20 |
@@ -93,7 +94,6 @@ rewrites it, and a test fails when it is stale. Do not edit by hand.
 | smalltalkSunford | 13 | 13 |
 | townsfolk | 32 | 32 |
 | smalltalkOakhaven | 13 | 13 |
-| smalltalkIronhold | 9 | 9 |
 | smalltalkSilverbridge | 10 | 10 |
 | smalltalkKids | 6 | 6 |
 | kidFriend | 4 | 4 |
@@ -108,7 +108,7 @@ rewrites it, and a test fails when it is stale. Do not edit by hand.
 | elderDragon | 4 | 4 |
 | pyroCry | 1 | 1 |
 | heroine | 211 | 211 |
-| **All** | **1584** | **1584** |
+| **All** | **1595** | **1584** |
 
 ## Other languages voiced in full
 
@@ -116,33 +116,45 @@ English and German voice every line. A line with no file there is a silent bubbl
 
 | Language | Voiced | Lines |
 | --- | --- | --- |
-| de | 1558 | 1584 |
+| de | 1558 | 1595 |
 
 ## Other languages: the core lines only
 
-English and German are voiced in full. Every other voiced language ships only the **core**: 334 of 1584 lines (68 of them the girl hero's `__f` twins, limit 340), set in data/voice-core.json by id pattern plus an explicit list. Core: the hero's "Will you teach me?" and goodbye lines, the main quest decisions with their boss monologues (Goblin King, Krag, the Colossus core, the oracle, the dragon, the Arch-Demon's throne), the five endings, the story beats of Elder Mara, Captain Hale, Mayor Brenna, Madam Ash and the exiled Sovereign, the intro, the first visit's road teacher (Nettle) and the camp's thanks, every bark (bosses, the siege, freed captives), the afterplay's story (its beats, Scout Wren, the fort's Hale and Mara, the seal decision and its epilogue) and the Wanderer's greeting. Not core: smalltalk, shops, gamblers, the fair's barkers, trainer and master Q&A, trade and heal chatter. A non-core line is a silent bubble; a test fails when a language folder holds a file outside the core.
+English and German are voiced in full. Every other voiced language ships only the **core**: 349 of 1595 lines (70 of them the girl hero's `__f` twins, limit 350), set in data/voice-core.json by id pattern plus an explicit list. Core: the hero's "Will you teach me?" and goodbye lines, the main quest decisions with their boss monologues (Goblin King, Krag, the Colossus core, the oracle, the dragon, the Arch-Demon's throne), the five endings, the story beats of Elder Mara, Captain Hale, Mayor Brenna, Madam Ash and the exiled Sovereign, the intro, the first visit's road teacher (Nettle) and the camp's thanks, every bark (bosses, the siege, freed captives), the afterplay's story (its beats, Scout Wren, the fort's Hale and Mara, the seal decision and its epilogue) and the Wanderer's greeting. Not core: smalltalk, shops, gamblers, the fair's barkers, trainer and master Q&A, trade and heal chatter. A non-core line is a silent bubble; a test fails when a language folder holds a file outside the core.
 Make them with `voice:gen --engine chatterbox --lang <code>` (then `--retry 2`); `voice:collect` builds jobs for the core lines only.
 Indonesian (id) and Vietnamese (vi) are not voiced: Chatterbox cannot speak them. pt-PT keeps English too.
 
 | Language | Core voiced | Core lines |
 | --- | --- | --- |
-| fr | 327 | 334 |
-| es | 332 | 334 |
-| ru | 330 | 334 |
-| ja | 333 | 334 |
-| pt | 330 | 334 |
-| zh | 334 | 334 |
+| fr | 327 | 349 |
+| es | 332 | 349 |
+| ru | 330 | 349 |
+| ja | 333 | 349 |
+| pt | 330 | 349 |
+| zh | 334 | 349 |
 
 ## Parked takes (decision 2026-10-18)
 
 About 1,400 files per language is too large for CrazyGames (50 MB), so only the full languages ship complete and the others ship the core (German was widened to full by the owner on 2026-10-21, from its parked takes plus new ones). The earlier full Chatterbox runs are kept out of the build in `vo-src/parked/<lang>/` (git-ignored): French has about 1,000 lines, and ja, zh, es, pt and ru only pilot files. Only the core takes (and all of German's) were moved back to `public/audio/voice/<lang>/`.
 To widen a language beyond the core, change data/voice-core.json and settle the size budget or a per-portal language filter first. A half-voiced core is silent on its missing lines, so finish it before shipping.
 
-## To do (0)
+## To do (11)
 
-Nothing: every line has its recording.
+| File | Who | Scene | English | EN |
+| --- | --- | --- | --- | --- |
+| `dlg.plainsMiner.hello.1` | Brann Pickfast (smalltalkIronhold) | plainsMiner | Easy with the dust! Oh, you're the one who cleared the road. | **missing** |
+| `dlg.plainsMiner.hello.2` | Brann Pickfast (smalltalkIronhold) | plainsMiner | Brann Pickfast. I dig ore out of these hills. | **missing** |
+| `dlg.plainsMiner.again.1` | Brann Pickfast (smalltalkIronhold) | plainsMiner | Back again? The vein's good today. | **missing** |
+| `dlg.plainsMiner.ore.1` | Brann Pickfast (smalltalkIronhold) | plainsMiner | Ore, is it? Let's see it. I pay a fair price by the nugget. | **missing** |
+| `dlg.plainsMiner.learnSmith.1` | Brann Pickfast (smalltalkIronhold) | plainsMiner | Smithing? It starts right here: a pick and a rock that glints. | **missing** |
+| `dlg.plainsMiner.learnSmith.2` | Brann Pickfast (smalltalkIronhold) | plainsMiner | Dig the ore, then hammer it into your gear at a forge. Three good strikes. Go on, try it. | **missing** |
+| `dlg.plainsMiner.forge.1` | Brann Pickfast (smalltalkIronhold) | plainsMiner | Borrow my anvil. Mind your fingers. | **missing** |
+| `dlg.plainsMiner.who.1` | Brann Pickfast (smalltalkIronhold) | plainsMiner | Brann. I dig what the smiths hammer. Every good blade starts as a rock like this one. | **missing** |
+| `dlg.plainsMiner.forgeBack.1` | Brann Pickfast (smalltalkIronhold) | plainsMiner | Not bad for a first strike. Keep at it. | **missing** |
+| `dlg.plainsMiner.sellBack.1` | Brann Pickfast (smalltalkIronhold) | plainsMiner | Fair weight, fair coin. Bring more when you find it. | **missing** |
+| `dlg.plainsMiner.bye.1` | Brann Pickfast (smalltalkIronhold) | plainsMiner | Watch your head. Rocks fall. | **missing** |
 
-## Every line (1584)
+## Every line (1595)
 
 | File | Who | Scene | English | EN |
 | --- | --- | --- | --- | --- |
@@ -178,6 +190,20 @@ Nothing: every line has its recording.
 | `dlg.sfShadowRoad.train.1` | Nettle Quickhand (sfShadow) | sfShadowRoad | Watch closely. One step, and you're somewhere else. | chatterbox |
 | `dlg.sfShadowRoad.trainBack.1` | Nettle Quickhand (sfShadow) | sfShadowRoad | Good. Now go be somewhere else. | chatterbox |
 | `dlg.sfShadowRoad.bye.1` | Nettle Quickhand (sfShadow) | sfShadowRoad | Don't get caught. | chatterbox |
+| `dlg.plainsMiner.hello.1` | Brann Pickfast (smalltalkIronhold) | plainsMiner | Easy with the dust! Oh, you're the one who cleared the road. | **missing** |
+| `dlg.plainsMiner.hello.2` | Brann Pickfast (smalltalkIronhold) | plainsMiner | Brann Pickfast. I dig ore out of these hills. | **missing** |
+| `dlg.plainsMiner.again.1` | Brann Pickfast (smalltalkIronhold) | plainsMiner | Back again? The vein's good today. | **missing** |
+| `dlg.hero.ore` | The hero (hero) | hero | I've got some ore to sell. | chatterbox |
+| `dlg.plainsMiner.ore.1` | Brann Pickfast (smalltalkIronhold) | plainsMiner | Ore, is it? Let's see it. I pay a fair price by the nugget. | **missing** |
+| `dlg.hero.learnSmith` | The hero (hero) | hero | Could you teach me to smith? | chatterbox |
+| `dlg.plainsMiner.learnSmith.1` | Brann Pickfast (smalltalkIronhold) | plainsMiner | Smithing? It starts right here: a pick and a rock that glints. | **missing** |
+| `dlg.plainsMiner.learnSmith.2` | Brann Pickfast (smalltalkIronhold) | plainsMiner | Dig the ore, then hammer it into your gear at a forge. Three good strikes. Go on, try it. | **missing** |
+| `dlg.hero.forge` | The hero (hero) | hero | I'd like to use your forge. | chatterbox |
+| `dlg.plainsMiner.forge.1` | Brann Pickfast (smalltalkIronhold) | plainsMiner | Borrow my anvil. Mind your fingers. | **missing** |
+| `dlg.plainsMiner.who.1` | Brann Pickfast (smalltalkIronhold) | plainsMiner | Brann. I dig what the smiths hammer. Every good blade starts as a rock like this one. | **missing** |
+| `dlg.plainsMiner.forgeBack.1` | Brann Pickfast (smalltalkIronhold) | plainsMiner | Not bad for a first strike. Keep at it. | **missing** |
+| `dlg.plainsMiner.sellBack.1` | Brann Pickfast (smalltalkIronhold) | plainsMiner | Fair weight, fair coin. Bring more when you find it. | **missing** |
+| `dlg.plainsMiner.bye.1` | Brann Pickfast (smalltalkIronhold) | plainsMiner | Watch your head. Rocks fall. | **missing** |
 | `dlg.sunfordSmith.hello.1` | Bram the Smith (sunfordSmith) | sunfordSmith | Haven't seen you before. You're the one who cleared the road? | chatterbox |
 | `dlg.sunfordSmith.hello.2` | Bram the Smith (sunfordSmith) | sunfordSmith | Bram. I keep the forge. If you need a blade, come to me. | chatterbox |
 | `dlg.sunfordSmith.kingDead.1` | Bram the Smith (sunfordSmith) | sunfordSmith | Heard the Goblin King's dead. Can't say I'll miss him. | chatterbox |
@@ -186,12 +212,9 @@ Nothing: every line has its recording.
 | `dlg.sunfordSmith.ending.1` | Bram the Smith (sunfordSmith) | sunfordSmith | Whole realm's talking about you. Still need a whetstone, though? | chatterbox |
 | `dlg.sunfordSmith.again.1` | Bram the Smith (sunfordSmith) | sunfordSmith | Back again. What can I do for you? | chatterbox |
 | `dlg.sunfordSmith.trade.1` | Bram the Smith (sunfordSmith) | sunfordSmith | Plain steel, fair prices. Have a look. | chatterbox |
-| `dlg.hero.ore` | The hero (hero) | hero | I've got some ore to sell. | chatterbox |
 | `dlg.sunfordSmith.ore.1` | Bram the Smith (sunfordSmith) | sunfordSmith | Ore, eh? Show me. I pay by the nugget, fair weight. | chatterbox |
-| `dlg.hero.learnSmith` | The hero (hero) | hero | Could you teach me to smith? | chatterbox |
 | `dlg.sunfordSmith.learnSmith.1` | Bram the Smith (sunfordSmith) | sunfordSmith | Smithing? Hm. Hold the hammer like this, not like a club. | chatterbox |
 | `dlg.sunfordSmith.learnSmith.2` | Bram the Smith (sunfordSmith) | sunfordSmith | Strike when the metal glows brightest. Miss, and it's scrap. Go on. | chatterbox |
-| `dlg.hero.forge` | The hero (hero) | hero | I'd like to use your forge. | chatterbox |
 | `dlg.sunfordSmith.forge.1` | Bram the Smith (sunfordSmith) | sunfordSmith | Forge is hot. Mind your fingers. | chatterbox |
 | `dlg.sunfordSmith.who.1` | Bram the Smith (sunfordSmith) | sunfordSmith | Bram. Thirty years at this anvil, give or take. | chatterbox |
 | `dlg.sunfordSmith.who.2` | Bram the Smith (sunfordSmith) | sunfordSmith | Horseshoes, ploughs, the odd sword. Lately, mostly swords. | chatterbox |

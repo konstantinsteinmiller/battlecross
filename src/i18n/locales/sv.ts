@@ -3851,6 +3851,9 @@ export default {
       talk: 'Allt en resenär behöver. Nästan nytt, för det mesta.',
       name: 'Odo Marrow'
     },
+    plainsMiner: {
+      name: 'Brann Hackasnabb'
+    },
     sfShadowRoad: {
       name: 'Nettle Quickhand'
     },
@@ -4501,6 +4504,37 @@ export default {
       hello: {
         '2': 'Odo Marrow, till din tjänst. Gårdfarihandlare, kittelflickare och mycket tacksam man.',
         '1': 'Du! Det var du som öppnade buren! Jag hade ruttnat där inne.'
+      }
+    },
+    plainsMiner: {
+      forgeBack: {
+        '1': 'Inte illa för ett första slag. Fortsätt så.'
+      },
+      sellBack: {
+        '1': 'Rättvis vikt, rättvis mynt. Kom med mer när du hittar något.'
+      },
+      hello: {
+        '1': 'Se upp för dammet! Åh, det är du som röjde vägen.',
+        '2': 'Brann Hackasnabb. Jag bryter malm ur de här kullarna.'
+      },
+      again: {
+        '1': 'Här igen? Ådern är bra idag.'
+      },
+      ore: {
+        '1': 'Malm, säger du? Låt mig se. Jag betalar ett rättvist pris per klump.'
+      },
+      learnSmith: {
+        '1': 'Smide? Det börjar här: en hacka och en sten som glittrar.',
+        '2': 'Bryt malmen och hamra in den i din utrustning vid en smedja. Tre bra slag. Kom igen, försök.'
+      },
+      forge: {
+        '1': 'Låna mitt städ. Akta fingrarna.'
+      },
+      who: {
+        '1': 'Brann. Jag bryter det smederna hamrar. Varje bra klinga börjar som en sten som den här.'
+      },
+      bye: {
+        '1': 'Se upp med huvudet. Det faller sten.'
       }
     },
     sfShadowRoad: {

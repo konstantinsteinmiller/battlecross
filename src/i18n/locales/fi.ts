@@ -3851,6 +3851,9 @@ export default {
       talk: 'Kaikki, mitä matkalainen tarvitsee. Melkein uutta, enimmäkseen.',
       name: 'Odo Marrow'
     },
+    plainsMiner: {
+      name: 'Brann Kuokkanopea'
+    },
     sfShadowRoad: {
       name: 'Nettle Quickhand'
     },
@@ -4501,6 +4504,37 @@ export default {
       hello: {
         '2': 'Odo Marrow, palveluksessasi. Kulkukauppias, peltiseppä ja hyvin kiitollinen mies.',
         '1': 'Sinä! Sinä avasit sen häkin! Olisin mädäntynyt sinne.'
+      }
+    },
+    plainsMiner: {
+      forgeBack: {
+        '1': 'Ei hassummin ensimmäiseksi iskuksi. Jatka vain.'
+      },
+      sellBack: {
+        '1': 'Reilu paino, reilu raha. Tuo lisää, kun löydät.'
+      },
+      hello: {
+        '1': 'Varo pölyä! Ai, sinä olet se, joka raivasi tien.',
+        '2': 'Brann Kuokkanopea. Louhin malmia näistä kukkuloista.'
+      },
+      again: {
+        '1': 'Taas täällä? Suoni on tänään hyvä.'
+      },
+      ore: {
+        '1': 'Malmiako? Näytäpä. Maksan reilun hinnan kappaleelta.'
+      },
+      learnSmith: {
+        '1': 'Sepän työ? Se alkaa juuri tästä: hakku ja kimaltava kivi.',
+        '2': 'Louhi malmi ja takoo se varusteisiisi pajalla. Kolme hyvää iskua. No, kokeile.'
+      },
+      forge: {
+        '1': 'Lainaa alasintani. Varo sormiasi.'
+      },
+      who: {
+        '1': 'Brann. Louhin sen, mitä sepät takovat. Jokainen hyvä terä alkaa tällaisesta kivestä.'
+      },
+      bye: {
+        '1': 'Varo päätäsi. Kiviä putoilee.'
       }
     },
     sfShadowRoad: {
