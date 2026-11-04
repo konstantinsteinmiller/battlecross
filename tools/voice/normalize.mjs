@@ -85,7 +85,10 @@ const PERCENT = { en: 'percent', de: 'Prozent', fr: 'pour cent', es: 'por ciento
  */
 const RESPELL = {
   // 'Mk-I': { en: 'Mark One' }  (none needed yet in Battlecross)
-  Nimblefingers: { en: 'Nimble Fingers' }
+  Nimblefingers: { en: 'Nimble Fingers' },
+  // Whisper reads "Brann Pickfast" back as Bram / Bryn / Brampicão in these two languages; spelled out, the take is judged fairly.
+  Pickfast: { en: 'Pickfast', pt: 'Pick Fast', es: 'Pick Fast' },
+  Brann: { en: 'Brann', pt: 'Bran' }
 }
 const escape = (w) => w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
 const respell = (t, lang) => Object.entries(RESPELL).reduce((s, [w, by]) =>

@@ -127,10 +127,10 @@ Indonesian (id) and Vietnamese (vi) are not voiced: Chatterbox cannot speak them
 | Language | Core voiced | Core lines |
 | --- | --- | --- |
 | fr | 342 | 349 |
-| es | 346 | 349 |
+| es | 347 | 349 |
 | ru | 345 | 349 |
 | ja | 348 | 349 |
-| pt | 344 | 349 |
+| pt | 345 | 349 |
 | zh | 349 | 349 |
 
 ## Parked takes (decision 2026-10-18)

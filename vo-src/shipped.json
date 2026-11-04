@@ -16524,6 +16524,11 @@
     "at": "2026-11-04",
     "hash": "28f3d6019e"
   },
+  "es/dlg.hero.ore__f": {
+    "engine": "chatterbox",
+    "at": "2026-11-04",
+    "hash": "28f3d6019e"
+  },
   "es/dlg.hero.rumor": {
     "engine": "chatterbox",
     "at": "2026-10-21",
@@ -26078,6 +26083,11 @@
     "engine": "chatterbox",
     "at": "2026-11-04",
     "hash": "25dedaf023"
+  },
+  "pt/dlg.plainsMiner.hello.2": {
+    "engine": "chatterbox",
+    "at": "2026-11-04",
+    "hash": "cf12edebca"
   },
   "pt/dlg.plainsMiner.learnSmith.1": {
     "engine": "chatterbox",
