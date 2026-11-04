@@ -21,6 +21,7 @@ import { computed, onMounted, onUnmounted, ref, shallowRef } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { addHudTicker, takeBark } from '@/game/state/hud'
 import { currentZone } from '@/game/boot'
+import { flow } from '@/game/flow'
 import { revealed, speakSeconds } from '@/game/dialog/pacing'
 import SpeechBubble from '@/components/dialog/SpeechBubble.vue'
 import { speakLine } from '@/game/audio/speech'
@@ -39,6 +40,12 @@ onMounted(() => {
   remove = addHudTicker((dt) => {
     const zone = currentZone()
     const next = takeBark()
+    // A conversation or a window is open (a talk with a townsperson, the smith's introduction): nobody shouts over it. The cry is
+    // dropped, not queued (a cage's call is made again), and one already up goes (the dialogue's own line cuts its recording).
+    if (flow.talk || flow.modal) {
+      if (line.value) line.value = null
+      return
+    }
     if (next) {
       line.value = { unit: next.unit, key: next.key, t: 0, dur: speakSeconds(t(next.key)) + 0.6 }
       void speakLine(next.key, locale.value)

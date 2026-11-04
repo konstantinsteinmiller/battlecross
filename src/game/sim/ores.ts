@@ -129,7 +129,7 @@ export const roomyWall = (p: SpotPlan, i: number, j: number): boolean => {
  * prompt), the herbs and each other; and never cutting anything off. Each
  * one's cell becomes a block.
  */
-export const placeOres = (p: SpotPlan & { seed: number; cave?: Uint8Array }, level: number, avoid: ReadonlyArray<{ x: number; z: number }>, limit?: number): OrePlan[] => {
+export const placeOres = (p: SpotPlan & { seed: number; cave?: Uint8Array }, level: number, avoid: ReadonlyArray<{ x: number; z: number }>, limit?: number, beside?: { x: number; z: number }): OrePlan[] => {
   const pool = oresAt(level)
   if (!pool.length) return []
   const rng = mulberry32((p.seed ^ ORE_SALT) >>> 0)
@@ -149,8 +149,15 @@ export const placeOres = (p: SpotPlan & { seed: number; cave?: Uint8Array }, lev
           if (p.trail[nk]) road = true
         }
       }
-      if (rock < 2 || rock > 5 || road) continue
-      if (!roomyWall(p, i, j)) continue
+      // (The first level's miner wants his rock in a given place: any stone that is not a corner of a narrow way will do there.)
+      if (rock < (beside ? 1 : 2) || rock > (beside ? 6 : 5) || road) continue
+      if (!beside && !roomyWall(p, i, j)) continue
+      if (beside) {
+        // Still a roomy place: most of the ground about it is open, so the rock narrows no way.
+        let open = 0
+        for (let dj = -3; dj <= 3; dj++) for (let di = -3; di <= 3; di++) if (openCell(p, (j + dj) * p.w + i + di)) open++
+        if (open < 26) continue
+      }
       const x = centerOf(i)
       const z = centerOf(j)
       if (Math.hypot(x - p.start.x, z - p.start.z) < 8) continue
@@ -168,8 +175,20 @@ export const placeOres = (p: SpotPlan & { seed: number; cave?: Uint8Array }, lev
   const total = pool.reduce((s, q) => s + q.weight, 0)
   const out: OrePlan[] = []
   let before = -1
+  // `beside` (the first level's miner, #195): the rock stands south-west or south-east of this point, as near as the stone allows.
+  if (beside) {
+    const score = (k: number): number => {
+      const x = centerOf(k % p.w)
+      const z = centerOf(Math.floor(k / p.w))
+      const dx = Math.abs(x - beside.x)
+      const dz = z - beside.z
+      // Ideal: five metres to a side, five south. Not north of it, and not right under it.
+      return Math.hypot(dx - 5, dz - 5) + (dz < 1.5 ? 20 : 0) + (dx < 1.5 ? 20 : 0)
+    }
+    cand.sort((a, b) => score(a) - score(b) || a - b)
+  }
   for (let tries = 0; out.length < n && cand.length && tries < 300; tries++) {
-    const k = cand[Math.floor(rng() * cand.length)]!
+    const k = beside ? cand[Math.min(cand.length - 1, tries)]! : cand[Math.floor(rng() * cand.length)]!
     const i = k % p.w
     const j = (k - i) / p.w
     const x = centerOf(i)

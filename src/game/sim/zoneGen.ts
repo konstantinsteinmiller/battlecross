@@ -618,7 +618,7 @@ export const generateZone = (def: ZoneDef, seed: number, o: ZoneGenOpts = {}): Z
     // The top of a ledge is reached by its ramp: no ore stands on either.
     ...features.ledges.flatMap(l => [{ x: l.x, z: l.z }, { x: ((l.probe % Wd) + 0.5) * CELL, z: (Math.floor(l.probe / Wd) + 0.5) * CELL }])
   ]
-  const ores = o.bare ? [] : placeOres({ ...spots, cave }, def.min, [...herbs, ...pieces, ...campAvoid, ...(x ? [x] : []), ...named], o.tutorial ? 1 : undefined)
+  const ores = o.bare ? [] : placeOres({ ...spots, cave }, def.min, [...herbs, ...pieces, ...campAvoid, ...(x ? [x] : []), ...named], o.tutorial ? 1 : undefined, o.tutorial ? features.puzzle?.hint : undefined)
   if (x) {
     // Its cell is its own, like any chest's (it stood on open ground with
     // nothing to stop a body walking into it).

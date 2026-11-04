@@ -31,14 +31,15 @@ console.log('hints', JSON.stringify(await page.evaluate(() => window.__game.hud.
 const info = await page.evaluate(() => {
   const sim = window.__game.zone().sim
   const m = sim.units.find(u => u.npc === 'plainsMiner')
-  return { ores: sim.ores.map(o => [o.x, o.z, o.sx, o.sz, o.spent]), miner: m && [m.x, m.z, m.action?.id, m.anim] }
+  return { hint: sim.puzzle?.hint ?? null, ores: sim.ores.map(o => [o.x, o.z, o.sx, o.sz, o.spent]), miner: m && [m.x, m.z, m.action?.id, m.anim] }
 })
 console.log('miner', JSON.stringify(info))
 if (info.miner) {
   await page.evaluate(() => {
     const z = window.__game.zone(); const sim = z.sim
     const m = sim.units.find(u => u.npc === 'plainsMiner'); const h = sim.hero.unit
-    h.x = h.px = m.x + 1.6; h.z = h.pz = m.z + 2.4; z.cam.snap()
+    const hint = z.plan.puzzle?.hint
+    h.x = h.px = hint ? (hint.x + m.x) / 2 : m.x + 1.6; h.z = h.pz = hint ? (hint.z + m.z) / 2 : m.z + 2.4; z.cam.snap()
   })
   await page.waitForTimeout(2500)
   await page.screenshot({ path: join(OUT, 'm1-miner.png') })
