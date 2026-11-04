@@ -20,6 +20,9 @@
       span.coach__spot(v-if="h.id === 'chest' || h.id === 'talk'" aria-hidden="true")
       span.coach__hand(:key="`${h.id}:${h.flash}`" :class="{ ok: h.flash > 0 }")
         InputGlyph.coach__glyph(v-bind="glyph(h.id)")
+      //- A keyboard steers too (#197): the movement keys beside the click, in the player's own letters.
+      span.coach__keys(v-if="h.id === 'move' && hud.device !== 'touch'" aria-hidden="true")
+        InputGlyph.coach__glyph(kind="wasd")
       span.coach__pips(aria-hidden="true")
         i(v-for="n in h.pips" :key="n" :class="{ on: n <= h.done }")
 </template>
@@ -29,7 +32,7 @@
  * The coach's glyphs (see `game/coach.ts` for the rules). Each one is drawn
  * WHERE the action happens and shows the gesture itself:
  *
- *   move    a finger tapping the ground ahead (a mouse clicking it);
+ *   move    a finger tapping the ground ahead (a mouse clicking it, and the WASD keys beside it);
  *   target  a finger dragging from the hero onto the enemy, the line it draws
  *           behind it (a mouse clicking the enemy);
  *   skill   a ring closing on the skill button, a finger pressing it from
@@ -248,6 +251,19 @@ onUnmounted(() => removeTicker?.())
 .coach--move .coach__hand, .coach--target .coach__hand, .coach--aim .coach__hand, .coach--chest .coach__hand, .coach--talk .coach__hand
   top: calc(var(--g) * -0.12)
 // A button's glyph sits above it, clear of the thumb.
+// The movement keys stand to the left of the click, level with the mouse.
+.coach__keys
+  position: absolute
+  left: calc(var(--g) * -1.95)
+  top: calc(var(--g) * 0.02)
+  width: calc(var(--g) * 1.3)
+  height: calc(var(--g) * 0.86)
+  filter: drop-shadow(0 3px 0 rgba(15, 26, 48, 0.55))
+.is-flip .coach__keys
+  top: calc(var(--g) * -0.8)
+// The letters are never mirrored (the hand's flip below does not touch them).
+.is-down .coach__keys .coach__glyph, .is-flip .coach__keys .coach__glyph
+  transform: none
 .is-ring .coach__hand
   top: calc(var(--ring, 60px) * -0.5 - var(--g) * 1.05)
 // On a phone the finger reaches DOWN onto the button from above: the
