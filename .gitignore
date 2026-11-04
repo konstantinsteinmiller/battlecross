@@ -140,3 +140,4 @@ src-tauri/plugins/*/android/.tauri
 
 # The sound lab's generated takes (roadmap #192): big, regenerable, re-made from tools/sfx-lab
 reports/sfx-lab/audio/
+/reports/

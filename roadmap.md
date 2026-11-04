@@ -269,11 +269,11 @@ Build order and the decisions taken are in `game-implementation-plan.md`
 - [x] #193  the help scream by the teachers in the tutorial level can get quite annoying, spread out  
   the  frequency  more after the first 3 lines where spoken once, on 3rd tier make a random
   frequency of repeating the help screams between 12-15 seconds.
-- [ ] #194
-- [ ] #195
-- [ ] #196
-- [ ] #197
-- [ ] #198
+- [x] #194 In the intro the left hero is walking through stones when leaving the dragon, remove the obstacles in his walk away path like trees and stones for the intro.
+- [x] #195 a character mining an intro ore node so the player that is interested can ask and get introduced to smithing. Dont forget VOs with elevenlabs and Chatterbox. The character should only have one dialog explaining that you can collect ore to smith custom weapons. The npc stand south west of the puzzle in the tutorial level and most players will miss it if they dont look around. the npc is constantly hitting a mining ore node with a fluid mine animation below the stones that belong to the puzzle in the tutorial level.  
+- [x] #196 coins can be farmed/glitched if you reload a level where you have already gained coins and the coin progress was loaded (especially in browser with reload ability), this coin progression should be persisted.
+- [x] #197 The tutorial level is only showing the drag to move approach to movement on desktop, but no the WASD keys to move around, which help significantly to mouse with precision, add it.
+- [x] #198 intro skip button should show double triangle icon.
 - [ ] #199
 - [ ] #200
 - [ ] #201
